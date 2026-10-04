@@ -1,0 +1,700 @@
+{
+  "schema": "lani.drill/v0",
+  "id": "uganke",
+  "kind": "riddle",
+  "language": "sl",
+  "emoji": "🕵️",
+  "title": {"sl": "Uganke", "en": "Riddles", "de": "Rätsel"},
+  "teller": "janez",
+  "about": {"en": "Stari Janez describes a thing, an animal, a person or a place of the village in three or four short clues. Guess aloud, then hear the answer and the clues again with their meaning. Every answer is a word of the A1 packs, or someone of the village.", "de": "Stari Janez beschreibt ein Ding, ein Tier, einen Menschen oder einen Ort des Dorfes in drei oder vier kurzen Hinweisen. Rate laut, dann hörst du die Antwort und die Hinweise noch einmal mit ihrer Bedeutung. Jede Antwort ist ein Wort der A1-Pakete oder jemand aus dem Dorf."},
+  "riddles": [
+    {
+      "id": "miza",
+      "level": "A1",
+      "word": "v-kuhinji/miza",
+      "clues": [
+        {"sl": "Iz lesa sem.", "en": "I'm made of wood.", "de": "Ich bin aus Holz."},
+        {"sl": "Imam štiri noge.", "en": "I have four legs.", "de": "Ich habe vier Beine."},
+        {"sl": "Na meni so krožniki.", "en": "There are plates on me.", "de": "Auf mir stehen Teller."},
+        {"sl": "Družina sedi pri meni.", "en": "The family sits at me.", "de": "Die Familie sitzt an mir."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Miza!", "en": "A table!", "de": "Ein Tisch!"}
+    },
+    {
+      "id": "kruh",
+      "level": "A1",
+      "word": "v-kuhinji/kruh",
+      "clues": [
+        {"sl": "Iz moke in vode sem.", "en": "I'm made of flour and water.", "de": "Ich bin aus Mehl und Wasser."},
+        {"sl": "Babica me peče.", "en": "Grandma bakes me.", "de": "Oma bäckt mich."},
+        {"sl": "Zjutraj me ješ.", "en": "You eat me in the morning.", "de": "Morgens isst du mich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Kruh!", "en": "Bread!", "de": "Brot!"}
+    },
+    {
+      "id": "mleko",
+      "level": "A1",
+      "word": "v-kuhinji/mleko",
+      "clues": [
+        {"sl": "Belo sem.", "en": "I'm white.", "de": "Ich bin weiß."},
+        {"sl": "Daje me krava.", "en": "A cow gives me.", "de": "Eine Kuh gibt mich."},
+        {"sl": "Mačka me rada pije.", "en": "The cat likes to drink me.", "de": "Die Katze trinkt mich gern."},
+        {"sl": "Včasih sem v kavi.", "en": "Sometimes I'm in coffee.", "de": "Manchmal bin ich im Kaffee."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Mleko!", "en": "Milk!", "de": "Milch!"}
+    },
+    {
+      "id": "sonce",
+      "level": "A1",
+      "word": "vreme-in-dan/sonce",
+      "clues": [
+        {"sl": "Na nebu sem.", "en": "I'm in the sky.", "de": "Ich bin am Himmel."},
+        {"sl": "Rumeno in toplo sem.", "en": "I'm yellow and warm.", "de": "Ich bin gelb und warm."},
+        {"sl": "Podnevi sijem, ponoči me ni.", "en": "I shine by day; at night I'm gone.", "de": "Am Tag scheine ich, in der Nacht bin ich nicht da."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Sonce!", "en": "The sun!", "de": "Die Sonne!"}
+    },
+    {
+      "id": "luna",
+      "level": "A1",
+      "word": "ob-ognju/luna",
+      "clues": [
+        {"sl": "Ponoči sem na nebu.", "en": "At night I'm in the sky.", "de": "Nachts bin ich am Himmel."},
+        {"sl": "Včasih sem okrogla, včasih tanka.", "en": "Sometimes I'm round, sometimes thin.", "de": "Manchmal bin ich rund, manchmal dünn."},
+        {"sl": "Nisem sonce, ampak svetim.", "en": "I'm not the sun, but I shine.", "de": "Ich bin nicht die Sonne, aber ich leuchte."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Luna!", "en": "The moon!", "de": "Der Mond!"}
+    },
+    {
+      "id": "ogenj",
+      "level": "A1",
+      "word": "ob-ognju/ogenj",
+      "clues": [
+        {"sl": "Vroč sem.", "en": "I'm hot.", "de": "Ich bin heiß."},
+        {"sl": "Rad jem drva.", "en": "I like to eat firewood.", "de": "Ich fresse gern Holz."},
+        {"sl": "Imam iskre in dim.", "en": "I have sparks and smoke.", "de": "Ich habe Funken und Rauch."},
+        {"sl": "Zvečer vsi sedite pri meni.", "en": "In the evening you all sit by me.", "de": "Am Abend sitzt ihr alle bei mir."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Ogenj!", "en": "The fire!", "de": "Das Feuer!"}
+    },
+    {
+      "id": "zvezda",
+      "level": "A1",
+      "word": "ob-ognju/zvezda",
+      "clues": [
+        {"sl": "Majhna sem.", "en": "I'm small.", "de": "Ich bin klein."},
+        {"sl": "Živim na nebu.", "en": "I live in the sky.", "de": "Ich wohne am Himmel."},
+        {"sl": "Ponoči svetim.", "en": "I shine at night.", "de": "Ich leuchte in der Nacht."},
+        {"sl": "Nas je zelo veliko.", "en": "There are very many of us.", "de": "Wir sind sehr viele."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Zvezda!", "en": "A star!", "de": "Ein Stern!"}
+    },
+    {
+      "id": "dez",
+      "level": "A1",
+      "word": "vreme-in-dan/dez",
+      "clues": [
+        {"sl": "Padam z neba.", "en": "I fall from the sky.", "de": "Ich falle vom Himmel."},
+        {"sl": "Moker sem.", "en": "I'm wet.", "de": "Ich bin nass."},
+        {"sl": "Rože me imajo rade.", "en": "Flowers love me.", "de": "Die Blumen mögen mich."},
+        {"sl": "Ko pridem, vzameš dežnik.", "en": "When I come, you take an umbrella.", "de": "Wenn ich komme, nimmst du einen Schirm."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Dež!", "en": "Rain!", "de": "Regen!"}
+    },
+    {
+      "id": "sneg",
+      "level": "A1",
+      "word": "vreme-in-dan/sneg",
+      "clues": [
+        {"sl": "Bel sem in mrzel.", "en": "I'm white and cold.", "de": "Ich bin weiß und kalt."},
+        {"sl": "Pridem pozimi.", "en": "I come in winter.", "de": "Ich komme im Winter."},
+        {"sl": "Otroci se igrajo v meni.", "en": "Children play in me.", "de": "Kinder spielen in mir."},
+        {"sl": "Spomladi se stopim.", "en": "In spring I melt.", "de": "Im Frühling schmelze ich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Sneg!", "en": "Snow!", "de": "Schnee!"}
+    },
+    {
+      "id": "veter",
+      "level": "A1",
+      "word": "vreme-in-dan/veter",
+      "clues": [
+        {"sl": "Ne vidiš me, ampak me slišiš.", "en": "You can't see me, but you can hear me.", "de": "Du siehst mich nicht, aber du hörst mich."},
+        {"sl": "Piham.", "en": "I blow.", "de": "Ich wehe."},
+        {"sl": "Premikam liste na drevesih.", "en": "I move the leaves on the trees.", "de": "Ich bewege die Blätter an den Bäumen."},
+        {"sl": "Na Krasu sem burja.", "en": "On the Karst I'm the bora.", "de": "Im Karst bin ich die Bora."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Veter!", "en": "The wind!", "de": "Der Wind!"}
+    },
+    {
+      "id": "drevo",
+      "level": "A1",
+      "word": "v-gozdu/drevo",
+      "clues": [
+        {"sl": "Visoko sem.", "en": "I'm tall.", "de": "Ich bin hoch."},
+        {"sl": "Imam liste.", "en": "I have leaves.", "de": "Ich habe Blätter."},
+        {"sl": "Ptice sedijo na meni.", "en": "Birds sit on me.", "de": "Vögel sitzen auf mir."},
+        {"sl": "V gozdu nas je veliko.", "en": "In the forest there are many of us.", "de": "Im Wald sind wir viele."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Drevo!", "en": "A tree!", "de": "Ein Baum!"}
+    },
+    {
+      "id": "goba",
+      "level": "A1",
+      "word": "v-gozdu/goba",
+      "clues": [
+        {"sl": "Rastem v gozdu.", "en": "I grow in the forest.", "de": "Ich wachse im Wald."},
+        {"sl": "Imam klobuk, ampak nimam glave.", "en": "I have a hat, but no head.", "de": "Ich habe einen Hut, aber keinen Kopf."},
+        {"sl": "Rada imam dež.", "en": "I like rain.", "de": "Ich mag Regen."},
+        {"sl": "Jeseni me nabiraš.", "en": "In autumn you pick me.", "de": "Im Herbst sammelst du mich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Goba!", "en": "A mushroom!", "de": "Ein Pilz!"}
+    },
+    {
+      "id": "medved",
+      "level": "A1",
+      "word": "v-gozdu/medved",
+      "clues": [
+        {"sl": "Velik sem in rjav.", "en": "I'm big and brown.", "de": "Ich bin groß und braun."},
+        {"sl": "Živim v gozdu.", "en": "I live in the forest.", "de": "Ich lebe im Wald."},
+        {"sl": "Rad jem med.", "en": "I like to eat honey.", "de": "Ich esse gern Honig."},
+        {"sl": "Pozimi spim.", "en": "In winter I sleep.", "de": "Im Winter schlafe ich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Medved!", "en": "A bear!", "de": "Ein Bär!"}
+    },
+    {
+      "id": "lisica",
+      "level": "A1",
+      "word": "zivali-v-gozdu/lisica",
+      "clues": [
+        {"sl": "Rdeča sem.", "en": "I'm red.", "de": "Ich bin rot."},
+        {"sl": "Imam lep rep.", "en": "I have a beautiful tail.", "de": "Ich habe einen schönen Schwanz."},
+        {"sl": "Živim v gozdu.", "en": "I live in the forest.", "de": "Ich lebe im Wald."},
+        {"sl": "Rada imam kokoši.", "en": "I like hens.", "de": "Ich mag Hühner."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Lisica!", "en": "A fox!", "de": "Ein Fuchs!"}
+    },
+    {
+      "id": "jez",
+      "level": "A1",
+      "word": "zivali-v-gozdu/jez",
+      "clues": [
+        {"sl": "Majhen sem.", "en": "I'm small.", "de": "Ich bin klein."},
+        {"sl": "Imam bodice.", "en": "I have spines.", "de": "Ich habe Stacheln."},
+        {"sl": "Ponoči hodim po vrtu.", "en": "At night I walk around the garden.", "de": "Nachts laufe ich durch den Garten."},
+        {"sl": "Pozimi spim.", "en": "In winter I sleep.", "de": "Im Winter schlafe ich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Jež!", "en": "A hedgehog!", "de": "Ein Igel!"}
+    },
+    {
+      "id": "sova",
+      "level": "A1",
+      "word": "v-gozdu/sova",
+      "clues": [
+        {"sl": "Ptica sem.", "en": "I'm a bird.", "de": "Ich bin ein Vogel."},
+        {"sl": "Podnevi spim, ponoči letim.", "en": "I sleep by day and fly at night.", "de": "Am Tag schlafe ich, in der Nacht fliege ich."},
+        {"sl": "Imam velike oči.", "en": "I have big eyes.", "de": "Ich habe große Augen."},
+        {"sl": "Rečem: hu, hu!", "en": "I say: hoo, hoo!", "de": "Ich sage: uhu!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Sova!", "en": "An owl!", "de": "Eine Eule!"}
+    },
+    {
+      "id": "veverica",
+      "level": "A1",
+      "word": "v-gozdu/veverica",
+      "clues": [
+        {"sl": "Majhna sem.", "en": "I'm small.", "de": "Ich bin klein."},
+        {"sl": "Imam dolg rep.", "en": "I have a long tail.", "de": "Ich habe einen langen Schwanz."},
+        {"sl": "Skačem po drevesih.", "en": "I jump from tree to tree.", "de": "Ich springe durch die Bäume."},
+        {"sl": "Rada imam orehe.", "en": "I like walnuts.", "de": "Ich mag Walnüsse."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Veverica!", "en": "A squirrel!", "de": "Ein Eichhörnchen!"}
+    },
+    {
+      "id": "zajec",
+      "level": "A1",
+      "word": "zivali-v-gozdu/zajec",
+      "clues": [
+        {"sl": "Imam dolga ušesa.", "en": "I have long ears.", "de": "Ich habe lange Ohren."},
+        {"sl": "Hitro tečem.", "en": "I run fast.", "de": "Ich laufe schnell."},
+        {"sl": "Rad jem zelje.", "en": "I like to eat cabbage.", "de": "Ich esse gern Kohl."},
+        {"sl": "Živim na polju.", "en": "I live in the fields.", "de": "Ich lebe auf dem Feld."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Zajec!", "en": "A hare!", "de": "Ein Hase!"}
+    },
+    {
+      "id": "pes",
+      "level": "A1",
+      "word": "na-vasi/pes",
+      "clues": [
+        {"sl": "Imam štiri noge in rep.", "en": "I have four legs and a tail.", "de": "Ich habe vier Beine und einen Schwanz."},
+        {"sl": "Čuvam hišo.", "en": "I guard the house.", "de": "Ich bewache das Haus."},
+        {"sl": "Rečem: hov, hov!", "en": "I say: woof, woof!", "de": "Ich sage: wau, wau!"},
+        {"sl": "Človekov najboljši prijatelj sem.", "en": "I'm man's best friend.", "de": "Ich bin der beste Freund des Menschen."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Pes!", "en": "A dog!", "de": "Ein Hund!"}
+    },
+    {
+      "id": "macka",
+      "level": "A1",
+      "word": "na-vasi/macka",
+      "clues": [
+        {"sl": "Imam štiri noge in rep.", "en": "I have four legs and a tail.", "de": "Ich habe vier Beine und einen Schwanz."},
+        {"sl": "Lovim miši.", "en": "I catch mice.", "de": "Ich fange Mäuse."},
+        {"sl": "Rada pijem mleko.", "en": "I like to drink milk.", "de": "Ich trinke gern Milch."},
+        {"sl": "Rečem: mijav!", "en": "I say: miaow!", "de": "Ich sage: miau!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Mačka!", "en": "A cat!", "de": "Eine Katze!"}
+    },
+    {
+      "id": "kokos",
+      "level": "A1",
+      "word": "na-vasi/kokos",
+      "clues": [
+        {"sl": "Ptica sem, ampak ne letim.", "en": "I'm a bird, but I don't fly.", "de": "Ich bin ein Vogel, aber ich fliege nicht."},
+        {"sl": "Živim na dvorišču.", "en": "I live in the farmyard.", "de": "Ich lebe auf dem Hof."},
+        {"sl": "Vsak dan znesem jajce.", "en": "Every day I lay an egg.", "de": "Jeden Tag lege ich ein Ei."},
+        {"sl": "Rečem: ko, ko, ko!", "en": "I say: cluck, cluck!", "de": "Ich sage: gack, gack!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Kokoš!", "en": "A hen!", "de": "Ein Huhn!"}
+    },
+    {
+      "id": "krava",
+      "level": "A1",
+      "word": "na-njivi/krava",
+      "clues": [
+        {"sl": "Velika sem.", "en": "I'm big.", "de": "Ich bin groß."},
+        {"sl": "Poleti sem na planini.", "en": "In summer I'm on the mountain pasture.", "de": "Im Sommer bin ich auf der Alm."},
+        {"sl": "Dajem mleko.", "en": "I give milk.", "de": "Ich gebe Milch."},
+        {"sl": "Rečem: mu!", "en": "I say: moo!", "de": "Ich sage: muh!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Krava!", "en": "A cow!", "de": "Eine Kuh!"}
+    },
+    {
+      "id": "konj",
+      "level": "A1",
+      "word": "na-njivi/konj",
+      "clues": [
+        {"sl": "Velik sem in hiter.", "en": "I'm big and fast.", "de": "Ich bin groß und schnell."},
+        {"sl": "Vlečem voz.", "en": "I pull the cart.", "de": "Ich ziehe den Wagen."},
+        {"sl": "Nosim podkve.", "en": "I wear horseshoes.", "de": "Ich trage Hufeisen."},
+        {"sl": "Rad jem seno.", "en": "I like to eat hay.", "de": "Ich fresse gern Heu."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Konj!", "en": "A horse!", "de": "Ein Pferd!"}
+    },
+    {
+      "id": "ovca",
+      "level": "A1",
+      "word": "v-gozdu/ovca",
+      "clues": [
+        {"sl": "Imam belo volno.", "en": "I have white wool.", "de": "Ich habe weiße Wolle."},
+        {"sl": "Luka me pase.", "en": "Luka herds me.", "de": "Luka hütet mich."},
+        {"sl": "Rada jem travo.", "en": "I like to eat grass.", "de": "Ich fresse gern Gras."},
+        {"sl": "Rečem: bee!", "en": "I say: baa!", "de": "Ich sage: mäh!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Ovca!", "en": "A sheep!", "de": "Ein Schaf!"}
+    },
+    {
+      "id": "zvon",
+      "level": "A1",
+      "word": "na-vasi/zvon",
+      "clues": [
+        {"sl": "V zvoniku sem.", "en": "I'm in the bell tower.", "de": "Ich bin im Glockenturm."},
+        {"sl": "Težek sem.", "en": "I'm heavy.", "de": "Ich bin schwer."},
+        {"sl": "Opoldne me slišiš.", "en": "At noon you hear me.", "de": "Mittags hörst du mich."},
+        {"sl": "Pojem: bim, bam!", "en": "I sing: ding, dong!", "de": "Ich singe: bim, bam!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Zvon!", "en": "A bell!", "de": "Eine Glocke!"}
+    },
+    {
+      "id": "vodnjak",
+      "level": "A1",
+      "word": "na-vasi/vodnjak",
+      "clues": [
+        {"sl": "Stojim na trgu.", "en": "I stand on the square.", "de": "Ich stehe auf dem Platz."},
+        {"sl": "Globok sem.", "en": "I'm deep.", "de": "Ich bin tief."},
+        {"sl": "V meni je mrzla voda.", "en": "There's cold water in me.", "de": "In mir ist kaltes Wasser."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Vodnjak!", "en": "A well!", "de": "Ein Brunnen!"}
+    },
+    {
+      "id": "most",
+      "level": "A1",
+      "word": "v-vasi/most",
+      "clues": [
+        {"sl": "Iz kamna sem.", "en": "I'm made of stone.", "de": "Ich bin aus Stein."},
+        {"sl": "Pod mano teče reka.", "en": "A river flows under me.", "de": "Unter mir fließt ein Fluss."},
+        {"sl": "Čezme greš na drugo stran.", "en": "You cross over me to the other side.", "de": "Über mich gehst du auf die andere Seite."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Most!", "en": "A bridge!", "de": "Eine Brücke!"}
+    },
+    {
+      "id": "cerkev",
+      "level": "A1",
+      "word": "v-vasi/cerkev",
+      "clues": [
+        {"sl": "Imam zvonik.", "en": "I have a bell tower.", "de": "Ich habe einen Glockenturm."},
+        {"sl": "V meni je oltar.", "en": "There's an altar in me.", "de": "In mir ist ein Altar."},
+        {"sl": "Ob nedeljah so v meni ljudje.", "en": "On Sundays there are people in me.", "de": "Sonntags sind Leute in mir."},
+        {"sl": "Ljudje v meni molijo.", "en": "People pray in me.", "de": "Die Leute beten in mir."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Cerkev!", "en": "A church!", "de": "Eine Kirche!"}
+    },
+    {
+      "id": "sola",
+      "level": "A1",
+      "word": "v-vasi/sola",
+      "clues": [
+        {"sl": "V meni so otroci.", "en": "There are children in me.", "de": "In mir sind Kinder."},
+        {"sl": "Imam table in klopi.", "en": "I have blackboards and desks.", "de": "Ich habe Tafeln und Bänke."},
+        {"sl": "Mojca v meni uči.", "en": "Mojca teaches in me.", "de": "Mojca unterrichtet in mir."},
+        {"sl": "Poleti sem zaprta.", "en": "In summer I'm closed.", "de": "Im Sommer bin ich geschlossen."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Šola!", "en": "A school!", "de": "Eine Schule!"}
+    },
+    {
+      "id": "gostilna",
+      "level": "A1",
+      "word": "v-vasi/gostilna",
+      "clues": [
+        {"sl": "V meni ljudje jedo in pijejo.", "en": "People eat and drink in me.", "de": "In mir essen und trinken die Leute."},
+        {"sl": "Vida dela v meni.", "en": "Vida works in me.", "de": "Vida arbeitet in mir."},
+        {"sl": "Zvečer sem polna.", "en": "In the evening I'm full.", "de": "Am Abend bin ich voll."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Gostilna!", "en": "An inn!", "de": "Ein Gasthaus!"}
+    },
+    {
+      "id": "kozolec",
+      "level": "A1",
+      "word": "v-vasi/kozolec",
+      "clues": [
+        {"sl": "Lesen sem.", "en": "I'm wooden.", "de": "Ich bin aus Holz."},
+        {"sl": "Stojim na polju.", "en": "I stand in the field.", "de": "Ich stehe auf dem Feld."},
+        {"sl": "Na meni se suši seno.", "en": "Hay dries on me.", "de": "Auf mir trocknet das Heu."},
+        {"sl": "Zelo slovenski sem.", "en": "I'm very Slovene.", "de": "Ich bin sehr slowenisch."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Kozolec!", "en": "A hayrack!", "de": "Eine Harpfe!"}
+    },
+    {
+      "id": "lipa",
+      "level": "A1",
+      "word": "v-vasi/lipa",
+      "clues": [
+        {"sl": "Drevo sem.", "en": "I'm a tree.", "de": "Ich bin ein Baum."},
+        {"sl": "Stojim na trgu.", "en": "I stand on the square.", "de": "Ich stehe auf dem Platz."},
+        {"sl": "Moje cvetje lepo diši.", "en": "My blossom smells lovely.", "de": "Meine Blüten duften schön."},
+        {"sl": "Slovensko drevo sem.", "en": "I'm the Slovene tree.", "de": "Ich bin der slowenische Baum."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Lipa!", "en": "A linden tree!", "de": "Eine Linde!"}
+    },
+    {
+      "id": "sotor",
+      "level": "A1",
+      "word": "ob-ognju/sotor",
+      "clues": [
+        {"sl": "Nisem hiša, ampak v meni spiš.", "en": "I'm not a house, but you sleep in me.", "de": "Ich bin kein Haus, aber du schläfst in mir."},
+        {"sl": "Hitro me postaviš.", "en": "You put me up quickly.", "de": "Du stellst mich schnell auf."},
+        {"sl": "Ko dežuje, slišiš dež na meni.", "en": "When it rains, you hear the rain on me.", "de": "Wenn es regnet, hörst du den Regen auf mir."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Šotor!", "en": "A tent!", "de": "Ein Zelt!"}
+    },
+    {
+      "id": "sekira",
+      "level": "A1",
+      "word": "ob-ognju/sekira",
+      "clues": [
+        {"sl": "Ostra sem.", "en": "I'm sharp.", "de": "Ich bin scharf."},
+        {"sl": "Imam lesen ročaj.", "en": "I have a wooden handle.", "de": "Ich habe einen Holzstiel."},
+        {"sl": "Sekam drva.", "en": "I chop firewood.", "de": "Ich hacke Holz."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Sekira!", "en": "An axe!", "de": "Eine Axt!"}
+    },
+    {
+      "id": "vedro",
+      "level": "A1",
+      "word": "ob-ognju/vedro",
+      "clues": [
+        {"sl": "V meni nosiš vodo.", "en": "You carry water in me.", "de": "In mir trägst du Wasser."},
+        {"sl": "Imam ročaj.", "en": "I have a handle.", "de": "Ich habe einen Henkel."},
+        {"sl": "Pri vodnjaku me napolniš.", "en": "You fill me at the well.", "de": "Am Brunnen füllst du mich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Vedro!", "en": "A bucket!", "de": "Ein Eimer!"}
+    },
+    {
+      "id": "svetilka",
+      "level": "A1",
+      "word": "v-sotoru/svetilka",
+      "clues": [
+        {"sl": "Ponoči svetim.", "en": "I shine at night.", "de": "Ich leuchte in der Nacht."},
+        {"sl": "V šotoru sem.", "en": "I'm in the tent.", "de": "Ich bin im Zelt."},
+        {"sl": "Luka me prinese.", "en": "Luka brings me.", "de": "Luka bringt mich."},
+        {"sl": "Ko me ugasneš, je tema.", "en": "When you put me out, it's dark.", "de": "Wenn du mich ausmachst, ist es dunkel."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Svetilka!", "en": "A lamp!", "de": "Eine Lampe!"}
+    },
+    {
+      "id": "nahrbtnik",
+      "level": "A1",
+      "word": "v-sotoru/nahrbtnik",
+      "clues": [
+        {"sl": "Nosiš me na hrbtu.", "en": "You carry me on your back.", "de": "Du trägst mich auf dem Rücken."},
+        {"sl": "V meni so stvari za pot.", "en": "The things for the trip are in me.", "de": "In mir sind die Sachen für die Reise."},
+        {"sl": "Skupaj greva v gore.", "en": "Together we go to the mountains.", "de": "Zusammen gehen wir in die Berge."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Nahrbtnik!", "en": "A backpack!", "de": "Ein Rucksack!"}
+    },
+    {
+      "id": "zemljevid",
+      "level": "A1",
+      "word": "v-sotoru/zemljevid",
+      "clues": [
+        {"sl": "Nisem knjiga, ampak me bereš.", "en": "I'm not a book, but you read me.", "de": "Ich bin kein Buch, aber du liest mich."},
+        {"sl": "Na meni so ceste in reke.", "en": "Roads and rivers are on me.", "de": "Auf mir sind Straßen und Flüsse."},
+        {"sl": "Kažem pot.", "en": "I show the way.", "de": "Ich zeige den Weg."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Zemljevid!", "en": "A map!", "de": "Eine Landkarte!"}
+    },
+    {
+      "id": "kladivo",
+      "level": "A1",
+      "word": "v-kovacnici/kladivo",
+      "clues": [
+        {"sl": "Težko sem.", "en": "I'm heavy.", "de": "Ich bin schwer."},
+        {"sl": "Tone me drži v roki.", "en": "Tone holds me in his hand.", "de": "Tone hält mich in der Hand."},
+        {"sl": "Udarjam po nakovalu.", "en": "I strike the anvil.", "de": "Ich schlage auf den Amboss."},
+        {"sl": "Bum, bum, bum!", "en": "Bang, bang, bang!", "de": "Bumm, bumm, bumm!"}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Kladivo!", "en": "A hammer!", "de": "Ein Hammer!"}
+    },
+    {
+      "id": "podkev",
+      "level": "A1",
+      "word": "v-kovacnici/podkev",
+      "clues": [
+        {"sl": "Iz železa sem.", "en": "I'm made of iron.", "de": "Ich bin aus Eisen."},
+        {"sl": "Tone me kuje.", "en": "Tone forges me.", "de": "Tone schmiedet mich."},
+        {"sl": "Konj me nosi.", "en": "A horse wears me.", "de": "Ein Pferd trägt mich."},
+        {"sl": "Prinašam srečo.", "en": "I bring luck.", "de": "Ich bringe Glück."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Podkev!", "en": "A horseshoe!", "de": "Ein Hufeisen!"}
+    },
+    {
+      "id": "sir",
+      "level": "A1",
+      "word": "na-trznici/sir",
+      "clues": [
+        {"sl": "Narejen sem iz mleka.", "en": "I'm made from milk.", "de": "Ich bin aus Milch gemacht."},
+        {"sl": "Rumen sem.", "en": "I'm yellow.", "de": "Ich bin gelb."},
+        {"sl": "Včasih imam luknje.", "en": "Sometimes I have holes.", "de": "Manchmal habe ich Löcher."},
+        {"sl": "Na tržnici me prodajajo.", "en": "They sell me at the market.", "de": "Auf dem Markt verkauft man mich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Sir!", "en": "Cheese!", "de": "Käse!"}
+    },
+    {
+      "id": "med",
+      "level": "A1",
+      "word": "na-trznici/med",
+      "clues": [
+        {"sl": "Sladek sem.", "en": "I'm sweet.", "de": "Ich bin süß."},
+        {"sl": "Delajo me čebele.", "en": "Bees make me.", "de": "Bienen machen mich."},
+        {"sl": "Anton me prodaja.", "en": "Anton sells me.", "de": "Anton verkauft mich."},
+        {"sl": "Medved me ima rad.", "en": "The bear loves me.", "de": "Der Bär mag mich."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Med!", "en": "Honey!", "de": "Honig!"}
+    },
+    {
+      "id": "jabolko",
+      "level": "A1",
+      "word": "na-trznici/jabolko",
+      "clues": [
+        {"sl": "Okroglo sem.", "en": "I'm round.", "de": "Ich bin rund."},
+        {"sl": "Rastem na drevesu.", "en": "I grow on a tree.", "de": "Ich wachse an einem Baum."},
+        {"sl": "Rdeče ali zeleno sem.", "en": "I'm red or green.", "de": "Ich bin rot oder grün."},
+        {"sl": "Zdravo sem.", "en": "I'm healthy.", "de": "Ich bin gesund."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Jabolko!", "en": "An apple!", "de": "Ein Apfel!"}
+    },
+    {
+      "id": "potica",
+      "level": "A1",
+      "word": "babicina-kuhinja/potica",
+      "clues": [
+        {"sl": "Sladka sem.", "en": "I'm sweet.", "de": "Ich bin süß."},
+        {"sl": "Babica me peče za božič in veliko noč.", "en": "Grandma bakes me for Christmas and Easter.", "de": "Oma bäckt mich zu Weihnachten und Ostern."},
+        {"sl": "V meni so orehi.", "en": "There are walnuts in me.", "de": "In mir sind Walnüsse."},
+        {"sl": "Zvita sem kot polž.", "en": "I'm rolled up like a snail.", "de": "Ich bin gerollt wie ein Schneckenhaus."}
+      ],
+      "ask": {"sl": "Kaj sem?", "en": "What am I?", "de": "Was bin ich?"},
+      "answer": {"sl": "Potica!", "en": "A potica!", "de": "Eine Potica!"}
+    },
+    {
+      "id": "tone",
+      "level": "A1",
+      "villager": "tone",
+      "clues": [
+        {"sl": "Močan je.", "en": "He's strong.", "de": "Er ist stark."},
+        {"sl": "Ima kladivo in nakovalo.", "en": "He has a hammer and an anvil.", "de": "Er hat einen Hammer und einen Amboss."},
+        {"sl": "Kuje podkve za konje.", "en": "He forges horseshoes for horses.", "de": "Er schmiedet Hufeisen für Pferde."},
+        {"sl": "Njegov ogenj je vroč.", "en": "His fire is hot.", "de": "Sein Feuer ist heiß."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Kovač Tone!", "en": "Tone the blacksmith!", "de": "Der Schmied Tone!"}
+    },
+    {
+      "id": "micka",
+      "level": "A1",
+      "villager": "micka",
+      "clues": [
+        {"sl": "Stara je in prijazna.", "en": "She's old and kind.", "de": "Sie ist alt und freundlich."},
+        {"sl": "Peče najboljšo potico v vasi.", "en": "She bakes the best potica in the village.", "de": "Sie bäckt die beste Potica im Dorf."},
+        {"sl": "Vsi ji pravijo babica.", "en": "Everyone calls her grandma.", "de": "Alle nennen sie Oma."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Babica Micka!", "en": "Grandma Micka!", "de": "Oma Micka!"}
+    },
+    {
+      "id": "luka",
+      "level": "A1",
+      "villager": "luka",
+      "clues": [
+        {"sl": "Mlad je.", "en": "He's young.", "de": "Er ist jung."},
+        {"sl": "Ves dan pase ovce.", "en": "He herds the sheep all day.", "de": "Er hütet den ganzen Tag die Schafe."},
+        {"sl": "Poleti živi na planini.", "en": "In summer he lives on the mountain pasture.", "de": "Im Sommer lebt er auf der Alm."},
+        {"sl": "Ima psa in palico.", "en": "He has a dog and a stick.", "de": "Er hat einen Hund und einen Stock."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Pastir Luka!", "en": "Luka the shepherd!", "de": "Der Hirte Luka!"}
+    },
+    {
+      "id": "mojca",
+      "level": "A1",
+      "villager": "mojca",
+      "clues": [
+        {"sl": "Dela v šoli.", "en": "She works at the school.", "de": "Sie arbeitet in der Schule."},
+        {"sl": "Piše na tablo.", "en": "She writes on the blackboard.", "de": "Sie schreibt an die Tafel."},
+        {"sl": "Otroci jo poslušajo.", "en": "The children listen to her.", "de": "Die Kinder hören ihr zu."},
+        {"sl": "Uči črke in številke.", "en": "She teaches letters and numbers.", "de": "Sie lehrt Buchstaben und Zahlen."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Učiteljica Mojca!", "en": "Mojca the teacher!", "de": "Die Lehrerin Mojca!"}
+    },
+    {
+      "id": "janez",
+      "level": "A1",
+      "villager": "janez",
+      "clues": [
+        {"sl": "Star je in ima brado.", "en": "He's old and has a beard.", "de": "Er ist alt und hat einen Bart."},
+        {"sl": "Zvečer sedi pri ognju.", "en": "In the evening he sits by the fire.", "de": "Am Abend sitzt er am Feuer."},
+        {"sl": "Pozna veliko zgodb.", "en": "He knows many stories.", "de": "Er kennt viele Geschichten."},
+        {"sl": "Tudi uganke pozna.", "en": "He knows riddles too.", "de": "Er kennt auch Rätsel."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Stari Janez! To sem jaz!", "en": "Old Janez! That's me!", "de": "Der alte Janez! Das bin ich!"}
+    },
+    {
+      "id": "anton",
+      "level": "A1",
+      "villager": "anton",
+      "clues": [
+        {"sl": "Ima čebele.", "en": "He has bees.", "de": "Er hat Bienen."},
+        {"sl": "Prodaja med.", "en": "He sells honey.", "de": "Er verkauft Honig."},
+        {"sl": "Čebel se ne boji.", "en": "He isn't afraid of bees.", "de": "Er hat keine Angst vor Bienen."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Čebelar Anton!", "en": "Anton the beekeeper!", "de": "Der Imker Anton!"}
+    },
+    {
+      "id": "france",
+      "level": "A1",
+      "villager": "france",
+      "clues": [
+        {"sl": "Dela v mlinu.", "en": "He works in the mill.", "de": "Er arbeitet in der Mühle."},
+        {"sl": "Njegov mlin stoji ob reki.", "en": "His mill stands by the river.", "de": "Seine Mühle steht am Fluss."},
+        {"sl": "Melje moko.", "en": "He grinds flour.", "de": "Er mahlt Mehl."},
+        {"sl": "Vedno je ves bel.", "en": "He's always all white.", "de": "Er ist immer ganz weiß."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Mlinar France!", "en": "France the miller!", "de": "Der Müller France!"}
+    },
+    {
+      "id": "vida",
+      "level": "A1",
+      "villager": "vida",
+      "clues": [
+        {"sl": "Dela v gostilni.", "en": "She works at the inn.", "de": "Sie arbeitet im Gasthaus."},
+        {"sl": "Kuha juho in toči vino.", "en": "She cooks soup and pours wine.", "de": "Sie kocht Suppe und schenkt Wein aus."},
+        {"sl": "Zvečer ima veliko gostov.", "en": "In the evening she has many guests.", "de": "Am Abend hat sie viele Gäste."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Gostilničarka Vida!", "en": "Vida the innkeeper!", "de": "Die Wirtin Vida!"}
+    },
+    {
+      "id": "marko",
+      "level": "A1",
+      "villager": "marko",
+      "clues": [
+        {"sl": "Ima vinograd.", "en": "He has a vineyard.", "de": "Er hat einen Weinberg."},
+        {"sl": "Jeseni nabira grozdje.", "en": "In autumn he picks grapes.", "de": "Im Herbst pflückt er Trauben."},
+        {"sl": "V kleti ima vino.", "en": "He has wine in the cellar.", "de": "Er hat Wein im Keller."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Vinar Marko!", "en": "Marko the winemaker!", "de": "Der Winzer Marko!"}
+    },
+    {
+      "id": "joze",
+      "level": "A1",
+      "villager": "joze",
+      "clues": [
+        {"sl": "Hodi po gozdu.", "en": "He walks in the forest.", "de": "Er geht durch den Wald."},
+        {"sl": "Pozna vse živali.", "en": "He knows all the animals.", "de": "Er kennt alle Tiere."},
+        {"sl": "Išče medveda.", "en": "He's looking for the bear.", "de": "Er sucht den Bären."}
+      ],
+      "ask": {"sl": "Kdo je to?", "en": "Who is it?", "de": "Wer ist das?"},
+      "answer": {"sl": "Lovec Jože!", "en": "Jože the hunter!", "de": "Der Jäger Jože!"}
+    }
+  ],
+  "machine_written": true,
+  "review": "sl, en, de: machine-written (Claude), not reviewed by a native speaker"
+}

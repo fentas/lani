@@ -1,0 +1,85 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "maxi",
+  "name": "Maxi",
+  "emoji": "🧒",
+  "art": "child1",
+  "voice": "male",
+  "speaker": "boy",
+  "role": {"de": "Bub", "sl": "Deček", "en": "Boy", "it": "Bambino"},
+  "home": ["market", "house"],
+  "register": "ti",
+  "skill": "food",
+  "since": "zaselek",
+  "order": 12,
+  "routine": { "up": "7:15", "bed": "20:30" },
+  "personality": "Nine, Wirtin Kathi's son, the ringleader of the village children. Loud, quick and cheeky, always with a hockey stick or a football and a plan: tag (Fangen), races to the pond, ice cream at the Faaker See. Says du to the learner at once and wants them on his team. Short, fast sentences: 'Komm!', 'Los geht's!', 'Auf geht's!'. Can't read as well as Lena, and doesn't want to hear about it.",
+  "story": "Maxi grew up between the tables of his mother's Gasthaus and knows every guest's car. In winter he plays ice hockey on the frozen pond until it gets dark, supports the VSV like Stefan and is sure he will play for them one day. In summer he plays football on the square until the church bell rings, catches frogs at the pond and lets them go again.",
+  "likes": [
+    {"de": "das Eishockey", "sl": "hokej na ledu", "en": "ice hockey", "it": "l'hockey su ghiaccio"},
+    {"de": "das Fangen", "sl": "lovljenje", "en": "tag", "it": "l'acchiapparella"},
+    {"de": "der Teich", "sl": "ribnik", "en": "the pond", "it": "lo stagno"},
+    {"de": "das Eis", "sl": "sladoled", "en": "ice cream", "it": "il gelato"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Servus! Spielst du Eishockey?", "sl": "Živjo! Igraš hokej?", "en": "Hi! Do you play ice hockey?", "it": "Ciao! Giochi a hockey?", "level": 0 },
+      { "de": "Servus! Ich bin der Maxi. Wer bist du?", "sl": "Živjo! Jaz sem Maxi. Kdo si ti?", "en": "Hi! I'm Maxi. Who are you?", "it": "Ciao! Io sono Maxi. Tu chi sei?", "level": 0 },
+      { "de": "He! Komm, spiel mit!", "sl": "Ej! Daj, pridi se igrat!", "en": "Hey! Come on, come and play!", "it": "Ehi! Dai, vieni a giocare!", "level": 1 },
+      { "de": "Da bist du! Du bist in meiner Mannschaft, okay?", "sl": "Tu si! V moji ekipi si, velja?", "en": "There you are! You're on my team, OK?", "it": "Eccoti! Sei nella mia squadra, va bene?", "level": 2 },
+      { "de": "Juhu, du bist da! Komm, wir gehen zum Teich!", "sl": "Juhu, tu si! Greva k ribniku!", "en": "Hooray, you're here! Let's go to the pond!", "it": "Evviva, sei qui! Andiamo allo stagno!", "level": 3 },
+      { "de": "Mit dir spiele ich am liebsten! Aber sag es nicht der Lena.", "sl": "S tabo se igram najraje! Ampak ne povej Leni.", "en": "You're the one I like playing with most! But don't tell Lena.", "it": "Con te gioco più volentieri! Ma non dirlo a Lena.", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke! Du bist spitze!", "sl": "Hvala! Super si!", "en": "Thanks! You're brilliant!", "it": "Grazie! Sei fortissimo!" },
+      { "de": "Danke! Morgen bekommst du meinen Puck.", "sl": "Hvala! Jutri ti dam svoj plošček.", "en": "Thanks! Tomorrow you get my puck.", "it": "Grazie! Domani ti do il mio disco da hockey." },
+      { "de": "Danke, danke! Das sag ich der Mama.", "sl": "Hvala, hvala! Povem mami.", "en": "Thanks, thanks! I'll tell Mum.", "it": "Grazie, grazie! Lo dico alla mamma." }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "He, ich denke noch an {memory}! Das war super!", "sl": "Ej, še vedno mislim na {memory}! Super je bilo!", "en": "Hey, I still think of {memory}! It was great!", "it": "Dai, ricordo ancora {memory}! È stato forte!", "level": 2 },
+      { "de": "Ich denke immer an {memory}. Immer!", "sl": "Vedno mislim na {memory}. Vedno!", "en": "I always think of {memory}. Always!", "it": "Ricordo sempre {memory}. Sempre!", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Wer ist zuerst beim Teich?", "sl": "Kdo bo prvi pri ribniku?", "en": "Who gets to the pond first?", "it": "Chi arriva primo allo stagno?" },
+      { "de": "Ich habe einen Frosch gefangen! Ich habe ihn wieder freigelassen.", "sl": "Ujel sem žabo! Spet sem jo spustil.", "en": "I caught a frog! I let it go again.", "it": "Ho preso una rana! L'ho lasciata andare." },
+      { "de": "Wenn ich groß bin, spiele ich beim VSV.", "sl": "Ko bom velik, bom igral za VSV.", "en": "When I grow up I'll play for the VSV.", "it": "Da grande gioco nel VSV." },
+      { "de": "Die Lena liest gut. Ich laufe schnell.", "sl": "Lena dobro bere. Jaz pa hitro tečem.", "en": "Lena reads well. I run fast.", "it": "Lena legge bene. Io corro veloce." }
+    ],
+    "cheer": [
+      { "de": "Tor! Super!", "sl": "Gol! Bravo!", "en": "Goal! Well done!", "it": "Gol! Bravo!" },
+      { "de": "Ja! Richtig!", "sl": "Ja! Prav!", "en": "Yes! Right!", "it": "Sì! Giusto!" },
+      { "de": "Auf geht's! Weiter!", "sl": "Dajmo! Še!", "en": "Go on! More!", "it": "Forza! Ancora!" },
+      { "de": "Klasse! Gib mir fünf!", "sl": "Super! Daj pet!", "en": "Great! High five!", "it": "Grande! Batti cinque!" }
+    ],
+    "comfort": [
+      { "de": "Komm, macht nichts!", "sl": "Daj, nič hudega!", "en": "Come on, never mind!", "it": "Dai, non fa niente!" },
+      { "de": "Ich schieße auch manchmal daneben. Noch einmal!", "sl": "Tudi jaz kdaj zgrešim gol. Še enkrat!", "en": "I miss the goal sometimes too. Again!", "it": "Anch'io a volte sbaglio il tiro. Riprova!" },
+      { "de": "Fast ein Tor! Noch einmal.", "sl": "Skoraj gol! Še enkrat.", "en": "Nearly a goal! Once more.", "it": "Quasi gol! Ancora una volta." }
+    ],
+    "listen": [
+      { "de": "Pst! Hör zu!", "sl": "Pst! Poslušaj!", "en": "Shh! Listen!", "it": "Shh! Ascolta!" },
+      { "de": "Hör zu, hör zu! Schnell!", "sl": "Poslušaj, poslušaj! Hitro!", "en": "Listen, listen! Quick!", "it": "Ascolta, ascolta! Veloce!" },
+      { "de": "Hörst du das? Hör zu!", "sl": "Slišiš? Poslušaj!", "en": "Hear that? Listen!", "it": "Senti? Ascolta!" }
+    ],
+    "bye": [
+      { "de": "Tschüss!", "sl": "Adijo!", "en": "Bye!", "it": "Ciao!" },
+      { "de": "Servus! Ich gehe spielen.", "sl": "Adijo! Grem se igrat.", "en": "Bye! I'm off to play.", "it": "Ciao! Vado a giocare." },
+      { "de": "Pfiat di! Morgen ist Match, gell!", "sl": "Adijo! Jutri je tekma, ne pozabi! (pfiat di: koroško za »adijo«)", "en": "Bye! Match tomorrow, don't forget! (pfiat di: Carinthian for bye)", "it": "Ciao! Domani c'è la partita, eh! (pfiat di: saluto carinziano)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Ja! Für mich? Du bist spitze!", "sl": "Ja! Zame? Super si!", "en": "Yes! For me? You're brilliant!", "it": "Sì! Per me? Sei fortissimo!" },
+        { "de": "Woher weißt du das? Das mag ich am liebsten! Danke!", "sl": "Kako si vedel? To imam najraje! Hvala!", "en": "How did you know? It's my favourite thing! Thanks!", "it": "Come lo sapevi? È la mia cosa preferita! Grazie!" },
+        { "de": "Klasse! Das gebe ich niemandem. Na ja, vielleicht dem Jakob.", "sl": "Super! Tega ne dam nikomur. No, mogoče Jakobu.", "en": "Great! I'm not giving this to anyone. Well, maybe to Jakob.", "it": "Grande! Questo non lo do a nessuno. Beh, forse a Jakob." }
+      ],
+      "ordinary": [
+        { "de": "Oh, danke! Das sag ich der Mama.", "sl": "O, hvala! Povem mami.", "en": "Oh, thanks! I'll tell Mum.", "it": "Oh, grazie! Lo dico alla mamma." },
+        { "de": "Danke! Spielen wir jetzt Fußball?", "sl": "Hvala! Greva zdaj igrat nogomet?", "en": "Thanks! Shall we play football now?", "it": "Grazie! Adesso giochiamo a calcio?" }
+      ],
+      "rare": [
+        { "de": "Wow! Das hat im Dorf niemand! Du bist echt spitze!", "sl": "Uau! Tega v vasi nima nihče! Res si super!", "en": "Wow! Nobody in the village has this! You're just brilliant!", "it": "Uau! Questo in paese non ce l'ha nessuno! Sei davvero fortissimo!" }
+      ]
+    }
+  }
+}

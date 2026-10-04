@@ -1,0 +1,117 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "possessive-s",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🐕",
+  "title": {
+    "en": "Jack's dog: 's, my, your, mine",
+    "sl": "Jack's dog: čigavo je?",
+    "it": "Jack's dog: di chi è?",
+    "de": "Jack's dog: Wem gehört es?"
+  },
+  "rule": {
+    "en": "To say who has something, add **'s** to the owner: **Jack's dog**, **Granny Maggie's kitchen**, **the teacher's bag**. The owner comes first, then the thing.\n\nA plural in -s takes only the apostrophe: **the girls' bikes** (more than one girl), **the Dixons' house**. Irregular plurals take 's: **the children's books**, **the men's boots**. For things, **of** is more usual: **the top of the fell**, **the end of the road**.\n\nThe possessive words are **my**, **your**, **his** (a boy's or man's), **her** (a girl's or woman's), **its** (a thing's or an animal's), **our**, **their**. They follow the owner only, never the thing, and never change: **his sister**, **her brother**, **their dogs**. They take the place of the article: **my dog**, not *the my dog*.\n\nWith no noun after them, use **mine**, **yours**, **his**, **hers**, **ours**, **theirs**: **Is this yours? — Yes, it's mine.** Careful: **its** has no apostrophe; **it's** means it is.",
+    "sl": "Ko povemo, čigavo je kaj, lastniku dodamo **'s**: **Jack's dog** (Jackov pes), **Granny Maggie's kitchen** (kuhinja babice Maggie), **the teacher's bag** (učiteljičina torba). Kot pri slovenskem -ov, -in: najprej lastnik, nato stvar.\n\nMnožina na -s dobi samo opuščaj: **the girls' bikes** (kolesa deklet), **the Dixons' house**. Nepravilne množine dobijo 's: **the children's books**, **the men's boots**. Za stvari je pogostejši **of**: **the top of the fell** (vrh hriba), **the end of the road**.\n\nSvojilne besede so **my**, **your**, **his** (njegov), **her** (njen), **its** (od stvari ali živali), **our**, **their**. Ravnajo se le po lastniku, nikoli po stvari, in se ne spreminjajo: **his sister** (njegova sestra), **her brother** (njen brat). Angleščina nima besede svoj: **I love my dog, Jack loves his dog.** Stojijo namesto člena: **my dog**, ne *the my dog*.\n\nBrez samostalnika za njimi: **mine**, **yours**, **his**, **hers**, **ours**, **theirs**: **Is this yours? — Yes, it's mine.** (Je to tvoje? — Ja, moje je.) Pazi: **its** nima opuščaja, **it's** pomeni it is.",
+    "it": "Per dire di chi è una cosa, al possessore si aggiunge **'s**: **Jack's dog** (il cane di Jack), **Granny Maggie's kitchen** (la cucina di nonna Maggie), **the teacher's bag**. L'ordine è rovesciato: prima il possessore, poi la cosa.\n\nUn plurale in -s prende solo l'apostrofo: **the girls' bikes** (le bici delle ragazze), **the Dixons' house**. I plurali irregolari prendono 's: **the children's books**, **the men's boots**. Per le cose si usa più spesso **of**: **the top of the fell** (la cima del monte), **the end of the road**.\n\nI possessivi sono **my**, **your**, **his** (di lui), **her** (di lei), **its** (di una cosa o di un animale), **our**, **their**. Dipendono solo dal possessore, mai dalla cosa, e non cambiano: il suo cane è **his dog** se è di Jack, **her dog** se è di Poppy. Non prendono l'articolo: **my dog** (il mio cane), non *the my dog*.\n\nSenza nome dopo: **mine**, **yours**, **his**, **hers**, **ours**, **theirs**: **Is this yours? — Yes, it's mine.** (È tuo? — Sì, è mio.) Attenzione: **its** non ha l'apostrofo, **it's** vuol dire it is.",
+    "de": "Um zu sagen, wem etwas gehört, bekommt der Besitzer **'s**: **Jack's dog** (Jacks Hund), **Granny Maggie's kitchen** (Oma Maggies Küche), **the teacher's bag**. Wie im Deutschen, aber mit Apostroph.\n\nEin Plural auf -s bekommt nur den Apostroph: **the girls' bikes** (die Fahrräder der Mädchen), **the Dixons' house**. Unregelmäßige Plurale bekommen 's: **the children's books**, **the men's boots**. Bei Dingen ist **of** üblicher: **the top of the fell** (der Gipfel des Berges), **the end of the road**.\n\nDie Possessivwörter sind **my**, **your**, **his** (sein), **her** (ihr), **its** (sein oder ihr, bei Dingen und Tieren), **our**, **their**. Wie sein und ihr richten sie sich nach dem Besitzer, aber sie ändern sich nie: **his dog**, **his sister**, **with his dogs** (sein Hund, seine Schwester, mit seinen Hunden). Sie ersetzen den Artikel: **my dog**, nicht *the my dog*.\n\nOhne Nomen danach: **mine**, **yours**, **his**, **hers**, **ours**, **theirs**: **Is this yours? — Yes, it's mine.** (Ist das deins? — Ja, das ist meins.) Achtung: **its** hat keinen Apostroph, **it's** heißt it is."
+  },
+  "table": {
+    "head": [
+      { "en": "who", "sl": "kdo", "it": "chi", "de": "wer" },
+      { "en": "before a noun", "sl": "pred samostalnikom", "it": "davanti al nome", "de": "vor dem Nomen" },
+      { "en": "alone", "sl": "samostojno", "it": "da solo", "de": "allein" }
+    ],
+    "rows": [
+      ["I", "my dog", "mine"],
+      ["you", "your dog", "yours"],
+      ["he", "his dog", "his"],
+      ["she", "her dog", "hers"],
+      ["it", "its tail", "—"],
+      ["we", "our dog", "ours"],
+      ["they", "their dog", "theirs"],
+      ["Jack", "Jack's dog", "Jack's"],
+      ["the girls", "the girls' bikes", "the girls'"],
+      ["the children", "the children's books", "the children's"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "This is Jack's dog. Her name is Meg.",
+      "sl": "To je Jackova psička. Ime ji je Meg.",
+      "it": "Questa è la cagnolina di Jack. Si chiama Meg.",
+      "de": "Das ist Jacks Hündin. Sie heißt Meg.",
+      "note": {
+        "en": "Meg is a girl dog, so her name.",
+        "sl": "Meg je psička, zato her name.",
+        "it": "Meg è femmina, quindi her name.",
+        "de": "Meg ist eine Hündin, also her name."
+      }
+    },
+    {
+      "en": "Granny Maggie's kitchen smells of scones.",
+      "sl": "Kuhinja babice Maggie diši po pogačicah.",
+      "it": "La cucina di nonna Maggie profuma di scones.",
+      "de": "Oma Maggies Küche riecht nach Scones."
+    },
+    {
+      "en": "The girls' bikes are behind the barn.",
+      "sl": "Kolesa deklet so za skednjem.",
+      "it": "Le bici delle ragazze sono dietro il fienile.",
+      "de": "Die Fahrräder der Mädchen stehen hinter der Scheune.",
+      "note": {
+        "en": "More than one girl: girls' (the apostrophe after the s).",
+        "sl": "Več deklet: girls' (opuščaj za s).",
+        "it": "Più ragazze: girls' (l'apostrofo dopo la s).",
+        "de": "Mehrere Mädchen: girls' (Apostroph nach dem s)."
+      }
+    },
+    {
+      "en": "Poppy is feeding her rabbit, and Alfie is feeding his.",
+      "sl": "Poppy hrani svojega zajčka, Alfie pa svojega.",
+      "it": "Poppy dà da mangiare al suo coniglio, e Alfie al suo.",
+      "de": "Poppy füttert ihr Kaninchen, und Alfie füttert seins.",
+      "note": {
+        "en": "The owner decides: her for Poppy, his for Alfie.",
+        "sl": "Odloča lastnik: her za Poppy, his za Alfieja (slovensko obakrat svoj).",
+        "it": "Decide il possessore: her per Poppy, his per Alfie (in italiano tutti e due suo).",
+        "de": "Der Besitzer entscheidet: her für Poppy, his für Alfie."
+      }
+    },
+    {
+      "en": "Is this yours, Harry? — No, it's Alfie's.",
+      "sl": "Je to tvoje, Harry? — Ne, Alfiejevo je.",
+      "it": "È tuo, Harry? — No, è di Alfie.",
+      "de": "Ist das deins, Harry? — Nein, das ist Alfies."
+    },
+    {
+      "en": "The top of the fell is in the clouds.",
+      "sl": "Vrh hriba je v oblakih.",
+      "it": "La cima del monte è tra le nuvole.",
+      "de": "Der Gipfel des Berges liegt in den Wolken.",
+      "note": {
+        "en": "For things: of (not the fell's top).",
+        "sl": "Pri stvareh: of (ne the fell's top).",
+        "it": "Per le cose: of (non the fell's top).",
+        "de": "Bei Dingen: of (nicht the fell's top)."
+      }
+    },
+    {
+      "en": "Our house is next to the inn. Where's yours?",
+      "sl": "Naša hiša je zraven gostilne. Kje je tvoja?",
+      "it": "La nostra casa è accanto alla locanda. Dov'è la tua?",
+      "de": "Unser Haus ist neben dem Gasthaus. Wo ist deins?",
+      "note": {
+        "en": "yours: no noun after it.",
+        "sl": "yours: brez samostalnika za njim.",
+        "it": "yours: senza nome dopo.",
+        "de": "yours: ohne Nomen danach."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["possessive", "possessives", "possessive_s", "apostrophe", "my_your", "mine_yours", "its"],
+  "see": ["plurals", "word-order", "to-have"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

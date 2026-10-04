@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "datumi",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🗓️",
+  "title": {
+    "sl": "Prvi, drugi … in datumi",
+    "en": "First, second … and dates",
+    "de": "Erster, zweiter … und das Datum",
+    "it": "Primo, secondo … e le date"
+  },
+  "rule": {
+    "en": "The ordinals (*vrstilni števniki*) say which one in a row: **prvi, drugi, tretji, četrti, peti, šesti, sedmi, osmi, deveti, deseti** … **dvajseti**. From five on, most are the number + **-i** (pet → peti). In writing a dot follows the figure: **5.** is peti.\n\nThey are adjectives and agree with their noun: **prvi dan, prva ura, prvo nadstropje**; in the genitive **prvega, petega**.\n\nA date is the ordinal and the month, both masculine: **Danes je peti maj.** *On* a date is the genitive, with no preposition: **petega maja**, **prvega januarja**. To ask the date: **Katerega smo danes?** A month alone: **maja** or **v maju** (in May); a year: **leta 2026**.\n\n**prvi** is the first one, **prvič** the first time: **Prvič sem v gorah.** The clock uses the plain number: **Ura je pet**, **ob petih** (see *kdaj-cas*).",
+    "de": "Die Ordnungszahlen (*vrstilni števniki*) sagen, der Wievielte: **prvi, drugi, tretji, četrti, peti, šesti, sedmi, osmi, deveti, deseti** … **dvajseti**. Ab fünf meist die Zahl + **-i** (pet → peti). Geschrieben folgt der Ziffer ein Punkt, wie im Deutschen: **5.** ist peti.\n\nSie sind Adjektive und richten sich nach ihrem Nomen: **prvi dan, prva ura, prvo nadstropje**; im Genitiv **prvega, petega**.\n\nEin Datum ist die Ordnungszahl und der Monat, beide männlich: **Danes je peti maj.** *Am* Datum steht der Genitiv, ohne Präposition: **petega maja** (am fünften Mai), **prvega januarja**. Nach dem Datum fragen: **Katerega smo danes?** Ein Monat allein: **maja** oder **v maju** (im Mai); ein Jahr: **leta 2026**.\n\n**prvi** ist der Erste, **prvič** das erste Mal: **Prvič sem v gorah.** Die Uhr nimmt die Grundzahl: **Ura je pet**, **ob petih** (siehe *kdaj-cas*).",
+    "it": "Gli ordinali (*vrstilni števniki*) dicono il posto in una fila: **prvi, drugi, tretji, četrti, peti, šesti, sedmi, osmi, deveti, deseti** … **dvajseti**. Dal cinque in poi quasi sempre il numero + **-i** (pet → peti). Per iscritto la cifra è seguita da un punto: **5.** è peti.\n\nSono aggettivi e concordano con il nome: **prvi dan, prva ura, prvo nadstropje**; al genitivo **prvega, petega**.\n\nUna data è l'ordinale e il mese, tutti e due maschili (in italiano il cardinale): **Danes je peti maj.** *Il* giorno di una data è il genitivo, senza preposizione: **petega maja** (il cinque maggio), **prvega januarja**. Per chiedere la data: **Katerega smo danes?** Un mese da solo: **maja** o **v maju** (a maggio); un anno: **leta 2026**.\n\n**prvi** è il primo, **prvič** la prima volta: **Prvič sem v gorah.** L'ora usa il numero semplice: **Ura je pet**, **ob petih** (vedi *kdaj-cas*)."
+  },
+  "table": {
+    "head": [
+      { "sl": "številka", "en": "figure", "de": "Ziffer", "it": "cifra" },
+      { "sl": "vrstilni števnik", "en": "ordinal", "de": "Ordnungszahl", "it": "ordinale" },
+      { "sl": "datum: kdaj?", "en": "on the date", "de": "am Datum", "it": "il giorno" }
+    ],
+    "rows": [
+      ["1.", "prvi, prva, prvo", "prvega maja"],
+      ["2.", "drugi", "drugega junija"],
+      ["3.", "tretji", "tretjega julija"],
+      ["4.", "četrti", "četrtega avgusta"],
+      ["5.", "peti", "petega septembra"],
+      ["7.", "sedmi", "sedmega oktobra"],
+      ["8.", "osmi", "osmega novembra"],
+      ["12.", "dvanajsti", "dvanajstega decembra"],
+      ["20.", "dvajseti", "dvajsetega januarja"],
+      ["21.", "enaindvajseti", "enaindvajsetega februarja"],
+      ["30.", "trideseti", "tridesetega marca"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Danes je peti maj.",
+      "en": "Today is the fifth of May.",
+      "de": "Heute ist der fünfte Mai.",
+      "it": "Oggi è il cinque maggio."
+    },
+    {
+      "sl": "Katerega smo danes? Petega.",
+      "en": "What's the date today? The fifth.",
+      "de": "Den Wievielten haben wir heute? Den fünften.",
+      "it": "Quanti ne abbiamo oggi? Cinque."
+    },
+    {
+      "sl": "Rojstni dan imam osemnajstega oktobra.",
+      "en": "My birthday is on the eighteenth of October.",
+      "de": "Ich habe am achtzehnten Oktober Geburtstag.",
+      "it": "Il mio compleanno è il diciotto ottobre.",
+      "note": {
+        "en": "On a date: the genitive, with no preposition.",
+        "de": "Am Datum: der Genitiv, ohne Präposition.",
+        "it": "Il giorno di una data: il genitivo, senza preposizione."
+      }
+    },
+    {
+      "sl": "Pridejo julija.",
+      "en": "They're coming in July.",
+      "de": "Sie kommen im Juli.",
+      "it": "Arrivano a luglio.",
+      "note": {
+        "en": "A month: julija, or v juliju.",
+        "de": "Ein Monat: julija oder v juliju.",
+        "it": "Un mese: julija, oppure v juliju."
+      }
+    },
+    {
+      "sl": "Prvič sem v gorah.",
+      "en": "I'm in the mountains for the first time.",
+      "de": "Ich bin zum ersten Mal in den Bergen.",
+      "it": "Sono in montagna per la prima volta.",
+      "note": {
+        "en": "prvič is the first time; prvi the first one: Prvi sem tukaj (I'm here first).",
+        "de": "prvič ist das erste Mal; prvi der Erste: Prvi sem tukaj (ich bin als Erster hier).",
+        "it": "prvič è la prima volta; prvi il primo: Prvi sem tukaj (sono qui per primo)."
+      }
+    },
+    {
+      "sl": "Živimo v drugem nadstropju.",
+      "en": "We live on the second floor.",
+      "de": "Wir wohnen im zweiten Stock.",
+      "it": "Abitiamo al secondo piano.",
+      "note": {
+        "en": "drugo nadstropje → v drugem nadstropju: it changes like an adjective.",
+        "de": "drugo nadstropje → v drugem nadstropju: es ändert sich wie ein Adjektiv.",
+        "it": "drugo nadstropje → v drugem nadstropju: cambia come un aggettivo."
+      }
+    },
+    {
+      "sl": "Sivko je bil prvi, Muri drugi.",
+      "en": "Sivko was first, Muri second.",
+      "de": "Sivko war Erster, Muri Zweiter.",
+      "it": "Sivko è arrivato primo, Muri secondo."
+    }
+  ],
+  "modules": [],
+  "tags": ["ordinal", "ordinals", "ordinal_numbers", "dates", "date"],
+  "see": ["kdaj-cas", "stevila-samostalniki", "pridevniki-ujemanje", "rodilnik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

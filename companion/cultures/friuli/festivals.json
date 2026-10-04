@@ -1,0 +1,177 @@
+{
+  "festivals": [
+    {
+      "id": "capodanno",
+      "emoji": "🎆",
+      "date": { "month": 1, "day": 1 },
+      "name": { "it": "Capodanno", "sl": "Novo leto", "en": "New Year", "de": "Neujahr" },
+      "leaders": ["marisa", "bepi", "rosa"],
+      "ask": { "it": "Buon anno! Vieni, facciamo festa!", "sl": "Srečno novo leto! Pridi, praznujmo!", "en": "Happy New Year! Come, let's celebrate!", "de": "Frohes neues Jahr! Komm, wir feiern!" },
+      "about": { "it": "A mezzanotte tutti si abbracciano e si fanno gli auguri.", "sl": "Ob polnoči se vsi objamejo in si voščijo srečo.", "en": "At midnight everyone hugs and wishes each other luck.", "de": "Um Mitternacht umarmen sich alle und wünschen sich Glück." },
+      "line": { "it": "A mezzanotte tutto il paese ha guardato i fuochi d'artificio.", "sl": "Ob polnoči je vsa vas gledala ognjemet.", "en": "At midnight the whole village watched the fireworks.", "de": "Um Mitternacht hat das ganze Dorf das Feuerwerk angeschaut." },
+      "good": "spumante",
+      "words": "festa-capodanno"
+    },
+    {
+      "id": "epifania",
+      "emoji": "🧹",
+      "date": { "month": 1, "day": 6 },
+      "name": { "it": "Epifania", "sl": "Sveti trije kralji", "en": "Epiphany", "de": "Dreikönigstag" },
+      "leaders": ["rosa", "giulia", "bepi"],
+      "ask": { "it": "Arriva la Befana! Hai appeso la calza?", "sl": "Prihaja Befana! Si obesil nogavico?", "en": "The Befana is coming! Have you hung up your stocking?", "de": "Die Befana kommt! Hast du deinen Strumpf aufgehängt?" },
+      "about": { "it": "La Befana porta dolci ai bambini buoni e carbone ai bambini cattivi. In Friuli la sera si accende il pignarûl, un grande falò.", "sl": "Befana prinese pridnim otrokom sladkarije, porednim pa premog. V Furlaniji zvečer zakurijo pignarûl, velik kres.", "en": "The Befana brings sweets to good children and coal to naughty ones. In Friuli a big bonfire, the pignarûl, is lit in the evening.", "de": "Die Befana bringt braven Kindern Süßigkeiten und frechen Kindern Kohle. Im Friaul wird am Abend ein großes Feuer angezündet, der Pignarûl." },
+      "line": { "it": "È passata la Befana: nelle calze c'erano dolci e carbone di zucchero.", "sl": "Prišla je Befana: v nogavicah so bile sladkarije in sladkorni premog.", "en": "The Befana came: the stockings held sweets and sugar coal.", "de": "Die Befana war da: In den Strümpfen waren Süßigkeiten und Zuckerkohle." },
+      "good": "carbone_dolce",
+      "words": "festa-epifania"
+    },
+    {
+      "id": "carnevale",
+      "emoji": "🎭",
+      "date": { "easter": -47 },
+      "name": { "it": "Carnevale", "sl": "Pust", "en": "Carnival", "de": "Fasching" },
+      "leaders": ["tommaso", "lorenzo", "giulia", "davide"],
+      "ask": { "it": "È Carnevale! Mettiti la maschera!", "sl": "Pust je! Nadeni si masko!", "en": "It's carnival! Put on your mask!", "de": "Es ist Fasching! Setz deine Maske auf!" },
+      "about": { "it": "A Carnevale i bambini si mascherano e lanciano i coriandoli. Si mangiano i crostoli.", "sl": "Za pust se otroci našemijo in mečejo konfete. Jemo krostole, italijanske flancate.", "en": "At carnival children dress up and throw confetti. People eat crostoli, thin fried pastry.", "de": "Im Fasching verkleiden sich die Kinder und werfen Konfetti. Man isst Crostoli, dünnes frittiertes Gebäck." },
+      "line": { "it": "Per il paese è passata la sfilata delle maschere, e tutti hanno mangiato i crostoli.", "sl": "Skozi vas je šla pustna povorka in vsi so jedli krostole.", "en": "The carnival parade went through the village, and everyone ate crostoli.", "de": "Der Faschingsumzug ist durchs Dorf gezogen, und alle haben Crostoli gegessen." },
+      "good": "crostoli",
+      "words": "festa-carnevale"
+    },
+    {
+      "id": "patria_friuli",
+      "emoji": "🦅",
+      "date": { "month": 4, "day": 3 },
+      "name": { "it": "Festa della Patria del Friuli", "sl": "Praznik furlanske domovine", "en": "Friuli's Day", "de": "Tag des Friauls" },
+      "leaders": ["bepi", "elena", "rosa"],
+      "ask": { "it": "Oggi è la festa del Friuli! Mandi a tutti!", "sl": "Danes je praznik Furlanije! Mandi vsem!", "en": "Today is Friuli's day! Mandi to everyone!", "de": "Heute ist der Tag des Friauls! Mandi an alle!" },
+      "about": { "it": "Il 3 aprile 1077 è nata la Patria del Friuli. La sua bandiera ha un'aquila d'oro su un fondo azzurro.", "sl": "3. aprila 1077 je nastala furlanska domovina, Patria del Friuli. Njena zastava ima zlatega orla na modri podlagi.", "en": "On 3 April 1077 the Patria del Friuli was born. Its flag has a golden eagle on a blue background.", "de": "Am 3. April 1077 entstand die Patria del Friuli. Ihre Fahne zeigt einen goldenen Adler auf blauem Grund." },
+      "line": { "it": "In piazza sventolava la bandiera con l'aquila d'oro, e tutti hanno detto «Mandi!».", "sl": "Na trgu je plapolala zastava z zlatim orlom in vsi so rekli »Mandi!«.", "en": "The flag with the golden eagle flew on the square, and everyone said “Mandi!”.", "de": "Auf dem Platz wehte die Fahne mit dem goldenen Adler, und alle sagten „Mandi!“." },
+      "good": "bandiera_friuli",
+      "words": "festa-patria-friuli"
+    },
+    {
+      "id": "pasqua",
+      "emoji": "🐣",
+      "date": { "easter": 0 },
+      "name": { "it": "Pasqua", "sl": "Velika noč", "en": "Easter", "de": "Ostern" },
+      "leaders": ["rosa", "nives"],
+      "ask": { "it": "Buona Pasqua! Coloriamo le uova insieme?", "sl": "Vesele velikonočne praznike! Barvava jajca?", "en": "Happy Easter! Shall we dye eggs together?", "de": "Frohe Ostern! Färben wir zusammen Eier?" },
+      "about": { "it": "A Pasqua si colorano le uova e si mangia la pinza, il pane dolce di Pasqua.", "sl": "Za veliko noč barvamo jajca in jemo pinco, sladek velikonočni kruh.", "en": "At Easter people dye eggs and eat pinza, the sweet Easter bread.", "de": "Zu Ostern färbt man Eier und isst Pinza, das süße Osterbrot." },
+      "line": { "it": "Le campane hanno suonato a festa, e sulla tavola c'era la pinza con le uova colorate.", "sl": "Zvonovi so praznično zvonili, na mizi pa je bila pinca s pisanimi jajci.", "en": "The bells rang for the feast, and on the table was the pinza with painted eggs.", "de": "Die Glocken läuteten zum Fest, und auf dem Tisch stand die Pinza mit den bunten Eiern." },
+      "good": "pinza",
+      "words": "festa-pasqua"
+    },
+    {
+      "id": "pasquetta",
+      "emoji": "🧺",
+      "date": { "easter": 1 },
+      "name": { "it": "Pasquetta", "sl": "Velikonočni ponedeljek", "en": "Easter Monday", "de": "Ostermontag" },
+      "leaders": ["davide", "matteo", "tommaso"],
+      "ask": { "it": "È Pasquetta! Andiamo a fare un picnic sul prato?", "sl": "Velikonočni ponedeljek je! Greva na piknik na travnik?", "en": "It's Easter Monday! Shall we go for a picnic in the meadow?", "de": "Es ist Ostermontag! Machen wir ein Picknick auf der Wiese?" },
+      "about": { "it": "A Pasquetta si va in gita e si mangia all'aperto. In Friuli c'è la frittata con le erbe di primavera.", "sl": "Na velikonočni ponedeljek gremo na izlet in jemo na prostem. V Furlaniji je na mizi frtalja s spomladanskimi zelišči.", "en": "On Easter Monday people go on an outing and eat outdoors. In Friuli there is a frittata with spring herbs.", "de": "Am Ostermontag macht man einen Ausflug und isst im Freien. Im Friaul gibt es eine Frittata mit Frühlingskräutern." },
+      "line": { "it": "Tutto il paese ha fatto un picnic sul prato, con la frittata alle erbe.", "sl": "Vsa vas je imela piknik na travniku, s frtaljo z zelišči.", "en": "The whole village had a picnic in the meadow, with a herb frittata.", "de": "Das ganze Dorf hat auf der Wiese gepicknickt, mit einer Kräuterfrittata." },
+      "good": "frittata",
+      "words": "festa-pasquetta"
+    },
+    {
+      "id": "liberazione",
+      "emoji": "🌷",
+      "date": { "month": 4, "day": 25 },
+      "name": { "it": "Festa della Liberazione", "sl": "Dan osvoboditve", "en": "Liberation Day", "de": "Tag der Befreiung" },
+      "leaders": ["bepi", "elena"],
+      "ask": { "it": "Oggi è festa: pace e libertà per tutti!", "sl": "Danes je praznik: mir in svoboda za vse!", "en": "Today is a holiday: peace and freedom for everyone!", "de": "Heute ist Feiertag: Frieden und Freiheit für alle!" },
+      "about": { "it": "Il 25 aprile in Italia si festeggiano la pace e la libertà. È primavera e ci sono fiori dappertutto.", "sl": "25. aprila v Italiji praznujejo mir in svobodo. Pomlad je in povsod so rože.", "en": "On 25 April Italy celebrates peace and freedom. It's spring and there are flowers everywhere.", "de": "Am 25. April feiert Italien Frieden und Freiheit. Es ist Frühling, und überall blühen Blumen." },
+      "line": { "it": "In piazza tutti hanno cantato insieme, e i bambini hanno portato i fiori.", "sl": "Na trgu so vsi skupaj peli, otroci pa so prinesli rože.", "en": "Everyone sang together on the square, and the children brought flowers.", "de": "Auf dem Platz haben alle zusammen gesungen, und die Kinder haben Blumen gebracht." },
+      "words": "festa-liberazione"
+    },
+    {
+      "id": "repubblica",
+      "emoji": "🇮🇹",
+      "date": { "month": 6, "day": 2 },
+      "name": { "it": "Festa della Repubblica", "sl": "Dan republike", "en": "Republic Day", "de": "Tag der Republik" },
+      "leaders": ["elena", "bepi", "marisa"],
+      "ask": { "it": "Viva la Repubblica! Guarda le Frecce Tricolori in cielo!", "sl": "Živela republika! Poglej letala Frecce Tricolori na nebu!", "en": "Long live the Republic! Look at the Frecce Tricolori in the sky!", "de": "Es lebe die Republik! Schau, die Frecce Tricolori am Himmel!" },
+      "about": { "it": "Il 2 giugno 1946 l'Italia è diventata una Repubblica. La bandiera è verde, bianca e rossa.", "sl": "2. junija 1946 je Italija postala republika. Zastava je zelena, bela in rdeča.", "en": "On 2 June 1946 Italy became a republic. The flag is green, white and red.", "de": "Am 2. Juni 1946 wurde Italien eine Republik. Die Fahne ist grün, weiß und rot." },
+      "line": { "it": "Le Frecce Tricolori sono passate sopra il paese e hanno colorato il cielo di verde, bianco e rosso.", "sl": "Nad vasjo so preletela letala Frecce Tricolori in nebo pobarvala zeleno, belo in rdeče.", "en": "The Frecce Tricolori flew over the village and painted the sky green, white and red.", "de": "Die Frecce Tricolori flogen über das Dorf und malten den Himmel grün, weiß und rot." },
+      "good": "tricolore",
+      "words": "festa-repubblica"
+    },
+    {
+      "id": "ferragosto",
+      "emoji": "☀️",
+      "date": { "month": 8, "day": 15 },
+      "name": { "it": "Ferragosto", "sl": "Veliki šmaren", "en": "Ferragosto", "de": "Ferragosto" },
+      "leaders": ["marisa", "matteo", "tommaso"],
+      "ask": { "it": "È Ferragosto! Andiamo al mare a Grado?", "sl": "Veliki šmaren je! Greva na morje v Gradež?", "en": "It's Ferragosto! Shall we go to the sea at Grado?", "de": "Es ist Ferragosto! Fahren wir ans Meer nach Grado?" },
+      "about": { "it": "Il 15 agosto fa caldo: si va al mare o si fa un picnic, e si mangia l'anguria.", "sl": "15. avgusta je vroče: gremo na morje ali na piknik in jemo lubenico.", "en": "On 15 August it's hot: people go to the sea or have a picnic, and eat watermelon.", "de": "Am 15. August ist es heiß: Man fährt ans Meer oder macht ein Picknick und isst Wassermelone." },
+      "line": { "it": "Faceva caldo, e sotto il tiglio tutti hanno mangiato l'anguria fresca.", "sl": "Bilo je vroče in pod lipo so vsi jedli svežo lubenico.", "en": "It was hot, and under the linden everyone ate cool watermelon.", "de": "Es war heiß, und unter der Linde haben alle kühle Wassermelone gegessen." },
+      "good": "anguria",
+      "words": "festa-ferragosto"
+    },
+    {
+      "id": "vendemmia",
+      "emoji": "🍇",
+      "date": { "month": 9, "last": "saturday" },
+      "name": { "it": "Vendemmia", "sl": "Trgatev", "en": "The grape harvest", "de": "Die Weinlese" },
+      "leaders": ["matteo", "marisa", "franco"],
+      "ask": { "it": "È la vendemmia! Prendi le forbici e il cesto!", "sl": "Trgatev je! Vzemi škarje in košaro!", "en": "It's the grape harvest! Take the secateurs and a basket!", "de": "Es ist Weinlese! Nimm die Rebschere und den Korb!" },
+      "about": { "it": "A settembre nel Collio tutti raccolgono l'uva.", "sl": "Septembra v Brdih vsi trgajo grozdje.", "en": "In September everyone in the Collio picks grapes.", "de": "Im September lesen im Collio alle Trauben." },
+      "line": { "it": "Vendemmia: i cesti erano pieni d'uva.", "sl": "Trgatev: košare so bile polne grozdja.", "en": "The grape harvest: the baskets were full of grapes.", "de": "Die Weinlese: Die Körbe waren voller Trauben." },
+      "good": "uva",
+      "words": "festa-vendemmia"
+    },
+    {
+      "id": "san_martino",
+      "emoji": "🌰",
+      "date": { "month": 11, "day": 11 },
+      "name": { "it": "San Martino", "sl": "Martinovo", "en": "St Martin's Day", "de": "Martinstag" },
+      "leaders": ["matteo", "marisa", "bepi"],
+      "ask": { "it": "È San Martino! Arrostiamo le castagne?", "sl": "Martinovo je! Pečeva kostanj?", "en": "It's St Martin's Day! Shall we roast chestnuts?", "de": "Es ist Martinstag! Rösten wir Kastanien?" },
+      "about": { "it": "A San Martino si mangiano le castagne arrosto. I grandi assaggiano il vino nuovo.", "sl": "Na Martinovo jemo pečen kostanj. Odrasli pokusijo mlado vino.", "en": "On St Martin's Day people eat roast chestnuts. The grown-ups taste the new wine.", "de": "Am Martinstag isst man geröstete Kastanien. Die Großen probieren den neuen Wein." },
+      "line": { "it": "Sul fuoco scoppiettavano le castagne, e tutto il paese era in festa.", "sl": "Na ognju je prasketal kostanj in vsa vas je praznovala.", "en": "Chestnuts crackled on the fire, and the whole village celebrated.", "de": "Auf dem Feuer knackten die Kastanien, und das ganze Dorf feierte." },
+      "good": "castagne",
+      "words": "festa-san-martino"
+    },
+    {
+      "id": "san_nicolo",
+      "emoji": "🎅",
+      "date": { "month": 12, "day": 6 },
+      "name": { "it": "San Nicolò", "sl": "Miklavž", "en": "St Nicholas", "de": "Nikolaus" },
+      "leaders": ["bepi", "rosa"],
+      "ask": { "it": "È passato San Nicolò! Sei stato bravo?", "sl": "Miklavž je bil pri nas! Si bil priden?", "en": "St Nicholas has been here! Have you been good?", "de": "San Nicolò war da! Warst du brav?" },
+      "about": { "it": "A Gorizia e a Trieste San Nicolò porta i regali ai bambini buoni, come Miklavž dall'altra parte del confine.", "sl": "V Gorici in Trstu San Nicolò prinese darila pridnim otrokom, tako kot Miklavž na drugi strani meje.", "en": "In Gorizia and Trieste St Nicholas brings presents to good children, like Miklavž across the border.", "de": "In Görz und Triest bringt San Nicolò den braven Kindern Geschenke, wie Miklavž auf der anderen Seite der Grenze." },
+      "line": { "it": "Di notte è arrivato San Nicolò e ha lasciato ai bambini mandarini e regali.", "sl": "Ponoči je prišel San Nicolò in otrokom pustil mandarine in darila.", "en": "At night St Nicholas came and left the children mandarins and presents.", "de": "In der Nacht kam San Nicolò und ließ den Kindern Mandarinen und Geschenke da." },
+      "good": "mandarini",
+      "words": "festa-san-nicolo"
+    },
+    {
+      "id": "natale",
+      "emoji": "🎄",
+      "date": { "month": 12, "day": 25 },
+      "name": { "it": "Natale", "sl": "Božič", "en": "Christmas", "de": "Weihnachten" },
+      "leaders": ["rosa", "nives", "bepi"],
+      "ask": { "it": "Buon Natale! Mi aiuti a fare il presepe?", "sl": "Vesel božič! Mi pomagaš postaviti jaslice?", "en": "Merry Christmas! Will you help me set up the nativity scene?", "de": "Frohe Weihnachten! Hilfst du mir, die Krippe aufzustellen?" },
+      "about": { "it": "A Natale si fanno il presepe e l'albero, e si mangia il panettone.", "sl": "Za božič postavimo jaslice in smrečico ter jemo panettone, italijanski božični kolač.", "en": "At Christmas people set up a nativity scene and a tree, and eat panettone, the Italian Christmas cake.", "de": "Zu Weihnachten stellt man eine Krippe und einen Baum auf und isst Panettone, den italienischen Weihnachtskuchen." },
+      "line": { "it": "In paese hanno fatto il presepe e hanno mangiato il panettone.", "sl": "V vasi so postavili jaslice in jedli panettone.", "en": "The village set up a nativity scene and ate panettone.", "de": "Im Dorf haben sie eine Krippe aufgestellt und Panettone gegessen." },
+      "good": "panettone",
+      "words": "festa-natale"
+    },
+    {
+      "id": "santo_stefano",
+      "emoji": "⭐",
+      "date": { "month": 12, "day": 26 },
+      "name": { "it": "Santo Stefano", "sl": "Štefanovo", "en": "St Stephen's Day", "de": "Stephanstag" },
+      "leaders": ["marisa", "nives", "tommaso"],
+      "ask": { "it": "È Santo Stefano! Andiamo a trovare i parenti?", "sl": "Štefanovo je! Greva na obisk k sorodnikom?", "en": "It's St Stephen's Day! Shall we go and visit the relatives?", "de": "Es ist Stephanstag! Besuchen wir die Verwandten?" },
+      "about": { "it": "Il giorno dopo Natale si va a trovare parenti e amici, e si gioca con i regali nuovi.", "sl": "Dan po božiču obiščemo sorodnike in prijatelje ter se igramo z novimi darili.", "en": "The day after Christmas people visit relatives and friends and play with their new presents.", "de": "Am Tag nach Weihnachten besucht man Verwandte und Freunde und spielt mit den neuen Geschenken." },
+      "line": { "it": "Tutti sono andati a trovare i vicini, con un pezzo di torrone per ognuno.", "sl": "Vsi so šli na obisk k sosedom, s kosom nugata za vsakega.", "en": "Everyone went to visit the neighbours, with a piece of torrone for each.", "de": "Alle haben die Nachbarn besucht, mit einem Stück Torrone für jeden." },
+      "good": "torrone",
+      "words": "festa-santo-stefano"
+    }
+  ],
+  "lines": {
+    "tag": { "it": "Le parole della festa", "sl": "Besede praznika", "en": "The festival's words", "de": "Die Wörter des Festes" },
+    "means": { "it": "Che cosa vuol dire «{word}»?", "sl": "Kaj pomeni »{word}«?", "en": "What does “{word}” mean?", "de": "Was bedeutet „{word}“?" },
+    "say": { "it": "Come si dice in italiano «{meaning}»?", "sl": "Kako se po italijansko reče »{meaning}«?", "en": "How do you say “{meaning}” in Italian?", "de": "Wie sagt man „{meaning}“ auf Italienisch?" },
+    "tried": { "it": "Non fa niente, la festa è bella lo stesso", "sl": "Nič hudega, praznik je še vedno lep", "en": "Never mind, it's still a lovely day", "de": "Macht nichts, es ist trotzdem ein schöner Tag" }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "essere-avere",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🥶",
+  "title": {
+    "it": "Essere e avere: sono stanco, ho freddo",
+    "sl": "Essere in avere: biti in imeti",
+    "en": "Essere and avere: to be and to have",
+    "de": "Essere und avere: sein und haben"
+  },
+  "rule": {
+    "en": "**Essere** (to be) and **avere** (to have) are irregular; learn them by heart: **sono, sei, è, siamo, siete, sono** and **ho, hai, ha, abbiamo, avete, hanno**. The **h** is never spoken: it only tells **ho** (I have) from **o** (or) and **ha** (has) from **a** (to).\n\nThe pronoun is usually left out, since the verb says who: **Sono stanco.** (I'm tired.) **Sono** is both *I am* and *they are*.\n\nWhere English says *to be*, Italian often says *to have*: **Ho nove anni.** (I'm nine.) **Ho fame, ho sete, ho freddo, ho caldo, ho paura, ho sonno** (I'm hungry, thirsty, cold, hot, scared, sleepy).\n\nSo a person **ha freddo**: *sono freddo* would mean you are cold to the touch, or unfriendly. A thing is cold with essere: **L'acqua è fredda.** The weather takes **fare**: **Fa freddo.** (It's cold.)",
+    "sl": "**Essere** (biti) in **avere** (imeti) sta nepravilna; nauči se ju na pamet: **sono, sei, è, siamo, siete, sono** in **ho, hai, ha, abbiamo, avete, hanno**. Črke **h** nikoli ne izgovoriš: samo loči **ho** (imam) od **o** (ali) in **ha** (ima) od **a** (v, na, k).\n\nOsebni zaimek se navadno izpusti, kot v slovenščini: **Sono stanco.** (Utrujen sem.) **Sono** pomeni *sem* in *so*.\n\nKjer slovenščina reče *biti* ali *zebe me*, italijanščina pogosto reče *imeti*: **Ho nove anni.** (Star sem devet let.) **Ho fame** (lačen sem), **ho sete** (žejen sem), **ho freddo** (zebe me), **ho caldo** (vroče mi je), **ho paura** (strah me je), **ho sonno** (zaspan sem).\n\nČlovek torej **ha freddo**: *sono freddo* bi pomenilo, da si mrzel na otip ali neprijazen. Stvar je mrzla z essere: **L'acqua è fredda.** (Voda je mrzla.) Za vreme se reče **fa**: **Fa freddo.** (Mrzlo je.)",
+    "de": "**Essere** (sein) und **avere** (haben) sind unregelmäßig; lerne sie auswendig: **sono, sei, è, siamo, siete, sono** und **ho, hai, ha, abbiamo, avete, hanno**. Das **h** wird nie gesprochen: Es unterscheidet nur **ho** (ich habe) von **o** (oder) und **ha** (hat) von **a** (nach, zu).\n\nDas Pronomen fällt meist weg, das Verb sagt schon, wer: **Sono stanco.** (Ich bin müde.) **Sono** heißt *ich bin* und *sie sind*.\n\nWie im Deutschen heißt es **ho fame** (ich habe Hunger), **ho sete** (Durst), **ho paura** (Angst). Aber auch: **Ho nove anni.** (Ich bin neun Jahre alt.) **Ho freddo** (mir ist kalt), **ho caldo** (mir ist heiß), **ho sonno** (ich bin schläfrig).\n\nEin Mensch **ha freddo**: *sono freddo* hieße, man fühlt sich kalt an oder ist unfreundlich. Eine Sache ist kalt mit essere: **L'acqua è fredda.** (Das Wasser ist kalt.) Beim Wetter sagt man **fa**: **Fa freddo.** (Es ist kalt.)"
+  },
+  "table": {
+    "head": [
+      { "it": "persona", "sl": "oseba", "en": "who", "de": "wer" },
+      { "it": "essere", "sl": "essere (biti)", "en": "essere (to be)", "de": "essere (sein)" },
+      { "it": "avere", "sl": "avere (imeti)", "en": "avere (to have)", "de": "avere (haben)" }
+    ],
+    "rows": [
+      ["io", "sono", "ho"],
+      ["tu", "sei", "hai"],
+      ["lui, lei, Lei", "è", "ha"],
+      ["noi", "siamo", "abbiamo"],
+      ["voi", "siete", "avete"],
+      ["loro", "sono", "hanno"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Ho nove anni.",
+      "sl": "Star sem devet let.",
+      "en": "I'm nine years old.",
+      "de": "Ich bin neun Jahre alt.",
+      "note": {
+        "sl": "Starost z avere: ho nove anni (dobesedno: imam devet let).",
+        "en": "Age takes avere: ho nove anni (literally: I have nine years).",
+        "de": "Das Alter mit avere: ho nove anni (wörtlich: ich habe neun Jahre)."
+      }
+    },
+    {
+      "it": "Hai fame, Lorenzo?",
+      "sl": "Si lačen, Lorenzo?",
+      "en": "Are you hungry, Lorenzo?",
+      "de": "Hast du Hunger, Lorenzo?"
+    },
+    {
+      "it": "Ho freddo. Andiamo vicino al fuoco!",
+      "sl": "Zebe me. Pojdimo k ognju!",
+      "en": "I'm cold. Let's go near the fire!",
+      "de": "Mir ist kalt. Gehen wir zum Feuer!",
+      "note": {
+        "sl": "ho freddo (zebe me), nikoli sono freddo.",
+        "en": "ho freddo (I feel cold), never sono freddo.",
+        "de": "ho freddo (mir ist kalt), nie sono freddo."
+      }
+    },
+    {
+      "it": "Giulia è stanca e ha sonno.",
+      "sl": "Giulia je utrujena in zaspana.",
+      "en": "Giulia is tired and sleepy.",
+      "de": "Giulia ist müde und schläfrig."
+    },
+    {
+      "it": "Siamo nel Collio, vicino a Gorizia.",
+      "sl": "Smo v Brdih, blizu Gorice.",
+      "en": "We are in the Collio, near Gorizia.",
+      "de": "Wir sind im Collio, in der Nähe von Gorizia."
+    },
+    {
+      "it": "Le pecore hanno sete.",
+      "sl": "Ovce so žejne.",
+      "en": "The sheep are thirsty.",
+      "de": "Die Schafe haben Durst."
+    },
+    {
+      "it": "Il tè è caldo.",
+      "sl": "Čaj je vroč.",
+      "en": "The tea is hot.",
+      "de": "Der Tee ist heiß.",
+      "note": {
+        "sl": "Stvar je vroča: essere. Človeku je vroče: ho caldo.",
+        "en": "A thing is hot: essere. A person feels hot: ho caldo.",
+        "de": "Eine Sache ist heiß: essere. Einem Menschen ist heiß: ho caldo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["essere", "avere", "to_be", "to_have", "ho_freddo", "age", "copula"],
+  "see": ["presente-regolare", "verbi-irregolari", "ce-ci-sono"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

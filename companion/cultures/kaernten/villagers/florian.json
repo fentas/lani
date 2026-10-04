@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "florian",
+  "name": "Hirte Florian",
+  "emoji": "🐑",
+  "art": "shepherd",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": {"de": "Hirte", "sl": "Pastir", "en": "Shepherd", "it": "Pastore"},
+  "home": ["spot:meadow", "tent"],
+  "register": "ti",
+  "skill": "wood",
+  "order": 2,
+  "routine": {
+    "up": "5:00", "bed": "21:50",
+    "rituals": [
+      { "id": "schafe", "at": "21:25", "until": "21:45", "to": "spot:meadow", "doing": "tend", "title": {"de": "Florian schaut nach den Schafen im Pferch", "sl": "Florian pogleda ovce v staji", "en": "Florian checks the sheep in the fold", "it": "Florian controlla le pecore nell'ovile"} }
+    ]
+  },
+  "personality": "Young shepherd, twenty-two, from a farm below the Dobratsch. Cheerful, a little absent-minded, yodels across the valley ('Juhuu!'), talks to his sheep by name (Flocke, Wolke, Bella). Short sentences, lots of 'he!' and 'weißt du?'; says du to the learner at once and likes it back. Speaks simple, bright Austrian German. Loves the Alm and the wind from the mountains; hates fog, because the sheep get lost in it. Rides a Noriker horse at the Kufenstechen.",
+  "story": "Florian grazes the village's sheep on the meadow below the wood and takes them up to the Alm on the Dobratsch in summer, where you can see the Gailtal, Villach and the Karawanken. Flocke, the little white lamb, keeps getting lost, and every dog in the valley knows his whistle. At the Kufenstechen he rides a Noriker horse, and his dream is an Almhütte of his own.",
+  "likes": [
+    {"de": "die Schafe", "sl": "ovce", "en": "his sheep", "it": "le pecore"},
+    {"de": "die Alm", "sl": "planina", "en": "the Alm (the mountain pasture)", "it": "l'alpeggio"},
+    {"de": "der Almabtrieb", "sl": "gonja živine s planine", "en": "the Almabtrieb (bringing the herds down in autumn)", "it": "la transumanza d'autunno"},
+    {"de": "der Speck", "sl": "špeh (ziljski špeh)", "en": "Speck (Gailtal cured bacon)", "it": "lo speck (della Gailtal)"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "He, servus! Bist du neu hier?", "sl": "Ej, živjo! Si nov tukaj?", "en": "Hey, hi! Are you new here?", "it": "Ehi, ciao! Sei nuovo qui?", "level": 0 },
+      { "de": "Servus! Ich bin Florian, der Hirte.", "sl": "Živjo! Florian sem, pastir.", "en": "Hi! I'm Florian, the shepherd.", "it": "Ciao! Sono Florian, il pastore.", "level": 0 },
+      { "de": "He, servus! Wie geht's dir?", "sl": "Ej, živjo! Kako si?", "en": "Hey, hi! How are you?", "it": "Ehi, ciao! Come stai?", "level": 1 },
+      { "de": "Da bist du! Hast du Flocke gesehen?", "sl": "Tu si! Si videl Flocke?", "en": "There you are! Have you seen Flocke?", "it": "Eccoti! Hai visto Flocke?", "level": 2 },
+      { "de": "He, schön, dass du da bist! Komm, die Schafe kennen dich schon.", "sl": "Ej, lepo, da si tu! Pridi, ovce te že poznajo.", "en": "Hey, good to see you! Come, the sheep know you already.", "it": "Ehi, che bello che sei qui! Vieni, le pecore ti conoscono già.", "level": 3 },
+      { "de": "Juhuu! Heute gehen wir zusammen auf die Alm, ja?", "sl": "Juhu! Danes greva skupaj na planino, ja?", "en": "Yoo-hoo! Today we go up to the Alm together, yes?", "it": "Iuhuu! Oggi saliamo insieme all'alpeggio, sì?", "level": 4, "when": ["morning", "afternoon"] }
+    ],
+    "thanks": [
+      { "de": "Danke, du hast mir sehr geholfen!", "sl": "Hvala, res si mi pomagal!", "en": "Thanks, you really helped me!", "it": "Grazie, mi hai aiutato tanto!" },
+      { "de": "He, danke! Flocke ist wieder da, dank dir.", "sl": "Ej, hvala! Flocke je spet tu, po tvoji zaslugi.", "en": "Hey, thanks! Flocke is back, thanks to you.", "it": "Ehi, grazie! Flocke è tornata grazie a te." },
+      { "de": "Du bist super! Danke!", "sl": "Super si! Hvala!", "en": "You're great! Thanks!", "it": "Sei grande! Grazie!" }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "He, weißt du was? Ich denke noch an {memory}!", "sl": "Ej, veš kaj? Še vedno mislim na {memory}!", "en": "Hey, you know what? I still think of {memory}!", "it": "Ehi, sai? Ricordo ancora {memory}!", "level": 2 },
+      { "de": "Allein auf der Alm denke ich an {memory}.", "sl": "Ko sem sam na planini, mislim na {memory}.", "en": "When I'm alone on the Alm, I think of {memory}.", "it": "Quando sono solo all'alpeggio, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Flocke ist schon wieder im Wald.", "sl": "Flocke je spet v gozdu.", "en": "Flocke is in the wood again.", "it": "Flocke è di nuovo nel bosco." },
+      { "de": "Hörst du die Glocken? Da sind sie, hinter den Bäumen.", "sl": "Slišiš zvonce? Tam so, za drevesi.", "en": "Can you hear the bells? They're over there, behind the trees.", "it": "Senti i campanacci? Sono là, dietro gli alberi." },
+      { "de": "Vom Dobratsch sieht man bis nach Slowenien. Wunderschön!", "sl": "Z Dobrača se vidi vse do Slovenije. Čudovito!", "en": "From the Dobratsch you can see all the way to Slovenia. Beautiful!", "it": "Dal Dobratsch si vede fino alla Slovenia. Bellissimo!" },
+      { "de": "Nebel, Nebel. Ich mag keinen Nebel.", "sl": "Megla, megla. Ne maram megle.", "en": "Fog, fog. I don't like fog.", "it": "Nebbia, nebbia. Non mi piace la nebbia." }
+    ],
+    "cheer": [
+      { "de": "Super!", "sl": "Bravo!", "en": "Well done!", "it": "Bravo!" },
+      { "de": "Genau!", "sl": "Točno tako!", "en": "Exactly!", "it": "Esatto!" },
+      { "de": "He, so geht das!", "sl": "Ej, tako se to dela!", "en": "Hey, that's how it's done!", "it": "Ehi, così si fa!" },
+      { "de": "Juhuu! Weiter so!", "sl": "Juhu! Kar tako naprej!", "en": "Yoo-hoo! Keep it up!", "it": "Iuhuu! Continua così!" }
+    ],
+    "comfort": [
+      { "de": "Macht nichts. Noch einmal!", "sl": "Nič hudega. Še enkrat!", "en": "Never mind. Once more!", "it": "Non fa niente. Ancora una volta!" },
+      { "de": "Keine Sorge! Auch Flocke verläuft sich.", "sl": "Brez skrbi! Tudi Flocke se izgubi.", "en": "Don't worry! Flocke gets lost too.", "it": "Tranquillo! Anche Flocke si perde." },
+      { "de": "Fast! Probier's noch einmal.", "sl": "Skoraj! Poskusi še enkrat.", "en": "Almost! Try again.", "it": "Quasi! Riprova." }
+    ],
+    "listen": [
+      { "de": "Hör zu …", "sl": "Poslušaj …", "en": "Listen …", "it": "Ascolta …" },
+      { "de": "Pst. Hörst du?", "sl": "Pst. Slišiš?", "en": "Shh. Can you hear?", "it": "Shh. Senti?" },
+      { "de": "Ohren auf! Hör zu.", "sl": "Odpri ušesa! Poslušaj.", "en": "Open your ears! Listen.", "it": "Apri bene le orecchie! Ascolta." }
+    ],
+    "bye": [
+      { "de": "Servus!", "sl": "Adijo!", "en": "Bye!", "it": "Ciao!" },
+      { "de": "Pfiat di! Ich gehe zu den Schafen.", "sl": "Pfiat di! Grem k ovcam. (pfiat di: avstrijski pozdrav, adijo)", "en": "Pfiat di! I'm off to the sheep. (pfiat di: Austrian for bye)", "it": "Pfiat di! Vado dalle pecore. (pfiat di: saluto austriaco, ciao)" },
+      { "de": "Bis bald! Pass auf den Nebel auf.", "sl": "Se vidiva! Pazi na meglo.", "en": "See you! Watch out for the fog.", "it": "Ci vediamo! Attento alla nebbia." }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "He! Woher weißt du das? Das mag ich so gern!", "sl": "Ej! Kako si vedel? Zelo mi je všeč!", "en": "Hey! How did you know? I like it so much!", "it": "Ehi! Come lo sapevi? Mi piace tantissimo!" },
+        { "de": "Für mich? Super! Flocke, schau, was ich bekommen habe!", "sl": "Zame? Super! Flocke, poglej, kaj sem dobil!", "en": "For me? Great! Flocke, look what I got!", "it": "Per me? Grande! Flocke, guarda cosa mi hanno dato!" },
+        { "de": "He, danke! Genau das brauche ich auf der Alm.", "sl": "Ej, hvala! Točno to potrebujem na planini.", "en": "Hey, thanks! Just what I need up on the Alm.", "it": "Ehi, grazie! Proprio quello che mi serve all'alpeggio." }
+      ],
+      "ordinary": [
+        { "de": "He, danke! Das ist lieb von dir.", "sl": "Ej, hvala! Lepo od tebe.", "en": "Hey, thanks! That's kind of you.", "it": "Ehi, grazie! Sei gentile." },
+        { "de": "Oh, danke! Das war nicht nötig, weißt du?", "sl": "O, hvala! Ni bilo treba, veš?", "en": "Oh, thanks! You didn't have to, you know?", "it": "Oh, grazie! Non dovevi, sai?" }
+      ],
+      "rare": [
+        { "de": "He, he, he! So etwas hatte ich noch nie! Danke, du!", "sl": "Ej, ej, ej! Tega pa še nisem imel! Hvala ti!", "en": "Hey, hey, hey! I've never had this! Thank you!", "it": "Ehi, ehi! Questo non l'ho mai avuto! Grazie!" }
+      ]
+    }
+  }
+}

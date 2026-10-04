@@ -1,0 +1,285 @@
+#!/usr/bin/env bun
+// Voice prebuild: counts the texts in villagers, packs, modules, scenarios, scenes, the keepers' talks (the culture's
+// spots: the charcoal burner's meeting and his story), the storyteller's stories and the car's drills (Slovene, or the
+// language of the learner's culture pack, LANI_CULTURE, with its own voice cast), what is voiced, what is missing and
+// the ElevenLabs quota left. With --run, generates the missing clips in priority order (villager lines in their
+// speakers' voices, pack words, examples, modules, scenarios, the stories' tellings at A1, the drills at A1, scenes and
+// the keepers' talks, then the tellings at A2, the drills above A1, the tellings at B1 and up; a telling and a
+// riddle in the teller's voice, their own designed one where it is ready ("@janez": ElevenLabs only), a drill's other
+// texts in the narrator's: the car plays a story or a drill's item only when its clips exist):
+// ElevenLabs down to the reserve, then the local worker (not for a villager line whose narrator clip
+// exists: the app plays that one until ElevenLabs makes theirs).
+//
+// A narrator says a short text (1–3 words) inside a carrier sentence, which is cut out (README, "Voice"); the plan shows
+// how many narrator words are still old-style (said plainly, before that) and what re-voicing them all costs.
+//
+// Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]
+//        companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]
+//   --upgrade        also replace local (Gepard) clips with ElevenLabs ones while the quota lasts
+//   --revoice S      make every clip of speaker S again with ElevenLabs (after swapping its voice in companion/voice-cast.json)
+//   --max-chars N    spend at most N ElevenLabs characters in this run
+//   --revoice-words  only the old-style short narrator words again, in their carrier sentence, most asked for first,
+//                    at most --max N of them, within the reserve (the bridge does this lazily, a few a day)
+//   --denoise        the clips of the voices the cast marks "denoise" (a voice that hisses) through their filter, those
+//                    not filtered yet (the bridge filters new ones as it stores them), at most --max N; each under a new
+//                    file name, the old file removed once the new one is recorded. Levelled in the same encode.
+//   --level          every clip not at the level yet (one loudness, LEVEL in bridge/src/voice.ts: −18 LUFS, true peak
+//                    at most −1.5 dBTP; the bridge levels new clips as it stores them), oldest first, at most --max N.
+//                    The dry run measures them and shows each voice's loudness before and the gain. A clip is levelled
+//                    once: its row records the target (level) and the gain; after a change of the target, --level
+//                    levels the clips again from their files as they are (one more encode; a clip within 0.5 dB of the
+//                    target keeps its file). A clip whose voice's filter is due is filtered in the same encode. Each
+//                    under a new file name, the old file removed once the new one is recorded; a running bridge tells
+//                    the app within a minute (voice_updated).
+//                    --denoise and --level use ffmpeg only: no ElevenLabs, no characters.
+//   --data DIR       the learner data directory, as LANI_DATA_DIR (a copy; another learner's profiles/<id>/data with
+//                    their LANI_CULTURE)
+// Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
+import '../bridge/src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
+import { existsSync, readFileSync, statSync } from 'node:fs'
+import { join, resolve } from 'node:path'
+import { cast, castVoiced, denoiseVoices, isSpeaker, personVoice, useCastFile, usePersonVoices } from '../bridge/src/cast'
+import { ownVoicesIn } from '../bridge/src/profiles'
+import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
+import { DrillStore, drillsDir } from '../bridge/src/drills'
+import { ModuleStore } from '../bridge/src/store'
+import { PackStore, packsDirs } from '../bridge/src/packs'
+import { ScenarioStore } from '../bridge/src/scenarios'
+import { SceneStore, scenesDirs } from '../bridge/src/scenes'
+import { StoryStore, storiesDirs } from '../bridge/src/stories'
+import { VillagerStore } from '../bridge/src/villagers'
+import { cardTexts, corpus, enginesFromEnv, ffmpegDenoiser, ffmpegLeveller, ffmpegLoudness, FILE, LEVEL, levelGain, LIMIT_MARGIN, VoiceStore, type Loudness } from '../bridge/src/voice'
+import { formatPlan, plan, run } from '../bridge/src/prebuild'
+import { keysFile } from '../bridge/src/env'
+
+const root = resolve(import.meta.dir, '../..')
+// the learner's village's culture pack (LANI_CULTURE, as their bridge has it; primorska by default): its language,
+// its cast, its voice cast, its packs and its own scenes
+const cultures = process.env.LANI_CULTURES_DIR ?? join(root, 'companion/cultures')
+const village = resolveCulture(cultures, process.env.LANI_CULTURE)
+const culture = village.id
+const language = village.manifest?.language ?? 'sl'
+// the curated content of the village's language (a subdirectory for another than Slovene, as the bridge has it)
+const ofLanguage = (dir: string) => (language === 'sl' ? dir : join(dir, language))
+const castFile = join(cultureDir(cultures, culture), 'voice-cast.json')
+if (existsSync(castFile)) useCastFile(castFile)
+
+const args = process.argv.slice(2)
+const flag = (f: string) => args.includes(f)
+const maxAt = args.indexOf('--max-chars')
+const maxChars = maxAt >= 0 ? Number(args[maxAt + 1]) : undefined
+const revAt = args.indexOf('--revoice')
+const revoice = revAt >= 0 ? (args[revAt + 1] ?? '').split(',').filter(Boolean) : []
+const unknown = revoice.filter(s => !isSpeaker(s))
+const revoiceWords = flag('--revoice-words')
+const denoise = flag('--denoise')
+const level = flag('--level')
+const maxAt2 = args.indexOf('--max')
+const max = maxAt2 >= 0 ? Number(args[maxAt2 + 1]) : undefined
+const badMax = max !== undefined && !(Number.isInteger(max) && max >= 0)
+const dataAt = args.indexOf('--data')
+const data = dataAt >= 0 ? args[dataAt + 1] : undefined
+const badData = dataAt >= 0 && !(data && existsSync(data) && statSync(data).isDirectory())
+const modes = [revoiceWords, denoise, level, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
+if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || (maxAt2 >= 0 && !revoiceWords && !denoise && !level) || modes > 1 || ((denoise || level) && maxAt >= 0)) {
+  if (unknown.length) console.error(`not in the voice cast: ${unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
+  if (badData) console.error(`--data: no directory ${data ?? ''}`)
+  console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]')
+  process.exit(flag('--help') || flag('-h') ? 0 : 2)
+}
+// the data directory the clips are in (ensure_data_dir.py reads LANI_DATA_DIR)
+if (data) process.env.LANI_DATA_DIR = resolve(data)
+
+// The key file holds KEY=value lines; only what isn't already in the environment is taken.
+const keys = keysFile()
+if (existsSync(keys)) {
+  for (const line of readFileSync(keys, 'utf8').split('\n')) {
+    const m = /^\s*(?:export\s+)?([A-Z_][A-Z0-9_]*)\s*=\s*(.*?)\s*$/.exec(line)
+    if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, '$2')
+  }
+}
+
+const p = Bun.spawnSync(['python3', '.claude/hooks/ensure_data_dir.py'], { cwd: root, env: { ...process.env, CLAUDE_PROJECT_DIR: root } })
+if (p.exitCode !== 0) throw new Error(`ensure_data_dir.py failed: ${p.stderr.toString()}`)
+const appDir = join(p.stdout.toString().trim(), 'app')
+
+const log = (...a: unknown[]) => console.error('[voice-build]', ...a)
+
+if (denoise) {
+  // the clips of the voices that hiss, through their filter: ffmpeg only, the corpus and the engines aren't needed
+  const store = new VoiceStore({ appDir, engines: [], log, readonly: !flag('--run') })
+  const voices = denoiseVoices()
+  const queue = store.denoiseQueue()
+  const summary = { voices, waiting: queue.length, stats: store.denoiseStats(), dir: store.dir }
+  if (!flag('--run')) {
+    if (flag('--json')) console.log(JSON.stringify({ ...summary, clips: queue.slice(0, max).map(c => ({ key: c.key, voice: c.voice, file: c.file, preset: c.preset, text: c.text })) }, null, 2))
+    else {
+      console.log(`Voices filtered (the cast's "denoise"): ${Object.entries(voices).map(([v, p]) => `${v} (${p})`).join(', ') || 'none'}`)
+      console.log(`Clips in ${store.dir} waiting for their filter: ${queue.length}${max !== undefined && max < queue.length ? `; this run: ${max}` : ''}`)
+      for (const c of queue.slice(0, max)) console.log(`  ${c.preset.padEnd(11)} ${c.voice.padEnd(10)} ${c.file}  ${c.text.length > 64 ? `${c.text.slice(0, 63)}…` : c.text}`)
+      console.log(`\nDry run: nothing changed. Each would be filtered with ffmpeg${summary.stats.ffmpeg ? '' : ' (not found here: LANI_FFMPEG)'} and brought to the level in the same encode, and stored under a new file name, the old file removed once the new one is recorded.`)
+      console.log(`Filter with: companion/bin/voice-build --denoise --run${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`)
+    }
+    process.exit(0)
+  }
+  if (!ffmpegDenoiser()) {
+    console.error('voice-build --denoise: no ffmpeg (LANI_FFMPEG names one)')
+    process.exit(1)
+  }
+  console.log(`Filtering ${max !== undefined ? Math.min(max, queue.length) : queue.length} of ${queue.length} clip(s) …`)
+  const r = await store.denoiseClips({ max, out: line => console.log(line) })
+  console.log(`\nFiltered ${r.done} clip(s)${r.skipped ? `; ${r.skipped} skipped (no file, or made again meanwhile)` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} waiting.`)
+  if (r.done) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(r.failed ? 1 : 0)
+}
+if (level) {
+  // every clip at one loudness: ffmpeg only, the corpus and the engines aren't needed
+  const store = new VoiceStore({ appDir, engines: [], log, readonly: !flag('--run') })
+  const queue = store.levelQueue()
+  const target = store.levelTarget
+  const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
+  if (!flag('--run')) {
+    // each clip measured as it would be levelled (through its voice's filter when that is due): nothing is written
+    const measure = ffmpegLoudness()
+    const voices = denoiseVoices()
+    const list = queue.slice(0, max)
+    if (!measure) console.error('voice-build --level: no ffmpeg here (LANI_FFMPEG names one): nothing measured')
+    else if (list.length) console.error(`Measuring ${list.length} clip(s) …`)
+    type Row = { key: string; voice: string; engine: string; file: string; text: string; denoise?: string; before?: Loudness; gain?: number; limit?: boolean; keep?: boolean }
+    const rows: Row[] = []
+    let next = 0
+    await Promise.all(Array.from({ length: 4 }, async () => {
+      while (next < list.length) {
+        const c = list[next++]
+        const path = join(store.filesDir, c.file)
+        const pre = c.engine === 'elevenlabs' && !c.denoise ? voices[c.voice] : undefined
+        const m = measure && FILE.test(c.file) && existsSync(path) ? await measure(new Uint8Array(readFileSync(path)), pre) : null
+        const g = m ? levelGain(m, { ...LEVEL, target }) : undefined
+        rows.push({ key: c.key, voice: c.voice, engine: c.engine, file: c.file, text: c.text, ...(pre ? { denoise: pre } : {}), ...(m && g ? { before: m, gain: g.gain, limit: g.limit, keep: g.keep && !pre } : {}) })
+      }
+    }))
+    const q = (xs: number[], f: number) => {
+      const s = [...xs].sort((a, b) => a - b)
+      return s.length ? s[Math.min(s.length - 1, Math.floor(f * (s.length - 1) + 0.5))] : NaN
+    }
+    const by = new Map<string, Row[]>()
+    for (const r of rows) by.set(`${r.voice} ${r.engine}`, [...(by.get(`${r.voice} ${r.engine}`) ?? []), r])
+    const groups = [...by].map(([name, g]) => {
+      const m = g.filter(r => r.before && r.before.lufs > -70)
+      const lufs = m.map(r => r.before!.lufs)
+      const gains = m.map(r => r.gain!)
+      // how far over the limiter's threshold the gain alone would take the limited clips' true peaks: what it holds back
+      const limited = m.filter(r => r.limit && !r.keep)
+      return {
+        name, clips: g.length, measured: m.length,
+        lufs: { median: q(lufs, 0.5), p10: q(lufs, 0.1), p90: q(lufs, 0.9) },
+        gain: { median: q(gains, 0.5), min: Math.min(...gains), max: Math.max(...gains) },
+        kept: g.filter(r => r.keep).length, limited: limited.length, over: q(limited.map(r => r.before!.peak + r.gain! - (LEVEL.peak - LIMIT_MARGIN)), 0.5), denoise: g.filter(r => r.denoise).length,
+      }
+    }).sort((a, b) => b.lufs.median - a.lufs.median)
+    const summary = { target, peak: LEVEL.peak, waiting: queue.length, measured: rows.filter(r => r.before).length, ffmpeg: !!measure, dir: store.dir }
+    if (flag('--json')) {
+      console.log(JSON.stringify({ ...summary, voices: Object.fromEntries(groups.map(({ name, ...g }) => [name, g])), clips: rows }, null, 2))
+      process.exit(0)
+    }
+    const f1 = (x: number) => (Number.isFinite(x) ? `${x > 0 ? '+' : ''}${x.toFixed(1)}` : '—').padStart(6)
+    console.log(`The level: ${target} LUFS integrated, true peak at most ${LEVEL.peak} dBTP. Clips in ${store.dir} not at it: ${queue.length}${max !== undefined && max < queue.length ? `; this run: ${max}` : ''}`)
+    if (groups.length) {
+      console.log(`\n${'voice'.padEnd(22)} clips  LUFS now (p10 … p90)       gain (min … max)        kept  limited (over by)  filtered too`)
+      for (const g of groups) {
+        const lim = g.limited ? `${g.limited} (${g.over.toFixed(1)} dB)` : '0'
+        console.log(`${g.name.padEnd(22)} ${String(g.clips).padStart(5)}  ${f1(g.lufs.median)} (${f1(g.lufs.p10)} … ${f1(g.lufs.p90)})  ${f1(g.gain.median)} (${f1(g.gain.min)} … ${f1(g.gain.max)})  ${String(g.kept).padStart(5)}  ${lim.padStart(17)}  ${String(g.denoise).padStart(12)}`)
+      }
+      console.log(`(limited: the clips whose true peak the gain would take over ${LEVEL.peak - LIMIT_MARGIN} dB, where the limiter holds it, and by how much, the median)`)
+      const unmeasured = rows.filter(r => !r.before).length
+      if (unmeasured) console.log(`(${unmeasured} clip(s) not measured: no file, or ffmpeg failed)`)
+    }
+    if (!queue.length) process.exit(0)
+    console.log(`\nDry run: nothing changed. Each clip would get the gain (about 0.4 dB more where it is encoded again: the MP3 encode takes that off),`)
+    console.log(`the limiter where its true peak would pass ${LEVEL.peak} dBTP, its voice's filter where that is due, in one encode; a clip within ${LEVEL.tolerance} dB`)
+    console.log(`of the target keeps its file. The others are stored under a new file name, the old file removed once the new one is recorded.`)
+    console.log(`Level with: companion/bin/voice-build --level --run${tail}`)
+    process.exit(0)
+  }
+  if (!ffmpegLeveller()) {
+    console.error('voice-build --level: no ffmpeg (LANI_FFMPEG names one)')
+    process.exit(1)
+  }
+  console.log(`Levelling ${max !== undefined ? Math.min(max, queue.length) : queue.length} of ${queue.length} clip(s) to ${target} LUFS …`)
+  const r = await store.levelClips({ max, out: line => console.log(line) })
+  console.log(`\nLevelled ${r.done} clip(s) (${r.kept} kept as they were, ${r.limited} limited)${r.skipped ? `; ${r.skipped} skipped (no file, or made again meanwhile)` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} waiting.`)
+  if (r.done > r.kept) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(r.failed ? 1 : 0)
+}
+const packs =new PackStore(packsDirs(process.env.LANI_PACKS_DIR ?? join(root, 'companion/packs'), cultures, culture, language), join(appDir, 'packs'))
+const modules = new ModuleStore(join(appDir, 'modules'), ofLanguage(process.env.LANI_MODULES_DIR ?? join(root, 'companion/modules')), log)
+const scenarios = new ScenarioStore(ofLanguage(process.env.LANI_SCENARIOS_DIR ?? join(root, 'companion/scenarios')), join(appDir, 'scenarios'))
+const villagers = new VillagerStore(process.env.LANI_VILLAGERS_DIR ?? join(cultureDir(cultures, culture), 'villagers'), join(appDir, 'villagers'), log)
+const scenes = new SceneStore(scenesDirs(process.env.LANI_SCENES_DIR ?? join(root, 'companion/scenes'), cultures, culture, language), join(appDir, 'scenes'), () => ({ packs: packs.all(), scenarios: scenarios.all(), villagers: villagers.all() }), log)
+// the storyteller's stories: the village's culture pack's (its stories/), and the tutor's, as the bridge has them
+const stories = new StoryStore(storiesDirs(cultures, culture), join(appDir, 'stories'), () => ({ packs: packs.all(), villagers: villagers.all() }), log)
+// the car's audio drills of the village's language (companion/drills/<language>), as the bridge has them
+const drills = new DrillStore(drillsDir(process.env.LANI_DRILLS_DIR ?? join(root, 'companion/drills'), language), language, () => ({ packs: packs.all(), villagers: villagers.all() }), log)
+
+const { eleven, gepard } = enginesFromEnv(process.env, log, language)
+// the local worker speaks only Slovene; a culture's cast without voices yet voices nothing (the phone's TTS speaks)
+const store = new VoiceStore({ appDir, engines: language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : [], log, readonly: !flag('--run') })
+// the voices of their own that are ready (the voice profiles, in the store's database): a storyteller who has one tells
+// in it ("@janez", as the app asks for it by the fire), and ElevenLabs makes those clips in it
+const own = ownVoicesIn(store.database)
+usePersonVoices(id => own.get(id))
+const items = corpus({
+  packs: packs.all(),
+  modules: modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? []),
+  scenarios: scenarios.all(),
+  scenes: scenes.resolved(),
+  // the culture's keepers' talks (world.json `spots`: the charcoal burner's meeting and his story, every telling)
+  keepers: cultureKeepers(cultures, culture).map(k => ({ ...k, tellings: keeperTellings(k) })),
+  villagers: villagers.all(),
+  stories: stories.all(),
+  drills: drills.all(),
+  ownVoice: id => !!personVoice(`@${id}`),
+  cards: (() => {
+    const sr = join(appDir, '..', 'spaced-repetition.json')
+    return existsSync(sr) ? cardTexts(JSON.parse(readFileSync(sr, 'utf8')).items ?? {}) : []
+  })(),
+  language,
+})
+
+const opts = { maxChars, upgrade: flag('--upgrade'), revoice, revoiceWords, max }
+
+const before = await plan(items, store, eleven, gepard, opts)
+if (flag('--json') && !flag('--run')) {
+  console.log(JSON.stringify(before, null, 2))
+  process.exit(0)
+}
+console.log(formatPlan(before, store.dir))
+if (!flag('--run')) {
+  console.log(`\nDry run. ${revoiceWords ? `Re-voice with: companion/bin/voice-build --revoice-words --run${max !== undefined ? ` --max ${max}` : ''}` : 'Generate with: companion/bin/voice-build --run'}`)
+  process.exit(0)
+}
+
+if (revoiceWords) {
+  // only the old-style short narrator words, in their carrier sentence; the corpus stays as it is
+  console.log('\nRe-voicing short narrator words …')
+  const r = await store.revoiceWords({ max, maxChars, out: line => console.log(line) })
+  console.log(`\nRe-voiced ${r.made} word(s) in their carrier sentence (${r.chars} chars)${r.plain ? `; ${r.plain} kept plain (the word could not be cut out)` : ''}; ${r.left} old-style left.`)
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(0)
+}
+
+console.log('\nGenerating …')
+const r = await run(items, store, { ...opts, out: line => console.log(line) })
+console.log(`\nMade ${r.made.elevenlabs} ElevenLabs clip(s) (${r.chars} chars; ${r.replaced} replaced a clip) and ${r.made.gepard} local clip(s); ${r.left} left for later.`)
+if (flag('--json')) console.log(JSON.stringify(r))
+store.close()

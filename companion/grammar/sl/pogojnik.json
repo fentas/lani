@@ -1,0 +1,85 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pogojnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "💭",
+  "title": {
+    "sl": "Pogojnik: rad bi, kupil bi",
+    "en": "Would: rad bi, kupil bi",
+    "de": "Der Konditional: rad bi, kupil bi",
+    "it": "Il condizionale: rad bi, kupil bi"
+  },
+  "rule": {
+    "en": "The conditional (*pogojnik*) says what would happen: **bi** and the l-form, as in the past. Bi never changes: **kupil bi** (a man: I, you or he would buy), **kupila bi** (a woman), **kupili bi** (we, you all, they).\n\n**Rad bi** is *I'd like*, with a noun or a verb: **Rad bi kavo.** **Rad bi spal.** A woman says **rada bi**, several people **radi bi**. **Rad bom** is something else: *I'll gladly …*\n\nBi is a clitic in second place: **Jaz bi kupil leseno žlico.** or **Kupil bi leseno žlico.** It takes the l-form, never the present or the infinitive: not kupim bi.\n\nIt makes a request polite: **Bi mi pomagali?** (Would you help me?) **Bi lahko dobil kavo?** The negative is **ne bi**: **Brez dežnika ne bi šel ven.**",
+    "de": "Der Konditional (*pogojnik*) sagt, was wäre oder würde: **bi** und die l-Form, wie in der Vergangenheit. Bi ändert sich nie: **kupil bi** (ein Mann: ich, du oder er würde kaufen), **kupila bi** (eine Frau), **kupili bi** (wir, ihr, sie).\n\n**Rad bi** heißt *ich möchte*, mit einem Nomen oder einem Verb: **Rad bi kavo.** **Rad bi spal.** Eine Frau sagt **rada bi**, mehrere **radi bi**. **Rad bom** ist etwas anderes: *ich werde gern …*\n\nBi ist ein Klitikon an zweiter Stelle: **Jaz bi kupil leseno žlico.** oder **Kupil bi leseno žlico.** Es verlangt die l-Form, nie das Präsens oder den Infinitiv: nicht kupim bi.\n\nEs macht eine Bitte höflich: **Bi mi pomagali?** (Würden Sie mir helfen?) **Bi lahko dobil kavo?** Verneint: **ne bi**: **Brez dežnika ne bi šel ven.**",
+    "it": "Il condizionale (*pogojnik*) dice che cosa succederebbe: **bi** e la forma in -l, come nel passato. Bi non cambia mai: **kupil bi** (un uomo: comprerei, compreresti, comprerebbe), **kupila bi** (una donna), **kupili bi** (noi, voi, loro).\n\n**Rad bi** vuol dire *vorrei*, con un nome o un verbo: **Rad bi kavo.** **Rad bi spal.** Una donna dice **rada bi**, più persone **radi bi**. **Rad bom** è un'altra cosa: *lo farò volentieri*.\n\nBi è un clitico al secondo posto: **Jaz bi kupil leseno žlico.** oppure **Kupil bi leseno žlico.** Vuole la forma in -l, mai il presente o l'infinito: non kupim bi.\n\nRende gentile una richiesta: **Bi mi pomagali?** (Mi aiuterebbe?) **Bi lahko dobil kavo?** Al negativo: **ne bi**: **Brez dežnika ne bi šel ven.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "moški", "en": "men, masculine", "de": "Männer, männlich", "it": "uomini, maschile" },
+      { "sl": "ženski", "en": "women, feminine", "de": "Frauen, weiblich", "it": "donne, femminile" }
+    ],
+    "rows": [
+      ["jaz, ti, on / ona", "kupil bi", "kupila bi"],
+      ["midva, vidva / medve, vedve", "kupila bi", "kupili bi"],
+      ["mi, vi, oni / me, ve, one", "kupili bi", "kupile bi"],
+      [{ "sl": "jaz, ti, on / ona: rad", "en": "I'd like, you'd like …", "de": "ich möchte, du möchtest …", "it": "vorrei, vorresti …" }, "rad bi", "rada bi"],
+      [{ "sl": "mi, vi, oni / me, ve, one: rad", "en": "we'd like, they'd like …", "de": "wir möchten, sie möchten …", "it": "vorremmo, vorrebbero …" }, "radi bi", "rade bi"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Kupil bi leseno žlico.",
+      "en": "I'd buy a wooden spoon.",
+      "de": "Ich würde einen Holzlöffel kaufen.",
+      "it": "Comprerei un cucchiaio di legno."
+    },
+    {
+      "sl": "Rad bi kavo, prosim.",
+      "en": "I'd like a coffee, please.",
+      "de": "Ich hätte gern einen Kaffee, bitte.",
+      "it": "Vorrei un caffè, per favore."
+    },
+    {
+      "sl": "Utrujen sem. Rad bi spal.",
+      "en": "I'm tired. I'd like to sleep.",
+      "de": "Ich bin müde. Ich würde gern schlafen.",
+      "it": "Sono stanco. Vorrei dormire."
+    },
+    {
+      "sl": "Zala bi rada videla konjička.",
+      "en": "Zala would like to see the little horse.",
+      "de": "Zala würde gern das Pferdchen sehen.",
+      "it": "Zala vorrebbe vedere il cavallino.",
+      "note": {
+        "en": "Zala is a girl: rada videla. Jan says rad bi videl.",
+        "de": "Zala ist ein Mädchen: rada videla. Jan sagt rad bi videl.",
+        "it": "Zala è una ragazza: rada videla. Jan dice rad bi videl."
+      }
+    },
+    {
+      "sl": "Bi mi pomagali, gospa Vida?",
+      "en": "Would you help me, Mrs Vida?",
+      "de": "Würden Sie mir helfen, Frau Vida?",
+      "it": "Mi aiuterebbe, signora Vida?",
+      "note": {
+        "en": "With vi the l-form is plural: pomagali.",
+        "de": "Mit vi steht die l-Form im Plural: pomagali.",
+        "it": "Con vi la forma in -l è al plurale: pomagali."
+      }
+    },
+    {
+      "sl": "Brez dežnika ne bi šel ven.",
+      "en": "I wouldn't go out without an umbrella.",
+      "de": "Ohne Regenschirm würde ich nicht hinausgehen.",
+      "it": "Senza ombrello non uscirei."
+    }
+  ],
+  "modules": [],
+  "tags": ["conditional", "pogojnik", "rad_bi"],
+  "see": ["pretekli-cas", "prihodnjik", "modalni-glagoli"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

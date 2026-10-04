@@ -1,0 +1,100 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "svoj",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🎩",
+  "title": {
+    "sl": "Svoj: svoj klobuk, svojo košaro",
+    "en": "Svoj: one's own",
+    "de": "Svoj: der eigene",
+    "it": "Svoj: il proprio"
+  },
+  "rule": {
+    "en": "**Svoj** means *one's own*: it points back to the subject of its sentence, whoever that is. **Strašilu dam svoj klobuk.** (I give the scarecrow my hat.) **Vzemi svojo košaro.** (Take your basket.) **Luka išče svoje jagnje.** (Luka is looking for his lamb.)\n\nSo when the owner is the subject, standard Slovene says **svoj**, not moj or tvoj: *Strašilu dam tvoj klobuk* would be the hat of Tine, the one you're talking to. In everyday speech you also hear moj with jaz; the standard is svoj.\n\nWith he, she or they it changes the meaning: **Luka išče svoje jagnje** is his own lamb; **Luka išče njegovo jagnje** is another man's, say Janez's.\n\nSvoj is never the subject itself: **Moj brat je doma.** (not *svoj brat*)\n\nIt declines like moj: **svoj klobuk, svoja košara, svoje jagnje**; **svojega brata**, **svojo sestro**, **s svojim psom**.",
+    "de": "**Svoj** heißt *der eigene*: Es zeigt zurück auf das Subjekt seines Satzes, egal wer das ist. **Strašilu dam svoj klobuk.** (Ich gebe der Vogelscheuche meinen Hut.) **Vzemi svojo košaro.** (Nimm deinen Korb.) **Luka išče svoje jagnje.** (Luka sucht sein Lamm.)\n\nIst der Besitzer das Subjekt, sagt die Standardsprache also **svoj**, nicht moj oder tvoj: *Strašilu dam tvoj klobuk* wäre der Hut von Tine, mit dem du sprichst. Umgangssprachlich hört man bei jaz auch moj; Standard ist svoj.\n\nBei er, sie oder sie (Plural) ändert es die Bedeutung, die das deutsche *sein* offenlässt: **Luka išče svoje jagnje** ist sein eigenes Lamm; **Luka išče njegovo jagnje** das eines anderen, etwa von Janez.\n\nSvoj ist nie selbst das Subjekt: **Moj brat je doma.** (nicht *svoj brat*)\n\nEs wird wie moj dekliniert: **svoj klobuk, svoja košara, svoje jagnje**; **svojega brata**, **svojo sestro**, **s svojim psom**.",
+    "it": "**Svoj** vuol dire *il proprio*: rimanda al soggetto della sua frase, chiunque sia. **Strašilu dam svoj klobuk.** (Do il mio cappello allo spaventapasseri.) **Vzemi svojo košaro.** (Prendi il tuo cesto.) **Luka išče svoje jagnje.** (Luka cerca il suo agnello.)\n\nQuando il possessore è il soggetto, lo sloveno standard dice quindi **svoj**, non moj o tvoj: *Strašilu dam tvoj klobuk* sarebbe il cappello di Tine, con cui stai parlando. Nel parlato con jaz si sente anche moj; lo standard è svoj.\n\nCon lui, lei o loro cambia il senso: **Luka išče svoje jagnje** è il suo agnello; **Luka išče njegovo jagnje** è quello di un altro, per esempio di Janez.\n\nSvoj non è mai il soggetto stesso: **Moj brat je doma.** (non *svoj brat*)\n\nSi declina come moj: **svoj klobuk, svoja košara, svoje jagnje**; **svojega brata**, **svojo sestro**, **s svojim psom**."
+  },
+  "table": {
+    "head": [
+      { "sl": "čigav?", "en": "whose?", "de": "wessen?", "it": "di chi?" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      ["jaz", "moj", "moja", "moje"],
+      ["ti", "tvoj", "tvoja", "tvoje"],
+      ["on", "njegov", "njegova", "njegovo"],
+      ["ona", "njen", "njena", "njeno"],
+      ["mi", "naš", "naša", "naše"],
+      ["vi", "vaš", "vaša", "vaše"],
+      ["oni", "njihov", "njihova", "njihovo"],
+      [{ "sl": "osebek", "en": "the subject's own", "de": "das eigene des Subjekts", "it": "del soggetto stesso" }, "svoj", "svoja", "svoje"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Strašilu dam svoj klobuk!",
+      "en": "I'll give the scarecrow my own hat!",
+      "de": "Ich gebe der Vogelscheuche meinen eigenen Hut!",
+      "it": "Do allo spaventapasseri il mio cappello!",
+      "note": {
+        "en": "You give it, and it's your hat: svoj. Tvoj klobuk would be Tine's.",
+        "de": "Du gibst ihn, und es ist dein Hut: svoj. Tvoj klobuk wäre Tines Hut.",
+        "it": "Lo dai tu ed è il tuo cappello: svoj. Tvoj klobuk sarebbe quello di Tine."
+      }
+    },
+    {
+      "sl": "Vzemi svojo košaro, Nejc.",
+      "en": "Take your basket, Nejc.",
+      "de": "Nimm deinen Korb, Nejc.",
+      "it": "Prendi il tuo cesto, Nejc."
+    },
+    {
+      "sl": "Luka išče svoje jagnje.",
+      "en": "Luka is looking for his own lamb.",
+      "de": "Luka sucht sein eigenes Lamm.",
+      "it": "Luka cerca il suo agnello."
+    },
+    {
+      "sl": "Luka išče njegovo jagnje.",
+      "en": "Luka is looking for his lamb (another man's, Janez's).",
+      "de": "Luka sucht sein Lamm (das eines anderen, von Janez).",
+      "it": "Luka cerca l'agnello di lui (di un altro, di Janez).",
+      "note": {
+        "en": "njegovo: the lamb belongs to someone else, not to Luka.",
+        "de": "njegovo: Das Lamm gehört jemand anderem, nicht Luka.",
+        "it": "njegovo: l'agnello è di qualcun altro, non di Luka."
+      }
+    },
+    {
+      "sl": "Babica Micka peče potico v svoji kuhinji.",
+      "en": "Grandma Micka is baking potica in her own kitchen.",
+      "de": "Oma Micka bäckt Potica in ihrer eigenen Küche.",
+      "it": "Nonna Micka fa la potica nella sua cucina."
+    },
+    {
+      "sl": "Moj brat živi v Berlinu.",
+      "en": "My brother lives in Berlin.",
+      "de": "Mein Bruder lebt in Berlin.",
+      "it": "Mio fratello vive a Berlino.",
+      "note": {
+        "en": "The subject itself: moj, never svoj.",
+        "de": "Das Subjekt selbst: moj, nie svoj.",
+        "it": "Il soggetto stesso: moj, mai svoj."
+      }
+    },
+    {
+      "sl": "Muri se igra s svojo žogo.",
+      "en": "Muri is playing with his ball.",
+      "de": "Muri spielt mit seinem Ball.",
+      "it": "Muri gioca con la sua palla."
+    }
+  ],
+  "modules": [],
+  "tags": ["svoj", "possessive_svoj", "own_possessive"],
+  "see": ["pridevniki-ujemanje", "osebni-zaimki", "povratni-glagoli"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

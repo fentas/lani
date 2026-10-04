@@ -1,0 +1,106 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "artikel-genus",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🏷️",
+  "title": {
+    "de": "Der, die, das: Artikel und Genus",
+    "sl": "Der, die, das: člen in spol",
+    "en": "Der, die, das: articles and gender",
+    "it": "Der, die, das: articoli e genere"
+  },
+  "rule": {
+    "en": "Every German noun has a gender (*Genus*): masculine, feminine or neuter. English has one *the*; German shows the gender in the article. The definite article (*bestimmter Artikel*) is **der**, **die**, **das**; the indefinite article (*unbestimmter Artikel*) is **ein**, **eine**, **ein**.\n\nThe gender often isn't what you'd guess: **der Mond** (the moon) is masculine, **die Sonne** (the sun) feminine, **das Mädchen** (the girl) neuter. So learn every noun with its article: not Zelt, but **das Zelt**.\n\nA few endings help: **-ung**, **-heit**, **-keit** and most nouns in **-e** are die (die Zeitung, die Fichte; but der Junge, das Auge); **-chen** and **-lein** are always das (das Mädchen). In the plural the article is always **die**.\n\nEvery noun starts with a capital letter: **der Teich**, **die Linde**, **das Lamm**.\n\n**er**, **sie**, **es** follow the noun's gender, even for things: der Mond → **er**, die Fichte → **sie**, das Zelt → **es**.",
+    "sl": "Kot v slovenščini ima vsak nemški samostalnik spol (*Genus*): moški, ženski ali srednji. Nemščina pa ga pokaže s členom, ki ga slovenščina nima. Določni člen (*bestimmter Artikel*) je **der**, **die**, **das**, nedoločni člen (*unbestimmter Artikel*) pa **ein**, **eine**, **ein**.\n\nSpol je pogosto drugačen kot v slovenščini: **der Mond** (luna) je moškega spola, **die Sonne** (sonce) ženskega, **das Mädchen** (deklica) srednjega. Zato se vsak samostalnik uči s členom: ne Zelt, ampak **das Zelt**.\n\nNekaj končnic pomaga: **-ung**, **-heit**, **-keit** in večina samostalnikov na **-e** so die (die Zeitung, die Fichte; a na primer der Junge, das Auge); **-chen** in **-lein** so vedno das (das Mädchen). V množini je člen vedno **die**.\n\nVsak samostalnik se piše z veliko začetnico: **der Teich**, **die Linde**, **das Lamm**.\n\nZaimki **er**, **sie**, **es** sledijo nemškemu spolu, tudi pri stvareh: der Mond → **er** (čeprav je luna ženskega spola), die Fichte → **sie**, das Zelt → **es**.",
+    "it": "Come in italiano, ogni nome tedesco ha un genere (*Genus*), ma i generi sono tre: maschile, femminile e neutro. Si vedono nell'articolo: l'articolo determinativo (*bestimmter Artikel*) è **der**, **die**, **das**, l'indeterminativo (*unbestimmter Artikel*) **ein**, **eine**, **ein**.\n\nIl genere spesso non è quello italiano: **der Mond** (la luna) è maschile, **die Sonne** (il sole) femminile, **das Mädchen** (la ragazza) neutro. Per questo ogni nome si impara con l'articolo: non Zelt, ma **das Zelt**.\n\nAlcune desinenze aiutano: **-ung**, **-heit**, **-keit** e la maggior parte dei nomi in **-e** sono die (die Zeitung, die Fichte; ma per esempio der Junge, das Auge); **-chen** e **-lein** sono sempre das (das Mädchen). Al plurale l'articolo è sempre **die**.\n\nOgni nome si scrive con la maiuscola: **der Teich**, **die Linde**, **das Lamm**.\n\nI pronomi **er**, **sie**, **es** seguono il genere tedesco, anche per le cose: der Mond → **er** (anche se la luna è femminile), die Fichte → **sie**, das Zelt → **es**."
+  },
+  "table": {
+    "head": [
+      { "de": "Genus", "sl": "spol", "en": "gender", "it": "genere" },
+      { "de": "bestimmter Artikel", "sl": "določni člen", "en": "definite (the)", "it": "determinativo" },
+      { "de": "unbestimmter Artikel", "sl": "nedoločni člen", "en": "indefinite (a)", "it": "indeterminativo" },
+      { "de": "Pronomen", "sl": "zaimek", "en": "pronoun", "it": "pronome" }
+    ],
+    "rows": [
+      [{ "de": "männlich", "sl": "moški spol", "en": "masculine", "it": "maschile" }, "der Teich", "ein Teich", "er"],
+      [{ "de": "weiblich", "sl": "ženski spol", "en": "feminine", "it": "femminile" }, "die Fichte", "eine Fichte", "sie"],
+      [{ "de": "sächlich", "sl": "srednji spol", "en": "neuter", "it": "neutro" }, "das Zelt", "ein Zelt", "es"],
+      [{ "de": "Plural", "sl": "množina", "en": "plural", "it": "plurale" }, "die Zelte", "Zelte", "sie"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Hier steht ein Zelt. Das Zelt ist grün.",
+      "sl": "Tukaj stoji šotor. Šotor je zelen.",
+      "en": "There's a tent here. The tent is green.",
+      "it": "Qui c'è una tenda. La tenda è verde.",
+      "note": {
+        "en": "First ein (a) for something new, then das (the) once it is known.",
+        "sl": "Najprej ein za nekaj novega, nato das, ko je že znano.",
+        "it": "Prima ein (una) per una cosa nuova, poi das (la) quando è già nota."
+      }
+    },
+    {
+      "de": "Schau, der Mond! Er ist heute ganz rund.",
+      "sl": "Poglej, luna! Nocoj je čisto okrogla.",
+      "en": "Look, the moon! It's perfectly round tonight.",
+      "it": "Guarda, la luna! Stasera è tutta tonda.",
+      "note": {
+        "en": "der Mond → er: the pronoun follows the German gender.",
+        "sl": "der Mond → er, čeprav je luna ženskega spola.",
+        "it": "der Mond → er, anche se la luna è femminile."
+      }
+    },
+    {
+      "de": "Das Mädchen heißt Lena.",
+      "sl": "Deklici je ime Lena.",
+      "en": "The girl's name is Lena.",
+      "it": "La bambina si chiama Lena.",
+      "note": {
+        "en": "Words in -chen are always das, even a girl.",
+        "sl": "Besede na -chen so vedno das, tudi deklica.",
+        "it": "Le parole in -chen sono sempre das, anche la bambina."
+      }
+    },
+    {
+      "de": "Tante Mitzi liest die Zeitung.",
+      "sl": "Teta Mitzi bere časopis.",
+      "en": "Aunt Mitzi is reading the newspaper.",
+      "it": "La zia Mitzi legge il giornale.",
+      "note": {
+        "en": "Nouns in -ung are die: die Zeitung.",
+        "sl": "Samostalniki na -ung so die: die Zeitung (časopis pa je moškega spola).",
+        "it": "I nomi in -ung sono die: die Zeitung (il giornale invece è maschile)."
+      }
+    },
+    {
+      "de": "Das Lamm heißt Flocke. Es ist ganz weiß.",
+      "sl": "Jagnjetu je ime Flocke. Čisto belo je.",
+      "en": "The lamb is called Flocke. It's all white.",
+      "it": "L'agnello si chiama Flocke. È tutto bianco."
+    },
+    {
+      "de": "Ein Pferd, eine Kuh und ein Schaf stehen auf der Wiese.",
+      "sl": "Konj, krava in ovca stojijo na travniku.",
+      "en": "A horse, a cow and a sheep are standing in the meadow.",
+      "it": "Un cavallo, una mucca e una pecora sono sul prato.",
+      "note": {
+        "en": "das Pferd, die Kuh, das Schaf → ein, eine, ein.",
+        "sl": "das Pferd, die Kuh, das Schaf → ein, eine, ein.",
+        "it": "das Pferd, die Kuh, das Schaf → ein, eine, ein."
+      }
+    },
+    {
+      "de": "Die Linde ist sehr alt.",
+      "sl": "Lipa je zelo stara.",
+      "en": "The linden tree is very old.",
+      "it": "Il tiglio è molto vecchio."
+    }
+  ],
+  "modules": [],
+  "tags": ["articles", "article", "gender", "genus", "der_die_das", "noun_gender", "capitalisation"],
+  "see": ["plural", "faelle", "akkusativ"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

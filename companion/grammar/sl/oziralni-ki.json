@@ -1,0 +1,97 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "oziralni-ki",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🔗",
+  "title": {
+    "sl": "Ki in kateri: človek, ki ga poznam",
+    "en": "Who, which, that: ki and kateri",
+    "de": "Relativsätze: ki und kateri",
+    "it": "Le relative: ki e kateri"
+  },
+  "rule": {
+    "en": "**ki** starts a clause about a noun, like *who, which, that*: **Človek, ki stoji tam, je Luka.** A comma goes before it, and after the clause when the sentence goes on.\n\nKi never changes. When the noun is not the clause's subject, a short pronoun after ki shows its case, gender and number, with the other short words: **človek, ki ga poznam** (whom I know), **knjiga, ki sem jo prebral**, **otroci, ki jih učim**, **babica, ki ji pomagam** (whom I help).\n\nAfter a preposition, **kateri** instead: it changes like an adjective, its gender and number the noun's, its case the preposition's: **vas, v kateri živim**, **fant, s katerim sem govoril**, **hiša, pred katero stoji lipa**.\n\n**kar** is *what* for a whole thing or a whole sentence: **To je vse, kar vem.** **Prišel je, kar me veseli.**",
+    "de": "**ki** leitet einen Satz über ein Nomen ein, wie *der, die, das* als Relativpronomen: **Človek, ki stoji tam, je Luka.** Davor steht ein Komma, danach eines, wenn der Satz weitergeht.\n\nKi ändert sich nie. Ist das Nomen nicht das Subjekt des Relativsatzes, zeigt ein kurzes Pronomen nach ki den Fall, das Geschlecht und die Zahl, mit den anderen kurzen Wörtern: **človek, ki ga poznam** (den ich kenne), **knjiga, ki sem jo prebral**, **otroci, ki jih učim**, **babica, ki ji pomagam** (der ich helfe).\n\nNach einer Präposition steht **kateri**: es ändert sich wie ein Adjektiv, Geschlecht und Zahl vom Nomen, der Fall von der Präposition: **vas, v kateri živim**, **fant, s katerim sem govoril**, **hiša, pred katero stoji lipa**.\n\n**kar** ist *was* für etwas Ganzes oder einen ganzen Satz: **To je vse, kar vem.** **Prišel je, kar me veseli.**",
+    "it": "**ki** apre una frase su un nome, come *che, il quale*: **Človek, ki stoji tam, je Luka.** Prima va una virgola, e dopo la relativa se la frase continua.\n\nKi non cambia mai. Se il nome non è il soggetto della relativa, un pronome breve dopo ki ne mostra il caso, il genere e il numero, con le altre paroline: **človek, ki ga poznam** (che conosco), **knjiga, ki sem jo prebral**, **otroci, ki jih učim**, **babica, ki ji pomagam** (a cui do una mano).\n\nDopo una preposizione si usa **kateri**: cambia come un aggettivo, genere e numero del nome, il caso della preposizione: **vas, v kateri živim**, **fant, s katerim sem govoril**, **hiša, pred katero stoji lipa**.\n\n**kar** è *ciò che* per una cosa intera o una frase intera: **To je vse, kar vem.** **Prišel je, kar me veseli.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "v odvisniku", "en": "the noun in the clause", "de": "das Nomen im Relativsatz", "it": "il nome nella relativa" },
+      { "sl": "oblika", "en": "form", "de": "Form", "it": "forma" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "osebek", "en": "the subject", "de": "Subjekt", "it": "soggetto" }, "ki", "človek, ki stoji tam"],
+      [{ "sl": "tožilnik", "en": "whom, which (accusative)", "de": "wen, was (Akkusativ)", "it": "che (accusativo)" }, "ki ga, ki jo, ki jih", "človek, ki ga poznam"],
+      [{ "sl": "dajalnik", "en": "to whom (dative)", "de": "wem (Dativ)", "it": "a cui (dativo)" }, "ki mu, ki ji, ki jim", "babica, ki ji pomagam"],
+      [{ "sl": "rodilnik", "en": "of whom, none (genitive)", "de": "wessen, kein (Genitiv)", "it": "di cui (genitivo)" }, "ki ga, ki je, ki jih", "stvar, ki je nimam"],
+      [{ "sl": "za predlogom", "en": "after a preposition", "de": "nach einer Präposition", "it": "dopo una preposizione" }, "v kateri, s katerim …", "vas, v kateri živim"],
+      [{ "sl": "cela stvar", "en": "a whole thing", "de": "etwas Ganzes", "it": "una cosa intera" }, "kar", "vse, kar vem"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Človek, ki stoji pri vodnjaku, je Luka.",
+      "en": "The man standing by the well is Luka.",
+      "de": "Der Mann, der am Brunnen steht, ist Luka.",
+      "it": "L'uomo che sta vicino al pozzo è Luka."
+    },
+    {
+      "sl": "To je Nejc, ki ga poznaš iz šole.",
+      "en": "This is Nejc, whom you know from school.",
+      "de": "Das ist Nejc, den du aus der Schule kennst.",
+      "it": "Questo è Nejc, che conosci da scuola.",
+      "note": {
+        "en": "Nejc is the object of poznaš: ki ga.",
+        "de": "Nejc ist das Objekt von poznaš: ki ga.",
+        "it": "Nejc è l'oggetto di poznaš: ki ga."
+      }
+    },
+    {
+      "sl": "Knjiga, ki sem jo prebral, je bila dobra.",
+      "en": "The book I read was good.",
+      "de": "Das Buch, das ich gelesen habe, war gut.",
+      "it": "Il libro che ho letto era bello.",
+      "note": {
+        "en": "After ki the short words in their order: sem, then jo.",
+        "de": "Nach ki die kurzen Wörter in ihrer Reihenfolge: sem, dann jo.",
+        "it": "Dopo ki le paroline nel loro ordine: sem, poi jo."
+      }
+    },
+    {
+      "sl": "Babica, ki ji pomagam, peče potico.",
+      "en": "Grandma, whom I'm helping, is baking potica.",
+      "de": "Oma, der ich helfe, bäckt Potica.",
+      "it": "La nonna, a cui do una mano, fa la potica."
+    },
+    {
+      "sl": "Trnovo je vas, v kateri živim.",
+      "en": "Trnovo is the village I live in.",
+      "de": "Trnovo ist das Dorf, in dem ich wohne.",
+      "it": "Trnovo è il paese in cui vivo.",
+      "note": {
+        "en": "vas is feminine, v takes the locative: v kateri.",
+        "de": "vas ist weiblich, v verlangt den Lokativ: v kateri.",
+        "it": "vas è femminile, v vuole il locativo: v kateri."
+      }
+    },
+    {
+      "sl": "Prijatelj, s katerim sem govoril, pride jutri.",
+      "en": "The friend I talked to is coming tomorrow.",
+      "de": "Der Freund, mit dem ich gesprochen habe, kommt morgen.",
+      "it": "L'amico con cui ho parlato viene domani."
+    },
+    {
+      "sl": "To je vse, kar vem.",
+      "en": "That's all I know.",
+      "de": "Das ist alles, was ich weiß.",
+      "it": "È tutto quello che so."
+    }
+  ],
+  "modules": [],
+  "tags": ["relative_clause", "relative_pronoun", "relative", "ki_kateri"],
+  "see": ["naslonke", "osebni-zaimki", "vezniki", "odvisni-govor", "skloni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

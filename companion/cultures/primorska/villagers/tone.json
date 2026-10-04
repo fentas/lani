@@ -1,0 +1,92 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "tone",
+  "name": "Kovač Tone",
+  "emoji": "⚒️",
+  "art": "smith",
+  "voice": "male",
+  "speaker": "gruff",
+  "role": { "sl": "Kovač", "en": "Blacksmith", "de": "Schmied", "it": "Fabbro" },
+  "home": ["smithy"],
+  "sleeps": "smithy",
+  "register": "vi",
+  "skill": "stone",
+  "since": "zaselek",
+  "order": 9,
+  "routine": {
+    "up": "6:00", "bed": "22:10",
+    "rituals": [
+      { "id": "oglje", "at": "21:45", "until": "22:00", "to": "smithy", "doing": "tend", "title": {"sl": "Tone pokrije žerjavico v ognjišču", "en": "Tone banks the embers in the forge", "de": "Tone deckt die Glut in der Esse ab", "it": "Tone copre la brace nella forgia"} }
+    ]
+  },
+  "personality": "Gruff and kind. Few words, short sentences, no small talk, but he notices everything and helps without being asked. Says ti to Jan (to everybody), expects vi back. No patience for a loose ending: 'Ali je prav, ali ni.' Hums while he works; his wife Tončka sends him to the smithy at night: he snores, so he sleeps on the cot by the forge's warm wall.",
+  "story": "Tone's smithy stands at the edge of the village. He shoes the horses of half the plateau and takes orders from Gorizia, writes them in a small black book and gets them exactly right, like his sentences. When wolves come to the palisade, it is Tone who stands at the gate with a hammer.",
+  "likes": [
+    { "sl": "železo", "en": "iron", "de": "Eisen", "it": "il ferro" },
+    { "sl": "konji", "en": "horses", "de": "Pferde", "it": "i cavalli" },
+    { "sl": "natančnost", "en": "exactness", "de": "Genauigkeit", "it": "la precisione" },
+    { "sl": "tišina", "en": "quiet", "de": "Ruhe", "it": "il silenzio" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Dan.", "en": "Day. (short for dober dan)", "de": "Tag. (kurz für dober dan)", "it": "Giorno. (per dober dan, buongiorno)", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober dan. Kaj potrebuješ?", "en": "Good day. What do you need?", "de": "Guten Tag. Was brauchst du?", "it": "Buongiorno. Cosa ti serve?", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Večer.", "en": "Evening. (short for dober večer)", "de": "Abend. (kurz für dober večer)", "it": "Sera. (per dober večer, buonasera)", "level": 0, "when": ["evening", "night"] },
+      { "sl": "Jan. Dan. Pridi noter.", "en": "Jan. Day. Come in.", "de": "Jan. Tag. Komm rein.", "it": "Jan. Giorno. Entra.", "level": 1, "when": ["morning", "afternoon"] },
+      { "sl": "O, Jan. Ravno prav. Drži tole.", "en": "Oh, Jan. Just in time. Hold this.", "de": "Oh, Jan. Gerade recht. Halt das mal.", "it": "Oh, Jan. Arrivi giusto. Tieni questo.", "level": 2 },
+      { "sl": "Jan! Sedi. Tončka je prinesla kavo.", "en": "Jan! Sit down. Tončka brought coffee.", "de": "Jan! Setz dich. Tončka hat Kaffee gebracht.", "it": "Jan! Siediti. Tončka ha portato il caffè.", "level": 3 },
+      { "sl": "Jan, fant moj. Kovačnica je tudi tvoja.", "en": "Jan, my lad. The smithy is yours too.", "de": "Jan, mein Junge. Die Schmiede gehört auch dir.", "it": "Jan, ragazzo mio. La fucina è anche tua.", "level": 4 }
+    ],
+    "thanks": [
+      { "sl": "Hvala. Dobro delo.", "en": "Thanks. Good work.", "de": "Danke. Gute Arbeit.", "it": "Grazie. Buon lavoro." },
+      { "sl": "V redu si, Jan. Hvala.", "en": "You're all right, Jan. Thanks.", "de": "Du bist in Ordnung, Jan. Danke.", "it": "Sei a posto, Jan. Grazie." },
+      { "sl": "Hvala. To si dobro naredil.", "en": "Thanks. You did that well.", "de": "Danke. Das hast du gut gemacht.", "it": "Grazie. L'hai fatto bene." }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Ne govorim veliko. Ampak mislim na {memory}.", "en": "I don't talk much. But I think of {memory}.", "de": "Ich rede nicht viel. Aber ich denke an {memory}.", "it": "Non parlo molto. Ma ricordo {memory}.", "level": 2 },
+      { "sl": "Tončki sem pravil o tebi. In še vedno mislim na {memory}.", "en": "I told Tončka about you. And I still think of {memory}.", "de": "Ich hab Tončka von dir erzählt. Und ich denke noch oft an {memory}.", "it": "Ho parlato di te a Tončka. E ricordo ancora {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "sl": "Železo mora biti vroče. Stavek pa pravilen.", "en": "The iron must be hot. And the sentence correct.", "de": "Das Eisen muss heiß sein. Und der Satz richtig.", "it": "Il ferro dev'essere caldo. E la frase giusta." },
+      { "sl": "Naročilo iz Gorice. Deset podkev do petka.", "en": "An order from Gorizia. Ten horseshoes by Friday.", "de": "Ein Auftrag aus Görz. Zehn Hufeisen bis Freitag.", "it": "Un ordine da Gorizia. Dieci ferri di cavallo per venerdì." },
+      { "sl": "Hm. Ta končnica ni prava.", "en": "Hm. That ending is not right.", "de": "Hm. Diese Endung stimmt nicht.", "it": "Mm. Questa desinenza non va." },
+      { "sl": "Delo, delo. Potem kava.", "en": "Work, work. Then coffee.", "de": "Arbeit, Arbeit. Dann Kaffee.", "it": "Lavoro, lavoro. Poi il caffè." }
+    ],
+    "cheer": [
+      { "sl": "Prav.", "en": "Right.", "de": "Richtig.", "it": "Giusto." },
+      { "sl": "Tako. Trdno kot železo.", "en": "There. Solid as iron.", "de": "So. Fest wie Eisen.", "it": "Ecco. Solido come il ferro." },
+      { "sl": "Dobro. Vsaka končnica na svojem mestu.", "en": "Good. Every ending in its place.", "de": "Gut. Jede Endung an ihrem Platz.", "it": "Bene. Ogni desinenza al suo posto." },
+      { "sl": "Ha! Vidiš, znaš.", "en": "Ha! See, you can.", "de": "Ha! Siehst du, du kannst es.", "it": "Ah! Vedi, lo sai fare." }
+    ],
+    "comfort": [
+      { "sl": "Ni prav. Še enkrat.", "en": "Not right. Once more.", "de": "Nicht richtig. Noch einmal.", "it": "Non va. Ancora una volta." },
+      { "sl": "Tudi železo se zlomi. Poskusi znova.", "en": "Iron breaks too. Try again.", "de": "Auch Eisen bricht mal. Versuch es noch einmal.", "it": "Anche il ferro si rompe. Riprova." },
+      { "sl": "Skoraj. Poglej končnico.", "en": "Almost. Look at the ending.", "de": "Fast. Schau dir die Endung an.", "it": "Quasi. Guarda la desinenza." }
+    ],
+    "listen": [
+      { "sl": "Poslušaj. Enkrat.", "en": "Listen. Once.", "de": "Hör zu. Einmal.", "it": "Ascolta. Una volta." },
+      { "sl": "Tiho. Poslušaj.", "en": "Quiet. Listen.", "de": "Ruhe. Hör zu.", "it": "Silenzio. Ascolta." },
+      { "sl": "Kladivo dol. Poslušaj.", "en": "Hammer down. Listen.", "de": "Hammer weg. Hör zu.", "it": "Giù il martello. Ascolta." }
+    ],
+    "bye": [
+      { "sl": "Adijo.", "en": "Bye.", "de": "Tschüss.", "it": "Ciao." },
+      { "sl": "Na svidenje. Pazi na prste.", "en": "Goodbye. Mind your fingers.", "de": "Auf Wiedersehen. Pass auf deine Finger auf.", "it": "Arrivederci. Attento alle dita." },
+      { "sl": "Pojdi. Jutri je spet delo.", "en": "Go. Tomorrow there is work again.", "de": "Geh. Morgen gibt es wieder Arbeit.", "it": "Vai. Domani c'è di nuovo lavoro." }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "Hm. To imam rad. Hvala.", "en": "Hm. I like this. Thanks.", "de": "Hm. Das mag ich. Danke.", "it": "Mm. Questo mi piace. Grazie." },
+        { "sl": "Kako si vedel? Dobro. Hvala, Jan.", "en": "How did you know? Good. Thanks, Jan.", "de": "Woher wusstest du das? Gut. Danke, Jan.", "it": "Come lo sapevi? Bene. Grazie, Jan." },
+        { "sl": "Ha! Točno to. Tončka bo vesela.", "en": "Ha! Exactly this. Tončka will be glad.", "de": "Ha! Genau das. Tončka wird sich freuen.", "it": "Ah! Proprio questo. Tončka sarà contenta." }
+      ],
+      "ordinary": [
+        { "sl": "Hvala. V redu si, Jan.", "en": "Thanks. You're all right, Jan.", "de": "Danke. Du bist in Ordnung, Jan.", "it": "Grazie. Sei a posto, Jan." },
+        { "sl": "Hm. Hvala. Daj tja, na mizo.", "en": "Hm. Thanks. Put it there, on the table.", "de": "Hm. Danke. Leg es da hin, auf den Tisch.", "it": "Mm. Grazie. Mettilo lì, sul tavolo." }
+      ],
+      "rare": [
+        { "sl": "Hm. To pa … To je lepo, Jan. Res. Hvala.", "en": "Hm. Well … That's nice, Jan. Really. Thank you.", "de": "Hm. Also … Das ist schön, Jan. Wirklich. Danke.", "it": "Mm. Beh … Che bello, Jan. Davvero. Grazie." }
+      ]
+    }
+  }
+}

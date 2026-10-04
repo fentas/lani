@@ -1,0 +1,279 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "am-see",
+  "language": "de",
+  "title": { "de": "Am See", "sl": "Ob jezeru", "en": "By the lake", "it": "Al lago" },
+  "emoji": "🏞️",
+  "level": "A1",
+  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker",
+  "art": "alps",
+  "from": ["spot:horizon"],
+  "pack": "am-see",
+  "objects": [
+    { "slot": "mountain", "word": "berg" },
+    { "slot": "peak", "word": "gipfel" },
+    { "slot": "lake", "word": "see" },
+    { "slot": "church", "word": "kirche" },
+    { "slot": "bridge", "word": "bruecke" },
+    { "slot": "pasture", "word": "alm" },
+    { "slot": "hut", "word": "almhuette" },
+    { "slot": "cow", "word": "kuh" },
+    { "slot": "cowbell", "word": "kuhglocke" },
+    { "slot": "larch", "word": "laerche" },
+    { "slot": "spruce", "word": "fichte" },
+    { "slot": "waterfall", "word": "wasserfall" },
+    { "slot": "stream", "word": "bach" },
+    { "slot": "stone", "word": "felsen" },
+    { "slot": "wall", "word": "mauer" },
+    { "slot": "path", "word": "weg" },
+    { "slot": "chamois", "word": "gams" },
+    { "slot": "ibex", "word": "steinbock" }
+  ],
+  "people": [
+    { "id": "sepp", "name": "Opa Sepp", "emoji": "👴", "art": "grandpa", "slot": "path", "villager": "sepp" },
+    { "id": "florian", "name": "Hirte Florian", "emoji": "🐑", "art": "shepherd", "slot": "wall", "villager": "florian" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "stream", "villager": "maxi" }
+  ],
+  "happenings": [
+    {
+      "id": "erstes-mal", "title": { "de": "Opa Sepp am Weg", "sl": "Opa Sepp na poti", "en": "Opa Sepp on the path", "it": "Opa Sepp sul sentiero" }, "who": "sepp",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "erstes-mal", "dialogs": ["erstes-mal-schirm", "erstes-mal"], "reward": { "wisdom": 20 }, "marker": "🏔️",
+      "memory": { "de": "das Gewitter über dem Mittagskogel", "sl": "nevihto nad Kepo", "en": "the storm over the Mittagskogel", "it": "il temporale sul Mittagskogel" }, "guests": true
+    },
+    {
+      "id": "alm", "title": { "de": "Florian auf der Alm", "sl": "Florian na planini", "en": "Florian on the Alm", "it": "Florian all'alpeggio" }, "who": "florian",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "alm", "dialogs": ["alm-zaehlen", "alm"], "reward": { "food": 20 }, "marker": "🐄",
+      "memory": { "de": "die Kühe auf der Alm", "sl": "krave na planini", "en": "the cows on the Alm", "it": "le mucche all'alpeggio" }
+    },
+    {
+      "id": "fische", "title": { "de": "Maxi fischt", "sl": "Maxi lovi ribe", "en": "Maxi is fishing", "it": "Maxi pesca" }, "who": "maxi",
+      "when": ["morning"], "chance": 0.5, "dialog": "fische", "dialogs": ["fische-hecht", "fische"], "reward": { "wood": 15 }, "marker": "🎣",
+      "memory": { "de": "den Fisch, der aus dem See gesprungen ist", "sl": "ribo, ki je skočila iz jezera", "en": "the fish that jumped out of the lake", "it": "il pesce che è saltato fuori dal lago" }
+    },
+    {
+      "id": "morgenrot", "title": { "de": "Florian melkt im Morgenrot", "sl": "Florian molze ob zori", "en": "Florian milking at dawn", "it": "Florian munge all'alba" }, "who": "florian",
+      "when": ["dawn"], "chance": 0.6, "dialog": "morgenrot", "dialogs": ["morgenrot-handschuhe", "morgenrot"], "reward": { "food": 20 }, "marker": "🥛",
+      "memory": { "de": "den Morgen, an dem die Berge geglüht haben", "sl": "jutro, ko so gore žarele", "en": "the morning the mountains glowed", "it": "la mattina in cui le montagne erano rosse" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "erstes-mal",
+      "lines": [
+        { "who": "sepp", "de": "Grüß Gott! Bist du zum ersten Mal am Faaker See?", "sl": "Dober dan! Si prvič ob Baškem jezeru?", "en": "Hello! Is this your first time at Lake Faak?", "it": "Buongiorno! È la prima volta che vieni al lago di Faak?" },
+        { "choices": [
+          { "de": "Ja, ich bin zum ersten Mal am See.", "sl": "Ja, prvič sem ob jezeru.", "en": "Yes, I'm at the lake for the first time.", "it": "Sì, sono al lago per la prima volta.", "ok": true,
+            "reply": { "de": "Dann herzlich willkommen am See!", "sl": "Potem pa dobrodošel ob jezeru!", "en": "Then a warm welcome to the lake!", "it": "Allora benvenuto al lago!" } },
+          { "de": "Ja, ich bin zum ersten Mal an den See.", "sl": "Ja, prvič sem k jezeru.", "en": "Yes, I'm to the lake for the first time.", "it": "Sì, sono verso il lago per la prima volta.",
+            "grammar": "wechselpraepositionen", "why": { "de": "Wo du bist: am See (an dem, Dativ). An den See sagt man, wohin man geht.", "sl": "Kje si: am See (an dem, dajalnik). An den See pomeni kam.", "en": "Where you are: am See (an dem, dative). An den See is where you go to.", "it": "Dove sei: am See (an dem, dativo). An den See è dove vai." },
+            "reply": { "de": "An den See? Langsam, langsam. Wir sind ja schon da.", "sl": "An den See (k jezeru)? Počasi, počasi. Saj sva že tu.", "en": "An den See (to the lake)? Slowly, slowly. We're already here.", "it": "An den See (verso il lago)? Piano, piano. Siamo già qui." } },
+          { "de": "Ja, du bist zum ersten Mal am See.", "sl": "Ja, prvič si ob jezeru.", "en": "Yes, you are at the lake for the first time.", "it": "Sì, sei al lago per la prima volta.",
+            "grammar": "sein-haben", "why": { "de": "Du bist heißt: die andere Person ist da. Über dich selbst sagst du: ich bin.", "sl": "Du bist pomeni ti si. O sebi rečeš ich bin.", "en": "Du bist means you are. About yourself: ich bin.", "it": "Du bist vuol dire tu sei. Di te stesso dici ich bin." },
+            "reply": { "de": "Ich? Ich wohne hier seit einundachtzig Jahren!", "sl": "Jaz? Tu živim že enainosemdeset let!", "en": "Me? I've lived here for eighty-one years!", "it": "Io? Abito qui da ottantun anni!" } }
+        ] },
+        { "who": "sepp", "de": "Siehst du den Gipfel dort? Das ist der Mittagskogel.", "sl": "Vidiš tisti vrh tam? To je Kepa.", "en": "Do you see that peak over there? That's the Mittagskogel.", "it": "Vedi quella cima laggiù? È il Mittagskogel." },
+        { "choices": [
+          { "de": "Ja, ich sehe ihn! Er ist sehr hoch.", "sl": "Ja, vidim ga! Zelo visok je.", "en": "Yes, I see it! It's very high.", "it": "Sì, lo vedo! È molto alto.", "ok": true,
+            "reply": { "de": "Da war ich oft oben. Und fünfmal auf dem Großglockner!", "sl": "Tam gori sem bil velikokrat. In petkrat na Großglocknerju!", "en": "I've often been up there. And five times on the Großglockner!", "it": "Ci sono salito spesso. E cinque volte sul Großglockner!" } },
+          { "de": "Ja, ich sehe sie! Er ist sehr hoch.", "sl": "Ja, vidim jo! Zelo visok je.", "en": "Yes, I see her! It's very high.", "it": "Sì, la vedo! È molto alto.",
+            "grammar": "akkusativ", "why": { "de": "Gipfel ist maskulin: ich sehe ihn. Sie ist für feminine Wörter oder den Plural.", "sl": "Gipfel je moškega spola: ich sehe ihn. Sie je za ženski spol ali množino.", "en": "Gipfel is masculine: ich sehe ihn. Sie is for a feminine word or a plural.", "it": "Gipfel è maschile: ich sehe ihn. Sie è per il femminile o il plurale." },
+            "reply": { "de": "Sie? Die Vögel dort oben? Du hast gute Augen!", "sl": "Sie (njo, njih)? Ptice tam gori? Dobre oči imaš!", "en": "Sie (her, them)? The birds up there? You've got good eyes!", "it": "Sie (lei, loro)? Gli uccelli lassù? Hai una buona vista!" } },
+          { "de": "Ja, ich sehe ihm! Er ist sehr hoch.", "sl": "Ja, vidim ga! Zelo visok je.", "en": "Yes, I see it! It's very high.", "it": "Sì, lo vedo! È molto alto.",
+            "grammar": "akkusativ", "why": { "de": "Sehen braucht den Akkusativ: ihn. Ihm ist Dativ.", "sl": "Sehen zahteva tožilnik: ihn. Ihm je dajalnik.", "en": "Sehen takes the accusative: ihn. Ihm is the dative.", "it": "Sehen vuole l'accusativo: ihn. Ihm è il dativo." },
+            "reply": { "de": "Ihm? Kaj? Sag's noch einmal, ganz langsam.", "sl": "Ihm? Kaj? Povej še enkrat, čisto počasi.", "en": "Ihm? Kaj (what)? Say it again, nice and slowly.", "it": "Ihm? Kaj (cosa)? Ripetilo, piano piano." } }
+        ] },
+        { "who": "sepp", "de": "Schau, die Vögel fliegen vom Gipfel weg. Und dort, Wolken! Ein Gewitter kommt.", "sl": "Poglej, ptice odletavajo z vrha. In tam, oblaki! Nevihta prihaja.", "en": "Look, the birds are flying off the peak. And there, clouds! A storm is coming.", "it": "Guarda, gli uccelli volano via dalla cima. E là, le nuvole! Arriva un temporale.",
+          "fx": { "birds": 1 }, "sky": { "gloom": 0.6, "wind": 0.4, "lightning": true } },
+        { "choices": [
+          { "de": "Schnell, gehen wir in die Hütte!", "sl": "Hitro, pojdiva v kočo!", "en": "Quick, let's go into the hut!", "it": "Presto, andiamo nella baita!", "ok": true,
+            "reply": { "de": "Gut, gehen wir. In der Hütte bleiben wir trocken.", "sl": "Dobro, pojdiva. V koči bova na suhem.", "en": "Good, let's go. We'll stay dry in the hut.", "it": "Bene, andiamo. Nella baita restiamo all'asciutto.", "sky": { "rain": 0.7, "gloom": 0.8 } } },
+          { "de": "Schnell, gehen wir in der Hütte!", "sl": "Hitro, pojdiva v koči!", "en": "Quick, let's go in the hut!", "it": "Presto, andiamo dentro la baita, stando lì!",
+            "grammar": "wechselpraepositionen", "why": { "de": "Wohin: in die Hütte, Akkusativ. In der Hütte (Dativ) sagt man, wo man schon ist.", "sl": "Kam: in die Hütte, tožilnik. In der Hütte (dajalnik) pomeni, kje že si.", "en": "Where to: in die Hütte, the accusative. In der Hütte (dative) is where you already are.", "it": "Moto a luogo: in die Hütte, accusativo. In der Hütte (dativo) è dove sei già." },
+            "reply": { "de": "In der Hütte? Wir sind ja noch gar nicht drin!", "sl": "In der Hütte (v koči)? Saj še sploh nisva notri!", "en": "In der Hütte (in the hut)? We're not even inside yet!", "it": "In der Hütte (nella baita)? Ma non siamo ancora dentro!" } }
+        ] },
+        { "who": "sepp", "de": "In den Bergen ändert sich das Wetter schnell. Darum habe ich immer einen Schirm dabei.", "sl": "V gorah se vreme hitro spremeni. Zato imam vedno s sabo dežnik.", "en": "In the mountains the weather changes fast. That's why I always carry an umbrella.", "it": "In montagna il tempo cambia in fretta. Per questo ho sempre con me l'ombrello." }
+      ]
+    },
+    {
+      "id": "alm",
+      "lines": [
+        { "who": "florian", "de": "Servus! Hörst du die Kuhglocken? Die Kühe gehen auf die Weide.", "sl": "Živjo! Slišiš zvonce? Krave gredo na pašo.", "en": "Hi! Do you hear the cowbells? The cows are going out to graze.", "it": "Ciao! Senti i campanacci? Le mucche vanno al pascolo.", "fx": { "cowbells": 1 } },
+        { "choices": [
+          { "de": "Ja, ich höre sie! Wie viele Kühe sind auf der Alm?", "sl": "Ja, slišim jih! Koliko krav je na planini?", "en": "Yes, I hear them! How many cows are on the Alm?", "it": "Sì, li sento! Quante mucche ci sono all'alpeggio?", "ok": true,
+            "reply": { "de": "Zwölf Kühe und ein Kalb.", "sl": "Dvanajst krav in eno tele.", "en": "Twelve cows and one calf.", "it": "Dodici mucche e un vitello." } },
+          { "de": "Ja, ich höre sie! Wie viele Kuh sind auf der Alm?", "sl": "Ja, slišim jih! Koliko krav je na planini?", "en": "Yes, I hear them! How many cows are on the Alm?", "it": "Sì, li sento! Quante mucche ci sono all'alpeggio?",
+            "grammar": "plural", "why": { "de": "Nach wie viele kommt der Plural: Kühe, mit Umlaut.", "sl": "Za wie viele pride množina: Kühe, s preglasom.", "en": "After wie viele comes the plural: Kühe, with an umlaut.", "it": "Dopo wie viele viene il plurale: Kühe, con l'Umlaut." },
+            "reply": { "de": "Kuh? Nur eine Kuh? He, dann wär ich aber arm!", "sl": "Kuh? Samo ena krava? He, potem bi bil pa reven!", "en": "Kuh? Just one cow? Hey, then I'd be poor!", "it": "Kuh? Una mucca sola? Ehi, allora sarei povero!" } },
+          { "de": "Ja, ich höre ihn! Wie viele Kühe sind auf der Alm?", "sl": "Ja, slišim ga! Koliko krav je na planini?", "en": "Yes, I hear it! How many cows are on the Alm?", "it": "Sì, lo sento! Quante mucche ci sono all'alpeggio?",
+            "grammar": "akkusativ", "why": { "de": "Es sind viele Glocken: ich höre sie. Ihn ist für ein maskulines Wort.", "sl": "Zvoncev je veliko: ich höre sie. Ihn je za eno stvar moškega spola.", "en": "The bells are many: ich höre sie. Ihn is for one masculine thing.", "it": "I campanacci sono tanti: ich höre sie. Ihn è per una cosa maschile." },
+            "reply": { "de": "Ihn? Den Wind? Ja, der pfeift heute schön, weißt du?", "sl": "Ihn (njega)? Veter? Ja, danes lepo žvižga, veš?", "en": "Ihn (him)? The wind? Yes, it's whistling nicely today, you know?", "it": "Ihn (lui)? Il vento? Sì, oggi fischia bene, sai?" } }
+        ] },
+        { "who": "florian", "de": "Im Sommer schlafe ich in der Almhütte. In der Früh melke ich, dann mache ich Käse.", "sl": "Poleti spim v pastirski koči. Zjutraj molzem, potem delam sir.", "en": "In summer I sleep in the Alm hut. In the morning I milk, then I make cheese.", "it": "D'estate dormo nella baita. La mattina mungo, poi faccio il formaggio." },
+        { "choices": [
+          { "de": "Mmm, der Käse von der Alm ist der beste!", "sl": "Mmm, sir s planine je najboljši!", "en": "Mmm, cheese from the Alm is the best!", "it": "Mmm, il formaggio d'alpeggio è il migliore!", "ok": true,
+            "reply": { "de": "Da, probier! Er ist noch frisch.", "sl": "Na, poskusi! Še svež je.", "en": "Here, try it! It's still fresh.", "it": "Tieni, assaggia! È ancora fresco." } },
+          { "de": "Mmm, der Käse von die Alm ist der beste!", "sl": "Mmm, sir s planine je najboljši!", "en": "Mmm, cheese from the Alm is the best!", "it": "Mmm, il formaggio d'alpeggio è il migliore!",
+            "grammar": "dativ", "why": { "de": "Von braucht den Dativ: von der Alm.", "sl": "Von zahteva dajalnik: von der Alm.", "en": "Von takes the dative: von der Alm.", "it": "Von vuole il dativo: von der Alm." },
+            "reply": { "de": "Von die Alm? Wie bitte? Sag's noch mal!", "sl": "Von die Alm? Kako prosim? Povej še enkrat!", "en": "Von die Alm? Pardon? Say it again!", "it": "Von die Alm? Come, scusa? Ripeti!" } }
+        ] },
+        { "who": "florian", "de": "Komm morgen früh. Dann treiben wir die Kühe zusammen auf die Weide.", "sl": "Pridi jutri zgodaj. Potem bova skupaj gnala krave na pašo.", "en": "Come early tomorrow. Then we'll drive the cows out to graze together.", "it": "Vieni domani presto. Poi portiamo insieme le mucche al pascolo." }
+      ]
+    },
+    {
+      "id": "fische",
+      "sky_stays": false,
+      "lines": [
+        { "who": "maxi", "de": "Pst! Leise, die Fische sind nah.", "sl": "Pst! Tiho, ribe so blizu.", "en": "Shh! Quiet, the fish are close.", "it": "Ssst! Silenzio, i pesci sono vicini.", "sky": { "fog": 0.7 } },
+        { "choices": [
+          { "de": "Gut, ich bin leise. Was fängst du?", "sl": "Prav, tiho bom. Kaj loviš?", "en": "OK, I'll be quiet. What are you catching?", "it": "Va bene, faccio silenzio. Che cosa peschi?", "ok": true,
+            "reply": { "de": "Forellen! Hier sind sie groß.", "sl": "Postrvi! Tukaj so velike.", "en": "Trout! They're big here.", "it": "Trote! Qui sono grandi." } },
+          { "de": "Gut, ich bin leise. Was fangst du?", "sl": "Prav, tiho bom. Kaj loviš?", "en": "OK, I'll be quiet. What are you catching?", "it": "Va bene, faccio silenzio. Che cosa peschi?",
+            "grammar": "praesens", "why": { "de": "Fangen ändert mit du den Vokal: du fängst, mit ä.", "sl": "Fangen pri du spremeni samoglasnik: du fängst, z ä.", "en": "Fangen changes its vowel with du: du fängst, with ä.", "it": "Con du, fangen cambia la vocale: du fängst, con la ä." },
+            "reply": { "de": "Fangst? Hä? Pst, die Fische hören alles!", "sl": "Fangst? Ha? Pst, ribe vse slišijo!", "en": "Fangst? Huh? Shh, the fish hear everything!", "it": "Fangst? Eh? Sst, i pesci sentono tutto!" } }
+        ] },
+        { "who": "maxi", "de": "Hörst du? Die Glocke in der Kirche! Der Nebel geht schon weg.", "sl": "Slišiš? Zvon v cerkvi! Megla se že dviga.", "en": "Hear that? The bell in the church! The fog is already lifting.", "it": "Senti? La campana della chiesa! La nebbia se ne va già.",
+          "fx": { "bell": 1 }, "sky": { "fog": 0.25 } },
+        { "fx": { "fish": 1 }, "sky": { "fog": 0 }, "choices": [
+          { "de": "Schau, ein Fisch ist aus dem Wasser gesprungen!", "sl": "Poglej, riba je skočila iz vode!", "en": "Look, a fish jumped out of the water!", "it": "Guarda, un pesce è saltato fuori dall'acqua!", "ok": true,
+            "reply": { "de": "Der war riesig! Morgen fange ich ihn.", "sl": "Ogromna je bila! Jutri jo ujamem.", "en": "It was huge! Tomorrow I'll catch it.", "it": "Era enorme! Domani lo prendo." } },
+          { "de": "Schau, ein Fisch hat aus dem Wasser gesprungen!", "sl": "Poglej, riba je skočila iz vode!", "en": "Look, a fish jumped out of the water!", "it": "Guarda, un pesce è saltato fuori dall'acqua!",
+            "grammar": "perfekt", "why": { "de": "Springen ist eine Bewegung: das Perfekt mit sein, ist gesprungen.", "sl": "Springen (gibanje) tvori perfekt s sein: ist gesprungen.", "en": "Springen is a movement: its perfect takes sein, ist gesprungen.", "it": "Springen è un movimento: il passato vuole sein, ist gesprungen." },
+            "reply": { "de": "Hat? Was hat er denn? Einen Wurm?", "sl": "Hat (ima)? Kaj pa ima? Črva?", "en": "Hat (has)? Has what? A worm?", "it": "Hat (ha)? Cosa ha? Un verme?" } },
+          { "de": "Schau, ein Fisch ist aus das Wasser gesprungen!", "sl": "Poglej, riba je skočila iz vode!", "en": "Look, a fish jumped out of the water!", "it": "Guarda, un pesce è saltato fuori dall'acqua!",
+            "grammar": "dativ", "why": { "de": "Aus braucht den Dativ: aus dem Wasser.", "sl": "Aus zahteva dajalnik: aus dem Wasser.", "en": "Aus takes the dative: aus dem Wasser.", "it": "Aus vuole il dativo: aus dem Wasser." },
+            "reply": { "de": "Aus das Wasser? Wo? Ich seh nur Nebel!", "sl": "Aus das Wasser? Kje? Jaz vidim samo meglo!", "en": "Aus das Wasser? Where? All I can see is fog!", "it": "Aus das Wasser? Dove? Io vedo solo nebbia!" } }
+        ] },
+        { "who": "maxi", "de": "Die Mama sagt, ich bin ein echter Fischer.", "sl": "Mama pravi, da sem pravi ribič.", "en": "Mum says I'm a real fisherman.", "it": "La mamma dice che sono un vero pescatore." }
+      ]
+    },
+    {
+      "id": "morgenrot",
+      "lines": [
+        { "who": "florian", "de": "Guten Morgen! Du bist schon um fünf auf, super.", "sl": "Dobro jutro! Že ob petih si pokonci, super.", "en": "Good morning! You're up at five already, great.", "it": "Buongiorno! Sei già in piedi alle cinque, grande.", "fx": { "cowbells": 0.4 } },
+        { "choices": [
+          { "de": "Guten Morgen, Florian! Was machst du?", "sl": "Dobro jutro, Florian! Kaj delaš?", "en": "Good morning, Florian! What are you doing?", "it": "Buongiorno, Florian! Che cosa fai?", "ok": true,
+            "reply": { "de": "Ich melke die Kühe. Jeden Morgen, bevor sie auf die Weide gehen.", "sl": "Molzem krave. Vsako jutro, preden gredo na pašo.", "en": "I'm milking the cows. Every morning, before they go out to graze.", "it": "Mungo le mucche. Ogni mattina, prima che vadano al pascolo." } },
+          { "de": "Guten Abend, Florian! Was machst du?", "sl": "Dober večer, Florian! Kaj delaš?", "en": "Good evening, Florian! What are you doing?", "it": "Buonasera, Florian! Che cosa fai?",
+            "why": { "de": "Es ist früh am Morgen: guten Morgen.", "sl": "Zgodaj zjutraj je: guten Morgen.", "en": "It is early morning: guten Morgen.", "it": "È mattina presto: guten Morgen." },
+            "reply": { "de": "Abend? He, hab ich den ganzen Tag verschlafen?", "sl": "Abend (večer)? He, sem prespal cel dan?", "en": "Abend (evening)? Hey, did I sleep through the whole day?", "it": "Abend (sera)? Ehi, ho dormito tutto il giorno?" } },
+          { "de": "Servus, Florian! Du bist auch schon auf?", "sl": "Živjo, Florian! Si tudi ti že pokonci?", "en": "Hi, Florian! You're up already too?", "it": "Ciao, Florian! Anche tu sei già in piedi?", "ok": true,
+            "reply": { "de": "Klar! Jeden Morgen um fünf melke ich die Kühe.", "sl": "Seveda! Vsako jutro ob petih molzem krave.", "en": "Of course! Every morning at five I milk the cows.", "it": "Certo! Ogni mattina alle cinque mungo le mucche." } }
+        ] },
+        { "who": "florian", "de": "Schau hinauf! Die Gipfel sind rot.", "sl": "Poglej gor! Vrhovi so rdeči.", "en": "Look up! The peaks are red.", "it": "Guarda su! Le cime sono rosse.", "fx": { "glow": 1 } },
+        { "choices": [
+          { "de": "Wie schön! Die Berge glühen.", "sl": "Kako lepo! Gore žarijo.", "en": "How beautiful! The mountains are glowing.", "it": "Che bello! Le montagne brillano.", "ok": true,
+            "reply": { "de": "Das ist das Morgenrot. Nur ein paar Minuten, dann sind sie wieder grau.", "sl": "To je jutranja zarja. Samo nekaj minut, potem so spet sive.", "en": "That's the glow of dawn. Just a few minutes, then they're grey again.", "it": "È l'alba rossa. Solo qualche minuto, poi tornano grigie." } },
+          { "de": "Wie schön! Die Berge glüht.", "sl": "Kako lepo! Gore žari.", "en": "How beautiful! The mountains is glowing.", "it": "Che bello! Le montagne brilla.",
+            "grammar": "praesens", "why": { "de": "Die Berge ist Plural: sie glühen.", "sl": "Die Berge je množina: sie glühen.", "en": "Die Berge is plural: sie glühen.", "it": "Die Berge è plurale: sie glühen." },
+            "reply": { "de": "Glüht? Was, meine Nase? Ja, es ist kalt!", "sl": "Glüht (žari)? Kaj, moj nos? Ja, mraz je!", "en": "Glüht (glows)? What, my nose? Yes, it's cold!", "it": "Glüht (brilla)? Cosa, il mio naso? Sì, fa freddo!" } }
+        ] },
+        { "who": "florian", "de": "Da, halt den Kübel. Die Milch ist noch warm.", "sl": "Na, drži vedro. Mleko je še toplo.", "en": "Here, hold the pail. The milk is still warm.", "it": "Tieni, reggi il secchio. Il latte è ancora caldo.", "fx": { "glow": 0.4 } },
+        { "choices": [
+          { "de": "Danke! Die Milch riecht nach Gras.", "sl": "Hvala! Mleko diši po travi.", "en": "Thanks! The milk smells of grass.", "it": "Grazie! Il latte sa di erba.", "ok": true,
+            "reply": { "de": "Ja, weißt du? Aus dieser Milch wird Almkäse.", "sl": "Ja, veš? Iz tega mleka bo sir s planine.", "en": "Yes, you know? This milk will become Alm cheese.", "it": "Sì, sai? Da questo latte nasce il formaggio d'alpeggio." } },
+          { "de": "Danke! Die Milch riecht nach das Gras.", "sl": "Hvala! Mleko diši po travi.", "en": "Thanks! The milk smells of grass.", "it": "Grazie! Il latte sa di erba.",
+            "grammar": "dativ", "why": { "de": "Nach braucht den Dativ: nach dem Gras, oder nur nach Gras.", "sl": "Nach zahteva dajalnik: nach dem Gras ali samo nach Gras.", "en": "Nach takes the dative: nach dem Gras, or just nach Gras.", "it": "Nach vuole il dativo: nach dem Gras, o solo nach Gras." },
+            "reply": { "de": "He? Die Glocken sind so laut! Noch einmal?", "sl": "He? Zvonci so tako glasni! Še enkrat?", "en": "Eh? The bells are so loud! Once more?", "it": "Eh? I campanacci sono così forti! Ancora una volta?", "fx": { "cowbells": 1 } } }
+        ] },
+        { "who": "florian", "de": "Und jetzt die Kühe auf die Weide! Hörst du die Glocken?", "sl": "Zdaj pa krave na pašo! Slišiš zvonce?", "en": "And now the cows out to graze! Hear the bells?", "it": "E adesso le mucche al pascolo! Senti i campanacci?", "fx": { "glow": 0, "cowbells": 1 } }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "erstes-mal-schirm",
+      "memory": { "de": "den Tag, an dem ich meinen Schirm verliehen habe", "sl": "dan, ko sem posodil svoj dežnik", "en": "the day I lent my umbrella", "it": "il giorno in cui ho prestato il mio ombrello" },
+      "lines": [
+        { "who": "sepp", "de": "Grüß Gott! Na, wohin gehst du heute?", "sl": "Dober dan! No, kam pa greš danes?", "en": "Hello! So, where are you off to today?", "it": "Buongiorno! Allora, dove vai oggi?" },
+        { "choices": [
+          { "de": "Ich will gehen auf den Berg.", "sl": "Hočem iti na goro.", "en": "I want to go up the mountain.", "it": "Voglio andare in montagna.",
+            "why": { "de": "Nach will steht das zweite Verb am Ende: Ich will auf den Berg gehen.", "sl": "Po will je drugi glagol na koncu: Ich will auf den Berg gehen.", "en": "After will, the second verb goes to the end: Ich will auf den Berg gehen.", "it": "Dopo will il secondo verbo va alla fine: Ich will auf den Berg gehen." },
+            "reply": { "de": "Hm? Langsam, langsam. Sag's noch einmal.", "sl": "Hm? Počasi, počasi. Povej še enkrat.", "en": "Hm? Slowly, slowly. Say it once more.", "it": "Mm? Piano, piano. Ripetilo ancora una volta." } },
+          { "de": "Ich will auf den Berg gehen.", "sl": "Na goro hočem iti.", "en": "I want to go up the mountain.", "it": "Voglio andare in montagna.", "ok": true,
+            "reply": { "de": "Auf den Berg! Schön. Aber langsam, langsam, wie man so sagt.", "sl": "Na goro! Lepo. Ampak počasi, počasi, kot se reče.", "en": "Up the mountain! Lovely. But slowly, slowly, as they say.", "it": "In montagna! Bello. Ma piano, piano, come si dice." } }
+        ] },
+        { "who": "sepp", "de": "Schau, dort über dem Gipfel. Wolken! Nimm meinen Schirm mit.", "sl": "Poglej, tam nad vrhom. Oblaki! Vzemi moj dežnik s sabo.", "en": "Look, there above the peak. Clouds! Take my umbrella with you.", "it": "Guarda, là sopra la cima. Nuvole! Prendi il mio ombrello.", "sky": { "gloom": 0.45, "wind": 0.3 } },
+        { "choices": [
+          { "de": "Danke! Ich nehme ihn mit.", "sl": "Hvala! Vzamem ga s sabo.", "en": "Thanks! I'll take it with me.", "it": "Grazie! Lo prendo con me.", "ok": true,
+            "reply": { "de": "Gut so. Und bleib auf dem Weg, gell?", "sl": "Prav tako. In ostani na poti, ja?", "en": "Good. And stay on the path, won't you?", "it": "Bene. E resta sul sentiero, eh?" } },
+          { "de": "Danke! Ich mitnehme ihn.", "sl": "Hvala! Vzamem ga s sabo.", "en": "Thanks! I'll take it with me.", "it": "Grazie! Lo prendo con me.",
+            "why": { "de": "Mitnehmen ist trennbar: ich nehme ihn mit. Mit steht am Ende.", "sl": "Mitnehmen je ločljiv glagol: ich nehme ihn mit. Mit gre na konec.", "en": "Mitnehmen is separable: ich nehme ihn mit. Mit goes to the end.", "it": "Mitnehmen è separabile: ich nehme ihn mit. Mit va alla fine." },
+            "reply": { "de": "Wie bitte? Meine Ohren sind alt. Noch einmal, langsam.", "sl": "Kako prosim? Moja ušesa so stara. Še enkrat, počasi.", "en": "Pardon? My ears are old. Once more, slowly.", "it": "Come, scusa? Le mie orecchie sono vecchie. Ancora, piano." } }
+        ] },
+        { "who": "sepp", "de": "Siehst du? Die ersten Tropfen. Gute Wanderung, und komm gut zurück!", "sl": "Vidiš? Prve kaplje. Srečno na poti in lepo se vrni!", "en": "See? The first drops. Have a good walk, and come back safely!", "it": "Vedi? Le prime gocce. Buona camminata, e buon ritorno!", "sky": { "rain": 0.2, "gloom": 0.6 } }
+      ]
+    },
+    {
+      "id": "alm-zaehlen",
+      "count": { "from": "dice", "min": 8, "max": 16, "gender": "f" },
+      "lines": [
+        { "who": "florian", "de": "Servus! Jeden Tag zähle ich meine Herde. Heute zählst du! Wie viele sind es?", "sl": "Živjo! Vsak dan preštejem svojo čredo. Danes šteješ ti! Koliko jih je?", "en": "Hi! Every day I count my herd. Today you count! How many are there?", "it": "Ciao! Ogni giorno conto la mia mandria. Oggi conti tu! Quante sono?", "fx": { "cowbells": 0.6 } },
+        { "choices": [
+          { "de": "Auf die Weide {ist|sind} {n} {Kuh|Kühe}.", "sl": "Na pašnik {je|sta|so|je} {n} {krava|kravi|krave|krav}.", "en": "There {is|are} {n} {cow|cows} onto the pasture.", "it": "Verso il pascolo {c'è|ci sono} {n} {mucca|mucche}.",
+            "why": { "de": "Wo etwas ist: Dativ, auf der Weide. Auf die Weide sagt, wohin.", "sl": "Kje nekaj je: dajalnik, auf der Weide. Auf die Weide pove, kam.", "en": "Where something is: the dative, auf der Weide. Auf die Weide says where to.", "it": "Dove si trova qualcosa: dativo, auf der Weide. Auf die Weide dice verso dove." },
+            "reply": { "de": "Auf die Weide? Die sind doch schon da, schau!", "sl": "Na pašnik? Saj so že tam, poglej!", "en": "Onto the pasture? But they're already there, look!", "it": "Verso il pascolo? Ma ci sono già, guarda!" } },
+          { "de": "Auf der Weide {ist|sind} {n} {Kuh|Kühe}.", "sl": "Na pašniku {je|sta|so|je} {n} {krava|kravi|krave|krav}.", "en": "There {is|are} {n} {cow|cows} in the pasture.", "it": "Al pascolo {c'è|ci sono} {n} {mucca|mucche}.", "ok": true,
+            "reply": { "de": "Stimmt! Und das Kalb ist bei seiner Mama.", "sl": "Tako je! In teliček je pri mami.", "en": "That's right! And the calf is with its mum.", "it": "Giusto! E il vitellino è con la sua mamma." } },
+          { "de": "Auf der Weide {ist|sind} {n} {!Kuh|Kühe}.", "sl": "Na pašniku {je|sta|so|je} {n} {!krava|kravi|krave|krav}.", "en": "There {is|are} {n} {!cow|cows} in the pasture.", "it": "Al pascolo {c'è|ci sono} {n} {!mucca|mucche}.", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Kuh|Kühe, mit Umlaut}.", "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Kuh|Kühe, s preglasom}.", "en": "{One takes the singular|From two on, the plural}: {n} {Kuh|Kühe, with an umlaut}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Kuh|Kühe, con l'Umlaut}." },
+            "reply": { "de": "Kuh? Nur eine? He, wo sind dann die anderen?", "sl": "Kuh (krava)? Samo ena? He, kje so pa druge?", "en": "Kuh (cow)? Just one? Hey, where are the others then?", "it": "Kuh (mucca)? Una sola? Ehi, e le altre dove sono?" } }
+        ] },
+        { "who": "florian", "de": "Super, du kannst gut zählen! Im Sommer schlafe ich hier oben in der Hütte. Und du?", "sl": "Super, dobro znaš šteti! Poleti spim tu gori v koči. Pa ti?", "en": "Great, you can count well! In summer I sleep up here in the hut. And you?", "it": "Grande, sai contare bene! D'estate dormo quassù nella baita. E tu?" },
+        { "choices": [
+          { "de": "Ich schlafe nach Hause, im Dorf.", "sl": "Spim domov, v vasi.", "en": "I sleep to home, in the village.", "it": "Dormo verso casa, in paese.",
+            "why": { "de": "Wo du bist: zu Hause. Nach Hause sagt, wohin du gehst.", "sl": "Kje si: zu Hause (doma). Nach Hause pove, kam greš (domov).", "en": "Where you are: zu Hause (at home). Nach Hause is where you're going (home).", "it": "Dove sei: zu Hause (a casa). Nach Hause è dove vai (verso casa)." },
+            "reply": { "de": "Nach Hause schlafen? Im Gehen? He, das kann nicht mal ich!", "sl": "Spati domov? Med hojo? He, tega še jaz ne znam!", "en": "Sleep your way home? While walking? Hey, even I can't do that!", "it": "Dormire verso casa? Camminando? Ehi, neanche io ci riesco!" } },
+          { "de": "Ich schlafe zu Hause, im Dorf.", "sl": "Spim doma, v vasi.", "en": "I sleep at home, in the village.", "it": "Dormo a casa, in paese.", "ok": true,
+            "reply": { "de": "Im Dorf? Hier oben schläft man besser, weißt du? So ruhig!", "sl": "V vasi? Tu gori se bolje spi, veš? Tako mirno je!", "en": "In the village? You sleep better up here, you know? So quiet!", "it": "In paese? Quassù si dorme meglio, sai? Che silenzio!" } }
+        ] },
+        { "who": "florian", "de": "Komm morgen wieder herauf! Juhuu!", "sl": "Jutri spet pridi gor! Juhuu!", "en": "Come up again tomorrow! Yoo-hoo!", "it": "Domani torna quassù! Iuhuu!", "fx": { "cowbells": 1 } }
+      ]
+    },
+    {
+      "id": "fische-hecht",
+      "sky_stays": false,
+      "memory": { "de": "den Morgen, an dem wir den Hecht gesehen haben", "sl": "jutro, ko sva videla ščuko", "en": "the morning we saw the pike", "it": "la mattina in cui abbiamo visto il luccio" },
+      "lines": [
+        { "who": "maxi", "de": "Pst! Leise! Ich fische schon seit sechs Uhr.", "sl": "Pst! Tiho! Ribarim že od šestih.", "en": "Shh! Quiet! I've been fishing since six o'clock.", "it": "Ssst! Silenzio! Pesco dalle sei.", "sky": { "fog": 0.6 } },
+        { "choices": [
+          { "de": "Und, hast du schon einen Fisch gefangen?", "sl": "In, si že ujel kakšno ribo?", "en": "So, have you caught a fish yet?", "it": "Allora, hai già preso un pesce?", "ok": true,
+            "reply": { "de": "Nein, noch keinen. Die Fische schlafen noch!", "sl": "Ne, še nobene. Ribe še spijo!", "en": "No, not one yet. The fish are still asleep!", "it": "No, ancora nessuno. I pesci dormono ancora!" } },
+          { "de": "Und, hast du schon einen Fisch gefängt?", "sl": "In, si že ujel kakšno ribo?", "en": "So, have you catched a fish yet?", "it": "Allora, hai già preso un pesce?",
+            "why": { "de": "Fangen ist unregelmäßig: gefangen, nicht gefängt.", "sl": "Fangen je nepravilen glagol: gefangen, ne gefängt.", "en": "Fangen is irregular: gefangen, not gefängt.", "it": "Fangen è irregolare: gefangen, non gefängt." },
+            "reply": { "de": "Gefängt? Hä? Pst, nicht so laut, die Fische!", "sl": "Gefängt? Ha? Pst, ne tako glasno, ribe!", "en": "Gefängt? Huh? Shh, not so loud, the fish!", "it": "Gefängt? Eh? Sst, non così forte, i pesci!" } }
+        ] },
+        { "who": "maxi", "de": "Schau, der Nebel geht weg! Jetzt sieht man den ganzen See.", "sl": "Poglej, megla se dviga! Zdaj se vidi celo jezero.", "en": "Look, the fog's lifting! Now you can see the whole lake.", "it": "Guarda, la nebbia se ne va! Adesso si vede tutto il lago.", "sky": { "fog": 0.2 } },
+        { "choices": [
+          { "de": "Ist es hier auch Forellen?", "sl": "Ali so tu tudi postrvi?", "en": "Is it trout here too?", "it": "Ci sono anche le trote qui?",
+            "why": { "de": "Wenn du fragst, ob etwas da ist, sagst du: Gibt es …?", "sl": "Ko vprašaš, ali nekaj obstaja, rečeš: Gibt es …?", "en": "To ask whether something is there, say: Gibt es …?", "it": "Per chiedere se c'è qualcosa, si dice: Gibt es …?" },
+            "reply": { "de": "Ist es? Was ist es? Pst, sag's noch mal, leise!", "sl": "Ist es (je to)? Kaj je to? Pst, povej še enkrat, tiho!", "en": "Ist es (is it)? Is what? Shh, say it again, quietly!", "it": "Ist es (è)? Che cosa è? Sst, ripeti, piano!" } },
+          { "de": "Gibt es hier auch Forellen?", "sl": "Ali so tu tudi postrvi?", "en": "Are there trout here too?", "it": "Ci sono anche le trote qui?", "ok": true,
+            "reply": { "de": "Ja, viele! Und einen Hecht, so groß wie ich!", "sl": "Ja, veliko! In ščuka, velika kot jaz!", "en": "Yes, loads! And a pike as big as me!", "it": "Sì, tante! E un luccio grande come me!", "fx": { "fish": 1 }, "sky": { "fog": 0 } } }
+        ] },
+        { "who": "maxi", "de": "Hast du ihn gesehen? Morgen fange ich den Hecht!", "sl": "Si jo videl? Jutri ujamem ščuko!", "en": "Did you see it? Tomorrow I'll catch the pike!", "it": "L'hai visto? Domani prendo il luccio!" }
+      ]
+    },
+    {
+      "id": "morgenrot-handschuhe",
+      "lines": [
+        { "who": "florian", "de": "Guten Morgen! Hier, halt den Kübel. Hast du Handschuhe? Es ist kalt.", "sl": "Dobro jutro! Na, drži vedro. Imaš rokavice? Mraz je.", "en": "Good morning! Here, hold the pail. Have you got gloves? It's cold.", "it": "Buongiorno! Tieni, reggi il secchio. Hai i guanti? Fa freddo.", "fx": { "cowbells": 0.4 } },
+        { "choices": [
+          { "de": "Nein, ich habe keine Handschuhe.", "sl": "Ne, nimam rokavic.", "en": "No, I haven't got any gloves.", "it": "No, non ho i guanti.", "ok": true,
+            "reply": { "de": "Dann nimm meine. He, die sind noch warm!", "sl": "Potem pa vzemi moje. He, še tople so!", "en": "Then take mine. Hey, they're still warm!", "it": "Allora prendi i miei. Ehi, sono ancora caldi!" } },
+          { "de": "Nein, ich habe nicht Handschuhe.", "sl": "Ne, nimam rokavic.", "en": "No, I have not gloves.", "it": "No, non ho guanti.",
+            "why": { "de": "Ein Nomen ohne Artikel verneinst du mit kein: keine Handschuhe.", "sl": "Samostalnik brez člena zanikaš s kein: keine Handschuhe.", "en": "A noun without an article is negated with kein: keine Handschuhe.", "it": "Un nome senza articolo si nega con kein: keine Handschuhe." },
+            "reply": { "de": "Nicht Handschuhe? Was dann, Socken an den Händen?", "sl": "Ne rokavic? Kaj pa potem, nogavice na rokah?", "en": "Not gloves? What then, socks on your hands?", "it": "Non guanti? E allora cosa, calzini sulle mani?" } }
+        ] },
+        { "who": "florian", "de": "Und du? Wann stehst du sonst auf?", "sl": "Pa ti? Kdaj pa ti običajno vstaneš?", "en": "And you? When do you usually get up?", "it": "E tu? A che ora ti alzi di solito?" },
+        { "choices": [
+          { "de": "Am sieben Uhr, glaube ich.", "sl": "Ob sedmih, mislim.", "en": "At seven o'clock, I think.", "it": "Alle sette, credo.",
+            "why": { "de": "Bei der Uhrzeit sagt man um: um sieben Uhr. Am steht vor Tagen: am Montag.", "sl": "Pri uri rečeš um: um sieben Uhr. Am je za dneve: am Montag.", "en": "With clock times, say um: um sieben Uhr. Am is for days: am Montag.", "it": "Con l'ora si dice um: um sieben Uhr. Am è per i giorni: am Montag." },
+            "reply": { "de": "Am sieben? Ist das ein Tag? Den kenn ich nicht!", "sl": "Am sieben? Je to kakšen dan? Tega pa ne poznam!", "en": "Am sieben? Is that a day? Never heard of it!", "it": "Am sieben? È un giorno? Non lo conosco!" } },
+          { "de": "Um sieben Uhr, glaube ich.", "sl": "Ob sedmih, mislim.", "en": "At seven o'clock, I think.", "it": "Alle sette, credo.", "ok": true,
+            "reply": { "de": "Um sieben! Da melke ich schon seit zwei Stunden.", "sl": "Ob sedmih! Takrat molzem že dve uri.", "en": "At seven! By then I've been milking for two hours.", "it": "Alle sette! A quell'ora mungo già da due ore." } }
+        ] },
+        { "who": "florian", "de": "Und jetzt schau hinauf! Die Berge glühen schon.", "sl": "Zdaj pa poglej gor! Gore že žarijo.", "en": "And now look up! The mountains are glowing already.", "it": "E adesso guarda su! Le montagne sono già rosse.", "fx": { "glow": 1, "cowbells": 1 } }
+      ]
+    }
+  ]
+}

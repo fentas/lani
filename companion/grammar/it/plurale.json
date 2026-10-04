@@ -1,0 +1,113 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "plurale",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": {
+    "it": "Il plurale: la pecora, le pecore",
+    "sl": "Množina samostalnikov",
+    "en": "The plural of nouns",
+    "de": "Der Plural der Nomen"
+  },
+  "rule": {
+    "en": "In the plural (*plurale*) the last vowel changes: **-o → -i** (il gabbiano → i gabbiani), **-a → -e** (la pecora → le pecore), **-e → -i** (il fiore → i fiori, la chiave → le chiavi). Masculine nouns in **-a** take **-i**: il problema → i problemi. Words in -ca and -ga (and many in -co, -go) add an **h** to keep the hard sound: **l'oca → le oche**, **il bosco → i boschi**.\n\nThe article changes too: **il → i** (i campanacci), **lo** and masculine **l' → gli** (gli stagni, gli abeti), **la** and feminine **l' → le** (le tende, le api).\n\nSome nouns never change, only the article does: words stressed on the last vowel (**il caffè → i caffè**, **la città → le città**), words ending in a consonant (**il bar → i bar**) and short ones like **la foto → le foto**.\n\nA few are irregular: **l'uovo → le uova**, **l'uomo → gli uomini**, **la mano → le mani**.\n\nFrom two on the noun is plural: **due chilometri**, **tre pecore**.",
+    "sl": "V množini (*plurale*) se spremeni zadnji samoglasnik: **-o → -i** (il gabbiano → i gabbiani), **-a → -e** (la pecora → le pecore), **-e → -i** (il fiore → i fiori, la chiave → le chiavi). Moški samostalniki na **-a** dobijo **-i**: il problema → i problemi. Besede na -ca in -ga (in mnoge na -co, -go) dobijo **h**, da ostane trdi glas: **l'oca → le oche**, **il bosco → i boschi**.\n\nSpremeni se tudi člen: **il → i** (i campanacci), **lo** in moški **l' → gli** (gli stagni, gli abeti), **la** in ženski **l' → le** (le tende, le api).\n\nNekatere besede se ne spremenijo, spremeni se samo člen: besede z naglasom na zadnjem samoglasniku (**il caffè → i caffè**, **la città → le città**), besede na soglasnik (**il bar → i bar**) in kratke, kot **la foto → le foto**.\n\nNekaj besed je nepravilnih: **l'uovo → le uova**, **l'uomo → gli uomini**, **la mano → le mani**.\n\nDvojine ni: od dva naprej je samostalnik v množini, **due chilometri** (dva kilometra), **tre pecore**.",
+    "de": "Im Plural (*plurale*) ändert sich der letzte Vokal: **-o → -i** (il gabbiano → i gabbiani), **-a → -e** (la pecora → le pecore), **-e → -i** (il fiore → i fiori, la chiave → le chiavi). Maskuline Nomen auf **-a** bekommen **-i**: il problema → i problemi. Wörter auf -ca und -ga (und viele auf -co, -go) bekommen ein **h**, damit der Laut hart bleibt: **l'oca → le oche**, **il bosco → i boschi**.\n\nAuch der Artikel ändert sich, und anders als im Deutschen (immer die) gibt es drei: **il → i** (i campanacci), **lo** und maskulines **l' → gli** (gli stagni, gli abeti), **la** und feminines **l' → le** (le tende, le api).\n\nManche Nomen bleiben gleich, nur der Artikel ändert sich: Wörter mit Betonung auf dem letzten Vokal (**il caffè → i caffè**, **la città → le città**), Wörter auf Konsonant (**il bar → i bar**) und kurze wie **la foto → le foto**.\n\nEinige sind unregelmäßig: **l'uovo → le uova**, **l'uomo → gli uomini**, **la mano → le mani**.\n\nAb zwei steht das Nomen im Plural: **due chilometri**, **tre pecore**."
+  },
+  "table": {
+    "head": [
+      { "it": "regola", "sl": "pravilo", "en": "rule", "de": "Regel" },
+      { "it": "singolare", "sl": "ednina", "en": "singular", "de": "Singular" },
+      { "it": "plurale", "sl": "množina", "en": "plural", "de": "Plural" }
+    ],
+    "rows": [
+      ["-o → -i", "il gabbiano", "i gabbiani"],
+      ["-a → -e", "la pecora", "le pecore"],
+      ["-e → -i", "il fiore", "i fiori"],
+      ["-e → -i", "la chiave", "le chiavi"],
+      ["-ca → -che", "l'oca", "le oche"],
+      ["lo → gli", "lo stagno", "gli stagni"],
+      [{ "it": "l' (maschile) → gli", "sl": "l' (moški) → gli", "en": "l' (masculine) → gli", "de": "l' (maskulin) → gli" }, "l'abete", "gli abeti"],
+      [{ "it": "l' (femminile) → le", "sl": "l' (ženski) → le", "en": "l' (feminine) → le", "de": "l' (feminin) → le" }, "l'ape", "le api"],
+      [{ "it": "invariabile", "sl": "se ne spremeni", "en": "doesn't change", "de": "bleibt gleich" }, "il caffè", "i caffè"],
+      [{ "it": "invariabile", "sl": "se ne spremeni", "en": "doesn't change", "de": "bleibt gleich" }, "la città", "le città"],
+      [{ "it": "irregolare", "sl": "nepravilno", "en": "irregular", "de": "unregelmäßig" }, "l'uovo", "le uova"],
+      [{ "it": "irregolare", "sl": "nepravilno", "en": "irregular", "de": "unregelmäßig" }, "l'uomo", "gli uomini"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Sul pontile ci sono tre gabbiani.",
+      "sl": "Na pomolu so trije galebi.",
+      "en": "There are three seagulls on the jetty.",
+      "de": "Auf dem Steg sitzen drei Möwen."
+    },
+    {
+      "it": "Le pecore del pastore hanno i campanacci.",
+      "sl": "Pastirjeve ovce imajo zvonce.",
+      "en": "The shepherd's sheep wear bells.",
+      "de": "Die Schafe des Hirten tragen Glocken.",
+      "note": {
+        "sl": "la pecora → le pecore (-a → -e), il campanaccio → i campanacci (-o → -i).",
+        "en": "la pecora → le pecore (-a → -e), il campanaccio → i campanacci (-o → -i).",
+        "de": "la pecora → le pecore (-a → -e), il campanaccio → i campanacci (-o → -i)."
+      }
+    },
+    {
+      "it": "Il ponte è a due chilometri.",
+      "sl": "Most je dva kilometra stran.",
+      "en": "The bridge is two kilometres away.",
+      "de": "Die Brücke ist zwei Kilometer entfernt.",
+      "note": {
+        "sl": "Italijanščina nima dvojine: dva kilometra → due chilometri (množina).",
+        "en": "il chilometro → due chilometri: from two on, the plural.",
+        "de": "il chilometro → due chilometri: ab zwei der Plural."
+      }
+    },
+    {
+      "it": "Nel cesto ci sono sei uova.",
+      "sl": "V košari je šest jajc.",
+      "en": "There are six eggs in the basket.",
+      "de": "Im Korb sind sechs Eier.",
+      "note": {
+        "sl": "l'uovo → le uova: nepravilno, v množini ženskega spola.",
+        "en": "l'uovo → le uova: irregular, and feminine in the plural.",
+        "de": "l'uovo → le uova: unregelmäßig und im Plural feminin."
+      }
+    },
+    {
+      "it": "Gorizia e Nova Gorica sono due città.",
+      "sl": "Gorica in Nova Gorica sta dve mesti.",
+      "en": "Gorizia and Nova Gorica are two towns.",
+      "de": "Gorizia und Nova Gorica sind zwei Städte.",
+      "note": {
+        "sl": "città ima naglas na koncu, zato se ne spremeni: la città → le città.",
+        "en": "città is stressed on the last vowel, so it doesn't change: la città → le città.",
+        "de": "città ist auf dem letzten Vokal betont und bleibt gleich: la città → le città."
+      }
+    },
+    {
+      "it": "Gli abeti sono alti e verdi.",
+      "sl": "Jelke so visoke in zelene.",
+      "en": "The fir trees are tall and green.",
+      "de": "Die Tannen sind hoch und grün.",
+      "note": {
+        "sl": "l'abete (moški spol) → gli abeti.",
+        "en": "l'abete (masculine) → gli abeti.",
+        "de": "l'abete (maskulin) → gli abeti."
+      }
+    },
+    {
+      "it": "Le api fanno il miele.",
+      "sl": "Čebele delajo med.",
+      "en": "Bees make honey.",
+      "de": "Bienen machen Honig."
+    }
+  ],
+  "modules": [],
+  "tags": ["plural", "plurale", "noun_plural", "plural_article", "irregular_plural", "articles"],
+  "see": ["articoli-genere", "aggettivi-accordo", "numeri"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

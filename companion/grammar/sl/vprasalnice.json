@@ -1,0 +1,126 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "vprasalnice",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "❓",
+  "title": {
+    "sl": "Vprašalnice: kje, kam, od kod",
+    "en": "Question words: where, where to, where from",
+    "de": "Fragewörter: wo, wohin, woher",
+    "it": "Le parole interrogative: dove, verso dove, da dove"
+  },
+  "rule": {
+    "en": "A question word opens the question, and the rest keeps its usual order: **Kje je Luka?**\n\nSlovene has three words for *where*: **kje** (where something is: *Kje si?* **V šoli.**), **kam** (where to: *Kam greš?* **V šolo.**) and **od kod** (where from: *Od kod si?* **Iz Gorice.**). The answer shows the difference: after kje the locative or instrumental, after kam the accusative, after od kod the genitive.\n\nThe others: **kdo** (who), **kaj** (what), **kdaj** (when), **kako** (how), **zakaj** (why), **koliko** (how much, how many; it takes the genitive: **koliko ovc**), **kateri** (which), **kakšen** (what kind) and **čigav** (whose). The last three agree with their noun: **kakšna juha**, **čigava kapa**.\n\nA yes/no question needs no question word and keeps the order of a statement. Let your voice rise at the end (**Si lačen?**), or start with **a**, the usual word in speech (**A si lačen?**), or **ali**, the standard one, in writing too (**Ali greš z mano?**).",
+    "de": "Ein Fragewort eröffnet die Frage, der Rest bleibt in der gewohnten Reihenfolge: **Kje je Luka?**\n\nWie das Deutsche hat das Slowenische drei Wörter: **kje** (wo: *Kje si?* **V šoli.**), **kam** (wohin: *Kam greš?* **V šolo.**) und **od kod** (woher: *Od kod si?* **Iz Gorice.**). Die Antwort zeigt den Unterschied: nach kje Lokativ oder Instrumental, nach kam Akkusativ, nach od kod Genitiv.\n\nDie anderen: **kdo** (wer), **kaj** (was), **kdaj** (wann), **kako** (wie), **zakaj** (warum), **koliko** (wie viel, wie viele; mit Genitiv: **koliko ovc**), **kateri** (welcher), **kakšen** (was für ein) und **čigav** (wessen). Die letzten drei richten sich nach ihrem Nomen: **kakšna juha**, **čigava kapa**.\n\nEine Ja/Nein-Frage braucht kein Fragewort und behält die Wortstellung des Aussagesatzes (anders als im Deutschen). Die Stimme steigt am Ende (**Si lačen?**), oder man beginnt mit **a**, dem üblichen Wort beim Sprechen (**A si lačen?**), oder mit **ali**, dem hochsprachlichen, auch geschrieben (**Ali greš z mano?**).",
+    "it": "La parola interrogativa apre la domanda, il resto mantiene l'ordine solito: **Kje je Luka?**\n\nLo sloveno ha tre parole per *dove*: **kje** (dove si trova: *Kje si?* **V šoli.**), **kam** (verso dove: *Kam greš?* **V šolo.**) e **od kod** (da dove: *Od kod si?* **Iz Gorice.**). La risposta mostra la differenza: dopo kje il locativo o lo strumentale, dopo kam l'accusativo, dopo od kod il genitivo.\n\nLe altre: **kdo** (chi), **kaj** (che cosa), **kdaj** (quando), **kako** (come), **zakaj** (perché), **koliko** (quanto, quanti; vuole il genitivo: **koliko ovc**), **kateri** (quale), **kakšen** (che tipo di) e **čigav** (di chi). Le ultime tre concordano con il nome: **kakšna juha**, **čigava kapa**.\n\nUna domanda sì/no non ha bisogno di parola interrogativa e tiene l'ordine della frase affermativa. La voce sale alla fine (**Si lačen?**), oppure si comincia con **a**, la parola solita nel parlato (**A si lačen?**), o con **ali**, quella standard, anche per iscritto (**Ali greš z mano?**)."
+  },
+  "table": {
+    "head": [
+      { "sl": "vprašalnica", "en": "question word", "de": "Fragewort", "it": "parola interrogativa" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "odgovor", "en": "answer", "de": "Antwort", "it": "risposta" }
+    ],
+    "rows": [
+      ["kje?", { "en": "where", "de": "wo", "it": "dove (stato)" }, "ob ribniku"],
+      ["kam?", { "en": "where to", "de": "wohin", "it": "verso dove" }, "na tržnico"],
+      ["od kod?", { "en": "where from", "de": "woher", "it": "da dove" }, "iz Berlina"],
+      ["kdo?", { "en": "who", "de": "wer", "it": "chi" }, "Pastir Luka"],
+      ["kaj?", { "en": "what", "de": "was", "it": "che cosa" }, "šotor"],
+      ["kdaj?", { "en": "when", "de": "wann", "it": "quando" }, "jutri"],
+      ["kako?", { "en": "how", "de": "wie", "it": "come" }, "počasi"],
+      ["zakaj?", { "en": "why", "de": "warum", "it": "perché" }, "ker dežuje"],
+      ["koliko?", { "en": "how many, how much", "de": "wie viele, wie viel", "it": "quanti, quanto" }, "pet ovc"],
+      ["kakšen? kakšna? kakšno?", { "en": "what kind, what is it like", "de": "was für ein, wie ist es", "it": "che tipo, com'è" }, "velik, rdeča, toplo"],
+      ["čigav? čigava? čigavo?", { "en": "whose", "de": "wessen", "it": "di chi" }, "moj, Lukova"],
+      ["a? ali?", { "en": "yes or no? (a in speech, ali also in writing)", "de": "ja oder nein? (a gesprochen, ali auch geschrieben)", "it": "sì o no? (a nel parlato, ali anche per iscritto)" }, "Ja. Ne."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Kje je Luka? Ob ribniku.",
+      "en": "Where is Luka? By the pond.",
+      "de": "Wo ist Luka? Am Teich.",
+      "it": "Dov'è Luka? In riva allo stagno."
+    },
+    {
+      "sl": "Kam greš? Na tržnico.",
+      "en": "Where are you going? To the market.",
+      "de": "Wohin gehst du? Auf den Markt.",
+      "it": "Dove vai? Al mercato."
+    },
+    {
+      "sl": "Od kod si? Iz Berlina.",
+      "en": "Where are you from? From Berlin.",
+      "de": "Woher kommst du? Aus Berlin.",
+      "it": "Di dove sei? Di Berlino."
+    },
+    {
+      "sl": "Koliko ovc ima Luka?",
+      "en": "How many sheep does Luka have?",
+      "de": "Wie viele Schafe hat Luka?",
+      "it": "Quante pecore ha Luka?",
+      "note": {
+        "en": "koliko takes the genitive: koliko ovc, koliko kruha.",
+        "de": "koliko steht mit dem Genitiv: koliko ovc, koliko kruha.",
+        "it": "koliko vuole il genitivo: koliko ovc, koliko kruha."
+      }
+    },
+    {
+      "sl": "Zakaj ne greš z nami?",
+      "en": "Why aren't you coming with us?",
+      "de": "Warum kommst du nicht mit uns?",
+      "it": "Perché non vieni con noi?"
+    },
+    {
+      "sl": "Ali ste iz Gorice?",
+      "en": "Are you from Gorizia? (polite)",
+      "de": "Sind Sie aus Gorizia?",
+      "it": "Lei è di Gorizia?"
+    },
+    {
+      "sl": "A si lačen?",
+      "en": "Are you hungry?",
+      "de": "Hast du Hunger?",
+      "it": "Hai fame?",
+      "note": {
+        "en": "a is what people say; in writing and careful speech: Ali si lačen?",
+        "de": "a sagt man im Gespräch; geschrieben und sorgfältig gesprochen: Ali si lačen?",
+        "it": "a è quello che si dice parlando; per iscritto e nel parlato curato: Ali si lačen?"
+      }
+    },
+    {
+      "sl": "Ali greš z mano?",
+      "en": "Are you coming with me?",
+      "de": "Kommst du mit mir?",
+      "it": "Vieni con me?"
+    },
+    {
+      "sl": "Si lačen?",
+      "en": "Are you hungry?",
+      "de": "Hast du Hunger?",
+      "it": "Hai fame?",
+      "note": {
+        "en": "No question word: the same words as the statement, and the voice rises at the end.",
+        "de": "Ohne Fragewort: dieselben Wörter wie in der Aussage, und die Stimme steigt am Ende.",
+        "it": "Senza parola interrogativa: le stesse parole dell'affermazione, e la voce sale alla fine."
+      }
+    },
+    {
+      "sl": "Čigav je ta klobuk? Lukov.",
+      "en": "Whose is this hat? Luka's.",
+      "de": "Wessen Hut ist das? Lukas.",
+      "it": "Di chi è questo cappello? Di Luka.",
+      "note": {
+        "en": "Luka → Lukov klobuk, Lukova kapa: whose, as an adjective.",
+        "de": "Luka → Lukov klobuk, Lukova kapa: wessen, als Adjektiv.",
+        "it": "Luka → Lukov klobuk, Lukova kapa: di chi, come aggettivo."
+      }
+    }
+  ],
+  "modules": ["predlogi-kraja"],
+  "tags": ["question", "questions", "question_words", "vprasalnice"],
+  "see": ["kje-mestnik-orodnik", "kam-tozilnik", "rodilnik-predlogi", "skloni", "kdaj-cas", "rodilnik-kolicina", "odvisni-govor"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "stevila-samostalniki",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": {
+    "sl": "Ena ovca, dve ovci, pet ovc",
+    "en": "Numbers with nouns",
+    "de": "Zahlen mit Nomen",
+    "it": "I numeri con i nomi"
+  },
+  "rule": {
+    "en": "The noun after a number changes with the number.\n\n**1** takes the singular: **ena ovca**. **2** takes the dual: **dve ovci**. **3** and **4** take the plural: **tri ovce**, **štiri ovce**. From **5** on, the noun is in the genitive plural (*rodilnik množine*): **pet ovc**, **deset ovc**.\n\nThe numbers 1 to 4 agree with the noun: **en brat, ena sestra, eno jajce**; **dva brata, dve sestri**; **trije bratje, tri sestre**.\n\nThe verb follows: **ena ovca je**, **dve ovci sta**, **tri ovce so**, but **pet ovc je**: from five on the verb is singular.",
+    "de": "Das Nomen nach einer Zahl ändert sich mit der Zahl.\n\n**1** verlangt den Singular: **ena ovca**. **2** den Dual: **dve ovci**. **3** und **4** den Plural: **tri ovce**, **štiri ovce**. Ab **5** steht das Nomen im Genitiv Plural (*rodilnik množine*): **pet ovc**, **deset ovc**.\n\nDie Zahlen 1 bis 4 richten sich nach dem Nomen: **en brat, ena sestra, eno jajce**; **dva brata, dve sestri**; **trije bratje, tri sestre**.\n\nDas Verb folgt: **ena ovca je**, **dve ovci sta**, **tri ovce so**, aber **pet ovc je**: ab fünf steht das Verb im Singular.",
+    "it": "Il nome dopo un numero cambia con il numero.\n\n**1** vuole il singolare: **ena ovca**. **2** il duale: **dve ovci**. **3** e **4** il plurale: **tri ovce**, **štiri ovce**. Da **5** in su il nome va al genitivo plurale (*rodilnik množine*): **pet ovc**, **deset ovc**.\n\nI numeri da 1 a 4 concordano con il nome: **en brat, ena sestra, eno jajce**; **dva brata, dve sestri**; **trije bratje, tri sestre**.\n\nIl verbo segue: **ena ovca je**, **dve ovci sta**, **tri ovce so**, ma **pet ovc je**: da cinque in su il verbo è al singolare."
+  },
+  "table": {
+    "head": [
+      { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      ["1", "ena ovca", "en brat", "eno jajce"],
+      ["2", "dve ovci", "dva brata", "dve jajci"],
+      ["3, 4", "tri ovce", "trije bratje", "tri jajca"],
+      ["5 +", "pet ovc", "pet bratov", "pet jajc"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Na travniku je ena ovca.",
+      "en": "There is one sheep in the meadow.",
+      "de": "Auf der Wiese ist ein Schaf.",
+      "it": "Sul prato c'è una pecora."
+    },
+    {
+      "sl": "Ob ribniku sta dve ovci.",
+      "en": "There are two sheep by the pond.",
+      "de": "Am Teich sind zwei Schafe.",
+      "it": "In riva allo stagno ci sono due pecore."
+    },
+    {
+      "sl": "Luka ima tri ovce.",
+      "en": "Luka has three sheep.",
+      "de": "Luka hat drei Schafe.",
+      "it": "Luka ha tre pecore."
+    },
+    {
+      "sl": "V hlevu je pet ovc.",
+      "en": "There are five sheep in the barn.",
+      "de": "Im Stall sind fünf Schafe.",
+      "it": "Nella stalla ci sono cinque pecore.",
+      "note": {
+        "en": "From five: the genitive plural (ovc) and a singular verb (je).",
+        "de": "Ab fünf: Genitiv Plural (ovc) und das Verb im Singular (je).",
+        "it": "Da cinque: genitivo plurale (ovc) e verbo al singolare (je)."
+      }
+    },
+    {
+      "sl": "Za potico potrebujem šest jajc.",
+      "en": "For the potica I need six eggs.",
+      "de": "Für die Potica brauche ich sechs Eier.",
+      "it": "Per la potica mi servono sei uova."
+    },
+    {
+      "sl": "En kruh in dve kavi, prosim.",
+      "en": "One loaf of bread and two coffees, please.",
+      "de": "Ein Brot und zwei Kaffee, bitte.",
+      "it": "Un pane e due caffè, per favore."
+    }
+  ],
+  "modules": ["dvojina-osnove"],
+  "tags": ["numbers_nouns", "number_agreement", "numeral", "counting"],
+  "see": ["dvojina", "spol-samostalnikov", "rodilnik-kolicina", "mnozina", "datumi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

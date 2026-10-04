@@ -1,0 +1,77 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "imeti-iti",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🎒",
+  "title": {
+    "sl": "Imeti in iti: imam, grem",
+    "en": "Imeti and iti: to have, to go",
+    "de": "Imeti und iti: haben, gehen",
+    "it": "Imeti e iti: avere, andare"
+  },
+  "rule": {
+    "en": "**Imeti** (to have) is regular: **imam, imaš, ima; imamo, imate, imajo** (for two: **imava, imata**). Like biti, it fuses with ne: **nimam, nimaš, nima** … and what you don't have goes into the genitive: **nimam časa**.\n\n**Iti** (to go) is irregular: **grem, greš, gre; gremo, greste, gredo** (in speech also **grejo**; for two: **greva, gresta**). Its ne stays apart: **ne grem**. Where to takes the accusative: **grem v šolo**, **na pošto**, and home is **domov**.\n\n**Rad imam** (I like) is imeti too: **rad imam kavo**; a woman says **rada imam**.",
+    "de": "**Imeti** (haben) ist regelmäßig: **imam, imaš, ima; imamo, imate, imajo** (für zwei: **imava, imata**). Wie biti verschmilzt es mit ne: **nimam, nimaš, nima** … und was man nicht hat, steht im Genitiv: **nimam časa**.\n\n**Iti** (gehen) ist unregelmäßig: **grem, greš, gre; gremo, greste, gredo** (gesprochen auch **grejo**; für zwei: **greva, gresta**). Sein ne bleibt getrennt: **ne grem**. Wohin steht im Akkusativ: **grem v šolo**, **na pošto**, und nach Hause heißt **domov**.\n\n**Rad imam** (ich mag) ist auch imeti: **rad imam kavo**; eine Frau sagt **rada imam**.",
+    "it": "**Imeti** (avere) è regolare: **imam, imaš, ima; imamo, imate, imajo** (per due: **imava, imata**). Come biti, si fonde con ne: **nimam, nimaš, nima** … e ciò che non si ha va al genitivo: **nimam časa**.\n\n**Iti** (andare) è irregolare: **grem, greš, gre; gremo, greste, gredo** (nel parlato anche **grejo**; per due: **greva, gresta**). Il suo ne resta separato: **ne grem**. Il moto a luogo vuole l'accusativo: **grem v šolo**, **na pošto**, e a casa è **domov**.\n\n**Rad imam** (mi piace) è sempre imeti: **rad imam kavo**; una donna dice **rada imam**."
+  },
+  "table": {
+    "head": [
+      { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "imeti", "en": "imeti (have)", "de": "imeti (haben)", "it": "imeti (avere)" },
+      { "sl": "iti", "en": "iti (go)", "de": "iti (gehen)", "it": "iti (andare)" }
+    ],
+    "rows": [
+      ["jaz", "imam", "grem"],
+      ["ti", "imaš", "greš"],
+      ["on, ona", "ima", "gre"],
+      ["midva", "imava", "greva"],
+      ["mi", "imamo", "gremo"],
+      ["vi", "imate", "greste"],
+      ["oni", "imajo", "gredo"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Imamo dva otroka.",
+      "en": "We have two children.",
+      "de": "Wir haben zwei Kinder.",
+      "it": "Abbiamo due figli."
+    },
+    {
+      "sl": "Nimam avta.",
+      "en": "I don't have a car.",
+      "de": "Ich habe kein Auto.",
+      "it": "Non ho la macchina."
+    },
+    {
+      "sl": "Kam greš?",
+      "en": "Where are you going?",
+      "de": "Wohin gehst du?",
+      "it": "Dove vai?"
+    },
+    {
+      "sl": "Otroci gredo v šolo.",
+      "en": "The children are going to school.",
+      "de": "Die Kinder gehen in die Schule.",
+      "it": "I bambini vanno a scuola."
+    },
+    {
+      "sl": "Jutri ne grem v službo.",
+      "en": "Tomorrow I'm not going to work.",
+      "de": "Morgen gehe ich nicht zur Arbeit.",
+      "it": "Domani non vado al lavoro."
+    },
+    {
+      "sl": "Rad imam potico.",
+      "en": "I like potica.",
+      "de": "Ich mag Potica.",
+      "it": "Mi piace la potica."
+    }
+  ],
+  "modules": ["imeti-in-iti"],
+  "tags": ["imeti", "iti"],
+  "see": ["biti", "kam-tozilnik", "rodilnik-nikalnica", "glagoli-sedanjik", "modalni-glagoli", "zanikanje"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

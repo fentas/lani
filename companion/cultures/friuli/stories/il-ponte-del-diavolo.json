@@ -1,0 +1,124 @@
+{
+  "schema": "lani.story/v0",
+  "id": "il-ponte-del-diavolo",
+  "language": "it",
+  "title": { "it": "Il Ponte del Diavolo", "sl": "Hudičev most", "en": "The Devil's Bridge", "de": "Die Teufelsbrücke" },
+  "teller": "bepi",
+  "emoji": "🌉",
+  "order": 2,
+  "about": { "en": "The legend of the Ponte del Diavolo at Cividale del Friuli (Čedad) over the Natisone (Nadiža): the devil builds the bridge in one night for the first soul to cross it, his mother brings the big rock in the middle of the river in her apron, and the townspeople send a cat across first. Machine-written, not reviewed by a native speaker." },
+  "teaser": { "it": "Nonno Bepi racconta come il diavolo ha costruito un ponte a Cividale", "sl": "Dedek Bepi pove, kako je hudič v Čedadu zgradil most", "en": "Nonno Bepi tells how the devil built a bridge at Cividale", "de": "Nonno Bepi erzählt, wie der Teufel in Cividale eine Brücke gebaut hat" },
+  "memory": { "it": "la storia del Ponte del Diavolo che ti ho raccontato", "sl": "zgodbo o Hudičevem mostu, ki sem ti jo povedal", "en": "the story of the Devil's Bridge I told you", "de": "die Geschichte von der Teufelsbrücke, die ich dir erzählt habe" },
+  "pack": "storie",
+  "words": ["diavolo", { "word": "ponte", "pack": "in-paese" }, { "word": "fiume", "pack": "in-paese" }, { "word": "gatto", "pack": "famiglia" }, { "word": "sasso", "pack": "al-fuoco" }],
+  "levels": {
+    "A1": {
+      "lines": [
+        { "it": "Buonasera, piccolo. Conosci Cividale?", "sl": "Dober večer, mali. Poznaš Čedad?", "en": "Good evening, little one. Do you know Cividale?", "de": "Guten Abend, Kleiner. Kennst du Cividale?" },
+        { "choices": [
+          { "it": "No, nonno. Dov'è?", "sl": "Ne, dedek. Kje je?", "en": "No, Grandpa. Where is it?", "de": "Nein, Opa. Wo ist das?", "ok": true,
+            "reply": { "it": "È una città vicino a noi, sul fiume Natisone.", "sl": "To je mesto blizu nas, ob reki Nadiži.", "en": "It's a town near us, on the river Natisone.", "de": "Das ist eine Stadt in unserer Nähe, am Fluss Natisone." } },
+          { "it": "No, nonno. Chi è?", "sl": "Ne, dedek. Kdo je to?", "en": "No, Grandpa. Who is that?", "de": "Nein, Opa. Wer ist das?",
+            "why": { "sl": "Čedad je kraj, ne oseba: vprašaš dov'è? (kje je?).", "en": "Cividale is a place, not a person: ask dov'è? (where is it?).", "de": "Cividale ist ein Ort, keine Person: Frag dov'è? (wo ist das?)." },
+            "reply": { "it": "Chi è? Il signor Cividale? Ah ah! No, no, piccolo.", "sl": "Chi è? Gospod Čedad? Ha ha! Ne, ne, mali.", "en": "Chi è? Mister Cividale? Ha ha! No, no, little one.", "de": "Chi è? Herr Cividale? Ha ha! Nein, nein, Kleiner." } }
+        ] },
+        { "it": "Tanto tempo fa, a Cividale non c'è un ponte. La gente non può passare il fiume.", "sl": "Nekoč v Čedadu ni mostu. Ljudje ne morejo čez reko.", "en": "Long ago there is no bridge at Cividale. People can't cross the river.", "de": "Vor langer Zeit gibt es in Cividale keine Brücke. Die Leute kommen nicht über den Fluss." },
+        { "it": "Un giorno arriva il diavolo. Dice: «Faccio io il ponte, in una notte!»", "sl": "Nekega dne pride hudič. Reče: »Jaz vam naredim most, v eni noči!«", "en": "One day the devil comes. He says: 'I'll build the bridge myself, in one night!'", "de": "Eines Tages kommt der Teufel. Er sagt: „Ich baue die Brücke selbst, in einer Nacht!“", "fx": { "flare": 0.7 } },
+        { "it": "«Ma il primo che passa sul ponte è mio!»", "sl": "»Ampak prvi, ki gre čez most, je moj!«", "en": "'But the first one who crosses the bridge is mine!'", "de": "„Aber der Erste, der über die Brücke geht, gehört mir!“" },
+        { "choices": [
+          { "it": "Oh no! Che furbo!", "sl": "O ne! Kako zvit je!", "en": "Oh no! How sly!", "de": "Oh nein! Wie listig!", "ok": true,
+            "reply": { "it": "Sì, è furbo. Ma la gente di Cividale è più furba.", "sl": "Ja, zvit je. Ampak ljudje iz Čedada so še bolj zviti.", "en": "Yes, he's sly. But the people of Cividale are slyer.", "de": "Ja, er ist listig. Aber die Leute von Cividale sind noch listiger.", "fx": { "flare": 0.3 } } },
+          { "it": "Oh no! Che furba!", "sl": "O ne! Kako zvita je!", "en": "Oh no! How sly she is!", "de": "Oh nein! Wie listig sie ist!",
+            "why": { "sl": "Diavolo je moškega spola: che furbo. Furba je ženska oblika.", "en": "Diavolo is masculine: che furbo. Furba is the feminine form.", "de": "Diavolo ist männlich: che furbo. Furba ist die weibliche Form." },
+            "reply": { "it": "Furba? Chi, la gente di Cividale? Eh, aspetta e vedrai!", "sl": "Furba? Kdo, ljudje iz Čedada? Eh, le počakaj!", "en": "Furba? Who, the people of Cividale? Ah, wait and see!", "de": "Furba? Wer, die Leute von Cividale? Na, wart's nur ab!" } }
+        ] },
+        { "it": "Di notte il diavolo lavora, lavora, lavora. La mattina il ponte è pronto!", "sl": "Ponoči hudič dela, dela, dela. Zjutraj je most gotov!", "en": "At night the devil works and works and works. In the morning the bridge is ready!", "de": "In der Nacht arbeitet der Teufel und arbeitet und arbeitet. Am Morgen ist die Brücke fertig!", "fx": { "flare": 1 } },
+        { "it": "Chi passa per primo? Un gatto!", "sl": "Kdo gre prvi čez most? Maček!", "en": "Who crosses first? A cat!", "de": "Wer geht als Erster hinüber? Eine Katze!", "fx": { "flare": 0.3 } },
+        { "it": "Il diavolo prende il gatto. Ma il gatto lo graffia e scappa via!", "sl": "Hudič zgrabi mačka. Ampak maček ga opraska in zbeži!", "en": "The devil grabs the cat. But the cat scratches him and runs away!", "de": "Der Teufel packt die Katze. Aber die Katze kratzt ihn und läuft davon!" },
+        { "choices": [
+          { "it": "Ah ah! Povero diavolo!", "sl": "Ha ha! Ubogi hudič!", "en": "Ha ha! Poor devil!", "de": "Ha ha! Armer Teufel!", "ok": true,
+            "reply": { "it": "Ah ah, sì! Il diavolo va via arrabbiato.", "sl": "Ha ha, ja! Hudič jezen odide.", "en": "Ha ha, yes! The devil goes off in a huff.", "de": "Ha ha, ja! Der Teufel zieht wütend ab." } },
+          { "it": "Ah ah! Povera diavolo!", "sl": "Ha ha! Ubogi hudič!", "en": "Ha ha! Poor devil!", "de": "Ha ha! Armer Teufel!",
+            "why": { "sl": "Diavolo je moškega spola: povero diavolo.", "en": "Diavolo is masculine: povero diavolo.", "de": "Diavolo ist männlich: povero diavolo." },
+            "reply": { "it": "Povera diavolo? Una diavola? Questa è nuova, piccolo!", "sl": "Povera diavolo? Hudička? To pa je nekaj novega, mali!", "en": "Povera diavolo? A she-devil? That's a new one, little one!", "de": "Povera diavolo? Eine Teufelin? Das ist mir neu, Kleiner!" } }
+        ] },
+        { "it": "Dimmi, piccolo: chi passa per primo sul ponte?", "sl": "Povej, mali: kdo gre prvi čez most?", "en": "Tell me, little one: who crosses the bridge first?", "de": "Sag mal, Kleiner: Wer geht als Erster über die Brücke?" },
+        { "choices": [
+          { "it": "Il gatto.", "sl": "Maček.", "en": "The cat.", "de": "Die Katze.", "ok": true,
+            "reply": { "it": "Bravo! E il ponte c'è ancora oggi. Si chiama il Ponte del Diavolo. Buonanotte, piccolo.", "sl": "Bravo! In most stoji še danes. Imenuje se Hudičev most. Lahko noč, mali.", "en": "Well done! And the bridge is still there today. It's called the Devil's Bridge. Good night, little one.", "de": "Gut gemacht! Und die Brücke gibt es heute noch. Sie heißt Teufelsbrücke. Gute Nacht, Kleiner." } },
+          { "it": "Il diavolo.", "sl": "Hudič.", "en": "The devil.", "de": "Der Teufel.",
+            "why": { "sl": "Ne: hudič most zgradi, prvi pa gre čezenj maček.", "en": "No: the devil builds the bridge, but the cat crosses it first.", "de": "Nein: Der Teufel baut die Brücke, aber die Katze geht als Erste hinüber." },
+            "reply": { "it": "Il diavolo? E allora il diavolo prende… il diavolo?", "sl": "Il diavolo? Potem hudič zgrabi … hudiča?", "en": "Il diavolo? So the devil grabs… the devil?", "de": "Il diavolo? Dann schnappt sich der Teufel … den Teufel?" } },
+          { "it": "La gatto.", "sl": "Maček.", "en": "The cat.", "de": "Die Katze.",
+            "why": { "sl": "Gatto je moškega spola: il gatto.", "en": "Gatto is masculine: il gatto.", "de": "Gatto ist männlich: il gatto." },
+            "reply": { "it": "La gatto? Hm? Le mie vecchie orecchie… ripeti, piccolo.", "sl": "La gatto? Hm? Moja stara ušesa … ponovi, mali.", "en": "La gatto? Hm? My old ears… say it again, little one.", "de": "La gatto? Hm? Meine alten Ohren … sag's noch mal, Kleiner." } }
+        ] }
+      ]
+    },
+    "A2": {
+      "lines": [
+        { "it": "Buonasera, ragazzo. Sei mai stato a Cividale?", "sl": "Dober večer, fant. Si bil že kdaj v Čedadu?", "en": "Good evening, lad. Have you ever been to Cividale?", "de": "Guten Abend, Junge. Warst du schon mal in Cividale?" },
+        { "choices": [
+          { "it": "No, non ci sono mai stato.", "sl": "Ne, nisem še bil tam.", "en": "No, I've never been there.", "de": "Nein, da war ich noch nie.", "ok": true,
+            "reply": { "it": "Allora ti racconto del suo ponte.", "sl": "Potem ti povem o njegovem mostu.", "en": "Then I'll tell you about its bridge.", "de": "Dann erzähle ich dir von der Brücke dort." } },
+          { "it": "No, non ci ho mai stato.", "sl": "Ne, nisem še bil tam.", "en": "No, I've never been there.", "de": "Nein, da war ich noch nie.",
+            "why": { "sl": "Stare tvori passato prossimo z essere: sono stato.", "en": "Stare forms the passato prossimo with essere: sono stato.", "de": "Stare bildet das passato prossimo mit essere: sono stato." },
+            "reply": { "it": "Non ci ho? Che cosa non hai, ragazzo?", "sl": "Non ci ho? Česa nimaš, fant?", "en": "Non ci ho? You haven't got what, lad?", "de": "Non ci ho? Was hast du nicht, Junge?" } }
+        ] },
+        { "it": "Tanto tempo fa, la gente di Cividale voleva un ponte sul Natisone, ma il fiume era troppo largo e profondo.", "sl": "Nekoč so ljudje v Čedadu želeli most čez Nadižo, ampak reka je bila preširoka in pregloboka.", "en": "Long ago, the people of Cividale wanted a bridge over the Natisone, but the river was too wide and too deep.", "de": "Vor langer Zeit wollten die Leute von Cividale eine Brücke über den Natisone, aber der Fluss war zu breit und zu tief." },
+        { "it": "Una sera è arrivato il diavolo, con un sorriso furbo.", "sl": "Nekega večera je prišel hudič in se zvito smehljal.", "en": "One evening the devil came, with a sly smile.", "de": "Eines Abends kam der Teufel, mit einem listigen Lächeln.", "fx": { "flare": 0.6 } },
+        { "it": "«Vi costruisco il ponte in una sola notte», ha detto. «Ma il primo che lo attraversa sarà mio.»", "sl": "»Zgradim vam most v eni sami noči,« je rekel. »Ampak prvi, ki gre čezenj, bo moj.«", "en": "'I'll build you the bridge in a single night,' he said. 'But the first one who crosses it will be mine.'", "de": "„Ich baue euch die Brücke in einer einzigen Nacht“, sagte er. „Aber der Erste, der sie überquert, gehört mir.“" },
+        { "choices": [
+          { "it": "E la gente ha detto di sì?", "sl": "In ljudje so rekli ja?", "en": "And the people said yes?", "de": "Und die Leute haben Ja gesagt?", "ok": true,
+            "reply": { "it": "Sì. Avevano già un'idea.", "sl": "Ja. Imeli so že zamisel.", "en": "Yes. They already had an idea.", "de": "Ja. Sie hatten schon eine Idee.", "fx": { "flare": 0.3 } } },
+          { "it": "E la gente hanno detto di sì?", "sl": "In ljudje so rekli ja?", "en": "And the people said yes?", "de": "Und die Leute haben Ja gesagt?",
+            "why": { "sl": "La gente je v italijanščini ednina: la gente ha detto.", "en": "La gente is singular in Italian: la gente ha detto.", "de": "La gente ist im Italienischen Singular: la gente ha detto." },
+            "reply": { "it": "Hanno detto? Tutti, uno per uno? Che fila lunga!", "sl": "Hanno detto? Vsi, drug za drugim? Kakšna dolga vrsta!", "en": "Hanno detto? All of them, one by one? What a long queue!", "de": "Hanno detto? Alle, einer nach dem anderen? Was für eine lange Schlange!" } }
+        ] },
+        { "it": "Tutta la notte il diavolo ha lavorato. Sua madre gli ha portato un grande sasso nel grembiule e l'ha messo in mezzo al fiume.", "sl": "Vso noč je hudič delal. Mama mu je v predpasniku prinesla velik kamen in ga postavila sredi reke.", "en": "The devil worked all night. His mother brought him a big stone in her apron and put it in the middle of the river.", "de": "Die ganze Nacht arbeitete der Teufel. Seine Mutter brachte ihm einen großen Stein in ihrer Schürze und legte ihn mitten in den Fluss.", "fx": { "flare": 1 } },
+        { "it": "La mattina il ponte era pronto. Il diavolo aspettava dall'altra parte. Secondo te, chi hanno mandato per primo?", "sl": "Zjutraj je bil most gotov. Hudič je čakal na drugi strani. Kaj misliš, koga so poslali prvega?", "en": "In the morning the bridge was ready. The devil was waiting on the other side. What do you think, whom did they send first?", "de": "Am Morgen war die Brücke fertig. Der Teufel wartete auf der anderen Seite. Was meinst du, wen haben sie als Ersten geschickt?", "fx": { "flare": 0.4 } },
+        { "choices": [
+          { "it": "Hanno mandato un gatto!", "sl": "Poslali so mačka!", "en": "They sent a cat!", "de": "Sie haben eine Katze geschickt!", "ok": true,
+            "reply": { "it": "Proprio così! Un gatto nero, veloce veloce.", "sl": "Točno tako! Črnega mačka, hitrega kot blisk.", "en": "Exactly! A black cat, quick as a flash.", "de": "Genau so! Eine schwarze Katze, flink wie der Blitz." } },
+          { "it": "Hanno mandato il diavolo!", "sl": "Poslali so hudiča!", "en": "They sent the devil!", "de": "Sie haben den Teufel geschickt!",
+            "why": { "sl": "Ne: hudič je čakal na drugi strani mostu.", "en": "No: the devil was waiting on the other side of the bridge.", "de": "Nein: Der Teufel wartete auf der anderen Seite der Brücke." },
+            "reply": { "it": "Il diavolo? Mandare il diavolo dal diavolo? Ah ah!", "sl": "Il diavolo? Poslati hudiča k hudiču? Ha ha!", "en": "Il diavolo? Send the devil to the devil? Ha ha!", "de": "Il diavolo? Den Teufel zum Teufel schicken? Ha ha!" } },
+          { "it": "Hanno mandato uno gatto!", "sl": "Poslali so mačka!", "en": "They sent a cat!", "de": "Sie haben eine Katze geschickt!",
+            "why": { "sl": "Pred gatto je un. Uno je samo pred s + soglasnikom ali z: uno zio.", "en": "Before gatto it's un. Uno is only before s + consonant or z: uno zio.", "de": "Vor gatto steht un. Uno steht nur vor s + Konsonant oder vor z: uno zio." },
+            "reply": { "it": "Uno gatto? Hm, anche Moro alza le orecchie!", "sl": "Uno gatto? Hm, še Moro je nastavil ušesa!", "en": "Uno gatto? Hm, even Moro's pricked up his ears!", "de": "Uno gatto? Hm, sogar Moro spitzt die Ohren!" } }
+        ] },
+        { "it": "Il diavolo ha preso il gatto, ma il gatto l'ha graffiato sul naso ed è scappato via. Il diavolo se n'è andato arrabbiatissimo!", "sl": "Hudič je zgrabil mačka, a maček ga je opraskal po nosu in zbežal. Hudič je odšel hudo jezen!", "en": "The devil grabbed the cat, but the cat scratched him on the nose and ran away. The devil went off furious!", "de": "Der Teufel packte die Katze, aber die Katze kratzte ihn auf die Nase und lief davon. Der Teufel zog fuchsteufelswild ab!", "fx": { "flare": 0.2 } },
+        { "choices": [
+          { "it": "Che furba la gente di Cividale!", "sl": "Kako zviti so ljudje iz Čedada!", "en": "How clever the people of Cividale are!", "de": "Wie schlau die Leute von Cividale sind!", "ok": true,
+            "reply": { "it": "Sì! E il ponte c'è ancora. Quando ci vai, cerca il sasso del diavolo nel fiume. Buonanotte, ragazzo.", "sl": "Ja! In most še stoji. Ko greš tja, poišči hudičev kamen v reki. Lahko noč, fant.", "en": "Yes! And the bridge is still there. When you go, look for the devil's stone in the river. Good night, lad.", "de": "Ja! Und die Brücke steht noch heute. Wenn du hinkommst, such den Stein des Teufels im Fluss. Gute Nacht, Junge." } },
+          { "it": "Che furbi la gente di Cividale!", "sl": "Kako zviti so ljudje iz Čedada!", "en": "How clever the people of Cividale are!", "de": "Wie schlau die Leute von Cividale sind!",
+            "why": { "sl": "La gente je ženskega spola in ednina: che furba la gente.", "en": "La gente is feminine and singular: che furba la gente.", "de": "La gente ist weiblich und Singular: che furba la gente." },
+            "reply": { "it": "Furbi? Chi, io e Moro? Grazie, ragazzo!", "sl": "Furbi? Kdo, jaz in Moro? Hvala, fant!", "en": "Furbi? Who, Moro and me? Thank you, lad!", "de": "Furbi? Wer, ich und Moro? Danke, Junge!" } }
+        ] }
+      ]
+    }
+  },
+  "pictures": [
+    { "after": 2, "bg": "river", "figures": [ { "id": "devil", "x": 0.62, "flip": true }, { "id": "peasant", "x": 0.26 }, { "id": "woman", "x": 0.12 } ],
+      "caption": { "it": "Il diavolo promette di costruire il ponte.", "sl": "Hudič obljubi, da bo zgradil most.", "en": "The devil promises to build the bridge.", "de": "Der Teufel verspricht, die Brücke zu bauen." } },
+    { "after": 4, "bg": "bridge", "figures": [ { "id": "devil", "x": 0.72, "flip": true }, { "id": "cat", "x": 0.36 } ],
+      "caption": { "it": "Il primo sul ponte è un gatto!", "sl": "Prva čez most gre mačka!", "en": "The first across the bridge is a cat!", "de": "Die Erste über die Brücke ist eine Katze!" } }
+  ],
+  "notes": [
+    { "level": "A1", "after": [2, 4], "text": [
+      { "it": "Tanto tempo fa, a Cividale, sul fiume Natisone, non c'era un ponte. La gente non poteva passare il fiume.", "sl": "Nekoč v Čedadu ob reki Nadiži ni bilo mostu. Ljudje niso mogli čez reko.", "en": "Long ago there was no bridge at Cividale, on the river Natisone. People could not cross the river.", "de": "Vor langer Zeit gab es in Cividale am Fluss Natisone keine Brücke. Die Leute kamen nicht über den Fluss." },
+      { "it": "Un giorno è arrivato il diavolo. Ha detto: «Faccio io il ponte, in una notte! Ma il primo che passa sul ponte è mio!» Il diavolo era furbo. Ma la gente di Cividale era più furba.", "sl": "Nekega dne je prišel hudič. Rekel je: »Jaz vam naredim most, v eni noči! Ampak prvi, ki gre čez most, je moj!« Hudič je bil zvit. Ampak ljudje iz Čedada so bili še bolj zviti.", "en": "One day the devil came. He said: 'I'll build the bridge myself, in one night! But the first one who crosses the bridge is mine!' The devil was sly. But the people of Cividale were slyer.", "de": "Eines Tages kam der Teufel. Er sagte: „Ich baue die Brücke selbst, in einer Nacht! Aber der Erste, der über die Brücke geht, gehört mir!“ Der Teufel war listig. Aber die Leute von Cividale waren noch listiger." },
+      { "it": "Di notte il diavolo ha lavorato, lavorato, lavorato. La mattina il ponte era pronto!", "sl": "Ponoči je hudič delal, delal, delal. Zjutraj je bil most gotov!", "en": "At night the devil worked and worked and worked. In the morning the bridge was ready!", "de": "In der Nacht arbeitete der Teufel und arbeitete und arbeitete. Am Morgen war die Brücke fertig!" },
+      { "it": "Per primo è passato un gatto! Il diavolo ha preso il gatto. Ma il gatto l'ha graffiato ed è scappato via! Il diavolo è andato via arrabbiato.", "sl": "Prvi je šel čez most maček! Hudič je zgrabil mačka. Ampak maček ga je opraskal in zbežal! Hudič je jezen odšel.", "en": "The first to cross was a cat! The devil grabbed the cat. But the cat scratched him and ran away! The devil went off in a huff.", "de": "Als Erste ging eine Katze hinüber! Der Teufel packte die Katze. Aber die Katze kratzte ihn und lief davon! Der Teufel zog wütend ab." },
+      { "it": "Il ponte c'è ancora oggi. Si chiama il Ponte del Diavolo.", "sl": "Most stoji še danes. Imenuje se Hudičev most.", "en": "The bridge is still there today. It is called the Devil's Bridge.", "de": "Die Brücke gibt es heute noch. Sie heißt Teufelsbrücke." }
+    ] },
+    { "level": "A2", "after": [2, 4], "text": [
+      { "it": "Tanto tempo fa, la gente di Cividale voleva un ponte sul Natisone, ma il fiume era troppo largo e profondo.", "sl": "Nekoč so ljudje v Čedadu želeli most čez Nadižo, a reka je bila preširoka in pregloboka.", "en": "Long ago the people of Cividale wanted a bridge over the Natisone, but the river was too wide and too deep.", "de": "Vor langer Zeit wollten die Leute von Cividale eine Brücke über den Natisone, aber der Fluss war zu breit und zu tief." },
+      { "it": "Una sera è arrivato il diavolo, con un sorriso furbo. «Vi costruisco il ponte in una sola notte», ha detto. «Ma il primo che lo attraversa sarà mio.» La gente ha detto di sì, perché aveva già un'idea.", "sl": "Nekega večera je prišel hudič in se zvito smehljal. »Zgradim vam most v eni sami noči,« je rekel. »Ampak prvi, ki gre čezenj, bo moj.« Ljudje so privolili, ker so že imeli zamisel.", "en": "One evening the devil came, with a sly smile. 'I'll build you the bridge in a single night,' he said. 'But the first one who crosses it will be mine.' The people said yes, because they already had an idea.", "de": "Eines Abends kam der Teufel, mit einem listigen Lächeln. „Ich baue euch die Brücke in einer einzigen Nacht“, sagte er. „Aber der Erste, der sie überquert, gehört mir.“ Die Leute sagten Ja, weil sie schon eine Idee hatten." },
+      { "it": "Tutta la notte il diavolo ha lavorato. Sua madre gli ha portato un grande sasso nel grembiule e l'ha messo in mezzo al fiume. La mattina il ponte era pronto, e il diavolo aspettava dall'altra parte.", "sl": "Vso noč je hudič delal. Mati mu je v predpasniku prinesla velik kamen in ga postavila sredi reke. Zjutraj je bil most gotov in hudič je čakal na drugi strani.", "en": "The devil worked all night. His mother brought him a big stone in her apron and put it in the middle of the river. In the morning the bridge was ready, and the devil was waiting on the other side.", "de": "Die ganze Nacht arbeitete der Teufel. Seine Mutter brachte ihm einen großen Stein in ihrer Schürze und legte ihn mitten in den Fluss. Am Morgen war die Brücke fertig, und der Teufel wartete auf der anderen Seite." },
+      { "it": "Ma la gente ha mandato per primo un gatto nero, veloce veloce. Il diavolo ha preso il gatto, ma il gatto l'ha graffiato sul naso ed è scappato via. Il diavolo se n'è andato arrabbiatissimo!", "sl": "Ljudje pa so prvega čez most poslali črnega mačka, hitrega kot blisk. Hudič je zgrabil mačka, a maček ga je opraskal po nosu in zbežal. Hudič je odšel hudo jezen!", "en": "But the people sent a black cat across first, quick as a flash. The devil grabbed the cat, but the cat scratched him on the nose and ran away. The devil went off furious!", "de": "Doch die Leute schickten zuerst eine schwarze Katze hinüber, flink wie der Blitz. Der Teufel packte die Katze, aber die Katze kratzte ihn auf die Nase und lief davon. Der Teufel zog fuchsteufelswild ab!" },
+      { "it": "Com'era furba la gente di Cividale! Il ponte c'è ancora, e nel fiume c'è ancora il sasso del diavolo.", "sl": "Kako zviti so bili ljudje iz Čedada! Most še stoji, v reki pa še vedno leži hudičev kamen.", "en": "How clever the people of Cividale were! The bridge is still there, and the devil's stone is still in the river.", "de": "Wie schlau die Leute von Cividale waren! Die Brücke steht noch heute, und im Fluss liegt immer noch der Stein des Teufels." }
+    ] }
+  ],
+  "review": "notes: machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "imenovalnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🙋",
+  "title": {
+    "sl": "Imenovalnik: kdo? kaj?",
+    "en": "The nominative: who? what?",
+    "de": "Der Nominativ: wer? was?",
+    "it": "Il nominativo: chi? che cosa?"
+  },
+  "rule": {
+    "en": "The nominative (*imenovalnik*) answers **kdo?** (who?) and **kaj?** (what?). It is the form in the dictionary, and the case of the subject: who does something, or what is somewhere. **Luka pase ovce.** **Kje je nož?** (Kaj je tam? → nož, not noža.)\n\nWhat something is, after **je** or **so**, stays in the nominative too: **To je nož.** **France je mlinar.**\n\nSlovene has no vocative: you call someone by the name as it is. **Anton, poglej!** **Hvala, France!** **Dober dan, učiteljica!** Antona, Franceta or učiteljico would be the accusative (vidim Antona).\n\nWith **kot** (like, as) you compare like with like: **Voda je kot ogledalo.** Both are in the nominative.\n\nA few nouns are plural only, even for one thing: **vrata** (door), **očala** (glasses), **grablje** (rake), **drva** (firewood). As the subject they take a plural verb: **Vrata so odprta.**",
+    "de": "Der Nominativ (*imenovalnik*) antwortet auf **kdo?** (wer?) und **kaj?** (was?). Er ist die Form im Wörterbuch und der Fall des Subjekts: wer etwas tut oder was irgendwo ist. **Luka pase ovce.** **Kje je nož?** (Kaj je tam? → nož, nicht noža.)\n\nWas etwas ist, nach **je** oder **so**, steht auch im Nominativ: **To je nož.** **France je mlinar.**\n\nEinen Vokativ gibt es nicht: Man ruft jemanden beim Namen, wie er ist. **Anton, poglej!** **Hvala, France!** **Dober dan, učiteljica!** Antona, Franceta oder učiteljico wären der Akkusativ (vidim Antona).\n\nMit **kot** (wie, als) vergleicht man Gleiches mit Gleichem: **Voda je kot ogledalo.** Beides steht im Nominativ.\n\nEinige Nomen gibt es nur im Plural, auch für ein Ding: **vrata** (Tür), **očala** (Brille), **grablje** (Rechen), **drva** (Brennholz). Als Subjekt verlangen sie ein Verb im Plural: **Vrata so odprta.**",
+    "it": "Il nominativo (*imenovalnik*) risponde a **kdo?** (chi?) e **kaj?** (che cosa?). È la forma del dizionario e il caso del soggetto: chi fa qualcosa, o che cosa si trova da qualche parte. **Luka pase ovce.** **Kje je nož?** (Kaj je tam? → nož, non noža.)\n\nCiò che qualcosa è, dopo **je** o **so**, resta anch'esso al nominativo: **To je nož.** **France je mlinar.**\n\nLo sloveno non ha il vocativo: si chiama qualcuno con il nome così com'è. **Anton, poglej!** **Hvala, France!** **Dober dan, učiteljica!** Antona, Franceta o učiteljico sarebbero l'accusativo (vidim Antona).\n\nCon **kot** (come) si confronta il simile con il simile: **Voda je kot ogledalo.** Tutti e due al nominativo.\n\nAlcuni nomi esistono solo al plurale, anche per una cosa sola: **vrata** (porta), **očala** (occhiali), **grablje** (rastrello), **drva** (legna). Come soggetto vogliono il verbo al plurale: **Vrata so odprta.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "raba", "en": "use", "de": "Gebrauch", "it": "uso" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "kdo dela", "en": "who does it (kdo?)", "de": "wer es tut (kdo?)", "it": "chi lo fa (kdo?)" }, "Luka pase ovce."],
+      [{ "sl": "kaj je kje", "en": "what is where (kaj?)", "de": "was wo ist (kaj?)", "it": "che cosa c'è e dove (kaj?)" }, "Kje je nož?"],
+      [{ "sl": "kaj kaj je", "en": "what something is", "de": "was etwas ist", "it": "che cosa è qualcosa" }, "To je nož."],
+      [{ "sl": "klicanje", "en": "calling someone", "de": "jemanden rufen", "it": "chiamare qualcuno" }, "Anton, poglej!"],
+      [{ "sl": "primerjava s kot", "en": "after kot, like the subject", "de": "nach kot, wie das Subjekt", "it": "dopo kot, come il soggetto" }, "Voda je kot ogledalo."],
+      [{ "sl": "samo množina", "en": "plural only", "de": "nur Plural", "it": "solo plurale" }, "Vrata so odprta."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Luka pase ovce.",
+      "en": "Luka is grazing the sheep.",
+      "de": "Luka hütet die Schafe.",
+      "it": "Luka pascola le pecore.",
+      "note": {
+        "en": "Luka does it: the nominative. The sheep are the object: ovce, the accusative.",
+        "de": "Luka tut es: Nominativ. Die Schafe sind das Objekt: ovce, Akkusativ.",
+        "it": "Luka fa l'azione: nominativo. Le pecore sono il complemento oggetto: ovce, accusativo."
+      }
+    },
+    {
+      "sl": "Kje je nož?",
+      "en": "Where is the knife?",
+      "de": "Wo ist das Messer?",
+      "it": "Dov'è il coltello?",
+      "note": {
+        "en": "Ask the question: kaj je kje? → nož. Noža is the genitive (nimam noža).",
+        "de": "Frag: kaj je kje? → nož. Noža ist der Genitiv (nimam noža).",
+        "it": "Fai la domanda: kaj je kje? → nož. Noža è il genitivo (nimam noža)."
+      }
+    },
+    {
+      "sl": "France je mlinar.",
+      "en": "France is a miller.",
+      "de": "France ist Müller.",
+      "it": "France è mugnaio."
+    },
+    {
+      "sl": "Anton, poglej!",
+      "en": "Anton, look!",
+      "de": "Anton, schau!",
+      "it": "Anton, guarda!",
+      "note": {
+        "en": "Calling someone: the name stays as it is. Antona is the genitive or the accusative.",
+        "de": "Wenn man jemanden ruft, bleibt der Name, wie er ist. Antona ist Genitiv oder Akkusativ.",
+        "it": "Quando si chiama qualcuno, il nome resta com'è. Antona è il genitivo o l'accusativo."
+      }
+    },
+    {
+      "sl": "Dober dan, učiteljica!",
+      "en": "Hello, teacher!",
+      "de": "Guten Tag, Frau Lehrerin!",
+      "it": "Buongiorno, maestra!"
+    },
+    {
+      "sl": "Voda je kot ogledalo.",
+      "en": "The water is like a mirror.",
+      "de": "Das Wasser ist wie ein Spiegel.",
+      "it": "L'acqua è come uno specchio.",
+      "note": {
+        "en": "One mirror, compared with the subject: ogledalo, the nominative singular. Ogledala is more than one.",
+        "de": "Ein Spiegel, verglichen mit dem Subjekt: ogledalo, Nominativ Singular. Ogledala sind mehrere.",
+        "it": "Un solo specchio, confrontato con il soggetto: ogledalo, nominativo singolare. Ogledala sono più di uno."
+      }
+    },
+    {
+      "sl": "Vrata so odprta.",
+      "en": "The door is open.",
+      "de": "Die Tür ist offen.",
+      "it": "La porta è aperta.",
+      "note": {
+        "en": "Vrata is plural only: so and odprta, even for one door.",
+        "de": "Vrata gibt es nur im Plural: so und odprta, auch für eine Tür.",
+        "it": "Vrata esiste solo al plurale: so e odprta, anche per una porta sola."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["nominative", "imenovalnik", "vocative", "plural_only"],
+  "see": ["skloni", "tozilnik", "spol-samostalnikov", "biti", "mnozina"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

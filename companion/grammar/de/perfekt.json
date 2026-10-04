@@ -1,0 +1,111 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "perfekt",
+  "language": "de",
+  "level": "A2",
+  "emoji": "⏪",
+  "title": {
+    "de": "Ich habe gewonnen: das Perfekt",
+    "sl": "Ich habe gewonnen: pretekli čas (Perfekt)",
+    "en": "Ich habe gewonnen: the past (Perfekt)",
+    "it": "Ich habe gewonnen: il passato (Perfekt)"
+  },
+  "rule": {
+    "en": "To talk about the past, spoken German mostly uses the perfect tense (*Perfekt*): **haben** or **sein** in second place and the past participle (*Partizip II*) at the end: Ich **habe** gewonnen. Wir **sind** gegangen.\n\nMost verbs take **haben**: ich habe gemacht, du hast gespielt, sie hat gewonnen. Verbs of moving from one place to another and of change take **sein**: ich **bin** gegangen, sie **ist** gekommen, der Fisch **ist** gesprungen. So do sein and bleiben: ich bin gewesen, ich bin geblieben.\n\nRegular verbs: **ge-…-t** (machen → **gemacht**, spielen → **gespielt**). Many irregular verbs: **ge-…-en**, often with another vowel (gehen → **gegangen**, gewinnen → **gewonnen**, springen → **gesprungen**); learn them with the verb.\n\nNo ge- for verbs in **-ieren** (telefonieren → telefoniert) and with **be-**, **ver-**, **er-** (besuchen → besucht, verlieren → verloren). Separable verbs put ge- inside: aufgestanden.",
+    "sl": "O preteklosti govorjena nemščina največ rabi sestavljeni pretekli čas (*Perfekt*): **haben** ali **sein** na drugem mestu, deležnik (*Partizip II*) pa na koncu: Ich **habe** gewonnen. Wir **sind** gegangen. Slovenščina ima pri tem vedno biti (sem šel, sem zmagal), nemščina izbira.\n\nVečina glagolov ima **haben**: ich habe gemacht, du hast gespielt, sie hat gewonnen. Glagoli premikanja z enega kraja na drugega in spremembe imajo **sein**: ich **bin** gegangen, sie **ist** gekommen, der Fisch **ist** gesprungen. Prav tako sein in bleiben: ich bin gewesen, ich bin geblieben.\n\nPravilni glagoli: **ge-…-t** (machen → **gemacht**, spielen → **gespielt**). Mnogi nepravilni: **ge-…-en**, pogosto z drugim samoglasnikom (gehen → **gegangen**, gewinnen → **gewonnen**, springen → **gesprungen**); te se uči skupaj z glagolom.\n\nBrez ge- so glagoli na **-ieren** (telefonieren → telefoniert) in z **be-**, **ver-**, **er-** (besuchen → besucht, verlieren → verloren). Ločljivi glagoli imajo ge- v sredini: aufgestanden.",
+    "it": "Per parlare del passato il tedesco parlato usa soprattutto il passato composto (*Perfekt*), molto simile al passato prossimo: **haben** o **sein** al secondo posto e il participio (*Partizip II*) alla fine: Ich **habe** gewonnen (ho vinto). Wir **sind** gegangen (siamo andati).\n\nLa maggior parte dei verbi vuole **haben**: ich habe gemacht, du hast gespielt, sie hat gewonnen. I verbi di movimento da un luogo a un altro e di cambiamento vogliono **sein**: ich **bin** gegangen, sie **ist** gekommen, der Fisch **ist** gesprungen. Così anche sein e bleiben: ich bin gewesen, ich bin geblieben. Il participio non cambia mai: sie ist gekommen (è venuta).\n\nVerbi regolari: **ge-…-t** (machen → **gemacht**, spielen → **gespielt**). Molti irregolari: **ge-…-en**, spesso con un'altra vocale (gehen → **gegangen**, gewinnen → **gewonnen**, springen → **gesprungen**); si imparano con il verbo.\n\nNiente ge- per i verbi in **-ieren** (telefonieren → telefoniert) e con **be-**, **ver-**, **er-** (besuchen → besucht). I verbi separabili mettono ge- in mezzo: aufgestanden."
+  },
+  "table": {
+    "head": [
+      { "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive", "it": "infinito" },
+      { "de": "Perfekt (er/sie/es)", "sl": "Perfekt (on, ona, ono)", "en": "Perfekt (he, she, it)", "it": "Perfekt (lui, lei)" },
+      { "de": "Form", "sl": "oblika", "en": "pattern", "it": "forma" }
+    ],
+    "rows": [
+      ["machen", "hat gemacht", "ge-…-t"],
+      ["spielen", "hat gespielt", "ge-…-t"],
+      ["gewinnen", "hat gewonnen", "ge-…-en"],
+      ["sehen", "hat gesehen", "ge-…-en"],
+      ["gehen", "ist gegangen", "ge-…-en"],
+      ["springen", "ist gesprungen", "ge-…-en"],
+      ["kommen", "ist gekommen", "ge-…-en"],
+      ["telefonieren", "hat telefoniert", { "de": "-ieren: ohne ge-", "sl": "-ieren: brez ge-", "en": "-ieren: no ge-", "it": "-ieren: senza ge-" }],
+      ["besuchen", "hat besucht", { "de": "be-: ohne ge-", "sl": "be-: brez ge-", "en": "be-: no ge-", "it": "be-: senza ge-" }],
+      ["aufstehen", "ist aufgestanden", { "de": "ge- in der Mitte", "sl": "ge- v sredini", "en": "ge- in the middle", "it": "ge- in mezzo" }]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Jakob hat gewonnen!",
+      "sl": "Jakob je zmagal!",
+      "en": "Jakob won!",
+      "it": "Jakob ha vinto!",
+      "note": {
+        "en": "gewinnen → gewonnen, with haben.",
+        "sl": "gewinnen → gewonnen, s haben.",
+        "it": "gewinnen → gewonnen, con haben."
+      }
+    },
+    {
+      "de": "Der Fisch ist aus dem Wasser gesprungen.",
+      "sl": "Riba je skočila iz vode.",
+      "en": "The fish jumped out of the water.",
+      "it": "Il pesce è saltato fuori dall'acqua.",
+      "note": {
+        "en": "Movement: sein. springen → gesprungen.",
+        "sl": "Premikanje: sein. springen → gesprungen.",
+        "it": "Movimento: sein. springen → gesprungen."
+      }
+    },
+    {
+      "de": "Oma Resi hat einen Kuchen gebacken.",
+      "sl": "Babica Resi je spekla kolač.",
+      "en": "Grandma Resi baked a cake.",
+      "it": "La nonna Resi ha fatto una torta.",
+      "note": {
+        "en": "backen → gebacken (ge-…-en).",
+        "sl": "backen → gebacken (ge-…-en).",
+        "it": "backen → gebacken (ge-…-en)."
+      }
+    },
+    {
+      "de": "Wir sind auf die Alm gegangen.",
+      "sl": "Šli smo na planino.",
+      "en": "We went up to the alpine pasture.",
+      "it": "Siamo andati all'alpeggio."
+    },
+    {
+      "de": "Tante Mitzi ist gestern gekommen.",
+      "sl": "Teta Mitzi je včeraj prišla.",
+      "en": "Aunt Mitzi came yesterday.",
+      "it": "La zia Mitzi è venuta ieri.",
+      "note": {
+        "en": "Coming and going take sein; the participle never changes: sie ist gekommen.",
+        "sl": "Prihod in odhod imata sein; deležnik se ne spreminja: sie ist gekommen (je prišla).",
+        "it": "Venire e andare vogliono sein; il participio non cambia: sie ist gekommen (è venuta)."
+      }
+    },
+    {
+      "de": "Habt ihr Opa Sepp besucht?",
+      "sl": "Ste obiskali dedka Seppa?",
+      "en": "Did you visit Grandpa Sepp?",
+      "it": "Siete andati a trovare il nonno Sepp?",
+      "note": {
+        "en": "be- verbs have no ge-: besucht.",
+        "sl": "Glagoli z be- nimajo ge-: besucht.",
+        "it": "I verbi con be- non hanno ge-: besucht."
+      }
+    },
+    {
+      "de": "Die Kinder haben am Teich gespielt.",
+      "sl": "Otroci so se igrali ob ribniku.",
+      "en": "The children played by the pond.",
+      "it": "I bambini hanno giocato vicino allo stagno."
+    }
+  ],
+  "modules": [],
+  "tags": ["past_tense", "perfekt", "perfect_tense", "participle", "partizip", "haben_sein", "auxiliary"],
+  "see": ["sein-haben", "trennbare-verben", "wortstellung", "praesens"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,751 @@
+#!/usr/bin/env bun
+// Word lookup's dictionary (companion/README.md, "Word lookup"): turns a kaikki.org extract of English Wiktionary
+// (JSONL, one entry per line, e.g. https://kaikki.org/dictionary/Slovene/) into companion/lexicon/<lang>.json: the
+// lemmas (up to 3 short glosses, a noun's gender) and every inflected form with its lemma and grammar; then gives the
+// lemmas their meanings in Lani's other languages (Slovene, Italian, German, English) from the German, Italian and
+// English Wiktionaries (bridge/src/lexicon-meanings.ts). It reads an extract line by line, gzipped or not, or from
+// standard input ("-"), so the largest (English: 3.3 GB, 520 MB gzipped) streams through: curl … | lexicon-build --from -.
+//
+// Usage: companion/bin/lexicon-build --from <kaikki.jsonl[.gz]|-> [--lang sl] [--out <file>] [--meanings] [--manifest [--gzip]]
+//        companion/bin/lexicon-build --index <kaikki.jsonl[.gz]|-> --edition <en|de|it> [--name <name>] [--url <kaikki url>] [--work <dir>]
+//        companion/bin/lexicon-build --meanings [--lang it] [--dict <file>] [--out <file>] [--work <dir>] [--manifest [--gzip]]
+//        companion/bin/lexicon-build --coverage [--lang sl] [--dict <file>] [--all]
+//   --manifest  also writes <lang>.manifest.json next to the file (version, sha256, size, the bases with their coverage
+//               and sources, the attribution): a dictionary too large for the repository is a download
+//               (LANI_LEXICON_URL, bridge/src/lexicon-download.ts); --gzip: the file downloaded is <out>.gz
+//   --index     what an extract gives the meanings, once: its entries' translation tables into Lani's languages and
+//               the glosses of their words, as <work>/<edition>.<name>.index.jsonl (--work, default
+//               ${XDG_CACHE_HOME:-~/.cache}/lani/lexicon-work). --edition: the Wiktionary's language (en: kaikki.org's
+//               English, Slovene, Italian and German extracts; de, it: https://kaikki.org/dewiktionary/ and
+//               /itwiktionary/'s raw-wiktextract-data.jsonl.gz)
+//   --meanings  the lemmas of the dictionary (--dict, default companion/lexicon/<lang>.json; after --from, the one
+//               built) get their meanings in the other languages from the indexes in --work: written back into each
+//               lemma ("meanings": {"de": {"gloss": ["Haus"], "via": "direct"}}), with each base's coverage in meta
+//   --coverage  how many words of the curated content (scenes, the culture pack, packs, scenarios, modules) the
+//               dictionary, its supplement (<lang>.extra.json), the pack words and the villagers' names know, and how
+//               many have a meaning in each base; lists the words none of them knows, and the words known only as a
+//               form of another word, the most frequent first (--all: every one)
+import '../bridge/src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
+import { createHash } from 'node:crypto'
+import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
+import { homedir } from 'node:os'
+import { basename, dirname, join, resolve } from 'node:path'
+import { createInterface } from 'node:readline'
+import { createGunzip, gzipSync } from 'node:zlib'
+import { ATTRIBUTION, normalizeForm, wordsOf, type LexiconFile } from '../bridge/src/lexicon'
+import {
+  chooseMeaning, LANI_LANGUAGES, indexRow, meaningsOf, pairsOf, pivot, samePos, shortGloss, stripArticle, unshare,
+  type Candidates, type IndexRow, type Kind, type Listed, type Meaning, type PivotKind, type Table, type Together, type Via,
+} from '../bridge/src/lexicon-meanings'
+import { LANGUAGES } from '../bridge/src/learners'
+import { laniDir } from '../bridge/src/env'
+import { isSchema } from '../bridge/src/schema'
+
+const root = resolve(import.meta.dir, '../..')
+const args = process.argv.slice(2)
+const opt = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined)
+const lang = opt('--lang') ?? 'sl'
+const from = opt('--from')
+const index = opt('--index')
+const edition = opt('--edition')
+const lexiconDir = join(root, 'companion/lexicon')
+const dictPath = opt('--dict') ?? join(lexiconDir, `${lang}.json`)
+const out = opt('--out') ?? (from ? join(lexiconDir, `${lang}.json`) : dictPath)
+const work = resolve(opt('--work') ?? join(laniDir(process.env.XDG_CACHE_HOME || join(homedir(), '.cache')), 'lexicon-work'))
+const today = new Date().toISOString().slice(0, 10)
+const usage =
+  !/^[a-z]{2,3}$/.test(lang) || (index !== undefined && !(LANI_LANGUAGES as readonly string[]).includes(edition ?? '')) || (!from && !index && !args.includes('--meanings') && !args.includes('--coverage'))
+if (args.includes('--help') || args.includes('-h') || usage) {
+  console.log(
+    'Usage: companion/bin/lexicon-build --from <kaikki.jsonl[.gz]|-> [--lang sl] [--out <file>] [--meanings] [--manifest [--gzip]]\n' +
+      '       companion/bin/lexicon-build --index <kaikki.jsonl[.gz]|-> --edition <en|de|it> [--name <name>] [--url <kaikki url>] [--work <dir>]\n' +
+      '       companion/bin/lexicon-build --meanings [--lang it] [--dict <file>] [--out <file>] [--work <dir>] [--manifest [--gzip]]\n' +
+      '       companion/bin/lexicon-build --coverage [--lang sl] [--dict <file>] [--all]',
+  )
+  process.exit(args.includes('--help') || args.includes('-h') ? 0 : 2)
+}
+
+/** The lines of an extract: a file (gzipped when it ends in .gz) or standard input ("-", gzipped or not: gunzip first). */
+function lines(file: string): AsyncIterable<string> {
+  const raw = file === '-' ? process.stdin : createReadStream(file)
+  return createInterface({ input: file.endsWith('.gz') ? raw.pipe(createGunzip()) : raw, crlfDelay: Infinity })
+}
+
+/** The Wiktionaries a dictionary's meanings come from (<lang>.json's meta.sources, the manifest's). */
+type Source = { edition: string; name: string; urls: string[]; indexed: string }
+
+/**
+ * <lang>.manifest.json next to [file]: what a bridge downloads and checks (bridge/src/lexicon-download.ts), with the
+ * bases the dictionary has meanings in (coverage, how found) and the sources and attribution its licence asks for.
+ * With --gzip the file downloaded is [file].gz.
+ */
+function writeManifest(file: string, meta: LexiconFile['meta']) {
+  const target = args.includes('--gzip') ? `${file}.gz` : file
+  if (target !== file) writeFileSync(target, gzipSync(readFileSync(file), { level: 9 }))
+  const bytes = readFileSync(target)
+  const sha256 = createHash('sha256').update(bytes).digest('hex')
+  const manifest = {
+    schema: 'lani.lexicon/v0', language: lang, version: `${meta.built}-${sha256.slice(0, 8)}`,
+    file: basename(target), sha256, size: bytes.length, licence: meta.licence, licence_url: meta.licence_url, source: meta.source, attribution: ATTRIBUTION,
+    counts: { lemmas: meta.counts.lemmas, forms: meta.counts.forms },
+    ...(meta.bases ? { bases: meta.bases } : {}),
+    ...(meta.sources ? { sources: meta.sources } : {}),
+  }
+  const path = join(dirname(file), `${lang}.manifest.json`)
+  writeFileSync(path, JSON.stringify(manifest, null, 2) + '\n')
+  console.log(`${path}: ${manifest.version}, ${basename(target)} ${(bytes.length / 1024 / 1024).toFixed(2)} MB`)
+}
+
+/** A dictionary as the repository keeps it: one row per line, so a rebuild's diff shows what changed. */
+function writeDict(path: string, f: LexiconFile) {
+  const text = [
+    `{"meta": ${JSON.stringify(f.meta)},`,
+    `"grammar": [\n${f.grammar.map(g => JSON.stringify(g)).join(',\n')}\n],`,
+    `"lemmas": [\n${f.lemmas.map(l => JSON.stringify(l)).join(',\n')}\n],`,
+    `"forms": {\n${Object.entries(f.forms).map(([k, r]) => `${JSON.stringify(k)}: ${JSON.stringify(r)}`).join(',\n')}\n}}\n`,
+  ].join('\n')
+  writeFileSync(`${path}.part`, text)
+  renameSync(`${path}.part`, path)
+}
+
+// --- building ------------------------------------------------------------------------------------------------------
+
+/** Parts of speech a tapped word never is. */
+const SKIP_POS = new Set(['character', 'symbol', 'prefix', 'suffix', 'interfix', 'infix', 'circumfix', 'affix', 'punct', 'romanization'])
+/** Rows of a table that aren't forms (its template, its class), and forms without a reading (and every "error-…"). */
+const SKIP_FORM = new Set(['table-tags', 'inflection-template', 'romanization', 'class', 'canonical'])
+const skipForm = (tags: string[]) => tags.some(t => SKIP_FORM.has(t) || t.startsWith('error-'))
+/** Senses that go last. */
+const RARE = new Set(['archaic', 'obsolete', 'dated', 'rare', 'dialectal', 'historical'])
+const CASES = ['nominative', 'genitive', 'dative', 'accusative', 'locative', 'instrumental', 'vocative']
+/**
+ * The grammar words of a form, in the order they are written; the cases are grouped: "dative/locative singular". The
+ * indicative is the mood a form has unless it says another (Italian: "present" and "present subjunctive").
+ */
+const ORDER = [
+  'first-person', 'second-person', 'third-person', ...CASES, 'masculine', 'feminine', 'neuter', 'singular', 'dual', 'plural',
+  'definite', 'indefinite', 'comparative', 'superlative', 'negative', 'present', 'historic', 'past', 'future', 'imperfect',
+  'conditional', 'subjunctive', 'imperative', 'infinitive', 'gerund', 'supine', 'l-participle', 'participle', 'converb',
+  'noun-from-verb', 'diminutive', 'augmentative', 'relational', 'possessive', 'demonym', 'adjective', 'adverb',
+  'alternative',
+]
+const WRITTEN: Record<string, string> = { 'noun-from-verb': 'verbal noun', alternative: 'alternative form' }
+/** What a pronoun's forms agree in: its person, gender and number. */
+const AGREEMENT = [['first-person', 'second-person', 'third-person'], ['masculine', 'feminine', 'neuter'], ['singular', 'dual', 'plural']]
+
+/** One word as the lexicon keeps it (Slovene: its letters only, as normalizeForm leaves them), and a lemma of up to 4. */
+const WORD = lang === 'sl' ? /^[a-zčšžđ]+$/ : /^[\p{Ll}\p{M}]+(?:['’][\p{Ll}\p{M}]+)?$/u
+const PHRASE = new RegExp(`^${WORD.source.slice(1, -1)}(?: ${WORD.source.slice(1, -1)}){0,3}$`, WORD.flags)
+
+type Sense = { glosses?: string[]; tags?: string[]; form_of?: { word: string }[]; alt_of?: { word: string }[]; translations?: unknown[] }
+type Entry = {
+  word: string
+  pos: string
+  lang_code?: string
+  senses?: Sense[]
+  forms?: { form: string; tags?: string[] }[]
+  head_templates?: { name?: string; args?: Record<string, string> }[]
+  translations?: unknown[]
+}
+type Lemma = { lemma: string; pos: string; glosses: string[][]; gender?: 'm' | 'f' | 'n' }
+
+/**
+ * English Wiktionary has 1.4 million English entries, most of them rare words and names: the English dictionary keeps
+ * the words it translates (into any language), with their forms, and no names. (830,000 lemmas and 120 MB otherwise.)
+ */
+const TRANSLATED_ONLY = lang === 'en'
+const translated = (e: Entry) => !!e.translations?.length || !!e.senses?.some(s => s.translations?.length)
+
+/** A description of use followed by the meaning: "Used as a copula. to be" (essere) → "to be". */
+const USE_THEN_MEANING = /^(?:Used|Denotes)\b[^.]*\.\s+(\p{Ll}.*)$/u
+/** A description of use, not a meaning: "Used to connect …", "Denotes absolute time." */
+const USE = /^(?:Used|Denotes)\b/
+
+/**
+ * A sense's gloss; for the heading of subsenses ("As an auxiliary verb:", every sense of English "be"), its
+ * subsense's; none for a heading alone.
+ */
+function senseGloss(s: Sense): string | undefined {
+  let g = s.glosses?.[0]?.trim()
+  if (g?.endsWith(':')) g = (s.glosses?.length ?? 0) > 1 ? s.glosses!.at(-1)!.trim() : undefined
+  if (!g || g.endsWith(':')) return undefined
+  return shortGloss(USE_THEN_MEANING.exec(g)?.[1] ?? g)
+}
+
+/** A noun's gender: its headword's tags, else the head template's ("m-in", "f"). */
+function genderOf(e: Entry): Lemma['gender'] {
+  const tags = new Set(e.forms?.filter(f => f.tags?.includes('canonical')).flatMap(f => f.tags ?? []))
+  if (tags.has('masculine')) return 'm'
+  if (tags.has('feminine')) return 'f'
+  if (tags.has('neuter')) return 'n'
+  for (const h of e.head_templates ?? []) {
+    const g = /^([mfn])(?:-|$)/.exec(h.args?.['2'] ?? h.args?.g ?? '')?.[1]
+    if (g && e.pos === 'noun') return g as Lemma['gender']
+  }
+}
+
+/** "njêga (ga, -nj)" → the spellings it lists that are words: njega, ga. */
+function spellings(form: string): string[] {
+  const m = /^([^(]*)\(([^)]*)\)\s*$/.exec(form)
+  const all = m ? [m[1], ...m[2].split(',')] : [form]
+  return all.map(f => normalizeForm(f, lang)).filter(f => f.length <= 40 && WORD.test(f))
+}
+
+const DEFINITENESS = ['definite', 'indefinite']
+const sameTags = (a: string[], b: string[]) => a.length === b.length && a.every(t => b.includes(t))
+const byOrder = (a: string, b: string) => ORDER.indexOf(a) - ORDER.indexOf(b)
+/** The agreement set (person, gender, number) all of [tags] are in; -1 for none. */
+const dimensionOf = (tags: string[]) => AGREEMENT.findIndex(d => tags.every(t => d.includes(t)))
+
+/** One set of tags per person, gender and number: Wiktionary tags "genitive dual/plural of pravo" [genitive, dual, plural]. */
+function splitAgreement(tags: string[]): string[][] {
+  for (const d of AGREEMENT) {
+    const has = d.filter(t => tags.includes(t))
+    if (has.length > 1) return has.flatMap(t => splitAgreement(tags.filter(x => !d.includes(x) || x === t)))
+  }
+  return [tags]
+}
+
+/**
+ * The grammar of [form]'s readings of one lemma, readable: "dative/locative singular; genitive dual/plural"; null when it
+ * has none. Readings that differ only in their cases, or only in their person, gender or number, are written as one;
+ * the rows Wiktionary's tables tag wrongly are fixed first.
+ */
+function grammarOf(form: string, sets: string[][]): string | null {
+  let clean = sets.map(tags => {
+    let t = ORDER.filter(x => tags.includes(x))
+    // an l-participle's rows are also tagged participle, some converb
+    if (t.includes('l-participle')) t = t.filter(x => x !== 'participle' && x !== 'converb')
+    // a finite form (present, imperative) has a person, never a gender ("second-person neuter singular imperative")
+    if (t.some(x => AGREEMENT[0].includes(x)) && !t.some(x => x.endsWith('participle'))) t = t.filter(x => !AGREEMENT[1].includes(x))
+    return t
+  })
+  // Slovene: the tables of biti, imeti and hoteti tag every row negative, but only the forms in n- are (nisem, nimam,
+  // nočem). A form's wrongly tagged rows go when it has other readings (bo: third-person singular future), else they
+  // lose the tag (sem: first-person singular present).
+  if (lang === 'sl' && !form.startsWith('n')) {
+    const others = clean.filter(t => t.length && !t.includes('negative'))
+    clean = others.length ? others : clean.map(t => t.filter(x => x !== 'negative'))
+  }
+  // a form that is the same definite and indefinite ("lahko") is written without it
+  const plain = (t: string[]) => t.filter(x => !DEFINITENESS.includes(x)).join(' ')
+  const variants = new Map<string, Set<string>>()
+  for (const t of clean) variants.set(plain(t), (variants.get(plain(t)) ?? new Set()).add(t.filter(x => DEFINITENESS.includes(x)).join(' ')))
+  clean = clean.map(t => (variants.get(plain(t))!.size > 1 ? t.filter(x => !DEFINITENESS.includes(x)) : t))
+  // Italian and the others: a reading that lacks only the gender or number of another one is that one ("plural", a
+  // form-of sense, beside its table's "feminine plural"). Slovene's readings stay as its tables give them.
+  const agreement = new Set([...AGREEMENT[1], ...AGREEMENT[2]])
+  const saysLess = (t: string[], u: string[]) => u.length > t.length && t.every(x => u.includes(x)) && u.every(x => t.includes(x) || agreement.has(x))
+  if (lang !== 'sl') clean = clean.filter((t, i) => !clean.some((u, j) => j !== i && saysLess(t, u)))
+
+  // each reading: its cases, and its other words as slots of alternatives ([["second-person", "third-person"], ["dual"]])
+  type Group = { cases: string[]; slots: string[][] }
+  const groups: Group[] = []
+  const sameSlots = (a: Group, b: Group) => a.slots.length === b.slots.length && a.slots.every((s, i) => sameTags(s, b.slots[i]))
+  for (const t of clean.flatMap(splitAgreement)) {
+    if (!t.length) continue
+    const g = { cases: t.filter(x => CASES.includes(x)), slots: t.filter(x => !CASES.includes(x)).map(x => [x]) }
+    if (!groups.some(h => sameTags(h.cases, g.cases) && sameSlots(h, g))) groups.push(g)
+  }
+  const union = (a: string[], b: string[], order: (x: string, y: string) => number) => [...new Set([...a, ...b])].sort(order)
+  // Two readings are one when they differ only in their cases (merged first: "dative/locative singular"), or only in
+  // their person, gender or number ("genitive dual/plural"); merged a pair at a time until no pair is left.
+  const merge = (byCases: boolean) => {
+    for (let i = 0; i < groups.length; i++) {
+      for (let j = i + 1; j < groups.length; j++) {
+        const [a, b] = [groups[i], groups[j]]
+        if (a.slots.length !== b.slots.length) continue
+        const diff = a.slots.flatMap((s, k) => (sameTags(s, b.slots[k]) ? [] : [k]))
+        if (byCases && !diff.length && (sameTags(a.cases, b.cases) || (a.cases.length && b.cases.length))) {
+          a.cases = union(a.cases, b.cases, (x, y) => CASES.indexOf(x) - CASES.indexOf(y))
+        } else if (!byCases && diff.length === 1 && sameTags(a.cases, b.cases) && dimensionOf(a.slots[diff[0]]) >= 0 && dimensionOf(a.slots[diff[0]]) === dimensionOf(b.slots[diff[0]])) {
+          a.slots[diff[0]] = union(a.slots[diff[0]], b.slots[diff[0]], byOrder)
+        } else continue
+        groups.splice(j, 1)
+        return true
+      }
+    }
+    return false
+  }
+  // every gender says nothing: "genitive/locative plural", not "genitive/locative masculine/feminine/neuter plural"
+  const anyGender = () => {
+    const g = groups.find(g => g.slots.some(s => sameTags(s, AGREEMENT[1])))
+    if (g) g.slots = g.slots.filter(s => !sameTags(s, AGREEMENT[1]))
+    return !!g
+  }
+  while (merge(true) || merge(false) || anyGender()) {
+    // until nothing changes
+  }
+  // "second/third-person", "feminine/neuter", "any case" for all of them
+  const written = (s: string[]) => (s.length > 1 && dimensionOf(s) === 0 ? `${s.map(x => x.replace(/-person$/, '')).join('/')}-person` : s.map(x => WRITTEN[x] ?? x).join('/'))
+  const out = groups.map(g => {
+    const rest = g.slots.map(written).join(' ')
+    if (CASES.slice(0, 6).every(c => g.cases.includes(c))) return rest ? `any case, ${rest}` : 'any case'
+    return [g.cases.sort((a, b) => CASES.indexOf(a) - CASES.indexOf(b)).join('/'), rest].filter(Boolean).join(' ')
+  })
+  return out.length ? out.join('; ') : null
+}
+
+async function build(file: string) {
+  const lemmas = new Map<string, Lemma>() // "gozd|noun" → the lemma
+  const forms = new Map<string, Map<string, string[][]>>() // "gozdu" → "gozd|noun" → its readings' tags
+  const formOf: { form: string; target: string; pos: string; tags: string[]; gloss: string; word: string }[] = []
+  const addForm = (form: string, key: string, tags: string[]) => {
+    const byLemma = forms.get(form) ?? new Map<string, string[][]>()
+    const sets = byLemma.get(key) ?? []
+    if (!sets.some(s => s.length === tags.length && s.every(t => tags.includes(t)))) sets.push(tags)
+    byLemma.set(key, sets)
+    forms.set(form, byLemma)
+  }
+  let read = 0
+  for await (const line of lines(file)) {
+    if (!line.trim()) continue
+    const e = JSON.parse(line) as Entry
+    read++
+    if ((e.lang_code && e.lang_code !== lang) || SKIP_POS.has(e.pos) || (TRANSLATED_ONLY && e.pos === 'name')) continue
+    const norm = normalizeForm(e.word, lang)
+    if (!PHRASE.test(norm)) continue
+    const senses = e.senses ?? []
+    const isRef = (s: Sense) => !!(s.form_of?.length || s.alt_of?.length)
+    // a form of another word ("gozdu", "so"): resolved once every lemma is read
+    for (const s of senses.filter(isRef)) {
+      for (const t of [...(s.form_of ?? []), ...(s.alt_of ?? [])]) {
+        formOf.push({ form: norm, target: normalizeForm(t.word, lang), pos: e.pos, tags: s.form_of?.length ? (s.tags ?? []) : ['alternative'], gloss: (s.glosses ?? []).join(' '), word: e.word })
+      }
+    }
+    const meanings = senses.filter(s => !isRef(s) && !s.tags?.includes('form-of'))
+    // rare senses and descriptions of use ("Used to connect …") after the meanings
+    const late = (s: Sense) => {
+      const g = s.glosses?.[0] ?? ''
+      return s.tags?.some(t => RARE.has(t)) ? 2 : USE.test(g) && !USE_THEN_MEANING.test(g) ? 1 : 0
+    }
+    const glosses = [...new Set(meanings.sort((a, b) => late(a) - late(b)).flatMap(s => senseGloss(s) ?? []))]
+    if (!glosses.length || (TRANSLATED_ONLY && !translated(e))) continue
+    const key = `${norm}|${e.pos}`
+    const l = lemmas.get(key) ?? { lemma: e.word, pos: e.pos, glosses: [] }
+    l.glosses.push(glosses)
+    l.gender ??= genderOf(e)
+    lemmas.set(key, l)
+    addForm(norm, key, e.pos === 'verb' ? ['infinitive'] : [])
+    // A personal pronoun's table is the whole paradigm (on, ona, ono, oni …): only the rows of this pronoun's person,
+    // gender and number (its own nominative row's) are its forms. A table of several persons without a row of its
+    // own (mi's lists jaz, ti, se …) is none of its forms.
+    const own = e.pos === 'pron' ? e.forms?.find(f => f.tags?.includes('nominative') && spellings(f.form).includes(norm))?.tags : undefined
+    const persons = new Set(e.forms?.flatMap(f => f.tags?.filter(t => AGREEMENT[0].includes(t)) ?? []))
+    if (e.pos === 'pron' && !own && persons.size > 1) continue
+    // An article's table is its language's whole paradigm too (il, lo, la, i, gli, le): its forms are the rows of its
+    // own gender (lo: gli; la: le).
+    const article = e.pos === 'article' ? e.forms?.find(f => spellings(f.form).includes(norm) && f.tags?.some(t => AGREEMENT[1].includes(t)))?.tags : undefined
+    const agreeIn = (set: string[], mine: string[], tags: string[]) => !mine.length || !set.some(t => tags.includes(t)) || mine.some(t => tags.includes(t))
+    const agrees = (tags: string[]) =>
+      (!own || AGREEMENT.every(set => agreeIn(set, set.filter(t => own.includes(t)), tags))) &&
+      (!article || agreeIn(AGREEMENT[1], AGREEMENT[1].filter(t => article.includes(t)), tags))
+    for (const f of e.forms ?? []) {
+      const tags = f.tags ?? []
+      if (!tags.length || skipForm(tags) || !agrees(tags)) continue
+      for (const w of spellings(f.form)) addForm(w, key, tags)
+    }
+  }
+
+  const byNorm = new Map<string, string[]>()
+  for (const key of lemmas.keys()) {
+    const norm = key.slice(0, key.lastIndexOf('|'))
+    byNorm.set(norm, [...(byNorm.get(norm) ?? []), key])
+  }
+  let unresolved = 0
+  for (const r of formOf) {
+    const targets = byNorm.get(r.target) ?? []
+    const key = targets.find(k => k.endsWith(`|${r.pos}`)) ?? targets[0]
+    if (key) {
+      addForm(r.form, key, r.tags.filter(t => t !== 'form-of'))
+      continue
+    }
+    // the lemma isn't in the extract: the form stays a word of its own, glossed as what it is a form of (not in the
+    // English dictionary: a form of a word it leaves out)
+    if (TRANSLATED_ONLY) continue
+    const own = `${r.form}|${r.pos}`
+    if (!lemmas.has(own)) unresolved++
+    const l = lemmas.get(own) ?? { lemma: r.word, pos: r.pos, glosses: [] }
+    // "accusative singular of bánka" → "… of banka": Slovene's tonal accents are for dictionaries only
+    const gloss = lang === 'sl' ? r.gloss.normalize('NFD').replace(/(?!̌)\p{M}/gu, '').normalize('NFC') : r.gloss
+    l.glosses.push([shortGloss(gloss)])
+    lemmas.set(own, l)
+    addForm(r.form, own, [])
+  }
+
+  // homographs (biti "to be", biti "to beat") share an entry: the first gloss of each, then the second …
+  const keys = [...lemmas.keys()].sort((a, b) => a.localeCompare(b, lang) || (a < b ? -1 : 1))
+  const index = new Map(keys.map((k, i) => [k, i]))
+  const lemmaRows = keys.map(k => {
+    const l = lemmas.get(k)!
+    const gloss: string[] = []
+    for (let i = 0; gloss.length < 3 && l.glosses.some(g => g[i]); i++) {
+      for (const g of l.glosses) if (g[i] && gloss.length < 3 && !gloss.some(x => x.toLowerCase() === g[i].toLowerCase())) gloss.push(g[i])
+    }
+    return { lemma: l.lemma, pos: l.pos, gloss, ...(l.gender ? { gender: l.gender } : {}) }
+  })
+  const grammar: string[] = []
+  const grammarIndex = new Map<string, number>()
+  const formRows: [string, number[][]][] = []
+  for (const form of [...forms.keys()].sort()) {
+    const readings = [...forms.get(form)!].map(([key, sets]) => {
+      const g = grammarOf(form, sets)
+      if (g !== null && !grammarIndex.has(g)) grammarIndex.set(g, grammar.push(g) - 1)
+      return { own: key.startsWith(`${form}|`), row: g === null ? [index.get(key)!] : [index.get(key)!, grammarIndex.get(g)!] }
+    })
+    // the form's own lemma first (vas: the village before a form of vi)
+    readings.sort((a, b) => Number(b.own) - Number(a.own))
+    formRows.push([form, readings.map(r => r.row)])
+  }
+
+  const name = LANGUAGES[lang] ?? lang
+  const meta: LexiconFile['meta'] = {
+    language: lang,
+    source: 'Wiktionary via kaikki.org',
+    licence: 'CC BY-SA 4.0',
+    licence_url: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    attribution: ATTRIBUTION,
+    url: `https://kaikki.org/dictionary/${name}/`,
+    built: today,
+    counts: { entries_read: read, lemmas: lemmaRows.length, forms: formRows.length, grammar: grammar.length, unresolved_form_of: unresolved },
+  }
+  writeDict(out, { meta, grammar, lemmas: lemmaRows, forms: Object.fromEntries(formRows) })
+  console.log(`${out}: ${lemmaRows.length} lemmas, ${formRows.length} forms, ${grammar.length} grammar strings, ${unresolved} forms of words not in the extract; ${(statSync(out).size / 1024 / 1024).toFixed(2)} MB from ${read} entries`)
+}
+
+// --- the indexes: what each extract gives the meanings ------------------------------------------------------------
+
+const EDITION_NAME: Record<string, string> = { en: 'English Wiktionary', de: 'German Wiktionary', it: 'Italian Wiktionary' }
+const EDITION_URL: Record<string, string> = { en: 'https://kaikki.org/dictionary/', de: 'https://kaikki.org/dewiktionary/', it: 'https://kaikki.org/itwiktionary/' }
+
+/**
+ * <work>/<edition>.<name>.index.jsonl from an extract of the Wiktionary in [ed]: a header (where it came from), then an
+ * IndexRow per entry of Lani's languages that gives something: its translation tables, or its glosses.
+ */
+async function indexExtract(file: string, ed: string) {
+  mkdirSync(work, { recursive: true })
+  const name = opt('--name') ?? basename(file).replace(/\.jsonl(?:\.gz)?$/, '').replace(/^kaikki\.org-dictionary-/, '').replace(/[^A-Za-z0-9-]+/g, '-')
+  const path = join(work, `${ed}.${name}.index.jsonl`)
+  const sink = Bun.file(`${path}.part`).writer()
+  const header: Source = { edition: ed, name: EDITION_NAME[ed] ?? ed, urls: [opt('--url') ?? EDITION_URL[ed] ?? basename(file)], indexed: today }
+  sink.write(JSON.stringify({ index: header }) + '\n')
+  const langs = new RegExp(`"lang_code":\\s*"(?:${LANI_LANGUAGES.join('|')})"`)
+  let read = 0
+  const n = { tables: 0, glosses: 0 }
+  for await (const line of lines(file)) {
+    read++
+    // most entries of a Wiktionary's dump are of other languages: a cheap look first
+    if (!langs.test(line)) continue
+    let row: IndexRow | undefined
+    try {
+      row = indexRow(JSON.parse(line), ed)
+    } catch {
+      continue
+    }
+    if (!row) continue
+    n[row.t ? 'tables' : 'glosses']++
+    sink.write(JSON.stringify(row) + '\n')
+  }
+  await sink.end()
+  renameSync(`${path}.part`, path)
+  console.log(`${path}: ${n.tables} entries with translation tables, ${n.glosses} with glosses, from ${read} entries; ${(statSync(path).size / 1024 / 1024).toFixed(1)} MB`)
+}
+
+/** The indexes in --work, each with its header. */
+function indexes(): { path: string; source: Source }[] {
+  if (!existsSync(work)) return []
+  return readdirSync(work)
+    .filter(f => f.endsWith('.index.jsonl'))
+    .sort()
+    .map(f => {
+      const path = join(work, f)
+      const first = readFileSync(path, 'utf8').slice(0, 2000).split('\n')[0]
+      return { path, source: (JSON.parse(first) as { index: Source }).index }
+    })
+}
+
+// --- meanings in the other languages -------------------------------------------------------------------------------
+
+/** How a base's meanings came out: lemmas, their share, how found, and how often the pivot agrees with the others. */
+type BaseStats = {
+  lemmas: number
+  share: number
+  via: Partial<Record<Via, number>>
+  /** Finer: which table, or which kind of pivot. */
+  kinds?: Partial<Record<Kind, number>>
+  /** Where a table between the two languages has a meaning too: how often the pivot's shares a word with it. */
+  pivot_agrees?: Partial<Record<PivotKind, { compared: number; agree: number }>>
+  content?: { words: number; share: number }
+}
+
+/**
+ * The dictionary at [path] with meanings in the bases (Lani's other languages but English, whose are its own
+ * glosses; an English dictionary's: Slovene, Italian and German), from the indexes in --work; written to [to].
+ */
+async function addMeanings(path: string, to: string) {
+  const dict = JSON.parse(readFileSync(path, 'utf8')) as LexiconFile
+  const bases = LANI_LANGUAGES.filter(b => b !== lang && b !== 'en')
+  const keyOf = (w: string, p: string) => `${normalizeForm(w, lang)}|${p}`
+  const want = new Set(dict.lemmas.map(l => keyOf(l.lemma, l.pos)))
+  function append<T>(m: Map<string, T[]>, k: string, v: T[]) {
+    m.set(k, [...(m.get(k) ?? []), ...v])
+  }
+  // what each source gives, by the lemma's key ("casa|noun")
+  const direct = new Map(bases.map(b => [b, new Map<string, string[]>()])) // the base's Wiktionary explains it
+  const listed = new Map(bases.map(b => [b, new Map<string, Listed[]>()])) // the base's words whose tables list it
+  const met = new Map(bases.map(b => [b, new Map<string, (Together & { p: string })[]>()])) // base words in the same table of a third language's
+  const own = new Map<string, Table[]>() // its own tables (the target's Wiktionary)
+  const english = new Map<string, Table[]>() // English Wiktionary's English entries' tables, by "word|pos": the pivot
+  const enGlosses = new Map<string, string[]>() // its English glosses as written (with what their parentheses say)
+  // the parts of speech of the dictionary's lemmas, by word: what a base word's part of speech can mean here
+  const posOf = new Map<string, string[]>()
+  for (const l of dict.lemmas) posOf.set(normalizeForm(l.lemma, lang), [...(posOf.get(normalizeForm(l.lemma, lang)) ?? []), l.pos])
+  const sources: Source[] = []
+  for (const { path: file, source } of indexes()) {
+    const ed = source.edition
+    if (ed !== 'en' && ed !== lang && !(bases as string[]).includes(ed)) continue
+    const rows: IndexRow[] = []
+    for await (const line of lines(file)) if (!line.startsWith('{"index"')) rows.push(JSON.parse(line) as IndexRow)
+    let used = false
+    for (const r of unshare(rows)) {
+      if (r.t) {
+        if (ed === 'en' && r.l === 'en' && lang !== 'en') {
+          append(english, `${r.w.toLowerCase()}|${r.p}`, r.t)
+          used = true
+        }
+        if (ed === lang && r.l === lang && want.has(keyOf(r.w, r.p))) {
+          append(own, keyOf(r.w, r.p), r.t)
+          used = true
+        }
+        // a third language's table that lists the target word and base words: the same sense
+        if (r.l === ed && r.l !== lang) {
+          for (const b of bases) {
+            if (b === r.l) continue
+            for (const t of r.t) {
+              for (const pair of pairsOf(t, lang, b)) {
+                if (!posOf.has(pair.target)) continue
+                append(met.get(b)!, pair.target, [{ w: pair.w, score: pair.score, p: r.p }])
+                used = true
+              }
+            }
+          }
+        }
+        // a base word's tables list the target word: turned round, the base word is its meaning
+        const byBase = ed === r.l ? listed.get(ed) : undefined
+        if (byBase && r.w.split(' ').length <= 3) {
+          const size = r.t.reduce((n, t) => n + Object.values(t.x).reduce((m, ws) => m + ws.length, 0), 0)
+          r.t.forEach((t, sense) =>
+            (t.x[lang] ?? []).slice(0, 2).forEach((w, place) => {
+              const norm = normalizeForm(stripArticle(w, lang), lang)
+              for (const pos of posOf.get(norm) ?? []) {
+                if (!samePos(pos, r.p)) continue
+                append(byBase, `${norm}|${pos}`, [{ w: r.w, sense, place, exact: pos === r.p, size }])
+                used = true
+              }
+            }),
+          )
+        }
+      } else if (r.g && r.l === lang && want.has(keyOf(r.w, r.p))) {
+        if (ed === 'en') append(enGlosses, keyOf(r.w, r.p), r.g)
+        else append(direct.get(ed) ?? new Map(), keyOf(r.w, r.p), r.g)
+        used = true
+      }
+    }
+    if (!used) continue
+    const same = sources.find(s => s.edition === ed)
+    if (same) same.urls.push(...source.urls.filter(u => !same.urls.includes(u)))
+    else sources.push({ ...source, urls: [...source.urls] })
+  }
+
+  const stats = Object.fromEntries(bases.map(b => [b, { lemmas: 0, share: 0, via: {}, kinds: {}, pivot_agrees: {} } as BaseStats]))
+  const words = (m: string[]) => new Set(m.flatMap(g => g.toLowerCase().split(/,\s+/)))
+  const disagreements: string[] = []
+  let named = 0
+  dict.lemmas = dict.lemmas.map(l => {
+    const { meanings: _, ...rest } = l
+    // a name means who or where it is, in any language
+    if (l.pos === 'name') return named++, rest
+    const k = keyOf(l.lemma, l.pos)
+    const meanings: Record<string, Meaning> = {}
+    for (const b of bases) {
+      let memo: ReturnType<typeof pivot> | undefined
+      const through = () => (memo ??= lang === 'en' ? { words: [], confirmed: false } : pivot(lang, b, l.lemma, l.pos, enGlosses.get(k) ?? l.gloss, english))
+      const withIt = (met.get(b)!.get(normalizeForm(l.lemma, lang)) ?? []).filter(c => samePos(l.pos, c.p))
+      const candidates: Candidates = { direct: direct.get(b)!.get(k), own: own.get(k), listed: listed.get(b)!.get(k), pivot: through, together: withIt }
+      const all = meaningsOf(candidates, b, l.pos)
+      const m = chooseMeaning(candidates, b, l.pos)
+      if (!m) continue
+      meanings[b] = m
+      const s = stats[b]
+      s.lemmas++
+      s.via[m.via] = (s.via[m.via] ?? 0) + 1
+      s.kinds![all[0].kind] = (s.kinds![all[0].kind] ?? 0) + 1
+      // how good the pivot is: where a source between the two languages has a meaning too, do they share a word?
+      const table = all.find(x => x.kind === 'direct' || x.kind === 'own' || x.kind === 'listed')
+      const third = all.find(x => x.kind === 'confirmed' || x.kind === 'together' || x.kind === 'sense')
+      if (!table || !third) continue
+      const agree = [...words(third.gloss)].some(w => words(table.gloss).has(w))
+      const a = (s.pivot_agrees![third.kind as PivotKind] ??= { compared: 0, agree: 0 })
+      a.compared++
+      if (agree) a.agree++
+      else disagreements.push(`${b}\t${l.lemma} (${l.pos}): ${l.gloss.join('; ')}\t${table.kind}: ${table.gloss.join('; ')}\tpivot ${third.kind}: ${third.gloss.join('; ')}\tchosen ${all[0].kind}`)
+    }
+    return Object.keys(meanings).length ? { ...rest, meanings } : rest
+  })
+  const counted = dict.lemmas.length - named
+  const content = contentCounts()
+  for (const b of bases) {
+    const s = stats[b]
+    s.share = round(s.lemmas / Math.max(1, counted))
+    if (lang === "en" || !Object.keys(s.pivot_agrees ?? {}).length) delete s.pivot_agrees
+    if (content.size) s.content = contentCoverage(dict, content, b)
+  }
+  dict.meta.bases = { en: { lemmas: counted, share: 1, via: { direct: counted }, ...(content.size ? { content: contentCoverage(dict, content, 'en') } : {}) }, ...stats }
+  dict.meta.sources = sources
+  dict.meta.meanings_built = today
+  writeDict(to, dict)
+  console.log(`${to}: ${(statSync(to).size / 1024 / 1024).toFixed(2)} MB; ${counted} lemmas (${named} names left out), from ${sources.map(s => `${s.name} (${s.urls.join(', ')})`).join('; ')}`)
+  for (const [b, s] of Object.entries(dict.meta.bases) as [string, BaseStats][]) {
+    const via = Object.entries(s.kinds ?? s.via).map(([v, n]) => `${v} ${n}`).join(', ')
+    const kinds = Object.entries(s.pivot_agrees ?? {}).map(([k, a]) => `${k} ${a.agree}/${a.compared} (${pct(a.agree / Math.max(1, a.compared))})`)
+    const agrees = kinds.length ? `; where another source has one, the pivot would agree: ${kinds.join(', ')}` : ''
+    const inContent = s.content ? `; content words ${pct(s.content.share)} of ${s.content.words}` : ''
+    console.log(`  ${b}: ${s.lemmas} lemmas (${pct(s.share)}): ${via}${agrees}${inContent}`)
+  }
+  const disagree = opt('--disagree')
+  if (disagree) writeFileSync(disagree, disagreements.join('\n') + '\n')
+  if (args.includes('--manifest')) writeManifest(to, dict.meta)
+}
+
+const round = (x: number) => Math.round(x * 1000) / 1000
+const pct = (x: number) => `${(x * 100).toFixed(1)} %`
+
+/**
+ * The share of the content's words the dictionary knows (distinct; not names) that have a meaning in [base] in one of
+ * their readings (English: any meaning); the line a word is tapped in picks the reading.
+ */
+function contentCoverage(dict: LexiconFile, content: Map<string, number>, base: string): { words: number; share: number } {
+  let known = 0
+  let meant = 0
+  for (const w of content.keys()) {
+    const readings = (dict.forms[w] ?? []).map(([i]) => dict.lemmas[i]).filter(l => l && l.pos !== 'name')
+    if (!readings.length) continue
+    known++
+    if (readings.some(l => (base === 'en' ? l.gloss.length : l.meanings?.[base]?.gloss.length))) meant++
+  }
+  return { words: known, share: round(meant / Math.max(1, known)) }
+}
+
+// --- coverage ------------------------------------------------------------------------------------------------------
+
+/** The languages that write an elided word before an apostrophe (l'acqua). */
+const ELIDING = new Set(['it', 'fr', 'ca'])
+
+/** The keys whose strings are in the village's language (a module's options, answers and tokens are too). */
+const TEXT_KEYS = new Set([lang, `example_${lang}`, `opener_${lang}`, 'say', 'text', 'options', 'accept', 'solutions', 'tokens', 'distractors'])
+
+function jsonFiles(dir: string, deep = true): string[] {
+  if (!existsSync(dir)) return []
+  return readdirSync(dir, { withFileTypes: true }).flatMap(d => {
+    const p = join(dir, d.name)
+    if (d.isDirectory()) return deep ? jsonFiles(p) : []
+    return d.name.endsWith('.json') ? [p] : []
+  })
+}
+
+function texts(v: unknown, keys: Set<string>, key = ''): string[] {
+  if (Array.isArray(v)) return v.flatMap(x => texts(x, keys, key))
+  if (v && typeof v === 'object') return Object.entries(v).flatMap(([k, x]) => texts(x, keys, k))
+  return typeof v === 'string' && keys.has(key) ? [v] : []
+}
+
+/**
+ * The curated content in the language, and the keys its texts are under. A language without content of its own
+ * (English, German so far) has its translations in every other's: the words a learner meets first.
+ */
+function contentFiles(): { files: string[]; keys: Set<string>; own: boolean } {
+  const cultures = join(root, 'companion/cultures')
+  const cultureOf = (c: string) => {
+    const m = join(cultures, c, 'culture.json')
+    return existsSync(m) ? (JSON.parse(readFileSync(m, 'utf8')).language as string) : undefined
+  }
+  const culture = readdirSync(cultures).find(c => cultureOf(c) === lang)
+  // the curated content of the language: Slovene in the directories themselves, another in a subdirectory of its code
+  const dirs = (l: string) => ['scenes', 'packs', 'scenarios', 'modules'].map(d => join(root, 'companion', d, ...(l === 'sl' ? [] : [l])))
+  const files = [...dirs(lang).flatMap(d => jsonFiles(d, false)), ...(culture ? jsonFiles(join(cultures, culture)) : [])]
+  if (files.length) return { files, keys: TEXT_KEYS, own: true }
+  const all = [...new Set(readdirSync(cultures).flatMap(c => [cultureOf(c) ?? 'sl']))].flatMap(l => dirs(l).flatMap(d => jsonFiles(d, false)))
+  return { files: [...all, ...readdirSync(cultures).flatMap(c => jsonFiles(join(cultures, c)))], keys: new Set([lang, `example_${lang}`]), own: false }
+}
+
+/** The content's words (normalized) and how often each is met. */
+function contentCounts(): Map<string, number> {
+  const { files, keys } = contentFiles()
+  const count = new Map<string, number>()
+  for (const f of files) {
+    for (const t of texts(JSON.parse(readFileSync(f, 'utf8')), keys)) {
+      // not {placeholders}, nor a cloze's translation in parentheses; an elided word ("l'acqua", "dov'è") is looked
+      // up as the word after its apostrophe, as the app's tap does (bridge/src/lexicon.ts)
+      const plain = t.replace(/\{[^}]*\}|\([^)]*\)/g, ' ')
+      for (const w of wordsOf(ELIDING.has(lang) ? plain.replace(/\p{L}+['’](?=\p{L})/gu, '') : plain)) {
+        const n = normalizeForm(w, lang)
+        count.set(n, (count.get(n) ?? 0) + 1)
+      }
+    }
+  }
+  return count
+}
+
+function coverage() {
+  const { files, own } = contentFiles()
+  const count = contentCounts()
+  const load = (f: string) => (existsSync(f) ? JSON.parse(readFileSync(f, 'utf8')) : undefined)
+  const dict = load(dictPath) as LexiconFile | undefined
+  const wikt = new Set(Object.keys(dict?.forms ?? {}))
+  const extraEntries = (load(join(lexiconDir, `${lang}.extra.json`))?.entries ?? []) as { lemma: string; forms: Record<string, unknown> }[]
+  const extra = new Set<string>(extraEntries.flatMap(e => Object.keys(e.forms).map(f => normalizeForm(f, lang))))
+  // the lemmas each form is a reading of, to find the words known only as a form of another word ("prav": pravo)
+  const lemmasOf = new Map<string, string[]>()
+  const addLemma = (form: string, lemma: string) => lemmasOf.set(form, [...(lemmasOf.get(form) ?? []), normalizeForm(lemma, lang)])
+  for (const [form, rows] of Object.entries(dict?.forms ?? {})) for (const [i] of rows) addLemma(form, dict!.lemmas[i]?.lemma ?? '')
+  for (const e of extraEntries) for (const f of Object.keys(e.forms)) addLemma(normalizeForm(f, lang), e.lemma)
+  const packWords = new Set<string>()
+  const names = new Set<string>(['jan'])
+  for (const f of files) {
+    const j = JSON.parse(readFileSync(f, 'utf8'))
+    if (isSchema(j.schema, 'lani.pack/v0')) for (const w of j.words) for (const s of [w[lang], w.plural]) if (s) packWords.add(normalizeForm(s, lang))
+    if (isSchema(j.schema, 'lani.villager/v0')) for (const w of wordsOf(j.name)) names.add(normalizeForm(w, lang))
+  }
+  const total = [...count.values()].reduce((a, b) => a + b, 0)
+  const report = (label: string, known: (w: string) => boolean) => {
+    const hit = [...count].filter(([w]) => known(w))
+    const tokens = hit.reduce((a, [, n]) => a + n, 0)
+    console.log(`${label.padEnd(34)} ${((tokens / total) * 100).toFixed(1).padStart(5)} % of tokens, ${((hit.length / count.size) * 100).toFixed(1).padStart(5)} % of words`)
+  }
+  console.log(`${files.length} files, ${total} tokens, ${count.size} different words (${lang}${own ? '' : ", the translations in every other language's content"})`)
+  report('Wiktionary', w => wikt.has(w))
+  report('+ the supplement', w => wikt.has(w) || extra.has(w))
+  report('+ pack words and names', w => wikt.has(w) || extra.has(w) || packWords.has(w) || names.has(w))
+  // what a tap on them shows first: the first reading's meaning in each base
+  for (const b of LANI_LANGUAGES.filter(b => b !== lang)) {
+    report(`meant in ${b} (a reading)`, w => (dict?.forms[w] ?? []).some(([i]) => (b === 'en' ? !!dict!.lemmas[i]?.gloss.length : !!dict!.lemmas[i]?.meanings?.[b])))
+  }
+  const byCount = (a: [string, number], b: [string, number]) => b[1] - a[1] || a[0].localeCompare(b[0], lang)
+  const list = (label: string, words: [string, number][], show: (w: string) => string = w => w) => {
+    const shown = args.includes('--all') ? words : words.slice(0, 80)
+    console.log(`\n${words.length} ${label}${shown.length < words.length ? ` (the ${shown.length} most frequent; --all for every one)` : ''}:`)
+    console.log(shown.map(([w, n]) => `${show(w)} ${n}`).join(', '))
+  }
+  const missing = [...count].filter(([w]) => !wikt.has(w) && !extra.has(w) && !packWords.has(w) && !names.has(w)).sort(byCount)
+  list('words none knows', missing)
+  // a word the dictionary knows only as a form of another ("prav": genitive plural of pravo, never the adverb) is
+  // shown only as that form: the supplement gives it an entry of its own when it is a word in its own right
+  const formsOnly = [...count].filter(([w]) => lemmasOf.has(w) && !lemmasOf.get(w)!.includes(w) && !packWords.has(w) && !names.has(w)).sort(byCount)
+  list('words known only as a form of another word', formsOnly, w => `${w} (${[...new Set(lemmasOf.get(w))].join('/')})`)
+}
+
+if (from) await build(from)
+if (index) await indexExtract(index, edition!)
+if (args.includes('--meanings')) await addMeanings(from ? out : dictPath, out)
+else if (from && args.includes('--manifest')) writeManifest(out, (JSON.parse(readFileSync(out, 'utf8')) as LexiconFile).meta)
+if (args.includes('--coverage')) coverage()

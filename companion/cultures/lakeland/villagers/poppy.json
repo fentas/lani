@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "poppy",
+  "name": "Poppy",
+  "emoji": "👧",
+  "art": "child2",
+  "voice": "female",
+  "speaker": "girl",
+  "role": {"en": "Girl", "sl": "Deklica", "it": "Bambina", "de": "Mädchen"},
+  "home": ["house", "hut", "spot:meadow"],
+  "register": "ti",
+  "skill": "wood",
+  "order": 3,
+  "routine": { "up": "7:00", "bed": "20:00" },
+  "personality": "Eight, Granny Maggie's granddaughter. Cheeky and curious, asks 'Why?' about everything and corrects everyone's English, the learner's too, kindly. First names both ways: she calls the learner by name, and the learner calls her Poppy. Quick, sing-song sentences, simple words, lots of questions: a child talking to a child. Loves lambs, blackberries, Tibbs the cat and her Peter Rabbit books; hates being called small.",
+  "story": "Poppy lives with her granny Maggie and follows Jack to the meadow whenever there are lambs, and asks why Herdwick lambs are black when the big sheep are grey. In September she picks blackberries along the drystone walls (and eats half of them), knows every cat in the village, and reads better than Harry, which she mentions. She has read every Peter Rabbit book twice and wants to be a teacher like Mrs Hartley, or a shepherd, or both.",
+  "likes": [
+    {"en": "lambs", "sl": "jagenjčki", "it": "gli agnellini", "de": "Lämmchen"},
+    {"en": "blackberries", "sl": "robide", "it": "le more", "de": "Brombeeren"},
+    {"en": "Tibbs, Granny's cat", "sl": "Tibbs, babičin maček", "it": "Tibbs, il gatto della nonna", "de": "Tibbs, Omas Kater"},
+    {"en": "Peter Rabbit books", "sl": "knjige o zajčku Petru", "it": "i libri di Peter Coniglio", "de": "die Bücher von Peter Hase"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Hi. I'm Poppy. What's your name?", "sl": "Živjo. Jaz sem Poppy. Kako je tebi ime?", "it": "Ciao. Io sono Poppy. Come ti chiami?", "de": "Hallo. Ich bin Poppy. Wie heißt du?", "level": 0 },
+      { "en": "Hi! Why are you here?", "sl": "Živjo! Zakaj si tukaj?", "it": "Ciao! Perché sei qui?", "de": "Hallo! Warum bist du hier?", "level": 0 },
+      { "en": "Hi! Guess what I saw today!", "sl": "Živjo! Ugani, kaj sem danes videla!", "it": "Ciao! Indovina cosa ho visto oggi!", "de": "Hallo! Rate mal, was ich heute gesehen habe!", "level": 1 },
+      { "en": "Come on, come on! There's a little black lamb!", "sl": "Pridi, pridi! Tam je črn jagenjček!", "it": "Vieni, vieni! C'è un agnellino nero!", "de": "Komm, komm! Da ist ein schwarzes Lämmchen!", "level": 2 },
+      { "en": "There you are! Granny was looking for you. And so was I.", "sl": "Tu si! Babica te je iskala. In jaz tudi.", "it": "Eccoti! La nonna ti cercava. E anch'io.", "de": "Da bist du ja! Oma hat dich gesucht. Und ich auch.", "level": 3 },
+      { "en": "You're my best friend. Don't tell Harry!", "sl": "Ti si moj najboljši prijatelj. Ne povej Harryju!", "it": "Sei il mio migliore amico. Non dirlo a Harry!", "de": "Du bist mein bester Freund. Verrat es nicht Harry!", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Thanks! You're kind.", "sl": "Hvala! Prijazen si.", "it": "Grazie! Sei gentile.", "de": "Danke! Du bist nett." },
+      { "en": "Thanks! You can have some blackberries. Half.", "sl": "Hvala! Dobiš nekaj robid. Polovico.", "it": "Grazie! Ti do un po' di more. Metà.", "de": "Danke! Du kriegst ein paar Brombeeren. Die Hälfte." },
+      { "en": "Thank you, thank you! I'm going to tell Granny.", "sl": "Hvala, hvala! Povem babici.", "it": "Grazie, grazie! Lo dico alla nonna.", "de": "Danke, danke! Das erzähle ich Oma." }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "You know what? I still think of {memory}. Really!", "sl": "Veš kaj? Še vedno mislim na {memory}. Res!", "it": "Sai una cosa? Ricordo ancora {memory}. Davvero!", "de": "Weißt du was? Ich denke immer noch an {memory}. Echt!", "level": 2 },
+      { "en": "I told Granny. I don't forget {memory}.", "sl": "Babici sem povedala. Ne pozabim na {memory}.", "it": "L'ho detto alla nonna. Non dimentico {memory}.", "de": "Ich hab's Oma erzählt. Ich vergesse {memory} nicht.", "level": 3 }
+    ],
+    "idle": [
+      { "en": "Why are the lambs black and the big sheep grey? Why?", "sl": "Zakaj so jagenjčki črni, velike ovce pa sive? Zakaj?", "it": "Perché gli agnellini sono neri e le pecore grandi grigie? Perché?", "de": "Warum sind die Lämmchen schwarz und die großen Schafe grau? Warum?" },
+      { "en": "Harry can't read very well. I can.", "sl": "Harry ne zna dobro brati. Jaz pa znam.", "it": "Harry non sa leggere bene. Io sì.", "de": "Harry kann nicht gut lesen. Ich schon." },
+      { "en": "Tibbs is up the oak tree again.", "sl": "Tibbs je spet na hrastu.", "it": "Tibbs è di nuovo sulla quercia.", "de": "Tibbs sitzt schon wieder oben auf der Eiche." },
+      { "en": "The blackberries are sweet. I ate them all.", "sl": "Robide so sladke. Vse sem pojedla.", "it": "Le more sono dolci. Le ho mangiate tutte.", "de": "Die Brombeeren sind süß. Ich habe alle aufgegessen." }
+    ],
+    "cheer": [
+      { "en": "Yesss! Right!", "sl": "Jaaa! Pravilno!", "it": "Sììì! Giusto!", "de": "Jaaa! Richtig!" },
+      { "en": "Well done! Nearly as good as me.", "sl": "Bravo! Skoraj tako dober kot jaz.", "it": "Bravo! Quasi bravo come me.", "de": "Gut gemacht! Fast so gut wie ich." },
+      { "en": "See? It's easy!", "sl": "Vidiš? Lahko je!", "it": "Vedi? È facile!", "de": "Siehst du? Ist doch leicht!" },
+      { "en": "Hooray! Again!", "sl": "Juhu! Še enkrat!", "it": "Evviva! Ancora!", "de": "Hurra! Nochmal!" }
+    ],
+    "comfort": [
+      { "en": "Never mind. Once more, OK?", "sl": "Nič hudega. Še enkrat, ja?", "it": "Non fa niente. Ancora una volta, sì?", "de": "Macht nichts. Noch mal, ja?" },
+      { "en": "Wrong. But never mind, I'll help you.", "sl": "Narobe. Ampak nič hudega, jaz ti pomagam.", "it": "Sbagliato. Ma non fa niente, ti aiuto io.", "de": "Falsch. Aber macht nichts, ich helfe dir." },
+      { "en": "Nearly! Why? Look again.", "sl": "Skoraj! Zakaj? Poglej še enkrat.", "it": "Quasi! Perché? Guarda ancora.", "de": "Fast! Warum? Schau noch mal." }
+    ],
+    "listen": [
+      { "en": "Shh, listen!", "sl": "Pst, poslušaj!", "it": "Shh, ascolta!", "de": "Pst, hör zu!" },
+      { "en": "Listen. Then I'll tell you why.", "sl": "Poslušaj. Potem ti povem, zakaj.", "it": "Ascolta. Poi ti dico perché.", "de": "Hör zu. Dann sag ich dir, warum." },
+      { "en": "Quiet! Listen.", "sl": "Tiho! Poslušaj.", "it": "Silenzio! Ascolta.", "de": "Ruhe! Hör zu." }
+    ],
+    "bye": [
+      { "en": "Bye-bye!", "sl": "Adijo!", "it": "Ciao ciao!", "de": "Tschüss!" },
+      { "en": "Bye! I'm going to read Peter Rabbit.", "sl": "Adijo! Grem brat Zajčka Petra.", "it": "Ciao! Vado a leggere Peter Coniglio.", "de": "Tschüss! Ich lese jetzt Peter Hase." },
+      { "en": "See you! Tomorrow we're picking blackberries.", "sl": "Se vidimo! Jutri bomo nabirali robide.", "it": "Ci vediamo! Domani raccogliamo le more.", "de": "Bis dann! Morgen pflücken wir Brombeeren." }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "For me? Yaaay! How did you know I like it?", "sl": "Zame? Jaaa! Kako si vedel, da mi je všeč?", "it": "Per me? Sììì! Come lo sapevi che mi piace?", "de": "Für mich? Jaaa! Woher wusstest du, dass ich das mag?" },
+        { "en": "Thanks! I'm not giving Granny any. All right, a little bit.", "sl": "Hvala! Babici ne dam nič. No dobro, malo.", "it": "Grazie! Alla nonna non ne do. Va bene, un pochino.", "de": "Danke! Oma kriegt nichts. Na gut, ein bisschen." },
+        { "en": "Hooray! It's my favourite thing! Thank you, thank you!", "sl": "Juhu! To je moja najljubša stvar! Hvala, hvala!", "it": "Evviva! È la mia cosa preferita! Grazie, grazie!", "de": "Hurra! Das mag ich am allerliebsten! Danke, danke!" }
+      ],
+      "ordinary": [
+        { "en": "Thanks! But why?", "sl": "Hvala! Ampak zakaj?", "it": "Grazie! Ma perché?", "de": "Danke! Aber warum?" },
+        { "en": "Oh, thanks! Granny says you say thank you. Thank you!", "sl": "O, hvala! Babica pravi, da se reče hvala. Hvala!", "it": "Oh, grazie! La nonna dice che si dice grazie. Grazie!", "de": "Oh, danke! Oma sagt, man sagt danke. Danke!" }
+      ],
+      "rare": [
+        { "en": "Ooh! Nobody's got this! Not even Harry! Thanks!", "sl": "Ooo! Tega nima nihče! Niti Harry! Hvala!", "it": "Oooh! Questo non ce l'ha nessuno! Neanche Harry! Grazie!", "de": "Oooh! So was hat keiner! Nicht mal Harry! Danke!" }
+      ]
+    }
+  }
+}

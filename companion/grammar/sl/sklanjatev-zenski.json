@@ -1,0 +1,97 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "sklanjatev-zenski",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "📋",
+  "title": {
+    "sl": "Sklanjatve: ženski spol",
+    "en": "Declension tables: feminine nouns",
+    "de": "Deklinationstabellen: weibliche Nomen",
+    "it": "Tabelle di declinazione: nomi femminili"
+  },
+  "rule": {
+    "en": "Most feminine nouns end in **-a**, here **knjiga** (book). A few end in a consonant and go their own way, here **vas** (village), and so do **noč, peč, klop, sol, stvar**.\n\n**knjiga:** the accusative singular ends in **-o** (berem knjigo), the dual in **-i** (dve knjigi), and the genitive plural has no ending (pet knjig). Where two consonants would end the word, an **e** may come between: sestra → **sester**.\n\n**vas:** most forms end in **-i**; the accusative singular is like the nominative (vidim vas), and the instrumental singular ends in **-jo**: **nad vasjo**, **pod klopjo**, **za pečjo**.\n\nFeminine nouns in -a are alive or not in the same way: vidim kravo, vidim knjigo.\n\nWhat matters first: at A1 and A2 the singular of the nominative, accusative and locative (knjiga, knjigo, v knjigi), and the dual (dve kravi), which the village uses early. The whole table comes at B1 to B2.",
+    "de": "Die meisten weiblichen Nomen enden auf **-a**, hier **knjiga** (Buch). Einige enden auf einen Konsonanten und gehen ihren eigenen Weg, hier **vas** (Dorf), ebenso **noč, peč, klop, sol, stvar**.\n\n**knjiga:** Der Akkusativ Singular endet auf **-o** (berem knjigo), der Dual auf **-i** (dve knjigi), und der Genitiv Plural hat keine Endung (pet knjig). Wo zwei Konsonanten das Wort beenden würden, kann ein **e** dazwischenkommen: sestra → **sester**.\n\n**vas:** Die meisten Formen enden auf **-i**; der Akkusativ Singular ist wie der Nominativ (vidim vas), und der Instrumental Singular endet auf **-jo**: **nad vasjo**, **pod klopjo**, **za pečjo**.\n\nWeibliche Nomen auf -a gehen gleich, ob Lebewesen oder nicht: vidim kravo, vidim knjigo.\n\nWas zuerst zählt: auf A1 und A2 der Singular von Nominativ, Akkusativ und Lokativ (knjiga, knjigo, v knjigi) und der Dual (dve kravi), den das Dorf früh braucht. Die ganze Tabelle kommt auf B1 bis B2.",
+    "it": "La maggior parte dei nomi femminili finisce in **-a**, qui **knjiga** (libro). Alcuni finiscono in consonante e hanno forme proprie, qui **vas** (paese), come **noč, peč, klop, sol, stvar**.\n\n**knjiga:** l'accusativo singolare finisce in **-o** (berem knjigo), il duale in **-i** (dve knjigi), e il genitivo plurale non ha desinenza (pet knjig). Dove la parola finirebbe con due consonanti, può entrare una **e**: sestra → **sester**.\n\n**vas:** quasi tutte le forme finiscono in **-i**; l'accusativo singolare è uguale al nominativo (vidim vas), e lo strumentale singolare finisce in **-jo**: **nad vasjo**, **pod klopjo**, **za pečjo**.\n\nI femminili in -a vanno allo stesso modo, vivi o no: vidim kravo, vidim knjigo.\n\nCiò che conta prima: all'A1 e all'A2 il singolare di nominativo, accusativo e locativo (knjiga, knjigo, v knjigi) e il duale (dve kravi), che il paese usa presto. La tabella intera viene dal B1 al B2."
+  },
+  "table": {
+    "head": [
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "ednina", "en": "singular (ednina)", "de": "Singular (ednina)", "it": "singolare (ednina)" },
+      { "sl": "dvojina", "en": "dual (dvojina)", "de": "Dual (dvojina)", "it": "duale (dvojina)" },
+      { "sl": "množina", "en": "plural (množina)", "de": "Plural (množina)", "it": "plurale (množina)" }
+    ],
+    "rows": [
+      [{ "sl": "imenovalnik (kdo? kaj?)", "en": "nominative (kdo? kaj?)", "de": "Nominativ (kdo? kaj?)", "it": "nominativo (kdo? kaj?)" }, "knjiga, vas", "knjigi, vasi", "knjige, vasi"],
+      [{ "sl": "rodilnik (koga? česa?)", "en": "genitive (koga? česa?)", "de": "Genitiv (koga? česa?)", "it": "genitivo (koga? česa?)" }, "knjige, vasi", "knjig, vasi", "knjig, vasi"],
+      [{ "sl": "dajalnik (komu? čemu?)", "en": "dative (komu? čemu?)", "de": "Dativ (komu? čemu?)", "it": "dativo (komu? čemu?)" }, "knjigi, vasi", "knjigama, vasema", "knjigam, vasem"],
+      [{ "sl": "tožilnik (koga? kaj?)", "en": "accusative (koga? kaj?)", "de": "Akkusativ (koga? kaj?)", "it": "accusativo (koga? kaj?)" }, "knjigo, vas", "knjigi, vasi", "knjige, vasi"],
+      [{ "sl": "mestnik (pri kom? pri čem?)", "en": "locative (pri kom? pri čem?)", "de": "Lokativ (pri kom? pri čem?)", "it": "locativo (pri kom? pri čem?)" }, "pri knjigi, pri vasi", "pri knjigah, pri vaseh", "pri knjigah, pri vaseh"],
+      [{ "sl": "orodnik (s kom? s čim?)", "en": "instrumental (s kom? s čim?)", "de": "Instrumental (s kom? s čim?)", "it": "strumentale (s kom? s čim?)" }, "s knjigo, z vasjo", "s knjigama, z vasema", "s knjigami, z vasmi"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Stari Janez ima veliko starih knjig.",
+      "en": "Old Janez has a lot of old books.",
+      "de": "Der alte Janez hat viele alte Bücher.",
+      "it": "Il vecchio Janez ha molti libri vecchi.",
+      "note": {
+        "en": "After veliko the genitive plural: knjig, with no ending.",
+        "de": "Nach veliko der Genitiv Plural: knjig, ohne Endung.",
+        "it": "Dopo veliko il genitivo plurale: knjig, senza desinenza."
+      }
+    },
+    {
+      "sl": "Na travniku se paseta dve kravi.",
+      "en": "Two cows are grazing in the meadow.",
+      "de": "Auf der Wiese weiden zwei Kühe.",
+      "it": "Sul prato pascolano due mucche.",
+      "note": {
+        "en": "Two takes the dual: dve kravi, and the verb paseta.",
+        "de": "Zwei verlangt den Dual: dve kravi, und das Verb paseta.",
+        "it": "Due vuole il duale: dve kravi, e il verbo paseta."
+      }
+    },
+    {
+      "sl": "Nad vasjo stoji cerkev.",
+      "en": "Above the village stands the church.",
+      "de": "Über dem Dorf steht die Kirche.",
+      "it": "Sopra il paese c'è la chiesa.",
+      "note": {
+        "en": "Vas goes its own way: the instrumental vasjo, as pod klopjo, za pečjo.",
+        "de": "Vas geht eigene Wege: der Instrumental vasjo, wie pod klopjo, za pečjo.",
+        "it": "Vas ha forme proprie: lo strumentale vasjo, come pod klopjo, za pečjo."
+      }
+    },
+    {
+      "sl": "Tine išče knjigo.",
+      "en": "Tine is looking for the book.",
+      "de": "Tine sucht das Buch.",
+      "it": "Tine cerca il libro."
+    },
+    {
+      "sl": "V naši vasi je lepo.",
+      "en": "It's lovely in our village.",
+      "de": "In unserem Dorf ist es schön.",
+      "it": "Nel nostro paese si sta bene."
+    },
+    {
+      "sl": "Moja babica je imela pet sester.",
+      "en": "My grandmother had five sisters.",
+      "de": "Meine Oma hatte fünf Schwestern.",
+      "it": "Mia nonna aveva cinque sorelle.",
+      "note": {
+        "en": "From five, the genitive plural, with an e slipped in: sester. Two sisters: dve sestri; three: tri sestre.",
+        "de": "Ab fünf der Genitiv Plural, mit einem eingeschobenen e: sester. Zwei Schwestern: dve sestri; drei: tri sestre.",
+        "it": "Da cinque il genitivo plurale, con una e in mezzo: sester. Due sorelle: dve sestri; tre: tri sestre."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["declension_feminine", "feminine_declension"],
+  "see": ["sklanjatev-moski", "sklanjatev-srednji", "skloni", "tozilnik", "dvojina", "spol-samostalnikov"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

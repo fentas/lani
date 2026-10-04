@@ -1,0 +1,120 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "word-order",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🧩",
+  "title": {
+    "en": "Word order: I often go to Keswick",
+    "sl": "Besedni red: I often go to Keswick",
+    "it": "L'ordine delle parole: I often go to Keswick",
+    "de": "Die Wortstellung: I often go to Keswick"
+  },
+  "rule": {
+    "en": "An English sentence keeps one order: **subject – verb – object**, then place and time: **Jack feeds the sheep in the morning.** The order stays the same when something else comes first: **In the morning Jack feeds the sheep.** (not *In the morning feeds Jack the sheep*). The order shows who does what, so the object can't move to the front.\n\nThe adjective goes before its noun and never changes: **the big fir tree**, **the big fir trees**, **a big tent**.\n\nWords for how often (**always**, **often**, **usually**, **sometimes**, **never**) go before the main verb: **I often go to Keswick.** **Meg never barks.** But after **am / is / are**: **Jack is always happy.**\n\nThe object comes right after the verb, and words like very much come after it: **I like it very much.** (not *I like very much it*). Place comes before time: **We go to school every day.**\n\nIn questions the helping verb comes before the subject: **Do you like it?** **Is Jack happy?**",
+    "sl": "Slovenski besedni red je prost, ker sklon pove, kdo kaj dela. Angleščina sklonov nima, zato ima stalen red: **osebek – glagol – predmet**, nato kraj in čas: **Jack feeds the sheep in the morning.** (Zjutraj Jack hrani ovce.) Predmeta ne moremo postaviti na začetek: *The sheep feed Jack* bi pomenilo, da ovce hranijo Jacka.\n\nPridevnik stoji pred samostalnikom in se nikoli ne spremeni: **the big fir tree**, **the big fir trees**, **a big tent** (velika jelka, velike jelke, velik šotor).\n\nBesede, ki povedo, kako pogosto (**always**, **often**, **usually**, **sometimes**, **never**), stojijo pred glavnim glagolom: **I often go to Keswick.** (Pogosto grem v Keswick.) **Meg never barks.** Pri **am / is / are** pa stojijo za glagolom: **Jack is always happy.**\n\nPredmet stoji takoj za glagolom, besede kot very much pa za predmetom: **I like it very much.** (Zelo mi je všeč; ne *I like very much it*). Kraj je pred časom: **We go to school every day.**\n\nV vprašanju je pomožni glagol pred osebkom: **Do you like it?** **Is Jack happy?**",
+    "it": "L'inglese tiene un ordine fisso: **soggetto – verbo – oggetto**, poi luogo e tempo: **Jack feeds the sheep in the morning.** (La mattina Jack dà da mangiare alle pecore.) L'oggetto non va all'inizio, e il soggetto non va dopo il verbo come in «arriva Jack»: **Jack is coming.**\n\nL'aggettivo va prima del nome, al contrario dell'italiano, e non cambia mai: **the big fir tree**, **the big fir trees**, **a red apple** (una mela rossa), **red apples**.\n\nLe parole di frequenza (**always**, **often**, **usually**, **sometimes**, **never**) vanno prima del verbo principale: **I often go to Keswick.** (Vado spesso a Keswick.) **Meg never barks.** Ma dopo **am / is / are**: **Jack is always happy.**\n\nL'oggetto sta subito dopo il verbo, e very much va dopo l'oggetto: **I like it very much.** (Mi piace molto: in inglese ci vuole it; mai *I like very much it*). Il luogo va prima del tempo: **We go to school every day.**\n\nNelle domande l'ausiliare va prima del soggetto: **Do you like it?** **Is Jack happy?**",
+    "de": "Das Englische hält immer eine Reihenfolge: **Subjekt – Verb – Objekt**, dann Ort und Zeit: **Jack feeds the sheep in the morning.** Anders als im Deutschen rückt das Verb nicht an die zweite Stelle, wenn etwas anderes vorn steht: **In the morning Jack feeds the sheep.** (Am Morgen füttert Jack die Schafe; nicht *In the morning feeds Jack*.) Und kein Verbteil wandert ans Ende: **I can swim very well.** (Ich kann sehr gut schwimmen.)\n\nDas Adjektiv steht vor dem Nomen und hat nie eine Endung: **the big fir tree**, **the big fir trees**, **a big tent** (die große Tanne, die großen Tannen, ein großes Zelt).\n\nHäufigkeitswörter (**always**, **often**, **usually**, **sometimes**, **never**) stehen vor dem Hauptverb: **I often go to Keswick.** (Ich fahre oft nach Keswick.) **Meg never barks.** Aber nach **am / is / are**: **Jack is always happy.**\n\nDas Objekt steht direkt nach dem Verb, very much danach: **I like it very much.** (nicht *I like very much it*). Ort vor Zeit: **We go to school every day.**\n\nIn Fragen steht das Hilfsverb vor dem Subjekt: **Do you like it?** **Is Jack happy?**"
+  },
+  "table": {
+    "head": [
+      { "en": "subject", "sl": "osebek", "it": "soggetto", "de": "Subjekt" },
+      { "en": "verb", "sl": "glagol", "it": "verbo", "de": "Verb" },
+      { "en": "object", "sl": "predmet", "it": "oggetto", "de": "Objekt" },
+      { "en": "place, time, how", "sl": "kraj, čas, kako", "it": "luogo, tempo, modo", "de": "Ort, Zeit, Art" }
+    ],
+    "rows": [
+      ["Jack", "feeds", "the sheep", "in the morning"],
+      ["I", "often go", "—", "to Keswick"],
+      ["Mrs Hartley", "reads", "us a story", "every Friday"],
+      ["We", "like", "it", "very much"],
+      ["Granny Maggie", "makes", "scones", "on Saturdays"],
+      ["Meg", "never barks", "—", "at night"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "In the morning Jack feeds the sheep.",
+      "sl": "Zjutraj Jack hrani ovce.",
+      "it": "La mattina Jack dà da mangiare alle pecore.",
+      "de": "Am Morgen füttert Jack die Schafe.",
+      "note": {
+        "en": "The time comes first, and still Jack feeds: subject, then verb.",
+        "sl": "Čas je na začetku, a še vedno Jack feeds: osebek, nato glagol.",
+        "it": "Il tempo è all'inizio, ma sempre Jack feeds: soggetto, poi verbo.",
+        "de": "Die Zeit steht vorn, und trotzdem Jack feeds, nicht feeds Jack."
+      }
+    },
+    {
+      "en": "I often go to Keswick.",
+      "sl": "Pogosto grem v Keswick.",
+      "it": "Vado spesso a Keswick.",
+      "de": "Ich fahre oft nach Keswick.",
+      "note": {
+        "en": "often goes before the main verb.",
+        "sl": "often stoji pred glavnim glagolom.",
+        "it": "often va prima del verbo principale.",
+        "de": "often steht vor dem Hauptverb."
+      }
+    },
+    {
+      "en": "Jack is always happy.",
+      "sl": "Jack je vedno vesel.",
+      "it": "Jack è sempre allegro.",
+      "de": "Jack ist immer fröhlich.",
+      "note": {
+        "en": "With is, always comes after it.",
+        "sl": "Pri is stoji always za njim.",
+        "it": "Con is, always va dopo.",
+        "de": "Bei is steht always danach."
+      }
+    },
+    {
+      "en": "Look at the big fir trees!",
+      "sl": "Poglej velike jelke!",
+      "it": "Guarda i grandi abeti!",
+      "de": "Schau dir die großen Tannen an!",
+      "note": {
+        "en": "big stays big: the adjective never changes.",
+        "sl": "big ostane big: pridevnik se ne spreminja.",
+        "it": "big resta big: l'aggettivo non cambia mai.",
+        "de": "big bleibt big: das Adjektiv ändert sich nie."
+      }
+    },
+    {
+      "en": "I like it very much.",
+      "sl": "Zelo mi je všeč.",
+      "it": "Mi piace molto.",
+      "de": "Das gefällt mir sehr.",
+      "note": {
+        "en": "it right after like; very much at the end.",
+        "sl": "it takoj za like, very much na koncu.",
+        "it": "it subito dopo like, very much alla fine.",
+        "de": "it direkt nach like, very much am Ende."
+      }
+    },
+    {
+      "en": "Mrs Hartley reads us a story every Friday.",
+      "sl": "Gospa Hartley nam vsak petek prebere zgodbo.",
+      "it": "La signora Hartley ci legge una storia ogni venerdì.",
+      "de": "Frau Hartley liest uns jeden Freitag eine Geschichte vor."
+    },
+    {
+      "en": "Meg never barks at night.",
+      "sl": "Meg ponoči nikoli ne laja.",
+      "it": "Meg non abbaia mai di notte.",
+      "de": "Meg bellt nachts nie.",
+      "note": {
+        "en": "never: one no is enough.",
+        "sl": "never: en ne je dovolj (slovensko nikoli ne).",
+        "it": "never: basta una negazione (in italiano non … mai).",
+        "de": "never: eine Verneinung genügt."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["word_order", "adverbs_frequency", "frequency_adverbs", "adjective_position", "svo", "sentence_structure"],
+  "see": ["present-simple", "questions-do", "prepositions-place"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-kufenstechen",
+  "language": "de",
+  "title": { "de": "Das Kufenstechen", "sl": "Štehvanje", "en": "The Kufenstechen", "it": "Il Kufenstechen" },
+  "emoji": "🐎",
+  "level": "A1",
+  "description": {
+    "sl": "Binkoštni ponedeljek. V Ziljski dolini fantje brez sedla jahajo in z železnim kijem razbijejo lesen sodček, potem pa vsa vas v narodni noši pleše pod lipo.",
+    "en": "Whit Monday. In the Gailtal the lads ride bareback and smash a wooden barrel with an iron club, then the whole village dances under the linden in traditional dress.",
+    "it": "Lunedì di Pentecoste. Nella valle del Gail i ragazzi cavalcano senza sella e rompono una botticella di legno con una mazza di ferro; poi tutto il paese balla in costume sotto il tiglio."
+  },
+  "giver": { "name": "Hirte Florian", "emoji": "🐑" },
+  "festival": "kufenstechen",
+  "words": [
+    { "id": "pferd", "de": "das Pferd", "sl": "konj", "en": "horse", "it": "il cavallo", "emoji": "🐎", "gender": "n", "plural": "die Pferde",
+      "example_de": "Das Pferd ist stark.", "example_sl": "Konj je močan.", "example_en": "The horse is strong.", "example_it": "Il cavallo è forte.",
+      "note": "Carinthian farmers keep the Noriker, a strong draught horse.",
+      "note_sl": "Koroški kmetje redijo norika, močnega delovnega konja.",
+      "note_it": "I contadini della Carinzia allevano il Noriker, un cavallo da tiro forte." },
+    { "id": "reiten", "de": "reiten", "sl": "jahati", "en": "to ride", "it": "cavalcare", "emoji": "🏇",
+      "example_de": "Florian reitet ohne Sattel.", "example_sl": "Florian jaha brez sedla.", "example_en": "Florian rides without a saddle.", "example_it": "Florian cavalca senza sella." },
+    { "id": "kufe", "de": "die Kufe", "sl": "sodček", "en": "small barrel (Kufe)", "it": "la botticella", "emoji": "🛢️", "gender": "f", "plural": "die Kufen",
+      "example_de": "Die Reiter schlagen auf die Kufe.", "example_sl": "Jezdeci udarjajo po sodčku.", "example_en": "The riders strike the barrel.", "example_it": "I cavalieri colpiscono la botticella.",
+      "note": "In the Gailtal a Kufe is a small wooden barrel; elsewhere die Kufe is the runner of a sledge.",
+      "note_sl": "V Ziljski dolini je Kufe lesen sodček; drugod je die Kufe drsnica sani.",
+      "note_it": "Nella valle del Gail la Kufe è una botticella di legno; altrove die Kufe è il pattino della slitta." },
+    { "id": "sattel", "de": "der Sattel", "sl": "sedlo", "en": "saddle", "it": "la sella", "emoji": "🐴", "gender": "m", "plural": "die Sättel",
+      "example_de": "Beim Kufenstechen gibt es keinen Sattel.", "example_sl": "Pri štehvanju ni sedla.", "example_en": "There's no saddle at the Kufenstechen.", "example_it": "Al Kufenstechen non c'è la sella." },
+    { "id": "tracht", "de": "die Tracht", "sl": "narodna noša", "en": "traditional dress", "it": "il costume tradizionale", "emoji": "👗", "gender": "f", "plural": "die Trachten",
+      "example_de": "Lena trägt die Gailtaler Tracht.", "example_sl": "Lena nosi ziljsko narodno nošo.", "example_en": "Lena wears the Gailtal traditional dress.", "example_it": "Lena indossa il costume della valle del Gail." },
+    { "id": "linde", "de": "die Linde", "sl": "lipa", "en": "linden tree", "it": "il tiglio", "emoji": "🌳", "gender": "f", "plural": "die Linden",
+      "example_de": "Unter der Linde tanzen alle.", "example_sl": "Pod lipo vsi plešejo.", "example_en": "Everyone dances under the linden.", "example_it": "Sotto il tiglio ballano tutti." },
+    { "id": "tanzen", "de": "tanzen", "sl": "plesati", "en": "to dance", "it": "ballare", "emoji": "💃",
+      "example_de": "Nach dem Kufenstechen tanzen wir.", "example_sl": "Po štehvanju plešemo.", "example_en": "After the Kufenstechen we dance.", "example_it": "Dopo il Kufenstechen balliamo." },
+    { "id": "sieger", "de": "der Sieger", "sl": "zmagovalec", "en": "winner", "it": "il vincitore", "emoji": "🏆", "gender": "m", "plural": "die Sieger",
+      "example_de": "Der Sieger bekommt einen Kranz.", "example_sl": "Zmagovalec dobi venec.", "example_en": "The winner gets a wreath.", "example_it": "Il vincitore riceve una corona.",
+      "note": "A woman who wins: die Siegerin.",
+      "note_sl": "Ženska, ki zmaga: die Siegerin.",
+      "note_it": "Una donna che vince: die Siegerin." }
+  ]
+}

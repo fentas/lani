@@ -1,0 +1,113 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "praesens",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🏃",
+  "title": {
+    "de": "Ich spiele, du spielst: das Präsens",
+    "sl": "Ich spiele, du spielst: sedanjik",
+    "en": "Ich spiele, du spielst: the present tense",
+    "it": "Ich spiele, du spielst: il presente"
+  },
+  "rule": {
+    "en": "In the present tense (*Präsens*) the verb has an ending for each person: spielen → ich **spiele**, du **spielst**, er/sie/es **spielt**, wir **spielen**, ihr **spielt**, sie/Sie **spielen**. English has only the -s of he plays; German has four endings: -e, -st, -t, -en.\n\nThe pronoun always stays, as in English: **Ich spiele**, never just spiele.\n\nMany common verbs change their vowel in **du** and **er/sie/es**: fahren → du **fährst**, fangen → du **fängst**, laufen → er **läuft**, essen → du **isst**, sehen → er **sieht**. The other persons keep it: wir fahren.\n\nWhen the stem ends in -t or -d, an **e** comes in: du **arbeitest**, er **findet**.\n\nTwo or more take the plural: **Die Berge glühen.** **Lena und Jakob spielen.**\n\nGerman has no -ing form: **ich lese** is I read and I'm reading.",
+    "sl": "V sedanjiku (*Präsens*) ima glagol končnico za vsako osebo: spielen → ich **spiele**, du **spielst**, er/sie/es **spielt**, wir **spielen**, ihr **spielt**, sie/Sie **spielen**.\n\nZa razliko od slovenščine osebni zaimek vedno ostane: **Ich spiele** (igram), nikoli samo spiele.\n\nMnogi pogosti glagoli spremenijo samoglasnik pri **du** in **er/sie/es**: fahren → du **fährst**, fangen → du **fängst**, laufen → er **läuft**, essen → du **isst**, sehen → er **sieht**. Druge osebe ga obdržijo: wir fahren.\n\nČe se osnova konča na -t ali -d, se vrine **e**: du **arbeitest**, er **findet**.\n\nDva ali več osebkov ima glagol v množini, dvojine ni: **Die Berge glühen.** **Lena und Jakob spielen.** (Lena in Jakob se igrata.)\n\nEn sedanjik velja za zdaj in za navade: **ich lese** (berem).",
+    "it": "Al presente (*Präsens*) il verbo ha una desinenza per ogni persona: spielen → ich **spiele**, du **spielst**, er/sie/es **spielt**, wir **spielen**, ihr **spielt**, sie/Sie **spielen**.\n\nA differenza dell'italiano il pronome soggetto resta sempre: **Ich spiele** (gioco), mai solo spiele.\n\nMolti verbi comuni cambiano la vocale con **du** e **er/sie/es**: fahren → du **fährst**, fangen → du **fängst**, laufen → er **läuft**, essen → du **isst**, sehen → er **sieht**. Le altre persone la tengono: wir fahren.\n\nSe la radice finisce in -t o -d, si aggiunge una **e**: du **arbeitest**, er **findet**.\n\nDue o più soggetti vogliono il plurale: **Die Berge glühen.** **Lena und Jakob spielen.**\n\nUn solo presente per adesso e per le abitudini: **ich lese** (leggo, sto leggendo)."
+  },
+  "table": {
+    "head": [
+      { "de": "Person", "sl": "oseba", "en": "person", "it": "persona" },
+      { "de": "spielen", "sl": "spielen (igrati)", "en": "spielen (play)", "it": "spielen (giocare)" },
+      { "de": "fahren", "sl": "fahren (peljati se)", "en": "fahren (drive, ride)", "it": "fahren (andare con un mezzo)" },
+      { "de": "sehen", "sl": "sehen (videti)", "en": "sehen (see)", "it": "sehen (vedere)" }
+    ],
+    "rows": [
+      ["ich", "spiele", "fahre", "sehe"],
+      ["du", "spielst", "fährst", "siehst"],
+      ["er / sie / es", "spielt", "fährt", "sieht"],
+      ["wir", "spielen", "fahren", "sehen"],
+      ["ihr", "spielt", "fahrt", "seht"],
+      ["sie / Sie", "spielen", "fahren", "sehen"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Wir spielen im Garten.",
+      "sl": "Igramo se na vrtu.",
+      "en": "We're playing in the garden.",
+      "it": "Giochiamo in giardino.",
+      "note": {
+        "en": "The pronoun always stays: wir spielen.",
+        "sl": "Zaimek vedno ostane: wir spielen (slovensko samo igramo).",
+        "it": "Il pronome resta sempre: wir spielen (in italiano solo giochiamo)."
+      }
+    },
+    {
+      "de": "Jakob wirft und du fängst den Ball.",
+      "sl": "Jakob vrže, ti pa ujameš žogo.",
+      "en": "Jakob throws and you catch the ball.",
+      "it": "Jakob lancia e tu prendi la palla.",
+      "note": {
+        "en": "fangen → du fängst: a becomes ä.",
+        "sl": "fangen → du fängst: a postane ä.",
+        "it": "fangen → du fängst: la a diventa ä."
+      }
+    },
+    {
+      "de": "Fährst du morgen nach Villach?",
+      "sl": "Se jutri pelješ v Beljak?",
+      "en": "Are you going to Villach tomorrow?",
+      "it": "Domani vai a Villaco?",
+      "note": {
+        "en": "fahren → du fährst.",
+        "sl": "fahren → du fährst.",
+        "it": "fahren → du fährst."
+      }
+    },
+    {
+      "de": "Jakob isst einen Apfel.",
+      "sl": "Jakob je jabolko.",
+      "en": "Jakob is eating an apple.",
+      "it": "Jakob mangia una mela.",
+      "note": {
+        "en": "essen → du isst, er isst.",
+        "sl": "essen → du isst, er isst.",
+        "it": "essen → du isst, er isst."
+      }
+    },
+    {
+      "de": "Siehst du die Berge? Sie glühen rot.",
+      "sl": "Vidiš gore? Rdeče žarijo.",
+      "en": "Can you see the mountains? They're glowing red.",
+      "it": "Vedi le montagne? Brillano di rosso.",
+      "note": {
+        "en": "sehen → du siehst; die Berge (plural) → sie glühen.",
+        "sl": "sehen → du siehst; die Berge (množina) → sie glühen.",
+        "it": "sehen → du siehst; die Berge (plurale) → sie glühen."
+      }
+    },
+    {
+      "de": "Tante Mitzi hört jeden Tag Radio Kärnten.",
+      "sl": "Teta Mitzi vsak dan posluša Radio Kärnten.",
+      "en": "Aunt Mitzi listens to Radio Kärnten every day.",
+      "it": "La zia Mitzi ascolta Radio Kärnten tutti i giorni."
+    },
+    {
+      "de": "Was machst du? – Ich lese.",
+      "sl": "Kaj delaš? – Berem.",
+      "en": "What are you doing? – I'm reading.",
+      "it": "Che cosa fai? – Leggo.",
+      "note": {
+        "en": "One present: ich lese = I read and I'm reading.",
+        "sl": "En sedanjik: ich lese = berem (zdaj ali navadno).",
+        "it": "Un solo presente: ich lese = leggo e sto leggendo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["present_tense", "praesens", "conjugation", "verb_endings", "vowel_change", "subject_pronouns", "verbs"],
+  "see": ["sein-haben", "wortstellung", "modalverben", "trennbare-verben"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

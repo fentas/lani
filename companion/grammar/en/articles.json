@@ -1,0 +1,106 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "articles",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🅰️",
+  "title": {
+    "en": "A, an, the: articles",
+    "sl": "A, an, the: členi",
+    "it": "A, an, the: gli articoli",
+    "de": "A, an, the: die Artikel"
+  },
+  "rule": {
+    "en": "English has two articles, and they never change: no gender, no cases.\n\n**a** / **an** (the indefinite article) is for one thing that is new to the listener: **a horse**, **a dog**. Choose by the sound, not the letter: **an** before a vowel sound (**an apple**, **an egg**, **an hour**: the h is silent), **a** before a consonant sound (**a horse**, **a uniform**: it starts with a *you* sound).\n\n**the** (the definite article) is for something you both know, something said before, or the only one there is: **the sun**, **the moon**, **the pond**. It is the same for one and for more: **the ponies**.\n\nOne thing you can count needs an article: **a dog** or **the dog**, never just *dog*. Things in general take no article, in the plural or with words like honey, bread, water: **Sheep eat grass.** **I like honey.** No article either in **go home**, **at school**, **in bed**, **by bus**.\n\nJobs take **a**: **Mr Dixon is a smith.**",
+    "sl": "Slovenščina nima členov, angleščina pa ima dva. Ne spreminjata se, saj angleščina nima ne spolov ne sklonov.\n\n**a** / **an** je nedoločni člen (*indefinite article*): za eno stvar, ki je za poslušalca nova: **a horse** (neki konj), **a dog**. Izbiramo po glasu, ne po črki: **an** pred samoglasnikom (**an apple**, **an egg**, **an hour**: h se ne izgovori), **a** pred soglasnikom (**a horse**, **a uniform**: začne se z glasom »ju«).\n\n**the** je določni člen (*definite article*): za nekaj, kar oba poznata, kar je bilo že omenjeno, ali za edino, kar obstaja: **the sun**, **the moon**, **the pond**. Enak je v ednini in množini: **the ponies**.\n\nŠtevni samostalnik v ednini ne stoji sam: **a dog** ali **the dog**, nikoli samo *dog*. O stvareh na splošno govorimo brez člena, v množini ali z besedami, kot so med, kruh, voda: **Sheep eat grass.** (Ovce jedo travo.) **I like honey.** (Rad imam med.) Brez člena tudi **go home**, **at school**, **in bed**, **by bus**.\n\nPred poklicem stoji **a**: **Mr Dixon is a smith.** (Gospod Dixon je kovač.)",
+    "it": "Come l'italiano, l'inglese ha gli articoli, ma solo due, e non cambiano mai: niente genere, niente plurale.\n\n**a** / **an** è l'articolo indeterminativo (*indefinite article*), per una cosa che chi ascolta non conosce ancora: **a horse**, **a dog**. Si sceglie dal suono, non dal genere né dalla lettera: **an** davanti a un suono vocalico (**an apple**, **an egg**, **an hour**: la h è muta), **a** davanti a un suono consonantico (**a horse**, **a uniform**: si pronuncia «iu»).\n\n**the** è l'articolo determinativo (*definite article*), per una cosa nota, già nominata o unica: **the sun**, **the moon**, **the pond**. Il, lo, la, i, gli, le: sempre **the**.\n\nAttenzione: per le cose in generale l'inglese non mette l'articolo, anche dove l'italiano lo mette: **Sheep eat grass.** (Le pecore mangiano l'erba.) **I like honey.** (Mi piace il miele.) Niente articolo anche in **go home**, **at school**, **in bed**, **by bus**.\n\nCon i mestieri invece ci vuole **a**: **Mr Dixon is a smith.** (Il signor Dixon fa il fabbro.)",
+    "de": "Wie das Deutsche hat das Englische Artikel, aber nur zwei, und sie ändern sich nie: kein Genus, kein Fall.\n\n**a** / **an** ist der unbestimmte Artikel (*indefinite article*), für etwas, das für den Hörer neu ist: **a horse**, **a dog**. Es zählt der Laut, nicht der Buchstabe: **an** vor einem Vokal-Laut (**an apple**, **an egg**, **an hour**: das h ist stumm), **a** vor einem Konsonanten-Laut (**a horse**, **a uniform**: gesprochen »ju«).\n\n**the** ist der bestimmte Artikel (*definite article*), für Bekanntes, schon Genanntes oder Einmaliges: **the sun**, **the moon**, **the pond**. Der, die, das, den, dem: immer **the**.\n\nFür Dinge im Allgemeinen steht kein Artikel, wie oft im Deutschen: **Sheep eat grass.** (Schafe fressen Gras.) **I like honey.** (Ich mag Honig.) Auch nicht in **go home**, **at school** (in der Schule), **in bed**, **by bus** (mit dem Bus).\n\nAnders als im Deutschen steht bei Berufen **a**: **Mr Dixon is a smith.** (Herr Dixon ist Schmied.)"
+  },
+  "table": {
+    "head": [
+      { "en": "article", "sl": "člen", "it": "articolo", "de": "Artikel" },
+      { "en": "when", "sl": "kdaj", "it": "quando", "de": "wann" },
+      { "en": "example", "sl": "primer", "it": "esempio", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["a", { "en": "before a consonant sound", "sl": "pred soglasnikom (v izgovoru)", "it": "davanti a un suono consonantico", "de": "vor einem Konsonanten-Laut" }, "a horse, a uniform"],
+      ["an", { "en": "before a vowel sound", "sl": "pred samoglasnikom (v izgovoru)", "it": "davanti a un suono vocalico", "de": "vor einem Vokal-Laut" }, "an apple, an hour"],
+      ["the", { "en": "known, or the only one", "sl": "znano ali edino", "it": "noto o unico", "de": "bekannt oder einmalig" }, "the sun, the pond"],
+      ["—", { "en": "things in general", "sl": "stvari na splošno", "it": "cose in generale", "de": "Dinge im Allgemeinen" }, "Sheep eat grass."],
+      ["—", { "en": "fixed phrases", "sl": "stalne zveze", "it": "espressioni fisse", "de": "feste Wendungen" }, "go home, at school, by bus"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "Jack has a dog. The dog is called Meg.",
+      "sl": "Jack ima psa. Psu je ime Meg.",
+      "it": "Jack ha un cane. Il cane si chiama Meg.",
+      "de": "Jack hat einen Hund. Der Hund heißt Meg.",
+      "note": {
+        "en": "First a dog (new to us), then the dog (the one we now know).",
+        "sl": "Najprej a dog (nov), nato the dog (tisti, ki ga zdaj poznamo).",
+        "it": "Prima a dog (nuovo), poi the dog (quello che ora conosciamo).",
+        "de": "Zuerst a dog (neu), dann the dog (den wir jetzt kennen)."
+      }
+    },
+    {
+      "en": "Poppy is eating an apple.",
+      "sl": "Poppy je jabolko.",
+      "it": "Poppy mangia una mela.",
+      "de": "Poppy isst einen Apfel."
+    },
+    {
+      "en": "Keswick is an hour away.",
+      "sl": "Do Keswicka je ena ura.",
+      "it": "Keswick è a un'ora da qui.",
+      "de": "Keswick ist eine Stunde entfernt.",
+      "note": {
+        "en": "The h of hour is silent, so an hour.",
+        "sl": "h v besedi hour se ne izgovori, zato an hour.",
+        "it": "La h di hour è muta, quindi an hour.",
+        "de": "Das h in hour ist stumm, also an hour."
+      }
+    },
+    {
+      "en": "The moon is very bright tonight.",
+      "sl": "Nocoj luna zelo močno sveti.",
+      "it": "Stasera la luna è luminosissima.",
+      "de": "Heute Nacht ist der Mond sehr hell.",
+      "note": {
+        "en": "There is only one moon: the moon.",
+        "sl": "Luna je samo ena: the moon.",
+        "it": "La luna è una sola: the moon.",
+        "de": "Es gibt nur einen Mond: the moon."
+      }
+    },
+    {
+      "en": "Sheep eat grass.",
+      "sl": "Ovce jedo travo.",
+      "it": "Le pecore mangiano l'erba.",
+      "de": "Schafe fressen Gras.",
+      "note": {
+        "en": "Sheep in general: no article.",
+        "sl": "Ovce na splošno: brez člena.",
+        "it": "Le pecore in generale: in inglese senza articolo.",
+        "de": "Schafe im Allgemeinen: ohne Artikel."
+      }
+    },
+    {
+      "en": "Mr Dixon is a smith.",
+      "sl": "Gospod Dixon je kovač.",
+      "it": "Il signor Dixon fa il fabbro.",
+      "de": "Herr Dixon ist Schmied."
+    },
+    {
+      "en": "Alfie goes home by bus.",
+      "sl": "Alfie gre domov z avtobusom.",
+      "it": "Alfie torna a casa in autobus.",
+      "de": "Alfie fährt mit dem Bus nach Hause."
+    }
+  ],
+  "modules": [],
+  "tags": ["articles", "article", "a_an", "the", "definite_article", "indefinite_article"],
+  "see": ["plurals", "some-any", "there-is-are"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

@@ -1,0 +1,31 @@
+{
+  "first_names": { "female": ["Giulia", "Sara"], "male": ["Marco", "Luca"] },
+  "surnames": ["Bressan", "Zorzut"],
+  "trades": [
+    { "female": { "it": "Boscaiola", "en": "Woodcutter" }, "male": { "it": "Boscaiolo", "en": "Woodcutter" } },
+    { "needs": "field", "female": { "it": "Contadina", "en": "Farmer" }, "male": { "it": "Contadino", "en": "Farmer" } }
+  ],
+  "stages": {
+    "baby": { "female": { "it": "Neonata", "en": "Baby" }, "male": { "it": "Neonato", "en": "Baby" } },
+    "child": { "female": { "it": "Bambina", "en": "Girl" }, "male": { "it": "Bambino", "en": "Boy" } },
+    "youth": { "female": { "it": "Ragazza", "en": "Young woman" }, "male": { "it": "Ragazzo", "en": "Young man" } }
+  },
+  "newborn": { "it": "Bambino", "en": "Child" },
+  "story": { "en": "Of the {family} family, in the village since {since}." },
+  "lines": {
+    "adult": {
+      "greet": [{ "it": "Buongiorno!", "en": "Good morning!" }],
+      "bye": [{ "it": "Arrivederci!", "en": "Goodbye!" }]
+    },
+    "child": {
+      "greet": [{ "it": "Ciao!", "en": "Hi!" }],
+      "bye": [{ "it": "Ciao!", "en": "Bye!" }]
+    }
+  },
+  "news": {
+    "moved_in_cast": { "it": "{name} si è {g, select, f {trasferita} other {trasferito}} in paese", "en": "{name} moved into the village" },
+    "born": { "it": "Nella famiglia {family} è {g, select, f {nata} other {nato}} {first}!", "en": "{first} was born to the {family} family!" },
+    "moved_in": { "it": "{name}, {role}, si è {g, select, f {trasferita} other {trasferito}} in paese", "en": "{name}, a {role}, moved in" },
+    "left": { "it": "{name} ha lasciato il paese", "en": "left the village" }
+  }
+}

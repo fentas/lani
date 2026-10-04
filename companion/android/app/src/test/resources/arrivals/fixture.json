@@ -1,0 +1,86 @@
+{
+  "schema": "lani.arrivals/v0",
+  "language": "sl",
+  "review": "A test fixture (ArrivalsTest), not a culture pack's.",
+  "cast": {
+    "micka": {
+      "memory": { "sl": "dan, ko sva se spoznala", "en": "the day we met" },
+      "levels": {
+        "A1": {
+          "late": { "who": "micka", "sl": "O, fant! Nisva se še spoznala.", "en": "Oh, lad! We haven't met yet." },
+          "lines": [
+            { "who": "micka", "sl": "Dober dan! Jaz sem Micka.", "en": "Good day! I'm Micka." },
+            { "choices": [
+              { "sl": "Dober dan, gospa Micka!", "en": "Good day, Mrs Micka!", "ok": true, "reply": { "sl": "Pridi, pridi.", "en": "Come in, come in." } },
+              { "sl": "Živjo, Micka!", "en": "Hi, Micka! (ti)", "why": { "en": "Say vi to Micka." }, "reply": { "sl": "Živjo? No, no …", "en": "Hi? Well, well …" } }
+            ] },
+            { "who": "micka", "sl": "Si lačen?", "en": "Are you hungry?" }
+          ]
+        }
+      }
+    },
+    "zala": {
+      "by": "micka",
+      "memory": { "sl": "dan, ko sem prišla živet k babici", "en": "the day I came to live with Grandma" },
+      "levels": {
+        "A1": {
+          "late": { "who": "micka", "sl": "Jan! Saj še ne poznaš moje vnukinje, kajne?", "en": "Jan! You don't know my granddaughter yet, do you?" },
+          "lines": [
+            { "who": "micka", "sl": "Jan, poglej! To je moja vnukinja Zala.", "en": "Jan, look! This is my granddaughter Zala." },
+            { "who": "zala", "sl": "Živjo! Stara sem osem let.", "en": "Hi! I'm eight years old." },
+            { "choices": [
+              { "sl": "Dobrodošla v vasi!", "en": "Welcome to the village!", "ok": true, "reply": { "sl": "Hvala!", "en": "Thanks!" } },
+              { "sl": "Dobrodošel v vasi!", "en": "Welcome to the village! (as to a boy)", "why": { "en": "Zala is a girl: dobrodošla." }, "reply": { "sl": "Dobrodošel? Jaz nisem fant!", "en": "Dobrodošel? I'm not a boy!" } }
+            ] },
+            { "who": "micka", "sl": "Tako. Zdaj se poznata.", "en": "There. Now you know each other." }
+          ]
+        },
+        "A2": {
+          "late": { "who": "micka", "sl": "Jan, počakaj! Nekoga ti še nisem predstavila.", "en": "Jan, wait! There's someone I haven't introduced to you yet." },
+          "lines": [
+            { "who": "micka", "sl": "Jan, pridi sem! To je moja vnukinja Zala.", "en": "Jan, come here! This is my granddaughter Zala." },
+            { "who": "zala", "sl": "Mama in oči delata v Ljubljani.", "en": "Mum and Dad work in Ljubljana." },
+            { "choices": [
+              { "sl": "Me veseli, Zala.", "en": "Nice to meet you, Zala.", "ok": true },
+              { "sl": "Me veseli, gospa Zala.", "en": "Nice to meet you, Mrs Zala.", "why": { "en": "Zala is a child." }, "reply": { "sl": "Gospa? Hihi!", "en": "Mrs? Hee hee!" } }
+            ] }
+          ]
+        }
+      }
+    }
+  },
+  "templates": {
+    "newcomer": {
+      "memory": { "sl": "dan, ko sem se {g, select, f {preselila} other {preselil}} v vas", "en": "the day I moved into the village" },
+      "levels": {
+        "A1": {
+          "late": { "who": "self", "sl": "Dober dan! Nisva se še spoznala, kajne?", "en": "Good day! We haven't met yet, have we?" },
+          "lines": [
+            { "who": "self", "sl": "Dober dan! Jaz sem {name}.", "en": "Good day! I'm {name}." },
+            { "who": "self", "sl": "Sem {g, select, f {nova} other {nov}} {role} v vasi.", "en": "I'm the new {role} in the village." },
+            { "choices": [
+              { "sl": "Dober dan! Me veseli.", "en": "Good day! Nice to meet you.", "ok": true },
+              { "sl": "Živjo! Kako si?", "en": "Hi! How are you? (ti)", "why": { "en": "{first} is a grown-up you have just met: say vi." }, "reply": { "sl": "No ja …", "en": "Well …" } }
+            ] }
+          ]
+        }
+      }
+    },
+    "birth": {
+      "memory": { "sl": "dan, ko si me prvič videl", "en": "the day you first saw me" },
+      "levels": {
+        "A1": {
+          "late": { "who": "parent", "sl": "Jan! Še nisi videl našega dojenčka!", "en": "Jan! You haven't seen our baby yet!" },
+          "lines": [
+            { "who": "parent", "sl": "Jan, poglej! To je naš dojenček.", "en": "Jan, look! This is our baby." },
+            { "who": "parent2", "sl": "{g, select, f {Ime ji je} other {Ime mu je}} {first}.", "en": "{g, select, f {Her} other {His}} name is {first}." },
+            { "choices": [
+              { "sl": "Čestitam!", "en": "Congratulations!", "ok": true, "reply": { "sl": "Hvala, {parent} in jaz sva srečna.", "en": "Thank you, {parent} and I are happy." } },
+              { "sl": "Dober tek!", "en": "Enjoy your meal!", "why": { "en": "For a new baby you say čestitam." }, "reply": { "sl": "Dober tek? Hihi.", "en": "Enjoy your meal? Ha ha." } }
+            ] }
+          ]
+        }
+      }
+    }
+  }
+}

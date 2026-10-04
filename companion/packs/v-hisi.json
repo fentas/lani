@@ -1,0 +1,152 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "v-hisi",
+  "title": { "sl": "V hiši", "en": "In the farmhouse", "de": "Im Bauernhaus", "it": "Nella casa di campagna" },
+  "emoji": "🏠",
+  "level": "A2",
+  "description": {
+    "en": "Stari Janez's house: the tiled stove and the bench behind it, the holy corner over the table, the old chest, the curtains and the dresser; the cradle and the toys under the roof.",
+    "de": "Das Haus von Stari Janez: der Kachelofen und die Bank dahinter, der Herrgottswinkel über dem Tisch, die alte Truhe, die Vorhänge und die Anrichte; die Wiege und das Spielzeug unter dem Dach.",
+    "it": "La casa di Stari Janez: la stufa in maiolica e la panca dietro, l'angolo sacro sopra il tavolo, la vecchia cassapanca, le tende e la credenza; la culla e i giocattoli sotto il tetto."
+  },
+  "giver": { "name": "Stari Janez", "emoji": "👴" },
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker",
+  "words": [
+    {
+      "id": "pec", "sl": "peč", "en": "stove (the tiled one that heats the house)", "de": "Ofen, Kachelofen", "it": "stufa (in maiolica)",
+      "emoji": "🔥", "gender": "f", "plural": "peči",
+      "example_sl": "Pri peči je toplo.", "example_en": "It is warm by the stove.", "example_de": "Am Ofen ist es warm.", "example_it": "Vicino alla stufa fa caldo.",
+      "note": "Feminine, although it ends in a consonant: ta peč, pri peči. The kmečka peč (krušna peč) of a farmhouse heats the room, and bread is baked in it.",
+      "note_de": "Weiblich, obwohl es auf einen Konsonanten endet: ta peč, pri peči. Die kmečka peč (krušna peč) eines Bauernhauses heizt die Stube, und man bäckt Brot darin.",
+      "note_it": "Femminile anche se finisce in consonante: ta peč, pri peči. La kmečka peč (krušna peč) di una casa contadina scalda la stanza, e ci si cuoce il pane."
+    },
+    {
+      "id": "zapecek", "sl": "zapeček", "en": "the bench by the stove", "de": "die Ofenbank", "it": "la panca accanto alla stufa",
+      "emoji": "🪑", "gender": "m", "plural": "zapečki",
+      "example_sl": "Pes spi na zapečku.", "example_en": "The dog is sleeping on the bench by the stove.", "example_de": "Der Hund schläft auf der Ofenbank.", "example_it": "Il cane dorme sulla panca accanto alla stufa.",
+      "note": "From za pečjo, 'behind the stove': the warmest place in the house, where grandparents and cats sleep. Na zapečku (locative).",
+      "note_de": "Von za pečjo, „hinter dem Ofen“: der wärmste Platz im Haus, wo die Großeltern und die Katzen schlafen. Na zapečku (Lokativ).",
+      "note_it": "Da za pečjo, 'dietro la stufa': il posto più caldo della casa, dove dormono i nonni e i gatti. Na zapečku (locativo)."
+    },
+    {
+      "id": "kot", "sl": "kot", "en": "corner", "de": "Ecke, Winkel", "it": "angolo",
+      "emoji": "📐", "gender": "m", "plural": "koti",
+      "example_sl": "V kotu nad mizo visi razpelo.", "example_en": "A crucifix hangs in the corner over the table.", "example_de": "In der Ecke über dem Tisch hängt ein Kruzifix.", "example_it": "Nell'angolo sopra il tavolo è appeso un crocifisso.",
+      "note": "V kotu (locative): in the corner. The bohkov kot is the holy corner of a farmhouse, over the table, with the crucifix and a candle.",
+      "note_de": "V kotu (Lokativ): in der Ecke. Der bohkov kot ist der Herrgottswinkel eines Bauernhauses, über dem Tisch, mit dem Kruzifix und einer Kerze.",
+      "note_it": "V kotu (locativo): nell'angolo. Il bohkov kot è l'angolo sacro della casa contadina, sopra il tavolo, con il crocifisso e una candela."
+    },
+    {
+      "id": "zavesa", "sl": "zavesa", "en": "curtain", "de": "Vorhang", "it": "tenda",
+      "emoji": "🪟", "gender": "f", "plural": "zavese",
+      "example_sl": "Zvečer zaprem zavese.", "example_en": "In the evening I close the curtains.", "example_de": "Am Abend ziehe ich die Vorhänge zu.", "example_it": "La sera chiudo le tende.",
+      "note": "Mostly in the plural: zavese (the curtains). Zaprem, odprem = I close, I open.",
+      "note_de": "Meist im Plural: zavese (die Vorhänge). Zaprem, odprem = ich schließe, ich öffne.",
+      "note_it": "Di solito al plurale: zavese (le tende). Zaprem, odprem = chiudo, apro."
+    },
+    {
+      "id": "polica", "sl": "polica", "en": "shelf", "de": "Regal, Brett", "it": "mensola, scaffale",
+      "emoji": "📚", "gender": "f", "plural": "police",
+      "example_sl": "Vrč je na polici.", "example_en": "The jug is on the shelf.", "example_de": "Der Krug steht auf dem Regal.", "example_it": "La brocca è sulla mensola.",
+      "note": "Na polici (locative): on the shelf. Knjižna polica = bookshelf.",
+      "note_de": "Na polici (Lokativ): auf dem Regal. Knjižna polica = Bücherregal.",
+      "note_it": "Na polici (locativo): sulla mensola. Knjižna polica = libreria."
+    },
+    {
+      "id": "kredenca", "sl": "kredenca", "en": "kitchen dresser", "de": "Anrichte, Küchenkredenz", "it": "credenza",
+      "emoji": "🍽️", "gender": "f", "plural": "kredence",
+      "example_sl": "Krožniki so v kredenci.", "example_en": "The plates are in the dresser.", "example_de": "Die Teller sind in der Anrichte.", "example_it": "I piatti sono nella credenza.",
+      "note": "Like Italian credenza: the kitchen cupboard with the plates on its shelves. V kredenci (locative).",
+      "note_de": "Wie das italienische credenza: der Küchenschrank mit den Tellern auf den Borden. V kredenci (Lokativ).",
+      "note_it": "Come l'italiano credenza: l'armadio della cucina con i piatti sui ripiani. V kredenci (locativo)."
+    },
+    {
+      "id": "skrinja", "sl": "skrinja", "en": "chest (a wooden one)", "de": "Truhe", "it": "cassapanca, baule",
+      "emoji": "🧰", "gender": "f", "plural": "skrinje",
+      "example_sl": "V skrinji so stare obleke.", "example_en": "There are old clothes in the chest.", "example_de": "In der Truhe sind alte Kleider.", "example_it": "Nella cassapanca ci sono vestiti vecchi.",
+      "note": "A painted chest (poslikana skrinja) held a bride's dowry. Zamrzovalna skrinja = chest freezer.",
+      "note_de": "Eine bemalte Truhe (poslikana skrinja) enthielt die Aussteuer einer Braut. Zamrzovalna skrinja = Gefriertruhe.",
+      "note_it": "Una cassapanca dipinta (poslikana skrinja) conteneva la dote della sposa. Zamrzovalna skrinja = congelatore a pozzetto."
+    },
+    {
+      "id": "zibelka", "sl": "zibelka", "en": "cradle", "de": "Wiege", "it": "culla",
+      "emoji": "👶", "gender": "f", "plural": "zibelke",
+      "example_sl": "Dojenček spi v zibelki.", "example_en": "The baby is sleeping in the cradle.", "example_de": "Das Baby schläft in der Wiege.", "example_it": "Il bambino dorme nella culla.",
+      "note": "Zibam = I rock (the cradle). V zibelki (locative).",
+      "note_de": "Zibam = ich wiege (die Wiege). V zibelki (Lokativ).",
+      "note_it": "Zibam = dondolo (la culla). V zibelki (locativo)."
+    },
+    {
+      "id": "ogledalo", "sl": "ogledalo", "en": "mirror", "de": "Spiegel", "it": "specchio",
+      "emoji": "🪞", "gender": "n", "plural": "ogledala",
+      "example_sl": "Nejc se gleda v ogledalu.", "example_en": "Nejc is looking at himself in the mirror.", "example_de": "Nejc betrachtet sich im Spiegel.", "example_it": "Nejc si guarda allo specchio.",
+      "note": "Gledati se v ogledalu = to look at yourself in the mirror (locative).",
+      "note_de": "Gledati se v ogledalu = sich im Spiegel betrachten (Lokativ).",
+      "note_it": "Gledati se v ogledalu = guardarsi allo specchio (locativo)."
+    },
+    {
+      "id": "preproga", "sl": "preproga", "en": "rug, carpet", "de": "Teppich", "it": "tappeto",
+      "emoji": "🧶", "gender": "f", "plural": "preproge",
+      "example_sl": "Na tleh je stara preproga.", "example_en": "There is an old rug on the floor.", "example_de": "Auf dem Boden liegt ein alter Teppich.", "example_it": "Sul pavimento c'è un vecchio tappeto.",
+      "note": "Tkana preproga = a woven rug, like the rag rugs of old farmhouses.",
+      "note_de": "Tkana preproga = ein gewebter Teppich, wie die Fleckerlteppiche alter Bauernhäuser.",
+      "note_it": "Tkana preproga = un tappeto tessuto, come quelli di stracci delle vecchie case contadine."
+    },
+    {
+      "id": "fotografija", "sl": "fotografija", "en": "photo, photograph", "de": "Foto, Fotografie", "it": "fotografia",
+      "emoji": "🖼️", "gender": "f", "plural": "fotografije",
+      "example_sl": "Na fotografiji je moja družina.", "example_en": "My family is in the photo.", "example_de": "Auf dem Foto ist meine Familie.", "example_it": "Nella fotografia c'è la mia famiglia.",
+      "note": "Na fotografiji (locative): in the photo. Often just slika (picture).",
+      "note_de": "Na fotografiji (Lokativ): auf dem Foto. Oft einfach slika (Bild).",
+      "note_it": "Na fotografiji (locativo): nella foto. Spesso solo slika (immagine)."
+    },
+    {
+      "id": "ocala", "sl": "očala", "en": "glasses (spectacles)", "de": "Brille", "it": "occhiali",
+      "emoji": "👓", "gender": "n",
+      "example_sl": "Kje so moja očala?", "example_en": "Where are my glasses?", "example_de": "Wo ist meine Brille?", "example_it": "Dove sono i miei occhiali?",
+      "note": "Plural-only noun, neuter: očala so (the glasses are), moja očala. German Brille is singular.",
+      "note_de": "Nur im Plural, sächlich: očala so, moja očala. Das deutsche „Brille“ ist Singular.",
+      "note_it": "Sostantivo solo plurale, neutro: očala so, moja očala. Come l'italiano occhiali."
+    },
+    {
+      "id": "igraca", "sl": "igrača", "en": "toy", "de": "Spielzeug", "it": "giocattolo",
+      "emoji": "🧸", "gender": "f", "plural": "igrače",
+      "example_sl": "Pospravi igrače, prosim!", "example_en": "Tidy up the toys, please!", "example_de": "Räum bitte die Spielsachen auf!", "example_it": "Metti a posto i giocattoli, per favore!",
+      "note": "From igrati se (to play): igram se, igraš se.",
+      "note_de": "Von igrati se (spielen): igram se, igraš se.",
+      "note_it": "Da igrati se (giocare): igram se, igraš se."
+    },
+    {
+      "id": "podstresje", "sl": "podstrešje", "en": "attic, loft", "de": "Dachboden", "it": "soffitta",
+      "emoji": "🏠", "gender": "n", "plural": "podstrešja",
+      "example_sl": "Nejc spi v podstrešju.", "example_en": "Nejc sleeps in the attic.", "example_de": "Nejc schläft auf dem Dachboden.", "example_it": "Nejc dorme in soffitta.",
+      "note": "Pod streho = under the roof. V podstrešju (locative): in the attic.",
+      "note_de": "Pod streho = unter dem Dach. V podstrešju (Lokativ): auf dem Dachboden.",
+      "note_it": "Pod streho = sotto il tetto. V podstrešju (locativo): in soffitta."
+    },
+    {
+      "id": "strop", "sl": "strop", "en": "ceiling", "de": "Decke (des Zimmers)", "it": "soffitto",
+      "emoji": "⬆️", "gender": "m", "plural": "stropi",
+      "example_sl": "Luč visi s stropa.", "example_en": "The lamp hangs from the ceiling.", "example_de": "Die Lampe hängt von der Decke.", "example_it": "La lampada pende dal soffitto.",
+      "note": "S stropa (genitive): from the ceiling. The roof outside is streha.",
+      "note_de": "S stropa (Genitiv): von der Decke. Das Dach draußen ist streha.",
+      "note_it": "S stropa (genitivo): dal soffitto. Il tetto fuori è streha."
+    },
+    {
+      "id": "vaza", "sl": "vaza", "en": "vase", "de": "Vase", "it": "vaso (da fiori)",
+      "emoji": "🏺", "gender": "f", "plural": "vaze",
+      "example_sl": "V vazi so rože.", "example_en": "There are flowers in the vase.", "example_de": "In der Vase sind Blumen.", "example_it": "Nel vaso ci sono dei fiori.",
+      "note": "V vazi (locative): in the vase.",
+      "note_de": "V vazi (Lokativ): in der Vase.",
+      "note_it": "V vazi (locativo): nel vaso."
+    },
+    {
+      "id": "prt", "sl": "prt", "en": "tablecloth", "de": "Tischdecke", "it": "tovaglia",
+      "emoji": "🟥", "gender": "m", "plural": "prti",
+      "example_sl": "Na mizi je bel prt.", "example_en": "There is a white tablecloth on the table.", "example_de": "Auf dem Tisch liegt eine weiße Tischdecke.", "example_it": "Sul tavolo c'è una tovaglia bianca.",
+      "note": "Pogrnem mizo = I lay the table (with the cloth, the plates).",
+      "note_de": "Pogrnem mizo = ich decke den Tisch (mit der Decke, den Tellern).",
+      "note_it": "Pogrnem mizo = apparecchio la tavola (con la tovaglia, i piatti)."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "goods": [
+    { "id": "pane", "emoji": "🍞", "name": { "it": "Pane", "en": "Bread", "sl": "Kruh" }, "acc": { "it": "il pane", "en": "bread", "sl": "kruh" }, "price": "plain" },
+    { "id": "frico", "emoji": "🧀", "name": { "it": "Frico", "en": "Frico (a cheese pie)" }, "acc": { "it": "il frico", "en": "a frico" }, "price": "good" },
+    { "id": "mele", "emoji": "🍎", "name": { "it": "Mele", "en": "Apples" }, "acc": { "it": "delle mele", "en": "apples" }, "price": "small" },
+    { "id": "gubana", "emoji": "🥮", "name": { "it": "Gubana", "en": "Gubana (a nut cake)" }, "acc": { "it": "la gubana", "en": "a gubana" }, "price": "rich", "rare": true }
+  ],
+  "tools": [
+    {
+      "giver": "nino", "giver_name": "Nino", "effect": "wood", "forge": true,
+      "first": { "emoji": "🪓", "name": { "it": "Ascia", "en": "An axe" }, "acc": { "it": "un'ascia", "en": "an axe" }, "the": { "it": "l'ascia", "en": "the axe" } },
+      "better": { "emoji": "🪓", "name": { "it": "Ascia affilata", "en": "A sharp axe" }, "acc": { "it": "un'ascia affilata", "en": "a sharp axe" }, "the": { "it": "l'ascia affilata", "en": "the sharp axe" } }
+    }
+  ],
+  "thanks": { "pina": "frico", "nino": "pane" },
+  "thanks_default": "mele",
+  "small_gifts": ["mele"],
+  "likes": { "pina": ["pane", "mele"], "nino": ["frico"], "gigi": ["mele"] },
+  "likes_default": ["pane"],
+  "children": ["gigi"],
+  "smith": { "id": "beppe", "name": "Beppe", "title": { "it": "Il fabbro Beppe", "en": "Smith Beppe" } },
+  "sellers": {
+    "pedlar": { "emoji": "🎒", "name": { "it": "L'ambulante", "en": "The pedlar" } },
+    "merchant": { "emoji": "🧳", "name": { "it": "Il mercante", "en": "The merchant" } },
+    "market": { "emoji": "🏪", "name": { "it": "Il mercato", "en": "The market" } }
+  },
+  "lines": {
+    "gift_tool": { "it": "{name} ti regala {item} {emoji}", "en": "{name} gives you {item}: {effect}" },
+    "gift": { "it": "{name} ti regala {item} {emoji}", "en": "{name} gives you {item}" },
+    "given": { "it": "{name}: grazie per {item}!", "en": "thanks for {item}!" },
+    "bought": { "it": "Comprato", "en": "Bought: {good} ({price})" },
+    "sold": { "it": "Venduto", "en": "Sold: {good} → +{got} {res}" },
+    "forged": { "it": "{smith} ha migliorato {item} {stars}", "en": "{smith} improved {item}: {effect}" },
+    "feast": { "it": "Festa sotto il tiglio: tutto il paese ha ballato!", "en": "A feast under the linden: the whole village danced! {served}" }
+  }
+}

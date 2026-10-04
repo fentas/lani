@@ -1,0 +1,85 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "rodilnik-nikalnica",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🚫",
+  "title": {
+    "sl": "Nimam časa: rodilnik po nikalnici",
+    "en": "Nimam časa: the genitive after a negation",
+    "de": "Nimam časa: der Genitiv nach einer Verneinung",
+    "it": "Nimam časa: il genitivo dopo una negazione"
+  },
+  "rule": {
+    "en": "When a verb is negated, its object moves from the accusative (*tožilnik*) into the genitive (*rodilnik*): **imam čas → nimam časa**, **pijem kavo → ne pijem kave**.\n\n“There is no …” is **ni** + genitive: **ni kruha**, **ni vina**.\n\nA feminine noun in -a ends in **-e** (kava → **kave**); masculine and neuter nouns take **-a** (čas → **časa**, mleko → **mleka**).\n\nOnly the object changes: a subject stays as it is (**Kava ni topla.** The coffee isn't warm.). Imeti fuses with ne: **nimam**, **nima**.\n\nOne exception: when the no is about the object and a contrast follows (… **ampak** …), the accusative is possible too. See the last example.",
+    "de": "Wird ein Verb verneint, wandert sein Objekt vom Akkusativ (*tožilnik*) in den Genitiv (*rodilnik*): **imam čas → nimam časa** (ich habe keine Zeit), **pijem kavo → ne pijem kave**.\n\n„Es gibt kein …“ heißt **ni** + Genitiv: **ni kruha**, **ni vina**.\n\nEin weibliches Nomen auf -a endet auf **-e** (kava → **kave**); männliche und sächliche Nomen bekommen **-a** (čas → **časa**, mleko → **mleka**).\n\nNur das Objekt ändert sich, das Subjekt nicht (**Kava ni topla.** Der Kaffee ist nicht warm.). Imeti verschmilzt mit ne: **nimam**, **nima**.\n\nEine Ausnahme: Gilt das Nein dem Objekt und folgt ein Gegensatz (… **ampak** …), geht auch der Akkusativ. Siehe das letzte Beispiel.",
+    "it": "Quando un verbo è negato, il suo complemento oggetto passa dall'accusativo (*tožilnik*) al genitivo (*rodilnik*): **imam čas → nimam časa** (non ho tempo), **pijem kavo → ne pijem kave**.\n\n“Non c'è …” si dice **ni** + genitivo: **ni kruha**, **ni vina**.\n\nUn nome femminile in -a finisce in **-e** (kava → **kave**); i nomi maschili e neutri prendono **-a** (čas → **časa**, mleko → **mleka**).\n\nCambia solo l'oggetto, il soggetto no (**Kava ni topla.** Il caffè non è caldo.). Imeti si fonde con ne: **nimam**, **nima**.\n\nUn'eccezione: se il no riguarda l'oggetto e segue un contrasto (… **ampak** …), va bene anche l'accusativo. Vedi l'ultimo esempio."
+  },
+  "table": {
+    "head": [
+      { "sl": "pritrdilno", "en": "yes", "de": "bejaht", "it": "affermativo" },
+      { "sl": "nikalno", "en": "no", "de": "verneint", "it": "negativo" }
+    ],
+    "rows": [
+      ["Imam čas.", "Nimam časa."],
+      ["Pijem kavo.", "Ne pijem kave."],
+      ["Vidim ovco.", "Ne vidim ovce."],
+      ["Imam avto.", "Nimam avta."],
+      ["Danes je veter.", "Danes ni vetra."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Danes nimam časa.",
+      "en": "I don't have time today.",
+      "de": "Heute habe ich keine Zeit.",
+      "it": "Oggi non ho tempo."
+    },
+    {
+      "sl": "Babica nima mleka.",
+      "en": "Grandma has no milk.",
+      "de": "Oma hat keine Milch.",
+      "it": "La nonna non ha latte."
+    },
+    {
+      "sl": "V trgovini ni kruha.",
+      "en": "There's no bread in the shop.",
+      "de": "Im Laden gibt es kein Brot.",
+      "it": "Nel negozio non c'è pane."
+    },
+    {
+      "sl": "Ne vidim ovce.",
+      "en": "I can't see the sheep.",
+      "de": "Ich sehe das Schaf nicht.",
+      "it": "Non vedo la pecora."
+    },
+    {
+      "sl": "Nimam ne brata ne sestre.",
+      "en": "I have neither a brother nor a sister.",
+      "de": "Ich habe weder einen Bruder noch eine Schwester.",
+      "it": "Non ho né un fratello né una sorella."
+    },
+    {
+      "sl": "Luka ne pije kave.",
+      "en": "Luka doesn't drink coffee.",
+      "de": "Luka trinkt keinen Kaffee.",
+      "it": "Luka non beve caffè."
+    },
+    {
+      "sl": "Ne berem knjige, ampak revijo.",
+      "en": "I'm not reading a book, but a magazine.",
+      "de": "Ich lese kein Buch, sondern eine Zeitschrift.",
+      "it": "Non leggo un libro, ma una rivista.",
+      "note": {
+        "en": "The no is about the book, and ampak says what instead: here Ne berem knjigo, ampak revijo is possible too, the genitive still the safe choice. Without a contrast, only the genitive: Ne berem knjige.",
+        "de": "Das Nein gilt dem Buch, und ampak sagt, was stattdessen: hier geht auch Ne berem knjigo, ampak revijo, der Genitiv bleibt die sichere Wahl. Ohne Gegensatz nur der Genitiv: Ne berem knjige.",
+        "it": "Il no riguarda il libro, e ampak dice che cosa invece: qui va bene anche Ne berem knjigo, ampak revijo, ma il genitivo resta la scelta sicura. Senza contrasto, solo il genitivo: Ne berem knjige."
+      }
+    }
+  ],
+  "modules": ["rodilnik-po-nikalnici", "imeti-in-iti"],
+  "tags": ["genitive_negation", "negation_genitive", "genitive_after_negation", "nimam"],
+  "see": ["tozilnik", "rodilnik-predlogi", "imeti-iti", "rodilnik", "zanikanje"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

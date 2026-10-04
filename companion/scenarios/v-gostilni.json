@@ -1,0 +1,21 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "v-gostilni",
+  "title": "V gostilni · At the inn",
+  "emoji": "🍷",
+  "level": "A1",
+  "setting": "Friday evening at a traditional gostilna in the Vipava valley. You sit down with your partner, and the waiter comes to your table.",
+  "role": "Natakar Marko, the waiter. Friendly, a bit fast, happy to recommend the house dishes. Says vi to guests.",
+  "voice": "male",
+  "goals": ["Order a drink", "Ask what he recommends", "Order a meal", "Ask for the bill", "Say thank you and goodbye"],
+  "opener_sl": "Dober večer! Izvolite jedilni list. Kaj boste pili?",
+  "opener_en": "Good evening! Here is the menu. What would you like to drink?",
+  "vocabulary_hints": [
+    { "sl": "Kozarec vina, prosim.", "en": "A glass of wine, please." },
+    { "sl": "Eno pivo, prosim.", "en": "A beer, please." },
+    { "sl": "Kaj priporočate?", "en": "What do you recommend?" },
+    { "sl": "Zame golaž, prosim.", "en": "Goulash for me, please." },
+    { "sl": "Račun, prosim.", "en": "The bill, please." },
+    { "sl": "Bilo je zelo dobro.", "en": "It was very good." }
+  ]
+}

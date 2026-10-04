@@ -1,0 +1,85 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "harry",
+  "name": "Harry",
+  "emoji": "🧒",
+  "art": "child1",
+  "voice": "male",
+  "speaker": "boy",
+  "role": {"en": "Boy", "sl": "Deček", "it": "Bambino", "de": "Junge"},
+  "home": ["market", "house"],
+  "register": "ti",
+  "skill": "food",
+  "since": "zaselek",
+  "order": 12,
+  "routine": { "up": "7:15", "bed": "20:30" },
+  "personality": "Nine, Mrs Birkett's son, the ringleader of the village children. Loud, quick and cheeky, always with a football and a plan: tag, races to the tarn, skimming stones, ice cream. Calls the learner by first name at once and wants the learner on his team; the learner calls him Harry. Short, fast sentences: 'Come on!', 'Let's go!', 'Race you!'. Can't read as well as Poppy, and doesn't want to hear about it.",
+  "story": "Harry grew up between the tables of his mum's inn and knows every walker's boots. He plays football on the square until the church bell rings, supports Carlisle United like Sam and is sure he will play for them one day. At the tarn he skims stones (his record is seven bounces), catches frogs and lets them go again.",
+  "likes": [
+    {"en": "football (Carlisle United)", "sl": "nogomet (Carlisle United)", "it": "il calcio (il Carlisle United)", "de": "Fußball (Carlisle United)"},
+    {"en": "tag", "sl": "lovljenje", "it": "l'acchiapparella", "de": "Fangen"},
+    {"en": "the tarn (the little lake on the fell)", "sl": "gorsko jezerce", "it": "il laghetto di montagna", "de": "der kleine Bergsee"},
+    {"en": "skimming stones", "sl": "žabice (kamenčki, ki skačejo po vodi)", "it": "i rimbalzelli (i sassi che saltano sull'acqua)", "de": "Steine flitschen (Steine über das Wasser hüpfen lassen)"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Hiya! Do you play football?", "sl": "Živjo! Igraš nogomet?", "it": "Ciao! Giochi a calcio?", "de": "Hi! Spielst du Fußball?", "level": 0 },
+      { "en": "Hi! I'm Harry. Who are you?", "sl": "Živjo! Jaz sem Harry. Kdo si ti?", "it": "Ciao! Io sono Harry. Tu chi sei?", "de": "Hallo! Ich bin Harry. Wer bist du?", "level": 0 },
+      { "en": "Hey! Come on, come and play!", "sl": "Ej! Daj, pridi se igrat!", "it": "Ehi! Dai, vieni a giocare!", "de": "Hey! Komm, spiel mit!", "level": 1 },
+      { "en": "There you are! You're on my team, OK?", "sl": "Tu si! V moji ekipi si, velja?", "it": "Eccoti! Sei nella mia squadra, va bene?", "de": "Da bist du! Du bist in meiner Mannschaft, okay?", "level": 2 },
+      { "en": "Yay, you're here! Race you to the tarn!", "sl": "Juhu, tu si! Kdo bo prej pri jezercu?", "it": "Evviva, sei qui! Facciamo a gara fino al laghetto!", "de": "Juhu, du bist da! Wettrennen zum See!", "level": 3 },
+      { "en": "You're my best friend! But don't tell Poppy.", "sl": "Ti si moj najboljši prijatelj! Ampak ne povej Poppy.", "it": "Sei il mio migliore amico! Ma non dirlo a Poppy.", "de": "Du bist mein bester Freund! Aber sag es nicht Poppy.", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Thanks! You're a champion!", "sl": "Hvala! Pravi prvak si!", "it": "Grazie! Sei un campione!", "de": "Danke! Du bist spitze!" },
+      { "en": "Thanks! You can have the ball tomorrow.", "sl": "Hvala! Jutri ti dam žogo.", "it": "Grazie! Domani ti do il pallone.", "de": "Danke! Morgen darfst du den Ball haben." },
+      { "en": "Thanks, thanks! I'm telling Mum.", "sl": "Hvala, hvala! Povem mami.", "it": "Grazie, grazie! Lo dico alla mamma.", "de": "Danke, danke! Das sag ich Mama." }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "Hey, I still think of {memory}! It was great!", "sl": "Ej, še vedno mislim na {memory}! Super je bilo!", "it": "Dai, ricordo ancora {memory}! È stato forte!", "de": "Hey, ich denke immer noch an {memory}! Das war super!", "level": 2 },
+      { "en": "I'll never forget {memory}. Never ever!", "sl": "Nikoli ne bom pozabil na {memory}. Nikoli in nikdar!", "it": "Non dimentico {memory}. Mai e poi mai!", "de": "Ich vergesse {memory} nie. Nie im Leben!", "level": 3 }
+    ],
+    "idle": [
+      { "en": "Seven! My stone bounced seven times on the tarn!", "sl": "Sedem! Moj kamenček je na jezercu sedemkrat odskočil!", "it": "Sette! Il mio sasso ha fatto sette salti sul laghetto!", "de": "Sieben! Mein Stein ist auf dem See siebenmal gehüpft!" },
+      { "en": "I caught a frog! I let it go.", "sl": "Ujel sem žabo! Spustil sem jo.", "it": "Ho preso una rana! L'ho lasciata andare.", "de": "Ich hab einen Frosch gefangen! Ich hab ihn wieder freigelassen." },
+      { "en": "When I grow up, I'm going to play for Carlisle.", "sl": "Ko bom velik, bom igral za Carlisle.", "it": "Da grande giocherò nel Carlisle.", "de": "Wenn ich groß bin, spiele ich für Carlisle." },
+      { "en": "Poppy reads well. I run fast.", "sl": "Poppy dobro bere. Jaz pa hitro tečem.", "it": "Poppy legge bene. Io corro veloce.", "de": "Poppy liest gut. Ich renne schnell." }
+    ],
+    "cheer": [
+      { "en": "Goal! Well done!", "sl": "Gol! Bravo!", "it": "Gol! Bravo!", "de": "Tor! Super gemacht!" },
+      { "en": "Yes! Right!", "sl": "Ja! Prav!", "it": "Sì! Giusto!", "de": "Ja! Richtig!" },
+      { "en": "Go on! More!", "sl": "Dajmo! Še!", "it": "Forza! Ancora!", "de": "Los! Weiter!" },
+      { "en": "Brilliant! High five!", "sl": "Super! Daj pet!", "it": "Grande! Batti cinque!", "de": "Klasse! Gib mir fünf!" }
+    ],
+    "comfort": [
+      { "en": "Come on, never mind!", "sl": "Daj, nič hudega!", "it": "Dai, non fa niente!", "de": "Komm, macht nichts!" },
+      { "en": "I miss penalties too. Try again!", "sl": "Tudi jaz včasih zgrešim enajstmetrovko. Poskusi še enkrat!", "it": "Anch'io sbaglio i rigori. Riprova!", "de": "Ich schieße auch mal einen Elfmeter daneben. Versuch's noch mal!" },
+      { "en": "Nearly a goal! Once more.", "sl": "Skoraj gol! Še enkrat.", "it": "Quasi gol! Ancora una volta.", "de": "Fast ein Tor! Noch mal." }
+    ],
+    "listen": [
+      { "en": "Shh! Listen!", "sl": "Pst! Poslušaj!", "it": "Shh! Ascolta!", "de": "Pst! Hör mal!" },
+      { "en": "Listen, listen! Quick!", "sl": "Poslušaj, poslušaj! Hitro!", "it": "Ascolta, ascolta! Veloce!", "de": "Hör mal, hör mal! Schnell!" },
+      { "en": "Can you hear it? Listen!", "sl": "Slišiš? Poslušaj!", "it": "Senti? Ascolta!", "de": "Hörst du das? Hör zu!" }
+    ],
+    "bye": [
+      { "en": "Bye!", "sl": "Adijo!", "it": "Ciao!", "de": "Tschüss!" },
+      { "en": "Bye! I'm off to play.", "sl": "Adijo! Grem se igrat.", "it": "Ciao! Vado a giocare.", "de": "Tschüss! Ich geh spielen." },
+      { "en": "See you at the tarn tomorrow! Bring a flat stone!", "sl": "Se vidiva jutri pri jezercu! Prinesi ploščat kamen! (tarn: majhno gorsko jezero)", "it": "Ci vediamo domani al laghetto! Porta un sasso piatto! (tarn: un piccolo lago di montagna)", "de": "Bis morgen am See! Bring einen flachen Stein mit! (tarn: ein kleiner Bergsee)" }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "Yes! For me? You're a champion!", "sl": "Ja! Zame? Pravi prvak si!", "it": "Sì! Per me? Sei un campione!", "de": "Ja! Für mich? Du bist spitze!" },
+        { "en": "How did you know? It's my favourite! Thanks!", "sl": "Kako si vedel? To imam najraje! Hvala!", "it": "Come lo sapevi? È la mia cosa preferita! Grazie!", "de": "Woher wusstest du das? Das mag ich am liebsten! Danke!" },
+        { "en": "Brilliant! I'm not giving this to anyone. Well, maybe to Alfie.", "sl": "Super! Tega ne dam nikomur. No, mogoče Alfieju.", "it": "Grande! Questo non lo do a nessuno. Beh, forse ad Alfie.", "de": "Klasse! Das gebe ich keinem. Na ja, vielleicht Alfie." }
+      ],
+      "ordinary": [
+        { "en": "Oh, thanks! I'm telling Mum.", "sl": "O, hvala! Povem mami.", "it": "Oh, grazie! Lo dico alla mamma.", "de": "Oh, danke! Das sag ich Mama." },
+        { "en": "Thanks! Shall we play football now?", "sl": "Hvala! Greva zdaj igrat nogomet?", "it": "Grazie! Adesso giochiamo a calcio?", "de": "Danke! Spielen wir jetzt Fußball?" }
+      ],
+      "rare": [
+        { "en": "Wow! Nobody in the village has got this! You're the best!", "sl": "Uau! Tega v vasi nima nihče! Ti si najboljši!", "it": "Uau! Questo in paese non ce l'ha nessuno! Sei il più grande!", "de": "Wow! Das hat keiner im Dorf! Du bist der Beste!" }
+      ]
+    }
+  }
+}

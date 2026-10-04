@@ -1,0 +1,39 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-sonnwende",
+  "language": "de",
+  "title": { "de": "Das Sonnwendfeuer", "sl": "Kres", "en": "The midsummer bonfire", "it": "Il falò di mezza estate" },
+  "emoji": "🔥",
+  "level": "A1",
+  "description": {
+    "sl": "21. junija, najdaljši dan. Na koroških gorah in gričih gorijo kresovi; Opa Sepp pripoveduje, otroci pa pijejo bezgov sok.",
+    "en": "21 June, the longest day. Bonfires burn on the mountains and hills of Carinthia; Opa Sepp tells stories and the children drink elderflower cordial.",
+    "it": "21 giugno, il giorno più lungo. Sulle montagne e sulle colline della Carinzia bruciano i falò; Opa Sepp racconta e i bambini bevono lo sciroppo di sambuco."
+  },
+  "giver": { "name": "Opa Sepp", "emoji": "👴" },
+  "festival": "sonnwende",
+  "words": [
+    { "id": "feuer", "de": "das Feuer", "sl": "ogenj", "en": "fire", "it": "il fuoco", "emoji": "🔥", "gender": "n", "plural": "die Feuer",
+      "example_de": "Das Feuer ist warm.", "example_sl": "Ogenj je topel.", "example_en": "The fire is warm.", "example_it": "Il fuoco è caldo." },
+    { "id": "sonnwendfeuer", "de": "das Sonnwendfeuer", "sl": "kres", "en": "midsummer bonfire", "it": "il falò di mezza estate", "emoji": "🎇", "gender": "n", "plural": "die Sonnwendfeuer",
+      "example_de": "Auf dem Berg brennt ein Sonnwendfeuer.", "example_sl": "Na gori gori kres.", "example_en": "A midsummer bonfire is burning on the mountain.", "example_it": "Sulla montagna brucia un falò di mezza estate." },
+    { "id": "sonne", "de": "die Sonne", "sl": "sonce", "en": "sun", "it": "il sole", "emoji": "☀️", "gender": "f",
+      "example_de": "Die Sonne geht spät unter.", "example_sl": "Sonce zaide pozno.", "example_en": "The sun sets late.", "example_it": "Il sole tramonta tardi.",
+      "note": "Feminine in German: die Sonne.",
+      "note_sl": "V nemščini je ženskega spola: die Sonne.",
+      "note_it": "In tedesco è femminile: die Sonne." },
+    { "id": "sommer", "de": "der Sommer", "sl": "poletje", "en": "summer", "it": "l'estate", "emoji": "🌞", "gender": "m", "plural": "die Sommer",
+      "example_de": "Der Sommer beginnt im Juni.", "example_sl": "Poletje se začne junija.", "example_en": "Summer begins in June.", "example_it": "L'estate comincia a giugno." },
+    { "id": "funke", "de": "der Funke", "sl": "iskra", "en": "spark", "it": "la scintilla", "emoji": "✨", "gender": "m", "plural": "die Funken",
+      "example_de": "Die Funken fliegen in den Himmel.", "example_sl": "Iskre letijo v nebo.", "example_en": "The sparks fly up into the sky.", "example_it": "Le scintille volano in cielo." },
+    { "id": "holunder", "de": "der Holunder", "sl": "bezeg", "en": "elder, elderflower", "it": "il sambuco", "emoji": "🌼", "gender": "m",
+      "example_de": "Aus Holunderblüten macht Oma Resi Saft.", "example_sl": "Iz bezgovih cvetov Oma Resi naredi sok.", "example_en": "Oma Resi makes cordial from elderflowers.", "example_it": "Con i fiori di sambuco Oma Resi fa lo sciroppo." },
+    { "id": "berg", "de": "der Berg", "sl": "gora", "en": "mountain", "it": "la montagna", "emoji": "⛰️", "gender": "m", "plural": "die Berge",
+      "example_de": "Auf den Bergen brennen viele Feuer.", "example_sl": "Na gorah gori veliko kresov.", "example_en": "Many fires burn on the mountains.", "example_it": "Sulle montagne bruciano tanti fuochi." },
+    { "id": "lang", "de": "lang", "sl": "dolg", "en": "long", "it": "lungo", "emoji": "📏",
+      "example_de": "Heute ist der längste Tag.", "example_sl": "Danes je najdaljši dan.", "example_en": "Today is the longest day.", "example_it": "Oggi è il giorno più lungo.",
+      "note": "lang, länger, am längsten.",
+      "note_sl": "lang, länger, am längsten: dolg, daljši, najdaljši.",
+      "note_it": "lang, länger, am längsten: lungo, più lungo, il più lungo." }
+  ]
+}

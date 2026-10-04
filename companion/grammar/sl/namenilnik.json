@@ -1,0 +1,88 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "namenilnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🛏️",
+  "title": {
+    "sl": "Namenilnik: grem spat",
+    "en": "The supine: grem spat (I'm off to sleep)",
+    "de": "Das Supinum: grem spat (ich gehe schlafen)",
+    "it": "Il supino: grem spat (vado a dormire)"
+  },
+  "rule": {
+    "en": "After a verb of going (**iti, priti, oditi, hoditi**, and **peljati** or **poslati** someone), what you go to do is not the infinitive but the supine (*namenilnik*): the infinitive without its last **-i**. spati → **Grem spat.** delati → **Grem delat.** jesti → **Pridi jest!**\n\nIt never changes: **greva spat, gremo jest, šel je iskat**. A se stays with the verb: **Grem se kopat.** **Gremo se igrat.**\n\nAfter other verbs it is the full infinitive: **moram spati**, **hočem jesti**, **začnem delati**. In speech you will hear the short form there too (*moram delat*); in writing and careful speech it is **moram delati**.\n\n**Grem spat** is going to sleep; **grem v posteljo**, going to bed, is a place (Kam? + the accusative).",
+    "de": "Nach einem Verb des Gehens (**iti, priti, oditi, hoditi**, und jemanden **peljati** oder **poslati**) steht für das, was man tun geht, nicht der Infinitiv, sondern das Supinum (*namenilnik*): der Infinitiv ohne sein letztes **-i**. spati → **Grem spat.** (ich gehe schlafen) delati → **Grem delat.** jesti → **Pridi jest!**\n\nEs ändert sich nie: **greva spat, gremo jest, šel je iskat**. Ein se bleibt beim Verb: **Grem se kopat.** **Gremo se igrat.**\n\nNach anderen Verben steht der volle Infinitiv: **moram spati**, **hočem jesti**, **začnem delati**. Gesprochen hört man auch dort die kurze Form (*moram delat*); geschrieben und sorgfältig gesprochen heißt es **moram delati**.\n\n**Grem spat** ist schlafen gehen; **grem v posteljo**, ins Bett gehen, ist ein Ort (Kam? + Akkusativ).",
+    "it": "Dopo un verbo di movimento (**iti, priti, oditi, hoditi**, e **peljati** o **poslati** qualcuno), ciò che si va a fare non è l'infinito ma il supino (*namenilnik*): l'infinito senza l'ultima **-i**. spati → **Grem spat.** (vado a dormire) delati → **Grem delat.** jesti → **Pridi jest!**\n\nNon cambia mai: **greva spat, gremo jest, šel je iskat**. Un se resta con il verbo: **Grem se kopat.** **Gremo se igrat.**\n\nDopo gli altri verbi c'è l'infinito intero: **moram spati**, **hočem jesti**, **začnem delati**. Nel parlato si sente anche lì la forma breve (*moram delat*); per iscritto e nel parlato curato è **moram delati**.\n\n**Grem spat** è andare a dormire; **grem v posteljo**, andare a letto, è un luogo (Kam? + l'accusativo)."
+  },
+  "table": {
+    "head": [
+      { "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv", "it": "infinito" },
+      { "sl": "namenilnik", "en": "supine", "de": "Supinum", "it": "supino" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["spati", "spat", "Grem spat."],
+      ["jesti", "jest", "Pridi jest!"],
+      ["piti", "pit", "Konj gre pit."],
+      ["delati", "delat", "Tone gre delat."],
+      ["iskati", "iskat", "Grem iskat!"],
+      ["pogledati", "pogledat", "Grem pogledat."],
+      ["kopati se", "kopat se", "Gremo se kopat."],
+      ["igrati se", "igrat se", "Otroci se gredo igrat."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Utrujen sem, grem spat.",
+      "en": "I'm tired, I'm off to sleep.",
+      "de": "Ich bin müde, ich gehe schlafen.",
+      "it": "Sono stanco, vado a dormire."
+    },
+    {
+      "sl": "Zala, pridi jest!",
+      "en": "Zala, come and eat!",
+      "de": "Zala, komm essen!",
+      "it": "Zala, vieni a mangiare!"
+    },
+    {
+      "sl": "Deset! Grem iskat!",
+      "en": "Ten! Here I come to look!",
+      "de": "Zehn! Ich komme suchen!",
+      "it": "Dieci! Vengo a cercare!"
+    },
+    {
+      "sl": "Gremo se kopat!",
+      "en": "Let's go for a swim!",
+      "de": "Gehen wir baden!",
+      "it": "Andiamo a fare il bagno!",
+      "note": {
+        "en": "kopati se: se stays with the verb, in second place.",
+        "de": "kopati se: se bleibt beim Verb, an zweiter Stelle.",
+        "it": "kopati se: se resta con il verbo, al secondo posto."
+      }
+    },
+    {
+      "sl": "Tone je šel pogledat.",
+      "en": "Tone went to have a look.",
+      "de": "Tone ist nachschauen gegangen.",
+      "it": "Tone è andato a dare un'occhiata."
+    },
+    {
+      "sl": "Jutri moram delati.",
+      "en": "Tomorrow I have to work.",
+      "de": "Morgen muss ich arbeiten.",
+      "it": "Domani devo lavorare.",
+      "note": {
+        "en": "After moram the full infinitive. In speech often moram delat.",
+        "de": "Nach moram der volle Infinitiv. Gesprochen oft moram delat.",
+        "it": "Dopo moram l'infinito intero. Nel parlato spesso moram delat."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["supine", "namenilnik"],
+  "see": ["modalni-glagoli", "imeti-iti", "kam-tozilnik", "povratni-glagoli"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,285 @@
+{
+  "pedlar": {
+    "emoji": "🎒",
+    "title": { "sl": "Krošnjar", "en": "The pedlar", "de": "Der Hausierer", "it": "Il venditore ambulante" },
+    "intro": { "sl": "Krošnjar iz Ribnice je na cesti. Ima suho robo in redke dobrote.", "en": "A pedlar from Ribnica is on the road. He has wooden ware and rare goods.", "de": "Ein Hausierer aus Ribnica ist auf der Straße. Er hat Holzwaren und seltene Waren.", "it": "Un venditore ambulante di Ribnica è sulla strada. Ha oggetti di legno e merci rare." },
+    "ask": { "sl": "Krošnjar je na cesti.", "en": "The pedlar is on the road.", "de": "Der Hausierer ist auf der Straße.", "it": "Il venditore ambulante è sulla strada." },
+    "goods": ["sol", "olje", "prsut", "kava"]
+  },
+  "letter": {
+    "emoji": "✉️",
+    "title": { "sl": "Pismo iz Gorice", "en": "A letter from Gorizia", "de": "Ein Brief aus Görz", "it": "Una lettera da Gorizia" },
+    "intro": { "sl": "Poštar je prinesel pismo za {to}. Preberi {g, select, f {ji} other {mu}} ga!", "en": "The postman brought a letter for {to}. Read it to {g, select, f {her} other {him}}!", "de": "Der Briefträger hat einen Brief für {to} gebracht. Lies {g, select, f {ihr} other {ihm}} den Brief vor!", "it": "Il postino ha portato una lettera per {to}. Leggigliela!" },
+    "intro_mine": { "sl": "Poštar je prinesel pismo zate. Preberi ga!", "en": "The postman brought a letter for you. Read it!", "de": "Der Briefträger hat einen Brief für dich gebracht. Lies ihn!", "it": "Il postino ha portato una lettera per te. Leggila!" },
+    "ask": { "sl": "Poštar mi je prinesel pismo. Mi ga prebereš?", "en": "The postman brought me a letter. Will you read it to me?", "de": "Der Briefträger hat mir einen Brief gebracht. Liest du ihn mir vor?", "it": "Il postino mi ha portato una lettera. Me la leggi?" },
+    "ask_mine": { "sl": "Pismo je prišlo zate!", "en": "A letter came for you!", "de": "Ein Brief für dich ist gekommen!", "it": "È arrivata una lettera per te!" },
+    "read": { "sl": "Preberi pismo", "en": "Read the letter", "de": "Lies den Brief", "it": "Leggi la lettera" },
+    "won": { "sl": "{name}: Hvala, da si mi prebral pismo!", "en": "Thanks for reading me the letter!", "de": "Danke, dass du mir den Brief vorgelesen hast!", "it": "Grazie di avermi letto la lettera!" },
+    "won_mine": { "sl": "Ana ti bo spet pisala.", "en": "Ana will write to you again.", "de": "Ana wird dir wieder schreiben.", "it": "Ana ti scriverà ancora." },
+    "lost": { "sl": "Pismo je bilo težko. Naslednjič bo lažje!", "en": "The letter was hard. It'll be easier next time!", "de": "Der Brief war schwer. Nächstes Mal wird es leichter!", "it": "La lettera era difficile. La prossima volta sarà più facile!" },
+    "letters": [
+      {
+        "to": "marko",
+        "to_name": { "sl": "Marka" },
+        "text": { "sl": "Dragi Marko!\nV petek pridem v Brda. Prosim, pripravi deset steklenic rebule.\nLep pozdrav,\nPaolo iz Gorice" },
+        "questions": [
+          {
+            "ask": { "sl": "Kdaj pride Paolo?", "en": "When is Paolo coming?", "de": "Wann kommt Paolo?", "it": "Quando arriva Paolo?" },
+            "options": ["v petek", "v soboto", "v nedeljo", "jutri"],
+            "explain": { "sl": "V petek.", "en": "On Friday.", "de": "Am Freitag.", "it": "Venerdì." }
+          },
+          {
+            "ask": { "sl": "Koliko steklenic želi?", "en": "How many bottles does he want?", "de": "Wie viele Flaschen möchte er?", "it": "Quante bottiglie vuole?" },
+            "options": ["deset", "dve", "pet", "sto"],
+            "explain": { "sl": "Deset steklenic.", "en": "Ten bottles.", "de": "Zehn Flaschen.", "it": "Dieci bottiglie." }
+          }
+        ]
+      },
+      {
+        "to": "micka",
+        "to_name": { "sl": "Micko" },
+        "female": true,
+        "text": { "sl": "Draga Micka!\nV Gorici je lepo vreme. V nedeljo pridem k tebi na kosilo. Prinesem jabolka.\nTvoja sestrična Marija" },
+        "questions": [
+          {
+            "ask": { "sl": "Kdaj pride Marija?", "en": "When is Marija coming?", "de": "Wann kommt Marija?", "it": "Quando arriva Marija?" },
+            "options": ["v nedeljo", "v ponedeljek", "danes", "v petek"],
+            "explain": { "sl": "V nedeljo, na kosilo.", "en": "On Sunday, for lunch.", "de": "Am Sonntag, zum Mittagessen.", "it": "Domenica, a pranzo." }
+          },
+          {
+            "ask": { "sl": "Kaj prinese?", "en": "What is she bringing?", "de": "Was bringt sie mit?", "it": "Cosa porta?" },
+            "options": ["jabolka", "kruh", "vino", "cvetje"],
+            "explain": { "sl": "Jabolka.", "en": "Apples.", "de": "Äpfel.", "it": "Mele." }
+          }
+        ]
+      },
+      {
+        "to": "tone",
+        "to_name": { "sl": "Toneta" },
+        "text": { "sl": "Spoštovani gospod Tone!\nNaš konj potrebuje štiri nove podkve. V sredo pridemo v vašo kovačnico.\nLep pozdrav,\nkmetija Pahor iz Gorice" },
+        "questions": [
+          {
+            "ask": { "sl": "Koliko podkev potrebujejo?", "en": "How many horseshoes do they need?", "de": "Wie viele Hufeisen brauchen sie?", "it": "Quanti ferri di cavallo servono?" },
+            "options": ["štiri", "dve", "eno", "osem"],
+            "explain": { "sl": "Štiri podkve.", "en": "Four horseshoes.", "de": "Vier Hufeisen.", "it": "Quattro ferri di cavallo." }
+          },
+          {
+            "ask": { "sl": "Kdaj pridejo?", "en": "When are they coming?", "de": "Wann kommen sie?", "it": "Quando arrivano?" },
+            "options": ["v sredo", "v torek", "v četrtek", "v soboto"],
+            "explain": { "sl": "V sredo.", "en": "On Wednesday.", "de": "Am Mittwoch.", "it": "Mercoledì." }
+          }
+        ]
+      },
+      {
+        "to": "vida",
+        "to_name": { "sl": "Vido" },
+        "female": true,
+        "text": { "sl": "Draga gospa Vida!\nJulija pridemo v Trnovo. Smo štirje: dva odrasla in dva otroka. Želimo sobo za tri noči.\nLep pozdrav,\ndružina Furlan iz Gorice" },
+        "questions": [
+          {
+            "ask": { "sl": "Koliko noči ostanejo?", "en": "How many nights are they staying?", "de": "Wie viele Nächte bleiben sie?", "it": "Quante notti restano?" },
+            "options": ["tri", "dve", "eno", "štiri"],
+            "explain": { "sl": "Tri noči.", "en": "Three nights.", "de": "Drei Nächte.", "it": "Tre notti." }
+          },
+          {
+            "ask": { "sl": "Kdaj pridejo?", "en": "When are they coming?", "de": "Wann kommen sie?", "it": "Quando arrivano?" },
+            "options": ["julija", "junija", "avgusta", "maja"],
+            "explain": { "sl": "Julija.", "en": "In July.", "de": "Im Juli.", "it": "A luglio." }
+          }
+        ]
+      },
+      {
+        "to": "jan",
+        "to_name": { "sl": "tebe" },
+        "text": { "sl": "Dragi Jan!\nKako si? Jaz se imam dobro. Vsak torek hodim na tečaj slovenščine. V soboto grem na tržnico.\nPiši mi!\nAna iz Gorice" },
+        "questions": [
+          {
+            "ask": { "sl": "Kdaj ima Ana tečaj?", "en": "When does Ana have her course?", "de": "Wann hat Ana ihren Kurs?", "it": "Quando ha il corso Ana?" },
+            "options": ["ob torkih", "ob sobotah", "vsak dan", "ob nedeljah"],
+            "explain": { "sl": "Ob torkih.", "en": "On Tuesdays.", "de": "Dienstags.", "it": "Il martedì." }
+          },
+          {
+            "ask": { "sl": "Kam gre v soboto?", "en": "Where is she going on Saturday?", "de": "Wohin geht sie am Samstag?", "it": "Dove va sabato?" },
+            "options": ["na tržnico", "v šolo", "na tečaj", "domov"],
+            "explain": { "sl": "Na tržnico.", "en": "To the market.", "de": "Auf den Markt.", "it": "Al mercato." }
+          }
+        ]
+      }
+    ]
+  },
+  "lamb": {
+    "emoji": "🐑",
+    "shepherd": "luka",
+    "title": { "sl": "Izgubljeno jagnje", "en": "The lost lamb", "de": "Das verlorene Lamm", "it": "L'agnellino smarrito" },
+    "intro": { "sl": "Luka išče jagnje. Sliši ga, a vsakič drugje. Kje je?", "en": "Luka is looking for a lamb. He hears it, but somewhere different each time. Where is it?", "de": "Luka sucht ein Lamm. Er hört es, aber jedes Mal an einer anderen Stelle. Wo ist es?", "it": "Luka cerca un agnellino. Lo sente, ma ogni volta da un'altra parte. Dov'è?" },
+    "ask": { "sl": "Jagnje se mi je izgubilo! Mi pomagaš?", "en": "My lamb got lost! Will you help me?", "de": "Mein Lamm hat sich verlaufen! Hilfst du mir?", "it": "Il mio agnellino si è perso! Mi aiuti?" },
+    "where": { "sl": "Kje je jagnje?", "en": "Where is the lamb?", "de": "Wo ist das Lamm?", "it": "Dov'è l'agnellino?" },
+    "heard": { "sl": "Luka: »{said}«\nKje je jagnje?", "en": "Where is the lamb?", "de": "Wo ist das Lamm?", "it": "Dov'è l'agnellino?" },
+    "listen": { "sl": "Poslušaj Luko", "en": "Listen to Luka", "de": "Hör Luka zu", "it": "Ascolta Luka" },
+    "read": { "sl": "Preberi, kaj pravi Luka", "en": "Read what Luka says", "de": "Lies, was Luka sagt", "it": "Leggi cosa dice Luka" },
+    "won": { "sl": "Luka: Našel sem ga! Hvala ti!", "en": "I found it! Thank you!", "de": "Ich habe es gefunden! Danke!", "it": "L'ho trovato! Grazie!" },
+    "lost": { "sl": "Jagnje je prišlo samo domov.", "en": "The lamb came home by itself.", "de": "Das Lamm ist von allein nach Hause gekommen.", "it": "L'agnellino è tornato a casa da solo." },
+    "places": [
+      { "sl": "Jagnje je pri ribniku.", "en": "It's by the pond.", "de": "Es ist am Teich.", "it": "È vicino allo stagno." },
+      { "sl": "Jagnje je v gozdu.", "en": "It's in the forest.", "de": "Es ist im Wald.", "it": "È nel bosco." },
+      { "sl": "Jagnje je na travniku.", "en": "It's in the meadow.", "de": "Es ist auf der Wiese.", "it": "È nel prato." },
+      { "sl": "Jagnje je za kozolcem.", "en": "It's behind the hayrack.", "de": "Es ist hinter der Heuharfe.", "it": "È dietro l'essiccatoio del fieno." },
+      { "sl": "Jagnje je pod lipo.", "en": "It's under the linden tree.", "de": "Es ist unter der Linde.", "it": "È sotto il tiglio." },
+      { "sl": "Jagnje je ob potoku.", "en": "It's by the stream.", "de": "Es ist am Bach.", "it": "È vicino al ruscello." }
+    ]
+  },
+  "pilgrim": {
+    "emoji": "🥾",
+    "title": { "sl": "Romar", "en": "A pilgrim", "de": "Ein Pilger", "it": "Un pellegrino" },
+    "intro": { "sl": "Romar vpraša za pot na Sveto Goro. Pomagaj mu!", "en": "A pilgrim asks the way to Sveta Gora. Help him!", "de": "Ein Pilger fragt nach dem Weg nach Sveta Gora. Hilf ihm!", "it": "Un pellegrino chiede la strada per il Monte Santo. Aiutalo!" },
+    "ask": { "sl": "Iščem pot na Sveto Goro. Mi lahko pomagate?", "en": "I'm looking for the way to Sveta Gora. Can you help me?", "de": "Ich suche den Weg nach Sveta Gora. Können Sie mir helfen?", "it": "Cerco la strada per il Monte Santo. Mi può aiutare?" },
+    "prompt": { "sl": "Romar: »Kje je pot na Sveto Goro?«\nKako mu rečeš", "en": "How do you tell him: “{say}”", "de": "Wie sagst du es ihm: „{say}“", "it": "Come glielo dici: «{say}»" },
+    "show": { "sl": "Pokaži pot", "en": "Show the way", "de": "Zeig den Weg", "it": "Indica la strada" },
+    "won": { "sl": "Romar: Hvala lepa, zdaj vem, kam!", "en": "Thank you, now I know where to go!", "de": "Vielen Dank, jetzt weiß ich, wohin!", "it": "Grazie mille, ora so dove andare!" },
+    "lost": { "sl": "Romar je vseeno našel pot. Hvala!", "en": "The pilgrim found the way anyway. Thanks!", "de": "Der Pilger hat den Weg trotzdem gefunden. Danke!", "it": "Il pellegrino ha trovato la strada lo stesso. Grazie!" },
+    "ways": [
+      {
+        "say": { "en": "Go straight on, then left.", "de": "Gehen Sie geradeaus, dann links.", "it": "Vada sempre dritto, poi a sinistra." },
+        "options": [
+          "Pojdite naravnost, potem levo.", "Pojdite levo, potem naravnost.", "Pojdite desno, potem nazaj.",
+          "Pojdite nazaj, potem desno."
+        ],
+        "explain": [
+          { "sl": "naravnost", "en": "straight on", "de": "geradeaus", "it": "dritto" },
+          { "sl": "levo", "en": "left", "de": "links", "it": "a sinistra" }
+        ]
+      },
+      {
+        "say": { "en": "Over the bridge.", "de": "Über die Brücke.", "it": "Oltre il ponte." },
+        "options": ["Čez most.", "Pod mostom.", "Na mostu.", "Pred mostom."],
+        "explain": [
+          { "sl": "čez most", "en": "over the bridge", "de": "über die Brücke", "it": "oltre il ponte" }
+        ]
+      },
+      {
+        "say": { "en": "Past the church.", "de": "An der Kirche vorbei.", "it": "Oltre la chiesa." },
+        "options": ["Mimo cerkve.", "Mimo cerkev.", "Mimo cerkvi.", "Mimo cerkvijo."],
+        "explain": [
+          { "sl": "mimo + rodilnik: mimo cerkve", "en": "“mimo” takes the genitive", "de": "„mimo“ steht mit dem Genitiv", "it": "«mimo» regge il genitivo" }
+        ],
+        "grammar": "rodilnik-predlogi"
+      },
+      {
+        "say": { "en": "The path is on the right.", "de": "Der Weg ist rechts.", "it": "Il sentiero è a destra." },
+        "options": ["Pot je na desni.", "Pot je na levi.", "Pot je zadaj.", "Pot je spodaj."],
+        "explain": [
+          { "sl": "na desni", "en": "on the right", "de": "rechts", "it": "a destra" }
+        ]
+      },
+      {
+        "say": { "en": "It's not far, about two kilometres.", "de": "Es ist nicht weit, ungefähr zwei Kilometer.", "it": "Non è lontano, circa due chilometri." },
+        "options": [
+          "Ni daleč, približno dva kilometra.", "Ni daleč, približno dve kilometri.",
+          "Ni daleč, približno dva kilometrov.", "Ni daleč, približno dvema kilometroma."
+        ],
+        "explain": [
+          { "sl": "dva kilometra: dvojina", "en": "the dual", "de": "der Dual", "it": "il duale" }
+        ],
+        "grammar": "dvojina"
+      }
+    ]
+  },
+  "riddle": {
+    "emoji": "❓",
+    "child": "zala",
+    "title": { "sl": "Uganka", "en": "A riddle", "de": "Ein Rätsel", "it": "Un indovinello" },
+    "intro": { "sl": "{name} ima zate uganko.", "en": "{name} has a riddle for you.", "de": "{name} hat ein Rätsel für dich.", "it": "{name} ha un indovinello per te." },
+    "ask": { "sl": "Imam uganko zate!", "en": "I have a riddle for you!", "de": "Ich hab ein Rätsel für dich!", "it": "Ho un indovinello per te!" },
+    "won": { "sl": "{name}: Bravo, uganil si!", "en": "Well done, you guessed it!", "de": "Bravo, du hast es erraten!", "it": "Bravo, l'hai indovinato!" },
+    "lost": { "sl": "{name}: Ha, nisi uganil! Jutri bo nova.", "en": "Ha, you didn't guess it! A new one tomorrow.", "de": "Ha, nicht erraten! Morgen gibt's ein neues.", "it": "Ah, non l'hai indovinato! Domani ce n'è uno nuovo." },
+    "riddles": [
+      {
+        "riddle": { "sl": "Zunaj zelena, znotraj rdeča, v sredini črna semena. Kaj je to?" },
+        "options": ["lubenica", "jabolko", "češnja", "kumara"],
+        "answer": { "en": "a watermelon", "de": "eine Wassermelone", "it": "un'anguria" },
+        "meaning": { "en": "Green outside, red inside, black seeds in the middle.", "de": "Außen grün, innen rot, in der Mitte schwarze Kerne.", "it": "Verde fuori, rossa dentro, semi neri in mezzo." }
+      },
+      {
+        "riddle": { "sl": "Ima zobe, a ne grize. Kaj je to?" },
+        "options": ["glavnik", "pes", "volk", "otrok"],
+        "answer": { "en": "a comb", "de": "ein Kamm", "it": "un pettine" },
+        "meaning": { "en": "It has teeth but doesn't bite.", "de": "Er hat Zähne, aber beißt nicht.", "it": "Ha i denti ma non morde." }
+      },
+      {
+        "riddle": { "sl": "Nima nog, pa vendar teče. Kaj je to?" },
+        "options": ["reka", "miza", "kamen", "hiša"],
+        "answer": { "en": "a river", "de": "ein Fluss", "it": "un fiume" },
+        "meaning": { "en": "It has no legs, and yet it runs.", "de": "Er hat keine Beine und läuft doch.", "it": "Non ha gambe, eppure corre." }
+      },
+      {
+        "riddle": { "sl": "Bolj ko je mokra, bolj suši. Kaj je to?" },
+        "options": ["brisača", "srajca", "veter", "sonce"],
+        "answer": { "en": "a towel", "de": "ein Handtuch", "it": "un asciugamano" },
+        "meaning": { "en": "The wetter it gets, the more it dries.", "de": "Je nasser es wird, desto mehr trocknet es.", "it": "Più si bagna, più asciuga." }
+      },
+      {
+        "riddle": { "sl": "Bela hišica brez oken in vrat, v njej je rumen zaklad. Kaj je to?" },
+        "options": ["jajce", "sneg", "mleko", "sir"],
+        "answer": { "en": "an egg", "de": "ein Ei", "it": "un uovo" },
+        "meaning": { "en": "A little white house without windows or doors, with a yellow treasure inside.", "de": "Ein weißes Häuschen ohne Fenster und Türen, darin ein gelber Schatz.", "it": "Una casetta bianca senza finestre né porte, con dentro un tesoro giallo." }
+      },
+      {
+        "riddle": { "sl": "Pozimi pade z neba, je bel in mrzel. Kaj je to?" },
+        "options": ["sneg", "dež", "sladkor", "mleko"],
+        "answer": { "en": "snow", "de": "Schnee", "it": "la neve" },
+        "meaning": { "en": "In winter it falls from the sky; it's white and cold.", "de": "Im Winter fällt er vom Himmel; er ist weiß und kalt.", "it": "D'inverno cade dal cielo; è bianca e fredda." }
+      }
+    ]
+  },
+  "strangers": {
+    "pedlar": {
+      "id": "pedlar",
+      "name": "Krošnjar",
+      "emoji": "🎒",
+      "art": "pedlar",
+      "voice": "male",
+      "role": { "sl": "Krošnjar iz Ribnice", "en": "Pedlar from Ribnica", "de": "Hausierer aus Ribnica", "it": "Venditore ambulante di Ribnica" },
+      "home": ["spot:road"],
+      "story": "A pedlar from Ribnica who carries suha roba (wooden spoons, sieves, baskets) on his krošnja, and a few rare goods.",
+      "lines": {
+        "greet": [
+          { "sl": "Dober dan! Suha roba iz Ribnice!", "en": "Good day! Wooden ware from Ribnica!", "de": "Guten Tag! Holzwaren aus Ribnica!", "it": "Buongiorno! Oggetti di legno da Ribnica!", "when": ["morning", "afternoon"] },
+          { "sl": "Dober večer! Suha roba iz Ribnice!", "en": "Good evening! Wooden ware from Ribnica!", "de": "Guten Abend! Holzwaren aus Ribnica!", "it": "Buonasera! Oggetti di legno da Ribnica!", "when": ["evening", "night"] }
+        ],
+        "idle": [
+          { "sl": "Žlice, sita, kuhalnice! Kupite, kupite!", "en": "Spoons, sieves, wooden spoons! Buy, buy!", "de": "Löffel, Siebe, Kochlöffel! Kaufen Sie, kaufen Sie!", "it": "Cucchiai, setacci, mestoli! Comprate, comprate!" }
+        ],
+        "bye": [
+          { "sl": "Na svidenje, spet pridem!", "en": "Goodbye, I'll come again!", "de": "Auf Wiedersehen, ich komme wieder!", "it": "Arrivederci, tornerò!" }
+        ]
+      }
+    },
+    "pilgrim": {
+      "id": "pilgrim",
+      "name": "Romar",
+      "emoji": "🥾",
+      "art": "pilgrim",
+      "voice": "male",
+      "role": { "sl": "Romar", "en": "Pilgrim", "de": "Pilger", "it": "Pellegrino" },
+      "home": ["spot:road"],
+      "story": "A pilgrim on foot to the church on Sveta Gora, above Nova Gorica, asking the way.",
+      "lines": {
+        "greet": [
+          { "sl": "Dober dan!", "en": "Good day!", "de": "Guten Tag!", "it": "Buongiorno!", "when": ["morning", "afternoon"] },
+          { "sl": "Dober večer!", "en": "Good evening!", "de": "Guten Abend!", "it": "Buonasera!", "when": ["evening", "night"] }
+        ],
+        "cheer": [
+          { "sl": "Tako, zdaj razumem!", "en": "There, now I understand!", "de": "So, jetzt verstehe ich!", "it": "Ecco, ora capisco!" },
+          { "sl": "Hvala, to je prava pot.", "en": "Thank you, that's the right way.", "de": "Danke, das ist der richtige Weg.", "it": "Grazie, è la strada giusta." }
+        ],
+        "comfort": [
+          { "sl": "Hm, nisem prepričan …", "en": "Hm, I'm not sure …", "de": "Hm, ich bin mir nicht sicher …", "it": "Mm, non sono sicuro …" },
+          { "sl": "Nič hudega, bom vprašal še koga.", "en": "Never mind, I'll ask someone else too.", "de": "Macht nichts, ich frage noch jemand anderen.", "it": "Non fa niente, chiederò anche a qualcun altro." }
+        ],
+        "bye": [
+          { "sl": "Bog povrni! Srečno!", "en": "May God repay you! Good luck!", "de": "Vergelt's Gott! Viel Glück!", "it": "Dio Gliene renda merito! Buona fortuna!" }
+        ]
+      }
+    }
+  }
+}

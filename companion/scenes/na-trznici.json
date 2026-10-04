@@ -1,0 +1,369 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "na-trznici",
+  "title": { "sl": "Na tržnici", "en": "At the market", "de": "Auf dem Markt", "it": "Al mercato" },
+  "emoji": "🧺",
+  "level": "A2",
+  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "art": "market",
+  "from": ["market"],
+  "pack": "trzni-dan",
+  "objects": [
+    { "slot": "stall", "word": "stojnica" },
+    { "slot": "scale", "word": "tehtnica" },
+    { "slot": "weights", "word": "utez" },
+    { "slot": "eggs", "word": "jajce", "pack": "v-kuhinji" },
+    { "slot": "bread", "word": "hlebec" },
+    { "slot": "cheese", "word": "sir", "pack": "na-trznici" },
+    { "slot": "honey", "word": "med", "pack": "na-trznici" },
+    { "slot": "apples", "word": "jabolko", "pack": "na-trznici" },
+    { "slot": "vegetables", "word": "zelenjava", "pack": "na-trznici" },
+    { "slot": "basket", "word": "kosara", "pack": "v-gozdu" },
+    { "slot": "crate", "word": "zaboj" },
+    { "slot": "hen", "word": "kokos", "pack": "na-vasi" },
+    { "slot": "cart", "word": "voz", "pack": "na-njivi" },
+    { "slot": "wine", "word": "steklenica" },
+    { "slot": "pigeon", "word": "golob" },
+    { "slot": "bell", "word": "zvonec", "pack": "v-gozdu" }
+  ],
+  "people": [
+    { "id": "micka", "name": "Babica Micka", "emoji": "👵", "art": "grandma", "slot": "stall", "villager": "micka" },
+    { "id": "vida", "name": "Gostilničarka Vida", "emoji": "🍷", "art": "innkeeper", "slot": "buyer", "villager": "vida" },
+    { "id": "marko", "name": "Vinar Marko", "emoji": "🍇", "art": "winemaker", "slot": "cart", "villager": "marko" }
+  ],
+  "happenings": [
+    { "id": "jajca", "title": { "sl": "Babica Micka prodaja jajca", "en": "Grandma Micka is selling eggs", "de": "Oma Micka verkauft Eier", "it": "Nonna Micka vende le uova" }, "who": "micka",
+      "when": ["morning"], "chance": 0.55, "dialog": "jajca", "dialogs": ["jajca-kosara", "jajca-kokos", "jajca"], "reward": { "food": 20 }, "marker": "🥚",
+      "memory": { "sl": "sveža jajca, ki sem jih kupil pri babici Micki", "en": "the fresh eggs I bought from Grandma Micka", "de": "die frischen Eier, die ich bei Oma Micka gekauft habe", "it": "le uova fresche che ho comprato da Nonna Micka" } },
+    { "id": "gostilna", "title": { "sl": "Vida kupuje za gostilno", "en": "Vida is shopping for the inn", "de": "Vida kauft für das Gasthaus ein", "it": "Vida fa la spesa per l'osteria" }, "who": "vida",
+      "when": ["morning", "afternoon"], "weekdays": [2, 4, 6], "chance": 0.5, "dialog": "gostilna", "dialogs": ["gostilna-sir", "gostilna-gostje", "gostilna"], "reward": { "wisdom": 15 }, "marker": "⚖️",
+      "memory": { "sl": "tržni dan, ko sva tehtala krompir za joto", "en": "the market day we weighed potatoes for the jota", "de": "den Markttag, an dem wir Kartoffeln für die Jota gewogen haben", "it": "il giorno di mercato in cui abbiamo pesato le patate per la jota" } },
+    { "id": "rebula", "title": { "sl": "Marko prodaja rebulo", "en": "Marko is selling rebula", "de": "Marko verkauft Rebula", "it": "Marko vende la ribolla" }, "who": "marko",
+      "when": ["afternoon", "evening"], "chance": 0.45, "dialog": "rebula", "dialogs": ["rebula-cena", "rebula-brda", "rebula"], "reward": { "food": 15 }, "marker": "🍾",
+      "memory": { "sl": "rebulo, ki sva jo pila na tržnici", "en": "the rebula we drank at the market", "de": "den Rebula, den wir auf dem Markt getrunken haben", "it": "la ribolla che abbiamo bevuto al mercato" } }
+  ],
+  "dialogs": [
+    {
+      "id": "jajca",
+      "talk": "na-trznici",
+      "lines": [
+        { "who": "micka", "sl": "Dobro jutro, fant! Slišiš zvonec? Tržnica je odprta.", "en": "Good morning, lad! Do you hear the bell? The market is open.", "de": "Guten Morgen, Junge! Hörst du die Glocke? Der Markt ist offen.", "it": "Buongiorno, ragazzo! Senti la campanella? Il mercato è aperto.",
+          "fx": { "bell": 1 } },
+        { "choices": [
+          { "sl": "Dobro jutro, babica! Koliko stanejo jajca?", "en": "Good morning, Grandma! How much are the eggs?", "de": "Guten Morgen, Oma! Wie viel kosten die Eier?", "it": "Buongiorno, nonna! Quanto costano le uova?", "ok": true,
+            "reply": { "sl": "Deset jajc stane tri evre.", "en": "Ten eggs cost three euros.", "de": "Zehn Eier kosten drei Euro.", "it": "Dieci uova costano tre euro.", "fx": { "bell": 0 } } },
+          { "sl": "Dober večer, babica! Koliko stanejo jajca?", "en": "Good evening, Grandma! How much are the eggs?", "de": "Guten Abend, Oma! Wie viel kosten die Eier?", "it": "Buonasera, nonna! Quanto costano le uova?",
+            "why": { "en": "It is morning, the market has just opened: dobro jutro. Dober večer is for the evening.", "de": "Es ist Morgen, der Markt hat gerade geöffnet: dobro jutro. Dober večer sagt man am Abend.", "it": "È mattina, il mercato ha appena aperto: dobro jutro. Dober večer è per la sera." },
+            "reply": { "sl": "Dober večer? Ojej, sem res spala ves dan?", "en": "Dober večer (good evening)? Oh dear, did I really sleep all day?", "de": "Dober večer (guten Abend)? Oje, habe ich wirklich den ganzen Tag geschlafen?", "it": "Dober večer (buonasera)? Oddio, ho davvero dormito tutto il giorno?" } },
+          { "sl": "Dobro jutro, babica! Kako lepa jajca! Po čem so?", "en": "Good morning, Grandma! What lovely eggs! How much are they?", "de": "Guten Morgen, Oma! Was für schöne Eier! Was kosten sie?", "it": "Buongiorno, nonna! Che belle uova! Quanto costano?", "ok": true,
+            "reply": { "sl": "Hvala, fant! Deset jajc za tri evre.", "en": "Thank you, lad! Ten eggs for three euros.", "de": "Danke, Junge! Zehn Eier für drei Euro.", "it": "Grazie, ragazzo! Dieci uova per tre euro.", "fx": { "bell": 0 } } }
+        ] },
+        { "who": "micka", "sl": "So čisto sveža, od mojih kokoši. Koliko jih boš vzel?", "en": "They are quite fresh, from my own hens. How many will you take?", "de": "Sie sind ganz frisch, von meinen eigenen Hühnern. Wie viele nimmst du?", "it": "Sono freschissime, delle mie galline. Quante ne prendi?" },
+        { "choices": [
+          { "sl": "Deset jajc, prosim.", "en": "Ten eggs, please.", "de": "Zehn Eier, bitte.", "it": "Dieci uova, per favore.", "ok": true,
+            "reply": { "sl": "Izvoli. Še kaj?", "en": "Here you are. Anything else?", "de": "Bitte schön. Sonst noch etwas?", "it": "Ecco a te. Altro?" } },
+          { "sl": "Deset jajca, prosim.", "en": "Ten eggs, please.", "de": "Zehn Eier, bitte.", "it": "Dieci uova, per favore.",
+            "grammar": "stevila-samostalniki", "why": { "en": "From five on, the noun goes into the genitive plural: pet jajc, deset jajc. Jajca is for three and four: tri jajca.", "de": "Ab fünf steht das Nomen im Genitiv Plural: pet jajc, deset jajc. Jajca gilt für drei und vier: tri jajca.", "it": "Da cinque in su, il nome va al genitivo plurale: pet jajc, deset jajc. Jajca è per tre e quattro: tri jajca." },
+            "reply": { "sl": "Deset česa, fant? Počasi, stara sem.", "en": "Ten of what, lad? Slowly, I'm old.", "de": "Zehn was, Junge? Langsam, ich bin alt.", "it": "Dieci che cosa, ragazzo? Piano, sono vecchia." } },
+          { "sl": "Deset jajce, prosim.", "en": "Ten egg, please.", "de": "Zehn Ei, bitte.", "it": "Dieci uovo, per favore.",
+            "grammar": "stevila-samostalniki", "why": { "en": "Jajce is one egg. Ten takes the genitive plural: deset jajc.", "de": "Jajce ist ein Ei. Zehn verlangt den Genitiv Plural: deset jajc.", "it": "Jajce è un uovo solo. Dieci vuole il genitivo plurale: deset jajc." },
+            "reply": { "sl": "Eno jajce ali deset? Babica je zmedena.", "en": "One jajce (egg) or ten? Grandma is all mixed up.", "de": "Ein jajce (Ei) oder zehn? Die Oma ist ganz durcheinander.", "it": "Un jajce (uovo) o dieci? La nonna è confusa." } }
+        ] },
+        { "who": "micka", "sl": "Imam tudi kruh. Danes zjutraj sem ga spekla.", "en": "I have bread too. I baked it this morning.", "de": "Ich habe auch Brot. Ich habe es heute früh gebacken.", "it": "Ho anche il pane. L'ho fatto stamattina." },
+        { "choices": [
+          { "sl": "Še hlebec kruha, prosim. Koliko je vse skupaj?", "en": "A loaf of bread too, please. How much is it all together?", "de": "Noch einen Laib Brot, bitte. Wie viel macht alles zusammen?", "it": "Anche una pagnotta, per favore. Quant'è in tutto?", "ok": true,
+            "reply": { "sl": "Pet evrov. Zate štiri.", "en": "Five euros. For you, four.", "de": "Fünf Euro. Für dich vier.", "it": "Cinque euro. Per te, quattro." } },
+          { "sl": "Še hlebec kruh, prosim. Koliko je vse skupaj?", "en": "A loaf of bread too, please. How much is it all together?", "de": "Noch einen Laib Brot, bitte. Wie viel macht alles zusammen?", "it": "Anche una pagnotta, per favore. Quant'è in tutto?",
+            "grammar": "rodilnik-kolicina", "why": { "en": "A loaf of what? Kruha: an amount takes the genitive, like kilogram sira or kozarec medu.", "de": "Ein Laib wovon? Kruha: eine Menge steht mit dem Genitiv, wie kilogram sira oder kozarec medu.", "it": "Una pagnotta di che cosa? Kruha: una quantità vuole il genitivo, come kilogram sira o kozarec medu." },
+            "reply": { "sl": "Hlebec … kruh? Oprosti, nisem razumela.", "en": "A loaf … kruh? Sorry, I didn't catch that.", "de": "Ein Laib … kruh? Entschuldige, das habe ich nicht verstanden.", "it": "Una pagnotta … kruh? Scusa, non ho capito." } }
+        ] },
+        { "who": "micka", "sl": "Jej, jej, fant! Preveč si suh.", "en": "Eat, eat, lad! You are too thin.", "de": "Iss, iss, Junge! Du bist zu dünn.", "it": "Mangia, mangia, ragazzo! Sei troppo magro." }
+      ]
+    },
+    {
+      "id": "gostilna",
+      "talk": "v-gostilni",
+      "lines": [
+        { "who": "vida", "sl": "Dober dan, Jan! Poglejte to gnečo. Danes je tržni dan.", "en": "Good day, Jan! Look at this crowd. Today is market day.", "de": "Guten Tag, Jan! Schauen Sie sich dieses Gedränge an. Heute ist Markttag.", "it": "Buongiorno, Jan! Guardi che folla. Oggi è giorno di mercato.",
+          "fx": { "bustle": 1 } },
+        { "choices": [
+          { "sl": "Dober dan, gospa Vida! Kaj kupujete?", "en": "Good day, Mrs Vida! What are you buying?", "de": "Guten Tag, Frau Vida! Was kaufen Sie?", "it": "Buongiorno, signora Vida! Che cosa compra?", "ok": true,
+            "reply": { "sl": "Za gostilno: krompir, zelje in sir. Jutri kuham joto.", "en": "For the inn: potatoes, cabbage and cheese. Tomorrow I am cooking jota.", "de": "Fürs Gasthaus: Kartoffeln, Kohl und Käse. Morgen koche ich Jota.", "it": "Per l'osteria: patate, cavolo e formaggio. Domani cucino la jota." } },
+          { "sl": "Dober dan, gospa Vida! Kaj kupuješ?", "en": "Good day, Mrs Vida! What are you (ti) buying?", "de": "Guten Tag, Frau Vida! Was kaufst du (ti)?", "it": "Buongiorno, signora Vida! Che cosa compri (ti)?",
+            "grammar": "ti-vi", "why": { "en": "Vida says vi to you and expects vi back: kaj kupujete?", "de": "Vida sagt vi zu dir und erwartet vi zurück: kaj kupujete?", "it": "Vida ti dà del vi e da te si aspetta il vi: kaj kupujete?" },
+            "reply": { "sl": "Oho, me tikate? Kot moj Nejc!", "en": "Oho, you're saying ti to me? Like my Nejc!", "de": "Oho, Sie duzen mich? Wie mein Nejc!", "it": "Oho, mi dà del tu? Come il mio Nejc!" } }
+        ] },
+        { "who": "vida", "sl": "Mi pomagate? Potrebujem pet kilogramov krompirja. Dajte ga na tehtnico.", "en": "Will you help me? I need five kilograms of potatoes. Put them on the scale.", "de": "Helfen Sie mir? Ich brauche fünf Kilogramm Kartoffeln. Legen Sie sie auf die Waage.", "it": "Mi aiuta? Mi servono cinque chili di patate. Le metta sulla bilancia." },
+        { "choices": [
+          { "sl": "Seveda. Tehtnica kaže pet kilogramov.", "en": "Of course. The scale shows five kilograms.", "de": "Natürlich. Die Waage zeigt fünf Kilogramm.", "it": "Certo. La bilancia segna cinque chili.", "ok": true,
+            "reply": { "sl": "Odlično! In še dva kilograma zelja.", "en": "Excellent! And two kilograms of cabbage too.", "de": "Ausgezeichnet! Und noch zwei Kilogramm Kohl.", "it": "Ottimo! E anche due chili di cavolo." } },
+          { "sl": "Seveda. Tehtnica kaže pet kilograma.", "en": "Of course. The scale shows five kilograms.", "de": "Natürlich. Die Waage zeigt fünf Kilogramm.", "it": "Certo. La bilancia segna cinque chili.",
+            "grammar": "stevila-samostalniki", "why": { "en": "From five on, the genitive plural: pet kilogramov. Kilograma is for two: dva kilograma.", "de": "Ab fünf der Genitiv Plural: pet kilogramov. Kilograma gilt für zwei: dva kilograma.", "it": "Da cinque in su, il genitivo plurale: pet kilogramov. Kilograma è per due: dva kilograma." },
+            "reply": { "sl": "Wie bitte? Kaj kaže tehtnica?", "en": "Wie bitte (pardon)? What does the scale show?", "de": "Wie bitte? Was zeigt die Waage?", "it": "Wie bitte (come, scusi)? Che cosa segna la bilancia?" } },
+          { "sl": "Seveda. Tehtnica kaže pet kilogrami.", "en": "Of course. The scale shows five kilograms.", "de": "Natürlich. Die Waage zeigt fünf Kilogramm.", "it": "Certo. La bilancia segna cinque chili.",
+            "grammar": "stevila-samostalniki", "why": { "en": "Kilogrami is for three and four: trije kilogrami. From five on: pet kilogramov.", "de": "Kilogrami gilt für drei und vier: trije kilogrami. Ab fünf: pet kilogramov.", "it": "Kilogrami è per tre e quattro: trije kilogrami. Da cinque in su: pet kilogramov." },
+            "reply": { "sl": "Kilogrami? Hm, pokažite, sama pogledam.", "en": "Kilogrami? Hm, show me, I'll look myself.", "de": "Kilogrami? Hm, zeigen Sie mal, ich schaue selbst.", "it": "Kilogrami? Mm, faccia vedere, guardo io." } }
+        ] },
+        { "who": "vida", "sl": "Vprašajte vi, koliko stane. Jaz že ves dan govorim.", "en": "You ask how much it costs. I have been talking all day.", "de": "Fragen Sie, was es kostet. Ich rede schon den ganzen Tag.", "it": "Chieda Lei quanto costa. Io è tutto il giorno che parlo." },
+        { "choices": [
+          { "sl": "Oprostite, koliko stane vse skupaj?", "en": "Excuse me, how much is it all together?", "de": "Entschuldigung, wie viel macht alles zusammen?", "it": "Mi scusi, quant'è in tutto?", "ok": true,
+            "reply": { "sl": "Dvanajst evrov, pravi. Hvala, Jan! Lepa beseda lepo mesto najde.", "en": "Twelve euros, he says. Thank you, Jan! A kind word finds a good place.", "de": "Zwölf Euro, sagt er. Danke, Jan! Ein freundliches Wort findet einen guten Platz.", "it": "Dodici euro, dice. Grazie, Jan! Una parola gentile trova sempre un buon posto." } },
+          { "sl": "Oprostite, koliko stanejo vse skupaj?", "en": "Excuse me, how much are they all together?", "de": "Entschuldigung, wie viel kosten sie alle zusammen?", "it": "Mi scusi, quanto costano tutte insieme?",
+            "grammar": "glagoli-sedanjik", "why": { "en": "Vse skupaj (all of it together) is one thing: koliko stane? Stanejo is for several things: koliko stanejo jajca?", "de": "Vse skupaj (alles zusammen) ist eine Sache: koliko stane? Stanejo gilt für mehrere Dinge: koliko stanejo jajca?", "it": "Vse skupaj (tutto insieme) è una cosa sola: koliko stane? Stanejo è per più cose: koliko stanejo jajca?" },
+            "reply": { "sl": "Stanejo? Prodajalec ne razume. Jaz tudi ne!", "en": "Stanejo? The seller doesn't get it. Nor do I!", "de": "Stanejo? Der Verkäufer versteht das nicht. Ich auch nicht!", "it": "Stanejo? Il venditore non capisce. Nemmeno io!" } }
+        ] },
+        { "who": "vida", "sl": "Pridite jutri na joto. Prvi krožnik je zastonj!", "en": "Come for jota tomorrow. The first plate is free!", "de": "Kommen Sie morgen zur Jota. Der erste Teller ist gratis!", "it": "Venga domani a mangiare la jota. Il primo piatto è gratis!" }
+      ]
+    },
+    {
+      "id": "rebula",
+      "lines": [
+        { "who": "marko", "sl": "Ciao, Jan! Imam rebulo iz Brd. Poskusi, zastonj je!", "en": "Ciao, Jan! I have rebula from Brda. Taste it, it is free!", "de": "Ciao, Jan! Ich habe Rebula aus Brda. Probier, er ist gratis!", "it": "Ciao, Jan! Ho la ribolla del Collio. Assaggia, è gratis!" },
+        { "choices": [
+          { "sl": "Živjo, Marko! Hvala, zelo je dobra. Koliko stane steklenica?", "en": "Hi, Marko! Thanks, it is very good. How much is a bottle?", "de": "Hallo, Marko! Danke, er ist sehr gut. Was kostet eine Flasche?", "it": "Ciao, Marko! Grazie, è molto buona. Quanto costa una bottiglia?", "ok": true,
+            "reply": { "sl": "Osem evrov. Tebi sedem.", "en": "Eight euros. For you, seven.", "de": "Acht Euro. Für dich sieben.", "it": "Otto euro. Per te, sette." } },
+          { "sl": "Ciao, Marko! Mmm, še en kozarček, prosim!", "en": "Ciao, Marko! Mmm, another little glass, please!", "de": "Ciao, Marko! Mmm, noch ein Gläschen, bitte!", "it": "Ciao, Marko! Mmm, un altro bicchierino, per favore!", "ok": true,
+            "reply": { "sl": "Ha ha, na! Steklenica je osem evrov, zate sedem.", "en": "Ha ha, here you go! A bottle is eight euros, seven for you.", "de": "Ha ha, bitte schön! Eine Flasche kostet acht Euro, für dich sieben.", "it": "Ah ah, tieni! Una bottiglia costa otto euro, per te sette." } },
+          { "sl": "Dober dan, gospod Marko! Hvala, zelo je dobra. Koliko stane steklenica?", "en": "Good day, Mr Marko! Thanks, it is very good. How much is a bottle?", "de": "Guten Tag, Herr Marko! Danke, er ist sehr gut. Was kostet eine Flasche?", "it": "Buongiorno, signor Marko! Grazie, è molto buona. Quanto costa una bottiglia?",
+            "grammar": "ti-vi", "why": { "en": "Marko says ti to everyone at once and likes it back: živjo, Marko. Gospod is for someone you say vi to.", "de": "Marko sagt sofort zu allen ti und will es auch zurück: živjo, Marko. Gospod ist für jemanden, zu dem du vi sagst.", "it": "Marko dà subito del ti a tutti e lo vuole anche lui: živjo, Marko. Gospod è per chi si dà del vi." },
+            "reply": { "sl": "Gospod? Kje? Ha ha, jaz sem samo Marko!", "en": "Gospod (sir)? Where? Ha ha, I'm just Marko!", "de": "Gospod (Herr)? Wo? Ha ha, ich bin nur Marko!", "it": "Gospod (signore)? Dove? Ah ah, sono solo Marko!" } }
+        ] },
+        { "who": "marko", "sl": "Allora, koliko steklenic vzameš?", "en": "Allora, how many bottles will you take?", "de": "Allora, wie viele Flaschen nimmst du?", "it": "Allora, quante bottiglie prendi?" },
+        { "choices": [
+          { "sl": "Dve steklenici, prosim. Za babico Micko in zame.", "en": "Two bottles, please. For Grandma Micka and for me.", "de": "Zwei Flaschen, bitte. Für Oma Micka und für mich.", "it": "Due bottiglie, per favore. Per Nonna Micka e per me.", "ok": true,
+            "reply": { "sl": "Dve steklenici, štirinajst evrov. Pa še kozarček za na pot!", "en": "Two bottles, fourteen euros. And a little glass for the road!", "de": "Zwei Flaschen, vierzehn Euro. Und noch ein Gläschen für unterwegs!", "it": "Due bottiglie, quattordici euro. E un bicchierino per la strada!" } },
+          { "sl": "Dve steklenice, prosim. Za babico Micko in zame.", "en": "Two bottles, please. For Grandma Micka and for me.", "de": "Zwei Flaschen, bitte. Für Oma Micka und für mich.", "it": "Due bottiglie, per favore. Per Nonna Micka e per me.",
+            "grammar": "stevila-samostalniki", "why": { "en": "Two takes the dual: dve steklenici. Steklenice is for three and four: tri steklenice.", "de": "Zwei verlangt den Dual: dve steklenici. Steklenice gilt für drei und vier: tri steklenice.", "it": "Due vuole il duale: dve steklenici. Steklenice è per tre e quattro: tri steklenice." },
+            "reply": { "sl": "Steklenice? Tri? Štiri? Allora, koliko?", "en": "Steklenice (bottles)? Three? Four? Allora, how many?", "de": "Steklenice (Flaschen)? Drei? Vier? Allora, wie viele?", "it": "Steklenice (bottiglie)? Tre? Quattro? Allora, quante?" } },
+          { "sl": "Dva steklenici, prosim. Za babico Micko in zame.", "en": "Two bottles, please. For Grandma Micka and for me.", "de": "Zwei Flaschen, bitte. Für Oma Micka und für mich.", "it": "Due bottiglie, per favore. Per Nonna Micka e per me.",
+            "grammar": "stevila-samostalniki", "why": { "en": "Steklenica is feminine, so two is dve: dve steklenici. Dva is for masculine nouns: dva evra.", "de": "Steklenica ist weiblich, also heißt zwei dve: dve steklenici. Dva steht bei männlichen Nomen: dva evra.", "it": "Steklenica è femminile, quindi due è dve: dve steklenici. Dva è per i nomi maschili: dva evra." },
+            "reply": { "sl": "Dva? Ej, ta rebula je močna, ne?", "en": "Dva? Hey, this rebula is strong, eh?", "de": "Dva? He, der Rebula ist aber stark, was?", "it": "Dva? Ehi, questa ribolla è forte, eh?" } }
+        ] },
+        { "who": "marko", "sl": "Na zdravje! Ha ha! Poglej, golobe sem prestrašil.", "en": "Cheers! Ha ha! Look, I scared the pigeons.", "de": "Prost! Ha ha! Schau, ich habe die Tauben erschreckt.", "it": "Salute! Ah ah! Guarda, ho spaventato i piccioni.",
+          "fx": { "pigeons": 1 } },
+        { "choices": [
+          { "sl": "Na zdravje, Marko! Vidimo se na trgatvi.", "en": "Cheers, Marko! See you at the grape harvest.", "de": "Prost, Marko! Wir sehen uns bei der Weinlese.", "it": "Salute, Marko! Ci vediamo alla vendemmia.", "ok": true,
+            "reply": { "sl": "Seveda! Trgatev je najlepši teden v letu.", "en": "Of course! The harvest is the best week of the year.", "de": "Natürlich! Die Weinlese ist die schönste Woche im Jahr.", "it": "Certo! La vendemmia è la settimana più bella dell'anno." } },
+          { "sl": "Na zdravje, Marko! Vidimo se na trgatev.", "en": "Cheers, Marko! See you at the grape harvest.", "de": "Prost, Marko! Wir sehen uns bei der Weinlese.", "it": "Salute, Marko! Ci vediamo alla vendemmia.",
+            "grammar": "kje-mestnik-orodnik", "why": { "en": "Where you will meet takes the locative: na trgatvi, like na tržnici. Na trgatev (accusative) is where you go: grem na trgatev.", "de": "Wo ihr euch trefft, steht im Lokativ: na trgatvi, wie na tržnici. Na trgatev (Akkusativ) ist, wohin du gehst: grem na trgatev.", "it": "Il luogo dove vi vedrete vuole il locativo: na trgatvi, come na tržnici. Na trgatev (accusativo) è dove vai: grem na trgatev." },
+            "reply": { "sl": "Na trgatev? Oprosti, golobi! Nič nisem slišal.", "en": "Na trgatev? Sorry, the pigeons! I didn't hear a thing.", "de": "Na trgatev? Entschuldige, die Tauben! Ich habe nichts gehört.", "it": "Na trgatev? Scusa, i piccioni! Non ho sentito niente.", "fx": { "pigeons": 1 } } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "jajca-kosara",
+      "talk": "na-trznici",
+      "count": { "from": "dice", "min": 6, "max": 15, "gender": "n", "case": "acc" },
+      "lines": [
+        { "who": "micka", "sl": "Dobro jutro, fant! Poglej, kako velika jajca imam danes!", "en": "Good morning, lad! Look how big my eggs are today!", "de": "Guten Morgen, Junge! Schau, wie groß meine Eier heute sind!", "it": "Buongiorno, ragazzo! Guarda che uova grandi ho oggi!",
+          "fx": { "bustle": 0.5 } },
+        { "choices": [
+          { "sl": "Res so bolj velika kot včeraj!", "en": "They really are more big than yesterday!", "de": "Sie sind wirklich mehr groß als gestern!", "it": "Sono davvero più grandi di ieri!",
+            "grammar": "primernik", "why": { "en": "Velik has its own comparative: večji, and with jajca večja. Bolj … is for adjectives that have none.", "de": "Velik hat einen eigenen Komparativ: večji, bei jajca večja. Bolj … steht bei Adjektiven, die keinen haben.", "it": "Velik ha un comparativo tutto suo: večji, con jajca večja. Bolj … si usa con gli aggettivi che non ce l'hanno." },
+            "reply": { "sl": "Bolj velika? Hi hi, fant, tako govorijo moji vnuki.", "en": "Bolj velika (more big)? Hee hee, lad, that's how my grandchildren talk.", "de": "Bolj velika (mehr groß)? Hihi, Junge, so reden meine Enkel.", "it": "Bolj velika (più grandi, alla buona)? Hi hi, ragazzo, parli come i miei nipotini." } },
+          { "sl": "Res so večja kot včeraj!", "en": "They really are bigger than yesterday!", "de": "Sie sind wirklich größer als gestern!", "it": "Sono davvero più grandi di ieri!", "ok": true,
+            "reply": { "sl": "Kajne? Moje kokoši so bile pridne.", "en": "Aren't they? My hens have been busy.", "de": "Nicht wahr? Meine Hühner waren fleißig.", "it": "Vero? Le mie galline sono state brave." } },
+          { "sl": "Res so manjša kot včeraj!", "en": "They really are smaller than yesterday!", "de": "Sie sind wirklich kleiner als gestern!", "it": "Sono davvero più piccole di ieri!",
+            "why": { "en": "Manjša means smaller. She says they are big: večja (bigger).", "de": "Manjša heißt kleiner. Sie sagt, sie sind groß: večja (größer).", "it": "Manjša significa più piccole. Lei dice che sono grandi: večja (più grandi)." },
+            "reply": { "sl": "Manjša? Ojej, fant, ti rabiš očala, ne jaz!", "en": "Manjša (smaller)? Oh dear, lad, you're the one who needs glasses, not me!", "de": "Manjša (kleiner)? Oje, Junge, du brauchst eine Brille, nicht ich!", "it": "Manjša (più piccole)? Oddio, ragazzo, gli occhiali servono a te, non a me!" } }
+        ] },
+        { "who": "micka", "sl": "Kar vse vzemi, fant! Preštej jih in povej, koliko ti jih dam.", "en": "Just take them all, lad! Count them and tell me how many to give you.", "de": "Nimm sie ruhig alle, Junge! Zähl sie und sag mir, wie viele ich dir geben soll.", "it": "Prendile pure tutte, ragazzo! Contale e dimmi quante te ne do." },
+        { "choices": [
+          { "sl": "Dajte mi {n} {jajce|jajci|jajca|jajc}, prosim.", "en": "Give me {n} {egg|eggs}, please.", "de": "Geben Sie mir {n} {Ei|Eier}, bitte.", "it": "Mi dia {n} {uovo|uova}, per favore.", "ok": true,
+            "reply": { "sl": "Izvoli, vse v vrečki. Pazi, da jih ne razbiješ!", "en": "Here you are, all in the bag. Careful you don't break them!", "de": "Bitte schön, alle in der Tüte. Pass auf, dass du sie nicht zerbrichst!", "it": "Ecco qua, tutte nel sacchetto. Attento a non romperle!" } },
+          { "sl": "Dajte mi {n} {!jajce|jajci|jajca|jajc}, prosim.", "en": "Give me {n} {egg|eggs}, please.", "de": "Geben Sie mir {n} {Ei|Eier}, bitte.", "it": "Mi dia {n} {uovo|uova}, per favore.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {jajce|jajci|jajca|jajc}.", "de": "{Eins verlangt den Singular|Zwei verlangt den Dual|Drei und vier verlangen den Plural|Ab fünf steht der Genitiv Plural}: {n} {jajce|jajci|jajca|jajc}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {jajce|jajci|jajca|jajc}." },
+            "reply": { "sl": "Hm? Počasi, fant. Babica je stara.", "en": "Hm? Slowly, lad. Grandma is old.", "de": "Hm? Langsam, Junge. Die Oma ist alt.", "it": "Mm? Piano, ragazzo. La nonna è vecchia." } },
+          { "sl": "Dajte mi {n} {!jajce|jajci|jajca|jajc}, prosim.", "en": "Give me {n} {egg|eggs}, please.", "de": "Geben Sie mir {n} {Ei|Eier}, bitte.", "it": "Mi dia {n} {uovo|uova}, per favore.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {jajce|jajci|jajca|jajc}.", "de": "{Eins verlangt den Singular|Zwei verlangt den Dual|Drei und vier verlangen den Plural|Ab fünf steht der Genitiv Plural}: {n} {jajce|jajci|jajca|jajc}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {jajce|jajci|jajca|jajc}." },
+            "reply": { "sl": "Eno ali več? Zdaj sem pa čisto zmedena.", "en": "One or more? Now I'm all mixed up.", "de": "Eins oder mehr? Jetzt bin ich ganz durcheinander.", "it": "Uno o di più? Adesso sono proprio confusa." } }
+        ] },
+        { "who": "micka", "sl": "Toliko jajc! Za kaj pa?", "en": "So many eggs! What for?", "de": "So viele Eier! Wofür denn?", "it": "Quante uova! E per cosa?" },
+        { "choices": [
+          { "sl": "Jutri sem spekel palačinke.", "en": "Tomorrow I baked pancakes.", "de": "Morgen habe ich Palatschinken gebacken.", "it": "Domani ho fatto le crêpes.",
+            "grammar": "prihodnjik", "why": { "en": "Jutri (tomorrow) needs the future: bom spekel. Sem spekel is the past.", "de": "Jutri (morgen) verlangt das Futur: bom spekel. Sem spekel ist die Vergangenheit.", "it": "Jutri (domani) vuole il futuro: bom spekel. Sem spekel è il passato." },
+            "reply": { "sl": "Jutri si jih že spekel? Ti si pa hiter, fant!", "en": "You already baked them tomorrow? Aren't you quick, lad!", "de": "Du hast sie morgen schon gebacken? Du bist aber schnell, Junge!", "it": "Le hai già fatte domani? Però, sei veloce, ragazzo!" } },
+          { "sl": "Jutri bo spekel palačinke.", "en": "Tomorrow he will bake pancakes.", "de": "Morgen wird er Palatschinken backen.", "it": "Domani lui farà le crêpes.",
+            "grammar": "prihodnjik", "why": { "en": "Bo is 'he or she will'. You will bake them yourself: bom spekel.", "de": "Bo heißt ‚er oder sie wird‘. Du backst sie selbst: bom spekel.", "it": "Bo significa 'lui o lei farà'. Le fai tu: bom spekel." },
+            "reply": { "sl": "Kdo? Moj petelin? Hi hi, ta ne zna peči.", "en": "Who? My rooster? Hee hee, he can't bake.", "de": "Wer? Mein Hahn? Hihi, der kann nicht backen.", "it": "Chi? Il mio gallo? Hi hi, quello non sa cucinare." } },
+          { "sl": "Jutri bom spekel palačinke.", "en": "Tomorrow I will bake pancakes.", "de": "Morgen backe ich Palatschinken.", "it": "Domani farò le crêpes.", "ok": true,
+            "reply": { "sl": "Palačinke! Pa mi prinesi eno, fant.", "en": "Pancakes! Then bring me one, lad.", "de": "Palatschinken! Dann bring mir einen, Junge.", "it": "Crêpes! Allora portamene una, ragazzo." } }
+        ] },
+        { "who": "micka", "sl": "Jej, jej, fant! In pridi spet v soboto.", "en": "Eat, eat, lad! And come again on Saturday.", "de": "Iss, iss, Junge! Und komm am Samstag wieder.", "it": "Mangia, mangia, ragazzo! E torna sabato." }
+      ]
+    },
+    {
+      "id": "jajca-kokos",
+      "memory": { "sl": "kokoš, ki si jo ujel na tržnici", "en": "the hen you caught at the market", "de": "das Huhn, das du auf dem Markt gefangen hast", "it": "la gallina che hai preso al mercato" },
+      "lines": [
+        { "who": "micka", "sl": "Ojej, fant! Moja kokoš je pobegnila. Kje je zdaj?", "en": "Oh dear, lad! My hen has run off. Where is she now?", "de": "Oje, Junge! Mein Huhn ist weggelaufen. Wo ist es jetzt?", "it": "Oddio, ragazzo! La mia gallina è scappata. Dov'è adesso?",
+          "fx": { "bustle": 0.6 } },
+        { "choices": [
+          { "sl": "Tam je, na voz!", "en": "There she is, onto the cart!", "de": "Da ist es, auf den Wagen!", "it": "Eccola là, su per il carro!",
+            "grammar": "kje-mestnik-orodnik", "why": { "en": "Where something is takes the locative: na vozu. Na voz (accusative) is where it goes: skoči na voz.", "de": "Wo etwas ist, steht im Lokativ: na vozu. Na voz (Akkusativ) ist, wohin es geht: skoči na voz.", "it": "Dove si trova qualcosa vuole il locativo: na vozu. Na voz (accusativo) è dove va: skoči na voz." },
+            "reply": { "sl": "Na voz? Kam gre? Ojej, ta kokoš!", "en": "Na voz (onto the cart)? Where's she off to? Oh dear, that hen!", "de": "Na voz (auf den Wagen)? Wo will es hin? Oje, dieses Huhn!", "it": "Na voz (sul carro, verso)? Dove va? Oddio, questa gallina!" } },
+          { "sl": "Tam je, na vozu!", "en": "There she is, on the cart!", "de": "Da ist es, auf dem Wagen!", "it": "Eccola là, sul carro!", "ok": true,
+            "reply": { "sl": "Res je! Pridi dol, požrešnica!", "en": "So she is! Come down, you greedy thing!", "de": "Tatsächlich! Komm runter, du Vielfraß!", "it": "È vero! Scendi, golosona!", "fx": { "pigeons": 1 } } }
+        ] },
+        { "who": "micka", "sl": "Hitro, fant, primi kokoš! Jaz ne morem tako hitro.", "en": "Quick, lad, grab the hen! I can't go that fast.", "de": "Schnell, Junge, fang das Huhn! Ich kann nicht so schnell.", "it": "Svelto, ragazzo, prendi la gallina! Io non ce la faccio a correre così." },
+        { "choices": [
+          { "sl": "Imam jo! Izvoli, babica.", "en": "Got her! Here you are (ti), Grandma.", "de": "Ich hab es! Bitte schön (du), Oma.", "it": "Presa! Ecco a te (ti), nonna.",
+            "grammar": "ti-vi", "why": { "en": "Micka says ti to you but expects vi back: izvolite. Izvoli is the ti form.", "de": "Micka sagt ti zu dir, erwartet aber vi zurück: izvolite. Izvoli ist die ti-Form.", "it": "Micka ti dà del ti, ma da te si aspetta il vi: izvolite. Izvoli è la forma del ti." },
+            "reply": { "sl": "Izvoli? Hi hi, tikaš babico? No, prav.", "en": "Izvoli? Hee hee, saying ti to your granny? Well, all right.", "de": "Izvoli? Hihi, du duzt die Oma? Na gut.", "it": "Izvoli? Hi hi, dai del tu alla nonna? Va be'." } },
+          { "sl": "Imam ga! Izvolite, babica.", "en": "I've got him! Here you are, Grandma.", "de": "Ich hab ihn! Bitte schön, Oma.", "it": "Preso lui! Ecco a Lei, nonna.",
+            "grammar": "spol-samostalnikov", "why": { "en": "Kokoš is feminine, so 'her' is jo: imam jo. Ga is for masculine nouns (petelin, pes).", "de": "Kokoš ist weiblich, also heißt ‚sie‘ jo: imam jo. Ga steht für männliche Nomen (petelin, pes).", "it": "Kokoš è femminile, quindi 'la' è jo: imam jo. Ga è per i nomi maschili (petelin, pes)." },
+            "reply": { "sl": "Ga? Petelina? Ne, fant, kokoš sem izgubila!", "en": "Ga (him)? The rooster? No, lad, it's the hen I lost!", "de": "Ga (ihn)? Den Hahn? Nein, Junge, das Huhn ist mir weggelaufen!", "it": "Ga (lui)? Il gallo? No, ragazzo, ho perso la gallina!" } },
+          { "sl": "Imam jo! Izvolite, babica.", "en": "Got her! Here you are, Grandma.", "de": "Ich hab es! Bitte schön, Oma.", "it": "Presa! Ecco a Lei, nonna.", "ok": true,
+            "reply": { "sl": "Hvala, fant! Za to dobiš tri jajca zastonj.", "en": "Thank you, lad! For that you get three eggs for free.", "de": "Danke, Junge! Dafür bekommst du drei Eier umsonst.", "it": "Grazie, ragazzo! Per questo ti do tre uova gratis." } }
+        ] },
+        { "who": "micka", "sl": "Kokoši so kot otroci. Vedno nekam bežijo.", "en": "Hens are like children. Always running off somewhere.", "de": "Hühner sind wie Kinder. Immer laufen sie irgendwohin weg.", "it": "Le galline sono come i bambini. Scappano sempre da qualche parte." }
+      ]
+    },
+    {
+      "id": "gostilna-sir",
+      "talk": "v-gostilni",
+      "memory": { "sl": "tržni dan, ko ni bilo sira in si šel po čebulo", "en": "the market day there was no cheese and you went for the onion", "de": "den Markttag, an dem es keinen Käse gab und du die Zwiebel geholt hast", "it": "il giorno di mercato in cui non c'era formaggio e sei andato a prendere la cipolla" },
+      "lines": [
+        { "who": "vida", "sl": "Dober dan, Jan! Hitro, hitro, danes moram kupiti sto stvari.", "en": "Good day, Jan! Quick, quick, today I have to buy a hundred things.", "de": "Guten Tag, Jan! Schnell, schnell, heute muss ich hundert Sachen kaufen.", "it": "Buongiorno, Jan! Presto, presto, oggi devo comprare cento cose.",
+          "fx": { "bustle": 1 } },
+        { "choices": [
+          { "sl": "Dober dan, gospa Vida! Vas lahko pomagam?", "en": "Good day, Mrs Vida! Can I help you (accusative)?", "de": "Guten Tag, Frau Vida! Kann ich Sie (Akkusativ) helfen?", "it": "Buongiorno, signora Vida! Posso aiutare Lei (accusativo)?",
+            "grammar": "dajalnik", "why": { "en": "Pomagati (to help) takes the dative: vam lahko pomagam. Vas is the accusative.", "de": "Pomagati (helfen) steht mit dem Dativ: vam lahko pomagam. Vas ist der Akkusativ.", "it": "Pomagati (aiutare) regge il dativo: vam lahko pomagam. Vas è l'accusativo." },
+            "reply": { "sl": "Wie bitte? Hitro, Jan, še enkrat!", "en": "Wie bitte (pardon)? Quick, Jan, once more!", "de": "Wie bitte? Schnell, Jan, noch einmal!", "it": "Wie bitte (come, scusi)? Presto, Jan, ancora una volta!" } },
+          { "sl": "Dober dan, gospa Vida! Vam lahko pomagam?", "en": "Good day, Mrs Vida! Can I help you?", "de": "Guten Tag, Frau Vida! Kann ich Ihnen helfen?", "it": "Buongiorno, signora Vida! Posso aiutarLa?", "ok": true,
+            "reply": { "sl": "O, hvala, Jan! Kdor hitro da, dvakrat da.", "en": "Oh, thank you, Jan! Who gives quickly gives twice.", "de": "Oh, danke, Jan! Wer schnell gibt, gibt doppelt.", "it": "Oh, grazie, Jan! Chi dà subito dà due volte." } },
+          { "sl": "Dober večer, gospa Vida! Vam lahko pomagam?", "en": "Good evening, Mrs Vida! Can I help you?", "de": "Guten Abend, Frau Vida! Kann ich Ihnen helfen?", "it": "Buonasera, signora Vida! Posso aiutarLa?",
+            "why": { "en": "It is day and the market is busy: dober dan. Dober večer is for the evening.", "de": "Es ist Tag, und der Markt ist voll: dober dan. Dober večer sagt man am Abend.", "it": "È giorno e il mercato è pieno: dober dan. Dober večer è per la sera." },
+            "reply": { "sl": "Večer? Ne, ne, Jan, sonce je še visoko!", "en": "Večer (evening)? No, no, Jan, the sun is still high!", "de": "Večer (Abend)? Nein, nein, Jan, die Sonne steht noch hoch!", "it": "Večer (sera)? No, no, Jan, il sole è ancora alto!" } }
+        ] },
+        { "who": "vida", "sl": "Najprej sir. Joj, poglejte! Stojnica s sirom je prazna.", "en": "Cheese first. Oh, look! The cheese stall is empty.", "de": "Zuerst Käse. Oje, schauen Sie! Der Käsestand ist leer.", "it": "Prima il formaggio. Oh, guardi! La bancarella del formaggio è vuota." },
+        { "choices": [
+          { "sl": "Res, danes ni sir.", "en": "True, today is not cheese.", "de": "Stimmt, heute ist nicht Käse.", "it": "È vero, oggi non è formaggio.",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "After ni (there is no), the genitive: ni sira, ni kruha.", "de": "Nach ni (es gibt kein) steht der Genitiv: ni sira, ni kruha.", "it": "Dopo ni (non c'è) si usa il genitivo: ni sira, ni kruha." },
+            "reply": { "sl": "Danes ni sir? Kaj pa je danes? Petek?", "en": "Today isn't cheese? So what is today? Friday?", "de": "Heute ist nicht Käse? Was ist denn heute? Freitag?", "it": "Oggi non è formaggio? E allora cos'è oggi? Venerdì?" } },
+          { "sl": "Res, danes nimam sira.", "en": "True, today I have no cheese.", "de": "Stimmt, heute habe ich keinen Käse.", "it": "È vero, oggi non ho formaggio.",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "Nimam is 'I have no'. It is the stall that has none: ni sira (there is no cheese).", "de": "Nimam heißt ‚ich habe kein‘. Der Stand hat keinen: ni sira (es gibt keinen Käse).", "it": "Nimam significa 'non ho'. È la bancarella a non averne: ni sira (non c'è formaggio)." },
+            "reply": { "sl": "Vi? Saj vi ne prodajate sira, Jan! Ha!", "en": "You? But you don't sell cheese, Jan! Ha!", "de": "Sie? Sie verkaufen doch gar keinen Käse, Jan! Ha!", "it": "Lei? Ma Lei non vende formaggio, Jan! Ah!" } },
+          { "sl": "Res, danes ni sira.", "en": "True, there is no cheese today.", "de": "Stimmt, heute gibt es keinen Käse.", "it": "È vero, oggi non c'è formaggio.", "ok": true,
+            "reply": { "sl": "Točno. Nič hudega, jota ne rabi sira.", "en": "Exactly. Never mind, jota doesn't need cheese.", "de": "Genau. Macht nichts, die Jota braucht keinen Käse.", "it": "Esatto. Poco male, la jota non ha bisogno del formaggio." } }
+        ] },
+        { "who": "vida", "sl": "Joj, in čebula! Brez nje ni jote.", "en": "Oh, and the onion! There's no jota without it.", "de": "Oje, und die Zwiebel! Ohne sie gibt es keine Jota.", "it": "Oh, e la cipolla! Senza cipolla, niente jota." },
+        { "choices": [
+          { "sl": "Brez skrbi, grem po čebulo!", "en": "Don't worry, I'll go and get the onion!", "de": "Keine Sorge, ich hole die Zwiebel!", "it": "Non si preoccupi, vado a prendere la cipolla!", "ok": true,
+            "reply": { "sl": "Hvala, Jan! Danke schön! Kaj bi brez vas?", "en": "Thank you, Jan! Danke schön! What would I do without you?", "de": "Danke, Jan! Danke schön! Was würde ich ohne Sie tun?", "it": "Grazie, Jan! Danke schön! Cosa farei senza di Lei?" } },
+          { "sl": "Brez skrbi, grem po čebuli!", "en": "Don't worry, I'm walking all over the onion!", "de": "Keine Sorge, ich laufe auf der Zwiebel herum!", "it": "Non si preoccupi, cammino sopra la cipolla!",
+            "grammar": "kam-tozilnik", "why": { "en": "Going to fetch something: po + accusative, grem po čebulo. Po čebuli (locative) means all over the onion.", "de": "Etwas holen gehen: po + Akkusativ, grem po čebulo. Po čebuli (Lokativ) heißt ‚auf der Zwiebel herum‘.", "it": "Andare a prendere qualcosa: po + accusativo, grem po čebulo. Po čebuli (locativo) vuol dire 'sopra la cipolla, qua e là'." },
+            "reply": { "sl": "Po čebuli? Ne hodite po njej, Jan, kupite jo!", "en": "Po čebuli (all over the onion)? Don't walk on it, Jan, buy it!", "de": "Po čebuli (auf der Zwiebel)? Laufen Sie nicht drauf herum, Jan, kaufen Sie sie!", "it": "Po čebuli (sulla cipolla)? Non ci cammini sopra, Jan, la compri!" } }
+        ] },
+        { "who": "vida", "sl": "Jutri ob dvanajstih vas čakam na joto!", "en": "Tomorrow at twelve I'll be expecting you for jota!", "de": "Morgen um zwölf erwarte ich Sie zur Jota!", "it": "Domani alle dodici La aspetto per la jota!" }
+      ]
+    },
+    {
+      "id": "gostilna-gostje",
+      "talk": "v-gostilni",
+      "memory": { "sl": "tržni dan, ko sva kupovala za nemške goste", "en": "the market day we shopped for the German guests", "de": "den Markttag, an dem wir für die deutschen Gäste eingekauft haben", "it": "il giorno di mercato in cui abbiamo fatto la spesa per gli ospiti tedeschi" },
+      "lines": [
+        { "who": "vida", "sl": "Dober dan, Jan! Jutri pridejo gostje iz Nemčije. Dvajset ljudi!", "en": "Good day, Jan! Tomorrow guests are coming from Germany. Twenty people!", "de": "Guten Tag, Jan! Morgen kommen Gäste aus Deutschland. Zwanzig Leute!", "it": "Buongiorno, Jan! Domani arrivano ospiti dalla Germania. Venti persone!",
+          "fx": { "bustle": 0.7 } },
+        { "choices": [
+          { "sl": "Oho! Kaj jim boste skuhali?", "en": "Oho! What will you cook for them?", "de": "Oho! Was werden Sie ihnen kochen?", "it": "Caspita! Che cosa cucinerà per loro?", "ok": true,
+            "reply": { "sl": "Joto, seveda! Nemci imajo radi joto.", "en": "Jota, of course! Germans love jota.", "de": "Jota, natürlich! Die Deutschen lieben Jota.", "it": "La jota, naturalmente! I tedeschi adorano la jota." } },
+          { "sl": "Oho! Kaj jih boste skuhali?", "en": "Oho! How will you cook them?", "de": "Oho! Wie werden Sie sie kochen?", "it": "Caspita! Come li cucinerà?",
+            "grammar": "dajalnik", "why": { "en": "You cook something for them: the dative jim. Jih (them, accusative) would put the guests in the pot.", "de": "Du kochst etwas für sie: der Dativ jim. Jih (sie, Akkusativ) würde die Gäste in den Topf stecken.", "it": "Si cucina qualcosa per loro: il dativo jim. Jih (li, accusativo) metterebbe gli ospiti nella pentola." },
+            "reply": { "sl": "Jih? Goste v lonec? Joj, Jan, ne!", "en": "Jih (them)? The guests in the pot? Oh, Jan, no!", "de": "Jih (sie)? Die Gäste in den Topf? Oje, Jan, nein!", "it": "Jih (loro)? Gli ospiti in pentola? Oddio, Jan, no!" } },
+          { "sl": "Oho! Kaj jim bodo skuhali?", "en": "Oho! What will they cook for them?", "de": "Oho! Was werden sie ihnen kochen?", "it": "Caspita! Che cosa cucineranno per loro?",
+            "grammar": "prihodnjik", "why": { "en": "Boste is 'you (vi) will'. Bodo is 'they will', and the guests don't cook.", "de": "Boste heißt ‚Sie werden‘ (vi). Bodo heißt ‚sie werden‘, und die Gäste kochen nicht.", "it": "Boste significa 'Lei farà' (vi). Bodo significa 'loro faranno', e gli ospiti non cucinano." },
+            "reply": { "sl": "Oni? Gostje ne kuhajo, Jan, gostje jejo!", "en": "They? Guests don't cook, Jan, guests eat!", "de": "Die? Gäste kochen nicht, Jan, Gäste essen!", "it": "Loro? Gli ospiti non cucinano, Jan, gli ospiti mangiano!" } }
+        ] },
+        { "who": "vida", "sl": "Potrebujem veliko krompirja in fižola. Kako bom vse to nesla domov?", "en": "I need lots of potatoes and beans. How will I carry all that home?", "de": "Ich brauche viele Kartoffeln und Bohnen. Wie soll ich das alles nach Hause tragen?", "it": "Mi servono tante patate e fagioli. Come faccio a portare tutto a casa?" },
+        { "choices": [
+          { "sl": "S vozom! Tam stoji prazen voz.", "en": "With a cart! There's an empty cart over there.", "de": "Mit einem Wagen! Dort steht ein leerer Wagen.", "it": "Con un carro! Là c'è un carro vuoto.",
+            "grammar": "orodnik", "why": { "en": "Before a voiced sound like v, it is z: z vozom. S goes before p, t, k, s, š, č, f, h: s košaro.", "de": "Vor einem stimmhaften Laut wie v heißt es z: z vozom. S steht vor p, t, k, s, š, č, f, h: s košaro.", "it": "Davanti a un suono sonoro come v si dice z: z vozom. S va davanti a p, t, k, s, š, č, f, h: s košaro." },
+            "reply": { "sl": "S …? Hm, Jan, se vam je jezik zataknil?", "en": "S …? Hm, Jan, did your tongue get stuck?", "de": "S …? Hm, Jan, ist Ihnen die Zunge hängen geblieben?", "it": "S …? Mm, Jan, Le si è inceppata la lingua?" } },
+          { "sl": "Z vozom! Tam stoji prazen voz.", "en": "With a cart! There's an empty cart over there.", "de": "Mit einem Wagen! Dort steht ein leerer Wagen.", "it": "Con un carro! Là c'è un carro vuoto.", "ok": true,
+            "reply": { "sl": "Pametno! Pa vi ga boste vlekli, ja? Ha!", "en": "Clever! But you'll be the one pulling it, yes? Ha!", "de": "Schlau! Aber ziehen werden Sie ihn, ja? Ha!", "it": "Furbo! Ma lo tirerà Lei, vero? Ah!" } },
+          { "sl": "Z voz! Tam stoji prazen voz.", "en": "With cart! There's an empty cart over there.", "de": "Mit Wagen! Dort steht ein leerer Wagen.", "it": "Con carro! Là c'è un carro vuoto.",
+            "grammar": "orodnik", "why": { "en": "Z (with, by means of) takes the instrumental: z vozom, s košaro.", "de": "Z (mit) steht mit dem Instrumental: z vozom, s košaro.", "it": "Z (con) regge lo strumentale: z vozom, s košaro." },
+            "reply": { "sl": "Bitte? Z … kaj? Jan, zdaj pa vi govorite prehitro!", "en": "Bitte (pardon)? With … what? Jan, now you're the one talking too fast!", "de": "Bitte? Mit … was? Jan, jetzt reden Sie zu schnell!", "it": "Bitte (prego)? Con … cosa? Jan, adesso è Lei che parla troppo in fretta!" } }
+        ] },
+        { "who": "vida", "sl": "Hvala, Jan. Zdaj pa hitro domov, jota se ne skuha sama!", "en": "Thanks, Jan. Now quickly home, the jota won't cook itself!", "de": "Danke, Jan. Jetzt schnell nach Hause, die Jota kocht sich nicht von allein!", "it": "Grazie, Jan. Ora di corsa a casa, la jota non si cucina da sola!" }
+      ]
+    },
+    {
+      "id": "rebula-cena",
+      "count": { "from": "dice", "min": 5, "max": 12, "gender": "m", "case": "acc" },
+      "memory": { "sl": "dan, ko si ti prodajal mojo rebulo", "en": "the day you sold my rebula", "de": "den Tag, an dem du meinen Rebula verkauft hast", "it": "il giorno in cui hai venduto la mia ribolla" },
+      "lines": [
+        { "who": "marko", "sl": "Ej, Jan! Danes prodajaš ti, jaz pa pijem. Si za?", "en": "Hey, Jan! Today you sell and I drink. Are you in?", "de": "He, Jan! Heute verkaufst du, und ich trinke. Bist du dabei?", "it": "Ehi, Jan! Oggi vendi tu e io bevo. Ci stai?" },
+        { "choices": [
+          { "sl": "Sem za! Kaj moraš delati?", "en": "I'm in! What do you have to do?", "de": "Bin dabei! Was musst du tun?", "it": "Ci sto! Cosa devi fare tu?",
+            "grammar": "glagoli-sedanjik", "why": { "en": "About yourself: moram (I must). Moraš is 'you must'.", "de": "Über dich selbst: moram (ich muss). Moraš heißt ‚du musst‘.", "it": "Parlando di te: moram (devo). Moraš significa 'devi'." },
+            "reply": { "sl": "Jaz? Nič! Jaz danes samo pijem. Ha ha!", "en": "Me? Nothing! Today I just drink. Ha ha!", "de": "Ich? Nichts! Ich trinke heute nur. Haha!", "it": "Io? Niente! Oggi io bevo e basta. Ah ah!" } },
+          { "sl": "Sem za! Kaj moram delam?", "en": "I'm in! What must I I-do?", "de": "Bin dabei! Was muss ich ich-mache?", "it": "Ci sto! Cosa devo io-faccio?",
+            "grammar": "modalni-glagoli", "why": { "en": "After moram (I must), the infinitive: moram delati.", "de": "Nach moram (ich muss) steht der Infinitiv: moram delati.", "it": "Dopo moram (devo) ci vuole l'infinito: moram delati." },
+            "reply": { "sl": "Moram delam? Ha ha, Jan, rebule še nisi pil!", "en": "Moram delam? Ha ha, Jan, you haven't even had any rebula yet!", "de": "Moram delam? Haha, Jan, du hast doch noch gar keinen Rebula getrunken!", "it": "Moram delam? Ah ah, Jan, e non hai ancora bevuto la ribolla!" } },
+          { "sl": "Sem za! Kaj moram delati?", "en": "I'm in! What do I have to do?", "de": "Bin dabei! Was muss ich tun?", "it": "Ci sto! Cosa devo fare?", "ok": true,
+            "reply": { "sl": "Nič težkega. Prodajaš in se smeješ, kot jaz!", "en": "Nothing hard. You sell and you laugh, like me!", "de": "Nichts Schweres. Du verkaufst und lachst, wie ich!", "it": "Niente di difficile. Vendi e ridi, come me!" } }
+        ] },
+        { "who": "marko", "sl": "Glej, kupec! Vpraša, koliko stane steklenica. Cena je na tabli.", "en": "Look, a customer! He's asking how much a bottle is. The price is on the board.", "de": "Schau, ein Kunde! Er fragt, was eine Flasche kostet. Der Preis steht auf der Tafel.", "it": "Guarda, un cliente! Chiede quanto costa una bottiglia. Il prezzo è sulla lavagna." },
+        { "choices": [
+          { "sl": "Steklenica stane {n} {!evro|evra|evre|evrov}.", "en": "A bottle costs {n} {euro|euros}.", "de": "Eine Flasche kostet {n} Euro.", "it": "Una bottiglia costa {n} euro.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {evro|evra|evre|evrov}.", "de": "{Eins verlangt den Singular|Zwei verlangt den Dual|Drei und vier verlangen den Plural|Ab fünf steht der Genitiv Plural}: {n} {evro|evra|evre|evrov}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {evro|evra|evre|evrov}." },
+            "reply": { "sl": "Kaj? Kupec se smeje. Poglej še enkrat tablo!", "en": "What? The customer is laughing. Look at the board again!", "de": "Was? Der Kunde lacht. Schau noch mal auf die Tafel!", "it": "Cosa? Il cliente ride. Guarda di nuovo la lavagna!" } },
+          { "sl": "Steklenica stane {n} {evro|evra|evre|evrov}.", "en": "A bottle costs {n} {euro|euros}.", "de": "Eine Flasche kostet {n} Euro.", "it": "Una bottiglia costa {n} euro.", "ok": true,
+            "reply": { "sl": "Bravo! Kupec plača. Ti si rojen trgovec!", "en": "Bravo! The customer pays. You're a born salesman!", "de": "Bravo! Der Kunde zahlt. Du bist ein geborener Verkäufer!", "it": "Bravo! Il cliente paga. Sei un venditore nato!" } },
+          { "sl": "Steklenica stane {n} {!evro|evra|evre|evrov}.", "en": "A bottle costs {n} {euro|euros}.", "de": "Eine Flasche kostet {n} Euro.", "it": "Una bottiglia costa {n} euro.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {evro|evra|evre|evrov}.", "de": "{Eins verlangt den Singular|Zwei verlangt den Dual|Drei und vier verlangen den Plural|Ab fünf steht der Genitiv Plural}: {n} {evro|evra|evre|evrov}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {evro|evra|evre|evrov}." },
+            "reply": { "sl": "Hm? Kupec te čudno gleda. Še enkrat, Jan!", "en": "Hm? The customer is giving you a funny look. Once more, Jan!", "de": "Hm? Der Kunde schaut dich komisch an. Noch mal, Jan!", "it": "Mm? Il cliente ti guarda strano. Di nuovo, Jan!" } }
+        ] },
+        { "who": "marko", "sl": "Uf, prodajati je težko! Zdaj pa kozarček zate.", "en": "Phew, selling is hard work! Now a little glass for you.", "de": "Puh, Verkaufen ist anstrengend! Jetzt ein Gläschen für dich.", "it": "Uff, vendere è faticoso! Ora un bicchierino per te." },
+        { "choices": [
+          { "sl": "Na zdravje! Rebula mi je zelo všeč.", "en": "Cheers! I really like the rebula.", "de": "Prost! Der Rebula schmeckt mir sehr.", "it": "Salute! La ribolla mi piace molto.", "ok": true,
+            "reply": { "sl": "Vem, vem. Najboljša je iz Brd!", "en": "I know, I know. The best comes from Brda!", "de": "Ich weiß, ich weiß. Der beste kommt aus Brda!", "it": "Lo so, lo so. La migliore viene dal Collio!" } },
+          { "sl": "Na zdravje! Rebula me je zelo všeč.", "en": "Cheers! I (me) really like the rebula.", "de": "Prost! Der Rebula gefällt mich sehr.", "it": "Salute! La ribolla me (accusativo) piace molto.",
+            "grammar": "dajalnik", "why": { "en": "Všeč takes the dative: mi je všeč (it pleases me, I like it). Me is the accusative.", "de": "Všeč steht mit dem Dativ: mi je všeč (es gefällt mir). Me ist der Akkusativ.", "it": "Všeč vuole il dativo: mi je všeč (mi piace). Me è l'accusativo." },
+            "reply": { "sl": "Me je všeč? Ha, Jan, rebula ima tebe rada?", "en": "Me je všeč? Ha, Jan, so the rebula likes you?", "de": "Me je všeč? Ha, Jan, der Rebula mag also dich?", "it": "Me je všeč? Ah, Jan, quindi è la ribolla che ama te?" } },
+          { "sl": "Dober tek! Rebula mi je zelo všeč.", "en": "Enjoy your meal! I really like the rebula.", "de": "Guten Appetit! Der Rebula schmeckt mir sehr.", "it": "Buon appetito! La ribolla mi piace molto.",
+            "why": { "en": "Dober tek is for food. With a glass: na zdravje.", "de": "Dober tek sagt man zum Essen. Beim Glas: na zdravje.", "it": "Dober tek si dice a tavola. Con un bicchiere: na zdravje." },
+            "reply": { "sl": "Dober tek? Ha ha, rebule ne ješ, Jan, piješ jo!", "en": "Dober tek (enjoy your meal)? Ha ha, you don't eat rebula, Jan, you drink it!", "de": "Dober tek (guten Appetit)? Haha, Rebula isst man nicht, Jan, man trinkt ihn!", "it": "Dober tek (buon appetito)? Ah ah, la ribolla non si mangia, Jan, si beve!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "rebula-brda",
+      "memory": { "sl": "trgatev v Brdih, na katero sem te povabil", "en": "the grape harvest in Brda I invited you to", "de": "die Weinlese in Brda, zu der ich dich eingeladen habe", "it": "la vendemmia nel Collio a cui ti ho invitato" },
+      "lines": [
+        { "who": "marko", "sl": "Ciao, Jan! Ta rebula je iz mojega vinograda. Poznaš Brda?", "en": "Ciao, Jan! This rebula is from my vineyard. Do you know Brda?", "de": "Ciao, Jan! Dieser Rebula ist aus meinem Weinberg. Kennst du Brda?", "it": "Ciao, Jan! Questa ribolla è della mia vigna. Conosci il Collio?" },
+        { "choices": [
+          { "sl": "Ne, še nisem bil v Brdih.", "en": "No, I haven't been to Brda yet.", "de": "Nein, ich war noch nicht in Brda.", "it": "No, non sono ancora stato nel Collio.", "ok": true,
+            "reply": { "sl": "Kaj? Brda so najlepša na svetu, veš!", "en": "What? Brda is the loveliest place in the world, you know!", "de": "Was? Brda ist das Schönste auf der Welt, weißt du!", "it": "Cosa? Il Collio è il posto più bello del mondo, sai!" } },
+          { "sl": "Ne, še nisem bil v Brda.", "en": "No, I haven't been (in)to Brda yet.", "de": "Nein, ich war noch nicht nach Brda.", "it": "No, non sono ancora stato verso il Collio.",
+            "grammar": "kje-mestnik-orodnik", "why": { "en": "Being somewhere takes the locative: v Brdih. V Brda (accusative) is where you go: grem v Brda.", "de": "Wo man ist oder war, steht im Lokativ: v Brdih. V Brda (Akkusativ) ist, wohin man geht: grem v Brda.", "it": "Dove si è o si è stati vuole il locativo: v Brdih. V Brda (accusativo) è dove si va: grem v Brda." },
+            "reply": { "sl": "V Brda? Greš zdaj? Počakaj, grem s tabo!", "en": "V Brda (to Brda)? Are you going now? Wait, I'm coming with you!", "de": "V Brda (nach Brda)? Gehst du jetzt? Warte, ich komme mit!", "it": "V Brda (nel Collio, verso)? Ci vai adesso? Aspetta, vengo con te!" } }
+        ] },
+        { "who": "marko", "sl": "Allora, pridi na trgatev! Bo veliko dela in še več rebule.", "en": "Allora, come to the harvest! There'll be lots of work and even more rebula.", "de": "Allora, komm zur Weinlese! Es gibt viel Arbeit und noch mehr Rebula.", "it": "Allora, vieni alla vendemmia! Ci sarà tanto lavoro e ancora più ribolla." },
+        { "choices": [
+          { "sl": "Prav, prišel sem!", "en": "OK, I came!", "de": "Gut, ich bin gekommen!", "it": "Va bene, sono venuto!",
+            "grammar": "prihodnjik", "why": { "en": "The harvest is still to come: the future, bom prišel. Sem prišel is the past.", "de": "Die Weinlese kommt erst noch: das Futur, bom prišel. Sem prišel ist die Vergangenheit.", "it": "La vendemmia deve ancora venire: il futuro, bom prišel. Sem prišel è il passato." },
+            "reply": { "sl": "Si že tu? Ha ha, grozdje pa še ni zrelo!", "en": "You're here already? Ha ha, but the grapes aren't ripe yet!", "de": "Du bist schon da? Haha, aber die Trauben sind noch nicht reif!", "it": "Sei già qui? Ah ah, ma l'uva non è ancora matura!" } },
+          { "sl": "Prav, prišel bom!", "en": "OK, I'll come!", "de": "Gut, ich komme!", "it": "Va bene, verrò!", "ok": true,
+            "reply": { "sl": "Bravo! Več rok, prej je konec.", "en": "Bravo! More hands, sooner done.", "de": "Bravo! Mehr Hände, schneller fertig.", "it": "Bravo! Più mani, prima si finisce." } },
+          { "sl": "Prav, pridem bom!", "en": "OK, I come will!", "de": "Gut, ich komme werde!", "it": "Va bene, vengo sarò!",
+            "grammar": "prihodnjik", "why": { "en": "Either the future bom prišel, or simply pridem. Pridem bom mixes the two.", "de": "Entweder das Futur bom prišel oder einfach pridem. Pridem bom mischt beides.", "it": "O il futuro bom prišel, o semplicemente pridem. Pridem bom mescola le due cose." },
+            "reply": { "sl": "Pridem bom? Ej, Jan, en kozarček je bil preveč!", "en": "Pridem bom? Hey, Jan, one little glass was one too many!", "de": "Pridem bom? He, Jan, ein Gläschen war eins zu viel!", "it": "Pridem bom? Ehi, Jan, un bicchierino era già troppo!" } }
+        ] },
+        { "who": "marko", "sl": "Allora, koga pripelješ?", "en": "Allora, who will you bring along?", "de": "Allora, wen bringst du mit?", "it": "Allora, chi porti?" },
+        { "choices": [
+          { "sl": "Pripeljem babica Micka!", "en": "I'll bring, Grandma Micka!", "de": "Ich bringe, Oma Micka!", "it": "Porto, Nonna Micka!",
+            "grammar": "tozilnik", "why": { "en": "Pripeljati (to bring along) takes the accusative: babico Micko.", "de": "Pripeljati (mitbringen) steht mit dem Akkusativ: babico Micko.", "it": "Pripeljati (portare con sé) regge l'accusativo: babico Micko." },
+            "reply": { "sl": "Kaj? Kliči jo glasneje, ne sliši te!", "en": "What? Call her louder, she can't hear you!", "de": "Was? Ruf sie lauter, sie hört dich nicht!", "it": "Cosa? Chiamala più forte, non ti sente!" } },
+          { "sl": "Pripeljem babico Micko!", "en": "I'll bring Grandma Micka!", "de": "Ich bringe Oma Micka mit!", "it": "Porto Nonna Micka!", "ok": true,
+            "reply": { "sl": "Super! Babica kuha, midva pa trgava.", "en": "Great! Grandma cooks, and the two of us pick the grapes.", "de": "Super! Die Oma kocht, und wir zwei lesen die Trauben.", "it": "Fantastico! La nonna cucina e noi due vendemmiamo." } }
+        ] },
+        { "who": "marko", "sl": "Allora, na zdravje! Na trgatev!", "en": "Allora, cheers! To the harvest!", "de": "Allora, Prost! Auf die Weinlese!", "it": "Allora, salute! Alla vendemmia!" }
+      ]
+    }
+  ]
+}

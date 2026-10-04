@@ -1,0 +1,97 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "kje-mestnik-orodnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "📍",
+  "title": {
+    "sl": "Kje? Predlogi kraja",
+    "en": "Where? Prepositions of place",
+    "de": "Wo? Präpositionen des Ortes",
+    "it": "Dove? Le preposizioni di luogo"
+  },
+  "rule": {
+    "en": "To say where something is (**Kje?**), a preposition changes the ending of the noun after it.\n\n**v** (in), **na** (on, at), **ob** (by) and **pri** (at, near, at someone's) take the locative (*mestnik*): šola → **v šoli**, travnik → **na travniku**, ribnik → **ob ribniku**, babica → **pri babici**.\n\n**v** is inside something (**v hiši**, **v gozdu**); **na** is on it or out in the open, and also at a post office, a market or a party (**na mizi**, **na travniku**, **na pošti**, **na tržnici**). **pri** is beside something or at someone's: **pri vrbi**, **pri babici**.\n\nThe adjective changes with its noun: velika hiša → **v veliki hiši**. Going somewhere (**Kam?**) is different: v and na then take the accusative (**v šolo**, see that page).\n\nMore places come at A2: **pod, nad, pred, za, med** take the instrumental (**pod mizo**, see *orodnik*), **blizu** the genitive (**blizu pomola**, see the genitive after prepositions).",
+    "de": "Wenn man sagt, wo etwas ist (**Kje?**), ändert die Präposition die Endung des Nomens danach.\n\n**v** (in), **na** (auf, an), **ob** (am, neben) und **pri** (bei) stehen mit dem Lokativ (*mestnik*): šola → **v šoli**, travnik → **na travniku**, ribnik → **ob ribniku**, babica → **pri babici**.\n\n**v** ist in etwas drin (**v hiši**, **v gozdu**); **na** ist darauf oder draußen im Freien, auch auf der Post, auf dem Markt, auf einem Fest (**na mizi**, **na travniku**, **na pošti**, **na tržnici**). **pri** ist neben etwas oder bei jemandem: **pri vrbi**, **pri babici**.\n\nDas Adjektiv ändert sich mit seinem Nomen: velika hiša → **v veliki hiši**. Wie im Deutschen (Wo? Dativ, Wohin? Akkusativ) ist die Richtung (**Kam?**) anders: dann stehen v und na mit dem Akkusativ (**v šolo**, siehe dort).\n\nWeitere Orte kommen auf A2: **pod, nad, pred, za, med** mit dem Instrumental (**pod mizo**, siehe *orodnik*), **blizu** mit dem Genitiv (**blizu pomola**, siehe Genitiv nach Präpositionen).",
+    "it": "Per dire dove si trova qualcosa (**Kje?**), la preposizione cambia la desinenza del nome che segue.\n\n**v** (in), **na** (su, a), **ob** (in riva a, accanto a) e **pri** (presso, da qualcuno) reggono il locativo (*mestnik*): šola → **v šoli**, travnik → **na travniku**, ribnik → **ob ribniku**, babica → **pri babici**.\n\n**v** è dentro qualcosa (**v hiši**, **v gozdu**); **na** è sopra o all'aperto, e anche alla posta, al mercato, a una festa (**na mizi**, **na travniku**, **na pošti**, **na tržnici**). **pri** è accanto a qualcosa o da qualcuno: **pri vrbi**, **pri babici**.\n\nL'aggettivo cambia con il suo nome: velika hiša → **v veliki hiši**. Il moto a luogo (**Kam?**) è diverso: allora v e na reggono l'accusativo (**v šolo**, vedi quella pagina).\n\nAltri luoghi vengono all'A2: **pod, nad, pred, za, med** con lo strumentale (**pod mizo**, vedi *orodnik*), **blizu** con il genitivo (**blizu pomola**, vedi il genitivo dopo le preposizioni)."
+  },
+  "table": {
+    "head": [
+      { "sl": "predlog", "en": "preposition", "de": "Präposition", "it": "preposizione" },
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["v", { "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "v gozdu"],
+      ["na", { "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "na travniku"],
+      ["ob", { "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "ob ribniku"],
+      ["pri", { "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "pri babici"],
+      ["pod, nad, pred, za, med", { "sl": "orodnik (A2)", "en": "instrumental (orodnik), A2: see that page", "de": "Instrumental (orodnik), A2: siehe dort", "it": "strumentale (orodnik), A2: vedi quella pagina" }, "pod mizo"],
+      ["blizu", { "sl": "rodilnik (A2)", "en": "genitive (rodilnik), A2", "de": "Genitiv (rodilnik), A2", "it": "genitivo (rodilnik), A2" }, "blizu pomola"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Šotor bo stal ob ribniku.",
+      "en": "The tent will stand by the pond.",
+      "de": "Das Zelt wird am Teich stehen.",
+      "it": "La tenda starà in riva allo stagno."
+    },
+    {
+      "sl": "Babica je v kuhinji.",
+      "en": "Grandma is in the kitchen.",
+      "de": "Oma ist in der Küche.",
+      "it": "La nonna è in cucina."
+    },
+    {
+      "sl": "Luka je na travniku, ovce so v gozdu.",
+      "en": "Luka is in the meadow, the sheep are in the woods.",
+      "de": "Luka ist auf der Wiese, die Schafe sind im Wald.",
+      "it": "Luka è sul prato, le pecore sono nel bosco.",
+      "note": {
+        "en": "An open meadow takes na, a wood you are inside takes v.",
+        "de": "Eine offene Wiese nimmt na, ein Wald, in dem man drin ist, v.",
+        "it": "Un prato aperto vuole na, un bosco in cui si è dentro vuole v."
+      }
+    },
+    {
+      "sl": "Micka je na tržnici, Vida je v gostilni.",
+      "en": "Micka is at the market, Vida is at the inn.",
+      "de": "Micka ist auf dem Markt, Vida ist im Gasthaus.",
+      "it": "Micka è al mercato, Vida è all'osteria."
+    },
+    {
+      "sl": "Mačka spi pri peči.",
+      "en": "The cat is sleeping by the stove.",
+      "de": "Die Katze schläft beim Ofen.",
+      "it": "Il gatto dorme vicino alla stufa."
+    },
+    {
+      "sl": "Pisma so na mizi.",
+      "en": "The letters are on the table.",
+      "de": "Die Briefe liegen auf dem Tisch.",
+      "it": "Le lettere sono sul tavolo.",
+      "note": {
+        "en": "Where they are: na mizi. Where you put them: na mizo (the accusative).",
+        "de": "Wo sie liegen: na mizi. Wohin man sie legt: na mizo (Akkusativ).",
+        "it": "Dove sono: na mizi. Dove le metti: na mizo (accusativo)."
+      }
+    },
+    {
+      "sl": "Pod veliko smreko je senca.",
+      "en": "Under the big spruce there is shade.",
+      "de": "Unter der großen Fichte ist Schatten.",
+      "it": "Sotto il grande abete rosso c'è ombra.",
+      "note": {
+        "en": "Pod takes the instrumental, an A2 rule (see orodnik): velika smreka → pod veliko smreko.",
+        "de": "Pod verlangt den Instrumental, eine Regel für A2 (siehe orodnik): velika smreka → pod veliko smreko.",
+        "it": "Pod regge lo strumentale, una regola dell'A2 (vedi orodnik): velika smreka → pod veliko smreko."
+      }
+    }
+  ],
+  "modules": ["predlogi-kraja"],
+  "tags": ["kje", "locative", "prepositions_place", "place_prepositions"],
+  "see": ["kam-tozilnik", "mestnik", "orodnik", "rodilnik-predlogi", "vprasalnice", "skloni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

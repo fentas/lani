@@ -1,0 +1,94 @@
+{
+  "_comment": "Who speaks the German of the kaernten village (companion/README.md, Voice): the same archetypes as companion/voice-cast.json, for the kaernten cast (villagers/*.json 'speaker'). The bridge asks ElevenLabs (eleven_v3) with language_code de. Chosen by audition on 2026-09-27: the same villager lines in each candidate, checked with the local Whisper (every word right), the pitch and the noise measured. Native Austrian library voices for the narrator and the old men (Fiona, Helmut: on the account since the audition, no voice slot); the others are voices the account had, which ElevenLabs verified in German where it says so (Mila, Daniel, Lily, Matilda, Jessica, Brian, Chris Basetta, Torri Miles; not Kavya). The male narrator Daniel is an English voice: 'carrier', so he says a lone word inside 'Das Wort ist: …'. 'alternatives': the other candidates heard (on the account); one with a 'library_owner' was not heard, only its library preview, and must be added first. To swap a voice, put its id in 'elevenlabs' and re-voice that speaker: LANI_CULTURE=kaernten companion/bin/voice-build --run --revoice <speaker> --data <the learner's data dir>. No 'gepard' voices: the local worker speaks only Slovene. Voice Design stays off for new profiles (LANI_VOICE_DESIGN=off).",
+  "language": "de",
+  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json).", "girl": "hiss" },
+  "speakers": {
+    "female": {
+      "gender": "female",
+      "elevenlabs": "hIu9oVaWQOAlZ60h6mYh",
+      "name": "Fiona",
+      "role": "Narrator: words, examples, exercises (default)",
+      "alternatives": [{ "name": "Matilda", "elevenlabs": "XrExE9yKIg1WjnnlVkGX" }]
+    },
+    "male": {
+      "gender": "male",
+      "elevenlabs": "onwK4e9ZLuTAKqWW03F9",
+      "name": "Daniel",
+      "carrier": true,
+      "role": "Narrator (male): role-play characters with voice male",
+      "alternatives": [
+        { "name": "Brian", "elevenlabs": "nPczCjzI2devNBz1zQrb" },
+        { "name": "Hermann", "elevenlabs": "b0JqlN5qkeuPi5BoQiHn", "library_owner": "c2b4653e93823593e084dae61e0e4c460502c063da63dfed8d0c09a53020f85c" }
+      ]
+    },
+    "grandma": {
+      "gender": "female",
+      "elevenlabs": "eqAqnItEUARzEkoDCTJ1",
+      "name": "Mila",
+      "role": "Grandmother: Oma Resi, Tante Mitzi",
+      "alternatives": [
+        { "name": "Zlata", "elevenlabs": "V5O4WAcdw7w3Ccfvma8Z" },
+        { "name": "Lisa", "elevenlabs": "p2Wol3C7j3rHbfOrbL18", "library_owner": "1c07ef5740387faa0fd1f7e624ce51055c0b270674ab3da0f0e22c2882bce3c4" }
+      ]
+    },
+    "grandpa": {
+      "gender": "male",
+      "elevenlabs": "bRIX82ywyYryS8320ZVY",
+      "name": "Helmut",
+      "role": "Old man: Opa Sepp, Müller Franz, Imker Stanko",
+      "alternatives": [
+        { "name": "Tomasz Z", "elevenlabs": "xsSg7GkDPDhaGZpbKOLn" },
+        { "name": "Bill", "elevenlabs": "pqHfZKP75CvOlQylNhV4" },
+        { "name": "Romolus", "elevenlabs": "vzQig4HUz4S19MKnT0jp", "library_owner": "887dab78a8d7bd06e12b7614e8408563a89e0b6e3c3bb4cf3ec19d5d53a060f0" }
+      ]
+    },
+    "young-man": {
+      "gender": "male",
+      "elevenlabs": "t3hJ92dgZhDVtsff084B",
+      "name": "Chris Basetta",
+      "role": "Young man: Hirte Florian, Mostbauer Stefan; men who move in",
+      "alternatives": [{ "name": "Will", "elevenlabs": "bIHbv24MWmeRgasZH58o" }]
+    },
+    "gruff": {
+      "gender": "male",
+      "elevenlabs": "nPczCjzI2devNBz1zQrb",
+      "name": "Brian",
+      "role": "Deep, gruff man: Schmied Toni",
+      "alternatives": [{ "name": "Nikola", "elevenlabs": "DAGnQ7r9sMtV0Q44g1Mi" }]
+    },
+    "woman": {
+      "gender": "female",
+      "elevenlabs": "XrExE9yKIg1WjnnlVkGX",
+      "name": "Matilda",
+      "role": "Warm woman: Wirtin Kathi",
+      "alternatives": [{ "name": "Jessica", "elevenlabs": "cgSgspJ2msm6clMCkdW9" }]
+    },
+    "teacher": {
+      "gender": "female",
+      "elevenlabs": "pFZP5JQG7iQjIQuC4Bku",
+      "name": "Lily",
+      "role": "Clear teacher: Lehrerin Eva",
+      "alternatives": [{ "name": "Matilda", "elevenlabs": "XrExE9yKIg1WjnnlVkGX" }]
+    },
+    "young-woman": {
+      "gender": "female",
+      "elevenlabs": "cgSgspJ2msm6clMCkdW9",
+      "name": "Jessica",
+      "role": "Young woman: women who move in",
+      "alternatives": [{ "name": "Matilda", "elevenlabs": "XrExE9yKIg1WjnnlVkGX" }]
+    },
+    "girl": {
+      "gender": "female",
+      "elevenlabs": "a30ekmfK56EKHR341YaO",
+      "name": "Torri Miles",
+      "role": "Girl: Lena; girls born in the village",
+      "alternatives": [{ "name": "Jessica", "elevenlabs": "cgSgspJ2msm6clMCkdW9" }]
+    },
+    "boy": {
+      "gender": "male",
+      "elevenlabs": "bA58y3FqVI6b6gTNh0oT",
+      "name": "Kavya",
+      "role": "Boy: Maxi, Jakob; boys born in the village"
+    }
+  }
+}

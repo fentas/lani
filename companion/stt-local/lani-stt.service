@@ -1,0 +1,31 @@
+# Lani local speech recognition: Whisper on 127.0.0.1:8796.
+# Installed by companion/stt-local/install.sh into ~/.config/systemd/user/.
+# Local overrides (model, device, beam, ...) go in ~/.config/lani-stt.env.
+[Unit]
+Description=Lani local speech recognition (Whisper, 127.0.0.1:8796)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.local/share/lani-stt
+ExecStart=%h/.local/share/lani-stt/venv/bin/python %h/.local/share/lani-stt/app/server.py
+Environment=PYTHONUNBUFFERED=1
+Environment=LANI_STT_STATE=%h/.local/share/lani-stt
+# ROCm: device 0 is the RX 9070 (device 1 is the Ryzen iGPU).
+Environment=HIP_VISIBLE_DEVICES=0
+Environment=MIOPEN_FIND_MODE=FAST
+Environment=MIOPEN_USER_DB_PATH=%h/.local/share/lani-stt/miopen
+Environment=MIOPEN_CUSTOM_CACHE_DIR=%h/.local/share/lani-stt/miopen/cache
+Environment=TRITON_CACHE_DIR=%h/.local/share/lani-stt/triton
+# Overrides from before the rename (FLUENT_STT_*, still read), then today's: the later file wins.
+EnvironmentFile=-%h/.config/fluent-stt.env
+EnvironmentFile=-%h/.config/lani-stt.env
+Restart=on-failure
+RestartSec=15
+Nice=5
+MemoryHigh=6G
+MemoryMax=10G
+# Recordings are decoded from a temporary file in $XDG_RUNTIME_DIR (tmpfs), deleted at once.
+
+[Install]
+WantedBy=default.target

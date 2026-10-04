@@ -1,0 +1,514 @@
+{
+  "goods": [
+    {
+      "id": "potica",
+      "emoji": "🥮",
+      "name": { "sl": "Potica", "en": "Potica (the rolled walnut cake)", "de": "Potica (der gerollte Nusskuchen)", "it": "Potica (il dolce arrotolato alle noci)" },
+      "acc": { "sl": "potico", "en": "potica (the rolled walnut cake)", "de": "eine Potica (den gerollten Nusskuchen)", "it": "una potica (il dolce arrotolato alle noci)" },
+      "price": "good"
+    },
+    {
+      "id": "kruh",
+      "emoji": "🍞",
+      "name": { "sl": "Hlebec kruha", "en": "A loaf of bread", "de": "Ein Laib Brot", "it": "Una pagnotta" },
+      "acc": { "sl": "hlebec kruha", "en": "a loaf of bread", "de": "einen Laib Brot", "it": "una pagnotta" },
+      "price": "plain"
+    },
+    {
+      "id": "med",
+      "emoji": "🍯",
+      "name": { "sl": "Kozarec medu", "en": "A jar of honey", "de": "Ein Glas Honig", "it": "Un vasetto di miele" },
+      "acc": { "sl": "kozarec medu", "en": "a jar of honey", "de": "ein Glas Honig", "it": "un vasetto di miele" },
+      "price": "good"
+    },
+    {
+      "id": "tolminc",
+      "emoji": "🧀",
+      "name": { "sl": "Tolminc", "en": "Tolminc cheese (from the Soča valley)", "de": "Tolminc-Käse (aus dem Sočatal)", "it": "Formaggio Tolminc (della valle dell'Isonzo)" },
+      "acc": { "sl": "tolminc", "en": "Tolminc cheese (from the Soča valley)", "de": "einen Tolminc-Käse (aus dem Sočatal)", "it": "un formaggio Tolminc (della valle dell'Isonzo)" },
+      "price": "plain"
+    },
+    {
+      "id": "rebula",
+      "emoji": "🍾",
+      "name": { "sl": "Steklenica rebule", "en": "A bottle of rebula", "de": "Eine Flasche Rebula", "it": "Una bottiglia di ribolla" },
+      "acc": { "sl": "steklenico rebule", "en": "a bottle of rebula", "de": "eine Flasche Rebula", "it": "una bottiglia di ribolla" },
+      "price": "fine",
+      "adult": true
+    },
+    {
+      "id": "podkev",
+      "emoji": "⚒️",
+      "name": { "sl": "Podkev", "en": "A horseshoe (for luck)", "de": "Ein Hufeisen (als Glücksbringer)", "it": "Un ferro di cavallo (porta fortuna)" },
+      "acc": { "sl": "podkev", "en": "a horseshoe (for luck)", "de": "ein Hufeisen (als Glücksbringer)", "it": "un ferro di cavallo (porta fortuna)" },
+      "price": "plain",
+      "food": false
+    },
+    {
+      "id": "vezenina",
+      "emoji": "🧵",
+      "name": { "sl": "Vezenina", "en": "Embroidery", "de": "Stickerei", "it": "Ricamo" },
+      "acc": { "sl": "vezenino", "en": "embroidery", "de": "eine Stickerei", "it": "un ricamo" },
+      "price": "fine",
+      "food": false
+    },
+    {
+      "id": "caj",
+      "emoji": "🍵",
+      "name": { "sl": "Lipov čaj", "en": "Linden tea", "de": "Lindenblütentee", "it": "Tisana di tiglio" },
+      "acc": { "sl": "lipov čaj", "en": "linden tea", "de": "Lindenblütentee", "it": "della tisana di tiglio" },
+      "price": "plain"
+    },
+    {
+      "id": "zvezek",
+      "emoji": "📓",
+      "name": { "sl": "Zvezek", "en": "A notebook", "de": "Ein Heft", "it": "Un quaderno" },
+      "acc": { "sl": "zvezek", "en": "a notebook", "de": "ein Heft", "it": "un quaderno" },
+      "price": "plain",
+      "food": false
+    },
+    {
+      "id": "jota",
+      "emoji": "🍲",
+      "name": { "sl": "Lonec jote", "en": "A pot of jota (bean and sauerkraut stew)", "de": "Ein Topf Jota (Eintopf aus Bohnen und Sauerkraut)", "it": "Una pentola di jota (minestra di fagioli e crauti)" },
+      "acc": { "sl": "lonec jote", "en": "a pot of jota (bean and sauerkraut stew)", "de": "einen Topf Jota (Eintopf aus Bohnen und Sauerkraut)", "it": "una pentola di jota (minestra di fagioli e crauti)" },
+      "price": "good"
+    },
+    {
+      "id": "jabolka",
+      "emoji": "🍎",
+      "name": { "sl": "Jabolka", "en": "Apples", "de": "Äpfel", "it": "Mele" },
+      "acc": { "sl": "jabolka", "en": "apples", "de": "Äpfel", "it": "delle mele" },
+      "price": "small"
+    },
+    {
+      "id": "jajca",
+      "emoji": "🥚",
+      "name": { "sl": "Jajca", "en": "Eggs", "de": "Eier", "it": "Uova" },
+      "acc": { "sl": "jajca", "en": "eggs", "de": "Eier", "it": "delle uova" },
+      "price": "small"
+    },
+    {
+      "id": "borovnice",
+      "emoji": "🫐",
+      "name": { "sl": "Borovnice", "en": "Blueberries", "de": "Heidelbeeren", "it": "Mirtilli" },
+      "acc": { "sl": "borovnice", "en": "blueberries", "de": "Heidelbeeren", "it": "dei mirtilli" },
+      "price": "small"
+    },
+    {
+      "id": "nogavice",
+      "emoji": "🧦",
+      "name": { "sl": "Volnene nogavice", "en": "Wool socks", "de": "Wollsocken", "it": "Calzini di lana" },
+      "acc": { "sl": "volnene nogavice", "en": "wool socks", "de": "Wollsocken", "it": "dei calzini di lana" },
+      "price": "plain",
+      "food": false
+    },
+    {
+      "id": "penina",
+      "emoji": "🥂",
+      "name": { "sl": "Penina", "en": "Sparkling wine", "de": "Sekt", "it": "Spumante" },
+      "acc": { "sl": "penino", "en": "sparkling wine", "de": "Sekt", "it": "dello spumante" },
+      "price": "rich",
+      "rare": true,
+      "adult": true
+    },
+    {
+      "id": "poezije",
+      "emoji": "📕",
+      "name": { "sl": "Prešernove Poezije", "en": "Prešeren's Poems (a book)", "de": "Prešerens Gedichte (ein Buch)", "it": "Le Poesie di Prešeren (un libro)" },
+      "acc": { "sl": "Prešernove Poezije", "en": "Prešeren's Poems (a book)", "de": "Prešerens Gedichte (ein Buch)", "it": "le Poesie di Prešeren (un libro)" },
+      "price": "rich",
+      "food": false,
+      "rare": true,
+      "read": "zdravljica"
+    },
+    {
+      "id": "krofi",
+      "emoji": "🍩",
+      "name": { "sl": "Krofi", "en": "Doughnuts", "de": "Krapfen", "it": "Bomboloni" },
+      "acc": { "sl": "krofe", "en": "doughnuts", "de": "Krapfen", "it": "dei bomboloni" },
+      "price": "fine",
+      "rare": true
+    },
+    {
+      "id": "pisanice",
+      "emoji": "🥚",
+      "name": { "sl": "Pisanice", "en": "Painted Easter eggs", "de": "Bemalte Ostereier", "it": "Uova di Pasqua dipinte" },
+      "acc": { "sl": "pisanice", "en": "painted Easter eggs", "de": "bemalte Ostereier", "it": "delle uova di Pasqua dipinte" },
+      "price": "rich",
+      "rare": true
+    },
+    {
+      "id": "klobasa",
+      "emoji": "🌭",
+      "name": { "sl": "Kranjska klobasa", "en": "A Carniolan sausage", "de": "Eine Krainer Wurst", "it": "Una salsiccia della Carniola" },
+      "acc": { "sl": "kranjsko klobaso", "en": "a Carniolan sausage", "de": "eine Krainer Wurst", "it": "una salsiccia della Carniola" },
+      "price": "fine",
+      "rare": true
+    },
+    {
+      "id": "sentjanzevka",
+      "emoji": "🌼",
+      "name": { "sl": "Šentjanževka", "en": "St John's wort", "de": "Johanniskraut", "it": "Iperico" },
+      "acc": { "sl": "šentjanževko", "en": "St John's wort", "de": "Johanniskraut", "it": "dell'iperico" },
+      "price": "good",
+      "food": false,
+      "rare": true
+    },
+    {
+      "id": "grozdje",
+      "emoji": "🍇",
+      "name": { "sl": "Grozdje", "en": "Grapes", "de": "Trauben", "it": "Uva" },
+      "acc": { "sl": "grozdje", "en": "grapes", "de": "Trauben", "it": "dell'uva" },
+      "price": "good",
+      "rare": true
+    },
+    {
+      "id": "mlado_vino",
+      "emoji": "🍷",
+      "name": { "sl": "Mlado vino", "en": "Young wine", "de": "Junger Wein", "it": "Vino novello" },
+      "acc": { "sl": "mlado vino", "en": "young wine", "de": "jungen Wein", "it": "del vino novello" },
+      "price": "rich",
+      "rare": true,
+      "adult": true
+    },
+    {
+      "id": "medenjaki",
+      "emoji": "🍪",
+      "name": { "sl": "Medenjaki", "en": "Honey biscuits", "de": "Honigkekse", "it": "Biscotti al miele" },
+      "acc": { "sl": "medenjake", "en": "honey biscuits", "de": "Honigkekse", "it": "dei biscotti al miele" },
+      "price": "fine",
+      "rare": true
+    },
+    {
+      "id": "poprtnik",
+      "emoji": "🍞",
+      "name": { "sl": "Poprtnik", "en": "Christmas bread", "de": "Weihnachtsbrot", "it": "Pane di Natale" },
+      "acc": { "sl": "poprtnik", "en": "Christmas bread", "de": "ein Weihnachtsbrot", "it": "un pane di Natale" },
+      "price": "rich",
+      "rare": true
+    },
+    {
+      "id": "sol",
+      "emoji": "🧂",
+      "name": { "sl": "Piranska sol", "en": "Salt from Piran", "de": "Salz aus Piran", "it": "Sale di Pirano" },
+      "acc": { "sl": "piransko sol", "en": "salt from Piran", "de": "Salz aus Piran", "it": "del sale di Pirano" },
+      "price": "fine",
+      "food": false,
+      "rare": true
+    },
+    {
+      "id": "olje",
+      "emoji": "🫒",
+      "name": { "sl": "Oljčno olje", "en": "Olive oil (from Istria)", "de": "Olivenöl (aus Istrien)", "it": "Olio d'oliva (dell'Istria)" },
+      "acc": { "sl": "oljčno olje", "en": "olive oil (from Istria)", "de": "Olivenöl (aus Istrien)", "it": "dell'olio d'oliva (dell'Istria)" },
+      "price": "rich",
+      "food": false,
+      "rare": true
+    },
+    {
+      "id": "prsut",
+      "emoji": "🥓",
+      "name": { "sl": "Kraški pršut", "en": "Karst ham", "de": "Karstschinken", "it": "Prosciutto del Carso" },
+      "acc": { "sl": "kraški pršut", "en": "Karst ham", "de": "Karstschinken", "it": "del prosciutto del Carso" },
+      "price": "precious",
+      "rare": true
+    },
+    {
+      "id": "kava",
+      "emoji": "☕",
+      "name": { "sl": "Kava iz Trsta", "en": "Coffee from Trieste", "de": "Kaffee aus Triest", "it": "Caffè di Trieste" },
+      "acc": { "sl": "kavo iz Trsta", "en": "coffee from Trieste", "de": "Kaffee aus Triest", "it": "del caffè di Trieste" },
+      "price": "fine",
+      "rare": true
+    }
+  ],
+  "tools": [
+    {
+      "giver": "luka",
+      "giver_name": "Luka",
+      "effect": "wood",
+      "forge": true,
+      "first": {
+        "emoji": "🪓",
+        "name": { "sl": "Sekira", "en": "An axe", "de": "Eine Axt", "it": "Un'ascia" },
+        "acc": { "sl": "sekiro", "en": "an axe", "de": "eine Axt", "it": "un'ascia" },
+        "the": { "sl": "sekiro", "en": "the axe", "de": "die Axt", "it": "l'ascia" }
+      },
+      "better": {
+        "emoji": "🪓",
+        "name": { "sl": "Ostra sekira", "en": "A sharp axe", "de": "Eine scharfe Axt", "it": "Un'ascia affilata" },
+        "acc": { "sl": "ostro sekiro", "en": "a sharp axe", "de": "eine scharfe Axt", "it": "un'ascia affilata" },
+        "the": { "sl": "ostro sekiro", "en": "the sharp axe", "de": "die scharfe Axt", "it": "l'ascia affilata" }
+      }
+    },
+    {
+      "giver": "france",
+      "giver_name": "France",
+      "effect": "food",
+      "forge": true,
+      "first": {
+        "emoji": "🌾",
+        "name": { "sl": "Srp", "en": "A sickle", "de": "Eine Sichel", "it": "Un falcetto" },
+        "acc": { "sl": "srp", "en": "a sickle", "de": "eine Sichel", "it": "un falcetto" },
+        "the": { "sl": "srp", "en": "the sickle", "de": "die Sichel", "it": "il falcetto" }
+      },
+      "better": {
+        "emoji": "🌾",
+        "name": { "sl": "Kosa", "en": "A scythe", "de": "Eine Sense", "it": "Una falce" },
+        "acc": { "sl": "koso", "en": "a scythe", "de": "eine Sense", "it": "una falce" },
+        "the": { "sl": "koso", "en": "the scythe", "de": "die Sense", "it": "la falce" }
+      }
+    },
+    {
+      "giver": "tone",
+      "giver_name": "Tone",
+      "effect": "stone",
+      "forge": true,
+      "first": {
+        "emoji": "⛏️",
+        "name": { "sl": "Kramp", "en": "A pickaxe", "de": "Eine Spitzhacke", "it": "Un piccone" },
+        "acc": { "sl": "kramp", "en": "a pickaxe", "de": "eine Spitzhacke", "it": "un piccone" },
+        "the": { "sl": "kramp", "en": "the pickaxe", "de": "die Spitzhacke", "it": "il piccone" }
+      },
+      "better": {
+        "emoji": "⛏️",
+        "name": { "sl": "Jeklen kramp", "en": "A steel pickaxe", "de": "Eine Spitzhacke aus Stahl", "it": "Un piccone d'acciaio" },
+        "acc": { "sl": "jeklen kramp", "en": "a steel pickaxe", "de": "eine Spitzhacke aus Stahl", "it": "un piccone d'acciaio" },
+        "the": { "sl": "jeklen kramp", "en": "the steel pickaxe", "de": "die Spitzhacke aus Stahl", "it": "il piccone d'acciaio" }
+      }
+    },
+    {
+      "giver": "janez",
+      "giver_name": "Janez",
+      "effect": "wisdom",
+      "first": {
+        "emoji": "📖",
+        "name": { "sl": "Stara knjiga", "en": "An old book", "de": "Ein altes Buch", "it": "Un vecchio libro" },
+        "acc": { "sl": "staro knjigo", "en": "an old book", "de": "ein altes Buch", "it": "un vecchio libro" },
+        "read": "stara-pratika"
+      },
+      "better": {
+        "emoji": "📖",
+        "name": { "sl": "Knjiga pregovorov", "en": "A book of proverbs", "de": "Ein Buch mit Sprichwörtern", "it": "Un libro di proverbi" },
+        "acc": { "sl": "knjigo pregovorov", "en": "a book of proverbs", "de": "ein Buch mit Sprichwörtern", "it": "un libro di proverbi" },
+        "read": "knjiga-pregovorov"
+      }
+    },
+    {
+      "giver": "micka",
+      "giver_name": "Micka",
+      "effect": "thrift",
+      "first": {
+        "emoji": "🗒️",
+        "name": { "sl": "Recept", "en": "Her recipe", "de": "Ihr Rezept", "it": "La sua ricetta" },
+        "acc": { "sl": "svoj recept", "en": "her recipe", "de": "ihr Rezept", "it": "la sua ricetta" },
+        "read": "frtalja"
+      },
+      "better": {
+        "emoji": "🥮",
+        "name": { "sl": "Recept za potico", "en": "The potica recipe", "de": "Das Potica-Rezept", "it": "La ricetta della potica" },
+        "acc": { "sl": "recept za potico", "en": "the potica recipe", "de": "das Potica-Rezept", "it": "la ricetta della potica" },
+        "read": "potica"
+      }
+    },
+    {
+      "giver": "ancka",
+      "giver_name": "Ančka",
+      "effect": "warning",
+      "first": {
+        "emoji": "📻",
+        "name": { "sl": "Radio", "en": "A radio", "de": "Ein Radio", "it": "Una radio" },
+        "acc": { "sl": "radio", "en": "a radio", "de": "ein Radio", "it": "una radio" }
+      },
+      "better": {
+        "emoji": "📻",
+        "name": { "sl": "Nov radio", "en": "A new radio", "de": "Ein neues Radio", "it": "Una radio nuova" },
+        "acc": { "sl": "nov radio", "en": "a new radio", "de": "ein neues Radio", "it": "una radio nuova" }
+      }
+    },
+    {
+      "giver": "anton",
+      "giver_name": "Anton",
+      "effect": "morale",
+      "first": {
+        "emoji": "🕯️",
+        "name": { "sl": "Voščene sveče", "en": "Beeswax candles", "de": "Bienenwachskerzen", "it": "Candele di cera d'api" },
+        "acc": { "sl": "voščene sveče", "en": "beeswax candles", "de": "Bienenwachskerzen", "it": "delle candele di cera d'api" }
+      },
+      "better": {
+        "emoji": "❤️",
+        "name": { "sl": "Lectovo srce", "en": "A licitar heart", "de": "Ein Lebkuchenherz", "it": "Un cuore di panpepato" },
+        "acc": { "sl": "lectovo srce", "en": "a licitar heart", "de": "ein Lebkuchenherz", "it": "un cuore di panpepato" }
+      }
+    },
+    {
+      "giver": "mojca",
+      "giver_name": "Mojca",
+      "effect": "quest_pay",
+      "first": {
+        "emoji": "🖍️",
+        "name": { "sl": "Kreda", "en": "Chalk", "de": "Kreide", "it": "Gessetti" },
+        "acc": { "sl": "kredo", "en": "chalk", "de": "Kreide", "it": "dei gessetti" }
+      },
+      "better": {
+        "emoji": "📚",
+        "name": { "sl": "Učbenik", "en": "A textbook", "de": "Ein Lehrbuch", "it": "Un libro di testo" },
+        "acc": { "sl": "učbenik", "en": "a textbook", "de": "ein Lehrbuch", "it": "un libro di testo" },
+        "read": "ucbenik-dvojina"
+      }
+    },
+    {
+      "giver": "vida",
+      "giver_name": "Vida",
+      "effect": "trade",
+      "forge": true,
+      "first": {
+        "emoji": "⚖️",
+        "name": { "sl": "Tehtnica", "en": "Scales", "de": "Waage", "it": "Bilancia" },
+        "acc": { "sl": "tehtnico", "en": "scales", "de": "eine Waage", "it": "una bilancia" },
+        "the": { "sl": "tehtnico", "en": "the scales", "de": "die Waage", "it": "la bilancia" }
+      },
+      "better": {
+        "emoji": "⚖️",
+        "name": { "sl": "Medeninasta tehtnica", "en": "Brass scales", "de": "Messingwaage", "it": "Bilancia d'ottone" },
+        "acc": { "sl": "medeninasto tehtnico", "en": "brass scales", "de": "eine Messingwaage", "it": "una bilancia d'ottone" },
+        "the": { "sl": "medeninasto tehtnico", "en": "the brass scales", "de": "die Messingwaage", "it": "la bilancia d'ottone" }
+      }
+    },
+    {
+      "giver": "marko",
+      "giver_name": "Marko",
+      "effect": "stores",
+      "forge": true,
+      "first": {
+        "emoji": "🛢️",
+        "name": { "sl": "Sodček", "en": "A small barrel", "de": "Ein kleines Fass", "it": "Una botticella" },
+        "acc": { "sl": "sodček", "en": "a small barrel", "de": "ein kleines Fass", "it": "una botticella" },
+        "the": { "sl": "sodček", "en": "the small barrel", "de": "das kleine Fass", "it": "la botticella" }
+      },
+      "better": {
+        "emoji": "🛢️",
+        "name": { "sl": "Velik sod", "en": "A big barrel", "de": "Ein großes Fass", "it": "Una botte grande" },
+        "acc": { "sl": "velik sod", "en": "a big barrel", "de": "ein großes Fass", "it": "una botte grande" },
+        "the": { "sl": "velik sod", "en": "the big barrel", "de": "das große Fass", "it": "la botte grande" }
+      }
+    },
+    {
+      "giver": "zala",
+      "giver_name": "Zala",
+      "effect": "keepsake_morale",
+      "first": {
+        "emoji": "🌼",
+        "name": { "sl": "Venček", "en": "A daisy chain", "de": "Ein Gänseblümchenkranz", "it": "Una coroncina di margherite" },
+        "acc": { "sl": "venček", "en": "a daisy chain", "de": "einen Gänseblümchenkranz", "it": "una coroncina di margherite" }
+      },
+      "better": {
+        "emoji": "🎨",
+        "name": { "sl": "Risba", "en": "A drawing", "de": "Eine Zeichnung", "it": "Un disegno" },
+        "acc": { "sl": "risbo", "en": "a drawing", "de": "eine Zeichnung", "it": "un disegno" }
+      }
+    },
+    {
+      "giver": "nejc",
+      "giver_name": "Nejc",
+      "effect": "keepsake_warning",
+      "first": {
+        "emoji": "📯",
+        "name": { "sl": "Lesen rog", "en": "A wooden horn", "de": "Ein Holzhorn", "it": "Un corno di legno" },
+        "acc": { "sl": "lesen rog", "en": "a wooden horn", "de": "ein Holzhorn", "it": "un corno di legno" }
+      },
+      "better": {
+        "emoji": "🔭",
+        "name": { "sl": "Daljnogled", "en": "A spyglass", "de": "Ein Fernrohr", "it": "Un cannocchiale" },
+        "acc": { "sl": "daljnogled", "en": "a spyglass", "de": "ein Fernrohr", "it": "un cannocchiale" }
+      }
+    },
+    {
+      "giver": "tine",
+      "giver_name": "Tine",
+      "effect": "keepsake_morale",
+      "first": {
+        "emoji": "🐴",
+        "name": { "sl": "Lesen konjiček", "en": "A wooden horse", "de": "Ein Holzpferdchen", "it": "Un cavallino di legno" },
+        "acc": { "sl": "lesenega konjička", "en": "a wooden horse", "de": "ein Holzpferdchen", "it": "un cavallino di legno" }
+      },
+      "better": {
+        "emoji": "🧸",
+        "name": { "sl": "Medvedek", "en": "A teddy bear", "de": "Ein Teddybär", "it": "Un orsacchiotto" },
+        "acc": { "sl": "medvedka", "en": "a teddy bear", "de": "einen Teddybären", "it": "un orsacchiotto" }
+      }
+    }
+  ],
+  "thanks": {
+    "micka": "potica",
+    "france": "kruh",
+    "anton": "med",
+    "luka": "tolminc",
+    "marko": "rebula",
+    "tone": "podkev",
+    "ancka": "vezenina",
+    "janez": "caj",
+    "mojca": "zvezek",
+    "vida": "jota"
+  },
+  "thanks_default": "jabolka",
+  "thanks_rotation": {
+    "micka": {"goods": ["potica", "kruh", "nogavice"], "seasonal": {"pust": "krofi", "velika_noc": "pisanice", "miklavz": "medenjaki", "bozic": "poprtnik"}},
+    "france": {"goods": ["kruh", "jajca", "jabolka"], "seasonal": {"trgatev": "grozdje"}},
+    "anton": {"goods": ["med", "borovnice"], "seasonal": {"miklavz": "medenjaki"}},
+    "luka": {"goods": ["tolminc", "borovnice"], "seasonal": {"pust": "krofi"}},
+    "marko": {"goods": ["rebula", "jabolka"], "seasonal": {"trgatev": "grozdje", "martinovo": "mlado_vino"}},
+    "tone": {"goods": ["podkev", "jabolka"]},
+    "ancka": {"goods": ["vezenina", "jajca", "jabolka"], "seasonal": {"velika_noc": "pisanice"}},
+    "janez": {"goods": ["caj", "borovnice", "jabolka"], "seasonal": {"kres": "sentjanzevka"}},
+    "mojca": {"goods": ["zvezek", "jabolka", "borovnice"], "seasonal": {"presernov_dan": "poezije"}},
+    "vida": {"goods": ["jota", "kruh"], "seasonal": {"martinovo": "mlado_vino", "novo_leto": "penina"}}
+  },
+  "small_gifts": ["jabolka", "jajca", "borovnice", "nogavice"],
+  "likes": {
+    "micka": ["med", "vezenina", "caj", "jajca"],
+    "france": ["tolminc", "rebula", "jota"],
+    "anton": ["caj", "potica", "kruh"],
+    "luka": ["jota", "kruh", "jabolka", "nogavice"],
+    "ancka": ["potica", "caj", "nogavice"],
+    "tone": ["jota", "rebula", "kruh"],
+    "mojca": ["med", "caj", "vezenina"],
+    "janez": ["potica", "rebula", "zvezek", "nogavice"],
+    "marko": ["tolminc", "jota", "kruh"],
+    "vida": ["tolminc", "med", "jajca", "vezenina"],
+    "zala": ["potica", "med", "zvezek", "borovnice"],
+    "nejc": ["potica", "med", "jabolka", "borovnice"],
+    "tine": ["podkev", "potica", "jabolka", "zvezek"]
+  },
+  "likes_default": ["potica", "kruh", "jabolka"],
+  "children": ["zala", "nejc", "tine"],
+  "smith": {
+    "id": "tone",
+    "name": "Tone",
+    "title": { "sl": "Kovač Tone", "en": "Smith Tone", "de": "Schmied Tone", "it": "Fabbro Tone" }
+  },
+  "sellers": {
+    "pedlar": {
+      "emoji": "🎒",
+      "name": { "sl": "Krošnjar", "en": "The pedlar", "de": "Der Hausierer", "it": "Il venditore ambulante" }
+    },
+    "merchant": {
+      "emoji": "🧳",
+      "name": { "sl": "Trgovec", "en": "The merchant", "de": "Der Händler", "it": "Il mercante" }
+    },
+    "market": {
+      "emoji": "🏪",
+      "name": { "sl": "Tržnica", "en": "The market", "de": "Der Markt", "it": "Il mercato" }
+    }
+  },
+  "lines": {
+    "gift_tool": { "sl": "{name} ti podari {item} {emoji}", "en": "{name} gives you {item}: {effect}", "de": "{name} schenkt dir {item}: {effect}", "it": "{name} ti regala {item}: {effect}" },
+    "gift": { "sl": "{name} ti podari {item} {emoji}", "en": "{name} gives you {item}", "de": "{name} schenkt dir {item}", "it": "{name} ti regala {item}" },
+    "given": { "sl": "{name}: hvala za {item}!", "en": "thanks for {item}!", "de": "danke für {item}!", "it": "grazie per avermi regalato {item}!" },
+    "bought": { "sl": "Kupljeno", "en": "Bought: {good} ({price})", "de": "Gekauft: {good} ({price})", "it": "Comprato: {good} ({price})" },
+    "sold": { "sl": "Prodano", "en": "Sold: {good} → +{got} {res}", "de": "Verkauft: {good} → +{got} {res}", "it": "Venduto: {good} → +{got} {res}" },
+    "forged": { "sl": "{smith} je izboljšal {item} {stars}", "en": "{smith} improved {item}: {effect}", "de": "{smith} hat {item} verbessert: {effect}", "it": "{smith} ha migliorato {item}: {effect}" },
+    "feast": { "sl": "Veselica pod lipo: vsa vas je plesala!", "en": "A feast under the linden: the whole village danced! {served}", "de": "Ein Fest unter der Linde: Das ganze Dorf hat getanzt! {served}", "it": "Una festa sotto il tiglio: tutto il paese ha ballato! {served}" }
+  }
+}

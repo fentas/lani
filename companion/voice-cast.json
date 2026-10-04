@@ -1,0 +1,104 @@
+{
+  "_comment": "Who speaks Lani's Slovene (companion/README.md, Voice). A speaker: an ElevenLabs voice (eleven_v3), a local Gepard voice for when ElevenLabs can't, and a gender (the app's fallback voice and grammar). 'female' and 'male' are the narrators of every generic text; a villager speaks with their 'speaker' (companion/cultures/<culture>/villagers/*.json). To swap a voice, change its 'elevenlabs' id (the voice must be in the ElevenLabs account), then re-voice its clips: companion/bin/voice-build --run --revoice <speaker>. 'carrier': the speaker says a lone word inside a carrier sentence that is then cut out (the narrators, English library voices, say a lone Slovene word the English way; companion/README.md, Voice). 'alternatives' are the audition runners-up (library voices: add one to the account first). 'denoise': the voices whose ElevenLabs clips are filtered before they are stored (a voice that hisses).",
+  "denoise": {
+    "_comment": "A voice that hisses → the filter its ElevenLabs clips go through before they are stored (companion/README.md, Voice): 'hiss' (true means this one), or 'hiss-strong' if 'hiss' leaves some. The key is a speaker below, or someone's own designed voice ('@janez': Stari Janez's, ElevenLabs GSjfM5vjA9qucp51dZnc, which hisses). The bridge filters new clips; the clips from before: companion/bin/voice-build --denoise --run. After a redesign, check whether the new voice still hisses. Since 2026-09-28 also the girl (Torri Miles), the young man, gruff, France's and Micka's own voices: their pauses at −38 to −55 dB, the others' −58 to −88; 'hiss' takes them to −74 to −96 dB.",
+    "@janez": "hiss",
+    "girl": "hiss",
+    "young-man": "hiss",
+    "gruff": "hiss",
+    "@france": "hiss",
+    "@micka": "hiss"
+  },
+  "speakers": {
+    "female": {
+      "gender": "female",
+      "elevenlabs": "XrExE9yKIg1WjnnlVkGX",
+      "name": "Matilda",
+      "gepard": "ana",
+      "carrier": true,
+      "role": "Narrator: words, examples, exercises, role-play characters (default)",
+      "alternatives": [{ "name": "Milena", "elevenlabs": "7IVTG9LKLYndnFiFDLU2", "library_owner": "67867c7fe1642c70856b7a8445f7926fbc5e5ae9bcfd036c314f0b58b1ac6163" }]
+    },
+    "male": {
+      "gender": "male",
+      "elevenlabs": "onwK4e9ZLuTAKqWW03F9",
+      "name": "Daniel",
+      "gepard": "marko",
+      "carrier": true,
+      "role": "Narrator (male): role-play characters with voice male",
+      "alternatives": [{ "name": "Bartłomiej", "elevenlabs": "mE4ZaAjuN2kFvhpzKG06", "library_owner": "a2565c35157dbdacc1f2f0b0b5e3f9fdc326af7ed4ce7f20b0e0d3e963096895" }]
+    },
+    "grandma": {
+      "gender": "female",
+      "elevenlabs": "V5O4WAcdw7w3Ccfvma8Z",
+      "name": "Zlata",
+      "gepard": "nina",
+      "role": "Grandmother: Babica Micka, Teta Ančka",
+      "alternatives": [{ "name": "Tuminah", "elevenlabs": "nEu1CRXDjHpQT7G4E6sZ", "library_owner": "fb5accbf1b44eabc86acd64bb76be357e83d9f394e715a184dc4db04f566da23" }]
+    },
+    "grandpa": {
+      "gender": "male",
+      "elevenlabs": "xsSg7GkDPDhaGZpbKOLn",
+      "name": "Tomasz Z",
+      "gepard": "marko",
+      "role": "Old man: Stari Janez, Mlinar France, Čebelar Anton",
+      "alternatives": [{ "name": "Fran", "elevenlabs": "TRnNlYQWHAJwo9K75wNE", "library_owner": "4caa340ba3d8ff4b369c6771a4b2ef1a04e4f26dfed212cf24aeed59c33bf3e7" }]
+    },
+    "young-man": {
+      "gender": "male",
+      "elevenlabs": "mE4ZaAjuN2kFvhpzKG06",
+      "name": "Bartłomiej",
+      "gepard": "marko",
+      "role": "Young man: Pastir Luka, Vinar Marko; men who move in",
+      "alternatives": [{ "name": "Adnan", "elevenlabs": "FXFcxnjikw0naYO1PPrU", "library_owner": "6e34500fc520ed0b701a24e1f023152706908d834631b7a7fbb8d0e5ed281995" }]
+    },
+    "gruff": {
+      "gender": "male",
+      "elevenlabs": "DAGnQ7r9sMtV0Q44g1Mi",
+      "name": "Nikola",
+      "gepard": "marko",
+      "role": "Deep, gruff man: Kovač Tone",
+      "alternatives": [{ "name": "Did Vishchun", "elevenlabs": "WtDqMP4cPOGB6kDiLZgi", "library_owner": "c36e7777819ee7bf0834f5b5f8914f50b7b3486f8e5786920e67493bae2ae249" }]
+    },
+    "woman": {
+      "gender": "female",
+      "elevenlabs": "eqAqnItEUARzEkoDCTJ1",
+      "name": "Mila",
+      "gepard": "nina",
+      "role": "Warm woman: Gostilničarka Vida",
+      "alternatives": [{ "name": "Nina", "elevenlabs": "FXlzTee7Zx2caYKIAwBF", "library_owner": "d291e24ea8100d42ffecebe51026bce3459b3e033fd631239089990e66d8e3bd" }]
+    },
+    "teacher": {
+      "gender": "female",
+      "elevenlabs": "7IVTG9LKLYndnFiFDLU2",
+      "name": "Milena",
+      "gepard": "ana",
+      "role": "Clear teacher: Učiteljica Mojca",
+      "alternatives": [{ "name": "Ana", "elevenlabs": "NfdaqpoTPn7nF7WBBRTv", "library_owner": "35657f4cf305e6bec3408b06dcb8519cfcf84a9380847719e5c374e856eecb73" }]
+    },
+    "young-woman": {
+      "gender": "female",
+      "elevenlabs": "NfdaqpoTPn7nF7WBBRTv",
+      "name": "Ana",
+      "gepard": "nina",
+      "role": "Young woman: women who move in",
+      "alternatives": [{ "name": "Nina", "elevenlabs": "FXlzTee7Zx2caYKIAwBF", "library_owner": "d291e24ea8100d42ffecebe51026bce3459b3e033fd631239089990e66d8e3bd" }]
+    },
+    "girl": {
+      "gender": "female",
+      "elevenlabs": "a30ekmfK56EKHR341YaO",
+      "name": "Torri Miles",
+      "gepard": "nina",
+      "role": "Girl: Zala; girls born in the village",
+      "alternatives": [{ "name": "Lunya", "elevenlabs": "rSfuQoQ3FY8SVKeraMAp", "library_owner": "bfd67a1faea7631b99a7e1ab471651428008376848d80fc0edba1cf95e697773" }]
+    },
+    "boy": {
+      "gender": "male",
+      "elevenlabs": "bA58y3FqVI6b6gTNh0oT",
+      "name": "Kavya",
+      "gepard": "nina",
+      "role": "Boy: Nejc, Tine; boys born in the village (Gepard: a child's voice is higher, so nina)",
+      "alternatives": [{ "name": "Teddy Twinkle", "elevenlabs": "XjGYkUkzth8BPs29fmcV", "library_owner": "119adcff6f9d8ee3d5194065d19fb9b473760336ad4a7227a6890226bc62167b" }]
+    }
+  }
+}

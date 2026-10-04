@@ -1,0 +1,103 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "possessivi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🏠",
+  "title": {
+    "it": "Il mio cane, mia madre: i possessivi",
+    "sl": "Svojilni zaimki: moj, tvoj, njegov",
+    "en": "Possessives: my, your, his, her",
+    "de": "Possessivpronomen: mein, dein, sein"
+  },
+  "rule": {
+    "en": "The possessive (*possessivo*) agrees with the thing owned, not with the owner: **il mio cane**, **la mia casa**, **i miei amici**, **le mie pecore**. So **suo** is *his*, *her* and *its*: Giulia's rucksack is **il suo zaino**, Lorenzo's house **la sua casa**.\n\nIt comes with the article: **il mio zaino**, **la nostra tenda**.\n\nOne family member in the singular drops the article: **mia madre**, **mio nonno**, **tua sorella**. It comes back in the plural (**i miei nonni**), with **loro** (**la loro madre**), with an adjective or a little word (**il mio fratellino**), and often with **mamma** and **papà** (**la mia mamma**).\n\n**Tuo** goes with tu, **Suo** with Lei: **Come sta tua madre?** / **Come sta Sua madre?**",
+    "sl": "Svojilni zaimek (*possessivo*) se ujema s stvarjo, ki jo nekdo ima, ne z lastnikom: **il mio cane**, **la mia casa**, **i miei amici**, **le mie pecore**. Zato **suo** pomeni *njegov* in *njen* (pa tudi *svoj*): Giulijin nahrbtnik je **il suo zaino**, Lorenzova hiša **la sua casa**.\n\nStoji s členom: **il mio zaino**, **la nostra tenda**.\n\nEn družinski član v ednini je brez člena: **mia madre**, **mio nonno**, **tua sorella**. Člen se vrne v množini (**i miei nonni**), pri **loro** (**la loro madre**), s pridevnikom ali pomanjševalnico (**il mio fratellino**) in pogosto pri **mamma** in **papà** (**la mia mamma**).\n\n**Tuo** gre s tu, **Suo** z Lei: **Come sta tua madre?** (Kako je tvoja mama?) / **Come sta Sua madre?** (Kako je vaša mama?)",
+    "de": "Das Possessivpronomen (*possessivo*) richtet sich nach dem Besitz, nicht nach dem Besitzer: **il mio cane**, **la mia casa**, **i miei amici**, **le mie pecore**. Darum heißt **suo** *sein* und *ihr*: Giulias Rucksack ist **il suo zaino**, Lorenzos Haus **la sua casa**.\n\nEs steht mit Artikel: **il mio zaino** (mein Rucksack), **la nostra tenda**.\n\nEin Familienmitglied im Singular steht ohne Artikel: **mia madre**, **mio nonno**, **tua sorella**. Der Artikel kommt zurück im Plural (**i miei nonni**), bei **loro** (**la loro madre**), mit Adjektiv oder Verkleinerung (**il mio fratellino**) und oft bei **mamma** und **papà** (**la mia mamma**).\n\n**Tuo** gehört zu tu, **Suo** zu Lei: **Come sta tua madre?** (Wie geht es deiner Mutter?) / **Come sta Sua madre?** (Wie geht es Ihrer Mutter?)"
+  },
+  "table": {
+    "head": [
+      { "it": "di chi", "sl": "čigav", "en": "whose", "de": "wessen" },
+      { "it": "maschile singolare", "sl": "moški, ednina", "en": "masculine singular", "de": "maskulin Singular" },
+      { "it": "femminile singolare", "sl": "ženski, ednina", "en": "feminine singular", "de": "feminin Singular" },
+      { "it": "plurale (m / f)", "sl": "množina (m / ž)", "en": "plural (m / f)", "de": "Plural (m / f)" }
+    ],
+    "rows": [
+      [{ "it": "io", "sl": "io (moj)", "en": "io (my)", "de": "io (mein)" }, "il mio", "la mia", "i miei / le mie"],
+      [{ "it": "tu", "sl": "tu (tvoj)", "en": "tu (your)", "de": "tu (dein)" }, "il tuo", "la tua", "i tuoi / le tue"],
+      [{ "it": "lui, lei, Lei", "sl": "lui, lei (njegov, njen), Lei (vaš)", "en": "lui, lei (his, her), Lei (your)", "de": "lui, lei (sein, ihr), Lei (Ihr)" }, "il suo", "la sua", "i suoi / le sue"],
+      [{ "it": "noi", "sl": "noi (naš)", "en": "noi (our)", "de": "noi (unser)" }, "il nostro", "la nostra", "i nostri / le nostre"],
+      [{ "it": "voi", "sl": "voi (vaš)", "en": "voi (your)", "de": "voi (euer)" }, "il vostro", "la vostra", "i vostri / le vostre"],
+      [{ "it": "loro", "sl": "loro (njihov)", "en": "loro (their)", "de": "loro (ihr)" }, "il loro", "la loro", "i loro / le loro"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Il mio cane si chiama Fido.",
+      "sl": "Moj pes se imenuje Fido.",
+      "en": "My dog is called Fido.",
+      "de": "Mein Hund heißt Fido."
+    },
+    {
+      "it": "Le mie pecore sono sul Sabotino.",
+      "sl": "Moje ovce so na Sabotinu.",
+      "en": "My sheep are up on Monte Sabotino.",
+      "de": "Meine Schafe sind auf dem Monte Sabotino."
+    },
+    {
+      "it": "Mia nonna si chiama Rosa.",
+      "sl": "Moji babici je ime Rosa.",
+      "en": "My grandma's name is Rosa.",
+      "de": "Meine Oma heißt Rosa.",
+      "note": {
+        "sl": "En družinski član: mia nonna, brez člena.",
+        "en": "One family member: mia nonna, no article.",
+        "de": "Ein Familienmitglied: mia nonna, ohne Artikel."
+      }
+    },
+    {
+      "it": "I miei nonni abitano a Cormòns.",
+      "sl": "Moji stari starši živijo v Krminu.",
+      "en": "My grandparents live in Cormòns.",
+      "de": "Meine Großeltern wohnen in Cormòns.",
+      "note": {
+        "sl": "V množini se člen vrne: i miei nonni.",
+        "en": "In the plural the article comes back: i miei nonni.",
+        "de": "Im Plural kommt der Artikel zurück: i miei nonni."
+      }
+    },
+    {
+      "it": "Giulia cerca il suo zaino.",
+      "sl": "Giulia išče svoj nahrbtnik.",
+      "en": "Giulia is looking for her rucksack.",
+      "de": "Giulia sucht ihren Rucksack.",
+      "note": {
+        "sl": "il suo, ker je zaino moškega spola, ne zaradi Giulie.",
+        "en": "il suo because zaino is masculine, not because of Giulia.",
+        "de": "il suo, weil zaino maskulin ist, nicht wegen Giulia."
+      }
+    },
+    {
+      "it": "Signora Marisa, questa è la Sua borsa?",
+      "sl": "Gospa Marisa, je to vaša torba?",
+      "en": "Mrs Marisa, is this your bag?",
+      "de": "Frau Marisa, ist das Ihre Tasche?"
+    },
+    {
+      "it": "La loro casa è vicino al mulino.",
+      "sl": "Njihova hiša je blizu mlina.",
+      "en": "Their house is near the mill.",
+      "de": "Ihr Haus steht in der Nähe der Mühle.",
+      "note": {
+        "sl": "loro se nikoli ne spremeni in ima vedno člen.",
+        "en": "loro never changes and always keeps its article.",
+        "de": "loro ändert sich nie und behält immer den Artikel."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["possessive", "possessivi", "possessive_article", "family", "mio", "suo"],
+  "see": ["articoli-genere", "aggettivi-accordo", "tu-lei"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

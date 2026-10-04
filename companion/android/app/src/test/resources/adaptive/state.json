@@ -1,0 +1,53 @@
+{
+  "_note": "A learner's state as GET /state serves it (read-db.py), cut to what the own traps read: mistakes-db's patterns, in its format, and the spaced-repetition items of two of them. Made up for the tests (game/TrapsTest.kt).",
+  "databases": {
+    "learner_profile": {"learner": {"name": "Jan", "current_level": "A1", "target_level": "B2"}},
+    "mistakes_db": {
+      "error_patterns": {
+        "genitive_after_negation": {
+          "category": "grammar", "subcategory": "cases", "frequency": 3, "last_seen": "2026-09-26",
+          "consecutive_correct": 0, "consecutive_incorrect": 2,
+          "examples": [
+            {"incorrect": "Ni kruh.", "correct": "Ni kruha.", "context": "ni + genitive", "date": "2026-09-20"},
+            {"incorrect": "nimam vžigalico", "correct": "Nimam vžigalic.", "context": "after nimam the genitive (plural)", "date": "2026-09-26"}
+          ]
+        },
+        "accusative_feminine_a_to_o": {
+          "category": "grammar", "subcategory": "cases", "frequency": 1, "last_seen": "2026-09-24",
+          "consecutive_correct": 0, "consecutive_incorrect": 1,
+          "examples": [
+            {"incorrect": "Lahko ena kava?", "correct": "Lahko dobim eno kavo?", "context": "the object: -a → -o", "date": "2026-09-24"}
+          ]
+        },
+        "register_formal_informal": {
+          "category": "grammar", "frequency": 2, "last_seen": "2026-09-21",
+          "consecutive_correct": 0, "consecutive_incorrect": 2,
+          "examples": [
+            {"incorrect": "Jaz te vprašam.", "correct": "Jaz vas vprašam. Kako ste?", "context": "vi to an older villager", "date": "2026-09-21"}
+          ]
+        },
+        "spelling_word_forms": {
+          "category": "spelling", "frequency": 4, "last_seen": "2026-09-26",
+          "consecutive_correct": 0, "consecutive_incorrect": 4,
+          "examples": [
+            {"incorrect": "dobro jutro, Babiča", "correct": "Dobro jutro, babica!", "context": "c, not č", "date": "2026-09-26"}
+          ]
+        },
+        "listening_se_vidimo": {
+          "category": "vocabulary", "subcategory": "listening", "frequency": 1, "last_seen": "2026-09-26",
+          "consecutive_correct": 0, "consecutive_incorrect": 1,
+          "examples": [
+            {"incorrect": "še vedno jutri", "correct": "Se vidimo jutri!", "context": "dictation", "date": "2026-09-26"}
+          ]
+        }
+      }
+    },
+    "spaced_repetition": {
+      "items": {
+        "register_formal_informal": {"type": "error_pattern", "content": "Jaz te vprašam.", "answer": "Jaz vas vprašam.", "last_reviewed": "2026-09-24", "last_quality": 5},
+        "genitive_after_negation": {"type": "error_pattern", "content": "nimam vžigalico", "answer": "Nimam vžigalic.", "last_reviewed": "2026-09-26", "last_quality": 4}
+      }
+    }
+  },
+  "computed": {"due_review_items": [], "today": "2026-09-27"}
+}

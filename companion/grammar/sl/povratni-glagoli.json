@@ -1,0 +1,99 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "povratni-glagoli",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🔁",
+  "title": {
+    "sl": "Povratni glagoli: bojim se, učim se",
+    "en": "Verbs with se: bojim se, učim se",
+    "de": "Reflexive Verben: bojim se, učim se",
+    "it": "I verbi riflessivi: bojim se, učim se"
+  },
+  "rule": {
+    "en": "Many verbs come with **se** (*povratni glagoli*): **imenovati se** (to be called), **učiti se** (to learn), **umiti se** (to wash), **zbuditi se** (to wake up), **bati se** (to be afraid), **veseliti se** (to look forward to). Learn se with the verb.\n\nOnly the verb changes with the person; se stays the same (unlike German mich, dich, sich): **bojim se, bojiš se, boji se**. Mind the ending: **se zbudim** (I wake up), **se zbudi** (he or she wakes up).\n\nSe is a clitic: it stands in second place (**Zjutraj se zbudim ob šestih.**) or starts the sentence (**Se vidimo!**).\n\nSome of these verbs take the genitive (*rodilnik*): **bati se** (**bojim se nevihte**, **Muri se boji medveda**), **veseliti se** (**veselim se praznika**), **spomniti se** (**spomnim se babice**).\n\n**Si** is the same little word for *to* or *for oneself*: **umijem si roke** (I wash my hands).",
+    "de": "Viele Verben kommen mit **se** (*povratni glagoli*): **imenovati se** (heißen), **učiti se** (lernen), **umiti se** (sich waschen), **zbuditi se** (aufwachen), **bati se** (sich fürchten), **veseliti se** (sich freuen auf). Lerne se mit dem Verb.\n\nNur das Verb ändert sich mit der Person, se bleibt gleich (anders als mich, dich, sich): **bojim se, bojiš se, boji se**. Achtung auf die Endung: **se zbudim** (ich wache auf), **se zbudi** (er oder sie wacht auf).\n\nSe ist ein Klitikon: es steht an zweiter Stelle (**Zjutraj se zbudim ob šestih.**) oder am Satzanfang (**Se vidimo!**).\n\nManche verlangen den Genitiv (*rodilnik*): **bati se** (**bojim se nevihte**, **Muri se boji medveda**), **veseliti se** (**veselim se praznika**), **spomniti se** (**spomnim se babice**).\n\n**Si** ist dasselbe kleine Wort im Dativ, *mir, dir, sich*: **umijem si roke** (ich wasche mir die Hände).",
+    "it": "Molti verbi hanno **se** (*povratni glagoli*): **imenovati se** (chiamarsi), **učiti se** (imparare), **umiti se** (lavarsi), **zbuditi se** (svegliarsi), **bati se** (avere paura), **veseliti se** (non vedere l'ora di). Impara se insieme al verbo.\n\nCambia con la persona solo il verbo, se resta uguale (a differenza di mi, ti, si): **bojim se, bojiš se, boji se**. Attenzione alla desinenza: **se zbudim** (mi sveglio), **se zbudi** (si sveglia).\n\nSe è un clitico: sta al secondo posto (**Zjutraj se zbudim ob šestih.**) o apre la frase (**Se vidimo!**).\n\nAlcuni vogliono il genitivo (*rodilnik*): **bati se** (**bojim se nevihte**, **Muri se boji medveda**), **veseliti se** (**veselim se praznika**), **spomniti se** (**spomnim se babice**).\n\n**Si** è la stessa parolina per *a sé*, *per sé*: **umijem si roke** (mi lavo le mani)."
+  },
+  "table": {
+    "head": [
+      { "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv", "it": "infinito" },
+      { "sl": "jaz", "en": "I (jaz)", "de": "ich (jaz)", "it": "io (jaz)" },
+      { "sl": "on, ona", "en": "he, she (on, ona)", "de": "er, sie (on, ona)", "it": "lui, lei (on, ona)" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+    ],
+    "rows": [
+      ["bati se", "bojim se", "boji se", { "en": "to be afraid (of: genitive)", "de": "sich fürchten (vor: Genitiv)", "it": "avere paura (di: genitivo)" }],
+      ["zbuditi se", "zbudim se", "zbudi se", { "en": "to wake up", "de": "aufwachen", "it": "svegliarsi" }],
+      ["umiti se", "umijem se", "umije se", { "en": "to wash (yourself)", "de": "sich waschen", "it": "lavarsi" }],
+      ["učiti se", "učim se", "uči se", { "en": "to learn", "de": "lernen", "it": "imparare" }],
+      ["imenovati se", "imenujem se", "imenuje se", { "en": "to be called", "de": "heißen", "it": "chiamarsi" }],
+      ["veseliti se", "veselim se", "veseli se", { "en": "to look forward to (genitive)", "de": "sich freuen auf (Genitiv)", "it": "non vedere l'ora di (genitivo)" }],
+      ["spomniti se", "spomnim se", "spomni se", { "en": "to remember (genitive)", "de": "sich erinnern an (Genitiv)", "it": "ricordarsi di (genitivo)" }]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Ne, ne bojim se nevihte.",
+      "en": "No, I'm not afraid of the storm.",
+      "de": "Nein, ich habe keine Angst vor dem Gewitter.",
+      "it": "No, non ho paura del temporale.",
+      "note": {
+        "en": "Bati se takes the genitive: nevihta → nevihte.",
+        "de": "Bati se verlangt den Genitiv: nevihta → nevihte.",
+        "it": "Bati se vuole il genitivo: nevihta → nevihte."
+      }
+    },
+    {
+      "sl": "Muri se boji medveda.",
+      "en": "Muri is afraid of the bear.",
+      "de": "Muri hat Angst vor dem Bären.",
+      "it": "Muri ha paura dell'orso.",
+      "note": {
+        "en": "About Muri: se boji. Se bojim is 'I am afraid'.",
+        "de": "Über Muri: se boji. Se bojim heißt „ich habe Angst“.",
+        "it": "Di Muri: se boji. Se bojim vuol dire “ho paura”."
+      }
+    },
+    {
+      "sl": "Zjutraj se zbudim ob šestih.",
+      "en": "In the morning I wake up at six.",
+      "de": "Morgens wache ich um sechs auf.",
+      "it": "La mattina mi sveglio alle sei."
+    },
+    {
+      "sl": "Konjiček se imenuje Sivko.",
+      "en": "The little horse is called Sivko.",
+      "de": "Das Pferdchen heißt Sivko.",
+      "it": "Il cavallino si chiama Sivko."
+    },
+    {
+      "sl": "Nejc se v šoli uči brati.",
+      "en": "Nejc is learning to read at school.",
+      "de": "Nejc lernt in der Schule lesen.",
+      "it": "Nejc a scuola impara a leggere."
+    },
+    {
+      "sl": "Veselim se praznika.",
+      "en": "I'm looking forward to the holiday.",
+      "de": "Ich freue mich auf das Fest.",
+      "it": "Non vedo l'ora che arrivi la festa."
+    },
+    {
+      "sl": "Pred kosilom si umijem roke.",
+      "en": "Before lunch I wash my hands.",
+      "de": "Vor dem Mittagessen wasche ich mir die Hände.",
+      "it": "Prima di pranzo mi lavo le mani.",
+      "note": {
+        "en": "Si: for yourself (to your own hands).",
+        "de": "Si: für sich selbst (mir die Hände).",
+        "it": "Si: per sé (mi lavo le mani)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["reflexive", "reflexive_verb", "bati_se"],
+  "see": ["naslonke", "rodilnik", "glagoli-sedanjik", "svoj"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

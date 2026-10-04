@@ -1,0 +1,116 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "plural",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": {
+    "de": "Ein Schaf, zwei Schafe: der Plural",
+    "sl": "Ein Schaf, zwei Schafe: množina",
+    "en": "Ein Schaf, zwei Schafe: plurals",
+    "it": "Ein Schaf, zwei Schafe: il plurale"
+  },
+  "rule": {
+    "en": "In the plural (*Plural*) the article is always **die**, for all three genders: der Berg → **die Berge**, die Kuh → **die Kühe**, das Kind → **die Kinder**.\n\nThe ending isn't that simple. The main kinds: **-e** (Schafe, Berge), often with an umlaut, ä ö ü (Kühe, Bäume); **-er**, with an umlaut when it can (Kinder, Häuser, Lämmer); **-n** or **-en**, with most feminine nouns (Blumen, Frauen); **-s**, with many foreign and short words (Autos, Omas); no ending, with many nouns in -er and -el and all in -chen (Lehrer, Kilometer, Mädchen), sometimes just an umlaut (Äpfel, Vögel).\n\nSo learn the plural with the word: **das Schaf, die Schafe**.\n\nHow many? **wie viele** + plural: Wie viele Kühe? After a number too: **zwei Kilometer**.\n\nIn the dative plural the noun adds **-n**: **mit den Kindern**, unter den Bäumen (not after -n or -s: mit den Autos).",
+    "sl": "V množini (*Plural*) je člen vedno **die**, za vse tri spole: der Berg → **die Berge**, die Kuh → **die Kühe**, das Kind → **die Kinder**. Dvojine nemščina nima: zwei Kühe (dve kravi).\n\nKončnica ni tako preprosta. Glavne vrste: **-e** (Schafe, Berge), pogosto s preglasom, ä ö ü (Kühe, Bäume); **-er**, s preglasom, kjer je mogoč (Kinder, Häuser, Lämmer); **-n** ali **-en**, pri večini samostalnikov ženskega spola (Blumen, Frauen); **-s**, pri mnogih tujkah in kratkih besedah (Autos, Omas); brez končnice pri mnogih na -er in -el in vseh na -chen (Lehrer, Kilometer, Mädchen), včasih samo s preglasom (Äpfel, Vögel).\n\nZato se množina uči skupaj z besedo: **das Schaf, die Schafe**.\n\nKoliko? **wie viele** + množina: Wie viele Kühe? Tudi po številu je vedno množina, brez rodilnika: **zwanzig Schafe** (dvajset ovc).\n\nV dajalniku množine dobi samostalnik **-n**: **mit den Kindern**, unter den Bäumen (ne po -n ali -s: mit den Autos).",
+    "it": "Al plurale (*Plural*) l'articolo è sempre **die**, per tutti e tre i generi: der Berg → **die Berge**, die Kuh → **die Kühe**, das Kind → **die Kinder**.\n\nLa desinenza non è così semplice. I tipi principali: **-e** (Schafe, Berge), spesso con l'Umlaut, ä ö ü (Kühe, Bäume); **-er**, con l'Umlaut quando si può (Kinder, Häuser, Lämmer); **-n** o **-en**, con la maggior parte dei femminili (Blumen, Frauen); **-s**, con molte parole straniere e brevi (Autos, Omas); nessuna desinenza con molti nomi in -er e -el e con tutti quelli in -chen (Lehrer, Kilometer, Mädchen), a volte solo l'Umlaut (Äpfel, Vögel).\n\nPer questo il plurale si impara con la parola: **das Schaf, die Schafe**.\n\nQuanti? **wie viele** + plurale: Wie viele Kühe? Anche dopo un numero: **zwei Kilometer** (due chilometri).\n\nAl dativo plurale il nome aggiunge **-n**: **mit den Kindern**, unter den Bäumen (non dopo -n o -s: mit den Autos)."
+  },
+  "table": {
+    "head": [
+      { "de": "Endung", "sl": "končnica", "en": "ending", "it": "desinenza" },
+      { "de": "Singular", "sl": "ednina", "en": "singular", "it": "singolare" },
+      { "de": "Plural", "sl": "množina", "en": "plural", "it": "plurale" }
+    ],
+    "rows": [
+      ["-e", "das Schaf", "die Schafe"],
+      [{ "de": "Umlaut + -e", "sl": "preglas + -e", "en": "umlaut + -e", "it": "Umlaut + -e" }, "die Kuh", "die Kühe"],
+      [{ "de": "Umlaut + -e", "sl": "preglas + -e", "en": "umlaut + -e", "it": "Umlaut + -e" }, "der Baum", "die Bäume"],
+      ["-er", "das Kind", "die Kinder"],
+      [{ "de": "Umlaut + -er", "sl": "preglas + -er", "en": "umlaut + -er", "it": "Umlaut + -er" }, "das Haus", "die Häuser"],
+      ["-n", "die Blume", "die Blumen"],
+      ["-en", "die Frau", "die Frauen"],
+      ["-s", "das Auto", "die Autos"],
+      [{ "de": "keine Endung", "sl": "brez končnice", "en": "no ending", "it": "nessuna desinenza" }, "der Lehrer", "die Lehrer"],
+      [{ "de": "nur Umlaut", "sl": "samo preglas", "en": "umlaut only", "it": "solo Umlaut" }, "der Apfel", "die Äpfel"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Hirte Florian hat zwanzig Schafe.",
+      "sl": "Pastir Florian ima dvajset ovc.",
+      "en": "Florian the shepherd has twenty sheep.",
+      "it": "Il pastore Florian ha venti pecore.",
+      "note": {
+        "en": "das Schaf → die Schafe (English sheep doesn't change).",
+        "sl": "Po številu vedno množina: zwanzig Schafe (slovensko rodilnik: dvajset ovc).",
+        "it": "das Schaf → die Schafe."
+      }
+    },
+    {
+      "de": "Wie viele Kühe sind auf der Alm?",
+      "sl": "Koliko krav je na planini?",
+      "en": "How many cows are there on the alpine pasture?",
+      "it": "Quante mucche ci sono all'alpeggio?",
+      "note": {
+        "en": "wie viele + plural: die Kuh → die Kühe.",
+        "sl": "wie viele + množina: die Kuh → die Kühe.",
+        "it": "wie viele + plurale: die Kuh → die Kühe."
+      }
+    },
+    {
+      "de": "Die Kinder spielen unter den Bäumen.",
+      "sl": "Otroci se igrajo pod drevesi.",
+      "en": "The children are playing under the trees.",
+      "it": "I bambini giocano sotto gli alberi.",
+      "note": {
+        "en": "Dative plural: der Baum → die Bäume → unter den Bäumen.",
+        "sl": "Dajalnik množine: der Baum → die Bäume → unter den Bäumen.",
+        "it": "Dativo plurale: der Baum → die Bäume → unter den Bäumen."
+      }
+    },
+    {
+      "de": "Bis zum See sind es zwei Kilometer.",
+      "sl": "Do jezera sta dva kilometra.",
+      "en": "It's two kilometres to the lake.",
+      "it": "Fino al lago ci sono due chilometri.",
+      "note": {
+        "en": "der Kilometer → die Kilometer: no ending.",
+        "sl": "der Kilometer → zwei Kilometer: brez končnice in brez dvojine.",
+        "it": "der Kilometer → die Kilometer: nessuna desinenza."
+      }
+    },
+    {
+      "de": "Stefan pflückt Äpfel.",
+      "sl": "Stefan obira jabolka.",
+      "en": "Stefan is picking apples.",
+      "it": "Stefan raccoglie le mele.",
+      "note": {
+        "en": "der Apfel → die Äpfel: only an umlaut.",
+        "sl": "der Apfel → die Äpfel: samo preglas.",
+        "it": "der Apfel → die Äpfel: solo l'Umlaut."
+      }
+    },
+    {
+      "de": "Die Häuser im Dorf sind alt.",
+      "sl": "Hiše v vasi so stare.",
+      "en": "The houses in the village are old.",
+      "it": "Le case del paese sono vecchie.",
+      "note": {
+        "en": "das Haus → die Häuser: -er with an umlaut.",
+        "sl": "das Haus → die Häuser: -er s preglasom.",
+        "it": "das Haus → die Häuser: -er con l'Umlaut."
+      }
+    },
+    {
+      "de": "Oma Resi hat viele Blumen im Garten.",
+      "sl": "Babica Resi ima na vrtu veliko rož.",
+      "en": "Grandma Resi has lots of flowers in the garden.",
+      "it": "La nonna Resi ha tanti fiori in giardino."
+    }
+  ],
+  "modules": [],
+  "tags": ["plural", "plurals", "noun_plural", "umlaut", "wie_viele", "nouns", "dative_plural"],
+  "see": ["artikel-genus", "dativ", "fragen"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

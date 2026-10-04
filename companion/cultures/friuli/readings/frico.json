@@ -1,0 +1,51 @@
+{
+  "id": "frico",
+  "kind": "recipe",
+  "level": "A1",
+  "title": { "it": "Il frico con le patate", "sl": "Frico s krompirjem", "en": "Frico with potatoes", "de": "Frico mit Kartoffeln" },
+  "by": "rosa",
+  "intro": { "it": "Il frico è il piatto dei contadini del Friuli.", "sl": "Frico je jed furlanskih kmetov.", "en": "Frico is the dish of the farmers of Friuli.", "de": "Der Frico ist das Gericht der Bauern im Friaul." },
+  "servings": { "it": "Per 4 persone", "sl": "Za 4 osebe", "en": "Serves 4", "de": "Für 4 Personen" },
+  "ingredients": [
+    { "amount": "500", "unit": { "it": "g", "sl": "g", "en": "g", "de": "g" }, "item": { "it": "di patate", "sl": "krompirja", "en": "potatoes", "de": "Kartoffeln" } },
+    { "amount": "300", "unit": { "it": "g", "sl": "g", "en": "g", "de": "g" }, "item": { "it": "di formaggio Montasio", "sl": "sira montasio", "en": "Montasio cheese", "de": "Montasio-Käse" } },
+    { "amount": "1", "item": { "it": "cipolla", "sl": "čebula", "en": "onion", "de": "Zwiebel" } },
+    { "amount": "30", "unit": { "it": "g", "sl": "g", "en": "g", "de": "g" }, "item": { "it": "di burro", "sl": "masla", "en": "butter", "de": "Butter" } },
+    { "unit": { "it": "un bicchiere", "sl": "kozarec", "en": "a glass of", "de": "ein Glas" }, "item": { "it": "d'acqua", "sl": "vode", "en": "water", "de": "Wasser" } },
+    { "item": { "it": "sale e pepe", "sl": "sol in poper", "en": "salt and pepper", "de": "Salz und Pfeffer" } }
+  ],
+  "steps": [
+    { "it": "Sbuccia le patate e tagliale a fettine sottili.", "sl": "Olupi krompir in ga nareži na tanke rezine.", "en": "Peel the potatoes and cut them into thin slices.", "de": "Schäl die Kartoffeln und schneide sie in dünne Scheiben." },
+    { "it": "Taglia la cipolla a fettine.", "sl": "Nareži čebulo na rezine.", "en": "Slice the onion.", "de": "Schneide die Zwiebel in Scheiben." },
+    { "it": "In una padella fai sciogliere il burro e cuoci la cipolla per cinque minuti.", "sl": "V ponvi stopi maslo in pet minut praži čebulo.", "en": "Melt the butter in a pan and cook the onion for five minutes.", "de": "Lass die Butter in einer Pfanne schmelzen und dünste die Zwiebel fünf Minuten lang." },
+    { "it": "Aggiungi le patate, un po' di sale e il bicchiere d'acqua.", "sl": "Dodaj krompir, malo soli in kozarec vode.", "en": "Add the potatoes, a little salt and the glass of water.", "de": "Gib die Kartoffeln, etwas Salz und das Glas Wasser dazu." },
+    { "it": "Copri e cuoci per venti minuti, finché le patate non sono morbide.", "sl": "Pokrij in kuhaj dvajset minut, da se krompir zmehča.", "en": "Cover and cook for twenty minutes, until the potatoes are soft.", "de": "Leg den Deckel auf und lass alles zwanzig Minuten kochen, bis die Kartoffeln weich sind." },
+    { "it": "Taglia il formaggio a cubetti e mettilo nella padella.", "sl": "Sir nareži na kocke in ga daj v ponev.", "en": "Cut the cheese into cubes and put it in the pan.", "de": "Schneide den Käse in Würfel und gib ihn in die Pfanne." },
+    { "it": "Mescola bene: il formaggio si scioglie.", "sl": "Dobro premešaj: sir se stopi.", "en": "Stir well: the cheese melts.", "de": "Rühr gut um: Der Käse schmilzt." },
+    { "it": "Schiaccia tutto con la forchetta e lascia cuocere, finché sotto non si forma una crosta dorata.", "sl": "Vse potlači z vilicami in pusti, da se spodaj naredi zlata skorja.", "en": "Press everything flat with a fork and let it cook until there's a golden crust underneath.", "de": "Drück alles mit der Gabel flach und lass es braten, bis sich unten eine goldene Kruste bildet." },
+    { "it": "Gira il frico con l'aiuto di un piatto e cuoci anche l'altro lato.", "sl": "Frico obrni s pomočjo krožnika in ga zapeci še na drugi strani.", "en": "Turn the frico over with the help of a plate and cook the other side too.", "de": "Wende den Frico mithilfe eines Tellers und brate auch die andere Seite." },
+    { "it": "Servi il frico caldo, con la polenta.", "sl": "Topel frico postrezi s polento.", "en": "Serve the frico hot, with polenta.", "de": "Serviere den Frico heiß, mit Polenta." }
+  ],
+  "questions": [
+    {
+      "ask": { "it": "Di che cosa è fatto il frico?", "sl": "Iz česa je frico?", "en": "What is frico made of?", "de": "Woraus besteht der Frico?" },
+      "options": ["Patate e formaggio", "Pane e miele", "Uova e zucchero"],
+      "explain": {
+        "it": "Nel frico ci sono le patate, la cipolla e il formaggio Montasio.",
+        "sl": "V fricu so krompir, čebula in sir montasio.",
+        "en": "Frico has potatoes, onion and Montasio cheese in it.",
+        "de": "Im Frico sind Kartoffeln, Zwiebel und Montasio-Käse."
+      }
+    },
+    {
+      "ask": { "it": "Con che cosa giri il frico?", "sl": "S čim obrneš frico?", "en": "What do you turn the frico over with?", "de": "Womit wendest du den Frico?" },
+      "options": ["Con un piatto", "Con le mani", "Con un cucchiaio"],
+      "explain": {
+        "it": "Metti un piatto sopra la padella e giri il frico.",
+        "sl": "Na ponev položiš krožnik in frico obrneš.",
+        "en": "You put a plate over the pan and turn the frico over.",
+        "de": "Du legst einen Teller auf die Pfanne und wendest den Frico."
+      }
+    }
+  ]
+}

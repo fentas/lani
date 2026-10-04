@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "vezniki",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🪢",
+  "title": {
+    "sl": "Vezniki: in, ampak, ker, ko, če",
+    "en": "Joining words: in, ampak, ker, ko, če",
+    "de": "Bindewörter: in, ampak, ker, ko, če",
+    "it": "Le congiunzioni: in, ampak, ker, ko, če"
+  },
+  "rule": {
+    "en": "Joining words (*vezniki*) link two things or two sentences. The first ones: **in** (and: not the English *in*), **ali** (or), **ampak** (but), **ker** (because), **ko** (when), **če** (if), **da** (that).\n\n**Pijem kavo in berem.** **Kava ali čaj?** **Rad bi prišel, ampak nimam časa.** **Ne grem ven, ker dežuje.** **Ko pridem domov, jem.** **Če bo lepo, gremo na izlet.** **Mislim, da je doma.**\n\nAfter a joining word the sentence keeps its usual order, and the short words come right after it: **ker sem ga videl**, **ko se zbudim**, **če ti je všeč**.\n\nA comma goes before ampak, ker, ko, če and da; not before in and ali when they join two things.\n\nAt A2 come **kadar** (whenever), **čeprav** (although), **zato** (so, that's why), **vendar** (but, however) and **kjer** (where): **Utrujen sem, zato grem spat.**",
+    "de": "Bindewörter (*vezniki*) verbinden zwei Dinge oder zwei Sätze. Die ersten: **in** (und: nicht das deutsche *in*), **ali** (oder), **ampak** (aber), **ker** (weil), **ko** (wenn, als), **če** (wenn, falls), **da** (dass).\n\n**Pijem kavo in berem.** **Kava ali čaj?** **Rad bi prišel, ampak nimam časa.** **Ne grem ven, ker dežuje.** **Ko pridem domov, jem.** **Če bo lepo, gremo na izlet.** **Mislim, da je doma.**\n\nAnders als nach weil, wenn oder dass rückt das Verb nicht ans Ende: Der Satz behält seine Reihenfolge, und die kurzen Wörter kommen gleich nach dem Bindewort: **ker sem ga videl**, **ko se zbudim**, **če ti je všeč**.\n\nVor ampak, ker, ko, če und da steht ein Komma; vor in und ali nicht, wenn sie zwei Dinge verbinden.\n\nAuf A2 kommen **kadar** (immer wenn), **čeprav** (obwohl), **zato** (deshalb), **vendar** (jedoch) und **kjer** (wo): **Utrujen sem, zato grem spat.**",
+    "it": "Le congiunzioni (*vezniki*) uniscono due cose o due frasi. Le prime: **in** (e: non la preposizione *in*), **ali** (o), **ampak** (ma), **ker** (perché), **ko** (quando), **če** (se), **da** (che).\n\n**Pijem kavo in berem.** **Kava ali čaj?** **Rad bi prišel, ampak nimam časa.** **Ne grem ven, ker dežuje.** **Ko pridem domov, jem.** **Če bo lepo, gremo na izlet.** **Mislim, da je doma.**\n\nDopo una congiunzione la frase tiene il suo ordine solito, e le paroline vengono subito dopo: **ker sem ga videl**, **ko se zbudim**, **če ti je všeč**.\n\nLa virgola va prima di ampak, ker, ko, če e da; non prima di in e ali quando uniscono due cose.\n\nAll'A2 vengono **kadar** (ogni volta che), **čeprav** (anche se), **zato** (perciò), **vendar** (però) e **kjer** (dove): **Utrujen sem, zato grem spat.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "veznik", "en": "joining word", "de": "Bindewort", "it": "congiunzione" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["in", { "en": "and", "de": "und", "it": "e" }, "kava in mleko"],
+      ["ali", { "en": "or", "de": "oder", "it": "o" }, "kava ali čaj"],
+      ["ampak", { "en": "but", "de": "aber", "it": "ma" }, "Rad bi, ampak ne morem."],
+      ["ker", { "en": "because", "de": "weil", "it": "perché" }, "…, ker dežuje."],
+      ["ko", { "en": "when", "de": "wenn, als", "it": "quando" }, "Ko pridem, …"],
+      ["če", { "en": "if", "de": "wenn, falls", "it": "se" }, "Če bo lepo, …"],
+      ["da", { "en": "that", "de": "dass", "it": "che" }, "Mislim, da je doma."],
+      ["kadar (A2)", { "en": "whenever", "de": "immer wenn", "it": "ogni volta che" }, "Kadar dežuje, …"],
+      ["čeprav (A2)", { "en": "although", "de": "obwohl", "it": "anche se" }, "Čeprav je mraz, …"],
+      ["zato (A2)", { "en": "so, that's why", "de": "deshalb", "it": "perciò" }, "…, zato grem spat."],
+      ["vendar (A2)", { "en": "but, however", "de": "jedoch", "it": "però" }, "…, vendar ne vem."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Luka in Zala gresta na travnik.",
+      "en": "Luka and Zala are going to the meadow.",
+      "de": "Luka und Zala gehen auf die Wiese.",
+      "it": "Luka e Zala vanno sul prato.",
+      "note": {
+        "en": "in is and. Two people: the dual, gresta.",
+        "de": "in ist und. Zwei Leute: der Dual, gresta.",
+        "it": "in vuol dire e. Due persone: il duale, gresta."
+      }
+    },
+    {
+      "sl": "Rad bi prišel, ampak nimam časa.",
+      "en": "I'd like to come, but I don't have time.",
+      "de": "Ich würde gern kommen, aber ich habe keine Zeit.",
+      "it": "Verrei volentieri, ma non ho tempo."
+    },
+    {
+      "sl": "Danes ne grem ven, ker dežuje.",
+      "en": "I'm not going out today because it's raining.",
+      "de": "Heute gehe ich nicht hinaus, weil es regnet.",
+      "it": "Oggi non esco perché piove.",
+      "note": {
+        "en": "After ker the order stays as in any sentence.",
+        "de": "Nach ker rückt das Verb nicht ans Ende wie nach weil: ker dežuje.",
+        "it": "Dopo ker l'ordine resta quello di ogni frase."
+      }
+    },
+    {
+      "sl": "Ko se zbudim, pijem kavo.",
+      "en": "When I wake up, I drink coffee.",
+      "de": "Wenn ich aufwache, trinke ich Kaffee.",
+      "it": "Quando mi sveglio, bevo il caffè.",
+      "note": {
+        "en": "se comes right after ko.",
+        "de": "se kommt gleich nach ko.",
+        "it": "se viene subito dopo ko."
+      }
+    },
+    {
+      "sl": "Če boš imel čas, pridi k nam.",
+      "en": "If you have time, come to our place.",
+      "de": "Wenn du Zeit hast, komm zu uns.",
+      "it": "Se avrai tempo, vieni da noi.",
+      "note": {
+        "en": "It's about later, so the future: če boš imel.",
+        "de": "Es geht um später, also das Futur: če boš imel.",
+        "it": "Si parla del dopo, quindi il futuro: če boš imel."
+      }
+    },
+    {
+      "sl": "Utrujen sem, zato grem spat.",
+      "en": "I'm tired, so I'm off to sleep.",
+      "de": "Ich bin müde, deshalb gehe ich schlafen.",
+      "it": "Sono stanco, perciò vado a dormire."
+    },
+    {
+      "sl": "Čeprav je mraz, Luka spi v šotoru.",
+      "en": "Although it's cold, Luka sleeps in the tent.",
+      "de": "Obwohl es kalt ist, schläft Luka im Zelt.",
+      "it": "Anche se fa freddo, Luka dorme nella tenda."
+    }
+  ],
+  "modules": [],
+  "tags": ["connectors", "conjunction", "conjunctions", "in_and", "vezniki"],
+  "see": ["naslonke", "odvisni-govor", "oziralni-ki", "prihodnjik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

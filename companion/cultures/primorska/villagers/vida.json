@@ -1,0 +1,91 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "vida",
+  "name": "Gostilničarka Vida",
+  "emoji": "🍷",
+  "art": "innkeeper",
+  "voice": "female",
+  "speaker": "woman",
+  "role": { "sl": "Gostilničarka", "en": "Innkeeper", "de": "Wirtin", "it": "Ostessa" },
+  "home": ["market", "house"],
+  "register": "vi",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 11,
+  "routine": {
+    "up": "6:00", "bed": "22:30",
+    "rituals": [
+      { "id": "gostilna", "at": "22:00", "until": "22:15", "to": "market", "doing": "stand", "title": {"sl": "Vida zaklene gostilno", "en": "Vida locks up the inn", "de": "Vida sperrt das Gasthaus zu", "it": "Vida chiude l'osteria"} }
+    ]
+  },
+  "personality": "Busy and warm, talks fast, three things at once, a tray in one hand. Says vi to guests, Jan included ('Izvolite'), and expects vi. German guests every summer, so she knows a few German words and mixes them in for fun ('Bitte, prosim'). Proverbs about food and kindness: 'Lepa beseda lepo mesto najde.'",
+  "story": "Vida runs the inn in Trnovo, the one with the terrace above the valley; her son Nejc helps, mostly by eating. German guests come every summer for the jota and the view. When a merchant comes to the village, it is Vida who does the bargaining.",
+  "likes": [
+    { "sl": "gostje", "en": "guests", "de": "Gäste", "it": "gli ospiti" },
+    { "sl": "jota", "en": "jota (the Primorska bean and sauerkraut stew)", "de": "Jota (der Eintopf aus Bohnen und Sauerkraut aus Primorska)", "it": "la jota (la minestra di fagioli e crauti della Primorska)" },
+    { "sl": "kava", "en": "coffee", "de": "Kaffee", "it": "il caffè" },
+    { "sl": "hitro delo", "en": "working fast", "de": "schnelles Arbeiten", "it": "il lavoro veloce" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Dober dan! Izvolite? Kava, čaj, kaj sladkega?", "en": "Good day! What can I get you? Coffee, tea, something sweet?", "de": "Guten Tag! Was darf's sein? Kaffee, Tee, etwas Süßes?", "it": "Buongiorno! Cosa Le porto? Caffè, tè, qualcosa di dolce?", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober dan, dober dan! Sedite, kjer hočete.", "en": "Good day, good day! Sit wherever you like.", "de": "Guten Tag, guten Tag! Setzen Sie sich, wo Sie möchten.", "it": "Buongiorno, buongiorno! Si sieda dove vuole.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober večer! Sedite, kjer hočete.", "en": "Good evening! Sit wherever you like.", "de": "Guten Abend! Setzen Sie sich, wo Sie möchten.", "it": "Buonasera! Si sieda dove vuole.", "level": 0, "when": ["evening", "night"] },
+      { "sl": "O, Jan! Dober dan. Kot vedno?", "en": "Oh, Jan! Good day. The usual?", "de": "Oh, Jan! Guten Tag. Wie immer?", "it": "Oh, Jan! Buongiorno. Il solito?", "level": 1, "when": ["morning", "afternoon"] },
+      { "sl": "Jan! Pridite, mizo imam za vas.", "en": "Jan! Come, I have a table for you.", "de": "Jan! Kommen Sie, ich habe einen Tisch für Sie.", "it": "Jan! Venga, ho un tavolo per Lei.", "level": 2 },
+      { "sl": "Jan, dragi! Sedite, sedite. Jota je ravno kuhana.", "en": "Jan, dear! Sit, sit. The jota is just cooked.", "de": "Jan, mein Lieber! Setzen Sie sich, setzen Sie sich. Die Jota ist gerade fertig.", "it": "Jan, caro! Si sieda, si sieda. La jota è appena pronta.", "level": 3 },
+      { "sl": "Jan, ti si že od hiše! Kar v kuhinjo, vzemi si sam.", "en": "Jan, you're one of the house now! Straight to the kitchen, help yourself. (She says ti now: you're family.)", "de": "Jan, du gehörst schon zum Haus! Geh gleich in die Küche, nimm dir selbst. (Jetzt duzt sie dich: Du gehörst zur Familie.)", "it": "Jan, ormai sei di casa! Vai pure in cucina, serviti da solo. (Ora ti dà del tu: sei di famiglia.)", "level": 4 }
+    ],
+    "thanks": [
+      { "sl": "Hvala vam, Jan! Kava je na račun hiše.", "en": "Thank you, Jan! The coffee is on the house.", "de": "Danke, Jan! Der Kaffee geht aufs Haus.", "it": "Grazie, Jan! Il caffè lo offre la casa." },
+      { "sl": "Hvala, hvala! Brez vas ne bi zmogla.", "en": "Thanks, thanks! Without you I couldn't have managed.", "de": "Danke, danke! Ohne Sie hätte ich es nicht geschafft.", "it": "Grazie, grazie! Senza di Lei non ce l'avrei fatta." },
+      { "sl": "Lepa beseda lepo mesto najde. Hvala, Jan.", "en": "A kind word finds a good place (a Slovene proverb). Thank you, Jan.", "de": "Ein gutes Wort findet einen guten Platz (ein slowenisches Sprichwort). Danke, Jan.", "it": "Una bella parola trova un bel posto (un proverbio sloveno). Grazie, Jan." }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Gostom sem pravila o tem. Še vedno mislim na {memory}.", "en": "I told the guests about it. I still think of {memory}.", "de": "Ich habe den Gästen davon erzählt. Ich denke noch oft an {memory}.", "it": "Ne ho parlato agli ospiti. Ricordo ancora {memory}.", "level": 2 },
+      { "sl": "Ko je gostilna prazna, mislim na {memory}.", "en": "When the inn is empty, I think of {memory}.", "de": "Wenn das Gasthaus leer ist, denke ich an {memory}.", "it": "Quando l'osteria è vuota, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "sl": "Deset gostov iz Nemčije! Danes bo delo.", "en": "Ten guests from Germany! Today there will be work.", "de": "Zehn Gäste aus Deutschland! Heute gibt es Arbeit.", "it": "Dieci ospiti dalla Germania! Oggi c'è da lavorare." },
+      { "sl": "Nejc, prinesi kruh! Nejc? Kje je ta fant?", "en": "Nejc, bring the bread! Nejc? Where is that boy?", "de": "Nejc, bring das Brot! Nejc? Wo steckt der Junge?", "it": "Nejc, porta il pane! Nejc? Dov'è quel ragazzo?" },
+      { "sl": "Jota, štruklji, kava. Vse je vroče.", "en": "Jota, štruklji (rolled dumplings), coffee. Everything is hot.", "de": "Jota, Štruklji (gerollte Teigtaschen), Kaffee. Alles ist heiß.", "it": "Jota, štruklji (involtini di pasta), caffè. È tutto caldo." },
+      { "sl": "Bitte, prosim! Nemško že malo znam.", "en": "Bitte, please! I already know a little German.", "de": "Bitte, prosim! Ein bisschen Deutsch kann ich schon.", "it": "Bitte, per favore! Un po' di tedesco lo so già." }
+    ],
+    "cheer": [
+      { "sl": "Bravo! To je to.", "en": "Well done! That's it.", "de": "Gut gemacht! Genau so.", "it": "Bravo! Proprio così." },
+      { "sl": "Odlično, Jan! Kava za vas.", "en": "Excellent, Jan! Coffee for you.", "de": "Ausgezeichnet, Jan! Ein Kaffee für Sie.", "it": "Ottimo, Jan! Un caffè per Lei." },
+      { "sl": "Tako se reče! Gostje bodo veseli.", "en": "That's how you say it! The guests will be pleased.", "de": "So sagt man das! Die Gäste werden sich freuen.", "it": "Si dice così! Gli ospiti saranno contenti." }
+    ],
+    "comfort": [
+      { "sl": "Nič hudega. Gost počaka. Še enkrat.", "en": "Never mind. The guest will wait. Once more.", "de": "Macht nichts. Der Gast wartet. Noch einmal.", "it": "Non fa niente. L'ospite aspetta. Ancora una volta." },
+      { "sl": "Ah, saj se zgodi. Še enkrat, počasi.", "en": "Oh, it happens. Once more, slowly.", "de": "Ach, das passiert. Noch einmal, langsam.", "it": "Ah, capita. Ancora una volta, piano." },
+      { "sl": "Skoraj! Še malo, pa bo.", "en": "Almost! A bit more and it's there.", "de": "Fast! Noch ein bisschen, dann klappt es.", "it": "Quasi! Ancora un pochino e ci siamo." }
+    ],
+    "listen": [
+      { "sl": "Poslušajte gosta.", "en": "Listen to the guest.", "de": "Hören Sie dem Gast zu.", "it": "Ascolti l'ospite." },
+      { "sl": "Psst, poslušajte. Kaj je naročil?", "en": "Psst, listen. What did he order?", "de": "Pssst, hören Sie zu. Was hat er bestellt?", "it": "Psst, ascolti. Cosa ha ordinato?" },
+      { "sl": "Pozor, poslušajte dobro.", "en": "Attention, listen well.", "de": "Achtung, hören Sie gut zu.", "it": "Attenzione, ascolti bene." }
+    ],
+    "bye": [
+      { "sl": "Na svidenje! Pridite spet.", "en": "Goodbye! Come again.", "de": "Auf Wiedersehen! Kommen Sie wieder.", "it": "Arrivederci! Torni a trovarci." },
+      { "sl": "Adijo, Jan! Jutri je jota.", "en": "Bye, Jan! Tomorrow it's jota.", "de": "Tschüss, Jan! Morgen gibt es Jota.", "it": "Ciao, Jan! Domani c'è la jota." },
+      { "sl": "Lahko noč. Kuhinja je zaprta!", "en": "Good night. The kitchen is closed!", "de": "Gute Nacht. Die Küche ist geschlossen!", "it": "Buonanotte. La cucina è chiusa!", "when": ["evening", "night"] },
+      { "sl": "Lep dan še naprej! Kuhinja je odprta do desetih.", "en": "Have a nice day! The kitchen is open until ten.", "de": "Noch einen schönen Tag! Die Küche ist bis zehn offen.", "it": "Buona giornata! La cucina è aperta fino alle dieci.", "when": ["morning", "afternoon"] }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "O, Jan! Kako ste vedeli? To imam najraje!", "en": "Oh, Jan! How did you know? This is my favourite!", "de": "Oh, Jan! Woher wussten Sie das? Das mag ich am liebsten!", "it": "Oh, Jan! Come lo sapeva? È la cosa che preferisco!" },
+        { "sl": "Zame? Danke, hvala, hvala! Kava je na račun hiše.", "en": "For me? Danke, thank you, thank you! The coffee is on the house.", "de": "Für mich? Danke, danke, danke! Der Kaffee geht aufs Haus.", "it": "Per me? Danke, grazie, grazie! Il caffè lo offre la casa." },
+        { "sl": "Točno to sem potrebovala! Hvala vam, Jan.", "en": "Exactly what I needed! Thank you, Jan.", "de": "Genau das habe ich gebraucht! Danke, Jan.", "it": "Proprio quello che mi serviva! Grazie, Jan." }
+      ],
+      "ordinary": [
+        { "sl": "Hvala, Jan! Zelo prijazno od vas.", "en": "Thank you, Jan! Very kind of you.", "de": "Danke, Jan! Sehr nett von Ihnen.", "it": "Grazie, Jan! Molto gentile da parte Sua." },
+        { "sl": "O, hvala! Sedite, kava je že na poti.", "en": "Oh, thank you! Sit down, the coffee is on its way.", "de": "Oh, danke! Setzen Sie sich, der Kaffee ist schon unterwegs.", "it": "Oh, grazie! Si sieda, il caffè sta arrivando." }
+      ],
+      "rare": [
+        { "sl": "Jan! Kaj takega! Tega nimajo niti v Gorici. Hvala, hvala!", "en": "Jan! Something like this! Not even in Gorizia do they have this. Thank you, thank you!", "de": "Jan! So etwas! Das gibt es nicht einmal in Görz. Danke, danke!", "it": "Jan! Una cosa così! Non ce l'hanno neanche a Gorizia. Grazie, grazie!" }
+      ]
+    }
+  }
+}

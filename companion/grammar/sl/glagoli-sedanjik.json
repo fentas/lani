@@ -1,0 +1,82 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "glagoli-sedanjik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "⏳",
+  "title": {
+    "sl": "Sedanjik: delam, delaš, dela",
+    "en": "The present tense: verb endings",
+    "de": "Das Präsens: die Verbendungen",
+    "it": "Il presente: le desinenze dei verbi"
+  },
+  "rule": {
+    "en": "In the present tense (*sedanjik*) the ending tells who does something, so the pronoun is usually dropped.\n\nNearly every verb has the same endings: **-m** (I), **-š** (you), no ending (he, she, it), **-mo** (we), **-te** (you all, polite you), **-jo** (they); for two: **-va**, **-ta**.\n\nBefore the ending sits a vowel: **a** (dela**m**), **i** (govori**m**), **e** (pije**m**). Learn it with the verb.\n\nMind the person: **Moja partnerka se imenuje Maja** (she: imenuj**e**), not se imenujem, which is I.",
+    "de": "Im Präsens (*sedanjik*) zeigt die Endung, wer etwas tut, darum fällt das Pronomen meist weg.\n\nFast jedes Verb hat dieselben Endungen: **-m** (ich), **-š** (du), keine Endung (er, sie, es), **-mo** (wir), **-te** (ihr, höfliches Sie), **-jo** (sie); für zwei: **-va**, **-ta**.\n\nVor der Endung steht ein Vokal: **a** (dela**m**), **i** (govori**m**), **e** (pije**m**). Man lernt ihn mit dem Verb.\n\nAchte auf die Person: **Moja partnerka se imenuje Maja** (sie: imenuj**e**), nicht se imenujem, das ist ich.",
+    "it": "Nel presente (*sedanjik*) la desinenza dice chi fa qualcosa, perciò il pronome di solito cade.\n\nQuasi tutti i verbi hanno le stesse desinenze: **-m** (io), **-š** (tu), nessuna desinenza (lui, lei), **-mo** (noi), **-te** (voi, il Lei di cortesia), **-jo** (loro); per due: **-va**, **-ta**.\n\nPrima della desinenza c'è una vocale: **a** (dela**m**), **i** (govori**m**), **e** (pije**m**). Si impara con il verbo.\n\nAttenzione alla persona: **Moja partnerka se imenuje Maja** (lei: imenuj**e**), non se imenujem, che è io."
+  },
+  "table": {
+    "head": [
+      { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "delati", "en": "delati (work)", "de": "delati (arbeiten)", "it": "delati (lavorare)" },
+      { "sl": "govoriti", "en": "govoriti (speak)", "de": "govoriti (sprechen)", "it": "govoriti (parlare)" },
+      { "sl": "piti", "en": "piti (drink)", "de": "piti (trinken)", "it": "piti (bere)" }
+    ],
+    "rows": [
+      ["jaz", "delam", "govorim", "pijem"],
+      ["ti", "delaš", "govoriš", "piješ"],
+      ["on, ona", "dela", "govori", "pije"],
+      ["mi", "delamo", "govorimo", "pijemo"],
+      ["vi", "delate", "govorite", "pijete"],
+      ["oni", "delajo", "govorijo", "pijejo"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Delam v Novi Gorici.",
+      "en": "I work in Nova Gorica.",
+      "de": "Ich arbeite in Nova Gorica.",
+      "it": "Lavoro a Nova Gorica."
+    },
+    {
+      "sl": "Govoriš slovensko?",
+      "en": "Do you speak Slovene?",
+      "de": "Sprichst du Slowenisch?",
+      "it": "Parli sloveno?"
+    },
+    {
+      "sl": "Moja partnerka se imenuje Maja.",
+      "en": "My partner's name is Maja.",
+      "de": "Meine Partnerin heißt Maja.",
+      "it": "La mia compagna si chiama Maja.",
+      "note": {
+        "en": "she → imenuje; imenujem is I.",
+        "de": "sie → imenuje; imenujem ist ich.",
+        "it": "lei → imenuje; imenujem è io."
+      }
+    },
+    {
+      "sl": "Zvečer pijemo čaj.",
+      "en": "In the evening we drink tea.",
+      "de": "Am Abend trinken wir Tee.",
+      "it": "La sera beviamo il tè."
+    },
+    {
+      "sl": "Kaj delate?",
+      "en": "What are you doing? (polite, or to several people)",
+      "de": "Was machen Sie? / Was macht ihr?",
+      "it": "Che cosa fa? / Che cosa fate?"
+    },
+    {
+      "sl": "Otroci se igrajo na travniku.",
+      "en": "The children are playing in the meadow.",
+      "de": "Die Kinder spielen auf der Wiese.",
+      "it": "I bambini giocano sul prato."
+    }
+  ],
+  "modules": [],
+  "tags": ["verb_person", "verb_ending", "present_tense", "conjugation"],
+  "see": ["biti", "imeti-iti", "dvojina", "ti-vi", "velelnik", "modalni-glagoli", "povratni-glagoli", "prihodnjik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

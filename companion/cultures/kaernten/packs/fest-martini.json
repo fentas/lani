@@ -1,0 +1,39 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-martini",
+  "language": "de",
+  "title": { "de": "Das Martinsfest", "sl": "Martinovo", "en": "St Martin's Day", "it": "San Martino" },
+  "emoji": "🏮",
+  "level": "A1",
+  "description": {
+    "sl": "11. novembra. Otroci gredo z lučkami skozi vas in pojejo, v gostilni je martinova gos, povsod pa diši po pečenem kostanju.",
+    "en": "11 November. The children walk through the village with lanterns and sing, there's St Martin's goose at the inn, and everywhere smells of roast chestnuts.",
+    "it": "11 novembre. I bambini attraversano il paese con le lanterne e cantano, all'osteria c'è l'oca di San Martino e dappertutto c'è profumo di caldarroste."
+  },
+  "giver": { "name": "Mostbauer Stefan", "emoji": "🍎" },
+  "festival": "martini",
+  "words": [
+    { "id": "laterne", "de": "die Laterne", "sl": "lučka, lampijon", "en": "lantern", "it": "la lanterna", "emoji": "🏮", "gender": "f", "plural": "die Laternen",
+      "example_de": "Meine Laterne leuchtet gelb.", "example_sl": "Moja lučka sveti rumeno.", "example_en": "My lantern glows yellow.", "example_it": "La mia lanterna fa una luce gialla." },
+    { "id": "gans", "de": "die Gans", "sl": "gos", "en": "goose", "it": "l'oca", "emoji": "🪿", "gender": "f", "plural": "die Gänse",
+      "example_de": "Die Gans läuft über die Wiese.", "example_sl": "Gos teče čez travnik.", "example_en": "The goose runs across the meadow.", "example_it": "L'oca corre sul prato.",
+      "note": "Das Martinigansl: Austrian for the roast goose of St Martin's Day.",
+      "note_sl": "Das Martinigansl: avstrijsko za martinovo gos.",
+      "note_it": "Das Martinigansl: in Austria, l'oca arrosto di San Martino." },
+    { "id": "maroni", "de": "die Maroni", "sl": "pečen kostanj", "en": "roast chestnuts", "it": "le caldarroste", "emoji": "🌰", "gender": "f", "plural": "die Maroni",
+      "example_de": "Die Maroni sind heiß.", "example_sl": "Pečen kostanj je vroč.", "example_en": "The roast chestnuts are hot.", "example_it": "Le caldarroste sono calde.",
+      "note": "Austrian; in Germany: die Maronen.",
+      "note_sl": "Avstrijsko; v Nemčiji: die Maronen.",
+      "note_it": "Parola austriaca; in Germania: die Maronen." },
+    { "id": "mantel", "de": "der Mantel", "sl": "plašč", "en": "coat, cloak", "it": "il mantello", "emoji": "🧥", "gender": "m", "plural": "die Mäntel",
+      "example_de": "Martin teilt seinen Mantel mit einem armen Mann.", "example_sl": "Martin deli svoj plašč z revnim možem.", "example_en": "Martin shares his cloak with a poor man.", "example_it": "Martino divide il suo mantello con un povero." },
+    { "id": "teilen", "de": "teilen", "sl": "deliti", "en": "to share", "it": "dividere, condividere", "emoji": "🤝",
+      "example_de": "Wir teilen das Brot.", "example_sl": "Delimo kruh.", "example_en": "We share the bread.", "example_it": "Dividiamo il pane." },
+    { "id": "dunkel", "de": "dunkel", "sl": "temen", "en": "dark", "it": "buio", "emoji": "🌑",
+      "example_de": "Im November wird es früh dunkel.", "example_sl": "Novembra se zgodaj stemni.", "example_en": "In November it gets dark early.", "example_it": "A novembre fa buio presto." },
+    { "id": "lied", "de": "das Lied", "sl": "pesem", "en": "song", "it": "la canzone", "emoji": "🎵", "gender": "n", "plural": "die Lieder",
+      "example_de": "Die Kinder singen ein Laternenlied.", "example_sl": "Otroci pojejo pesem o lučkah.", "example_en": "The children sing a lantern song.", "example_it": "I bambini cantano una canzone delle lanterne." },
+    { "id": "november", "de": "der November", "sl": "november", "en": "November", "it": "novembre", "emoji": "🍂", "gender": "m",
+      "example_de": "Martini ist im November.", "example_sl": "Martinovo je novembra.", "example_en": "St Martin's Day is in November.", "example_it": "San Martino è a novembre." }
+  ]
+}

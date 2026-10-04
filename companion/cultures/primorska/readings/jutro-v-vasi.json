@@ -1,0 +1,86 @@
+{
+  "id": "jutro-v-vasi",
+  "kind": "page",
+  "level": "A1",
+  "title": { "sl": "Jutro v vasi", "en": "Morning in the village", "de": "Morgen im Dorf", "it": "Mattina nel villaggio" },
+  "by": "micka",
+  "intro": { "sl": "Babica Micka pripoveduje, kako se začne njen dan.", "en": "Grandma Micka tells how her day begins.", "de": "Oma Micka erzählt, wie ihr Tag beginnt.", "it": "Nonna Micka racconta come comincia la sua giornata." },
+  "lines": [
+    { "text": { "sl": "Vstanem ob šestih, ko še vsi spijo.", "en": "I get up at six, when everyone is still asleep.", "de": "Ich stehe um sechs auf, wenn noch alle schlafen.", "it": "Mi alzo alle sei, quando dormono ancora tutti." } },
+    { "text": { "sl": "Najprej odprem okno in pogledam proti hribu.", "en": "First I open the window and look towards the hill.", "de": "Zuerst öffne ich das Fenster und schaue zum Hügel.", "it": "Per prima cosa apro la finestra e guardo verso la collina." } },
+    { "text": { "sl": "Če sije sonce, bo lep dan.", "en": "If the sun is shining, it will be a nice day.", "de": "Wenn die Sonne scheint, wird es ein schöner Tag.", "it": "Se splende il sole, sarà una bella giornata." } },
+    { "text": { "sl": "Potem skuham kavo in spečem kruh.", "en": "Then I make coffee and bake bread.", "de": "Dann koche ich Kaffee und backe Brot.", "it": "Poi faccio il caffè e cuocio il pane." } },
+    { "text": { "sl": "Kruh diši po vsej hiši.", "en": "The bread smells good all through the house.", "de": "Das Brot duftet im ganzen Haus.", "it": "Il pane profuma per tutta la casa." } },
+    { "text": { "sl": "Ob sedmih pride Luka z ovcami.", "en": "At seven Luka comes by with the sheep.", "de": "Um sieben kommt Luka mit den Schafen.", "it": "Alle sette arriva Luka con le pecore." } },
+    { "text": { "sl": "Dam mu kos kruha in skodelico mleka.", "en": "I give him a piece of bread and a cup of milk.", "de": "Ich gebe ihm ein Stück Brot und eine Tasse Milch.", "it": "Gli do un pezzo di pane e una tazza di latte." } },
+    { "text": { "sl": "Potem grem na vrt, kjer me čaka delo.", "en": "Then I go to the garden, where work is waiting for me.", "de": "Dann gehe ich in den Garten, wo die Arbeit auf mich wartet.", "it": "Poi vado nell'orto, dove mi aspetta il lavoro." } }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "ask": { "sl": "O čem pripoveduje Micka?", "en": "What is Micka telling about?", "de": "Wovon erzählt Micka?", "it": "Di che cosa racconta Micka?" },
+      "options": ["O svojem jutru", "O svojem večeru", "O poti v mesto"],
+      "explain": {
+        "sl": "Micka pripoveduje, kako se začne njen dan: vstane, skuha kavo in speče kruh.",
+        "en": "Micka tells how her day begins: she gets up, makes coffee and bakes bread.",
+        "de": "Micka erzählt, wie ihr Tag beginnt: Sie steht auf, kocht Kaffee und backt Brot.",
+        "it": "Micka racconta come comincia la sua giornata: si alza, fa il caffè e cuoce il pane."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "Kdaj vstane Micka?", "en": "When does Micka get up?", "de": "Wann steht Micka auf?", "it": "Quando si alza Micka?" },
+      "options": ["Ob šestih", "Ob sedmih", "Ob osmih"],
+      "explain": {
+        "sl": "»Vstanem ob šestih, ko še vsi spijo.« Ob sedmih pride Luka.",
+        "en": "»I get up at six, when everyone is still asleep.« Luka comes at seven.",
+        "de": "»Ich stehe um sechs auf, wenn noch alle schlafen.« Luka kommt um sieben.",
+        "it": "«Mi alzo alle sei, quando dormono ancora tutti.» Luka arriva alle sette."
+      }
+    },
+    {
+      "type": "word",
+      "word": "diši",
+      "ask": { "sl": "Kaj pomeni »diši« v »Kruh diši po vsej hiši«?", "en": "What does »diši« mean in »Kruh diši po vsej hiši«?", "de": "Was bedeutet »diši« in »Kruh diši po vsej hiši«?", "it": "Che cosa vuol dire «diši» in «Kruh diši po vsej hiši»?" },
+      "options": ["Ima lep vonj", "Je zelo vroč", "Se hitro speče"],
+      "explain": {
+        "sl": "Dišati: imeti lep vonj. Ko se kruh peče, ga vonjamo po vsej hiši.",
+        "en": "Dišati: to smell good. When bread is baking, you can smell it all through the house.",
+        "de": "Dišati: gut riechen, duften. Wenn Brot backt, riecht man es im ganzen Haus.",
+        "it": "Dišati: avere un buon profumo. Quando il pane cuoce, lo si sente in tutta la casa."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "sl": "Micka da Luki kavo.", "en": "Micka gives Luka coffee.", "de": "Micka gibt Luka Kaffee.", "it": "Micka dà il caffè a Luka." },
+      "answer": false,
+      "explain": {
+        "sl": "Ne drži: Luki da kos kruha in skodelico mleka.",
+        "en": "False: she gives Luka a piece of bread and a cup of milk.",
+        "de": "Stimmt nicht: Sie gibt Luka ein Stück Brot und eine Tasse Milch.",
+        "it": "Falso: a Luka dà un pezzo di pane e una tazza di latte."
+      }
+    },
+    {
+      "type": "inference",
+      "ask": { "sl": "Zakaj Micka zjutraj pogleda proti hribu?", "en": "Why does Micka look towards the hill in the morning?", "de": "Warum schaut Micka am Morgen zum Hügel?", "it": "Perché Micka al mattino guarda verso la collina?" },
+      "options": ["Da vidi, kakšno bo vreme", "Da pokliče Luko", "Da prešteje ovce"],
+      "explain": {
+        "sl": "Pogleda, ali sije sonce: »Če sije sonce, bo lep dan.«",
+        "en": "She looks whether the sun is shining: »If the sun is shining, it will be a nice day.«",
+        "de": "Sie schaut, ob die Sonne scheint: »Wenn die Sonne scheint, wird es ein schöner Tag.«",
+        "it": "Guarda se splende il sole: «Se splende il sole, sarà una bella giornata.»"
+      }
+    }
+  ],
+  "words": [
+    { "word": "vstati", "form": "vstanem", "pos": "verb", "means": { "en": "to get up", "de": "aufstehen", "it": "alzarsi" } },
+    { "word": "speči", "form": "spečem", "pos": "verb", "means": { "en": "to bake", "de": "backen", "it": "cuocere al forno" } },
+    { "word": "dišati", "form": "diši", "pos": "verb", "means": { "en": "to smell good", "de": "duften", "it": "profumare" } },
+    { "word": "skodelica", "form": "skodelico", "pos": "noun", "means": { "en": "a cup", "de": "eine Tasse", "it": "una tazza" } },
+    { "word": "vrt", "pos": "noun", "means": { "en": "a garden", "de": "ein Garten", "it": "un orto" } }
+  ],
+  "topics": ["morning", "home", "food"],
+  "machine_written": true,
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

@@ -1,0 +1,19 @@
+{
+  "_note": "How an answer in Italian is compared (see sl.json for the fields). same: l' acqua is l'acqua (an apostrophe after a consonant is an elision; after a vowel it stands for an accent: perche'). fold: the accents (è for e, perchè or perche' for perché) are almost right, hint accent. loose: the apostrophe and the elided article (un amica for un'amica, la acqua or l acqua for l'acqua) are almost right, hint apostrophe.",
+  "same": [["(?<=[^aeiou ])' +", "'"]],
+  "fold": [
+    ["[àáâ]", "a"], ["[èéê]", "e"], ["[ìíî]", "i"], ["[òóô]", "o"], ["[ùúû]", "u"],
+    ["(?<=[aeiou])'(?= |$)", ""]
+  ],
+  "fold_hint": "accent",
+  "loose": [
+    ["(?<!\\p{L})(?:lo|la) (?=[aeiouh])", "l'"],
+    ["(?<!\\p{L})una (?=[aeiou])", "un'"],
+    ["(?<!\\p{L})(de|ne|a|da|su)(?:llo|lla) (?=[aeiouh])", "$1ll'"],
+    ["(?<!\\p{L})(quel|bel)(?:lo|la) (?=[aeiou])", "$1l'"],
+    ["(?<!\\p{L})quest[oa] (?=[aeiou])", "quest'"],
+    ["'", " "],
+    [" +", " "]
+  ],
+  "loose_hint": "apostrophe"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "pri-zdravniku",
+  "title": "Pri zdravniku · At the doctor's",
+  "emoji": "🩺",
+  "level": "A1",
+  "setting": "A visit to the family doctor in Šempeter. You have had a sore throat and a headache for three days.",
+  "role": "Dr. Kovač, a calm family doctor. Speaks slowly and clearly, asks one simple question at a time. Says vi to patients.",
+  "voice": "male",
+  "goals": ["Greet and say your name", "Say what hurts", "Say how long you have been ill", "Say whether you have a fever", "Thank the doctor"],
+  "opener_sl": "Dober dan. Izvolite, sedite. Kaj vas boli?",
+  "opener_en": "Hello. Please, have a seat. What hurts?",
+  "vocabulary_hints": [
+    { "sl": "Jaz sem Jan.", "en": "I'm Jan." },
+    { "sl": "Boli me grlo.", "en": "My throat hurts." },
+    { "sl": "Boli me glava.", "en": "My head hurts." },
+    { "sl": "že tri dni", "en": "for three days now" },
+    { "sl": "Imam vročino.", "en": "I have a fever." },
+    { "sl": "Nimam vročine.", "en": "I don't have a fever." },
+    { "sl": "Hvala, gospod doktor.", "en": "Thank you, doctor." }
+  ]
+}

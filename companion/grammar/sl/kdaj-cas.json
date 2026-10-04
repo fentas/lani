@@ -1,0 +1,118 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "kdaj-cas",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "📅",
+  "title": {
+    "sl": "Kdaj? Ob petih, v sredo, pozimi",
+    "en": "When? Times, days and seasons",
+    "de": "Wann? Uhrzeit, Tage, Jahreszeiten",
+    "it": "Quando? Ore, giorni e stagioni"
+  },
+  "rule": {
+    "en": "**Kdaj?** (when?) has a few fixed patterns.\n\nThe time: **Koliko je ura?** **Ura je pet.** It's the plain number, not *peta* (the fifth). At what time: **ob** + the locative: **ob enih, ob dveh, ob treh, ob štirih, ob petih** … **ob dvanajstih**. Half past counts towards the next hour, as in German: **ob pol šestih** is at 5:30.\n\nA day takes **v** + the accusative: **v ponedeljek**, **v sredo**, **v petek**, **v nedeljo**. Every week on that day: **ob** + the locative plural, **ob torkih**, **ob sobotah**.\n\nThe parts of the day and the seasons are one word each: **zjutraj** (in the morning), **dopoldne**, **opoldne**, **popoldne**, **zvečer**, **ponoči**; **spomladi**, **poleti**, **jeseni**, **pozimi**. Jutro and zima are the nouns: *Jutro je lepo.*\n\n**Čez** + the accusative is *in* (later): **čez eno uro**. **Pred** + the instrumental is *ago*: **pred eno uro**. How long something lasts is the accusative, without a preposition: **ves dan**, **vso noč**.",
+    "de": "**Kdaj?** (wann?) hat ein paar feste Muster.\n\nDie Uhrzeit: **Koliko je ura?** **Ura je pet.** Es ist die Grundzahl, nicht *peta* (die fünfte). Um wie viel Uhr: **ob** + Lokativ: **ob enih, ob dveh, ob treh, ob štirih, ob petih** … **ob dvanajstih**. Halb zählt wie im Deutschen zur nächsten Stunde: **ob pol šestih** ist um halb sechs.\n\nEin Tag steht mit **v** + Akkusativ: **v ponedeljek**, **v sredo**, **v petek**, **v nedeljo**. Jede Woche an dem Tag: **ob** + Lokativ Plural, **ob torkih** (dienstags), **ob sobotah**.\n\nTageszeiten und Jahreszeiten sind je ein Wort: **zjutraj** (morgens), **dopoldne**, **opoldne**, **popoldne**, **zvečer**, **ponoči**; **spomladi**, **poleti**, **jeseni**, **pozimi**. Jutro und zima sind die Nomen: *Jutro je lepo.*\n\n**Čez** + Akkusativ heißt *in* (später): **čez eno uro**. **Pred** + Instrumental heißt *vor*: **pred eno uro**. Wie lange etwas dauert, steht im Akkusativ ohne Präposition: **ves dan**, **vso noč**.",
+    "it": "**Kdaj?** (quando?) ha alcuni schemi fissi.\n\nL'ora: **Koliko je ura?** **Ura je pet.** È il numero semplice, non *peta* (la quinta). A che ora: **ob** + il locativo: **ob enih, ob dveh, ob treh, ob štirih, ob petih** … **ob dvanajstih**. La mezza si conta verso l'ora successiva: **ob pol šestih** è alle cinque e mezza.\n\nUn giorno vuole **v** + l'accusativo: **v ponedeljek**, **v sredo**, **v petek**, **v nedeljo**. Ogni settimana quel giorno: **ob** + il locativo plurale, **ob torkih** (il martedì), **ob sobotah**.\n\nLe parti del giorno e le stagioni sono una parola sola: **zjutraj** (di mattina), **dopoldne**, **opoldne**, **popoldne**, **zvečer**, **ponoči**; **spomladi**, **poleti**, **jeseni**, **pozimi**. Jutro e zima sono i nomi: *Jutro je lepo.*\n\n**Čez** + l'accusativo vuol dire *fra* (più tardi): **čez eno uro**. **Pred** + lo strumentale vuol dire *fa*: **pred eno uro**. Quanto dura qualcosa va all'accusativo, senza preposizione: **ves dan**, **vso noč**."
+  },
+  "table": {
+    "head": [
+      { "sl": "kdaj?", "en": "when?", "de": "wann?", "it": "quando?" },
+      { "sl": "kako", "en": "how to say it", "de": "so sagt man es", "it": "come si dice" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "ura", "en": "the time", "de": "die Uhrzeit", "it": "l'ora" }, { "en": "ura je + the number", "de": "ura je + Grundzahl", "it": "ura je + il numero" }, "Ura je pet."],
+      [{ "sl": "ob kateri uri", "en": "at an hour", "de": "um … Uhr", "it": "a un'ora" }, { "en": "ob + locative", "de": "ob + Lokativ", "it": "ob + locativo" }, "ob petih, ob osmih"],
+      [{ "sl": "ob pol", "en": "at half past", "de": "um halb", "it": "alla mezza" }, { "en": "ob pol + the next hour", "de": "ob pol + nächste Stunde", "it": "ob pol + l'ora successiva" }, "ob pol šestih (5:30)"],
+      [{ "sl": "dan", "en": "on a day", "de": "an einem Tag", "it": "in un giorno" }, { "en": "v + accusative", "de": "v + Akkusativ", "it": "v + accusativo" }, "v sredo, v nedeljo"],
+      [{ "sl": "vsak torek", "en": "every Tuesday", "de": "jeden Dienstag", "it": "ogni martedì" }, { "en": "ob + locative plural", "de": "ob + Lokativ Plural", "it": "ob + locativo plurale" }, "ob torkih, ob sobotah"],
+      [{ "sl": "del dneva", "en": "part of the day", "de": "Tageszeit", "it": "parte del giorno" }, { "en": "one word", "de": "ein Wort", "it": "una parola" }, "zjutraj, popoldne, zvečer, ponoči"],
+      [{ "sl": "letni čas", "en": "season", "de": "Jahreszeit", "it": "stagione" }, { "en": "one word", "de": "ein Wort", "it": "una parola" }, "spomladi, poleti, jeseni, pozimi"],
+      [{ "sl": "pozneje", "en": "in (later)", "de": "in (später)", "it": "fra (più tardi)" }, { "en": "čez + accusative", "de": "čez + Akkusativ", "it": "čez + accusativo" }, "čez eno uro"],
+      [{ "sl": "prej", "en": "ago", "de": "vor", "it": "fa" }, { "en": "pred + instrumental", "de": "pred + Instrumental", "it": "pred + strumentale" }, "pred eno uro"],
+      [{ "sl": "kako dolgo", "en": "how long", "de": "wie lange", "it": "per quanto tempo" }, { "en": "accusative", "de": "Akkusativ", "it": "accusativo" }, "ves dan, vso noč"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Koliko je ura? Ura je pet.",
+      "en": "What time is it? It's five o'clock.",
+      "de": "Wie spät ist es? Es ist fünf Uhr.",
+      "it": "Che ore sono? Sono le cinque.",
+      "note": {
+        "en": "The plain number, and the verb stays je whatever it is: ura je ena, ura je dve, ura je štiri, ura je pet.",
+        "de": "Die Grundzahl, und das Verb bleibt je, wie auch immer sie lautet: ura je ena, ura je dve, ura je štiri, ura je pet.",
+        "it": "Il numero semplice, e il verbo resta je qualunque esso sia: ura je ena, ura je dve, ura je štiri, ura je pet."
+      }
+    },
+    {
+      "sl": "Babica vstane ob šestih.",
+      "en": "Grandma gets up at six.",
+      "de": "Oma steht um sechs auf.",
+      "it": "La nonna si alza alle sei."
+    },
+    {
+      "sl": "V sredo grem k Tonetu v kovačnico.",
+      "en": "On Wednesday I'm going to Tone's forge.",
+      "de": "Am Mittwoch gehe ich zu Tone in die Schmiede.",
+      "it": "Mercoledì vado da Tone in fucina."
+    },
+    {
+      "sl": "Ana ima tečaj ob torkih.",
+      "en": "Ana has her course on Tuesdays.",
+      "de": "Ana hat dienstags ihren Kurs.",
+      "it": "Ana ha il corso il martedì.",
+      "note": {
+        "en": "One Tuesday: v torek. Every Tuesday: ob torkih.",
+        "de": "Ein Dienstag: v torek. Jeden Dienstag: ob torkih.",
+        "it": "Un martedì: v torek. Ogni martedì: ob torkih."
+      }
+    },
+    {
+      "sl": "Zjutraj pijem kavo, zvečer čaj.",
+      "en": "In the morning I drink coffee, in the evening tea.",
+      "de": "Morgens trinke ich Kaffee, abends Tee.",
+      "it": "La mattina bevo il caffè, la sera il tè."
+    },
+    {
+      "sl": "Pozimi pade veliko snega.",
+      "en": "A lot of snow falls in winter.",
+      "de": "Im Winter fällt viel Schnee.",
+      "it": "D'inverno cade molta neve.",
+      "note": {
+        "en": "'In winter' is one word: pozimi. Zima is the noun: zima je mrzla.",
+        "de": "„Im Winter“ ist ein Wort: pozimi. Zima ist das Nomen: zima je mrzla.",
+        "it": "“D'inverno” è una parola sola: pozimi. Zima è il nome: zima je mrzla."
+      }
+    },
+    {
+      "sl": "Krošnjar bo čez eno uro pri vratih.",
+      "en": "The peddler will be at the gate in an hour.",
+      "de": "Der Hausierer ist in einer Stunde am Tor.",
+      "it": "Il venditore ambulante sarà alla porta fra un'ora.",
+      "note": {
+        "en": "čez eno uro: in an hour, later. Pred eno uro: an hour ago.",
+        "de": "čez eno uro: in einer Stunde, später. Pred eno uro: vor einer Stunde.",
+        "it": "čez eno uro: fra un'ora, più tardi. Pred eno uro: un'ora fa."
+      }
+    },
+    {
+      "sl": "Anton je bil tukaj pred eno uro.",
+      "en": "Anton was here an hour ago.",
+      "de": "Anton war vor einer Stunde hier.",
+      "it": "Anton era qui un'ora fa."
+    },
+    {
+      "sl": "Ves dan je deževalo.",
+      "en": "It rained all day.",
+      "de": "Es hat den ganzen Tag geregnet.",
+      "it": "Ha piovuto tutto il giorno."
+    }
+  ],
+  "modules": [],
+  "tags": ["time_expressions", "clock_time", "telling_time", "days_of_week"],
+  "see": ["mestnik", "vprasalnice", "tozilnik", "prihodnjik", "datumi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

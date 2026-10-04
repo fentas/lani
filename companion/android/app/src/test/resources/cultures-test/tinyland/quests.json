@@ -1,0 +1,27 @@
+{
+  "requests": [
+    {
+      "giver": "Nonna Pina",
+      "emoji": "👵",
+      "skill": "food",
+      "title": { "it": "La cucina di Pina", "en": "Pina's kitchen", "sl": "Pinina kuhinja" },
+      "story": { "it": "Nonna Pina cucina e ha dimenticato qualche parola.", "en": "Grandma Pina is cooking and forgot a few words." },
+      "topics": ["food"]
+    },
+    {
+      "giver": "Pastore Nino",
+      "emoji": "🐑",
+      "skill": "wood",
+      "title": { "it": "La pecora smarrita", "en": "The lost sheep" },
+      "story": { "it": "Una pecora è scappata nel bosco.", "en": "A sheep ran off into the forest." },
+      "topics": ["animals"]
+    }
+  ],
+  "lines": {
+    "asks": { "it": "{giver} ti chiede aiuto", "en": "asks for your help" },
+    "expired": { "it": "{giver}: troppo tardi", "en": "too late" },
+    "thanked": { "it": "{giver}: Grazie mille!", "en": "Thanks a lot!" },
+    "try_again": { "it": "{giver}: Non fa niente, riprova", "en": "Never mind, try again" },
+    "thanks_good": { "it": "{name} ti ringrazia con {item}", "en": "{name} thanks you with {item}" }
+  }
+}

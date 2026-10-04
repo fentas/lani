@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "naslonke",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🧲",
+  "title": {
+    "sl": "Naslonke: se, mi, ga na drugem mestu",
+    "en": "Clitics: the little words in second place",
+    "de": "Klitika: die kleinen Wörter an zweiter Stelle",
+    "it": "I clitici: le paroline al secondo posto"
+  },
+  "rule": {
+    "en": "Some short words have no stress of their own: the forms of biti (**sem, si, je, smo** …, and the future's **bom, boš, bo** …), **bi**, **se**, and short pronouns like **mi, ti, mu, ji, ga, jo**. These clitics (*naslonke*) lean on what comes before them and gather in second place, after the first word or the first phrase: **Imenujem se Jan.** **Moja partnerka se imenuje Maja.** (moja partnerka is one phrase, so se comes after both words.) **Ime mi je Jan.**\n\nWhen several meet, their order is fixed: sem, si, smo … and **bi**, then **se**, then to whom (**mi**), then whom (**ga**), and last **je** and the future's **bom, boš, bo** …: **Dal sem ti ga.** **Imenoval se je Janez.** **Videl ga bom.** **Jutri ti ga bom dal.** (not *Jutri bom ti ga dal*).\n\nA **ne** keeps bom next to it, before the pronouns: **Ne bom ga videl.** Nisem is a full word, so the pronoun follows it: **Nisem ga videl.**\n\nSlovene may also start a sentence with a clitic: **Se vidimo!** **Sem Jan.** That's correct.",
+    "de": "Manche kurzen Wörter haben keine eigene Betonung: die Formen von biti (**sem, si, je, smo** … und im Futur **bom, boš, bo** …), **bi**, **se** und kurze Pronomen wie **mi, ti, mu, ji, ga, jo**. Diese Klitika (*naslonke*) lehnen sich an das Vorige an und sammeln sich an zweiter Stelle, nach dem ersten Wort oder der ersten Wortgruppe: **Imenujem se Jan.** **Moja partnerka se imenuje Maja.** (moja partnerka ist eine Gruppe, darum kommt se nach beiden Wörtern.) **Ime mi je Jan.**\n\nTreffen mehrere zusammen, ist ihre Reihenfolge fest: sem, si, smo … und **bi**, dann **se**, dann wem (**mi**), dann wen (**ga**), und zuletzt **je** und das Futur **bom, boš, bo** …: **Dal sem ti ga.** **Imenoval se je Janez.** **Videl ga bom.** **Jutri ti ga bom dal.** (nicht *Jutri bom ti ga dal*).\n\nEin **ne** hält bom bei sich, vor den Pronomen: **Ne bom ga videl.** Nisem ist ein volles Wort, das Pronomen folgt ihm: **Nisem ga videl.**\n\nEin Satz darf auch mit einem Klitikon beginnen: **Se vidimo!** **Sem Jan.** Das ist richtig.",
+    "it": "Alcune parole brevi non hanno accento proprio: le forme di biti (**sem, si, je, smo** … e al futuro **bom, boš, bo** …), **bi**, **se** e i pronomi brevi come **mi, ti, mu, ji, ga, jo**. Questi clitici (*naslonke*) si appoggiano a ciò che viene prima e si raccolgono al secondo posto, dopo la prima parola o il primo gruppo di parole: **Imenujem se Jan.** **Moja partnerka se imenuje Maja.** (moja partnerka è un gruppo, quindi se viene dopo tutte e due le parole.) **Ime mi je Jan.**\n\nQuando se ne incontrano diversi, l'ordine è fisso: sem, si, smo … e **bi**, poi **se**, poi a chi (**mi**), poi chi (**ga**), e per ultimi **je** e il futuro **bom, boš, bo** …: **Dal sem ti ga.** **Imenoval se je Janez.** **Videl ga bom.** **Jutri ti ga bom dal.** (non *Jutri bom ti ga dal*).\n\nUn **ne** tiene bom accanto a sé, prima dei pronomi: **Ne bom ga videl.** Nisem è una parola piena, il pronome la segue: **Nisem ga videl.**\n\nUna frase può anche cominciare con un clitico: **Se vidimo!** **Sem Jan.** È corretto."
+  },
+  "table": {
+    "head": [
+      { "sl": "mesto", "en": "order", "de": "Reihenfolge", "it": "ordine" },
+      { "sl": "naslonke", "en": "clitics", "de": "Klitika", "it": "clitici" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["1", { "en": "biti: sem, si, smo … (not je); bi", "de": "biti: sem, si, smo … (nicht je); bi", "it": "biti: sem, si, smo … (non je); bi" }, "Včeraj sem bil doma."],
+      ["2", { "en": "se, si (oneself)", "de": "se, si (sich)", "it": "se, si (si)" }, "Imenujem se Jan."],
+      ["3", { "en": "to whom: mi, ti, mu, ji", "de": "wem: mi, ti, mu, ji", "it": "a chi: mi, ti, mu, ji" }, "Ime mi je Jan."],
+      ["4", { "en": "whom: me, te, ga, jo", "de": "wen: me, te, ga, jo", "it": "chi: me, te, ga, jo" }, "Dal sem ti ga."],
+      ["5", { "en": "je; bom, boš, bo … (the future)", "de": "je; bom, boš, bo … (Futur)", "it": "je; bom, boš, bo … (futuro)" }, "Videl ga je. Videl ga bom."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Imenujem se Jan.",
+      "en": "My name is Jan.",
+      "de": "Ich heiße Jan.",
+      "it": "Mi chiamo Jan."
+    },
+    {
+      "sl": "Moja partnerka se imenuje Maja.",
+      "en": "My partner's name is Maja.",
+      "de": "Meine Partnerin heißt Maja.",
+      "it": "La mia compagna si chiama Maja.",
+      "note": {
+        "en": "se comes after the whole first phrase, moja partnerka.",
+        "de": "se kommt nach der ganzen ersten Wortgruppe, moja partnerka.",
+        "it": "se viene dopo tutto il primo gruppo, moja partnerka."
+      }
+    },
+    {
+      "sl": "Ime mi je Jan.",
+      "en": "My name is Jan.",
+      "de": "Mein Name ist Jan.",
+      "it": "Il mio nome è Jan."
+    },
+    {
+      "sl": "Se vidimo jutri!",
+      "en": "See you tomorrow!",
+      "de": "Wir sehen uns morgen!",
+      "it": "Ci vediamo domani!",
+      "note": {
+        "en": "A clitic may start the sentence: this is fine.",
+        "de": "Ein Klitikon darf den Satz beginnen: das ist richtig.",
+        "it": "Un clitico può aprire la frase: va bene così."
+      }
+    },
+    {
+      "sl": "Včeraj sem ti ga dal.",
+      "en": "I gave it to you yesterday.",
+      "de": "Gestern habe ich es dir gegeben.",
+      "it": "Te l'ho dato ieri."
+    },
+    {
+      "sl": "Jutri ti ga bom dal.",
+      "en": "I'll give it to you tomorrow.",
+      "de": "Morgen gebe ich es dir.",
+      "it": "Te lo darò domani.",
+      "note": {
+        "en": "bom goes last, after ti and ga, as je does: not Jutri bom ti ga dal.",
+        "de": "bom steht zuletzt, nach ti und ga, wie je: nicht Jutri bom ti ga dal.",
+        "it": "bom va per ultimo, dopo ti e ga, come je: non Jutri bom ti ga dal."
+      }
+    },
+    {
+      "sl": "Ne bom ga videl.",
+      "en": "I won't see him.",
+      "de": "Ich werde ihn nicht sehen.",
+      "it": "Non lo vedrò.",
+      "note": {
+        "en": "With ne, bom stays next to it: ne bom ga. Without ne: Videl ga bom.",
+        "de": "Mit ne bleibt bom bei ihm: ne bom ga. Ohne ne: Videl ga bom.",
+        "it": "Con ne, bom gli resta accanto: ne bom ga. Senza ne: Videl ga bom."
+      }
+    },
+    {
+      "sl": "Kako se reče po slovensko?",
+      "en": "How do you say it in Slovene?",
+      "de": "Wie sagt man das auf Slowenisch?",
+      "it": "Come si dice in sloveno?"
+    }
+  ],
+  "modules": [],
+  "tags": ["clitic", "word_order", "ime_mi_je", "se_vidimo", "second_position"],
+  "see": ["biti", "pretekli-cas", "prihodnjik", "pogojnik", "glagoli-sedanjik", "osebni-zaimki", "povratni-glagoli", "vezniki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

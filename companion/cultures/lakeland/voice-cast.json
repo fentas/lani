@@ -1,0 +1,99 @@
+{
+  "_comment": "Who speaks the English of the lakeland village (companion/README.md, Voice): the same archetypes as companion/voice-cast.json, for the lakeland cast (villagers/*.json 'speaker'). The bridge asks ElevenLabs (eleven_v3) with language_code en. Chosen by audition on 2026-09-27 from the voices the account had: the same villager lines in each candidate, checked with the local Whisper (every word right), the pitch and the noise measured. British where the account has it (Alice, Daniel, Lily, George: premade voices); the others are American or other voices speaking English. No northern English voice yet: those in the library (Wilf, Steve, Beatrice, Tony below) are 'alternatives' with a 'library_owner', heard only in their library previews; to add one, it must be added to the account first (a library voice takes no voice slot). The voices are native English speakers, so no 'carrier'. To swap a voice, put its id in 'elevenlabs' and re-voice that speaker: LANI_CULTURE=lakeland companion/bin/voice-build --run --revoice <speaker> --data <the learner's data dir>. No 'gepard' voices: the local worker speaks only Slovene. Voice Design stays off for new profiles (LANI_VOICE_DESIGN=off).",
+  "language": "en",
+  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json).", "girl": "hiss" },
+  "speakers": {
+    "female": {
+      "gender": "female",
+      "elevenlabs": "Xb7hH8MSUJpSbSDYk0k2",
+      "name": "Alice",
+      "role": "Narrator: words, examples, exercises (default)",
+      "alternatives": [
+        { "name": "Lily", "elevenlabs": "pFZP5JQG7iQjIQuC4Bku" },
+        { "name": "Carrie", "elevenlabs": "GETflDbIxMMHeQDeVCEW", "library_owner": "bcafb46d30663fb9f499a75f18c3d6f46021a540fc713fa9fdc8f499a47a5c6a" }
+      ]
+    },
+    "male": {
+      "gender": "male",
+      "elevenlabs": "onwK4e9ZLuTAKqWW03F9",
+      "name": "Daniel",
+      "role": "Narrator (male): role-play characters with voice male",
+      "alternatives": [
+        { "name": "George", "elevenlabs": "JBFqnCBsd6RMkjVDRZzb" },
+        { "name": "Tony", "elevenlabs": "v9I7auPeR1xGKYRPwQGG", "library_owner": "4e2cab32a227bfd561ce3ab201fdb74b0156ced497b14ea53f1ee059b5a35c0d" }
+      ]
+    },
+    "grandma": {
+      "gender": "female",
+      "elevenlabs": "pFZP5JQG7iQjIQuC4Bku",
+      "name": "Lily",
+      "role": "Grandmother: Granny Maggie, Auntie Edna",
+      "alternatives": [
+        { "name": "Alice", "elevenlabs": "Xb7hH8MSUJpSbSDYk0k2" },
+        { "name": "Beatrice", "elevenlabs": "kkPJzQOWz2Oz9cUaEaQd", "library_owner": "e21da557bd3d3d214ca0cd46cb06720331c223a478ee711c3b62b8965330ec9d" }
+      ]
+    },
+    "grandpa": {
+      "gender": "male",
+      "elevenlabs": "JBFqnCBsd6RMkjVDRZzb",
+      "name": "George",
+      "role": "Old man: Old Wilf, Mr Tyson, Beekeeper Arthur",
+      "alternatives": [
+        { "name": "Bill", "elevenlabs": "pqHfZKP75CvOlQylNhV4" },
+        { "name": "Wilf", "elevenlabs": "yZ3w1DL4ZAxIdOscv2t8", "library_owner": "300b35287e8acc21dd12bd610b831e19b47dc75e8b8c15c2bca80cdcb776ef2d" },
+        { "name": "Steve", "elevenlabs": "yvKg3CwzCYDTwyHnWQLg", "library_owner": "3180ace08d233fc1523add9d0692b9e093c6b0a162c0110893ce28729337f1bd" }
+      ]
+    },
+    "young-man": {
+      "gender": "male",
+      "elevenlabs": "bIHbv24MWmeRgasZH58o",
+      "name": "Will",
+      "role": "Young man: Shepherd Jack, Brewer Sam; men who move in",
+      "alternatives": [{ "name": "Chris Basetta", "elevenlabs": "t3hJ92dgZhDVtsff084B" }]
+    },
+    "gruff": {
+      "gender": "male",
+      "elevenlabs": "nPczCjzI2devNBz1zQrb",
+      "name": "Brian",
+      "role": "Deep, gruff man: Mr Dixon",
+      "alternatives": [
+        { "name": "Nikola", "elevenlabs": "DAGnQ7r9sMtV0Q44g1Mi" },
+        { "name": "John of the North", "elevenlabs": "7rQX8r6PVq3gfJ8rZzyE", "library_owner": "d396af315ee8681a2edbd4739b7c111101366f851614b6d67562a5f62a619e20" }
+      ]
+    },
+    "woman": {
+      "gender": "female",
+      "elevenlabs": "EXAVITQu4vr4xnSDxMaL",
+      "name": "Sarah",
+      "role": "Warm woman: Mrs Birkett",
+      "alternatives": [{ "name": "Matilda", "elevenlabs": "XrExE9yKIg1WjnnlVkGX" }]
+    },
+    "teacher": {
+      "gender": "female",
+      "elevenlabs": "XrExE9yKIg1WjnnlVkGX",
+      "name": "Matilda",
+      "role": "Clear teacher: Mrs Hartley",
+      "alternatives": [{ "name": "Alice", "elevenlabs": "Xb7hH8MSUJpSbSDYk0k2" }]
+    },
+    "young-woman": {
+      "gender": "female",
+      "elevenlabs": "cgSgspJ2msm6clMCkdW9",
+      "name": "Jessica",
+      "role": "Young woman: women who move in",
+      "alternatives": [{ "name": "Sarah", "elevenlabs": "EXAVITQu4vr4xnSDxMaL" }]
+    },
+    "girl": {
+      "gender": "female",
+      "elevenlabs": "a30ekmfK56EKHR341YaO",
+      "name": "Torri Miles",
+      "role": "Girl: Poppy; girls born in the village",
+      "alternatives": [{ "name": "Jessica", "elevenlabs": "cgSgspJ2msm6clMCkdW9" }]
+    },
+    "boy": {
+      "gender": "male",
+      "elevenlabs": "bA58y3FqVI6b6gTNh0oT",
+      "name": "Kavya",
+      "role": "Boy: Harry, Alfie; boys born in the village"
+    }
+  }
+}

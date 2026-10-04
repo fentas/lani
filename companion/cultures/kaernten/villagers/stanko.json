@@ -1,0 +1,90 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "stanko",
+  "name": "Imker Stanko",
+  "emoji": "🐝",
+  "art": "beekeeper",
+  "voice": "male",
+  "speaker": "grandpa",
+  "role": {"de": "Imker", "sl": "Čebelar", "en": "Beekeeper", "it": "Apicoltore"},
+  "home": ["beehive", "spot:pond"],
+  "sleeps": "house:cellar",
+  "register": "ti",
+  "skill": "food",
+  "since": "tabor",
+  "order": 8,
+  "routine": {
+    "up": "5:30", "bed": "21:30",
+    "rituals": [
+      { "id": "bienen", "at": "20:50", "until": "21:10", "to": "beehive", "doing": "tend", "title": {"de": "Stanko horcht an den Bienenstöcken", "sl": "Stanko posluša panje", "en": "Stanko listens at the hives", "it": "Stanko ascolta le arnie"} }
+    ]
+  },
+  "personality": "Quiet beekeeper in his seventies, a Carinthian Slovene from the Rosental. Speaks softly and slowly so the bees stay calm, and asks the same of others: 'Langsam, langsam, die Bienen hören alles.' Greets with a smile, 'Dober dan! Grüß Gott!', and then speaks German. Proud of the Carnica, 'die Kärntner Biene' (kranjska sivka in Slovene), of his linden honey in summer and his dark forest honey in autumn, and of the painted panels on his beehives. Says du to the learner, and the learner says du back. Simple, gentle Austrian German with small pauses; loves silence, flowers and Schwammerl.",
+  "story": "Stanko keeps his hives in a little wooden bee house by the pond, each with a painted front panel his father painted: a fox, a hunter, a wedding. He knows every flower on the slopes of the Dobratsch by its name, in German and in Slovene. Every 20 May he tells the children it is World Bee Day, an idea that came from Slovenia, just over the Karawanken. He never gets stung, he says, because he never shouts.",
+  "likes": [
+    {"de": "die Bienen", "sl": "čebele", "en": "bees", "it": "le api"},
+    {"de": "der Lindenhonig", "sl": "lipov med", "en": "linden honey", "it": "il miele di tiglio"},
+    {"de": "die Stille", "sl": "tišina", "en": "silence", "it": "il silenzio"},
+    {"de": "die Schwammerl", "sl": "gobe", "en": "mushrooms (Schwammerl: Austrian for Pilze)", "it": "i funghi (Schwammerl: così si dice in Austria)"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Grüß Gott. Langsam, hier sind Bienen.", "sl": "Pozdravljen. Počasi, tu so čebele.", "en": "Hello. Gently, there are bees here.", "it": "Salve. Piano, qui ci sono le api.", "level": 0 },
+      { "de": "Dober dan! Grüß Gott! Komm, aber langsam.", "sl": "Dober dan! Pozdravljen! Pridi, ampak počasi.", "en": "Dober dan! Hello! Come, but slowly. (dober dan: Slovene for good day)", "it": "Dober dan! Buongiorno! Vieni, ma piano. (dober dan: buongiorno in sloveno)", "level": 0, "when": ["morning", "afternoon"] },
+      { "de": "Ah, servus. Heute sind die Bienen ruhig.", "sl": "A, živjo. Čebele so danes mirne.", "en": "Ah, hi. The bees are calm today.", "it": "Ah, ciao. Oggi le api sono tranquille.", "level": 1 },
+      { "de": "Dober dan! Schön, dass du da bist. Willst du die Bienen sehen?", "sl": "Dober dan! Lepo, da si tu. Bi rad videl čebele?", "en": "Dober dan! Nice that you're here. Would you like to see the bees?", "it": "Dober dan! Che bello che sei qui. Vuoi vedere le api?", "level": 2, "when": ["morning", "afternoon"] },
+      { "de": "Da bist du ja. Ich habe ein Glas Honig für dich.", "sl": "Tu si. Kozarček medu imam zate.", "en": "There you are. I have a jar of honey for you.", "it": "Eccoti. Ho un vasetto di miele per te.", "level": 3 },
+      { "de": "Da bist du. Die Bienen kennen dich jetzt. Komm.", "sl": "Tu si. Čebele te zdaj že poznajo. Pridi.", "en": "There you are. The bees know you now. Come.", "it": "Eccoti. Ormai le api ti conoscono. Vieni.", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke. Du bist süß wie Honig.", "sl": "Hvala. Sladek si kot med.", "en": "Thank you. You're as sweet as honey.", "it": "Grazie. Sei dolce come il miele." },
+      { "de": "Danke. Langsam, aber wir haben es geschafft.", "sl": "Hvala. Počasi, a nama je uspelo.", "en": "Thank you. Slowly, but we did it.", "it": "Grazie. Piano piano, ma ce l'abbiamo fatta." },
+      { "de": "Hvala! Danke! Auch die Bienen sagen danke.", "sl": "Hvala! Tudi čebele se ti zahvaljujejo.", "en": "Hvala! Thank you! The bees say thank you too. (hvala: Slovene for thanks)", "it": "Hvala! Grazie! Anche le api ti ringraziano. (hvala: grazie in sloveno)" }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "Wenn alles still ist, denke ich an {memory}.", "sl": "Ko je vse tiho, mislim na {memory}.", "en": "When all is quiet, I think of {memory}.", "it": "Quando è tutto tranquillo, ricordo {memory}.", "level": 2 },
+      { "de": "Bei den Bienen denke ich gern an {memory}.", "sl": "Pri čebelah rad mislim na {memory}.", "en": "With the bees I like to think of {memory}.", "it": "Vicino alle api ricordo volentieri {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Die Bienen arbeiten. Summ, summ.", "sl": "Čebele delajo. Bzz, bzz.", "en": "The bees are working. Buzz, buzz.", "it": "Le api lavorano. Bzz, bzz." },
+      { "de": "Die Linde blüht. Bald gibt es Honig.", "sl": "Lipa cveti. Kmalu bo med.", "en": "The linden is in flower. Soon there'll be honey.", "it": "Il tiglio è in fiore. Presto c'è il miele." },
+      { "de": "Nicht schreien. Die Bienen hören alles.", "sl": "Ne kriči. Čebele vse slišijo.", "en": "Don't shout. The bees hear everything.", "it": "Non gridare. Le api sentono tutto." },
+      { "de": "Das ist die Kärntner Biene. Auf Slowenisch: kranjska sivka.", "sl": "To je koroška čebela. Po slovensko: kranjska sivka.", "en": "This is the Carinthian bee. In Slovene: kranjska sivka.", "it": "Questa è l'ape della Carinzia. In sloveno: kranjska sivka." }
+    ],
+    "cheer": [
+      { "de": "Gut.", "sl": "Dobro.", "en": "Good.", "it": "Bene." },
+      { "de": "Gut. Sehr gut.", "sl": "Dobro. Zelo dobro.", "en": "Good. Very good.", "it": "Bene. Molto bene." },
+      { "de": "Richtig. Süß wie Honig.", "sl": "Prav. Sladko kot med.", "en": "Right. Sweet as honey.", "it": "Giusto. Dolce come il miele." }
+    ],
+    "comfort": [
+      { "de": "Macht nichts. Langsam, noch einmal.", "sl": "Nič hudega. Počasi, še enkrat.", "en": "Never mind. Slowly, once more.", "it": "Non fa niente. Piano, ancora una volta." },
+      { "de": "Ruhig. Atme, dann antworte.", "sl": "Mirno. Vdihni, potem odgovori.", "en": "Stay calm. Breathe, then answer.", "it": "Calma. Respira, poi rispondi." },
+      { "de": "Auch eine Biene fliegt manchmal zur falschen Blume.", "sl": "Tudi čebela kdaj sede na napačen cvet.", "en": "Even a bee sometimes flies to the wrong flower.", "it": "Anche un'ape, a volte, vola sul fiore sbagliato." }
+    ],
+    "listen": [
+      { "de": "Hör zu … leise.", "sl": "Poslušaj … tiho.", "en": "Listen … quietly.", "it": "Ascolta … piano." },
+      { "de": "Pst. Hörst du die Bienen?", "sl": "Pst. Slišiš čebele?", "en": "Shh. Can you hear the bees?", "it": "Shh. Senti le api?" },
+      { "de": "Hör gut zu. Es ist eine kleine Stimme.", "sl": "Dobro poslušaj. Tih glas je.", "en": "Listen carefully. It's a small voice.", "it": "Ascolta bene. È una voce piccola." }
+    ],
+    "bye": [
+      { "de": "Auf Wiedersehen.", "sl": "Na svidenje.", "en": "Goodbye.", "it": "Arrivederci." },
+      { "de": "Servus. Die Bienen sagen auch servus.", "sl": "Adijo. Tudi čebele te pozdravljajo.", "en": "Bye. The bees say bye too.", "it": "Ciao. Anche le api ti salutano." },
+      { "de": "Na svidenje! Morgen gibt es neuen Honig.", "sl": "Na svidenje! Jutri bo nov med.", "en": "Na svidenje! There's new honey tomorrow. (na svidenje: Slovene for goodbye)", "it": "Na svidenje! Domani c'è il miele nuovo. (na svidenje: arrivederci in sloveno)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Oh. Für mich? Woher weißt du das? Danke.", "sl": "O. Zame? Kako si vedel? Hvala.", "en": "Oh. For me? How did you know? Thank you.", "it": "Oh. Per me? Come lo sapevi? Grazie." },
+        { "de": "Das gefällt mir sehr. Leise, aber von Herzen: danke.", "sl": "Zelo mi je všeč. Tiho, a od srca: hvala.", "en": "I like it very much. Softly, but from the heart: thank you.", "it": "Mi piace molto. Piano piano, ma di cuore: grazie." },
+        { "de": "Schön. Süß wie Honig. Hvala, von Herzen.", "sl": "Lepo. Sladko kot med. Hvala, iz srca.", "en": "Lovely. Sweet as honey. Hvala, from the heart.", "it": "Bello. Dolce come il miele. Hvala, di cuore." }
+      ],
+      "ordinary": [
+        { "de": "Danke. Du bist sehr lieb.", "sl": "Hvala. Zelo si prijazen.", "en": "Thank you. You're very kind.", "it": "Grazie. Sei molto gentile." },
+        { "de": "Oh. Danke. Die Bienen sagen auch danke.", "sl": "O. Hvala. Tudi čebele se zahvaljujejo.", "en": "Oh. Thank you. The bees say thank you too.", "it": "Oh. Grazie. Anche le api ti ringraziano." }
+      ],
+      "rare": [
+        { "de": "Das … Ich weiß nicht, was ich sagen soll. Vielen, vielen Dank.", "sl": "Tole … Ne vem, kaj naj rečem. Najlepša, najlepša hvala.", "en": "This … I don't know what to say. Thank you so, so much.", "it": "Questo … Non so cosa dire. Grazie, grazie mille." }
+      ]
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "elena",
+  "name": "Maestra Elena",
+  "emoji": "👩‍🏫",
+  "art": "teacher",
+  "voice": "female",
+  "speaker": "teacher",
+  "role": {"it": "Maestra", "sl": "Učiteljica", "en": "Teacher", "de": "Lehrerin"},
+  "home": ["school"],
+  "sleeps": "school",
+  "register": "vi",
+  "skill": "stone",
+  "since": "vas",
+  "order": 13,
+  "routine": { "up": "6:30", "bed": "22:00" },
+  "personality": "Primary teacher in her thirties who comes with the school. Kind but precise: loves articles (il, lo, la, l') and double consonants (pala and palla, caro and carro) and always explains why a rule is there. Says tu to the learner, as teachers do to pupils; the learner says Lei to her and calls her 'maestra', as Italian children do. Speaks clear, calm, well-articulated Italian, slowly, and repeats the important word. Runs along the Isonzo on Sunday mornings.",
+  "story": "Elena grew up in Gorizia and teaches in a village school for the first time. She speaks Slovene too, from her grandmother in Nova Gorica, and likes to show how the two languages are alike and different. Until the village has a school she can only visit; once it is built, her classroom becomes the heart of the village.",
+  "likes": [
+    {"it": "gli articoli", "sl": "členi", "en": "articles (il, lo, la …)", "de": "die Artikel (il, lo, la …)"},
+    {"it": "i libri", "sl": "knjige", "en": "books", "de": "Bücher"},
+    {"it": "la corsa", "sl": "tek", "en": "running", "de": "Laufen"},
+    {"it": "le doppie", "sl": "dvojni soglasniki", "en": "double consonants (palla, carro)", "de": "Doppelkonsonanten (palla, carro)"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Buongiorno. Io sono la maestra Elena.", "sl": "Dober dan. Jaz sem učiteljica Elena.", "en": "Good morning. I'm Elena, the teacher.", "de": "Guten Morgen. Ich bin Elena, die Lehrerin.", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Buongiorno! Benvenuto a scuola.", "sl": "Dober dan! Dobrodošel v šoli.", "en": "Good morning! Welcome to school.", "de": "Guten Morgen! Willkommen in der Schule.", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Buonasera. Io sono la maestra Elena.", "sl": "Dober večer. Jaz sem učiteljica Elena.", "en": "Good evening. I'm Elena, the teacher.", "de": "Guten Abend. Ich bin Elena, die Lehrerin.", "level": 0, "when": ["evening", "night"] },
+      { "it": "Buongiorno! Pronto per la lezione?", "sl": "Dober dan! Si pripravljen na uro?", "en": "Good morning! Ready for the lesson?", "de": "Guten Morgen! Bereit für den Unterricht?", "level": 1, "when": ["morning", "afternoon"] },
+      { "it": "Ciao! Oggi impariamo una parola nuova.", "sl": "Živjo! Danes bomo spoznali novo besedo.", "en": "Hi! Today we'll learn a new word.", "de": "Hallo! Heute lernen wir ein neues Wort.", "level": 2 },
+      { "it": "Eccoti! Sei il mio alunno più bravo. Shh, è un segreto.", "sl": "Tu si! Ti si moj najboljši učenec. Pst, to je skrivnost.", "en": "There you are! You're my best pupil. Shh, it's a secret.", "de": "Da bist du ja! Du bist mein bester Schüler. Pssst, das ist ein Geheimnis.", "level": 3 },
+      { "it": "Che bello vederti! Vieni, ti ho preparato un libro.", "sl": "Kako lepo, da te vidim! Pridi, pripravila sem ti knjigo.", "en": "How lovely to see you! Come, I've got a book ready for you.", "de": "Wie schön, dich zu sehen! Komm, ich habe ein Buch für dich bereitgelegt.", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie. Hai lavorato bene.", "sl": "Hvala. Dobro si delal.", "en": "Thank you. You worked well.", "de": "Danke. Du hast gut gearbeitet." },
+      { "it": "Grazie! Sei stato bravissimo.", "sl": "Hvala! Zelo si bil priden.", "en": "Thank you! You were excellent.", "de": "Danke! Das hast du ganz toll gemacht." },
+      { "it": "Grazie di cuore. Sono fiera di te.", "sl": "Iz srca hvala. Ponosna sem nate.", "en": "Thank you from the heart. I'm proud of you.", "de": "Danke von Herzen. Ich bin stolz auf dich." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Non dimentico mai {memory}.", "sl": "Nikoli ne pozabim na {memory}.", "en": "I never forget {memory}.", "de": "{memory} vergesse ich nie.", "level": 2 },
+      { "it": "Mi piace ricordare {memory}. Che bella giornata!", "sl": "Rada se spomnim na {memory}. Kako lep dan!", "en": "I like to remember {memory}. What a lovely day!", "de": "Ich erinnere mich gern an {memory}. Was für ein schöner Tag!", "level": 3 }
+    ],
+    "idle": [
+      { "it": "Il, lo, la: tre articoli. Perché? Te lo spiego.", "sl": "Il, lo, la: trije členi. Zakaj? Ti razložim.", "en": "Il, lo, la: three articles. Why? I'll explain.", "de": "Il, lo, la: drei Artikel. Warum? Ich erkläre es dir." },
+      { "it": "Palla e pala: una lettera, due parole!", "sl": "Palla in pala: ena črka, dve besedi!", "en": "Palla and pala: one letter, two words!", "de": "Palla und pala: ein Buchstabe, zwei Wörter!" },
+      { "it": "Domenica corro lungo l'Isonzo.", "sl": "V nedeljo tečem ob Soči.", "en": "On Sunday I go running along the Isonzo.", "de": "Am Sonntag gehe ich am Isonzo laufen." },
+      { "it": "In italiano e in sloveno, tante parole si somigliano.", "sl": "V italijanščini in slovenščini si je veliko besed podobnih.", "en": "In Italian and Slovene, lots of words look alike.", "de": "Im Italienischen und im Slowenischen sind sich viele Wörter ähnlich." }
+    ],
+    "cheer": [
+      { "it": "Esatto!", "sl": "Točno!", "en": "Exactly!", "de": "Genau!" },
+      { "it": "Bravo! L'articolo giusto.", "sl": "Bravo! Pravi člen.", "en": "Well done! The right article.", "de": "Gut gemacht! Der richtige Artikel." },
+      { "it": "Perfetto. Vedi? La regola aiuta.", "sl": "Odlično. Vidiš? Pravilo pomaga.", "en": "Perfect. You see? The rule helps.", "de": "Perfekt. Siehst du? Die Regel hilft." },
+      { "it": "Molto bene! Dieci e lode!", "sl": "Zelo dobro! Petica z zvezdico!", "en": "Very good! Top marks!", "de": "Sehr gut! Bestnote!" }
+    ],
+    "comfort": [
+      { "it": "Non fa niente. Guardiamo insieme.", "sl": "Nič hudega. Poglejva skupaj.", "en": "Never mind. Let's look together.", "de": "Macht nichts. Schauen wir es uns zusammen an." },
+      { "it": "Quasi. Guarda bene l'articolo.", "sl": "Skoraj. Dobro poglej člen.", "en": "Almost. Look carefully at the article.", "de": "Fast. Schau dir den Artikel genau an." },
+      { "it": "Sbagliare è normale. Così si impara.", "sl": "Motiti se je normalno. Tako se učimo.", "en": "Making mistakes is normal. That's how we learn.", "de": "Fehler machen ist normal. So lernt man." }
+    ],
+    "listen": [
+      { "it": "Ascolta bene.", "sl": "Dobro poslušaj.", "en": "Listen carefully.", "de": "Hör gut zu." },
+      { "it": "Ascolta: una volta, piano.", "sl": "Poslušaj: enkrat, počasi.", "en": "Listen: once, slowly.", "de": "Hör zu: einmal, langsam." },
+      { "it": "Silenzio, per favore. Ascoltiamo.", "sl": "Tišina, prosim. Poslušajmo.", "en": "Quiet, please. Let's listen.", "de": "Ruhe, bitte. Hören wir zu." }
+    ],
+    "bye": [
+      { "it": "Arrivederci!", "sl": "Na svidenje!", "en": "Goodbye!", "de": "Auf Wiedersehen!" },
+      { "it": "Ciao! Ci vediamo domani a scuola.", "sl": "Adijo! Se vidiva jutri v šoli.", "en": "Bye! See you tomorrow at school.", "de": "Tschüss! Bis morgen in der Schule." },
+      { "it": "Mandi! E ripeti le parole nuove.", "sl": "Mandi! In ponovi nove besede. (mandi: furlanski pozdrav)", "en": "Mandi! And go over the new words. (mandi: Friulian for bye)", "de": "Mandi! Und wiederhol die neuen Wörter. (mandi: Friaulisch für tschüss)" }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Oh, che bello! Come lo sapevi che mi piace?", "sl": "O, kako lepo! Kako si vedel, da mi je všeč?", "en": "Oh, how lovely! How did you know I like it?", "de": "Oh, wie schön! Woher wusstest du, dass ich das mag?" },
+        { "it": "Grazie! Un regalo perfetto. Dieci e lode!", "sl": "Hvala! Popolno darilo. Petica z zvezdico!", "en": "Thank you! A perfect gift. Top marks!", "de": "Danke! Ein perfektes Geschenk. Bestnote!" },
+        { "it": "Mi piace tanto! Guarda come sono contenta!", "sl": "Zelo mi je všeč! Poglej, kako sem vesela!", "en": "I like it so much! Look how happy I am!", "de": "Das gefällt mir so gut! Schau, wie ich mich freue!" }
+      ],
+      "ordinary": [
+        { "it": "Grazie, sei molto gentile.", "sl": "Hvala, zelo si prijazen.", "en": "Thank you, you're very kind.", "de": "Danke, du bist sehr lieb." },
+        { "it": "Grazie! Che bel pensiero.", "sl": "Hvala! Kako lepa misel.", "en": "Thank you! What a lovely thought.", "de": "Danke! Was für eine schöne Idee." }
+      ],
+      "rare": [
+        { "it": "Questo è un regalo davvero speciale. Grazie di cuore!", "sl": "To je res posebno darilo. Iz srca hvala!", "en": "This is a really special gift. Thank you from the heart!", "de": "Das ist wirklich ein besonderes Geschenk. Danke von Herzen!" }
+      ]
+    }
+  }
+}

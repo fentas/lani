@@ -1,0 +1,99 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "partitivo",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🍞",
+  "title": {
+    "it": "Del pane, delle mele: il partitivo",
+    "sl": "Delni člen: nekaj kruha, nekaj jabolk",
+    "en": "The partitive: some bread, some apples",
+    "de": "Der Teilungsartikel: etwas Brot, ein paar Äpfel"
+  },
+  "rule": {
+    "en": "To say *some*, Italian uses **di + the article** (*partitivo*): **del pane**, **dello zucchero**, **della farina**, **dell'acqua**, **dei fichi**, **degli spinaci**, **delle mele**. It's the same fusion as on the page about prepositions with the article.\n\nWith things you don't count it means *some, a bit of* (**del miele**); with things you count, *some, a few* (**delle mele**). English often says nothing: **Vuoi del pane?** (Would you like bread?) Italian can leave it out too, but with it the sentence sounds natural.\n\n**Un po' di** (a little) is simple and works with anything you don't count: **un po' di miele**, **un po' d'acqua**.\n\nIn a negative sentence nothing goes before the noun: **Non ho pane.** (I haven't got any bread.) **Oggi non abbiamo latte.**",
+    "sl": "Za *nekaj* italijanščina uporabi **di + člen** (*partitivo*): **del pane**, **dello zucchero**, **della farina**, **dell'acqua**, **dei fichi**, **degli spinaci**, **delle mele**. To je isto zlitje kot na strani o predlogih s členom.\n\nSlovenščina tu pogosto uporabi rodilnik: **Vuoi del pane?** (Bi kruha?) **Prendi dell'acqua.** (Vzemi si vode.) Pri stvareh, ki jih šteješ, pomeni *nekaj*: **delle mele** (nekaj jabolk). Lahko se tudi izpusti, a z njim stavek zveni naravno.\n\n**Un po' di** (malo) je preprost in gre z vsem, česar ne šteješ: **un po' di miele** (malo medu), **un po' d'acqua** (malo vode).\n\nV nikalnem stavku pred samostalnikom ni ničesar, slovenščina pa ima rodilnik: **Non ho pane.** (Nimam kruha.) **Oggi non abbiamo latte.** (Danes nimamo mleka.)",
+    "de": "Für *etwas* oder *ein paar* sagt das Italienische **di + Artikel** (*partitivo*): **del pane**, **dello zucchero**, **della farina**, **dell'acqua**, **dei fichi**, **degli spinaci**, **delle mele**. Es ist dieselbe Verschmelzung wie auf der Seite über Präpositionen mit Artikel.\n\nBei Dingen, die man nicht zählt, heißt es *etwas* (**del miele**, etwas Honig); bei zählbaren *ein paar* (**delle mele**, ein paar Äpfel). Im Deutschen steht oft nichts: **Vuoi del pane?** (Möchtest du Brot?) Man kann es auch im Italienischen weglassen, aber mit klingt der Satz natürlich.\n\n**Un po' di** (ein bisschen) ist einfach und passt zu allem, was man nicht zählt: **un po' di miele**, **un po' d'acqua**.\n\nIm verneinten Satz steht nichts vor dem Nomen, wo das Deutsche kein sagt: **Non ho pane.** (Ich habe kein Brot.) **Oggi non abbiamo latte.** (Heute haben wir keine Milch.)"
+  },
+  "table": {
+    "head": [
+      { "it": "articolo", "sl": "člen", "en": "article", "de": "Artikel" },
+      { "it": "di + articolo", "sl": "di + člen", "en": "di + article", "de": "di + Artikel" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" },
+      { "it": "significato", "sl": "pomen", "en": "meaning", "de": "Bedeutung" }
+    ],
+    "rows": [
+      ["il", "del", "del pane", { "it": "un po' di pane", "sl": "(nekaj) kruha", "en": "some bread", "de": "(etwas) Brot" }],
+      ["lo", "dello", "dello zucchero", { "it": "un po' di zucchero", "sl": "(nekaj) sladkorja", "en": "some sugar", "de": "(etwas) Zucker" }],
+      ["l'", "dell'", "dell'acqua", { "it": "un po' d'acqua", "sl": "(nekaj) vode", "en": "some water", "de": "(etwas) Wasser" }],
+      ["la", "della", "della farina", { "it": "un po' di farina", "sl": "(nekaj) moke", "en": "some flour", "de": "(etwas) Mehl" }],
+      ["i", "dei", "dei fichi", { "it": "alcuni fichi", "sl": "nekaj fig", "en": "some figs", "de": "ein paar Feigen" }],
+      ["gli", "degli", "degli spinaci", { "it": "un po' di spinaci", "sl": "nekaj špinače", "en": "some spinach", "de": "etwas Spinat" }],
+      ["le", "delle", "delle mele", { "it": "alcune mele", "sl": "nekaj jabolk", "en": "some apples", "de": "ein paar Äpfel" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Prendi del pane, tesoro.",
+      "sl": "Vzemi si kruha, zaklad.",
+      "en": "Have some bread, sweetheart.",
+      "de": "Nimm dir etwas Brot, Schatz."
+    },
+    {
+      "it": "Nonna Rosa mette dello zucchero nel tè.",
+      "sl": "Babica Rosa v čaj doda malo sladkorja.",
+      "en": "Nonna Rosa puts some sugar in the tea.",
+      "de": "Nonna Rosa tut etwas Zucker in den Tee.",
+      "note": {
+        "sl": "lo zucchero → dello zucchero.",
+        "en": "lo zucchero → dello zucchero.",
+        "de": "lo zucchero → dello zucchero."
+      }
+    },
+    {
+      "it": "Nel cesto ci sono dei fichi.",
+      "sl": "V košari je nekaj fig.",
+      "en": "There are some figs in the basket.",
+      "de": "Im Korb sind ein paar Feigen."
+    },
+    {
+      "it": "Vuoi delle mele?",
+      "sl": "Bi nekaj jabolk?",
+      "en": "Would you like some apples?",
+      "de": "Möchtest du ein paar Äpfel?"
+    },
+    {
+      "it": "Posso avere un po' d'acqua?",
+      "sl": "Lahko dobim malo vode?",
+      "en": "May I have a little water?",
+      "de": "Kann ich ein bisschen Wasser haben?",
+      "note": {
+        "sl": "un po' di (pred samoglasnikom d'): malo.",
+        "en": "un po' di (d' before a vowel): a little.",
+        "de": "un po' di (vor Vokal d'): ein bisschen."
+      }
+    },
+    {
+      "it": "Oggi non abbiamo latte.",
+      "sl": "Danes nimamo mleka.",
+      "en": "We haven't got any milk today.",
+      "de": "Heute haben wir keine Milch.",
+      "note": {
+        "sl": "Po non ni partitiva: non abbiamo latte (nimamo mleka).",
+        "en": "After non, no partitive: non abbiamo latte.",
+        "de": "Nach non kein Partitiv: non abbiamo latte (keine Milch)."
+      }
+    },
+    {
+      "it": "Aldo, hai del miele?",
+      "sl": "Aldo, imaš kaj medu?",
+      "en": "Aldo, have you got any honey?",
+      "de": "Aldo, hast du Honig?"
+    }
+  ],
+  "modules": [],
+  "tags": ["partitive", "partitivo", "some", "di_article", "un_po_di", "articles"],
+  "see": ["preposizioni-articolate", "articoli-genere", "ce-ci-sono"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

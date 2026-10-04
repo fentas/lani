@@ -1,0 +1,97 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "prislovi",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🐇",
+  "title": {
+    "sl": "Prislovi: dobro, glasno, hitro",
+    "en": "Adverbs: well, loudly, fast",
+    "de": "Adverbien: gut, laut, schnell",
+    "it": "Gli avverbi: bene, forte, veloce"
+  },
+  "rule": {
+    "en": "An adjective says what someone or something is like, and it agrees with its noun: **dobra juha**, **glasen traktor**. An adverb (*prislov*) says how something is done, and it never changes: **Sova dobro vidi.** **Anton glasno kliče.**\n\nMost adverbs are the adjective's neuter form in **-o** or **-e**: dober → **dobro**, glasen → **glasno**, hiter → **hitro**, tih → **tiho**, lep → **lepo**. A few are words of their own: počasen → **počasi** (slowly).\n\nGerman says *gut* for both; Slovene doesn't: **dobra sova** (a good owl), but **sova dobro vidi** (the owl sees well).\n\nWith nothing to agree with, the same form is used: **To je dobro.** **Danes je lepo.**\n\nPlace and direction come in pairs, like kje and kam: **notri** (inside) and **noter** (in), **zunaj** (outside) and **ven** (out), **spodaj** and **dol** (down), **zgoraj** and **gor** (up), **doma** and **domov**: **Muri je zunaj.** **Muri, pojdi ven!**",
+    "de": "Ein Adjektiv sagt, wie jemand oder etwas ist, und richtet sich nach seinem Nomen: **dobra juha**, **glasen traktor**. Ein Adverb (*prislov*) sagt, wie man etwas tut, und ändert sich nie: **Sova dobro vidi.** **Anton glasno kliče.**\n\nDie meisten Adverbien sind die sächliche Form des Adjektivs auf **-o** oder **-e**: dober → **dobro**, glasen → **glasno**, hiter → **hitro**, tih → **tiho**, lep → **lepo**. Einige sind eigene Wörter: počasen → **počasi** (langsam).\n\nIm Deutschen heißt beides *gut*, im Slowenischen nicht: **dobra sova** (eine gute Eule), aber **sova dobro vidi** (die Eule sieht gut).\n\nOhne ein Nomen, nach dem es sich richten kann, steht dieselbe Form: **To je dobro.** **Danes je lepo.**\n\nOrt und Richtung kommen paarweise, wie kje und kam: **notri** (drinnen) und **noter** (herein, hinein), **zunaj** (draußen) und **ven** (hinaus), **spodaj** (unten) und **dol** (hinunter), **zgoraj** (oben) und **gor** (hinauf), **doma** und **domov**: **Muri je zunaj.** **Muri, pojdi ven!**",
+    "it": "Un aggettivo dice com'è qualcuno o qualcosa e concorda con il suo nome: **dobra juha**, **glasen traktor**. Un avverbio (*prislov*) dice come si fa qualcosa e non cambia mai: **Sova dobro vidi.** **Anton glasno kliče.**\n\nLa maggior parte degli avverbi è la forma neutra dell'aggettivo in **-o** o **-e**: dober → **dobro**, glasen → **glasno**, hiter → **hitro**, tih → **tiho**, lep → **lepo**. Alcuni sono parole a sé: počasen → **počasi** (piano, lentamente).\n\nIl tedesco dice *gut* per tutti e due, lo sloveno no: **dobra sova** (una brava civetta), ma **sova dobro vidi** (la civetta vede bene).\n\nQuando non c'è niente con cui concordare, si usa la stessa forma: **To je dobro.** **Danes je lepo.**\n\nLuogo e direzione vanno a coppie, come kje e kam: **notri** (dentro, stato) e **noter** (dentro, moto), **zunaj** (fuori) e **ven** (verso fuori), **spodaj** (giù, sotto) e **dol** (verso il basso), **zgoraj** (su, sopra) e **gor** (verso l'alto), **doma** e **domov**: **Muri je zunaj.** **Muri, pojdi ven!**"
+  },
+  "table": {
+    "head": [
+      { "sl": "pridevnik", "en": "adjective", "de": "Adjektiv", "it": "aggettivo" },
+      { "sl": "prislov", "en": "adverb (prislov)", "de": "Adverb (prislov)", "it": "avverbio (prislov)" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["dober", "dobro", "Sova dobro vidi."],
+      ["glasen", "glasno", "Anton glasno kliče."],
+      ["hiter", "hitro", "Muri hitro teče."],
+      ["tih", "tiho", "Nejc tiho odpre vrata."],
+      ["lep", "lepo", "Babica lepo poje."],
+      ["počasen", "počasi", "Govorite počasi, prosim."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Sova dobro vidi tudi ponoči.",
+      "en": "The owl sees well even at night.",
+      "de": "Die Eule sieht auch nachts gut.",
+      "it": "La civetta vede bene anche di notte.",
+      "note": {
+        "en": "How does it see? dobro, the adverb. Dobra sova is a good owl.",
+        "de": "Wie sieht sie? dobro, das Adverb. Dobra sova ist eine gute Eule.",
+        "it": "Come vede? dobro, l'avverbio. Dobra sova è una brava civetta."
+      }
+    },
+    {
+      "sl": "Anton glasno kliče.",
+      "en": "Anton is calling loudly.",
+      "de": "Anton ruft laut.",
+      "it": "Anton chiama forte."
+    },
+    {
+      "sl": "Muri teče hitro, Sivko pa počasi.",
+      "en": "Muri runs fast, and Sivko slowly.",
+      "de": "Muri läuft schnell, Sivko aber langsam.",
+      "it": "Muri corre veloce, Sivko invece piano."
+    },
+    {
+      "sl": "Babica Micka lepo poje.",
+      "en": "Grandma Micka sings beautifully.",
+      "de": "Oma Micka singt schön.",
+      "it": "Nonna Micka canta bene."
+    },
+    {
+      "sl": "Danes je lepo.",
+      "en": "It's nice today.",
+      "de": "Heute ist es schön.",
+      "it": "Oggi è bello.",
+      "note": {
+        "en": "No noun to agree with: lepo.",
+        "de": "Kein Nomen, nach dem es sich richtet: lepo.",
+        "it": "Nessun nome con cui concordare: lepo."
+      }
+    },
+    {
+      "sl": "Nejc, pridi noter! Notri je toplo.",
+      "en": "Nejc, come in! It's warm inside.",
+      "de": "Nejc, komm herein! Drinnen ist es warm.",
+      "it": "Nejc, vieni dentro! Dentro fa caldo.",
+      "note": {
+        "en": "noter: where to (kam); notri: where (kje).",
+        "de": "noter: wohin (kam); notri: wo (kje).",
+        "it": "noter: verso dove (kam); notri: dove (kje)."
+      }
+    },
+    {
+      "sl": "Počakaj zunaj, jaz grem dol v klet.",
+      "en": "Wait outside, I'm going down to the cellar.",
+      "de": "Warte draußen, ich gehe hinunter in den Keller.",
+      "it": "Aspetta fuori, io scendo in cantina."
+    }
+  ],
+  "modules": [],
+  "tags": ["adverb", "adverbs", "prislov"],
+  "see": ["pridevniki-ujemanje", "primernik", "kdaj-cas"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

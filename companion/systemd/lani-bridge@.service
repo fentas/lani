@@ -1,0 +1,30 @@
+# A template, not installed: a learner's bridge service under systemd instead of tmux
+# (docs/plans/04-bridge-service.md, "tmux or systemd").
+#
+# Only worth it with linger on (`loginctl enable-linger`), which is Jan's decision. Without linger, systemd stops user
+# services when the last login session ends, while the tutor in tmux keeps running: the app would lose its API.
+#
+# To use it:
+#   1. Replace @REPO@ below with the checkout's path, and @BUN_DIR@ with the directory of `bun` (`dirname $(which bun)`).
+#   2. cp companion/systemd/lani-bridge@.service ~/.config/systemd/user/ && systemctl --user daemon-reload
+#   3. companion/bin/lani-bridge stop [--profile <id>]         (the tmux one, first)
+#   4. systemctl --user enable --now lani-bridge@default       (or @<profile id>)
+# `lani-bridge restart` and `status` work as with tmux (systemd starts it again); stop it with
+# `systemctl --user stop lani-bridge@<id>`, and follow its log with `journalctl --user -u lani-bridge@<id> -f`.
+[Unit]
+Description=Lani bridge service (%i)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=@REPO@
+Environment=PATH=@BUN_DIR@:/usr/local/bin:/usr/bin:/bin
+# %i is "default" or a profile id: lani-bridge exec reads the profile and ~/.config/lani/keys.env, then runs the service.
+ExecStart=/usr/bin/env bash @REPO@/companion/bin/lani-bridge exec --profile %i
+Restart=always
+RestartSec=1
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+[Install]
+WantedBy=default.target

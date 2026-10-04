@@ -1,0 +1,544 @@
+#!/usr/bin/env python3
+"""Snapshots of Lani's learner data: local, deduplicated, restorable.
+
+  lani-backup [run]             take a snapshot now (skipped when nothing changed)
+  lani-backup status            last run, newest snapshot, disk use, timer
+  lani-backup list              snapshots, newest first
+  lani-backup verify [NAME]     check a snapshot against its manifest (default: newest)
+  lani-backup restore NAME      show what restoring NAME would change (nothing is written)
+  lani-backup restore NAME --apply [--only PATH ...] [--force]
+  lani-backup install           install the systemd user timer (every 6 hours)
+  lani-backup uninstall         remove it (snapshots are kept)
+
+A snapshot is a plain directory with data/, results/ and manifest.json, under $LANI_BACKUP_DIR
+(default ~/.local/share/lani/backups, which is on a different disk than the repo here). Files
+unchanged since the previous snapshot are hard links to it, so an unchanged 20 MB voice store costs
+nothing. SQLite databases are copied with SQLite's online backup and JSON files are parsed after
+copying. Release APKs are left out: release-app rebuilds them.
+
+Kept: the newest 7 snapshots, the last of each day for 14 days, of each week for 8 weeks and of
+each month for 12 months.
+"""
+from __future__ import annotations
+
+import argparse
+import contextlib
+import fcntl
+import hashlib
+import json
+import os
+import re
+import shutil
+import socket
+import sqlite3
+import subprocess
+import sys
+import tempfile
+import time
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from fnmatch import fnmatch
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[2]
+NAME = re.compile(r"^(\d{4}-\d{2}-\d{2}T\d{6})(-[a-z0-9-]+)?$")
+EXCLUDE = ["app/release/*.apk", "*.tmp", "*-wal", "*-shm", "*-journal", ".DS_Store", "__pycache__/*"]
+SQLITE_MAGIC = b"SQLite format 3\x00"
+UNIT = "lani-backup"
+
+
+def adopt_legacy_env() -> None:
+    """LANI_X from FLUENT_X, its name before the project was renamed from Fluent, when LANI_X isn't set."""
+    for k, v in list(os.environ.items()):
+        if k.startswith("FLUENT_"):
+            os.environ.setdefault("LANI_" + k[len("FLUENT_"):], v)
+
+
+adopt_legacy_env()
+
+
+def default_backups() -> Path:
+    """~/.local/share/lani/backups, or ~/.local/share/fluent/backups while only that one exists (before the rename)."""
+    new, old = Path.home() / ".local/share/lani/backups", Path.home() / ".local/share/fluent/backups"
+    return old if not new.exists() and old.exists() else new
+
+
+def data_dir() -> Path:
+    return Path(os.environ.get("LANI_DATA_DIR") or REPO / "data").expanduser().resolve()
+
+
+def use_profile(pid: str) -> None:
+    """Snapshots of another learner on this machine (companion/README.md, "Learners"): their data from the
+    registry, their own backup directory and timer, so they never mix with the default profile's."""
+    global UNIT
+    if pid in ("", "default"):
+        return
+    reg_dir = Path(os.environ.get("LANI_PROFILES_DIR") or REPO / "profiles").expanduser().resolve()
+    try:
+        reg = json.loads((reg_dir / "profiles.json").read_text())
+        entry = next(e for e in reg.get("profiles", []) if e.get("id") == pid)
+    except (FileNotFoundError, StopIteration, json.JSONDecodeError):
+        sys.exit(f"lani-backup: no learner \"{pid}\" in {reg_dir / 'profiles.json'} (companion/bin/lani-profile list)")
+    data = (reg_dir / entry["data_dir"]).resolve()
+    os.environ["LANI_DATA_DIR"] = str(data)
+    os.environ.setdefault("LANI_RESULTS_DIR", str(data.parent / "results"))
+    os.environ.setdefault("LANI_BACKUP_DIR", str(default_backups() / pid))
+    UNIT = f"lani-backup-{pid}"
+
+
+def sources() -> dict[str, Path]:
+    """What a snapshot holds: the learner data and the session reports next to it."""
+    d = data_dir()
+    return {"data": d, "results": Path(os.environ.get("LANI_RESULTS_DIR") or d.parent / "results").resolve()}
+
+
+def backup_dir() -> Path:
+    return Path(os.environ.get("LANI_BACKUP_DIR") or default_backups()).expanduser()
+
+
+def log(msg: str, quiet: bool = False) -> None:
+    if not quiet:
+        print(msg)
+
+
+# --- snapshots ----------------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class Snap:
+    name: str
+    path: Path
+    at: datetime
+
+    def manifest(self) -> dict:
+        return json.loads((self.path / "manifest.json").read_text())
+
+
+def snapshots(root: Path | None = None) -> list[Snap]:
+    """Complete snapshots (those with a manifest), newest first."""
+    root = root or backup_dir()
+    out = []
+    if root.is_dir():
+        for p in root.iterdir():
+            m = NAME.match(p.name)
+            if m and p.is_dir() and (p / "manifest.json").is_file():
+                out.append(Snap(p.name, p, datetime.strptime(m.group(1), "%Y-%m-%dT%H%M%S")))
+    return sorted(out, key=lambda s: s.at, reverse=True)
+
+
+def find(name: str | None) -> Snap:
+    snaps = snapshots()
+    if not snaps:
+        sys.exit("No snapshots yet: run `lani-backup` first.")
+    if name is None:
+        return snaps[0]
+    hits = [s for s in snaps if s.name == name] or [s for s in snaps if s.name.startswith(name)]
+    if len(hits) != 1:
+        sys.exit(f"{'No' if not hits else 'More than one'} snapshot matches {name!r}; see `lani-backup list`.")
+    return hits[0]
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def is_sqlite(path: Path) -> bool:
+    try:
+        with open(path, "rb") as f:
+            return f.read(16) == SQLITE_MAGIC
+    except OSError:
+        return False
+
+
+def excluded(rel: str) -> bool:
+    return any(fnmatch(rel, pat) or fnmatch(Path(rel).name, pat) for pat in EXCLUDE)
+
+
+def walk(src: Path):
+    """Relative paths of the regular files under [src] worth keeping, sorted."""
+    if not src.is_dir():
+        return
+    for dirpath, dirnames, filenames in os.walk(src):
+        dirnames.sort()
+        for f in sorted(filenames):
+            p = Path(dirpath) / f
+            rel = p.relative_to(src).as_posix()
+            if not p.is_symlink() and p.is_file() and not excluded(rel):
+                yield rel
+
+
+def copy_file(src: Path, dest: Path) -> list[str]:
+    """Copies one file consistently; returns warnings."""
+    if is_sqlite(src):
+        # The online backup API gives a consistent copy even while the bridge writes.
+        with contextlib.closing(sqlite3.connect(f"file:{src}?mode=ro", uri=True)) as s, \
+                contextlib.closing(sqlite3.connect(dest)) as d:
+            s.backup(d)
+        shutil.copystat(src, dest)
+        return []
+    for attempt in range(3):
+        shutil.copy2(src, dest)
+        if not src.name.endswith(".json"):
+            return []
+        try:
+            json.loads(dest.read_bytes())
+            return []
+        except ValueError:
+            time.sleep(0.5)  # Caught mid-write? Writers here rename atomically, but try again.
+    return [f"{src}: not valid JSON (kept as is)"]
+
+
+def take(label: str = "", quiet: bool = False, always: bool = False) -> Snap | None:
+    """Takes a snapshot; returns it, or None when nothing changed since the newest one."""
+    root = backup_dir()
+    root.mkdir(parents=True, exist_ok=True)
+    os.chmod(root, 0o700)  # Tokens and recordings live in here.
+    with open(root / ".lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        for stale in root.glob(".partial-*"):
+            shutil.rmtree(stale)
+        prev = next(iter(snapshots(root)), None)
+        before = prev.manifest()["files"] if prev else {}
+        stamp = datetime.now()
+        if prev and stamp.replace(microsecond=0) <= prev.at:
+            stamp = prev.at + timedelta(seconds=1)  # Names are unique and sort by time.
+        name = stamp.strftime("%Y-%m-%dT%H%M%S") + (f"-{label}" if label else "")
+        tmp = root / f".partial-{name}"
+        files, warnings, linked, fresh = {}, [], 0, 0
+        for top, src in sources().items():
+            for rel in walk(src):
+                key = f"{top}/{rel}"
+                dest = tmp / key
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                warnings += copy_file(src / rel, dest)
+                digest, size = sha256(dest), dest.stat().st_size
+                files[key] = {"size": size, "sha256": digest}
+                old = before.get(key)
+                if old and old["sha256"] == digest and (prev.path / key).is_file():
+                    # Unchanged: share the previous snapshot's copy instead of keeping a second one.
+                    link = dest.with_name(dest.name + ".link")
+                    try:
+                        os.link(prev.path / key, link)
+                        os.replace(link, dest)
+                        linked += 1
+                        continue
+                    except OSError:
+                        link.unlink(missing_ok=True)
+                fresh += size
+        if not files:
+            shutil.rmtree(tmp, ignore_errors=True)
+            sys.exit(f"Nothing to back up in {data_dir()}.")
+        unchanged = prev is not None and {k: v["sha256"] for k, v in files.items()} == {k: v["sha256"] for k, v in before.items()}
+        if unchanged and not always:
+            shutil.rmtree(tmp)
+            status(root, "unchanged", prev.name, warnings)
+            log(f"✓ Nothing changed since {prev.name}.", quiet)
+            return None
+        manifest = {
+            "version": 1,
+            "created": datetime.now().astimezone().isoformat(timespec="seconds"),
+            "host": socket.gethostname(),
+            "sources": {k: str(v) for k, v in sources().items()},
+            "files": files,
+            "warnings": warnings,
+        }
+        (tmp / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n")
+        tmp.rename(root / name)
+        snap = Snap(name, root / name, datetime.strptime(name[:17], "%Y-%m-%dT%H%M%S"))
+        status(root, "created", name, warnings)
+        log(f"✓ {name}: {len(files)} files, {fresh / 1e6:.1f} MB new, {linked} unchanged (linked).", quiet)
+        for w in warnings:
+            print(f"⚠️  {w}", file=sys.stderr)
+        pruned = prune(root)
+        if pruned:
+            log(f"  pruned {len(pruned)}: {', '.join(pruned)}", quiet)
+        return snap
+
+
+def status(root: Path, result: str, snapshot: str, warnings: list[str]) -> None:
+    doc = {"at": datetime.now().astimezone().isoformat(timespec="seconds"), "result": result,
+           "snapshot": snapshot, "warnings": warnings}
+    (root / "status.json").write_text(json.dumps(doc, indent=1) + "\n")
+
+
+def keep(dates: list[datetime], now: datetime) -> set[datetime]:
+    """Which snapshot times to keep: newest 7, last per day (14 d), per week (8 w), per month (12 mo)."""
+    newest = sorted(dates, reverse=True)
+    kept = set(newest[:7])
+    for span, bucket in (
+        (timedelta(days=14), lambda d: d.date()),
+        (timedelta(weeks=8), lambda d: d.isocalendar()[:2]),
+        (timedelta(days=366), lambda d: (d.year, d.month)),
+    ):
+        seen = set()
+        for d in newest:
+            b = bucket(d)
+            if now - d <= span and b not in seen:
+                seen.add(b)
+                kept.add(d)
+    return kept
+
+
+def prune(root: Path, now: datetime | None = None) -> list[str]:
+    snaps = snapshots(root)
+    kept = keep([s.at for s in snaps], now or datetime.now())
+    gone = [s for s in snaps if s.at not in kept]
+    for s in gone:
+        shutil.rmtree(s.path)
+    return [s.name for s in gone]
+
+
+# --- checking and restoring --------------------------------------------------------------------
+
+
+def verify(snap: Snap) -> list[str]:
+    problems = []
+    manifest = snap.manifest()
+    for key, meta in manifest["files"].items():
+        p = snap.path / key
+        if not p.is_file():
+            problems.append(f"{key}: missing")
+            continue
+        if p.stat().st_size != meta["size"] or sha256(p) != meta["sha256"]:
+            problems.append(f"{key}: changed since the snapshot was taken")
+        elif key.endswith(".json"):
+            try:
+                json.loads(p.read_bytes())
+            except ValueError:
+                problems.append(f"{key}: not valid JSON")
+        elif is_sqlite(p):
+            with contextlib.closing(sqlite3.connect(f"file:{p}?mode=ro", uri=True)) as db:
+                ok = db.execute("PRAGMA integrity_check").fetchone()[0]
+            if ok != "ok":
+                problems.append(f"{key}: SQLite integrity check: {ok}")
+    return problems
+
+
+def live_digest(path: Path) -> str:
+    """The hash a snapshot would record for [path] (a database is hashed as its backup copy)."""
+    if not is_sqlite(path):
+        return sha256(path)
+    with tempfile.TemporaryDirectory() as t:
+        copy = Path(t) / path.name
+        copy_file(path, copy)
+        return sha256(copy)
+
+
+def current_files() -> dict[str, Path]:
+    return {f"{top}/{rel}": src / rel for top, src in sources().items() for rel in walk(src)}
+
+
+def plan(snap: Snap, only: list[str]) -> tuple[list[str], list[str], list[str]]:
+    """(changed, missing now, only now) paths between [snap] and the live data, within [only]."""
+    wanted = lambda k: not only or any(k == o.rstrip("/") or k.startswith(o.rstrip("/") + "/") for o in only)
+    files = {k: v for k, v in snap.manifest()["files"].items() if wanted(k)}
+    live = {k: p for k, p in current_files().items() if wanted(k)}
+    changed = [k for k in files if k in live and live_digest(live[k]) != files[k]["sha256"]]
+    missing = [k for k in files if k not in live]
+    extra = [k for k in live if k not in files]
+    return sorted(changed), sorted(missing), sorted(extra)
+
+
+def bridge_up() -> bool:
+    port = int(os.environ.get("LANI_BRIDGE_PORT", "8790"))
+    with contextlib.suppress(OSError), socket.create_connection(("127.0.0.1", port), timeout=0.5):
+        return True
+    return False
+
+
+def describe(path: Path) -> str:
+    """A one-line summary of a learner file, to judge a restore by."""
+    if not path.is_file():
+        return "—"
+    st = path.stat()
+    when = datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d %H:%M")
+    return f"{st.st_size:>8} B  {when}"
+
+
+def restore(snap: Snap, only: list[str], apply: bool, force: bool) -> int:
+    changed, missing, extra = plan(snap, only)
+    if not changed and not missing:
+        print(f"✓ The live data already matches {snap.name}" + (" (for the chosen paths)." if only else "."))
+        return 0
+    targets = {"data": sources()["data"], "results": sources()["results"]}
+    live = lambda k: targets[k.split("/", 1)[0]] / k.split("/", 1)[1]
+    print(f"Restoring {snap.name} would:")
+    for k in changed:
+        print(f"  ↺ {k}\n      now      {describe(live(k))}\n      snapshot {describe(snap.path / k)}")
+    for k in missing:
+        print(f"  + {k}  (gone now)")
+    if extra:
+        print(f"  Left alone ({len(extra)} newer files the snapshot doesn't have): {', '.join(extra[:8])}"
+              + (" …" if len(extra) > 8 else ""))
+    if not apply:
+        print("\nNothing written. Add --apply to restore (a snapshot of the current state is taken first).")
+        return 0
+    owned = [k for k in changed + missing if k.startswith("data/app/")]
+    if owned and bridge_up() and not force:
+        # The bridge keeps the village, the voice store and the outbox open, and would write over them.
+        print("\n✋ The bridge is running and owns data/app/. Quit the tutor session first (tmux attach -t lani,\n"
+              "   then /exit), restore only the learner files (--only data/<file>.json), or pass --force.")
+        return 2
+    safety = take("pre-restore", quiet=True, always=True)
+    print(f"\nSaved the current state as {safety.name}.")
+    for k in changed + missing:
+        dest = live(k)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        tmp = dest.with_name(dest.name + ".restore-tmp")
+        shutil.copy2(snap.path / k, tmp)
+        if is_sqlite(tmp):
+            # A leftover write-ahead log would be replayed onto the restored database.
+            for side in ("-wal", "-shm"):
+                with contextlib.suppress(FileNotFoundError):
+                    Path(f"{dest}{side}").unlink()
+        os.replace(tmp, dest)
+        print(f"  restored {k}")
+    print(f"✓ Restored {len(changed) + len(missing)} files. Start the tutor session again (companion/bin/lani-session).")
+    return 0
+
+
+# --- systemd ------------------------------------------------------------------------------------
+
+
+def unit_dir() -> Path:
+    return Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config") / "systemd/user"
+
+
+def install() -> None:
+    d = unit_dir()
+    d.mkdir(parents=True, exist_ok=True)
+    (d / f"{UNIT}.service").write_text(f"""[Unit]
+Description=Lani: snapshot the learner data
+
+[Service]
+Type=oneshot
+Environment=LANI_DATA_DIR={data_dir()}
+Environment=LANI_BACKUP_DIR={backup_dir()}
+ExecStart={sys.executable} {Path(__file__).resolve()} run --quiet
+Nice=10
+IOSchedulingClass=idle
+""")
+    (d / f"{UNIT}.timer").write_text("""[Unit]
+Description=Lani: snapshot the learner data every 6 hours
+
+[Timer]
+OnCalendar=*-*-* 00/6:00:00
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+""")
+    subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
+    subprocess.run(["systemctl", "--user", "enable", "--now", f"{UNIT}.timer"], check=True)
+    print(f"✓ Installed {d / UNIT}.timer; snapshots go to {backup_dir()}.")
+    linger = subprocess.run(["loginctl", "show-user", os.environ.get("USER", ""), "-p", "Linger", "--value"],
+                            capture_output=True, text=True).stdout.strip()
+    if linger == "no":
+        print("  Note: user timers only run while you're logged in (missed runs catch up at the next login).\n"
+              "  To run them always: loginctl enable-linger $USER")
+
+
+def uninstall() -> None:
+    subprocess.run(["systemctl", "--user", "disable", "--now", f"{UNIT}.timer"], check=False)
+    for suffix in ("service", "timer"):
+        with contextlib.suppress(FileNotFoundError):
+            (unit_dir() / f"{UNIT}.{suffix}").unlink()
+    subprocess.run(["systemctl", "--user", "daemon-reload"], check=False)
+    print(f"✓ Removed the timer. Snapshots stay in {backup_dir()}.")
+
+
+# --- reports ------------------------------------------------------------------------------------
+
+
+def disk_use(root: Path) -> int:
+    """Bytes on disk, counting hard-linked files once."""
+    seen, total = set(), 0
+    for dirpath, _, filenames in os.walk(root):
+        for f in filenames:
+            st = os.lstat(os.path.join(dirpath, f))
+            if (st.st_dev, st.st_ino) not in seen:
+                seen.add((st.st_dev, st.st_ino))
+                total += st.st_size
+    return total
+
+
+def ago(then: datetime) -> str:
+    s = (datetime.now() - then).total_seconds()
+    return f"{s / 60:.0f} min ago" if s < 3600 else f"{s / 3600:.1f} h ago" if s < 172800 else f"{s / 86400:.0f} days ago"
+
+
+def cmd_status() -> None:
+    root = backup_dir()
+    snaps = snapshots(root)
+    st = json.loads((root / "status.json").read_text()) if (root / "status.json").is_file() else None
+    print(f"Backups:  {root}")
+    print(f"Data:     {data_dir()}")
+    if st:
+        print(f"Last run: {st['at']} ({st['result']}{', ' + str(len(st['warnings'])) + ' warnings' if st['warnings'] else ''})")
+    print(f"Newest:   {snaps[0].name} ({ago(snaps[0].at)})" if snaps else "Newest:   none yet")
+    print(f"Kept:     {len(snaps)} snapshots, {disk_use(root) / 1e6:.1f} MB on disk" if snaps else "")
+    timer = subprocess.run(["systemctl", "--user", "is-active", f"{UNIT}.timer"], capture_output=True, text=True).stdout.strip()
+    print(f"Timer:    {timer or 'unknown'}" + ("" if timer == "active" else "  (install with `lani-backup install`)"))
+
+
+def cmd_list() -> None:
+    snaps = snapshots()
+    if not snaps:
+        print("No snapshots yet.")
+    for s in snaps:
+        m = s.manifest()
+        size = sum(f["size"] for f in m["files"].values())
+        warn = f"  ⚠️ {len(m['warnings'])}" if m.get("warnings") else ""
+        print(f"{s.name:<32} {len(m['files']):>5} files {size / 1e6:>7.1f} MB  {ago(s.at)}{warn}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="lani-backup", description=__doc__.split("\n\n")[0])
+    ap.add_argument("--profile", default="", metavar="ID", help="another learner on this machine (lani-profile list)")
+    sub = ap.add_subparsers(dest="cmd")
+    r = sub.add_parser("run", help="take a snapshot now")
+    r.add_argument("--quiet", action="store_true")
+    r.add_argument("--always", action="store_true", help="even when nothing changed")
+    sub.add_parser("status")
+    sub.add_parser("list")
+    v = sub.add_parser("verify")
+    v.add_argument("name", nargs="?")
+    rs = sub.add_parser("restore")
+    rs.add_argument("name")
+    rs.add_argument("--apply", action="store_true")
+    rs.add_argument("--only", nargs="+", default=[], metavar="PATH", help="e.g. data/spaced-repetition.json or data/app")
+    rs.add_argument("--force", action="store_true", help="restore even while the bridge runs")
+    sub.add_parser("install")
+    sub.add_parser("uninstall")
+    a = ap.parse_args(argv)
+    use_profile(a.profile)
+
+    if a.cmd in (None, "run"):
+        take(quiet=getattr(a, "quiet", False), always=getattr(a, "always", False))
+    elif a.cmd == "status":
+        cmd_status()
+    elif a.cmd == "list":
+        cmd_list()
+    elif a.cmd == "verify":
+        snap = find(a.name)
+        problems = verify(snap)
+        for p in problems:
+            print(f"✗ {p}")
+        print(f"{'✓' if not problems else '✗'} {snap.name}: {len(snap.manifest()['files'])} files checked.")
+        return 1 if problems else 0
+    elif a.cmd == "restore":
+        return restore(find(a.name), a.only, a.apply, a.force)
+    elif a.cmd == "install":
+        install()
+    elif a.cmd == "uninstall":
+        uninstall()
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

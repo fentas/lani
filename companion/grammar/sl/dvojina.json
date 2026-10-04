@@ -1,0 +1,79 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "dvojina",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "✌️",
+  "title": {
+    "sl": "Dvojina: midva sva, dva brata",
+    "en": "The dual: exactly two",
+    "de": "Der Dual: genau zwei",
+    "it": "Il duale: esattamente due"
+  },
+  "rule": {
+    "en": "Slovene has its own form for exactly two: the dual (*dvojina*). The pronouns are **midva** (we two; **medve** for two women), **vidva** (you two) and **onadva** (they two).\n\nVerbs end in **-va** for we two and **-ta** for you two and they two: **midva sva**, **vidva sta**, **onadva delata**. Two people named together take it too: **Jan in Maja sta doma.**\n\nAfter **dva** (masculine) and **dve** (feminine, neuter), a masculine noun ends in **-a** (dva brata), a feminine or neuter one in **-i** (dve sestri, dve okni).\n\nFrom three on it's the plural again: **trije bratje**, **tri sestre**, **mi smo**.",
+    "de": "Das Slowenische hat eine eigene Form für genau zwei: den Dual (*dvojina*). Die Pronomen sind **midva** (wir zwei; **medve** für zwei Frauen), **vidva** (ihr zwei) und **onadva** (sie zwei).\n\nVerben enden auf **-va** für wir zwei und **-ta** für ihr zwei und sie zwei: **midva sva**, **vidva sta**, **onadva delata**. Auch zwei genannte Personen bekommen ihn: **Jan in Maja sta doma.**\n\nNach **dva** (männlich) und **dve** (weiblich, sächlich) endet ein männliches Nomen auf **-a** (dva brata), ein weibliches oder sächliches auf **-i** (dve sestri, dve okni).\n\nAb drei gilt wieder der Plural: **trije bratje**, **tri sestre**, **mi smo**.",
+    "it": "Lo sloveno ha una forma apposta per esattamente due: il duale (*dvojina*). I pronomi sono **midva** (noi due; **medve** per due donne), **vidva** (voi due) e **onadva** (loro due).\n\nI verbi finiscono in **-va** per noi due e in **-ta** per voi due e loro due: **midva sva**, **vidva sta**, **onadva delata**. Anche due persone nominate insieme lo prendono: **Jan in Maja sta doma.**\n\nDopo **dva** (maschile) e **dve** (femminile, neutro), un nome maschile finisce in **-a** (dva brata), uno femminile o neutro in **-i** (dve sestri, dve okni).\n\nDa tre in su si torna al plurale: **trije bratje**, **tri sestre**, **mi smo**."
+  },
+  "table": {
+    "head": [
+      { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "biti", "en": "biti (be)", "de": "biti (sein)", "it": "biti (essere)" },
+      { "sl": "delati", "en": "delati (work)", "de": "delati (arbeiten)", "it": "delati (lavorare)" },
+      { "sl": "iti", "en": "iti (go)", "de": "iti (gehen)", "it": "iti (andare)" }
+    ],
+    "rows": [
+      ["midva / medve", "sva", "delava", "greva"],
+      ["vidva / vedve", "sta", "delata", "gresta"],
+      ["onadva / onidve", "sta", "delata", "gresta"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Midva sva doma.",
+      "en": "The two of us are at home.",
+      "de": "Wir zwei sind zu Hause.",
+      "it": "Noi due siamo a casa."
+    },
+    {
+      "sl": "Jan in Maja sta v gostilni.",
+      "en": "Jan and Maja are at the inn.",
+      "de": "Jan und Maja sind im Gasthaus.",
+      "it": "Jan e Maja sono all'osteria.",
+      "note": {
+        "en": "Two people: sta, not so (so is for three or more).",
+        "de": "Zwei Personen: sta, nicht so (so ist für drei und mehr).",
+        "it": "Due persone: sta, non so (so è per tre o più)."
+      }
+    },
+    {
+      "sl": "Imam dva brata in dve sestri.",
+      "en": "I have two brothers and two sisters.",
+      "de": "Ich habe zwei Brüder und zwei Schwestern.",
+      "it": "Ho due fratelli e due sorelle."
+    },
+    {
+      "sl": "Dve kavi, prosim.",
+      "en": "Two coffees, please.",
+      "de": "Zwei Kaffee, bitte.",
+      "it": "Due caffè, per favore."
+    },
+    {
+      "sl": "Mama in oče pijeta kavo.",
+      "en": "Mum and dad are drinking coffee.",
+      "de": "Mama und Papa trinken Kaffee.",
+      "it": "Mamma e papà bevono il caffè."
+    },
+    {
+      "sl": "Vidva gresta jutri v Gorico?",
+      "en": "Are you two going to Gorizia tomorrow?",
+      "de": "Fahrt ihr zwei morgen nach Gorizia?",
+      "it": "Voi due andate a Gorizia domani?"
+    }
+  ],
+  "modules": ["dvojina-osnove", "biti-sedanjik"],
+  "tags": ["dual", "dvojina"],
+  "see": ["stevila-samostalniki", "biti", "glagoli-sedanjik", "velelnik", "prihodnjik", "mnozina"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

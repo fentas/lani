@@ -1,0 +1,92 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "rodilnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🧺",
+  "title": {
+    "sl": "Rodilnik: koga? česa?",
+    "en": "The genitive: of, none, how much, from",
+    "de": "Der Genitiv: von, kein, wie viel, woher",
+    "it": "Il genitivo: di, niente, quanto, da dove"
+  },
+  "rule": {
+    "en": "The genitive (*rodilnik*) answers **koga?** and **česa?** (of whom? of what?). It has five jobs:\n\n**Of, whose:** after the noun it belongs to: **sledi medveda** (the bear's tracks), **naloga matice** (the queen bee's job). For one person Slovene often says it with an adjective: **Janezova hiša**.\n**None:** after a negation: **nimam časa**, **ni kruha**, **ne bo toče**.\n**How much:** after malo, veliko, kos, liter and numbers from five: **malo sena**, **kos kruha**, **pet ovc**.\n**From, without, up to:** after iz, od, do, brez, blizu, mimo: **iz Gorice**, **brez mleka**, **do morja**.\n**Some verbs:** **bati se** (bojim se nevihte), **veseliti se**, **spomniti se**.\n\nThe endings: masculine and neuter nouns take **-a** (medved → medveda, mleko → mleka), feminine ones **-e** (matica → matice; vas → vasi). In the plural masculine nouns take **-ov** (bratov), feminine and neuter ones nothing: **ovc**, **knjig**, **jajc**, **let**.\n\nAt A1 you need it after nimam and iz; the rest comes at A2. Each job has its own page.",
+    "de": "Der Genitiv (*rodilnik*) antwortet auf **koga?** und **česa?** (wessen? wovon?). Er hat fünf Aufgaben:\n\n**Von, wessen:** nach dem Nomen, zu dem es gehört: **sledi medveda** (die Spuren des Bären), **naloga matice** (die Aufgabe der Bienenkönigin). Für eine Person sagt man es oft mit einem Adjektiv: **Janezova hiša**.\n**Kein:** nach einer Verneinung: **nimam časa**, **ni kruha**, **ne bo toče**.\n**Wie viel:** nach malo, veliko, kos, liter und Zahlen ab fünf: **malo sena**, **kos kruha**, **pet ovc**.\n**Aus, ohne, bis:** nach iz, od, do, brez, blizu, mimo: **iz Gorice**, **brez mleka**, **do morja**.\n**Manche Verben:** **bati se** (bojim se nevihte), **veseliti se**, **spomniti se**.\n\nDie Endungen: männliche und sächliche Nomen bekommen **-a** (medved → medveda, mleko → mleka), weibliche **-e** (matica → matice; vas → vasi). Im Plural bekommen männliche Nomen **-ov** (bratov), weibliche und sächliche nichts: **ovc**, **knjig**, **jajc**, **let**.\n\nAuf A1 braucht man ihn nach nimam und iz; der Rest kommt auf A2. Jede Aufgabe hat ihre eigene Seite.",
+    "it": "Il genitivo (*rodilnik*) risponde a **koga?** e **česa?** (di chi? di che cosa?). Ha cinque compiti:\n\n**Di chi:** dopo il nome a cui appartiene: **sledi medveda** (le tracce dell'orso), **naloga matice** (il compito dell'ape regina). Per una persona si usa spesso un aggettivo: **Janezova hiša**.\n**Niente:** dopo una negazione: **nimam časa**, **ni kruha**, **ne bo toče**.\n**Quanto:** dopo malo, veliko, kos, liter e i numeri da cinque: **malo sena**, **kos kruha**, **pet ovc**.\n**Da, senza, fino a:** dopo iz, od, do, brez, blizu, mimo: **iz Gorice**, **brez mleka**, **do morja**.\n**Alcuni verbi:** **bati se** (bojim se nevihte), **veseliti se**, **spomniti se**.\n\nLe desinenze: i nomi maschili e neutri prendono **-a** (medved → medveda, mleko → mleka), i femminili **-e** (matica → matice; vas → vasi). Al plurale i maschili prendono **-ov** (bratov), i femminili e i neutri niente: **ovc**, **knjig**, **jajc**, **let**.\n\nAll'A1 serve dopo nimam e iz; il resto viene all'A2. Ogni compito ha la sua pagina."
+  },
+  "table": {
+    "head": [
+      { "sl": "raba", "en": "job", "de": "Aufgabe", "it": "compito" },
+      { "sl": "za", "en": "after", "de": "nach", "it": "dopo" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "čigav", "en": "of, whose", "de": "von, wessen", "it": "di chi" }, { "en": "a noun", "de": "einem Nomen", "it": "un nome" }, "sledi medveda"],
+      [{ "sl": "nikalnica", "en": "none, not", "de": "kein, nicht", "it": "niente, non" }, "ne, ni, nimam, ne bo", "nimam časa"],
+      [{ "sl": "količina", "en": "how much", "de": "wie viel", "it": "quanto" }, "malo, veliko, kos, liter", "kos kruha"],
+      [{ "sl": "števila", "en": "five and more", "de": "ab fünf", "it": "da cinque in su" }, "pet, deset, dvajset", "pet ovc"],
+      [{ "sl": "predlogi", "en": "from, without, up to", "de": "aus, ohne, bis", "it": "da, senza, fino a" }, "iz, od, do, brez, blizu, mimo", "iz Gorice"],
+      [{ "sl": "glagoli", "en": "some verbs", "de": "manchen Verben", "it": "alcuni verbi" }, "bati se, veseliti se", "bojim se nevihte"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Glej, sledi medveda!",
+      "en": "Look, the bear's tracks!",
+      "de": "Schau, die Spuren des Bären!",
+      "it": "Guarda, le tracce dell'orso!",
+      "note": {
+        "en": "Whose tracks? The genitive after the noun: medved → sledi medveda.",
+        "de": "Wessen Spuren? Der Genitiv nach dem Nomen: medved → sledi medveda.",
+        "it": "Le tracce di chi? Il genitivo dopo il nome: medved → sledi medveda."
+      }
+    },
+    {
+      "sl": "Danes ni kruha.",
+      "en": "There's no bread today.",
+      "de": "Heute gibt es kein Brot.",
+      "it": "Oggi non c'è pane."
+    },
+    {
+      "sl": "Kos kruha in malo sira, prosim.",
+      "en": "A piece of bread and a little cheese, please.",
+      "de": "Ein Stück Brot und ein wenig Käse, bitte.",
+      "it": "Un pezzo di pane e un po' di formaggio, per favore."
+    },
+    {
+      "sl": "Luka ima dvanajst ovc.",
+      "en": "Luka has twelve sheep.",
+      "de": "Luka hat zwölf Schafe.",
+      "it": "Luka ha dodici pecore."
+    },
+    {
+      "sl": "Kavo pijem brez sladkorja.",
+      "en": "I drink my coffee without sugar.",
+      "de": "Ich trinke den Kaffee ohne Zucker.",
+      "it": "Bevo il caffè senza zucchero."
+    },
+    {
+      "sl": "Nejc se boji nevihte.",
+      "en": "Nejc is afraid of the storm.",
+      "de": "Nejc hat Angst vor dem Gewitter.",
+      "it": "Nejc ha paura del temporale.",
+      "note": {
+        "en": "Bati se takes the genitive: nevihta → nevihte. Not nevihto, the accusative.",
+        "de": "Bati se verlangt den Genitiv: nevihta → nevihte. Nicht nevihto, den Akkusativ.",
+        "it": "Bati se vuole il genitivo: nevihta → nevihte. Non nevihto, l'accusativo."
+      }
+    },
+    {
+      "sl": "Veselim se praznika.",
+      "en": "I'm looking forward to the festival.",
+      "de": "Ich freue mich auf das Fest.",
+      "it": "Non vedo l'ora che arrivi la festa."
+    }
+  ],
+  "modules": ["rodilnik-po-nikalnici"],
+  "tags": ["genitive", "rodilnik", "genitive_possession"],
+  "see": ["rodilnik-nikalnica", "rodilnik-kolicina", "rodilnik-predlogi", "stevila-samostalniki", "povratni-glagoli", "skloni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

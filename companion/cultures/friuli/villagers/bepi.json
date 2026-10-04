@@ -1,0 +1,83 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "bepi",
+  "name": "Nonno Bepi",
+  "emoji": "👴",
+  "art": "grandpa",
+  "voice": "male",
+  "speaker": "grandpa",
+  "role": {"it": "Narratore", "sl": "Pripovedovalec", "en": "Storyteller", "de": "Erzähler"},
+  "home": ["lipa", "spot:highseat"],
+  "register": "ti",
+  "skill": "wisdom",
+  "order": 4,
+  "routine": { "up": "6:30", "bed": "22:45" },
+  "personality": "Old storyteller, eighty-two, under the big linden. Slow, proverbial, patient: 'Chi va piano va sano e va lontano', 'Piano, piano'. Says tu to the learner like a grandfather; the learner says tu back and calls him nonno, as village children do. Speaks slow, simple Italian to a child and waits for the answer. Knows the old stories of the Isonzo and the Collio, climbed Monte Canin as a young man, and is never without his old dog Moro.",
+  "story": "Bepi was born in the village when the bridge over the stream was still made of wood. Every evening he sits under the big linden with Moro and tells stories to anyone who stops: the old mill, the snow of long ago, the day he climbed Monte Canin. When a storm comes down the valley, the children run to him first.",
+  "likes": [
+    {"it": "le storie", "sl": "zgodbe", "en": "stories", "de": "Geschichten"},
+    {"it": "il Monte Canin", "sl": "Kanin", "en": "Monte Canin (the mountain he climbed as a young man)", "de": "der Monte Canin (der Berg, den er als junger Mann bestiegen hat)"},
+    {"it": "il tiglio", "sl": "lipa", "en": "the linden tree", "de": "die Linde"},
+    {"it": "Moro, il suo cane", "sl": "Moro, njegov pes", "en": "Moro, his dog", "de": "Moro, sein Hund"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Buongiorno, piccolo.", "sl": "Dober dan, mali.", "en": "Good day, little one.", "de": "Guten Tag, Kleiner.", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Ciao. Siediti qui, all'ombra.", "sl": "Živjo. Sedi sem, v senco.", "en": "Hi. Sit here, in the shade.", "de": "Hallo. Setz dich hierher, in den Schatten.", "level": 0 },
+      { "it": "Ah, eccoti. Siediti, siediti.", "sl": "A, tu si. Sedi, sedi.", "en": "Ah, there you are. Sit, sit.", "de": "Ah, da bist du ja. Setz dich, setz dich.", "level": 1 },
+      { "it": "Eccoti, ragazzo. Oggi ho una storia nuova.", "sl": "Tu si, fant. Danes imam novo zgodbo.", "en": "There you are, lad. Today I have a new story.", "de": "Da bist du ja, Junge. Heute habe ich eine neue Geschichte.", "level": 2 },
+      { "it": "Amico mio! Moro ti aspettava. E anch'io.", "sl": "Moj prijatelj! Moro te je čakal. In jaz tudi.", "en": "My friend! Moro was waiting for you. And so was I.", "de": "Mein Freund! Moro hat auf dich gewartet. Und ich auch.", "level": 3 },
+      { "it": "Ah, sei tu. Per me sei come un nipote. Siediti vicino a me.", "sl": "A, ti si. Zame si kot vnuk. Sedi k meni.", "en": "Ah, it's you. You're like a grandson to me. Sit by me.", "de": "Ah, du bist es. Du bist für mich wie ein Enkel. Setz dich zu mir.", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie, piccolo. Un aiuto vale oro.", "sl": "Hvala, mali. Pomoč je zlata vredna.", "en": "Thank you, little one. Help is worth its weight in gold.", "de": "Danke, Kleiner. Hilfe ist Gold wert." },
+      { "it": "Grazie. Sei un bravo ragazzo.", "sl": "Hvala. Dober fant si.", "en": "Thank you. You're a good lad.", "de": "Danke. Du bist ein guter Junge." },
+      { "it": "Grazie di cuore.", "sl": "Iz srca hvala.", "en": "Thank you from the heart.", "de": "Danke von Herzen." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Sono vecchio, ma non dimentico {memory}.", "sl": "Star sem, ampak ne pozabim na {memory}.", "en": "I'm old, but I don't forget {memory}.", "de": "Ich bin alt, aber {memory} vergesse ich nicht.", "level": 2 },
+      { "it": "Mi piace ricordare {memory}. È una bella storia.", "sl": "Rad se spomnim na {memory}. Lepa zgodba je to.", "en": "I like to remember {memory}. It's a fine story.", "de": "Ich erinnere mich gern an {memory}. Das ist eine schöne Geschichte.", "level": 3 }
+    ],
+    "idle": [
+      { "it": "Chi va piano va sano e va lontano.", "sl": "Počasi se daleč pride.", "en": "Slow and steady goes far. (an Italian proverb)", "de": "Wer langsam geht, kommt sicher und weit. (ein italienisches Sprichwort)" },
+      { "it": "Moro dorme sotto il tiglio. Anch'io, un po'.", "sl": "Moro spi pod lipo. Jaz tudi, malo.", "en": "Moro is asleep under the linden. So am I, a little.", "de": "Moro schläft unter der Linde. Ich auch, ein bisschen." },
+      { "it": "Da giovane sono salito sul Monte Canin.", "sl": "Ko sem bil mlad, sem se povzpel na Kanin.", "en": "When I was young I climbed Monte Canin.", "de": "Als junger Mann bin ich auf den Monte Canin gestiegen." },
+      { "it": "Una volta il mulino era di legno.", "sl": "Nekoč je bil mlin lesen.", "en": "Once the mill was made of wood.", "de": "Früher war die Mühle aus Holz." }
+    ],
+    "cheer": [
+      { "it": "Bravo.", "sl": "Bravo.", "en": "Well done.", "de": "Gut gemacht." },
+      { "it": "Giusto. Piano piano, si arriva.", "sl": "Prav. Počasi, pa prideš do cilja.", "en": "Right. Step by step, you get there.", "de": "Richtig. Schritt für Schritt kommt man ans Ziel." },
+      { "it": "Bene, bene. Sei proprio sveglio.", "sl": "Dobro, dobro. Res si bister.", "en": "Good, good. You're really bright.", "de": "Gut, gut. Du bist wirklich aufgeweckt." }
+    ],
+    "comfort": [
+      { "it": "Non importa. Piano, riprova.", "sl": "Nič ne de. Počasi, poskusi še enkrat.", "en": "It doesn't matter. Slowly, try again.", "de": "Macht nichts. Langsam, versuch es noch einmal." },
+      { "it": "Sbagliando si impara.", "sl": "Na napakah se učimo.", "en": "We learn from our mistakes. (an Italian proverb)", "de": "Aus Fehlern lernt man. (ein italienisches Sprichwort)" },
+      { "it": "Anch'io sbaglio, sai. Ancora una volta.", "sl": "Tudi jaz se motim, veš. Še enkrat.", "en": "I make mistakes too, you know. Once more.", "de": "Ich mache auch Fehler, weißt du. Noch einmal." }
+    ],
+    "listen": [
+      { "it": "Ascolta, piccolo …", "sl": "Poslušaj, mali …", "en": "Listen, little one …", "de": "Hör zu, Kleiner …" },
+      { "it": "Senti il vento? Ascolta.", "sl": "Slišiš veter? Poslušaj.", "en": "Can you hear the wind? Listen.", "de": "Hörst du den Wind? Hör zu." },
+      { "it": "Ascolta bene, poi rispondi.", "sl": "Dobro poslušaj, potem odgovori.", "en": "Listen carefully, then answer.", "de": "Hör gut zu, dann antworte." }
+    ],
+    "bye": [
+      { "it": "Ciao, piccolo.", "sl": "Adijo, mali.", "en": "Bye, little one.", "de": "Tschüss, Kleiner." },
+      { "it": "Mandi. Domani c'è un'altra storia.", "sl": "Mandi. Jutri bo nova zgodba. (mandi: furlanski pozdrav)", "en": "Mandi. Tomorrow there's another story. (mandi: Friulian for bye)", "de": "Mandi. Morgen gibt es eine neue Geschichte. (mandi: Friaulisch für tschüss)" },
+      { "it": "Vai, vai. E saluta Nonna Rosa.", "sl": "Pojdi, pojdi. In pozdravi babico Roso.", "en": "Off you go. And say hello to Nonna Rosa.", "de": "Lauf nur, lauf. Und grüß Nonna Rosa von mir." }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Oh, piccolo. Come lo sapevi? Mi piace tanto.", "sl": "O, mali. Kako si vedel? Zelo mi je všeč.", "en": "Oh, little one. How did you know? I like it a lot.", "de": "Oh, Kleiner. Woher wusstest du das? Das mag ich so gern." },
+        { "it": "Piccolo regalo, grande cuore. Grazie.", "sl": "Majhno darilo, veliko srce. Hvala.", "en": "A small gift, a big heart. Thank you.", "de": "Kleines Geschenk, großes Herz. Danke." },
+        { "it": "Bello, bello. Moro, guarda cosa mi ha portato!", "sl": "Lepo, lepo. Moro, poglej, kaj mi je prinesel!", "en": "Nice, nice. Moro, look what he brought me!", "de": "Schön, schön. Moro, schau, was er mir mitgebracht hat!" }
+      ],
+      "ordinary": [
+        { "it": "Grazie, piccolo. Siediti qui, vicino a me.", "sl": "Hvala, mali. Sedi sem, k meni.", "en": "Thank you, little one. Sit here, next to me.", "de": "Danke, Kleiner. Setz dich hierher, neben mich." },
+        { "it": "Grazie. Chi dona con il cuore dona due volte.", "sl": "Hvala. Kdor daje iz srca, da dvakrat.", "en": "Thank you. Who gives from the heart gives twice.", "de": "Danke. Wer von Herzen schenkt, schenkt doppelt." }
+      ],
+      "rare": [
+        { "it": "Piccolo mio … Una cosa così non la ricevo da tanti anni. Grazie.", "sl": "Moj mali … Kaj takega nisem dobil že veliko let. Hvala.", "en": "My little one … Nobody has given me anything like this in many years. Thank you.", "de": "Mein Kleiner … So etwas hat mir seit vielen Jahren niemand geschenkt. Danke." }
+      ]
+    }
+  }
+}

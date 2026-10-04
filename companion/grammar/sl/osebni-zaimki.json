@@ -1,0 +1,115 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "osebni-zaimki",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "👥",
+  "title": {
+    "sl": "Osebni zaimki: meni ali mi, njega ali ga",
+    "en": "Personal pronouns: long and short forms",
+    "de": "Personalpronomen: lange und kurze Formen",
+    "it": "I pronomi personali: forme lunghe e brevi"
+  },
+  "rule": {
+    "en": "Pronouns change with the case, like nouns (*osebni zaimki*). In the dative, the accusative and the genitive most have two forms: a long, stressed one and a short one, a clitic (see that page).\n\nThe short one is the usual one: **Pomagam vam.** **Vidim ga.** **Dam mu kruh.** **Všeč mi je.**\n\nThe long one is for weight and contrast, standing alone, and after a preposition: **Meni je mrzlo, tebi pa ne?** **Komu? Meni.** **k meni**, **brez tebe**, **o njem**, **z njim**, **zame** (za + mene).\n\nThe verb decides the case: **pomagam ti** (pomagati komu: dative), **vidim te** (videti koga: accusative). **Dam mu** (to him), **vidim ga** (him).\n\nThe number and gender count too: **mu** is to him or to one animal, **jim** to them. One feminine thing is **jo**, a masculine or neuter one **ga**, several are **jih**, also nouns that are plural only: **Grablje? Videl sem jih.**\n\nThe genitive has the accusative's forms, but for her it is **nje, je**: **nimam je**.",
+    "de": "Pronomen ändern sich mit dem Fall wie Nomen (*osebni zaimki*). Im Dativ, Akkusativ und Genitiv haben die meisten zwei Formen: eine lange, betonte, und eine kurze, ein Klitikon (siehe dort).\n\nDie kurze ist die übliche: **Pomagam vam.** **Vidim ga.** **Dam mu kruh.** **Všeč mi je.**\n\nDie lange steht für Gewicht und Gegensatz, allein, und nach einer Präposition: **Meni je mrzlo, tebi pa ne?** **Komu? Meni.** **k meni**, **brez tebe**, **o njem**, **z njim**, **zame** (za + mene).\n\nDas Verb bestimmt den Fall: **pomagam ti** (pomagati komu: Dativ, wie dir helfen), **vidim te** (videti koga: Akkusativ). **Dam mu** (ihm), **vidim ga** (ihn).\n\nAuch Zahl und Geschlecht zählen: **mu** ist ihm, auch einem Tier, **jim** ihnen. Ein weibliches Ding ist **jo**, ein männliches oder sächliches **ga**, mehrere sind **jih**, auch Nomen, die es nur im Plural gibt: **Grablje? Videl sem jih.**\n\nDer Genitiv hat die Formen des Akkusativs, nur für sie heißt er **nje, je**: **nimam je**.",
+    "it": "I pronomi cambiano con il caso, come i nomi (*osebni zaimki*). Al dativo, all'accusativo e al genitivo quasi tutti hanno due forme: una lunga, accentata, e una breve, un clitico (vedi quella pagina).\n\nQuella breve è la solita: **Pomagam vam.** **Vidim ga.** **Dam mu kruh.** **Všeč mi je.**\n\nQuella lunga serve per dare peso o fare un contrasto, da sola e dopo una preposizione: **Meni je mrzlo, tebi pa ne?** **Komu? Meni.** **k meni**, **brez tebe**, **o njem**, **z njim**, **zame** (za + mene).\n\nIl verbo decide il caso: **pomagam ti** (pomagati komu: dativo), **vidim te** (videti koga: accusativo). **Dam mu** (gli do), **vidim ga** (lo vedo).\n\nContano anche il numero e il genere: **mu** è a lui o a un animale, **jim** a loro. Una cosa femminile è **jo**, una maschile o neutra **ga**, più cose **jih**, anche i nomi che esistono solo al plurale: **Grablje? Videl sem jih.**\n\nIl genitivo ha le forme dell'accusativo, ma per lei è **nje, je**: **nimam je**."
+  },
+  "table": {
+    "head": [
+      { "sl": "kdo?", "en": "who (nominative)", "de": "wer (Nominativ)", "it": "chi (nominativo)" },
+      { "sl": "komu?", "en": "to whom (dative)", "de": "wem (Dativ)", "it": "a chi (dativo)" },
+      { "sl": "koga?", "en": "whom (accusative)", "de": "wen (Akkusativ)", "it": "chi (accusativo)" },
+      { "sl": "s kom?", "en": "with whom (instrumental)", "de": "mit wem (Instrumental)", "it": "con chi (strumentale)" }
+    ],
+    "rows": [
+      ["jaz", "meni, mi", "mene, me", "z mano"],
+      ["ti", "tebi, ti", "tebe, te", "s tabo"],
+      ["on, ono", "njemu, mu", "njega, ga", "z njim"],
+      ["ona", "njej, ji", "njo, jo", "z njo"],
+      ["midva, medve", "nama", "naju", "z nama"],
+      ["mi", "nam", "nas", "z nami"],
+      ["vi", "vam", "vas", "z vami"],
+      ["oni, one", "njim, jim", "njih, jih", "z njimi"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Dober dan, France! Vam pomagam?",
+      "en": "Hello, France! Shall I help you?",
+      "de": "Guten Tag, France! Soll ich Ihnen helfen?",
+      "it": "Buongiorno, France! La aiuto?",
+      "note": {
+        "en": "Pomagati takes the dative: vam. Vas is the accusative: vidim vas.",
+        "de": "Pomagati verlangt den Dativ: vam. Vas ist der Akkusativ: vidim vas.",
+        "it": "Pomagati vuole il dativo: vam. Vas è l'accusativo: vidim vas."
+      }
+    },
+    {
+      "sl": "Meni je mrzlo, tebi pa ne?",
+      "en": "I'm cold, and you aren't?",
+      "de": "Mir ist kalt, und dir nicht?",
+      "it": "Io ho freddo, e tu no?",
+      "note": {
+        "en": "A contrast: the long forms, meni and tebi.",
+        "de": "Ein Gegensatz: die langen Formen, meni und tebi.",
+        "it": "Un contrasto: le forme lunghe, meni e tebi."
+      }
+    },
+    {
+      "sl": "Videl sem jih pri vozu.",
+      "en": "I saw it by the cart.",
+      "de": "Ich habe ihn beim Wagen gesehen.",
+      "it": "L'ho visto vicino al carro.",
+      "note": {
+        "en": "Grablje (the rake) is plural in Slovene: jih. Jo is for one feminine thing: kosa, videl sem jo.",
+        "de": "Grablje (der Rechen) ist im Slowenischen Plural: jih. Jo ist für ein weibliches Ding: kosa, videl sem jo.",
+        "it": "Grablje (il rastrello) in sloveno è plurale: jih. Jo è per una cosa femminile: kosa, videl sem jo."
+      }
+    },
+    {
+      "sl": "Vidim te! Za štorom si!",
+      "en": "I can see you! You're behind the stump!",
+      "de": "Ich sehe dich! Du bist hinter dem Baumstumpf!",
+      "it": "Ti vedo! Sei dietro il ceppo!",
+      "note": {
+        "en": "Videti takes the accusative: te. Ti is the dative (to you).",
+        "de": "Videti verlangt den Akkusativ: te. Ti ist der Dativ (dir).",
+        "it": "Videti vuole l'accusativo: te. Ti è il dativo (a te)."
+      }
+    },
+    {
+      "sl": "Muri je priden. Rad ga imam.",
+      "en": "Muri is a good dog. I'm fond of him.",
+      "de": "Muri ist brav. Ich hab ihn gern.",
+      "it": "Muri è bravo. Gli voglio bene.",
+      "note": {
+        "en": "Imeti rad takes the accusative: ga. Mu is the dative (to him).",
+        "de": "Imeti rad verlangt den Akkusativ: ga. Mu ist der Dativ (ihm).",
+        "it": "Imeti rad vuole l'accusativo: ga. Mu è il dativo (a lui)."
+      }
+    },
+    {
+      "sl": "Ne grem brez tebe.",
+      "en": "I'm not going without you.",
+      "de": "Ich gehe nicht ohne dich.",
+      "it": "Non vado senza di te."
+    },
+    {
+      "sl": "Oho! Kaj jim boste skuhali?",
+      "en": "Oho! What will you cook for them?",
+      "de": "Oho! Was werden Sie ihnen kochen?",
+      "it": "Oh! Che cosa cucinerà per loro?",
+      "note": {
+        "en": "Cooking for the guests: the dative, jim. Jih (them, accusative) would put the guests in the pot.",
+        "de": "Für die Gäste kochen: Dativ, jim. Jih (sie, Akkusativ) würde die Gäste in den Topf stecken.",
+        "it": "Cucinare per gli ospiti: dativo, jim. Jih (loro, accusativo) metterebbe gli ospiti in pentola."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["pronoun", "pronouns", "personal_pronoun"],
+  "see": ["naslonke", "dajalnik", "tozilnik", "orodnik", "ti-vi", "oziralni-ki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

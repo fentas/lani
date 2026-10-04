@@ -1,0 +1,87 @@
+{
+  "pedlar": {
+    "emoji": "🎒",
+    "title": { "it": "L'ambulante", "en": "The pedlar" },
+    "intro": { "it": "L'ambulante è sulla strada.", "en": "The pedlar is on the road." },
+    "ask": { "it": "L'ambulante è qui.", "en": "The pedlar is here." },
+    "goods": ["gubana"]
+  },
+  "letter": {
+    "emoji": "✉️",
+    "title": { "it": "Una lettera da Nova Gorica", "en": "A letter from Nova Gorica" },
+    "intro": { "it": "Il postino ha portato una lettera per {name}. Leggila!", "en": "The postman brought a letter for {name}. Read it to {g, select, f {her} other {him}}!" },
+    "intro_mine": { "it": "Il postino ha portato una lettera per te.", "en": "The postman brought a letter for you." },
+    "ask": { "it": "Mi leggi la lettera?", "en": "Will you read me the letter?" },
+    "ask_mine": { "it": "C'è una lettera per te!", "en": "There's a letter for you!" },
+    "read": { "it": "Leggi la lettera", "en": "Read the letter" },
+    "won": { "it": "{name}: Grazie!", "en": "Thanks!" },
+    "won_mine": { "it": "Ti scriveranno ancora.", "en": "They'll write again." },
+    "lost": { "it": "La lettera era difficile.", "en": "The letter was hard." },
+    "letters": [
+      {
+        "to": "pina",
+        "female": true,
+        "text": { "it": "Cara Pina!\nVengo domenica.\nMaja" },
+        "questions": [
+          { "ask": { "it": "Quando viene Maja?", "en": "When is Maja coming?" }, "options": ["domenica", "lunedì", "oggi"], "explain": { "it": "Domenica.", "en": "On Sunday." } }
+        ]
+      }
+    ]
+  },
+  "lamb": {
+    "emoji": "🐑",
+    "shepherd": "nino",
+    "title": { "it": "L'agnello smarrito", "en": "The lost lamb" },
+    "intro": { "it": "Nino cerca un agnello.", "en": "Nino is looking for a lamb." },
+    "ask": { "it": "Mi aiuti?", "en": "Will you help me?" },
+    "where": { "it": "Dov'è l'agnello?", "en": "Where is the lamb?" },
+    "heard": { "it": "Nino: «{said}»\nDov'è l'agnello?", "en": "Where is the lamb?" },
+    "listen": { "it": "Ascolta Nino", "en": "Listen to Nino" },
+    "read": { "it": "Leggi cosa dice Nino", "en": "Read what Nino says" },
+    "won": { "it": "Nino: L'ho trovato!", "en": "I found it!" },
+    "lost": { "it": "L'agnello è tornato da solo.", "en": "The lamb came home by itself." },
+    "places": [
+      { "it": "È vicino allo stagno.", "en": "It's by the pond." },
+      { "it": "È nel bosco.", "en": "It's in the forest." },
+      { "it": "È nel prato.", "en": "It's in the meadow." },
+      { "it": "È sotto il tiglio.", "en": "It's under the linden tree." }
+    ]
+  },
+  "pilgrim": {
+    "emoji": "🥾",
+    "title": { "it": "Un pellegrino", "en": "A pilgrim" },
+    "intro": { "it": "Un pellegrino chiede la strada.", "en": "A pilgrim asks the way." },
+    "ask": { "it": "Mi può aiutare?", "en": "Can you help me?" },
+    "prompt": { "it": "Pellegrino: «Dov'è la strada?»\nCome glielo dici", "en": "How do you tell him: “{say}”", "sl": "Kako mu rečeš: “{say}”" },
+    "show": { "it": "Mostra la strada", "en": "Show the way" },
+    "won": { "it": "Pellegrino: Grazie!", "en": "Thank you!" },
+    "lost": { "it": "Il pellegrino ha trovato la strada lo stesso.", "en": "The pilgrim found the way anyway." },
+    "ways": [
+      { "say": { "en": "Straight on.", "sl": "Naravnost." }, "options": ["Sempre dritto.", "A sinistra.", "Indietro."], "explain": [{ "it": "dritto", "en": "straight on" }] }
+    ]
+  },
+  "riddle": {
+    "emoji": "❓",
+    "child": "gigi",
+    "title": { "it": "Un indovinello", "en": "A riddle" },
+    "intro": { "it": "{name} ha un indovinello per te.", "en": "{name} has a riddle for you." },
+    "ask": { "it": "Ho un indovinello!", "en": "I have a riddle!" },
+    "won": { "it": "{name}: Bravo!", "en": "Well done!" },
+    "lost": { "it": "{name}: Non l'hai indovinato!", "en": "You didn't guess it!" },
+    "riddles": [
+      { "riddle": { "it": "Ha i denti ma non morde. Cos'è?" }, "options": ["il pettine", "il cane", "il lupo"], "answer": { "en": "a comb" }, "meaning": { "en": "It has teeth but doesn't bite." } }
+    ]
+  },
+  "strangers": {
+    "pedlar": {
+      "id": "pedlar", "name": "Ambulante", "emoji": "🎒", "art": "pedlar", "voice": "male",
+      "role": "Ambulante · Pedlar", "home": ["spot:road"], "register": "vi",
+      "lines": { "greet": [{ "it": "Buongiorno!", "en": "Good morning!" }] }
+    },
+    "pilgrim": {
+      "id": "pilgrim", "name": "Pellegrino", "emoji": "🥾", "art": "pilgrim", "voice": "male",
+      "role": "Pellegrino · Pilgrim", "home": ["spot:road"], "register": "vi",
+      "lines": { "greet": [{ "it": "Buongiorno!", "en": "Good morning!" }] }
+    }
+  }
+}

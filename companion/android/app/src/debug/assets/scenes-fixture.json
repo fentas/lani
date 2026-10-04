@@ -1,0 +1,511 @@
+[
+ {
+  "schema": "lani.scene/v0",
+  "id": "ob-ognju",
+  "title": "Ob ognju · At the campfire",
+  "emoji": "🔥",
+  "level": "A1",
+  "art": "campfire",
+  "from": [
+   "fire"
+  ],
+  "pack": "ob-ognju",
+  "objects": [
+   {
+    "slot": "fire",
+    "word": "ogenj",
+    "sl": "ogenj",
+    "en": "fire",
+    "emoji": "🔥",
+    "gender": "m",
+    "plural": "ognji",
+    "example_sl": "Ogenj je vroč.",
+    "example_en": "The fire is hot."
+   },
+   {
+    "slot": "logs",
+    "word": "drva",
+    "sl": "drva",
+    "en": "firewood",
+    "emoji": "🪵",
+    "gender": "n",
+    "example_sl": "Drva so suha.",
+    "example_en": "The firewood is dry."
+   },
+   {
+    "slot": "kettle",
+    "word": "kotel",
+    "sl": "kotel",
+    "en": "kettle, cauldron",
+    "emoji": "🫕",
+    "gender": "m",
+    "plural": "kotli",
+    "example_sl": "Kotel je nad ognjem.",
+    "example_en": "The kettle is over the fire."
+   },
+   {
+    "slot": "stones",
+    "word": "kamen",
+    "sl": "kamen",
+    "en": "stone",
+    "emoji": "🪨",
+    "gender": "m",
+    "plural": "kamni",
+    "example_sl": "Kamni so okoli ognja.",
+    "example_en": "The stones are around the fire."
+   },
+   {
+    "slot": "smoke",
+    "word": "dim",
+    "sl": "dim",
+    "en": "smoke",
+    "emoji": "💨",
+    "gender": "m",
+    "example_sl": "Dim gre v nebo.",
+    "example_en": "The smoke goes up into the sky."
+   },
+   {
+    "slot": "moon",
+    "word": "luna",
+    "sl": "luna",
+    "en": "moon",
+    "emoji": "🌙",
+    "gender": "f",
+    "plural": "lune",
+    "example_sl": "Luna sveti.",
+    "example_en": "The moon is shining."
+   },
+   {
+    "slot": "stars",
+    "word": "zvezda",
+    "sl": "zvezda",
+    "en": "star",
+    "emoji": "⭐",
+    "gender": "f",
+    "plural": "zvezde",
+    "example_sl": "Nocoj je veliko zvezd.",
+    "example_en": "There are many stars tonight."
+   },
+   {
+    "slot": "tent",
+    "word": "sotor",
+    "needs": { "building": "TENT" },
+    "sl": "šotor",
+    "en": "tent",
+    "emoji": "⛺",
+    "gender": "m",
+    "plural": "šotori",
+    "example_sl": "Šotor je za ognjem.",
+    "example_en": "The tent is behind the fire."
+   },
+   {
+    "slot": "axe",
+    "word": "sekira",
+    "sl": "sekira",
+    "en": "axe",
+    "emoji": "🪓",
+    "gender": "f",
+    "plural": "sekire",
+    "example_sl": "Sekira je ostra.",
+    "example_en": "The axe is sharp."
+   },
+   {
+    "slot": "bucket",
+    "word": "vedro",
+    "sl": "vedro",
+    "en": "bucket",
+    "emoji": "🪣",
+    "gender": "n",
+    "plural": "vedra",
+    "example_sl": "Vedro je polno vode.",
+    "example_en": "The bucket is full of water."
+   }
+  ],
+  "people": [
+   {
+    "id": "dedek",
+    "name": "Dedek Jože",
+    "emoji": "👴",
+    "art": "grandpa",
+    "slot": "back",
+    "always": true
+   },
+   {
+    "id": "otroci",
+    "name": "Otroci",
+    "emoji": "🧒",
+    "art": "child1",
+    "slot": "right"
+   }
+  ],
+  "happenings": [
+   {
+    "id": "igra",
+    "title": "Otroci se igrajo · The children are playing",
+    "who": "otroci",
+    "chance": 1.0,
+    "dialog": "igra",
+    "reward": {
+     "wood": 10
+    },
+    "marker": "⚽"
+   }
+  ],
+  "dialogs": [
+   {
+    "id": "igra",
+    "lines": [
+     {
+      "who": "otroci",
+      "sl": "Živjo! Se greš igrat z nami?",
+      "en": "Hi! Will you come and play with us?"
+     },
+     {
+      "choices": [
+       {
+        "sl": "Ja, grem!",
+        "en": "Yes, I'm coming!",
+        "ok": true,
+        "reply": {
+         "sl": "Super! Pridi k ognju.",
+         "en": "Great! Come to the fire."
+        }
+       },
+       {
+        "sl": "Nasvidenje!",
+        "en": "Goodbye!",
+        "why": "Nasvidenje is goodbye; they asked you to play."
+       }
+      ]
+     },
+     {
+      "who": "otroci",
+      "sl": "Kaj je to?",
+      "en": "What is this?"
+     },
+     {
+      "choices": [
+       {
+        "sl": "To je ogenj.",
+        "en": "This is fire.",
+        "ok": true
+       },
+       {
+        "sl": "To je voda.",
+        "en": "This is water.",
+        "why": "Voda is water; this one is hot and burns: ogenj."
+       }
+      ]
+     },
+     {
+      "who": "otroci",
+      "sl": "Ja! Ogenj je vroč.",
+      "en": "Yes! The fire is hot."
+     }
+    ]
+   }
+  ],
+  "_note": "Debug fixture (app/src/debug): only used while the node serves no scenes. The ob-ognju pack may not exist yet."
+ },
+ {
+  "schema": "lani.scene/v0",
+  "id": "kuhinja",
+  "title": "V kuhinji · In the kitchen",
+  "emoji": "🍳",
+  "level": "A1",
+  "art": "kitchen",
+  "from": [
+   "hut",
+   "house",
+   "tent"
+  ],
+  "pack": "v-kuhinji",
+  "objects": [
+   {
+    "slot": "window",
+    "word": "okno",
+    "pack": "dom-in-hisa",
+    "sl": "okno",
+    "en": "window",
+    "emoji": "🪟",
+    "gender": "n",
+    "plural": "okna",
+    "example_sl": "Okno je odprto.",
+    "example_en": "The window is open."
+   },
+   {
+    "slot": "door",
+    "word": "vrata",
+    "pack": "dom-in-hisa",
+    "sl": "vrata",
+    "en": "door",
+    "emoji": "🚪",
+    "gender": "n",
+    "plural": "vrata",
+    "example_sl": "Vrata so zaprta.",
+    "example_en": "The door is closed."
+   },
+   {
+    "slot": "cupboard",
+    "word": "omara",
+    "pack": "dom-in-hisa",
+    "sl": "omara",
+    "en": "wardrobe, cupboard",
+    "emoji": "🗄️",
+    "gender": "f",
+    "plural": "omare",
+    "example_sl": "Kozarci so v omari.",
+    "example_en": "The glasses are in the cupboard."
+   },
+   {
+    "slot": "table",
+    "word": "miza",
+    "sl": "miza",
+    "en": "table",
+    "emoji": "🪑",
+    "gender": "f",
+    "plural": "mize",
+    "example_sl": "Kosilo je na mizi.",
+    "example_en": "Lunch is on the table."
+   },
+   {
+    "slot": "chair",
+    "word": "stol",
+    "pack": "dom-in-hisa",
+    "sl": "stol",
+    "en": "chair",
+    "emoji": "🪑",
+    "gender": "m",
+    "plural": "stoli",
+    "example_sl": "Stol je pri mizi.",
+    "example_en": "The chair is by the table."
+   },
+   {
+    "slot": "bread",
+    "word": "kruh",
+    "sl": "kruh",
+    "en": "bread",
+    "emoji": "🍞",
+    "gender": "m",
+    "plural": "kruhi",
+    "example_sl": "Kruh je še topel.",
+    "example_en": "The bread is still warm."
+   },
+   {
+    "slot": "bowl",
+    "word": "juha",
+    "sl": "juha",
+    "en": "soup",
+    "emoji": "🍲",
+    "gender": "f",
+    "plural": "juhe",
+    "example_sl": "Juha je vroča.",
+    "example_en": "The soup is hot."
+   },
+   {
+    "slot": "plate",
+    "word": "kroznik",
+    "sl": "krožnik",
+    "en": "plate",
+    "emoji": "🍽️",
+    "gender": "m",
+    "plural": "krožniki",
+    "example_sl": "Krožnik je na mizi.",
+    "example_en": "The plate is on the table."
+   },
+   {
+    "slot": "glass",
+    "word": "kozarec",
+    "sl": "kozarec",
+    "en": "glass",
+    "emoji": "🥛",
+    "gender": "m",
+    "plural": "kozarci",
+    "example_sl": "Kozarec vode, prosim.",
+    "example_en": "A glass of water, please."
+   },
+   {
+    "slot": "fork",
+    "word": "vilice",
+    "sl": "vilice",
+    "en": "fork",
+    "emoji": "🍴",
+    "gender": "f",
+    "plural": "vilice",
+    "example_sl": "Vilice so na mizi.",
+    "example_en": "The fork is on the table."
+   },
+   {
+    "slot": "knife",
+    "word": "noz",
+    "sl": "nož",
+    "en": "knife",
+    "emoji": "🔪",
+    "gender": "m",
+    "plural": "noži",
+    "example_sl": "Nož in vilice, prosim.",
+    "example_en": "A knife and fork, please."
+   },
+   {
+    "slot": "milk",
+    "word": "mleko",
+    "sl": "mleko",
+    "en": "milk",
+    "emoji": "🥛",
+    "gender": "n",
+    "example_sl": "Kava z mlekom, prosim.",
+    "example_en": "Coffee with milk, please."
+   },
+   {
+    "slot": "eggs",
+    "word": "jajce",
+    "sl": "jajce",
+    "en": "egg",
+    "emoji": "🥚",
+    "gender": "n",
+    "plural": "jajca",
+    "example_sl": "Dve jajci, prosim.",
+    "example_en": "Two eggs, please."
+   },
+   {
+    "slot": "water",
+    "word": "voda",
+    "sl": "voda",
+    "en": "water",
+    "emoji": "💧",
+    "gender": "f",
+    "plural": "vode",
+    "example_sl": "Voda je na mizi.",
+    "example_en": "The water is on the table."
+   },
+   {
+    "slot": "salt",
+    "word": "sol",
+    "sl": "sol",
+    "en": "salt",
+    "emoji": "🧂",
+    "gender": "f",
+    "plural": "soli",
+    "example_sl": "Sol je na mizi.",
+    "example_en": "The salt is on the table."
+   },
+   {
+    "slot": "potatoes",
+    "word": "krompir",
+    "sl": "krompir",
+    "en": "potato",
+    "emoji": "🥔",
+    "gender": "m",
+    "plural": "krompirji",
+    "example_sl": "Krompir je na krožniku.",
+    "example_en": "The potatoes are on the plate."
+   }
+  ],
+  "people": [
+   {
+    "id": "babica",
+    "name": "Babica Micka",
+    "emoji": "👵",
+    "art": "grandma",
+    "slot": "stove"
+   }
+  ],
+  "happenings": [
+   {
+    "id": "juha",
+    "title": "Babica kuha juho · Grandma is cooking soup",
+    "who": "babica",
+    "chance": 1.0,
+    "dialog": "juha",
+    "reward": {
+     "food": 15
+    },
+    "marker": "🍲"
+   }
+  ],
+  "dialogs": [
+   {
+    "id": "juha",
+    "talk": "nedeljsko-kosilo",
+    "lines": [
+     {
+      "who": "babica",
+      "sl": "Živjo! Si lačen?",
+      "en": "Hi! Are you hungry?"
+     },
+     {
+      "choices": [
+       {
+        "sl": "Ja, zelo.",
+        "en": "Yes, very.",
+        "ok": true,
+        "reply": {
+         "sl": "Potem sedi za mizo.",
+         "en": "Then sit down at the table."
+        }
+       },
+       {
+        "sl": "Na zdravje!",
+        "en": "Cheers!",
+        "why": "Na zdravje is for a toast (or a sneeze); she asked if you are hungry."
+       }
+      ]
+     },
+     {
+      "who": "babica",
+      "sl": "Izvoli juho. Vroča je!",
+      "en": "Here's some soup. It's hot!"
+     },
+     {
+      "choices": [
+       {
+        "sl": "Hvala lepa!",
+        "en": "Thank you very much!",
+        "ok": true,
+        "reply": {
+         "sl": "Dober tek!",
+         "en": "Enjoy your meal!"
+        }
+       },
+       {
+        "sl": "Prosim.",
+        "en": "Please. / Here you are.",
+        "why": "Prosim asks for something or hands it over; when you get something, say hvala."
+       }
+      ]
+     },
+     {
+      "who": "babica",
+      "sl": "Je juha dobra?",
+      "en": "Is the soup good?"
+     },
+     {
+      "choices": [
+       {
+        "sl": "Ja, zelo je dobra.",
+        "en": "Yes, it's very good.",
+        "ok": true
+       },
+       {
+        "sl": "Ja, zelo je dober.",
+        "en": "Yes, it's very good.",
+        "why": "Juha is feminine, so the adjective is dobra."
+       },
+       {
+        "sl": "Ne, hvala.",
+        "en": "No, thank you.",
+        "why": "That turns down more soup; she asked whether it tastes good."
+       }
+      ]
+     },
+     {
+      "who": "babica",
+      "sl": "Me veseli. Pridi spet jutri!",
+      "en": "I'm glad. Come again tomorrow!"
+     }
+    ]
+   }
+  ],
+  "_note": "Debug fixture (app/src/debug): only used while the node serves no scenes."
+ }
+]

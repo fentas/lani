@@ -1,0 +1,128 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "v-kleti",
+  "title": { "sl": "V kleti", "en": "In the cellar", "de": "Im Keller", "it": "In cantina" },
+  "emoji": "🍷",
+  "level": "A2",
+  "description": {
+    "en": "Vinar Marko's wine cellar: the barrels and the press, the jug and the tap, the pršut on the wall; tasting, pouring and counting litres.",
+    "de": "Der Weinkeller von Vinar Marko: die Fässer und die Presse, der Krug und der Hahn, der Pršut an der Wand; verkosten, einschenken und Liter zählen.",
+    "it": "La cantina di Vinar Marko: le botti e il torchio, la brocca e il rubinetto, il pršut appeso al muro; assaggiare, versare e contare i litri."
+  },
+  "giver": { "name": "Vinar Marko", "emoji": "🍷" },
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker",
+  "words": [
+    {
+      "id": "klet", "sl": "klet", "en": "cellar", "de": "Keller", "it": "cantina",
+      "emoji": "🍷", "gender": "f", "plural": "kleti",
+      "example_sl": "V kleti je hladno.", "example_en": "It is cool in the cellar.", "example_de": "Im Keller ist es kühl.", "example_it": "In cantina fa fresco.",
+      "note": "Feminine although it ends in a consonant: ta klet, v kleti.",
+      "note_de": "Weiblich, obwohl es auf einen Konsonanten endet: ta klet, v kleti.",
+      "note_it": "Femminile anche se finisce in consonante: ta klet, v kleti."
+    },
+    {
+      "id": "presa", "sl": "preša", "en": "wine press", "de": "Weinpresse, Torkel", "it": "torchio",
+      "emoji": "🍇", "gender": "f", "plural": "preše",
+      "example_sl": "Grozdje gre v prešo.", "example_en": "The grapes go into the press.", "example_de": "Die Trauben kommen in die Presse.", "example_it": "L'uva va nel torchio.",
+      "note": "Also stiskalnica. V prešo (accusative): into the press.",
+      "note_de": "Auch stiskalnica. V prešo (Akkusativ): in die Presse.",
+      "note_it": "Anche stiskalnica. V prešo (accusativo): nel torchio."
+    },
+    {
+      "id": "vrc", "sl": "vrč", "en": "jug, pitcher", "de": "Krug", "it": "brocca",
+      "emoji": "🏺", "gender": "m", "plural": "vrči",
+      "example_sl": "Vrč je poln vina.", "example_en": "The jug is full of wine.", "example_de": "Der Krug ist voll Wein.", "example_it": "La brocca è piena di vino.",
+      "note": "Poln + genitive: poln vina, poln vode.",
+      "note_de": "Poln + Genitiv: poln vina, poln vode.",
+      "note_it": "Poln + genitivo: poln vina, poln vode."
+    },
+    {
+      "id": "prsut", "sl": "pršut", "en": "pršut (dry-cured ham)", "de": "Pršut (luftgetrockneter Schinken)", "it": "prosciutto crudo",
+      "emoji": "🍖", "gender": "m", "plural": "pršuti",
+      "example_sl": "Pršut visi v kleti.", "example_en": "The pršut hangs in the cellar.", "example_de": "Der Pršut hängt im Keller.", "example_it": "Il prosciutto è appeso in cantina.",
+      "note": "The Karst's ham, dried by the burja. Kraški pršut.",
+      "note_de": "Der Schinken des Karsts, von der Bora getrocknet. Kraški pršut.",
+      "note_it": "Il prosciutto del Carso, asciugato dalla bora. Kraški pršut."
+    },
+    {
+      "id": "pipa", "sl": "pipa", "en": "tap (on a barrel); pipe", "de": "Zapfhahn; Pfeife", "it": "rubinetto (della botte); pipa",
+      "emoji": "🚰", "gender": "f", "plural": "pipe",
+      "example_sl": "Odpri pipo!", "example_en": "Open the tap!", "example_de": "Mach den Hahn auf!", "example_it": "Apri il rubinetto!",
+      "note": "Also a tobacco pipe. Odpri (open), zapri (close) + accusative: pipo.",
+      "note_de": "Auch eine Tabakpfeife. Odpri (öffne), zapri (schließe) + Akkusativ: pipo.",
+      "note_it": "Anche la pipa da fumo. Odpri (apri), zapri (chiudi) + accusativo: pipo."
+    },
+    {
+      "id": "zamasek", "sl": "zamašek", "en": "cork, stopper", "de": "Korken, Stöpsel", "it": "tappo",
+      "emoji": "🍾", "gender": "m", "plural": "zamaški",
+      "example_sl": "Steklenica nima zamaška.", "example_en": "The bottle has no cork.", "example_de": "Die Flasche hat keinen Korken.", "example_it": "La bottiglia non ha il tappo.",
+      "note": "Nima + genitive: nima zamaška.",
+      "note_de": "Nima + Genitiv: nima zamaška.",
+      "note_it": "Nima + genitivo: nima zamaška."
+    },
+    {
+      "id": "lijak", "sl": "lijak", "en": "funnel", "de": "Trichter", "it": "imbuto",
+      "emoji": "🔻", "gender": "m", "plural": "lijaki",
+      "example_sl": "Vino natočim skozi lijak.", "example_en": "I pour the wine through the funnel.", "example_de": "Ich gieße den Wein durch den Trichter.", "example_it": "Verso il vino con l'imbuto.",
+      "note": "Skozi + accusative: skozi lijak (through the funnel).",
+      "note_de": "Skozi + Akkusativ: skozi lijak (durch den Trichter).",
+      "note_it": "Skozi + accusativo: skozi lijak (attraverso l'imbuto)."
+    },
+    {
+      "id": "liter", "sl": "liter", "en": "litre", "de": "Liter", "it": "litro",
+      "emoji": "🧪", "gender": "m", "plural": "litri",
+      "example_sl": "Dva litra, prosim.", "example_en": "Two litres, please.", "example_de": "Zwei Liter, bitte.", "example_it": "Due litri, per favore.",
+      "note": "Dva litra (dual), trije litri, pet litrov (genitive plural from five on).",
+      "note_de": "Dva litra (Dual), trije litri, pet litrov (Genitiv Plural ab fünf).",
+      "note_it": "Dva litra (duale), trije litri, pet litrov (genitivo plurale da cinque in poi)."
+    },
+    {
+      "id": "natocim", "sl": "natočim", "en": "I pour (a drink)", "de": "ich schenke ein", "it": "verso (da bere)",
+      "emoji": "🍷",
+      "example_sl": "Natočim ti kozarec vina.", "example_en": "I'll pour you a glass of wine.", "example_de": "Ich schenke dir ein Glas Wein ein.", "example_it": "Ti verso un bicchiere di vino.",
+      "note": "Perfective: once, now. Kozarec + genitive: kozarec vina, kozarec vode.",
+      "note_de": "Perfektiv: einmal, jetzt. Kozarec + Genitiv: kozarec vina, kozarec vode.",
+      "note_it": "Perfettivo: una volta, adesso. Kozarec + genitivo: kozarec vina, kozarec vode."
+    },
+    {
+      "id": "poskusim", "sl": "poskusim", "en": "I taste, I try", "de": "ich probiere, ich koste", "it": "assaggio, provo",
+      "emoji": "👅",
+      "example_sl": "Poskusim novo vino.", "example_en": "I taste the new wine.", "example_de": "Ich probiere den neuen Wein.", "example_it": "Assaggio il vino nuovo.",
+      "note": "Infinitive poskusiti. Poskusi! (ti) = try it! Also 'to try (to do)'.",
+      "note_de": "Infinitiv poskusiti. Poskusi! (ti) = probier mal! Auch „versuchen“.",
+      "note_it": "Infinito poskusiti. Poskusi! (ti) = assaggia! Anche 'tentare'."
+    },
+    {
+      "id": "hladno", "sl": "hladno", "en": "cool, cold", "de": "kühl, kalt", "it": "fresco, freddo",
+      "emoji": "🧊",
+      "example_sl": "V kleti je vedno hladno.", "example_en": "It is always cool in the cellar.", "example_de": "Im Keller ist es immer kühl.", "example_it": "In cantina fa sempre fresco.",
+      "note": "hladen (m), hladna (f), hladno (n): hladno vino. Hladno je = it is cool.",
+      "note_de": "hladen (m), hladna (f), hladno (n): hladno vino. Hladno je = es ist kühl.",
+      "note_it": "hladen (m), hladna (f), hladno (n): hladno vino. Hladno je = fa fresco."
+    },
+    {
+      "id": "temno", "sl": "temno", "en": "dark", "de": "dunkel", "it": "buio",
+      "emoji": "🌑",
+      "example_sl": "V kleti je temno. Prižgi svečo!", "example_en": "It is dark in the cellar. Light the candle!", "example_de": "Im Keller ist es dunkel. Zünde die Kerze an!", "example_it": "In cantina è buio. Accendi la candela!",
+      "note": "temen (m), temna (f), temno (n). Temno je = it is dark.",
+      "note_de": "temen (m), temna (f), temno (n). Temno je = es ist dunkel.",
+      "note_it": "temen (m), temna (f), temno (n). Temno je = è buio."
+    },
+    {
+      "id": "rdece-vino", "sl": "rdeče vino", "en": "red wine", "de": "Rotwein", "it": "vino rosso",
+      "emoji": "🍷", "gender": "n",
+      "example_sl": "Teran je rdeče vino s Krasa.", "example_en": "Teran is a red wine from the Karst.", "example_de": "Teran ist ein Rotwein aus dem Karst.", "example_it": "Il terrano è un vino rosso del Carso.",
+      "note": "Neuter: rdeče vino. A glass of red: kozarec rdečega (vina).",
+      "note_de": "Sächlich: rdeče vino. Ein Glas Rotwein: kozarec rdečega (vina).",
+      "note_it": "Neutro: rdeče vino. Un bicchiere di rosso: kozarec rdečega (vina)."
+    },
+    {
+      "id": "belo-vino", "sl": "belo vino", "en": "white wine", "de": "Weißwein", "it": "vino bianco",
+      "emoji": "🥂", "gender": "n",
+      "example_sl": "Rebula je belo vino iz Brd.", "example_en": "Rebula is a white wine from Brda.", "example_de": "Rebula ist ein Weißwein aus Brda.", "example_it": "La ribolla è un vino bianco del Collio.",
+      "note": "Neuter: belo vino. A glass of white: kozarec belega (vina).",
+      "note_de": "Sächlich: belo vino. Ein Glas Weißwein: kozarec belega (vina).",
+      "note_it": "Neutro: belo vino. Un bicchiere di bianco: kozarec belega (vina)."
+    }
+  ]
+}

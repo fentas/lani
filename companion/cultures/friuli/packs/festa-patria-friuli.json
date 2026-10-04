@@ -1,0 +1,43 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "festa-patria-friuli",
+  "language": "it",
+  "title": { "it": "La Festa del Friuli", "sl": "Praznik Furlanije", "en": "Friuli Day", "de": "Friaul-Tag" },
+  "emoji": "🦅",
+  "level": "A2",
+  "description": {
+    "sl": "3. aprila. Dedek Bepi pripoveduje, kako se je leta 1077 rodila Furlanija. Na zastavi je zlat orel, vsi pa rečejo »mandi«.",
+    "en": "3 April. Nonno Bepi tells how Friuli was born in 1077. The flag has a golden eagle, and everyone says “mandi”.",
+    "de": "3. April. Nonno Bepi erzählt, wie Friaul im Jahr 1077 geboren wurde. Auf der Flagge ist ein goldener Adler, und alle sagen „mandi“."
+  },
+  "giver": { "name": "Nonno Bepi", "emoji": "👴" },
+  "festival": "patria_friuli",
+  "review": "de: machine-written, not reviewed by a native speaker",
+  "words": [
+    { "id": "friuli", "it": "il Friuli", "sl": "Furlanija", "en": "Friuli", "de": "Friaul", "emoji": "🗺️", "gender": "m",
+      "example_it": "Il Friuli è la nostra regione.", "example_sl": "Furlanija je naša dežela.", "example_en": "Friuli is our region.", "example_de": "Friaul ist unsere Region.",
+      "note": "A name with an article: il Friuli; but in Friuli, without it.",
+      "note_sl": "Ime s členom: il Friuli; v Furlaniji pa je in Friuli, brez njega.",
+      "note_de": "Ein Name mit Artikel: il Friuli; aber in Friuli, ohne ihn." },
+    { "id": "friulano", "it": "il friulano", "sl": "furlanščina", "en": "Friulian (the language)", "de": "Friaulisch (die Sprache)", "emoji": "🗣️", "gender": "m",
+      "example_it": "Il nonno parla friulano.", "example_sl": "Dedek govori furlansko.", "example_en": "Grandpa speaks Friulian.", "example_de": "Opa spricht Friaulisch.",
+      "note": "Friulian is a language of its own: mandi means bye, and hello too.",
+      "note_sl": "Furlanščina je samostojen jezik: mandi pomeni adijo, pa tudi živjo.",
+      "note_de": "Friaulisch ist eine eigene Sprache: mandi heißt tschüs, und auch hallo." },
+    { "id": "patria", "it": "la patria", "sl": "domovina", "en": "homeland", "de": "Heimat", "emoji": "🏡", "gender": "f", "plural": "le patrie",
+      "example_it": "Il Friuli è la patria dei friulani.", "example_sl": "Furlanija je domovina Furlanov.", "example_en": "Friuli is the Friulians' homeland.", "example_de": "Friaul ist die Heimat der Friauler." },
+    { "id": "bandiera", "it": "la bandiera", "sl": "zastava", "en": "flag", "de": "Flagge, Fahne", "emoji": "🏳️", "gender": "f", "plural": "le bandiere",
+      "example_it": "Sulla bandiera c'è un'aquila d'oro.", "example_sl": "Na zastavi je zlat orel.", "example_en": "There's a golden eagle on the flag.", "example_de": "Auf der Flagge ist ein goldener Adler." },
+    { "id": "aquila", "it": "l'aquila", "sl": "orel", "en": "eagle", "de": "Adler", "emoji": "🦅", "gender": "f", "plural": "le aquile",
+      "example_it": "L'aquila vola sopra le montagne.", "example_sl": "Orel leti nad gorami.", "example_en": "The eagle flies over the mountains.", "example_de": "Der Adler fliegt über die Berge.",
+      "note": "Feminine in Italian, masculine in Slovene: l'aquila, orel.",
+      "note_sl": "V italijanščini ženskega spola, v slovenščini moškega: l'aquila, orel.",
+      "note_de": "Im Italienischen weiblich, im Slowenischen männlich: l'aquila, orel." },
+    { "id": "montagna", "it": "la montagna", "sl": "gora", "en": "mountain", "de": "Berg", "emoji": "⛰️", "gender": "f", "plural": "le montagne",
+      "example_it": "D'inverno sulla montagna c'è la neve.", "example_sl": "Pozimi je na gori sneg.", "example_en": "In winter there's snow on the mountain.", "example_de": "Im Winter liegt Schnee auf dem Berg." },
+    { "id": "storia", "it": "la storia", "sl": "zgodba; zgodovina", "en": "story; history", "de": "Geschichte (Erzählung; Historie)", "emoji": "📜", "gender": "f", "plural": "le storie",
+      "example_it": "Nonno, raccontaci una storia!", "example_sl": "Dedek, povej nam zgodbo!", "example_en": "Grandpa, tell us a story!", "example_de": "Opa, erzähl uns eine Geschichte!" },
+    { "id": "festeggiare", "it": "festeggiare", "sl": "praznovati", "en": "to celebrate", "de": "feiern", "emoji": "🎉",
+      "example_it": "Oggi festeggiamo il Friuli!", "example_sl": "Danes praznujemo Furlanijo!", "example_en": "Today we celebrate Friuli!", "example_de": "Heute feiern wir Friaul!" }
+  ]
+}

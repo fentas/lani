@@ -1,0 +1,90 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "ce-ci-sono",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🌙",
+  "title": {
+    "it": "C'è la luna, ci sono le stelle",
+    "sl": "C'è in ci sono: je in so",
+    "en": "C'è and ci sono: there is, there are",
+    "de": "C'è und ci sono: da ist, es gibt"
+  },
+  "rule": {
+    "en": "To say that something is there, use **c'è** (there is) with one thing and **ci sono** (there are) with more: **C'è un gatto.** **Ci sono tre gatti.** Never c'è with more than one.\n\nA question only changes the voice: **C'è Giulia?** (Is Giulia here?) The negative puts **non** in front: **Non c'è.** (She isn't here.) **Non ci sono nuvole.** With no article: **Non c'è pane.** (There's no bread.)\n\n**C'è** says that something is there; **è** says what or how it is: **C'è la luna.** (The moon is out.) **È la luna.** (It's the moon.) **La luna è grande.** (The moon is big.)\n\n**Ci sono** also answers *Are you there?*: **Ci sei? Sì, ci sono!**",
+    "sl": "Da nekaj je (obstaja, je tam), poveš s **c'è** pri eni stvari in s **ci sono** pri več: **C'è un gatto.** (Tam je mačka.) **Ci sono tre gatti.** (Tam so tri mačke.) Pri količini je v slovenščini glagol pogosto v ednini (**je veliko zvezd**), v italijanščini pa ne: **ci sono tante stelle**.\n\nVprašanje spremeni samo ton: **C'è Giulia?** (Je Giulia tu?) Nikalnica je **non** spredaj: **Non c'è.** (Ni je.) **Non ci sono nuvole.** (Ni oblakov.) Brez člena: **Non c'è pane.** (Ni kruha.)\n\nSlovenščina ima za oboje *je*, italijanščina pa loči: **c'è** pove, da nekaj je tam, **è** pa, kaj ali kakšno je: **C'è la luna.** (Luna je na nebu.) **È la luna.** (To je luna.) **La luna è grande.** (Luna je velika.)\n\n**Ci sono** odgovori tudi na *Si tu?*: **Ci sei? Sì, ci sono!**",
+    "de": "Dass etwas da ist, sagt man mit **c'è** (da ist, es gibt) bei einer Sache und **ci sono** (da sind, es gibt) bei mehreren: **C'è un gatto.** **Ci sono tre gatti.** Anders als *es gibt* ändert sich die Form mit der Zahl.\n\nEine Frage ändert nur den Ton: **C'è Giulia?** (Ist Giulia da?) Die Verneinung setzt **non** davor: **Non c'è.** (Sie ist nicht da.) **Non ci sono nuvole.** (Es gibt keine Wolken.) Ohne Artikel: **Non c'è pane.** (Es gibt kein Brot.)\n\n**C'è** sagt, dass etwas da ist; **è** sagt, was oder wie etwas ist: **C'è la luna.** (Der Mond ist zu sehen.) **È la luna.** (Das ist der Mond.) **La luna è grande.** (Der Mond ist groß.)\n\n**Ci sono** antwortet auch auf *Bist du da?*: **Ci sei? Sì, ci sono!**"
+  },
+  "table": {
+    "head": [
+      { "it": "frase", "sl": "stavek", "en": "sentence", "de": "Satz" },
+      { "it": "una cosa: c'è", "sl": "ena stvar: c'è", "en": "one thing: c'è", "de": "eine Sache: c'è" },
+      { "it": "più cose: ci sono", "sl": "več stvari: ci sono", "en": "more things: ci sono", "de": "mehrere: ci sono" }
+    ],
+    "rows": [
+      [{ "it": "affermazione", "sl": "trditev", "en": "statement", "de": "Aussage" }, "C'è un gatto.", "Ci sono tre gatti."],
+      [{ "it": "domanda", "sl": "vprašanje", "en": "question", "de": "Frage" }, "C'è un gatto?", "Ci sono gatti?"],
+      [{ "it": "negazione", "sl": "zanikanje", "en": "negative", "de": "Verneinung" }, "Non c'è pane.", "Non ci sono nuvole."],
+      [{ "it": "con un nome", "sl": "z imenom", "en": "with a name", "de": "mit einem Namen" }, "C'è Giulia?", "Ci sono Giulia e Lorenzo?"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Stasera c'è la luna.",
+      "sl": "Nocoj sije luna.",
+      "en": "The moon is out tonight.",
+      "de": "Heute Abend scheint der Mond.",
+      "note": {
+        "sl": "c'è: luna je tam, na nebu. È la luna = to je luna.",
+        "en": "c'è: the moon is there, in the sky. È la luna = it's the moon.",
+        "de": "c'è: der Mond ist da, am Himmel. È la luna = das ist der Mond."
+      }
+    },
+    {
+      "it": "Nel cielo ci sono tante stelle.",
+      "sl": "Na nebu je veliko zvezd.",
+      "en": "There are lots of stars in the sky.",
+      "de": "Am Himmel sind viele Sterne.",
+      "note": {
+        "sl": "Slovensko je veliko zvezd (ednina), italijansko ci sono (več stvari).",
+        "en": "More than one: ci sono.",
+        "de": "Mehrere: ci sono."
+      }
+    },
+    {
+      "it": "Che cos'è? È la luna!",
+      "sl": "Kaj je to? To je luna!",
+      "en": "What's that? It's the moon!",
+      "de": "Was ist das? Das ist der Mond!"
+    },
+    {
+      "it": "C'è Giulia? No, non c'è.",
+      "sl": "Je Giulia tu? Ne, ni je.",
+      "en": "Is Giulia here? No, she isn't.",
+      "de": "Ist Giulia da? Nein, sie ist nicht da."
+    },
+    {
+      "it": "Nello stagno ci sono cinque rane.",
+      "sl": "V ribniku je pet žab.",
+      "en": "There are five frogs in the pond.",
+      "de": "Im Teich sind fünf Frösche."
+    },
+    {
+      "it": "Oggi non c'è scuola!",
+      "sl": "Danes ni šole!",
+      "en": "There's no school today!",
+      "de": "Heute ist keine Schule!"
+    },
+    {
+      "it": "In piazza c'è una fontana.",
+      "sl": "Na trgu je vodnjak.",
+      "en": "There's a fountain in the square.",
+      "de": "Auf dem Platz gibt es einen Brunnen."
+    }
+  ],
+  "modules": [],
+  "tags": ["there_is", "there_are", "c_e", "ci_sono", "existential", "essere"],
+  "see": ["essere-avere", "domande", "partitivo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

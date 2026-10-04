@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# The towns a learner's town knows: invitations, links between the towns of this node, unlinking.
+#   lani-town list | invite | accept <invitation> [--profile <id>]
+#   lani-town link <profile> <profile>
+#   lani-town unlink <town> [--profile <id>]
+#   lani-town name [<name> | --clear] [--profile <id>]
+# See companion/README.md, "Towns".
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+exec bun "$root/companion/bridge/src/cli/town.ts" "$@"

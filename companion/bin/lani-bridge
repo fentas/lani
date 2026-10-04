@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# The bridge service of each learner (docs/plans/04-bridge-service.md): the app's API and the tutor's tools, in a
+# process of its own, so new bridge code needs only a restart of the service, not of the tutor session. The tutor
+# session (lani-session in the service mode) reaches it through its shim.
+#
+#   lani-bridge start   [--profile <id>] [--print]   start it in tmux "lani-bridge" (-<id>), unless it runs
+#   lani-bridge restart [--profile <id> | --all]     deploy the current code: a few seconds of downtime for the app
+#   lani-bridge status  [--profile <id> | --all]
+#   lani-bridge stop    [--profile <id>]
+#   lani-bridge logs    [--profile <id>] [-f]
+#   lani-bridge run     [--profile <id>]             the supervisor loop (what the tmux session runs)
+#   lani-bridge exec    [--profile <id>]             the service once, in the foreground (for systemd)
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+cli="$root/companion/bridge/src/cli/bridge.ts"
+# LANI_* (or their FLUENT_* names), and the config files of ~/.config/lani (or ~/.config/fluent): bin/lani-env.sh
+. "$root/companion/bin/lani-env.sh"
+keys="${LANI_KEYS_FILE:-$(lani_config_file keys.env)}"
+
+cmd="${1:-status}"
+[ $# -gt 0 ] && shift
+case "$cmd" in
+  -h|--help|help) sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+  run|exec|logs) ;;
+  *) exec bun "$cli" "$cmd" "$@" ;;
+esac
+
+profile=""
+follow=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --profile|-p) profile="${2:?--profile needs a profile id}"; shift ;;
+    --profile=*) profile="${1#--profile=}" ;;
+    -f|--follow) follow=1 ;;
+    *) echo "lani-bridge $cmd: unknown argument $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+# The service's log, stop mark and environment, from the profile (read again before each start).
+spec() { bun "$cli" spec ${profile:+--profile "$profile"}; }
+field() { printf '%s\n' "$1" | sed -n "s/^$2=//p"; }
+
+# The service, once: the keys first, then the profile's environment (so a keys file can't point it at other data).
+service() {
+  set -a
+  if [ -r "$keys" ]; then . "$keys"; fi
+  set +a
+  eval "$1"
+  exec bun "$root/companion/bridge/src/service.ts"
+}
+
+case "$cmd" in
+  logs)
+    s="$(spec)"
+    log="$(field "$s" log)"
+    [ -e "$log" ] || { echo "no log yet: $log" >&2; exit 1; }
+    exec tail -n 200 ${follow:+-f} "$log"
+    ;;
+  exec)
+    s="$(spec)"
+    service "$(field "$s" env)"
+    ;;
+  run)
+    # Starts the service again when it exits: at once after a clean stop (a restart), after 1 s when it ran a while,
+    # doubling to 30 s when it keeps failing within 10 s of its start. `lani-bridge stop` leaves a mark: the loop ends.
+    cd "$root"
+    wait=1
+    while :; do
+      if ! s="$(spec)"; then
+        echo "[lani-bridge] $(date -Is) the profile can't be read: trying again in 30 s" >&2
+        sleep 30
+        continue
+      fi
+      log="$(field "$s" log)"
+      stop="$(field "$s" stop)"
+      if [ -e "$stop" ]; then rm -f "$stop"; break; fi
+      mkdir -p "$(dirname "$log")"
+      if [ -f "$log" ] && [ "$(stat -c %s "$log")" -gt 10485760 ]; then mv -f "$log" "$log.1"; fi
+      echo "[lani-bridge] $(date -Is) starting the service" | tee -a "$log"
+      started=$(date +%s)
+      set +e
+      ( export LANI_BRIDGE_SUPERVISOR=run; service "$(field "$s" env)" ) 2>&1 | tee -a "$log"
+      code=${PIPESTATUS[0]}
+      set -e
+      ran=$(( $(date +%s) - started ))
+      echo "[lani-bridge] $(date -Is) the service exited ($code) after ${ran} s" | tee -a "$log"
+      if [ -e "$stop" ]; then rm -f "$stop"; break; fi
+      if [ "$code" -eq 0 ]; then wait=1; sleep 0.2
+      elif [ "$ran" -ge 10 ]; then wait=1; sleep 1
+      else sleep "$wait"; wait=$(( wait * 2 > 30 ? 30 : wait * 2 ))
+      fi
+    done
+    ;;
+esac

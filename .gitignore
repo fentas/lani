@@ -1,0 +1,61 @@
+# Personal learning data - DO NOT commit
+/data/*.json
+/data/*.json.backup-*
+/results/*.md
+# Except the README files which explain the structure
+!/data/README.md
+!/results/README.md
+
+# Personal writing/practice files
+myfile.txt
+
+# Backup files created by hooks
+.backups/
+
+# Keep directory structure but ignore contents
+!/data/.gitkeep
+!/results/.gitkeep
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temp files
+.tmp/
+temp/
+*.json.tmp
+
+
+# Lani companion: app modules/tokens are personal data; bridge deps
+/data/app/
+companion/bridge/node_modules/
+# Other learners on this machine (companion/bin/lani-profile): their registry, data and results
+/profiles/
+
+# QA screenshots (companion/bin/qa)
+companion/qa-shots/
+
+# Core dumps (a crashing emulator writes ~10 GB)
+core.[0-9]*
+
+# Core dumps of crashed processes (a JVM, the emulator)
+core.[0-9]*
+
+# Claude Code: local settings and agent worktrees
+.claude/settings.local.json
+.claude/worktrees/

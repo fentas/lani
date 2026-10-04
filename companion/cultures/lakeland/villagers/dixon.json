@@ -1,0 +1,91 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "dixon",
+  "name": "Mr Dixon",
+  "emoji": "⚒️",
+  "art": "smith",
+  "voice": "male",
+  "speaker": "gruff",
+  "role": {"en": "Blacksmith", "sl": "Kovač", "it": "Fabbro", "de": "Schmied"},
+  "home": ["smithy"],
+  "sleeps": "smithy",
+  "register": "vi",
+  "skill": "stone",
+  "since": "zaselek",
+  "order": 9,
+  "routine": {
+    "up": "6:00", "bed": "22:10",
+    "rituals": [
+      { "id": "forge", "at": "21:45", "until": "22:00", "to": "smithy", "doing": "tend", "title": {"en": "Mr Dixon banks the embers in the forge", "sl": "Gospod Dixon pokrije žerjavico v ognjišču", "it": "Il signor Dixon copre la brace nella forgia", "de": "Herr Dixon deckt die Glut in der Esse ab"} }
+    ]
+  },
+  "personality": "Gruff and kind blacksmith in his fifties. Few words, short sentences, no small talk, but he notices everything and helps without being asked. Calls the learner by first name or 'lad'; the learner says 'Mr Dixon', never his first name. No patience for a missing -s ('she goes') or a wrong past tense ('I goed'): 'It's right, or it isn't.' Speaks slow, plain English, says 'Aye' for yes. Hums while he works; his wife sends him to the Packhorse Inn to talk more.",
+  "story": "Mr Dixon's smithy stands at the edge of the village, by the beck. He shoes the fell ponies of half the dale and takes orders from Keswick and Penrith, writes them in a small black notebook and gets them exactly right, like his sentences. When he was young, he won the Cumberland wrestling at Grasmere. When wolves come to the palisade, it is Mr Dixon who stands at the gate with his hammer.",
+  "likes": [
+    {"en": "iron", "sl": "železo", "it": "il ferro", "de": "Eisen"},
+    {"en": "fell ponies (the strong black ponies of the fells)", "sl": "poniji (močni črni poniji s hribov)", "it": "i pony (i forti pony neri dei monti)", "de": "Ponys (die starken schwarzen Ponys der Berge)"},
+    {"en": "wrestling (the Cumberland wrestling at Grasmere)", "sl": "rokoborba (cumberlandska rokoborba v Grasmeru)", "it": "la lotta (la lotta del Cumberland a Grasmere)", "de": "Ringen (das Cumberland-Ringen in Grasmere)"},
+    {"en": "a job done right", "sl": "dobro opravljeno delo", "it": "il lavoro fatto bene", "de": "gute, genaue Arbeit"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Hello.", "sl": "Pozdravljen.", "it": "Salve.", "de": "Tag.", "level": 0 },
+      { "en": "Yes? What do you need?", "sl": "Ja? Kaj potrebuješ?", "it": "Sì? Cosa ti serve?", "de": "Ja? Was brauchst du?", "level": 0 },
+      { "en": "Ah, it's you. Come in.", "sl": "A, ti si. Vstopi.", "it": "Ah, sei tu. Entra.", "de": "Ah, du bist es. Komm rein.", "level": 1 },
+      { "en": "Hello. Today I'm making horseshoes. Watch.", "sl": "Živjo. Danes delam podkve. Glej.", "it": "Ciao. Oggi faccio i ferri di cavallo. Guarda.", "de": "Hallo. Heute mache ich Hufeisen. Schau zu.", "level": 2 },
+      { "en": "There you are. The fire's lit. Come closer.", "sl": "Tu si. Ogenj gori. Pridi bliže.", "it": "Eccoti. Il fuoco è acceso. Vieni vicino.", "de": "Da bist du ja. Das Feuer brennt. Komm näher.", "level": 3 },
+      { "en": "Lad. You're at home here. Sit down.", "sl": "Fant. Tukaj si kot doma. Sedi.", "it": "Ragazzo. Qui sei di casa. Siediti.", "de": "Junge. Hier bist du zu Hause. Setz dich.", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Thanks.", "sl": "Hvala.", "it": "Grazie.", "de": "Danke." },
+      { "en": "Good. Done right. Thanks.", "sl": "Dobro. Prav narejeno. Hvala.", "it": "Bene. Fatto giusto. Grazie.", "de": "Gut. Richtig gemacht. Danke." },
+      { "en": "Thanks, lad. I won't forget it.", "sl": "Hvala, fant. Tega ne pozabim.", "it": "Grazie, ragazzo. Non lo dimentico.", "de": "Danke, Junge. Das vergesse ich nicht." }
+    ],
+    "remember": [
+      { "en": "I think of {memory}.", "sl": "Mislim na {memory}.", "it": "Ricordo {memory}.", "de": "Ich denke an {memory}.", "level": 1 },
+      { "en": "I don't forget {memory}. I don't forget anything.", "sl": "Ne pozabim na {memory}. Jaz ne pozabim ničesar.", "it": "Non dimentico {memory}. Io non dimentico niente.", "de": "Ich vergesse {memory} nicht. Ich vergesse nichts.", "level": 2 },
+      { "en": "When I hammer the iron, I think of {memory}.", "sl": "Ko kujem železo, mislim na {memory}.", "it": "Quando batto il ferro, ricordo {memory}.", "de": "Wenn ich das Eisen schmiede, denke ich an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "en": "The iron is hot. Don't touch.", "sl": "Železo je vroče. Ne dotikaj se ga.", "it": "Il ferro è caldo. Non toccare.", "de": "Das Eisen ist heiß. Nicht anfassen." },
+      { "en": "Four shoes for one pony. Always four.", "sl": "Štiri podkve za enega ponija. Vedno štiri.", "it": "Quattro ferri per un pony. Sempre quattro.", "de": "Vier Hufeisen für ein Pony. Immer vier." },
+      { "en": "An order from Penrith. For Friday.", "sl": "Naročilo iz Penritha. Za petek.", "it": "Un ordine da Penrith. Per venerdì.", "de": "Ein Auftrag aus Penrith. Für Freitag." },
+      { "en": "He works. She goes. Don't forget the -s.", "sl": "He works. She goes. Ne pozabi na -s.", "it": "He works. She goes. Non dimenticare la -s.", "de": "He works. She goes. Vergiss das -s nicht." }
+    ],
+    "cheer": [
+      { "en": "Right.", "sl": "Prav.", "it": "Giusto.", "de": "Richtig." },
+      { "en": "Aye. Good.", "sl": "Ja. Dobro.", "it": "Sì. Bene.", "de": "Ja. Gut." },
+      { "en": "That's it. Exactly right.", "sl": "Tako. Čisto prav.", "it": "Così. Proprio giusto.", "de": "So. Genau richtig." },
+      { "en": "Well done. Like iron: strong.", "sl": "Bravo. Kot železo: trdno.", "it": "Bravo. Come il ferro: solido.", "de": "Gut gemacht. Wie Eisen: fest." }
+    ],
+    "comfort": [
+      { "en": "No. Again.", "sl": "Ne. Še enkrat.", "it": "No. Ancora.", "de": "Nein. Noch mal." },
+      { "en": "Almost. Look at the end of the word.", "sl": "Skoraj. Poglej konec besede.", "it": "Quasi. Guarda la fine della parola.", "de": "Fast. Schau auf das Ende des Wortes." },
+      { "en": "At Grasmere I lost many times before I won. Try again.", "sl": "V Grasmeru sem velikokrat izgubil, preden sem zmagal. Poskusi še enkrat.", "it": "A Grasmere ho perso tante volte prima di vincere. Riprova.", "de": "In Grasmere habe ich oft verloren, bevor ich gewonnen habe. Versuch es noch mal." }
+    ],
+    "listen": [
+      { "en": "Listen.", "sl": "Poslušaj.", "it": "Ascolta.", "de": "Hör zu." },
+      { "en": "Quiet. Listen.", "sl": "Tiho. Poslušaj.", "it": "Silenzio. Ascolta.", "de": "Ruhe. Hör zu." },
+      { "en": "Listen carefully. Every word. Every -s.", "sl": "Dobro poslušaj. Vsako besedo. Vsak -s.", "it": "Ascolta bene. Ogni parola. Ogni -s.", "de": "Hör gut zu. Jedes Wort. Jedes -s." }
+    ],
+    "bye": [
+      { "en": "Bye.", "sl": "Adijo.", "it": "Ciao.", "de": "Tschüss." },
+      { "en": "Goodbye. Back to work.", "sl": "Na svidenje. Na delo.", "it": "Arrivederci. Al lavoro.", "de": "Auf Wiedersehen. Zurück an die Arbeit." },
+      { "en": "Aye. See you, lad.", "sl": "Ja. Se vidiva, fant.", "it": "Sì. Ci vediamo, ragazzo.", "de": "Ja. Bis dann, Junge." }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "Hm. I like it. Thanks.", "sl": "Hm. To mi je všeč. Hvala.", "it": "Hm. Mi piace. Grazie.", "de": "Hm. Das gefällt mir. Danke." },
+        { "en": "How did you know? Good. Thanks, lad.", "sl": "Kako si vedel? Dobro. Hvala, fant.", "it": "Come lo sapevi? Bene. Grazie, ragazzo.", "de": "Woher wusstest du das? Gut. Danke, Junge." },
+        { "en": "Ah! Just the thing. Thanks.", "sl": "A! Točno to. Hvala.", "it": "Ah! Proprio questo. Grazie.", "de": "Ah! Genau das Richtige. Danke." }
+      ],
+      "ordinary": [
+        { "en": "Thanks. You're a good lad.", "sl": "Hvala. Dober fant si.", "it": "Grazie. Sei un bravo ragazzo.", "de": "Danke. Du bist ein guter Junge." },
+        { "en": "Hm. Thanks. Just leave it there, on the bench.", "sl": "Hm. Hvala. Kar tam pusti, na klopi.", "it": "Hm. Grazie. Lascia pure lì, sul banco.", "de": "Hm. Danke. Einfach dort auf die Werkbank legen." }
+      ],
+      "rare": [
+        { "en": "Hm. This … is nice. Really. Thanks.", "sl": "Hm. Tole … je lepo. Res. Hvala.", "it": "Hm. Questo … è bello. Davvero. Grazie.", "de": "Hm. Das … ist schön. Wirklich. Danke." }
+      ]
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "spol-samostalnikov",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "⚖️",
+  "title": {
+    "sl": "Spol samostalnikov: brat, sestra, jajce",
+    "en": "Noun gender: masculine, feminine, neuter",
+    "de": "Das Geschlecht der Nomen",
+    "it": "Il genere dei nomi"
+  },
+  "rule": {
+    "en": "Every Slovene noun is masculine, feminine or neuter (*spol*), and the end of its base form usually tells which.\n\nMasculine nouns end in a consonant: **brat, šotor, kruh**. Feminine nouns end in **-a**: **sestra, kava, smreka** (a few end in a consonant: **vas, noč, peč**). Neuter nouns end in **-o** or **-e**: **jutro, mleko, jajce, morje**.\n\nThe gender decides the endings around the noun: **dober brat, dobra sestra, dobro jajce**; **bil je, bila je, bilo je**.\n\nA few masculine nouns end in a vowel: **oče**, and men's names like **Luka** (**Luka je bil doma**). Learn those with an adjective: **dober oče**.",
+    "de": "Jedes slowenische Nomen ist männlich, weiblich oder sächlich (*spol*), und das Ende der Grundform verrät es meist.\n\nMännliche Nomen enden auf einen Konsonanten: **brat, šotor, kruh**. Weibliche enden auf **-a**: **sestra, kava, smreka** (einige auf einen Konsonanten: **vas, noč, peč**). Sächliche enden auf **-o** oder **-e**: **jutro, mleko, jajce, morje**.\n\nDas Geschlecht bestimmt die Endungen um das Nomen: **dober brat, dobra sestra, dobro jajce**; **bil je, bila je, bilo je**.\n\nEs weicht oft vom Deutschen ab: die Milch → **mleko** (sächlich), der Tisch → **miza** (weiblich). Einige männliche Nomen enden auf einen Vokal: **oče**, und Männernamen wie **Luka** (**Luka je bil doma**).",
+    "it": "Ogni nome sloveno è maschile, femminile o neutro (*spol*), e la fine della forma base di solito lo dice.\n\nI nomi maschili finiscono in consonante: **brat, šotor, kruh**. I femminili finiscono in **-a**: **sestra, kava, smreka** (alcuni in consonante: **vas, noč, peč**). I neutri finiscono in **-o** o **-e**: **jutro, mleko, jajce, morje**.\n\nIl genere decide le desinenze intorno al nome: **dober brat, dobra sestra, dobro jajce**; **bil je, bila je, bilo je**.\n\nL'italiano non ha il neutro: il latte → **mleko** (neutro), il mare → **morje** (neutro). Alcuni nomi maschili finiscono in vocale: **oče**, e i nomi di uomo come **Luka** (**Luka je bil doma**)."
+  },
+  "table": {
+    "head": [
+      { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+      { "sl": "končnica", "en": "base form ends in", "de": "Grundform endet auf", "it": "la forma base finisce in" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, { "en": "a consonant", "de": "Konsonant", "it": "consonante" }, "brat, šotor, kruh"],
+      [{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "-a", "sestra, kava, smreka"],
+      [{ "sl": "ženski", "en": "feminine (a few)", "de": "weiblich (einige)", "it": "femminile (alcuni)" }, { "en": "a consonant", "de": "Konsonant", "it": "consonante" }, "vas, noč, peč"],
+      [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "-o, -e", "jutro, mleko, jajce"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "To je moj brat.",
+      "en": "This is my brother.",
+      "de": "Das ist mein Bruder.",
+      "it": "Questo è mio fratello."
+    },
+    {
+      "sl": "To je moja sestra.",
+      "en": "This is my sister.",
+      "de": "Das ist meine Schwester.",
+      "it": "Questa è mia sorella."
+    },
+    {
+      "sl": "Mleko je sveže.",
+      "en": "The milk is fresh.",
+      "de": "Die Milch ist frisch.",
+      "it": "Il latte è fresco.",
+      "note": {
+        "en": "mleko ends in -o: neuter, so sveže.",
+        "de": "mleko endet auf -o: sächlich, darum sveže.",
+        "it": "mleko finisce in -o: neutro, quindi sveže."
+      }
+    },
+    {
+      "sl": "Noč je bila mirna.",
+      "en": "The night was quiet.",
+      "de": "Die Nacht war ruhig.",
+      "it": "La notte era tranquilla."
+    },
+    {
+      "sl": "Luka je bil v gozdu.",
+      "en": "Luka was in the forest.",
+      "de": "Luka war im Wald.",
+      "it": "Luka era nel bosco."
+    },
+    {
+      "sl": "Oče je prinesel drva.",
+      "en": "Father brought the firewood.",
+      "de": "Der Vater hat das Holz gebracht.",
+      "it": "Il papà ha portato la legna."
+    }
+  ],
+  "modules": [],
+  "tags": ["noun_gender", "gender_noun", "spol"],
+  "see": ["pridevniki-ujemanje", "pretekli-cas", "stevila-samostalniki", "imenovalnik", "sklanjatev-moski", "sklanjatev-zenski", "sklanjatev-srednji", "mnozina"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

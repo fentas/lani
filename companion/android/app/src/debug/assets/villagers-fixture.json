@@ -1,0 +1,158 @@
+[
+  {
+    "schema": "lani.villager/v0",
+    "id": "micka",
+    "name": "Babica Micka",
+    "emoji": "👵",
+    "art": "grandma",
+    "voice": "female",
+    "role": "Babica · Grandmother",
+    "home": ["house", "hut", "tent"],
+    "register": "ti",
+    "skill": "food",
+    "personality": "A warm grandmother from Trnovo, always cooking, keeps the family together. Forgets words, never people. Calls Jan 'zlato moje', speaks slowly and kindly, short sentences.",
+    "story": "Micka cooks for the whole village. On Sundays the family comes to lunch, and there is always potica.",
+    "likes": ["potica", "Sunday lunch", "her grandchildren"],
+    "lines": {
+      "greet": [
+        { "sl": "Dober dan! Kdo pa si ti?", "en": "Good day! And who are you?", "level": 0 },
+        { "sl": "Oh, Jan! Pridi naprej.", "en": "Oh, Jan! Come in.", "level": 1 },
+        { "sl": "Jan, dragi moj! Si lačen?", "en": "Jan, my dear! Are you hungry?", "level": 2 },
+        { "sl": "Moj Jan! Potica je še topla.", "en": "My Jan! The potica is still warm.", "level": 3 }
+      ],
+      "thanks": [
+        { "sl": "Hvala, zlato moje.", "en": "Thank you, my treasure." },
+        { "sl": "Bog lonaj, Jan.", "en": "God reward you, Jan (thank you)." }
+      ],
+      "remember": [
+        { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "level": 1 },
+        { "sl": "Kar naprej mislim na {memory}.", "en": "I keep thinking of {memory}.", "level": 2 },
+        { "sl": "Hvala še enkrat za {memory}.", "en": "Thanks again for {memory}.", "level": 3 }
+      ],
+      "cheer": [
+        { "sl": "Bravo, Jan!", "en": "Well done, Jan!" },
+        { "sl": "Tako je! Pridno!", "en": "That's it! Good job!" }
+      ],
+      "comfort": [
+        { "sl": "Nič hudega, zlato. Še enkrat.", "en": "Never mind, dear. Once more." },
+        { "sl": "Počasi, saj ne gori.", "en": "Slowly, there's no rush." }
+      ],
+      "listen": [
+        { "sl": "Poslušaj me dobro.", "en": "Listen to me carefully." },
+        { "sl": "Pst, poslušaj!", "en": "Shh, listen!" }
+      ],
+      "idle": [
+        { "sl": "Danes pečem potico.", "en": "Today I'm baking potica." },
+        { "sl": "Kje so spet moja očala?", "en": "Where are my glasses again?" }
+      ],
+      "bye": [
+        { "sl": "Adijo, pa kmalu spet pridi!", "en": "Bye, and come again soon!" },
+        { "sl": "Lep dan še naprej!", "en": "Have a nice rest of the day!" }
+      ]
+    }
+  },
+  {
+    "schema": "lani.villager/v0",
+    "id": "luka",
+    "name": "Pastir Luka",
+    "emoji": "🐑",
+    "art": "shepherd",
+    "voice": "male",
+    "role": "Pastir · Shepherd",
+    "home": ["spot:meadow", "tent"],
+    "register": "ti",
+    "skill": "wood",
+    "personality": "A young shepherd from the Trnovo plateau. Cheerful, a little absent-minded, shouts across valleys, talks to his sheep by name. Short sentences, lots of 'ej!' and 'veš'.",
+    "story": "Luka grazes the village's sheep on the meadow below the forest. Bela, the white one, keeps getting lost.",
+    "likes": ["his sheep", "the burja", "mountain huts"],
+    "lines": {
+      "greet": [
+        { "sl": "Dober dan!", "en": "Good day!", "level": 0 },
+        { "sl": "Ej, Jan! Kako si?", "en": "Hey, Jan! How are you?", "level": 1 },
+        { "sl": "Ej, Jan! Pridi, Bela te že čaka!", "en": "Hey, Jan! Come, Bela is already waiting for you!", "level": 2 },
+        { "sl": "Jan, prijatelj! Greva na planino?", "en": "Jan, my friend! Shall we go up to the mountain pasture?", "level": 3 }
+      ],
+      "thanks": [
+        { "sl": "Hvala ti, res si mi pomagal.", "en": "Thank you, you really helped me." },
+        { "sl": "Ej, hvala! Brez tebe bi bil izgubljen.", "en": "Hey, thanks! Without you I'd be lost." }
+      ],
+      "remember": [
+        { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "level": 1 },
+        { "sl": "Veš, včasih mislim na {memory}.", "en": "You know, sometimes I think of {memory}.", "level": 2 }
+      ],
+      "cheer": [
+        { "sl": "Bravo!", "en": "Well done!" },
+        { "sl": "Točno tako!", "en": "Exactly!" },
+        { "sl": "Ej, super!", "en": "Hey, great!" }
+      ],
+      "comfort": [
+        { "sl": "Nič hudega. Še enkrat!", "en": "Never mind. Once more!" },
+        { "sl": "Tudi ovce se včasih zmotijo.", "en": "Even sheep make mistakes sometimes." }
+      ],
+      "listen": [
+        { "sl": "Poslušaj …", "en": "Listen …" },
+        { "sl": "Slišiš zvonce?", "en": "Do you hear the bells?" }
+      ],
+      "idle": [
+        { "sl": "Bela je spet nekje v gozdu.", "en": "Bela is somewhere in the forest again." },
+        { "sl": "Danes piha burja.", "en": "The bora is blowing today." }
+      ],
+      "bye": [
+        { "sl": "Adijo!", "en": "Bye!" },
+        { "sl": "Se vidiva!", "en": "See you!" }
+      ]
+    }
+  },
+  {
+    "schema": "lani.villager/v0",
+    "id": "tone",
+    "name": "Kovač Tone",
+    "emoji": "⚒️",
+    "art": "smith",
+    "voice": "male",
+    "role": "Kovač · Smith",
+    "home": ["smithy"],
+    "register": "vi",
+    "skill": "stone",
+    "since": "zaselek",
+    "personality": "A practical smith of few words, no tolerance for a loose ending. Takes orders from Gorizia. Speaks to Jan with vi, dry humour, short exact sentences.",
+    "story": "Tone forges horseshoes, nails and ploughs at the smithy. His customers in Gorizia expect everything exact, the sentences too.",
+    "likes": ["good iron", "exact sentences", "coffee in the morning"],
+    "lines": {
+      "greet": [
+        { "sl": "Dober dan.", "en": "Good day.", "level": 0 },
+        { "sl": "A, vi ste, Jan. Dober dan.", "en": "Ah, it's you, Jan. Good day.", "level": 1 },
+        { "sl": "Jan! Dobro, da ste prišli.", "en": "Jan! Good that you came.", "level": 2 },
+        { "sl": "Jan, prijatelj. Kavo?", "en": "Jan, my friend. Coffee?", "level": 3 }
+      ],
+      "thanks": [
+        { "sl": "Hvala. Dobro delo.", "en": "Thank you. Good work." },
+        { "sl": "Hvala vam. Tako je prav.", "en": "Thank you. That's how it should be." }
+      ],
+      "remember": [
+        { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "level": 2 },
+        { "sl": "Ne pozabim na {memory}.", "en": "I don't forget {memory}.", "level": 3 }
+      ],
+      "cheer": [
+        { "sl": "Pravilno.", "en": "Correct." },
+        { "sl": "Tako je treba.", "en": "That's how it's done." }
+      ],
+      "comfort": [
+        { "sl": "Končnica ni prava. Še enkrat.", "en": "The ending isn't right. Once more." },
+        { "sl": "Železo se kuje, dokler je vroče.", "en": "Strike while the iron is hot." }
+      ],
+      "listen": [
+        { "sl": "Poslušajte.", "en": "Listen." },
+        { "sl": "Dobro poslušajte.", "en": "Listen carefully." }
+      ],
+      "idle": [
+        { "sl": "Danes kujem podkve.", "en": "Today I'm forging horseshoes." },
+        { "sl": "Naročilo iz Gorice mora biti gotovo do petka.", "en": "The order from Gorizia must be done by Friday." }
+      ],
+      "bye": [
+        { "sl": "Na svidenje.", "en": "Goodbye." },
+        { "sl": "Srečno!", "en": "Good luck! (Goodbye.)" }
+      ]
+    }
+  }
+]

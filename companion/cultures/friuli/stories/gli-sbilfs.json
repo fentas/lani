@@ -1,0 +1,124 @@
+{
+  "schema": "lani.story/v0",
+  "id": "gli-sbilfs",
+  "language": "it",
+  "title": { "it": "Gli sbilfs", "sl": "Sbilfi, škratje iz Karnije", "en": "The sbilfs, the sprites of Carnia", "de": "Die Sbilfs, die Kobolde aus Karnien" },
+  "teller": "bepi",
+  "emoji": "🧝",
+  "order": 4,
+  "about": { "en": "The sbilfs are the little sprites of Carnian folklore (Friulian sbilf): small, quick, in a red cap, living in the woods and the houses of the mountains; they hide things, plait the horses' tails and spill the milk, and a household that leaves them a bowl of milk by the hearth finds them helping instead. Machine-written, not reviewed by a native speaker." },
+  "teaser": { "it": "Nonno Bepi racconta degli sbilfs, i folletti della Carnia", "sl": "Dedek Bepi pove o sbilfih, škratih iz Karnije", "en": "Nonno Bepi tells of the sbilfs, the sprites of Carnia", "de": "Nonno Bepi erzählt von den Sbilfs, den Kobolden aus Karnien" },
+  "memory": { "it": "la storia degli sbilfs che ti ho raccontato", "sl": "zgodbo o sbilfih, ki sem ti jo povedal", "en": "the story of the sbilfs I told you", "de": "die Geschichte von den Sbilfs, die ich dir erzählt habe" },
+  "pack": "storie",
+  "words": ["folletto", "berretto", "scherzo", { "word": "latte", "pack": "cibo" }, { "word": "legna", "pack": "al-fuoco" }],
+  "levels": {
+    "A1": {
+      "lines": [
+        { "it": "Ciao, piccolo. Vuoi sentire una storia della Carnia?", "sl": "Živjo, mali. Bi rad slišal zgodbo iz Karnije?", "en": "Hi, little one. Would you like to hear a story from Carnia?", "de": "Hallo, Kleiner. Möchtest du eine Geschichte aus Karnien hören?" },
+        { "choices": [
+          { "it": "Sì, nonno! Racconta!", "sl": "Ja, dedek! Povej!", "en": "Yes, Grandpa! Tell it!", "de": "Ja, Opa! Erzähl!", "ok": true,
+            "reply": { "it": "Allora ascolta.", "sl": "Potem pa poslušaj.", "en": "Then listen.", "de": "Dann hör zu." } },
+          { "it": "Sì, nonno! Racconti!", "sl": "Ja, dedek! Povejte!", "en": "Yes, Grandpa! Tell it (Lei)!", "de": "Ja, Opa! Erzählen Sie (Lei)!",
+            "why": { "sl": "Dedku rečeš tu, zato je velelnik racconta. Racconti je vljudna oblika (Lei).", "en": "You say tu to Grandpa, so the imperative is racconta. Racconti is the polite Lei form.", "de": "Zum Opa sagst du tu, also ist der Imperativ racconta. Racconti ist die höfliche Lei-Form." },
+            "reply": { "it": "Mi dai del Lei? Come al dottore? Ah ah, piccolo!", "sl": "Me vikaš? Kot zdravnika? Ha ha, mali!", "en": "Calling me Lei? Like the doctor? Ha ha, little one!", "de": "Du siezt mich? Wie den Doktor? Ha ha, Kleiner!" } }
+        ] },
+        { "it": "In Carnia, nei boschi e nelle case, vivono gli sbilfs.", "sl": "V Karniji, v gozdovih in hišah, živijo sbilfi.", "en": "In Carnia, in the woods and the houses, live the sbilfs.", "de": "In Karnien, in den Wäldern und in den Häusern, leben die Sbilfs." },
+        { "it": "Sono folletti piccoli piccoli, con un berretto rosso. Dimmi, piccolo: di che colore è il berretto?", "sl": "To so čisto majhni škratje z rdečo čepico. Povej, mali: kakšne barve je čepica?", "en": "They are tiny little sprites, with a red cap. Tell me, little one: what colour is the cap?", "de": "Das sind winzig kleine Kobolde mit einer roten Mütze. Sag mal, Kleiner: Welche Farbe hat die Mütze?" },
+        { "choices": [
+          { "it": "È rosso.", "sl": "Rdeča je.", "en": "It's red.", "de": "Sie ist rot.", "ok": true,
+            "reply": { "it": "Bravo. Rosso come il fuoco.", "sl": "Bravo. Rdeča kot ogenj.", "en": "Well done. Red like the fire.", "de": "Gut gemacht. Rot wie das Feuer.", "fx": { "flare": 0.5 } } },
+          { "it": "È rossa.", "sl": "Rdeča je.", "en": "It's red.", "de": "Sie ist rot.",
+            "why": { "sl": "Berretto je moškega spola: è rosso.", "en": "Berretto is masculine: è rosso.", "de": "Berretto ist männlich: è rosso." },
+            "reply": { "it": "Rossa? La mia faccia? È il fuoco, piccolo!", "sl": "Rossa? Moj obraz? To je od ognja, mali!", "en": "Rossa? My face? That's the fire, little one!", "de": "Rossa? Mein Gesicht? Das kommt vom Feuer, Kleiner!" } },
+          { "it": "È verde.", "sl": "Zelena je.", "en": "It's green.", "de": "Sie ist grün.",
+            "why": { "sl": "Ne: sbilfi imajo rdečo čepico.", "en": "No: the sbilfs have a red cap.", "de": "Nein: Die Sbilfs haben eine rote Mütze." },
+            "reply": { "it": "Verde? Allora lo sbilf si nasconde nell'erba!", "sl": "Verde? Potem se sbilf lahko skrije v travo!", "en": "Verde? Then the sbilf can hide in the grass!", "de": "Verde? Dann kann sich der Sbilf im Gras verstecken!" } }
+        ] },
+        { "it": "Gli sbilfs fanno tanti scherzi. Di notte nascondono i cucchiai e le calze.", "sl": "Sbilfi radi nagajajo. Ponoči skrijejo žlice in nogavice.", "en": "The sbilfs play lots of tricks. At night they hide the spoons and the socks.", "de": "Die Sbilfs treiben viel Schabernack. Nachts verstecken sie die Löffel und die Strümpfe.", "fx": { "flare": 0.2 } },
+        { "it": "Una nonna cerca e cerca: «Dove sono le mie calze?»", "sl": "Neka babica išče in išče: »Kje so moje nogavice?«", "en": "A grandma looks and looks: 'Where are my socks?'", "de": "Eine Oma sucht und sucht: „Wo sind meine Strümpfe?“" },
+        { "it": "Allora la nonna lascia una tazza di latte caldo vicino al fuoco, per lo sbilf.", "sl": "Zato babica pusti skodelico toplega mleka ob ognju, za sbilfa.", "en": "So the grandma leaves a cup of warm milk by the fire, for the sbilf.", "de": "Da stellt die Oma eine Tasse warme Milch ans Feuer, für den Sbilf.", "fx": { "steam": 1 } },
+        { "choices": [
+          { "it": "E lo sbilf beve il latte?", "sl": "In sbilf popije mleko?", "en": "And does the sbilf drink the milk?", "de": "Und trinkt der Sbilf die Milch?", "ok": true,
+            "reply": { "it": "Sì, tutto! Ascolta che cosa succede.", "sl": "Ja, vse! Poslušaj, kaj se zgodi.", "en": "Yes, all of it! Listen to what happens.", "de": "Ja, alles! Hör zu, was dann passiert.", "fx": { "steam": 0.2 } } },
+          { "it": "E il sbilf beve il latte?", "sl": "In sbilf popije mleko?", "en": "And does the sbilf drink the milk?", "de": "Und trinkt der Sbilf die Milch?",
+            "why": { "sl": "Pred s + soglasnikom je člen lo: lo sbilf, kot lo scoiattolo.", "en": "Before s + consonant the article is lo: lo sbilf, like lo scoiattolo.", "de": "Vor s + Konsonant ist der Artikel lo: lo sbilf, wie lo scoiattolo." },
+            "reply": { "it": "Il sbilf? Ahi, la mia lingua fa un nodo!", "sl": "Il sbilf? Joj, jezik se mi zavozla!", "en": "Il sbilf? Ouch, my tongue's tied in a knot!", "de": "Il sbilf? Au, da verknotet sich meine Zunge!" } }
+        ] },
+        { "it": "La mattina le calze sono di nuovo lì. E la legna è tutta in ordine!", "sl": "Zjutraj so nogavice spet tam. In drva so lepo zložena!", "en": "In the morning the socks are back. And the firewood is all neatly stacked!", "de": "Am Morgen sind die Strümpfe wieder da. Und das Brennholz ist ordentlich gestapelt!" },
+        { "choices": [
+          { "it": "Che bello! Lo sbilf aiuta la nonna!", "sl": "Kako lepo! Sbilf pomaga babici!", "en": "How lovely! The sbilf helps the grandma!", "de": "Wie schön! Der Sbilf hilft der Oma!", "ok": true,
+            "reply": { "it": "Proprio così. Con gli sbilfs bisogna essere gentili. Buonanotte, piccolo.", "sl": "Prav tako. S sbilfi moraš biti prijazen. Lahko noč, mali.", "en": "Just so. You have to be kind to the sbilfs. Good night, little one.", "de": "Genau so. Zu den Sbilfs muss man freundlich sein. Gute Nacht, Kleiner." } },
+          { "it": "Che bello! Lo sbilf aiuta alla nonna!", "sl": "Kako lepo! Sbilf pomaga babici!", "en": "How lovely! The sbilf helps the grandma!", "de": "Wie schön! Der Sbilf hilft der Oma!",
+            "why": { "sl": "Aiutare ima predmet brez a: aiuta la nonna.", "en": "Aiutare takes its object without a: aiuta la nonna.", "de": "Aiutare hat sein Objekt ohne a: aiuta la nonna." },
+            "reply": { "it": "Alla nonna? E che cosa porta alla nonna, piccolo?", "sl": "Alla nonna? Kaj pa prinese babici, mali?", "en": "Alla nonna? And what does he bring to the grandma, little one?", "de": "Alla nonna? Und was bringt er der Oma, Kleiner?" } }
+        ] }
+      ]
+    },
+    "A2": {
+      "lines": [
+        { "it": "Buonasera, ragazzo. Hai mai perso un calzino, senza sapere dove?", "sl": "Dober večer, fant. Si že kdaj izgubil nogavico, pa nisi vedel kje?", "en": "Good evening, lad. Have you ever lost a sock without knowing where?", "de": "Guten Abend, Junge. Hast du schon mal eine Socke verloren, ohne zu wissen, wo?" },
+        { "choices": [
+          { "it": "Sì, nonno! Ieri ho perso un calzino.", "sl": "Ja, dedek! Včeraj sem izgubil nogavico.", "en": "Yes, Grandpa! Yesterday I lost a sock.", "de": "Ja, Opa! Gestern habe ich eine Socke verloren.", "ok": true,
+            "reply": { "it": "Ah! Forse è stato uno sbilf.", "sl": "Aha! Mogoče je bil sbilf.", "en": "Ah! Maybe it was a sbilf.", "de": "Aha! Vielleicht war es ein Sbilf." } },
+          { "it": "Sì, nonno! Ieri sono perso un calzino.", "sl": "Ja, dedek! Včeraj sem izgubil nogavico.", "en": "Yes, Grandpa! Yesterday I lost a sock.", "de": "Ja, Opa! Gestern habe ich eine Socke verloren.",
+            "why": { "sl": "Perdere tvori passato prossimo z avere: ho perso.", "en": "Perdere forms the passato prossimo with avere: ho perso.", "de": "Perdere bildet das passato prossimo mit avere: ho perso." },
+            "reply": { "it": "Sono perso? Ti sei perso? Ma sei qui con me, ragazzo!", "sl": "Sono perso? Si se izgubil? Saj si tukaj z mano, fant!", "en": "Sono perso? You're lost? But you're right here with me, lad!", "de": "Sono perso? Du hast dich verirrt? Du bist doch hier bei mir, Junge!" } }
+        ] },
+        { "it": "In Carnia, tra le montagne, si raccontava che nelle case vivevano gli sbilfs, piccoli folletti con il berretto rosso.", "sl": "V Karniji, med gorami, so pripovedovali, da v hišah živijo sbilfi, majhni škratje z rdečo čepico.", "en": "In Carnia, among the mountains, people used to say that the sbilfs lived in the houses, little sprites with red caps.", "de": "In Karnien, zwischen den Bergen, erzählte man sich, dass in den Häusern die Sbilfs lebten, kleine Kobolde mit roten Mützen." },
+        { "it": "Erano dispettosi: nascondevano i calzini, facevano le trecce alle code dei cavalli e rovesciavano il latte.", "sl": "Bili so nagajivi: skrivali so nogavice, pletli kitke v konjske repe in prevračali mleko.", "en": "They were mischievous: they hid socks, plaited the horses' tails and knocked over the milk.", "de": "Sie waren frech: Sie versteckten Socken, flochten den Pferden Zöpfe in die Schweife und stießen die Milch um." },
+        { "it": "Che cosa facevano gli sbilfs ai cavalli?", "sl": "Kaj so sbilfi počeli s konji?", "en": "What did the sbilfs do to the horses?", "de": "Was machten die Sbilfs mit den Pferden?" },
+        { "choices": [
+          { "it": "Facevano le trecce alle code.", "sl": "Pletli so jim kitke v repe.", "en": "They plaited their tails.", "de": "Sie flochten ihnen Zöpfe in die Schweife.", "ok": true,
+            "reply": { "it": "Esatto! La mattina i cavalli avevano la coda tutta intrecciata.", "sl": "Tako je! Zjutraj so imeli konji čisto spletene repe.", "en": "Exactly! In the morning the horses had their tails all plaited.", "de": "Genau! Am Morgen hatten die Pferde ganz geflochtene Schweife." } },
+          { "it": "Facevano le trecce ai capelli della nonna.", "sl": "Pletli so kitke babici.", "en": "They plaited Grandma's hair.", "de": "Sie flochten der Oma Zöpfe ins Haar.",
+            "why": { "sl": "Ne: kitke so pletli v konjske repe.", "en": "No: they plaited the horses' tails.", "de": "Nein: Sie flochten den Pferden die Schweife." },
+            "reply": { "it": "Ai capelli della nonna? Ah ah! E alla mia barba, no?", "sl": "Babici v lase? Ha ha! Pa meni v brado ne?", "en": "Grandma's hair? Ha ha! And what about my beard?", "de": "Der Oma ins Haar? Ha ha! Und mir nicht in den Bart?" } },
+          { "it": "Fanno le trecce alle code.", "sl": "Pletejo kitke v repe.", "en": "They plait the tails.", "de": "Sie flechten die Schweife.",
+            "why": { "sl": "Zgodba je v preteklosti: facevano. Fanno je sedanjik.", "en": "The story is in the past: facevano. Fanno is the present.", "de": "Die Geschichte spielt in der Vergangenheit: facevano. Fanno ist das Präsens." },
+            "reply": { "it": "Fanno? Ancora oggi? Allora stanotte chiudo bene la stalla!", "sl": "Fanno? Še danes? Potem bom nocoj dobro zaprl hlev!", "en": "Fanno? Still today? Then I'll lock the stable tight tonight!", "de": "Fanno? Heute noch? Dann sperre ich heute Nacht den Stall gut zu!" } }
+        ] },
+        { "it": "In una casa di Sauris abitava una nonna molto saggia. Una sera ha messo vicino al fuoco una tazza di latte caldo e un po' di polenta.", "sl": "V neki hiši v Sauris je živela zelo modra babica. Nekega večera je k ognju postavila skodelico toplega mleka in malo polente.", "en": "In a house in Sauris lived a very wise grandma. One evening she put a cup of warm milk and a little polenta by the fire.", "de": "In einem Haus in Sauris lebte eine sehr kluge Oma. Eines Abends stellte sie eine Tasse warme Milch und ein bisschen Polenta ans Feuer.", "fx": { "steam": 1 } },
+        { "it": "«È per te, sbilf», ha detto piano. Poi è andata a dormire.", "sl": "»To je zate, sbilf,« je tiho rekla. Potem je šla spat.", "en": "'It's for you, sbilf,' she said softly. Then she went to bed.", "de": "„Das ist für dich, Sbilf“, sagte sie leise. Dann ging sie schlafen.", "fx": { "steam": 0.4 } },
+        { "choices": [
+          { "it": "E lo sbilf ha mangiato tutto?", "sl": "In je sbilf vse pojedel?", "en": "And did the sbilf eat everything?", "de": "Und hat der Sbilf alles aufgegessen?", "ok": true,
+            "reply": { "it": "Tutto, fino all'ultima briciola.", "sl": "Vse, do zadnje drobtinice.", "en": "All of it, down to the last crumb.", "de": "Alles, bis auf den letzten Krümel.", "fx": { "steam": 0 } } },
+          { "it": "E lo sbilf è mangiato tutto?", "sl": "In je sbilf vse pojedel?", "en": "And did the sbilf eat everything?", "de": "Und hat der Sbilf alles aufgegessen?",
+            "why": { "sl": "Mangiare tvori passato prossimo z avere: ha mangiato.", "en": "Mangiare forms the passato prossimo with avere: ha mangiato.", "de": "Mangiare bildet das passato prossimo mit avere: ha mangiato." },
+            "reply": { "it": "È mangiato? Lo sbilf? Ma chi mangia gli sbilfs, ragazzo?", "sl": "È mangiato? Sbilfa so pojedli? Kdo pa je sbilfe, fant?", "en": "È mangiato? The sbilf got eaten? But who eats sbilfs, lad?", "de": "È mangiato? Der Sbilf wurde gegessen? Wer isst denn Sbilfs, Junge?" } }
+        ] },
+        { "it": "La mattina la nonna ha trovato la legna tagliata, il pavimento pulito e tutti i calzini in fila.", "sl": "Zjutraj je babica našla nasekana drva, čista tla in vse nogavice lepo v vrsti.", "en": "In the morning the grandma found the firewood chopped, the floor clean and all the socks in a row.", "de": "Am Morgen fand die Oma das Holz gehackt, den Boden sauber und alle Socken in einer Reihe." },
+        { "it": "Da quel giorno lo sbilf non ha più fatto dispetti in quella casa. Anzi, aiutava.", "sl": "Od tistega dne sbilf v tisti hiši ni več nagajal. Nasprotno, pomagal je.", "en": "From that day on the sbilf played no more tricks in that house. On the contrary, he helped.", "de": "Von diesem Tag an trieb der Sbilf in diesem Haus keinen Schabernack mehr. Im Gegenteil, er half." },
+        { "choices": [
+          { "it": "Allora stasera lascio anch'io un po' di latte!", "sl": "Potem bom tudi jaz nocoj pustil malo mleka!", "en": "Then tonight I'll leave some milk out too!", "de": "Dann stelle ich heute Abend auch ein bisschen Milch hin!", "ok": true,
+            "reply": { "it": "Ah ah! Buona idea. Magari domani trovi il tuo calzino. Buonanotte, ragazzo.", "sl": "Ha ha! Dobra zamisel. Mogoče jutri najdeš svojo nogavico. Lahko noč, fant.", "en": "Ha ha! Good idea. Maybe tomorrow you'll find your sock. Good night, lad.", "de": "Ha ha! Gute Idee. Vielleicht findest du morgen deine Socke. Gute Nacht, Junge." } },
+          { "it": "Allora stasera lascio anch'io un po' latte!", "sl": "Potem bom tudi jaz nocoj pustil malo mleka!", "en": "Then tonight I'll leave some milk out too!", "de": "Dann stelle ich heute Abend auch ein bisschen Milch hin!",
+            "why": { "sl": "Za un po' pride di: un po' di latte (malo mleka).", "en": "Un po' needs di: un po' di latte (a little milk).", "de": "Un po' braucht di: un po' di latte (ein bisschen Milch)." },
+            "reply": { "it": "Un po' latte? Parli come il nonno senza dentiera!", "sl": "Un po' latte? Govoriš kot dedek brez proteze!", "en": "Un po' latte? You sound like Grandpa without his false teeth!", "de": "Un po' latte? Du redest wie der Opa ohne Gebiss!" } }
+        ] }
+      ]
+    }
+  },
+  "pictures": [
+    { "after": 2, "bg": "forest", "figures": [ { "id": "goblin", "x": 0.34 }, { "id": "goblin", "x": 0.52, "flip": true }, { "id": "goblin", "x": 0.68 } ],
+      "caption": { "it": "Gli sbilfs vivono nei boschi della Carnia.", "sl": "Sbilfi živijo v gozdovih Karnije.", "en": "The sbilfs live in the woods of Carnia.", "de": "Die Sbilfs leben in den Wäldern Karniens." } },
+    { "after": 3, "bg": "village", "night": true, "figures": [ { "id": "woman", "x": 0.3 }, { "id": "goblin", "x": 0.76, "flip": true } ], "props": [ { "id": "fire", "x": 0.54 }, { "id": "moon", "x": 0.14, "y": 0.88 } ],
+      "caption": { "it": "La nonna lascia il latte per lo sbilf.", "sl": "Babica pusti mleko za sbilfa.", "en": "Grandma leaves milk for the sbilf.", "de": "Die Oma stellt Milch für den Sbilf hin." } }
+  ],
+  "notes": [
+    { "level": "A1", "after": [1, 3], "text": [
+      { "it": "In Carnia, nei boschi e nelle case, vivevano gli sbilfs. Erano folletti piccoli piccoli, con un berretto rosso. Il berretto era rosso come il fuoco.", "sl": "V Karniji, v gozdovih in hišah, so živeli sbilfi. Bili so čisto majhni škratje z rdečo čepico. Čepica je bila rdeča kot ogenj.", "en": "In Carnia, in the woods and the houses, lived the sbilfs. They were tiny little sprites with a red cap. The cap was red like the fire.", "de": "In Karnien, in den Wäldern und in den Häusern, lebten die Sbilfs. Sie waren winzig kleine Kobolde mit einer roten Mütze. Die Mütze war rot wie das Feuer." },
+      { "it": "Gli sbilfs facevano tanti scherzi. Di notte nascondevano i cucchiai e le calze. Una nonna cercava e cercava: «Dove sono le mie calze?»", "sl": "Sbilfi so radi nagajali. Ponoči so skrivali žlice in nogavice. Neka babica je iskala in iskala: »Kje so moje nogavice?«", "en": "The sbilfs played lots of tricks. At night they hid the spoons and the socks. A grandma looked and looked: 'Where are my socks?'", "de": "Die Sbilfs trieben viel Schabernack. Nachts versteckten sie die Löffel und die Strümpfe. Eine Oma suchte und suchte: „Wo sind meine Strümpfe?“" },
+      { "it": "Allora la nonna ha lasciato una tazza di latte caldo vicino al fuoco, per lo sbilf. Lo sbilf ha bevuto tutto il latte.", "sl": "Zato je babica ob ognju pustila skodelico toplega mleka, za sbilfa. Sbilf je popil vse mleko.", "en": "So the grandma left a cup of warm milk by the fire, for the sbilf. The sbilf drank all the milk.", "de": "Da stellte die Oma eine Tasse warme Milch ans Feuer, für den Sbilf. Der Sbilf trank die ganze Milch." },
+      { "it": "La mattina le calze erano di nuovo lì. E la legna era tutta in ordine! Lo sbilf aiutava la nonna.", "sl": "Zjutraj so bile nogavice spet tam. In drva so bila lepo zložena! Sbilf je pomagal babici.", "en": "In the morning the socks were back. And the firewood was all neatly stacked! The sbilf helped the grandma.", "de": "Am Morgen waren die Strümpfe wieder da. Und das Brennholz war ordentlich gestapelt! Der Sbilf half der Oma." },
+      { "it": "Con gli sbilfs bisogna essere gentili.", "sl": "S sbilfi je treba biti prijazen.", "en": "You have to be kind to the sbilfs.", "de": "Zu den Sbilfs muss man freundlich sein." }
+    ] },
+    { "level": "A2", "after": [1, 3], "text": [
+      { "it": "In Carnia, tra le montagne, si raccontava che nelle case vivevano gli sbilfs, piccoli folletti con il berretto rosso.", "sl": "V Karniji, med gorami, so pripovedovali, da v hišah živijo sbilfi, majhni škratje z rdečo čepico.", "en": "In Carnia, among the mountains, people used to say that the sbilfs lived in the houses: little sprites with red caps.", "de": "In Karnien, zwischen den Bergen, erzählte man sich, dass in den Häusern die Sbilfs lebten, kleine Kobolde mit roten Mützen." },
+      { "it": "Erano dispettosi: nascondevano i calzini, facevano le trecce alle code dei cavalli e rovesciavano il latte. La mattina i cavalli avevano la coda tutta intrecciata.", "sl": "Bili so nagajivi: skrivali so nogavice, pletli kitke v konjske repe in prevračali mleko. Zjutraj so imeli konji čisto spletene repe.", "en": "They were mischievous: they hid socks, plaited the horses' tails and knocked over the milk. In the morning the horses had their tails all plaited.", "de": "Sie waren frech: Sie versteckten Socken, flochten den Pferden Zöpfe in die Schweife und stießen die Milch um. Am Morgen hatten die Pferde ganz geflochtene Schweife." },
+      { "it": "In una casa di Sauris abitava una nonna molto saggia. Una sera ha messo vicino al fuoco una tazza di latte caldo e un po' di polenta. «È per te, sbilf», ha detto piano. Poi è andata a dormire.", "sl": "V neki hiši v vasi Sauris je živela zelo modra babica. Nekega večera je k ognju postavila skodelico toplega mleka in malo polente. »To je zate, sbilf,« je tiho rekla. Potem je šla spat.", "en": "In a house in Sauris lived a very wise grandma. One evening she put a cup of warm milk and a little polenta by the fire. 'It's for you, sbilf,' she said softly. Then she went to bed.", "de": "In einem Haus in Sauris lebte eine sehr kluge Oma. Eines Abends stellte sie eine Tasse warme Milch und ein bisschen Polenta ans Feuer. „Das ist für dich, Sbilf“, sagte sie leise. Dann ging sie schlafen." },
+      { "it": "Lo sbilf ha mangiato tutto, fino all'ultima briciola. La mattina la nonna ha trovato la legna tagliata, il pavimento pulito e tutti i calzini in fila.", "sl": "Sbilf je vse pojedel, do zadnje drobtinice. Zjutraj je babica našla nasekana drva, čista tla in vse nogavice lepo v vrsti.", "en": "The sbilf ate everything, down to the last crumb. In the morning the grandma found the firewood chopped, the floor clean and all the socks in a row.", "de": "Der Sbilf aß alles auf, bis auf den letzten Krümel. Am Morgen fand die Oma das Holz gehackt, den Boden sauber und alle Socken in einer Reihe." },
+      { "it": "Da quel giorno lo sbilf non ha più fatto dispetti in quella casa. Anzi, aiutava.", "sl": "Od tistega dne sbilf v tisti hiši ni več nagajal. Nasprotno, pomagal je.", "en": "From that day on the sbilf played no more tricks in that house. On the contrary, he helped.", "de": "Von diesem Tag an trieb der Sbilf in diesem Haus keinen Schabernack mehr. Im Gegenteil, er half." }
+    ] }
+  ],
+  "review": "notes: machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

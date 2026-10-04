@@ -1,0 +1,113 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "kein-nicht",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🚫",
+  "title": {
+    "de": "Kein oder nicht: die Verneinung",
+    "sl": "Kein ali nicht: zanikanje",
+    "en": "Kein or nicht: saying no",
+    "it": "Kein o nicht: la negazione"
+  },
+  "rule": {
+    "en": "German says *not* in two ways (*Verneinung*, negation).\n\n**kein** is the negative of **ein**, and of a noun with no article. It means no, not a, not any, and takes ein's endings: **kein** (der, das), **keine** (die, plural), **keinen** (der as an object): Ich habe **keinen** Hund. Das ist **kein** Problem. Wir haben **keine** Milch.\n\n**nicht** is for everything else: a verb, an adjective, a place, a name, a noun with der, die, das: Ich komme **nicht**. Es ist **nicht** weit. Das ist **nicht** der Weg.\n\nWhere does nicht go? At the end of a short sentence: Ich verstehe dich **nicht**. But before an adjective, a place or the second part of the verb: Es ist **nicht weit**. Ich bin **nicht zu Hause**. Ich kann **nicht schwimmen**.\n\nThere is no do: Ich komme nicht (I'm not coming), Ich weiß es nicht (I don't know).",
+    "sl": "Nemščina zanika na dva načina (*Verneinung*, zanikanje).\n\n**kein** je nikalni **ein**; rabi se tudi pri samostalniku brez člena. Ima končnice kot ein: **kein** (der, das), **keine** (die, množina), **keinen** (der kot predmet): Ich habe **keinen** Hund (nimam psa). Das ist **kein** Problem (to ni problem). Wir haben **keine** Milch (nimamo mleka). Rodilnika po zanikanju nemščina nima: keinen Hund je tožilnik.\n\n**nicht** je za vse drugo: glagol, pridevnik, kraj, ime, samostalnik z der, die, das: Ich komme **nicht**. Es ist **nicht** weit. Das ist **nicht** der Weg.\n\nKam gre nicht? Na konec kratke povedi: Ich verstehe dich **nicht** (ne razumem te). Pred pridevnik, kraj ali drugi del glagola pa: Es ist **nicht weit**. Ich bin **nicht zu Hause**. Ich kann **nicht schwimmen**.",
+    "it": "Il tedesco nega in due modi (*Verneinung*, negazione).\n\n**kein** è la negazione di **ein** e di un nome senza articolo: vuol dire nessun, non … un, non … del. Ha le desinenze di ein: **kein** (der, das), **keine** (die, plurale), **keinen** (der come oggetto): Ich habe **keinen** Hund (non ho un cane). Das ist **kein** Problem (non è un problema). Wir haben **keine** Milch (non abbiamo latte).\n\n**nicht** è per tutto il resto: un verbo, un aggettivo, un luogo, un nome proprio, un nome con der, die, das: Ich komme **nicht**. Es ist **nicht** weit. Das ist **nicht** der Weg.\n\nDove va nicht? Non prima del verbo come non, ma alla fine di una frase breve: Ich verstehe dich **nicht** (non ti capisco). Però prima di un aggettivo, di un luogo o della seconda parte del verbo: Es ist **nicht weit**. Ich bin **nicht zu Hause**. Ich kann **nicht schwimmen**."
+  },
+  "table": {
+    "head": [
+      { "de": "bejaht", "sl": "trdilno", "en": "positive", "it": "affermativo" },
+      { "de": "verneint", "sl": "nikalno", "en": "negative", "it": "negativo" },
+      { "de": "warum", "sl": "zakaj", "en": "why", "it": "perché" }
+    ],
+    "rows": [
+      ["Ich habe einen Hund.", "Ich habe keinen Hund.", "ein → kein"],
+      ["Das ist ein Problem.", "Das ist kein Problem.", "ein → kein"],
+      ["Wir haben Milch.", "Wir haben keine Milch.", { "de": "ohne Artikel → kein", "sl": "brez člena → kein", "en": "no article → kein", "it": "senza articolo → kein" }],
+      ["Ich komme.", "Ich komme nicht.", { "de": "Verb → nicht", "sl": "glagol → nicht", "en": "verb → nicht", "it": "verbo → nicht" }],
+      ["Es ist weit.", "Es ist nicht weit.", { "de": "Adjektiv → nicht", "sl": "pridevnik → nicht", "en": "adjective → nicht", "it": "aggettivo → nicht" }],
+      ["Das ist der Weg.", "Das ist nicht der Weg.", "der, die, das → nicht"],
+      ["Ich kann schwimmen.", "Ich kann nicht schwimmen.", { "de": "vor dem 2. Verbteil", "sl": "pred drugim delom glagola", "en": "before the 2nd verb part", "it": "prima della 2ª parte del verbo" }]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Ich habe keinen Hund, aber eine Katze.",
+      "sl": "Nimam psa, imam pa mačko.",
+      "en": "I don't have a dog, but I have a cat.",
+      "it": "Non ho un cane, ma ho un gatto.",
+      "note": {
+        "en": "ein Hund → keinen Hund (Akkusativ).",
+        "sl": "ein Hund → keinen Hund (tožilnik; slovensko rodilnik: nimam psa).",
+        "it": "ein Hund → keinen Hund (accusativo)."
+      }
+    },
+    {
+      "de": "Das ist kein Problem!",
+      "sl": "To ni problem!",
+      "en": "That's no problem!",
+      "it": "Non è un problema!"
+    },
+    {
+      "de": "Es ist nicht weit, nur zwei Kilometer.",
+      "sl": "Ni daleč, samo dva kilometra.",
+      "en": "It's not far, only two kilometres.",
+      "it": "Non è lontano, solo due chilometri.",
+      "note": {
+        "en": "An adjective: nicht weit.",
+        "sl": "Pridevnik: nicht weit.",
+        "it": "Un aggettivo: nicht weit."
+      }
+    },
+    {
+      "de": "Heute kommt Opa Sepp nicht.",
+      "sl": "Danes dedek Sepp ne pride.",
+      "en": "Grandpa Sepp isn't coming today.",
+      "it": "Oggi il nonno Sepp non viene.",
+      "note": {
+        "en": "nicht at the end of a short sentence.",
+        "sl": "nicht na koncu kratke povedi.",
+        "it": "nicht alla fine di una frase breve."
+      }
+    },
+    {
+      "de": "Wir haben keine Milch mehr.",
+      "sl": "Nimamo več mleka.",
+      "en": "We haven't got any milk left.",
+      "it": "Non abbiamo più latte.",
+      "note": {
+        "en": "kein … mehr = no more, none left.",
+        "sl": "kein … mehr = ne … več.",
+        "it": "kein … mehr = non … più."
+      }
+    },
+    {
+      "de": "Das ist nicht der Weg zur Kirche.",
+      "sl": "To ni pot do cerkve.",
+      "en": "That's not the way to the church.",
+      "it": "Questa non è la strada per la chiesa.",
+      "note": {
+        "en": "A noun with der, die, das: nicht, not kein.",
+        "sl": "Samostalnik z der, die, das: nicht, ne kein.",
+        "it": "Un nome con der, die, das: nicht, non kein."
+      }
+    },
+    {
+      "de": "Maxi kann noch nicht schwimmen.",
+      "sl": "Maxi še ne zna plavati.",
+      "en": "Maxi can't swim yet.",
+      "it": "Maxi non sa ancora nuotare.",
+      "note": {
+        "en": "nicht before the second part of the verb: nicht schwimmen.",
+        "sl": "nicht pred drugim delom glagola: nicht schwimmen.",
+        "it": "nicht prima della seconda parte del verbo: nicht schwimmen."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["negation", "kein", "nicht", "verneinung", "not", "negative"],
+  "see": ["akkusativ", "artikel-genus", "wortstellung", "modalverben"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

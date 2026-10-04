@@ -1,0 +1,102 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "domande",
+  "language": "it",
+  "level": "A1",
+  "emoji": "❓",
+  "title": {
+    "it": "Chi? Dove? Perché? Le domande",
+    "sl": "Vprašanja in zanikanje",
+    "en": "Questions and the negative",
+    "de": "Fragen und Verneinung"
+  },
+  "rule": {
+    "en": "A yes/no question is the sentence itself, said with a rising voice: **Hai fame?** (Are you hungry?) **Giulia è a casa?** No *do*, no change of word order.\n\nQuestion words go first: **chi** (who), **che cosa** or **cosa** (what), **dove** (where), **da dove** (where from), **quando** (when), **come** (how), **perché** (why), **quanto, quanta, quanti, quante** (how much, how many: they agree with the noun), **quale** (which; **quali** for more). The subject often comes after the verb: **Dove abita Nonno Bepi?**\n\n**Perché** is also the answer *because*: **Perché ridi? Perché sono felice!**\n\nThe negative is **non** before the verb (little words like mi and lo stay in between): **Non ho fame.** **Non c'è.** **Non lo so.** A second negative word doesn't cancel it: **Non vedo niente.** (I can't see anything.) **Non c'è nessuno.** (There's nobody here.)",
+    "sl": "Vprašanje z odgovorom da ali ne je kar stavek z dvignjenim glasom: **Hai fame?** (Si lačen?) **Giulia è a casa?** (Je Giulia doma?) Brez *ali* in brez spremembe besednega reda.\n\nVprašalnice so na začetku: **chi** (kdo), **che cosa** ali **cosa** (kaj), **dove** (kje in kam), **da dove** (od kod), **quando** (kdaj), **come** (kako), **perché** (zakaj), **quanto, quanta, quanti, quante** (koliko: ujema se s samostalnikom), **quale** (kateri; **quali** za več). Osebek je pogosto za glagolom: **Dove abita Nonno Bepi?** (Kje živi dedek Bepi?)\n\n**Perché** je tudi odgovor *ker*: **Perché ridi? Perché sono felice!** (Zakaj se smeješ? Ker sem vesel!)\n\nZanikanje je **non** pred glagolom (male besede, kot mi in lo, ostanejo vmes): **Non ho fame.** **Non c'è.** **Non lo so.** Kot v slovenščini dve nikalnici ne izničita druga druge: **Non vedo niente.** (Nič ne vidim.) **Non c'è nessuno.** (Nikogar ni.)",
+    "de": "Eine Ja-Nein-Frage ist der Satz selbst, mit steigender Stimme: **Hai fame?** (Hast du Hunger?) **Giulia è a casa?** (Ist Giulia zu Hause?) Anders als im Deutschen rückt das Verb nicht nach vorn.\n\nFragewörter stehen am Anfang: **chi** (wer), **che cosa** oder **cosa** (was), **dove** (wo und wohin), **da dove** (woher), **quando** (wann), **come** (wie), **perché** (warum), **quanto, quanta, quanti, quante** (wie viel, wie viele: sie richten sich nach dem Nomen), **quale** (welcher; **quali** für mehrere). Das Subjekt steht oft nach dem Verb: **Dove abita Nonno Bepi?** (Wo wohnt Nonno Bepi?)\n\n**Perché** ist auch die Antwort *weil*: **Perché ridi? Perché sono felice!** (Warum lachst du? Weil ich glücklich bin!)\n\nVerneint wird mit **non** vor dem Verb (kleine Wörter wie mi und lo stehen dazwischen): **Non ho fame.** **Non c'è.** **Non lo so.** Ein zweites Verneinungswort hebt es nicht auf: **Non vedo niente.** (Ich sehe nichts.) **Non c'è nessuno.** (Niemand ist da.)"
+  },
+  "table": {
+    "head": [
+      { "it": "parola", "sl": "beseda", "en": "word", "de": "Wort" },
+      { "it": "significato", "sl": "pomen", "en": "meaning", "de": "Bedeutung" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["chi", { "it": "persona", "sl": "kdo", "en": "who", "de": "wer" }, "Chi è?"],
+      ["che cosa, cosa", { "it": "cosa", "sl": "kaj", "en": "what", "de": "was" }, "Che cosa fai?"],
+      ["dove", { "it": "luogo", "sl": "kje, kam", "en": "where", "de": "wo, wohin" }, "Dove sei?"],
+      ["da dove", { "it": "provenienza", "sl": "od kod", "en": "where from", "de": "woher" }, "Da dove vieni?"],
+      ["quando", { "it": "tempo", "sl": "kdaj", "en": "when", "de": "wann" }, "Quando arriva la nonna?"],
+      ["come", { "it": "modo", "sl": "kako", "en": "how", "de": "wie" }, "Come ti chiami?"],
+      ["perché", { "it": "causa", "sl": "zakaj; ker", "en": "why; because", "de": "warum; weil" }, "Perché ridi?"],
+      ["quanto, quanta", { "it": "quantità", "sl": "koliko", "en": "how much", "de": "wie viel" }, "Quanto costa?"],
+      ["quanti, quante", { "it": "numero", "sl": "koliko", "en": "how many", "de": "wie viele" }, "Quante pecore ci sono?"],
+      ["quale, quali", { "it": "scelta", "sl": "kateri", "en": "which", "de": "welcher" }, "Quale vuoi?"],
+      ["non", { "it": "negazione", "sl": "ne", "en": "not", "de": "nicht, kein" }, "Non ho fame."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Vieni anche tu?",
+      "sl": "Greš tudi ti?",
+      "en": "Are you coming too?",
+      "de": "Kommst du auch mit?",
+      "note": {
+        "sl": "Vprašanje da ali ne: samo glas gre gor.",
+        "en": "A yes/no question: only the voice goes up.",
+        "de": "Ja-Nein-Frage: nur die Stimme geht nach oben."
+      }
+    },
+    {
+      "it": "Dove abita Nonno Bepi?",
+      "sl": "Kje živi dedek Bepi?",
+      "en": "Where does Nonno Bepi live?",
+      "de": "Wo wohnt Nonno Bepi?"
+    },
+    {
+      "it": "Da dove vieni? Vengo da Nova Gorica.",
+      "sl": "Od kod si? Iz Nove Gorice sem.",
+      "en": "Where are you from? I'm from Nova Gorica.",
+      "de": "Woher kommst du? Ich komme aus Nova Gorica."
+    },
+    {
+      "it": "Perché ridi? Perché sono felice!",
+      "sl": "Zakaj se smeješ? Ker sem vesel!",
+      "en": "Why are you laughing? Because I'm happy!",
+      "de": "Warum lachst du? Weil ich glücklich bin!",
+      "note": {
+        "sl": "perché: zakaj in ker.",
+        "en": "perché: why and because.",
+        "de": "perché: warum und weil."
+      }
+    },
+    {
+      "it": "Quante pecore ci sono?",
+      "sl": "Koliko ovc je tam?",
+      "en": "How many sheep are there?",
+      "de": "Wie viele Schafe sind da?"
+    },
+    {
+      "it": "Non ho fame, grazie.",
+      "sl": "Nisem lačen, hvala.",
+      "en": "I'm not hungry, thanks.",
+      "de": "Ich habe keinen Hunger, danke."
+    },
+    {
+      "it": "Non c'è nessuno allo stagno.",
+      "sl": "Pri ribniku ni nikogar.",
+      "en": "There's nobody at the pond.",
+      "de": "Am Teich ist niemand.",
+      "note": {
+        "sl": "non … nessuno: dve nikalnici, kot v slovenščini (ni nikogar).",
+        "en": "non … nessuno: two negatives, and that's right.",
+        "de": "non … nessuno: zwei Verneinungen, und das ist richtig."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["questions", "question", "question_words", "negation", "non", "domande"],
+  "see": ["ce-ci-sono", "verbi-irregolari", "tu-lei"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

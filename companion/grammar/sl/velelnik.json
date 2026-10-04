@@ -1,0 +1,99 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "velelnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "📣",
+  "title": {
+    "sl": "Velelnik: pridi, dajte, pojdiva",
+    "en": "The imperative: come! give! let's go!",
+    "de": "Der Imperativ: komm! gebt! gehen wir!",
+    "it": "L'imperativo: vieni! date! andiamo!"
+  },
+  "rule": {
+    "en": "The imperative (*velelnik*) tells someone to do something. To one person you say ti to, it ends in **-j** or **-i**: **počakaj!**, **daj!**, **pazi!**, **pridi!**, **išči!**\n\nFor vi (several people, or politely) add **-te**: **počakajte!**, **dajte!**, **pazite!**, **potegnite!**, **izvolite!** For you and me: **-va** (**pojdiva!**, **iščiva!**); for you two: **-ta** (**pridita!**); for all of us: **-mo** (**pojdimo!**, **iščimo!**).\n\nThe imperative is not the present: **pazim** is *I'm careful*, **pazi!** is *be careful!*; **ne tečete** only says they aren't running, **ne tecite!** tells them not to.\n\nThe negative is **ne** + imperative: **ne hodi tja!** Se stays with the verb: **umij se!**, **usedite se!** Some are irregular: iti → **pojdi**, jesti → **jej**, vedeti → **vedi**.",
+    "de": "Der Imperativ (*velelnik*) sagt jemandem, was er tun soll. Zu einer Person, die man mit ti anspricht, endet er auf **-j** oder **-i**: **počakaj!**, **daj!**, **pazi!**, **pridi!**, **išči!**\n\nFür vi (mehrere Personen oder höflich) kommt **-te** dazu: **počakajte!**, **dajte!**, **pazite!**, **potegnite!**, **izvolite!** Für du und ich: **-va** (**pojdiva!**, **iščiva!**); für ihr zwei: **-ta** (**pridita!**); für uns alle: **-mo** (**pojdimo!**, **iščimo!**).\n\nDer Imperativ ist nicht das Präsens: **pazim** heißt *ich passe auf*, **pazi!** *pass auf!*; **ne tečete** sagt nur, dass sie nicht laufen, **ne tecite!** verbietet es.\n\nVerneint: **ne** + Imperativ: **ne hodi tja!** Se bleibt beim Verb: **umij se!**, **usedite se!** Einige sind unregelmäßig: iti → **pojdi**, jesti → **jej**, vedeti → **vedi**.",
+    "it": "L'imperativo (*velelnik*) dice a qualcuno che cosa fare. A una persona a cui si dà del ti finisce in **-j** o **-i**: **počakaj!**, **daj!**, **pazi!**, **pridi!**, **išči!**\n\nPer vi (più persone, o per cortesia) si aggiunge **-te**: **počakajte!**, **dajte!**, **pazite!**, **potegnite!**, **izvolite!** Per tu e io: **-va** (**pojdiva!**, **iščiva!**); per voi due: **-ta** (**pridita!**); per tutti noi: **-mo** (**pojdimo!**, **iščimo!**).\n\nL'imperativo non è il presente: **pazim** vuol dire *sto attento*, **pazi!** *attento!*; **ne tečete** dice solo che non corrono, **ne tecite!** lo vieta.\n\nAl negativo: **ne** + imperativo: **ne hodi tja!** Se resta con il verbo: **umij se!**, **usedite se!** Alcuni sono irregolari: iti → **pojdi**, jesti → **jej**, vedeti → **vedi**."
+  },
+  "table": {
+    "head": [
+      { "sl": "ti", "en": "to one (ti)", "de": "zu einer Person (ti)", "it": "a una persona (ti)" },
+      { "sl": "vi", "en": "to several, polite (vi)", "de": "zu mehreren, höflich (vi)", "it": "a più persone, cortese (vi)" },
+      { "sl": "vidva", "en": "to two (vidva)", "de": "zu zwei Personen (vidva)", "it": "a due persone (vidva)" },
+      { "sl": "midva", "en": "you and I (midva)", "de": "du und ich (midva)", "it": "tu e io (midva)" }
+    ],
+    "rows": [
+      ["počakaj", "počakajte", "počakajta", "počakajva"],
+      ["pazi", "pazite", "pazita", "paziva"],
+      ["daj", "dajte", "dajta", "dajva"],
+      ["pridi", "pridite", "pridita", "pridiva"],
+      ["išči", "iščite", "iščita", "iščiva"],
+      ["pojdi", "pojdite", "pojdita", "pojdiva"],
+      ["umij se", "umijte se", "umijta se", "umijva se"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Počakaj me, Nejc!",
+      "en": "Wait for me, Nejc!",
+      "de": "Warte auf mich, Nejc!",
+      "it": "Aspettami, Nejc!"
+    },
+    {
+      "sl": "Pazi, Nejc! Ogenj je vroč.",
+      "en": "Careful, Nejc! The fire is hot.",
+      "de": "Pass auf, Nejc! Das Feuer ist heiß.",
+      "it": "Attento, Nejc! Il fuoco scotta.",
+      "note": {
+        "en": "Pazi! tells him to be careful. Pazim is 'I am careful'.",
+        "de": "Pazi! sagt ihm, er soll aufpassen. Pazim heißt „ich passe auf“.",
+        "it": "Pazi! gli dice di stare attento. Pazim vuol dire “sto attento”."
+      }
+    },
+    {
+      "sl": "Dajte mi kruh, prosim.",
+      "en": "Give me the bread, please.",
+      "de": "Geben Sie mir bitte das Brot.",
+      "it": "Mi dia il pane, per favore.",
+      "note": {
+        "en": "To someone you say vi to: dajte. Daj is for ti.",
+        "de": "Zu jemandem, den man siezt (vi): dajte. Daj ist für ti.",
+        "it": "A chi si dà del vi: dajte. Daj è per il ti."
+      }
+    },
+    {
+      "sl": "Otroci, ne tecite po travi!",
+      "en": "Children, don't run on the grass!",
+      "de": "Kinder, lauft nicht über das Gras!",
+      "it": "Bambini, non correte sull'erba!"
+    },
+    {
+      "sl": "Nejc, pridi, iščiva kapo skupaj!",
+      "en": "Nejc, come, let's look for the cap together!",
+      "de": "Nejc, komm, suchen wir zusammen die Mütze!",
+      "it": "Nejc, vieni, cerchiamo insieme il berretto!",
+      "note": {
+        "en": "You and Nejc: iščiva. Išči would send him alone.",
+        "de": "Du und Nejc: iščiva. Išči schickt ihn allein los.",
+        "it": "Tu e Nejc: iščiva. Išči lo manderebbe da solo."
+      }
+    },
+    {
+      "sl": "Zala in Tine, pridita k ognju!",
+      "en": "Zala and Tine, come to the fire!",
+      "de": "Zala und Tine, kommt zum Feuer!",
+      "it": "Zala e Tine, venite vicino al fuoco!"
+    },
+    {
+      "sl": "Umij se, preden ješ.",
+      "en": "Wash before you eat.",
+      "de": "Wasch dich, bevor du isst.",
+      "it": "Lavati prima di mangiare."
+    }
+  ],
+  "modules": [],
+  "tags": ["imperative", "velelnik"],
+  "see": ["glagoli-sedanjik", "ti-vi", "dvojina", "modalni-glagoli", "glagolski-vid"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

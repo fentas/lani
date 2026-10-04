@@ -1,0 +1,177 @@
+{
+  "festivals": [
+    {
+      "id": "neujahr",
+      "emoji": "🎆",
+      "date": { "month": 1, "day": 1 },
+      "name": { "de": "Neujahr", "sl": "Novo leto", "en": "New Year", "it": "Capodanno" },
+      "leaders": ["kathi", "sepp", "resi"],
+      "ask": { "de": "Prosit Neujahr! Komm, wir feiern!", "sl": "Srečno novo leto! Pridi, praznujmo!", "en": "Happy New Year! Come, let's celebrate!", "it": "Buon anno! Vieni, facciamo festa!" },
+      "about": { "de": "Um Mitternacht läuten im Radio die Glocken, und dann tanzen alle einen Walzer. Man schenkt sich Glücksbringer, zum Beispiel ein Schweinchen aus Marzipan.", "sl": "Opolnoči po radiu zazvonijo zvonovi, potem pa vsi zaplešejo valček. Ljudje si podarijo talismane za srečo, na primer marcipanovega pujska.", "en": "At midnight the bells ring on the radio, and then everyone dances a waltz. People give each other lucky charms, such as a little marzipan pig.", "it": "A mezzanotte alla radio suonano le campane, e poi tutti ballano un valzer. Ci si regalano dei portafortuna, per esempio un porcellino di marzapane." },
+      "line": { "de": "Um Mitternacht hat das ganze Dorf Walzer getanzt, und jeder hat ein Glücksschwein bekommen.", "sl": "Opolnoči je vsa vas plesala valček in vsak je dobil pujska za srečo.", "en": "At midnight the whole village danced a waltz, and everyone got a lucky pig.", "it": "A mezzanotte tutto il paese ha ballato il valzer, e ognuno ha ricevuto un porcellino portafortuna." },
+      "good": "gluecksschwein",
+      "words": "fest-neujahr"
+    },
+    {
+      "id": "dreikoenig",
+      "emoji": "⭐",
+      "date": { "month": 1, "day": 6 },
+      "name": { "de": "Heilige Drei Könige", "sl": "Sveti trije kralji", "en": "Epiphany", "it": "Epifania" },
+      "leaders": ["eva", "lena", "maxi"],
+      "ask": { "de": "Die Sternsinger kommen! Singst du mit uns?", "sl": "Prihajajo koledniki! Zapoješ z nami?", "en": "The carol singers are coming! Will you sing with us?", "it": "Arrivano i cantori della stella! Canti con noi?" },
+      "about": { "de": "Die Sternsinger gehen als die Heiligen Drei Könige von Haus zu Haus. Sie singen, sammeln Geld für Kinder in armen Ländern und schreiben mit Kreide C+M+B über die Tür.", "sl": "Koledniki gredo kot sveti trije kralji od hiše do hiše. Pojejo, zbirajo denar za otroke v revnih deželah in s kredo napišejo C+M+B nad vrata.", "en": "The carol singers go from house to house as the Three Kings. They sing, collect money for children in poor countries and write C+M+B above the door in chalk.", "it": "I cantori della stella vanno di casa in casa vestiti da Re Magi. Cantano, raccolgono soldi per i bambini dei paesi poveri e con il gesso scrivono C+M+B sopra la porta." },
+      "line": { "de": "Die Sternsinger haben vor jedem Haus gesungen und ein Stück Kletzenbrot bekommen. Über jeder Tür steht jetzt C+M+B.", "sl": "Koledniki so peli pred vsako hišo in dobili kos kruha s suhimi hruškami. Nad vsakimi vrati zdaj piše C+M+B.", "en": "The carol singers sang in front of every house and got a piece of pear bread. Now C+M+B is written above every door.", "it": "I cantori della stella hanno cantato davanti a ogni casa e hanno ricevuto un pezzo di pane di pere. Ora sopra ogni porta c'è scritto C+M+B." },
+      "good": "kletzenbrot",
+      "words": "fest-dreikoenig"
+    },
+    {
+      "id": "fasching",
+      "emoji": "🎭",
+      "date": { "easter": -47 },
+      "name": { "de": "Fasching", "sl": "Pust", "en": "Carnival", "it": "Carnevale" },
+      "leaders": ["maxi", "jakob", "lena", "florian"],
+      "ask": { "de": "Heute ist Faschingsdienstag! Als was verkleidest du dich?", "sl": "Danes je pustni torek! Katero masko si izbereš?", "en": "It's Shrove Tuesday! What are you dressing up as?", "it": "Oggi è martedì grasso! Da che cosa ti travesti?" },
+      "about": { "de": "Im Fasching verkleiden sich alle. In Villach ist der Fasching besonders groß, mit einem Umzug und viel Musik. Man isst Krapfen mit Marillenmarmelade.", "sl": "Za pusta se vsi našemijo. V Beljaku je pust še posebej velik, s povorko in veliko glasbe. Jemo krofe z marelično marmelado.", "en": "At carnival everyone dresses up. In Villach the carnival is especially big, with a parade and lots of music. People eat Krapfen, doughnuts with apricot jam.", "it": "A Carnevale tutti si travestono. A Villaco il Carnevale è molto grande, con una sfilata e tanta musica. Si mangiano i Krapfen, bomboloni con la marmellata di albicocche." },
+      "line": { "de": "Durch das Dorf ist ein lustiger Umzug gegangen, und alle haben Krapfen gegessen.", "sl": "Skozi vas je šla vesela pustna povorka in vsi so jedli krofe.", "en": "A merry parade went through the village, and everyone ate Krapfen.", "it": "Per il paese è passata un'allegra sfilata, e tutti hanno mangiato i Krapfen." },
+      "good": "krapfen",
+      "words": "fest-fasching"
+    },
+    {
+      "id": "palmsonntag",
+      "emoji": "🌿",
+      "date": { "easter": -7 },
+      "name": { "de": "Palmsonntag", "sl": "Cvetna nedelja", "en": "Palm Sunday", "it": "Domenica delle Palme" },
+      "leaders": ["resi", "jakob", "sepp"],
+      "ask": { "de": "Heute ist Palmsonntag! Bindest du mit mir einen Palmbuschen?", "sl": "Danes je cvetna nedelja! Poveživa skupaj butaro?", "en": "It's Palm Sunday! Will you tie a palm bundle with me?", "it": "Oggi è la Domenica delle Palme! Leghiamo insieme un mazzo di rami?" },
+      "about": { "de": "Am Sonntag vor Ostern bindet man Zweige zu einem Palmbuschen: Palmkätzchen, Buchs und bunte Bänder. Der Pfarrer segnet ihn in der Kirche. Dann kommt er ins Haus oder auf den Acker.", "sl": "Nedeljo pred veliko nočjo povežemo vejice v butaro: mačice, pušpan in pisane trakove. Župnik jo v cerkvi blagoslovi. Potem jo damo v hišo ali na njivo.", "en": "On the Sunday before Easter people tie twigs into a palm bundle, the Palmbuschen: pussy willow, box and bright ribbons. The priest blesses it in church. Then it goes into the house or onto the field.", "it": "La domenica prima di Pasqua si legano dei rametti in un mazzo, il Palmbuschen: salice, bosso e nastri colorati. Il parroco lo benedice in chiesa. Poi lo si mette in casa o nel campo." },
+      "line": { "de": "Die Kinder haben ihre Palmbuschen in die Kirche getragen. Der größte war höher als das Kirchentor!", "sl": "Otroci so butare nesli v cerkev. Največja je bila višja od cerkvenih vrat!", "en": "The children carried their palm bundles to church. The biggest was taller than the church door!", "it": "I bambini hanno portato i loro mazzi di rami in chiesa. Il più grande era più alto del portone!" },
+      "good": "palmbuschen",
+      "words": "fest-palmsonntag"
+    },
+    {
+      "id": "ostern",
+      "emoji": "🐣",
+      "date": { "easter": 0 },
+      "name": { "de": "Ostern", "sl": "Velika noč", "en": "Easter", "it": "Pasqua" },
+      "leaders": ["resi", "mitzi"],
+      "ask": { "de": "Frohe Ostern! Färben wir zusammen Eier?", "sl": "Vesele velikonočne praznike! Barvava skupaj jajca?", "en": "Happy Easter! Shall we dye eggs together?", "it": "Buona Pasqua! Coloriamo le uova insieme?" },
+      "about": { "de": "Am Karsamstag trägt man einen Korb in die Kirche: Schinken, Würste, Eier, Kren und Reindling. Das ist die Fleischweihe. Am Ostersonntag isst die ganze Familie davon.", "sl": "Na veliko soboto nesemo v cerkev košaro: šunko, klobase, jajca, hren in reindling. To je blagoslov jedi, žegen. Na velikonočno nedeljo jé od tega vsa družina.", "en": "On Holy Saturday people carry a basket to church: ham, sausages, eggs, horseradish and Reindling. This is the blessing of the food, the Fleischweihe. On Easter Sunday the whole family eats from it.", "it": "Il Sabato santo si porta in chiesa un cesto: prosciutto, salsicce, uova, rafano e Reindling. È la benedizione dei cibi. La domenica di Pasqua tutta la famiglia ne mangia." },
+      "line": { "de": "Die Glocken haben geläutet, und auf dem Tisch waren Reindling, Schinken und bunte Ostereier.", "sl": "Zvonovi so zvonili, na mizi pa so bili reindling, šunka in pisani pirhi.", "en": "The bells rang, and on the table were Reindling, ham and colourful Easter eggs.", "it": "Le campane hanno suonato, e sulla tavola c'erano il Reindling, il prosciutto e le uova colorate." },
+      "good": "ostereier",
+      "words": "fest-ostern"
+    },
+    {
+      "id": "maibaum",
+      "emoji": "🌳",
+      "date": { "month": 5, "day": 1 },
+      "name": { "de": "Maibaumaufstellen", "sl": "Postavljanje mlaja", "en": "Raising the maypole", "it": "L'albero di maggio" },
+      "leaders": ["florian", "stefan", "maxi"],
+      "ask": { "de": "Heute stellen wir den Maibaum auf! Hilfst du mit?", "sl": "Danes postavljamo mlaj! Pomagaš?", "en": "Today we're putting up the maypole! Will you help?", "it": "Oggi alziamo l'albero di maggio! Ci dai una mano?" },
+      "about": { "de": "Am 1. Mai stellen die Burschen einen hohen Baum auf den Dorfplatz. Oben hängt ein Kranz. Wer ganz hinaufklettert, bekommt einen Preis: Würstel oder Speck.", "sl": "1. maja fantje na vaški trg postavijo visoko drevo, mlaj. Na vrhu visi venec. Kdor spleza čisto do vrha, dobi nagrado: hrenovke ali špeh.", "en": "On 1 May the young men put up a tall tree on the village square. A wreath hangs at the top. Whoever climbs right up wins a prize: sausages or bacon.", "it": "Il 1° maggio i ragazzi alzano un albero alto nella piazza del paese. In cima c'è una corona. Chi sale fino in cima vince un premio: würstel o speck." },
+      "line": { "de": "Der Maibaum steht! Ein Bursche ist ganz hinaufgeklettert und hat Würstel für alle gewonnen.", "sl": "Mlaj stoji! Eden od fantov je splezal čisto do vrha in priboril hrenovke za vse.", "en": "The maypole is up! One of the lads climbed right to the top and won sausages for everyone.", "it": "L'albero di maggio è in piedi! Uno dei ragazzi è salito fino in cima e ha vinto würstel per tutti." },
+      "good": "wuerstel",
+      "words": "fest-maibaum"
+    },
+    {
+      "id": "kufenstechen",
+      "emoji": "🐎",
+      "date": { "easter": 50 },
+      "name": { "de": "Kufenstechen", "sl": "Štehvanje", "en": "The Kufenstechen (barrel tilting)", "it": "Il Kufenstechen (la giostra della botte)" },
+      "leaders": ["florian", "toni", "lena"],
+      "ask": { "de": "Heute ist Kufenstechen! Schau, ich reite mit!", "sl": "Danes je štehvanje! Glej, tudi jaz jaham!", "en": "It's the Kufenstechen today! Look, I'm riding too!", "it": "Oggi c'è il Kufenstechen! Guarda, cavalco anch'io!" },
+      "about": { "de": "Im Gailtal reiten die Burschen ohne Sattel. Sie schlagen mit einer Eisenkeule auf eine kleine Holzkufe, bis sie zerbricht. Danach tanzen alle in Tracht unter der Linde: der Lindentanz.", "sl": "V Ziljski dolini fantje jahajo brez sedla. Z železnim kijem udarjajo po majhnem lesenem sodčku, dokler se ne razbije. Potem vsi v narodni noši plešejo pod lipo: prvi rej.", "en": "In the Gailtal the young men ride bareback. They strike a small wooden barrel, the Kufe, with an iron club until it breaks. Then everyone dances under the linden in traditional dress: the Lindentanz.", "it": "Nella valle del Gail i ragazzi cavalcano senza sella. Con una mazza di ferro colpiscono una piccola botte di legno, la Kufe, finché non si rompe. Poi tutti ballano in costume sotto il tiglio: il Lindentanz." },
+      "line": { "de": "Die Kufe ist zerbrochen, und der schnellste Reiter hat gewonnen! Danach hat das ganze Dorf unter der Linde getanzt.", "sl": "Sodček se je razbil in najhitrejši jezdec je zmagal! Potem je vsa vas plesala pod lipo.", "en": "The barrel broke, and the fastest rider won! Then the whole village danced under the linden.", "it": "La botte si è rotta e il cavaliere più veloce ha vinto! Poi tutto il paese ha ballato sotto il tiglio." },
+      "words": "fest-kufenstechen"
+    },
+    {
+      "id": "sonnwende",
+      "emoji": "🔥",
+      "date": { "month": 6, "day": 21 },
+      "name": { "de": "Sonnwendfeuer", "sl": "Kres", "en": "Midsummer bonfire", "it": "Il falò di mezza estate" },
+      "leaders": ["sepp", "florian", "stanko"],
+      "ask": { "de": "Heute ist der längste Tag! Kommst du mit zum Feuer?", "sl": "Danes je najdaljši dan! Greš z mano h kresu?", "en": "Today is the longest day! Are you coming to the bonfire?", "it": "Oggi è il giorno più lungo! Vieni al falò?" },
+      "about": { "de": "Zur Sonnenwende brennen in Kärnten Feuer auf den Bergen und Hügeln. Man sieht sie von weit. Man sitzt zusammen, singt und schaut in die Flammen.", "sl": "Ob sončnem obratu na Koroškem na gorah in gričih gorijo kresovi. Vidijo se od daleč. Ljudje sedijo skupaj, pojejo in gledajo v plamene.", "en": "At the summer solstice fires burn on the mountains and hills of Carinthia. You can see them from far away. People sit together, sing and watch the flames.", "it": "Al solstizio d'estate in Carinzia si accendono fuochi sulle montagne e sulle colline. Si vedono da lontano. La gente sta insieme, canta e guarda le fiamme." },
+      "line": { "de": "Auf dem Hügel hat ein großes Feuer gebrannt, und auf dem Dobratsch hat man noch eins gesehen.", "sl": "Na griču je gorel velik kres, na Dobraču pa se je videl še eden.", "en": "A big fire burned on the hill, and another one could be seen on the Dobratsch.", "it": "Sulla collina ha bruciato un grande falò, e sul Dobratsch se ne vedeva un altro." },
+      "good": "holundersaft",
+      "words": "fest-sonnwende"
+    },
+    {
+      "id": "kirchtag",
+      "emoji": "⛪",
+      "date": { "month": 8, "last": "sunday" },
+      "name": { "de": "Kirchtag", "sl": "Žegnanje", "en": "The Kirchtag (the village feast)", "it": "La sagra del paese" },
+      "leaders": ["kathi", "resi", "sepp"],
+      "ask": { "de": "Heute ist Kirchtag! Möchtest du einen Teller Kirchtagssuppe?", "sl": "Danes je žegnanje! Bi krožnik žegnanjske juhe?", "en": "It's the Kirchtag today! Would you like a bowl of Kirchtag soup?", "it": "Oggi è la sagra! Vuoi un piatto di zuppa della sagra?" },
+      "about": { "de": "Jedes Dorf feiert einmal im Jahr seinen Kirchtag: mit Musik, Tanz und der Kirchtagssuppe. Die Suppe ist gelb vom Safran und hat drei Sorten Fleisch. Dazu isst man Weißbrot.", "sl": "Vsaka vas enkrat na leto praznuje svoje žegnanje: z glasbo, plesom in žegnanjsko juho. Juha je rumena od žafrana in ima tri vrste mesa. Zraven jemo bel kruh.", "en": "Once a year every village celebrates its Kirchtag, with music, dancing and the Kirchtag soup. The soup is yellow with saffron and has three kinds of meat. People eat white bread with it.", "it": "Una volta all'anno ogni paese festeggia la sua sagra, con musica, balli e la zuppa della sagra. La zuppa è gialla di zafferano e ha tre tipi di carne. Si mangia con il pane bianco." },
+      "line": { "de": "Kirchtag: Die Musik hat bis in die Nacht gespielt, und die Suppe war bald aufgegessen.", "sl": "Žegnanje: godba je igrala pozno v noč, juhe pa je hitro zmanjkalo.", "en": "Kirchtag: the band played late into the night, and the soup was soon all gone.", "it": "La sagra: la musica ha suonato fino a notte, e la zuppa è finita presto." },
+      "good": "kirchtagssuppe",
+      "words": "fest-kirchtag"
+    },
+    {
+      "id": "almabtrieb",
+      "emoji": "🐄",
+      "date": { "month": 9, "last": "saturday" },
+      "name": { "de": "Almabtrieb", "sl": "Vrnitev s planine", "en": "Bringing the cows down", "it": "La discesa dall'alpeggio" },
+      "leaders": ["florian", "franz", "resi"],
+      "ask": { "de": "Die Kühe kommen von der Alm! Hörst du die Glocken?", "sl": "Krave prihajajo s planine! Slišiš zvonce?", "en": "The cows are coming down from the Alm! Can you hear the bells?", "it": "Le mucche scendono dall'alpeggio! Senti i campanacci?" },
+      "about": { "de": "Im Herbst bringen die Hirten die Kühe von der Alm ins Tal. Wenn der Sommer gut war, tragen die Kühe Blumen und Kränze auf dem Kopf.", "sl": "Jeseni pastirji priženejo krave s planine v dolino. Če je bilo poletje dobro, imajo krave na glavi rože in vence.", "en": "In autumn the herders bring the cows down from the mountain pasture to the valley. If the summer went well, the cows wear flowers and wreaths on their heads.", "it": "In autunno i pastori portano le mucche dall'alpeggio a valle. Se l'estate è andata bene, le mucche hanno fiori e corone sulla testa." },
+      "line": { "de": "Mit Blumen auf dem Kopf und Glocken am Hals sind die Kühe durch das Dorf gegangen.", "sl": "S cvetjem na glavi in zvonci okoli vratu so krave šle skozi vas.", "en": "With flowers on their heads and bells around their necks, the cows walked through the village.", "it": "Con i fiori in testa e i campanacci al collo, le mucche hanno attraversato il paese." },
+      "good": "almbutter",
+      "words": "fest-almabtrieb"
+    },
+    {
+      "id": "nationalfeiertag",
+      "emoji": "🇦🇹",
+      "date": { "month": 10, "day": 26 },
+      "name": { "de": "Nationalfeiertag", "sl": "Avstrijski državni praznik", "en": "Austria's National Day", "it": "Festa nazionale austriaca" },
+      "leaders": ["eva", "sepp", "kathi"],
+      "ask": { "de": "Heute ist Nationalfeiertag! Wir wandern zusammen. Kommst du mit?", "sl": "Danes je državni praznik! Skupaj gremo na pohod. Greš z nami?", "en": "It's National Day! We're going for a walk together. Are you coming?", "it": "Oggi è la festa nazionale! Facciamo una camminata insieme. Vieni?" },
+      "about": { "de": "Am 26. Oktober feiert Österreich seinen Nationalfeiertag. Viele Menschen gehen an diesem Tag wandern. Die Fahne ist rot, weiß und rot.", "sl": "26. oktobra Avstrija praznuje svoj državni praznik. Veliko ljudi gre ta dan na pohod. Zastava je rdeča, bela in rdeča.", "en": "On 26 October Austria celebrates its National Day. Many people go hiking on that day. The flag is red, white and red.", "it": "Il 26 ottobre l'Austria festeggia la sua festa nazionale. Quel giorno molte persone vanno a camminare. La bandiera è rossa, bianca e rossa." },
+      "line": { "de": "Das ganze Dorf ist zusammen gewandert, und auf dem Dorfplatz hat die rot-weiß-rote Fahne geweht.", "sl": "Vsa vas je šla skupaj na pohod, na vaškem trgu pa je plapolala rdeče-belo-rdeča zastava.", "en": "The whole village went for a walk together, and the red-white-red flag flew on the village square.", "it": "Tutto il paese ha camminato insieme, e in piazza sventolava la bandiera rossa, bianca e rossa." },
+      "good": "fahne",
+      "words": "fest-nationalfeiertag"
+    },
+    {
+      "id": "martini",
+      "emoji": "🏮",
+      "date": { "month": 11, "day": 11 },
+      "name": { "de": "Martinsfest", "sl": "Martinovo", "en": "St Martin's Day", "it": "San Martino" },
+      "leaders": ["stefan", "kathi", "lena"],
+      "ask": { "de": "Heute ist Martini! Gehst du mit zum Laternenumzug?", "sl": "Danes je martinovo! Greš z nami v sprevod z lučkami?", "en": "It's St Martin's Day! Are you coming to the lantern parade?", "it": "Oggi è San Martino! Vieni alla sfilata delle lanterne?" },
+      "about": { "de": "Am 11. November gehen die Kinder mit Laternen durch das Dorf und singen. Im Gasthaus gibt es das Martinigansl, und überall riecht es nach heißen Maroni.", "sl": "11. novembra gredo otroci z lučkami skozi vas in pojejo. V gostilni je martinova gos, povsod pa diši po pečenem kostanju.", "en": "On 11 November the children walk through the village with lanterns and sing. At the inn there's St Martin's goose, and everywhere smells of hot roast chestnuts.", "it": "L'11 novembre i bambini attraversano il paese con le lanterne e cantano. All'osteria c'è l'oca di San Martino, e dappertutto c'è profumo di caldarroste." },
+      "line": { "de": "Die Laternen haben im Dunkeln geleuchtet, und alle haben heiße Maroni gegessen.", "sl": "Lučke so svetile v temi in vsi so jedli vroč pečen kostanj.", "en": "The lanterns glowed in the dark, and everyone ate hot roast chestnuts.", "it": "Le lanterne brillavano nel buio, e tutti hanno mangiato le caldarroste." },
+      "good": "maroni",
+      "words": "fest-martini"
+    },
+    {
+      "id": "nikolo",
+      "emoji": "🎅",
+      "date": { "month": 12, "day": 6 },
+      "name": { "de": "Nikolo", "sl": "Miklavž", "en": "St Nicholas", "it": "San Nicolò" },
+      "leaders": ["sepp", "resi", "maxi"],
+      "ask": { "de": "Der Nikolo war da! Warst du brav?", "sl": "Miklavž je bil pri nas! Si bil priden?", "en": "St Nicholas has been here! Have you been good?", "it": "È passato San Nicolò! Sei stato buono?" },
+      "about": { "de": "Am Abend vorher kommt der Krampus mit Fell, Hörnern und einer Rute und macht Lärm mit seinen Glocken. Am 6. Dezember bringt der Nikolo den braven Kindern ein Sackerl mit Mandarinen, Nüssen und Schokolade.", "sl": "Večer prej pride parkelj, krampus, s kožuhom, rogovi in šibo ter ropota z zvonci. 6. decembra Miklavž pridnim otrokom prinese vrečko z mandarinami, orehi in čokolado.", "en": "The evening before, the Krampus comes with fur, horns and a birch switch and makes a racket with his bells. On 6 December St Nicholas brings good children a little bag of mandarins, nuts and chocolate.", "it": "La sera prima arriva il Krampus, con la pelliccia, le corna e una verga, e fa rumore con i suoi campanacci. Il 6 dicembre San Nicolò porta ai bambini buoni un sacchetto con mandarini, noci e cioccolato." },
+      "line": { "de": "Der Krampus hat alle erschreckt, aber der Nikolo hat jedem Kind ein Sackerl gebracht.", "sl": "Krampus je vse prestrašil, Miklavž pa je vsakemu otroku prinesel vrečko.", "en": "The Krampus gave everyone a fright, but St Nicholas brought every child a little bag.", "it": "Il Krampus ha spaventato tutti, ma San Nicolò ha portato un sacchetto a ogni bambino." },
+      "good": "mandarinen",
+      "words": "fest-nikolo"
+    },
+    {
+      "id": "weihnachten",
+      "emoji": "🎄",
+      "date": { "month": 12, "day": 24 },
+      "name": { "de": "Weihnachten", "sl": "Božič", "en": "Christmas", "it": "Natale" },
+      "leaders": ["resi", "mitzi", "sepp"],
+      "ask": { "de": "Heute ist Heiliger Abend! Hilfst du mir, den Christbaum zu schmücken?", "sl": "Danes je sveti večer! Mi pomagaš okrasiti drevesce?", "en": "It's Christmas Eve! Will you help me decorate the tree?", "it": "Oggi è la Vigilia di Natale! Mi aiuti a decorare l'albero?" },
+      "about": { "de": "In Österreich feiert man Weihnachten am Heiligen Abend, am 24. Dezember. Das Christkind bringt die Geschenke. Vorher backt man viele Kekse, zum Beispiel Vanillekipferl.", "sl": "V Avstriji božič praznujejo na sveti večer, 24. decembra. Darila prinese Jezušček. Prej spečejo veliko piškotov, na primer vaniljeve rogljičke.", "en": "In Austria Christmas is celebrated on Christmas Eve, 24 December. The Christ Child brings the presents. Before that people bake lots of biscuits, such as vanilla crescents.", "it": "In Austria il Natale si festeggia la sera della Vigilia, il 24 dicembre. I regali li porta Gesù Bambino. Prima si preparano tanti biscotti, per esempio i Vanillekipferl." },
+      "line": { "de": "Am Heiligen Abend hat das Glöckchen geläutet, und unter dem Christbaum waren die Geschenke vom Christkind.", "sl": "Na sveti večer je zazvonil zvonček in pod drevescem so bila darila od Jezuščka.", "en": "On Christmas Eve the little bell rang, and under the tree were the presents from the Christ Child.", "it": "La sera della Vigilia ha suonato il campanellino, e sotto l'albero c'erano i regali di Gesù Bambino." },
+      "good": "kekse",
+      "words": "fest-weihnachten"
+    }
+  ],
+  "lines": {
+    "tag": { "de": "Die Wörter des Festes", "sl": "Besede praznika", "en": "The festival's words", "it": "Le parole della festa" },
+    "means": { "de": "Was bedeutet „{word}“?", "sl": "Kaj pomeni »{word}«?", "en": "What does “{word}” mean?", "it": "Che cosa vuol dire «{word}»?" },
+    "say": { "de": "Wie sagt man „{meaning}“ auf Deutsch?", "sl": "Kako se po nemško reče »{meaning}«?", "en": "How do you say “{meaning}” in German?", "it": "Come si dice in tedesco «{meaning}»?" },
+    "tried": { "de": "Macht nichts, das Fest ist trotzdem schön", "sl": "Nič hudega, praznik je še vedno lep", "en": "Never mind, it's still a lovely day", "it": "Non fa niente, la festa è bella lo stesso" }
+  }
+}

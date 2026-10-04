@@ -1,0 +1,767 @@
+{
+  "schema": "lani.drill/v0",
+  "id": "gradnja",
+  "kind": "build",
+  "language": "sl",
+  "emoji": "🧱",
+  "title": {"sl": "Gradnja stavkov", "en": "Sentence building", "de": "Sätze bauen"},
+  "about": {"en": "A sentence grown in three or four steps: say it, then \"Now add: tomorrow\", say the longer one, hear it. The village's words and people; a build of a rule not introduced to the learner yet isn't played.", "de": "Ein Satz wächst in drei oder vier Schritten: sag ihn, dann \"Jetzt dazu: morgen\", sag den längeren Satz und hör ihn. Die Wörter und Leute des Dorfes; ein Satz mit einer Regel, die dem Lernenden noch nicht vorgestellt wurde, wird nicht gespielt."},
+  "builds": [
+    {
+      "id": "v-trgovino",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Grem.", "en": "I'm going.", "de": "Ich gehe."},
+        {"add": {"en": "to the shop", "de": "in den Laden"}, "sl": "Grem v trgovino.", "en": "I'm going to the shop.", "de": "Ich gehe in den Laden."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "sl": "Jutri grem v trgovino.", "en": "Tomorrow I'm going to the shop.", "de": "Morgen gehe ich in den Laden."},
+        {"add": {"en": "because I need bread", "de": "weil ich Brot brauche"}, "sl": "Jutri grem v trgovino, ker potrebujem kruh.", "en": "Tomorrow I'm going to the shop because I need bread.", "de": "Morgen gehe ich in den Laden, weil ich Brot brauche."}
+      ]
+    },
+    {
+      "id": "kava-zjutraj",
+      "level": "A1",
+      "steps": [
+        {"sl": "Pijem kavo.", "en": "I drink coffee.", "de": "Ich trinke Kaffee."},
+        {"add": {"en": "every morning", "de": "jeden Morgen"}, "sl": "Vsako jutro pijem kavo.", "en": "I drink coffee every morning.", "de": "Jeden Morgen trinke ich Kaffee."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "sl": "Vsako jutro pijem kavo v kuhinji.", "en": "Every morning I drink coffee in the kitchen.", "de": "Jeden Morgen trinke ich in der Küche Kaffee."},
+        {"add": {"en": "but today tea", "de": "aber heute Tee"}, "sl": "Vsako jutro pijem kavo v kuhinji, danes pa čaj.", "en": "Every morning I drink coffee in the kitchen, but today tea.", "de": "Jeden Morgen trinke ich in der Küche Kaffee, heute aber Tee."}
+      ]
+    },
+    {
+      "id": "micka-na-trznici",
+      "level": "A1",
+      "steps": [
+        {"sl": "Micka gre na tržnico.", "en": "Micka is going to the market.", "de": "Micka geht auf den Markt."},
+        {"add": {"en": "in the morning", "de": "am Morgen"}, "sl": "Micka gre zjutraj na tržnico.", "en": "Micka goes to the market in the morning.", "de": "Micka geht am Morgen auf den Markt."},
+        {"add": {"en": "on Saturday", "de": "am Samstag"}, "sl": "V soboto gre Micka zjutraj na tržnico.", "en": "On Saturday Micka goes to the market in the morning.", "de": "Am Samstag geht Micka am Morgen auf den Markt."},
+        {"add": {"en": "and buys cheese", "de": "und kauft Käse"}, "sl": "V soboto gre Micka zjutraj na tržnico in kupi sir.", "en": "On Saturday Micka goes to the market in the morning and buys cheese.", "de": "Am Samstag geht Micka am Morgen auf den Markt und kauft Käse."}
+      ]
+    },
+    {
+      "id": "janez-ob-ognju",
+      "level": "A1",
+      "steps": [
+        {"sl": "Janez sedi.", "en": "Janez is sitting.", "de": "Janez sitzt."},
+        {"add": {"en": "by the fire", "de": "am Feuer"}, "sl": "Janez sedi pri ognju.", "en": "Janez is sitting by the fire.", "de": "Janez sitzt am Feuer."},
+        {"add": {"en": "in the evening", "de": "am Abend"}, "sl": "Zvečer Janez sedi pri ognju.", "en": "In the evening Janez sits by the fire.", "de": "Am Abend sitzt Janez am Feuer."},
+        {"add": {"en": "and tells a story", "de": "und erzählt eine Geschichte"}, "sl": "Zvečer Janez sedi pri ognju in pripoveduje zgodbo.", "en": "In the evening Janez sits by the fire and tells a story.", "de": "Am Abend sitzt Janez am Feuer und erzählt eine Geschichte."}
+      ]
+    },
+    {
+      "id": "luka-isce-ovco",
+      "level": "A1",
+      "rules": ["pretekli-cas", "vezniki"],
+      "steps": [
+        {"sl": "Luka išče ovco.", "en": "Luka is looking for a sheep.", "de": "Luka sucht ein Schaf."},
+        {"add": {"en": "in the forest", "de": "im Wald"}, "sl": "Luka išče ovco v gozdu.", "en": "Luka is looking for a sheep in the forest.", "de": "Luka sucht im Wald ein Schaf."},
+        {"add": {"en": "because it got lost", "de": "weil es sich verlaufen hat"}, "sl": "Luka išče ovco v gozdu, ker se je izgubila.", "en": "Luka is looking for a sheep in the forest because it got lost.", "de": "Luka sucht im Wald ein Schaf, weil es sich verlaufen hat."}
+      ]
+    },
+    {
+      "id": "tone-kuje",
+      "level": "A1",
+      "steps": [
+        {"sl": "Tone kuje.", "en": "Tone is forging.", "de": "Tone schmiedet."},
+        {"add": {"en": "a horseshoe", "de": "ein Hufeisen"}, "sl": "Tone kuje podkev.", "en": "Tone is forging a horseshoe.", "de": "Tone schmiedet ein Hufeisen."},
+        {"add": {"en": "in the smithy", "de": "in der Schmiede"}, "sl": "Tone kuje podkev v kovačnici.", "en": "Tone is forging a horseshoe in the smithy.", "de": "Tone schmiedet in der Schmiede ein Hufeisen."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes Tone kuje podkev v kovačnici.", "en": "Today Tone is forging a horseshoe in the smithy.", "de": "Heute schmiedet Tone in der Schmiede ein Hufeisen."}
+      ]
+    },
+    {
+      "id": "otroci-v-soli",
+      "level": "A1",
+      "steps": [
+        {"sl": "Otroci se učijo.", "en": "The children are learning.", "de": "Die Kinder lernen."},
+        {"add": {"en": "at school", "de": "in der Schule"}, "sl": "Otroci se učijo v šoli.", "en": "The children are learning at school.", "de": "Die Kinder lernen in der Schule."},
+        {"add": {"en": "every day", "de": "jeden Tag"}, "sl": "Otroci se vsak dan učijo v šoli.", "en": "The children learn at school every day.", "de": "Die Kinder lernen jeden Tag in der Schule."},
+        {"add": {"en": "but today they're playing", "de": "aber heute spielen sie"}, "sl": "Otroci se vsak dan učijo v šoli, danes pa se igrajo.", "en": "The children learn at school every day, but today they're playing.", "de": "Die Kinder lernen jeden Tag in der Schule, aber heute spielen sie."}
+      ]
+    },
+    {
+      "id": "dezuje-doma",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Dežuje.", "en": "It's raining.", "de": "Es regnet."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes dežuje.", "en": "It's raining today.", "de": "Heute regnet es."},
+        {"add": {"en": "so I'm staying at home", "de": "deshalb bleibe ich zu Hause"}, "sl": "Danes dežuje, zato ostanem doma.", "en": "It's raining today, so I'm staying at home.", "de": "Heute regnet es, deshalb bleibe ich zu Hause."},
+        {"add": {"en": "and reading a book", "de": "und lese ein Buch"}, "sl": "Danes dežuje, zato ostanem doma in berem knjigo.", "en": "It's raining today, so I'm staying at home and reading a book.", "de": "Heute regnet es, deshalb bleibe ich zu Hause und lese ein Buch."}
+      ]
+    },
+    {
+      "id": "potica-za-bozic",
+      "level": "A1",
+      "steps": [
+        {"sl": "Babica peče potico.", "en": "Grandma is baking a potica.", "de": "Oma bäckt eine Potica."},
+        {"add": {"en": "for Christmas", "de": "zu Weihnachten"}, "sl": "Babica peče potico za božič.", "en": "Grandma is baking a potica for Christmas.", "de": "Oma bäckt eine Potica zu Weihnachten."},
+        {"add": {"en": "every year", "de": "jedes Jahr"}, "sl": "Babica vsako leto peče potico za božič.", "en": "Every year grandma bakes a potica for Christmas.", "de": "Oma bäckt jedes Jahr eine Potica zu Weihnachten."}
+      ]
+    },
+    {
+      "id": "krave-na-planini",
+      "level": "A1",
+      "steps": [
+        {"sl": "Krave so na planini.", "en": "The cows are on the mountain pasture.", "de": "Die Kühe sind auf der Alm."},
+        {"add": {"en": "in summer", "de": "im Sommer"}, "sl": "Poleti so krave na planini.", "en": "In summer the cows are on the mountain pasture.", "de": "Im Sommer sind die Kühe auf der Alm."},
+        {"add": {"en": "and eat grass", "de": "und fressen Gras"}, "sl": "Poleti so krave na planini in jedo travo.", "en": "In summer the cows are on the mountain pasture and eat grass.", "de": "Im Sommer sind die Kühe auf der Alm und fressen Gras."},
+        {"add": {"en": "all day", "de": "den ganzen Tag"}, "sl": "Poleti so krave na planini in ves dan jedo travo.", "en": "In summer the cows are on the mountain pasture and eat grass all day.", "de": "Im Sommer sind die Kühe auf der Alm und fressen den ganzen Tag Gras."}
+      ]
+    },
+    {
+      "id": "vida-v-gostilni",
+      "level": "A1",
+      "steps": [
+        {"sl": "Vida dela.", "en": "Vida is working.", "de": "Vida arbeitet."},
+        {"add": {"en": "at the inn", "de": "im Gasthaus"}, "sl": "Vida dela v gostilni.", "en": "Vida works at the inn.", "de": "Vida arbeitet im Gasthaus."},
+        {"add": {"en": "in the evening", "de": "am Abend"}, "sl": "Vida zvečer dela v gostilni.", "en": "In the evening Vida works at the inn.", "de": "Am Abend arbeitet Vida im Gasthaus."},
+        {"add": {"en": "and cooks soup", "de": "und kocht Suppe"}, "sl": "Vida zvečer dela v gostilni in kuha juho.", "en": "In the evening Vida works at the inn and cooks soup.", "de": "Am Abend arbeitet Vida im Gasthaus und kocht Suppe."}
+      ]
+    },
+    {
+      "id": "anton-prodaja-med",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Anton prodaja med.", "en": "Anton sells honey.", "de": "Anton verkauft Honig."},
+        {"add": {"en": "at the market", "de": "auf dem Markt"}, "sl": "Anton prodaja med na tržnici.", "en": "Anton sells honey at the market.", "de": "Anton verkauft Honig auf dem Markt."},
+        {"add": {"en": "on Saturdays", "de": "samstags"}, "sl": "Ob sobotah Anton prodaja med na tržnici.", "en": "On Saturdays Anton sells honey at the market.", "de": "Samstags verkauft Anton Honig auf dem Markt."},
+        {"add": {"en": "because he has bees", "de": "weil er Bienen hat"}, "sl": "Ob sobotah Anton prodaja med na tržnici, ker ima čebele.", "en": "On Saturdays Anton sells honey at the market because he has bees.", "de": "Samstags verkauft Anton Honig auf dem Markt, weil er Bienen hat."}
+      ]
+    },
+    {
+      "id": "france-v-mlinu",
+      "level": "A1",
+      "steps": [
+        {"sl": "France dela.", "en": "France is working.", "de": "France arbeitet."},
+        {"add": {"en": "in the mill", "de": "in der Mühle"}, "sl": "France dela v mlinu.", "en": "France is working in the mill.", "de": "France arbeitet in der Mühle."},
+        {"add": {"en": "all day", "de": "den ganzen Tag"}, "sl": "France ves dan dela v mlinu.", "en": "France works in the mill all day.", "de": "France arbeitet den ganzen Tag in der Mühle."},
+        {"add": {"en": "and he's tired", "de": "und ist müde"}, "sl": "France ves dan dela v mlinu in je utrujen.", "en": "France works in the mill all day and he's tired.", "de": "France arbeitet den ganzen Tag in der Mühle und ist müde."}
+      ]
+    },
+    {
+      "id": "marko-v-vinogradu",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Marko nabira grozdje.", "en": "Marko is picking grapes.", "de": "Marko pflückt Trauben."},
+        {"add": {"en": "in the vineyard", "de": "im Weinberg"}, "sl": "Marko nabira grozdje v vinogradu.", "en": "Marko is picking grapes in the vineyard.", "de": "Marko pflückt Trauben im Weinberg."},
+        {"add": {"en": "in autumn", "de": "im Herbst"}, "sl": "Jeseni Marko nabira grozdje v vinogradu.", "en": "In autumn Marko picks grapes in the vineyard.", "de": "Im Herbst pflückt Marko Trauben im Weinberg."},
+        {"add": {"en": "because it's the grape harvest", "de": "weil Weinlese ist"}, "sl": "Jeseni Marko nabira grozdje v vinogradu, ker je trgatev.", "en": "In autumn Marko picks grapes in the vineyard because it's the grape harvest.", "de": "Im Herbst pflückt Marko Trauben im Weinberg, weil Weinlese ist."}
+      ]
+    },
+    {
+      "id": "joze-v-gozd",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Jože gre v gozd.", "en": "Jože is going to the forest.", "de": "Jože geht in den Wald."},
+        {"add": {"en": "at night", "de": "in der Nacht"}, "sl": "Jože gre ponoči v gozd.", "en": "Jože goes to the forest at night.", "de": "Jože geht in der Nacht in den Wald."},
+        {"add": {"en": "because he's looking for the bear", "de": "weil er den Bären sucht"}, "sl": "Jože gre ponoči v gozd, ker išče medveda.", "en": "Jože goes to the forest at night because he's looking for the bear.", "de": "Jože geht in der Nacht in den Wald, weil er den Bären sucht."},
+        {"add": {"en": "the hunter", "de": "der Jäger"}, "sl": "Lovec Jože gre ponoči v gozd, ker išče medveda.", "en": "Jože the hunter goes to the forest at night because he's looking for the bear.", "de": "Der Jäger Jože geht in der Nacht in den Wald, weil er den Bären sucht."}
+      ]
+    },
+    {
+      "id": "v-sotoru",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Spim.", "en": "I'm sleeping.", "de": "Ich schlafe."},
+        {"add": {"en": "in the tent", "de": "im Zelt"}, "sl": "Spim v šotoru.", "en": "I'm sleeping in the tent.", "de": "Ich schlafe im Zelt."},
+        {"add": {"en": "tonight", "de": "heute Nacht"}, "sl": "Nocoj spim v šotoru.", "en": "Tonight I'm sleeping in the tent.", "de": "Heute Nacht schlafe ich im Zelt."},
+        {"add": {"en": "because the night is warm", "de": "weil die Nacht warm ist"}, "sl": "Nocoj spim v šotoru, ker je noč topla.", "en": "Tonight I'm sleeping in the tent because the night is warm.", "de": "Heute Nacht schlafe ich im Zelt, weil die Nacht warm ist."}
+      ]
+    },
+    {
+      "id": "zajtrk",
+      "level": "A1",
+      "rules": ["kdaj-cas"],
+      "steps": [
+        {"sl": "Jem zajtrk.", "en": "I'm eating breakfast.", "de": "Ich frühstücke."},
+        {"add": {"en": "at seven", "de": "um sieben"}, "sl": "Ob sedmih jem zajtrk.", "en": "I eat breakfast at seven.", "de": "Um sieben frühstücke ich."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "sl": "Ob sedmih jem zajtrk v kuhinji.", "en": "At seven I eat breakfast in the kitchen.", "de": "Um sieben frühstücke ich in der Küche."},
+        {"add": {"en": "then I go to the field", "de": "dann gehe ich aufs Feld"}, "sl": "Ob sedmih jem zajtrk v kuhinji, potem grem na njivo.", "en": "At seven I eat breakfast in the kitchen, then I go to the field.", "de": "Um sieben frühstücke ich in der Küche, dann gehe ich aufs Feld."}
+      ]
+    },
+    {
+      "id": "zvon-opoldne",
+      "level": "A1",
+      "steps": [
+        {"sl": "Zvon zvoni.", "en": "The bell is ringing.", "de": "Die Glocke läutet."},
+        {"add": {"en": "in the bell tower", "de": "im Glockenturm"}, "sl": "Zvon zvoni v zvoniku.", "en": "The bell is ringing in the bell tower.", "de": "Die Glocke läutet im Glockenturm."},
+        {"add": {"en": "at noon", "de": "mittags"}, "sl": "Opoldne zvoni zvon v zvoniku.", "en": "At noon the bell rings in the bell tower.", "de": "Mittags läutet die Glocke im Glockenturm."},
+        {"add": {"en": "every day", "de": "jeden Tag"}, "sl": "Vsak dan opoldne zvoni zvon v zvoniku.", "en": "Every day at noon the bell rings in the bell tower.", "de": "Jeden Mittag läutet die Glocke im Glockenturm."}
+      ]
+    },
+    {
+      "id": "vreme-jutri",
+      "level": "A1",
+      "rules": ["prihodnjik"],
+      "steps": [
+        {"sl": "Vreme je lepo.", "en": "The weather is nice.", "de": "Das Wetter ist schön."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes je vreme lepo.", "en": "The weather is nice today.", "de": "Heute ist das Wetter schön."},
+        {"add": {"en": "but tomorrow it will rain", "de": "aber morgen regnet es"}, "sl": "Danes je vreme lepo, jutri pa bo deževalo.", "en": "The weather is nice today, but tomorrow it will rain.", "de": "Heute ist das Wetter schön, aber morgen wird es regnen."},
+        {"add": {"en": "and warm", "de": "und warm"}, "sl": "Danes je vreme lepo in toplo, jutri pa bo deževalo.", "en": "The weather is nice and warm today, but tomorrow it will rain.", "de": "Heute ist das Wetter schön und warm, aber morgen wird es regnen."}
+      ]
+    },
+    {
+      "id": "brat-in-sestra",
+      "level": "A1",
+      "steps": [
+        {"sl": "Imam brata.", "en": "I have a brother.", "de": "Ich habe einen Bruder."},
+        {"add": {"en": "in Ljubljana", "de": "in Ljubljana"}, "sl": "Imam brata v Ljubljani.", "en": "I have a brother in Ljubljana.", "de": "Ich habe einen Bruder in Ljubljana."},
+        {"add": {"en": "and a sister in Gorizia", "de": "und eine Schwester in Gorizia"}, "sl": "Imam brata v Ljubljani in sestro v Gorici.", "en": "I have a brother in Ljubljana and a sister in Gorizia.", "de": "Ich habe einen Bruder in Ljubljana und eine Schwester in Gorizia."}
+      ]
+    },
+    {
+      "id": "pes-laja",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Pes laja.", "en": "The dog is barking.", "de": "Der Hund bellt."},
+        {"add": {"en": "on the square", "de": "auf dem Platz"}, "sl": "Pes laja na trgu.", "en": "The dog is barking on the square.", "de": "Der Hund bellt auf dem Platz."},
+        {"add": {"en": "because it sees a cat", "de": "weil er eine Katze sieht"}, "sl": "Pes laja na trgu, ker vidi mačko.", "en": "The dog is barking on the square because it sees a cat.", "de": "Der Hund bellt auf dem Platz, weil er eine Katze sieht."},
+        {"add": {"en": "loudly", "de": "laut"}, "sl": "Pes glasno laja na trgu, ker vidi mačko.", "en": "The dog is barking loudly on the square because it sees a cat.", "de": "Der Hund bellt laut auf dem Platz, weil er eine Katze sieht."}
+      ]
+    },
+    {
+      "id": "juha-za-kosilo",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Kuham juho.", "en": "I'm cooking soup.", "de": "Ich koche Suppe."},
+        {"add": {"en": "for lunch", "de": "zum Mittagessen"}, "sl": "Kuham juho za kosilo.", "en": "I'm cooking soup for lunch.", "de": "Ich koche Suppe zum Mittagessen."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes kuham juho za kosilo.", "en": "Today I'm cooking soup for lunch.", "de": "Heute koche ich Suppe zum Mittagessen."},
+        {"add": {"en": "because grandma is coming", "de": "weil Oma kommt"}, "sl": "Danes kuham juho za kosilo, ker pride babica.", "en": "Today I'm cooking soup for lunch because grandma is coming.", "de": "Heute koche ich Suppe zum Mittagessen, weil Oma kommt."}
+      ]
+    },
+    {
+      "id": "berem",
+      "level": "A1",
+      "steps": [
+        {"sl": "Berem.", "en": "I'm reading.", "de": "Ich lese."},
+        {"add": {"en": "a book", "de": "ein Buch"}, "sl": "Berem knjigo.", "en": "I'm reading a book.", "de": "Ich lese ein Buch."},
+        {"add": {"en": "in the evening", "de": "am Abend"}, "sl": "Zvečer berem knjigo.", "en": "In the evening I read a book.", "de": "Am Abend lese ich ein Buch."},
+        {"add": {"en": "in bed", "de": "im Bett"}, "sl": "Zvečer berem knjigo v postelji.", "en": "In the evening I read a book in bed.", "de": "Am Abend lese ich im Bett ein Buch."}
+      ]
+    },
+    {
+      "id": "nejc-se-igra",
+      "level": "A1",
+      "steps": [
+        {"sl": "Nejc se igra.", "en": "Nejc is playing.", "de": "Nejc spielt."},
+        {"add": {"en": "on the square", "de": "auf dem Platz"}, "sl": "Nejc se igra na trgu.", "en": "Nejc is playing on the square.", "de": "Nejc spielt auf dem Platz."},
+        {"add": {"en": "after school", "de": "nach der Schule"}, "sl": "Po šoli se Nejc igra na trgu.", "en": "After school Nejc plays on the square.", "de": "Nach der Schule spielt Nejc auf dem Platz."},
+        {"add": {"en": "hide-and-seek", "de": "Verstecken"}, "sl": "Po šoli se Nejc igra skrivalnice na trgu.", "en": "After school Nejc plays hide-and-seek on the square.", "de": "Nach der Schule spielt Nejc auf dem Platz Verstecken."}
+      ]
+    },
+    {
+      "id": "reka-spomladi",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Reka je mrzla.", "en": "The river is cold.", "de": "Der Fluss ist kalt."},
+        {"add": {"en": "in spring", "de": "im Frühling"}, "sl": "Spomladi je reka mrzla.", "en": "In spring the river is cold.", "de": "Im Frühling ist der Fluss kalt."},
+        {"add": {"en": "very", "de": "sehr"}, "sl": "Spomladi je reka zelo mrzla.", "en": "In spring the river is very cold.", "de": "Im Frühling ist der Fluss sehr kalt."},
+        {"add": {"en": "because the snow is melting", "de": "weil der Schnee schmilzt"}, "sl": "Spomladi je reka zelo mrzla, ker se tali sneg.", "en": "In spring the river is very cold because the snow is melting.", "de": "Im Frühling ist der Fluss sehr kalt, weil der Schnee schmilzt."}
+      ]
+    },
+    {
+      "id": "cez-most",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Grem čez most.", "en": "I'm going over the bridge.", "de": "Ich gehe über die Brücke."},
+        {"add": {"en": "to the village", "de": "ins Dorf"}, "sl": "Grem čez most v vas.", "en": "I'm going over the bridge to the village.", "de": "Ich gehe über die Brücke ins Dorf."},
+        {"add": {"en": "every morning", "de": "jeden Morgen"}, "sl": "Vsako jutro grem čez most v vas.", "en": "Every morning I go over the bridge to the village.", "de": "Jeden Morgen gehe ich über die Brücke ins Dorf."},
+        {"add": {"en": "because I buy bread there", "de": "weil ich dort Brot kaufe"}, "sl": "Vsako jutro grem čez most v vas, ker tam kupim kruh.", "en": "Every morning I go over the bridge to the village because I buy bread there.", "de": "Jeden Morgen gehe ich über die Brücke ins Dorf, weil ich dort Brot kaufe."}
+      ]
+    },
+    {
+      "id": "svez-sir",
+      "level": "A1",
+      "steps": [
+        {"sl": "Sir je svež.", "en": "The cheese is fresh.", "de": "Der Käse ist frisch."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes je sir svež.", "en": "The cheese is fresh today.", "de": "Heute ist der Käse frisch."},
+        {"add": {"en": "and cheap", "de": "und billig"}, "sl": "Danes je sir svež in poceni.", "en": "The cheese is fresh and cheap today.", "de": "Heute ist der Käse frisch und billig."},
+        {"add": {"en": "at the market", "de": "auf dem Markt"}, "sl": "Danes je sir na tržnici svež in poceni.", "en": "Today the cheese at the market is fresh and cheap.", "de": "Heute ist der Käse auf dem Markt frisch und billig."}
+      ]
+    },
+    {
+      "id": "gams",
+      "level": "A1",
+      "steps": [
+        {"sl": "Vidim gamsa.", "en": "I see a chamois.", "de": "Ich sehe eine Gämse."},
+        {"add": {"en": "on the rock", "de": "auf dem Felsen"}, "sl": "Vidim gamsa na skali.", "en": "I see a chamois on the rock.", "de": "Ich sehe eine Gämse auf dem Felsen."},
+        {"add": {"en": "high in the mountains", "de": "hoch in den Bergen"}, "sl": "Visoko v gorah vidim gamsa na skali.", "en": "High in the mountains I see a chamois on the rock.", "de": "Hoch in den Bergen sehe ich eine Gämse auf dem Felsen."}
+      ]
+    },
+    {
+      "id": "burja",
+      "level": "A1",
+      "steps": [
+        {"sl": "Piha veter.", "en": "The wind is blowing.", "de": "Der Wind weht."},
+        {"add": {"en": "cold", "de": "kalt"}, "sl": "Piha mrzel veter.", "en": "A cold wind is blowing.", "de": "Es weht ein kalter Wind."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes piha mrzel veter.", "en": "Today a cold wind is blowing.", "de": "Heute weht ein kalter Wind."},
+        {"add": {"en": "it's the bora", "de": "das ist die Bora"}, "sl": "Danes piha mrzel veter, to je burja.", "en": "Today a cold wind is blowing: it's the bora.", "de": "Heute weht ein kalter Wind, das ist die Bora."}
+      ]
+    },
+    {
+      "id": "zvezde-nocoj",
+      "level": "A1",
+      "rules": ["prihodnjik", "vezniki"],
+      "steps": [
+        {"sl": "Na nebu so zvezde.", "en": "There are stars in the sky.", "de": "Am Himmel sind Sterne."},
+        {"add": {"en": "tonight", "de": "heute Nacht"}, "sl": "Nocoj so na nebu zvezde.", "en": "Tonight there are stars in the sky.", "de": "Heute Nacht sind Sterne am Himmel."},
+        {"add": {"en": "and the moon", "de": "und der Mond"}, "sl": "Nocoj so na nebu zvezde in luna.", "en": "Tonight there are stars and the moon in the sky.", "de": "Heute Nacht sind Sterne und der Mond am Himmel."},
+        {"add": {"en": "so it will be cold", "de": "deshalb wird es kalt"}, "sl": "Nocoj so na nebu zvezde in luna, zato bo mrzlo.", "en": "Tonight there are stars and the moon in the sky, so it will be cold.", "de": "Heute Nacht sind Sterne und der Mond am Himmel, deshalb wird es kalt."}
+      ]
+    },
+    {
+      "id": "gobe",
+      "level": "A1",
+      "steps": [
+        {"sl": "Nabiram gobe.", "en": "I'm picking mushrooms.", "de": "Ich sammle Pilze."},
+        {"add": {"en": "in the forest", "de": "im Wald"}, "sl": "Nabiram gobe v gozdu.", "en": "I'm picking mushrooms in the forest.", "de": "Ich sammle Pilze im Wald."},
+        {"add": {"en": "in autumn", "de": "im Herbst"}, "sl": "Jeseni nabiram gobe v gozdu.", "en": "In autumn I pick mushrooms in the forest.", "de": "Im Herbst sammle ich Pilze im Wald."},
+        {"add": {"en": "after the rain", "de": "nach dem Regen"}, "sl": "Jeseni po dežju nabiram gobe v gozdu.", "en": "In autumn, after the rain, I pick mushrooms in the forest.", "de": "Im Herbst sammle ich nach dem Regen Pilze im Wald."}
+      ]
+    },
+    {
+      "id": "stari-voz",
+      "level": "A1",
+      "steps": [
+        {"sl": "Tone popravi voz.", "en": "Tone fixes the cart.", "de": "Tone repariert den Wagen."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "sl": "Jutri Tone popravi voz.", "en": "Tomorrow Tone will fix the cart.", "de": "Morgen repariert Tone den Wagen."},
+        {"add": {"en": "old", "de": "alt"}, "sl": "Jutri Tone popravi stari voz.", "en": "Tomorrow Tone will fix the old cart.", "de": "Morgen repariert Tone den alten Wagen."},
+        {"add": {"en": "in the smithy", "de": "in der Schmiede"}, "sl": "Jutri Tone v kovačnici popravi stari voz.", "en": "Tomorrow Tone will fix the old cart in the smithy.", "de": "Morgen repariert Tone in der Schmiede den alten Wagen."}
+      ]
+    },
+    {
+      "id": "sestra-na-kosilo",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Sestra pride.", "en": "My sister is coming.", "de": "Meine Schwester kommt."},
+        {"add": {"en": "on Sunday", "de": "am Sonntag"}, "sl": "Sestra pride v nedeljo.", "en": "My sister is coming on Sunday.", "de": "Meine Schwester kommt am Sonntag."},
+        {"add": {"en": "for lunch", "de": "zum Mittagessen"}, "sl": "Sestra pride v nedeljo na kosilo.", "en": "My sister is coming for lunch on Sunday.", "de": "Meine Schwester kommt am Sonntag zum Mittagessen."},
+        {"add": {"en": "so I'm baking a potica", "de": "deshalb backe ich eine Potica"}, "sl": "Sestra pride v nedeljo na kosilo, zato pečem potico.", "en": "My sister is coming for lunch on Sunday, so I'm baking a potica.", "de": "Meine Schwester kommt am Sonntag zum Mittagessen, deshalb backe ich eine Potica."}
+      ]
+    },
+    {
+      "id": "sneg-v-gorah",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Sneži.", "en": "It's snowing.", "de": "Es schneit."},
+        {"add": {"en": "in the mountains", "de": "in den Bergen"}, "sl": "V gorah sneži.", "en": "It's snowing in the mountains.", "de": "In den Bergen schneit es."},
+        {"add": {"en": "already", "de": "schon"}, "sl": "V gorah že sneži.", "en": "It's already snowing in the mountains.", "de": "In den Bergen schneit es schon."},
+        {"add": {"en": "so the cows are going home", "de": "deshalb gehen die Kühe nach Hause"}, "sl": "V gorah že sneži, zato gredo krave domov.", "en": "It's already snowing in the mountains, so the cows are going home.", "de": "In den Bergen schneit es schon, deshalb gehen die Kühe nach Hause."}
+      ]
+    },
+    {
+      "id": "mickin-vnuk",
+      "level": "A1",
+      "steps": [
+        {"sl": "Micka ima vnuka.", "en": "Micka has a grandson.", "de": "Micka hat einen Enkel."},
+        {"add": {"en": "in the town", "de": "in der Stadt"}, "sl": "Micka ima vnuka v mestu.", "en": "Micka has a grandson in the town.", "de": "Micka hat einen Enkel in der Stadt."},
+        {"add": {"en": "he visits on Sunday", "de": "am Sonntag kommt er zu Besuch"}, "sl": "Micka ima vnuka v mestu. V nedeljo pride na obisk.", "en": "Micka has a grandson in the town. He comes to visit on Sunday.", "de": "Micka hat einen Enkel in der Stadt. Am Sonntag kommt er zu Besuch."}
+      ]
+    },
+    {
+      "id": "kam-gres",
+      "level": "A1",
+      "rules": ["vprasalnice"],
+      "steps": [
+        {"sl": "Kam greš?", "en": "Where are you going?", "de": "Wohin gehst du?"},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "sl": "Kam greš jutri?", "en": "Where are you going tomorrow?", "de": "Wohin gehst du morgen?"},
+        {"add": {"en": "after school", "de": "nach der Schule"}, "sl": "Kam greš jutri po šoli?", "en": "Where are you going tomorrow after school?", "de": "Wohin gehst du morgen nach der Schule?"}
+      ]
+    },
+    {
+      "id": "koliko-stane",
+      "level": "A1",
+      "steps": [
+        {"sl": "Koliko stane?", "en": "How much does it cost?", "de": "Wie viel kostet es?"},
+        {"add": {"en": "the cheese", "de": "der Käse"}, "sl": "Koliko stane sir?", "en": "How much does the cheese cost?", "de": "Wie viel kostet der Käse?"},
+        {"add": {"en": "this", "de": "dieser"}, "sl": "Koliko stane ta sir?", "en": "How much does this cheese cost?", "de": "Wie viel kostet dieser Käse?"},
+        {"add": {"en": "and how much is the honey", "de": "und wie viel der Honig"}, "sl": "Koliko stane ta sir, koliko pa med?", "en": "How much does this cheese cost, and how much is the honey?", "de": "Wie viel kostet dieser Käse, und wie viel der Honig?"}
+      ]
+    },
+    {
+      "id": "ali-imate",
+      "level": "A1",
+      "rules": ["ti-vi"],
+      "steps": [
+        {"sl": "Ali imate kruh?", "en": "Do you have bread?", "de": "Haben Sie Brot?"},
+        {"add": {"en": "fresh", "de": "frisch"}, "sl": "Ali imate svež kruh?", "en": "Do you have fresh bread?", "de": "Haben Sie frisches Brot?"},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Ali imate danes svež kruh?", "en": "Do you have fresh bread today?", "de": "Haben Sie heute frisches Brot?"},
+        {"add": {"en": "and milk", "de": "und Milch"}, "sl": "Ali imate danes svež kruh in mleko?", "en": "Do you have fresh bread and milk today?", "de": "Haben Sie heute frisches Brot und Milch?"}
+      ]
+    },
+    {
+      "id": "domaca-naloga",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Pišem domačo nalogo.", "en": "I'm doing my homework.", "de": "Ich mache meine Hausaufgaben."},
+        {"add": {"en": "in the kitchen", "de": "in der Küche"}, "sl": "Pišem domačo nalogo v kuhinji.", "en": "I'm doing my homework in the kitchen.", "de": "Ich mache meine Hausaufgaben in der Küche."},
+        {"add": {"en": "after lunch", "de": "nach dem Mittagessen"}, "sl": "Po kosilu pišem domačo nalogo v kuhinji.", "en": "After lunch I do my homework in the kitchen.", "de": "Nach dem Mittagessen mache ich meine Hausaufgaben in der Küche."},
+        {"add": {"en": "because I have school tomorrow", "de": "weil ich morgen Schule habe"}, "sl": "Po kosilu pišem domačo nalogo v kuhinji, ker imam jutri šolo.", "en": "After lunch I do my homework in the kitchen because I have school tomorrow.", "de": "Nach dem Mittagessen mache ich meine Hausaufgaben in der Küche, weil ich morgen Schule habe."}
+      ]
+    },
+    {
+      "id": "na-goro",
+      "level": "A1",
+      "rules": ["vezniki", "prihodnjik"],
+      "steps": [
+        {"sl": "Gremo na goro.", "en": "We're going up the mountain.", "de": "Wir gehen auf den Berg."},
+        {"add": {"en": "on Saturday", "de": "am Samstag"}, "sl": "V soboto gremo na goro.", "en": "On Saturday we're going up the mountain.", "de": "Am Samstag gehen wir auf den Berg."},
+        {"add": {"en": "early in the morning", "de": "früh am Morgen"}, "sl": "V soboto zgodaj zjutraj gremo na goro.", "en": "On Saturday, early in the morning, we're going up the mountain.", "de": "Am Samstag früh am Morgen gehen wir auf den Berg."},
+        {"add": {"en": "if the weather is nice", "de": "wenn das Wetter schön ist"}, "sl": "V soboto zgodaj zjutraj gremo na goro, če bo vreme lepo.", "en": "On Saturday, early in the morning, we're going up the mountain if the weather is nice.", "de": "Am Samstag früh am Morgen gehen wir auf den Berg, wenn das Wetter schön ist."}
+      ]
+    },
+    {
+      "id": "lipa-na-trgu",
+      "level": "A1",
+      "steps": [
+        {"sl": "Na trgu je lipa.", "en": "There's a linden tree on the square.", "de": "Auf dem Platz steht eine Linde."},
+        {"add": {"en": "old", "de": "alt"}, "sl": "Na trgu je stara lipa.", "en": "There's an old linden tree on the square.", "de": "Auf dem Platz steht eine alte Linde."},
+        {"add": {"en": "big", "de": "groß"}, "sl": "Na trgu je velika stara lipa.", "en": "There's a big old linden tree on the square.", "de": "Auf dem Platz steht eine große alte Linde."}
+      ]
+    },
+    {
+      "id": "otrok-spi",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Otrok spi.", "en": "The child is sleeping.", "de": "Das Kind schläft."},
+        {"add": {"en": "peacefully", "de": "ruhig"}, "sl": "Otrok mirno spi.", "en": "The child is sleeping peacefully.", "de": "Das Kind schläft ruhig."},
+        {"add": {"en": "in the afternoon", "de": "am Nachmittag"}, "sl": "Popoldne otrok mirno spi.", "en": "In the afternoon the child sleeps peacefully.", "de": "Am Nachmittag schläft das Kind ruhig."},
+        {"add": {"en": "so we speak quietly", "de": "deshalb sprechen wir leise"}, "sl": "Popoldne otrok mirno spi, zato govorimo tiho.", "en": "In the afternoon the child sleeps peacefully, so we speak quietly.", "de": "Am Nachmittag schläft das Kind ruhig, deshalb sprechen wir leise."}
+      ]
+    },
+    {
+      "id": "pesem-ob-ognju",
+      "level": "A1",
+      "steps": [
+        {"sl": "Pojemo.", "en": "We're singing.", "de": "Wir singen."},
+        {"add": {"en": "a song", "de": "ein Lied"}, "sl": "Pojemo pesem.", "en": "We're singing a song.", "de": "Wir singen ein Lied."},
+        {"add": {"en": "by the fire", "de": "am Feuer"}, "sl": "Pojemo pesem ob ognju.", "en": "We're singing a song by the fire.", "de": "Wir singen ein Lied am Feuer."},
+        {"add": {"en": "in the evening", "de": "am Abend"}, "sl": "Zvečer pojemo pesem ob ognju.", "en": "In the evening we sing a song by the fire.", "de": "Am Abend singen wir ein Lied am Feuer."}
+      ]
+    },
+    {
+      "id": "zebe-me",
+      "level": "A1",
+      "rules": ["naslonke", "vezniki"],
+      "steps": [
+        {"sl": "Zebe me.", "en": "I'm cold.", "de": "Mir ist kalt."},
+        {"add": {"en": "in the tent", "de": "im Zelt"}, "sl": "V šotoru me zebe.", "en": "I'm cold in the tent.", "de": "Im Zelt ist mir kalt."},
+        {"add": {"en": "at night", "de": "in der Nacht"}, "sl": "Ponoči me v šotoru zebe.", "en": "At night I'm cold in the tent.", "de": "In der Nacht ist mir im Zelt kalt."},
+        {"add": {"en": "so I need a blanket", "de": "deshalb brauche ich eine Decke"}, "sl": "Ponoči me v šotoru zebe, zato potrebujem odejo.", "en": "At night I'm cold in the tent, so I need a blanket.", "de": "In der Nacht ist mir im Zelt kalt, deshalb brauche ich eine Decke."}
+      ]
+    },
+    {
+      "id": "krompir",
+      "level": "A1",
+      "steps": [
+        {"sl": "Pobiram krompir.", "en": "I'm gathering potatoes.", "de": "Ich sammle Kartoffeln."},
+        {"add": {"en": "in the field", "de": "auf dem Feld"}, "sl": "Pobiram krompir na njivi.", "en": "I'm gathering potatoes in the field.", "de": "Ich sammle Kartoffeln auf dem Feld."},
+        {"add": {"en": "in autumn", "de": "im Herbst"}, "sl": "Jeseni pobiram krompir na njivi.", "en": "In autumn I gather potatoes in the field.", "de": "Im Herbst sammle ich Kartoffeln auf dem Feld."}
+      ]
+    },
+    {
+      "id": "slap",
+      "level": "A1",
+      "steps": [
+        {"sl": "Slap je lep.", "en": "The waterfall is beautiful.", "de": "Der Wasserfall ist schön."},
+        {"add": {"en": "very", "de": "sehr"}, "sl": "Slap je zelo lep.", "en": "The waterfall is very beautiful.", "de": "Der Wasserfall ist sehr schön."},
+        {"add": {"en": "in spring", "de": "im Frühling"}, "sl": "Spomladi je slap zelo lep.", "en": "In spring the waterfall is very beautiful.", "de": "Im Frühling ist der Wasserfall sehr schön."}
+      ]
+    },
+    {
+      "id": "v-cerkev",
+      "level": "A1",
+      "rules": ["kdaj-cas"],
+      "steps": [
+        {"sl": "Grem v cerkev.", "en": "I'm going to church.", "de": "Ich gehe in die Kirche."},
+        {"add": {"en": "on Sunday", "de": "am Sonntag"}, "sl": "V nedeljo grem v cerkev.", "en": "On Sunday I go to church.", "de": "Am Sonntag gehe ich in die Kirche."},
+        {"add": {"en": "at ten", "de": "um zehn"}, "sl": "V nedeljo ob desetih grem v cerkev.", "en": "On Sunday at ten I go to church.", "de": "Am Sonntag um zehn gehe ich in die Kirche."},
+        {"add": {"en": "and then to the inn", "de": "und dann ins Gasthaus"}, "sl": "V nedeljo ob desetih grem v cerkev, potem pa v gostilno.", "en": "On Sunday at ten I go to church, and then to the inn.", "de": "Am Sonntag um zehn gehe ich in die Kirche und dann ins Gasthaus."}
+      ]
+    },
+    {
+      "id": "posta-zaprta",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Pošta je zaprta.", "en": "The post office is closed.", "de": "Die Post ist geschlossen."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes je pošta zaprta.", "en": "The post office is closed today.", "de": "Heute ist die Post geschlossen."},
+        {"add": {"en": "because it's Sunday", "de": "weil Sonntag ist"}, "sl": "Danes je pošta zaprta, ker je nedelja.", "en": "The post office is closed today because it's Sunday.", "de": "Heute ist die Post geschlossen, weil Sonntag ist."},
+        {"add": {"en": "but the shop is open", "de": "aber der Laden ist offen"}, "sl": "Danes je pošta zaprta, ker je nedelja, trgovina pa je odprta.", "en": "The post office is closed today because it's Sunday, but the shop is open.", "de": "Heute ist die Post geschlossen, weil Sonntag ist, aber der Laden ist offen."}
+      ]
+    },
+    {
+      "id": "tine-v-soli",
+      "level": "A1",
+      "steps": [
+        {"sl": "Tine je v šoli.", "en": "Tine is at school.", "de": "Tine ist in der Schule."},
+        {"add": {"en": "in the morning", "de": "am Vormittag"}, "sl": "Tine je dopoldne v šoli.", "en": "In the morning Tine is at school.", "de": "Am Vormittag ist Tine in der Schule."},
+        {"add": {"en": "in the afternoon at home", "de": "am Nachmittag zu Hause"}, "sl": "Tine je dopoldne v šoli, popoldne pa doma.", "en": "In the morning Tine is at school, in the afternoon at home.", "de": "Am Vormittag ist Tine in der Schule, am Nachmittag zu Hause."}
+      ]
+    },
+    {
+      "id": "ura-je-ze-pet",
+      "level": "A1",
+      "rules": ["kdaj-cas"],
+      "steps": [
+        {"sl": "Ura je pet.", "en": "It's five o'clock.", "de": "Es ist fünf Uhr."},
+        {"add": {"en": "already", "de": "schon"}, "sl": "Ura je že pet.", "en": "It's already five o'clock.", "de": "Es ist schon fünf Uhr."},
+        {"add": {"en": "we're going home", "de": "wir gehen nach Hause"}, "sl": "Ura je že pet, gremo domov.", "en": "It's already five o'clock, we're going home.", "de": "Es ist schon fünf Uhr, wir gehen nach Hause."}
+      ]
+    },
+    {
+      "id": "jabolko-na-dan",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Jem jabolko.", "en": "I'm eating an apple.", "de": "Ich esse einen Apfel."},
+        {"add": {"en": "red", "de": "rot"}, "sl": "Jem rdeče jabolko.", "en": "I'm eating a red apple.", "de": "Ich esse einen roten Apfel."},
+        {"add": {"en": "every day", "de": "jeden Tag"}, "sl": "Vsak dan jem rdeče jabolko.", "en": "Every day I eat a red apple.", "de": "Jeden Tag esse ich einen roten Apfel."},
+        {"add": {"en": "because it's healthy", "de": "weil er gesund ist"}, "sl": "Vsak dan jem rdeče jabolko, ker je zdravo.", "en": "Every day I eat a red apple because it's healthy.", "de": "Jeden Tag esse ich einen roten Apfel, weil er gesund ist."}
+      ]
+    },
+    {
+      "id": "dedek-v-senci",
+      "level": "A1",
+      "rules": ["vezniki"],
+      "steps": [
+        {"sl": "Dedek spi.", "en": "Grandpa is sleeping.", "de": "Opa schläft."},
+        {"add": {"en": "in the shade", "de": "im Schatten"}, "sl": "Dedek spi v senci.", "en": "Grandpa is sleeping in the shade.", "de": "Opa schläft im Schatten."},
+        {"add": {"en": "on the bench", "de": "auf der Bank"}, "sl": "Dedek spi na klopi v senci.", "en": "Grandpa is sleeping on the bench in the shade.", "de": "Opa schläft auf der Bank im Schatten."},
+        {"add": {"en": "because it's hot", "de": "weil es heiß ist"}, "sl": "Dedek spi na klopi v senci, ker je vroče.", "en": "Grandpa is sleeping on the bench in the shade because it's hot.", "de": "Opa schläft auf der Bank im Schatten, weil es heiß ist."}
+      ]
+    },
+    {
+      "id": "seno-na-kozolcu",
+      "level": "A1",
+      "rules": ["pretekli-cas", "vezniki"],
+      "steps": [
+        {"sl": "Seno je na kozolcu.", "en": "The hay is on the hayrack.", "de": "Das Heu ist auf der Harpfe."},
+        {"add": {"en": "already", "de": "schon"}, "sl": "Seno je že na kozolcu.", "en": "The hay is already on the hayrack.", "de": "Das Heu ist schon auf der Harpfe."},
+        {"add": {"en": "dry", "de": "trocken"}, "sl": "Suho seno je že na kozolcu.", "en": "The dry hay is already on the hayrack.", "de": "Das trockene Heu ist schon auf der Harpfe."},
+        {"add": {"en": "because the weather was nice", "de": "weil das Wetter schön war"}, "sl": "Suho seno je že na kozolcu, ker je bilo vreme lepo.", "en": "The dry hay is already on the hayrack because the weather was nice.", "de": "Das trockene Heu ist schon auf der Harpfe, weil das Wetter schön war."}
+      ]
+    },
+    {
+      "id": "macka-na-soncu",
+      "level": "A1",
+      "steps": [
+        {"sl": "Mačka spi.", "en": "The cat is sleeping.", "de": "Die Katze schläft."},
+        {"add": {"en": "on the bench", "de": "auf der Bank"}, "sl": "Mačka spi na klopi.", "en": "The cat is sleeping on the bench.", "de": "Die Katze schläft auf der Bank."},
+        {"add": {"en": "in the sun", "de": "in der Sonne"}, "sl": "Mačka spi na klopi na soncu.", "en": "The cat is sleeping on the bench in the sun.", "de": "Die Katze schläft auf der Bank in der Sonne."},
+        {"add": {"en": "all afternoon", "de": "den ganzen Nachmittag"}, "sl": "Mačka ves popoldan spi na klopi na soncu.", "en": "The cat sleeps on the bench in the sun all afternoon.", "de": "Die Katze schläft den ganzen Nachmittag auf der Bank in der Sonne."}
+      ]
+    },
+    {
+      "id": "nasa-vas",
+      "level": "A1",
+      "steps": [
+        {"sl": "Vas je stara.", "en": "The village is old.", "de": "Das Dorf ist alt."},
+        {"add": {"en": "our", "de": "unser"}, "sl": "Naša vas je stara.", "en": "Our village is old.", "de": "Unser Dorf ist alt."},
+        {"add": {"en": "very", "de": "sehr"}, "sl": "Naša vas je zelo stara.", "en": "Our village is very old.", "de": "Unser Dorf ist sehr alt."},
+        {"add": {"en": "and beautiful", "de": "und schön"}, "sl": "Naša vas je zelo stara in lepa.", "en": "Our village is very old and beautiful.", "de": "Unser Dorf ist sehr alt und schön."}
+      ]
+    },
+    {
+      "id": "na-tablo",
+      "level": "A1",
+      "rules": ["naslonke"],
+      "steps": [
+        {"sl": "Učiteljica piše na tablo.", "en": "The teacher is writing on the blackboard.", "de": "Die Lehrerin schreibt an die Tafel."},
+        {"add": {"en": "a word", "de": "ein Wort"}, "sl": "Učiteljica piše besedo na tablo.", "en": "The teacher is writing a word on the blackboard.", "de": "Die Lehrerin schreibt ein Wort an die Tafel."},
+        {"add": {"en": "a long one", "de": "ein langes"}, "sl": "Učiteljica piše dolgo besedo na tablo.", "en": "The teacher is writing a long word on the blackboard.", "de": "Die Lehrerin schreibt ein langes Wort an die Tafel."},
+        {"add": {"en": "and the children read it aloud", "de": "und die Kinder lesen es laut vor"}, "sl": "Učiteljica piše dolgo besedo na tablo, otroci pa jo berejo na glas.", "en": "The teacher is writing a long word on the blackboard, and the children read it aloud.", "de": "Die Lehrerin schreibt ein langes Wort an die Tafel, und die Kinder lesen es laut vor."}
+      ]
+    },
+    {
+      "id": "vecerja",
+      "level": "A1",
+      "steps": [
+        {"sl": "Večerja je na mizi.", "en": "Dinner is on the table.", "de": "Das Abendessen steht auf dem Tisch."},
+        {"add": {"en": "already", "de": "schon"}, "sl": "Večerja je že na mizi.", "en": "Dinner is already on the table.", "de": "Das Abendessen steht schon auf dem Tisch."},
+        {"add": {"en": "warm", "de": "warm"}, "sl": "Topla večerja je že na mizi.", "en": "A warm dinner is already on the table.", "de": "Ein warmes Abendessen steht schon auf dem Tisch."},
+        {"add": {"en": "enjoy your meal", "de": "guten Appetit"}, "sl": "Topla večerja je že na mizi. Dober tek!", "en": "A warm dinner is already on the table. Enjoy your meal!", "de": "Ein warmes Abendessen steht schon auf dem Tisch. Guten Appetit!"}
+      ]
+    },
+    {
+      "id": "jutri-doma",
+      "level": "A1",
+      "rules": ["prihodnjik", "vezniki"],
+      "steps": [
+        {"sl": "Jutri bom doma.", "en": "Tomorrow I'll be at home.", "de": "Morgen bin ich zu Hause."},
+        {"add": {"en": "all day", "de": "den ganzen Tag"}, "sl": "Jutri bom ves dan doma.", "en": "Tomorrow I'll be at home all day.", "de": "Morgen bin ich den ganzen Tag zu Hause."},
+        {"add": {"en": "because it will rain", "de": "weil es regnen wird"}, "sl": "Jutri bom ves dan doma, ker bo deževalo.", "en": "Tomorrow I'll be at home all day because it will rain.", "de": "Morgen bin ich den ganzen Tag zu Hause, weil es regnen wird."}
+      ]
+    },
+    {
+      "id": "vceraj-dezevalo",
+      "level": "A1",
+      "rules": ["pretekli-cas", "vezniki"],
+      "steps": [
+        {"sl": "Včeraj je deževalo.", "en": "It rained yesterday.", "de": "Gestern hat es geregnet."},
+        {"add": {"en": "all day", "de": "den ganzen Tag"}, "sl": "Včeraj je ves dan deževalo.", "en": "Yesterday it rained all day.", "de": "Gestern hat es den ganzen Tag geregnet."},
+        {"add": {"en": "so the children were at home", "de": "deshalb waren die Kinder zu Hause"}, "sl": "Včeraj je ves dan deževalo, zato so bili otroci doma.", "en": "Yesterday it rained all day, so the children were at home.", "de": "Gestern hat es den ganzen Tag geregnet, deshalb waren die Kinder zu Hause."}
+      ]
+    },
+    {
+      "id": "luka-na-planini",
+      "level": "A1",
+      "rules": ["pretekli-cas"],
+      "steps": [
+        {"sl": "Luka je bil na planini.", "en": "Luka was on the mountain pasture.", "de": "Luka war auf der Alm."},
+        {"add": {"en": "last week", "de": "letzte Woche"}, "sl": "Luka je bil prejšnji teden na planini.", "en": "Luka was on the mountain pasture last week.", "de": "Luka war letzte Woche auf der Alm."},
+        {"add": {"en": "and slept in the hut", "de": "und hat in der Hütte geschlafen"}, "sl": "Luka je bil prejšnji teden na planini in je spal v koči.", "en": "Luka was on the mountain pasture last week and slept in the hut.", "de": "Luka war letzte Woche auf der Alm und hat in der Hütte geschlafen."}
+      ]
+    },
+    {
+      "id": "zala-bo-pekla",
+      "level": "A1",
+      "rules": ["prihodnjik"],
+      "steps": [
+        {"sl": "Zala bo pekla.", "en": "Zala will bake.", "de": "Zala wird backen."},
+        {"add": {"en": "a cake", "de": "eine Torte"}, "sl": "Zala bo pekla torto.", "en": "Zala will bake a cake.", "de": "Zala wird eine Torte backen."},
+        {"add": {"en": "for grandma", "de": "für Oma"}, "sl": "Zala bo pekla torto za babico.", "en": "Zala will bake a cake for grandma.", "de": "Zala wird eine Torte für Oma backen."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "sl": "Jutri bo Zala pekla torto za babico.", "en": "Tomorrow Zala will bake a cake for grandma.", "de": "Morgen wird Zala eine Torte für Oma backen."}
+      ]
+    },
+    {
+      "id": "kje-je-micka",
+      "level": "A1",
+      "rules": ["vprasalnice", "zanikanje"],
+      "steps": [
+        {"sl": "Kje je Micka?", "en": "Where is Micka?", "de": "Wo ist Micka?"},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Kje je Micka danes?", "en": "Where is Micka today?", "de": "Wo ist Micka heute?"},
+        {"add": {"en": "she isn't at home", "de": "sie ist nicht zu Hause"}, "sl": "Kje je Micka danes? Ni doma.", "en": "Where is Micka today? She isn't at home.", "de": "Wo ist Micka heute? Sie ist nicht zu Hause."}
+      ]
+    },
+    {
+      "id": "kovac-je-lacen",
+      "level": "A1",
+      "rules": ["pretekli-cas", "vezniki"],
+      "steps": [
+        {"sl": "Tone je lačen.", "en": "Tone is hungry.", "de": "Tone hat Hunger."},
+        {"add": {"en": "very", "de": "sehr"}, "sl": "Tone je zelo lačen.", "en": "Tone is very hungry.", "de": "Tone hat großen Hunger."},
+        {"add": {"en": "because he worked all day", "de": "weil er den ganzen Tag gearbeitet hat"}, "sl": "Tone je zelo lačen, ker je ves dan delal.", "en": "Tone is very hungry because he worked all day.", "de": "Tone hat großen Hunger, weil er den ganzen Tag gearbeitet hat."}
+      ]
+    },
+    {
+      "id": "ovce-na-travniku",
+      "level": "A1",
+      "rules": ["stevila-samostalniki"],
+      "steps": [
+        {"sl": "Na travniku so ovce.", "en": "There are sheep in the meadow.", "de": "Auf der Wiese sind Schafe."},
+        {"add": {"en": "five", "de": "fünf"}, "sl": "Na travniku je pet ovc.", "en": "There are five sheep in the meadow.", "de": "Auf der Wiese sind fünf Schafe."},
+        {"add": {"en": "and a dog", "de": "und ein Hund"}, "sl": "Na travniku je pet ovc in pes.", "en": "There are five sheep and a dog in the meadow.", "de": "Auf der Wiese sind fünf Schafe und ein Hund."}
+      ]
+    },
+    {
+      "id": "dve-kavi",
+      "level": "A1",
+      "rules": ["dvojina"],
+      "steps": [
+        {"sl": "Kavo, prosim.", "en": "A coffee, please.", "de": "Einen Kaffee, bitte."},
+        {"add": {"en": "two", "de": "zwei"}, "sl": "Dve kavi, prosim.", "en": "Two coffees, please.", "de": "Zwei Kaffee, bitte."},
+        {"add": {"en": "and a tea", "de": "und einen Tee"}, "sl": "Dve kavi in en čaj, prosim.", "en": "Two coffees and a tea, please.", "de": "Zwei Kaffee und einen Tee, bitte."}
+      ]
+    },
+    {
+      "id": "nimam-casa",
+      "level": "A1",
+      "rules": ["rodilnik-nikalnica", "naslonke"],
+      "steps": [
+        {"sl": "Nimam časa.", "en": "I don't have time.", "de": "Ich habe keine Zeit."},
+        {"add": {"en": "today", "de": "heute"}, "sl": "Danes nimam časa.", "en": "I don't have time today.", "de": "Heute habe ich keine Zeit."},
+        {"add": {"en": "but tomorrow I do", "de": "aber morgen schon"}, "sl": "Danes nimam časa, jutri pa ga imam.", "en": "I don't have time today, but tomorrow I do.", "de": "Heute habe ich keine Zeit, aber morgen schon."}
+      ]
+    },
+    {
+      "id": "pojdiva",
+      "level": "A1",
+      "rules": ["dvojina", "velelnik"],
+      "steps": [
+        {"sl": "Pojdiva.", "en": "Let's go, the two of us.", "de": "Gehen wir zwei."},
+        {"add": {"en": "to the forest", "de": "in den Wald"}, "sl": "Pojdiva v gozd.", "en": "Let's go to the forest, the two of us.", "de": "Gehen wir zwei in den Wald."},
+        {"add": {"en": "for mushrooms", "de": "Pilze sammeln"}, "sl": "Pojdiva v gozd po gobe.", "en": "Let's go to the forest for mushrooms, the two of us.", "de": "Gehen wir zwei in den Wald Pilze sammeln."},
+        {"add": {"en": "tomorrow morning", "de": "morgen früh"}, "sl": "Jutri zjutraj pojdiva v gozd po gobe.", "en": "Tomorrow morning let's go to the forest for mushrooms, the two of us.", "de": "Morgen früh gehen wir zwei in den Wald Pilze sammeln."}
+      ]
+    },
+    {
+      "id": "z-micko",
+      "level": "A2",
+      "rules": ["orodnik", "vezniki"],
+      "steps": [
+        {"sl": "Grem na tržnico.", "en": "I'm going to the market.", "de": "Ich gehe auf den Markt."},
+        {"add": {"en": "with Micka", "de": "mit Micka"}, "sl": "Grem na tržnico z Micko.", "en": "I'm going to the market with Micka.", "de": "Ich gehe mit Micka auf den Markt."},
+        {"add": {"en": "on Saturday", "de": "am Samstag"}, "sl": "V soboto grem na tržnico z Micko.", "en": "On Saturday I'm going to the market with Micka.", "de": "Am Samstag gehe ich mit Micka auf den Markt."},
+        {"add": {"en": "because she needs flour", "de": "weil sie Mehl braucht"}, "sl": "V soboto grem na tržnico z Micko, ker potrebuje moko.", "en": "On Saturday I'm going to the market with Micka because she needs flour.", "de": "Am Samstag gehe ich mit Micka auf den Markt, weil sie Mehl braucht."}
+      ]
+    },
+    {
+      "id": "brez-sladkorja",
+      "level": "A2",
+      "rules": ["rodilnik-predlogi"],
+      "steps": [
+        {"sl": "Pijem kavo.", "en": "I drink coffee.", "de": "Ich trinke Kaffee."},
+        {"add": {"en": "without sugar", "de": "ohne Zucker"}, "sl": "Pijem kavo brez sladkorja.", "en": "I drink coffee without sugar.", "de": "Ich trinke Kaffee ohne Zucker."},
+        {"add": {"en": "and without milk", "de": "und ohne Milch"}, "sl": "Pijem kavo brez sladkorja in brez mleka.", "en": "I drink coffee without sugar and without milk.", "de": "Ich trinke Kaffee ohne Zucker und ohne Milch."},
+        {"add": {"en": "every morning", "de": "jeden Morgen"}, "sl": "Vsako jutro pijem kavo brez sladkorja in brez mleka.", "en": "Every morning I drink coffee without sugar and without milk.", "de": "Jeden Morgen trinke ich Kaffee ohne Zucker und ohne Milch."}
+      ]
+    },
+    {
+      "id": "kilogram-jabolk",
+      "level": "A2",
+      "rules": ["rodilnik-kolicina"],
+      "steps": [
+        {"sl": "Kupim jabolka.", "en": "I'm buying apples.", "de": "Ich kaufe Äpfel."},
+        {"add": {"en": "a kilo", "de": "ein Kilo"}, "sl": "Kupim kilogram jabolk.", "en": "I'm buying a kilo of apples.", "de": "Ich kaufe ein Kilo Äpfel."},
+        {"add": {"en": "and a piece of cheese", "de": "und ein Stück Käse"}, "sl": "Kupim kilogram jabolk in kos sira.", "en": "I'm buying a kilo of apples and a piece of cheese.", "de": "Ich kaufe ein Kilo Äpfel und ein Stück Käse."},
+        {"add": {"en": "at the market", "de": "auf dem Markt"}, "sl": "Na tržnici kupim kilogram jabolk in kos sira.", "en": "At the market I buy a kilo of apples and a piece of cheese.", "de": "Auf dem Markt kaufe ich ein Kilo Äpfel und ein Stück Käse."}
+      ]
+    },
+    {
+      "id": "micki-dam",
+      "level": "A2",
+      "rules": ["dajalnik", "vezniki"],
+      "steps": [
+        {"sl": "Dam kruh.", "en": "I give bread.", "de": "Ich gebe Brot."},
+        {"add": {"en": "to Micka", "de": "Micka"}, "sl": "Micki dam kruh.", "en": "I give Micka bread.", "de": "Ich gebe Micka Brot."},
+        {"add": {"en": "and milk", "de": "und Milch"}, "sl": "Micki dam kruh in mleko.", "en": "I give Micka bread and milk.", "de": "Ich gebe Micka Brot und Milch."},
+        {"add": {"en": "because she's hungry", "de": "weil sie Hunger hat"}, "sl": "Micki dam kruh in mleko, ker je lačna.", "en": "I give Micka bread and milk because she's hungry.", "de": "Ich gebe Micka Brot und Milch, weil sie Hunger hat."}
+      ]
+    },
+    {
+      "id": "sli-bi-v-gore",
+      "level": "A2",
+      "rules": ["pogojnik"],
+      "steps": [
+        {"sl": "Šli bi v gore.", "en": "We would go to the mountains.", "de": "Wir würden in die Berge gehen."},
+        {"add": {"en": "tomorrow", "de": "morgen"}, "sl": "Jutri bi šli v gore.", "en": "Tomorrow we would go to the mountains.", "de": "Morgen würden wir in die Berge gehen."},
+        {"add": {"en": "if the weather were nice", "de": "wenn das Wetter schön wäre"}, "sl": "Jutri bi šli v gore, če bi bilo vreme lepo.", "en": "Tomorrow we would go to the mountains if the weather were nice.", "de": "Morgen würden wir in die Berge gehen, wenn das Wetter schön wäre."}
+      ]
+    },
+    {
+      "id": "iz-vasi",
+      "level": "A2",
+      "rules": ["rodilnik-predlogi"],
+      "steps": [
+        {"sl": "Luka pride.", "en": "Luka is coming.", "de": "Luka kommt."},
+        {"add": {"en": "from the village", "de": "aus dem Dorf"}, "sl": "Luka pride iz vasi.", "en": "Luka is coming from the village.", "de": "Luka kommt aus dem Dorf."},
+        {"add": {"en": "in the evening", "de": "am Abend"}, "sl": "Luka zvečer pride iz vasi.", "en": "Luka comes from the village in the evening.", "de": "Am Abend kommt Luka aus dem Dorf."}
+      ]
+    }
+  ],
+  "machine_written": true,
+  "review": "sl, en, de: machine-written (Claude), not reviewed by a native speaker"
+}

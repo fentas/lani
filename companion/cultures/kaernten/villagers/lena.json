@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "lena",
+  "name": "Lena",
+  "emoji": "👧",
+  "art": "child2",
+  "voice": "female",
+  "speaker": "girl",
+  "role": {"de": "Mädchen", "sl": "Deklica", "en": "Girl", "it": "Bambina"},
+  "home": ["house", "hut", "spot:meadow"],
+  "register": "ti",
+  "skill": "wood",
+  "order": 3,
+  "routine": { "up": "7:00", "bed": "20:00" },
+  "personality": "Eight, Oma Resi's granddaughter. Cheeky and curious, asks 'Warum?' about everything and corrects everyone's German, the learner's too, kindly. Says du to the learner, of course. Quick, sing-song sentences, simple words, lots of questions. She learns Slovene at the bilingual school and now and then teaches the learner a word ('Weißt du, was Katze auf Slowenisch heißt? Mačka!'). Loves animals and cherries; hates being called small.",
+  "story": "Lena lives with her grandmother Resi and follows Florian to the meadow whenever there are lambs. In June she climbs the cherry tree (and eats half the cherries), knows every cat in the village by name, and reads better than Maxi, which she mentions. At school she learns German and Slovene, and she wants to be a teacher like Lehrerin Eva, or a shepherd, or both.",
+  "likes": [
+    {"de": "die Lämmer", "sl": "jagenjčki", "en": "lambs", "it": "gli agnellini"},
+    {"de": "die Kirschen", "sl": "češnje", "en": "cherries", "it": "le ciliegie"},
+    {"de": "die Katzen", "sl": "mačke", "en": "cats", "it": "i gatti"},
+    {"de": "die Bücher", "sl": "knjige", "en": "books", "it": "i libri"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Hallo. Ich bin Lena. Und du?", "sl": "Živjo. Jaz sem Lena. Pa ti?", "en": "Hi. I'm Lena. And you?", "it": "Ciao. Io sono Lena. E tu?", "level": 0 },
+      { "de": "Hallo! Warum bist du hier?", "sl": "Živjo! Zakaj si tukaj?", "en": "Hi! Why are you here?", "it": "Ciao! Perché sei qui?", "level": 0 },
+      { "de": "Hallo! Weißt du, was ich heute gesehen habe?", "sl": "Živjo! Veš, kaj sem danes videla?", "en": "Hi! Do you know what I saw today?", "it": "Ciao! Sai cosa ho visto oggi?", "level": 1 },
+      { "de": "Komm, komm! Da ist ein kleines Lamm!", "sl": "Pridi, pridi! Tam je jagenjček!", "en": "Come, come! There's a little lamb!", "it": "Vieni, vieni! C'è un agnellino!", "level": 2 },
+      { "de": "Da bist du! Die Oma hat dich gesucht. Und ich auch.", "sl": "Tu si! Babica te je iskala. In jaz tudi.", "en": "There you are! Granny was looking for you. And so was I.", "it": "Eccoti! La nonna ti cercava. E anch'io.", "level": 3 },
+      { "de": "Dich mag ich am liebsten. Sag's nicht Maxi!", "sl": "Tebe imam najraje. Ne povej Maxiju!", "en": "I like you best of all. Don't tell Maxi!", "it": "Tu sei il mio preferito. Non dirlo a Maxi!", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke! Du bist lieb.", "sl": "Hvala! Prijazen si.", "en": "Thanks! You're kind.", "it": "Grazie! Sei gentile." },
+      { "de": "Danke! Du kriegst Kirschen. Die Hälfte.", "sl": "Hvala! Dobiš češnje. Polovico.", "en": "Thanks! You get cherries. Half.", "it": "Grazie! Per te ci sono le ciliegie. Metà." },
+      { "de": "Danke, danke! Das sage ich der Oma.", "sl": "Hvala, hvala! Povem babici.", "en": "Thanks, thanks! I'll tell Granny.", "it": "Grazie, grazie! Lo dico alla nonna." }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "Weißt du was? Ich denke noch an {memory}. Wirklich!", "sl": "Veš kaj? Še vedno mislim na {memory}. Res!", "en": "You know what? I still think of {memory}. Really!", "it": "Sai? Ricordo ancora {memory}. Davvero!", "level": 2 },
+      { "de": "Ich hab's der Oma erzählt. Ich denke immer an {memory}.", "sl": "Babici sem povedala. Vedno mislim na {memory}.", "en": "I told Granny. I always think of {memory}.", "it": "L'ho detto alla nonna. Ricordo sempre {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Warum schläft die Eule in der Nacht nicht? Warum?", "sl": "Zakaj sova ponoči ne spi? Zakaj?", "en": "Why doesn't the owl sleep at night? Why?", "it": "Perché il gufo non dorme di notte? Perché?" },
+      { "de": "Weißt du, was Katze auf Slowenisch heißt? Mačka!", "sl": "Veš, kako se reče Katze po slovensko? Mačka!", "en": "Do you know what Katze (cat) is in Slovene? Mačka!", "it": "Sai come si dice Katze (gatto) in sloveno? Mačka!" },
+      { "de": "Die Katze von der Oma sitzt wieder auf der Linde.", "sl": "Babičina mačka je spet na lipi.", "en": "Granny's cat is up the linden again.", "it": "La gatta della nonna è di nuovo sul tiglio." },
+      { "de": "Die Kirschen sind süß. Ich habe alle gegessen.", "sl": "Češnje so sladke. Vse sem pojedla.", "en": "The cherries are sweet. I ate them all.", "it": "Le ciliegie sono dolci. Le ho mangiate tutte." }
+    ],
+    "cheer": [
+      { "de": "Jaaa! Richtig!", "sl": "Jaaa! Pravilno!", "en": "Yesss! Right!", "it": "Sììì! Giusto!" },
+      { "de": "Super! Fast so gut wie ich.", "sl": "Bravo! Skoraj tako dobro kot jaz.", "en": "Well done! Almost as good as me.", "it": "Bravo! Quasi bravo come me." },
+      { "de": "Siehst du? Das ist leicht!", "sl": "Vidiš? Lahko je!", "en": "See? It's easy!", "it": "Vedi? È facile!" },
+      { "de": "Juhu! Noch einmal!", "sl": "Juhu! Še enkrat!", "en": "Hooray! Again!", "it": "Evviva! Ancora!" }
+    ],
+    "comfort": [
+      { "de": "Macht nichts. Noch einmal, ja?", "sl": "Nič hudega. Še enkrat, ja?", "en": "Never mind. Once more, yes?", "it": "Non fa niente. Ancora una volta, sì?" },
+      { "de": "Falsch. Aber macht nichts, ich helfe dir.", "sl": "Narobe. Ampak nič hudega, jaz ti pomagam.", "en": "Wrong. But never mind, I'll help you.", "it": "Sbagliato. Ma non fa niente, ti aiuto io." },
+      { "de": "Fast! Warum? Schau noch einmal.", "sl": "Skoraj! Zakaj? Poglej še enkrat.", "en": "Almost! Why? Look again.", "it": "Quasi! Perché? Guarda ancora." }
+    ],
+    "listen": [
+      { "de": "Pst, hör zu!", "sl": "Pst, poslušaj!", "en": "Shh, listen!", "it": "Shh, ascolta!" },
+      { "de": "Hör zu. Dann sage ich dir, warum.", "sl": "Poslušaj. Potem ti povem, zakaj.", "en": "Listen. Then I'll tell you why.", "it": "Ascolta. Poi ti dico perché." },
+      { "de": "Leise! Hör zu.", "sl": "Tiho! Poslušaj.", "en": "Quiet! Listen.", "it": "Silenzio! Ascolta." }
+    ],
+    "bye": [
+      { "de": "Tschüss!", "sl": "Adijo!", "en": "Bye-bye!", "it": "Ciao ciao!" },
+      { "de": "Tschüss! Ich gehe zur Oma.", "sl": "Adijo! Grem k babici.", "en": "Bye! I'm going to Granny's.", "it": "Ciao! Vado dalla nonna." },
+      { "de": "Pfiat di! Morgen pflücken wir Kirschen.", "sl": "Pfiat di! Jutri bomo obirali češnje. (pfiat di: avstrijski pozdrav, adijo)", "en": "Pfiat di! Tomorrow we pick cherries. (pfiat di: Austrian for bye)", "it": "Pfiat di! Domani raccogliamo le ciliegie. (pfiat di: saluto austriaco, ciao)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Für mich? Jaaa! Woher weißt du, dass ich das mag?", "sl": "Zame? Jaaa! Kako si vedel, da mi je všeč?", "en": "For me? Yaaay! How did you know I like it?", "it": "Per me? Sììì! Come lo sapevi che mi piace?" },
+        { "de": "Danke! Die Oma kriegt nichts. Na gut, ein bisschen.", "sl": "Hvala! Babici ne dam nič. No dobro, malo.", "en": "Thanks! I'm not giving Granny any. All right, a little.", "it": "Grazie! Alla nonna non ne do. Va bene, un pochino." },
+        { "de": "Juhu! Das mag ich am liebsten! Danke, danke!", "sl": "Juhu! To imam najraje! Hvala, hvala!", "en": "Hooray! It's my favourite thing! Thank you, thank you!", "it": "Evviva! È la mia cosa preferita! Grazie, grazie!" }
+      ],
+      "ordinary": [
+        { "de": "Danke! Aber warum?", "sl": "Hvala! Ampak zakaj?", "en": "Thanks! But why?", "it": "Grazie! Ma perché?" },
+        { "de": "Oh, danke! Die Oma sagt, man sagt danke. Danke!", "sl": "O, hvala! Babica pravi, da se reče hvala. Hvala!", "en": "Oh, thanks! Granny says you say thank you. Thank you!", "it": "Oh, grazie! La nonna dice che si dice grazie. Grazie!" }
+      ],
+      "rare": [
+        { "de": "Oooh! Das hat niemand! Nicht einmal Maxi! Danke!", "sl": "Ooo! Tega nima nihče! Niti Maxi! Hvala!", "en": "Ooh! Nobody has this! Not even Maxi! Thanks!", "it": "Oooh! Questo non ce l'ha nessuno! Neanche Maxi! Grazie!" }
+      ]
+    }
+  }
+}

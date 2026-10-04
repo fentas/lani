@@ -1,0 +1,20 @@
+{
+  "_note": "How an answer in English is compared (see sl.json for the fields). same: a contraction is the same answer as its long form (don't = do not, I'm = I am, it's = it is, can't = cannot). No letters to fold.",
+  "same": [
+    ["(?<!\\p{L})can't(?!\\p{L})", "cannot"],
+    ["(?<!\\p{L})can not(?!\\p{L})", "cannot"],
+    ["(?<!\\p{L})won't(?!\\p{L})", "will not"],
+    ["(?<!\\p{L})shan't(?!\\p{L})", "shall not"],
+    ["n't(?!\\p{L})", " not"],
+    ["(?<!\\p{L})i'm(?!\\p{L})", "i am"],
+    ["'re(?!\\p{L})", " are"],
+    ["'ve(?!\\p{L})", " have"],
+    ["'ll(?!\\p{L})", " will"],
+    ["(?<!\\p{L})let's(?!\\p{L})", "let us"],
+    ["(?<!\\p{L})(it|that|there|here|what|where|who|he|she)'s(?!\\p{L})", "$1 is"]
+  ],
+  "fold": [],
+  "fold_hint": "none",
+  "loose": [],
+  "loose_hint": "none"
+}

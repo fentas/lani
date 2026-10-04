@@ -1,0 +1,8 @@
+{
+  "_note": "How an answer in Slovene is compared with the accepted ones (data/Grading.kt, Spelling). Each rule is [a regular expression, its replacement], applied in order to the lowercased answer without punctuation. same: spellings that are the same answer (correct). fold: letters a keyboard may lack; an answer that differs only in them is almost right, with fold_hint. loose: after fold; an answer that differs only there is almost right, with loose_hint. Hints: diacritics, accent, umlaut, apostrophe, none.",
+  "same": [],
+  "fold": [["[čć]", "c"], ["š", "s"], ["ž", "z"], ["đ", "d"]],
+  "fold_hint": "diacritics",
+  "loose": [],
+  "loose_hint": "none"
+}

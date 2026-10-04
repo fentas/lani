@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "birkett",
+  "name": "Mrs Birkett",
+  "emoji": "🍽️",
+  "art": "innkeeper",
+  "voice": "female",
+  "speaker": "woman",
+  "role": {"en": "Innkeeper", "sl": "Gostilničarka", "it": "Ostessa", "de": "Wirtin"},
+  "home": ["market", "house"],
+  "register": "vi",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 11,
+  "routine": {
+    "up": "6:00", "bed": "22:30",
+    "rituals": [
+      { "id": "inn", "at": "22:00", "until": "22:15", "to": "market", "doing": "stand", "title": {"en": "Mrs Birkett locks up the Packhorse Inn", "sl": "Gospa Birkett zaklene gostilno Packhorse", "it": "La signora Birkett chiude la locanda Packhorse", "de": "Frau Birkett sperrt das Gasthaus Packhorse zu"} }
+    ]
+  },
+  "personality": "Innkeeper in her forties who runs the Packhorse Inn. Always busy, always warm, three plates on one arm: 'Coming, love!', 'Won't be a minute!'. Calls the learner 'love', like a mum; the learner says 'Mrs Birkett', never her first name, as is polite at the inn. Speaks quick but simple British English and slows down when the learner doesn't understand. Walkers and climbers from Germany, Italy, Slovenia and Japan every summer; she likes to learn a word of each language.",
+  "story": "The Packhorse Inn stands on the square, by the old packhorse bridge: tea and scones in the morning, tatie pot and pies at dinner, and on Saturday nights the whole village by the fire. Her son Harry runs between the tables with a football. Every summer walkers from Germany, Italy and Slovenia book her rooms, and she likes it when someone helps her with their languages.",
+  "likes": [
+    {"en": "guests (walkers from everywhere)", "sl": "gostje (pohodniki od vsepovsod)", "it": "gli ospiti (escursionisti da ogni parte)", "de": "Gäste (Wanderer von überall)"},
+    {"en": "cooking (tatie pot and pies)", "sl": "kuhanje (tatie pot in pite)", "it": "cucinare (il tatie pot e le torte salate)", "de": "Kochen (Tatie Pot und Pasteten)"},
+    {"en": "languages", "sl": "jeziki", "it": "le lingue", "de": "Sprachen"},
+    {"en": "working fast", "sl": "hitro delo", "it": "lavorare in fretta", "de": "schnell arbeiten"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Hello! Welcome to the Packhorse Inn!", "sl": "Pozdravljen! Dobrodošel v gostilni Packhorse Inn!", "it": "Salve! Benvenuto al Packhorse Inn!", "de": "Hallo! Willkommen im Packhorse Inn!", "level": 0 },
+      { "en": "Hello, love! Would you like some apple juice?", "sl": "Pozdravljen, dragi! Bi jabolčni sok?", "it": "Ciao, caro! Vuoi un succo di mela?", "de": "Hallo, mein Lieber! Möchtest du einen Apfelsaft?", "level": 0 },
+      { "en": "Oh, hello! Sit down, I won't be a minute.", "sl": "O, živjo! Sedi, takoj pridem.", "it": "Oh, ciao! Siediti, arrivo subito.", "de": "Oh, hallo! Setz dich, ich komme gleich.", "level": 1 },
+      { "en": "Hello, love! Your usual table?", "sl": "Živjo, dragi! Tvoja običajna miza?", "it": "Ciao, tesoro! Il solito tavolo?", "de": "Hallo, mein Lieber! Dein Stammplatz?", "level": 2 },
+      { "en": "There you are! I've saved you some tatie pot.", "sl": "Tu si! Zate sem prihranila malo tatie pota.", "it": "Eccoti! Ti ho messo da parte un po' di tatie pot.", "de": "Da bist du ja! Ich habe dir etwas Tatie Pot aufgehoben.", "level": 3 },
+      { "en": "My love! You're at home here. Come and sit with me in the kitchen.", "sl": "Moj dragi! Tu si kot doma. Pridi, sedi k meni v kuhinjo.", "it": "Tesoro mio! Qui sei di casa. Vieni a sederti con me in cucina.", "de": "Mein Lieber! Hier bist du zu Hause. Komm, setz dich zu mir in die Küche.", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Thank you! You've helped me a lot.", "sl": "Hvala! Zelo si mi pomagal.", "it": "Grazie! Mi hai aiutato tanto.", "de": "Danke! Du hast mir sehr geholfen." },
+      { "en": "Thanks ever so much! There's tatie pot for you today.", "sl": "Najlepša hvala! Danes je zate tatie pot.", "it": "Grazie mille! Oggi c'è il tatie pot per te.", "de": "Tausend Dank! Heute gibt es Tatie Pot für dich." },
+      { "en": "Thank you, love. You're a star.", "sl": "Hvala, dragi. Pravi zaklad si.", "it": "Grazie, caro. Sei un angelo.", "de": "Danke, mein Lieber. Du bist ein Schatz." }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "Even on a busy day, I don't forget {memory}.", "sl": "Tudi ko je veliko dela, ne pozabim na {memory}.", "it": "Anche con tanto lavoro, non dimentico {memory}.", "de": "Auch wenn viel los ist, vergesse ich {memory} nicht.", "level": 2 },
+      { "en": "I like to remember {memory}.", "sl": "Rada se spomnim na {memory}.", "it": "Mi piace ricordare {memory}.", "de": "Ich erinnere mich gern an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "en": "Coming, coming! Won't be a minute!", "sl": "Že grem, že grem! Samo minutko!", "it": "Arrivo, arrivo! Un minuto!", "de": "Ich komme, ich komme! Einen Moment!" },
+      { "en": "Walkers from Germany, Italy and Slovenia are coming tonight!", "sl": "Nocoj pridejo pohodniki iz Nemčije, Italije in Slovenije!", "it": "Stasera arrivano escursionisti dalla Germania, dall'Italia e dalla Slovenia!", "de": "Heute Abend kommen Wanderer aus Deutschland, Italien und Slowenien!", "when": ["morning", "afternoon", "evening"] },
+      { "en": "Two teas and a scone for table three.", "sl": "Dva čaja in en scone za mizo tri.", "it": "Due tè e uno scone per il tavolo tre.", "de": "Zwei Tee und ein Scone für Tisch drei." },
+      { "en": "Harry! No football in the kitchen!", "sl": "Harry! Žoga ne sodi v kuhinjo!", "it": "Harry! Niente pallone in cucina!", "de": "Harry! Kein Fußball in der Küche!" }
+    ],
+    "cheer": [
+      { "en": "Well done, love!", "sl": "Bravo, dragi!", "it": "Bravo, caro!", "de": "Gut gemacht, mein Lieber!" },
+      { "en": "Perfect, like my tatie pot!", "sl": "Odlično, kot moj tatie pot!", "it": "Perfetto, come il mio tatie pot!", "de": "Perfekt, wie mein Tatie Pot!" },
+      { "en": "Right! You got it straight away.", "sl": "Prav! Takoj si razumel.", "it": "Giusto! Hai capito subito.", "de": "Richtig! Du hast es sofort verstanden." }
+    ],
+    "comfort": [
+      { "en": "Never mind, love. Try again.", "sl": "Nič hudega, dragi. Poskusi še enkrat.", "it": "Non fa niente, caro. Riprova.", "de": "Macht nichts, mein Lieber. Versuch es noch mal." },
+      { "en": "Slowly, we've got time.", "sl": "Počasi, časa imava dovolj.", "it": "Piano, abbiamo tempo.", "de": "Langsam, wir haben Zeit." },
+      { "en": "Almost! Once more.", "sl": "Skoraj! Še enkrat.", "it": "Quasi! Ancora una volta.", "de": "Fast! Noch einmal." }
+    ],
+    "listen": [
+      { "en": "Listen carefully.", "sl": "Dobro poslušaj.", "it": "Ascolta bene.", "de": "Hör gut zu." },
+      { "en": "Wait, listen. What's the guest saying?", "sl": "Počakaj, poslušaj. Kaj pravi gost?", "it": "Aspetta, ascolta. Cosa dice l'ospite?", "de": "Warte, hör zu. Was sagt der Gast?" },
+      { "en": "Shh, listen.", "sl": "Pst, poslušaj.", "it": "Shh, ascolta.", "de": "Pst, hör zu." }
+    ],
+    "bye": [
+      { "en": "Goodbye!", "sl": "Na svidenje!", "it": "Arrivederci!", "de": "Auf Wiedersehen!" },
+      { "en": "Bye, love! Come back soon.", "sl": "Adijo, dragi! Kmalu spet pridi.", "it": "Ciao, caro! Torna presto.", "de": "Tschüss, mein Lieber! Komm bald wieder." },
+      { "en": "Mind how you go, love! There's pie tomorrow.", "sl": "Pazi nase, dragi! Jutri bo pita.", "it": "Stammi bene, caro! Domani c'è la torta salata.", "de": "Pass auf dich auf, mein Lieber! Morgen gibt es Pastete." }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "Oh, love! How did you know? I love it!", "sl": "O, dragi! Kako si vedel? Zelo mi je všeč!", "it": "Oh, tesoro! Come lo sapevi? Mi piace tantissimo!", "de": "Oh, mein Lieber! Woher wusstest du das? Ich freue mich so!" },
+        { "en": "For me? Thanks ever so much! Your dinner is on me today.", "sl": "Zame? Najlepša hvala! Danes te jaz povabim na kosilo.", "it": "Per me? Grazie mille! Oggi il pranzo te lo offro io.", "de": "Für mich? Tausend Dank! Heute lade ich dich zum Essen ein." },
+        { "en": "Just what I needed! Thank you, love.", "sl": "Točno to sem potrebovala! Hvala, dragi.", "it": "Proprio quello che mi serviva! Grazie, tesoro.", "de": "Genau das habe ich gebraucht! Danke, mein Lieber." }
+      ],
+      "ordinary": [
+        { "en": "Thank you, love! That's kind of you.", "sl": "Hvala, dragi! Prijazen si.", "it": "Grazie, tesoro! Sei gentile.", "de": "Danke, mein Lieber! Das ist lieb von dir." },
+        { "en": "Oh, thank you! Sit down, I'll bring you a juice.", "sl": "O, hvala! Sedi, takoj ti prinesem sok.", "it": "Oh, grazie! Siediti, ti porto subito un succo.", "de": "Oh, danke! Setz dich, ich bringe dir gleich einen Saft." }
+      ],
+      "rare": [
+        { "en": "How wonderful! They don't even have this in Keswick. Thank you!", "sl": "Čudovito! Tega nimajo niti v Keswicku. Hvala!", "it": "Che meraviglia! Questo non ce l'hanno neanche a Keswick. Grazie!", "de": "Wie wunderbar! So etwas gibt es nicht einmal in Keswick. Danke!" }
+      ]
+    }
+  }
+}

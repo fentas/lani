@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "there-is-are",
+  "language": "en",
+  "level": "A1",
+  "emoji": "✨",
+  "title": {
+    "en": "There is, there are: a lot of stars",
+    "sl": "There is, there are: je, so",
+    "it": "There is, there are: c'è, ci sono",
+    "de": "There is, there are: es gibt"
+  },
+  "rule": {
+    "en": "To say that something exists or is somewhere, English starts with **there**: **there is** (short **there's**) + one thing or something you can't count, **there are** + more than one: **There's a tent by the pond.** **There's some milk.** **There are a lot of stars tonight.**\n\nThe negative is **there isn't** / **there aren't**, often with any: **There isn't any bread.** **There aren't any clouds.** A question turns it round: **Is there a shop in the village?** **Are there any fish in the tarn?** Short answers: **Yes, there is.** / **No, there aren't.**\n\nThe past: **there was**, **there were**: **There were fifty sheep on the fell.**\n\nDon't mix it up with **it is**: there is says that something is there, it is says what it is like: **There's a bridge. It's very old.**",
+    "sl": "Ko povemo, da nekaj obstaja ali je nekje, angleščina začne s **there**: **there is** (kratko **there's**) + ena stvar ali nekaj neštevnega, **there are** + več stvari: **There's a tent by the pond.** (Ob ribniku je šotor.) **There's some milk.** **There are a lot of stars tonight.** (Nocoj je veliko zvezd.)\n\nSlovenščina tu reče le je ali so; angleščina ne more začeti z *Is a tent* ali *Are many stars*, there je obvezen.\n\nZanikanje je **there isn't** / **there aren't**, pogosto z any: **There isn't any bread.** (Kruha ni.) **There aren't any clouds.** Vprašanje obrne vrstni red: **Is there a shop in the village?** (Je v vasi trgovina?) **Are there any fish in the tarn?** Kratki odgovori: **Yes, there is.** / **No, there aren't.**\n\nV pretekliku: **there was**, **there were**: **There were fifty sheep on the fell.** (Na hribu je bilo petdeset ovc.)\n\nNe zamenjaj z **it is**: there is pove, da nekaj je, it is pove, kakšno je: **There's a bridge. It's very old.** (Tam je most. Zelo star je.)",
+    "it": "Per dire che una cosa c'è, l'inglese ha **there is** e **there are**, proprio come c'è e ci sono: **there is** (breve **there's**) + una cosa sola o un nome non numerabile, **there are** + più cose: **There's a tent by the pond.** (C'è una tenda vicino allo stagno.) **There's some milk.** **There are a lot of stars tonight.** (Stasera ci sono tante stelle.)\n\nLa negazione è **there isn't** / **there aren't**, spesso con any: **There isn't any bread.** (Non c'è pane.) **There aren't any clouds.** Nella domanda si inverte: **Is there a shop in the village?** (C'è un negozio in paese?) **Are there any fish in the tarn?** Risposte brevi: **Yes, there is.** / **No, there aren't.**\n\nAl passato: **there was**, **there were** (c'era, c'erano): **There were fifty sheep on the fell.**\n\nNon confonderlo con **it is**: there is dice che una cosa c'è, it is dice com'è: **There's a bridge. It's very old.** (C'è un ponte. È molto vecchio.)",
+    "de": "Um zu sagen, dass etwas da ist oder existiert, beginnt das Englische mit **there**: **there is** (kurz **there's**) + eine Sache oder etwas Unzählbares, **there are** + mehrere: **There's a tent by the pond.** (Am Teich steht ein Zelt.) **There's some milk.** **There are a lot of stars tonight.** (Heute Nacht sind viele Sterne am Himmel.)\n\nAnders als *es gibt*, das immer gleich bleibt, richtet sich das Verb nach der Zahl: **is** für eins, **are** für mehrere. Und nie *It gives*.\n\nDie Verneinung ist **there isn't** / **there aren't**, oft mit any: **There isn't any bread.** (Es gibt kein Brot.) **There aren't any clouds.** Die Frage dreht es um: **Is there a shop in the village?** (Gibt es im Dorf einen Laden?) **Are there any fish in the tarn?** Kurze Antworten: **Yes, there is.** / **No, there aren't.**\n\nIn der Vergangenheit: **there was**, **there were**: **There were fifty sheep on the fell.**\n\nNicht verwechseln mit **it is**: there is sagt, dass etwas da ist, it is sagt, wie es ist: **There's a bridge. It's very old.** (Da ist eine Brücke. Sie ist sehr alt.)"
+  },
+  "table": {
+    "head": [
+      { "en": "form", "sl": "oblika", "it": "forma", "de": "Form" },
+      { "en": "one", "sl": "ena stvar", "it": "una cosa", "de": "eins" },
+      { "en": "more than one", "sl": "več stvari", "it": "più cose", "de": "mehrere" }
+    ],
+    "rows": [
+      [{ "en": "positive", "sl": "pritrdilno", "it": "affermativo", "de": "bejaht" }, "There's a tent.", "There are two tents."],
+      [{ "en": "negative", "sl": "nikalno", "it": "negativo", "de": "verneint" }, "There isn't a shop.", "There aren't any shops."],
+      [{ "en": "question", "sl": "vprašanje", "it": "domanda", "de": "Frage" }, "Is there a shop?", "Are there any shops?"],
+      [{ "en": "short answer", "sl": "kratek odgovor", "it": "risposta breve", "de": "Kurzantwort" }, "Yes, there is.", "No, there aren't."],
+      [{ "en": "past", "sl": "preteklik", "it": "passato", "de": "Vergangenheit" }, "There was a fox.", "There were fifty sheep."]
+    ]
+  },
+  "examples": [
+    {
+      "en": "There are a lot of stars tonight.",
+      "sl": "Nocoj je na nebu veliko zvezd.",
+      "it": "Stasera ci sono tante stelle.",
+      "de": "Heute Nacht sind viele Sterne am Himmel.",
+      "note": {
+        "en": "More than one: there are.",
+        "sl": "Več stvari: there are.",
+        "it": "Più cose: there are.",
+        "de": "Mehrere: there are."
+      }
+    },
+    {
+      "en": "There's a tent by the pond.",
+      "sl": "Ob ribniku je šotor.",
+      "it": "C'è una tenda vicino allo stagno.",
+      "de": "Am Teich steht ein Zelt."
+    },
+    {
+      "en": "Is there a shop in the village? — Yes, there is.",
+      "sl": "Je v vasi trgovina? — Ja, je.",
+      "it": "C'è un negozio in paese? — Sì, c'è.",
+      "de": "Gibt es im Dorf einen Laden? — Ja.",
+      "note": {
+        "en": "The question turns it round: Is there …? Short answer: Yes, there is.",
+        "sl": "Vprašanje obrne red: Is there …? Kratki odgovor: Yes, there is.",
+        "it": "La domanda si inverte: Is there …? Risposta breve: Yes, there is.",
+        "de": "Die Frage dreht es um: Is there …? Kurzantwort: Yes, there is."
+      }
+    },
+    {
+      "en": "Are there any fish in the tarn?",
+      "sl": "So v gorskem jezercu ribe?",
+      "it": "Ci sono pesci nel laghetto?",
+      "de": "Gibt es Fische im Bergsee?",
+      "note": {
+        "en": "fish is plural here, so are.",
+        "sl": "fish je tu množina, zato are.",
+        "it": "fish qui è plurale, quindi are.",
+        "de": "fish ist hier Plural, also are."
+      }
+    },
+    {
+      "en": "There isn't any bread, but there's some honey.",
+      "sl": "Kruha ni, je pa nekaj medu.",
+      "it": "Non c'è pane, ma c'è un po' di miele.",
+      "de": "Es gibt kein Brot, aber etwas Honig."
+    },
+    {
+      "en": "There's an old bridge over the beck. It's made of stone.",
+      "sl": "Čez potok vodi star most. Narejen je iz kamna.",
+      "it": "Sul ruscello c'è un vecchio ponte. È di pietra.",
+      "de": "Über den Bach führt eine alte Brücke. Sie ist aus Stein.",
+      "note": {
+        "en": "there's: something is there; it's: what it is like.",
+        "sl": "there's: nekaj tam je; it's: kakšno je.",
+        "it": "there's: una cosa c'è; it's: com'è.",
+        "de": "there's: etwas ist da; it's: wie es ist."
+      }
+    },
+    {
+      "en": "There were fifty sheep on the fell.",
+      "sl": "Na hribu je bilo petdeset ovc.",
+      "it": "Sul monte c'erano cinquanta pecore.",
+      "de": "Auf dem Berg waren fünfzig Schafe.",
+      "note": {
+        "en": "The past: there was, there were.",
+        "sl": "Preteklik: there was, there were.",
+        "it": "Il passato: there was, there were.",
+        "de": "Vergangenheit: there was, there were."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["there_is", "there_are", "there_is_are", "existence", "there_was"],
+  "see": ["some-any", "plurals", "to-be"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

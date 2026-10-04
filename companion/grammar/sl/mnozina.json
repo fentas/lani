@@ -1,0 +1,101 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "mnozina",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🐴",
+  "title": {
+    "sl": "Množina: konji, ovce, okna",
+    "en": "The plural: konji, ovce, okna",
+    "de": "Der Plural: konji, ovce, okna",
+    "it": "Il plurale: konji, ovce, okna"
+  },
+  "rule": {
+    "en": "For three or more a noun takes the plural (*množina*); for exactly two, the dual (see *dvojina*). The ending follows the gender:\n\n**masculine** → **-i**: konj → **konji**, stol → **stoli**; many short ones add -ov-: grad → **gradovi**, sin → **sinovi**.\n**feminine** in -a → **-e**: ovca → **ovce**, hiša → **hiše**; without -a → **-i**: stvar → **stvari**, noč → **noči**.\n**neuter** → **-a**: okno → **okna**, jajce → **jajca**.\n\nThe verb and the adjective go plural with it: **Konji so lačni.** **Ovce so bele.** **Okna so odprta.**\n\nAs the object (the accusative), masculine plurals end in **-e**: **Vidim konje.** Feminine and neuter ones stay: **Vidim ovce, okna.**\n\nA few are irregular: človek → **ljudje**, otrok → **otroci**, dan → **dnevi**, brat → **bratje**. Some nouns have only a plural: **vrata, hlače, očala, grablje**.",
+    "de": "Ab drei steht ein Nomen im Plural (*množina*); für genau zwei im Dual (siehe *dvojina*). Die Endung folgt dem Geschlecht:\n\n**männlich** → **-i**: konj → **konji**, stol → **stoli**; viele kurze fügen -ov- ein: grad → **gradovi**, sin → **sinovi**.\n**weiblich** auf -a → **-e**: ovca → **ovce**, hiša → **hiše**; ohne -a → **-i**: stvar → **stvari**, noč → **noči**.\n**sächlich** → **-a**: okno → **okna**, jajce → **jajca**.\n\nVerb und Adjektiv gehen mit in den Plural: **Konji so lačni.** **Ovce so bele.** **Okna so odprta.**\n\nAls Objekt (Akkusativ) enden männliche Plurale auf **-e**: **Vidim konje.** Weibliche und sächliche bleiben: **Vidim ovce, okna.**\n\nEinige sind unregelmäßig: človek → **ljudje**, otrok → **otroci**, dan → **dnevi**, brat → **bratje**. Manche Nomen gibt es nur im Plural: **vrata, hlače, očala, grablje**.",
+    "it": "Da tre in su il nome va al plurale (*množina*); per due esatti, al duale (vedi *dvojina*). La desinenza segue il genere:\n\n**maschile** → **-i**: konj → **konji**, stol → **stoli**; molti nomi brevi aggiungono -ov-: grad → **gradovi**, sin → **sinovi**.\n**femminile** in -a → **-e**: ovca → **ovce**, hiša → **hiše**; senza -a → **-i**: stvar → **stvari**, noč → **noči**.\n**neutro** → **-a**: okno → **okna**, jajce → **jajca**.\n\nIl verbo e l'aggettivo vanno al plurale con lui: **Konji so lačni.** **Ovce so bele.** **Okna so odprta.**\n\nCome oggetto (accusativo) i plurali maschili finiscono in **-e**: **Vidim konje.** Femminili e neutri restano uguali: **Vidim ovce, okna.**\n\nAlcuni sono irregolari: človek → **ljudje**, otrok → **otroci**, dan → **dnevi**, brat → **bratje**. Certi nomi esistono solo al plurale: **vrata, hlače, očala, grablje**."
+  },
+  "table": {
+    "head": [
+      { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+      { "sl": "ednina", "en": "one", "de": "eins", "it": "uno" },
+      { "sl": "množina", "en": "three or more", "de": "drei und mehr", "it": "tre e più" },
+      { "sl": "tožilnik množine", "en": "plural object", "de": "Plural-Objekt", "it": "oggetto plurale" }
+    ],
+    "rows": [
+      [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "konj", "konji", "konje"],
+      [{ "sl": "moški, -ov-", "en": "masculine, -ov-", "de": "männlich, -ov-", "it": "maschile, -ov-" }, "grad", "gradovi", "gradove"],
+      [{ "sl": "ženski, -a", "en": "feminine, -a", "de": "weiblich, -a", "it": "femminile, -a" }, "ovca", "ovce", "ovce"],
+      [{ "sl": "ženski, brez -a", "en": "feminine, no -a", "de": "weiblich, ohne -a", "it": "femminile, senza -a" }, "stvar", "stvari", "stvari"],
+      [{ "sl": "srednji, -o", "en": "neuter, -o", "de": "sächlich, -o", "it": "neutro, -o" }, "okno", "okna", "okna"],
+      [{ "sl": "srednji, -e", "en": "neuter, -e", "de": "sächlich, -e", "it": "neutro, -e" }, "jajce", "jajca", "jajca"],
+      [{ "sl": "nepravilno", "en": "irregular", "de": "unregelmäßig", "it": "irregolare" }, "človek", "ljudje", "ljudi"],
+      [{ "sl": "nepravilno", "en": "irregular", "de": "unregelmäßig", "it": "irregolare" }, "otrok", "otroci", "otroke"],
+      [{ "sl": "nepravilno", "en": "irregular", "de": "unregelmäßig", "it": "irregolare" }, "dan", "dnevi", "dneve"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Na travniku so ovce in konji.",
+      "en": "There are sheep and horses in the meadow.",
+      "de": "Auf der Wiese sind Schafe und Pferde.",
+      "it": "Sul prato ci sono pecore e cavalli."
+    },
+    {
+      "sl": "Luka ima tri konje.",
+      "en": "Luka has three horses.",
+      "de": "Luka hat drei Pferde.",
+      "it": "Luka ha tre cavalli.",
+      "note": {
+        "en": "Three or four: the plural. As the object, masculine -e: konje.",
+        "de": "Drei oder vier: der Plural. Als Objekt männlich -e: konje.",
+        "it": "Tre o quattro: il plurale. Come oggetto, maschile -e: konje."
+      }
+    },
+    {
+      "sl": "Poglejte, postrvi!",
+      "en": "Look, trout, several of them!",
+      "de": "Schauen Sie, Forellen, mehrere!",
+      "it": "Guardi, trote, più di una!",
+      "note": {
+        "en": "One: postrv. More: postrvi, as stvar → stvari.",
+        "de": "Eine: postrv. Mehrere: postrvi, wie stvar → stvari.",
+        "it": "Una: postrv. Più di una: postrvi, come stvar → stvari."
+      }
+    },
+    {
+      "sl": "Otroci so v šoli.",
+      "en": "The children are at school.",
+      "de": "Die Kinder sind in der Schule.",
+      "it": "I bambini sono a scuola."
+    },
+    {
+      "sl": "Ljudje v vasi so prijazni.",
+      "en": "The people in the village are friendly.",
+      "de": "Die Leute im Dorf sind freundlich.",
+      "it": "La gente del paese è gentile."
+    },
+    {
+      "sl": "Kje so moje hlače?",
+      "en": "Where are my trousers?",
+      "de": "Wo ist meine Hose?",
+      "it": "Dove sono i miei pantaloni?",
+      "note": {
+        "en": "hlače has only a plural: moje hlače so, like vrata and očala.",
+        "de": "hlače gibt es nur im Plural: moje hlače so, wie vrata und očala.",
+        "it": "hlače esiste solo al plurale: moje hlače so, come vrata e očala."
+      }
+    },
+    {
+      "sl": "Mostovi čez Sočo so stari.",
+      "en": "The bridges over the Soča are old.",
+      "de": "Die Brücken über die Soča sind alt.",
+      "it": "I ponti sull'Isonzo sono vecchi."
+    }
+  ],
+  "modules": [],
+  "tags": ["plural", "noun_plural", "plural_noun", "singular_plural", "mnozina"],
+  "see": ["dvojina", "stevila-samostalniki", "spol-samostalnikov", "pridevniki-ujemanje", "imenovalnik", "tozilnik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

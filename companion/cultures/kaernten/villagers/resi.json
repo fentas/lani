@@ -1,0 +1,90 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "resi",
+  "name": "Oma Resi",
+  "emoji": "👵",
+  "art": "grandma",
+  "voice": "female",
+  "speaker": "grandma",
+  "role": {"de": "Oma", "sl": "Babica", "en": "Grandmother", "it": "Nonna"},
+  "home": ["house", "hut", "spot:woodpile"],
+  "register": "ti",
+  "skill": "food",
+  "order": 1,
+  "routine": {
+    "up": "5:00", "bed": "21:00",
+    "rituals": [
+      { "id": "ofen", "at": "4:35", "until": "4:55", "to": "spot:woodpile", "doing": "carry", "title": {"de": "Resi holt Holz und heizt den Ofen an", "sl": "Resi prinese drva in zakuri peč", "en": "Resi fetches wood and lights the stove", "it": "Resi prende la legna e accende la stufa"} }
+    ]
+  },
+  "personality": "Warm grandmother in her seventies, always cooking, feeds everyone: 'Iss, iss!', 'Setz dich, Schatzi.' Calls the learner 'Schatzi'. Says du to the learner, and the learner says du back and calls her Oma Resi, as the whole village does. Slow, simple, kind Austrian German in short warm sentences. Her mother came from the Rosental and spoke Slovene, so she still counts eggs in Slovene when she bakes ('ena, dve, tri'). Forgets words, never people. Worries about the cold winter fog and about people who don't eat enough.",
+  "story": "Resi has cooked for the whole village since her daughter was small: Kärntner Kasnudeln on Fridays (she crimps every edge by hand and says a good Nudel needs a good Krendel), Heidensterz when it's cold, Reindling on Sundays and at Easter, and the Kirchtagssuppe at the Kirchtag. Her granddaughter Lena lives with her, and her sister Mitzi comes to live next door. Until the village has a house she keeps her kitchen by the woodpile, where the fire is, and nobody leaves hungry.",
+  "likes": [
+    {"de": "der Reindling", "sl": "reindling (koroški kvašeni kolač)", "en": "Reindling (the Carinthian yeast cake with cinnamon and raisins)", "it": "il reindling (dolce lievitato della Carinzia)"},
+    {"de": "das Sonntagsessen", "sl": "nedeljsko kosilo", "en": "Sunday lunch", "it": "il pranzo della domenica"},
+    {"de": "die Enkelkinder", "sl": "vnuki", "en": "her grandchildren", "it": "i nipotini"},
+    {"de": "der Gemüsegarten", "sl": "zelenjavni vrt", "en": "her vegetable garden", "it": "l'orto"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Grüß Gott! Hast du Hunger?", "sl": "Pozdravljen! Si lačen?", "en": "Hello! Are you hungry?", "it": "Salve! Hai fame?", "level": 0 },
+      { "de": "Komm, komm. Setz dich.", "sl": "Pridi, pridi. Sedi.", "en": "Come, come. Sit down.", "it": "Vieni, vieni. Siediti.", "level": 0 },
+      { "de": "Ah, da bist du ja! Ich koche gerade. Hast du Hunger?", "sl": "A, tu si! Ravno kuham. Si lačen?", "en": "Ah, there you are! I'm cooking. Are you hungry?", "it": "Ah, eccoti! Sto cucinando. Hai fame?", "level": 1 },
+      { "de": "Servus, Schatzi! Komm, die Suppe ist heiß.", "sl": "Živjo, zaklad! Pridi, juha je vroča.", "en": "Hi, sweetheart! Come, the soup is hot.", "it": "Ciao, tesoro! Vieni, la minestra è calda.", "level": 2 },
+      { "de": "Endlich bist du da! Wo warst du denn? Setz dich, setz dich.", "sl": "Končno si tu! Kje pa si bil? Sedi, sedi.", "en": "There you are at last! Where have you been? Sit down, sit down.", "it": "Eccoti, finalmente! Dove sei stato? Siediti, siediti.", "level": 3 },
+      { "de": "Du bist wie ein Enkelkind für mich. Komm zum Tisch!", "sl": "Zame si kot vnuk. Pridi k mizi!", "en": "You're like a grandchild to me. Come to the table!", "it": "Sei come un nipote per me. Vieni a tavola!", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke, Schatzi. Das hast du gut gemacht.", "sl": "Hvala, zaklad. To si dobro naredil.", "en": "Thank you, sweetheart. You did that well.", "it": "Grazie, tesoro. L'hai fatto bene." },
+      { "de": "Super! Nimm ein Stück Reindling.", "sl": "Super! Vzemi kos reindlinga.", "en": "Great! Take a piece of Reindling.", "it": "Bravo! Prendi un pezzo di reindling." },
+      { "de": "Danke! Du hast ein goldenes Herz.", "sl": "Hvala! Zlato srce imaš.", "en": "Thank you! You have a heart of gold.", "it": "Grazie! Hai un cuore d'oro." }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "Weißt du, ich denke immer noch an {memory}.", "sl": "Veš, nikoli ne pozabim na {memory}.", "en": "You know, I still think of {memory}.", "it": "Sai, non dimentico mai {memory}.", "level": 2 },
+      { "de": "Ich denke so gern an {memory}. Wie gestern!", "sl": "Rada se spomnim na {memory}. Kot da je bilo včeraj!", "en": "I love to think of {memory}. It seems like yesterday!", "it": "Mi piace ricordare {memory}. Sembra ieri!", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Heute mache ich Kasnudeln. Riechst du das?", "sl": "Danes delam kasnudeln. Vohaš?", "en": "Today I'm making Kasnudeln. Can you smell it?", "it": "Oggi faccio i kasnudeln. Senti il profumo?" },
+      { "de": "Eine gute Nudel braucht einen guten Krendel.", "sl": "Dobra nudelj potrebuje dober krendel. (krendel: zavihan rob kasnudeln)", "en": "A good Nudel needs a good crimp. (Krendel: the crimped edge of Kasnudeln)", "it": "Un buon raviolo vuole un buon bordo. (Krendel: il bordo pizzicato dei kasnudeln)" },
+      { "de": "Am Sonntag kommt die ganze Familie zum Essen.", "sl": "V nedeljo pride na kosilo vsa družina.", "en": "The whole family is coming to lunch on Sunday.", "it": "Domenica viene tutta la famiglia a pranzo." },
+      { "de": "Ena, dve, tri … drei Eier. So hat meine Mama gezählt.", "sl": "Ena, dve, tri … tri jajca. Tako je štela moja mama.", "en": "Ena, dve, tri … three eggs. That's how my mum counted. (ena, dve, tri: Slovene for one, two, three)", "it": "Ena, dve, tri … tre uova. Così contava la mia mamma. (ena, dve, tri: uno, due, tre in sloveno)" }
+    ],
+    "cheer": [
+      { "de": "Super, Schatzi!", "sl": "Bravo, zaklad!", "en": "Well done, sweetheart!", "it": "Bravo, tesoro!" },
+      { "de": "Ja, genau so! Sehr gut.", "sl": "Ja, tako! Odlično.", "en": "Yes, that's it! Very good.", "it": "Sì, così! Bravissimo." },
+      { "de": "Toll! Dafür gibt es ein Stück Reindling.", "sl": "Bravo! Za to dobiš kos reindlinga.", "en": "Great! That earns you a piece of Reindling.", "it": "Bravo! Per questo c'è un pezzo di reindling." },
+      { "de": "Siehst du? Du kannst es!", "sl": "Vidiš? Znaš!", "en": "See? You can do it!", "it": "Vedi? Lo sai fare!" }
+    ],
+    "comfort": [
+      { "de": "Macht nichts. Noch einmal, langsam.", "sl": "Nič hudega. Še enkrat, počasi.", "en": "Never mind. Once more, slowly.", "it": "Non fa niente. Ancora una volta, piano." },
+      { "de": "Keine Sorge. Morgen geht es besser.", "sl": "Brez skrbi. Jutri bo šlo bolje.", "en": "Don't worry. It'll go better tomorrow.", "it": "Tranquillo. Domani va meglio." },
+      { "de": "Ich vergesse auch Wörter. Probier's noch einmal!", "sl": "Tudi jaz pozabljam besede. Poskusi še enkrat!", "en": "I forget words too. Try again!", "it": "Anch'io dimentico le parole. Riprova!" }
+    ],
+    "listen": [
+      { "de": "Hör der Oma zu.", "sl": "Poslušaj babico.", "en": "Listen to Granny.", "it": "Ascolta la nonna." },
+      { "de": "Pst, hör zu.", "sl": "Pst, poslušaj.", "en": "Shh, listen.", "it": "Shh, ascolta." },
+      { "de": "Hör gut zu, Schatzi.", "sl": "Dobro poslušaj, zaklad.", "en": "Listen carefully, sweetheart.", "it": "Ascolta bene, tesoro." }
+    ],
+    "bye": [
+      { "de": "Servus, Schatzi. Komm bald wieder!", "sl": "Adijo, zaklad. Pridi spet kmalu!", "en": "Bye, sweetheart. Come back soon!", "it": "Ciao, tesoro. Torna presto!" },
+      { "de": "Gute Nacht! Und iss etwas!", "sl": "Lahko noč! In nekaj pojej!", "en": "Good night! And eat something!", "it": "Buonanotte! E mangia qualcosa!", "when": ["evening", "night"] },
+      { "de": "Einen schönen Tag, Schatzi! Und iss etwas!", "sl": "Lep dan, zaklad! In nekaj pojej!", "en": "Have a nice day, sweetheart! And eat something!", "it": "Buona giornata, tesoro! E mangia qualcosa!", "when": ["morning", "afternoon"] },
+      { "de": "Pfiat di! Morgen gibt es um zwölf Mittagessen.", "sl": "Pfiat di! Jutri je kosilo ob dvanajstih. (pfiat di: avstrijski pozdrav, adijo)", "en": "Pfiat di! Lunch is at twelve tomorrow. (pfiat di: Austrian for bye)", "it": "Pfiat di! Domani il pranzo è a mezzogiorno. (pfiat di: saluto austriaco, ciao)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Für mich? Oh, Schatzi! Woher weißt du, dass ich das so mag?", "sl": "Zame? O, zaklad! Kako si vedel, da mi je tako všeč?", "en": "For me? Oh, sweetheart! How did you know I like it so much?", "it": "Per me? Oh, tesoro! Come lo sapevi che mi piace tanto?" },
+        { "de": "Wie schön! Du hast ein goldenes Herz. Komm, ich gebe dir ein Stück Reindling.", "sl": "Kako lepo! Zlato srce imaš. Pridi, dam ti kos reindlinga.", "en": "How lovely! You have a heart of gold. Come, I'll give you a piece of Reindling.", "it": "Che bello! Hai un cuore d'oro. Vieni, ti do un pezzo di reindling." },
+        { "de": "Genau das wollte ich! Danke, mein Schatzi.", "sl": "Točno to, kar sem si želela! Hvala, moj zaklad.", "en": "Just what I wanted! Thank you, my sweetheart.", "it": "Proprio quello che volevo! Grazie, tesoro mio." }
+      ],
+      "ordinary": [
+        { "de": "Oh, danke, Schatzi. Das war doch nicht nötig!", "sl": "O, hvala, zaklad. Ni bilo treba!", "en": "Oh, thank you, sweetheart. You didn't have to!", "it": "Oh, grazie, tesoro. Non dovevi!" },
+        { "de": "Danke! Du bist lieb. Jetzt setz dich und iss.", "sl": "Hvala! Prijazen si. Zdaj pa sedi in jej.", "en": "Thank you! You're sweet. Now sit down and eat.", "it": "Grazie! Sei gentile. Adesso siediti e mangia." }
+      ],
+      "rare": [
+        { "de": "Jessas! So etwas hatte ich noch nie. Danke, danke!", "sl": "Joj! Kaj takega še nisem imela. Hvala, hvala!", "en": "Goodness! I've never had anything like this. Thank you, thank you!", "it": "Mamma mia! Una cosa così non l'ho mai avuta. Grazie, grazie!" }
+      ]
+    }
+  }
+}

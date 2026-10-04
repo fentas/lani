@@ -1,0 +1,109 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "akkusativ",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🎯",
+  "title": {
+    "de": "Den, einen, ihn: der Akkusativ",
+    "sl": "Den, einen, ihn: tožilnik",
+    "en": "Den, einen, ihn: the accusative",
+    "it": "Den, einen, ihn: l'accusativo"
+  },
+  "rule": {
+    "en": "The accusative (*Akkusativ*) is the case of the object, the person or thing the verb acts on (**Wen? Was?**): Ich sehe **den Gipfel**. Ich habe **einen Hund**.\n\nOnly the masculine changes: **der → den**, **ein → einen**, **kein → keinen**. die and das (eine, ein) stay as they are: Ich sehe **die Kirche**. Ich sehe **das Zelt**.\n\nThe pronouns change too, like he → him in English: **mich**, **dich**, **ihn**, **sie**, **es**, **uns**, **euch**, **sie/Sie**. A masculine thing is **ihn**, like a man: der Gipfel → Ich sehe **ihn** (not ihm, which is the dative). A plural is **sie**: die Glocken → Ich höre **sie**.\n\nAfter **durch**, **für**, **gegen**, **ohne** and **um** the accusative always follows: **durch den Wald**, **für dich**.",
+    "sl": "Tožilnik (*Akkusativ*) je sklon predmeta, tistega, na kar glagol deluje (**Wen? Was?** = koga? kaj?): Ich sehe **den Gipfel**. Ich habe **einen Hund**.\n\nSpremeni se samo moški spol: **der → den**, **ein → einen**, **kein → keinen**. die in das (eine, ein) ostaneta enaka: Ich sehe **die Kirche**. Ich sehe **das Zelt**. Pogosto drugače kot v slovenščini: vrh ostane vrh, gora pa postane goro; v nemščini der Gipfel postane **den Gipfel**, die Kirche pa ostane **die Kirche**.\n\nSpremenijo se tudi zaimki: **mich**, **dich**, **ihn**, **sie**, **es**, **uns**, **euch**, **sie/Sie** (me, te, ga, jo, ga, nas, vas, jih/vas). Stvar moškega spola je **ihn**: der Gipfel → Ich sehe **ihn** (vidim ga; ne ihm, to je dajalnik). Množina je **sie**: die Glocken → Ich höre **sie** (slišim jih).\n\nPo **durch**, **für**, **gegen**, **ohne** in **um** vedno sledi tožilnik: **durch den Wald** (skozi gozd), **für dich** (zate).",
+    "it": "L'accusativo (*Akkusativ*) è il caso del complemento oggetto, la persona o la cosa su cui agisce il verbo (**Wen? Was?** = chi? che cosa?): Ich sehe **den Gipfel**. Ich habe **einen Hund**.\n\nCambia solo il maschile: **der → den**, **ein → einen**, **kein → keinen**. die e das (eine, ein) restano uguali: Ich sehe **die Kirche**. Ich sehe **das Zelt**. In italiano l'oggetto non cambia (vedo il monte); in tedesco sì, al maschile.\n\nCambiano anche i pronomi, come lui → lo: **mich**, **dich**, **ihn**, **sie**, **es**, **uns**, **euch**, **sie/Sie** (mi, ti, lo, la, lo, ci, vi, li/le/La). Una cosa maschile è **ihn**: der Gipfel → Ich sehe **ihn** (lo vedo; non ihm, che è il dativo). Attenzione: la cima è femminile, der Gipfel no. Un plurale è **sie**: die Glocken → Ich höre **sie** (li sento).\n\nDopo **durch**, **für**, **gegen**, **ohne** e **um** segue sempre l'accusativo: **durch den Wald** (attraverso il bosco), **für dich** (per te)."
+  },
+  "table": {
+    "head": [
+      { "de": "Nominativ", "sl": "imenovalnik", "en": "nominative", "it": "nominativo" },
+      { "de": "Akkusativ", "sl": "tožilnik", "en": "accusative", "it": "accusativo" },
+      { "de": "Beispiel", "sl": "primer", "en": "example", "it": "esempio" }
+    ],
+    "rows": [
+      ["der Gipfel", "den Gipfel", "Ich sehe den Gipfel."],
+      ["ein Hund", "einen Hund", "Ich habe einen Hund."],
+      ["die Glocke", "die Glocke", "Ich höre die Glocke."],
+      ["das Zelt", "das Zelt", "Ich sehe das Zelt."],
+      ["ich / du", "mich / dich", "Oma ruft dich."],
+      ["er / sie / es", "ihn / sie / es", "Ich sehe ihn."],
+      ["wir / ihr", "uns / euch", "Opa besucht uns."],
+      ["sie / Sie", "sie / Sie", "Ich höre sie."]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Siehst du den Gipfel? Ich sehe ihn!",
+      "sl": "Vidiš vrh? Jaz ga vidim!",
+      "en": "Can you see the peak? I can see it!",
+      "it": "Vedi la cima? Io la vedo!",
+      "note": {
+        "en": "der Gipfel → den Gipfel → ihn: not ihm, not sie.",
+        "sl": "der Gipfel → den Gipfel → ihn (ga): ne ihm in ne sie.",
+        "it": "der Gipfel è maschile: ihn, non sie (anche se la cima è femminile) e non ihm."
+      }
+    },
+    {
+      "de": "Hirte Florian hat einen Hund.",
+      "sl": "Pastir Florian ima psa.",
+      "en": "Florian the shepherd has a dog.",
+      "it": "Il pastore Florian ha un cane.",
+      "note": {
+        "en": "ein → einen: a masculine object.",
+        "sl": "ein → einen: predmet moškega spola (pes → psa).",
+        "it": "ein → einen: oggetto maschile."
+      }
+    },
+    {
+      "de": "Hörst du die Glocken? – Ja, ich höre sie.",
+      "sl": "Slišiš zvonce? – Ja, slišim jih.",
+      "en": "Can you hear the bells? – Yes, I can hear them.",
+      "it": "Senti i campanacci? – Sì, li sento."
+    },
+    {
+      "de": "Jakob füttert das Lamm.",
+      "sl": "Jakob hrani jagnje.",
+      "en": "Jakob is feeding the lamb.",
+      "it": "Jakob dà da mangiare all'agnello.",
+      "note": {
+        "en": "das stays das in the Akkusativ.",
+        "sl": "das v tožilniku ostane das.",
+        "it": "das all'accusativo resta das."
+      }
+    },
+    {
+      "de": "Der Honig ist für dich, Lena.",
+      "sl": "Med je zate, Lena.",
+      "en": "The honey is for you, Lena.",
+      "it": "Il miele è per te, Lena.",
+      "note": {
+        "en": "für + Akkusativ: du → dich.",
+        "sl": "für + tožilnik: du → dich.",
+        "it": "für + accusativo: du → dich."
+      }
+    },
+    {
+      "de": "Maxi läuft durch den Wald.",
+      "sl": "Maxi teče skozi gozd.",
+      "en": "Maxi runs through the forest.",
+      "it": "Maxi corre attraverso il bosco.",
+      "note": {
+        "en": "durch always takes the Akkusativ: der Wald → durch den Wald.",
+        "sl": "durch ima vedno tožilnik: der Wald → durch den Wald.",
+        "it": "durch vuole sempre l'accusativo: der Wald → durch den Wald."
+      }
+    },
+    {
+      "de": "Opa Sepp besucht uns heute.",
+      "sl": "Dedek Sepp nas danes obišče.",
+      "en": "Grandpa Sepp is visiting us today.",
+      "it": "Oggi il nonno Sepp viene a trovarci."
+    }
+  ],
+  "modules": [],
+  "tags": ["accusative", "akkusativ", "direct_object", "object", "object_pronouns", "den", "ihn"],
+  "see": ["faelle", "dativ", "kein-nicht", "wechselpraepositionen"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "sepp",
+  "name": "Opa Sepp",
+  "emoji": "👴",
+  "art": "grandpa",
+  "voice": "male",
+  "speaker": "grandpa",
+  "role": {"de": "Erzähler", "sl": "Pripovedovalec", "en": "Storyteller", "it": "Narratore"},
+  "home": ["lipa", "spot:highseat"],
+  "register": "ti",
+  "skill": "wisdom",
+  "order": 4,
+  "routine": { "up": "6:30", "bed": "22:45" },
+  "personality": "Old storyteller, eighty-one, under the big village linden. Slow, proverbial, patient: 'Wie man so sagt: …', 'Langsam, langsam.' Says du to everyone ('Bei uns sagt man du.'); the learner says du back and calls him Opa Sepp. Slow, simple Austrian German; waits for the answer. His mother was a Carinthian Slovene from the Rosental: he knows the legends in both languages and drops a Slovene word now and then. Climbed the Großglockner five times, sings bass in the choir (Kärntnerlied), never without his old dog Bello.",
+  "story": "Sepp was born in the village when the bridge over the stream was still made of wood. Every evening he sits under the big linden with Bello and tells stories to anyone who stops: the Lindwurm of Klagenfurt, the day the Dobratsch broke, King Matthias asleep under the Petzen, the five times he stood on the Großglockner. On Thursdays he sings with the choir in Kathi's Gasthaus. When a storm comes over the Karawanken, the children run to him first.",
+  "likes": [
+    {"de": "die Geschichten", "sl": "zgodbe", "en": "stories", "it": "le storie"},
+    {"de": "der Großglockner", "sl": "Veliki Klek", "en": "the Großglockner (Austria's highest mountain, which he climbed five times)", "it": "il Grossglockner"},
+    {"de": "das Kärntnerlied", "sl": "koroška pesem", "en": "the Kärntnerlied (Carinthian choir songs)", "it": "i canti corali della Carinzia"},
+    {"de": "Bello, sein Hund", "sl": "Bello, njegov pes", "en": "Bello, his dog", "it": "Bello, il suo cane"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Grüß Gott.", "sl": "Pozdravljen.", "en": "Hello.", "it": "Salve.", "level": 0 },
+      { "de": "Servus. Setz dich her, in den Schatten.", "sl": "Živjo. Sedi sem, v senco.", "en": "Hi. Sit here, in the shade.", "it": "Ciao. Siediti qui, all'ombra.", "level": 0 },
+      { "de": "Ah, da bist du. Setz dich, setz dich.", "sl": "A, tu si. Sedi, sedi.", "en": "Ah, there you are. Sit, sit.", "it": "Ah, eccoti. Siediti, siediti.", "level": 1 },
+      { "de": "Da bist du ja. Heute habe ich eine neue Geschichte.", "sl": "Tu si. Danes imam novo zgodbo.", "en": "There you are. Today I have a new story.", "it": "Eccoti. Oggi ho una storia nuova.", "level": 2 },
+      { "de": "Dober dan! Bello hat auf dich gewartet. Und ich auch.", "sl": "Dober dan! Bello te je čakal. In jaz tudi.", "en": "Dober dan! Bello was waiting for you. And so was I. (dober dan: Slovene for good day)", "it": "Dober dan! Bello ti aspettava. E anch'io. (dober dan: buongiorno in sloveno)", "level": 3, "when": ["morning", "afternoon"] },
+      { "de": "Ah, du bist es. Du bist wie ein Enkelkind für mich. Setz dich zu mir.", "sl": "A, ti si. Zame si kot vnuk. Sedi k meni.", "en": "Ah, it's you. You're like a grandchild to me. Sit by me.", "it": "Ah, sei tu. Per me sei come un nipote. Siediti vicino a me.", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke. Hilfe ist Gold wert.", "sl": "Hvala. Pomoč je zlata vredna.", "en": "Thank you. Help is worth its weight in gold.", "it": "Grazie. Un aiuto vale oro." },
+      { "de": "Danke. Du bist ein guter Mensch.", "sl": "Hvala. Dober človek si.", "en": "Thank you. You're a good person.", "it": "Grazie. Sei una brava persona." },
+      { "de": "Danke von Herzen.", "sl": "Iz srca hvala.", "en": "Thank you from the heart.", "it": "Grazie di cuore." }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "Ich bin alt, aber ich denke noch an {memory}.", "sl": "Star sem, ampak ne pozabim na {memory}.", "en": "I'm old, but I still think of {memory}.", "it": "Sono vecchio, ma non dimentico {memory}.", "level": 2 },
+      { "de": "Ich denke gern an {memory}. Das ist eine schöne Geschichte.", "sl": "Rad se spomnim na {memory}. Lepa zgodba je to.", "en": "I like to think of {memory}. It's a fine story.", "it": "Mi piace ricordare {memory}. È una bella storia.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Wie man so sagt: Morgenstund hat Gold im Mund.", "sl": "Kot pravijo: rana ura, zlata ura.", "en": "As they say: the morning hour has gold in its mouth. (the early bird catches the worm)", "it": "Come si dice: il mattino ha l'oro in bocca." },
+      { "de": "Bello schläft unter der Linde. Ich auch, ein bisschen.", "sl": "Bello spi pod lipo. Jaz tudi, malo.", "en": "Bello is asleep under the linden. So am I, a little.", "it": "Bello dorme sotto il tiglio. Anch'io, un po'." },
+      { "de": "Fünfmal war ich auf dem Großglockner. Fünfmal!", "sl": "Petkrat sem bil na Velikem Kleku. Petkrat!", "en": "Five times I stood on the Großglockner. Five times!", "it": "Cinque volte sono salito sul Grossglockner. Cinque volte!" },
+      { "de": "Früher war die Brücke aus Holz.", "sl": "Nekoč je bil most lesen.", "en": "Long ago the bridge was made of wood.", "it": "Una volta il ponte era di legno." }
+    ],
+    "cheer": [
+      { "de": "Gut.", "sl": "Bravo.", "en": "Well done.", "it": "Bravo." },
+      { "de": "Richtig. Langsam kommt man auch ans Ziel.", "sl": "Prav. Počasi, pa prideš do cilja.", "en": "Right. Step by step, you get there.", "it": "Giusto. Piano piano, si arriva." },
+      { "de": "Gut, gut. Du bist wirklich gescheit.", "sl": "Dobro, dobro. Res si bister.", "en": "Good, good. You're really bright.", "it": "Bene, bene. Sei proprio sveglio." }
+    ],
+    "comfort": [
+      { "de": "Macht nichts. Langsam, noch einmal.", "sl": "Nič ne de. Počasi, poskusi še enkrat.", "en": "It doesn't matter. Slowly, try again.", "it": "Non importa. Piano, riprova." },
+      { "de": "Aus Fehlern lernt man.", "sl": "Na napakah se učimo.", "en": "We learn from our mistakes.", "it": "Sbagliando si impara." },
+      { "de": "Ich mache auch Fehler, weißt du. Noch einmal.", "sl": "Tudi jaz se motim, veš. Še enkrat.", "en": "I make mistakes too, you know. Once more.", "it": "Anch'io sbaglio, sai. Ancora una volta." }
+    ],
+    "listen": [
+      { "de": "Hör zu …", "sl": "Poslušaj …", "en": "Listen …", "it": "Ascolta …" },
+      { "de": "Hörst du den Wind? Hör zu.", "sl": "Slišiš veter? Poslušaj.", "en": "Can you hear the wind? Listen.", "it": "Senti il vento? Ascolta." },
+      { "de": "Hör gut zu, dann antworte.", "sl": "Dobro poslušaj, potem odgovori.", "en": "Listen carefully, then answer.", "it": "Ascolta bene, poi rispondi." }
+    ],
+    "bye": [
+      { "de": "Servus.", "sl": "Adijo.", "en": "Bye.", "it": "Ciao." },
+      { "de": "Pfiat di. Morgen gibt es eine andere Geschichte.", "sl": "Pfiat di. Jutri bo nova zgodba. (pfiat di: avstrijski pozdrav, adijo)", "en": "Pfiat di. Tomorrow there's another story. (pfiat di: Austrian for bye)", "it": "Pfiat di. Domani c'è un'altra storia. (pfiat di: saluto austriaco, ciao)" },
+      { "de": "Geh nur. Und grüß mir die Oma Resi.", "sl": "Kar pojdi. In pozdravi mi babico Resi.", "en": "Off you go. And say hello to Oma Resi for me.", "it": "Vai, vai. E salutami Nonna Resi." }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Oh. Woher hast du das gewusst? Das mag ich sehr.", "sl": "O. Kako si vedel? Zelo mi je všeč.", "en": "Oh. How did you know? I like it a lot.", "it": "Oh. Come lo sapevi? Mi piace tanto." },
+        { "de": "Kleines Geschenk, großes Herz. Danke.", "sl": "Majhno darilo, veliko srce. Hvala.", "en": "A small gift, a big heart. Thank you.", "it": "Piccolo regalo, grande cuore. Grazie." },
+        { "de": "Schön, schön. Bello, schau, was ich bekommen habe!", "sl": "Lepo, lepo. Bello, poglej, kaj sem dobil!", "en": "Nice, nice. Bello, look what I got!", "it": "Bello, bello. Bello, guarda cosa mi hanno portato!" }
+      ],
+      "ordinary": [
+        { "de": "Danke. Setz dich her, zu mir.", "sl": "Hvala. Sedi sem, k meni.", "en": "Thank you. Sit here, next to me.", "it": "Grazie. Siediti qui, vicino a me." },
+        { "de": "Danke. Wer von Herzen gibt, gibt doppelt.", "sl": "Hvala. Kdor daje iz srca, da dvakrat.", "en": "Thank you. Who gives from the heart gives twice.", "it": "Grazie. Chi dona con il cuore dona due volte." }
+      ],
+      "rare": [
+        { "de": "Na so was … So etwas hat mir seit vielen Jahren niemand geschenkt. Danke.", "sl": "No, kaj takega … Kaj takega mi že veliko let ni nihče podaril. Hvala.", "en": "Well now … Nobody has given me anything like this in many years. Thank you.", "it": "Ma guarda … Una cosa così non me la regalano da tanti anni. Grazie." }
+      ]
+    }
+  }
+}

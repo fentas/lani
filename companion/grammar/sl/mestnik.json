@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "mestnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🏡",
+  "title": {
+    "sl": "Mestnik: pri kom? o čem?",
+    "en": "The locative: where, and what about",
+    "de": "Der Lokativ: wo, und worüber",
+    "it": "Il locativo: dove, e di che cosa"
+  },
+  "rule": {
+    "en": "The locative (*mestnik*) always comes after a preposition, and its questions carry one: **(pri) kom?**, **(o) čem?**.\n\n**v**, **na**, **pri** and **ob** say where something is: **v gozdu**, **na travniku**, **pri babici**, **ob ribniku** (more on the page Kje?). **o** is about: **o medvedu**, **o knjigi**. **po** is after, or all around: **po kosilu**, **po vasi**. With the hour, **ob** says when: **ob petih** (see Kdaj?).\n\nThe endings: masculine and neuter nouns take **-u** (gozd → v gozdu, medved → o medvedu, okno → na oknu), feminine ones **-i** (šola → v šoli, vas → v vasi). In the plural **-ih** (o bratih, na oknih), feminine **-ah** (v hišah). Adjectives take **-em** and **-i**: v Novem mestu, v Novi Gorici.\n\nThe pronouns: **pri meni, o tebi, o njem, o njej, pri nas, pri vas, o njih**.\n\nFor where to, v and na take the accusative instead: **grem v šolo**, but **sem v šoli**.",
+    "de": "Der Lokativ (*mestnik*) steht immer nach einer Präposition, und auch seine Fragen haben eine: **(pri) kom?**, **(o) čem?**.\n\n**v**, **na**, **pri** und **ob** sagen, wo etwas ist: **v gozdu**, **na travniku**, **pri babici**, **ob ribniku** (mehr auf der Seite Kje?). **o** heißt über: **o medvedu**, **o knjigi**. **po** heißt nach, oder überall herum: **po kosilu**, **po vasi**. Mit der Uhrzeit sagt **ob**, wann: **ob petih** (siehe Kdaj?).\n\nDie Endungen: männliche und sächliche Nomen bekommen **-u** (gozd → v gozdu, medved → o medvedu, okno → na oknu), weibliche **-i** (šola → v šoli, vas → v vasi). Im Plural **-ih** (o bratih, na oknih), weiblich **-ah** (v hišah). Adjektive bekommen **-em** und **-i**: v Novem mestu, v Novi Gorici.\n\nDie Pronomen: **pri meni, o tebi, o njem, o njej, pri nas, pri vas, o njih**.\n\nFür das Wohin stehen v und na dagegen mit dem Akkusativ: **grem v šolo**, aber **sem v šoli**.",
+    "it": "Il locativo (*mestnik*) viene sempre dopo una preposizione, e anche le sue domande ne hanno una: **(pri) kom?**, **(o) čem?**.\n\n**v**, **na**, **pri** e **ob** dicono dove si trova qualcosa: **v gozdu**, **na travniku**, **pri babici**, **ob ribniku** (di più alla pagina Kje?). **o** vuol dire di, su: **o medvedu**, **o knjigi**. **po** vuol dire dopo, o in giro per: **po kosilu**, **po vasi**. Con l'ora, **ob** dice quando: **ob petih** (vedi Kdaj?).\n\nLe desinenze: i nomi maschili e neutri prendono **-u** (gozd → v gozdu, medved → o medvedu, okno → na oknu), i femminili **-i** (šola → v šoli, vas → v vasi). Al plurale **-ih** (o bratih, na oknih), femminile **-ah** (v hišah). Gli aggettivi prendono **-em** e **-i**: v Novem mestu, v Novi Gorici.\n\nI pronomi: **pri meni, o tebi, o njem, o njej, pri nas, pri vas, o njih**.\n\nPer il moto a luogo, v e na reggono invece l'accusativo: **grem v šolo**, ma **sem v šoli**."
+  },
+  "table": {
+    "head": [
+      { "sl": "predlog", "en": "preposition", "de": "Präposition", "it": "preposizione" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["v", { "en": "in", "de": "in", "it": "in" }, "v gozdu, v šoli"],
+      ["na", { "en": "on, at", "de": "auf, an", "it": "su, a" }, "na travniku, na pošti"],
+      ["pri", { "en": "at, by, at someone's", "de": "bei", "it": "presso, da (qualcuno)" }, "pri babici, pri meni"],
+      ["ob", { "en": "by; at (an hour)", "de": "an, neben; um (Uhrzeit)", "it": "accanto a; alle (ore)" }, "ob ribniku, ob petih"],
+      ["o", { "en": "about", "de": "über, von", "it": "di, su" }, "o medvedu, o knjigi"],
+      ["po", { "en": "after; all around", "de": "nach; überall in", "it": "dopo; in giro per" }, "po kosilu, po vasi"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Ovce so na travniku.",
+      "en": "The sheep are in the meadow.",
+      "de": "Die Schafe sind auf der Wiese.",
+      "it": "Le pecore sono sul prato."
+    },
+    {
+      "sl": "O medvedu, ki je imel rad med.",
+      "en": "About a bear who liked honey.",
+      "de": "Von einem Bären, der Honig mochte.",
+      "it": "Di un orso che amava il miele.",
+      "note": {
+        "en": "O (about) takes the locative: medved → o medvedu. Medvedom is the instrumental (z medvedom).",
+        "de": "O (über) verlangt den Lokativ: medved → o medvedu. Medvedom ist der Instrumental (z medvedom).",
+        "it": "O (di, su) vuole il locativo: medved → o medvedu. Medvedom è lo strumentale (z medvedom)."
+      }
+    },
+    {
+      "sl": "Seveda, počakaj pri meni!",
+      "en": "Of course, wait here with me!",
+      "de": "Klar, warte bei mir!",
+      "it": "Certo, aspetta qui da me!",
+      "note": {
+        "en": "After a preposition the long pronoun: pri meni. Mene is the genitive or the accusative.",
+        "de": "Nach einer Präposition die lange Form: pri meni. Mene ist Genitiv oder Akkusativ.",
+        "it": "Dopo una preposizione il pronome lungo: pri meni. Mene è il genitivo o l'accusativo."
+      }
+    },
+    {
+      "sl": "Po kosilu gremo na njivo.",
+      "en": "After lunch we go to the field.",
+      "de": "Nach dem Mittagessen gehen wir aufs Feld.",
+      "it": "Dopo pranzo andiamo al campo.",
+      "note": {
+        "en": "Po kosilu: the locative. Na njivo: where to, so the accusative.",
+        "de": "Po kosilu: Lokativ. Na njivo: wohin, also Akkusativ.",
+        "it": "Po kosilu: locativo. Na njivo: moto a luogo, quindi accusativo."
+      }
+    },
+    {
+      "sl": "Kdaj so poročila? Ob petih?",
+      "en": "When is the news on? At five?",
+      "de": "Wann kommen die Nachrichten? Um fünf?",
+      "it": "Quando c'è il notiziario? Alle cinque?",
+      "note": {
+        "en": "Ob with the hour: the locative of the number, ob petih.",
+        "de": "Ob mit der Uhrzeit: der Lokativ der Zahl, ob petih.",
+        "it": "Ob con l'ora: il locativo del numero, ob petih."
+      }
+    },
+    {
+      "sl": "Živim v Trnovem.",
+      "en": "I live in Trnovo.",
+      "de": "Ich wohne in Trnovo.",
+      "it": "Abito a Trnovo.",
+      "note": {
+        "en": "Trnovo declines like an adjective, as Novo mesto does (v Novem mestu): v Trnovem.",
+        "de": "Trnovo wird wie ein Adjektiv dekliniert, wie Novo mesto (v Novem mestu): v Trnovem.",
+        "it": "Trnovo si declina come un aggettivo, come Novo mesto (v Novem mestu): v Trnovem."
+      }
+    },
+    {
+      "sl": "Tine teka po vasi.",
+      "en": "Tine is running all around the village.",
+      "de": "Tine rennt im ganzen Dorf herum.",
+      "it": "Tine corre per tutto il paese."
+    }
+  ],
+  "modules": [],
+  "tags": ["locative", "mestnik"],
+  "see": ["kje-mestnik-orodnik", "kdaj-cas", "kam-tozilnik", "osebni-zaimki", "skloni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,129 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "skloni",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🧩",
+  "title": {
+    "sl": "Skloni",
+    "en": "The six cases",
+    "de": "Die sechs Fälle",
+    "it": "I sei casi"
+  },
+  "rule": {
+    "en": "A Slovene noun changes its ending with its job in the sentence: there are six cases (*skloni*), each with its question words. **How to find the case: ask the question.** Put the question where the noun is, and the answer takes its case: *Koga vidiš?* (whom?) → Vidim **Mojco**: the accusative. *Komu daš kruh?* (to whom?) → **Muriju**: the dative.\n\nA preposition decides too: **iz** takes the genitive (iz Gorice), **k** the dative (k babici), **o** and **pri** the locative (o knjigi), **z / s** the instrumental (s knjigo). **v** and **na** take the locative for where (v šoli), the accusative for where to (v šolo).\n\nEvery case has three numbers: singular (*ednina*), dual (*dvojina*, exactly two) and plural (*množina*): knjiga, dve knjigi, tri knjige.\n\nSlovene has no vocative: you call someone in the nominative, **Luka, pridi!**\n\nYou learn them in this order: the nominative, accusative and locative at A1, the genitive from A1 to A2, the dative and instrumental at A2 to B1, and every case in all three numbers at B1 to B2.",
+    "de": "Ein slowenisches Nomen ändert seine Endung mit seiner Aufgabe im Satz: Es gibt sechs Fälle (*skloni*), jeder mit seinen Fragewörtern. **So findet man den Fall: man fragt.** Setz die Frage an die Stelle des Nomens, und die Antwort steht in ihrem Fall: *Koga vidiš?* (wen?) → Vidim **Mojco**: Akkusativ. *Komu daš kruh?* (wem?) → **Muriju**: Dativ.\n\nAuch die Präposition entscheidet: **iz** verlangt den Genitiv (iz Gorice), **k** den Dativ (k babici), **o** und **pri** den Lokativ (o knjigi), **z / s** den Instrumental (s knjigo). **v** und **na** stehen für das Wo mit dem Lokativ (v šoli), für das Wohin mit dem Akkusativ (v šolo).\n\nJeder Fall hat drei Zahlen: Singular (*ednina*), Dual (*dvojina*, genau zwei) und Plural (*množina*): knjiga, dve knjigi, tri knjige.\n\nEinen Vokativ gibt es nicht: Man ruft jemanden im Nominativ, **Luka, pridi!**\n\nMan lernt sie in dieser Reihenfolge: Nominativ, Akkusativ und Lokativ auf A1, den Genitiv von A1 bis A2, Dativ und Instrumental auf A2 bis B1, und jeden Fall in allen drei Zahlen auf B1 bis B2.",
+    "it": "Un nome sloveno cambia desinenza secondo il suo compito nella frase: ci sono sei casi (*skloni*), ognuno con le sue parole interrogative. **Per trovare il caso, fai la domanda.** Metti la domanda al posto del nome, e la risposta va in quel caso: *Koga vidiš?* (chi?) → Vidim **Mojco**: accusativo. *Komu daš kruh?* (a chi?) → **Muriju**: dativo.\n\nDecide anche la preposizione: **iz** vuole il genitivo (iz Gorice), **k** il dativo (k babici), **o** e **pri** il locativo (o knjigi), **z / s** lo strumentale (s knjigo). **v** e **na** reggono il locativo per lo stato in luogo (v šoli), l'accusativo per il moto a luogo (v šolo).\n\nOgni caso ha tre numeri: singolare (*ednina*), duale (*dvojina*, esattamente due) e plurale (*množina*): knjiga, dve knjigi, tri knjige.\n\nLo sloveno non ha il vocativo: si chiama qualcuno al nominativo, **Luka, pridi!**\n\nSi imparano in quest'ordine: nominativo, accusativo e locativo all'A1, il genitivo dall'A1 all'A2, dativo e strumentale dall'A2 al B1, e ogni caso in tutti e tre i numeri dal B1 al B2."
+  },
+  "table": {
+    "head": [
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "vprašanje", "en": "question", "de": "Frage", "it": "domanda" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" },
+      { "sl": "predlogi", "en": "prepositions", "de": "Präpositionen", "it": "preposizioni" }
+    ],
+    "rows": [
+      [{ "sl": "imenovalnik", "en": "nominative (imenovalnik)", "de": "Nominativ (imenovalnik)", "it": "nominativo (imenovalnik)" }, "kdo? kaj?", "knjiga", { "sl": "brez predloga", "en": "none", "de": "keine", "it": "nessuna" }],
+      [{ "sl": "rodilnik", "en": "genitive (rodilnik)", "de": "Genitiv (rodilnik)", "it": "genitivo (rodilnik)" }, "koga? česa?", "knjige", "iz, od, do, brez, blizu, mimo"],
+      [{ "sl": "dajalnik", "en": "dative (dajalnik)", "de": "Dativ (dajalnik)", "it": "dativo (dajalnik)" }, "komu? čemu?", "knjigi", "k / h, proti, kljub"],
+      [{ "sl": "tožilnik", "en": "accusative (tožilnik)", "de": "Akkusativ (tožilnik)", "it": "accusativo (tožilnik)" }, "koga? kaj?", "knjigo", "v, na, pod, za … (kam?), čez, skozi"],
+      [{ "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "(pri/o) kom? (pri/o) čem?", "o knjigi", "v, na (kje?), pri, o, po, ob"],
+      [{ "sl": "orodnik", "en": "instrumental (orodnik)", "de": "Instrumental (orodnik)", "it": "strumentale (orodnik)" }, "(s/z) kom? (s/z) čim?", "s knjigo", "z / s, pod, nad, pred, za, med (kje?)"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "To je stara knjiga.",
+      "en": "That's an old book.",
+      "de": "Das ist ein altes Buch.",
+      "it": "È un libro vecchio.",
+      "note": {
+        "en": "Nominative (kdo? kaj?): the subject, what something is, and how you call someone. The form in the dictionary. A1: you learn it first.",
+        "de": "Nominativ (kdo? kaj?): das Subjekt, was etwas ist, und wie man jemanden ruft. Die Form im Wörterbuch. A1: man lernt ihn zuerst.",
+        "it": "Nominativo (kdo? kaj?): il soggetto, che cosa è qualcosa, e come si chiama qualcuno. La forma del dizionario. A1: si impara per primo."
+      }
+    },
+    {
+      "sl": "Nimam knjige.",
+      "en": "I don't have the book.",
+      "de": "Ich habe das Buch nicht.",
+      "it": "Non ho il libro.",
+      "note": {
+        "en": "Genitive (koga? česa?): none after a negation, from (iz), of, how much. A1 for nimam and iz; A2 for amounts, numbers from five and whose.",
+        "de": "Genitiv (koga? česa?): kein nach einer Verneinung, woher (iz), von, wie viel. A1 für nimam und iz; A2 für Mengen, Zahlen ab fünf und wessen.",
+        "it": "Genitivo (koga? česa?): niente dopo una negazione, da dove (iz), di chi, quanto. A1 per nimam e iz; A2 per le quantità, i numeri da cinque e il possesso."
+      }
+    },
+    {
+      "sl": "Knjigi manjka zadnja stran.",
+      "en": "The book is missing its last page.",
+      "de": "Dem Buch fehlt die letzte Seite.",
+      "it": "Al libro manca l'ultima pagina.",
+      "note": {
+        "en": "Dative (komu? čemu?): to whom, for whom; after k and proti; who feels something (mi je mrzlo, všeč mi je). A2, its finer uses B1.",
+        "de": "Dativ (komu? čemu?): wem, für wen; nach k und proti; wer etwas fühlt (mi je mrzlo, všeč mi je). A2, die feineren Fälle B1.",
+        "it": "Dativo (komu? čemu?): a chi, per chi; dopo k e proti; chi sente qualcosa (mi je mrzlo, všeč mi je). A2, gli usi più fini B1."
+      }
+    },
+    {
+      "sl": "Janez bere knjigo.",
+      "en": "Janez is reading a book.",
+      "de": "Janez liest ein Buch.",
+      "it": "Janez legge un libro.",
+      "note": {
+        "en": "Accusative (koga? kaj?): the object, and where to (grem v šolo). A1.",
+        "de": "Akkusativ (koga? kaj?): das Objekt, und wohin (grem v šolo). A1.",
+        "it": "Accusativo (koga? kaj?): il complemento oggetto, e dove si va (grem v šolo). A1."
+      }
+    },
+    {
+      "sl": "Zvečer govorimo o knjigi.",
+      "en": "In the evening we talk about the book.",
+      "de": "Am Abend sprechen wir über das Buch.",
+      "it": "La sera parliamo del libro.",
+      "note": {
+        "en": "Locative ((pri/o) kom? čem?): always after a preposition; where you are (v šoli) and what about (o knjigi). A1.",
+        "de": "Lokativ ((pri/o) kom? čem?): immer nach einer Präposition; wo man ist (v šoli) und worüber (o knjigi). A1.",
+        "it": "Locativo ((pri/o) kom? čem?): sempre dopo una preposizione; dove si è (v šoli) e di che cosa (o knjigi). A1."
+      }
+    },
+    {
+      "sl": "Nejc pride s knjigo.",
+      "en": "Nejc comes with a book.",
+      "de": "Nejc kommt mit einem Buch.",
+      "it": "Nejc arriva con un libro.",
+      "note": {
+        "en": "Instrumental ((s/z) kom? čim?): with; and pod, nad, pred, za, med for where something is (pod mizo). A2, the finer uses B1.",
+        "de": "Instrumental ((s/z) kom? čim?): mit; und pod, nad, pred, za, med für das Wo (pod mizo). A2, die feineren Fälle B1.",
+        "it": "Strumentale ((s/z) kom? čim?): con; e pod, nad, pred, za, med per lo stato in luogo (pod mizo). A2, gli usi più fini B1."
+      }
+    },
+    {
+      "sl": "Na polici sta dve knjigi.",
+      "en": "There are two books on the shelf.",
+      "de": "Auf dem Regal stehen zwei Bücher.",
+      "it": "Sullo scaffale ci sono due libri.",
+      "note": {
+        "en": "Two takes the dual: dve knjigi. Three and four take the plural (tri knjige), from five the genitive plural (pet knjig).",
+        "de": "Zwei verlangt den Dual: dve knjigi. Drei und vier den Plural (tri knjige), ab fünf den Genitiv Plural (pet knjig).",
+        "it": "Due vuole il duale: dve knjigi. Tre e quattro il plurale (tri knjige), da cinque il genitivo plurale (pet knjig)."
+      }
+    },
+    {
+      "sl": "Luka, pridi!",
+      "en": "Luka, come here!",
+      "de": "Luka, komm her!",
+      "it": "Luka, vieni qui!",
+      "note": {
+        "en": "Calling someone: the name as it is, in the nominative. Luko would be the accusative (vidim Luko).",
+        "de": "Wenn man jemanden ruft: der Name, wie er ist, im Nominativ. Luko wäre der Akkusativ (vidim Luko).",
+        "it": "Per chiamare qualcuno: il nome così com'è, al nominativo. Luko sarebbe l'accusativo (vidim Luko)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["skloni", "which_case", "case_question"],
+  "see": ["imenovalnik", "tozilnik", "mestnik", "rodilnik", "dajalnik", "orodnik", "sklanjatev-moski", "sklanjatev-zenski"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

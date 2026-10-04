@@ -1,0 +1,91 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "toni",
+  "name": "Schmied Toni",
+  "emoji": "⚒️",
+  "art": "smith",
+  "voice": "male",
+  "speaker": "gruff",
+  "role": {"de": "Schmied", "sl": "Kovač", "en": "Blacksmith", "it": "Fabbro"},
+  "home": ["smithy"],
+  "sleeps": "smithy",
+  "register": "vi",
+  "skill": "stone",
+  "since": "zaselek",
+  "order": 9,
+  "routine": {
+    "up": "6:00", "bed": "22:10",
+    "rituals": [
+      { "id": "esse", "at": "21:45", "until": "22:00", "to": "smithy", "doing": "tend", "title": {"de": "Toni deckt die Glut in der Esse ab", "sl": "Toni pokrije žerjavico v ognjišču", "en": "Toni banks the embers in the forge", "it": "Toni copre la brace nella forgia"} }
+    ]
+  },
+  "personality": "Gruff and kind smith in his fifties. Few words, short sentences, no small talk, but he notices everything and helps without being asked. Says du to the learner (to everybody); the learner says Sie to him, 'Herr Toni' or just 'Sie', as is right with the smith. No patience for a wrong article or a wrong ending: 'der, die, das: das ist nicht egal', 'dem oder den? Einer ist richtig.' Speaks slow, plain Austrian German. Hums while he works; his wife sends him to Kathi's Gasthaus to talk more.",
+  "story": "Toni's smithy stands at the edge of the village. He shoes the Noriker horses of half the Gailtal, the strong Carinthian horses the riders take to the Kufenstechen, and takes orders from Villach and Klagenfurt, writes them in a small black notebook and gets them exactly right, like his sentences. When wolves come to the palisade, it is Toni who stands at the gate with his hammer.",
+  "likes": [
+    {"de": "das Eisen", "sl": "železo", "en": "iron", "it": "il ferro"},
+    {"de": "die Noriker", "sl": "noriški konji", "en": "Noriker horses (the Carinthian draught horse)", "it": "i cavalli norici (i cavalli da tiro della Carinzia)"},
+    {"de": "die Genauigkeit", "sl": "natančnost", "en": "exactness", "it": "la precisione"},
+    {"de": "die Ruhe", "sl": "mir", "en": "quiet", "it": "la calma"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Grüß Gott.", "sl": "Pozdravljen.", "en": "Hello.", "it": "Salve.", "level": 0 },
+      { "de": "Grüß Gott. Was brauchst du?", "sl": "Pozdravljen. Kaj potrebuješ?", "en": "Hello. What do you need?", "it": "Salve. Cosa ti serve?", "level": 0 },
+      { "de": "Ah, du bist es. Komm herein.", "sl": "A, ti si. Vstopi.", "en": "Ah, it's you. Come in.", "it": "Ah, sei tu. Entra.", "level": 1 },
+      { "de": "Servus. Heute mache ich ein Hufeisen. Schau.", "sl": "Živjo. Danes delam podkev. Poglej.", "en": "Hi. Today I'm making a horseshoe. Watch.", "it": "Ciao. Oggi faccio un ferro di cavallo. Guarda.", "level": 2 },
+      { "de": "Da bist du. Das Feuer brennt. Komm näher.", "sl": "Tu si. Ogenj gori. Pridi bliže.", "en": "There you are. The fire's lit. Come closer.", "it": "Eccoti. Il fuoco è acceso. Vieni vicino.", "level": 3 },
+      { "de": "Da bist du ja. Hier bist du zu Hause. Setz dich.", "sl": "Tu si. Tukaj si kot doma. Sedi.", "en": "There you are. You're at home here. Sit down.", "it": "Eccoti. Qui sei di casa. Siediti.", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke.", "sl": "Hvala.", "en": "Thanks.", "it": "Grazie." },
+      { "de": "Gut. Richtig gemacht. Danke.", "sl": "Dobro. Prav narejeno. Hvala.", "en": "Good. Done right. Thanks.", "it": "Bene. Fatto giusto. Grazie." },
+      { "de": "Danke. Das vergesse ich nicht.", "sl": "Hvala. Tega ne pozabim.", "en": "Thanks. I won't forget it.", "it": "Grazie. Non lo dimentico." }
+    ],
+    "remember": [
+      { "de": "Ich denke an {memory}.", "sl": "Mislim na {memory}.", "en": "I think of {memory}.", "it": "Ricordo {memory}.", "level": 1 },
+      { "de": "Ich vergesse nichts. Ich denke noch an {memory}.", "sl": "Ne pozabim ničesar. Še vedno mislim na {memory}.", "en": "I don't forget anything. I still think of {memory}.", "it": "Io non dimentico niente. Ricordo ancora {memory}.", "level": 2 },
+      { "de": "Wenn ich das Eisen schlage, denke ich an {memory}.", "sl": "Ko kujem železo, mislim na {memory}.", "en": "When I hammer the iron, I think of {memory}.", "it": "Quando batto il ferro, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Das Eisen ist heiß. Nicht angreifen.", "sl": "Železo je vroče. Ne dotikaj se ga.", "en": "The iron is hot. Don't touch it. (angreifen: Austrian for touch)", "it": "Il ferro è caldo. Non toccare. (angreifen: in Austria vuol dire toccare)" },
+      { "de": "Vier Hufeisen für ein Pferd. Immer vier.", "sl": "Štiri podkve za enega konja. Vedno štiri.", "en": "Four shoes for one horse. Always four.", "it": "Quattro ferri per un cavallo. Sempre quattro." },
+      { "de": "Eine Bestellung aus Villach. Für Freitag.", "sl": "Naročilo iz Beljaka. Za petek.", "en": "An order from Villach. For Friday.", "it": "Un ordine da Villaco. Per venerdì." },
+      { "de": "Der Hammer. Nicht die Hammer. Der.", "sl": "Der Hammer. Ne die Hammer. Der. (kladivo je moškega spola)", "en": "Der Hammer. Not die Hammer. Der. (hammer is masculine)", "it": "Der Hammer. Non die Hammer. Der. (martello è maschile)" }
+    ],
+    "cheer": [
+      { "de": "Richtig.", "sl": "Prav.", "en": "Right.", "it": "Giusto." },
+      { "de": "Gut.", "sl": "Dobro.", "en": "Good.", "it": "Bene." },
+      { "de": "So. Genau.", "sl": "Tako. Natančno.", "en": "That's it. Exact.", "it": "Così. Preciso." },
+      { "de": "Gut gemacht. Wie Eisen: fest.", "sl": "Dobro narejeno. Kot železo: trdno.", "en": "Well done. Like iron: solid.", "it": "Ben fatto. Come il ferro: solido." }
+    ],
+    "comfort": [
+      { "de": "Nein. Noch einmal.", "sl": "Ne. Še enkrat.", "en": "No. Again.", "it": "No. Ancora." },
+      { "de": "Fast. Schau auf das Ende vom Wort.", "sl": "Skoraj. Poglej konec besede.", "en": "Almost. Look at the end of the word.", "it": "Quasi. Guarda la fine della parola." },
+      { "de": "Auch das Eisen braucht mehr als einen Schlag. Noch einmal.", "sl": "Tudi železo je treba večkrat udariti. Še enkrat.", "en": "Iron needs more than one blow too. Again.", "it": "Anche il ferro va battuto più volte. Riprova." }
+    ],
+    "listen": [
+      { "de": "Hör zu.", "sl": "Poslušaj.", "en": "Listen.", "it": "Ascolta." },
+      { "de": "Ruhe. Hör zu.", "sl": "Tiho. Poslušaj.", "en": "Quiet. Listen.", "it": "Silenzio. Ascolta." },
+      { "de": "Hör gut zu. Jedes Wort.", "sl": "Dobro poslušaj. Vsako besedo.", "en": "Listen carefully. Every word.", "it": "Ascolta bene. Ogni parola." }
+    ],
+    "bye": [
+      { "de": "Servus.", "sl": "Adijo.", "en": "Bye.", "it": "Ciao." },
+      { "de": "Auf Wiedersehen. Zurück an die Arbeit.", "sl": "Na svidenje. Nazaj na delo.", "en": "Goodbye. Back to work.", "it": "Arrivederci. Si torna al lavoro." },
+      { "de": "Pfiat di.", "sl": "Adijo. (pfiat di: koroško in bavarsko za »adijo«)", "en": "Bye. (pfiat di: Carinthian and Bavarian for bye)", "it": "Ciao. (pfiat di: saluto carinziano e bavarese)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Hm. Das gefällt mir. Danke.", "sl": "Hm. To mi je všeč. Hvala.", "en": "Hm. I like it. Thanks.", "it": "Hm. Mi piace. Grazie." },
+        { "de": "Woher weißt du das? Gut. Danke.", "sl": "Kako si vedel? Dobro. Hvala.", "en": "How did you know? Good. Thanks.", "it": "Come lo sapevi? Bene. Grazie." },
+        { "de": "Ah! Genau das. Danke.", "sl": "A! Točno to. Hvala.", "en": "Ah! Exactly this. Thanks.", "it": "Ah! Proprio questo. Grazie." }
+      ],
+      "ordinary": [
+        { "de": "Danke. Das ist lieb von dir.", "sl": "Hvala. Lepo od tebe.", "en": "Thanks. That's kind of you.", "it": "Grazie. Sei gentile." },
+        { "de": "Hm. Danke. Leg es dort hin, auf den Tisch.", "sl": "Hm. Hvala. Kar tam pusti, na mizi.", "en": "Hm. Thanks. Put it over there, on the table.", "it": "Hm. Grazie. Lascia pure lì, sul tavolo." }
+      ],
+      "rare": [
+        { "de": "Hm. Das … ist schön. Wirklich. Danke.", "sl": "Hm. Tole … je lepo. Res. Hvala.", "en": "Hm. This … is nice. Really. Thanks.", "it": "Hm. Questo … è bello. Davvero. Grazie." }
+      ]
+    }
+  }
+}

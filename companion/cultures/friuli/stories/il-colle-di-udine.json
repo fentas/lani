@@ -1,0 +1,123 @@
+{
+  "schema": "lani.story/v0",
+  "id": "il-colle-di-udine",
+  "language": "it",
+  "title": { "it": "Il colle di Udine", "sl": "Videmski grič", "en": "The hill of Udine", "de": "Der Hügel von Udine" },
+  "teller": "bepi",
+  "emoji": "🏰",
+  "order": 3,
+  "about": { "en": "The legend of the castle hill of Udine (Videm): Attila, king of the Huns, wanted to watch Aquileia (Oglej) from afar, and in the flat plain his soldiers built him a hill with earth carried in their helmets. Retold for a child without the burning of Aquileia. Machine-written, not reviewed by a native speaker." },
+  "teaser": { "it": "Nonno Bepi racconta come è nato il colle di Udine", "sl": "Dedek Bepi pove, kako je nastal videmski grič", "en": "Nonno Bepi tells how the hill of Udine came to be", "de": "Nonno Bepi erzählt, wie der Hügel von Udine entstanden ist" },
+  "memory": { "it": "la storia del colle di Udine che ti ho raccontato", "sl": "zgodbo o videmskem griču, ki sem ti jo povedal", "en": "the story of the hill of Udine I told you", "de": "die Geschichte vom Hügel von Udine, die ich dir erzählt habe" },
+  "pack": "storie",
+  "words": ["re", "soldato", "elmo", "terra", "colle", "castello"],
+  "levels": {
+    "A1": {
+      "lines": [
+        { "it": "Ciao, piccolo. Sai dov'è Udine?", "sl": "Živjo, mali. Veš, kje je Videm?", "en": "Hi, little one. Do you know where Udine is?", "de": "Hallo, Kleiner. Weißt du, wo Udine liegt?" },
+        { "choices": [
+          { "it": "Sì, nonno. È in Friuli.", "sl": "Ja, dedek. V Furlaniji je.", "en": "Yes, Grandpa. It's in Friuli.", "de": "Ja, Opa. Es liegt im Friaul.", "ok": true,
+            "reply": { "it": "Bravo. E a Udine c'è un colle, con un castello.", "sl": "Bravo. In v Vidmu je grič z gradom.", "en": "Well done. And in Udine there's a hill with a castle.", "de": "Gut gemacht. Und in Udine gibt es einen Hügel mit einer Burg." } },
+          { "it": "Sì, nonno. Sono in Friuli.", "sl": "Ja, dedek. V Furlaniji sem.", "en": "Yes, Grandpa. I'm in Friuli.", "de": "Ja, Opa. Ich bin im Friaul.",
+            "why": { "sl": "Videm je eno mesto: è in Friuli. Sono pomeni jaz sem ali oni so.", "en": "Udine is one town: è in Friuli. Sono means I am, or they are.", "de": "Udine ist eine Stadt: è in Friuli. Sono heißt „ich bin“ oder „sie sind“." },
+            "reply": { "it": "Sei in Friuli? Anch'io, piccolo! E Udine?", "sl": "V Furlaniji si? Jaz tudi, mali! Pa Videm?", "en": "You're in Friuli? So am I, little one! And Udine?", "de": "Du bist im Friaul? Ich auch, Kleiner! Und Udine?" } }
+        ] },
+        { "it": "Tanto tempo fa arriva il re Attila. Ha tanti, tanti soldati.", "sl": "Nekoč pride kralj Atila. S seboj ima veliko, veliko vojakov.", "en": "Long ago King Attila arrives. He has lots and lots of soldiers.", "de": "Vor langer Zeit kommt König Attila. Er hat viele, viele Soldaten." },
+        { "it": "Attila vuole guardare lontano, fino al mare. Ma qui è tutto piatto: non c'è un colle!", "sl": "Atila hoče videti daleč, vse do morja. Ampak tu je vse ravno: ni griča!", "en": "Attila wants to look far away, all the way to the sea. But here everything is flat: there's no hill!", "de": "Attila will weit schauen, bis zum Meer. Aber hier ist alles flach: Es gibt keinen Hügel!" },
+        { "choices": [
+          { "it": "E allora che cosa fa?", "sl": "In kaj potem naredi?", "en": "So what does he do?", "de": "Und was macht er dann?", "ok": true,
+            "reply": { "it": "Ascolta. Ha una bella idea.", "sl": "Poslušaj. Dobro zamisel ima.", "en": "Listen. He has a clever idea.", "de": "Hör zu. Er hat eine schlaue Idee." } },
+          { "it": "E allora chi fa?", "sl": "In kdo potem dela?", "en": "So who does?", "de": "Und wer macht es dann?",
+            "why": { "sl": "Chi vpraša kdo. Ti pa hočeš vedeti, kaj naredi: che cosa fa.", "en": "Chi asks who. You want to know what he does: che cosa fa.", "de": "Chi fragt nach dem Wer. Du willst wissen, was er macht: che cosa fa." },
+            "reply": { "it": "Chi fa? Attila, piccolo! Chi altro?", "sl": "Chi fa? Atila, mali! Kdo pa drug?", "en": "Chi fa? Attila, little one! Who else?", "de": "Chi fa? Attila, Kleiner! Wer denn sonst?" } }
+        ] },
+        { "it": "Attila dice ai soldati: «Portate la terra nei vostri elmi!»", "sl": "Atila reče vojakom: »Nosite zemljo v svojih čeladah!«", "en": "Attila says to the soldiers: 'Carry earth in your helmets!'", "de": "Attila sagt zu den Soldaten: „Tragt Erde in euren Helmen herbei!“", "fx": { "flare": 0.6 } },
+        { "it": "Ogni soldato porta un elmo di terra. Uno, due, tre… mille, diecimila!", "sl": "Vsak vojak prinese čelado zemlje. Ena, dve, tri … tisoč, deset tisoč!", "en": "Every soldier brings a helmet of earth. One, two, three… a thousand, ten thousand!", "de": "Jeder Soldat bringt einen Helm voll Erde. Eins, zwei, drei … tausend, zehntausend!", "fx": { "flare": 0.3 } },
+        { "it": "E così nasce un colle! Il colle di Udine.", "sl": "In tako nastane grič! Videmski grič.", "en": "And so a hill is born! The hill of Udine.", "de": "Und so entsteht ein Hügel! Der Hügel von Udine." },
+        { "choices": [
+          { "it": "Che bello! Un colle fatto con gli elmi!", "sl": "Kako lepo! Grič iz čelad!", "en": "How great! A hill made with helmets!", "de": "Wie toll! Ein Hügel, mit Helmen gebaut!", "ok": true,
+            "reply": { "it": "Sì, sì! Tanti elmi, tanta terra.", "sl": "Ja, ja! Veliko čelad, veliko zemlje.", "en": "Yes, yes! Lots of helmets, lots of earth.", "de": "Ja, ja! Viele Helme, viel Erde." } },
+          { "it": "Che bello! Un colle fatto con i elmi!", "sl": "Kako lepo! Grič iz čelad!", "en": "How great! A hill made with helmets!", "de": "Wie toll! Ein Hügel, mit Helmen gebaut!",
+            "why": { "sl": "Pred samoglasnikom je v množini člen gli: gli elmi.", "en": "Before a vowel the plural article is gli: gli elmi.", "de": "Vor einem Vokal ist der Artikel im Plural gli: gli elmi." },
+            "reply": { "it": "I elmi? Hai il singhiozzo, piccolo?", "sl": "I elmi? Te kolca, mali?", "en": "I elmi? Have you got hiccups, little one?", "de": "I elmi? Hast du Schluckauf, Kleiner?" } }
+        ] },
+        { "it": "Dimmi, piccolo: in che cosa portano la terra i soldati?", "sl": "Povej, mali: v čem vojaki nosijo zemljo?", "en": "Tell me, little one: what do the soldiers carry the earth in?", "de": "Sag mal, Kleiner: Worin tragen die Soldaten die Erde?" },
+        { "choices": [
+          { "it": "Negli elmi.", "sl": "V čeladah.", "en": "In their helmets.", "de": "In ihren Helmen.", "ok": true,
+            "reply": { "it": "Bravo! E oggi sul colle c'è il castello di Udine. Buonanotte, piccolo.", "sl": "Bravo! In danes na griču stoji videmski grad. Lahko noč, mali.", "en": "Well done! And today the castle of Udine stands on the hill. Good night, little one.", "de": "Gut gemacht! Und heute steht auf dem Hügel die Burg von Udine. Gute Nacht, Kleiner." } },
+          { "it": "Nei secchi.", "sl": "V vedrih.", "en": "In buckets.", "de": "In Eimern.",
+            "why": { "sl": "Ne: vojaki nimajo veder. Zemljo nosijo v čeladah.", "en": "No: the soldiers have no buckets. They carry the earth in their helmets.", "de": "Nein: Die Soldaten haben keine Eimer. Sie tragen die Erde in ihren Helmen." },
+            "reply": { "it": "Nei secchi? E dove trovano diecimila secchi, piccolo?", "sl": "Nei secchi? Pa kje bi dobili deset tisoč veder, mali?", "en": "Nei secchi? And where would they find ten thousand buckets, little one?", "de": "Nei secchi? Und wo finden sie zehntausend Eimer, Kleiner?" } },
+          { "it": "Nei elmi.", "sl": "V čeladah.", "en": "In their helmets.", "de": "In ihren Helmen.",
+            "why": { "sl": "In in gli se združita v negli: negli elmi.", "en": "In and gli join up as negli: negli elmi.", "de": "In und gli verschmelzen zu negli: negli elmi." },
+            "reply": { "it": "Nei elmi? Hm… anche Moro fa una faccia strana.", "sl": "Nei elmi? Hm … še Moro čudno gleda.", "en": "Nei elmi? Hm… even Moro's pulling a funny face.", "de": "Nei elmi? Hm … sogar Moro schaut ganz komisch." } }
+        ] }
+      ]
+    },
+    "A2": {
+      "lines": [
+        { "it": "Buonasera, ragazzo. Sei mai salito al castello di Udine?", "sl": "Dober večer, fant. Si že kdaj šel gor do videmskega gradu?", "en": "Good evening, lad. Have you ever gone up to the castle of Udine?", "de": "Guten Abend, Junge. Bist du schon mal zur Burg von Udine hinaufgestiegen?" },
+        { "choices": [
+          { "it": "Sì, ci sono salito con la mamma.", "sl": "Ja, šel sem gor z mamo.", "en": "Yes, I went up with Mum.", "de": "Ja, ich bin mit Mama hinaufgestiegen.", "ok": true,
+            "reply": { "it": "E sai come è nato quel colle?", "sl": "Pa veš, kako je nastal tisti grič?", "en": "And do you know how that hill came to be?", "de": "Und weißt du, wie dieser Hügel entstanden ist?" } },
+          { "it": "Sì, ci ho salito con la mamma.", "sl": "Ja, šel sem gor z mamo.", "en": "Yes, I went up with Mum.", "de": "Ja, ich bin mit Mama hinaufgestiegen.",
+            "why": { "sl": "Salire (iti gor) tvori passato prossimo z essere: sono salito.", "en": "Salire (to go up) forms the passato prossimo with essere: sono salito.", "de": "Salire (hinaufgehen) bildet das passato prossimo mit essere: sono salito." },
+            "reply": { "it": "Ci ho salito? Hm, qui qualcosa scricchiola, come le mie ginocchia!", "sl": "Ci ho salito? Hm, nekaj škriplje, kot moja kolena!", "en": "Ci ho salito? Hm, something creaks there, like my knees!", "de": "Ci ho salito? Hm, da knarzt was, wie meine Knie!" } }
+        ] },
+        { "it": "Tanto tempo fa, Attila, il re degli Unni, è arrivato in Friuli con un grande esercito.", "sl": "Nekoč je Atila, kralj Hunov, prišel v Furlanijo z veliko vojsko.", "en": "Long ago Attila, king of the Huns, came to Friuli with a great army.", "de": "Vor langer Zeit kam Attila, der König der Hunnen, mit einem großen Heer ins Friaul." },
+        { "it": "Voleva vedere da lontano la città di Aquileia, ma la pianura era tutta piatta. Non c'era nemmeno una collina.", "sl": "Od daleč je hotel videti mesto Oglej, ampak ravnina je bila povsem ravna. Ni bilo niti enega griča.", "en": "He wanted to see the town of Aquileia from afar, but the plain was completely flat. There wasn't a single hill.", "de": "Er wollte die Stadt Aquileia von Weitem sehen, aber die Ebene war ganz flach. Es gab keinen einzigen Hügel." },
+        { "it": "Allora ha dato un ordine ai suoi soldati: «Riempite i vostri elmi di terra e portatela qui!»", "sl": "Zato je vojakom ukazal: »Napolnite čelade z zemljo in jo prinesite sem!«", "en": "So he gave his soldiers an order: 'Fill your helmets with earth and bring it here!'", "de": "Da gab er seinen Soldaten einen Befehl: „Füllt eure Helme mit Erde und bringt sie her!“", "fx": { "flare": 0.7 } },
+        { "it": "Perché Attila voleva un colle?", "sl": "Zakaj je Atila hotel grič?", "en": "Why did Attila want a hill?", "de": "Warum wollte Attila einen Hügel?", "fx": { "flare": 0.3 } },
+        { "choices": [
+          { "it": "Perché voleva vedere lontano.", "sl": "Ker je hotel videti daleč.", "en": "Because he wanted to see far.", "de": "Weil er weit sehen wollte.", "ok": true,
+            "reply": { "it": "Esatto. Voleva guardare fino ad Aquileia.", "sl": "Tako je. Hotel je videti vse do Ogleja.", "en": "Exactly. He wanted to look as far as Aquileia.", "de": "Genau. Er wollte bis nach Aquileia schauen." } },
+          { "it": "Perché voleva costruire una casa.", "sl": "Ker je hotel zgraditi hišo.", "en": "Because he wanted to build a house.", "de": "Weil er ein Haus bauen wollte.",
+            "why": { "sl": "Ne: grič je hotel zato, da bi videl daleč, vse do Ogleja.", "en": "No: he wanted a hill to see far, all the way to Aquileia.", "de": "Nein: Er wollte einen Hügel, um weit zu sehen, bis nach Aquileia." },
+            "reply": { "it": "Una casa di terra? Alla prima pioggia, addio casa!", "sl": "Hiša iz zemlje? Ob prvem dežju pa adijo, hiša!", "en": "A house of earth? At the first rain, goodbye house!", "de": "Ein Haus aus Erde? Beim ersten Regen: ade, Haus!" } },
+          { "it": "Perché vuole vedere lontano.", "sl": "Ker hoče videti daleč.", "en": "Because he wants to see far.", "de": "Weil er weit sehen will.",
+            "why": { "sl": "Zgodba je v preteklosti: voleva. Vuole je sedanjik.", "en": "The story is in the past: voleva. Vuole is the present.", "de": "Die Geschichte spielt in der Vergangenheit: voleva. Vuole ist das Präsens." },
+            "reply": { "it": "Vuole? Attila è ancora qui? Moro, stai attento!", "sl": "Vuole? Atila je še vedno tu? Moro, pazi!", "en": "Vuole? Attila's still around? Moro, watch out!", "de": "Vuole? Attila ist noch da? Moro, pass auf!" } }
+        ] },
+        { "it": "Migliaia di soldati hanno portato la terra, un elmo dopo l'altro, per giorni e giorni.", "sl": "Na tisoče vojakov je nosilo zemljo, čelado za čelado, dan za dnem.", "en": "Thousands of soldiers carried the earth, one helmet after another, for days and days.", "de": "Tausende Soldaten trugen die Erde herbei, einen Helm nach dem anderen, tagelang." },
+        { "it": "E alla fine è nato un colle alto, proprio in mezzo alla pianura.", "sl": "In na koncu je nastal visok grič, prav sredi ravnine.", "en": "And in the end a tall hill rose, right in the middle of the plain.", "de": "Und am Ende erhob sich ein hoher Hügel, mitten in der Ebene." },
+        { "choices": [
+          { "it": "Incredibile! Hanno lavorato tanto!", "sl": "Neverjetno! Koliko so delali!", "en": "Incredible! They worked so hard!", "de": "Unglaublich! Sie haben so viel gearbeitet!", "ok": true,
+            "reply": { "it": "Tantissimo. E Attila è salito in cima a guardare.", "sl": "Zelo veliko. In Atila je šel na vrh in gledal.", "en": "Very hard. And Attila climbed to the top to look.", "de": "Sehr viel. Und Attila stieg ganz nach oben, um zu schauen." } },
+          { "it": "Incredibile! Hanno lavorati tanto!", "sl": "Neverjetno! Koliko so delali!", "en": "Incredible! They worked so hard!", "de": "Unglaublich! Sie haben so viel gearbeitet!",
+            "why": { "sl": "Pri avere se deležnik ne spreminja: hanno lavorato.", "en": "With avere the participle doesn't change: hanno lavorato.", "de": "Mit avere ändert sich das Partizip nicht: hanno lavorato." },
+            "reply": { "it": "Lavorati? Hm, il nonno è vecchio: dillo ancora, piano.", "sl": "Lavorati? Hm, dedek je star: povej še enkrat, počasi.", "en": "Lavorati? Hm, Grandpa's old: say it again, slowly.", "de": "Lavorati? Hm, der Opa ist alt: sag's noch mal, langsam." } }
+        ] },
+        { "it": "Oggi su quel colle c'è il castello di Udine. Da lassù si vedono le montagne e, quando è sereno, anche il mare.", "sl": "Danes na tistem griču stoji videmski grad. Od tam se vidijo gore, ob jasnem vremenu pa tudi morje.", "en": "Today the castle of Udine stands on that hill. From up there you can see the mountains and, when it's clear, the sea too.", "de": "Heute steht auf diesem Hügel die Burg von Udine. Von dort oben sieht man die Berge und, wenn es klar ist, auch das Meer." },
+        { "choices": [
+          { "it": "La prossima volta guardo anch'io dal castello!", "sl": "Naslednjič bom tudi jaz gledal z gradu!", "en": "Next time I'll look out from the castle too!", "de": "Nächstes Mal schaue ich auch von der Burg hinunter!", "ok": true,
+            "reply": { "it": "Bravo. E pensa agli elmi dei soldati. Buonanotte, ragazzo.", "sl": "Bravo. In pomisli na čelade vojakov. Lahko noč, fant.", "en": "Good. And think of the soldiers' helmets. Good night, lad.", "de": "Gut so. Und denk an die Helme der Soldaten. Gute Nacht, Junge." } },
+          { "it": "La prossima volta guardo anch'io del castello!", "sl": "Naslednjič bom tudi jaz gledal z gradu!", "en": "Next time I'll look out from the castle too!", "de": "Nächstes Mal schaue ich auch von der Burg hinunter!",
+            "why": { "sl": "Z gradu je dal castello (da + il). Del castello pomeni 'od gradu', kot v le mura del castello (obzidje gradu).", "en": "From the castle is dal castello (da + il). Del castello means 'of the castle', as in le mura del castello.", "de": "Von der Burg aus heißt dal castello (da + il). Del castello heißt „der Burg“, wie in le mura del castello (die Mauern der Burg)." },
+            "reply": { "it": "Del castello? Solo un pezzetto, come il formaggio?", "sl": "Del castello? Samo malo gradu, kot malo sira?", "en": "Del castello? Just a bit of castle, like a bit of cheese?", "de": "Del castello? Nur ein bisschen Burg, wie ein bisschen Käse?" } }
+        ] }
+      ]
+    }
+  },
+  "pictures": [
+    { "after": 2, "bg": "meadow", "figures": [ { "id": "king", "x": 0.5 }, { "id": "soldier", "x": 0.24 }, { "id": "soldier", "x": 0.72, "flip": true }, { "id": "soldier", "x": 0.86, "flip": true } ],
+      "caption": { "it": "Attila arriva con il suo esercito.", "sl": "Atila pride s svojo vojsko.", "en": "Attila arrives with his army.", "de": "Attila kommt mit seinem Heer." } },
+    { "after": 4, "bg": "castle", "figures": [ { "id": "soldier", "x": 0.2 }, { "id": "soldier", "x": 0.8, "flip": true } ],
+      "caption": { "it": "Così nasce il colle di Udine.", "sl": "Tako nastane grič v Vidmu.", "en": "And so the hill of Udine is born.", "de": "So entsteht der Hügel von Udine." } }
+  ],
+  "notes": [
+    { "level": "A1", "after": [1, 4], "text": [
+      { "it": "Tanto tempo fa è arrivato il re Attila. Aveva tanti, tanti soldati.", "sl": "Nekoč je prišel kralj Atila. S seboj je imel veliko, veliko vojakov.", "en": "Long ago King Attila came. He had lots and lots of soldiers.", "de": "Vor langer Zeit kam König Attila. Er hatte viele, viele Soldaten." },
+      { "it": "Attila voleva guardare lontano, fino al mare. Ma lì era tutto piatto: non c'era un colle!", "sl": "Atila je hotel videti daleč, vse do morja. Ampak tam je bilo vse ravno: ni bilo griča!", "en": "Attila wanted to look far away, all the way to the sea. But everything there was flat: there was no hill!", "de": "Attila wollte weit schauen, bis zum Meer. Aber dort war alles flach: Es gab keinen Hügel!" },
+      { "it": "Attila ha avuto una bella idea. Ha detto ai soldati: «Portate la terra nei vostri elmi!»", "sl": "Atila je imel dobro zamisel. Vojakom je rekel: »Nosite zemljo v svojih čeladah!«", "en": "Attila had a clever idea. He said to the soldiers: 'Carry earth in your helmets!'", "de": "Attila hatte eine schlaue Idee. Er sagte zu den Soldaten: „Tragt Erde in euren Helmen herbei!“" },
+      { "it": "Ogni soldato ha portato un elmo di terra. Uno, due, tre… mille, diecimila! E così è nato un colle, il colle di Udine.", "sl": "Vsak vojak je prinesel čelado zemlje. Ena, dve, tri … tisoč, deset tisoč! In tako je nastal grič, videmski grič.", "en": "Every soldier brought a helmet of earth. One, two, three… a thousand, ten thousand! And so a hill was born, the hill of Udine.", "de": "Jeder Soldat brachte einen Helm voll Erde. Eins, zwei, drei … tausend, zehntausend! Und so entstand ein Hügel, der Hügel von Udine." },
+      { "it": "Oggi sul colle c'è il castello di Udine.", "sl": "Danes na griču stoji videmski grad.", "en": "Today the castle of Udine stands on the hill.", "de": "Heute steht auf dem Hügel die Burg von Udine." }
+    ] },
+    { "level": "A2", "after": [1, 3], "text": [
+      { "it": "Tanto tempo fa Attila, il re degli Unni, è arrivato in Friuli con un grande esercito.", "sl": "Nekoč je Atila, kralj Hunov, prišel v Furlanijo z veliko vojsko.", "en": "Long ago Attila, king of the Huns, came to Friuli with a great army.", "de": "Vor langer Zeit kam Attila, der König der Hunnen, mit einem großen Heer ins Friaul." },
+      { "it": "Voleva vedere da lontano la città di Aquileia, ma la pianura era tutta piatta e non c'era nemmeno una collina. Allora ha dato un ordine ai suoi soldati: «Riempite i vostri elmi di terra e portatela qui!»", "sl": "Od daleč je hotel videti mesto Oglej, a ravnina je bila povsem ravna in ni bilo niti enega griča. Zato je vojakom ukazal: »Napolnite čelade z zemljo in jo prinesite sem!«", "en": "He wanted to see the town of Aquileia from afar, but the plain was completely flat and there wasn't a single hill. So he gave his soldiers an order: 'Fill your helmets with earth and bring it here!'", "de": "Er wollte die Stadt Aquileia von Weitem sehen, aber die Ebene war ganz flach, und es gab keinen einzigen Hügel. Da gab er seinen Soldaten einen Befehl: „Füllt eure Helme mit Erde und bringt sie her!“" },
+      { "it": "Migliaia di soldati hanno portato la terra, un elmo dopo l'altro, per giorni e giorni. Hanno lavorato tantissimo. Alla fine è nato un colle alto, proprio in mezzo alla pianura, e Attila è salito in cima a guardare.", "sl": "Na tisoče vojakov je nosilo zemljo, čelado za čelado, dan za dnem. Zelo veliko so delali. Na koncu je nastal visok grič, prav sredi ravnine, in Atila je šel na vrh in gledal.", "en": "Thousands of soldiers carried the earth, one helmet after another, for days and days. They worked very hard. In the end a tall hill rose, right in the middle of the plain, and Attila climbed to the top to look.", "de": "Tausende Soldaten trugen die Erde herbei, einen Helm nach dem anderen, tagelang. Sie arbeiteten sehr viel. Am Ende erhob sich ein hoher Hügel, mitten in der Ebene, und Attila stieg ganz nach oben, um zu schauen." },
+      { "it": "Oggi su quel colle c'è il castello di Udine. Da lassù si vedono le montagne e, quando è sereno, anche il mare.", "sl": "Danes na tistem griču stoji videmski grad. Od tam se vidijo gore, ob jasnem vremenu pa tudi morje.", "en": "Today the castle of Udine stands on that hill. From up there you can see the mountains and, when it is clear, the sea too.", "de": "Heute steht auf diesem Hügel die Burg von Udine. Von dort oben sieht man die Berge und, wenn es klar ist, auch das Meer." }
+    ] }
+  ],
+  "review": "notes: machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

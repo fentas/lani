@@ -1,0 +1,108 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "primernik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "📈",
+  "title": {
+    "sl": "Primernik: boljši, večji, hitrejši",
+    "en": "The comparative: better, bigger, faster",
+    "de": "Der Komparativ: besser, größer, schneller",
+    "it": "Il comparativo: migliore, più grande, più veloce"
+  },
+  "rule": {
+    "en": "To compare, Slovene has the comparative (*primernik*). Most adjectives add **-ši**, **-ejši** or **-ji**: lep → **lepši**, star → **starejši**, hiter → **hitrejši**, drag → **dražji**.\n\nSome have a form of their own; learn them: dober → **boljši**, slab → **slabši**, velik → **večji**, majhen → **manjši**, dolg → **daljši**, kratek → **krajši**, sladek → **slajši**. Some take **bolj** (more) instead: **bolj utrujen** (more tired).\n\nThe comparative agrees like any adjective: **boljši kruh**, **boljša kava**, **boljše vino**. *Than* is **kot**: **Danes je kava boljša kot včeraj.**\n\nThe superlative (*presežnik*) is **naj-** + the comparative: **najboljši**, **največji** (never *najveliko*). **Vedno** + the comparative is *more and more*: **vedno večji**, **vedno hitreje**.\n\nHow something is done has its own forms: hitro → **hitreje**, dobro → **bolje**. So do amounts: veliko → **več** (more), malo → **manj** (less). **Manjši** is smaller, **manj** is less.",
+    "de": "Zum Vergleichen hat das Slowenische den Komparativ (*primernik*). Die meisten Adjektive bekommen **-ši**, **-ejši** oder **-ji**: lep → **lepši**, star → **starejši**, hiter → **hitrejši**, drag → **dražji**.\n\nManche haben eine eigene Form, die man lernt: dober → **boljši**, slab → **slabši**, velik → **večji**, majhen → **manjši**, dolg → **daljši**, kratek → **krajši**, sladek → **slajši**. Manche nehmen stattdessen **bolj** (mehr): **bolj utrujen** (müder).\n\nDer Komparativ richtet sich wie jedes Adjektiv nach seinem Nomen: **boljši kruh**, **boljša kava**, **boljše vino**. *Als* heißt **kot**: **Danes je kava boljša kot včeraj.**\n\nDer Superlativ (*presežnik*) ist **naj-** + Komparativ: **najboljši**, **največji** (nie *najveliko*). **Vedno** + Komparativ heißt *immer …er*: **vedno večji** (immer größer), **vedno hitreje** (immer schneller).\n\nWie man etwas tut, hat eigene Formen: hitro → **hitreje**, dobro → **bolje**. Mengen auch: veliko → **več** (mehr), malo → **manj** (weniger). **Manjši** ist kleiner, **manj** ist weniger.",
+    "it": "Per fare un paragone lo sloveno ha il comparativo (*primernik*). La maggior parte degli aggettivi prende **-ši**, **-ejši** o **-ji**: lep → **lepši**, star → **starejši**, hiter → **hitrejši**, drag → **dražji**.\n\nAlcuni hanno una forma propria, da imparare: dober → **boljši**, slab → **slabši**, velik → **večji**, majhen → **manjši**, dolg → **daljši**, kratek → **krajši**, sladek → **slajši**. Alcuni prendono invece **bolj** (più): **bolj utrujen** (più stanco).\n\nIl comparativo concorda come ogni aggettivo: **boljši kruh**, **boljša kava**, **boljše vino**. Il secondo termine si introduce con **kot**: **Danes je kava boljša kot včeraj.**\n\nIl superlativo (*presežnik*) è **naj-** + il comparativo: **najboljši**, **največji** (mai *najveliko*). **Vedno** + il comparativo vuol dire *sempre più*: **vedno večji**, **vedno hitreje**.\n\nIl modo in cui si fa qualcosa ha forme proprie: hitro → **hitreje**, dobro → **bolje**. Anche le quantità: veliko → **več** (di più), malo → **manj** (di meno). **Manjši** è più piccolo, **manj** è meno."
+  },
+  "table": {
+    "head": [
+      { "sl": "osnovnik", "en": "adjective", "de": "Grundform", "it": "grado positivo" },
+      { "sl": "primernik", "en": "comparative (primernik)", "de": "Komparativ (primernik)", "it": "comparativo (primernik)" },
+      { "sl": "presežnik", "en": "superlative (presežnik)", "de": "Superlativ (presežnik)", "it": "superlativo (presežnik)" }
+    ],
+    "rows": [
+      ["lep", "lepši", "najlepši"],
+      ["star", "starejši", "najstarejši"],
+      ["hiter", "hitrejši", "najhitrejši"],
+      ["drag", "dražji", "najdražji"],
+      ["dober", "boljši", "najboljši"],
+      ["slab", "slabši", "najslabši"],
+      ["velik", "večji", "največji"],
+      ["majhen", "manjši", "najmanjši"],
+      ["dolg", "daljši", "najdaljši"],
+      ["sladek", "slajši", "najslajši"],
+      ["hitro, dobro", "hitreje, bolje", "najhitreje, najbolje"],
+      ["veliko, malo", "več, manj", "največ, najmanj"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Mmm! Danes je kava boljša kot včeraj.",
+      "en": "Mmm! The coffee is better today than yesterday.",
+      "de": "Mmm! Heute ist der Kaffee besser als gestern.",
+      "it": "Mmm! Oggi il caffè è più buono di ieri.",
+      "note": {
+        "en": "Kava is feminine: boljša. Najboljša would be 'the best'.",
+        "de": "Kava ist weiblich: boljša. Najboljša hieße „der beste“.",
+        "it": "Kava è femminile: boljša. Najboljša vorrebbe dire “il migliore”."
+      }
+    },
+    {
+      "sl": "To poleno je največje.",
+      "en": "This log is the biggest.",
+      "de": "Dieses Holzscheit ist das größte.",
+      "it": "Questo ciocco è il più grande.",
+      "note": {
+        "en": "naj- + the comparative: večje → največje. Poleno is neuter, so -e.",
+        "de": "naj- + Komparativ: večje → največje. Poleno ist sächlich, also -e.",
+        "it": "naj- + il comparativo: večje → največje. Poleno è neutro, quindi -e."
+      }
+    },
+    {
+      "sl": "Med je slajši kot sladkor.",
+      "en": "Honey is sweeter than sugar.",
+      "de": "Honig ist süßer als Zucker.",
+      "it": "Il miele è più dolce dello zucchero.",
+      "note": {
+        "en": "Sladek has its own comparative: slajši.",
+        "de": "Sladek hat einen eigenen Komparativ: slajši.",
+        "it": "Sladek ha un comparativo proprio: slajši."
+      }
+    },
+    {
+      "sl": "Voda je danes hitrejša kot včeraj.",
+      "en": "The water is faster today than yesterday.",
+      "de": "Das Wasser ist heute schneller als gestern.",
+      "it": "Oggi l'acqua è più veloce di ieri."
+    },
+    {
+      "sl": "Sivko postaja vedno večji.",
+      "en": "Sivko is getting bigger and bigger.",
+      "de": "Sivko wird immer größer.",
+      "it": "Sivko diventa sempre più grande."
+    },
+    {
+      "sl": "Muri teče vedno hitreje.",
+      "en": "Muri runs faster and faster.",
+      "de": "Muri läuft immer schneller.",
+      "it": "Muri corre sempre più veloce.",
+      "note": {
+        "en": "How he runs: the adverb, hitro → hitreje.",
+        "de": "Wie er läuft: das Adverb, hitro → hitreje.",
+        "it": "Come corre: l'avverbio, hitro → hitreje."
+      }
+    },
+    {
+      "sl": "Za potico potrebujem več moke in manj sladkorja.",
+      "en": "For the potica I need more flour and less sugar.",
+      "de": "Für die Potica brauche ich mehr Mehl und weniger Zucker.",
+      "it": "Per la potica mi serve più farina e meno zucchero."
+    }
+  ],
+  "modules": [],
+  "tags": ["comparative", "superlative", "primernik"],
+  "see": ["pridevniki-ujemanje", "prislovi", "rodilnik-kolicina"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

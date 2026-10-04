@@ -1,0 +1,98 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "presente-regolare",
+  "language": "it",
+  "level": "A1",
+  "emoji": "⏳",
+  "title": {
+    "it": "Il presente: parlo, prendo, dormo",
+    "sl": "Sedanjik pravilnih glagolov",
+    "en": "The present tense of regular verbs",
+    "de": "Das Präsens der regelmäßigen Verben"
+  },
+  "rule": {
+    "en": "Italian verbs fall into three groups by the end of the infinitive: **-are** (parlare), **-ere** (prendere), **-ire** (dormire). In the present tense (*presente*), drop -are, -ere or -ire and add the ending of the person (see the table).\n\nThe ending tells who, so the pronoun is usually left out: **Parlo italiano.** (I speak Italian.) Say io, tu, lui only to stress or contrast: **Io lavoro, e tu dormi!**\n\nMany -ire verbs add **-isc-** in every form but noi and voi: **capisco, capisci, capisce, capiamo, capite, capiscono**. So do **finire** (finisco), **pulire** (pulisco) and **preferire** (preferisco).\n\n**Noi** ends in **-iamo** in every verb, irregular ones too: **parliamo, prendiamo, dormiamo, andiamo**. The same form means *let's*: **Andiamo! Corriamo allo stagno!**\n\nThe present also says what is going on now and what is planned: **Stasera mangiamo il frico.** (We're having frico tonight.)",
+    "sl": "Italijanski glagoli se po nedoločniku delijo v tri skupine: **-are** (parlare), **-ere** (prendere), **-ire** (dormire). V sedanjiku (*presente*) odrežeš -are, -ere ali -ire in dodaš končnico osebe (glej preglednico).\n\nKot v slovenščini končnica pove, kdo dela, zato se zaimek navadno izpusti: **Parlo italiano.** (Govorim italijansko.) Io, tu, lui rečeš samo za poudarek: **Io lavoro, e tu dormi!** (Jaz delam, ti pa spiš!)\n\nMnogi glagoli na -ire dobijo **-isc-** v vseh osebah razen noi in voi: **capisco, capisci, capisce, capiamo, capite, capiscono**. Tako tudi **finire** (finisco), **pulire** (pulisco) in **preferire** (preferisco).\n\n**Noi** se pri vseh glagolih konča na **-iamo**, tudi pri nepravilnih: **parliamo, prendiamo, dormiamo, andiamo**. Ista oblika je tudi spodbuda: **Andiamo!** (Gremo!) **Corriamo allo stagno!** (Tecimo do ribnika!)\n\nSedanjik pove tudi, kaj se dogaja zdaj in kaj je načrtovano: **Stasera mangiamo il frico.** (Nocoj bomo jedli frico.)",
+    "de": "Italienische Verben bilden nach dem Infinitiv drei Gruppen: **-are** (parlare), **-ere** (prendere), **-ire** (dormire). Im Präsens (*presente*) fällt -are, -ere oder -ire weg, und die Endung der Person kommt dazu (siehe Tabelle).\n\nDie Endung zeigt, wer handelt, darum fällt das Pronomen meist weg, anders als im Deutschen: **Parlo italiano.** (Ich spreche Italienisch.) Io, tu, lui sagt man nur zur Betonung: **Io lavoro, e tu dormi!** (Ich arbeite, und du schläfst!)\n\nViele Verben auf -ire bekommen **-isc-**, außer bei noi und voi: **capisco, capisci, capisce, capiamo, capite, capiscono**. Ebenso **finire** (finisco), **pulire** (pulisco) und **preferire** (preferisco).\n\n**Noi** endet bei allen Verben auf **-iamo**, auch bei unregelmäßigen: **parliamo, prendiamo, dormiamo, andiamo**. Dieselbe Form heißt auch *lass uns*: **Andiamo!** (Gehen wir!) **Corriamo allo stagno!** (Laufen wir zum Teich!)\n\nDas Präsens sagt auch, was gerade passiert und was geplant ist: **Stasera mangiamo il frico.** (Heute Abend essen wir Frico.)"
+  },
+  "table": {
+    "head": [
+      { "it": "persona", "sl": "oseba", "en": "who", "de": "wer" },
+      { "it": "parlare", "sl": "parlare (govoriti)", "en": "parlare (speak)", "de": "parlare (sprechen)" },
+      { "it": "prendere", "sl": "prendere (vzeti)", "en": "prendere (take)", "de": "prendere (nehmen)" },
+      { "it": "dormire / capire", "sl": "dormire (spati) / capire (razumeti)", "en": "dormire (sleep) / capire (understand)", "de": "dormire (schlafen) / capire (verstehen)" }
+    ],
+    "rows": [
+      ["io", "parlo", "prendo", "dormo / capisco"],
+      ["tu", "parli", "prendi", "dormi / capisci"],
+      ["lui, lei, Lei", "parla", "prende", "dorme / capisce"],
+      ["noi", "parliamo", "prendiamo", "dormiamo / capiamo"],
+      ["voi", "parlate", "prendete", "dormite / capite"],
+      ["loro", "parlano", "prendono", "dormono / capiscono"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Parlo un po' di italiano.",
+      "sl": "Govorim malo italijansko.",
+      "en": "I speak a little Italian.",
+      "de": "Ich spreche ein bisschen Italienisch."
+    },
+    {
+      "it": "Nonna Rosa prepara il frico.",
+      "sl": "Babica Rosa pripravlja frico.",
+      "en": "Nonna Rosa is making frico.",
+      "de": "Nonna Rosa macht Frico."
+    },
+    {
+      "it": "Le pecore dormono nella stalla.",
+      "sl": "Ovce spijo v hlevu.",
+      "en": "The sheep sleep in the barn.",
+      "de": "Die Schafe schlafen im Stall."
+    },
+    {
+      "it": "Non capisco la domanda.",
+      "sl": "Ne razumem vprašanja.",
+      "en": "I don't understand the question.",
+      "de": "Ich verstehe die Frage nicht.",
+      "note": {
+        "sl": "capire → capisco: glagol z -isc-.",
+        "en": "capire → capisco: an -isc- verb.",
+        "de": "capire → capisco: ein Verb mit -isc-."
+      }
+    },
+    {
+      "it": "Corriamo allo stagno!",
+      "sl": "Tecimo do ribnika!",
+      "en": "Let's run to the pond!",
+      "de": "Laufen wir zum Teich!",
+      "note": {
+        "sl": "Oblika za noi (-iamo) je tudi spodbuda: corriamo = tecimo.",
+        "en": "The noi form (-iamo) also means let's: corriamo, andiamo.",
+        "de": "Die noi-Form (-iamo) heißt auch lass uns: corriamo, andiamo."
+      }
+    },
+    {
+      "it": "Aldo vende il miele al mercato.",
+      "sl": "Aldo prodaja med na tržnici.",
+      "en": "Aldo sells honey at the market.",
+      "de": "Aldo verkauft Honig auf dem Markt."
+    },
+    {
+      "it": "Stasera mangiamo il frico.",
+      "sl": "Nocoj bomo jedli frico.",
+      "en": "Tonight we're having frico.",
+      "de": "Heute Abend essen wir Frico.",
+      "note": {
+        "sl": "Za načrt italijanščina pogosto uporabi sedanjik, slovenščina pa prihodnjik.",
+        "en": "Italian often uses the present for a plan.",
+        "de": "Für einen Plan steht oft das Präsens, wie im Deutschen."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["present_tense", "presente", "conjugation", "verb_ending", "verb_person", "isc_verbs"],
+  "see": ["essere-avere", "verbi-irregolari", "passato-prossimo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

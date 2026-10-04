@@ -1,0 +1,276 @@
+{
+  "host": { "name": "Oma Resi", "emoji": "👵" },
+  "resources": {
+    "food": {
+      "name": { "de": "Essen", "sl": "Hrana", "en": "Food", "it": "Cibo" },
+      "partitive": { "de": "Essen", "sl": "hrane", "en": "food", "it": "cibo" },
+      "leader": "Müller Franz"
+    },
+    "wood": {
+      "name": { "de": "Holz", "sl": "Les", "en": "Wood", "it": "Legna" },
+      "partitive": { "de": "Holz", "sl": "lesa", "en": "wood", "it": "legna" },
+      "leader": "Hirte Florian"
+    },
+    "stone": {
+      "name": { "de": "Stein", "sl": "Kamen", "en": "Stone", "it": "Pietra" },
+      "partitive": { "de": "Stein", "sl": "kamna", "en": "stone", "it": "pietra" },
+      "leader": "Schmied Toni"
+    },
+    "wisdom": {
+      "name": { "de": "Weisheit", "sl": "Modrost", "en": "Wisdom", "it": "Saggezza" },
+      "partitive": { "de": "Weisheit", "sl": "modrosti", "en": "wisdom", "it": "saggezza" },
+      "leader": "Opa Sepp"
+    }
+  },
+  "ages": {
+    "ogenj": {
+      "name": { "de": "Lagerfeuer", "sl": "Ogenj", "en": "Campfire", "it": "Falò" }
+    },
+    "tabor": {
+      "name": { "de": "Lager", "sl": "Tabor", "en": "Camp", "it": "Accampamento" }
+    },
+    "zaselek": {
+      "name": { "de": "Weiler", "sl": "Zaselek", "en": "Hamlet", "it": "Borgata" }
+    },
+    "vas": {
+      "name": { "de": "Dorf", "sl": "Vas", "en": "Village", "it": "Paese" }
+    },
+    "trg": {
+      "name": { "de": "Markt", "sl": "Trg", "en": "Market town", "it": "Borgo" }
+    },
+    "mesto": {
+      "name": { "de": "Stadt", "sl": "Mesto", "en": "Town", "it": "Cittadina" }
+    }
+  },
+  "buildings": {
+    "tent": {
+      "name": { "de": "Zelt", "sl": "Šotor", "en": "Tent", "it": "Tenda" }
+    },
+    "field": {
+      "name": { "de": "Acker", "sl": "Njiva", "en": "Field", "it": "Campo" }
+    },
+    "well": {
+      "name": { "de": "Brunnen", "sl": "Vodnjak", "en": "Well", "it": "Pozzo" }
+    },
+    "hut": {
+      "name": { "de": "Hütte", "sl": "Koča", "en": "Hut", "it": "Capanna" }
+    },
+    "kozolec": {
+      "name": { "de": "Harpfe", "sl": "Kozolec", "en": "Hayrack", "it": "Rastrelliera del fieno" }
+    },
+    "beehive": {
+      "name": { "de": "Bienenhaus", "sl": "Čebelnjak", "en": "Bee house", "it": "Apiario" }
+    },
+    "palisade": {
+      "name": { "de": "Palisade", "sl": "Palisada", "en": "Palisade", "it": "Palizzata" }
+    },
+    "watchtower": {
+      "name": { "de": "Wachturm", "sl": "Stražni stolp", "en": "Watchtower", "it": "Torre di guardia" }
+    },
+    "smithy": {
+      "name": { "de": "Schmiede", "sl": "Kovačnica", "en": "Smithy", "it": "Fucina" }
+    },
+    "lipa": {
+      "name": { "de": "Linde", "sl": "Lipa", "en": "Linden tree", "it": "Tiglio" }
+    },
+    "house": {
+      "name": { "de": "Haus", "sl": "Hiša", "en": "House", "it": "Casa" }
+    },
+    "church": {
+      "name": { "de": "Kirche", "sl": "Cerkev", "en": "Church", "it": "Chiesa" }
+    },
+    "school": {
+      "name": { "de": "Schule", "sl": "Šola", "en": "School", "it": "Scuola" }
+    },
+    "market": {
+      "name": { "de": "Markt", "sl": "Tržnica", "en": "Market", "it": "Mercato" }
+    }
+  },
+  "events": {
+    "wolves": {
+      "name": { "de": "Wölfe", "sl": "Volkovi", "en": "Wolves", "it": "Lupi" }
+    },
+    "bear": {
+      "name": { "de": "Bär", "sl": "Medved", "en": "Bear", "it": "Orso" }
+    },
+    "storm": {
+      "name": { "de": "Unwetter", "sl": "Nevihta", "en": "Storm", "it": "Temporale" }
+    },
+    "merchant": {
+      "name": { "de": "Händler", "sl": "Trgovec", "en": "Merchant", "it": "Mercante" }
+    },
+    "festival": {
+      "name": { "de": "Fest", "sl": "Praznik", "en": "Festival", "it": "Festa" }
+    }
+  },
+  "places": [
+    {
+      "id": "gailtal",
+      "name": { "de": "Gailtal", "sl": "Ziljska dolina", "en": "the Gailtal", "it": "Valle del Gail" },
+      "about": { "en": "The valley of the Gail river west of Villach, where the village is: meadows and fields, farmhouses with wooden balconies, the Harpfen (hayracks), the Kufenstechen and the Lindentanz, Gailtaler Speck and Almkäse. Its lower part was bilingual, German and Slovene, for centuries." }
+    },
+    {
+      "id": "dobratsch",
+      "name": { "de": "Dobratsch", "sl": "Dobrač", "en": "the Dobratsch", "it": "Dobratsch" },
+      "about": { "en": "The mountain above the village and Villach (the Villacher Alpe), 2166 m. Its south face broke in the earthquake of 1348 and the rocks buried the valley below (the Schütt): Opa Sepp tells the story. Florian's sheep graze on the meadows below it." }
+    },
+    {
+      "id": "villach",
+      "name": { "de": "Villach", "sl": "Beljak", "en": "Villach", "it": "Villaco" },
+      "about": { "en": "The town on the Drau nearest to the village: the market, the school's trips, the Villacher Fasching and the Villacher Kirchtag, the VSV's ice hockey. Stefan sells his Most at its market." }
+    },
+    {
+      "id": "klagenfurt",
+      "name": { "de": "Klagenfurt", "sl": "Celovec", "en": "Klagenfurt", "it": "Klagenfurt" },
+      "about": { "en": "The capital of Carinthia at the east end of the Wörthersee, with the Lindwurm fountain on its square. Tante Mitzi lived there; Toni's orders come from there." }
+    },
+    {
+      "id": "rosental",
+      "name": { "de": "Rosental", "sl": "Rož", "en": "the Rosental", "it": "Rosental" },
+      "about": { "en": "The valley of the Drau below the Karawanken, east of Villach, where many Carinthian Slovenes live: Oma Resi's mother, Opa Sepp's mother and Imker Stanko come from there." }
+    },
+    {
+      "id": "drau",
+      "name": { "de": "Drau", "sl": "Drava", "en": "the Drau", "it": "Drava" },
+      "about": { "en": "The big river through Villach and Carinthia (the Drava in Slovenia); the Gail flows into it." }
+    },
+    {
+      "id": "faaker_see",
+      "name": { "de": "Faaker See", "sl": "Baško jezero", "en": "Lake Faak", "it": "lago di Faak" },
+      "about": { "en": "The turquoise lake under the Mittagskogel, near Villach: swimming in summer, skating when it freezes. The village's own place at the horizon (scenes/am-see.json)." }
+    },
+    {
+      "id": "woerthersee",
+      "name": { "de": "Wörthersee", "sl": "Vrbsko jezero", "en": "the Wörthersee", "it": "Wörthersee" },
+      "about": { "en": "The big lake between Velden and Klagenfurt, with the little church of Maria Wörth on its peninsula and the Pyramidenkogel lookout tower above it. A legend says a flood from a little man's barrel made it (Opa Sepp's story)." }
+    },
+    {
+      "id": "mittagskogel",
+      "name": { "de": "Mittagskogel", "sl": "Kepa", "en": "the Mittagskogel", "it": "Mittagskogel" },
+      "about": { "en": "The pointed peak of the Karawanken above the Faaker See, on the border with Slovenia (Kepa): the sun stands over it at noon." }
+    },
+    {
+      "id": "karawanken",
+      "name": { "de": "Karawanken", "sl": "Karavanke", "en": "the Karawanken", "it": "Caravanche" },
+      "about": { "en": "The long mountain chain south of the village, the border between Austria and Slovenia: storms come over it, giants lived there in Opa Sepp's story." }
+    },
+    {
+      "id": "petzen",
+      "name": { "de": "Petzen", "sl": "Peca", "en": "the Petzen", "it": "Petzen" },
+      "about": { "en": "The mountain in the east of the Karawanken on the Slovene border, where King Matthias (Kralj Matjaž) sleeps with his soldiers in the legend." }
+    },
+    {
+      "id": "dreilaendereck",
+      "name": { "de": "Dreiländereck", "sl": "Tromeja", "en": "the Dreiländereck", "it": "Monte Forno" },
+      "about": { "en": "The mountain above Arnoldstein where Austria, Slovenia and Italy meet: Stefan meets his friends Marko from Brda and Matteo from the Collio there, three countries at one table." }
+    },
+    {
+      "id": "kanaltal",
+      "name": { "de": "Kanaltal", "sl": "Kanalska dolina", "en": "the Kanaltal", "it": "Val Canale" },
+      "about": { "en": "The valley across the Italian border around Tarvis (Tarvisio, Trbiž), where German, Slovene, Italian and Friulian are spoken: the market at Tarvis, and the Kraxenträger, the pedlar, comes from there." }
+    },
+    {
+      "id": "luschariberg",
+      "name": { "de": "Luschariberg", "sl": "Svete Višarje", "en": "Monte Lussari", "it": "Monte Lussari" },
+      "about": { "en": "The pilgrimage mountain above Tarvis with its church and little village on the top, a place of three peoples: the pilgrim goes there." }
+    },
+    {
+      "id": "grossglockner",
+      "name": { "de": "Großglockner", "sl": "Veliki Klek", "en": "the Grossglockner", "it": "Grossglockner" },
+      "about": { "en": "Austria's highest mountain (3798 m), on Carinthia's north-western border: Opa Sepp climbed it five times when he was young." }
+    }
+  ],
+  "backdrop": {
+    "emoji": "🏞️",
+    "name": { "de": "Der Faaker See", "sl": "Baško jezero", "en": "Lake Faak", "it": "Il lago di Faak" },
+    "where": { "de": "am See", "sl": "ob jezeru", "en": "by the lake", "it": "al lago" },
+    "about": { "de": "Der türkise See unter dem Mittagskogel, die Alm und die Karawanken", "sl": "Turkizno jezero pod Kepo, planina in Karavanke", "en": "The turquoise lake under the Mittagskogel, the mountain pasture and the Karawanken", "it": "Il lago turchese sotto il Mittagskogel, l'alpeggio e le Caravanche" }
+  },
+  "spots": {
+    "kopa": {
+      "emoji": "♨️",
+      "name": { "de": "Der Kohlenmeiler", "sl": "Oglarska kopa", "en": "The charcoal pile", "it": "La carbonaia" },
+      "where": { "de": "beim Kohlenmeiler", "sl": "pri kopi", "en": "by the charcoal pile", "it": "alla carbonaia" },
+      "about": { "de": "Der Meiler glimmt: aus Holz wird Holzkohle", "sl": "Kopa tli: iz lesa nastaja oglje", "en": "The pile smoulders: the wood turns into charcoal", "it": "La carbonaia cova: la legna diventa carbone" },
+      "story": {
+        "A1": {
+          "de": "Das ist ein Kohlenmeiler. Der Köhler stellt das Holz zu einem großen Haufen auf. Dann deckt er ihn mit Rasen und Erde zu. Der Meiler brennt nicht, er glimmt nur, eine oder zwei Wochen lang. Dann ist das Holz schwarz und leicht: Das ist Holzkohle. Der Schmied Toni braucht sie für sein Feuer.",
+          "sl": "To je oglarska kopa. Oglar zloži drva v velik kup. Potem ga pokrije z rušo in zemljo. Kopa ne gori, samo tli, teden ali dva. Potem je les črn in lahek: to je oglje. Kovač Toni ga potrebuje za svoj ogenj.",
+          "en": "This is a charcoal pile. The charcoal burner stands the wood up in a big heap. Then he covers it with turf and earth. The pile doesn't burn, it only smoulders, for a week or two. Then the wood is black and light: that is charcoal. Toni the smith needs it for his fire.",
+          "it": "Questa è una carbonaia. Il carbonaio mette in piedi la legna in un grande mucchio. Poi lo copre con zolle d'erba e terra. La carbonaia non brucia, cova soltanto, per una o due settimane. Poi la legna è nera e leggera: è il carbone. Il fabbro Toni ne ha bisogno per il suo fuoco."
+        },
+        "A2": {
+          "de": "Früher gab es in Kärnten viele Köhler. Sie schlugen im Sommer Holz, stellten es um einen Pfahl auf und deckten den Meiler mit Rasen und Erde zu. Dann zündeten sie ihn an. Der Köhler wohnte in einer Hütte neben dem Meiler und passte Tag und Nacht auf: Wenn der Meiler zu viel Luft bekam, brannte er, und es blieb nur Asche. Die Holzkohle brauchten die Schmiede und die Eisenwerke, zum Beispiel in Hüttenberg, wo man schon zur Römerzeit Eisen machte. Die Köhlerei lebt in Kärnten bis heute: Im Sommer bauen Köhler da und dort noch einen Meiler, und die Leute kommen schauen. Auch unser Schmied Toni heizt seine Esse gern mit Holzkohle.",
+          "sl": "Nekoč je bilo na Koroškem veliko oglarjev. Poleti so sekali drva, jih postavili okrog kola in kopo pokrili z rušo in zemljo. Potem so jo prižgali. Oglar je živel v koči zraven kope in pazil nanjo dan in noč: če je kopa dobila preveč zraka, je zagorela in ostal je samo pepel. Oglje so potrebovali kovači in železarne, na primer v Hüttenbergu, kjer so železo delali že v rimskih časih. Oglarstvo na Koroškem živi še danes: poleti oglarji tu in tam še postavijo kopo in ljudje jo pridejo pogledat. Tudi naš kovač Toni rad kuri svoje ognjišče z ogljem.",
+          "en": "There used to be many charcoal burners in Carinthia. In summer they cut wood, stood it up around a pole and covered the pile with turf and earth. Then they lit it. The burner lived in a hut next to the pile and watched it day and night: if the pile got too much air, it burned and only ash was left. The smiths and the ironworks needed the charcoal, for example in Hüttenberg, where people made iron even in Roman times. Charcoal burning is still alive in Carinthia: in summer burners here and there still build a pile, and people come to watch. Our smith Toni, too, still likes charcoal for his forge.",
+          "it": "Un tempo in Carinzia c'erano molti carbonai. D'estate tagliavano la legna, la mettevano in piedi attorno a un palo e coprivano la carbonaia di zolle d'erba e terra. Poi la accendevano. Il carbonaio viveva in una capanna accanto alla carbonaia e la sorvegliava giorno e notte: se la carbonaia prendeva troppa aria, bruciava e restava solo cenere. Il carbone serviva ai fabbri e alle ferriere, per esempio a Hüttenberg, dove si faceva il ferro già al tempo dei Romani. In Carinzia il mestiere del carbonaio vive ancora oggi: d'estate qua e là i carbonai costruiscono ancora una carbonaia, e la gente viene a guardare. Anche il nostro fabbro Toni scalda volentieri la sua forgia col carbone."
+        }
+      },
+      "pack": "am-meiler",
+      "review": "The story, the burner's talk and its reactions: machine-written (Claude), not reviewed by a native speaker.",
+      "keeper": {
+        "id": "koehler",
+        "name": "Köhler Michl",
+        "emoji": "🧔",
+        "art": "burner",
+        "voice": "male",
+        "speaker": "grandpa",
+        "role": { "de": "Köhler", "sl": "Oglar", "en": "Charcoal burner", "it": "Carbonaio" },
+        "story": "Michl is a Köhler of the Gailtal, as his father was: every summer he builds a Meiler in the woods above the village and watches it for a week or two from his hut; his charcoal goes to Schmied Toni. He says du to the learner ('Bub'), who says Sie to him.",
+        "when": ["evening", "night"],
+        "chance": 0.5,
+        "title": { "de": "Köhler Michl hütet den Meiler", "sl": "Oglar Michl pazi na kopo", "en": "Michl the charcoal burner watches the pile", "it": "Il carbonaio Michl sorveglia la carbonaia" },
+        "reward": { "wisdom": 15 },
+        "levels": {
+          "A1": {
+            "lines": [
+              { "who": "koehler", "de": "Guten Abend! Ich bin der Michl, der Köhler.", "sl": "Dober večer! Jaz sem Michl, oglar.", "en": "Good evening! I'm Michl, the charcoal burner.", "it": "Buonasera! Sono Michl, il carbonaio." },
+              { "choices": [
+                { "de": "Guten Abend! Freut mich.", "sl": "Dober večer! Me veseli.", "en": "Good evening! Nice to meet you.", "it": "Buonasera! Piacere.", "ok": true,
+                  "reply": { "de": "Mich auch. Setz dich her, hier ist es warm.", "sl": "Tudi mene. Sedi sem, toplo je.", "en": "Me too. Sit here, it's warm.", "it": "Anche a me. Siediti qui, fa caldo." } },
+                { "de": "Guten Morgen! Freut mich.", "sl": "Dobro jutro! Me veseli.", "en": "Good morning! Nice to meet you.", "it": "Buongiorno! Piacere.",
+                  "why": { "sl": "Zvečer rečeš Guten Abend. Guten Morgen je za jutro.", "en": "In the evening you say Guten Abend. Guten Morgen is for the morning.", "it": "Di sera si dice Guten Abend. Guten Morgen è per il mattino." },
+                  "reply": { "de": "Morgen? Der Morgen ist längst vorbei, Bub!", "sl": "Jutro? Jutro je že zdavnaj mimo, fant!", "en": "Morning? Morning's long gone, lad!", "it": "Mattino? Il mattino è passato da un pezzo, ragazzo!" } }
+              ] },
+              { "who": "koehler", "de": "Das ist mein Meiler. Er brennt nicht, er glimmt nur.", "sl": "To je moja kopa. Ne gori, samo tli.", "en": "This is my charcoal pile. It doesn't burn, it only smoulders.", "it": "Questa è la mia carbonaia. Non brucia, cova soltanto." },
+              { "choices": [
+                { "de": "Was ist im Meiler?", "sl": "Kaj je v kopi?", "en": "What's in the pile?", "it": "Che cosa c'è nella carbonaia?", "ok": true,
+                  "reply": { "de": "Holz. In einer Woche ist es Holzkohle.", "sl": "Drva. Čez en teden bo oglje.", "en": "Wood. In a week it'll be charcoal.", "it": "Legna. Tra una settimana sarà carbone." } },
+                { "de": "Warum raucht er?", "sl": "Zakaj se kadi?", "en": "Why is it smoking?", "it": "Perché fuma?", "ok": true,
+                  "reply": { "de": "Weil das Holz unter der Erde glimmt. So wird es Kohle.", "sl": "Ker les tli pod zemljo. Tako nastane oglje.", "en": "Because the wood smoulders under the earth. That's how it turns to charcoal.", "it": "Perché la legna cova sotto la terra. Così diventa carbone." } },
+                { "de": "Wer ist im Meiler?", "sl": "Kdo je v kopi?", "en": "Who is in the pile?", "it": "Chi c'è nella carbonaia?",
+                  "why": { "sl": "Wer vpraša po osebi: kdo. Po stvari vprašaš was.", "en": "Wer asks about a person: who. For a thing ask was.", "it": "Wer chiede di una persona: chi. Per una cosa si chiede was." },
+                  "reply": { "de": "Wer? Niemand, Bub! Nur Holz.", "sl": "Kdo? Nihče, fant! Samo drva.", "en": "Who? Nobody, lad! Just wood.", "it": "Chi? Nessuno, ragazzo! Solo legna." } }
+              ] },
+              { "who": "koehler", "de": "Die Kohle bekommt der Schmied Toni. Komm wieder!", "sl": "Oglje dobi kovač Toni. Pridi spet!", "en": "Toni the smith gets the charcoal. Come again!", "it": "Il carbone va al fabbro Toni. Torna!" }
+            ]
+          },
+          "A2": {
+            "lines": [
+              { "who": "koehler", "de": "Grüß dich, Bub! Schaust du dir meinen Meiler an?", "sl": "Pozdravljen, fant! Si prišel pogledat mojo kopo?", "en": "Hello, lad! Have you come to look at my pile?", "it": "Ciao, ragazzo! Sei venuto a vedere la mia carbonaia?" },
+              { "choices": [
+                { "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "sl": "Ja, dim sem videl iz vasi.", "en": "Yes, I saw the smoke from the village.", "it": "Sì, ho visto il fumo dal paese.", "ok": true,
+                  "reply": { "de": "Den Rauch sehen alle. Aber Feuer darf keins sein!", "sl": "Dim vidijo vsi. Ognja pa ne sme biti!", "en": "Everyone sees the smoke. But there mustn't be any fire!", "it": "Il fumo lo vedono tutti. Ma il fuoco non deve esserci!" } },
+                { "de": "Ja, Sie machen Holzkohle, oder?", "sl": "Ja, delate oglje, kajne?", "en": "Yes, you're making charcoal, aren't you?", "it": "Sì, Lei fa il carbone, vero?", "ok": true,
+                  "reply": { "de": "Genau. Wie mein Vater und mein Großvater.", "sl": "Tako je. Kot moj oče in moj ded.", "en": "That's right. Like my father and my grandfather.", "it": "Proprio così. Come mio padre e mio nonno." } },
+                { "de": "Ja, ich habe den Rauch vom Dorf aus gesieht.", "sl": "Ja, dim sem videl iz vasi. (napačna oblika preteklika)", "en": "Yes, I saw the smoke from the village. (a wrong past form)", "it": "Sì, ho visto il fumo dal paese. (una forma sbagliata del passato)",
+                  "why": { "sl": "Sehen ima nepravilni deležnik: gesehen. Gesieht ne obstaja.", "en": "Sehen has an irregular past participle: gesehen. Gesieht isn't a word.", "it": "Sehen ha un participio irregolare: gesehen. Gesieht non esiste." },
+                  "reply": { "de": "Gesieht? So ein Wort kenn ich nicht, Bub!", "sl": "Gesieht? Take besede pa ne poznam, fant!", "en": "Gesieht? I don't know that word, lad!", "it": "Gesieht? Questa parola non la conosco, ragazzo!" } }
+              ] },
+              { "who": "koehler", "de": "Ich muss Tag und Nacht aufpassen. Wenn der Meiler zu viel Luft bekommt, brennt er. Dann bleibt nur Asche.", "sl": "Paziti moram dan in noč. Če kopa dobi preveč zraka, zagori. Potem ostane samo pepel.", "en": "I have to keep watch day and night. If the pile gets too much air, it burns. Then only ash is left.", "it": "Devo stare attento giorno e notte. Se la carbonaia prende troppa aria, brucia. Poi resta solo cenere." },
+              { "choices": [
+                { "de": "Und wo schlafen Sie?", "sl": "Pa kje spite?", "en": "And where do you sleep?", "it": "E dove dorme?", "ok": true,
+                  "reply": { "de": "In der Hütte dort, neben dem Meiler. Ich schlafe wenig und horche viel.", "sl": "V koči tamle, zraven kope. Spim malo in veliko poslušam.", "en": "In the hut over there, next to the pile. I sleep little and listen a lot.", "it": "In quella capanna, vicino alla carbonaia. Dormo poco e ascolto molto." } },
+                { "de": "Und wo schläfst du?", "sl": "Pa kje spiš? (du, kot prijatelju)", "en": "And where do you sleep? (du, as to a friend)", "it": "E dove dormi? (du, come a un amico)",
+                  "why": { "sl": "Michla ne poznaš in je starejši: vikaš ga, s Sie (schlafen Sie).", "en": "You don't know Michl and he is older: you say Sie to him (schlafen Sie).", "it": "Non conosci Michl ed è più anziano: gli dai del Sie (schlafen Sie)." },
+                  "reply": { "de": "Du sagst du zu mir? Passt schon, im Wald sind eh alle per du.", "sl": "Me tikaš? Nič hudega, v gozdu se tako vsi tikamo.", "en": "You're saying du to me? That's fine, in the woods everyone says du anyway.", "it": "Mi dai del tu? Va bene, nel bosco ci diamo tutti del tu." } }
+              ] },
+              { "who": "koehler", "de": "In einer Woche mache ich den Meiler auf. Die Kohle bringe ich dem Schmied Toni und in die Stadt, nach Villach.", "sl": "Čez en teden odprem kopo. Oglje odnesem kovaču Toniju in v mesto, v Beljak.", "en": "In a week I'll open the pile. I'll take the charcoal to Toni the smith and to the town, to Villach.", "it": "Tra una settimana apro la carbonaia. Il carbone lo porto al fabbro Toni e in città, a Villaco." },
+              { "who": "koehler", "de": "Komm wieder, Bub. In der Nacht ist der Wald am schönsten.", "sl": "Pridi spet, fant. Ponoči je gozd najlepši.", "en": "Come again, lad. The woods are loveliest at night.", "it": "Torna, ragazzo. Di notte il bosco è bellissimo." }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

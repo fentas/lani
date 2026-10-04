@@ -1,0 +1,88 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "hartley",
+  "name": "Mrs Hartley",
+  "emoji": "👩‍🏫",
+  "art": "teacher",
+  "voice": "female",
+  "speaker": "teacher",
+  "role": {"en": "Teacher", "sl": "Učiteljica", "it": "Maestra", "de": "Lehrerin"},
+  "home": ["school"],
+  "sleeps": "school",
+  "register": "vi",
+  "skill": "stone",
+  "since": "vas",
+  "order": 13,
+  "routine": { "up": "6:30", "bed": "22:00" },
+  "personality": "Primary teacher in her thirties who comes with the school. Kind but precise: loves spelling, silent letters (knife, lamb, comb), irregular plurals (sheep, mice, children, feet) and the past tense, and always explains why a rule is there. Calls the learner by first name, as teachers do with pupils; the learner says 'Mrs Hartley', as British children do. Speaks clear, calm, well-articulated English, slowly, and repeats the important word. Runs by Derwentwater on Sunday mornings.",
+  "story": "Mrs Hartley grew up in Keswick and teaches in a village school for the first time. She learnt German and Italian at university and a little Slovene in a summer in Ljubljana, and she likes to show where English and those languages look alike and where they trick you ('become' is not 'bekommen'). Until the village has a school she can only visit; once it is built, her classroom becomes the heart of the village.",
+  "likes": [
+    {"en": "spelling (silent letters: knife, lamb)", "sl": "črkovanje (neme črke: knife, lamb)", "it": "l'ortografia (le lettere mute: knife, lamb)", "de": "Rechtschreibung (stumme Buchstaben: knife, lamb)"},
+    {"en": "books", "sl": "knjige", "it": "i libri", "de": "Bücher"},
+    {"en": "running (by Derwentwater)", "sl": "tek (ob jezeru Derwentwater)", "it": "la corsa (lungo il lago di Derwentwater)", "de": "Laufen (am Derwentwater)"},
+    {"en": "irregular plurals (sheep, mice, feet)", "sl": "nepravilne množine (sheep, mice, feet)", "it": "i plurali irregolari (sheep, mice, feet)", "de": "unregelmäßige Pluralformen (sheep, mice, feet)"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Good morning. I'm Mrs Hartley, the teacher.", "sl": "Dobro jutro. Jaz sem gospa Hartley, učiteljica.", "it": "Buongiorno. Sono la signora Hartley, la maestra.", "de": "Guten Morgen. Ich bin Frau Hartley, die Lehrerin.", "level": 0, "when": ["morning"] },
+      { "en": "Good morning! Welcome to school.", "sl": "Dobro jutro! Dobrodošel v šoli.", "it": "Buongiorno! Benvenuto a scuola.", "de": "Guten Morgen! Willkommen in der Schule.", "level": 0, "when": ["morning"] },
+      { "en": "Good afternoon! Welcome to school.", "sl": "Dober dan! Dobrodošel v šoli.", "it": "Buon pomeriggio! Benvenuto a scuola.", "de": "Guten Tag! Willkommen in der Schule.", "level": 0, "when": ["afternoon"] },
+      { "en": "Good evening. I'm Mrs Hartley, the teacher.", "sl": "Dober večer. Jaz sem gospa Hartley, učiteljica.", "it": "Buonasera. Sono la signora Hartley, la maestra.", "de": "Guten Abend. Ich bin Frau Hartley, die Lehrerin.", "level": 0, "when": ["evening", "night"] },
+      { "en": "Hello again! Ready for the lesson?", "sl": "Pozdravljen! Si pripravljen na uro?", "it": "Ciao di nuovo! Pronto per la lezione?", "de": "Hallo noch mal! Bereit für den Unterricht?", "level": 1 },
+      { "en": "Hello! Today we're going to learn a new word.", "sl": "Živjo! Danes se bomo naučili novo besedo.", "it": "Ciao! Oggi impariamo una parola nuova.", "de": "Hallo! Heute lernen wir ein neues Wort.", "level": 2 },
+      { "en": "There you are! You're my best pupil. Shh, it's a secret.", "sl": "Tu si! Ti si moj najboljši učenec. Pst, to je skrivnost.", "it": "Eccoti! Sei il mio alunno più bravo. Shh, è un segreto.", "de": "Da bist du ja! Du bist mein bester Schüler. Pst, das ist ein Geheimnis.", "level": 3 },
+      { "en": "How lovely to see you! Come in, I've got a book for you.", "sl": "Kako lepo, da te vidim! Pridi, knjigo imam zate.", "it": "Che bello vederti! Vieni, ho un libro per te.", "de": "Wie schön, dich zu sehen! Komm rein, ich habe ein Buch für dich.", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Thank you. You worked well.", "sl": "Hvala. Dobro si delal.", "it": "Grazie. Hai lavorato bene.", "de": "Danke. Du hast gut gearbeitet." },
+      { "en": "Thank you! You were excellent.", "sl": "Hvala! Odličen si bil.", "it": "Grazie! Sei stato bravissimo.", "de": "Danke! Du warst ausgezeichnet." },
+      { "en": "Thank you so much. I'm proud of you.", "sl": "Najlepša hvala. Ponosna sem nate.", "it": "Grazie davvero. Sono fiera di te.", "de": "Vielen Dank. Ich bin stolz auf dich." }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "I never forget {memory}.", "sl": "Nikoli ne pozabim na {memory}.", "it": "Non dimentico mai {memory}.", "de": "Ich vergesse {memory} nie.", "level": 2 },
+      { "en": "I like to remember {memory}. What a lovely day that was!", "sl": "Rada se spomnim na {memory}. Kako lep dan je bil to!", "it": "Mi piace ricordare {memory}. Che bella giornata è stata!", "de": "Ich erinnere mich gern an {memory}. Was für ein schöner Tag das war!", "level": 3 }
+    ],
+    "idle": [
+      { "en": "Knife, lamb, comb: we don't say the k and the b. Why? I'll explain.", "sl": "Knife, lamb, comb: k-ja in b-ja ne izgovorimo. Zakaj? Ti razložim.", "it": "Knife, lamb, comb: la k e la b non si pronunciano. Perché? Te lo spiego.", "de": "Knife, lamb, comb: Das k und das b spricht man nicht. Warum? Ich erkläre es dir." },
+      { "en": "One sheep, two sheep. But one mouse, two mice!", "sl": "Sheep ostane sheep, mouse pa postane mice!", "it": "Sheep resta sheep, ma mouse diventa mice!", "de": "Sheep bleibt sheep, aber aus mouse wird mice!" },
+      { "en": "On Sundays I go running by Derwentwater.", "sl": "Ob nedeljah tečem ob jezeru Derwentwater.", "it": "La domenica vado a correre lungo il lago di Derwentwater.", "de": "Sonntags laufe ich am Derwentwater entlang." },
+      { "en": "Yesterday I went, not 'I goed'. English likes to surprise us!", "sl": "Yesterday I went, ne »I goed«. Angleščina nas rada preseneti!", "it": "Yesterday I went, non «I goed». L'inglese ama sorprenderci!", "de": "Yesterday I went, nicht »I goed«. Englisch überrascht uns gern!" }
+    ],
+    "cheer": [
+      { "en": "Exactly!", "sl": "Točno!", "it": "Esatto!", "de": "Genau!" },
+      { "en": "Well done! The right ending.", "sl": "Bravo! Prava končnica.", "it": "Bravo! La desinenza giusta.", "de": "Gut gemacht! Die richtige Endung." },
+      { "en": "Perfect. You see? The rule helps.", "sl": "Odlično. Vidiš? Pravilo pomaga.", "it": "Perfetto. Vedi? La regola aiuta.", "de": "Perfekt. Siehst du? Die Regel hilft." },
+      { "en": "Very good! Top marks!", "sl": "Zelo dobro! Petica z zvezdico!", "it": "Molto bene! Dieci e lode!", "de": "Sehr gut! Eine glatte Eins!" }
+    ],
+    "comfort": [
+      { "en": "Never mind. Let's look together.", "sl": "Nič hudega. Poglejva skupaj.", "it": "Non fa niente. Guardiamo insieme.", "de": "Macht nichts. Schauen wir zusammen." },
+      { "en": "Almost. Look carefully at the ending.", "sl": "Skoraj. Dobro poglej končnico.", "it": "Quasi. Guarda bene la desinenza.", "de": "Fast. Schau dir die Endung genau an." },
+      { "en": "Mistakes are normal. That's how we learn.", "sl": "Napake so normalne. Tako se učimo.", "it": "Sbagliare è normale. Così si impara.", "de": "Fehler sind normal. So lernen wir." }
+    ],
+    "listen": [
+      { "en": "Listen carefully.", "sl": "Dobro poslušaj.", "it": "Ascolta bene.", "de": "Hör gut zu." },
+      { "en": "Listen: once, slowly.", "sl": "Poslušaj: enkrat, počasi.", "it": "Ascolta: una volta, piano.", "de": "Hör zu: einmal, langsam." },
+      { "en": "Quiet, please. Let's listen.", "sl": "Tišina, prosim. Poslušajmo.", "it": "Silenzio, per favore. Ascoltiamo.", "de": "Ruhe, bitte. Hören wir zu." }
+    ],
+    "bye": [
+      { "en": "Goodbye!", "sl": "Na svidenje!", "it": "Arrivederci!", "de": "Auf Wiedersehen!" },
+      { "en": "Bye! See you tomorrow at school.", "sl": "Adijo! Se vidiva jutri v šoli.", "it": "Ciao! Ci vediamo domani a scuola.", "de": "Tschüss! Bis morgen in der Schule." },
+      { "en": "Bye! And remember: here in Cumbria, a stream is a 'beck'.", "sl": "Adijo! In zapomni si: tu v Cumbrii potoku rečejo »beck«.", "it": "Ciao! E ricorda: qui in Cumbria il ruscello si chiama «beck».", "de": "Tschüss! Und denk dran: Hier in Cumbria heißt ein Bach »beck«." }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "Oh, how lovely! How did you know I like it?", "sl": "O, kako lepo! Kako si vedel, da mi je všeč?", "it": "Oh, che bello! Come lo sapevi che mi piace?", "de": "Oh, wie schön! Woher wusstest du, dass ich das mag?" },
+        { "en": "Thank you! A perfect present. Top marks!", "sl": "Hvala! Popolno darilo. Petica z zvezdico!", "it": "Grazie! Un regalo perfetto. Dieci e lode!", "de": "Danke! Ein perfektes Geschenk. Eine glatte Eins!" },
+        { "en": "I like it so much! Look how happy I am!", "sl": "Zelo mi je všeč! Poglej, kako sem vesela!", "it": "Mi piace tanto! Guarda come sono contenta!", "de": "Das gefällt mir so gut! Schau, wie ich mich freue!" }
+      ],
+      "ordinary": [
+        { "en": "Thank you, that's very kind of you.", "sl": "Hvala, zelo si prijazen.", "it": "Grazie, sei molto gentile.", "de": "Danke, das ist sehr lieb von dir." },
+        { "en": "Thank you! What a lovely thought.", "sl": "Hvala! Kako lepa misel.", "it": "Grazie! Che bel pensiero.", "de": "Danke! Wie aufmerksam von dir." }
+      ],
+      "rare": [
+        { "en": "This is a really special present. Thank you so much!", "sl": "To je res posebno darilo. Iz srca hvala!", "it": "Questo è un regalo davvero speciale. Grazie di cuore!", "de": "Das ist ein ganz besonderes Geschenk. Von Herzen danke!" }
+      ]
+    }
+  }
+}

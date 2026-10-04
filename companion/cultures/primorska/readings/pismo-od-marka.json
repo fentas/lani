@@ -1,0 +1,87 @@
+{
+  "id": "pismo-od-marka",
+  "kind": "letter",
+  "level": "A1",
+  "title": { "sl": "Pismo od Marka", "en": "A letter from Marko", "de": "Ein Brief von Marko", "it": "Una lettera di Marko" },
+  "by": "marko",
+  "intro": { "sl": "Vinar Marko je Janu napisal kratko pismo.", "en": "Marko the winemaker wrote Jan a short letter.", "de": "Winzer Marko hat Jan einen kurzen Brief geschrieben.", "it": "Il vignaiolo Marko ha scritto a Jan una breve lettera." },
+  "lines": [
+    { "text": { "sl": "Dragi Jan!", "en": "Dear Jan,", "de": "Lieber Jan,", "it": "Caro Jan," } },
+    { "text": { "sl": "V soboto bo pri nas trgatev.", "en": "On Saturday we're having the grape harvest.", "de": "Am Samstag ist bei uns Weinlese.", "it": "Sabato da noi c'è la vendemmia." } },
+    { "text": { "sl": "Grozdje je letos sladko in lepo.", "en": "The grapes are sweet and fine this year.", "de": "Die Trauben sind dieses Jahr süß und schön.", "it": "Quest'anno l'uva è dolce e bella." } },
+    { "text": { "sl": "Ali prideš pomagat? Začnemo ob osmih zjutraj.", "en": "Will you come and help? We start at eight in the morning.", "de": "Kommst du helfen? Wir fangen um acht Uhr morgens an.", "it": "Vieni ad aiutare? Cominciamo alle otto di mattina." } },
+    { "text": { "sl": "Prinesi škarje in klobuk, ker bo vroče.", "en": "Bring shears and a hat, because it will be hot.", "de": "Bring eine Schere und einen Hut mit, denn es wird heiß.", "it": "Porta le forbici e un cappello, perché farà caldo." } },
+    { "text": { "sl": "Opoldne bomo skupaj jedli. Vida bo prinesla kosilo.", "en": "At noon we'll eat together. Vida will bring lunch.", "de": "Mittags essen wir zusammen. Vida bringt das Mittagessen.", "it": "A mezzogiorno mangeremo insieme. Vida porterà il pranzo." } },
+    { "text": { "sl": "Zvečer bomo peli in pili mošt.", "en": "In the evening we'll sing and drink grape must.", "de": "Am Abend singen wir und trinken Most.", "it": "La sera canteremo e berremo il mosto." } },
+    { "text": { "sl": "Lep pozdrav, Marko", "en": "Best wishes, Marko", "de": "Viele Grüße, Marko", "it": "Cari saluti, Marko" } }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "ask": { "sl": "Zakaj Marko piše Janu?", "en": "Why is Marko writing to Jan?", "de": "Warum schreibt Marko Jan?", "it": "Perché Marko scrive a Jan?" },
+      "options": ["Povabi ga na trgatev", "Prosi ga za vino", "Pove mu, da je bolan"],
+      "explain": {
+        "sl": "Marko Jana povabi, naj v soboto pride pomagat pri trgatvi.",
+        "en": "Marko invites Jan to come and help with the grape harvest on Saturday.",
+        "de": "Marko lädt Jan ein, am Samstag bei der Weinlese zu helfen.",
+        "it": "Marko invita Jan a venire ad aiutare con la vendemmia sabato."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "Ob kateri uri začnejo?", "en": "At what time do they start?", "de": "Um wie viel Uhr fangen sie an?", "it": "A che ora cominciano?" },
+      "options": ["Ob osmih zjutraj", "Opoldne", "Zvečer"],
+      "explain": {
+        "sl": "»Začnemo ob osmih zjutraj.« Opoldne jedo, zvečer pojejo.",
+        "en": "»We start at eight in the morning.« At noon they eat, in the evening they sing.",
+        "de": "»Wir fangen um acht Uhr morgens an.« Mittags essen sie, abends singen sie.",
+        "it": "«Cominciamo alle otto di mattina.» A mezzogiorno mangiano, la sera cantano."
+      }
+    },
+    {
+      "type": "word",
+      "word": "trgatev",
+      "ask": { "sl": "Kaj je »trgatev«?", "en": "What is »trgatev«?", "de": "Was ist »trgatev«?", "it": "Che cos'è la «trgatev»?" },
+      "options": ["Ko beremo grozdje", "Ko pečemo kruh", "Ko sadimo krompir"],
+      "explain": {
+        "sl": "Trgatev: jeseni beremo grozdje za vino.",
+        "en": "Trgatev: the grape harvest; in autumn we pick the grapes for the wine.",
+        "de": "Trgatev: die Weinlese; im Herbst lesen wir die Trauben für den Wein.",
+        "it": "Trgatev: la vendemmia; in autunno raccogliamo l'uva per il vino."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "sl": "Jan mora prinesti kosilo.", "en": "Jan has to bring lunch.", "de": "Jan muss das Mittagessen mitbringen.", "it": "Jan deve portare il pranzo." },
+      "answer": false,
+      "explain": {
+        "sl": "Ne drži: kosilo bo prinesla Vida. Jan naj prinese škarje in klobuk.",
+        "en": "False: Vida will bring lunch. Jan should bring shears and a hat.",
+        "de": "Stimmt nicht: Das Mittagessen bringt Vida. Jan soll eine Schere und einen Hut mitbringen.",
+        "it": "Falso: il pranzo lo porterà Vida. Jan deve portare le forbici e un cappello."
+      }
+    },
+    {
+      "type": "inference",
+      "ask": { "sl": "Kakšno vreme bo v soboto?", "en": "What will the weather be like on Saturday?", "de": "Wie wird das Wetter am Samstag?", "it": "Che tempo farà sabato?" },
+      "options": ["Sončno in toplo", "Deževno", "Mrzlo, s snegom"],
+      "explain": {
+        "sl": "Marko piše, naj Jan prinese klobuk, »ker bo vroče«.",
+        "en": "Marko writes that Jan should bring a hat »because it will be hot«.",
+        "de": "Marko schreibt, Jan soll einen Hut mitbringen, »denn es wird heiß«.",
+        "it": "Marko scrive che Jan porti un cappello, «perché farà caldo»."
+      }
+    }
+  ],
+  "words": [
+    { "word": "trgatev", "pos": "noun", "means": { "en": "the grape harvest", "de": "die Weinlese", "it": "la vendemmia" } },
+    { "word": "grozdje", "pos": "noun", "means": { "en": "grapes", "de": "die Trauben", "it": "l'uva" } },
+    { "word": "pomagati", "form": "pomagat", "pos": "verb", "means": { "en": "to help", "de": "helfen", "it": "aiutare" } },
+    { "word": "škarje", "pos": "noun", "means": { "en": "scissors, shears", "de": "eine Schere", "it": "le forbici" } },
+    { "word": "klobuk", "pos": "noun", "means": { "en": "a hat", "de": "ein Hut", "it": "un cappello" } },
+    { "word": "mošt", "pos": "noun", "means": { "en": "grape must", "de": "der Most", "it": "il mosto" } }
+  ],
+  "topics": ["autumn", "grape harvest", "invitation"],
+  "machine_written": true,
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

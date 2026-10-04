@@ -1,0 +1,1918 @@
+#!/usr/bin/env python3
+"""End-to-end QA of the Lani app on an Android emulator.
+
+Starts the emulator (AVD "lani-qa", or "fluent-qa" made before the rename; $LANI_QA_AVD) if needed, builds and installs a fresh debug APK, runs the
+dev bridge on a COPY of the learner data, drives the main flows by visible text, takes a screenshot
+per step and fails on crashes. Real learner data is never touched.
+
+A second town to visit: a fixture Italian town (companion/bridge/test/fixtures/dev-town.json, the Friuli
+culture pack) on its own dev bridge (test/dev-town.ts, a temp data dir), linked with the dev bridge's town;
+the visit steps go to it from Friends and back home.
+
+Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
+  --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
+                       "🚗 Za pot" (a small library got ready, played, next, paused, browsed as Android Auto does);
+                       "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type")
+  --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
+  --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
+  --no-town            no second town (the visit steps are skipped)
+  --happening ob-ognju/roke  that happening counts as on from the village on (QA's hook), so its person stands at its
+                       place for the village's steps (Luka warming his hands at the fire: the fire's card and zoom with
+                       someone beside it); a dialog step lets it go again
+Output: companion/qa-shots/<timestamp>/  (NN-step.png, contact-sheet.png, report.txt, bridge.log, town.log)
+Env: ANDROID_SERIAL picks the device when several run; LANI_DEV_PORT the dev bridge's port (default 8791);
+LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_DATA the data the dev bridge copies (default data/).
+"""
+import atexit
+import html
+import json
+import os
+import re
+import resource
+import shutil
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+# LANI_X from FLUENT_X, its name before the project was renamed from Fluent, when LANI_X isn't set.
+for _k, _v in list(os.environ.items()):
+    if _k.startswith("FLUENT_"):
+        os.environ.setdefault("LANI_" + _k[len("FLUENT_"):], _v)
+ANDROID = ROOT / "companion/android"
+BRIDGE = ROOT / "companion/bridge"
+SDK = Path.home() / "Android/Sdk"
+APK = ANDROID / "app/build/outputs/apk/debug/app-debug.apk"
+PKG = "si.lanisce.lani"
+OUT = ROOT / "companion/qa-shots" / time.strftime("%Y%m%d-%H%M%S")
+PORT = os.environ.get("LANI_DEV_PORT", "8791")
+BRIDGE_URL, TOKEN = f"http://10.0.2.2:{PORT}", "dev-token"
+SERIAL = os.environ.get("ANDROID_SERIAL")
+# The second town (test/dev-town.ts): its own port (reserved for it in src/learners.ts) and app token.
+TOWN_PORT = os.environ.get("LANI_DEV_TOWN_PORT", "8797")
+TOWN_TOKEN = "dev-town-token"
+NEVER_PORTS = {"8790", "8795", "8796"}  # the real bridge, the voice and speech workers: QA never binds or stops them
+OPEN = "si.lanisce.lani.open"  # a deep link in the launch intent (data/DeepLink.kt)
+QA_HOOK = "si.lanisce.lani.qa"  # what QA asks of a debug build (app/QaHooks.kt); a release build ignores it
+
+results: list[tuple[str, str]] = []  # (step, "ok" | "skipped: …" | "FAILED: …")
+
+
+def sh(*args, check=True, **kw) -> str:
+    return subprocess.run(args, check=check, capture_output=True, text=True, **kw).stdout
+
+
+def arg(name: str):
+    """The value of option [name] ("--steps visit" or "--steps=visit"), or None."""
+    for i, a in enumerate(sys.argv):
+        if a == name and i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+        if a.startswith(name + "="):
+            return a.split("=", 1)[1]
+    return None
+
+
+def api(path: str, port=PORT, token=TOKEN, timeout=10):
+    """GET [path] from the bridge on 127.0.0.1:[port] with its app token; the answer's JSON (raises with its status)."""
+    req = urllib.request.Request(f"http://127.0.0.1:{port}{path}", headers={"authorization": f"Bearer {token}"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"GET {path} answered {e.code}: {e.read()[:200].decode(errors='replace')}") from None
+
+
+def listeners(port: str) -> list[str]:
+    """The pids that listen on tcp [port]."""
+    return sh("lsof", "-ti", f"tcp:{port}", "-sTCP:LISTEN", check=False).split()
+
+
+def tail(path: Path, n=4) -> str:
+    try:
+        return " / ".join(l.strip() for l in path.read_text(errors="replace").splitlines()[-n:] if l.strip())
+    except OSError:
+        return "(no log)"
+
+
+# --- the town visited (the fixture of test/dev-town.ts, its culture pack, the app's texts) -----------------------
+
+def l10n(lang: str) -> dict:
+    """The app's texts in [lang] by key ("visit.visiting" → "In visita"), from its resources."""
+    def flat(o, p=""):
+        for k, v in o.items():
+            key = f"{p}.{k}" if p else k
+            if isinstance(v, dict):
+                yield from flat(v, key)
+            else:
+                yield key, str(v)
+    try:
+        return dict(flat(json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())))
+    except (OSError, ValueError):
+        return {}
+
+
+def town_facts() -> dict:
+    """What the visit steps look for in the fixture town: its name, its people's names (its residents and today's
+    visitor, from its culture pack's cast), the label of its horizon (the host culture's backdrop, "Il mare"), the goods
+    its market can spare, and the app's texts in its language. During a visit every label reads "<host> · <base>"
+    ("In visita · Visiting" for Jan, Slovene from English, in an Italian town): the steps look for the host's part."""
+    try:
+        f = json.loads((BRIDGE / "test/fixtures/dev-town.json").read_text())
+        host, culture = f["learner"]["target"], ROOT / "companion/cultures" / f["learner"]["culture"]
+        cast = {}
+        for p in (culture / "villagers").glob("*.json"):
+            v = json.loads(p.read_text())
+            cast[v.get("id", p.stem)] = v.get("name", p.stem)
+        s = f["state"]
+        ids = [r["id"] for r in s.get("residents", [])] + ([s["visitor"]["id"]] if s.get("visitor") else [])
+        goods = {g["id"]: g.get("name", {}) for g in json.loads((culture / "chest.json").read_text()).get("goods", [])}
+        spare = [i for i, n in s.get("chest", {}).get("goods", {}).items() if min(3, n - 1) > 0]
+        backdrop = json.loads((culture / "world.json").read_text()).get("backdrop", {}).get("name", {})
+        return {
+            "name": f["town_name"], "learner": f["learner"]["name"], "culture": f["learner"]["culture"], "language": host,
+            "people": [cast[i] for i in ids if i in cast], "requests": len(s.get("quests", [])),
+            "horizon": backdrop.get(host, ""), "wares": [goods[i].get(host, i) for i in spare if i in goods],
+            "t": l10n(host),
+        }
+    except (OSError, ValueError, KeyError) as e:
+        return {"error": f"the fixture town can't be read: {e}"}
+
+
+FACTS = town_facts()
+TOWN: dict = {"why": "not started"}  # the second town as the dev bridge lists it ("row"), or why there is none ("why")
+
+
+def host(key: str) -> str:
+    """[key] in the visited town's language ("Casa"): the first half of a label during the visit."""
+    return FACTS.get("t", {}).get(key, key)
+
+
+def adb(*args, check=True) -> str:
+    return sh("adb", *(("-s", SERIAL) if SERIAL else ()), *args, check=check)
+
+
+# --- device ---------------------------------------------------------------------------------
+
+def avd() -> str:
+    """The QA emulator: $LANI_QA_AVD, else lani-qa, else fluent-qa (the AVD made before the rename) when only that exists."""
+    if os.environ.get("LANI_QA_AVD"):
+        return os.environ["LANI_QA_AVD"]
+    known = sh(str(SDK / "emulator/emulator"), "-list-avds", check=False).split()
+    return "fluent-qa" if "lani-qa" not in known and "fluent-qa" in known else "lani-qa"
+
+
+def ensure_emulator():
+    if (SERIAL or "emulator-") in sh("adb", "devices"):
+        return
+    print("starting emulator …")
+    subprocess.Popen(
+        [str(SDK / "emulator/emulator"), "-avd", avd(), "-no-window", "-no-audio", "-no-boot-anim",
+         "-gpu", "swangle_indirect", "-no-snapshot-save", "-memory", "4096"],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True,
+        # A crashing emulator would otherwise leave a core dump of ~10 GB in the working directory.
+        preexec_fn=lambda: resource.setrlimit(resource.RLIMIT_CORE, (0, 0)),
+    )
+    adb("wait-for-device")
+    for _ in range(90):
+        if adb("shell", "getprop", "sys.boot_completed", check=False).strip() == "1":
+            return
+        time.sleep(2)
+    sys.exit("emulator did not boot")
+
+
+def nodes():
+    adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)
+    xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
+    for n in re.findall(r"<node [^>]*?>", xml):
+        def attr(k):
+            m = re.search(k + r'="([^"]*)"', n)
+            return html.unescape(m.group(1)) if m else ""
+        b = list(map(int, re.findall(r"\d+", attr("bounds")))) or [0, 0, 0, 0]
+        yield attr(" text") or attr("content-desc"), ((b[0] + b[2]) // 2, (b[1] + b[3]) // 2)
+
+
+def boxes():
+    """Every labelled node's bounds: (text, (x0, y0, x1, y1))."""
+    adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)
+    xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
+    for n in re.findall(r"<node [^>]*?>", xml):
+        def attr(k):
+            m = re.search(k + r'="([^"]*)"', n)
+            return html.unescape(m.group(1)) if m else ""
+        b = list(map(int, re.findall(r"\d+", attr("bounds")))) or [0, 0, 0, 0]
+        if t := attr(" text") or attr("content-desc"):
+            yield t, tuple(b)
+
+
+def clear_of_others(text: str, reach=0, beside=False):
+    """A point on [text]'s target (up to [reach] px outside it) that no other target covers (a villager, a bubble
+    bobbing over it), nearest its centre; its centre when nothing is clear. None when there is no such target.
+    [beside]: off the target itself too (near it, on nothing)."""
+    bs = list(boxes())
+    me = next((b for t, b in bs if t == text), None) or next((b for t, b in bs if text in t), None)
+    if me is None:
+        return None
+    x0, y0, x1, y1 = me
+    cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
+    others = [b for t, b in bs if (beside or b != me) and (b[2] - b[0]) * (b[3] - b[1]) < 400 * 400]  # not the whole village
+    pad = 12  # a bubble bobs: keep off its edge
+    def free(x, y):
+        return all(not (b[0] - pad <= x <= b[2] + pad and b[1] - pad <= y <= b[3] + pad) for b in others)
+    pts = [(x, y) for x in range(x0 - reach, x1 + reach + 1, 6) for y in range(y0 - reach, y1 + reach + 1, 6)
+           if free(x, y)]
+    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if pts else (cx, cy)
+
+
+def open_spot(text: str, reach: int, room=30, bs=None):
+    """A point near [text]'s target (up to [reach] px outside it) clear of every target, the target itself included,
+    by [room] px where it can be: a bubble bobs by ±8 px and takes a tap before the village sees it. Nearest the
+    target's centre of those clear enough (not off by the palisade or the water, whose stakes and stones have no
+    target of their own), else the most open. None when there is no such target. [bs]: the screen's [boxes], if at hand."""
+    bs = list(boxes()) if bs is None else bs
+    me = next((b for t, b in bs if t == text), None) or next((b for t, b in bs if text in t), None)
+    if me is None:
+        return None
+    x0, y0, x1, y1 = me
+    cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
+    others = [b for t, b in bs if (b[2] - b[0]) * (b[3] - b[1]) < 400 * 400]  # not the whole village
+    def clearance(x, y):  # to the nearest target's edge (0 on one)
+        return min((max(b[0] - x, 0, x - b[2]) ** 2 + max(b[1] - y, 0, y - b[3]) ** 2) ** 0.5 for b in others)
+    pts = [(x, y) for x in range(x0 - reach, x1 + reach + 1, 6) for y in range(y0 - reach, y1 + reach + 1, 6)]
+    return max(pts, key=lambda p: (min(clearance(*p), room), -((p[0] - cx) ** 2 + (p[1] - cy) ** 2)))
+
+
+def tap_clear(text: str, timeout=10.0) -> bool:
+    """[tap], on a part of the target nothing else covers."""
+    if wait_for(text, timeout) is None:
+        return False
+    c = clear_of_others(text)
+    if c is None:
+        return False
+    adb("shell", "input", "tap", str(c[0]), str(c[1]))
+    time.sleep(1.2)
+    return True
+
+
+def find(text: str):
+    """Exact text first ("Allow" the button, not "Allow Lani to …" the title), then substring."""
+    ns = list(nodes())
+    return next((c for t, c in ns if t == text), None) or next((c for t, c in ns if text in t), None)
+
+
+def slow() -> float:
+    """How much longer to wait on a busy machine (many builds at once slow the emulator): 1 when idle, up to 3.
+    QA_SLOW overrides it."""
+    if os.environ.get("QA_SLOW"):
+        return float(os.environ["QA_SLOW"])
+    return min(3.0, 1.0 + max(0.0, os.getloadavg()[0] - 4.0) / 4.0)
+
+
+def wait_for(text: str, timeout=15.0):
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        if (c := find(text)) is not None:
+            return c
+        time.sleep(1)
+    return None
+
+
+def tap(text: str, timeout=10.0) -> bool:
+    c = wait_for(text, timeout)
+    if c is None:
+        return False
+    adb("shell", "input", "tap", str(c[0]), str(c[1]))
+    time.sleep(1.2)
+    return True
+
+
+def type_text(s: str):
+    adb("shell", "input", "text", s.replace(" ", "%s"))
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # hide the keyboard so bounds are stable
+    time.sleep(0.6)
+
+
+shots: list[Path] = []
+
+
+def shot(name: str):
+    path = OUT / f"{len(shots) + 1:02d}-{name}.png"
+    with open(path, "wb") as f:
+        f.write(subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", "screencap", "-p"], capture_output=True).stdout)
+    shots.append(path)
+
+
+def step(name: str, fn, cleanup=None, keep=False):
+    """Runs a flow and screenshots where it ended. [cleanup] then tidies up (e.g. back to the plain village), so one
+    failure doesn't cascade; with [keep] only after a failure: the next step goes on from where this one left off."""
+    failed = False
+    try:
+        outcome = fn()
+        results.append((name, "ok" if outcome in (None, True) else f"skipped: {outcome}"))
+    except Exception as e:  # keep going: one broken flow shouldn't hide the others
+        failed = True
+        results.append((name, f"FAILED: {e}"))
+    shot(name)
+    if cleanup is not None and (failed or not keep):
+        try:
+            cleanup()
+        except Exception as e:
+            print(f"    cleanup after {name} failed: {e}")
+
+
+# --- flows ----------------------------------------------------------------------------------
+
+def setup():
+    if wait_for("Poveži", 12) is None:
+        return "already connected"
+    for _ in range(3):  # a busy emulator's keyboard can come up only after the text went nowhere: type it again
+        c = find("http") or find("Bridge URL")  # the field itself: a tap on its label puts the cursor inside the text
+        assert c is not None, "the URL field"
+        adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        time.sleep(1.5 * slow())
+        # empty it wherever the cursor is, then the URL; it must be all the field has
+        adb("shell", "input", "keyevent", *["KEYCODE_DEL"] * 40 + ["KEYCODE_FORWARD_DEL"] * 40)
+        adb("shell", "input", "text", BRIDGE_URL)
+        time.sleep(slow())
+        if any(t == BRIDGE_URL for t, _ in nodes()):
+            break
+    else:
+        raise AssertionError("the URL field took no text")
+    tap("Token")
+    time.sleep(slow())
+    type_text(TOKEN)
+    assert tap("Poveži"), "connect button"
+    end = time.time() + 30
+    while time.time() < end:  # Home, and the notification permission whenever it comes
+        ns = list(nodes())
+        c = next((c for t, c in ns if t == "Allow"), None)
+        if c is not None:
+            adb("shell", "input", "tap", str(c[0]), str(c[1]))
+        elif any("Danes · Today" in t for t, _ in ns):
+            break
+        time.sleep(1)
+    assert wait_for("Danes · Today", 5), "home did not load"
+
+
+def scroll_to(text: str, swipes=5, exact=False):
+    """Scrolls down until [text] is on screen clear of the header and the tutor bar; its centre, or None. [exact]: only a
+    label that is exactly [text] (Home's "Pogovor" tile, not a row that says "Pogovori se")."""
+    for _ in range(swipes + 1):
+        c = next((c for t, c in nodes() if t == text), None) if exact else find(text)
+        if c is not None and 300 < c[1] < 1850:
+            return c
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    return None
+
+
+def tap_at(c):
+    adb("shell", "input", "tap", str(c[0]), str(c[1]))
+    time.sleep(1.2)
+
+
+def qa_hook(command: str, link=None):
+    """Asks the debug build [command] (app/QaHooks.kt): "zoom" zooms the camera on screen in, as its "Približaj · Zoom
+    in" action does; "happening:<scene>/<happening>" counts that happening as on ("happening:" lets it go). Then opens
+    [link] ("scene:<id>@<focus>"), if given. One intent to the running app (singleTop: nothing else changes)."""
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, command, *(("--es", OPEN, link) if link else ()))
+    time.sleep(1.5)
+
+
+def double_tap_zoom(x: int, y: int, tries=2) -> str:
+    """Zooms in by a double tap at ([x], [y]) (both taps in one shell call, so they land within the double-tap window),
+    up to [tries] times; when a busy machine sends them too far apart, by QA's zoom hook instead (the camera's own
+    "Približaj · Zoom in"). How it zoomed ("double tap", "zoom hook"), or "" when neither did (the Recenter button
+    shows once the camera moved)."""
+    for _ in range(tries):
+        adb("shell", f"input tap {x} {y} && input tap {x} {y}")
+        time.sleep(2.5)  # the flight settles, the closer look renders and fades in
+        if wait_for("Na sredino · Recenter", 3):
+            return "double tap"
+        if find("Na sredino · Recenter") is None and any(t in OVER_VILLAGE for t, _ in nodes()):
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the first tap alone opened something: close it
+            time.sleep(1)
+    qa_hook("zoom")
+    time.sleep(1)
+    return "zoom hook" if wait_for("Na sredino · Recenter", 5) else ""
+
+
+def to_top():
+    for _ in range(4):
+        adb("shell", "input", "swipe", "540", "700", "540", "1900", "200")
+    time.sleep(1)
+
+
+def home():
+    """Home: the village header, "Danes · Today" with one thing to do, the villagers, the learning tiles."""
+    assert wait_for("Danes · Today", 10), "today card"
+    assert find("Moja vas"), "the header's way into the village"
+    assert find("Igraj · Play") or find("Ponovi · Review") or find("Uči se · Learn") or find("Govori · Talk") or find("Odgovori · Answer"), "today's one action"
+    assert scroll_to("Učenje · Learning"), "learning section"
+    shot("home-learning")
+    for tile in ("Nove besede", "Izzivi", "Pogovor", "Družina"):
+        assert scroll_to(tile, 2), f"{tile} tile"
+    assert scroll_to("Napredek · Progress", 3), "progress line"
+    to_top()
+
+
+def challenges():
+    """The Izzivi tile opens the tutor's modules in a sheet; back closes it."""
+    go_home()
+    tile = scroll_to("Izzivi")
+    assert tile, "challenges tile"
+    tap_at(tile)
+    assert wait_for("✨ Izzivi · Challenges", 6), "challenges sheet"
+    time.sleep(1)
+    shot("challenges-sheet")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert find("✨ Izzivi · Challenges") is None, "sheet still open"
+    to_top()
+
+
+def village():
+    to_top()
+    assert tap("Moja vas"), "open village"
+    # The first-time intro, and the news of who moved in while the app was closed, may come in any order.
+    end, calm = time.time() + 25, 0
+    while time.time() < end and calm < 3:  # the village three times in a row, with nothing over it
+        ns = list(nodes())
+        c = next((c for t, c in ns if t.startswith("Preskoči") or t == "Naprej · Continue"), None)
+        if c is not None:
+            adb("shell", "input", "tap", str(c[0]), str(c[1]))
+            calm = 0
+            time.sleep(1.5)  # a fading intro still lists its Skip: a second tap would land on the HUD under it
+        elif any(t in ("Zvitek · Scroll", "Knjiga · Book") for t, _ in ns):
+            calm += 1
+        elif any("Nabiraj · Gather" in t for t, _ in ns):  # a resource chip's sheet opened after all ("📜 Nabiraj · Gather"): close it
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            calm = 0
+        time.sleep(1)
+    assert wait_for("Zvitek · Scroll", 5) or wait_for("Knjiga · Book", 3), "village screen"
+    if (h := arg("--happening")) is not None:
+        qa_hook(f"happening:{h}")  # its person comes to its place (see the usage)
+    time.sleep(1.5)  # let the camera settle on the village
+
+
+VILLAGE_HUD = ("Zvitek · Scroll", "Knjiga · Book")  # the bottom bar's first button: hidden under a sheet or the scroll
+OVER_VILLAGE = ("Zapri · Close", "Close sheet")  # a card's ✕ or the scroll's, a bottom sheet's scrim
+MOVE_ON = ("Naprej · Continue", "V vas · To the village")  # news over the village, a run's result
+
+
+def plain_village():
+    """Back to the plain village, camera at home, whatever a step left open: a card, a sheet, the scroll, a screen
+    in front of it; into the village again when Back went on to Home."""
+    for _ in range(8):
+        ns = list(nodes())
+        labels = [t for t, _ in ns]
+        if any(t in VILLAGE_HUD for t in labels) and not any(t in OVER_VILLAGE for t in labels):
+            if (c := next((c for t, c in ns if t == "Na sredino · Recenter"), None)) is not None:
+                tap_at(c)
+                time.sleep(1.5)
+            return
+        if any("Danes · Today" in t for t in labels):
+            village()
+            continue
+        if not in_front():  # Back left the app
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+            time.sleep(3)
+            continue
+        c = next((c for t, c in ns if t in MOVE_ON or t.startswith("Preskoči")), None)
+        if c is not None:
+            tap_at(c)
+        else:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+    raise AssertionError("could not get back to the plain village")
+
+
+def scroll():
+    """The scroll (the book from Vas on): the community overview, and a jump to the next goal."""
+    assert tap("Zvitek · Scroll", 3) or tap("Knjiga · Book", 3), "scroll button"
+    assert wait_for("Danes v vasi", 8), "today section"
+    time.sleep(1)
+    shot("scroll-today")
+    assert tap("Naslednji cilj · Next goal", 5), "goal index"
+    assert wait_for("Naslednji cilj", 5), "next goal section"
+    time.sleep(1)
+    shot("scroll-goal")
+    assert tap("Kraji · Places", 5), "places index"
+    assert wait_for("Ogenj · The fire", 5), "places section"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # rolls the scroll up
+    time.sleep(1.5)
+    assert wait_for("Zvitek · Scroll", 5) or wait_for("Knjiga · Book", 3), "back to the village"
+
+
+def villagers():
+    """The register (the scroll's people section links to it), a villager's card and page, their greeting."""
+    assert tap("Zvitek · Scroll", 3) or tap("Knjiga · Book", 3), "scroll button"
+    assert tap("Prebivalci · Villagers", 5), "people index"
+    assert tap("Vsi prebivalci", 5), "link to the register"
+    assert wait_for("Prebivalci · Villagers", 8), "register"
+    time.sleep(1)
+    shot("villagers-register")
+    talk = next((c for t, c in nodes() if t.startswith("Pogovori se · Talk: ")), None)
+    if talk is None:
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        return "no villagers on this node"
+    adb("shell", "input", "tap", str(talk[0]), str(talk[1]))
+    assert wait_for("Več · More", 5), "villager card"
+    shot("villager-card")
+    assert tap("Več · More", 3), "more"
+    assert wait_for("‹ Prebivalci · Villagers", 8), "villager page"
+    assert tap("💬 Pogovori se · Talk", 5), "talk"
+    assert wait_for("Pogovor s tutorjem", 12), "greeting, then the free talk"
+    time.sleep(1)
+    shot("villager-page")
+    # A word of their greeting opens its card (always here, unlike a scene's dialog, which depends on the hour),
+    # and "Add to my words" goes through the outbox to the dev bridge's copy of the data.
+    bs = list(boxes())
+    listen = min((b for t, b in bs if t == "Poslušaj · Listen"), key=lambda b: b[1], default=None)
+    assert listen is not None, "the greeting's 🔊"
+    cy = (listen[1] + listen[3]) // 2
+    line = next((b for t, b in bs if " · " in t and b[2] <= listen[0] + 4 and b[1] <= cy <= b[3]), None)
+    assert line is not None, "the greeting's line"
+    # Its second word: greetings often open with a name (Jan!), and a name has no "Add to my words".
+    tap_at((line[0] + int((line[2] - line[0]) * 0.33), line[1] + 24))
+    assert word_card(), "the word's card"
+    shot("villager-word-card")
+    if tap("Dodaj med moje besede", 2):
+        assert wait_for("Dodano", 10), "the word added to Jan's words"
+        shot("villager-word-added")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the card
+    time.sleep(1.2)
+    assert not any(w in t for t, _ in nodes() for w in WORD_CARD), "the card is still open"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the page → the register
+    time.sleep(1)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the register → the village
+    assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+
+
+def place_card():
+    """Tapping the fire in the village (its screen-reader target shows where it is) opens its card."""
+    # the camera flies to the fire before its card comes up, and right after the village opens a busy emulator can let
+    # the first tap go: tap again when nothing came
+    # At night the fire is crowded (the hut, Stari Janez and his story's bubble over it): after a tap that opened
+    # nothing, zoom in on the fire (a bigger target), and tap again.
+    for attempt in range(3):
+        if find("Ogenj · The fire") is None:
+            plain_village()
+        assert tap_clear("Ogenj · The fire", 5), "the fire in the village"
+        if wait_for("Nahrani ogenj", 10):
+            break
+        if find("Nahrani ogenj") is None and attempt == 0 and (c := find("Ogenj · The fire")) is not None:
+            double_tap_zoom(c[0], c[1])
+    else:
+        raise AssertionError("the fire's place card")
+    time.sleep(1)
+
+
+def scene():
+    """The fire's card leads into its scene (the close-up), and back to the village."""
+    if find("Vstopi · Go in") is None:
+        return "no scene opens at the fire (no scenes on this node)"
+    assert tap("Vstopi · Go in", 3), "go in"
+    assert wait_for("‹ Vas · Village", 10), "scene screen"
+    time.sleep(2)
+    shot("scene-open")
+    time.sleep(2)  # the debug build logs the scene's frame time every 24 frames
+    # a double tap on the picture zooms in, and closer up the scene is drawn finer (it fades in)
+    pic = next((b for t, b in boxes() if t.startswith("Prizor · Scene")), None)
+    assert pic is not None, "the scene's picture"
+    # a corner of the picture, where nothing is to tap: if the two taps come too far apart (a busy machine), the
+    # single tap lands on nothing and the next try goes again; after two, the camera's own zoom (QA's hook)
+    x, y = pic[0] + 70, pic[3] - 70
+    how = double_tap_zoom(x, y)
+    assert how, "recenter button after zooming into the scene (a double tap twice, then the zoom hook)"
+    if how != "double tap":
+        print(f"    zoomed by the {how}: the double taps came too far apart")
+    shot("scene-closer")
+    time.sleep(2)  # the debug build logs the closer look's frame time every 24 frames
+    for line in adb("logcat", "-d", "-s", "SceneView:D", check=False).splitlines()[-4:]:
+        print("   ", line.split("SceneView: ")[-1])
+    assert tap("Na sredino · Recenter", 3), "recenter in the scene"
+    time.sleep(1.5)
+    assert tap("‹ Vas · Village", 3), "back from the scene"
+    assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+
+
+WORD_CARD = ("Vprašaj učitelja", "Dodaj med moje besede", "Med tvojimi besedami", "Poskusi znova", "Iščem")
+
+
+def word_card(timeout=10.0):
+    """The word card (its meanings with "Add to my words", or asking the tutor, or offline), or None."""
+    end = time.time() + timeout
+    while time.time() < end:
+        labels = [t for t, _ in nodes()]
+        if any(w in t for t in labels for w in WORD_CARD):
+            return True
+        time.sleep(1)
+    return None
+
+
+def dialog_happenings() -> list:
+    """The happenings with a dialog of the scenes the dev bridge serves, as (scene, happening), the fire's first; the
+    repo's scenes when the bridge can't be asked. A storyteller's evening (its story is tonight's) is left out."""
+    try:
+        scenes = api("/scenes")
+    except (OSError, RuntimeError, ValueError):
+        scenes = [json.loads(p.read_text()) for p in sorted((ROOT / "companion/scenes").glob("*.json"))]
+    out = [(s["id"], h["id"]) for s in scenes if isinstance(s, dict) for h in s.get("happenings", [])
+           if h.get("dialog") and not h.get("stories") and not h.get("guests")]
+    return sorted(out, key=lambda k: k[0] != "ob-ognju")
+
+
+def open_dialog() -> str:
+    """Opens a scene's dialog: "" once it shows, else why not. First a happening QA counts as on (the debug build's hook,
+    on the dev bridge's copy of the data), opened through its deep link: its dialog comes up whatever the hour, the day's
+    dice or who has been met. Without the hook (a build from before it): as before, someone "Here today" with a dialog
+    at the fire, else in the other scenes through their links."""
+    for sid, hid in dialog_happenings()[:3]:
+        qa_hook(f"happening:{sid}/{hid}", f"scene:{sid}@{sid}/{hid}")
+        if wait_for("‹ Vas · Village", 8) is None:
+            continue  # that scene didn't open (not built yet): the next
+        if wait_for("Zapri · Close", 6):
+            print(f"    the dialog of {sid}/{hid} (counted as on by QA's hook)")
+            # let it go now: the dialog plays on, and the village comes back without its bubble
+            qa_hook("happening:")
+            return ""
+        print("    the scene opened without its dialog: no QA hook in this build")
+        break
+    # no hook: the fire's card (a happening's bubble over the fire goes straight into the scene), and in
+    if find("‹ Vas · Village") is None:
+        plain_village()
+        assert tap_clear("Ogenj · The fire", 5), "the fire in the village"
+        if find("‹ Vas · Village") is None:
+            if wait_for("Vstopi · Go in", 8) is None:
+                if find("‹ Vas · Village") is None:
+                    plain_village()
+                    return "the fire's card didn't open (a tap beside it?), and no QA hook in this build"
+            else:
+                assert tap("Vstopi · Go in", 3), "go in"
+    assert wait_for("‹ Vas · Village", 10), "scene screen"
+    talk = scroll_to("💬 Pogovori se · Talk", 4)  # "Here today": someone with a dialog
+    if talk is None:
+        # Who is in a scene depends on the hour and who lives here: try the other scenes through their links.
+        for sid in sorted({s for s, _ in dialog_happenings()} - {"ob-ognju"}):
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"scene:{sid}")
+            if wait_for("‹ Vas · Village", 8) and (talk := scroll_to("💬 Pogovori se · Talk", 3)) is not None:
+                break
+    if talk is None:
+        tap("‹ Vas · Village", 3)
+        return "nobody in any scene has something to say now, and no QA hook in this build"
+    tap_at(talk)
+    assert wait_for("Zapri · Close", 8), "the dialog"
+    return ""
+
+
+def story_in_scene():
+    """The storyteller's evening story opens from inside the fire's scene too, not only through the village's bubble
+    (Stari Janez's had no dialog, so the scene offered nothing): with his evening on (QA's hook), the scene opened without
+    a focus has "📖 Poslušaj · Listen" by him under "Here today", which opens the story, and so does his marker over the
+    picture."""
+    try:
+        qa_hook("happening:ob-ognju/zgodba", "scene:ob-ognju")
+        if wait_for("‹ Vas · Village", 10) is None:
+            return "the fire's scene didn't open (no scenes on this node)"
+        # the list's last row: it can't scroll clear of the bottom edge, so where it is will do
+        listen = scroll_to("📖 Poslušaj · Listen", 4) or find("📖 Poslušaj · Listen")
+        if listen is None and find("Stari Janez") is None:
+            return "Stari Janez isn't by the fire (no storyteller in this village)"
+        assert listen is not None, "📖 Poslušaj · Listen by Stari Janez in the fire's scene"
+        tap_at(listen)
+        assert wait_for("Zapri · Close", 8), "the story from the scene's list"
+        shot("story-from-list")
+        assert tap("Zapri · Close", 3), "close the story"
+        time.sleep(1.5)
+        # his marker over the picture ("Stari Janez: <tonight's story>. Pogovori se · Talk")
+        marker = next((c for t, c in nodes() if t.startswith("Stari Janez:")), None)
+        assert marker is not None, "Stari Janez's marker over the fire's scene"
+        tap_at(marker)
+        assert wait_for("Zapri · Close", 8), "the story from his marker"
+        shot("story-from-marker")
+        tap("Zapri · Close", 3)
+        time.sleep(1)
+    finally:
+        qa_hook("happening:")
+    return None
+
+
+def counting():
+    """A counting dialog (companion/SCENES.md, "Numbers": Luka counts his cows on the pasture) opens with its number in
+    words and no placeholder left. Through QA's hook, the happenings that have one; whichever of their variants plays
+    today, none may crash the app (a pattern Android's regex engine rejects once did, and the JVM's unit tests passed)."""
+    try:
+        scenes = api("/scenes?arts=2")
+    except (OSError, RuntimeError, ValueError) as e:
+        return f"the dev bridge's scenes: {e}"
+    counted = {(s["id"], d["id"]) for s in scenes if isinstance(s, dict) for d in s.get("dialogs", []) if d.get("count")}
+    hs = [(s["id"], h["id"]) for s in scenes if isinstance(s, dict) for h in s.get("happenings", [])
+          if not h.get("guests") and any((s["id"], d) in counted for d in h.get("dialogs", []))]
+    # first those whose first variant counts: the first not heard yet is the one that plays
+    first = {(s["id"], h["id"]) for s in scenes if isinstance(s, dict) for h in s.get("happenings", [])
+             if h.get("dialogs") and (s["id"], h["dialogs"][0]) in counted}
+    hs.sort(key=lambda k: k not in first)
+    if not hs:
+        return "no happening with a counting dialog"
+    shown = []
+    try:
+        for sid, hid in hs[:3]:
+            qa_hook(f"happening:{sid}/{hid}", f"scene:{sid}@{sid}/{hid}")
+            opened = wait_for("‹ Vas · Village", 8) is not None and wait_for("Zapri · Close", 6) is not None
+            assert adb("shell", "pidof", PKG, check=False).strip(), f"the app crashed opening {sid}/{hid}"
+            if opened:
+                texts = [t for t, _ in nodes()]
+                left = [t for t in texts if re.search(r"\{[^}]*\}", t)]
+                assert not left, f"{sid}/{hid}: a placeholder left: {left[:2]}"
+                shown.append(f"{sid}/{hid}")
+            plain_village()
+    finally:
+        qa_hook("happening:")
+    print(f"    dialogs opened: {', '.join(shown) or 'none'} (their variant today may or may not count)")
+    return None if shown else "no counting happening's dialog opened"
+
+
+def dialog_words():
+    """In a scene's dialog, a tap on a word of the person's line opens the word's card; back closes just the card.
+    A long press on a word of an answer opens its card too, and doesn't pick the answer."""
+    try:
+        return words_in_dialog()
+    finally:
+        qa_hook("happening:")  # whatever happened: the next steps see the village as it is
+
+
+def words_in_dialog():
+    """[dialog_words], once QA's happening is counted as on."""
+    if why := open_dialog():
+        return why
+    time.sleep(3)  # the first line types in (only typed words can be tapped)
+    if find("Tapni besedo") is None:
+        print("    (no word hint: seen before?)")
+    shot("dialog-open")
+    # The person's line is left of its 🔊, the topmost one in the dialog; its screen-reader label is "<Slovene> · <English>".
+    bs = list(boxes())
+    listen = min((b for t, b in bs if t == "Poslušaj · Listen"), key=lambda b: b[1], default=None)
+    assert listen is not None, "the person's line (its 🔊)"
+    cy = (listen[1] + listen[3]) // 2
+    line = next((b for t, b in bs if " · " in t and b[2] <= listen[0] + 4 and b[1] <= cy <= b[3]), None)
+    assert line is not None, "the person's line"
+    tap_at((line[0] + 24, line[1] + 24))  # the line's first word
+    assert word_card(), "the word's card"
+    shot("dialog-word-card")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the card
+    time.sleep(1.2)
+    assert not any(w in t for t, _ in nodes() for w in WORD_CARD), "the card is still open"
+    assert find("Zapri · Close"), "back closed the dialog too"
+    # On to the learner's turn, then a long press on the first answer's first word.
+    for _ in range(4):
+        if find("Tvoj odgovor") or not tap("Naprej · Next", 2):
+            break
+    label = next((b for t, b in boxes() if t.startswith("Tvoj odgovor")), None)
+    if label is not None:
+        row = min((b for t, b in boxes() if b[1] > label[3] and b[2] - b[0] > 400), key=lambda b: b[1], default=None)
+        assert row is not None, "an answer"
+        x, y = row[0] + 50, row[1] + 45  # past the row's padding, on its first word
+        adb("shell", "input", "swipe", str(x), str(y), str(x), str(y), "900")  # a long press
+        assert word_card(), "the card of an answer's word"
+        shot("dialog-answer-word")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.2)
+        assert find("Tvoj odgovor"), "the long press picked the answer"
+    assert tap("Zapri · Close", 3), "close the dialog"
+    assert tap("‹ Vas · Village", 5), "back from the scene"
+    assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+
+
+TYPED_TURN = "Napiši manjkajočo besedo"  # a dialog's typed turn's title (adaptive.typeMissingWord)
+ANSWER_FIELD = "Napiši odgovor"  # the answer field's placeholder (playerScreen.typeAnswer)
+CHECK = "Preveri · Check"
+
+
+def ime_top():
+    """The keyboard's top on screen (px), from the window manager's insets (the IME's frame, as the app is told it);
+    None while it is down."""
+    for m in re.finditer(r"InsetsSource id=\S+ type=ime frame=\[(\d+),(\d+)\]\[(\d+),(\d+)\][^\n]*?visible=true",
+                         adb("shell", "dumpsys", "window", check=False)):
+        x0, y0, x1, y1 = map(int, m.groups())
+        if y1 > y0 and x1 > x0:
+            return y0
+    return None
+
+
+def keyboard_settled(timeout=8.0):
+    """Waits for the keyboard to be up and still (its top the same twice, the panel risen); its top, or None."""
+    end, last = time.time() + timeout * slow(), None
+    while time.time() < end:
+        top = ime_top()
+        if top is not None and top == last:
+            time.sleep(0.8)  # the panel's lift (a fifth of a second) and the bringing into view after it
+            return top
+        last = top
+        time.sleep(0.6)
+    return None
+
+
+def typed_turn():
+    """A dialog's typed turn (QA's hook asks every turn that tests a form typed into its gap) with the keyboard up: the
+    field, the letter chips and "Preveri · Check" above the keyboard's top (its frame from `dumpsys window`), the sentence
+    with the gap on screen too; the panel has risen over the picture (its header higher, the top bar gone) and comes back
+    down once the keyboard is."""
+    try:
+        return typed_in_dialog()
+    finally:
+        qa_hook("turns:")  # the learner's own masteries decide again
+        qa_hook("happening:")
+
+
+def open_typed_turn() -> str:
+    """Opens a dialog whose first turn is typed (QA's hooks: the happening on, its form turns typed) and goes on to that
+    turn: "" once it shows, else why not. A dialog whose turn is chosen (no form in it) is closed for the next one."""
+    qa_hook("turns:type")
+    for sid, hid in dialog_happenings()[:10]:
+        qa_hook(f"happening:{sid}/{hid}", f"scene:{sid}@{sid}/{hid}")
+        if wait_for("‹ Vas · Village", 8) is None:
+            continue
+        if wait_for("Zapri · Close", 6) is None:
+            tap("‹ Vas · Village", 3)
+            continue
+        for _ in range(8):
+            labels = [t for t, _ in nodes()]
+            if any(TYPED_TURN in t for t in labels):
+                print(f"    the typed turn of {sid}/{hid}")
+                return ""
+            if any(t.startswith("Tvoj odgovor") or "Poišči v prizoru" in t or "Poslušaj in ponovi" in t for t in labels):
+                break  # the learner's turn, but chosen, tapped or echoed: the next dialog
+            if not tap("Naprej · Next", 3):
+                time.sleep(1)
+        tap("Zapri · Close", 3)
+        tap("‹ Vas · Village", 5)
+        plain_village()
+    return "no dialog with a typed turn opened (no form turn first in the dialogs tried)"
+
+
+def box_of(bs, text, exact=False):
+    """The bounds of the first node labelled [text] (exactly, or containing it) in [bs], or None."""
+    return next((b for t, b in bs if (t == text if exact else text in t)), None)
+
+
+def typed_in_dialog():
+    """[typed_turn], its hooks asked."""
+    if why := open_typed_turn():
+        return why
+    time.sleep(1.5)  # the person's line types in
+    bs = list(boxes())
+    header = box_of(bs, "Zapri · Close")
+    assert header is not None, "the dialog's header (✕)"
+    field = box_of(bs, ANSWER_FIELD)
+    assert field is not None, "the answer field"
+    shot("typed-turn")
+    tap_at(((field[0] + field[2]) // 2, (field[1] + field[3]) // 2))
+    top = keyboard_settled()
+    assert top is not None, "the keyboard came up"
+    bs = list(boxes())
+    shot("typed-turn-keyboard")
+    parts = {
+        "the field": box_of(bs, ANSWER_FIELD),
+        "the letter chips": box_of(bs, "č", exact=True),
+        "Check": box_of(bs, CHECK),
+        "the sentence with the gap": box_of(bs, "____"),
+    }
+    missing = [n for n, b in parts.items() if b is None]
+    assert not missing, f"with the keyboard up, not on screen: {', '.join(missing)}"
+    under = [f"{n} ({b[3]} > {top})" for n, b in parts.items() if b[3] > top]
+    assert not under, f"under the keyboard (its top at {top}): {', '.join(under)}"
+    risen = box_of(bs, "Zapri · Close")
+    assert risen is not None and risen[1] < header[1], f"the panel rose over the picture (its ✕ at {risen} from {header})"
+    assert box_of(bs, "‹ Vas · Village") is None, "the scene's top bar out of the way while the panel is up"
+    print(f"    keyboard's top {top}px; Check {parts['Check'][1]}–{parts['Check'][3]}, field {parts['the field'][1]}–"
+          f"{parts['the field'][3]}, gap's sentence from {parts['the sentence with the gap'][1]}; ✕ {header[1]} → {risen[1]}")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down: the picture comes back
+    time.sleep(1.5)
+    assert ime_top() is None, "the keyboard went down"
+    bs = list(boxes())
+    back = box_of(bs, "Zapri · Close")
+    assert back is not None and abs(back[1] - header[1]) < 12, f"the panel back under the picture (its ✕ at {back}, was {header})"
+    assert box_of(bs, "‹ Vas · Village") is not None, "the scene's top bar back"
+    assert tap("Zapri · Close", 3), "close the dialog"
+    assert tap("‹ Vas · Village", 5), "back from the scene"
+    plain_village()  # the village (its first-time intro skipped, when this step runs alone on a fresh install)
+
+
+def forest():
+    """A tap on the forest (through the camera's inverse) opens the forest's card."""
+    if find("Nahrani ogenj"):  # a place card still open from the step before
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    adb("shell", "input", "tap", "300", "2050")  # deep in the woods left of the path (nobody lives there), above the bottom bar
+    assert wait_for("Gozd · The forest", 6), "forest card"
+    assert wait_for("Nabiraj les", 3), "gather wood in the forest"
+    time.sleep(1)
+    shot("forest-card")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the card, not the village
+    time.sleep(1)
+    assert find("Zvitek · Scroll") or find("Knjiga · Book"), "back closed more than the card"
+
+
+def zoom():
+    """A double tap zooms in twice as close: the village switches to its finer level of detail (roof tiles, window frames)."""
+    if tap("Na sredino · Recenter", 2):  # a card's reveal may have left the camera closer in
+        time.sleep(1.5)
+    # Near the fire, on nothing: a bubble takes a tap before the village sees it, and when the two taps come too far
+    # apart (a busy machine) the first is a tap of its own, which opens what's there. Then close it and go again; after
+    # two, the camera's own zoom (QA's hook, as the "Približaj · Zoom in" action).
+    for _ in range(2):
+        bs = list(boxes())
+        c = open_spot("Ogenj · The fire", reach=160, bs=bs)
+        assert c is not None, "the fire's target"
+        adb("shell", f"input tap {c[0]} {c[1]} && input tap {c[0]} {c[1]}")  # one shell call: the taps land within the double-tap window
+        time.sleep(2)  # the flight settles, the closer look renders and fades in
+        if wait_for("Na sredino · Recenter", 5):
+            break
+        before = {t for t, _ in bs}
+        opened = [t for t, _ in nodes() if t not in before]
+        print(f"    no zoom after a double tap at {c}; {'opened: ' + ' | '.join(opened[:4]) if opened else 'nothing opened'}")
+        plain_village()
+    else:
+        qa_hook("zoom")
+        assert wait_for("Na sredino · Recenter", 5), "recenter button after zooming in (two double taps, then the zoom hook)"
+        print("    zoomed by the zoom hook: the double taps came too far apart")
+    shot("zoomed-in")
+    assert tap("Na sredino · Recenter", 3), "recenter"
+    time.sleep(1.5)
+
+
+def spot_card():
+    """A spot of the landscape (its screen-reader target shows where it is) is a place: its card offers to gather
+    there. Villagers live at spots, and a tap on someone standing there opens their card; a happening's bubble over the
+    spot (at night Luka's owl by the forest) opens its close-up: then back to the village and the next spot."""
+    for spot, action in (("Skladovnica · The woodpile", "Nabiraj les"), ("Skale · The rocks", "Nabiraj kamen")):
+        assert tap_clear(spot, 5), f"{spot} in the village"
+        if wait_for(action, 6):
+            break
+        plain_village()  # someone's card, or a close-up with its dialog
+    else:
+        raise AssertionError("no spot's card (villagers standing on both?)")
+    time.sleep(1)
+    shot("woodpile-card")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the card
+    time.sleep(1)
+    assert find("Zvitek · Scroll") or find("Knjiga · Book"), "back closed more than the card"
+
+
+CAST = ["Babica Micka", "Pastir Luka", "Zala", "Stari Janez", "Mlinar France", "Tine", "Teta Ančka", "Čebelar Anton", "Kovač Tone", "Vinar Marko", "Gostilničarka Vida", "Nejc", "Učiteljica Mojca"]
+
+
+def villager():
+    """Someone who lives here stands about their home; a tap on them shows their card over the village."""
+    people = [t for t, _ in nodes() if any(t == n or t.startswith(n) for n in CAST)]
+    if not people:
+        return "nobody out on the map (no residents yet, or all indoors at night)"
+    # Someone may stand under a crowd of bubbles (a tap there opens the place's card), or have walked off or
+    # indoors since the list was read: try the next one.
+    who = None
+    for name in people:
+        if not tap(name, 3):
+            continue
+        if wait_for("Več · More", 5):
+            who = name
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # a place card opened instead
+        time.sleep(1.2)
+    assert who, f"no villager's card over the village (tried {', '.join(people)})"
+    time.sleep(1)
+    shot("villager-card-on-map")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the card
+    time.sleep(1.2)
+    assert find("Zvitek · Scroll") or find("Knjiga · Book"), "back closed more than the card"
+
+
+REQUEST = ", prošnja · request"  # a request bubble's TalkBack label: "<what's asked>, prošnja · request"
+PROJECT = re.compile(r" \d+/\d+" + re.escape(REQUEST) + "$")  # a village project's: "Mlaj · The maypole 0/5, prošnja · request"
+
+
+def bubble():
+    """A villager's request bubble in the village opens their request."""
+    wait_for("prošnja · request", 8)
+    # A villager's own request opens its challenge; not the tutor's ("prošnja od učitelja"), which opens a module
+    # player, nor a village project's (the projects sheet), nor a place's bubble that stands for several ("odpri kraj").
+    asks = [(t, c) for t, c in nodes() if t.endswith(REQUEST) and not PROJECT.search(t)]
+    if not asks:
+        return "no villager's request bubble on screen"
+    for t, c in asks:
+        tap_at(c)
+        # a villager's bubble (one for all their requests, "⚒️ 2") opens their card: "🙋 Prosi te za pomoč" over a row per
+        # request ("📋 <title>"), their own first; its row leads on to the quest
+        if wait_for("Prosi te za pomoč", 5):
+            assert tap("📋 ", 3), "the first request on the villager's card"
+        if wait_for("Začni", 10) or wait_for("Na kocki", 3):
+            break
+        print(f"    the bubble {t!r} led elsewhere")
+        plain_village()
+    else:
+        raise AssertionError(f"quest intro (tried {' / '.join(t for t, _ in asks)})")
+    shot("bubble-quest")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+
+
+def camera():
+    """Dragging the village moves the camera; the recenter button brings it home."""
+    # a busy machine (many builds at once) can take a while to show the button: a second drag if not
+    for _ in range(2):
+        adb("shell", "input", "swipe", "300", "1500", "800", "1100", "400")
+        time.sleep(1.5)
+        if wait_for("Na sredino · Recenter", 8):
+            break
+    else:
+        raise AssertionError("recenter button after a drag")
+    shot("camera-moved")
+    assert tap("Na sredino · Recenter", 3), "recenter"
+    time.sleep(1.5)
+    assert find("Na sredino · Recenter") is None, "still away from home after recentring"
+
+
+NOT_OPTIONS = ("Poslušaj · Listen", "Počasi · Slowly", "Predvajaj", "Namig", "Vprašaj", "Končaj", "Zapri")
+
+
+def answer_any():
+    """Answers the exercise on screen, whatever it is: types, flips the card, or taps the first option."""
+    if find("Preveri · Check"):
+        # the answer field ("Napiši odgovor"), not a prompt that also starts with "Napiši" ("Napiši, kar slišiš")
+        c = find("Napiši odgovor") or find("Type your answer")
+        if c:
+            adb("shell", "input", "tap", str(c[0]), str(c[1]))
+            type_text("hvala")
+        tap("Preveri · Check", 3)
+    elif find("Pokaži · Show"):
+        tap("Pokaži · Show", 3)
+        tap("Vedel sem", 3)
+    else:  # a choice: the first option below the prompt (the stage and the prompt fill the top)
+        # not the question itself, which can sit below the stage too ("🎧 … Where did he sit?")
+        below = [(t, c) for t, c in nodes() if t and c[1] > 1000 and not any(n in t for n in NOT_OPTIONS)]
+        options = [(t, c) for t, c in below if not t.rstrip().endswith("?")]
+        # every answer a question ("Kako ti je ime?"): the lowest, which is an answer, never the prompt above them
+        options = options or sorted(below, key=lambda o: o[1][1])[-1:]
+        assert options, "an option to pick"
+        x, y = options[0][1]
+        adb("shell", "input", "tap", str(x), str(y))
+    time.sleep(1.5)
+
+
+def gather():
+    assert tap("Hrana · Food"), "food chip"  # the HUD chip's TalkBack label
+    assert tap("Nabiraj · Gather"), "gather button"
+    assert wait_for("Pozneje · Later", 8), "the intro"  # the villager asks first
+    assert tap("Začni"), "start run"
+    for _ in range(2):  # answer two exercises whatever they are
+        answer_any()
+        shot("gather-answer")
+        tap("Naprej · Next", 4)
+    assert tap("Končaj"), "stop early"
+    # "Za tvojo vas" when something was earned; a full store earns nothing, but the result still leads home
+    assert wait_for("Za tvojo vas", 10) or wait_for("V vas · To the village", 5), "result screen"
+
+
+def back_to_village():
+    """A run's result leads back to the village (whatever else is open, the step's cleanup closes)."""
+    if not tap("V vas", 5):
+        return "no run's result on screen"
+
+
+def stage_bubble():
+    """The training stage's speech bubble ("Pastir Luka: Poslušaj … · Listen …"), or None."""
+    return next((t for t, _ in nodes() if ": " in t and " · " in t and t.split(": ")[0] in STAGE_PEOPLE), None)
+
+
+STAGE_PEOPLE = {"Pastir Luka", "Mlinar France", "Kovač Tone", "Stari Janez", "Babica Micka"}
+
+
+def intro_stage():
+    """A gathering run: the villager's intro (request, practice, pay), then the run with them on the stage, reacting."""
+    assert tap("Les · Wood", 5), "wood chip"
+    assert tap("Nabiraj · Gather", 5), "gather button"
+    assert wait_for("Kaj boš vadil", 10), "intro: what you'll practise"
+    assert find("Pastir Luka"), "intro: Pastir Luka asks for wood"
+    assert find("Pozneje · Later"), "intro: later"
+    time.sleep(1)
+    shot("intro")
+    assert tap("Začni", 3), "start from the intro"
+    assert wait_for("Glas spremljevalca", 8), "the stage above the exercise"
+    before = stage_bubble()
+    assert before, "the companion says something as the exercise comes up"
+    shot("stage-prompt")
+    answer_any()
+    after = stage_bubble()
+    assert after and after != before, f"the companion reacts to the answer ({before!r} → {after!r})"
+    shot("stage-reaction")
+    tap("Naprej · Next", 4)
+    assert tap("Končaj"), "stop early"
+    assert wait_for("V vas · To the village", 10), "result screen"
+    assert wait_for("Pastir Luka", 5), "the companion says goodbye on the result"
+    time.sleep(1)
+
+
+def chest():
+    """The HUD's chest chip opens the chest: help for a moba, the villagers' tools and goods, the feast."""
+    assert tap("Skrinja · The chest", 5), "chest chip"
+    assert wait_for("Darila in dobrote", 8), "chest sheet"
+    time.sleep(1)
+    shot("chest-sheet")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the sheet
+    time.sleep(1)
+    assert find("Zvitek · Scroll") or find("Knjiga · Book"), "back closed more than the chest"
+
+
+def projects():
+    """The HUD's projects chip (from Zaselek) opens the village projects, one step a day."""
+    if find("Skupni projekti · Village projects") is None:
+        return "no village projects yet (they come with Zaselek)"
+    assert tap("Skupni projekti · Village projects", 5), "projects chip"
+    assert wait_for("En korak na dan", 8), "projects sheet"
+    time.sleep(1)
+    shot("projects-sheet")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    # the sheet fades out first: the village's bar may take a moment to be there again
+    assert wait_for("Zvitek · Scroll", 5) or find("Knjiga · Book"), "back closed more than the projects"
+
+
+def build_sheet():
+    # The bottom bar's Build opens the sheet; the next-goal card may have its own Build that builds
+    # straight away (when affordable), so take the lowest match on screen.
+    matches = [c for t, c in nodes() if "Gradi · Build" in t]
+    assert matches, "build button"
+    x, y = max(matches, key=lambda c: c[1])
+    adb("shell", "input", "tap", str(x), str(y))
+    assert wait_for("Parcele", 8), "build sheet"
+
+
+def ages():
+    """From the build sheet, the next age's row opens its steps, each with a bar."""
+    if not tap("Naslednja doba", 5):
+        return "no next age (the town is complete)"
+    assert wait_for("Doba · Age", 8), "ages sheet"
+    assert find(" %"), "progress in percent"
+
+
+# --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
+
+def centre(b):
+    return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
+
+
+def on_visit() -> bool:
+    """The visited town's own screen: its banner's "⌂ Casa · Home" (not one of its places, a card, a request)."""
+    return find(f"⌂ {host('common.home')} · ") is not None
+
+
+def no_town():
+    """Why the visit steps can't run: no second town, or a problem with its fixture; None when they can."""
+    if "error" in FACTS:
+        return FACTS["error"]
+    return None if TOWN.get("row") else f"no second town ({TOWN['why']})"
+
+
+def friends():
+    """The scroll's people page leads to "Prijatelji · Friends", where the linked second town is listed, with its visit."""
+    if (why := no_town()) is not None:
+        return why
+    plain_village()
+    assert tap("Zvitek · Scroll", 3) or tap("Knjiga · Book", 3), "scroll button"
+    assert tap("Prebivalci · Villagers", 5), "people index"
+    assert tap("Prijatelji · Friends", 5), "the Friends row on the people page"
+    assert wait_for("🤝 Prijatelji · Friends", 8), "Friends screen"
+    # the dev bridge asks each linked town for its state now (3 s each)
+    assert wait_for(FACTS["name"], 15) and scroll_to(FACTS["name"], 3), f"the linked town {FACTS['name']!r} on Friends"
+    assert find("Obišči · Visit"), "its visit button"
+    time.sleep(1)
+
+
+def visit_town():
+    """"🚶 Obišči · Visit" on the town's card opens it: the banner "🧳 In visita · Visiting: <town> (<learner>)" and
+    "⌂ Casa · Home", the bar of things to do, all in the town's language (the pair switched), the town answering."""
+    if (why := no_town()) is not None:
+        return why
+    if find("🤝 Prijatelji · Friends") is None:
+        return "not on Friends (the step before failed)"
+    bs = list(boxes())
+    title = next((b for t, b in bs if t.endswith(FACTS["name"])), None)
+    assert title is not None, f"the card of {FACTS['name']!r}"
+    below = [b for t, b in bs if "Obišči · Visit" in t and b[1] >= title[1]]  # this card's button, not the next card's
+    assert below, "the card's visit button"
+    tap_at(centre(min(below, key=lambda b: b[1])))
+    banner = f"{host('visit.visiting')} · "
+    assert wait_for(banner, 10), f"the visit's banner ({banner.strip()} …): the pair didn't switch to {FACTS['language']}?"
+    # "On the way …" until its state, people and places came: then the town and the bar under it
+    assert wait_for(f"📜 {host('visit.requests')} · ", 25), "the visited town (its bar of things to do)"
+    line = next((t for t, _ in nodes() if banner in t), "")
+    assert FACTS["name"] in line and FACTS["learner"] in line, f"the banner names the town and its learner: {line!r}"
+    assert on_visit(), "the banner's home button"
+    assert find("Na obisku") is None and find("Zvitek · Scroll") is None and find("Knjiga · Book") is None, "Slovene labels during the visit"
+    if find(host("visit.asOf").split("{")[0].strip()) is not None:
+        print("    (the town shows its last state: it isn't answering now)")
+    time.sleep(2)  # the town settles, its people walk out
+
+
+def visit_villager():
+    """Someone of the town out on its map: a tap shows their card, in the town's language ("💬 Parla · Talk" for its
+    cast, "Chiudi · Close"); back closes just the card. The talk itself is the tutor's (not played here)."""
+    if not on_visit():
+        return "not on a visit (a step before failed)"
+    people = [(t, b) for t, b in boxes() if t in FACTS["people"] and b[2] > b[0] and b[3] > b[1] and b[1] > 0]
+    if not people:
+        return "nobody of the town out on the map (all indoors at night?)"
+    who = None
+    for t, b in people:
+        tap_at(centre(b))
+        if wait_for(f"💬 {host('visit.talk')} · ", 5):
+            who = t
+            break
+        if find(f"{host('common.close')} · "):  # a place's card opened instead (Back on the bare town would leave it)
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.2)
+    assert who, f"no villager's card (tried {', '.join(t for t, _ in people)})"
+    assert find(f"{host('common.close')} · "), "the card in the town's language"
+    time.sleep(1)
+    shot("visit-villager-card")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.2)
+    assert on_visit() and find(f"💬 {host('visit.talk')} · ") is None, "back closed more than the card"
+
+
+def visit_scene():
+    """The land at the horizon (the host culture's sea) opens its place card, "🚪 Entra · Go in" walks into the scene:
+    a guest there ("🧳 Qui sei ospite"), its words and who is there; someone with a dialog for guests talks (their lines
+    are scripted: no tutor); "‹ <town>" leads back to the town."""
+    if not on_visit():
+        return "not on a visit (a step before failed)"
+    label, go = f"{FACTS['horizon']} · ", f"🚪 {host('placeCard.go')} · "
+    for _ in range(3):
+        bs = list(boxes())
+        land = next((b for t, b in bs if t.startswith(label)), None)
+        assert land is not None, f"the town's horizon ({label.strip()} …): no scene of its for guests?"
+        # under the banner a tap goes to the banner: drag the town down a little until its horizon is clear of it
+        banner = max((b[3] for t, b in bs if t.startswith(("🧳", "⌂"))), default=0)
+        x, y = centre(land)
+        if y > banner + 30:
+            tap_at((x, y))
+            if wait_for(go, 5):
+                break
+            if find(f"{host('common.close')} · "):  # something else opened (a villager's or a building's card)
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.2)
+        adb("shell", "input", "swipe", "540", "900", "540", "1300", "400")
+        time.sleep(1.5)
+    else:
+        raise AssertionError(f"the horizon's place card ({go.strip()} …)")
+    shot("visit-place-card")
+    assert tap(go, 3), "go in"
+    assert wait_for(f"‹ {FACTS['name']}", 10), "the scene of the visited town (its way back to the town)"
+    time.sleep(2)
+    shot("visit-scene")
+    # "Here today": someone with a dialog (one for guests among them)
+    talk = find(f"💬 {host('visit.talk')} · ") or scroll_to(f"💬 {host('visit.talk')} · ", 3)
+    if talk is not None:
+        tap_at(talk)
+        assert wait_for(f"{host('common.close')} · ", 8), "the guest's dialog"
+        time.sleep(3)  # the first line types in
+        shot("visit-dialog")
+        assert tap(f"{host('common.close')} · ", 3), "close the dialog"
+    else:
+        print("    (nobody in the scene has a dialog now: it depends on the hour and the day)")
+    guest = f"🧳 {host('visit.guestHere')} · "
+    # the last line of the scene, at the screen's foot when several people talk there today: on screen is enough
+    assert wait_for(guest, 6) or scroll_to(guest, 3) or wait_for(guest, 2), "a guest there (under the scene's words)"
+    assert tap(f"‹ {FACTS['name']}", 5), "back to the town"
+    assert wait_for(f"⌂ {host('common.home')} · ", 8), "back in the visited town"
+
+
+def visit_requests():
+    """"📜 Richieste · Requests": the town's open requests (the fixture's), each with "✋ Aiuta · Help", which opens the
+    request's card (its story, what it takes, its words in the town's language); back to the town. Not played: the run
+    and the help it sends are the unit and smoke tests'."""
+    if not on_visit():
+        return "not on a visit (a step before failed)"
+    assert tap(f"📜 {host('visit.requests')} · ", 5), "the requests button"
+    help_ = wait_for(f"✋ {host('visit.help')} · ", 12)
+    if help_ is None:
+        assert find(host("visit.noRequests")) is None, f"no open request, though the town has {FACTS['requests']}"
+        raise AssertionError("the town's requests")
+    time.sleep(1)
+    shot("visit-requests")
+    tap_at(help_)
+    assert wait_for(f"‹ {FACTS['name']}", 8), "the request's card"
+    time.sleep(1)
+    shot("visit-request-card")
+    assert tap(f"‹ {FACTS['name']}", 3), "back from the request"
+    assert wait_for(f"⌂ {host('common.home')} · ", 8), "back in the visited town"
+
+
+def visit_market():
+    """"⚖️ Mercato · Market": what the town's market can spare (the fixture's chest), what the learner offers of their
+    own, and "🗣️ Contratta · Haggle" (not pressed: the haggle is a role-play with the tutor); back closes it."""
+    if not on_visit():
+        return "not on a visit (a step before failed)"
+    assert tap(f"⚖️ {host('visit.market')} · ", 5), "the market button"
+    assert wait_for(f"{host('visit.marketSells')} · ", 12), "the market's wares"
+    wares = [w for w in FACTS["wares"] if find(f"{w} · ")]
+    assert wares, f"a good the market spares ({', '.join(FACTS['wares'])})"
+    haggle = f"🗣️ {host('visit.haggle')} · "
+    for _ in range(6):  # further down the market's panel, below everything the learner can offer
+        if find(haggle) is not None:
+            break
+        adb("shell", "input", "swipe", "540", "2000", "540", "1200", "400")
+        time.sleep(slow())
+    assert find(haggle), "the haggle button"
+    time.sleep(1)
+    shot("visit-market")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the market
+    time.sleep(1.2)
+    assert on_visit() and find(f"{host('visit.marketSells')} · ") is None, "back closed more than the market"
+
+
+def visit_gift():
+    """"🎁 Regalo · Gift": the message field focused, the keyboard up, the field and "🎁 Invia · Send" above it (the
+    visit's panel keeps above the keyboard); nothing is sent. Back hides the keyboard, back again closes the panel."""
+    if not on_visit():
+        return "not on a visit (a step before failed)"
+    assert tap(f"🎁 {host('visit.gift')} · ", 5), "the gift button"
+    label = f"{host('visit.messageInLanguage')} · "
+    field = wait_for(label, 8)
+    assert field is not None, "the gift's message field"
+    tap_at(field)
+    top = keyboard_settled()
+    assert top is not None, "the keyboard came up"
+    bs = list(boxes())
+    shot("visit-gift-keyboard")
+    parts = {"the message field": box_of(bs, label), "Send": box_of(bs, f"🎁 {host('visit.send')} · ")}
+    missing = [n for n, b in parts.items() if b is None]
+    assert not missing, f"with the keyboard up, not on screen: {', '.join(missing)}"
+    under = [f"{n} ({b[3]} > {top})" for n, b in parts.items() if b[3] > top]
+    assert not under, f"under the keyboard (its top at {top}): {', '.join(under)}"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down
+    time.sleep(1.2)
+    assert ime_top() is None, "back hid the keyboard"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel closed
+    end = time.time() + 6 * slow()
+    while find(label) is not None and time.time() < end:  # it slides away
+        time.sleep(0.8)
+    assert find(label) is None, "back closed the gift's panel"
+    assert on_visit(), "back closed only the gift's panel (still on the visit)"
+
+
+def visit_home():
+    """"⌂ Casa · Home" leads back to the own village, in its own pair again."""
+    if not on_visit():
+        return "not on a visit (a step before failed)"
+    assert tap(f"⌂ {host('common.home')} · ", 3), "home"
+    assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "the own village"
+    assert find(f"{host('visit.visiting')} · ") is None, "still visiting"
+
+
+def leave_visit():
+    """After a visit step failed: home from wherever in the visit it stopped (a place, a request, a card), then the
+    plain village. Back from the town leads to Friends, from Friends to the village."""
+    for _ in range(5):
+        if (c := find(f"⌂ {host('common.home')} · ")) is not None:
+            tap_at(c)
+            break
+        if any(t in VILLAGE_HUD for t, _ in nodes()):
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.2)
+    plain_village()
+
+
+def in_front() -> bool:
+    """The app is the resumed activity ("topResumedActivity=…" on newer Androids, "mResumedActivity: …" on older)."""
+    dump = adb("shell", "dumpsys", "activity", "activities", check=False)
+    return PKG in re.split(r"ResumedActivity", dump, maxsplit=1)[-1][:200]
+
+
+def go_home():
+    """Back out of sheets and screens until Home; relaunch if Back left the app."""
+    for _ in range(6):
+        if find("Danes · Today"):
+            return
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        if not in_front():
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+            time.sleep(3)
+    assert wait_for("Danes · Today", 8), "could not get back to Home"
+
+
+FILL_FORM = "Vstavi pravo obliko"  # a form question's instruction (l10n wordForms.fillForm)
+
+
+def deck_lemmas() -> list[str]:
+    """The one-word vocabulary cards of the dev bridge's deck (its copy of the learner data), as GET /forms is asked."""
+    items = api("/state").get("databases", {}).get("spaced_repetition", {}).get("items", {})
+    words = [str(i.get("content", "")).strip() for i in items.values() if i.get("type", "vocabulary") == "vocabulary"]
+    return sorted({w for w in words if re.fullmatch(r"[^\W\d_]{2,40}", w)})
+
+
+def word_forms():
+    """A word's forms in review (companion/GAME.md, "A word's forms"): the dev bridge's GET /forms for the deck's words,
+    then QA's "forms" hook starts a review of the words with a form reached, each asking one in a sentence with a gap
+    ("Vstavi pravo obliko · Fill in the right form"); one is answered, its feedback shows, the review is left."""
+    go_home()
+    lemmas = deck_lemmas()
+    if not lemmas:
+        return "no one-word cards in the deck"
+    known = []
+    for i in range(0, min(len(lemmas), 200), 40):
+        q = "&".join("w=" + urllib.parse.quote(w) for w in lemmas[i:i + 40])
+        known += [w["word"] for w in api(f"/forms?{q}")["words"] if any(e.get("slots") for e in w["entries"])]
+    if not known:
+        return "no word of the deck has forms"
+    qa_hook("forms")
+    try:
+        c = wait_for(FILL_FORM, 25)
+        if c is None:
+            return f"no form question ({len(known)} words with forms: {', '.join(known[:5])} …)"
+        time.sleep(1)
+        shot("form-question")
+        if find("Preveri · Check"):  # typed: anything, its feedback shows the right form
+            field = find("Napiši odgovor") or find("Type your answer")
+            if field:
+                tap_at(field)
+                type_text("x")
+            tap("Preveri · Check", 3)
+        else:  # chosen: the first option below the sentence with its gap
+            gap = next((c for t, c in nodes() if "____" in t), None)
+            assert gap is not None, "the sentence with its gap"
+            options = [(t, c) for t, c in nodes() if t and c[1] > gap[1] + 30 and "____" not in t and FILL_FORM not in t
+                       and not any(n in t for n in NOT_OPTIONS)]
+            assert options, "the forms to choose from"
+            tap_at(options[0][1])
+        assert wait_for("Naprej · Next", 8), "the answer's feedback"
+        shot("form-answered")
+    finally:
+        qa_hook("forms:off")
+        go_home()
+
+
+def packs():
+    """The Nove besede tile opens the packs; an unfinished pack starts its words."""
+    go_home()
+    tile = scroll_to("Nove besede")
+    assert tile, "new words tile"
+    tap_at(tile)
+    assert wait_for("Znaš ", 8), "packs screen"
+    time.sleep(1)
+    ring = next((c for t, c in nodes() if (m := re.fullmatch(r"(\d+)/(\d+)", t)) and m[1] != m[2]), None)
+    if ring is None:
+        return "no learnable pack"
+    adb("shell", "input", "tap", str(ring[0]), str(ring[1]))
+    assert wait_for("Pozneje · Later", 8), "the pack's intro"  # the pack's giver asks first
+    shot("pack-intro")
+    assert tap("Začni", 3), "start from the intro"
+    assert wait_for("Naprej · Next", 8), "word card"
+
+
+# --- the car ("🚗 Za pot"; companion/README.md, "Im Auto · In the car") --------------------------------------------
+
+ROAD_SERVICE = f"{PKG}/.road.RoadService"
+ROAD_TITLE = "🚗 Za pot · For the road"  # the sheet's title, and its first session's button
+ROAD_PROBLEMS = ("Priprava ni uspela", "Za pripravo mora", "Telefon nima glasu")  # road.failed, road.needsNode, road.noVoice
+
+
+def road_session() -> dict:
+    """The app's media session as `dumpsys media_session` shows it (what a car sees): {"state": 3 playing, 2 paused …,
+    "title": its item's title}; {} when the app has none."""
+    out = adb("shell", "dumpsys", "media_session", check=False)
+    for b in re.split(r"\n(?=  \S[^\n]* \(userId=\d+\)\n)", out):
+        if f"package={PKG}" not in b:
+            continue
+        state = re.search(r"state=PlaybackState \{state=(?:\w+\()?(\d+)", b)
+        title = re.search(r"metadata: size=\d+, description=([^\n]*)", b)
+        return {"state": int(state[1]) if state else None, "title": title[1].split(", ")[0] if title else None}
+    return {}
+
+
+def road_now() -> dict:
+    """What the road's service plays, from its dump (a debug build's, road/RoadService.dump): "session", "item", "piece"
+    of "pieces", "sound" ("pause:SAY" the pause to say the Slovene, "clip", "prompt" …), "state"; "sessions": each
+    session's items on the phone."""
+    out = adb("shell", "dumpsys", "activity", "service", ROAD_SERVICE, check=False)
+    now: dict = {}
+    if m := re.search(r"road: session=(\S+) item=(\S+) piece=(-?\d+)/(\d+) sound=(\S+) state=(\d+) playing=(\w+)", out):
+        now = {"session": m[1], "item": m[2], "piece": int(m[3]), "pieces": int(m[4]), "sound": m[5], "state": int(m[6]), "playing": m[7] == "true"}
+    if m := re.search(r"road: sessions ([^\n]*)", out):
+        now["sessions"] = {k: int(v) for k, v in (p.split("=") for p in m[1].split())}
+    return now
+
+
+def app_alive() -> bool:
+    return bool(adb("shell", "pidof", PKG, check=False).strip())
+
+
+def still_playing(when: str) -> dict:
+    """The app runs and its session plays an item (what a car sees), [when]; the session, else an assertion."""
+    assert app_alive(), f"the app closed {when}"
+    s = {}
+    for _ in range(6):  # a moment for the session to tell the system
+        s = road_session()
+        if s.get("state") == 3 and s.get("title"):
+            return s
+        time.sleep(0.5)
+    raise AssertionError(f"the session isn't playing an item {when}: {s or 'no session'}")
+
+
+def media_key(key: str):
+    """[key] ("next", "pause") as a car's or a Bluetooth button sends it, to the session playing."""
+    if "rror" in adb("shell", "cmd", "media_session", "dispatch", key, check=False):
+        adb("shell", "input", "keyevent", f"KEYCODE_MEDIA_{key.upper()}")
+
+
+def road_car_log() -> list[str]:
+    """What QA's car ("road:car", road/RoadCarCheck) logged in its last check, a line each."""
+    lines = [m[1] for l in adb("logcat", "-d", "-s", "RoadCar:I", check=False).splitlines() if (m := re.search(r"RoadCar\s*: (.*)", l))]
+    start = max((i for i, l in enumerate(lines) if l.startswith("connected")), default=0)
+    return lines[start:]
+
+
+def road():
+    """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind from the dev bridge, the files got in
+    the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says "Končano"; "🚗 Za pot" started
+    from the sheet plays (dumpsys media_session: PLAYING, an item); next in the pause to say the Slovene plays the answer
+    (the same item, on past the pause), next after it the next item, the app still running and playing; paused. Then as
+    Android Auto does ("road:car": the platform's media browser browses the tab and plays each session from its id): every
+    session with items on the phone plays, none fails ("Failed to load selection" in a car), the app still runs."""
+    go_home()
+    tile = scroll_to("Za pot", 6, exact=True)
+    assert tile, "the 🚗 Za pot tile"
+    tap_at(tile)
+    assert wait_for(ROAD_TITLE, 6), "the 🚗 sheet"
+    qa_hook("road:mini")
+    # getting ready: in the background (road/RoadPrepService), its notification while it works
+    seen, end = "", time.time() + 240 * slow()
+    while time.time() < end:
+        if not seen and (m := re.search(r"Pripravljam za pot … \d+ %", adb("shell", "dumpsys", "notification", "--noredact", check=False))):
+            seen = m[0]
+            shot("road-preparing")
+        labels = [t for t, _ in nodes()]
+        if why := next((t for t in labels if t.startswith(ROAD_PROBLEMS)), None):
+            raise AssertionError(f"getting ready fell short: {why}")
+        if any(t.startswith("✅ Končano") for t in labels):
+            break
+        time.sleep(0.5)
+    else:
+        raise AssertionError(f"the sheet never said \"Končano\" (seen: {' | '.join(t for t, _ in nodes() if '/' in t or '%' in t)[:200]})")
+    done = re.search(r"Končano: vse za pot je na telefonu[^)\n]*\)", adb("shell", "dumpsys", "notification", "--noredact", check=False))
+    print(f"    got ready: {next((t for t, _ in nodes() if t.startswith('✅')), '?')}")
+    print(f"    notification: {seen or 'the progress not caught (ready within seconds)'}; at the end: {done[0] if done else 'none (notifications not allowed?)'}")
+    sessions = road_now().get("sessions", {})
+    assert sessions.get("road:mix"), f"nothing in 🚗 Za pot on the phone: {sessions}"
+    # the sheet's player: "🚗 Za pot" is its first session, below the title of the same name
+    for _ in range(4):
+        buttons = [b for t, b in boxes() if t == ROAD_TITLE]
+        if len(buttons) > 1:
+            tap_at(centre(max(buttons, key=lambda b: b[1])))
+            break
+        adb("shell", "input", "swipe", "540", "1800", "540", "1100", "400")
+        time.sleep(1)
+    else:
+        raise AssertionError("the sheet's \"🚗 Za pot\" session button")
+    s = still_playing("after 🚗 Za pot was started from the sheet")
+    shot("road-playing")
+    print(f"    playing: {s['title']!r}; sessions on the phone: {', '.join(f'{k.removeprefix('road:')} {v}' for k, v in sessions.items())}")
+    # next in the pause to say the Slovene: the answer at once. Sent as a pause begins (it lasts 2.5 s or more).
+    revealed, before, end = None, road_now(), time.time() + 60
+    while revealed is None and time.time() < end:
+        now = road_now()
+        if now.get("sound") == "pause:SAY" and (before.get("sound") != "pause:SAY" or before.get("item") != now.get("item")):
+            media_key("next")
+            time.sleep(1)
+            after = road_now()
+            if after.get("item") == now["item"] and after.get("piece", -1) > now["piece"]:
+                revealed = (now, after)
+            else:
+                print(f"    next in a pause to say it went elsewhere ({now} → {after}): again at the next one")
+            now = after
+        before = now
+        time.sleep(0.2)
+    assert revealed, "next in a pause to say the Slovene never played the answer (within a minute)"
+    still_playing("after next in a pause to say it")
+    print(f"    next in the pause to say it: {revealed[0]['item']} piece {revealed[0]['piece']} → {revealed[1]['piece']} ({revealed[1]['sound']})")
+    item = road_now().get("item")
+    media_key("next")
+    time.sleep(1.5)
+    now = road_now()
+    assert now.get("item") not in (None, item), f"next after the answer didn't go on to the next item ({item} → {now.get('item')})"
+    still_playing("after next once the answer played")
+    media_key("pause")
+    time.sleep(1.5)
+    assert app_alive(), "the app closed on pause"
+    assert road_session().get("state") == 2, f"not paused: {road_session()}"
+    # as Android Auto: browse, then play each session from its id
+    qa_hook("road:car")
+    end = time.time() + 200 * slow()
+    while time.time() < end and not any(l.startswith(("done", "FAILED")) for l in road_car_log()):
+        assert app_alive(), f"the app closed while the car browsed and played ({' / '.join(road_car_log()[-2:])})"
+        time.sleep(2)
+    log = road_car_log()
+    for l in log:
+        print(f"    car: {l}")
+    assert log and log[-1].startswith("done"), f"the car's check didn't finish: {' / '.join(log[-3:]) or 'nothing logged'}"
+    failed = [l for l in log if "FAILED" in l]
+    assert not failed, " / ".join(failed)
+    assert any(l.startswith("session road:mix: playing") for l in log), "🚗 Za pot didn't play from its id"
+    silent = [k for k, n in sessions.items() if n and not any(l.startswith(f"session {k}: playing") for l in log)]
+    assert not silent, f"sessions with items on the phone that didn't play from their id: {', '.join(silent)}"
+    assert app_alive(), "the app closed after the car's check"
+    assert road_session().get("state") != 3, f"still playing after the car's check paused it: {road_session()}"
+    shot("road-car")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the sheet
+    time.sleep(1)
+
+
+def optional_screen(label: str, marker: str, exact: bool = False):
+    """A screen reached from Home by [label] ([exact]: a label that is exactly that), shown when [marker] appears."""
+    def run():
+        go_home()
+        c = scroll_to(label, 6, exact=exact)
+        if c is None:
+            return f"no '{label}' entry"
+        tap_at(c)
+        return None if wait_for(marker, 8) else f"'{marker}' not shown"
+    return run
+
+
+# --- the bridges ----------------------------------------------------------------------------
+
+def start_bridge():
+    """The dev bridge on PORT, on a copy of the learner data (test/dev-bridge.ts); whatever listened there is stopped."""
+    for pid in listeners(PORT):
+        subprocess.run(["kill", pid])
+    bridge = subprocess.Popen(["bun", "test/dev-bridge.ts"], cwd=BRIDGE, stdout=open(OUT / "bridge.log", "w"), stderr=subprocess.STDOUT,
+                              env={**os.environ, "LANI_DEV_PORT": PORT})
+    if "--keep-bridge" not in sys.argv:
+        atexit.register(bridge.terminate)  # also when a step raises past the end, or QA is interrupted
+    return bridge
+
+
+def dev_town(pid: str) -> bool:
+    """Whether [pid] is a second town's bridge (test/dev-town.ts marks its environment), not a learner's."""
+    try:
+        env = Path(f"/proc/{pid}/environ").read_bytes().split(b"\0")
+        return b"LANI_DEV_TOWN=1" in env or b"FLUENT_DEV_TOWN=1" in env  # the old name: one started before the rename
+    except OSError:
+        return False
+
+
+def start_town():
+    """The second town (test/dev-town.ts) on TOWN_PORT, which links itself with the dev bridge's town once both
+    answer; None when it can't start (TOWN["why"] says why). A second town left on the port by an earlier run is
+    stopped; anything else there (a learner's bridge) is left alone, and the visit steps skip."""
+    if "--no-town" in sys.argv:
+        TOWN["why"] = "--no-town"
+        return None
+    if "error" in FACTS:
+        TOWN["why"] = FACTS["error"]
+        return None
+    if TOWN_PORT == PORT or TOWN_PORT in NEVER_PORTS:
+        TOWN["why"] = f"LANI_DEV_TOWN_PORT={TOWN_PORT} is the dev bridge's or a service's port"
+        return None
+    for pid in listeners(TOWN_PORT):
+        if dev_town(pid):
+            subprocess.run(["kill", pid])
+    for _ in range(10):
+        if not listeners(TOWN_PORT):
+            break
+        time.sleep(0.5)
+    if others := listeners(TOWN_PORT):
+        TOWN["why"] = f"port {TOWN_PORT} is taken (pid {', '.join(others)}): LANI_DEV_TOWN_PORT picks another"
+        return None
+    town = subprocess.Popen(["bun", "test/dev-town.ts"], cwd=BRIDGE, stdout=open(OUT / "town.log", "w"), stderr=subprocess.STDOUT,
+                            env={**os.environ, "LANI_DEV_TOWN_PORT": TOWN_PORT, "LANI_DEV_TOWN_LINK": f"http://127.0.0.1:{PORT}",
+                                 "LANI_DEV_TOWN_LINK_TOKEN": TOKEN})
+    if "--keep-bridge" not in sys.argv:
+        atexit.register(town.terminate)
+    TOWN["why"] = "not linked yet"
+    return town
+
+
+def visit_summary(tid: str) -> str:
+    """What a visit asks of the second town, through the dev bridge as the app asks it, checked: a line for the report."""
+    pub = api(f"/towns/{tid}/public")
+    people = api(f"/towns/{tid}/villagers")["villagers"]
+    scenes = api(f"/towns/{tid}/scenes")["scenes"]
+    reqs = api(f"/towns/{tid}/requests")["requests"]
+    wares = api(f"/towns/{tid}/market")["wares"]
+    t = pub["town"]
+    problems = [p for p, bad in (
+        (f"its language is {t['language']}", t["language"] != FACTS["language"]),
+        ("nobody lives there", not pub["residents"]),
+        ("no people (villagers)", not people),
+        ("no places (scenes)", not scenes),
+        ("no open request", not reqs),
+        ("nothing at its market", not wares),
+    ) if bad]
+    if problems:
+        raise AssertionError("the second town answers, but " + ", ".join(problems))
+    return (f"\"{t['name']}\" ({t['learner']}, {t['culture']}, {t['language']}): age {pub['age']}, {len(pub['residents'])} residents, "
+            f"{len(people)} people, places {', '.join(s['id'] for s in scenes)}, {len(reqs)} requests, "
+            f"market {', '.join(f'{k}×{n}' for k, n in wares.items())}")
+
+
+def link_town(town, timeout=90) -> str:
+    """Waits until the dev bridge lists the second town, linked and answering, and checks what a visit asks of it.
+    Sets TOWN (its row, or why there is none); the report's line for it."""
+    if town is None:
+        return f"skipped: {TOWN['why']}"
+    end, why, row = time.time() + timeout, "the dev bridge doesn't list it", None
+    while time.time() < end:
+        if town.poll() is not None:
+            why = f"test/dev-town.ts stopped ({town.returncode}): {tail(OUT / 'town.log')}"
+            break
+        if (bad := next((l for l in tail(OUT / "town.log", 20).split(" / ") if "dev town: not linked" in l), None)) is not None:
+            why = bad
+            break
+        try:
+            row = next((t for t in api("/towns", timeout=15)["towns"] if t.get("name") == FACTS["name"]), None)
+            if row is not None and row.get("status") == "ok":
+                break
+            why = f"the dev bridge lists it as {row.get('status')}" if row else "the dev bridge doesn't list it"
+        except (OSError, RuntimeError, ValueError) as e:
+            why = str(e)
+        row = None
+        time.sleep(2)
+    if row is None:
+        TOWN["why"] = why
+        return f"FAILED: {why}"
+    try:
+        TOWN["summary"] = visit_summary(row["id"])
+    except (OSError, RuntimeError, ValueError, KeyError, AssertionError) as e:
+        TOWN["why"] = str(e)
+        return f"FAILED: {e}"
+    TOWN["row"] = row
+    print(f"    second town: {TOWN['summary']}")
+    return "ok"
+
+
+# --- main -----------------------------------------------------------------------------------
+
+def plan():
+    """Every step in order: (name, flow, cleanup, keep, group)."""
+    # In the village every step ends on the plain village (camera at home), failed or not; a step whose next one
+    # goes on from where it left off (the fire's card into its scene, a run's result, the build sheet) only when failed.
+    # The visit goes on from step to step (Friends, the visited town); a failure goes home from it, and the rest skip.
+    v, h = plain_village, leave_visit
+    return [
+        ("setup", setup, None, False, ""),
+        ("home", home, None, False, ""),
+        ("challenges", challenges, None, False, ""),
+        ("village", village, v, False, ""),
+        ("scroll", scroll, v, False, ""),
+        ("villagers", villagers, v, False, ""),
+        ("place-card", place_card, v, True, ""),
+        ("scene", scene, v, False, ""),
+        ("dialog-words", dialog_words, v, False, ""),
+        ("typed-turn", typed_turn, v, False, ""),
+        ("story-in-scene", story_in_scene, v, False, ""),
+        ("counting", counting, v, False, ""),
+        ("forest", forest, v, False, ""),
+        ("zoom", zoom, v, False, ""),
+        ("spot-card", spot_card, v, False, ""),
+        ("villager", villager, v, False, ""),
+        ("bubble", bubble, v, False, ""),
+        ("camera", camera, v, False, ""),
+        ("gather", gather, v, True, ""),
+        ("back-to-village", back_to_village, v, False, ""),
+        ("intro-stage", intro_stage, v, True, ""),
+        ("back-to-village-2", back_to_village, v, False, ""),
+        ("chest", chest, v, False, ""),
+        ("projects", projects, v, False, ""),
+        ("build-sheet", build_sheet, v, True, ""),
+        ("ages", ages, v, False, ""),
+        ("friends", friends, h, True, "visit"),
+        ("visit", visit_town, h, True, "visit"),
+        ("visit-villager", visit_villager, h, True, "visit"),
+        ("visit-scene", visit_scene, h, True, "visit"),
+        ("visit-requests", visit_requests, h, True, "visit"),
+        ("visit-market", visit_market, h, True, "visit"),
+        ("visit-gift", visit_gift, h, True, "visit"),
+        ("visit-home", visit_home, h, False, "visit"),
+        ("packs", packs, None, False, ""),
+        ("word-forms", word_forms, go_home, False, ""),
+        ("progress", optional_screen("Napredek · Progress", "📊 Napredek · Progress"), None, False, ""),
+        ("talk", optional_screen("Pogovor", "Učitelj igra drugo osebo", exact=True), None, False, ""),
+        ("road", road, go_home, False, ""),
+    ]
+
+
+def selected(steps):
+    """The steps --steps names (a step, or the group "visit"), and setup; all without it."""
+    want = arg("--steps")
+    if not want:
+        return steps
+    names = {w.strip() for w in want.split(",") if w.strip()}
+    if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
+        sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
+    return [s for s in steps if s[0] == "setup" or s[0] in names or s[4] in names]
+
+
+def dry(steps, visiting: bool):
+    """--dry: what a run would do, with the ports as they are now; nothing is built, started or tapped."""
+    def port(p):
+        pids = listeners(p)
+        return "free" if not pids else f"in use now (pid {', '.join(pids)})"
+    print("QA plan (--dry: nothing is built, started or tapped)\n")
+    print(f"app          {'' if '--no-build' in sys.argv else 'build, '}install and start {PKG} on {SERIAL or f'the emulator (AVD {avd()})'}")
+    print(f"dev bridge   127.0.0.1:{PORT} (the app: {BRIDGE_URL}, token {TOKEN}): test/dev-bridge.ts on a copy of "
+          f"{os.environ.get('LANI_DEV_DATA') or ROOT / 'data'}, its town links left out; port {port(PORT)} (stopped first)")
+    why = "--no-town" if "--no-town" in sys.argv else FACTS.get("error") or (None if visiting else "no visit step chosen")
+    if why:
+        print(f"second town  none: {why}")
+    else:
+        f = FACTS
+        print(f"second town  127.0.0.1:{TOWN_PORT} (token {TOWN_TOKEN}): test/dev-town.ts, \"{f['name']}\" ({f['learner']}, {f['culture']}, "
+              f"{f['language']}), a temp data dir; linked with the dev bridge's town; port {port(TOWN_PORT)} "
+              "(a second town left there is stopped, anything else skips the visit)")
+        print(f"             its people {', '.join(f['people'])}; {f['requests']} requests; market {', '.join(f['wares'])}; "
+              f"its horizon {f['horizon']}; the visit's labels read \"{host('visit.visiting')} · …\"")
+    print(f"\nsteps ({len(steps)}):")
+    for i, (name, fn, _, _, group) in enumerate(steps, 1):
+        doc = " ".join((fn.__doc__ or "").split())
+        print(f"  {i:2d}  {name:<18} {doc[:110] + ('…' if len(doc) > 110 else '')}")
+
+
+def bridges_only() -> int:
+    """--bridges-only: no app. The dev bridge and the second town, linked; what a visit asks of the town, through the
+    dev bridge; both stopped again."""
+    OUT.mkdir(parents=True, exist_ok=True)
+    bridge = start_bridge()
+    town = start_town()
+    line = link_town(town)
+    print(f"second town: {line}")
+    for p in (town, bridge):
+        if p is not None:
+            p.terminate()
+            try:
+                p.wait(10)
+            except subprocess.TimeoutExpired:
+                p.kill()
+    print(f"logs: {OUT}")
+    return 0 if line == "ok" else 1
+
+
+def main():
+    steps = selected(plan())
+    visiting = any(s[4] == "visit" for s in steps)
+    if "--dry" in sys.argv:
+        return dry(steps, visiting)
+    if "--bridges-only" in sys.argv:
+        sys.exit(bridges_only())
+    OUT.mkdir(parents=True, exist_ok=True)
+    env = {**os.environ, "JAVA_HOME": sh("mise", "where", "java").strip()}
+    if "--no-build" not in sys.argv:
+        print("building …")
+        subprocess.run(["./gradlew", "-q", ":app:assembleDebug"], cwd=ANDROID, env=env, check=True)
+    ensure_emulator()
+
+    bridge = start_bridge()
+    town = start_town() if visiting else None
+    time.sleep(4)
+
+    adb("uninstall", PKG, check=False)
+    adb("install", "-r", str(APK))
+    adb("logcat", "-c")
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+
+    linked = False
+    for name, fn, cleanup, keep, group in steps:
+        if group == "visit" and not linked:  # linked by now, while the other steps ran
+            results.append(("second-town", link_town(town)))
+            linked = True
+        step(name, fn, cleanup, keep)
+
+    # Only the app's own crashes: a uiautomator dump that collides with another one also logs a FATAL EXCEPTION.
+    log = adb("logcat", "-d", check=False).splitlines()
+    crashes = [l for i, l in enumerate(log) if "FATAL EXCEPTION" in l and any(f"Process: {PKG}" in n for n in log[i + 1:i + 3])]
+    if crashes:
+        results.append(("crash check", "FAILED: " + " / ".join(crashes[:3])))
+    else:
+        results.append(("crash check", "ok"))
+
+    if "--keep-bridge" not in sys.argv:
+        bridge.terminate()
+        if town is not None:
+            town.terminate()
+
+    if shutil.which("magick"):
+        subprocess.run(["magick", "montage", *map(str, shots), "-resize", "270x", "-geometry", "+6+6",
+                        "-tile", "6x", str(OUT / "contact-sheet.png")], check=False)
+    report = "\n".join(f"{'✅' if r == 'ok' else '⏭️' if r.startswith('skipped') else '❌'} {n}: {r}" for n, r in results)
+    (OUT / "report.txt").write_text(report + "\n")
+    print(report)
+    print(f"\nscreenshots: {OUT}")
+    sys.exit(1 if any(r.startswith("FAILED") for _, r in results) else 0)
+
+
+if __name__ == "__main__":
+    main()

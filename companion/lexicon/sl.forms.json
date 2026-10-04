@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "language": "sl",
+    "reviewed": false,
+    "machine_written": true,
+    "review": "machine-written (Claude): the tables and the partners; not reviewed by a native speaker",
+    "about": "The forms book of word forms (companion/README.md, \"Word forms\"; bridge/src/forms.ts). tables: hand-checked forms of everyday irregular verbs, by slot (pres.1sg … imp.2du), each replacing Wiktionary's forms of the word (sl.json merges homographs: biti, to be, carries biti, to beat's bijem, bije; hoteti's table has odd rows), standard Slovene in forms, the spoken forms a native speaker says too (bojo, grejo, jejo, vejo, reko, mam) in also: accepted, never shown as the answer. partners: verbs that pair, pf the one done once (a movement, a whole act), impf the one going on (a state, again and again); kind position for a movement and the state after it (sesti, sit down: sedeti, be sitting), aspect for the same act once or going on (kupiti, kupovati); gloss: a meaning where the dictionary has none, or says more. leave_out: words whose forms aren't asked (stati: to cost, stanem, and to stand, stojim, share one entry)."
+  },
+  "tables": [
+    {
+      "lemma": "biti", "pos": "verb", "aspect": "impf", "gloss": ["to be"],
+      "forms": {
+        "pres.1sg": "sem", "pres.2sg": "si", "pres.3sg": "je", "pres.1pl": "smo", "pres.2pl": "ste", "pres.3pl": "so", "pres.1du": "sva", "pres.2du": "sta", "pres.3du": "sta",
+        "neg.1sg": "nisem", "neg.2sg": "nisi", "neg.3sg": "ni", "neg.1pl": "nismo", "neg.2pl": "niste", "neg.3pl": "niso", "neg.1du": "nisva", "neg.2du": "nista", "neg.3du": "nista",
+        "fut.1sg": "bom", "fut.2sg": "boš", "fut.3sg": "bo", "fut.1pl": "bomo", "fut.2pl": "boste", "fut.3pl": "bodo", "fut.1du": "bova", "fut.2du": "bosta", "fut.3du": "bosta",
+        "past.m.sg": "bil", "past.f.sg": "bila", "past.n.sg": "bilo", "past.m.pl": "bili", "past.f.pl": "bile", "past.m.du": "bila", "past.f.du": "bili",
+        "imp.2sg": "bodi", "imp.2pl": "bodite", "imp.1pl": "bodimo", "imp.1du": "bodiva", "imp.2du": "bodita"
+      },
+      "also": { "fut.3pl": ["bojo"] }
+    },
+    {
+      "lemma": "imeti", "pos": "verb", "aspect": "impf", "gloss": ["to have"],
+      "forms": {
+        "pres.1sg": "imam", "pres.2sg": "imaš", "pres.3sg": "ima", "pres.1pl": "imamo", "pres.2pl": "imate", "pres.3pl": "imajo", "pres.1du": "imava", "pres.2du": "imata", "pres.3du": "imata",
+        "neg.1sg": "nimam", "neg.2sg": "nimaš", "neg.3sg": "nima", "neg.1pl": "nimamo", "neg.2pl": "nimate", "neg.3pl": "nimajo", "neg.1du": "nimava", "neg.2du": "nimata", "neg.3du": "nimata",
+        "past.m.sg": "imel", "past.f.sg": "imela", "past.n.sg": "imelo", "past.m.pl": "imeli", "past.f.pl": "imele", "past.m.du": "imela", "past.f.du": "imeli",
+        "imp.2sg": "imej", "imp.2pl": "imejte", "imp.1pl": "imejmo", "imp.1du": "imejva", "imp.2du": "imejta"
+      },
+      "also": { "pres.1sg": ["mam"], "pres.2sg": ["maš"], "pres.3sg": ["ma"], "pres.1pl": ["mamo"], "pres.2pl": ["mate"], "pres.3pl": ["majo"] }
+    },
+    {
+      "lemma": "iti", "pos": "verb", "aspect": "both", "gloss": ["to go"],
+      "forms": {
+        "pres.1sg": "grem", "pres.2sg": "greš", "pres.3sg": "gre", "pres.1pl": "gremo", "pres.2pl": "greste", "pres.3pl": "gredo", "pres.1du": "greva", "pres.2du": "gresta", "pres.3du": "gresta",
+        "past.m.sg": "šel", "past.f.sg": "šla", "past.n.sg": "šlo", "past.m.pl": "šli", "past.f.pl": "šle", "past.m.du": "šla", "past.f.du": "šli",
+        "imp.2sg": "pojdi", "imp.2pl": "pojdite", "imp.1pl": "pojdimo", "imp.1du": "pojdiva", "imp.2du": "pojdita"
+      },
+      "also": { "pres.2pl": ["grete"], "pres.3pl": ["grejo"], "imp.1pl": ["gremo"], "imp.1du": ["greva"] },
+      "note": "gremo! and greva! are what people say for let's go; pojdimo, pojdiva the written imperative"
+    },
+    {
+      "lemma": "priti", "pos": "verb", "aspect": "pf", "gloss": ["to come"],
+      "forms": {
+        "pres.1sg": "pridem", "pres.2sg": "prideš", "pres.3sg": "pride", "pres.1pl": "pridemo", "pres.2pl": "pridete", "pres.3pl": "pridejo", "pres.1du": "prideva", "pres.2du": "prideta", "pres.3du": "prideta",
+        "past.m.sg": "prišel", "past.f.sg": "prišla", "past.n.sg": "prišlo", "past.m.pl": "prišli", "past.f.pl": "prišle", "past.m.du": "prišla", "past.f.du": "prišli",
+        "imp.2sg": "pridi", "imp.2pl": "pridite", "imp.1pl": "pridimo", "imp.1du": "pridiva", "imp.2du": "pridita"
+      }
+    },
+    {
+      "lemma": "jesti", "pos": "verb", "aspect": "impf", "gloss": ["to eat"],
+      "forms": {
+        "pres.1sg": "jem", "pres.2sg": "ješ", "pres.3sg": "je", "pres.1pl": "jemo", "pres.2pl": "jeste", "pres.3pl": "jedo", "pres.1du": "jeva", "pres.2du": "jesta", "pres.3du": "jesta",
+        "past.m.sg": "jedel", "past.f.sg": "jedla", "past.n.sg": "jedlo", "past.m.pl": "jedli", "past.f.pl": "jedle", "past.m.du": "jedla", "past.f.du": "jedli",
+        "imp.2sg": "jej", "imp.2pl": "jejte", "imp.1pl": "jejmo", "imp.1du": "jejva", "imp.2du": "jejta"
+      },
+      "also": { "pres.3pl": ["jejo"] }
+    },
+    {
+      "lemma": "vedeti", "pos": "verb", "aspect": "impf", "gloss": ["to know"],
+      "forms": {
+        "pres.1sg": "vem", "pres.2sg": "veš", "pres.3sg": "ve", "pres.1pl": "vemo", "pres.2pl": "veste", "pres.3pl": "vedo", "pres.1du": "veva", "pres.2du": "vesta", "pres.3du": "vesta",
+        "past.m.sg": "vedel", "past.f.sg": "vedela", "past.n.sg": "vedelo", "past.m.pl": "vedeli", "past.f.pl": "vedele", "past.m.du": "vedela", "past.f.du": "vedeli",
+        "imp.2sg": "vedi", "imp.2pl": "vedite", "imp.1pl": "vedimo", "imp.1du": "vediva", "imp.2du": "vedita"
+      },
+      "also": { "pres.3pl": ["vejo"] }
+    },
+    {
+      "lemma": "dati", "pos": "verb", "aspect": "pf", "gloss": ["to give"],
+      "forms": {
+        "pres.1sg": "dam", "pres.2sg": "daš", "pres.3sg": "da", "pres.1pl": "damo", "pres.2pl": "daste", "pres.3pl": "dajo", "pres.1du": "dava", "pres.2du": "dasta", "pres.3du": "dasta",
+        "past.m.sg": "dal", "past.f.sg": "dala", "past.n.sg": "dalo", "past.m.pl": "dali", "past.f.pl": "dale", "past.m.du": "dala", "past.f.du": "dali",
+        "imp.2sg": "daj", "imp.2pl": "dajte", "imp.1pl": "dajmo", "imp.1du": "dajva", "imp.2du": "dajta"
+      }
+    },
+    {
+      "lemma": "hoteti", "pos": "verb", "aspect": "impf", "gloss": ["to want"],
+      "forms": {
+        "pres.1sg": "hočem", "pres.2sg": "hočeš", "pres.3sg": "hoče", "pres.1pl": "hočemo", "pres.2pl": "hočete", "pres.3pl": "hočejo", "pres.1du": "hočeva", "pres.2du": "hočeta", "pres.3du": "hočeta",
+        "neg.1sg": "nočem", "neg.2sg": "nočeš", "neg.3sg": "noče", "neg.1pl": "nočemo", "neg.2pl": "nočete", "neg.3pl": "nočejo", "neg.1du": "nočeva", "neg.2du": "nočeta", "neg.3du": "nočeta",
+        "past.m.sg": "hotel", "past.f.sg": "hotela", "past.n.sg": "hotelo", "past.m.pl": "hoteli", "past.f.pl": "hotele", "past.m.du": "hotela", "past.f.du": "hoteli"
+      },
+      "note": "no imperative in use"
+    },
+    {
+      "lemma": "reči", "pos": "verb", "aspect": "pf", "gloss": ["to say"],
+      "forms": {
+        "pres.1sg": "rečem", "pres.2sg": "rečeš", "pres.3sg": "reče", "pres.1pl": "rečemo", "pres.2pl": "rečete", "pres.3pl": "rečejo", "pres.1du": "rečeva", "pres.2du": "rečeta", "pres.3du": "rečeta",
+        "past.m.sg": "rekel", "past.f.sg": "rekla", "past.n.sg": "reklo", "past.m.pl": "rekli", "past.f.pl": "rekle", "past.m.du": "rekla", "past.f.du": "rekli",
+        "imp.2sg": "reci", "imp.2pl": "recite", "imp.1pl": "recimo", "imp.1du": "reciva", "imp.2du": "recita"
+      },
+      "also": { "pres.3pl": ["reko"] }
+    },
+    {
+      "lemma": "moči", "pos": "verb", "aspect": "impf", "gloss": ["can, to be able"],
+      "forms": {
+        "pres.1sg": "morem", "pres.2sg": "moreš", "pres.3sg": "more", "pres.1pl": "moremo", "pres.2pl": "morete", "pres.3pl": "morejo", "pres.1du": "moreva", "pres.2du": "moreta", "pres.3du": "moreta",
+        "past.m.sg": "mogel", "past.f.sg": "mogla", "past.n.sg": "moglo", "past.m.pl": "mogli", "past.f.pl": "mogle", "past.m.du": "mogla", "past.f.du": "mogli"
+      },
+      "note": "no imperative in use"
+    },
+    {
+      "lemma": "spati", "pos": "verb", "aspect": "impf", "gloss": ["to sleep"],
+      "forms": {
+        "pres.1sg": "spim", "pres.2sg": "spiš", "pres.3sg": "spi", "pres.1pl": "spimo", "pres.2pl": "spite", "pres.3pl": "spijo", "pres.1du": "spiva", "pres.2du": "spita", "pres.3du": "spita",
+        "past.m.sg": "spal", "past.f.sg": "spala", "past.n.sg": "spalo", "past.m.pl": "spali", "past.f.pl": "spale", "past.m.du": "spala", "past.f.du": "spali",
+        "imp.2sg": "spi", "imp.2pl": "spite", "imp.1pl": "spimo", "imp.1du": "spiva", "imp.2du": "spita"
+      }
+    },
+    {
+      "lemma": "vzeti", "pos": "verb", "aspect": "pf", "gloss": ["to take"],
+      "forms": {
+        "pres.1sg": "vzamem", "pres.2sg": "vzameš", "pres.3sg": "vzame", "pres.1pl": "vzamemo", "pres.2pl": "vzamete", "pres.3pl": "vzamejo", "pres.1du": "vzameva", "pres.2du": "vzameta", "pres.3du": "vzameta",
+        "past.m.sg": "vzel", "past.f.sg": "vzela", "past.n.sg": "vzelo", "past.m.pl": "vzeli", "past.f.pl": "vzele", "past.m.du": "vzela", "past.f.du": "vzeli",
+        "imp.2sg": "vzemi", "imp.2pl": "vzemite", "imp.1pl": "vzemimo", "imp.1du": "vzemiva", "imp.2du": "vzemita"
+      }
+    },
+    {
+      "lemma": "piti", "pos": "verb", "aspect": "impf", "gloss": ["to drink"],
+      "forms": {
+        "pres.1sg": "pijem", "pres.2sg": "piješ", "pres.3sg": "pije", "pres.1pl": "pijemo", "pres.2pl": "pijete", "pres.3pl": "pijejo", "pres.1du": "pijeva", "pres.2du": "pijeta", "pres.3du": "pijeta",
+        "past.m.sg": "pil", "past.f.sg": "pila", "past.n.sg": "pilo", "past.m.pl": "pili", "past.f.pl": "pile", "past.m.du": "pila", "past.f.du": "pili",
+        "imp.2sg": "pij", "imp.2pl": "pijte", "imp.1pl": "pijmo", "imp.1du": "pijva", "imp.2du": "pijta"
+      }
+    }
+  ],
+  "partners": [
+    { "pf": "sesti", "impf": "sedeti", "kind": "position", "gloss": { "sedeti": ["to be sitting, to sit"] } },
+    { "pf": "leči", "impf": "ležati", "kind": "position", "gloss": { "leči": ["to lie down"], "ležati": ["to be lying, to lie"] } },
+    { "pf": "vstati", "impf": "stati", "kind": "position", "gloss": { "vstati": ["to stand up, to get up"], "stati": ["to be standing, to stand"] } },
+    { "pf": "kupiti", "impf": "kupovati", "kind": "aspect" },
+    { "pf": "dati", "impf": "dajati", "kind": "aspect" },
+    { "pf": "vzeti", "impf": "jemati", "kind": "aspect" },
+    { "pf": "priti", "impf": "prihajati", "kind": "aspect" },
+    { "pf": "oditi", "impf": "odhajati", "kind": "aspect", "gloss": { "odhajati": ["to be leaving, to leave"] } },
+    { "pf": "reči", "impf": "govoriti", "kind": "aspect" },
+    { "pf": "narediti", "impf": "delati", "kind": "aspect" },
+    { "pf": "napisati", "impf": "pisati", "kind": "aspect" },
+    { "pf": "prebrati", "impf": "brati", "kind": "aspect", "gloss": { "prebrati": ["to read (through)"] } },
+    { "pf": "pojesti", "impf": "jesti", "kind": "aspect", "gloss": { "pojesti": ["to eat up"] } },
+    { "pf": "popiti", "impf": "piti", "kind": "aspect", "gloss": { "popiti": ["to drink up"] } },
+    { "pf": "skuhati", "impf": "kuhati", "kind": "aspect", "gloss": { "skuhati": ["to cook (until done)"] } },
+    { "pf": "odpreti", "impf": "odpirati", "kind": "aspect", "gloss": { "odpirati": ["to open"] } },
+    { "pf": "zapreti", "impf": "zapirati", "kind": "aspect", "gloss": { "zapirati": ["to close"] } },
+    { "pf": "začeti", "impf": "začenjati", "kind": "aspect", "gloss": { "začenjati": ["to begin, to start"] } },
+    { "pf": "končati", "impf": "končevati", "kind": "aspect", "gloss": { "končati": ["to end, to finish"], "končevati": ["to end, to finish"] } },
+    { "pf": "vprašati", "impf": "spraševati", "kind": "aspect", "gloss": { "spraševati": ["to ask"] } },
+    { "pf": "odgovoriti", "impf": "odgovarjati", "kind": "aspect", "gloss": { "odgovarjati": ["to answer, to reply"] } },
+    { "pf": "poklicati", "impf": "klicati", "kind": "aspect" },
+    { "pf": "vrniti", "impf": "vračati", "kind": "aspect", "gloss": { "vrniti": ["to return, to give back"], "vračati": ["to return, to give back"] } },
+    { "pf": "pozabiti", "impf": "pozabljati", "kind": "aspect", "gloss": { "pozabljati": ["to forget"] } },
+    { "pf": "prinesti", "impf": "prinašati", "kind": "aspect", "gloss": { "prinesti": ["to bring"], "prinašati": ["to bring"] } },
+    { "pf": "dobiti", "impf": "dobivati", "kind": "aspect", "gloss": { "dobiti": ["to get, to receive"], "dobivati": ["to get, to receive"] } },
+    { "pf": "plačati", "impf": "plačevati", "kind": "aspect", "gloss": { "plačevati": ["to pay"] } },
+    { "pf": "obleči", "impf": "oblačiti", "kind": "aspect", "gloss": { "obleči": ["to put on, to dress"], "oblačiti": ["to put on, to dress"] } },
+    { "pf": "srečati", "impf": "srečevati", "kind": "aspect", "gloss": { "srečevati": ["to meet"] } }
+  ],
+  "leave_out": [
+    { "lemma": "stati", "pos": "verb", "why": "one entry for to cost (stanem, stane) and to stand (stojim, stoji): which form is which meaning's can't be told" }
+  ]
+}

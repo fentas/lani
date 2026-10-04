@@ -1,0 +1,32 @@
+# Lani local voice worker: Gepard Slovenian TTS on 127.0.0.1:8795.
+# Installed by companion/voice-local/install.sh into ~/.config/systemd/user/.
+# Local overrides (device, port, voice, ...) go in ~/.config/lani-voice.env.
+[Unit]
+Description=Lani local voice (Gepard Slovenian TTS, 127.0.0.1:8795)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.local/share/lani-voice
+ExecStart=%h/.local/share/lani-voice/venv/bin/python %h/.local/share/lani-voice/app/server.py
+Environment=PYTHONUNBUFFERED=1
+Environment=HF_HOME=%h/.local/share/lani-voice/hf
+Environment=HF_HUB_OFFLINE=1
+Environment=TOKENIZERS_PARALLELISM=false
+Environment=LANI_VOICE_STATE=%h/.local/share/lani-voice
+# ROCm: device 0 is the RX 9070 (device 1 is the Ryzen iGPU).
+Environment=HIP_VISIBLE_DEVICES=0
+Environment=MIOPEN_FIND_MODE=FAST
+Environment=MIOPEN_USER_DB_PATH=%h/.local/share/lani-voice/miopen
+Environment=MIOPEN_CUSTOM_CACHE_DIR=%h/.local/share/lani-voice/miopen/cache
+# Overrides from before the rename (FLUENT_VOICE_*, still read), then today's: the later file wins.
+EnvironmentFile=-%h/.config/fluent-voice.env
+EnvironmentFile=-%h/.config/lani-voice.env
+Restart=on-failure
+RestartSec=15
+Nice=5
+MemoryHigh=6G
+MemoryMax=10G
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,43 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "festa-carnevale",
+  "language": "it",
+  "title": { "it": "Il Carnevale", "sl": "Pust", "en": "Carnival", "de": "Karneval" },
+  "emoji": "🎭",
+  "level": "A1",
+  "description": {
+    "sl": "Pustni torek, 47 dni pred veliko nočjo. Tommaso in otroci se našemijo, mečejo konfete in jedo flancate.",
+    "en": "Shrove Tuesday, 47 days before Easter. Tommaso and the children dress up, throw confetti and eat crostoli.",
+    "de": "Faschingsdienstag, 47 Tage vor Ostern. Tommaso und die Kinder verkleiden sich, werfen Konfetti und essen Crostoli."
+  },
+  "giver": { "name": "Tommaso", "emoji": "🧒" },
+  "festival": "carnevale",
+  "review": "de: machine-written, not reviewed by a native speaker",
+  "words": [
+    { "id": "maschera", "it": "la maschera", "sl": "maska", "en": "mask", "de": "Maske", "emoji": "🎭", "gender": "f", "plural": "le maschere",
+      "example_it": "Metto la maschera da gatto.", "example_sl": "Nadenem si mačjo masko.", "example_en": "I put on a cat mask.", "example_de": "Ich setze eine Katzenmaske auf." },
+    { "id": "costume", "it": "il costume", "sl": "kostum", "en": "costume", "de": "Kostüm", "emoji": "🦸", "gender": "m", "plural": "i costumi",
+      "example_it": "Ho un costume da pirata.", "example_sl": "Imam piratski kostum.", "example_en": "I've got a pirate costume.", "example_de": "Ich habe ein Piratenkostüm." },
+    { "id": "travestirsi", "it": "travestirsi", "sl": "našemiti se", "en": "to dress up", "de": "sich verkleiden", "emoji": "🤡",
+      "example_it": "A Carnevale tutti si travestono.", "example_sl": "Za pust se vsi našemijo.", "example_en": "At Carnival everyone dresses up.", "example_de": "Im Karneval verkleiden sich alle." },
+    { "id": "coriandoli", "it": "i coriandoli", "sl": "konfeti", "en": "confetti", "de": "Konfetti", "emoji": "🎊", "gender": "m", "plural": "i coriandoli",
+      "example_it": "Lanciamo i coriandoli!", "example_sl": "Mečimo konfete!", "example_en": "Let's throw confetti!", "example_de": "Lasst uns Konfetti werfen!",
+      "note": "Nearly always plural; one piece is un coriandolo.",
+      "note_sl": "Skoraj vedno v množini; en košček je un coriandolo.",
+      "note_de": "Fast immer im Plural; ein einzelnes Stück ist un coriandolo." },
+    { "id": "stelle-filanti", "it": "le stelle filanti", "sl": "serpentine", "en": "streamers", "de": "Luftschlangen", "emoji": "🎉", "gender": "f", "plural": "le stelle filanti",
+      "example_it": "Le stelle filanti sono colorate.", "example_sl": "Serpentine so pisane.", "example_en": "The streamers are colourful.", "example_de": "Die Luftschlangen sind bunt." },
+    { "id": "sfilata", "it": "la sfilata", "sl": "povorka", "en": "parade", "de": "Umzug", "emoji": "🥁", "gender": "f", "plural": "le sfilate",
+      "example_it": "Guardiamo la sfilata dei carri.", "example_sl": "Gledamo povorko vozov.", "example_en": "We're watching the parade of floats.", "example_de": "Wir schauen uns den Umzug der Festwagen an." },
+    { "id": "carro", "it": "il carro", "sl": "voz", "en": "float, cart", "de": "Festwagen, Karren", "emoji": "🛻", "gender": "m", "plural": "i carri",
+      "example_it": "Sul carro c'è un drago gigante.", "example_sl": "Na vozu je velikanski zmaj.", "example_en": "There's a giant dragon on the float.", "example_de": "Auf dem Festwagen ist ein riesiger Drache.",
+      "note": "carro and caro are different words: carro (cart) has a double r.",
+      "note_sl": "carro in caro sta različni besedi: carro (voz) ima dvojni r.",
+      "note_de": "carro und caro sind verschiedene Wörter: carro (Karren) hat ein doppeltes r." },
+    { "id": "crostoli", "it": "i crostoli", "sl": "flancati", "en": "crostoli (crisp carnival pastries)", "de": "Crostoli (knuspriges Karnevalsgebäck)", "emoji": "🥨", "gender": "m", "plural": "i crostoli",
+      "example_it": "La nonna frigge i crostoli.", "example_sl": "Babica cvre flancate.", "example_en": "Grandma is frying crostoli.", "example_de": "Oma frittiert Crostoli.",
+      "note": "Thin strips of fried pastry with icing sugar: crostoli in Friuli, chiacchiere elsewhere in Italy.",
+      "note_sl": "Tanki ocvrti trakovi testa s sladkorjem v prahu: v Furlaniji crostoli, drugod po Italiji chiacchiere.",
+      "note_de": "Dünne Streifen aus frittiertem Teig mit Puderzucker: in Friaul crostoli, anderswo in Italien chiacchiere." }
+  ]
+}

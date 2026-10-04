@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "nives",
+  "name": "Zia Nives",
+  "emoji": "📻",
+  "art": "aunt",
+  "voice": "female",
+  "speaker": "grandma",
+  "role": {"it": "Zia", "sl": "Teta", "en": "Aunt", "de": "Tante"},
+  "home": ["house", "hut", "spot:road"],
+  "register": "ti",
+  "skill": "wood",
+  "since": "tabor",
+  "order": 7,
+  "routine": { "up": "6:30", "bed": "21:45" },
+  "personality": "The village gossip, seventy-five, Rosa's younger sister, never without her crackling little radio on the regional station. A bit hard of hearing: 'Come? Cosa hai detto?' Knows the time, the date, the weather and who came from where. Says tu to the learner, and the learner says tu back and calls her zia, as village children do. Speaks simple Italian to a child, a little too loud, and says important things twice.",
+  "story": "Nives came back to the village from Gorizia to live next to her sister Rosa. Her radio is always on: the news, the weather, the football from Udine. She tells the whole village what she heard, not always exactly as it was said, so she likes it when someone listens with her.",
+  "likes": [
+    {"it": "la radio", "sl": "radio", "en": "the radio", "de": "das Radio"},
+    {"it": "le notizie", "sl": "novice", "en": "the news", "de": "die Nachrichten"},
+    {"it": "i vicini", "sl": "sosedje", "en": "the neighbours", "de": "die Nachbarn"},
+    {"it": "l'ora e la data", "sl": "ura in datum", "en": "the time and the date", "de": "die Uhrzeit und das Datum"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Buongiorno! Come ti chiami?", "sl": "Dober dan! Kako ti je ime?", "en": "Good day! What's your name?", "de": "Guten Tag! Wie heißt du?", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Ciao, ciao! Sei nuovo? Da dove vieni?", "sl": "Živjo, živjo! Si nov? Od kod si?", "en": "Hi, hi! Are you new? Where are you from?", "de": "Hallo, hallo! Bist du neu? Woher kommst du?", "level": 0 },
+      { "it": "Oh, ciao! Hai sentito le notizie?", "sl": "O, živjo! Si slišal novice?", "en": "Oh, hi! Have you heard the news?", "de": "Oh, hallo! Hast du die Nachrichten gehört?", "level": 1 },
+      { "it": "Eccoti! Vieni, alla radio c'è una notizia!", "sl": "Tu si! Pridi, po radiu je novica!", "en": "There you are! Come, there's news on the radio!", "de": "Da bist du ja! Komm, im Radio gibt es Neuigkeiten!", "level": 2 },
+      { "it": "Tesoro! Ti ho aspettato tutta la mattina.", "sl": "Zaklad! Vse jutro sem te čakala.", "en": "Treasure! I've been waiting for you all morning.", "de": "Schatz! Ich habe den ganzen Morgen auf dich gewartet.", "level": 3, "when": ["morning", "afternoon"] },
+      { "it": "Il mio nipote preferito! Non dirlo agli altri.", "sl": "Moj najljubši nečak! Ne povej drugim.", "en": "My favourite nephew! Don't tell the others.", "de": "Mein Lieblingsneffe! Sag's nicht den anderen.", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie, caro! Come? Ah, sì: grazie!", "sl": "Hvala, dragi! Kako? A, ja: hvala!", "en": "Thank you, dear! What? Ah, yes: thank you!", "de": "Danke, mein Lieber! Wie? Ah, ja: danke!" },
+      { "it": "Grazie! Lo dico a tutto il paese.", "sl": "Hvala! Povem vsej vasi.", "en": "Thanks! I'll tell the whole village.", "de": "Danke! Das erzähle ich dem ganzen Dorf." },
+      { "it": "Sei un tesoro. Grazie, grazie.", "sl": "Zlat si. Hvala, hvala.", "en": "You're a treasure. Thank you, thank you.", "de": "Du bist ein Schatz. Danke, danke." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Come? Ah sì! Ricordo bene {memory}.", "sl": "Kako? A, ja! Dobro se spomnim na {memory}.", "en": "What? Ah, yes! I remember {memory} well.", "de": "Wie? Ah, ja! An {memory} erinnere ich mich gut.", "level": 2 },
+      { "it": "L'ho raccontato a tutti. Non dimentico {memory}.", "sl": "Vsem sem povedala. Ne pozabim na {memory}.", "en": "I've told everyone. I don't forget {memory}.", "de": "Ich habe es allen erzählt. {memory} vergesse ich nicht.", "level": 3 }
+    ],
+    "idle": [
+      { "it": "Sono le dieci. Lo ha detto la radio.", "sl": "Ura je deset. Tako so rekli po radiu.", "en": "It's ten o'clock. The radio said so.", "de": "Es ist zehn Uhr. Das hat das Radio gesagt." },
+      { "it": "Domani piove. O no? Non ho sentito bene.", "sl": "Jutri bo deževalo. Ali pa ne? Nisem dobro slišala.", "en": "It'll rain tomorrow. Or not? I didn't hear well.", "de": "Morgen regnet es. Oder nicht? Ich habe es nicht gut gehört." },
+      { "it": "Oggi è martedì. No, mercoledì!", "sl": "Danes je torek. Ne, sreda!", "en": "Today is Tuesday. No, Wednesday!", "de": "Heute ist Dienstag. Nein, Mittwoch!" },
+      { "it": "Alla radio parlano di Nova Gorica.", "sl": "Po radiu govorijo o Novi Gorici.", "en": "They're talking about Nova Gorica on the radio.", "de": "Im Radio reden sie über Nova Gorica." }
+    ],
+    "cheer": [
+      { "it": "Bravo! Giusto, giusto!", "sl": "Bravo! Prav, prav!", "en": "Well done! Right, right!", "de": "Gut gemacht! Richtig, richtig!" },
+      { "it": "Hai sentito bene! Bravo.", "sl": "Dobro si slišal! Bravo.", "en": "You heard well! Well done.", "de": "Du hast gut hingehört! Gut gemacht." },
+      { "it": "Che bravo! Lo racconto a tutti!", "sl": "Kako si priden! Vsem bom povedala!", "en": "How clever! I'll tell everyone!", "de": "Wie tüchtig! Das erzähle ich allen!" }
+    ],
+    "comfort": [
+      { "it": "Non fa niente. Ripeti, ripeti.", "sl": "Nič hudega. Ponovi, ponovi.", "en": "Never mind. Say it again, say it again.", "de": "Macht nichts. Sag's noch mal, sag's noch mal." },
+      { "it": "Come? Ah. Quasi! Ancora una volta.", "sl": "Kako? A. Skoraj! Še enkrat.", "en": "What? Ah. Almost! Once more.", "de": "Wie? Ah. Fast! Noch einmal." },
+      { "it": "Neanch'io sento bene, sai. Riprova.", "sl": "Tudi jaz slabo slišim, veš. Poskusi še enkrat.", "en": "I don't hear well either, you know. Try again.", "de": "Ich höre auch nicht gut, weißt du. Versuch es noch einmal." }
+    ],
+    "listen": [
+      { "it": "Ascolta bene! Bene!", "sl": "Dobro poslušaj! Dobro!", "en": "Listen carefully! Carefully!", "de": "Hör gut zu! Gut!" },
+      { "it": "Shh! Parla la radio.", "sl": "Pst! Radio govori.", "en": "Shh! The radio's talking.", "de": "Pssst! Das Radio spricht." },
+      { "it": "Ascolta tu, io non sento.", "sl": "Poslušaj ti, jaz ne slišim.", "en": "You listen, I can't hear.", "de": "Hör du zu, ich höre nichts." }
+    ],
+    "bye": [
+      { "it": "Ciao, caro!", "sl": "Adijo, dragi!", "en": "Bye, dear!", "de": "Tschüss, mein Lieber!" },
+      { "it": "Arrivederci! Salutami Rosa.", "sl": "Na svidenje! Pozdravi mi Roso.", "en": "Goodbye! Say hello to Rosa for me.", "de": "Auf Wiedersehen! Grüß mir Rosa." },
+      { "it": "Mandi! Domani ti racconto le notizie.", "sl": "Mandi! Jutri ti povem novice. (mandi: furlanski pozdrav)", "en": "Mandi! Tomorrow I'll tell you the news. (mandi: Friulian for bye)", "de": "Mandi! Morgen erzähle ich dir die Neuigkeiten. (mandi: Friaulisch für tschüss)" }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Come? Per me? Oh, che bello! Mi piace tantissimo!", "sl": "Kako? Zame? O, kako lepo! Zelo mi je všeč!", "en": "What? For me? Oh, how lovely! I like it so much!", "de": "Wie? Für mich? Oh, wie schön! Das gefällt mir so sehr!" },
+        { "it": "Come lo sapevi? Lo dico a tutto il paese!", "sl": "Kako si vedel? Povem vsej vasi!", "en": "How did you know? I'll tell the whole village!", "de": "Woher wusstest du das? Das erzähle ich dem ganzen Dorf!" },
+        { "it": "Proprio questo! Sei il mio nipote preferito.", "sl": "Točno to! Ti si moj najljubši nečak.", "en": "Exactly this! You're my favourite nephew.", "de": "Genau das! Du bist mein Lieblingsneffe." }
+      ],
+      "ordinary": [
+        { "it": "Come? Un regalo? Grazie, caro, grazie!", "sl": "Kako? Darilo? Hvala, dragi, hvala!", "en": "What? A present? Thank you, dear, thank you!", "de": "Wie? Ein Geschenk? Danke, mein Lieber, danke!" },
+        { "it": "Grazie! Vieni più vicino, non sento bene.", "sl": "Hvala! Pridi bliže, slabo slišim.", "en": "Thank you! Come closer, I can't hear well.", "de": "Danke! Komm näher, ich höre nicht gut." }
+      ],
+      "rare": [
+        { "it": "Cosa?! Questo in paese non ce l'ha nessuno! Grazie!", "sl": "Kaj?! Tega v vasi nima nihče! Hvala!", "en": "What?! Nobody in the village has this! Thank you!", "de": "Was?! So etwas hat keiner im Dorf! Danke!" }
+      ]
+    }
+  }
+}

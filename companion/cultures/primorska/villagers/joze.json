@@ -1,0 +1,82 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "joze",
+  "name": "Lovec Jože",
+  "emoji": "🦌",
+  "art": "hunter",
+  "voice": "male",
+  "speaker": "grandpa",
+  "role": { "sl": "Lovec", "en": "Hunter", "de": "Jäger", "it": "Cacciatore" },
+  "home": ["spot:highseat"],
+  "sleeps": "house:livingroom",
+  "register": "vi",
+  "skill": "wood",
+  "since": "zaselek",
+  "order": 50,
+  "routine": {
+    "up": "4:30", "bed": "21:30",
+    "rituals": [
+      { "id": "stolp", "at": "21:00", "until": "21:20", "to": "watchtower", "doing": "watch", "title": {"sl": "Jože pogleda z opazovalnice", "en": "Jože looks out from the watchtower", "de": "Jože schaut vom Wachturm", "it": "Jože guarda dalla torre di guardia"} }
+    ]
+  },
+  "extra": true,
+  "personality": "A hunter of the village's hunting club (lovska družina), in his sixties, gentle and patient. He watches the game rather than hunts it: counts the deer at dawn and dusk from his high seat, brings them hay in winter, reads tracks in the mud and the snow, and knows every animal's habits. Speaks softly and slowly, often in a whisper in the forest ('Pst!'), greets with 'Lovski blagor!'. Says ti to Jan, expects vi.",
+  "story": "Jože has kept the high seat (preža) at the edge of the forest meadow for thirty years. He counts the roe deer for the hunting club every spring, fills the feeding rack with hay in winter and knows where the boar dig at night and where the dormice sleep.",
+  "likes": [
+    { "sl": "srne", "en": "the roe deer", "de": "die Rehe", "it": "i caprioli" },
+    { "sl": "preža", "en": "his high seat", "de": "sein Hochsitz", "it": "la sua altana" },
+    { "sl": "sledi", "en": "tracks", "de": "Spuren", "it": "le tracce" },
+    { "sl": "jutranja rosa", "en": "the morning dew", "de": "der Morgentau", "it": "la rugiada del mattino" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Dober dan. Jože sem, lovec.", "en": "Good day. I am Jože, the hunter.", "de": "Guten Tag. Ich bin Jože, der Jäger.", "it": "Buongiorno. Sono Jože, il cacciatore.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Lovski blagor! Tako se pozdravimo lovci.", "en": "Lovski blagor! That is how we hunters greet each other.", "de": "Lovski blagor! So grüßen wir Jäger uns.", "it": "Lovski blagor! È così che ci salutiamo noi cacciatori.", "level": 0 },
+      { "sl": "O, Jan! Tiho hodiš, kot srna.", "en": "Oh, Jan! You walk quietly, like a deer.", "de": "Oh, Jan! Du gehst leise, wie ein Reh.", "it": "Oh, Jan! Cammini in silenzio, come un capriolo.", "level": 1 },
+      { "sl": "Jan, prijatelj! Pridi jutri zgodaj na prežo.", "en": "Jan, my friend! Come to the high seat early tomorrow.", "de": "Jan, mein Freund! Komm morgen früh auf den Hochsitz.", "it": "Jan, amico mio! Vieni domattina presto sull'altana.", "level": 3 }
+    ],
+    "thanks": [
+      { "sl": "Hvala, Jan. Tudi srne se ti zahvalijo.", "en": "Thank you, Jan. The deer thank you too.", "de": "Danke, Jan. Auch die Rehe danken dir.", "it": "Grazie, Jan. Anche i caprioli ti ringraziano." },
+      { "sl": "Hvala lepa. Dober si, fant.", "en": "Thank you very much. You are a good lad.", "de": "Vielen Dank. Du bist ein guter Junge.", "it": "Grazie mille. Sei un bravo ragazzo." }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Na preži pogosto mislim na {memory}.", "en": "On the high seat I often think of {memory}.", "de": "Auf dem Hochsitz denke ich oft an {memory}.", "it": "Sull'altana ricordo spesso {memory}.", "level": 2 }
+    ],
+    "idle": [
+      { "sl": "Pozimi nosim srnam seno.", "en": "In winter I bring hay to the deer.", "de": "Im Winter bringe ich den Rehen Heu.", "it": "D'inverno porto il fieno ai caprioli." },
+      { "sl": "Poglej, sled. Tu je šla lisica.", "en": "Look, a track. A fox went this way.", "de": "Schau, eine Spur. Hier ist ein Fuchs entlanggelaufen.", "it": "Guarda, una traccia. Di qui è passata una volpe." },
+      { "sl": "Danes sem naštel sedem srn.", "en": "Today I counted seven deer.", "de": "Heute habe ich sieben Rehe gezählt.", "it": "Oggi ho contato sette caprioli." }
+    ],
+    "cheer": [
+      { "sl": "Dobro! Imaš oči kot sova.", "en": "Good! You have eyes like an owl.", "de": "Gut! Du hast Augen wie eine Eule.", "it": "Bene! Hai gli occhi di un gufo." },
+      { "sl": "Tako je. Bravo!", "en": "That is right. Well done!", "de": "So ist es. Gut gemacht!", "it": "Proprio così. Bravo!" }
+    ],
+    "comfort": [
+      { "sl": "Nič hudega. Tudi lovec včasih ne vidi srne.", "en": "Never mind. Even a hunter sometimes does not see the deer.", "de": "Macht nichts. Auch ein Jäger sieht manchmal das Reh nicht.", "it": "Non fa niente. Anche un cacciatore a volte non vede il capriolo." },
+      { "sl": "Počasi. V gozdu se ne mudi.", "en": "Slowly. There is no hurry in the forest.", "de": "Langsam. Im Wald hat man es nicht eilig.", "it": "Piano. Nel bosco non c'è fretta." }
+    ],
+    "listen": [
+      { "sl": "Pst. Poslušaj gozd.", "en": "Shh. Listen to the forest.", "de": "Pst. Hör dem Wald zu.", "it": "Sst. Ascolta il bosco." },
+      { "sl": "Tiho. Kaj slišiš?", "en": "Quiet. What do you hear?", "de": "Ruhe. Was hörst du?", "it": "Silenzio. Cosa senti?" }
+    ],
+    "bye": [
+      { "sl": "Lovski blagor, Jan!", "en": "Lovski blagor (the hunters' greeting), Jan!", "de": "Lovski blagor (der Gruß der Jäger), Jan!", "it": "Lovski blagor (il saluto dei cacciatori), Jan!" },
+      { "sl": "Na svidenje. Grem na prežo.", "en": "Goodbye. I am going to the high seat.", "de": "Auf Wiedersehen. Ich gehe auf den Hochsitz.", "it": "Arrivederci. Vado sull'altana." }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "O, zame? Tega imam pa res rad. Hvala, Jan.", "en": "Oh, for me? I really like this. Thank you, Jan.", "de": "Oh, für mich? Das mag ich wirklich. Danke, Jan.", "it": "Oh, per me? Questo mi piace proprio. Grazie, Jan." },
+        { "sl": "Kako si vedel? Hvala, fant, od srca.", "en": "How did you know? Thank you, lad, from the heart.", "de": "Woher wusstest du das? Danke, Junge, von Herzen.", "it": "Come lo sapevi? Grazie, ragazzo, di cuore." },
+        { "sl": "To bom vzel s sabo na prežo. Hvala!", "en": "I will take this with me to the high seat. Thank you!", "de": "Das nehme ich mit auf den Hochsitz. Danke!", "it": "Questo lo porto con me sull'altana. Grazie!" }
+      ],
+      "ordinary": [
+        { "sl": "Hvala, Jan. Lepo od tebe.", "en": "Thank you, Jan. That is kind of you.", "de": "Danke, Jan. Nett von dir.", "it": "Grazie, Jan. Gentile da parte tua." },
+        { "sl": "Hvala. Srne te pozdravljajo.", "en": "Thank you. The deer say hello.", "de": "Danke. Die Rehe lassen grüßen.", "it": "Grazie. I caprioli ti salutano." }
+      ],
+      "rare": [
+        { "sl": "Kaj takega! Tega pa še nisem imel. Lovski blagor, Jan, in hvala!", "en": "Well I never! I have never had one of these. Lovski blagor, Jan, and thank you!", "de": "Na so was! So etwas hatte ich noch nie. Lovski blagor, Jan, und danke!", "it": "Ma guarda! Una cosa così non l'ho mai avuta. Lovski blagor, Jan, e grazie!" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "kam-tozilnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "➡️",
+  "title": {
+    "sl": "Kam? Smer s tožilnikom",
+    "en": "Where to? Direction with the accusative",
+    "de": "Wohin? Richtung mit dem Akkusativ",
+    "it": "Verso dove? Il moto a luogo con l'accusativo"
+  },
+  "rule": {
+    "en": "Slovene keeps apart where something is (**Kje?**) and where it goes (**Kam?**). For a direction, **v** and **na** take the accusative (*tožilnik*): **grem v šolo** (I'm going to school), but **sem v šoli** (I'm at school). From A2, so do **pod**, **nad**, **pred**, **za** and **med**.\n\nA feminine noun in -a ends in **-o** (pošta → **na pošto**); a masculine or neuter thing keeps its base form (gozd → **v gozd**, Triglav → **na Triglav**).\n\nFor smreka the two forms sound alike: Luka puts the tent **pod smreko** (Kam?) and it stands **pod smreko** (Kje?). For šotor they differ: **za šotor** (Kam?), **za šotorom** (Kje?).\n\nTo a person you go with **k** + dative (**k babici**, A2) and are **pri babici**. Home is **domov** (where to) and **doma** (at home).",
+    "de": "Das Slowenische unterscheidet, wo etwas ist (**Kje?**) und wohin es geht (**Kam?**) – wie im Deutschen Dativ und Akkusativ. Für eine Richtung stehen **v** und **na** mit dem Akkusativ (*tožilnik*): **grem v šolo** (ich gehe in die Schule), aber **sem v šoli** (ich bin in der Schule). Ab A2 auch **pod**, **nad**, **pred**, **za** und **med**.\n\nEin weibliches Nomen auf -a endet auf **-o** (pošta → **na pošto**); ein männliches oder sächliches Ding bleibt in der Grundform (gozd → **v gozd**, Triglav → **na Triglav**).\n\nBei smreka klingen beide Formen gleich: Luka stellt das Zelt **pod smreko** (Kam?), und es steht **pod smreko** (Kje?). Bei šotor nicht: **za šotor** (Kam?), **za šotorom** (Kje?).\n\nZu einer Person geht man mit **k** + Dativ (**k babici**, A2) und ist **pri babici**. Nach Hause heißt **domov**, zu Hause **doma**.",
+    "it": "Lo sloveno distingue dove si trova qualcosa (**Kje?**) da dove va (**Kam?**). Per il moto a luogo **v** e **na** reggono l'accusativo (*tožilnik*): **grem v šolo** (vado a scuola), ma **sem v šoli** (sono a scuola). Dall'A2 anche **pod**, **nad**, **pred**, **za** e **med**.\n\nUn nome femminile in -a finisce in **-o** (pošta → **na pošto**); una cosa maschile o neutra resta nella forma base (gozd → **v gozd**, Triglav → **na Triglav**).\n\nPer smreka le due forme suonano uguali: Luka mette la tenda **pod smreko** (Kam?) e sta **pod smreko** (Kje?). Per šotor no: **za šotor** (Kam?), **za šotorom** (Kje?).\n\nDa una persona si va con **k** + dativo (**k babici**, A2) e si sta **pri babici**. A casa (moto) è **domov**, a casa (stato) è **doma**."
+  },
+  "table": {
+    "head": [
+      { "sl": "vprašanje", "en": "question", "de": "Frage", "it": "domanda" },
+      { "sl": "predlog", "en": "preposition", "de": "Präposition", "it": "preposizione" },
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["Kam?", "v, na", { "sl": "tožilnik", "en": "accusative (tožilnik)", "de": "Akkusativ (tožilnik)", "it": "accusativo (tožilnik)" }, "grem v šolo"],
+      ["Kje?", "v, na", { "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "sem v šoli"],
+      ["Kam?", "pod, pred, za …", { "sl": "tožilnik", "en": "accusative (tožilnik)", "de": "Akkusativ (tožilnik)", "it": "accusativo (tožilnik)" }, "drva nesem za šotor"],
+      ["Kje?", "pod, pred, za …", { "sl": "orodnik", "en": "instrumental (orodnik)", "de": "Instrumental (orodnik)", "it": "strumentale (orodnik)" }, "drva so za šotorom"],
+      ["Kam?", "k", { "sl": "dajalnik", "en": "dative (dajalnik)", "de": "Dativ (dajalnik)", "it": "dativo (dajalnik)" }, "grem k babici"],
+      ["Kje?", "pri", { "sl": "mestnik", "en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)" }, "sem pri babici"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Jutri grem v Gorico.",
+      "en": "Tomorrow I'm going to Gorizia.",
+      "de": "Morgen fahre ich nach Gorizia.",
+      "it": "Domani vado a Gorizia.",
+      "note": {
+        "en": "Gorica → v Gorico (where to); in Gorizia: v Gorici.",
+        "de": "Gorica → v Gorico (wohin); in Gorizia: v Gorici.",
+        "it": "Gorica → v Gorico (moto a luogo); a Gorizia (stato): v Gorici."
+      }
+    },
+    {
+      "sl": "Grem na pošto.",
+      "en": "I'm going to the post office.",
+      "de": "Ich gehe zur Post.",
+      "it": "Vado alla posta."
+    },
+    {
+      "sl": "Luka nese drva za šotor.",
+      "en": "Luka carries the firewood behind the tent.",
+      "de": "Luka trägt das Holz hinter das Zelt.",
+      "it": "Luka porta la legna dietro la tenda."
+    },
+    {
+      "sl": "Drva so za šotorom.",
+      "en": "The firewood is behind the tent.",
+      "de": "Das Holz ist hinter dem Zelt.",
+      "it": "La legna è dietro la tenda."
+    },
+    {
+      "sl": "Postavi lonec na mizo.",
+      "en": "Put the pot on the table.",
+      "de": "Stell den Topf auf den Tisch.",
+      "it": "Metti la pentola sul tavolo.",
+      "note": {
+        "en": "Once it's there: lonec je na mizi.",
+        "de": "Wenn er dort steht: lonec je na mizi.",
+        "it": "Quando è lì: lonec je na mizi."
+      }
+    },
+    {
+      "sl": "Zvečer gremo domov.",
+      "en": "In the evening we go home.",
+      "de": "Am Abend gehen wir nach Hause.",
+      "it": "La sera andiamo a casa."
+    },
+    {
+      "sl": "Nisem šel na Triglav.",
+      "en": "I didn't climb Triglav.",
+      "de": "Ich bin nicht auf den Triglav gestiegen.",
+      "it": "Non sono salito sul Triglav.",
+      "note": {
+        "en": "Triglav is a masculine thing: na Triglav keeps its base form.",
+        "de": "Triglav ist ein männliches Ding: na Triglav bleibt in der Grundform.",
+        "it": "Triglav è una cosa maschile: na Triglav resta nella forma base."
+      }
+    }
+  ],
+  "modules": ["predlogi-kraja", "imeti-in-iti"],
+  "tags": ["kam", "direction", "accusative_masculine_place_name", "domov"],
+  "see": ["kje-mestnik-orodnik", "tozilnik", "vprasalnice", "dajalnik", "orodnik", "prislovi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

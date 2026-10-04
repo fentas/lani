@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# Start (or re-attach to) the always-on Lani tutor session in tmux.
+# The lani channel lets the Android app talk to this session; Remote Control lets you
+# reach it from claude.ai as well. Detach with Ctrl-b d; it keeps running.
+#
+#   lani-session                      the default learner: data/, port 8790, tmux "lani"
+#   lani-session --profile <id>       another learner (companion/bin/lani-profile add): their own data
+#                                     directory, bridge port, tmux session "lani-<id>" and Remote Control name
+#   lani-session --list               the learners on this machine
+#   … --service | --classic           where the bridge runs (docs/plans/04-bridge-service.md): as a service of its
+#                                     own (lani-bridge), the session with a shim; or inside the session (today's).
+#                                     Else $LANI_BRIDGE_MODE, else ~/.config/lani/bridge-mode, else classic.
+#   … --print                         print the commands instead of running them
+set -euo pipefail
+cd "$(dirname "$0")/../.."
+
+profile=""
+print=""
+mode=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --list|-l) exec bun companion/bridge/src/cli/profile.ts list ;;
+    --profile|-p) profile="${2:?--profile needs a profile id}"; shift ;;
+    --profile=*) profile="${1#--profile=}" ;;
+    --service) mode=service ;;
+    --classic) mode=classic ;;
+    --print) print=1 ;;
+    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *) echo "lani-session: unknown argument $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+# LANI_* (or their FLUENT_* names), and the config files of ~/.config/lani (or ~/.config/fluent): bin/lani-env.sh
+. companion/bin/lani-env.sh
+modefile="$(lani_config_file bridge-mode)"
+if [ -z "$mode" ]; then mode="${LANI_BRIDGE_MODE:-}"; fi
+if [ -z "$mode" ] && [ -r "$modefile" ]; then mode="$(tr -d '[:space:]' < "$modefile")"; fi
+mode="${mode:-classic}"
+case "$mode" in
+  classic|service) ;;
+  *) echo "lani-session: the bridge mode is classic or service, not \"$mode\" (from --service/--classic, \$LANI_BRIDGE_MODE or $modefile)" >&2; exit 2 ;;
+esac
+
+# API keys (ELEVENLABS_API_KEY for the voice store) are exported inside the tmux session, so the
+# bridge that Claude Code spawns inherits them. They never appear on a command line.
+keys="${LANI_KEYS_FILE:-$(lani_config_file keys.env)}"
+
+if [ -z "$profile" ] || [ "$profile" = default ]; then
+  name=lani
+  if [ "$mode" = classic ]; then
+    # LANI_TUTOR=1: this session's bridge serves the app (other Claude Code sessions in the repo don't).
+    cmd="set -a; if [ -r '$keys' ]; then . '$keys'; fi; set +a; export LANI_TUTOR=1; exec claude --dangerously-load-development-channels server:lani --remote-control lani-tutor"
+  else
+    # LANI_BRIDGE_SHIM=1: .mcp.json's bridge is the shim, which reaches the bridge service on its socket.
+    socket="$(bun companion/bridge/src/cli/bridge.ts socket)"
+    cmd="set -a; if [ -r '$keys' ]; then . '$keys'; fi; set +a; export LANI_BRIDGE_SHIM=1 LANI_BRIDGE_SOCKET='$socket'; exec claude --dangerously-load-development-channels server:lani --remote-control lani-tutor"
+  fi
+else
+  # Another learner: the session exports LANI_PROFILE, LANI_DATA_DIR and LANI_BRIDGE_PORT (and
+  # LANI_CHILD), so the bridge Claude Code spawns from .mcp.json serves that learner; in the service mode the
+  # shim's socket instead of the port.
+  spec="$(bun companion/bridge/src/cli/profile.ts session "$profile" --keys "$keys" --mode "$mode")"
+  name="${spec%%$'\n'*}"
+  cmd="${spec#*$'\n'}"
+fi
+
+bridge=(companion/bin/lani-bridge)
+[ -n "$profile" ] && [ "$profile" != default ] && bridge+=(--profile "$profile")
+
+if [ -n "$print" ]; then
+  [ "$mode" = service ] && printf 'companion/bin/lani-bridge start%s\n' "$([ ${#bridge[@]} -gt 1 ] && printf ' --profile %q' "$profile")"
+  printf 'tmux new-session -A -s %q %q\n' "$name" "$cmd"
+  exit 0
+fi
+
+if [ "$mode" = service ]; then
+  if tmux has-session -t "=$name" 2>/dev/null && ! "${bridge[0]}" status "${bridge[@]:1}" --quiet; then
+    # The tutor runs, with no service: it was started in the classic mode, its bridge inside it.
+    echo "lani-session: the tutor session $name runs in the classic mode (its bridge inside it). To switch: attach, /exit, and run lani-session again." >&2
+  else
+    # The bridge service first (nothing if it runs); the tutor starts anyway, and its shim connects once the service is up.
+    "${bridge[0]}" start "${bridge[@]:1}" || echo "lani-session: the bridge service isn't ready yet; the tutor starts anyway and connects when it is" >&2
+  fi
+fi
+
+# The bridge listens on localhost only; `tailscale serve` publishes it to the tailnet over HTTPS.
+exec tmux new-session -A -s "$name" "$cmd"

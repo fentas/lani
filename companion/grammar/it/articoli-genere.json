@@ -1,0 +1,106 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "articoli-genere",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🏷️",
+  "title": {
+    "it": "Il, lo, la: gli articoli e il genere",
+    "sl": "Členi in spol samostalnikov",
+    "en": "Articles and noun gender",
+    "de": "Artikel und Genus der Nomen"
+  },
+  "rule": {
+    "en": "Every Italian noun is masculine or feminine (*genere*); there is no neuter. A noun nearly always comes with an article, and the article shows the gender. English has no gender at all: here a tent is feminine (**la tenda**) and a fir tree masculine (**l'abete**).\n\nThe ending often tells: **-o** is mostly masculine (**il bosco**), **-a** mostly feminine (**la tenda**). Nouns in **-e** can be either (**il fiume**, **la neve**), and a few break the rule (**la mano**, **il problema**). Learn every noun with its article.\n\nThe definite article, *the* (*articolo determinativo*): masculine **il** (il pontile); **lo** before s + consonant, z, gn and ps (**lo stagno**, **lo zaino**); **l'** before a vowel (**l'abete**, **l'orizzonte**). Feminine **la** (la tenda), **l'** before a vowel (**l'ape**).\n\nThe indefinite article, *a, an* (*articolo indeterminativo*): **un** (un pontile, un abete), **uno** where lo goes (**uno zaino**), **una** (una tenda), **un'** before a vowel, feminine only (**un'ape**).",
+    "sl": "Vsak italijanski samostalnik je moškega ali ženskega spola (*genere*); srednjega spola ni. Skoraj vedno stoji s členom, ki ga slovenščina nima, in člen pokaže spol. Spol je pogosto drugačen kot v slovenščini: šotor → **la tenda** (ž), jelka → **l'abete** (m).\n\nSpol pogosto pove končnica: **-o** je večinoma moški (**il bosco**), **-a** večinoma ženski (**la tenda**). Samostalniki na **-e** so lahko eno ali drugo (**il fiume**, **la neve**), nekaj jih pravilo krši (**la mano**, **il problema**). Vsakega se nauči s členom.\n\nDoločni člen (*articolo determinativo*), za znano stvar: moški **il** (il pontile); **lo** pred s + soglasnikom, z, gn in ps (**lo stagno**, **lo zaino**); **l'** pred samoglasnikom (**l'abete**, **l'orizzonte**). Ženski **la** (la tenda), **l'** pred samoglasnikom (**l'ape**).\n\nNedoločni člen (*articolo indeterminativo*), za nekaj, kar omeniš prvič: **un** (un pontile, un abete), **uno** tam, kjer stoji lo (**uno zaino**), **una** (una tenda), **un'** pred samoglasnikom, samo v ženskem spolu (**un'ape**).",
+    "de": "Jedes italienische Nomen ist maskulin oder feminin (*genere*); ein Neutrum gibt es nicht. Fast immer steht es mit Artikel, und der Artikel zeigt das Genus. Oft ist es anders als im Deutschen: das Zelt → **la tenda** (f), die Tanne → **l'abete** (m).\n\nOft verrät die Endung das Genus: **-o** ist meist maskulin (**il bosco**), **-a** meist feminin (**la tenda**). Nomen auf **-e** können beides sein (**il fiume**, **la neve**), und einige brechen die Regel (**la mano**, **il problema**). Lerne jedes Nomen mit Artikel.\n\nDer bestimmte Artikel (*articolo determinativo*): maskulin **il** (il pontile); **lo** vor s + Konsonant, z, gn und ps (**lo stagno**, **lo zaino**); **l'** vor Vokal (**l'abete**, **l'orizzonte**). Feminin **la** (la tenda), **l'** vor Vokal (**l'ape**).\n\nDer unbestimmte Artikel (*articolo indeterminativo*): **un** (un pontile, un abete), **uno** wo auch lo steht (**uno zaino**), **una** (una tenda), **un'** vor Vokal, nur feminin (**un'ape**)."
+  },
+  "table": {
+    "head": [
+      { "it": "articolo", "sl": "člen", "en": "article", "de": "Artikel" },
+      { "it": "+ consonante", "sl": "+ soglasnik", "en": "+ consonant", "de": "+ Konsonant" },
+      { "it": "+ s + consonante, z, gn, ps", "sl": "+ s + soglasnik, z, gn, ps", "en": "+ s + consonant, z, gn, ps", "de": "+ s + Konsonant, z, gn, ps" },
+      { "it": "+ vocale", "sl": "+ samoglasnik", "en": "+ vowel", "de": "+ Vokal" }
+    ],
+    "rows": [
+      [{ "it": "maschile, determinativo", "sl": "moški, določni", "en": "masculine, the", "de": "maskulin, bestimmt" }, "il pontile", "lo stagno, lo zaino", "l'abete"],
+      [{ "it": "maschile, indeterminativo", "sl": "moški, nedoločni", "en": "masculine, a / an", "de": "maskulin, unbestimmt" }, "un pontile", "uno stagno, uno zaino", "un abete"],
+      [{ "it": "femminile, determinativo", "sl": "ženski, določni", "en": "feminine, the", "de": "feminin, bestimmt" }, "la tenda", "la stella, la zia", "l'ape"],
+      [{ "it": "femminile, indeterminativo", "sl": "ženski, nedoločni", "en": "feminine, a / an", "de": "feminin, unbestimmt" }, "una tenda", "una stella, una zia", "un'ape"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Lo stagno è pieno di rane.",
+      "sl": "Ribnik je poln žab.",
+      "en": "The pond is full of frogs.",
+      "de": "Der Teich ist voller Frösche.",
+      "note": {
+        "sl": "stagno se začne s s + soglasnikom: lo stagno, uno stagno.",
+        "en": "stagno starts with s + consonant: lo stagno, uno stagno.",
+        "de": "stagno beginnt mit s + Konsonant: lo stagno, uno stagno."
+      }
+    },
+    {
+      "it": "L'abete è molto alto.",
+      "sl": "Jelka je zelo visoka.",
+      "en": "The fir tree is very tall.",
+      "de": "Die Tanne ist sehr hoch.",
+      "note": {
+        "sl": "abete se začne s samoglasnikom: l'abete. Je moškega spola (un abete, alto), jelka pa ženskega.",
+        "en": "abete starts with a vowel: l'abete. It is masculine: un abete, alto.",
+        "de": "abete beginnt mit Vokal: l'abete. Es ist maskulin (un abete, alto), anders als die Tanne."
+      }
+    },
+    {
+      "it": "Un'ape vola sopra la tenda.",
+      "sl": "Čebela leti nad šotorom.",
+      "en": "A bee is flying over the tent.",
+      "de": "Eine Biene fliegt über dem Zelt.",
+      "note": {
+        "sl": "un' samo v ženskem spolu: un'ape, a un abete.",
+        "en": "un' is for feminine nouns only: un'ape, but un abete.",
+        "de": "un' nur bei femininen Nomen: un'ape, aber un abete."
+      }
+    },
+    {
+      "it": "Tommaso ha uno zaino nuovo.",
+      "sl": "Tommaso ima nov nahrbtnik.",
+      "en": "Tommaso has a new rucksack.",
+      "de": "Tommaso hat einen neuen Rucksack."
+    },
+    {
+      "it": "Stasera la luna è grande.",
+      "sl": "Nocoj je luna velika.",
+      "en": "Tonight the moon is big.",
+      "de": "Heute Abend ist der Mond groß.",
+      "note": {
+        "sl": "luna je ženskega spola kot v slovenščini: la luna.",
+        "en": "luna ends in -a: feminine, la luna.",
+        "de": "luna ist feminin, anders als der Mond: la luna."
+      }
+    },
+    {
+      "it": "Il fiume si chiama Isonzo.",
+      "sl": "Reka se imenuje Soča.",
+      "en": "The river is called the Isonzo.",
+      "de": "Der Fluss heißt Isonzo.",
+      "note": {
+        "sl": "fiume se konča na -e in je moškega spola: il fiume.",
+        "en": "fiume ends in -e and is masculine: learn it with il.",
+        "de": "fiume endet auf -e und ist maskulin: mit il lernen."
+      }
+    },
+    {
+      "it": "Nonna Rosa ha un gatto e una gallina.",
+      "sl": "Babica Rosa ima mačko in kokoš.",
+      "en": "Nonna Rosa has a cat and a hen.",
+      "de": "Nonna Rosa hat eine Katze und ein Huhn."
+    }
+  ],
+  "modules": [],
+  "tags": ["articles", "article", "gender", "noun_gender", "definite_article", "indefinite_article", "articolo"],
+  "see": ["plurale", "aggettivi-accordo", "preposizioni-articolate"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

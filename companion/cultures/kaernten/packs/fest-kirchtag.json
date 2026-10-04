@@ -1,0 +1,36 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-kirchtag",
+  "language": "de",
+  "title": { "de": "Der Kirchtag", "sl": "Žegnanje", "en": "The Kirchtag", "it": "La sagra" },
+  "emoji": "⛪",
+  "level": "A1",
+  "description": {
+    "sl": "Zadnja nedelja v avgustu. Vas praznuje svoje žegnanje: z godbo, plesom in žegnanjsko juho z žafranom in tremi vrstami mesa, v gostilni pri Wirtin Kathi.",
+    "en": "The last Sunday of August. The village celebrates its Kirchtag, with a band, dancing and the Kirchtag soup, with saffron and three kinds of meat, at Wirtin Kathi's inn.",
+    "it": "L'ultima domenica di agosto. Il paese festeggia la sua sagra, con la banda, i balli e la zuppa della sagra, con zafferano e tre tipi di carne, all'osteria di Wirtin Kathi."
+  },
+  "giver": { "name": "Wirtin Kathi", "emoji": "🍲" },
+  "festival": "kirchtag",
+  "words": [
+    { "id": "kirchtag", "de": "der Kirchtag", "sl": "žegnanje", "en": "church fair, village feast", "it": "la sagra", "emoji": "⛪", "gender": "m", "plural": "die Kirchtage",
+      "example_de": "Am Sonntag ist Kirchtag.", "example_sl": "V nedeljo je žegnanje.", "example_en": "It's the Kirchtag on Sunday.", "example_it": "Domenica c'è la sagra.",
+      "note": "Austrian and Bavarian: the feast day of the village church.",
+      "note_sl": "Avstrijsko in bavarsko: praznik vaške cerkve; na Koroškem tudi žegen.",
+      "note_it": "In Austria e in Baviera: la festa della chiesa del paese." },
+    { "id": "suppe", "de": "die Suppe", "sl": "juha", "en": "soup", "it": "la zuppa", "emoji": "🍲", "gender": "f", "plural": "die Suppen",
+      "example_de": "Die Kirchtagssuppe ist gelb.", "example_sl": "Žegnanjska juha je rumena.", "example_en": "The Kirchtag soup is yellow.", "example_it": "La zuppa della sagra è gialla." },
+    { "id": "safran", "de": "der Safran", "sl": "žafran", "en": "saffron", "it": "lo zafferano", "emoji": "🏵️", "gender": "m",
+      "example_de": "Der Safran macht die Suppe gelb.", "example_sl": "Žafran obarva juho rumeno.", "example_en": "The saffron makes the soup yellow.", "example_it": "Lo zafferano fa diventare gialla la zuppa." },
+    { "id": "fleisch", "de": "das Fleisch", "sl": "meso", "en": "meat", "it": "la carne", "emoji": "🍖", "gender": "n",
+      "example_de": "In der Suppe sind drei Sorten Fleisch.", "example_sl": "V juhi so tri vrste mesa.", "example_en": "There are three kinds of meat in the soup.", "example_it": "Nella zuppa ci sono tre tipi di carne." },
+    { "id": "musik", "de": "die Musik", "sl": "glasba", "en": "music", "it": "la musica", "emoji": "🎺", "gender": "f",
+      "example_de": "Die Musik spielt bis in die Nacht.", "example_sl": "Glasba igra pozno v noč.", "example_en": "The music plays late into the night.", "example_it": "La musica suona fino a notte." },
+    { "id": "tanz", "de": "der Tanz", "sl": "ples", "en": "dance", "it": "il ballo", "emoji": "💃", "gender": "m", "plural": "die Tänze",
+      "example_de": "Der Tanz unter der Linde ist schön.", "example_sl": "Ples pod lipo je lep.", "example_en": "The dance under the linden is lovely.", "example_it": "Il ballo sotto il tiglio è bello." },
+    { "id": "weissbrot", "de": "das Weißbrot", "sl": "bel kruh", "en": "white bread", "it": "il pane bianco", "emoji": "🍞", "gender": "n", "plural": "die Weißbrote",
+      "example_de": "Zur Suppe essen wir Weißbrot.", "example_sl": "Zraven juhe jemo bel kruh.", "example_en": "We eat white bread with the soup.", "example_it": "Con la zuppa mangiamo il pane bianco." },
+    { "id": "gasthaus", "de": "das Gasthaus", "sl": "gostilna", "en": "inn", "it": "l'osteria", "emoji": "🏠", "gender": "n", "plural": "die Gasthäuser",
+      "example_de": "Im Gasthaus sind alle Tische voll.", "example_sl": "V gostilni so vse mize polne.", "example_en": "All the tables at the inn are full.", "example_it": "All'osteria tutti i tavoli sono pieni." }
+  ]
+}

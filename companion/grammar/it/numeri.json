@@ -1,0 +1,104 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "numeri",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🔢",
+  "title": {
+    "it": "Uno, due, tre: i numeri",
+    "sl": "Števila",
+    "en": "Numbers",
+    "de": "Die Zahlen"
+  },
+  "rule": {
+    "en": "1 to 10: **uno, due, tre, quattro, cinque, sei, sette, otto, nove, dieci**. 11 to 20: **undici, dodici, tredici, quattordici, quindici, sedici, diciassette, diciotto, diciannove, venti**.\n\nThe tens: **venti, trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta**. Then the unit, as in English: **ventidue** (22), **trentacinque** (35). Before **uno** and **otto** the tens drop their last vowel: **ventuno**, **ventotto**, **trentuno**. **Tre** at the end takes an accent: **ventitré**.\n\n**cento** (100), **mille** (1000), but **duemila** (2000). A number is written as one word: **centoventi**.\n\n**Uno** before a noun is the article: **un cane**, **uno zaino**, **una pecora**, **un'ape**. From two on the noun is plural: **due pecore**. Age takes avere: **Ho dieci anni.** How many is **quanti** (m) or **quante** (f): **Quanti anni hai?**",
+    "sl": "1 do 10: **uno, due, tre, quattro, cinque, sei, sette, otto, nove, dieci**. 11 do 20: **undici, dodici, tredici, quattordici, quindici, sedici, diciassette, diciotto, diciannove, venti**.\n\nDesetice: **venti, trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta**. Drugače kot v slovenščini je najprej desetica, nato enica: **ventidue** (dvaindvajset), **trentacinque** (petintrideset). Pred **uno** in **otto** desetica izgubi zadnji samoglasnik: **ventuno**, **ventotto**, **trentuno**. **Tre** na koncu dobi naglasno znamenje: **ventitré**.\n\n**cento** (100), **mille** (1000), a **duemila** (2000). Število se piše skupaj: **centoventi**.\n\n**Uno** pred samostalnikom je člen: **un cane**, **uno zaino**, **una pecora**, **un'ape**. Od dva naprej je samostalnik v množini, brez rodilnika: **cinque pecore** (pet ovc). Starost z avere: **Ho dieci anni.** (Star sem deset let.) Koliko je **quanti** (m) ali **quante** (ž): **Quanti anni hai?** (Koliko si star?)",
+    "de": "1 bis 10: **uno, due, tre, quattro, cinque, sei, sette, otto, nove, dieci**. 11 bis 20: **undici, dodici, tredici, quattordici, quindici, sedici, diciassette, diciotto, diciannove, venti**.\n\nDie Zehner: **venti, trenta, quaranta, cinquanta, sessanta, settanta, ottanta, novanta**. Anders als im Deutschen kommt der Zehner zuerst: **ventidue** (zweiundzwanzig), **trentacinque** (fünfunddreißig). Vor **uno** und **otto** verliert der Zehner seinen letzten Vokal: **ventuno**, **ventotto**, **trentuno**. **Tre** am Ende bekommt einen Akzent: **ventitré**.\n\n**cento** (100), **mille** (1000), aber **duemila** (2000). Eine Zahl schreibt man zusammen: **centoventi**.\n\n**Uno** vor einem Nomen ist der Artikel: **un cane**, **uno zaino**, **una pecora**, **un'ape**. Ab zwei steht das Nomen im Plural: **due pecore**. Das Alter mit avere: **Ho dieci anni.** (Ich bin zehn Jahre alt.) Wie viele heißt **quanti** (m) oder **quante** (f): **Quanti anni hai?** (Wie alt bist du?)"
+  },
+  "table": {
+    "head": [
+      { "it": "numero", "sl": "število", "en": "number", "de": "Zahl" },
+      { "it": "parola", "sl": "beseda", "en": "word", "de": "Wort" },
+      { "it": "numero", "sl": "število", "en": "number", "de": "Zahl" },
+      { "it": "parola", "sl": "beseda", "en": "word", "de": "Wort" }
+    ],
+    "rows": [
+      ["1", "uno", "11", "undici"],
+      ["2", "due", "12", "dodici"],
+      ["3", "tre", "13", "tredici"],
+      ["4", "quattro", "14", "quattordici"],
+      ["5", "cinque", "15", "quindici"],
+      ["6", "sei", "16", "sedici"],
+      ["7", "sette", "17", "diciassette"],
+      ["8", "otto", "18", "diciotto"],
+      ["9", "nove", "19", "diciannove"],
+      ["10", "dieci", "20", "venti"],
+      ["30, 40, 50", "trenta, quaranta, cinquanta", "60, 70, 80, 90", "sessanta, settanta, ottanta, novanta"],
+      ["21, 23, 28", "ventuno, ventitré, ventotto", "100, 1000, 2000", "cento, mille, duemila"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Ho dieci anni.",
+      "sl": "Star sem deset let.",
+      "en": "I'm ten years old.",
+      "de": "Ich bin zehn Jahre alt."
+    },
+    {
+      "it": "Davide ha ventotto pecore.",
+      "sl": "Davide ima osemindvajset ovc.",
+      "en": "Davide has twenty-eight sheep.",
+      "de": "Davide hat achtundzwanzig Schafe.",
+      "note": {
+        "sl": "venti + otto → ventotto: i odpade.",
+        "en": "venti + otto → ventotto: the i drops.",
+        "de": "venti + otto → ventotto: das i fällt weg."
+      }
+    },
+    {
+      "it": "La chiesa è a tre chilometri.",
+      "sl": "Cerkev je tri kilometre stran.",
+      "en": "The church is three kilometres away.",
+      "de": "Die Kirche ist drei Kilometer entfernt."
+    },
+    {
+      "it": "Una pecora, due pecore, tre pecore …",
+      "sl": "Ena ovca, dve ovci, tri ovce …",
+      "en": "One sheep, two sheep, three sheep …",
+      "de": "Ein Schaf, zwei Schafe, drei Schafe …",
+      "note": {
+        "sl": "una pred ženskim samostalnikom; od dva naprej množina.",
+        "en": "una before a feminine noun; from two on, the plural.",
+        "de": "una vor einem femininen Nomen; ab zwei der Plural."
+      }
+    },
+    {
+      "it": "Nonno Bepi ha ottantadue anni.",
+      "sl": "Dedek Bepi je star dvainosemdeset let.",
+      "en": "Nonno Bepi is eighty-two.",
+      "de": "Nonno Bepi ist zweiundachtzig."
+    },
+    {
+      "it": "Quanti anni hai?",
+      "sl": "Koliko si star?",
+      "en": "How old are you?",
+      "de": "Wie alt bist du?",
+      "note": {
+        "sl": "Dobesedno »koliko let imaš?«; anni je moškega spola, zato quanti.",
+        "en": "Literally: how many years do you have? anni is masculine, so quanti.",
+        "de": "Wörtlich: Wie viele Jahre hast du? anni ist maskulin, darum quanti."
+      }
+    },
+    {
+      "it": "Il mulino ha cento anni.",
+      "sl": "Mlin je star sto let.",
+      "en": "The mill is a hundred years old.",
+      "de": "Die Mühle ist hundert Jahre alt."
+    }
+  ],
+  "modules": [],
+  "tags": ["numbers", "numeri", "counting", "numeral", "age", "quanti"],
+  "see": ["plurale", "essere-avere", "domande"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "tozilnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🎯",
+  "title": {
+    "sl": "Tožilnik: pijem kavo, vidim brata",
+    "en": "The accusative: the object",
+    "de": "Der Akkusativ: das Objekt",
+    "it": "L'accusativo: il complemento oggetto"
+  },
+  "rule": {
+    "en": "The object of a verb, whom or what you see, have, drink or wait for (**koga? kaj?**), goes into the accusative (*tožilnik*).\n\nA feminine noun in -a takes **-o**: kava → **pijem kavo**, mama → **vidim mamo**.\n\nA masculine noun for a living being (a person, an animal) takes **-a**: brat → **imam brata**, pes → **vidim psa**.\n\nA masculine thing and every neuter noun keep their base form: **imam avto**, **jem kruh**, **vidim mesto**.\n\nWords that go with the noun follow it: ena dobra kava → **eno dobro kavo**. After a negation the object is in the genitive instead (**nimam avta**).",
+    "de": "Das Objekt eines Verbs, wen oder was man sieht, hat, trinkt oder erwartet (**koga? kaj?**), steht im Akkusativ (*tožilnik*).\n\nEin weibliches Nomen auf -a bekommt **-o**: kava → **pijem kavo**, mama → **vidim mamo**.\n\nEin männliches Nomen für ein Lebewesen (Mensch, Tier) bekommt **-a**: brat → **imam brata**, pes → **vidim psa**.\n\nMännliche Dinge und alle sächlichen Nomen bleiben in der Grundform: **imam avto**, **jem kruh**, **vidim mesto**.\n\nWas zum Nomen gehört, geht mit: ena dobra kava → **eno dobro kavo**. Nach einer Verneinung steht das Objekt im Genitiv (**nimam avta**).",
+    "it": "Il complemento oggetto, chi o che cosa si vede, si ha, si beve o si aspetta (**koga? kaj?**), va all'accusativo (*tožilnik*).\n\nUn nome femminile in -a prende **-o**: kava → **pijem kavo**, mama → **vidim mamo**.\n\nUn nome maschile di essere vivente (persona, animale) prende **-a**: brat → **imam brata**, pes → **vidim psa**.\n\nLe cose maschili e tutti i nomi neutri restano nella forma base: **imam avto**, **jem kruh**, **vidim mesto**.\n\nCiò che accompagna il nome si accorda: ena dobra kava → **eno dobro kavo**. Dopo una negazione l'oggetto va invece al genitivo (**nimam avta**)."
+  },
+  "table": {
+    "head": [
+      { "sl": "spol", "en": "kind of noun", "de": "Art des Nomens", "it": "tipo di nome" },
+      { "sl": "imenovalnik", "en": "base form (imenovalnik)", "de": "Grundform (imenovalnik)", "it": "forma base (imenovalnik)" },
+      { "sl": "tožilnik", "en": "object (tožilnik)", "de": "Objekt (tožilnik)", "it": "oggetto (tožilnik)" }
+    ],
+    "rows": [
+      [{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "kava, mama", "kavo, mamo"],
+      [{ "sl": "moški, živ", "en": "masculine, living", "de": "männlich, Lebewesen", "it": "maschile, essere vivente" }, "brat, pes", "brata, psa"],
+      [{ "sl": "moški, stvar", "en": "masculine, thing", "de": "männlich, Ding", "it": "maschile, cosa" }, "kruh, avto", "kruh, avto"],
+      [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "mleko, jajce", "mleko, jajce"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Pijem kavo.",
+      "en": "I'm drinking coffee.",
+      "de": "Ich trinke Kaffee.",
+      "it": "Bevo il caffè."
+    },
+    {
+      "sl": "Lahko dobim eno kavo?",
+      "en": "Can I have a coffee?",
+      "de": "Kann ich einen Kaffee bekommen?",
+      "it": "Posso avere un caffè?",
+      "note": {
+        "en": "ena kava → eno kavo: the number word takes the accusative too.",
+        "de": "ena kava → eno kavo: auch das Zahlwort steht im Akkusativ.",
+        "it": "ena kava → eno kavo: anche il numerale va all'accusativo."
+      }
+    },
+    {
+      "sl": "Čakam strica.",
+      "en": "I'm waiting for my uncle.",
+      "de": "Ich warte auf meinen Onkel.",
+      "it": "Aspetto lo zio."
+    },
+    {
+      "sl": "Imam brata in sestro.",
+      "en": "I have a brother and a sister.",
+      "de": "Ich habe einen Bruder und eine Schwester.",
+      "it": "Ho un fratello e una sorella."
+    },
+    {
+      "sl": "Rad imam juho.",
+      "en": "I like soup.",
+      "de": "Ich mag Suppe.",
+      "it": "Mi piace la minestra."
+    },
+    {
+      "sl": "Luka išče jagnje.",
+      "en": "Luka is looking for the lamb.",
+      "de": "Luka sucht das Lamm.",
+      "it": "Luka cerca l'agnello."
+    }
+  ],
+  "modules": ["tozilnik-osnove"],
+  "tags": ["accusative", "tozilnik", "object_case"],
+  "see": ["kam-tozilnik", "rodilnik-nikalnica", "pridevniki-ujemanje", "skloni", "osebni-zaimki", "sklanjatev-moski"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

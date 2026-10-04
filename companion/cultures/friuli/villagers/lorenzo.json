@@ -1,0 +1,83 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "lorenzo",
+  "name": "Lorenzo",
+  "emoji": "👦",
+  "art": "child3",
+  "voice": "male",
+  "speaker": "boy",
+  "role": {"it": "Bambino", "sl": "Deček", "en": "Boy", "de": "Junge"},
+  "home": ["field", "kozolec"],
+  "register": "ti",
+  "skill": "stone",
+  "order": 6,
+  "routine": { "up": "7:00", "bed": "19:45" },
+  "personality": "Six, the smallest of the village children, Mugnaio Franco's grandson. Shy at first, then chatty; counts everything like his grandfather ('uno, due, tre!'), loves horses, the tractor and bedtime stories. Says tu to the learner and looks up to him like a big brother. Very short sentences and simple words, a child talking to a child.",
+  "story": "Lorenzo lives with his grandfather Franco by the mill and follows him to the field every morning. He knows every horse in the Collio by name, sits on the old red tractor pretending to drive it, and asks Nonno Bepi for the same story every evening.",
+  "likes": [
+    {"it": "i cavalli", "sl": "konji", "en": "horses", "de": "Pferde"},
+    {"it": "il trattore", "sl": "traktor", "en": "the tractor", "de": "der Traktor"},
+    {"it": "contare", "sl": "štetje", "en": "counting", "de": "Zählen"},
+    {"it": "le storie", "sl": "zgodbe", "en": "stories", "de": "Geschichten"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Ciao …", "sl": "Živjo …", "en": "Hi …", "de": "Hallo …", "level": 0 },
+      { "it": "Ciao! Io sono Lorenzo. Ho sei anni.", "sl": "Živjo! Jaz sem Lorenzo. Star sem šest let.", "en": "Hi! I'm Lorenzo. I'm six.", "de": "Hallo! Ich bin Lorenzo. Ich bin sechs.", "level": 0 },
+      { "it": "Ciao! Vuoi vedere il trattore?", "sl": "Živjo! Hočeš videti traktor?", "en": "Hi! Do you want to see the tractor?", "de": "Hallo! Willst du den Traktor sehen?", "level": 1 },
+      { "it": "Ehi! Ho contato i cavalli: sono tre!", "sl": "Ej! Preštel sem konje: trije so!", "en": "Hey! I counted the horses: there are three!", "de": "He! Ich hab die Pferde gezählt: Es sind drei!", "level": 2 },
+      { "it": "Evviva, sei qui! Giochi con me?", "sl": "Juhu, tu si! Se igraš z mano?", "en": "Hooray, you're here! Will you play with me?", "de": "Hurra, du bist da! Spielst du mit mir?", "level": 3 },
+      { "it": "Sei come un fratello grande! Vieni, vieni!", "sl": "Si kot moj veliki brat! Pridi, pridi!", "en": "You're like my big brother! Come, come!", "de": "Du bist wie mein großer Bruder! Komm, komm!", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie!", "sl": "Hvala!", "en": "Thanks!", "de": "Danke!" },
+      { "it": "Grazie! Sei forte!", "sl": "Hvala! Super si!", "en": "Thanks! You're great!", "de": "Danke! Du bist super!" },
+      { "it": "Grazie! Lo dico al nonno.", "sl": "Hvala! Povem dedku.", "en": "Thanks! I'll tell Grandpa.", "de": "Danke! Ich sag's dem Opa." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Ti ricordi? Io ricordo ancora {memory}!", "sl": "Se spomniš? Jaz še vedno mislim na {memory}!", "en": "Do you remember? I still think of {memory}!", "de": "Weißt du noch? Ich denke noch oft an {memory}!", "level": 2 },
+      { "it": "Ogni sera ricordo {memory}.", "sl": "Vsak večer mislim na {memory}.", "en": "Every evening I think of {memory}.", "de": "Jeden Abend denke ich an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "it": "Uno, due, tre, quattro … quattro galline!", "sl": "Ena, dve, tri, štiri … štiri kokoši!", "en": "One, two, three, four … four hens!", "de": "Eins, zwei, drei, vier … vier Hühner!" },
+      { "it": "Il trattore del nonno è rosso.", "sl": "Dedkov traktor je rdeč.", "en": "Grandpa's tractor is red.", "de": "Opas Traktor ist rot." },
+      { "it": "Guarda! Il cavallo mangia la mela.", "sl": "Poglej! Konj jé jabolko.", "en": "Look! The horse is eating the apple.", "de": "Schau! Das Pferd frisst den Apfel." },
+      { "it": "Stasera Nonno Bepi racconta una storia.", "sl": "Nocoj bo dedek Bepi pripovedoval zgodbo.", "en": "Tonight Nonno Bepi is telling a story.", "de": "Heute Abend erzählt Nonno Bepi eine Geschichte.", "when": ["morning", "afternoon", "evening"] }
+    ],
+    "cheer": [
+      { "it": "Sì! Giusto!", "sl": "Ja! Prav!", "en": "Yes! Right!", "de": "Ja! Richtig!" },
+      { "it": "Evviva!", "sl": "Juhu!", "en": "Hooray!", "de": "Hurra!" },
+      { "it": "Bravo! Come il nonno!", "sl": "Bravo! Kot dedek!", "en": "Well done! Like Grandpa!", "de": "Gut gemacht! Wie der Opa!" }
+    ],
+    "comfort": [
+      { "it": "Non fa niente!", "sl": "Nič hudega!", "en": "Never mind!", "de": "Macht nichts!" },
+      { "it": "Anch'io sbaglio. Ancora!", "sl": "Tudi jaz se zmotim. Še enkrat!", "en": "I get it wrong too. Again!", "de": "Ich mach's auch mal falsch. Noch mal!" },
+      { "it": "Piano piano. Come il nonno.", "sl": "Počasi, počasi. Kot dedek.", "en": "Slowly, slowly. Like Grandpa.", "de": "Langsam, langsam. Wie der Opa." }
+    ],
+    "listen": [
+      { "it": "Ascolta!", "sl": "Poslušaj!", "en": "Listen!", "de": "Hör zu!" },
+      { "it": "Shh … senti il cavallo?", "sl": "Pst … slišiš konja?", "en": "Shh … can you hear the horse?", "de": "Pssst … hörst du das Pferd?" },
+      { "it": "Ascolta bene, eh!", "sl": "Dobro poslušaj, ja?", "en": "Listen carefully, OK?", "de": "Hör gut zu, ja?" }
+    ],
+    "bye": [
+      { "it": "Ciao!", "sl": "Adijo!", "en": "Bye!", "de": "Tschüss!" },
+      { "it": "Ciao! Vado a vedere i cavalli.", "sl": "Adijo! Grem pogledat konje.", "en": "Bye! I'm going to see the horses.", "de": "Tschüss! Ich geh zu den Pferden." },
+      { "it": "Mandi! Domani giochiamo?", "sl": "Mandi! Se jutri igrava? (mandi: furlanski pozdrav)", "en": "Mandi! Shall we play tomorrow? (mandi: Friulian for bye)", "de": "Mandi! Spielen wir morgen? (mandi: Friaulisch für tschüss)" }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Per me? Evviva! Grazie!", "sl": "Zame? Juhu! Hvala!", "en": "For me? Hooray! Thanks!", "de": "Für mich? Hurra! Danke!" },
+        { "it": "Mi piace! Uno, due … tantissimo!", "sl": "Všeč mi je! Ena, dva … zelo, zelo!", "en": "I like it! One, two … so, so much!", "de": "Das gefällt mir! Eins, zwei … ganz, ganz doll!" },
+        { "it": "Come lo sapevi? Lo dico al nonno!", "sl": "Kako si vedel? Povem dedku!", "en": "How did you know? I'll tell Grandpa!", "de": "Woher wusstest du das? Ich sag's dem Opa!" }
+      ],
+      "ordinary": [
+        { "it": "Grazie! È proprio per me?", "sl": "Hvala! Je res zame?", "en": "Thanks! Is it really for me?", "de": "Danke! Ist das wirklich für mich?" },
+        { "it": "Grazie! Adesso sono contento.", "sl": "Hvala! Zdaj sem vesel.", "en": "Thanks! Now I'm happy.", "de": "Danke! Jetzt bin ich froh." }
+      ],
+      "rare": [
+        { "it": "Uau! Che bello! Grazie, grazie, grazie!", "sl": "Uau! Kako lepo! Hvala, hvala, hvala!", "en": "Wow! How lovely! Thanks, thanks, thanks!", "de": "Wow! Wie schön! Danke, danke, danke!" }
+      ]
+    }
+  }
+}

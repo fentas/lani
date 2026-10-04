@@ -1,0 +1,107 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "am-meiler",
+  "language": "de",
+  "title": { "de": "Am Meiler", "sl": "Pri kopi", "en": "At the charcoal pile", "it": "Alla carbonaia" },
+  "emoji": "♨️",
+  "level": "A2",
+  "description": {
+    "de": "Der Kohlenmeiler im Wald unter dem Dorf: das Holz unter Rasen und Erde, die Holzkohle, zu der es langsam wird, der Köhler, der Tag und Nacht aus seiner Hütte aufpasst, die Glut, der Rauch und die Asche.",
+    "sl": "Oglarska kopa v gozdu pod vasjo: drva pod rušo in zemljo, oglje, ki počasi nastaja iz njih, oglar, ki pazi dan in noč iz svoje koče, žerjavica, dim in pepel.",
+    "en": "The charcoal pile in the woods below the village: the wood under turf and earth, the charcoal it slowly turns into, the burner who keeps watch day and night from his hut, the embers, the smoke and the ash.",
+    "it": "La carbonaia nel bosco sotto il paese: la legna sotto le zolle e la terra, il carbone in cui piano piano si trasforma, il carbonaio che sorveglia giorno e notte dalla sua capanna, la brace, il fumo e la cenere."
+  },
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "words": [
+    {
+      "id": "meiler", "de": "der Meiler", "sl": "oglarska kopa", "en": "charcoal pile", "it": "la carbonaia",
+      "emoji": "♨️", "gender": "m", "plural": "die Meiler",
+      "example_de": "Der Köhler deckt den Meiler mit Erde zu.", "example_sl": "Oglar pokrije kopo z zemljo.",
+      "example_en": "The charcoal burner covers the pile with earth.", "example_it": "Il carbonaio copre la carbonaia di terra.",
+      "note": "Der Kohlenmeiler, for short der Meiler. Masculine in German, feminine in Slovene and Italian.",
+      "note_sl": "Der Kohlenmeiler, na kratko der Meiler. V nemščini moškega spola.",
+      "note_it": "Der Kohlenmeiler, in breve der Meiler. In tedesco è maschile."
+    },
+    {
+      "id": "holzkohle", "de": "die Holzkohle", "sl": "oglje", "en": "charcoal", "it": "il carbone di legna",
+      "emoji": "⚫", "gender": "f",
+      "example_de": "Der Schmied Toni braucht Holzkohle.", "example_sl": "Kovač Toni potrebuje oglje.",
+      "example_en": "Toni the smith needs charcoal.", "example_it": "Il fabbro Toni ha bisogno di carbone di legna.",
+      "note": "Holz + Kohle: coal made of wood. Die Kohle alone is often coal from a mine.",
+      "note_sl": "Holz + Kohle: oglje iz lesa. Die Kohle sama je pogosto premog.",
+      "note_it": "Holz + Kohle: carbone fatto di legno. Die Kohle da solo è spesso carbone di miniera."
+    },
+    {
+      "id": "koehler", "de": "der Köhler", "sl": "oglar", "en": "charcoal burner", "it": "il carbonaio",
+      "emoji": "🧔", "gender": "m", "plural": "die Köhler",
+      "example_de": "Der Köhler passt Tag und Nacht auf.", "example_sl": "Oglar pazi dan in noč.",
+      "example_en": "The charcoal burner keeps watch day and night.", "example_it": "Il carbonaio sorveglia giorno e notte.",
+      "note": "Die Köhlerei: charcoal burning, a craft that still lives in Carinthia.",
+      "note_sl": "Die Köhlerei: oglarstvo, obrt, ki na Koroškem še živi.",
+      "note_it": "Die Köhlerei: il mestiere del carbonaio, che in Carinzia vive ancora."
+    },
+    {
+      "id": "glut", "de": "die Glut", "sl": "žerjavica", "en": "embers, glow", "it": "la brace",
+      "emoji": "🔥", "gender": "f",
+      "example_de": "Unter der Erde ist die Glut.", "example_sl": "Pod zemljo je žerjavica.",
+      "example_en": "Under the earth are the glowing embers.", "example_it": "Sotto la terra c'è la brace.",
+      "note": "What glows when the flames are gone. Glühen: to glow.",
+      "note_sl": "Kar žari, ko plamenov ni več. Glühen: žareti.",
+      "note_it": "Quello che resta acceso quando le fiamme non ci sono più. Glühen: ardere."
+    },
+    {
+      "id": "rauch", "de": "der Rauch", "sl": "dim", "en": "smoke", "it": "il fumo",
+      "emoji": "💨", "gender": "m",
+      "example_de": "Aus dem Meiler steigt Rauch.", "example_sl": "Iz kope se vije dim.",
+      "example_en": "Smoke rises from the pile.", "example_it": "Dalla carbonaia sale il fumo.",
+      "note": "Rauchen: to smoke. Der Meiler raucht: the pile smokes.",
+      "note_sl": "Rauchen: kaditi se. Der Meiler raucht: kopa se kadi.",
+      "note_it": "Rauchen: fumare. Der Meiler raucht: la carbonaia fuma."
+    },
+    {
+      "id": "glimmen", "de": "glimmen", "sl": "tleti", "en": "to smoulder", "it": "covare (il fuoco)",
+      "emoji": "♨️",
+      "example_de": "Der Meiler brennt nicht, er glimmt.", "example_sl": "Kopa ne gori, tli.",
+      "example_en": "The pile doesn't burn, it smoulders.", "example_it": "La carbonaia non brucia, cova.",
+      "note": "Es glimmt, es hat geglommen (or geglimmt). To burn with flames is brennen.",
+      "note_sl": "Es glimmt, es hat geglommen (ali geglimmt). Goreti s plameni je brennen.",
+      "note_it": "Es glimmt, es hat geglommen (o geglimmt). Bruciare con le fiamme è brennen."
+    },
+    {
+      "id": "rasensode", "de": "die Rasensode", "sl": "ruša", "en": "turf, sod", "it": "la zolla d'erba",
+      "emoji": "🌱", "gender": "f", "plural": "die Rasensoden",
+      "example_de": "Der Köhler deckt den Meiler mit Rasensoden ab.", "example_sl": "Oglar pokrije kopo z rušo.",
+      "example_en": "The charcoal burner covers the pile with turf.", "example_it": "Il carbonaio copre la carbonaia con le zolle d'erba.",
+      "note": "Grass cut out with its roots and soil. It keeps the air out, so the wood smoulders and doesn't burn.",
+      "note_sl": "Trava, izrezana s koreninami in zemljo. Ne spusti zraka noter, zato les tli in ne gori.",
+      "note_it": "Erba tagliata con le radici e la terra. Tiene fuori l'aria, così la legna cova e non brucia."
+    },
+    {
+      "id": "asche", "de": "die Asche", "sl": "pepel", "en": "ash", "it": "la cenere",
+      "emoji": "🌫️", "gender": "f",
+      "example_de": "Wenn der Meiler brennt, bleibt nur Asche.", "example_sl": "Če kopa zagori, ostane samo pepel.",
+      "example_en": "If the pile burns, only ash is left.", "example_it": "Se la carbonaia brucia, resta solo cenere.",
+      "note": "Feminine in German, masculine in Slovene: die Asche, pepel. Der Aschermittwoch: Ash Wednesday.",
+      "note_sl": "V nemščini ženskega spola: die Asche. Der Aschermittwoch: pepelnica.",
+      "note_it": "In tedesco è femminile: die Asche. Der Aschermittwoch: il mercoledì delle Ceneri."
+    },
+    {
+      "id": "koehlerhuette", "de": "die Köhlerhütte", "sl": "oglarska koča", "en": "charcoal burner's hut", "it": "la capanna del carbonaio",
+      "emoji": "🛖", "gender": "f", "plural": "die Köhlerhütten",
+      "example_de": "Der Köhler schläft in der Köhlerhütte.", "example_sl": "Oglar spi v oglarski koči.",
+      "example_en": "The charcoal burner sleeps in his hut.", "example_it": "Il carbonaio dorme nella sua capanna.",
+      "note": "Köhler + Hütte. A mountain hut is a Berghütte, on the Alm an Almhütte.",
+      "note_sl": "Köhler + Hütte. Planinska koča je Berghütte, na planini Almhütte.",
+      "note_it": "Köhler + Hütte. Un rifugio di montagna è una Berghütte, all'alpeggio una Almhütte."
+    },
+    {
+      "id": "buche", "de": "die Buche", "sl": "bukev", "en": "beech", "it": "il faggio",
+      "emoji": "🌳", "gender": "f", "plural": "die Buchen",
+      "example_de": "Aus Buchenholz wird gute Holzkohle.", "example_sl": "Iz bukovega lesa je dobro oglje.",
+      "example_en": "Beech wood makes good charcoal.", "example_it": "Dal legno di faggio viene un buon carbone.",
+      "note": "Feminine, like bukev in Slovene. Das Buchenholz: beech wood.",
+      "note_sl": "Ženskega spola, kot bukev. Das Buchenholz: bukov les.",
+      "note_it": "Femminile in tedesco, maschile in italiano: die Buche, il faggio. Das Buchenholz: legno di faggio."
+    }
+  ]
+}

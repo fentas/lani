@@ -1,0 +1,102 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "odvisni-govor",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "🗨️",
+  "title": {
+    "sl": "Odvisni govor: rekel je, da pride",
+    "en": "Reported speech: he said he'd come",
+    "de": "Indirekte Rede: er sagte, er komme",
+    "it": "Il discorso indiretto: ha detto che viene"
+  },
+  "rule": {
+    "en": "To pass on what someone said, Slovene joins it with **da** (that) for a statement, **ali** or **če** (whether) for a yes/no question, the question word for another question, and **naj** + the present for a request:\n\n»Pridem.« → **Rekel je, da pride.** »Si lačen?« → **Vprašala je, ali sem lačen.** »Kje je Luka?« → **Vprašal je, kje je Luka.** »Pridi!« → **Rekla je, naj pridem.**\n\n**The tense stays as it was said**, unlike English: **Rekla je, da je utrujena** (she said she was tired, then). *Da je bila utrujena* would mean she had been tired before that. The person changes as in English: Luka's »pridem« becomes **da pride**.\n\nThe short words come right after da, ali, naj: **Rekel je, da ga jutri ne bo.** A comma always goes before da, ali, če and naj.",
+    "de": "Um weiterzugeben, was jemand gesagt hat, verbindet das Slowenische mit **da** (dass) eine Aussage, mit **ali** oder **če** (ob) eine Ja/Nein-Frage, mit dem Fragewort eine andere Frage und mit **naj** + Präsens eine Bitte:\n\n»Pridem.« → **Rekel je, da pride.** »Si lačen?« → **Vprašala je, ali sem lačen.** »Kje je Luka?« → **Vprašal je, kje je Luka.** »Pridi!« → **Rekla je, naj pridem.**\n\n**Die Zeit bleibt, wie sie gesagt wurde**, und es gibt keinen Konjunktiv: **Rekla je, da je utrujena** (sie sagte, sie sei müde). *Da je bila utrujena* hieße, sie sei vorher müde gewesen. Die Person ändert sich wie im Deutschen: Lukas »pridem« wird **da pride**.\n\nDie kurzen Wörter stehen gleich nach da, ali, naj: **Rekel je, da ga jutri ne bo.** Vor da, ali, če und naj steht immer ein Komma.",
+    "it": "Per riferire ciò che qualcuno ha detto, lo sloveno usa **da** (che) per un'affermazione, **ali** o **če** (se) per una domanda sì/no, la parola interrogativa per le altre domande e **naj** + presente per una richiesta:\n\n»Pridem.« → **Rekel je, da pride.** »Si lačen?« → **Vprašala je, ali sem lačen.** »Kje je Luka?« → **Vprašal je, kje je Luka.** »Pridi!« → **Rekla je, naj pridem.**\n\n**Il tempo resta quello detto**, senza concordanza dei tempi: **Rekla je, da je utrujena** (ha detto che era stanca, allora). *Da je bila utrujena* vorrebbe dire che era stata stanca prima. La persona cambia come in italiano: il »pridem« di Luka diventa **da pride**.\n\nLe paroline vengono subito dopo da, ali, naj: **Rekel je, da ga jutri ne bo.** Prima di da, ali, če e naj va sempre la virgola."
+  },
+  "table": {
+    "head": [
+      { "sl": "rečeno", "en": "said", "de": "gesagt", "it": "detto" },
+      { "sl": "povedano naprej", "en": "passed on", "de": "weitergesagt", "it": "riferito" },
+      { "sl": "veznik", "en": "joined with", "de": "verbunden mit", "it": "unito con" }
+    ],
+    "rows": [
+      ["»Pridem.«", "Rekel je, da pride.", "da"],
+      ["»Utrujena sem.«", "Rekla je, da je utrujena.", "da"],
+      ["»Jutri bo deževalo.«", "Rekel je, da bo jutri deževalo.", "da"],
+      ["»Si lačen?«", "Vprašala je, ali sem lačen.", "ali, če"],
+      ["»Kje je Luka?«", "Vprašal je, kje je Luka.", "kje, kdaj, kaj …"],
+      ["»Pridi jutri!«", "Rekla je, naj jutri pridem.", "naj"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Luka je rekel, da pride zvečer.",
+      "en": "Luka said he'd come in the evening.",
+      "de": "Luka hat gesagt, er komme am Abend.",
+      "it": "Luka ha detto che viene stasera.",
+      "note": {
+        "en": "Luka said »Pridem zvečer«: the present stays.",
+        "de": "Luka sagte »Pridem zvečer«: das Präsens bleibt.",
+        "it": "Luka ha detto »Pridem zvečer«: il presente resta."
+      }
+    },
+    {
+      "sl": "Micka je rekla, naj prideš na kosilo.",
+      "en": "Micka said you should come for lunch.",
+      "de": "Micka hat gesagt, du sollst zum Mittagessen kommen.",
+      "it": "Micka ha detto di venire a pranzo.",
+      "note": {
+        "en": "A request passed on: naj + the present.",
+        "de": "Eine weitergegebene Bitte: naj + Präsens.",
+        "it": "Una richiesta riferita: naj + presente."
+      }
+    },
+    {
+      "sl": "Vprašal me je, ali sem lačen.",
+      "en": "He asked me whether I was hungry.",
+      "de": "Er hat mich gefragt, ob ich Hunger habe.",
+      "it": "Mi ha chiesto se avevo fame."
+    },
+    {
+      "sl": "Ne vem, kje je Luka.",
+      "en": "I don't know where Luka is.",
+      "de": "Ich weiß nicht, wo Luka ist.",
+      "it": "Non so dove sia Luka."
+    },
+    {
+      "sl": "Rekla je, da je utrujena.",
+      "en": "She said she was tired.",
+      "de": "Sie hat gesagt, sie sei müde.",
+      "it": "Ha detto che era stanca.",
+      "note": {
+        "en": "She said »Utrujena sem«, so: da je utrujena. Da je bila utrujena is tired before that.",
+        "de": "Sie sagte »Utrujena sem«, also: da je utrujena. Da je bila utrujena ist müde davor.",
+        "it": "Ha detto »Utrujena sem«, quindi: da je utrujena. Da je bila utrujena è stanca prima."
+      }
+    },
+    {
+      "sl": "Mislim, da bo jutri deževalo.",
+      "en": "I think it'll rain tomorrow.",
+      "de": "Ich glaube, dass es morgen regnet.",
+      "it": "Penso che domani pioverà."
+    },
+    {
+      "sl": "Rekel je, da ga jutri ne bo.",
+      "en": "He said he wouldn't be here tomorrow.",
+      "de": "Er hat gesagt, er sei morgen nicht da.",
+      "it": "Ha detto che domani non ci sarà.",
+      "note": {
+        "en": "The short word ga comes right after da.",
+        "de": "Das kurze ga steht gleich nach da.",
+        "it": "La parolina ga viene subito dopo da."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["reported_speech", "indirect_speech", "da_clause"],
+  "see": ["vezniki", "oziralni-ki", "naslonke", "velelnik", "vprasalnice"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

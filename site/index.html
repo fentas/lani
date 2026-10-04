@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lani · Learn Slovene in a little village</title>
+<meta name="description" content="Lani is an Android game for learning Slovene: a pixel-art village whose people speak to you, a grammar book that opens as you go, and your own Claude Code session as the tutor behind it. Free software (AGPL).">
+<meta name="theme-color" content="#0b4ea2">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lani">
+<meta property="og:title" content="Lani · Learn Slovene in a little village">
+<meta property="og:description" content="An Android game with a pixel-art village, a grammar book that opens as you go, and a Claude Code tutor. Free software, self-hosted.">
+<meta property="og:url" content="https://fentas.github.io/lani/">
+<meta property="og:image" content="https://fentas.github.io/lani/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The pixel-art village of Lani in autumn, with request bubbles over the villagers, and the title Lani: learn Slovene in a little village.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lani · Learn Slovene in a little village">
+<meta name="twitter:description" content="An Android game with a pixel-art village, a grammar book that opens as you go, and a Claude Code tutor.">
+<meta name="twitter:image" content="https://fentas.github.io/lani/og.jpg">
+<link rel="preload" href="fonts/pixelify-sans-normal-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/nunito-normal-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="style.css">
+<script src="main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+
+<div class="sky" aria-hidden="true">
+  <div class="stars"></div>
+  <div class="stars stars-2"></div>
+  <div class="sun"></div>
+  <div class="moon"></div>
+</div>
+
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Lani, to the top">
+    <svg class="brand-house" viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">
+      <rect x="7" y="1" width="2" height="1" fill="#7a2a1c"/><rect x="5" y="2" width="6" height="1" fill="#b83a26"/><rect x="3" y="3" width="10" height="1" fill="#b83a26"/><rect x="1" y="4" width="14" height="2" fill="#d4502f"/><rect x="2" y="6" width="12" height="8" fill="#f6e7c8"/><rect x="2" y="13" width="12" height="1" fill="#d8c29a"/><rect x="7" y="9" width="3" height="5" fill="#7b4a26"/><rect x="3" y="8" width="3" height="3" fill="#ffc94a"/><rect x="11" y="8" width="2" height="2" fill="#ffc94a"/><rect x="0" y="14" width="16" height="2" fill="#5f8f3a"/>
+    </svg>
+    <span>Lani</span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <ul class="nav-wide">
+      <li><a href="#village">Village</a></li>
+      <li><a href="#scenes">Scenes</a></li>
+      <li><a href="#grammar">Grammar</a></li>
+      <li><a href="#words">Words</a></li>
+      <li><a href="#car">Car</a></li>
+      <li><a href="#stories">Stories</a></li>
+      <li><a href="#tutor">Tutor</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#run">Run it</a></li>
+    </ul>
+    <details class="menu">
+      <summary aria-label="Menu"><span aria-hidden="true">☰</span> <span lang="sl">Meni</span></summary>
+      <ul>
+        <li><a href="#village">Village</a></li>
+        <li><a href="#scenes">Scenes</a></li>
+        <li><a href="#grammar">Grammar</a></li>
+        <li><a href="#words">Words</a></li>
+        <li><a href="#car">Car</a></li>
+        <li><a href="#villages">Visits</a></li>
+        <li><a href="#stories">Stories</a></li>
+        <li><a href="#tutor">Tutor</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#run">Run it</a></li>
+      </ul>
+    </details>
+  </nav>
+  <div class="clock" aria-hidden="true"><span class="clock-icon">☀️</span><span class="clock-time">06:30</span></div>
+  <a class="gh" href="https://github.com/fentas/lani" aria-label="Lani on GitHub">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span>GitHub</span>
+  </a>
+</header>
+
+<main id="main">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" id="top" data-time="06:30" aria-labelledby="hero-h">
+  <div class="hero-text">
+    <p class="kicker"><span lang="sl">Dobro jutro! Dobrodošli v vasi.</span> <span class="tr">Good morning! Welcome to the village.</span></p>
+    <h1 id="hero-h">Lani</h1>
+    <p class="tagline">Learn Slovene by living in a little village.</p>
+    <p class="lede">An Android game with a pixel-art village whose people speak to you, a grammar book that opens as you go,
+      and your own Claude Code session as the tutor behind it, writing new dialogs, stories and exercises as you progress.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://github.com/fentas/lani">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        See it on GitHub</a>
+      <a class="btn" href="#run">Run it yourself</a>
+    </div>
+    <p class="status"><span class="dot" aria-hidden="true"></span><span>Early, active development · one daily learner · self-hosted · <abbr title="GNU Affero General Public License 3.0 or later">AGPL</abbr></span></p>
+  </div>
+
+  <figure class="hero-media">
+    <div class="window">
+      <div class="window-bar" aria-hidden="true"><span></span><span></span><span></span><b lang="sl">Moja vas</b></div>
+      <video class="clip" data-autoplay muted loop playsinline preload="metadata" controls
+             poster="media/hero.webp" width="540" height="580"
+             aria-label="The village by day: autumn trees round a palisade, the fire in the middle, request bubbles over the villagers; the camera flies in to the fire and pans across the village.">
+        <source src="media/hero.webm" type="video/webm">
+        <source src="media/hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="bubble bubble-hero bob" aria-hidden="true"><span lang="sl">Živjo!</span></p>
+    <figcaption>The village, recorded on the emulator: drawn in code, every pixel of it.</figcaption>
+  </figure>
+
+  <div class="ground" aria-hidden="true">
+    <svg class="hills" viewBox="0 0 1200 120" preserveAspectRatio="none" shape-rendering="crispEdges">
+      <path class="hill-far" d="M0 80 L60 60 L120 70 L200 30 L260 50 L320 20 L360 36 L420 10 L470 34 L540 24 L600 46 L680 16 L740 40 L800 28 L880 50 L940 22 L1000 44 L1080 30 L1140 52 L1200 40 L1200 120 L0 120 Z"/>
+      <path class="hill-snow" d="M420 10 L440 18 L430 22 L412 16 Z M320 20 L336 28 L324 30 Z M680 16 L700 26 L686 28 Z M940 22 L956 32 L944 34 Z"/>
+      <path class="hill-near" d="M0 100 L80 86 L160 94 L260 80 L360 92 L480 82 L600 96 L720 84 L840 94 L960 82 L1080 92 L1200 86 L1200 120 L0 120 Z"/>
+    </svg>
+    <div class="walkers">
+      <span class="walker w1"></span><span class="walker w2"></span><span class="walker w3"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== THE VILLAGE ============================== -->
+<section class="chapter" id="village" data-time="08:00" aria-labelledby="village-h">
+  <p class="chip"><span class="chip-time">08:00</span> <span lang="sl">Luka si greje roke</span> · Luka warms his hands</p>
+  <h2 id="village-h"><span lang="sl">Dan v vasi</span> <span class="h-tr">A day in the village</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>A dozen villagers live their own days. France mows in the dew and harvests his field, Tone forges at the smithy,
+        Babica Micka bakes potica and brings soup to the fire, and every evening Stari Janez tells a legend there.
+        They ask for help in Slovene: a bubble over someone's head is a request, a little exercise in what they need.</p>
+      <p>What you do for them builds the village. It starts as a campfire in a clearing and grows with the words you
+        learn, age by age, towards your target level:</p>
+      <ol class="ages">
+        <li><span aria-hidden="true">🔥</span> <b lang="sl">Ogenj</b> Campfire</li>
+        <li><span aria-hidden="true">⛺</span> <b lang="sl">Tabor</b> Camp</li>
+        <li><span aria-hidden="true">🛖</span> <b lang="sl">Zaselek</b> Hamlet</li>
+        <li><span aria-hidden="true">🏘️</span> <b lang="sl">Vas</b> Village <small>A2</small></li>
+        <li><span aria-hidden="true">🏛️</span> <b lang="sl">Trg</b> Market town <small>B1</small></li>
+        <li><span aria-hidden="true">🏰</span> <b lang="sl">Mesto</b> Town</li>
+      </ol>
+      <p>The village keeps time with yours: mornings, rain, the moon, a merchant from Gorizia at the gate, a feast
+        under the linden. Its sounds are synthesized in code too. Have a listen:</p>
+      <div class="soundboard" role="group" aria-label="The village's sounds">
+        <button type="button" class="snd" data-sound="birds" aria-pressed="false"><span aria-hidden="true">🐦</span> <span lang="sl">ptiči</span> <small>birds</small></button>
+        <button type="button" class="snd" data-sound="anvil" aria-pressed="false"><span aria-hidden="true">🔨</span> <span lang="sl">nakovalo</span> <small>anvil</small></button>
+        <button type="button" class="snd" data-sound="cowbell" aria-pressed="false"><span aria-hidden="true">🐄</span> <span lang="sl">kravji zvonec</span> <small>cowbell</small></button>
+        <button type="button" class="snd" data-sound="stream" aria-pressed="false"><span aria-hidden="true">🏞️</span> <span lang="sl">potok</span> <small>stream</small></button>
+        <button type="button" class="snd" data-sound="crickets" aria-pressed="false"><span aria-hidden="true">🦗</span> <span lang="sl">murni</span> <small>crickets</small></button>
+        <button type="button" class="snd" data-sound="owl" aria-pressed="false"><span aria-hidden="true">🦉</span> <span lang="sl">sova</span> <small>owl</small></button>
+      </div>
+    </div>
+    <div class="day reveal">
+      <ol class="daylist">
+        <li><time>05:30</time> <span lang="sl">France kosi v rosi</span> <i>France mows in the dew</i></li>
+        <li><time>09:00</time> <span lang="sl">Tone kuje podkev</span> <i>Tone is forging a horseshoe</i></li>
+        <li><time>10:00</time> <span lang="sl">Mojca pri vodnjaku: dvojina!</span> <i>Mojca at the well: the dual!</i></li>
+        <li><time>12:00</time> <span lang="sl">Tine zvoni poldne</span> <i>Tine rings the noon bell</i></li>
+        <li><time>16:00</time> <span lang="sl">Otroci igrajo nogomet</span> <i>The children are playing football</i></li>
+        <li><time>19:00</time> <span lang="sl">Babica prinese juho</span> <i>Grandma brings soup</i></li>
+        <li><time>20:30</time> <span lang="sl">Janez pripoveduje zgodbo</span> <i>Janez tells a story</i></li>
+        <li><time>23:00</time> <span lang="sl">Sova se oglaša</span> <i>An owl is calling</i></li>
+      </ol>
+      <figure class="framed">
+        <video class="clip" muted loop playsinline preload="none" controls poster="media/night.webp" width="540" height="450"
+               aria-label="The village at night: the fire burns in the middle, the windows glow, request bubbles bob over the villagers.">
+          <source src="media/night.webm" type="video/webm">
+          <source src="media/night.mp4" type="video/mp4">
+        </video>
+        <figcaption>The same village after dark, people gathered round the fire.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SCENES ============================== -->
+<section class="chapter" id="scenes" data-time="10:30" aria-labelledby="scenes-h">
+  <p class="chip"><span class="chip-time">10:30</span> <span lang="sl">Zala bi se igrala skrivalnice</span> · Zala wants to play hide-and-seek</p>
+  <h2 id="scenes-h"><span lang="sl">Prizori in pogovori</span> <span class="h-tr">Scenes and dialogs</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>Every place of the village opens into a close-up: indoors an isometric diorama, outdoors a view to the hills.
+        You find the words in the picture by tapping the things in it, and you talk to whoever is there today.</p>
+    </div>
+    <div class="pair reveal">
+      <figure class="framed">
+        <img src="media/kitchen.webp" width="540" height="395" loading="lazy"
+             alt="The kitchen as an isometric diorama: a stove, a table with bread and a jug, shelves, a red-checked curtain, a vegetable bed outside the wall.">
+        <figcaption lang="sl">V kuhinji <span class="tr" lang="en">In the kitchen</span></figcaption>
+      </figure>
+      <figure class="framed">
+        <img src="media/field.webp" width="540" height="395" loading="lazy"
+             alt="The field as a view to the hills: a hayrack full of hay, a horse and cart on the path, a scarecrow, cabbages, a hare, a church on the hill behind.">
+        <figcaption lang="sl">Na njivi <span class="tr" lang="en">In the field</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="cols cols-media-left">
+    <figure class="phone reveal">
+      <video class="clip" muted loop playsinline preload="none" controls poster="media/find.webp" width="540" height="700"
+             aria-label="In the field, the learner taps the scarecrow, a hare, the hayrack, the cart and the cabbages; each opens its word: strašilo, zajec, kozolec, voz, zelje, and the count of found words goes up.">
+        <source src="media/find.webm" type="video/webm">
+        <source src="media/find.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <div class="prose">
+      <h3>Find the words in the picture</h3>
+      <p>Tap the scarecrow and it says <b lang="sl">strašilo</b>, with its gender and plural and a sentence to go
+        with it. Some things show only at dawn, by night, or not in winter; the panel under the picture keeps count of what's
+        here now, what you've seen before and what's still hidden.</p>
+      <h3>Talk to people, your way</h3>
+      <p>A dialog's turns adapt to what you know. While a rule is new, you choose; once you have it, you type the
+        missing word; some turns are answered by tapping the picture, and any turn can be said aloud instead.
+        The dialogs only ask for what the grammar book says you've met.</p>
+    </div>
+  </div>
+
+  <div class="dialogs reveal">
+    <div class="tabs" role="tablist" aria-label="Kinds of dialog turns">
+      <button type="button" role="tab" id="tab-choose" aria-controls="panel-dialog" aria-selected="true" data-clip="soup"><span lang="sl">Izberi</span> · Choose</button>
+      <button type="button" role="tab" id="tab-tap" aria-controls="panel-dialog" aria-selected="false" data-clip="hide" tabindex="-1"><span lang="sl">Tapni</span> · Tap the picture</button>
+      <button type="button" role="tab" id="tab-type" aria-controls="panel-dialog" aria-selected="false" data-clip="typed" tabindex="-1"><span lang="sl">Napiši</span> · Type it</button>
+    </div>
+    <div class="dialog-panel" id="panel-dialog" role="tabpanel" aria-labelledby="tab-choose">
+      <figure class="phone">
+        <video class="clip" id="dialog-clip" muted loop playsinline preload="none" controls poster="media/soup.webp" width="540" height="1120"
+               aria-label="Babica Micka brings soup to the fire in the evening. She asks: Dober večer, Jan! Si lačen? The learner picks Dober večer! Ja, zelo sem lačen. She answers Potem sedi k ognju, and offers the soup.">
+          <source src="media/soup.webm" type="video/webm">
+          <source src="media/soup.mp4" type="video/mp4">
+        </video>
+      </figure>
+      <div class="dialog-notes">
+        <div class="note" data-for="soup">
+          <h3><span lang="sl">Babica prinese juho</span> <span class="h-tr">Grandma brings soup</span></h3>
+          <p>In the evening Babica Micka brings soup to the fire. Three answers, one right: the others are near misses
+            that teach something (<span lang="sl">žejen</span> is thirsty, <span lang="sl">dobro jutro</span> is for the morning).</p>
+          <p class="line"><span lang="sl">Dober večer, Jan! Si lačen?</span> <i>Good evening, Jan! Are you hungry?</i></p>
+        </div>
+        <div class="note" data-for="hide" hidden>
+          <h3><span lang="sl">Skrivalnice</span> <span class="h-tr">Hide-and-seek</span></h3>
+          <p>Zala counts with you, then hides. The turn is <span lang="sl">»Poišči v prizoru«</span>, find it in the
+            scene. The learner taps under the table, and that's the answer:</p>
+          <p class="line"><span lang="sl">Aha, pod mizo si!</span> <i>Aha, you're under the table!</i></p>
+        </div>
+        <div class="note" data-for="typed" hidden>
+          <h3><span lang="sl">Luka si greje roke</span> <span class="h-tr">Luka warms his hands</span></h3>
+          <p>A cold morning by the fire. Luka is young and a friend, so it's <span lang="sl">ti</span>: the
+            imperative is <b lang="sl">sedi</b>, not <span lang="sl">sedite</span>. The keyboard comes up with the letters
+            č, š and ž ready.</p>
+          <p class="line"><span lang="sl">Dobro jutro, Luka! Seveda, <u>sedi</u>.</span> <i>Good morning, Luka! Of course, sit down.</i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="try reveal" id="wordcard-demo">
+    <h3><span aria-hidden="true">👆</span> Try it: tap a word</h3>
+    <p class="muted">Every line in the app is made of words you can tap. Each opens its card: the dictionary word, what this
+      form is, its meaning, its partner, its forms.</p>
+    <div class="try-grid">
+      <div class="speech">
+        <div class="speaker" aria-hidden="true">👵</div>
+        <div>
+          <p class="speech-name">Babica Micka</p>
+          <p class="speech-line" lang="sl">
+            <button type="button" class="w" data-word="dober">Dober</button> <button type="button" class="w" data-word="vecer">večer</button>!
+            <button type="button" class="w" data-word="sedite">Sedite</button>, <button type="button" class="w" data-word="sedite">sedite</button>.
+          </p>
+          <p class="speech-tr">Good evening! Sit down, sit down.</p>
+        </div>
+      </div>
+      <div class="wordcard" id="wordcard" aria-live="polite">
+        <p class="wc-empty">Tap a word on the left.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== GRAMMAR ============================== -->
+<section class="chapter" id="grammar" data-time="11:30" aria-labelledby="grammar-h">
+  <p class="chip"><span class="chip-time">11:30</span> <span lang="sl">Mojca pri vodnjaku: dvojina!</span> · Mojca at the well: the dual!</p>
+  <h2 id="grammar-h"><span lang="sl">Slovnica</span> <span class="h-tr">The grammar book</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>The village scroll, a book once the hamlet is a village, has a page for every rule: 44 for Slovene, from
+        <span lang="sl">biti</span> to the six cases, aspect and the dual. A page is written in the first time you meet
+        its rule in an exercise, and its stars say how well you know it.</p>
+      <p>Rules you've only met in the dialogs wait, greyed: <span lang="sl">»Še ne«</span>, not yet. The dialogs and the
+        word forms only ask what the book has opened, your mistakes show up on the rule's page, and the tutor can write
+        a new page when you need one.</p>
+    </div>
+    <div class="pair pair-tall reveal">
+      <figure class="phone phone-sm">
+        <img src="media/grammar-list.webp" width="540" height="1100" loading="lazy"
+             alt="The village scroll's grammar section: rules met so far with their stars (adjectives, adverbs, the genitive after prepositions), and greyed pages only met in the dialogs (the instrumental, the dative).">
+      </figure>
+      <figure class="phone phone-sm">
+        <img src="media/grammar-page.webp" width="540" height="1095" loading="lazy"
+             alt="A grammar page, Tožilnik: pijem kavo, vidim brata (the accusative), with the rule, a table of noun kinds and examples to listen to.">
+      </figure>
+    </div>
+  </div>
+
+  <div class="try reveal" id="cases-demo">
+    <h3><span aria-hidden="true">🏠</span> The six cases, on one house</h3>
+    <p class="muted">Each case has its school questions. Ask the question, and the answer takes its case. Pick a row.</p>
+    <div class="try-grid">
+      <div class="cases-table-wrap">
+        <table class="cases">
+          <thead><tr><th scope="col">Case</th><th scope="col">Questions</th><th scope="col">Form</th></tr></thead>
+          <tbody>
+            <tr data-case="0" tabindex="0" aria-selected="true"><th scope="row"><span lang="sl">1. imenovalnik</span><small>nominative</small></th><td lang="sl">kdo? kaj?</td><td lang="sl"><b>hiša</b></td></tr>
+            <tr data-case="1" tabindex="0"><th scope="row"><span lang="sl">2. rodilnik</span><small>genitive</small></th><td lang="sl">koga? česa?</td><td lang="sl"><b>hiše</b></td></tr>
+            <tr data-case="2" tabindex="0"><th scope="row"><span lang="sl">3. dajalnik</span><small>dative</small></th><td lang="sl">komu? čemu?</td><td lang="sl"><b>hiši</b></td></tr>
+            <tr data-case="3" tabindex="0"><th scope="row"><span lang="sl">4. tožilnik</span><small>accusative</small></th><td lang="sl">koga? kaj?</td><td lang="sl"><b>hišo</b></td></tr>
+            <tr data-case="4" tabindex="0"><th scope="row"><span lang="sl">5. mestnik</span><small>locative</small></th><td lang="sl">pri kom? pri čem?</td><td lang="sl">pri <b>hiši</b></td></tr>
+            <tr data-case="5" tabindex="0"><th scope="row"><span lang="sl">6. orodnik</span><small>instrumental</small></th><td lang="sl">s kom? s čim?</td><td lang="sl">s <b>hišo</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="stage-wrap">
+        <div class="stage" id="case-stage" aria-hidden="true">
+          <svg class="stage-house" viewBox="0 0 16 16" shape-rendering="crispEdges">
+            <rect x="7" y="1" width="2" height="1" fill="#7a2a1c"/><rect x="5" y="2" width="6" height="1" fill="#b83a26"/><rect x="3" y="3" width="10" height="1" fill="#b83a26"/><rect x="1" y="4" width="14" height="2" fill="#d4502f"/><rect x="2" y="6" width="12" height="8" fill="#f6e7c8"/><rect x="2" y="13" width="12" height="1" fill="#d8c29a"/><rect x="7" y="9" width="3" height="5" fill="#7b4a26"/><rect x="3" y="8" width="3" height="3" fill="#8ec5e8"/><rect x="11" y="8" width="2" height="2" fill="#8ec5e8"/>
+          </svg>
+          <span class="actor" id="case-actor">👉</span>
+        </div>
+        <p class="stage-line" id="case-line" aria-live="polite"><span lang="sl">To je <b>hiša</b>.</span> <i>This is a house.</i></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="try reveal" id="count-demo">
+    <h3><span aria-hidden="true">🐑</span> <span lang="sl">Luka šteje ovce</span> · Luka counts his sheep</h3>
+    <p class="muted">Slovene has a dual: one form for exactly two. After a number the noun changes, and so does the verb.</p>
+    <div class="counter">
+      <button type="button" class="btn btn-sm" id="count-minus" aria-label="One sheep fewer">−</button>
+      <label class="sr-only" for="count-range">How many sheep</label>
+      <input type="range" id="count-range" min="1" max="10" value="2">
+      <button type="button" class="btn btn-sm" id="count-plus" aria-label="One sheep more">+</button>
+    </div>
+    <p class="count-line" id="count-line" aria-live="polite"><span lang="sl">Tu <b>sta</b> <b>dve ovci</b>.</span> <i>Here are two sheep.</i></p>
+    <p class="count-rule" id="count-rule">2: <span lang="sl">dvojina</span> · the dual</p>
+    <div class="flock" id="flock" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============================== WORDS ============================== -->
+<section class="chapter" id="words" data-time="12:30" aria-labelledby="words-h">
+  <p class="chip"><span class="chip-time">12:00</span> <span lang="sl">Tine zvoni poldne</span> · Tine rings the noon bell</p>
+  <h2 id="words-h"><span lang="sl">Besede in oblike</span> <span class="h-tr">Words and their forms</span></h2>
+  <div class="cols cols-media-left">
+    <figure class="phone reveal">
+      <video class="clip" muted loop playsinline preload="none" controls poster="media/form.webp" width="540" height="1120"
+             aria-label="A review question: fill in the right form of miza, the genitive singular, in a sentence from the story of King Matjaž. The learner picks mize; Pravilno! A new page in the grammar book opens: the genitive.">
+        <source src="media/form.webm" type="video/webm">
+        <source src="media/form.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <div class="prose">
+      <p>Words stay with spaced repetition (SM-2): a card comes back just before you'd forget it. A word you remember
+        each time waits longer and longer:</p>
+      <ol class="sm2">
+        <li class="d1"><b>1</b> day</li><li class="d6"><b>6</b></li><li class="d15"><b>15</b></li><li class="d38"><b>38</b></li><li class="d94"><b>94</b> days</li>
+      </ol>
+      <p>The cards take many forms: flashcards, listening, dictation, speaking. Once you know a word,
+        its forms come too: its conjugations and cases, as far as the grammar book has opened them, each in a sentence
+        from the village. <span lang="sl">»Zaklenjene odpre stran v knjigi«</span>: a page of the book opens the locked ones.</p>
+      <p>A villager keeps you company in the reviews. In the clip it's Teta Ančka:
+        <span lang="sl">»Kaj? Kdo ste? Glasneje!«</span> (What? Who are you? Louder!)</p>
+    </div>
+  </div>
+
+  <div class="try reveal" id="quiz-demo">
+    <h3><span aria-hidden="true">✍️</span> <span lang="sl">Vstavi pravo obliko</span> · Fill in the right form</h3>
+    <div class="quiz" id="quiz">
+      <p class="quiz-meta" id="quiz-meta"></p>
+      <p class="quiz-q" id="quiz-q" lang="sl"></p>
+      <div class="quiz-opts" id="quiz-opts" role="group" aria-label="The forms to choose from"></div>
+      <div class="quiz-fb" id="quiz-fb" aria-live="polite"></div>
+      <div class="quiz-foot"><span class="muted" id="quiz-count"></span><button type="button" class="btn btn-sm" id="quiz-next" hidden><span lang="sl">Naprej</span> · Next</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CAR ============================== -->
+<section class="chapter" id="car" data-time="16:00" aria-labelledby="car-h">
+  <p class="chip"><span class="chip-time">16:00</span> <span lang="sl">Na poti domov</span> · On the way home</p>
+  <h2 id="car-h"><span lang="sl">Za pot</span> <span class="h-tr">In the car</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>For long drives there's an Android Auto mode: audio drills prepared on the phone ahead of time and played with
+        the steering wheel's buttons. You hear the meaning, say it aloud, then hear how it's said and repeat it.</p>
+      <ul class="drills">
+        <li><b lang="sl">Preobrat</b> Transformations: <span lang="sl">Micka kuha kosilo.</span> Into the past! → <span lang="sl">Micka je kuhala kosilo.</span></li>
+        <li><b lang="sl">Hitri odziv</b> Rapid fire: a number, a time, a date, two seconds to say it.</li>
+        <li><b lang="sl">Gradnja stavkov</b> Sentence building: a sentence grows a step at a time.</li>
+        <li><b lang="sl">Uganke</b> Riddles: Stari Janez describes a thing of the village in three or four clues.</li>
+      </ul>
+      <p class="muted"><span lang="sl">Med vožnjo ne glej na zaslon.</span> While driving, don't look at the screen.</p>
+    </div>
+    <div class="radio reveal" id="radio">
+      <div class="radio-top" aria-hidden="true"><span>🚗 <span lang="sl">Za pot</span></span><span class="radio-led"></span></div>
+      <div class="radio-screen" aria-live="polite">
+        <p class="radio-kind" id="radio-kind"><span lang="sl">Gradnja stavkov</span> · Sentence building</p>
+        <p class="radio-prompt" id="radio-prompt">Press ▶ to start.</p>
+        <p class="radio-sl" id="radio-sl" lang="sl"></p>
+        <div class="radio-bar"><span id="radio-fill"></span></div>
+      </div>
+      <div class="radio-keys" role="group" aria-label="Steering wheel buttons">
+        <button type="button" class="key" id="radio-prev" aria-label="Previous">⏮</button>
+        <button type="button" class="key key-play" id="radio-play" aria-label="Play">▶</button>
+        <button type="button" class="key" id="radio-next" aria-label="Next">⏭</button>
+      </div>
+      <div class="radio-drills" role="group" aria-label="Drills">
+        <button type="button" class="chip-btn" data-drill="build" aria-pressed="true"><span lang="sl">Gradnja</span></button>
+        <button type="button" class="chip-btn" data-drill="riddle" aria-pressed="false"><span lang="sl">Uganka</span></button>
+        <button type="button" class="chip-btn" data-drill="transform" aria-pressed="false"><span lang="sl">Preobrat</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OTHER VILLAGES ============================== -->
+<section class="chapter" id="villages" data-time="17:30" aria-labelledby="villages-h">
+  <p class="chip"><span class="chip-time">17:30</span> <span lang="sl">Na obisku</span> · Visiting</p>
+  <h2 id="villages-h"><span lang="sl">Druge vasi</span> <span class="h-tr">Other villages</span></h2>
+  <div class="cols cols-media-left">
+    <div class="pair pair-tall reveal">
+      <figure class="phone phone-sm">
+        <img src="media/visit.webp" width="540" height="1120" loading="lazy"
+             alt="A visit to an Italian village: the banner says In visita · Visiting: Borgo di Prova (Marta), the sea glints on the horizon, the buttons read Richieste, Regalo, Mercato, Chiedi.">
+      </figure>
+      <figure class="phone phone-sm">
+        <img src="media/rosa.webp" width="540" height="1120" loading="lazy"
+             alt="Nonna Rosa's card in the visited village: Rosa says Vieni, vieni. Siediti. · Come, come. Sit down. with a button Parla · Talk.">
+      </figure>
+    </div>
+    <div class="prose">
+      <p>Villages can be linked, by invitation only, and visited. A visit is in the host village's language: its people
+        talk to you in it, its requests can be done, a gift or a message left, its market haggled at, its learner asked a
+        question they answer in their language. Linked villages grow a friendship both agree on, from
+        <span lang="sl">Znanstvo</span> (acquaintance) to <span lang="sl">Pobratenje</span> (twin towns).</p>
+      <ul class="lands">
+        <li><span class="flag" aria-hidden="true">🇸🇮</span><div><b>Primorska</b>: the Slovene village, on the Trnovo plateau above Nova Gorica, where it all began.</div></li>
+        <li><span class="flag" aria-hidden="true">🇮🇹</span><div><b>Friuli</b>: an Italian town in the Collio near Gorizia, the sea on the horizon.</div></li>
+        <li><span class="flag" aria-hidden="true">🇦🇹</span><div><b>Kärnten</b>: a German village in the Gailtal near Villach.</div></li>
+        <li><span class="flag" aria-hidden="true">🇬🇧</span><div><b>Lakeland</b>: an English village in a dale of the Lake District.</div></li>
+      </ul>
+      <p class="muted">Any two of Slovene, English, Italian and German make a pair: the language you learn and the one
+        it's explained in. The screenshots show a test town from the app's QA, in Friuli.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== STORIES ============================== -->
+<section class="chapter dusk" id="stories" data-time="20:00" aria-labelledby="stories-h">
+  <p class="chip"><span class="chip-time">20:00</span> <span lang="sl">Janez pripoveduje zgodbo</span> · Janez tells a story</p>
+  <h2 id="stories-h"><span lang="sl">Zgodbe ob ognju</span> <span class="h-tr">Stories by the fire</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>Every evening Stari Janez sits by the fire and tells a legend in chapters, at your level, and asks you along the
+        way: Martin Krpan, Zlatorog, Kralj Matjaž, Peter Klepec.</p>
+      <figure class="framed fire-clip reveal">
+        <video class="clip" muted loop playsinline preload="none" controls poster="media/fire.webp" width="540" height="310"
+               aria-label="The campfire scene at night as an isometric diorama: a pot over the fire, a woodpile, Stari Janez on a log, a bubble with a book over him.">
+          <source src="media/fire.webm" type="video/webm">
+          <source src="media/fire.mp4" type="video/mp4">
+        </video>
+        <button type="button" class="btn btn-sm fire-sound snd" data-sound="fire" aria-pressed="false"><span aria-hidden="true">🔥</span> <span><span lang="sl">Prisluhni ognju</span> · Listen to the fire</span></button>
+      </figure>
+      <p>Each story is written down in your notebook, <span lang="sl">»Moj zvezek zgodb«</span>, in a hand-drawn style
+        with pencil sketches taped in: every story you've heard, to read again, listen to, and be quizzed on.</p>
+    </div>
+    <figure class="phone reveal">
+      <video class="clip" muted loop playsinline preload="none" controls poster="media/story.webp" width="540" height="1120"
+             aria-label="Stari Janez's evening story: Dober večer, Jan. Nocoj ti povem zgodbo o Petru Klepcu. Poznaš Petra? The learner picks Ne, ne poznam ga. Kdo je to? and the story begins: Ob reki Kolpi živi majhen pastir.">
+        <source src="media/story.webm" type="video/webm">
+        <source src="media/story.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </div>
+  <div class="notebook reveal">
+    <figure class="phone phone-sm">
+      <img src="media/notebook.webp" width="540" height="1095" loading="lazy"
+           alt="The story notebook's first page in handwriting on lined paper: Zapisano ob ognju, written down by the fire, and its contents: Zlatorog, Kralj Matjaž, Martin Krpan, with dates.">
+    </figure>
+    <figure class="phone phone-sm">
+      <img src="media/sketch.webp" width="540" height="1095" loading="lazy"
+           alt="A notebook page of Zlatorog: lines of the story in blue ink, and a pencil sketch taped in of the white fairies and the golden-horned chamois under the mountains.">
+    </figure>
+    <div class="notebook-note">
+      <p class="hand" lang="sl">Zlatorog, beli gams z zlatimi rogovi.</p>
+      <p class="hand hand-tr">Zlatorog, the white chamois with golden horns.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TUTOR ============================== -->
+<section class="chapter dusk" id="tutor" data-time="21:00" aria-labelledby="tutor-h">
+  <p class="chip"><span class="chip-time">21:00</span> <span lang="sl">Teta Ančka posluša radio</span> · Aunt Ančka listens to the radio</p>
+  <h2 id="tutor-h"><span lang="sl">Učitelj</span> <span class="h-tr">The tutor</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>Behind the app runs a Claude Code session on your machine: your tutor. The app's chat goes straight to it. It
+        knows what you got wrong yesterday, answers about any exercise, and builds the content as you progress:</p>
+      <ul class="ticks">
+        <li>new dialogs, scenes and villagers' lines, at your level</li>
+        <li>evening stories and grammar pages</li>
+        <li>word packs and practice modules for your weak spots</li>
+        <li>fixes for anything you report as wrong, with what it cost you given back</li>
+      </ul>
+      <p>It publishes them to the app through the bridge's MCP tools, and the phone shows them at once. In the chat you can
+        bookmark an answer, reply to a message from last week, or look things up in the archive.</p>
+      <p class="muted">The tutor's skills grew from <a href="https://github.com/m98/fluent">m98/fluent</a>, the AI language
+        learning kit for Claude Code. It also works on its own, in the terminal.</p>
+    </div>
+    <div class="chat reveal" role="group" aria-label="An example conversation with the tutor">
+      <p class="chat-head"><span aria-hidden="true">🧑‍🏫</span> <span lang="sl">Tvoj učitelj</span> · Your tutor <small>example</small></p>
+      <div class="msg msg-me">
+        <p class="msg-about">About: <span lang="sl">»Dober večer! Sedite, sedite.«</span></p>
+        <p><span lang="sl">Zakaj »sedite« in ne »sedi«?</span></p>
+      </div>
+      <div class="msg msg-tutor">
+        <p><b lang="sl">Sedite</b> is the <i lang="sl">vi</i> form: Babica is talking to several of you, or politely to one.
+          To one friend it's <b lang="sl">sedi</b>, as you told Luka this morning.</p>
+        <p>Both are <b lang="sl">sesti</b>, to sit down. Sitting there already is <b lang="sl">sedeti</b>:
+          <span lang="sl">Babica sedi pri ognju.</span></p>
+        <p class="msg-tools"><span>📌 Bookmarked</span><span>↩︎ Reply</span></p>
+      </div>
+      <div class="msg msg-tutor msg-pub">
+        <p><span aria-hidden="true">✨</span> New in the village: a short drill on <span lang="sl">ti</span> and <span lang="sl">vi</span> for tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<section class="chapter night" id="how" data-time="22:00" aria-labelledby="how-h">
+  <p class="chip"><span class="chip-time">22:00</span> <span lang="sl">Luka je na straži</span> · Luka is on watch</p>
+  <h2 id="how-h"><span lang="sl">Kako deluje</span> <span class="h-tr">How it works</span></h2>
+  <figure class="diagram reveal">
+    <svg class="diagram-wide" viewBox="0 0 960 400" role="img" aria-labelledby="dg-title dg-desc">
+      <title id="dg-title">How Lani fits together</title>
+      <desc id="dg-desc">The Android app talks to the bridge over HTTP and server-sent events, through your tailnet. The bridge, a Bun program on your machine, keeps your data as JSON files there and talks to your Claude Code session, the tutor, over an MCP channel. The tutor publishes dialogs, stories, grammar pages and modules back through the bridge to the app.</desc>
+      <defs>
+        <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" class="dg-arrowhead"/></marker>
+      </defs>
+      <rect class="dg-machine" x="250" y="20" width="690" height="360" rx="4"/>
+      <text class="dg-small" x="270" y="48">your machine</text>
+      <g class="dg-node">
+        <rect x="20" y="110" width="190" height="180" rx="4"/>
+        <text class="dg-icon" x="115" y="150">📱</text>
+        <text class="dg-title" x="115" y="186">Android app</text>
+        <text class="dg-sub" x="115" y="210">Kotlin, Compose</text>
+        <text class="dg-sub" x="115" y="232">village · scenes</text>
+        <text class="dg-sub" x="115" y="254">reviews · chat</text>
+      </g>
+      <g class="dg-node">
+        <rect x="370" y="110" width="210" height="180" rx="4"/>
+        <text class="dg-icon" x="475" y="150">🌉</text>
+        <text class="dg-title" x="475" y="186">Bridge</text>
+        <text class="dg-sub" x="475" y="210">Bun, TypeScript</text>
+        <text class="dg-sub" x="475" y="232">serves the app</text>
+        <text class="dg-sub" x="475" y="254">MCP tools</text>
+      </g>
+      <g class="dg-node dg-tutor">
+        <rect x="720" y="110" width="200" height="180" rx="4"/>
+        <text class="dg-icon" x="820" y="150">🧑‍🏫</text>
+        <text class="dg-title" x="820" y="186">Claude Code</text>
+        <text class="dg-sub" x="820" y="210">your tutor session</text>
+        <text class="dg-sub" x="820" y="232">skills · hooks</text>
+        <text class="dg-sub" x="820" y="254">writes content</text>
+      </g>
+      <g class="dg-data">
+        <path d="M400 318 h150 v42 a75 10 0 0 1 -150 0 Z"/>
+        <ellipse cx="475" cy="318" rx="75" ry="10"/>
+        <text class="dg-sub" x="475" y="348">your data (JSON)</text>
+      </g>
+      <path class="dg-link" id="l1" d="M210 200 H370" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <path class="dg-link" id="l2" d="M580 200 H720" marker-start="url(#arr)" marker-end="url(#arr)"/>
+      <path class="dg-link dg-link-thin" d="M475 290 V308"/>
+      <text class="dg-label" x="290" y="186">HTTP · SSE</text>
+      <text class="dg-label dg-label-sm" x="290" y="226">tailnet</text>
+      <text class="dg-label" x="650" y="186">MCP</text>
+      <text class="dg-label dg-label-sm" x="650" y="226">channel</text>
+      <circle class="packet" r="5"><animateMotion dur="2.6s" repeatCount="indefinite" path="M210 200 H370"/></circle>
+      <circle class="packet packet-2" r="5"><animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" path="M720 200 H580"/></circle>
+      <circle class="packet packet-3" r="5"><animateMotion dur="3.4s" begin="0.6s" repeatCount="indefinite" path="M370 200 H210"/></circle>
+    </svg>
+    <svg class="diagram-tall" viewBox="0 0 400 600" role="img" aria-labelledby="dg2-title">
+      <title id="dg2-title">How Lani fits together: the app talks to the bridge over HTTP and SSE through your tailnet; on your machine the bridge keeps your data and talks to the Claude Code tutor over MCP.</title>
+      <defs>
+        <marker id="arr2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" class="dg-arrowhead"/></marker>
+      </defs>
+      <g class="dg-node">
+        <rect x="90" y="10" width="220" height="120" rx="4"/>
+        <text class="dg-icon" x="200" y="50">📱</text>
+        <text class="dg-title" x="200" y="84">Android app</text>
+        <text class="dg-sub" x="200" y="108">village · scenes · chat</text>
+      </g>
+      <path class="dg-link" d="M200 130 V220" marker-start="url(#arr2)" marker-end="url(#arr2)"/>
+      <text class="dg-label" x="214" y="172" text-anchor="start">HTTP · SSE</text>
+      <text class="dg-label dg-label-sm" x="214" y="196" text-anchor="start">tailnet</text>
+      <rect class="dg-machine" x="10" y="210" width="380" height="380" rx="4"/>
+      <text class="dg-small" x="26" y="236">your machine</text>
+      <g class="dg-node">
+        <rect x="40" y="250" width="200" height="110" rx="4"/>
+        <text class="dg-icon" x="140" y="286">🌉</text>
+        <text class="dg-title" x="140" y="318">Bridge</text>
+        <text class="dg-sub" x="140" y="342">Bun · MCP tools</text>
+      </g>
+      <g class="dg-data">
+        <path d="M262 280 h110 v40 a55 9 0 0 1 -110 0 Z"/>
+        <ellipse cx="317" cy="280" rx="55" ry="9"/>
+        <text class="dg-sub" x="317" y="308">your data</text>
+      </g>
+      <path class="dg-link dg-link-thin" d="M240 305 H262"/>
+      <path class="dg-link" d="M140 360 V450" marker-start="url(#arr2)" marker-end="url(#arr2)"/>
+      <text class="dg-label" x="154" y="410" text-anchor="start">MCP channel</text>
+      <g class="dg-node dg-tutor">
+        <rect x="40" y="450" width="320" height="120" rx="4"/>
+        <text class="dg-icon" x="200" y="488">🧑‍🏫</text>
+        <text class="dg-title" x="200" y="522">Claude Code</text>
+        <text class="dg-sub" x="200" y="548">your tutor · skills · hooks</text>
+      </g>
+      <circle class="packet" r="5"><animateMotion dur="2.4s" repeatCount="indefinite" path="M200 130 V220"/></circle>
+      <circle class="packet packet-2" r="5"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M140 450 V360"/></circle>
+    </svg>
+  </figure>
+  <div class="parts">
+    <div><h3><code>companion/android/</code></h3><p>The app, in Kotlin and Jetpack Compose. The village, the scenes and the people are drawn in code.</p></div>
+    <div><h3><code>companion/bridge/</code></h3><p>Serves the app, keeps your data (progress, mistakes, reviews, the village) as JSON on your machine, and lets the tutor publish content.</p></div>
+    <div><h3><code>companion/cultures/</code> · <code>scenes/</code> · <code>grammar/</code></h3><p>The villages and their people, the scenes and stories, the grammar pages: content anyone can read and correct.</p></div>
+    <div><h3><code>.claude/</code></h3><p>The tutor's skills and hooks. <code>LEARNING_SYSTEM.md</code> is its method: active recall, SM-2, immediate feedback.</p></div>
+  </div>
+</section>
+
+<!-- ============================== RUN IT ============================== -->
+<section class="chapter night" id="run" data-time="22:45" aria-labelledby="run-h">
+  <p class="chip"><span class="chip-time">22:45</span> <span lang="sl">Nejc ne more spati</span> · Nejc can't sleep</p>
+  <h2 id="run-h"><span lang="sl">Na svojem računalniku</span> <span class="h-tr">Run it yourself</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>Lani runs self-hosted today: the bridge and the tutor on your computer, the app on your Android phone. There is
+        no hosted version and no store release. You need <a href="https://code.claude.com">Claude Code</a>,
+        <a href="https://bun.sh">Bun</a> and an Android phone; for the app, JDK 21 and the Android SDK.</p>
+      <ol class="steps">
+        <li>
+          <p>Get the code and start your tutor</p>
+          <div class="code"><pre><code>git clone https://github.com/fentas/lani.git &amp;&amp; cd lani
+cd companion/bridge &amp;&amp; bun install &amp;&amp; cd -   # once
+companion/bin/lani-session                   # starts your tutor (tmux); detach with Ctrl-b d</code></pre><button class="copy" type="button">Copy</button></div>
+        </li>
+        <li>
+          <p>Build and install the app</p>
+          <div class="code"><pre><code>cd companion/android
+./gradlew :app:assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk</code></pre><button class="copy" type="button">Copy</button></div>
+        </li>
+        <li>
+          <p>Pair the phone: scan the QR code in the app</p>
+          <div class="code"><pre><code>companion/bin/lani-pair                      # a QR code to connect the app</code></pre><button class="copy" type="button">Copy</button></div>
+        </li>
+      </ol>
+      <p>The full guide (pairing, Tailscale, voices, speech recognition, the bridge as a service, backups) is in
+        <a href="https://github.com/fentas/lani/blob/main/companion/README.md">companion/README.md</a>. The tutor works in
+        the terminal on its own too: <a href="https://github.com/fentas/lani/blob/main/docs/claude-tutor.md">docs/claude-tutor.md</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== OPEN SOURCE ============================== -->
+<section class="chapter night" id="open" data-time="23:30" aria-labelledby="open-h">
+  <p class="chip"><span class="chip-time">23:30</span> <span lang="sl">Sova se oglaša</span> · An owl is calling</p>
+  <h2 id="open-h"><span lang="sl">Odprta koda</span> <span class="h-tr">Open source</span></h2>
+  <div class="cols">
+    <div class="prose">
+      <p>Lani is free software under the <a href="https://github.com/fentas/lani/blob/main/LICENSE">GNU Affero General Public
+        License 3.0 or later</a>. It began as a fork of <a href="https://github.com/m98/fluent">m98/fluent</a> by Mohammad
+        Kermani and the Fluent contributors (MIT); the parts from it stay available under MIT as well.</p>
+      <p>Corrections to the Slovene are especially welcome: much of the content is machine-written and marked so until a
+        native speaker has read it. See <a href="https://github.com/fentas/lani/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+    </div>
+    <div class="credits">
+      <h3>Credits</h3>
+      <dl>
+        <dt>Dictionary</dt><dd>Wiktionary via <a href="https://kaikki.org/dictionary/Slovene/">kaikki.org</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></dd>
+        <dt>Notebook's handwriting</dt><dd>Kalam by the Indian Type Foundry, SIL Open Font License 1.1</dd>
+        <dt>Ambient sounds</dt><dd>Synthesized in code, <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a></dd>
+        <dt>Pixel art</dt><dd>Drawn by code in the app, part of the program</dd>
+        <dt>This site's fonts</dt><dd>Pixelify Sans, Nunito and Kalam, <a href="fonts/OFL-PixelifySans.txt">SIL OFL 1.1</a></dd>
+      </dl>
+      <p class="muted">Details in <a href="https://github.com/fentas/lani/blob/main/NOTICE.md">NOTICE.md</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-time="23:59">
+  <div class="campfire" aria-hidden="true">
+    <div class="glow"></div>
+    <svg class="fire" viewBox="0 0 20 20" shape-rendering="crispEdges">
+      <g class="flame f1"><rect x="9" y="3" width="2" height="2" fill="#ffd34d"/><rect x="8" y="5" width="4" height="3" fill="#ffb02e"/><rect x="7" y="8" width="6" height="4" fill="#ff7a1a"/><rect x="8" y="9" width="4" height="3" fill="#ffd34d"/><rect x="6" y="11" width="8" height="3" fill="#e8501a"/><rect x="9" y="10" width="2" height="2" fill="#fff2b0"/></g>
+      <g class="flame f2"><rect x="10" y="4" width="2" height="2" fill="#ffd34d"/><rect x="8" y="6" width="4" height="2" fill="#ffb02e"/><rect x="7" y="7" width="5" height="5" fill="#ff7a1a"/><rect x="8" y="9" width="3" height="3" fill="#ffd34d"/><rect x="6" y="11" width="8" height="3" fill="#e8501a"/><rect x="9" y="11" width="2" height="1" fill="#fff2b0"/></g>
+      <rect x="4" y="14" width="12" height="2" fill="#7b4a26"/><rect x="3" y="15" width="3" height="2" fill="#5c3418"/><rect x="14" y="15" width="3" height="2" fill="#5c3418"/><rect x="6" y="16" width="8" height="1" fill="#4a2a12"/>
+    </svg>
+  </div>
+  <p class="goodnight"><span lang="sl">Lahko noč!</span> <span class="tr">Good night!</span></p>
+  <nav class="footer-links" aria-label="Footer">
+    <a href="https://github.com/fentas/lani">GitHub</a>
+    <a href="https://github.com/fentas/lani/blob/main/README.md">README</a>
+    <a href="https://github.com/fentas/lani/blob/main/companion/README.md">Companion guide</a>
+    <a href="https://github.com/fentas/lani/blob/main/NOTICE.md">Notice</a>
+    <a href="#top">To the morning ↑</a>
+  </nav>
+  <p class="small">© 2025–2026 the Lani authors · <a href="https://github.com/fentas/lani/blob/main/LICENSE">AGPL-3.0-or-later</a> · Claude and Claude Code are made by Anthropic; Lani is an independent project.</p>
+</footer>
+
+<audio id="sounds" preload="none"></audio>
+</body>
+</html>

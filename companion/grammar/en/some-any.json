@@ -1,0 +1,119 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "some-any",
+  "language": "en",
+  "level": "A2",
+  "emoji": "🍯",
+  "title": {
+    "en": "Some, any; how much, how many",
+    "sl": "Some, any: nekaj, kaj; koliko",
+    "it": "Some, any: un po', del; quanto",
+    "de": "Some, any: etwas, ein paar; wie viel"
+  },
+  "rule": {
+    "en": "**some** and **any** are for an amount you don't give exactly. They go with plurals (**some apples**) and with things you can't count (**some honey**, **some bread**).\n\n**some** is for positive sentences: **We've got some eggs.** Also for offers and requests, where you expect yes: **Would you like some tea?** **Can I have some water, please?**\n\n**any** is for negatives and most questions: **There isn't any bread.** **Have you got any honey?** **Are there any fish in the tarn?**\n\nCountable nouns have a plural (a sheep, fifty sheep; an apple, apples). Uncountable ones have none and take no a: honey, bread, water, milk, hay, weather, news. Ask **how many** with countable ones and **how much** with uncountable ones: **How many sheep?** **How much honey?** **a lot of** goes with both: **a lot of sheep**, **a lot of honey**. In negatives and questions, **many** and **much** are common too: **We haven't got much time.**",
+    "sl": "**some** in **any** sta za količino, ki je ne povemo natančno. Stojita z množino (**some apples**, nekaj jabolk) in z neštevnimi besedami (**some honey**, nekaj medu).\n\n**some** je za trdilne stavke: **We've got some eggs.** (Imamo nekaj jajc.) Tudi za ponudbe in prošnje, kjer pričakujemo da: **Would you like some tea?** (Bi čaj?) **Can I have some water, please?**\n\n**any** je za zanikane stavke in večino vprašanj: **There isn't any bread.** (Kruha ni.) **Have you got any honey?** (Imaš kaj medu?) **Are there any fish in the tarn?**\n\nŠtevni samostalniki imajo množino (a sheep, fifty sheep; an apple, apples), neštevni je nimajo in ne dobijo a: honey, bread, water, milk, hay, weather, news (news je neštevni, čeprav rečemo novice). Koliko je pri števnih **how many**, pri neštevnih **how much**: **How many sheep?** **How much honey?** **a lot of** gre z obojimi: **a lot of sheep**, **a lot of honey** (veliko ovc, veliko medu). V zanikanju in vprašanjih sta pogosta tudi **many** in **much**: **We haven't got much time.** (Nimamo veliko časa.)",
+    "it": "**some** e **any** indicano una quantità non precisa, come del, delle o un po' di. Vanno con il plurale (**some apples**, delle mele) e con i nomi non numerabili (**some honey**, del miele).\n\n**some** è per le frasi affermative: **We've got some eggs.** (Abbiamo delle uova.) Anche per offrire e chiedere, quando ci si aspetta un sì: **Would you like some tea?** (Vuoi del tè?) **Can I have some water, please?**\n\n**any** è per le frasi negative e per la maggior parte delle domande: **There isn't any bread.** (Non c'è pane.) **Have you got any honey?** (Hai del miele?) **Are there any fish in the tarn?**\n\nI nomi numerabili hanno il plurale (a sheep, fifty sheep; an apple, apples), quelli non numerabili no e non prendono a: honey, bread, water, milk, hay, weather, news (anche se diciamo le notizie). Quanti è **how many**, quanto è **how much**: **How many sheep?** **How much honey?** **a lot of** va con tutti e due: **a lot of sheep**, **a lot of honey**. Nelle negazioni e nelle domande si usano spesso anche **many** e **much**: **We haven't got much time.** (Non abbiamo molto tempo.)",
+    "de": "**some** und **any** stehen für eine Menge, die man nicht genau angibt, oft wo das Deutsche etwas, ein paar oder gar kein Wort hat. Sie stehen mit dem Plural (**some apples**, ein paar Äpfel) und mit Unzählbarem (**some honey**, etwas Honig).\n\n**some** steht in bejahten Sätzen: **We've got some eggs.** (Wir haben Eier.) Auch in Angeboten und Bitten, wenn man ein Ja erwartet: **Would you like some tea?** **Can I have some water, please?**\n\n**any** steht in verneinten Sätzen und den meisten Fragen: **There isn't any bread.** (Es gibt kein Brot.) **Have you got any honey?** (Hast du Honig?) **Are there any fish in the tarn?**\n\nZählbare Nomen haben einen Plural (a sheep, fifty sheep; an apple, apples), unzählbare nicht und bekommen kein a: honey, bread, water, milk, hay, weather, news (auch wenn es die Nachrichten heißt). Wie viele ist **how many**, wie viel ist **how much**: **How many sheep?** **How much honey?** **a lot of** geht mit beidem: **a lot of sheep**, **a lot of honey**. In Verneinung und Frage sind auch **many** und **much** üblich: **We haven't got much time.**"
+  },
+  "table": {
+    "head": [
+      { "en": "sentence", "sl": "stavek", "it": "frase", "de": "Satz" },
+      { "en": "countable", "sl": "števni", "it": "numerabile", "de": "zählbar" },
+      { "en": "uncountable", "sl": "neštevni", "it": "non numerabile", "de": "unzählbar" }
+    ],
+    "rows": [
+      [{ "en": "positive", "sl": "trdilni", "it": "affermativa", "de": "bejaht" }, "We've got some apples.", "We've got some honey."],
+      [{ "en": "negative", "sl": "zanikani", "it": "negativa", "de": "verneint" }, "There aren't any apples.", "There isn't any honey."],
+      [{ "en": "question", "sl": "vprašanje", "it": "domanda", "de": "Frage" }, "Are there any apples?", "Is there any honey?"],
+      [{ "en": "offer, request", "sl": "ponudba, prošnja", "it": "offerta, richiesta", "de": "Angebot, Bitte" }, "Would you like some apples?", "Would you like some tea?"],
+      [{ "en": "how many / how much", "sl": "koliko", "it": "quanti / quanto", "de": "wie viele / wie viel" }, "How many sheep?", "How much honey?"],
+      [{ "en": "a lot", "sl": "veliko", "it": "tanti / tanto", "de": "viele / viel" }, "a lot of sheep", "a lot of honey"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "Would you like some tea, Mrs Hartley?",
+      "sl": "Želite čaj, gospa Hartley?",
+      "it": "Vuole del tè, signora Hartley?",
+      "de": "Möchten Sie Tee, Frau Hartley?",
+      "note": {
+        "en": "An offer: some, even in a question.",
+        "sl": "Ponudba: some, čeprav je vprašanje.",
+        "it": "Un'offerta: some, anche se è una domanda.",
+        "de": "Ein Angebot: some, auch in der Frage."
+      }
+    },
+    {
+      "en": "Have we got any eggs, Granny?",
+      "sl": "Imamo kaj jajc, babica?",
+      "it": "Abbiamo delle uova, nonna?",
+      "de": "Haben wir Eier, Oma?",
+      "note": {
+        "en": "A question: any.",
+        "sl": "Vprašanje: any.",
+        "it": "Una domanda: any.",
+        "de": "Eine Frage: any."
+      }
+    },
+    {
+      "en": "There isn't any milk left.",
+      "sl": "Mleka ni več.",
+      "it": "Non c'è più latte.",
+      "de": "Es ist keine Milch mehr da.",
+      "note": {
+        "en": "A negative: any.",
+        "sl": "Zanikanje: any.",
+        "it": "Una negazione: any.",
+        "de": "Eine Verneinung: any."
+      }
+    },
+    {
+      "en": "Beekeeper Arthur has got a lot of honey this year.",
+      "sl": "Čebelar Arthur ima letos veliko medu.",
+      "it": "Quest'anno l'apicoltore Arthur ha tanto miele.",
+      "de": "Imker Arthur hat dieses Jahr viel Honig."
+    },
+    {
+      "en": "How many sheep has Jack got? — A lot!",
+      "sl": "Koliko ovc ima Jack? — Veliko!",
+      "it": "Quante pecore ha Jack? — Tantissime!",
+      "de": "Wie viele Schafe hat Jack? — Ganz viele!",
+      "note": {
+        "en": "Sheep can be counted: how many.",
+        "sl": "Ovce lahko štejemo: how many.",
+        "it": "Le pecore si contano: how many.",
+        "de": "Schafe kann man zählen: how many."
+      }
+    },
+    {
+      "en": "How much hay do the ponies need?",
+      "sl": "Koliko sena potrebujejo poniji?",
+      "it": "Quanto fieno serve ai pony?",
+      "de": "Wie viel Heu brauchen die Ponys?",
+      "note": {
+        "en": "Hay can't be counted: how much.",
+        "sl": "Seno ni števno: how much.",
+        "it": "Il fieno non si conta: how much.",
+        "de": "Heu ist unzählbar: how much."
+      }
+    },
+    {
+      "en": "Can I have some damson jam, please?",
+      "sl": "Lahko dobim malo slivove marmelade, prosim?",
+      "it": "Posso avere un po' di marmellata di susine, per favore?",
+      "de": "Kann ich bitte etwas Pflaumenmarmelade haben?",
+      "note": {
+        "en": "A request: some.",
+        "sl": "Prošnja: some.",
+        "it": "Una richiesta: some.",
+        "de": "Eine Bitte: some."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["some", "any", "some_any", "countable", "uncountable", "much_many", "a_lot_of", "quantifiers"],
+  "see": ["there-is-are", "plurals", "articles"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

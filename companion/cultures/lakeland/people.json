@@ -1,0 +1,139 @@
+{
+  "first_names": {
+    "female": [
+      "Emily", "Grace", "Lucy", "Hannah", "Sophie", "Olivia", "Charlotte", "Ellie", "Amelia", "Isla", "Ruby", "Chloe",
+      "Molly", "Jessica", "Holly", "Katie"
+    ],
+    "male": [
+      "Oliver", "George", "Thomas", "William", "James", "Charlie", "Joseph", "Daniel", "Oscar", "Leo", "Henry", "Edward",
+      "Matthew", "Luke", "Adam", "Ethan"
+    ]
+  },
+  "surnames": [
+    "Wilson", "Nicholson", "Relph", "Fleming", "Jackson", "Atkinson", "Armstrong", "Graham", "Bowness", "Rigg", "Hodgson",
+    "Wilkinson", "Pattinson", "Robinson", "Mounsey"
+  ],
+  "trades": [
+    {
+      "female": { "en": "Woodcutter", "sl": "Drvarka", "it": "Boscaiola", "de": "Holzfällerin" },
+      "male": { "en": "Woodcutter", "sl": "Drvar", "it": "Boscaiolo", "de": "Holzfäller" }
+    },
+    {
+      "female": { "en": "Fisherwoman", "sl": "Ribička", "it": "Pescatrice", "de": "Fischerin" },
+      "male": { "en": "Fisherman", "sl": "Ribič", "it": "Pescatore", "de": "Fischer" }
+    },
+    {
+      "female": { "en": "Drystone waller", "sl": "Graditeljica suhih zidov", "it": "Costruttrice di muretti a secco", "de": "Trockenmaurerin" },
+      "male": { "en": "Drystone waller", "sl": "Graditelj suhih zidov", "it": "Costruttore di muretti a secco", "de": "Trockenmaurer" }
+    },
+    {
+      "needs": "field",
+      "female": { "en": "Farmer", "sl": "Kmetica", "it": "Contadina", "de": "Bäuerin" },
+      "male": { "en": "Farmer", "sl": "Kmet", "it": "Contadino", "de": "Bauer" }
+    },
+    {
+      "needs": "beehive",
+      "female": { "en": "Beekeeper", "sl": "Čebelarka", "it": "Apicoltrice", "de": "Imkerin" },
+      "male": { "en": "Beekeeper", "sl": "Čebelar", "it": "Apicoltore", "de": "Imker" }
+    },
+    {
+      "needs": "smithy",
+      "female": { "en": "Smith's apprentice", "sl": "Kovačeva vajenka", "it": "Apprendista del fabbro", "de": "Schmiedelehrling" },
+      "male": { "en": "Smith's apprentice", "sl": "Kovačev vajenec", "it": "Apprendista del fabbro", "de": "Schmiedelehrling" }
+    },
+    {
+      "needs": "market",
+      "female": { "en": "Shopkeeper", "sl": "Trgovka", "it": "Negoziante", "de": "Ladenbesitzerin" },
+      "male": { "en": "Shopkeeper", "sl": "Trgovec", "it": "Negoziante", "de": "Ladenbesitzer" }
+    },
+    {
+      "needs": "house",
+      "female": { "en": "Weaver", "sl": "Tkalka", "it": "Tessitrice", "de": "Weberin" },
+      "male": { "en": "Carpenter", "sl": "Mizar", "it": "Falegname", "de": "Tischler" }
+    }
+  ],
+  "stages": {
+    "baby": {
+      "female": { "en": "Baby", "sl": "Dojenčica", "it": "Neonata", "de": "Baby" },
+      "male": { "en": "Baby", "sl": "Dojenček", "it": "Neonato", "de": "Baby" }
+    },
+    "child": {
+      "female": { "en": "Girl", "sl": "Deklica", "it": "Bambina", "de": "Mädchen" },
+      "male": { "en": "Boy", "sl": "Deček", "it": "Bambino", "de": "Junge" }
+    },
+    "youth": {
+      "female": { "en": "Young woman", "sl": "Mladenka", "it": "Ragazza", "de": "Junge Frau" },
+      "male": { "en": "Young man", "sl": "Mladenič", "it": "Ragazzo", "de": "Junger Mann" }
+    }
+  },
+  "newborn": { "en": "Baby", "sl": "Dojenček", "it": "Bebè", "de": "Baby" },
+  "story": { "en": "Of the {family} family, in the village since {since}." },
+  "lines": {
+    "adult": {
+      "greet": [
+        { "en": "Hello!", "sl": "Pozdravljen!", "it": "Salve!", "de": "Hallo!" },
+        { "en": "Now then! How are you?", "sl": "Živjo! Kako si? (now then: pozdrav na severu Anglije)", "it": "Ciao! Come stai? (now then: un saluto del nord dell'Inghilterra)", "de": "Hallo! Wie geht's? (now then: ein Gruß im Norden Englands)", "level": 2 }
+      ],
+      "thanks": [
+        { "en": "Thank you very much!", "sl": "Hvala lepa!", "it": "Grazie mille!", "de": "Vielen Dank!" },
+        { "en": "You really helped me. Thanks!", "sl": "Res si mi pomagal. Hvala!", "it": "Mi hai davvero aiutato. Grazie!", "de": "Du hast mir wirklich geholfen. Danke!", "level": 1 }
+      ],
+      "remember": [
+        { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 }
+      ],
+      "idle": [
+        { "en": "It's a lovely day today. No rain!", "sl": "Danes je lep dan. Brez dežja!", "it": "Oggi è una bella giornata. Niente pioggia!", "de": "Heute ist ein schöner Tag. Kein Regen!", "when": ["morning", "afternoon", "evening"] },
+        { "en": "There's always something to do in the village.", "sl": "V vasi je vedno kaj dela.", "it": "In paese c'è sempre qualcosa da fare.", "de": "Im Dorf gibt es immer etwas zu tun." }
+      ],
+      "cheer": [
+        { "en": "Brilliant!", "sl": "Odlično!", "it": "Ottimo!", "de": "Super!" },
+        { "en": "That's right!", "sl": "Tako je!", "it": "Giusto!", "de": "Richtig!" }
+      ],
+      "comfort": [
+        { "en": "Never mind. Try again.", "sl": "Nič hudega. Poskusi še enkrat.", "it": "Non fa niente. Riprova.", "de": "Macht nichts. Versuch es noch einmal." }
+      ],
+      "listen": [
+        { "en": "Listen carefully.", "sl": "Dobro poslušaj.", "it": "Ascolta bene.", "de": "Hör gut zu." }
+      ],
+      "bye": [
+        { "en": "Goodbye!", "sl": "Na svidenje!", "it": "Arrivederci!", "de": "Auf Wiedersehen!" },
+        { "en": "Cheers! See you!", "sl": "Adijo! Se vidiva! (cheers: tudi hvala ali adijo)", "it": "Ciao! Ci vediamo! (cheers: anche grazie o ciao)", "de": "Tschüss! Bis bald! (cheers: auch danke oder tschüss)", "level": 2 }
+      ]
+    },
+    "child": {
+      "greet": [
+        { "en": "Hi!", "sl": "Živjo!", "it": "Ciao!", "de": "Hallo!" },
+        { "en": "Hey! Do you want to play?", "sl": "Ej! Greš se igrat?", "it": "Ehi! Vieni a giocare?", "de": "Hey! Kommst du spielen?", "level": 1 }
+      ],
+      "thanks": [
+        { "en": "Thanks!", "sl": "Hvala!", "it": "Grazie!", "de": "Danke!" }
+      ],
+      "remember": [
+        { "en": "Do you remember {memory}?", "sl": "Se spomniš na {memory}?", "it": "Ti ricordi {memory}?", "de": "Erinnerst du dich an {memory}?", "level": 1 }
+      ],
+      "idle": [
+        { "en": "It's a great day for playing today.", "sl": "Danes je lep dan za igro.", "it": "Oggi è una bella giornata per giocare.", "de": "Heute ist ein toller Tag zum Spielen.", "when": ["morning", "afternoon", "evening"] },
+        { "en": "Mum says it's time for bed.", "sl": "Mama pravi, da je čas za spat.", "it": "La mamma dice che è ora di dormire.", "de": "Mama sagt, es ist Zeit zum Schlafen.", "when": ["night"] }
+      ],
+      "cheer": [
+        { "en": "Yay!", "sl": "Juhu!", "it": "Evviva!", "de": "Juhu!" },
+        { "en": "Cool!", "sl": "Super!", "it": "Forte!", "de": "Cool!" }
+      ],
+      "comfort": [
+        { "en": "Never mind!", "sl": "Nič hudega!", "it": "Non fa niente!", "de": "Macht nichts!" }
+      ],
+      "listen": [
+        { "en": "Listen!", "sl": "Poslušaj!", "it": "Ascolta!", "de": "Hör mal!" }
+      ],
+      "bye": [
+        { "en": "Bye!", "sl": "Adijo!", "it": "Ciao ciao!", "de": "Tschüss!" }
+      ]
+    }
+  },
+  "news": {
+    "moved_in_cast": { "en": "{name} moved into the village", "sl": "{name} se je {g, select, f {preselila} other {preselil}} v vas", "it": "{name} si è {g, select, f {trasferita} other {trasferito}} in paese", "de": "{name} ist ins Dorf gezogen" },
+    "born": { "en": "{first} was born to the {family} family!", "sl": "Pri {family_at} se je {g, select, f {rodila} other {rodil}} {first}!", "it": "In casa {family} è {g, select, f {nata} other {nato}} {first}!", "de": "Bei Familie {family} ist {first} zur Welt gekommen!" },
+    "moved_in": { "en": "{name}, a {role}, moved in", "sl": "V vas se je {g, select, f {priselila} other {priselil}} {name}, {role}", "it": "In paese è {g, select, f {arrivata} other {arrivato}} {name}, {role}", "de": "Neu im Dorf: {name}, {role}" },
+    "left": { "en": "{name} left the village", "sl": "je {g, select, f {odšla} other {odšel}} iz vasi", "it": "ha lasciato il paese", "de": "hat das Dorf verlassen" }
+  }
+}

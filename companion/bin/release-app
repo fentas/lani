@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Build a release APK and publish it to the Lani app (self-update).
+# The bridge notices the new latest.json and sends the app an app_update event.
+# Usage: companion/bin/release-app "short release notes"
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+notes="${1:-}"
+
+# The version follows the commit count (versionCode 1000 + count, versionName 0.2.<count>: app/build.gradle.kts),
+# so an uncommitted build would reuse the last code.
+if [[ -n "$(git -C "$root" status --porcelain -- companion/android)" ]]; then
+  echo "companion/android has uncommitted changes; commit them first." >&2
+  exit 1
+fi
+
+data="$(python3 "$root/.claude/hooks/ensure_data_dir.py")"
+rel="$data/app/release"
+mkdir -p "$rel"
+
+cd "$root/companion/android"
+export JAVA_HOME="${JAVA_HOME:-$(mise where java)}"
+./gradlew -q :app:assembleRelease
+
+# what the build made of it (AGP's output-metadata.json), so this script and the app can't disagree
+read -r code name < <(python3 -c 'import json,sys; e=json.load(open(sys.argv[1]))["elements"][0]; print(e["versionCode"], e["versionName"])' app/build/outputs/apk/release/output-metadata.json)
+cp app/build/outputs/apk/release/app-release.apk "$rel/lani-$code.apk"
+
+python3 - "$rel" "$code" "$name" "$notes" <<'PY'
+import json, os, sys
+rel, code, name, notes = sys.argv[1:]
+tmp = os.path.join(rel, "latest.json.tmp")
+with open(tmp, "w") as f:
+    json.dump({"versionCode": int(code), "versionName": name, "file": f"lani-{code}.apk", "notes": notes}, f)
+os.replace(tmp, os.path.join(rel, "latest.json"))
+PY
+# Keep the last 5 builds (the app's from before the rename were fluent-<code>.apk).
+shopt -s nullglob
+apks=("$rel"/lani-*.apk "$rel"/fluent-*.apk)
+if (( ${#apks[@]} > 5 )); then ls -1t -- "${apks[@]}" | tail -n +6 | xargs -r -d '\n' rm --; fi
+echo "released $name ($code)"

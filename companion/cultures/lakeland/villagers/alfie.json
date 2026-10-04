@@ -1,0 +1,83 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "alfie",
+  "name": "Alfie",
+  "emoji": "👦",
+  "art": "child3",
+  "voice": "male",
+  "speaker": "boy",
+  "role": {"en": "Boy", "sl": "Deček", "it": "Bambino", "de": "Junge"},
+  "home": ["field", "kozolec"],
+  "register": "ti",
+  "skill": "stone",
+  "order": 6,
+  "routine": { "up": "7:00", "bed": "19:45" },
+  "personality": "Six, the smallest of the village children, Mr Tyson's grandson. Shy at first, then chatty; counts everything like his grandad ('one, two, three!'), loves tractors, the fell ponies and splashing in the beck (the stream). First names both ways: he calls the learner by name, and the learner calls him Alfie; he looks up to the learner like a big brother. Very short sentences and simple words, a child talking to a child.",
+  "story": "Alfie lives with his grandad, Mr Tyson, by the field and follows him out every morning. He knows every fell pony in the dale by name, sits on the old red tractor pretending to drive it, and comes home from the beck with wet socks. Every evening he asks Old Wilf for the same story.",
+  "likes": [
+    {"en": "tractors", "sl": "traktorji", "it": "i trattori", "de": "Traktoren"},
+    {"en": "fell ponies", "sl": "poniji fell (majhni konji s hribov)", "it": "i pony Fell (piccoli cavalli di montagna)", "de": "Fell-Ponys (kleine Pferde aus den Bergen)"},
+    {"en": "counting", "sl": "štetje", "it": "contare", "de": "Zählen"},
+    {"en": "splashing in the beck", "sl": "čofotanje v potoku", "it": "sguazzare nel torrente", "de": "im Bach planschen"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Hi …", "sl": "Živjo …", "it": "Ciao …", "de": "Hallo …", "level": 0 },
+      { "en": "Hi! I'm Alfie. I'm six.", "sl": "Živjo! Jaz sem Alfie. Star sem šest let.", "it": "Ciao! Io sono Alfie. Ho sei anni.", "de": "Hallo! Ich bin Alfie. Ich bin sechs.", "level": 0 },
+      { "en": "Hi! Do you want to see the tractor?", "sl": "Živjo! Hočeš videti traktor?", "it": "Ciao! Vuoi vedere il trattore?", "de": "Hallo! Willst du den Traktor sehen?", "level": 1 },
+      { "en": "Hey! I counted the ponies: there are three!", "sl": "Ej! Preštel sem ponije: trije so!", "it": "Ehi! Ho contato i pony: sono tre!", "de": "Hey! Ich habe die Ponys gezählt: Es sind drei!", "level": 2 },
+      { "en": "Hooray, you're here! Will you play with me?", "sl": "Juhu, tu si! Se igraš z mano?", "it": "Evviva, sei qui! Giochi con me?", "de": "Hurra, du bist da! Spielst du mit mir?", "level": 3 },
+      { "en": "You're like my big brother! Come on, come on!", "sl": "Si kot moj veliki brat! Pridi, pridi!", "it": "Sei come un fratello grande! Vieni, vieni!", "de": "Du bist wie mein großer Bruder! Komm, komm!", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Thanks!", "sl": "Hvala!", "it": "Grazie!", "de": "Danke!" },
+      { "en": "Thanks! You're great!", "sl": "Hvala! Super si!", "it": "Grazie! Sei forte!", "de": "Danke! Du bist toll!" },
+      { "en": "Thanks! I'm going to tell Grandad.", "sl": "Hvala! Povem dedku.", "it": "Grazie! Lo dico al nonno.", "de": "Danke! Das erzähle ich Opa." }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "Do you remember? I still think of {memory}!", "sl": "Se spomniš? Jaz še vedno mislim na {memory}!", "it": "Ti ricordi? Io ricordo ancora {memory}!", "de": "Weißt du noch? Ich denke immer noch an {memory}!", "level": 2 },
+      { "en": "Every night in bed I think of {memory}.", "sl": "Vsak večer v postelji mislim na {memory}.", "it": "Ogni sera a letto ricordo {memory}.", "de": "Jeden Abend im Bett denke ich an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "en": "One, two, three, four … four hens!", "sl": "Ena, dve, tri, štiri … štiri kokoši!", "it": "Uno, due, tre, quattro … quattro galline!", "de": "Eins, zwei, drei, vier … vier Hühner!" },
+      { "en": "Grandad's tractor is red.", "sl": "Dedkov traktor je rdeč.", "it": "Il trattore del nonno è rosso.", "de": "Opas Traktor ist rot." },
+      { "en": "Look! The pony is eating my apple.", "sl": "Poglej! Poni jé moje jabolko.", "it": "Guarda! Il pony mangia la mia mela.", "de": "Schau! Das Pony frisst meinen Apfel." },
+      { "en": "My socks are wet. I jumped in the beck!", "sl": "Nogavice imam mokre. Skočil sem v potok!", "it": "Ho i calzini bagnati. Sono saltato nel torrente!", "de": "Meine Socken sind nass. Ich bin in den Bach gesprungen!" }
+    ],
+    "cheer": [
+      { "en": "Yes! Right!", "sl": "Ja! Prav!", "it": "Sì! Giusto!", "de": "Ja! Richtig!" },
+      { "en": "Hooray!", "sl": "Juhu!", "it": "Evviva!", "de": "Hurra!" },
+      { "en": "Well done! Like Grandad!", "sl": "Bravo! Kot dedek!", "it": "Bravo! Come il nonno!", "de": "Super! Wie Opa!" }
+    ],
+    "comfort": [
+      { "en": "Never mind!", "sl": "Nič hudega!", "it": "Non fa niente!", "de": "Macht nichts!" },
+      { "en": "I get it wrong too. Again!", "sl": "Tudi jaz se zmotim. Še enkrat!", "it": "Anch'io sbaglio. Ancora!", "de": "Ich mach auch Fehler. Nochmal!" },
+      { "en": "Slowly, slowly. Like Grandad.", "sl": "Počasi, počasi. Kot dedek.", "it": "Piano piano. Come il nonno.", "de": "Langsam, langsam. Wie Opa." }
+    ],
+    "listen": [
+      { "en": "Listen!", "sl": "Poslušaj!", "it": "Ascolta!", "de": "Hör mal!" },
+      { "en": "Shh … can you hear the pony?", "sl": "Pst … slišiš ponija?", "it": "Shh … senti il pony?", "de": "Pst … hörst du das Pony?" },
+      { "en": "Listen carefully, OK?", "sl": "Dobro poslušaj, ja?", "it": "Ascolta bene, eh!", "de": "Hör gut zu, ja?" }
+    ],
+    "bye": [
+      { "en": "Bye!", "sl": "Adijo!", "it": "Ciao!", "de": "Tschüss!" },
+      { "en": "Bye! I'm going to see the ponies.", "sl": "Adijo! Grem pogledat ponije.", "it": "Ciao! Vado a vedere i pony.", "de": "Tschüss! Ich gehe zu den Ponys." },
+      { "en": "See you! Shall we play in the beck tomorrow?", "sl": "Se vidimo! Se jutri igrava v potoku?", "it": "Ci vediamo! Domani giochiamo nel torrente?", "de": "Bis dann! Spielen wir morgen im Bach?" }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "For me? Hooray! Thanks!", "sl": "Zame? Juhu! Hvala!", "it": "Per me? Evviva! Grazie!", "de": "Für mich? Hurra! Danke!" },
+        { "en": "I like it! One, two … lots and lots!", "sl": "Všeč mi je! Ena, dva … zelo, zelo!", "it": "Mi piace! Uno, due … tantissimo!", "de": "Das gefällt mir! Eins, zwei … ganz, ganz viel!" },
+        { "en": "How did you know? I'm going to tell Grandad!", "sl": "Kako si vedel? Povem dedku!", "it": "Come lo sapevi? Lo dico al nonno!", "de": "Woher wusstest du das? Das erzähle ich Opa!" }
+      ],
+      "ordinary": [
+        { "en": "Thanks! Is it really for me?", "sl": "Hvala! Je res zame?", "it": "Grazie! È proprio per me?", "de": "Danke! Ist das wirklich für mich?" },
+        { "en": "Thanks! Now I'm happy.", "sl": "Hvala! Zdaj sem vesel.", "it": "Grazie! Adesso sono contento.", "de": "Danke! Jetzt bin ich froh." }
+      ],
+      "rare": [
+        { "en": "Wow! How lovely! Thanks, thanks, thanks!", "sl": "Uau! Kako lepo! Hvala, hvala, hvala!", "it": "Uau! Che bello! Grazie, grazie, grazie!", "de": "Wow! Wie schön! Danke, danke, danke!" }
+      ]
+    }
+  }
+}

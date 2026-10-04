@@ -1,0 +1,20 @@
+{
+  "_default": "ana",
+  "_comment": "A voice = voice-cloning reference + sampling seed. 'ref' is a clip from the model repo (samples/...) or a path next to this file. 'bootstrap' makes the reference once with the model itself (no reference, fixed seed) and caches the codes in $LANI_VOICE_STATE/voices/. 'aliases' are extra speaker names. Any other speaker name maps to a fixed voice from the 'pool' (crc32 of the name).",
+  "_pool": ["ana", "marko", "nina"],
+  "ana": {
+    "ref": "samples/02_nevtralno.wav",
+    "seed": 1,
+    "aliases": ["default", "female", "f", "zenska", "ženska", "tutor"]
+  },
+  "marko": {
+    "bootstrap": {"seed": 12, "text": "Danes je lep sončen dan in ptice pojejo na drevesih."},
+    "seed": 2,
+    "aliases": ["male", "m", "moski", "moški"]
+  },
+  "nina": {
+    "ref": "samples/07_presenecenje.wav",
+    "seed": 0,
+    "aliases": ["female2"]
+  }
+}

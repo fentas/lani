@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "rodilnik-kolicina",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🥛",
+  "title": {
+    "sl": "Malo, veliko, kos: rodilnik količine",
+    "en": "A little, a lot, a piece of: the genitive of quantity",
+    "de": "Wenig, viel, ein Stück: der Genitiv der Menge",
+    "it": "Poco, tanto, un pezzo di: il genitivo di quantità"
+  },
+  "rule": {
+    "en": "After a word of quantity the noun goes into the genitive (*rodilnik*): **malo vode** (a little water), **veliko snega** (a lot of snow), **kos kruha** (a piece of bread). The question is **koliko?**: **koliko časa**, **koliko jajc**.\n\nQuantity words: **malo**, **veliko**, **dosti** (plenty), **preveč** (too much), **premalo** (too little), **več** (more), **manj** (less), **nekaj** (some), **koliko**. Measures too: **kos**, **hlebec**, **liter**, **kilogram**, **kozarec**, **skodelica**: **kozarec medu**, **kilogram sira**.\n\nWhat you can't count stays singular: **malo soli**, **veliko mleka**, **preveč megle**. What you can count takes the plural: **veliko borovnic**, **koliko let**, **nekaj ovc**.\n\nThe endings: masculine and neuter **-a** (kruh → **kruha**, seno → **sena**), feminine **-e** (voda → **vode**; sol → **soli**). In the plural, masculine **-ov** (netopir → **netopirjev**), feminine and neuter none (borovnica → **borovnic**, leto → **let**).\n\nFrom five on, numbers work the same way: **pet ovc**. Mind **veliko**: with the genitive it's *a lot of* (**veliko vina**); agreeing with its noun it's *big* (**veliko vino**).",
+    "de": "Nach einem Mengenwort steht das Nomen im Genitiv (*rodilnik*): **malo vode** (ein wenig Wasser), **veliko snega** (viel Schnee), **kos kruha** (ein Stück Brot). Die Frage ist **koliko?**: **koliko časa**, **koliko jajc**.\n\nMengenwörter: **malo**, **veliko**, **dosti** (reichlich), **preveč** (zu viel), **premalo** (zu wenig), **več** (mehr), **manj** (weniger), **nekaj** (etwas, ein paar), **koliko**. Auch Maße: **kos**, **hlebec**, **liter**, **kilogram**, **kozarec**, **skodelica**: **kozarec medu**, **kilogram sira**.\n\nWas man nicht zählt, bleibt im Singular: **malo soli**, **veliko mleka**, **preveč megle**. Was man zählt, steht im Plural: **veliko borovnic**, **koliko let**, **nekaj ovc**.\n\nDie Endungen: männlich und sächlich **-a** (kruh → **kruha**, seno → **sena**), weiblich **-e** (voda → **vode**; sol → **soli**). Im Plural männlich **-ov** (netopir → **netopirjev**), weiblich und sächlich keine (borovnica → **borovnic**, leto → **let**).\n\nAb fünf gilt das auch für Zahlen: **pet ovc**. Achtung bei **veliko**: mit Genitiv heißt es *viel* (**veliko vina**), mit seinem Nomen übereinstimmend *groß* (**veliko vino**).",
+    "it": "Dopo una parola di quantità il nome va al genitivo (*rodilnik*): **malo vode** (un po' d'acqua), **veliko snega** (tanta neve), **kos kruha** (un pezzo di pane). La domanda è **koliko?**: **koliko časa**, **koliko jajc**.\n\nParole di quantità: **malo**, **veliko**, **dosti** (parecchio), **preveč** (troppo), **premalo** (troppo poco), **več** (di più), **manj** (di meno), **nekaj** (alcuni), **koliko**. Anche le misure: **kos**, **hlebec**, **liter**, **kilogram**, **kozarec**, **skodelica**: **kozarec medu**, **kilogram sira**.\n\nCiò che non si conta resta al singolare: **malo soli**, **veliko mleka**, **preveč megle**. Ciò che si conta va al plurale: **veliko borovnic**, **koliko let**, **nekaj ovc**.\n\nLe desinenze: maschile e neutro **-a** (kruh → **kruha**, seno → **sena**), femminile **-e** (voda → **vode**; sol → **soli**). Al plurale il maschile **-ov** (netopir → **netopirjev**), femminile e neutro nessuna (borovnica → **borovnic**, leto → **let**).\n\nDa cinque in su i numeri fanno lo stesso: **pet ovc**. Attenzione a **veliko**: con il genitivo vuol dire *tanto* (**veliko vina**); se concorda con il nome vuol dire *grande* (**veliko vino**)."
+  },
+  "table": {
+    "head": [
+      { "sl": "beseda", "en": "word", "de": "Wort", "it": "parola" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+    ],
+    "rows": [
+      ["malo", "malo vode", { "en": "a little water", "de": "ein wenig Wasser", "it": "un po' d'acqua" }],
+      ["veliko", "veliko borovnic", { "en": "a lot of blueberries", "de": "viele Heidelbeeren", "it": "tanti mirtilli" }],
+      ["preveč", "preveč megle", { "en": "too much fog", "de": "zu viel Nebel", "it": "troppa nebbia" }],
+      ["nekaj", "nekaj ovc", { "en": "a few sheep", "de": "ein paar Schafe", "it": "alcune pecore" }],
+      ["koliko", "koliko let?", { "en": "how many years?", "de": "wie viele Jahre?", "it": "quanti anni?" }],
+      ["več, manj", "več moke, manj sladkorja", { "en": "more flour, less sugar", "de": "mehr Mehl, weniger Zucker", "it": "più farina, meno zucchero" }],
+      ["kos", "kos kruha", { "en": "a piece of bread", "de": "ein Stück Brot", "it": "un pezzo di pane" }],
+      ["kozarec", "kozarec medu", { "en": "a jar of honey", "de": "ein Glas Honig", "it": "un vasetto di miele" }],
+      ["kilogram", "kilogram sira", { "en": "a kilo of cheese", "de": "ein Kilo Käse", "it": "un chilo di formaggio" }],
+      ["liter", "liter mleka", { "en": "a litre of milk", "de": "ein Liter Milch", "it": "un litro di latte" }],
+      ["pet, deset", "pet ovc, deset jajc", { "en": "five sheep, ten eggs", "de": "fünf Schafe, zehn Eier", "it": "cinque pecore, dieci uova" }]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Ne, samo še malo sena!",
+      "en": "No, just a little more hay!",
+      "de": "Nein, nur noch ein bisschen Heu!",
+      "it": "No, solo ancora un po' di fieno!",
+      "note": {
+        "en": "malo takes the genitive: seno → sena.",
+        "de": "malo verlangt den Genitiv: seno → sena.",
+        "it": "malo vuole il genitivo: seno → sena."
+      }
+    },
+    {
+      "sl": "V gozdu je veliko borovnic.",
+      "en": "There are a lot of blueberries in the forest.",
+      "de": "Im Wald gibt es viele Heidelbeeren.",
+      "it": "Nel bosco ci sono tanti mirtilli.",
+      "note": {
+        "en": "You can count them: the genitive plural, borovnic.",
+        "de": "Man kann sie zählen: Genitiv Plural, borovnic.",
+        "it": "Si possono contare: genitivo plurale, borovnic."
+      }
+    },
+    {
+      "sl": "Še hlebec kruha, prosim.",
+      "en": "And a loaf of bread, please.",
+      "de": "Noch einen Laib Brot, bitte.",
+      "it": "Ancora una pagnotta di pane, per favore."
+    },
+    {
+      "sl": "Koliko jajc potrebuješ za potico?",
+      "en": "How many eggs do you need for the potica?",
+      "de": "Wie viele Eier brauchst du für die Potica?",
+      "it": "Quante uova ti servono per la potica?"
+    },
+    {
+      "sl": "Vinar Marko ima veliko vina.",
+      "en": "Marko the winemaker has a lot of wine.",
+      "de": "Winzer Marko hat viel Wein.",
+      "it": "Il viticoltore Marko ha tanto vino.",
+      "note": {
+        "en": "veliko vina: a lot of wine. Veliko vino would be a big wine.",
+        "de": "veliko vina: viel Wein. Veliko vino wäre ein großer Wein.",
+        "it": "veliko vina: tanto vino. Veliko vino sarebbe un vino grande."
+      }
+    },
+    {
+      "sl": "V kotličku je ostalo še malo juhe.",
+      "en": "There's still a little soup left in the pot.",
+      "de": "Im Kessel ist noch ein bisschen Suppe übrig.",
+      "it": "Nel pentolino è rimasta ancora un po' di minestra.",
+      "note": {
+        "en": "After a quantity the verb is singular, and neuter in the past: je ostalo.",
+        "de": "Nach einer Mengenangabe steht das Verb im Singular, in der Vergangenheit sächlich: je ostalo.",
+        "it": "Dopo una quantità il verbo è al singolare, e al passato neutro: je ostalo."
+      }
+    },
+    {
+      "sl": "Zvečer je nad ribnikom veliko netopirjev.",
+      "en": "In the evening there are lots of bats over the pond.",
+      "de": "Abends sind viele Fledermäuse über dem Teich.",
+      "it": "La sera ci sono tanti pipistrelli sopra lo stagno."
+    }
+  ],
+  "modules": [],
+  "tags": ["genitive_quantity", "quantity_genitive", "quantity"],
+  "see": ["stevila-samostalniki", "rodilnik", "vprasalnice", "primernik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

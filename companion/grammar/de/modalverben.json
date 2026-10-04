@@ -1,0 +1,108 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "modalverben",
+  "language": "de",
+  "level": "A2",
+  "emoji": "💪",
+  "title": {
+    "de": "Ich kann, ich muss: die Modalverben",
+    "sl": "Ich kann, ich muss: naklonski glagoli",
+    "en": "Ich kann, ich muss: modal verbs",
+    "it": "Ich kann, ich muss: i verbi modali"
+  },
+  "rule": {
+    "en": "The modal verbs (*Modalverben*) say what you can, must or want to do: **können** (can), **müssen** (must, have to), **wollen** (want; ich will means I want, not I will), **dürfen** (may, be allowed to), **sollen** (should, be supposed to), **möchten** (would like).\n\nIn the singular they are irregular: ich **kann**, du **kannst**, er **kann**; ich **muss**, du **musst**, er **muss**; ich **will**, du **willst**, er **will**; ich **darf**, du **darfst**, er **darf**; ich **möchte**, du **möchtest**, er **möchte**. ich and er/sie/es are the same, with no -t: **er kann**, not er kannt. The plural is regular: wir können, ihr könnt.\n\nThe other verb goes to the end in the infinitive, with no zu, as in English can swim: Ich **kann** gut **schwimmen**. Du **darfst** nicht allein auf die Alm **gehen**.\n\nCareful: **nicht müssen** is don't have to, **nicht dürfen** is mustn't: Du musst nicht kommen. Du darfst nicht kommen.",
+    "sl": "Naklonski glagoli (*Modalverben*) povedo, kaj lahko, moraš ali hočeš narediti: **können** (moči, znati), **müssen** (morati), **wollen** (hoteti), **dürfen** (smeti), **sollen** (naj, imeti nalogo), **möchten** (rad bi, želeti).\n\nV ednini so nepravilni: ich **kann**, du **kannst**, er **kann**; ich **muss**, du **musst**, er **muss**; ich **will**, du **willst**, er **will**; ich **darf**, du **darfst**, er **darf**; ich **möchte**, du **möchtest**, er **möchte**. ich in er/sie/es sta enaka, brez -t: **er kann**, ne er kannt. Množina je pravilna: wir können, ihr könnt.\n\nDrugi glagol gre v nedoločniku na konec: Ich **kann** gut **schwimmen** (dobro znam plavati). Du **darfst** nicht allein auf die Alm **gehen**.\n\nPozor: **nicht müssen** pomeni ni treba, **nicht dürfen** pa ne smeti: Du musst nicht kommen (ni ti treba priti). Du darfst nicht kommen (ne smeš priti).",
+    "it": "I verbi modali (*Modalverben*) dicono che cosa si può, si deve o si vuole fare: **können** (potere, sapere), **müssen** (dovere), **wollen** (volere), **dürfen** (potere, avere il permesso), **sollen** (dovere, perché qualcuno lo chiede), **möchten** (vorrei, desiderare).\n\nAl singolare sono irregolari: ich **kann**, du **kannst**, er **kann**; ich **muss**, du **musst**, er **muss**; ich **will**, du **willst**, er **will**; ich **darf**, du **darfst**, er **darf**; ich **möchte**, du **möchtest**, er **möchte**. ich ed er/sie/es sono uguali, senza -t: **er kann**, non er kannt. Il plurale è regolare: wir können, ihr könnt.\n\nL'altro verbo va alla fine, all'infinito: Ich **kann** gut **schwimmen** (so nuotare bene). Du **darfst** nicht allein auf die Alm **gehen**.\n\nAttenzione: **nicht müssen** vuol dire non essere obbligati, **nicht dürfen** è un divieto: Du musst nicht kommen (non c'è bisogno che tu venga). Du darfst nicht kommen (non puoi venire)."
+  },
+  "table": {
+    "head": [
+      { "de": "Person", "sl": "oseba", "en": "person", "it": "persona" },
+      { "de": "können", "sl": "können (moči, znati)", "en": "können (can)", "it": "können (potere, sapere)" },
+      { "de": "müssen", "sl": "müssen (morati)", "en": "müssen (must)", "it": "müssen (dovere)" },
+      { "de": "wollen", "sl": "wollen (hoteti)", "en": "wollen (want)", "it": "wollen (volere)" }
+    ],
+    "rows": [
+      ["ich", "kann", "muss", "will"],
+      ["du", "kannst", "musst", "willst"],
+      ["er / sie / es", "kann", "muss", "will"],
+      ["wir", "können", "müssen", "wollen"],
+      ["ihr", "könnt", "müsst", "wollt"],
+      ["sie / Sie", "können", "müssen", "wollen"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Ich kann gut schwimmen.",
+      "sl": "Dobro znam plavati.",
+      "en": "I can swim well.",
+      "it": "So nuotare bene.",
+      "note": {
+        "en": "kann in second place, schwimmen at the end.",
+        "sl": "können = znati in moči; schwimmen na koncu.",
+        "it": "können = sapere e potere; schwimmen alla fine."
+      }
+    },
+    {
+      "de": "Kinder dürfen nicht allein auf die Alm gehen.",
+      "sl": "Otroci ne smejo sami iti na planino.",
+      "en": "Children mustn't go up to the alpine pasture alone.",
+      "it": "I bambini non possono andare all'alpeggio da soli.",
+      "note": {
+        "en": "nicht dürfen = mustn't, not allowed.",
+        "sl": "nicht dürfen = ne smeti.",
+        "it": "nicht dürfen = non potere, divieto."
+      }
+    },
+    {
+      "de": "Ich muss heute Oma Resi helfen.",
+      "sl": "Danes moram pomagati babici Resi.",
+      "en": "Today I have to help Grandma Resi.",
+      "it": "Oggi devo aiutare la nonna Resi."
+    },
+    {
+      "de": "Maxi will das Lamm streicheln.",
+      "sl": "Maxi hoče pobožati jagnje.",
+      "en": "Maxi wants to stroke the lamb.",
+      "it": "Maxi vuole accarezzare l'agnello.",
+      "note": {
+        "en": "will = wants, not will.",
+        "sl": "wollen = hoteti: Maxi will.",
+        "it": "wollen = volere: Maxi will."
+      }
+    },
+    {
+      "de": "Möchtest du einen Apfelsaft?",
+      "sl": "Želiš jabolčni sok?",
+      "en": "Would you like an apple juice?",
+      "it": "Vuoi un succo di mela?",
+      "note": {
+        "en": "möchten: the polite would like.",
+        "sl": "möchten: vljudno, rad bi.",
+        "it": "möchten: vorrei, per cortesia."
+      }
+    },
+    {
+      "de": "Du musst nicht kommen, aber du darfst.",
+      "sl": "Ni ti treba priti, lahko pa prideš.",
+      "en": "You don't have to come, but you may.",
+      "it": "Non devi venire per forza, ma puoi.",
+      "note": {
+        "en": "nicht müssen = don't have to; nicht dürfen = mustn't.",
+        "sl": "nicht müssen = ni treba; nicht dürfen = ne smeti.",
+        "it": "nicht müssen = non essere obbligati; nicht dürfen = non potere."
+      }
+    },
+    {
+      "de": "Kann ich helfen?",
+      "sl": "Lahko pomagam?",
+      "en": "Can I help?",
+      "it": "Posso aiutare?"
+    }
+  ],
+  "modules": [],
+  "tags": ["modal_verbs", "modalverben", "koennen", "muessen", "duerfen", "wollen", "infinitive", "word_order"],
+  "see": ["wortstellung", "praesens", "kein-nicht", "trennbare-verben"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

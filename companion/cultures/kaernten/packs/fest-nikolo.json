@@ -1,0 +1,42 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-nikolo",
+  "language": "de",
+  "title": { "de": "Nikolo und Krampus", "sl": "Miklavž in parkelj", "en": "St Nicholas and the Krampus", "it": "San Nicolò e il Krampus" },
+  "emoji": "🎅",
+  "level": "A1",
+  "description": {
+    "sl": "5. in 6. decembra. Zvečer pride krampus s kožuhom, rogovi in zvonci, naslednji dan pa Miklavž pridnim otrokom prinese vrečko z mandarinami in orehi.",
+    "en": "5 and 6 December. In the evening the Krampus comes with his fur, horns and bells, and the next day St Nicholas brings good children a little bag of mandarins and nuts.",
+    "it": "5 e 6 dicembre. La sera arriva il Krampus con la pelliccia, le corna e i campanacci, e il giorno dopo San Nicolò porta ai bambini buoni un sacchetto con mandarini e noci."
+  },
+  "giver": { "name": "Opa Sepp", "emoji": "👴" },
+  "festival": "nikolo",
+  "words": [
+    { "id": "nikolo", "de": "der Nikolo", "sl": "Miklavž", "en": "St Nicholas", "it": "San Nicolò", "emoji": "🎅", "gender": "m",
+      "example_de": "Der Nikolo kommt am sechsten Dezember.", "example_sl": "Miklavž pride šestega decembra.", "example_en": "St Nicholas comes on the sixth of December.", "example_it": "San Nicolò arriva il sei dicembre.",
+      "note": "Austrian; in Germany: der Nikolaus.",
+      "note_sl": "Avstrijsko; v Nemčiji: der Nikolaus.",
+      "note_it": "Parola austriaca; in Germania: der Nikolaus." },
+    { "id": "krampus", "de": "der Krampus", "sl": "parkelj", "en": "Krampus", "it": "il Krampus", "emoji": "👹", "gender": "m", "plural": "die Krampusse",
+      "example_de": "Der Krampus hat Hörner.", "example_sl": "Parkelj ima roge.", "example_en": "The Krampus has horns.", "example_it": "Il Krampus ha le corna.",
+      "note": "St Nicholas's wild companion, with fur, horns and bells.",
+      "note_sl": "Miklavžev divji spremljevalec s kožuhom, rogovi in zvonci.",
+      "note_it": "Il compagno selvaggio di San Nicolò, con pelliccia, corna e campanacci." },
+    { "id": "sackerl", "de": "das Sackerl", "sl": "vrečka", "en": "little bag", "it": "il sacchetto", "emoji": "🎁", "gender": "n", "plural": "die Sackerl",
+      "example_de": "Im Sackerl sind Nüsse und Mandarinen.", "example_sl": "V vrečki so orehi in mandarine.", "example_en": "There are nuts and mandarins in the little bag.", "example_it": "Nel sacchetto ci sono noci e mandarini.",
+      "note": "Austrian; in Germany: die Tüte.",
+      "note_sl": "Avstrijsko; v Nemčiji: die Tüte.",
+      "note_it": "Parola austriaca; in Germania: die Tüte." },
+    { "id": "mandarine", "de": "die Mandarine", "sl": "mandarina", "en": "mandarin", "it": "il mandarino", "emoji": "🍊", "gender": "f", "plural": "die Mandarinen",
+      "example_de": "Die Mandarine ist süß.", "example_sl": "Mandarina je sladka.", "example_en": "The mandarin is sweet.", "example_it": "Il mandarino è dolce." },
+    { "id": "nuss", "de": "die Nuss", "sl": "oreh", "en": "nut", "it": "la noce", "emoji": "🥜", "gender": "f", "plural": "die Nüsse",
+      "example_de": "Jakob knackt eine Nuss.", "example_sl": "Jakob stre oreh.", "example_en": "Jakob cracks a nut.", "example_it": "Jakob schiaccia una noce." },
+    { "id": "brav", "de": "brav", "sl": "priden", "en": "good, well-behaved", "it": "buono, bravo", "emoji": "😇",
+      "example_de": "Warst du brav?", "example_sl": "Si bil priden?", "example_en": "Have you been good?", "example_it": "Sei stato buono?" },
+    { "id": "rute", "de": "die Rute", "sl": "šiba", "en": "switch (a bundle of twigs)", "it": "la verga", "emoji": "🪵", "gender": "f", "plural": "die Ruten",
+      "example_de": "Der Krampus hat eine Rute.", "example_sl": "Parkelj ima šibo.", "example_en": "The Krampus has a switch.", "example_it": "Il Krampus ha una verga." },
+    { "id": "schokolade", "de": "die Schokolade", "sl": "čokolada", "en": "chocolate", "it": "il cioccolato", "emoji": "🍫", "gender": "f",
+      "example_de": "Der Nikolo bringt Schokolade.", "example_sl": "Miklavž prinese čokolado.", "example_en": "St Nicholas brings chocolate.", "example_it": "San Nicolò porta il cioccolato." }
+  ]
+}

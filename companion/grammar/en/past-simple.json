@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "past-simple",
+  "language": "en",
+  "level": "A2",
+  "emoji": "⏮️",
+  "title": {
+    "en": "Past simple: I walked, I went, I won",
+    "sl": "Past simple: preteklik (I walked, I went)",
+    "it": "Il past simple: il passato (I walked, I went)",
+    "de": "Das past simple: die Vergangenheit (I walked, I went)"
+  },
+  "rule": {
+    "en": "The past simple is for something finished, at a time that is over: **yesterday**, **last week**, **in 2020**, **two days ago**.\n\nRegular verbs add **-ed**, the same for every person: walk → **walked**, jump → **jumped**, play → **played**. Spelling: like → **liked**, stop → **stopped**, carry → **carried**. It is one word, with no helping verb: **A fish jumped.** (not *A fish is jumped*).\n\nMany common verbs are irregular; learn them with the verb: go → **went**, see → **saw**, win → **won**, make → **made**, come → **came**, find → **found**. **I won!** (not *I winned*).\n\nQuestions and negatives take **did** / **didn't** + the base form: **Did you see it?** **I didn't go.** (not *I didn't went*).\n\n**be** has two forms: **was** (I, he, she, it) and **were** (you, we, they): **It was cold.** **We were at the lake.** Negative: **wasn't**, **weren't**; question: **Were you there?** (no did).",
+    "sl": "*past simple* je za nekaj končanega, v času, ki je mimo: **yesterday**, **last week**, **in 2020**, **two days ago** (pred dvema dnevoma).\n\nPravilni glagoli dobijo **-ed**, za vse osebe enako: walk → **walked**, jump → **jumped**, play → **played**. Pravopis: like → **liked**, stop → **stopped**, carry → **carried**. Je ena sama beseda, brez pomožnika, kot ga ima slovenski *je skočila*: **A fish jumped.** (Riba je skočila; ne *A fish is jumped*.)\n\nVeliko pogostih glagolov je nepravilnih, uči se jih skupaj z glagolom: go → **went**, see → **saw**, win → **won**, make → **made**, come → **came**, find → **found**. **I won!** (ne *I winned*).\n\nVprašanje in zanikanje: **did** / **didn't** + osnovna oblika: **Did you see it?** (Si to videl?) **I didn't go.** (ne *I didn't went*).\n\n**be** ima dve obliki: **was** (I, he, she, it) in **were** (you, we, they): **It was cold.** (Bilo je mrzlo.) **We were at the lake.** Zanikanje: **wasn't**, **weren't**; vprašanje: **Were you there?** (brez did).",
+    "it": "Il *past simple* è per un'azione conclusa, in un tempo finito: **yesterday**, **last week**, **in 2020**, **two days ago** (due giorni fa). Dove l'italiano parlato usa il passato prossimo (ieri ho visto una volpe), l'inglese usa questo: **Yesterday I saw a fox.**\n\nI verbi regolari prendono **-ed**, uguale per tutte le persone: walk → **walked**, jump → **jumped**, play → **played**. Ortografia: like → **liked**, stop → **stopped**, carry → **carried**. È una parola sola, senza ausiliare: **A fish jumped.** (È saltato un pesce; non *A fish is jumped*.)\n\nMolti verbi comuni sono irregolari, da imparare con il verbo: go → **went**, see → **saw**, win → **won**, make → **made**, come → **came**, find → **found**. **I won!** (non *I winned*).\n\nDomande e negazioni: **did** / **didn't** + forma base: **Did you see it?** (L'hai visto?) **I didn't go.** (non *I didn't went*).\n\n**be** ha due forme: **was** (I, he, she, it) e **were** (you, we, they): **It was cold.** (Faceva freddo.) **We were at the lake.** Negazione: **wasn't**, **weren't**; domanda: **Were you there?** (senza did).",
+    "de": "Das *past simple* steht für Abgeschlossenes, zu einer Zeit, die vorbei ist: **yesterday**, **last week**, **in 2020**, **two days ago** (vor zwei Tagen). Wo man im Deutschen meist das Perfekt sagt (ich habe gewonnen), steht im Englischen dieses: **I won!**\n\nRegelmäßige Verben bekommen **-ed**, gleich für alle Personen: walk → **walked**, jump → **jumped**, play → **played**. Schreibung: like → **liked**, stop → **stopped**, carry → **carried**. Es ist ein Wort, ohne Hilfsverb: **A fish jumped.** (Ein Fisch ist gesprungen; nicht *A fish is jumped*.)\n\nViele häufige Verben sind unregelmäßig, lerne sie mit dem Verb: go → **went**, see → **saw**, win → **won**, make → **made**, come → **came**, find → **found**: **I won**, nicht *I winned*.\n\nFrage und Verneinung: **did** / **didn't** + Grundform: **Did you see it?** (Hast du es gesehen?) **I didn't go.** (nicht *I didn't went*).\n\n**be** hat zwei Formen: **was** (I, he, she, it) und **were** (you, we, they): **It was cold.** (Es war kalt.) **We were at the lake.** Verneinung: **wasn't**, **weren't**; Frage: **Were you there?** (ohne did)."
+  },
+  "table": {
+    "head": [
+      { "en": "regular", "sl": "pravilni", "it": "regolare", "de": "regelmäßig" },
+      { "en": "past", "sl": "preteklik", "it": "passato", "de": "Vergangenheit" },
+      { "en": "irregular", "sl": "nepravilni", "it": "irregolare", "de": "unregelmäßig" },
+      { "en": "past", "sl": "preteklik", "it": "passato", "de": "Vergangenheit" }
+    ],
+    "rows": [
+      ["walk", "walked", "go", "went"],
+      ["jump", "jumped", "see", "saw"],
+      ["play", "played", "win", "won"],
+      ["like", "liked", "take", "took"],
+      ["stop", "stopped", "make", "made"],
+      ["carry", "carried", "come", "came"],
+      ["climb", "climbed", "eat", "ate"],
+      ["watch", "watched", "find", "found"],
+      ["be (I, he, she, it)", "was", "have", "had"],
+      ["be (you, we, they)", "were", "get", "got"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "Yesterday we went to Keswick.",
+      "sl": "Včeraj smo šli v Keswick.",
+      "it": "Ieri siamo andati a Keswick.",
+      "de": "Gestern sind wir nach Keswick gefahren.",
+      "note": {
+        "en": "go → went: irregular.",
+        "sl": "go → went: nepravilni glagol.",
+        "it": "go → went: verbo irregolare.",
+        "de": "go → went: unregelmäßig."
+      }
+    },
+    {
+      "en": "A fish jumped out of the water.",
+      "sl": "Iz vode je skočila riba.",
+      "it": "Un pesce è saltato fuori dall'acqua.",
+      "de": "Ein Fisch ist aus dem Wasser gesprungen.",
+      "note": {
+        "en": "Just jumped: no is, no has.",
+        "sl": "Samo jumped: brez is, brez has.",
+        "it": "Solo jumped: niente is, niente has.",
+        "de": "Nur jumped: kein is, kein has."
+      }
+    },
+    {
+      "en": "Alfie won the race!",
+      "sl": "Alfie je zmagal v teku!",
+      "it": "Alfie ha vinto la corsa!",
+      "de": "Alfie hat das Rennen gewonnen!",
+      "note": {
+        "en": "win → won (not winned).",
+        "sl": "win → won (ne winned).",
+        "it": "win → won (non winned).",
+        "de": "win → won (nicht winned)."
+      }
+    },
+    {
+      "en": "We saw a red squirrel in the wood.",
+      "sl": "V gozdu smo videli rdečo veverico.",
+      "it": "Nel bosco abbiamo visto uno scoiattolo rosso.",
+      "de": "Im Wald haben wir ein rotes Eichhörnchen gesehen."
+    },
+    {
+      "en": "Did you find the lamb? — Yes, it was behind the wall.",
+      "sl": "Ste našli jagnje? — Ja, bilo je za zidom.",
+      "it": "Avete trovato l'agnello? — Sì, era dietro il muro.",
+      "de": "Habt ihr das Lamm gefunden? — Ja, es war hinter der Mauer.",
+      "note": {
+        "en": "did + find (not did you found); be → was.",
+        "sl": "did + find (ne did you found); be → was.",
+        "it": "did + find (non did you found); be → was.",
+        "de": "did + find (nicht did you found); be → was."
+      }
+    },
+    {
+      "en": "It was very cold, so we didn't go up the fell.",
+      "sl": "Bilo je zelo mrzlo, zato nismo šli na hrib.",
+      "it": "Faceva molto freddo, quindi non siamo saliti in montagna.",
+      "de": "Es war sehr kalt, also sind wir nicht auf den Berg gegangen."
+    },
+    {
+      "en": "Granny Maggie made scones for us.",
+      "sl": "Babica Maggie nam je spekla pogačice.",
+      "it": "Nonna Maggie ci ha fatto gli scones.",
+      "de": "Oma Maggie hat uns Scones gebacken."
+    }
+  ],
+  "modules": [],
+  "tags": ["past_simple", "past_tense", "irregular_verbs", "regular_verbs", "ed", "was_were", "did"],
+  "see": ["present-perfect", "questions-do", "to-be"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

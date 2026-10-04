@@ -1,0 +1,161 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "am-feuer",
+  "language": "de",
+  "title": { "de": "Am Feuer", "sl": "Ob ognju", "en": "At the campfire", "it": "Al fuoco" },
+  "emoji": "🔥",
+  "level": "A1",
+  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker",
+  "art": "campfire",
+  "from": ["fire"],
+  "pack": "am-feuer",
+  "objects": [
+    { "slot": "fire", "word": "feuer" },
+    { "slot": "logs", "word": "holz" },
+    { "slot": "kettle", "word": "kessel" },
+    { "slot": "stones", "word": "stein" },
+    { "slot": "smoke", "word": "rauch" },
+    { "slot": "sparks", "word": "funke" },
+    { "slot": "moon", "word": "mond" },
+    { "slot": "stars", "word": "stern" },
+    { "slot": "tent", "word": "zelt", "needs": { "building": "TENT" } },
+    { "slot": "axe", "word": "axt" },
+    { "slot": "bucket", "word": "kuebel" },
+    { "slot": "stump", "word": "baumstumpf" }
+  ],
+  "people": [
+    { "id": "resi", "name": "Oma Resi", "emoji": "👵", "art": "grandma", "slot": "left", "villager": "resi" },
+    { "id": "sepp", "name": "Opa Sepp", "emoji": "👴", "art": "grandpa", "slot": "right", "villager": "sepp" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "back", "villager": "maxi" }
+  ],
+  "happenings": [
+    {
+      "id": "tee", "title": { "de": "Oma Resi bringt Tee", "sl": "Oma Resi prinese čaj", "en": "Oma Resi brings tea", "it": "Oma Resi porta il tè" }, "who": "resi",
+      "when": ["evening"], "chance": 0.6, "dialog": "tee", "dialogs": ["tee-honig", "tee"], "reward": { "food": 20 }, "marker": "🍵",
+      "memory": { "de": "den warmen Tee, den wir am Feuer getrunken haben", "sl": "topel čaj, ki sva ga pila ob ognju", "en": "the warm tea we drank by the fire", "it": "il tè caldo che abbiamo bevuto al fuoco" }
+    },
+    {
+      "id": "holz", "title": { "de": "Maxi sammelt Holz", "sl": "Maxi nabira drva", "en": "Maxi is gathering wood", "it": "Maxi raccoglie la legna" }, "who": "maxi",
+      "when": ["afternoon"], "chance": 0.5, "dialog": "holz", "dialogs": ["holz-scheite", "holz"], "reward": { "wood": 20 }, "marker": "🪵",
+      "memory": { "de": "das Wettrennen mit dem Holz, das du gewonnen hast", "sl": "tekmo z drvmi, ki si jo dobil ti", "en": "the firewood race you won", "it": "la gara della legna che hai vinto tu" }
+    },
+    {
+      "id": "geschichte", "title": { "de": "Opa Sepp erzählt eine Geschichte", "sl": "Opa Sepp pripoveduje zgodbo", "en": "Opa Sepp tells a story", "it": "Opa Sepp racconta una storia" }, "who": "sepp",
+      "when": ["evening", "night"], "chance": 1, "stories": true, "reward": { "wisdom": 30 }, "marker": "📖",
+      "memory": { "de": "den Abend, an dem ich dir am Feuer eine Geschichte erzählt habe", "sl": "večer, ko sem ti ob ognju povedal zgodbo", "en": "the evening I told you a story by the fire", "it": "la sera che ti ho raccontato una storia al fuoco" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "tee",
+      "lines": [
+        { "who": "resi", "de": "Guten Abend, Schatzi! Ist dir kalt?", "sl": "Dober večer, srček! Te zebe?", "en": "Good evening, sweetheart! Are you cold?", "it": "Buonasera, tesoro! Hai freddo?", "fx": { "steam": 1 } },
+        { "choices": [
+          { "de": "Ja, Oma, mir ist ein bisschen kalt.", "sl": "Ja, oma, malo me zebe.", "en": "Yes, Oma, I'm a bit cold.", "it": "Sì, nonna, ho un po' freddo.", "ok": true,
+            "reply": { "de": "Da, trink einen warmen Tee. Setz dich zum Feuer.", "sl": "Na, popij topel čaj. Sedi k ognju.", "en": "Here, drink a warm tea. Sit by the fire.", "it": "Tieni, bevi un tè caldo. Siediti vicino al fuoco." } },
+          { "de": "Ja, Oma, ich bin ein bisschen kalt.", "sl": "Ja, oma, malo sem hladen.", "en": "Yes, Oma, I'm a bit cold to the touch.", "it": "Sì, nonna, sono un po' freddo al tatto.",
+            "grammar": "dativ", "why": { "de": "Wenn du frierst, sagst du: mir ist kalt. Ich bin kalt heißt: du fühlst dich kalt an.", "sl": "Ko te zebe, rečeš mir ist kalt. Ich bin kalt pomeni, da si hladen na otip.", "en": "When you feel cold, say mir ist kalt. Ich bin kalt means you are cold to the touch.", "it": "Quando senti freddo dici mir ist kalt. Ich bin kalt vuol dire che sei freddo al tatto." },
+            "reply": { "de": "Du bist kalt wie ein Schneemann? Komm her, Schatzi!", "sl": "Du bist kalt, kot snežak? Pridi sem, srček!", "en": "Du bist kalt, like a snowman? Come here, sweetheart!", "it": "Du bist kalt, come un pupazzo di neve? Vieni qui, tesoro!" } }
+        ] },
+        { "who": "resi", "de": "Vorsicht, heiß! Blas ein bisschen.", "sl": "Pazi, vroče je! Malo pihni.", "en": "Careful, it's hot! Blow on it a little.", "it": "Attento, scotta! Soffia un po'." },
+        { "choices": [
+          { "de": "Danke, Oma! Der Tee ist sehr gut.", "sl": "Hvala, oma! Čaj je zelo dober.", "en": "Thank you, Oma! The tea is very good.", "it": "Grazie, nonna! Il tè è buonissimo.", "ok": true,
+            "reply": { "de": "Bitte, Schatzi. Das ist Almkräutertee, von der Alm am Dobratsch.", "sl": "Ni za kaj, srček. To je čaj iz planinskih zelišč, s planine na Dobraču.", "en": "You're welcome, sweetheart. It's herbal tea from the Alm on the Dobratsch.", "it": "Prego, tesoro. È una tisana d'alpeggio, dalle erbe del Dobratsch." } },
+          { "de": "Danke vielmals, Oma! Mmm, köstlich!", "sl": "Najlepša hvala, oma! Mmm, slastno!", "en": "Thanks a lot, Oma! Mmm, delicious!", "it": "Grazie mille, nonna! Mmm, squisito!", "ok": true,
+            "reply": { "de": "Gern, Schatzi! Da sind sieben Kräuter drin.", "sl": "Z veseljem, srček! Notri je sedem zelišč.", "en": "My pleasure, sweetheart! There are seven herbs in it.", "it": "Di niente, tesoro! Dentro ci sono sette erbe." } },
+          { "de": "Bitte, Oma! Der Tee ist sehr gut.", "sl": "Prosim, oma! Čaj je zelo dober.", "en": "Please, Oma! The tea is very good.", "it": "Prego, nonna! Il tè è buonissimo.",
+            "why": { "de": "Bitte sagt man, wenn man etwas gibt. Zum Danken sagst du danke.", "sl": "Bitte pomeni prosim ali ni za kaj. Za zahvalo rečeš danke.", "en": "Bitte means please or you're welcome. To thank her, say danke.", "it": "Bitte vuol dire per favore o prego. Per ringraziare dici danke." },
+            "reply": { "de": "Bitte? Du willst noch mehr? Da, nimm, Schatzi!", "sl": "Bitte (prosim)? Bi še? Na, izvoli, srček!", "en": "Bitte (please)? You want more? Here you go, sweetheart!", "it": "Bitte (per favore)? Ne vuoi ancora? Ecco, tesoro!", "fx": { "steam": 1 } } }
+        ] },
+        { "who": "resi", "de": "Schau, die Sterne, Schatzi. So viele!", "sl": "Poglej zvezde, srček. Koliko jih je!", "en": "Look at the stars, sweetheart. So many!", "it": "Guarda le stelle, tesoro. Quante sono!", "fx": { "steam": 0.4 } },
+        { "choices": [
+          { "de": "Ja, so viele! Und der Mond ist auch da.", "sl": "Ja, ogromno! Pa tudi luna je tam.", "en": "Yes, so many! And the moon is there too.", "it": "Sì, tantissime! E c'è anche la luna.", "ok": true,
+            "reply": { "de": "Ja. Jetzt trink aus, und dann ab ins Bett. Gute Nacht, Schatzi.", "sl": "Ja. Zdaj popij, potem pa v posteljo. Lahko noč, srček.", "en": "Yes. Now drink up, and then off to bed. Good night, sweetheart.", "it": "Sì. Adesso finisci di bere, e poi a letto. Buonanotte, tesoro." } },
+          { "de": "Ja, so viele! Und die Mond ist auch da.", "sl": "Ja, ogromno! Pa tudi luna je tam.", "en": "Yes, so many! And the moon is there too.", "it": "Sì, tantissime! E c'è anche la luna.",
+            "grammar": "artikel-genus", "why": { "de": "Mond ist maskulin: der Mond.", "sl": "Mond je v nemščini moškega spola: der Mond (v slovenščini je luna ženskega).", "en": "Mond is masculine in German: der Mond.", "it": "In tedesco Mond è maschile: der Mond (in italiano la luna è femminile)." },
+            "reply": { "de": "Die Mond? Wie meine Mama! Die hat immer luna gesagt.", "sl": "Die Mond? Kot moja mama! Ona je vedno rekla luna.", "en": "Die Mond? Just like my mum! She always said luna.", "it": "Die Mond? Come la mia mamma! Diceva sempre luna." } }
+        ] }
+      ]
+    },
+    {
+      "id": "holz",
+      "lines": [
+        { "who": "maxi", "de": "Hey! Machen wir ein Wettrennen? Wer mehr Holz zum Feuer bringt, gewinnt!", "sl": "Hej! Tekmujeva? Kdor prinese več drv k ognju, zmaga!", "en": "Hey! Shall we have a race? Whoever brings more wood to the fire wins!", "it": "Ehi! Facciamo una gara? Chi porta più legna al fuoco vince!" },
+        { "choices": [
+          { "de": "Ja, super! Gehen wir!", "sl": "Ja, super! Greva!", "en": "Yes, great! Let's go!", "it": "Sì, dai! Andiamo!", "ok": true,
+            "reply": { "de": "Achtung, fertig, los!", "sl": "Pripravljeni, pozor, zdaj!", "en": "Ready, steady, go!", "it": "Pronti, partenza, via!" } },
+          { "de": "Ja, super! Geht!", "sl": "Ja, super! Pojdite!", "en": "Yes, great! Go, all of you!", "it": "Sì, dai! Andate!",
+            "why": { "de": "Geht! sagt man zu mehreren Leuten. Ihr zwei zusammen: gehen wir.", "sl": "Geht! pomeni pojdite (vi, več ljudi). Za oba skupaj rečeš gehen wir.", "en": "Geht! tells a group to go. For the two of you together, say gehen wir.", "it": "Geht! vuol dire andate (voi). Per voi due insieme dici gehen wir." },
+            "reply": { "de": "Geht? Wer denn? Und du bleibst da? Komm schon!", "sl": "Geht (pojdite)? Kdo pa? Ti pa ostaneš tu? Daj no!", "en": "Geht (go, you lot)? Who? And you're staying here? Come on!", "it": "Geht (andate)? Chi? E tu resti qui? Dai, vieni!" } }
+        ] },
+        { "who": "maxi", "de": "Ich habe drei Stück Holz. Und wie viele hast du?", "sl": "Jaz imam tri polena. Pa ti, koliko jih imaš?", "en": "I've got three pieces of wood. And how many have you got?", "it": "Io ho tre pezzi di legna. E tu quanti ne hai?" },
+        { "choices": [
+          { "de": "Ich habe vier! Ich habe gewonnen!", "sl": "Jaz jih imam štiri! Zmagal sem!", "en": "I've got four! I won!", "it": "Io ne ho quattro! Ho vinto!", "ok": true,
+            "reply": { "de": "Na so was! Na gut, du hast gewonnen.", "sl": "Ojoj! No dobro, zmagal si ti.", "en": "Oh no! All right, you won.", "it": "Uffa! Va bene, hai vinto tu." } },
+          { "de": "Ich habe vier! Ich bin gewonnen!", "sl": "Jaz jih imam štiri! Zmagal sem!", "en": "I've got four! I won!", "it": "Io ne ho quattro! Ho vinto!",
+            "grammar": "perfekt", "why": { "de": "Gewinnen bildet das Perfekt mit haben: ich habe gewonnen.", "sl": "Gewinnen tvori perfekt s haben: ich habe gewonnen.", "en": "Gewinnen forms its perfect with haben: ich habe gewonnen.", "it": "Gewinnen forma il passato con haben: ich habe gewonnen." },
+            "reply": { "de": "Du bist gewonnen? Bist du ein Pokal, oder was?", "sl": "Du bist gewonnen? Kaj si pa ti, pokal?", "en": "Du bist gewonnen (you are won)? What are you, a trophy?", "it": "Du bist gewonnen? Cosa sei, una coppa?" } }
+        ] },
+        { "who": "maxi", "de": "Wir legen das Holz ins Feuer. Schau, die Funken!", "sl": "Dajva drva na ogenj. Poglej iskre!", "en": "Let's put the wood on the fire. Look at the sparks!", "it": "Mettiamo la legna nel fuoco. Guarda le scintille!", "fx": { "flare": 0.8 } },
+        { "choices": [
+          { "de": "Wie schön! Aber pass auf, Maxi!", "sl": "Kako lepo! Ampak pazi, Maxi!", "en": "How pretty! But careful, Maxi!", "it": "Che belle! Ma attento, Maxi!", "ok": true,
+            "reply": { "de": "Keine Sorge! Morgen machen wir wieder ein Wettrennen. Servus!", "sl": "Brez skrbi! Jutri spet tekmujeva. Adijo!", "en": "Don't worry! Tomorrow we'll have another race. Bye!", "it": "Tranquillo! Domani facciamo un'altra gara. Ciao!", "fx": { "flare": 0.3 } } },
+          { "de": "Wie schön! Aber passen Sie auf, Maxi!", "sl": "Kako lepo! Ampak pazite, Maxi!", "en": "How pretty! But careful (polite), Maxi!", "it": "Che belle! Ma stia attento, Maxi!",
+            "grammar": "du-sie", "why": { "de": "Maxi ist ein Kind und ein Freund: du, pass auf. Passen Sie auf ist die Sie-Form.", "sl": "Maxi je otrok in prijatelj: tikaš ga, pass auf. Passen Sie auf je vikanje.", "en": "Maxi is a child and a friend: say du, pass auf. Passen Sie auf is the polite Sie.", "it": "Maxi è un bambino e un amico: gli dai del tu, pass auf. Passen Sie auf è il Lei." },
+            "reply": { "de": "Sie? Oho! Bin ich jetzt der Bürgermeister?", "sl": "Sie (vi)? Oho! Sem zdaj župan?", "en": "Sie (formal you)? Oho! Am I the mayor now?", "it": "Sie (Lei)? Oho! Adesso sono il sindaco?" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "tee-honig",
+      "lines": [
+        { "who": "resi", "de": "Guten Abend, Schatzi! Da ist dein Tee. Was möchtest du hinein?", "sl": "Dober večer, srček! Tu je tvoj čaj. Kaj bi rad vanj?", "en": "Good evening, sweetheart! Here's your tea. What would you like in it?", "it": "Buonasera, tesoro! Ecco il tuo tè. Cosa ci vuoi dentro?", "fx": { "steam": 1 } },
+        { "choices": [
+          { "de": "Einen Löffel Honig, bitte!", "sl": "Eno žličko medu, prosim!", "en": "A spoon of honey, please!", "it": "Un cucchiaino di miele, per favore!", "ok": true,
+            "reply": { "de": "Bitte schön. Honig ist gut gegen die Kälte.", "sl": "Izvoli. Med je dober proti mrazu.", "en": "Here you are. Honey is good against the cold.", "it": "Ecco qua. Il miele fa bene contro il freddo." } },
+          { "de": "Ein Löffel Honig, bitte!", "sl": "Ena žlička medu, prosim!", "en": "A spoon of honey, please!", "it": "Un cucchiaino di miele, per favore!",
+            "why": { "de": "Du möchtest etwas, also Akkusativ: der Löffel wird zu einen Löffel.", "sl": "Nekaj želiš, zato tožilnik: der Löffel postane einen Löffel.", "en": "You want something, so it's the accusative: der Löffel becomes einen Löffel.", "it": "Vuoi qualcosa, quindi accusativo: der Löffel diventa einen Löffel." },
+            "reply": { "de": "Ein Löffel? Bitte, hier ist er. Leer, Schatzi!", "sl": "Ein Löffel (žlica)? Izvoli, tu je. Prazna, srček!", "en": "Ein Löffel (a spoon)? Here it is. Empty, sweetheart!", "it": "Ein Löffel (un cucchiaio)? Eccolo. Vuoto, tesoro!" } }
+        ] },
+        { "who": "resi", "de": "Vorsicht, heiß! Und, was hast du heute gemacht?", "sl": "Pazi, vroč je! No, kaj pa si danes počel?", "en": "Careful, it's hot! So, what did you do today?", "it": "Attento, scotta! Allora, cos'hai fatto oggi?" },
+        { "choices": [
+          { "de": "Heute ich war am See!", "sl": "Danes sem bil ob jezeru!", "en": "Today I was at the lake!", "it": "Oggi sono stato al lago!",
+            "why": { "de": "Im Hauptsatz steht das Verb an zweiter Stelle: Heute war ich am See.", "sl": "V nemškem stavku je glagol na drugem mestu: Heute war ich am See.", "en": "In a German sentence the verb comes second: Heute war ich am See.", "it": "Nella frase tedesca il verbo sta al secondo posto: Heute war ich am See." },
+            "reply": { "de": "Hm? Langsam, Schatzi. Noch einmal, schön der Reihe nach.", "sl": "Hm? Počasi, srček. Še enkrat, lepo po vrsti.", "en": "Hm? Slowly, sweetheart. Once more, nice and in order.", "it": "Mm? Piano, tesoro. Ancora una volta, con ordine." } },
+          { "de": "Heute war ich am See!", "sl": "Danes sem bil ob jezeru!", "en": "Today I was at the lake!", "it": "Oggi sono stato al lago!", "ok": true,
+            "reply": { "de": "Am See! Schön. Da war ich als Mädchen jeden Sommer.", "sl": "Ob jezeru! Lepo. Tam sem bila kot deklica vsako poletje.", "en": "At the lake! Lovely. I was there every summer as a girl.", "it": "Al lago! Che bello. Da ragazza ci andavo ogni estate." } }
+        ] },
+        { "who": "resi", "de": "Schau, das Feuer wird klein. Zeit fürs Bett. Gute Nacht, Schatzi!", "sl": "Poglej, ogenj se manjša. Čas je za spanje. Lahko noč, srček!", "en": "Look, the fire's getting small. Time for bed. Good night, sweetheart!", "it": "Guarda, il fuoco si fa piccolo. È ora di dormire. Buonanotte, tesoro!", "fx": { "steam": 0 } }
+      ]
+    },
+    {
+      "id": "holz-scheite",
+      "count": { "from": "wood", "per": 10, "min": 2, "max": 20, "gender": "n" },
+      "memory": { "de": "den Nachmittag, an dem wir das Holz gezählt haben", "sl": "popoldne, ko sva štela drva", "en": "the afternoon we counted the wood", "it": "il pomeriggio in cui abbiamo contato la legna" },
+      "lines": [
+        { "who": "maxi", "de": "He! Schau, ich hab das ganze Holz zum Feuer getragen! Ich wette: hundert. Zähl mal!", "sl": "Hej! Poglej, vsa drva sem znosil k ognju! Stavim, da jih je sto. Preštej!", "en": "Hey! Look, I've carried all the wood to the fire! I bet it's a hundred. Count it!", "it": "Ehi! Guarda, ho portato tutta la legna al fuoco! Scommetto che sono cento. Contala!" },
+        { "choices": [
+          { "de": "Das {ist|sind} {n} Scheiten!", "sl": "To {je|sta|so|je} {n} {poleno|polena|polena|polen}!", "en": "That's {n} {log|logs}!", "it": "{È|Sono} {n} {pezzo|pezzi} di legna!",
+            "why": { "de": "Scheit bildet den Plural mit -e: ein Scheit, viele Scheite.", "sl": "Scheit ima množino na -e: ein Scheit, viele Scheite.", "en": "Scheit makes its plural with -e: ein Scheit, viele Scheite.", "it": "Scheit fa il plurale in -e: ein Scheit, viele Scheite." },
+            "reply": { "de": "Scheiten? Hä? Ist das Italienisch? Noch mal!", "sl": "Scheiten? Ha? Je to italijansko? Še enkrat!", "en": "Scheiten? Huh? Is that Italian? Again!", "it": "Scheiten? Eh? È italiano? Ancora!" } },
+          { "de": "Das {ist|sind} {n} {Scheit|Scheite}!", "sl": "To {je|sta|so|je} {n} {poleno|polena|polena|polen}!", "en": "That's {n} {log|logs}!", "it": "{È|Sono} {n} {pezzo|pezzi} di legna!", "ok": true,
+            "reply": { "de": "Was? Nicht hundert? Na gut, du zählst besser als ich!", "sl": "Kaj? Ne sto? No dobro, ti šteješ bolje kot jaz!", "en": "What? Not a hundred? All right, you count better than me!", "it": "Cosa? Non cento? Va bene, conti meglio di me!" } },
+          { "de": "Das {ist|sind} {n} {!Scheit|Scheite}!", "sl": "To {je|sta|so|je} {n} {!poleno|polena|polena|polen}!", "en": "That's {n} {!log|logs}!", "it": "{È|Sono} {n} {!pezzo|pezzi} di legna!", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Scheit|Scheite}.", "sl": "{Ena stvar je v ednini|Od dveh naprej je množina}: {n} {Scheit|Scheite}.", "en": "{One takes the singular|From two on, the plural}: {n} {Scheit|Scheite}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Scheit|Scheite}." },
+            "reply": { "de": "Scheit? Nur eins? Schau doch, der ganze Haufen!", "sl": "Scheit (poleno)? Samo eno? Poglej no, cel kup!", "en": "Scheit (log)? Only one? Look, the whole pile!", "it": "Scheit (ciocco)? Solo uno? Guarda, tutto il mucchio!" } }
+        ] },
+        { "who": "maxi", "de": "Jetzt muss das Holz auf einen Haufen. Hilfst du mir?", "sl": "Zdaj morajo drva na kup. Mi pomagaš?", "en": "Now the wood has to go on a pile. Will you help me?", "it": "Adesso la legna va messa in un mucchio. Mi aiuti?" },
+        { "choices": [
+          { "de": "Klar, ich helfe dir!", "sl": "Seveda, pomagam ti!", "en": "Sure, I'll help you!", "it": "Certo, ti aiuto!", "ok": true,
+            "reply": { "de": "Super! Du nimmst die großen, ich die kleinen.", "sl": "Super! Ti vzemi velika, jaz majhna.", "en": "Great! You take the big ones, I'll take the small ones.", "it": "Grande! Tu prendi quelli grandi, io quelli piccoli." } },
+          { "de": "Klar, ich helfe dich!", "sl": "Seveda, pomagam ti!", "en": "Sure, I'll help you!", "it": "Certo, ti aiuto!",
+            "why": { "de": "Helfen braucht den Dativ: ich helfe dir. Dich ist Akkusativ.", "sl": "Helfen zahteva dajalnik: ich helfe dir. Dich je tožilnik.", "en": "Helfen takes the dative: ich helfe dir. Dich is the accusative.", "it": "Helfen vuole il dativo: ich helfe dir. Dich è accusativo." },
+            "reply": { "de": "Dich? Hä? Sag's noch mal, schnell!", "sl": "Dich? Ha? Povej še enkrat, hitro!", "en": "Dich? Huh? Say it again, quick!", "it": "Dich? Eh? Ripeti, veloce!" } }
+        ] },
+        { "who": "maxi", "de": "Fertig! Morgen machen wir einen noch größeren Haufen. Servus!", "sl": "Končano! Jutri naredimo še večji kup. Adijo!", "en": "Done! Tomorrow we'll make an even bigger pile. Bye!", "it": "Fatto! Domani facciamo un mucchio ancora più grande. Ciao!" }
+      ]
+    }
+  ]
+}

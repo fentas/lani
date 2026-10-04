@@ -1,0 +1,134 @@
+{
+  "schema": "lani.story/v0",
+  "id": "der-dobratsch",
+  "language": "de",
+  "title": { "de": "Als der Dobratsch brach", "sl": "Ko se je podrl Dobrač", "en": "When the Dobratsch fell", "it": "Quando crollò il Dobratsch" },
+  "teller": "sepp",
+  "emoji": "⛰️",
+  "order": 2,
+  "about": { "en": "On 25 January 1348 an earthquake broke a large part of the Dobratsch's south face away; the rockfall buried part of the lower Gail valley, where its boulders, the Schütt, now carry a protected forest. Told gently, as the old people tell it, ending with the villages rebuilt and the forest grown back. Machine-written, not reviewed by a native speaker." },
+  "teaser": { "de": "Opa Sepp erzählt, wie der Dobratsch gebrochen ist", "sl": "Opa Sepp pove, kako se je podrl Dobrač", "en": "Opa Sepp tells how the Dobratsch fell", "it": "Opa Sepp racconta come crollò il Dobratsch" },
+  "memory": { "de": "die Geschichte vom Dobratsch, die ich dir erzählt habe", "sl": "zgodbo o Dobraču, ki sem ti jo povedal", "en": "the story of the Dobratsch I told you", "it": "la storia del Dobratsch che ti ho raccontato" },
+  "pack": "geschichten",
+  "words": ["erdbeben", "berg", "felsen", "fallen", "tal"],
+  "levels": {
+    "A1": {
+      "sky_stays": false,
+      "lines": [
+        { "de": "Guten Abend! Schau, dort drüben ist der Dobratsch. Siehst du ihn?", "sl": "Dober večer! Poglej, tam je Dobrač. Ga vidiš?", "en": "Good evening! Look, over there is the Dobratsch. Can you see it?", "it": "Buonasera! Guarda, laggiù c'è il Dobratsch. Lo vedi?" },
+        { "choices": [
+          { "de": "Ja, ich sehe ihn. Er ist sehr groß!", "sl": "Ja, vidim ga. Zelo je velik!", "en": "Yes, I can see it. It's very big!", "it": "Sì, lo vedo. È molto grande!", "ok": true,
+            "reply": { "de": "Ja. Und er hat eine alte Geschichte.", "sl": "Ja. In ima staro zgodbo.", "en": "Yes. And it has an old story.", "it": "Sì. E ha una storia antica." } },
+          { "de": "Ja, ich sehe er. Er ist sehr groß!", "sl": "Ja, vidim ga. Zelo je velik!", "en": "Yes, I can see it. It's very big!", "it": "Sì, lo vedo. È molto grande!",
+            "why": { "sl": "Za sehen pride tožilnik: ich sehe ihn (ne er).", "en": "Sehen takes the accusative: ich sehe ihn (not er).", "it": "Sehen regge l'accusativo: ich sehe ihn (non er)." },
+            "reply": { "de": "Ich sehe er? Wer ist er, Bub? Mein Bello?", "sl": "Ich sehe er? Kdo pa je ta er, fant? Moj Bello?", "en": "Ich sehe er (I see he)? Who's he, lad? My Bello?", "it": "Ich sehe er? E chi sarebbe questo er, ragazzo? Il mio Bello?" } }
+        ] },
+        { "de": "Das war im Jahr 1348, vor fast siebenhundert Jahren. Es war Winter, im Jänner.", "sl": "To je bilo leta 1348, pred skoraj sedemsto leti. Bila je zima, januar.", "en": "That was in the year 1348, almost seven hundred years ago. It was winter, in January.", "it": "Era l'anno 1348, quasi settecento anni fa. Era inverno, a gennaio.", "sky": { "snow": 0.2 } },
+        { "de": "Plötzlich wackelt die Erde. Ein Erdbeben! Die Glocken läuten von allein.", "sl": "Nenadoma se zemlja strese. Potres! Zvonovi zvonijo sami od sebe.", "en": "Suddenly the ground shakes. An earthquake! The bells ring all by themselves.", "it": "All'improvviso la terra trema. Un terremoto! Le campane suonano da sole.", "fx": { "bell": 1 } },
+        { "de": "Dann bricht ein großes Stück vom Berg ab. Große Felsen fallen ins Tal, bis zur Gail.", "sl": "Potem se od gore odlomi velik kos. Velike skale padajo v dolino, vse do Zilje.", "en": "Then a big piece of the mountain breaks off. Big rocks fall into the valley, all the way to the Gail.", "it": "Poi un grande pezzo della montagna si stacca. Grandi rocce cadono nella valle, fino al Gail.", "fx": { "flare": 1, "bell": 0 } },
+        { "de": "Sag mal: Was fällt ins Tal?", "sl": "Povej: kaj pade v dolino?", "en": "Tell me: what falls into the valley?", "it": "Dimmi: che cosa cade nella valle?" },
+        { "choices": [
+          { "de": "Große Felsen.", "sl": "Velike skale.", "en": "Big rocks.", "it": "Grandi rocce.", "ok": true,
+            "reply": { "de": "Ja. Viele, viele Felsen. Den Ort nennt man heute die Schütt.", "sl": "Ja. Veliko, veliko skal. Temu kraju danes pravijo Schütt.", "en": "Yes. Lots and lots of rocks. Today the place is called the Schütt.", "it": "Sì. Tante, tantissime rocce. Oggi quel posto si chiama Schütt.", "fx": { "flare": 0.3 } } },
+          { "de": "Große Felsens.", "sl": "Velike skale.", "en": "Big rocks.", "it": "Grandi rocce.",
+            "why": { "sl": "Der Felsen ima v množini die Felsen, brez -s.", "en": "The plural of der Felsen is die Felsen, with no -s.", "it": "Il plurale di der Felsen è die Felsen, senza -s." },
+            "reply": { "de": "Felsens? Das klingt ja englisch, Bub!", "sl": "Felsens? To pa zveni kar angleško, fant!", "en": "Felsens? That sounds English, lad!", "it": "Felsens? Sembra inglese, ragazzo!" } },
+          { "de": "Der Schnee.", "sl": "Sneg.", "en": "The snow.", "it": "La neve.",
+            "why": { "sl": "Ne: v dolino padajo skale, ne sneg.", "en": "No: rocks fall into the valley, not snow.", "it": "No: nella valle cadono rocce, non neve." },
+            "reply": { "de": "Schnee? Der fällt jeden Winter. Das ist doch keine Geschichte!", "sl": "Schnee? Ta pada vsako zimo. To pa še ni zgodba!", "en": "Schnee (snow)? That falls every winter. That's no story!", "it": "Schnee? Quella cade ogni inverno. Non è mica una storia!" } }
+        ] },
+        { "de": "Die Leute haben große Angst. Aber sie helfen einander. Sie bauen ihre Häuser wieder auf.", "sl": "Ljudje se zelo bojijo. Ampak si pomagajo. Znova zgradijo svoje hiše.", "en": "The people are very afraid. But they help each other. They build their houses again.", "it": "La gente ha molta paura. Ma si aiutano a vicenda. Ricostruiscono le loro case.", "sky": { "snow": 0 } },
+        { "choices": [
+          { "de": "Gut, dass sie einander helfen!", "sl": "Dobro, da si pomagajo!", "en": "Good that they help each other!", "it": "Meno male che si aiutano!", "ok": true,
+            "reply": { "de": "Ja. Zusammen ist man stark.", "sl": "Ja. Skupaj smo močni.", "en": "Yes. Together you're strong.", "it": "Sì. Insieme si è forti." } },
+          { "de": "Gut, dass sie helfen einander!", "sl": "Dobro, da si pomagajo!", "en": "Good that they help each other!", "it": "Meno male che si aiutano!",
+            "why": { "sl": "Za dass gre glagol na konec: dass sie einander helfen.", "en": "After dass the verb goes to the end: dass sie einander helfen.", "it": "Dopo dass il verbo va alla fine: dass sie einander helfen." },
+            "reply": { "de": "Hm? Deine Wörter tanzen ja, Bub. Langsam, langsam.", "sl": "Hm? Tvoje besede kar plešejo, fant. Počasi, počasi.", "en": "Hm? Your words are dancing about, lad. Slowly, slowly.", "it": "Hm? Le tue parole ballano, ragazzo. Piano, piano." } }
+        ] },
+        { "de": "Und auf den Felsen wächst langsam ein Wald. Heute leben dort Vögel, Blumen und sogar Schlangen.", "sl": "In na skalah počasi zraste gozd. Danes tam živijo ptice, rože in celo kače.", "en": "And slowly a forest grows on the rocks. Today birds, flowers and even snakes live there.", "it": "E sulle rocce cresce piano piano un bosco. Oggi lì vivono uccelli, fiori e perfino serpenti." },
+        { "de": "Was wächst heute auf den Felsen?", "sl": "Kaj danes raste na skalah?", "en": "What grows on the rocks today?", "it": "Che cosa cresce oggi sulle rocce?" },
+        { "choices": [
+          { "de": "Ein Wald.", "sl": "Gozd.", "en": "A forest.", "it": "Un bosco.", "ok": true,
+            "reply": { "de": "Richtig. Der Berg ist alt, aber der Wald ist jung. Gute Nacht!", "sl": "Tako je. Gora je stara, gozd pa mlad. Lahko noč!", "en": "Right. The mountain is old, but the forest is young. Good night!", "it": "Giusto. La montagna è vecchia, ma il bosco è giovane. Buonanotte!" } },
+          { "de": "Eine Wald.", "sl": "Gozd.", "en": "A forest.", "it": "Un bosco.",
+            "why": { "sl": "Wald je moškega spola (der Wald), zato ein Wald.", "en": "Wald is masculine (der Wald), so ein Wald.", "it": "Wald è maschile (der Wald), quindi ein Wald." },
+            "reply": { "de": "Eine Wald? Hm, da spitzt sogar der Bello die Ohren.", "sl": "Eine Wald? Hm, ob tem še Bello našpiči ušesa.", "en": "Eine Wald? Hm, even Bello pricks up his ears at that.", "it": "Eine Wald? Hm, persino Bello drizza le orecchie." } },
+          { "de": "Ein Haus.", "sl": "Hiša.", "en": "A house.", "it": "Una casa.",
+            "why": { "sl": "Ne: na skalah zdaj raste gozd.", "en": "No: a forest grows on the rocks now.", "it": "No: sulle rocce adesso cresce un bosco." },
+            "reply": { "de": "Ein Haus? Häuser wachsen nicht, Bub. Die baut man!", "sl": "Ein Haus? Hiše ne zrastejo same, fant. Treba jih je zgraditi!", "en": "Ein Haus (a house)? Houses don't grow, lad. You build them!", "it": "Ein Haus? Le case non crescono, ragazzo. Si costruiscono!" } }
+        ] }
+      ]
+    },
+    "A2": {
+      "sky_stays": false,
+      "lines": [
+        { "de": "Guten Abend! Weißt du, warum eine Seite vom Dobratsch so steil und kahl ist?", "sl": "Dober večer! Veš, zakaj je ena stran Dobrača tako strma in gola?", "en": "Good evening! Do you know why one side of the Dobratsch is so steep and bare?", "it": "Buonasera! Sai perché un lato del Dobratsch è così ripido e spoglio?" },
+        { "choices": [
+          { "de": "Nein, das weiß ich nicht. Erzähl es mir!", "sl": "Ne, tega ne vem. Povej mi!", "en": "No, I don't know. Tell me!", "it": "No, non lo so. Raccontamelo!", "ok": true,
+            "reply": { "de": "Gern. Es ist eine wahre Geschichte, aber die Leute erzählen sie wie eine Sage.", "sl": "Rad. To je resnična zgodba, ampak ljudje jo pripovedujejo kot pripovedko.", "en": "Gladly. It's a true story, but people tell it like a legend.", "it": "Volentieri. È una storia vera, ma la gente la racconta come una leggenda." } },
+          { "de": "Nein, das weiß ich nicht. Erzählst es mir!", "sl": "Ne, tega ne vem. Povej mi!", "en": "No, I don't know. Tell me!", "it": "No, non lo so. Raccontamelo!",
+            "why": { "sl": "Velelnik za du je erzähl (brez -st in brez du): Erzähl es mir!", "en": "The imperative for du is erzähl (no -st, no du): Erzähl es mir!", "it": "L'imperativo con du è erzähl (senza -st e senza du): Erzähl es mir!" },
+            "reply": { "de": "Erzählst es mir? Wer, ich? Freilich, dafür sitz ich ja da.", "sl": "Erzählst es mir? Kdo, jaz? Seveda, saj zato tu sedim.", "en": "Erzählst es mir? Who, me? Of course, that's what I sit here for.", "it": "Erzählst es mir? Chi, io? Certo, sono qui apposta." } }
+        ] },
+        { "de": "Im Jänner 1348 war es bitterkalt. Die Leute im Gailtal saßen in ihren warmen Stuben.", "sl": "Januarja 1348 je bilo hudo mrzlo. Ljudje v Ziljski dolini so sedeli v svojih toplih izbah.", "en": "In January 1348 it was bitterly cold. The people in the Gail valley sat in their warm parlours.", "it": "Nel gennaio del 1348 faceva un freddo pungente. La gente della valle del Gail stava seduta nelle sue stanze calde.", "sky": { "snow": 0.25 } },
+        { "de": "Plötzlich bebte die Erde. Die Häuser wackelten, und die Kirchenglocken läuteten ganz von selbst.", "sl": "Nenadoma se je zemlja stresla. Hiše so se zamajale in cerkveni zvonovi so zvonili čisto sami od sebe.", "en": "Suddenly the earth shook. The houses swayed, and the church bells rang all by themselves.", "it": "All'improvviso la terra tremò. Le case oscillarono e le campane delle chiese suonarono da sole.", "fx": { "bell": 1 } },
+        { "de": "Dann hörte man einen gewaltigen Donner: Ein riesiges Stück vom Dobratsch brach ab und stürzte ins Tal.", "sl": "Potem se je zaslišalo silno grmenje: velikanski kos Dobrača se je odlomil in zgrmel v dolino.", "en": "Then there was a mighty thunder: a huge piece of the Dobratsch broke off and crashed into the valley.", "it": "Poi si sentì un tuono potente: un pezzo enorme del Dobratsch si staccò e precipitò nella valle.", "fx": { "flare": 1, "bell": 0 } },
+        { "de": "Wohin fielen die Felsen?", "sl": "Kam so padle skale?", "en": "Where did the rocks fall?", "it": "Dove caddero le rocce?" },
+        { "choices": [
+          { "de": "Sie fielen ins Tal, bis zur Gail.", "sl": "Padle so v dolino, vse do Zilje.", "en": "They fell into the valley, all the way to the Gail.", "it": "Caddero nella valle, fino al Gail.", "ok": true,
+            "reply": { "de": "Genau. Bis heute liegen sie dort. Man nennt das Gebiet die Schütt.", "sl": "Točno. Tam ležijo še danes. Temu območju pravijo Schütt.", "en": "Exactly. They still lie there today. The area is called the Schütt.", "it": "Esatto. Sono ancora lì. La zona si chiama Schütt.", "fx": { "flare": 0.3 } } },
+          { "de": "Sie fielen ins Tal, bis zu die Gail.", "sl": "Padle so v dolino, vse do Zilje.", "en": "They fell into the valley, all the way to the Gail.", "it": "Caddero nella valle, fino al Gail.",
+            "why": { "sl": "Zu zahteva dajalnik: zu der → zur Gail.", "en": "Zu takes the dative: zu der → zur Gail.", "it": "Zu regge il dativo: zu der → zur Gail." },
+            "reply": { "de": "Zu die Gail? Die Gail ist nie zu, Bub, die fließt immer!", "sl": "Zu die Gail? Zilja ni nikoli zu (zaprta), fant, vedno teče!", "en": "Zu die Gail? The Gail's never zu (shut), lad, it always flows!", "it": "Zu die Gail? Il Gail non è mai zu (chiuso), ragazzo, scorre sempre!" } },
+          { "de": "Sie fielen auf den Gipfel.", "sl": "Padle so na vrh.", "en": "They fell onto the summit.", "it": "Caddero sulla cima.",
+            "why": { "sl": "Ne: skale so padle navzdol, v dolino.", "en": "No: the rocks fell down, into the valley.", "it": "No: le rocce caddero giù, nella valle." },
+            "reply": { "de": "Auf den Gipfel? Hinauf? Steine fallen nicht nach oben, Bub!", "sl": "Auf den Gipfel? Gor? Kamni ne padajo navzgor, fant!", "en": "Auf den Gipfel (onto the summit)? Upwards? Rocks don't fall up, lad!", "it": "Auf den Gipfel? In su? I sassi non cadono all'insù, ragazzo!" } }
+        ] },
+        { "de": "Die Leute hatten große Angst. Manche sagten: „Der Berg ist böse geworden.“ Aber ein Berg ist nicht böse. Die Erde hatte sich nur bewegt.", "sl": "Ljudje so se zelo bali. Nekateri so rekli: »Gora je postala huda.« Ampak gora ni huda. Zemlja se je samo premaknila.", "en": "The people were very afraid. Some said: 'The mountain has turned wicked.' But a mountain isn't wicked. The earth had only moved.", "it": "La gente aveva molta paura. Alcuni dicevano: «La montagna è diventata cattiva.» Ma una montagna non è cattiva. La terra si era solo mossa.", "sky": { "snow": 0.1 } },
+        { "choices": [
+          { "de": "Und was haben die Leute dann gemacht?", "sl": "In kaj so ljudje potem naredili?", "en": "And what did the people do then?", "it": "E poi che cosa ha fatto la gente?", "ok": true,
+            "reply": { "de": "Sie haben einander geholfen und ihre Dörfer wieder aufgebaut, Stein für Stein.", "sl": "Pomagali so si in znova zgradili svoje vasi, kamen za kamnom.", "en": "They helped each other and rebuilt their villages, stone by stone.", "it": "Si sono aiutati e hanno ricostruito i loro paesi, sasso dopo sasso." } },
+          { "de": "Und was haben die Leute dann gemachen?", "sl": "In kaj so ljudje potem naredili?", "en": "And what did the people do then?", "it": "E poi che cosa ha fatto la gente?",
+            "why": { "sl": "Deležnik od machen je gemacht: Was haben sie gemacht?", "en": "The participle of machen is gemacht: Was haben sie gemacht?", "it": "Il participio di machen è gemacht: Was haben sie gemacht?" },
+            "reply": { "de": "Gemachen? Das Wort kenn ich nicht, und ich bin einundachtzig!", "sl": "Gemachen? Te besede ne poznam, pa sem star enainosemdeset let!", "en": "Gemachen? Never heard that word, and I'm eighty-one!", "it": "Gemachen? Questa parola non la conosco, e ho ottantun anni!" } }
+        ] },
+        { "de": "Auf den Felsen der Schütt wuchs langsam ein neuer Wald. Heute ist er geschützt, mit seltenen Blumen, Vögeln und Schlangen.", "sl": "Na skalah Schütta je počasi zrasel nov gozd. Danes je zavarovan, z redkimi rožami, pticami in kačami.", "en": "On the rocks of the Schütt a new forest slowly grew. Today it is protected, with rare flowers, birds and snakes.", "it": "Sulle rocce della Schütt crebbe piano piano un bosco nuovo. Oggi è protetto, con fiori rari, uccelli e serpenti.", "sky": { "snow": 0 } },
+        { "de": "Was ist heute auf den Felsen?", "sl": "Kaj je danes na skalah?", "en": "What is on the rocks today?", "it": "Che cosa c'è oggi sulle rocce?" },
+        { "choices": [
+          { "de": "Ein Wald mit seltenen Blumen.", "sl": "Gozd z redkimi rožami.", "en": "A forest with rare flowers.", "it": "Un bosco con fiori rari.", "ok": true,
+            "reply": { "de": "Richtig. Nach dem Unglück kam das Leben wieder. Gute Nacht!", "sl": "Tako je. Po nesreči se je življenje vrnilo. Lahko noč!", "en": "Right. After the disaster, life came back. Good night!", "it": "Giusto. Dopo la disgrazia la vita è tornata. Buonanotte!" } },
+          { "de": "Ein Wald mit seltene Blumen.", "sl": "Gozd z redkimi rožami.", "en": "A forest with rare flowers.", "it": "Un bosco con fiori rari.",
+            "why": { "sl": "Za mit pride dajalnik, v množini s končnico -en: mit seltenen Blumen.", "en": "Mit takes the dative, in the plural with -en: mit seltenen Blumen.", "it": "Mit regge il dativo, al plurale con -en: mit seltenen Blumen." },
+            "reply": { "de": "Mit seltene Blumen? Hm, da stolpert mein altes Ohr. Noch einmal?", "sl": "Mit seltene Blumen? Hm, moje staro uho se tu spotakne. Še enkrat?", "en": "Mit seltene Blumen? Hm, my old ear trips over that. Once more?", "it": "Mit seltene Blumen? Hm, il mio vecchio orecchio inciampa. Ancora una volta?" } },
+          { "de": "Ein großer See.", "sl": "Veliko jezero.", "en": "A big lake.", "it": "Un grande lago.",
+            "why": { "sl": "Ne: na skalah Schütta danes raste gozd.", "en": "No: today a forest grows on the rocks of the Schütt.", "it": "No: oggi sulle rocce della Schütt cresce un bosco." },
+            "reply": { "de": "Ein großer See? Da denkst du schon an den Wörthersee, Bub!", "sl": "Ein großer See? Ti pa že misliš na Vrbsko jezero, fant!", "en": "Ein großer See (a big lake)? You're already thinking of the Wörthersee, lad!", "it": "Ein großer See? Stai già pensando al Wörthersee, ragazzo!" } }
+        ] }
+      ]
+    }
+  },
+  "pictures": [
+    { "after": 2, "bg": "mountains", "props": [ { "id": "rock", "x": 0.46, "y": 0.46 }, { "id": "rock", "x": 0.6, "y": 0.3, "size": 1.3 }, { "id": "rock", "x": 0.36, "y": 0.2 }, { "id": "cloud", "x": 0.8, "y": 0.8 }, { "id": "house", "x": 0.14 } ],
+      "caption": { "de": "Große Felsen fallen ins Tal.", "sl": "Velike skale padajo v dolino.", "en": "Big rocks fall into the valley.", "it": "Grandi rocce cadono nella valle." } },
+    { "after": 3, "bg": "village", "figures": [ { "id": "peasant", "x": 0.3 }, { "id": "woman", "x": 0.44 }, { "id": "peasant", "x": 0.6, "flip": true } ], "props": [ { "id": "house", "x": 0.84 }, { "id": "rock", "x": 0.12 } ],
+      "caption": { "de": "Die Leute im Tal haben große Angst.", "sl": "Ljudje v dolini se zelo bojijo.", "en": "The people in the valley are very afraid.", "it": "La gente della valle ha molta paura." } },
+    { "after": 4, "bg": "forest", "figures": [ { "id": "bird", "x": 0.76, "y": 0.06 } ], "props": [ { "id": "rock", "x": 0.4 }, { "id": "rock", "x": 0.62, "size": 0.8 }, { "id": "spruce", "x": 0.22 }, { "id": "flower", "x": 0.5 } ],
+      "caption": { "de": "Auf den Felsen wächst ein Wald.", "sl": "Na skalah raste gozd.", "en": "A forest grows on the rocks.", "it": "Sulle rocce cresce un bosco." } }
+  ],
+  "notes": [
+    { "level": "A1", "after": [2, 3, 4], "text": [
+      { "de": "Der Dobratsch ist ein sehr großer Berg. Im Jahr 1348, vor fast siebenhundert Jahren, war es Winter, im Jänner. Plötzlich wackelte die Erde. Ein Erdbeben! Die Glocken läuteten von allein.", "sl": "Dobrač je zelo velika gora. Leta 1348, pred skoraj sedemsto leti, je bila zima, januar. Nenadoma se je zemlja stresla. Potres! Zvonovi so zvonili sami od sebe.", "en": "The Dobratsch is a very big mountain. In the year 1348, almost seven hundred years ago, it was winter, in January. Suddenly the ground shook. An earthquake! The bells rang all by themselves.", "it": "Il Dobratsch è una montagna molto grande. Nel 1348, quasi settecento anni fa, era inverno, a gennaio. All'improvviso la terra ha tremato. Un terremoto! Le campane suonavano da sole." },
+      { "de": "Dann brach ein großes Stück vom Berg ab. Große Felsen fielen ins Tal, bis zur Gail. Viele, viele Felsen! Den Ort nennt man heute die Schütt.", "sl": "Potem se je od gore odlomil velik kos. Velike skale so padle v dolino, vse do Zilje. Veliko, veliko skal! Temu kraju danes pravijo Schütt.", "en": "Then a big piece of the mountain broke off. Big rocks fell into the valley, all the way to the Gail. Lots and lots of rocks! Today the place is called the Schütt.", "it": "Poi un grande pezzo della montagna si è staccato. Grandi rocce sono cadute nella valle, fino al Gail. Tante, tantissime rocce! Oggi quel posto si chiama Schütt." },
+      { "de": "Die Leute hatten große Angst. Aber sie halfen einander. Sie bauten ihre Häuser wieder auf. Zusammen waren sie stark.", "sl": "Ljudje so se zelo bali. Ampak pomagali so si. Znova so zgradili svoje hiše. Skupaj so bili močni.", "en": "The people were very afraid. But they helped each other. They built their houses again. Together they were strong.", "it": "La gente aveva molta paura. Ma tutti si sono aiutati a vicenda. Hanno ricostruito le loro case. Insieme erano forti." },
+      { "de": "Und auf den Felsen wuchs langsam ein Wald. Heute leben dort Vögel, Blumen und sogar Schlangen. Der Berg ist alt, aber der Wald ist jung.", "sl": "In na skalah je počasi zrasel gozd. Danes tam živijo ptice, rože in celo kače. Gora je stara, gozd pa mlad.", "en": "And slowly a forest grew on the rocks. Today birds, flowers and even snakes live there. The mountain is old, but the forest is young.", "it": "E sulle rocce è cresciuto piano piano un bosco. Oggi lì vivono uccelli, fiori e perfino serpenti. La montagna è vecchia, ma il bosco è giovane." }
+    ] },
+    { "level": "A2", "after": [3, 4, 5], "text": [
+      { "de": "Eine Seite vom Dobratsch ist sehr steil und kahl. Dazu gibt es eine wahre Geschichte, aber die Leute erzählen sie wie eine Sage.", "sl": "Ena stran Dobrača je zelo strma in gola. O tem obstaja resnična zgodba, a ljudje jo pripovedujejo kot pripovedko.", "en": "One side of the Dobratsch is very steep and bare. There is a true story about it, but people tell it like a legend.", "it": "Un lato del Dobratsch è molto ripido e spoglio. C'è una storia vera su questo, ma la gente la racconta come una leggenda." },
+      { "de": "Im Jänner 1348 war es bitterkalt. Die Leute im Gailtal saßen in ihren warmen Stuben. Plötzlich bebte die Erde. Die Häuser wackelten, und die Kirchenglocken läuteten ganz von selbst.", "sl": "Januarja 1348 je bilo hudo mrzlo. Ljudje v Ziljski dolini so sedeli v svojih toplih izbah. Nenadoma se je zemlja stresla. Hiše so se zamajale in cerkveni zvonovi so zvonili čisto sami od sebe.", "en": "In January 1348 it was bitterly cold. The people in the Gail valley sat in their warm parlours. Suddenly the earth shook. The houses swayed, and the church bells rang all by themselves.", "it": "Nel gennaio del 1348 faceva un freddo pungente. La gente della valle del Gail stava nelle sue stanze calde. All'improvviso la terra ha tremato. Le case hanno oscillato e le campane delle chiese hanno suonato da sole." },
+      { "de": "Dann hörte man einen gewaltigen Donner: Ein riesiges Stück vom Dobratsch brach ab und stürzte ins Tal. Die Felsen fielen bis zur Gail. Bis heute liegen sie dort, und man nennt das Gebiet die Schütt.", "sl": "Potem se je zaslišalo silno grmenje: velikanski kos Dobrača se je odlomil in zgrmel v dolino. Skale so padle vse do Zilje. Tam ležijo še danes in temu območju pravijo Schütt.", "en": "Then there was a mighty thunder: a huge piece of the Dobratsch broke off and crashed into the valley. The rocks fell all the way to the Gail. They still lie there today, and the area is called the Schütt.", "it": "Poi si è sentito un tuono potente: un pezzo enorme del Dobratsch si è staccato ed è precipitato nella valle. Le rocce sono cadute fino al Gail. Sono ancora lì, e la zona si chiama Schütt." },
+      { "de": "Die Leute hatten große Angst. Manche sagten: „Der Berg ist böse geworden.“ Aber ein Berg ist nicht böse, die Erde hatte sich nur bewegt. Die Leute halfen einander und bauten ihre Dörfer wieder auf, Stein für Stein.", "sl": "Ljudje so se zelo bali. Nekateri so rekli: »Gora je postala huda.« A gora ni huda, zemlja se je samo premaknila. Ljudje so si pomagali in znova zgradili svoje vasi, kamen za kamnom.", "en": "The people were very afraid. Some said: 'The mountain has turned wicked.' But a mountain is not wicked; the earth had only moved. The people helped each other and rebuilt their villages, stone by stone.", "it": "La gente aveva molta paura. Alcuni dicevano: «La montagna è diventata cattiva.» Ma una montagna non è cattiva: la terra si era solo mossa. La gente si è aiutata e ha ricostruito i paesi, sasso dopo sasso." },
+      { "de": "Auf den Felsen der Schütt wuchs langsam ein neuer Wald. Heute ist er geschützt, mit seltenen Blumen, Vögeln und Schlangen. Nach dem Unglück kam das Leben wieder.", "sl": "Na skalah Schütta je počasi zrasel nov gozd. Danes je zavarovan, z redkimi rožami, pticami in kačami. Po nesreči se je življenje vrnilo.", "en": "On the rocks of the Schütt a new forest slowly grew. Today it is protected, with rare flowers, birds and snakes. After the disaster, life came back.", "it": "Sulle rocce della Schütt è cresciuto piano piano un bosco nuovo. Oggi è protetto, con fiori rari, uccelli e serpenti. Dopo la disgrazia la vita è tornata." }
+    ] }
+  ],
+  "review": "notes: machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

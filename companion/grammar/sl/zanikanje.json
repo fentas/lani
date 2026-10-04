@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "zanikanje",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🙅",
+  "title": {
+    "sl": "Zanikanje: ne vidim nič, nikoli nisem",
+    "en": "Saying no: ne … nič, nikoli",
+    "de": "Verneinung: ne … nič, nikoli",
+    "it": "La negazione: ne … nič, nikoli"
+  },
+  "rule": {
+    "en": "To say no, **ne** (*zanikanje*, negation) goes right before the verb: **Ne vem.** **Ne vidim.** **Ne pijem kave.**\n\nThree verbs fuse with it into one word: biti → **nisem, nisi, ni** …; imeti → **nimam**; hoteti → **nočem**. Never *ne sem* or *ne imam*: **Nisem spal.** **Nimam denarja.**\n\nSlovene says no twice. With **nič** (nothing), **nihče** (nobody), **nikoli** (never), **nikjer** (nowhere) and **noben** (no, none) the verb keeps its ne: **Ne vidim nič.** **Nikoli nisem bil na Triglavu.** **Nihče ne ve.** German and English say it once (*ich sehe nichts*, I see nothing); in Slovene *vidim nič* is wrong.\n\nWhat you don't have, see or drink goes into the genitive: **ne vidim oblakov** (see that page). And lahko has no ne of its own: **ne morem** (I can't).",
+    "de": "Verneint wird mit **ne** (*zanikanje*) direkt vor dem Verb: **Ne vem.** **Ne vidim.** **Ne pijem kave.**\n\nDrei Verben verschmelzen damit zu einem Wort: biti → **nisem, nisi, ni** …; imeti → **nimam**; hoteti → **nočem**. Nie *ne sem* oder *ne imam*: **Nisem spal.** **Nimam denarja.**\n\nDas Slowenische verneint doppelt. Mit **nič** (nichts), **nihče** (niemand), **nikoli** (nie), **nikjer** (nirgends) und **noben** (kein) behält das Verb sein ne: **Ne vidim nič.** **Nikoli nisem bil na Triglavu.** **Nihče ne ve.** Im Deutschen reicht ein Nein (*ich sehe nichts*); im Slowenischen ist *vidim nič* falsch.\n\nWas man nicht hat, sieht oder trinkt, steht im Genitiv: **ne vidim oblakov** (siehe dort). Und lahko hat kein eigenes ne: **ne morem** (ich kann nicht).",
+    "it": "Per negare si mette **ne** (*zanikanje*, negazione) subito prima del verbo: **Ne vem.** **Ne vidim.** **Ne pijem kave.**\n\nTre verbi si fondono con ne in una parola sola: biti → **nisem, nisi, ni** …; imeti → **nimam**; hoteti → **nočem**. Mai *ne sem* o *ne imam*: **Nisem spal.** **Nimam denarja.**\n\nLo sloveno nega due volte, come l'italiano: con **nič** (niente), **nihče** (nessuno), **nikoli** (mai), **nikjer** (da nessuna parte) e **noben** (nessuno, nessuna) il verbo tiene il suo ne: **Ne vidim nič.** **Nikoli nisem bil na Triglavu.** **Nihče ne ve.** *Vidim nič* è sbagliato, come *vedo niente*.\n\nCiò che non si ha, non si vede o non si beve va al genitivo: **ne vidim oblakov** (vedi quella pagina). E lahko non ha un suo ne: **ne morem** (non posso)."
+  },
+  "table": {
+    "head": [
+      { "sl": "pritrdilno", "en": "yes", "de": "bejaht", "it": "affermativo" },
+      { "sl": "nikalno", "en": "no", "de": "verneint", "it": "negativo" }
+    ],
+    "rows": [
+      ["Vidim nekaj.", "Ne vidim nič."],
+      ["Nekdo pride.", "Nihče ne pride."],
+      ["Vedno je doma.", "Nikoli ni doma."],
+      ["Bil sem doma.", "Nisem bil doma."],
+      ["Imam denar.", "Nimam denarja."],
+      ["Hočem spati.", "Nočem spati."],
+      ["Lahko pridem.", "Ne morem priti."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Ne vem. Ne vidim nič.",
+      "en": "I don't know. I can't see a thing.",
+      "de": "Ich weiß nicht. Ich sehe nichts.",
+      "it": "Non lo so. Non vedo niente.",
+      "note": {
+        "en": "Nič keeps the ne: ne vidim nič. Vidim nič is wrong.",
+        "de": "Bei nič bleibt das ne: ne vidim nič. Vidim nič ist falsch.",
+        "it": "Con nič resta il ne: ne vidim nič. Vidim nič è sbagliato."
+      }
+    },
+    {
+      "sl": "Ne, nikoli nisem bil na Triglavu.",
+      "en": "No, I have never been on Triglav.",
+      "de": "Nein, ich war nie auf dem Triglav.",
+      "it": "No, non sono mai stato sul Tricorno.",
+      "note": {
+        "en": "Nikoli and nisem together: Slovene says no twice.",
+        "de": "Nikoli und nisem zusammen: Das Slowenische verneint doppelt.",
+        "it": "Nikoli e nisem insieme: lo sloveno nega due volte."
+      }
+    },
+    {
+      "sl": "Ne, nisem spal. Šotor je plesal!",
+      "en": "No, I didn't sleep. The tent was dancing!",
+      "de": "Nein, ich habe nicht geschlafen. Das Zelt hat getanzt!",
+      "it": "No, non ho dormito. La tenda ballava!",
+      "note": {
+        "en": "Ne + sem is one word: nisem. Never sem ne.",
+        "de": "Ne + sem ist ein Wort: nisem. Nie sem ne.",
+        "it": "Ne + sem è una parola sola: nisem. Mai sem ne."
+      }
+    },
+    {
+      "sl": "Nihče ne ve, kje je Muri.",
+      "en": "Nobody knows where Muri is.",
+      "de": "Niemand weiß, wo Muri ist.",
+      "it": "Nessuno sa dov'è Muri."
+    },
+    {
+      "sl": "Danes nočem nič jesti.",
+      "en": "I don't want to eat anything today.",
+      "de": "Heute will ich nichts essen.",
+      "it": "Oggi non voglio mangiare niente.",
+      "note": {
+        "en": "Nočem is ne + hočem, and it goes with nič too.",
+        "de": "Nočem ist ne + hočem, und es steht auch mit nič.",
+        "it": "Nočem è ne + hočem, e va anche con nič."
+      }
+    },
+    {
+      "sl": "Nikjer ne vidim ovce.",
+      "en": "I can't see the sheep anywhere.",
+      "de": "Ich sehe das Schaf nirgends.",
+      "it": "Non vedo la pecora da nessuna parte.",
+      "note": {
+        "en": "Nikjer and ne together, and the genitive after the no: ovca → ovce.",
+        "de": "Nikjer und ne zusammen, und nach der Verneinung der Genitiv: ovca → ovce.",
+        "it": "Nikjer e ne insieme, e dopo la negazione il genitivo: ovca → ovce."
+      }
+    },
+    {
+      "sl": "Ne vidim ničesar! Kje so vžigalice?",
+      "en": "I can't see anything! Where are the matches?",
+      "de": "Ich sehe nichts! Wo sind die Streichhölzer?",
+      "it": "Non vedo niente! Dove sono i fiammiferi?",
+      "note": {
+        "en": "Ničesar is the genitive of nič, a little more careful: ne vidim ničesar.",
+        "de": "Ničesar ist der Genitiv von nič, etwas gewählter: ne vidim ničesar.",
+        "it": "Ničesar è il genitivo di nič, un po' più curato: ne vidim ničesar."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["double_negation", "zanikanje"],
+  "see": ["rodilnik-nikalnica", "biti", "imeti-iti", "modalni-glagoli"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

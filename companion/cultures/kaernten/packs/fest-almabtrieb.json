@@ -1,0 +1,36 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-almabtrieb",
+  "language": "de",
+  "title": { "de": "Der Almabtrieb", "sl": "Vrnitev s planine", "en": "Bringing the cows down", "it": "La discesa dall'alpeggio" },
+  "emoji": "🐄",
+  "level": "A1",
+  "description": {
+    "sl": "Zadnja sobota v septembru. Hirte Florian prižene krave s planine v dolino, s cvetjem na glavi in zvonci okoli vratu.",
+    "en": "The last Saturday of September. Hirte Florian brings the cows down from the mountain pasture to the valley, with flowers on their heads and bells around their necks.",
+    "it": "L'ultimo sabato di settembre. Hirte Florian porta le mucche dall'alpeggio a valle, con i fiori in testa e i campanacci al collo."
+  },
+  "giver": { "name": "Hirte Florian", "emoji": "🐑" },
+  "festival": "almabtrieb",
+  "words": [
+    { "id": "alm", "de": "die Alm", "sl": "planina", "en": "mountain pasture", "it": "l'alpeggio", "emoji": "⛰️", "gender": "f", "plural": "die Almen",
+      "example_de": "Im Sommer sind die Kühe auf der Alm.", "example_sl": "Poleti so krave na planini.", "example_en": "In summer the cows are up on the mountain pasture.", "example_it": "D'estate le mucche sono all'alpeggio." },
+    { "id": "kuh", "de": "die Kuh", "sl": "krava", "en": "cow", "it": "la mucca", "emoji": "🐄", "gender": "f", "plural": "die Kühe",
+      "example_de": "Die Kuh gibt Milch.", "example_sl": "Krava daje mleko.", "example_en": "The cow gives milk.", "example_it": "La mucca dà il latte." },
+    { "id": "kuhglocke", "de": "die Kuhglocke", "sl": "kravji zvonec", "en": "cowbell", "it": "il campanaccio", "emoji": "🔔", "gender": "f", "plural": "die Kuhglocken",
+      "example_de": "Die Kuhglocken läuten laut.", "example_sl": "Kravji zvonci glasno zvonijo.", "example_en": "The cowbells ring loudly.", "example_it": "I campanacci suonano forte." },
+    { "id": "blume", "de": "die Blume", "sl": "roža", "en": "flower", "it": "il fiore", "emoji": "🌸", "gender": "f", "plural": "die Blumen",
+      "example_de": "Die Kuh trägt Blumen auf dem Kopf.", "example_sl": "Krava ima na glavi rože.", "example_en": "The cow wears flowers on its head.", "example_it": "La mucca porta i fiori in testa." },
+    { "id": "tal", "de": "das Tal", "sl": "dolina", "en": "valley", "it": "la valle", "emoji": "🏞️", "gender": "n", "plural": "die Täler",
+      "example_de": "Die Kühe kommen ins Tal.", "example_sl": "Krave pridejo v dolino.", "example_en": "The cows come down into the valley.", "example_it": "Le mucche scendono a valle." },
+    { "id": "herbst", "de": "der Herbst", "sl": "jesen", "en": "autumn", "it": "l'autunno", "emoji": "🍂", "gender": "m", "plural": "die Herbste",
+      "example_de": "Im Herbst werden die Blätter gelb.", "example_sl": "Jeseni listje porumeni.", "example_en": "In autumn the leaves turn yellow.", "example_it": "In autunno le foglie diventano gialle." },
+    { "id": "kaese", "de": "der Käse", "sl": "sir", "en": "cheese", "it": "il formaggio", "emoji": "🧀", "gender": "m",
+      "example_de": "Der Almkäse schmeckt gut.", "example_sl": "Planinski sir je dober.", "example_en": "The Alm cheese tastes good.", "example_it": "Il formaggio d'alpeggio è buono." },
+    { "id": "butter", "de": "die Butter", "sl": "maslo", "en": "butter", "it": "il burro", "emoji": "🧈", "gender": "f",
+      "example_de": "Die Almbutter ist gelb.", "example_sl": "Planinsko maslo je rumeno.", "example_en": "The Alm butter is yellow.", "example_it": "Il burro d'alpeggio è giallo.",
+      "note": "Feminine in German: die Butter.",
+      "note_sl": "V nemščini je ženskega spola: die Butter.",
+      "note_it": "In tedesco è femminile: die Butter." }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "kathi",
+  "name": "Wirtin Kathi",
+  "emoji": "🍲",
+  "art": "innkeeper",
+  "voice": "female",
+  "speaker": "woman",
+  "role": {"de": "Wirtin", "sl": "Gostilničarka", "en": "Innkeeper", "it": "Ostessa"},
+  "home": ["market", "house"],
+  "register": "vi",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 11,
+  "routine": {
+    "up": "6:00", "bed": "22:30",
+    "rituals": [
+      { "id": "gasthaus", "at": "22:00", "until": "22:15", "to": "market", "doing": "stand", "title": {"de": "Kathi sperrt das Gasthaus zu", "sl": "Kathi zaklene gostilno", "en": "Kathi locks up the Gasthaus", "it": "Kathi chiude la locanda"} }
+    ]
+  },
+  "personality": "Innkeeper in her forties who runs the Gasthaus zur Linde on the square. Always busy, always warm, three plates on one arm: 'Sofort, sofort!', 'Ich komme gleich!'. Says du to the learner like a mother; the learner says Sie to her and calls her 'Frau Kathi', as is polite in the Gasthaus. Speaks quick but simple Austrian German and slows down when the learner doesn't understand. Guests from Slovenia, Italy and Germany all summer; she has learnt a little Slovene and Italian from them and switches between tables.",
+  "story": "Kathi's Gasthaus zur Linde stands on the square under the big linden: coffee in the morning, Kasnudeln and a Brettljause at noon, the Kirchtagssuppe at the Kirchtag, and on Sundays the whole village at her tables. Her son Maxi runs between the tables with a hockey stick. She likes it when someone helps her with a guest's words.",
+  "likes": [
+    {"de": "die Gäste", "sl": "gostje", "en": "guests", "it": "gli ospiti"},
+    {"de": "die Kasnudeln", "sl": "koroški sirovi žlikrofi (kasnudeln)", "en": "Kasnudeln (Carinthian filled pasta)", "it": "i Kasnudeln (la pasta ripiena della Carinzia)"},
+    {"de": "der Kaffee", "sl": "kava", "en": "coffee", "it": "il caffè"},
+    {"de": "das schnelle Arbeiten", "sl": "hitro delo", "en": "working fast", "it": "il lavoro veloce"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Grüß Gott! Herzlich willkommen!", "sl": "Pozdravljen! Dobrodošel!", "en": "Hello! Welcome!", "it": "Salve! Benvenuto!", "level": 0 },
+      { "de": "Grüß Gott! Möchtest du einen Apfelsaft?", "sl": "Pozdravljen! Bi jabolčni sok?", "en": "Hello! Would you like some apple juice?", "it": "Salve! Vuoi un succo di mela?", "level": 0 },
+      { "de": "Oh, servus! Setz dich, ich komme gleich.", "sl": "O, živjo! Sedi, takoj pridem.", "en": "Oh, hi! Sit down, I'll be right with you.", "it": "Oh, ciao! Siediti, arrivo subito.", "level": 1 },
+      { "de": "Servus, Schatzi! Der gleiche Tisch wie immer?", "sl": "Živjo, zaklad! Tvoja običajna miza?", "en": "Hi, sweetheart! Your usual table?", "it": "Ciao, tesoro! Il solito tavolo?", "level": 2 },
+      { "de": "Da bist du ja! Ich habe dir Kasnudeln aufgehoben.", "sl": "Tu si! Prihranila sem ti kasnudeln.", "en": "There you are! I've saved you some Kasnudeln.", "it": "Eccoti! Ti ho messo da parte un po' di Kasnudeln.", "level": 3 },
+      { "de": "Schatzi! Hier bist du zu Hause. Setz dich zu mir in die Küche.", "sl": "Zaklad moj! Tu si kot doma. Sedi k meni v kuhinjo.", "en": "Sweetheart! You're at home here. Sit with me in the kitchen.", "it": "Tesoro mio! Qui sei di casa. Siediti in cucina con me.", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke! Du hast mir sehr geholfen.", "sl": "Hvala! Zelo si mi pomagal.", "en": "Thank you! You helped me a lot.", "it": "Grazie! Mi hai aiutato tanto." },
+      { "de": "Vielen Dank! Heute gibt es Kasnudeln für dich.", "sl": "Najlepša hvala! Danes so zate kasnudeln.", "en": "Thanks a lot! Today there are Kasnudeln for you.", "it": "Grazie mille! Oggi ci sono i Kasnudeln per te." },
+      { "de": "Danke, Schatzi. Das hast du super gemacht.", "sl": "Hvala, zaklad. Odlično si to naredil.", "en": "Thank you, sweetheart. You did that brilliantly.", "it": "Grazie, tesoro. L'hai fatto benissimo." }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "Auch bei viel Arbeit denke ich an {memory}.", "sl": "Tudi ko je veliko dela, mislim na {memory}.", "en": "Even with lots of work, I think of {memory}.", "it": "Anche con tanto lavoro, ricordo {memory}.", "level": 2 },
+      { "de": "Ich denke gern an {memory}.", "sl": "Rada se spomnim na {memory}.", "en": "I like to think of {memory}.", "it": "Mi piace ricordare {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Sofort, sofort! Ich komme!", "sl": "Takoj, takoj! Že grem!", "en": "Right away! I'm coming!", "it": "Subito, subito! Arrivo!" },
+      { "de": "Heute sind Gäste aus Slowenien da.", "sl": "Danes so tu gostje iz Slovenije.", "en": "There are guests from Slovenia today.", "it": "Oggi ci sono ospiti dalla Slovenia." },
+      { "de": "Ein Kaffee für Tisch drei.", "sl": "Kavo za mizo tri.", "en": "A coffee for table three.", "it": "Un caffè per il tavolo tre." },
+      { "de": "Maxi! Der Hockeyschläger kommt nicht in die Küche!", "sl": "Maxi! Hokejska palica ne sodi v kuhinjo!", "en": "Maxi! The hockey stick doesn't belong in the kitchen!", "it": "Maxi! La mazza da hockey non va in cucina!" }
+    ],
+    "cheer": [
+      { "de": "Super!", "sl": "Bravo!", "en": "Well done!", "it": "Bravo!" },
+      { "de": "Perfekt, wie meine Kasnudeln!", "sl": "Odlično, kot moji kasnudeln!", "en": "Perfect, like my Kasnudeln!", "it": "Perfetto, come i miei Kasnudeln!" },
+      { "de": "Richtig! Das hast du sofort verstanden.", "sl": "Prav! Takoj si razumel.", "en": "Right! You understood straight away.", "it": "Giusto! Hai capito subito." }
+    ],
+    "comfort": [
+      { "de": "Macht nichts, Schatzi. Probier's noch einmal.", "sl": "Nič hudega, zaklad. Poskusi še enkrat.", "en": "Never mind, sweetheart. Try again.", "it": "Non fa niente, tesoro. Riprova." },
+      { "de": "Langsam, wir haben Zeit.", "sl": "Počasi, časa imava dovolj.", "en": "Slowly, we have time.", "it": "Piano, abbiamo tempo." },
+      { "de": "Fast! Noch einmal.", "sl": "Skoraj! Še enkrat.", "en": "Almost! Once more.", "it": "Quasi! Ancora una volta." }
+    ],
+    "listen": [
+      { "de": "Hör gut zu.", "sl": "Dobro poslušaj.", "en": "Listen carefully.", "it": "Ascolta bene." },
+      { "de": "Warte, hör zu. Was sagt der Gast?", "sl": "Počakaj, poslušaj. Kaj pravi gost?", "en": "Wait, listen. What's the guest saying?", "it": "Aspetta, ascolta. Cosa dice l'ospite?" },
+      { "de": "Pst, hör zu.", "sl": "Pst, poslušaj.", "en": "Shh, listen.", "it": "Shh, ascolta." }
+    ],
+    "bye": [
+      { "de": "Auf Wiedersehen!", "sl": "Na svidenje!", "en": "Goodbye!", "it": "Arrivederci!" },
+      { "de": "Servus, Schatzi! Komm bald wieder.", "sl": "Adijo, zaklad! Kmalu spet pridi.", "en": "Bye, sweetheart! Come back soon.", "it": "Ciao, tesoro! Torna presto." },
+      { "de": "Pfiat di! Morgen gibt es Heidensterz.", "sl": "Adijo! Jutri bodo ajdovi žganci. (pfiat di: koroško za »adijo«)", "en": "Bye! There's Heidensterz (buckwheat) tomorrow. (pfiat di: Carinthian for bye)", "it": "Ciao! Domani c'è l'Heidensterz, di grano saraceno. (pfiat di: saluto carinziano)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "Oh, Schatzi! Woher weißt du das? Das mag ich so gern!", "sl": "O, zaklad! Kako si vedel? To imam tako rada!", "en": "Oh, sweetheart! How did you know? I love it!", "it": "Oh, tesoro! Come lo sapevi? Mi piace tantissimo!" },
+        { "de": "Für mich? Vielen Dank! Heute lade ich dich auf Kasnudeln ein.", "sl": "Zame? Najlepša hvala! Danes te jaz povabim na kasnudeln.", "en": "For me? Thank you so much! Today the Kasnudeln are on me.", "it": "Per me? Grazie mille! Oggi i Kasnudeln te li offro io." },
+        { "de": "Genau das habe ich gebraucht! Danke, Schatzi.", "sl": "Točno to sem potrebovala! Hvala, zaklad.", "en": "Just what I needed! Thank you, sweetheart.", "it": "Proprio quello che mi serviva! Grazie, tesoro." }
+      ],
+      "ordinary": [
+        { "de": "Danke, Schatzi! Das ist lieb von dir.", "sl": "Hvala, zaklad! Lepo od tebe.", "en": "Thank you, sweetheart! That's kind of you.", "it": "Grazie, tesoro! Sei gentile." },
+        { "de": "Oh, danke! Setz dich, ich bringe dir gleich einen Saft.", "sl": "O, hvala! Sedi, takoj ti prinesem sok.", "en": "Oh, thank you! Sit down, I'll bring you a juice right away.", "it": "Oh, grazie! Siediti, ti porto subito un succo." }
+      ],
+      "rare": [
+        { "de": "Wie wunderbar! So etwas gibt es nicht einmal in Villach. Danke!", "sl": "Čudovito! Tega nimajo niti v Beljaku. Hvala!", "en": "How wonderful! Not even in Villach do they have this. Thank you!", "it": "Che meraviglia! Questo non ce l'hanno neanche a Villaco. Grazie!" }
+      ]
+    }
+  }
+}

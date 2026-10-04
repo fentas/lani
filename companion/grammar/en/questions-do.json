@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "questions-do",
+  "language": "en",
+  "level": "A1",
+  "emoji": "❓",
+  "title": {
+    "en": "Do you …? Questions and negatives",
+    "sl": "Do you …? Vprašanja in zanikanje",
+    "it": "Do you …? Domande e negazioni",
+    "de": "Do you …? Fragen und Verneinung"
+  },
+  "rule": {
+    "en": "A question in English puts a helping verb before the subject. For most verbs this is **do**, **does** (he, she, it) or **did** (the past), and the main verb goes back to its base form: **Do you come here every evening?** **Does Meg bark?** **Did you see the fox?** (not *Does Meg barks?*, not *Did you saw?*).\n\nThe negative works the same way: **don't**, **doesn't**, **didn't** + the base form: **I don't know.** **Meg doesn't bark.** **We didn't go.**\n\nNo do with **be**, **can**, **will** or **must**: they just swap places with the subject: **Are you cold?** **Is it far?** **Can you swim?** Their negatives: **isn't**, **can't**, **won't**.\n\nA question word comes first: **Where do you live?** **What does it mean?** But when who or what is the subject, there is no do: **Who lives here?** **What happened?**\n\nShort answers repeat the helping verb: **Yes, I do.** / **No, she doesn't.** / **Yes, I can.**",
+    "sl": "V slovenščini je vprašanje lahko enako kot trditev, le z drugačnim glasom (**Prideš?**) ali z **ali** / **a**. Angleščina pa postavi pred osebek pomožni glagol. Pri večini glagolov je to **do**, **does** (he, she, it) ali **did** (preteklik), glavni glagol pa je v osnovni obliki: **Do you come here every evening?** (Prihajaš sem vsak večer?) **Does Meg bark?** **Did you see the fox?** (ne *Does Meg barks?*, ne *Did you saw?*).\n\nZanikanje gre enako: **don't**, **doesn't**, **didn't** + osnovna oblika: **I don't know.** (Ne vem.) **Meg doesn't bark.** **We didn't go.**\n\nBrez do so **be**, **can**, **will** in **must**: le zamenjajo mesto z osebkom: **Are you cold?** (Te zebe?) **Is it far?** **Can you swim?** Zanikanje: **isn't**, **can't**, **won't**.\n\nVprašalnica je na začetku: **Where do you live?** (Kje živiš?) **What does it mean?** Kadar je who ali what osebek, do ni: **Who lives here?** **What happened?**\n\nKratki odgovori ponovijo pomožni glagol: **Yes, I do.** / **No, she doesn't.** / **Yes, I can.**",
+    "it": "In italiano la domanda può essere uguale all'affermazione, cambia solo il tono (**Vieni?**). L'inglese invece mette un verbo ausiliare prima del soggetto. Per la maggior parte dei verbi è **do**, **does** (he, she, it) o **did** (passato), e il verbo principale torna alla forma base: **Do you come here every evening?** (Vieni qui ogni sera?) **Does Meg bark?** **Did you see the fox?** (non *Does Meg barks?*, non *Did you saw?*).\n\nLa negazione funziona allo stesso modo: **don't**, **doesn't**, **didn't** + forma base: **I don't know.** (Non lo so.) **Meg doesn't bark.** **We didn't go.**\n\nNiente do con **be**, **can**, **will** e **must**: si scambiano di posto con il soggetto: **Are you cold?** (Hai freddo?) **Is it far?** **Can you swim?** Negazione: **isn't**, **can't**, **won't**.\n\nLa parola interrogativa va per prima: **Where do you live?** (Dove abiti?) **What does it mean?** Se who o what è il soggetto, niente do: **Who lives here?** **What happened?**\n\nLe risposte brevi ripetono l'ausiliare: **Yes, I do.** / **No, she doesn't.** / **Yes, I can.**",
+    "de": "Im Deutschen stellt man für die Frage einfach das Verb nach vorn: **Kommst du?** Im Englischen geht das nur mit wenigen Verben. Bei den meisten steht **do**, **does** (he, she, it) oder **did** (Vergangenheit) vor dem Subjekt, und das Hauptverb steht in der Grundform: **Do you come here every evening?** (Kommst du jeden Abend hierher?) **Does Meg bark?** **Did you see the fox?** (nicht *Come you here?*, nicht *Does Meg barks?*).\n\nDie Verneinung geht genauso: **don't**, **doesn't**, **didn't** + Grundform: **I don't know.** (Ich weiß es nicht.) **Meg doesn't bark.** **We didn't go.**\n\nKein do bei **be**, **can**, **will** und **must**: Sie tauschen wie im Deutschen den Platz mit dem Subjekt: **Are you cold?** (Ist dir kalt?) **Is it far?** **Can you swim?** Verneinung: **isn't**, **can't**, **won't**.\n\nDas Fragewort steht vorn: **Where do you live?** (Wo wohnst du?) **What does it mean?** Ist who oder what das Subjekt, dann ohne do: **Who lives here?** **What happened?**\n\nKurze Antworten wiederholen das Hilfsverb: **Yes, I do.** / **No, she doesn't.** / **Yes, I can.**"
+  },
+  "table": {
+    "head": [
+      { "en": "with", "sl": "pri", "it": "con", "de": "bei" },
+      { "en": "question", "sl": "vprašanje", "it": "domanda", "de": "Frage" },
+      { "en": "negative", "sl": "nikalno", "it": "negativo", "de": "verneint" },
+      { "en": "short answer", "sl": "kratek odgovor", "it": "risposta breve", "de": "Kurzantwort" }
+    ],
+    "rows": [
+      ["I, you, we, they", "Do you live here?", "I don't live here.", "Yes, I do."],
+      ["he, she, it", "Does she live here?", "She doesn't live here.", "No, she doesn't."],
+      [{ "en": "the past", "sl": "preteklik", "it": "passato", "de": "Vergangenheit" }, "Did you see it?", "I didn't see it.", "Yes, I did."],
+      ["be", "Are you cold?", "I'm not cold.", "Yes, I am."],
+      ["can", "Can you swim?", "I can't swim.", "No, I can't."]
+    ]
+  },
+  "examples": [
+    {
+      "en": "Do you come here every evening?",
+      "sl": "Prihajaš sem vsak večer?",
+      "it": "Vieni qui ogni sera?",
+      "de": "Kommst du jeden Abend hierher?",
+      "note": {
+        "en": "do + you + come (not Come you here?).",
+        "sl": "do + you + come (ne Come you here?).",
+        "it": "do + you + come (non Come you here?).",
+        "de": "do + you + come (nicht Come you here?)."
+      }
+    },
+    {
+      "en": "Does Meg bark at the ponies? — No, she doesn't.",
+      "sl": "Ali Meg laja na ponije? — Ne, ne laja.",
+      "it": "Meg abbaia ai pony? — No.",
+      "de": "Bellt Meg die Ponys an? — Nein.",
+      "note": {
+        "en": "does + bark: the -s is already in does.",
+        "sl": "does + bark: -s je že v does.",
+        "it": "does + bark: la -s è già in does.",
+        "de": "does + bark: das -s steckt schon in does."
+      }
+    },
+    {
+      "en": "Where do you live? — I live in Keswick.",
+      "sl": "Kje živiš? — Živim v Keswicku.",
+      "it": "Dove abiti? — Abito a Keswick.",
+      "de": "Wo wohnst du? — Ich wohne in Keswick."
+    },
+    {
+      "en": "I don't know the way to the tarn.",
+      "sl": "Ne poznam poti do gorskega jezerca.",
+      "it": "Non conosco la strada per il laghetto.",
+      "de": "Ich kenne den Weg zum Bergsee nicht."
+    },
+    {
+      "en": "Are you cold, Harry?",
+      "sl": "Te zebe, Harry?",
+      "it": "Hai freddo, Harry?",
+      "de": "Ist dir kalt, Harry?",
+      "note": {
+        "en": "be takes no do: Are you …? (not Do you are …?).",
+        "sl": "be ne dobi do: Are you …? (ne Do you are …?).",
+        "it": "be non vuole do: Are you …? (non Do you are …?).",
+        "de": "be ohne do: Are you …? (nicht Do you are …?)."
+      }
+    },
+    {
+      "en": "Can you swim, Poppy? — Yes, I can.",
+      "sl": "Znaš plavati, Poppy? — Ja, znam.",
+      "it": "Sai nuotare, Poppy? — Sì!",
+      "de": "Kannst du schwimmen, Poppy? — Ja!"
+    },
+    {
+      "en": "Who lives in the old mill? — Mr Tyson does.",
+      "sl": "Kdo živi v starem mlinu? — Gospod Tyson.",
+      "it": "Chi abita nel vecchio mulino? — Il signor Tyson.",
+      "de": "Wer wohnt in der alten Mühle? — Herr Tyson.",
+      "note": {
+        "en": "who is the subject: no do.",
+        "sl": "who je osebek: brez do.",
+        "it": "who è il soggetto: niente do.",
+        "de": "who ist das Subjekt: ohne do."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["questions", "question", "do_does", "negation", "negative", "dont", "short_answers", "question_words"],
+  "see": ["present-simple", "past-simple", "to-be", "can"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

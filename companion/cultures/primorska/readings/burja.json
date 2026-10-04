@@ -1,0 +1,85 @@
+{
+  "id": "burja",
+  "kind": "page",
+  "level": "A2",
+  "title": { "sl": "Burja", "en": "The bora", "de": "Die Bora", "it": "La bora" },
+  "by": "janez",
+  "intro": { "sl": "Stari Janez pove, kaj je burja.", "en": "Old Janez tells what the bora is.", "de": "Der alte Janez erzählt, was die Bora ist.", "it": "Il vecchio Janez racconta che cos'è la bora." },
+  "lines": [
+    { "text": { "sl": "Burja je močan, mrzel veter.", "en": "The bora is a strong, cold wind.", "de": "Die Bora ist ein starker, kalter Wind.", "it": "La bora è un vento forte e freddo." } },
+    { "text": { "sl": "Piha s hribov proti morju, najbolj pozimi.", "en": "It blows from the hills towards the sea, most of all in winter.", "de": "Sie weht von den Bergen zum Meer, am meisten im Winter.", "it": "Soffia dalle colline verso il mare, soprattutto d'inverno." } },
+    { "text": { "sl": "Včasih je tako močna, da odnese streho ali prevrne voz.", "en": "Sometimes it is so strong that it blows a roof away or overturns a cart.", "de": "Manchmal ist sie so stark, dass sie ein Dach wegreißt oder einen Wagen umwirft.", "it": "A volte è così forte che porta via un tetto o rovescia un carro." } },
+    { "text": { "sl": "Zato imajo stare hiše na strehah kamne.", "en": "That's why old houses have stones on their roofs.", "de": "Darum haben alte Häuser Steine auf den Dächern.", "it": "Per questo le case vecchie hanno delle pietre sui tetti." } },
+    { "text": { "sl": "Ko piha burja, ostanemo doma in zakurimo peč.", "en": "When the bora blows, we stay at home and light the stove.", "de": "Wenn die Bora weht, bleiben wir zu Hause und heizen den Ofen an.", "it": "Quando soffia la bora, restiamo a casa e accendiamo la stufa." } },
+    { "text": { "sl": "Ampak burja ima tudi dobro stran: po njej je nebo čisto in modro.", "en": "But the bora has a good side too: after it the sky is clear and blue.", "de": "Aber die Bora hat auch eine gute Seite: Danach ist der Himmel klar und blau.", "it": "Ma la bora ha anche un lato buono: dopo il cielo è limpido e azzurro." } },
+    { "text": { "sl": "In pršut se na burji lepo posuši.", "en": "And ham dries nicely in the bora.", "de": "Und der Schinken trocknet in der Bora schön.", "it": "E il prosciutto si asciuga bene con la bora." } }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "ask": { "sl": "O čem govori Janez?", "en": "What is Janez talking about?", "de": "Wovon spricht Janez?", "it": "Di che cosa parla Janez?" },
+      "options": ["O vetru, ki mu rečemo burja", "O morju in ribah", "O tem, kako se dela pršut"],
+      "explain": {
+        "sl": "Janez pove, kaj je burja, od kod piha in kaj naredi.",
+        "en": "Janez tells what the bora is, where it blows from and what it does.",
+        "de": "Janez erzählt, was die Bora ist, woher sie weht und was sie tut.",
+        "it": "Janez racconta che cos'è la bora, da dove soffia e che cosa fa."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "Od kod piha burja?", "en": "Where does the bora blow from?", "de": "Woher weht die Bora?", "it": "Da dove soffia la bora?" },
+      "options": ["S hribov", "Z morja", "Iz mesta"],
+      "explain": {
+        "sl": "»Piha s hribov proti morju, najbolj pozimi.«",
+        "en": "»It blows from the hills towards the sea, most of all in winter.«",
+        "de": "»Sie weht von den Bergen zum Meer, am meisten im Winter.«",
+        "it": "«Soffia dalle colline verso il mare, soprattutto d'inverno.»"
+      }
+    },
+    {
+      "type": "word",
+      "word": "odnese",
+      "ask": { "sl": "Kaj pomeni »odnese« v »odnese streho«?", "en": "What does »odnese« mean in »odnese streho«?", "de": "Was bedeutet »odnese« in »odnese streho«?", "it": "Che cosa vuol dire «odnese» in «odnese streho»?" },
+      "options": ["Vzame in nese stran", "Popravi", "Pobarva"],
+      "explain": {
+        "sl": "Odnesti: vzeti in nesti stran. Burja je tako močna, da streho vzame s seboj.",
+        "en": "Odnesti: to carry away. The bora is so strong that it takes the roof away with it.",
+        "de": "Odnesti: wegtragen. Die Bora ist so stark, dass sie das Dach mitnimmt.",
+        "it": "Odnesti: portare via. La bora è così forte che si porta via il tetto."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "sl": "Po burji je nebo sivo in oblačno.", "en": "After the bora the sky is grey and cloudy.", "de": "Nach der Bora ist der Himmel grau und bewölkt.", "it": "Dopo la bora il cielo è grigio e nuvoloso." },
+      "answer": false,
+      "explain": {
+        "sl": "Ne drži: »po njej je nebo čisto in modro«.",
+        "en": "False: »after it the sky is clear and blue«.",
+        "de": "Stimmt nicht: »Danach ist der Himmel klar und blau«.",
+        "it": "Falso: «dopo il cielo è limpido e azzurro»."
+      }
+    },
+    {
+      "type": "inference",
+      "ask": { "sl": "Zakaj imajo stare hiše na strehah kamne?", "en": "Why do old houses have stones on their roofs?", "de": "Warum haben alte Häuser Steine auf den Dächern?", "it": "Perché le case vecchie hanno delle pietre sui tetti?" },
+      "options": ["Da burja ne odnese strehe", "Ker so kamni lepi", "Da je v hiši topleje"],
+      "explain": {
+        "sl": "Janez reče »zato«: burja lahko odnese streho, kamni jo držijo.",
+        "en": "Janez says »that's why«: the bora can blow a roof away, and the stones hold it down.",
+        "de": "Janez sagt »darum«: Die Bora kann ein Dach wegreißen, die Steine halten es fest.",
+        "it": "Janez dice «per questo»: la bora può portare via un tetto, le pietre lo tengono fermo."
+      }
+    }
+  ],
+  "words": [
+    { "word": "burja", "pos": "noun", "means": { "en": "the bora (a cold wind from the north-east)", "de": "die Bora (ein kalter Nordostwind)", "it": "la bora" } },
+    { "word": "veter", "pos": "noun", "means": { "en": "wind", "de": "der Wind", "it": "il vento" } },
+    { "word": "pihati", "form": "piha", "pos": "verb", "means": { "en": "to blow", "de": "wehen", "it": "soffiare" } },
+    { "word": "streha", "form": "streho", "pos": "noun", "means": { "en": "a roof", "de": "ein Dach", "it": "un tetto" } },
+    { "word": "pršut", "pos": "noun", "means": { "en": "prosciutto (dry-cured ham)", "de": "der Rohschinken", "it": "il prosciutto crudo" } }
+  ],
+  "topics": ["weather", "winter", "Primorska"],
+  "machine_written": true,
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker"
+}

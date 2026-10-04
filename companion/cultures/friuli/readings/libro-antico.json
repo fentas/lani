@@ -1,0 +1,38 @@
+{
+  "id": "libro-antico",
+  "kind": "page",
+  "level": "A1",
+  "title": { "it": "Un libro antico", "sl": "Stara knjiga", "en": "An old book", "de": "Ein altes Buch" },
+  "by": "bepi",
+  "lines": [
+    { "text": { "it": "Questo libro era del mio nonno.", "sl": "To knjigo je imel moj dedek.", "en": "This book was my grandfather's.", "de": "Dieses Buch gehörte meinem Großvater." } },
+    { "text": { "it": "Una volta non c'era la televisione.", "sl": "Nekoč ni bilo televizije.", "en": "Long ago there was no television.", "de": "Früher gab es kein Fernsehen." } },
+    { "text": { "it": "La sera tutta la famiglia stava vicino al fogolâr.", "sl": "Zvečer je vsa družina sedela pri ognjišču (fogolâr).", "en": "In the evening the whole family sat by the fogolâr.", "de": "Am Abend saß die ganze Familie am Fogolâr." } },
+    { "text": { "it": "Il fogolâr è il focolare friulano, in mezzo alla cucina.", "sl": "Fogolâr je furlansko ognjišče sredi kuhinje.", "en": "The fogolâr is the Friulian hearth, in the middle of the kitchen.", "de": "Der Fogolâr ist die friaulische Feuerstelle, mitten in der Küche." } },
+    { "text": { "it": "I nonni raccontavano storie e i bambini ascoltavano.", "sl": "Stari starši so pripovedovali zgodbe, otroci pa so poslušali.", "en": "The grandparents told stories and the children listened.", "de": "Die Großeltern erzählten Geschichten, und die Kinder hörten zu." } },
+    { "text": { "it": "Nell'ultima pagina c'è un vecchio detto:", "sl": "Na zadnji strani je star rek:", "en": "On the last page there is an old saying:", "de": "Auf der letzten Seite steht ein alter Spruch:" } },
+    { "text": { "it": "»Per San Valentino, la primavera sta vicino.«", "sl": "»Za svetega Valentina je pomlad blizu.«", "en": "»By St Valentine's Day, spring is near.«", "de": "»Zum Valentinstag ist der Frühling nah.«" } }
+  ],
+  "questions": [
+    {
+      "ask": { "it": "Dov'è il fogolâr?", "sl": "Kje je fogolâr?", "en": "Where is the fogolâr?", "de": "Wo ist der Fogolâr?" },
+      "options": ["In mezzo alla cucina", "In giardino", "Sul tetto"],
+      "explain": {
+        "it": "Il fogolâr è il focolare friulano, in mezzo alla cucina.",
+        "sl": "Fogolâr je furlansko ognjišče sredi kuhinje.",
+        "en": "The fogolâr is the Friulian hearth, in the middle of the kitchen.",
+        "de": "Der Fogolâr ist die friaulische Feuerstelle, mitten in der Küche."
+      }
+    },
+    {
+      "ask": { "it": "Chi raccontava le storie?", "sl": "Kdo je pripovedoval zgodbe?", "en": "Who told the stories?", "de": "Wer erzählte die Geschichten?" },
+      "options": ["I nonni", "I bambini", "La televisione"],
+      "explain": {
+        "it": "La sera i nonni raccontavano storie e i bambini ascoltavano.",
+        "sl": "Zvečer so stari starši pripovedovali zgodbe, otroci pa so poslušali.",
+        "en": "In the evening the grandparents told stories and the children listened.",
+        "de": "Am Abend erzählten die Großeltern Geschichten, und die Kinder hörten zu."
+      }
+    }
+  ]
+}

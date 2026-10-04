@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="sl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#b4492f">
+  <meta name="referrer" content="no-referrer">
+  <title>Lani · Družina</title>
+  <link rel="stylesheet" href="/family/style.css">
+  <script src="/family/app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="top-row">
+      <h1 id="title">💌 Lani · Družina</h1>
+      <button id="open-settings" class="ghost" type="button" aria-label="Nastavitve · Settings" hidden>⚙️</button>
+    </div>
+    <p class="sub" id="subtitle">Pomagaj pri slovenščini · Help with Slovene</p>
+  </header>
+
+  <main>
+    <section id="locked" class="card" hidden>
+      <h2>🔒 Manjka ključ · Key missing</h2>
+      <p>Odpri povezavo, ki ti jo je poslal Jan (z <code>?t=…</code> na koncu). · Open the link Jan sent you (it ends with <code>?t=…</code>).</p>
+    </section>
+
+    <section id="settings" class="card" hidden>
+      <h2>👋 Kdo si? · Who are you?</h2>
+      <form id="settings-form">
+        <label>Ime · Your name
+          <input id="set-name" maxlength="40" required autocomplete="given-name" placeholder="Maja">
+        </label>
+        <div class="label">Tvoj znak · Your emoji</div>
+        <div id="set-emoji" class="emoji-row" role="radiogroup"></div>
+        <label>„Od …“ (neobvezno) · "From …" in Slovene (optional)
+          <input id="set-from" maxlength="40" placeholder="Maje">
+        </label>
+        <p class="small">Jan vidi: <b id="set-preview">💌 Od Maje</b></p>
+        <button class="primary" type="submit">Shrani · Save</button>
+      </form>
+    </section>
+
+    <section id="compose" class="card" hidden>
+      <h2>✍️ Novo sporočilo · New message</h2>
+      <form id="compose-form">
+        <div class="label">Vrsta · Type</div>
+        <div class="seg" role="radiogroup">
+          <label><input type="radio" name="type" value="question" checked><span>❓ Vprašanje<br><small>Question to answer</small></span></label>
+          <label><input type="radio" name="type" value="translate"><span>🔁 Prevedi<br><small>Sentence to translate</small></span></label>
+          <label><input type="radio" name="type" value="say"><span>🗣️ Povej<br><small>Say this</small></span></label>
+        </div>
+        <label><span id="text-label">Sporočilo v slovenščini · Your message in Slovene</span>
+          <textarea id="c-text" maxlength="500" rows="3" required placeholder="Kaj si danes jedel za kosilo?"></textarea>
+        </label>
+        <label>Namig v angleščini (neobvezno) · English hint (optional)
+          <input id="c-hint" maxlength="300" placeholder="What did you have for lunch today?">
+        </label>
+        <p class="small">Namig vidi Jan šele, ko ga odpre · Jan sees the hint only after tapping it.</p>
+        <button class="primary" type="submit" id="c-send">Pošlji Janu · Send</button>
+      </form>
+    </section>
+
+    <section id="thread-wrap" hidden>
+      <h2 class="section-title">💬 Pogovori · Conversations</h2>
+      <div id="thread"></div>
+    </section>
+
+    <section id="record" class="card" hidden>
+      <h2>🎙️ Posnemi besede · Record words</h2>
+      <p class="small">Jan bo slišal tvoj glas namesto robota. Govori naravno, po domače. · Jan will hear your voice instead of the robot voice. Speak naturally, the way you talk at home.</p>
+      <label>Snema · Recording as
+        <input id="rec-as" maxlength="40" placeholder="👵 Micka">
+      </label>
+      <div class="custom">
+        <input id="custom-text" maxlength="200" placeholder="Druga beseda ali stavek · Any word or phrase">
+        <button id="custom-rec" class="round" type="button" aria-label="Posnemi · Record">⏺</button>
+      </div>
+      <div class="tabs" role="tablist">
+        <button type="button" data-tab="missing" class="on" id="tab-missing">Manjka · To record</button>
+        <button type="button" data-tab="done" id="tab-done">Posneto · Recorded</button>
+      </div>
+      <ul id="words" class="words"></ul>
+    </section>
+  </main>
+
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="sheet-text">
+      <p class="small">Preberi na glas · Read aloud</p>
+      <p id="sheet-text" class="big"></p>
+      <p id="sheet-status" class="small"></p>
+      <div class="sheet-actions">
+        <button id="rec-btn" class="rec" type="button">⏺</button>
+      </div>
+      <div class="sheet-actions" id="after-rec" hidden>
+        <button id="rec-play" type="button">▶ Poslušaj · Listen</button>
+        <button id="rec-again" type="button">🔁 Znova · Again</button>
+        <button id="rec-save" class="primary" type="button">✅ Shrani · Save</button>
+      </div>
+      <button id="sheet-close" class="ghost" type="button">Zapri · Close</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

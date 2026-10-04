@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "franco",
+  "name": "Mugnaio Franco",
+  "emoji": "🧑‍🌾",
+  "art": "farmer",
+  "voice": "male",
+  "speaker": "grandpa",
+  "role": {"it": "Mugnaio e contadino", "sl": "Mlinar in kmet", "en": "Miller and farmer", "de": "Müller und Bauer"},
+  "home": ["field", "kozolec"],
+  "register": "vi",
+  "skill": "food",
+  "order": 5,
+  "routine": { "up": "5:00", "bed": "21:00" },
+  "personality": "Practical miller and farmer in his late sixties, counts everything: sacks of flour, rows of corn, days until the harvest. Short, sensible sentences with numbers in them ('Dieci sacchi. Giusto.'). Says tu to the learner, as to any child; the learner says Lei to him and calls him 'signor Franco', and he likes that. Speaks slow, clear, simple Italian to a child. Proud of his yellow cornmeal for polenta; grumbles about the weather and smiles when the harvest is in.",
+  "story": "Franco is the village's miller, and his fields of corn and wheat run down the hill towards the Isonzo. Until the village builds its own mill by the stream (a project he leads) he grinds the cornmeal for every polenta in the village at the old mill down by the river. He keeps his numbers in a little notebook and teaches his grandson Lorenzo to count the sacks. Until the village has a field he helps wherever there is work.",
+  "likes": [
+    {"it": "il mais", "sl": "koruza", "en": "corn (maize)", "de": "Mais"},
+    {"it": "il mulino", "sl": "mlin", "en": "the mill", "de": "die Mühle"},
+    {"it": "i numeri", "sl": "številke", "en": "numbers", "de": "Zahlen"},
+    {"it": "il tempo", "sl": "vreme", "en": "the weather", "de": "das Wetter"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Buongiorno.", "sl": "Dober dan.", "en": "Good day.", "de": "Guten Tag.", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Buongiorno. Hai bisogno di qualcosa?", "sl": "Dober dan. Ali kaj potrebuješ?", "en": "Good day. Do you need something?", "de": "Guten Tag. Brauchst du etwas?", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Buonasera. Hai bisogno di qualcosa?", "sl": "Dober večer. Ali kaj potrebuješ?", "en": "Good evening. Do you need something?", "de": "Guten Abend. Brauchst du etwas?", "level": 0, "when": ["evening", "night"] },
+      { "it": "Ah, sei tu. Buongiorno!", "sl": "A, ti si. Dober dan!", "en": "Ah, it's you. Good day!", "de": "Ah, du bist es. Guten Tag!", "level": 1, "when": ["morning", "afternoon"] },
+      { "it": "Ciao, ragazzo! Oggi macino il mais.", "sl": "Živjo, fant! Danes meljem koruzo.", "en": "Hi, lad! Today I'm grinding the corn.", "de": "Hallo, Junge! Heute mahle ich den Mais.", "level": 2 },
+      { "it": "Eccoti! Ho contato i sacchi: dieci. Mi aiuti?", "sl": "Tu si! Preštel sem vreče: deset jih je. Mi pomagaš?", "en": "There you are! I've counted the sacks: ten. Will you help me?", "de": "Da bist du ja! Ich habe die Säcke gezählt: zehn. Hilfst du mir?", "level": 3 },
+      { "it": "Ragazzo mio! Ormai sei di famiglia. Entra, entra.", "sl": "Fant moj! Zdaj si že del družine. Vstopi, vstopi.", "en": "My lad! You're family now. Come in, come in.", "de": "Mein Junge! Du gehörst jetzt zur Familie. Komm rein, komm rein.", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie. Lavoro fatto bene.", "sl": "Hvala. Dobro opravljeno delo.", "en": "Thank you. A job well done.", "de": "Danke. Gute Arbeit." },
+      { "it": "Grazie! Uno, due, tre sacchi: tutto giusto.", "sl": "Hvala! Ena, dve, tri vreče: vse je prav.", "en": "Thanks! One, two, three sacks: all correct.", "de": "Danke! Eins, zwei, drei Säcke: alles richtig." },
+      { "it": "Grazie, ragazzo. Sei bravo con i numeri.", "sl": "Hvala, fant. S številkami ti gre dobro.", "en": "Thanks, lad. You're good with numbers.", "de": "Danke, Junge. Mit Zahlen kannst du gut umgehen." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Non dimentico {memory}. Mai.", "sl": "Ne pozabim na {memory}. Nikoli.", "en": "I don't forget {memory}. Never.", "de": "{memory} vergesse ich nicht. Niemals.", "level": 2 },
+      { "it": "Quando conto i sacchi, ricordo {memory}.", "sl": "Ko štejem vreče, mislim na {memory}.", "en": "When I count the sacks, I think of {memory}.", "de": "Wenn ich die Säcke zähle, denke ich an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "it": "Dieci sacchi di farina. Giusto.", "sl": "Deset vreč moke. Prav.", "en": "Ten sacks of flour. Correct.", "de": "Zehn Säcke Mehl. Stimmt." },
+      { "it": "Il mais è alto. Tra un mese si raccoglie.", "sl": "Koruza je visoka. Čez en mesec jo bomo pobrali.", "en": "The corn is tall. In a month we'll bring it in.", "de": "Der Mais steht hoch. In einem Monat wird er geerntet." },
+      { "it": "Domani piove. Lo sento nelle ginocchia.", "sl": "Jutri bo deževalo. Čutim v kolenih.", "en": "It'll rain tomorrow. I can feel it in my knees.", "de": "Morgen regnet es. Ich spüre es in den Knien." },
+      { "it": "Cento, duecento, trecento … Quanti chicchi!", "sl": "Sto, dvesto, tristo … Koliko zrnja!", "en": "A hundred, two hundred, three hundred … So many grains!", "de": "Hundert, zweihundert, dreihundert … So viele Körner!" }
+    ],
+    "cheer": [
+      { "it": "Giusto.", "sl": "Prav.", "en": "Correct.", "de": "Stimmt." },
+      { "it": "Bene! Tutto in ordine.", "sl": "Dobro! Vse je v redu.", "en": "Good! All in order.", "de": "Gut! Alles in Ordnung." },
+      { "it": "Bravo! Conti meglio di me.", "sl": "Bravo! Šteješ bolje kot jaz.", "en": "Well done! You count better than I do.", "de": "Gut gemacht! Du zählst besser als ich." }
+    ],
+    "comfort": [
+      { "it": "Non fa niente. Contiamo di nuovo.", "sl": "Nič hudega. Štejva še enkrat.", "en": "Never mind. Let's count again.", "de": "Macht nichts. Zählen wir noch einmal." },
+      { "it": "Un piccolo errore. Riprova.", "sl": "Majhna napaka. Poskusi še enkrat.", "en": "A small mistake. Try again.", "de": "Ein kleiner Fehler. Versuch es noch einmal." },
+      { "it": "Piano. Uno alla volta.", "sl": "Počasi. Eno za drugim.", "en": "Slowly. One at a time.", "de": "Langsam. Eins nach dem anderen." }
+    ],
+    "listen": [
+      { "it": "Ascolta.", "sl": "Poslušaj.", "en": "Listen.", "de": "Hör zu." },
+      { "it": "Senti il mulino? Ascolta.", "sl": "Slišiš mlin? Poslušaj.", "en": "Can you hear the mill? Listen.", "de": "Hörst du die Mühle? Hör zu." },
+      { "it": "Ascolta bene i numeri.", "sl": "Dobro poslušaj številke.", "en": "Listen carefully to the numbers.", "de": "Hör gut auf die Zahlen." }
+    ],
+    "bye": [
+      { "it": "Arrivederci.", "sl": "Na svidenje.", "en": "Goodbye.", "de": "Auf Wiedersehen." },
+      { "it": "Ciao, ragazzo. Domani c'è lavoro.", "sl": "Adijo, fant. Jutri je delo.", "en": "Bye, lad. There's work tomorrow.", "de": "Tschüss, Junge. Morgen gibt es Arbeit." },
+      { "it": "Mandi! Saluta Lorenzo.", "sl": "Mandi! Pozdravi Lorenza. (mandi: furlanski pozdrav)", "en": "Mandi! Say hello to Lorenzo. (mandi: Friulian for bye)", "de": "Mandi! Grüß Lorenzo von mir. (mandi: Friaulisch für tschüss)" }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Oh! Come lo sapevi? È la cosa che mi piace di più.", "sl": "O! Kako si vedel? To imam najraje.", "en": "Oh! How did you know? It's what I like best.", "de": "Oh! Woher wusstest du das? Das mag ich am liebsten." },
+        { "it": "Bravo, ragazzo! Proprio quello che mi serviva.", "sl": "Priden, fant! Točno to sem potreboval.", "en": "Good lad! Exactly what I needed.", "de": "Braver Junge! Genau das habe ich gebraucht." },
+        { "it": "Grazie! Oggi conto solo le cose belle: una!", "sl": "Hvala! Danes štejem samo lepe stvari: ena!", "en": "Thank you! Today I only count nice things: one!", "de": "Danke! Heute zähle ich nur schöne Dinge: eins!" }
+      ],
+      "ordinary": [
+        { "it": "Grazie, ragazzo. Siamo vicini, no?", "sl": "Hvala, fant. Sosedje smo, ne?", "en": "Thank you, lad. We're neighbours, aren't we?", "de": "Danke, Junge. Wir sind doch Nachbarn, oder?" },
+        { "it": "Oh, grazie. Non dovevi.", "sl": "O, hvala. Ni bilo treba.", "en": "Oh, thank you. You didn't have to.", "de": "Oh, danke. Das wäre doch nicht nötig gewesen." }
+      ],
+      "rare": [
+        { "it": "Questa poi! Non me l'aspettavo. Grazie mille, ragazzo!", "sl": "No, kaj takega! Tega nisem pričakoval. Najlepša hvala, fant!", "en": "Well I never! I didn't expect that. Thank you so much, lad!", "de": "Na so was! Damit habe ich nicht gerechnet. Vielen Dank, Junge!" }
+      ]
+    }
+  }
+}

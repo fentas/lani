@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "tine",
+  "name": "Tine",
+  "emoji": "👦",
+  "art": "child3",
+  "voice": "male",
+  "speaker": "boy",
+  "role": { "sl": "Deček", "en": "Boy", "de": "Junge", "it": "Bambino" },
+  "home": ["field", "kozolec"],
+  "register": "ti",
+  "skill": "stone",
+  "order": 6,
+  "routine": { "up": "7:00", "bed": "19:45" },
+  "personality": "Six, Mlinar France's grandson, the smallest of the children. Shy at first, then talks without stopping. Follows his grandfather and Nejc everywhere, counts everything like grandpa ('ena, dva, tri … veliko'), gets words slightly wrong and is happy when Jan gets them right. Says ti to everybody. Very short sentences.",
+  "story": "Tine lives at the mill with his grandparents and is learning to write his name. He has a wooden horse called Sivko, like grandpa's real one, and is afraid of the bear Anton saw, and of the dark. He is the first at school and the first to fall asleep at the campfire.",
+  "likes": [
+    { "sl": "konji", "en": "horses", "de": "Pferde", "it": "i cavalli" },
+    { "sl": "traktor", "en": "the tractor", "de": "der Traktor", "it": "il trattore" },
+    { "sl": "štetje", "en": "counting", "de": "Zählen", "it": "contare" },
+    { "sl": "zgodbe", "en": "stories", "de": "Geschichten", "it": "le storie" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Živjo. Jaz sem Tine. Star sem šest let.", "en": "Hi. I'm Tine. I'm six years old.", "de": "Hallo. Ich bin Tine. Ich bin sechs Jahre alt.", "it": "Ciao. Io sono Tine. Ho sei anni.", "level": 0 },
+      { "sl": "Živjo. Si ti Jan? Dedek te pozna.", "en": "Hi. Are you Jan? Grandpa knows you.", "de": "Hallo. Bist du Jan? Opa kennt dich.", "it": "Ciao. Sei tu Jan? Il nonno ti conosce.", "level": 0 },
+      { "sl": "Jan! Živjo! Poglej, moj konj.", "en": "Jan! Hi! Look, my horse.", "de": "Jan! Hallo! Schau, mein Pferd.", "it": "Jan! Ciao! Guarda, il mio cavallo.", "level": 1 },
+      { "sl": "Jan, Jan! Pridi, dedek ima traktor!", "en": "Jan, Jan! Come, grandpa has the tractor!", "de": "Jan, Jan! Komm, Opa hat den Traktor!", "it": "Jan, Jan! Vieni, il nonno ha il trattore!", "level": 2 },
+      { "sl": "Jan! Čakal sem te. Dolgo, dolgo.", "en": "Jan! I've been waiting for you. A long, long time.", "de": "Jan! Ich hab auf dich gewartet. Lange, lange.", "it": "Jan! Ti ho aspettato. Tanto, tanto.", "level": 3 },
+      { "sl": "Jan! Ti si kot moj veliki brat.", "en": "Jan! You're like my big brother.", "de": "Jan! Du bist wie mein großer Bruder.", "it": "Jan! Sei come il mio fratello grande.", "level": 4 }
+    ],
+    "thanks": [
+      { "sl": "Hvala, Jan.", "en": "Thanks, Jan.", "de": "Danke, Jan.", "it": "Grazie, Jan." },
+      { "sl": "Hvala! Ti si velik in pameten.", "en": "Thanks! You're big and clever.", "de": "Danke! Du bist groß und klug.", "it": "Grazie! Sei grande e intelligente." },
+      { "sl": "Hvala! Dedku povem.", "en": "Thanks! I'll tell grandpa.", "de": "Danke! Ich sag's dem Opa.", "it": "Grazie! Lo dico al nonno." }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Veš kaj? Še vedno mislim na {memory}.", "en": "You know what? I still think of {memory}.", "de": "Weißt du was? Ich denke noch oft an {memory}.", "it": "Sai una cosa? Ricordo ancora {memory}.", "level": 2 },
+      { "sl": "Ko grem spat, mislim na {memory}.", "en": "When I go to bed, I think of {memory}.", "de": "Wenn ich ins Bett gehe, denke ich an {memory}.", "it": "Quando vado a letto, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "sl": "Ena, dva, tri … veliko!", "en": "One, two, three … lots!", "de": "Eins, zwei, drei … viele!", "it": "Uno, due, tre … tanti!" },
+      { "sl": "Moj konj je Sivko. Lesen je.", "en": "My horse is Sivko. He's wooden.", "de": "Mein Pferd heißt Sivko. Es ist aus Holz.", "it": "Il mio cavallo è Sivko. È di legno." },
+      { "sl": "Medved! Anton je videl medveda. Jaz se bojim.", "en": "A bear! Anton saw a bear. I'm scared.", "de": "Ein Bär! Anton hat einen Bären gesehen. Ich hab Angst.", "it": "Un orso! Anton ha visto un orso. Ho paura." },
+      { "sl": "Znam napisati T. In I. Tine!", "en": "I can write T. And I. Tine!", "de": "Ich kann ein T schreiben. Und ein I. Tine!", "it": "So scrivere la T. E la I. Tine!" }
+    ],
+    "cheer": [
+      { "sl": "Jaaa!", "en": "Yesss!", "de": "Jaaa!", "it": "Sììì!" },
+      { "sl": "Bravo, Jan!", "en": "Well done, Jan!", "de": "Gut gemacht, Jan!", "it": "Bravo, Jan!" },
+      { "sl": "Pravilno! Jaz sem tudi vedel.", "en": "Correct! I knew it too.", "de": "Richtig! Das wusste ich auch.", "it": "Giusto! Lo sapevo anch'io." }
+    ],
+    "comfort": [
+      { "sl": "Ni nič. Jaz tudi ne znam.", "en": "It's nothing. I can't do it either.", "de": "Macht nichts. Ich kann das auch nicht.", "it": "Non è niente. Neanch'io lo so fare." },
+      { "sl": "Še enkrat, Jan. Lahko.", "en": "Once more, Jan. You can.", "de": "Noch mal, Jan. Du schaffst das.", "it": "Ancora una volta, Jan. Ce la fai." },
+      { "sl": "Skoraj. Dedek pravi: počasi.", "en": "Almost. Grandpa says: slowly.", "de": "Fast. Opa sagt: langsam.", "it": "Quasi. Il nonno dice: piano." }
+    ],
+    "listen": [
+      { "sl": "Psst. Poslušaj.", "en": "Psst. Listen.", "de": "Pssst. Hör zu.", "it": "Psst. Ascolta." },
+      { "sl": "Poslušaj! Jaz povem.", "en": "Listen! I'll say it.", "de": "Hör zu! Ich sag's.", "it": "Ascolta! Lo dico io." },
+      { "sl": "Tiho, tiho. Poslušaj.", "en": "Quiet, quiet. Listen.", "de": "Leise, leise. Hör zu.", "it": "Zitto, zitto. Ascolta." }
+    ],
+    "bye": [
+      { "sl": "Čav, Jan!", "en": "Bye, Jan! (čav: Primorska for bye)", "de": "Tschüss, Jan! (čav: so sagt man in Primorska tschüss)", "it": "Ciao, Jan! (čav: il ciao della Primorska)" },
+      { "sl": "Adijo. Grem k dedku.", "en": "Bye. I'm going to grandpa's.", "de": "Tschüss. Ich geh zum Opa.", "it": "Ciao. Vado dal nonno." },
+      { "sl": "Lahko noč, Jan. Bojim se teme.", "en": "Good night, Jan. I'm scared of the dark.", "de": "Gute Nacht, Jan. Ich hab Angst im Dunkeln.", "it": "Buonanotte, Jan. Ho paura del buio.", "when": ["evening", "night"] },
+      { "sl": "Grem se igrat ven! Adijo, Jan!", "en": "I'm going out to play! Bye, Jan!", "de": "Ich geh draußen spielen! Tschüss, Jan!", "it": "Vado fuori a giocare! Ciao, Jan!", "when": ["morning", "afternoon"] }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "Zame? Juhu! Hvala, Jan!", "en": "For me? Yay! Thanks, Jan!", "de": "Für mich? Juhu! Danke, Jan!", "it": "Per me? Evviva! Grazie, Jan!" },
+        { "sl": "To imam rad! Ena, dva … zelo, zelo rad!", "en": "I like this! One, two … very, very much!", "de": "Das mag ich! Eins, zwei … ganz, ganz doll!", "it": "Mi piace! Uno, due … tanto, tanto!" },
+        { "sl": "Kako si vedel? Dedku povem!", "en": "How did you know? I'll tell Grandpa!", "de": "Woher wusstest du das? Ich sag's dem Opa!", "it": "Come lo sapevi? Lo dico al nonno!" }
+      ],
+      "ordinary": [
+        { "sl": "Hvala, Jan. Je to res zame?", "en": "Thanks, Jan. Is this really for me?", "de": "Danke, Jan. Ist das wirklich für mich?", "it": "Grazie, Jan. È proprio per me?" },
+        { "sl": "Hvala! Zdaj sem vesel.", "en": "Thanks! Now I'm happy.", "de": "Danke! Jetzt bin ich froh.", "it": "Grazie! Adesso sono contento." }
+      ],
+      "rare": [
+        { "sl": "Uau! Tako lepo! Hvala, hvala, hvala!", "en": "Wow! So nice! Thanks, thanks, thanks!", "de": "Wow! So schön! Danke, danke, danke!", "it": "Uau! Che bello! Grazie, grazie, grazie!" }
+      ]
+    }
+  }
+}

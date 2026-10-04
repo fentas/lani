@@ -1,0 +1,59 @@
+{
+  "id": "ucbenik-dvojina",
+  "kind": "page",
+  "level": "A2",
+  "title": { "sl": "Učbenik: dvojina", "en": "A textbook: the dual", "de": "Ein Lehrbuch: der Dual", "it": "Un libro di testo: il duale" },
+  "by": "mojca",
+  "intro": { "sl": "To je moja najljubša stran: dvojina!", "en": "This is my favourite page: the dual!", "de": "Das ist meine Lieblingsseite: der Dual!", "it": "Questa è la mia pagina preferita: il duale!" },
+  "lines": [
+    { "text": { "sl": "Slovenščina ima tri števila: ednino, dvojino in množino.", "en": "Slovene has three numbers: the singular, the dual and the plural.", "de": "Das Slowenische hat drei Zahlformen: den Singular, den Dual und den Plural.", "it": "Lo sloveno ha tre numeri: il singolare, il duale e il plurale." } },
+    { "text": { "sl": "Dvojina je za dve stvari ali dve osebi.", "en": "The dual is for two things or two people.", "de": "Der Dual ist für zwei Dinge oder zwei Personen.", "it": "Il duale è per due cose o due persone." } },
+    { "text": { "sl": "Ena hiša, dve hiši, tri hiše.", "en": "One house, two houses, three houses.", "de": "Ein Haus, zwei Häuser, drei Häuser.", "it": "Una casa, due case, tre case." } },
+    { "text": { "sl": "En fant, dva fanta, trije fantje.", "en": "One boy, two boys, three boys.", "de": "Ein Junge, zwei Jungen, drei Jungen.", "it": "Un ragazzo, due ragazzi, tre ragazzi." } },
+    { "text": { "sl": "Eno jabolko, dve jabolki, tri jabolka.", "en": "One apple, two apples, three apples.", "de": "Ein Apfel, zwei Äpfel, drei Äpfel.", "it": "Una mela, due mele, tre mele." } },
+    { "text": { "sl": "Od pet naprej je rodilnik: pet hiš, pet fantov, pet jabolk.", "en": "From five on it's the genitive: five houses, five boys, five apples.", "de": "Ab fünf steht der Genitiv: fünf Häuser, fünf Jungen, fünf Äpfel.", "it": "Da cinque in su si usa il genitivo: cinque case, cinque ragazzi, cinque mele." } },
+    { "text": { "sl": "Midva sva prijatelja. Onadva sta brata.", "en": "The two of us are friends. The two of them are brothers.", "de": "Wir zwei sind Freunde. Die beiden sind Brüder.", "it": "Noi due siamo amici. Loro due sono fratelli." } },
+    { "text": { "sl": "Tudi glagol je v dvojini: midva greva, vidva gresta.", "en": "The verb is in the dual too: we two go, you two go.", "de": "Auch das Verb steht im Dual: wir zwei gehen, ihr zwei geht.", "it": "Anche il verbo è al duale: noi due andiamo, voi due andate." } }
+  ],
+  "questions": [
+    {
+      "type": "detail",
+      "ask": { "sl": "Kako rečeš »two apples«?", "en": "How do you say »two apples«?", "de": "Wie sagt man »zwei Äpfel«?", "it": "Come si dice «due mele»?" },
+      "options": ["dve jabolki", "dva jabolka", "dve jabolk"],
+      "explain": {
+        "sl": "Jabolko je srednjega spola. V dvojini: dve jabolki.",
+        "en": "Jabolko is neuter. In the dual: dve jabolki.",
+        "de": "Jabolko ist sächlich. Im Dual: dve jabolki.",
+        "it": "Jabolko è neutro. Al duale: dve jabolki."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "Kaj je pravilno?", "en": "Which one is right?", "de": "Was ist richtig?", "it": "Qual è giusto?" },
+      "options": ["pet fantov", "pet fanta", "pet fantje"],
+      "explain": {
+        "sl": "Od pet naprej je rodilnik množine: pet fantov.",
+        "en": "From five on it's the genitive plural: pet fantov.",
+        "de": "Ab fünf steht der Genitiv Plural: pet fantov.",
+        "it": "Da cinque in su si usa il genitivo plurale: pet fantov."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "sl": "Dvojina je za tri ali več stvari.", "en": "The dual is for three or more things.", "de": "Der Dual ist für drei oder mehr Dinge.", "it": "Il duale è per tre o più cose." },
+      "answer": false,
+      "explain": {
+        "sl": "Ne drži: »Dvojina je za dve stvari ali dve osebi.« Za tri je množina.",
+        "en": "False: »The dual is for two things or two people.« For three it's the plural.",
+        "de": "Stimmt nicht: »Der Dual ist für zwei Dinge oder zwei Personen.« Für drei gibt es den Plural.",
+        "it": "Falso: «Il duale è per due cose o due persone.» Per tre c'è il plurale."
+      }
+    }
+  ],
+  "words": [
+    { "word": "dvojina", "pos": "noun", "means": { "en": "the dual", "de": "der Dual", "it": "il duale" } },
+    { "word": "ednina", "form": "ednino", "pos": "noun", "means": { "en": "the singular", "de": "der Singular", "it": "il singolare" } },
+    { "word": "množina", "form": "množino", "pos": "noun", "means": { "en": "the plural", "de": "der Plural", "it": "il plurale" } },
+    { "word": "število", "form": "števila", "pos": "noun", "means": { "en": "a number (in grammar)", "de": "eine Zahl, der Numerus", "it": "un numero (in grammatica)" } }
+  ]
+}

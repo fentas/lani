@@ -1,0 +1,57 @@
+{
+  "about": "The QA's second dev town (companion/bin/qa, test/dev-town.ts): an Italian town of the Friuli culture pack to visit from the dev bridge. Not a learner: it lives in a temp dir for one QA run. In the state, \"@day\" is the town's today and \"@day-40\" forty days before.",
+  "profile": "qa-borgo",
+  "learner": { "name": "Marta", "target": "it", "base": "sl", "culture": "friuli", "child": false },
+  "town_name": "Borgo di Prova",
+  "state": {
+    "schema": 1,
+    "seed": 4242,
+    "age": "VAS",
+    "resources": { "FOOD": 140, "WOOD": 110, "STONE": 70, "WISDOM": 45 },
+    "buildings": [
+      { "id": "b1", "type": "HUT", "plot": 0, "level": 2 },
+      { "id": "b2", "type": "FIELD", "plot": 1 },
+      { "id": "b3", "type": "WELL", "plot": 2 },
+      { "id": "b4", "type": "HUT", "plot": 3 },
+      { "id": "b5", "type": "KOZOLEC", "plot": 4 },
+      { "id": "b6", "type": "BEEHIVE", "plot": 5 },
+      { "id": "b7", "type": "HOUSE", "plot": 6 },
+      { "id": "b8", "type": "LIPA", "plot": 7 },
+      { "id": "b9", "type": "SMITHY", "plot": 8 },
+      { "id": "b10", "type": "MARKET", "plot": 9 },
+      { "id": "b11", "type": "PALISADE", "plot": -1 }
+    ],
+    "villagers": 6,
+    "fire": 72,
+    "morale": 70,
+    "help": 4,
+    "lastTick": "@day",
+    "foundedOn": "@day-40",
+    "quests": [
+      {
+        "id": "q-dev-rosa", "giver": "Nonna Rosa", "emoji": "👵",
+        "title": "La cucina di Nonna Rosa · Nonna Rosa's kitchen",
+        "story": "Nonna Rosa fa il frico, ma ha dimenticato alcune parole. Aiutala!",
+        "skill": "FOOD", "reward": { "FOOD": 20 }, "source": "LOCAL", "expiresAt": 0
+      },
+      {
+        "id": "q-dev-franco", "giver": "Mugnaio Franco", "emoji": "🧑‍🌾",
+        "title": "La lista di Franco · Franco's list",
+        "story": "Il mugnaio Franco ha perso la lista del mulino. Aiutalo a ritrovare il nome di ogni cosa.",
+        "skill": "FOOD", "reward": { "FOOD": 20 }, "source": "LOCAL", "expiresAt": 0
+      }
+    ],
+    "log": [{ "at": 0, "emoji": "📜", "text": "Borgo di Prova: a fixture town for QA" }],
+    "residents": [
+      { "id": "rosa", "since": "@day-40" },
+      { "id": "franco", "since": "@day-40" },
+      { "id": "aldo", "since": "@day-30" },
+      { "id": "bepi", "since": "@day-30" },
+      { "id": "nives", "since": "@day-20" },
+      { "id": "tommaso", "since": "@day-20" }
+    ],
+    "visitor": { "id": "davide", "on": "@day" },
+    "chest": { "goods": { "miele": 4, "montasio": 3, "frico": 2, "mele": 1 }, "tools": {} },
+    "projects": {}
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "trennbare-verben",
+  "language": "de",
+  "level": "A2",
+  "emoji": "✂️",
+  "title": {
+    "de": "Ich stehe auf: trennbare Verben",
+    "sl": "Ich stehe auf: ločljivi glagoli",
+    "en": "Ich stehe auf: separable verbs",
+    "it": "Ich stehe auf: i verbi separabili"
+  },
+  "rule": {
+    "en": "Many German verbs have a prefix that comes off (*trennbare Verben*): **auf**stehen (get up), **an**rufen (call), **mit**bringen (bring along), **ein**kaufen (shop), **aus**steigen (get off), **zu**machen (close), **vorbei**gehen (go past). The stress is on the prefix: **AUF**stehen.\n\nIn a normal sentence the verb stands second and the prefix goes to the very end, a bit like get up, but further away: Ich **stehe** um sieben **auf**. Ich **bringe** Äpfel **mit**. **Gehen** Sie an der Kirche **vorbei**. The imperative too: **Pass auf!**\n\nThe verb comes together again when it is at the end: after a modal verb (Ich will früh **aufstehen**), after weil, dass, wenn (…, weil ich früh **aufstehe**) and in the Perfekt, with ge- in the middle: **aufgestanden**, **mitgebracht**, **angerufen**.\n\nSome prefixes never come off: **be-**, **ver-**, **er-** (ich **verstehe**, ich **bekomme**).",
+    "sl": "Mnogi nemški glagoli imajo predpono, ki se odcepi (*trennbare Verben*): **auf**stehen (vstati), **an**rufen (poklicati), **mit**bringen (prinesti s seboj), **ein**kaufen (nakupovati), **aus**steigen (izstopiti), **zu**machen (zapreti), **vorbei**gehen (iti mimo). Naglas je na predponi: **AUF**stehen.\n\nV navadni povedi je glagol na drugem mestu, predpona pa gre čisto na konec: Ich **stehe** um sieben **auf** (vstanem ob sedmih). Ich **bringe** Äpfel **mit**. **Gehen** Sie an der Kirche **vorbei**. Tudi v velelniku: **Pass auf!**\n\nGlagol se spet združi, ko je na koncu: za naklonskim glagolom (Ich will früh **aufstehen**), za weil, dass, wenn (…, weil ich früh **aufstehe**) in v Perfektu, kjer je ge- v sredini: **aufgestanden**, **mitgebracht**, **angerufen**.\n\nNekatere predpone se nikoli ne odcepijo: **be-**, **ver-**, **er-** (ich **verstehe**, ich **bekomme**).",
+    "it": "Molti verbi tedeschi hanno un prefisso che si stacca (*trennbare Verben*): **auf**stehen (alzarsi), **an**rufen (telefonare), **mit**bringen (portare con sé), **ein**kaufen (fare la spesa), **aus**steigen (scendere), **zu**machen (chiudere), **vorbei**gehen (passare davanti). L'accento cade sul prefisso: **AUF**stehen.\n\nNella frase normale il verbo è al secondo posto e il prefisso va proprio alla fine: Ich **stehe** um sieben **auf** (mi alzo alle sette). Ich **bringe** Äpfel **mit**. **Gehen** Sie an der Kirche **vorbei**. Anche all'imperativo: **Pass auf!**\n\nIl verbo si riunisce quando sta alla fine: dopo un verbo modale (Ich will früh **aufstehen**), dopo weil, dass, wenn (…, weil ich früh **aufstehe**) e nel Perfekt, con ge- in mezzo: **aufgestanden**, **mitgebracht**, **angerufen**.\n\nAlcuni prefissi non si staccano mai: **be-**, **ver-**, **er-** (ich **verstehe**, ich **bekomme**)."
+  },
+  "table": {
+    "head": [
+      { "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive", "it": "infinito" },
+      { "de": "Präsens", "sl": "sedanjik", "en": "present", "it": "presente" },
+      { "de": "Perfekt", "sl": "preteklik (Perfekt)", "en": "past (Perfekt)", "it": "passato (Perfekt)" }
+    ],
+    "rows": [
+      ["aufstehen", "Ich stehe um sieben auf.", "Ich bin aufgestanden."],
+      ["mitbringen", "Ich bringe Äpfel mit.", "Ich habe Äpfel mitgebracht."],
+      ["anrufen", "Oma ruft an.", "Oma hat angerufen."],
+      ["einkaufen", "Wir kaufen ein.", "Wir haben eingekauft."],
+      ["zumachen", "Sie macht die Tür zu.", "Sie hat die Tür zugemacht."],
+      ["aufpassen", "Pass auf!", "Ich habe aufgepasst."],
+      ["vorbeigehen", "Gehen Sie an der Kirche vorbei.", "Wir sind vorbeigegangen."]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Ich stehe jeden Tag um sieben auf.",
+      "sl": "Vsak dan vstanem ob sedmih.",
+      "en": "I get up at seven every day.",
+      "it": "Mi alzo ogni giorno alle sette.",
+      "note": {
+        "en": "aufstehen: stehe in second place, auf at the end.",
+        "sl": "aufstehen: stehe na drugem mestu, auf na koncu.",
+        "it": "aufstehen: stehe al secondo posto, auf alla fine."
+      }
+    },
+    {
+      "de": "Stefan bringt heute Äpfel mit.",
+      "sl": "Stefan danes prinese jabolka.",
+      "en": "Stefan is bringing apples today.",
+      "it": "Oggi Stefan porta le mele."
+    },
+    {
+      "de": "Gehen Sie an der Kirche vorbei, dann über die Brücke.",
+      "sl": "Pojdite mimo cerkve, nato čez most.",
+      "en": "Go past the church, then over the bridge.",
+      "it": "Passi davanti alla chiesa, poi attraversi il ponte.",
+      "note": {
+        "en": "an + Dativ … vorbei = past: an der Kirche vorbei.",
+        "sl": "an + dajalnik … vorbei = mimo: an der Kirche vorbei (mimo cerkve).",
+        "it": "an + dativo … vorbei = passare davanti: an der Kirche vorbei."
+      }
+    },
+    {
+      "de": "Pass auf, der Stein ist glatt!",
+      "sl": "Pazi, kamen je spolzek!",
+      "en": "Careful, the stone is slippery!",
+      "it": "Attenzione, il sasso è scivoloso!",
+      "note": {
+        "en": "aufpassen: in the imperative too, auf goes to the end.",
+        "sl": "aufpassen: tudi v velelniku gre auf na konec.",
+        "it": "aufpassen: anche all'imperativo auf va alla fine."
+      }
+    },
+    {
+      "de": "Ich will morgen früh aufstehen.",
+      "sl": "Jutri hočem zgodaj vstati.",
+      "en": "I want to get up early tomorrow.",
+      "it": "Domani mi voglio alzare presto.",
+      "note": {
+        "en": "After a modal verb the infinitive stays in one piece at the end.",
+        "sl": "Za naklonskim glagolom ostane nedoločnik skupaj na koncu.",
+        "it": "Dopo un verbo modale l'infinito resta unito alla fine."
+      }
+    },
+    {
+      "de": "Oma hat gestern angerufen.",
+      "sl": "Babica je včeraj poklicala.",
+      "en": "Grandma called yesterday.",
+      "it": "La nonna ha telefonato ieri.",
+      "note": {
+        "en": "Perfekt: ge- in the middle, an-ge-rufen.",
+        "sl": "Perfekt: ge- v sredini, an-ge-rufen.",
+        "it": "Perfekt: ge- in mezzo, an-ge-rufen."
+      }
+    },
+    {
+      "de": "Lehrerin Eva macht die Tür zu.",
+      "sl": "Učiteljica Eva zapre vrata.",
+      "en": "Eva the teacher closes the door.",
+      "it": "La maestra Eva chiude la porta."
+    }
+  ],
+  "modules": [],
+  "tags": ["separable_verbs", "trennbare_verben", "verb_prefix", "prefix", "word_order", "aufstehen"],
+  "see": ["wortstellung", "perfekt", "modalverben", "nebensatz"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

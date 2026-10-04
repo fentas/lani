@@ -1,0 +1,105 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "pri-kopi",
+  "title": { "sl": "Pri kopi", "en": "At the charcoal pile", "de": "Am Kohlenmeiler", "it": "Alla carbonaia" },
+  "emoji": "♨️",
+  "level": "A2",
+  "description": {
+    "en": "The charcoal pile deep in the woods below the village: the pile of wood under turf and earth, the charcoal it slowly turns into, the burner who watches it day and night from his hut, the embers, the smoke and the ash.",
+    "de": "Der Kohlenmeiler tief im Wald unter dem Dorf: der Holzhaufen unter Rasen und Erde, die Holzkohle, zu der er langsam wird, der Köhler, der ihn Tag und Nacht von seiner Hütte aus bewacht, die Glut, der Rauch und die Asche.",
+    "it": "La carbonaia nel bosco sotto il paese: il mucchio di legna sotto le zolle e la terra, il carbone in cui piano piano si trasforma, il carbonaio che la sorveglia giorno e notte dalla sua capanna, la brace, il fumo e la cenere."
+  },
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "words": [
+    {
+      "id": "kopa", "sl": "kopa", "en": "charcoal pile (wood stacked under earth)", "de": "Kohlenmeiler", "it": "carbonaia",
+      "emoji": "♨️", "gender": "f", "plural": "kope",
+      "example_sl": "Oglar zloži drva v kopo.", "example_en": "The charcoal burner stacks the wood into a pile.",
+      "example_de": "Der Köhler schichtet das Holz zu einem Meiler.", "example_it": "Il carbonaio accatasta la legna nella carbonaia.",
+      "note": "Oglarska kopa: a charcoal burner's pile. Pri kopi: by the pile (the locative).",
+      "note_de": "Oglarska kopa: der Meiler des Köhlers. Pri kopi: beim Meiler (Lokativ).",
+      "note_it": "Oglarska kopa: la carbonaia del carbonaio. Pri kopi: alla carbonaia (il locativo)."
+    },
+    {
+      "id": "oglje", "sl": "oglje", "en": "charcoal", "de": "Holzkohle", "it": "carbone di legna",
+      "emoji": "⚫", "gender": "n",
+      "example_sl": "Kovač potrebuje oglje za ogenj.", "example_en": "The smith needs charcoal for the fire.",
+      "example_de": "Der Schmied braucht Holzkohle für das Feuer.", "example_it": "Il fabbro ha bisogno di carbone per il fuoco.",
+      "note": "A mass noun, like charcoal: veliko oglja (a lot of charcoal, the genitive). Coal from a mine is premog.",
+      "note_de": "Ein Stoffname wie Holzkohle: veliko oglja (viel Holzkohle, der Genitiv). Kohle aus dem Bergwerk ist premog.",
+      "note_it": "Un nome di massa, come carbone: veliko oglja (molto carbone, il genitivo). Il carbone di miniera è premog."
+    },
+    {
+      "id": "oglar", "sl": "oglar", "en": "charcoal burner", "de": "Köhler", "it": "carbonaio",
+      "emoji": "🧔", "gender": "m", "plural": "oglarji",
+      "example_sl": "Oglar pazi na kopo dan in noč.", "example_en": "The charcoal burner watches the pile day and night.",
+      "example_de": "Der Köhler bewacht den Meiler Tag und Nacht.", "example_it": "Il carbonaio sorveglia la carbonaia giorno e notte.",
+      "note": "From oglje: the man who makes it. A woman: oglarka. His craft: oglarstvo.",
+      "note_de": "Von oglje: der Mann, der sie macht. Eine Frau: oglarka. Sein Handwerk: oglarstvo.",
+      "note_it": "Da oglje: l'uomo che lo fa. Una donna: oglarka. Il suo mestiere: oglarstvo."
+    },
+    {
+      "id": "zerjavica", "sl": "žerjavica", "en": "embers, glowing coals", "de": "Glut", "it": "brace",
+      "emoji": "🔥", "gender": "f", "plural": "žerjavice",
+      "example_sl": "Pod zemljo je vroča žerjavica.", "example_en": "Under the earth there are hot embers.",
+      "example_de": "Unter der Erde ist heiße Glut.", "example_it": "Sotto la terra c'è la brace calda.",
+      "note": "What glows when the flames are gone: in the stove, in the pile, in the campfire at night.",
+      "note_de": "Was glüht, wenn die Flammen weg sind: im Ofen, im Meiler, im Lagerfeuer in der Nacht.",
+      "note_it": "Quello che resta acceso quando le fiamme non ci sono più: nella stufa, nella carbonaia, nel fuoco di notte."
+    },
+    {
+      "id": "dim", "sl": "dim", "en": "smoke", "de": "Rauch", "it": "fumo",
+      "emoji": "💨", "gender": "m", "plural": "dimi",
+      "example_sl": "Iz kope se vije dim.", "example_en": "Smoke curls up from the pile.",
+      "example_de": "Aus dem Meiler steigt Rauch.", "example_it": "Dalla carbonaia sale il fumo.",
+      "note": "Se kadi: it smokes. Brez dima ni ognja: no smoke without fire.",
+      "note_de": "Se kadi: es raucht. Brez dima ni ognja: kein Rauch ohne Feuer.",
+      "note_it": "Se kadi: fuma. Brez dima ni ognja: non c'è fumo senza fuoco."
+    },
+    {
+      "id": "tleti", "sl": "tleti", "en": "to smoulder", "de": "glimmen", "it": "covare (il fuoco)",
+      "emoji": "♨️",
+      "example_sl": "Kopa ne gori, samo tli.", "example_en": "The pile doesn't burn, it only smoulders.",
+      "example_de": "Der Meiler brennt nicht, er glimmt nur.", "example_it": "La carbonaia non brucia, cova soltanto.",
+      "note": "Tli, tlijo: it smoulders, they smoulder. To burn with flames is goreti.",
+      "note_de": "Tli, tlijo: er glimmt, sie glimmen. Mit Flammen brennen heißt goreti.",
+      "note_it": "Tli, tlijo: cova, covano. Bruciare con le fiamme è goreti."
+    },
+    {
+      "id": "rusa", "sl": "ruša", "en": "turf, sod", "de": "Grassode, Rasenstück", "it": "zolla d'erba",
+      "emoji": "🌱", "gender": "f", "plural": "ruše",
+      "example_sl": "Kopo pokrijejo z rušo in zemljo.", "example_en": "They cover the pile with turf and earth.",
+      "example_de": "Man deckt den Meiler mit Rasen und Erde zu.", "example_it": "Coprono la carbonaia di zolle d'erba e di terra.",
+      "note": "Grass cut out with its roots and soil. It keeps the air out, so the wood smoulders and doesn't burn.",
+      "note_de": "Gras, mit Wurzeln und Erde ausgestochen. Es hält die Luft ab, damit das Holz glimmt und nicht brennt.",
+      "note_it": "Erba tagliata con le radici e la terra. Tiene fuori l'aria, così la legna cova e non brucia."
+    },
+    {
+      "id": "pepel", "sl": "pepel", "en": "ash", "de": "Asche", "it": "cenere",
+      "emoji": "🌫️", "gender": "m",
+      "example_sl": "Če kopa zagori, ostane samo pepel.", "example_en": "If the pile catches fire, only ash is left.",
+      "example_de": "Wenn der Meiler Feuer fängt, bleibt nur Asche.", "example_it": "Se la carbonaia prende fuoco, resta solo cenere.",
+      "note": "Genitive pepela: brez pepela (without ash). Pepelnica: Ash Wednesday.",
+      "note_de": "Genitiv pepela: brez pepela (ohne Asche). Pepelnica: Aschermittwoch.",
+      "note_it": "Genitivo pepela: brez pepela (senza cenere). Pepelnica: il mercoledì delle Ceneri."
+    },
+    {
+      "id": "zagoreti", "sl": "zagoreti", "en": "to catch fire", "de": "Feuer fangen", "it": "prendere fuoco",
+      "emoji": "🔥",
+      "example_sl": "Kopa ne sme zagoreti.", "example_en": "The pile mustn't catch fire.",
+      "example_de": "Der Meiler darf kein Feuer fangen.", "example_it": "La carbonaia non deve prendere fuoco.",
+      "note": "Goreti is to burn; za- makes it start: zagori, it catches fire.",
+      "note_de": "Goreti heißt brennen; za- lässt es beginnen: zagori, es fängt Feuer.",
+      "note_it": "Goreti è bruciare; za- lo fa cominciare: zagori, prende fuoco."
+    },
+    {
+      "id": "koca", "sl": "koča", "en": "hut", "de": "Hütte", "it": "capanna",
+      "emoji": "🛖", "gender": "f", "plural": "koče",
+      "example_sl": "Oglar spi v koči zraven kope.", "example_en": "The charcoal burner sleeps in a hut next to the pile.",
+      "example_de": "Der Köhler schläft in einer Hütte neben dem Meiler.", "example_it": "Il carbonaio dorme in una capanna vicino alla carbonaia.",
+      "note": "Also a mountain hut (planinska koča). The village's first homes were koče too.",
+      "note_de": "Auch eine Berghütte (planinska koča). Die ersten Häuser des Dorfes waren auch koče.",
+      "note_it": "Anche un rifugio di montagna (planinska koča). Le prime case del paese erano koče."
+    }
+  ]
+}

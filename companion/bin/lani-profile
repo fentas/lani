@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# The learners on this machine: add one, list them, show how to publish, start and pair one.
+#   lani-profile add <id> --name <name> --target <lang> --base <lang> [--child] [--level A1]
+#   lani-profile list | show <id>
+# See companion/README.md, "Learners".
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+exec bun "$root/companion/bridge/src/cli/profile.ts" "$@"

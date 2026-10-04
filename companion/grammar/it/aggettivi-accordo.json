@@ -1,0 +1,110 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "aggettivi-accordo",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🎨",
+  "title": {
+    "it": "Il cielo grigio, le mele rosse: gli aggettivi",
+    "sl": "Pridevniki se ujemajo s samostalnikom",
+    "en": "Adjectives agree with their noun",
+    "de": "Adjektive richten sich nach dem Nomen"
+  },
+  "rule": {
+    "en": "An adjective (*aggettivo*) takes the gender and number of its noun, even after essere, where an English adjective never changes: **il cielo è grigio**, **le mele sono rosse**.\n\nAdjectives in **-o** have four forms: **rosso, rossa, rossi, rosse** (il fiore rosso, la mela rossa, i fiori rossi, le mele rosse). Adjectives in **-e** have two: **verde, verdi**; **grande, grandi**. A mixed group takes the masculine: **Giulia e Lorenzo sono stanchi.**\n\nMost adjectives go after the noun, colours too: **il cielo grigio**, **una pecora nera**. A few short, common ones often go before: **grande, piccolo, bello, buono, vecchio, nuovo**: **il grande abete**, **una piccola casa**. Before a noun, bello and buono get shorter: **un bel giorno**, **un buon amico**.\n\nWords of quantity agree too: **quanti gabbiani!**, **quante stelle!**, **tutto il giorno**, **tutta la notte**, **il cielo è tutto grigio**. So does the adjective after **che**: **Che belle scintille!**",
+    "sl": "Pridevnik (*aggettivo*) se ujema s samostalnikom v spolu in številu, kot v slovenščini, tudi za essere: **il cielo è grigio** (nebo je sivo), **le mele sono rosse** (jabolka so rdeča).\n\nPridevniki na **-o** imajo štiri oblike: **rosso, rossa, rossi, rosse** (il fiore rosso, la mela rossa, i fiori rossi, le mele rosse). Pridevniki na **-e** imajo dve: **verde, verdi**; **grande, grandi**. Mešana skupina dobi moški spol: **Giulia e Lorenzo sono stanchi.**\n\nDrugače kot v slovenščini stoji večina pridevnikov za samostalnikom, tudi barve: **il cielo grigio** (sivo nebo), **una pecora nera** (črna ovca). Nekaj kratkih, pogostih pogosto stoji pred njim: **grande, piccolo, bello, buono, vecchio, nuovo**: **il grande abete**, **una piccola casa**. Pred samostalnikom se bello in buono skrajšata: **un bel giorno**, **un buon amico**.\n\nUjemajo se tudi besede za količino: **quanti gabbiani!** (koliko galebov!), **quante stelle!**, **tutto il giorno**, **tutta la notte**, **il cielo è tutto grigio**. Prav tako pridevnik za **che**: **Che belle scintille!** (Kako lepe iskre!)",
+    "de": "Das Adjektiv (*aggettivo*) richtet sich in Genus und Zahl nach seinem Nomen, auch nach essere, wo das deutsche Adjektiv keine Endung hat: **il cielo è grigio** (der Himmel ist grau), **le mele sono rosse**.\n\nAdjektive auf **-o** haben vier Formen: **rosso, rossa, rossi, rosse** (il fiore rosso, la mela rossa, i fiori rossi, le mele rosse). Adjektive auf **-e** haben zwei: **verde, verdi**; **grande, grandi**. Eine gemischte Gruppe bekommt das Maskulinum: **Giulia e Lorenzo sono stanchi.**\n\nAnders als im Deutschen stehen die meisten Adjektive nach dem Nomen, auch Farben: **il cielo grigio** (der graue Himmel), **una pecora nera**. Einige kurze, häufige stehen oft davor: **grande, piccolo, bello, buono, vecchio, nuovo**: **il grande abete**, **una piccola casa**. Davor werden bello und buono kürzer: **un bel giorno**, **un buon amico**.\n\nAuch Mengenwörter richten sich danach: **quanti gabbiani!**, **quante stelle!**, **tutto il giorno**, **tutta la notte**, **il cielo è tutto grigio**. Ebenso das Adjektiv nach **che**: **Che belle scintille!** (Was für schöne Funken!)"
+  },
+  "table": {
+    "head": [
+      { "it": "aggettivo", "sl": "pridevnik", "en": "adjective", "de": "Adjektiv" },
+      { "it": "singolare (m / f)", "sl": "ednina (m / ž)", "en": "singular (m / f)", "de": "Singular (m / f)" },
+      { "it": "plurale (m / f)", "sl": "množina (m / ž)", "en": "plural (m / f)", "de": "Plural (m / f)" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      [{ "it": "rosso", "sl": "rosso (rdeč)", "en": "rosso (red)", "de": "rosso (rot)" }, "rosso / rossa", "rossi / rosse", "le mele rosse"],
+      [{ "it": "grigio", "sl": "grigio (siv)", "en": "grigio (grey)", "de": "grigio (grau)" }, "grigio / grigia", "grigi / grigie", "il cielo grigio"],
+      [{ "it": "piccolo", "sl": "piccolo (majhen)", "en": "piccolo (small)", "de": "piccolo (klein)" }, "piccolo / piccola", "piccoli / piccole", "una piccola casa"],
+      [{ "it": "bianco", "sl": "bianco (bel)", "en": "bianco (white)", "de": "bianco (weiß)" }, "bianco / bianca", "bianchi / bianche", "le pecore bianche"],
+      [{ "it": "verde", "sl": "verde (zelen)", "en": "verde (green)", "de": "verde (grün)" }, "verde / verde", "verdi / verdi", "i prati verdi"],
+      [{ "it": "grande", "sl": "grande (velik)", "en": "grande (big)", "de": "grande (groß)" }, "grande / grande", "grandi / grandi", "il grande abete"],
+      [{ "it": "quanto", "sl": "quanto (koliko)", "en": "quanto (how much, how many)", "de": "quanto (wie viel, wie viele)" }, "quanto / quanta", "quanti / quante", "quanti gabbiani!"],
+      [{ "it": "tutto", "sl": "tutto (ves, cel)", "en": "tutto (all, whole)", "de": "tutto (ganz, alle)" }, "tutto / tutta", "tutti / tutte", "tutta la notte"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Oggi il cielo è tutto grigio.",
+      "sl": "Danes je nebo čisto sivo.",
+      "en": "Today the sky is all grey.",
+      "de": "Heute ist der Himmel ganz grau.",
+      "note": {
+        "sl": "il cielo (m): tutto grigio; la nuvola (ž): tutta grigia.",
+        "en": "il cielo (m): tutto grigio; la nuvola (f): tutta grigia.",
+        "de": "il cielo (m): tutto grigio; la nuvola (f): tutta grigia."
+      }
+    },
+    {
+      "it": "Quanti gabbiani sopra il pontile!",
+      "sl": "Koliko galebov je nad pomolom!",
+      "en": "So many seagulls over the jetty!",
+      "de": "So viele Möwen über dem Steg!"
+    },
+    {
+      "it": "Che belle scintille!",
+      "sl": "Kako lepe iskre!",
+      "en": "What beautiful sparks!",
+      "de": "Was für schöne Funken!",
+      "note": {
+        "sl": "le scintille (ženski spol, množina): belle.",
+        "en": "le scintille (feminine plural): belle.",
+        "de": "le scintille (feminin Plural): belle."
+      }
+    },
+    {
+      "it": "Il grande abete è vicino allo stagno.",
+      "sl": "Velika jelka je blizu ribnika.",
+      "en": "The big fir tree is near the pond.",
+      "de": "Die große Tanne steht nahe am Teich.",
+      "note": {
+        "sl": "grande pogosto stoji pred samostalnikom: il grande abete.",
+        "en": "grande often goes before its noun: il grande abete.",
+        "de": "grande steht oft vor dem Nomen: il grande abete."
+      }
+    },
+    {
+      "it": "Le mele del nonno sono rosse e dolci.",
+      "sl": "Dedkova jabolka so rdeča in sladka.",
+      "en": "Grandpa's apples are red and sweet.",
+      "de": "Opas Äpfel sind rot und süß."
+    },
+    {
+      "it": "Il pastore ha una pecora nera e tre pecore bianche.",
+      "sl": "Pastir ima eno črno ovco in tri bele ovce.",
+      "en": "The shepherd has one black sheep and three white ones.",
+      "de": "Der Hirte hat ein schwarzes Schaf und drei weiße Schafe.",
+      "note": {
+        "sl": "bianca → bianche: h ohrani trdi glas.",
+        "en": "bianca → bianche: the h keeps the hard sound.",
+        "de": "bianca → bianche: das h hält den Laut hart."
+      }
+    },
+    {
+      "it": "Giulia e Lorenzo sono stanchi.",
+      "sl": "Giulia in Lorenzo sta utrujena.",
+      "en": "Giulia and Lorenzo are tired.",
+      "de": "Giulia und Lorenzo sind müde.",
+      "note": {
+        "sl": "Mešana skupina: moški spol (stanchi).",
+        "en": "A mixed group: masculine (stanchi).",
+        "de": "Gemischte Gruppe: Maskulinum (stanchi)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["adjective", "agreement", "adjective_agreement", "aggettivi", "gender", "adjective_position"],
+  "see": ["articoli-genere", "plurale", "possessivi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

@@ -1,0 +1,115 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "wortstellung",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🧱",
+  "title": {
+    "de": "Heute backt Oma: das Verb an zweiter Stelle",
+    "sl": "Heute backt Oma: glagol na drugem mestu",
+    "en": "Heute backt Oma: the verb in second place",
+    "it": "Heute backt Oma: il verbo al secondo posto"
+  },
+  "rule": {
+    "en": "In a German statement the conjugated verb stands in second place (*Verbzweitstellung*). One part comes first (the subject, a time, a place …), then the verb: **Oma Resi backt** heute einen Kuchen. **Heute backt** Oma Resi einen Kuchen.\n\nIf something else comes first, the subject moves behind the verb: Heute **backt Oma**, not Heute Oma backt (English says Today Grandma bakes; German doesn't). A part can be several words: **Am Abend** erzählt Opa Sepp.\n\nWhen the verb has two parts, the conjugated part stays second and the other goes to the very end, like a bracket (*Satzklammer*): Ich **will** heute schwimmen **gehen**. Ich **habe** vier Hufeisen **gemacht**. Ich **stehe** um sieben **auf**.\n\nA yes/no question starts with the verb: **Kommst** du mit? A W-question has it second: Wann **kommst** du?",
+    "sl": "V nemški povedi je osebna glagolska oblika na drugem mestu (*Verbzweitstellung*). Najprej pride en del (osebek, čas, kraj …), nato glagol: **Oma Resi backt** heute einen Kuchen. **Heute backt** Oma Resi einen Kuchen.\n\nČe je na prvem mestu kaj drugega, gre osebek za glagol: Heute **backt Oma**, ne Heute Oma backt. Slovenski besedni red je prost, nemški ni. En del ima lahko več besed: **Am Abend** erzählt Opa Sepp.\n\nČe ima glagol dva dela, ostane osebni del na drugem mestu, drugi del pa gre čisto na konec, kot oklepaj (*Satzklammer*): Ich **will** heute schwimmen **gehen**. Ich **habe** vier Hufeisen **gemacht**. Ich **stehe** um sieben **auf**.\n\nOdločevalno vprašanje (da ali ne) se začne z glagolom: **Kommst** du mit? Pri vprašanju z vprašalnico je glagol drugi: Wann **kommst** du?",
+    "it": "Nella frase tedesca il verbo coniugato sta al secondo posto (*Verbzweitstellung*). Prima viene una parte (il soggetto, un tempo, un luogo …), poi il verbo: **Oma Resi backt** heute einen Kuchen. **Heute backt** Oma Resi einen Kuchen.\n\nSe al primo posto c'è altro, il soggetto va dopo il verbo: Heute **backt Oma**, non Heute Oma backt. Una parte può avere più parole: **Am Abend** erzählt Opa Sepp.\n\nSe il verbo ha due parti, quella coniugata resta seconda e l'altra va proprio alla fine, come una parentesi (*Satzklammer*): Ich **will** heute schwimmen **gehen** (oggi voglio andare a nuotare). Ich **habe** vier Hufeisen **gemacht**. Ich **stehe** um sieben **auf**.\n\nLa domanda sì/no comincia col verbo: **Kommst** du mit? Con una parola interrogativa il verbo è secondo: Wann **kommst** du?"
+  },
+  "table": {
+    "head": [
+      { "de": "Position 1", "sl": "1. mesto", "en": "position 1", "it": "1° posto" },
+      { "de": "Verb (Position 2)", "sl": "glagol (2. mesto)", "en": "verb (position 2)", "it": "verbo (2° posto)" },
+      { "de": "Mitte", "sl": "sredina", "en": "middle", "it": "centro" },
+      { "de": "Ende", "sl": "konec", "en": "end", "it": "fine" }
+    ],
+    "rows": [
+      ["Oma Resi", "backt", "heute einen Kuchen.", "–"],
+      ["Heute", "backt", "Oma Resi einen Kuchen.", "–"],
+      ["Am Abend", "erzählt", "Opa Sepp vom Lindwurm.", "–"],
+      ["Ich", "will", "heute schwimmen", "gehen."],
+      ["Ich", "habe", "vier Hufeisen", "gemacht."],
+      ["Morgen", "stehe", "ich um sieben", "auf."],
+      ["–", "Kommst", "du morgen", "mit?"],
+      ["Wann", "gehen", "wir auf die Alm?", "–"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Heute backt Oma Resi einen Kuchen.",
+      "sl": "Danes babica Resi peče kolač.",
+      "en": "Today Grandma Resi is baking a cake.",
+      "it": "Oggi la nonna Resi fa una torta.",
+      "note": {
+        "en": "Heute comes first, so the verb comes next and the subject after it.",
+        "sl": "Heute je na prvem mestu, zato takoj sledi glagol, osebek pa za njim.",
+        "it": "Heute è al primo posto: subito il verbo, poi il soggetto."
+      }
+    },
+    {
+      "de": "Am Abend erzählt Opa Sepp vom Lindwurm.",
+      "sl": "Zvečer dedek Sepp pripoveduje o celovškem zmaju.",
+      "en": "In the evening Grandpa Sepp tells the story of the Lindwurm, the Klagenfurt dragon.",
+      "it": "La sera il nonno Sepp racconta la storia del drago di Klagenfurt.",
+      "note": {
+        "en": "Am Abend is one part: the verb comes right after it.",
+        "sl": "Am Abend je en del: glagol pride takoj za njim.",
+        "it": "Am Abend è una parte sola: il verbo viene subito dopo."
+      }
+    },
+    {
+      "de": "Ich will heute schwimmen gehen.",
+      "sl": "Danes hočem iti plavat.",
+      "en": "I want to go swimming today.",
+      "it": "Oggi voglio andare a nuotare.",
+      "note": {
+        "en": "will in second place, gehen at the end: the Satzklammer.",
+        "sl": "will na drugem mestu, gehen na koncu: Satzklammer.",
+        "it": "will al secondo posto, gehen alla fine: la Satzklammer."
+      }
+    },
+    {
+      "de": "Schmied Toni hat heute vier Hufeisen gemacht.",
+      "sl": "Kovač Toni je danes skoval štiri podkve.",
+      "en": "Toni the smith made four horseshoes today.",
+      "it": "Oggi il fabbro Toni ha fatto quattro ferri di cavallo.",
+      "note": {
+        "en": "hat second, gemacht at the end.",
+        "sl": "hat na drugem mestu, gemacht na koncu.",
+        "it": "hat al secondo posto, gemacht alla fine."
+      }
+    },
+    {
+      "de": "Kommst du morgen mit?",
+      "sl": "Greš jutri z nami?",
+      "en": "Are you coming with us tomorrow?",
+      "it": "Domani vieni con noi?",
+      "note": {
+        "en": "Yes/no question: the verb first, mit at the end (mitkommen).",
+        "sl": "Odločevalno vprašanje: glagol na prvem mestu, mit na koncu (mitkommen).",
+        "it": "Domanda sì/no: il verbo al primo posto, mit alla fine (mitkommen)."
+      }
+    },
+    {
+      "de": "Im Winter ist der Teich oft gefroren.",
+      "sl": "Pozimi je ribnik pogosto zamrznjen.",
+      "en": "In winter the pond is often frozen.",
+      "it": "D'inverno lo stagno è spesso ghiacciato."
+    },
+    {
+      "de": "Wann gehen wir auf die Alm?",
+      "sl": "Kdaj gremo na planino?",
+      "en": "When are we going up to the alpine pasture?",
+      "it": "Quando andiamo all'alpeggio?",
+      "note": {
+        "en": "W-question: the question word, then the verb.",
+        "sl": "Vprašanje z vprašalnico: najprej vprašalnica, nato glagol.",
+        "it": "Domanda con parola interrogativa: prima la parola, poi il verbo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["word_order", "wortstellung", "verb_second", "v2", "satzklammer", "sentence_bracket", "inversion"],
+  "see": ["nebensatz", "trennbare-verben", "fragen", "modalverben"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

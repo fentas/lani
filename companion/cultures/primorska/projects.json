@@ -1,0 +1,476 @@
+{
+  "projects": [
+    {
+      "id": "mlaj",
+      "leader": "luka",
+      "helpers": ["marko", "nejc", "tine"],
+      "name": { "sl": "Mlaj", "en": "The maypole", "de": "Der Maibaum", "it": "L'albero di maggio" },
+      "in_text": { "en": "the maypole", "de": "der Maibaum", "it": "l'albero di maggio" },
+      "about": { "sl": "Visoko drevo sredi vasi, okrašeno z vencem in trakovi.", "en": "A tall tree in the middle of the village, decorated with a wreath and ribbons.", "de": "Ein hoher Baum mitten im Dorf, geschmückt mit einem Kranz und Bändern.", "it": "Un albero alto in mezzo al paese, decorato con una corona e nastri." },
+      "steps": [
+        {
+          "task": { "sl": "Izbrati smreko", "en": "Choose a spruce", "de": "Eine Fichte aussuchen", "it": "Scegliere un abete rosso" },
+          "line": { "sl": "Luka in fantje so v gozdu izbrali visoko smreko.", "en": "Luka and the young men chose a tall spruce in the forest.", "de": "Luka und die Burschen haben im Wald eine hohe Fichte ausgesucht.", "it": "Luka e i ragazzi hanno scelto nel bosco un abete rosso alto." }
+        },
+        {
+          "task": { "sl": "Prinesti smreko v vas", "en": "Carry the spruce into the village", "de": "Die Fichte ins Dorf tragen", "it": "Portare l'abete in paese" },
+          "line": { "sl": "Fantje so smreko prinesli v vas. Bila je zelo težka!", "en": "The young men carried the spruce into the village. It was very heavy!", "de": "Die Burschen haben die Fichte ins Dorf getragen. Sie war sehr schwer!", "it": "I ragazzi hanno portato l'abete in paese. Era pesantissimo!" }
+        },
+        {
+          "task": { "sl": "Olupiti deblo", "en": "Peel the trunk", "de": "Den Stamm schälen", "it": "Scortecciare il tronco" },
+          "line": { "sl": "Luka je olupil deblo, samo vrh je ostal zelen.", "en": "Luka peeled the trunk; only the top stayed green.", "de": "Luka hat den Stamm geschält, nur der Wipfel ist grün geblieben.", "it": "Luka ha scortecciato il tronco; solo la cima è rimasta verde." }
+        },
+        {
+          "task": { "sl": "Splesti venec", "en": "Weave a wreath", "de": "Einen Kranz flechten", "it": "Intrecciare una corona" },
+          "line": { "sl": "Otroci so spletli venec in pripravili pisane trakove.", "en": "The children wove a wreath and got colourful ribbons ready.", "de": "Die Kinder haben einen Kranz geflochten und bunte Bänder bereitgelegt.", "it": "I bambini hanno intrecciato una corona e preparato nastri colorati." }
+        },
+        {
+          "task": { "sl": "Postaviti mlaj", "en": "Raise the maypole", "de": "Den Maibaum aufstellen", "it": "Innalzare l'albero di maggio" },
+          "line": { "sl": "Vsa vas je pomagala in mlaj zdaj stoji sredi vasi!", "en": "The whole village helped, and the maypole now stands in the middle of the village!", "de": "Das ganze Dorf hat geholfen, und jetzt steht der Maibaum mitten im Dorf!", "it": "Tutto il paese ha aiutato, e ora l'albero di maggio si erge in mezzo al paese!" }
+        }
+      ],
+      "done": { "sl": "Mlaj stoji! Vas je bolj vesela.", "en": "The maypole stands! The village is merrier.", "de": "Der Maibaum steht! Das Dorf ist fröhlicher.", "it": "L'albero di maggio è in piedi! Il paese è più allegro." },
+      "memory": { "sl": "naš mlaj", "en": "our maypole", "de": "unseren Maibaum", "it": "il nostro albero di maggio" }
+    },
+    {
+      "id": "most",
+      "leader": "france",
+      "helpers": ["luka", "tone", "anton"],
+      "name": { "sl": "Most čez potok", "en": "A bridge over the stream", "de": "Eine Brücke über den Bach", "it": "Un ponte sul ruscello" },
+      "in_text": { "en": "a bridge over the stream", "de": "die Brücke über den Bach", "it": "il ponte sul ruscello" },
+      "about": { "sl": "Lesen most čez potok, da vozovi pridejo do gozda.", "en": "A wooden bridge over the stream, so carts can get to the forest.", "de": "Eine Holzbrücke über den Bach, damit die Wagen in den Wald kommen.", "it": "Un ponte di legno sul ruscello, perché i carri possano arrivare al bosco." },
+      "steps": [
+        {
+          "task": { "sl": "Izmeriti potok", "en": "Measure the stream", "de": "Den Bach vermessen", "it": "Misurare il ruscello" },
+          "line": { "sl": "France je izmeril potok: širok je šest metrov.", "en": "France measured the stream: it is six metres wide.", "de": "France hat den Bach vermessen: Er ist sechs Meter breit.", "it": "France ha misurato il ruscello: è largo sei metri." }
+        },
+        {
+          "task": { "sl": "Nabrati kamenje", "en": "Gather stones", "de": "Steine sammeln", "it": "Raccogliere pietre" },
+          "line": { "sl": "Sosedje so nabrali kamenje za stebra.", "en": "The neighbours gathered stones for the two pillars.", "de": "Die Nachbarn haben Steine für die beiden Pfeiler gesammelt.", "it": "I vicini hanno raccolto pietre per i due pilastri." }
+        },
+        {
+          "task": { "sl": "Postaviti stebra", "en": "Build the two pillars", "de": "Die beiden Pfeiler bauen", "it": "Costruire i due pilastri" },
+          "line": { "sl": "Na obeh bregovih zdaj stojita kamnita stebra.", "en": "Two stone pillars now stand on both banks.", "de": "An den beiden Ufern stehen jetzt zwei Steinpfeiler.", "it": "Ora sulle due rive si ergono due pilastri di pietra." }
+        },
+        {
+          "task": { "sl": "Pripeljati hlode", "en": "Bring the logs", "de": "Die Stämme bringen", "it": "Portare i tronchi" },
+          "line": { "sl": "France in sosedje so z vozom pripeljali dolge hlode.", "en": "France and the neighbours brought long logs by cart.", "de": "France und die Nachbarn haben mit dem Wagen lange Stämme gebracht.", "it": "France e i vicini hanno portato con il carro dei lunghi tronchi." }
+        },
+        {
+          "task": { "sl": "Položiti deske", "en": "Lay the planks", "de": "Die Bretter legen", "it": "Posare le assi" },
+          "line": { "sl": "Na hlode so položili debele deske.", "en": "They laid thick planks on the logs.", "de": "Sie haben dicke Bretter auf die Stämme gelegt.", "it": "Sui tronchi hanno posato assi spesse." }
+        },
+        {
+          "task": { "sl": "Prvi voz čez most", "en": "The first cart over the bridge", "de": "Der erste Wagen über die Brücke", "it": "Il primo carro sul ponte" },
+          "line": { "sl": "Prvi voz je zapeljal čez most in vsi so ploskali!", "en": "The first cart drove over the bridge and everyone clapped!", "de": "Der erste Wagen ist über die Brücke gefahren, und alle haben geklatscht!", "it": "Il primo carro ha attraversato il ponte e tutti hanno applaudito!" }
+        }
+      ],
+      "done": { "sl": "Most je gotov! Les zdaj hitreje pride iz gozda.", "en": "The bridge is finished! Wood comes from the forest faster now.", "de": "Die Brücke ist fertig! Das Holz kommt jetzt schneller aus dem Wald.", "it": "Il ponte è finito! Ora la legna arriva più in fretta dal bosco." },
+      "memory": { "sl": "naš most", "en": "our bridge", "de": "unsere Brücke", "it": "il nostro ponte" }
+    },
+    {
+      "id": "mlin",
+      "leader": "france",
+      "helpers": ["tone", "micka", "tine"],
+      "name": { "sl": "Mlin na potoku", "en": "The mill on the stream", "de": "Die Mühle am Bach", "it": "Il mulino sul ruscello" },
+      "in_text": { "en": "the mill on the stream", "de": "die Mühle am Bach", "it": "il mulino sul ruscello" },
+      "about": { "sl": "Mlin na vodo ob potoku, da ima vas svojo moko.", "en": "A water mill by the stream, so the village has its own flour.", "de": "Eine Wassermühle am Bach, damit das Dorf sein eigenes Mehl hat.", "it": "Un mulino ad acqua sul ruscello, perché il paese abbia la sua farina." },
+      "steps": [
+        {
+          "task": { "sl": "Izbrati prostor", "en": "Choose the place", "de": "Den Platz aussuchen", "it": "Scegliere il posto" },
+          "line": { "sl": "France je izbral prostor ob potoku, kjer voda teče najhitreje.", "en": "France chose a spot by the stream where the water runs fastest.", "de": "France hat eine Stelle am Bach ausgesucht, wo das Wasser am schnellsten fließt.", "it": "France ha scelto un punto del ruscello dove l'acqua scorre più veloce." }
+        },
+        {
+          "task": { "sl": "Zgraditi temelje", "en": "Build the foundations", "de": "Das Fundament bauen", "it": "Costruire le fondamenta" },
+          "line": { "sl": "Sosedje so iz kamna zgradili trdne temelje.", "en": "The neighbours built solid foundations out of stone.", "de": "Die Nachbarn haben ein festes Fundament aus Stein gebaut.", "it": "I vicini hanno costruito solide fondamenta di pietra." }
+        },
+        {
+          "task": { "sl": "Postaviti stene", "en": "Put up the walls", "de": "Die Wände aufstellen", "it": "Alzare le pareti" },
+          "line": { "sl": "Vsa vas je pomagala in lesene stene zdaj stojijo.", "en": "The whole village helped, and the wooden walls stand now.", "de": "Das ganze Dorf hat geholfen, und jetzt stehen die Holzwände.", "it": "Tutto il paese ha aiutato, e ora le pareti di legno sono in piedi." }
+        },
+        {
+          "task": { "sl": "Pokriti streho", "en": "Put on the roof", "de": "Das Dach decken", "it": "Coprire il tetto" },
+          "line": { "sl": "Fantje so streho pokrili s skodlami.", "en": "The young men covered the roof with shingles.", "de": "Die Burschen haben das Dach mit Schindeln gedeckt.", "it": "I ragazzi hanno coperto il tetto con le scandole." }
+        },
+        {
+          "task": { "sl": "Narediti kolo", "en": "Make the wheel", "de": "Das Rad bauen", "it": "Fare la ruota" },
+          "line": { "sl": "France je naredil veliko leseno kolo in žleb za vodo.", "en": "France made a big wooden wheel and a flume for the water.", "de": "France hat ein großes Holzrad und eine Rinne für das Wasser gebaut.", "it": "France ha fatto una grande ruota di legno e una canaletta per l'acqua." }
+        },
+        {
+          "task": { "sl": "Prva moka", "en": "The first flour", "de": "Das erste Mehl", "it": "La prima farina" },
+          "line": { "sl": "Kolo se je zavrtelo in mlin je zmlel prvo moko. Vsa vas je jedla svež kruh!", "en": "The wheel turned and the mill ground the first flour. The whole village ate fresh bread!", "de": "Das Rad hat sich gedreht, und die Mühle hat das erste Mehl gemahlen. Das ganze Dorf hat frisches Brot gegessen!", "it": "La ruota ha girato e il mulino ha macinato la prima farina. Tutto il paese ha mangiato pane fresco!" }
+        }
+      ],
+      "done": { "sl": "Mlin melje! Vas ima zdaj svojo moko.", "en": "The mill is grinding! The village has its own flour now.", "de": "Die Mühle mahlt! Das Dorf hat jetzt sein eigenes Mehl.", "it": "Il mulino macina! Ora il paese ha la sua farina." },
+      "memory": { "sl": "naš mlin", "en": "our mill", "de": "unsere Mühle", "it": "il nostro mulino" }
+    },
+    {
+      "id": "balinisce",
+      "leader": "janez",
+      "helpers": ["france", "anton", "marko"],
+      "name": { "sl": "Balinišče", "en": "A bocce court", "de": "Eine Bocciabahn", "it": "Un campo da bocce" },
+      "in_text": { "en": "a bocce court", "de": "die Bocciabahn", "it": "il campo da bocce" },
+      "about": { "sl": "Balinanje je na Primorskem priljubljena igra.", "en": "Bocce is a popular game in Primorska.", "de": "Boccia ist in Primorska ein beliebtes Spiel.", "it": "Le bocce sono un gioco molto amato in Primorska." },
+      "steps": [
+        {
+          "task": { "sl": "Izbrati prostor", "en": "Choose the place", "de": "Den Platz aussuchen", "it": "Scegliere il posto" },
+          "line": { "sl": "Janez je izbral raven prostor pod lipo.", "en": "Janez chose a flat spot under the linden.", "de": "Janez hat einen ebenen Platz unter der Linde ausgesucht.", "it": "Janez ha scelto un posto pianeggiante sotto il tiglio." }
+        },
+        {
+          "task": { "sl": "Poravnati zemljo", "en": "Level the ground", "de": "Den Boden ebnen", "it": "Livellare il terreno" },
+          "line": { "sl": "Sosedje so poravnali zemljo.", "en": "The neighbours levelled the ground.", "de": "Die Nachbarn haben den Boden geebnet.", "it": "I vicini hanno livellato il terreno." }
+        },
+        {
+          "task": { "sl": "Postaviti deske", "en": "Put up the boards", "de": "Die Bretter aufstellen", "it": "Montare le assi" },
+          "line": { "sl": "Okoli igrišča so postavili lesene deske.", "en": "They put wooden boards around the court.", "de": "Sie haben rund um die Bahn Holzbretter aufgestellt.", "it": "Intorno al campo hanno montato assi di legno." }
+        },
+        {
+          "task": { "sl": "Posuti pesek", "en": "Spread the sand", "de": "Den Sand streuen", "it": "Spargere la sabbia" },
+          "line": { "sl": "Na igrišče so posuli droben pesek.", "en": "They spread fine sand on the court.", "de": "Sie haben feinen Sand auf die Bahn gestreut.", "it": "Sul campo hanno sparso sabbia fine." }
+        },
+        {
+          "task": { "sl": "Prva igra", "en": "The first game", "de": "Das erste Spiel", "it": "La prima partita" },
+          "line": { "sl": "Janez je vrgel prvo kroglo in zmagal!", "en": "Janez threw the first ball and won!", "de": "Janez hat die erste Kugel geworfen und gewonnen!", "it": "Janez ha tirato la prima boccia e ha vinto!" }
+        }
+      ],
+      "done": { "sl": "Balinišče je odprto! Možje zvečer igrajo pod lipo.", "en": "The bocce court is open! The men play under the linden in the evening.", "de": "Die Bocciabahn ist eröffnet! Abends spielen die Männer unter der Linde.", "it": "Il campo da bocce è aperto! La sera gli uomini giocano sotto il tiglio." },
+      "memory": { "sl": "naše balinišče", "en": "our bocce court", "de": "unsere Bocciabahn", "it": "il nostro campo da bocce" }
+    },
+    {
+      "id": "kapelica",
+      "leader": "ancka",
+      "helpers": ["micka", "tone", "zala"],
+      "name": { "sl": "Kapelica", "en": "A wayside chapel", "de": "Eine Wegkapelle", "it": "Una cappelletta lungo la strada" },
+      "in_text": { "en": "a wayside chapel", "de": "die Wegkapelle", "it": "la cappelletta lungo la strada" },
+      "about": { "sl": "Majhna kapelica ob cesti, z zvončkom. Popotniki se tu ustavijo.", "en": "A small wayside chapel with a little bell. Travellers stop here.", "de": "Eine kleine Wegkapelle mit einem Glöckchen. Reisende halten hier an.", "it": "Una piccola cappella lungo la strada, con una campanella. I viandanti si fermano qui." },
+      "steps": [
+        {
+          "task": { "sl": "Narisati načrt", "en": "Draw a plan", "de": "Einen Plan zeichnen", "it": "Disegnare un progetto" },
+          "line": { "sl": "Ančka je narisala načrt kapelice.", "en": "Ančka drew a plan of the chapel.", "de": "Ančka hat einen Plan der Kapelle gezeichnet.", "it": "Ančka ha disegnato il progetto della cappelletta." }
+        },
+        {
+          "task": { "sl": "Postaviti temelje", "en": "Lay the foundations", "de": "Das Fundament legen", "it": "Posare le fondamenta" },
+          "line": { "sl": "Sosedje so postavili kamnite temelje.", "en": "The neighbours laid stone foundations.", "de": "Die Nachbarn haben ein Fundament aus Stein gelegt.", "it": "I vicini hanno posato fondamenta di pietra." }
+        },
+        {
+          "task": { "sl": "Sezidati zidove", "en": "Build the walls", "de": "Die Mauern bauen", "it": "Costruire i muri" },
+          "line": { "sl": "Zidovi rastejo, kamen na kamen.", "en": "The walls are growing, stone by stone.", "de": "Die Mauern wachsen, Stein auf Stein.", "it": "I muri crescono, pietra dopo pietra." }
+        },
+        {
+          "task": { "sl": "Streha iz skodel", "en": "A shingle roof", "de": "Ein Schindeldach", "it": "Un tetto di scandole" },
+          "line": { "sl": "Na streho so položili lesene skodle.", "en": "They laid wooden shingles on the roof.", "de": "Sie haben Holzschindeln auf das Dach gelegt.", "it": "Sul tetto hanno posato scandole di legno." }
+        },
+        {
+          "task": { "sl": "Prt za oltar", "en": "A cloth for the altar", "de": "Ein Tuch für den Altar", "it": "Una tovaglia per l'altare" },
+          "line": { "sl": "Ančka je na oltar položila vezen prt.", "en": "Ančka laid an embroidered cloth on the altar.", "de": "Ančka hat ein besticktes Tuch auf den Altar gelegt.", "it": "Ančka ha steso una tovaglia ricamata sull'altare." }
+        },
+        {
+          "task": { "sl": "Obesiti zvonček", "en": "Hang the little bell", "de": "Das Glöckchen aufhängen", "it": "Appendere la campanella" },
+          "line": { "sl": "Ančka je prvič pozvonila. Zvonček se sliši do gozda!", "en": "Ančka rang the bell for the first time. It can be heard as far as the forest!", "de": "Ančka hat zum ersten Mal geläutet. Man hört das Glöckchen bis zum Wald!", "it": "Ančka ha suonato la campanella per la prima volta. Si sente fino al bosco!" }
+        }
+      ],
+      "done": { "sl": "Kapelica ob cesti je gotova. Popotniki se tu ustavijo in odpočijejo.", "en": "The wayside chapel is finished. Travellers stop here and rest.", "de": "Die Wegkapelle ist fertig. Reisende halten hier an und ruhen sich aus.", "it": "La cappelletta lungo la strada è finita. I viandanti si fermano qui a riposare." },
+      "memory": { "sl": "našo kapelico", "en": "our chapel", "de": "unsere Kapelle", "it": "la nostra cappelletta" }
+    },
+    {
+      "id": "vinograd",
+      "leader": "marko",
+      "helpers": ["france", "luka", "vida"],
+      "name": { "sl": "Terase v vinogradu", "en": "Vineyard terraces", "de": "Weinbergterrassen", "it": "Terrazze nella vigna" },
+      "in_text": { "en": "vineyard terraces", "de": "die Weinbergterrassen", "it": "le terrazze nella vigna" },
+      "about": { "sl": "Marko je iz Brd. Na hribu nad vasjo bo posadil trto.", "en": "Marko is from Brda. He will plant vines on the hill above the village.", "de": "Marko kommt aus Brda. Auf dem Hügel über dem Dorf wird er Reben pflanzen.", "it": "Marko è del Collio. Sulla collina sopra il paese pianterà le viti." },
+      "steps": [
+        {
+          "task": { "sl": "Porezati grmovje", "en": "Cut the bushes", "de": "Das Gestrüpp schneiden", "it": "Tagliare i cespugli" },
+          "line": { "sl": "Marko in sosedje so porezali grmovje na hribu.", "en": "Marko and the neighbours cut the bushes on the hill.", "de": "Marko und die Nachbarn haben das Gestrüpp auf dem Hügel geschnitten.", "it": "Marko e i vicini hanno tagliato i cespugli sulla collina." }
+        },
+        {
+          "task": { "sl": "Nabrati kamne", "en": "Gather stones", "de": "Steine sammeln", "it": "Raccogliere pietre" },
+          "line": { "sl": "Z njiv so nabrali kamne za zidove.", "en": "They gathered stones from the fields for the walls.", "de": "Sie haben auf den Feldern Steine für die Mauern gesammelt.", "it": "Hanno raccolto nei campi le pietre per i muri." }
+        },
+        {
+          "task": { "sl": "Suhi zidovi", "en": "Dry-stone walls", "de": "Trockenmauern", "it": "Muretti a secco" },
+          "line": { "sl": "Sosedje so zložili suhe zidove, teraso za teraso.", "en": "The neighbours stacked dry-stone walls, terrace by terrace.", "de": "Die Nachbarn haben Trockenmauern geschichtet, Terrasse für Terrasse.", "it": "I vicini hanno costruito muretti a secco, terrazza dopo terrazza." }
+        },
+        {
+          "task": { "sl": "Prekopati zemljo", "en": "Dig the soil", "de": "Den Boden umgraben", "it": "Vangare la terra" },
+          "line": { "sl": "Zemljo na terasah so globoko prekopali.", "en": "They dug the soil on the terraces deep.", "de": "Sie haben den Boden auf den Terrassen tief umgegraben.", "it": "Hanno vangato a fondo la terra delle terrazze." }
+        },
+        {
+          "task": { "sl": "Postaviti kole", "en": "Put up the stakes", "de": "Die Pfähle setzen", "it": "Piantare i pali" },
+          "line": { "sl": "Marko je postavil lesene kole za trte.", "en": "Marko put up wooden stakes for the vines.", "de": "Marko hat Holzpfähle für die Reben gesetzt.", "it": "Marko ha piantato pali di legno per le viti." }
+        },
+        {
+          "task": { "sl": "Posaditi trte", "en": "Plant the vines", "de": "Die Reben pflanzen", "it": "Piantare le viti" },
+          "line": { "sl": "Marko je posadil mlade trte rebule.", "en": "Marko planted young rebula vines.", "de": "Marko hat junge Rebula-Reben gepflanzt.", "it": "Marko ha piantato giovani viti di ribolla." }
+        },
+        {
+          "task": { "sl": "Kozarec na terasi", "en": "A glass on the terrace", "de": "Ein Glas auf der Terrasse", "it": "Un bicchiere sulla terrazza" },
+          "line": { "sl": "Zvečer so vsi sedeli na terasi in gledali sonce nad Brdi.", "en": "In the evening everyone sat on the terrace and watched the sun over Brda.", "de": "Am Abend saßen alle auf der Terrasse und sahen der Sonne über Brda zu.", "it": "La sera tutti sedevano sulla terrazza a guardare il sole sopra il Collio." }
+        }
+      ],
+      "done": { "sl": "Terase so gotove. Čez tri leta bo prvo vino!", "en": "The terraces are finished. The first wine in three years!", "de": "Die Terrassen sind fertig. In drei Jahren gibt es den ersten Wein!", "it": "Le terrazze sono finite. Fra tre anni il primo vino!" },
+      "memory": { "sl": "naše terase", "en": "our terraces", "de": "unsere Terrassen", "it": "le nostre terrazze" },
+      "where": { "sl": "v vinogradu", "en": "in the vineyard", "de": "im Weinberg", "it": "nella vigna" }
+    },
+    {
+      "id": "cebelji_travnik",
+      "leader": "anton",
+      "helpers": ["micka", "zala", "nejc"],
+      "name": { "sl": "Čebelji travnik", "en": "A bee meadow", "de": "Eine Bienenwiese", "it": "Un prato per le api" },
+      "in_text": { "en": "a bee meadow", "de": "die Bienenwiese", "it": "il prato per le api" },
+      "about": { "sl": "Anton želi travnik s cvetjem za kranjske čebele.", "en": "Anton wants a meadow full of flowers for the Carniolan bees.", "de": "Anton wünscht sich eine Wiese voller Blumen für die Krainer Bienen.", "it": "Anton vuole un prato pieno di fiori per le api carnioliche." },
+      "steps": [
+        {
+          "task": { "sl": "Pokositi travo", "en": "Mow the grass", "de": "Das Gras mähen", "it": "Falciare l'erba" },
+          "line": { "sl": "Anton je pokosil staro travo.", "en": "Anton mowed the old grass.", "de": "Anton hat das alte Gras gemäht.", "it": "Anton ha falciato l'erba vecchia." }
+        },
+        {
+          "task": { "sl": "Posejati cvetje", "en": "Sow flowers", "de": "Blumen säen", "it": "Seminare fiori" },
+          "line": { "sl": "Otroci so posejali ajdo in deteljo.", "en": "The children sowed buckwheat and clover.", "de": "Die Kinder haben Buchweizen und Klee gesät.", "it": "I bambini hanno seminato grano saraceno e trifoglio." }
+        },
+        {
+          "task": { "sl": "Narediti panje", "en": "Make the hives", "de": "Die Bienenstöcke bauen", "it": "Fare le arnie" },
+          "line": { "sl": "Anton je izdelal nove panje.", "en": "Anton made new hives.", "de": "Anton hat neue Bienenstöcke gebaut.", "it": "Anton ha costruito nuove arnie." }
+        },
+        {
+          "task": { "sl": "Poslikati končnice", "en": "Paint the hive panels", "de": "Die Stirnbretter bemalen", "it": "Dipingere i frontalini delle arnie" },
+          "line": { "sl": "Otroci so poslikali končnice s pisanimi slikami.", "en": "The children painted the hive fronts with colourful pictures.", "de": "Die Kinder haben die Stirnbretter der Bienenstöcke mit bunten Bildern bemalt.", "it": "I bambini hanno dipinto i frontalini delle arnie con immagini colorate." }
+        },
+        {
+          "task": { "sl": "Postaviti čebelnjak", "en": "Set up the bee house", "de": "Das Bienenhaus aufstellen", "it": "Montare l'apiario" },
+          "line": { "sl": "Sosedje so na robu travnika postavili majhen čebelnjak.", "en": "The neighbours set up a small bee house at the edge of the meadow.", "de": "Die Nachbarn haben am Rand der Wiese ein kleines Bienenhaus aufgestellt.", "it": "I vicini hanno montato un piccolo apiario al margine del prato." }
+        },
+        {
+          "task": { "sl": "Prvi med", "en": "The first honey", "de": "Der erste Honig", "it": "Il primo miele" },
+          "line": { "sl": "Čebele so prinesle prvi med s travnika. Anton je ponosen!", "en": "The bees brought the first honey from the meadow. Anton is proud!", "de": "Die Bienen haben den ersten Honig von der Wiese gebracht. Anton ist stolz!", "it": "Le api hanno portato il primo miele dal prato. Anton è orgoglioso!" }
+        }
+      ],
+      "done": { "sl": "Čebelji travnik cveti. Čebele pomagajo tudi njivam.", "en": "The bee meadow is in bloom. The bees help the fields too.", "de": "Die Bienenwiese blüht. Die Bienen helfen auch den Feldern.", "it": "Il prato per le api è in fiore. Le api aiutano anche i campi." },
+      "memory": { "sl": "naš čebelji travnik", "en": "our bee meadow", "de": "unsere Bienenwiese", "it": "il nostro prato per le api" }
+    },
+    {
+      "id": "gasilski_dom",
+      "leader": "luka",
+      "helpers": ["tone", "france", "marko"],
+      "name": { "sl": "Gasilski dom", "en": "A fire station", "de": "Ein Feuerwehrhaus", "it": "Una caserma dei pompieri" },
+      "in_text": { "en": "a fire station", "de": "das Feuerwehrhaus", "it": "la caserma dei pompieri" },
+      "about": { "sl": "Vsaka slovenska vas ima gasilce. Luka hoče gasilski dom.", "en": "Every Slovene village has its firefighters. Luka wants a fire station.", "de": "Jedes slowenische Dorf hat seine Feuerwehr. Luka will ein Feuerwehrhaus.", "it": "Ogni paese sloveno ha i suoi pompieri. Luka vuole una caserma dei pompieri." },
+      "steps": [
+        {
+          "task": { "sl": "Izkopati temelje", "en": "Dig the foundations", "de": "Das Fundament ausheben", "it": "Scavare le fondamenta" },
+          "line": { "sl": "Luka in sosedje so izkopali temelje za gasilski dom.", "en": "Luka and the neighbours dug the foundations for the fire station.", "de": "Luka und die Nachbarn haben das Fundament für das Feuerwehrhaus ausgehoben.", "it": "Luka e i vicini hanno scavato le fondamenta della caserma dei pompieri." }
+        },
+        {
+          "task": { "sl": "Sezidati stene", "en": "Build the walls", "de": "Die Mauern hochziehen", "it": "Tirare su i muri" },
+          "line": { "sl": "Stene so hitro rasle, vsi so pomagali.", "en": "The walls went up fast; everyone helped.", "de": "Die Mauern sind schnell gewachsen, alle haben geholfen.", "it": "I muri sono cresciuti in fretta; tutti hanno aiutato." }
+        },
+        {
+          "task": { "sl": "Velika vrata", "en": "The big doors", "de": "Das große Tor", "it": "Il grande portone" },
+          "line": { "sl": "Za gasilski voz so naredili velika lesena vrata.", "en": "They made big wooden doors for the fire cart.", "de": "Für den Feuerwehrwagen haben sie ein großes Holztor gebaut.", "it": "Per il carro dei pompieri hanno fatto un grande portone di legno." }
+        },
+        {
+          "task": { "sl": "Pripeljati brizgalno", "en": "Bring a fire pump", "de": "Eine Feuerspritze bringen", "it": "Portare una pompa antincendio" },
+          "line": { "sl": "Iz Gorice so pripeljali staro gasilsko brizgalno.", "en": "They brought an old fire pump from Gorizia.", "de": "Aus Görz haben sie eine alte Feuerspritze gebracht.", "it": "Da Gorizia hanno portato una vecchia pompa antincendio." }
+        },
+        {
+          "task": { "sl": "Prva vaja", "en": "The first drill", "de": "Die erste Übung", "it": "La prima esercitazione" },
+          "line": { "sl": "Luka je z gasilci prvič vadil. Voda je letela na vse strani!", "en": "Luka held the first drill with the firefighters. Water flew everywhere!", "de": "Luka hat mit der Feuerwehr zum ersten Mal geübt. Das Wasser spritzte in alle Richtungen!", "it": "Luka ha fatto la prima esercitazione con i pompieri. L'acqua volava da tutte le parti!" }
+        },
+        {
+          "task": { "sl": "Gasilska veselica", "en": "The firefighters' fête", "de": "Das Feuerwehrfest", "it": "La festa dei pompieri" },
+          "line": { "sl": "Na gasilski veselici je igrala godba in vsi so plesali.", "en": "At the firefighters' fête a band played and everyone danced.", "de": "Beim Feuerwehrfest spielte eine Blaskapelle, und alle haben getanzt.", "it": "Alla festa dei pompieri suonava la banda e tutti hanno ballato." }
+        }
+      ],
+      "done": { "sl": "Gasilski dom stoji. Gasilci so vedno pripravljeni!", "en": "The fire station stands. The firefighters are always ready!", "de": "Das Feuerwehrhaus steht. Die Feuerwehr ist immer bereit!", "it": "La caserma dei pompieri è in piedi. I pompieri sono sempre pronti!" },
+      "memory": { "sl": "naš gasilski dom", "en": "our fire station", "de": "unser Feuerwehrhaus", "it": "la nostra caserma dei pompieri" }
+    },
+    {
+      "id": "igrisce",
+      "leader": "mojca",
+      "helpers": ["zala", "nejc", "tine"],
+      "name": { "sl": "Otroško igrišče", "en": "A playground", "de": "Ein Spielplatz", "it": "Un parco giochi" },
+      "in_text": { "en": "a playground", "de": "der Spielplatz", "it": "il parco giochi" },
+      "about": { "sl": "Učiteljica Mojca želi igrišče ob šoli, da se otroci igrajo na varnem.", "en": "Teacher Mojca wants a playground by the school, so the children can play safely.", "de": "Lehrerin Mojca wünscht sich einen Spielplatz bei der Schule, damit die Kinder sicher spielen können.", "it": "Maestra Mojca vuole un parco giochi vicino alla scuola, perché i bambini possano giocare al sicuro." },
+      "steps": [
+        {
+          "task": { "sl": "Narisati igrišče", "en": "Draw the playground", "de": "Den Spielplatz zeichnen", "it": "Disegnare il parco giochi" },
+          "line": { "sl": "Otroci so narisali, kakšno igrišče si želijo.", "en": "The children drew the playground they want.", "de": "Die Kinder haben den Spielplatz gezeichnet, den sie sich wünschen.", "it": "I bambini hanno disegnato il parco giochi che vorrebbero." }
+        },
+        {
+          "task": { "sl": "Očistiti trato", "en": "Clear the lawn", "de": "Die Wiese räumen", "it": "Ripulire il prato" },
+          "line": { "sl": "Mojca in otroci so s trate pobrali kamenje.", "en": "Mojca and the children picked the stones off the lawn.", "de": "Mojca und die Kinder haben die Steine von der Wiese aufgesammelt.", "it": "Mojca e i bambini hanno tolto i sassi dal prato." }
+        },
+        {
+          "task": { "sl": "Postaviti gugalnico", "en": "Put up a swing", "de": "Eine Schaukel aufstellen", "it": "Montare un'altalena" },
+          "line": { "sl": "Sosedje so postavili leseno gugalnico.", "en": "The neighbours put up a wooden swing.", "de": "Die Nachbarn haben eine Holzschaukel aufgestellt.", "it": "I vicini hanno montato un'altalena di legno." }
+        },
+        {
+          "task": { "sl": "Peskovnik in tobogan", "en": "A sandpit and a slide", "de": "Ein Sandkasten und eine Rutsche", "it": "Una sabbiera e uno scivolo" },
+          "line": { "sl": "Zraven so naredili peskovnik in majhen tobogan.", "en": "Next to it they made a sandpit and a small slide.", "de": "Daneben haben sie einen Sandkasten und eine kleine Rutsche gebaut.", "it": "Accanto hanno fatto una sabbiera e un piccolo scivolo." }
+        },
+        {
+          "task": { "sl": "Prvi dan igre", "en": "The first day of play", "de": "Der erste Spieltag", "it": "Il primo giorno di gioco" },
+          "line": { "sl": "Otroci so tekli na igrišče in se igrali do večera.", "en": "The children ran onto the playground and played until evening.", "de": "Die Kinder sind auf den Spielplatz gerannt und haben bis zum Abend gespielt.", "it": "I bambini sono corsi al parco giochi e hanno giocato fino a sera." }
+        }
+      ],
+      "done": { "sl": "Otroško igrišče je odprto. Otroci se po pouku igrajo, Mojca pa se smehlja.", "en": "The playground is open. The children play after lessons, and Mojca smiles.", "de": "Der Spielplatz ist eröffnet. Die Kinder spielen nach dem Unterricht, und Mojca lächelt.", "it": "Il parco giochi è aperto. I bambini giocano dopo le lezioni, e Mojca sorride." },
+      "memory": { "sl": "naše igrišče", "en": "our playground", "de": "unseren Spielplatz", "it": "il nostro parco giochi" }
+    },
+    {
+      "id": "vodnjak_na_trgu",
+      "leader": "tone",
+      "helpers": ["france", "marko", "mojca"],
+      "name": { "sl": "Vodnjak na trgu", "en": "A fountain on the square", "de": "Ein Brunnen auf dem Platz", "it": "Una fontana in piazza" },
+      "in_text": { "en": "a fountain on the square", "de": "der Brunnen auf dem Platz", "it": "la fontana in piazza" },
+      "about": { "sl": "Kamnit vodnjak sredi trga, kjer se ljudje srečujejo.", "en": "A stone fountain in the middle of the square, where people meet.", "de": "Ein Steinbrunnen mitten auf dem Platz, wo sich die Leute treffen.", "it": "Una fontana di pietra in mezzo alla piazza, dove la gente si incontra." },
+      "steps": [
+        {
+          "task": { "sl": "Narisati načrt", "en": "Draw a plan", "de": "Einen Plan zeichnen", "it": "Disegnare un progetto" },
+          "line": { "sl": "Tone je narisal načrt vodnjaka s štirimi cevmi.", "en": "Tone drew a plan of a fountain with four spouts.", "de": "Tone hat einen Plan für einen Brunnen mit vier Röhren gezeichnet.", "it": "Tone ha disegnato il progetto di una fontana con quattro cannelle." }
+        },
+        {
+          "task": { "sl": "Kamen iz kamnoloma", "en": "Stone from the quarry", "de": "Stein aus dem Steinbruch", "it": "Pietra dalla cava" },
+          "line": { "sl": "Iz kamnoloma so pripeljali lep bel kamen.", "en": "They brought fine white stone from the quarry.", "de": "Sie haben schönen weißen Stein aus dem Steinbruch gebracht.", "it": "Dalla cava hanno portato una bella pietra bianca." }
+        },
+        {
+          "task": { "sl": "Isklesati korito", "en": "Carve the basin", "de": "Das Becken meißeln", "it": "Scolpire la vasca" },
+          "line": { "sl": "Tone je ves teden klesal veliko korito.", "en": "Tone carved the big basin all week.", "de": "Tone hat die ganze Woche an dem großen Becken gemeißelt.", "it": "Tone ha scolpito la grande vasca per tutta la settimana." }
+        },
+        {
+          "task": { "sl": "Speljati vodo", "en": "Lead the water in", "de": "Das Wasser herleiten", "it": "Portare l'acqua" },
+          "line": { "sl": "Sosedje so izkopali jarek in speljali vodo do trga.", "en": "The neighbours dug a trench and led the water to the square.", "de": "Die Nachbarn haben einen Graben ausgehoben und das Wasser bis zum Platz geleitet.", "it": "I vicini hanno scavato un fosso e portato l'acqua fino alla piazza." }
+        },
+        {
+          "task": { "sl": "Skovati cevi", "en": "Forge the spouts", "de": "Die Röhren schmieden", "it": "Forgiare le cannelle" },
+          "line": { "sl": "Tone je skoval štiri železne cevi.", "en": "Tone forged four iron spouts.", "de": "Tone hat vier Eisenröhren geschmiedet.", "it": "Tone ha forgiato quattro cannelle di ferro." }
+        },
+        {
+          "task": { "sl": "Voda teče", "en": "The water flows", "de": "Das Wasser fließt", "it": "L'acqua scorre" },
+          "line": { "sl": "Iz vodnjaka je pritekla voda in otroci so se smejali.", "en": "Water ran from the fountain and the children laughed.", "de": "Aus dem Brunnen ist Wasser geflossen, und die Kinder haben gelacht.", "it": "Dalla fontana è sgorgata l'acqua e i bambini hanno riso." }
+        }
+      ],
+      "done": { "sl": "Vodnjak na trgu žubori.", "en": "The fountain on the square is babbling.", "de": "Der Brunnen auf dem Platz plätschert.", "it": "La fontana in piazza gorgoglia." },
+      "memory": { "sl": "naš vodnjak", "en": "our fountain", "de": "unseren Brunnen", "it": "la nostra fontana" }
+    },
+    {
+      "id": "toplar",
+      "leader": "france",
+      "helpers": ["luka", "tone", "marko"],
+      "name": { "sl": "Toplar", "en": "A double hayrack", "de": "Eine doppelte Heuharfe", "it": "Un doppio essiccatoio per il fieno" },
+      "in_text": { "en": "a double hayrack", "de": "die doppelte Heuharfe", "it": "il doppio essiccatoio per il fieno" },
+      "about": { "sl": "Toplar je dvojni kozolec s streho. Toplarji so samo na Slovenskem.", "en": "A toplar is a double hayrack with a roof. You only find them in Slovenia.", "de": "Ein Toplar ist eine doppelte Heuharfe mit Dach. Es gibt sie nur in Slowenien.", "it": "Il toplar è un doppio essiccatoio per il fieno con il tetto. Esiste solo in Slovenia." },
+      "steps": [
+        {
+          "task": { "sl": "Posekati hraste", "en": "Fell oaks", "de": "Eichen fällen", "it": "Abbattere querce" },
+          "line": { "sl": "France in sosedje so v gozdu posekali hraste.", "en": "France and the neighbours felled oaks in the forest.", "de": "France und die Nachbarn haben im Wald Eichen gefällt.", "it": "France e i vicini hanno abbattuto querce nel bosco." }
+        },
+        {
+          "task": { "sl": "Kamniti temelji", "en": "Stone foundations", "de": "Ein Fundament aus Stein", "it": "Fondamenta di pietra" },
+          "line": { "sl": "Pod stebre so položili kamnite temelje.", "en": "They laid stone foundations under the posts.", "de": "Unter die Pfosten haben sie ein Fundament aus Stein gelegt.", "it": "Sotto i pali hanno posato fondamenta di pietra." }
+        },
+        {
+          "task": { "sl": "Postaviti stebre", "en": "Raise the posts", "de": "Die Pfosten aufstellen", "it": "Alzare i pali" },
+          "line": { "sl": "Sosedje so postavili osem visokih stebrov.", "en": "The neighbours raised eight tall posts.", "de": "Die Nachbarn haben acht hohe Pfosten aufgestellt.", "it": "I vicini hanno alzato otto pali alti." }
+        },
+        {
+          "task": { "sl": "Pritrditi late", "en": "Fix the poles", "de": "Die Stangen befestigen", "it": "Fissare le stanghe" },
+          "line": { "sl": "Med stebre so pritrdili dolge late.", "en": "They fixed long poles between the posts.", "de": "Zwischen den Pfosten haben sie lange Stangen befestigt.", "it": "Tra i pali hanno fissato lunghe stanghe." }
+        },
+        {
+          "task": { "sl": "Narediti streho", "en": "Make the roof", "de": "Das Dach bauen", "it": "Fare il tetto" },
+          "line": { "sl": "Na toplar so položili streho iz desk.", "en": "They put a plank roof on the toplar.", "de": "Sie haben dem Toplar ein Bretterdach aufgesetzt.", "it": "Sul toplar hanno messo un tetto di assi." }
+        },
+        {
+          "task": { "sl": "Prvo seno", "en": "The first hay", "de": "Das erste Heu", "it": "Il primo fieno" },
+          "line": { "sl": "France je obesil prvo seno. Toplar je poln!", "en": "France hung up the first hay. The toplar is full!", "de": "France hat das erste Heu aufgehängt. Der Toplar ist voll!", "it": "France ha appeso il primo fieno. Il toplar è pieno!" }
+        }
+      ],
+      "done": { "sl": "Toplar stoji! V vasi je več prostora za zaloge.", "en": "The toplar stands! The village has more room for its stores.", "de": "Der Toplar steht! Das Dorf hat mehr Platz für seine Vorräte.", "it": "Il toplar è in piedi! Il paese ha più spazio per le sue scorte." },
+      "memory": { "sl": "naš toplar", "en": "our toplar", "de": "unseren Toplar", "it": "il nostro toplar" }
+    },
+    {
+      "id": "razgledni_stolp",
+      "leader": "vida",
+      "helpers": ["nejc", "luka", "janez"],
+      "name": { "sl": "Razgledni stolp", "en": "A lookout tower", "de": "Ein Aussichtsturm", "it": "Una torre di vedetta" },
+      "in_text": { "en": "a lookout tower", "de": "der Aussichtsturm", "it": "la torre di vedetta" },
+      "about": { "sl": "Vida hoče stolp za goste. Z vrha se vidi do morja!", "en": "Vida wants a tower for her guests. From the top you can see as far as the sea!", "de": "Vida will einen Turm für ihre Gäste. Von oben sieht man bis zum Meer!", "it": "Vida vuole una torre per i suoi ospiti. Dalla cima si vede fino al mare!" },
+      "steps": [
+        {
+          "task": { "sl": "Izbrati hrib", "en": "Choose the hill", "de": "Den Hügel aussuchen", "it": "Scegliere la collina" },
+          "line": { "sl": "Vida je na hribu našla najlepši razgled.", "en": "Vida found the finest view on the hill.", "de": "Vida hat auf dem Hügel die schönste Aussicht gefunden.", "it": "Vida ha trovato sulla collina il panorama più bello." }
+        },
+        {
+          "task": { "sl": "Izkopati temelje", "en": "Dig the foundations", "de": "Das Fundament ausheben", "it": "Scavare le fondamenta" },
+          "line": { "sl": "Sosedje so izkopali temelje.", "en": "The neighbours dug the foundations.", "de": "Die Nachbarn haben das Fundament ausgehoben.", "it": "I vicini hanno scavato le fondamenta." }
+        },
+        {
+          "task": { "sl": "Pripeljati les", "en": "Bring the timber", "de": "Das Bauholz bringen", "it": "Portare il legname" },
+          "line": { "sl": "Iz Trnovskega gozda so pripeljali smrekov les.", "en": "They brought spruce timber from the Trnovo forest.", "de": "Aus dem Wald von Trnovo haben sie Fichtenholz gebracht.", "it": "Dalla Selva di Tarnova hanno portato legname di abete rosso." }
+        },
+        {
+          "task": { "sl": "Postaviti ogrodje", "en": "Raise the frame", "de": "Das Gerüst aufrichten", "it": "Alzare la struttura" },
+          "line": { "sl": "Stolp raste, nadstropje za nadstropjem.", "en": "The tower is growing, floor by floor.", "de": "Der Turm wächst, Stockwerk um Stockwerk.", "it": "La torre cresce, piano dopo piano." }
+        },
+        {
+          "task": { "sl": "Narediti stopnice", "en": "Build the stairs", "de": "Die Treppe bauen", "it": "Fare le scale" },
+          "line": { "sl": "Notri so naredili sto stopnic.", "en": "Inside they built a hundred steps.", "de": "Innen haben sie hundert Stufen gebaut.", "it": "Dentro hanno fatto cento gradini." }
+        },
+        {
+          "task": { "sl": "Tabla z gorami", "en": "A board of the mountains", "de": "Eine Tafel mit den Bergen", "it": "Una tavola delle montagne" },
+          "line": { "sl": "Vida je na vrh obesila tablo z imeni gora.", "en": "Vida hung a board with the names of the mountains at the top.", "de": "Vida hat oben eine Tafel mit den Namen der Berge aufgehängt.", "it": "In cima Vida ha appeso una tavola con i nomi delle montagne." }
+        },
+        {
+          "task": { "sl": "Prvi gostje", "en": "The first guests", "de": "Die ersten Gäste", "it": "I primi ospiti" },
+          "line": { "sl": "Prvi gostje so se povzpeli na stolp in videli Triglav!", "en": "The first guests climbed the tower and saw Triglav!", "de": "Die ersten Gäste sind auf den Turm gestiegen und haben den Triglav gesehen!", "it": "I primi ospiti sono saliti sulla torre e hanno visto il Tricorno!" }
+        }
+      ],
+      "done": { "sl": "Razgledni stolp je odprt. Gostje prihajajo od daleč.", "en": "The lookout tower is open. Guests come from far away.", "de": "Der Aussichtsturm ist eröffnet. Die Gäste kommen von weit her.", "it": "La torre di vedetta è aperta. Gli ospiti arrivano da lontano." },
+      "memory": { "sl": "naš razgledni stolp", "en": "our lookout tower", "de": "unseren Aussichtsturm", "it": "la nostra torre di vedetta" }
+    },
+    {
+      "id": "mestna_ura",
+      "leader": "mojca",
+      "helpers": ["tone", "janez", "ancka"],
+      "name": { "sl": "Mestna ura", "en": "The town clock", "de": "Die Stadtuhr", "it": "L'orologio civico" },
+      "in_text": { "en": "the town clock", "de": "die Stadtuhr", "it": "l'orologio civico" },
+      "about": { "sl": "Ura na zvoniku, da vsi vedo, koliko je ura.", "en": "A clock on the bell tower, so everyone knows what time it is.", "de": "Eine Uhr am Glockenturm, damit alle wissen, wie spät es ist.", "it": "Un orologio sul campanile, perché tutti sappiano che ore sono." },
+      "steps": [
+        {
+          "task": { "sl": "Izračunati velikost", "en": "Work out the size", "de": "Die Größe berechnen", "it": "Calcolare le dimensioni" },
+          "line": { "sl": "Mojca je natančno izračunala velikost številčnice.", "en": "Mojca worked out the exact size of the clock face.", "de": "Mojca hat die genaue Größe des Zifferblatts berechnet.", "it": "Mojca ha calcolato le dimensioni esatte del quadrante." }
+        },
+        {
+          "task": { "sl": "Okno v zvoniku", "en": "A window in the tower", "de": "Ein Fenster im Turm", "it": "Una finestra nel campanile" },
+          "line": { "sl": "Sosedje so v zvoniku naredili okroglo okno.", "en": "The neighbours made a round window in the bell tower.", "de": "Die Nachbarn haben ein rundes Fenster in den Glockenturm gebaut.", "it": "I vicini hanno aperto una finestra rotonda nel campanile." }
+        },
+        {
+          "task": { "sl": "Skovati kolesje", "en": "Forge the gears", "de": "Das Räderwerk schmieden", "it": "Forgiare gli ingranaggi" },
+          "line": { "sl": "Kovač je skoval kolesje iz železa in medenine.", "en": "The smith forged the gears from iron and brass.", "de": "Der Schmied hat das Räderwerk aus Eisen und Messing geschmiedet.", "it": "Il fabbro ha forgiato gli ingranaggi in ferro e ottone." }
+        },
+        {
+          "task": { "sl": "Izrezati kazalca", "en": "Carve the two hands", "de": "Die beiden Zeiger schnitzen", "it": "Intagliare le due lancette" },
+          "line": { "sl": "Iz hrastovega lesa so izrezali dva kazalca.", "en": "They carved two hands out of oak.", "de": "Aus Eichenholz haben sie zwei Zeiger geschnitzt.", "it": "Nel legno di quercia hanno intagliato due lancette." }
+        },
+        {
+          "task": { "sl": "Poslikati številčnico", "en": "Paint the clock face", "de": "Das Zifferblatt bemalen", "it": "Dipingere il quadrante" },
+          "line": { "sl": "Na številčnico so naslikali rimske številke.", "en": "They painted Roman numerals on the clock face.", "de": "Sie haben römische Ziffern auf das Zifferblatt gemalt.", "it": "Sul quadrante hanno dipinto i numeri romani." }
+        },
+        {
+          "task": { "sl": "Dvigniti uro", "en": "Lift the clock", "de": "Die Uhr hochziehen", "it": "Sollevare l'orologio" },
+          "line": { "sl": "Z vrvmi so uro dvignili v zvonik.", "en": "They lifted the clock into the bell tower with ropes.", "de": "Mit Seilen haben sie die Uhr in den Glockenturm hochgezogen.", "it": "Con le corde hanno sollevato l'orologio nel campanile." }
+        },
+        {
+          "task": { "sl": "Prvič bije", "en": "It strikes for the first time", "de": "Sie schlägt zum ersten Mal", "it": "Batte per la prima volta" },
+          "line": { "sl": "Ura je prvič odbila dvanajst. Vsa vas je bila tiho.", "en": "The clock struck twelve for the first time. The whole village was silent.", "de": "Die Uhr hat zum ersten Mal zwölf geschlagen. Das ganze Dorf war still.", "it": "L'orologio ha battuto le dodici per la prima volta. Tutto il paese era in silenzio." }
+        }
+      ],
+      "done": { "sl": "Mestna ura bije. Vse gre zdaj bolj točno!", "en": "The town clock strikes. Everything runs more on time now!", "de": "Die Stadtuhr schlägt. Jetzt läuft alles pünktlicher!", "it": "L'orologio civico batte le ore. Ora tutto è più puntuale!" },
+      "memory": { "sl": "našo mestno uro", "en": "our town clock", "de": "unsere Stadtuhr", "it": "il nostro orologio civico" }
+    }
+  ],
+  "lines": {
+    "try_again": { "sl": "{leader}: Nič hudega, poskusiva še enkrat", "en": "Never mind, let's try once more", "de": "Macht nichts, versuchen wir es noch einmal", "it": "Non importa, proviamo ancora una volta" }
+  }
+}

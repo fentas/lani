@@ -1,0 +1,156 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "orodnik",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🔨",
+  "title": {
+    "sl": "Orodnik: s kom? s čim?",
+    "en": "The instrumental: with whom? with what?",
+    "de": "Der Instrumental: mit wem? womit?",
+    "it": "Lo strumentale: con chi? con che cosa?"
+  },
+  "rule": {
+    "en": "The instrumental (*orodnik*) comes after a preposition, and its questions carry one: **(s/z) kom?**, **(s/z) čim?**.\n\n**z / s** is with: company (**z babico**, **s Tonetom**), a tool or a way to go (**s kladivom**, **z vozom**) and what comes with food (**kava z mlekom**, **juha s kruhom**).\n\n**z** or **s**? **s** before p, t, k, f, h, c, č, s, š (**s kruhom**, **s košaro**, **s tabo**), **z** before every other sound, vowels too (**z vozom**, **z mlekom**, **z Ano**).\n\n**pod** (under), **nad** (above), **pred** (in front of), **za** (behind) and **med** (between, among) take it for where something is (Kje?): **pod mizo**, **za vrati**. For where to (Kam?) they take the accusative: **za vrata**, **pod stol**; for a feminine noun both sound alike (pod mizo).\n\nThe endings: masculine and neuter nouns take **-om** (voz → z vozom), **-em** after c, č, j, š, ž (s čajem, z nožem); feminine ones **-o** (s košaro; klop → pod klopjo). Plural **-i** (z orehi, med drevesi), feminine **-ami** (z rozinami, z grabljami).\n\nThe pronouns: **z mano, s tabo, z njim, z njo, z nami, z vami, z njimi**.",
+    "de": "Der Instrumental (*orodnik*) steht nach einer Präposition, und auch seine Fragen haben eine: **(s/z) kom?**, **(s/z) čim?**.\n\n**z / s** heißt mit: Begleitung (**z babico**, **s Tonetom**), ein Werkzeug oder ein Fahrzeug (**s kladivom**, **z vozom**) und was zum Essen dazukommt (**kava z mlekom**, **juha s kruhom**).\n\n**z** oder **s**? **s** vor p, t, k, f, h, c, č, s, š (**s kruhom**, **s košaro**, **s tabo**), **z** vor allen anderen Lauten, auch vor Vokalen (**z vozom**, **z mlekom**, **z Ano**).\n\n**pod** (unter), **nad** (über), **pred** (vor), **za** (hinter) und **med** (zwischen) stehen mit ihm für das Wo (Kje?): **pod mizo**, **za vrati**. Für das Wohin (Kam?) mit dem Akkusativ: **za vrata**, **pod stol**; bei weiblichen Nomen klingen beide gleich (pod mizo).\n\nDie Endungen: männliche und sächliche Nomen bekommen **-om** (voz → z vozom), **-em** nach c, č, j, š, ž (s čajem, z nožem); weibliche **-o** (s košaro; klop → pod klopjo). Plural **-i** (z orehi, med drevesi), weiblich **-ami** (z rozinami, z grabljami).\n\nDie Pronomen: **z mano, s tabo, z njim, z njo, z nami, z vami, z njimi**.",
+    "it": "Lo strumentale (*orodnik*) viene dopo una preposizione, e anche le sue domande ne hanno una: **(s/z) kom?**, **(s/z) čim?**.\n\n**z / s** vuol dire con: la compagnia (**z babico**, **s Tonetom**), un attrezzo o un mezzo (**s kladivom**, **z vozom**) e ciò che accompagna un cibo (**kava z mlekom**, **juha s kruhom**).\n\n**z** o **s**? **s** davanti a p, t, k, f, h, c, č, s, š (**s kruhom**, **s košaro**, **s tabo**), **z** davanti a tutti gli altri suoni, anche alle vocali (**z vozom**, **z mlekom**, **z Ano**).\n\n**pod** (sotto), **nad** (sopra), **pred** (davanti a), **za** (dietro) e **med** (tra) lo reggono per lo stato in luogo (Kje?): **pod mizo**, **za vrati**. Per il moto a luogo (Kam?) reggono l'accusativo: **za vrata**, **pod stol**; per un nome femminile le due forme suonano uguali (pod mizo).\n\nLe desinenze: i nomi maschili e neutri prendono **-om** (voz → z vozom), **-em** dopo c, č, j, š, ž (s čajem, z nožem); i femminili **-o** (s košaro; klop → pod klopjo). Plurale **-i** (z orehi, med drevesi), femminile **-ami** (z rozinami, z grabljami).\n\nI pronomi: **z mano, s tabo, z njim, z njo, z nami, z vami, z njimi**."
+  },
+  "table": {
+    "head": [
+      { "sl": "raba", "en": "use", "de": "Gebrauch", "it": "uso" },
+      { "sl": "vprašanje", "en": "question", "de": "Frage", "it": "domanda" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "sl": "družba", "en": "company", "de": "Begleitung", "it": "compagnia" }, "s kom?", "z babico, z vami"],
+      [{ "sl": "orodje, prevoz", "en": "a tool, a way to go", "de": "Werkzeug, Fahrzeug", "it": "attrezzo, mezzo" }, "s čim?", "s kladivom, z vozom"],
+      [{ "sl": "hrana s hrano", "en": "food with food", "de": "Essen mit Essen", "it": "cibo con cibo" }, "s čim?", "kava z mlekom"],
+      [{ "sl": "pod: kje", "en": "under: where it is", "de": "unter: wo es ist", "it": "sotto: dove si trova" }, "kje?", "pod mizo, pod veliko smreko"],
+      [{ "sl": "nad: kje", "en": "above", "de": "über", "it": "sopra" }, "kje?", "nad vasjo, nad nama"],
+      [{ "sl": "pred: kje", "en": "in front of", "de": "vor", "it": "davanti a" }, "kje?", "pred šotorom, pred hišo"],
+      [{ "sl": "za: kje", "en": "behind", "de": "hinter", "it": "dietro" }, "kje?", "za šotorom, za pečjo, za vrati"],
+      [{ "sl": "med: kje", "en": "between, among", "de": "zwischen, unter", "it": "tra, fra" }, "kje?", "med drevesi, med ovcami"],
+      [{ "sl": "kam: tožilnik", "en": "where to: the accusative", "de": "wohin: Akkusativ", "it": "dove va: accusativo" }, "kam?", "za vrata, pod stol"],
+      [{ "sl": "s pred p, t, k …", "en": "s before p, t, k, f, h, c, č, s, š", "de": "s vor p, t, k, f, h, c, č, s, š", "it": "s davanti a p, t, k, f, h, c, č, s, š" }, "s čim?", "s kruhom, s košaro"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Z mlekom, prosim. Brez sladkorja.",
+      "en": "With milk, please. No sugar.",
+      "de": "Mit Milch, bitte. Ohne Zucker.",
+      "it": "Con il latte, per favore. Senza zucchero.",
+      "note": {
+        "en": "Z (with) takes the instrumental: mleko → z mlekom. Brez takes the genitive: sladkor → brez sladkorja.",
+        "de": "Z (mit) verlangt den Instrumental: mleko → z mlekom. Brez verlangt den Genitiv: sladkor → brez sladkorja.",
+        "it": "Z (con) vuole lo strumentale: mleko → z mlekom. Brez vuole il genitivo: sladkor → brez sladkorja."
+      }
+    },
+    {
+      "sl": "Z vozom, seveda!",
+      "en": "By cart, of course!",
+      "de": "Mit dem Wagen, natürlich!",
+      "it": "Con il carro, naturalmente!",
+      "note": {
+        "en": "Before the voiced v: z. Z voza, with the genitive, would mean off the cart.",
+        "de": "Vor dem stimmhaften v: z. Z voza, mit dem Genitiv, hieße vom Wagen herunter.",
+        "it": "Davanti alla v sonora: z. Z voza, con il genitivo, vorrebbe dire giù dal carro."
+      }
+    },
+    {
+      "sl": "Rad jem juho s kruhom.",
+      "en": "I like eating soup with bread.",
+      "de": "Ich esse Suppe gern mit Brot.",
+      "it": "Mi piace mangiare la minestra con il pane.",
+      "note": {
+        "en": "Before k: s. Kruh → s kruhom.",
+        "de": "Vor k: s. Kruh → s kruhom.",
+        "it": "Davanti a k: s. Kruh → s kruhom."
+      }
+    },
+    {
+      "sl": "Tone kuje s kladivom.",
+      "en": "Tone forges with a hammer.",
+      "de": "Tone schmiedet mit dem Hammer.",
+      "it": "Tone forgia con il martello."
+    },
+    {
+      "sl": "Seveda, grem z vami.",
+      "en": "Of course, I'm coming with you.",
+      "de": "Natürlich, ich komme mit Ihnen.",
+      "it": "Certo, vengo con Lei.",
+      "note": {
+        "en": "After z the pronoun's own form: z vami, z mano, s tabo. Not z vi.",
+        "de": "Nach z die eigene Form des Pronomens: z vami, z mano, s tabo. Nicht z vi.",
+        "it": "Dopo z la forma propria del pronome: z vami, z mano, s tabo. Non z vi."
+      }
+    },
+    {
+      "sl": "Tam je, pod klopjo!",
+      "en": "There it is, under the bench!",
+      "de": "Da ist er, unter der Bank!",
+      "it": "Eccola, sotto la panchina!",
+      "note": {
+        "en": "Where it is: pod + the instrumental, pod klopjo. Pod klop (accusative) is where it goes.",
+        "de": "Wo er ist: pod + Instrumental, pod klopjo. Pod klop (Akkusativ) ist, wohin er rollt.",
+        "it": "Dove si trova: pod + strumentale, pod klopjo. Pod klop (accusativo) è dove va."
+      }
+    },
+    {
+      "sl": "Tam je, za vrati! Glej, rep!",
+      "en": "There he is, behind the door! Look, his tail!",
+      "de": "Da ist er, hinter der Tür! Schau, der Schwanz!",
+      "it": "Eccolo, dietro la porta! Guarda, la coda!",
+      "note": {
+        "en": "Vrata is plural only: za vrati (Kje?), za vrata (Kam?).",
+        "de": "Vrata gibt es nur im Plural: za vrati (Kje?), za vrata (Kam?).",
+        "it": "Vrata esiste solo al plurale: za vrati (Kje?), za vrata (Kam?)."
+      }
+    },
+    {
+      "sl": "Šotor bo stal pod veliko smreko.",
+      "en": "The tent will stand under the big spruce.",
+      "de": "Das Zelt wird unter der großen Fichte stehen.",
+      "it": "La tenda starà sotto il grande abete rosso.",
+      "note": {
+        "en": "velika smreka → pod veliko smreko: the adjective takes the instrumental too.",
+        "de": "velika smreka → pod veliko smreko: auch das Adjektiv steht im Instrumental.",
+        "it": "velika smreka → pod veliko smreko: anche l'aggettivo va allo strumentale."
+      }
+    },
+    {
+      "sl": "Pred šotorom bo ognjišče, drva pa za šotorom.",
+      "en": "The fire ring will be in front of the tent, and the firewood behind it.",
+      "de": "Vor dem Zelt wird die Feuerstelle sein, das Holz aber hinter dem Zelt.",
+      "it": "Il focolare sarà davanti alla tenda, la legna invece dietro la tenda."
+    },
+    {
+      "sl": "Aha, za pečjo si!",
+      "en": "Aha, you're behind the stove!",
+      "de": "Aha, du bist hinter dem Ofen!",
+      "it": "Ah, sei dietro la stufa!",
+      "note": {
+        "en": "Peč is feminine and ends in a consonant: za pečjo, like klop → pod klopjo.",
+        "de": "Peč ist weiblich und endet auf einen Konsonanten: za pečjo, wie klop → pod klopjo.",
+        "it": "Peč è femminile e finisce in consonante: za pečjo, come klop → pod klopjo."
+      }
+    },
+    {
+      "sl": "Ovce se pasejo med drevesi.",
+      "en": "The sheep are grazing among the trees.",
+      "de": "Die Schafe weiden zwischen den Bäumen.",
+      "it": "Le pecore pascolano tra gli alberi."
+    },
+    {
+      "sl": "Mmm! Potico z rozinami imam najraje!",
+      "en": "Mmm! I like potica with raisins best!",
+      "de": "Mmm! Potica mit Rosinen mag ich am liebsten!",
+      "it": "Mmm! La potica con l'uvetta è la mia preferita!"
+    }
+  ],
+  "modules": [],
+  "tags": ["instrumental", "orodnik", "z_s"],
+  "see": ["kje-mestnik-orodnik", "kam-tozilnik", "osebni-zaimki", "rodilnik-predlogi", "skloni"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

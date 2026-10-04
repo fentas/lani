@@ -1,0 +1,325 @@
+{
+  "schema": "lani.sky/v0",
+  "language": "en",
+  "review": "the English is written for the pack; the sl, it and de translations are machine-written, not reviewed by a native speaker; the English folk names (the Plough, Charles's Wain, the Pole Star, the Seven Sisters, the Northern Cross, the morning and the evening star, the Tears of St Lawrence, Watling Street) are the traditional ones",
+  "where": { "lat": 54.53, "lon": -3.10, "name": { "en": "the dale between Keswick and Grasmere", "sl": "dolina med Keswickom in Grasmerom", "it": "la valle tra Keswick e Grasmere", "de": "das Tal zwischen Keswick und Grasmere" } },
+  "pack": "the-night-sky",
+  "moon": {
+    "name": { "en": "The Moon", "sl": "Luna", "it": "La Luna", "de": "Der Mond" },
+    "phases": {
+      "new": { "en": "New moon", "sl": "Mlaj", "it": "Luna nuova", "de": "Neumond" },
+      "waxing_crescent": { "en": "Waxing crescent", "sl": "Rastoči srp", "it": "Falce crescente", "de": "Zunehmende Sichel" },
+      "first_quarter": { "en": "First quarter", "sl": "Prvi krajec", "it": "Primo quarto", "de": "Erstes Viertel" },
+      "waxing_gibbous": { "en": "Waxing gibbous", "sl": "Rastoča luna", "it": "Gibbosa crescente", "de": "Zunehmender Mond" },
+      "full": { "en": "Full moon", "sl": "Polna luna", "it": "Luna piena", "de": "Vollmond" },
+      "waning_gibbous": { "en": "Waning gibbous", "sl": "Pojemajoča luna", "it": "Gibbosa calante", "de": "Abnehmender Mond" },
+      "last_quarter": { "en": "Last quarter", "sl": "Zadnji krajec", "it": "Ultimo quarto", "de": "Letztes Viertel" },
+      "waning_crescent": { "en": "Waning crescent", "sl": "Pojemajoči srp", "it": "Falce calante", "de": "Abnehmende Sichel" }
+    },
+    "waxing": { "en": "The moon is waxing.", "sl": "Luna narašča.", "it": "La luna cresce.", "de": "Der Mond nimmt zu." },
+    "waning": { "en": "The moon is waning.", "sl": "Luna pojema.", "it": "La luna cala.", "de": "Der Mond nimmt ab." },
+    "lore": [
+      { "level": "A1", "text": { "en": "From new moon to new moon is about a month.", "sl": "Od mlaja do mlaja mine približno en mesec.", "it": "Da una luna nuova all'altra passa circa un mese.", "de": "Von Neumond zu Neumond vergeht etwa ein Monat." } },
+      { "level": "A1", "phase": "new", "text": { "en": "At the new moon the night is dark, and the stars shine bright over the fells.", "sl": "Ob mlaju je noč temna in zvezde svetlo sijejo nad hribi.", "it": "Con la luna nuova la notte è buia e le stelle brillano sopra i monti.", "de": "Bei Neumond ist die Nacht dunkel, und die Sterne leuchten hell über den Bergen." } },
+      { "level": "A1", "phase": "full", "text": { "en": "At the full moon the night is bright, almost like day.", "sl": "Ob polni luni je noč svetla, skoraj kakor dan.", "it": "Con la luna piena la notte è chiara, quasi come il giorno.", "de": "Bei Vollmond ist die Nacht hell, fast wie der Tag." } },
+      { "level": "A2", "phase": "waxing_crescent", "text": { "en": "After sunset the young moon is a thin crescent in the west. Sometimes its dark part glows softly too: people call it the old moon in the new moon's arms.", "sl": "Zvečer, ko sonce zaide, je mlada luna tanek srp na zahodu. Včasih rahlo sveti tudi njen temni del: temu pravijo stara luna v naročju nove.", "it": "Dopo il tramonto la luna giovane è una sottile falce a ovest. A volte brilla debolmente anche la sua parte scura: la gente la chiama la luna vecchia in braccio alla nuova.", "de": "Nach Sonnenuntergang ist der junge Mond eine schmale Sichel im Westen. Manchmal leuchtet auch sein dunkler Teil sanft: Man nennt das den alten Mond in den Armen des neuen." } },
+      { "level": "A2", "phase": "waxing_gibbous", "text": { "en": "Every evening the moon rises almost an hour later and grows a little fuller.", "sl": "Vsak večer luna vzide skoraj eno uro pozneje in je malo bolj polna.", "it": "Ogni sera la luna sorge quasi un'ora più tardi ed è un po' più piena.", "de": "Jeden Abend geht der Mond fast eine Stunde später auf und wird ein bisschen voller." } },
+      { "level": "A2", "phase": "waning_gibbous", "text": { "en": "An old country rhyme says: 'Sow peas and beans in the wane of the moon.'", "sl": "Stara kmečka pesmica pravi: »Grah in bob sej, ko luna pojema.«", "it": "Una vecchia filastrocca di campagna dice: «Semina piselli e fave quando la luna cala.»", "de": "Ein alter Bauernreim sagt: „Säe Erbsen und Bohnen bei abnehmendem Mond.“" } },
+      { "level": "A2", "phase": "waning_crescent", "text": { "en": "The old moon rises in the early morning, a little before the sun: only shepherds and early risers see it.", "sl": "Stara luna vzide zgodaj zjutraj, malo pred soncem: vidijo jo samo pastirji in tisti, ki zgodaj vstajajo.", "it": "La luna vecchia sorge al mattino presto, poco prima del sole: la vedono solo i pastori e chi si alza presto.", "de": "Der alte Mond geht früh am Morgen auf, kurz vor der Sonne: Nur Schäfer und Frühaufsteher sehen ihn." } },
+      { "level": "A2", "phase": "first_quarter", "text": { "en": "At the first quarter the moon is in the south at sunset, and it sets around midnight.", "sl": "Ob prvem krajcu je luna ob sončnem zahodu na jugu in zaide okoli polnoči.", "it": "Al primo quarto la luna al tramonto è a sud e tramonta verso mezzanotte.", "de": "Im ersten Viertel steht der Mond bei Sonnenuntergang im Süden und geht gegen Mitternacht unter." } },
+      { "level": "A2", "phase": "last_quarter", "text": { "en": "The last quarter rises around midnight and still shines over the fells in the morning.", "sl": "Zadnji krajec vzide okoli polnoči in zjutraj še sveti nad hribi.", "it": "L'ultimo quarto sorge verso mezzanotte e al mattino splende ancora sopra i monti.", "de": "Das letzte Viertel geht gegen Mitternacht auf und leuchtet am Morgen noch über den Bergen." } },
+      { "level": "A2", "phase": "full", "text": { "en": "The full moon rises when the sun sets, and it sets when the sun rises.", "sl": "Polna luna vzide, ko sonce zaide, in zaide, ko sonce vzide.", "it": "La luna piena sorge quando il sole tramonta e tramonta quando il sole sorge.", "de": "Der Vollmond geht auf, wenn die Sonne untergeht, und geht unter, wenn die Sonne aufgeht." } },
+      { "level": "A2", "text": { "en": "An old country saying: 'Clear moon, frost soon.' On a clear night the warmth goes up into the sky, and in winter there is frost by morning.", "sl": "Star kmečki rek pravi: »Jasna luna, kmalu slana.« V jasni noči gre toplota v nebo in pozimi je do jutra slana.", "it": "Un vecchio detto di campagna: «Luna chiara, presto brina.» Nelle notti serene il calore sale verso il cielo, e d'inverno al mattino c'è la brina.", "de": "Ein alter Bauernspruch: „Klarer Mond, bald Frost.“ In klaren Nächten steigt die Wärme in den Himmel, und im Winter liegt am Morgen Reif." } },
+      { "level": "B1", "text": { "en": "The full moon nearest the autumn equinox is the harvest moon: for several evenings in a row it rises soon after sunset, so the farmers could bring in the harvest by its light. The full moon after it is the hunter's moon.", "sl": "Polna luna, ki je najbližja jesenskemu enakonočju, je žetvena luna: več večerov zapored vzide kmalu po sončnem zahodu, zato so kmetje ob njeni svetlobi lahko spravili pridelek. Polna luna za njo je lovska luna.", "it": "La luna piena più vicina all'equinozio d'autunno è la luna del raccolto: per diverse sere di seguito sorge poco dopo il tramonto, così i contadini potevano portare a casa il raccolto alla sua luce. La luna piena successiva è la luna del cacciatore.", "de": "Der Vollmond, der der Herbst-Tagundnachtgleiche am nächsten ist, ist der Erntemond: Mehrere Abende hintereinander geht er kurz nach Sonnenuntergang auf, sodass die Bauern in seinem Licht die Ernte einbringen konnten. Der Vollmond danach ist der Jägermond." } }
+    ],
+    "reading": "sayings",
+    "words": ["moon", "new moon", "full moon", "quarter", "to wax", "to wane"]
+  },
+  "things": [
+    {
+      "id": "uma",
+      "name": { "en": "The Great Bear", "sl": "Veliki medved", "it": "L'Orsa Maggiore", "de": "Der Große Bär" },
+      "folk": { "en": "The Plough", "sl": "Veliki voz", "it": "Il Grande Carro", "de": "Der Große Wagen" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Seven bright stars make the Plough.", "sl": "Sedem svetlih zvezd tvori Veliki voz.", "it": "Sette stelle luminose formano il Grande Carro.", "de": "Sieben helle Sterne bilden den Großen Wagen." } },
+        { "level": "A2", "text": { "en": "An old country name for it is Charles's Wain: a wain is a farm cart. In the Lakes it never sets.", "sl": "Staro kmečko ime zanj je Charles's Wain, Karlov voz: wain je kmečki voz. V Lake Districtu nikoli ne zaide.", "it": "Un vecchio nome di campagna è Charles's Wain, il carro di Carlo: wain è un carro agricolo. Nel Lake District non tramonta mai.", "de": "Ein alter bäuerlicher Name dafür ist Charles's Wain, Karls Wagen: wain ist ein Bauernwagen. Im Lake District geht er nie unter." } }
+      ],
+      "words": ["the Plough", "star", "cart"]
+    },
+    {
+      "id": "umi",
+      "name": { "en": "The Little Bear", "sl": "Mali medved", "it": "L'Orsa Minore", "de": "Der Kleine Bär" },
+      "folk": { "en": "The Little Dipper", "sl": "Mali voz", "it": "Il Piccolo Carro", "de": "Der Kleine Wagen" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The Little Dipper is smaller and paler than the Plough.", "sl": "Mali voz je manjši in bolj bled kot Veliki voz.", "it": "Il Piccolo Carro è più piccolo e più pallido del Grande Carro.", "de": "Der Kleine Wagen ist kleiner und blasser als der Große Wagen." } },
+        { "level": "A2", "text": { "en": "The two stars at the front of the Plough are the Pointers: they point to the Pole Star, at the end of the Little Dipper's handle.", "sl": "Sprednji zvezdi Velikega voza, the Pointers, kažeta na Severnico na koncu ojesa Malega voza.", "it": "Le due stelle anteriori del Grande Carro, the Pointers, indicano la Stella Polare in fondo al timone del Piccolo Carro.", "de": "Die zwei vorderen Sterne des Großen Wagens, the Pointers, zeigen auf den Polarstern am Ende der Deichsel des Kleinen Wagens." } }
+      ],
+      "words": ["bear", "the Pole Star"]
+    },
+    {
+      "id": "polaris",
+      "name": { "en": "Polaris, the Pole Star", "sl": "Polarna zvezda", "it": "La Stella Polare", "de": "Der Polarstern" },
+      "folk": { "en": "The North Star", "sl": "Severnica", "it": "La Stella del Nord", "de": "Der Nordstern" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The Pole Star is always in the north.", "sl": "Severnica je vedno na severu.", "it": "La Stella Polare è sempre a nord.", "de": "Der Polarstern steht immer im Norden." } },
+        { "level": "A2", "text": { "en": "All the stars turn round it, but it hardly moves. Shepherds on the fells and sailors at sea found their way by it.", "sl": "Vse zvezde se vrtijo okoli nje, ona pa se skoraj ne premakne. Pastirji v hribih in mornarji na morju so po njej našli pot.", "it": "Tutte le stelle le girano intorno, ma lei quasi non si muove. I pastori sui monti e i marinai in mare trovavano la strada grazie a lei.", "de": "Alle Sterne drehen sich um ihn, er selbst bewegt sich kaum. Schäfer in den Bergen und Seeleute auf dem Meer fanden mit ihm ihren Weg." } }
+      ],
+      "words": ["the Pole Star", "north", "way"]
+    },
+    {
+      "id": "cas",
+      "name": { "en": "Cassiopeia", "sl": "Kasiopeja", "it": "Cassiopea", "de": "Kassiopeia" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The five stars of Cassiopeia make the letter W.", "sl": "Pet zvezd Kasiopeje tvori črko W.", "it": "Le cinque stelle di Cassiopea formano la lettera W.", "de": "Die fünf Sterne der Kassiopeia bilden den Buchstaben W." } },
+        { "level": "A2", "text": { "en": "In the Greek story Cassiopeia was a queen who was too proud of her beauty.", "sl": "V grški zgodbi je bila Kasiopeja kraljica, ki je bila preveč ponosna na svojo lepoto.", "it": "Nel mito greco Cassiopea era una regina troppo orgogliosa della sua bellezza.", "de": "In der griechischen Sage war Kassiopeia eine Königin, die zu stolz auf ihre Schönheit war." } }
+      ],
+      "words": ["queen", "proud"]
+    },
+    {
+      "id": "ori",
+      "name": { "en": "Orion", "sl": "Orion", "it": "Orione", "de": "Orion" },
+      "folk": { "en": "Orion's Belt", "sl": "Orionov pas", "it": "La Cintura di Orione", "de": "Der Gürtel des Orion" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The three stars in the middle are Orion's Belt.", "sl": "Tri zvezde v sredini so Orionov pas.", "it": "Le tre stelle in mezzo sono la Cintura di Orione.", "de": "Die drei Sterne in der Mitte sind der Gürtel des Orion." } },
+        { "level": "A2", "text": { "en": "In the Greek story Orion is a hunter. On winter evenings he walks across the southern sky, above the fells.", "sl": "V grški zgodbi je Orion lovec. Ob zimskih večerih hodi po južnem nebu, nad hribi.", "it": "Nel mito greco Orione è un cacciatore. Nelle sere d'inverno attraversa il cielo a sud, sopra i monti.", "de": "In der griechischen Sage ist Orion ein Jäger. An Winterabenden zieht er über den Südhimmel, über den Bergen." } }
+      ],
+      "words": ["Orion's Belt", "belt", "hunter"]
+    },
+    {
+      "id": "tau",
+      "name": { "en": "Taurus, the Bull", "sl": "Bik", "it": "Il Toro", "de": "Der Stier" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The reddish star Aldebaran is the bull's eye.", "sl": "Rdečkasta zvezda Aldebaran je bikovo oko.", "it": "La stella rossastra Aldebaran è l'occhio del toro.", "de": "Der rötliche Stern Aldebaran ist das Auge des Stiers." } },
+        { "level": "A2", "text": { "en": "On the bull's shoulder sit the Seven Sisters, a little cluster of stars.", "sl": "Na bikovi rami sedijo Gostosevci, kupček majhnih zvezd.", "it": "Sulla spalla del toro stanno le Pleiadi, un mucchietto di piccole stelle.", "de": "Auf der Schulter des Stiers sitzt das Siebengestirn, ein kleines Häufchen Sterne." } }
+      ],
+      "words": ["bull", "eye"]
+    },
+    {
+      "id": "m45",
+      "name": { "en": "The Pleiades", "sl": "Plejade", "it": "Le Pleiadi", "de": "Die Plejaden" },
+      "folk": { "en": "The Seven Sisters", "sl": "Gostosevci (Sedem sester)", "it": "Le Sette Sorelle", "de": "Das Siebengestirn (die Sieben Schwestern)" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The Seven Sisters are a little cluster of small stars, close together.", "sl": "Gostosevci so kupček majhnih zvezd, tesno skupaj.", "it": "Le Sette Sorelle sono un mucchietto di piccole stelle, vicine vicine.", "de": "Das Siebengestirn ist ein kleines Häufchen Sterne, dicht beisammen." } },
+        { "level": "A2", "text": { "en": "They are called seven sisters, but most people see only six. Under the dark skies of the fells, can you count seven?", "sl": "Pravijo jim sedem sester, a večina ljudi jih vidi samo šest. Jih lahko pod temnim nebom nad hribi prešteješ sedem?", "it": "Si chiamano sette sorelle, ma quasi tutti ne vedono solo sei. Sotto il cielo buio dei monti, riesci a contarne sette?", "de": "Sie heißen sieben Schwestern, aber die meisten Menschen sehen nur sechs. Kannst du unter dem dunklen Himmel der Berge sieben zählen?" } }
+      ],
+      "words": ["the Seven Sisters", "sister", "to count"]
+    },
+    {
+      "id": "gem",
+      "name": { "en": "Gemini, the Twins", "sl": "Dvojčka", "it": "I Gemelli", "de": "Die Zwillinge" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Castor and Pollux are two bright stars, like two brothers.", "sl": "Kastor in Poluks sta dve svetli zvezdi, kakor dva brata.", "it": "Castore e Polluce sono due stelle luminose, come due fratelli.", "de": "Kastor und Pollux sind zwei helle Sterne, wie zwei Brüder." } },
+        { "level": "A2", "text": { "en": "In winter the Twins are high in the sky, above Orion.", "sl": "Pozimi sta Dvojčka visoko na nebu, nad Orionom.", "it": "In inverno i Gemelli sono alti nel cielo, sopra Orione.", "de": "Im Winter stehen die Zwillinge hoch am Himmel, über dem Orion." } }
+      ],
+      "words": ["twin", "brother"]
+    },
+    {
+      "id": "leo",
+      "name": { "en": "Leo, the Lion", "sl": "Lev", "it": "Il Leone", "de": "Der Löwe" },
+      "lore": [
+        { "level": "A1", "text": { "en": "In spring Leo is high in the south in the evening.", "sl": "Spomladi je Lev zvečer visoko na jugu.", "it": "In primavera la sera il Leone è alto a sud.", "de": "Im Frühling steht der Löwe am Abend hoch im Süden." } },
+        { "level": "A2", "text": { "en": "Its head is the Sickle, like a backward question mark; at the bottom shines the star Regulus.", "sl": "Njegova glava je srp, kakor narobe obrnjen vprašaj; spodaj sveti zvezda Regul.", "it": "La sua testa è la Falce, come un punto interrogativo rovesciato; in basso brilla la stella Regolo.", "de": "Sein Kopf ist die Sichel, wie ein umgedrehtes Fragezeichen; unten leuchtet der Stern Regulus." } }
+      ],
+      "words": ["lion", "head"]
+    },
+    {
+      "id": "cyg",
+      "name": { "en": "Cygnus, the Swan", "sl": "Labod", "it": "Il Cigno", "de": "Der Schwan" },
+      "folk": { "en": "The Northern Cross", "sl": "Severni križ", "it": "La Croce del Nord", "de": "Das Nördliche Kreuz" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The Swan flies along the Milky Way.", "sl": "Labod leti po Rimski cesti.", "it": "Il Cigno vola lungo la Via Lattea.", "de": "Der Schwan fliegt die Milchstraße entlang." } },
+        { "level": "A2", "text": { "en": "Its stars make a big cross, so we also call it the Northern Cross. On late summer evenings it is almost over your head.", "sl": "Njegove zvezde tvorijo velik križ, zato mu pravimo tudi Severni križ. Ob poznih poletnih večerih je skoraj nad tvojo glavo.", "it": "Le sue stelle formano una grande croce, perciò lo chiamiamo anche Croce del Nord. Nelle sere di fine estate è quasi sopra la tua testa.", "de": "Seine Sterne bilden ein großes Kreuz, darum nennen wir ihn auch das Nördliche Kreuz. An späten Sommerabenden steht er fast genau über dir." } }
+      ],
+      "words": ["swan", "cross"]
+    },
+    {
+      "id": "lyr",
+      "name": { "en": "Lyra, the Lyre", "sl": "Lira", "it": "La Lira", "de": "Die Leier" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Vega in Lyra is one of the brightest stars of the summer sky.", "sl": "Vega v Liri je ena najsvetlejših zvezd poletnega neba.", "it": "Vega nella Lira è una delle stelle più luminose del cielo d'estate.", "de": "Wega in der Leier ist einer der hellsten Sterne des Sommerhimmels." } },
+        { "level": "A2", "text": { "en": "Vega, Deneb and Altair make the Summer Triangle.", "sl": "Vega, Deneb in Altair tvorijo poletni trikotnik.", "it": "Vega, Deneb e Altair formano il Triangolo estivo.", "de": "Wega, Deneb und Atair bilden das Sommerdreieck." } }
+      ],
+      "words": ["summer", "triangle"]
+    },
+    {
+      "id": "aql",
+      "name": { "en": "Aquila, the Eagle", "sl": "Orel", "it": "L'Aquila", "de": "Der Adler" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Altair is the Eagle's bright star, between two smaller stars.", "sl": "Altair je svetla zvezda Orla, med dvema manjšima zvezdama.", "it": "Altair è la stella luminosa dell'Aquila, tra due stelle più piccole.", "de": "Atair ist der helle Stern des Adlers, zwischen zwei kleineren Sternen." } },
+        { "level": "A2", "text": { "en": "In summer the Eagle flies across the Milky Way, facing the Swan.", "sl": "Poleti leti Orel čez Rimsko cesto, nasproti Laboda.", "it": "D'estate l'Aquila vola attraverso la Via Lattea, di fronte al Cigno.", "de": "Im Sommer fliegt der Adler über die Milchstraße, dem Schwan gegenüber." } }
+      ],
+      "words": ["eagle", "to fly"]
+    },
+    {
+      "id": "sco",
+      "name": { "en": "Scorpius, the Scorpion", "sl": "Škorpijon", "it": "Lo Scorpione", "de": "Der Skorpion" },
+      "lore": [
+        { "level": "A1", "text": { "en": "In summer the Scorpion is very low in the south.", "sl": "Poleti je Škorpijon zelo nizko na jugu.", "it": "D'estate lo Scorpione è molto basso a sud.", "de": "Im Sommer steht der Skorpion sehr tief im Süden." } },
+        { "level": "A2", "text": { "en": "Its heart is the red star Antares. From the Lakes the end of its tail never rises above the horizon.", "sl": "Njegovo srce je rdeča zvezda Antares. V Lake Districtu se konec njegovega repa nikoli ne dvigne nad obzorje.", "it": "Il suo cuore è la stella rossa Antares. Dal Lake District la punta della sua coda non sorge mai sopra l'orizzonte.", "de": "Sein Herz ist der rote Stern Antares. Vom Lake District aus steigt das Ende seines Schwanzes nie über den Horizont." } }
+      ],
+      "words": ["heart", "red", "tail"]
+    },
+    {
+      "id": "cma",
+      "name": { "en": "Canis Major, the Great Dog", "sl": "Veliki pes", "it": "Il Cane Maggiore", "de": "Der Große Hund" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The Great Dog runs after Orion.", "sl": "Veliki pes teče za Orionom.", "it": "Il Cane Maggiore corre dietro a Orione.", "de": "Der Große Hund läuft hinter Orion her." } },
+        { "level": "A2", "text": { "en": "In it shines Sirius, the brightest star in the night sky.", "sl": "V njem sveti Sirij, najsvetlejša zvezda nočnega neba.", "it": "In esso brilla Sirio, la stella più luminosa del cielo notturno.", "de": "In ihm leuchtet Sirius, der hellste Stern am Nachthimmel." } }
+      ],
+      "words": ["dog", "to run"]
+    },
+    {
+      "id": "sirius",
+      "name": { "en": "Sirius", "sl": "Sirij", "it": "Sirio", "de": "Sirius" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Sirius is the brightest star in the night sky.", "sl": "Sirij je najsvetlejša zvezda nočnega neba.", "it": "Sirio è la stella più luminosa del cielo notturno.", "de": "Sirius ist der hellste Stern am Nachthimmel." } },
+        { "level": "A2", "text": { "en": "Low over the fells, Sirius twinkles in every colour.", "sl": "Nizko nad hribi Sirij miglja v vseh barvah.", "it": "Basso sopra i monti, Sirio scintilla di tutti i colori.", "de": "Tief über den Bergen funkelt Sirius in allen Farben." } }
+      ],
+      "words": ["bright", "to twinkle"]
+    },
+    {
+      "id": "cmi",
+      "name": { "en": "Canis Minor, the Little Dog", "sl": "Mali pes", "it": "Il Cane Minore", "de": "Der Kleine Hund" },
+      "lore": [
+        { "level": "A1", "text": { "en": "The Little Dog has only two bright stars.", "sl": "Mali pes ima samo dve svetli zvezdi.", "it": "Il Cane Minore ha solo due stelle luminose.", "de": "Der Kleine Hund hat nur zwei helle Sterne." } },
+        { "level": "A2", "text": { "en": "Procyon, Sirius and Betelgeuse make the Winter Triangle.", "sl": "Prokion, Sirij in Betelgeza tvorijo zimski trikotnik.", "it": "Procione, Sirio e Betelgeuse formano il Triangolo invernale.", "de": "Prokyon, Sirius und Beteigeuze bilden das Winterdreieck." } }
+      ],
+      "words": ["dog", "winter"]
+    },
+    {
+      "id": "boo",
+      "name": { "en": "Boötes, the Herdsman", "sl": "Volar", "it": "Il Bifolco", "de": "Der Bärenhüter" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Arcturus in Boötes is an orange star.", "sl": "Arktur v Volarju je oranžna zvezda.", "it": "Arturo nel Bifolco è una stella arancione.", "de": "Arktur im Bärenhüter ist ein orangefarbener Stern." } },
+        { "level": "A2", "text": { "en": "Follow the curve of the Plough's handle, and you come to Arcturus: arc to Arcturus.", "sl": "Sledi loku ojesa Velikega voza in prideš do Arktura: arc to Arcturus, v loku do Arktura.", "it": "Segui la curva del timone del Grande Carro e arrivi ad Arturo: arc to Arcturus, con un arco fino ad Arturo.", "de": "Folge dem Bogen der Deichsel des Großen Wagens, und du kommst zum Arktur: arc to Arcturus, im Bogen zum Arktur." } }
+      ],
+      "words": ["orange", "handle"]
+    },
+    {
+      "id": "vir",
+      "name": { "en": "Virgo, the Maiden", "sl": "Devica", "it": "La Vergine", "de": "Die Jungfrau" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Spica is the Maiden's blue-white star.", "sl": "Spika je modrobela zvezda Device.", "it": "Spica è la stella bianco-azzurra della Vergine.", "de": "Spica ist der blauweiße Stern der Jungfrau." } },
+        { "level": "A2", "text": { "en": "Spica means ear of grain: the Maiden holds an ear of wheat in her hand.", "sl": "Spika pomeni klas: Devica drži v roki klas žita.", "it": "Spica vuol dire spiga: la Vergine tiene in mano una spiga di grano.", "de": "Spica heißt Ähre: Die Jungfrau hält eine Ähre in der Hand." } }
+      ],
+      "words": ["wheat", "ear"]
+    },
+    {
+      "id": "aur",
+      "name": { "en": "Auriga, the Charioteer", "sl": "Voznik", "it": "L'Auriga", "de": "Der Fuhrmann" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Capella is the Charioteer's yellow star.", "sl": "Kapela je rumena zvezda Voznika.", "it": "Capella è la stella gialla dell'Auriga.", "de": "Kapella ist der gelbe Stern des Fuhrmanns." } },
+        { "level": "A2", "text": { "en": "On winter evenings Capella is almost right over your head.", "sl": "Ob zimskih večerih je Kapela skoraj točno nad tvojo glavo.", "it": "Nelle sere d'inverno Capella è quasi proprio sopra la tua testa.", "de": "An Winterabenden steht Kapella fast genau über dir." } }
+      ],
+      "words": ["yellow", "chariot"]
+    },
+    {
+      "id": "peg",
+      "name": { "en": "Pegasus", "sl": "Pegaz", "it": "Pegaso", "de": "Pegasus" },
+      "lore": [
+        { "level": "A1", "text": { "en": "In autumn four bright stars make the Great Square of Pegasus.", "sl": "Jeseni štiri svetle zvezde tvorijo Pegazov veliki kvadrat.", "it": "In autunno quattro stelle luminose formano il Grande Quadrato di Pegaso.", "de": "Im Herbst bilden vier helle Sterne das große Viereck des Pegasus." } },
+        { "level": "A2", "text": { "en": "In the Greek story Pegasus is a horse with wings.", "sl": "V grški zgodbi je Pegaz konj s krili.", "it": "Nel mito greco Pegaso è un cavallo con le ali.", "de": "In der griechischen Sage ist Pegasus ein Pferd mit Flügeln." } }
+      ],
+      "words": ["horse", "wing", "square"]
+    },
+    {
+      "id": "and",
+      "name": { "en": "Andromeda", "sl": "Andromeda", "it": "Andromeda", "de": "Andromeda" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Andromeda is the daughter of Queen Cassiopeia.", "sl": "Andromeda je hči kraljice Kasiopeje.", "it": "Andromeda è la figlia della regina Cassiopea.", "de": "Andromeda ist die Tochter der Königin Kassiopeia." } },
+        { "level": "A2", "text": { "en": "On a dark night you can see a pale smudge in Andromeda: another galaxy, very, very far away.", "sl": "V temni noči vidiš v Andromedi bledo liso: drugo galaksijo, zelo, zelo daleč.", "it": "In una notte buia vedi in Andromeda una macchia pallida: un'altra galassia, molto, molto lontana.", "de": "In einer dunklen Nacht siehst du in der Andromeda einen blassen Fleck: eine andere Galaxie, sehr, sehr weit weg." } }
+      ],
+      "words": ["daughter", "galaxy", "far"]
+    },
+    {
+      "id": "per",
+      "name": { "en": "Perseus", "sl": "Perzej", "it": "Perseo", "de": "Perseus" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Perseus is the hero who saved Andromeda.", "sl": "Perzej je junak, ki je rešil Andromedo.", "it": "Perseo è l'eroe che ha salvato Andromeda.", "de": "Perseus ist der Held, der Andromeda gerettet hat." } },
+        { "level": "A2", "text": { "en": "In August shooting stars seem to fly out of Perseus: the Perseids.", "sl": "Avgusta se zdi, da utrinki letijo iz Perzeja: to so Perzeidi.", "it": "Ad agosto le stelle cadenti sembrano uscire da Perseo: sono le Perseidi.", "de": "Im August scheinen Sternschnuppen aus dem Perseus zu fliegen: die Perseiden." } }
+      ],
+      "words": ["hero", "to save"]
+    },
+    {
+      "id": "sgr",
+      "name": { "en": "Sagittarius, the Archer", "sl": "Strelec", "it": "Il Sagittario", "de": "Der Schütze" },
+      "lore": [
+        { "level": "A1", "text": { "en": "In summer the Archer is very low in the south, just over the fells.", "sl": "Poleti je Strelec zelo nizko na jugu, tik nad hribi.", "it": "D'estate il Sagittario è molto basso a sud, appena sopra i monti.", "de": "Im Sommer steht der Schütze sehr tief im Süden, knapp über den Bergen." } },
+        { "level": "A2", "text": { "en": "In the direction of the Archer lies the centre of our galaxy.", "sl": "V smeri Strelca je središče naše galaksije.", "it": "In direzione del Sagittario c'è il centro della nostra galassia.", "de": "In Richtung des Schützen liegt das Zentrum unserer Galaxie." } }
+      ],
+      "words": ["bow", "arrow", "centre"]
+    },
+    {
+      "id": "venus",
+      "name": { "en": "Venus", "sl": "Venera", "it": "Venere", "de": "Die Venus" },
+      "morning": { "en": "The morning star", "sl": "Danica", "it": "La stella del mattino", "de": "Der Morgenstern" },
+      "evening": { "en": "The evening star", "sl": "Večernica", "it": "La stella della sera", "de": "Der Abendstern" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Venus is brighter than any star, but it is a planet.", "sl": "Venera je svetlejša od vseh zvezd, a je planet.", "it": "Venere è più luminosa di tutte le stelle, ma è un pianeta.", "de": "Die Venus ist heller als alle Sterne, aber sie ist ein Planet." } },
+        { "level": "A2", "text": { "en": "Before sunrise we call it the morning star, and after sunset the evening star.", "sl": "Pred sončnim vzhodom ji rečemo Danica, po sončnem zahodu pa Večernica.", "it": "Prima dell'alba la chiamiamo stella del mattino, dopo il tramonto stella della sera.", "de": "Vor Sonnenaufgang nennen wir sie den Morgenstern, nach Sonnenuntergang den Abendstern." } }
+      ],
+      "words": ["the morning star", "the evening star", "planet"]
+    },
+    {
+      "id": "mars",
+      "name": { "en": "Mars", "sl": "Mars", "it": "Marte", "de": "Der Mars" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Mars is a reddish planet.", "sl": "Mars je rdečkast planet.", "it": "Marte è un pianeta rossastro.", "de": "Der Mars ist ein rötlicher Planet." } },
+        { "level": "A2", "text": { "en": "Mars is red because there is a lot of rust in its dust and rocks.", "sl": "Mars je rdeč, ker je v njegovem prahu in kamnih veliko rje.", "it": "Marte è rosso perché nella sua polvere e nelle sue rocce c'è molta ruggine.", "de": "Der Mars ist rot, weil in seinem Staub und seinen Steinen viel Rost ist." } }
+      ],
+      "words": ["planet", "red", "rust"]
+    },
+    {
+      "id": "jupiter",
+      "name": { "en": "Jupiter", "sl": "Jupiter", "it": "Giove", "de": "Der Jupiter" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Jupiter is the biggest planet.", "sl": "Jupiter je največji planet.", "it": "Giove è il pianeta più grande.", "de": "Der Jupiter ist der größte Planet." } },
+        { "level": "A2", "text": { "en": "With binoculars you can see four little moons next to Jupiter.", "sl": "Z daljnogledom vidiš ob Jupitru štiri majhne lune.", "it": "Con un binocolo vedi quattro piccole lune accanto a Giove.", "de": "Mit einem Fernglas siehst du neben dem Jupiter vier kleine Monde." } }
+      ],
+      "words": ["planet", "big", "binoculars"]
+    },
+    {
+      "id": "saturn",
+      "name": { "en": "Saturn", "sl": "Saturn", "it": "Saturno", "de": "Der Saturn" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Saturn has rings.", "sl": "Saturn ima obroče.", "it": "Saturno ha gli anelli.", "de": "Der Saturn hat Ringe." } },
+        { "level": "A2", "text": { "en": "You can see its rings only through a telescope; to the naked eye it is just a yellowish star.", "sl": "Njegove obroče vidiš samo s teleskopom; s prostim očesom je le rumenkasta zvezda.", "it": "I suoi anelli si vedono solo con un telescopio; a occhio nudo è solo una stella giallastra.", "de": "Seine Ringe siehst du nur mit einem Teleskop; mit bloßem Auge ist er nur ein gelblicher Stern." } }
+      ],
+      "words": ["ring", "telescope"]
+    },
+    {
+      "id": "milky-way",
+      "name": { "en": "The Milky Way", "sl": "Rimska cesta", "it": "La Via Lattea", "de": "Die Milchstraße" },
+      "folk": { "en": "Watling Street", "sl": "Watling Street (stara rimska cesta)", "it": "Watling Street (l'antica strada romana)", "de": "Watling Street (die alte Römerstraße)" },
+      "lore": [
+        { "level": "A1", "text": { "en": "Over the dark fells the Milky Way is a pale band of millions of stars.", "sl": "Nad temnimi hribi je Rimska cesta bled pas iz milijonov zvezd.", "it": "Sopra i monti bui la Via Lattea è una fascia pallida di milioni di stelle.", "de": "Über den dunklen Bergen ist die Milchstraße ein blasses Band aus Millionen Sternen." } },
+        { "level": "A2", "text": { "en": "Long ago some people in England called it Watling Street, like the old Roman road.", "sl": "Nekoč so jo nekateri v Angliji imenovali Watling Street, kakor staro rimsko cesto.", "it": "Tanto tempo fa in Inghilterra alcuni la chiamavano Watling Street, come l'antica strada romana.", "de": "Vor langer Zeit nannten manche Leute in England sie Watling Street, wie die alte Römerstraße." } }
+      ],
+      "words": ["the Milky Way", "band", "million"]
+    }
+  ],
+  "meteors": {
+    "name": { "en": "A shooting star", "sl": "Utrinek", "it": "Una stella cadente", "de": "Eine Sternschnuppe" },
+    "wish": { "en": "A shooting star! Make a wish.", "sl": "Utrinek! Zaželi si nekaj.", "it": "Una stella cadente! Esprimi un desiderio.", "de": "Eine Sternschnuppe! Wünsch dir was." },
+    "lore": [
+      { "level": "A1", "text": { "en": "A shooting star is a tiny stone from space that burns up in the air.", "sl": "Utrinek je drobcen kamenček iz vesolja, ki zgori v zraku.", "it": "Una stella cadente è un sassolino dello spazio che brucia nell'aria.", "de": "Eine Sternschnuppe ist ein winziges Steinchen aus dem All, das in der Luft verglüht." } },
+      { "level": "A2", "text": { "en": "When you see a shooting star, make a wish quickly, but don't tell anyone, or it won't come true.", "sl": "Ko vidiš utrinek, si hitro nekaj zaželi, a želje ne povej nikomur, sicer se ne bo uresničila.", "it": "Quando vedi una stella cadente, esprimi subito un desiderio, ma non dirlo a nessuno, o non si avvererà.", "de": "Wenn du eine Sternschnuppe siehst, wünsch dir schnell etwas, aber verrate es niemandem, sonst geht es nicht in Erfüllung." } }
+    ],
+    "words": ["shooting star", "wish", "make a wish"],
+    "showers": [
+      { "id": "quadrantids", "name": { "en": "The Quadrantids", "sl": "Kvadrantidi", "it": "Le Quadrantidi", "de": "Die Quadrantiden" },
+        "tonight": { "en": "Tonight the Quadrantids are falling, the first shooting stars of the year. Look to the north-east after midnight!", "sl": "Nocoj padajo Kvadrantidi, prvi utrinki leta. Po polnoči glej proti severovzhodu!", "it": "Stanotte cadono le Quadrantidi, le prime stelle cadenti dell'anno. Dopo mezzanotte guarda verso nord-est!", "de": "Heute Nacht fallen die Quadrantiden, die ersten Sternschnuppen des Jahres. Schau nach Mitternacht nach Nordosten!" } },
+      { "id": "lyrids", "name": { "en": "The Lyrids", "sl": "Liridi", "it": "Le Liridi", "de": "Die Lyriden" },
+        "tonight": { "en": "Tonight the Lyrids are falling. They come from Lyra, which climbs high in the east after midnight.", "sl": "Nocoj padajo Liridi. Prihajajo od Lire, ki se po polnoči dvigne visoko na vzhodu.", "it": "Stanotte cadono le Liridi. Vengono dalla Lira, che dopo mezzanotte sale alta a est.", "de": "Heute Nacht fallen die Lyriden. Sie kommen aus der Leier, die nach Mitternacht hoch im Osten steht." } },
+      { "id": "perseids", "name": { "en": "The Perseids", "sl": "Perzeidi", "it": "Le Perseidi", "de": "Die Perseiden" },
+        "folk": { "en": "The Tears of St Lawrence", "sl": "Lovrenčeve solze", "it": "Le lacrime di San Lorenzo", "de": "Die Laurentiustränen" },
+        "tonight": { "en": "Tonight the Perseids are falling: the Tears of St Lawrence. Most of them come after midnight.", "sl": "Nocoj padajo Perzeidi, Lovrenčeve solze. Največ jih je po polnoči.", "it": "Stanotte cadono le Perseidi, le lacrime di San Lorenzo. Le più numerose arrivano dopo mezzanotte.", "de": "Heute Nacht fallen die Perseiden, die Laurentiustränen. Die meisten kommen nach Mitternacht." } },
+      { "id": "orionids", "name": { "en": "The Orionids", "sl": "Orionidi", "it": "Le Orionidi", "de": "Die Orioniden" },
+        "tonight": { "en": "Tonight the Orionids are falling. They come from Orion, which rises around midnight.", "sl": "Nocoj padajo Orionidi. Prihajajo od Oriona, ki vzide okoli polnoči.", "it": "Stanotte cadono le Orionidi. Vengono da Orione, che sorge verso mezzanotte.", "de": "Heute Nacht fallen die Orioniden. Sie kommen aus dem Orion, der gegen Mitternacht aufgeht." } },
+      { "id": "leonids", "name": { "en": "The Leonids", "sl": "Leonidi", "it": "Le Leonidi", "de": "Die Leoniden" },
+        "tonight": { "en": "Tonight the Leonids are falling. You see them best before dawn.", "sl": "Nocoj padajo Leonidi. Najlepše jih vidiš pred zoro.", "it": "Stanotte cadono le Leonidi. Si vedono meglio prima dell'alba.", "de": "Heute Nacht fallen die Leoniden. Am besten siehst du sie vor der Morgendämmerung." } },
+      { "id": "geminids", "name": { "en": "The Geminids", "sl": "Geminidi", "it": "Le Geminidi", "de": "Die Geminiden" },
+        "tonight": { "en": "Tonight the Geminids are falling, the finest shooting stars of the year. Wrap up warm!", "sl": "Nocoj padajo Geminidi, najlepši utrinki leta. Toplo se obleci!", "it": "Stanotte cadono le Geminidi, le stelle cadenti più belle dell'anno. Copriti bene!", "de": "Heute Nacht fallen die Geminiden, die schönsten Sternschnuppen des Jahres. Zieh dich warm an!" } }
+    ]
+  }
+}

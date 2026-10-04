@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "giulia",
+  "name": "Giulia",
+  "emoji": "👧",
+  "art": "child2",
+  "voice": "female",
+  "speaker": "girl",
+  "role": {"it": "Bambina", "sl": "Deklica", "en": "Girl", "de": "Mädchen"},
+  "home": ["house", "hut", "spot:meadow"],
+  "register": "ti",
+  "skill": "wood",
+  "order": 3,
+  "routine": { "up": "7:00", "bed": "20:00" },
+  "personality": "Eight, Nonna Rosa's granddaughter. Cheeky and curious, asks 'perché?' about everything and corrects everyone's Italian, the learner's too, kindly. Says tu to the learner, of course. Quick, sing-song sentences, simple words, lots of questions: a child talking to a child. Loves animals and cherries; hates being called small.",
+  "story": "Giulia lives with her grandmother Rosa and follows Davide to the meadow whenever there are lambs. In June she climbs the cherry tree (and eats half the cherries), knows every cat in the village by name, and reads better than Tommaso, which she mentions. She wants to be a teacher like Maestra Elena, or a shepherd, or both.",
+  "likes": [
+    {"it": "gli agnellini", "sl": "jagenjčki", "en": "lambs", "de": "Lämmchen"},
+    {"it": "le ciliegie", "sl": "češnje", "en": "cherries", "de": "Kirschen"},
+    {"it": "i gatti", "sl": "mačke", "en": "cats", "de": "Katzen"},
+    {"it": "i libri", "sl": "knjige", "en": "books", "de": "Bücher"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Ciao. Io sono Giulia. E tu?", "sl": "Živjo. Jaz sem Giulia. Pa ti?", "en": "Hi. I'm Giulia. And you?", "de": "Hallo. Ich bin Giulia. Und du?", "level": 0 },
+      { "it": "Ciao! Perché sei qui?", "sl": "Živjo! Zakaj si tukaj?", "en": "Hi! Why are you here?", "de": "Hallo! Warum bist du hier?", "level": 0 },
+      { "it": "Ciao! Sai cosa ho visto oggi?", "sl": "Živjo! Veš, kaj sem danes videla?", "en": "Hi! Do you know what I saw today?", "de": "Hallo! Weißt du, was ich heute gesehen habe?", "level": 1 },
+      { "it": "Vieni, vieni! C'è un agnellino!", "sl": "Pridi, pridi! Tam je jagenjček!", "en": "Come, come! There's a little lamb!", "de": "Komm, komm! Da ist ein Lämmchen!", "level": 2 },
+      { "it": "Eccoti! La nonna ti cercava. E anch'io.", "sl": "Tu si! Babica te je iskala. In jaz tudi.", "en": "There you are! Granny was looking for you. And so was I.", "de": "Da bist du ja! Oma hat dich gesucht. Und ich auch.", "level": 3 },
+      { "it": "Sei il mio migliore amico. Non dirlo a Tommaso!", "sl": "Ti si moj najboljši prijatelj. Ne povej Tommasu!", "en": "You're my best friend. Don't tell Tommaso!", "de": "Du bist mein bester Freund. Sag's nicht Tommaso!", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie! Sei gentile.", "sl": "Hvala! Prijazen si.", "en": "Thanks! You're kind.", "de": "Danke! Du bist lieb." },
+      { "it": "Grazie! Per te ci sono le ciliegie. Metà.", "sl": "Hvala! Zate so češnje. Polovica.", "en": "Thanks! There are cherries for you. Half.", "de": "Danke! Für dich gibt es Kirschen. Die Hälfte." },
+      { "it": "Grazie, grazie! Lo dico alla nonna.", "sl": "Hvala, hvala! Povem babici.", "en": "Thanks, thanks! I'll tell Granny.", "de": "Danke, danke! Ich sag's der Oma." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Sai? Ricordo ancora {memory}. Davvero!", "sl": "Veš? Še vedno mislim na {memory}. Res!", "en": "You know? I still think of {memory}. Really!", "de": "Weißt du was? Ich denke noch oft an {memory}. Echt!", "level": 2 },
+      { "it": "L'ho detto alla nonna. Non dimentico {memory}.", "sl": "Babici sem povedala. Ne pozabim na {memory}.", "en": "I told Granny. I don't forget {memory}.", "de": "Ich hab's der Oma erzählt. {memory} vergesse ich nicht.", "level": 3 }
+    ],
+    "idle": [
+      { "it": "Perché il gufo non dorme di notte? Perché?", "sl": "Zakaj sova ponoči ne spi? Zakaj?", "en": "Why doesn't the owl sleep at night? Why?", "de": "Warum schläft die Eule nachts nicht? Warum?" },
+      { "it": "Tommaso non sa leggere bene. Io sì.", "sl": "Tommaso ne zna dobro brati. Jaz pa znam.", "en": "Tommaso can't read well. I can.", "de": "Tommaso kann nicht gut lesen. Ich schon." },
+      { "it": "Il gatto della nonna è di nuovo sul tiglio.", "sl": "Babičin maček je spet na lipi.", "en": "Granny's cat is up the linden again.", "de": "Omas Katze sitzt schon wieder auf der Linde." },
+      { "it": "Le ciliegie sono dolci. Le ho mangiate tutte.", "sl": "Češnje so sladke. Vse sem pojedla.", "en": "The cherries are sweet. I ate them all.", "de": "Die Kirschen sind süß. Ich hab alle aufgegessen." }
+    ],
+    "cheer": [
+      { "it": "Sììì! Giusto!", "sl": "Jaaa! Pravilno!", "en": "Yesss! Right!", "de": "Jaaa! Richtig!" },
+      { "it": "Bravo! Quasi bravo come me.", "sl": "Bravo! Skoraj tako dober kot jaz.", "en": "Well done! Almost as good as me.", "de": "Gut gemacht! Fast so gut wie ich." },
+      { "it": "Vedi? È facile!", "sl": "Vidiš? Lahko je!", "en": "See? It's easy!", "de": "Siehst du? Ist doch leicht!" },
+      { "it": "Evviva! Ancora!", "sl": "Juhu! Še enkrat!", "en": "Hooray! Again!", "de": "Hurra! Noch mal!" }
+    ],
+    "comfort": [
+      { "it": "Non fa niente. Ancora una volta, sì?", "sl": "Nič hudega. Še enkrat, ja?", "en": "Never mind. Once more, yes?", "de": "Macht nichts. Noch einmal, ja?" },
+      { "it": "Sbagliato. Ma non fa niente, ti aiuto io.", "sl": "Narobe. Ampak nič hudega, jaz ti pomagam.", "en": "Wrong. But never mind, I'll help you.", "de": "Falsch. Aber macht nichts, ich helfe dir." },
+      { "it": "Quasi! Perché? Guarda ancora.", "sl": "Skoraj! Zakaj? Poglej še enkrat.", "en": "Almost! Why? Look again.", "de": "Fast! Warum? Schau noch mal." }
+    ],
+    "listen": [
+      { "it": "Shh, ascolta!", "sl": "Pst, poslušaj!", "en": "Shh, listen!", "de": "Pssst, hör zu!" },
+      { "it": "Ascolta. Poi ti dico perché.", "sl": "Poslušaj. Potem ti povem, zakaj.", "en": "Listen. Then I'll tell you why.", "de": "Hör zu. Dann sag ich dir, warum." },
+      { "it": "Silenzio! Ascolta.", "sl": "Tiho! Poslušaj.", "en": "Quiet! Listen.", "de": "Ruhe! Hör zu." }
+    ],
+    "bye": [
+      { "it": "Ciao ciao!", "sl": "Adijo!", "en": "Bye-bye!", "de": "Tschüss, tschüss!" },
+      { "it": "Ciao! Vado dalla nonna.", "sl": "Adijo! Grem k babici.", "en": "Bye! I'm going to Granny's.", "de": "Tschüss! Ich geh zur Oma." },
+      { "it": "Mandi! Domani raccogliamo le ciliegie.", "sl": "Mandi! Jutri bomo obirali češnje. (mandi: furlanski pozdrav)", "en": "Mandi! Tomorrow we pick cherries. (mandi: Friulian for bye)", "de": "Mandi! Morgen pflücken wir Kirschen. (mandi: Friaulisch für tschüss)" }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Per me? Sììì! Come lo sapevi che mi piace?", "sl": "Zame? Jaaa! Kako si vedel, da mi je všeč?", "en": "For me? Yaaay! How did you know I like it?", "de": "Für mich? Jaaa! Woher wusstest du, dass ich das mag?" },
+        { "it": "Grazie! Alla nonna non ne do. Va bene, un pochino.", "sl": "Hvala! Babici ne dam nič. No dobro, malo.", "en": "Thanks! I'm not giving Granny any. All right, a little.", "de": "Danke! Der Oma geb ich nichts ab. Na gut, ein bisschen." },
+        { "it": "Evviva! È la mia cosa preferita! Grazie, grazie!", "sl": "Juhu! To je moja najljubša stvar! Hvala, hvala!", "en": "Hooray! It's my favourite thing! Thank you, thank you!", "de": "Hurra! Das ist mein Lieblingsding! Danke, danke!" }
+      ],
+      "ordinary": [
+        { "it": "Grazie! Ma perché?", "sl": "Hvala! Ampak zakaj?", "en": "Thanks! But why?", "de": "Danke! Aber warum?" },
+        { "it": "Oh, grazie! La nonna dice che si dice grazie. Grazie!", "sl": "O, hvala! Babica pravi, da se reče hvala. Hvala!", "en": "Oh, thanks! Granny says you say thank you. Thank you!", "de": "Oh, danke! Oma sagt, man sagt danke. Danke!" }
+      ],
+      "rare": [
+        { "it": "Oooh! Questo non ce l'ha nessuno! Neanche Tommaso! Grazie!", "sl": "Ooo! Tega nima nihče! Niti Tommaso! Hvala!", "en": "Ooh! Nobody has this! Not even Tommaso! Thanks!", "de": "Oooh! Das hat keiner! Nicht mal Tommaso! Danke!" }
+      ]
+    }
+  }
+}

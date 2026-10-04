@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "to-be",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🟰",
+  "title": {
+    "en": "To be: am, is, are",
+    "sl": "To be (biti): am, is, are",
+    "it": "To be (essere): am, is, are",
+    "de": "To be (sein): am, is, are"
+  },
+  "rule": {
+    "en": "**to be** has three forms in the present: **I am**, **he / she / it is**, **you / we / they are**. In speech they are short: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**.\n\nThe negative adds **not**: **I'm not**, **isn't**, **aren't**: **It isn't cold.** A question puts the verb first: **Is it far?** **Are you ready?** Short answers: **Yes, I am.** / **No, it isn't.** (never *Yes, I'm*).\n\nEnglish never drops the subject, not even it: **It's cold.** **It's late.**\n\nAge takes be: **I'm ten** (not *I have ten years*). So do many feelings where other languages say have: **I'm cold**, **I'm hot**, **I'm hungry**, **I'm thirsty**, and **I'm right**. But **I've got a cold** means you are ill.",
+    "sl": "**to be** (biti) ima v sedanjiku tri oblike: **I am**, **he / she / it is**, **you / we / they are**. V govoru so kratke: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**.\n\nZanikanje doda **not**: **I'm not**, **isn't**, **aren't**: **It isn't cold.** (Ni mrzlo.) V vprašanju gre glagol na začetek: **Is it far?** (Je daleč?) **Are you ready?** Kratki odgovori: **Yes, I am.** / **No, it isn't.** (nikoli *Yes, I'm*).\n\nOsebek nikoli ne odpade, niti it: **It's cold.** (Mraz je.) **It's late.** (Pozno je.)\n\nStarost gre z be: **I'm ten** (star sem deset let; ne *I have ten years*, čeprav slovensko rečemo tudi imam deset let). Z be so tudi mnoga počutja, kjer slovenščina reče drugače: **I'm cold** (zebe me), **I'm hot** (vroče mi je), **I'm hungry** (lačen sem), **I'm thirsty** (žejen sem) in **I'm right** (imam prav). Toda **I've got a cold** pomeni, da si prehlajen.",
+    "it": "**to be** (essere) al presente ha tre forme: **I am**, **he / she / it is**, **you / we / they are**. Parlando si accorciano: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**.\n\nLa negazione aggiunge **not**: **I'm not**, **isn't**, **aren't**: **It isn't cold.** (Non fa freddo.) Nella domanda il verbo va all'inizio: **Is it far?** (È lontano?) **Are you ready?** Risposte brevi: **Yes, I am.** / **No, it isn't.** (mai *Yes, I'm*).\n\nIl soggetto non si omette mai, nemmeno it: **It's cold.** (Fa freddo.) **It's late.** (È tardi.)\n\nDove l'italiano usa avere, l'inglese usa spesso be. L'età: **I'm ten** (ho dieci anni; mai *I have ten years*). Le sensazioni: **I'm cold** (ho freddo), **I'm hot** (ho caldo), **I'm hungry** (ho fame), **I'm thirsty** (ho sete), e **I'm right** (ho ragione). Ma **I've got a cold** vuol dire «ho il raffreddore».",
+    "de": "**to be** (sein) hat im Präsens drei Formen: **I am**, **he / she / it is**, **you / we / they are**. Gesprochen sind sie kurz: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**.\n\nDie Verneinung bekommt **not**: **I'm not**, **isn't**, **aren't**: **It isn't cold.** (Es ist nicht kalt.) In der Frage steht das Verb vorn: **Is it far?** (Ist es weit?) **Are you ready?** Kurze Antworten: **Yes, I am.** / **No, it isn't.** (nie *Yes, I'm*).\n\nWie im Deutschen fällt das Subjekt nie weg, auch nicht es: **It's cold.** (Es ist kalt.) **It's late.**\n\nDas Alter wie im Deutschen mit be: **I'm ten** (nie *I have ten years*). Und auch wo das Deutsche haben oder mir ist sagt, steht oft be: **I'm cold** (mir ist kalt), **I'm hot** (mir ist heiß), **I'm hungry** (ich habe Hunger), **I'm thirsty** (ich habe Durst) und **I'm right** (ich habe recht). Aber **I've got a cold** heißt »ich bin erkältet«."
+  },
+  "table": {
+    "head": [
+      { "en": "who", "sl": "kdo", "it": "chi", "de": "wer" },
+      { "en": "positive", "sl": "pritrdilno", "it": "affermativo", "de": "bejaht" },
+      { "en": "negative", "sl": "nikalno", "it": "negativo", "de": "verneint" },
+      { "en": "question", "sl": "vprašanje", "it": "domanda", "de": "Frage" }
+    ],
+    "rows": [
+      ["I", "I'm (I am)", "I'm not", "Am I …?"],
+      ["you", "you're (you are)", "you aren't", "Are you …?"],
+      ["he, she, it", "he's, she's, it's (is)", "isn't", "Is he …? Is it …?"],
+      ["we, they", "we're, they're (are)", "aren't", "Are we …? Are they …?"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "I'm cold!",
+      "sl": "Zebe me!",
+      "it": "Ho freddo!",
+      "de": "Mir ist kalt!",
+      "note": {
+        "en": "How you feel takes be: I'm cold, not I have cold.",
+        "sl": "Počutje gre z be: I'm cold, ne I have cold.",
+        "it": "Le sensazioni vanno con be: I'm cold, non I have cold.",
+        "de": "Das Befinden steht mit be: I'm cold, nicht I have cold."
+      }
+    },
+    {
+      "en": "Poppy is ten.",
+      "sl": "Poppy ima deset let.",
+      "it": "Poppy ha dieci anni.",
+      "de": "Poppy ist zehn.",
+      "note": {
+        "en": "Age takes be: is ten, not has ten years.",
+        "sl": "Starost gre z be: is ten, ne has ten years.",
+        "it": "L'età va con be: is ten, non has ten years.",
+        "de": "Das Alter steht mit be: is ten, nicht has ten years."
+      }
+    },
+    {
+      "en": "Are you hungry, Alfie? — Yes, I am!",
+      "sl": "Si lačen, Alfie? — Ja, sem!",
+      "it": "Hai fame, Alfie? — Sì, tanta!",
+      "de": "Hast du Hunger, Alfie? — Ja!",
+      "note": {
+        "en": "A short answer keeps the full form: Yes, I am (never Yes, I'm).",
+        "sl": "Kratki odgovor ima polno obliko: Yes, I am (nikoli Yes, I'm).",
+        "it": "La risposta breve ha la forma intera: Yes, I am (mai Yes, I'm).",
+        "de": "Die Kurzantwort hat die volle Form: Yes, I am (nie Yes, I'm)."
+      }
+    },
+    {
+      "en": "The Packhorse Inn isn't far.",
+      "sl": "Gostilna Packhorse Inn ni daleč.",
+      "it": "La locanda Packhorse Inn non è lontana.",
+      "de": "Das Gasthaus Packhorse Inn ist nicht weit."
+    },
+    {
+      "en": "We're at home and the dogs are in the garden.",
+      "sl": "Smo doma, psi pa so na vrtu.",
+      "it": "Siamo a casa e i cani sono in giardino.",
+      "de": "Wir sind zu Hause, und die Hunde sind im Garten."
+    },
+    {
+      "en": "Excuse me, are you Mrs Hartley?",
+      "sl": "Oprostite, ste vi gospa Hartley?",
+      "it": "Mi scusi, è Lei la signora Hartley?",
+      "de": "Entschuldigung, sind Sie Frau Hartley?",
+      "note": {
+        "en": "you is the same for a friend, for a stranger and for many people.",
+        "sl": "you je enak za ti, za vi in za vikanje.",
+        "it": "you vale per tu, per voi e per Lei.",
+        "de": "you steht für du, für ihr und für Sie."
+      }
+    },
+    {
+      "en": "Granny, you're right!",
+      "sl": "Babica, prav imaš!",
+      "it": "Nonna, hai ragione!",
+      "de": "Oma, du hast recht!",
+      "note": {
+        "en": "Being right takes be: you're right.",
+        "sl": "Imeti prav je v angleščini be: you're right.",
+        "it": "Avere ragione in inglese si dice con be: you're right.",
+        "de": "Recht haben heißt auf Englisch be: you're right."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["to_be", "be", "am_is_are", "verb_be", "age", "feelings"],
+  "see": ["to-have", "questions-do", "there-is-are"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

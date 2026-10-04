@@ -1,0 +1,104 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "piacere",
+  "language": "it",
+  "level": "A1",
+  "emoji": "💛",
+  "title": {
+    "it": "Mi piace, mi piacciono",
+    "sl": "Mi piace: všeč mi je",
+    "en": "Mi piace: saying what you like",
+    "de": "Mi piace: sagen, was man mag"
+  },
+  "rule": {
+    "en": "Italian says *like* the other way round: **Mi piace il miele** is *honey pleases me*. The thing you like is the subject; the person who likes it is **mi, ti, gli, le** …\n\nSo the verb follows the thing: **piace** with one thing or with a verb (**mi piace il miele**, **mi piace nuotare**), **piacciono** with more (**mi piacciono le mele**).\n\nThe person: **mi** (me), **ti** (you), **gli** (him), **le** (her), **Le** (you, polite), **ci** (us), **vi** (you all), **gli** (them). With a name or a noun use **a**: **A Giulia piace il gelato.** **Ai bambini piacciono i cani.**\n\nThe negative: **Non mi piace il freddo.** A question: **Ti piace?** The thing liked keeps its article: **mi piace il miele**, not *mi piace miele*.",
+    "sl": "Italijanščina to pove kot slovenski **všeč mi je**: kar ti je všeč, je osebek, oseba pa je v dajalniku. **Mi piace il miele.** (Med mi je všeč.) **Mi piacciono le mele.** (Jabolka so mi všeč.)\n\nGlagol se ravna po stvari: **piace** pri eni stvari ali pri glagolu (**mi piace il miele**, **mi piace nuotare**), **piacciono** pri več (**mi piacciono le mele**).\n\nOseba: **mi** (mi), **ti** (ti), **gli** (mu), **le** (ji), **Le** (vam, vljudno), **ci** (nam), **vi** (vam), **gli** (jim). Z imenom ali samostalnikom stoji **a**: **A Giulia piace il gelato.** (Giuliji je všeč sladoled.) **Ai bambini piacciono i cani.** (Otrokom so všeč psi.)\n\nZanikanje: **Non mi piace il freddo.** (Mraz mi ni všeč.) Vprašanje: **Ti piace?** Stvar obdrži člen: **mi piace il miele**, ne *mi piace miele*.",
+    "de": "Das Italienische sagt es wie **gefallen**: **Mi piace il miele** heißt wörtlich *der Honig gefällt mir*. Was man mag, ist das Subjekt; wer es mag, steht als **mi, ti, gli, le** … (mir, dir, ihm, ihr …).\n\nDas Verb richtet sich nach der Sache: **piace** bei einer Sache oder einem Verb (**mi piace il miele**; **mi piace nuotare**, ich schwimme gern), **piacciono** bei mehreren (**mi piacciono le mele**).\n\nDie Person: **mi** (mir), **ti** (dir), **gli** (ihm), **le** (ihr), **Le** (Ihnen), **ci** (uns), **vi** (euch), **gli** (ihnen). Mit einem Namen oder Nomen steht **a**: **A Giulia piace il gelato.** **Ai bambini piacciono i cani.**\n\nVerneint: **Non mi piace il freddo.** Als Frage: **Ti piace?** Die Sache behält ihren Artikel: **mi piace il miele**, nicht *mi piace miele*."
+  },
+  "table": {
+    "head": [
+      { "it": "a chi", "sl": "komu", "en": "who likes it", "de": "wem" },
+      { "it": "una cosa, un verbo", "sl": "ena stvar, glagol", "en": "one thing, a verb", "de": "eine Sache, ein Verb" },
+      { "it": "più cose", "sl": "več stvari", "en": "more things", "de": "mehrere Dinge" }
+    ],
+    "rows": [
+      [{ "it": "a me", "sl": "meni", "en": "me", "de": "mir" }, "mi piace", "mi piacciono"],
+      [{ "it": "a te", "sl": "tebi", "en": "you", "de": "dir" }, "ti piace", "ti piacciono"],
+      [{ "it": "a lui", "sl": "njemu", "en": "him", "de": "ihm" }, "gli piace", "gli piacciono"],
+      [{ "it": "a lei, a Lei", "sl": "njej, vam (vljudno)", "en": "her, you (polite)", "de": "ihr, Ihnen" }, "le piace, Le piace", "le piacciono, Le piacciono"],
+      [{ "it": "a noi", "sl": "nam", "en": "us", "de": "uns" }, "ci piace", "ci piacciono"],
+      [{ "it": "a voi", "sl": "vam", "en": "you all", "de": "euch" }, "vi piace", "vi piacciono"],
+      [{ "it": "a loro", "sl": "njim", "en": "them", "de": "ihnen" }, "gli piace", "gli piacciono"],
+      [{ "it": "a Giulia", "sl": "Giuliji", "en": "Giulia", "de": "Giulia" }, "a Giulia piace", "a Giulia piacciono"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Mi piace il miele di Aldo.",
+      "sl": "Aldov med mi je všeč.",
+      "en": "I like Aldo's honey.",
+      "de": "Mir schmeckt Aldos Honig."
+    },
+    {
+      "it": "Ti piacciono le mele?",
+      "sl": "So ti všeč jabolka?",
+      "en": "Do you like apples?",
+      "de": "Magst du Äpfel?",
+      "note": {
+        "sl": "le mele (več stvari): piacciono.",
+        "en": "le mele (more than one): piacciono.",
+        "de": "le mele (mehrere): piacciono."
+      }
+    },
+    {
+      "it": "A Giulia piace nuotare nello stagno.",
+      "sl": "Giulia rada plava v ribniku.",
+      "en": "Giulia likes swimming in the pond.",
+      "de": "Giulia schwimmt gern im Teich.",
+      "note": {
+        "sl": "Z glagolom vedno piace.",
+        "en": "With a verb, always piace.",
+        "de": "Mit einem Verb immer piace."
+      }
+    },
+    {
+      "it": "Non mi piace il freddo.",
+      "sl": "Mraz mi ni všeč.",
+      "en": "I don't like the cold.",
+      "de": "Ich mag die Kälte nicht."
+    },
+    {
+      "it": "Ai bambini piacciono le storie di Nonno Bepi.",
+      "sl": "Otrokom so všeč zgodbe dedka Bepija.",
+      "en": "The children like Nonno Bepi's stories.",
+      "de": "Die Kinder mögen die Geschichten von Nonno Bepi.",
+      "note": {
+        "sl": "a + i bambini = ai bambini.",
+        "en": "a + i bambini = ai bambini.",
+        "de": "a + i bambini = ai bambini."
+      }
+    },
+    {
+      "it": "Signor Franco, Le piace la polenta?",
+      "sl": "Gospod Franco, vam je polenta všeč?",
+      "en": "Mr Franco, do you like polenta?",
+      "de": "Herr Franco, mögen Sie Polenta?"
+    },
+    {
+      "it": "Gli piacciono i cavalli.",
+      "sl": "Konji so mu všeč.",
+      "en": "He likes horses.",
+      "de": "Er mag Pferde.",
+      "note": {
+        "sl": "gli = mu (in tudi jim).",
+        "en": "gli = to him (and also to them).",
+        "de": "gli = ihm (und auch ihnen)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["piacere", "mi_piace", "like", "likes", "indirect_object", "dative"],
+  "see": ["essere-avere", "presente-regolare", "domande"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

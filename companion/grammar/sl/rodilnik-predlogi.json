@@ -1,0 +1,82 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "rodilnik-predlogi",
+  "language": "sl",
+  "level": "A2",
+  "emoji": "🧭",
+  "title": {
+    "sl": "Iz, od, do, blizu: rodilnik",
+    "en": "Iz, od, do, blizu: the genitive after prepositions",
+    "de": "Iz, od, do, blizu: der Genitiv nach Präpositionen",
+    "it": "Iz, od, do, blizu: il genitivo dopo le preposizioni"
+  },
+  "rule": {
+    "en": "Some prepositions always take the genitive (*rodilnik*): **iz** (out of, from), **z / s** (off, from), **od** (from someone, from a starting point), **do** (up to, as far as), **blizu** (near), **mimo** (past) and **brez** (without).\n\nA feminine noun in -a ends in **-e**: Gorica → **iz Gorice**, Ljubljana → **do Ljubljane**. Masculine and neuter nouns take **-a**: Berlin → **iz Berlina**, pomol → **blizu pomola**, mleko → **brez mleka**. Cerkev ends in a consonant but is feminine: **mimo cerkve**.\n\nWhere from (**Od kod?**) mirrors where: **v šoli → iz šole**, **na pošti → s pošte**, **pri babici → od babice**. Before p, t, k, f, h, c, č, s and š, z becomes **s**.\n\n**Sem iz Gorice** is one of the first phrases you learn (A1); the rule behind it, for all these prepositions, is A2.",
+    "de": "Manche Präpositionen stehen immer mit dem Genitiv (*rodilnik*): **iz** (aus), **z / s** (von … herunter, von), **od** (von jemandem, ab), **do** (bis), **blizu** (nahe), **mimo** (an … vorbei) und **brez** (ohne).\n\nEin weibliches Nomen auf -a endet auf **-e**: Gorica → **iz Gorice**, Ljubljana → **do Ljubljane**. Männliche und sächliche Nomen bekommen **-a**: Berlin → **iz Berlina**, pomol → **blizu pomola**, mleko → **brez mleka**. Cerkev endet auf einen Konsonanten, ist aber weiblich: **mimo cerkve**.\n\nWoher (**Od kod?**) spiegelt das Wo: **v šoli → iz šole**, **na pošti → s pošte**, **pri babici → od babice**. Vor p, t, k, f, h, c, č, s und š wird z zu **s**.\n\n**Sem iz Gorice** ist einer der ersten Sätze, die man lernt (A1); die Regel dahinter, für alle diese Präpositionen, kommt auf A2.",
+    "it": "Alcune preposizioni reggono sempre il genitivo (*rodilnik*): **iz** (da, fuori da), **z / s** (da, giù da), **od** (da qualcuno, a partire da), **do** (fino a), **blizu** (vicino a), **mimo** (oltre, passando davanti a) e **brez** (senza).\n\nUn nome femminile in -a finisce in **-e**: Gorica → **iz Gorice**, Ljubljana → **do Ljubljane**. I nomi maschili e neutri prendono **-a**: Berlin → **iz Berlina**, pomol → **blizu pomola**, mleko → **brez mleka**. Cerkev finisce in consonante ma è femminile: **mimo cerkve**.\n\nDa dove (**Od kod?**) rispecchia il dove: **v šoli → iz šole**, **na pošti → s pošte**, **pri babici → od babice**. Davanti a p, t, k, f, h, c, č, s e š, z diventa **s**.\n\n**Sem iz Gorice** è una delle prime frasi che si imparano (A1); la regola che c'è dietro, per tutte queste preposizioni, è dell'A2."
+  },
+  "table": {
+    "head": [
+      { "sl": "predlog", "en": "preposition", "de": "Präposition", "it": "preposizione" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["iz", { "en": "out of, from (v)", "de": "aus (v)", "it": "da, fuori da (v)" }, "iz Gorice"],
+      ["z / s", { "en": "off, from (na)", "de": "von (na)", "it": "da (na)" }, "s pošte"],
+      ["od", { "en": "from (someone, a start)", "de": "von (jemandem), ab", "it": "da (qualcuno), a partire da" }, "od babice"],
+      ["do", { "en": "up to, as far as", "de": "bis", "it": "fino a" }, "do Ljubljane"],
+      ["blizu", { "en": "near", "de": "nahe", "it": "vicino a" }, "blizu pomola"],
+      ["mimo", { "en": "past", "de": "an … vorbei", "it": "oltre, davanti a" }, "mimo cerkve"],
+      ["brez", { "en": "without", "de": "ohne", "it": "senza" }, "brez mleka"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Sem iz Berlina.",
+      "en": "I'm from Berlin.",
+      "de": "Ich bin aus Berlin.",
+      "it": "Sono di Berlino."
+    },
+    {
+      "sl": "Moja partnerka je iz Gorice.",
+      "en": "My partner is from Gorizia.",
+      "de": "Meine Partnerin ist aus Gorizia.",
+      "it": "La mia compagna è di Gorizia."
+    },
+    {
+      "sl": "Vlak gre od Nove Gorice do Ljubljane.",
+      "en": "The train goes from Nova Gorica to Ljubljana.",
+      "de": "Der Zug fährt von Nova Gorica bis Ljubljana.",
+      "it": "Il treno va da Nova Gorica fino a Lubiana.",
+      "note": {
+        "en": "The adjective changes too: Nova Gorica → od Nove Gorice.",
+        "de": "Auch das Adjektiv ändert sich: Nova Gorica → od Nove Gorice.",
+        "it": "Cambia anche l'aggettivo: Nova Gorica → od Nove Gorice."
+      }
+    },
+    {
+      "sl": "Šotor bo stal blizu pomola.",
+      "en": "The tent will stand near the jetty.",
+      "de": "Das Zelt wird nahe am Steg stehen.",
+      "it": "La tenda starà vicino al pontile."
+    },
+    {
+      "sl": "Kavo pijem brez mleka.",
+      "en": "I drink my coffee without milk.",
+      "de": "Ich trinke den Kaffee ohne Milch.",
+      "it": "Bevo il caffè senza latte."
+    },
+    {
+      "sl": "Ravno prihajam s tržnice.",
+      "en": "I'm just coming back from the market.",
+      "de": "Ich komme gerade vom Markt.",
+      "it": "Sto tornando proprio dal mercato."
+    }
+  ],
+  "modules": ["rodilnik-po-nikalnici"],
+  "tags": ["iz", "od_kod", "genitive_preposition", "blizu", "brez"],
+  "see": ["rodilnik-nikalnica", "kje-mestnik-orodnik", "vprasalnice", "rodilnik", "orodnik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

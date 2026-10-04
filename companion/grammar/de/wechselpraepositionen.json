@@ -1,0 +1,110 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "wechselpraepositionen",
+  "language": "de",
+  "level": "A2",
+  "emoji": "📍",
+  "title": {
+    "de": "Wo? Wohin? Am See, an den See",
+    "sl": "Kje? Kam? Predlogi kraja",
+    "en": "Where? Where to? Prepositions of place",
+    "it": "Dove? Verso dove? Le preposizioni di luogo"
+  },
+  "rule": {
+    "en": "Nine prepositions take two cases (*Wechselpräpositionen*): **in**, **an**, **auf**, **über**, **unter**, **vor**, **hinter**, **neben**, **zwischen**.\n\nWhere something is (**Wo?**) takes the dative: Das Zelt steht **neben dem Teich**, **unter der großen Fichte**. Where it goes (**Wohin?**) takes the accusative: Wir gehen **an den See**, **in die Hütte**, **über die Brücke**.\n\nSome fuse with the article: **im** (in dem), **am** (an dem), **ins** (in das), **ans** (an das). So: Wir sind **am See** (Wo?), but Wir gehen **an den See** (Wohin?).\n\nThe verb is a good hint: sein, stehen, liegen, sitzen answer Wo?; gehen, fahren, stellen, legen answer Wohin? English marks this only sometimes (in, into); German always does, with the case.\n\n**bei** is not one of the nine: it always takes the dative (**beim Steg**, by the jetty).",
+    "sl": "Devet predlogov ima dva sklona (*Wechselpräpositionen*): **in**, **an**, **auf**, **über**, **unter**, **vor**, **hinter**, **neben**, **zwischen**. Razlika je ista kot v slovenščini: **Kje?** ali **Kam?**\n\nKje nekaj je (**Wo?**), stoji v dajalniku, kjer ima slovenščina mestnik ali orodnik: Das Zelt steht **neben dem Teich** (ob ribniku), **unter der großen Fichte** (pod veliko smreko). Kam gre (**Wohin?**), stoji v tožilniku, kot v slovenščini: Wir gehen **an den See** (na jezero), **in die Hütte** (v kočo), **über die Brücke** (čez most).\n\nNekateri se zlijejo s členom: **im** (in dem), **am** (an dem), **ins** (in das), **ans** (an das). Torej: Wir sind **am See** (Wo?), a Wir gehen **an den See** (Wohin?).\n\nGlagol pomaga: sein, stehen, liegen, sitzen odgovarjajo na Wo?; gehen, fahren, stellen, legen na Wohin?\n\n**bei** ni med njimi: vedno ima dajalnik (**beim Steg**, pri pomolu).",
+    "it": "Nove preposizioni reggono due casi (*Wechselpräpositionen*): **in**, **an**, **auf**, **über**, **unter**, **vor**, **hinter**, **neben**, **zwischen**.\n\nLo stato in luogo (**Wo?**, dove si trova) vuole il dativo: Das Zelt steht **neben dem Teich** (accanto allo stagno), **unter der großen Fichte** (sotto il grande abete). Il moto a luogo (**Wohin?**, dove va) vuole l'accusativo: Wir gehen **an den See** (al lago), **in die Hütte** (nella baita), **über die Brücke** (attraverso il ponte).\n\nAlcune si fondono con l'articolo: **im** (in dem), **am** (an dem), **ins** (in das), **ans** (an das). Quindi: Wir sind **am See** (Wo?), ma Wir gehen **an den See** (Wohin?).\n\nIl verbo aiuta: sein, stehen, liegen, sitzen rispondono a Wo?; gehen, fahren, stellen, legen a Wohin? L'italiano lo distingue solo a volte; il tedesco sempre, con il caso.\n\n**bei** non è tra le nove: vuole sempre il dativo (**beim Steg**, vicino al pontile)."
+  },
+  "table": {
+    "head": [
+      { "de": "Präposition", "sl": "predlog", "en": "preposition", "it": "preposizione" },
+      { "de": "Wo? + Dativ", "sl": "Wo? (kje?) + dajalnik", "en": "Wo? (where?) + dative", "it": "Wo? (dove?) + dativo" },
+      { "de": "Wohin? + Akkusativ", "sl": "Wohin? (kam?) + tožilnik", "en": "Wohin? (where to?) + accusative", "it": "Wohin? (verso dove?) + accusativo" }
+    ],
+    "rows": [
+      ["in", "im Zelt, in der Hütte", "ins Zelt, in die Hütte"],
+      ["an", "am See", "an den See"],
+      ["auf", "auf der Alm", "auf die Alm"],
+      ["über", "über dem Dorf", "über die Brücke"],
+      ["unter", "unter der großen Fichte", "unter die große Fichte"],
+      ["vor", "vor dem Zelt", "vor das Zelt"],
+      ["hinter", "hinter dem Zelt", "hinter das Zelt"],
+      ["neben", "neben dem Teich", "neben den Teich"],
+      ["zwischen", "zwischen den Bäumen", "zwischen die Bäume"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das Zelt steht neben dem Teich, unter der großen Fichte.",
+      "sl": "Šotor stoji ob ribniku, pod veliko smreko.",
+      "en": "The tent stands next to the pond, under the big spruce.",
+      "it": "La tenda sta accanto allo stagno, sotto il grande abete.",
+      "note": {
+        "en": "Wo? → Dativ: die große Fichte → unter der großen Fichte (the adjective adds -en).",
+        "sl": "Wo? → dajalnik: die große Fichte → unter der großen Fichte (pridevnik dobi -en).",
+        "it": "Wo? → dativo: die große Fichte → unter der großen Fichte (l'aggettivo prende -en)."
+      }
+    },
+    {
+      "de": "Das Feuer brennt vor dem Zelt.",
+      "sl": "Ogenj gori pred šotorom.",
+      "en": "The fire is burning in front of the tent.",
+      "it": "Il fuoco arde davanti alla tenda."
+    },
+    {
+      "de": "Jakob trägt das Holz hinter das Zelt.",
+      "sl": "Jakob nese drva za šotor.",
+      "en": "Jakob carries the wood behind the tent.",
+      "it": "Jakob porta la legna dietro la tenda.",
+      "note": {
+        "en": "Wohin? → hinter das Zelt. Once it's there: Das Holz liegt hinter dem Zelt.",
+        "sl": "Wohin? → hinter das Zelt (za šotor). Ko je tam: Das Holz liegt hinter dem Zelt (za šotorom).",
+        "it": "Wohin? → hinter das Zelt. Quando è lì: Das Holz liegt hinter dem Zelt."
+      }
+    },
+    {
+      "de": "Morgen gehen wir an den See.",
+      "sl": "Jutri gremo na jezero.",
+      "en": "Tomorrow we're going to the lake.",
+      "it": "Domani andiamo al lago.",
+      "note": {
+        "en": "Wohin? an den See. Wo? am See (an dem): Wir sind am See.",
+        "sl": "Wohin? an den See (na jezero, k jezeru). Wo? am See (ob jezeru).",
+        "it": "Wohin? an den See. Wo? am See (an dem): Wir sind am See, siamo al lago."
+      }
+    },
+    {
+      "de": "Maxi läuft in die Hütte. In der Hütte ist es warm.",
+      "sl": "Maxi steče v kočo. V koči je toplo.",
+      "en": "Maxi runs into the hut. It's warm in the hut.",
+      "it": "Maxi entra di corsa nella baita. Nella baita fa caldo."
+    },
+    {
+      "de": "Gehen Sie über die Brücke.",
+      "sl": "Pojdite čez most.",
+      "en": "Go over the bridge.",
+      "it": "Attraversi il ponte.",
+      "note": {
+        "en": "über + Akkusativ: going across (Wohin?).",
+        "sl": "über + tožilnik: čez (Wohin?).",
+        "it": "über + accusativo: attraversare (Wohin?)."
+      }
+    },
+    {
+      "de": "Die Kinder sitzen beim Steg.",
+      "sl": "Otroci sedijo pri pomolu.",
+      "en": "The children are sitting by the jetty.",
+      "it": "I bambini sono seduti vicino al pontile.",
+      "note": {
+        "en": "bei always takes the Dativ: beim = bei dem.",
+        "sl": "bei ima vedno dajalnik: beim = bei dem.",
+        "it": "bei vuole sempre il dativo: beim = bei dem."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["prepositions", "prepositions_place", "two_way_prepositions", "wechselpraepositionen", "wo_wohin", "dative", "accusative", "direction"],
+  "see": ["dativ", "akkusativ", "faelle", "fragen"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

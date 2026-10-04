@@ -1,0 +1,109 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "present-simple",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🔁",
+  "title": {
+    "en": "Present simple: I walk, he walks",
+    "sl": "Present simple: navade (I walk, he walks)",
+    "it": "Il present simple: le abitudini (I walk, he walks)",
+    "de": "Das present simple: Gewohnheiten (I walk, he walks)"
+  },
+  "rule": {
+    "en": "The present simple is for habits, things that happen again and again, and facts: **I walk to school.** **Sheep eat grass.** It often comes with **always**, **often**, **usually**, **sometimes**, **never**, **every day**, **on Sundays**.\n\nThe verb is the base form, the same for I, you, we, they: **I walk**, **they walk**. Only **he / she / it** adds **-s**: **Jack walks the dogs.** **Meg runs.**\n\nSpelling: after s, sh, ch, x and o add **-es**: **goes**, **does**, **watches**, **washes**, **fixes**. A consonant + y becomes **-ies**: fly → **flies**, carry → **carries** (but play → **plays**). **have** → **has**.\n\nThe negative is **don't** / **doesn't** + the base form, without -s: **I don't know.** **Meg doesn't bark.** (not *doesn't barks*). Questions take do / does the same way (see the page on questions).\n\nEnglish always needs a subject: **It rains a lot here.**\n\nFor what is happening right now, use the present continuous: **Meg is running now.**",
+    "sl": "*present simple* je sedanjik za navade, za to, kar se ponavlja, in za dejstva: **I walk to school.** (V šolo hodim peš.) **Sheep eat grass.** Pogosto stoji z **always**, **often**, **usually**, **sometimes**, **never**, **every day**, **on Sundays**.\n\nGlagol je v osnovni obliki, enak za I, you, we, they: **I walk**, **they walk**. Samo **he / she / it** doda **-s**: **Jack walks the dogs.** **Meg runs.**\n\nPravopis: za s, sh, ch, x in o dodamo **-es**: **goes**, **does**, **watches**, **washes**, **fixes**. Soglasnik + y postane **-ies**: fly → **flies**, carry → **carries** (toda play → **plays**). **have** → **has**.\n\nZanikanje je **don't** / **doesn't** + osnovna oblika, brez -s: **I don't know.** (Ne vem.) **Meg doesn't bark.** (ne *doesn't barks*). Vprašanja gredo prav tako z do / does (glej stran o vprašanjih).\n\nOsebek je vedno zraven, tudi kjer ga slovenščina nima: **It rains a lot here.** (Tu veliko dežuje.)\n\nSlovenščina ima en sedanjik, angleščina dva: za to, kar se dogaja prav zdaj, je *present continuous*: **Meg is running now.**",
+    "it": "Il *present simple* è il presente delle abitudini, delle cose che si ripetono e dei fatti: **I walk to school.** (Vado a scuola a piedi.) **Sheep eat grass.** Va spesso con **always**, **often**, **usually**, **sometimes**, **never**, **every day**, **on Sundays**.\n\nIl verbo è nella forma base, uguale per I, you, we, they: **I walk**, **they walk**. Solo **he / she / it** aggiunge **-s**: **Jack walks the dogs.** **Meg runs.**\n\nOrtografia: dopo s, sh, ch, x e o si aggiunge **-es**: **goes**, **does**, **watches**, **washes**, **fixes**. Consonante + y diventa **-ies**: fly → **flies**, carry → **carries** (ma play → **plays**). **have** → **has**.\n\nLa negazione è **don't** / **doesn't** + forma base, senza -s: **I don't know.** (Non lo so.) **Meg doesn't bark.** (non *doesn't barks*). Anche le domande si fanno con do / does (vedi la pagina sulle domande).\n\nA differenza dell'italiano, il soggetto non si omette mai: **It rains a lot here.** (Qui piove molto.)\n\nPer ciò che succede proprio adesso c'è il *present continuous*: **Meg is running now.**",
+    "de": "Das *present simple* ist die Gegenwart für Gewohnheiten, Wiederholtes und Tatsachen: **I walk to school.** (Ich gehe zu Fuß zur Schule.) **Sheep eat grass.** Oft steht es mit **always**, **often**, **usually**, **sometimes**, **never**, **every day**, **on Sundays**.\n\nDas Verb steht in der Grundform, gleich für I, you, we, they: **I walk**, **they walk**. Nur **he / she / it** bekommt **-s**: **Jack walks the dogs.** **Meg runs.** Viel weniger Endungen als im Deutschen: keine für du, wir, ihr.\n\nSchreibung: nach s, sh, ch, x und o kommt **-es**: **goes**, **does**, **watches**, **washes**, **fixes**. Konsonant + y wird **-ies**: fly → **flies**, carry → **carries** (aber play → **plays**). **have** → **has**.\n\nDie Verneinung ist **don't** / **doesn't** + Grundform, ohne -s: **I don't know.** (Ich weiß es nicht.) **Meg doesn't bark.** (nicht *doesn't barks*). Fragen gehen genauso mit do / does (siehe die Seite über Fragen).\n\nDas Deutsche hat ein Präsens, das Englische zwei: Für das, was gerade jetzt passiert, gibt es das *present continuous*: **Meg is running now.**"
+  },
+  "table": {
+    "head": [
+      { "en": "verb", "sl": "glagol", "it": "verbo", "de": "Verb" },
+      "I, you, we, they",
+      "he, she, it"
+    ],
+    "rows": [
+      ["walk", "walk", "walks"],
+      ["go", "go", "goes"],
+      ["watch", "watch", "watches"],
+      ["fly", "fly", "flies"],
+      ["play", "play", "plays"],
+      ["have", "have", "has"],
+      [{ "en": "negative", "sl": "nikalno", "it": "negativo", "de": "verneint" }, "don't walk", "doesn't walk"],
+      [{ "en": "question", "sl": "vprašanje", "it": "domanda", "de": "Frage" }, "Do you walk?", "Does she walk?"]
+    ]
+  },
+  "examples": [
+    {
+      "en": "Jack walks Meg every morning.",
+      "sl": "Jack vsako jutro pelje Meg na sprehod.",
+      "it": "Jack porta a spasso Meg ogni mattina.",
+      "de": "Jack geht jeden Morgen mit Meg spazieren.",
+      "note": {
+        "en": "Jack walks: -s for he, she, it.",
+        "sl": "Jack walks: -s pri he, she, it.",
+        "it": "Jack walks: -s con he, she, it.",
+        "de": "Jack walks: -s bei he, she, it."
+      }
+    },
+    {
+      "en": "Granny Maggie makes scones every Saturday.",
+      "sl": "Babica Maggie vsako soboto speče pogačice.",
+      "it": "Nonna Maggie fa gli scones ogni sabato.",
+      "de": "Oma Maggie backt jeden Samstag Scones."
+    },
+    {
+      "en": "Auntie Edna listens to the radio every evening.",
+      "sl": "Teta Edna vsak večer posluša radio.",
+      "it": "Zia Edna ascolta la radio ogni sera.",
+      "de": "Tante Edna hört jeden Abend Radio."
+    },
+    {
+      "en": "Meg doesn't bark at the sheep.",
+      "sl": "Meg ne laja na ovce.",
+      "it": "Meg non abbaia alle pecore.",
+      "de": "Meg bellt die Schafe nicht an.",
+      "note": {
+        "en": "doesn't bark: no -s after doesn't.",
+        "sl": "doesn't bark: za doesn't ni -s.",
+        "it": "doesn't bark: niente -s dopo doesn't.",
+        "de": "doesn't bark: nach doesn't kein -s."
+      }
+    },
+    {
+      "en": "The bus goes to Keswick twice a day.",
+      "sl": "Avtobus vozi v Keswick dvakrat na dan.",
+      "it": "L'autobus va a Keswick due volte al giorno.",
+      "de": "Der Bus fährt zweimal am Tag nach Keswick.",
+      "note": {
+        "en": "go → goes: after o, add -es.",
+        "sl": "go → goes: za o dodamo -es.",
+        "it": "go → goes: dopo o si aggiunge -es.",
+        "de": "go → goes: nach o kommt -es."
+      }
+    },
+    {
+      "en": "It rains a lot in the Lake District.",
+      "sl": "V Jezernem okrožju veliko dežuje.",
+      "it": "Nel Distretto dei Laghi piove molto.",
+      "de": "Im Lake District regnet es viel.",
+      "note": {
+        "en": "English needs a subject, even for the weather: it rains.",
+        "sl": "Angleščina potrebuje osebek, tudi pri vremenu: it rains (dežuje).",
+        "it": "L'inglese vuole il soggetto, anche per il tempo: it rains (piove).",
+        "de": "Wie im Deutschen steht ein Subjekt: it rains (es regnet)."
+      }
+    },
+    {
+      "en": "Bees make honey.",
+      "sl": "Čebele delajo med.",
+      "it": "Le api fanno il miele.",
+      "de": "Bienen machen Honig."
+    }
+  ],
+  "modules": [],
+  "tags": ["present_simple", "third_person_s", "present_tense", "habits", "s_ending", "dont_doesnt"],
+  "see": ["present-continuous", "questions-do", "word-order"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

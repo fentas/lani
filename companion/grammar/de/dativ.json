@@ -1,0 +1,114 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "dativ",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🎁",
+  "title": {
+    "de": "Dem, der, mir: der Dativ",
+    "sl": "Dem, der, mir: dajalnik",
+    "en": "Dem, der, mir: the dative",
+    "it": "Dem, der, mir: il dativo"
+  },
+  "rule": {
+    "en": "The dative (*Dativ*) answers **Wem?** (to whom?) and follows many prepositions. The articles are **dem** (for der and das), **der** (for die) and **den** in the plural, where the noun adds **-n**: dem Pferd, der Kuh, den Kindern. The indefinite: **einem**, **einer**, **einem**.\n\nAfter **aus**, **bei**, **mit**, **nach**, **seit**, **von** and **zu** it is always the dative: **mit dem Hund**, **aus dem Wasser**, **von der Alm**, **nach dem Regen**. Some fuse: **zum** (zu dem), **zur** (zu der), **beim** (bei dem), **vom** (von dem).\n\nTo whom: Ich gebe **dem Pferd** Wasser. The pronouns: **mir**, **dir**, **ihm**, **ihr**, **uns**, **euch**, **ihnen/Ihnen**. **helfen** and **danken** take the dative: Ich helfe **dir**.\n\nHow you feel is said with the dative: **Mir ist kalt** (I'm cold), **mir ist warm**, **mir ist langweilig** (I'm bored). Not ich bin kalt.",
+    "sl": "Dajalnik (*Dativ*) odgovarja na **Wem?** (komu?) in stoji za mnogimi predlogi. Člen je **dem** (za der in das), **der** (za die) in v množini **den**, kjer samostalnik dobi še **-n**: dem Pferd, der Kuh, den Kindern. Nedoločni: **einem**, **einer**, **einem**.\n\nPo **aus**, **bei**, **mit**, **nach**, **seit**, **von** in **zu** je vedno dajalnik: **mit dem Hund**, **aus dem Wasser**, **von der Alm**, **nach dem Regen**. Nekateri se zlijejo s členom: **zum** (zu dem), **zur** (zu der), **beim** (bei dem), **vom** (von dem). Pozor: kjer ima slovenščina mestnik ali orodnik (pri babici, s psom), ima nemščina dajalnik.\n\nKomu: Ich gebe **dem Pferd** Wasser. Zaimki: **mir**, **dir**, **ihm**, **ihr**, **uns**, **euch**, **ihnen/Ihnen** (mi, ti, mu, ji, nam, vam, jim/vam). **helfen** in **danken** imata dajalnik, kot pomagati komu: Ich helfe **dir**.\n\nKako se počutiš, se pove z dajalnikom, kot v slovenščini **mraz mi je**: **Mir ist kalt**, **mir ist warm**, **mir ist langweilig** (dolgčas mi je). Ne ich bin kalt.",
+    "it": "Il dativo (*Dativ*) risponde a **Wem?** (a chi?) e segue molte preposizioni. Gli articoli sono **dem** (per der e das), **der** (per die) e al plurale **den**, dove il nome aggiunge **-n**: dem Pferd, der Kuh, den Kindern. L'indeterminativo: **einem**, **einer**, **einem**.\n\nDopo **aus**, **bei**, **mit**, **nach**, **seit**, **von** e **zu** c'è sempre il dativo: **mit dem Hund**, **aus dem Wasser**, **von der Alm**, **nach dem Regen**. Alcune si fondono con l'articolo, come al e dal in italiano: **zum** (zu dem), **zur** (zu der), **beim** (bei dem), **vom** (von dem).\n\nA chi: Ich gebe **dem Pferd** Wasser (do l'acqua al cavallo), senza preposizione. I pronomi: **mir**, **dir**, **ihm**, **ihr**, **uns**, **euch**, **ihnen/Ihnen** (mi, ti, gli, le, ci, vi, gli/Le). **helfen** (aiutare) e **danken** (ringraziare) vogliono il dativo: Ich helfe **dir**.\n\nCome ci si sente si dice col dativo: **Mir ist kalt** (ho freddo), **mir ist warm** (ho caldo), **mir ist langweilig** (mi annoio). Non ich habe kalt e non ich bin kalt."
+  },
+  "table": {
+    "head": [
+      { "de": "Form", "sl": "oblika", "en": "form", "it": "forma" },
+      { "de": "Nominativ", "sl": "imenovalnik", "en": "nominative", "it": "nominativo" },
+      { "de": "Dativ", "sl": "dajalnik", "en": "dative", "it": "dativo" },
+      { "de": "Beispiel", "sl": "primer", "en": "example", "it": "esempio" }
+    ],
+    "rows": [
+      [{ "de": "männlich", "sl": "moški spol", "en": "masculine", "it": "maschile" }, "der / ein", "dem / einem", "mit dem Hund"],
+      [{ "de": "weiblich", "sl": "ženski spol", "en": "feminine", "it": "femminile" }, "die / eine", "der / einer", "von der Alm"],
+      [{ "de": "sächlich", "sl": "srednji spol", "en": "neuter", "it": "neutro" }, "das / ein", "dem / einem", "aus dem Wasser"],
+      [{ "de": "Plural", "sl": "množina", "en": "plural", "it": "plurale" }, "die", "den + -n", "mit den Kindern"],
+      [{ "de": "Kurzformen", "sl": "zlite oblike", "en": "short forms", "it": "forme contratte" }, "zu dem, zu der, bei dem, von dem", "zum, zur, beim, vom", "zum Teich"],
+      [{ "de": "Pronomen", "sl": "zaimki", "en": "pronouns", "it": "pronomi" }, "ich, du, er, sie, es", "mir, dir, ihm, ihr, ihm", "Mir ist kalt."],
+      [{ "de": "Pronomen", "sl": "zaimki", "en": "pronouns", "it": "pronomi" }, "wir, ihr, sie, Sie", "uns, euch, ihnen, Ihnen", "Ich helfe Ihnen."]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Mir ist kalt. Hast du eine Decke?",
+      "sl": "Mraz mi je. Imaš odejo?",
+      "en": "I'm cold. Do you have a blanket?",
+      "it": "Ho freddo. Hai una coperta?",
+      "note": {
+        "en": "Mir ist kalt, not ich bin kalt: the person who feels it is in the Dativ.",
+        "sl": "Kot mraz mi je: oseba je v dajalniku. Ne ich bin kalt.",
+        "it": "Ho freddo = mir ist kalt (dativo), non ich bin kalt né ich habe kalt."
+      }
+    },
+    {
+      "de": "Lena gibt dem Pferd Wasser.",
+      "sl": "Lena da konju vodo.",
+      "en": "Lena gives the horse water.",
+      "it": "Lena dà l'acqua al cavallo.",
+      "note": {
+        "en": "To whom? das Pferd → dem Pferd.",
+        "sl": "Komu? das Pferd → dem Pferd.",
+        "it": "A chi? das Pferd → dem Pferd, senza preposizione."
+      }
+    },
+    {
+      "de": "Die Schafe kommen von der Alm.",
+      "sl": "Ovce prihajajo s planine.",
+      "en": "The sheep are coming down from the alpine pasture.",
+      "it": "Le pecore tornano dall'alpeggio.",
+      "note": {
+        "en": "von + die Alm → von der Alm.",
+        "sl": "von + die Alm → von der Alm.",
+        "it": "von + die Alm → von der Alm."
+      }
+    },
+    {
+      "de": "Der Hund springt aus dem Wasser.",
+      "sl": "Pes skoči iz vode.",
+      "en": "The dog jumps out of the water.",
+      "it": "Il cane salta fuori dall'acqua."
+    },
+    {
+      "de": "Nach dem Regen riecht es nach Gras.",
+      "sl": "Po dežju diši po travi.",
+      "en": "After the rain it smells of grass.",
+      "it": "Dopo la pioggia si sente l'odore dell'erba.",
+      "note": {
+        "en": "nach + Dativ: after (nach dem Regen) and smelling of (nach Gras).",
+        "sl": "nach + dajalnik, kot slovenski po: po dežju in diši po travi.",
+        "it": "nach + dativo: dopo (nach dem Regen) e odore di (nach Gras)."
+      }
+    },
+    {
+      "de": "Kannst du mir helfen? – Ja, ich helfe dir gern.",
+      "sl": "Mi lahko pomagaš? – Ja, z veseljem ti pomagam.",
+      "en": "Can you help me? – Yes, I'm happy to help you.",
+      "it": "Mi puoi aiutare? – Sì, ti aiuto volentieri.",
+      "note": {
+        "en": "helfen takes the Dativ: mir, dir.",
+        "sl": "helfen ima dajalnik, kot pomagati komu: mir, dir.",
+        "it": "helfen vuole il dativo: mir, dir (in italiano aiutare qualcuno)."
+      }
+    },
+    {
+      "de": "Jakob läuft zur Mühle.",
+      "sl": "Jakob teče k mlinu.",
+      "en": "Jakob runs to the mill.",
+      "it": "Jakob corre al mulino.",
+      "note": {
+        "en": "zur = zu der: die Mühle → zur Mühle.",
+        "sl": "zur = zu der: die Mühle → zur Mühle.",
+        "it": "zur = zu der: die Mühle → zur Mühle."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["dative", "dativ", "indirect_object", "dative_prepositions", "mir_ist_kalt", "object_pronouns", "dem"],
+  "see": ["faelle", "akkusativ", "wechselpraepositionen", "sein-haben"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

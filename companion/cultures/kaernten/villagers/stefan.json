@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "stefan",
+  "name": "Mostbauer Stefan",
+  "emoji": "🍎",
+  "art": "winemaker",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": {"de": "Mostbauer", "sl": "Sadjar in moštar", "en": "Cider maker", "it": "Produttore di sidro"},
+  "home": ["market", "spot:road"],
+  "register": "ti",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 10,
+  "routine": {
+    "up": "6:30", "bed": "22:30",
+    "rituals": [
+      { "id": "turm", "at": "21:00", "until": "21:20", "to": "watchtower", "doing": "watch", "title": {"de": "Stefan schaut vom Wachturm", "sl": "Stefan pogleda z opazovalnice", "en": "Stefan looks out from the watchtower", "it": "Stefan guarda dalla torre di guardia"} }
+    ]
+  },
+  "personality": "Easygoing young farmer, about thirty, always smiling, never in a hurry. Says du to everybody and likes it back: 'Bei uns sagt man du.' To him the borders are just lines: his friends Marko (a winemaker in Brda) and Matteo (a winemaker in the Collio) meet him at the Dreiländereck above Arnoldstein, 'three countries, one table'. Speaks cheerful, simple Austrian German: apples and pears, the harvest, the VSV. Most and Schnaps are his work, never something he offers a child; to the learner he offers apple juice.",
+  "story": "Stefan's orchard is a Streuobstwiese of old apple and pear trees on the slope below the Dobratsch, some of them older than Opa Sepp. In autumn he presses the fruit into Most, apple juice and a little Schnaps and sells them at the market in Villach. He watches the VSV, Villach's ice hockey club, with Maxi at Kathi's Gasthaus and shouts louder than anyone.",
+  "likes": [
+    {"de": "die Äpfel und Birnen", "sl": "jabolka in hruške", "en": "apples and pears", "it": "le mele e le pere"},
+    {"de": "der Most", "sl": "mošt (jabolčnik in hruškovec)", "en": "Most (Carinthian cider and perry)", "it": "il Most (sidro di mele e di pere)"},
+    {"de": "das Dreiländereck", "sl": "tromeja", "en": "the Dreiländereck (where Austria, Slovenia and Italy meet)", "it": "il Dreiländereck (dove si incontrano Austria, Slovenia e Italia)"},
+    {"de": "der VSV", "sl": "VSV (beljaški hokejski klub)", "en": "the VSV (Villach's ice hockey club)", "it": "il VSV (la squadra di hockey di Villaco)"}
+  ],
+  "lines": {
+    "greet": [
+      { "de": "Servus! Willkommen in Kärnten!", "sl": "Živjo! Dobrodošel na Koroškem!", "en": "Hi! Welcome to Carinthia!", "it": "Ciao! Benvenuto in Carinzia!", "level": 0 },
+      { "de": "Servus! Ich bin der Stefan. Ich mache Most.", "sl": "Živjo! Jaz sem Stefan. Delam mošt.", "en": "Hi! I'm Stefan. I make Most (cider).", "it": "Ciao! Io sono Stefan. Faccio il Most (il sidro).", "level": 0 },
+      { "de": "Hallo, servus! Alles gut?", "sl": "Ej, živjo! Je vse v redu?", "en": "Hey, hi! All good?", "it": "Ehi, ciao! Tutto bene?", "level": 1 },
+      { "de": "Da bist du! Komm, schau dir die Äpfel an.", "sl": "Tu si! Pridi pogledat jabolka.", "en": "There you are! Come and look at the apples.", "it": "Eccoti! Vieni a vedere le mele.", "level": 2 },
+      { "de": "He, da bist du ja! Ohne dich ist der Obstgarten traurig.", "sl": "Ej, tu si! Brez tebe je sadovnjak žalosten.", "en": "Hey, there you are! Without you the orchard is sad.", "it": "Ehi, eccoti! Senza di te il frutteto è triste.", "level": 3 },
+      { "de": "Da bist du ja! Heuer pflückst du die Äpfel mit mir, ja?", "sl": "Tu si! Letos boš z mano obiral jabolka, ja?", "en": "There you are! This year you'll pick the apples with me, yes? (heuer: Austrian for this year)", "it": "Eccoti! Quest'anno raccogli le mele con me, sì? (heuer: in Austria vuol dire quest'anno)", "level": 4 }
+    ],
+    "thanks": [
+      { "de": "Danke! Du bist ein echter Schatz.", "sl": "Hvala! Pravi zaklad si.", "en": "Thanks! You're a real treasure.", "it": "Grazie! Sei un vero tesoro." },
+      { "de": "Danke vielmals! Du hast meinen Tag gerettet.", "sl": "Najlepša hvala! Rešil si mi dan.", "en": "Thanks a lot! You saved my day.", "it": "Grazie mille! Mi hai salvato la giornata." },
+      { "de": "Danke! Das erzähle ich auch Marko und Matteo.", "sl": "Hvala! To povem tudi Marku in Matteu.", "en": "Thanks! I'll tell Marko and Matteo too.", "it": "Grazie! Lo racconto anche a Marko e a Matteo." }
+    ],
+    "remember": [
+      { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "de": "He, weißt du was? Ich denke noch an {memory}!", "sl": "Ej, veš kaj? Še vedno mislim na {memory}!", "en": "Hey, you know what? I still think of {memory}!", "it": "Ehi, sai? Ricordo ancora {memory}!", "level": 2 },
+      { "de": "Unter den Apfelbäumen denke ich oft an {memory}.", "sl": "Pod jablanami pogosto mislim na {memory}.", "en": "Under the apple trees I often think of {memory}.", "it": "Sotto i meli ricordo spesso {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "de": "Die Äpfel sind fast reif. Noch ein Monat.", "sl": "Jabolka so skoraj zrela. Še en mesec.", "en": "The apples are almost ripe. One more month.", "it": "Le mele sono quasi mature. Ancora un mese." },
+      { "de": "Drei Länder, ein Tisch: Marko, Matteo und ich.", "sl": "Tri dežele, ena miza: Marko, Matteo in jaz.", "en": "Three countries, one table: Marko, Matteo and me.", "it": "Tre paesi, un tavolo: Marko, Matteo e io." },
+      { "de": "Am Sonntag spielt der VSV. Auf geht's!", "sl": "V nedeljo igra VSV. Dajmo!", "en": "The VSV are playing on Sunday. Come on!", "it": "Domenica gioca il VSV. Forza!" },
+      { "de": "Dieser Birnbaum ist älter als Opa Sepp.", "sl": "Ta hruška je starejša od dedka Seppa.", "en": "This pear tree is older than Opa Sepp.", "it": "Questo pero è più vecchio di Opa Sepp." }
+    ],
+    "cheer": [
+      { "de": "Super!", "sl": "Super!", "en": "Great!", "it": "Bravo!" },
+      { "de": "Perfekt!", "sl": "Odlično!", "en": "Perfect!", "it": "Perfetto!" },
+      { "de": "Klasse! So macht man das!", "sl": "Super! Tako se to dela!", "en": "Great! That's how it's done!", "it": "Grande! Così si fa!" }
+    ],
+    "comfort": [
+      { "de": "Keine Sorge, das ist nichts.", "sl": "Brez skrbi, ni nič.", "en": "Don't worry, it's nothing.", "it": "Tranquillo, non è niente." },
+      { "de": "Fast! Noch ein Versuch.", "sl": "Skoraj! Še en poskus.", "en": "Almost! One more try.", "it": "Quasi! Un altro tentativo." },
+      { "de": "Auch ein Apfel braucht Zeit. Probier's noch einmal.", "sl": "Tudi jabolko potrebuje čas. Poskusi še enkrat.", "en": "An apple needs time too. Try again.", "it": "Anche una mela ha bisogno di tempo. Riprova." }
+    ],
+    "listen": [
+      { "de": "Hör zu, hör zu!", "sl": "Poslušaj, poslušaj!", "en": "Listen, listen!", "it": "Ascolta, ascolta!" },
+      { "de": "Hörst du? Hör gut zu.", "sl": "Slišiš? Dobro poslušaj.", "en": "Hear that? Listen carefully.", "it": "Senti? Ascolta bene." },
+      { "de": "Warte. Hör dir das an.", "sl": "Počakaj. Poslušaj tole.", "en": "Wait. Listen to this.", "it": "Aspetta. Ascolta questo." }
+    ],
+    "bye": [
+      { "de": "Servus!", "sl": "Adijo!", "en": "Bye!", "it": "Ciao!" },
+      { "de": "Bis bald! Ich gehe zurück in den Obstgarten.", "sl": "Se vidimo! Grem nazaj v sadovnjak.", "en": "See you! I'm going back to the orchard.", "it": "Ci vediamo! Torno nel frutteto." },
+      { "de": "Pfiat di! Hopp, VSV!", "sl": "Adijo! Dajmo, VSV! (pfiat di: koroško za »adijo«)", "en": "Bye! Come on, VSV! (pfiat di: Carinthian for bye)", "it": "Ciao! Forza VSV! (pfiat di: saluto carinziano)" }
+    ],
+    "gift": {
+      "liked": [
+        { "de": "He! Woher weißt du, dass ich das mag? Danke!", "sl": "Ej! Kako si vedel, da mi je to všeč? Hvala!", "en": "Hey! How did you know I like it? Thanks!", "it": "Ehi! Come lo sapevi che mi piace? Grazie!" },
+        { "de": "Für mich? Super! Heute Abend feiern wir.", "sl": "Zame? Super! Nocoj bomo praznovali.", "en": "For me? Great! Tonight we celebrate.", "it": "Per me? Grande! Stasera si fa festa.", "when": ["morning", "afternoon", "evening"] },
+        { "de": "Genau das wollte ich! Das erzähle ich Marko und Matteo.", "sl": "Točno to, kar sem si želel! Povem Marku in Matteu.", "en": "Just what I wanted! I'll tell Marko and Matteo.", "it": "Proprio quello che volevo! Lo racconto a Marko e a Matteo." }
+      ],
+      "ordinary": [
+        { "de": "He, danke! Wie lieb.", "sl": "Ej, hvala! Kako prijazno.", "en": "Hey, thanks! How kind.", "it": "Ehi, grazie! Che gentile." },
+        { "de": "Danke! Willst du einen Apfelsaft?", "sl": "Hvala! Bi jabolčni sok?", "en": "Thanks! Would you like some apple juice?", "it": "Grazie! Vuoi un succo di mela?" }
+      ],
+      "rare": [
+        { "de": "Na so was! So etwas! Du bist ein echter Schatz. Danke!", "sl": "Kaj takega! Res si pravi zaklad. Hvala!", "en": "Well I never! Something like this! You're a real treasure. Thanks!", "it": "Ma dai! Una cosa così! Sei proprio un tesoro. Grazie!" }
+      ]
+    }
+  }
+}

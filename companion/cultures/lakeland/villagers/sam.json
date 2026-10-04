@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "sam",
+  "name": "Brewer Sam",
+  "emoji": "🍺",
+  "art": "winemaker",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": {"en": "Brewer", "sl": "Pivovar", "it": "Birraio", "de": "Brauer"},
+  "home": ["market", "spot:road"],
+  "register": "ti",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 10,
+  "routine": {
+    "up": "6:30", "bed": "22:30",
+    "rituals": [
+      { "id": "tower", "at": "21:00", "until": "21:20", "to": "watchtower", "doing": "watch", "title": {"en": "Sam looks out from the watchtower", "sl": "Sam pogleda z opazovalnice", "it": "Sam guarda dalla torre di guardia", "de": "Sam schaut vom Wachturm"} }
+    ]
+  },
+  "personality": "Easygoing young brewer, about thirty, always smiling, never in a hurry. First names with everybody, and he likes it back: the learner calls him Sam. Small talk is his gift: the weather, the shows, the damsons, Carlisle United. His best friend Marko makes wine in Brda, Slovenia. Cheerful, simple British English, with a 'Now then!' and an 'Aye'. Ale is his work, never something he offers a child: to children he offers damson juice.",
+  "story": "Sam's little brewery stands by the beck, where the water is clean and cold. He sells his ale in Keswick and at the summer shows, and every September he calls the whole village to pick the damsons on the terraces above the dale, for damson jam. He visits Marko in Brda every spring. On Saturdays he listens to Carlisle United on BBC Radio Cumbria and talks football with Harry.",
+  "likes": [
+    {"en": "damsons (small dark plums)", "sl": "slive damson (majhne temne slive)", "it": "le susine damaschine (piccole prugne scure)", "de": "Damaszenerpflaumen (kleine dunkle Pflaumen)"},
+    {"en": "brewing", "sl": "varjenje piva", "it": "fare la birra", "de": "Bier brauen"},
+    {"en": "Brda (the wine hills in Slovenia, where Marko lives)", "sl": "Brda (vinorodni griči, kjer živi Marko)", "it": "il Collio sloveno (le colline del vino, dove vive Marko)", "de": "Brda (die Weinhügel in Slowenien, wo Marko lebt)"},
+    {"en": "football (Carlisle United)", "sl": "nogomet (Carlisle United)", "it": "il calcio (il Carlisle United)", "de": "Fußball (Carlisle United)"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Now then! Welcome to the dale!", "sl": "Živjo! Dobrodošel v dolini! (now then: tako v Cumbrii rečejo »živjo«)", "it": "Ciao! Benvenuto nella valle! (now then: così in Cumbria si dice «ciao»)", "de": "Hallo! Willkommen im Tal! (now then: so sagt man in Cumbria »hallo«)", "level": 0 },
+      { "en": "Hi! I'm Sam. I make ale.", "sl": "Živjo! Jaz sem Sam. Varim pivo.", "it": "Ciao! Io sono Sam. Faccio la birra.", "de": "Hallo! Ich bin Sam. Ich braue Bier.", "level": 0 },
+      { "en": "Hey, hi! All right?", "sl": "Ej, živjo! Vse v redu?", "it": "Ehi, ciao! Tutto bene?", "de": "Hey, hallo! Alles gut?", "level": 1 },
+      { "en": "Friend! Come and see the damsons.", "sl": "Prijatelj! Pridi pogledat slive.", "it": "Amico! Vieni a vedere le susine.", "de": "Mein Freund! Komm, schau dir die Pflaumen an.", "level": 2 },
+      { "en": "Hey, there you are! The brewery is too quiet without you.", "sl": "Ej, tu si! Brez tebe je v pivovarni pretiho.", "it": "Ehi, eccoti! Senza di te il birrificio è troppo tranquillo.", "de": "Hey, da bist du ja! Ohne dich ist es in der Brauerei zu still.", "level": 3 },
+      { "en": "Marra! This year you're picking damsons with me, aye?", "sl": "Prijatelj! Letos boš z mano obiral slive, ja? (marra: tako v Cumbrii rečejo prijatelju)", "it": "Amico mio! Quest'anno raccogli le susine con me, sì? (marra: così in Cumbria si dice «amico»)", "de": "Kumpel! Dieses Jahr pflückst du mit mir die Pflaumen, ja? (marra: so sagt man in Cumbria »Freund«)", "level": 4 }
+    ],
+    "thanks": [
+      { "en": "Cheers! You're a true friend.", "sl": "Hvala! Pravi prijatelj si.", "it": "Grazie! Sei un vero amico.", "de": "Danke! Du bist ein echter Freund." },
+      { "en": "Thanks a lot! You saved my day.", "sl": "Najlepša hvala! Rešil si mi dan.", "it": "Grazie mille! Mi hai salvato la giornata.", "de": "Vielen Dank! Du hast meinen Tag gerettet." },
+      { "en": "Thanks! I'm going to tell Marko too, in Slovenia.", "sl": "Hvala! To bom povedal tudi Marku v Sloveniji.", "it": "Grazie! Lo racconto anche a Marko, in Slovenia.", "de": "Danke! Das erzähle ich auch Marko in Slowenien." }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "Hey, you know what? I still think of {memory}!", "sl": "Ej, veš kaj? Še vedno mislim na {memory}!", "it": "Ehi, sai? Ricordo ancora {memory}!", "de": "Hey, weißt du was? Ich denke immer noch an {memory}!", "level": 2 },
+      { "en": "Under the damson trees I often think of {memory}.", "sl": "Pod slivami pogosto mislim na {memory}.", "it": "Sotto i susini ricordo spesso {memory}.", "de": "Unter den Pflaumenbäumen denke ich oft an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "en": "The damsons are almost ready. One more month.", "sl": "Slive so skoraj zrele. Še en mesec.", "it": "Le susine sono quasi mature. Ancora un mese.", "de": "Die Pflaumen sind fast reif. Noch ein Monat." },
+      { "en": "Rain again. Good for the beck, good for the brewery.", "sl": "Spet dežuje. Dobro za potok, dobro za pivovarno.", "it": "Piove di nuovo. Bene per il ruscello, bene per il birrificio.", "de": "Schon wieder Regen. Gut für den Bach, gut für die Brauerei." },
+      { "en": "Carlisle United are playing on Saturday. Come on!", "sl": "V soboto igra Carlisle United. Dajmo!", "it": "Sabato gioca il Carlisle United. Forza!", "de": "Am Samstag spielt Carlisle United. Auf geht's!" },
+      { "en": "My friend Marko makes wine in Brda, in Slovenia.", "sl": "Moj prijatelj Marko dela vino v Brdih, v Sloveniji.", "it": "Il mio amico Marko fa il vino a Brda, nel Collio sloveno.", "de": "Mein Freund Marko macht Wein in Brda, in Slowenien." }
+    ],
+    "cheer": [
+      { "en": "Well done!", "sl": "Bravo!", "it": "Bravo!", "de": "Gut gemacht!" },
+      { "en": "Brilliant!", "sl": "Odlično!", "it": "Fantastico!", "de": "Klasse!" },
+      { "en": "Great! That's how it's done!", "sl": "Super! Tako se to dela!", "it": "Grande! Così si fa!", "de": "Super! So macht man das!" }
+    ],
+    "comfort": [
+      { "en": "Don't worry, it's nothing.", "sl": "Brez skrbi, ni nič.", "it": "Tranquillo, non è niente.", "de": "Keine Sorge, das ist nicht schlimm." },
+      { "en": "Almost! One more go.", "sl": "Skoraj! Še en poskus.", "it": "Quasi! Un altro tentativo.", "de": "Fast! Noch ein Versuch." },
+      { "en": "Damsons need time too. Try again.", "sl": "Tudi slive potrebujejo čas. Poskusi še enkrat.", "it": "Anche le susine hanno bisogno di tempo. Riprova.", "de": "Auch Pflaumen brauchen Zeit. Versuch es noch mal." }
+    ],
+    "listen": [
+      { "en": "Listen, listen!", "sl": "Poslušaj, poslušaj!", "it": "Ascolta, ascolta!", "de": "Hör mal, hör mal!" },
+      { "en": "Hear that? Listen carefully.", "sl": "Slišiš? Dobro poslušaj.", "it": "Senti? Ascolta bene.", "de": "Hörst du das? Hör gut zu." },
+      { "en": "Wait. Listen to this.", "sl": "Počakaj. Poslušaj tole.", "it": "Aspetta. Ascolta questo.", "de": "Warte. Hör dir das an." }
+    ],
+    "bye": [
+      { "en": "Bye!", "sl": "Adijo!", "it": "Ciao!", "de": "Tschüss!" },
+      { "en": "See you! I'm going back to the brewery.", "sl": "Se vidiva! Grem nazaj v pivovarno.", "it": "Ci vediamo! Torno al birrificio.", "de": "Bis dann! Ich gehe zurück in die Brauerei." },
+      { "en": "Cheers! See you at the show!", "sl": "Adijo! Se vidiva na sejmu! (cheers: v Angliji tudi »hvala« in »adijo«)", "it": "Ciao! Ci vediamo alla fiera! (cheers: in Inghilterra anche «grazie» e «ciao»)", "de": "Tschüss! Wir sehen uns auf der Landwirtschaftsschau! (cheers: in England auch »danke« und »tschüss«)" }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "Hey! How did you know I like it? Thanks, friend!", "sl": "Ej! Kako si vedel, da mi je všeč? Hvala, prijatelj!", "it": "Ehi! Come lo sapevi che mi piace? Grazie, amico!", "de": "Hey! Woher wusstest du, dass ich das mag? Danke, mein Freund!" },
+        { "en": "For me? Great! Tonight we celebrate.", "sl": "Zame? Super! Nocoj praznujemo.", "it": "Per me? Grande! Stasera si fa festa.", "de": "Für mich? Super! Heute Abend wird gefeiert." },
+        { "en": "Just what I wanted! I'm going to tell Marko.", "sl": "Točno to, kar sem si želel! Povem Marku.", "it": "Proprio quello che volevo! Lo racconto a Marko.", "de": "Genau das wollte ich! Das erzähle ich Marko." }
+      ],
+      "ordinary": [
+        { "en": "Hey, cheers! That's kind.", "sl": "Ej, hvala! Kako prijazno.", "it": "Ehi, grazie! Che gentile.", "de": "Hey, danke! Wie nett." },
+        { "en": "Thanks, friend! Some damson juice?", "sl": "Hvala, prijatelj! Malo slivovega soka?", "it": "Grazie, amico! Un succo di susine?", "de": "Danke, mein Freund! Ein bisschen Pflaumensaft?" }
+      ],
+      "rare": [
+        { "en": "No way! Something like this! You're a real friend. Thanks!", "sl": "Daj no! Kaj takega! Res si prijatelj. Hvala!", "it": "Ma dai! Una cosa così! Sei proprio un amico. Grazie!", "de": "Echt jetzt? So etwas! Du bist ein echter Freund. Danke!" }
+      ]
+    }
+  }
+}

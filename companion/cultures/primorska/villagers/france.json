@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "france",
+  "name": "Mlinar France",
+  "emoji": "🧑‍🌾",
+  "art": "farmer",
+  "voice": "male",
+  "speaker": "grandpa",
+  "role": { "sl": "Mlinar in kmet", "en": "Miller and farmer", "de": "Müller und Bauer", "it": "Mugnaio e contadino" },
+  "home": ["field", "kozolec"],
+  "register": "vi",
+  "skill": "food",
+  "order": 5,
+  "routine": { "up": "5:00", "bed": "21:00" },
+  "personality": "Practical miller and farmer, counts everything out loud ('sedem, sedem'), cheerful at harvest time and worried about the weather the rest of the year. Says ti to Jan, expects vi. Speaks in lists and numbers, says 'sosedje smo' (we are neighbours) a lot and never takes money from a neighbour.",
+  "story": "France is the village's miller and farms the big field below it; until the village builds its own mill on the stream (a project he leads, and talks about every morning at the water) he takes the grain to the old mill down in the valley. His grandson Tine follows him everywhere. His hayrack (kozolec) is the finest on the plateau and his horse Sivko the oldest. He brings firewood to the fire on weekdays and counts every log twice.",
+  "likes": [
+    { "sl": "žetev", "en": "the harvest", "de": "die Ernte", "it": "il raccolto" },
+    { "sl": "kozolec", "en": "the hayrack", "de": "die Heuharfe", "it": "l'essiccatoio per il fieno" },
+    { "sl": "številke", "en": "numbers", "de": "Zahlen", "it": "i numeri" },
+    { "sl": "vreme", "en": "the weather", "de": "das Wetter", "it": "il tempo" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Dober dan. France. Mlinar.", "en": "Good day. France. The miller.", "de": "Guten Tag. France. Der Müller.", "it": "Buongiorno. France. Il mugnaio.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober dan! Lep dan za delo.", "en": "Good day! A nice day for work.", "de": "Guten Tag! Ein schöner Tag zum Arbeiten.", "it": "Buongiorno! Una bella giornata per lavorare.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober večer. France. Mlin že počiva.", "en": "Good evening. France. The mill is resting now.", "de": "Guten Abend. France. Die Mühle ruht schon.", "it": "Buonasera. France. Il mulino riposa già.", "level": 0, "when": ["evening", "night"] },
+      { "sl": "Dober dan, Jan! Si prišel pomagat?", "en": "Good day, Jan! Have you come to help?", "de": "Guten Tag, Jan! Bist du gekommen, um zu helfen?", "it": "Buongiorno, Jan! Sei venuto ad aiutare?", "level": 1, "when": ["morning", "afternoon"] },
+      { "sl": "Jan, sosed! Ravno prav, žetev je.", "en": "Jan, neighbour! Just in time, it's harvest.", "de": "Jan, Nachbar! Gerade recht, es ist Ernte.", "it": "Jan, vicino! Arrivi giusto, c'è il raccolto.", "level": 2 },
+      { "sl": "O, Jan! Tine te že čaka. Pridi.", "en": "Oh, Jan! Tine is already waiting for you. Come.", "de": "Oh, Jan! Tine wartet schon auf dich. Komm.", "it": "Oh, Jan! Tine ti sta già aspettando. Vieni.", "level": 3 },
+      { "sl": "Jan, ti si kot moj sin. Pridi, kosilo je na njivi.", "en": "Jan, you are like my son. Come, lunch is at the field.", "de": "Jan, du bist wie mein Sohn. Komm, das Mittagessen gibt es auf dem Feld.", "it": "Jan, sei come un figlio per me. Vieni, il pranzo è nel campo.", "level": 4 }
+    ],
+    "thanks": [
+      { "sl": "Hvala lepa, Jan. Sosedje smo.", "en": "Thanks a lot, Jan. We are neighbours.", "de": "Vielen Dank, Jan. Wir sind Nachbarn.", "it": "Grazie mille, Jan. Siamo vicini." },
+      { "sl": "Hvala! Ena, dve, tri … tri vreče moke zate.", "en": "Thanks! One, two, three … three sacks of flour for you.", "de": "Danke! Eins, zwei, drei … drei Säcke Mehl für dich.", "it": "Grazie! Uno, due, tre … tre sacchi di farina per te." },
+      { "sl": "Priden si. Hvala.", "en": "You are a good worker. Thanks.", "de": "Du bist fleißig. Danke.", "it": "Sei un gran lavoratore. Grazie." }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Ne pozabim na {memory}. Tine tudi ne.", "en": "I do not forget {memory}. Neither does Tine.", "de": "{memory} vergesse ich nicht. Tine auch nicht.", "it": "Non dimentico {memory}. E neanche Tine.", "level": 2 },
+      { "sl": "Kadar štejem snope, mislim na {memory}.", "en": "When I count the sheaves, I think of {memory}.", "de": "Wenn ich die Garben zähle, denke ich an {memory}.", "it": "Quando conto i covoni, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "sl": "Sedem polen. Sedem. Sem preštel.", "en": "Seven logs. Seven. I counted.", "de": "Sieben Holzscheite. Sieben. Ich habe gezählt.", "it": "Sette ciocchi. Sette. Li ho contati." },
+      { "sl": "Jutri bo dež. Seno mora pod streho.", "en": "Tomorrow it will rain. The hay must go under the roof.", "de": "Morgen regnet es. Das Heu muss unters Dach.", "it": "Domani piove. Il fieno deve andare sotto il tetto." },
+      { "sl": "Mlin melje, mlin melje. Cel dan.", "en": "The mill grinds, the mill grinds. All day.", "de": "Die Mühle mahlt, die Mühle mahlt. Den ganzen Tag.", "it": "Il mulino macina, il mulino macina. Tutto il giorno." },
+      { "sl": "Kozolec je poln. Dobro leto.", "en": "The hayrack is full. A good year.", "de": "Die Heuharfe ist voll. Ein gutes Jahr.", "it": "L'essiccatoio è pieno. Una buona annata." }
+    ],
+    "cheer": [
+      { "sl": "Bravo! To je snop na kozolcu.", "en": "Well done! That's a sheaf on the hayrack.", "de": "Gut gemacht! Das ist eine Garbe auf der Heuharfe.", "it": "Bravo! Questo è un covone sull'essiccatoio." },
+      { "sl": "Tako! Ena, dve, tri, prav!", "en": "That's it! One, two, three, right!", "de": "So! Eins, zwei, drei, richtig!", "it": "Così! Uno, due, tre, giusto!" },
+      { "sl": "Dobro, sosed!", "en": "Good, neighbour!", "de": "Gut, Nachbar!", "it": "Bene, vicino!" }
+    ],
+    "comfort": [
+      { "sl": "Nič hudega. Tudi žito ne zraste v enem dnevu.", "en": "Never mind. Wheat does not grow in a day either.", "de": "Macht nichts. Auch das Korn wächst nicht an einem Tag.", "it": "Non fa niente. Neanche il grano cresce in un giorno." },
+      { "sl": "Še enkrat. Počasi, kot mlin.", "en": "Once more. Slowly, like the mill.", "de": "Noch einmal. Langsam, wie die Mühle.", "it": "Ancora una volta. Piano, come il mulino." },
+      { "sl": "Ah, saj bo. Poskusi še enkrat.", "en": "Ah, it will come. Try again.", "de": "Ach, das wird schon. Versuch es noch einmal.", "it": "Ah, ci arriverai. Riprova." }
+    ],
+    "listen": [
+      { "sl": "Poslušaj. Preštej.", "en": "Listen. Count.", "de": "Hör zu. Zähl mit.", "it": "Ascolta. Conta." },
+      { "sl": "Tiho, poslušaj mlin.", "en": "Quiet, listen to the mill.", "de": "Leise, hör der Mühle zu.", "it": "Silenzio, ascolta il mulino." },
+      { "sl": "Dobro poslušaj, sosed.", "en": "Listen carefully, neighbour.", "de": "Hör gut zu, Nachbar.", "it": "Ascolta bene, vicino." }
+    ],
+    "bye": [
+      { "sl": "Na svidenje, Jan!", "en": "Goodbye, Jan!", "de": "Auf Wiedersehen, Jan!", "it": "Arrivederci, Jan!" },
+      { "sl": "Adijo. Zvečer zakuri!", "en": "Bye. Light the fire in the evening!", "de": "Tschüss. Mach am Abend Feuer!", "it": "Ciao. Stasera accendi il fuoco!", "when": ["morning", "afternoon", "evening"] },
+      { "sl": "Pojdi, pojdi. Jaz grem v mlin.", "en": "Go, go. I'm off to the mill.", "de": "Geh nur, geh. Ich gehe in die Mühle.", "it": "Vai, vai. Io vado al mulino." }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "O, Jan! Kako si vedel? To imam najraje.", "en": "Oh, Jan! How did you know? This is my favourite.", "de": "Oh, Jan! Woher wusstest du das? Das mag ich am liebsten.", "it": "Oh, Jan! Come lo sapevi? È la cosa che preferisco." },
+        { "sl": "Sosed, to je pa lepo! Točno to sem potreboval.", "en": "Neighbour, this is nice! Exactly what I needed.", "de": "Nachbar, das ist aber schön! Genau das habe ich gebraucht.", "it": "Vicino, che bello! Proprio quello che mi serviva." },
+        { "sl": "Hvala! Danes štejem samo lepe stvari. Ena!", "en": "Thank you! Today I only count nice things. One!", "de": "Danke! Heute zähle ich nur schöne Dinge. Eins!", "it": "Grazie! Oggi conto solo le cose belle. Una!" }
+      ],
+      "ordinary": [
+        { "sl": "Hvala, sosed. Sosedje smo, veš.", "en": "Thank you, neighbour. We're neighbours, you know.", "de": "Danke, Nachbar. Wir sind Nachbarn, weißt du.", "it": "Grazie, vicino. Siamo vicini, sai." },
+        { "sl": "O, hvala, Jan. Ni bilo treba.", "en": "Oh, thank you, Jan. You didn't have to.", "de": "Oh, danke, Jan. Das wäre nicht nötig gewesen.", "it": "Oh, grazie, Jan. Non dovevi." }
+      ],
+      "rare": [
+        { "sl": "Joj, Jan! Tega pa nisem pričakoval. Tisočkrat hvala!", "en": "Oh, Jan! I didn't expect that. A thousand thanks!", "de": "Ach, Jan! Damit habe ich nicht gerechnet. Tausend Dank!", "it": "Oh, Jan! Non me l'aspettavo. Mille grazie!" }
+      ]
+    }
+  }
+}

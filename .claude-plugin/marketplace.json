@@ -1,0 +1,36 @@
+{
+  "name": "lani",
+  "owner": {
+    "name": "Jan Guth"
+  },
+  "metadata": {
+    "description": "Lani — a language learning game with a Claude Code tutor. Single-plugin marketplace hosting the lani plugin.",
+    "version": "0.4.0"
+  },
+  "plugins": [
+    {
+      "name": "lani",
+      "source": "./",
+      "description": "Lani — AI Language Learning Kit. Personal AI tutor for any target language (Dutch, Spanish, French, German, Japanese, Korean, Arabic, and more). Uses spaced repetition (SM-2), active recall, adaptive difficulty, and progress tracking across 6 databases. Run /lani-setup to onboard, then /lani-learn, /lani-vocab, /lani-writing, /lani-speaking, /lani-reading, /lani-review daily.",
+      "category": "education",
+      "tags": [
+        "language",
+        "learning",
+        "tutor",
+        "spaced-repetition",
+        "education",
+        "sm2",
+        "flashcards"
+      ],
+      "homepage": "https://fentas.github.io/lani/",
+      "repository": "https://github.com/fentas/lani",
+      "license": "AGPL-3.0-or-later",
+      "author": {
+        "name": "Jan Guth",
+        "url": "https://github.com/fentas"
+      },
+      "version": "0.4.0",
+      "strict": true
+    }
+  ]
+}

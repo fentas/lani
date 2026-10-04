@@ -1,0 +1,60 @@
+{
+  "id": "stara-pratika",
+  "kind": "page",
+  "level": "A2",
+  "title": { "sl": "Stara pratika", "en": "An old almanac", "de": "Ein alter Almanach", "it": "Un vecchio almanacco" },
+  "by": "janez",
+  "lines": [
+    { "text": { "sl": "To knjigo je imel že moj ded.", "en": "My grandfather already had this book.", "de": "Dieses Buch hatte schon mein Großvater.", "it": "Questo libro l'aveva già mio nonno." } },
+    { "text": { "sl": "To je pratika, kmečki koledar.", "en": "It's a pratika, a farmers' calendar.", "de": "Das ist eine Pratika, ein Bauernkalender.", "it": "È una pratika, un calendario contadino." } },
+    { "text": { "sl": "Včasih so ljudje v pratiki brali, kakšno bo vreme.", "en": "In the old days people read in the pratika what the weather would be like.", "de": "Früher lasen die Leute in der Pratika, wie das Wetter werden würde.", "it": "Una volta la gente leggeva nella pratika che tempo avrebbe fatto." } },
+    { "text": { "sl": "Elektrike ni bilo, zato so zvečer brali ob sveči.", "en": "There was no electricity, so in the evening they read by candlelight.", "de": "Es gab keinen Strom, darum lasen sie abends bei Kerzenlicht.", "it": "Non c'era la corrente, così la sera leggevano a lume di candela." } },
+    { "text": { "sl": "Na zadnji strani je star rek:", "en": "On the last page there is an old saying:", "de": "Auf der letzten Seite steht ein alter Spruch:", "it": "Nell'ultima pagina c'è un vecchio detto:" } },
+    { "text": { "sl": "»Sveti Matija led razbija; če ga ni, ga pa naredi.«", "en": "»St Matthias breaks the ice; if there is none, he makes some.«", "de": "»Der heilige Matthias bricht das Eis; wenn keins da ist, macht er welches.«", "it": "«San Mattia rompe il ghiaccio; se non c'è, lo fa lui.»" } },
+    { "text": { "sl": "Konec februarja je lahko toplo ali pa spet zelo mrzlo.", "en": "At the end of February it can be warm, or very cold again.", "de": "Ende Februar kann es warm sein oder wieder sehr kalt.", "it": "Alla fine di febbraio può fare caldo, oppure di nuovo molto freddo." } },
+    { "text": { "sl": "Na gregorjevo, dvanajstega marca, se ptički ženijo.", "en": "On St Gregory's Day, the twelfth of March, the birds get married.", "de": "Am Gregoriustag, dem zwölften März, heiraten die Vögel.", "it": "Il giorno di San Gregorio, il dodici marzo, gli uccellini si sposano." } },
+    { "text": { "sl": "Takrat vemo, da je pomlad blizu.", "en": "Then we know that spring is near.", "de": "Dann wissen wir, dass der Frühling nahe ist.", "it": "Allora sappiamo che la primavera è vicina." } }
+  ],
+  "questions": [
+    {
+      "type": "detail",
+      "ask": { "sl": "Čigava je bila knjiga prej?", "en": "Whose was the book before?", "de": "Wem gehörte das Buch früher?", "it": "Di chi era il libro prima?" },
+      "options": ["Janezovega deda", "Janezovega sina", "Učiteljice Mojce"],
+      "explain": {
+        "sl": "»To knjigo je imel že moj ded.« Ded je stari oče.",
+        "en": "»My grandfather already had this book.« A ded is a grandfather.",
+        "de": "»Dieses Buch hatte schon mein Großvater.« Ein ded ist ein Großvater.",
+        "it": "«Questo libro l'aveva già mio nonno.» Un ded è un nonno."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "Kdaj se ptički ženijo?", "en": "When do the birds get married?", "de": "Wann heiraten die Vögel?", "it": "Quando si sposano gli uccellini?" },
+      "options": ["Na gregorjevo", "Na martinovo", "Za božič"],
+      "explain": {
+        "sl": "Gregorjevo je 12. marca. Takrat se ptički ženijo in pomlad je blizu.",
+        "en": "St Gregory's Day is on 12 March. The birds marry then, and spring is near.",
+        "de": "Der Gregoriustag ist am 12. März. Dann heiraten die Vögel, und der Frühling ist nahe.",
+        "it": "San Gregorio è il 12 marzo. Allora gli uccellini si sposano, e la primavera è vicina."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "sl": "Pratika je knjiga receptov.", "en": "A pratika is a recipe book.", "de": "Eine Pratika ist ein Kochbuch.", "it": "Una pratika è un libro di ricette." },
+      "answer": false,
+      "explain": {
+        "sl": "Ne drži: »To je pratika, kmečki koledar.« V njej so ljudje brali, kakšno bo vreme.",
+        "en": "False: »It's a pratika, a farmers' calendar.« People read in it what the weather would be like.",
+        "de": "Stimmt nicht: »Das ist eine Pratika, ein Bauernkalender.« Darin lasen die Leute, wie das Wetter werden würde.",
+        "it": "Falso: «È una pratika, un calendario contadino.» Ci si leggeva che tempo avrebbe fatto."
+      }
+    }
+  ],
+  "words": [
+    { "word": "ded", "pos": "noun", "means": { "en": "a grandfather", "de": "ein Großvater", "it": "un nonno" } },
+    { "word": "koledar", "pos": "noun", "means": { "en": "a calendar", "de": "ein Kalender", "it": "un calendario" } },
+    { "word": "sveča", "form": "sveči", "pos": "noun", "means": { "en": "a candle", "de": "eine Kerze", "it": "una candela" } },
+    { "word": "vreme", "pos": "noun", "means": { "en": "the weather", "de": "das Wetter", "it": "il tempo (che fa)" } },
+    { "word": "pomlad", "pos": "noun", "means": { "en": "spring", "de": "der Frühling", "it": "la primavera" } }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "festa-natale",
+  "language": "it",
+  "title": { "it": "Il Natale", "sl": "Božič", "en": "Christmas", "de": "Weihnachten" },
+  "emoji": "🎄",
+  "level": "A1",
+  "description": {
+    "sl": "25. decembra. Babica Rosa postavi jaslice, pod drevescem so darila, na mizi pa panettone.",
+    "en": "25 December. Nonna Rosa sets up the nativity scene, there are presents under the tree and a panettone on the table.",
+    "de": "25. Dezember. Nonna Rosa baut die Krippe auf, unter dem Baum liegen Geschenke und auf dem Tisch steht ein Panettone."
+  },
+  "giver": { "name": "Nonna Rosa", "emoji": "👵" },
+  "festival": "natale",
+  "review": "de: machine-written, not reviewed by a native speaker",
+  "words": [
+    { "id": "natale", "it": "il Natale", "sl": "božič", "en": "Christmas", "de": "Weihnachten", "emoji": "🎄", "gender": "m",
+      "example_it": "A Natale siamo tutti a casa.", "example_sl": "Za božič smo vsi doma.", "example_en": "At Christmas we're all at home.", "example_de": "An Weihnachten sind wir alle zu Hause." },
+    { "id": "buon-natale", "it": "Buon Natale!", "sl": "Vesel božič!", "en": "Merry Christmas!", "de": "Frohe Weihnachten!", "emoji": "✨",
+      "example_it": "Buon Natale, nonna Rosa!", "example_sl": "Vesel božič, babica Rosa!", "example_en": "Merry Christmas, Nonna Rosa!", "example_de": "Frohe Weihnachten, Nonna Rosa!" },
+    { "id": "presepe", "it": "il presepe", "sl": "jaslice", "en": "nativity scene", "de": "Weihnachtskrippe", "emoji": "🛖", "gender": "m", "plural": "i presepi",
+      "example_it": "Facciamo il presepe con la nonna.", "example_sl": "Z babico postavimo jaslice.", "example_en": "We set up the nativity scene with Grandma.", "example_de": "Wir bauen mit Oma die Krippe auf.",
+      "note": "Singular in Italian: il presepe (Slovene jaslice is plural).",
+      "note_sl": "Jaslice so v množini, il presepe je v ednini.",
+      "note_de": "Im Italienischen Singular: il presepe (slowenisch jaslice ist Plural)." },
+    { "id": "albero-di-natale", "it": "l'albero di Natale", "sl": "božično drevo", "en": "Christmas tree", "de": "Weihnachtsbaum", "emoji": "🌲", "gender": "m", "plural": "gli alberi di Natale",
+      "example_it": "Sotto l'albero ci sono i regali.", "example_sl": "Pod drevesom so darila.", "example_en": "The presents are under the tree.", "example_de": "Die Geschenke liegen unter dem Baum." },
+    { "id": "babbo-natale", "it": "Babbo Natale", "sl": "Božiček", "en": "Father Christmas", "de": "Weihnachtsmann", "emoji": "🎅", "gender": "m",
+      "example_it": "Babbo Natale arriva con la slitta.", "example_sl": "Božiček pride s sanmi.", "example_en": "Father Christmas comes on his sleigh.", "example_de": "Der Weihnachtsmann kommt mit seinem Schlitten." },
+    { "id": "panettone", "it": "il panettone", "sl": "panettone (božični kolač)", "en": "panettone (Christmas cake)", "de": "Panettone (Weihnachtskuchen)", "emoji": "🍰", "gender": "m", "plural": "i panettoni",
+      "example_it": "Il panettone ha l'uvetta.", "example_sl": "Panettone ima rozine.", "example_en": "The panettone has raisins in it.", "example_de": "Im Panettone sind Rosinen." },
+    { "id": "neve", "it": "la neve", "sl": "sneg", "en": "snow", "de": "Schnee", "emoji": "❄️", "gender": "f",
+      "example_it": "Fuori c'è la neve.", "example_sl": "Zunaj je sneg.", "example_en": "There's snow outside.", "example_de": "Draußen liegt Schnee.",
+      "note": "nevica: it's snowing.",
+      "note_sl": "nevica: sneži.",
+      "note_de": "nevica: Es schneit." },
+    { "id": "candela", "it": "la candela", "sl": "sveča", "en": "candle", "de": "Kerze", "emoji": "🕯️", "gender": "f", "plural": "le candele",
+      "example_it": "Accendiamo una candela.", "example_sl": "Prižgimo svečo.", "example_en": "Let's light a candle.", "example_de": "Zünden wir eine Kerze an!" }
+  ]
+}

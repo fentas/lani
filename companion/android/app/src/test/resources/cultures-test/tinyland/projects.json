@@ -1,0 +1,22 @@
+{
+  "projects": [
+    {
+      "id": "mlaj",
+      "leader": "nino",
+      "helpers": ["pina"],
+      "name": { "it": "L'albero di maggio", "en": "The maypole" },
+      "in_text": { "en": "the maypole" },
+      "about": { "it": "Un albero alto in piazza.", "en": "A tall tree on the square." },
+      "steps": [
+        { "task": { "it": "Scegliere un abete", "en": "Choose a fir" }, "line": { "it": "Nino ha scelto un abete.", "en": "Nino chose a fir." } },
+        { "task": { "it": "Portarlo in paese", "en": "Bring it to the village" }, "line": { "it": "L'abete è in paese.", "en": "The fir is in the village." } },
+        { "task": { "it": "Pulire il tronco", "en": "Peel the trunk" }, "line": { "it": "Il tronco è pulito.", "en": "The trunk is peeled." } },
+        { "task": { "it": "Fare la ghirlanda", "en": "Weave a wreath" }, "line": { "it": "La ghirlanda è pronta.", "en": "The wreath is ready." } },
+        { "task": { "it": "Alzare l'albero", "en": "Raise the maypole" }, "line": { "it": "L'albero è in piedi!", "en": "The maypole stands!" } }
+      ],
+      "done": { "it": "L'albero di maggio è in piedi!", "en": "The maypole stands!" },
+      "memory": { "it": "il nostro albero di maggio", "en": "our maypole" }
+    }
+  ],
+  "lines": { "try_again": { "it": "{leader}: Non fa niente, riproviamo", "en": "Never mind, let's try again" } }
+}

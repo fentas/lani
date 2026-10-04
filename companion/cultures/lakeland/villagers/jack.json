@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "jack",
+  "name": "Shepherd Jack",
+  "emoji": "🐑",
+  "art": "shepherd",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": {"en": "Shepherd", "sl": "Pastir", "it": "Pastore", "de": "Schäfer"},
+  "home": ["spot:meadow", "tent"],
+  "register": "ti",
+  "skill": "wood",
+  "order": 2,
+  "routine": {
+    "up": "5:00", "bed": "21:50",
+    "rituals": [
+      { "id": "sheep", "at": "21:25", "until": "21:45", "to": "spot:meadow", "doing": "tend", "title": {"en": "Jack and Meg check the sheep in the fold", "sl": "Jack in Meg pogledata ovce v staji", "it": "Jack e Meg controllano le pecore nell'ovile", "de": "Jack und Meg schauen nach den Schafen im Pferch"} }
+    ]
+  },
+  "personality": "Young Herdwick shepherd, twenty-two, from a farm on the fell above the village. Cheerful, a little absent-minded, whistles to his sheepdog Meg ('Come by!', 'Away!', 'Lie down!', 'That'll do!') and talks to his sheep by name. A fell runner. Short sentences, lots of 'Now then!' and 'Aye'. First names both ways: he calls the learner by name or 'mate', and the learner calls him Jack. Speaks simple, bright British English. Loves the fells and the wind on the tops; hates the mist, because the sheep get lost in it.",
+  "story": "Jack grazes the village's Herdwick sheep on the meadow below the fell and takes them up the fell in summer, where you can see Derwentwater and Skiddaw. Herdwick lambs are born black and go grey; Sooty, the little black lamb, keeps getting lost, and every dog in Borrowdale knows Jack's whistle. He sleeps in the tent till the tent moves to the pond, runs up the fells for fun, and dreams of a stone hut of his own up on the fell.",
+  "likes": [
+    {"en": "his Herdwick sheep", "sl": "ovce herdwick (gorska pasma iz Cumbrie)", "it": "le pecore Herdwick (una razza di montagna della Cumbria)", "de": "Herdwick-Schafe (eine Bergrasse aus Cumbria)"},
+    {"en": "Meg, his sheepdog", "sl": "Meg, njegova ovčarska psička", "it": "Meg, il suo cane pastore", "de": "Meg, seine Hütehündin"},
+    {"en": "the fells", "sl": "hribi (fell: v Cumbrii gora)", "it": "i monti (fell: in Cumbria, il monte)", "de": "die Berge (fell: in Cumbria ein Berg)"},
+    {"en": "fell running", "sl": "gorski tek", "it": "la corsa in montagna", "de": "Berglauf"}
+  ],
+  "lines": {
+    "greet": [
+      { "en": "Now then! Are you new here?", "sl": "Now then! Si nov tukaj? (now then: tako v Cumbrii rečejo živjo)", "it": "Now then! Sei nuovo? (now then: così in Cumbria si dice ciao)", "de": "Now then! Bist du neu hier? (now then: so sagt man in Cumbria Hallo)", "level": 0 },
+      { "en": "Hi! I'm Jack, the shepherd.", "sl": "Živjo! Jack sem, pastir.", "it": "Ciao! Sono Jack, il pastore.", "de": "Hallo! Ich bin Jack, der Schäfer.", "level": 0 },
+      { "en": "Hiya! How are you?", "sl": "Živjo! Kako si?", "it": "Ciao! Come stai?", "de": "Hallo! Wie geht's?", "level": 1 },
+      { "en": "There you are! Have you seen Sooty?", "sl": "Tu si! Si videl Sootyja?", "it": "Eccoti! Hai visto Sooty?", "de": "Da bist du ja! Hast du Sooty gesehen?", "level": 2 },
+      { "en": "Hey, mate! Come on, the sheep know you now.", "sl": "Ej, prijatelj! Pridi, ovce te že poznajo.", "it": "Ehi, amico! Vieni, le pecore ti conoscono già.", "de": "Hey, Kumpel! Komm, die Schafe kennen dich schon.", "level": 3 },
+      { "en": "Hey, marra! Let's run up the fell together today!", "sl": "Ej, marra! Danes skupaj stečeva na hrib! (marra: v Cumbrii prijatelj)", "it": "Ehi, marra! Oggi corriamo insieme su per il monte! (marra: in Cumbria vuol dire amico)", "de": "Hey, marra! Heute laufen wir zusammen auf den Berg! (marra: in Cumbria heißt das Freund)", "level": 4, "when": ["morning", "afternoon"] }
+    ],
+    "thanks": [
+      { "en": "Thanks, you really helped me!", "sl": "Hvala, res si mi pomagal!", "it": "Grazie, mi hai aiutato tanto!", "de": "Danke, du hast mir echt geholfen!" },
+      { "en": "Cheers! Sooty is home thanks to you.", "sl": "Hvala! Sooty je doma po tvoji zaslugi.", "it": "Grazie! Sooty è a casa grazie a te.", "de": "Danke! Dank dir ist Sooty wieder zu Hause." },
+      { "en": "You're brilliant! Thanks!", "sl": "Super si! Hvala!", "it": "Sei grande! Grazie!", "de": "Du bist super! Danke!" }
+    ],
+    "remember": [
+      { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "en": "Hey, you know what? I still think of {memory}!", "sl": "Ej, veš kaj? Še vedno mislim na {memory}!", "it": "Ehi, sai? Ricordo ancora {memory}!", "de": "Hey, weißt du was? Ich denke immer noch an {memory}!", "level": 2 },
+      { "en": "When I'm alone on the fell, I think of {memory}.", "sl": "Ko sem sam na hribu, mislim na {memory}.", "it": "Quando sono solo sul monte, ricordo {memory}.", "de": "Wenn ich allein auf dem Berg bin, denke ich an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "en": "Sooty is lost again. Where is he this time?", "sl": "Sooty se je spet izgubil. Kje je tokrat?", "it": "Sooty si è perso di nuovo. Dov'è questa volta?", "de": "Sooty ist schon wieder weg. Wo ist er diesmal?" },
+      { "en": "Lie down, Meg! Good girl. That'll do!", "sl": "Lezi, Meg! Pridna. Dovolj bo!", "it": "A terra, Meg! Brava. Basta così!", "de": "Platz, Meg! Braves Mädchen. Das reicht!" },
+      { "en": "From the top of the fell you can see Derwentwater. It's beautiful!", "sl": "Z vrha hriba se vidi jezero Derwentwater. Čudovito je!", "it": "Dalla cima del monte si vede il lago Derwentwater. È bellissimo!", "de": "Vom Gipfel aus sieht man den See Derwentwater. Wunderschön!" },
+      { "en": "Mist, mist. I don't like the mist.", "sl": "Megla, megla. Ne maram megle.", "it": "Nebbia, nebbia. Non mi piace la nebbia.", "de": "Nebel, Nebel. Ich mag keinen Nebel." }
+    ],
+    "cheer": [
+      { "en": "Well done!", "sl": "Bravo!", "it": "Bravo!", "de": "Gut gemacht!" },
+      { "en": "Aye, exactly!", "sl": "Ja, točno tako!", "it": "Sì, esatto!", "de": "Ja, genau!" },
+      { "en": "That's how it's done!", "sl": "Tako se to dela!", "it": "Così si fa!", "de": "So macht man das!" },
+      { "en": "Brilliant! Keep going!", "sl": "Super! Kar tako naprej!", "it": "Grande! Continua così!", "de": "Super! Weiter so!" }
+    ],
+    "comfort": [
+      { "en": "Never mind. Once more!", "sl": "Nič hudega. Še enkrat!", "it": "Non fa niente. Ancora una volta!", "de": "Macht nichts. Noch einmal!" },
+      { "en": "Don't worry! Sooty gets lost too.", "sl": "Brez skrbi! Tudi Sooty se izgubi.", "it": "Tranquillo! Anche Sooty si perde.", "de": "Keine Sorge! Sooty verläuft sich auch." },
+      { "en": "Nearly! Try again.", "sl": "Skoraj! Poskusi še enkrat.", "it": "Quasi! Riprova.", "de": "Fast! Versuch es noch mal." }
+    ],
+    "listen": [
+      { "en": "Listen …", "sl": "Poslušaj …", "it": "Ascolta …", "de": "Hör zu …" },
+      { "en": "Shh. Can you hear it?", "sl": "Pst. Slišiš?", "it": "Shh. Senti?", "de": "Pst. Hörst du das?" },
+      { "en": "Ears open! Listen.", "sl": "Odpri ušesa! Poslušaj.", "it": "Apri bene le orecchie! Ascolta.", "de": "Ohren auf! Hör zu." }
+    ],
+    "bye": [
+      { "en": "Bye!", "sl": "Adijo!", "it": "Ciao!", "de": "Tschüss!" },
+      { "en": "See you! I'm off up the fell to the sheep.", "sl": "Se vidimo! Grem gor na hrib k ovcam.", "it": "Ci vediamo! Vado su al monte dalle pecore.", "de": "Bis dann! Ich gehe hoch auf den Berg zu den Schafen." },
+      { "en": "See you! Don't get wet!", "sl": "Se vidimo! Ne zmoči se!", "it": "Ci vediamo! Non bagnarti!", "de": "Bis bald! Werd nicht nass!" }
+    ],
+    "gift": {
+      "liked": [
+        { "en": "Hey! How did you know? I love it!", "sl": "Ej! Kako si vedel? Zelo mi je všeč!", "it": "Ehi! Come lo sapevi? Mi piace tantissimo!", "de": "Hey! Woher wusstest du das? Das mag ich sehr!" },
+        { "en": "For me? Brilliant! Meg, look what I've got!", "sl": "Zame? Super! Meg, poglej, kaj sem dobil!", "it": "Per me? Grande! Meg, guarda cosa ho!", "de": "Für mich? Super! Meg, schau mal, was ich habe!" },
+        { "en": "Hey, thanks, mate! Just what I need up on the fell.", "sl": "Ej, hvala, prijatelj! Točno to potrebujem na hribu.", "it": "Ehi, grazie, amico! Proprio quello che mi serve sul monte.", "de": "Hey, danke, Kumpel! Genau das brauche ich oben auf dem Berg." }
+      ],
+      "ordinary": [
+        { "en": "Hey, cheers! You're kind.", "sl": "Ej, hvala! Prijazen si.", "it": "Ehi, grazie! Sei gentile.", "de": "Hey, danke! Das ist nett von dir." },
+        { "en": "Oh, thanks! You didn't have to, you know.", "sl": "O, hvala! Ni bilo treba, veš.", "it": "Oh, grazie! Non dovevi, sai.", "de": "Oh, danke! Das war doch nicht nötig." }
+      ],
+      "rare": [
+        { "en": "Hey, hey! I've never had this! Thanks, mate!", "sl": "Ej, ej! Tega še nisem imel! Hvala, stari!", "it": "Ehi, ehi! Questo non l'ho mai avuto! Grazie, amico!", "de": "Hey, hey! So was hatte ich noch nie! Danke, Kumpel!" }
+      ]
+    }
+  }
+}

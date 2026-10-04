@@ -1,0 +1,76 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "ti-vi",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🤝",
+  "title": {
+    "sl": "Tikanje in vikanje: ti ali vi",
+    "en": "Ti or vi: informal and polite you",
+    "de": "Ti oder vi: Duzen und Siezen",
+    "it": "Ti o vi: dare del tu e del Lei"
+  },
+  "rule": {
+    "en": "Slovene has two ways to say *you* to one person.\n\n**Ti** (*tikanje*) is for family, friends, children, and people your age who offer it. **Vi** (*vikanje*) is polite: for strangers, older people, in shops and offices. Vi is also the plural *you*.\n\nWith vi, the verb and the pronouns take the plural: **Kako ste?** **Vas lahko nekaj vprašam?** With ti: **Kako si?** **Te lahko nekaj vprašam?**\n\nGreetings follow too: **živjo** and **adijo** with ti, **dober dan** and **na svidenje** with vi.\n\nWhen in doubt, start with vi and wait until the other person offers ti: **Lahko se tikava.**",
+    "de": "Das Slowenische kennt zwei Formen für *du*, genau wie das Deutsche: **ti** (*tikanje*) ist du, **vi** (*vikanje*) ist Sie.\n\nTi gilt für Familie, Freunde, Kinder und Gleichaltrige, die es anbieten; vi für Fremde, Ältere, im Geschäft und im Amt. Vi ist auch der Plural, ihr.\n\nAnders als Sie steht vi in der 2. Person Plural, wie ihr: **Kako ste?** (Wie geht es Ihnen?), **Vas lahko nekaj vprašam?** Mit ti: **Kako si?** **Te lahko nekaj vprašam?**\n\nAuch die Grüße folgen: **živjo** und **adijo** mit ti, **dober dan** und **na svidenje** mit vi.\n\nIm Zweifel mit vi beginnen und warten, bis der andere ti anbietet: **Lahko se tikava.** (Wollen wir uns duzen?)",
+    "it": "Lo sloveno ha due modi di dare del *tu* a una persona, come l'italiano: **ti** (*tikanje*) è il tu, **vi** (*vikanje*) è il Lei.\n\nTi è per la famiglia, gli amici, i bambini e i coetanei che lo offrono; vi per gli sconosciuti, le persone anziane, nei negozi e negli uffici. Vi è anche il plurale, voi.\n\nA differenza del Lei, vi usa la 2ª persona plurale, come voi: **Kako ste?** (Come sta?), **Vas lahko nekaj vprašam?** Con ti: **Kako si?** **Te lahko nekaj vprašam?**\n\nAnche i saluti seguono: **živjo** e **adijo** con ti, **dober dan** e **na svidenje** con vi.\n\nNel dubbio si comincia con vi e si aspetta che l'altro offra il ti: **Lahko se tikava.** (Possiamo darci del tu?)"
+  },
+  "table": {
+    "head": [
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "ti", "en": "ti (informal)", "de": "ti (du)", "it": "ti (tu)" },
+      { "sl": "vi", "en": "vi (polite)", "de": "vi (Sie)", "it": "vi (Lei)" }
+    ],
+    "rows": [
+      [{ "en": "How are you?", "de": "Wie geht's?", "it": "Come stai? / Come sta?" }, "Kako si?", "Kako ste?"],
+      [{ "en": "Hello!", "de": "Hallo! / Guten Tag!", "it": "Ciao! / Buongiorno!" }, "Živjo!", "Dober dan!"],
+      [{ "en": "Goodbye!", "de": "Tschüss! / Auf Wiedersehen!", "it": "Ciao! / Arrivederci!" }, "Adijo!", "Na svidenje!"],
+      [{ "en": "Where are you from?", "de": "Woher kommst du / kommen Sie?", "it": "Di dove sei / è?" }, "Od kod si?", "Od kod ste?"],
+      [{ "en": "Do you have …?", "de": "Hast du / Haben Sie …?", "it": "Hai / Ha …?" }, "Imaš …?", "Imate …?"],
+      [{ "en": "May I ask you something?", "de": "Darf ich dich / Sie etwas fragen?", "it": "Posso chiederti / chiederLe una cosa?" }, "Te lahko nekaj vprašam?", "Vas lahko nekaj vprašam?"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Dober dan, kako ste?",
+      "en": "Good day, how are you?",
+      "de": "Guten Tag, wie geht es Ihnen?",
+      "it": "Buongiorno, come sta?"
+    },
+    {
+      "sl": "Živjo, Maja! Kako si?",
+      "en": "Hi, Maja! How are you?",
+      "de": "Hallo, Maja! Wie geht's dir?",
+      "it": "Ciao, Maja! Come stai?"
+    },
+    {
+      "sl": "Oprostite, ste vi gospa Novak?",
+      "en": "Excuse me, are you Mrs Novak?",
+      "de": "Entschuldigung, sind Sie Frau Novak?",
+      "it": "Mi scusi, è Lei la signora Novak?"
+    },
+    {
+      "sl": "Lahko se tikava?",
+      "en": "Shall we say ti to each other?",
+      "de": "Wollen wir uns duzen?",
+      "it": "Possiamo darci del tu?"
+    },
+    {
+      "sl": "Kaj boste pili?",
+      "en": "What would you like to drink? (polite)",
+      "de": "Was möchten Sie trinken?",
+      "it": "Che cosa prende da bere?"
+    },
+    {
+      "sl": "Janez, vas lahko nekaj vprašam?",
+      "en": "Janez, may I ask you something? (polite)",
+      "de": "Janez, darf ich Sie etwas fragen?",
+      "it": "Janez, posso chiederLe una cosa?"
+    }
+  ],
+  "modules": [],
+  "tags": ["register", "formal", "informal", "tikanje", "vikanje"],
+  "see": ["glagoli-sedanjik", "naslonke", "osebni-zaimki", "velelnik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

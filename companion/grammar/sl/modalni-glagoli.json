@@ -1,0 +1,99 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "modalni-glagoli",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "💪",
+  "title": {
+    "sl": "Moram, smem, lahko",
+    "en": "Must, may, can: moram, smem, lahko",
+    "de": "Müssen, dürfen, können: moram, smem, lahko",
+    "it": "Dovere e potere: moram, smem, lahko"
+  },
+  "rule": {
+    "en": "Some verbs take a second verb in the infinitive (*nedoločnik*, ending in **-ti** or **-či**): **moram** (I must), **smem** (I may), **hočem** (I want), **znam** (I know how to), **želim** (I wish): **moram narediti**, **moraš zvoniti**, **smem vzeti**, **znam plavati**.\n\nOnly the first verb changes with the person: **otroci smejo voziti**, **ste morali nositi**.\n\n**Lahko** (can, may) never changes, and the verb after it keeps its person: **lahko pomagam**, **lahko nesem**, **lahko poskusiš**, not lahko pomagati. **Rad** works the same: **rad pomagam** (I like helping).\n\nMind the meanings: **moram** is must, **smem** may (I'm allowed), **znam** I know how to (not vem, I know a fact).\n\nThe negatives: **ne morem** (I can't: lahko has no negative of its own), **ne smem** (I mustn't), **nočem** (I don't want to), and **ni treba** (no need): **Ni ti treba priti.**",
+    "de": "Manche Verben verlangen ein zweites Verb im Infinitiv (*nedoločnik*, auf **-ti** oder **-či**): **moram** (ich muss), **smem** (ich darf), **hočem** (ich will), **znam** (ich kann, weiß wie), **želim** (ich wünsche): **moram narediti**, **moraš zvoniti**, **smem vzeti**, **znam plavati**.\n\nNur das erste Verb ändert sich mit der Person: **otroci smejo voziti**, **ste morali nositi**.\n\n**Lahko** (kann, darf) ändert sich nie, und das Verb danach behält seine Person: **lahko pomagam**, **lahko nesem**, **lahko poskusiš**, nicht lahko pomagati. **Rad** genauso: **rad pomagam** (ich helfe gern).\n\nAchtung auf die Bedeutung: **moram** ist müssen, **smem** dürfen, **znam** können, weil man es gelernt hat (nicht vem, ich weiß eine Tatsache).\n\nVerneint: **ne morem** (ich kann nicht: lahko hat kein eigenes Nein), **ne smem** (ich darf nicht), **nočem** (ich will nicht) und **ni treba** (nicht nötig): **Ni ti treba priti.**",
+    "it": "Alcuni verbi vogliono un secondo verbo all'infinito (*nedoločnik*, in **-ti** o **-či**): **moram** (devo), **smem** (posso, ho il permesso), **hočem** (voglio), **znam** (so fare), **želim** (desidero): **moram narediti**, **moraš zvoniti**, **smem vzeti**, **znam plavati**.\n\nCambia con la persona solo il primo verbo: **otroci smejo voziti**, **ste morali nositi**.\n\n**Lahko** (posso, si può) non cambia mai, e il verbo dopo tiene la sua persona: **lahko pomagam**, **lahko nesem**, **lahko poskusiš**, non lahko pomagati. **Rad** funziona allo stesso modo: **rad pomagam** (aiuto volentieri).\n\nAttenzione al significato: **moram** è dovere, **smem** avere il permesso, **znam** saper fare (non vem, sapere un fatto).\n\nAl negativo: **ne morem** (non posso: lahko non ha un negativo suo), **ne smem** (non devo, è vietato), **nočem** (non voglio) e **ni treba** (non serve): **Ni ti treba priti.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["moram", { "en": "I must, I have to", "de": "ich muss", "it": "devo" }, "moram narediti"],
+      ["smem", { "en": "I may, I'm allowed to", "de": "ich darf", "it": "posso, ho il permesso" }, "smem vzeti"],
+      ["hočem, nočem", { "en": "I want to, I don't want to", "de": "ich will, ich will nicht", "it": "voglio, non voglio" }, "hočem iti domov"],
+      ["znam", { "en": "I know how to", "de": "ich kann (habe es gelernt)", "it": "so (fare)" }, "znam plavati"],
+      ["želim", { "en": "I wish, I'd like to", "de": "ich möchte, ich wünsche", "it": "desidero" }, "želim plačati"],
+      ["ne morem", { "en": "I can't", "de": "ich kann nicht", "it": "non posso" }, "ne morem priti"],
+      ["lahko", { "en": "can, may: the next verb keeps its person", "de": "kann, darf: das Verb danach behält seine Person", "it": "posso, si può: il verbo dopo tiene la persona" }, "lahko pomagam"],
+      ["ni treba", { "en": "no need, you needn't", "de": "nicht nötig, du musst nicht", "it": "non serve, non c'è bisogno" }, "ni ti treba priti"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Kaj moram narediti?",
+      "en": "What do I have to do?",
+      "de": "Was muss ich tun?",
+      "it": "Che cosa devo fare?"
+    },
+    {
+      "sl": "Lahko pomagam, babica?",
+      "en": "Can I help, Grandma?",
+      "de": "Kann ich helfen, Oma?",
+      "it": "Posso aiutare, nonna?",
+      "note": {
+        "en": "After lahko the verb keeps its person: lahko pomagam, not lahko pomagati.",
+        "de": "Nach lahko behält das Verb seine Person: lahko pomagam, nicht lahko pomagati.",
+        "it": "Dopo lahko il verbo tiene la persona: lahko pomagam, non lahko pomagati."
+      }
+    },
+    {
+      "sl": "Smem vzeti en kos pršuta?",
+      "en": "May I take a piece of prosciutto?",
+      "de": "Darf ich ein Stück Prosciutto nehmen?",
+      "it": "Posso prendere un pezzo di prosciutto?"
+    },
+    {
+      "sl": "Otroci ne smejo voziti traktorja.",
+      "en": "Children mustn't drive the tractor.",
+      "de": "Kinder dürfen den Traktor nicht fahren.",
+      "it": "I bambini non possono guidare il trattore.",
+      "note": {
+        "en": "The modal verb takes the person (smejo: they), the second verb stays in the infinitive (voziti).",
+        "de": "Das Modalverb trägt die Person (smejo: sie), das zweite Verb bleibt im Infinitiv (voziti).",
+        "it": "Il verbo modale porta la persona (smejo: loro), il secondo verbo resta all'infinito (voziti)."
+      }
+    },
+    {
+      "sl": "Tine ne zna plavati.",
+      "en": "Tine can't swim.",
+      "de": "Tine kann nicht schwimmen.",
+      "it": "Tine non sa nuotare."
+    },
+    {
+      "sl": "Danes ne morem priti.",
+      "en": "I can't come today.",
+      "de": "Heute kann ich nicht kommen.",
+      "it": "Oggi non posso venire.",
+      "note": {
+        "en": "Lahko has no negative: ne morem (from moči).",
+        "de": "Lahko hat keine Verneinung: ne morem (von moči).",
+        "it": "Lahko non ha il negativo: ne morem (da moči)."
+      }
+    },
+    {
+      "sl": "Jutri ti ni treba zvoniti.",
+      "en": "Tomorrow you don't have to ring the bell.",
+      "de": "Morgen musst du nicht läuten.",
+      "it": "Domani non devi suonare la campana."
+    }
+  ],
+  "modules": [],
+  "tags": ["modal", "modal_verbs", "infinitive"],
+  "see": ["glagoli-sedanjik", "pogojnik", "velelnik", "povratni-glagoli", "namenilnik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

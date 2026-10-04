@@ -1,0 +1,117 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "plurals",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": {
+    "en": "Plurals: ponies, sheep, children",
+    "sl": "Množina: ponies, sheep, children",
+    "it": "Il plurale: ponies, sheep, children",
+    "de": "Der Plural: ponies, sheep, children"
+  },
+  "rule": {
+    "en": "Most nouns add **-s** for more than one: a dog → **dogs**, a lamb → **lambs**. **the** stays the same; **a** has no plural: **a dog** → **dogs**.\n\nAfter s, x, ch, sh add **-es**: box → **boxes**, bench → **benches**, bush → **bushes**. A consonant + **y** becomes **-ies**: pony → **ponies**, berry → **berries** (a vowel + y just adds -s: day → **days**). Some words in **-f** or **-fe** end in **-ves**: knife → **knives**, loaf → **loaves**, leaf → **leaves** (but roof → **roofs**).\n\nA few plurals are irregular; learn them: man → **men**, woman → **women**, child → **children**, foot → **feet**, tooth → **teeth**, mouse → **mice**.\n\nSome stay the same: **one sheep, fifty sheep**; **one fish, two fish**; **a deer, three deer**.\n\nFrom two on, the noun is plural, also for measures: **two miles**, **three hours**, **ten pounds**.",
+    "sl": "Večina samostalnikov dobi v množini **-s**: a dog → **dogs**, a lamb → **lambs**. Člen **the** ostane enak, **a** pa v množini odpade: **a dog** → **dogs**.\n\nZa s, x, ch, sh dodamo **-es**: box → **boxes**, bench → **benches**, bush → **bushes**. Soglasnik + **y** postane **-ies**: pony → **ponies**, berry → **berries** (samoglasnik + y dobi le -s: day → **days**). Nekatere besede na **-f** ali **-fe** se končajo na **-ves**: knife → **knives**, loaf → **loaves**, leaf → **leaves** (toda roof → **roofs**).\n\nNekaj množin je nepravilnih, zapomni si jih: man → **men**, woman → **women**, child → **children**, foot → **feet**, tooth → **teeth**, mouse → **mice**.\n\nNekatere se ne spremenijo: **one sheep, fifty sheep**; **one fish, two fish**; **a deer, three deer**.\n\nLažje kot v slovenščini: dvojine ni in oblika se ne spreminja s številom (dve ovci, tri ovce, pet ovc). Od dve naprej je vedno ista množina: **two miles**, **five miles**.",
+    "it": "La maggior parte dei nomi al plurale aggiunge **-s**: a dog → **dogs**, a lamb → **lambs**. **the** resta uguale (i, gli, le: sempre **the**), **a** al plurale sparisce: **a dog** → **dogs**.\n\nDopo s, x, ch, sh si aggiunge **-es**: box → **boxes**, bench → **benches**, bush → **bushes**. Consonante + **y** diventa **-ies**: pony → **ponies**, berry → **berries** (vocale + y prende solo -s: day → **days**). Alcune parole in **-f** o **-fe** finiscono in **-ves**: knife → **knives**, loaf → **loaves**, leaf → **leaves** (ma roof → **roofs**).\n\nAlcuni plurali sono irregolari, da imparare: man → **men**, woman → **women**, child → **children**, foot → **feet**, tooth → **teeth**, mouse → **mice**.\n\nAlcune parole non cambiano, come il caffè, i caffè: **one sheep, fifty sheep**; **one fish, two fish**; **a deer, three deer**.\n\nDa due in su il nome è al plurale, anche con le misure: **two miles**, **three hours**, **ten pounds**.",
+    "de": "Die meisten Nomen bekommen im Plural **-s**: a dog → **dogs**, a lamb → **lambs**. Viel einfacher als im Deutschen: meist kein Umlaut und kein -e, -er oder -en zum Lernen. **the** bleibt gleich (die: **the**), **a** fällt weg: **a dog** → **dogs**.\n\nNach s, x, ch, sh kommt **-es**: box → **boxes**, bench → **benches**, bush → **bushes**. Konsonant + **y** wird **-ies**: pony → **ponies**, berry → **berries** (Vokal + y bekommt nur -s: day → **days**). Manche Wörter auf **-f** oder **-fe** enden auf **-ves**: knife → **knives**, loaf → **loaves**, leaf → **leaves** (aber roof → **roofs**).\n\nEinige Plurale sind unregelmäßig, lerne sie: man → **men**, woman → **women**, child → **children**, foot → **feet**, tooth → **teeth**, mouse → **mice**.\n\nManche bleiben gleich, wie der Lehrer, die Lehrer: **one sheep, fifty sheep**; **one fish, two fish**; **a deer, three deer**.\n\nAb zwei steht das Nomen im Plural, auch bei Maßen, anders als bei zwei Kilo, zehn Euro: **two miles**, **two kilos**, **ten pounds**."
+  },
+  "table": {
+    "head": [
+      { "en": "one", "sl": "ednina", "it": "singolare", "de": "Singular" },
+      { "en": "more", "sl": "množina", "it": "plurale", "de": "Plural" },
+      { "en": "how", "sl": "kako", "it": "come", "de": "wie" }
+    ],
+    "rows": [
+      ["dog, lamb", "dogs, lambs", { "en": "+ -s", "sl": "+ -s", "it": "+ -s", "de": "+ -s" }],
+      ["box, bench", "boxes, benches", { "en": "+ -es after s, x, ch, sh", "sl": "+ -es za s, x, ch, sh", "it": "+ -es dopo s, x, ch, sh", "de": "+ -es nach s, x, ch, sh" }],
+      ["pony, berry", "ponies, berries", { "en": "consonant + y → -ies", "sl": "soglasnik + y → -ies", "it": "consonante + y → -ies", "de": "Konsonant + y → -ies" }],
+      ["day", "days", { "en": "vowel + y → + -s", "sl": "samoglasnik + y → + -s", "it": "vocale + y → + -s", "de": "Vokal + y → + -s" }],
+      ["knife, loaf", "knives, loaves", { "en": "-f, -fe → -ves", "sl": "-f, -fe → -ves", "it": "-f, -fe → -ves", "de": "-f, -fe → -ves" }],
+      ["man, woman", "men, women", { "en": "irregular", "sl": "nepravilno", "it": "irregolare", "de": "unregelmäßig" }],
+      ["child", "children", { "en": "irregular", "sl": "nepravilno", "it": "irregolare", "de": "unregelmäßig" }],
+      ["foot, tooth", "feet, teeth", { "en": "irregular", "sl": "nepravilno", "it": "irregolare", "de": "unregelmäßig" }],
+      ["mouse", "mice", { "en": "irregular", "sl": "nepravilno", "it": "irregolare", "de": "unregelmäßig" }],
+      ["sheep, fish, deer", "sheep, fish, deer", { "en": "the same", "sl": "enako", "it": "uguale", "de": "gleich" }]
+    ]
+  },
+  "examples": [
+    {
+      "en": "Shepherd Jack has fifty sheep.",
+      "sl": "Pastir Jack ima petdeset ovc.",
+      "it": "Il pastore Jack ha cinquanta pecore.",
+      "de": "Schäfer Jack hat fünfzig Schafe.",
+      "note": {
+        "en": "sheep stays the same: one sheep, fifty sheep.",
+        "sl": "sheep se ne spremeni: one sheep, fifty sheep.",
+        "it": "sheep non cambia: one sheep, fifty sheep.",
+        "de": "sheep bleibt gleich: one sheep, fifty sheep."
+      }
+    },
+    {
+      "en": "Mr Dixon makes horseshoes for the ponies.",
+      "sl": "Gospod Dixon kuje podkve za ponije.",
+      "it": "Il signor Dixon fa i ferri di cavallo per i pony.",
+      "de": "Herr Dixon macht Hufeisen für die Ponys.",
+      "note": {
+        "en": "pony → ponies: a consonant + y becomes -ies.",
+        "sl": "pony → ponies: soglasnik + y postane -ies.",
+        "it": "pony → ponies: consonante + y diventa -ies.",
+        "de": "pony → ponies: Konsonant + y wird -ies."
+      }
+    },
+    {
+      "en": "The children are playing by the beck.",
+      "sl": "Otroci se igrajo ob potoku.",
+      "it": "I bambini giocano vicino al ruscello.",
+      "de": "Die Kinder spielen am Bach.",
+      "note": {
+        "en": "child → children: irregular.",
+        "sl": "child → children: nepravilna množina.",
+        "it": "child → children: plurale irregolare.",
+        "de": "child → children: unregelmäßig."
+      }
+    },
+    {
+      "en": "Granny Maggie bakes two loaves every Friday.",
+      "sl": "Babica Maggie vsak petek speče dva hleba kruha.",
+      "it": "Nonna Maggie fa due pagnotte ogni venerdì.",
+      "de": "Oma Maggie bäckt jeden Freitag zwei Laibe Brot.",
+      "note": {
+        "en": "loaf → loaves: -f becomes -ves.",
+        "sl": "loaf → loaves: -f postane -ves.",
+        "it": "loaf → loaves: -f diventa -ves.",
+        "de": "loaf → loaves: -f wird -ves."
+      }
+    },
+    {
+      "en": "Keswick is two miles from here.",
+      "sl": "Do Keswicka sta dve milji.",
+      "it": "Keswick è a due miglia da qui.",
+      "de": "Bis Keswick sind es zwei Meilen."
+    },
+    {
+      "en": "Two little mice live in Mr Tyson's mill.",
+      "sl": "V mlinu gospoda Tysona živita dve miški.",
+      "it": "Nel mulino del signor Tyson vivono due topolini.",
+      "de": "In der Mühle von Herrn Tyson wohnen zwei kleine Mäuse."
+    },
+    {
+      "en": "The women are picking blackberries.",
+      "sl": "Ženske nabirajo robidnice.",
+      "it": "Le donne raccolgono le more.",
+      "de": "Die Frauen pflücken Brombeeren.",
+      "note": {
+        "en": "woman → women (say: wimin); blackberry → blackberries.",
+        "sl": "woman → women (izgovori: wimin); blackberry → blackberries.",
+        "it": "woman → women (si pronuncia «wimin»); blackberry → blackberries.",
+        "de": "woman → women (gesprochen »wimin«); blackberry → blackberries."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["plural", "plurals", "irregular_plural", "nouns", "sheep"],
+  "see": ["articles", "some-any", "there-is-are"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+}

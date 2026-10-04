@@ -1,0 +1,103 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "passato-prossimo",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🕰️",
+  "title": {
+    "it": "Il passato prossimo: ho visto, sono andato",
+    "sl": "Pretekli čas: ho visto, sono andato",
+    "en": "The past tense: ho visto, sono andato",
+    "de": "Die Vergangenheit: ho visto, sono andato"
+  },
+  "rule": {
+    "en": "The everyday past tense (*passato prossimo*) has two parts: **avere** or **essere** in the present, and the past participle (*participio passato*): **Ho mangiato.** It stands for both *I ate* and *I have eaten*: **Ieri ho visto un gufo.** (Yesterday I saw an owl.)\n\nThe participle: **-are → -ato** (mangiare → mangiato), **-ere → -uto** (vendere → venduto), **-ire → -ito** (dormire → dormito). Many common ones are irregular: **fatto** (fare), **visto** (vedere), **preso** (prendere), **detto** (dire), **messo** (mettere), **venuto** (venire), **stato** (essere, stare).\n\nMost verbs take **avere**. Verbs of going and changing take **essere**: andare, venire, arrivare, partire, tornare, uscire, restare, cadere, nascere, diventare, and essere itself.\n\nWith **essere** the participle agrees with the subject, like an adjective: **Lorenzo è andato**, **Giulia è andata**, **siamo venuti**, **le pecore sono tornate**. With **avere** it doesn't: **Giulia ha mangiato.**",
+    "sl": "Vsakdanji pretekli čas (*passato prossimo*) ima dva dela: **avere** ali **essere** v sedanjiku in deležnik (*participio passato*): **Ho mangiato.** (Jedel sem.) Podoben je slovenskemu *sem jedel*, le da pomožni glagol ni vedno biti.\n\nDeležnik: **-are → -ato** (mangiare → mangiato), **-ere → -uto** (vendere → venduto), **-ire → -ito** (dormire → dormito). Mnogi pogosti so nepravilni: **fatto** (fare), **visto** (vedere), **preso** (prendere), **detto** (dire), **messo** (mettere), **venuto** (venire), **stato** (essere, stare).\n\nVečina glagolov gre z **avere**. Glagoli premikanja in spremembe gredo z **essere**: andare, venire, arrivare, partire, tornare, uscire, restare, cadere, nascere, diventare in tudi essere sam.\n\nZ **essere** se deležnik ujema z osebkom, kot slovenski deležnik na -l (šel, šla, šli): **Lorenzo è andato**, **Giulia è andata**, **siamo venuti**, **le pecore sono tornate**. Z **avere** ostane nespremenjen: **Giulia ha mangiato.** (Giulia je jedla.)",
+    "de": "Die Alltagsvergangenheit (*passato prossimo*) ist gebaut wie das deutsche Perfekt: **avere** (haben) oder **essere** (sein) im Präsens und das Partizip (*participio passato*): **Ho mangiato.** (Ich habe gegessen.)\n\nDas Partizip: **-are → -ato** (mangiare → mangiato), **-ere → -uto** (vendere → venduto), **-ire → -ito** (dormire → dormito). Viele häufige sind unregelmäßig: **fatto** (fare), **visto** (vedere), **preso** (prendere), **detto** (dire), **messo** (mettere), **venuto** (venire), **stato** (essere, stare).\n\nDie meisten Verben nehmen **avere**. Verben der Bewegung und Veränderung nehmen **essere**, fast wie im Deutschen: andare, venire, arrivare, partire, tornare, uscire, restare, cadere, nascere, diventare, und essere selbst (**sono stato**, ich bin gewesen).\n\nMit **essere** richtet sich das Partizip nach dem Subjekt wie ein Adjektiv: **Lorenzo è andato**, **Giulia è andata**, **siamo venuti**, **le pecore sono tornate**. Mit **avere** bleibt es gleich: **Giulia ha mangiato.** Das Partizip steht nicht am Satzende: **Ho visto un gufo.**"
+  },
+  "table": {
+    "head": [
+      { "it": "infinito", "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv" },
+      { "it": "participio", "sl": "deležnik", "en": "participle", "de": "Partizip" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      [{ "it": "mangiare", "sl": "mangiare (jesti)", "en": "mangiare (eat)", "de": "mangiare (essen)" }, "mangiato", "ho mangiato"],
+      [{ "it": "vendere", "sl": "vendere (prodati)", "en": "vendere (sell)", "de": "vendere (verkaufen)" }, "venduto", "ho venduto"],
+      [{ "it": "dormire", "sl": "dormire (spati)", "en": "dormire (sleep)", "de": "dormire (schlafen)" }, "dormito", "ho dormito"],
+      [{ "it": "fare", "sl": "fare (narediti)", "en": "fare (do, make)", "de": "fare (machen)" }, "fatto", "ho fatto"],
+      [{ "it": "vedere", "sl": "vedere (videti)", "en": "vedere (see)", "de": "vedere (sehen)" }, "visto", "ho visto"],
+      [{ "it": "prendere", "sl": "prendere (vzeti)", "en": "prendere (take)", "de": "prendere (nehmen)" }, "preso", "ho preso"],
+      [{ "it": "dire", "sl": "dire (reči)", "en": "dire (say)", "de": "dire (sagen)" }, "detto", "ho detto"],
+      [{ "it": "mettere", "sl": "mettere (dati, položiti)", "en": "mettere (put)", "de": "mettere (legen, stellen)" }, "messo", "ho messo"],
+      [{ "it": "andare", "sl": "andare (iti)", "en": "andare (go)", "de": "andare (gehen)" }, "andato", "sono andato / andata"],
+      [{ "it": "venire", "sl": "venire (priti)", "en": "venire (come)", "de": "venire (kommen)" }, "venuto", "sono venuto / venuta"],
+      [{ "it": "arrivare", "sl": "arrivare (priti, prispeti)", "en": "arrivare (arrive)", "de": "arrivare (ankommen)" }, "arrivato", "siamo arrivati / arrivate"],
+      [{ "it": "essere", "sl": "essere (biti)", "en": "essere (be)", "de": "essere (sein)" }, "stato", "sono stato / stata"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Ieri ho visto un gufo nel bosco.",
+      "sl": "Včeraj sem v gozdu videl sovo.",
+      "en": "Yesterday I saw an owl in the woods.",
+      "de": "Gestern habe ich im Wald eine Eule gesehen."
+    },
+    {
+      "it": "Giulia è andata a Udine con la zia.",
+      "sl": "Giulia je šla s teto v Videm.",
+      "en": "Giulia went to Udine with her aunt.",
+      "de": "Giulia ist mit ihrer Tante nach Udine gefahren.",
+      "note": {
+        "sl": "essere: deležnik se ujema z Giulio, andata.",
+        "en": "essere: the participle agrees with Giulia, andata.",
+        "de": "essere: das Partizip richtet sich nach Giulia, andata."
+      }
+    },
+    {
+      "it": "Nonna Rosa ha fatto il frico.",
+      "sl": "Babica Rosa je naredila frico.",
+      "en": "Nonna Rosa has made frico.",
+      "de": "Nonna Rosa hat Frico gemacht."
+    },
+    {
+      "it": "Siamo arrivati allo stagno.",
+      "sl": "Prišli smo do ribnika.",
+      "en": "We've reached the pond.",
+      "de": "Wir sind am Teich angekommen.",
+      "note": {
+        "sl": "arrivare gre z essere: siamo arrivati (več oseb, -i).",
+        "en": "arrivare takes essere: siamo arrivati (several people, -i).",
+        "de": "arrivare nimmt essere: siamo arrivati (mehrere Personen, -i)."
+      }
+    },
+    {
+      "it": "Ho messo lo zaino nella tenda.",
+      "sl": "Nahrbtnik sem dal v šotor.",
+      "en": "I've put the rucksack in the tent.",
+      "de": "Ich habe den Rucksack ins Zelt gelegt."
+    },
+    {
+      "it": "Le pecore sono tornate a casa.",
+      "sl": "Ovce so se vrnile domov.",
+      "en": "The sheep have come back home.",
+      "de": "Die Schafe sind nach Hause zurückgekommen.",
+      "note": {
+        "sl": "le pecore (ženski spol, množina): tornate.",
+        "en": "le pecore (feminine plural): tornate.",
+        "de": "le pecore (feminin Plural): tornate."
+      }
+    },
+    {
+      "it": "Che cosa hai detto?",
+      "sl": "Kaj si rekel?",
+      "en": "What did you say?",
+      "de": "Was hast du gesagt?"
+    }
+  ],
+  "modules": [],
+  "tags": ["past_tense", "passato_prossimo", "past", "participle", "past_participle", "auxiliary"],
+  "see": ["essere-avere", "verbi-irregolari", "presente-regolare"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

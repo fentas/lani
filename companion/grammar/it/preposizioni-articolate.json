@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "preposizioni-articolate",
+  "language": "it",
+  "level": "A1",
+  "emoji": "🧩",
+  "title": {
+    "it": "Al, dal, nel, sul: le preposizioni articolate",
+    "sl": "Predlogi, zliti s členom",
+    "en": "Prepositions fused with the article",
+    "de": "Präpositionen mit Artikel verschmolzen"
+  },
+  "rule": {
+    "en": "Five prepositions fuse with the definite article after them: **di** (of), **a** (to, at), **da** (from, at someone's), **in** (in) and **su** (on). These are the *preposizioni articolate*. English has nothing like it.\n\nWith **il** the i drops: **del, al, dal, nel, sul** (di turns into de-, in into ne-). With **i**: **dei, ai, dai, nei, sui**. Before **lo, la, l', gli, le** the l doubles: **dello, alla, dall', negli, sulle**.\n\nSo: **dal Collio**, **sui pali**, **nel bosco**, **alla tenda**, **vicino allo stagno**.\n\n**Con** (with) and **per** (for) stay apart: **con il cane**, **per la nonna**.\n\nWithout an article there is nothing to fuse: **a Gorizia**, **in Italia**, **di Giulia**.",
+    "sl": "Pet predlogov se zlije z določnim členom za njim: **di** (od; kot rodilnik), **a** (v, na, k), **da** (od, iz; pri, k), **in** (v) in **su** (na). To so *preposizioni articolate*. Slovenščina členov nima, zato je to novo: predlog in člen sta ena beseda.\n\nPri **il** i odpade: **del, al, dal, nel, sul** (di postane de-, in postane ne-). Pri **i**: **dei, ai, dai, nei, sui**. Pred **lo, la, l', gli, le** se l podvoji: **dello, alla, dall', negli, sulle**.\n\nTorej: **dal Collio** (iz Brd), **sui pali** (na kolih), **nel bosco** (v gozdu), **alla tenda** (k šotoru), **vicino allo stagno** (blizu ribnika).\n\n**Con** (z, s) in **per** (za) ostaneta ločena: **con il cane**, **per la nonna**.\n\nBrez člena ni zlitja: **a Gorizia**, **in Italia**, **di Giulia**.",
+    "de": "Fünf Präpositionen verschmelzen mit dem bestimmten Artikel danach: **di** (von), **a** (zu, an, in), **da** (von, bei), **in** (in) und **su** (auf). Das sind die *preposizioni articolate*. Wie im, am, zum, vom im Deutschen, nur immer: *in il bosco* gibt es nicht.\n\nBei **il** fällt das i weg: **del, al, dal, nel, sul** (di wird zu de-, in zu ne-). Bei **i**: **dei, ai, dai, nei, sui**. Vor **lo, la, l', gli, le** verdoppelt sich das l: **dello, alla, dall', negli, sulle**.\n\nAlso: **dal Collio** (aus dem Collio), **sui pali** (auf den Pfählen), **nel bosco** (im Wald), **alla tenda** (zum Zelt), **vicino allo stagno** (nahe am Teich).\n\n**Con** (mit) und **per** (für) bleiben getrennt: **con il cane**, **per la nonna**.\n\nOhne Artikel verschmilzt nichts: **a Gorizia**, **in Italia**, **di Giulia**."
+  },
+  "table": {
+    "head": [
+      { "it": "preposizione", "sl": "predlog", "en": "preposition", "de": "Präposition" },
+      { "it": "+ il / lo / l' (maschile)", "sl": "+ il / lo / l' (moški)", "en": "+ il / lo / l' (masculine)", "de": "+ il / lo / l' (maskulin)" },
+      { "it": "+ la / l' (femminile)", "sl": "+ la / l' (ženski)", "en": "+ la / l' (feminine)", "de": "+ la / l' (feminin)" },
+      { "it": "+ i / gli / le (plurale)", "sl": "+ i / gli / le (množina)", "en": "+ i / gli / le (plural)", "de": "+ i / gli / le (Plural)" }
+    ],
+    "rows": [
+      [{ "it": "di", "sl": "di (od; rodilnik)", "en": "di (of)", "de": "di (von)" }, "del, dello, dell'", "della, dell'", "dei, degli, delle"],
+      [{ "it": "a", "sl": "a (v, na, k)", "en": "a (to, at)", "de": "a (zu, an, in)" }, "al, allo, all'", "alla, all'", "ai, agli, alle"],
+      [{ "it": "da", "sl": "da (od, iz; pri, k)", "en": "da (from; at someone's)", "de": "da (von, aus; bei)" }, "dal, dallo, dall'", "dalla, dall'", "dai, dagli, dalle"],
+      [{ "it": "in", "sl": "in (v)", "en": "in (in, into)", "de": "in (in)" }, "nel, nello, nell'", "nella, nell'", "nei, negli, nelle"],
+      [{ "it": "su", "sl": "su (na)", "en": "su (on)", "de": "su (auf)" }, "sul, sullo, sull'", "sulla, sull'", "sui, sugli, sulle"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Queste mele vengono dal Collio.",
+      "sl": "Ta jabolka so iz Brd.",
+      "en": "These apples come from the Collio.",
+      "de": "Diese Äpfel kommen aus dem Collio.",
+      "note": {
+        "sl": "da + il = dal.",
+        "en": "da + il = dal.",
+        "de": "da + il = dal."
+      }
+    },
+    {
+      "it": "I gabbiani sono sui pali.",
+      "sl": "Galebi so na kolih.",
+      "en": "The seagulls are on the posts.",
+      "de": "Die Möwen sitzen auf den Pfählen.",
+      "note": {
+        "sl": "su + i = sui.",
+        "en": "su + i = sui.",
+        "de": "su + i = sui."
+      }
+    },
+    {
+      "it": "Lo scoiattolo vive nel bosco.",
+      "sl": "Veverica živi v gozdu.",
+      "en": "The squirrel lives in the woods.",
+      "de": "Das Eichhörnchen lebt im Wald."
+    },
+    {
+      "it": "Il fuoco è davanti alla tenda.",
+      "sl": "Ogenj je pred šotorom.",
+      "en": "The fire is in front of the tent.",
+      "de": "Das Feuer ist vor dem Zelt.",
+      "note": {
+        "sl": "a + la = alla.",
+        "en": "a + la = alla.",
+        "de": "a + la = alla."
+      }
+    },
+    {
+      "it": "Il miele dell'apicoltore è buonissimo.",
+      "sl": "Čebelarjev med je odličen.",
+      "en": "The beekeeper's honey is delicious.",
+      "de": "Der Honig des Imkers ist köstlich.",
+      "note": {
+        "sl": "di + l' = dell': čigav je med.",
+        "en": "di + l' = dell': whose honey it is.",
+        "de": "di + l' = dell': wessen Honig."
+      }
+    },
+    {
+      "it": "Giulia va dalla nonna.",
+      "sl": "Giulia gre k babici.",
+      "en": "Giulia is going to Grandma's.",
+      "de": "Giulia geht zur Oma.",
+      "note": {
+        "sl": "da + la = dalla: k osebi ali pri njej.",
+        "en": "da + la = dalla: to someone's place, or at it.",
+        "de": "da + la = dalla: zu jemandem oder bei jemandem."
+      }
+    },
+    {
+      "it": "Lorenzo gioca con il cane.",
+      "sl": "Lorenzo se igra s psom.",
+      "en": "Lorenzo is playing with the dog.",
+      "de": "Lorenzo spielt mit dem Hund.",
+      "note": {
+        "sl": "con ostane ločen: con il cane.",
+        "en": "con stays apart: con il cane.",
+        "de": "con bleibt getrennt: con il cane."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["preposizioni_articolate", "articulated_prepositions", "prepositions", "preposition_article", "contraction", "articles"],
+  "see": ["articoli-genere", "dove-preposizioni", "partitivo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

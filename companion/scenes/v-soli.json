@@ -1,0 +1,471 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "v-soli",
+  "title": { "sl": "V šoli", "en": "At school", "de": "In der Schule", "it": "A scuola" },
+  "emoji": "🏫",
+  "level": "A1",
+  "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "art": "school",
+  "from": ["school"],
+  "pack": "v-soli",
+  "objects": [
+    { "slot": "blackboard", "word": "tabla" },
+    { "slot": "chalk", "word": "kreda" },
+    { "slot": "sponge", "word": "gobica" },
+    { "slot": "desk", "word": "solska-klop" },
+    { "slot": "chair", "word": "stol", "pack": "dom-in-hisa" },
+    { "slot": "book", "word": "knjiga", "pack": "v-sotoru" },
+    { "slot": "notebook", "word": "zvezek" },
+    { "slot": "pencil", "word": "svincnik" },
+    { "slot": "bag", "word": "torba" },
+    { "slot": "map", "word": "zemljevid", "pack": "v-sotoru", "needs": { "level": 2 } },
+    { "slot": "globe", "word": "globus", "needs": { "level": 2 } },
+    { "slot": "clock", "word": "ura", "pack": "vreme-in-dan", "needs": { "level": 3 } },
+    { "slot": "window", "word": "okno", "pack": "dom-in-hisa" },
+    { "slot": "door", "word": "vrata", "pack": "dom-in-hisa" }
+  ],
+  "people": [
+    { "id": "mojca", "name": "Učiteljica Mojca", "emoji": "👩‍🏫", "art": "teacher", "slot": "teacher", "villager": "mojca" },
+    { "id": "tine", "name": "Tine", "emoji": "👦", "art": "child3", "slot": "desk1", "villager": "tine" },
+    { "id": "zala", "name": "Zala", "emoji": "👧", "art": "child2", "slot": "desk2", "villager": "zala" },
+    { "id": "janez", "name": "Stari Janez", "emoji": "👴", "art": "grandpa", "slot": "door", "villager": "janez" }
+  ],
+  "happenings": [
+    { "id": "tabla", "title": { "sl": "Napake na tabli", "en": "Mistakes on the blackboard", "de": "Fehler an der Tafel", "it": "Errori alla lavagna" }, "who": "mojca",
+      "when": ["morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "tabla", "dialogs": ["tabla-rodilnik", "tabla-preteklik", "tabla"],"reward": { "stone": 20 }, "marker": "🖍️",
+      "memory": { "sl": "napake na tabli, ki ste jih popravili", "en": "the mistakes on the blackboard you corrected", "de": "die Fehler an der Tafel, die Sie verbessert haben", "it": "gli errori alla lavagna che Lei ha corretto" } },
+    { "id": "dvojina", "title": { "sl": "Dva učenca, dve knjigi", "en": "Two pupils, two books", "de": "Zwei Schüler, zwei Bücher", "it": "Due alunni, due libri" }, "who": "mojca",
+      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "dvojina", "dialogs": ["dvojina-knjige", "dvojina-vceraj", "dvojina"],"reward": { "stone": 20 }, "marker": "✌️",
+      "memory": { "sl": "dvojino, ki sva jo vadila v šoli", "en": "the dual we two practised at school", "de": "den Dual, den wir zwei in der Schule geübt haben", "it": "il duale che noi due abbiamo esercitato a scuola" } },
+    { "id": "naloga", "title": { "sl": "Tine dela domačo nalogo", "en": "Tine is doing his homework", "de": "Tine macht seine Hausaufgaben", "it": "Tine fa i compiti" }, "who": "tine",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "naloga", "dialogs": ["naloga-strani", "naloga-dnevi", "naloga"],"reward": { "wisdom": 15 }, "marker": "✏️",
+      "memory": { "sl": "domačo nalogo, ki si mi jo pomagal napisati", "en": "the homework you helped me write", "de": "die Hausaufgabe, bei der du mir geholfen hast", "it": "i compiti che mi hai aiutato a scrivere" } },
+    { "id": "globus", "title": { "sl": "Zala in globus", "en": "Zala and the globe", "de": "Zala und der Globus", "it": "Zala e il mappamondo" }, "who": "zala",
+      "when": ["morning"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
+      "memory": { "sl": "globus in Nemčijo, ki si mi jo pokazal", "en": "the globe and Germany, which you showed me", "de": "den Globus und Deutschland, das du mir gezeigt hast", "it": "il mappamondo e la Germania che mi hai mostrato" } },
+    { "id": "stara-sola", "title": { "sl": "Janez v svoji stari šoli", "en": "Janez in his old school", "de": "Janez in seiner alten Schule", "it": "Janez nella sua vecchia scuola" }, "who": "janez",
+      "when": ["evening"], "chance": 0.3, "dialog": "stara-sola", "dialogs": ["stara-sola-pec", "stara-sola"],"reward": { "wisdom": 20 }, "marker": "🎓",
+      "memory": { "sl": "večer v stari šoli, ko sem ti pravil o gospe Pavli", "en": "the evening in the old school when I told you about Mrs Pavla", "de": "den Abend in der alten Schule, als ich dir von Frau Pavla erzählt habe", "it": "la sera nella vecchia scuola, quando ti ho raccontato della signora Pavla" } }
+  ],
+  "dialogs": [
+    {
+      "id": "tabla",
+      "lines": [
+        { "who": "mojca", "sl": "Dober dan, Jan! Poglejte tablo. Nekdo je napisal tri stavke. Z napakami!", "en": "Good day, Jan! Look at the blackboard. Somebody wrote three sentences. With mistakes!", "de": "Guten Tag, Jan! Schauen Sie an die Tafel. Jemand hat drei Sätze geschrieben. Mit Fehlern!", "it": "Buongiorno, Jan! Guardi la lavagna. Qualcuno ha scritto tre frasi. Con degli errori!" },
+        { "choices": [
+          { "sl": "Dober dan! Prvi stavek: 'Jaz sem Nemec.' Ta je pravilen.", "en": "Good day! The first sentence: 'I am German.' That one is correct.", "de": "Guten Tag! Der erste Satz: ‚Ich bin Deutscher.‘ Der ist richtig.", "it": "Buongiorno! La prima frase: 'Sono tedesco.' Questa è giusta.", "ok": true,
+            "reply": { "sl": "Odlično! Nemec, moški spol. Naprej.", "en": "Excellent! Nemec, masculine. Next.", "de": "Ausgezeichnet! Nemec, männlich. Weiter.", "it": "Ottimo! Nemec, maschile. Avanti." } },
+          { "sl": "Dober dan! Prvi stavek: 'Jaz sem Nemec.' Ta je pravilna.", "en": "Good day! The first sentence: 'I am German.' That one is correct.", "de": "Guten Tag! Der erste Satz: ‚Ich bin Deutscher.‘ Der ist richtig.", "it": "Buongiorno! La prima frase: 'Sono tedesco.' Questa è giusta.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Stavek is masculine: pravilen. Pravilna is feminine (beseda je pravilna).", "de": "Stavek ist männlich: pravilen. Pravilna ist weiblich (beseda je pravilna).", "it": "Stavek è maschile: pravilen. Pravilna è femminile (beseda je pravilna)." },
+            "reply": { "sl": "Pravilna? Katera pa, tabla ali kreda?", "en": "Pravilna (correct, feminine)? Which one, the blackboard or the chalk?", "de": "Pravilna (richtig, weiblich)? Welche denn, die Tafel oder die Kreide?", "it": "Pravilna (giusta, al femminile)? Quale, la lavagna o il gesso?" } },
+          { "sl": "Dober dan! Prvi stavek: 'Jaz sem Nemec.' Ta je pravilno.", "en": "Good day! The first sentence: 'I am German.' That one is correctly.", "de": "Guten Tag! Der erste Satz: ‚Ich bin Deutscher.‘ Der ist richtigerweise.", "it": "Buongiorno! La prima frase: 'Sono tedesco.' Questa è correttamente.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Pravilno is an adverb, or 'correct!' on its own. The sentence itself is pravilen, agreeing with stavek.", "de": "Pravilno ist ein Adverb oder allein ‚richtig!‘. Der Satz selbst ist pravilen, passend zu stavek.", "it": "Pravilno è un avverbio, o 'giusto!' da solo. La frase in sé è pravilen, concordato con stavek." },
+            "reply": { "sl": "Pravilno? Ha, to pravim jaz, Jan, ne vi!", "en": "Pravilno (correct!)? Ha, that's my line, Jan, not yours!", "de": "Pravilno (richtig!)? Ha, das sage doch ich, Jan, nicht Sie!", "it": "Pravilno (giusto!)? Ah, questo lo dico io, Jan, non lei!" } }
+        ] },
+        { "who": "mojca", "sl": "Drugi stavek: 'Jaz imam dva brat.' Hm. Kaj je narobe?", "en": "The second sentence: 'I have two brother.' Hm. What is wrong?", "de": "Der zweite Satz: ‚Ich habe zwei Bruder.‘ Hm. Was ist falsch?", "it": "La seconda frase: 'Ho due fratello.' Mm. Che cosa c'è di sbagliato?" },
+        { "choices": [
+          { "sl": "Dva brata. Dvojina!", "en": "Two brothers. The dual!", "de": "Zwei Brüder. Der Dual!", "it": "Due fratelli. Il duale!", "ok": true,
+            "reply": { "sl": "Dvojina! Moja najljubša beseda.", "en": "The dual! My favourite word.", "de": "Der Dual! Mein Lieblingswort.", "it": "Il duale! La mia parola preferita." } },
+          { "sl": "Dva bratje. Množina!", "en": "Two brothers. The plural!", "de": "Zwei Brüder. Der Plural!", "it": "Due fratelli. Il plurale!",
+            "grammar": "stevila-samostalniki", "why": { "en": "Two of anything takes the dual: dva brata. Bratje is the plural, for three or more (trije bratje).", "de": "Bei zwei von irgendetwas steht der Dual: dva brata. Bratje ist der Plural, für drei oder mehr (trije bratje).", "it": "Con due di qualunque cosa si usa il duale: dva brata. Bratje è il plurale, per tre o più (trije bratje)." },
+            "reply": { "sl": "Množina? Koliko bratov pa ima? Pet? Deset?", "en": "Množina (plural)? So how many brothers has he got? Five? Ten?", "de": "Množina (Plural)? Wie viele Brüder hat er denn? Fünf? Zehn?", "it": "Množina (plurale)? Quanti fratelli ha, allora? Cinque? Dieci?" } },
+          { "sl": "Dve brata. Dvojina!", "en": "Two brothers. The dual!", "de": "Zwei Brüder. Der Dual!", "it": "Due fratelli. Il duale!",
+            "grammar": "stevila-samostalniki", "why": { "en": "Brat is masculine, so 'two' is dva. Dve is for feminine and neuter nouns (dve sestri).", "de": "Brat ist männlich, also heißt ‚zwei‘ dva. Dve steht bei weiblichen und sächlichen Nomen (dve sestri).", "it": "Brat è maschile, quindi 'due' è dva. Dve è per i nomi femminili e neutri (dve sestri)." },
+            "reply": { "sl": "Dve? Torej sta sestri? Hm, zanimivo.", "en": "Dve (two, feminine)? So they're sisters? Hm, interesting.", "de": "Dve (zwei, weiblich)? Also sind es Schwestern? Hm, interessant.", "it": "Dve (due, al femminile)? Allora sono sorelle? Mh, interessante." } }
+        ] },
+        { "who": "mojca", "sl": "Tretji stavek: 'Živim v Trnovo.' Popravite ga.", "en": "The third sentence: 'I live in Trnovo' (wrong case). Correct it.", "de": "Der dritte Satz: ‚Ich wohne in Trnovo‘ (falscher Fall). Verbessern Sie ihn.", "it": "La terza frase: 'Vivo a Trnovo' (caso sbagliato). La corregga." },
+        { "choices": [
+          { "sl": "Živim v Trnovem.", "en": "I live in Trnovo.", "de": "Ich wohne in Trnovo.", "it": "Vivo a Trnovo.", "ok": true,
+            "reply": { "sl": "Pravilno! V + mestnik. Pet plus!", "en": "Correct! V + locative. An A plus!", "de": "Richtig! V + Lokativ. Eine Eins mit Sternchen!", "it": "Giusto! V + locativo. Dieci e lode!" } },
+          { "sl": "Živim v Trnovu.", "en": "I live in Trnovo.", "de": "Ich wohne in Trnovo.", "it": "Vivo a Trnovo.",
+            "grammar": "mestnik", "why": { "en": "Trnovo declines like an adjective: v Trnovem (like v Novem mestu). Trnovu is not one of its forms.", "de": "Trnovo wird wie ein Adjektiv dekliniert: v Trnovem (wie v Novem mestu). Trnovu ist keine seiner Formen.", "it": "Trnovo si declina come un aggettivo: v Trnovem (come v Novem mestu). Trnovu non è una delle sue forme." },
+            "reply": { "sl": "V Trnovu? Hm. Takega kraja pa ne poznam.", "en": "V Trnovu? Hm. I don't know a place like that.", "de": "V Trnovu? Hm. So einen Ort kenne ich nicht.", "it": "V Trnovu? Mh. Non conosco un posto così." } },
+          { "sl": "Živim v Trnovo.", "en": "I live to Trnovo.", "de": "Ich wohne nach Trnovo.", "it": "Vivo verso Trnovo.",
+            "grammar": "kje-mestnik-orodnik", "why": { "en": "V (in, where you live) takes the locative: v Trnovem. V Trnovo (accusative) is the direction: grem v Trnovo.", "de": "V (in, wo du wohnst) verlangt den Lokativ: v Trnovem. V Trnovo (Akkusativ) ist die Richtung: grem v Trnovo.", "it": "V (in, dove vivi) vuole il locativo: v Trnovem. V Trnovo (accusativo) è la direzione: grem v Trnovo." },
+            "reply": { "sl": "V Trnovo? Kam pa greste, Jan? Saj ste že tu!", "en": "V Trnovo (to Trnovo)? Where are you off to, Jan? You're already here!", "de": "V Trnovo (nach Trnovo)? Wohin gehen Sie denn, Jan? Sie sind doch schon hier!", "it": "V Trnovo (verso Trnovo)? Dove va, Jan? È già qui!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "dvojina",
+      "lines": [
+        { "who": "mojca", "sl": "Jan, pridite k tabli. Tine in Zala sta dva učenca. Kaj delata?", "en": "Jan, come to the blackboard. Tine and Zala are two pupils. What are the two of them doing?", "de": "Jan, kommen Sie an die Tafel. Tine und Zala sind zwei Schüler. Was machen die beiden?", "it": "Jan, venga alla lavagna. Tine e Zala sono due alunni. Che cosa fanno loro due?" },
+        { "choices": [
+          { "sl": "Bereta. Dva učenca bereta dve knjigi.", "en": "They (two) are reading. Two pupils are reading two books.", "de": "Sie (zwei) lesen. Zwei Schüler lesen zwei Bücher.", "it": "Leggono (loro due). Due alunni leggono due libri.", "ok": true,
+            "reply": { "sl": "Odlično! Bereta, dvojina.", "en": "Excellent! Bereta, the dual.", "de": "Ausgezeichnet! Bereta, der Dual.", "it": "Ottimo! Bereta, il duale." } },
+          { "sl": "Berejo. Dva učenca berejo dve knjigi.", "en": "They (all) are reading. Two pupils are reading two books.", "de": "Sie (alle) lesen. Zwei Schüler lesen zwei Bücher.", "it": "Leggono (tutti). Due alunni leggono due libri.",
+            "grammar": "dvojina", "why": { "en": "Two pupils take the dual verb: bereta. Berejo is the plural, three or more.", "de": "Zwei Schüler verlangen das Verb im Dual: bereta. Berejo ist der Plural, drei oder mehr.", "it": "Due alunni vogliono il verbo al duale: bereta. Berejo è il plurale, tre o più." },
+            "reply": { "sl": "Berejo? Kdo še? Jaz vidim samo Tineta in Zalo.", "en": "Berejo (they all read)? Who else? I can only see Tine and Zala.", "de": "Berejo (sie alle lesen)? Wer noch? Ich sehe nur Tine und Zala.", "it": "Berejo (leggono, in tanti)? Chi altro? Io vedo solo Tine e Zala." } },
+          { "sl": "Bereta. Dva učenca bereta dve knjige.", "en": "They (two) are reading. Two pupils are reading two books.", "de": "Sie (zwei) lesen. Zwei Schüler lesen zwei Bücher.", "it": "Leggono (loro due). Due alunni leggono due libri.",
+            "grammar": "dvojina", "why": { "en": "Two books: the dual knjigi. Knjige is the plural (tri knjige).", "de": "Zwei Bücher: der Dual knjigi. Knjige ist der Plural (tri knjige).", "it": "Due libri: il duale knjigi. Knjige è il plurale (tri knjige)." },
+            "reply": { "sl": "Knjige? Tine, Zala, imata še eno pod mizo?", "en": "Knjige (books, plural)? Tine, Zala, have you got another one under the desk?", "de": "Knjige (Bücher, Plural)? Tine, Zala, habt ihr noch eins unter dem Tisch?", "it": "Knjige (libri, plurale)? Tine, Zala, ne avete un altro sotto il banco?" } }
+        ] },
+        { "who": "mojca", "sl": "In midva? Vi in jaz. Kaj delava midva?", "en": "And the two of us? You and I. What are we two doing?", "de": "Und wir zwei? Sie und ich. Was machen wir zwei?", "it": "E noi due? Lei e io. Che cosa facciamo noi due?" },
+        { "choices": [
+          { "sl": "Midva govoriva slovensko.", "en": "We two are speaking Slovene.", "de": "Wir zwei sprechen Slowenisch.", "it": "Noi due parliamo sloveno.", "ok": true,
+            "reply": { "sl": "Tako je! Govoriva. In se učiva.", "en": "That is right! We speak. And we learn.", "de": "So ist es! Wir sprechen. Und wir lernen.", "it": "Proprio così! Parliamo. E impariamo." } },
+          { "sl": "Midva govorimo slovensko.", "en": "We two are speaking (plural) Slovene.", "de": "Wir zwei sprechen (Plural) Slowenisch.", "it": "Noi due parliamo (plurale) sloveno.",
+            "grammar": "dvojina", "why": { "en": "Midva (we two) takes the dual: govoriva. Govorimo is for three or more (mi).", "de": "Midva (wir zwei) verlangt den Dual: govoriva. Govorimo gilt für drei oder mehr (mi).", "it": "Midva (noi due) vuole il duale: govoriva. Govorimo è per tre o più (mi)." },
+            "reply": { "sl": "Govorimo? Tine, Zala, pridita! Vsi govorimo!", "en": "Govorimo (we all speak)? Tine, Zala, come here! We're all talking!", "de": "Govorimo (wir alle sprechen)? Tine, Zala, kommt her! Wir sprechen alle!", "it": "Govorimo (parliamo, in tanti)? Tine, Zala, venite! Parliamo tutti!" } },
+          { "sl": "Midva govoriva slovenski.", "en": "We two are speaking Slovenian (adjective).", "de": "Wir zwei sprechen slowenisch (Adjektiv).", "it": "Noi due parliamo sloveno (aggettivo).",
+            "grammar": "prislovi", "why": { "en": "'In Slovene' is the adverb slovensko. Slovenski is an adjective (slovenski jezik).", "de": "‚Auf Slowenisch‘ ist das Adverb slovensko. Slovenski ist ein Adjektiv (slovenski jezik).", "it": "'In sloveno' è l'avverbio slovensko. Slovenski è un aggettivo (slovenski jezik)." },
+            "reply": { "sl": "Slovenski …? Čakam, Jan. Kje je konec stavka?", "en": "Slovenski …? I'm waiting, Jan. Where's the end of the sentence?", "de": "Slovenski …? Ich warte, Jan. Wo ist das Ende des Satzes?", "it": "Slovenski …? Aspetto, Jan. Dov'è la fine della frase?" } }
+        ] },
+        { "who": "mojca", "sl": "Zdaj vi: dve besedi z dvojino. Do jutri. Na svidenje, Jan!", "en": "Now you: two words in the dual. By tomorrow. Goodbye, Jan!", "de": "Jetzt Sie: zwei Wörter im Dual. Bis morgen. Auf Wiedersehen, Jan!", "it": "Adesso tocca a Lei: due parole al duale. Per domani. Arrivederci, Jan!" },
+        { "choices": [
+          { "sl": "Dve roki, dve nogi. Na svidenje, učiteljica!", "en": "Two hands, two legs. Goodbye, teacher!", "de": "Zwei Hände, zwei Beine. Auf Wiedersehen, Frau Lehrerin!", "it": "Due mani, due gambe. Arrivederci, maestra!", "ok": true,
+            "reply": { "sl": "Bravo! Vidite, dvojino imate s sabo!", "en": "Well done! See, you carry the dual with you!", "de": "Bravo! Sehen Sie, den Dual haben Sie immer dabei!", "it": "Bravo! Vede, il duale ce l'ha sempre con sé!" } },
+          { "sl": "Dve roke, dve noge. Na svidenje, učiteljica!", "en": "Two hands, two legs. Goodbye, teacher!", "de": "Zwei Hände, zwei Beine. Auf Wiedersehen, Frau Lehrerin!", "it": "Due mani, due gambe. Arrivederci, maestra!",
+            "grammar": "dvojina", "why": { "en": "Two: the dual roki, nogi. Roke and noge are the plural (pet prstov, ampak dve roki).", "de": "Zwei: der Dual roki, nogi. Roke und noge sind der Plural (pet prstov, ampak dve roki).", "it": "Due: il duale roki, nogi. Roke e noge sono il plurale (pet prstov, ampak dve roki)." },
+            "reply": { "sl": "Roke? Koliko rok pa imate, Jan? Tri?", "en": "Roke (hands, plural)? How many hands have you got, Jan? Three?", "de": "Roke (Hände, Plural)? Wie viele Hände haben Sie denn, Jan? Drei?", "it": "Roke (mani, plurale)? Quante mani ha, Jan? Tre?" } },
+          { "sl": "Dve roki, dve nogi. Na svidenje, učiteljico!", "en": "Two hands, two legs. Goodbye, teacher!", "de": "Zwei Hände, zwei Beine. Auf Wiedersehen, Frau Lehrerin!", "it": "Due mani, due gambe. Arrivederci, maestra!",
+            "grammar": "imenovalnik", "why": { "en": "Calling her: učiteljica, unchanged. Učiteljico is the accusative.", "de": "Beim Anreden: učiteljica, unverändert. Učiteljico ist der Akkusativ.", "it": "Quando la chiami: učiteljica, invariato. Učiteljico è l'accusativo." },
+            "reply": { "sl": "Učiteljico? Katero? Tu sem samo jaz.", "en": "Učiteljico? Which teacher? There's only me here.", "de": "Učiteljico? Welche denn? Hier bin nur ich.", "it": "Učiteljico? Quale? Qui ci sono solo io." } }
+        ] }
+      ]
+    },
+    {
+      "id": "naloga",
+      "lines": [
+        { "who": "tine", "sl": "Jan, pomagaj. Domača naloga. Moram napisati: 'Jaz imam …' Ne znam.", "en": "Jan, help. Homework. I have to write: 'I have …' I cannot.", "de": "Jan, hilf mir. Hausaufgabe. Ich muss schreiben: ‚Ich habe …‘ Ich kann das nicht.", "it": "Jan, aiutami. I compiti. Devo scrivere: 'Io ho …' Non ci riesco." },
+        { "choices": [
+          { "sl": "Kaj imaš doma, Tine? Konja? Potem: 'Jaz imam konja.'", "en": "What do you have at home, Tine? A horse? Then: 'I have a horse.'", "de": "Was hast du zu Hause, Tine? Ein Pferd? Dann: ‚Ich habe ein Pferd.‘", "it": "Che cosa hai a casa, Tine? Un cavallo? Allora: 'Io ho un cavallo.'", "ok": true,
+            "reply": { "sl": "Jaz imam konja! Sivka!", "en": "I have a horse! Sivko!", "de": "Ich habe ein Pferd! Sivko!", "it": "Io ho un cavallo! Sivko!" } },
+          { "sl": "Kaj imaš doma, Tine? Konja? Potem: 'Jaz imam konj.'", "en": "What do you have at home, Tine? A horse? Then: 'I have horse.'", "de": "Was hast du zu Hause, Tine? Ein Pferd? Dann: ‚Ich habe Pferd.‘", "it": "Che cosa hai a casa, Tine? Un cavallo? Allora: 'Io ho cavallo.'",
+            "grammar": "tozilnik", "why": { "en": "Imeti takes the accusative; konj is a living being, so the accusative is konja (like psa, brata).", "de": "Imeti verlangt den Akkusativ; konj ist ein Lebewesen, also ist der Akkusativ konja (wie psa, brata).", "it": "Imeti vuole l'accusativo; konj è un essere vivente, quindi l'accusativo è konja (come psa, brata)." },
+            "reply": { "sl": "Konj? Ja, Sivko je konj. In potem?", "en": "Konj? Yes, Sivko's a horse. And then?", "de": "Konj? Ja, Sivko ist ein Pferd. Und dann?", "it": "Konj? Sì, Sivko è un cavallo. E poi?" } },
+          { "sl": "Kaj imaš doma, Tine? Konja? Potem: 'Jaz imaš konja.'", "en": "What do you have at home, Tine? A horse? Then: 'I you-have a horse.'", "de": "Was hast du zu Hause, Tine? Ein Pferd? Dann: ‚Ich hast ein Pferd.‘", "it": "Che cosa hai a casa, Tine? Un cavallo? Allora: 'Io hai un cavallo.'",
+            "grammar": "imeti-iti", "why": { "en": "Jaz (I) goes with imam. Imaš is you (ti imaš).", "de": "Jaz (ich) gehört zu imam. Imaš ist du (ti imaš).", "it": "Jaz (io) va con imam. Imaš è tu (ti imaš)." },
+            "reply": { "sl": "Jaz imaš? Kdo, jaz ali ti?", "en": "Jaz imaš (I you-have)? Who, me or you?", "de": "Jaz imaš (ich du-hast)? Wer, ich oder du?", "it": "Jaz imaš (io tu-hai)? Chi, io o tu?" } }
+        ] },
+        { "who": "tine", "sl": "In: 'Moj konj je …' Kakšen je Sivko? Star. Ampak lep!", "en": "And: 'My horse is …' What is Sivko like? Old. But nice!", "de": "Und: ‚Mein Pferd ist …‘ Wie ist Sivko? Alt. Aber schön!", "it": "E: 'Il mio cavallo è …' Com'è Sivko? Vecchio. Ma bello!" },
+        { "choices": [
+          { "sl": "Moj konj je star in lep.", "en": "My horse is old and nice.", "de": "Mein Pferd ist alt und schön.", "it": "Il mio cavallo è vecchio e bello.", "ok": true,
+            "reply": { "sl": "Star in lep! Kot dedek!", "en": "Old and nice! Like grandpa!", "de": "Alt und schön! Wie Opa!", "it": "Vecchio e bello! Come il nonno!" } },
+          { "sl": "Moj konj je stara in lepa.", "en": "My horse is old and nice (feminine).", "de": "Mein Pferd ist alt und schön (weiblich).", "it": "Il mio cavallo è vecchia e bella.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Konj is masculine: star, lep. Stara and lepa are feminine (kobila je stara).", "de": "Konj ist männlich: star, lep. Stara und lepa sind weiblich (kobila je stara).", "it": "Konj è maschile: star, lep. Stara e lepa sono femminili (kobila je stara)." },
+            "reply": { "sl": "Stara in lepa? Kot babica?", "en": "Stara in lepa (old and pretty, for a she)? Like grandma?", "de": "Stara in lepa (alt und hübsch, weiblich)? Wie Oma?", "it": "Stara in lepa (vecchia e bella)? Come la nonna?" } },
+          { "sl": "Moja konj je star in lep.", "en": "My (feminine) horse is old and nice.", "de": "Meine Pferd ist alt und schön.", "it": "La mia cavallo è vecchio e bello.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Konj is masculine: moj konj. Moja is feminine (moja mama).", "de": "Konj ist männlich: moj konj. Moja ist weiblich (moja mama).", "it": "Konj è maschile: moj konj. Moja è femminile (moja mama)." },
+            "reply": { "sl": "Moja? Mama? Kje je mama?", "en": "Moja (my, for a she)? Mum? Where's Mum?", "de": "Moja (meine)? Mama? Wo ist Mama?", "it": "Moja (mia)? La mamma? Dov'è la mamma?" } }
+        ] },
+        { "who": "tine", "sl": "Zdaj napišem. K-o-n-j. Konj! Hvala, Jan. Ti si pameten.", "en": "Now I will write it. K-o-n-j. Konj! Thanks, Jan. You are clever.", "de": "Jetzt schreibe ich es. K-o-n-j. Konj! Danke, Jan. Du bist schlau.", "it": "Adesso lo scrivo. K-o-n-j. Konj! Grazie, Jan. Sei intelligente." },
+        { "choices": [
+          { "sl": "Ni za kaj. Ti tudi, Tine!", "en": "You are welcome. You too, Tine!", "de": "Gern geschehen. Du auch, Tine!", "it": "Di niente. Anche tu, Tine!", "ok": true,
+            "reply": { "sl": "Jaaa! Grem pokazat dedku.", "en": "Yesss! I am going to show grandpa.", "de": "Jaaa! Ich zeige es Opa.", "it": "Sììì! Vado a farlo vedere al nonno." } },
+          { "sl": "Z veseljem! Tudi ti si pameten, Tine.", "en": "My pleasure! You're clever too, Tine.", "de": "Gern geschehen! Du bist auch schlau, Tine.", "it": "Con piacere! Anche tu sei intelligente, Tine.", "ok": true,
+            "reply": { "sl": "Jaz? Pameten? Jaaa! Tečem k dedku!", "en": "Me? Clever? Yesss! I'm running to grandpa!", "de": "Ich? Schlau? Jaaa! Ich lauf zu Opa!", "it": "Io? Intelligente? Sììì! Corro dal nonno!" } },
+          { "sl": "Ni za kaj. Vi tudi, Tine!", "en": "You are welcome. You (vi) too, Tine!", "de": "Gern geschehen. Sie (vi) auch, Tine!", "it": "Di niente. Anche Lei (vi), Tine!",
+            "grammar": "ti-vi", "why": { "en": "Tine is a child: ti. Vi is for adults you do not know well.", "de": "Tine ist ein Kind: ti. Vi ist für Erwachsene, die du nicht gut kennst.", "it": "Tine è un bambino: ti. Vi è per gli adulti che non conosci bene." },
+            "reply": { "sl": "Vi? Jaz in Sivko? Hi hi!", "en": "Vi (you, plural)? Me and Sivko? Hee hee!", "de": "Vi (ihr)? Ich und Sivko? Hihi!", "it": "Vi (voi)? Io e Sivko? Ih ih!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "globus",
+      "lines": [
+        { "who": "zala", "sl": "Jan! Poglej, globus. Kje je Nemčija? Pokaži mi!", "en": "Jan! Look, a globe. Where is Germany? Show me!", "de": "Jan! Schau, ein Globus. Wo ist Deutschland? Zeig es mir!", "it": "Jan! Guarda, un mappamondo. Dov'è la Germania? Fammi vedere!" },
+        { "choices": [
+          { "sl": "Tukaj. Nemčija je severno od Slovenije.", "en": "Here. Germany is north of Slovenia.", "de": "Hier. Deutschland liegt nördlich von Slowenien.", "it": "Qui. La Germania è a nord della Slovenia.", "ok": true,
+            "reply": { "sl": "Tako daleč! Si prišel z avtom?", "en": "So far! Did you come by car?", "de": "So weit! Bist du mit dem Auto gekommen?", "it": "Così lontano! Sei venuto in macchina?" } },
+          { "sl": "Tukaj. Nemčija je severno od Slovenija.", "en": "Here. Germany is north of Slovenia.", "de": "Hier. Deutschland liegt nördlich von Slowenien.", "it": "Qui. La Germania è a nord della Slovenia.",
+            "grammar": "rodilnik-predlogi", "why": { "en": "Od takes the genitive: od Slovenije, od Nemčije.", "de": "Od verlangt den Genitiv: od Slovenije, od Nemčije.", "it": "Od vuole il genitivo: od Slovenije, od Nemčije." },
+            "reply": { "sl": "Od Slovenija? Zakaj pa tako? Čudno se sliši!", "en": "Od Slovenija? Why like that? It sounds funny!", "de": "Od Slovenija? Warum denn so? Das klingt komisch!", "it": "Od Slovenija? Perché così? Suona strano!" } },
+          { "sl": "Tukaj. Nemčija je severno v Sloveniji.", "en": "Here. Germany is north in Slovenia.", "de": "Hier. Deutschland liegt im Norden in Slowenien.", "it": "Qui. La Germania è a nord in Slovenia.",
+            "grammar": "rodilnik-predlogi", "why": { "en": "North of somewhere is severno od + genitive. V is in: Germany is not in Slovenia.", "de": "Nördlich von etwas heißt severno od + Genitiv. V heißt in: Deutschland liegt nicht in Slowenien.", "it": "A nord di un luogo è severno od + genitivo. V significa in: la Germania non è in Slovenia." },
+            "reply": { "sl": "V Sloveniji? Nemčija je pri nas? Kje? Pokaži!", "en": "V Sloveniji (in Slovenia)? Germany's here, with us? Where? Show me!", "de": "V Sloveniji (in Slowenien)? Deutschland ist bei uns? Wo? Zeig mal!", "it": "V Sloveniji (in Slovenia)? La Germania è qui da noi? Dove? Fammi vedere!" } }
+        ] },
+        { "who": "zala", "sl": "In od kod si ti? Iz katerega mesta?", "en": "And where are you from? From which town?", "de": "Und woher bist du? Aus welcher Stadt?", "it": "E tu di dove sei? Di quale città?" },
+        { "choices": [
+          { "sl": "Iz Nemčije. Iz majhnega mesta.", "en": "From Germany. From a small town.", "de": "Aus Deutschland. Aus einer kleinen Stadt.", "it": "Dalla Germania. Da una piccola città.", "ok": true,
+            "reply": { "sl": "Majhno mesto? Kot Trnovo? Ha!", "en": "A small town? Like Trnovo? Ha!", "de": "Eine kleine Stadt? Wie Trnovo? Ha!", "it": "Una piccola città? Come Trnovo? Ah!" } },
+          { "sl": "Iz Nemčija. Iz majhnega mesta.", "en": "From Germany. From a small town.", "de": "Aus Deutschland. Aus einer kleinen Stadt.", "it": "Dalla Germania. Da una piccola città.",
+            "grammar": "rodilnik-predlogi", "why": { "en": "Iz takes the genitive: iz Nemčije, iz Gorice.", "de": "Iz verlangt den Genitiv: iz Nemčije, iz Gorice.", "it": "Iz vuole il genitivo: iz Nemčije, iz Gorice." },
+            "reply": { "sl": "Iz Nemčija? Kje je to? Ni na globusu!", "en": "Iz Nemčija? Where's that? It's not on the globe!", "de": "Iz Nemčija? Wo ist das? Das ist nicht auf dem Globus!", "it": "Iz Nemčija? Dov'è? Non c'è sul mappamondo!" } },
+          { "sl": "Od Nemčije. Iz majhnega mesta.", "en": "From Germany (a person). From a small town.", "de": "Von Deutschland (wie von einer Person). Aus einer kleinen Stadt.", "it": "Da Germania (come da una persona). Da una piccola città.",
+            "grammar": "rodilnik-predlogi", "why": { "en": "Coming from a country or a town is iz: iz Nemčije. Od is from a person (od babice).", "de": "Wer aus einem Land oder einer Stadt kommt, sagt iz: iz Nemčije. Od heißt von einer Person (od babice).", "it": "Per chi viene da un paese o da una città si usa iz: iz Nemčije. Od è da una persona (od babice)." },
+            "reply": { "sl": "Od Nemčije? Kot darilo? Si ti paket, Jan?", "en": "Od Nemčije? Like a present? Are you a parcel, Jan?", "de": "Od Nemčije? Wie ein Geschenk? Bist du ein Paket, Jan?", "it": "Od Nemčije? Come un regalo? Sei un pacco, Jan?" } }
+        ] },
+        { "who": "zala", "sl": "Jaz sem iz Trnovega. Tukaj, ta pika. Ne, ta! Ni na globusu …", "en": "I am from Trnovo. Here, this dot. No, this one! It is not on the globe …", "de": "Ich bin aus Trnovo. Hier, dieser Punkt. Nein, der! Es ist nicht auf dem Globus …", "it": "Io sono di Trnovo. Qui, questo puntino. No, questo! Non c'è sul mappamondo …" },
+        { "choices": [
+          { "sl": "Ni važno. Trnovo je najlepša vas na svetu.", "en": "It does not matter. Trnovo is the most beautiful village in the world.", "de": "Das ist egal. Trnovo ist das schönste Dorf der Welt.", "it": "Non importa. Trnovo è il paese più bello del mondo.", "ok": true,
+            "reply": { "sl": "Ja! Povem babici, da si tako rekel!", "en": "Yes! I will tell grandma you said that!", "de": "Ja! Ich sage Oma, dass du das gesagt hast!", "it": "Sì! Dico alla nonna che l'hai detto!" } },
+          { "sl": "Ni važno. Trnovo je najlepši vas na svetu.", "en": "It does not matter. Trnovo is the most beautiful village in the world.", "de": "Das ist egal. Trnovo ist das schönste Dorf der Welt.", "it": "Non importa. Trnovo è il paese più bello del mondo.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Vas is feminine: najlepša vas. Najlepši is masculine (najlepši dan).", "de": "Vas ist weiblich: najlepša vas. Najlepši ist männlich (najlepši dan).", "it": "Vas è femminile: najlepša vas. Najlepši è maschile (najlepši dan)." },
+            "reply": { "sl": "Najlepši? Kdo, ti? Mogoče! Ha ha!", "en": "Najlepši (the most handsome, for a he)? Who, you? Maybe! Ha ha!", "de": "Najlepši (der Schönste)? Wer, du? Vielleicht! Haha!", "it": "Najlepši (il più bello)? Chi, tu? Forse! Ah ah!" } },
+          { "sl": "Ni važno. Trnovo je najlepša vas na svet.", "en": "It does not matter. Trnovo is the most beautiful village onto the world.", "de": "Das ist egal. Trnovo ist das schönste Dorf auf die Welt.", "it": "Non importa. Trnovo è il paese più bello verso il mondo.",
+            "grammar": "kje-mestnik-orodnik", "why": { "en": "Where something is: na + locative, na svetu. Na svet is a direction.", "de": "Wo etwas ist: na + Lokativ, na svetu. Na svet ist eine Richtung.", "it": "Dove si trova qualcosa: na + locativo, na svetu. Na svet è una direzione." },
+            "reply": { "sl": "Na svet? Kam pa gre Trnovo? Na izlet?", "en": "Na svet (out into the world)? Where's Trnovo going? On a trip?", "de": "Na svet (hinaus in die Welt)? Wohin geht Trnovo denn? Auf einen Ausflug?", "it": "Na svet (verso il mondo)? Dove va Trnovo? In gita?" } }
+        ] }
+      ]
+    },
+    {
+      "id": "stara-sola",
+      "lines": [
+        { "who": "janez", "sl": "Jan, veš, tu sem hodil v šolo. Pred sedemdesetimi leti. Ta klop je bila moja.", "en": "Jan, you know, I went to school here. Seventy years ago. This desk was mine.", "de": "Jan, weißt du, hier bin ich zur Schule gegangen. Vor siebzig Jahren. Diese Bank war meine.", "it": "Jan, sai, qui andavo a scuola. Settant'anni fa. Questo banco era il mio." },
+        { "choices": [
+          { "sl": "Res? Ste bili dober učenec?", "en": "Really? Were you a good pupil?", "de": "Wirklich? Waren Sie ein guter Schüler?", "it": "Davvero? Era un bravo alunno?", "ok": true,
+            "reply": { "sl": "Ha! Dober v zgodbah. Slab v računanju.", "en": "Ha! Good at stories. Bad at arithmetic.", "de": "Ha! Gut in Geschichten. Schlecht im Rechnen.", "it": "Ah! Bravo nelle storie. Scarso nei conti." } },
+          { "sl": "Res? Si bil dober učenec?", "en": "Really? Were you (ti) a good pupil?", "de": "Wirklich? Warst du (ti) ein guter Schüler?", "it": "Davvero? Eri (ti) un bravo alunno?",
+            "grammar": "ti-vi", "why": { "en": "Vi with Stari Janez: ste bili.", "de": "Zu Stari Janez sagst du vi: ste bili.", "it": "Con Stari Janez si usa il vi: ste bili." },
+            "reply": { "sl": "Tikaš me? No, prav. Tu sva zdaj sošolca.", "en": "You're saying ti to me? Well, fine. Here we're classmates now.", "de": "Du duzt mich? Na gut. Hier sind wir jetzt Schulkameraden.", "it": "Mi dai del tu? Va be'. Qui siamo compagni di scuola, adesso." } },
+          { "sl": "Res? Ste bili dobra učenka?", "en": "Really? Were you a good girl pupil?", "de": "Wirklich? Waren Sie eine gute Schülerin?", "it": "Davvero? Era una brava alunna?",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Janez is a man: dober učenec. Učenka is a girl pupil.", "de": "Janez ist ein Mann: dober učenec. Učenka ist eine Schülerin.", "it": "Janez è un uomo: dober učenec. Učenka è un'alunna." },
+            "reply": { "sl": "Učenka? Ha! Kje pa so moje kite, fant?", "en": "Učenka (a girl pupil)? Ha! And where are my braids, lad?", "de": "Učenka (Schülerin)? Ha! Und wo sind meine Zöpfe, Junge?", "it": "Učenka (alunna)? Ah! E dove sono le mie trecce, ragazzo?" } }
+        ] },
+        { "who": "janez", "sl": "Učiteljica je bila stroga. Gospa Pavla. Palico je imela. Ampak srce tudi.", "en": "The teacher was strict. Mrs Pavla. She had a stick. But a heart too.", "de": "Die Lehrerin war streng. Frau Pavla. Sie hatte einen Stock. Aber auch ein Herz.", "it": "La maestra era severa. La signora Pavla. Aveva una bacchetta. Ma anche un cuore." },
+        { "choices": [
+          { "sl": "Vas je kdaj udarila?", "en": "Did she ever hit you?", "de": "Hat sie Sie je geschlagen?", "it": "L'ha mai picchiato?", "ok": true,
+            "reply": { "sl": "Enkrat. Ker sem pravil zgodbe namesto računov.", "en": "Once. Because I was telling stories instead of doing sums.", "de": "Einmal. Weil ich Geschichten erzählt habe, statt zu rechnen.", "it": "Una volta. Perché raccontavo storie invece di fare i conti." } },
+          { "sl": "Vas je kdaj udaril?", "en": "Did he ever hit you?", "de": "Hat er Sie je geschlagen?", "it": "Lui l'ha mai picchiato?",
+            "grammar": "pretekli-cas", "why": { "en": "The teacher is a woman: udarila. Udaril is masculine.", "de": "Die Lehrerin ist eine Frau: udarila. Udaril ist männlich.", "it": "La maestra è una donna: udarila. Udaril è maschile." },
+            "reply": { "sl": "Udaril? Kdo? Sošolec? Ja, in jaz njega!", "en": "Udaril (he hit)? Who? A classmate? Yes, and I hit him back!", "de": "Udaril (er hat geschlagen)? Wer? Ein Mitschüler? Ja, und ich ihn!", "it": "Udaril (lui ha colpito)? Chi? Un compagno? Sì, e io lui!" } },
+          { "sl": "Vam je kdaj udarila?", "en": "Did she ever hit to you?", "de": "Hat sie Ihnen je geschlagen?", "it": "Le ha mai picchiato?",
+            "grammar": "tozilnik", "why": { "en": "Udariti takes the accusative: udarila vas je. Vam is the dative (dala vam je).", "de": "Udariti verlangt den Akkusativ: udarila vas je. Vam ist der Dativ (dala vam je).", "it": "Udariti vuole l'accusativo: udarila vas je. Vam è il dativo (dala vam je)." },
+            "reply": { "sl": "Vam? Hm. Stara glava, fant. Še enkrat.", "en": "Vam? Hm. Old head, lad. Once more.", "de": "Vam? Hm. Alter Kopf, Junge. Noch einmal.", "it": "Vam? Mah. Testa vecchia, ragazzo. Ancora una volta." } }
+        ] },
+        { "who": "janez", "sl": "Zdaj tu uči Mojca. Dobra je. Brez palice. Pojdiva, tema je.", "en": "Now Mojca teaches here. She is good. Without a stick. Let us two go, it is dark.", "de": "Jetzt unterrichtet hier Mojca. Sie ist gut. Ohne Stock. Gehen wir zwei, es ist dunkel.", "it": "Adesso qui insegna Mojca. È brava. Senza bacchetta. Andiamo, noi due, è buio." },
+        { "choices": [
+          { "sl": "Greva. Lahko noč, Janez. Hvala za zgodbo.", "en": "Let us go (the two of us). Good night, Janez. Thanks for the story.", "de": "Gehen wir (wir zwei). Gute Nacht, Janez. Danke für die Geschichte.", "it": "Andiamo (noi due). Buonanotte, Janez. Grazie per la storia.", "ok": true,
+            "reply": { "sl": "Lahko noč, fant. Muri, domov!", "en": "Good night, lad. Muri, home!", "de": "Gute Nacht, Junge. Muri, nach Hause!", "it": "Buonanotte, ragazzo mio. Muri, a casa!" } },
+          { "sl": "Greva. Hvala, Janez. Se vidimo jutri!", "en": "Let us go (the two of us). Thanks, Janez. See you tomorrow!", "de": "Gehen wir (wir zwei). Danke, Janez. Bis morgen!", "it": "Andiamo (noi due). Grazie, Janez. Ci vediamo domani!", "ok": true,
+            "reply": { "sl": "Jutri, ja. Pod lipo, kot vedno.", "en": "Tomorrow, yes. Under the linden, as always.", "de": "Morgen, ja. Unter der Linde, wie immer.", "it": "Domani, sì. Sotto il tiglio, come sempre." } },
+          { "sl": "Greva. Dober večer, Janez. Hvala za zgodbo.", "en": "Let us go (the two of us). Good evening, Janez. Thanks for the story.", "de": "Gehen wir (wir zwei). Guten Abend, Janez. Danke für die Geschichte.", "it": "Andiamo (noi due). Buonasera, Janez. Grazie per la storia.",
+            "why": { "en": "Dober večer is the greeting when you arrive. When you part in the evening: lahko noč (or na svidenje).", "de": "Dober večer ist der Gruß, wenn du ankommst. Zum Abschied am Abend: lahko noč (oder na svidenje).", "it": "Dober večer è il saluto quando arrivi. Per congedarsi di sera: lahko noč (o na svidenje)." },
+            "reply": { "sl": "Dober večer? Ha. Prihajaš ali odhajaš, fant?", "en": "Dober večer (good evening)? Ha. Are you coming or going, lad?", "de": "Dober večer (guten Abend)? Ha. Kommst du oder gehst du, Junge?", "it": "Dober večer (buonasera)? Ah. Arrivi o te ne vai, ragazzo?" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "tabla-rodilnik",
+      "lines": [
+        { "who": "mojca", "sl": "Dobro jutro, Jan! Poglejte tablo. Tu piše: 'Danes nimam zvezek.' Je to pravilno?", "en": "Good morning, Jan! Look at the blackboard. It says: 'Today I have no notebook' (wrong case). Is that correct?", "de": "Guten Morgen, Jan! Schauen Sie an die Tafel. Da steht: ‚Heute habe ich kein Heft‘ (falscher Fall). Ist das richtig?", "it": "Buongiorno, Jan! Guardi la lavagna. C'è scritto: 'Oggi non ho quaderno' (caso sbagliato). È giusto?" },
+        { "choices": [
+          { "sl": "Ja, to je pravilno.", "en": "Yes, that is correct.", "de": "Ja, das ist richtig.", "it": "Sì, è giusto.",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "After nimam (a negation) the object is in the genitive: nimam zvezka, not zvezek.", "de": "Nach nimam (einer Verneinung) steht das Objekt im Genitiv: nimam zvezka, nicht zvezek.", "it": "Dopo nimam (una negazione) l'oggetto va al genitivo: nimam zvezka, non zvezek." },
+            "reply": { "sl": "Pravilno? Oho, Jan. Poglejte še enkrat, prosim.", "en": "Correct? Oho, Jan. Please look again.", "de": "Richtig? Oho, Jan. Schauen Sie bitte noch einmal hin.", "it": "Giusto? Oh oh, Jan. Guardi di nuovo, per favore." } },
+          { "sl": "Ne. Pravilno je: 'Danes nimam zvezka.'", "en": "No. The correct one is: 'Today I have no notebook.'", "de": "Nein. Richtig ist: ‚Heute habe ich kein Heft.‘", "it": "No. È giusto così: 'Oggi non ho il quaderno.'", "ok": true,
+            "reply": { "sl": "Odlično! Po nikalnici pride rodilnik.", "en": "Excellent! After a negation comes the genitive.", "de": "Ausgezeichnet! Nach einer Verneinung kommt der Genitiv.", "it": "Ottimo! Dopo una negazione viene il genitivo." } },
+          { "sl": "Ne. Pravilno je: 'Danes nimam zvezku.'", "en": "No. The correct one is: 'Today I have no to-the-notebook.'", "de": "Nein. Richtig ist: ‚Heute habe ich keinem Heft.‘", "it": "No. È giusto così: 'Oggi non ho al quaderno.'",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "After a negation the object is in the genitive: nimam zvezka. Zvezku is the dative or the locative (v zvezku).", "de": "Nach einer Verneinung steht das Objekt im Genitiv: nimam zvezka. Zvezku ist der Dativ oder der Lokativ (v zvezku).", "it": "Dopo una negazione l'oggetto va al genitivo: nimam zvezka. Zvezku è il dativo o il locativo (v zvezku)." },
+            "reply": { "sl": "Zvezku? Ali mu bomo kaj dali?", "en": "Zvezku (to the notebook)? Are we giving it something?", "de": "Zvezku (dem Heft)? Schenken wir ihm etwas?", "it": "Zvezku (al quaderno)? Gli regaliamo qualcosa?" } }
+        ] },
+        { "who": "mojca", "sl": "Zdaj popravite na tabli, prosim. Oh … kje je kreda?", "en": "Now correct it on the blackboard, please. Oh … where is the chalk?", "de": "Jetzt verbessern Sie es bitte an der Tafel. Oh … wo ist die Kreide?", "it": "Adesso corregga alla lavagna, per favore. Oh … dov'è il gesso?" },
+        { "choices": [
+          { "sl": "Tukaj ni kreda. Mogoče je v torbi?", "en": "Here it is not chalk. Maybe it is in the bag?", "de": "Hier ist nicht Kreide. Vielleicht ist sie in der Tasche?", "it": "Qui non è gesso. Forse è nella borsa?",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "Ni (there is no) takes the genitive: ni krede, like nimam zvezka. Kreda is the nominative.", "de": "Ni (es gibt kein) verlangt den Genitiv: ni krede, wie nimam zvezka. Kreda ist der Nominativ.", "it": "Ni (non c'è) vuole il genitivo: ni krede, come nimam zvezka. Kreda è il nominativo." },
+            "reply": { "sl": "Ni kreda? Kaj pa je potem? Sir?", "en": "It isn't chalk? What is it, then? Cheese?", "de": "Keine Kreide? Was ist es denn dann? Käse?", "it": "Non è gesso? E allora che cos'è? Formaggio?" } },
+          { "sl": "Tukaj nima krede. Mogoče je v torbi?", "en": "Here he has no chalk. Maybe it is in the bag?", "de": "Hier hat er keine Kreide. Vielleicht ist sie in der Tasche?", "it": "Qui lui non ha gesso. Forse è nella borsa?",
+            "grammar": "rodilnik-nikalnica", "why": { "en": "'There is no' is ni + genitive: ni krede. Nima means he or she has not got.", "de": "‚Es gibt kein‘ heißt ni + Genitiv: ni krede. Nima heißt ‚er oder sie hat nicht‘.", "it": "'Non c'è' è ni + genitivo: ni krede. Nima significa 'lui o lei non ha'." },
+            "reply": { "sl": "Nima? Kdo nima? Tabla?", "en": "Nima (hasn't got)? Who hasn't? The blackboard?", "de": "Nima (hat nicht)? Wer hat nicht? Die Tafel?", "it": "Nima (non ha)? Chi non ha? La lavagna?" } },
+          { "sl": "Tukaj ni krede. Mogoče je v torbi?", "en": "There is no chalk here. Maybe it is in the bag?", "de": "Hier ist keine Kreide. Vielleicht ist sie in der Tasche?", "it": "Qui non c'è gesso. Forse è nella borsa?", "ok": true,
+            "reply": { "sl": "Ja, v moji torbi! Izvolite.", "en": "Yes, in my bag! Here you are.", "de": "Ja, in meiner Tasche! Bitte schön.", "it": "Sì, nella mia borsa! Ecco a Lei." } }
+        ] },
+        { "who": "mojca", "sl": "Hvala, Jan. Zdaj je stavek pravilen. Brez napake!", "en": "Thank you, Jan. Now the sentence is correct. Without a mistake!", "de": "Danke, Jan. Jetzt ist der Satz richtig. Ohne Fehler!", "it": "Grazie, Jan. Adesso la frase è giusta. Senza errori!" }
+      ]
+    },
+    {
+      "id": "tabla-preteklik",
+      "lines": [
+        { "who": "mojca", "sl": "Dober dan, Jan! Danes je na tabli preteklik: 'Včeraj jaz sem bil doma.' Kaj je narobe?", "en": "Good day, Jan! Today the past tense is on the blackboard: 'Yesterday I was at home' (wrong word order). What is wrong?", "de": "Guten Tag, Jan! Heute steht die Vergangenheit an der Tafel: ‚Gestern ich war zu Hause‘ (falsche Wortstellung). Was ist falsch?", "it": "Buongiorno, Jan! Oggi alla lavagna c'è il passato: 'Ieri io sono stato a casa' (ordine sbagliato). Che cosa c'è di sbagliato?" },
+        { "choices": [
+          { "sl": "Pravilno je: 'Včeraj bil sem doma.'", "en": "The correct one is: 'Yesterday was I at home.'", "de": "Richtig ist: ‚Gestern gewesen bin ich zu Hause.‘", "it": "È giusto così: 'Ieri stato sono a casa.'",
+            "grammar": "naslonke", "why": { "en": "Sem is a clitic: it goes in second place, straight after the first word: včeraj sem bil.", "de": "Sem ist ein Klitikon: Es steht an zweiter Stelle, gleich nach dem ersten Wort: včeraj sem bil.", "it": "Sem è un clitico: va al secondo posto, subito dopo la prima parola: včeraj sem bil." },
+            "reply": { "sl": "Hm, to zveni kot stara pesem, Jan.", "en": "Hm, that sounds like an old song, Jan.", "de": "Hm, das klingt wie ein altes Lied, Jan.", "it": "Mm, sembra una vecchia canzone, Jan." } },
+          { "sl": "Pravilno je: 'Včeraj sem biti doma.'", "en": "The correct one is: 'Yesterday I am to be at home.'", "de": "Richtig ist: ‚Gestern bin ich sein zu Hause.‘", "it": "È giusto così: 'Ieri sono essere a casa.'",
+            "grammar": "pretekli-cas", "why": { "en": "The past tense is sem + the l-form: sem bil. Biti is the infinitive (to be).", "de": "Die Vergangenheit ist sem + die l-Form: sem bil. Biti ist der Infinitiv (sein).", "it": "Il passato è sem + la forma in -l: sem bil. Biti è l'infinito (essere)." },
+            "reply": { "sl": "Sem biti? Hm, to je pa čisto nov čas, Jan!", "en": "Sem biti? Hm, that's a brand-new tense, Jan!", "de": "Sem biti? Hm, das ist ja eine ganz neue Zeitform, Jan!", "it": "Sem biti? Mm, questo è un tempo verbale tutto nuovo, Jan!" } },
+          { "sl": "Pravilno je: 'Včeraj sem bil doma.'", "en": "The correct one is: 'Yesterday I was at home.'", "de": "Richtig ist: ‚Gestern war ich zu Hause.‘", "it": "È giusto così: 'Ieri sono stato a casa.'", "ok": true,
+            "reply": { "sl": "Točno! Sem je majhna beseda in rada stoji na drugem mestu.", "en": "Exactly! Sem is a little word, and it likes second place.", "de": "Genau! Sem ist ein kleines Wort und steht gern an zweiter Stelle.", "it": "Esatto! Sem è una parolina e ama stare al secondo posto." } }
+        ] },
+        { "who": "mojca", "sl": "Zdaj pa jutri. Isti stavek v prihodnjiku, prosim.", "en": "Now tomorrow. The same sentence in the future, please.", "de": "Und jetzt morgen. Derselbe Satz im Futur, bitte.", "it": "E adesso domani. La stessa frase al futuro, per favore." },
+        { "choices": [
+          { "sl": "Jutri boš doma.", "en": "Tomorrow you will be at home.", "de": "Morgen wirst du zu Hause sein.", "it": "Domani sarai a casa.",
+            "grammar": "prihodnjik", "why": { "en": "About yourself: bom. Boš is you (ti boš).", "de": "Über dich selbst: bom. Boš heißt du (ti boš).", "it": "Parlando di te: bom. Boš è tu (ti boš)." },
+            "reply": { "sl": "Jaz? Ne, ne, jutri imam pouk!", "en": "Me? No, no, tomorrow I've got lessons!", "de": "Ich? Nein, nein, morgen habe ich Unterricht!", "it": "Io? No, no, domani ho lezione!" } },
+          { "sl": "Jutri bom doma.", "en": "Tomorrow I will be at home.", "de": "Morgen werde ich zu Hause sein.", "it": "Domani sarò a casa.", "ok": true,
+            "reply": { "sl": "Odlično! Jutri bom, danes sem, včeraj sem bil.", "en": "Excellent! Tomorrow bom, today sem, yesterday sem bil.", "de": "Ausgezeichnet! Morgen bom, heute sem, gestern sem bil.", "it": "Ottimo! Domani bom, oggi sem, ieri sem bil." } },
+          { "sl": "Jutri bo doma.", "en": "Tomorrow he will be at home.", "de": "Morgen wird er zu Hause sein.", "it": "Domani lui sarà a casa.",
+            "grammar": "prihodnjik", "why": { "en": "About yourself: bom. Bo is he, she or it (on bo doma).", "de": "Über dich selbst: bom. Bo heißt er, sie oder es (on bo doma).", "it": "Parlando di te: bom. Bo è lui, lei o esso (on bo doma)." },
+            "reply": { "sl": "Kdo bo doma? Tabla? Ali kreda?", "en": "Who'll be at home? The blackboard? Or the chalk?", "de": "Wer wird zu Hause sein? Die Tafel? Oder die Kreide?", "it": "Chi sarà a casa? La lavagna? O il gesso?" } }
+        ] },
+        { "who": "mojca", "sl": "Ampak jutri ne boste doma, Jan. Jutri pridete v šolo!", "en": "But tomorrow you won't be at home, Jan. Tomorrow you're coming to school!", "de": "Aber morgen sind Sie nicht zu Hause, Jan. Morgen kommen Sie in die Schule!", "it": "Ma domani non sarà a casa, Jan. Domani viene a scuola!" }
+      ]
+    },
+    {
+      "id": "dvojina-knjige",
+      "count": { "from": "dice", "min": 1, "max": 6, "gender": "f" },
+      "memory": { "sl": "knjige, ki ste jih prešteli na mizi", "en": "the books you counted on the desk", "de": "die Bücher, die Sie auf dem Tisch gezählt haben", "it": "i libri che Lei ha contato sul banco" },
+      "lines": [
+        { "who": "mojca", "sl": "Dober dan, Jan! Danes štejemo. Poglejte mizo: koliko knjig je na njej?", "en": "Good afternoon, Jan! Today we are counting. Look at the desk: how many books are on it?", "de": "Guten Tag, Jan! Heute zählen wir. Schauen Sie auf den Tisch: Wie viele Bücher liegen darauf?", "it": "Buongiorno, Jan! Oggi contiamo. Guardi il banco: quanti libri ci sono sopra?" },
+        { "choices": [
+          { "sl": "Na mizi {je|sta|so|je} {n} {!knjiga|knjigi|knjige|knjig}.", "en": "There {is|are} {n} {book|books} on the desk.", "de": "Auf dem Tisch {liegt|liegen} {n} {Buch|Bücher}.", "it": "Sul banco {c'è|ci sono} {n} {libro|libri}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {knjiga|knjigi|knjige|knjig}.", "de": "{Eins nimmt den Singular|Zwei nehmen den Dual|Drei und vier nehmen den Plural|Ab fünf steht der Genitiv Plural}: {n} {knjiga|knjigi|knjige|knjig}.", "it": "{Uno vuole il singolare|Due vogliono il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {knjiga|knjigi|knjige|knjig}." },
+            "reply": { "sl": "Hm? Preštejte še enkrat, Jan. Počasi.", "en": "Hm? Count again, Jan. Slowly.", "de": "Hm? Zählen Sie noch einmal, Jan. Langsam.", "it": "Mm? Conti di nuovo, Jan. Piano." } },
+          { "sl": "Na mizi {je|sta|so|je} {n} {knjiga|knjigi|knjige|knjig}.", "en": "There {is|are} {n} {book|books} on the desk.", "de": "Auf dem Tisch {liegt|liegen} {n} {Buch|Bücher}.", "it": "Sul banco {c'è|ci sono} {n} {libro|libri}.", "ok": true,
+            "reply": { "sl": "Tako je! Pravilna končnica, bravo.", "en": "That's right! The correct ending, well done.", "de": "So ist es! Die richtige Endung, bravo.", "it": "Proprio così! La desinenza giusta, bravo." } },
+          { "sl": "Na mizi {je|sta|so|je} {n} {!knjiga|knjigi|knjige|knjig}.", "en": "There {is|are} {n} {book|books} on the desk.", "de": "Auf dem Tisch {liegt|liegen} {n} {Buch|Bücher}.", "it": "Sul banco {c'è|ci sono} {n} {libro|libri}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {knjiga|knjigi|knjige|knjig}.", "de": "{Eins nimmt den Singular|Zwei nehmen den Dual|Drei und vier nehmen den Plural|Ab fünf steht der Genitiv Plural}: {n} {knjiga|knjigi|knjige|knjig}.", "it": "{Uno vuole il singolare|Due vogliono il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {knjiga|knjigi|knjige|knjig}." },
+            "reply": { "sl": "Koliko, prosim? Poglejte še enkrat.", "en": "How many, please? Look again.", "de": "Wie viele, bitte? Schauen Sie noch einmal.", "it": "Quanti, scusi? Guardi di nuovo." } }
+        ] },
+        { "who": "mojca", "sl": "In doma? Koliko knjig imate doma, Jan?", "en": "And at home? How many books do you have at home, Jan?", "de": "Und zu Hause? Wie viele Bücher haben Sie zu Hause, Jan?", "it": "E a casa? Quanti libri ha a casa, Jan?" },
+        { "choices": [
+          { "sl": "Doma imam veliko knjig.", "en": "I have a lot of books at home.", "de": "Ich habe zu Hause viele Bücher.", "it": "A casa ho molti libri.", "ok": true,
+            "reply": { "sl": "Bravo! Radi berete. Jaz tudi.", "en": "Well done! You like reading. So do I.", "de": "Bravo! Sie lesen gern. Ich auch.", "it": "Bravo! Le piace leggere. Anche a me." } },
+          { "sl": "Doma imam veliko knjige.", "en": "I have a lot of book (wrong ending) at home.", "de": "Ich habe zu Hause viel Buch (falsche Endung).", "it": "A casa ho molto libro (desinenza sbagliata).",
+            "grammar": "rodilnik-kolicina", "why": { "en": "After veliko (a lot of), the genitive plural: veliko knjig.", "de": "Nach veliko (viel, viele) steht der Genitiv Plural: veliko knjig.", "it": "Dopo veliko (molto, molti) si usa il genitivo plurale: veliko knjig." },
+            "reply": { "sl": "Veliko knjige? Hm, to se sliši čudno, Jan.", "en": "Veliko knjige? Hm, that sounds odd, Jan.", "de": "Veliko knjige? Hm, das klingt komisch, Jan.", "it": "Veliko knjige? Mm, suona strano, Jan." } },
+          { "sl": "Doma imam veliko knjigo.", "en": "I have a big book at home.", "de": "Ich habe zu Hause ein großes Buch.", "it": "A casa ho un libro grande.",
+            "grammar": "rodilnik-kolicina", "why": { "en": "After veliko (a lot of), the genitive plural: veliko knjig. Veliko knjigo is one big book.", "de": "Nach veliko (viele) steht der Genitiv Plural: veliko knjig. Veliko knjigo ist ein großes Buch.", "it": "Dopo veliko (molti) si usa il genitivo plurale: veliko knjig. Veliko knjigo è un libro grande." },
+            "reply": { "sl": "Eno veliko? Kakšno pa? Slovar?", "en": "One big one? What kind? A dictionary?", "de": "Ein großes? Was für eins? Ein Wörterbuch?", "it": "Uno grande? Che tipo? Un dizionario?" } }
+        ] },
+        { "who": "mojca", "sl": "Lepo. Jutri prinesite eno v šolo. Na svidenje, Jan!", "en": "Good. Tomorrow bring one to school. Goodbye, Jan!", "de": "Schön. Bringen Sie morgen eins in die Schule mit. Auf Wiedersehen, Jan!", "it": "Bene. Domani ne porti uno a scuola. Arrivederci, Jan!" }
+      ]
+    },
+    {
+      "id": "dvojina-vceraj",
+      "lines": [
+        { "who": "mojca", "sl": "Dober dan, Jan. Včeraj Tineta in Zale ni bilo v šoli. Kje sta bila?", "en": "Good afternoon, Jan. Yesterday Tine and Zala were not at school. Where were the two of them?", "de": "Guten Tag, Jan. Gestern waren Tine und Zala nicht in der Schule. Wo waren die beiden?", "it": "Buongiorno, Jan. Ieri Tine e Zala non erano a scuola. Dove sono stati, loro due?" },
+        { "choices": [
+          { "sl": "Na travniku so bili. Gledali so ovce.", "en": "They (all) were in the meadow. They (all) were watching the sheep.", "de": "Sie (alle) waren auf der Wiese. Sie (alle) haben die Schafe angeschaut.", "it": "Erano (tutti) sul prato. Guardavano (tutti) le pecore.",
+            "grammar": "dvojina", "why": { "en": "Two people take the dual: sta bila, sta gledala. So bili is the plural, for three or more.", "de": "Zwei Personen verlangen den Dual: sta bila, sta gledala. So bili ist der Plural, für drei oder mehr.", "it": "Due persone vogliono il duale: sta bila, sta gledala. So bili è il plurale, per tre o più." },
+            "reply": { "sl": "Koliko otrok pa je bilo tam? Pet? Deset?", "en": "So how many children were there? Five? Ten?", "de": "Wie viele Kinder waren denn dort? Fünf? Zehn?", "it": "Quanti bambini c'erano, allora? Cinque? Dieci?" } },
+          { "sl": "Na travniku sta bila. Gledala sta ovce.", "en": "They (two) were in the meadow. They were watching the sheep.", "de": "Die beiden waren auf der Wiese. Sie haben die Schafe angeschaut.", "it": "Loro due erano sul prato. Guardavano le pecore.", "ok": true,
+            "reply": { "sl": "Ovce? Med poukom? Ta dva!", "en": "Sheep? During lessons? Those two!", "de": "Schafe? Während des Unterrichts? Die beiden!", "it": "Le pecore? Durante la lezione? Quei due!" } },
+          { "sl": "Na travniku sta bili. Gledali sta ovce.", "en": "They (two girls) were in the meadow. They were watching the sheep.", "de": "Die beiden (Mädchen) waren auf der Wiese. Sie haben die Schafe angeschaut.", "it": "Le due (bambine) erano sul prato. Guardavano le pecore.",
+            "grammar": "dvojina", "why": { "en": "Tine is a boy: a boy and a girl take the masculine dual, sta bila. Sta bili is for two girls.", "de": "Tine ist ein Junge: Ein Junge und ein Mädchen verlangen den männlichen Dual, sta bila. Sta bili gilt für zwei Mädchen.", "it": "Tine è un bambino: un bambino e una bambina vogliono il duale maschile, sta bila. Sta bili è per due bambine." },
+            "reply": { "sl": "Dve deklici? Tine bo užaljen, Jan!", "en": "Two girls? Tine will be offended, Jan!", "de": "Zwei Mädchen? Tine wird beleidigt sein, Jan!", "it": "Due bambine? Tine si offenderà, Jan!" } }
+        ] },
+        { "who": "mojca", "sl": "Jutri morata priti oba. Kaj jima rečem? Pomagajte mi, Jan.", "en": "Tomorrow both of them must come. What shall I tell them? Help me, Jan.", "de": "Morgen müssen beide kommen. Was sage ich ihnen? Helfen Sie mir, Jan.", "it": "Domani devono venire tutti e due. Che cosa dico loro? Mi aiuti, Jan." },
+        { "choices": [
+          { "sl": "Tine, Zala, jutri pridita v šolo!", "en": "Tine, Zala, come (you two) to school tomorrow!", "de": "Tine, Zala, kommt (ihr zwei) morgen in die Schule!", "it": "Tine, Zala, venite (voi due) a scuola domani!", "ok": true,
+            "reply": { "sl": "Pridita! Dvojina tudi v velelniku. Odlično!", "en": "Pridita! The dual in the imperative too. Excellent!", "de": "Pridita! Der Dual auch im Imperativ. Ausgezeichnet!", "it": "Pridita! Il duale anche all'imperativo. Ottimo!" } },
+          { "sl": "Tine, Zala, jutri pridite v šolo!", "en": "Tine, Zala, come (you all) to school tomorrow!", "de": "Tine, Zala, kommt (ihr alle) morgen in die Schule!", "it": "Tine, Zala, venite (voi tutti) a scuola domani!",
+            "grammar": "dvojina", "why": { "en": "To two people: the dual imperative, pridita. Pridite is for three or more, or for vi.", "de": "Zu zwei Personen: der Imperativ im Dual, pridita. Pridite gilt für drei oder mehr oder für vi.", "it": "A due persone: l'imperativo duale, pridita. Pridite è per tre o più, o per il vi." },
+            "reply": { "sl": "Pridite? Vsi? Nimamo toliko stolov!", "en": "Pridite (you all)? Everyone? We haven't got that many chairs!", "de": "Pridite (ihr alle)? Alle? So viele Stühle haben wir nicht!", "it": "Pridite (voi tutti)? Tutti? Non abbiamo tante sedie!" } },
+          { "sl": "Tine, Zala, jutri pridi v šolo!", "en": "Tine, Zala, come (just one of you) to school tomorrow!", "de": "Tine, Zala, komm (nur einer) morgen in die Schule!", "it": "Tine, Zala, vieni (uno solo) a scuola domani!",
+            "grammar": "dvojina", "why": { "en": "Pridi is for one person. For two: pridita.", "de": "Pridi gilt für eine Person. Für zwei: pridita.", "it": "Pridi è per una persona sola. Per due: pridita." },
+            "reply": { "sl": "Pridi? Samo eden? Kateri pa?", "en": "Pridi (you, one)? Just one? Which one?", "de": "Pridi (du, einer)? Nur einer? Welcher denn?", "it": "Pridi (tu, uno)? Uno solo? E quale?" } }
+        ] },
+        { "who": "mojca", "sl": "Hvala, Jan. Pa brez ovc, prosim!", "en": "Thank you, Jan. But without the sheep, please!", "de": "Danke, Jan. Aber ohne die Schafe, bitte!", "it": "Grazie, Jan. Ma senza le pecore, per favore!" }
+      ]
+    },
+    {
+      "id": "naloga-strani",
+      "count": { "from": "dice", "min": 1, "max": 9, "gender": "f" },
+      "lines": [
+        { "who": "tine", "sl": "Jan, poglej moj zvezek! Pišem črke. Preštej strani!", "en": "Jan, look at my notebook! I am writing letters. Count the pages!", "de": "Jan, schau mein Heft an! Ich schreibe Buchstaben. Zähl die Seiten!", "it": "Jan, guarda il mio quaderno! Scrivo le lettere. Conta le pagine!" },
+        { "choices": [
+          { "sl": "V zvezku {!je|sta|so|je} {n} {!stran|strani|strani|strani}.", "en": "There {is|are} {n} {page|pages} in the notebook.", "de": "Im Heft {ist|sind} {n} {Seite|Seiten}.", "it": "Nel quaderno {c'è|ci sono} {n} {pagina|pagine}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes je and the singular|Two take sta and the dual|Three and four take so and the plural|From five on, je and the genitive plural}: {je|sta|so|je} {n} {stran|strani|strani|strani}.", "de": "{Eins nimmt je und den Singular|Zwei nehmen sta und den Dual|Drei und vier nehmen so und den Plural|Ab fünf je und den Genitiv Plural}: {je|sta|so|je} {n} {stran|strani|strani|strani}.", "it": "{Uno vuole je e il singolare|Due vogliono sta e il duale|Tre e quattro vogliono so e il plurale|Da cinque in su, je e il genitivo plurale}: {je|sta|so|je} {n} {stran|strani|strani|strani}." },
+            "reply": { "sl": "Kako? Še enkrat, Jan. Počasi!", "en": "What? Once more, Jan. Slowly!", "de": "Wie? Noch mal, Jan. Langsam!", "it": "Come? Ancora una volta, Jan. Piano!" } },
+          { "sl": "V zvezku {!je|sta|so|je} {n} {!stran|strani|strani|strani}.", "en": "There {is|are} {n} {page|pages} in the notebook.", "de": "Im Heft {ist|sind} {n} {Seite|Seiten}.", "it": "Nel quaderno {c'è|ci sono} {n} {pagina|pagine}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes je and the singular|Two take sta and the dual|Three and four take so and the plural|From five on, je and the genitive plural}: {je|sta|so|je} {n} {stran|strani|strani|strani}.", "de": "{Eins nimmt je und den Singular|Zwei nehmen sta und den Dual|Drei und vier nehmen so und den Plural|Ab fünf je und den Genitiv Plural}: {je|sta|so|je} {n} {stran|strani|strani|strani}.", "it": "{Uno vuole je e il singolare|Due vogliono sta e il duale|Tre e quattro vogliono so e il plurale|Da cinque in su, je e il genitivo plurale}: {je|sta|so|je} {n} {stran|strani|strani|strani}." },
+            "reply": { "sl": "Hm? Jaz štejem drugače. Ena, dva, tri …", "en": "Hm? I count differently. One, two, three …", "de": "Hm? Ich zähle anders. Eins, zwei, drei …", "it": "Mm? Io conto in un altro modo. Uno, due, tre …" } },
+          { "sl": "V zvezku {je|sta|so|je} {n} {stran|strani|strani|strani}.", "en": "There {is|are} {n} {page|pages} in the notebook.", "de": "Im Heft {ist|sind} {n} {Seite|Seiten}.", "it": "Nel quaderno {c'è|ci sono} {n} {pagina|pagine}.", "ok": true,
+            "reply": { "sl": "Jaaa! Jutri pa še ena!", "en": "Yesss! And tomorrow one more!", "de": "Jaaa! Und morgen noch eine!", "it": "Sììì! E domani un'altra!" } }
+        ] },
+        { "who": "tine", "sl": "Zdaj pa ime. S čim naj pišem? S kredo?", "en": "Now my name. What shall I write with? With chalk?", "de": "Jetzt meinen Namen. Womit soll ich schreiben? Mit Kreide?", "it": "Adesso il mio nome. Con che cosa scrivo? Col gesso?" },
+        { "choices": [
+          { "sl": "S svinčnik. Kreda je za tablo.", "en": "With pencil (wrong case). Chalk is for the blackboard.", "de": "Mit Bleistift (falscher Fall). Kreide ist für die Tafel.", "it": "Con matita (caso sbagliato). Il gesso è per la lavagna.",
+            "grammar": "orodnik", "why": { "en": "S (with) takes the instrumental: s svinčnikom.", "de": "S (mit) verlangt den Instrumental: s svinčnikom.", "it": "S (con) vuole lo strumentale: s svinčnikom." },
+            "reply": { "sl": "S svinčnik? Kaj? Ne razumem, Jan.", "en": "S svinčnik? What? I don't get it, Jan.", "de": "S svinčnik? Was? Versteh ich nicht, Jan.", "it": "S svinčnik? Cosa? Non capisco, Jan." } },
+          { "sl": "S svinčnikom. Kreda je za tablo.", "en": "With a pencil. Chalk is for the blackboard.", "de": "Mit dem Bleistift. Kreide ist für die Tafel.", "it": "Con la matita. Il gesso è per la lavagna.", "ok": true,
+            "reply": { "sl": "Aha! S svinčnikom, kot veliki!", "en": "Aha! With a pencil, like the grown-ups!", "de": "Aha! Mit dem Bleistift, wie die Großen!", "it": "Ah! Con la matita, come i grandi!" } },
+          { "sl": "S svinčnikom. Kreda je za tabla.", "en": "With a pencil. Chalk is for blackboard (wrong case).", "de": "Mit dem Bleistift. Kreide ist für Tafel (falscher Fall).", "it": "Con la matita. Il gesso è per lavagna (caso sbagliato).",
+            "grammar": "tozilnik", "why": { "en": "Za (for) takes the accusative: za tablo.", "de": "Za (für) verlangt den Akkusativ: za tablo.", "it": "Za (per) vuole l'accusativo: za tablo." },
+            "reply": { "sl": "Za tabla? Hi hi, čudno se sliši!", "en": "Za tabla? Hee hee, that sounds funny!", "de": "Za tabla? Hihi, das klingt komisch!", "it": "Za tabla? Ih ih, suona strano!" } }
+        ] },
+        { "who": "tine", "sl": "T-I-N-E. Tine! Hvala, Jan. Jutri pokažem učiteljici!", "en": "T-I-N-E. Tine! Thanks, Jan. Tomorrow I will show the teacher!", "de": "T-I-N-E. Tine! Danke, Jan. Morgen zeige ich es der Lehrerin!", "it": "T-I-N-E. Tine! Grazie, Jan. Domani lo faccio vedere alla maestra!" }
+      ]
+    },
+    {
+      "id": "naloga-dnevi",
+      "lines": [
+        { "who": "tine", "sl": "Jan, pomagaj! Naloga: 'Kdaj imaš šolo?' Kaj napišem?", "en": "Jan, help! Homework: 'When do you have school?' What do I write?", "de": "Jan, hilf mir! Hausaufgabe: ‚Wann hast du Schule?‘ Was schreibe ich?", "it": "Jan, aiutami! Compito: 'Quando hai scuola?' Che cosa scrivo?" },
+        { "choices": [
+          { "sl": "Napiši: 'Šolo imam od ponedeljka do petka.'", "en": "Write: 'I have school from Monday to Friday.'", "de": "Schreib: ‚Ich habe Schule von Montag bis Freitag.‘", "it": "Scrivi: 'Ho scuola dal lunedì al venerdì.'", "ok": true,
+            "reply": { "sl": "Od ponedeljka do petka. Pet dni! Uh, veliko.", "en": "From Monday to Friday. Five days! Oof, that's a lot.", "de": "Von Montag bis Freitag. Fünf Tage! Uff, viel.", "it": "Dal lunedì al venerdì. Cinque giorni! Uff, tanti." } },
+          { "sl": "Napiši: 'Šolo imam od ponedeljek do petek.'", "en": "Write: 'I have school from Monday to Friday' (wrong case).", "de": "Schreib: ‚Ich habe Schule von Montag bis Freitag‘ (falscher Fall).", "it": "Scrivi: 'Ho scuola dal lunedì al venerdì' (caso sbagliato).",
+            "grammar": "rodilnik-predlogi", "why": { "en": "Od and do take the genitive: od ponedeljka do petka.", "de": "Od und do verlangen den Genitiv: od ponedeljka do petka.", "it": "Od e do vogliono il genitivo: od ponedeljka do petka." },
+            "reply": { "sl": "Od ponedeljek? Učiteljica bo rekla: narobe!", "en": "Od ponedeljek? The teacher will say: wrong!", "de": "Od ponedeljek? Die Lehrerin sagt bestimmt: falsch!", "it": "Od ponedeljek? La maestra dirà: sbagliato!" } },
+          { "sl": "Napiši: 'Šolo imam od sobote do nedelje.'", "en": "Write: 'I have school from Saturday to Sunday.'", "de": "Schreib: ‚Ich habe Schule von Samstag bis Sonntag.‘", "it": "Scrivi: 'Ho scuola dal sabato alla domenica.'",
+            "why": { "en": "Sobota and nedelja are the weekend, with no school. School is od ponedeljka do petka.", "de": "Sobota und nedelja sind das Wochenende, ohne Schule. Schule ist od ponedeljka do petka.", "it": "Sobota e nedelja sono il fine settimana, senza scuola. La scuola è od ponedeljka do petka." },
+            "reply": { "sl": "V soboto? Ne, ne, takrat se igram!", "en": "On Saturday? No, no, that's when I play!", "de": "Am Samstag? Nein, nein, da spiele ich!", "it": "Il sabato? No, no, allora gioco!" } }
+        ] },
+        { "who": "tine", "sl": "Še eno: 'Kdaj greš spat?' Jaz ob osmih. In ti, Jan?", "en": "One more: 'When do you go to bed?' Me, at eight. And you, Jan?", "de": "Noch eine: ‚Wann gehst du schlafen?‘ Ich um acht. Und du, Jan?", "it": "Un'altra: 'Quando vai a dormire?' Io alle otto. E tu, Jan?" },
+        { "choices": [
+          { "sl": "Ob deset zvečer.", "en": "At ten (wrong form) in the evening.", "de": "Um zehn (falsche Form) am Abend.", "it": "Alle dieci (forma sbagliata) di sera.",
+            "grammar": "kdaj-cas", "why": { "en": "The hour takes ob + the locative: ob desetih, like ob osmih.", "de": "Die Uhrzeit: ob + Lokativ, ob desetih, wie ob osmih.", "it": "L'ora vuole ob + locativo: ob desetih, come ob osmih." },
+            "reply": { "sl": "Ob deset? Hm, učiteljica tako ne piše.", "en": "Ob deset? Hm, the teacher doesn't write it like that.", "de": "Ob deset? Hm, so schreibt die Lehrerin das nicht.", "it": "Ob deset? Mm, la maestra non lo scrive così." } },
+          { "sl": "Ob desetih zjutraj.", "en": "At ten in the morning.", "de": "Um zehn am Morgen.", "it": "Alle dieci di mattina.",
+            "why": { "en": "Bedtime is in the evening: zvečer. Zjutraj is the morning.", "de": "Schlafenszeit ist am Abend: zvečer. Zjutraj ist der Morgen.", "it": "Si va a dormire di sera: zvečer. Zjutraj è la mattina." },
+            "reply": { "sl": "Zjutraj? Spiš cel dan? Kot Sivko!", "en": "In the morning? You sleep all day? Like Sivko!", "de": "Am Morgen? Du schläfst den ganzen Tag? Wie Sivko!", "it": "Di mattina? Dormi tutto il giorno? Come Sivko!" } },
+          { "sl": "Ob desetih zvečer.", "en": "At ten in the evening.", "de": "Um zehn am Abend.", "it": "Alle dieci di sera.", "ok": true,
+            "reply": { "sl": "Ob desetih! Tako pozno? Jaz takrat že spim.", "en": "At ten! So late? I'm already asleep by then.", "de": "Um zehn! So spät? Da schlafe ich schon.", "it": "Alle dieci! Così tardi? Io a quell'ora dormo già." } }
+        ] },
+        { "who": "tine", "sl": "Napisal sem! Hvala, Jan. Zdaj se grem igrat!", "en": "I have written it! Thanks, Jan. Now I am going to play!", "de": "Ich hab's geschrieben! Danke, Jan. Jetzt geh ich spielen!", "it": "L'ho scritto! Grazie, Jan. Adesso vado a giocare!" }
+      ]
+    },
+    {
+      "id": "globus-morje",
+      "memory": { "sl": "globus in školjko, ki mi jo prineseš z morja", "en": "the globe and the shell you will bring me from the sea", "de": "den Globus und die Muschel, die du mir vom Meer mitbringst", "it": "il mappamondo e la conchiglia che mi porterai dal mare" },
+      "lines": [
+        { "who": "zala", "sl": "Jan, poglej globus! Slovenija je čisto majhna. Kaj pa Nemčija?", "en": "Jan, look at the globe! Slovenia is really small. And Germany?", "de": "Jan, schau den Globus an! Slowenien ist ganz klein. Und Deutschland?", "it": "Jan, guarda il mappamondo! La Slovenia è piccolissima. E la Germania?" },
+        { "choices": [
+          { "sl": "Nemčija je večji od Slovenije.", "en": "Germany is bigger (masculine) than Slovenia.", "de": "Deutschland ist größer (männlich) als Slowenien.", "it": "La Germania è più grande (maschile) della Slovenia.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Nemčija is feminine: večja. Večji is masculine (večji brat).", "de": "Nemčija ist weiblich: večja. Večji ist männlich (večji brat).", "it": "Nemčija è femminile: večja. Večji è maschile (večji brat)." },
+            "reply": { "sl": "Večji? Kdo, ti? Ja, večji si od mene!", "en": "Večji (bigger, a he)? Who, you? Yes, you're bigger than me!", "de": "Večji (größer, er)? Wer, du? Ja, du bist größer als ich!", "it": "Večji (più grande, lui)? Chi, tu? Sì, sei più grande di me!" } },
+          { "sl": "Nemčija je večja od Slovenije.", "en": "Germany is bigger than Slovenia.", "de": "Deutschland ist größer als Slowenien.", "it": "La Germania è più grande della Slovenia.", "ok": true,
+            "reply": { "sl": "Večja, ja. Ampak Slovenija je lepša!", "en": "Bigger, yes. But Slovenia is prettier!", "de": "Größer, ja. Aber Slowenien ist schöner!", "it": "Più grande, sì. Ma la Slovenia è più bella!" } },
+          { "sl": "Nemčija je bolj velika od Slovenije.", "en": "Germany is more big than Slovenia.", "de": "Deutschland ist mehr groß als Slowenien.", "it": "La Germania è più grande (bolj velika) della Slovenia.",
+            "grammar": "primernik", "why": { "en": "Velik has its own comparative: večji, večja. Bolj velik is not used.", "de": "Velik hat eine eigene Steigerung: večji, večja. Bolj velik sagt man nicht.", "it": "Velik ha un comparativo tutto suo: večji, večja. Bolj velik non si usa." },
+            "reply": { "sl": "Bolj velika? Hi hi, tako sem jaz govorila, ko sem bila mala!", "en": "Bolj velika (more big)? Hee hee, that's how I talked when I was little!", "de": "Bolj velika (mehr groß)? Hihi, so hab ich geredet, als ich klein war!", "it": "Bolj velika (più grande, così)? Ih ih, parlavo così quando ero piccola!" } }
+        ] },
+        { "who": "zala", "sl": "Kam greš letos poleti? Na počitnice?", "en": "Where are you going this summer? On holiday?", "de": "Wohin fährst du diesen Sommer? In den Urlaub?", "it": "Dove vai quest'estate? In vacanza?" },
+        { "choices": [
+          { "sl": "Na morju. V Piran!", "en": "At the seaside. To Piran!", "de": "Am Meer. Nach Piran!", "it": "Al mare (stato). A Pirano!",
+            "grammar": "kam-tozilnik", "why": { "en": "Where to: na + accusative, na morje. Na morju is where you are.", "de": "Wohin: na + Akkusativ, na morje. Na morju ist, wo du bist.", "it": "Moto a luogo: na + accusativo, na morje. Na morju è dove sei." },
+            "reply": { "sl": "Na morju? Zdaj? Saj si tukaj, v šoli!", "en": "At the seaside? Now? But you're here, at school!", "de": "Am Meer? Jetzt? Du bist doch hier, in der Schule!", "it": "Al mare? Adesso? Ma sei qui, a scuola!" } },
+          { "sl": "V morje. V Piran!", "en": "Into the sea. To Piran!", "de": "Ins Meer hinein. Nach Piran!", "it": "Dentro il mare. A Pirano!",
+            "why": { "en": "Going to the seaside is na morje. V morje is into the water.", "de": "Ans Meer fahren heißt na morje. V morje heißt ins Wasser hinein.", "it": "Andare al mare è na morje. V morje è dentro l'acqua." },
+            "reply": { "sl": "V morje? Kot riba? Hi hi!", "en": "Into the sea? Like a fish? Hee hee!", "de": "Ins Meer? Wie ein Fisch? Hihi!", "it": "Dentro il mare? Come un pesce? Ih ih!" } },
+          { "sl": "Na morje. V Piran!", "en": "To the seaside. To Piran!", "de": "Ans Meer. Nach Piran!", "it": "Al mare. A Pirano!", "ok": true,
+            "reply": { "sl": "V Piran! Prinesi mi školjko!", "en": "To Piran! Bring me a shell!", "de": "Nach Piran! Bring mir eine Muschel mit!", "it": "A Pirano! Portami una conchiglia!" } }
+        ] },
+        { "who": "zala", "sl": "Poglej, na globusu je Piran čisto blizu. Ena pika!", "en": "Look, on the globe Piran is really close. One dot!", "de": "Schau, auf dem Globus ist Piran ganz nah. Ein Punkt!", "it": "Guarda, sul mappamondo Pirano è vicinissima. Un puntino!" }
+      ]
+    },
+    {
+      "id": "stara-sola-pec",
+      "memory": { "sl": "večer v stari šoli, ko sem ti pravil o polenih za peč", "en": "the evening in the old school when I told you about the logs for the stove", "de": "den Abend in der alten Schule, als ich dir von den Holzscheiten für den Ofen erzählt habe", "it": "la sera nella vecchia scuola, quando ti ho raccontato dei ceppi per la stufa" },
+      "lines": [
+        { "who": "janez", "sl": "Veš, fant, pozimi je bilo tu mrzlo. Vsak otrok je moral prinesti poleno za peč.", "en": "You know, lad, in winter it was cold here. Every child had to bring a log for the stove.", "de": "Weißt du, Junge, im Winter war es hier kalt. Jedes Kind musste ein Holzscheit für den Ofen mitbringen.", "it": "Sai, ragazzo, d'inverno qui faceva freddo. Ogni bambino doveva portare un ceppo per la stufa." },
+        { "choices": [
+          { "sl": "Vsak dan? Ste morali tudi vi nositi drva?", "en": "Every day? Did you have to carry wood too?", "de": "Jeden Tag? Mussten Sie auch Holz tragen?", "it": "Ogni giorno? Anche Lei doveva portare la legna?", "ok": true,
+            "reply": { "sl": "Seveda. Peš, v snegu do kolen.", "en": "Of course. On foot, in snow up to my knees.", "de": "Natürlich. Zu Fuß, im Schnee bis zu den Knien.", "it": "Certo. A piedi, con la neve fino alle ginocchia." } },
+          { "sl": "Vsak dan? Ste morali tudi vi nosite drva?", "en": "Every day? Did you have to you-carry wood too?", "de": "Jeden Tag? Mussten Sie auch tragen Sie Holz?", "it": "Ogni giorno? Anche Lei doveva porti la legna?",
+            "grammar": "modalni-glagoli", "why": { "en": "After a modal verb (morati), the infinitive: ste morali nositi.", "de": "Nach einem Modalverb (morati) steht der Infinitiv: ste morali nositi.", "it": "Dopo un verbo modale (morati) va l'infinito: ste morali nositi." },
+            "reply": { "sl": "Nosite? Zdaj? Moj hrbet je prestar, fant.", "en": "Nosite (carry it, you)? Now? My back is too old, lad.", "de": "Nosite (tragen Sie)? Jetzt? Mein Rücken ist zu alt, Junge.", "it": "Nosite (portate)? Adesso? La mia schiena è troppo vecchia, ragazzo." } },
+          { "sl": "Vsak dan? Ste mogli tudi vi nositi drva?", "en": "Every day? Were you able to carry wood too?", "de": "Jeden Tag? Konnten Sie auch Holz tragen?", "it": "Ogni giorno? Anche Lei riusciva a portare la legna?",
+            "grammar": "modalni-glagoli", "why": { "en": "Had to is morati: ste morali. Mogli (from moči) means could, were able to.", "de": "Müssen heißt morati: ste morali. Mogli (von moči) heißt konnten.", "it": "Dovere è morati: ste morali. Mogli (da moči) significa potevate, riuscivate." },
+            "reply": { "sl": "Mogel? Seveda! Močan sem bil kot medved.", "en": "Could I? Of course! I was as strong as a bear.", "de": "Ob ich konnte? Natürlich! Ich war stark wie ein Bär.", "it": "Se riuscivo? Certo! Ero forte come un orso." } }
+        ] },
+        { "who": "janez", "sl": "In med poukom? Govoriti nismo smeli. Samo poslušati.", "en": "And during lessons? We were not allowed to talk. Only to listen.", "de": "Und im Unterricht? Reden durften wir nicht. Nur zuhören.", "it": "E durante la lezione? Non potevamo parlare. Solo ascoltare." },
+        { "choices": [
+          { "sl": "Danes pa otroci smeti govoriti.", "en": "But today children to-be-allowed to talk.", "de": "Aber heute Kinder dürfen (Infinitiv) reden.", "it": "Ma oggi i bambini potere parlare.",
+            "grammar": "modalni-glagoli", "why": { "en": "The modal verb itself changes: otroci smejo. Smeti is the infinitive.", "de": "Das Modalverb selbst wird konjugiert: otroci smejo. Smeti ist der Infinitiv.", "it": "Il verbo modale si coniuga: otroci smejo. Smeti è l'infinito." },
+            "reply": { "sl": "Smeti? Ja, smeti pa pustijo po tleh!", "en": "Smeti (rubbish)? Yes, they leave their rubbish on the floor!", "de": "Smeti (Müll)? Ja, den Müll lassen sie auf dem Boden liegen!", "it": "Smeti (spazzatura)? Sì, la spazzatura la lasciano per terra!" } },
+          { "sl": "Danes pa otroci smejo govoriti.", "en": "But today children are allowed to talk.", "de": "Aber heute dürfen die Kinder reden.", "it": "Ma oggi i bambini possono parlare.", "ok": true,
+            "reply": { "sl": "Smejo, ja. Preveč! Slišim jih do lipe.", "en": "They are, yes. Too much! I can hear them all the way to the linden.", "de": "Dürfen sie, ja. Zu viel! Ich höre sie bis zur Linde.", "it": "Possono, sì. Anche troppo! Li sento fino al tiglio." } },
+          { "sl": "Danes pa otroci smem govoriti.", "en": "But today children I-am-allowed to talk.", "de": "Aber heute Kinder darf ich reden.", "it": "Ma oggi i bambini posso parlare.",
+            "grammar": "glagoli-sedanjik", "why": { "en": "Otroci (they): smejo. Smem is I may.", "de": "Otroci (sie): smejo. Smem heißt ich darf.", "it": "Otroci (loro): smejo. Smem è io posso." },
+            "reply": { "sl": "Smem? Ti smeš, seveda. Ti nisi otrok.", "en": "Smem (I may)? You may, of course. You're not a child.", "de": "Smem (ich darf)? Du darfst, natürlich. Du bist kein Kind.", "it": "Smem (io posso)? Tu puoi, certo. Non sei un bambino." } }
+        ] },
+        { "who": "janez", "sl": "Časi se spreminjajo, fant. Pojdi domov, pozno je.", "en": "Times change, lad. Go home, it is late.", "de": "Die Zeiten ändern sich, Junge. Geh nach Hause, es ist spät.", "it": "I tempi cambiano, ragazzo. Va' a casa, è tardi." }
+      ]
+    }
+  ]
+}

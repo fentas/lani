@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "fragen",
+  "language": "de",
+  "level": "A1",
+  "emoji": "❓",
+  "title": {
+    "de": "Wo? Wohin? Woher? Fragen stellen",
+    "sl": "Wo? Wohin? Woher? Vprašanja",
+    "en": "Wo? Wohin? Woher? Asking questions",
+    "it": "Wo? Wohin? Woher? Le domande"
+  },
+  "rule": {
+    "en": "A W-question (*W-Frage*) starts with the question word, the verb comes right after it, then the subject: **Wo wohnst du?** **Wann kommt Opa?**\n\nThe question words: **wer** (who), **was** (what), **wo** (where), **wohin** (where to), **woher** (where from), **wann** (when), **wie** (how), **warum** (why), **wie viel** (how much) and **wie viele** (how many, + plural).\n\nGerman keeps three kinds of where apart: **Wo** bist du? (the place) – **Wohin** gehst du? (the direction) – **Woher** kommst du? (where you come from). In speech they often split: Wo gehst du hin?\n\nA yes/no question (*Ja/Nein-Frage*) starts with the verb: **Kommst du mit?** **Hast du Hunger?** English needs do (Do you have …?); German doesn't.\n\nwer changes with the case: **wen** (accusative), **wem** (dative): Wen siehst du? Wem gehört der Hund?",
+    "sl": "Vprašanje z vprašalnico (*W-Frage*) se začne z vprašalnico, takoj za njo pride glagol, nato osebek: **Wo wohnst du?** (Kje stanuješ?) **Wann kommt Opa?** (Kdaj pride dedek?)\n\nVprašalnice: **wer** (kdo), **was** (kaj), **wo** (kje), **wohin** (kam), **woher** (od kod), **wann** (kdaj), **wie** (kako), **warum** (zakaj), **wie viel** in **wie viele** (koliko; wie viele z množino).\n\nKot slovenščina nemščina loči tri vprašanja za kraj: **Wo** bist du? (kje?) – **Wohin** gehst du? (kam?) – **Woher** kommst du? (od kod?). V govoru se pogosto razcepijo: Wo gehst du hin?\n\nOdločevalno vprašanje (*Ja/Nein-Frage*) se začne z glagolom: **Kommst du mit?** **Hast du Hunger?** Namesto slovenskega ali se glagol postavi na prvo mesto.\n\nwer se sklanja: **wen** (koga), **wem** (komu): Wen siehst du? Wem gehört der Hund? (Čigav je pes?)",
+    "it": "Una domanda con parola interrogativa (*W-Frage*) comincia con la parola interrogativa, subito dopo viene il verbo, poi il soggetto: **Wo wohnst du?** (Dove abiti?) **Wann kommt Opa?** (Quando viene il nonno?)\n\nLe parole interrogative: **wer** (chi), **was** (che cosa), **wo** (dove), **wohin** (dove, con moto a luogo), **woher** (da dove), **wann** (quando), **wie** (come), **warum** (perché), **wie viel** (quanto) e **wie viele** (quanti, quante, + plurale).\n\nL'italiano ha un solo dove; il tedesco ne ha tre: **Wo** bist du? (dove sei?) – **Wohin** gehst du? (dove vai?) – **Woher** kommst du? (da dove vieni?). A voce spesso si dividono: Wo gehst du hin?\n\nUna domanda sì/no (*Ja/Nein-Frage*) comincia col verbo, non basta l'intonazione: **Kommst du mit?** **Hast du Hunger?**\n\nwer cambia col caso: **wen** (chi, oggetto), **wem** (a chi): Wen siehst du? Wem gehört der Hund? (Di chi è il cane?)"
+  },
+  "table": {
+    "head": [
+      { "de": "Fragewort", "sl": "vprašalnica", "en": "question word", "it": "parola interrogativa" },
+      { "de": "Bedeutung", "sl": "pomen", "en": "meaning", "it": "significato" },
+      { "de": "Beispiel", "sl": "primer", "en": "example", "it": "esempio" }
+    ],
+    "rows": [
+      ["wer?", { "de": "Person", "sl": "kdo?", "en": "who?", "it": "chi?" }, "Wer ist das?"],
+      ["was?", { "de": "Sache", "sl": "kaj?", "en": "what?", "it": "che cosa?" }, "Was machst du?"],
+      ["wo?", { "de": "Ort", "sl": "kje?", "en": "where?", "it": "dove? (stato in luogo)" }, "Wo ist der Hund?"],
+      ["wohin?", { "de": "Richtung", "sl": "kam?", "en": "where to?", "it": "dove? (moto a luogo)" }, "Wohin gehst du?"],
+      ["woher?", { "de": "Herkunft", "sl": "od kod?", "en": "where from?", "it": "da dove?" }, "Woher kommst du?"],
+      ["wann?", { "de": "Zeit", "sl": "kdaj?", "en": "when?", "it": "quando?" }, "Wann kommt Opa?"],
+      ["wie?", { "de": "Art und Weise", "sl": "kako?", "en": "how?", "it": "come?" }, "Wie heißt du?"],
+      ["warum?", { "de": "Grund", "sl": "zakaj?", "en": "why?", "it": "perché?" }, "Warum lachst du?"],
+      ["wie viele?", { "de": "Anzahl", "sl": "koliko? (šteto)", "en": "how many?", "it": "quanti? quante?" }, "Wie viele Kühe sind das?"],
+      ["wie viel?", { "de": "Menge", "sl": "koliko? (količina)", "en": "how much?", "it": "quanto? quanta?" }, "Wie viel Honig hast du?"],
+      ["wen? / wem?", { "de": "Akkusativ / Dativ", "sl": "koga? / komu?", "en": "whom? / to whom?", "it": "chi? / a chi?" }, "Wem gehört der Hund?"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Wo ist Flocke? – Bei den Schafen.",
+      "sl": "Kje je Flocke? – Pri ovcah.",
+      "en": "Where's Flocke? – With the sheep.",
+      "it": "Dov'è Flocke? – Con le pecore."
+    },
+    {
+      "de": "Wohin gehst du? – Zur Mühle.",
+      "sl": "Kam greš? – V mlin.",
+      "en": "Where are you going? – To the mill.",
+      "it": "Dove vai? – Al mulino.",
+      "note": {
+        "en": "wohin: where to, a direction.",
+        "sl": "wohin = kam.",
+        "it": "wohin = dove, con moto a luogo."
+      }
+    },
+    {
+      "de": "Woher kommst du? – Aus Klagenfurt.",
+      "sl": "Od kod si? – Iz Celovca.",
+      "en": "Where are you from? – From Klagenfurt.",
+      "it": "Di dove sei? – Di Klagenfurt.",
+      "note": {
+        "en": "woher = where from.",
+        "sl": "woher = od kod; Klagenfurt je slovensko Celovec.",
+        "it": "woher = da dove."
+      }
+    },
+    {
+      "de": "Wie viele Schafe hat Florian?",
+      "sl": "Koliko ovc ima Florian?",
+      "en": "How many sheep does Florian have?",
+      "it": "Quante pecore ha Florian?",
+      "note": {
+        "en": "wie viele + plural, and no does: hat Florian.",
+        "sl": "wie viele + množina: Schafe.",
+        "it": "wie viele + plurale: Schafe."
+      }
+    },
+    {
+      "de": "Kommst du mit zum See?",
+      "sl": "Greš z nami na jezero?",
+      "en": "Are you coming to the lake with us?",
+      "it": "Vieni con noi al lago?",
+      "note": {
+        "en": "Yes/no question: the verb comes first.",
+        "sl": "Odločevalno vprašanje: glagol na prvem mestu.",
+        "it": "Domanda sì/no: il verbo al primo posto."
+      }
+    },
+    {
+      "de": "Warum bellt der Hund?",
+      "sl": "Zakaj pes laja?",
+      "en": "Why is the dog barking?",
+      "it": "Perché abbaia il cane?"
+    },
+    {
+      "de": "Wem gehört das Lamm?",
+      "sl": "Čigavo je jagnje?",
+      "en": "Whose lamb is it?",
+      "it": "Di chi è l'agnello?",
+      "note": {
+        "en": "wem = to whom (Dativ): gehören takes the Dativ.",
+        "sl": "wem = komu (dajalnik): gehören ima dajalnik.",
+        "it": "wem = a chi (dativo): gehören vuole il dativo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["questions", "question_words", "w_fragen", "wo_wohin_woher", "yes_no_questions", "interrogatives"],
+  "see": ["wortstellung", "wechselpraepositionen", "nebensatz", "du-sie"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

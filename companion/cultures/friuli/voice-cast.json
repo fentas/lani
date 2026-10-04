@@ -1,0 +1,97 @@
+{
+  "_comment": "Who speaks the Italian of the friuli village (companion/README.md, Voice): the same archetypes as companion/voice-cast.json, for the friuli cast (villagers/*.json 'speaker'). The bridge asks ElevenLabs (eleven_v3) with language_code it. Chosen by audition on 2026-09-27: the same villager lines in each candidate, checked with the local Whisper (every word right but 'gubana'), the pitch and the noise measured. Native Italian library voices for the narrator, the grandparents and the young man (Violetta, Nonno Ben, Angelina, Chris Basetta: on the account since the audition, no voice slot); the others are voices the account had, which ElevenLabs verified in Italian where it says so (Mila, Tomasz Z, Alice, Torri Miles, Kavya). The narrators are native, so no 'carrier'. The library has no Italian child's voice (Oceano, 14, is a teenager's), so the children keep the account's. 'alternatives': the other candidates heard (on the account); one with a 'library_owner' was not heard, only its library preview, and must be added first. To swap a voice, put its id in 'elevenlabs' and re-voice that speaker: LANI_CULTURE=friuli companion/bin/voice-build --run --revoice <speaker> --data <the learner's data dir>. No 'gepard' voices: the local worker speaks only Slovene. Voice Design stays off for new profiles (LANI_VOICE_DESIGN=off).",
+  "language": "it",
+  "denoise": { "_comment": "The girl's voice (Torri Miles) hisses: her ElevenLabs clips are filtered before they are stored (companion/voice-cast.json).", "girl": "hiss" },
+  "speakers": {
+    "female": {
+      "gender": "female",
+      "elevenlabs": "gfKKsLN1k0oYYN9n2dXX",
+      "name": "Violetta",
+      "role": "Narrator: words, examples, exercises (default)",
+      "alternatives": [
+        { "name": "Matilda", "elevenlabs": "XrExE9yKIg1WjnnlVkGX" },
+        { "name": "Tiziana", "elevenlabs": "RXoaSpLaWTEckJgPUBG3", "library_owner": "dc4239b369528b467450ffbeafe24e08966d7e852eaddc7cdc5e4354d7905b39" }
+      ]
+    },
+    "male": {
+      "gender": "male",
+      "elevenlabs": "t3hJ92dgZhDVtsff084B",
+      "name": "Chris Basetta",
+      "role": "Narrator (male): role-play characters with voice male",
+      "alternatives": [{ "name": "Daniel", "elevenlabs": "onwK4e9ZLuTAKqWW03F9" }]
+    },
+    "grandma": {
+      "gender": "female",
+      "elevenlabs": "MLpDWJvrjFIdb63xbJp8",
+      "name": "Angelina",
+      "role": "Grandmother: Nonna Rosa, Zia Nives",
+      "alternatives": [
+        { "name": "Zlata", "elevenlabs": "V5O4WAcdw7w3Ccfvma8Z" },
+        { "name": "Mila", "elevenlabs": "eqAqnItEUARzEkoDCTJ1" },
+        { "name": "Elettra", "elevenlabs": "G0q9AYE8QsarSbMtaIEu", "library_owner": "a0a4e67f327861c1168f736f3f5d70bb12c0d8285a7655d970ed469ea50257ee" }
+      ]
+    },
+    "grandpa": {
+      "gender": "male",
+      "elevenlabs": "w3aQQZqtgGo2o2fsmvQ2",
+      "name": "Nonno Ben",
+      "role": "Old man: Nonno Bepi, Mugnaio Franco, Apicoltore Aldo",
+      "alternatives": [
+        { "name": "Tomasz Z", "elevenlabs": "xsSg7GkDPDhaGZpbKOLn" },
+        { "name": "Criss", "elevenlabs": "OcIrXHpOMgy1jqfJ2I8o", "library_owner": "3bd07a56e0ce835f78cb707cb9abcc0899c136bfd84565d0201a0bdaf8035b7c" }
+      ]
+    },
+    "young-man": {
+      "gender": "male",
+      "elevenlabs": "t3hJ92dgZhDVtsff084B",
+      "name": "Chris Basetta",
+      "role": "Young man: Pastore Davide, Vignaiolo Matteo; men who move in",
+      "alternatives": [
+        { "name": "Bartłomiej", "elevenlabs": "mE4ZaAjuN2kFvhpzKG06" },
+        { "name": "Matteo", "elevenlabs": "MTgv1KRJpUnc34UMGTHK", "library_owner": "af8cd84dd4e37ceac6f9e48f92c15236109f4797d79c9f043814b36da482d379" }
+      ]
+    },
+    "gruff": {
+      "gender": "male",
+      "elevenlabs": "xsSg7GkDPDhaGZpbKOLn",
+      "name": "Tomasz Z",
+      "role": "Deep, gruff man: Fabbro Bruno",
+      "alternatives": [{ "name": "Nikola", "elevenlabs": "DAGnQ7r9sMtV0Q44g1Mi" }]
+    },
+    "woman": {
+      "gender": "female",
+      "elevenlabs": "eqAqnItEUARzEkoDCTJ1",
+      "name": "Mila",
+      "role": "Warm woman: Ostessa Marisa",
+      "alternatives": [{ "name": "Lily", "elevenlabs": "pFZP5JQG7iQjIQuC4Bku" }]
+    },
+    "teacher": {
+      "gender": "female",
+      "elevenlabs": "Xb7hH8MSUJpSbSDYk0k2",
+      "name": "Alice",
+      "role": "Clear teacher: Maestra Elena",
+      "alternatives": [{ "name": "Matilda", "elevenlabs": "XrExE9yKIg1WjnnlVkGX" }]
+    },
+    "young-woman": {
+      "gender": "female",
+      "elevenlabs": "NfdaqpoTPn7nF7WBBRTv",
+      "name": "Ana",
+      "role": "Young woman: women who move in",
+      "alternatives": [{ "name": "Lily", "elevenlabs": "pFZP5JQG7iQjIQuC4Bku" }]
+    },
+    "girl": {
+      "gender": "female",
+      "elevenlabs": "a30ekmfK56EKHR341YaO",
+      "name": "Torri Miles",
+      "role": "Girl: Giulia; girls born in the village",
+      "alternatives": [{ "name": "Jessica", "elevenlabs": "cgSgspJ2msm6clMCkdW9" }]
+    },
+    "boy": {
+      "gender": "male",
+      "elevenlabs": "bA58y3FqVI6b6gTNh0oT",
+      "name": "Kavya",
+      "role": "Boy: Tommaso, Lorenzo; boys born in the village",
+      "alternatives": [{ "name": "Oceano", "elevenlabs": "c6cUlh8iJa74kYbBwDaZ", "library_owner": "80db51a320172e482336b4d447b6dbebe4eae1689131be5888649e78b23d6493" }]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "altes-buch",
+  "kind": "page",
+  "level": "A1",
+  "title": { "de": "Ein altes Buch", "sl": "Stara knjiga", "en": "An old book", "it": "Un libro antico" },
+  "by": "sepp",
+  "lines": [
+    { "text": { "de": "Dieses Buch war von meinem Großvater.", "sl": "To knjigo je imel moj dedek.", "en": "This book was my grandfather's.", "it": "Questo libro era di mio nonno." } },
+    { "text": { "de": "Auf dieser Seite ist ein Bild von einer Harpfe.", "sl": "Na tej strani je slika harpfe.", "en": "On this page there is a picture of a Harpfe.", "it": "Su questa pagina c'è un'immagine di una Harpfe." } },
+    { "text": { "de": "Die Harpfe ist ein Gestell aus Holz auf der Wiese.", "sl": "Harpfa je leseno ogrodje na travniku.", "en": "The Harpfe is a wooden rack on the meadow.", "it": "La Harpfe è una rastrelliera di legno sul prato." } },
+    { "text": { "de": "Die Bauern hängen das Heu und das Getreide auf die Harpfe.", "sl": "Kmetje na harpfo obesijo seno in žito.", "en": "The farmers hang the hay and the grain on the Harpfe.", "it": "I contadini appendono il fieno e il grano sulla Harpfe." } },
+    { "text": { "de": "Dort trocknet es in der Sonne und im Wind.", "sl": "Tam se suši na soncu in vetru.", "en": "There it dries in the sun and the wind.", "it": "Lì si asciuga al sole e al vento." } },
+    { "text": { "de": "Die Harpfe hat ein kleines Dach aus Lärchenschindeln.", "sl": "Harpfa ima majhno streho iz macesnovih skodel.", "en": "The Harpfe has a little roof of larch shingles.", "it": "La Harpfe ha un piccolo tetto di scandole di larice." } },
+    { "text": { "de": "Eine große Harpfe mit zwei Seiten heißt Doppelharpfe.", "sl": "Velika harpfa z dvema stranema se imenuje dvojna harpfa.", "en": "A big Harpfe with two sides is called a Doppelharpfe.", "it": "Una grande Harpfe a due lati si chiama Doppelharpfe." } },
+    { "text": { "de": "In Slowenien sagt man Kozolec. Die Harpfe und der Kozolec sind Verwandte.", "sl": "V Sloveniji se reče kozolec. Harpfa in kozolec sta sorodnika.", "en": "In Slovenia it's called a kozolec. The Harpfe and the kozolec are relatives.", "it": "In Slovenia si dice kozolec. La Harpfe e il kozolec sono parenti." } },
+    { "text": { "de": "Auf der letzten Seite steht ein alter Spruch:", "sl": "Na zadnji strani je star rek:", "en": "On the last page there is an old saying:", "it": "Nell'ultima pagina c'è un vecchio detto:" } },
+    { "text": { "de": "»Wenn's zu Lichtmess stürmt und schneit, ist der Frühling nicht mehr weit.«", "sl": "»Če na svečnico piha in sneži, pomlad ni več daleč.«", "en": "»If it storms and snows at Candlemas, spring is not far away.«", "it": "»Se alla Candelora c'è bufera e neve, la primavera non è lontana.«" } }
+  ],
+  "questions": [
+    {
+      "ask": { "de": "Was trocknet auf der Harpfe?", "sl": "Kaj se suši na harpfi?", "en": "What dries on the Harpfe?", "it": "Che cosa si asciuga sulla Harpfe?" },
+      "options": ["Das Heu und das Getreide", "Die Wäsche", "Die Fische"],
+      "explain": {
+        "de": "Die Bauern hängen das Heu und das Getreide auf die Harpfe. Dort trocknet es.",
+        "sl": "Kmetje na harpfo obesijo seno in žito. Tam se suši.",
+        "en": "The farmers hang the hay and the grain on the Harpfe. It dries there.",
+        "it": "I contadini appendono il fieno e il grano sulla Harpfe. Lì si asciuga."
+      }
+    },
+    {
+      "ask": { "de": "Wie sagt man in Slowenien zur Harpfe?", "sl": "Kako se harpfi reče v Sloveniji?", "en": "What is the Harpfe called in Slovenia?", "it": "Come si chiama la Harpfe in Slovenia?" },
+      "options": ["Kozolec", "Kufe", "Reindl"],
+      "explain": {
+        "de": "In Slowenien sagt man Kozolec. Die Harpfe und der Kozolec sind Verwandte.",
+        "sl": "V Sloveniji se reče kozolec. Harpfa in kozolec sta sorodnika.",
+        "en": "In Slovenia it's called a kozolec. The Harpfe and the kozolec are relatives.",
+        "it": "In Slovenia si dice kozolec. La Harpfe e il kozolec sono parenti."
+      }
+    }
+  ]
+}

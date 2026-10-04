@@ -1,0 +1,58 @@
+{
+  "id": "frtalja",
+  "kind": "recipe",
+  "level": "A2",
+  "title": { "sl": "Frtalja z zelišči", "en": "Frtalja with herbs (the Primorska omelette)", "de": "Frtalja mit Kräutern (das Omelett aus Primorska)", "it": "Frtalja alle erbe (la frittata della Primorska)" },
+  "by": "micka",
+  "intro": { "sl": "Frtaljo delamo spomladi, ko so zelišča mlada.", "en": "We make frtalja in spring, when the herbs are young.", "de": "Frtalja machen wir im Frühling, wenn die Kräuter jung sind.", "it": "La frtalja la facciamo in primavera, quando le erbe sono giovani." },
+  "servings": { "sl": "Za 4 osebe", "en": "Serves 4", "de": "Für 4 Personen", "it": "Per 4 persone" },
+  "ingredients": [
+    { "amount": "8", "item": { "sl": "jajc", "en": "eggs", "de": "Eier", "it": "uova" } },
+    { "amount": "4", "unit": { "sl": "žlice", "en": "tablespoons", "de": "Esslöffel", "it": "cucchiai" }, "item": { "sl": "moke", "en": "flour", "de": "Mehl", "it": "farina" } },
+    { "amount": "100", "unit": { "sl": "ml", "en": "ml", "de": "ml", "it": "ml" }, "item": { "sl": "mleka", "en": "milk", "de": "Milch", "it": "latte" } },
+    { "unit": { "sl": "pest", "en": "a handful of", "de": "eine Handvoll", "it": "una manciata di" }, "item": { "sl": "svežih zelišč (melisa, meta, peteršilj, drobnjak)", "en": "fresh herbs (lemon balm, mint, parsley, chives)", "de": "frische Kräuter (Zitronenmelisse, Minze, Petersilie, Schnittlauch)", "it": "erbe fresche (melissa, menta, prezzemolo, erba cipollina)" } },
+    { "amount": "2", "unit": { "sl": "žlici", "en": "tablespoons", "de": "Esslöffel", "it": "cucchiai" }, "item": { "sl": "oljčnega olja", "en": "olive oil", "de": "Olivenöl", "it": "olio d'oliva" } },
+    { "item": { "sl": "sol in poper po okusu", "en": "salt and pepper to taste", "de": "Salz und Pfeffer nach Geschmack", "it": "sale e pepe quanto basta" } }
+  ],
+  "steps": [
+    { "sl": "Jajca razbij v skledo.", "en": "Crack the eggs into a bowl.", "de": "Schlag die Eier in eine Schüssel.", "it": "Rompi le uova in una ciotola." },
+    { "sl": "Dodaj moko in mleko in vse z vilicami dobro premešaj.", "en": "Add the flour and the milk and mix everything well with a fork.", "de": "Gib Mehl und Milch dazu und verrühre alles gut mit einer Gabel.", "it": "Aggiungi la farina e il latte e mescola bene il tutto con una forchetta." },
+    { "sl": "Zelišča operi in jih drobno nasekljaj.", "en": "Wash the herbs and chop them finely.", "de": "Wasch die Kräuter und hack sie fein.", "it": "Lava le erbe e tritale finemente." },
+    { "sl": "Zelišča daj k jajcem. Dodaj sol in poper.", "en": "Add the herbs to the eggs. Add salt and pepper.", "de": "Gib die Kräuter zu den Eiern. Gib Salz und Pfeffer dazu.", "it": "Unisci le erbe alle uova. Aggiungi sale e pepe." },
+    { "sl": "V veliki ponvi segrej olje.", "en": "Heat the oil in a large pan.", "de": "Erhitze das Öl in einer großen Pfanne.", "it": "Scalda l'olio in una padella grande." },
+    { "sl": "Vlij jajčno zmes v ponev in jo peci na zmernem ognju.", "en": "Pour the egg mixture into the pan and cook it over a medium heat.", "de": "Gieß die Eiermasse in die Pfanne und brate sie bei mittlerer Hitze.", "it": "Versa il composto di uova nella padella e cuocilo a fuoco medio." },
+    { "sl": "Ko je spodaj zlato rjava, frtaljo s krožnikom obrni.", "en": "When it is golden brown underneath, turn the frtalja over with a plate.", "de": "Wenn sie unten goldbraun ist, wende die Frtalja mit einem Teller.", "it": "Quando sotto è dorata, gira la frtalja con un piatto." },
+    { "sl": "Speci jo še na drugi strani.", "en": "Cook it on the other side too.", "de": "Brate sie auch auf der anderen Seite.", "it": "Cuocila anche dall'altro lato." },
+    { "sl": "Frtaljo nareži kot torto in jo postrezi toplo, s kruhom.", "en": "Cut the frtalja like a cake and serve it warm, with bread.", "de": "Schneide die Frtalja wie eine Torte und serviere sie warm, mit Brot.", "it": "Taglia la frtalja come una torta e servila calda, con il pane." }
+  ],
+  "questions": [
+    {
+      "type": "detail",
+      "ask": { "sl": "Koliko jajc potrebuješ?", "en": "How many eggs do you need?", "de": "Wie viele Eier brauchst du?", "it": "Quante uova ti servono?" },
+      "options": ["8", "4", "2"],
+      "explain": {
+        "sl": "Za 4 osebe potrebuješ 8 jajc. Od pet naprej je rodilnik množine: 8 jajc (1 jajce, 2 jajci, 3 jajca).",
+        "en": "For 4 people you need 8 eggs. From five on it's the genitive plural: 8 jajc (1 jajce, 2 jajci, 3 jajca).",
+        "de": "Für 4 Personen brauchst du 8 Eier. Ab fünf steht der Genitiv Plural: 8 jajc (1 jajce, 2 jajci, 3 jajca).",
+        "it": "Per 4 persone ti servono 8 uova. Da cinque in su si usa il genitivo plurale: 8 jajc (1 jajce, 2 jajci, 3 jajca)."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "S čim frtaljo obrneš?", "en": "What do you turn the frtalja over with?", "de": "Womit wendest du die Frtalja?", "it": "Con che cosa giri la frtalja?" },
+      "options": ["S krožnikom", "Z žlico", "Z rokami"],
+      "explain": {
+        "sl": "V receptu piše: »frtaljo s krožnikom obrni«. Predlog s/z ima orodnik: s krožnikom.",
+        "en": "The recipe says: »turn the frtalja over with a plate«. The preposition s/z takes the instrumental: s krožnikom.",
+        "de": "Im Rezept steht: »wende die Frtalja mit einem Teller«. Die Präposition s/z verlangt den Instrumental: s krožnikom.",
+        "it": "Nella ricetta c'è scritto: «gira la frtalja con un piatto». La preposizione s/z vuole lo strumentale: s krožnikom."
+      }
+    }
+  ],
+  "words": [
+    { "word": "jajce", "form": "jajc", "pos": "noun", "means": { "en": "an egg", "de": "ein Ei", "it": "un uovo" } },
+    { "word": "zelišče", "form": "zelišča", "pos": "noun", "means": { "en": "a herb", "de": "ein Kraut", "it": "un'erba aromatica" } },
+    { "word": "ponev", "form": "ponvi", "pos": "noun", "means": { "en": "a frying pan", "de": "eine Pfanne", "it": "una padella" } },
+    { "word": "obrniti", "form": "obrni", "pos": "verb", "means": { "en": "to turn over", "de": "wenden, umdrehen", "it": "girare" } }
+  ]
+}

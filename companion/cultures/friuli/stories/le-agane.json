@@ -1,0 +1,137 @@
+{
+  "schema": "lani.story/v0",
+  "id": "le-agane",
+  "language": "it",
+  "title": { "it": "Le agane", "sl": "Agane, vodne vile", "en": "The agane, the water fairies", "de": "Die Agane, die Wasserfeen" },
+  "teller": "bepi",
+  "emoji": "🧚",
+  "order": 1,
+  "about": { "en": "The agane (Friulian aganis) are the water fairies of Friulian folk tales, living in springs, rivers and caves from Carnia to the Natisone valleys; the magic ball of yarn that never ends, as long as nobody asks why, is one of their best-known tales. Machine-written, not reviewed by a native speaker." },
+  "teaser": { "it": "Nonno Bepi racconta delle agane, le fate dell'acqua", "sl": "Dedek Bepi pove o aganah, vodnih vilah", "en": "Nonno Bepi tells of the agane, the water fairies", "de": "Nonno Bepi erzählt von den Agane, den Wasserfeen" },
+  "memory": { "it": "la storia delle agane che ti ho raccontato", "sl": "zgodbo o aganah, ki sem ti jo povedal", "en": "the story of the agane I told you", "de": "die Geschichte von den Agane, die ich dir erzählt habe" },
+  "pack": "storie",
+  "words": ["agana", "sorgente", "gomitolo", { "word": "fiume", "pack": "in-paese" }, { "word": "luna", "pack": "al-fuoco" }],
+  "levels": {
+    "A1": {
+      "lines": [
+        { "it": "Ciao, piccolo. Siediti vicino al fuoco. Stasera ti racconto una storia.", "sl": "Živjo, mali. Sedi k ognju. Nocoj ti povem zgodbo.", "en": "Hi, little one. Sit by the fire. Tonight I'll tell you a story.", "de": "Hallo, Kleiner. Setz dich ans Feuer. Heute Abend erzähle ich dir eine Geschichte." },
+        { "choices": [
+          { "it": "Sì, nonno! Mi piacciono le storie.", "sl": "Ja, dedek! Rad imam zgodbe.", "en": "Yes, Grandpa! I like stories.", "de": "Ja, Opa! Ich mag Geschichten.", "ok": true,
+            "reply": { "it": "Bene. Ascolta.", "sl": "Dobro. Poslušaj.", "en": "Good. Listen.", "de": "Gut. Hör zu." } },
+          { "it": "Sì, nonno! Mi piace le storie.", "sl": "Ja, dedek! Rad imam zgodbe.", "en": "Yes, Grandpa! I like stories.", "de": "Ja, Opa! Ich mag Geschichten.",
+            "why": { "sl": "Le storie je množina, zato piacciono: mi piacciono le storie.", "en": "Le storie is plural, so the verb is piacciono: mi piacciono le storie.", "de": "Le storie ist Plural, also heißt das Verb piacciono: mi piacciono le storie." },
+            "reply": { "it": "Mi piace? Una storia sola? Va bene, stasera solo una!", "sl": "Mi piace? Samo ena zgodba? Prav, nocoj samo ena!", "en": "Mi piace? Just one story? All right, only one tonight!", "de": "Mi piace? Nur eine Geschichte? Gut, heute nur eine!" } },
+          { "it": "Buongiorno, nonno! Mi piacciono le storie.", "sl": "Dobro jutro, dedek! Rad imam zgodbe.", "en": "Good morning, Grandpa! I like stories.", "de": "Guten Morgen, Opa! Ich mag Geschichten.",
+            "why": { "sl": "Zvečer je: buonasera ali kar ciao. Buongiorno je za dan.", "en": "It's evening: buonasera, or just ciao. Buongiorno is for the daytime.", "de": "Es ist Abend: buonasera oder einfach ciao. Buongiorno sagt man tagsüber." },
+            "reply": { "it": "Buongiorno? A quest'ora? Ma è già buio, piccolo!", "sl": "Buongiorno? Ob tej uri? Saj je že tema, mali!", "en": "Buongiorno? At this hour? But it's already dark, little one!", "de": "Buongiorno? Um diese Zeit? Es ist doch schon dunkel, Kleiner!" } }
+        ] },
+        { "it": "Nei fiumi del Friuli vivono le agane.", "sl": "V rekah Furlanije živijo agane.", "en": "In the rivers of Friuli live the agane.", "de": "In den Flüssen des Friauls leben die Agane." },
+        { "it": "Le agane sono fate dell'acqua. Sono belle e gentili.", "sl": "Agane so vodne vile. Lepe so in prijazne.", "en": "The agane are water fairies. They are beautiful and kind.", "de": "Die Agane sind Wasserfeen. Sie sind schön und freundlich." },
+        { "it": "Di notte lavano i vestiti nel fiume, con la luna. Dimmi, piccolo: dove vivono le agane?", "sl": "Ponoči perejo obleke v reki, ob luni. Povej, mali: kje živijo agane?", "en": "At night they wash their clothes in the river, by the moonlight. Tell me, little one: where do the agane live?", "de": "Nachts waschen sie ihre Kleider im Fluss, im Mondschein. Sag mal, Kleiner: Wo leben die Agane?" },
+        { "choices": [
+          { "it": "Nel fiume.", "sl": "V reki.", "en": "In the river.", "de": "Im Fluss.", "ok": true,
+            "reply": { "it": "Bravo! Nell'acqua.", "sl": "Bravo! V vodi.", "en": "Well done! In the water.", "de": "Gut gemacht! Im Wasser." } },
+          { "it": "Nel bosco.", "sl": "V gozdu.", "en": "In the wood.", "de": "Im Wald.",
+            "why": { "sl": "Ne: agane so vodne vile, živijo v reki.", "en": "No: the agane are water fairies, they live in the river.", "de": "Nein: Die Agane sind Wasserfeen, sie leben im Fluss." },
+            "reply": { "it": "Nel bosco? Fate dell'acqua tra gli alberi? Che sete!", "sl": "Nel bosco? Vodne vile med drevesi? Kako žejne bi bile!", "en": "Nel bosco? Water fairies among the trees? How thirsty!", "de": "Nel bosco? Wasserfeen zwischen Bäumen? Die hätten ja Durst!" } },
+          { "it": "In il fiume.", "sl": "V reki.", "en": "In the river.", "de": "Im Fluss.",
+            "why": { "sl": "In in il se združita v nel: nel fiume.", "en": "In and il join up as nel: nel fiume.", "de": "In und il verschmelzen zu nel: nel fiume." },
+            "reply": { "it": "In il fiume? Hm, queste due parole litigano, piccolo!", "sl": "In il fiume? Hm, ti dve besedi se kregata, mali!", "en": "In il fiume? Hm, those two words are squabbling, little one!", "de": "In il fiume? Hm, die zwei Wörter streiten sich, Kleiner!" } }
+        ] },
+        { "it": "Una bambina porta sempre un po' di pane alle agane.", "sl": "Neka deklica aganam vedno prinese malo kruha.", "en": "A little girl always brings the agane a bit of bread.", "de": "Ein kleines Mädchen bringt den Agane immer ein bisschen Brot." },
+        { "it": "Un'agana le regala un gomitolo di lana. La lana non finisce mai!", "sl": "Agana ji podari klobčič volne. Volne nikoli ne zmanjka!", "en": "An agana gives her a ball of wool. The wool never runs out!", "de": "Eine Agana schenkt ihr ein Wollknäuel. Die Wolle geht nie zu Ende!", "fx": { "flare": 0.6 } },
+        { "it": "Ma attenzione: non deve mai chiedere perché.", "sl": "Ampak pozor: nikoli ne sme vprašati, zakaj.", "en": "But careful: she must never ask why.", "de": "Aber Achtung: Sie darf niemals fragen, warum." },
+        { "choices": [
+          { "it": "Che bello! Una lana magica!", "sl": "Kako lepo! Čarobna volna!", "en": "How lovely! Magic wool!", "de": "Wie schön! Zauberwolle!", "ok": true,
+            "reply": { "it": "Sì. Ma un giorno la bambina chiede: «Perché non finisce?»", "sl": "Ja. Ampak nekega dne deklica vpraša: »Zakaj ne zmanjka?«", "en": "Yes. But one day the girl asks: 'Why doesn't it run out?'", "de": "Ja. Aber eines Tages fragt das Mädchen: „Warum geht sie nicht zu Ende?“" } },
+          { "it": "Che bello! Un lana magica!", "sl": "Kako lepo! Čarobna volna!", "en": "How lovely! Magic wool!", "de": "Wie schön! Zauberwolle!",
+            "why": { "sl": "Lana je ženskega spola: una lana. Un je za moški spol.", "en": "Lana is feminine: una lana. Un is for masculine words.", "de": "Lana ist weiblich: una lana. Un steht bei männlichen Wörtern." },
+            "reply": { "it": "Un lana? Ho sentito «un lama»! Un lama magico?", "sl": "Un lana? Slišal sem »un lama«! Čarobna lama?", "en": "Un lana? I heard 'un lama'! A magic llama?", "de": "Un lana? Ich hab „un lama“ gehört! Ein Zauberlama?" } }
+        ] },
+        { "it": "E la lana finisce. Subito!", "sl": "In volne zmanjka. Takoj!", "en": "And the wool runs out. At once!", "de": "Und die Wolle geht zu Ende. Sofort!", "fx": { "flare": 0.2 } },
+        { "it": "Allora, piccolo: che cosa regala l'agana alla bambina?", "sl": "No, mali: kaj agana podari deklici?", "en": "So, little one: what does the agana give the girl?", "de": "Also, Kleiner: Was schenkt die Agana dem Mädchen?" },
+        { "choices": [
+          { "it": "Un gomitolo di lana.", "sl": "Klobčič volne.", "en": "A ball of wool.", "de": "Ein Wollknäuel.", "ok": true,
+            "reply": { "it": "Bravo. Le agane sono buone con chi è gentile. Buonanotte, piccolo.", "sl": "Bravo. Agane so dobre do tistih, ki so prijazni. Lahko noč, mali.", "en": "Well done. The agane are good to those who are kind. Good night, little one.", "de": "Gut gemacht. Die Agane sind gut zu denen, die freundlich sind. Gute Nacht, Kleiner." } },
+          { "it": "Il pane.", "sl": "Kruh.", "en": "The bread.", "de": "Das Brot.",
+            "why": { "sl": "Kruh prinese deklica. Agana ji podari klobčič volne.", "en": "The girl brings the bread. The agana gives her a ball of wool.", "de": "Das Mädchen bringt das Brot. Die Agana schenkt ihr ein Wollknäuel." },
+            "reply": { "it": "Il pane? Un pane dall'acqua? Tutto bagnato, allora!", "sl": "Il pane? Kruh iz vode? Potem je ves premočen!", "en": "Il pane? Bread from the water? All soggy, then!", "de": "Il pane? Brot aus dem Wasser? Dann ist es ja ganz nass!" } },
+          { "it": "Una gomitolo di lana.", "sl": "Klobčič volne.", "en": "A ball of wool.", "de": "Ein Wollknäuel.",
+            "why": { "sl": "Gomitolo je moškega spola: un gomitolo.", "en": "Gomitolo is masculine: un gomitolo.", "de": "Gomitolo ist männlich: un gomitolo." },
+            "reply": { "it": "Una gomitolo? Hm, qui si è ingarbugliato il filo!", "sl": "Una gomitolo? Hm, tu se je nit zapletla!", "en": "Una gomitolo? Hm, the thread's got tangled here!", "de": "Una gomitolo? Hm, da hat sich der Faden verheddert!" } }
+        ] }
+      ]
+    },
+    "A2": {
+      "sky_stays": false,
+      "lines": [
+        { "it": "Buonasera, ragazzo. Hai mai sentito parlare delle agane?", "sl": "Dober večer, fant. Si že kdaj slišal za agane?", "en": "Good evening, lad. Have you ever heard of the agane?", "de": "Guten Abend, Junge. Hast du schon mal von den Agane gehört?" },
+        { "choices": [
+          { "it": "No, nonno. Chi sono?", "sl": "Ne, dedek. Kdo so?", "en": "No, Grandpa. Who are they?", "de": "Nein, Opa. Wer sind sie?", "ok": true,
+            "reply": { "it": "Allora ascolta bene.", "sl": "Potem pa dobro poslušaj.", "en": "Then listen carefully.", "de": "Dann hör gut zu." } },
+          { "it": "No, nonno. Chi è?", "sl": "Ne, dedek. Kdo je to?", "en": "No, Grandpa. Who is it?", "de": "Nein, Opa. Wer ist das?",
+            "why": { "sl": "Agane so množina: chi sono? Chi è je za eno osebo.", "en": "Agane is plural: chi sono? Chi è is for one person.", "de": "Agane ist Plural: chi sono? Chi è sagt man für eine Person." },
+            "reply": { "it": "Chi è? Ah ah, nessuno bussa alla porta, ragazzo!", "sl": "Chi è? Ha ha, saj nihče ne trka na vrata, fant!", "en": "Chi è? Ha ha, nobody's knocking at the door, lad!", "de": "Chi è? Ha ha, es klopft doch keiner an der Tür, Junge!" } }
+        ] },
+        { "it": "Tanto tempo fa, nelle sorgenti e nei fiumi del Friuli vivevano le agane, le fate dell'acqua.", "sl": "Nekoč so v izvirih in rekah Furlanije živele agane, vodne vile.", "en": "Long ago the agane, the water fairies, lived in the springs and rivers of Friuli.", "de": "Vor langer Zeit lebten in den Quellen und Flüssen des Friauls die Agane, die Wasserfeen.", "sky": { "fog": 0.3 } },
+        { "it": "Di notte lavavano i loro vestiti bianchi e li mettevano ad asciugare sul prato, alla luce della luna.", "sl": "Ponoči so prale svoje bele obleke in jih sušile na travniku, v mesečini.", "en": "At night they washed their white clothes and laid them out to dry on the meadow, in the moonlight.", "de": "Nachts wuschen sie ihre weißen Kleider und legten sie im Mondlicht auf der Wiese zum Trocknen aus." },
+        { "it": "Vicino al fiume abitava una bambina povera, ma molto gentile. Ogni sera lasciava un po' di pane sulla riva per le agane.", "sl": "Blizu reke je živela revna, a zelo prijazna deklica. Vsak večer je na bregu pustila malo kruha za agane.", "en": "Near the river lived a poor but very kind girl. Every evening she left a little bread on the bank for the agane.", "de": "Nahe am Fluss wohnte ein armes, aber sehr freundliches Mädchen. Jeden Abend legte sie ein bisschen Brot für die Agane ans Ufer." },
+        { "it": "Perché la bambina lasciava il pane sulla riva?", "sl": "Zakaj je deklica puščala kruh na bregu?", "en": "Why did the girl leave bread on the bank?", "de": "Warum legte das Mädchen Brot ans Ufer?" },
+        { "choices": [
+          { "it": "Perché era gentile con le agane.", "sl": "Ker je bila prijazna do agan.", "en": "Because she was kind to the agane.", "de": "Weil sie freundlich zu den Agane war.", "ok": true,
+            "reply": { "it": "Esatto. Aveva un cuore buono.", "sl": "Tako je. Imela je dobro srce.", "en": "Exactly. She had a good heart.", "de": "Genau. Sie hatte ein gutes Herz." } },
+          { "it": "Perché aveva fame.", "sl": "Ker je bila lačna.", "en": "Because she was hungry.", "de": "Weil sie Hunger hatte.",
+            "why": { "sl": "Ne: kruh ni bil zanjo, bil je za agane.", "en": "No: the bread wasn't for her, it was for the agane.", "de": "Nein: Das Brot war nicht für sie, es war für die Agane." },
+            "reply": { "it": "Aveva fame? E lasciava il pane sulla riva? Strana fame!", "sl": "Aveva fame? Pa je puščala kruh na bregu? Čudna lakota!", "en": "Aveva fame? And she left her bread on the bank? Odd sort of hunger!", "de": "Aveva fame? Und dann legt sie das Brot ans Ufer? Komischer Hunger!" } },
+          { "it": "Perché è gentile con le agane.", "sl": "Ker je prijazna do agan.", "en": "Because she is kind to the agane.", "de": "Weil sie freundlich zu den Agane ist.",
+            "why": { "sl": "Zgodba je v preteklosti: era gentile. È je sedanjik.", "en": "The story is in the past: era gentile. È is the present.", "de": "Die Geschichte spielt in der Vergangenheit: era gentile. È ist das Präsens." },
+            "reply": { "it": "È gentile? Ancora oggi? Allora è più vecchia di me!", "sl": "È gentile? Še danes? Potem je starejša od mene!", "en": "È gentile? Still today? Then she's older than me!", "de": "È gentile? Heute noch? Dann ist sie ja älter als ich!" } }
+        ] },
+        { "it": "Una notte un'agana è uscita dall'acqua e le ha regalato un gomitolo di lana.", "sl": "Neke noči je iz vode prišla agana in ji podarila klobčič volne.", "en": "One night an agana came out of the water and gave her a ball of wool.", "de": "Eines Nachts kam eine Agana aus dem Wasser und schenkte ihr ein Wollknäuel.", "sky": { "fog": 0.15 }, "fx": { "flare": 0.6 } },
+        { "it": "«È una lana magica», ha detto. «Non finisce mai. Ma non chiedere mai perché.»", "sl": "»To je čarobna volna,« je rekla. »Nikoli ne zmanjka. Ampak nikoli ne vprašaj, zakaj.«", "en": "'It's magic wool,' she said. 'It never runs out. But never ask why.'", "de": "„Das ist Zauberwolle“, sagte sie. „Sie geht nie zu Ende. Aber frag niemals, warum.“" },
+        { "it": "Per tanti anni la bambina ha fatto calze e maglioni per tutta la famiglia.", "sl": "Dolga leta je deklica pletla nogavice in puloverje za vso družino.", "en": "For many years the girl knitted socks and jumpers for the whole family.", "de": "Viele Jahre lang strickte das Mädchen Socken und Pullover für die ganze Familie." },
+        { "choices": [
+          { "it": "Che fortuna! Così nessuno aveva freddo.", "sl": "Kakšna sreča! Tako nikogar ni zeblo.", "en": "What luck! So nobody was cold.", "de": "Was für ein Glück! So fror niemand.", "ok": true,
+            "reply": { "it": "Proprio così. Ma un giorno sua sorella ha chiesto: «Perché questa lana non finisce mai?» E la lana è finita, subito.", "sl": "Prav tako. Ampak nekega dne je sestra vprašala: »Zakaj ta volna nikoli ne zmanjka?« In volne je takoj zmanjkalo.", "en": "Just so. But one day her sister asked: 'Why does this wool never run out?' And the wool ran out, at once.", "de": "Genau so. Aber eines Tages fragte ihre Schwester: „Warum geht diese Wolle nie zu Ende?“ Und die Wolle war zu Ende, sofort.", "fx": { "flare": 0.2 } } },
+          { "it": "Che fortuna! Così nessuno avevano freddo.", "sl": "Kakšna sreča! Tako nikogar ni zeblo.", "en": "What luck! So nobody was cold.", "de": "Was für ein Glück! So fror niemand.",
+            "why": { "sl": "Nessuno je ednina: nessuno aveva freddo.", "en": "Nessuno is singular: nessuno aveva freddo.", "de": "Nessuno ist Singular: nessuno aveva freddo." },
+            "reply": { "it": "Avevano? Quanti sono questi nessuno, ragazzo?", "sl": "Avevano? Koliko pa je teh nihčejev, fant?", "en": "Avevano? How many of these nobodies are there, lad?", "de": "Avevano? Wie viele Niemande sind das denn, Junge?" } }
+        ] },
+        { "it": "Che cosa non dovevano fare, ragazzo?", "sl": "Česa niso smeli narediti, fant?", "en": "What mustn't they do, lad?", "de": "Was durften sie nicht tun, Junge?", "sky": { "fog": 0 } },
+        { "choices": [
+          { "it": "Non dovevano chiedere perché.", "sl": "Niso smeli vprašati, zakaj.", "en": "They mustn't ask why.", "de": "Sie durften nicht fragen, warum.", "ok": true,
+            "reply": { "it": "Bravo. Un regalo si prende con un grazie, non con tante domande. Buonanotte, ragazzo.", "sl": "Bravo. Darilo sprejmeš s hvala, ne z vprašanji. Lahko noč, fant.", "en": "Well done. You take a present with a thank-you, not with lots of questions. Good night, lad.", "de": "Gut gemacht. Ein Geschenk nimmt man mit einem Danke an, nicht mit vielen Fragen. Gute Nacht, Junge." } },
+          { "it": "Non dovevano fare le calze.", "sl": "Niso smeli plesti nogavic.", "en": "They mustn't knit socks.", "de": "Sie durften keine Socken stricken.",
+            "why": { "sl": "Ne: nogavice so smeli plesti. Samo vprašati niso smeli, zakaj volne ne zmanjka.", "en": "No: they could knit the socks. They just mustn't ask why the wool never ran out.", "de": "Nein: Die Socken durften sie stricken. Sie durften nur nicht fragen, warum die Wolle nie zu Ende ging." },
+            "reply": { "it": "Niente calze? Allora tutti con i piedi freddi, ragazzo!", "sl": "Nič nogavic? Potem pa vsi z mrzlimi nogami, fant!", "en": "No socks? Then everyone gets cold feet, lad!", "de": "Keine Socken? Dann haben alle kalte Füße, Junge!" } },
+          { "it": "Non dovevano chiedono perché.", "sl": "Niso smeli vprašati, zakaj.", "en": "They mustn't ask why.", "de": "Sie durften nicht fragen, warum.",
+            "why": { "sl": "Za dovere pride nedoločnik: dovevano chiedere.", "en": "After dovere comes the infinitive: dovevano chiedere.", "de": "Nach dovere kommt der Infinitiv: dovevano chiedere." },
+            "reply": { "it": "Dovevano chiedono? Hm, mi sono perso, ragazzo. Ripeti?", "sl": "Dovevano chiedono? Hm, izgubil sem se, fant. Še enkrat?", "en": "Dovevano chiedono? Hm, you've lost me, lad. Once more?", "de": "Dovevano chiedono? Hm, da komm ich nicht mit, Junge. Noch mal?" } }
+        ] }
+      ]
+    }
+  },
+  "pictures": [
+    { "after": 2, "bg": "river", "night": true, "figures": [ { "id": "fairy", "x": 0.44, "y": 0.1 }, { "id": "fairy", "x": 0.6, "y": 0.12, "flip": true } ], "props": [ { "id": "moon", "x": 0.82, "y": 0.86 } ],
+      "caption": { "it": "Le agane lavano i panni nel fiume.", "sl": "Agane perejo perilo v reki.", "en": "The agane wash their clothes in the river.", "de": "Die Agane waschen ihre Kleider im Fluss." } },
+    { "after": 3, "bg": "river", "figures": [ { "id": "girl", "x": 0.3 }, { "id": "fairy", "x": 0.62, "y": 0.08, "flip": true } ], "props": [ { "id": "sack", "x": 0.4 } ],
+      "caption": { "it": "Un'agana dà alla bambina un gomitolo di lana.", "sl": "Agana da deklici klobčič volne.", "en": "An agana gives the girl a ball of wool.", "de": "Eine Agana schenkt dem Mädchen ein Wollknäuel." } }
+  ],
+  "notes": [
+    { "level": "A1", "after": [2, 3], "text": [
+      { "it": "Nei fiumi del Friuli vivevano le agane. Erano fate dell'acqua. Erano belle e gentili.", "sl": "V rekah Furlanije so živele agane. Bile so vodne vile. Bile so lepe in prijazne.", "en": "The agane lived in the rivers of Friuli. They were water fairies. They were beautiful and kind.", "de": "In den Flüssen des Friauls lebten die Agane. Sie waren Wasserfeen. Sie waren schön und freundlich." },
+      { "it": "Di notte lavavano i vestiti nel fiume, alla luce della luna.", "sl": "Ponoči so prale obleke v reki, v mesečini.", "en": "At night they washed their clothes in the river, in the moonlight.", "de": "Nachts wuschen sie ihre Kleider im Fluss, im Mondschein." },
+      { "it": "Una bambina portava sempre un po' di pane alle agane. Un'agana le ha regalato un gomitolo di lana. La lana non finiva mai! Ma la bambina non doveva mai chiedere perché.", "sl": "Neka deklica je aganam vedno prinašala malo kruha. Agana ji je podarila klobčič volne. Volne ni nikoli zmanjkalo! A deklica nikoli ni smela vprašati, zakaj.", "en": "A little girl always brought the agane a bit of bread. An agana gave her a ball of wool. The wool never ran out! But the girl was never allowed to ask why.", "de": "Ein kleines Mädchen brachte den Agane immer ein bisschen Brot. Eine Agana schenkte ihr ein Wollknäuel. Die Wolle ging nie zu Ende! Aber das Mädchen durfte niemals fragen, warum." },
+      { "it": "Un giorno la bambina ha chiesto: «Perché non finisce?» E la lana è finita. Subito!", "sl": "Nekega dne je deklica vprašala: »Zakaj ne zmanjka?« In volne je zmanjkalo. Takoj!", "en": "One day the girl asked: 'Why does it never end?' And the wool ran out. At once!", "de": "Eines Tages fragte das Mädchen: „Warum geht sie nicht zu Ende?“ Und die Wolle ging zu Ende. Sofort!" },
+      { "it": "Le agane sono buone con chi è gentile.", "sl": "Agane so dobre do tistih, ki so prijazni.", "en": "The agane are good to those who are kind.", "de": "Die Agane sind gut zu denen, die freundlich sind." }
+    ] },
+    { "level": "A2", "after": [1, 3], "text": [
+      { "it": "Tanto tempo fa, nelle sorgenti e nei fiumi del Friuli vivevano le agane, le fate dell'acqua. Di notte lavavano i loro vestiti bianchi e li mettevano ad asciugare sul prato, alla luce della luna.", "sl": "Nekoč so v izvirih in rekah Furlanije živele agane, vodne vile. Ponoči so prale svoje bele obleke in jih sušile na travniku, v mesečini.", "en": "Long ago the agane, the water fairies, lived in the springs and rivers of Friuli. At night they washed their white clothes and laid them out to dry on the meadow, in the moonlight.", "de": "Vor langer Zeit lebten in den Quellen und Flüssen des Friauls die Agane, die Wasserfeen. Nachts wuschen sie ihre weißen Kleider und legten sie im Mondlicht auf der Wiese zum Trocknen aus." },
+      { "it": "Vicino al fiume abitava una bambina povera, ma molto gentile. Ogni sera lasciava un po' di pane sulla riva per le agane, perché aveva un cuore buono.", "sl": "Blizu reke je živela revna, a zelo prijazna deklica. Vsak večer je na bregu puščala malo kruha za agane, ker je imela dobro srce.", "en": "Near the river lived a poor but very kind girl. Every evening she left a little bread on the bank for the agane, because she had a good heart.", "de": "Nahe am Fluss wohnte ein armes, aber sehr freundliches Mädchen. Jeden Abend legte sie ein bisschen Brot für die Agane ans Ufer, weil sie ein gutes Herz hatte." },
+      { "it": "Una notte un'agana è uscita dall'acqua e le ha regalato un gomitolo di lana. «È una lana magica», ha detto. «Non finisce mai. Ma non chiedere mai perché.»", "sl": "Neke noči je iz vode prišla agana in ji podarila klobčič volne. »To je čarobna volna,« je rekla. »Nikoli ne zmanjka. Ampak nikoli ne vprašaj, zakaj.«", "en": "One night an agana came out of the water and gave her a ball of wool. 'It is magic wool,' she said. 'It never runs out. But never ask why.'", "de": "Eines Nachts kam eine Agana aus dem Wasser und schenkte ihr ein Wollknäuel. „Das ist Zauberwolle“, sagte sie. „Sie geht nie zu Ende. Aber frag niemals, warum.“" },
+      { "it": "Per tanti anni la bambina ha fatto calze e maglioni per tutta la famiglia, e così nessuno aveva freddo.", "sl": "Dolga leta je deklica pletla nogavice in puloverje za vso družino, zato nikogar ni zeblo.", "en": "For many years the girl knitted socks and jumpers for the whole family, so nobody was cold.", "de": "Viele Jahre lang strickte das Mädchen Socken und Pullover für die ganze Familie, und so fror niemand." },
+      { "it": "Ma un giorno sua sorella ha chiesto: «Perché questa lana non finisce mai?» E la lana è finita, subito. Un regalo si prende con un grazie, non con tante domande.", "sl": "Toda nekega dne je njena sestra vprašala: »Zakaj ta volna nikoli ne zmanjka?« In volne je takoj zmanjkalo. Darilo se sprejme z zahvalo, ne z vprašanji.", "en": "But one day her sister asked: 'Why does this wool never run out?' And the wool ran out, at once. A present is taken with a thank-you, not with lots of questions.", "de": "Aber eines Tages fragte ihre Schwester: „Warum geht diese Wolle nie zu Ende?“ Und die Wolle war sofort zu Ende. Ein Geschenk nimmt man mit einem Danke an, nicht mit vielen Fragen." }
+    ] }
+  ],
+  "review": "notes: machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

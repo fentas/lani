@@ -1,0 +1,102 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "sein-haben",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🔑",
+  "title": {
+    "de": "Ich bin, ich habe: sein und haben",
+    "sl": "Ich bin, ich habe: biti in imeti",
+    "en": "Ich bin, ich habe: to be and to have",
+    "it": "Ich bin, ich habe: essere e avere"
+  },
+  "rule": {
+    "en": "**sein** (to be) and **haben** (to have) are the most used verbs, and both are irregular.\n\n**sein**: ich **bin**, du **bist**, er/sie/es **ist**, wir **sind**, ihr **seid**, sie/Sie **sind**. **haben**: ich **habe**, du **hast**, er/sie/es **hat**, wir **haben**, ihr **habt**, sie/Sie **haben**.\n\nAge is said with sein, as in English: **Ich bin neun Jahre alt.** Hunger and thirst go with haben: **Ich habe Hunger** (I'm hungry), **ich habe Durst** (I'm thirsty).\n\nBeing cold or warm is different again: **Mir ist kalt** (I'm cold), with the dative, not ich bin kalt (see the dative page).\n\nThe two verbs also build the past (*Perfekt*): Ich **habe** gewonnen. Ich **bin** gegangen.\n\nWatch the spelling: **ihr seid** (you are), but **seit** (since).",
+    "sl": "**sein** (biti) in **haben** (imeti) sta najpogostejša glagola in oba sta nepravilna.\n\n**sein**: ich **bin**, du **bist**, er/sie/es **ist**, wir **sind**, ihr **seid**, sie/Sie **sind**. **haben**: ich **habe**, du **hast**, er/sie/es **hat**, wir **haben**, ihr **habt**, sie/Sie **haben**.\n\nStarost se pove s sein, kot v slovenščini: **Ich bin neun Jahre alt.** (Star sem devet let.) Lakota in žeja pa gresta s haben: **Ich habe Hunger** (lačen sem), **ich habe Durst** (žejen sem).\n\nZa mraz in toploto nemščina rabi dajalnik, kot slovensko mraz mi je: **Mir ist kalt**, ne ich bin kalt (glej stran o dajalniku).\n\nOba glagola tvorita tudi preteklik (*Perfekt*): Ich **habe** gewonnen. Ich **bin** gegangen.\n\nPozor na pisavo: **ihr seid** (vi ste), a **seit** (od, odkar).",
+    "it": "**sein** (essere) e **haben** (avere) sono i verbi più usati, ed entrambi sono irregolari.\n\n**sein**: ich **bin**, du **bist**, er/sie/es **ist**, wir **sind**, ihr **seid**, sie/Sie **sind**. **haben**: ich **habe**, du **hast**, er/sie/es **hat**, wir **haben**, ihr **habt**, sie/Sie **haben**.\n\nL'età si dice con sein, non con avere: **Ich bin neun Jahre alt.** (Ho nove anni.) Fame e sete invece con haben, come in italiano: **Ich habe Hunger** (ho fame), **ich habe Durst** (ho sete).\n\nIl freddo e il caldo si dicono col dativo: **Mir ist kalt** (ho freddo), non ich habe kalt e non ich bin kalt (vedi la pagina del dativo).\n\nI due verbi formano anche il passato (*Perfekt*): Ich **habe** gewonnen (ho vinto). Ich **bin** gegangen (sono andato).\n\nAttenzione alla grafia: **ihr seid** (voi siete), ma **seit** (da, dal)."
+  },
+  "table": {
+    "head": [
+      { "de": "Person", "sl": "oseba", "en": "person", "it": "persona" },
+      { "de": "sein", "sl": "sein (biti)", "en": "sein (be)", "it": "sein (essere)" },
+      { "de": "haben", "sl": "haben (imeti)", "en": "haben (have)", "it": "haben (avere)" }
+    ],
+    "rows": [
+      ["ich", "bin", "habe"],
+      ["du", "bist", "hast"],
+      ["er / sie / es", "ist", "hat"],
+      ["wir", "sind", "haben"],
+      ["ihr", "seid", "habt"],
+      ["sie / Sie", "sind", "haben"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Lena ist neun Jahre alt.",
+      "sl": "Lena je stara devet let.",
+      "en": "Lena is nine years old.",
+      "it": "Lena ha nove anni.",
+      "note": {
+        "en": "Age with sein, as in English.",
+        "sl": "Starost s sein, kot slovensko je stara.",
+        "it": "L'età con sein: ist … Jahre alt, non hat."
+      }
+    },
+    {
+      "de": "Jakob, hast du Hunger?",
+      "sl": "Jakob, si lačen?",
+      "en": "Jakob, are you hungry?",
+      "it": "Jakob, hai fame?",
+      "note": {
+        "en": "Hunger haben: German says have hunger, like Italian avere fame.",
+        "sl": "Hunger haben: dobesedno imeti lakoto, kot italijansko avere fame.",
+        "it": "Hunger haben, proprio come avere fame."
+      }
+    },
+    {
+      "de": "Maxi, ist dir kalt?",
+      "sl": "Maxi, te zebe?",
+      "en": "Maxi, are you cold?",
+      "it": "Maxi, hai freddo?",
+      "note": {
+        "en": "Cold: mir ist kalt, ist dir kalt? (Dativ), not bist du kalt?",
+        "sl": "Mraz: mir ist kalt, ist dir kalt? (dajalnik), ne bist du kalt?",
+        "it": "Freddo: mir ist kalt, ist dir kalt? (dativo), non hast du kalt?"
+      }
+    },
+    {
+      "de": "Wir sind heute bei Oma Resi.",
+      "sl": "Danes smo pri babici Resi.",
+      "en": "Today we're at Grandma Resi's.",
+      "it": "Oggi siamo dalla nonna Resi."
+    },
+    {
+      "de": "Schmied Toni hat ein großes Pferd.",
+      "sl": "Kovač Toni ima velikega konja.",
+      "en": "Toni the smith has a big horse.",
+      "it": "Il fabbro Toni ha un cavallo grande."
+    },
+    {
+      "de": "Ihr seid aber schnell!",
+      "sl": "Pa ste hitri!",
+      "en": "You're really fast!",
+      "it": "Siete proprio veloci!",
+      "note": {
+        "en": "ihr seid: you (several people) are. Not seit.",
+        "sl": "ihr seid: vi ste (več oseb). Ne seit.",
+        "it": "ihr seid: voi siete. Non seit."
+      }
+    },
+    {
+      "de": "Hast du Geschwister? – Ja, ich habe einen Bruder.",
+      "sl": "Imaš brate ali sestre? – Ja, imam brata.",
+      "en": "Do you have any brothers or sisters? – Yes, I have a brother.",
+      "it": "Hai fratelli o sorelle? – Sì, ho un fratello."
+    }
+  ],
+  "modules": [],
+  "tags": ["sein", "haben", "to_be", "to_have", "irregular_verbs", "age", "hunger", "mir_ist_kalt"],
+  "see": ["praesens", "dativ", "perfekt", "du-sie"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "sklanjatev-srednji",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "📋",
+  "title": {
+    "sl": "Sklanjatve: srednji spol",
+    "en": "Declension tables: neuter nouns",
+    "de": "Deklinationstabellen: sächliche Nomen",
+    "it": "Tabelle di declinazione: nomi neutri"
+  },
+  "rule": {
+    "en": "Neuter nouns end in **-o**, here **okno** (window), or in **-e** after c, č, j, š and ž, here **jajce** (egg).\n\nThe nominative and the accusative are always alike: **vidim okno**, **vidim jajca**. The dual ends in **-i** (dve okni, dve jajci), the plural in **-a** (tri okna, tri jajca), and the genitive plural has no ending: **pet jajc**, **deset let**. Where two consonants would end the word, an **e** comes between: okno → **oken**, pismo → **pisem**.\n\nAfter c, č, j, š and ž the **o** of an ending turns to **e**: z oknom, but **z jajcem**, **jajcema**.\n\nA few neuter nouns are plural only, even for one thing: **vrata** (door), **drva** (firewood), **očala** (glasses), **usta** (mouth): vrata so odprta, za vrati, brez drv.\n\nWhat matters first: at A1 and A2 the singular of the nominative, accusative and locative (okno, na oknu), and the dual (dve jajci), which the village uses early. The whole table comes at B1 to B2.",
+    "de": "Sächliche Nomen enden auf **-o**, hier **okno** (Fenster), oder nach c, č, j, š und ž auf **-e**, hier **jajce** (Ei).\n\nNominativ und Akkusativ sind immer gleich: **vidim okno**, **vidim jajca**. Der Dual endet auf **-i** (dve okni, dve jajci), der Plural auf **-a** (tri okna, tri jajca), und der Genitiv Plural hat keine Endung: **pet jajc**, **deset let**. Wo zwei Konsonanten das Wort beenden würden, kommt ein **e** dazwischen: okno → **oken**, pismo → **pisem**.\n\nNach c, č, j, š und ž wird das **o** einer Endung zu **e**: z oknom, aber **z jajcem**, **jajcema**.\n\nEinige sächliche Nomen gibt es nur im Plural, auch für ein Ding: **vrata** (Tür), **drva** (Brennholz), **očala** (Brille), **usta** (Mund): vrata so odprta, za vrati, brez drv.\n\nWas zuerst zählt: auf A1 und A2 der Singular von Nominativ, Akkusativ und Lokativ (okno, na oknu) und der Dual (dve jajci), den das Dorf früh braucht. Die ganze Tabelle kommt auf B1 bis B2.",
+    "it": "I nomi neutri finiscono in **-o**, qui **okno** (finestra), o in **-e** dopo c, č, j, š e ž, qui **jajce** (uovo).\n\nNominativo e accusativo sono sempre uguali: **vidim okno**, **vidim jajca**. Il duale finisce in **-i** (dve okni, dve jajci), il plurale in **-a** (tri okna, tri jajca), e il genitivo plurale non ha desinenza: **pet jajc**, **deset let**. Dove la parola finirebbe con due consonanti, entra una **e**: okno → **oken**, pismo → **pisem**.\n\nDopo c, č, j, š e ž la **o** di una desinenza diventa **e**: z oknom, ma **z jajcem**, **jajcema**.\n\nAlcuni neutri esistono solo al plurale, anche per una cosa sola: **vrata** (porta), **drva** (legna), **očala** (occhiali), **usta** (bocca): vrata so odprta, za vrati, brez drv.\n\nCiò che conta prima: all'A1 e all'A2 il singolare di nominativo, accusativo e locativo (okno, na oknu) e il duale (dve jajci), che il paese usa presto. La tabella intera viene dal B1 al B2."
+  },
+  "table": {
+    "head": [
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "ednina", "en": "singular (ednina)", "de": "Singular (ednina)", "it": "singolare (ednina)" },
+      { "sl": "dvojina", "en": "dual (dvojina)", "de": "Dual (dvojina)", "it": "duale (dvojina)" },
+      { "sl": "množina", "en": "plural (množina)", "de": "Plural (množina)", "it": "plurale (množina)" }
+    ],
+    "rows": [
+      [{ "sl": "imenovalnik (kdo? kaj?)", "en": "nominative (kdo? kaj?)", "de": "Nominativ (kdo? kaj?)", "it": "nominativo (kdo? kaj?)" }, "okno, jajce", "okni, jajci", "okna, jajca"],
+      [{ "sl": "rodilnik (koga? česa?)", "en": "genitive (koga? česa?)", "de": "Genitiv (koga? česa?)", "it": "genitivo (koga? česa?)" }, "okna, jajca", "oken, jajc", "oken, jajc"],
+      [{ "sl": "dajalnik (komu? čemu?)", "en": "dative (komu? čemu?)", "de": "Dativ (komu? čemu?)", "it": "dativo (komu? čemu?)" }, "oknu, jajcu", "oknoma, jajcema", "oknom, jajcem"],
+      [{ "sl": "tožilnik (koga? kaj?)", "en": "accusative (koga? kaj?)", "de": "Akkusativ (koga? kaj?)", "it": "accusativo (koga? kaj?)" }, "okno, jajce", "okni, jajci", "okna, jajca"],
+      [{ "sl": "mestnik (pri kom? pri čem?)", "en": "locative (pri kom? pri čem?)", "de": "Lokativ (pri kom? pri čem?)", "it": "locativo (pri kom? pri čem?)" }, "pri oknu, pri jajcu", "pri oknih, pri jajcih", "pri oknih, pri jajcih"],
+      [{ "sl": "orodnik (s kom? s čim?)", "en": "instrumental (s kom? s čim?)", "de": "Instrumental (s kom? s čim?)", "it": "strumentale (s kom? s čim?)" }, "z oknom, z jajcem", "z oknoma, z jajcema", "z okni, z jajci"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Odpri okno, prosim.",
+      "en": "Open the window, please.",
+      "de": "Mach bitte das Fenster auf.",
+      "it": "Apri la finestra, per favore."
+    },
+    {
+      "sl": "Hiša ima dve okni.",
+      "en": "The house has two windows.",
+      "de": "Das Haus hat zwei Fenster.",
+      "it": "La casa ha due finestre.",
+      "note": {
+        "en": "Two takes the dual: dve okni. Three: tri okna. Five: pet oken.",
+        "de": "Zwei verlangt den Dual: dve okni. Drei: tri okna. Fünf: pet oken.",
+        "it": "Due vuole il duale: dve okni. Tre: tri okna. Cinque: pet oken."
+      }
+    },
+    {
+      "sl": "Kokoši so znesle deset jajc.",
+      "en": "The hens have laid ten eggs.",
+      "de": "Die Hühner haben zehn Eier gelegt.",
+      "it": "Le galline hanno fatto dieci uova."
+    },
+    {
+      "sl": "Na oknu so rože.",
+      "en": "There are flowers on the windowsill.",
+      "de": "Am Fenster stehen Blumen.",
+      "it": "Sul davanzale ci sono dei fiori."
+    },
+    {
+      "sl": "Babica peče potico z jajci in orehi.",
+      "en": "Grandma is baking a potica with eggs and walnuts.",
+      "de": "Oma backt eine Potica mit Eiern und Walnüssen.",
+      "it": "La nonna fa la potica con le uova e le noci."
+    },
+    {
+      "sl": "Drva so za vrati.",
+      "en": "The firewood is behind the door.",
+      "de": "Das Brennholz ist hinter der Tür.",
+      "it": "La legna è dietro la porta.",
+      "note": {
+        "en": "Drva and vrata are plural only: drva so, za vrati.",
+        "de": "Drva und vrata gibt es nur im Plural: drva so, za vrati.",
+        "it": "Drva e vrata esistono solo al plurale: drva so, za vrati."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["declension_neuter", "neuter_declension"],
+  "see": ["sklanjatev-moski", "sklanjatev-zenski", "skloni", "dvojina", "stevila-samostalniki", "imenovalnik"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

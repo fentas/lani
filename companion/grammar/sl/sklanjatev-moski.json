@@ -1,0 +1,92 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "sklanjatev-moski",
+  "language": "sl",
+  "level": "B1",
+  "emoji": "📋",
+  "title": {
+    "sl": "Sklanjatve: moški spol",
+    "en": "Declension tables: masculine nouns",
+    "de": "Deklinationstabellen: männliche Nomen",
+    "it": "Tabelle di declinazione: nomi maschili"
+  },
+  "rule": {
+    "en": "A masculine noun ending in a consonant in all six cases and three numbers: **stol** (chair), a thing, and **brat** (brother), a living being.\n\nThey differ in one form: for a person or an animal the accusative singular is like the genitive (**vidim brata**, **vidim psa**), for a thing like the nominative (**vidim stol**). In the dual and the plural both go the same way: dva brata, dva stola; brate, stole.\n\nAfter c, č, j, š and ž the **o** of an ending turns to **e**: s čajem, čajev, z nožem. Some nouns lose an **e** (pes → psa, zvonec → zvonca) or gain a **j** (krompir → krompirja). **brat** has the plural **bratje** (also brati).\n\nWhat matters first: at A1 and A2 the singular of the nominative, accusative and locative (stol, vidim brata, na stolu), and the dual (dva brata), which the village uses early. The whole table comes at B1 to B2.",
+    "de": "Ein männliches Nomen auf Konsonant in allen sechs Fällen und drei Zahlen: **stol** (Stuhl), ein Ding, und **brat** (Bruder), ein Lebewesen.\n\nSie unterscheiden sich in einer Form: Bei Menschen und Tieren ist der Akkusativ Singular wie der Genitiv (**vidim brata**, **vidim psa**), bei Dingen wie der Nominativ (**vidim stol**). Im Dual und Plural gehen beide gleich: dva brata, dva stola; brate, stole.\n\nNach c, č, j, š und ž wird das **o** einer Endung zu **e**: s čajem, čajev, z nožem. Manche Nomen verlieren ein **e** (pes → psa, zvonec → zvonca) oder bekommen ein **j** (krompir → krompirja). **brat** hat den Plural **bratje** (auch brati).\n\nWas zuerst zählt: auf A1 und A2 der Singular von Nominativ, Akkusativ und Lokativ (stol, vidim brata, na stolu) und der Dual (dva brata), den das Dorf früh braucht. Die ganze Tabelle kommt auf B1 bis B2.",
+    "it": "Un nome maschile in consonante in tutti e sei i casi e i tre numeri: **stol** (sedia), una cosa, e **brat** (fratello), un essere vivente.\n\nDifferiscono in una forma: per una persona o un animale l'accusativo singolare è uguale al genitivo (**vidim brata**, **vidim psa**), per una cosa al nominativo (**vidim stol**). Al duale e al plurale vanno allo stesso modo: dva brata, dva stola; brate, stole.\n\nDopo c, č, j, š e ž la **o** di una desinenza diventa **e**: s čajem, čajev, z nožem. Alcuni nomi perdono una **e** (pes → psa, zvonec → zvonca) o prendono una **j** (krompir → krompirja). **brat** ha il plurale **bratje** (anche brati).\n\nCiò che conta prima: all'A1 e all'A2 il singolare di nominativo, accusativo e locativo (stol, vidim brata, na stolu) e il duale (dva brata), che il paese usa presto. La tabella intera viene dal B1 al B2."
+  },
+  "table": {
+    "head": [
+      { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+      { "sl": "ednina", "en": "singular (ednina)", "de": "Singular (ednina)", "it": "singolare (ednina)" },
+      { "sl": "dvojina", "en": "dual (dvojina)", "de": "Dual (dvojina)", "it": "duale (dvojina)" },
+      { "sl": "množina", "en": "plural (množina)", "de": "Plural (množina)", "it": "plurale (množina)" }
+    ],
+    "rows": [
+      [{ "sl": "imenovalnik (kdo? kaj?)", "en": "nominative (kdo? kaj?)", "de": "Nominativ (kdo? kaj?)", "it": "nominativo (kdo? kaj?)" }, "stol, brat", "stola, brata", "stoli, bratje"],
+      [{ "sl": "rodilnik (koga? česa?)", "en": "genitive (koga? česa?)", "de": "Genitiv (koga? česa?)", "it": "genitivo (koga? česa?)" }, "stola, brata", "stolov, bratov", "stolov, bratov"],
+      [{ "sl": "dajalnik (komu? čemu?)", "en": "dative (komu? čemu?)", "de": "Dativ (komu? čemu?)", "it": "dativo (komu? čemu?)" }, "stolu, bratu", "stoloma, bratoma", "stolom, bratom"],
+      [{ "sl": "tožilnik (koga? kaj?)", "en": "accusative (koga? kaj?)", "de": "Akkusativ (koga? kaj?)", "it": "accusativo (koga? kaj?)" }, "stol, brata", "stola, brata", "stole, brate"],
+      [{ "sl": "mestnik (pri kom? pri čem?)", "en": "locative (pri kom? pri čem?)", "de": "Lokativ (pri kom? pri čem?)", "it": "locativo (pri kom? pri čem?)" }, "pri stolu, pri bratu", "pri stolih, pri bratih", "pri stolih, pri bratih"],
+      [{ "sl": "orodnik (s kom? s čim?)", "en": "instrumental (s kom? s čim?)", "de": "Instrumental (s kom? s čim?)", "it": "strumentale (s kom? s čim?)" }, "s stolom, z bratom", "s stoloma, z bratoma", "s stoli, z brati"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "V kuhinji so štirje stoli.",
+      "en": "There are four chairs in the kitchen.",
+      "de": "In der Küche stehen vier Stühle.",
+      "it": "In cucina ci sono quattro sedie."
+    },
+    {
+      "sl": "Za mizo manjkata dva stola.",
+      "en": "Two chairs are missing at the table.",
+      "de": "Am Tisch fehlen zwei Stühle.",
+      "it": "Al tavolo mancano due sedie.",
+      "note": {
+        "en": "Two takes the dual, the verb too: dva stola manjkata.",
+        "de": "Zwei verlangt den Dual, auch beim Verb: dva stola manjkata.",
+        "it": "Due vuole il duale, anche nel verbo: dva stola manjkata."
+      }
+    },
+    {
+      "sl": "Luka vidi psa.",
+      "en": "Luka sees a dog.",
+      "de": "Luka sieht einen Hund.",
+      "it": "Luka vede un cane.",
+      "note": {
+        "en": "Alive, so the accusative is like the genitive: psa. A thing keeps its base form: Luka vidi stol.",
+        "de": "Ein Lebewesen, also ist der Akkusativ wie der Genitiv: psa. Ein Ding bleibt in der Grundform: Luka vidi stol.",
+        "it": "È vivo, quindi l'accusativo è come il genitivo: psa. Una cosa resta nella forma base: Luka vidi stol."
+      }
+    },
+    {
+      "sl": "Mačka spi na stolu.",
+      "en": "The cat is asleep on the chair.",
+      "de": "Die Katze schläft auf dem Stuhl.",
+      "it": "Il gatto dorme sulla sedia."
+    },
+    {
+      "sl": "Zala piše bratoma pismo.",
+      "en": "Zala is writing a letter to her two brothers.",
+      "de": "Zala schreibt ihren beiden Brüdern einen Brief.",
+      "it": "Zala scrive una lettera ai suoi due fratelli.",
+      "note": {
+        "en": "To two brothers: the dative dual, bratoma. To three or more: bratom.",
+        "de": "Zwei Brüdern: Dativ Dual, bratoma. Drei und mehr: bratom.",
+        "it": "A due fratelli: dativo duale, bratoma. A tre o più: bratom."
+      }
+    },
+    {
+      "sl": "Micka gre z bratom na tržnico.",
+      "en": "Micka is going to the market with her brother.",
+      "de": "Micka geht mit ihrem Bruder auf den Markt.",
+      "it": "Micka va al mercato con suo fratello."
+    }
+  ],
+  "modules": [],
+  "tags": ["declension_masculine", "masculine_declension", "animate_accusative"],
+  "see": ["sklanjatev-zenski", "sklanjatev-srednji", "skloni", "tozilnik", "dvojina", "stevila-samostalniki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "fest-nationalfeiertag",
+  "language": "de",
+  "title": { "de": "Der Nationalfeiertag", "sl": "Državni praznik", "en": "National Day", "it": "La festa nazionale" },
+  "emoji": "🇦🇹",
+  "level": "A1",
+  "description": {
+    "sl": "26. oktobra. Avstrija praznuje svoj državni praznik: vsa vas gre skupaj na pohod, na trgu pa plapola rdeče-belo-rdeča zastava.",
+    "en": "26 October. Austria celebrates its National Day: the whole village goes for a walk together, and the red-white-red flag flies on the square.",
+    "it": "26 ottobre. L'Austria festeggia la sua festa nazionale: tutto il paese fa una camminata insieme, e in piazza sventola la bandiera rossa, bianca e rossa."
+  },
+  "giver": { "name": "Lehrerin Eva", "emoji": "👩‍🏫" },
+  "festival": "nationalfeiertag",
+  "words": [
+    { "id": "oesterreich", "de": "Österreich", "sl": "Avstrija", "en": "Austria", "it": "l'Austria", "emoji": "🇦🇹", "gender": "n",
+      "example_de": "Kärnten liegt im Süden von Österreich.", "example_sl": "Koroška leži na jugu Avstrije.", "example_en": "Carinthia is in the south of Austria.", "example_it": "La Carinzia è nel sud dell'Austria.",
+      "note": "Without an article: in Österreich, aus Österreich.",
+      "note_sl": "Brez člena: in Österreich, aus Österreich.",
+      "note_it": "Senza articolo: in Österreich, aus Österreich." },
+    { "id": "fahne", "de": "die Fahne", "sl": "zastava", "en": "flag", "it": "la bandiera", "emoji": "🏳️", "gender": "f", "plural": "die Fahnen",
+      "example_de": "Die Fahne ist rot-weiß-rot.", "example_sl": "Zastava je rdeče-belo-rdeča.", "example_en": "The flag is red-white-red.", "example_it": "La bandiera è rossa, bianca e rossa." },
+    { "id": "rot", "de": "rot", "sl": "rdeč", "en": "red", "it": "rosso", "emoji": "🟥",
+      "example_de": "Der Apfel ist rot.", "example_sl": "Jabolko je rdeče.", "example_en": "The apple is red.", "example_it": "La mela è rossa." },
+    { "id": "weiss", "de": "weiß", "sl": "bel", "en": "white", "it": "bianco", "emoji": "⬜",
+      "example_de": "Der Schnee ist weiß.", "example_sl": "Sneg je bel.", "example_en": "Snow is white.", "example_it": "La neve è bianca." },
+    { "id": "wandern", "de": "wandern", "sl": "iti na pohod", "en": "to hike", "it": "fare escursioni", "emoji": "🥾",
+      "example_de": "Heute wandern wir auf den Dobratsch.", "example_sl": "Danes gremo na pohod na Dobrač.", "example_en": "Today we're hiking up the Dobratsch.", "example_it": "Oggi facciamo un'escursione sul Dobratsch." },
+    { "id": "feiertag", "de": "der Feiertag", "sl": "praznik (dela prost dan)", "en": "public holiday", "it": "il giorno festivo", "emoji": "📅", "gender": "m", "plural": "die Feiertage",
+      "example_de": "Am Feiertag ist die Schule zu.", "example_sl": "Na praznik je šola zaprta.", "example_en": "The school is closed on the holiday.", "example_it": "Nel giorno festivo la scuola è chiusa." },
+    { "id": "land", "de": "das Land", "sl": "dežela", "en": "country", "it": "il paese, la nazione", "emoji": "🗺️", "gender": "n", "plural": "die Länder",
+      "example_de": "Österreich ist ein kleines Land.", "example_sl": "Avstrija je majhna dežela.", "example_en": "Austria is a small country.", "example_it": "L'Austria è un piccolo paese.",
+      "note": "Carinthia is a Bundesland, one of the nine states of Austria.",
+      "note_sl": "Koroška je Bundesland, ena od devetih avstrijskih zveznih dežel.",
+      "note_it": "La Carinzia è un Bundesland, uno dei nove stati federali dell'Austria." },
+    { "id": "hymne", "de": "die Hymne", "sl": "himna", "en": "anthem", "it": "l'inno", "emoji": "🎶", "gender": "f", "plural": "die Hymnen",
+      "example_de": "Wir singen die Hymne.", "example_sl": "Zapojemo himno.", "example_en": "We sing the anthem.", "example_it": "Cantiamo l'inno." }
+  ]
+}

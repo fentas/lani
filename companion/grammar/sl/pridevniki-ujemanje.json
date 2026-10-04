@@ -1,0 +1,78 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pridevniki-ujemanje",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🎨",
+  "title": {
+    "sl": "Dober dan, dobra kava, dobro jutro",
+    "en": "Adjectives agree with their noun",
+    "de": "Adjektive richten sich nach dem Nomen",
+    "it": "Gli aggettivi concordano con il nome"
+  },
+  "rule": {
+    "en": "An adjective takes the gender, number and case of its noun (*ujemanje*, agreement).\n\nIn the base form, masculine has no ending (**dober dan**, **velik šotor**), feminine ends in **-a** (**dobra kava**, **velika smreka**), neuter in **-o** or **-e** (**dobro jutro**, **sveže mleko**).\n\nMy (*moj*) and the other possessives work the same: **moj brat**, **moja sestra**, **moje vino** (after j, c, č, š and ž the neuter takes -e).\n\nWhen the noun changes case, the adjective changes with it: velika smreka → **pod veliko smreko**, Nova Gorica → **v Novi Gorici**. That's why it's **dobro jutro**: jutro is neuter.",
+    "de": "Ein Adjektiv übernimmt Geschlecht, Zahl und Fall seines Nomens (*ujemanje*, Kongruenz).\n\nIn der Grundform hat das Maskulinum keine Endung (**dober dan**, **velik šotor**), das Femininum endet auf **-a** (**dobra kava**, **velika smreka**), das Neutrum auf **-o** oder **-e** (**dobro jutro**, **sveže mleko**).\n\nMein (*moj*) und die anderen Possessive gehen genauso: **moj brat**, **moja sestra**, **moje vino** (nach j, c, č, š und ž endet das Neutrum auf -e).\n\nÄndert das Nomen den Fall, ändert sich das Adjektiv mit: velika smreka → **pod veliko smreko**, Nova Gorica → **v Novi Gorici**. Darum heißt es **dobro jutro**: jutro ist sächlich (anders als der Morgen).",
+    "it": "Un aggettivo prende il genere, il numero e il caso del suo nome (*ujemanje*, concordanza).\n\nNella forma base il maschile non ha desinenza (**dober dan**, **velik šotor**), il femminile finisce in **-a** (**dobra kava**, **velika smreka**), il neutro in **-o** o **-e** (**dobro jutro**, **sveže mleko**).\n\nMio (*moj*) e gli altri possessivi funzionano allo stesso modo: **moj brat**, **moja sestra**, **moje vino** (dopo j, c, č, š e ž il neutro prende -e).\n\nQuando il nome cambia caso, l'aggettivo cambia con lui: velika smreka → **pod veliko smreko**, Nova Gorica → **v Novi Gorici**. Per questo si dice **dobro jutro**: jutro è neutro, un genere che l'italiano non ha."
+  },
+  "table": {
+    "head": [
+      { "sl": "spol", "en": "gender (spol)", "de": "Geschlecht (spol)", "it": "genere (spol)" },
+      { "sl": "pridevnik", "en": "adjective", "de": "Adjektiv", "it": "aggettivo" },
+      { "sl": "moj", "en": "my (moj)", "de": "mein (moj)", "it": "mio (moj)" }
+    ],
+    "rows": [
+      [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "dober dan", "moj brat"],
+      [{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "dobra kava", "moja sestra"],
+      [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "dobro jutro", "moje vino"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Dobro jutro, babica!",
+      "en": "Good morning, grandma!",
+      "de": "Guten Morgen, Oma!",
+      "it": "Buongiorno, nonna!"
+    },
+    {
+      "sl": "To je dobra kava.",
+      "en": "This is good coffee.",
+      "de": "Das ist guter Kaffee.",
+      "it": "Questo è un buon caffè."
+    },
+    {
+      "sl": "Moje vino je dobro.",
+      "en": "My wine is good.",
+      "de": "Mein Wein ist gut.",
+      "it": "Il mio vino è buono.",
+      "note": {
+        "en": "vino is neuter: moje, dobro.",
+        "de": "vino ist sächlich: moje, dobro.",
+        "it": "vino è neutro: moje, dobro."
+      }
+    },
+    {
+      "sl": "Šotor stoji pod veliko smreko.",
+      "en": "The tent stands under the big spruce.",
+      "de": "Das Zelt steht unter der großen Fichte.",
+      "it": "La tenda sta sotto il grande abete rosso."
+    },
+    {
+      "sl": "Stanujem v Novi Gorici.",
+      "en": "I live in Nova Gorica.",
+      "de": "Ich wohne in Nova Gorica.",
+      "it": "Abito a Nova Gorica."
+    },
+    {
+      "sl": "Danes je lepo vreme.",
+      "en": "The weather is lovely today.",
+      "de": "Heute ist schönes Wetter.",
+      "it": "Oggi fa bel tempo."
+    }
+  ],
+  "modules": [],
+  "tags": ["adjective", "agreement", "possessive", "grammar_gender"],
+  "see": ["spol-samostalnikov", "tozilnik", "kje-mestnik-orodnik", "primernik", "prislovi", "svoj"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Pair a phone with a learner's tutor: prints a one-time QR code (valid 10 minutes).
+#   lani-pair [--profile <id>] [--url <bridge URL>] [--no-qr]
+#   lani-pair [--profile <id>] --devices | --revoke <name>
+# See companion/README.md, "Pair a phone".
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+exec bun "$root/companion/bridge/src/cli/pair.ts" "$@"

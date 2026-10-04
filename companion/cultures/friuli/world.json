@@ -1,0 +1,290 @@
+{
+  "host": { "name": "Nonna Rosa", "emoji": "👵" },
+  "resources": {
+    "food": {
+      "name": { "it": "Cibo", "sl": "Hrana", "en": "Food", "de": "Nahrung" },
+      "partitive": { "it": "cibo", "sl": "hrane", "en": "food", "de": "Nahrung" },
+      "leader": "Mugnaio Franco"
+    },
+    "wood": {
+      "name": { "it": "Legna", "sl": "Les", "en": "Wood", "de": "Holz" },
+      "partitive": { "it": "legna", "sl": "lesa", "en": "wood", "de": "Holz" },
+      "leader": "Pastore Davide"
+    },
+    "stone": {
+      "name": { "it": "Pietra", "sl": "Kamen", "en": "Stone", "de": "Stein" },
+      "partitive": { "it": "pietra", "sl": "kamna", "en": "stone", "de": "Stein" },
+      "leader": "Fabbro Bruno"
+    },
+    "wisdom": {
+      "name": { "it": "Saggezza", "sl": "Modrost", "en": "Wisdom", "de": "Weisheit" },
+      "partitive": { "it": "saggezza", "sl": "modrosti", "en": "wisdom", "de": "Weisheit" },
+      "leader": "Nonno Bepi"
+    }
+  },
+  "ages": {
+    "ogenj": {
+      "name": { "it": "Falò", "sl": "Ogenj", "en": "Campfire", "de": "Lagerfeuer" }
+    },
+    "tabor": {
+      "name": { "it": "Accampamento", "sl": "Tabor", "en": "Camp", "de": "Lager" }
+    },
+    "zaselek": {
+      "name": { "it": "Borgata", "sl": "Zaselek", "en": "Hamlet", "de": "Weiler" }
+    },
+    "vas": {
+      "name": { "it": "Paese", "sl": "Vas", "en": "Village", "de": "Dorf" }
+    },
+    "trg": {
+      "name": { "it": "Borgo", "sl": "Trg", "en": "Market town", "de": "Marktflecken" }
+    },
+    "mesto": {
+      "name": { "it": "Cittadina", "sl": "Mesto", "en": "Town", "de": "Städtchen" }
+    }
+  },
+  "buildings": {
+    "tent": {
+      "name": { "it": "Tenda", "sl": "Šotor", "en": "Tent", "de": "Zelt" }
+    },
+    "field": {
+      "name": { "it": "Campo", "sl": "Njiva", "en": "Field", "de": "Acker" }
+    },
+    "well": {
+      "name": { "it": "Pozzo", "sl": "Vodnjak", "en": "Well", "de": "Brunnen" }
+    },
+    "hut": {
+      "name": { "it": "Capanna", "sl": "Koča", "en": "Hut", "de": "Hütte" }
+    },
+    "kozolec": {
+      "name": { "it": "Fienile", "sl": "Senik", "en": "Hay barn", "de": "Heuschober" }
+    },
+    "beehive": {
+      "name": { "it": "Apiario", "sl": "Čebelnjak", "en": "Bee house", "de": "Bienenhaus" }
+    },
+    "palisade": {
+      "name": { "it": "Palizzata", "sl": "Palisada", "en": "Palisade", "de": "Palisade" }
+    },
+    "watchtower": {
+      "name": { "it": "Torre di guardia", "sl": "Stražni stolp", "en": "Watchtower", "de": "Wachturm" }
+    },
+    "smithy": {
+      "name": { "it": "Fucina", "sl": "Kovačnica", "en": "Smithy", "de": "Schmiede" }
+    },
+    "lipa": {
+      "name": { "it": "Tiglio", "sl": "Lipa", "en": "Linden tree", "de": "Linde" }
+    },
+    "house": {
+      "name": { "it": "Casa", "sl": "Hiša", "en": "House", "de": "Haus" }
+    },
+    "church": {
+      "name": { "it": "Chiesa", "sl": "Cerkev", "en": "Church", "de": "Kirche" }
+    },
+    "school": {
+      "name": { "it": "Scuola", "sl": "Šola", "en": "School", "de": "Schule" }
+    },
+    "market": {
+      "name": { "it": "Mercato", "sl": "Tržnica", "en": "Market", "de": "Markt" }
+    }
+  },
+  "events": {
+    "wolves": {
+      "name": { "it": "Lupi", "sl": "Volkovi", "en": "Wolves", "de": "Wölfe" }
+    },
+    "bear": {
+      "name": { "it": "Orso", "sl": "Medved", "en": "Bear", "de": "Bär" }
+    },
+    "storm": {
+      "name": { "it": "Temporale", "sl": "Nevihta", "en": "Storm", "de": "Gewitter" }
+    },
+    "merchant": {
+      "name": { "it": "Mercante", "sl": "Trgovec", "en": "Merchant", "de": "Händler" }
+    },
+    "festival": {
+      "name": { "it": "Festa", "sl": "Praznik", "en": "Festival", "de": "Fest" }
+    }
+  },
+  "places": [
+    {
+      "id": "collio",
+      "name": { "it": "Collio", "sl": "Brda", "en": "the Collio", "de": "das Collio" },
+      "about": { "en": "The wine hills west of Gorizia where the village is: vineyards on terraced slopes (ronchi), ribolla gialla, the vendemmia. The same hills are called Brda on the Slovene side.", "de": "Die Weinhügel westlich von Görz, wo das Dorf liegt: Weinberge an Terrassenhängen (ronchi), Ribolla Gialla, die Vendemmia. Auf der slowenischen Seite heißen dieselben Hügel Brda." }
+    },
+    {
+      "id": "brda",
+      "name": { "it": "Collio sloveno", "sl": "Brda", "en": "Brda", "de": "Brda" },
+      "about": { "en": "The Slovene side of the same hills, across the border, facing the village: where Matteo's friend Marko makes wine, and the Primorska village is.", "de": "Die slowenische Seite derselben Hügel, jenseits der Grenze, gegenüber dem Dorf: Dort macht Matteos Freund Marko Wein, und dort liegt das Dorf in Primorska." }
+    },
+    {
+      "id": "gorizia",
+      "name": { "it": "Gorizia", "sl": "Gorica", "en": "Gorizia", "de": "Görz" },
+      "about": { "en": "The town below the Collio, on the border: the market, the school's trips, the famous lace. It shares a square with Nova Gorica.", "de": "Die Stadt unter dem Collio, an der Grenze: der Markt, die Schulausflüge, die berühmte Spitze. Sie teilt sich einen Platz mit Nova Gorica." }
+    },
+    {
+      "id": "nova_gorica",
+      "name": { "it": "Nova Gorica", "sl": "Nova Gorica", "en": "Nova Gorica", "de": "Nova Gorica" },
+      "about": { "en": "The Slovene town across the border from Gorizia; the two share the Piazza Transalpina (Trg Evrope). Letters, friends and Bruno's orders come from there.", "de": "Die slowenische Stadt gegenüber von Görz, jenseits der Grenze; die beiden teilen sich die Piazza Transalpina (Trg Evrope). Von dort kommen Briefe, Freunde und Brunos Aufträge." }
+    },
+    {
+      "id": "piazza_transalpina",
+      "name": { "it": "Piazza Transalpina", "sl": "Trg Evrope", "en": "Piazza Transalpina", "de": "Piazza Transalpina" },
+      "about": { "en": "The square cut in two by the border between Gorizia and Nova Gorica: you can stand in both countries at once.", "de": "Der Platz, den die Grenze zwischen Görz und Nova Gorica teilt: Man kann in beiden Ländern zugleich stehen." }
+    },
+    {
+      "id": "cormons",
+      "name": { "it": "Cormòns", "sl": "Krmin", "en": "Cormòns", "de": "Cormòns" },
+      "about": { "en": "The little wine town of the Collio, nearest to the village: the market, the wine cellars.", "de": "Das kleine Weinstädtchen des Collio, dem Dorf am nächsten: der Markt, die Weinkeller." }
+    },
+    {
+      "id": "san_floriano",
+      "name": { "it": "San Floriano del Collio", "sl": "Števerjan", "en": "San Floriano del Collio", "de": "San Floriano del Collio" },
+      "about": { "en": "The hill village of the Collio right on the border, with Slovene and Italian speakers side by side.", "de": "Das Hügeldorf des Collio direkt an der Grenze, wo Slowenisch und Italienisch nebeneinander gesprochen werden." }
+    },
+    {
+      "id": "isonzo",
+      "name": { "it": "Isonzo", "sl": "Soča", "en": "the Isonzo", "de": "der Isonzo" },
+      "about": { "en": "The green river that flows past Gorizia (the Soča in Slovenia); storms come down its valley.", "de": "Der grüne Fluss, der an Görz vorbeifließt (in Slowenien die Soča); durch sein Tal ziehen die Gewitter herunter." }
+    },
+    {
+      "id": "sabotino",
+      "name": { "it": "Monte Sabotino", "sl": "Sabotin", "en": "Monte Sabotino", "de": "Monte Sabotino" },
+      "about": { "en": "The long mountain above Gorizia and the Isonzo: Davide's sheep graze on its meadows.", "de": "Der lange Berg über Görz und dem Isonzo: Auf seinen Wiesen weiden Davides Schafe." }
+    },
+    {
+      "id": "canin",
+      "name": { "it": "Monte Canin", "sl": "Kanin", "en": "Monte Canin", "de": "Monte Canin" },
+      "about": { "en": "The high mountain in the Julian Alps, on the border: Nonno Bepi climbed it when he was young.", "de": "Der hohe Berg in den Julischen Alpen, an der Grenze: Nonno Bepi hat ihn als junger Mann bestiegen." }
+    },
+    {
+      "id": "udine",
+      "name": { "it": "Udine", "sl": "Videm", "en": "Udine", "de": "Udine" },
+      "about": { "en": "The capital of Friuli: the castle, the football team (Udinese), Rosa's cousins.", "de": "Die Hauptstadt Friauls: die Burg, die Fußballmannschaft (Udinese), Rosas Cousinen." }
+    },
+    {
+      "id": "trieste",
+      "name": { "it": "Trieste", "sl": "Trst", "en": "Trieste", "de": "Triest" },
+      "about": { "en": "The port city on the sea: the merchant, the coffee and the olive oil come from there; San Nicolò brings presents there.", "de": "Die Hafenstadt am Meer: Von dort kommen der Händler, der Kaffee und das Olivenöl; dort bringt San Nicolò die Geschenke." }
+    },
+    {
+      "id": "cividale",
+      "name": { "it": "Cividale del Friuli", "sl": "Čedad", "en": "Cividale del Friuli", "de": "Cividale del Friuli" },
+      "about": { "en": "The old town on the Natisone, home of the gubana (the nut roll).", "de": "Die alte Stadt am Natisone, die Heimat der Gubana (der Nussrolle)." }
+    },
+    {
+      "id": "castelmonte",
+      "name": { "it": "Castelmonte", "sl": "Stara Gora", "en": "Castelmonte", "de": "Castelmonte" },
+      "about": { "en": "The sanctuary on the hill above Cividale, where the pilgrim goes.", "de": "Die Wallfahrtskirche auf dem Berg über Cividale, zu der der Pilger geht." }
+    },
+    {
+      "id": "grado",
+      "name": { "it": "Grado", "sl": "Gradež", "en": "Grado", "de": "Grado" },
+      "about": { "en": "The island town by the sea with the beach: Ferragosto at the sea.", "de": "Die Inselstadt am Meer mit dem Strand: Ferragosto am Meer." }
+    },
+    {
+      "id": "aquileia",
+      "name": { "it": "Aquileia", "sl": "Oglej", "en": "Aquileia", "de": "Aquileia" },
+      "about": { "en": "The old Roman town with the great basilica and its mosaics, near the sea.", "de": "Die alte Römerstadt mit der großen Basilika und ihren Mosaiken, nahe am Meer." }
+    },
+    {
+      "id": "san_daniele",
+      "name": { "it": "San Daniele del Friuli", "sl": "San Daniele", "en": "San Daniele", "de": "San Daniele" },
+      "about": { "en": "The hill town of the famous prosciutto: the pedlar's ham.", "de": "Die Hügelstadt des berühmten Prosciutto: der Schinken des Hausierers." }
+    },
+    {
+      "id": "carnia",
+      "name": { "it": "Carnia", "sl": "Karnija", "en": "the Carnia", "de": "Karnien" },
+      "about": { "en": "The mountains of northern Friuli, home of the cramars: the pedlars who carried their wares on their backs in a wooden frame.", "de": "Die Berge im Norden Friauls, die Heimat der Cramars: der Hausierer, die ihre Waren in einem Holzgestell auf dem Rücken trugen." }
+    }
+  ],
+  "backdrop": {
+    "emoji": "🌊",
+    "name": { "it": "Il mare", "sl": "Morje", "en": "The sea", "de": "Das Meer" },
+    "where": { "it": "al mare", "sl": "na morju", "en": "at the sea", "de": "am Meer" },
+    "about": { "it": "La laguna di Grado, i casoni e la spiaggia", "sl": "Gradeška laguna, ribiške koče in plaža", "en": "The lagoon of Grado, the casoni and the beach", "de": "Die Lagune von Grado, die Casoni und der Strand" },
+    "sea": true
+  },
+  "spots": {
+    "kopa": {
+      "emoji": "♨️",
+      "name": { "it": "La carbonaia", "sl": "Oglarska kopa", "en": "The charcoal pile", "de": "Der Kohlenmeiler" },
+      "where": { "it": "alla carbonaia", "sl": "pri kopi", "en": "by the charcoal pile", "de": "beim Kohlenmeiler" },
+      "about": { "it": "La carbonaia fuma: la legna diventa carbone", "sl": "Kopa se kadi: iz lesa nastaja oglje", "en": "The pile smokes: the wood turns into charcoal", "de": "Der Meiler raucht: aus Holz wird Holzkohle" },
+      "story": {
+        "A1": {
+          "it": "Questa è una carbonaia. Il carbonaio mette la legna in un grande mucchio. Poi copre il mucchio con la terra e con le zolle d'erba. La carbonaia non brucia: fuma piano piano, per una o due settimane. Alla fine la legna è nera e leggera: è il carbone. Il carbone va dal fabbro Bruno, per il fuoco della sua fucina.",
+          "sl": "To je oglarska kopa. Oglar zloži drva v velik kup. Potem kup pokrije z zemljo in rušo. Kopa ne gori: počasi se kadi, teden ali dva. Na koncu je les črn in lahek: to je oglje. Oglje gre h kovaču Brunu, za ogenj v njegovi kovačnici.",
+          "en": "This is a charcoal pile. The charcoal burner puts the wood in a big heap. Then he covers the heap with earth and turf. The pile doesn't burn: it smokes slowly, for a week or two. In the end the wood is black and light: it is charcoal. The charcoal goes to Bruno the smith, for the fire in his forge.",
+          "de": "Das ist ein Kohlenmeiler. Der Köhler legt das Holz zu einem großen Haufen. Dann deckt er den Haufen mit Erde und Rasen zu. Der Meiler brennt nicht: Er raucht langsam, eine oder zwei Wochen lang. Am Ende ist das Holz schwarz und leicht: Das ist Holzkohle. Die Holzkohle geht zum Schmied Bruno, für das Feuer in seiner Schmiede."
+        },
+        "A2": {
+          "it": "Una volta, sulle montagne del Friuli, in Carnia e in Val Resia, i carbonai passavano l'estate nel bosco. Tagliavano il faggio e lo mettevano in piedi attorno a un palo. Poi coprivano tutto con foglie, zolle d'erba e terra, e accendevano la carbonaia dall'alto. Il carbonaio dormiva in una capanna lì vicino e la guardava giorno e notte: se prendeva troppa aria, bruciava e restava solo cenere. Il carbone andava ai fabbri, come il nostro Bruno, e nelle città, fino a Udine e a Venezia. Molti carbonai friulani andavano a lavorare anche all'estero, nei boschi di altri paesi.",
+          "sl": "Nekoč so oglarji v furlanskih gorah, v Karniji in v Reziji, preživeli poletje v gozdu. Sekali so bukov les in ga postavili pokonci okrog kola. Potem so vse pokrili z listjem, rušo in zemljo in kopo prižgali od zgoraj. Oglar je spal v koči blizu in pazil nanjo dan in noč: če je dobila preveč zraka, je zagorela in ostal je samo pepel. Oglje so nesli kovačem, kot je naš Bruno, in v mesta, vse do Vidma in Benetk. Veliko furlanskih oglarjev je hodilo delat tudi v tujino, v gozdove drugih dežel.",
+          "en": "Long ago, in the mountains of Friuli, in Carnia and in the Val Resia, the charcoal burners spent the summer in the woods. They cut beech wood and stood it up around a pole. Then they covered it all with leaves, turf and earth, and lit the pile from the top. The burner slept in a hut close by and watched it day and night: if it got too much air, it burned and only ash was left. The charcoal went to the smiths, like our Bruno, and to the towns, as far as Udine and Venice. Many Friulian charcoal burners also went to work abroad, in the woods of other countries.",
+          "de": "Früher verbrachten die Köhler in den Bergen Friauls, in Karnien und im Resiatal, den Sommer im Wald. Sie schlugen Buchenholz und stellten es um einen Pfahl auf. Dann deckten sie alles mit Laub, Rasen und Erde zu und zündeten den Meiler von oben an. Der Köhler schlief in einer Hütte gleich daneben und bewachte ihn Tag und Nacht: Bekam er zu viel Luft, brannte er, und es blieb nur Asche. Die Holzkohle ging zu den Schmieden, wie zu unserem Bruno, und in die Städte, bis nach Udine und Venedig. Viele Köhler aus Friaul gingen auch ins Ausland arbeiten, in die Wälder anderer Länder."
+        }
+      },
+      "pack": "alla-carbonaia",
+      "review": "The story, the burner's talk and its reactions: machine-written (Claude), not reviewed by a native speaker.",
+      "keeper": {
+        "id": "carbonaio",
+        "name": "Carbonaio Pieri",
+        "emoji": "🧔",
+        "art": "burner",
+        "voice": "male",
+        "speaker": "grandpa",
+        "role": { "it": "Carbonaio", "sl": "Oglar", "en": "Charcoal burner", "de": "Köhler" },
+        "story": "Pieri comes down from the Carnia every summer to burn charcoal in the woods above the village, as the carbonai of the Friulian mountains always did; his charcoal goes to Fabbro Bruno's forge. He says tu to the learner ('ragazzo'), who says Lei to him.",
+        "when": ["evening", "night"],
+        "chance": 0.5,
+        "title": { "it": "Il carbonaio Pieri sorveglia la carbonaia", "sl": "Oglar Pieri pazi na kopo", "en": "Pieri the charcoal burner watches the pile", "de": "Köhler Pieri hütet den Meiler" },
+        "reward": { "wisdom": 15 },
+        "levels": {
+          "A1": {
+            "lines": [
+              { "who": "carbonaio", "it": "Buonasera! Io sono Pieri, il carbonaio.", "sl": "Dober večer! Jaz sem Pieri, oglar.", "en": "Good evening! I'm Pieri, the charcoal burner.", "de": "Guten Abend! Ich bin Pieri, der Köhler." },
+              { "choices": [
+                { "it": "Buonasera! Piacere.", "sl": "Dober večer! Me veseli.", "en": "Good evening! Nice to meet you.", "de": "Guten Abend! Freut mich.", "ok": true,
+                  "reply": { "it": "Piacere mio. Siediti qui, fa caldo.", "sl": "Tudi mene veseli. Sedi sem, toplo je.", "en": "My pleasure. Sit here, it's warm.", "de": "Ganz meinerseits. Setz dich her, hier ist es warm." } },
+                { "it": "Buongiorno! Piacere.", "sl": "Dober dan! Me veseli.", "en": "Good morning! Nice to meet you.", "de": "Guten Tag! Freut mich.",
+                  "why": { "sl": "Zvečer rečemo buonasera. Buongiorno je za dan.", "en": "In the evening you say buonasera. Buongiorno is for the day.", "de": "Am Abend sagt man buonasera. Buongiorno sagt man am Tag." },
+                  "reply": { "it": "Giorno? Il giorno è finito, ragazzo!", "sl": "Dan? Dan je že mimo, fant!", "en": "Day? The day's over, lad!", "de": "Tag? Der Tag ist vorbei, Junge!" } }
+              ] },
+              { "who": "carbonaio", "it": "Questa è la mia carbonaia. Non brucia, fuma piano.", "sl": "To je moja kopa. Ne gori, počasi se kadi.", "en": "This is my charcoal pile. It doesn't burn, it smokes slowly.", "de": "Das ist mein Meiler. Er brennt nicht, er raucht langsam." },
+              { "choices": [
+                { "it": "Che cosa c'è dentro?", "sl": "Kaj je notri?", "en": "What's inside?", "de": "Was ist drin?", "ok": true,
+                  "reply": { "it": "Legna. Tra una settimana è carbone.", "sl": "Drva. Čez en teden bo oglje.", "en": "Wood. In a week it'll be charcoal.", "de": "Holz. In einer Woche ist es Kohle." } },
+                { "it": "Perché fuma?", "sl": "Zakaj se kadi?", "en": "Why does it smoke?", "de": "Warum raucht er?", "ok": true,
+                  "reply": { "it": "Perché la legna cuoce sotto la terra. Così nasce il carbone.", "sl": "Ker se les peče pod zemljo. Tako nastane oglje.", "en": "Because the wood bakes under the earth. That's how charcoal is made.", "de": "Weil das Holz unter der Erde gart. So entsteht Holzkohle." } },
+                { "it": "Chi c'è dentro?", "sl": "Kdo je notri?", "en": "Who's inside?", "de": "Wer ist drin?",
+                  "why": { "sl": "Chi vpraša po osebi: kdo. Po stvari vprašaš che cosa.", "en": "Chi asks about a person: who. For a thing ask che cosa.", "de": "Chi fragt nach einer Person: wer. Nach einer Sache fragt man che cosa." },
+                  "reply": { "it": "Chi? Nessuno, ragazzo! Solo legna.", "sl": "Kdo? Nihče, fant! Samo drva.", "en": "Who? Nobody, lad! Just wood.", "de": "Wer? Niemand, Junge! Nur Holz." } }
+              ] },
+              { "who": "carbonaio", "it": "Il carbone va al fabbro Bruno. Torna quando vuoi!", "sl": "Oglje dobi kovač Bruno. Pridi, kadar hočeš!", "en": "The charcoal goes to Bruno the smith. Come back any time!", "de": "Die Kohle bekommt der Schmied Bruno. Komm wieder, wann du willst!" }
+            ]
+          },
+          "A2": {
+            "lines": [
+              { "who": "carbonaio", "it": "Buonasera, ragazzo! Sei venuto a vedere la mia carbonaia?", "sl": "Dober večer, fant! Si prišel pogledat mojo kopo?", "en": "Good evening, lad! Have you come to see my charcoal pile?", "de": "Guten Abend, Junge! Bist du gekommen, um dir meinen Meiler anzuschauen?" },
+              { "choices": [
+                { "it": "Sì, ho visto il fumo dal paese.", "sl": "Ja, dim sem videl iz vasi.", "en": "Yes, I saw the smoke from the village.", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "ok": true,
+                  "reply": { "it": "Il fumo lo vedono tutti. Ma il fuoco non deve esserci!", "sl": "Dim vidijo vsi. Ognja pa ne sme biti!", "en": "Everyone sees the smoke. But there mustn't be any fire!", "de": "Den Rauch sehen alle. Aber Feuer darf keins sein!" } },
+                { "it": "Sì, ho vedito il fumo dal paese.", "sl": "Ja, dim sem videl iz vasi. (napačna oblika preteklika)", "en": "Yes, I saw the smoke from the village. (a wrong past form)", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen. (eine falsche Vergangenheitsform)",
+                  "why": { "sl": "Vedere ima nepravilni deležnik: visto (ho visto). Vedito ne obstaja.", "en": "Vedere has an irregular past participle: visto (ho visto). Vedito isn't a word.", "de": "Vedere hat ein unregelmäßiges Partizip: visto (ho visto). Vedito gibt es nicht." },
+                  "reply": { "it": "Vedito? Questa parola non la conosco, ragazzo!", "sl": "Vedito? Te besede pa ne poznam, fant!", "en": "Vedito? I don't know that word, lad!", "de": "Vedito? Das Wort kenne ich nicht, Junge!" } }
+              ] },
+              { "who": "carbonaio", "it": "Devo guardarla giorno e notte. Se prende troppa aria, brucia e resta solo cenere.", "sl": "Paziti moram nanjo dan in noč. Če dobi preveč zraka, zagori in ostane samo pepel.", "en": "I have to watch it day and night. If it gets too much air, it burns and only ash is left.", "de": "Ich muss Tag und Nacht aufpassen. Wenn er zu viel Luft bekommt, brennt er, und es bleibt nur Asche." },
+              { "choices": [
+                { "it": "E dove dorme, Lei?", "sl": "Pa kje spite vi?", "en": "And where do you sleep?", "de": "Und wo schlafen Sie?", "ok": true,
+                  "reply": { "it": "In quella capanna, vicino alla carbonaia. Dormo poco e ascolto molto.", "sl": "V tisti koči, zraven kope. Spim malo in veliko poslušam.", "en": "In that hut, next to the pile. I sleep little and listen a lot.", "de": "In der Hütte dort, neben dem Meiler. Ich schlafe wenig und horche viel." } },
+                { "it": "E dove dormi, tu?", "sl": "Pa kje spiš ti? (tu, kot prijatelju)", "en": "And where do you sleep? (tu, as to a friend)", "de": "Und wo schläfst du? (tu, wie zu einem Freund)",
+                  "why": { "sl": "Pierija ne poznaš in je starejši: vikaš ga, z Lei (dorme).", "en": "You don't know Pieri and he is older: you say Lei to him (dorme).", "de": "Du kennst Pieri nicht, und er ist älter: Du sagst Lei zu ihm (dorme)." },
+                  "reply": { "it": "Mi dai del tu? Va be', nel bosco siamo tutti amici.", "sl": "Me tikaš? No, prav, v gozdu smo vsi prijatelji.", "en": "You're calling me tu? Oh well, in the woods we're all friends.", "de": "Du duzt mich? Na gut, im Wald sind wir alle Freunde." } }
+              ] },
+              { "who": "carbonaio", "it": "Tra una settimana apro la carbonaia. Il carbone lo porto al fabbro Bruno, per la sua fucina.", "sl": "Čez en teden odprem kopo. Oglje odnesem kovaču Brunu, za njegovo kovačnico.", "en": "In a week I'll open the pile. I'll take the charcoal to Bruno the smith, for his forge.", "de": "In einer Woche mache ich den Meiler auf. Die Kohle bringe ich dem Schmied Bruno, für seine Schmiede." },
+              { "who": "carbonaio", "it": "Torna quando vuoi, ragazzo. Di notte il bosco è bellissimo.", "sl": "Pridi, kadar hočeš, fant. Ponoči je gozd prelep.", "en": "Come back any time, lad. The woods are beautiful at night.", "de": "Komm wieder, wann du willst, Junge. In der Nacht ist der Wald wunderschön." }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

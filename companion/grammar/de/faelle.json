@@ -1,0 +1,116 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "faelle",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🧩",
+  "title": {
+    "de": "Der, den, dem, des: die vier Fälle",
+    "sl": "Der, den, dem, des: štirje skloni",
+    "en": "Der, den, dem, des: the four cases",
+    "it": "Der, den, dem, des: i quattro casi"
+  },
+  "rule": {
+    "en": "German has four cases (*Fälle*). The case shows what a noun does in the sentence. You see it mostly in the article, hardly in the noun.\n\nThe nominative (*Nominativ*) is who or what does it (Wer? Was?): **Der Teich** ist kalt. The accusative (*Akkusativ*) is the object (Wen? Was?): Ich sehe **den Teich**. The dative (*Dativ*) is to whom (Wem?), and it comes after mit, von, bei, aus and others: Das Zelt steht **neben dem Teich**. The genitive (*Genitiv*) says whose: das Wasser **des Teiches**. It is mostly written; people usually say **vom Teich**.\n\nder changes the most: **der, den, dem, des**. die and das are the same in the nominative and the accusative.\n\nEnglish shows cases only in pronouns (he, him, his). German shows them in every article, so learn which case a verb or a preposition takes.",
+    "sl": "Nemščina ima štiri sklone (*Fälle*), slovenščina šest. Slovenščina sklon pokaže s končnico (ribnik, ribnika, ribniku …), nemščina pa predvsem s členom; samostalnik se skoraj ne spremeni: der Teich, den Teich, dem Teich.\n\nImenovalnik (*Nominativ*) je kdo ali kaj (Wer? Was?): **Der Teich** ist kalt. Tožilnik (*Akkusativ*) je predmet (Wen? Was?): Ich sehe **den Teich**. Dajalnik (*Dativ*) je komu (Wem?) in stoji za predlogi, kot so mit, von, bei, aus: Das Zelt steht **neben dem Teich**. Rodilnik (*Genitiv*) pove, čigavo je kaj: das Wasser **des Teiches**. Večinoma se piše, v pogovoru pa se reče **vom Teich**.\n\nMestnika in orodnika nemščina nima: po predlogu je tam dajalnik. **ob ribniku** → neben dem Teich, **s psom** → mit dem Hund.\n\nNajbolj se spreminja der: **der, den, dem, des**. die in das sta v imenovalniku in tožilniku enaka.",
+    "it": "Il tedesco ha quattro casi (*Fälle*). Il caso dice che cosa fa un nome nella frase. In italiano i casi si vedono solo nei pronomi (lui, lo, gli); in tedesco soprattutto nell'articolo, mentre il nome quasi non cambia.\n\nIl nominativo (*Nominativ*) è chi o che cosa fa l'azione (Wer? Was?): **Der Teich** ist kalt. L'accusativo (*Akkusativ*) è il complemento oggetto (Wen? Was?): Ich sehe **den Teich**. Il dativo (*Dativ*) risponde a «a chi?» (Wem?) e segue mit, von, bei, aus e altre preposizioni: Das Zelt steht **neben dem Teich**. Il genitivo (*Genitiv*) dice di chi è: das Wasser **des Teiches**. Si usa soprattutto per scritto; a voce si dice **vom Teich**.\n\nder cambia più di tutti: **der, den, dem, des**. die e das sono uguali al nominativo e all'accusativo.\n\nPer questo ogni verbo e ogni preposizione si impara con il suo caso."
+  },
+  "table": {
+    "head": [
+      { "de": "Fall", "sl": "sklon", "en": "case", "it": "caso" },
+      "der Teich",
+      "die Fichte",
+      "das Zelt"
+    ],
+    "rows": [
+      [{ "de": "Nominativ (Wer? Was?)", "sl": "imenovalnik (Nominativ)", "en": "nominative (Nominativ)", "it": "nominativo (Nominativ)" }, "der Teich", "die Fichte", "das Zelt"],
+      [{ "de": "Akkusativ (Wen? Was?)", "sl": "tožilnik (Akkusativ)", "en": "accusative (Akkusativ)", "it": "accusativo (Akkusativ)" }, "den Teich", "die Fichte", "das Zelt"],
+      [{ "de": "Dativ (Wem?)", "sl": "dajalnik (Dativ)", "en": "dative (Dativ)", "it": "dativo (Dativ)" }, "dem Teich", "der Fichte", "dem Zelt"],
+      [{ "de": "Genitiv (Wessen?)", "sl": "rodilnik (Genitiv)", "en": "genitive (Genitiv)", "it": "genitivo (Genitiv)" }, "des Teiches", "der Fichte", "des Zeltes"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Der Teich ist heute ganz still.",
+      "sl": "Ribnik je danes čisto miren.",
+      "en": "The pond is completely calm today.",
+      "it": "Oggi lo stagno è calmissimo.",
+      "note": {
+        "en": "Nominativ: der Teich is the subject.",
+        "sl": "Imenovalnik: der Teich je osebek.",
+        "it": "Nominativo: der Teich è il soggetto."
+      }
+    },
+    {
+      "de": "Jakob sieht den Teich.",
+      "sl": "Jakob vidi ribnik.",
+      "en": "Jakob sees the pond.",
+      "it": "Jakob vede lo stagno.",
+      "note": {
+        "en": "Akkusativ: der → den, the pond is the object.",
+        "sl": "Tožilnik: der → den (slovensko pa ribnik ostane ribnik).",
+        "it": "Accusativo: der → den, lo stagno è l'oggetto."
+      }
+    },
+    {
+      "de": "Das Zelt steht neben dem Teich.",
+      "sl": "Šotor stoji ob ribniku.",
+      "en": "The tent stands next to the pond.",
+      "it": "La tenda è accanto allo stagno.",
+      "note": {
+        "en": "Dativ after neben (Wo?): der → dem.",
+        "sl": "Dajalnik po neben (Wo?): der → dem; slovensko mestnik.",
+        "it": "Dativo dopo neben (Wo?): der → dem."
+      }
+    },
+    {
+      "de": "Lena gibt dem Pferd einen Apfel.",
+      "sl": "Lena da konju jabolko.",
+      "en": "Lena gives the horse an apple.",
+      "it": "Lena dà una mela al cavallo.",
+      "note": {
+        "en": "dem Pferd: to whom (Dativ); einen Apfel: what (Akkusativ).",
+        "sl": "dem Pferd: komu (dajalnik); einen Apfel: kaj (tožilnik).",
+        "it": "dem Pferd: a chi (dativo); einen Apfel: che cosa (accusativo)."
+      }
+    },
+    {
+      "de": "Unter der Fichte ist es kühl.",
+      "sl": "Pod smreko je hladno.",
+      "en": "It's cool under the spruce.",
+      "it": "Sotto l'abete fa fresco.",
+      "note": {
+        "en": "die Fichte → unter der Fichte: in the Dativ die becomes der.",
+        "sl": "die Fichte → unter der Fichte: v dajalniku die postane der.",
+        "it": "die Fichte → unter der Fichte: al dativo die diventa der."
+      }
+    },
+    {
+      "de": "Ich gehe mit dem Hund spazieren.",
+      "sl": "S psom grem na sprehod.",
+      "en": "I'm going for a walk with the dog.",
+      "it": "Faccio una passeggiata con il cane.",
+      "note": {
+        "en": "mit always takes the Dativ.",
+        "sl": "s psom (orodnik) = mit dem Hund (dajalnik).",
+        "it": "mit vuole sempre il dativo."
+      }
+    },
+    {
+      "de": "Das Wasser des Teiches ist klar.",
+      "sl": "Voda v ribniku je bistra.",
+      "en": "The water of the pond is clear.",
+      "it": "L'acqua dello stagno è limpida.",
+      "note": {
+        "en": "Genitiv, mostly written; spoken: das Wasser vom Teich.",
+        "sl": "Rodilnik, večinoma pisno; v pogovoru: das Wasser vom Teich.",
+        "it": "Genitivo, soprattutto scritto; a voce: das Wasser vom Teich."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["cases", "case", "faelle", "nominative", "accusative", "dative", "genitive", "articles"],
+  "see": ["akkusativ", "dativ", "artikel-genus", "wechselpraepositionen"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

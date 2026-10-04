@@ -1,0 +1,84 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "marko",
+  "name": "Vinar Marko",
+  "emoji": "🍇",
+  "art": "winemaker",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": { "sl": "Vinar", "en": "Winemaker", "de": "Winzer", "it": "Vignaiolo" },
+  "home": ["market", "spot:road"],
+  "register": "ti",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 10,
+  "routine": { "up": "6:30", "bed": "22:30" },
+  "personality": "Easygoing, warm, unhurried; says ti to everyone at once, Jan included, and laughs a lot. Talks about wine, the border and football. Full of small talk: the weather, the harvest, what's new in Gorica. Drops in an Italian word now and then ('ciao', 'allora'), as people do in Brda.",
+  "story": "Marko's vineyards are in Goriška brda, on the hills above the border, and he sells rebula on both sides of it. He drives up to the village every few days with his van, parks by the road and opens a bottle. For him Nova Gorica and Gorizia are one town, and the grape harvest (trgatev) is the best week of the year.",
+  "likes": [
+    { "sl": "rebula", "en": "rebula (a white wine of Brda)", "de": "Rebula (ein Weißwein aus Brda)", "it": "la rebula (un vino bianco del Collio)" },
+    { "sl": "trgatev", "en": "the grape harvest", "de": "die Weinlese", "it": "la vendemmia" },
+    { "sl": "Brda", "en": "Brda (the wine hills west of Nova Gorica)", "de": "Brda (die Weinhügel westlich von Nova Gorica)", "it": "il Collio (le colline del vino a ovest di Nova Gorica)" },
+    { "sl": "nogomet", "en": "football", "de": "Fußball", "it": "il calcio" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Ciao! Marko. Iz Brd. Kozarec?", "en": "Ciao! Marko. From Brda. A glass? (ciao: Primorska hello and bye, from Italian)", "de": "Ciao! Marko. Aus Brda. Ein Glas? (ciao: in Primorska Hallo und Tschüss, aus dem Italienischen)", "it": "Ciao! Marko. Dal Collio. Un bicchiere? (ciao: in Primorska per salutare e congedarsi, dall'italiano)", "level": 0 },
+      { "sl": "Živjo! Rebula, sveža iz Brd.", "en": "Hi! Rebula, fresh from Brda.", "de": "Hallo! Rebula, frisch aus Brda.", "it": "Ciao! Rebula, fresca dal Collio.", "level": 0 },
+      { "sl": "Ej, Jan! Kako si? Kozarec rebule?", "en": "Hey, Jan! How are you? A glass of rebula?", "de": "He, Jan! Wie geht's? Ein Glas Rebula?", "it": "Ehi, Jan! Come stai? Un bicchiere di rebula?", "level": 1 },
+      { "sl": "Jan, prijatelj! Sedi. Kaj je novega?", "en": "Jan, my friend! Sit down. What's new?", "de": "Jan, mein Freund! Setz dich. Was gibt's Neues?", "it": "Jan, amico mio! Siediti. Che novità ci sono?", "level": 2 },
+      { "sl": "Jan! Ravno tebe iščem. Pridi, poskusi novo letino.", "en": "Jan! Just the one I'm looking for. Come, try the new vintage.", "de": "Jan! Genau dich suche ich. Komm, probier den neuen Jahrgang.", "it": "Jan! Cercavo proprio te. Vieni, assaggia la nuova annata.", "level": 3 },
+      { "sl": "Jan, brat! Na trgatev prideš, ja? Brda te čakajo.", "en": "Jan, brother! You're coming to the grape harvest, yes? Brda is waiting for you.", "de": "Jan, Bruder! Du kommst doch zur Weinlese, ja? Brda wartet auf dich.", "it": "Jan, fratello! Vieni alla vendemmia, vero? Il Collio ti aspetta.", "level": 4 }
+    ],
+    "thanks": [
+      { "sl": "Hvala ti! Steklenica zate.", "en": "Thanks! A bottle for you.", "de": "Danke dir! Eine Flasche für dich.", "it": "Grazie! Una bottiglia per te." },
+      { "sl": "Ej, hvala, Jan. Na zdravje!", "en": "Hey, thanks, Jan. Cheers!", "de": "He, danke, Jan. Prost!", "it": "Ehi, grazie, Jan. Salute!" },
+      { "sl": "Super, hvala. Tega ne pozabim.", "en": "Great, thanks. I won't forget this.", "de": "Super, danke. Das vergesse ich nicht.", "it": "Grande, grazie. Non lo dimentico." }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Veš, v Brdih sem pravil o tebi. Še vedno mislim na {memory}.", "en": "You know, in Brda I talked about you. I still think of {memory}.", "de": "Weißt du, in Brda habe ich von dir erzählt. Ich denke noch oft an {memory}.", "it": "Sai, nel Collio ho parlato di te. Ricordo ancora {memory}.", "level": 2 },
+      { "sl": "Vsakič, ko odprem rebulo, mislim na {memory}.", "en": "Every time I open a rebula, I think of {memory}.", "de": "Jedes Mal, wenn ich eine Rebula aufmache, denke ich an {memory}.", "it": "Ogni volta che apro una rebula, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "sl": "Gorica in Nova Gorica. Eno mesto, veš.", "en": "Gorizia and Nova Gorica. One town, you know.", "de": "Görz und Nova Gorica. Eine Stadt, weißt du.", "it": "Gorizia e Nova Gorica. Una città sola, sai." },
+      { "sl": "Trgatev bo septembra. Pridi pomagat!", "en": "The grape harvest will be in September. Come and help!", "de": "Die Weinlese ist im September. Komm helfen!", "it": "La vendemmia sarà a settembre. Vieni ad aiutare!" },
+      { "sl": "Sonce v Brdih. Zato je rebula dobra.", "en": "Sun in Brda. That's why the rebula is good.", "de": "Sonne in Brda. Darum ist die Rebula gut.", "it": "Sole nel Collio. Per questo la rebula è buona." },
+      { "sl": "Včeraj nogomet. Gorica, ena proti nič. Allora!", "en": "Football yesterday. Gorica, one nil. Allora!", "de": "Gestern Fußball. Gorica, eins zu null. Allora!", "it": "Ieri la partita. Gorica, uno a zero. Allora!" }
+    ],
+    "cheer": [
+      { "sl": "Bravo! Na zdravje!", "en": "Well done! Cheers!", "de": "Gut gemacht! Prost!", "it": "Bravo! Salute!" },
+      { "sl": "To je to! Kot dobra letina.", "en": "That's it! Like a good vintage.", "de": "Genau so! Wie ein guter Jahrgang.", "it": "Proprio così! Come una buona annata." },
+      { "sl": "Super, Jan!", "en": "Great, Jan!", "de": "Super, Jan!", "it": "Grande, Jan!" }
+    ],
+    "comfort": [
+      { "sl": "Nič hudega. Vino potrebuje čas, ti tudi.", "en": "Never mind. Wine needs time, so do you.", "de": "Macht nichts. Wein braucht Zeit, du auch.", "it": "Non fa niente. Il vino ha bisogno di tempo, e anche tu." },
+      { "sl": "Ah, ni panike. Še enkrat.", "en": "Ah, no panic. Once more.", "de": "Ach, keine Panik. Noch einmal.", "it": "Ah, niente panico. Ancora una volta." },
+      { "sl": "Skoraj. Daj še enkrat, počasi.", "en": "Almost. Once more, slowly.", "de": "Fast. Noch einmal, langsam.", "it": "Quasi. Ancora una volta, piano." }
+    ],
+    "listen": [
+      { "sl": "Poslušaj …", "en": "Listen …", "de": "Hör zu …", "it": "Ascolta …" },
+      { "sl": "Psst. Poslušaj, potem povej.", "en": "Psst. Listen, then say it.", "de": "Pssst. Hör zu, dann sag es.", "it": "Psst. Ascolta, poi dillo." },
+      { "sl": "Tiho. Poslušaj.", "en": "Quiet. Listen.", "de": "Ruhe. Hör zu.", "it": "Silenzio. Ascolta." }
+    ],
+    "bye": [
+      { "sl": "Ciao, Jan! Se vidimo!", "en": "Ciao, Jan! See you!", "de": "Ciao, Jan! Bis bald!", "it": "Ciao, Jan! Ci vediamo!" },
+      { "sl": "Adijo! Grem nazaj v Brda.", "en": "Bye! I'm going back to Brda.", "de": "Tschüss! Ich fahre zurück nach Brda.", "it": "Ciao! Torno nel Collio." },
+      { "sl": "Čav! Pazi, meja je tam, ne tukaj.", "en": "Bye! Careful, the border is over there, not here. (čav: Primorska for bye)", "de": "Tschüss! Vorsicht, die Grenze ist dort drüben, nicht hier. (čav: so sagt man in Primorska tschüss)", "it": "Ciao! Attento, il confine è là, non qui. (čav: il ciao della Primorska)" }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "Allora! Kako si vedel, da imam to rad?", "en": "Allora! How did you know I like this? (allora: Italian for well then)", "de": "Allora! Woher wusstest du, dass ich das mag? (allora: italienisch für „also dann“)", "it": "Allora! Come sapevi che mi piace? (allora: la parola italiana, usata anche in Primorska)" },
+        { "sl": "Zame? Hvala, prijatelj! Pridi, sedi, to pojeva skupaj.", "en": "For me? Thanks, friend! Come, sit, the two of us will eat it together.", "de": "Für mich? Danke, Freund! Komm, setz dich, das essen wir zwei zusammen.", "it": "Per me? Grazie, amico! Vieni, siediti, lo mangiamo insieme noi due." },
+        { "sl": "Super, Jan! Točno to sem rabil. Na zdravje!", "en": "Great, Jan! Exactly what I needed. Cheers!", "de": "Super, Jan! Genau das habe ich gebraucht. Prost!", "it": "Grande, Jan! Proprio quello che mi serviva. Salute!" }
+      ],
+      "ordinary": [
+        { "sl": "Ej, hvala! Prijazen si, Jan.", "en": "Hey, thanks! You're kind, Jan.", "de": "He, danke! Du bist nett, Jan.", "it": "Ehi, grazie! Sei gentile, Jan." },
+        { "sl": "Hvala, prijatelj. Kozarec rebule?", "en": "Thanks, friend. A glass of rebula?", "de": "Danke, Freund. Ein Glas Rebula?", "it": "Grazie, amico. Un bicchiere di rebula?" }
+      ],
+      "rare": [
+        { "sl": "Allora! Kaj takega! Jan, ti si pa res prijatelj. Hvala!", "en": "Allora! Something like this! Jan, you're a true friend. Thanks!", "de": "Allora! So etwas! Jan, du bist ein echter Freund. Danke!", "it": "Allora! Una cosa così! Jan, sei proprio un amico. Grazie!" }
+      ]
+    }
+  }
+}

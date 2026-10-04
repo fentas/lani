@@ -1,0 +1,124 @@
+{
+  "schema": "lani.story/v0",
+  "id": "l-orcolat",
+  "language": "it",
+  "title": { "it": "L'Orcolat", "sl": "Orcolat, speči velikan", "en": "The Orcolat, the sleeping giant", "de": "Der Orcolat, der schlafende Riese" },
+  "teller": "bepi",
+  "emoji": "🏔️",
+  "order": 5,
+  "about": { "en": "The Orcolat is the giant of Friulian tales who sleeps in a cave under the mountains of Carnia (Monte Amariana, above Tolmezzo): when he turns over in his sleep, the earth shakes. Told gently for a child, ending with the Friulians rebuilding together after the great earthquake (1976). Machine-written, not reviewed by a native speaker." },
+  "teaser": { "it": "Nonno Bepi racconta dell'Orcolat, il gigante che dorme sotto le montagne", "sl": "Dedek Bepi pove o Orcolatu, velikanu, ki spi pod gorami", "en": "Nonno Bepi tells of the Orcolat, the giant asleep under the mountains", "de": "Nonno Bepi erzählt vom Orcolat, dem Riesen, der unter den Bergen schläft" },
+  "memory": { "it": "la storia dell'Orcolat che ti ho raccontato", "sl": "zgodbo o Orcolatu, ki sem ti jo povedal", "en": "the story of the Orcolat I told you", "de": "die Geschichte vom Orcolat, die ich dir erzählt habe" },
+  "pack": "storie",
+  "words": ["gigante", "grotta", "russare", "tremare", "terra", { "word": "montagna", "pack": "festa-patria-friuli" }, { "word": "campana", "pack": "festa-pasqua" }],
+  "levels": {
+    "A1": {
+      "sky_stays": false,
+      "lines": [
+        { "it": "Buonasera, piccolo. Senti? Tutto è tranquillo stasera.", "sl": "Dober večer, mali. Slišiš? Nocoj je vse mirno.", "en": "Good evening, little one. Hear that? Everything is quiet tonight.", "de": "Guten Abend, Kleiner. Hörst du? Heute Abend ist alles still." },
+        { "choices": [
+          { "it": "Sì, nonno. Che silenzio!", "sl": "Ja, dedek. Kakšna tišina!", "en": "Yes, Grandpa. How quiet!", "de": "Ja, Opa. Wie still es ist!", "ok": true,
+            "reply": { "it": "Allora l'Orcolat dorme. Ti racconto chi è.", "sl": "Potem Orcolat spi. Povem ti, kdo je to.", "en": "Then the Orcolat is asleep. I'll tell you who he is.", "de": "Dann schläft der Orcolat. Ich erzähle dir, wer er ist." } },
+          { "it": "Sì, nonno. Che rumore!", "sl": "Ja, dedek. Kakšen hrup!", "en": "Yes, Grandpa. What a noise!", "de": "Ja, Opa. Was für ein Lärm!",
+            "why": { "sl": "Rumore je hrup. Vse je mirno: che silenzio (kakšna tišina).", "en": "Rumore means noise. Everything is quiet: che silenzio.", "de": "Rumore heißt Lärm. Alles ist still: che silenzio." },
+            "reply": { "it": "Rumore? Ah, sarà Moro che russa, piccolo!", "sl": "Rumore? A, to bo Moro, ki smrči, mali!", "en": "Rumore? Ah, that'll be Moro snoring, little one!", "de": "Rumore? Ah, das ist bestimmt Moro, der schnarcht, Kleiner!" } }
+        ] },
+        { "it": "Nelle montagne della Carnia dorme un gigante. Si chiama Orcolat.", "sl": "V gorah Karnije spi velikan. Ime mu je Orcolat.", "en": "In the mountains of Carnia a giant is sleeping. His name is the Orcolat.", "de": "In den Bergen von Karnien schläft ein Riese. Er heißt Orcolat." },
+        { "it": "È grande, grandissimo. Dorme sotto le montagne da tanti anni.", "sl": "Velik je, ogromen. Že veliko let spi pod gorami.", "en": "He's big, enormous. He has been sleeping under the mountains for many years.", "de": "Er ist groß, riesengroß. Er schläft schon seit vielen Jahren unter den Bergen." },
+        { "it": "Quando russa, il vento canta tra i monti: frrr, frrr.", "sl": "Ko smrči, veter poje med gorami: frrr, frrr.", "en": "When he snores, the wind sings among the mountains: frrr, frrr.", "de": "Wenn er schnarcht, singt der Wind zwischen den Bergen: frrr, frrr.", "sky": { "wind": 0.35 } },
+        { "choices": [
+          { "it": "Ah ah! Un gigante che russa!", "sl": "Ha ha! Velikan, ki smrči!", "en": "Ha ha! A giant who snores!", "de": "Ha ha! Ein Riese, der schnarcht!", "ok": true,
+            "reply": { "it": "Sì! Russa come il nonno.", "sl": "Ja! Smrči kot dedek.", "en": "Yes! He snores like Grandpa.", "de": "Ja! Er schnarcht wie der Opa." } },
+          { "it": "Ah ah! Una gigante che russa!", "sl": "Ha ha! Velikan, ki smrči!", "en": "Ha ha! A giant who snores!", "de": "Ha ha! Ein Riese, der schnarcht!",
+            "why": { "sl": "Orcolat je moškega spola: un gigante.", "en": "The Orcolat is masculine: un gigante.", "de": "Der Orcolat ist männlich: un gigante." },
+            "reply": { "it": "Una gigante? Allora è la moglie dell'Orcolat!", "sl": "Una gigante? Potem je to Orcolatova žena!", "en": "Una gigante? Then it's the Orcolat's wife!", "de": "Una gigante? Dann ist das die Frau vom Orcolat!" } }
+        ] },
+        { "it": "Ma a volte l'Orcolat si gira nel letto. E allora la terra trema!", "sl": "Ampak včasih se Orcolat v postelji obrne. In takrat se zemlja strese!", "en": "But sometimes the Orcolat turns over in bed. And then the earth shakes!", "de": "Aber manchmal dreht sich der Orcolat im Bett um. Und dann bebt die Erde!", "fx": { "flare": 0.8, "bell": 0.6 } },
+        { "it": "Le campane suonano da sole: din, don, din!", "sl": "Zvonovi zvonijo kar sami: bim, bam, bim!", "en": "The bells ring by themselves: ding, dong, ding!", "de": "Die Glocken läuten von allein: bim, bam, bim!", "fx": { "bell": 1 } },
+        { "it": "Dimmi, piccolo: che cosa succede quando l'Orcolat si gira?", "sl": "Povej, mali: kaj se zgodi, ko se Orcolat obrne?", "en": "Tell me, little one: what happens when the Orcolat turns over?", "de": "Sag mal, Kleiner: Was passiert, wenn sich der Orcolat umdreht?", "fx": { "bell": 0.3 } },
+        { "choices": [
+          { "it": "La terra trema.", "sl": "Zemlja se strese.", "en": "The earth shakes.", "de": "Die Erde bebt.", "ok": true,
+            "reply": { "it": "Bravo. Ma solo un po'. Poi si addormenta di nuovo.", "sl": "Bravo. Ampak samo malo. Potem spet zaspi.", "en": "Well done. But only a little. Then he falls asleep again.", "de": "Gut gemacht. Aber nur ein bisschen. Dann schläft er wieder ein.", "sky": { "wind": 0 }, "fx": { "bell": 0, "flare": 0.3 } } },
+          { "it": "La terra tremano.", "sl": "Zemlja se strese.", "en": "The earth shakes.", "de": "Die Erde bebt.",
+            "why": { "sl": "La terra je ednina: la terra trema.", "en": "La terra is singular: la terra trema.", "de": "La terra ist Singular: la terra trema." },
+            "reply": { "it": "Tremano? Cosa, le mie mani? Eh, sono vecchio, piccolo!", "sl": "Tremano? Kaj, moje roke? Eh, star sem, mali!", "en": "Tremano? What, my hands? Well, I'm old, little one!", "de": "Tremano? Was, meine Hände? Na ja, ich bin alt, Kleiner!" } },
+          { "it": "Il vento canta.", "sl": "Veter poje.", "en": "The wind sings.", "de": "Der Wind singt.",
+            "why": { "sl": "Veter poje, ko Orcolat smrči. Ko se obrne, se strese zemlja.", "en": "The wind sings when the Orcolat snores. When he turns over, the earth shakes.", "de": "Der Wind singt, wenn der Orcolat schnarcht. Wenn er sich umdreht, bebt die Erde." },
+            "reply": { "it": "Il vento canta? Frrr, frrr… quello è quando russa, piccolo!", "sl": "Il vento canta? Frrr, frrr … to je, ko smrči, mali!", "en": "Il vento canta? Frrr, frrr… that's when he snores, little one!", "de": "Il vento canta? Frrr, frrr … das ist, wenn er schnarcht, Kleiner!" } }
+        ] },
+        { "it": "Per questo di notte la gente parla piano: «Shh! Non svegliamo l'Orcolat!»", "sl": "Zato ljudje ponoči govorijo tiho: »Pst! Ne zbudimo Orcolata!«", "en": "That's why people talk quietly at night: 'Shh! Let's not wake the Orcolat!'", "de": "Darum sprechen die Leute nachts leise: „Pssst! Wir wollen den Orcolat nicht wecken!“" },
+        { "choices": [
+          { "it": "Shh! Parlo piano anch'io.", "sl": "Pst! Tudi jaz govorim tiho.", "en": "Shh! I'll talk quietly too.", "de": "Pssst! Ich spreche auch leise.", "ok": true,
+            "reply": { "it": "Bravo, piccolo. Buonanotte, e sogni d'oro.", "sl": "Bravo, mali. Lahko noč in sladko sanjaj.", "en": "Good boy. Good night, and sweet dreams.", "de": "Gut so, Kleiner. Gute Nacht und träum süß." } },
+          { "it": "Shh! Parla piano anch'io.", "sl": "Pst! Tudi jaz govorim tiho.", "en": "Shh! I'll talk quietly too.", "de": "Pssst! Ich spreche auch leise.",
+            "why": { "sl": "Za io je oblika parlo. Parla pomeni on ali ona govori.", "en": "For io the form is parlo. Parla means he or she speaks.", "de": "Zu io gehört die Form parlo. Parla heißt „er spricht“ oder „sie spricht“." },
+            "reply": { "it": "Parla piano? Lo dici a me? Va bene… shh!", "sl": "Parla piano? To praviš meni? Prav … pst!", "en": "Parla piano (talk quietly)? Me? All right… shh!", "de": "Parla piano? Sagst du das zu mir? Na gut … pssst!" } }
+        ] }
+      ]
+    },
+    "A2": {
+      "sky_stays": false,
+      "lines": [
+        { "it": "Buonasera, ragazzo. Hai mai sentito tremare la terra?", "sl": "Dober večer, fant. Si že kdaj začutil, da se trese zemlja?", "en": "Good evening, lad. Have you ever felt the earth shake?", "de": "Guten Abend, Junge. Hast du schon mal gespürt, wie die Erde bebt?" },
+        { "choices": [
+          { "it": "No, mai. È pericoloso?", "sl": "Ne, nikoli. Je to nevarno?", "en": "No, never. Is it dangerous?", "de": "Nein, noch nie. Ist das gefährlich?", "ok": true,
+            "reply": { "it": "Di solito no. Ma ascolta la storia dell'Orcolat.", "sl": "Ponavadi ne. Ampak poslušaj zgodbo o Orcolatu.", "en": "Usually not. But listen to the story of the Orcolat.", "de": "Meistens nicht. Aber hör dir die Geschichte vom Orcolat an." } },
+          { "it": "No, mai. Sei pericoloso?", "sl": "Ne, nikoli. Si ti nevaren?", "en": "No, never. Are you dangerous?", "de": "Nein, noch nie. Bist du gefährlich?",
+            "why": { "sl": "Sei pomeni ti si: dedka bi vprašal, ali je on nevaren! Pravilno je è pericoloso?", "en": "Sei means you are: you'd be asking whether Grandpa is dangerous! It's è pericoloso?", "de": "Sei heißt „du bist“: Du fragst, ob Opa gefährlich ist! Richtig ist è pericoloso?" },
+            "reply": { "it": "Io, pericoloso? Ah ah! Ho ottantadue anni, ragazzo!", "sl": "Jaz, nevaren? Ha ha! Dvainosemdeset let imam, fant!", "en": "Me, dangerous? Ha ha! I'm eighty-two, lad!", "de": "Ich, gefährlich? Ha ha! Ich bin zweiundachtzig, Junge!" } }
+        ] },
+        { "it": "I vecchi della Carnia raccontavano che sotto le montagne dormiva un gigante enorme, l'Orcolat.", "sl": "Starejši ljudje v Karniji so pripovedovali, da pod gorami spi ogromen velikan, Orcolat.", "en": "The old folk of Carnia used to say that an enormous giant slept under the mountains: the Orcolat.", "de": "Die Alten in Karnien erzählten, dass unter den Bergen ein gewaltiger Riese schlief: der Orcolat." },
+        { "it": "Dormiva in una grotta profonda, sotto il monte Amariana. Quando russava, i boschi tremavano un pochino.", "sl": "Spal je v globoki jami pod goro Amariana. Ko je smrčal, so se gozdovi malo tresli.", "en": "He slept in a deep cave under Monte Amariana. When he snored, the woods trembled a tiny bit.", "de": "Er schlief in einer tiefen Höhle unter dem Monte Amariana. Wenn er schnarchte, zitterten die Wälder ein kleines bisschen.", "sky": { "wind": 0.3 } },
+        { "it": "Dove dormiva l'Orcolat?", "sl": "Kje je spal Orcolat?", "en": "Where did the Orcolat sleep?", "de": "Wo schlief der Orcolat?" },
+        { "choices": [
+          { "it": "In una grotta sotto la montagna.", "sl": "V jami pod goro.", "en": "In a cave under the mountain.", "de": "In einer Höhle unter dem Berg.", "ok": true,
+            "reply": { "it": "Esatto. In una grotta grande come una chiesa.", "sl": "Tako je. V jami, veliki kot cerkev.", "en": "Exactly. In a cave as big as a church.", "de": "Genau. In einer Höhle, so groß wie eine Kirche." } },
+          { "it": "In una casa sotto la montagna.", "sl": "V hiši pod goro.", "en": "In a house under the mountain.", "de": "In einem Haus unter dem Berg.",
+            "why": { "sl": "Ne: spal je v jami (grotta), ne v hiši.", "en": "No: he slept in a cave (grotta), not in a house.", "de": "Nein: Er schlief in einer Höhle (grotta), nicht in einem Haus." },
+            "reply": { "it": "In una casa? E dove mette i piedi un gigante così?", "sl": "In una casa? Pa kam bi tako velik velikan dal noge?", "en": "In una casa? And where would a giant that big put his feet?", "de": "In una casa? Und wohin mit den Füßen, bei so einem Riesen?" } },
+          { "it": "In un grotta sotto la montagna.", "sl": "V jami pod goro.", "en": "In a cave under the mountain.", "de": "In einer Höhle unter dem Berg.",
+            "why": { "sl": "Grotta je ženskega spola: una grotta.", "en": "Grotta is feminine: una grotta.", "de": "Grotta ist weiblich: una grotta." },
+            "reply": { "it": "Un grotta? Povera grotta, ci resta male!", "sl": "Un grotta? Uboga grotta, užaljena je!", "en": "Un grotta? Poor grotta, her feelings are hurt!", "de": "Un grotta? Arme grotta, jetzt ist sie beleidigt!" } }
+        ] },
+        { "it": "Ogni tanto, però, l'Orcolat si girava dall'altra parte. Allora la terra tremava e le campane suonavano da sole.", "sl": "Vsake toliko pa se je Orcolat obrnil na drugo stran. Takrat se je zemlja stresla in zvonovi so zvonili kar sami.", "en": "Every now and then, though, the Orcolat turned over onto his other side. Then the earth shook and the bells rang by themselves.", "de": "Ab und zu aber drehte sich der Orcolat auf die andere Seite. Dann bebte die Erde, und die Glocken läuteten von allein.", "fx": { "flare": 0.8, "bell": 1 } },
+        { "choices": [
+          { "it": "Che paura! E la gente che cosa faceva?", "sl": "Joj! In kaj so delali ljudje?", "en": "How scary! And what did the people do?", "de": "Wie unheimlich! Und was machten die Leute?", "ok": true,
+            "reply": { "it": "Aspettava, tranquilla. Poi il gigante si riaddormentava.", "sl": "Mirno so čakali. Potem je velikan spet zaspal.", "en": "They waited, calmly. Then the giant fell asleep again.", "de": "Sie warteten, ganz ruhig. Dann schlief der Riese wieder ein.", "fx": { "bell": 0.2, "flare": 0.3 } } },
+          { "it": "Che paura! E la gente che cosa facevano?", "sl": "Joj! In kaj so delali ljudje?", "en": "How scary! And what did the people do?", "de": "Wie unheimlich! Und was machten die Leute?",
+            "why": { "sl": "La gente je v italijanščini ednina: la gente faceva.", "en": "La gente is singular in Italian: la gente faceva.", "de": "La gente ist im Italienischen Singular: la gente faceva." },
+            "reply": { "it": "Facevano? Hm… qui trema anche il verbo, ragazzo!", "sl": "Facevano? Hm … tu se trese še glagol, fant!", "en": "Facevano? Hm… even the verb's shaking here, lad!", "de": "Facevano? Hm … hier bebt sogar das Verb, Junge!" } }
+        ] },
+        { "it": "Le nonne dicevano ai bambini: «Parlate piano, se no svegliate l'Orcolat!»", "sl": "Babice so otrokom govorile: »Govorite tiho, sicer boste zbudili Orcolata!«", "en": "The grannies told the children: 'Talk quietly, or you'll wake the Orcolat!'", "de": "Die Omas sagten zu den Kindern: „Sprecht leise, sonst weckt ihr den Orcolat!“", "sky": { "wind": 0 }, "fx": { "bell": 0 } },
+        { "it": "Una volta la terra ha tremato forte. Ma i friulani hanno ricostruito tutto, sasso dopo sasso, tutti insieme.", "sl": "Nekoč se je zemlja močno stresla. Ampak Furlani so vse znova postavili, kamen za kamnom, vsi skupaj.", "en": "Once the earth shook hard. But the people of Friuli rebuilt everything, stone by stone, all together.", "de": "Einmal hat die Erde stark gebebt. Aber die Friauler haben alles wieder aufgebaut, Stein für Stein, alle zusammen." },
+        { "choices": [
+          { "it": "Tutti insieme! Che bravi!", "sl": "Vsi skupaj! Kako pridni!", "en": "All together! Well done to them!", "de": "Alle zusammen! Das haben sie toll gemacht!", "ok": true,
+            "reply": { "it": "Sì. Siamo gente forte, e dal cuore buono. E ora, piano piano, a dormire. Buonanotte, ragazzo.", "sl": "Ja. Smo močni ljudje, in dobrega srca. Zdaj pa počasi spat. Lahko noč, fant.", "en": "Yes. We are strong people, with good hearts. And now, slowly, off to bed. Good night, lad.", "de": "Ja. Wir sind ein starkes Volk, mit einem guten Herzen. Und jetzt, ganz langsam, ab ins Bett. Gute Nacht, Junge." } },
+          { "it": "Tutti insieme! Che bravo!", "sl": "Vsi skupaj! Kako pridni!", "en": "All together! Well done to them!", "de": "Alle zusammen! Das haben sie toll gemacht!",
+            "why": { "sl": "Govoriš o vseh ljudeh, v množini: che bravi.", "en": "You're talking about all the people, plural: che bravi.", "de": "Du sprichst von allen Leuten, also Plural: che bravi." },
+            "reply": { "it": "Bravo, io? Ma io ho portato solo un sassolino!", "sl": "Bravo, jaz? Saj sem nosil samo en kamenček!", "en": "Bravo, me? But I only carried one little stone!", "de": "Bravo, ich? Ich hab doch nur ein Steinchen getragen!" } }
+        ] }
+      ]
+    }
+  },
+  "pictures": [
+    { "after": 2, "bg": "mountains", "night": true, "figures": [ { "id": "giant", "x": 0.5, "y": 0.2, "size": 1.1 } ], "props": [ { "id": "stars", "x": 0.24, "y": 0.86 }, { "id": "moon", "x": 0.82, "y": 0.86 } ],
+      "caption": { "it": "L'Orcolat dorme sotto i monti della Carnia.", "sl": "Orcolat spi pod gorami Karnije.", "en": "The Orcolat sleeps under the mountains of Carnia.", "de": "Der Orcolat schläft unter den Bergen Karniens." } },
+    { "after": 3, "bg": "village", "figures": [ { "id": "woman", "x": 0.2 } ], "props": [ { "id": "bell", "x": 0.46, "y": 0.56, "gold": true }, { "id": "rock", "x": 0.66, "y": 0.36 }, { "id": "house", "x": 0.82 } ],
+      "caption": { "it": "La terra trema e le campane suonano da sole.", "sl": "Zemlja se trese in zvonovi zvonijo sami.", "en": "The earth shakes and the bells ring by themselves.", "de": "Die Erde bebt, und die Glocken läuten von selbst." } }
+  ],
+  "notes": [
+    { "level": "A1", "after": [1, 3], "text": [
+      { "it": "Nelle montagne della Carnia dormiva un gigante. Si chiamava Orcolat. Era grande, grandissimo. Dormiva sotto le montagne da tanti anni.", "sl": "V gorah Karnije je spal velikan. Ime mu je bilo Orcolat. Bil je velik, ogromen. Že veliko let je spal pod gorami.", "en": "In the mountains of Carnia a giant was sleeping. His name was the Orcolat. He was big, enormous. He had been sleeping under the mountains for many years.", "de": "In den Bergen von Karnien schlief ein Riese. Er hieß Orcolat. Er war groß, riesengroß. Er schlief schon seit vielen Jahren unter den Bergen." },
+      { "it": "Quando russava, il vento cantava tra i monti: frrr, frrr.", "sl": "Ko je smrčal, je veter pel med gorami: frrr, frrr.", "en": "When he snored, the wind sang among the mountains: frrr, frrr.", "de": "Wenn er schnarchte, sang der Wind zwischen den Bergen: frrr, frrr." },
+      { "it": "Ma a volte l'Orcolat si girava nel letto. E allora la terra tremava! Le campane suonavano da sole: din, don, din! La terra tremava solo un po'. Poi l'Orcolat si addormentava di nuovo.", "sl": "Ampak včasih se je Orcolat v postelji obrnil. In takrat se je zemlja stresla! Zvonovi so zvonili kar sami: bim, bam, bim! Zemlja se je stresla samo malo. Potem je Orcolat spet zaspal.", "en": "But sometimes the Orcolat turned over in bed. And then the earth shook! The bells rang by themselves: ding, dong, ding! The earth only shook a little. Then the Orcolat fell asleep again.", "de": "Aber manchmal drehte sich der Orcolat im Bett um. Und dann bebte die Erde! Die Glocken läuteten von allein: bim, bam, bim! Die Erde bebte nur ein bisschen. Dann schlief der Orcolat wieder ein." },
+      { "it": "Per questo di notte la gente parlava piano: «Shh! Non svegliamo l'Orcolat!»", "sl": "Zato so ljudje ponoči govorili tiho: »Pst! Ne zbudimo Orcolata!«", "en": "That is why people talked quietly at night: 'Shh! Let's not wake the Orcolat!'", "de": "Darum sprachen die Leute nachts leise: „Pssst! Wir wollen den Orcolat nicht wecken!“" }
+    ] },
+    { "level": "A2", "after": [1, 2], "text": [
+      { "it": "I vecchi della Carnia raccontavano che sotto le montagne dormiva un gigante enorme, l'Orcolat. Dormiva in una grotta profonda, grande come una chiesa, sotto il monte Amariana.", "sl": "Stari ljudje v Karniji so pripovedovali, da pod gorami spi ogromen velikan, Orcolat. Spal je v globoki jami, veliki kot cerkev, pod goro Amariana.", "en": "The old folk of Carnia used to say that an enormous giant slept under the mountains: the Orcolat. He slept in a deep cave as big as a church, under Monte Amariana.", "de": "Die Alten in Karnien erzählten, dass unter den Bergen ein gewaltiger Riese schlief: der Orcolat. Er schlief in einer tiefen Höhle, so groß wie eine Kirche, unter dem Monte Amariana." },
+      { "it": "Quando russava, i boschi tremavano un pochino. Ogni tanto, però, l'Orcolat si girava dall'altra parte. Allora la terra tremava e le campane suonavano da sole.", "sl": "Ko je smrčal, so se gozdovi malo tresli. Vsake toliko časa pa se je Orcolat obrnil na drugo stran. Takrat se je zemlja stresla in zvonovi so zvonili kar sami.", "en": "When he snored, the woods trembled a tiny bit. Every now and then, though, the Orcolat turned over onto his other side. Then the earth shook and the bells rang by themselves.", "de": "Wenn er schnarchte, zitterten die Wälder ein kleines bisschen. Ab und zu aber drehte sich der Orcolat auf die andere Seite. Dann bebte die Erde, und die Glocken läuteten von allein." },
+      { "it": "La gente aspettava tranquilla, e poi il gigante si riaddormentava. Le nonne dicevano ai bambini: «Parlate piano, se no svegliate l'Orcolat!»", "sl": "Ljudje so mirno čakali in potem je velikan spet zaspal. Babice so otrokom govorile: »Govorite tiho, sicer boste zbudili Orcolata!«", "en": "The people waited calmly, and then the giant fell asleep again. The grannies told the children: 'Talk quietly, or you'll wake the Orcolat!'", "de": "Die Leute warteten ruhig ab, und dann schlief der Riese wieder ein. Die Omas sagten zu den Kindern: „Sprecht leise, sonst weckt ihr den Orcolat!“" },
+      { "it": "Una volta la terra ha tremato forte. Ma i friulani hanno ricostruito tutto, sasso dopo sasso, tutti insieme, perché sono gente forte e dal cuore buono.", "sl": "Nekoč se je zemlja močno stresla. A Furlani so vse znova postavili, kamen za kamnom, vsi skupaj, ker so močni ljudje dobrega srca.", "en": "Once the earth shook hard. But the people of Friuli rebuilt everything, stone by stone, all together, because they are a strong people with good hearts.", "de": "Einmal bebte die Erde stark. Aber die Friauler bauten alles wieder auf, Stein für Stein, alle zusammen, weil sie ein starkes Volk mit einem guten Herzen sind." }
+    ] }
+  ],
+  "review": "notes: machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

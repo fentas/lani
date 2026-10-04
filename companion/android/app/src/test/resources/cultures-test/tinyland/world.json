@@ -1,0 +1,258 @@
+{
+  "host": { "name": "Nonna Pina", "emoji": "👵" },
+  "resources": {
+    "food": {
+      "name": { "it": "Cibo", "en": "Food", "sl": "Hrana" },
+      "partitive": { "it": "cibo", "en": "food" },
+      "leader": "Nonna Pina"
+    },
+    "wood": {
+      "name": { "it": "Legna", "en": "Wood" },
+      "partitive": { "it": "legna", "en": "wood" }
+    },
+    "stone": {
+      "name": { "it": "Pietra", "en": "Stone" }
+    },
+    "wisdom": {
+      "name": { "it": "Saggezza", "en": "Wisdom" }
+    }
+  },
+  "ages": {
+    "ogenj": {
+      "name": { "it": "Fuoco", "en": "Campfire" }
+    },
+    "tabor": {
+      "name": { "it": "Accampamento", "en": "Camp" }
+    },
+    "zaselek": {
+      "name": { "it": "Borgo", "en": "Hamlet" }
+    },
+    "vas": {
+      "name": { "it": "Villaggio", "en": "Village", "sl": "Vas" }
+    },
+    "trg": {
+      "name": { "it": "Mercato", "en": "Market town" }
+    },
+    "mesto": {
+      "name": { "it": "Città", "en": "Town" }
+    }
+  },
+  "buildings": {
+    "tent": {
+      "name": { "it": "Tenda", "en": "Tent" }
+    },
+    "field": {
+      "name": { "it": "Campo", "en": "Field" }
+    },
+    "well": {
+      "name": { "it": "Pozzo", "en": "Well" }
+    },
+    "hut": {
+      "name": { "it": "Capanna", "en": "Hut" }
+    },
+    "kozolec": {
+      "name": { "it": "Fienile", "en": "Hayrack" }
+    },
+    "beehive": {
+      "name": { "it": "Apiario", "en": "Bee house" }
+    },
+    "palisade": {
+      "name": { "it": "Palizzata", "en": "Palisade" }
+    },
+    "watchtower": {
+      "name": { "it": "Torre", "en": "Watchtower" }
+    },
+    "smithy": {
+      "name": { "it": "Fucina", "en": "Smithy" }
+    },
+    "lipa": {
+      "name": { "it": "Tiglio", "en": "Linden tree" }
+    },
+    "house": {
+      "name": { "it": "Casa", "en": "House" }
+    },
+    "church": {
+      "name": { "it": "Chiesa", "en": "Church" }
+    },
+    "school": {
+      "name": { "it": "Scuola", "en": "School" }
+    },
+    "market": {
+      "name": { "it": "Mercato", "en": "Market" }
+    }
+  },
+  "events": {
+    "wolves": {
+      "name": { "it": "Lupi", "en": "Wolves" }
+    },
+    "bear": {
+      "name": { "it": "Orso", "en": "Bear" }
+    },
+    "storm": {
+      "name": { "it": "Temporale", "en": "Storm" }
+    },
+    "merchant": {
+      "name": { "it": "Mercante", "en": "Merchant" }
+    },
+    "festival": {
+      "name": { "it": "Festa", "en": "Feast" }
+    }
+  },
+  "places": [
+    {
+      "id": "paesino",
+      "name": { "it": "Paesino", "en": "Tinyland" },
+      "about": { "en": "The test village." }
+    }
+  ],
+  "spots": {
+    "kopa": {
+      "emoji": "♨️",
+      "name": { "it": "La carbonaia", "sl": "Oglarska kopa", "en": "The charcoal pile", "de": "Der Kohlenmeiler" },
+      "where": { "it": "alla carbonaia", "sl": "pri kopi", "en": "by the charcoal pile", "de": "beim Kohlenmeiler" },
+      "about": { "it": "La carbonaia fuma.", "sl": "Kopa se kadi.", "en": "The pile smokes.", "de": "Der Meiler raucht." },
+      "story": {
+        "A1": { "it": "Qui fanno il carbone.", "sl": "Tu delajo oglje.", "en": "Here they make charcoal.", "de": "Hier macht man Holzkohle." },
+        "A2": { "it": "Una volta qui facevano il carbone per il fabbro.", "sl": "Nekoč so tu delali oglje za kovača.", "en": "Once they made charcoal here for the smith.", "de": "Früher machte man hier Holzkohle für den Schmied." }
+      },
+      "review": "Made up for the tests, the talk and its reactions too: machine-written.",
+      "keeper": {
+        "id": "gino",
+        "name": "Carbonaio Gino",
+        "emoji": "🧔",
+        "art": "burner",
+        "voice": "male",
+        "role": { "it": "Carbonaio", "sl": "Oglar", "en": "Charcoal burner", "de": "Köhler" },
+        "when": ["evening", "night"],
+        "chance": 1,
+        "title": { "it": "Gino guarda la carbonaia", "sl": "Gino pazi na kopo", "en": "Gino watches the pile", "de": "Gino hütet den Meiler" },
+        "reward": { "wisdom": 15 },
+        "levels": {
+          "A1": {
+            "lines": [
+              { "who": "gino", "it": "Buonasera!", "sl": "Dober večer!", "en": "Good evening!", "de": "Guten Abend!" },
+              { "choices": [
+                { "it": "Buonasera!", "sl": "Dober večer!", "en": "Good evening!", "de": "Guten Abend!", "ok": true,
+                  "reply": { "it": "Siediti.", "sl": "Sedi.", "en": "Sit down.", "de": "Setz dich." } },
+                { "it": "Buongiorno!", "sl": "Dober dan!", "en": "Good day!", "de": "Guten Tag!",
+                  "why": { "en": "It is evening: buonasera.", "sl": "Zvečer je: buonasera.", "de": "Es ist Abend: buonasera." },
+                  "reply": { "it": "Giorno? È notte!", "sl": "Dan? Noč je!", "en": "Day? It's night!", "de": "Tag? Es ist Nacht!" } }
+              ] },
+              { "who": "gino", "it": "Il fuoco dorme sotto la terra.", "sl": "Ogenj spi pod zemljo.", "en": "The fire sleeps under the earth.", "de": "Das Feuer schläft unter der Erde." }
+            ]
+          },
+          "A2": {
+            "lines": [
+              { "who": "gino", "it": "Buonasera! Guardo la carbonaia tutta la notte.", "sl": "Dober večer! Vso noč pazim na kopo.", "en": "Good evening! I watch the pile all night.", "de": "Guten Abend! Ich hüte den Meiler die ganze Nacht." },
+              { "choices": [
+                { "it": "Tutta la notte? Perché?", "sl": "Vso noč? Zakaj?", "en": "All night? Why?", "de": "Die ganze Nacht? Warum?", "ok": true,
+                  "reply": { "it": "Se brucia, niente carbone.", "sl": "Če zagori, ni oglja.", "en": "If it burns, no charcoal.", "de": "Wenn er brennt, gibt es keine Kohle." } },
+                { "it": "Tutta la notte? Dove?", "sl": "Vso noč? Kje?", "en": "All night? Where?", "de": "Die ganze Nacht? Wo?",
+                  "why": { "en": "Dove asks where. You want to ask why: perché.", "sl": "Dove vpraša kje. Vprašati hočeš zakaj: perché.", "de": "Dove fragt wo. Du willst warum fragen: perché." },
+                  "reply": { "it": "Dove? Qui, davanti a te!", "sl": "Kje? Tukaj, pred tabo!", "en": "Where? Here, in front of you!", "de": "Wo? Hier, vor dir!" } }
+              ] },
+              { "who": "gino", "it": "Il carbone va al fabbro Beppe.", "sl": "Oglje gre h kovaču Beppu.", "en": "The charcoal goes to Beppe the smith.", "de": "Die Kohle geht zu Beppe, dem Schmied." }
+            ]
+          }
+        },
+        "talks": [
+          {
+            "id": "fuoco",
+            "title": { "it": "Gino accende la carbonaia", "sl": "Gino prižge kopo", "en": "Gino lights the pile", "de": "Gino zündet den Meiler an" },
+            "levels": {
+              "A1": {
+                "lines": [
+                  { "who": "gino", "it": "Stasera accendo la carbonaia.", "sl": "Nocoj prižgem kopo.", "en": "Tonight I light the pile.", "de": "Heute Abend zünde ich den Meiler an." },
+                  { "choices": [
+                    { "it": "Posso guardare?", "sl": "Lahko gledam?", "en": "May I watch?", "de": "Darf ich zuschauen?", "ok": true,
+                      "reply": { "it": "Sì, siediti qui.", "sl": "Ja, sedi sem.", "en": "Yes, sit here.", "de": "Ja, setz dich hierher." } },
+                    { "it": "Posso mangiare?", "sl": "Lahko jem?", "en": "May I eat?", "de": "Darf ich essen?",
+                      "why": { "en": "Mangiare is to eat. To watch is guardare.", "sl": "Mangiare je jesti. Gledati je guardare.", "de": "Mangiare heißt essen. Zuschauen heißt guardare." },
+                      "reply": { "it": "Mangiare? Qui c'è solo fumo!", "sl": "Jesti? Tu je samo dim!", "en": "Eat? There's only smoke here!", "de": "Essen? Hier gibt es nur Rauch!" } }
+                  ] },
+                  { "who": "gino", "it": "Il fuoco va dall'alto.", "sl": "Ogenj gre od zgoraj.", "en": "The fire goes from the top.", "de": "Das Feuer geht von oben." }
+                ]
+              },
+              "A2": {
+                "lines": [
+                  { "who": "gino", "it": "Stasera accendo la carbonaia, dall'alto.", "sl": "Nocoj prižgem kopo, od zgoraj.", "en": "Tonight I light the pile, from the top.", "de": "Heute Abend zünde ich den Meiler an, von oben." },
+                  { "choices": [
+                    { "it": "Perché dall'alto?", "sl": "Zakaj od zgoraj?", "en": "Why from the top?", "de": "Warum von oben?", "ok": true,
+                      "reply": { "it": "Così brucia piano, verso il basso.", "sl": "Tako gori počasi, navzdol.", "en": "That way it burns slowly, downwards.", "de": "So brennt er langsam, nach unten." } },
+                    { "it": "Dove dall'alto?", "sl": "Kje od zgoraj?", "en": "Where from the top?", "de": "Wo von oben?",
+                      "grammar": "domande", "why": { "en": "Dove asks where. You want to ask why: perché.", "sl": "Dove vpraša kje. Vprašati hočeš zakaj: perché.", "de": "Dove fragt wo. Du willst warum fragen: perché." },
+                      "reply": { "it": "Dove? Lassù, in cima!", "sl": "Kje? Tam gori, na vrhu!", "en": "Where? Up there, at the top!", "de": "Wo? Da oben, an der Spitze!" } }
+                  ] },
+                  { "who": "gino", "it": "Ora la guardo tutta la notte.", "sl": "Zdaj jo vso noč gledam.", "en": "Now I watch it all night.", "de": "Jetzt hüte ich ihn die ganze Nacht." }
+                ]
+              }
+            },
+            "again": [
+              {
+                "levels": {
+                  "A1": {
+                    "lines": [
+                      { "who": "gino", "it": "Una carbonaia nuova! Stasera piove, ma la accendo.", "sl": "Nova kopa! Nocoj dežuje, a jo prižgem.", "en": "A new pile! It's raining tonight, but I'm lighting it.", "de": "Ein neuer Meiler! Heute regnet es, aber ich zünde ihn an." },
+                      { "choices": [
+                        { "it": "Posso aiutare?", "sl": "Lahko pomagam?", "en": "May I help?", "de": "Darf ich helfen?", "ok": true,
+                          "reply": { "it": "Sì, tieni la lanterna.", "sl": "Ja, drži svetilko.", "en": "Yes, hold the lantern.", "de": "Ja, halt die Laterne." } },
+                        { "it": "Posso dormire?", "sl": "Lahko spim?", "en": "May I sleep?", "de": "Darf ich schlafen?",
+                          "why": { "en": "Dormire is to sleep. To help is aiutare.", "sl": "Dormire je spati. Pomagati je aiutare.", "de": "Dormire heißt schlafen. Helfen heißt aiutare." },
+                          "reply": { "it": "Dormire? Adesso no!", "sl": "Spati? Zdaj ne!", "en": "Sleep? Not now!", "de": "Schlafen? Jetzt nicht!" } }
+                      ] },
+                      { "who": "gino", "it": "Brava la lanterna. Il fuoco va.", "sl": "Dobra svetilka. Ogenj gre.", "en": "Good lantern. The fire's going.", "de": "Gute Laterne. Das Feuer geht." }
+                    ]
+                  },
+                  "A2": {
+                    "lines": [
+                      { "who": "gino", "it": "Una carbonaia nuova! Piove, ma stasera la accendo lo stesso.", "sl": "Nova kopa! Dežuje, a jo nocoj vseeno prižgem.", "en": "A new pile! It's raining, but I'm lighting it tonight all the same.", "de": "Ein neuer Meiler! Es regnet, aber ich zünde ihn heute trotzdem an." },
+                      { "choices": [
+                        { "it": "Non è troppo bagnata?", "sl": "Ni preveč mokra?", "en": "Isn't it too wet?", "de": "Ist er nicht zu nass?", "ok": true,
+                          "reply": { "it": "Dentro è asciutta. La terra la copre.", "sl": "Znotraj je suha. Zemlja jo pokriva.", "en": "Inside it's dry. The earth covers it.", "de": "Innen ist er trocken. Die Erde deckt ihn zu." } },
+                        { "it": "Non è troppo bagnato?", "sl": "Ni preveč moker?", "en": "Isn't it too wet? (the wrong gender)", "de": "Ist er nicht zu nass? (das falsche Geschlecht)",
+                          "why": { "en": "Carbonaia is feminine: bagnata.", "sl": "Carbonaia je ženskega spola: bagnata.", "de": "Carbonaia ist weiblich: bagnata." },
+                          "reply": { "it": "Bagnato? Chi?", "sl": "Moker? Kdo?", "en": "Wet? Who?", "de": "Nass? Wer?" } }
+                      ] },
+                      { "who": "gino", "it": "Ecco, il fumo sale. Va bene.", "sl": "Tako, dim se dviga. Dobro je.", "en": "There, the smoke's rising. All good.", "de": "So, der Rauch steigt. Alles gut." }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "carbone",
+            "levels": {
+              "A1": {
+                "lines": [
+                  { "who": "gino", "it": "Ecco il carbone!", "sl": "Tu je oglje!", "en": "Here's the charcoal!", "de": "Hier ist die Kohle!" },
+                  { "choices": [
+                    { "it": "È nero!", "sl": "Črno je!", "en": "It's black!", "de": "Sie ist schwarz!", "ok": true,
+                      "reply": { "it": "Nero e leggero.", "sl": "Črno in lahko.", "en": "Black and light.", "de": "Schwarz und leicht." } },
+                    { "it": "È bianco!", "sl": "Belo je!", "en": "It's white!", "de": "Sie ist weiß!",
+                      "why": { "en": "Charcoal is black: nero. Bianco is white.", "sl": "Oglje je črno: nero. Bianco je belo.", "de": "Kohle ist schwarz: nero. Bianco ist weiß." },
+                      "reply": { "it": "Bianco? Guarda bene!", "sl": "Belo? Dobro poglej!", "en": "White? Look closely!", "de": "Weiß? Schau genau hin!" } }
+                  ] },
+                  { "who": "gino", "it": "Domani va al fabbro Beppe.", "sl": "Jutri gre h kovaču Beppu.", "en": "Tomorrow it goes to Beppe the smith.", "de": "Morgen geht sie zu Beppe, dem Schmied." }
+                ]
+              },
+              "A2": {
+                "lines": [
+                  { "who": "gino", "it": "Ho aperto la carbonaia. Ecco il carbone!", "sl": "Razkopal sem kopo. Tu je oglje!", "en": "I've opened the pile. Here's the charcoal!", "de": "Ich habe den Meiler geöffnet. Hier ist die Kohle!" },
+                  { "choices": [
+                    { "it": "Com'è leggero!", "sl": "Kako je lahko!", "en": "How light it is!", "de": "Wie leicht sie ist!", "ok": true,
+                      "reply": { "it": "E suona, senti?", "sl": "In zveni, slišiš?", "en": "And it rings, hear it?", "de": "Und sie klingt, hörst du?" } },
+                    { "it": "Com'è pesante!", "sl": "Kako je težko!", "en": "How heavy it is!", "de": "Wie schwer sie ist!",
+                      "why": { "en": "Good charcoal is light: leggero. Pesante is heavy.", "sl": "Dobro oglje je lahko: leggero. Pesante je težko.", "de": "Gute Kohle ist leicht: leggero. Pesante ist schwer." },
+                      "reply": { "it": "Pesante? No, prova!", "sl": "Težko? Ne, poskusi!", "en": "Heavy? No, try it!", "de": "Schwer? Nein, probier mal!" } }
+                  ] },
+                  { "who": "gino", "it": "Domani lo porto al fabbro Beppe.", "sl": "Jutri ga nesem kovaču Beppu.", "en": "Tomorrow I'll take it to Beppe the smith.", "de": "Morgen bringe ich sie zu Beppe, dem Schmied." }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

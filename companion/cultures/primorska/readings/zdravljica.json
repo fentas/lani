@@ -1,0 +1,63 @@
+{
+  "id": "zdravljica",
+  "kind": "page",
+  "level": "B1",
+  "title": { "sl": "Zdravljica (sedma kitica)", "en": "A Toast (the seventh stanza)", "de": "Ein Trinkspruch (die siebte Strophe)", "it": "Un brindisi (la settima strofa)" },
+  "intro": {
+    "sl": "France Prešeren je Zdravljico napisal leta 1844. Njena sedma kitica je slovenska himna.",
+    "en": "France Prešeren wrote Zdravljica (A Toast) in 1844. Its seventh stanza is the Slovene national anthem.",
+    "de": "France Prešeren schrieb die Zdravljica (Ein Trinkspruch) im Jahr 1844. Ihre siebte Strophe ist die slowenische Nationalhymne.",
+    "it": "France Prešeren scrisse la Zdravljica (Un brindisi) nel 1844. La sua settima strofa è l'inno nazionale sloveno."
+  },
+  "lines": [
+    { "text": { "sl": "Žive naj vsi narodi,", "en": "Long live all the nations", "de": "Es leben alle Völker", "it": "Vivano tutti i popoli" } },
+    { "text": { "sl": "ki hrepene dočakat' dan,", "en": "who long to see the day", "de": "die sich sehnen, den Tag zu erleben", "it": "che anelano a vedere il giorno" } },
+    { "text": { "sl": "da, koder sonce hodi,", "en": "when, wherever the sun goes,", "de": "an dem, so weit die Sonne geht,", "it": "in cui, ovunque vada il sole," } },
+    { "text": { "sl": "prepir iz sveta bo pregnan,", "en": "strife will be driven from the world,", "de": "der Streit aus der Welt vertrieben sein wird,", "it": "la discordia sarà cacciata dal mondo," } },
+    { "text": { "sl": "da rojak", "en": "when every countryman", "de": "an dem jeder Landsmann", "it": "in cui ogni compatriota" } },
+    { "text": { "sl": "prost bo vsak,", "en": "will be free,", "de": "frei sein wird,", "it": "sarà libero," } },
+    { "text": { "sl": "ne vrag, le sosed bo mejak!", "en": "and across the border there will be no foe, only a neighbour!", "de": "und jenseits der Grenze kein Feind, nur ein Nachbar sein wird!", "it": "e oltre il confine non ci sarà un nemico, ma solo un vicino!" } }
+  ],
+  "questions": [
+    {
+      "type": "detail",
+      "ask": { "sl": "Kdo bo na meji?", "en": "Who will be at the border?", "de": "Wer wird an der Grenze sein?", "it": "Chi ci sarà al confine?" },
+      "options": ["Sosed", "Vrag", "Sonce"],
+      "explain": {
+        "sl": "»Ne vrag, le sosed bo mejak«: mejak je tisti, ki živi ob meji. Tam ne bo sovražnika, samo sosed.",
+        "en": "»No foe, only a neighbour will be mejak«: a mejak is the one who lives at the border. There will be no enemy there, only a neighbour.",
+        "de": "»Kein Feind, nur ein Nachbar wird mejak sein«: Ein mejak ist der, der an der Grenze wohnt. Dort wird kein Feind sein, nur ein Nachbar.",
+        "it": "«Non un nemico, solo un vicino sarà mejak»: un mejak è chi vive sul confine. Lì non ci sarà un nemico, solo un vicino."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "sl": "Kaj bo pregnano iz sveta?", "en": "What will be driven from the world?", "de": "Was wird aus der Welt vertrieben?", "it": "Che cosa sarà cacciato dal mondo?" },
+      "options": ["Prepir", "Sonce", "Dan"],
+      "explain": {
+        "sl": "»Prepir iz sveta bo pregnan«: ljudje se ne bodo več prepirali.",
+        "en": "»Strife will be driven from the world«: people won't quarrel any more.",
+        "de": "»Der Streit wird aus der Welt vertrieben«: Die Menschen werden nicht mehr streiten.",
+        "it": "«La discordia sarà cacciata dal mondo»: la gente non litigherà più."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "sl": "Zdravljico je napisal France Prešeren.", "en": "France Prešeren wrote Zdravljica.", "de": "France Prešeren hat die Zdravljica geschrieben.", "it": "La Zdravljica l'ha scritta France Prešeren." },
+      "answer": true,
+      "explain": {
+        "sl": "Drži: »France Prešeren je Zdravljico napisal leta 1844.« Njena sedma kitica je himna.",
+        "en": "True: »France Prešeren wrote Zdravljica in 1844.« Its seventh stanza is the anthem.",
+        "de": "Stimmt: »France Prešeren schrieb die Zdravljica im Jahr 1844.« Ihre siebte Strophe ist die Hymne.",
+        "it": "Vero: «France Prešeren scrisse la Zdravljica nel 1844.» La sua settima strofa è l'inno."
+      }
+    }
+  ],
+  "words": [
+    { "word": "narod", "form": "narodi", "pos": "noun", "means": { "en": "a nation, a people", "de": "ein Volk", "it": "un popolo" } },
+    { "word": "sosed", "pos": "noun", "means": { "en": "a neighbour", "de": "ein Nachbar", "it": "un vicino" } },
+    { "word": "prepir", "pos": "noun", "means": { "en": "a quarrel", "de": "ein Streit", "it": "un litigio" } },
+    { "word": "himna", "pos": "noun", "means": { "en": "an anthem", "de": "eine Hymne", "it": "un inno" } },
+    { "word": "kitica", "pos": "noun", "means": { "en": "a stanza", "de": "eine Strophe", "it": "una strofa" } }
+  ]
+}

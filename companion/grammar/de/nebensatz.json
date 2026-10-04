@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "nebensatz",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🔗",
+  "title": {
+    "de": "…, weil es regnet: der Nebensatz",
+    "sl": "…, weil es regnet: odvisni stavek",
+    "en": "…, weil es regnet: subordinate clauses",
+    "it": "…, weil es regnet: la frase secondaria"
+  },
+  "rule": {
+    "en": "After **weil** (because), **dass** (that), **wenn** (if, when) and **ob** (whether, if) comes a subordinate clause (*Nebensatz*), and in it the conjugated verb goes to the very end: Wir bleiben im Zelt, **weil es regnet**. Ich glaube, **dass Oma einen Kuchen backt**.\n\nA comma always comes before weil, dass, wenn and ob.\n\nWith two verbs, the conjugated one is the last word: …, weil ich schwimmen **will**. …, weil Lena gewonnen **hat**. A separable verb stays in one piece: …, wenn die Sonne **aufgeht**.\n\nQuestion words do the same inside a sentence: Ich weiß nicht, **wo der Hund ist**.\n\nThe Nebensatz can come first. Then the main clause goes on with its verb, so two verbs meet at the comma: **Wenn es regnet, gehen wir** in die Hütte.",
+    "sl": "Za **weil** (ker), **dass** (da), **wenn** (če, ko) in **ob** (ali) pride odvisni stavek (*Nebensatz*), v njem pa gre osebna glagolska oblika čisto na konec: Wir bleiben im Zelt, **weil es regnet**. Ich glaube, **dass Oma einen Kuchen backt**.\n\nPred weil, dass, wenn in ob je vedno vejica, kot v slovenščini.\n\nČe sta glagola dva, je osebna oblika zadnja beseda: …, weil ich schwimmen **will**. …, weil Lena gewonnen **hat**. Ločljivi glagol ostane skupaj: …, wenn die Sonne **aufgeht**.\n\nEnako velja za vprašalnice sredi povedi: Ich weiß nicht, **wo der Hund ist** (ne vem, kje je pes).\n\nOdvisnik je lahko tudi prvi. Potem se glavni stavek nadaljuje z glagolom, zato se glagola srečata ob vejici: **Wenn es regnet, gehen wir** in die Hütte.",
+    "it": "Dopo **weil** (perché), **dass** (che), **wenn** (se, quando) e **ob** (se, in una domanda indiretta) viene una frase secondaria (*Nebensatz*), e lì il verbo coniugato va proprio alla fine: Wir bleiben im Zelt, **weil es regnet**. Ich glaube, **dass Oma einen Kuchen backt**.\n\nPrima di weil, dass, wenn e ob c'è sempre la virgola, anche dove l'italiano non la mette.\n\nCon due verbi, quello coniugato è l'ultima parola: …, weil ich schwimmen **will**. …, weil Lena gewonnen **hat**. Un verbo separabile resta unito: …, wenn die Sonne **aufgeht**.\n\nLo stesso vale per le parole interrogative dentro la frase: Ich weiß nicht, **wo der Hund ist** (non so dove sia il cane).\n\nLa secondaria può venire prima. Allora la principale continua col verbo, e i due verbi si incontrano alla virgola: **Wenn es regnet, gehen wir** in die Hütte."
+  },
+  "table": {
+    "head": [
+      { "de": "Hauptsatz", "sl": "glavni stavek", "en": "main clause", "it": "frase principale" },
+      { "de": "Konjunktion / Fragewort", "sl": "veznik / vprašalnica", "en": "conjunction / question word", "it": "congiunzione / interrogativo" },
+      { "de": "Nebensatz (Verb am Ende)", "sl": "odvisnik (glagol na koncu)", "en": "subordinate clause (verb last)", "it": "secondaria (verbo alla fine)" }
+    ],
+    "rows": [
+      ["Wir bleiben im Zelt,", "weil", "es regnet."],
+      ["Ich glaube,", "dass", "Oma einen Kuchen backt."],
+      ["Wir gehen baden,", "wenn", "die Sonne scheint."],
+      ["Ich weiß nicht,", "ob", "Opa heute kommt."],
+      ["Lena ist froh,", "weil", "sie gewonnen hat."],
+      ["Ich weiß nicht,", "wo", "der Hund ist."]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Wir bleiben im Zelt, weil es regnet.",
+      "sl": "Ostanemo v šotoru, ker dežuje.",
+      "en": "We're staying in the tent because it's raining.",
+      "it": "Restiamo nella tenda perché piove.",
+      "note": {
+        "en": "weil → the verb (regnet) goes to the end.",
+        "sl": "weil → glagol (regnet) gre na konec.",
+        "it": "weil → il verbo (regnet) va alla fine."
+      }
+    },
+    {
+      "de": "Wenn es regnet, gehen wir in die Hütte.",
+      "sl": "Če dežuje, gremo v kočo.",
+      "en": "If it rains, we go into the hut.",
+      "it": "Se piove, andiamo nella baita.",
+      "note": {
+        "en": "The Nebensatz first: the main verb (gehen) comes right after the comma.",
+        "sl": "Odvisnik na začetku: glavni glagol (gehen) pride takoj za vejico.",
+        "it": "La secondaria prima: il verbo principale (gehen) viene subito dopo la virgola."
+      }
+    },
+    {
+      "de": "Ich glaube, dass die Schafe Durst haben.",
+      "sl": "Mislim, da so ovce žejne.",
+      "en": "I think the sheep are thirsty.",
+      "it": "Credo che le pecore abbiano sete."
+    },
+    {
+      "de": "Weißt du, ob Opa Sepp heute kommt?",
+      "sl": "Veš, ali dedek Sepp danes pride?",
+      "en": "Do you know if Grandpa Sepp is coming today?",
+      "it": "Sai se il nonno Sepp viene oggi?",
+      "note": {
+        "en": "ob = whether: the verb (kommt) at the end.",
+        "sl": "ob = ali: glagol (kommt) na koncu.",
+        "it": "ob = se (domanda indiretta): il verbo (kommt) alla fine."
+      }
+    },
+    {
+      "de": "Lena ist froh, weil sie gewonnen hat.",
+      "sl": "Lena je vesela, ker je zmagala.",
+      "en": "Lena is happy because she won.",
+      "it": "Lena è contenta perché ha vinto.",
+      "note": {
+        "en": "Two verbs: hat, the conjugated one, comes last.",
+        "sl": "Dva glagola: osebna oblika hat je zadnja.",
+        "it": "Due verbi: hat, quello coniugato, è l'ultimo."
+      }
+    },
+    {
+      "de": "Wenn die Sonne aufgeht, kräht der Hahn.",
+      "sl": "Ko sonce vzide, petelin zapoje.",
+      "en": "When the sun rises, the rooster crows.",
+      "it": "Quando sorge il sole, il gallo canta.",
+      "note": {
+        "en": "aufgehen stays in one piece at the end of the Nebensatz.",
+        "sl": "aufgehen v odvisniku ostane skupaj na koncu.",
+        "it": "aufgehen nella secondaria resta unito alla fine."
+      }
+    },
+    {
+      "de": "Ich weiß nicht, wo der Hund ist.",
+      "sl": "Ne vem, kje je pes.",
+      "en": "I don't know where the dog is.",
+      "it": "Non so dove sia il cane."
+    }
+  ],
+  "modules": [],
+  "tags": ["subordinate_clause", "nebensatz", "word_order", "verb_final", "weil", "dass", "wenn", "conjunctions"],
+  "see": ["wortstellung", "trennbare-verben", "perfekt", "fragen"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker"
+}

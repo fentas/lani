@@ -1,0 +1,314 @@
+{
+  "host": { "name": "Granny Maggie", "emoji": "👵" },
+  "resources": {
+    "food": {
+      "name": { "en": "Food", "sl": "Hrana", "it": "Cibo", "de": "Essen" },
+      "partitive": { "en": "food", "sl": "hrane", "it": "cibo", "de": "Essen" },
+      "leader": "Mr Tyson"
+    },
+    "wood": {
+      "name": { "en": "Wood", "sl": "Les", "it": "Legna", "de": "Holz" },
+      "partitive": { "en": "wood", "sl": "lesa", "it": "legna", "de": "Holz" },
+      "leader": "Shepherd Jack"
+    },
+    "stone": {
+      "name": { "en": "Stone", "sl": "Kamen", "it": "Pietra", "de": "Stein" },
+      "partitive": { "en": "stone", "sl": "kamna", "it": "pietra", "de": "Stein" },
+      "leader": "Mr Dixon"
+    },
+    "wisdom": {
+      "name": { "en": "Wisdom", "sl": "Modrost", "it": "Saggezza", "de": "Weisheit" },
+      "partitive": { "en": "wisdom", "sl": "modrosti", "it": "saggezza", "de": "Weisheit" },
+      "leader": "Old Wilf"
+    }
+  },
+  "ages": {
+    "ogenj": {
+      "name": { "en": "Campfire", "sl": "Ogenj", "it": "Falò", "de": "Lagerfeuer" }
+    },
+    "tabor": {
+      "name": { "en": "Camp", "sl": "Tabor", "it": "Accampamento", "de": "Lager" }
+    },
+    "zaselek": {
+      "name": { "en": "Hamlet", "sl": "Zaselek", "it": "Borgata", "de": "Weiler" }
+    },
+    "vas": {
+      "name": { "en": "Village", "sl": "Vas", "it": "Paese", "de": "Dorf" }
+    },
+    "trg": {
+      "name": { "en": "Market town", "sl": "Trg", "it": "Borgo", "de": "Marktflecken" }
+    },
+    "mesto": {
+      "name": { "en": "Town", "sl": "Mesto", "it": "Cittadina", "de": "Stadt" }
+    }
+  },
+  "buildings": {
+    "tent": {
+      "name": { "en": "Tent", "sl": "Šotor", "it": "Tenda", "de": "Zelt" }
+    },
+    "field": {
+      "name": { "en": "Field", "sl": "Njiva", "it": "Campo", "de": "Feld" }
+    },
+    "well": {
+      "name": { "en": "Well", "sl": "Vodnjak", "it": "Pozzo", "de": "Brunnen" }
+    },
+    "hut": {
+      "name": { "en": "Hut", "sl": "Koča", "it": "Capanna", "de": "Hütte" }
+    },
+    "kozolec": {
+      "name": { "en": "Hay barn", "sl": "Senik", "it": "Fienile", "de": "Heuschober" }
+    },
+    "beehive": {
+      "name": { "en": "Beehives", "sl": "Čebelnjak", "it": "Arnie", "de": "Bienenstöcke" }
+    },
+    "palisade": {
+      "name": { "en": "Palisade", "sl": "Palisada", "it": "Palizzata", "de": "Palisade" }
+    },
+    "watchtower": {
+      "name": { "en": "Watchtower", "sl": "Stražni stolp", "it": "Torre di guardia", "de": "Wachturm" }
+    },
+    "smithy": {
+      "name": { "en": "Smithy", "sl": "Kovačnica", "it": "Fucina", "de": "Schmiede" }
+    },
+    "lipa": {
+      "name": { "en": "Oak tree", "sl": "Hrast", "it": "Quercia", "de": "Eiche" }
+    },
+    "house": {
+      "name": { "en": "House", "sl": "Hiša", "it": "Casa", "de": "Haus" }
+    },
+    "church": {
+      "name": { "en": "Church", "sl": "Cerkev", "it": "Chiesa", "de": "Kirche" }
+    },
+    "school": {
+      "name": { "en": "School", "sl": "Šola", "it": "Scuola", "de": "Schule" }
+    },
+    "market": {
+      "name": { "en": "Market", "sl": "Tržnica", "it": "Mercato", "de": "Markt" }
+    }
+  },
+  "events": {
+    "wolves": {
+      "name": { "en": "Wolves", "sl": "Volkovi", "it": "Lupi", "de": "Wölfe" }
+    },
+    "bear": {
+      "name": { "en": "Bear", "sl": "Medved", "it": "Orso", "de": "Bär" }
+    },
+    "storm": {
+      "name": { "en": "Storm", "sl": "Nevihta", "it": "Temporale", "de": "Sturm" }
+    },
+    "merchant": {
+      "name": { "en": "Merchant", "sl": "Trgovec", "it": "Mercante", "de": "Händler" }
+    },
+    "festival": {
+      "name": { "en": "Festival", "sl": "Praznik", "it": "Festa", "de": "Fest" }
+    }
+  },
+  "places": [
+    {
+      "id": "keswick",
+      "name": { "en": "Keswick", "sl": "Keswick", "it": "Keswick", "de": "Keswick" },
+      "about": { "en": "The little market town at the top of Derwentwater, the nearest town to the village: the Saturday market, the pencil museum, the launches on the lake, the Keswick show; Sam sells his ale there." }
+    },
+    {
+      "id": "derwentwater",
+      "name": { "en": "Derwentwater", "sl": "Derwentwater", "it": "Derwentwater", "de": "Derwentwater" },
+      "about": { "en": "The lake below Keswick, with its wooded islands and the fells all round it; Harry fishes there, and the pilgrim's island is in it." }
+    },
+    {
+      "id": "borrowdale",
+      "name": { "en": "Borrowdale", "sl": "Borrowdale", "it": "Borrowdale", "de": "Borrowdale" },
+      "about": { "en": "The green valley south of Derwentwater, the village's dale: the Bowder Stone, the old yews, the legend of the cuckoo, the wettest place in England." }
+    },
+    {
+      "id": "grasmere",
+      "name": { "en": "Grasmere", "sl": "Grasmere", "it": "Grasmere", "de": "Grasmere" },
+      "about": { "en": "The village by its little lake where Wordsworth lived (Dove Cottage) and is buried; its gingerbread, its rushbearing in August and the Grasmere Sports." }
+    },
+    {
+      "id": "langdale",
+      "name": { "en": "Langdale", "sl": "Langdale", "it": "Langdale", "de": "Langdale" },
+      "about": { "en": "The valley under the Langdale Pikes, the craggy fells Wilf climbed as a boy; walkers and climbers come to the Packhorse Inn from there." }
+    },
+    {
+      "id": "ullswater",
+      "name": { "en": "Ullswater", "sl": "Ullswater", "it": "Ullswater", "de": "Ullswater" },
+      "about": { "en": "The long lake to the east, with the old steamers; by its shore Wordsworth saw his daffodils, and Aira Force falls into it." }
+    },
+    {
+      "id": "helvellyn",
+      "name": { "en": "Helvellyn", "sl": "Helvellyn", "it": "Helvellyn", "de": "Helvellyn" },
+      "about": { "en": "The big fell between Thirlmere and Ullswater, with the narrow ridge of Striding Edge; Jack runs up it." }
+    },
+    {
+      "id": "scafell_pike",
+      "name": { "en": "Scafell Pike", "sl": "Scafell Pike", "it": "Scafell Pike", "de": "Scafell Pike" },
+      "about": { "en": "The highest mountain in England (978 m), at the head of Borrowdale and Wasdale; Old Wilf has been to the top twenty times." }
+    },
+    {
+      "id": "skiddaw",
+      "name": { "en": "Skiddaw", "sl": "Skiddaw", "it": "Skiddaw", "de": "Skiddaw" },
+      "about": { "en": "The big round fell behind Keswick; snow lies on it first in winter." }
+    },
+    {
+      "id": "kendal",
+      "name": { "en": "Kendal", "sl": "Kendal", "it": "Kendal", "de": "Kendal" },
+      "about": { "en": "The old market town in the south, home of Kendal mint cake; the packman and the merchant come from there, as the packhorse trains did." }
+    },
+    {
+      "id": "penrith",
+      "name": { "en": "Penrith", "sl": "Penrith", "it": "Penrith", "de": "Penrith" },
+      "about": { "en": "The red sandstone market town in the east, with the Giant's Grave in its churchyard; Mr Dixon takes orders from there." }
+    },
+    {
+      "id": "cockermouth",
+      "name": { "en": "Cockermouth", "sl": "Cockermouth", "it": "Cockermouth", "de": "Cockermouth" },
+      "about": { "en": "The town where William Wordsworth was born, in the house by the river Derwent." }
+    },
+    {
+      "id": "hawkshead",
+      "name": { "en": "Hawkshead", "sl": "Hawkshead", "it": "Hawkshead", "de": "Hawkshead" },
+      "about": { "en": "The old village near Hill Top at Near Sawrey, the farm of Beatrix Potter, who wrote Peter Rabbit and farmed Herdwick sheep; Poppy's favourite books." }
+    },
+    {
+      "id": "bowder_stone",
+      "name": { "en": "The Bowder Stone", "sl": "Bowder Stone", "it": "La Bowder Stone", "de": "Der Bowder Stone" },
+      "about": { "en": "A huge stone in Borrowdale standing on its edge, as big as a house, with a ladder to its top; people shake hands under it for luck. One of Wilf's stories." }
+    },
+    {
+      "id": "castlerigg",
+      "name": { "en": "Castlerigg", "sl": "Castlerigg", "it": "Castlerigg", "de": "Castlerigg" },
+      "about": { "en": "The ring of old standing stones on the hill above Keswick, with the fells all round; older than the pyramids." }
+    },
+    {
+      "id": "ashness_bridge",
+      "name": { "en": "Ashness Bridge", "sl": "Most Ashness", "it": "Il ponte di Ashness", "de": "Die Ashness Bridge" },
+      "about": { "en": "The little old stone packhorse bridge over a beck above Derwentwater, with the view down to the lake." }
+    },
+    {
+      "id": "aira_force",
+      "name": { "en": "Aira Force", "sl": "Slap Aira Force", "it": "La cascata di Aira Force", "de": "Der Wasserfall Aira Force" },
+      "about": { "en": "The waterfall above Ullswater (force: the old Cumbrian word for a waterfall)." }
+    },
+    {
+      "id": "honister",
+      "name": { "en": "Honister", "sl": "Honister", "it": "Honister", "de": "Honister" },
+      "about": { "en": "The pass at the head of Borrowdale with the old green slate mine; the village's slate roofs come from there, and Wilf worked there as a young man." }
+    },
+    {
+      "id": "whitehaven",
+      "name": { "en": "Whitehaven", "sl": "Whitehaven", "it": "Whitehaven", "de": "Whitehaven" },
+      "about": { "en": "The old port on the coast: long ago the ships brought tea, sugar, rum and spices there, and so Cumbrian cooking loves pepper, ginger and nutmeg; the packman's tea and spices." }
+    },
+    {
+      "id": "carlisle",
+      "name": { "en": "Carlisle", "sl": "Carlisle", "it": "Carlisle", "de": "Carlisle" },
+      "about": { "en": "The city in the north, with its castle and its football team (Carlisle United, Harry's); Granny Maggie's cousin lives there." }
+    },
+    {
+      "id": "cartmel",
+      "name": { "en": "Cartmel", "sl": "Cartmel", "it": "Cartmel", "de": "Cartmel" },
+      "about": { "en": "The little village in the south, home of sticky toffee pudding." }
+    },
+    {
+      "id": "bassenthwaite",
+      "name": { "en": "Bassenthwaite Lake", "sl": "Jezero Bassenthwaite", "it": "Il lago di Bassenthwaite", "de": "Der Bassenthwaite Lake" },
+      "about": { "en": "The lake north of Keswick; they say it was the Lady of the Lake's, where King Arthur's sword went back into the water. One of Wilf's stories." }
+    },
+    {
+      "id": "st_herberts_island",
+      "name": { "en": "St Herbert's Island", "sl": "Otok sv. Herberta", "it": "L'isola di San Herbert", "de": "Die St.-Herbert-Insel" },
+      "about": { "en": "The wooded island in Derwentwater where the hermit St Herbert lived long ago; the pilgrim walks there (the last bit by boat)." }
+    }
+  ],
+  "backdrop": {
+    "emoji": "⛰️",
+    "name": { "en": "The fells", "sl": "Hribi", "it": "Le montagne", "de": "Die Berge" },
+    "where": { "en": "on the fells", "sl": "v hribih", "it": "in montagna", "de": "in den Bergen" },
+    "about": { "en": "Fells and a lake, a packhorse bridge and a little chapel", "sl": "Hribi in jezero, star kamnit most in majhna kapela", "it": "Montagne e un lago, un vecchio ponte di pietra e una piccola cappella", "de": "Berge und ein See, eine alte Steinbrücke und eine kleine Kapelle" }
+  },
+  "spots": {
+    "kopa": {
+      "emoji": "♨️",
+      "name": { "en": "The charcoal pit", "sl": "Oglarska kopa", "it": "La carbonaia", "de": "Der Kohlenmeiler" },
+      "where": { "en": "by the charcoal pit", "sl": "pri kopi", "it": "alla carbonaia", "de": "beim Kohlenmeiler" },
+      "about": { "en": "The pit smoulders: the wood turns into charcoal", "sl": "Kopa tli: iz lesa nastaja oglje", "it": "La carbonaia cova: la legna diventa carbone", "de": "Der Meiler glimmt: aus Holz wird Holzkohle" },
+      "story": {
+        "A1": {
+          "en": "This is a charcoal pit. The charcoal burner builds a big round stack of wood. He covers it with turf and earth. The stack doesn't burn: it smoulders for days. Then the wood is black and light: that is charcoal. Mr Dixon the smith needs it for his forge.",
+          "sl": "To je oglarska kopa. Oglar zloži velik okrogel kup drv. Pokrije ga z rušo in zemljo. Kup ne gori: več dni tli. Potem je les črn in lahek: to je oglje. Kovač, gospod Dixon, ga potrebuje za svojo kovačnico.",
+          "it": "Questa è una carbonaia. Il carbonaio costruisce una grande catasta rotonda di legna. La copre con zolle d'erba e terra. La catasta non brucia: cova per giorni. Poi la legna è nera e leggera: è il carbone. Il fabbro, il signor Dixon, ne ha bisogno per la sua fucina.",
+          "de": "Das ist ein Kohlenmeiler. Der Köhler baut einen großen runden Holzstapel. Er deckt ihn mit Rasen und Erde zu. Der Stapel brennt nicht: Er glimmt tagelang. Dann ist das Holz schwarz und leicht: Das ist Holzkohle. Der Schmied, Mr Dixon, braucht sie für seine Schmiede."
+        },
+        "A2": {
+          "en": "Long ago the woods of the Lake District were full of charcoal burners. They cut young trees in the coppice woods and built them into a round stack on a flat place in the wood, the pitstead. Then they covered the stack with turf and earth. The burner lived in a hut of poles and turf next to the pit and watched it day and night: with too much air, it all burnt to ash. The charcoal went to the bloomeries, where people made iron, and later to the gunpowder works. In Swallows and Amazons the children meet two old charcoal burners in the wood. You can still find old pitsteads today: round, flat, and black under the moss. Mr Dixon still likes charcoal best for his forge.",
+          "sl": "Nekoč so bili gozdovi v Lake Districtu polni oglarjev. V panjevskih gozdovih so sekali mlada drevesa in jih zložili v okrogel kup na ravnem prostoru v gozdu, na kopišču. Potem so kup pokrili z rušo in zemljo. Oglar je živel v koči iz kolov in ruše zraven kope in pazil nanjo dan in noč: s preveč zraka bi vse zgorelo v pepel. Oglje so vozili v talilnice, kjer so delali železo, kasneje pa v tovarne smodnika. V knjigi Swallows and Amazons otroci v gozdu srečajo dva stara oglarja. Stara kopišča najdeš še danes: okrogla, ravna in črna pod mahom. Gospod Dixon ima še danes najraje oglje za svojo kovačnico.",
+          "it": "Un tempo i boschi del Lake District erano pieni di carbonai. Tagliavano gli alberi giovani nei boschi cedui e li disponevano in una catasta rotonda su un posto piano nel bosco, la piazzola. Poi coprivano la catasta con zolle d'erba e terra. Il carbonaio viveva in una capanna di pali e zolle accanto alla carbonaia e la sorvegliava giorno e notte: con troppa aria, bruciava tutto e restava cenere. Il carbone andava ai forni per il ferro e più tardi alle fabbriche di polvere da sparo. In Swallows and Amazons i bambini incontrano nel bosco due vecchi carbonai. Le vecchie piazzole si trovano ancora oggi: rotonde, piane e nere sotto il muschio. Il signor Dixon preferisce ancora il carbone di legna per la sua fucina.",
+          "de": "Früher waren die Wälder im Lake District voller Köhler. Sie schlugen junge Bäume im Niederwald und bauten sie auf einem flachen Platz im Wald, dem Meilerplatz, zu einem runden Stapel. Dann deckten sie den Stapel mit Rasen und Erde zu. Der Köhler wohnte in einer Hütte aus Stangen und Rasen neben dem Meiler und bewachte ihn Tag und Nacht: Mit zu viel Luft verbrannte alles zu Asche. Die Holzkohle ging zu den Rennöfen, wo man Eisen machte, und später zu den Pulvermühlen. In Swallows and Amazons treffen die Kinder im Wald zwei alte Köhler. Die alten Meilerplätze findet man noch heute: rund, flach und schwarz unter dem Moos. Mr Dixon mag für seine Schmiede noch immer am liebsten Holzkohle."
+        }
+      },
+      "pack": "at-the-pit",
+      "review": "The story, the burner's talk and its reactions: machine-written (Claude), not reviewed by a native speaker.",
+      "keeper": {
+        "id": "collier",
+        "name": "Collier Ned",
+        "emoji": "🧔",
+        "art": "burner",
+        "voice": "male",
+        "speaker": "grandpa",
+        "role": { "en": "Collier (charcoal burner)", "sl": "Oglar", "it": "Carbonaio", "de": "Köhler" },
+        "story": "Ned is a collier, as the Lake District called its charcoal burners: he stacks coppice wood on an old pitstead in the woods above the village and watches the pit from his hut of poles and turf; his charcoal goes to Mr Dixon's forge. He calls the learner 'lad'.",
+        "when": ["evening", "night"],
+        "chance": 0.5,
+        "title": { "en": "Collier Ned watches the pit", "sl": "Oglar Ned pazi na kopo", "it": "Il carbonaio Ned sorveglia la carbonaia", "de": "Köhler Ned hütet den Meiler" },
+        "reward": { "wisdom": 15 },
+        "levels": {
+          "A1": {
+            "lines": [
+              { "who": "collier", "en": "Good evening! I'm Ned. I'm a charcoal burner.", "sl": "Dober večer! Jaz sem Ned. Oglar sem.", "it": "Buonasera! Sono Ned. Faccio il carbonaio.", "de": "Guten Abend! Ich bin Ned. Ich bin Köhler." },
+              { "choices": [
+                { "en": "Good evening! Nice to meet you.", "sl": "Dober večer! Me veseli.", "it": "Buonasera! Piacere.", "de": "Guten Abend! Freut mich.", "ok": true,
+                  "reply": { "en": "Nice to meet you too. Sit down, it's warm here.", "sl": "Tudi mene veseli. Sedi, tu je toplo.", "it": "Piacere mio. Siediti, qui fa caldo.", "de": "Mich auch. Setz dich, hier ist es warm." } },
+                { "en": "Hello, Ned! Nice to meet you.", "sl": "Živjo, Ned! Me veseli.", "it": "Ciao, Ned! Piacere.", "de": "Hallo, Ned! Freut mich.", "ok": true,
+                  "reply": { "en": "Hello, lad! Come and sit by the pit.", "sl": "Živjo, fant! Pridi, sedi h kopi.", "it": "Ciao, ragazzo! Vieni a sederti vicino alla carbonaia.", "de": "Hallo, Junge! Komm, setz dich zum Meiler." } },
+                { "en": "Good morning! Nice to meet you.", "sl": "Dobro jutro! Me veseli.", "it": "Buongiorno! Piacere.", "de": "Guten Morgen! Freut mich.",
+                  "why": { "sl": "Zvečer rečeš good evening. Good morning je za jutro.", "it": "Di sera si dice good evening. Good morning è per il mattino.", "de": "Am Abend sagt man good evening. Good morning sagt man am Morgen." },
+                  "reply": { "en": "Morning? Morning's long gone, lad!", "sl": "Jutro? Jutro je že zdavnaj mimo, fant!", "it": "Mattino? Il mattino è passato da un pezzo, ragazzo!", "de": "Morgen? Der Morgen ist längst vorbei, Junge!" } }
+              ] },
+              { "who": "collier", "en": "This is my charcoal pit. It doesn't burn. It smoulders.", "sl": "To je moja oglarska kopa. Ne gori. Tli.", "it": "Questa è la mia carbonaia. Non brucia. Cova.", "de": "Das ist mein Kohlenmeiler. Er brennt nicht. Er glimmt." },
+              { "choices": [
+                { "en": "What is in the pit?", "sl": "Kaj je v kopi?", "it": "Che cosa c'è nella carbonaia?", "de": "Was ist im Meiler?", "ok": true,
+                  "reply": { "en": "Wood. In a few days it will be charcoal.", "sl": "Drva. Čez nekaj dni bo oglje.", "it": "Legna. Tra qualche giorno sarà carbone.", "de": "Holz. In ein paar Tagen ist es Holzkohle." } },
+                { "en": "Who is in the pit?", "sl": "Kdo je v kopi?", "it": "Chi c'è nella carbonaia?", "de": "Wer ist im Meiler?",
+                  "why": { "sl": "Who vpraša po osebi: kdo. Po stvari vprašaš what.", "it": "Who chiede di una persona: chi. Per una cosa si chiede what.", "de": "Who fragt nach einer Person: wer. Nach einer Sache fragt man what." },
+                  "reply": { "en": "Who? Nobody, lad! Just wood.", "sl": "Kdo? Nihče, fant! Samo drva.", "it": "Chi? Nessuno, ragazzo! Solo legna.", "de": "Wer? Niemand, Junge! Nur Holz." } }
+              ] },
+              { "who": "collier", "en": "The charcoal goes to Mr Dixon the smith. Come again!", "sl": "Oglje gre h kovaču, gospodu Dixonu. Pridi spet!", "it": "Il carbone va al fabbro, il signor Dixon. Torna!", "de": "Die Holzkohle geht zum Schmied, zu Mr Dixon. Komm wieder!" }
+            ]
+          },
+          "A2": {
+            "lines": [
+              { "who": "collier", "en": "Evening, lad! Have you come to see my pit?", "sl": "Dober večer, fant! Si prišel pogledat mojo kopo?", "it": "Buonasera, ragazzo! Sei venuto a vedere la mia carbonaia?", "de": "'n Abend, Junge! Bist du gekommen, um dir meinen Meiler anzuschauen?" },
+              { "choices": [
+                { "en": "Yes, I saw the smoke from the village.", "sl": "Ja, dim sem videl iz vasi.", "it": "Sì, ho visto il fumo dal paese.", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "ok": true,
+                  "reply": { "en": "Everybody sees the smoke. But there mustn't be any flames!", "sl": "Dim vidijo vsi. Plamenov pa ne sme biti!", "it": "Il fumo lo vedono tutti. Ma le fiamme non devono esserci!", "de": "Den Rauch sehen alle. Aber Flammen darf es keine geben!" } },
+                { "en": "Yes, I seed the smoke from the village.", "sl": "Ja, dim sem videl iz vasi. (napačna oblika preteklika)", "it": "Sì, ho visto il fumo dal paese. (una forma sbagliata del passato)", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen. (eine falsche Vergangenheitsform)",
+                  "why": { "sl": "See ima nepravilni pretekli čas: saw. Seed je seme, ne glagol.", "it": "See ha un passato irregolare: saw. Seed è un seme, non un verbo.", "de": "See hat eine unregelmäßige Vergangenheit: saw. Seed ist ein Samen, kein Verb." },
+                  "reply": { "en": "Seed? Did you plant something, lad?", "sl": "Seme? Si kaj posejal, fant?", "it": "Semi? Hai seminato qualcosa, ragazzo?", "de": "Samen? Hast du etwas gesät, Junge?" } }
+              ] },
+              { "who": "collier", "en": "I have to watch it day and night. If it gets too much air, it burns and only ash is left.", "sl": "Paziti moram nanjo dan in noč. Če dobi preveč zraka, zagori in ostane samo pepel.", "it": "Devo sorvegliarla giorno e notte. Se prende troppa aria, brucia e resta solo cenere.", "de": "Ich muss Tag und Nacht aufpassen. Wenn er zu viel Luft bekommt, brennt er, und es bleibt nur Asche." },
+              { "choices": [
+                { "en": "Where do you sleep?", "sl": "Kje pa spite?", "it": "E dove dorme?", "de": "Und wo schlafen Sie?", "ok": true,
+                  "reply": { "en": "In that hut, next to the pit. Poles and turf. I sleep a little and listen a lot.", "sl": "V tisti koči, zraven kope. Iz kolov in ruše. Spim malo in veliko poslušam.", "it": "In quella capanna, vicino alla carbonaia. Pali e zolle. Dormo poco e ascolto molto.", "de": "In der Hütte dort, neben dem Meiler. Stangen und Rasen. Ich schlafe wenig und horche viel." } },
+                { "en": "Where you sleep?", "sl": "Kje spite? (brez do)", "it": "Dove dorme? (senza do)", "de": "Wo schlafen Sie? (ohne do)",
+                  "why": { "sl": "Vprašanje potrebuje do: Where do you sleep?", "it": "Una domanda ha bisogno di do: Where do you sleep?", "de": "Eine Frage braucht do: Where do you sleep?" },
+                  "reply": { "en": "Hm? Say that again, lad.", "sl": "Hm? Povej še enkrat, fant.", "it": "Mm? Ripeti, ragazzo.", "de": "Hm? Sag das nochmal, Junge." } }
+              ] },
+              { "who": "collier", "en": "In a few days I'll open the pit. The charcoal goes to Mr Dixon, for his forge.", "sl": "Čez nekaj dni odprem kopo. Oglje gre h gospodu Dixonu, za njegovo kovačnico.", "it": "Tra qualche giorno apro la carbonaia. Il carbone va al signor Dixon, per la sua fucina.", "de": "In ein paar Tagen mache ich den Meiler auf. Die Holzkohle geht zu Mr Dixon, für seine Schmiede." },
+              { "who": "collier", "en": "Come again, lad. The wood is lovely at night.", "sl": "Pridi spet, fant. Ponoči je gozd lep.", "it": "Torna, ragazzo. Di notte il bosco è bello.", "de": "Komm wieder, Junge. Nachts ist der Wald schön." }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

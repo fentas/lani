@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "matteo",
+  "name": "Vignaiolo Matteo",
+  "emoji": "🍇",
+  "art": "winemaker",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": {"it": "Vignaiolo", "sl": "Vinogradnik", "en": "Winemaker", "de": "Winzer"},
+  "home": ["market", "spot:road"],
+  "register": "ti",
+  "skill": "wisdom",
+  "since": "zaselek",
+  "order": 10,
+  "routine": {
+    "up": "6:30", "bed": "22:30",
+    "rituals": [
+      { "id": "torre", "at": "21:00", "until": "21:20", "to": "watchtower", "doing": "watch", "title": {"it": "Matteo guarda dalla torre di guardia", "sl": "Matteo pogleda z opazovalnice", "en": "Matteo looks out from the watchtower", "de": "Matteo schaut vom Wachturm"} }
+    ]
+  },
+  "personality": "Easygoing winemaker of the Collio, about thirty, always smiling, never in a hurry. Says tu to everybody and likes it back. To him Gorizia and Nova Gorica are one town and the border is just a line: his best friend Marko makes wine in Brda, on the Slovene side of the same hills. Speaks cheerful, simple Italian to a child: grapes, the harvest, Udinese. Wine is his work, never something he offers a child.",
+  "story": "Matteo's vineyard runs along the terraces of the Collio above Cormòns, where the ribolla gialla grows. He sells his wine in Gorizia and across the border, and every September he calls the whole village for the vendemmia. On Sundays he watches Udinese at the osteria and talks football with Tommaso.",
+  "likes": [
+    {"it": "l'uva", "sl": "grozdje", "en": "grapes", "de": "Trauben"},
+    {"it": "la vendemmia", "sl": "trgatev", "en": "the grape harvest", "de": "die Weinlese"},
+    {"it": "il Collio", "sl": "Brda", "en": "the Collio (the wine hills; Brda on the Slovene side)", "de": "das Collio (die Weinhügel; auf der slowenischen Seite Brda)"},
+    {"it": "il calcio", "sl": "nogomet", "en": "football", "de": "Fußball"}
+  ],
+  "lines": {
+    "greet": [
+      { "it": "Ciao! Benvenuto nel Collio!", "sl": "Živjo! Dobrodošel v Brdih!", "en": "Hi! Welcome to the Collio!", "de": "Hallo! Willkommen im Collio!", "level": 0 },
+      { "it": "Ciao! Io sono Matteo. Faccio il vino.", "sl": "Živjo! Jaz sem Matteo. Delam vino.", "en": "Hi! I'm Matteo. I make wine.", "de": "Hallo! Ich bin Matteo. Ich mache Wein.", "level": 0 },
+      { "it": "Ehi, ciao! Tutto bene?", "sl": "Ej, živjo! Je vse v redu?", "en": "Hey, hi! All good?", "de": "He, hallo! Alles gut?", "level": 1 },
+      { "it": "Amico! Vieni a vedere l'uva.", "sl": "Prijatelj! Pridi pogledat grozdje.", "en": "Friend! Come and see the grapes.", "de": "Mein Freund! Komm, schau dir die Trauben an.", "level": 2 },
+      { "it": "Ehi, eccoti! Senza di te la vigna è triste.", "sl": "Ej, tu si! Brez tebe je vinograd žalosten.", "en": "Hey, there you are! Without you the vineyard is sad.", "de": "He, da bist du ja! Ohne dich ist der Weinberg traurig.", "level": 3 },
+      { "it": "Fratello! Quest'anno fai la vendemmia con me, sì?", "sl": "Brat! Letos boš z mano trgal grozdje, ja?", "en": "Brother! This year you'll do the harvest with me, yes?", "de": "Bruder! Dieses Jahr machst du die Weinlese mit mir, ja?", "level": 4 }
+    ],
+    "thanks": [
+      { "it": "Grazie! Sei un vero amico.", "sl": "Hvala! Pravi prijatelj si.", "en": "Thanks! You're a true friend.", "de": "Danke! Du bist ein echter Freund." },
+      { "it": "Grazie mille! Mi hai salvato la giornata.", "sl": "Najlepša hvala! Rešil si mi dan.", "en": "Thanks a lot! You saved my day.", "de": "Vielen Dank! Du hast mir den Tag gerettet." },
+      { "it": "Grazie! Lo racconto anche a Marko, di là del confine.", "sl": "Hvala! To povem tudi Marku, onstran meje.", "en": "Thanks! I'll tell Marko too, across the border.", "de": "Danke! Das erzähle ich auch Marko, drüben hinter der Grenze." }
+    ],
+    "remember": [
+      { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
+      { "it": "Ehi, sai? Ricordo ancora {memory}!", "sl": "Ej, veš? Še vedno mislim na {memory}!", "en": "Hey, you know what? I still think of {memory}!", "de": "He, weißt du was? Ich denke noch oft an {memory}!", "level": 2 },
+      { "it": "Tra le viti ricordo spesso {memory}.", "sl": "Med trtami pogosto mislim na {memory}.", "en": "Among the vines I often think of {memory}.", "de": "Zwischen den Reben denke ich oft an {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "it": "L'uva è quasi pronta. Ancora un mese.", "sl": "Grozdje je skoraj zrelo. Še en mesec.", "en": "The grapes are almost ready. One more month.", "de": "Die Trauben sind fast reif. Noch einen Monat." },
+      { "it": "Gorizia e Nova Gorica? Per me è una città sola.", "sl": "Gorica in Nova Gorica? Zame je to eno mesto.", "en": "Gorizia and Nova Gorica? To me it's one town.", "de": "Görz und Nova Gorica? Für mich ist das eine Stadt." },
+      { "it": "Domenica gioca l'Udinese. Forza!", "sl": "V nedeljo igra Udinese. Dajmo!", "en": "Udinese are playing on Sunday. Come on!", "de": "Am Sonntag spielt Udinese. Auf geht's!" },
+      { "it": "Il mio amico Marko fa il vino di là, in Slovenia.", "sl": "Moj prijatelj Marko dela vino tam čez, v Sloveniji.", "en": "My friend Marko makes wine over there, in Slovenia.", "de": "Mein Freund Marko macht Wein da drüben, in Slowenien." }
+    ],
+    "cheer": [
+      { "it": "Bravo!", "sl": "Bravo!", "en": "Well done!", "de": "Gut gemacht!" },
+      { "it": "Perfetto!", "sl": "Odlično!", "en": "Perfect!", "de": "Perfekt!" },
+      { "it": "Grande! Così si fa!", "sl": "Super! Tako se to dela!", "en": "Great! That's how it's done!", "de": "Super! So macht man das!" }
+    ],
+    "comfort": [
+      { "it": "Tranquillo, non è niente.", "sl": "Brez skrbi, ni nič.", "en": "Don't worry, it's nothing.", "de": "Keine Sorge, das ist nichts." },
+      { "it": "Quasi! Un altro tentativo.", "sl": "Skoraj! Še en poskus.", "en": "Almost! One more try.", "de": "Fast! Noch ein Versuch." },
+      { "it": "Anche l'uva ha bisogno di tempo. Riprova.", "sl": "Tudi grozdje potrebuje čas. Poskusi še enkrat.", "en": "Grapes need time too. Try again.", "de": "Auch Trauben brauchen Zeit. Versuch es noch einmal." }
+    ],
+    "listen": [
+      { "it": "Ascolta, ascolta!", "sl": "Poslušaj, poslušaj!", "en": "Listen, listen!", "de": "Hör zu, hör zu!" },
+      { "it": "Senti? Ascolta bene.", "sl": "Slišiš? Dobro poslušaj.", "en": "Hear that? Listen carefully.", "de": "Hörst du? Hör gut zu." },
+      { "it": "Aspetta. Ascolta questo.", "sl": "Počakaj. Poslušaj tole.", "en": "Wait. Listen to this.", "de": "Warte. Hör dir das an." }
+    ],
+    "bye": [
+      { "it": "Ciao!", "sl": "Adijo!", "en": "Bye!", "de": "Tschüss!" },
+      { "it": "Ci vediamo! Torno alla vigna.", "sl": "Se vidimo! Grem nazaj v vinograd.", "en": "See you! I'm going back to the vineyard.", "de": "Bis bald! Ich geh zurück in den Weinberg." },
+      { "it": "Mandi! Forza Udinese!", "sl": "Mandi! Dajmo, Udinese! (mandi: furlanski pozdrav)", "en": "Mandi! Come on, Udinese! (mandi: Friulian for bye)", "de": "Mandi! Auf geht's, Udinese! (mandi: Friaulisch für tschüss)" }
+    ],
+    "gift": {
+      "liked": [
+        { "it": "Ehi! Come lo sapevi che mi piace? Grazie, amico!", "sl": "Ej! Kako si vedel, da mi je všeč? Hvala, prijatelj!", "en": "Hey! How did you know I like it? Thanks, friend!", "de": "He! Woher wusstest du, dass ich das mag? Danke, mein Freund!" },
+        { "it": "Per me? Grande! Stasera si fa festa.", "sl": "Zame? Super! Nocoj bo zabava.", "en": "For me? Great! Tonight we celebrate.", "de": "Für mich? Super! Heute Abend wird gefeiert.", "when": ["morning", "afternoon", "evening"] },
+        { "it": "Proprio quello che volevo! Lo racconto anche a Marko.", "sl": "Točno to, kar sem si želel! Povem tudi Marku.", "en": "Just what I wanted! I'll tell Marko too.", "de": "Genau das wollte ich! Das erzähle ich auch Marko." }
+      ],
+      "ordinary": [
+        { "it": "Ehi, grazie! Che gentile.", "sl": "Ej, hvala! Kako prijazno.", "en": "Hey, thanks! How kind.", "de": "He, danke! Wie nett." },
+        { "it": "Grazie, amico! Un succo d'uva?", "sl": "Hvala, prijatelj! Grozdni sok?", "en": "Thanks, friend! Some grape juice?", "de": "Danke, mein Freund! Einen Traubensaft?" }
+      ],
+      "rare": [
+        { "it": "Ma dai! Una cosa così! Sei proprio un amico. Grazie!", "sl": "Daj no! Kaj takega! Res si prijatelj. Hvala!", "en": "No way! Something like this! You're a true friend. Thanks!", "de": "Nicht zu fassen! So etwas! Du bist ein echter Freund. Danke!" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "lani.villager/v0",
+  "id": "luka",
+  "name": "Pastir Luka",
+  "emoji": "🐑",
+  "art": "shepherd",
+  "voice": "male",
+  "speaker": "young-man",
+  "role": { "sl": "Pastir", "en": "Shepherd", "de": "Hirte", "it": "Pastore" },
+  "home": ["spot:meadow", "tent"],
+  "register": "ti",
+  "skill": "wood",
+  "order": 2,
+  "routine": {
+    "up": "5:00", "bed": "21:50",
+    "rituals": [
+      { "id": "ovce", "at": "21:25", "until": "21:45", "to": "spot:meadow", "doing": "tend", "title": {"sl": "Luka pogleda ovce v staji", "en": "Luka checks the sheep in the fold", "de": "Luka schaut nach den Schafen im Pferch", "it": "Luka controlla le pecore nell'ovile"} }
+    ]
+  },
+  "personality": "Young shepherd, nineteen, from a farm on the Trnovo plateau. Cheerful, a little absent-minded, shouts across valleys, talks to his sheep by name (Bela, Črna, Pikica). Short sentences, lots of 'ej!' and 'veš', says ti at once and likes it back. Loves the mountains and the burja; hates fog, because the sheep get lost in it.",
+  "story": "Luka grazes the village's sheep on the meadow below the forest and takes them up to the plateau in summer. Bela, the white one, keeps getting lost, and every dog in Trnovo knows his whistle. His dream is a hut of his own up on the plateau.",
+  "likes": [
+    { "sl": "ovce", "en": "his sheep", "de": "seine Schafe", "it": "le sue pecore" },
+    { "sl": "burja", "en": "the burja (the cold north-east wind)", "de": "die Bora (der kalte Nordostwind)", "it": "la bora (il vento freddo da nord-est)" },
+    { "sl": "planina", "en": "the mountain pasture", "de": "die Alm", "it": "il pascolo di montagna" },
+    { "sl": "zvonci", "en": "the sheep bells", "de": "die Schafglocken", "it": "i campanacci" }
+  ],
+  "lines": {
+    "greet": [
+      { "sl": "Ej, živjo! Si ti novi?", "en": "Hey, hi! Are you the new one?", "de": "He, hallo! Bist du der Neue?", "it": "Ehi, ciao! Sei tu il nuovo?", "level": 0 },
+      { "sl": "Živjo! Luka sem. Pastir.", "en": "Hi! I am Luka. The shepherd.", "de": "Hallo! Ich bin Luka. Der Hirte.", "it": "Ciao! Sono Luka. Il pastore.", "level": 0 },
+      { "sl": "Ej, Jan! Kako si?", "en": "Hey, Jan! How are you?", "de": "He, Jan! Wie geht's dir?", "it": "Ehi, Jan! Come stai?", "level": 1 },
+      { "sl": "Jan! Ravno prav. Si videl Belo?", "en": "Jan! Just in time. Have you seen Bela?", "de": "Jan! Gerade recht. Hast du Bela gesehen?", "it": "Jan! Arrivi giusto. Hai visto Bela?", "level": 2 },
+      { "sl": "Ej, Jan, prijatelj! Pridi, ovce te že poznajo.", "en": "Hey, Jan, my friend! Come, the sheep know you already.", "de": "He, Jan, mein Freund! Komm, die Schafe kennen dich schon.", "it": "Ehi, Jan, amico mio! Vieni, le pecore ti conoscono già.", "level": 3 },
+      { "sl": "Jan! Brat! Danes greva na planino, ja?", "en": "Jan! Brother! Today we two go up to the pasture, yes?", "de": "Jan! Bruder! Heute gehen wir zwei auf die Alm, ja?", "it": "Jan! Fratello! Oggi noi due saliamo al pascolo, sì?", "level": 4, "when": ["morning", "afternoon"] }
+    ],
+    "thanks": [
+      { "sl": "Hvala ti, res si mi pomagal.", "en": "Thank you, you really helped me.", "de": "Danke dir, du hast mir echt geholfen.", "it": "Grazie, mi hai aiutato davvero." },
+      { "sl": "Ej, hvala! Brez tebe bi Bela še zdaj tavala.", "en": "Hey, thanks! Without you Bela would still be wandering.", "de": "He, danke! Ohne dich würde Bela jetzt noch herumirren.", "it": "Ehi, grazie! Senza di te Bela starebbe ancora vagando." },
+      { "sl": "Super si, Jan. Hvala!", "en": "You're great, Jan. Thanks!", "de": "Du bist super, Jan. Danke!", "it": "Sei grande, Jan. Grazie!" }
+    ],
+    "remember": [
+      { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
+      { "sl": "Ej, veš, še vedno mislim na {memory}!", "en": "Hey, you know, I still think of {memory}!", "de": "He, weißt du, ich denke noch oft an {memory}!", "it": "Ehi, sai, ricordo ancora {memory}!", "level": 2 },
+      { "sl": "Ko sem sam na planini, mislim na {memory}.", "en": "When I am alone on the pasture, I think of {memory}.", "de": "Wenn ich allein auf der Alm bin, denke ich an {memory}.", "it": "Quando sono solo al pascolo, ricordo {memory}.", "level": 3 }
+    ],
+    "idle": [
+      { "sl": "Bela je spet nekje v gozdu.", "en": "Bela is somewhere in the forest again.", "de": "Bela ist wieder irgendwo im Wald.", "it": "Bela è di nuovo da qualche parte nel bosco." },
+      { "sl": "Slišiš zvonce? Tam so, za smrekami.", "en": "Can you hear the bells? They are there, behind the spruces.", "de": "Hörst du die Glocken? Da sind sie, hinter den Fichten.", "it": "Senti i campanacci? Sono là, dietro gli abeti." },
+      { "sl": "Burja piha. Danes bo mrzlo, veš.", "en": "The burja is blowing. It will be cold today, you know.", "de": "Die Bora weht. Heute wird's kalt, weißt du.", "it": "Soffia la bora. Oggi farà freddo, sai." },
+      { "sl": "Megla, megla. Sovražim meglo.", "en": "Fog, fog. I hate fog.", "de": "Nebel, Nebel. Ich hasse Nebel.", "it": "Nebbia, nebbia. Odio la nebbia." }
+    ],
+    "cheer": [
+      { "sl": "Bravo!", "en": "Well done!", "de": "Gut gemacht!", "it": "Bravo!" },
+      { "sl": "Točno tako!", "en": "Exactly!", "de": "Genau!", "it": "Esatto!" },
+      { "sl": "Ej, to je to!", "en": "Hey, that's it!", "de": "He, genau so!", "it": "Ehi, proprio così!" },
+      { "sl": "Super! Še enkrat tako!", "en": "Great! Once more like that!", "de": "Super! Noch mal so!", "it": "Forte! Un'altra volta così!" }
+    ],
+    "comfort": [
+      { "sl": "Nič hudega. Še enkrat!", "en": "Never mind. Once more!", "de": "Macht nichts. Noch einmal!", "it": "Non fa niente. Ancora una volta!" },
+      { "sl": "Ah, ni panike. Tudi Bela se izgubi.", "en": "Ah, no panic. Bela gets lost too.", "de": "Ach, keine Panik. Bela verläuft sich auch.", "it": "Ah, niente panico. Anche Bela si perde." },
+      { "sl": "Skoraj! Daj še enkrat.", "en": "Almost! Give it another go.", "de": "Fast! Versuch's noch mal.", "it": "Quasi! Riprova." }
+    ],
+    "listen": [
+      { "sl": "Poslušaj …", "en": "Listen …", "de": "Hör zu …", "it": "Ascolta …" },
+      { "sl": "Psst. Slišiš?", "en": "Psst. Can you hear?", "de": "Pssst. Hörst du?", "it": "Psst. Senti?" },
+      { "sl": "Ušesa gor! Poslušaj.", "en": "Ears up! Listen.", "de": "Ohren auf! Hör zu.", "it": "Orecchie tese! Ascolta." }
+    ],
+    "bye": [
+      { "sl": "Adijo!", "en": "Bye!", "de": "Tschüss!", "it": "Ciao!" },
+      { "sl": "Čav, Jan! Grem po ovce.", "en": "Bye, Jan! I'm off to get the sheep. (čav: Primorska for bye)", "de": "Tschüss, Jan! Ich hol die Schafe. (čav: so sagt man in Primorska tschüss)", "it": "Ciao, Jan! Vado a prendere le pecore. (čav: il ciao della Primorska)" },
+      { "sl": "Se vidimo! Pazi na burjo.", "en": "See you! Watch out for the burja.", "de": "Bis bald! Pass auf die Bora auf.", "it": "Ci vediamo! Attento alla bora." }
+    ],
+    "gift": {
+      "liked": [
+        { "sl": "Ej, Jan! Kako si vedel? To imam res rad!", "en": "Hey, Jan! How did you know? I really like this!", "de": "He, Jan! Woher wusstest du das? Das mag ich echt!", "it": "Ehi, Jan! Come lo sapevi? Questo mi piace un sacco!" },
+        { "sl": "Zame? Super! Bela, poglej, kaj mi je dal Jan!", "en": "For me? Great! Bela, look what Jan gave me!", "de": "Für mich? Super! Bela, schau, was Jan mir geschenkt hat!", "it": "Per me? Forte! Bela, guarda cosa mi ha regalato Jan!" },
+        { "sl": "Ej, hvala, prijatelj! Točno to rabim na planini.", "en": "Hey, thanks, friend! Exactly what I need up on the pasture.", "de": "He, danke, Freund! Genau das brauche ich auf der Alm.", "it": "Ehi, grazie, amico! Proprio quello che mi serve al pascolo." }
+      ],
+      "ordinary": [
+        { "sl": "Ej, hvala, Jan! Lepo od tebe.", "en": "Hey, thanks, Jan! That's nice of you.", "de": "He, danke, Jan! Nett von dir.", "it": "Ehi, grazie, Jan! Gentile da parte tua." },
+        { "sl": "O, hvala! Ni treba, veš. Ampak hvala.", "en": "Oh, thanks! You don't have to, you know. But thanks.", "de": "Oh, danke! Das wäre nicht nötig gewesen, weißt du. Aber danke.", "it": "Oh, grazie! Non dovevi, sai. Ma grazie." }
+      ],
+      "rare": [
+        { "sl": "Ej, ej, ej! Tega pa še nisem imel! Hvala, brat!", "en": "Hey, hey, hey! I've never had this! Thanks, brother!", "de": "He, he, he! So was hatte ich noch nie! Danke, Bruder!", "it": "Ehi, ehi, ehi! Una cosa così non l'ho mai avuta! Grazie, fratello!" }
+      ]
+    }
+  }
+}

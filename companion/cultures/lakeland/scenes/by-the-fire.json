@@ -1,0 +1,169 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "by-the-fire",
+  "language": "en",
+  "title": { "en": "By the fire", "sl": "Ob ognju", "it": "Accanto al fuoco", "de": "Am Feuer" },
+  "emoji": "🔥",
+  "level": "A1",
+  "review": "reactions, second right answers: machine-written, not reviewed by a native speaker; variants: machine-written, not reviewed by a native speaker",
+  "art": "campfire",
+  "from": ["fire"],
+  "pack": "by-the-fire",
+  "objects": [
+    { "slot": "fire", "word": "fire" },
+    { "slot": "logs", "word": "log" },
+    { "slot": "kettle", "word": "kettle" },
+    { "slot": "stones", "word": "stone" },
+    { "slot": "smoke", "word": "smoke" },
+    { "slot": "sparks", "word": "spark" },
+    { "slot": "moon", "word": "moon" },
+    { "slot": "stars", "word": "star" },
+    { "slot": "tent", "word": "tent", "needs": { "building": "TENT" } },
+    { "slot": "axe", "word": "axe" },
+    { "slot": "bucket", "word": "bucket" },
+    { "slot": "stump", "word": "stump" }
+  ],
+  "people": [
+    { "id": "maggie", "name": "Granny Maggie", "emoji": "👵", "art": "grandma", "slot": "left", "villager": "maggie" },
+    { "id": "wilf", "name": "Old Wilf", "emoji": "👴", "art": "grandpa", "slot": "right", "villager": "wilf" },
+    { "id": "harry", "name": "Harry", "emoji": "🧒", "art": "child1", "slot": "back", "villager": "harry" }
+  ],
+  "happenings": [
+    {
+      "id": "hot-chocolate", "title": { "en": "Granny Maggie brings hot chocolate", "sl": "Babica Maggie prinese vročo čokolado", "it": "Nonna Maggie porta la cioccolata calda", "de": "Oma Maggie bringt heiße Schokolade" }, "who": "maggie",
+      "when": ["evening"], "chance": 0.6, "dialog": "hot-chocolate", "dialogs": ["hot-chocolate-apple", "hot-chocolate"], "reward": { "food": 20 }, "marker": "☕",
+      "memory": { "en": "the hot chocolate we drank by the fire", "sl": "vročo čokolado, ki sva jo pila ob ognju", "it": "la cioccolata calda che abbiamo bevuto accanto al fuoco", "de": "die heiße Schokolade, die wir am Feuer getrunken haben" }
+    },
+    {
+      "id": "firewood", "title": { "en": "Harry is gathering firewood", "sl": "Harry nabira drva", "it": "Harry raccoglie la legna", "de": "Harry sammelt Brennholz" }, "who": "harry",
+      "when": ["afternoon"], "chance": 0.5, "dialog": "firewood", "dialogs": ["firewood-count", "firewood"], "reward": { "wood": 20 }, "marker": "🪵",
+      "memory": { "en": "the firewood race you won", "sl": "tekmo s poleni, v kateri si zmagal ti", "it": "la gara della legna che hai vinto tu", "de": "das Wettrennen mit dem Holz, das du gewonnen hast" }
+    },
+    {
+      "id": "story", "title": { "en": "Old Wilf tells a story", "sl": "Stari Wilf pripoveduje zgodbo", "it": "Il vecchio Wilf racconta una storia", "de": "Der alte Wilf erzählt eine Geschichte" }, "who": "wilf",
+      "when": ["evening", "night"], "chance": 1, "stories": true, "reward": { "wisdom": 30 }, "marker": "📖",
+      "memory": { "en": "the evening I told you a story by the fire", "sl": "večer, ko sem ti ob ognju povedal zgodbo", "it": "la sera in cui ti ho raccontato una storia accanto al fuoco", "de": "den Abend, an dem ich dir am Feuer eine Geschichte erzählt habe" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "hot-chocolate",
+      "lines": [
+        { "who": "maggie", "en": "Good evening, love! Are you cold?", "sl": "Dober večer, srček! Te zebe?", "it": "Buonasera, tesoro! Hai freddo?", "de": "Guten Abend, Schatz! Ist dir kalt?", "fx": { "steam": 1 } },
+        { "choices": [
+          { "en": "Yes, Maggie, I'm a bit cold.", "sl": "Ja, Maggie, malo me zebe.", "it": "Sì, Maggie, ho un po' freddo.", "de": "Ja, Maggie, mir ist ein bisschen kalt.", "ok": true,
+            "reply": { "en": "Here's a hot chocolate. Come and sit by the fire.", "sl": "Izvoli, vroča čokolada. Pridi, sedi k ognju.", "it": "Ecco una cioccolata calda. Vieni, siediti vicino al fuoco.", "de": "Hier, eine heiße Schokolade. Komm, setz dich ans Feuer." } },
+          { "en": "Yes, Maggie, I have a bit cold.", "sl": "Ja, Maggie, malo me zebe.", "it": "Sì, Maggie, ho un po' freddo.", "de": "Ja, Maggie, mir ist ein bisschen kalt.",
+            "grammar": "to-be", "why": { "en": "Say I'm cold, with be. I have a cold means you are ill.", "sl": "Rečeš I'm cold, z be: zebe me. I have a cold pomeni, da si prehlajen.", "it": "Si dice I'm cold, con be: ho freddo. I have a cold vuol dire che hai il raffreddore.", "de": "Man sagt I'm cold, mit be: mir ist kalt. I have a cold heißt, du bist erkältet." },
+            "reply": { "en": "A cold? Oh dear! Honey and lemon for you, love.", "sl": "A cold (prehlad)? Ojej! Med in limona zate, srček.", "it": "A cold (un raffreddore)? Oh cielo! Miele e limone per te, tesoro.", "de": "A cold (eine Erkältung)? Oje! Honig und Zitrone für dich, Schatz." } }
+        ] },
+        { "who": "maggie", "en": "Careful, it's hot! Blow on it first.", "sl": "Pazi, vroča je! Najprej malo pihni.", "it": "Attento, scotta! Prima soffiaci sopra.", "de": "Vorsicht, heiß! Puste erst ein bisschen." },
+        { "choices": [
+          { "en": "Thank you, Maggie! It's delicious.", "sl": "Hvala, Maggie! Odlična je.", "it": "Grazie, Maggie! È buonissima.", "de": "Danke, Maggie! Die ist köstlich.", "ok": true,
+            "reply": { "en": "You're welcome, love. My secret is a spoon of honey.", "sl": "Ni za kaj, srček. Moja skrivnost je žlička medu.", "it": "Prego, tesoro. Il mio segreto è un cucchiaino di miele.", "de": "Gern geschehen, Schatz. Mein Geheimnis ist ein Löffel Honig." } },
+          { "en": "Please, Maggie! It's delicious.", "sl": "Prosim, Maggie! Odlična je.", "it": "Prego, Maggie! È buonissima.", "de": "Bitte, Maggie! Die ist köstlich.",
+            "why": { "en": "To thank someone, say thank you. Please is for asking for something.", "sl": "Za zahvalo rečeš thank you. Please je prosim, ko nekaj prosiš.", "it": "Per ringraziare si dice thank you. Please è per favore, quando chiedi qualcosa.", "de": "Zum Danken sagst du thank you. Please ist bitte, wenn du um etwas bittest." },
+            "reply": { "en": "Please? More already? Here, have a scone too!", "sl": "Please (prosim)? Že še? Na, vzemi še pogačico!", "it": "Please (per favore)? Già dell'altro? Ecco, prendi anche uno scone!", "de": "Please (bitte)? Schon mehr? Hier, nimm noch einen Scone dazu!", "fx": { "steam": 1 } } },
+          { "en": "Mmm, lovely! Thanks, Maggie.", "sl": "Mmm, odlično! Hvala, Maggie.", "it": "Mmm, buonissima! Grazie, Maggie.", "de": "Mmm, lecker! Danke, Maggie.", "ok": true,
+            "reply": { "en": "Glad you like it, love. It's my mum's recipe.", "sl": "Vesela sem, da ti je všeč, srček. To je mamin recept.", "it": "Sono contenta che ti piaccia, tesoro. È la ricetta della mia mamma.", "de": "Schön, dass sie dir schmeckt, Schatz. Das ist Mamas Rezept." } }
+        ] },
+        { "who": "maggie", "en": "Look up, love. So many stars! And there's the moon.", "sl": "Poglej gor, srček. Toliko zvezd! In tam je luna.", "it": "Guarda su, tesoro. Quante stelle! E lì c'è la luna.", "de": "Schau nach oben, Schatz. So viele Sterne! Und da ist der Mond.", "fx": { "steam": 0.4 } },
+        { "choices": [
+          { "en": "There are a lot of stars tonight!", "sl": "Nocoj je res veliko zvezd!", "it": "Stasera ci sono tantissime stelle!", "de": "Heute Nacht gibt es so viele Sterne!", "ok": true,
+            "reply": { "en": "Aye. Listen, a bell down in the valley. It's getting late!", "sl": "Ja. Poslušaj, zvon spodaj v dolini. Pozno je že!", "it": "Sì. Ascolta, una campana giù nella valle. Si fa tardi!", "de": "Ja. Hör mal, eine Glocke unten im Tal. Es wird spät!", "fx": { "bell": 1 } } },
+          { "en": "There is a lot of stars tonight!", "sl": "Nocoj je res veliko zvezd!", "it": "Stasera ci sono tantissime stelle!", "de": "Heute Nacht gibt es so viele Sterne!",
+            "grammar": "there-is-are", "why": { "en": "Stars is plural, so there are: there are a lot of stars.", "sl": "Stars je množina, zato there are: there are a lot of stars.", "it": "Stars è plurale, quindi there are: there are a lot of stars.", "de": "Stars ist Plural, also there are: there are a lot of stars." },
+            "reply": { "en": "Eh? Say that again, love. My old ears!", "sl": "Kaj? Povej še enkrat, srček. Moja stara ušesa!", "it": "Eh? Ripeti, tesoro. Le mie vecchie orecchie!", "de": "Hm? Sag das noch mal, Schatz. Meine alten Ohren!" } },
+          { "en": "There are a lot of stars this night!", "sl": "Nocoj je res veliko zvezd!", "it": "Stasera ci sono tantissime stelle!", "de": "Heute Nacht gibt es so viele Sterne!",
+            "why": { "en": "Say tonight, not this night.", "sl": "Nocoj je tonight, ne this night.", "it": "Stasera o stanotte: tonight, non this night.", "de": "Heute Abend oder heute Nacht: tonight, nicht this night." },
+            "reply": { "en": "This night? Ooh, you sound like Wilf and his poems!", "sl": "This night (ta noč)? Oho, zveniš kot Wilf s svojimi pesmimi!", "it": "This night (questa notte)? Oh, sembri Wilf con le sue poesie!", "de": "This night (diese Nacht)? Oh, du klingst wie Wilf mit seinen Gedichten!" } }
+        ] },
+        { "who": "maggie", "en": "Drink up, love, while it's hot. Good night!", "sl": "Popij, srček, dokler je vroča. Lahko noč!", "it": "Bevi, tesoro, finché è calda. Buonanotte!", "de": "Trink aus, Schatz, solange sie heiß ist. Gute Nacht!" }
+      ]
+    },
+    {
+      "id": "firewood",
+      "sky_stays": false,
+      "lines": [
+        { "who": "harry", "en": "Hiya! Rain is coming. Let's have a race! Who can bring more logs to the fire?", "sl": "Živjo! Dež bo. Pomeriva se! Kdo prinese več polen k ognju?", "it": "Ciao! Arriva la pioggia. Facciamo una gara! Chi porta più ciocchi al fuoco?", "de": "Hi! Gleich kommt Regen. Machen wir ein Wettrennen! Wer bringt mehr Holzscheite zum Feuer?", "sky": { "gloom": 0.4, "wind": 0.3 } },
+        { "choices": [
+          { "en": "Yes! Let's go!", "sl": "Ja! Greva!", "it": "Sì! Andiamo!", "de": "Ja! Los geht's!", "ok": true,
+            "reply": { "en": "Ready, steady, go!", "sl": "Pripravljeni, pozor, zdaj!", "it": "Pronti, partenza, via!", "de": "Auf die Plätze, fertig, los!" } },
+          { "en": "Yes! We go!", "sl": "Ja! Greva!", "it": "Sì! Andiamo!", "de": "Ja! Los geht's!",
+            "why": { "en": "To say we should do it together, use let's: let's go.", "sl": "Ko predlagaš, da nekaj naredita skupaj, rečeš let's: let's go.", "it": "Per proporre di fare qualcosa insieme si usa let's: let's go.", "de": "Wenn du etwas gemeinsam vorschlägst, sagst du let's: let's go." },
+            "reply": { "en": "We go? Where to? The logs are right here!", "sl": "We go? Kam? Drva so kar tukaj!", "it": "We go? Dove? La legna è proprio qui!", "de": "We go? Wohin? Das Holz ist doch hier!" } }
+        ] },
+        { "who": "harry", "en": "Stop! I've got five logs. How many have you got?", "sl": "Stop! Jaz imam pet polen. Koliko jih imaš ti?", "it": "Stop! Io ho cinque ciocchi. E tu quanti ne hai?", "de": "Stopp! Ich habe fünf Holzscheite. Wie viele hast du?" },
+        { "choices": [
+          { "en": "I've got six! I won!", "sl": "Jaz jih imam šest! Zmagal sem!", "it": "Io ne ho sei! Ho vinto!", "de": "Ich habe sechs! Ich habe gewonnen!", "ok": true,
+            "reply": { "en": "Oh no! OK, you won. Well done!", "sl": "Ojoj! No dobro, zmagal si. Bravo!", "it": "Uffa! Va bene, hai vinto tu. Bravo!", "de": "Oh nein! Okay, du hast gewonnen. Gut gemacht!" } },
+          { "en": "I've got six! I winned!", "sl": "Jaz jih imam šest! Zmagal sem!", "it": "Io ne ho sei! Ho vinto!", "de": "Ich habe sechs! Ich habe gewonnen!",
+            "grammar": "past-simple", "why": { "en": "Win is irregular: I won, not I winned.", "sl": "Win je nepravilni glagol: I won, ne I winned.", "it": "Win è un verbo irregolare: I won, non I winned.", "de": "Win ist ein unregelmäßiges Verb: I won, nicht I winned." },
+            "reply": { "en": "Winned? Is that a new game? Can I play?", "sl": "Winned? Je to nova igra? Se lahko igram tudi jaz?", "it": "Winned? È un gioco nuovo? Posso giocare anch'io?", "de": "Winned? Ist das ein neues Spiel? Darf ich mitspielen?" } }
+        ] },
+        { "who": "harry", "en": "Let's put them on the fire. Look at the sparks!", "sl": "Dajva jih na ogenj. Poglej iskre!", "it": "Mettiamoli nel fuoco. Guarda le scintille!", "de": "Legen wir sie ins Feuer. Schau mal, die Funken!", "fx": { "flare": 0.8 } },
+        { "choices": [
+          { "en": "Wow! But be careful, Harry!", "sl": "Uau! Ampak pazi, Harry!", "it": "Wow! Ma stai attento, Harry!", "de": "Wow! Aber pass auf, Harry!", "ok": true,
+            "reply": { "en": "Don't worry! Oh, it's raining! Race you home!", "sl": "Brez skrbi! O, dežuje! Kdo bo prej doma?", "it": "Tranquillo! Oh, piove! Facciamo a gara fino a casa!", "de": "Keine Sorge! Oh, es regnet! Wer zuerst zu Hause ist, hat gewonnen!", "sky": { "rain": 0.4, "gloom": 0.6 }, "fx": { "flare": 0.3 } } },
+          { "en": "Wow! But attention, Harry!", "sl": "Uau! Ampak pazi, Harry!", "it": "Wow! Ma stai attento, Harry!", "de": "Wow! Aber pass auf, Harry!",
+            "why": { "en": "To warn a friend, say be careful or watch out, not attention.", "sl": "Ko prijatelja opozoriš, rečeš be careful ali watch out (pazi), ne attention.", "it": "Per avvertire un amico si dice be careful o watch out (attento), non attention.", "de": "Um einen Freund zu warnen, sagst du be careful oder watch out (pass auf), nicht attention." },
+            "reply": { "en": "Attention? That's what my teacher says!", "sl": "Attention (pozor)? To pravi tudi moja učiteljica!", "it": "Attention (attenzione)? Lo dice sempre la mia maestra!", "de": "Attention (Achtung)? Das sagt meine Lehrerin auch!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "hot-chocolate-apple",
+      "lines": [
+        { "who": "maggie", "en": "Good evening, love! Here's your hot chocolate. I've got scones and apples too.", "sl": "Dober večer, srček! Izvoli, tvoja vroča čokolada. Imam tudi pogačice in jabolka.", "it": "Buonasera, tesoro! Ecco la tua cioccolata calda. Ho anche degli scone e delle mele.", "de": "Guten Abend, Schatz! Hier ist deine heiße Schokolade. Ich habe auch Scones und Äpfel.", "fx": { "steam": 1 } },
+        { "choices": [
+          { "en": "A apple, please!", "sl": "Jabolko, prosim!", "it": "Una mela, per favore!", "de": "Einen Apfel, bitte!",
+            "why": { "en": "Before a vowel sound, say an: an apple.", "sl": "Pred samoglasnikom rečeš an: an apple.", "it": "Davanti a un suono vocalico si dice an: an apple.", "de": "Vor einem Vokal sagt man an: an apple." },
+            "reply": { "en": "A… apple? Are your teeth chattering, love? Come closer to the fire!", "sl": "A … apple? Ti šklepetajo zobje, srček? Pridi bliže k ognju!", "it": "A… apple? Ti battono i denti, tesoro? Vieni più vicino al fuoco!", "de": "A … apple? Klappern dir die Zähne, Schatz? Komm näher ans Feuer!" } },
+          { "en": "An apple, please!", "sl": "Jabolko, prosim!", "it": "Una mela, per favore!", "de": "Einen Apfel, bitte!", "ok": true,
+            "reply": { "en": "Here you are. A red one, from my garden.", "sl": "Izvoli. Rdeče, z mojega vrta.", "it": "Ecco qua. Una bella rossa, del mio orto.", "de": "Bitte schön. Ein roter, aus meinem Garten." } },
+          { "en": "An scone, please!", "sl": "Pogačico, prosim!", "it": "Uno scone, per favore!", "de": "Einen Scone, bitte!",
+            "why": { "en": "Scone starts with a consonant sound, so say a: a scone.", "sl": "Scone se začne s soglasnikom, zato rečeš a: a scone.", "it": "Scone comincia con una consonante, quindi si dice a: a scone.", "de": "Scone fängt mit einem Konsonanten an, also sagt man a: a scone." },
+            "reply": { "en": "Ann Scone? Who's that, love? A friend of yours?", "sl": "Ann Scone? Kdo je to, srček? Tvoja prijateljica?", "it": "Ann Scone? Chi è, tesoro? Una tua amica?", "de": "Ann Scone? Wer ist das, Schatz? Eine Freundin von dir?" } }
+        ] },
+        { "who": "maggie", "en": "Shh! Listen, love. What's that noise?", "sl": "Pst! Poslušaj, srček. Kaj je ta zvok?", "it": "Ssst! Ascolta, tesoro. Cos'è questo rumore?", "de": "Pst! Hör mal, Schatz. Was ist das für ein Geräusch?", "sky": { "gloom": 0.5, "rain": 0.15 } },
+        { "choices": [
+          { "en": "Oh no, it's raining!", "sl": "O ne, dežuje!", "it": "Oh no, piove!", "de": "Oh nein, es regnet!", "ok": true,
+            "reply": { "en": "Aye, again! Put your hood up, love, and drink up.", "sl": "Ja, spet! Daj si kapuco na glavo, srček, in popij.", "it": "Eh sì, di nuovo! Mettiti il cappuccio, tesoro, e bevi.", "de": "Ja, schon wieder! Setz die Kapuze auf, Schatz, und trink aus.", "sky": { "rain": 0.5, "gloom": 0.7 } } },
+          { "en": "Oh no, it rains!", "sl": "O ne, dežuje!", "it": "Oh no, piove!", "de": "Oh nein, es regnet!",
+            "why": { "en": "For something happening right now, use the -ing form: it's raining.", "sl": "Za nekaj, kar se dogaja prav zdaj, uporabiš obliko na -ing: it's raining.", "it": "Per qualcosa che succede proprio adesso si usa la forma in -ing: it's raining.", "de": "Für etwas, das gerade jetzt passiert, nimmst du die -ing-Form: it's raining." },
+            "reply": { "en": "Aye, it rains here all year, love. But what about now?", "sl": "Ja, tukaj dežuje vse leto, srček. Pa zdaj?", "it": "Sì, qui piove tutto l'anno, tesoro. E adesso?", "de": "Ja, hier regnet es das ganze Jahr, Schatz. Und jetzt gerade?" } }
+        ] },
+        { "who": "maggie", "en": "Off you go home, love, before you get wet. Good night!", "sl": "Hitro domov, srček, preden se zmočiš. Lahko noč!", "it": "Corri a casa, tesoro, prima di bagnarti. Buonanotte!", "de": "Schnell nach Hause, Schatz, bevor du nass wirst. Gute Nacht!", "sky": { "rain": 0.6 } }
+      ]
+    },
+    {
+      "id": "firewood-count",
+      "count": { "from": "wood", "per": 10, "min": 2, "max": 20 },
+      "memory": { "en": "the afternoon we counted the logs", "sl": "popoldne, ko sva štela polena", "it": "il pomeriggio in cui abbiamo contato i ciocchi", "de": "den Nachmittag, an dem wir die Holzscheite gezählt haben" },
+      "lines": [
+        { "who": "harry", "en": "Hiya! Look at all this wood! I bet it's a hundred. Go on, count!", "sl": "Živjo! Poglej, koliko drv! Stavim, da jih je sto. Daj, preštej!", "it": "Ciao! Guarda quanta legna! Scommetto che sono cento. Dai, conta!", "de": "Hi! Schau mal, so viel Holz! Ich wette, es sind hundert. Los, zähl!" },
+        { "choices": [
+          { "en": "We've got {n} {!log|logs}!", "sl": "Imava {n} {!poleno|polena|polena|polen}!", "it": "Abbiamo {n} {!ciocco|ciocchi}!", "de": "Wir haben {n} {!Holzscheit|Holzscheite}!", "wrong_form": 1, "grammar": "plurals",
+            "why": { "en": "{One takes the singular|More than one takes -s}: {n} {log|logs}.", "sl": "{Eno je v ednini|Za več dodaš -s}: {n} {log|logs}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {log|logs}.", "de": "{Eins steht im Singular|Bei mehr als eins kommt -s dazu}: {n} {log|logs}." },
+            "reply": { "en": "Log? Just one? Look at this pile! Count again!", "sl": "Log (poleno)? Samo eno? Poglej ta kup! Štej še enkrat!", "it": "Log (ciocco)? Uno solo? Guarda che mucchio! Conta ancora!", "de": "Log (Scheit)? Nur eins? Schau dir den Haufen an! Zähl noch mal!" } },
+          { "en": "We've got {n} {log|logs}!", "sl": "Imava {n} {poleno|polena|polena|polen}!", "it": "Abbiamo {n} {ciocco|ciocchi}!", "de": "Wir haben {n} {Holzscheit|Holzscheite}!", "ok": true,
+            "reply": { "en": "Aw, not a hundred? OK, you're the champion counter!", "sl": "Ojoj, ne sto? No dobro, ti si prvak v štetju!", "it": "Uffa, non cento? Va bene, sei tu il campione dei conti!", "de": "Och, nicht hundert? Na gut, du bist der Zählmeister!" } },
+          { "en": "We has got {n} {log|logs}!", "sl": "Imava {n} {poleno|polena|polena|polen}!", "it": "Abbiamo {n} {ciocco|ciocchi}!", "de": "Wir haben {n} {Holzscheit|Holzscheite}!",
+            "why": { "en": "With we, say have: we've got, not we has got.", "sl": "Z we uporabiš have: we've got, ne we has got.", "it": "Con we si usa have: we've got, non we has got.", "de": "Mit we sagt man have: we've got, nicht we has got." },
+            "reply": { "en": "We has? You talk like a pirate! Arr! Say it again!", "sl": "We has? Govoriš kot pirat! Arr! Povej še enkrat!", "it": "We has? Parli come un pirata! Arr! Ripeti!", "de": "We has? Du redest wie ein Pirat! Arr! Sag's noch mal!" } }
+        ] },
+        { "who": "harry", "en": "Look at my log! It's huge!", "sl": "Poglej moje poleno! Ogromno je!", "it": "Guarda il mio ciocco! È enorme!", "de": "Schau mein Holzscheit an! Das ist riesig!" },
+        { "choices": [
+          { "en": "Mine is more big!", "sl": "Moje je bolj veliko!", "it": "Il mio è più grande!", "de": "Meins ist mehr groß!",
+            "why": { "en": "Short words like big take -er: bigger. More is for long words: more beautiful.", "sl": "Kratke besede, kot big, dobijo -er: bigger. More je za dolge besede: more beautiful.", "it": "Le parole corte come big prendono -er: bigger. More è per le parole lunghe: more beautiful.", "de": "Kurze Wörter wie big bekommen -er: bigger. More ist für lange Wörter: more beautiful." },
+            "reply": { "en": "More big? Then mine is more more big! Ha!", "sl": "More big? Potem je moje more more big! Ha!", "it": "More big? Allora il mio è more more big! Ah!", "de": "More big? Dann ist meins more more big! Ha!" } },
+          { "en": "Mine is bigger!", "sl": "Moje je večje!", "it": "Il mio è più grande!", "de": "Meins ist größer!", "ok": true,
+            "reply": { "en": "Is it? Let me see… Aw, you're right!", "sl": "Res? Da vidim … Ojoj, prav imaš!", "it": "Davvero? Fammi vedere… Uffa, hai ragione!", "de": "Echt? Lass mal sehen … Och, du hast recht!" } }
+        ] },
+        { "who": "harry", "en": "Let's put the big ones on the fire! Look at it go!", "sl": "Dajva velika na ogenj! Poglej, kako gori!", "it": "Mettiamo quelli grandi nel fuoco! Guarda come brucia!", "de": "Legen wir die großen ins Feuer! Schau, wie es brennt!", "fx": { "flare": 0.9 } }
+      ]
+    }
+  ]
+}

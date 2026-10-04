@@ -1,0 +1,322 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "v-kleti",
+  "title": { "sl": "V kleti", "en": "In the cellar", "de": "Im Keller", "it": "In cantina" },
+  "emoji": "🍷",
+  "level": "A2",
+  "review": "sl, en, de, it: machine-written, not reviewed by a native speaker; reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
+  "art": "cellar",
+  "from": ["house"],
+  "household": ["marko"],
+  "pack": "v-kleti",
+  "objects": [
+    { "slot": "barrel", "word": "sod", "pack": "praznik-martinovo" },
+    { "slot": "press", "word": "presa" },
+    { "slot": "stairs", "word": "stopnice", "pack": "dom-in-hisa" },
+    { "slot": "door", "word": "vrata", "pack": "dom-in-hisa" },
+    { "slot": "window", "word": "okno", "pack": "dom-in-hisa" },
+    { "slot": "candle", "word": "sveca", "pack": "v-cerkvi" },
+    { "slot": "jug", "word": "vrc" },
+    { "slot": "glass", "word": "kozarec", "pack": "v-kuhinji" },
+    { "slot": "crate", "word": "zaboj", "pack": "trzni-dan" },
+    { "slot": "shelf", "word": "polica", "pack": "v-hisi", "needs": { "level": 2 } },
+    { "slot": "bottle", "word": "steklenica", "pack": "trzni-dan", "needs": { "level": 2 } },
+    { "slot": "grapes", "word": "grozdje", "pack": "na-trznici", "needs": { "level": 2 } },
+    { "slot": "wine", "word": "vino", "pack": "v-kuhinji", "needs": { "level": 2 } },
+    { "slot": "ham", "word": "prsut", "needs": { "level": 3 } },
+    { "slot": "cheese", "word": "sir", "pack": "na-trznici", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "marko", "name": "Vinar Marko", "emoji": "🍇", "art": "winemaker", "slot": "barrel", "villager": "marko" },
+    { "id": "vida", "name": "Gostilničarka Vida", "emoji": "🍷", "art": "innkeeper", "slot": "stairs", "villager": "vida" }
+  ],
+  "happenings": [
+    { "id": "vida", "title": { "sl": "Vida pride po vino", "en": "Vida comes for wine", "de": "Vida holt Wein", "it": "Vida viene a prendere il vino" }, "who": "vida",
+      "when": ["morning"], "chance": 0.5, "dialog": "vida", "dialogs": ["vida-gostje", "vida-ples", "vida"], "reward": { "food": 20 }, "marker": "🏺",
+      "memory": { "sl": "jutro, ko sva točila vino za gostilno", "en": "the morning we drew wine for the inn", "de": "den Morgen, an dem wir Wein für das Gasthaus abgefüllt haben", "it": "la mattina in cui abbiamo spillato il vino per l'osteria" } },
+    { "id": "prsut", "title": { "sl": "Marko reže pršut", "en": "Marko is slicing pršut", "de": "Marko schneidet Pršut auf", "it": "Marko taglia il prosciutto" }, "who": "marko",
+      "when": ["afternoon"], "chance": 0.5, "dialog": "prsut", "dialogs": ["prsut-kruh", "prsut-noz", "prsut"], "reward": { "food": 25 }, "marker": "🍖", "needs": { "level": 3 },
+      "memory": { "sl": "pršut, ki sva ga jedla v kleti", "en": "the pršut we ate in the cellar", "de": "den Pršut, den wir im Keller gegessen haben", "it": "il prosciutto che abbiamo mangiato in cantina" } },
+    { "id": "pokusina", "title": { "sl": "Marko toči novo vino", "en": "Marko is drawing the new wine", "de": "Marko zapft den neuen Wein", "it": "Marko spilla il vino nuovo" }, "who": "marko",
+      "when": ["evening"], "chance": 0.5, "dialog": "pokusina", "dialogs": ["pokusina-kozarci", "pokusina-vsec", "pokusina"], "reward": { "wisdom": 20 }, "marker": "🍷",
+      "memory": { "sl": "večer, ko sva v temi pokušala vino", "en": "the evening we tasted wine in the dark", "de": "den Abend, an dem wir im Dunkeln Wein probiert haben", "it": "la sera in cui abbiamo assaggiato il vino al buio" } }
+  ],
+  "dialogs": [
+    {
+      "id": "vida",
+      "lines": [
+        { "who": "vida", "sl": "Dobro jutro, Jan! Marko je v vinogradu. Mi natočite vino za gostilno?", "en": "Good morning, Jan! Marko is at the vineyard. Will you draw me some wine for the inn?", "de": "Guten Morgen, Jan! Marko ist im Weinberg. Füllen Sie mir Wein für das Gasthaus ab?", "it": "Buongiorno, Jan! Marko è in vigna. Mi spilla del vino per l'osteria?" },
+        { "choices": [
+          { "sl": "Seveda. Koliko litrov potrebujete?", "en": "Of course. How many litres do you need?", "de": "Natürlich. Wie viele Liter brauchen Sie?", "it": "Certo. Quanti litri Le servono?", "ok": true,
+            "reply": { "sl": "Petindvajset. Za soboto, poroka bo.", "en": "Twenty-five. For Saturday, there's a wedding.", "de": "Fünfundzwanzig. Für Samstag, es gibt eine Hochzeit.", "it": "Venticinque. Per sabato, c'è un matrimonio." } },
+          { "sl": "Seveda. Koliko litri potrebujete?", "en": "Of course. How many litres do you need?", "de": "Natürlich. Wie viele Liter brauchen Sie?", "it": "Certo. Quanti litri Le servono?",
+            "grammar": "rodilnik-kolicina", "why": { "en": "Koliko takes the genitive plural: koliko litrov.", "de": "Koliko steht mit dem Genitiv Plural: koliko litrov.", "it": "Koliko regge il genitivo plurale: koliko litrov." },
+            "reply": { "sl": "Litri? Bitte … kako, prosim, Jan?", "en": "Litri? Bitte … sorry, Jan?", "de": "Litri? Bitte … wie bitte, Jan?", "it": "Litri? Bitte … come, prego, Jan?" } },
+          { "sl": "Seveda. Koliko litrov potrebuješ?", "en": "Of course. How many litres do you (ti) need?", "de": "Natürlich. Wie viele Liter brauchst du (ti)?", "it": "Certo. Quanti litri ti servono (ti)?",
+            "grammar": "ti-vi", "why": { "en": "Vida says vi to you, and you say vi back: potrebujete.", "de": "Vida sagt vi zu dir, und du sagst vi zurück: potrebujete.", "it": "Vida ti dà del vi, e tu lo dai a lei: potrebujete." },
+            "reply": { "sl": "Potrebuješ? Jan, v gostilni sem gospa Vida!", "en": "Potrebuješ (you, ti)? Jan, at the inn I'm Mrs Vida!", "de": "Potrebuješ (du)? Jan, im Gasthaus bin ich Frau Vida!", "it": "Potrebuješ (tu)? Jan, all'osteria sono la signora Vida!" } }
+        ] },
+        { "who": "vida", "sl": "Rebulo, prosim. Tukaj je lijak, tam je vrč.", "en": "Rebula, please. Here's the funnel, there's the jug.", "de": "Rebula, bitte. Hier ist der Trichter, da ist der Krug.", "it": "Ribolla, per favore. Ecco l'imbuto, là c'è la brocca." },
+        { "choices": [
+          { "sl": "Odprem pipo. Povejte, ko je dovolj!", "en": "I'll open the tap. Tell me when it's enough!", "de": "Ich mache den Hahn auf. Sagen Sie, wenn es reicht!", "it": "Apro il rubinetto. Mi dica quando basta!", "ok": true,
+            "reply": { "sl": "Še … še … Stop! Dovolj!", "en": "More … more … stop! Enough!", "de": "Mehr … mehr … Stopp! Genug!", "it": "Ancora … ancora … Stop! Basta!", "fx": { "tap": 1 } } },
+          { "sl": "Odprem pipa. Povejte, ko je dovolj!", "en": "I'll open the tap. Tell me when it's enough!", "de": "Ich mache den Hahn auf. Sagen Sie, wenn es reicht!", "it": "Apro il rubinetto. Mi dica quando basta!",
+            "grammar": "tozilnik", "why": { "en": "What you open is the object: pipo (accusative). Pipa is the nominative.", "de": "Was du öffnest, ist das Objekt: pipo (Akkusativ). Pipa ist der Nominativ.", "it": "Ciò che apri è il complemento oggetto: pipo (accusativo). Pipa è il nominativo." },
+            "reply": { "sl": "Pipa? Marko ne kadi, Jan!", "en": "Pipa (a pipe)? Marko doesn't smoke, Jan!", "de": "Pipa (Pfeife)? Marko raucht nicht, Jan!", "it": "Pipa? Marko non fuma, Jan!" } },
+          { "sl": "Zaprem pipo. Povejte, ko je dovolj!", "en": "I'll close the tap. Tell me when it's enough!", "de": "Ich mache den Hahn zu. Sagen Sie, wenn es reicht!", "it": "Chiudo il rubinetto. Mi dica quando basta!",
+            "why": { "en": "Zaprem is 'I close'. For the wine to run: odprem (I open).", "de": "Zaprem heißt ‚ich schließe‘. Damit der Wein läuft: odprem (ich öffne).", "it": "Zaprem significa 'chiudo'. Perché il vino scorra: odprem (apro)." },
+            "reply": { "sl": "Zaprem? Potem pa ne bo nič teklo, Jan.", "en": "Zaprem (I close)? Then nothing will run, Jan.", "de": "Zaprem (ich schließe)? Dann läuft ja nichts, Jan.", "it": "Zaprem (chiudo)? Allora non esce niente, Jan." } }
+        ] },
+        { "who": "vida", "sl": "Vrč drži pet litrov. Koliko vrčev je to?", "en": "The jug holds five litres. How many jugs is that?", "de": "Der Krug fasst fünf Liter. Wie viele Krüge sind das?", "it": "La brocca tiene cinque litri. Quante brocche sono?" },
+        { "choices": [
+          { "sl": "Pet vrčev, gospa Vida.", "en": "Five jugs, Mrs Vida.", "de": "Fünf Krüge, Frau Vida.", "it": "Cinque brocche, signora Vida.", "ok": true,
+            "reply": { "sl": "Bravo! Vi bi lahko delali pri meni v gostilni.", "en": "Bravo! You could work for me at the inn.", "de": "Bravo! Sie könnten bei mir im Gasthaus arbeiten.", "it": "Bravo! Potrebbe lavorare da me all'osteria." } },
+          { "sl": "Pet vrči, gospa Vida.", "en": "Five jugs, Mrs Vida.", "de": "Fünf Krüge, Frau Vida.", "it": "Cinque brocche, signora Vida.",
+            "grammar": "stevila-samostalniki", "why": { "en": "From five on, counting takes the genitive plural: pet vrčev. Vrči goes with three and four (trije vrči).", "de": "Ab fünf steht beim Zählen der Genitiv Plural: pet vrčev. Vrči steht bei drei und vier (trije vrči).", "it": "Da cinque in poi si conta con il genitivo plurale: pet vrčev. Vrči va con tre e quattro (trije vrči)." },
+            "reply": { "sl": "Pet … vrči? Ach so … kako, prosim?", "en": "Pet … vrči? Ach so … sorry, how's that?", "de": "Pet … vrči? Ach so … wie bitte?", "it": "Pet … vrči? Ach so … come, prego?" } },
+          { "sl": "Pet litrov, gospa Vida.", "en": "Five litres, Mrs Vida.", "de": "Fünf Liter, Frau Vida.", "it": "Cinque litri, signora Vida.",
+            "why": { "en": "She asks how many jugs: that is the answer to give, in jugs (vrč). Pet litrov is just one jug.", "de": "Sie fragt, wie viele Krüge: die Antwort in Krügen (vrč). Pet litrov ist nur ein Krug.", "it": "Chiede quante brocche: la risposta va data in brocche (vrč). Pet litrov è una brocca sola." },
+            "reply": { "sl": "Pet litrov? Ne, ne, petindvajset jih rabim!", "en": "Five litres? No, no, I need twenty-five!", "de": "Fünf Liter? Nein, nein, ich brauche fünfundzwanzig!", "it": "Cinque litri? No, no, me ne servono venticinque!" } }
+        ] },
+        { "who": "vida", "sl": "Hvala, Jan. V soboto pridite na poroko, jota bo!", "en": "Thank you, Jan. Come to the wedding on Saturday, there'll be jota!", "de": "Danke, Jan. Kommen Sie am Samstag zur Hochzeit, es gibt Jota!", "it": "Grazie, Jan. Sabato venga al matrimonio, ci sarà la jota!" }
+      ]
+    },
+    {
+      "id": "prsut",
+      "lines": [
+        { "who": "marko", "sl": "Ciao, Jan! Si lačen? Pršut je s Krasa, sir iz Tolmina.", "en": "Ciao, Jan! Are you hungry? The pršut is from the Karst, the cheese from Tolmin.", "de": "Ciao, Jan! Hast du Hunger? Der Pršut ist aus dem Karst, der Käse aus Tolmin.", "it": "Ciao, Jan! Hai fame? Il prosciutto è del Carso, il formaggio di Tolmino." },
+        { "choices": [
+          { "sl": "Ja, zelo sem lačen!", "en": "Yes, I'm very hungry!", "de": "Ja, ich habe großen Hunger!", "it": "Sì, ho una gran fame!", "ok": true,
+            "reply": { "sl": "Allora, sedi. Režem.", "en": "Allora, sit down. I'm slicing.", "de": "Allora, setz dich. Ich schneide.", "it": "Allora, siediti. Taglio." } },
+          { "sl": "Ja, zelo sem žejen!", "en": "Yes, I'm very thirsty!", "de": "Ja, ich habe großen Durst!", "it": "Sì, ho una gran sete!",
+            "why": { "en": "Žejen is thirsty. He asked whether you are hungry: lačen.", "de": "Žejen heißt durstig. Er hat gefragt, ob du Hunger hast: lačen.", "it": "Žejen significa assetato. Ti ha chiesto se hai fame: lačen." },
+            "reply": { "sl": "Žejen? Allora, najprej vino, ha ha!", "en": "Žejen (thirsty)? Allora, wine first, ha ha!", "de": "Žejen (durstig)? Allora, zuerst der Wein, ha ha!", "it": "Žejen (assetato)? Allora, prima il vino, ah ah!" } },
+          { "sl": "Ja, zelo imam lačen!", "en": "Yes, I have very hungry!", "de": "Ja, ich habe sehr hungrig!", "it": "Sì, ho molto affamato!",
+            "grammar": "biti", "why": { "en": "Hungry is something you are: sem lačen, with biti (to be), not imeti (to have).", "de": "Hungrig ist man: sem lačen, mit biti (sein), nicht imeti (haben).", "it": "Affamato è qualcosa che si è: sem lačen, con biti (essere), non imeti (avere)." },
+            "reply": { "sl": "Imaš lačen? Kaj pa imaš, Jan? Ha ha!", "en": "Imaš lačen (you have hungry)? What have you got, Jan? Ha ha!", "de": "Imaš lačen (du hast hungrig)? Was hast du denn, Jan? Ha ha!", "it": "Imaš lačen (hai affamato)? Che cos'hai, Jan? Ah ah!" } }
+        ] },
+        { "who": "marko", "sl": "Tanko ali debelo? Pršut mora biti tanek, kot papir.", "en": "Thin or thick? Pršut has to be thin, like paper.", "de": "Dünn oder dick? Pršut muss dünn sein, wie Papier.", "it": "Sottile o spesso? Il prosciutto dev'essere sottile, come la carta." },
+        { "choices": [
+          { "sl": "Tanko, prosim. In malo sira.", "en": "Thin, please. And a little cheese.", "de": "Dünn, bitte. Und ein bisschen Käse.", "it": "Sottile, per favore. E un po' di formaggio.", "ok": true,
+            "reply": { "sl": "Bravo! Izvoli. In kruh zraven.", "en": "Bravo! Here you go. And bread with it.", "de": "Bravo! Bitte schön. Und Brot dazu.", "it": "Bravo! Ecco. E del pane per accompagnare." } },
+          { "sl": "Tanko, prosim. Pa kozarec vina?", "en": "Thin, please. And a glass of wine?", "de": "Dünn, bitte. Und ein Glas Wein?", "it": "Sottile, per favore. E un bicchiere di vino?", "ok": true,
+            "reply": { "sl": "Seveda! Pršut brez vina? Nikoli!", "en": "Of course! Pršut without wine? Never!", "de": "Natürlich! Pršut ohne Wein? Niemals!", "it": "Certo! Prosciutto senza vino? Mai!" } },
+          { "sl": "Tanko, prosim. In malo sir.", "en": "Thin, please. And a little cheese.", "de": "Dünn, bitte. Und ein bisschen Käse.", "it": "Sottile, per favore. E un po' di formaggio.",
+            "grammar": "rodilnik-kolicina", "why": { "en": "Malo (a little) takes the genitive: malo sira, malo kruha.", "de": "Malo (ein bisschen) steht mit dem Genitiv: malo sira, malo kruha.", "it": "Malo (un po') regge il genitivo: malo sira, malo kruha." },
+            "reply": { "sl": "Malo sir? Allora … kaj je to, malo sir?", "en": "Malo sir? Allora … what's that, malo sir?", "de": "Malo sir? Allora … was ist das, malo sir?", "it": "Malo sir? Allora … che cos'è, malo sir?" } }
+        ] },
+        { "who": "marko", "sl": "Veš, pršut se suši eno leto. Burja ga naredi dobrega.", "en": "You know, pršut dries for a year. The burja is what makes it good.", "de": "Weißt du, Pršut trocknet ein Jahr lang. Die Bora macht ihn gut.", "it": "Sai, il prosciutto si asciuga per un anno. È la bora che lo fa buono." },
+        { "choices": [
+          { "sl": "Eno leto? To je dolgo!", "en": "A year? That's long!", "de": "Ein Jahr? Das ist lang!", "it": "Un anno? È tanto!", "ok": true,
+            "reply": { "sl": "Dolgo, ja. Ampak splača se. Poskusi!", "en": "Long, yes. But it's worth it. Try it!", "de": "Lang, ja. Aber es lohnt sich. Probier!", "it": "Tanto, sì. Ma ne vale la pena. Assaggia!" } },
+          { "sl": "Eno leto? To je dolga!", "en": "A year? That's long (she)!", "de": "Ein Jahr? Das ist lang (sie)!", "it": "Un anno? È lunga!",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "To (that) goes with the neuter: to je dolgo.", "de": "To (das) steht mit dem Neutrum: to je dolgo.", "it": "To (ciò) va con il neutro: to je dolgo." },
+            "reply": { "sl": "Dolga? Kdo je dolga? Pot do Brd?", "en": "Dolga (long, she)? Who's long? The road to Brda?", "de": "Dolga (lang, sie)? Wer ist lang? Der Weg nach Brda?", "it": "Dolga (lunga)? Chi è lunga? La strada per il Collio?" } }
+        ] }
+      ]
+    },
+    {
+      "id": "pokusina",
+      "lines": [
+        { "who": "marko", "sl": "Jan! Pridi dol. Novo vino je pripravljeno. Poskusiva!", "en": "Jan! Come down. The new wine is ready. Let's taste it, you and me!", "de": "Jan! Komm runter. Der neue Wein ist fertig. Probieren wir zwei!", "it": "Jan! Scendi. Il vino nuovo è pronto. Assaggiamolo noi due!" },
+        { "choices": [
+          { "sl": "Že grem dol!", "en": "I'm coming down!", "de": "Ich komme schon runter!", "it": "Scendo subito!", "ok": true,
+            "reply": { "sl": "Pazi, stopnice so strme.", "en": "Careful, the stairs are steep.", "de": "Vorsicht, die Treppe ist steil.", "it": "Attento, le scale sono ripide." } },
+          { "sl": "Že grem spodaj!", "en": "I'm going (being) down there!", "de": "Ich gehe (bin) schon unten!", "it": "Vado (sto) già di sotto!",
+            "grammar": "prislovi", "why": { "en": "Going somewhere is a direction: dol (down). Spodaj is where something is (down there).", "de": "Irgendwohin gehen ist eine Richtung: dol (hinunter). Spodaj ist, wo etwas ist (unten).", "it": "Andare da qualche parte è una direzione: dol (giù). Spodaj è dove si trova qualcosa (di sotto)." },
+            "reply": { "sl": "Spodaj? Jaz sem spodaj. Ti si še zgoraj!", "en": "Spodaj (down here)? I'm down here. You're still up there!", "de": "Spodaj (hier unten)? Ich bin hier unten. Du bist noch oben!", "it": "Spodaj (quaggiù)? Quaggiù ci sono io. Tu sei ancora di sopra!" } }
+        ] },
+        { "who": "marko", "sl": "Tukaj, pri sodu. Kozarec drži pod pipo … tako.", "en": "Here, by the barrel. Hold the glass under the tap … like that.", "de": "Hier, beim Fass. Halt das Glas unter den Hahn … so.", "it": "Qui, vicino alla botte. Tieni il bicchiere sotto il rubinetto … così.",
+          "fx": { "tap": 1 } },
+        { "choices": [
+          { "sl": "Mmm! Kakšno vino je to?", "en": "Mmm! What kind of wine is this?", "de": "Mmm! Was für ein Wein ist das?", "it": "Mmm! Che vino è questo?", "ok": true,
+            "reply": { "sl": "Teran. Rdeče vino s Krasa.", "en": "Teran. A red wine from the Karst.", "de": "Teran. Ein Rotwein aus dem Karst.", "it": "Terrano. Un vino rosso del Carso." } },
+          { "sl": "Mmm! Je to teran?", "en": "Mmm! Is this teran?", "de": "Mmm! Ist das Teran?", "it": "Mmm! È terrano?", "ok": true,
+            "reply": { "sl": "Bravo! Teran s Krasa. Ga poznaš!", "en": "Bravo! Teran from the Karst. You know it!", "de": "Bravo! Teran aus dem Karst. Du kennst ihn!", "it": "Bravo! Terrano del Carso. Lo conosci!" } },
+          { "sl": "Mmm! Kakšen vino je to?", "en": "Mmm! What kind of wine is this?", "de": "Mmm! Was für ein Wein ist das?", "it": "Mmm! Che vino è questo?",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Vino is neuter: kakšno vino. Kakšen is for masculine words (kakšen sir).", "de": "Vino ist sächlich: kakšno vino. Kakšen steht bei männlichen Wörtern (kakšen sir).", "it": "Vino è neutro: kakšno vino. Kakšen è per le parole maschili (kakšen sir)." },
+            "reply": { "sl": "Kakšen vino? Ha ha, Jan, vino ni sir!", "en": "Kakšen vino? Ha ha, Jan, wine isn't cheese!", "de": "Kakšen vino? Ha ha, Jan, Wein ist doch kein Käse!", "it": "Kakšen vino? Ah ah, Jan, il vino non è formaggio!" } }
+        ] },
+        { "who": "marko", "sl": "Oj! Sveča je ugasnila. Zdaj je čisto temno.", "en": "Oops! The candle has gone out. Now it's completely dark.", "de": "Hoppla! Die Kerze ist ausgegangen. Jetzt ist es ganz dunkel.", "it": "Ops! La candela si è spenta. Adesso è buio pesto.",
+          "fx": { "candle": 0, "tap": 0 } },
+        { "choices": [
+          { "sl": "Ne vidim ničesar! Kje so vžigalice?", "en": "I can't see anything! Where are the matches?", "de": "Ich sehe nichts! Wo sind die Streichhölzer?", "it": "Non vedo niente! Dove sono i fiammiferi?", "ok": true,
+            "reply": { "sl": "V mojem žepu. Allora … luč!", "en": "In my pocket. Allora … light!", "de": "In meiner Tasche. Allora … Licht!", "it": "In tasca mia. Allora … luce!", "fx": { "candle": 1 } } },
+          { "sl": "Vidim ničesar! Kje so vžigalice?", "en": "I can see nothing! Where are the matches?", "de": "Ich sehe nichts (ohne ne)! Wo sind die Streichhölzer?", "it": "Vedo niente! Dove sono i fiammiferi?",
+            "grammar": "zanikanje", "why": { "en": "Slovene says no twice: ne vidim ničesar (I don't see nothing).", "de": "Im Slowenischen wird doppelt verneint: ne vidim ničesar (ich sehe nicht nichts).", "it": "In sloveno la negazione è doppia: ne vidim ničesar (non vedo niente)." },
+            "reply": { "sl": "Vidiš? Potem pa ti poišči vžigalice!", "en": "Vidiš (you see)? Then you find the matches!", "de": "Vidiš (du siehst)? Dann such du die Streichhölzer!", "it": "Vidiš (vedi)? Allora cerca tu i fiammiferi!" } }
+        ] },
+        { "who": "marko", "sl": "Tako. Zdaj pa na zdravje, Jan! Na novo vino!", "en": "There. And now cheers, Jan! To the new wine!", "de": "So. Und jetzt Prost, Jan! Auf den neuen Wein!", "it": "Ecco. E adesso salute, Jan! Al vino nuovo!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "vida-gostje",
+      "lines": [
+        { "who": "vida", "sl": "Dobro jutro, Jan! Danes pride dvajset gostov iz Nemčije. Mi pomagate?", "en": "Good morning, Jan! Twenty guests from Germany are coming today. Will you help me?", "de": "Guten Morgen, Jan! Heute kommen zwanzig Gäste aus Deutschland. Helfen Sie mir?", "it": "Buongiorno, Jan! Oggi arrivano venti ospiti dalla Germania. Mi aiuta?" },
+        { "choices": [
+          { "sl": "Seveda vas pomagam. Kaj naj naredim?", "en": "Of course I'll help you (vas, as the object). What should I do?", "de": "Natürlich helfe ich Sie. Was soll ich tun?", "it": "Certo che La aiuto (vas: oggetto). Cosa devo fare?",
+            "grammar": "dajalnik", "why": { "en": "Pomagati (to help) takes the dative in Slovene: pomagam vam (I help to you).", "de": "Pomagati (helfen) steht mit dem Dativ: pomagam vam, wie ich helfe Ihnen.", "it": "Pomagati (aiutare) in sloveno regge il dativo: pomagam vam (aiuto a Lei)." },
+            "reply": { "sl": "Vas? Celo vas? Bitte, danes samo gostilno, Jan!", "en": "Vas (the village)? The whole village? Bitte, just the inn today, Jan!", "de": "Vas (das Dorf)? Das ganze Dorf? Bitte, heute nur das Gasthaus, Jan!", "it": "Vas (il villaggio)? Tutto il villaggio? Bitte, oggi solo l'osteria, Jan!" } },
+          { "sl": "Seveda vam pomagam. Kaj naj naredim?", "en": "Of course I'll help you. What should I do?", "de": "Natürlich helfe ich Ihnen. Was soll ich tun?", "it": "Certo che La aiuto. Cosa devo fare?", "ok": true,
+            "reply": { "sl": "Natočite vrč terana. Gostje imajo radi rdeče vino.", "en": "Draw a jug of teran. The guests like red wine.", "de": "Füllen Sie einen Krug Teran ab. Die Gäste mögen Rotwein.", "it": "Spilli una brocca di terrano. Agli ospiti piace il vino rosso.", "fx": { "tap": 1 } } }
+        ] },
+        { "who": "vida", "sl": "Tako, vrč je poln. Joj, zgoraj že čakajo!", "en": "There, the jug is full. Oh dear, they're already waiting upstairs!", "de": "So, der Krug ist voll. Oje, oben warten sie schon!", "it": "Ecco, la brocca è piena. Oddio, di sopra aspettano già!",
+          "fx": { "tap": 0 } },
+        { "choices": [
+          { "sl": "Naj ga nesem goste? Sem hiter.", "en": "Shall I carry it the guests (accusative)? I'm quick.", "de": "Soll ich ihn die Gäste bringen? Ich bin schnell.", "it": "Lo porto gli ospiti? Sono veloce.",
+            "grammar": "dajalnik", "why": { "en": "Nesti komu: the ones you take it to are in the dative: gostom. Goste (accusative) would be carrying the guests themselves.", "de": "Nesti komu: wem man es bringt, steht im Dativ: gostom. Goste (Akkusativ) hieße, die Gäste selbst zu tragen.", "it": "Nesti komu: a chi lo porti va al dativo: gostom. Goste (accusativo) vorrebbe dire portare in braccio gli ospiti." },
+            "reply": { "sl": "Goste nesti? Jan, gostje imajo svoje noge!", "en": "Carry the guests? Jan, the guests have legs of their own!", "de": "Die Gäste tragen? Jan, die Gäste haben eigene Beine!", "it": "Portare gli ospiti? Jan, gli ospiti hanno le loro gambe!" } },
+          { "sl": "Naj ga nesem gostom? Sem hiter.", "en": "Shall I take it to the guests? I'm quick.", "de": "Soll ich ihn den Gästen bringen? Ich bin schnell.", "it": "Lo porto agli ospiti? Sono veloce.", "ok": true,
+            "reply": { "sl": "Ja, prosim! Vi ste zlato, Jan.", "en": "Yes, please! You're a treasure, Jan.", "de": "Ja, bitte! Sie sind Gold wert, Jan.", "it": "Sì, per favore! Lei è un tesoro, Jan." } },
+          { "sl": "Naj ga nesem gostov? Sem hiter.", "en": "Shall I take it of the guests? I'm quick.", "de": "Soll ich ihn der Gäste bringen? Ich bin schnell.", "it": "Lo porto degli ospiti? Sono veloce.",
+            "grammar": "dajalnik", "why": { "en": "Gostov is the genitive (dvajset gostov). Taking something to someone is the dative: gostom.", "de": "Gostov ist der Genitiv (dvajset gostov). Jemandem etwas bringen: der Dativ, gostom.", "it": "Gostov è il genitivo (dvajset gostov). Portare qualcosa a qualcuno: il dativo, gostom." },
+            "reply": { "sl": "Gostov? Kako, prosim? Bitte, še enkrat, Jan.", "en": "Gostov? Sorry? Bitte, once more, Jan.", "de": "Gostov? Wie bitte? Bitte, noch einmal, Jan.", "it": "Gostov? Come, prego? Bitte, ancora una volta, Jan." } }
+        ] },
+        { "who": "vida", "sl": "Hvala, Jan! Danes ste vi moj natakar.", "en": "Thank you, Jan! Today you're my waiter.", "de": "Danke, Jan! Heute sind Sie mein Kellner.", "it": "Grazie, Jan! Oggi Lei è il mio cameriere." }
+      ]
+    },
+    {
+      "id": "vida-ples",
+      "lines": [
+        { "who": "vida", "sl": "Dobro jutro, Jan! Joj, včeraj je bilo v gostilni polno ljudi. Popili so vse vino!", "en": "Good morning, Jan! Oh my, yesterday the inn was full of people. They drank all the wine!", "de": "Guten Morgen, Jan! Oje, gestern war das Gasthaus voller Leute. Sie haben den ganzen Wein getrunken!", "it": "Buongiorno, Jan! Oddio, ieri l'osteria era piena di gente. Hanno bevuto tutto il vino!" },
+        { "choices": [
+          { "sl": "Vem. Tudi jaz sem tam!", "en": "I know. I am there too!", "de": "Ich weiß. Ich bin auch da!", "it": "Lo so. Ci sono anch'io!",
+            "grammar": "pretekli-cas", "why": { "en": "It was yesterday: the past, sem bil. Sem tam is now.", "de": "Es war gestern: die Vergangenheit, sem bil. Sem tam ist jetzt.", "it": "Era ieri: il passato, sem bil. Sem tam è adesso." },
+            "reply": { "sl": "Zdaj? Zdaj ste tukaj, v kleti, Jan!", "en": "Now? Now you're here, in the cellar, Jan!", "de": "Jetzt? Jetzt sind Sie hier, im Keller, Jan!", "it": "Adesso? Adesso è qui, in cantina, Jan!" } },
+          { "sl": "Vem. Tudi jaz sem bil tam!", "en": "I know. I was there too!", "de": "Ich weiß. Ich war auch da!", "it": "Lo so. C'ero anch'io!", "ok": true,
+            "reply": { "sl": "Res? Toliko ljudi je bilo, da vas sploh nisem opazila!", "en": "Really? There were so many people I didn't even notice you!", "de": "Wirklich? Es waren so viele Leute, ich habe Sie gar nicht bemerkt!", "it": "Davvero? C'era così tanta gente che non L'ho nemmeno notato!" } },
+          { "sl": "Vem. Tudi jaz bil sem tam!", "en": "I know. I was there too! (sem in the wrong place)", "de": "Ich weiß. Ich war auch da! (sem an der falschen Stelle)", "it": "Lo so. C'ero anch'io! (sem al posto sbagliato)",
+            "grammar": "naslonke", "why": { "en": "Sem is a clitic: it stands second, right after the first part of the sentence: tudi jaz sem bil.", "de": "Sem ist ein Klitikon: es steht an zweiter Stelle, gleich nach dem ersten Satzteil: tudi jaz sem bil.", "it": "Sem è un clitico: sta al secondo posto, subito dopo la prima parte della frase: tudi jaz sem bil." },
+            "reply": { "sl": "Hm? Zvenite kot moji gostje iz Nemčije, Jan.", "en": "Hm? You sound like my guests from Germany, Jan.", "de": "Hm? Sie klingen wie meine Gäste aus Deutschland, Jan.", "it": "Mm? Parla come i miei ospiti tedeschi, Jan." } }
+        ] },
+        { "who": "vida", "sl": "Ste tudi vi plesali, Jan? Glasba je igrala do treh zjutraj!", "en": "Did you dance too, Jan? The music played until three in the morning!", "de": "Haben Sie auch getanzt, Jan? Die Musik hat bis drei Uhr früh gespielt!", "it": "Ha ballato anche Lei, Jan? La musica è andata avanti fino alle tre del mattino!" },
+        { "choices": [
+          { "sl": "Ja, plesal sem vso noč!", "en": "Yes, I danced all night!", "de": "Ja, ich habe die ganze Nacht getanzt!", "it": "Sì, ho ballato tutta la notte!", "ok": true,
+            "reply": { "sl": "Bravo! Zato ste danes tako zaspani, ha ha.", "en": "Bravo! That's why you're so sleepy today, ha ha.", "de": "Bravo! Darum sind Sie heute so müde, haha.", "it": "Bravo! Ecco perché oggi è così assonnato, ah ah." } },
+          { "sl": "Ja, plesal sem vsa noč!", "en": "Yes, I danced, the whole night (subject)!", "de": "Ja, ich habe getanzt, die ganze Nacht (Nominativ)!", "it": "Sì, ho ballato, tutta la notte (soggetto)!",
+            "grammar": "kdaj-cas", "why": { "en": "How long something lasts takes the accusative: vso noč, ves dan.", "de": "Wie lange etwas dauert, steht im Akkusativ: vso noč, ves dan.", "it": "Quanto dura qualcosa va all'accusativo: vso noč, ves dan." },
+            "reply": { "sl": "Noč je plesala? Ha ha, kot pesnik, Jan!", "en": "The night danced? Ha ha, like a poet, Jan!", "de": "Die Nacht hat getanzt? Haha, wie ein Dichter, Jan!", "it": "La notte ha ballato? Ah ah, come un poeta, Jan!" } },
+          { "sl": "Ja, plešem vso noč!", "en": "Yes, I dance all night!", "de": "Ja, ich tanze die ganze Nacht!", "it": "Sì, ballo tutta la notte!",
+            "grammar": "pretekli-cas", "why": { "en": "It was yesterday: the past, plesal sem. Plešem is the present.", "de": "Es war gestern: die Vergangenheit, plesal sem. Plešem ist die Gegenwart.", "it": "Era ieri: il passato, plesal sem. Plešem è il presente." },
+            "reply": { "sl": "Vsako noč? Kdaj pa potem spite, Jan?", "en": "Every night? Then when do you sleep, Jan?", "de": "Jede Nacht? Wann schlafen Sie denn dann, Jan?", "it": "Ogni notte? E quando dorme, allora, Jan?" } }
+        ] },
+        { "who": "vida", "sl": "Zdaj pa hitro: dva vrča rebule, prosim. Nocoj spet pridejo!", "en": "Now quick: two jugs of rebula, please. They're coming again tonight!", "de": "Jetzt aber schnell: zwei Krüge Rebula, bitte. Heute Abend kommen sie wieder!", "it": "Adesso svelto: due brocche di ribolla, per favore. Stasera tornano!",
+          "fx": { "tap": 1 } }
+      ]
+    },
+    {
+      "id": "prsut-kruh",
+      "lines": [
+        { "who": "marko", "sl": "Ciao, Jan! Pršut je narezan. S čim ga ješ?", "en": "Ciao, Jan! The pršut is sliced. What do you eat it with?", "de": "Ciao, Jan! Der Pršut ist aufgeschnitten. Womit isst du ihn?", "it": "Ciao, Jan! Il prosciutto è affettato. Con che cosa lo mangi?" },
+        { "choices": [
+          { "sl": "Z kruhom, prosim!", "en": "With bread, please!", "de": "Mit Brot, bitte!", "it": "Con il pane, per favore!",
+            "grammar": "orodnik", "why": { "en": "Before k, p, t, s, š, c, č, f, h the preposition is s: s kruhom. Z goes before other sounds: z vinom.", "de": "Vor k, p, t, s, š, c, č, f, h heißt die Präposition s: s kruhom. Z steht vor anderen Lauten: z vinom.", "it": "Davanti a k, p, t, s, š, c, č, f, h la preposizione è s: s kruhom. Z va davanti agli altri suoni: z vinom." },
+            "reply": { "sl": "Z kruhom? Zzz … zveniš kot čebela, Jan!", "en": "Z kruhom? Zzz … you sound like a bee, Jan!", "de": "Z kruhom? Sss … du klingst wie eine Biene, Jan!", "it": "Z kruhom? Zzz … sembri un'ape, Jan!" } },
+          { "sl": "S kruh, prosim!", "en": "With bread, please! (nominative)", "de": "Mit Brot, bitte! (Nominativ)", "it": "Con il pane, per favore! (nominativo)",
+            "grammar": "orodnik", "why": { "en": "S/z (with) takes the instrumental: s kruhom, z vinom.", "de": "S/z (mit) verlangt den Instrumental: s kruhom, z vinom.", "it": "S/z (con) regge lo strumentale: s kruhom, z vinom." },
+            "reply": { "sl": "S kruh? Allora, kruh je tam. Kar vzemi!", "en": "S kruh? Allora, the bread's over there. Help yourself!", "de": "S kruh? Allora, das Brot ist da drüben. Nimm dir einfach!", "it": "S kruh? Allora, il pane è lì. Serviti pure!" } },
+          { "sl": "S kruhom, prosim!", "en": "With bread, please!", "de": "Mit Brot, bitte!", "it": "Con il pane, per favore!", "ok": true,
+            "reply": { "sl": "Bravo. Kruh je domač, še topel.", "en": "Bravo. The bread is homemade, still warm.", "de": "Bravo. Das Brot ist hausgemacht, noch warm.", "it": "Bravo. Il pane è fatto in casa, ancora caldo." } }
+        ] },
+        { "who": "marko", "sl": "In zraven kozarec terana. Pršut in teran, to je Kras.", "en": "And a glass of teran with it. Pršut and teran, that's the Karst.", "de": "Und dazu ein Glas Teran. Pršut und Teran, das ist der Karst.", "it": "E un bicchiere di terrano insieme. Prosciutto e terrano, questo è il Carso." },
+        { "choices": [
+          { "sl": "Pršut z vinom? Z veseljem!", "en": "Pršut with wine? With pleasure!", "de": "Pršut mit Wein? Mit Vergnügen!", "it": "Prosciutto con il vino? Con piacere!", "ok": true,
+            "reply": { "sl": "Na zdravje! Pa počasi, Jan.", "en": "Cheers! But slowly, Jan.", "de": "Prost! Aber langsam, Jan.", "it": "Salute! Ma piano, Jan." } },
+          { "sl": "Pršut z vina? Z veseljem!", "en": "Pršut from wine? With pleasure!", "de": "Pršut aus Wein? Mit Vergnügen!", "it": "Prosciutto dal vino? Con piacere!",
+            "grammar": "orodnik", "why": { "en": "Z with the genitive (z vina) means 'off, from'. 'With' takes the instrumental: z vinom.", "de": "Z mit dem Genitiv (z vina) heißt ‚von, aus‘. ‚Mit‘ verlangt den Instrumental: z vinom.", "it": "Z con il genitivo (z vina) significa 'da, giù da'. 'Con' regge lo strumentale: z vinom." },
+            "reply": { "sl": "Pršut iz vina? Ne, ne, Jan, iz prašiča! Ha ha.", "en": "Pršut made of wine? No, no, Jan, of pig! Ha ha.", "de": "Pršut aus Wein? Nein, nein, Jan, aus Schwein! Haha.", "it": "Prosciutto di vino? No, no, Jan, di maiale! Ah ah." } },
+          { "sl": "Pršut z vinom? S veseljem!", "en": "Pršut with wine? With pleasure!", "de": "Pršut mit Wein? Mit Vergnügen!", "it": "Prosciutto con il vino? Con piacere!",
+            "grammar": "orodnik", "why": { "en": "Before a voiced sound like v, the preposition is z: z veseljem, z vinom.", "de": "Vor einem stimmhaften Laut wie v heißt die Präposition z: z veseljem, z vinom.", "it": "Davanti a un suono sonoro come v la preposizione è z: z veseljem, z vinom." },
+            "reply": { "sl": "S veseljem? Sss … kot kača! Ha ha.", "en": "S veseljem? Sss … like a snake! Ha ha.", "de": "S veseljem? Sss … wie eine Schlange! Haha.", "it": "S veseljem? Sss … come un serpente! Ah ah." } }
+        ] },
+        { "who": "marko", "sl": "Allora, Jan: pršut, kruh in teran. Kaj še hočeš od življenja?", "en": "Allora, Jan: pršut, bread and teran. What more could you want from life?", "de": "Allora, Jan: Pršut, Brot und Teran. Was willst du mehr vom Leben?", "it": "Allora, Jan: prosciutto, pane e terrano. Che cosa vuoi di più dalla vita?" }
+      ]
+    },
+    {
+      "id": "prsut-noz",
+      "lines": [
+        { "who": "marko", "sl": "Ciao, Jan! Glej ta nož. Z njim režem pršut tanko kot papir.", "en": "Ciao, Jan! Look at this knife. With it I slice pršut as thin as paper.", "de": "Ciao, Jan! Schau dir dieses Messer an. Damit schneide ich den Pršut dünn wie Papier.", "it": "Ciao, Jan! Guarda questo coltello. Con questo taglio il prosciutto sottile come la carta." },
+        { "choices": [
+          { "sl": "Moram tudi jaz rezati?", "en": "Do I have to slice too?", "de": "Muss ich auch schneiden?", "it": "Devo tagliare anch'io?",
+            "grammar": "modalni-glagoli", "why": { "en": "Moram means 'I must'. To ask for permission: smem (may I).", "de": "Moram heißt ‚ich muss‘. Um Erlaubnis bitten: smem (darf ich).", "it": "Moram significa 'devo'. Per chiedere il permesso: smem (posso)." },
+            "reply": { "sl": "Moraš? Ne, nič ne moraš, Jan! Sedi in jej.", "en": "Have to? No, you don't have to do anything, Jan! Sit and eat.", "de": "Musst du? Nein, du musst gar nichts, Jan! Setz dich und iss.", "it": "Devi? No, non devi fare niente, Jan! Siediti e mangia." } },
+          { "sl": "Smem tudi jaz rezati?", "en": "May I slice too?", "de": "Darf ich auch schneiden?", "it": "Posso tagliare anch'io?", "ok": true,
+            "reply": { "sl": "Smeš. Ampak počasi, nož je oster!", "en": "You may. But slowly, the knife is sharp!", "de": "Darfst du. Aber langsam, das Messer ist scharf!", "it": "Puoi. Ma piano, il coltello è affilato!" } },
+          { "sl": "Smem tudi jaz režem?", "en": "May I too I-slice?", "de": "Darf ich auch schneide?", "it": "Posso anch'io taglio?",
+            "grammar": "modalni-glagoli", "why": { "en": "After smem (may I), like after moram and hočem, the verb is the infinitive: smem rezati.", "de": "Nach smem (darf ich) steht, wie nach moram und hočem, der Infinitiv: smem rezati.", "it": "Dopo smem (posso, ho il permesso), come dopo moram e hočem, il verbo va all'infinito: smem rezati." },
+            "reply": { "sl": "Režem? Ne, ne, tukaj režem jaz! Ha ha.", "en": "Režem (I slice)? No, no, I'm the one slicing here! Ha ha.", "de": "Režem (ich schneide)? Nein, nein, hier schneide ich! Haha.", "it": "Režem (taglio)? No, no, qui taglio io! Ah ah." } }
+        ] },
+        { "who": "marko", "sl": "Tako. Nož drži takole … Oj! Ta rezina je debela kot moj palec!", "en": "There. Hold the knife like this … Oops! This slice is as thick as my thumb!", "de": "So. Das Messer so halten … Hoppla! Die Scheibe ist so dick wie mein Daumen!", "it": "Ecco. Il coltello si tiene così … Ops! Questa fetta è spessa come il mio pollice!" },
+        { "choices": [
+          { "sl": "Oprosti! Moram rezati bolj tanko.", "en": "Sorry! I have to slice more thinly.", "de": "Entschuldige! Ich muss dünner schneiden.", "it": "Scusa! Devo tagliare più sottile.", "ok": true,
+            "reply": { "sl": "Ni panike. Debele rezine so zate, tanke za goste!", "en": "No panic. The thick slices are for you, the thin ones for the guests!", "de": "Keine Panik. Die dicken Scheiben sind für dich, die dünnen für die Gäste!", "it": "Niente panico. Le fette spesse sono per te, quelle sottili per gli ospiti!" } },
+          { "sl": "Oprosti! Moram režem bolj tanko.", "en": "Sorry! I must I-slice more thinly.", "de": "Entschuldige! Ich muss schneide dünner.", "it": "Scusa! Devo taglio più sottile.",
+            "grammar": "modalni-glagoli", "why": { "en": "After moram (I must) comes the infinitive: moram rezati.", "de": "Nach moram (ich muss) steht der Infinitiv: moram rezati.", "it": "Dopo moram (devo) viene l'infinito: moram rezati." },
+            "reply": { "sl": "Moram … režem? Počasi, Jan. Nož ne beži.", "en": "Moram … režem? Slowly, Jan. The knife isn't going anywhere.", "de": "Moram … režem? Langsam, Jan. Das Messer läuft nicht weg.", "it": "Moram … režem? Piano, Jan. Il coltello non scappa." } },
+          { "sl": "Oprosti! Moram rezati bolj tanek.", "en": "Sorry! I have to slice, (being) thinner.", "de": "Entschuldige! Ich muss schneiden, dünner (er).", "it": "Scusa! Devo tagliare, più magro (io).",
+            "grammar": "prislovi", "why": { "en": "How you slice is an adverb: tanko. Tanek is the adjective (tanek kos).", "de": "Wie man schneidet, ist ein Adverb: tanko. Tanek ist das Adjektiv (tanek kos).", "it": "Come si taglia è un avverbio: tanko. Tanek è l'aggettivo (tanek kos)." },
+            "reply": { "sl": "Bolj tanek? Kdo? Jaz? Ha ha, rad bi bil!", "en": "Thinner, he? Who? Me? Ha ha, I'd love to be!", "de": "Dünner, er? Wer? Ich? Haha, das wär schön!", "it": "Più magro? Chi? Io? Ah ah, magari!" } }
+        ] },
+        { "who": "marko", "sl": "Zdaj pa jejva. Pršut ne čaka, Jan!", "en": "Now let's eat, you and me. Pršut doesn't wait, Jan!", "de": "Jetzt essen wir zwei. Pršut wartet nicht, Jan!", "it": "Adesso mangiamo, noi due. Il prosciutto non aspetta, Jan!" }
+      ]
+    },
+    {
+      "id": "pokusina-kozarci",
+      "count": { "from": "villagers", "min": 2, "max": 12, "gender": "m", "case": "acc" },
+      "memory": { "sl": "večer, ko je vsa vas pokušala novo vino", "en": "the evening the whole village tasted the new wine", "de": "den Abend, an dem das ganze Dorf den neuen Wein probiert hat", "it": "la sera in cui tutto il villaggio ha assaggiato il vino nuovo" },
+      "lines": [
+        { "who": "marko", "sl": "Jan! Novo vino je pripravljeno. Nocoj pride vsa vas. Pripravi kozarec za vsakega!", "en": "Jan! The new wine is ready. Tonight the whole village is coming. Set out a glass for everyone!", "de": "Jan! Der neue Wein ist fertig. Heute Abend kommt das ganze Dorf. Stell für jeden ein Glas hin!", "it": "Jan! Il vino nuovo è pronto. Stasera viene tutto il villaggio. Prepara un bicchiere per ognuno!" },
+        { "choices": [
+          { "sl": "Prav. Na sod postavim {n} {!kozarec|kozarca|kozarce|kozarcev}.", "en": "OK. I'll put {n} {!glass|glasses} on the barrel.", "de": "Gut. Ich stelle {n} {!Glas|Gläser} auf das Fass.", "it": "Va bene. Metto {n} {!bicchiere|bicchieri} sulla botte.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural, here the accusative|From five on, the genitive plural}: {n} {kozarec|kozarca|kozarce|kozarcev}.", "de": "{Bei eins steht der Singular|Bei zwei steht der Dual|Bei drei und vier steht der Plural, hier der Akkusativ|Ab fünf steht der Genitiv Plural}: {n} {kozarec|kozarca|kozarce|kozarcev}.", "it": "{Con uno si usa il singolare|Con due si usa il duale|Con tre e quattro si usa il plurale, qui l'accusativo|Da cinque in su si usa il genitivo plurale}: {n} {kozarec|kozarca|kozarce|kozarcev}." },
+            "reply": { "sl": "Hm? Allora, štej še enkrat. Počasi.", "en": "Hm? Allora, count again. Slowly.", "de": "Hm? Allora, zähl noch mal. Langsam.", "it": "Mm? Allora, conta di nuovo. Piano." } },
+          { "sl": "Prav. Na sod postavim {n} {!kozarec|kozarca|kozarce|kozarcev}.", "en": "OK. I'll put {n} {!glass|glasses} on the barrel.", "de": "Gut. Ich stelle {n} {!Glas|Gläser} auf das Fass.", "it": "Va bene. Metto {n} {!bicchiere|bicchieri} sulla botte.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+            "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural, here the accusative|From five on, the genitive plural}: {n} {kozarec|kozarca|kozarce|kozarcev}.", "de": "{Bei eins steht der Singular|Bei zwei steht der Dual|Bei drei und vier steht der Plural, hier der Akkusativ|Ab fünf steht der Genitiv Plural}: {n} {kozarec|kozarca|kozarce|kozarcev}.", "it": "{Con uno si usa il singolare|Con due si usa il duale|Con tre e quattro si usa il plurale, qui l'accusativo|Da cinque in su si usa il genitivo plurale}: {n} {kozarec|kozarca|kozarce|kozarcev}." },
+            "reply": { "sl": "Koliko? Ha ha, Jan, si že poskusil vino?", "en": "How many? Ha ha, Jan, have you been tasting already?", "de": "Wie viele? Haha, Jan, hast du schon probiert?", "it": "Quanti? Ah ah, Jan, hai già assaggiato il vino?" } },
+          { "sl": "Prav. Na sod postavim {n} {kozarec|kozarca|kozarce|kozarcev}.", "en": "OK. I'll put {n} {glass|glasses} on the barrel.", "de": "Gut. Ich stelle {n} {Glas|Gläser} auf das Fass.", "it": "Va bene. Metto {n} {bicchiere|bicchieri} sulla botte.", "ok": true,
+            "reply": { "sl": "Perfetto! Nihče ne bo žejen.", "en": "Perfetto! Nobody will be thirsty.", "de": "Perfetto! Keiner wird Durst haben.", "it": "Perfetto! Nessuno avrà sete." } }
+        ] },
+        { "who": "marko", "sl": "Tako. Ampak prvi kozarec je za naju. Poskusi!", "en": "There. But the first glass is for the two of us. Taste it!", "de": "So. Aber das erste Glas ist für uns zwei. Probier!", "it": "Ecco. Ma il primo bicchiere è per noi due. Assaggia!",
+          "fx": { "tap": 1 } },
+        { "choices": [
+          { "sl": "Mmm! Letos je vino bolj dobro kot lani.", "en": "Mmm! This year the wine is more good than last year.", "de": "Mmm! Dieses Jahr ist der Wein mehr gut als letztes Jahr.", "it": "Mmm! Quest'anno il vino è più buono dell'anno scorso.",
+            "grammar": "primernik", "why": { "en": "Dober (good) has its own comparative: boljši, boljše. Bolj dobro isn't said.", "de": "Dober (gut) hat einen eigenen Komparativ: boljši, boljše. Bolj dobro sagt man nicht.", "it": "Dober (buono) ha un comparativo proprio: boljši, boljše. Bolj dobro non si dice." },
+            "reply": { "sl": "Bolj dobro? Ha ha, zdaj govoriš kot Italijan, Jan!", "en": "Bolj dobro? Ha ha, now you talk like an Italian, Jan!", "de": "Bolj dobro? Haha, jetzt redest du wie ein Italiener, Jan!", "it": "Bolj dobro? Ah ah, adesso parli come un italiano, Jan!" } },
+          { "sl": "Mmm! Letos je vino boljše kot lani.", "en": "Mmm! This year the wine is better than last year.", "de": "Mmm! Dieses Jahr ist der Wein besser als letztes Jahr.", "it": "Mmm! Quest'anno il vino è migliore dell'anno scorso.", "ok": true,
+            "reply": { "sl": "Res? Grazie! Letos je bilo veliko sonca.", "en": "Really? Grazie! There was a lot of sun this year.", "de": "Wirklich? Grazie! Dieses Jahr gab es viel Sonne.", "it": "Davvero? Grazie! Quest'anno c'è stato tanto sole." } }
+        ] },
+        { "who": "marko", "sl": "Slišiš? Ljudje že prihajajo. Na zdravje, Jan!", "en": "Hear that? People are coming already. Cheers, Jan!", "de": "Hörst du? Die Leute kommen schon. Prost, Jan!", "it": "Senti? La gente sta già arrivando. Salute, Jan!" }
+      ]
+    },
+    {
+      "id": "pokusina-vsec",
+      "memory": { "sl": "večer, ko sva v kleti pokušala teran", "en": "the evening we tasted teran in the cellar", "de": "den Abend, an dem wir im Keller Teran probiert haben", "it": "la sera in cui abbiamo assaggiato il terrano in cantina" },
+      "lines": [
+        { "who": "marko", "sl": "Jan! Hitro v klet! Nov teran je pripravljen. Poskusi … No, kaj praviš?", "en": "Jan! Quick, down to the cellar! The new teran is ready. Taste it … Well, what do you say?", "de": "Jan! Schnell in den Keller! Der neue Teran ist fertig. Probier … Na, was sagst du?", "it": "Jan! Svelto, in cantina! Il terrano nuovo è pronto. Assaggia … Allora, che ne dici?",
+          "fx": { "tap": 1 } },
+        { "choices": [
+          { "sl": "Zelo sem všeč!", "en": "I am very pleasing!", "de": "Ich gefalle sehr!", "it": "Io piaccio molto!",
+            "grammar": "dajalnik", "why": { "en": "Všeč works like 'to please': the wine pleases me, mi je všeč (dative mi). Sem všeč says that you are the one who pleases.", "de": "Všeč funktioniert wie ‚gefallen‘: der Wein gefällt mir, mi je všeč (Dativ mi). Sem všeč heißt, dass du gefällst.", "it": "Všeč funziona come 'piacere': il vino piace a me, mi je všeč (dativo mi). Sem všeč significa che sei tu a piacere." },
+            "reply": { "sl": "Ti? Ha ha, ja, simpatičen si. Ampak vino, Jan?", "en": "You are? Ha ha, yes, you're nice. But the wine, Jan?", "de": "Du? Haha, ja, du bist sympathisch. Aber der Wein, Jan?", "it": "Tu? Ah ah, sì, sei simpatico. Ma il vino, Jan?" } },
+          { "sl": "Zelo me je všeč!", "en": "It pleases me (me, accusative) a lot!", "de": "Er gefällt mich sehr!", "it": "Mi piace molto! (me: accusativo)",
+            "grammar": "dajalnik", "why": { "en": "The one who likes is in the dative: mi je všeč. Me is the accusative.", "de": "Wem etwas gefällt, steht im Dativ: mi je všeč. Me ist der Akkusativ.", "it": "Chi apprezza va al dativo: mi je všeč. Me è l'accusativo." },
+            "reply": { "sl": "Me je? Allora … kako, prosim, Jan?", "en": "Me je? Allora … sorry, Jan?", "de": "Me je? Allora … wie bitte, Jan?", "it": "Me je? Allora … come, prego, Jan?" } },
+          { "sl": "Zelo mi je všeč!", "en": "I like it a lot!", "de": "Er gefällt mir sehr!", "it": "Mi piace molto!", "ok": true,
+            "reply": { "sl": "Grazie! Teran je kot Kras: močan in iskren.", "en": "Grazie! Teran is like the Karst: strong and honest.", "de": "Grazie! Teran ist wie der Karst: stark und ehrlich.", "it": "Grazie! Il terrano è come il Carso: forte e sincero." } }
+        ] },
+        { "who": "marko", "sl": "V kleti je vedno hladno, veš. Tudi poleti.", "en": "It's always cool in the cellar, you know. Even in summer.", "de": "Im Keller ist es immer kühl, weißt du. Auch im Sommer.", "it": "In cantina fa sempre fresco, sai. Anche d'estate.",
+          "fx": { "tap": 0 } },
+        { "choices": [
+          { "sl": "Ja, malo sem mrzel.", "en": "Yes, I am a bit cold (like ice).", "de": "Ja, ich bin ein bisschen kalt (wie Eis).", "it": "Sì, sono un po' freddo (come il ghiaccio).",
+            "grammar": "dajalnik", "why": { "en": "Feeling cold is said with the dative: mrzlo mi je. Sem mrzel means you yourself are cold, like ice, or unfriendly.", "de": "Frieren sagt man mit dem Dativ: mrzlo mi je. Sem mrzel heißt, du selbst bist kalt, wie Eis, oder unfreundlich.", "it": "Avere freddo si dice con il dativo: mrzlo mi je. Sem mrzel significa che sei tu a essere freddo, come il ghiaccio, o scostante." },
+            "reply": { "sl": "Mrzel? Ti? Ne, Jan, ti si topel fant!", "en": "Cold, you? No, Jan, you're a warm-hearted guy!", "de": "Kalt, du? Nein, Jan, du bist ein warmherziger Kerl!", "it": "Freddo, tu? No, Jan, tu sei un tipo caloroso!" } },
+          { "sl": "Ja, malo mi je mrzlo.", "en": "Yes, I'm a bit cold.", "de": "Ja, mir ist ein bisschen kalt.", "it": "Sì, ho un po' freddo.", "ok": true,
+            "reply": { "sl": "Potem pa še en kozarec. Teran greje!", "en": "Then one more glass. Teran warms you up!", "de": "Dann noch ein Glas. Teran wärmt!", "it": "Allora un altro bicchiere. Il terrano scalda!", "fx": { "tap": 1 } } }
+        ] },
+        { "who": "marko", "sl": "Na zdravje, Jan! Teran in prijatelji, to je vse, kar rabim.", "en": "Cheers, Jan! Teran and friends, that's all I need.", "de": "Prost, Jan! Teran und Freunde, mehr brauche ich nicht.", "it": "Salute, Jan! Terrano e amici, non mi serve altro." }
+      ]
+    }
+  ]
+}
