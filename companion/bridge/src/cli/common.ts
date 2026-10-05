@@ -4,6 +4,8 @@ import { spawnSync } from 'node:child_process'
 import { join, resolve } from 'node:path'
 import { controlSocket } from '../control'
 import { DEFAULT_CULTURE } from '../cultures'
+import { setting } from '../env'
+import { releaseDir } from '../paths'
 import { DEFAULT_ID, DEFAULT_PROFILE, defaultDataDir, entryDataDir, learnerFacts, profilesDir, readRegistry, type ProfileEntry } from '../learners'
 
 export const projectDir = process.env.CLAUDE_PROJECT_DIR ?? resolve(import.meta.dir, '../../../..')
@@ -58,9 +60,10 @@ export function resolveProfile(id?: string): Resolved {
       id: DEFAULT_ID,
       isDefault: true,
       name: learnerFacts(dataDir).name || 'default',
-      culture: process.env.LANI_CULTURE?.trim() || DEFAULT_CULTURE,
+      // the default learner's village and port may be set in lani.env (lani-setup)
+      culture: setting('LANI_CULTURE')?.trim() || DEFAULT_CULTURE,
       child: false,
-      port: Number(process.env.LANI_BRIDGE_PORT ?? DEFAULT_PROFILE.port),
+      port: Number(setting('LANI_BRIDGE_PORT') ?? DEFAULT_PROFILE.port),
       httpsPort: DEFAULT_PROFILE.https_port,
       tmux: DEFAULT_PROFILE.tmux,
       remoteControl: DEFAULT_PROFILE.remote_control,
@@ -88,8 +91,9 @@ export function bridgeEnv(p: Resolved): Record<string, string> {
     LANI_BRIDGE_PORT: String(p.port),
     LANI_CULTURE: p.culture,
     ...(p.entry.landscape ? { LANI_LANDSCAPE: p.entry.landscape } : {}),
-    // The app updates itself from its bridge: every learner's bridge serves the default profile's releases.
-    LANI_RELEASE_DIR: join(defaultDataDir(projectDir), 'app', 'release'),
+    // The app updates itself from its bridge: every learner's bridge serves the default profile's releases
+    // ($LANI_RELEASE_DIR, ~/.local/share/lani/releases after lani-setup; else the default's <data>/app/release).
+    LANI_RELEASE_DIR: releaseDir(join(defaultDataDir(projectDir), 'app')),
     ...(p.child ? { LANI_CHILD: '1' } : {}),
   }
 }
@@ -117,6 +121,9 @@ export function tailnetHost(): string | undefined {
 
 /** The HTTPS URL the app uses for [p], once `tailscale serve` publishes it. */
 export const tailnetUrl = (p: Resolved, host = tailnetHost() ?? '<node>.<tailnet>.ts.net') => `https://${host}${p.httpsPort === 443 ? '' : `:${p.httpsPort}`}`
+
+/** The URL the default learner's app uses when lani.env names it (LANI_PUBLIC_URL: a reverse proxy, a LAN name). */
+export const publicUrl = (p: Resolved) => (p.isDefault ? setting('LANI_PUBLIC_URL')?.trim() || undefined : undefined)
 
 /** The command that publishes [p]'s bridge to the tailnet. The default's is the one in the README. */
 export const serveCommand = (p: Resolved) => (p.httpsPort === 443 ? `tailscale serve --bg ${p.port}` : `tailscale serve --bg --https=${p.httpsPort} http://127.0.0.1:${p.port}`)

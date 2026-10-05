@@ -212,7 +212,8 @@ What assumes one learner today:
      agrees with it), the partner's name and their "from" form, the region and accent.
    - Docs and skills speak of "the learner".
 4. **Configuration instead of constants.** Every port, path, key and limit goes in one `lani.env` (or TOML).
-   Keep the current defaults, and give the file a documented schema.
+   Keep the current defaults, and give the file a documented schema. (Done: `~/.config/lani/lani.env`, read by the
+   bridge, the hooks and the scripts, the environment winning; its schema in [docs/setup.md](../setup.md#lanienv).)
 5. **Pairing.**
    - On first start, the bridge shows a QR code in the terminal and on a local page. It holds the URL and a
      one-time pairing code, which the app trades for its token.
@@ -223,6 +224,9 @@ What assumes one learner today:
    - A README for learners: what it is, what it costs, a 15-minute setup.
    - A troubleshooting page.
    - A privacy note: what leaves the machine and where it goes.
+
+   (Done for self-hosting: [docs/setup.md](../setup.md), [docs/troubleshooting.md](../troubleshooting.md),
+   [docs/privacy.md](../privacy.md).)
 
 Rough effort: 1–2 weeks. Most of it is mechanical, but taking out what's personal touches the content and
 the tutor skills.
@@ -253,6 +257,9 @@ Pro/Max subscription or a Console API key, and an Android phone.
    - prints the pairing QR code.
 
    Linger and background running are explained and asked about, never switched on silently.
+
+   (Done: `companion/bin/lani-setup`, [docs/setup.md](../setup.md). It also makes the learner's data a git repository
+   of its own, imports an install from before, and keeps the caches out of the data.)
 2. **Optional workers as containers**, with a `docker compose` profile each:
    - `stt` in cuda, rocm and cpu builds;
    - `tts-local`.

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# lani <command> [arguments]: Lani's scripts by their short names (companion/bin/lani-<command>).
+#   lani setup      set up this machine, or change it (docs/setup.md)
+#   lani session    start the tutor (tmux), or attach to it
+#   lani pair       pair a phone (a QR code)
+#   lani bridge     the bridge service: start, restart, status, logs
+#   lani backup     snapshots of the learner data
+#   lani profile    the other learners on this machine
+#   lani town       link learners' towns
+# A link to this script on your PATH works too: ln -s "$PWD/companion/bin/lani" ~/.local/bin/lani
+set -euo pipefail
+here="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+cmd="${1:-help}"
+case "$cmd" in
+  -h|--help|help) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+esac
+shift
+if [[ ! "$cmd" =~ ^[a-z]+$ ]] || [ ! -x "$here/lani-$cmd" ]; then
+  echo "lani: no command \"$cmd\" (lani help)" >&2
+  exit 2
+fi
+exec "$here/lani-$cmd" "$@"

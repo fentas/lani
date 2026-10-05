@@ -169,7 +169,7 @@ Present:
 
 Start from the templates in `data-examples/`. Resolve the target directory via `lani_paths.ensure_data_dir()` (it creates the directory if missing), then create these 6 files inside it:
 
-- `learner-profile.json` — fill all fields from the interview (`learner.gender` too). In `learner`, besides `target_language` and `native_language`: `target_language_code` (ISO 639-1: `"sl"`, `"it"`, `"de"`, `"en"` …), `base_language` and `base_language_code` (the base language; the app and the bridge take the pair from the two codes). `home_language`: the target language's code; `languages`: `[]` (other languages come with practice elsewhere, see `docs/DB_SCRIPTS.md`, "Languages").
+- `learner-profile.json` — fill all fields from the interview. In `learner`, besides `target_language` and `native_language`: `target_language_code` (ISO 639-1: `"sl"`, `"it"`, `"de"`, `"en"` …), `base_language` and `base_language_code` (the base language; the app and the bridge take the pair from the two codes). `gender`: `male` or `female`, the learner's grammatical gender (Slovene agrees with it: *si lačen?* / *si lačna?*); `companion/bin/lani-setup` asks it, so keep it when it's there. `home_language`: the target language's code; `languages`: `[]` (other languages come with practice elsewhere, see `docs/DB_SCRIPTS.md`, "Languages").
 - `progress-db.json` — empty stats.
 - `mistakes-db.json` — empty `error_patterns`.
 - `mastery-db.json` — `skills_mastery` entries with `mastery_level: 0` for each skill.

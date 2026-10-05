@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Lani Session End Hook
-Creates daily backups and displays session summary
+Creates daily backups, commits the learner's data repository (lani-setup) and displays session summary
 """
 import json
 import shutil
@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lani_paths import data_dir, ensure_backups_dir, force_utf8_io  # noqa: E402
+import lani_data_repo  # noqa: E402
 
 force_utf8_io()
 
@@ -40,6 +41,10 @@ def main():
         if backed_up:
             print(f"[Lani] 📦 Session backup created: {backup_dir}/")
             print(f"[Lani] 💾 Files backed up: {', '.join(backed_up)}")
+
+    # What changed since the last session's commit (the village, the tutor's content, results): one commit, pushed in
+    # the background when the data repository has a remote.
+    lani_data_repo.autocommit(data, f"tutor session ended {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
     profile_path = data / "learner-profile.json"
     if profile_path.exists():

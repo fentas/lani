@@ -54,12 +54,16 @@ import { VillagerStore } from '../bridge/src/villagers'
 import { cardTexts, corpus, enginesFromEnv, ffmpegDenoiser, ffmpegLeveller, ffmpegLoudness, FILE, LEVEL, levelGain, LIMIT_MARGIN, VoiceStore, type Loudness } from '../bridge/src/voice'
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
 import { keysFile } from '../bridge/src/env'
+import { voiceDir } from '../bridge/src/paths'
+import { setting } from '../bridge/src/env'
 
 const root = resolve(import.meta.dir, '../..')
 // the learner's village's culture pack (LANI_CULTURE, as their bridge has it; primorska by default): its language,
 // its cast, its voice cast, its packs and its own scenes
 const cultures = process.env.LANI_CULTURES_DIR ?? join(root, 'companion/cultures')
-const village = resolveCulture(cultures, process.env.LANI_CULTURE)
+// (lani.env's for the default learner; another --data directory's comes from LANI_CULTURE in the environment only)
+const dataArg = process.argv.indexOf('--data') >= 0 ? process.argv[process.argv.indexOf('--data') + 1] : undefined
+const village = resolveCulture(cultures, setting('LANI_CULTURE', dataArg ? { ...process.env, LANI_DATA_DIR: resolve(dataArg) } : process.env))
 const culture = village.id
 const language = village.manifest?.language ?? 'sl'
 // the curated content of the village's language (a subdirectory for another than Slovene, as the bridge has it)
@@ -108,12 +112,13 @@ if (existsSync(keys)) {
 const p = Bun.spawnSync(['python3', '.claude/hooks/ensure_data_dir.py'], { cwd: root, env: { ...process.env, CLAUDE_PROJECT_DIR: root } })
 if (p.exitCode !== 0) throw new Error(`ensure_data_dir.py failed: ${p.stderr.toString()}`)
 const appDir = join(p.stdout.toString().trim(), 'app')
+// the clips: the voice cache ($LANI_VOICE_CACHE, lani.env's for the default learner), else <data>/app/voice
 
 const log = (...a: unknown[]) => console.error('[voice-build]', ...a)
 
 if (denoise) {
   // the clips of the voices that hiss, through their filter: ffmpeg only, the corpus and the engines aren't needed
-  const store = new VoiceStore({ appDir, engines: [], log, readonly: !flag('--run') })
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run') })
   const voices = denoiseVoices()
   const queue = store.denoiseQueue()
   const summary = { voices, waiting: queue.length, stats: store.denoiseStats(), dir: store.dir }
@@ -142,7 +147,7 @@ if (denoise) {
 }
 if (level) {
   // every clip at one loudness: ffmpeg only, the corpus and the engines aren't needed
-  const store = new VoiceStore({ appDir, engines: [], log, readonly: !flag('--run') })
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run') })
   const queue = store.levelQueue()
   const target = store.levelTarget
   const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
@@ -233,7 +238,7 @@ const drills = new DrillStore(drillsDir(process.env.LANI_DRILLS_DIR ?? join(root
 
 const { eleven, gepard } = enginesFromEnv(process.env, log, language)
 // the local worker speaks only Slovene; a culture's cast without voices yet voices nothing (the phone's TTS speaks)
-const store = new VoiceStore({ appDir, engines: language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : [], log, readonly: !flag('--run') })
+const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : [], log, readonly: !flag('--run') })
 // the voices of their own that are ready (the voice profiles, in the store's database): a storyteller who has one tells
 // in it ("@janez", as the app asks for it by the fire), and ElevenLabs makes those clips in it
 const own = ownVoicesIn(store.database)

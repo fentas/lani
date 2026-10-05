@@ -1,6 +1,7 @@
 // Dev bridge for emulator QA: the real bridge on a COPY of the learner data, with a canned tutor.
 // Run: bun test/dev-bridge.ts   → http://127.0.0.1:8791 (emulator: http://10.0.2.2:8791), token "dev-token".
-// Env: LANI_DEV_PORT its port; LANI_DEV_DATA the data to copy (default: the repo's data/); LANI_DEV_KEEP_TOWNS=1
+// Env: LANI_DEV_PORT its port; LANI_DEV_DATA the data to copy (default: the default learner's, LANI_DATA_DIR in lani.env,
+// else the repo's data/), with its voice clips (the voice cache, paths.ts voiceDir); LANI_DEV_KEEP_TOWNS=1
 // keeps the copy's town links (by default QA's town knows only the towns QA links, e.g. test/dev-town.ts, and never
 // asks a real learner's town).
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
@@ -9,12 +10,20 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
+import { setting } from '../src/env'
+import { voiceDir } from '../src/paths'
 
 const port = process.env.LANI_DEV_PORT ?? '8791'
 const dataDir = mkdtempSync(join(tmpdir(), 'lani-dev-'))
-// The copy leaves out release APKs and backups (large, and QA doesn't need them), and is deleted on exit.
-const skip = [/\/app\/release\//, /\/\.backups\//, /\.json\.backup-/]
-cpSync(resolve(process.env.LANI_DEV_DATA || resolve(import.meta.dir, '../../../data')), dataDir, { recursive: true, filter: src => !skip.some(r => r.test(src)) })
+// The copy leaves out release APKs, backups and the data repository's history (large, and QA doesn't need them), and is
+// deleted on exit.
+const skip = [/\/app\/release(\/|$)/, /\/\.backups(\/|$)/, /\.json\.backup-/, /\/\.git(\/|$)/]
+const source = resolve(process.env.LANI_DEV_DATA || setting('LANI_DATA_DIR') || resolve(import.meta.dir, '../../../data'))
+cpSync(source, dataDir, { recursive: true, filter: src => !skip.some(r => r.test(src)) })
+// The clips: from the voice cache when the data's are there (lani-setup moved them), into the copy's own app/voice, so
+// QA never writes into the learner's cache.
+const clips = voiceDir(join(source, 'app'), { ...process.env, LANI_DATA_DIR: source })
+if (clips !== join(source, 'app', 'voice') && existsSync(clips)) cpSync(clips, join(dataDir, 'app', 'voice'), { recursive: true })
 const townsFile = join(dataDir, 'app/towns.json')
 if (process.env.LANI_DEV_KEEP_TOWNS !== '1' && existsSync(townsFile)) {
   // the village's name stays; its links go (in the copy)
@@ -74,7 +83,7 @@ await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off',
+    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off',
       // QA must not spend the ElevenLabs quota; LANI_DEV_ELEVENLABS=1 allows it. Cached clips still play.
       ELEVENLABS_API_KEY: process.env.LANI_DEV_ELEVENLABS === '1' ? (process.env.ELEVENLABS_API_KEY ?? '') : '' } as Record<string, string>,
     stderr: 'inherit',
