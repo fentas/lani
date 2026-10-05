@@ -12,7 +12,7 @@
   "skill": "stone",
   "order": 6,
   "routine": { "up": "7:00", "bed": "19:45" },
-  "personality": "Six, the smallest of the village children, Mr Tyson's grandson. Shy at first, then chatty; counts everything like his grandad ('one, two, three!'), loves tractors, the fell ponies and splashing in the beck (the stream). First names both ways: he calls the learner by name, and the learner calls him Alfie; he looks up to the learner like a big brother. Very short sentences and simple words, a child talking to a child.",
+  "personality": "Six, the smallest of the village children, Mr Tyson's grandson. Shy at first, then chatty; counts everything like his grandad ('one, two, three!'), loves tractors, the fell ponies and splashing in the beck (the stream). First names both ways: he calls the learner by name, and the learner calls him Alfie; he looks up to the learner {m:like a big brother|f:like a big sister}. Very short sentences and simple words, a child talking to a child.",
   "story": "Alfie lives with his grandad, Mr Tyson, by the field and follows him out every morning. He knows every fell pony in the dale by name, sits on the old red tractor pretending to drive it, and comes home from the beck with wet socks. Every evening he asks Old Wilf for the same story.",
   "likes": [
     {"en": "tractors", "sl": "traktorji", "it": "i trattori", "de": "Traktoren"},
@@ -27,7 +27,7 @@
       { "en": "Hi! Do you want to see the tractor?", "sl": "Živjo! Hočeš videti traktor?", "it": "Ciao! Vuoi vedere il trattore?", "de": "Hallo! Willst du den Traktor sehen?", "level": 1 },
       { "en": "Hey! I counted the ponies: there are three!", "sl": "Ej! Preštel sem ponije: trije so!", "it": "Ehi! Ho contato i pony: sono tre!", "de": "Hey! Ich habe die Ponys gezählt: Es sind drei!", "level": 2 },
       { "en": "Hooray, you're here! Will you play with me?", "sl": "Juhu, tu si! Se igraš z mano?", "it": "Evviva, sei qui! Giochi con me?", "de": "Hurra, du bist da! Spielst du mit mir?", "level": 3 },
-      { "en": "You're like my big brother! Come on, come on!", "sl": "Si kot moj veliki brat! Pridi, pridi!", "it": "Sei come un fratello grande! Vieni, vieni!", "de": "Du bist wie mein großer Bruder! Komm, komm!", "level": 4 }
+      { "en": "You're like {m:my big brother|f:my big sister}! Come on, come on!", "sl": "Si kot {m:moj veliki brat|f:moja velika sestra}! Pridi, pridi!", "it": "Sei come {m:un fratello grande|f:una sorella grande}! Vieni, vieni!", "de": "Du bist wie {m:mein großer Bruder|f:meine große Schwester}! Komm, komm!", "level": 4 }
     ],
     "thanks": [
       { "en": "Thanks!", "sl": "Hvala!", "it": "Grazie!", "de": "Danke!" },
@@ -48,7 +48,7 @@
     "cheer": [
       { "en": "Yes! Right!", "sl": "Ja! Prav!", "it": "Sì! Giusto!", "de": "Ja! Richtig!" },
       { "en": "Hooray!", "sl": "Juhu!", "it": "Evviva!", "de": "Hurra!" },
-      { "en": "Well done! Like Grandad!", "sl": "Bravo! Kot dedek!", "it": "Bravo! Come il nonno!", "de": "Super! Wie Opa!" }
+      { "en": "Well done! Like Grandad!", "sl": "Bravo! Kot dedek!", "it": "{m:Bravo|f:Brava}! Come il nonno!", "de": "Super! Wie Opa!" }
     ],
     "comfort": [
       { "en": "Never mind!", "sl": "Nič hudega!", "it": "Non fa niente!", "de": "Macht nichts!" },
@@ -69,7 +69,7 @@
       "liked": [
         { "en": "For me? Hooray! Thanks!", "sl": "Zame? Juhu! Hvala!", "it": "Per me? Evviva! Grazie!", "de": "Für mich? Hurra! Danke!" },
         { "en": "I like it! One, two … lots and lots!", "sl": "Všeč mi je! Ena, dva … zelo, zelo!", "it": "Mi piace! Uno, due … tantissimo!", "de": "Das gefällt mir! Eins, zwei … ganz, ganz viel!" },
-        { "en": "How did you know? I'm going to tell Grandad!", "sl": "Kako si vedel? Povem dedku!", "it": "Come lo sapevi? Lo dico al nonno!", "de": "Woher wusstest du das? Das erzähle ich Opa!" }
+        { "en": "How did you know? I'm going to tell Grandad!", "sl": "Kako si {m:vedel|f:vedela}? Povem dedku!", "it": "Come lo sapevi? Lo dico al nonno!", "de": "Woher wusstest du das? Das erzähle ich Opa!" }
       ],
       "ordinary": [
         { "en": "Thanks! Is it really for me?", "sl": "Hvala! Je res zame?", "it": "Grazie! È proprio per me?", "de": "Danke! Ist das wirklich für mich?" },

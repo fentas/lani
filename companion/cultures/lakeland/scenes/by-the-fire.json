@@ -32,12 +32,12 @@
     {
       "id": "hot-chocolate", "title": { "en": "Granny Maggie brings hot chocolate", "sl": "Babica Maggie prinese vročo čokolado", "it": "Nonna Maggie porta la cioccolata calda", "de": "Oma Maggie bringt heiße Schokolade" }, "who": "maggie",
       "when": ["evening"], "chance": 0.6, "dialog": "hot-chocolate", "dialogs": ["hot-chocolate-apple", "hot-chocolate"], "reward": { "food": 20 }, "marker": "☕",
-      "memory": { "en": "the hot chocolate we drank by the fire", "sl": "vročo čokolado, ki sva jo pila ob ognju", "it": "la cioccolata calda che abbiamo bevuto accanto al fuoco", "de": "die heiße Schokolade, die wir am Feuer getrunken haben" }
+      "memory": { "en": "the hot chocolate we drank by the fire", "sl": "vročo čokolado, ki sva jo {m:pila|f:pili} ob ognju", "it": "la cioccolata calda che abbiamo bevuto accanto al fuoco", "de": "die heiße Schokolade, die wir am Feuer getrunken haben" }
     },
     {
       "id": "firewood", "title": { "en": "Harry is gathering firewood", "sl": "Harry nabira drva", "it": "Harry raccoglie la legna", "de": "Harry sammelt Brennholz" }, "who": "harry",
       "when": ["afternoon"], "chance": 0.5, "dialog": "firewood", "dialogs": ["firewood-count", "firewood"], "reward": { "wood": 20 }, "marker": "🪵",
-      "memory": { "en": "the firewood race you won", "sl": "tekmo s poleni, v kateri si zmagal ti", "it": "la gara della legna che hai vinto tu", "de": "das Wettrennen mit dem Holz, das du gewonnen hast" }
+      "memory": { "en": "the firewood race you won", "sl": "tekmo s poleni, v kateri si {m:zmagal|f:zmagala} ti", "it": "la gara della legna che hai vinto tu", "de": "das Wettrennen mit dem Holz, das du gewonnen hast" }
     },
     {
       "id": "story", "title": { "en": "Old Wilf tells a story", "sl": "Stari Wilf pripoveduje zgodbo", "it": "Il vecchio Wilf racconta una storia", "de": "Der alte Wilf erzählt eine Geschichte" }, "who": "wilf",
@@ -54,10 +54,10 @@
           { "en": "Yes, Maggie, I'm a bit cold.", "sl": "Ja, Maggie, malo me zebe.", "it": "Sì, Maggie, ho un po' freddo.", "de": "Ja, Maggie, mir ist ein bisschen kalt.", "ok": true,
             "reply": { "en": "Here's a hot chocolate. Come and sit by the fire.", "sl": "Izvoli, vroča čokolada. Pridi, sedi k ognju.", "it": "Ecco una cioccolata calda. Vieni, siediti vicino al fuoco.", "de": "Hier, eine heiße Schokolade. Komm, setz dich ans Feuer." } },
           { "en": "Yes, Maggie, I have a bit cold.", "sl": "Ja, Maggie, malo me zebe.", "it": "Sì, Maggie, ho un po' freddo.", "de": "Ja, Maggie, mir ist ein bisschen kalt.",
-            "grammar": "to-be", "why": { "en": "Say I'm cold, with be. I have a cold means you are ill.", "sl": "Rečeš I'm cold, z be: zebe me. I have a cold pomeni, da si prehlajen.", "it": "Si dice I'm cold, con be: ho freddo. I have a cold vuol dire che hai il raffreddore.", "de": "Man sagt I'm cold, mit be: mir ist kalt. I have a cold heißt, du bist erkältet." },
+            "grammar": "to-be", "why": { "en": "Say I'm cold, with be. I have a cold means you are ill.", "sl": "Rečeš I'm cold, z be: zebe me. I have a cold pomeni, da si {m:prehlajen|f:prehlajena}.", "it": "Si dice I'm cold, con be: ho freddo. I have a cold vuol dire che hai il raffreddore.", "de": "Man sagt I'm cold, mit be: mir ist kalt. I have a cold heißt, du bist erkältet." },
             "reply": { "en": "A cold? Oh dear! Honey and lemon for you, love.", "sl": "A cold (prehlad)? Ojej! Med in limona zate, srček.", "it": "A cold (un raffreddore)? Oh cielo! Miele e limone per te, tesoro.", "de": "A cold (eine Erkältung)? Oje! Honig und Zitrone für dich, Schatz." } }
         ] },
-        { "who": "maggie", "en": "Careful, it's hot! Blow on it first.", "sl": "Pazi, vroča je! Najprej malo pihni.", "it": "Attento, scotta! Prima soffiaci sopra.", "de": "Vorsicht, heiß! Puste erst ein bisschen." },
+        { "who": "maggie", "en": "Careful, it's hot! Blow on it first.", "sl": "Pazi, vroča je! Najprej malo pihni.", "it": "{m:Attento|f:Attenta}, scotta! Prima soffiaci sopra.", "de": "Vorsicht, heiß! Puste erst ein bisschen." },
         { "choices": [
           { "en": "Thank you, Maggie! It's delicious.", "sl": "Hvala, Maggie! Odlična je.", "it": "Grazie, Maggie! È buonissima.", "de": "Danke, Maggie! Die ist köstlich.", "ok": true,
             "reply": { "en": "You're welcome, love. My secret is a spoon of honey.", "sl": "Ni za kaj, srček. Moja skrivnost je žlička medu.", "it": "Prego, tesoro. Il mio segreto è un cucchiaino di miele.", "de": "Gern geschehen, Schatz. Mein Geheimnis ist ein Löffel Honig." } },
@@ -95,16 +95,16 @@
         ] },
         { "who": "harry", "en": "Stop! I've got five logs. How many have you got?", "sl": "Stop! Jaz imam pet polen. Koliko jih imaš ti?", "it": "Stop! Io ho cinque ciocchi. E tu quanti ne hai?", "de": "Stopp! Ich habe fünf Holzscheite. Wie viele hast du?" },
         { "choices": [
-          { "en": "I've got six! I won!", "sl": "Jaz jih imam šest! Zmagal sem!", "it": "Io ne ho sei! Ho vinto!", "de": "Ich habe sechs! Ich habe gewonnen!", "ok": true,
-            "reply": { "en": "Oh no! OK, you won. Well done!", "sl": "Ojoj! No dobro, zmagal si. Bravo!", "it": "Uffa! Va bene, hai vinto tu. Bravo!", "de": "Oh nein! Okay, du hast gewonnen. Gut gemacht!" } },
-          { "en": "I've got six! I winned!", "sl": "Jaz jih imam šest! Zmagal sem!", "it": "Io ne ho sei! Ho vinto!", "de": "Ich habe sechs! Ich habe gewonnen!",
+          { "en": "I've got six! I won!", "sl": "Jaz jih imam šest! {m:Zmagal|f:Zmagala} sem!", "it": "Io ne ho sei! Ho vinto!", "de": "Ich habe sechs! Ich habe gewonnen!", "ok": true,
+            "reply": { "en": "Oh no! OK, you won. Well done!", "sl": "Ojoj! No dobro, {m:zmagal|f:zmagala} si. Bravo!", "it": "Uffa! Va bene, hai vinto tu. {m:Bravo|f:Brava}!", "de": "Oh nein! Okay, du hast gewonnen. Gut gemacht!" } },
+          { "en": "I've got six! I winned!", "sl": "Jaz jih imam šest! {m:Zmagal|f:Zmagala} sem!", "it": "Io ne ho sei! Ho vinto!", "de": "Ich habe sechs! Ich habe gewonnen!",
             "grammar": "past-simple", "why": { "en": "Win is irregular: I won, not I winned.", "sl": "Win je nepravilni glagol: I won, ne I winned.", "it": "Win è un verbo irregolare: I won, non I winned.", "de": "Win ist ein unregelmäßiges Verb: I won, nicht I winned." },
             "reply": { "en": "Winned? Is that a new game? Can I play?", "sl": "Winned? Je to nova igra? Se lahko igram tudi jaz?", "it": "Winned? È un gioco nuovo? Posso giocare anch'io?", "de": "Winned? Ist das ein neues Spiel? Darf ich mitspielen?" } }
         ] },
         { "who": "harry", "en": "Let's put them on the fire. Look at the sparks!", "sl": "Dajva jih na ogenj. Poglej iskre!", "it": "Mettiamoli nel fuoco. Guarda le scintille!", "de": "Legen wir sie ins Feuer. Schau mal, die Funken!", "fx": { "flare": 0.8 } },
         { "choices": [
           { "en": "Wow! But be careful, Harry!", "sl": "Uau! Ampak pazi, Harry!", "it": "Wow! Ma stai attento, Harry!", "de": "Wow! Aber pass auf, Harry!", "ok": true,
-            "reply": { "en": "Don't worry! Oh, it's raining! Race you home!", "sl": "Brez skrbi! O, dežuje! Kdo bo prej doma?", "it": "Tranquillo! Oh, piove! Facciamo a gara fino a casa!", "de": "Keine Sorge! Oh, es regnet! Wer zuerst zu Hause ist, hat gewonnen!", "sky": { "rain": 0.4, "gloom": 0.6 }, "fx": { "flare": 0.3 } } },
+            "reply": { "en": "Don't worry! Oh, it's raining! Race you home!", "sl": "Brez skrbi! O, dežuje! Kdo bo prej doma?", "it": "{m:Tranquillo|f:Tranquilla}! Oh, piove! Facciamo a gara fino a casa!", "de": "Keine Sorge! Oh, es regnet! Wer zuerst zu Hause ist, hat gewonnen!", "sky": { "rain": 0.4, "gloom": 0.6 }, "fx": { "flare": 0.3 } } },
           { "en": "Wow! But attention, Harry!", "sl": "Uau! Ampak pazi, Harry!", "it": "Wow! Ma stai attento, Harry!", "de": "Wow! Aber pass auf, Harry!",
             "why": { "en": "To warn a friend, say be careful or watch out, not attention.", "sl": "Ko prijatelja opozoriš, rečeš be careful ali watch out (pazi), ne attention.", "it": "Per avvertire un amico si dice be careful o watch out (attento), non attention.", "de": "Um einen Freund zu warnen, sagst du be careful oder watch out (pass auf), nicht attention." },
             "reply": { "en": "Attention? That's what my teacher says!", "sl": "Attention (pozor)? To pravi tudi moja učiteljica!", "it": "Attention (attenzione)? Lo dice sempre la mia maestra!", "de": "Attention (Achtung)? Das sagt meine Lehrerin auch!" } }
@@ -149,7 +149,7 @@
             "why": { "en": "{One takes the singular|More than one takes -s}: {n} {log|logs}.", "sl": "{Eno je v ednini|Za več dodaš -s}: {n} {log|logs}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {log|logs}.", "de": "{Eins steht im Singular|Bei mehr als eins kommt -s dazu}: {n} {log|logs}." },
             "reply": { "en": "Log? Just one? Look at this pile! Count again!", "sl": "Log (poleno)? Samo eno? Poglej ta kup! Štej še enkrat!", "it": "Log (ciocco)? Uno solo? Guarda che mucchio! Conta ancora!", "de": "Log (Scheit)? Nur eins? Schau dir den Haufen an! Zähl noch mal!" } },
           { "en": "We've got {n} {log|logs}!", "sl": "Imava {n} {poleno|polena|polena|polen}!", "it": "Abbiamo {n} {ciocco|ciocchi}!", "de": "Wir haben {n} {Holzscheit|Holzscheite}!", "ok": true,
-            "reply": { "en": "Aw, not a hundred? OK, you're the champion counter!", "sl": "Ojoj, ne sto? No dobro, ti si prvak v štetju!", "it": "Uffa, non cento? Va bene, sei tu il campione dei conti!", "de": "Och, nicht hundert? Na gut, du bist der Zählmeister!" } },
+            "reply": { "en": "Aw, not a hundred? OK, you're the champion counter!", "sl": "Ojoj, ne sto? No dobro, ti si {m:prvak|f:prvakinja} v štetju!", "it": "Uffa, non cento? Va bene, sei tu {m:il campione|f:la campionessa} dei conti!", "de": "Och, nicht hundert? Na gut, du bist {m:der Zählmeister|f:die Zählmeisterin}!" } },
           { "en": "We has got {n} {log|logs}!", "sl": "Imava {n} {poleno|polena|polena|polen}!", "it": "Abbiamo {n} {ciocco|ciocchi}!", "de": "Wir haben {n} {Holzscheit|Holzscheite}!",
             "why": { "en": "With we, say have: we've got, not we has got.", "sl": "Z we uporabiš have: we've got, ne we has got.", "it": "Con we si usa have: we've got, non we has got.", "de": "Mit we sagt man have: we've got, nicht we has got." },
             "reply": { "en": "We has? You talk like a pirate! Arr! Say it again!", "sl": "We has? Govoriš kot pirat! Arr! Povej še enkrat!", "it": "We has? Parli come un pirata! Arr! Ripeti!", "de": "We has? Du redest wie ein Pirat! Arr! Sag's noch mal!" } }

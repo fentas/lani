@@ -27,16 +27,16 @@
   ],
   "lines": {
     "greet": [
-      { "it": "Ciao! Hai fame?", "sl": "Živjo! Si lačen?", "en": "Hi! Are you hungry?", "de": "Hallo! Hast du Hunger?", "level": 0 },
+      { "it": "Ciao! Hai fame?", "sl": "Živjo! Si {m:lačen|f:lačna}?", "en": "Hi! Are you hungry?", "de": "Hallo! Hast du Hunger?", "level": 0 },
       { "it": "Vieni, vieni. Siediti.", "sl": "Pridi, pridi. Sedi.", "en": "Come, come. Sit down.", "de": "Komm, komm. Setz dich.", "level": 0 },
-      { "it": "Oh, eccoti! Sto cucinando. Hai fame?", "sl": "O, tu si! Ravno kuham. Si lačen?", "en": "Oh, there you are! I'm cooking. Are you hungry?", "de": "Oh, da bist du ja! Ich koche gerade. Hast du Hunger?", "level": 1 },
+      { "it": "Oh, eccoti! Sto cucinando. Hai fame?", "sl": "O, tu si! Ravno kuham. Si {m:lačen|f:lačna}?", "en": "Oh, there you are! I'm cooking. Are you hungry?", "de": "Oh, da bist du ja! Ich koche gerade. Hast du Hunger?", "level": 1 },
       { "it": "Tesoro mio! Vieni, la minestra è calda.", "sl": "Moj zaklad! Pridi, juha je vroča.", "en": "My treasure! Come, the soup is hot.", "de": "Mein Schatz! Komm, die Suppe ist heiß.", "level": 2 },
-      { "it": "Eccoti, finalmente! Dove sei stato? Siediti, siediti.", "sl": "Končno si tu! Kje si bil? Sedi, sedi.", "en": "There you are at last! Where have you been? Sit down, sit down.", "de": "Da bist du ja endlich! Wo warst du denn? Setz dich, setz dich.", "level": 3 },
-      { "it": "Sei come un nipote per me. Vieni a tavola!", "sl": "Zame si kot vnuk. Pridi k mizi!", "en": "You're like a grandson to me. Come to the table!", "de": "Du bist für mich wie ein Enkel. Komm zu Tisch!", "level": 4 }
+      { "it": "Eccoti, finalmente! Dove sei {m:stato|f:stata}? Siediti, siediti.", "sl": "Končno si tu! Kje si {m:bil|f:bila}? Sedi, sedi.", "en": "There you are at last! Where have you been? Sit down, sit down.", "de": "Da bist du ja endlich! Wo warst du denn? Setz dich, setz dich.", "level": 3 },
+      { "it": "Sei come {m:un nipote|f:una nipote} per me. Vieni a tavola!", "sl": "Zame si kot {m:vnuk|f:vnukinja}. Pridi k mizi!", "en": "You're like {m:a grandson|f:a granddaughter} to me. Come to the table!", "de": "Du bist für mich wie {m:ein Enkel|f:eine Enkelin}. Komm zu Tisch!", "level": 4 }
     ],
     "thanks": [
-      { "it": "Grazie, tesoro. Sei stato bravissimo.", "sl": "Hvala, zaklad. Res si bil priden.", "en": "Thank you, treasure. You were very good.", "de": "Danke, Schatz. Das hast du sehr gut gemacht." },
-      { "it": "Bravo! Prendi un pezzo di gubana.", "sl": "Priden! Vzemi kos gubane.", "en": "Good boy! Take a piece of gubana.", "de": "Brav! Nimm dir ein Stück Gubana." },
+      { "it": "Grazie, tesoro. Sei {m:stato|f:stata} {m:bravissimo|f:bravissima}.", "sl": "Hvala, zaklad. Res si {m:bil|f:bila} {m:priden|f:pridna}.", "en": "Thank you, treasure. You were very good.", "de": "Danke, Schatz. Das hast du sehr gut gemacht." },
+      { "it": "{m:Bravo|f:Brava}! Prendi un pezzo di gubana.", "sl": "{m:Priden|f:Pridna}! Vzemi kos gubane.", "en": "{m:Good boy|f:Good girl}! Take a piece of gubana.", "de": "Brav! Nimm dir ein Stück Gubana." },
       { "it": "Grazie! Hai un cuore d'oro.", "sl": "Hvala! Zlato srce imaš.", "en": "Thank you! You have a heart of gold.", "de": "Danke! Du hast ein goldenes Herz." }
     ],
     "remember": [
@@ -51,14 +51,14 @@
       { "it": "Tira la bora. Chiudi la porta, tesoro.", "sl": "Burja piha. Zapri vrata, zaklad.", "en": "The bora is blowing. Close the door, treasure.", "de": "Die Bora weht. Mach die Tür zu, Schatz." }
     ],
     "cheer": [
-      { "it": "Bravo, tesoro!", "sl": "Bravo, zaklad!", "en": "Well done, treasure!", "de": "Gut gemacht, Schatz!" },
-      { "it": "Sì, così! Bravissimo.", "sl": "Ja, tako! Odlično.", "en": "Yes, that's it! Very good.", "de": "Ja, genau so! Sehr gut." },
-      { "it": "Bravo! Ti meriti un pezzo di gubana.", "sl": "Bravo! Zaslužiš si kos gubane.", "en": "Well done! You deserve a piece of gubana.", "de": "Gut gemacht! Dafür hast du ein Stück Gubana verdient." },
+      { "it": "{m:Bravo|f:Brava}, tesoro!", "sl": "Bravo, zaklad!", "en": "Well done, treasure!", "de": "Gut gemacht, Schatz!" },
+      { "it": "Sì, così! {m:Bravissimo|f:Bravissima}.", "sl": "Ja, tako! Odlično.", "en": "Yes, that's it! Very good.", "de": "Ja, genau so! Sehr gut." },
+      { "it": "{m:Bravo|f:Brava}! Ti meriti un pezzo di gubana.", "sl": "Bravo! Zaslužiš si kos gubane.", "en": "Well done! You deserve a piece of gubana.", "de": "Gut gemacht! Dafür hast du ein Stück Gubana verdient." },
       { "it": "Vedi? Lo sai!", "sl": "Vidiš? Znaš!", "en": "See? You know it!", "de": "Siehst du? Du kannst es!" }
     ],
     "comfort": [
       { "it": "Non fa niente. Ancora una volta, piano.", "sl": "Nič hudega. Še enkrat, počasi.", "en": "Never mind. Once more, slowly.", "de": "Macht nichts. Noch einmal, langsam." },
-      { "it": "Tranquillo. Domani va meglio.", "sl": "Brez skrbi. Jutri bo šlo bolje.", "en": "Don't worry. It'll go better tomorrow.", "de": "Keine Sorge. Morgen geht es besser." },
+      { "it": "{m:Tranquillo|f:Tranquilla}. Domani va meglio.", "sl": "Brez skrbi. Jutri bo šlo bolje.", "en": "Don't worry. It'll go better tomorrow.", "de": "Keine Sorge. Morgen geht es besser." },
       { "it": "Anch'io dimentico le parole. Riprova!", "sl": "Tudi jaz pozabljam besede. Poskusi še enkrat!", "en": "I forget words too. Try again!", "de": "Ich vergesse auch Wörter. Versuch es noch einmal!" }
     ],
     "listen": [
@@ -74,13 +74,13 @@
     ],
     "gift": {
       "liked": [
-        { "it": "Per me? Oh, tesoro! Come lo sapevi che mi piace tanto?", "sl": "Zame? O, zaklad! Kako si vedel, da mi je tako všeč?", "en": "For me? Oh, treasure! How did you know I like it so much?", "de": "Für mich? Oh, Schatz! Woher wusstest du, dass ich das so mag?" },
+        { "it": "Per me? Oh, tesoro! Come lo sapevi che mi piace tanto?", "sl": "Zame? O, zaklad! Kako si {m:vedel|f:vedela}, da mi je tako všeč?", "en": "For me? Oh, treasure! How did you know I like it so much?", "de": "Für mich? Oh, Schatz! Woher wusstest du, dass ich das so mag?" },
         { "it": "Che bello! Hai un cuore d'oro. Vieni, ti do un pezzo di gubana.", "sl": "Kako lepo! Zlato srce imaš. Pridi, dam ti kos gubane.", "en": "How lovely! You have a heart of gold. Come, I'll give you a piece of gubana.", "de": "Wie schön! Du hast ein goldenes Herz. Komm, ich gebe dir ein Stück Gubana." },
         { "it": "Proprio quello che volevo! Grazie, tesoro mio.", "sl": "Točno to, kar sem si želela! Hvala, moj zaklad.", "en": "Just what I wanted! Thank you, my treasure.", "de": "Genau das wollte ich! Danke, mein Schatz." }
       ],
       "ordinary": [
         { "it": "Oh, grazie, tesoro. Non dovevi!", "sl": "O, hvala, zaklad. Ni bilo treba!", "en": "Oh, thank you, treasure. You didn't have to!", "de": "Oh, danke, Schatz. Das wäre doch nicht nötig gewesen!" },
-        { "it": "Grazie! Sei gentile. Adesso siediti e mangia.", "sl": "Hvala! Prijazen si. Zdaj pa sedi in jej.", "en": "Thank you! You're kind. Now sit down and eat.", "de": "Danke! Du bist lieb. Jetzt setz dich und iss." }
+        { "it": "Grazie! Sei gentile. Adesso siediti e mangia.", "sl": "Hvala! {m:Prijazen|f:Prijazna} si. Zdaj pa sedi in jej.", "en": "Thank you! You're kind. Now sit down and eat.", "de": "Danke! Du bist lieb. Jetzt setz dich und iss." }
       ],
       "rare": [
         { "it": "Mamma mia! Una cosa così non l'ho mai avuta. Grazie, grazie!", "sl": "Joj! Kaj takega še nisem imela. Hvala, hvala!", "en": "Goodness! I've never had anything like this. Thank you, thank you!", "de": "Du meine Güte! So etwas hatte ich noch nie. Danke, danke!" }

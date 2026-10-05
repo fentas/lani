@@ -256,7 +256,7 @@
         "voice": "male",
         "speaker": "grandpa",
         "role": { "en": "Collier (charcoal burner)", "sl": "Oglar", "it": "Carbonaio", "de": "Köhler" },
-        "story": "Ned is a collier, as the Lake District called its charcoal burners: he stacks coppice wood on an old pitstead in the woods above the village and watches the pit from his hut of poles and turf; his charcoal goes to Mr Dixon's forge. He calls the learner 'lad'.",
+        "story": "Ned is a collier, as the Lake District called its charcoal burners: he stacks coppice wood on an old pitstead in the woods above the village and watches the pit from his hut of poles and turf; his charcoal goes to Mr Dixon's forge. He calls the learner '{m:lad|f:lass}'.",
         "when": ["evening", "night"],
         "chance": 0.5,
         "title": { "en": "Collier Ned watches the pit", "sl": "Oglar Ned pazi na kopo", "it": "Il carbonaio Ned sorveglia la carbonaia", "de": "Köhler Ned hütet den Meiler" },
@@ -269,10 +269,10 @@
                 { "en": "Good evening! Nice to meet you.", "sl": "Dober večer! Me veseli.", "it": "Buonasera! Piacere.", "de": "Guten Abend! Freut mich.", "ok": true,
                   "reply": { "en": "Nice to meet you too. Sit down, it's warm here.", "sl": "Tudi mene veseli. Sedi, tu je toplo.", "it": "Piacere mio. Siediti, qui fa caldo.", "de": "Mich auch. Setz dich, hier ist es warm." } },
                 { "en": "Hello, Ned! Nice to meet you.", "sl": "Živjo, Ned! Me veseli.", "it": "Ciao, Ned! Piacere.", "de": "Hallo, Ned! Freut mich.", "ok": true,
-                  "reply": { "en": "Hello, lad! Come and sit by the pit.", "sl": "Živjo, fant! Pridi, sedi h kopi.", "it": "Ciao, ragazzo! Vieni a sederti vicino alla carbonaia.", "de": "Hallo, Junge! Komm, setz dich zum Meiler." } },
+                  "reply": { "en": "Hello, {m:lad|f:lass}! Come and sit by the pit.", "sl": "Živjo, {m:fant|f:dekle}! Pridi, sedi h kopi.", "it": "Ciao, {m:ragazzo|f:ragazza}! Vieni a sederti vicino alla carbonaia.", "de": "Hallo, {m:Junge|f:Mädchen}! Komm, setz dich zum Meiler." } },
                 { "en": "Good morning! Nice to meet you.", "sl": "Dobro jutro! Me veseli.", "it": "Buongiorno! Piacere.", "de": "Guten Morgen! Freut mich.",
                   "why": { "sl": "Zvečer rečeš good evening. Good morning je za jutro.", "it": "Di sera si dice good evening. Good morning è per il mattino.", "de": "Am Abend sagt man good evening. Good morning sagt man am Morgen." },
-                  "reply": { "en": "Morning? Morning's long gone, lad!", "sl": "Jutro? Jutro je že zdavnaj mimo, fant!", "it": "Mattino? Il mattino è passato da un pezzo, ragazzo!", "de": "Morgen? Der Morgen ist längst vorbei, Junge!" } }
+                  "reply": { "en": "Morning? Morning's long gone, {m:lad|f:lass}!", "sl": "Jutro? Jutro je že zdavnaj mimo, {m:fant|f:dekle}!", "it": "Mattino? Il mattino è passato da un pezzo, {m:ragazzo|f:ragazza}!", "de": "Morgen? Der Morgen ist längst vorbei, {m:Junge|f:Mädchen}!" } }
               ] },
               { "who": "collier", "en": "This is my charcoal pit. It doesn't burn. It smoulders.", "sl": "To je moja oglarska kopa. Ne gori. Tli.", "it": "Questa è la mia carbonaia. Non brucia. Cova.", "de": "Das ist mein Kohlenmeiler. Er brennt nicht. Er glimmt." },
               { "choices": [
@@ -280,20 +280,20 @@
                   "reply": { "en": "Wood. In a few days it will be charcoal.", "sl": "Drva. Čez nekaj dni bo oglje.", "it": "Legna. Tra qualche giorno sarà carbone.", "de": "Holz. In ein paar Tagen ist es Holzkohle." } },
                 { "en": "Who is in the pit?", "sl": "Kdo je v kopi?", "it": "Chi c'è nella carbonaia?", "de": "Wer ist im Meiler?",
                   "why": { "sl": "Who vpraša po osebi: kdo. Po stvari vprašaš what.", "it": "Who chiede di una persona: chi. Per una cosa si chiede what.", "de": "Who fragt nach einer Person: wer. Nach einer Sache fragt man what." },
-                  "reply": { "en": "Who? Nobody, lad! Just wood.", "sl": "Kdo? Nihče, fant! Samo drva.", "it": "Chi? Nessuno, ragazzo! Solo legna.", "de": "Wer? Niemand, Junge! Nur Holz." } }
+                  "reply": { "en": "Who? Nobody, {m:lad|f:lass}! Just wood.", "sl": "Kdo? Nihče, {m:fant|f:dekle}! Samo drva.", "it": "Chi? Nessuno, {m:ragazzo|f:ragazza}! Solo legna.", "de": "Wer? Niemand, {m:Junge|f:Mädchen}! Nur Holz." } }
               ] },
               { "who": "collier", "en": "The charcoal goes to Mr Dixon the smith. Come again!", "sl": "Oglje gre h kovaču, gospodu Dixonu. Pridi spet!", "it": "Il carbone va al fabbro, il signor Dixon. Torna!", "de": "Die Holzkohle geht zum Schmied, zu Mr Dixon. Komm wieder!" }
             ]
           },
           "A2": {
             "lines": [
-              { "who": "collier", "en": "Evening, lad! Have you come to see my pit?", "sl": "Dober večer, fant! Si prišel pogledat mojo kopo?", "it": "Buonasera, ragazzo! Sei venuto a vedere la mia carbonaia?", "de": "'n Abend, Junge! Bist du gekommen, um dir meinen Meiler anzuschauen?" },
+              { "who": "collier", "en": "Evening, {m:lad|f:lass}! Have you come to see my pit?", "sl": "Dober večer, {m:fant|f:dekle}! Si {m:prišel|f:prišla} pogledat mojo kopo?", "it": "Buonasera, {m:ragazzo|f:ragazza}! Sei {m:venuto|f:venuta} a vedere la mia carbonaia?", "de": "'n Abend, {m:Junge|f:Mädchen}! Bist du gekommen, um dir meinen Meiler anzuschauen?" },
               { "choices": [
-                { "en": "Yes, I saw the smoke from the village.", "sl": "Ja, dim sem videl iz vasi.", "it": "Sì, ho visto il fumo dal paese.", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "ok": true,
+                { "en": "Yes, I saw the smoke from the village.", "sl": "Ja, dim sem {m:videl|f:videla} iz vasi.", "it": "Sì, ho visto il fumo dal paese.", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "ok": true,
                   "reply": { "en": "Everybody sees the smoke. But there mustn't be any flames!", "sl": "Dim vidijo vsi. Plamenov pa ne sme biti!", "it": "Il fumo lo vedono tutti. Ma le fiamme non devono esserci!", "de": "Den Rauch sehen alle. Aber Flammen darf es keine geben!" } },
-                { "en": "Yes, I seed the smoke from the village.", "sl": "Ja, dim sem videl iz vasi. (napačna oblika preteklika)", "it": "Sì, ho visto il fumo dal paese. (una forma sbagliata del passato)", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen. (eine falsche Vergangenheitsform)",
+                { "en": "Yes, I seed the smoke from the village.", "sl": "Ja, dim sem {m:videl|f:videla} iz vasi. (napačna oblika preteklika)", "it": "Sì, ho visto il fumo dal paese. (una forma sbagliata del passato)", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen. (eine falsche Vergangenheitsform)",
                   "why": { "sl": "See ima nepravilni pretekli čas: saw. Seed je seme, ne glagol.", "it": "See ha un passato irregolare: saw. Seed è un seme, non un verbo.", "de": "See hat eine unregelmäßige Vergangenheit: saw. Seed ist ein Samen, kein Verb." },
-                  "reply": { "en": "Seed? Did you plant something, lad?", "sl": "Seme? Si kaj posejal, fant?", "it": "Semi? Hai seminato qualcosa, ragazzo?", "de": "Samen? Hast du etwas gesät, Junge?" } }
+                  "reply": { "en": "Seed? Did you plant something, {m:lad|f:lass}?", "sl": "Seme? Si kaj {m:posejal|f:posejala}, {m:fant|f:dekle}?", "it": "Semi? Hai seminato qualcosa, {m:ragazzo|f:ragazza}?", "de": "Samen? Hast du etwas gesät, {m:Junge|f:Mädchen}?" } }
               ] },
               { "who": "collier", "en": "I have to watch it day and night. If it gets too much air, it burns and only ash is left.", "sl": "Paziti moram nanjo dan in noč. Če dobi preveč zraka, zagori in ostane samo pepel.", "it": "Devo sorvegliarla giorno e notte. Se prende troppa aria, brucia e resta solo cenere.", "de": "Ich muss Tag und Nacht aufpassen. Wenn er zu viel Luft bekommt, brennt er, und es bleibt nur Asche." },
               { "choices": [
@@ -301,10 +301,10 @@
                   "reply": { "en": "In that hut, next to the pit. Poles and turf. I sleep a little and listen a lot.", "sl": "V tisti koči, zraven kope. Iz kolov in ruše. Spim malo in veliko poslušam.", "it": "In quella capanna, vicino alla carbonaia. Pali e zolle. Dormo poco e ascolto molto.", "de": "In der Hütte dort, neben dem Meiler. Stangen und Rasen. Ich schlafe wenig und horche viel." } },
                 { "en": "Where you sleep?", "sl": "Kje spite? (brez do)", "it": "Dove dorme? (senza do)", "de": "Wo schlafen Sie? (ohne do)",
                   "why": { "sl": "Vprašanje potrebuje do: Where do you sleep?", "it": "Una domanda ha bisogno di do: Where do you sleep?", "de": "Eine Frage braucht do: Where do you sleep?" },
-                  "reply": { "en": "Hm? Say that again, lad.", "sl": "Hm? Povej še enkrat, fant.", "it": "Mm? Ripeti, ragazzo.", "de": "Hm? Sag das nochmal, Junge." } }
+                  "reply": { "en": "Hm? Say that again, {m:lad|f:lass}.", "sl": "Hm? Povej še enkrat, {m:fant|f:dekle}.", "it": "Mm? Ripeti, {m:ragazzo|f:ragazza}.", "de": "Hm? Sag das nochmal, {m:Junge|f:Mädchen}." } }
               ] },
               { "who": "collier", "en": "In a few days I'll open the pit. The charcoal goes to Mr Dixon, for his forge.", "sl": "Čez nekaj dni odprem kopo. Oglje gre h gospodu Dixonu, za njegovo kovačnico.", "it": "Tra qualche giorno apro la carbonaia. Il carbone va al signor Dixon, per la sua fucina.", "de": "In ein paar Tagen mache ich den Meiler auf. Die Holzkohle geht zu Mr Dixon, für seine Schmiede." },
-              { "who": "collier", "en": "Come again, lad. The wood is lovely at night.", "sl": "Pridi spet, fant. Ponoči je gozd lep.", "it": "Torna, ragazzo. Di notte il bosco è bello.", "de": "Komm wieder, Junge. Nachts ist der Wald schön." }
+              { "who": "collier", "en": "Come again, {m:lad|f:lass}. The wood is lovely at night.", "sl": "Pridi spet, {m:fant|f:dekle}. Ponoči je gozd lep.", "it": "Torna, {m:ragazzo|f:ragazza}. Di notte il bosco è bello.", "de": "Komm wieder, {m:Junge|f:Mädchen}. Nachts ist der Wald schön." }
             ]
           }
         }

@@ -29,17 +29,17 @@
   ],
   "lines": {
     "greet": [
-      { "it": "Salve.", "sl": "Pozdravljen.", "en": "Hello.", "de": "Grüß dich.", "level": 0 },
+      { "it": "Salve.", "sl": "{m:Pozdravljen|f:Pozdravljena}.", "en": "Hello.", "de": "Grüß dich.", "level": 0 },
       { "it": "Buongiorno. Cosa ti serve?", "sl": "Dober dan. Kaj potrebuješ?", "en": "Good day. What do you need?", "de": "Guten Tag. Was brauchst du?", "level": 0, "when": ["morning", "afternoon"] },
       { "it": "Ah, sei tu. Entra.", "sl": "A, ti si. Vstopi.", "en": "Ah, it's you. Come in.", "de": "Ah, du bist es. Komm rein.", "level": 1 },
       { "it": "Ciao. Oggi faccio un ferro di cavallo. Guarda.", "sl": "Živjo. Danes delam podkev. Poglej.", "en": "Hi. Today I'm making a horseshoe. Watch.", "de": "Hallo. Heute mache ich ein Hufeisen. Schau zu.", "level": 2 },
       { "it": "Eccoti. Il fuoco è acceso. Vieni vicino.", "sl": "Tu si. Ogenj gori. Pridi bliže.", "en": "There you are. The fire's lit. Come closer.", "de": "Da bist du. Das Feuer brennt. Komm näher.", "level": 3 },
-      { "it": "Ragazzo. Qui sei di casa. Siediti.", "sl": "Fant. Tukaj si kot doma. Sedi.", "en": "Lad. You're at home here. Sit down.", "de": "Junge. Hier bist du zu Hause. Setz dich.", "level": 4 }
+      { "it": "{m:Ragazzo|f:Ragazza}. Qui sei di casa. Siediti.", "sl": "{m:Fant|f:Dekle}. Tukaj si kot doma. Sedi.", "en": "{m:Lad|f:Lass}. You're at home here. Sit down.", "de": "{m:Junge|f:Mädchen}. Hier bist du zu Hause. Setz dich.", "level": 4 }
     ],
     "thanks": [
       { "it": "Grazie.", "sl": "Hvala.", "en": "Thanks.", "de": "Danke." },
       { "it": "Bene. Fatto giusto. Grazie.", "sl": "Dobro. Prav narejeno. Hvala.", "en": "Good. Done right. Thanks.", "de": "Gut. Richtig gemacht. Danke." },
-      { "it": "Grazie, ragazzo. Non lo dimentico.", "sl": "Hvala, fant. Tega ne pozabim.", "en": "Thanks, lad. I won't forget it.", "de": "Danke, Junge. Das vergesse ich nicht." }
+      { "it": "Grazie, {m:ragazzo|f:ragazza}. Non lo dimentico.", "sl": "Hvala, {m:fant|f:dekle}. Tega ne pozabim.", "en": "Thanks, {m:lad|f:lass}. I won't forget it.", "de": "Danke, {m:Junge|f:Mädchen}. Das vergesse ich nicht." }
     ],
     "remember": [
       { "it": "Ricordo {memory}.", "sl": "Mislim na {memory}.", "en": "I think of {memory}.", "de": "Ich denke an {memory}.", "level": 1 },
@@ -56,7 +56,7 @@
       { "it": "Giusto.", "sl": "Prav.", "en": "Right.", "de": "Richtig." },
       { "it": "Bene.", "sl": "Dobro.", "en": "Good.", "de": "Gut." },
       { "it": "Così. Preciso.", "sl": "Tako. Natančno.", "en": "That's it. Exact.", "de": "So. Genau." },
-      { "it": "Bravo. Come il ferro: solido.", "sl": "Bravo. Kot železo: trdno.", "en": "Well done. Like iron: solid.", "de": "Gut gemacht. Wie Eisen: solide." }
+      { "it": "{m:Bravo|f:Brava}. Come il ferro: solido.", "sl": "Bravo. Kot železo: trdno.", "en": "Well done. Like iron: solid.", "de": "Gut gemacht. Wie Eisen: solide." }
     ],
     "comfort": [
       { "it": "No. Ancora.", "sl": "Ne. Še enkrat.", "en": "No. Again.", "de": "Nein. Noch einmal." },
@@ -71,16 +71,16 @@
     "bye": [
       { "it": "Ciao.", "sl": "Adijo.", "en": "Bye.", "de": "Tschüss." },
       { "it": "Arrivederci. Al lavoro.", "sl": "Na svidenje. Na delo.", "en": "Goodbye. Back to work.", "de": "Auf Wiedersehen. Zurück an die Arbeit." },
-      { "it": "Mandi, ragazzo.", "sl": "Mandi, fant. (mandi: furlanski pozdrav)", "en": "Mandi, lad. (mandi: Friulian for bye)", "de": "Mandi, Junge. (mandi: Friaulisch für tschüss)" }
+      { "it": "Mandi, {m:ragazzo|f:ragazza}.", "sl": "Mandi, {m:fant|f:dekle}. (mandi: furlanski pozdrav)", "en": "Mandi, {m:lad|f:lass}. (mandi: Friulian for bye)", "de": "Mandi, {m:Junge|f:Mädchen}. (mandi: Friaulisch für tschüss)" }
     ],
     "gift": {
       "liked": [
         { "it": "Hm. Mi piace. Grazie.", "sl": "Hm. To mi je všeč. Hvala.", "en": "Hm. I like it. Thanks.", "de": "Hm. Das gefällt mir. Danke." },
-        { "it": "Come lo sapevi? Bene. Grazie, ragazzo.", "sl": "Kako si vedel? Dobro. Hvala, fant.", "en": "How did you know? Good. Thanks, lad.", "de": "Woher wusstest du das? Gut. Danke, Junge." },
+        { "it": "Come lo sapevi? Bene. Grazie, {m:ragazzo|f:ragazza}.", "sl": "Kako si {m:vedel|f:vedela}? Dobro. Hvala, {m:fant|f:dekle}.", "en": "How did you know? Good. Thanks, {m:lad|f:lass}.", "de": "Woher wusstest du das? Gut. Danke, {m:Junge|f:Mädchen}." },
         { "it": "Ah! Proprio questo. Grazie.", "sl": "A! Točno to. Hvala.", "en": "Ah! Exactly this. Thanks.", "de": "Ah! Genau das. Danke." }
       ],
       "ordinary": [
-        { "it": "Grazie. Sei un bravo ragazzo.", "sl": "Hvala. Dober fant si.", "en": "Thanks. You're a good lad.", "de": "Danke. Du bist ein guter Junge." },
+        { "it": "Grazie. Sei {m:un bravo ragazzo|f:una brava ragazza}.", "sl": "Hvala. {m:Dober fant|f:Dobro dekle} si.", "en": "Thanks. You're a good {m:lad|f:lass}.", "de": "Danke. Du bist {m:ein guter Junge|f:ein gutes Mädchen}." },
         { "it": "Hm. Grazie. Lascia pure lì, sul tavolo.", "sl": "Hm. Hvala. Kar tam pusti, na mizi.", "en": "Hm. Thanks. Just leave it there, on the table.", "de": "Hm. Danke. Leg es ruhig dort hin, auf den Tisch." }
       ],
       "rare": [

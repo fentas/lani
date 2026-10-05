@@ -67,7 +67,7 @@
     "A2": {
       "sky_stays": false,
       "lines": [
-        { "de": "Guten Abend! Früher haben sich in Kärnten alle Kinder vor einer Winternacht gefürchtet. Hast du dich als Kind auch vor etwas gefürchtet?", "sl": "Dober večer! Nekoč so se na Koroškem vsi otroci bali neke zimske noči. Si se tudi ti kot otrok česa bal?", "en": "Good evening! Long ago all the children in Carinthia were afraid of one winter night. Were you afraid of something as a child too?", "it": "Buonasera! Una volta in Carinzia tutti i bambini avevano paura di una notte d'inverno. Anche tu da bambino avevi paura di qualcosa?" },
+        { "de": "Guten Abend! Früher haben sich in Kärnten alle Kinder vor einer Winternacht gefürchtet. Hast du dich als Kind auch vor etwas gefürchtet?", "sl": "Dober večer! Nekoč so se na Koroškem vsi otroci bali neke zimske noči. Si se tudi ti kot otrok česa {m:bal|f:bala}?", "en": "Good evening! Long ago all the children in Carinthia were afraid of one winter night. Were you afraid of something as a child too?", "it": "Buonasera! Una volta in Carinzia tutti i bambini avevano paura di una notte d'inverno. Anche tu {m:da bambino|f:da bambina} avevi paura di qualcosa?" },
         { "choices": [
           { "de": "Ja, vor dem Gewitter.", "sl": "Ja, nevihte.", "en": "Yes, of thunderstorms.", "it": "Sì, del temporale.", "ok": true,
             "reply": { "de": "Das verstehe ich. Aber hör, wovor sich die Kinder hier gefürchtet haben.", "sl": "To razumem. Ampak poslušaj, česa so se bali otroci tukaj.", "en": "I understand. But listen to what the children here were afraid of.", "it": "Lo capisco. Ma ascolta di che cosa avevano paura i bambini qui." } },
@@ -93,9 +93,9 @@
         { "de": "Brave Kinder fanden am Morgen Nüsse, Kletzen und getrocknete Zwetschken.", "sl": "Pridni otroci so zjutraj našli orehe, suhe hruške in suhe slive.", "en": "Good children found nuts, dried pears and dried plums in the morning.", "it": "I bambini buoni la mattina trovavano noci, pere secche e prugne secche." },
         { "de": "Die faulen aber bekamen eine Rübe. Und wer frech war, spürte ihre Ofengabel!", "sl": "Leni pa so dobili repo. In kdor je bil predrzen, je okusil njene burkle!", "en": "But the lazy ones got a turnip. And whoever was cheeky felt her oven fork!", "it": "Quelli pigri invece ricevevano una rapa. E chi era sfacciato sentiva il suo forcone!", "fx": { "flare": 0.5 } },
         { "choices": [
-          { "de": "Zum Glück bin ich nicht faul!", "sl": "Na srečo nisem len!", "en": "Luckily I'm not lazy!", "it": "Per fortuna non sono pigro!", "ok": true,
+          { "de": "Zum Glück bin ich nicht faul!", "sl": "Na srečo nisem {m:len|f:lena}!", "en": "Luckily I'm not lazy!", "it": "Per fortuna non sono {m:pigro|f:pigra}!", "ok": true,
             "reply": { "de": "Das hoffe ich! Sonst gibt's Rüben.", "sl": "Upam! Drugače bo repa.", "en": "I hope so! Otherwise it's turnips.", "it": "Lo spero! Se no, rape." } },
-          { "de": "Zum Glück ich bin nicht faul!", "sl": "Na srečo nisem len!", "en": "Luckily I'm not lazy!", "it": "Per fortuna non sono pigro!",
+          { "de": "Zum Glück ich bin nicht faul!", "sl": "Na srečo nisem {m:len|f:lena}!", "en": "Luckily I'm not lazy!", "it": "Per fortuna non sono {m:pigro|f:pigra}!",
             "why": { "sl": "Zum Glück stoji na prvem mestu, zato je glagol drugi: zum Glück bin ich.", "en": "Zum Glück is in first place, so the verb comes second: zum Glück bin ich.", "it": "Zum Glück è al primo posto, quindi il verbo viene secondo: zum Glück bin ich." },
             "reply": { "de": "Hm? Das war noch nicht ganz aufgeräumt.", "sl": "Hm? To še ni bilo čisto pospravljeno.", "en": "Hm? That wasn't quite tidied up yet.", "it": "Mm? Non era ancora del tutto in ordine." } }
         ] },

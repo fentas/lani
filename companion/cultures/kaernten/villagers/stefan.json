@@ -28,16 +28,16 @@
   ],
   "lines": {
     "greet": [
-      { "de": "Servus! Willkommen in Kärnten!", "sl": "Živjo! Dobrodošel na Koroškem!", "en": "Hi! Welcome to Carinthia!", "it": "Ciao! Benvenuto in Carinzia!", "level": 0 },
+      { "de": "Servus! Willkommen in Kärnten!", "sl": "Živjo! {m:Dobrodošel|f:Dobrodošla} na Koroškem!", "en": "Hi! Welcome to Carinthia!", "it": "Ciao! {m:Benvenuto|f:Benvenuta} in Carinzia!", "level": 0 },
       { "de": "Servus! Ich bin der Stefan. Ich mache Most.", "sl": "Živjo! Jaz sem Stefan. Delam mošt.", "en": "Hi! I'm Stefan. I make Most (cider).", "it": "Ciao! Io sono Stefan. Faccio il Most (il sidro).", "level": 0 },
       { "de": "Hallo, servus! Alles gut?", "sl": "Ej, živjo! Je vse v redu?", "en": "Hey, hi! All good?", "it": "Ehi, ciao! Tutto bene?", "level": 1 },
       { "de": "Da bist du! Komm, schau dir die Äpfel an.", "sl": "Tu si! Pridi pogledat jabolka.", "en": "There you are! Come and look at the apples.", "it": "Eccoti! Vieni a vedere le mele.", "level": 2 },
       { "de": "He, da bist du ja! Ohne dich ist der Obstgarten traurig.", "sl": "Ej, tu si! Brez tebe je sadovnjak žalosten.", "en": "Hey, there you are! Without you the orchard is sad.", "it": "Ehi, eccoti! Senza di te il frutteto è triste.", "level": 3 },
-      { "de": "Da bist du ja! Heuer pflückst du die Äpfel mit mir, ja?", "sl": "Tu si! Letos boš z mano obiral jabolka, ja?", "en": "There you are! This year you'll pick the apples with me, yes? (heuer: Austrian for this year)", "it": "Eccoti! Quest'anno raccogli le mele con me, sì? (heuer: in Austria vuol dire quest'anno)", "level": 4 }
+      { "de": "Da bist du ja! Heuer pflückst du die Äpfel mit mir, ja?", "sl": "Tu si! Letos boš z mano {m:obiral|f:obirala} jabolka, ja?", "en": "There you are! This year you'll pick the apples with me, yes? (heuer: Austrian for this year)", "it": "Eccoti! Quest'anno raccogli le mele con me, sì? (heuer: in Austria vuol dire quest'anno)", "level": 4 }
     ],
     "thanks": [
       { "de": "Danke! Du bist ein echter Schatz.", "sl": "Hvala! Pravi zaklad si.", "en": "Thanks! You're a real treasure.", "it": "Grazie! Sei un vero tesoro." },
-      { "de": "Danke vielmals! Du hast meinen Tag gerettet.", "sl": "Najlepša hvala! Rešil si mi dan.", "en": "Thanks a lot! You saved my day.", "it": "Grazie mille! Mi hai salvato la giornata." },
+      { "de": "Danke vielmals! Du hast meinen Tag gerettet.", "sl": "Najlepša hvala! {m:Rešil|f:Rešila} si mi dan.", "en": "Thanks a lot! You saved my day.", "it": "Grazie mille! Mi hai salvato la giornata." },
       { "de": "Danke! Das erzähle ich auch Marko und Matteo.", "sl": "Hvala! To povem tudi Marku in Matteu.", "en": "Thanks! I'll tell Marko and Matteo too.", "it": "Grazie! Lo racconto anche a Marko e a Matteo." }
     ],
     "remember": [
@@ -52,12 +52,12 @@
       { "de": "Dieser Birnbaum ist älter als Opa Sepp.", "sl": "Ta hruška je starejša od dedka Seppa.", "en": "This pear tree is older than Opa Sepp.", "it": "Questo pero è più vecchio di Opa Sepp." }
     ],
     "cheer": [
-      { "de": "Super!", "sl": "Super!", "en": "Great!", "it": "Bravo!" },
+      { "de": "Super!", "sl": "Super!", "en": "Great!", "it": "{m:Bravo|f:Brava}!" },
       { "de": "Perfekt!", "sl": "Odlično!", "en": "Perfect!", "it": "Perfetto!" },
       { "de": "Klasse! So macht man das!", "sl": "Super! Tako se to dela!", "en": "Great! That's how it's done!", "it": "Grande! Così si fa!" }
     ],
     "comfort": [
-      { "de": "Keine Sorge, das ist nichts.", "sl": "Brez skrbi, ni nič.", "en": "Don't worry, it's nothing.", "it": "Tranquillo, non è niente." },
+      { "de": "Keine Sorge, das ist nichts.", "sl": "Brez skrbi, ni nič.", "en": "Don't worry, it's nothing.", "it": "{m:Tranquillo|f:Tranquilla}, non è niente." },
       { "de": "Fast! Noch ein Versuch.", "sl": "Skoraj! Še en poskus.", "en": "Almost! One more try.", "it": "Quasi! Un altro tentativo." },
       { "de": "Auch ein Apfel braucht Zeit. Probier's noch einmal.", "sl": "Tudi jabolko potrebuje čas. Poskusi še enkrat.", "en": "An apple needs time too. Try again.", "it": "Anche una mela ha bisogno di tempo. Riprova." }
     ],
@@ -73,7 +73,7 @@
     ],
     "gift": {
       "liked": [
-        { "de": "He! Woher weißt du, dass ich das mag? Danke!", "sl": "Ej! Kako si vedel, da mi je to všeč? Hvala!", "en": "Hey! How did you know I like it? Thanks!", "it": "Ehi! Come lo sapevi che mi piace? Grazie!" },
+        { "de": "He! Woher weißt du, dass ich das mag? Danke!", "sl": "Ej! Kako si {m:vedel|f:vedela}, da mi je to všeč? Hvala!", "en": "Hey! How did you know I like it? Thanks!", "it": "Ehi! Come lo sapevi che mi piace? Grazie!" },
         { "de": "Für mich? Super! Heute Abend feiern wir.", "sl": "Zame? Super! Nocoj bomo praznovali.", "en": "For me? Great! Tonight we celebrate.", "it": "Per me? Grande! Stasera si fa festa.", "when": ["morning", "afternoon", "evening"] },
         { "de": "Genau das wollte ich! Das erzähle ich Marko und Matteo.", "sl": "Točno to, kar sem si želel! Povem Marku in Matteu.", "en": "Just what I wanted! I'll tell Marko and Matteo.", "it": "Proprio quello che volevo! Lo racconto a Marko e a Matteo." }
       ],

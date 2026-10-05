@@ -14,7 +14,7 @@
     "ask": { "it": "Il postino mi ha portato una lettera. Me la leggi?", "sl": "Poštar mi je prinesel pismo. Mi ga prebereš?", "en": "The postman brought me a letter. Will you read it to me?", "de": "Der Briefträger hat mir einen Brief gebracht. Liest du ihn mir vor?" },
     "ask_mine": { "it": "È arrivata una lettera per te!", "sl": "Pismo je prišlo zate!", "en": "A letter came for you!", "de": "Ein Brief für dich ist gekommen!" },
     "read": { "it": "Leggi la lettera", "sl": "Preberi pismo", "en": "Read the letter", "de": "Lies den Brief" },
-    "won": { "it": "{name}: Grazie per avermi letto la lettera!", "sl": "Hvala, da si mi prebral pismo!", "en": "Thanks for reading me the letter!", "de": "Danke, dass du mir den Brief vorgelesen hast!" },
+    "won": { "it": "{name}: Grazie per avermi letto la lettera!", "sl": "Hvala, da si mi {m:prebral|f:prebrala} pismo!", "en": "Thanks for reading me the letter!", "de": "Danke, dass du mir den Brief vorgelesen hast!" },
     "won_mine": { "it": "Nika ti scriverà ancora.", "sl": "Nika ti bo spet pisala.", "en": "Nika will write to you again.", "de": "Nika wird dir wieder schreiben." },
     "lost": { "it": "La lettera era difficile. La prossima volta sarà più facile!", "sl": "Pismo je bilo težko. Naslednjič bo lažje!", "en": "The letter was hard. It'll be easier next time!", "de": "Der Brief war schwer. Nächstes Mal wird es leichter!" },
     "letters": [
@@ -203,8 +203,8 @@
     "title": { "it": "Un indovinello", "sl": "Uganka", "en": "A riddle", "de": "Ein Rätsel" },
     "intro": { "it": "{name} ha un indovinello per te.", "sl": "{name} ima zate uganko.", "en": "{name} has a riddle for you.", "de": "{name} hat ein Rätsel für dich." },
     "ask": { "it": "Ho un indovinello per te!", "sl": "Imam uganko zate!", "en": "I have a riddle for you!", "de": "Ich hab ein Rätsel für dich!" },
-    "won": { "it": "{name}: Bravo, hai indovinato!", "sl": "Bravo, uganil si!", "en": "Well done, you guessed it!", "de": "Bravo, du hast es erraten!" },
-    "lost": { "it": "{name}: Ah, non hai indovinato! Domani ne ho un altro.", "sl": "Ha, nisi uganil! Jutri bo nova.", "en": "Ha, you didn't guess it! A new one tomorrow.", "de": "Ha, nicht erraten! Morgen gibt's ein neues." },
+    "won": { "it": "{name}: {m:Bravo|f:Brava}, hai indovinato!", "sl": "Bravo, {m:uganil|f:uganila} si!", "en": "Well done, you guessed it!", "de": "Bravo, du hast es erraten!" },
+    "lost": { "it": "{name}: Ah, non hai indovinato! Domani ne ho un altro.", "sl": "Ha, nisi {m:uganil|f:uganila}! Jutri bo nova.", "en": "Ha, you didn't guess it! A new one tomorrow.", "de": "Ha, nicht erraten! Morgen gibt's ein neues." },
     "riddles": [
       {
         "riddle": { "it": "Ha i denti ma non morde. Che cos'è?", "sl": "Ima zobe, a ne grize. Kaj je to?", "en": "It has teeth but doesn't bite. What is it?", "de": "Er hat Zähne, aber beißt nicht. Was ist das?" },

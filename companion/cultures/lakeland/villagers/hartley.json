@@ -25,17 +25,17 @@
   "lines": {
     "greet": [
       { "en": "Good morning. I'm Mrs Hartley, the teacher.", "sl": "Dobro jutro. Jaz sem gospa Hartley, učiteljica.", "it": "Buongiorno. Sono la signora Hartley, la maestra.", "de": "Guten Morgen. Ich bin Frau Hartley, die Lehrerin.", "level": 0, "when": ["morning"] },
-      { "en": "Good morning! Welcome to school.", "sl": "Dobro jutro! Dobrodošel v šoli.", "it": "Buongiorno! Benvenuto a scuola.", "de": "Guten Morgen! Willkommen in der Schule.", "level": 0, "when": ["morning"] },
-      { "en": "Good afternoon! Welcome to school.", "sl": "Dober dan! Dobrodošel v šoli.", "it": "Buon pomeriggio! Benvenuto a scuola.", "de": "Guten Tag! Willkommen in der Schule.", "level": 0, "when": ["afternoon"] },
+      { "en": "Good morning! Welcome to school.", "sl": "Dobro jutro! {m:Dobrodošel|f:Dobrodošla} v šoli.", "it": "Buongiorno! {m:Benvenuto|f:Benvenuta} a scuola.", "de": "Guten Morgen! Willkommen in der Schule.", "level": 0, "when": ["morning"] },
+      { "en": "Good afternoon! Welcome to school.", "sl": "Dober dan! {m:Dobrodošel|f:Dobrodošla} v šoli.", "it": "Buon pomeriggio! {m:Benvenuto|f:Benvenuta} a scuola.", "de": "Guten Tag! Willkommen in der Schule.", "level": 0, "when": ["afternoon"] },
       { "en": "Good evening. I'm Mrs Hartley, the teacher.", "sl": "Dober večer. Jaz sem gospa Hartley, učiteljica.", "it": "Buonasera. Sono la signora Hartley, la maestra.", "de": "Guten Abend. Ich bin Frau Hartley, die Lehrerin.", "level": 0, "when": ["evening", "night"] },
-      { "en": "Hello again! Ready for the lesson?", "sl": "Pozdravljen! Si pripravljen na uro?", "it": "Ciao di nuovo! Pronto per la lezione?", "de": "Hallo noch mal! Bereit für den Unterricht?", "level": 1 },
+      { "en": "Hello again! Ready for the lesson?", "sl": "{m:Pozdravljen|f:Pozdravljena}! Si {m:pripravljen|f:pripravljena} na uro?", "it": "Ciao di nuovo! {m:Pronto|f:Pronta} per la lezione?", "de": "Hallo noch mal! Bereit für den Unterricht?", "level": 1 },
       { "en": "Hello! Today we're going to learn a new word.", "sl": "Živjo! Danes se bomo naučili novo besedo.", "it": "Ciao! Oggi impariamo una parola nuova.", "de": "Hallo! Heute lernen wir ein neues Wort.", "level": 2 },
-      { "en": "There you are! You're my best pupil. Shh, it's a secret.", "sl": "Tu si! Ti si moj najboljši učenec. Pst, to je skrivnost.", "it": "Eccoti! Sei il mio alunno più bravo. Shh, è un segreto.", "de": "Da bist du ja! Du bist mein bester Schüler. Pst, das ist ein Geheimnis.", "level": 3 },
+      { "en": "There you are! You're my best pupil. Shh, it's a secret.", "sl": "Tu si! Ti si {m:moj najboljši učenec|f:moja najboljša učenka}. Pst, to je skrivnost.", "it": "Eccoti! Sei {m:il mio alunno più bravo|f:la mia alunna più brava}. Shh, è un segreto.", "de": "Da bist du ja! Du bist {m:mein bester Schüler|f:meine beste Schülerin}. Pst, das ist ein Geheimnis.", "level": 3 },
       { "en": "How lovely to see you! Come in, I've got a book for you.", "sl": "Kako lepo, da te vidim! Pridi, knjigo imam zate.", "it": "Che bello vederti! Vieni, ho un libro per te.", "de": "Wie schön, dich zu sehen! Komm rein, ich habe ein Buch für dich.", "level": 4 }
     ],
     "thanks": [
-      { "en": "Thank you. You worked well.", "sl": "Hvala. Dobro si delal.", "it": "Grazie. Hai lavorato bene.", "de": "Danke. Du hast gut gearbeitet." },
-      { "en": "Thank you! You were excellent.", "sl": "Hvala! Odličen si bil.", "it": "Grazie! Sei stato bravissimo.", "de": "Danke! Du warst ausgezeichnet." },
+      { "en": "Thank you. You worked well.", "sl": "Hvala. Dobro si {m:delal|f:delala}.", "it": "Grazie. Hai lavorato bene.", "de": "Danke. Du hast gut gearbeitet." },
+      { "en": "Thank you! You were excellent.", "sl": "Hvala! {m:Odličen|f:Odlična} si {m:bil|f:bila}.", "it": "Grazie! Sei {m:stato|f:stata} {m:bravissimo|f:bravissima}.", "de": "Danke! Du warst ausgezeichnet." },
       { "en": "Thank you so much. I'm proud of you.", "sl": "Najlepša hvala. Ponosna sem nate.", "it": "Grazie davvero. Sono fiera di te.", "de": "Vielen Dank. Ich bin stolz auf dich." }
     ],
     "remember": [
@@ -51,7 +51,7 @@
     ],
     "cheer": [
       { "en": "Exactly!", "sl": "Točno!", "it": "Esatto!", "de": "Genau!" },
-      { "en": "Well done! The right ending.", "sl": "Bravo! Prava končnica.", "it": "Bravo! La desinenza giusta.", "de": "Gut gemacht! Die richtige Endung." },
+      { "en": "Well done! The right ending.", "sl": "Bravo! Prava končnica.", "it": "{m:Bravo|f:Brava}! La desinenza giusta.", "de": "Gut gemacht! Die richtige Endung." },
       { "en": "Perfect. You see? The rule helps.", "sl": "Odlično. Vidiš? Pravilo pomaga.", "it": "Perfetto. Vedi? La regola aiuta.", "de": "Perfekt. Siehst du? Die Regel hilft." },
       { "en": "Very good! Top marks!", "sl": "Zelo dobro! Petica z zvezdico!", "it": "Molto bene! Dieci e lode!", "de": "Sehr gut! Eine glatte Eins!" }
     ],
@@ -72,12 +72,12 @@
     ],
     "gift": {
       "liked": [
-        { "en": "Oh, how lovely! How did you know I like it?", "sl": "O, kako lepo! Kako si vedel, da mi je všeč?", "it": "Oh, che bello! Come lo sapevi che mi piace?", "de": "Oh, wie schön! Woher wusstest du, dass ich das mag?" },
+        { "en": "Oh, how lovely! How did you know I like it?", "sl": "O, kako lepo! Kako si {m:vedel|f:vedela}, da mi je všeč?", "it": "Oh, che bello! Come lo sapevi che mi piace?", "de": "Oh, wie schön! Woher wusstest du, dass ich das mag?" },
         { "en": "Thank you! A perfect present. Top marks!", "sl": "Hvala! Popolno darilo. Petica z zvezdico!", "it": "Grazie! Un regalo perfetto. Dieci e lode!", "de": "Danke! Ein perfektes Geschenk. Eine glatte Eins!" },
         { "en": "I like it so much! Look how happy I am!", "sl": "Zelo mi je všeč! Poglej, kako sem vesela!", "it": "Mi piace tanto! Guarda come sono contenta!", "de": "Das gefällt mir so gut! Schau, wie ich mich freue!" }
       ],
       "ordinary": [
-        { "en": "Thank you, that's very kind of you.", "sl": "Hvala, zelo si prijazen.", "it": "Grazie, sei molto gentile.", "de": "Danke, das ist sehr lieb von dir." },
+        { "en": "Thank you, that's very kind of you.", "sl": "Hvala, zelo si {m:prijazen|f:prijazna}.", "it": "Grazie, sei molto gentile.", "de": "Danke, das ist sehr lieb von dir." },
         { "en": "Thank you! What a lovely thought.", "sl": "Hvala! Kako lepa misel.", "it": "Grazie! Che bel pensiero.", "de": "Danke! Wie aufmerksam von dir." }
       ],
       "rare": [

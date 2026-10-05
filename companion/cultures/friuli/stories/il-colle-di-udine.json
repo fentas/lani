@@ -14,13 +14,13 @@
   "levels": {
     "A1": {
       "lines": [
-        { "it": "Ciao, piccolo. Sai dov'è Udine?", "sl": "Živjo, mali. Veš, kje je Videm?", "en": "Hi, little one. Do you know where Udine is?", "de": "Hallo, Kleiner. Weißt du, wo Udine liegt?" },
+        { "it": "Ciao, {m:piccolo|f:piccola}. Sai dov'è Udine?", "sl": "Živjo, {m:mali|f:mala}. Veš, kje je Videm?", "en": "Hi, little one. Do you know where Udine is?", "de": "Hallo, {m:Kleiner|f:Kleine}. Weißt du, wo Udine liegt?" },
         { "choices": [
           { "it": "Sì, nonno. È in Friuli.", "sl": "Ja, dedek. V Furlaniji je.", "en": "Yes, Grandpa. It's in Friuli.", "de": "Ja, Opa. Es liegt im Friaul.", "ok": true,
-            "reply": { "it": "Bravo. E a Udine c'è un colle, con un castello.", "sl": "Bravo. In v Vidmu je grič z gradom.", "en": "Well done. And in Udine there's a hill with a castle.", "de": "Gut gemacht. Und in Udine gibt es einen Hügel mit einer Burg." } },
+            "reply": { "it": "{m:Bravo|f:Brava}. E a Udine c'è un colle, con un castello.", "sl": "Bravo. In v Vidmu je grič z gradom.", "en": "Well done. And in Udine there's a hill with a castle.", "de": "Gut gemacht. Und in Udine gibt es einen Hügel mit einer Burg." } },
           { "it": "Sì, nonno. Sono in Friuli.", "sl": "Ja, dedek. V Furlaniji sem.", "en": "Yes, Grandpa. I'm in Friuli.", "de": "Ja, Opa. Ich bin im Friaul.",
             "why": { "sl": "Videm je eno mesto: è in Friuli. Sono pomeni jaz sem ali oni so.", "en": "Udine is one town: è in Friuli. Sono means I am, or they are.", "de": "Udine ist eine Stadt: è in Friuli. Sono heißt „ich bin“ oder „sie sind“." },
-            "reply": { "it": "Sei in Friuli? Anch'io, piccolo! E Udine?", "sl": "V Furlaniji si? Jaz tudi, mali! Pa Videm?", "en": "You're in Friuli? So am I, little one! And Udine?", "de": "Du bist im Friaul? Ich auch, Kleiner! Und Udine?" } }
+            "reply": { "it": "Sei in Friuli? Anch'io, {m:piccolo|f:piccola}! E Udine?", "sl": "V Furlaniji si? Jaz tudi, {m:mali|f:mala}! Pa Videm?", "en": "You're in Friuli? So am I, little one! And Udine?", "de": "Du bist im Friaul? Ich auch, {m:Kleiner|f:Kleine}! Und Udine?" } }
         ] },
         { "it": "Tanto tempo fa arriva il re Attila. Ha tanti, tanti soldati.", "sl": "Nekoč pride kralj Atila. S seboj ima veliko, veliko vojakov.", "en": "Long ago King Attila arrives. He has lots and lots of soldiers.", "de": "Vor langer Zeit kommt König Attila. Er hat viele, viele Soldaten." },
         { "it": "Attila vuole guardare lontano, fino al mare. Ma qui è tutto piatto: non c'è un colle!", "sl": "Atila hoče videti daleč, vse do morja. Ampak tu je vse ravno: ni griča!", "en": "Attila wants to look far away, all the way to the sea. But here everything is flat: there's no hill!", "de": "Attila will weit schauen, bis zum Meer. Aber hier ist alles flach: Es gibt keinen Hügel!" },
@@ -29,7 +29,7 @@
             "reply": { "it": "Ascolta. Ha una bella idea.", "sl": "Poslušaj. Dobro zamisel ima.", "en": "Listen. He has a clever idea.", "de": "Hör zu. Er hat eine schlaue Idee." } },
           { "it": "E allora chi fa?", "sl": "In kdo potem dela?", "en": "So who does?", "de": "Und wer macht es dann?",
             "why": { "sl": "Chi vpraša kdo. Ti pa hočeš vedeti, kaj naredi: che cosa fa.", "en": "Chi asks who. You want to know what he does: che cosa fa.", "de": "Chi fragt nach dem Wer. Du willst wissen, was er macht: che cosa fa." },
-            "reply": { "it": "Chi fa? Attila, piccolo! Chi altro?", "sl": "Chi fa? Atila, mali! Kdo pa drug?", "en": "Chi fa? Attila, little one! Who else?", "de": "Chi fa? Attila, Kleiner! Wer denn sonst?" } }
+            "reply": { "it": "Chi fa? Attila, {m:piccolo|f:piccola}! Chi altro?", "sl": "Chi fa? Atila, {m:mali|f:mala}! Kdo pa drug?", "en": "Chi fa? Attila, little one! Who else?", "de": "Chi fa? Attila, {m:Kleiner|f:Kleine}! Wer denn sonst?" } }
         ] },
         { "it": "Attila dice ai soldati: «Portate la terra nei vostri elmi!»", "sl": "Atila reče vojakom: »Nosite zemljo v svojih čeladah!«", "en": "Attila says to the soldiers: 'Carry earth in your helmets!'", "de": "Attila sagt zu den Soldaten: „Tragt Erde in euren Helmen herbei!“", "fx": { "flare": 0.6 } },
         { "it": "Ogni soldato porta un elmo di terra. Uno, due, tre… mille, diecimila!", "sl": "Vsak vojak prinese čelado zemlje. Ena, dve, tri … tisoč, deset tisoč!", "en": "Every soldier brings a helmet of earth. One, two, three… a thousand, ten thousand!", "de": "Jeder Soldat bringt einen Helm voll Erde. Eins, zwei, drei … tausend, zehntausend!", "fx": { "flare": 0.3 } },
@@ -39,15 +39,15 @@
             "reply": { "it": "Sì, sì! Tanti elmi, tanta terra.", "sl": "Ja, ja! Veliko čelad, veliko zemlje.", "en": "Yes, yes! Lots of helmets, lots of earth.", "de": "Ja, ja! Viele Helme, viel Erde." } },
           { "it": "Che bello! Un colle fatto con i elmi!", "sl": "Kako lepo! Grič iz čelad!", "en": "How great! A hill made with helmets!", "de": "Wie toll! Ein Hügel, mit Helmen gebaut!",
             "why": { "sl": "Pred samoglasnikom je v množini člen gli: gli elmi.", "en": "Before a vowel the plural article is gli: gli elmi.", "de": "Vor einem Vokal ist der Artikel im Plural gli: gli elmi." },
-            "reply": { "it": "I elmi? Hai il singhiozzo, piccolo?", "sl": "I elmi? Te kolca, mali?", "en": "I elmi? Have you got hiccups, little one?", "de": "I elmi? Hast du Schluckauf, Kleiner?" } }
+            "reply": { "it": "I elmi? Hai il singhiozzo, {m:piccolo|f:piccola}?", "sl": "I elmi? Te kolca, {m:mali|f:mala}?", "en": "I elmi? Have you got hiccups, little one?", "de": "I elmi? Hast du Schluckauf, {m:Kleiner|f:Kleine}?" } }
         ] },
-        { "it": "Dimmi, piccolo: in che cosa portano la terra i soldati?", "sl": "Povej, mali: v čem vojaki nosijo zemljo?", "en": "Tell me, little one: what do the soldiers carry the earth in?", "de": "Sag mal, Kleiner: Worin tragen die Soldaten die Erde?" },
+        { "it": "Dimmi, {m:piccolo|f:piccola}: in che cosa portano la terra i soldati?", "sl": "Povej, {m:mali|f:mala}: v čem vojaki nosijo zemljo?", "en": "Tell me, little one: what do the soldiers carry the earth in?", "de": "Sag mal, {m:Kleiner|f:Kleine}: Worin tragen die Soldaten die Erde?" },
         { "choices": [
           { "it": "Negli elmi.", "sl": "V čeladah.", "en": "In their helmets.", "de": "In ihren Helmen.", "ok": true,
-            "reply": { "it": "Bravo! E oggi sul colle c'è il castello di Udine. Buonanotte, piccolo.", "sl": "Bravo! In danes na griču stoji videmski grad. Lahko noč, mali.", "en": "Well done! And today the castle of Udine stands on the hill. Good night, little one.", "de": "Gut gemacht! Und heute steht auf dem Hügel die Burg von Udine. Gute Nacht, Kleiner." } },
+            "reply": { "it": "{m:Bravo|f:Brava}! E oggi sul colle c'è il castello di Udine. Buonanotte, {m:piccolo|f:piccola}.", "sl": "Bravo! In danes na griču stoji videmski grad. Lahko noč, {m:mali|f:mala}.", "en": "Well done! And today the castle of Udine stands on the hill. Good night, little one.", "de": "Gut gemacht! Und heute steht auf dem Hügel die Burg von Udine. Gute Nacht, {m:Kleiner|f:Kleine}." } },
           { "it": "Nei secchi.", "sl": "V vedrih.", "en": "In buckets.", "de": "In Eimern.",
             "why": { "sl": "Ne: vojaki nimajo veder. Zemljo nosijo v čeladah.", "en": "No: the soldiers have no buckets. They carry the earth in their helmets.", "de": "Nein: Die Soldaten haben keine Eimer. Sie tragen die Erde in ihren Helmen." },
-            "reply": { "it": "Nei secchi? E dove trovano diecimila secchi, piccolo?", "sl": "Nei secchi? Pa kje bi dobili deset tisoč veder, mali?", "en": "Nei secchi? And where would they find ten thousand buckets, little one?", "de": "Nei secchi? Und wo finden sie zehntausend Eimer, Kleiner?" } },
+            "reply": { "it": "Nei secchi? E dove trovano diecimila secchi, {m:piccolo|f:piccola}?", "sl": "Nei secchi? Pa kje bi dobili deset tisoč veder, {m:mali|f:mala}?", "en": "Nei secchi? And where would they find ten thousand buckets, little one?", "de": "Nei secchi? Und wo finden sie zehntausend Eimer, {m:Kleiner|f:Kleine}?" } },
           { "it": "Nei elmi.", "sl": "V čeladah.", "en": "In their helmets.", "de": "In ihren Helmen.",
             "why": { "sl": "In in gli se združita v negli: negli elmi.", "en": "In and gli join up as negli: negli elmi.", "de": "In und gli verschmelzen zu negli: negli elmi." },
             "reply": { "it": "Nei elmi? Hm… anche Moro fa una faccia strana.", "sl": "Nei elmi? Hm … še Moro čudno gleda.", "en": "Nei elmi? Hm… even Moro's pulling a funny face.", "de": "Nei elmi? Hm … sogar Moro schaut ganz komisch." } }
@@ -56,12 +56,12 @@
     },
     "A2": {
       "lines": [
-        { "it": "Buonasera, ragazzo. Sei mai salito al castello di Udine?", "sl": "Dober večer, fant. Si že kdaj šel gor do videmskega gradu?", "en": "Good evening, lad. Have you ever gone up to the castle of Udine?", "de": "Guten Abend, Junge. Bist du schon mal zur Burg von Udine hinaufgestiegen?" },
+        { "it": "Buonasera, {m:ragazzo|f:ragazza}. Sei mai {m:salito|f:salita} al castello di Udine?", "sl": "Dober večer, {m:fant|f:dekle}. Si že kdaj {m:šel|f:šla} gor do videmskega gradu?", "en": "Good evening, {m:lad|f:lass}. Have you ever gone up to the castle of Udine?", "de": "Guten Abend, {m:Junge|f:Mädchen}. Bist du schon mal zur Burg von Udine hinaufgestiegen?" },
         { "choices": [
-          { "it": "Sì, ci sono salito con la mamma.", "sl": "Ja, šel sem gor z mamo.", "en": "Yes, I went up with Mum.", "de": "Ja, ich bin mit Mama hinaufgestiegen.", "ok": true,
+          { "it": "Sì, ci sono {m:salito|f:salita} con la mamma.", "sl": "Ja, {m:šel|f:šla} sem gor z mamo.", "en": "Yes, I went up with Mum.", "de": "Ja, ich bin mit Mama hinaufgestiegen.", "ok": true,
             "reply": { "it": "E sai come è nato quel colle?", "sl": "Pa veš, kako je nastal tisti grič?", "en": "And do you know how that hill came to be?", "de": "Und weißt du, wie dieser Hügel entstanden ist?" } },
-          { "it": "Sì, ci ho salito con la mamma.", "sl": "Ja, šel sem gor z mamo.", "en": "Yes, I went up with Mum.", "de": "Ja, ich bin mit Mama hinaufgestiegen.",
-            "why": { "sl": "Salire (iti gor) tvori passato prossimo z essere: sono salito.", "en": "Salire (to go up) forms the passato prossimo with essere: sono salito.", "de": "Salire (hinaufgehen) bildet das passato prossimo mit essere: sono salito." },
+          { "it": "Sì, ci ho salito con la mamma.", "sl": "Ja, {m:šel|f:šla} sem gor z mamo.", "en": "Yes, I went up with Mum.", "de": "Ja, ich bin mit Mama hinaufgestiegen.",
+            "why": { "sl": "Salire (iti gor) tvori passato prossimo z essere: sono {m:salito|f:salita}.", "en": "Salire (to go up) forms the passato prossimo with essere: sono {m:salito|f:salita}.", "de": "Salire (hinaufgehen) bildet das passato prossimo mit essere: sono {m:salito|f:salita}." },
             "reply": { "it": "Ci ho salito? Hm, qui qualcosa scricchiola, come le mie ginocchia!", "sl": "Ci ho salito? Hm, nekaj škriplje, kot moja kolena!", "en": "Ci ho salito? Hm, something creaks there, like my knees!", "de": "Ci ho salito? Hm, da knarzt was, wie meine Knie!" } }
         ] },
         { "it": "Tanto tempo fa, Attila, il re degli Unni, è arrivato in Friuli con un grande esercito.", "sl": "Nekoč je Atila, kralj Hunov, prišel v Furlanijo z veliko vojsko.", "en": "Long ago Attila, king of the Huns, came to Friuli with a great army.", "de": "Vor langer Zeit kam Attila, der König der Hunnen, mit einem großen Heer ins Friaul." },
@@ -89,9 +89,9 @@
         ] },
         { "it": "Oggi su quel colle c'è il castello di Udine. Da lassù si vedono le montagne e, quando è sereno, anche il mare.", "sl": "Danes na tistem griču stoji videmski grad. Od tam se vidijo gore, ob jasnem vremenu pa tudi morje.", "en": "Today the castle of Udine stands on that hill. From up there you can see the mountains and, when it's clear, the sea too.", "de": "Heute steht auf diesem Hügel die Burg von Udine. Von dort oben sieht man die Berge und, wenn es klar ist, auch das Meer." },
         { "choices": [
-          { "it": "La prossima volta guardo anch'io dal castello!", "sl": "Naslednjič bom tudi jaz gledal z gradu!", "en": "Next time I'll look out from the castle too!", "de": "Nächstes Mal schaue ich auch von der Burg hinunter!", "ok": true,
-            "reply": { "it": "Bravo. E pensa agli elmi dei soldati. Buonanotte, ragazzo.", "sl": "Bravo. In pomisli na čelade vojakov. Lahko noč, fant.", "en": "Good. And think of the soldiers' helmets. Good night, lad.", "de": "Gut so. Und denk an die Helme der Soldaten. Gute Nacht, Junge." } },
-          { "it": "La prossima volta guardo anch'io del castello!", "sl": "Naslednjič bom tudi jaz gledal z gradu!", "en": "Next time I'll look out from the castle too!", "de": "Nächstes Mal schaue ich auch von der Burg hinunter!",
+          { "it": "La prossima volta guardo anch'io dal castello!", "sl": "Naslednjič bom tudi jaz {m:gledal|f:gledala} z gradu!", "en": "Next time I'll look out from the castle too!", "de": "Nächstes Mal schaue ich auch von der Burg hinunter!", "ok": true,
+            "reply": { "it": "{m:Bravo|f:Brava}. E pensa agli elmi dei soldati. Buonanotte, {m:ragazzo|f:ragazza}.", "sl": "Bravo. In pomisli na čelade vojakov. Lahko noč, {m:fant|f:dekle}.", "en": "Good. And think of the soldiers' helmets. Good night, {m:lad|f:lass}.", "de": "Gut so. Und denk an die Helme der Soldaten. Gute Nacht, {m:Junge|f:Mädchen}." } },
+          { "it": "La prossima volta guardo anch'io del castello!", "sl": "Naslednjič bom tudi jaz {m:gledal|f:gledala} z gradu!", "en": "Next time I'll look out from the castle too!", "de": "Nächstes Mal schaue ich auch von der Burg hinunter!",
             "why": { "sl": "Z gradu je dal castello (da + il). Del castello pomeni 'od gradu', kot v le mura del castello (obzidje gradu).", "en": "From the castle is dal castello (da + il). Del castello means 'of the castle', as in le mura del castello.", "de": "Von der Burg aus heißt dal castello (da + il). Del castello heißt „der Burg“, wie in le mura del castello (die Mauern der Burg)." },
             "reply": { "it": "Del castello? Solo un pezzetto, come il formaggio?", "sl": "Del castello? Samo malo gradu, kot malo sira?", "en": "Del castello? Just a bit of castle, like a bit of cheese?", "de": "Del castello? Nur ein bisschen Burg, wie ein bisschen Käse?" } }
         ] }

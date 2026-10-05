@@ -24,16 +24,16 @@
   ],
   "lines": {
     "greet": [
-      { "de": "Grüß Gott. Ich bin die Lehrerin Eva.", "sl": "Pozdravljen. Jaz sem učiteljica Eva.", "en": "Hello. I'm Eva, the teacher.", "it": "Salve. Io sono la maestra Eva.", "level": 0 },
-      { "de": "Grüß Gott! Willkommen in der Schule.", "sl": "Pozdravljen! Dobrodošel v šoli.", "en": "Hello! Welcome to school.", "it": "Salve! Benvenuto a scuola.", "level": 0 },
-      { "de": "Guten Morgen! Bereit für die Stunde?", "sl": "Dobro jutro! Si pripravljen na uro?", "en": "Good morning! Ready for the lesson?", "it": "Buongiorno! Pronto per la lezione?", "level": 1, "when": ["morning"] },
+      { "de": "Grüß Gott. Ich bin die Lehrerin Eva.", "sl": "{m:Pozdravljen|f:Pozdravljena}. Jaz sem učiteljica Eva.", "en": "Hello. I'm Eva, the teacher.", "it": "Salve. Io sono la maestra Eva.", "level": 0 },
+      { "de": "Grüß Gott! Willkommen in der Schule.", "sl": "{m:Pozdravljen|f:Pozdravljena}! {m:Dobrodošel|f:Dobrodošla} v šoli.", "en": "Hello! Welcome to school.", "it": "Salve! {m:Benvenuto|f:Benvenuta} a scuola.", "level": 0 },
+      { "de": "Guten Morgen! Bereit für die Stunde?", "sl": "Dobro jutro! Si {m:pripravljen|f:pripravljena} na uro?", "en": "Good morning! Ready for the lesson?", "it": "Buongiorno! {m:Pronto|f:Pronta} per la lezione?", "level": 1, "when": ["morning"] },
       { "de": "Servus! Heute lernen wir ein neues Wort.", "sl": "Živjo! Danes se bomo naučili novo besedo.", "en": "Hi! Today we'll learn a new word.", "it": "Ciao! Oggi impariamo una parola nuova.", "level": 2 },
       { "de": "Da bist du! Du lernst so schnell. Pst, das ist ein Geheimnis.", "sl": "Tu si! Tako hitro se učiš. Pst, to je skrivnost.", "en": "There you are! You learn so fast. Shh, it's a secret.", "it": "Eccoti! Impari così in fretta. Shh, è un segreto.", "level": 3 },
       { "de": "Wie schön, dich zu sehen! Komm, ich habe ein Buch für dich.", "sl": "Kako lepo, da te vidim! Pridi, knjigo imam zate.", "en": "How lovely to see you! Come, I have a book for you.", "it": "Che bello vederti! Vieni, ho un libro per te.", "level": 4 }
     ],
     "thanks": [
-      { "de": "Danke. Du hast gut gearbeitet.", "sl": "Hvala. Dobro si delal.", "en": "Thank you. You worked well.", "it": "Grazie. Hai lavorato bene." },
-      { "de": "Danke! Das hast du sehr gut gemacht.", "sl": "Hvala! To si zelo dobro naredil.", "en": "Thank you! You did that very well.", "it": "Grazie! L'hai fatto molto bene." },
+      { "de": "Danke. Du hast gut gearbeitet.", "sl": "Hvala. Dobro si {m:delal|f:delala}.", "en": "Thank you. You worked well.", "it": "Grazie. Hai lavorato bene." },
+      { "de": "Danke! Das hast du sehr gut gemacht.", "sl": "Hvala! To si zelo dobro {m:naredil|f:naredila}.", "en": "Thank you! You did that very well.", "it": "Grazie! L'hai fatto molto bene." },
       { "de": "Danke von Herzen. Ich bin stolz auf dich.", "sl": "Iz srca hvala. Ponosna sem nate.", "en": "Thank you from the heart. I'm proud of you.", "it": "Grazie di cuore. Sono fiera di te." }
     ],
     "remember": [
@@ -70,7 +70,7 @@
     ],
     "gift": {
       "liked": [
-        { "de": "Oh, wie schön! Woher weißt du, dass ich das mag?", "sl": "O, kako lepo! Kako si vedel, da mi je to všeč?", "en": "Oh, how lovely! How did you know I like it?", "it": "Oh, che bello! Come lo sapevi che mi piace?" },
+        { "de": "Oh, wie schön! Woher weißt du, dass ich das mag?", "sl": "O, kako lepo! Kako si {m:vedel|f:vedela}, da mi je to všeč?", "en": "Oh, how lovely! How did you know I like it?", "it": "Oh, che bello! Come lo sapevi che mi piace?" },
         { "de": "Danke! Ein perfektes Geschenk. Ein Einser!", "sl": "Hvala! Popolno darilo. Petica!", "en": "Thank you! A perfect gift. Top marks!", "it": "Grazie! Un regalo perfetto. Dieci e lode!" },
         { "de": "Das gefällt mir so gut! Schau, wie ich mich freue!", "sl": "Zelo mi je všeč! Poglej, kako sem vesela!", "en": "I like it so much! Look how happy I am!", "it": "Mi piace tanto! Guarda come sono contenta!" }
       ],

@@ -28,17 +28,17 @@
   ],
   "lines": {
     "greet": [
-      { "de": "Grüß Gott! Herzlich willkommen!", "sl": "Pozdravljen! Dobrodošel!", "en": "Hello! Welcome!", "it": "Salve! Benvenuto!", "level": 0 },
-      { "de": "Grüß Gott! Möchtest du einen Apfelsaft?", "sl": "Pozdravljen! Bi jabolčni sok?", "en": "Hello! Would you like some apple juice?", "it": "Salve! Vuoi un succo di mela?", "level": 0 },
+      { "de": "Grüß Gott! Herzlich willkommen!", "sl": "{m:Pozdravljen|f:Pozdravljena}! {m:Dobrodošel|f:Dobrodošla}!", "en": "Hello! Welcome!", "it": "Salve! {m:Benvenuto|f:Benvenuta}!", "level": 0 },
+      { "de": "Grüß Gott! Möchtest du einen Apfelsaft?", "sl": "{m:Pozdravljen|f:Pozdravljena}! Bi jabolčni sok?", "en": "Hello! Would you like some apple juice?", "it": "Salve! Vuoi un succo di mela?", "level": 0 },
       { "de": "Oh, servus! Setz dich, ich komme gleich.", "sl": "O, živjo! Sedi, takoj pridem.", "en": "Oh, hi! Sit down, I'll be right with you.", "it": "Oh, ciao! Siediti, arrivo subito.", "level": 1 },
       { "de": "Servus, Schatzi! Der gleiche Tisch wie immer?", "sl": "Živjo, zaklad! Tvoja običajna miza?", "en": "Hi, sweetheart! Your usual table?", "it": "Ciao, tesoro! Il solito tavolo?", "level": 2 },
       { "de": "Da bist du ja! Ich habe dir Kasnudeln aufgehoben.", "sl": "Tu si! Prihranila sem ti kasnudeln.", "en": "There you are! I've saved you some Kasnudeln.", "it": "Eccoti! Ti ho messo da parte un po' di Kasnudeln.", "level": 3 },
       { "de": "Schatzi! Hier bist du zu Hause. Setz dich zu mir in die Küche.", "sl": "Zaklad moj! Tu si kot doma. Sedi k meni v kuhinjo.", "en": "Sweetheart! You're at home here. Sit with me in the kitchen.", "it": "Tesoro mio! Qui sei di casa. Siediti in cucina con me.", "level": 4 }
     ],
     "thanks": [
-      { "de": "Danke! Du hast mir sehr geholfen.", "sl": "Hvala! Zelo si mi pomagal.", "en": "Thank you! You helped me a lot.", "it": "Grazie! Mi hai aiutato tanto." },
+      { "de": "Danke! Du hast mir sehr geholfen.", "sl": "Hvala! Zelo si mi {m:pomagal|f:pomagala}.", "en": "Thank you! You helped me a lot.", "it": "Grazie! Mi hai aiutato tanto." },
       { "de": "Vielen Dank! Heute gibt es Kasnudeln für dich.", "sl": "Najlepša hvala! Danes so zate kasnudeln.", "en": "Thanks a lot! Today there are Kasnudeln for you.", "it": "Grazie mille! Oggi ci sono i Kasnudeln per te." },
-      { "de": "Danke, Schatzi. Das hast du super gemacht.", "sl": "Hvala, zaklad. Odlično si to naredil.", "en": "Thank you, sweetheart. You did that brilliantly.", "it": "Grazie, tesoro. L'hai fatto benissimo." }
+      { "de": "Danke, Schatzi. Das hast du super gemacht.", "sl": "Hvala, zaklad. Odlično si to {m:naredil|f:naredila}.", "en": "Thank you, sweetheart. You did that brilliantly.", "it": "Grazie, tesoro. L'hai fatto benissimo." }
     ],
     "remember": [
       { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -52,9 +52,9 @@
       { "de": "Maxi! Der Hockeyschläger kommt nicht in die Küche!", "sl": "Maxi! Hokejska palica ne sodi v kuhinjo!", "en": "Maxi! The hockey stick doesn't belong in the kitchen!", "it": "Maxi! La mazza da hockey non va in cucina!" }
     ],
     "cheer": [
-      { "de": "Super!", "sl": "Bravo!", "en": "Well done!", "it": "Bravo!" },
+      { "de": "Super!", "sl": "Bravo!", "en": "Well done!", "it": "{m:Bravo|f:Brava}!" },
       { "de": "Perfekt, wie meine Kasnudeln!", "sl": "Odlično, kot moji kasnudeln!", "en": "Perfect, like my Kasnudeln!", "it": "Perfetto, come i miei Kasnudeln!" },
-      { "de": "Richtig! Das hast du sofort verstanden.", "sl": "Prav! Takoj si razumel.", "en": "Right! You understood straight away.", "it": "Giusto! Hai capito subito." }
+      { "de": "Richtig! Das hast du sofort verstanden.", "sl": "Prav! Takoj si {m:razumel|f:razumela}.", "en": "Right! You understood straight away.", "it": "Giusto! Hai capito subito." }
     ],
     "comfort": [
       { "de": "Macht nichts, Schatzi. Probier's noch einmal.", "sl": "Nič hudega, zaklad. Poskusi še enkrat.", "en": "Never mind, sweetheart. Try again.", "it": "Non fa niente, tesoro. Riprova." },
@@ -73,7 +73,7 @@
     ],
     "gift": {
       "liked": [
-        { "de": "Oh, Schatzi! Woher weißt du das? Das mag ich so gern!", "sl": "O, zaklad! Kako si vedel? To imam tako rada!", "en": "Oh, sweetheart! How did you know? I love it!", "it": "Oh, tesoro! Come lo sapevi? Mi piace tantissimo!" },
+        { "de": "Oh, Schatzi! Woher weißt du das? Das mag ich so gern!", "sl": "O, zaklad! Kako si {m:vedel|f:vedela}? To imam tako rada!", "en": "Oh, sweetheart! How did you know? I love it!", "it": "Oh, tesoro! Come lo sapevi? Mi piace tantissimo!" },
         { "de": "Für mich? Vielen Dank! Heute lade ich dich auf Kasnudeln ein.", "sl": "Zame? Najlepša hvala! Danes te jaz povabim na kasnudeln.", "en": "For me? Thank you so much! Today the Kasnudeln are on me.", "it": "Per me? Grazie mille! Oggi i Kasnudeln te li offro io." },
         { "de": "Genau das habe ich gebraucht! Danke, Schatzi.", "sl": "Točno to sem potrebovala! Hvala, zaklad.", "en": "Just what I needed! Thank you, sweetheart.", "it": "Proprio quello che mi serviva! Grazie, tesoro." }
       ],

@@ -12,7 +12,7 @@
   "skill": "food",
   "order": 5,
   "routine": { "up": "5:00", "bed": "21:00" },
-  "personality": "Practical miller and farmer in his late sixties, counts everything: sacks of oats, sheep on the fell, days until the harvest, sometimes the old shepherds' way ('yan, tyan, tethera': one, two, three). Short, sensible sentences with numbers in them ('Ten sacks. Right.'). He calls the learner by name or 'lad'; the learner calls him Mr Tyson, never by his first name, and says 'Good morning, Mr Tyson', 'please' and 'Could I …?', and he likes that. Speaks slow, clear, simple British English. Grumbles about the rain; smiles when the harvest is in.",
+  "personality": "Practical miller and farmer in his late sixties, counts everything: sacks of oats, sheep on the fell, days until the harvest, sometimes the old shepherds' way ('yan, tyan, tethera': one, two, three). Short, sensible sentences with numbers in them ('Ten sacks. Right.'). He calls the learner by name or '{m:lad|f:lass}'; the learner calls him Mr Tyson, never by his first name, and says 'Good morning, Mr Tyson', 'please' and 'Could I …?', and he likes that. Speaks slow, clear, simple British English. Grumbles about the rain; smiles when the harvest is in.",
   "story": "Mr Tyson is the village's miller, and his fields of oats run down the dale towards the lake. Until the village builds its own mill on the beck (a project he leads) he grinds the oats for every bowl of porridge in the village at the old mill in the next dale. He keeps his numbers in a little notebook and teaches his grandson Alfie to count the sacks, and the sheep: yan, tyan, tethera, methera, pimp. Until the village has a field he helps wherever there is work.",
   "likes": [
     {"en": "the mill", "sl": "mlin", "it": "il mulino", "de": "die Mühle"},
@@ -22,17 +22,17 @@
   ],
   "lines": {
     "greet": [
-      { "en": "Hello there.", "sl": "Pozdravljen.", "it": "Salve.", "de": "Hallo.", "level": 0 },
-      { "en": "Hello. Do you need something?", "sl": "Pozdravljen. Ali kaj potrebuješ?", "it": "Salve. Hai bisogno di qualcosa?", "de": "Hallo. Brauchst du etwas?", "level": 0 },
-      { "en": "Ah, it's you. Hello!", "sl": "A, ti si. Pozdravljen!", "it": "Ah, sei tu. Salve!", "de": "Ah, du bist es. Hallo!", "level": 1 },
-      { "en": "Now then, lad! Today I'm grinding oats.", "sl": "Now then, fant! Danes meljem oves. (now then: tako v Cumbrii rečejo živjo)", "it": "Now then, ragazzo! Oggi macino l'avena. (now then: così in Cumbria si dice ciao)", "de": "Now then, Junge! Heute mahle ich Hafer. (now then: so sagt man in Cumbria Hallo)", "level": 2 },
+      { "en": "Hello there.", "sl": "{m:Pozdravljen|f:Pozdravljena}.", "it": "Salve.", "de": "Hallo.", "level": 0 },
+      { "en": "Hello. Do you need something?", "sl": "{m:Pozdravljen|f:Pozdravljena}. Ali kaj potrebuješ?", "it": "Salve. Hai bisogno di qualcosa?", "de": "Hallo. Brauchst du etwas?", "level": 0 },
+      { "en": "Ah, it's you. Hello!", "sl": "A, ti si. {m:Pozdravljen|f:Pozdravljena}!", "it": "Ah, sei tu. Salve!", "de": "Ah, du bist es. Hallo!", "level": 1 },
+      { "en": "Now then, {m:lad|f:lass}! Today I'm grinding oats.", "sl": "Now then, {m:fant|f:dekle}! Danes meljem oves. (now then: tako v Cumbrii rečejo živjo)", "it": "Now then, {m:ragazzo|f:ragazza}! Oggi macino l'avena. (now then: così in Cumbria si dice ciao)", "de": "Now then, {m:Junge|f:Mädchen}! Heute mahle ich Hafer. (now then: so sagt man in Cumbria Hallo)", "level": 2 },
       { "en": "There you are! I've counted the sacks: ten. Can you help me?", "sl": "Tu si! Preštel sem vreče: deset jih je. Mi pomagaš?", "it": "Eccoti! Ho contato i sacchi: dieci. Mi aiuti?", "de": "Da bist du ja! Ich habe die Säcke gezählt: zehn. Hilfst du mir?", "level": 3 },
-      { "en": "My lad! You're one of the family now. Come in, come in.", "sl": "Fant moj! Zdaj si že del družine. Vstopi, vstopi.", "it": "Ragazzo mio! Ormai sei di famiglia. Entra, entra.", "de": "Mein Junge! Du gehörst jetzt zur Familie. Komm rein, komm rein.", "level": 4 }
+      { "en": "{m:My lad|f:My lass}! You're one of the family now. Come in, come in.", "sl": "{m:Fant moj|f:Dekle moje}! Zdaj si že del družine. Vstopi, vstopi.", "it": "{m:Ragazzo mio|f:Ragazza mia}! Ormai sei di famiglia. Entra, entra.", "de": "{m:Mein Junge|f:Mein Mädchen}! Du gehörst jetzt zur Familie. Komm rein, komm rein.", "level": 4 }
     ],
     "thanks": [
       { "en": "Thank you. A job well done.", "sl": "Hvala. Dobro opravljeno delo.", "it": "Grazie. Lavoro fatto bene.", "de": "Danke. Gute Arbeit." },
       { "en": "Thanks! One, two, three sacks: all correct.", "sl": "Hvala! Ena, dve, tri vreče: vse je prav.", "it": "Grazie! Uno, due, tre sacchi: tutto giusto.", "de": "Danke! Eins, zwei, drei Säcke: alles richtig." },
-      { "en": "Thanks, lad. You're good with numbers.", "sl": "Hvala, fant. S številkami ti gre dobro.", "it": "Grazie, ragazzo. Sei bravo con i numeri.", "de": "Danke, Junge. Du kannst gut mit Zahlen umgehen." }
+      { "en": "Thanks, {m:lad|f:lass}. You're good with numbers.", "sl": "Hvala, {m:fant|f:dekle}. S številkami ti gre dobro.", "it": "Grazie, {m:ragazzo|f:ragazza}. Sei {m:bravo|f:brava} con i numeri.", "de": "Danke, {m:Junge|f:Mädchen}. Du kannst gut mit Zahlen umgehen." }
     ],
     "remember": [
       { "en": "I still think of {memory}.", "sl": "Še vedno mislim na {memory}.", "it": "Ricordo ancora {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
@@ -48,7 +48,7 @@
     "cheer": [
       { "en": "Correct.", "sl": "Prav.", "it": "Giusto.", "de": "Richtig." },
       { "en": "Good! All in order.", "sl": "Dobro! Vse je v redu.", "it": "Bene! Tutto in ordine.", "de": "Gut! Alles in Ordnung." },
-      { "en": "Well done! You count better than I do.", "sl": "Bravo! Šteješ bolje kot jaz.", "it": "Bravo! Conti meglio di me.", "de": "Gut gemacht! Du zählst besser als ich." }
+      { "en": "Well done! You count better than I do.", "sl": "Bravo! Šteješ bolje kot jaz.", "it": "{m:Bravo|f:Brava}! Conti meglio di me.", "de": "Gut gemacht! Du zählst besser als ich." }
     ],
     "comfort": [
       { "en": "Never mind. Let's count again.", "sl": "Nič hudega. Štejva še enkrat.", "it": "Non fa niente. Contiamo di nuovo.", "de": "Macht nichts. Zählen wir noch mal." },
@@ -62,21 +62,21 @@
     ],
     "bye": [
       { "en": "Goodbye.", "sl": "Na svidenje.", "it": "Arrivederci.", "de": "Auf Wiedersehen." },
-      { "en": "Bye, lad. There's work tomorrow.", "sl": "Adijo, fant. Jutri je delo.", "it": "Ciao, ragazzo. Domani c'è lavoro.", "de": "Tschüss, Junge. Morgen gibt es Arbeit." },
+      { "en": "Bye, {m:lad|f:lass}. There's work tomorrow.", "sl": "Adijo, {m:fant|f:dekle}. Jutri je delo.", "it": "Ciao, {m:ragazzo|f:ragazza}. Domani c'è lavoro.", "de": "Tschüss, {m:Junge|f:Mädchen}. Morgen gibt es Arbeit." },
       { "en": "Cheerio! Say hello to Alfie.", "sl": "Adijo! Pozdravi Alfieja.", "it": "Ciao! Saluta Alfie.", "de": "Mach's gut! Grüß Alfie von mir." }
     ],
     "gift": {
       "liked": [
-        { "en": "Oh! How did you know? It's what I like best.", "sl": "O! Kako si vedel? To imam najraje.", "it": "Oh! Come lo sapevi? È la cosa che mi piace di più.", "de": "Oh! Woher wusstest du das? Das mag ich am liebsten." },
-        { "en": "Good lad! Just what I needed.", "sl": "Priden fant! Točno to sem potreboval.", "it": "Bravo, ragazzo! Proprio quello che mi serviva.", "de": "Guter Junge! Genau das habe ich gebraucht." },
+        { "en": "Oh! How did you know? It's what I like best.", "sl": "O! Kako si {m:vedel|f:vedela}? To imam najraje.", "it": "Oh! Come lo sapevi? È la cosa che mi piace di più.", "de": "Oh! Woher wusstest du das? Das mag ich am liebsten." },
+        { "en": "Good {m:lad|f:lass}! Just what I needed.", "sl": "{m:Priden fant|f:Pridno dekle}! Točno to sem potreboval.", "it": "{m:Bravo|f:Brava}, {m:ragazzo|f:ragazza}! Proprio quello che mi serviva.", "de": "{m:Guter Junge|f:Gutes Mädchen}! Genau das habe ich gebraucht." },
         { "en": "Thank you! Today I only count nice things: one!", "sl": "Hvala! Danes štejem samo lepe stvari: ena!", "it": "Grazie! Oggi conto solo le cose belle: una!", "de": "Danke! Heute zähle ich nur schöne Sachen: eins!" }
       ],
       "ordinary": [
-        { "en": "Thank you, lad. We're neighbours, aren't we?", "sl": "Hvala, fant. Sosedje smo, ne?", "it": "Grazie, ragazzo. Siamo vicini, no?", "de": "Danke, Junge. Wir sind doch Nachbarn, oder?" },
+        { "en": "Thank you, {m:lad|f:lass}. We're neighbours, aren't we?", "sl": "Hvala, {m:fant|f:dekle}. Sosedje smo, ne?", "it": "Grazie, {m:ragazzo|f:ragazza}. Siamo vicini, no?", "de": "Danke, {m:Junge|f:Mädchen}. Wir sind doch Nachbarn, oder?" },
         { "en": "Oh, thank you. You didn't have to.", "sl": "O, hvala. Ni bilo treba.", "it": "Oh, grazie. Non dovevi.", "de": "Oh, danke. Das war nicht nötig." }
       ],
       "rare": [
-        { "en": "Well I never! I didn't expect that. Thank you very much, lad!", "sl": "No, kaj takega! Tega nisem pričakoval. Najlepša hvala, fant!", "it": "Questa poi! Non me l'aspettavo. Grazie mille, ragazzo!", "de": "Na so was! Damit habe ich nicht gerechnet. Vielen Dank, Junge!" }
+        { "en": "Well I never! I didn't expect that. Thank you very much, {m:lad|f:lass}!", "sl": "No, kaj takega! Tega nisem pričakoval. Najlepša hvala, {m:fant|f:dekle}!", "it": "Questa poi! Non me l'aspettavo. Grazie mille, {m:ragazzo|f:ragazza}!", "de": "Na so was! Damit habe ich nicht gerechnet. Vielen Dank, {m:Junge|f:Mädchen}!" }
       ]
     }
   }

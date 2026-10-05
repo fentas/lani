@@ -13,7 +13,7 @@
   "since": "zaselek",
   "order": 12,
   "routine": { "up": "7:15", "bed": "20:30" },
-  "personality": "Nine, Ostessa Marisa's son, the ringleader of the village children. Loud, quick and cheeky, always with a football and a plan: tag (acchiapparella), races to the pond, ice cream. Says tu to the learner at once and wants him on his team. Short, fast sentences: 'Dai!', 'Andiamo!', 'Forza!'. Can't read as well as Giulia, and doesn't want to hear about it.",
+  "personality": "Nine, Ostessa Marisa's son, the ringleader of the village children. Loud, quick and cheeky, always with a football and a plan: tag (acchiapparella), races to the pond, ice cream. Says tu to the learner at once and wants {m:him|f:her} on his team. Short, fast sentences: 'Dai!', 'Andiamo!', 'Forza!'. Can't read as well as Giulia, and doesn't want to hear about it.",
   "story": "Tommaso grew up between the tables of his mother's osteria and knows every guest's car. He plays football on the square until the church bell rings, supports Udinese like Matteo and is sure he will play for them one day. He catches frogs at the pond and lets them go again.",
   "likes": [
     {"it": "il calcio", "sl": "nogomet", "en": "football", "de": "Fußball"},
@@ -28,10 +28,10 @@
       { "it": "Ehi! Dai, vieni a giocare!", "sl": "Ej! Daj, pridi se igrat!", "en": "Hey! Come on, come and play!", "de": "He! Los, komm spielen!", "level": 1 },
       { "it": "Eccoti! Sei nella mia squadra, va bene?", "sl": "Tu si! V moji ekipi si, velja?", "en": "There you are! You're on my team, OK?", "de": "Da bist du ja! Du bist in meiner Mannschaft, okay?", "level": 2 },
       { "it": "Evviva, sei qui! Andiamo allo stagno!", "sl": "Juhu, tu si! Greva k ribniku!", "en": "Hooray, you're here! Let's go to the pond!", "de": "Hurra, du bist da! Gehen wir zum Teich!", "level": 3 },
-      { "it": "Sei il mio migliore amico! Ma non dirlo a Giulia.", "sl": "Ti si moj najboljši prijatelj! Ampak ne povej Giulii.", "en": "You're my best friend! But don't tell Giulia.", "de": "Du bist mein bester Freund! Aber sag's nicht Giulia.", "level": 4 }
+      { "it": "Sei {m:il mio migliore amico|f:la mia migliore amica}! Ma non dirlo a Giulia.", "sl": "Ti si {m:moj najboljši prijatelj|f:moja najboljša prijateljica}! Ampak ne povej Giulii.", "en": "You're my best friend! But don't tell Giulia.", "de": "Du bist {m:mein bester Freund|f:meine beste Freundin}! Aber sag's nicht Giulia.", "level": 4 }
     ],
     "thanks": [
-      { "it": "Grazie! Sei un campione!", "sl": "Hvala! Pravi prvak si!", "en": "Thanks! You're a champion!", "de": "Danke! Du bist ein Champion!" },
+      { "it": "Grazie! Sei {m:un campione|f:una campionessa}!", "sl": "Hvala! {m:Pravi prvak|f:Prava prvakinja} si!", "en": "Thanks! You're a champion!", "de": "Danke! Du bist ein Champion!" },
       { "it": "Grazie! Domani ti do il pallone.", "sl": "Hvala! Jutri ti dam žogo.", "en": "Thanks! Tomorrow I'll give you the ball.", "de": "Danke! Morgen kriegst du den Ball." },
       { "it": "Grazie, grazie! Lo dico alla mamma.", "sl": "Hvala, hvala! Povem mami.", "en": "Thanks, thanks! I'll tell Mum.", "de": "Danke, danke! Ich sag's Mama." }
     ],
@@ -47,7 +47,7 @@
       { "it": "Giulia legge bene. Io corro veloce.", "sl": "Giulia dobro bere. Jaz pa hitro tečem.", "en": "Giulia reads well. I run fast.", "de": "Giulia liest gut. Ich laufe schnell." }
     ],
     "cheer": [
-      { "it": "Gol! Bravo!", "sl": "Gol! Bravo!", "en": "Goal! Well done!", "de": "Tor! Gut gemacht!" },
+      { "it": "Gol! {m:Bravo|f:Brava}!", "sl": "Gol! Bravo!", "en": "Goal! Well done!", "de": "Tor! Gut gemacht!" },
       { "it": "Sì! Giusto!", "sl": "Ja! Prav!", "en": "Yes! Right!", "de": "Ja! Richtig!" },
       { "it": "Forza! Ancora!", "sl": "Dajmo! Še!", "en": "Go on! More!", "de": "Los! Weiter!" },
       { "it": "Grande! Batti cinque!", "sl": "Super! Daj pet!", "en": "Great! High five!", "de": "Super! Gib mir fünf!" }
@@ -69,8 +69,8 @@
     ],
     "gift": {
       "liked": [
-        { "it": "Sì! Per me? Sei un campione!", "sl": "Ja! Zame? Pravi prvak si!", "en": "Yes! For me? You're a champion!", "de": "Ja! Für mich? Du bist ein Champion!" },
-        { "it": "Come lo sapevi? È la mia cosa preferita! Grazie!", "sl": "Kako si vedel? To je moja najljubša stvar! Hvala!", "en": "How did you know? It's my favourite thing! Thanks!", "de": "Woher wusstest du das? Das ist mein Lieblingsding! Danke!" },
+        { "it": "Sì! Per me? Sei {m:un campione|f:una campionessa}!", "sl": "Ja! Zame? {m:Pravi prvak|f:Prava prvakinja} si!", "en": "Yes! For me? You're a champion!", "de": "Ja! Für mich? Du bist ein Champion!" },
+        { "it": "Come lo sapevi? È la mia cosa preferita! Grazie!", "sl": "Kako si {m:vedel|f:vedela}? To je moja najljubša stvar! Hvala!", "en": "How did you know? It's my favourite thing! Thanks!", "de": "Woher wusstest du das? Das ist mein Lieblingsding! Danke!" },
         { "it": "Grande! Questo non lo do a nessuno. Beh, forse a Lorenzo.", "sl": "Super! Tega ne dam nikomur. No, mogoče Lorenzu.", "en": "Great! I'm not giving this to anyone. Well, maybe to Lorenzo.", "de": "Super! Das gebe ich keinem. Na ja, vielleicht Lorenzo." }
       ],
       "ordinary": [
@@ -78,7 +78,7 @@
         { "it": "Grazie! Adesso giochiamo a calcio?", "sl": "Hvala! Greva zdaj igrat nogomet?", "en": "Thanks! Shall we play football now?", "de": "Danke! Spielen wir jetzt Fußball?" }
       ],
       "rare": [
-        { "it": "Uau! Questo in paese non ce l'ha nessuno! Sei il più grande!", "sl": "Uau! Tega v vasi nima nihče! Ti si največji!", "en": "Wow! Nobody in the village has this! You're the greatest!", "de": "Wow! So etwas hat keiner im Dorf! Du bist der Größte!" }
+        { "it": "Uau! Questo in paese non ce l'ha nessuno! Sei {m:il più grande|f:la più grande}!", "sl": "Uau! Tega v vasi nima nihče! Ti si {m:največji|f:največja}!", "en": "Wow! Nobody in the village has this! You're the greatest!", "de": "Wow! So etwas hat keiner im Dorf! Du bist {m:der Größte|f:die Größte}!" }
       ]
     }
   }

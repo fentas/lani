@@ -42,7 +42,7 @@
         { "de": "Hemma sagt: „Dann nimm selbst aus dem Beutel, so viel du willst.“", "sl": "Ema reče: »Potem pa sam vzemi iz mošnje, kolikor hočeš.«", "en": "Hemma says: 'Then take from the purse yourself, as much as you like.'", "it": "Emma dice: «Allora prendi tu dalla borsa, quanto vuoi.»" },
         { "choices": [
           { "de": "Oh! Jetzt nimmt er sicher viel Geld!", "sl": "Oh! Zdaj bo pa gotovo vzel veliko denarja!", "en": "Oh! Now he'll surely take lots of money!", "it": "Oh! Adesso di sicuro prende un sacco di soldi!", "ok": true,
-            "reply": { "de": "Das denkt er auch. Aber pass auf!", "sl": "Tudi on tako misli. Ampak pazi!", "en": "That's what he thinks too. But watch!", "it": "Lo pensa anche lui. Ma attento!" } },
+            "reply": { "de": "Das denkt er auch. Aber pass auf!", "sl": "Tudi on tako misli. Ampak pazi!", "en": "That's what he thinks too. But watch!", "it": "Lo pensa anche lui. Ma {m:attento|f:attenta}!" } },
           { "de": "Oh! Jetzt nehmt er sicher viel Geld!", "sl": "Oh! Zdaj bo pa gotovo vzel veliko denarja!", "en": "Oh! Now he'll surely take lots of money!", "it": "Oh! Adesso di sicuro prende un sacco di soldi!",
             "why": { "sl": "Nehmen v ednini zamenja samoglasnik: du nimmst, er nimmt.", "en": "Nehmen changes its vowel in the singular: du nimmst, er nimmt.", "it": "Nehmen al singolare cambia vocale: du nimmst, er nimmt." },
             "reply": { "de": "Nehmt? Hm, sag das noch einmal.", "sl": "Nehmt? Hm, reci še enkrat.", "en": "Nehmt? Hm, say that again.", "it": "Nehmt? Mm, ripetilo un po'." } }
@@ -65,7 +65,7 @@
     "A2": {
       "sky_stays": false,
       "lines": [
-        { "de": "Guten Abend! Warst du schon einmal im Dom von Gurk? Dort unten steht ein Stuhl aus Stein.", "sl": "Dober večer! Si bil že kdaj v krški stolnici? Tam spodaj stoji kamnit stol.", "en": "Good evening! Have you ever been in Gurk Cathedral? Down there stands a chair made of stone.", "it": "Buonasera! Sei mai stato nel duomo di Gurk? Là sotto c'è una sedia di pietra." },
+        { "de": "Guten Abend! Warst du schon einmal im Dom von Gurk? Dort unten steht ein Stuhl aus Stein.", "sl": "Dober večer! Si {m:bil|f:bila} že kdaj v krški stolnici? Tam spodaj stoji kamnit stol.", "en": "Good evening! Have you ever been in Gurk Cathedral? Down there stands a chair made of stone.", "it": "Buonasera! Sei mai {m:stato|f:stata} nel duomo di Gurk? Là sotto c'è una sedia di pietra." },
         { "choices": [
           { "de": "Nein. Wer hat darauf gesessen?", "sl": "Ne. Kdo je sedel na njem?", "en": "No. Who sat on it?", "it": "No. Chi ci si sedeva?", "ok": true,
             "reply": { "de": "Die heilige Hemma, sagt man. Hör zu, ich erzähle dir von ihr.", "sl": "Sveta Ema, pravijo. Poslušaj, povem ti o njej.", "en": "Saint Hemma, they say. Listen, I'll tell you about her.", "it": "Santa Emma, si dice. Ascolta, ti racconto di lei." } },

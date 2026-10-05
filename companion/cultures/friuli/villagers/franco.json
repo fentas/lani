@@ -26,14 +26,14 @@
       { "it": "Buongiorno. Hai bisogno di qualcosa?", "sl": "Dober dan. Ali kaj potrebuješ?", "en": "Good day. Do you need something?", "de": "Guten Tag. Brauchst du etwas?", "level": 0, "when": ["morning", "afternoon"] },
       { "it": "Buonasera. Hai bisogno di qualcosa?", "sl": "Dober večer. Ali kaj potrebuješ?", "en": "Good evening. Do you need something?", "de": "Guten Abend. Brauchst du etwas?", "level": 0, "when": ["evening", "night"] },
       { "it": "Ah, sei tu. Buongiorno!", "sl": "A, ti si. Dober dan!", "en": "Ah, it's you. Good day!", "de": "Ah, du bist es. Guten Tag!", "level": 1, "when": ["morning", "afternoon"] },
-      { "it": "Ciao, ragazzo! Oggi macino il mais.", "sl": "Živjo, fant! Danes meljem koruzo.", "en": "Hi, lad! Today I'm grinding the corn.", "de": "Hallo, Junge! Heute mahle ich den Mais.", "level": 2 },
+      { "it": "Ciao, {m:ragazzo|f:ragazza}! Oggi macino il mais.", "sl": "Živjo, {m:fant|f:dekle}! Danes meljem koruzo.", "en": "Hi, {m:lad|f:lass}! Today I'm grinding the corn.", "de": "Hallo, {m:Junge|f:Mädchen}! Heute mahle ich den Mais.", "level": 2 },
       { "it": "Eccoti! Ho contato i sacchi: dieci. Mi aiuti?", "sl": "Tu si! Preštel sem vreče: deset jih je. Mi pomagaš?", "en": "There you are! I've counted the sacks: ten. Will you help me?", "de": "Da bist du ja! Ich habe die Säcke gezählt: zehn. Hilfst du mir?", "level": 3 },
-      { "it": "Ragazzo mio! Ormai sei di famiglia. Entra, entra.", "sl": "Fant moj! Zdaj si že del družine. Vstopi, vstopi.", "en": "My lad! You're family now. Come in, come in.", "de": "Mein Junge! Du gehörst jetzt zur Familie. Komm rein, komm rein.", "level": 4 }
+      { "it": "{m:Ragazzo mio|f:Ragazza mia}! Ormai sei di famiglia. Entra, entra.", "sl": "{m:Fant moj|f:Dekle moje}! Zdaj si že del družine. Vstopi, vstopi.", "en": "My {m:lad|f:lass}! You're family now. Come in, come in.", "de": "Mein {m:Junge|f:Mädchen}! Du gehörst jetzt zur Familie. Komm rein, komm rein.", "level": 4 }
     ],
     "thanks": [
       { "it": "Grazie. Lavoro fatto bene.", "sl": "Hvala. Dobro opravljeno delo.", "en": "Thank you. A job well done.", "de": "Danke. Gute Arbeit." },
       { "it": "Grazie! Uno, due, tre sacchi: tutto giusto.", "sl": "Hvala! Ena, dve, tri vreče: vse je prav.", "en": "Thanks! One, two, three sacks: all correct.", "de": "Danke! Eins, zwei, drei Säcke: alles richtig." },
-      { "it": "Grazie, ragazzo. Sei bravo con i numeri.", "sl": "Hvala, fant. S številkami ti gre dobro.", "en": "Thanks, lad. You're good with numbers.", "de": "Danke, Junge. Mit Zahlen kannst du gut umgehen." }
+      { "it": "Grazie, {m:ragazzo|f:ragazza}. Sei {m:bravo|f:brava} con i numeri.", "sl": "Hvala, {m:fant|f:dekle}. S številkami ti gre dobro.", "en": "Thanks, {m:lad|f:lass}. You're good with numbers.", "de": "Danke, {m:Junge|f:Mädchen}. Mit Zahlen kannst du gut umgehen." }
     ],
     "remember": [
       { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
@@ -49,7 +49,7 @@
     "cheer": [
       { "it": "Giusto.", "sl": "Prav.", "en": "Correct.", "de": "Stimmt." },
       { "it": "Bene! Tutto in ordine.", "sl": "Dobro! Vse je v redu.", "en": "Good! All in order.", "de": "Gut! Alles in Ordnung." },
-      { "it": "Bravo! Conti meglio di me.", "sl": "Bravo! Šteješ bolje kot jaz.", "en": "Well done! You count better than I do.", "de": "Gut gemacht! Du zählst besser als ich." }
+      { "it": "{m:Bravo|f:Brava}! Conti meglio di me.", "sl": "Bravo! Šteješ bolje kot jaz.", "en": "Well done! You count better than I do.", "de": "Gut gemacht! Du zählst besser als ich." }
     ],
     "comfort": [
       { "it": "Non fa niente. Contiamo di nuovo.", "sl": "Nič hudega. Štejva še enkrat.", "en": "Never mind. Let's count again.", "de": "Macht nichts. Zählen wir noch einmal." },
@@ -63,21 +63,21 @@
     ],
     "bye": [
       { "it": "Arrivederci.", "sl": "Na svidenje.", "en": "Goodbye.", "de": "Auf Wiedersehen." },
-      { "it": "Ciao, ragazzo. Domani c'è lavoro.", "sl": "Adijo, fant. Jutri je delo.", "en": "Bye, lad. There's work tomorrow.", "de": "Tschüss, Junge. Morgen gibt es Arbeit." },
+      { "it": "Ciao, {m:ragazzo|f:ragazza}. Domani c'è lavoro.", "sl": "Adijo, {m:fant|f:dekle}. Jutri je delo.", "en": "Bye, {m:lad|f:lass}. There's work tomorrow.", "de": "Tschüss, {m:Junge|f:Mädchen}. Morgen gibt es Arbeit." },
       { "it": "Mandi! Saluta Lorenzo.", "sl": "Mandi! Pozdravi Lorenza. (mandi: furlanski pozdrav)", "en": "Mandi! Say hello to Lorenzo. (mandi: Friulian for bye)", "de": "Mandi! Grüß Lorenzo von mir. (mandi: Friaulisch für tschüss)" }
     ],
     "gift": {
       "liked": [
-        { "it": "Oh! Come lo sapevi? È la cosa che mi piace di più.", "sl": "O! Kako si vedel? To imam najraje.", "en": "Oh! How did you know? It's what I like best.", "de": "Oh! Woher wusstest du das? Das mag ich am liebsten." },
-        { "it": "Bravo, ragazzo! Proprio quello che mi serviva.", "sl": "Priden, fant! Točno to sem potreboval.", "en": "Good lad! Exactly what I needed.", "de": "Braver Junge! Genau das habe ich gebraucht." },
+        { "it": "Oh! Come lo sapevi? È la cosa che mi piace di più.", "sl": "O! Kako si {m:vedel|f:vedela}? To imam najraje.", "en": "Oh! How did you know? It's what I like best.", "de": "Oh! Woher wusstest du das? Das mag ich am liebsten." },
+        { "it": "{m:Bravo|f:Brava}, {m:ragazzo|f:ragazza}! Proprio quello che mi serviva.", "sl": "{m:Priden|f:Pridna}, {m:fant|f:dekle}! Točno to sem potreboval.", "en": "Good {m:lad|f:lass}! Exactly what I needed.", "de": "{m:Braver Junge|f:Braves Mädchen}! Genau das habe ich gebraucht." },
         { "it": "Grazie! Oggi conto solo le cose belle: una!", "sl": "Hvala! Danes štejem samo lepe stvari: ena!", "en": "Thank you! Today I only count nice things: one!", "de": "Danke! Heute zähle ich nur schöne Dinge: eins!" }
       ],
       "ordinary": [
-        { "it": "Grazie, ragazzo. Siamo vicini, no?", "sl": "Hvala, fant. Sosedje smo, ne?", "en": "Thank you, lad. We're neighbours, aren't we?", "de": "Danke, Junge. Wir sind doch Nachbarn, oder?" },
+        { "it": "Grazie, {m:ragazzo|f:ragazza}. Siamo vicini, no?", "sl": "Hvala, {m:fant|f:dekle}. Sosedje smo, ne?", "en": "Thank you, {m:lad|f:lass}. We're neighbours, aren't we?", "de": "Danke, {m:Junge|f:Mädchen}. Wir sind doch Nachbarn, oder?" },
         { "it": "Oh, grazie. Non dovevi.", "sl": "O, hvala. Ni bilo treba.", "en": "Oh, thank you. You didn't have to.", "de": "Oh, danke. Das wäre doch nicht nötig gewesen." }
       ],
       "rare": [
-        { "it": "Questa poi! Non me l'aspettavo. Grazie mille, ragazzo!", "sl": "No, kaj takega! Tega nisem pričakoval. Najlepša hvala, fant!", "en": "Well I never! I didn't expect that. Thank you so much, lad!", "de": "Na so was! Damit habe ich nicht gerechnet. Vielen Dank, Junge!" }
+        { "it": "Questa poi! Non me l'aspettavo. Grazie mille, {m:ragazzo|f:ragazza}!", "sl": "No, kaj takega! Tega nisem pričakoval. Najlepša hvala, {m:fant|f:dekle}!", "en": "Well I never! I didn't expect that. Thank you so much, {m:lad|f:lass}!", "de": "Na so was! Damit habe ich nicht gerechnet. Vielen Dank, {m:Junge|f:Mädchen}!" }
       ]
     }
   }

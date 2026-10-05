@@ -22,12 +22,12 @@
   ],
   "lines": {
     "greet": [
-      { "de": "Grüß Gott.", "sl": "Pozdravljen.", "en": "Hello.", "it": "Salve.", "level": 0 },
+      { "de": "Grüß Gott.", "sl": "{m:Pozdravljen|f:Pozdravljena}.", "en": "Hello.", "it": "Salve.", "level": 0 },
       { "de": "Servus. Setz dich her, in den Schatten.", "sl": "Živjo. Sedi sem, v senco.", "en": "Hi. Sit here, in the shade.", "it": "Ciao. Siediti qui, all'ombra.", "level": 0 },
       { "de": "Ah, da bist du. Setz dich, setz dich.", "sl": "A, tu si. Sedi, sedi.", "en": "Ah, there you are. Sit, sit.", "it": "Ah, eccoti. Siediti, siediti.", "level": 1 },
       { "de": "Da bist du ja. Heute habe ich eine neue Geschichte.", "sl": "Tu si. Danes imam novo zgodbo.", "en": "There you are. Today I have a new story.", "it": "Eccoti. Oggi ho una storia nuova.", "level": 2 },
       { "de": "Dober dan! Bello hat auf dich gewartet. Und ich auch.", "sl": "Dober dan! Bello te je čakal. In jaz tudi.", "en": "Dober dan! Bello was waiting for you. And so was I. (dober dan: Slovene for good day)", "it": "Dober dan! Bello ti aspettava. E anch'io. (dober dan: buongiorno in sloveno)", "level": 3, "when": ["morning", "afternoon"] },
-      { "de": "Ah, du bist es. Du bist wie ein Enkelkind für mich. Setz dich zu mir.", "sl": "A, ti si. Zame si kot vnuk. Sedi k meni.", "en": "Ah, it's you. You're like a grandchild to me. Sit by me.", "it": "Ah, sei tu. Per me sei come un nipote. Siediti vicino a me.", "level": 4 }
+      { "de": "Ah, du bist es. Du bist wie ein Enkelkind für mich. Setz dich zu mir.", "sl": "A, ti si. Zame si kot {m:vnuk|f:vnukinja}. Sedi k meni.", "en": "Ah, it's you. You're like a grandchild to me. Sit by me.", "it": "Ah, sei tu. Per me sei come {m:un nipote|f:una nipote}. Siediti vicino a me.", "level": 4 }
     ],
     "thanks": [
       { "de": "Danke. Hilfe ist Gold wert.", "sl": "Hvala. Pomoč je zlata vredna.", "en": "Thank you. Help is worth its weight in gold.", "it": "Grazie. Un aiuto vale oro." },
@@ -46,9 +46,9 @@
       { "de": "Früher war die Brücke aus Holz.", "sl": "Nekoč je bil most lesen.", "en": "Long ago the bridge was made of wood.", "it": "Una volta il ponte era di legno." }
     ],
     "cheer": [
-      { "de": "Gut.", "sl": "Bravo.", "en": "Well done.", "it": "Bravo." },
+      { "de": "Gut.", "sl": "Bravo.", "en": "Well done.", "it": "{m:Bravo|f:Brava}." },
       { "de": "Richtig. Langsam kommt man auch ans Ziel.", "sl": "Prav. Počasi, pa prideš do cilja.", "en": "Right. Step by step, you get there.", "it": "Giusto. Piano piano, si arriva." },
-      { "de": "Gut, gut. Du bist wirklich gescheit.", "sl": "Dobro, dobro. Res si bister.", "en": "Good, good. You're really bright.", "it": "Bene, bene. Sei proprio sveglio." }
+      { "de": "Gut, gut. Du bist wirklich gescheit.", "sl": "Dobro, dobro. Res si {m:bister|f:bistra}.", "en": "Good, good. You're really bright.", "it": "Bene, bene. Sei proprio {m:sveglio|f:sveglia}." }
     ],
     "comfort": [
       { "de": "Macht nichts. Langsam, noch einmal.", "sl": "Nič ne de. Počasi, poskusi še enkrat.", "en": "It doesn't matter. Slowly, try again.", "it": "Non importa. Piano, riprova." },
@@ -67,7 +67,7 @@
     ],
     "gift": {
       "liked": [
-        { "de": "Oh. Woher hast du das gewusst? Das mag ich sehr.", "sl": "O. Kako si vedel? Zelo mi je všeč.", "en": "Oh. How did you know? I like it a lot.", "it": "Oh. Come lo sapevi? Mi piace tanto." },
+        { "de": "Oh. Woher hast du das gewusst? Das mag ich sehr.", "sl": "O. Kako si {m:vedel|f:vedela}? Zelo mi je všeč.", "en": "Oh. How did you know? I like it a lot.", "it": "Oh. Come lo sapevi? Mi piace tanto." },
         { "de": "Kleines Geschenk, großes Herz. Danke.", "sl": "Majhno darilo, veliko srce. Hvala.", "en": "A small gift, a big heart. Thank you.", "it": "Piccolo regalo, grande cuore. Grazie." },
         { "de": "Schön, schön. Bello, schau, was ich bekommen habe!", "sl": "Lepo, lepo. Bello, poglej, kaj sem dobil!", "en": "Nice, nice. Bello, look what I got!", "it": "Bello, bello. Bello, guarda cosa mi hanno portato!" }
       ],

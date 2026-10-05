@@ -29,8 +29,8 @@
   ],
   "lines": {
     "greet": [
-      { "de": "Grüß Gott.", "sl": "Pozdravljen.", "en": "Hello.", "it": "Salve.", "level": 0 },
-      { "de": "Grüß Gott. Was brauchst du?", "sl": "Pozdravljen. Kaj potrebuješ?", "en": "Hello. What do you need?", "it": "Salve. Cosa ti serve?", "level": 0 },
+      { "de": "Grüß Gott.", "sl": "{m:Pozdravljen|f:Pozdravljena}.", "en": "Hello.", "it": "Salve.", "level": 0 },
+      { "de": "Grüß Gott. Was brauchst du?", "sl": "{m:Pozdravljen|f:Pozdravljena}. Kaj potrebuješ?", "en": "Hello. What do you need?", "it": "Salve. Cosa ti serve?", "level": 0 },
       { "de": "Ah, du bist es. Komm herein.", "sl": "A, ti si. Vstopi.", "en": "Ah, it's you. Come in.", "it": "Ah, sei tu. Entra.", "level": 1 },
       { "de": "Servus. Heute mache ich ein Hufeisen. Schau.", "sl": "Živjo. Danes delam podkev. Poglej.", "en": "Hi. Today I'm making a horseshoe. Watch.", "it": "Ciao. Oggi faccio un ferro di cavallo. Guarda.", "level": 2 },
       { "de": "Da bist du. Das Feuer brennt. Komm näher.", "sl": "Tu si. Ogenj gori. Pridi bliže.", "en": "There you are. The fire's lit. Come closer.", "it": "Eccoti. Il fuoco è acceso. Vieni vicino.", "level": 3 },
@@ -76,7 +76,7 @@
     "gift": {
       "liked": [
         { "de": "Hm. Das gefällt mir. Danke.", "sl": "Hm. To mi je všeč. Hvala.", "en": "Hm. I like it. Thanks.", "it": "Hm. Mi piace. Grazie." },
-        { "de": "Woher weißt du das? Gut. Danke.", "sl": "Kako si vedel? Dobro. Hvala.", "en": "How did you know? Good. Thanks.", "it": "Come lo sapevi? Bene. Grazie." },
+        { "de": "Woher weißt du das? Gut. Danke.", "sl": "Kako si {m:vedel|f:vedela}? Dobro. Hvala.", "en": "How did you know? Good. Thanks.", "it": "Come lo sapevi? Bene. Grazie." },
         { "de": "Ah! Genau das. Danke.", "sl": "A! Točno to. Hvala.", "en": "Ah! Exactly this. Thanks.", "it": "Ah! Proprio questo. Grazie." }
       ],
       "ordinary": [

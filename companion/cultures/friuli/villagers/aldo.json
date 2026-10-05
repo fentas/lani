@@ -32,12 +32,12 @@
       { "it": "Buongiorno. Piano, ci sono le api.", "sl": "Dober dan. Počasi, tu so čebele.", "en": "Good day. Gently, there are bees here.", "de": "Guten Tag. Langsam, hier sind Bienen.", "level": 0, "when": ["morning", "afternoon"] },
       { "it": "Ciao. Vieni, ma piano piano.", "sl": "Živjo. Pridi, ampak počasi.", "en": "Hi. Come, but slowly.", "de": "Hallo. Komm, aber ganz langsam.", "level": 0 },
       { "it": "Ah, ciao. Oggi le api sono tranquille.", "sl": "A, živjo. Čebele so danes mirne.", "en": "Ah, hi. The bees are calm today.", "de": "Ah, hallo. Heute sind die Bienen ruhig.", "level": 1 },
-      { "it": "Ciao, amico. Vuoi vedere le api?", "sl": "Živjo, prijatelj. Bi rad videl čebele?", "en": "Hi, friend. Would you like to see the bees?", "de": "Hallo, mein Freund. Möchtest du die Bienen sehen?", "level": 2 },
+      { "it": "Ciao, {m:amico|f:amica}. Vuoi vedere le api?", "sl": "Živjo, {m:prijatelj|f:prijateljica}. Bi {m:rad|f:rada} {m:videl|f:videla} čebele?", "en": "Hi, friend. Would you like to see the bees?", "de": "Hallo, {m:mein Freund|f:meine Freundin}. Möchtest du die Bienen sehen?", "level": 2 },
       { "it": "Eccoti. Ho tenuto un vasetto di miele per te.", "sl": "Tu si. Kozarček medu sem prihranil zate.", "en": "There you are. I've kept a little jar of honey for you.", "de": "Da bist du. Ich habe ein Gläschen Honig für dich aufgehoben.", "level": 3 },
-      { "it": "Amico mio. Ormai le api ti conoscono. Vieni.", "sl": "Moj prijatelj. Čebele te zdaj že poznajo. Pridi.", "en": "My friend. The bees know you now. Come.", "de": "Mein Freund. Die Bienen kennen dich jetzt. Komm.", "level": 4 }
+      { "it": "{m:Amico mio|f:Amica mia}. Ormai le api ti conoscono. Vieni.", "sl": "{m:Moj prijatelj|f:Moja prijateljica}. Čebele te zdaj že poznajo. Pridi.", "en": "My friend. The bees know you now. Come.", "de": "{m:Mein Freund|f:Meine Freundin}. Die Bienen kennen dich jetzt. Komm.", "level": 4 }
     ],
     "thanks": [
-      { "it": "Grazie. Sei dolce come il miele.", "sl": "Hvala. Sladek si kot med.", "en": "Thank you. You're as sweet as honey.", "de": "Danke. Du bist süß wie Honig." },
+      { "it": "Grazie. Sei dolce come il miele.", "sl": "Hvala. {m:Sladek|f:Sladka} si kot med.", "en": "Thank you. You're as sweet as honey.", "de": "Danke. Du bist süß wie Honig." },
       { "it": "Grazie. Piano piano, ce l'abbiamo fatta.", "sl": "Hvala. Počasi nama je uspelo.", "en": "Thank you. Bit by bit, we did it.", "de": "Danke. Schritt für Schritt haben wir es geschafft." },
       { "it": "Grazie. Anche le api ti ringraziano.", "sl": "Hvala. Tudi čebele se ti zahvaljujejo.", "en": "Thank you. The bees say thank you too.", "de": "Danke. Auch die Bienen sagen danke." }
     ],
@@ -53,7 +53,7 @@
       { "it": "Dopo la pioggia vado a funghi.", "sl": "Po dežju grem po gobe.", "en": "After the rain I go looking for mushrooms.", "de": "Nach dem Regen gehe ich Pilze suchen." }
     ],
     "cheer": [
-      { "it": "Bravo.", "sl": "Bravo.", "en": "Well done.", "de": "Gut gemacht." },
+      { "it": "{m:Bravo|f:Brava}.", "sl": "Bravo.", "en": "Well done.", "de": "Gut gemacht." },
       { "it": "Bene. Molto bene.", "sl": "Dobro. Zelo dobro.", "en": "Good. Very good.", "de": "Gut. Sehr gut." },
       { "it": "Giusto. Dolce come il miele.", "sl": "Prav. Sladko kot med.", "en": "Right. Sweet as honey.", "de": "Richtig. Süß wie Honig." }
     ],
@@ -74,16 +74,16 @@
     ],
     "gift": {
       "liked": [
-        { "it": "Oh. Per me? Come lo sapevi? Grazie.", "sl": "O. Zame? Kako si vedel? Hvala.", "en": "Oh. For me? How did you know? Thank you.", "de": "Oh. Für mich? Woher wusstest du das? Danke." },
+        { "it": "Oh. Per me? Come lo sapevi? Grazie.", "sl": "O. Zame? Kako si {m:vedel|f:vedela}? Hvala.", "en": "Oh. For me? How did you know? Thank you.", "de": "Oh. Für mich? Woher wusstest du das? Danke." },
         { "it": "Mi piace molto. Piano piano, ma di cuore: grazie.", "sl": "Zelo mi je všeč. Tiho, a od srca: hvala.", "en": "I like it very much. Softly, but from the heart: thank you.", "de": "Das gefällt mir sehr. Leise, aber von Herzen: danke." },
-        { "it": "Bello. Dolce come il miele. Grazie, amico.", "sl": "Lepo. Sladko kot med. Hvala, prijatelj.", "en": "Nice. Sweet as honey. Thank you, friend.", "de": "Schön. Süß wie Honig. Danke, mein Freund." }
+        { "it": "Bello. Dolce come il miele. Grazie, {m:amico|f:amica}.", "sl": "Lepo. Sladko kot med. Hvala, {m:prijatelj|f:prijateljica}.", "en": "Nice. Sweet as honey. Thank you, friend.", "de": "Schön. Süß wie Honig. Danke, {m:mein Freund|f:meine Freundin}." }
       ],
       "ordinary": [
-        { "it": "Grazie. Sei gentile.", "sl": "Hvala. Prijazen si.", "en": "Thank you. You're kind.", "de": "Danke. Du bist lieb." },
+        { "it": "Grazie. Sei gentile.", "sl": "Hvala. {m:Prijazen|f:Prijazna} si.", "en": "Thank you. You're kind.", "de": "Danke. Du bist lieb." },
         { "it": "Oh. Grazie. Anche le api ti salutano.", "sl": "O. Hvala. Tudi čebele te pozdravljajo.", "en": "Oh. Thank you. The bees say hello too.", "de": "Oh. Danke. Auch die Bienen grüßen dich." }
       ],
       "rare": [
-        { "it": "Questo … Non so cosa dire. Grazie mille, amico.", "sl": "Tole … Ne vem, kaj naj rečem. Najlepša hvala, prijatelj.", "en": "This … I don't know what to say. Thank you so much, friend.", "de": "Das … Ich weiß nicht, was ich sagen soll. Vielen Dank, mein Freund." }
+        { "it": "Questo … Non so cosa dire. Grazie mille, {m:amico|f:amica}.", "sl": "Tole … Ne vem, kaj naj rečem. Najlepša hvala, {m:prijatelj|f:prijateljica}.", "en": "This … I don't know what to say. Thank you so much, friend.", "de": "Das … Ich weiß nicht, was ich sagen soll. Vielen Dank, {m:mein Freund|f:meine Freundin}." }
       ]
     }
   }

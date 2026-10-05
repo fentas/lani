@@ -216,7 +216,7 @@
         "voice": "male",
         "speaker": "grandpa",
         "role": { "de": "Köhler", "sl": "Oglar", "en": "Charcoal burner", "it": "Carbonaio" },
-        "story": "Michl is a Köhler of the Gailtal, as his father was: every summer he builds a Meiler in the woods above the village and watches it for a week or two from his hut; his charcoal goes to Schmied Toni. He says du to the learner ('Bub'), who says Sie to him.",
+        "story": "Michl is a Köhler of the Gailtal, as his father was: every summer he builds a Meiler in the woods above the village and watches it for a week or two from his hut; his charcoal goes to Schmied Toni. He says du to the learner ('{m:Bub|f:Mädel}'), who says Sie to him.",
         "when": ["evening", "night"],
         "chance": 0.5,
         "title": { "de": "Köhler Michl hütet den Meiler", "sl": "Oglar Michl pazi na kopo", "en": "Michl the charcoal burner watches the pile", "it": "Il carbonaio Michl sorveglia la carbonaia" },
@@ -230,7 +230,7 @@
                   "reply": { "de": "Mich auch. Setz dich her, hier ist es warm.", "sl": "Tudi mene. Sedi sem, toplo je.", "en": "Me too. Sit here, it's warm.", "it": "Anche a me. Siediti qui, fa caldo." } },
                 { "de": "Guten Morgen! Freut mich.", "sl": "Dobro jutro! Me veseli.", "en": "Good morning! Nice to meet you.", "it": "Buongiorno! Piacere.",
                   "why": { "sl": "Zvečer rečeš Guten Abend. Guten Morgen je za jutro.", "en": "In the evening you say Guten Abend. Guten Morgen is for the morning.", "it": "Di sera si dice Guten Abend. Guten Morgen è per il mattino." },
-                  "reply": { "de": "Morgen? Der Morgen ist längst vorbei, Bub!", "sl": "Jutro? Jutro je že zdavnaj mimo, fant!", "en": "Morning? Morning's long gone, lad!", "it": "Mattino? Il mattino è passato da un pezzo, ragazzo!" } }
+                  "reply": { "de": "Morgen? Der Morgen ist längst vorbei, {m:Bub|f:Mädel}!", "sl": "Jutro? Jutro je že zdavnaj mimo, {m:fant|f:dekle}!", "en": "Morning? Morning's long gone, {m:lad|f:lass}!", "it": "Mattino? Il mattino è passato da un pezzo, {m:ragazzo|f:ragazza}!" } }
               ] },
               { "who": "koehler", "de": "Das ist mein Meiler. Er brennt nicht, er glimmt nur.", "sl": "To je moja kopa. Ne gori, samo tli.", "en": "This is my charcoal pile. It doesn't burn, it only smoulders.", "it": "Questa è la mia carbonaia. Non brucia, cova soltanto." },
               { "choices": [
@@ -240,22 +240,22 @@
                   "reply": { "de": "Weil das Holz unter der Erde glimmt. So wird es Kohle.", "sl": "Ker les tli pod zemljo. Tako nastane oglje.", "en": "Because the wood smoulders under the earth. That's how it turns to charcoal.", "it": "Perché la legna cova sotto la terra. Così diventa carbone." } },
                 { "de": "Wer ist im Meiler?", "sl": "Kdo je v kopi?", "en": "Who is in the pile?", "it": "Chi c'è nella carbonaia?",
                   "why": { "sl": "Wer vpraša po osebi: kdo. Po stvari vprašaš was.", "en": "Wer asks about a person: who. For a thing ask was.", "it": "Wer chiede di una persona: chi. Per una cosa si chiede was." },
-                  "reply": { "de": "Wer? Niemand, Bub! Nur Holz.", "sl": "Kdo? Nihče, fant! Samo drva.", "en": "Who? Nobody, lad! Just wood.", "it": "Chi? Nessuno, ragazzo! Solo legna." } }
+                  "reply": { "de": "Wer? Niemand, {m:Bub|f:Mädel}! Nur Holz.", "sl": "Kdo? Nihče, {m:fant|f:dekle}! Samo drva.", "en": "Who? Nobody, {m:lad|f:lass}! Just wood.", "it": "Chi? Nessuno, {m:ragazzo|f:ragazza}! Solo legna." } }
               ] },
               { "who": "koehler", "de": "Die Kohle bekommt der Schmied Toni. Komm wieder!", "sl": "Oglje dobi kovač Toni. Pridi spet!", "en": "Toni the smith gets the charcoal. Come again!", "it": "Il carbone va al fabbro Toni. Torna!" }
             ]
           },
           "A2": {
             "lines": [
-              { "who": "koehler", "de": "Grüß dich, Bub! Schaust du dir meinen Meiler an?", "sl": "Pozdravljen, fant! Si prišel pogledat mojo kopo?", "en": "Hello, lad! Have you come to look at my pile?", "it": "Ciao, ragazzo! Sei venuto a vedere la mia carbonaia?" },
+              { "who": "koehler", "de": "Grüß dich, {m:Bub|f:Mädel}! Schaust du dir meinen Meiler an?", "sl": "{m:Pozdravljen|f:Pozdravljena}, {m:fant|f:dekle}! Si {m:prišel|f:prišla} pogledat mojo kopo?", "en": "Hello, {m:lad|f:lass}! Have you come to look at my pile?", "it": "Ciao, {m:ragazzo|f:ragazza}! Sei {m:venuto|f:venuta} a vedere la mia carbonaia?" },
               { "choices": [
-                { "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "sl": "Ja, dim sem videl iz vasi.", "en": "Yes, I saw the smoke from the village.", "it": "Sì, ho visto il fumo dal paese.", "ok": true,
+                { "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "sl": "Ja, dim sem {m:videl|f:videla} iz vasi.", "en": "Yes, I saw the smoke from the village.", "it": "Sì, ho visto il fumo dal paese.", "ok": true,
                   "reply": { "de": "Den Rauch sehen alle. Aber Feuer darf keins sein!", "sl": "Dim vidijo vsi. Ognja pa ne sme biti!", "en": "Everyone sees the smoke. But there mustn't be any fire!", "it": "Il fumo lo vedono tutti. Ma il fuoco non deve esserci!" } },
                 { "de": "Ja, Sie machen Holzkohle, oder?", "sl": "Ja, delate oglje, kajne?", "en": "Yes, you're making charcoal, aren't you?", "it": "Sì, Lei fa il carbone, vero?", "ok": true,
                   "reply": { "de": "Genau. Wie mein Vater und mein Großvater.", "sl": "Tako je. Kot moj oče in moj ded.", "en": "That's right. Like my father and my grandfather.", "it": "Proprio così. Come mio padre e mio nonno." } },
-                { "de": "Ja, ich habe den Rauch vom Dorf aus gesieht.", "sl": "Ja, dim sem videl iz vasi. (napačna oblika preteklika)", "en": "Yes, I saw the smoke from the village. (a wrong past form)", "it": "Sì, ho visto il fumo dal paese. (una forma sbagliata del passato)",
+                { "de": "Ja, ich habe den Rauch vom Dorf aus gesieht.", "sl": "Ja, dim sem {m:videl|f:videla} iz vasi. (napačna oblika preteklika)", "en": "Yes, I saw the smoke from the village. (a wrong past form)", "it": "Sì, ho visto il fumo dal paese. (una forma sbagliata del passato)",
                   "why": { "sl": "Sehen ima nepravilni deležnik: gesehen. Gesieht ne obstaja.", "en": "Sehen has an irregular past participle: gesehen. Gesieht isn't a word.", "it": "Sehen ha un participio irregolare: gesehen. Gesieht non esiste." },
-                  "reply": { "de": "Gesieht? So ein Wort kenn ich nicht, Bub!", "sl": "Gesieht? Take besede pa ne poznam, fant!", "en": "Gesieht? I don't know that word, lad!", "it": "Gesieht? Questa parola non la conosco, ragazzo!" } }
+                  "reply": { "de": "Gesieht? So ein Wort kenn ich nicht, {m:Bub|f:Mädel}!", "sl": "Gesieht? Take besede pa ne poznam, {m:fant|f:dekle}!", "en": "Gesieht? I don't know that word, {m:lad|f:lass}!", "it": "Gesieht? Questa parola non la conosco, {m:ragazzo|f:ragazza}!" } }
               ] },
               { "who": "koehler", "de": "Ich muss Tag und Nacht aufpassen. Wenn der Meiler zu viel Luft bekommt, brennt er. Dann bleibt nur Asche.", "sl": "Paziti moram dan in noč. Če kopa dobi preveč zraka, zagori. Potem ostane samo pepel.", "en": "I have to keep watch day and night. If the pile gets too much air, it burns. Then only ash is left.", "it": "Devo stare attento giorno e notte. Se la carbonaia prende troppa aria, brucia. Poi resta solo cenere." },
               { "choices": [
@@ -266,7 +266,7 @@
                   "reply": { "de": "Du sagst du zu mir? Passt schon, im Wald sind eh alle per du.", "sl": "Me tikaš? Nič hudega, v gozdu se tako vsi tikamo.", "en": "You're saying du to me? That's fine, in the woods everyone says du anyway.", "it": "Mi dai del tu? Va bene, nel bosco ci diamo tutti del tu." } }
               ] },
               { "who": "koehler", "de": "In einer Woche mache ich den Meiler auf. Die Kohle bringe ich dem Schmied Toni und in die Stadt, nach Villach.", "sl": "Čez en teden odprem kopo. Oglje odnesem kovaču Toniju in v mesto, v Beljak.", "en": "In a week I'll open the pile. I'll take the charcoal to Toni the smith and to the town, to Villach.", "it": "Tra una settimana apro la carbonaia. Il carbone lo porto al fabbro Toni e in città, a Villaco." },
-              { "who": "koehler", "de": "Komm wieder, Bub. In der Nacht ist der Wald am schönsten.", "sl": "Pridi spet, fant. Ponoči je gozd najlepši.", "en": "Come again, lad. The woods are loveliest at night.", "it": "Torna, ragazzo. Di notte il bosco è bellissimo." }
+              { "who": "koehler", "de": "Komm wieder, {m:Bub|f:Mädel}. In der Nacht ist der Wald am schönsten.", "sl": "Pridi spet, {m:fant|f:dekle}. Ponoči je gozd najlepši.", "en": "Come again, {m:lad|f:lass}. The woods are loveliest at night.", "it": "Torna, {m:ragazzo|f:ragazza}. Di notte il bosco è bellissimo." }
             ]
           }
         }

@@ -232,7 +232,7 @@
         "voice": "male",
         "speaker": "grandpa",
         "role": { "it": "Carbonaio", "sl": "Oglar", "en": "Charcoal burner", "de": "Köhler" },
-        "story": "Pieri comes down from the Carnia every summer to burn charcoal in the woods above the village, as the carbonai of the Friulian mountains always did; his charcoal goes to Fabbro Bruno's forge. He says tu to the learner ('ragazzo'), who says Lei to him.",
+        "story": "Pieri comes down from the Carnia every summer to burn charcoal in the woods above the village, as the carbonai of the Friulian mountains always did; his charcoal goes to Fabbro Bruno's forge. He says tu to the learner ('{m:ragazzo|f:ragazza}'), who says Lei to him.",
         "when": ["evening", "night"],
         "chance": 0.5,
         "title": { "it": "Il carbonaio Pieri sorveglia la carbonaia", "sl": "Oglar Pieri pazi na kopo", "en": "Pieri the charcoal burner watches the pile", "de": "Köhler Pieri hütet den Meiler" },
@@ -246,7 +246,7 @@
                   "reply": { "it": "Piacere mio. Siediti qui, fa caldo.", "sl": "Tudi mene veseli. Sedi sem, toplo je.", "en": "My pleasure. Sit here, it's warm.", "de": "Ganz meinerseits. Setz dich her, hier ist es warm." } },
                 { "it": "Buongiorno! Piacere.", "sl": "Dober dan! Me veseli.", "en": "Good morning! Nice to meet you.", "de": "Guten Tag! Freut mich.",
                   "why": { "sl": "Zvečer rečemo buonasera. Buongiorno je za dan.", "en": "In the evening you say buonasera. Buongiorno is for the day.", "de": "Am Abend sagt man buonasera. Buongiorno sagt man am Tag." },
-                  "reply": { "it": "Giorno? Il giorno è finito, ragazzo!", "sl": "Dan? Dan je že mimo, fant!", "en": "Day? The day's over, lad!", "de": "Tag? Der Tag ist vorbei, Junge!" } }
+                  "reply": { "it": "Giorno? Il giorno è finito, {m:ragazzo|f:ragazza}!", "sl": "Dan? Dan je že mimo, {m:fant|f:dekle}!", "en": "Day? The day's over, {m:lad|f:lass}!", "de": "Tag? Der Tag ist vorbei, {m:Junge|f:Mädchen}!" } }
               ] },
               { "who": "carbonaio", "it": "Questa è la mia carbonaia. Non brucia, fuma piano.", "sl": "To je moja kopa. Ne gori, počasi se kadi.", "en": "This is my charcoal pile. It doesn't burn, it smokes slowly.", "de": "Das ist mein Meiler. Er brennt nicht, er raucht langsam." },
               { "choices": [
@@ -256,20 +256,20 @@
                   "reply": { "it": "Perché la legna cuoce sotto la terra. Così nasce il carbone.", "sl": "Ker se les peče pod zemljo. Tako nastane oglje.", "en": "Because the wood bakes under the earth. That's how charcoal is made.", "de": "Weil das Holz unter der Erde gart. So entsteht Holzkohle." } },
                 { "it": "Chi c'è dentro?", "sl": "Kdo je notri?", "en": "Who's inside?", "de": "Wer ist drin?",
                   "why": { "sl": "Chi vpraša po osebi: kdo. Po stvari vprašaš che cosa.", "en": "Chi asks about a person: who. For a thing ask che cosa.", "de": "Chi fragt nach einer Person: wer. Nach einer Sache fragt man che cosa." },
-                  "reply": { "it": "Chi? Nessuno, ragazzo! Solo legna.", "sl": "Kdo? Nihče, fant! Samo drva.", "en": "Who? Nobody, lad! Just wood.", "de": "Wer? Niemand, Junge! Nur Holz." } }
+                  "reply": { "it": "Chi? Nessuno, {m:ragazzo|f:ragazza}! Solo legna.", "sl": "Kdo? Nihče, {m:fant|f:dekle}! Samo drva.", "en": "Who? Nobody, {m:lad|f:lass}! Just wood.", "de": "Wer? Niemand, {m:Junge|f:Mädchen}! Nur Holz." } }
               ] },
               { "who": "carbonaio", "it": "Il carbone va al fabbro Bruno. Torna quando vuoi!", "sl": "Oglje dobi kovač Bruno. Pridi, kadar hočeš!", "en": "The charcoal goes to Bruno the smith. Come back any time!", "de": "Die Kohle bekommt der Schmied Bruno. Komm wieder, wann du willst!" }
             ]
           },
           "A2": {
             "lines": [
-              { "who": "carbonaio", "it": "Buonasera, ragazzo! Sei venuto a vedere la mia carbonaia?", "sl": "Dober večer, fant! Si prišel pogledat mojo kopo?", "en": "Good evening, lad! Have you come to see my charcoal pile?", "de": "Guten Abend, Junge! Bist du gekommen, um dir meinen Meiler anzuschauen?" },
+              { "who": "carbonaio", "it": "Buonasera, {m:ragazzo|f:ragazza}! Sei {m:venuto|f:venuta} a vedere la mia carbonaia?", "sl": "Dober večer, {m:fant|f:dekle}! Si {m:prišel|f:prišla} pogledat mojo kopo?", "en": "Good evening, {m:lad|f:lass}! Have you come to see my charcoal pile?", "de": "Guten Abend, {m:Junge|f:Mädchen}! Bist du gekommen, um dir meinen Meiler anzuschauen?" },
               { "choices": [
-                { "it": "Sì, ho visto il fumo dal paese.", "sl": "Ja, dim sem videl iz vasi.", "en": "Yes, I saw the smoke from the village.", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "ok": true,
+                { "it": "Sì, ho visto il fumo dal paese.", "sl": "Ja, dim sem {m:videl|f:videla} iz vasi.", "en": "Yes, I saw the smoke from the village.", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen.", "ok": true,
                   "reply": { "it": "Il fumo lo vedono tutti. Ma il fuoco non deve esserci!", "sl": "Dim vidijo vsi. Ognja pa ne sme biti!", "en": "Everyone sees the smoke. But there mustn't be any fire!", "de": "Den Rauch sehen alle. Aber Feuer darf keins sein!" } },
-                { "it": "Sì, ho vedito il fumo dal paese.", "sl": "Ja, dim sem videl iz vasi. (napačna oblika preteklika)", "en": "Yes, I saw the smoke from the village. (a wrong past form)", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen. (eine falsche Vergangenheitsform)",
+                { "it": "Sì, ho vedito il fumo dal paese.", "sl": "Ja, dim sem {m:videl|f:videla} iz vasi. (napačna oblika preteklika)", "en": "Yes, I saw the smoke from the village. (a wrong past form)", "de": "Ja, ich habe den Rauch vom Dorf aus gesehen. (eine falsche Vergangenheitsform)",
                   "why": { "sl": "Vedere ima nepravilni deležnik: visto (ho visto). Vedito ne obstaja.", "en": "Vedere has an irregular past participle: visto (ho visto). Vedito isn't a word.", "de": "Vedere hat ein unregelmäßiges Partizip: visto (ho visto). Vedito gibt es nicht." },
-                  "reply": { "it": "Vedito? Questa parola non la conosco, ragazzo!", "sl": "Vedito? Te besede pa ne poznam, fant!", "en": "Vedito? I don't know that word, lad!", "de": "Vedito? Das Wort kenne ich nicht, Junge!" } }
+                  "reply": { "it": "Vedito? Questa parola non la conosco, {m:ragazzo|f:ragazza}!", "sl": "Vedito? Te besede pa ne poznam, {m:fant|f:dekle}!", "en": "Vedito? I don't know that word, {m:lad|f:lass}!", "de": "Vedito? Das Wort kenne ich nicht, {m:Junge|f:Mädchen}!" } }
               ] },
               { "who": "carbonaio", "it": "Devo guardarla giorno e notte. Se prende troppa aria, brucia e resta solo cenere.", "sl": "Paziti moram nanjo dan in noč. Če dobi preveč zraka, zagori in ostane samo pepel.", "en": "I have to watch it day and night. If it gets too much air, it burns and only ash is left.", "de": "Ich muss Tag und Nacht aufpassen. Wenn er zu viel Luft bekommt, brennt er, und es bleibt nur Asche." },
               { "choices": [
@@ -280,7 +280,7 @@
                   "reply": { "it": "Mi dai del tu? Va be', nel bosco siamo tutti amici.", "sl": "Me tikaš? No, prav, v gozdu smo vsi prijatelji.", "en": "You're calling me tu? Oh well, in the woods we're all friends.", "de": "Du duzt mich? Na gut, im Wald sind wir alle Freunde." } }
               ] },
               { "who": "carbonaio", "it": "Tra una settimana apro la carbonaia. Il carbone lo porto al fabbro Bruno, per la sua fucina.", "sl": "Čez en teden odprem kopo. Oglje odnesem kovaču Brunu, za njegovo kovačnico.", "en": "In a week I'll open the pile. I'll take the charcoal to Bruno the smith, for his forge.", "de": "In einer Woche mache ich den Meiler auf. Die Kohle bringe ich dem Schmied Bruno, für seine Schmiede." },
-              { "who": "carbonaio", "it": "Torna quando vuoi, ragazzo. Di notte il bosco è bellissimo.", "sl": "Pridi, kadar hočeš, fant. Ponoči je gozd prelep.", "en": "Come back any time, lad. The woods are beautiful at night.", "de": "Komm wieder, wann du willst, Junge. In der Nacht ist der Wald wunderschön." }
+              { "who": "carbonaio", "it": "Torna quando vuoi, {m:ragazzo|f:ragazza}. Di notte il bosco è bellissimo.", "sl": "Pridi, kadar hočeš, {m:fant|f:dekle}. Ponoči je gozd prelep.", "en": "Come back any time, {m:lad|f:lass}. The woods are beautiful at night.", "de": "Komm wieder, wann du willst, {m:Junge|f:Mädchen}. In der Nacht ist der Wald wunderschön." }
             ]
           }
         }

@@ -14,13 +14,13 @@
   "levels": {
     "A1": {
       "lines": [
-        { "it": "Buonasera, piccolo. Conosci Cividale?", "sl": "Dober večer, mali. Poznaš Čedad?", "en": "Good evening, little one. Do you know Cividale?", "de": "Guten Abend, Kleiner. Kennst du Cividale?" },
+        { "it": "Buonasera, {m:piccolo|f:piccola}. Conosci Cividale?", "sl": "Dober večer, {m:mali|f:mala}. Poznaš Čedad?", "en": "Good evening, little one. Do you know Cividale?", "de": "Guten Abend, {m:Kleiner|f:Kleine}. Kennst du Cividale?" },
         { "choices": [
           { "it": "No, nonno. Dov'è?", "sl": "Ne, dedek. Kje je?", "en": "No, Grandpa. Where is it?", "de": "Nein, Opa. Wo ist das?", "ok": true,
             "reply": { "it": "È una città vicino a noi, sul fiume Natisone.", "sl": "To je mesto blizu nas, ob reki Nadiži.", "en": "It's a town near us, on the river Natisone.", "de": "Das ist eine Stadt in unserer Nähe, am Fluss Natisone." } },
           { "it": "No, nonno. Chi è?", "sl": "Ne, dedek. Kdo je to?", "en": "No, Grandpa. Who is that?", "de": "Nein, Opa. Wer ist das?",
             "why": { "sl": "Čedad je kraj, ne oseba: vprašaš dov'è? (kje je?).", "en": "Cividale is a place, not a person: ask dov'è? (where is it?).", "de": "Cividale ist ein Ort, keine Person: Frag dov'è? (wo ist das?)." },
-            "reply": { "it": "Chi è? Il signor Cividale? Ah ah! No, no, piccolo.", "sl": "Chi è? Gospod Čedad? Ha ha! Ne, ne, mali.", "en": "Chi è? Mister Cividale? Ha ha! No, no, little one.", "de": "Chi è? Herr Cividale? Ha ha! Nein, nein, Kleiner." } }
+            "reply": { "it": "Chi è? Il signor Cividale? Ah ah! No, no, {m:piccolo|f:piccola}.", "sl": "Chi è? Gospod Čedad? Ha ha! Ne, ne, {m:mali|f:mala}.", "en": "Chi è? Mister Cividale? Ha ha! No, no, little one.", "de": "Chi è? Herr Cividale? Ha ha! Nein, nein, {m:Kleiner|f:Kleine}." } }
         ] },
         { "it": "Tanto tempo fa, a Cividale non c'è un ponte. La gente non può passare il fiume.", "sl": "Nekoč v Čedadu ni mostu. Ljudje ne morejo čez reko.", "en": "Long ago there is no bridge at Cividale. People can't cross the river.", "de": "Vor langer Zeit gibt es in Cividale keine Brücke. Die Leute kommen nicht über den Fluss." },
         { "it": "Un giorno arriva il diavolo. Dice: «Faccio io il ponte, in una notte!»", "sl": "Nekega dne pride hudič. Reče: »Jaz vam naredim most, v eni noči!«", "en": "One day the devil comes. He says: 'I'll build the bridge myself, in one night!'", "de": "Eines Tages kommt der Teufel. Er sagt: „Ich baue die Brücke selbst, in einer Nacht!“", "fx": { "flare": 0.7 } },
@@ -40,30 +40,30 @@
             "reply": { "it": "Ah ah, sì! Il diavolo va via arrabbiato.", "sl": "Ha ha, ja! Hudič jezen odide.", "en": "Ha ha, yes! The devil goes off in a huff.", "de": "Ha ha, ja! Der Teufel zieht wütend ab." } },
           { "it": "Ah ah! Povera diavolo!", "sl": "Ha ha! Ubogi hudič!", "en": "Ha ha! Poor devil!", "de": "Ha ha! Armer Teufel!",
             "why": { "sl": "Diavolo je moškega spola: povero diavolo.", "en": "Diavolo is masculine: povero diavolo.", "de": "Diavolo ist männlich: povero diavolo." },
-            "reply": { "it": "Povera diavolo? Una diavola? Questa è nuova, piccolo!", "sl": "Povera diavolo? Hudička? To pa je nekaj novega, mali!", "en": "Povera diavolo? A she-devil? That's a new one, little one!", "de": "Povera diavolo? Eine Teufelin? Das ist mir neu, Kleiner!" } }
+            "reply": { "it": "Povera diavolo? Una diavola? Questa è nuova, {m:piccolo|f:piccola}!", "sl": "Povera diavolo? Hudička? To pa je nekaj novega, {m:mali|f:mala}!", "en": "Povera diavolo? A she-devil? That's a new one, little one!", "de": "Povera diavolo? Eine Teufelin? Das ist mir neu, {m:Kleiner|f:Kleine}!" } }
         ] },
-        { "it": "Dimmi, piccolo: chi passa per primo sul ponte?", "sl": "Povej, mali: kdo gre prvi čez most?", "en": "Tell me, little one: who crosses the bridge first?", "de": "Sag mal, Kleiner: Wer geht als Erster über die Brücke?" },
+        { "it": "Dimmi, {m:piccolo|f:piccola}: chi passa per primo sul ponte?", "sl": "Povej, {m:mali|f:mala}: kdo gre prvi čez most?", "en": "Tell me, little one: who crosses the bridge first?", "de": "Sag mal, {m:Kleiner|f:Kleine}: Wer geht als Erster über die Brücke?" },
         { "choices": [
           { "it": "Il gatto.", "sl": "Maček.", "en": "The cat.", "de": "Die Katze.", "ok": true,
-            "reply": { "it": "Bravo! E il ponte c'è ancora oggi. Si chiama il Ponte del Diavolo. Buonanotte, piccolo.", "sl": "Bravo! In most stoji še danes. Imenuje se Hudičev most. Lahko noč, mali.", "en": "Well done! And the bridge is still there today. It's called the Devil's Bridge. Good night, little one.", "de": "Gut gemacht! Und die Brücke gibt es heute noch. Sie heißt Teufelsbrücke. Gute Nacht, Kleiner." } },
+            "reply": { "it": "{m:Bravo|f:Brava}! E il ponte c'è ancora oggi. Si chiama il Ponte del Diavolo. Buonanotte, {m:piccolo|f:piccola}.", "sl": "Bravo! In most stoji še danes. Imenuje se Hudičev most. Lahko noč, {m:mali|f:mala}.", "en": "Well done! And the bridge is still there today. It's called the Devil's Bridge. Good night, little one.", "de": "Gut gemacht! Und die Brücke gibt es heute noch. Sie heißt Teufelsbrücke. Gute Nacht, {m:Kleiner|f:Kleine}." } },
           { "it": "Il diavolo.", "sl": "Hudič.", "en": "The devil.", "de": "Der Teufel.",
             "why": { "sl": "Ne: hudič most zgradi, prvi pa gre čezenj maček.", "en": "No: the devil builds the bridge, but the cat crosses it first.", "de": "Nein: Der Teufel baut die Brücke, aber die Katze geht als Erste hinüber." },
             "reply": { "it": "Il diavolo? E allora il diavolo prende… il diavolo?", "sl": "Il diavolo? Potem hudič zgrabi … hudiča?", "en": "Il diavolo? So the devil grabs… the devil?", "de": "Il diavolo? Dann schnappt sich der Teufel … den Teufel?" } },
           { "it": "La gatto.", "sl": "Maček.", "en": "The cat.", "de": "Die Katze.",
             "why": { "sl": "Gatto je moškega spola: il gatto.", "en": "Gatto is masculine: il gatto.", "de": "Gatto ist männlich: il gatto." },
-            "reply": { "it": "La gatto? Hm? Le mie vecchie orecchie… ripeti, piccolo.", "sl": "La gatto? Hm? Moja stara ušesa … ponovi, mali.", "en": "La gatto? Hm? My old ears… say it again, little one.", "de": "La gatto? Hm? Meine alten Ohren … sag's noch mal, Kleiner." } }
+            "reply": { "it": "La gatto? Hm? Le mie vecchie orecchie… ripeti, {m:piccolo|f:piccola}.", "sl": "La gatto? Hm? Moja stara ušesa … ponovi, {m:mali|f:mala}.", "en": "La gatto? Hm? My old ears… say it again, little one.", "de": "La gatto? Hm? Meine alten Ohren … sag's noch mal, {m:Kleiner|f:Kleine}." } }
         ] }
       ]
     },
     "A2": {
       "lines": [
-        { "it": "Buonasera, ragazzo. Sei mai stato a Cividale?", "sl": "Dober večer, fant. Si bil že kdaj v Čedadu?", "en": "Good evening, lad. Have you ever been to Cividale?", "de": "Guten Abend, Junge. Warst du schon mal in Cividale?" },
+        { "it": "Buonasera, {m:ragazzo|f:ragazza}. Sei mai {m:stato|f:stata} a Cividale?", "sl": "Dober večer, {m:fant|f:dekle}. Si {m:bil|f:bila} že kdaj v Čedadu?", "en": "Good evening, {m:lad|f:lass}. Have you ever been to Cividale?", "de": "Guten Abend, {m:Junge|f:Mädchen}. Warst du schon mal in Cividale?" },
         { "choices": [
-          { "it": "No, non ci sono mai stato.", "sl": "Ne, nisem še bil tam.", "en": "No, I've never been there.", "de": "Nein, da war ich noch nie.", "ok": true,
+          { "it": "No, non ci sono mai {m:stato|f:stata}.", "sl": "Ne, nisem še {m:bil|f:bila} tam.", "en": "No, I've never been there.", "de": "Nein, da war ich noch nie.", "ok": true,
             "reply": { "it": "Allora ti racconto del suo ponte.", "sl": "Potem ti povem o njegovem mostu.", "en": "Then I'll tell you about its bridge.", "de": "Dann erzähle ich dir von der Brücke dort." } },
-          { "it": "No, non ci ho mai stato.", "sl": "Ne, nisem še bil tam.", "en": "No, I've never been there.", "de": "Nein, da war ich noch nie.",
-            "why": { "sl": "Stare tvori passato prossimo z essere: sono stato.", "en": "Stare forms the passato prossimo with essere: sono stato.", "de": "Stare bildet das passato prossimo mit essere: sono stato." },
-            "reply": { "it": "Non ci ho? Che cosa non hai, ragazzo?", "sl": "Non ci ho? Česa nimaš, fant?", "en": "Non ci ho? You haven't got what, lad?", "de": "Non ci ho? Was hast du nicht, Junge?" } }
+          { "it": "No, non ci ho mai stato.", "sl": "Ne, nisem še {m:bil|f:bila} tam.", "en": "No, I've never been there.", "de": "Nein, da war ich noch nie.",
+            "why": { "sl": "Stare tvori passato prossimo z essere: sono {m:stato|f:stata}.", "en": "Stare forms the passato prossimo with essere: sono {m:stato|f:stata}.", "de": "Stare bildet das passato prossimo mit essere: sono {m:stato|f:stata}." },
+            "reply": { "it": "Non ci ho? Che cosa non hai, {m:ragazzo|f:ragazza}?", "sl": "Non ci ho? Česa nimaš, {m:fant|f:dekle}?", "en": "Non ci ho? You haven't got what, {m:lad|f:lass}?", "de": "Non ci ho? Was hast du nicht, {m:Junge|f:Mädchen}?" } }
         ] },
         { "it": "Tanto tempo fa, la gente di Cividale voleva un ponte sul Natisone, ma il fiume era troppo largo e profondo.", "sl": "Nekoč so ljudje v Čedadu želeli most čez Nadižo, ampak reka je bila preširoka in pregloboka.", "en": "Long ago, the people of Cividale wanted a bridge over the Natisone, but the river was too wide and too deep.", "de": "Vor langer Zeit wollten die Leute von Cividale eine Brücke über den Natisone, aber der Fluss war zu breit und zu tief." },
         { "it": "Una sera è arrivato il diavolo, con un sorriso furbo.", "sl": "Nekega večera je prišel hudič in se zvito smehljal.", "en": "One evening the devil came, with a sly smile.", "de": "Eines Abends kam der Teufel, mit einem listigen Lächeln.", "fx": { "flare": 0.6 } },
@@ -90,10 +90,10 @@
         { "it": "Il diavolo ha preso il gatto, ma il gatto l'ha graffiato sul naso ed è scappato via. Il diavolo se n'è andato arrabbiatissimo!", "sl": "Hudič je zgrabil mačka, a maček ga je opraskal po nosu in zbežal. Hudič je odšel hudo jezen!", "en": "The devil grabbed the cat, but the cat scratched him on the nose and ran away. The devil went off furious!", "de": "Der Teufel packte die Katze, aber die Katze kratzte ihn auf die Nase und lief davon. Der Teufel zog fuchsteufelswild ab!", "fx": { "flare": 0.2 } },
         { "choices": [
           { "it": "Che furba la gente di Cividale!", "sl": "Kako zviti so ljudje iz Čedada!", "en": "How clever the people of Cividale are!", "de": "Wie schlau die Leute von Cividale sind!", "ok": true,
-            "reply": { "it": "Sì! E il ponte c'è ancora. Quando ci vai, cerca il sasso del diavolo nel fiume. Buonanotte, ragazzo.", "sl": "Ja! In most še stoji. Ko greš tja, poišči hudičev kamen v reki. Lahko noč, fant.", "en": "Yes! And the bridge is still there. When you go, look for the devil's stone in the river. Good night, lad.", "de": "Ja! Und die Brücke steht noch heute. Wenn du hinkommst, such den Stein des Teufels im Fluss. Gute Nacht, Junge." } },
+            "reply": { "it": "Sì! E il ponte c'è ancora. Quando ci vai, cerca il sasso del diavolo nel fiume. Buonanotte, {m:ragazzo|f:ragazza}.", "sl": "Ja! In most še stoji. Ko greš tja, poišči hudičev kamen v reki. Lahko noč, {m:fant|f:dekle}.", "en": "Yes! And the bridge is still there. When you go, look for the devil's stone in the river. Good night, {m:lad|f:lass}.", "de": "Ja! Und die Brücke steht noch heute. Wenn du hinkommst, such den Stein des Teufels im Fluss. Gute Nacht, {m:Junge|f:Mädchen}." } },
           { "it": "Che furbi la gente di Cividale!", "sl": "Kako zviti so ljudje iz Čedada!", "en": "How clever the people of Cividale are!", "de": "Wie schlau die Leute von Cividale sind!",
             "why": { "sl": "La gente je ženskega spola in ednina: che furba la gente.", "en": "La gente is feminine and singular: che furba la gente.", "de": "La gente ist weiblich und Singular: che furba la gente." },
-            "reply": { "it": "Furbi? Chi, io e Moro? Grazie, ragazzo!", "sl": "Furbi? Kdo, jaz in Moro? Hvala, fant!", "en": "Furbi? Who, Moro and me? Thank you, lad!", "de": "Furbi? Wer, ich und Moro? Danke, Junge!" } }
+            "reply": { "it": "Furbi? Chi, io e Moro? Grazie, {m:ragazzo|f:ragazza}!", "sl": "Furbi? Kdo, jaz in Moro? Hvala, {m:fant|f:dekle}!", "en": "Furbi? Who, Moro and me? Thank you, {m:lad|f:lass}!", "de": "Furbi? Wer, ich und Moro? Danke, {m:Junge|f:Mädchen}!" } }
         ] }
       ]
     }

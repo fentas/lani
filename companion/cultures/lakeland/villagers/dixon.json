@@ -19,7 +19,7 @@
       { "id": "forge", "at": "21:45", "until": "22:00", "to": "smithy", "doing": "tend", "title": {"en": "Mr Dixon banks the embers in the forge", "sl": "Gospod Dixon pokrije žerjavico v ognjišču", "it": "Il signor Dixon copre la brace nella forgia", "de": "Herr Dixon deckt die Glut in der Esse ab"} }
     ]
   },
-  "personality": "Gruff and kind blacksmith in his fifties. Few words, short sentences, no small talk, but he notices everything and helps without being asked. Calls the learner by first name or 'lad'; the learner says 'Mr Dixon', never his first name. No patience for a missing -s ('she goes') or a wrong past tense ('I goed'): 'It's right, or it isn't.' Speaks slow, plain English, says 'Aye' for yes. Hums while he works; his wife sends him to the Packhorse Inn to talk more.",
+  "personality": "Gruff and kind blacksmith in his fifties. Few words, short sentences, no small talk, but he notices everything and helps without being asked. Calls the learner by first name or '{m:lad|f:lass}'; the learner says 'Mr Dixon', never his first name. No patience for a missing -s ('she goes') or a wrong past tense ('I goed'): 'It's right, or it isn't.' Speaks slow, plain English, says 'Aye' for yes. Hums while he works; his wife sends him to the Packhorse Inn to talk more.",
   "story": "Mr Dixon's smithy stands at the edge of the village, by the beck. He shoes the fell ponies of half the dale and takes orders from Keswick and Penrith, writes them in a small black notebook and gets them exactly right, like his sentences. When he was young, he won the Cumberland wrestling at Grasmere. When wolves come to the palisade, it is Mr Dixon who stands at the gate with his hammer.",
   "likes": [
     {"en": "iron", "sl": "železo", "it": "il ferro", "de": "Eisen"},
@@ -29,17 +29,17 @@
   ],
   "lines": {
     "greet": [
-      { "en": "Hello.", "sl": "Pozdravljen.", "it": "Salve.", "de": "Tag.", "level": 0 },
+      { "en": "Hello.", "sl": "{m:Pozdravljen|f:Pozdravljena}.", "it": "Salve.", "de": "Tag.", "level": 0 },
       { "en": "Yes? What do you need?", "sl": "Ja? Kaj potrebuješ?", "it": "Sì? Cosa ti serve?", "de": "Ja? Was brauchst du?", "level": 0 },
       { "en": "Ah, it's you. Come in.", "sl": "A, ti si. Vstopi.", "it": "Ah, sei tu. Entra.", "de": "Ah, du bist es. Komm rein.", "level": 1 },
       { "en": "Hello. Today I'm making horseshoes. Watch.", "sl": "Živjo. Danes delam podkve. Glej.", "it": "Ciao. Oggi faccio i ferri di cavallo. Guarda.", "de": "Hallo. Heute mache ich Hufeisen. Schau zu.", "level": 2 },
       { "en": "There you are. The fire's lit. Come closer.", "sl": "Tu si. Ogenj gori. Pridi bliže.", "it": "Eccoti. Il fuoco è acceso. Vieni vicino.", "de": "Da bist du ja. Das Feuer brennt. Komm näher.", "level": 3 },
-      { "en": "Lad. You're at home here. Sit down.", "sl": "Fant. Tukaj si kot doma. Sedi.", "it": "Ragazzo. Qui sei di casa. Siediti.", "de": "Junge. Hier bist du zu Hause. Setz dich.", "level": 4 }
+      { "en": "{m:Lad|f:Lass}. You're at home here. Sit down.", "sl": "{m:Fant|f:Dekle}. Tukaj si kot doma. Sedi.", "it": "{m:Ragazzo|f:Ragazza}. Qui sei di casa. Siediti.", "de": "{m:Junge|f:Mädchen}. Hier bist du zu Hause. Setz dich.", "level": 4 }
     ],
     "thanks": [
       { "en": "Thanks.", "sl": "Hvala.", "it": "Grazie.", "de": "Danke." },
       { "en": "Good. Done right. Thanks.", "sl": "Dobro. Prav narejeno. Hvala.", "it": "Bene. Fatto giusto. Grazie.", "de": "Gut. Richtig gemacht. Danke." },
-      { "en": "Thanks, lad. I won't forget it.", "sl": "Hvala, fant. Tega ne pozabim.", "it": "Grazie, ragazzo. Non lo dimentico.", "de": "Danke, Junge. Das vergesse ich nicht." }
+      { "en": "Thanks, {m:lad|f:lass}. I won't forget it.", "sl": "Hvala, {m:fant|f:dekle}. Tega ne pozabim.", "it": "Grazie, {m:ragazzo|f:ragazza}. Non lo dimentico.", "de": "Danke, {m:Junge|f:Mädchen}. Das vergesse ich nicht." }
     ],
     "remember": [
       { "en": "I think of {memory}.", "sl": "Mislim na {memory}.", "it": "Ricordo {memory}.", "de": "Ich denke an {memory}.", "level": 1 },
@@ -56,7 +56,7 @@
       { "en": "Right.", "sl": "Prav.", "it": "Giusto.", "de": "Richtig." },
       { "en": "Aye. Good.", "sl": "Ja. Dobro.", "it": "Sì. Bene.", "de": "Ja. Gut." },
       { "en": "That's it. Exactly right.", "sl": "Tako. Čisto prav.", "it": "Così. Proprio giusto.", "de": "So. Genau richtig." },
-      { "en": "Well done. Like iron: strong.", "sl": "Bravo. Kot železo: trdno.", "it": "Bravo. Come il ferro: solido.", "de": "Gut gemacht. Wie Eisen: fest." }
+      { "en": "Well done. Like iron: strong.", "sl": "Bravo. Kot železo: trdno.", "it": "{m:Bravo|f:Brava}. Come il ferro: solido.", "de": "Gut gemacht. Wie Eisen: fest." }
     ],
     "comfort": [
       { "en": "No. Again.", "sl": "Ne. Še enkrat.", "it": "No. Ancora.", "de": "Nein. Noch mal." },
@@ -71,16 +71,16 @@
     "bye": [
       { "en": "Bye.", "sl": "Adijo.", "it": "Ciao.", "de": "Tschüss." },
       { "en": "Goodbye. Back to work.", "sl": "Na svidenje. Na delo.", "it": "Arrivederci. Al lavoro.", "de": "Auf Wiedersehen. Zurück an die Arbeit." },
-      { "en": "Aye. See you, lad.", "sl": "Ja. Se vidiva, fant.", "it": "Sì. Ci vediamo, ragazzo.", "de": "Ja. Bis dann, Junge." }
+      { "en": "Aye. See you, {m:lad|f:lass}.", "sl": "Ja. Se vidiva, {m:fant|f:dekle}.", "it": "Sì. Ci vediamo, {m:ragazzo|f:ragazza}.", "de": "Ja. Bis dann, {m:Junge|f:Mädchen}." }
     ],
     "gift": {
       "liked": [
         { "en": "Hm. I like it. Thanks.", "sl": "Hm. To mi je všeč. Hvala.", "it": "Hm. Mi piace. Grazie.", "de": "Hm. Das gefällt mir. Danke." },
-        { "en": "How did you know? Good. Thanks, lad.", "sl": "Kako si vedel? Dobro. Hvala, fant.", "it": "Come lo sapevi? Bene. Grazie, ragazzo.", "de": "Woher wusstest du das? Gut. Danke, Junge." },
+        { "en": "How did you know? Good. Thanks, {m:lad|f:lass}.", "sl": "Kako si {m:vedel|f:vedela}? Dobro. Hvala, {m:fant|f:dekle}.", "it": "Come lo sapevi? Bene. Grazie, {m:ragazzo|f:ragazza}.", "de": "Woher wusstest du das? Gut. Danke, {m:Junge|f:Mädchen}." },
         { "en": "Ah! Just the thing. Thanks.", "sl": "A! Točno to. Hvala.", "it": "Ah! Proprio questo. Grazie.", "de": "Ah! Genau das Richtige. Danke." }
       ],
       "ordinary": [
-        { "en": "Thanks. You're a good lad.", "sl": "Hvala. Dober fant si.", "it": "Grazie. Sei un bravo ragazzo.", "de": "Danke. Du bist ein guter Junge." },
+        { "en": "Thanks. You're a good {m:lad|f:lass}.", "sl": "Hvala. {m:Dober fant|f:Dobro dekle} si.", "it": "Grazie. Sei {m:un bravo ragazzo|f:una brava ragazza}.", "de": "Danke. Du bist {m:ein guter Junge|f:ein gutes Mädchen}." },
         { "en": "Hm. Thanks. Just leave it there, on the bench.", "sl": "Hm. Hvala. Kar tam pusti, na klopi.", "it": "Hm. Grazie. Lascia pure lì, sul banco.", "de": "Hm. Danke. Einfach dort auf die Werkbank legen." }
       ],
       "rare": [

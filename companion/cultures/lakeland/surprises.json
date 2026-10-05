@@ -14,7 +14,7 @@
     "ask": { "en": "The postman has brought me a letter. Can you read it to me?", "sl": "Poštar mi je prinesel pismo. Mi ga prebereš?", "it": "Il postino mi ha portato una lettera. Me la leggi?", "de": "Der Briefträger hat mir einen Brief gebracht. Liest du ihn mir vor?" },
     "ask_mine": { "en": "A letter has come for you!", "sl": "Pismo je prišlo zate!", "it": "È arrivata una lettera per te!", "de": "Da ist ein Brief für dich gekommen!" },
     "read": { "en": "Read the letter", "sl": "Preberi pismo", "it": "Leggi la lettera", "de": "Lies den Brief" },
-    "won": { "en": "{name}: Thank you for reading me the letter!", "sl": "Hvala, da si mi prebral pismo!", "it": "Grazie per avermi letto la lettera!", "de": "Danke, dass du mir den Brief vorgelesen hast!" },
+    "won": { "en": "{name}: Thank you for reading me the letter!", "sl": "Hvala, da si mi {m:prebral|f:prebrala} pismo!", "it": "Grazie per avermi letto la lettera!", "de": "Danke, dass du mir den Brief vorgelesen hast!" },
     "won_mine": { "en": "Lily will write to you again.", "sl": "Lily ti bo spet pisala.", "it": "Lily ti scriverà ancora.", "de": "Lily schreibt dir bald wieder." },
     "lost": { "en": "The letter was hard. It'll be easier next time!", "sl": "Pismo je bilo težko. Naslednjič bo lažje!", "it": "La lettera era difficile. La prossima volta sarà più facile!", "de": "Der Brief war schwer. Nächstes Mal wird es leichter!" },
     "letters": [
@@ -135,7 +135,7 @@
     "emoji": "🥾",
     "title": { "en": "A pilgrim", "sl": "Romar", "it": "Un pellegrino", "de": "Ein Pilger" },
     "intro": { "en": "A pilgrim is asking the way to St Herbert's Island on Derwentwater. Help him!", "sl": "Romar sprašuje za pot do otoka sv. Herberta na jezeru Derwentwater. Pomagaj mu!", "it": "Un pellegrino chiede la strada per l'isola di San Herbert, sul lago di Derwentwater. Aiutalo!", "de": "Ein Pilger fragt nach dem Weg zur St.-Herbert-Insel im See Derwentwater. Hilf ihm!" },
-    "ask": { "en": "Hello! I'm looking for the way to St Herbert's Island. Can you help me?", "sl": "Pozdravljen! Iščem pot do otoka sv. Herberta. Mi lahko pomagaš?", "it": "Salve! Cerco la strada per l'isola di San Herbert. Mi puoi aiutare?", "de": "Hallo! Ich suche den Weg zur St.-Herbert-Insel. Kannst du mir helfen?" },
+    "ask": { "en": "Hello! I'm looking for the way to St Herbert's Island. Can you help me?", "sl": "{m:Pozdravljen|f:Pozdravljena}! Iščem pot do otoka sv. Herberta. Mi lahko pomagaš?", "it": "Salve! Cerco la strada per l'isola di San Herbert. Mi puoi aiutare?", "de": "Hallo! Ich suche den Weg zur St.-Herbert-Insel. Kannst du mir helfen?" },
     "prompt": { "en": "The pilgrim: “How do I get to St Herbert's Island?”\nHow do you tell him the way?", "sl": "Kako mu rečeš: »{say}«", "it": "Come glielo dici: «{say}»", "de": "Wie sagst du es ihm: „{say}“" },
     "show": { "en": "Show the way", "sl": "Pokaži pot", "it": "Mostra la strada", "de": "Zeig den Weg" },
     "won": { "en": "The pilgrim: Thank you very much! Now I know where to go.", "sl": "Najlepša hvala! Zdaj vem, kam.", "it": "Grazie mille! Adesso so dove andare.", "de": "Vielen Dank! Jetzt weiß ich, wohin." },
@@ -210,8 +210,8 @@
     "title": { "en": "A riddle", "sl": "Uganka", "it": "Un indovinello", "de": "Ein Rätsel" },
     "intro": { "en": "{name} has got a riddle for you.", "sl": "{name} ima zate uganko.", "it": "{name} ha un indovinello per te.", "de": "{name} hat ein Rätsel für dich." },
     "ask": { "en": "I've got a riddle for you!", "sl": "Imam uganko zate!", "it": "Ho un indovinello per te!", "de": "Ich habe ein Rätsel für dich!" },
-    "won": { "en": "{name}: Well done, you guessed it!", "sl": "Bravo, uganil si!", "it": "Bravo, hai indovinato!", "de": "Super, du hast es erraten!" },
-    "lost": { "en": "{name}: Ha, you didn't guess it! I've got a new one tomorrow.", "sl": "Ha, nisi uganil! Jutri bo nova.", "it": "Ah, non hai indovinato! Domani ne ho un altro.", "de": "Ha, nicht erraten! Morgen gibt es ein neues." },
+    "won": { "en": "{name}: Well done, you guessed it!", "sl": "Bravo, {m:uganil|f:uganila} si!", "it": "{m:Bravo|f:Brava}, hai indovinato!", "de": "Super, du hast es erraten!" },
+    "lost": { "en": "{name}: Ha, you didn't guess it! I've got a new one tomorrow.", "sl": "Ha, nisi {m:uganil|f:uganila}! Jutri bo nova.", "it": "Ah, non hai indovinato! Domani ne ho un altro.", "de": "Ha, nicht erraten! Morgen gibt es ein neues." },
     "riddles": [
       {
         "riddle": { "en": "It has a face and two hands, but it can't clap. What is it?", "sl": "Ima obraz in dve roki, a ne zna ploskati. Kaj je to?", "it": "Ha una faccia e due mani, ma non sa applaudire. Che cos'è?", "de": "Es hat ein Gesicht und zwei Hände, aber es kann nicht klatschen. Was ist das?" },
@@ -287,7 +287,7 @@
       "story": "A pilgrim on foot to St Herbert's Island on Derwentwater, where the hermit Herbert, a friend of St Cuthbert, lived and prayed long ago; from Keswick he'll take a boat to the island. He asks the way. Kind and patient with a child: he says you to everyone (no Mr or Mrs), and in the translations he speaks to the learner familiarly (ti, tu, du) while the learner answers him politely (vi, Lei, Sie).",
       "lines": {
         "greet": [
-          { "en": "Hello!", "sl": "Pozdravljen!", "it": "Salve!", "de": "Hallo!" }
+          { "en": "Hello!", "sl": "{m:Pozdravljen|f:Pozdravljena}!", "it": "Salve!", "de": "Hallo!" }
         ],
         "cheer": [
           { "en": "There, now I understand!", "sl": "Tako, zdaj razumem!", "it": "Ecco, adesso ho capito!", "de": "Ah, jetzt verstehe ich!" },

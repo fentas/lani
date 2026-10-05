@@ -34,7 +34,7 @@
     {
       "id": "fuori", "title": { "it": "Zia Nives sul molo", "sl": "Teta Nives na pomolu", "en": "Zia Nives on the pier", "de": "Zia Nives auf der Mole" }, "who": "nives",
       "when": ["morning", "afternoon"], "weekdays": [6, 7], "chance": 0.7, "dialog": "fuori", "dialogs": ["fuori-stai", "fuori"], "reward": { "wisdom": 20 }, "marker": "📻",
-      "memory": { "it": "i gabbiani che abbiamo guardato dal molo", "sl": "galebe, ki sva jih gledala s pomola", "en": "the gulls we watched from the pier", "de": "die Möwen, die wir von der Mole aus beobachtet haben" }, "guests": true
+      "memory": { "it": "i gabbiani che abbiamo guardato dal molo", "sl": "galebe, ki sva jih {m:gledala|f:gledali} s pomola", "en": "the gulls we watched from the pier", "de": "die Möwen, die wir von der Mole aus beobachtet haben" }, "guests": true
     },
     {
       "id": "onde", "title": { "it": "Tommaso guarda le onde", "sl": "Tommaso gleda valove", "en": "Tommaso is watching the waves", "de": "Tommaso schaut auf die Wellen" }, "who": "tommaso",
@@ -54,13 +54,13 @@
         { "who": "nives", "it": "Ciao, ciao! Sei di fuori? Da dove vieni?", "sl": "Živjo, živjo! Nisi od tod? Od kod prihajaš?", "en": "Hello, hello! You are not from here? Where do you come from?", "de": "Hallo, hallo! Du bist nicht von hier? Woher kommst du?" },
         { "choices": [
           { "it": "Vengo dal Collio. Sono in vacanza!", "sl": "Prihajam iz Brd. Na počitnicah sem!", "en": "I come from the Collio. I am on holiday!", "de": "Ich komme aus dem Collio. Ich mache Urlaub!", "ok": true,
-            "reply": { "it": "Dal Collio! Allora benvenuto a Grado!", "sl": "Iz Brd! Potem pa dobrodošel v Gradežu!", "en": "From the Collio! Then welcome to Grado!", "de": "Aus dem Collio! Dann willkommen in Grado!" } },
+            "reply": { "it": "Dal Collio! Allora {m:benvenuto|f:benvenuta} a Grado!", "sl": "Iz Brd! Potem pa {m:dobrodošel|f:dobrodošla} v Gradežu!", "en": "From the Collio! Then welcome to Grado!", "de": "Aus dem Collio! Dann willkommen in Grado!" } },
           { "it": "Vengo da Collio. Sono in vacanza!", "sl": "Prihajam iz Brd. Na počitnicah sem!", "en": "I come from the Collio. I am on holiday!", "de": "Ich komme aus dem Collio. Ich mache Urlaub!",
             "grammar": "preposizioni-articolate", "why": { "sl": "Collio ima člen: da + il = dal Collio.", "en": "Collio takes the article: da + il = dal Collio.", "de": "Collio hat einen Artikel: da + il = dal Collio." },
             "reply": { "it": "Da Collio? E chi è questo Collio? Un tuo amico?", "sl": "Da Collio? Kdo pa je ta Collio? Tvoj prijatelj?", "en": "Da Collio? And who's this Collio? A friend of yours?", "de": "Da Collio? Und wer ist dieser Collio? Ein Freund von dir?" } },
           { "it": "Vado dal Collio. Sono in vacanza!", "sl": "Grem iz Brd. Na počitnicah sem!", "en": "I go from the Collio. I am on holiday!", "de": "Ich gehe aus dem Collio. Ich mache Urlaub!",
             "grammar": "verbi-irregolari", "why": { "sl": "Vado pomeni 'grem'. Od kod prihajaš: vengo.", "en": "Vado means 'I go'. Where you come from: vengo.", "de": "Vado heißt „ich gehe“. Woher du kommst: vengo." },
-            "reply": { "it": "Vado? Vai già via? Ma sei appena arrivato!", "sl": "Vado (grem)? Že greš? Saj si ravno prišel!", "en": "Vado (I'm going)? You're off already? But you've only just arrived!", "de": "Vado (ich gehe)? Du gehst schon? Du bist doch gerade erst gekommen!" } }
+            "reply": { "it": "Vado? Vai già via? Ma sei appena {m:arrivato|f:arrivata}!", "sl": "Vado (grem)? Že greš? Saj si ravno {m:prišel|f:prišla}!", "en": "Vado (I'm going)? You're off already? But you've only just arrived!", "de": "Vado (ich gehe)? Du gehst schon? Du bist doch gerade erst gekommen!" } }
         ] },
         { "who": "nives", "it": "Io vengo al mare ogni domenica. Guarda, i gabbiani!", "sl": "Jaz pridem na morje vsako nedeljo. Poglej, galebi!", "en": "I come to the sea every Sunday. Look, the gulls!", "de": "Ich komme jeden Sonntag ans Meer. Schau, die Möwen!" },
         { "choices": [
@@ -68,7 +68,7 @@
             "reply": { "it": "Ssst... Oh no, volano via!", "sl": "Pst ... O ne, odletijo!", "en": "Shh... Oh no, they are flying away!", "de": "Pssst … Oh nein, sie fliegen weg!", "fx": { "gulls": 1 } } },
           { "it": "Quanti gabbiani! Sono sul pali.", "sl": "Koliko galebov! Na kolih so.", "en": "So many gulls! They are on the posts.", "de": "So viele Möwen! Sie sitzen auf den Pfählen.",
             "grammar": "preposizioni-articolate", "why": { "sl": "Pali je množina: su + i = sui pali.", "en": "Pali is plural: su + i = sui pali.", "de": "Pali ist Plural: su + i = sui pali." },
-            "reply": { "it": "Come? La radio fa rumore! Cosa hai detto?", "sl": "Kako? Radio tako prasketa! Kaj si rekel?", "en": "What? The radio's crackling! What did you say?", "de": "Wie bitte? Das Radio rauscht so! Was hast du gesagt?" } },
+            "reply": { "it": "Come? La radio fa rumore! Cosa hai detto?", "sl": "Kako? Radio tako prasketa! Kaj si {m:rekel|f:rekla}?", "en": "What? The radio's crackling! What did you say?", "de": "Wie bitte? Das Radio rauscht so! Was hast du gesagt?" } },
           { "it": "Quante gabbiani! Sono sui pali.", "sl": "Koliko galebov! Na kolih so.", "en": "So many gulls! They are on the posts.", "de": "So viele Möwen! Sie sitzen auf den Pfählen.",
             "grammar": "aggettivi-accordo", "why": { "sl": "Gabbiano je moškega spola: quanti gabbiani.", "en": "Gabbiano is masculine: quanti gabbiani.", "de": "Gabbiano ist männlich: quanti gabbiani." },
             "reply": { "it": "Quante? Quante cosa? Ripeti, ripeti!", "sl": "Quante? Koliko česa? Ponovi, ponovi!", "en": "Quante? How many what? Say it again, say it again!", "de": "Quante? Wie viele was? Noch mal, noch mal!" } }
@@ -103,18 +103,18 @@
       "sky_stays": false,
       "fx_stays": true,
       "lines": [
-        { "who": "bepi", "it": "Buongiorno, piccolo. C'è nebbia sul mare, vedi?", "sl": "Dobro jutro, mali. Nad morjem je megla, vidiš?", "en": "Good morning, little one. There is fog over the sea, see?", "de": "Guten Morgen, Kleiner. Über dem Meer liegt Nebel, siehst du?", "sky": { "fog": 0.7 } },
+        { "who": "bepi", "it": "Buongiorno, {m:piccolo|f:piccola}. C'è nebbia sul mare, vedi?", "sl": "Dobro jutro, {m:mali|f:mala}. Nad morjem je megla, vidiš?", "en": "Good morning, little one. There is fog over the sea, see?", "de": "Guten Morgen, {m:Kleiner|f:Kleine}. Über dem Meer liegt Nebel, siehst du?", "sky": { "fog": 0.7 } },
         { "choices": [
           { "it": "Sì, non vedo l'orizzonte!", "sl": "Ja, ne vidim obzorja!", "en": "Yes, I cannot see the horizon!", "de": "Ja, ich sehe den Horizont nicht!", "ok": true,
             "reply": { "it": "Aspettiamo. La nebbia va via presto.", "sl": "Počakajva. Megla se bo kmalu dvignila.", "en": "Let us wait. The fog will soon lift.", "de": "Warten wir. Der Nebel verzieht sich bald.", "sky": { "fog": 0.35 } } },
           { "it": "Sì, non vedo il orizzonte!", "sl": "Ja, ne vidim obzorja!", "en": "Yes, I cannot see the horizon!", "de": "Ja, ich sehe den Horizont nicht!",
             "grammar": "articoli-genere", "why": { "sl": "Pred samoglasnikom il postane l': l'orizzonte.", "en": "Before a vowel, il becomes l': l'orizzonte.", "de": "Vor einem Vokal wird il zu l': l'orizzonte." },
-            "reply": { "it": "Il orizzonte? Mm… Piano, piano, piccolo.", "sl": "Il orizzonte? Hm … Počasi, počasi, mali.", "en": "Il orizzonte? Hm… Slowly, slowly, little one.", "de": "Il orizzonte? Hm … Langsam, langsam, Kleiner." } }
+            "reply": { "it": "Il orizzonte? Mm… Piano, piano, {m:piccolo|f:piccola}.", "sl": "Il orizzonte? Hm … Počasi, počasi, {m:mali|f:mala}.", "en": "Il orizzonte? Hm… Slowly, slowly, little one.", "de": "Il orizzonte? Hm … Langsam, langsam, {m:Kleiner|f:Kleine}." } }
         ] },
         { "who": "bepi", "it": "Ecco il sole! Adesso alziamo la vela. Mi aiuti?", "sl": "Glej, sonce! Zdaj dvigneva jadro. Mi pomagaš?", "en": "Here is the sun! Now we raise the sail. Will you help me?", "de": "Da ist die Sonne! Jetzt setzen wir das Segel. Hilfst du mir?", "sky": { "fog": 0 } },
         { "choices": [
           { "it": "Sì, ti aiuto! Tiro la corda.", "sl": "Ja, pomagam ti! Vlečem vrv.", "en": "Yes, I will help you! I am pulling the rope.", "de": "Ja, ich helfe dir! Ich ziehe am Seil.", "ok": true,
-            "reply": { "it": "Bravo! Guarda, la vela è su!", "sl": "Bravo! Poglej, jadro je gor!", "en": "Well done! Look, the sail is up!", "de": "Gut gemacht! Schau, das Segel ist oben!", "fx": { "sail": 1 } } },
+            "reply": { "it": "{m:Bravo|f:Brava}! Guarda, la vela è su!", "sl": "Bravo! Poglej, jadro je gor!", "en": "Well done! Look, the sail is up!", "de": "Gut gemacht! Schau, das Segel ist oben!", "fx": { "sail": 1 } } },
           { "it": "Sì, mi aiuto! Tiro la corda.", "sl": "Ja, pomagam si! Vlečem vrv.", "en": "Yes, I help myself! I am pulling the rope.", "de": "Ja, ich helfe mir! Ich ziehe am Seil.",
             "why": { "sl": "Mi aiuto bi pomenilo 'pomagam si'. Pomagaš njemu: ti aiuto.", "en": "Mi aiuto would mean 'I help myself'. You help him: ti aiuto.", "de": "Mi aiuto hieße „ich helfe mir“. Du hilfst ihm: ti aiuto." },
             "reply": { "it": "Mi aiuto? Chi fa da sé fa per tre! E la vela?", "sl": "Mi aiuto (pomagam si)? Kdor dela sam, dela za tri! Pa jadro?", "en": "Mi aiuto (I help myself)? Who works alone works for three! And the sail?", "de": "Mi aiuto (ich helfe mir)? Wer's allein macht, schafft für drei! Und das Segel?" } }
@@ -126,11 +126,11 @@
   "variants": [
     {
       "id": "fuori-stai",
-      "memory": { "it": "il giorno che ci siamo conosciuti sul molo", "sl": "dan, ko sva se spoznala na pomolu", "en": "the day we met on the pier", "de": "den Tag, an dem wir uns auf der Mole kennengelernt haben" },
+      "memory": { "it": "il giorno che ci siamo {m:conosciuti|f:conosciute} sul molo", "sl": "dan, ko sva se {m:spoznala|f:spoznali} na pomolu", "en": "the day we met on the pier", "de": "den Tag, an dem wir uns auf der Mole kennengelernt haben" },
       "lines": [
         { "who": "nives", "it": "Buongiorno, buongiorno! Che bella giornata! Come stai?", "sl": "Dober dan, dober dan! Kako lep dan! Kako si?", "en": "Good morning, good morning! What a lovely day! How are you?", "de": "Guten Tag, guten Tag! Was für ein schöner Tag! Wie geht es dir?" },
         { "choices": [
-          { "it": "Sono bene, grazie! E tu?", "sl": "Dober sem, hvala! Pa ti?", "en": "I am well, thanks! And you?", "de": "Ich bin gut, danke! Und du?",
+          { "it": "Sono bene, grazie! E tu?", "sl": "{m:Dober|f:Dobra} sem, hvala! Pa ti?", "en": "I am well, thanks! And you?", "de": "Ich bin gut, danke! Und du?",
             "why": { "sl": "Za počutje italijanščina uporablja glagol stare: sto bene, ne sono bene.", "en": "For how you feel, Italian uses stare: sto bene, not sono bene.", "de": "Für das Befinden nimmt das Italienische stare: sto bene, nicht sono bene." },
             "reply": { "it": "Come? Sei… cosa? Parla più forte, per favore!", "sl": "Kako? Si … kaj? Govori glasneje, prosim!", "en": "What? You are… what? Speak up, please!", "de": "Wie? Du bist … was? Sprich lauter, bitte!" } },
           { "it": "Sto bene, grazie! E tu?", "sl": "Dobro sem, hvala! Pa ti?", "en": "I'm fine, thanks! And you?", "de": "Mir geht's gut, danke! Und dir?", "ok": true,
@@ -141,10 +141,10 @@
         ] },
         { "who": "nives", "it": "Sei in vacanza a Grado? Da quando?", "sl": "Si na počitnicah v Gradežu? Od kdaj?", "en": "Are you on holiday in Grado? Since when?", "de": "Machst du Urlaub in Grado? Seit wann?" },
         { "choices": [
-          { "it": "Sono arrivato ieri, con il treno.", "sl": "Prišel sem včeraj, z vlakom.", "en": "I arrived yesterday, by train.", "de": "Ich bin gestern angekommen, mit dem Zug.", "ok": true,
+          { "it": "Sono {m:arrivato|f:arrivata} ieri, con il treno.", "sl": "{m:Prišel|f:Prišla} sem včeraj, z vlakom.", "en": "I arrived yesterday, by train.", "de": "Ich bin gestern angekommen, mit dem Zug.", "ok": true,
             "reply": { "it": "Ieri! Allora hai ancora tanti giorni di mare!", "sl": "Včeraj! Potem imaš pred sabo še veliko dni na morju!", "en": "Yesterday! Then you've still got lots of days at the sea!", "de": "Gestern! Dann hast du noch viele Tage am Meer!" } },
-          { "it": "Ho arrivato ieri, con il treno.", "sl": "Prišel sem včeraj, z vlakom.", "en": "I have arrived yesterday, by train.", "de": "Ich habe gestern angekommen, mit dem Zug.",
-            "why": { "sl": "Arrivare tvori preteklik z essere: sono arrivato.", "en": "Arrivare forms its past with essere: sono arrivato.", "de": "Arrivare bildet die Vergangenheit mit essere: sono arrivato." },
+          { "it": "Ho arrivato ieri, con il treno.", "sl": "{m:Prišel|f:Prišla} sem včeraj, z vlakom.", "en": "I have arrived yesterday, by train.", "de": "Ich habe gestern angekommen, mit dem Zug.",
+            "why": { "sl": "Arrivare tvori preteklik z essere: sono {m:arrivato|f:arrivata}.", "en": "Arrivare forms its past with essere: sono {m:arrivato|f:arrivata}.", "de": "Arrivare bildet die Vergangenheit mit essere: sono {m:arrivato|f:arrivata}." },
             "reply": { "it": "Ho… cosa? Scusa, la radio! Ripeti, ripeti!", "sl": "Ho … kaj? Oprosti, radio! Ponovi, ponovi!", "en": "Ho… what? Sorry, the radio! Say it again, say it again!", "de": "Ho … was? Entschuldige, das Radio! Noch mal, noch mal!" } }
         ] },
         { "who": "nives", "it": "Allora buone vacanze! Il mare di Grado è il più bello.", "sl": "Potem pa lepe počitnice! Morje v Gradežu je najlepše.", "en": "Then have a lovely holiday! The sea at Grado is the most beautiful.", "de": "Dann schöne Ferien! Das Meer in Grado ist das schönste." }
@@ -165,7 +165,7 @@
         { "who": "tommaso", "it": "Ehi, guarda quell'onda! È enorme!", "sl": "Ej, poglej tisti val! Ogromen je!", "en": "Hey, look at that wave! It's huge!", "de": "He, schau die Welle da! Die ist riesig!", "fx": { "waves": 1 } },
         { "choices": [
           { "it": "È più alta di una casa!", "sl": "Višji je od hiše!", "en": "It's taller than a house!", "de": "Die ist höher als ein Haus!", "ok": true,
-            "reply": { "it": "Sì! Attento, arriva sulla spiaggia!", "sl": "Ja! Pazi, prihaja na plažo!", "en": "Yes! Watch out, it's coming onto the beach!", "de": "Ja! Achtung, sie kommt an den Strand!" } },
+            "reply": { "it": "Sì! {m:Attento|f:Attenta}, arriva sulla spiaggia!", "sl": "Ja! Pazi, prihaja na plažo!", "en": "Yes! Watch out, it's coming onto the beach!", "de": "Ja! Achtung, sie kommt an den Strand!" } },
           { "it": "È più alta che una casa!", "sl": "Višji je kot hiša!", "en": "It's taller than a house!", "de": "Die ist höher als ein Haus!",
             "why": { "sl": "Ko primerjaš z imenom, rečeš più … di: più alta di una casa.", "en": "To compare with a noun, say più … di: più alta di una casa.", "de": "Beim Vergleich mit einem Nomen sagst du più … di: più alta di una casa." },
             "reply": { "it": "Che casa? Dove? Io vedo solo acqua!", "sl": "Katera hiša? Kje? Jaz vidim samo vodo!", "en": "What house? Where? I only see water!", "de": "Welches Haus? Wo? Ich seh nur Wasser!" } }
@@ -177,11 +177,11 @@
       "id": "vela-anni",
       "fx_stays": true,
       "lines": [
-        { "who": "bepi", "it": "Buongiorno, piccolo. Guarda la mia barca. È molto vecchia, sai?", "sl": "Dobro jutro, mali. Poglej moj čoln. Zelo star je, veš?", "en": "Good morning, little one. Look at my boat. She's very old, you know?", "de": "Guten Morgen, Kleiner. Schau dir mein Boot an. Es ist sehr alt, weißt du?" },
+        { "who": "bepi", "it": "Buongiorno, {m:piccolo|f:piccola}. Guarda la mia barca. È molto vecchia, sai?", "sl": "Dobro jutro, {m:mali|f:mala}. Poglej moj čoln. Zelo star je, veš?", "en": "Good morning, little one. Look at my boat. She's very old, you know?", "de": "Guten Morgen, {m:Kleiner|f:Kleine}. Schau dir mein Boot an. Es ist sehr alt, weißt du?" },
         { "choices": [
           { "it": "Davvero? Quanti anni è?", "sl": "Res? Koliko let je?", "en": "Really? How many years is she?", "de": "Wirklich? Wie viele Jahre ist es?",
             "why": { "sl": "Za starost italijanščina uporablja avere: quanti anni ha? (koliko let ima?)", "en": "For age, Italian uses avere: quanti anni ha? (how many years does she have?)", "de": "Für das Alter nimmt das Italienische avere: quanti anni ha? (wie viele Jahre hat es?)" },
-            "reply": { "it": "Come, piccolo? Chiedi ancora, piano piano.", "sl": "Kako, mali? Vprašaj še enkrat, počasi.", "en": "What's that, little one? Ask again, nice and slowly.", "de": "Wie bitte, Kleiner? Frag noch einmal, ganz langsam." } },
+            "reply": { "it": "Come, {m:piccolo|f:piccola}? Chiedi ancora, piano piano.", "sl": "Kako, {m:mali|f:mala}? Vprašaj še enkrat, počasi.", "en": "What's that, little one? Ask again, nice and slowly.", "de": "Wie bitte, {m:Kleiner|f:Kleine}? Frag noch einmal, ganz langsam." } },
           { "it": "Davvero? Quanti anni ha?", "sl": "Res? Koliko je star?", "en": "Really? How old is she?", "de": "Wirklich? Wie alt ist es?", "ok": true,
             "reply": { "it": "Cento anni! Era la barca di mio nonno.", "sl": "Sto let! To je bil čoln mojega dedka.", "en": "A hundred years! She was my grandpa's boat.", "de": "Hundert Jahre! Das war das Boot von meinem Opa." } }
         ] },

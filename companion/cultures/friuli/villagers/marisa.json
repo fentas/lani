@@ -18,7 +18,7 @@
       { "id": "osteria", "at": "22:00", "until": "22:15", "to": "market", "doing": "stand", "title": {"it": "Marisa chiude l'osteria", "sl": "Marisa zaklene gostilno", "en": "Marisa locks up the osteria", "de": "Marisa sperrt die Osteria zu"} }
     ]
   },
-  "personality": "Innkeeper in her forties who runs the village osteria. Always busy, always warm, three plates on one arm: 'Subito, subito!', 'Arrivo!'. Says tu to the learner like a mother; the learner says Lei to her and calls her 'signora Marisa', as is polite at the osteria. Speaks quick but simple Italian to a child and slows down when he doesn't understand. Guests from Austria, Slovenia and Germany every summer; she switches languages between tables.",
+  "personality": "Innkeeper in her forties who runs the village osteria. Always busy, always warm, three plates on one arm: 'Subito, subito!', 'Arrivo!'. Says tu to the learner like a mother; the learner says Lei to her and calls her 'signora Marisa', as is polite at the osteria. Speaks quick but simple Italian to a child and slows down when {m:he|f:she} doesn't understand. Guests from Austria, Slovenia and Germany every summer; she switches languages between tables.",
   "story": "Marisa's osteria stands on the square: coffee in the morning, frico and polenta at noon, and on Sundays the whole village at her tables. Her son Tommaso runs between the tables with a football. She has learnt a little Slovene and German from her guests and likes it when someone helps her translate.",
   "likes": [
     {"it": "gli ospiti", "sl": "gostje", "en": "guests", "de": "Gäste"},
@@ -28,18 +28,18 @@
   ],
   "lines": {
     "greet": [
-      { "it": "Buongiorno! Benvenuto!", "sl": "Dober dan! Dobrodošel!", "en": "Good day! Welcome!", "de": "Guten Tag! Willkommen!", "level": 0, "when": ["morning", "afternoon"] },
+      { "it": "Buongiorno! {m:Benvenuto|f:Benvenuta}!", "sl": "Dober dan! {m:Dobrodošel|f:Dobrodošla}!", "en": "Good day! Welcome!", "de": "Guten Tag! Willkommen!", "level": 0, "when": ["morning", "afternoon"] },
       { "it": "Buongiorno! Vuoi un succo di mela?", "sl": "Dober dan! Bi jabolčni sok?", "en": "Good day! Would you like some apple juice?", "de": "Guten Tag! Möchtest du einen Apfelsaft?", "level": 0, "when": ["morning", "afternoon"] },
-      { "it": "Buonasera! Benvenuto!", "sl": "Dober večer! Dobrodošel!", "en": "Good evening! Welcome!", "de": "Guten Abend! Willkommen!", "level": 0, "when": ["evening", "night"] },
+      { "it": "Buonasera! {m:Benvenuto|f:Benvenuta}!", "sl": "Dober večer! {m:Dobrodošel|f:Dobrodošla}!", "en": "Good evening! Welcome!", "de": "Guten Abend! Willkommen!", "level": 0, "when": ["evening", "night"] },
       { "it": "Oh, ciao! Siediti, arrivo subito.", "sl": "O, živjo! Sedi, takoj pridem.", "en": "Oh, hi! Sit down, I'll be right with you.", "de": "Oh, hallo! Setz dich, ich komme gleich.", "level": 1 },
       { "it": "Ciao, tesoro! Il solito tavolo?", "sl": "Živjo, zaklad! Tvoja običajna miza?", "en": "Hi, sweetheart! Your usual table?", "de": "Hallo, Schatz! Dein üblicher Tisch?", "level": 2 },
       { "it": "Eccoti! Ti ho messo da parte un po' di frico.", "sl": "Tu si! Prihranila sem ti malo frica.", "en": "There you are! I've saved you some frico.", "de": "Da bist du ja! Ich habe dir etwas Frico aufgehoben.", "level": 3 },
       { "it": "Tesoro mio! Qui sei di casa. Siediti in cucina con me.", "sl": "Moj zaklad! Tu si kot doma. Sedi k meni v kuhinjo.", "en": "My sweetheart! You're at home here. Sit with me in the kitchen.", "de": "Mein Schatz! Hier bist du zu Hause. Setz dich zu mir in die Küche.", "level": 4 }
     ],
     "thanks": [
-      { "it": "Grazie! Mi hai aiutato tanto.", "sl": "Hvala! Zelo si mi pomagal.", "en": "Thank you! You helped me a lot.", "de": "Danke! Du hast mir sehr geholfen." },
+      { "it": "Grazie! Mi hai aiutato tanto.", "sl": "Hvala! Zelo si mi {m:pomagal|f:pomagala}.", "en": "Thank you! You helped me a lot.", "de": "Danke! Du hast mir sehr geholfen." },
       { "it": "Grazie mille! Oggi c'è il frico per te.", "sl": "Najlepša hvala! Danes je zate frico.", "en": "Thanks a lot! Today there's frico for you.", "de": "Vielen Dank! Heute gibt es Frico für dich." },
-      { "it": "Grazie, tesoro. Sei bravissimo.", "sl": "Hvala, zaklad. Zelo si priden.", "en": "Thank you, sweetheart. You're wonderful.", "de": "Danke, Schatz. Du bist großartig." }
+      { "it": "Grazie, tesoro. Sei {m:bravissimo|f:bravissima}.", "sl": "Hvala, zaklad. Zelo si {m:priden|f:pridna}.", "en": "Thank you, sweetheart. You're wonderful.", "de": "Danke, Schatz. Du bist großartig." }
     ],
     "remember": [
       { "it": "Ricordo ancora {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "level": 1 },
@@ -53,12 +53,12 @@
       { "it": "Tommaso! Il pallone non va in cucina!", "sl": "Tommaso! Žoga ne sodi v kuhinjo!", "en": "Tommaso! The ball doesn't belong in the kitchen!", "de": "Tommaso! Der Ball gehört nicht in die Küche!" }
     ],
     "cheer": [
-      { "it": "Bravo!", "sl": "Bravo!", "en": "Well done!", "de": "Gut gemacht!" },
+      { "it": "{m:Bravo|f:Brava}!", "sl": "Bravo!", "en": "Well done!", "de": "Gut gemacht!" },
       { "it": "Perfetto, come il mio frico!", "sl": "Odlično, kot moj frico!", "en": "Perfect, like my frico!", "de": "Perfekt, wie mein Frico!" },
-      { "it": "Giusto! Hai capito subito.", "sl": "Prav! Takoj si razumel.", "en": "Right! You understood straight away.", "de": "Richtig! Du hast es sofort verstanden." }
+      { "it": "Giusto! Hai capito subito.", "sl": "Prav! Takoj si {m:razumel|f:razumela}.", "en": "Right! You understood straight away.", "de": "Richtig! Du hast es sofort verstanden." }
     ],
     "comfort": [
-      { "it": "Non fa niente, caro. Riprova.", "sl": "Nič hudega, dragi. Poskusi še enkrat.", "en": "Never mind, dear. Try again.", "de": "Macht nichts, mein Lieber. Versuch es noch einmal." },
+      { "it": "Non fa niente, {m:caro|f:cara}. Riprova.", "sl": "Nič hudega, {m:dragi|f:draga}. Poskusi še enkrat.", "en": "Never mind, dear. Try again.", "de": "Macht nichts, {m:mein Lieber|f:meine Liebe}. Versuch es noch einmal." },
       { "it": "Piano, abbiamo tempo.", "sl": "Počasi, časa imava dovolj.", "en": "Slowly, we have time.", "de": "Langsam, wir haben Zeit." },
       { "it": "Quasi! Ancora una volta.", "sl": "Skoraj! Še enkrat.", "en": "Almost! Once more.", "de": "Fast! Noch einmal." }
     ],
@@ -69,17 +69,17 @@
     ],
     "bye": [
       { "it": "Arrivederci!", "sl": "Na svidenje!", "en": "Goodbye!", "de": "Auf Wiedersehen!" },
-      { "it": "Ciao, caro! Torna presto.", "sl": "Adijo, dragi! Kmalu spet pridi.", "en": "Bye, dear! Come back soon.", "de": "Tschüss, mein Lieber! Komm bald wieder." },
+      { "it": "Ciao, {m:caro|f:cara}! Torna presto.", "sl": "Adijo, {m:dragi|f:draga}! Kmalu spet pridi.", "en": "Bye, dear! Come back soon.", "de": "Tschüss, {m:mein Lieber|f:meine Liebe}! Komm bald wieder." },
       { "it": "Mandi! Domani c'è la polenta.", "sl": "Mandi! Jutri bo polenta. (mandi: furlanski pozdrav)", "en": "Mandi! There's polenta tomorrow. (mandi: Friulian for bye)", "de": "Mandi! Morgen gibt es Polenta. (mandi: Friaulisch für tschüss)" }
     ],
     "gift": {
       "liked": [
-        { "it": "Oh, tesoro! Come lo sapevi? Mi piace tantissimo!", "sl": "O, zaklad! Kako si vedel? Zelo mi je všeč!", "en": "Oh, treasure! How did you know? I love it!", "de": "Oh, Schatz! Woher wusstest du das? Das liebe ich!" },
+        { "it": "Oh, tesoro! Come lo sapevi? Mi piace tantissimo!", "sl": "O, zaklad! Kako si {m:vedel|f:vedela}? Zelo mi je všeč!", "en": "Oh, treasure! How did you know? I love it!", "de": "Oh, Schatz! Woher wusstest du das? Das liebe ich!" },
         { "it": "Per me? Grazie mille! Oggi il frico te lo offro io.", "sl": "Zame? Najlepša hvala! Danes te jaz povabim na frico.", "en": "For me? Thank you so much! Today the frico is on me.", "de": "Für mich? Vielen Dank! Heute geht das Frico auf mich." },
         { "it": "Proprio quello che mi serviva! Grazie, tesoro.", "sl": "Točno to sem potrebovala! Hvala, zaklad.", "en": "Just what I needed! Thank you, treasure.", "de": "Genau das habe ich gebraucht! Danke, Schatz." }
       ],
       "ordinary": [
-        { "it": "Grazie, tesoro! Sei gentile.", "sl": "Hvala, zaklad! Prijazen si.", "en": "Thank you, treasure! You're kind.", "de": "Danke, Schatz! Du bist lieb." },
+        { "it": "Grazie, tesoro! Sei gentile.", "sl": "Hvala, zaklad! {m:Prijazen|f:Prijazna} si.", "en": "Thank you, treasure! You're kind.", "de": "Danke, Schatz! Du bist lieb." },
         { "it": "Oh, grazie! Siediti, arrivo subito con un succo.", "sl": "O, hvala! Sedi, takoj pridem s sokom.", "en": "Oh, thank you! Sit down, I'll be right there with a juice.", "de": "Oh, danke! Setz dich, ich bringe dir gleich einen Saft." }
       ],
       "rare": [

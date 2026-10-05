@@ -32,12 +32,12 @@
     {
       "id": "tisana", "title": { "it": "Nonna Rosa porta la tisana", "sl": "Babica Rosa prinese čaj", "en": "Nonna Rosa brings herbal tea", "de": "Nonna Rosa bringt Kräutertee" }, "who": "rosa",
       "when": ["evening"], "chance": 0.6, "dialog": "tisana", "dialogs": ["tisana-zucchero", "tisana"], "reward": { "food": 20 }, "marker": "🍵",
-      "memory": { "it": "la tisana calda che abbiamo bevuto al fuoco", "sl": "vroč čaj, ki sva ga pila ob ognju", "en": "the hot tea we drank by the fire", "de": "den heißen Kräutertee, den wir am Feuer getrunken haben" }
+      "memory": { "it": "la tisana calda che abbiamo bevuto al fuoco", "sl": "vroč čaj, ki sva ga {m:pila|f:pili} ob ognju", "en": "the hot tea we drank by the fire", "de": "den heißen Kräutertee, den wir am Feuer getrunken haben" }
     },
     {
       "id": "legna", "title": { "it": "Tommaso raccoglie la legna", "sl": "Tommaso nabira drva", "en": "Tommaso is gathering firewood", "de": "Tommaso sammelt Brennholz" }, "who": "tommaso",
       "when": ["afternoon"], "chance": 0.5, "dialog": "legna", "dialogs": ["legna-pezzi", "legna"], "reward": { "wood": 20 }, "marker": "🪵",
-      "memory": { "it": "la gara della legna che hai vinto tu", "sl": "tekmo z drvmi, ki si jo dobil ti", "en": "the firewood race you won", "de": "den Wettlauf ums Brennholz, den du gewonnen hast" }
+      "memory": { "it": "la gara della legna che hai vinto tu", "sl": "tekmo z drvmi, ki si jo {m:dobil|f:dobila} ti", "en": "the firewood race you won", "de": "den Wettlauf ums Brennholz, den du gewonnen hast" }
     },
     {
       "id": "storia", "title": { "it": "Nonno Bepi racconta una storia", "sl": "Dedek Bepi pripoveduje zgodbo", "en": "Nonno Bepi tells a story", "de": "Nonno Bepi erzählt eine Geschichte" }, "who": "bepi",
@@ -53,11 +53,11 @@
         { "choices": [
           { "it": "Sì, nonna, ho un po' freddo.", "sl": "Ja, babica, malo me zebe.", "en": "Yes, Grandma, I'm a bit cold.", "de": "Ja, Oma, mir ist ein bisschen kalt.", "ok": true,
             "reply": { "it": "Ecco una tisana calda. Siediti vicino al fuoco.", "sl": "Izvoli, vroč čaj. Sedi k ognju.", "en": "Here's a hot herbal tea. Sit by the fire.", "de": "Hier, ein heißer Kräutertee. Setz dich ans Feuer." } },
-          { "it": "Sì, nonna, sono un po' freddo.", "sl": "Ja, babica, malo sem hladen.", "en": "Yes, Grandma, I'm a bit cold to the touch.", "de": "Ja, Oma, ich fühle mich ein bisschen kalt an.",
-            "grammar": "essere-avere", "why": { "sl": "Ko te zebe, rečeš ho freddo (imam mraz). Sono freddo pomeni, da si hladen na otip.", "en": "When you feel cold, say ho freddo (I have cold). Sono freddo means you are cold to the touch.", "de": "Wenn dir kalt ist, sag ho freddo (ich habe Kälte). Sono freddo heißt, dass du dich kalt anfühlst." },
-            "reply": { "it": "Sei freddo come un gelato? Dammi le mani, tesoro!", "sl": "Si hladen kot sladoled? Daj mi roke, srček!", "en": "You're cold like an ice cream? Give me your hands, sweetheart!", "de": "Du bist kalt wie ein Eis? Gib mir deine Hände, Schatz!" } }
+          { "it": "Sì, nonna, sono un po' {m:freddo|f:fredda}.", "sl": "Ja, babica, malo sem {m:hladen|f:hladna}.", "en": "Yes, Grandma, I'm a bit cold to the touch.", "de": "Ja, Oma, ich fühle mich ein bisschen kalt an.",
+            "grammar": "essere-avere", "why": { "sl": "Ko te zebe, rečeš ho freddo (imam mraz). {m:Sono freddo|f:Sono fredda} pomeni, da si {m:hladen|f:hladna} na otip.", "en": "When you feel cold, say ho freddo (I have cold). {m:Sono freddo|f:Sono fredda} means you are cold to the touch.", "de": "Wenn dir kalt ist, sag ho freddo (ich habe Kälte). {m:Sono freddo|f:Sono fredda} heißt, dass du dich kalt anfühlst." },
+            "reply": { "it": "Sei {m:freddo|f:fredda} come un gelato? Dammi le mani, tesoro!", "sl": "Si {m:hladen|f:hladna} kot sladoled? Daj mi roke, srček!", "en": "You're cold like an ice cream? Give me your hands, sweetheart!", "de": "Du bist kalt wie ein Eis? Gib mir deine Hände, Schatz!" } }
         ] },
-        { "who": "rosa", "it": "Attento, brucia! Soffia piano.", "sl": "Pazi, vroče je! Pihni počasi.", "en": "Careful, it's hot! Blow gently.", "de": "Vorsicht, heiß! Puste sachte." },
+        { "who": "rosa", "it": "{m:Attento|f:Attenta}, brucia! Soffia piano.", "sl": "Pazi, vroče je! Pihni počasi.", "en": "Careful, it's hot! Blow gently.", "de": "Vorsicht, heiß! Puste sachte." },
         { "choices": [
           { "it": "Grazie, nonna! È buonissima.", "sl": "Hvala, babica! Zelo dober je.", "en": "Thank you, Grandma! It's delicious.", "de": "Danke, Oma! Er ist köstlich.", "ok": true,
             "reply": { "it": "Prego, tesoro. È tisana di tiglio, del nostro albero.", "sl": "Ni za kaj, srček. Lipov čaj je, z našega drevesa.", "en": "You're welcome, sweetheart. It's linden tea, from our tree.", "de": "Gern geschehen, Schatz. Das ist Lindenblütentee, von unserem Baum." } },
@@ -65,7 +65,7 @@
             "reply": { "it": "Sono i fiori del tiglio, tesoro. Li raccolgo io!", "sl": "To so lipovi cvetovi, srček. Sama jih naberem!", "en": "It's linden flowers, sweetheart. I pick them myself!", "de": "Das sind Lindenblüten, Schatz. Die pflücke ich selbst!" } },
           { "it": "Prego, nonna! È buonissima.", "sl": "Prosim, babica! Zelo dober je.", "en": "You're welcome, Grandma! It's delicious.", "de": "Gern geschehen, Oma! Er ist köstlich.",
             "why": { "sl": "Prego pomeni prosim ali ni za kaj. Za zahvalo rečeš grazie.", "en": "Prego means you're welcome. To thank her, say grazie.", "de": "Prego heißt „gern geschehen“. Um dich bei ihr zu bedanken, sag grazie." },
-            "reply": { "it": "Prego? Allora la tisana l'hai fatta tu, tesoro?", "sl": "Prego (ni za kaj)? Si torej čaj skuhal ti, srček?", "en": "Prego (you're welcome)? So you made the tea, sweetheart?", "de": "Prego (gern geschehen)? Hast du den Tee also gemacht, Schatz?" } }
+            "reply": { "it": "Prego? Allora la tisana l'hai fatta tu, tesoro?", "sl": "Prego (ni za kaj)? Si torej čaj {m:skuhal|f:skuhala} ti, srček?", "en": "Prego (you're welcome)? So you made the tea, sweetheart?", "de": "Prego (gern geschehen)? Hast du den Tee also gemacht, Schatz?" } }
         ] },
         { "who": "rosa", "it": "Guarda le stelle, tesoro. Quante sono!", "sl": "Poglej zvezde, srček. Koliko jih je!", "en": "Look at the stars, sweetheart. So many!", "de": "Schau dir die Sterne an, Schatz. So viele!", "fx": { "steam": 0.4 } },
         { "choices": [
@@ -90,16 +90,16 @@
         ] },
         { "who": "tommaso", "it": "Io ho tre pezzi di legna. E tu quanti ne hai?", "sl": "Jaz imam tri polena. Pa ti, koliko jih imaš?", "en": "I've got three pieces of wood. And how many have you got?", "de": "Ich habe drei Holzscheite. Und wie viele hast du?" },
         { "choices": [
-          { "it": "Io ne ho quattro! Ho vinto!", "sl": "Jaz jih imam štiri! Zmagal sem!", "en": "I've got four! I won!", "de": "Ich habe vier! Ich habe gewonnen!", "ok": true,
-            "reply": { "it": "Uffa! Va bene, hai vinto tu.", "sl": "Ojoj! No dobro, zmagal si ti.", "en": "Oh no! OK, you won.", "de": "Menno! Na gut, du hast gewonnen." } },
-          { "it": "Io ho ne quattro! Ho vinto!", "sl": "Jaz jih imam štiri! Zmagal sem!", "en": "I've got four! I won!", "de": "Ich habe vier! Ich habe gewonnen!",
+          { "it": "Io ne ho quattro! Ho vinto!", "sl": "Jaz jih imam štiri! {m:Zmagal|f:Zmagala} sem!", "en": "I've got four! I won!", "de": "Ich habe vier! Ich habe gewonnen!", "ok": true,
+            "reply": { "it": "Uffa! Va bene, hai vinto tu.", "sl": "Ojoj! No dobro, {m:zmagal|f:zmagala} si ti.", "en": "Oh no! OK, you won.", "de": "Menno! Na gut, du hast gewonnen." } },
+          { "it": "Io ho ne quattro! Ho vinto!", "sl": "Jaz jih imam štiri! {m:Zmagal|f:Zmagala} sem!", "en": "I've got four! I won!", "de": "Ich habe vier! Ich habe gewonnen!",
             "why": { "sl": "Ne stoji pred glagolom: ne ho quattro.", "en": "Ne goes before the verb: ne ho quattro.", "de": "Ne steht vor dem Verb: ne ho quattro." },
             "reply": { "it": "Eh? Quattro cosa? Fammi vedere!", "sl": "Ha? Štiri kaj? Pokaži!", "en": "Huh? Four what? Show me!", "de": "Hä? Vier was? Zeig mal!" } }
         ] },
         { "who": "tommaso", "it": "Mettiamo la legna nel fuoco. Guarda le scintille!", "sl": "Dajva drva na ogenj. Poglej iskre!", "en": "Let's put the wood on the fire. Look at the sparks!", "de": "Legen wir das Holz ins Feuer. Schau, die Funken!", "fx": { "flare": 0.8 } },
         { "choices": [
           { "it": "Che belle! Ma attento, Tommaso!", "sl": "Kako lepe! Ampak pazi, Tommaso!", "en": "How pretty! But careful, Tommaso!", "de": "Wie schön! Aber pass auf, Tommaso!", "ok": true,
-            "reply": { "it": "Tranquillo! Domani facciamo un'altra gara. Ciao!", "sl": "Brez skrbi! Jutri pa spet tekmujeva. Adijo!", "en": "Don't worry! Tomorrow we'll have another race. Bye!", "de": "Keine Sorge! Morgen machen wir noch ein Wettrennen. Tschüss!", "fx": { "flare": 0.3 } } },
+            "reply": { "it": "{m:Tranquillo|f:Tranquilla}! Domani facciamo un'altra gara. Ciao!", "sl": "Brez skrbi! Jutri pa spet tekmujeva. Adijo!", "en": "Don't worry! Tomorrow we'll have another race. Bye!", "de": "Keine Sorge! Morgen machen wir noch ein Wettrennen. Tschüss!", "fx": { "flare": 0.3 } } },
           { "it": "Che belli! Ma attento, Tommaso!", "sl": "Kako lepe! Ampak pazi, Tommaso!", "en": "How pretty! But careful, Tommaso!", "de": "Wie schön! Aber pass auf, Tommaso!",
             "grammar": "aggettivi-accordo", "why": { "sl": "Scintille so ženskega spola in v množini: che belle.", "en": "Scintille is feminine plural: che belle.", "de": "Scintille ist weiblich und steht im Plural: che belle." },
             "reply": { "it": "Belli? I pezzi di legna? Ma è solo legna!", "sl": "Belli? Polena? Saj so samo drva!", "en": "Belli? The logs? It's only wood!", "de": "Belli? Die Holzstücke? Das ist doch nur Holz!" } }
@@ -133,7 +133,7 @@
             "reply": { "it": "Buonanotte, tesoro. Sogni d'oro!", "sl": "Lahko noč, srček. Sanjaj lepo!", "en": "Good night, sweetheart. Sweet dreams!", "de": "Gute Nacht, Schatz. Träum süß!" } },
           { "it": "Grazie per la tisana. Buonasera, nonna!", "sl": "Hvala za čaj. Dober večer, babica!", "en": "Thanks for the tea. Good evening, Grandma!", "de": "Danke für den Tee. Guten Abend, Oma!",
             "why": { "sl": "Buonasera rečeš, ko zvečer prideš. Ko greš spat, rečeš buonanotte.", "en": "Buonasera is for when you arrive in the evening. Going to bed, say buonanotte.", "de": "Buonasera sagt man, wenn man abends ankommt. Vor dem Schlafengehen sagt man buonanotte." },
-            "reply": { "it": "Buonasera? Sei appena arrivato? Ma sei qui da un'ora!", "sl": "Dober večer? Si ravnokar prišel? Saj si tu že eno uro!", "en": "Good evening? Have you just arrived? You've been here an hour!", "de": "Guten Abend? Bist du gerade gekommen? Du bist doch schon eine Stunde da!" } },
+            "reply": { "it": "Buonasera? Sei appena {m:arrivato|f:arrivata}? Ma sei qui da un'ora!", "sl": "Dober večer? Si ravnokar {m:prišel|f:prišla}? Saj si tu že eno uro!", "en": "Good evening? Have you just arrived? You've been here an hour!", "de": "Guten Abend? Bist du gerade gekommen? Du bist doch schon eine Stunde da!" } },
           { "it": "A domani, nonna! Dormi bene.", "sl": "Se vidiva jutri, babica! Lepo spi.", "en": "See you tomorrow, Grandma! Sleep well.", "de": "Bis morgen, Oma! Schlaf gut.", "ok": true,
             "reply": { "it": "Anche tu, tesoro. Sogni d'oro!", "sl": "Tudi ti, srček. Sanjaj lepo!", "en": "You too, sweetheart. Sweet dreams!", "de": "Du auch, Schatz. Träum süß!" } }
         ] }

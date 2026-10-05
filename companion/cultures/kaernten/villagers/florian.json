@@ -27,15 +27,15 @@
   ],
   "lines": {
     "greet": [
-      { "de": "He, servus! Bist du neu hier?", "sl": "Ej, živjo! Si nov tukaj?", "en": "Hey, hi! Are you new here?", "it": "Ehi, ciao! Sei nuovo qui?", "level": 0 },
+      { "de": "He, servus! Bist du neu hier?", "sl": "Ej, živjo! Si {m:nov|f:nova} tukaj?", "en": "Hey, hi! Are you new here?", "it": "Ehi, ciao! Sei {m:nuovo|f:nuova} qui?", "level": 0 },
       { "de": "Servus! Ich bin Florian, der Hirte.", "sl": "Živjo! Florian sem, pastir.", "en": "Hi! I'm Florian, the shepherd.", "it": "Ciao! Sono Florian, il pastore.", "level": 0 },
       { "de": "He, servus! Wie geht's dir?", "sl": "Ej, živjo! Kako si?", "en": "Hey, hi! How are you?", "it": "Ehi, ciao! Come stai?", "level": 1 },
-      { "de": "Da bist du! Hast du Flocke gesehen?", "sl": "Tu si! Si videl Flocke?", "en": "There you are! Have you seen Flocke?", "it": "Eccoti! Hai visto Flocke?", "level": 2 },
+      { "de": "Da bist du! Hast du Flocke gesehen?", "sl": "Tu si! Si {m:videl|f:videla} Flocke?", "en": "There you are! Have you seen Flocke?", "it": "Eccoti! Hai visto Flocke?", "level": 2 },
       { "de": "He, schön, dass du da bist! Komm, die Schafe kennen dich schon.", "sl": "Ej, lepo, da si tu! Pridi, ovce te že poznajo.", "en": "Hey, good to see you! Come, the sheep know you already.", "it": "Ehi, che bello che sei qui! Vieni, le pecore ti conoscono già.", "level": 3 },
       { "de": "Juhuu! Heute gehen wir zusammen auf die Alm, ja?", "sl": "Juhu! Danes greva skupaj na planino, ja?", "en": "Yoo-hoo! Today we go up to the Alm together, yes?", "it": "Iuhuu! Oggi saliamo insieme all'alpeggio, sì?", "level": 4, "when": ["morning", "afternoon"] }
     ],
     "thanks": [
-      { "de": "Danke, du hast mir sehr geholfen!", "sl": "Hvala, res si mi pomagal!", "en": "Thanks, you really helped me!", "it": "Grazie, mi hai aiutato tanto!" },
+      { "de": "Danke, du hast mir sehr geholfen!", "sl": "Hvala, res si mi {m:pomagal|f:pomagala}!", "en": "Thanks, you really helped me!", "it": "Grazie, mi hai aiutato tanto!" },
       { "de": "He, danke! Flocke ist wieder da, dank dir.", "sl": "Ej, hvala! Flocke je spet tu, po tvoji zaslugi.", "en": "Hey, thanks! Flocke is back, thanks to you.", "it": "Ehi, grazie! Flocke è tornata grazie a te." },
       { "de": "Du bist super! Danke!", "sl": "Super si! Hvala!", "en": "You're great! Thanks!", "it": "Sei grande! Grazie!" }
     ],
@@ -51,14 +51,14 @@
       { "de": "Nebel, Nebel. Ich mag keinen Nebel.", "sl": "Megla, megla. Ne maram megle.", "en": "Fog, fog. I don't like fog.", "it": "Nebbia, nebbia. Non mi piace la nebbia." }
     ],
     "cheer": [
-      { "de": "Super!", "sl": "Bravo!", "en": "Well done!", "it": "Bravo!" },
+      { "de": "Super!", "sl": "Bravo!", "en": "Well done!", "it": "{m:Bravo|f:Brava}!" },
       { "de": "Genau!", "sl": "Točno tako!", "en": "Exactly!", "it": "Esatto!" },
       { "de": "He, so geht das!", "sl": "Ej, tako se to dela!", "en": "Hey, that's how it's done!", "it": "Ehi, così si fa!" },
       { "de": "Juhuu! Weiter so!", "sl": "Juhu! Kar tako naprej!", "en": "Yoo-hoo! Keep it up!", "it": "Iuhuu! Continua così!" }
     ],
     "comfort": [
       { "de": "Macht nichts. Noch einmal!", "sl": "Nič hudega. Še enkrat!", "en": "Never mind. Once more!", "it": "Non fa niente. Ancora una volta!" },
-      { "de": "Keine Sorge! Auch Flocke verläuft sich.", "sl": "Brez skrbi! Tudi Flocke se izgubi.", "en": "Don't worry! Flocke gets lost too.", "it": "Tranquillo! Anche Flocke si perde." },
+      { "de": "Keine Sorge! Auch Flocke verläuft sich.", "sl": "Brez skrbi! Tudi Flocke se izgubi.", "en": "Don't worry! Flocke gets lost too.", "it": "{m:Tranquillo|f:Tranquilla}! Anche Flocke si perde." },
       { "de": "Fast! Probier's noch einmal.", "sl": "Skoraj! Poskusi še enkrat.", "en": "Almost! Try again.", "it": "Quasi! Riprova." }
     ],
     "listen": [
@@ -69,11 +69,11 @@
     "bye": [
       { "de": "Servus!", "sl": "Adijo!", "en": "Bye!", "it": "Ciao!" },
       { "de": "Pfiat di! Ich gehe zu den Schafen.", "sl": "Pfiat di! Grem k ovcam. (pfiat di: avstrijski pozdrav, adijo)", "en": "Pfiat di! I'm off to the sheep. (pfiat di: Austrian for bye)", "it": "Pfiat di! Vado dalle pecore. (pfiat di: saluto austriaco, ciao)" },
-      { "de": "Bis bald! Pass auf den Nebel auf.", "sl": "Se vidiva! Pazi na meglo.", "en": "See you! Watch out for the fog.", "it": "Ci vediamo! Attento alla nebbia." }
+      { "de": "Bis bald! Pass auf den Nebel auf.", "sl": "Se vidiva! Pazi na meglo.", "en": "See you! Watch out for the fog.", "it": "Ci vediamo! {m:Attento|f:Attenta} alla nebbia." }
     ],
     "gift": {
       "liked": [
-        { "de": "He! Woher weißt du das? Das mag ich so gern!", "sl": "Ej! Kako si vedel? Zelo mi je všeč!", "en": "Hey! How did you know? I like it so much!", "it": "Ehi! Come lo sapevi? Mi piace tantissimo!" },
+        { "de": "He! Woher weißt du das? Das mag ich so gern!", "sl": "Ej! Kako si {m:vedel|f:vedela}? Zelo mi je všeč!", "en": "Hey! How did you know? I like it so much!", "it": "Ehi! Come lo sapevi? Mi piace tantissimo!" },
         { "de": "Für mich? Super! Flocke, schau, was ich bekommen habe!", "sl": "Zame? Super! Flocke, poglej, kaj sem dobil!", "en": "For me? Great! Flocke, look what I got!", "it": "Per me? Grande! Flocke, guarda cosa mi hanno dato!" },
         { "de": "He, danke! Genau das brauche ich auf der Alm.", "sl": "Ej, hvala! Točno to potrebujem na planini.", "en": "Hey, thanks! Just what I need up on the Alm.", "it": "Ehi, grazie! Proprio quello che mi serve all'alpeggio." }
       ],

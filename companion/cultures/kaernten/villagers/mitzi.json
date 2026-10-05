@@ -23,17 +23,17 @@
   ],
   "lines": {
     "greet": [
-      { "de": "Grüß Gott! Wie heißt du?", "sl": "Pozdravljen! Kako ti je ime?", "en": "Hello! What's your name?", "it": "Salve! Come ti chiami?", "level": 0 },
-      { "de": "Servus, servus! Bist du neu? Woher kommst du?", "sl": "Živjo, živjo! Si nov? Od kod si?", "en": "Hi, hi! Are you new? Where are you from?", "it": "Ciao, ciao! Sei nuovo? Da dove vieni?", "level": 0 },
-      { "de": "Oh, servus! Hast du die Nachrichten gehört?", "sl": "O, živjo! Si slišal novice?", "en": "Oh, hi! Have you heard the news?", "it": "Oh, ciao! Hai sentito le notizie?", "level": 1 },
+      { "de": "Grüß Gott! Wie heißt du?", "sl": "{m:Pozdravljen|f:Pozdravljena}! Kako ti je ime?", "en": "Hello! What's your name?", "it": "Salve! Come ti chiami?", "level": 0 },
+      { "de": "Servus, servus! Bist du neu? Woher kommst du?", "sl": "Živjo, živjo! Si {m:nov|f:nova}? Od kod si?", "en": "Hi, hi! Are you new? Where are you from?", "it": "Ciao, ciao! Sei {m:nuovo|f:nuova}? Da dove vieni?", "level": 0 },
+      { "de": "Oh, servus! Hast du die Nachrichten gehört?", "sl": "O, živjo! Si {m:slišal|f:slišala} novice?", "en": "Oh, hi! Have you heard the news?", "it": "Oh, ciao! Hai sentito le notizie?", "level": 1 },
       { "de": "Da bist du! Komm, im Radio gibt es Neuigkeiten!", "sl": "Tu si! Pridi, po radiu je novica!", "en": "There you are! Come, there's news on the radio!", "it": "Eccoti! Vieni, alla radio c'è una notizia!", "level": 2 },
       { "de": "Schatzi! Ich habe den ganzen Vormittag auf dich gewartet.", "sl": "Zaklad! Vse dopoldne sem te čakala.", "en": "Sweetheart! I've been waiting for you all morning.", "it": "Tesoro! Ti ho aspettato tutta la mattina.", "level": 3, "when": ["morning", "afternoon"] },
-      { "de": "Du bist mein Liebling im ganzen Dorf! Sag's nicht den anderen.", "sl": "Ti si moj ljubljenček v vsej vasi! Ne povej drugim.", "en": "You're my favourite in the whole village! Don't tell the others.", "it": "Sei il mio preferito in tutto il paese! Non dirlo agli altri.", "level": 4 }
+      { "de": "Du bist mein Liebling im ganzen Dorf! Sag's nicht den anderen.", "sl": "Ti si {m:moj ljubljenček|f:moja ljubljenka} v vsej vasi! Ne povej drugim.", "en": "You're my favourite in the whole village! Don't tell the others.", "it": "Sei {m:il mio preferito|f:la mia preferita} in tutto il paese! Non dirlo agli altri.", "level": 4 }
     ],
     "thanks": [
       { "de": "Danke! Wie bitte? Ah, ja: danke!", "sl": "Hvala! Kako? A, ja: hvala!", "en": "Thank you! What? Ah, yes: thank you!", "it": "Grazie! Come? Ah, sì: grazie!" },
       { "de": "Danke! Das erzähle ich dem ganzen Dorf.", "sl": "Hvala! Povem vsej vasi.", "en": "Thanks! I'll tell the whole village.", "it": "Grazie! Lo dico a tutto il paese." },
-      { "de": "Du bist ein Schatz. Danke, danke.", "sl": "Zlat si. Hvala, hvala.", "en": "You're a treasure. Thank you, thank you.", "it": "Sei un tesoro. Grazie, grazie." }
+      { "de": "Du bist ein Schatz. Danke, danke.", "sl": "{m:Zlat|f:Zlata} si. Hvala, hvala.", "en": "You're a treasure. Thank you, thank you.", "it": "Sei un tesoro. Grazie, grazie." }
     ],
     "remember": [
       { "de": "Ich denke noch oft an {memory}.", "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -47,9 +47,9 @@
       { "de": "Im Radio reden sie über Villach.", "sl": "Po radiu govorijo o Beljaku.", "en": "They're talking about Villach on the radio.", "it": "Alla radio parlano di Villaco." }
     ],
     "cheer": [
-      { "de": "Super! Richtig, richtig!", "sl": "Bravo! Prav, prav!", "en": "Well done! Right, right!", "it": "Bravo! Giusto, giusto!" },
-      { "de": "Du hast gut gehört! Super.", "sl": "Dobro si slišal! Bravo.", "en": "You heard well! Well done.", "it": "Hai sentito bene! Bravo." },
-      { "de": "Wie toll! Das erzähle ich allen!", "sl": "Kako dobro! Vsem bom povedala!", "en": "How clever! I'll tell everyone!", "it": "Che bravo! Lo racconto a tutti!" }
+      { "de": "Super! Richtig, richtig!", "sl": "Bravo! Prav, prav!", "en": "Well done! Right, right!", "it": "{m:Bravo|f:Brava}! Giusto, giusto!" },
+      { "de": "Du hast gut gehört! Super.", "sl": "Dobro si {m:slišal|f:slišala}! Bravo.", "en": "You heard well! Well done.", "it": "Hai sentito bene! {m:Bravo|f:Brava}." },
+      { "de": "Wie toll! Das erzähle ich allen!", "sl": "Kako dobro! Vsem bom povedala!", "en": "How clever! I'll tell everyone!", "it": "Che {m:bravo|f:brava}! Lo racconto a tutti!" }
     ],
     "comfort": [
       { "de": "Macht nichts. Sag's noch einmal, noch einmal.", "sl": "Nič hudega. Ponovi, ponovi.", "en": "Never mind. Say it again, say it again.", "it": "Non fa niente. Ripeti, ripeti." },
@@ -69,8 +69,8 @@
     "gift": {
       "liked": [
         { "de": "Wie bitte? Für mich? Oh, wie schön! Das mag ich so gern!", "sl": "Kako? Zame? O, kako lepo! Zelo mi je všeč!", "en": "What? For me? Oh, how lovely! I like it so much!", "it": "Come? Per me? Oh, che bello! Mi piace tantissimo!" },
-        { "de": "Woher weißt du das? Das erzähle ich dem ganzen Dorf!", "sl": "Kako si vedel? Povem vsej vasi!", "en": "How did you know? I'll tell the whole village!", "it": "Come lo sapevi? Lo dico a tutto il paese!" },
-        { "de": "Genau das! Du bist mein Liebling.", "sl": "Točno to! Ti si moj ljubljenček.", "en": "Exactly this! You're my favourite.", "it": "Proprio questo! Sei il mio preferito." }
+        { "de": "Woher weißt du das? Das erzähle ich dem ganzen Dorf!", "sl": "Kako si {m:vedel|f:vedela}? Povem vsej vasi!", "en": "How did you know? I'll tell the whole village!", "it": "Come lo sapevi? Lo dico a tutto il paese!" },
+        { "de": "Genau das! Du bist mein Liebling.", "sl": "Točno to! Ti si {m:moj ljubljenček|f:moja ljubljenka}.", "en": "Exactly this! You're my favourite.", "it": "Proprio questo! Sei {m:il mio preferito|f:la mia preferita}." }
       ],
       "ordinary": [
         { "de": "Wie bitte? Ein Geschenk? Danke, Schatzi, danke!", "sl": "Kako? Darilo? Hvala, zaklad, hvala!", "en": "What? A present? Thank you, sweetheart, thank you!", "it": "Come? Un regalo? Grazie, tesoro, grazie!" },

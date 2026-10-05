@@ -63,12 +63,12 @@
         { "who": "sepp", "de": "Grüß Gott! Bist du zum ersten Mal am Faaker See?", "sl": "Dober dan! Si prvič ob Baškem jezeru?", "en": "Hello! Is this your first time at Lake Faak?", "it": "Buongiorno! È la prima volta che vieni al lago di Faak?" },
         { "choices": [
           { "de": "Ja, ich bin zum ersten Mal am See.", "sl": "Ja, prvič sem ob jezeru.", "en": "Yes, I'm at the lake for the first time.", "it": "Sì, sono al lago per la prima volta.", "ok": true,
-            "reply": { "de": "Dann herzlich willkommen am See!", "sl": "Potem pa dobrodošel ob jezeru!", "en": "Then a warm welcome to the lake!", "it": "Allora benvenuto al lago!" } },
+            "reply": { "de": "Dann herzlich willkommen am See!", "sl": "Potem pa {m:dobrodošel|f:dobrodošla} ob jezeru!", "en": "Then a warm welcome to the lake!", "it": "Allora {m:benvenuto|f:benvenuta} al lago!" } },
           { "de": "Ja, ich bin zum ersten Mal an den See.", "sl": "Ja, prvič sem k jezeru.", "en": "Yes, I'm to the lake for the first time.", "it": "Sì, sono verso il lago per la prima volta.",
             "grammar": "wechselpraepositionen", "why": { "de": "Wo du bist: am See (an dem, Dativ). An den See sagt man, wohin man geht.", "sl": "Kje si: am See (an dem, dajalnik). An den See pomeni kam.", "en": "Where you are: am See (an dem, dative). An den See is where you go to.", "it": "Dove sei: am See (an dem, dativo). An den See è dove vai." },
             "reply": { "de": "An den See? Langsam, langsam. Wir sind ja schon da.", "sl": "An den See (k jezeru)? Počasi, počasi. Saj sva že tu.", "en": "An den See (to the lake)? Slowly, slowly. We're already here.", "it": "An den See (verso il lago)? Piano, piano. Siamo già qui." } },
           { "de": "Ja, du bist zum ersten Mal am See.", "sl": "Ja, prvič si ob jezeru.", "en": "Yes, you are at the lake for the first time.", "it": "Sì, sei al lago per la prima volta.",
-            "grammar": "sein-haben", "why": { "de": "Du bist heißt: die andere Person ist da. Über dich selbst sagst du: ich bin.", "sl": "Du bist pomeni ti si. O sebi rečeš ich bin.", "en": "Du bist means you are. About yourself: ich bin.", "it": "Du bist vuol dire tu sei. Di te stesso dici ich bin." },
+            "grammar": "sein-haben", "why": { "de": "Du bist heißt: die andere Person ist da. Über dich selbst sagst du: ich bin.", "sl": "Du bist pomeni ti si. O sebi rečeš ich bin.", "en": "Du bist means you are. About yourself: ich bin.", "it": "Du bist vuol dire tu sei. Di te {m:stesso|f:stessa} dici ich bin." },
             "reply": { "de": "Ich? Ich wohne hier seit einundachtzig Jahren!", "sl": "Jaz? Tu živim že enainosemdeset let!", "en": "Me? I've lived here for eighty-one years!", "it": "Io? Abito qui da ottantun anni!" } }
         ] },
         { "who": "sepp", "de": "Siehst du den Gipfel dort? Das ist der Mittagskogel.", "sl": "Vidiš tisti vrh tam? To je Kepa.", "en": "Do you see that peak over there? That's the Mittagskogel.", "it": "Vedi quella cima laggiù? È il Mittagskogel." },
@@ -250,7 +250,7 @@
           { "de": "Gibt es hier auch Forellen?", "sl": "Ali so tu tudi postrvi?", "en": "Are there trout here too?", "it": "Ci sono anche le trote qui?", "ok": true,
             "reply": { "de": "Ja, viele! Und einen Hecht, so groß wie ich!", "sl": "Ja, veliko! In ščuka, velika kot jaz!", "en": "Yes, loads! And a pike as big as me!", "it": "Sì, tante! E un luccio grande come me!", "fx": { "fish": 1 }, "sky": { "fog": 0 } } }
         ] },
-        { "who": "maxi", "de": "Hast du ihn gesehen? Morgen fange ich den Hecht!", "sl": "Si jo videl? Jutri ujamem ščuko!", "en": "Did you see it? Tomorrow I'll catch the pike!", "it": "L'hai visto? Domani prendo il luccio!" }
+        { "who": "maxi", "de": "Hast du ihn gesehen? Morgen fange ich den Hecht!", "sl": "Si jo {m:videl|f:videla}? Jutri ujamem ščuko!", "en": "Did you see it? Tomorrow I'll catch the pike!", "it": "L'hai visto? Domani prendo il luccio!" }
       ]
     },
     {
