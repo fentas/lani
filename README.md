@@ -41,7 +41,7 @@ Claude Code session: your own tutor, which writes new dialogs, stories and exerc
 ```
 Android app ──HTTP/SSE──► bridge (Bun/TS) ──MCP channel──► Claude Code session (your tutor)
                             │                              └─ skills: lani-*, lani-studio
-                            └─ your data: progress, mistakes, reviews, village (JSON, on your machine)
+                            └─ your data: progress, mistakes, reviews, village (JSON, on your machine, in git)
 ```
 
 - `companion/android/` — the app (Kotlin, Jetpack Compose); the village, scenes and people are drawn in code.
@@ -51,18 +51,20 @@ Android app ──HTTP/SSE──► bridge (Bun/TS) ──MCP channel──► C
 
 ## Run it yourself
 
-You need [Claude Code](https://code.claude.com), [Bun](https://bun.sh) and an Android phone.
+You need a machine that stays on (Linux or macOS), [Claude Code](https://code.claude.com) with a Claude plan or API
+key, [Bun](https://bun.sh) and an Android phone. A wizard sets up the rest in about 15 minutes:
 
 ```bash
 git clone https://github.com/fentas/lani.git && cd lani
-cd companion/bridge && bun install && cd -   # once
-companion/bin/lani-session                   # starts your tutor (tmux); detach with Ctrl-b d
-companion/bin/lani-pair                      # a QR code to connect the app
+companion/bin/lani-setup                     # the learner, their data, a private remote, voices, network, pairing
 ```
 
-The full guide (pairing, Tailscale, voices, speech recognition, the bridge as a service, backups) is in
-[companion/README.md](companion/README.md). The tutor also works on its own, in the terminal:
-[docs/claude-tutor.md](docs/claude-tutor.md).
+It keeps the learner's data outside the checkout, as a git repository of its own (`~/.local/share/lani/<id>`),
+committed after each session. Run it again to change anything. The guide, and the steps by hand:
+[docs/setup.md](docs/setup.md); what leaves your machine: [docs/privacy.md](docs/privacy.md); when something is off:
+[docs/troubleshooting.md](docs/troubleshooting.md). Everything else (pairing, Tailscale, voices, speech recognition, the
+bridge as a service, backups) is in [companion/README.md](companion/README.md). The tutor also works on its own, in the
+terminal: [docs/claude-tutor.md](docs/claude-tutor.md).
 
 ## Contributing
 

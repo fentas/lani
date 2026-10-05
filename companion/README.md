@@ -29,6 +29,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `modules/`, `packs/`, `scenarios/`, `scenes/` | Curated grammar modules (`lani.module/v0`, with villager quests), word packs (`lani.pack/v0`: Slovene in `packs/` itself, another target language in `packs/<language>/`, e.g. `packs/it/`, `packs/de/`, `packs/en/`), role-play scenarios (`lani.scenario/v0`) and village scenes (`lani.scene/v0`, see [SCENES.md](SCENES.md)). |
 | `cultures/` | Culture packs (`lani.culture/v0`, see [GAME.md](GAME.md#culture-packs)): the village's people, stories, feasts, goods and names, in its language. `primorska/` is the default village, with the cast in `primorska/villagers/` (`lani.villager/v0`, see [VILLAGERS.md](VILLAGERS.md)); `friuli/` is the second learner's Italian town in the Collio near Gorizia, with its cast, its festivals' word packs (`friuli/packs/`) and its voice cast (`friuli/voice-cast.json`, Italian voices); `kaernten/` is a German village in Carinthia (the Gailtal near Villach) for learners of German, the same parts in German with Slovene, English and Italian; `lakeland/` is the English village in a dale of the Lake District, for learners of English from Slovene, Italian or German (its starter packs in `packs/en/`), each with its voice cast. `villagers` is a link to `cultures/primorska/villagers`, the cast's old place, for a bridge started before the move; remove it once every bridge has restarted. |
 | `voice-local/` | Local Slovene text-to-speech (Gepard) on the node's GPU, the fallback voice (see [Voice](#voice)). |
+| `bin/lani-setup` | Sets up this machine step by step, or changes it: the learner, their data as a git repository of its own, a private remote, voices, the network, running, pairing ([docs/setup.md](../docs/setup.md)). `bin/lani <command>` runs `bin/lani-<command>` (`lani setup`, `lani pair`, …). |
 | `bin/lani-session` | Starts or re-attaches the always-on session in tmux, with the channel and Remote Control. Loads `~/.config/lani/keys.env`. `--profile <id>` starts another learner's session, `--list` shows the learners (see [Learners](#learners)). `--service` starts the bridge service first and the session with the shim, `--classic` the bridge inside the session (see [The bridge as a service](#the-bridge-as-a-service)). |
 | `bin/lani-bridge` | Runs each learner's bridge service in tmux: `start`, `restart` (deploys new bridge code without a tutor restart), `status`, `stop`, `logs` (see [The bridge as a service](#the-bridge-as-a-service)). `systemd/` has a user unit template for it, not installed. |
 | `bin/lani-profile` | Adds a learner (their own data, bridge port, tmux session and tokens) and shows how to publish, start and pair them. |
@@ -45,8 +46,13 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 
 ## Run
 
+`companion/bin/lani-setup` sets it all up ([docs/setup.md](../docs/setup.md)): the learner's data in
+`~/.local/share/lani/<id>` (a git repository of its own, committed after each session), the settings in
+`~/.config/lani/lani.env`, the voice clips in `~/.cache/lani/voice` and the APKs in `~/.local/share/lani/releases`.
+Without it, the data stays in the checkout's `data/` and the caches in `data/app/`, as before. Then:
+
 ```bash
-cd companion/bridge && bun install     # once
+cd companion/bridge && bun install     # once (lani-setup does it)
 companion/bin/lani-session             # start the tutor; detach with Ctrl-b d
 ```
 
@@ -146,7 +152,7 @@ Italian from Slovene in a town of their own. A learner's **profile** has an id a
 
 | | The default profile (Jan) | Another profile, e.g. `luka` |
 |---|---|---|
-| Data directory | `data/`, as always | `profiles/luka/data/` (results in `profiles/luka/results/`) |
+| Data directory | `LANI_DATA_DIR` from `lani.env` (lani-setup: `~/.local/share/lani/<id>`, results in its `results/`), else `data/` | `profiles/luka/data/` (results in `profiles/luka/results/`) |
 | Bridge | `127.0.0.1:8790` | a free port from 8792 up (never 8790, 8791 and 8797 for QA, 8795/8796 for the voice and speech workers, 8799 for the smoke tests) |
 | Tailnet URL | `https://<node>.<tailnet>.ts.net` (443) | `https://<node>.<tailnet>.ts.net:8443` (then 9443, 10443, …) |
 | tmux session | `lani` | `lani-luka` |
@@ -257,8 +263,9 @@ Not every pair has everything yet: see [plan 2, §1](../docs/plans/02-worlds-lan
 for what's left per pair (an English culture pack, reviews by native speakers, voices, meanings in the base).
 
 **Shared between learners:** the Claude account (two always-on sessions share its usage limits), the
-keys in `~/.config/lani/keys.env`, the curated content, and the app's releases (every bridge serves the
-default profile's `data/app/release/`, so every phone updates itself). A new profile starts with
+keys in `~/.config/lani/keys.env`, this machine's settings in `~/.config/lani/lani.env` (not the default learner's:
+their data, voice cache, village, port and remote are theirs alone), the curated content, and the app's releases (every
+bridge serves `LANI_RELEASE_DIR`, else the default profile's `data/app/release/`, so every phone updates itself). A new profile starts with
 `LANI_VOICE_DESIGN=off` (in its `env` in `profiles.json`): voices of one's own would take ElevenLabs voice
 slots from the default profile's village.
 
@@ -937,8 +944,9 @@ stars). The app's labels for the chapter are in all four string tables.
 
 ## Voice
 
-The app speaks Slovene with natural voices. The bridge makes each clip once, keeps it in
-`<data>/app/voice/` (SQLite `voice.db` + `files/<sha1>.mp3`) and the app caches the clips it plays
+The app speaks Slovene with natural voices. The bridge makes each clip once, keeps it in the voice cache (SQLite
+`voice.db` + `files/<sha1>.mp3`: `LANI_VOICE_CACHE`, `~/.cache/lani/voice` after lani-setup; else `<data>/app/voice/`,
+which is also used while only it has the clips) and the app caches the clips it plays
 (LRU, 50 MB). Everywhere the app speaks, it plays, in this order: a family recording, a node clip,
 a clip the node makes on request (`POST /voice/say`; a new line waits up to 8 s for it, since ElevenLabs
 takes a few seconds, and a node that can't make it answers at once), then Android TTS, which is only
@@ -1659,8 +1667,9 @@ The family page is served by the bridge at `/family`. It uses its own token,
 
 ## Backups
 
-`bin/lani-backup` snapshots `data/` (except release APKs) and `results/` into
-`~/.local/share/lani/backups` (set `LANI_BACKUP_DIR` to change it). Each snapshot is a plain
+`bin/lani-backup` snapshots the learner data (as the bridge finds it: `LANI_DATA_DIR`, lani.env's, else `data/`; except
+release APKs and a data repository's `.git`), the session results, and the voice cache when it is outside the data
+(as `voice/`) into `~/.local/share/lani/backups` (set `LANI_BACKUP_DIR` to change it). Each snapshot is a plain
 directory you can browse; files that didn't change are hard links to the previous snapshot, so they
 cost no space. The voice database is copied with SQLite's online backup, and JSON files are parsed
 after copying.
@@ -1928,6 +1937,7 @@ cd companion/bridge && bun test/smoke.ts
 cd companion/android && ./gradlew :app:testDebugUnitTest
 python3 -m unittest discover companion/tests     # backups, the Whisper worker (models faked)
 python3 tests/test_update_db.py                  # update-db.py
+python3 -m unittest discover -s tests            # also lani.env (test_config), the data repository, lani-setup end to end
 companion/bin/qa                                 # end to end, on the lani-qa emulator
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
