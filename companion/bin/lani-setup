@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Set up Lani on this machine, step by step (docs/setup.md): the tools, the learner, their data (a git repository of
+# its own), a private remote for it, voices, the network, running the tutor, pairing the phone. Run it again to change
+# anything: each step starts from what is set up already.
+#   lani-setup                  asks
+#   lani-setup --yes [flags]    asks nothing: the flags and what is set up already decide (--help lists them)
+set -euo pipefail
+root="$(cd "$(dirname "$(readlink -f "$0")")/../.." && pwd)"
+if ! command -v bun >/dev/null 2>&1; then
+  echo "lani-setup needs Bun (https://bun.sh): curl -fsSL https://bun.sh/install | bash, then open a new terminal and run it again." >&2
+  exit 1
+fi
+if [ ! -d "$root/companion/bridge/node_modules/@clack/prompts" ]; then
+  echo "lani-setup: installing the bridge's dependencies first (bun install in companion/bridge)…" >&2
+  (cd "$root/companion/bridge" && bun install --frozen-lockfile >&2)
+fi
+exec bun "$root/companion/bridge/src/cli/setup.ts" "$@"
