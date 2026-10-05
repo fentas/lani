@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { addressee, learnerErrors, render, sloveneName, type Gender } from '../../src/addressee'
 import { corpus } from '../../src/voice'
-import { compare, FIXTURE, type Fixture } from '../learner-content'
+import { audit, compare, FIXTURE, repoDir, type Fixture } from '../learner-content'
 import { auth, base, check, client, culturesDir, dataDir } from './harness'
 
 const text = (r: any) => (r.content ?? []).map((c: any) => c.text ?? '').join('\n')
@@ -39,6 +39,18 @@ export default async function learner() {
   const fx: Fixture = JSON.parse(readFileSync(FIXTURE, 'utf8'))
   const r = compare(fx)
   check(`said to Jan, every text of the curated content reads as it did at ${fx.base} (${r.compared} files compared, ${r.edited.length} edited since)`, Object.keys(r.differ).length === 0 && r.missing.length === 0 && r.compared > 0, r.differ)
+
+  const woman = addressee(cases.content_learner)
+  const textAt = (file: string, path: string): unknown => path.split('/').reduce<any>((x, k) => x?.[/^\d+$/.test(k) ? Number(k) : k], JSON.parse(readFileSync(join(repoDir, file), 'utf8')))
+  const samples = cases.content.filter((c: any) => {
+    const t = textAt(c.file, c.path)
+    return typeof t !== 'string' || render(t, woman) !== c.said
+  })
+  check(`said to ${woman.name}, a woman, the content's sampled lines agree with her (${cases.content.length}: villagers, an arrival, stories, a reading, scenes, a module, the grammar, a pack, a role-play; in Italian, German, English too)`, samples.length === 0, samples.map((c: any) => [c.file, c.path, render(String(textAt(c.file, c.path)), woman)]))
+  const a = audit()
+  check('the curated content names no learner Jan (Jan Vitovec, the captain, aside)', a.literal.length === 0, a.literal.slice(0, 10))
+  check("the curated content's placeholders are all well formed ({learner}, its cases, {m:…|f:…})", a.errors.length === 0, a.errors.slice(0, 10))
+  check("no turn of the curated content has two choices that read the same to a man or to a woman", a.same.length === 0, a.same.slice(0, 10))
 
   // --- the bridge says what it serves to the learner of the profile -------------------------------------------------------
   const luka = JSON.parse(readFileSync(join(culturesDir, 'primorska/villagers/luka.json'), 'utf8'))

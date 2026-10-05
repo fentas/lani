@@ -47,5 +47,25 @@
     { "text": "{m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}", "errors": 0 },
     { "text": "{m:spoznala|f:{g, select, f {spoznali} other {spo{x}znala}}}", "errors": 1 },
     { "text": "{learner} {learner:gen} {learner:poss}a", "errors": 0 }
+  ],
+  "content_learner": { "name": "Ana", "gender": "female" },
+  "content": [
+    {"file": "companion/cultures/primorska/villagers/micka.json", "path": "lines/greet/2/sl", "said": "O, Ana! Ravno kuham. Si lačna?"},
+    {"file": "companion/cultures/primorska/villagers/micka.json", "path": "lines/greet/5/sl", "said": "Moja Ana! Kot da si moja vnukinja. Pridi k mizi."},
+    {"file": "companion/cultures/primorska/arrivals.json", "path": "cast/micka/levels/A1/late/sl", "said": "O, Ana! Nisva se še prav spoznali, kajne? Jaz sem Micka, babica Micka."},
+    {"file": "companion/cultures/primorska/stories/martin-krpan.json", "path": "chapters/0/levels/A2/lines/0/sl", "said": "Dober večer, Ana. Nocoj začnem zgodbo, ki jo bom pripovedoval štiri večere. Si pripravljena?"},
+    {"file": "companion/cultures/primorska/stories/kekec.json", "path": "levels/A2/lines/10/choices/1/sl", "said": "Vzela sem malo zdravila in zbežala domov."},
+    {"file": "companion/cultures/primorska/readings/pismo-od-marka.json", "path": "lines/0/text/sl", "said": "Draga Ana!"},
+    {"file": "companion/cultures/primorska/readings/pismo-od-marka.json", "path": "questions/0/explain/sl", "said": "Marko Ano povabi, naj v soboto pride pomagat pri trgatvi."},
+    {"file": "companion/scenes/v-sotoru.json", "path": "variants/3/lines/0/sl", "said": "Ana? Še budna? Prinesla sem odejo. In vroč čaj!"},
+    {"file": "companion/scenes/kuhinja.json", "path": "dialogs/0/lines/5/choices/0/reply/sl", "said": "Pridna. Zdaj pa lupi orehe."},
+    {"file": "companion/scenes/na-njivi.json", "path": "dialogs/3/lines/5/choices/1/why/en", "said": "Ana is a woman: stara. Star is the masculine form."},
+    {"file": "companion/modules/tozilnik-osnove.json", "path": "exercises/11/say", "said": "Rada imam kavo in kruh."},
+    {"file": "companion/grammar/sl/pretekli-cas.json", "path": "examples/0/sl", "said": "Včeraj sem bila v Gorici."},
+    {"file": "companion/packs/na-trznici.json", "path": "words/14/sl", "said": "Rada bi"},
+    {"file": "companion/scenarios/nedeljsko-kosilo.json", "path": "opener_sl", "said": "Dober dan, Ana! Kar naprej, sedi. Si lačna?"},
+    {"file": "companion/cultures/friuli/villagers/rosa.json", "path": "lines/thanks/0/it", "said": "Grazie, tesoro. Sei stata bravissima."},
+    {"file": "companion/cultures/kaernten/arrivals.json", "path": "cast/kathi/levels/A2/lines/2/choices/1/reply/de", "said": "Dir? Oha! Sind wir schon so gute Freundinnen?"},
+    {"file": "companion/cultures/lakeland/villagers/maggie.json", "path": "lines/thanks/1/en", "said": "Good lass! Have a scone."}
   ]
 }
