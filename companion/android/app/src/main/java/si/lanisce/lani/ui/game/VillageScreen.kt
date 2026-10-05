@@ -361,7 +361,13 @@ fun VillageScreen(vm: AppViewModel) {
         // The village layer; hidden from TalkBack while the scroll lies over it.
         Box(Modifier.fillMaxSize().then(if (scrollOpen) Modifier.clearAndSetSemantics { } else Modifier)) {
             TownView(
-                state = drawn, cam = cam, fit = fit, anchors = anchors, markers = if (choice != null) emptyList() else shown, visitors = visitors, clock = townClock,
+                state = drawn, cam = cam, fit = fit, anchors = anchors, visitors = visitors, clock = townClock,
+                // QA's "bubbles:<n>" (a debug build's hook): only the n nearest the fire
+                markers = if (choice != null) emptyList() else si.lanisce.lani.app.QaHooks.fewer(shown) { m ->
+                    val p = anchorOf(m.place)
+                    val f = anchorOf(TownPlace.Fire)
+                    kotlin.math.hypot(p.x - f.x, p.y - f.y)
+                },
                 topInset = hudH + pillH, bottomInset = barH,
                 threat = s.event?.kind?.threat() == true,
                 badge = { m -> countBadge(m, markers) ?: badges[m.id] },

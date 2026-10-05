@@ -1,0 +1,363 @@
+{
+ "about": "Real content from companion/cultures and companion/packs (machine-written, see each file's review), for the site's four villages.",
+ "labels": {
+  "common.today": {
+   "sl": "Danes",
+   "en": "Today",
+   "de": "Heute",
+   "it": "Oggi"
+  },
+  "todayCard.review": {
+   "sl": "Ponovi",
+   "en": "Review",
+   "de": "Wiederholen",
+   "it": "Ripassa"
+  },
+  "visit.talk": {
+   "sl": "Pogovori se",
+   "en": "Talk",
+   "de": "Sprechen",
+   "it": "Parla"
+  },
+  "homeScreen.newWords": {
+   "sl": "Nove besede",
+   "en": "New words",
+   "de": "Neue Wörter",
+   "it": "Parole nuove"
+  },
+  "towns.friends": {
+   "sl": "Prijatelji",
+   "en": "Friends",
+   "de": "Freunde",
+   "it": "Amici"
+  },
+  "playerScreen.check": {
+   "sl": "Preveri",
+   "en": "Check",
+   "de": "Prüfen",
+   "it": "Controlla"
+  }
+ },
+ "villages": [
+  {
+   "id": "primorska",
+   "lang": "sl",
+   "flag": "🇸🇮",
+   "region": {
+    "sl": "Primorska",
+    "en": "Primorska (the Slovene Littoral)",
+    "de": "Primorska (das slowenische Küstenland)",
+    "it": "Litorale sloveno"
+   },
+   "village": "Moja vas",
+   "teller": {
+    "name": "Stari Janez",
+    "role": {
+     "sl": "Pripovedovalec",
+     "en": "Storyteller",
+     "de": "Erzähler",
+     "it": "Narratore"
+    },
+    "line": {
+     "sl": "{learner}, {m:fant|f:dekle}. Imaš čas za eno zgodbo?",
+     "en": "{learner}, {m:lad|f:lass}. Do you have time for a story?",
+     "de": "{learner}, {m:Junge|f:Mädchen}. Hast du Zeit für eine Geschichte?",
+     "it": "{learner}, {m:ragazzo|f:ragazza}. Hai tempo per una storia?"
+    }
+   },
+   "granny": "Babica Micka",
+   "happening": {
+    "sl": "Babica prinese juho",
+    "en": "Grandma brings soup",
+    "de": "Oma bringt Suppe",
+    "it": "La nonna porta la zuppa"
+   },
+   "story": {
+    "title": {
+     "sl": "Zlatorog",
+     "en": "Goldhorn",
+     "de": "Goldhorn",
+     "it": "Zlatorog"
+    },
+    "lines": [
+     {
+      "sl": "Dober večer, {learner}. Sedi k ognju. Nocoj ti povem zgodbo.",
+      "en": "Good evening, {learner}. Sit by the fire. Tonight I will tell you a story.",
+      "de": "Guten Abend, {learner}. Setz dich ans Feuer. Heute Abend erzähle ich dir eine Geschichte.",
+      "it": "Buonasera, {learner}. Siediti accanto al fuoco. Stasera ti racconto una storia."
+     },
+     {
+      "sl": "Visoko v gorah, pod Triglavom, živi bel gams. Ime mu je Zlatorog.",
+      "en": "High in the mountains, under Triglav, lives a white chamois. His name is Zlatorog.",
+      "de": "Hoch in den Bergen, unter dem Triglav, lebt ein weißer Gamsbock. Er heißt Zlatorog.",
+      "it": "In alto sulle montagne, sotto il Tricorno, vive un camoscio bianco. Si chiama Zlatorog."
+     },
+     {
+      "sl": "Z njim živijo bele vile. Veš, zakaj mu je ime Zlatorog?",
+      "en": "The white fairies live with him. Do you know why his name is Zlatorog?",
+      "de": "Bei ihm leben die weißen Feen. Weißt du, warum er Zlatorog heißt?",
+      "it": "Con lui vivono le fate bianche. Sai perché si chiama Zlatorog?"
+     }
+    ]
+   },
+   "word": {
+    "id": "ogenj",
+    "sl": "ogenj",
+    "en": "fire",
+    "de": "Feuer",
+    "it": "fuoco",
+    "emoji": "🔥",
+    "gender": "m",
+    "plural": "ognji",
+    "example_sl": "Ogenj gori.",
+    "example_en": "The fire is burning.",
+    "example_de": "Das Feuer brennt.",
+    "example_it": "Il fuoco brucia.",
+    "note": "Genitive ognja, locative ob ognju (by the fire). The first age of Moja vas.",
+    "note_de": "Genitiv ognja, Lokativ ob ognju (am Feuer). Das erste Zeitalter von Moja vas.",
+    "note_it": "Genitivo ognja, locativo ob ognju (accanto al fuoco). La prima epoca di Moja vas."
+   },
+   "shot": "media/dialog-sl.webp"
+  },
+  {
+   "id": "friuli",
+   "lang": "it",
+   "flag": "🇮🇹",
+   "region": {
+    "it": "Friuli",
+    "sl": "Furlanija",
+    "en": "Friuli",
+    "de": "Friaul"
+   },
+   "village": "Il mio villaggio",
+   "teller": {
+    "name": "Nonno Bepi",
+    "role": {
+     "it": "Narratore",
+     "sl": "Pripovedovalec",
+     "en": "Storyteller",
+     "de": "Erzähler"
+    },
+    "line": {
+     "sl": "Tu si, {m:fant|f:dekle}. Danes imam novo zgodbo.",
+     "en": "There you are, {m:lad|f:lass}. Today I have a new story.",
+     "de": "Da bist du ja, {m:Junge|f:Mädchen}. Heute habe ich eine neue Geschichte.",
+     "it": "Eccoti, {m:ragazzo|f:ragazza}. Oggi ho una storia nuova."
+    }
+   },
+   "granny": "Nonna Rosa",
+   "happening": {
+    "it": "Nonna Rosa porta la tisana",
+    "sl": "Babica Rosa prinese čaj",
+    "en": "Nonna Rosa brings herbal tea",
+    "de": "Nonna Rosa bringt Kräutertee"
+   },
+   "story": {
+    "title": {
+     "it": "La Bora e Tergesteo",
+     "sl": "Burja in Tergesteo",
+     "en": "The Bora and Tergesteo",
+     "de": "Die Bora und Tergesteo"
+    },
+    "lines": [
+     {
+      "sl": "Dober večer, {m:mali|f:mala}. Slišiš nocoj veter? Kako močno žvižga!",
+      "en": "Good evening, little one. Can you hear the wind tonight? It's whistling hard!",
+      "de": "Guten Abend, {m:Kleiner|f:Kleine}. Hörst du heute Abend den Wind? Er pfeift ganz schön!",
+      "it": "Buonasera, {m:piccolo|f:piccola}. Senti il vento stasera? Fischia forte!"
+     },
+     {
+      "sl": "Tržaškemu vetru pravijo burja.",
+      "en": "The wind of Trieste is called the Bora.",
+      "de": "Der Wind von Triest heißt Bora.",
+      "it": "Il vento di Trieste si chiama Bora."
+     },
+     {
+      "sl": "Nekoč je burja dekle: hči Eola, kralja vetrov.",
+      "en": "Long ago the Bora is a girl: the daughter of Aeolus, the king of the winds.",
+      "de": "Vor langer Zeit ist die Bora ein Mädchen: die Tochter von Äolus, dem König der Winde.",
+      "it": "Tanto tempo fa, la Bora è una ragazza: la figlia di Eolo, il re dei venti."
+     }
+    ]
+   },
+   "word": {
+    "id": "fuoco",
+    "it": "il fuoco",
+    "sl": "ogenj",
+    "en": "fire",
+    "de": "Feuer",
+    "emoji": "🔥",
+    "gender": "m",
+    "plural": "i fuochi",
+    "example_it": "Il fuoco è caldo.",
+    "example_sl": "Ogenj je topel.",
+    "example_en": "The fire is warm.",
+    "example_de": "Das Feuer ist warm.",
+    "note": "Plural fuochi, with an h: the c stays hard (k).",
+    "note_sl": "Množina fuochi, s h: c ostane trd (k).",
+    "note_de": "Plural fuochi, mit h: Das c bleibt hart (k)."
+   },
+   "shot": "media/dialog-it.webp"
+  },
+  {
+   "id": "kaernten",
+   "lang": "de",
+   "flag": "🇦🇹",
+   "region": {
+    "de": "Kärnten",
+    "sl": "Koroška",
+    "en": "Carinthia",
+    "it": "Carinzia"
+   },
+   "village": "Mein Dorf",
+   "teller": {
+    "name": "Opa Sepp",
+    "role": {
+     "de": "Erzähler",
+     "sl": "Pripovedovalec",
+     "en": "Storyteller",
+     "it": "Narratore"
+    },
+    "line": {
+     "sl": "Tu si. Danes imam novo zgodbo.",
+     "en": "There you are. Today I have a new story.",
+     "de": "Da bist du ja. Heute habe ich eine neue Geschichte.",
+     "it": "Eccoti. Oggi ho una storia nuova."
+    }
+   },
+   "granny": "Oma Resi",
+   "happening": {
+    "de": "Oma Resi bringt Tee",
+    "sl": "Oma Resi prinese čaj",
+    "en": "Oma Resi brings tea",
+    "it": "Oma Resi porta il tè"
+   },
+   "story": {
+    "title": {
+     "de": "Der Lindwurm",
+     "sl": "Celovški lintvern",
+     "en": "The Lindwurm of Klagenfurt",
+     "it": "Il drago di Klagenfurt"
+    },
+    "lines": [
+     {
+      "sl": "Dober večer! Sedi k meni k ognju. Nocoj ti povem pripovedko.",
+      "en": "Good evening! Sit with me by the fire. Tonight I'll tell you a legend.",
+      "de": "Guten Abend! Setz dich zu mir ans Feuer. Heute Abend erzähle ich dir eine Sage.",
+      "it": "Buonasera! Siediti qui con me, vicino al fuoco. Stasera ti racconto una leggenda."
+     },
+     {
+      "sl": "Pred mnogimi stoletji je pri Celovcu veliko, temno močvirje.",
+      "en": "Many hundreds of years ago there is a big, dark swamp near Klagenfurt.",
+      "de": "Vor vielen hundert Jahren liegt bei Klagenfurt ein großer, dunkler Sumpf.",
+      "it": "Molte centinaia di anni fa, vicino a Klagenfurt, c'è una grande palude scura."
+     },
+     {
+      "sl": "V močvirju živi zmaj: lintvern. Zelen je in vedno lačen.",
+      "en": "A dragon lives in the swamp: the Lindwurm. He is green and always hungry.",
+      "de": "Im Sumpf wohnt ein Drache: der Lindwurm. Er ist grün und immer hungrig.",
+      "it": "Nella palude vive un drago: il Lindwurm. È verde e ha sempre fame."
+     }
+    ]
+   },
+   "word": {
+    "id": "feuer",
+    "de": "das Feuer",
+    "sl": "ogenj",
+    "en": "fire",
+    "it": "il fuoco",
+    "emoji": "🔥",
+    "gender": "n",
+    "plural": "die Feuer",
+    "example_de": "Das Feuer ist warm.",
+    "example_sl": "Ogenj je topel.",
+    "example_en": "The fire is warm.",
+    "example_it": "Il fuoco è caldo.",
+    "note": "Neuter: das Feuer. The plural is the same word: die Feuer.",
+    "note_sl": "Srednjega spola: das Feuer. Množina je enaka: die Feuer.",
+    "note_it": "Neutro: das Feuer. Il plurale è uguale: die Feuer."
+   },
+   "shot": "media/dialog-de.webp"
+  },
+  {
+   "id": "lakeland",
+   "lang": "en",
+   "flag": "🇬🇧",
+   "region": {
+    "en": "The Lake District",
+    "sl": "Jezerno okrožje",
+    "it": "Il Distretto dei Laghi",
+    "de": "Der Lake District"
+   },
+   "village": "My Village",
+   "teller": {
+    "name": "Old Wilf",
+    "role": {
+     "en": "Storyteller",
+     "sl": "Pripovedovalec",
+     "it": "Cantastorie",
+     "de": "Geschichtenerzähler"
+    },
+    "line": {
+     "sl": "Tu si, {m:sinko|f:hčerka}. Danes imam novo zgodbo.",
+     "en": "There you are, {m:son|f:lass}. I've got a new story today.",
+     "de": "Da bist du ja, {m:mein Junge|f:mein Mädchen}. Heute habe ich eine neue Geschichte.",
+     "it": "Eccoti, {m:figliolo|f:figliola}. Oggi ho una storia nuova."
+    }
+   },
+   "granny": "Granny Maggie",
+   "happening": {
+    "en": "Granny Maggie brings hot chocolate",
+    "sl": "Babica Maggie prinese vročo čokolado",
+    "it": "Nonna Maggie porta la cioccolata calda",
+    "de": "Oma Maggie bringt heiße Schokolade"
+   },
+   "story": {
+    "title": {
+     "en": "The Bowder Stone",
+     "sl": "Bowder Stone, kamen na robu",
+     "it": "Il Bowder Stone, il masso in bilico",
+     "de": "Der Bowder Stone, der Fels auf der Kante"
+    },
+    "lines": [
+     {
+      "sl": "Dober večer, {m:sinko|f:hčerka}. Poglej kamne okoli ognja. So veliki ali majhni?",
+      "en": "Good evening, {m:son|f:lass}. Look at the stones round the fire. Are they big or small?",
+      "de": "Guten Abend, {m:mein Junge|f:mein Mädchen}. Schau dir die Steine ums Feuer an. Sind sie groß oder klein?",
+      "it": "Buonasera, {m:figliolo|f:figliola}. Guarda le pietre intorno al fuoco. Sono grandi o piccole?"
+     },
+     {
+      "sl": "Ime mu je Bowder Stone. Je zelo, zelo velik in zelo težak.",
+      "en": "Its name is the Bowder Stone. It's very, very big and very heavy.",
+      "de": "Er heißt Bowder Stone. Er ist sehr, sehr groß und sehr schwer.",
+      "it": "Si chiama Bowder Stone. È molto, molto grande e pesantissimo."
+     },
+     {
+      "sl": "In stoji na robu, kot kovanec na mizi! Pa vendar ne pade.",
+      "en": "And it stands on its edge, like a coin on a table! But it doesn't fall.",
+      "de": "Und er steht auf der Kante, wie eine Münze auf einem Tisch! Aber er fällt nicht um.",
+      "it": "E sta in bilico sul bordo, come una moneta su un tavolo! Ma non cade."
+     }
+    ]
+   },
+   "word": {
+    "id": "fire",
+    "en": "fire",
+    "sl": "ogenj",
+    "it": "fuoco",
+    "de": "Feuer",
+    "emoji": "🔥",
+    "plural": "fires",
+    "example_en": "Come and sit by the fire.",
+    "example_sl": "Pridi in sedi k ognju.",
+    "example_it": "Vieni a sederti vicino al fuoco.",
+    "example_de": "Komm und setz dich ans Feuer.",
+    "note": "By the fire: next to it. Light the fire: make it burn.",
+    "note_sl": "By the fire: ob ognju. Light the fire: zakuriti ogenj.",
+    "note_it": "By the fire: vicino al fuoco. Light the fire: accendere il fuoco.",
+    "note_de": "By the fire: am Feuer. Light the fire: das Feuer anzünden."
+   },
+   "shot": "media/dialog-en.webp"
+  }
+ ]
+}
