@@ -185,6 +185,13 @@ android {
         buildConfig = true
     }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
+    // No dependency report in the signing block: it is encrypted for Google Play, which only Google can read, and
+    // differs on every build. Without it a release APK is the same, byte for byte, wherever it is built (on GitHub, in
+    // Docker, with a local Gradle), so its SHA-256 can be checked against a build of the same commit.
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
 }
 
 dependencies {

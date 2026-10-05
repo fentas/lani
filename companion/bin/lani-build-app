@@ -1,0 +1,165 @@
+#!/usr/bin/env bash
+# Build the Android app in a container: no JDK or Android SDK on this machine, only Docker (or Podman).
+#
+# The image (companion/android/docker/Dockerfile) has the JDK and the SDK. This repository is mounted at the same path
+# (with its git directory: the version is the commit count), a cache directory is the build's home (the Gradle cache:
+# later builds are quick), and your Android user home (~/.android) holds the debug key, so a debug build is signed as
+# your local Gradle build is and the phone takes it as an update. The build runs as you: the files it writes are yours.
+#
+# Usage: companion/bin/lani-build-app [--debug | --release] [--test] [--out <file or directory>]
+#        companion/bin/lani-build-app -- <Gradle arguments>     e.g. -- :app:testDebugUnitTest
+#        companion/bin/lani-build-app --exec <command>          a command in the build container (in companion/android)
+#        companion/bin/lani-build-app --image                   build the image only and print its name
+#
+#   --debug     the debug APK (the default): app/build/outputs/apk/debug/app-debug.apk
+#   --release   the release APK, signed with the release key when one is set, else with the debug key (as before):
+#               LANI_KEYSTORE, LANI_KEYSTORE_PASSWORD, LANI_KEY_ALIAS, LANI_KEY_PASSWORD, or the signing.properties in
+#               ~/.config/lani (LANI_CONFIG_DIR) that companion/bin/lani-keystore writes
+#   --test      run the unit tests first (:app:testDebugUnitTest)
+#   --out       copy the APK there; into a directory as lani-<versionName>.apk (lani-<versionName>-debug.apk)
+#
+# Environment: LANI_CONTAINER (docker or podman; docker when both are there), LANI_BUILD_IMAGE (an image to use
+# instead of building one), LANI_BUILD_CACHE (the build's home; ~/.cache/lani/android-build), LANI_BUILD_MEMORY (the
+# container's memory limit, 8g; empty for none).
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+android="$root/companion/android"
+dockerfile_dir="$android/docker"
+
+die() { echo "lani-build-app: $*" >&2; exit 1; }
+usage() { sed -n '2,/^set -euo/{/^set -euo/d;s/^# \{0,1\}//;p}' "$0"; }
+
+type=debug test=0 out="" mode=build
+gradle_args=() exec_args=()
+while (($#)); do
+  case "$1" in
+    --debug) type=debug ;;
+    --release) type=release ;;
+    --test) test=1 ;;
+    --out) [ $# -ge 2 ] || die "--out needs a path"; out="$2"; shift ;;
+    --out=*) out="${1#--out=}" ;;
+    --image) mode=image ;;
+    --exec) shift; mode="exec"; exec_args=("$@"); break ;;
+    --) shift; mode=gradle; gradle_args=("$@"); break ;;
+    -h|--help) usage; exit 0 ;;
+    *) die "unknown argument: $1 (see --help)" ;;
+  esac
+  shift
+done
+[ "$mode" != gradle ] || ((${#gradle_args[@]})) || die "-- needs Gradle arguments"
+[ "$mode" != exec ] || ((${#exec_args[@]})) || die "--exec needs a command"
+
+engine="${LANI_CONTAINER:-}"
+if [ -z "$engine" ]; then
+  if command -v docker > /dev/null; then engine=docker
+  elif command -v podman > /dev/null; then engine=podman
+  else die "neither docker nor podman found (or set LANI_CONTAINER)"; fi
+fi
+command -v "$engine" > /dev/null || die "$engine not found"
+
+sha256() { if command -v sha256sum > /dev/null; then sha256sum "$@"; else shasum -a 256 "$@"; fi; }
+
+# The image: built here from the Dockerfile, and again when the Dockerfile changes (its hash is a label). The image
+# it replaces is left without a name and goes (only images of this Dockerfile carry the si.lanisce.lani.build label).
+image="${LANI_BUILD_IMAGE:-}"
+if [ -z "$image" ]; then
+  image=lani-android-build:local
+  want="$(sha256 "$dockerfile_dir/Dockerfile" | cut -c1-64)"
+  have="$("$engine" image inspect -f '{{index .Config.Labels "si.lanisce.lani.dockerfile"}}' "$image" 2> /dev/null || true)"
+  if [ "$have" != "$want" ]; then
+    echo "lani-build-app: building the image $image ($engine)" >&2
+    "$engine" build --label "si.lanisce.lani.dockerfile=$want" -t "$image" "$dockerfile_dir" >&2
+    "$engine" image prune -f --filter label=si.lanisce.lani.build=android > /dev/null || true
+  fi
+fi
+if [ "$mode" = image ]; then echo "$image"; exit 0; fi
+
+cache="${LANI_BUILD_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/lani/android-build}"
+android_user_home="${ANDROID_USER_HOME:-$HOME/.android}"
+mkdir -p "$cache" "$android_user_home"
+abs() { (cd "$(dirname "$1")" && printf '%s/%s\n' "$(pwd)" "$(basename "$1")"); } # a mount needs an absolute path
+cache="$(abs "$cache")" android_user_home="$(abs "$android_user_home")"
+
+name="lani-build-$$"
+run=(run --rm --init --name "$name" --user "$(id -u):$(id -g)"
+  -v "$root:$root" -w "$android"
+  -v "$cache:/home/lani" -e HOME=/home/lani -e GRADLE_USER_HOME=/home/lani/.gradle
+  -v "$android_user_home:/android-user-home" -e ANDROID_USER_HOME=/android-user-home)
+mem="${LANI_BUILD_MEMORY-8g}"
+[ -z "$mem" ] || run+=(--memory "$mem")
+if [ "$engine" = podman ]; then
+  # rootless Podman: the same uid inside as outside; its /etc/passwd entry would give the JDK another user.home
+  run+=(--userns=keep-id -e JAVA_TOOL_OPTIONS=-Duser.home=/home/lani)
+fi
+
+# A git worktree keeps its history in the main repository's git directory: mounted too, read-only.
+common="$(git -C "$root" rev-parse --path-format=absolute --git-common-dir 2> /dev/null || true)"
+case "$common" in "" | "$root" | "$root"/*) ;; *) run+=(-v "$common:$common:ro") ;; esac
+
+# The local Gradle build's local.properties names this machine's SDK; the container's is /opt/android-sdk.
+tmp="$(mktemp -d)"
+trap '"$engine" stop "$name" > /dev/null 2>&1 || true; rm -f "$tmp"/*; rmdir "$tmp"' EXIT
+if [ -f "$android/local.properties" ]; then
+  echo "sdk.dir=/opt/android-sdk" > "$tmp/local.properties"
+  run+=(-v "$tmp/local.properties:$android/local.properties:ro")
+fi
+
+# Release signing (app/build.gradle.kts reads the same): LANI_KEYSTORE and its passwords, else signing.properties.
+# The keystore is mounted read-only and the passwords go in as environment variables, never on the command line.
+signing() {
+  local store="${LANI_KEYSTORE:-}" props dir
+  if [ -z "$store" ]; then
+    props="${LANI_CONFIG_DIR:-$HOME/.config/lani}/signing.properties"
+    [ -f "$props" ] || return 0
+    prop() { sed -n "s/^[[:space:]]*$1[[:space:]]*[=:][[:space:]]*//p" "$props" | tail -n 1 | tr -d '\r'; }
+    store="$(prop storeFile)"
+    [ -n "$store" ] || die "$props has no storeFile"
+    dir="$(dirname "$props")"
+    # shellcheck disable=SC2088 # a literal ~/ in the file, which Gradle reads as the home too
+    case "$store" in /*) ;; "~/"*) store="$HOME/${store#"~/"}" ;; *) store="$dir/$store" ;; esac
+    LANI_KEYSTORE_PASSWORD="$(prop storePassword)"
+    LANI_KEY_ALIAS="$(prop keyAlias)"
+    LANI_KEY_PASSWORD="$(prop keyPassword)"
+    export LANI_KEYSTORE_PASSWORD LANI_KEY_ALIAS LANI_KEY_PASSWORD
+  fi
+  [ -f "$store" ] || die "release keystore not found: $store"
+  store="$(abs "$store")"
+  run+=(-v "$store:/run/lani/release.keystore:ro" -e LANI_KEYSTORE=/run/lani/release.keystore
+    -e LANI_KEYSTORE_PASSWORD -e LANI_KEY_ALIAS -e LANI_KEY_PASSWORD)
+  echo "lani-build-app: release key from ${props:-LANI_KEYSTORE}" >&2
+}
+
+case "$mode" in
+  exec)
+    exec_cmd=("${exec_args[@]}") ;;
+  gradle)
+    signing
+    exec_cmd=(./gradlew --no-daemon "${gradle_args[@]}") ;;
+  build)
+    tasks=()
+    ((test)) && tasks+=(:app:testDebugUnitTest)
+    if [ "$type" = release ]; then signing; tasks+=(:app:assembleRelease); else tasks+=(:app:assembleDebug); fi
+    exec_cmd=(./gradlew --no-daemon "${tasks[@]}") ;;
+esac
+[ "$mode" = exec ] || [ ! -t 1 ] || run+=(-t)
+
+"$engine" "${run[@]}" "$image" "${exec_cmd[@]}"
+[ "$mode" = build ] || exit 0
+
+dir="$android/app/build/outputs/apk/$type"
+apk="$dir/app-$type.apk"
+[ -f "$apk" ] || die "no APK at $apk"
+version="$(sed -n 's/.*"versionName": *"\([^"]*\)".*/\1/p' "$dir/output-metadata.json" | head -n 1)"
+code="$(sed -n 's/.*"versionCode": *\([0-9]*\).*/\1/p' "$dir/output-metadata.json" | head -n 1)"
+if [ -n "$out" ]; then
+  suffix=""; [ "$type" = release ] || suffix="-$type"
+  if [ -d "$out" ] || [[ "$out" == */ ]]; then
+    mkdir -p "$out"; dest="${out%/}/lani-$version$suffix.apk"
+  else
+    mkdir -p "$(dirname "$out")"; dest="$out"
+  fi
+  cp "$apk" "$dest"
+  apk="$dest"
+fi
+echo "lani-build-app: $type $version ($code): $apk" >&2
+echo "$apk"
