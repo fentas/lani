@@ -277,6 +277,9 @@ data/
       spaced-repetition.json  session-log.json
 ```
 
+- **The learner** is the home profile's `learner`: `name`, `gender` (`"male"` or `"female"`; male when missing) and
+  optionally `name_forms` (the Slovene cases of a name the rules miss). The app's and the bridge's content speaks to
+  them so (`companion/SCENES.md`, "The learner in the content").
 - **The level** of another language is in its own `learner-profile.json`
   (`learner.current_level`). The home profile's `languages[].level` is a copy for a
   glance, refreshed by every `update-db.py` write in that language.

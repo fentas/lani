@@ -90,10 +90,11 @@ published by the tutor with `publish_scene`.
 | `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's) and, a tutor's, `source: "tutor"`. |
 | `variants[]` | more dialogs, the same as `dialogs[]`: the happenings' other variants. The curated scenes keep them here, because an older bridge reads at most 12 `dialogs` (and skips a scene with more) and leaves `variants` out; the bridge serves them to the app in `dialogs`. At most 36. |
 
-Slovene must be correct and natural at the scene's level. The learner's own lines use the forms that
-fit them (as in the rest of the content: masculine, e.g. "sem lačen"). A wrong choice is wrong for a
-reason the learner can learn from (wrong case, wrong greeting for the time of day, wrong word), never a
-gender trap.
+Slovene must be correct and natural at the scene's level. The learner's own lines, and whatever anyone says to them
+or about them, agree with the learner: their name is `{learner}` and every form that agrees with them is a gender pair,
+`{m:…|f:…}` ("Sem {m:lačen|f:lačna}.", see [The learner in the content](#the-learner-in-the-content)). A wrong choice
+is wrong for a reason the learner can learn from (wrong case, wrong greeting for the time of day, wrong word), never a
+gender trap: the choices of a turn differ for a woman as for a man.
 
 **On the screen** (`ui/scene/SceneDialog.kt`, `DialogPanel`): the lines chat-like, the person's typed in and voiced,
 each with its translation small under it, and the learner's turn: the choices with theirs, a tap picks one, 🔊 says
@@ -239,7 +240,8 @@ In any text of a dialog with a count:
 
 The app renders the dialog when it starts (`Counts.render`, `Numbers` in `game/scene/Numbers.kt`), with the number
 from `GameState` (`Counts.of`: the day's dice is `Happenings.roll(seed, date, "scene/happening/dialog#n")`). A text
-of a dialog without a count has no `{…}`. The voice cache leaves the counted texts out (they are voiced when played,
+of a dialog without a count has no `{…}` of a count (the learner's, `{learner}` and `{m:…|f:…}`, are no counts: any text
+may say them, [The learner in the content](#the-learner-in-the-content)). The voice cache leaves the counted texts out (they are voiced when played,
 like a story's lines). An older app plays a happening's `dialog` only, and the bridge rejects a `dialog` with a count
 (older apps would show `{n}`): a counting dialog is a variant.
 
@@ -1115,6 +1117,92 @@ as a small campsite (`game/render/Campsite.kt`): the tent under a big spruce, a 
 with a small fire in front of its door, a stump, the firewood behind it. It is still the tent: a tap on any of it opens
 the tent's card with "Vstopi · Go in" to V šotoru, the tent's bubbles point at it, and who waits at the tent waits by its
 fire. A tap on the water beside it is still the pond's.
+
+## The learner in the content
+
+The content is written to whoever learns, not to one learner: a text never writes out the learner's name or their
+gender. It says them with placeholders, and the app and the bridge say each text to the learner of the profile.
+
+**The name** is `{learner}`; a case of it `{learner:gen}`, `{learner:dat}`, `{learner:acc}`, `{learner:loc}`,
+`{learner:ins}` (the nominative is `{learner}`, the vocative the same), and `{learner:poss}` the stem of the possessive,
+its ending written after it: `{learner:poss}a hiša` is "Markova hiša", "Anina hiša", `{learner:poss}ega psa` "Markovega
+psa". "Marko je {learner:dat} napisal pismo." "Brez {learner:gen} ni nič." "Pri {learner:loc} je, z {learner:ins}."
+
+**What agrees with the learner** is a gender pair, the man's form after `m:`, the woman's after `f:` (either order):
+`Si {m:lačen|f:lačna}?`, `{m:Rad|f:Rada} bi kavo.`, `Lahko noč, {m:fant|f:dekle}.`, `Sei {m:stanco|f:stanca}?`,
+`{m:mein Junge|f:mein Mädchen}`, `Good night, {m:lad|f:lass}.` A branch may hold `{learner}` (`{f:Draga {learner}|m:Dragi
+{learner}}!`) and an ICU select (a newcomer's template: `{m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}`, the
+two of you are women only when both are), nothing else in braces and no `|`. Pair the smallest natural unit, mostly one
+word; a few words when the change spans them (`{m:moj fant|f:moje dekle}`: *dekle* is neuter, so what agrees with the
+noun is neuter, while what is said of the learner is feminine, `ti si {m:priden|f:pridna}`).
+
+What to pair, in every language of a text (the translations too):
+
+- **Said to the learner**: the Slovene second person with an l-participle or an adjective (`Si {m:videl|f:videla} Belo?`,
+  `Boš {m:šel|f:šla} z mano?`, `Bodi {m:priden|f:pridna}!`, `Imaš {m:rad|f:rada} …?`, `Si {m:sam|f:sama}?`); the words of
+  address (fant → dekle, dragi → draga, pozdravljen → pozdravljena, dobrodošel → dobrodošla, sosed → soseda, gospod →
+  gospa; ragazzo → ragazza, bravo → brava, benvenuto → benvenuta, Junge → Mädchen, mein Lieber → meine Liebe, lad → lass,
+  boy → girl, he/him about the learner → she/her); Italian adjectives and participles with essere (`sei {m:arrivato|f:arrivata}`;
+  avere doesn't agree).
+- **Said by the learner**: their choices, a module's answers (`say`, `accept`, a reorder's tokens and solutions), a pack's
+  phrase and examples (`{m:Rad|f:Rada} bi`, `Sem {m:utrujen|f:utrujena}.`), the grammar book's first-person examples.
+- **The learner and someone else**: a dual or plural is feminine only when all of them are women (`sva {m:jedla|f:jedli}`
+  with Micka; with Luka it stays `sva jedla`).
+- **Memories and the third person**: "ko si mi {m:pomagal|f:pomagala}", "{learner} je {m:prišel|f:prišla}".
+- **A why or a reply that quotes a paired form** pairs it too: "{m:Žejen|f:Žejna} means thirsty."
+
+What stays as it is: what agrees with anyone else (the villagers, the storyteller's heroes and narration, a speaker's
+own "Utrujena sem."), polite *vi* (its plural masculine is everyone's: "Ste lačni?"), a wrong choice whose point is
+someone else's gender, and the forms that don't agree (hai mangiato, du bist müde, I am tired, imperatives). A turn never
+tests the learner's own gender: if a wrong choice differs from the right one in the very word that is paired (right
+"Utrujen sem.", wrong "Utrujeni sem."), it gets its own woman's form (`{m:Utrujeni|f:Utrujene} sem.`), and its why too.
+Where a joke only works for a man, its woman's branch says another one.
+
+**Who the learner is**: the profile's `learner.name`, `learner.gender` (`"male"` or `"female"`; missing, anything else
+or a template's `{male|female}`: male) and, for a name the rules below miss, `learner.name_forms` (`{"gen": "…", "dat":
+"…", "acc": "…", "loc": "…", "ins": "…", "poss": "…"}`, any of them: those win). Without a name (the profile's template,
+`{YOUR_NAME}`), `{learner}` is the village's word for a friend, `prijatelj` / `prijateljica` (amico / amica, Freund /
+Freundin, friend), with a capital where a sentence starts, and its cases decline (`prijatelja`, `prijateljici` …).
+
+**How a first name declines** (`sloveneName` in `bridge/src/addressee.ts`, `Learner.slovene` in `l10n/Learner.kt`; the
+shared cases are `bridge/test/fixtures/learner-render.json`):
+
+| The name | gen, dat, acc, loc, ins; poss | |
+|---|---|---|
+| ends in -a (Ana, Mojca; a man's too: Luka) | Ane, Ani, Ano, Ani, Ano; Anin (a woman's: -in, Mojčin) / Lukov (a man's: -ov) | -c, -k, -g soften before -in (Mojca → Mojčin) |
+| a woman's otherwise (Nives, Beti) | Nives in every case; Nivesin, Betin | |
+| a man's in -o (Marko) | Marka, Marku, Marka, Marku, Markom; Markov | |
+| a man's in -e (Tone) | Toneta, Tonetu, Toneta, Tonetu, Tonetom; Tonetov | |
+| a man's in -i, -u, -y (Toni) | Tonija, Toniju, Tonija, Toniju, Tonijem; Tonijev | |
+| a man's in a consonant (Jan, Igor, Nejc, Pavel, Peter) | Jana, Janu, Jana, Janu, Janom; Janov | the fleeting e of -el, -ek, -er (Pavel → Pavla, Tonček → Tončka, Peter → Petra, Aleksander → Aleksandra; not after two vowels: Gabriel → Gabriela); another -r takes -j (Igor → Igorja, Valter → Valterja); after c, č, š, ž, j: -em, -ev (Nejcem, Nejčev) |
+
+A man's accusative is his genitive, the locative the dative. `Family.genitive` (the family's "from" form, `od Maje`)
+declines the same way.
+
+**Where it is said**: the app says every text it shows or plays to the learner of its profile (`Learner.current`, set
+from the dashboard's `learner.name`, `gender` and `name_forms`): the content it bundles (culture packs, festival packs,
+the grammar book, drills), and what the bridge serves, read where it is parsed (scenes, villagers, stories, arrivals,
+readings, modules, packs, role-plays, the grammar book, drills, a visit's town). The bridge says what it serves the same
+way (`Route.addressed`: its answers rendered for `ctx.addressee()`, the profile in the data directory), and voices it so
+(`corpus({ …, learner })`: the clips are the texts as said to this learner); a talk with a villager, the words a learner
+adds from a pack or a lookup and the words of a pack session go into the data as said. What the tutor reads
+(`get_scene`, `list_villagers` …) keeps the placeholders, and the tutor writes them: `publish_*` refuses a malformed one
+(`{learner:foo}`, a pair with one form or one label twice, other braces inside) and a turn whose choices read the same
+to a man or to a woman. A text with the learner's name written out still works: it says that name to everyone.
+
+**The app's own labels** are ICU messages (`resources/l10n/*.json`), whose `{learner}` is an argument (another
+learner's name): they agree with the learner through `learnerGender`, which every message may read
+(`{learnerGender, select, f {Pripravljena} other {Pripravljen}} si!`, `L10n.LEARNER_GENDER`).
+
+**Jan reads it as before**: said to a man named Jan, every text of the curated content (`companion/scenes`, `cultures`,
+`packs`, `modules`, `scenarios`, `grammar`, `drills`) is the text it was before the placeholders came in (854f737), so
+his voice clips stay. `bridge/test/learner-content.ts` checks it file by file against
+`bridge/test/fixtures/learner-neutral.json` (`--write` makes it again after a content change); the smoke's learner
+section runs it, and `LearnerContentTest` the same with the app's renderer. The smoke also checks that no text names a
+learner Jan any more (Jan Vitovec, the captain, is another Jan, and the listener says his name back), that every
+placeholder is well formed and that no turn reads the same for one gender; both say sample lines to a woman (`content`
+in `learner-render.json`). The women's forms are machine-written, not reviewed by a
+native speaker.
 
 ## Stories: the evening story
 

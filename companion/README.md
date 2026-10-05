@@ -157,7 +157,10 @@ The default profile is today's setup and is not in any file. The others are in `
 (git-ignored with their data; `LANI_PROFILES_DIR` moves it), each with the `culture` its village is in
 (a culture pack, `companion/cultures/<id>`; `primorska` when not set, and for the default profile). The
 learner's name, level, target and base language are in their `learner-profile.json` (`target_language`,
-`base_language` and their `_code` fields), which the tutor's `/lani-setup` can refine.
+`base_language` and their `_code` fields), which the tutor's `/lani-setup` can refine. The content speaks to the
+learner by that name and gender (`learner.name`, `learner.gender`: `male` or `female`, male when missing;
+`learner.name_forms` for a name whose cases the rules miss): it is written with `{learner}` and `{m:…|f:…}`, and the
+app and the bridge say it to the learner of the profile ([SCENES.md](SCENES.md#the-learner-in-the-content)).
 
 **Add a learner:**
 
@@ -666,6 +669,11 @@ offered or a feast to share shows once as a notice. Help and moves also come as 
 `move`).
 
 ## App API
+
+The answers that carry content (scenes, stories, villagers, arrivals, readings, modules, packs, role-plays, the
+grammar book, drills, the family's words, a town's villagers, scenes, requests and market) are said to the learner of
+the profile: `{learner}` and `{m:…|f:…}` rendered for them (`Route.addressed`, `bridge/src/addressee.ts`; the tutor's
+tools keep the placeholders, [SCENES.md](SCENES.md#the-learner-in-the-content)).
 
 All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land").
 

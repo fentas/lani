@@ -61,7 +61,7 @@ Optional `audio`: Slovene text the app plays with TTS (a listening exercise). Do
 
 ### `reorder` — tap tokens into order
 ```json
-{ "type": "reorder", "prompt": "My name is Jan.", "tokens": ["se", "Jan.", "Imenujem"], "solutions": [["Imenujem", "se", "Jan."]], "explain": "se sits in second position." }
+{ "type": "reorder", "prompt": "My name is {learner}.", "tokens": ["se", "{learner}.", "Imenujem"], "solutions": [["Imenujem", "se", "{learner}."]], "explain": "se sits in second position." }
 ```
 2-12 tokens, plus up to 6 optional `distractors`: extra tiles that belong in no solution (like Duolingo's decoy words). Every solution must be a permutation of `tokens`, ignoring case: capitalisation follows position, so `["Tudi","jaz",…]` can have the solution `["Jaz","se","tudi",…]`. Write each solution with its correct capitalisation. The app compares orders case-insensitively and shows the solution's casing. List every valid order.
 
@@ -218,7 +218,7 @@ A close-up of one place in the village ("Moja vas"): the campfire, the forest, a
   "happenings": [{ "id": "kostanj", "title": "Luka peče kostanj · Luka is roasting chestnuts", "who": "luka", "when": ["evening"], "weekdays": [5, 6, 7], "chance": 0.5, "dialog": "kostanj", "reward": { "food": 15 }, "marker": "🌰",
     "memory": { "sl": "kostanj, ki sva ga pekla ob ognju", "en": "the chestnuts we roasted by the fire" } }],
   "dialogs": [{ "id": "kostanj", "lines": [
-    { "who": "luka", "sl": "Jan! Pečem kostanj. Hočeš?", "en": "Jan! I am roasting chestnuts. Want some?" },
+    { "who": "luka", "sl": "{learner}! Pečem kostanj. Hočeš?", "en": "{learner}! I am roasting chestnuts. Want some?" },
     { "choices": [
       { "sl": "Ja, prosim. Dva, tri.", "en": "Yes, please. Two, three.", "ok": true, "reply": { "sl": "Izvoli. Vroči so!", "en": "Here you are. They are hot!" } },
       { "sl": "Ja, prosim. Dve, tri.", "en": "Yes, please. Two, three.", "why": "Kostanj is masculine: dva kostanja. Dve is for feminine and neuter nouns (dve jabolki).",
@@ -233,7 +233,7 @@ A close-up of one place in the village ("Moja vas"): the campfire, the forest, a
 
 A happening with `"stories": true` (and no `dialog`) is the storyteller's: its person (who needs a `villager`) tells tonight's story, the next one of theirs the learner hasn't heard (see Stories below). Stari Janez's evening at the campfire is one.
 
-Rules: every object's word must exist in the named pack (`list_packs` shows the ids; a scene for new words needs its pack published first). The dialog's Slovene is correct and natural at the scene's level; the learner's own lines use the masculine forms ("sem lačen"). Each choice turn teaches one thing (the greeting for the time of day, the case after a preposition, ti/vi with older people, the dual, an adverb vs an adjective…): the wrong choices are wrong for a reason the `why` explains in one sentence, never a trap on the learner's gender. Every wrong choice also gets a `reply`: the villager's reaction to what the learner actually said, taken at face value, in their voice, kind and a little funny, never mocking: "Ja, zelo sem žejen." where the learner meant hungry → Micka: "Žejen? Tu imaš vodo."; "Deset jajce, prosim." → "Samo eno jajce? Deset? Ne razumem …"; ti to an old man → "Tikaš me? No, prav …"; a slip with no funny reading → "Hm? Kako, prosim?". One short sentence at the scene's level, in every language the choice has. **Never the right form in it** (not "Deset jajc? Seveda.": the learner must still find it). It may carry an `fx` of the art (it passes when the learner picks again), never a `sky`. Where people would accept more than one answer (a greeting, a goodbye, thanks, a yes or a no, a question: "Adijo!" and "Čav!", "Hvala!" and "Hvala lepa!"), give the turn two right choices, each with its own reply (polite answered politely, cheeky cheekily) and the same cues, and keep a wrong one; a turn that tests a form (the choices differ in one ending) has one right answer. A handful per scene, where it is natural. Keep the villagers as their files draw them (`list_villagers`: Micka feeds, Janez tells, Mojca loves the dual), and name only people who are in the village and whom Jan has met (`get_village`: `people.known`; a happening whose dialog, title or memory names anyone else waits in the app until they are, and `publish_scene` says which), give every person their `villager` and every happening a `memory`, the tone warm and a little funny, Primorska where it fits (mark regional words: "čav: Primorska for bye"). Rewards: 15-30 of one resource, like a short village quest; the app pays them itself and reports learned words as `words_learned` (already persisted). `Happenings.active` in the app decides what is on: at most four at once and one per person, so give people in the same spot different times of day.
+Rules: every object's word must exist in the named pack (`list_packs` shows the ids; a scene for new words needs its pack published first). The dialog's Slovene is correct and natural at the scene's level; the learner is `{learner}`, and their own lines and what is said to them agree with them as gender pairs (`Sem {m:lačen|f:lačna}.`, `Si {m:videl|f:videla} …?`; see "The learner in the content" below). Each choice turn teaches one thing (the greeting for the time of day, the case after a preposition, ti/vi with older people, the dual, an adverb vs an adjective…): the wrong choices are wrong for a reason the `why` explains in one sentence, never a trap on the learner's gender. Every wrong choice also gets a `reply`: the villager's reaction to what the learner actually said, taken at face value, in their voice, kind and a little funny, never mocking: "Ja, zelo sem žejen." where the learner meant hungry → Micka: "Žejen? Tu imaš vodo."; "Deset jajce, prosim." → "Samo eno jajce? Deset? Ne razumem …"; ti to an old man → "Tikaš me? No, prav …"; a slip with no funny reading → "Hm? Kako, prosim?". One short sentence at the scene's level, in every language the choice has. **Never the right form in it** (not "Deset jajc? Seveda.": the learner must still find it). It may carry an `fx` of the art (it passes when the learner picks again), never a `sky`. Where people would accept more than one answer (a greeting, a goodbye, thanks, a yes or a no, a question: "Adijo!" and "Čav!", "Hvala!" and "Hvala lepa!"), give the turn two right choices, each with its own reply (polite answered politely, cheeky cheekily) and the same cues, and keep a wrong one; a turn that tests a form (the choices differ in one ending) has one right answer. A handful per scene, where it is natural. Keep the villagers as their files draw them (`list_villagers`: Micka feeds, Janez tells, Mojca loves the dual), and name only people who are in the village and whom Jan has met (`get_village`: `people.known`; a happening whose dialog, title or memory names anyone else waits in the app until they are, and `publish_scene` says which), give every person their `villager` and every happening a `memory`, the tone warm and a little funny, Primorska where it fits (mark regional words: "čav: Primorska for bye"). Rewards: 15-30 of one resource, like a short village quest; the app pays them itself and reports learned words as `words_learned` (already persisted). `Happenings.active` in the app decides what is on: at most four at once and one per person, so give people in the same spot different times of day.
 
 **Rules not yet.** Write the dialog natural at the scene's level; forms above the learner's level are fine. The app asks the learner only for the rules introduced to them: a turn whose form is of a page above their level that they haven't been introduced to loses that form's wrong choices (they choose about meaning, or hear the right line and repeat it: an echo, nothing graded), and each such turn passed meets the rule; enough meetings make it ripe for you to introduce, then open its page (grammar-spec.md, "Rules not yet"; companion/SCENES.md). So name every form choice's page (`grammar`): gating goes by it. A wrong choice about meaning (other words, or a word of no rule) stays for a learner at any level: give a form turn one where it is natural.
 
@@ -248,7 +248,7 @@ Rules: every object's word must exist in the named pack (`list_packs` shows the 
 
 ```json
 { "id": "skrivalnice-smoke", "lines": [
-  { "who": "zala", "sl": "Jan! Se greva skrivalnice? Ti mižiš, jaz se skrijem!", "en": "Jan! Shall we play hide-and-seek? You close your eyes, I'll hide!" },
+  { "who": "zala", "sl": "{learner}! Se greva skrivalnice? Ti mižiš, jaz se skrijem!", "en": "{learner}! Shall we play hide-and-seek? You close your eyes, I'll hide!" },
   { "choices": [
     { "sl": "Prav! … Osem, devet, deset! Grem iskat!", "en": "OK! … Eight, nine, ten! Here I come!", "ok": true,
       "reply": { "sl": "Skrila sem se! Kje sem?", "en": "I've hidden! Where am I?", "act": { "zala": { "to": "behind-door", "pose": "hide" } } } },
@@ -298,15 +298,15 @@ His lines are his alone (leave `who` out), short parts in his register (Janez: "
   "memory": { "sl": "zgodbo o kovaču in hudiču, ki sem ti jo povedal", "en": "the story of the smith and the devil I told you" },
   "pack": "zgodbe", "words": ["velikan", { "word": "sekira", "pack": "ob-ognju" }],
   "levels": { "A2": { "sky_stays": false, "lines": [
-    { "sl": "Dober večer, Jan. Veš, zakaj kovač nikoli ne da hudiču roke?", "en": "Good evening, Jan. Do you know why a smith never gives the devil his hand?" },
+    { "sl": "Dober večer, {learner}. Veš, zakaj kovač nikoli ne da hudiču roke?", "en": "Good evening, {learner}. Do you know why a smith never gives the devil his hand?" },
     { "choices": [
-      { "sl": "Ne vem. Povejte, prosim.", "en": "I don't know. Please tell me.", "ok": true, "reply": { "sl": "Poslušaj, fant.", "en": "Listen, lad." } },
+      { "sl": "Ne vem. Povejte, prosim.", "en": "I don't know. Please tell me.", "ok": true, "reply": { "sl": "Poslušaj, {m:fant|f:dekle}.", "en": "Listen, {m:lad|f:lass}." } },
       { "sl": "Ne vem. Povej, prosim.", "en": "I don't know. Please tell me (ti).", "why": "Stari Janez is old and not family: use vi. The polite imperative is povejte.",
-        "reply": { "sl": "Tikaš me? No, pa naj bo, fant.", "en": "Calling me ti? Well, so be it, lad." } } ] },
+        "reply": { "sl": "Tikaš me? No, pa naj bo, {m:fant|f:dekle}.", "en": "Calling me ti? Well, so be it, {m:lad|f:lass}." } } ] },
     { "sl": "Nekoč je hudič prišel h kovaču. Hotel je, da mu kovač podkuje konja.", "en": "Once the devil came to a smith. He wanted the smith to shoe his horse.", "sky": { "gloom": 0.4 } },
     { "sl": "Kovač pa je hudiča prikoval na nakovalo in ga spustil šele, ko je obljubil, da ne pride nikoli več.", "en": "But the smith nailed the devil to the anvil and let him go only when he promised never to come back.", "fx": { "flare": 1 } },
     { "choices": [
-      { "sl": "Ha! Pameten kovač!", "en": "Ha! A clever smith!", "ok": true, "reply": { "sl": "Ja. Lahko noč, fant.", "en": "Yes. Good night, lad.", "sky": { "gloom": 0 } } },
+      { "sl": "Ha! Pameten kovač!", "en": "Ha! A clever smith!", "ok": true, "reply": { "sl": "Ja. Lahko noč, {m:fant|f:dekle}.", "en": "Yes. Good night, {m:lad|f:lass}.", "sky": { "gloom": 0 } } },
       { "sl": "Ha! Pametna kovač!", "en": "Ha! A clever smith!", "why": "Kovač is masculine: pameten kovač. Pametna goes with feminine nouns.",
         "reply": { "sl": "Pametna? Kdo, kovačeva žena?", "en": "Pametna? Who, the smith's wife?" } } ] } ] } },
   "pictures": [
@@ -352,23 +352,23 @@ The people of Moja vas: one cast for the quest givers, the people in scenes, the
   "story": "Ana moved up from Solkan with her loom and weaves blankets for the whole plateau.",
   "likes": ["volna · wool", "burja · the burja", "kava · coffee"],
   "lines": {
-    "greet": [{ "sl": "Dober dan.", "en": "Good day.", "when": ["morning", "afternoon"] }, { "sl": "Dober večer.", "en": "Good evening.", "when": ["evening", "night"] }, { "sl": "O, Jan! Pridite noter.", "en": "Oh, Jan! Come in.", "level": 2 }],
-    "thanks": [{ "sl": "Hvala vam.", "en": "Thank you." }, { "sl": "Hvala, Jan. Res ste mi pomagali.", "en": "Thanks, Jan. You really helped me." }],
+    "greet": [{ "sl": "Dober dan.", "en": "Good day.", "when": ["morning", "afternoon"] }, { "sl": "Dober večer.", "en": "Good evening.", "when": ["evening", "night"] }, { "sl": "O, {learner}! Pridite noter.", "en": "Oh, {learner}! Come in.", "level": 2 }],
+    "thanks": [{ "sl": "Hvala vam.", "en": "Thank you." }, { "sl": "Hvala, {learner}. Res ste mi pomagali.", "en": "Thanks, {learner}. You really helped me." }],
     "remember": [{ "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "level": 1 }, { "sl": "Ne pozabim na {memory}.", "en": "I do not forget {memory}.", "level": 2 }],
     "idle": [{ "sl": "Volna je mehka.", "en": "The wool is soft." }, { "sl": "Burja suši volno.", "en": "The burja dries the wool." }],
     "cheer": [{ "sl": "Odlično.", "en": "Excellent." }, { "sl": "Tako, brez napake.", "en": "There, without a mistake." }],
     "comfort": [{ "sl": "Nič hudega.", "en": "Never mind." }, { "sl": "Še enkrat, počasi.", "en": "Once more, slowly." }],
     "listen": [{ "sl": "Poslušajte.", "en": "Listen." }, { "sl": "Tiho. Poslušajte.", "en": "Quiet. Listen." }],
-    "bye": [{ "sl": "Na svidenje.", "en": "Goodbye." }, { "sl": "Adijo, Jan.", "en": "Bye, Jan.", "level": 2 }],
+    "bye": [{ "sl": "Na svidenje.", "en": "Goodbye." }, { "sl": "Adijo, {learner}.", "en": "Bye, {learner}.", "level": 2 }],
     "gift": {
-      "liked": [{ "sl": "O, Jan! Kako ste vedeli, da imam to rada?", "en": "Oh, Jan! How did you know I like this?" }],
+      "liked": [{ "sl": "O, {learner}! Kako ste vedeli, da imam to rada?", "en": "Oh, {learner}! How did you know I like this?" }],
       "ordinary": [{ "sl": "Hvala vam, zelo prijazno.", "en": "Thank you, very kind." }],
       "rare": [{ "sl": "Joj, kaj takega! Najlepša hvala.", "en": "Oh my, something like this! Thank you so much." }]
     }
   } }
 ```
 
-Rules: every line simple and correct at A1-A2, in their voice (Janez slow and proverbial, the children quick and cheeky, Tone gruff and kind), Slovene said to Jan in the masculine (Jan uses it too: "Lačen sem"), Primorska words marked in the English ("čav: Primorska for bye"). Tag every greeting, goodbye and line that names a time of day with `when` when you publish a villager (a "Lahko noč" without it would be said after a morning review), and give a goodnight a daytime goodbye beside it in their voice ("Lahko noč, fant. In jej!" and "Pa lep dan, fant. In jej!"); `publish_villager` refuses a `when` that isn't a part of the day and level-0 greetings that leave a part of the day without one. Keep `id`, `name`, `art` and `voice` as the app sent them (and give them the `speaker` for their age and gender) for someone who moved in (`villager_arrived`), so their friendship and their place in the village carry over. When you replace a curated villager, keep their `name`, `skill`, `home`, `since` and `order`: quests, scenes and the village's arrivals depend on them.
+Rules: every line simple and correct at A1-A2, in their voice (Janez slow and proverbial, the children quick and cheeky, Tone gruff and kind), Slovene said to the learner as `{learner}`, what agrees with them a gender pair ("Si {m:lačen|f:lačna}?", and the learner says "{m:Lačen|f:Lačna} sem" too; "The learner in the content" below), Primorska words marked in the English ("čav: Primorska for bye"). Tag every greeting, goodbye and line that names a time of day with `when` when you publish a villager (a "Lahko noč" without it would be said after a morning review), and give a goodnight a daytime goodbye beside it in their voice ("Lahko noč, {m:fant|f:dekle}. In jej!" and "Pa lep dan, {m:fant|f:dekle}. In jej!"); `publish_villager` refuses a `when` that isn't a part of the day and level-0 greetings that leave a part of the day without one. Keep `id`, `name`, `art` and `voice` as the app sent them (and give them the `speaker` for their age and gender) for someone who moved in (`villager_arrived`), so their friendship and their place in the village carry over. When you replace a curated villager, keep their `name`, `skill`, `home`, `since` and `order`: quests, scenes and the village's arrivals depend on them.
 
 **Talking to a villager** (kind `roleplay`, `scenario_id` `villager:<id>`): the bridge builds the role-play from the villager for the current friendship (the opener is their warmest greeting Jan has earned, the goals are open: greet, ask how they are, talk about something they like, say goodbye) and adds `data.villager`: the persona, `friendship {level, name, points}` and their `memories` (`{on, sl, en}`, newest last). Play them in character and in their register (a `vi` villager keeps vi and expects it back; note it gently when Jan slips), simple Slovene at Jan's level, 1-2 short sentences, their manner and their topics; bring up one shared memory naturally when there is one ("Še vedno mislim na …"), never all of them; correct only real mistakes, as in other role-plays. On `roleplay_end`, the debrief (`data: {debrief: true}`) also carries `data.memory: {"sl", "en"}`: one thing from this talk worth keeping, in the villager's words, fitting "Še vedno mislim na …" (accusative: `"pogovor o ovcah na travniku"`, `"the talk about the sheep in the meadow"`). The app stores it and the friendship grows; a villager who is not in the cast (someone who moved in) is played from their name, role and family until you give them a spec.
 
@@ -411,6 +411,26 @@ actually said, kind and a little funny, never the right form. No placeholders (`
           "reply": { "sl": "Kako si? Hm, saj se še ne poznava.", "en": "How are you? Hm, we don't know each other yet." } } ] },
       { "who": "n-ana-furlan", "sl": "Iz Solkana sem prišla, s statvami.", "en": "I came from Solkan, with my loom." } ] } } }
 ```
+
+## The learner in the content
+
+Every text you write (a module, a pack, a role-play, a scene, a story, a villager, an arrival, a reading, a grammar page)
+speaks to whoever learns, so it never writes the learner's name or gender out (companion/SCENES.md, "The learner in the
+content", has it all):
+
+- **The name** is `{learner}`; its cases `{learner:gen}`, `{learner:dat}`, `{learner:acc}`, `{learner:loc}`,
+  `{learner:ins}`, and `{learner:poss}` the possessive's stem with its ending after it (`{learner:poss}a hiša`: "Markova
+  hiša", "Anina hiša"). The app and the bridge decline it (Ana → Ane, Ani, Ano; Marko → Marka, Marku, Markom).
+- **What agrees with the learner** is a gender pair, `{m:man's form|f:woman's form}`, the smallest natural unit:
+  `Si {m:lačen|f:lačna}?`, `{m:Rad|f:Rada} bi kavo.`, `Lahko noč, {m:fant|f:dekle}.`, `Sei {m:stanco|f:stanca}?`,
+  `{m:mein Junge|f:mein Mädchen}`, `{m:lad|f:lass}`. A branch may hold `{learner}`, nothing else in braces, no `|`.
+  Pair it in every language of the text, and in a `why`, an `accept` or a token that says it.
+- **What stays**: what agrees with anyone else (the villager's own "Utrujena sem."), polite *vi* ("Ste lačni?"), the
+  story's narration; a dual is feminine only when both are women (with Micka `sva {m:jedla|f:jedli}`).
+- **A turn never tests the learner's gender**: the choices of a turn differ for a woman as for a man; `publish_*`
+  refuses a turn whose choices read the same for one, and a malformed placeholder.
+
+A text with a name written out still works, it just says that name to everyone.
 
 ## Extending the format
 

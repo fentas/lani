@@ -75,7 +75,7 @@ This AI-powered system will help you learn any language through:
 
 Use the `AskUserQuestion` tool to gather questions in batches when possible. Required fields:
 
-1. **Name** — personalizes greetings.
+1. **Name** — personalizes greetings. And whether the village speaks to them as a man or a woman (`gender`: `"male"` or `"female"`): Slovene, Italian and German agree with it ("Si lačen?" / "Si lačna?"), and the app's content says it so (`companion/SCENES.md`, "The learner in the content"). A name whose Slovene cases the rules miss can have them in `name_forms` (`{"gen": …, "dat": …, "acc": …, "loc": …, "ins": …, "poss": …}`); usually leave it out.
 2. **Target language** — the language being learned (e.g. Spanish, French, German, Japanese, Korean, Arabic, Dutch).
 3. **Native language** — the learner's mother tongue.
 4. **Base language** — the language explanations, translations and feedback are in. It defaults to the native language, but can differ (a German speaker who'd rather learn Slovene from English). The Lani app has its labels, grading and speech settings in Slovene, English, Italian and German, so any two of these make a pair the app shows in full ("target · base": "Dober dan · Guten Tag"); with another language the tutor works in chat, and the app shows English.
@@ -169,7 +169,7 @@ Present:
 
 Start from the templates in `data-examples/`. Resolve the target directory via `lani_paths.ensure_data_dir()` (it creates the directory if missing), then create these 6 files inside it:
 
-- `learner-profile.json` — fill all fields from the interview. In `learner`, besides `target_language` and `native_language`: `target_language_code` (ISO 639-1: `"sl"`, `"it"`, `"de"`, `"en"` …), `base_language` and `base_language_code` (the base language; the app and the bridge take the pair from the two codes). `home_language`: the target language's code; `languages`: `[]` (other languages come with practice elsewhere, see `docs/DB_SCRIPTS.md`, "Languages").
+- `learner-profile.json` — fill all fields from the interview (`learner.gender` too). In `learner`, besides `target_language` and `native_language`: `target_language_code` (ISO 639-1: `"sl"`, `"it"`, `"de"`, `"en"` …), `base_language` and `base_language_code` (the base language; the app and the bridge take the pair from the two codes). `home_language`: the target language's code; `languages`: `[]` (other languages come with practice elsewhere, see `docs/DB_SCRIPTS.md`, "Languages").
 - `progress-db.json` — empty stats.
 - `mistakes-db.json` — empty `error_patterns`.
 - `mastery-db.json` — `skills_mastery` entries with `mastery_level: 0` for each skill.
