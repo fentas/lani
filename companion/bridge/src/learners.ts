@@ -8,6 +8,7 @@ import { spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFileSync } from 'node:fs'
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { CULTURE_ID, DEFAULT_CULTURE, LANDSCAPES } from './cultures'
+import { setting } from './env'
 
 export const DEFAULT_ID = 'default'
 
@@ -151,7 +152,23 @@ function fill(v: unknown, values: Record<string, string>): unknown {
   return v
 }
 
-export type NewLearner = { name: string; target: string; base: string; level?: string; child?: boolean; culture?: string; landscape?: string }
+export type NewLearner = {
+  name: string
+  target: string
+  base: string
+  level?: string
+  child?: boolean
+  culture?: string
+  landscape?: string
+  /** The learner's grammatical gender: Slovene (and Italian, German) agree with it ("si lačen/lačna?"). */
+  gender?: 'male' | 'female'
+  /** Minutes a day (default 30, a child's 15). */
+  goal?: number
+  /** Where the tutor's session result files go (default: next to the data, ../results). */
+  results?: string
+}
+
+export const GENDERS = ['male', 'female'] as const
 
 /**
  * The six learner databases for a new learner in [dataDir], from data-examples/ with safe defaults. The
@@ -160,8 +177,9 @@ export type NewLearner = { name: string; target: string; base: string; level?: s
 export function initLearnerData(projectDir: string, dataDir: string, l: NewLearner) {
   if (existsSync(join(dataDir, 'learner-profile.json'))) throw new Error(`${dataDir} already holds a learner profile`)
   mkdirSync(join(dataDir, 'app'), { recursive: true })
-  // The tutor's session result files go next to the data (the repository's results/ are the default learner's).
-  mkdirSync(resolve(dataDir, '..', 'results'), { recursive: true })
+  // The tutor's session result files: next to the data (the repository's results/ are the default learner's), or in
+  // the learner's data repository (lani-setup).
+  mkdirSync(l.results ?? resolve(dataDir, '..', 'results'), { recursive: true })
   const templates = join(projectDir, 'data-examples')
   const date = today()
   const target = LANGUAGES[l.target] ?? l.target
@@ -177,6 +195,7 @@ export function initLearnerData(projectDir: string, dataDir: string, l: NewLearn
     ...(fill(withoutExamples(t), values) as Record<string, unknown>),
     learner: {
       name: l.name,
+      ...(l.gender ? { gender: l.gender } : {}),
       native_language: base,
       base_language: base,
       base_language_code: l.base,
@@ -185,7 +204,7 @@ export function initLearnerData(projectDir: string, dataDir: string, l: NewLearn
       target_language_code: l.target,
       current_level: level,
       target_level: ({ A1: 'A2', A2: 'B1', B1: 'B2', B2: 'C1', C1: 'C2' } as Record<string, string>)[level] ?? 'C2',
-      daily_goal_minutes: l.child ? 15 : 30,
+      daily_goal_minutes: l.goal ?? (l.child ? 15 : 30),
       learning_style: 'balanced',
       motivation: 'family',
     },
@@ -240,10 +259,11 @@ export type Profile = { id: string; isDefault: boolean; child: boolean; culture:
 export function profileFromEnv(env = process.env): Profile {
   const id = env.LANI_PROFILE?.trim() || DEFAULT_ID
   if (id !== DEFAULT_ID && !ID.test(id)) throw new Error(`LANI_PROFILE must be lowercase letters, digits and dashes: ${id}`)
-  const culture = env.LANI_CULTURE?.trim() || DEFAULT_CULTURE
+  // the default learner's village and land may be set in lani.env (lani-setup)
+  const culture = setting('LANI_CULTURE', env)?.trim() || DEFAULT_CULTURE
   if (!CULTURE_ID.test(culture)) throw new Error(`LANI_CULTURE must be a culture pack id (companion/cultures): ${culture}`)
   // a landscape the app doesn't know is left out: the app offers the region's usual one
-  const landscape = env.LANI_LANDSCAPE?.trim()
+  const landscape = setting('LANI_LANDSCAPE', env)?.trim()
   const known = landscape && (LANDSCAPES as readonly string[]).includes(landscape) ? { landscape } : {}
   return { id, isDefault: id === DEFAULT_ID, child: ['1', 'true', 'yes'].includes((env.LANI_CHILD ?? '').toLowerCase()), culture, ...known }
 }
@@ -310,12 +330,29 @@ export const INSTRUCTIONS_LIMIT = 2048
 /** Jan's base language when it isn't English (the default profile's paragraphs are written for English), else undefined. */
 const otherBase = (p: Profile, facts: LearnerFacts) => (p.isDefault && facts.base && facts.baseCode && facts.baseCode !== 'en' ? facts.base : undefined)
 
-export function channelRules(p: Profile, facts: LearnerFacts, dataDir: string): string {
-  const name = p.isDefault ? 'Jan' : facts.name || p.id
+/**
+ * The default learner as lani-setup sets them up, their data a git repository of its own: the bridge passes
+ * [resultsDir] then. The instructions name them from their profile (the paragraphs are written for Jan) and say where
+ * their data and session results are. Without it, the default profile's instructions stay exactly as they are.
+ */
+export type DataPlace = { resultsDir?: string }
+
+/** The learner's name: the default's is Jan, or (lani-setup) their profile's first name; another's, else the profile id. */
+const nameOf = (p: Profile, facts: LearnerFacts, o: DataPlace) =>
+  p.isDefault ? (o.resultsDir && facts.name.trim().split(/\s+/)[0]) || 'Jan' : facts.name || p.id
+
+/** The default learner's data and results outside the checkout, in a sentence; empty otherwise. */
+const placeOf = (p: Profile, name: string, dataDir: string, o: DataPlace) =>
+  p.isDefault && o.resultsDir
+    ? `\n${name}'s data is in ${dataDir} (a git repository of its own; read-db.py and update-db.py find it). Write session result files to ${o.resultsDir}/, not to the repository's data/ or results/.`
+    : ''
+
+export function channelRules(p: Profile, facts: LearnerFacts, dataDir: string, o: DataPlace = {}): string {
+  const name = nameOf(p, facts, o)
   const pair = facts.target ? ` ${name} learns ${facts.target}${facts.level ? ` (${facts.level})` : ''}${facts.base ? ` from ${facts.base}` : ''}.` : ''
   const base = otherBase(p, facts)
   const who = p.isDefault
-    ? base ? `\nJan learns ${facts.target || 'Slovene'} from ${base}: explain, translate and give feedback in ${base}.` : ''
+    ? (base ? `\n${name} learns ${facts.target || 'Slovene'} from ${base}: explain, translate and give feedback in ${base}.` : '') + placeOf(p, name, dataDir, o)
     : `\nLearner profile "${p.id}": this session is ${name}'s tutor.${pair} ${name}'s data is in ${dataDir}; the repository's data/ and results/ belong to another learner: never read or change them.`
   const out = [
     `You are ${name}'s Lani language tutor. This channel connects you to the Lani Android app.${who}`,
@@ -338,15 +375,20 @@ export function learnerInstructions(
   facts: LearnerFacts,
   dataDir: string,
   village?: { id: string; language: string; region?: string; village: string; style: string },
+  o: DataPlace = {},
 ): string {
   const out: string[] = []
   let body = paragraphs
   const janBase = otherBase(p, facts)
+  // The default learner is Jan in the paragraphs; another name (a learner lani-setup set up) replaces it.
+  const first = nameOf(p, facts, o)
+  if (p.isDefault && first !== 'Jan') body = paragraphs.map(t => t.replace(/\bJan\b/g, first))
   if (janBase) {
     out.push(
-      `Jan's base language is ${janBase} now (learner-profile.json): wherever the paragraphs below say English for meanings, explanations, translations and feedback, use ${janBase}. The app shows its labels as "Slovene · ${janBase}"; the curated Slovene content has English meanings, which you translate when Jan asks.`,
+      `${first}'s base language is ${janBase} now (learner-profile.json): wherever the paragraphs below say English for meanings, explanations, translations and feedback, use ${janBase}. The app shows its labels as "Slovene · ${janBase}"; the curated Slovene content has English meanings, which you translate when ${first} asks.`,
     )
   }
+  const place = placeOf(p, first, dataDir, o).trim()
   if (!p.isDefault) {
     const name = facts.name || p.id
     body = paragraphs.map(t => t.replace(/\bJan\b/g, name))
@@ -376,5 +418,5 @@ export function learnerInstructions(
     )
   }
   if (p.child) out.push(CHILD_INSTRUCTIONS)
-  return [...out, ...body].join('\n\n')
+  return [...out, ...body, ...(place ? [place] : [])].join('\n\n')
 }

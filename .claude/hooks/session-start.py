@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lani_paths import data_dir, force_utf8_io  # noqa: E402
+from lani_paths import data_dir, force_utf8_io, plugin_root, results_dir  # noqa: E402
 
 force_utf8_io()
 
@@ -23,6 +23,10 @@ def main():
 
     data = data_dir()
     profile_path = data / "learner-profile.json"
+    if data != (plugin_root() / "data").resolve():
+        # The learner's data is outside the checkout (a data repository, lani-setup): say where, so the tutor writes
+        # there and not into the repository's data/ or results/.
+        print(f"[Lani] 📁 Learner data: {data} (session results: {results_dir()})")
 
     if not profile_path.exists():
         print("[Lani] 🌍 Welcome to Lani - The AI Language Learning Kit!")

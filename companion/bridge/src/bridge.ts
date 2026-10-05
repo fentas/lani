@@ -62,6 +62,7 @@ import { VillagerStore } from './villagers'
 import { VisitTalks } from './visits'
 import { enginesFromEnv, ffmpegRecordingLeveller, VoiceStore } from './voice'
 import { Profiles } from './profiles'
+import { resultsDirOf, voiceDir } from './paths'
 
 export type BridgeOptions = {
   /** classic: over stdio in the tutor session; service: on its own, the session's shim on a unix socket. */
@@ -151,6 +152,8 @@ export async function startBridge(o: BridgeOptions) {
     }),
     voice: new VoiceStore({
       appDir,
+      // the voice cache: $LANI_VOICE_CACHE (lani.env's), else <data>/app/voice, the old place while only it has the clips
+      dir: voiceDir(appDir, env),
       engines,
       log,
       queueDelayMs: env.LANI_VOICE_QUEUE_DELAY_MS ? Number(env.LANI_VOICE_QUEUE_DELAY_MS) : undefined,
@@ -173,7 +176,7 @@ export async function startBridge(o: BridgeOptions) {
     onVoiceChanged: voice => ctx.voice.dropVoice(voice),
     onUpdated: person => ctx.events.emit({ type: 'voice_updated', clips: 0, person }),
   })
-  log(`voice: elevenlabs ${eleven.configured ? 'configured' : 'not configured'}, local worker checked on demand`)
+  log(`voice: elevenlabs ${eleven.configured ? 'configured' : 'not configured'}, local worker checked on demand, clips in ${ctx.voice.dir}`)
   // The pack the village is in, checked once against its cast, (its scenes) the packs and the grammar book its requests and
   // questions name: what's wrong is logged (the app checks the pack too).
   const checked = validateCulture(culturesDir, culture.id, ctx.villagers.all(), { packs: ctx.packs.all(), scenarios: ctx.scenarios.all() }, new Set(ctx.grammar.all().map(p => p.id)))
@@ -183,14 +186,17 @@ export async function startBridge(o: BridgeOptions) {
   // A new feature: a module exporting `(ctx: Ctx) => Feature`, added to this list.
   const features: Feature[] = [chat, modules, grammarFeature, drillsFeature, rhythm, game, packs, lexicon, sentences, scenarios, scenes, stories, readings, villagers, arrivals, cultureFeature, family, voice, stt, reviews, level, events, releases, pairing, towns, friendship, townQuestions, ...(o.extraFeatures ?? [])].map(f => f(ctx))
 
+  // The default learner set up by lani-setup, their data a repository of its own: the instructions name them from their
+  // profile and say where their data and session results are.
+  const place = profile.isDefault && existsSync(join(dataDir, '.git')) ? { resultsDir: resultsDirOf(dataDir) } : {}
   // Another learner's bridge names them and says where their data is; the default's paragraphs are unchanged.
   const guide = () =>
     learnerInstructions(features.flatMap(f => f.instructions ?? []), profile, learnerFacts(dataDir), dataDir, {
       id: culture.id, language, region: culture.manifest?.region.en, ...tutorOf(culture.manifest),
-    })
+    }, place)
   // Claude Code cuts a server's instructions at INSTRUCTIONS_LIMIT characters; the guide is several times
   // that. The instructions are the rules that fit, and the tool hands out the whole guide.
-  const rulesNow = () => channelRules(profile, learnerFacts(dataDir), dataDir)
+  const rulesNow = () => channelRules(profile, learnerFacts(dataDir), dataDir, place)
   const rules = rulesNow()
   if (rules.length > INSTRUCTIONS_LIMIT) log(`the channel rules are ${rules.length} characters: Claude Code cuts them at ${INSTRUCTIONS_LIMIT}`)
   const guideTool = {

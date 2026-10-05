@@ -43,7 +43,7 @@
           {
             "type": "command",
             "description": "Safety backup before conversation compaction",
-            "command": "mkdir -p \"$CLAUDE_PROJECT_DIR\"/.backups/precompact && cp -r \"$CLAUDE_PROJECT_DIR\"/data/*.json \"$CLAUDE_PROJECT_DIR\"/.backups/precompact/ 2>/dev/null && echo '[Lani] 🔒 Pre-compact backup saved'",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/precompact-backup.sh",
             "timeout": 10
           }
         ]
@@ -69,6 +69,7 @@
         "actions": [
           "Creates daily snapshot in .backups/YYYYMMDD/",
           "Backs up all data/*.json files",
+          "Commits the learner's data repository (lani-setup) and pushes it when it has a remote",
           "Displays current streak and total sessions"
         ],
         "script": ".claude/hooks/session-end.py"
@@ -85,8 +86,9 @@
       "PreCompact": {
         "trigger": "Before conversation is compacted",
         "actions": [
-          "Creates safety backup in .backups/precompact/"
-        ]
+          "Creates safety backup in <data>/.backups/precompact/"
+        ],
+        "script": ".claude/hooks/precompact-backup.sh"
       }
     },
     "backup_locations": {

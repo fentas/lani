@@ -21,7 +21,8 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        someone beside it); a dialog step lets it go again
 Output: companion/qa-shots/<timestamp>/  (NN-step.png, contact-sheet.png, report.txt, bridge.log, town.log)
 Env: ANDROID_SERIAL picks the device when several run; LANI_DEV_PORT the dev bridge's port (default 8791);
-LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_DATA the data the dev bridge copies (default data/).
+LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_DATA the data the dev bridge copies (default: the default
+learner's, LANI_DATA_DIR in lani.env, else data/).
 """
 import atexit
 import html
@@ -39,6 +40,13 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def dev_data():
+    """The data the dev bridge copies by default: the default learner's (LANI_DATA_DIR in lani.env), else data/."""
+    sys.path.insert(0, str(ROOT / ".claude" / "hooks"))
+    from lani_paths import learner_setting  # noqa: E402
+    return learner_setting("LANI_DATA_DIR") or ROOT / "data"
 # LANI_X from FLUENT_X, its name before the project was renamed from Fluent, when LANI_X isn't set.
 for _k, _v in list(os.environ.items()):
     if _k.startswith("FLUENT_"):
@@ -1825,7 +1833,7 @@ def dry(steps, visiting: bool):
     print("QA plan (--dry: nothing is built, started or tapped)\n")
     print(f"app          {'' if '--no-build' in sys.argv else 'build, '}install and start {PKG} on {SERIAL or f'the emulator (AVD {avd()})'}")
     print(f"dev bridge   127.0.0.1:{PORT} (the app: {BRIDGE_URL}, token {TOKEN}): test/dev-bridge.ts on a copy of "
-          f"{os.environ.get('LANI_DEV_DATA') or ROOT / 'data'}, its town links left out; port {port(PORT)} (stopped first)")
+          f"{os.environ.get('LANI_DEV_DATA') or dev_data()}, its town links left out; port {port(PORT)} (stopped first)")
     why = "--no-town" if "--no-town" in sys.argv else FACTS.get("error") or (None if visiting else "no visit step chosen")
     if why:
         print(f"second town  none: {why}")

@@ -10,11 +10,14 @@
   lani-backup install           install the systemd user timer (every 6 hours)
   lani-backup uninstall         remove it (snapshots are kept)
 
-A snapshot is a plain directory with data/, results/ and manifest.json, under $LANI_BACKUP_DIR
-(default ~/.local/share/lani/backups, which is on a different disk than the repo here). Files
+A snapshot is a plain directory with data/, results/ and manifest.json (and voice/, when the voice
+clips are in a cache of their own: lani-setup's ~/.cache/lani/voice), under $LANI_BACKUP_DIR
+(default ~/.local/share/lani/backups, which is on a different disk than the repo here). The data
+is found as the bridge finds it (LANI_DATA_DIR, lani.env's for the default learner). Files
 unchanged since the previous snapshot are hard links to it, so an unchanged 20 MB voice store costs
 nothing. SQLite databases are copied with SQLite's online backup and JSON files are parsed after
-copying. Release APKs are left out: release-app rebuilds them.
+copying. Release APKs and a data repository's .git are left out: release-app rebuilds the one, and
+the other is history already (its remote, when it has one, is a copy elsewhere).
 
 Kept: the newest 7 snapshots, the last of each day for 14 days, of each week for 8 weeks and of
 each month for 12 months.
@@ -41,8 +44,11 @@ from fnmatch import fnmatch
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / ".claude" / "hooks"))
+import lani_paths  # noqa: E402  (lani.env's settings; the learner's data, results and voice cache as the bridge finds them)
+
 NAME = re.compile(r"^(\d{4}-\d{2}-\d{2}T\d{6})(-[a-z0-9-]+)?$")
-EXCLUDE = ["app/release/*.apk", "*.tmp", "*-wal", "*-shm", "*-journal", ".DS_Store", "__pycache__/*"]
+EXCLUDE = ["app/release/*.apk", "*.tmp", "*-wal", "*-shm", "*-journal", ".DS_Store", "__pycache__/*", ".git/*"]
 SQLITE_MAGIC = b"SQLite format 3\x00"
 UNIT = "lani-backup"
 
@@ -64,7 +70,8 @@ def default_backups() -> Path:
 
 
 def data_dir() -> Path:
-    return Path(os.environ.get("LANI_DATA_DIR") or REPO / "data").expanduser().resolve()
+    """LANI_DATA_DIR, else lani.env's for the default learner (a data repository that lani-setup made), else data/."""
+    return Path(os.environ.get("LANI_DATA_DIR") or lani_paths.learner_setting("LANI_DATA_DIR") or REPO / "data").expanduser().resolve()
 
 
 def use_profile(pid: str) -> None:
@@ -87,9 +94,25 @@ def use_profile(pid: str) -> None:
 
 
 def sources() -> dict[str, Path]:
-    """What a snapshot holds: the learner data and the session reports next to it."""
+    """What a snapshot holds: the learner data, the session reports (next to it, or in a data repository's results/)
+    and, when the clips are in a cache outside the data (lani-setup), the voice store."""
     d = data_dir()
-    return {"data": d, "results": Path(os.environ.get("LANI_RESULTS_DIR") or d.parent / "results").resolve()}
+    out = {"data": d, "results": lani_paths.results_dir_of(d).resolve()}
+    voice = lani_paths.voice_dir_of(d).expanduser().resolve()
+    if voice != d / "app" / "voice" and voice.is_dir():
+        out["voice"] = voice
+    return out
+
+
+def entries():
+    """(top, source, relative path) of every file a snapshot takes; a source inside another (a data repository's
+    results/) only under its own name."""
+    srcs = sources()
+    for top, src in srcs.items():
+        inner = [o for t, o in srcs.items() if t != top and o != src and src in o.parents]
+        for rel in walk(src):
+            if not any(o in (src / rel).parents for o in inner):
+                yield top, src, rel
 
 
 def backup_dir() -> Path:
@@ -209,26 +232,25 @@ def take(label: str = "", quiet: bool = False, always: bool = False) -> Snap | N
         name = stamp.strftime("%Y-%m-%dT%H%M%S") + (f"-{label}" if label else "")
         tmp = root / f".partial-{name}"
         files, warnings, linked, fresh = {}, [], 0, 0
-        for top, src in sources().items():
-            for rel in walk(src):
-                key = f"{top}/{rel}"
-                dest = tmp / key
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                warnings += copy_file(src / rel, dest)
-                digest, size = sha256(dest), dest.stat().st_size
-                files[key] = {"size": size, "sha256": digest}
-                old = before.get(key)
-                if old and old["sha256"] == digest and (prev.path / key).is_file():
-                    # Unchanged: share the previous snapshot's copy instead of keeping a second one.
-                    link = dest.with_name(dest.name + ".link")
-                    try:
-                        os.link(prev.path / key, link)
-                        os.replace(link, dest)
-                        linked += 1
-                        continue
-                    except OSError:
-                        link.unlink(missing_ok=True)
-                fresh += size
+        for top, src, rel in entries():
+            key = f"{top}/{rel}"
+            dest = tmp / key
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            warnings += copy_file(src / rel, dest)
+            digest, size = sha256(dest), dest.stat().st_size
+            files[key] = {"size": size, "sha256": digest}
+            old = before.get(key)
+            if old and old["sha256"] == digest and (prev.path / key).is_file():
+                # Unchanged: share the previous snapshot's copy instead of keeping a second one.
+                link = dest.with_name(dest.name + ".link")
+                try:
+                    os.link(prev.path / key, link)
+                    os.replace(link, dest)
+                    linked += 1
+                    continue
+                except OSError:
+                    link.unlink(missing_ok=True)
+            fresh += size
         if not files:
             shutil.rmtree(tmp, ignore_errors=True)
             sys.exit(f"Nothing to back up in {data_dir()}.")
@@ -329,7 +351,7 @@ def live_digest(path: Path) -> str:
 
 
 def current_files() -> dict[str, Path]:
-    return {f"{top}/{rel}": src / rel for top, src in sources().items() for rel in walk(src)}
+    return {f"{top}/{rel}": src / rel for top, src, rel in entries()}
 
 
 def plan(snap: Snap, only: list[str]) -> tuple[list[str], list[str], list[str]]:
@@ -344,7 +366,7 @@ def plan(snap: Snap, only: list[str]) -> tuple[list[str], list[str], list[str]]:
 
 
 def bridge_up() -> bool:
-    port = int(os.environ.get("LANI_BRIDGE_PORT", "8790"))
+    port = int(lani_paths.setting("LANI_BRIDGE_PORT") or "8790")
     with contextlib.suppress(OSError), socket.create_connection(("127.0.0.1", port), timeout=0.5):
         return True
     return False
@@ -364,7 +386,7 @@ def restore(snap: Snap, only: list[str], apply: bool, force: bool) -> int:
     if not changed and not missing:
         print(f"✓ The live data already matches {snap.name}" + (" (for the chosen paths)." if only else "."))
         return 0
-    targets = {"data": sources()["data"], "results": sources()["results"]}
+    targets = sources()
     live = lambda k: targets[k.split("/", 1)[0]] / k.split("/", 1)[1]
     print(f"Restoring {snap.name} would:")
     for k in changed:

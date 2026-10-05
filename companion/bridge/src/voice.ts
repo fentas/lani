@@ -1,6 +1,7 @@
 // Voice store: natural Slovene audio for the app, made once on the node and cached.
 // Engines: ElevenLabs (eleven_v3, the only model with Slovenian; quota-guarded) and the local
-// Gepard worker on 127.0.0.1:8795. Clips live in <data>/app/voice/{voice.db,files/<sha1>.mp3}.
+// Gepard worker on 127.0.0.1:8795. Clips live in the voice cache, {voice.db,files/<sha1>.mp3}: $LANI_VOICE_CACHE
+// (~/.cache/lani/voice after lani-setup), else <data>/app/voice (paths.ts voiceDir).
 // A clip is keyed by its speaker from the voice cast (cast.ts): the narrators female/male or a
 // character voice ("grandma"). A narrator says a lone word inside a carrier sentence, cut out by its
 // timestamps (CARRIERS); their clips from before that are made again as the app asks for them. A voice the cast
@@ -1217,6 +1218,8 @@ export class VoiceStore {
   constructor(
     private readonly o: {
       appDir: string
+      /** The store's directory: <appDir>/voice when not given (the bridge passes paths.ts voiceDir: the voice cache). */
+      dir?: string
       engines: Engine[]
       log?: Log
       /** Dry runs: read an existing DB without creating anything. */
@@ -1242,7 +1245,7 @@ export class VoiceStore {
       revoiceDaily?: number
     },
   ) {
-    this.dir = join(o.appDir, 'voice')
+    this.dir = o.dir ?? join(o.appDir, 'voice')
     this.filesDir = join(this.dir, 'files')
     const path = join(this.dir, 'voice.db')
     if (o.readonly && !existsSync(path)) {

@@ -11,7 +11,7 @@
 import '../env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { parseArgs } from 'node:util'
 import { createPairingCode, Devices, groupFingerprint, loadBridgeKey, pairUri } from '../pairing'
-import { appDir, bridgeUp, die, resolveProfile, short, table, tailnetHost, tailnetUrl } from './common'
+import { appDir, bridgeUp, die, publicUrl, resolveProfile, short, table, tailnetHost, tailnetUrl } from './common'
 
 const { values } = parseArgs({
   args: process.argv.slice(2),
@@ -56,7 +56,8 @@ if (values.revoke !== undefined) {
 }
 
 // A new code, as a QR code.
-const url = (values.url ?? (tailnetHost() ? tailnetUrl(p) : die('This node\'s tailnet name is unknown (is Tailscale up?). Pass the app\'s URL with --url https://…'))).replace(/\/+$/, '')
+// --url, else lani.env's LANI_PUBLIC_URL (the default learner's: lani-setup), else the tailnet's HTTPS name
+const url = (values.url ?? publicUrl(p) ?? (tailnetHost() ? tailnetUrl(p) : die('This node\'s tailnet name is unknown (is Tailscale up?). Pass the app\'s URL with --url https://…'))).replace(/\/+$/, '')
 if (!/^https?:\/\/[^\s/?#]+(\/[^\s?#]*)?$/.test(url)) die(`--url: an http(s) URL, e.g. ${tailnetUrl(p, 'node.tailnet.ts.net')}`)
 const key = loadBridgeKey(appDir(p))
 const { code, expiresAt } = createPairingCode(appDir(p))

@@ -13,6 +13,7 @@
 import { createHash, randomBytes, sign, verify } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import { setting } from './env'
 import { CULTURE_ID, tutorOf, type Manifest } from './cultures'
 import { learnerFacts } from './learners'
 import { createOneTimeCode, fingerprintOf, spendOneTimeCode, withLock, writeAtomic, type BridgeKey } from './pairing'
@@ -78,8 +79,8 @@ export function selfDisplay(o: { dataDir: string; profile: { id: string; isDefau
   }
 }
 
-/** Where this town's bridge answers other towns: $LANI_TOWN_URL, else its own port on this node. */
-export const selfUrl = (port: number, env = process.env) => townUrl(env.LANI_TOWN_URL) ?? `http://127.0.0.1:${port}`
+/** Where this town's bridge answers other towns: $LANI_TOWN_URL (lani.env's for the default learner), else its own port on this node. */
+export const selfUrl = (port: number, env = process.env) => townUrl(setting('LANI_TOWN_URL', env)) ?? `http://127.0.0.1:${port}`
 
 /** An http(s) URL without credentials, query or fragment, without a trailing slash; undefined otherwise. */
 export function townUrl(s: unknown): string | undefined {

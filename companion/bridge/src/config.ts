@@ -1,6 +1,7 @@
 // Where the project and the learner data live, and how the bridge runs the repo's helper scripts.
 import { mkdirSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
+import { setting } from './env'
 
 export type Log = (...a: unknown[]) => void
 
@@ -59,7 +60,8 @@ export function loadConfig(env = process.env, o: { service?: boolean } = {}): Co
   return {
     projectDir,
     host: env.LANI_BRIDGE_HOST ?? '127.0.0.1',
-    port: Number(env.LANI_BRIDGE_PORT ?? 8790),
+    // The default learner's port may be set in lani.env; only a port in the environment makes a bridge serve the app.
+    port: Number(setting('LANI_BRIDGE_PORT', env) ?? 8790),
     serveApp: !!o.service || env.LANI_TUTOR === '1' || !!env.LANI_BRIDGE_PORT,
     dataDir,
     appDir,

@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 # Build a release APK and publish it to the Lani app (self-update).
 # The bridge notices the new latest.json and sends the app an app_update event.
+# The APKs go to $LANI_RELEASE_DIR (lani.env; ~/.local/share/lani/releases after lani-setup), else <data>/app/release.
 # Usage: companion/bin/release-app "short release notes"
 set -euo pipefail
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 notes="${1:-}"
+# LANI_* (or their FLUENT_* names) and lani.env's settings: bin/lani-env.sh
+. "$root/companion/bin/lani-env.sh"
 
 # The version follows the commit count (versionCode 1000 + count, versionName 0.2.<count>: app/build.gradle.kts),
 # so an uncommitted build would reuse the last code.
@@ -13,8 +16,12 @@ if [[ -n "$(git -C "$root" status --porcelain -- companion/android)" ]]; then
   exit 1
 fi
 
-data="$(python3 "$root/.claude/hooks/ensure_data_dir.py")"
-rel="$data/app/release"
+if [[ -n "${LANI_RELEASE_DIR:-}" ]]; then
+  rel="$LANI_RELEASE_DIR"
+else
+  data="$(python3 "$root/.claude/hooks/ensure_data_dir.py")"
+  rel="$data/app/release"
+fi
 mkdir -p "$rel"
 
 cd "$root/companion/android"
