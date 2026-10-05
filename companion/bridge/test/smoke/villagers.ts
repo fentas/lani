@@ -138,7 +138,8 @@ export default async function villagers() {
     sleepsIn('smithy').ok && (sleepsIn('house:cellar') as any).villager.sleeps === 'house:cellar' && sleepsIn('hut:kitchen').ok && badSleeps.length === 0, badSleeps)
   const newer = validateVillager({ ...lukaFile, snores: true })
   check('an unknown key of a villager is left out, not refused (as an older bridge does with sleeps: the villager still loads)', newer.ok && !('snores' in (newer as any).villager), newer)
-  const sleepers = Object.fromEntries(cast.filter(v => v.sleeps).map(v => [v.id, v.sleeps]))
+  // by id: the cast's order is the directory listing's, which differs between file systems
+  const sleepers = Object.fromEntries(cast.filter(v => v.sleeps).map(v => [v.id, v.sleeps]).sort(([a], [b]) => String(a).localeCompare(String(b))))
   check('the four whose work is no home say where they sleep: Tone by his forge, Mojca in the school, Anton in Marko\'s cellar, Jože in Janez\'s living room',
     JSON.stringify(sleepers) === JSON.stringify({ anton: 'house:cellar', joze: 'house:livingroom', mojca: 'school', tone: 'smithy' }), sleepers)
   const counterparts = ['friuli', 'kaernten', 'lakeland'].map(c => {
