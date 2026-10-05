@@ -384,7 +384,9 @@ def tap_at(c):
 
 def qa_hook(command: str, link=None):
     """Asks the debug build [command] (app/QaHooks.kt): "zoom" zooms the camera on screen in, as its "Približaj · Zoom
-    in" action does; "happening:<scene>/<happening>" counts that happening as on ("happening:" lets it go). Then opens
+    in" action does; "happening:<scene>/<happening>" counts that happening as on ("happening:" lets it go); for recordings,
+    "bubbles:<n>" shows only the n bubbles nearest the fire and "clock:<f>" slows the towns' time ("bubbles:", "clock:"
+    undo them). Then opens
     [link] ("scene:<id>@<focus>"), if given. One intent to the running app (singleTop: nothing else changes)."""
     adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, command, *(("--es", OPEN, link) if link else ()))
     time.sleep(1.5)

@@ -52,13 +52,24 @@ class TownClock {
         val start = withFrameNanos { it }
         origin = start
         var last = -FRAME_NANOS
+        var prev = start
+        var t = 0L
         while (true) {
             withFrameNanos { now ->
-                val t = now - start
+                t += if (rate == 1f) now - prev else ((now - prev) * rate).toLong()
+                prev = now
                 if (frames) frame = t
                 if (t - last >= FRAME_NANOS) { last = t; tick = t }
             }
         }
+    }
+
+    companion object {
+        /**
+         * How fast the towns' and scenes' time runs against the wall's: 1, or less while a debug build's QA asks for it
+         * (app/QaHooks "clock:<f>"), so a slow emulator renders every frame of a recording that is sped up again later.
+         */
+        @Volatile var rate = 1f
     }
 }
 

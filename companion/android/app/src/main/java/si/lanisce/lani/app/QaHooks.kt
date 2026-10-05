@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.game.Mastery
+import si.lanisce.lani.game.render.TownClock
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.SceneSpec
 
@@ -24,6 +25,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "turns:type": the dialogs opened from now on ask every turn that tests a form typed into its gap, as if the learner
  *   had each rule secure ([typedTurns]; companion/SCENES.md, "Adaptive turns"): QA's typed turn with the keyboard up;
  *   "turns:" lets the learner's own masteries decide again.
+ * - "bubbles:<n>": the village shows only the n bubbles nearest the fire ([fewer]), for a recording that isn't crowded;
+ *   "bubbles:" shows them all again.
+ * - "clock:<f>": the towns' and scenes' time runs at f of the wall's (0.05 to 1; [TownClock.rate]), so a slow emulator
+ *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
+ *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -47,6 +53,10 @@ object QaHooks {
     var typedTurns = false
         private set
 
+    /** How many bubbles the village shows while QA asks for fewer ("bubbles:<n>"), or null: all of them. */
+    var bubbles by mutableStateOf<Int?>(null)
+        private set
+
     /** Does what [command] asks; [road] gets what is asked of the road ("mini", "car"); [forms] starts the forms' review. */
     fun handle(command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}) {
         if (!enabled || command.isNullOrBlank()) return
@@ -60,11 +70,20 @@ object QaHooks {
             }
             command == "forms:off" -> this.forms = false
             command.startsWith("turns:") -> typedTurns = command == "turns:type"
+            command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
+            command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
         }
     }
 
     /** The mastery a dialog's turns are asked by: [own] (the learner's), or secure for every rule while QA asks for typed turns. */
     fun mastery(own: (String) -> Mastery?): (String) -> Mastery? = if (enabled && typedTurns) { _ -> Mastery.SECURE } else own
+
+    /** [items] (the village's bubbles) as shown: all, or while QA asks for fewer the [bubbles] nearest by [distance], in their order. */
+    fun <T> fewer(items: List<T>, distance: (T) -> Float): List<T> {
+        val n = bubbles?.takeIf { enabled } ?: return items
+        val keep = items.indices.sortedBy { distance(items[it]) }.take(n).toSet()
+        return items.filterIndexed { i, _ -> i in keep }
+    }
 
     /** [active] with the happening QA counts as on first, when it is one of [scenes]' and isn't on already. */
     fun withForced(scenes: List<SceneSpec>, active: List<ActiveHappening>, key: String? = happening): List<ActiveHappening> {

@@ -8,6 +8,7 @@ import org.junit.Test
 import si.lanisce.lani.game.Adaptive
 import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.game.TurnMode
+import si.lanisce.lani.game.render.TownClock
 import si.lanisce.lani.game.scene.parseScene
 import java.io.File
 
@@ -25,6 +26,46 @@ class QaHooksTest {
         QaHooks.enabled = true
         QaHooks.handle("happening:")
         QaHooks.handle("turns:")
+        QaHooks.handle("bubbles:")
+        QaHooks.handle("clock:")
+    }
+
+    @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {
+        assertEquals(1f, TownClock.rate)
+        QaHooks.handle("clock:0.4")
+        assertEquals(0.4f, TownClock.rate)
+        QaHooks.handle("clock:0")
+        assertEquals(0.05f, TownClock.rate)
+        QaHooks.handle("clock:3")
+        assertEquals(1f, TownClock.rate)
+        QaHooks.handle("clock:0.5")
+        QaHooks.handle("clock:")
+        assertEquals(1f, TownClock.rate)
+        // a release build's time is the wall's
+        QaHooks.enabled = false
+        QaHooks.handle("clock:0.4")
+        assertEquals(1f, TownClock.rate)
+    }
+
+    @Test fun `fewer bubbles asked, the village shows the nearest ones in their order, until let go`() {
+        val far = listOf("a" to 9f, "b" to 1f, "c" to 5f, "d" to 2f, "e" to 7f)
+        val dist: (Pair<String, Float>) -> Float = { it.second }
+        assertEquals(far, QaHooks.fewer(far, dist))
+        QaHooks.handle("bubbles:3")
+        assertEquals(3, QaHooks.bubbles)
+        assertEquals(listOf("b", "c", "d"), QaHooks.fewer(far, dist).map { it.first })
+        QaHooks.handle("bubbles:0")
+        assertTrue(QaHooks.fewer(far, dist).isEmpty())
+        QaHooks.handle("bubbles:")
+        assertNull(QaHooks.bubbles)
+        assertEquals(far, QaHooks.fewer(far, dist))
+        // a release build shows them all
+        QaHooks.handle("bubbles:2")
+        QaHooks.enabled = false
+        assertEquals(far, QaHooks.fewer(far, dist))
+        QaHooks.handle("bubbles:1")
+        QaHooks.enabled = true
+        assertEquals(2, QaHooks.bubbles)
     }
 
     @Test fun `typed turns asked, a dialog's form turns are typed whatever the learner's masteries, until let go`() {
