@@ -42,7 +42,7 @@
     {
       "id": "panji",
       "lines": [
-        { "who": "anton", "sl": "Dober dan, Jan. Tiho, prosim. Čebele delajo.", "en": "Good day, Jan. Quietly, please. The bees are working.", "de": "Guten Tag, Jan. Leise, bitte. Die Bienen arbeiten.", "it": "Buongiorno, Jan. Piano, per favore. Le api lavorano.",
+        { "who": "anton", "sl": "Dober dan, {learner}. Tiho, prosim. Čebele delajo.", "en": "Good day, {learner}. Quietly, please. The bees are working.", "de": "Guten Tag, {learner}. Leise, bitte. Die Bienen arbeiten.", "it": "Buongiorno, {learner}. Piano, per favore. Le api lavorano.",
           "fx": { "smoke": 0.8 } },
         { "choices": [
           { "sl": "Dober dan. Zakaj dim?", "en": "Good day. Why the smoke?", "de": "Guten Tag. Warum der Rauch?", "it": "Buongiorno. Perché il fumo?", "ok": true,
@@ -50,7 +50,7 @@
           { "sl": "Živjo, Anton. Zakaj dim?", "en": "Hi, Anton. Why the smoke?", "de": "Hallo, Anton. Warum der Rauch?", "it": "Ciao, Anton. Perché il fumo?",
             "grammar": "ti-vi", "why": { "en": "Anton says vi to you and expects vi back: dober dan. Živjo is for friends and children.", "de": "Anton sagt vi zu dir und erwartet vi zurück: dober dan. Živjo ist für Freunde und Kinder.", "it": "Anton ti dà del vi e si aspetta il vi anche da te: dober dan. Živjo è per gli amici e i bambini." },
             "reply": { "sl": "Živjo? … Hm. Tako mi reče samo Zala.", "en": "Živjo? … Hm. Only Zala says that to me.", "de": "Živjo? … Hm. So sagt nur Zala zu mir.", "it": "Živjo? … Mm. Così mi saluta solo Zala." } },
-          { "sl": "Dober dan. Seveda, tiho bom.", "en": "Good day. Of course, I'll be quiet.", "de": "Guten Tag. Natürlich, ich bin leise.", "it": "Buongiorno. Certo, starò zitto.", "ok": true,
+          { "sl": "Dober dan. Seveda, tiho bom.", "en": "Good day. Of course, I'll be quiet.", "de": "Guten Tag. Natürlich, ich bin leise.", "it": "Buongiorno. Certo, starò {m:zitto|f:zitta}.", "ok": true,
             "reply": { "sl": "Hvala. … Čebele to čutijo.", "en": "Thank you. … The bees can feel it.", "de": "Danke. … Die Bienen spüren das.", "it": "Grazie. … Le api lo sentono." } }
         ] },
         { "who": "anton", "sl": "Poglejte končnice. Vsaka ima svojo sliko. Katera vam je všeč?", "en": "Look at the hive panels. Each has its own picture. Which one do you like?", "de": "Schauen Sie sich die Stirnbretter an. Jedes hat sein eigenes Bild. Welches gefällt Ihnen?", "it": "Guardi le tavolette delle arnie. Ognuna ha la sua immagine. Quale Le piace?" },
@@ -64,7 +64,7 @@
             "grammar": "pridevniki-ujemanje", "why": { "en": "Končnica is feminine: tista. Tisti goes with a masculine word (tisti panj).", "de": "Končnica ist weiblich: tista. Tisti gehört zu einem männlichen Wort (tisti panj).", "it": "Končnica è femminile: tista. Tisti va con una parola maschile (tisti panj)." },
             "reply": { "sl": "Tisti panj? … Hm, v njem so samo čebele.", "en": "Tisti panj (that hive)? … Hm, there are only bees in it.", "de": "Tisti panj (der Bienenstock da)? … Hm, da sind nur Bienen drin.", "it": "Tisti panj (quell'alveare)? … Mm, lì dentro ci sono solo api." } }
         ] },
-        { "who": "anton", "sl": "Zdaj pa počasi nazaj. Čebela vas ne bo pičila, če ste mirni.", "en": "And now slowly back. A bee won't sting you if you keep calm.", "de": "Und jetzt langsam zurück. Eine Biene sticht Sie nicht, wenn Sie ruhig bleiben.", "it": "E adesso piano, indietro. Un'ape non La pungerà, se sta calmo." },
+        { "who": "anton", "sl": "Zdaj pa počasi nazaj. Čebela vas ne bo pičila, če ste mirni.", "en": "And now slowly back. A bee won't sting you if you keep calm.", "de": "Und jetzt langsam zurück. Eine Biene sticht Sie nicht, wenn Sie ruhig bleiben.", "it": "E adesso piano, indietro. Un'ape non La pungerà, se sta {m:calmo|f:calma}." },
         { "choices": [
           { "sl": "Hvala. Grem počasi.", "en": "Thank you. I'm going slowly.", "de": "Danke. Ich gehe langsam.", "it": "Grazie. Vado piano.", "ok": true,
             "reply": { "sl": "Dobro. Pridite spet.", "en": "Good. Come again.", "de": "Gut. Kommen Sie wieder.", "it": "Bene. Torni ancora." } },
@@ -77,27 +77,27 @@
     {
       "id": "roj",
       "lines": [
-        { "who": "janez", "sl": "Fant! Poglej gor. Roj!", "en": "Lad! Look up. A swarm!", "de": "Junge! Schau nach oben. Ein Schwarm!", "it": "Ragazzo! Guarda su. Uno sciame!",
+        { "who": "janez", "sl": "{m:Fant|f:Dekle}! Poglej gor. Roj!", "en": "{m:Lad|f:Lass}! Look up. A swarm!", "de": "{m:Junge|f:Mädchen}! Schau nach oben. Ein Schwarm!", "it": "{m:Ragazzo|f:Ragazza}! Guarda su. Uno sciame!",
           "fx": { "swarm": 0.5 } },
         { "choices": [
           { "sl": "Kaj je to? Toliko čebel!", "en": "What is that? So many bees!", "de": "Was ist das? So viele Bienen!", "it": "Che cos'è? Quante api!", "ok": true,
             "reply": { "sl": "Roj. Stara matica gre z njimi v nov dom.", "en": "A swarm. The old queen goes with them to a new home.", "de": "Ein Schwarm. Die alte Königin zieht mit ihnen in ein neues Zuhause.", "it": "Uno sciame. La vecchia regina va con loro in una nuova casa." } },
           { "sl": "Ojoj, čebele! Ali pičijo?", "en": "Oh dear, bees! Do they sting?", "de": "Oje, Bienen! Stechen die?", "it": "Oddio, le api! Pungono?", "ok": true,
-            "reply": { "sl": "Ne boj se, fant. Roj je miren. Išče nov dom.", "en": "Don't be afraid, lad. A swarm is calm. It is looking for a new home.", "de": "Keine Angst, Junge. Ein Schwarm ist friedlich. Er sucht ein neues Zuhause.", "it": "Non avere paura, ragazzo. Lo sciame è tranquillo. Cerca una nuova casa." } },
+            "reply": { "sl": "Ne boj se, {m:fant|f:dekle}. Roj je miren. Išče nov dom.", "en": "Don't be afraid, {m:lad|f:lass}. A swarm is calm. It is looking for a new home.", "de": "Keine Angst, {m:Junge|f:Mädchen}. Ein Schwarm ist friedlich. Er sucht ein neues Zuhause.", "it": "Non avere paura, {m:ragazzo|f:ragazza}. Lo sciame è tranquillo. Cerca una nuova casa." } },
           { "sl": "Kdo je to? Toliko čebel!", "en": "Who is that? So many bees!", "de": "Wer ist das? So viele Bienen!", "it": "Chi è? Quante api!",
             "grammar": "vprasalnice", "why": { "en": "You are asking about a thing: kaj. Kdo is for people.", "de": "Du fragst nach einer Sache: kaj. Kdo ist für Menschen.", "it": "Chiedi di una cosa: kaj. Kdo è per le persone." },
-            "reply": { "sl": "Kdo? Cela vas čebel, fant!", "en": "Kdo (who)? A whole village of bees, lad!", "de": "Kdo (wer)? Ein ganzes Dorf voller Bienen, Junge!", "it": "Kdo (chi)? Un intero villaggio di api, ragazzo!" } }
+            "reply": { "sl": "Kdo? Cela vas čebel, {m:fant|f:dekle}!", "en": "Kdo (who)? A whole village of bees, {m:lad|f:lass}!", "de": "Kdo (wer)? Ein ganzes Dorf voller Bienen, {m:Junge|f:Mädchen}!", "it": "Kdo (chi)? Un intero villaggio di api, {m:ragazzo|f:ragazza}!" } }
         ] },
         { "who": "janez", "sl": "Letijo na lipo. Hitro, pokliči Antona!", "en": "They're flying to the linden. Quick, call Anton!", "de": "Sie fliegen zur Linde. Schnell, ruf Anton!", "it": "Volano verso il tiglio. Presto, chiama Anton!",
           "fx": { "swarm": 1 } },
         { "choices": [
           { "sl": "Grem! Anton! Roj je na lipi!", "en": "I'm going! Anton! The swarm is on the linden!", "de": "Ich gehe! Anton! Der Schwarm ist an der Linde!", "it": "Vado! Anton! Lo sciame è sul tiglio!", "ok": true,
-            "reply": { "sl": "Dobro, fant. Anton že gre.", "en": "Good, lad. Anton is coming already.", "de": "Gut, Junge. Anton kommt schon.", "it": "Bravo, ragazzo. Anton sta già arrivando." } },
+            "reply": { "sl": "Dobro, {m:fant|f:dekle}. Anton že gre.", "en": "Good, {m:lad|f:lass}. Anton is coming already.", "de": "Gut, {m:Junge|f:Mädchen}. Anton kommt schon.", "it": "{m:Bravo|f:Brava}, {m:ragazzo|f:ragazza}. Anton sta già arrivando." } },
           { "sl": "Grem! Anton! Roj je na lipo!", "en": "I'm going! Anton! The swarm is onto the linden!", "de": "Ich gehe! Anton! Der Schwarm ist an die Linde!", "it": "Vado! Anton! Lo sciame è verso il tiglio!",
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Where the swarm is: na + locative, na lipi. Na lipo is a direction (letijo na lipo).", "de": "Wo der Schwarm ist: na + Lokativ, na lipi. Na lipo ist eine Richtung (letijo na lipo).", "it": "Dove si trova lo sciame: na + locativo, na lipi. Na lipo è una direzione (letijo na lipo)." },
             "reply": { "sl": "Na lipo? Anton gleda, pa ne razume.", "en": "Na lipo? Anton is looking, but he doesn't get it.", "de": "Na lipo? Anton schaut, aber er versteht es nicht.", "it": "Na lipo? Anton guarda, ma non capisce." } }
         ] },
-        { "who": "janez", "sl": "Veš, fant, včasih je imela vsaka hiša svoj čebelnjak.", "en": "You know, lad, in the old days every house had its own bee house.", "de": "Weißt du, Junge, früher hatte jedes Haus sein eigenes Bienenhaus.", "it": "Sai, ragazzo, una volta ogni casa aveva il suo apiario." },
+        { "who": "janez", "sl": "Veš, {m:fant|f:dekle}, včasih je imela vsaka hiša svoj čebelnjak.", "en": "You know, {m:lad|f:lass}, in the old days every house had its own bee house.", "de": "Weißt du, {m:Junge|f:Mädchen}, früher hatte jedes Haus sein eigenes Bienenhaus.", "it": "Sai, {m:ragazzo|f:ragazza}, una volta ogni casa aveva il suo apiario." },
         { "choices": [
           { "sl": "Tudi vaša hiša?", "en": "Your house too?", "de": "Ihr Haus auch?", "it": "Anche la Sua casa?", "ok": true,
             "reply": { "sl": "Seveda. Moj oče je bil čebelar.", "en": "Of course. My father was a beekeeper.", "de": "Natürlich. Mein Vater war Imker.", "it": "Certo. Mio padre era apicoltore." } },
@@ -113,7 +113,7 @@
     {
       "id": "med",
       "lines": [
-        { "who": "zala", "sl": "Jan! Anton toči med! Poglej, kako teče!", "en": "Jan! Anton is taking the honey out! Look how it runs!", "de": "Jan! Anton holt den Honig heraus! Schau, wie er fließt!", "it": "Jan! Anton sta tirando fuori il miele! Guarda come cola!",
+        { "who": "zala", "sl": "{learner}! Anton toči med! Poglej, kako teče!", "en": "{learner}! Anton is taking the honey out! Look how it runs!", "de": "{learner}! Anton holt den Honig heraus! Schau, wie er fließt!", "it": "{learner}! Anton sta tirando fuori il miele! Guarda come cola!",
           "fx": { "honey": 1 } },
         { "choices": [
           { "sl": "Mmm, kako diši! Je sladek?", "en": "Mmm, how it smells! Is it sweet?", "de": "Mmm, wie das duftet! Ist er süß?", "it": "Mmm, che profumo! È dolce?", "ok": true,
@@ -139,9 +139,9 @@
         { "who": "zala", "sl": "Anton mi je dal kozarec za babico. Hočeš tudi ti enega?", "en": "Anton gave me a jar for grandma. Do you want one too?", "de": "Anton hat mir ein Glas für Oma gegeben. Willst du auch eins?", "it": "Anton mi ha dato un vasetto per la nonna. Ne vuoi uno anche tu?",
           "fx": { "honey": 0 } },
         { "choices": [
-          { "sl": "Rad, hvala! Tvoja babica ima rada med.", "en": "Gladly, thanks! Your grandma loves honey.", "de": "Gern, danke! Deine Oma liebt Honig.", "it": "Volentieri, grazie! Tua nonna adora il miele.", "ok": true,
+          { "sl": "{m:Rad|f:Rada}, hvala! Tvoja babica ima rada med.", "en": "Gladly, thanks! Your grandma loves honey.", "de": "Gern, danke! Deine Oma liebt Honig.", "it": "Volentieri, grazie! Tua nonna adora il miele.", "ok": true,
             "reply": { "sl": "Ja! Za potico. Pridi jutri, bo tudi zate.", "en": "Yes! For potica. Come tomorrow, there'll be some for you too.", "de": "Ja! Für die Potica. Komm morgen, dann gibt es auch welche für dich.", "it": "Sì! Per la potica. Vieni domani, ce ne sarà anche per te." } },
-          { "sl": "Rad, hvala! Tvoja babica ima rada meda.", "en": "Gladly, thanks! Your grandma loves of honey.", "de": "Gern, danke! Deine Oma liebt vom Honig.", "it": "Volentieri, grazie! Tua nonna adora di miele.",
+          { "sl": "{m:Rad|f:Rada}, hvala! Tvoja babica ima rada meda.", "en": "Gladly, thanks! Your grandma loves of honey.", "de": "Gern, danke! Deine Oma liebt vom Honig.", "it": "Volentieri, grazie! Tua nonna adora di miele.",
             "grammar": "tozilnik", "why": { "en": "Imeti rad takes the accusative: med. Meda is the genitive (kozarec meda).", "de": "Imeti rad steht mit dem Akkusativ: med. Meda ist der Genitiv (kozarec meda).", "it": "Imeti rad vuole l'accusativo: med. Meda è il genitivo (kozarec meda)." },
             "reply": { "sl": "Meda? Kdo je to? Babičina mačka?", "en": "Meda? Who's that? Grandma's cat?", "de": "Meda? Wer ist das? Omas Katze?", "it": "Meda? Chi è? La gatta della nonna?" } }
         ] }
@@ -154,7 +154,7 @@
       "count": { "from": "dice", "min": 6, "max": 16, "gender": "m" },
       "memory": { "sl": "jutro, ko sva štela panje", "en": "the morning we counted the hives", "de": "den Morgen, an dem wir die Bienenstöcke gezählt haben", "it": "la mattina in cui abbiamo contato le arnie" },
       "lines": [
-        { "who": "anton", "sl": "Dober dan, Jan. Tiho, prosim. … Preštejte panje. Počasi.", "en": "Good day, Jan. Quietly, please. … Count the hives. Slowly.", "de": "Guten Tag, Jan. Leise, bitte. … Zählen Sie die Bienenstöcke. Langsam.", "it": "Buongiorno, Jan. Piano, per favore. … Conti le arnie. Con calma.", "fx": { "smoke": 0.5 } },
+        { "who": "anton", "sl": "Dober dan, {learner}. Tiho, prosim. … Preštejte panje. Počasi.", "en": "Good day, {learner}. Quietly, please. … Count the hives. Slowly.", "de": "Guten Tag, {learner}. Leise, bitte. … Zählen Sie die Bienenstöcke. Langsam.", "it": "Buongiorno, {learner}. Piano, per favore. … Conti le arnie. Con calma.", "fx": { "smoke": 0.5 } },
         { "choices": [
           { "sl": "V čebelnjaku {je|sta|so|je} {n} {!panj|panja|panji|panjev}.", "en": "There {is|are} {n} {hive|hives} in the bee house.", "de": "Im Bienenhaus {ist|sind} {n} {Bienenstock|Bienenstöcke}.", "it": "Nell'apiario {c'è|ci sono} {n} {arnia|arnie}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {panj|panja|panji|panjev}.", "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {panj|panja|panji|panjev}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {panj|panja|panji|panjev}." },
@@ -176,14 +176,14 @@
             "why": { "en": "Na panju is on top of the hive. Inside it: v panju.", "de": "Na panju heißt oben auf dem Bienenstock. Drinnen: v panju.", "it": "Na panju è sopra l'arnia. Dentro: v panju." },
             "reply": { "sl": "Na strehi? … Ne, ne. Tam jih zebe.", "en": "On the roof? … No, no. They'd be cold up there.", "de": "Auf dem Dach? … Nein, nein. Da oben frieren sie.", "it": "Sul tetto? … No, no. Lassù avrebbero freddo." } }
         ] },
-        { "who": "anton", "sl": "Hvala, Jan. … Čebele so danes zadovoljne.", "en": "Thank you, Jan. … The bees are content today.", "de": "Danke, Jan. … Die Bienen sind heute zufrieden.", "it": "Grazie, Jan. … Oggi le api sono contente." }
+        { "who": "anton", "sl": "Hvala, {learner}. … Čebele so danes zadovoljne.", "en": "Thank you, {learner}. … The bees are content today.", "de": "Danke, {learner}. … Die Bienen sind heute zufrieden.", "it": "Grazie, {learner}. … Oggi le api sono contente." }
       ]
     },
     {
       "id": "panji-matica",
       "memory": { "sl": "matico, ki sva jo našla v panju", "en": "the queen we found in the hive", "de": "die Königin, die wir im Bienenstock gefunden haben", "it": "la regina che abbiamo trovato nell'arnia" },
       "lines": [
-        { "who": "anton", "sl": "Dober dan, Jan. … Odprl sem panj. Iščem matico.", "en": "Good day, Jan. … I've opened a hive. I'm looking for the queen.", "de": "Guten Tag, Jan. … Ich habe einen Bienenstock geöffnet. Ich suche die Königin.", "it": "Buongiorno, Jan. … Ho aperto un'arnia. Cerco la regina.", "fx": { "smoke": 0.8 } },
+        { "who": "anton", "sl": "Dober dan, {learner}. … Odprl sem panj. Iščem matico.", "en": "Good day, {learner}. … I've opened a hive. I'm looking for the queen.", "de": "Guten Tag, {learner}. … Ich habe einen Bienenstock geöffnet. Ich suche die Königin.", "it": "Buongiorno, {learner}. … Ho aperto un'arnia. Cerco la regina.", "fx": { "smoke": 0.8 } },
         { "choices": [
           { "sl": "Kaj je naloga matici?", "en": "What is the task to the queen?", "de": "Was ist die Aufgabe der Königin (Dativ)?", "it": "Qual è il compito alla regina?",
             "grammar": "rodilnik", "why": { "en": "Of the queen: the genitive, naloga matice. Matici is the dative (to the queen).", "de": "Der Königin: der Genitiv, naloga matice. Matici ist der Dativ (der Königin geben).", "it": "Della regina: il genitivo, naloga matice. Matici è il dativo (alla regina)." },
@@ -212,18 +212,18 @@
       "id": "roj-kosara",
       "memory": { "sl": "roj, ki sva ga ujela v košaro", "en": "the swarm we caught in a basket", "de": "den Schwarm, den wir in einem Korb gefangen haben", "it": "lo sciame che abbiamo preso in un cesto" },
       "lines": [
-        { "who": "janez", "sl": "Fant! Spet roj na lipi. Prinesi košaro, hitro!", "en": "Lad! A swarm on the linden again. Bring a basket, quick!", "de": "Junge! Wieder ein Schwarm an der Linde. Bring einen Korb, schnell!", "it": "Ragazzo! Di nuovo uno sciame sul tiglio. Porta un cesto, presto!", "fx": { "swarm": 0.6 } },
+        { "who": "janez", "sl": "{m:Fant|f:Dekle}! Spet roj na lipi. Prinesi košaro, hitro!", "en": "{m:Lad|f:Lass}! A swarm on the linden again. Bring a basket, quick!", "de": "{m:Junge|f:Mädchen}! Wieder ein Schwarm an der Linde. Bring einen Korb, schnell!", "it": "{m:Ragazzo|f:Ragazza}! Di nuovo uno sciame sul tiglio. Porta un cesto, presto!", "fx": { "swarm": 0.6 } },
         { "choices": [
           { "sl": "Katero košaro? Tista velika?", "en": "Which basket? That big one there (subject)?", "de": "Welchen Korb? Die große dort (Subjekt)?", "it": "Quale cesto? Quella grande là (soggetto)?",
             "grammar": "tozilnik", "why": { "en": "Prinesi takes the accusative: tisto veliko (košaro).", "de": "Prinesi steht mit dem Akkusativ: tisto veliko (košaro).", "it": "Prinesi vuole l'accusativo: tisto veliko (košaro)." },
-            "reply": { "sl": "Tista velika? … Lipa? Lipe ne moreš prinesti, fant.", "en": "That big one? … The linden? You can't bring a linden, lad.", "de": "Die große da? … Die Linde? Eine Linde kannst du nicht bringen, Junge.", "it": "Quella grande? … Il tiglio? Un tiglio non lo puoi portare, ragazzo." } },
+            "reply": { "sl": "Tista velika? … Lipa? Lipe ne moreš prinesti, {m:fant|f:dekle}.", "en": "That big one? … The linden? You can't bring a linden, {m:lad|f:lass}.", "de": "Die große da? … Die Linde? Eine Linde kannst du nicht bringen, {m:Junge|f:Mädchen}.", "it": "Quella grande? … Il tiglio? Un tiglio non lo puoi portare, {m:ragazzo|f:ragazza}." } },
           { "sl": "Katero košaro? Tisto veliko?", "en": "Which basket? That big one?", "de": "Welchen Korb? Den großen dort?", "it": "Quale cesto? Quello grande?", "ok": true,
             "reply": { "sl": "Tisto, ja. Pa hitro, dokler sedi.", "en": "That one, yes. But quick, while it sits still.", "de": "Den, ja. Aber schnell, solange er still sitzt.", "it": "Quello, sì. Ma presto, finché sta fermo." } },
           { "sl": "Katero košaro? Tistega velikega?", "en": "Which basket? That big fellow?", "de": "Welchen Korb? Den großen Kerl dort?", "it": "Quale cesto? Quel tipo grande?",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Košara is feminine: tisto veliko. Tistega velikega is for a masculine being (tistega velikega psa).", "de": "Košara ist weiblich: tisto veliko. Tistega velikega ist für ein männliches Lebewesen (tistega velikega psa).", "it": "Košara è femminile: tisto veliko. Tistega velikega è per un essere maschile (tistega velikega psa)." },
             "reply": { "sl": "Tistega velikega? … Antona? Ne, ne, košaro!", "en": "That big fellow? … Anton? No, no, the basket!", "de": "Den großen Kerl? … Anton? Nein, nein, den Korb!", "it": "Quel tipo grande? … Anton? No, no, il cesto!" } }
         ] },
-        { "who": "janez", "sl": "Zdaj pa tiho. Drži košaro pod rojem. … Tako! Ujela sva ga!", "en": "Now quiet. Hold the basket under the swarm. … There! We caught it!", "de": "Jetzt leise. Halt den Korb unter den Schwarm. … So! Wir zwei haben ihn gefangen!", "it": "Adesso zitto. Tieni il cesto sotto lo sciame. … Ecco! L'abbiamo preso!", "fx": { "swarm": 0.2 } },
+        { "who": "janez", "sl": "Zdaj pa tiho. Drži košaro pod rojem. … Tako! Ujela sva ga!", "en": "Now quiet. Hold the basket under the swarm. … There! We caught it!", "de": "Jetzt leise. Halt den Korb unter den Schwarm. … So! Wir zwei haben ihn gefangen!", "it": "Adesso {m:zitto|f:zitta}. Tieni il cesto sotto lo sciame. … Ecco! L'abbiamo preso!", "fx": { "swarm": 0.2 } },
         { "choices": [
           { "sl": "Midva sva prava čebelarja!", "en": "We two are real beekeepers!", "de": "Wir zwei sind echte Imker!", "it": "Noi due siamo veri apicoltori!", "ok": true,
             "reply": { "sl": "Ha. … Anton bo rekel isto. Mogoče.", "en": "Ha. … Anton will say the same. Maybe.", "de": "Ha. … Anton wird dasselbe sagen. Vielleicht.", "it": "Ah. … Anton dirà lo stesso. Forse." } },
@@ -234,13 +234,13 @@
             "grammar": "dvojina", "why": { "en": "Two people: the noun in the dual too, prava čebelarja.", "de": "Zwei Personen: auch das Nomen im Dual, prava čebelarja.", "it": "Due persone: anche il nome al duale, prava čebelarja." },
             "reply": { "sl": "En čebelar? Kdo, ti ali jaz?", "en": "One beekeeper? Who, you or me?", "de": "Ein Imker? Wer, du oder ich?", "it": "Un apicoltore? Chi, tu o io?" } }
         ] },
-        { "who": "janez", "sl": "Tako, fant. Počasi se daleč pride. Tudi z rojem.", "en": "There, lad. Slowly you get far. Even with a swarm.", "de": "So, Junge. Langsam kommt man weit. Auch mit einem Schwarm.", "it": "Ecco, ragazzo. Piano piano si va lontano. Anche con uno sciame.", "fx": { "swarm": 0 } }
+        { "who": "janez", "sl": "Tako, {m:fant|f:dekle}. Počasi se daleč pride. Tudi z rojem.", "en": "There, {m:lad|f:lass}. Slowly you get far. Even with a swarm.", "de": "So, {m:Junge|f:Mädchen}. Langsam kommt man weit. Auch mit einem Schwarm.", "it": "Ecco, {m:ragazzo|f:ragazza}. Piano piano si va lontano. Anche con uno sciame.", "fx": { "swarm": 0 } }
       ]
     },
     {
       "id": "med-zakaj",
       "lines": [
-        { "who": "zala", "sl": "Jan! Zakaj je med sladek? Zakaj?", "en": "Jan! Why is honey sweet? Why?", "de": "Jan! Warum ist Honig süß? Warum?", "it": "Jan! Perché il miele è dolce? Perché?", "fx": { "honey": 1 } },
+        { "who": "zala", "sl": "{learner}! Zakaj je med sladek? Zakaj?", "en": "{learner}! Why is honey sweet? Why?", "de": "{learner}! Warum ist Honig süß? Warum?", "it": "{learner}! Perché il miele è dolce? Perché?", "fx": { "honey": 1 } },
         { "choices": [
           { "sl": "Ker ga čebele delajo iz cvetovi.", "en": "Because the bees make it from flowers (the wrong ending).", "de": "Weil die Bienen ihn aus Blüten machen (falsche Endung).", "it": "Perché le api lo fanno dai fiori (desinenza sbagliata).",
             "grammar": "rodilnik-predlogi", "why": { "en": "Iz takes the genitive: iz cvetov.", "de": "Iz steht mit dem Genitiv: iz cvetov.", "it": "Iz vuole il genitivo: iz cvetov." },
@@ -269,7 +269,7 @@
       "id": "med-pik",
       "memory": { "sl": "večer, ko me je pičila čebela", "en": "the evening a bee stung me", "de": "den Abend, an dem mich eine Biene gestochen hat", "it": "la sera in cui mi ha punto un'ape" },
       "lines": [
-        { "who": "zala", "sl": "Au! Jan! Hotela sem med, pa me je pičila čebela!", "en": "Ouch! Jan! I wanted some honey, and a bee stung me!", "de": "Au! Jan! Ich wollte Honig, und eine Biene hat mich gestochen!", "it": "Ahi! Jan! Volevo il miele, e un'ape mi ha punto!" },
+        { "who": "zala", "sl": "Au! {learner}! Hotela sem med, pa me je pičila čebela!", "en": "Ouch! {learner}! I wanted some honey, and a bee stung me!", "de": "Au! {learner}! Ich wollte Honig, und eine Biene hat mich gestochen!", "it": "Ahi! {learner}! Volevo il miele, e un'ape mi ha punto!" },
         { "choices": [
           { "sl": "Joj! Te zelo bolim?", "en": "Oh no! Do I hurt you a lot?", "de": "Oje! Tue ich dir sehr weh?", "it": "Oh no! Ti faccio molto male?",
             "grammar": "glagoli-sedanjik", "why": { "en": "Bolim is I hurt. The sting hurts: boli.", "de": "Bolim heißt ich tue weh. Der Stich tut weh: boli.", "it": "Bolim vuol dire io faccio male. È la puntura che fa male: boli." },
@@ -278,7 +278,7 @@
             "reply": { "sl": "Malo. Ampak ne jočem. Nisem majhna!", "en": "A bit. But I'm not crying. I'm not small!", "de": "Ein bisschen. Aber ich weine nicht. Ich bin nicht klein!", "it": "Un po'. Ma non piango. Non sono piccola!" } },
           { "sl": "Joj! Ti zelo boli?", "en": "Oh no! Does it hurt to you a lot?", "de": "Oje! Tut es zu dir sehr weh?", "it": "Oh no! Fa molto male a te?",
             "grammar": "tozilnik", "why": { "en": "Boleti (to hurt) takes the accusative: te boli (it hurts you).", "de": "Boleti (wehtun) steht mit dem Akkusativ: te boli (es tut dir weh).", "it": "Boleti (far male) vuole l'accusativo: te boli (ti fa male)." },
-            "reply": { "sl": "Ti boli? Hm … Jan, ne razumem. Au, au!", "en": "Ti boli? Hm … Jan, I don't get it. Ouch, ouch!", "de": "Ti boli? Hm … Jan, das verstehe ich nicht. Au, au!", "it": "Ti boli? Mm … Jan, non capisco. Ahi, ahi!" } }
+            "reply": { "sl": "Ti boli? Hm … {learner}, ne razumem. Au, au!", "en": "Ti boli? Hm … {learner}, I don't get it. Ouch, ouch!", "de": "Ti boli? Hm … {learner}, das verstehe ich nicht. Au, au!", "it": "Ti boli? Mm … {learner}, non capisco. Ahi, ahi!" } }
         ] },
         { "who": "zala", "sl": "Kdaj bo nehalo boleti? Kdaj?", "en": "When will it stop hurting? When?", "de": "Wann hört es auf wehzutun? Wann?", "it": "Quando smetterà di fare male? Quando?" },
         { "choices": [
@@ -291,7 +291,7 @@
             "grammar": "kdaj-cas", "why": { "en": "Čez takes the accusative: čez eno uro.", "de": "Čez steht mit dem Akkusativ: čez eno uro.", "it": "Čez vuole l'accusativo: čez eno uro." },
             "reply": { "sl": "Čez ena ura? Kako? Povej še enkrat, počasi.", "en": "Čez ena ura? What? Say it again, slowly.", "de": "Čez ena ura? Wie bitte? Sag es noch einmal, langsam.", "it": "Čez ena ura? Come? Ridillo, piano." } }
         ] },
-        { "who": "zala", "sl": "Hvala, Jan. Ti si dober zdravnik. Skoraj tako dober kot babica.", "en": "Thanks, Jan. You're a good doctor. Almost as good as grandma.", "de": "Danke, Jan. Du bist ein guter Arzt. Fast so gut wie Oma.", "it": "Grazie, Jan. Sei un bravo dottore. Quasi bravo come la nonna." }
+        { "who": "zala", "sl": "Hvala, {learner}. Ti si {m:dober zdravnik|f:dobra zdravnica}. Skoraj tako {m:dober|f:dobra} kot babica.", "en": "Thanks, {learner}. You're a good doctor. Almost as good as grandma.", "de": "Danke, {learner}. Du bist {m:ein guter Arzt|f:eine gute Ärztin}. Fast so gut wie Oma.", "it": "Grazie, {learner}. Sei {m:un bravo dottore|f:una brava dottoressa}. Quasi {m:bravo|f:brava} come la nonna." }
       ]
     }
   ]

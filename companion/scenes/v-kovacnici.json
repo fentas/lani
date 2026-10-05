@@ -38,7 +38,7 @@
       "memory": { "sl": "meh in iskre v kovačnici", "en": "the bellows and the sparks in the smithy", "de": "den Blasebalg und die Funken in der Schmiede", "it": "il mantice e le scintille nella fucina" } },
     { "id": "kolo", "title": { "sl": "Markov voz ima zlomljeno kolo", "en": "Marko's cart has a broken wheel", "de": "Markos Wagen hat ein gebrochenes Rad", "it": "Il carro di Marko ha una ruota rotta" }, "who": "marko",
       "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "kolo", "dialogs": ["kolo-steklenice", "kolo-tvoj", "kolo"], "reward": { "wisdom": 15 }, "marker": "🛞", "needs": { "level": 3 },
-      "memory": { "sl": "kolo, ki si ga čakal z mano pri Tonetu", "en": "the wheel you waited for with me at Tone's", "de": "das Rad, auf das du mit mir bei Tone gewartet hast", "it": "la ruota che hai aspettato con me da Tone" } },
+      "memory": { "sl": "kolo, ki si ga {m:čakal|f:čakala} z mano pri Tonetu", "en": "the wheel you waited for with me at Tone's", "de": "das Rad, auf das du mit mir bei Tone gewartet hast", "it": "la ruota che hai aspettato con me da Tone" } },
     { "id": "narocilo", "title": { "sl": "Naročilo iz Gorice", "en": "An order from Gorizia", "de": "Ein Auftrag aus Görz", "it": "Un ordine da Gorizia" }, "who": "tone",
       "when": ["evening"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "narocilo", "dialogs": ["narocilo-sreda", "narocilo"], "reward": { "stone": 20 }, "marker": "📒",
       "memory": { "sl": "naročilo iz Gorice, ki sva ga napisala brez napake", "en": "the order from Gorizia we wrote without a mistake", "de": "den Auftrag aus Görz, den wir ohne Fehler geschrieben haben", "it": "l'ordine da Gorizia che abbiamo scritto senza errori" } }
@@ -87,7 +87,7 @@
     {
       "id": "meh",
       "lines": [
-        { "who": "nejc", "sl": "Jan! Tone mi pusti gnati meh. Poglej: gor, dol, gor, dol!", "en": "Jan! Tone lets me work the bellows. Look: up, down, up, down!", "de": "Jan! Tone lässt mich den Blasebalg bedienen. Schau: rauf, runter, rauf, runter!", "it": "Jan! Tone mi lascia azionare il mantice. Guarda: su, giù, su, giù!",
+        { "who": "nejc", "sl": "{learner}! Tone mi pusti gnati meh. Poglej: gor, dol, gor, dol!", "en": "{learner}! Tone lets me work the bellows. Look: up, down, up, down!", "de": "{learner}! Tone lässt mich den Blasebalg bedienen. Schau: rauf, runter, rauf, runter!", "it": "{learner}! Tone mi lascia azionare il mantice. Guarda: su, giù, su, giù!",
           "fx": { "forge": 1 } },
         { "choices": [
           { "sl": "Super! Lahko tudi jaz poskusim?", "en": "Great! Can I try too?", "de": "Super! Kann ich es auch probieren?", "it": "Forte! Posso provare anch'io?", "ok": true,
@@ -127,7 +127,7 @@
     {
       "id": "kolo",
       "lines": [
-        { "who": "marko", "sl": "Ciao, Jan! Moj voz ima zlomljeno kolo. Tone ga popravlja. Čakaš z mano?", "en": "Ciao, Jan! My cart has a broken wheel. Tone is repairing it. Will you wait with me? (ciao: Primorska hello, from Italian)", "de": "Ciao, Jan! Mein Wagen hat ein gebrochenes Rad. Tone repariert es. Wartest du mit mir? (ciao: in Primorska „hallo“, aus dem Italienischen)", "it": "Ciao, Jan! Il mio carro ha una ruota rotta. Tone la sta aggiustando. Aspetti con me? (ciao: il saluto della Primorska, preso dall'italiano)",
+        { "who": "marko", "sl": "Ciao, {learner}! Moj voz ima zlomljeno kolo. Tone ga popravlja. Čakaš z mano?", "en": "Ciao, {learner}! My cart has a broken wheel. Tone is repairing it. Will you wait with me? (ciao: Primorska hello, from Italian)", "de": "Ciao, {learner}! Mein Wagen hat ein gebrochenes Rad. Tone repariert es. Wartest du mit mir? (ciao: in Primorska „hallo“, aus dem Italienischen)", "it": "Ciao, {learner}! Il mio carro ha una ruota rotta. Tone la sta aggiustando. Aspetti con me? (ciao: il saluto della Primorska, preso dall'italiano)",
           "fx": { "sparks": 0.6 } },
         { "choices": [
           { "sl": "Seveda, čakam s tabo. Kaj se je zgodilo?", "en": "Of course, I will wait with you. What happened?", "de": "Klar, ich warte mit dir. Was ist passiert?", "it": "Certo, aspetto con te. Cos'è successo?", "ok": true,
@@ -137,7 +137,7 @@
             "reply": { "sl": "S tebe? Allora … kaj praviš?", "en": "S tebe? Allora … what are you saying?", "de": "S tebe? Allora … was sagst du?", "it": "S tebe? Allora … cosa dici?" } },
           { "sl": "Seveda, čakam s tabo. Kaj je zgodilo?", "en": "Of course, I will wait with you. What happened?", "de": "Klar, ich warte mit dir. Was ist passiert?", "it": "Certo, aspetto con te. Cos'è successo?",
             "grammar": "povratni-glagoli", "why": { "en": "Zgoditi se needs se: kaj se je zgodilo? (what happened).", "de": "Zgoditi se braucht se: kaj se je zgodilo? (was ist passiert).", "it": "Zgoditi se vuole il se: kaj se je zgodilo? (cos'è successo)." },
-            "reply": { "sl": "Kaj je zgodilo? Počasi, Jan, imava čas!", "en": "Kaj je zgodilo? Slowly, Jan, we've got time!", "de": "Kaj je zgodilo? Langsam, Jan, wir haben Zeit!", "it": "Kaj je zgodilo? Piano, Jan, abbiamo tempo!" } }
+            "reply": { "sl": "Kaj je zgodilo? Počasi, {learner}, imava čas!", "en": "Kaj je zgodilo? Slowly, {learner}, we've got time!", "de": "Kaj je zgodilo? Langsam, {learner}, wir haben Zeit!", "it": "Kaj je zgodilo? Piano, {learner}, abbiamo tempo!" } }
         ] },
         { "who": "marko", "sl": "Poln voz vina, pa kolo stran. Na srečo nobena steklenica ni razbita!", "en": "A cart full of wine, and the wheel off. Luckily not one bottle is broken!", "de": "Ein Wagen voller Wein, und das Rad ab. Zum Glück ist keine einzige Flasche kaputt!", "it": "Un carro pieno di vino, e la ruota via. Per fortuna non si è rotta nemmeno una bottiglia!" },
         { "choices": [
@@ -150,7 +150,7 @@
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Where the bottles are is a place: v + locative, v vozu. V voz is a direction (into the cart).", "de": "Wo die Flaschen sind, ist ein Ort: v + Lokativ, v vozu. V voz ist eine Richtung (in den Wagen hinein).", "it": "Dove sono le bottiglie è un luogo: v + locativo, v vozu. V voz è una direzione (dentro il carro)." },
             "reply": { "sl": "V voz? Še več? Ne, ne, dovolj je vina!", "en": "V voz (into the cart)? Even more? No, no, that's enough wine!", "de": "V voz (in den Wagen hinein)? Noch mehr? Nein, nein, genug Wein!", "it": "V voz (dentro il carro)? Ancora? No, no, basta vino!" } }
         ] },
-        { "who": "marko", "sl": "Tone je končal! Kolo je novo. Jan, ena steklenica je zate. Za družbo.", "en": "Tone has finished! The wheel is new. Jan, one bottle is for you. For the company.", "de": "Tone ist fertig! Das Rad ist neu. Jan, eine Flasche ist für dich. Für die Gesellschaft.", "it": "Tone ha finito! La ruota è nuova. Jan, una bottiglia è per te. Per la compagnia.",
+        { "who": "marko", "sl": "Tone je končal! Kolo je novo. {learner}, ena steklenica je zate. Za družbo.", "en": "Tone has finished! The wheel is new. {learner}, one bottle is for you. For the company.", "de": "Tone ist fertig! Das Rad ist neu. {learner}, eine Flasche ist für dich. Für die Gesellschaft.", "it": "Tone ha finito! La ruota è nuova. {learner}, una bottiglia è per te. Per la compagnia.",
           "fx": { "sparks": 0 } },
         { "choices": [
           { "sl": "Hvala, Marko! Na zdravje!", "en": "Thanks, Marko! Cheers!", "de": "Danke, Marko! Prost!", "it": "Grazie, Marko! Salute!", "ok": true,
@@ -159,14 +159,14 @@
             "why": { "en": "Dober tek is for a meal. With a drink you say na zdravje.", "de": "Dober tek sagt man zum Essen. Beim Trinken sagt man na zdravje.", "it": "Dober tek si dice per un pasto. Quando si beve si dice na zdravje." },
             "reply": { "sl": "Dober tek? Ha ha, kje pa je pršut?", "en": "Dober tek (enjoy your meal)? Ha ha, where's the prosciutto, then?", "de": "Dober tek (guten Appetit)? Haha, und wo ist der Schinken?", "it": "Dober tek (buon appetito)? Ah ah, e il prosciutto dov'è?" } },
           { "sl": "Zame? Hvala lepa, Marko!", "en": "For me? Thank you very much, Marko!", "de": "Für mich? Vielen Dank, Marko!", "it": "Per me? Grazie mille, Marko!", "ok": true,
-            "reply": { "sl": "Seveda, zate! Ciao, Jan!", "en": "Of course, for you! Ciao, Jan!", "de": "Klar, für dich! Ciao, Jan!", "it": "Certo, per te! Ciao, Jan!" } }
+            "reply": { "sl": "Seveda, zate! Ciao, {learner}!", "en": "Of course, for you! Ciao, {learner}!", "de": "Klar, für dich! Ciao, {learner}!", "it": "Certo, per te! Ciao, {learner}!" } }
         ] }
       ]
     },
     {
       "id": "narocilo",
       "lines": [
-        { "who": "tone", "sl": "Jan. Naročilo iz Gorice. Jaz slabo pišem. Ti piši, jaz govorim.", "en": "Jan. An order from Gorizia. I write badly. You write, I will talk.", "de": "Jan. Ein Auftrag aus Görz. Ich schreibe schlecht. Schreib du, ich rede.", "it": "Jan. Un ordine da Gorizia. Io scrivo male. Scrivi tu, io parlo." },
+        { "who": "tone", "sl": "{learner}. Naročilo iz Gorice. Jaz slabo pišem. Ti piši, jaz govorim.", "en": "{learner}. An order from Gorizia. I write badly. You write, I will talk.", "de": "{learner}. Ein Auftrag aus Görz. Ich schreibe schlecht. Schreib du, ich rede.", "it": "{learner}. Un ordine da Gorizia. Io scrivo male. Scrivi tu, io parlo." },
         { "choices": [
           { "sl": "Prav. Pišem. Kaj naročajo?", "en": "OK. I am writing. What are they ordering?", "de": "Gut. Ich schreibe. Was bestellen sie?", "it": "Va bene. Scrivo. Che cosa ordinano?", "ok": true,
             "reply": { "sl": "Deset podkev. Piši: deset podkev.", "en": "Ten horseshoes. Write: ten horseshoes.", "de": "Zehn Hufeisen. Schreib: zehn Hufeisen.", "it": "Dieci ferri di cavallo. Scrivi: dieci ferri di cavallo." } },
@@ -227,7 +227,7 @@
             "reply": { "sl": "Na svidenje. Jutri spet.", "en": "Goodbye. Again tomorrow.", "de": "Auf Wiedersehen. Morgen wieder.", "it": "Arrivederci. Domani di nuovo." } },
           { "sl": "Prosim. Lahko noč, Tone!", "en": "You're welcome. Good night, Tone!", "de": "Bitte. Gute Nacht, Tone!", "it": "Prego. Buona notte, Tone!",
             "why": { "en": "It's morning: na svidenje (goodbye). Lahko noč is for the night, before bed.", "de": "Es ist Morgen: na svidenje (auf Wiedersehen). Lahko noč sagt man in der Nacht, vor dem Schlafen.", "it": "È mattina: na svidenje (arrivederci). Lahko noč si dice di notte, prima di dormire." },
-            "reply": { "sl": "Lahko noč? Zjutraj? Pojdi spat, če si truden.", "en": "Good night? In the morning? Go to bed if you're tired.", "de": "Gute Nacht? Am Morgen? Geh schlafen, wenn du müde bist.", "it": "Buona notte? Di mattina? Va' a dormire, se sei stanco." } },
+            "reply": { "sl": "Lahko noč? Zjutraj? Pojdi spat, če si {m:truden|f:trudna}.", "en": "Good night? In the morning? Go to bed if you're tired.", "de": "Gute Nacht? Am Morgen? Geh schlafen, wenn du müde bist.", "it": "Buona notte? Di mattina? Va' a dormire, se sei {m:stanco|f:stanca}." } },
           { "sl": "Ni za kaj. Adijo!", "en": "Don't mention it. Bye!", "de": "Keine Ursache. Tschüss!", "it": "Di niente. Ciao!", "ok": true,
             "reply": { "sl": "Adijo. Pa pridi spet.", "en": "Bye. Come again.", "de": "Tschüss. Komm wieder.", "it": "Ciao. Torna ancora." } }
         ] }
@@ -264,12 +264,12 @@
     {
       "id": "meh-pazi",
       "lines": [
-        { "who": "nejc", "sl": "Jan! Tone pije kavo. Jaz gonim meh. Glej, kako velik ogenj!", "en": "Jan! Tone is having coffee. I'm working the bellows. Look how big the fire is!", "de": "Jan! Tone trinkt Kaffee. Ich mache den Blasebalg. Schau, wie groß das Feuer ist!", "it": "Jan! Tone beve il caffè. Io aziono il mantice. Guarda che fuoco grande!",
+        { "who": "nejc", "sl": "{learner}! Tone pije kavo. Jaz gonim meh. Glej, kako velik ogenj!", "en": "{learner}! Tone is having coffee. I'm working the bellows. Look how big the fire is!", "de": "{learner}! Tone trinkt Kaffee. Ich mache den Blasebalg. Schau, wie groß das Feuer ist!", "it": "{learner}! Tone beve il caffè. Io aziono il mantice. Guarda che fuoco grande!",
           "fx": { "forge": 1 } },
         { "choices": [
-          { "sl": "Nejc, pazim! Iskre letijo!", "en": "Nejc, I'm careful! Sparks are flying!", "de": "Nejc, ich pass auf! Funken fliegen!", "it": "Nejc, sto attento! Volano scintille!",
-            "grammar": "velelnik", "why": { "en": "You're telling Nejc what to do: the imperative, pazi! Pazim means 'I am careful'.", "de": "Du sagst Nejc, was er tun soll: der Imperativ, pazi! Pazim heißt ‚ich passe auf‘.", "it": "Dici a Nejc che cosa fare: l'imperativo, pazi! Pazim significa 'sto attento io'." },
-            "reply": { "sl": "Ti paziš? Super! Potem si ti na vrsti.", "en": "You're careful? Great! Then it's your turn.", "de": "Du passt auf? Super! Dann bist du dran.", "it": "Stai attento tu? Forte! Allora tocca a te." } },
+          { "sl": "Nejc, pazim! Iskre letijo!", "en": "Nejc, I'm careful! Sparks are flying!", "de": "Nejc, ich pass auf! Funken fliegen!", "it": "Nejc, sto {m:attento|f:attenta}! Volano scintille!",
+            "grammar": "velelnik", "why": { "en": "You're telling Nejc what to do: the imperative, pazi! Pazim means 'I am careful'.", "de": "Du sagst Nejc, was er tun soll: der Imperativ, pazi! Pazim heißt ‚ich passe auf‘.", "it": "Dici a Nejc che cosa fare: l'imperativo, pazi! Pazim significa 'sto {m:attento|f:attenta} io'." },
+            "reply": { "sl": "Ti paziš? Super! Potem si ti na vrsti.", "en": "You're careful? Great! Then it's your turn.", "de": "Du passt auf? Super! Dann bist du dran.", "it": "Stai {m:attento|f:attenta} tu? Forte! Allora tocca a te." } },
           { "sl": "Nejc, pazite! Iskre letijo!", "en": "Nejc, (vi) be careful! Sparks are flying!", "de": "Nejc, passen Sie auf! Funken fliegen!", "it": "Nejc, stia attento (vi)! Volano scintille!",
             "grammar": "ti-vi", "why": { "en": "Nejc is a child, and one person: ti, pazi! Pazite is vi.", "de": "Nejc ist ein Kind und eine Person: ti, pazi! Pazite ist vi.", "it": "Nejc è un bambino, e una persona sola: ti, pazi! Pazite è il vi." },
             "reply": { "sl": "Pazite? Kdo še? Tukaj sva samo midva!", "en": "Pazite (you all)? Who else? It's just the two of us here!", "de": "Pazite (ihr alle)? Wer noch? Wir sind doch nur zu zweit!", "it": "Pazite (voi)? Chi altro? Qui siamo solo noi due!" } },
@@ -292,7 +292,7 @@
       "id": "kolo-steklenice",
       "count": { "from": "dice", "min": 98, "max": 106, "gender": "f" },
       "lines": [
-        { "who": "marko", "sl": "Ciao, Jan! Tone popravlja moje kolo. Medtem pa preštejva, koliko vina imam v vozu!", "en": "Ciao, Jan! Tone is fixing my wheel. Meanwhile, let's count how much wine I've got in the cart!", "de": "Ciao, Jan! Tone repariert mein Rad. Inzwischen zählen wir zwei, wie viel Wein ich im Wagen habe!", "it": "Ciao, Jan! Tone mi sta aggiustando la ruota. Intanto contiamo quanto vino ho nel carro!",
+        { "who": "marko", "sl": "Ciao, {learner}! Tone popravlja moje kolo. Medtem pa preštejva, koliko vina imam v vozu!", "en": "Ciao, {learner}! Tone is fixing my wheel. Meanwhile, let's count how much wine I've got in the cart!", "de": "Ciao, {learner}! Tone repariert mein Rad. Inzwischen zählen wir zwei, wie viel Wein ich im Wagen habe!", "it": "Ciao, {learner}! Tone mi sta aggiustando la ruota. Intanto contiamo quanto vino ho nel carro!",
           "fx": { "sparks": 0.6 } },
         { "choices": [
           { "sl": "V vozu {je|sta|so|je} {n} {!steklenica|steklenici|steklenice|steklenic}.", "en": "There {is|are} {n} {!bottle|bottles} in the cart.", "de": "Im Wagen {ist|sind} {n} {!Flasche|Flaschen}.", "it": "Nel carro {c'è|ci sono} {n} {!bottiglia|bottiglie}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
@@ -319,7 +319,7 @@
     {
       "id": "kolo-tvoj",
       "lines": [
-        { "who": "marko", "sl": "Ciao, Jan! Poglej moj voz. Star je, ampak dober. Samo kolo je zlomljeno.", "en": "Ciao, Jan! Look at my cart. It's old, but good. Only the wheel is broken.", "de": "Ciao, Jan! Schau dir meinen Wagen an. Er ist alt, aber gut. Nur das Rad ist kaputt.", "it": "Ciao, Jan! Guarda il mio carro. È vecchio, ma buono. Solo la ruota è rotta.",
+        { "who": "marko", "sl": "Ciao, {learner}! Poglej moj voz. Star je, ampak dober. Samo kolo je zlomljeno.", "en": "Ciao, {learner}! Look at my cart. It's old, but good. Only the wheel is broken.", "de": "Ciao, {learner}! Schau dir meinen Wagen an. Er ist alt, aber gut. Nur das Rad ist kaputt.", "it": "Ciao, {learner}! Guarda il mio carro. È vecchio, ma buono. Solo la ruota è rotta.",
           "fx": { "sparks": 0.6 } },
         { "choices": [
           { "sl": "Vaš voz je lep! In Tone je dober kovač.", "en": "Your (vi) cart is nice! And Tone is a good smith.", "de": "Ihr Wagen ist schön! Und Tone ist ein guter Schmied.", "it": "Il Suo carro è bello! E Tone è un bravo fabbro.",
@@ -329,15 +329,15 @@
             "reply": { "sl": "Grazie! Star je štirideset let.", "en": "Grazie! It's forty years old.", "de": "Grazie! Er ist vierzig Jahre alt.", "it": "Grazie! Ha quarant'anni." } },
           { "sl": "Tvoja voz je lep! In Tone je dober kovač.", "en": "Your (feminine) cart is nice! And Tone is a good smith.", "de": "Deine Wagen ist schön! Und Tone ist ein guter Schmied.", "it": "La tua carro è bello! E Tone è un bravo fabbro.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Voz (cart) is masculine: tvoj voz. Tvoja is for feminine words (tvoja steklenica).", "de": "Voz (Wagen) ist männlich: tvoj voz. Tvoja steht bei weiblichen Wörtern (tvoja steklenica).", "it": "Voz (carro) è maschile: tvoj voz. Tvoja è per le parole femminili (tvoja steklenica)." },
-            "reply": { "sl": "Tvoja? Moj voz ni gospa, Jan! Ha ha.", "en": "Tvoja (her)? My cart is no lady, Jan! Ha ha.", "de": "Tvoja (weiblich)? Mein Wagen ist keine Dame, Jan! Haha.", "it": "Tvoja (femminile)? Il mio carro non è una signora, Jan! Ah ah." } }
+            "reply": { "sl": "Tvoja? Moj voz ni gospa, {learner}! Ha ha.", "en": "Tvoja (her)? My cart is no lady, {learner}! Ha ha.", "de": "Tvoja (weiblich)? Mein Wagen ist keine Dame, {learner}! Haha.", "it": "Tvoja (femminile)? Il mio carro non è una signora, {learner}! Ah ah." } }
         ] },
-        { "who": "marko", "sl": "Kaj pa ti, Jan? Imaš kolo? Tisto z dvema kolesoma, ha ha.", "en": "What about you, Jan? Do you have a kolo? The one with two wheels, ha ha. (kolo: a wheel, and a bike too)", "de": "Und du, Jan? Hast du ein kolo? Das mit zwei Rädern, haha. (kolo: ein Rad, und auch ein Fahrrad)", "it": "E tu, Jan? Hai un kolo? Quello con due ruote, ah ah. (kolo: ruota, e anche bicicletta)" },
+        { "who": "marko", "sl": "Kaj pa ti, {learner}? Imaš kolo? Tisto z dvema kolesoma, ha ha.", "en": "What about you, {learner}? Do you have a kolo? The one with two wheels, ha ha. (kolo: a wheel, and a bike too)", "de": "Und du, {learner}? Hast du ein kolo? Das mit zwei Rädern, haha. (kolo: ein Rad, und auch ein Fahrrad)", "it": "E tu, {learner}? Hai un kolo? Quello con due ruote, ah ah. (kolo: ruota, e anche bicicletta)" },
         { "choices": [
           { "sl": "Ja. Moj kolo je doma.", "en": "Yes. My (masculine) bike is at home.", "de": "Ja. Mein (männlich) Fahrrad ist zu Hause.", "it": "Sì. Il mio (maschile) bici è a casa.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Kolo is neuter: moje kolo. Moj is for masculine words (moj voz).", "de": "Kolo ist sächlich: moje kolo. Moj steht bei männlichen Wörtern (moj voz).", "it": "Kolo è neutro: moje kolo. Moj è per le parole maschili (moj voz)." },
             "reply": { "sl": "Moj kolo? Allora, je kolo zdaj fant? Ha ha.", "en": "Moj kolo? Allora, is the bike a boy now? Ha ha.", "de": "Moj kolo? Allora, ist das Rad jetzt ein Junge? Haha.", "it": "Moj kolo? Allora, adesso la bici è un maschio? Ah ah." } },
           { "sl": "Ja. Moje kolo je doma.", "en": "Yes. My bike is at home.", "de": "Ja. Mein Fahrrad ist zu Hause.", "it": "Sì. La mia bici è a casa.", "ok": true,
-            "reply": { "sl": "Bravo! Pridi z njim v Brda!", "en": "Bravo! Ride it over to Brda!", "de": "Bravo! Komm damit nach Brda!", "it": "Bravo! Vieni in bici nel Collio!" } }
+            "reply": { "sl": "Bravo! Pridi z njim v Brda!", "en": "Bravo! Ride it over to Brda!", "de": "Bravo! Komm damit nach Brda!", "it": "{m:Bravo|f:Brava}! Vieni in bici nel Collio!" } }
         ] },
         { "who": "marko", "sl": "Tone, grazie! Moj voz ima spet štiri kolesa.", "en": "Tone, grazie! My cart has four wheels again.", "de": "Tone, grazie! Mein Wagen hat wieder vier Räder.", "it": "Tone, grazie! Il mio carro ha di nuovo quattro ruote.",
           "fx": { "sparks": 0 } }

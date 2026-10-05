@@ -45,7 +45,7 @@
     {
       "id": "klop",
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, Jan! Klop pred hišo se maje. Popraviva jo!", "en": "Good morning, Jan! The bench in front of the house wobbles. Let's mend it, you and me!", "de": "Guten Morgen, Jan! Die Bank vor dem Haus wackelt. Reparieren wir zwei sie!", "it": "Buongiorno, Jan! La panca davanti a casa traballa. Aggiustiamola noi due!" },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Klop pred hišo se maje. Popraviva jo!", "en": "Good morning, {learner}! The bench in front of the house wobbles. Let's mend it, you and me!", "de": "Guten Morgen, {learner}! Die Bank vor dem Haus wackelt. Reparieren wir zwei sie!", "it": "Buongiorno, {learner}! La panca davanti a casa traballa. Aggiustiamola noi due!" },
         { "choices": [
           { "sl": "Dobro jutro! Kaj potrebujete?", "en": "Good morning! What do you need?", "de": "Guten Morgen! Was brauchen Sie?", "it": "Buongiorno! Di che cosa ha bisogno?", "ok": true,
             "reply": { "sl": "Kladivo in žeblje. Tam, na delovni mizi.", "en": "The hammer and nails. There, on the workbench.", "de": "Den Hammer und Nägel. Dort, auf der Werkbank.", "it": "Il martello e dei chiodi. Là, sul banco da lavoro." } },
@@ -54,7 +54,7 @@
             "reply": { "sl": "Potrebuješ? Oho! Sva zdaj stara prijatelja?", "en": "Potrebuješ (you, ti)? Oho! Are we old pals now?", "de": "Potrebuješ (du)? Oho! Sind wir jetzt alte Freunde?", "it": "Potrebuješ (tu)? Oho! Siamo vecchi amici adesso?" } },
           { "sl": "Dobro jutro! Kaj potrebujem?", "en": "Good morning! What do I need?", "de": "Guten Morgen! Was brauche ich?", "it": "Buongiorno! Di che cosa ho bisogno?",
             "grammar": "glagoli-sedanjik", "why": { "en": "Potrebujem is 'I need'. You are asking him: (vi) potrebujete.", "de": "Potrebujem heißt ‚ich brauche‘. Du fragst ihn: (vi) potrebujete.", "it": "Potrebujem significa 'ho bisogno'. Lo chiedi a lui: (vi) potrebujete." },
-            "reply": { "sl": "Ti? Ti potrebuješ zajtrk, fant!", "en": "You? You need breakfast, lad!", "de": "Du? Du brauchst ein Frühstück, Junge!", "it": "Tu? Tu hai bisogno di fare colazione, ragazzo!" } }
+            "reply": { "sl": "Ti? Ti potrebuješ zajtrk, {m:fant|f:dekle}!", "en": "You? You need breakfast, {m:lad|f:lass}!", "de": "Du? Du brauchst ein Frühstück, {m:Junge|f:Mädchen}!", "it": "Tu? Tu hai bisogno di fare colazione, {m:ragazzo|f:ragazza}!" } }
         ] },
         { "who": "france", "sl": "Zdaj pa žeblji. Koliko jih je v škatli? Preštej, prosim.", "en": "Now the nails. How many are there in the tin? Count them, please.", "de": "Jetzt die Nägel. Wie viele sind in der Dose? Zähl sie bitte.", "it": "Adesso i chiodi. Quanti ce ne sono nella scatola? Contali, per favore." },
         { "choices": [
@@ -72,7 +72,7 @@
           { "sl": "Obesim ga na steno.", "en": "I'll hang it on the wall.", "de": "Ich hänge ihn an die Wand.", "it": "Lo appendo al muro.", "ok": true,
             "reply": { "sl": "Prav. Red mora biti.", "en": "Right. There has to be order.", "de": "Richtig. Ordnung muss sein.", "it": "Giusto. Ci vuole ordine." } },
           { "sl": "Na steno, kot vedno.", "en": "On the wall, as always.", "de": "An die Wand, wie immer.", "it": "Al muro, come sempre.", "ok": true,
-            "reply": { "sl": "Ti si pa pameten fant.", "en": "Aren't you a clever lad.", "de": "Du bist aber ein kluger Junge.", "it": "Ma che ragazzo sveglio." } },
+            "reply": { "sl": "Ti si pa {m:pameten fant|f:pametno dekle}.", "en": "Aren't you a clever {m:lad|f:lass}.", "de": "Du bist aber {m:ein kluger Junge|f:ein kluges Mädchen}.", "it": "Ma che {m:ragazzo sveglio|f:ragazza sveglia}." } },
           { "sl": "Obesim ga na steni.", "en": "I'll hang it on the wall.", "de": "Ich hänge ihn an der Wand.", "it": "Lo appendo sul muro.",
             "grammar": "kam-tozilnik", "why": { "en": "Hanging it somewhere is a direction: na steno (accusative). Na steni is where it hangs afterwards.", "de": "Etwas irgendwohin hängen ist eine Richtung: na steno (Akkusativ). Na steni ist, wo es danach hängt.", "it": "Appendere qualcosa da qualche parte è una direzione: na steno (accusativo). Na steni è dove sta appeso dopo." },
             "reply": { "sl": "Na steni? Saj ga še držiš v roki!", "en": "Na steni (hanging there)? You're still holding it in your hand!", "de": "Na steni (hängt schon)? Du hältst ihn doch noch in der Hand!", "it": "Na steni (già appeso)? Ce l'hai ancora in mano!" } }
@@ -82,7 +82,7 @@
     {
       "id": "zaga",
       "lines": [
-        { "who": "france", "sl": "Jan, pridi! Deska je predolga. Meter in pol potrebujem.", "en": "Jan, come here! The board is too long. I need a metre and a half.", "de": "Jan, komm! Das Brett ist zu lang. Ich brauche anderthalb Meter.", "it": "Jan, vieni! L'asse è troppo lunga. Mi serve un metro e mezzo." },
+        { "who": "france", "sl": "{learner}, pridi! Deska je predolga. Meter in pol potrebujem.", "en": "{learner}, come here! The board is too long. I need a metre and a half.", "de": "{learner}, komm! Das Brett ist zu lang. Ich brauche anderthalb Meter.", "it": "{learner}, vieni! L'asse è troppo lunga. Mi serve un metro e mezzo." },
         { "choices": [
           { "sl": "Takoj pridem. Kje je žaga?", "en": "I'm coming. Where is the saw?", "de": "Ich komme gleich. Wo ist die Säge?", "it": "Arrivo subito. Dov'è la sega?", "ok": true,
             "reply": { "sl": "Na steni, nad delovno mizo.", "en": "On the wall, above the workbench.", "de": "An der Wand, über der Werkbank.", "it": "Sul muro, sopra il banco da lavoro." } },
@@ -91,7 +91,7 @@
             "reply": { "sl": "Žago? Hm, tam visi, na steni.", "en": "Žago? Hm, it's hanging there, on the wall.", "de": "Žago? Hm, sie hängt dort, an der Wand.", "it": "Žago? Hm, è appesa là, sul muro." } },
           { "sl": "Takoj pridem. Kdo je žaga?", "en": "I'm coming. Who is the saw?", "de": "Ich komme gleich. Wer ist die Säge?", "it": "Arrivo subito. Chi è la sega?",
             "grammar": "vprasalnice", "why": { "en": "Kdo is 'who'. Asking for a place: kje (where).", "de": "Kdo heißt ‚wer‘. Nach dem Ort fragst du mit kje (wo).", "it": "Kdo significa 'chi'. Per il luogo: kje (dove)." },
-            "reply": { "sl": "Kdo? Žaga ni človek, fant!", "en": "Kdo (who)? A saw isn't a person, lad!", "de": "Kdo (wer)? Eine Säge ist doch kein Mensch, Junge!", "it": "Kdo (chi)? La sega non è una persona, ragazzo!" } }
+            "reply": { "sl": "Kdo? Žaga ni človek, {m:fant|f:dekle}!", "en": "Kdo (who)? A saw isn't a person, {m:lad|f:lass}!", "de": "Kdo (wer)? Eine Säge ist doch kein Mensch, {m:Junge|f:Mädchen}!", "it": "Kdo (chi)? La sega non è una persona, {m:ragazzo|f:ragazza}!" } }
         ] },
         { "who": "france", "sl": "Najprej merim. Sto petdeset centimetrov … tukaj. Zdaj pa žagam!", "en": "First I measure. A hundred and fifty centimetres … here. Now I saw!", "de": "Zuerst messe ich. Hundertfünfzig Zentimeter … hier. Jetzt säge ich!", "it": "Prima misuro. Centocinquanta centimetri … qui. Adesso sego!",
           "fx": { "dust": 1 } },
@@ -103,7 +103,7 @@
             "reply": { "sl": "Na prstih? Saj ne stojim na prstih!", "en": "Na prstih (on tiptoe)? I'm not standing on tiptoe!", "de": "Na prstih (auf Zehenspitzen)? Ich stehe doch nicht auf Zehenspitzen!", "it": "Na prstih (in punta di piedi)? Mica sto in punta di piedi!" } },
           { "sl": "Pazi na prste!", "en": "Mind (ti) your fingers!", "de": "Pass (ti) auf deine Finger auf!", "it": "Attento (ti) alle dita!",
             "grammar": "ti-vi", "why": { "en": "Vi with Mlinar France: pazite.", "de": "Zu Mlinar France sagst du vi: pazite.", "it": "Con Mlinar France si usa il vi: pazite." },
-            "reply": { "sl": "Pazi? Hm, si zdaj ti mojster, a?", "en": "Pazi (ti)? Hm, so you're the master now, eh?", "de": "Pazi (du)? Hm, bist jetzt du der Meister, was?", "it": "Pazi (tu)? Hm, adesso il maestro sei tu, eh?" } }
+            "reply": { "sl": "Pazi? Hm, si zdaj ti {m:mojster|f:mojstrica}, a?", "en": "Pazi (ti)? Hm, so you're the master now, eh?", "de": "Pazi (du)? Hm, bist jetzt du {m:der Meister|f:die Meisterin}, was?", "it": "Pazi (tu)? Hm, adesso {m:il maestro|f:la maestra} sei tu, eh?" } }
         ] },
         { "who": "france", "sl": "Tako, pa je! Deska je točno meter in pol.", "en": "There, done! The board is exactly a metre and a half.", "de": "So, fertig! Das Brett ist genau anderthalb Meter.", "it": "Ecco, fatto! L'asse è esattamente un metro e mezzo.",
           "fx": { "dust": 0 } },
@@ -119,7 +119,7 @@
     {
       "id": "konjicek",
       "lines": [
-        { "who": "tine", "sl": "Jan! Moj konjiček Sivko nima noge. Dedek ga popravlja.", "en": "Jan! My little horse Sivko has lost a leg. Grandpa is mending him.", "de": "Jan! Mein Pferdchen Sivko hat ein Bein verloren. Opa repariert es.", "it": "Jan! Il mio cavallino Sivko ha perso una zampa. Il nonno lo sta aggiustando." },
+        { "who": "tine", "sl": "{learner}! Moj konjiček Sivko nima noge. Dedek ga popravlja.", "en": "{learner}! My little horse Sivko has lost a leg. Grandpa is mending him.", "de": "{learner}! Mein Pferdchen Sivko hat ein Bein verloren. Opa repariert es.", "it": "{learner}! Il mio cavallino Sivko ha perso una zampa. Il nonno lo sta aggiustando." },
         { "choices": [
           { "sl": "Ojoj! Kje je njegova noga?", "en": "Oh no! Where is his leg?", "de": "Oje! Wo ist sein Bein?", "it": "Oh no! Dov'è la sua zampa?", "ok": true,
             "reply": { "sl": "Tukaj! V mojem žepu. Glej!", "en": "Here! In my pocket. Look!", "de": "Hier! In meiner Tasche. Schau!", "it": "Qui! Nella mia tasca. Guarda!" } },
@@ -135,7 +135,7 @@
             "reply": { "sl": "Počakam … počakam … Je že?", "en": "I'm waiting … I'm waiting … Is it done yet?", "de": "Ich warte … ich warte … Ist es schon fertig?", "it": "Aspetto … aspetto … È già pronto?" } },
           { "sl": "Potrpljenje je, ko čakati in si tiho.", "en": "Patience is when to-wait and keep quiet.", "de": "Geduld ist, wenn warten und still sein.", "it": "La pazienza è quando aspettare e stare zitto.",
             "grammar": "glagoli-sedanjik", "why": { "en": "After ko (when) comes a conjugated verb: ko čakaš. Čakati is the infinitive.", "de": "Nach ko (wenn) steht ein konjugiertes Verb: ko čakaš. Čakati ist der Infinitiv.", "it": "Dopo ko (quando) viene un verbo coniugato: ko čakaš. Čakati è l'infinito." },
-            "reply": { "sl": "Ko čakati? Dedek, Jan govori kot jaz!", "en": "Ko čakati? Grandpa, Jan talks like me!", "de": "Ko čakati? Opa, Jan redet wie ich!", "it": "Ko čakati? Nonno, Jan parla come me!" } }
+            "reply": { "sl": "Ko čakati? Dedek, {learner} govori kot jaz!", "en": "Ko čakati? Grandpa, {learner} talks like me!", "de": "Ko čakati? Opa, {learner} redet wie ich!", "it": "Ko čakati? Nonno, {learner} parla come me!" } }
         ] },
         { "who": "tine", "sl": "Glej! Dedek je Sivka popravil. Spet je cel!", "en": "Look! Grandpa has mended Sivko. He's whole again!", "de": "Schau! Opa hat Sivko repariert. Er ist wieder ganz!", "it": "Guarda! Il nonno ha aggiustato Sivko. È di nuovo intero!" },
         { "choices": [
@@ -153,13 +153,13 @@
       "id": "klop-zeblji",
       "count": { "from": "dice", "min": 2, "max": 12, "gender": "m" },
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, Jan! Klop se spet maje. Preštej žeblje v škatli, prosim.", "en": "Good morning, Jan! The bench is wobbling again. Count the nails in the box, please.", "de": "Guten Morgen, Jan! Die Bank wackelt schon wieder. Zähl bitte die Nägel in der Schachtel.", "it": "Buongiorno, Jan! La panca traballa di nuovo. Conta i chiodi nella scatola, per favore." },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Klop se spet maje. Preštej žeblje v škatli, prosim.", "en": "Good morning, {learner}! The bench is wobbling again. Count the nails in the box, please.", "de": "Guten Morgen, {learner}! Die Bank wackelt schon wieder. Zähl bitte die Nägel in der Schachtel.", "it": "Buongiorno, {learner}! La panca traballa di nuovo. Conta i chiodi nella scatola, per favore." },
         { "choices": [
           { "sl": "V škatli {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {nail|nails} in the box.", "de": "In der Schachtel {ist|sind} {n} {Nagel|Nägel}.", "it": "Nella scatola {c'è|ci sono} {n} {chiodo|chiodi}.", "ok": true,
             "reply": { "sl": "Tako je. Jaz sem jih štel dvakrat.", "en": "That's right. I counted them twice.", "de": "Stimmt. Ich habe sie zweimal gezählt.", "it": "Esatto. Io li ho contati due volte." } },
           { "sl": "V škatli {je|sta|so|je} {n} {!žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {nail|nails} in the box.", "de": "In der Schachtel {ist|sind} {n} {Nagel|Nägel}.", "it": "Nella scatola {c'è|ci sono} {n} {chiodo|chiodi}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on comes the genitive plural}: {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in poi il genitivo plurale}: {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}." },
-            "reply": { "sl": "Koliko? Počasi, fant, škatla ne beži.", "en": "How many? Slowly, lad, the box isn't running away.", "de": "Wie viele? Langsam, Junge, die Schachtel läuft nicht weg.", "it": "Quanti? Piano, ragazzo, la scatola non scappa." } },
+            "reply": { "sl": "Koliko? Počasi, {m:fant|f:dekle}, škatla ne beži.", "en": "How many? Slowly, {m:lad|f:lass}, the box isn't running away.", "de": "Wie viele? Langsam, {m:Junge|f:Mädchen}, die Schachtel läuft nicht weg.", "it": "Quanti? Piano, {m:ragazzo|f:ragazza}, la scatola non scappa." } },
           { "sl": "V škatli {je|sta|so|je} {n} {!žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {nail|nails} in the box.", "de": "In der Schachtel {ist|sind} {n} {Nagel|Nägel}.", "it": "Nella scatola {c'è|ci sono} {n} {chiodo|chiodi}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on comes the genitive plural}: {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in poi il genitivo plurale}: {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}." },
             "reply": { "sl": "Hm, jaz sem štel drugače. Še enkrat?", "en": "Hm, I counted differently. Once more?", "de": "Hm, ich habe anders gezählt. Noch einmal?", "it": "Mm, io ho contato diversamente. Ancora una volta?" } }
@@ -178,16 +178,16 @@
     {
       "id": "klop-bova",
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, Jan! Klop ima zlomljeno nogo. Danes jo bova popravila.", "en": "Good morning, Jan! The bench has a broken leg. Today we'll mend it, the two of us.", "de": "Guten Morgen, Jan! Die Bank hat ein gebrochenes Bein. Heute reparieren wir zwei sie.", "it": "Buongiorno, Jan! La panca ha una gamba rotta. Oggi la aggiustiamo noi due." },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Klop ima zlomljeno nogo. Danes jo bova popravila.", "en": "Good morning, {learner}! The bench has a broken leg. Today we'll mend it, the two of us.", "de": "Guten Morgen, {learner}! Die Bank hat ein gebrochenes Bein. Heute reparieren wir zwei sie.", "it": "Buongiorno, {learner}! La panca ha una gamba rotta. Oggi la aggiustiamo noi due." },
         { "choices": [
           { "sl": "Dobro jutro! Kaj bom delam jaz?", "en": "Good morning! What will I I-do?", "de": "Guten Morgen! Was werde ich mache?", "it": "Buongiorno! Che cosa farò faccio io?",
-            "grammar": "prihodnjik", "why": { "en": "The future is bom + the l-form: bom delal (I will do).", "de": "Das Futur ist bom + l-Form: bom delal (ich werde machen).", "it": "Il futuro è bom + la forma in -l: bom delal (farò)." },
-            "reply": { "sl": "Kako? Počasi, fant, še nisem pil kave.", "en": "Come again? Slowly, lad, I haven't had my coffee yet.", "de": "Wie bitte? Langsam, Junge, ich hatte noch keinen Kaffee.", "it": "Come? Piano, ragazzo, non ho ancora bevuto il caffè." } },
-          { "sl": "Dobro jutro! Kaj bo delal jaz?", "en": "Good morning! What will he do, me?", "de": "Guten Morgen! Was wird er machen, ich?", "it": "Buongiorno! Che cosa farà lui, io?",
-            "grammar": "prihodnjik", "why": { "en": "Jaz goes with bom: jaz bom delal. Bo is for on or ona (he or she will).", "de": "Zu jaz gehört bom: jaz bom delal. Bo ist für on oder ona (er oder sie wird).", "it": "Con jaz va bom: jaz bom delal. Bo è per on o ona (lui o lei)." },
+            "grammar": "prihodnjik", "why": { "en": "The future is bom + the l-form: bom {m:delal|f:delala} (I will do).", "de": "Das Futur ist bom + l-Form: bom {m:delal|f:delala} (ich werde machen).", "it": "Il futuro è bom + la forma in -l: bom {m:delal|f:delala} (farò)." },
+            "reply": { "sl": "Kako? Počasi, {m:fant|f:dekle}, še nisem pil kave.", "en": "Come again? Slowly, {m:lad|f:lass}, I haven't had my coffee yet.", "de": "Wie bitte? Langsam, {m:Junge|f:Mädchen}, ich hatte noch keinen Kaffee.", "it": "Come? Piano, {m:ragazzo|f:ragazza}, non ho ancora bevuto il caffè." } },
+          { "sl": "Dobro jutro! Kaj bo {m:delal|f:delala} jaz?", "en": "Good morning! What will {m:he|f:she} do, me?", "de": "Guten Morgen! Was wird {m:er|f:sie} machen, ich?", "it": "Buongiorno! Che cosa farà {m:lui|f:lei}, io?",
+            "grammar": "prihodnjik", "why": { "en": "Jaz goes with bom: jaz bom {m:delal|f:delala}. Bo is for on or ona (he or she will).", "de": "Zu jaz gehört bom: jaz bom {m:delal|f:delala}. Bo ist für on oder ona (er oder sie wird).", "it": "Con jaz va bom: jaz bom {m:delal|f:delala}. Bo è per on o ona (lui o lei)." },
             "reply": { "sl": "Kdo bo delal? Ti si tu, jaz sem tu … kdo še?", "en": "Who will work? You're here, I'm here … who else?", "de": "Wer wird arbeiten? Du bist da, ich bin da … wer noch?", "it": "Chi lavorerà? Tu sei qui, io sono qui … chi altro?" } },
-          { "sl": "Dobro jutro! Kaj bom delal jaz?", "en": "Good morning! What will I do?", "de": "Guten Morgen! Was werde ich machen?", "it": "Buongiorno! Che cosa farò io?", "ok": true,
-            "reply": { "sl": "Ti boš držal, jaz bom žagal. Potem pa kladivo.", "en": "You'll hold, I'll saw. Then the hammer.", "de": "Du wirst halten, ich werde sägen. Dann der Hammer.", "it": "Tu terrai, io segherò. Poi il martello." } }
+          { "sl": "Dobro jutro! Kaj bom {m:delal|f:delala} jaz?", "en": "Good morning! What will I do?", "de": "Guten Morgen! Was werde ich machen?", "it": "Buongiorno! Che cosa farò io?", "ok": true,
+            "reply": { "sl": "Ti boš {m:držal|f:držala}, jaz bom žagal. Potem pa kladivo.", "en": "You'll hold, I'll saw. Then the hammer.", "de": "Du wirst halten, ich werde sägen. Dann der Hammer.", "it": "Tu terrai, io segherò. Poi il martello." } }
         ] },
         { "who": "france", "sl": "Kdaj končava, kaj misliš?", "en": "When will we be done, what do you think?", "de": "Wann sind wir fertig, was meinst du?", "it": "Quando finiamo, che ne pensi?" },
         { "choices": [
@@ -198,7 +198,7 @@
             "reply": { "sl": "Kosilo? Že misliš na kosilo? Najprej delo!", "en": "Lunch? Thinking of lunch already? Work first!", "de": "Mittagessen? Denkst du schon ans Essen? Erst die Arbeit!", "it": "Il pranzo? Pensi già al pranzo? Prima il lavoro!" } },
           { "sl": "Do kosila bo klop gotov.", "en": "The bench will be ready (a he) by lunch.", "de": "Bis zum Mittagessen ist die Bank fertig (männlich).", "it": "Per pranzo la panca sarà pronto.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Klop is feminine (ta klop): gotova. Gotov goes with a masculine word.", "de": "Klop ist weiblich (ta klop): gotova. Gotov passt zu einem männlichen Wort.", "it": "Klop è femminile (ta klop): gotova. Gotov va con una parola maschile." },
-            "reply": { "sl": "Gotov? Kdo, jaz? Ne, fant, jaz šele začenjam!", "en": "Gotov (done, a he)? Who, me? No, lad, I'm only starting!", "de": "Gotov (fertig, ein Er)? Wer, ich? Nein, Junge, ich fange erst an!", "it": "Gotov (pronto, un lui)? Chi, io? No, ragazzo, comincio appena!" } }
+            "reply": { "sl": "Gotov? Kdo, jaz? Ne, {m:fant|f:dekle}, jaz šele začenjam!", "en": "Gotov (done, a he)? Who, me? No, {m:lad|f:lass}, I'm only starting!", "de": "Gotov (fertig, ein Er)? Wer, ich? Nein, {m:Junge|f:Mädchen}, ich fange erst an!", "it": "Gotov (pronto, un lui)? Chi, io? No, {m:ragazzo|f:ragazza}, comincio appena!" } }
         ] },
         { "who": "france", "sl": "Dobro. Sosedje smo: kdor pomaga, prvi sedi na klopi!", "en": "Good. We're neighbours: whoever helps sits on the bench first!", "de": "Gut. Wir sind Nachbarn: Wer hilft, sitzt als Erster auf der Bank!", "it": "Bene. Siamo vicini: chi aiuta si siede per primo sulla panca!" }
       ]
@@ -208,7 +208,7 @@
       "count": { "from": "wood", "per": 20, "min": 1, "max": 8, "gender": "f", "case": "acc" },
       "memory": { "sl": "deske, ki sva jih skupaj preštela", "en": "the boards we counted together", "de": "die Bretter, die wir zusammen gezählt haben", "it": "le assi che abbiamo contato insieme" },
       "lines": [
-        { "who": "france", "sl": "Jan, pridi! Še zadnji rez … tako! Zdaj pa preštej deske. Koliko jih imava?", "en": "Jan, come here! One last cut … there! Now count the boards. How many have we got?", "de": "Jan, komm! Noch ein letzter Schnitt … so! Jetzt zähl die Bretter. Wie viele haben wir?", "it": "Jan, vieni! Un ultimo taglio … ecco! Adesso conta le assi. Quante ne abbiamo?",
+        { "who": "france", "sl": "{learner}, pridi! Še zadnji rez … tako! Zdaj pa preštej deske. Koliko jih imava?", "en": "{learner}, come here! One last cut … there! Now count the boards. How many have we got?", "de": "{learner}, komm! Noch ein letzter Schnitt … so! Jetzt zähl die Bretter. Wie viele haben wir?", "it": "{learner}, vieni! Un ultimo taglio … ecco! Adesso conta le assi. Quante ne abbiamo?",
           "fx": { "dust": 1 } },
         { "choices": [
           { "sl": "Imava {n} {!desko|deski|deske|desk}.", "en": "We have {n} {board|boards}.", "de": "Wir haben {n} {Brett|Bretter}.", "it": "Abbiamo {n} {asse|assi}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
@@ -232,34 +232,34 @@
             "grammar": "pridevniki-ujemanje", "why": { "en": "Deska is feminine: daljša. Daljši goes with a masculine word (daljši hlod).", "de": "Deska ist weiblich: daljša. Daljši passt zu einem männlichen Wort (daljši hlod).", "it": "Deska è femminile: daljša. Daljši va con una parola maschile (daljši hlod)." },
             "reply": { "sl": "Daljši? Kateri? Hlod? Ne, deske gledava!", "en": "Daljši (a he)? Which one? A log? No, we're looking at boards!", "de": "Daljši (ein Er)? Welcher? Ein Stamm? Nein, wir schauen Bretter an!", "it": "Daljši (maschile)? Quale? Un tronco? No, guardiamo le assi!" } }
         ] },
-        { "who": "france", "sl": "Tako, zdaj sta enaki. Dober pomočnik si, Jan.", "en": "There, now they're the same. You're a good helper, Jan.", "de": "So, jetzt sind sie gleich. Du bist ein guter Helfer, Jan.", "it": "Ecco, adesso sono uguali. Sei un bravo aiutante, Jan.",
+        { "who": "france", "sl": "Tako, zdaj sta enaki. {m:Dober pomočnik|f:Dobra pomočnica} si, {learner}.", "en": "There, now they're the same. You're a good helper, {learner}.", "de": "So, jetzt sind sie gleich. Du bist {m:ein guter Helfer|f:eine gute Helferin}, {learner}.", "it": "Ecco, adesso sono uguali. Sei {m:un bravo aiutante|f:una brava aiutante}, {learner}.",
           "fx": { "dust": 0 } }
       ]
     },
     {
       "id": "zaga-smem",
       "lines": [
-        { "who": "france", "sl": "Jan! Danes žagam deske za nova vrata. Pridi bliže.", "en": "Jan! Today I'm sawing boards for a new door. Come closer.", "de": "Jan! Heute säge ich Bretter für eine neue Tür. Komm näher.", "it": "Jan! Oggi sego delle assi per una porta nuova. Vieni più vicino.",
+        { "who": "france", "sl": "{learner}! Danes žagam deske za nova vrata. Pridi bliže.", "en": "{learner}! Today I'm sawing boards for a new door. Come closer.", "de": "{learner}! Heute säge ich Bretter für eine neue Tür. Komm näher.", "it": "{learner}! Oggi sego delle assi per una porta nuova. Vieni più vicino.",
           "fx": { "dust": 1 } },
         { "choices": [
           { "sl": "Lahko tudi jaz žagam?", "en": "Can I saw too?", "de": "Kann ich auch sägen?", "it": "Posso segare anch'io?", "ok": true,
             "reply": { "sl": "Lahko. Ampak najprej glej mene.", "en": "You can. But first watch me.", "de": "Kannst du. Aber schau erst mir zu.", "it": "Puoi. Ma prima guarda me.", "fx": { "dust": 0 } } },
           { "sl": "Moram tudi jaz žagati?", "en": "Do I have to saw too?", "de": "Muss ich auch sägen?", "it": "Devo segare anch'io?",
             "grammar": "modalni-glagoli", "why": { "en": "Moram is 'I must'. To ask if you may: lahko or smem.", "de": "Moram heißt ‚ich muss‘. Um zu fragen, ob du darfst: lahko oder smem.", "it": "Moram significa 'devo'. Per chiedere se puoi: lahko o smem." },
-            "reply": { "sl": "Moraš? Ne, fant, nič ne moraš. Samo če hočeš!", "en": "Have to? No, lad, you don't have to. Only if you want!", "de": "Musst du? Nein, Junge, du musst gar nicht. Nur wenn du willst!", "it": "Devi? No, ragazzo, non devi niente. Solo se vuoi!" } },
+            "reply": { "sl": "Moraš? Ne, {m:fant|f:dekle}, nič ne moraš. Samo če hočeš!", "en": "Have to? No, {m:lad|f:lass}, you don't have to. Only if you want!", "de": "Musst du? Nein, {m:Junge|f:Mädchen}, du musst gar nicht. Nur wenn du willst!", "it": "Devi? No, {m:ragazzo|f:ragazza}, non devi niente. Solo se vuoi!" } },
           { "sl": "Smem tudi jaz žagati?", "en": "May I saw too?", "de": "Darf ich auch sägen?", "it": "Mi permette di segare anch'io?", "ok": true,
-            "reply": { "sl": "Smeš, smeš. Samo pazi na prste.", "en": "You may, you may. Just mind your fingers.", "de": "Darfst du, darfst du. Pass nur auf die Finger auf.", "it": "Certo, certo. Attento solo alle dita.", "fx": { "dust": 0 } } }
+            "reply": { "sl": "Smeš, smeš. Samo pazi na prste.", "en": "You may, you may. Just mind your fingers.", "de": "Darfst du, darfst du. Pass nur auf die Finger auf.", "it": "Certo, certo. {m:Attento|f:Attenta} solo alle dita.", "fx": { "dust": 0 } } }
         ] },
         { "who": "france", "sl": "Primi žago z obema rokama. Tako. Zdaj počasi, naprej in nazaj.", "en": "Hold the saw with both hands. Like that. Now slowly, forward and back.", "de": "Nimm die Säge mit beiden Händen. So. Jetzt langsam, vor und zurück.", "it": "Prendi la sega con tutte e due le mani. Così. Adesso piano, avanti e indietro.",
           "fx": { "dust": 1 } },
         { "choices": [
           { "sl": "Sem dobro žagam?", "en": "Did I well I-saw?", "de": "Habe ich gut säge?", "it": "Ho bene sego?",
-            "grammar": "pretekli-cas", "why": { "en": "The past is sem + the l-form: sem žagal (I sawed).", "de": "Die Vergangenheit ist sem + l-Form: sem žagal (ich habe gesägt).", "it": "Il passato è sem + la forma in -l: sem žagal (ho segato)." },
+            "grammar": "pretekli-cas", "why": { "en": "The past is sem + the l-form: sem {m:žagal|f:žagala} (I sawed).", "de": "Die Vergangenheit ist sem + l-Form: sem {m:žagal|f:žagala} (ich habe gesägt).", "it": "Il passato è sem + la forma in -l: sem {m:žagal|f:žagala} (ho segato)." },
             "reply": { "sl": "Žagam? Zdaj ne žagaš, zdaj govoriš!", "en": "Žagam (I saw)? You're not sawing now, you're talking!", "de": "Žagam (ich säge)? Jetzt sägst du nicht, jetzt redest du!", "it": "Žagam (sego)? Adesso non seghi, adesso parli!" } },
           { "sl": "Si dobro žagal?", "en": "Did you saw well?", "de": "Hast du gut gesägt?", "it": "Hai segato bene?",
-            "grammar": "pretekli-cas", "why": { "en": "Si žagal asks about him (you sawed). About yourself: sem žagal.", "de": "Si žagal fragt nach ihm (du hast gesägt). Über dich selbst: sem žagal.", "it": "Si žagal chiede di lui (hai segato). Di te stesso: sem žagal." },
+            "grammar": "pretekli-cas", "why": { "en": "Si žagal asks about him (you sawed). About yourself: sem {m:žagal|f:žagala}.", "de": "Si žagal fragt nach ihm (du hast gesägt). Über dich selbst: sem {m:žagal|f:žagala}.", "it": "Si žagal chiede di lui (hai segato). Di te {m:stesso|f:stessa}: sem {m:žagal|f:žagala}." },
             "reply": { "sl": "Jaz? Jaz žagam že štirideset let!", "en": "Me? I've been sawing for forty years!", "de": "Ich? Ich säge schon seit vierzig Jahren!", "it": "Io? Io sego da quarant'anni!" } },
-          { "sl": "Sem dobro žagal?", "en": "Did I saw well?", "de": "Habe ich gut gesägt?", "it": "Ho segato bene?", "ok": true,
+          { "sl": "Sem dobro {m:žagal|f:žagala}?", "en": "Did I saw well?", "de": "Habe ich gut gesägt?", "it": "Ho segato bene?", "ok": true,
             "reply": { "sl": "Zelo dobro. Deska je ravna kot črta.", "en": "Very well. The board is as straight as a line.", "de": "Sehr gut. Das Brett ist gerade wie ein Strich.", "it": "Benissimo. L'asse è dritta come una riga.", "fx": { "dust": 0 } } }
         ] },
         { "who": "france", "sl": "Še dve deski, pa bodo vrata gotova. Sosedje smo, pomagamo si.", "en": "Two more boards and the door will be done. We're neighbours, we help each other.", "de": "Noch zwei Bretter, dann ist die Tür fertig. Wir sind Nachbarn, wir helfen einander.", "it": "Ancora due assi e la porta sarà pronta. Siamo vicini, ci aiutiamo." }
@@ -269,7 +269,7 @@
       "id": "konjicek-seno",
       "memory": { "sl": "večer, ko sva hranila Sivka", "en": "the evening we fed Sivko", "de": "den Abend, an dem wir Sivko gefüttert haben", "it": "la sera in cui abbiamo dato da mangiare a Sivko" },
       "lines": [
-        { "who": "tine", "sl": "Jan! Sivko je lačen. Ves dan je delal.", "en": "Jan! Sivko is hungry. He worked all day.", "de": "Jan! Sivko hat Hunger. Er hat den ganzen Tag gearbeitet.", "it": "Jan! Sivko ha fame. Ha lavorato tutto il giorno." },
+        { "who": "tine", "sl": "{learner}! Sivko je lačen. Ves dan je delal.", "en": "{learner}! Sivko is hungry. He worked all day.", "de": "{learner}! Sivko hat Hunger. Er hat den ganzen Tag gearbeitet.", "it": "{learner}! Sivko ha fame. Ha lavorato tutto il giorno." },
         { "choices": [
           { "sl": "Kaj ga daš za večerjo?", "en": "What do you give him away for dinner?", "de": "Was gibst du ihn her zum Abendessen?", "it": "Che cosa lo dai via per cena?",
             "grammar": "dajalnik", "why": { "en": "Giving to someone takes the dative: mu (to him). Ga is 'him' as the object.", "de": "Jemandem etwas geben verlangt den Dativ: mu (ihm). Ga ist ‚ihn‘ als Objekt.", "it": "Dare a qualcuno vuole il dativo: mu (gli). Ga è 'lo', il complemento oggetto." },
@@ -292,7 +292,7 @@
       "id": "konjicek-vecji",
       "memory": { "sl": "Sivka, najhitrejšega konja v vasi", "en": "Sivko, the fastest horse in the village", "de": "Sivko, das schnellste Pferd im Dorf", "it": "Sivko, il cavallo più veloce del villaggio" },
       "lines": [
-        { "who": "tine", "sl": "Jan, veš kaj? Dedek ima pravega konja. Tudi on je Sivko!", "en": "Jan, guess what? Grandpa has a real horse. He's called Sivko too!", "de": "Jan, weißt du was? Opa hat ein echtes Pferd. Es heißt auch Sivko!", "it": "Jan, sai una cosa? Il nonno ha un cavallo vero. Si chiama anche lui Sivko!" },
+        { "who": "tine", "sl": "{learner}, veš kaj? Dedek ima pravega konja. Tudi on je Sivko!", "en": "{learner}, guess what? Grandpa has a real horse. He's called Sivko too!", "de": "{learner}, weißt du was? Opa hat ein echtes Pferd. Es heißt auch Sivko!", "it": "{learner}, sai una cosa? Il nonno ha un cavallo vero. Si chiama anche lui Sivko!" },
         { "choices": [
           { "sl": "Res? Kateri Sivko je velikejši?", "en": "Really? Which Sivko is more big?", "de": "Echt? Welcher Sivko ist großer?", "it": "Davvero? Quale Sivko è più grande così?",
             "grammar": "primernik", "why": { "en": "Velik has its own comparative: večji (bigger).", "de": "Velik hat einen eigenen Komparativ: večji (größer).", "it": "Velik ha un comparativo suo: večji (più grande)." },

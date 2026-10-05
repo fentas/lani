@@ -44,35 +44,35 @@
   "happenings": [
     { "id": "potica", "title": { "sl": "Babica peče potico", "en": "Grandma is baking potica", "de": "Oma bäckt Potica", "it": "La nonna prepara la potica" }, "who": "babica",
       "when": ["morning", "afternoon"], "weekdays": [6, 7], "chance": 0.6, "dialog": "potica", "dialogs": ["potica-orehi", "potica-midva", "potica"], "reward": { "food": 20 }, "marker": "🥮", "needs": { "level": 2 },
-      "memory": { "sl": "potico, ki sva jo skupaj spekla", "en": "the potica we baked together", "de": "die Potica, die wir zusammen gebacken haben", "it": "la potica che abbiamo preparato insieme" } },
+      "memory": { "sl": "potico, ki sva jo skupaj {m:spekla|f:spekli}", "en": "the potica we baked together", "de": "die Potica, die wir zusammen gebacken haben", "it": "la potica che abbiamo preparato insieme" } },
     { "id": "kava", "title": { "sl": "Babica kuha kavo", "en": "Grandma is making coffee", "de": "Oma kocht Kaffee", "it": "La nonna fa il caffè" }, "who": "babica",
       "when": ["morning"], "chance": 0.5, "dialog": "kava", "dialogs": ["kava-sanje", "kava-mocna", "kava"], "reward": { "food": 15 }, "marker": "☕",
-      "memory": { "sl": "jutro, ko sva pila kavo v kuhinji", "en": "the morning we drank coffee in the kitchen", "de": "den Morgen, an dem wir in der Küche Kaffee getrunken haben", "it": "la mattina in cui abbiamo bevuto il caffè in cucina" } },
+      "memory": { "sl": "jutro, ko sva {m:pila|f:pili} kavo v kuhinji", "en": "the morning we drank coffee in the kitchen", "de": "den Morgen, an dem wir in der Küche Kaffee getrunken haben", "it": "la mattina in cui abbiamo bevuto il caffè in cucina" } },
     { "id": "nedeljsko-kosilo", "title": { "sl": "Nedeljsko kosilo", "en": "Sunday lunch", "de": "Sonntagsessen", "it": "Il pranzo della domenica" }, "who": "babica",
       "when": ["morning", "afternoon"], "weekdays": [7], "chance": 0.9, "dialog": "kosilo", "dialogs": ["kosilo-krozniki", "kosilo-pecenka", "kosilo"], "reward": { "wisdom": 25 }, "marker": "🍲", "needs": { "level": 2 },
-      "memory": { "sl": "nedeljsko kosilo, ko si mi pomagal pogrniti mizo", "en": "the Sunday lunch when you helped me lay the table", "de": "das Sonntagsessen, bei dem du mir geholfen hast, den Tisch zu decken", "it": "il pranzo della domenica in cui mi hai aiutato ad apparecchiare la tavola" } },
+      "memory": { "sl": "nedeljsko kosilo, ko si mi {m:pomagal|f:pomagala} pogrniti mizo", "en": "the Sunday lunch when you helped me lay the table", "de": "das Sonntagsessen, bei dem du mir geholfen hast, den Tisch zu decken", "it": "il pranzo della domenica in cui mi hai aiutato ad apparecchiare la tavola" } },
     { "id": "krompir", "title": { "sl": "Babica lupi krompir", "en": "Grandma is peeling potatoes", "de": "Oma schält Kartoffeln", "it": "La nonna pela le patate" }, "who": "babica",
       "when": ["evening"], "chance": 0.4, "dialog": "krompir", "dialogs": ["krompir-kile", "krompir-lonec", "krompir"], "reward": { "food": 15 }, "marker": "🥔",
-      "memory": { "sl": "pet kil krompirja, ki sva ga olupila", "en": "the five kilos of potatoes we peeled", "de": "die fünf Kilo Kartoffeln, die wir geschält haben", "it": "i cinque chili di patate che abbiamo pelato" } },
+      "memory": { "sl": "pet kil krompirja, ki sva ga {m:olupila|f:olupili}", "en": "the five kilos of potatoes we peeled", "de": "die fünf Kilo Kartoffeln, die wir geschält haben", "it": "i cinque chili di patate che abbiamo pelato" } },
     { "id": "radio", "title": { "sl": "Teta Ančka posluša radio", "en": "Aunt Ančka listens to the radio", "de": "Tante Ančka hört Radio", "it": "Zia Ančka ascolta la radio" }, "who": "ancka",
       "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "radio", "dialogs": ["radio-vreme", "radio"], "reward": { "wood": 15 }, "marker": "📻",
-      "memory": { "sl": "poročila, ki si mi jih povedal, ko nisem slišala", "en": "the news you told me when I couldn't hear", "de": "die Nachrichten, die du mir erzählt hast, als ich nichts hören konnte", "it": "le notizie che mi hai raccontato quando non sentivo" } }
+      "memory": { "sl": "poročila, ki si mi jih {m:povedal|f:povedala}, ko nisem slišala", "en": "the news you told me when I couldn't hear", "de": "die Nachrichten, die du mir erzählt hast, als ich nichts hören konnte", "it": "le notizie che mi hai raccontato quando non sentivo" } }
   ],
   "dialogs": [
     {
       "id": "potica",
       "lines": [
-        { "who": "babica", "sl": "O, Jan! Pridi, pridi. Pečem potico. Mi pomagaš?", "en": "Oh, Jan! Come in, come in. I am baking potica. Will you help me?", "de": "Oh, Jan! Komm rein, komm rein. Ich backe Potica. Hilfst du mir?", "it": "Oh, Jan! Vieni, vieni. Sto facendo la potica. Mi aiuti?",
+        { "who": "babica", "sl": "O, {learner}! Pridi, pridi. Pečem potico. Mi pomagaš?", "en": "Oh, {learner}! Come in, come in. I am baking potica. Will you help me?", "de": "Oh, {learner}! Komm rein, komm rein. Ich backe Potica. Hilfst du mir?", "it": "Oh, {learner}! Vieni, vieni. Sto facendo la potica. Mi aiuti?",
           "fx": { "oven": 1 } },
         { "choices": [
           { "sl": "Seveda vam pomagam! Kaj naj naredim?", "en": "Of course I will help you! What should I do?", "de": "Natürlich helfe ich Ihnen! Was soll ich tun?", "it": "Certo che La aiuto! Che cosa devo fare?", "ok": true,
             "reply": { "sl": "Vzemi moko. Tam, v omari.", "en": "Take the flour. There, in the cupboard.", "de": "Nimm das Mehl. Dort, im Schrank.", "it": "Prendi la farina. Là, nella credenza." } },
           { "sl": "Seveda vas pomagam! Kaj naj naredim?", "en": "Of course I will help you! What should I do?", "de": "Natürlich helfe ich Ihnen! Was soll ich tun?", "it": "Certo che La aiuto! Che cosa devo fare?",
             "grammar": "dajalnik", "why": { "en": "Pomagati takes the dative, like German helfen: pomagam vam (not vas).", "de": "Pomagati steht mit dem Dativ, wie das deutsche helfen: pomagam vam (nicht vas).", "it": "Pomagati regge il dativo, come il tedesco helfen (non come aiutare): pomagam vam (non vas)." },
-            "reply": { "sl": "Vas? Katero vas? Jaz pečem potico, fant!", "en": "Vas (village)? Which village? I'm baking potica, lad!", "de": "Vas (Dorf)? Welches Dorf? Ich backe eine Potica, Junge!", "it": "Vas (villaggio)? Quale villaggio? Io sto facendo la potica, ragazzo!" } },
+            "reply": { "sl": "Vas? Katero vas? Jaz pečem potico, {m:fant|f:dekle}!", "en": "Vas (village)? Which village? I'm baking potica, {m:lad|f:lass}!", "de": "Vas (Dorf)? Welches Dorf? Ich backe eine Potica, {m:Junge|f:Mädchen}!", "it": "Vas (villaggio)? Quale villaggio? Io sto facendo la potica, {m:ragazzo|f:ragazza}!" } },
           { "sl": "Seveda ti pomagam! Kaj naj naredim?", "en": "Of course I will help you (ti)! What should I do?", "de": "Natürlich helfe ich dir (ti)! Was soll ich tun?", "it": "Certo che ti aiuto (ti)! Che cosa devo fare?",
             "grammar": "ti-vi", "why": { "en": "Babica Micka is old: vi. Pomagam vam.", "de": "Babica Micka ist alt: vi. Pomagam vam.", "it": "Babica Micka è anziana: vi. Pomagam vam." },
-            "reply": { "sl": "Ti? Oho! Sva skupaj hodila v vrtec, fant?", "en": "Ti? Oho! Did we go to nursery school together, lad?", "de": "Ti (du)? Oho! Waren wir zusammen im Kindergarten, Junge?", "it": "Ti (tu)? Oho! Siamo andati all'asilo insieme, ragazzo?" } }
+            "reply": { "sl": "Ti? Oho! Sva skupaj {m:hodila|f:hodili} v vrtec, {m:fant|f:dekle}?", "en": "Ti? Oho! Did we go to nursery school together, {m:lad|f:lass}?", "de": "Ti (du)? Oho! Waren wir zusammen im Kindergarten, {m:Junge|f:Mädchen}?", "it": "Ti (tu)? Oho! Siamo {m:andati|f:andate} all'asilo insieme, {m:ragazzo|f:ragazza}?" } }
         ] },
         { "who": "babica", "sl": "Potica je orehova. Orehi, sladkor, maslo, malo ruma.", "en": "The potica is walnut. Walnuts, sugar, butter, a little rum.", "de": "Es ist eine Walnuss-Potica. Walnüsse, Zucker, Butter, ein bisschen Rum.", "it": "È una potica alle noci. Noci, zucchero, burro, un po' di rum." },
         { "choices": [
@@ -85,11 +85,11 @@
             "grammar": "glagoli-sedanjik", "why": { "en": "One potica: se peče. Pečejo is the plural (potice se pečejo).", "de": "Eine Potica: se peče. Pečejo ist der Plural (potice se pečejo).", "it": "Una potica: se peče. Pečejo è il plurale (potice se pečejo)." },
             "reply": { "sl": "Pečejo? Koliko pa jih vidiš? Ena sama je!", "en": "Pečejo (they bake)? How many do you see? There's just one!", "de": "Pečejo (sie backen)? Wie viele siehst du denn? Es ist nur eine!", "it": "Pečejo (cuociono)? Quante ne vedi? Ce n'è una sola!" } }
         ] },
-        { "who": "babica", "sl": "Ko je pečena, dobiš prvi kos. Ampak samo, če boš tiho!", "en": "When it is baked, you get the first piece. But only if you keep quiet!", "de": "Wenn sie gebacken ist, bekommst du das erste Stück. Aber nur, wenn du still bist!", "it": "Quando è cotta, la prima fetta è tua. Ma solo se stai zitto!" },
+        { "who": "babica", "sl": "Ko je pečena, dobiš prvi kos. Ampak samo, če boš tiho!", "en": "When it is baked, you get the first piece. But only if you keep quiet!", "de": "Wenn sie gebacken ist, bekommst du das erste Stück. Aber nur, wenn du still bist!", "it": "Quando è cotta, la prima fetta è tua. Ma solo se stai {m:zitto|f:zitta}!" },
         { "choices": [
-          { "sl": "Bom tiho. Obljubim!", "en": "I will be quiet. I promise!", "de": "Ich werde still sein. Versprochen!", "it": "Starò zitto. Lo prometto!", "ok": true,
-            "reply": { "sl": "Priden. Zdaj pa lupi orehe.", "en": "Good boy. Now shell the walnuts.", "de": "Braver Junge. Jetzt knack die Walnüsse.", "it": "Bravo ragazzo. Adesso sguscia le noci." } },
-          { "sl": "Tiho kot miška, babica!", "en": "Quiet as a mouse, grandma!", "de": "Mäuschenstill, Oma!", "it": "Zitto come un topolino, nonna!", "ok": true,
+          { "sl": "Bom tiho. Obljubim!", "en": "I will be quiet. I promise!", "de": "Ich werde still sein. Versprochen!", "it": "Starò {m:zitto|f:zitta}. Lo prometto!", "ok": true,
+            "reply": { "sl": "{m:Priden|f:Pridna}. Zdaj pa lupi orehe.", "en": "{m:Good boy|f:Good girl}. Now shell the walnuts.", "de": "{m:Braver Junge|f:Braves Mädchen}. Jetzt knack die Walnüsse.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Adesso sguscia le noci." } },
+          { "sl": "Tiho kot miška, babica!", "en": "Quiet as a mouse, grandma!", "de": "Mäuschenstill, Oma!", "it": "{m:Zitto|f:Zitta} come un topolino, nonna!", "ok": true,
             "reply": { "sl": "Moja miška! Zdaj pa lupi orehe.", "en": "My little mouse! Now shell the walnuts.", "de": "Mein Mäuschen! Jetzt knack die Walnüsse.", "it": "Il mio topolino! Adesso sguscia le noci." } },
           { "sl": "Bom glasno. Obljubim!", "en": "I will be loud. I promise!", "de": "Ich werde laut sein. Versprochen!", "it": "Farò rumore. Lo prometto!",
             "why": { "en": "Glasno is loudly: the opposite. She wants tiho.", "de": "Glasno heißt ‚laut‘: das Gegenteil. Sie will tiho.", "it": "Glasno significa 'forte, rumorosamente': il contrario. Lei vuole tiho." },
@@ -101,7 +101,7 @@
     {
       "id": "kava",
       "lines": [
-        { "who": "babica", "sl": "Dobro jutro, Jan! Kavo? Turško, kot vedno.", "en": "Good morning, Jan! Coffee? Turkish, as always.", "de": "Guten Morgen, Jan! Kaffee? Türkischen, wie immer.", "it": "Buongiorno, Jan! Un caffè? Alla turca, come sempre." },
+        { "who": "babica", "sl": "Dobro jutro, {learner}! Kavo? Turško, kot vedno.", "en": "Good morning, {learner}! Coffee? Turkish, as always.", "de": "Guten Morgen, {learner}! Kaffee? Türkischen, wie immer.", "it": "Buongiorno, {learner}! Un caffè? Alla turca, come sempre." },
         { "choices": [
           { "sl": "Dobro jutro! Ja, prosim, eno kavo.", "en": "Good morning! Yes, please, one coffee.", "de": "Guten Morgen! Ja, bitte, einen Kaffee.", "it": "Buongiorno! Sì, per favore, un caffè.", "ok": true,
             "reply": { "sl": "Takoj.", "en": "Right away.", "de": "Sofort.", "it": "Subito." } },
@@ -110,20 +110,20 @@
             "reply": { "sl": "Ena kava? Ja, ena kava … in potem?", "en": "Ena kava (one coffee)? Yes, one coffee … and then?", "de": "Ena kava (ein Kaffee)? Ja, ein Kaffee … und dann?", "it": "Ena kava (un caffè)? Sì, un caffè … e poi?" } },
           { "sl": "Dober dan! Ja, prosim, eno kavo.", "en": "Hello! Yes, please, one coffee.", "de": "Guten Tag! Ja, bitte, einen Kaffee.", "it": "Salve! Sì, per favore, un caffè.",
             "why": { "en": "In the morning the greeting is dobro jutro; dober dan is from about ten on.", "de": "Am Morgen grüßt man mit dobro jutro; dober dan sagt man ab etwa zehn Uhr.", "it": "Al mattino si saluta con dobro jutro; dober dan si dice più o meno dalle dieci in poi." },
-            "reply": { "sl": "Dober dan? Petelin je komaj zapel, fant!", "en": "Dober dan (good day)? The rooster has only just crowed, lad!", "de": "Dober dan (guten Tag)? Der Hahn hat doch gerade erst gekräht, Junge!", "it": "Dober dan? Il gallo ha appena cantato, ragazzo!" } }
+            "reply": { "sl": "Dober dan? Petelin je komaj zapel, {m:fant|f:dekle}!", "en": "Dober dan (good day)? The rooster has only just crowed, {m:lad|f:lass}!", "de": "Dober dan (guten Tag)? Der Hahn hat doch gerade erst gekräht, {m:Junge|f:Mädchen}!", "it": "Dober dan? Il gallo ha appena cantato, {m:ragazzo|f:ragazza}!" } }
         ] },
         { "who": "babica", "sl": "Z mlekom ali brez mleka?", "en": "With milk or without milk?", "de": "Mit Milch oder ohne Milch?", "it": "Con il latte o senza latte?" },
         { "choices": [
           { "sl": "Z mlekom, prosim. Brez sladkorja.", "en": "With milk, please. No sugar.", "de": "Mit Milch, bitte. Ohne Zucker.", "it": "Con il latte, per favore. Senza zucchero.", "ok": true,
-            "reply": { "sl": "Brez sladkorja? Ti si pa priden.", "en": "No sugar? Aren't you good.", "de": "Ohne Zucker? Du bist aber brav.", "it": "Senza zucchero? Ma che bravo." } },
+            "reply": { "sl": "Brez sladkorja? Ti si pa {m:priden|f:pridna}.", "en": "No sugar? Aren't you good.", "de": "Ohne Zucker? Du bist aber brav.", "it": "Senza zucchero? Ma che {m:bravo|f:brava}." } },
           { "sl": "Z mleko, prosim. Brez sladkorja.", "en": "With milk, please. No sugar.", "de": "Mit Milch, bitte. Ohne Zucker.", "it": "Con il latte, per favore. Senza zucchero.",
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z mlekom. Mleko is the nominative.", "de": "Z (mit) steht mit dem Instrumental: z mlekom. Mleko ist der Nominativ.", "it": "Z (con) regge lo strumentale: z mlekom. Mleko è il nominativo." },
-            "reply": { "sl": "Z mleko? Kako si rekel, fant?", "en": "Z mleko? What did you say, lad?", "de": "Z mleko? Was hast du gesagt, Junge?", "it": "Z mleko? Come hai detto, ragazzo?" } },
+            "reply": { "sl": "Z mleko? Kako si {m:rekel|f:rekla}, {m:fant|f:dekle}?", "en": "Z mleko? What did you say, {m:lad|f:lass}?", "de": "Z mleko? Was hast du gesagt, {m:Junge|f:Mädchen}?", "it": "Z mleko? Come hai detto, {m:ragazzo|f:ragazza}?" } },
           { "sl": "Z mlekom, prosim. Brez sladkor.", "en": "With milk, please. No sugar.", "de": "Mit Milch, bitte. Ohne Zucker.", "it": "Con il latte, per favore. Senza zucchero.",
             "grammar": "rodilnik-predlogi", "why": { "en": "Brez (without) takes the genitive: brez sladkorja, brez mleka.", "de": "Brez (ohne) steht mit dem Genitiv: brez sladkorja, brez mleka.", "it": "Brez (senza) regge il genitivo: brez sladkorja, brez mleka." },
             "reply": { "sl": "Sladkor? Ja, ja, tu je. Koliko žličk?", "en": "Sladkor (sugar)? Yes, yes, here it is. How many spoons?", "de": "Sladkor (Zucker)? Ja, ja, hier ist er. Wie viele Löffel?", "it": "Sladkor (zucchero)? Sì, sì, eccolo. Quanti cucchiaini?" } }
         ] },
-        { "who": "babica", "sl": "Izvoli. Pazi, vroča je. In vzemi še kos kruha z maslom.", "en": "Here you are. Careful, it is hot. And take a piece of bread with butter too.", "de": "Bitte schön. Vorsicht, er ist heiß. Und nimm noch ein Stück Brot mit Butter.", "it": "Ecco a te. Attento, scotta. E prendi anche una fetta di pane e burro.",
+        { "who": "babica", "sl": "Izvoli. Pazi, vroča je. In vzemi še kos kruha z maslom.", "en": "Here you are. Careful, it is hot. And take a piece of bread with butter too.", "de": "Bitte schön. Vorsicht, er ist heiß. Und nimm noch ein Stück Brot mit Butter.", "it": "Ecco a te. {m:Attento|f:Attenta}, scotta. E prendi anche una fetta di pane e burro.",
           "fx": { "steam": 1 } },
         { "choices": [
           { "sl": "Hvala, babica. Kava je odlična!", "en": "Thank you, grandma. The coffee is excellent!", "de": "Danke, Oma. Der Kaffee ist ausgezeichnet!", "it": "Grazie, nonna. Il caffè è ottimo!", "ok": true,
@@ -140,7 +140,7 @@
       "id": "kosilo",
       "talk": "nedeljsko-kosilo",
       "lines": [
-        { "who": "babica", "sl": "Jan, danes je nedelja. Kosilo bo ob enih. Pride cela družina!", "en": "Jan, today is Sunday. Lunch is at one. The whole family is coming!", "de": "Jan, heute ist Sonntag. Das Mittagessen ist um eins. Die ganze Familie kommt!", "it": "Jan, oggi è domenica. Il pranzo è all'una. Viene tutta la famiglia!",
+        { "who": "babica", "sl": "{learner}, danes je nedelja. Kosilo bo ob enih. Pride cela družina!", "en": "{learner}, today is Sunday. Lunch is at one. The whole family is coming!", "de": "{learner}, heute ist Sonntag. Das Mittagessen ist um eins. Die ganze Familie kommt!", "it": "{learner}, oggi è domenica. Il pranzo è all'una. Viene tutta la famiglia!",
           "fx": { "oven": 0.8 } },
         { "choices": [
           { "sl": "Super! Kaj kuhate?", "en": "Great! What are you cooking?", "de": "Super! Was kochen Sie?", "it": "Fantastico! Che cosa cucina?", "ok": true,
@@ -150,7 +150,7 @@
             "reply": { "sl": "Kuhaš? Oho, na ti z babico? No, prav.", "en": "Kuhaš (you, ti)? Oho, on ti terms with your grandma? Well, all right.", "de": "Kuhaš (du)? Oho, per du mit der Oma? Na gut.", "it": "Kuhaš (tu)? Oho, del tu con la nonna? Va bene." } },
           { "sl": "Super! Kaj kuham?", "en": "Great! What am I cooking?", "de": "Super! Was koche ich?", "it": "Fantastico! Che cosa cucino?",
             "grammar": "glagoli-sedanjik", "why": { "en": "Kuham is 'I cook'. You are asking her: (vi) kuhate.", "de": "Kuham heißt ‚ich koche‘. Du fragst sie: (vi) kuhate.", "it": "Kuham significa 'cucino'. Tu lo chiedi a lei: (vi) kuhate." },
-            "reply": { "sl": "Nič, fant! Ti boš samo jedel.", "en": "Nothing, lad! You'll just eat.", "de": "Gar nichts, Junge! Du wirst nur essen.", "it": "Niente, ragazzo! Tu mangerai e basta." } }
+            "reply": { "sl": "Nič, {m:fant|f:dekle}! Ti boš samo {m:jedel|f:jedla}.", "en": "Nothing, {m:lad|f:lass}! You'll just eat.", "de": "Gar nichts, {m:Junge|f:Mädchen}! Du wirst nur essen.", "it": "Niente, {m:ragazzo|f:ragazza}! Tu mangerai e basta." } }
         ] },
         { "who": "babica", "sl": "Lahko pomagaš. Prinesi krožnike in kozarce na mizo.", "en": "You can help. Bring the plates and the glasses to the table.", "de": "Du kannst helfen. Bring die Teller und die Gläser auf den Tisch.", "it": "Puoi aiutare. Porta in tavola i piatti e i bicchieri." },
         { "choices": [
@@ -161,16 +161,16 @@
             "reply": { "sl": "Krožniki? Hm … nisem te razumela.", "en": "Krožniki? Hm … I didn't understand you.", "de": "Krožniki? Hm … ich hab dich nicht verstanden.", "it": "Krožniki? Hm … non ti ho capito." } },
           { "sl": "Prav. Koliko krožnika?", "en": "OK. How much of a plate?", "de": "In Ordnung. Wie viel von einem Teller?", "it": "Va bene. Quanto di un piatto?",
             "grammar": "vprasalnice", "why": { "en": "Krožnika is the genitive singular (of one plate). For counting things: the genitive plural, krožnikov.", "de": "Krožnika ist der Genitiv Singular (eines Tellers). Zum Zählen: der Genitiv Plural, krožnikov.", "it": "Krožnika è il genitivo singolare (di un piatto). Per contare le cose: il genitivo plurale, krožnikov." },
-            "reply": { "sl": "Koliko krožnika? Poln krožnik, fant!", "en": "Koliko krožnika (how much of a plate)? A full plate, lad!", "de": "Koliko krožnika (wie viel vom Teller)? Einen vollen Teller, Junge!", "it": "Koliko krožnika (quanto di un piatto)? Un piatto pieno, ragazzo!" } }
+            "reply": { "sl": "Koliko krožnika? Poln krožnik, {m:fant|f:dekle}!", "en": "Koliko krožnika (how much of a plate)? A full plate, {m:lad|f:lass}!", "de": "Koliko krožnika (wie viel vom Teller)? Einen vollen Teller, {m:Junge|f:Mädchen}!", "it": "Koliko krožnika (quanto di un piatto)? Un piatto pieno, {m:ragazzo|f:ragazza}!" } }
         ] },
         { "who": "babica", "sl": "Krožniki so v omari, kozarci na polici. Vilice in noži v predalu.", "en": "The plates are in the cupboard, the glasses on the shelf. Forks and knives in the drawer.", "de": "Die Teller sind im Schrank, die Gläser im Regal. Gabeln und Messer in der Schublade.", "it": "I piatti sono nella credenza, i bicchieri sulla mensola. Forchette e coltelli nel cassetto." },
         { "choices": [
-          { "sl": "Krožnike sem dal na mizo. Še kaj?", "en": "I have put the plates on the table. Anything else?", "de": "Ich habe die Teller auf den Tisch gestellt. Noch etwas?", "it": "Ho messo i piatti in tavola. Serve altro?", "ok": true,
+          { "sl": "Krožnike sem {m:dal|f:dala} na mizo. Še kaj?", "en": "I have put the plates on the table. Anything else?", "de": "Ich habe die Teller auf den Tisch gestellt. Noch etwas?", "it": "Ho messo i piatti in tavola. Serve altro?", "ok": true,
             "reply": { "sl": "Ja: sedi in poskusi juho.", "en": "Yes: sit down and taste the soup.", "de": "Ja: setz dich und probier die Suppe.", "it": "Sì: siediti e assaggia il brodo.", "fx": { "steam": 1 } } },
-          { "sl": "Krožnike sem dal na mizi. Še kaj?", "en": "I have put the plates on the table. Anything else?", "de": "Ich habe die Teller auf den Tisch gestellt. Noch etwas?", "it": "Ho messo i piatti in tavola. Serve altro?",
+          { "sl": "Krožnike sem {m:dal|f:dala} na mizi. Še kaj?", "en": "I have put the plates on the table. Anything else?", "de": "Ich habe die Teller auf den Tisch gestellt. Noch etwas?", "it": "Ho messo i piatti in tavola. Serve altro?",
             "grammar": "kam-tozilnik", "why": { "en": "Putting something somewhere is a direction: na mizo (accusative). Na mizi is where it already is.", "de": "Etwas irgendwohin stellen ist eine Richtung: na mizo (Akkusativ). Na mizi ist, wo es schon ist.", "it": "Mettere qualcosa da qualche parte è una direzione: na mizo (accusativo). Na mizi è dove si trova già." },
-            "reply": { "sl": "Na mizi? Si stal na mizi, fant?", "en": "Na mizi? Were you standing on the table, lad?", "de": "Na mizi? Hast du auf dem Tisch gestanden, Junge?", "it": "Na mizi? Eri in piedi sul tavolo, ragazzo?" } },
-          { "sl": "Krožniki sem dal na mizo. Še kaj?", "en": "I have put the plates on the table. Anything else?", "de": "Ich habe die Teller auf den Tisch gestellt. Noch etwas?", "it": "Ho messo i piatti in tavola. Serve altro?",
+            "reply": { "sl": "Na mizi? Si {m:stal|f:stala} na mizi, {m:fant|f:dekle}?", "en": "Na mizi? Were you standing on the table, {m:lad|f:lass}?", "de": "Na mizi? Hast du auf dem Tisch gestanden, {m:Junge|f:Mädchen}?", "it": "Na mizi? Eri in piedi sul tavolo, {m:ragazzo|f:ragazza}?" } },
+          { "sl": "Krožniki sem {m:dal|f:dala} na mizo. Še kaj?", "en": "I have put the plates on the table. Anything else?", "de": "Ich habe die Teller auf den Tisch gestellt. Noch etwas?", "it": "Ho messo i piatti in tavola. Serve altro?",
             "grammar": "tozilnik", "why": { "en": "The plates are the object: krožnike (accusative). Krožniki is the nominative.", "de": "Die Teller sind das Objekt: krožnike (Akkusativ). Krožniki ist der Nominativ.", "it": "I piatti sono il complemento oggetto: krožnike (accusativo). Krožniki è il nominativo." },
             "reply": { "sl": "Počasi, počasi. Še enkrat?", "en": "Slowly, slowly. Once more?", "de": "Langsam, langsam. Noch einmal?", "it": "Piano, piano. Ancora una volta?" } }
         ] },
@@ -180,7 +180,7 @@
     {
       "id": "krompir",
       "lines": [
-        { "who": "babica", "sl": "Jan, lupim krompir za jutri. Pomagaj mi, roke me bolijo.", "en": "Jan, I am peeling potatoes for tomorrow. Help me, my hands hurt.", "de": "Jan, ich schäle Kartoffeln für morgen. Hilf mir, mir tun die Hände weh.", "it": "Jan, sto pelando le patate per domani. Aiutami, mi fanno male le mani." },
+        { "who": "babica", "sl": "{learner}, lupim krompir za jutri. Pomagaj mi, roke me bolijo.", "en": "{learner}, I am peeling potatoes for tomorrow. Help me, my hands hurt.", "de": "{learner}, ich schäle Kartoffeln für morgen. Hilf mir, mir tun die Hände weh.", "it": "{learner}, sto pelando le patate per domani. Aiutami, mi fanno male le mani." },
         { "choices": [
           { "sl": "Seveda. Kje je nož?", "en": "Of course. Where is the knife?", "de": "Natürlich. Wo ist das Messer?", "it": "Certo. Dov'è il coltello?", "ok": true,
             "reply": { "sl": "V predalu. Ta mali.", "en": "In the drawer. The small one.", "de": "In der Schublade. Das kleine.", "it": "Nel cassetto. Quello piccolo." } },
@@ -202,23 +202,23 @@
             "grammar": "ti-vi", "why": { "en": "Vi with Babica: potrebujete.", "de": "Zu Babica sagst du vi: potrebujete.", "it": "Con Babica si usa il vi: potrebujete." },
             "reply": { "sl": "Potrebuješ? Kar po domače, a? Hi hi.", "en": "Potrebuješ (you, ti)? Nice and casual, eh? Hee hee.", "de": "Potrebuješ (du)? Ganz locker, was? Hihi.", "it": "Potrebuješ (tu)? Alla buona, eh? Hi hi." } }
         ] },
-        { "who": "babica", "sl": "Pet kil! Jutri pridejo vsi. Ti si priden, hitro lupiš.", "en": "Five kilos! Tomorrow everybody is coming. You are a good boy, you peel fast.", "de": "Fünf Kilo! Morgen kommen alle. Du bist ein braver Junge, du schälst schnell.", "it": "Cinque chili! Domani vengono tutti. Sei un bravo ragazzo, peli in fretta." },
+        { "who": "babica", "sl": "Pet kil! Jutri pridejo vsi. Ti si {m:priden|f:pridna}, hitro lupiš.", "en": "Five kilos! Tomorrow everybody is coming. You are {m:a good boy|f:a good girl}, you peel fast.", "de": "Fünf Kilo! Morgen kommen alle. Du bist {m:ein braver Junge|f:ein braves Mädchen}, du schälst schnell.", "it": "Cinque chili! Domani vengono tutti. Sei {m:un bravo ragazzo|f:una brava ragazza}, peli in fretta." },
         { "choices": [
-          { "sl": "Hvala! Rad pomagam.", "en": "Thanks! I like helping.", "de": "Danke! Ich helfe gern.", "it": "Grazie! Aiuto volentieri.", "ok": true,
+          { "sl": "Hvala! {m:Rad|f:Rada} pomagam.", "en": "Thanks! I like helping.", "de": "Danke! Ich helfe gern.", "it": "Grazie! Aiuto volentieri.", "ok": true,
             "reply": { "sl": "Vem. Zato dobiš jutri največji kos pečenke.", "en": "I know. That is why you get the biggest piece of roast tomorrow.", "de": "Ich weiß. Darum bekommst du morgen das größte Stück Braten.", "it": "Lo so. Per questo domani avrai il pezzo di arrosto più grande." } },
-          { "sl": "Hvala! Rad pomagati.", "en": "Thanks! Like to-help.", "de": "Danke! Gern helfen.", "it": "Grazie! Volentieri aiutare.",
-            "grammar": "modalni-glagoli", "why": { "en": "Rad goes with a conjugated verb: rad pomagam (I like helping). Pomagati is the infinitive.", "de": "Rad steht mit einem konjugierten Verb: rad pomagam (ich helfe gern). Pomagati ist der Infinitiv.", "it": "Rad va con un verbo coniugato: rad pomagam (aiuto volentieri). Pomagati è l'infinito." },
-            "reply": { "sl": "Rad … kaj? Oh, moja stara glava.", "en": "Rad … what? Oh, my old head.", "de": "Rad … was? Ach, mein alter Kopf.", "it": "Rad … cosa? Oh, la mia vecchia testa." } },
-          { "sl": "Hvala! Rad imam pomagam.", "en": "Thanks! I like I-help.", "de": "Danke! Ich mag ich-helfe.", "it": "Grazie! Mi piace io-aiuto.",
-            "grammar": "imeti-iti", "why": { "en": "Rad imam is for things you like (rad imam kavo). For an activity: rad + verb, rad pomagam.", "de": "Rad imam steht für Dinge, die du magst (rad imam kavo). Für eine Tätigkeit: rad + Verb, rad pomagam.", "it": "Rad imam è per le cose che ti piacciono (rad imam kavo). Per un'attività: rad + verbo, rad pomagam." },
-            "reply": { "sl": "Rad imaš? Koga pa, fant? Babico?", "en": "Rad imaš (you love)? Who, lad? Your grandma?", "de": "Rad imaš (du hast lieb)? Wen denn, Junge? Die Oma?", "it": "Rad imaš (vuoi bene)? A chi, ragazzo? Alla nonna?" } }
+          { "sl": "Hvala! {m:Rad|f:Rada} pomagati.", "en": "Thanks! Like to-help.", "de": "Danke! Gern helfen.", "it": "Grazie! Volentieri aiutare.",
+            "grammar": "modalni-glagoli", "why": { "en": "{m:Rad|f:Rada} goes with a conjugated verb: {m:rad|f:rada} pomagam (I like helping). Pomagati is the infinitive.", "de": "{m:Rad|f:Rada} steht mit einem konjugierten Verb: {m:rad|f:rada} pomagam (ich helfe gern). Pomagati ist der Infinitiv.", "it": "{m:Rad|f:Rada} va con un verbo coniugato: {m:rad|f:rada} pomagam (aiuto volentieri). Pomagati è l'infinito." },
+            "reply": { "sl": "{m:Rad|f:Rada} … kaj? Oh, moja stara glava.", "en": "{m:Rad|f:Rada} … what? Oh, my old head.", "de": "{m:Rad|f:Rada} … was? Ach, mein alter Kopf.", "it": "{m:Rad|f:Rada} … cosa? Oh, la mia vecchia testa." } },
+          { "sl": "Hvala! {m:Rad|f:Rada} imam pomagam.", "en": "Thanks! I like I-help.", "de": "Danke! Ich mag ich-helfe.", "it": "Grazie! Mi piace io-aiuto.",
+            "grammar": "imeti-iti", "why": { "en": "{m:Rad|f:Rada} imam is for things you like ({m:rad|f:rada} imam kavo). For an activity: {m:rad|f:rada} + verb, {m:rad|f:rada} pomagam.", "de": "{m:Rad|f:Rada} imam steht für Dinge, die du magst ({m:rad|f:rada} imam kavo). Für eine Tätigkeit: {m:rad|f:rada} + Verb, {m:rad|f:rada} pomagam.", "it": "{m:Rad|f:Rada} imam è per le cose che ti piacciono ({m:rad|f:rada} imam kavo). Per un'attività: {m:rad|f:rada} + verbo, {m:rad|f:rada} pomagam." },
+            "reply": { "sl": "{m:Rad|f:Rada} imaš? Koga pa, {m:fant|f:dekle}? Babico?", "en": "{m:Rad|f:Rada} imaš (you love)? Who, {m:lad|f:lass}? Your grandma?", "de": "{m:Rad|f:Rada} imaš (du hast lieb)? Wen denn, {m:Junge|f:Mädchen}? Die Oma?", "it": "{m:Rad|f:Rada} imaš (vuoi bene)? A chi, {m:ragazzo|f:ragazza}? Alla nonna?" } }
         ] }
       ]
     },
     {
       "id": "radio",
       "lines": [
-        { "who": "ancka", "sl": "Jan, tiho! Poročila so. Radio Koper.", "en": "Jan, quiet! It is the news. Radio Koper.", "de": "Jan, leise! Die Nachrichten laufen. Radio Koper.", "it": "Jan, zitto! C'è il notiziario. Radio Capodistria." },
+        { "who": "ancka", "sl": "{learner}, tiho! Poročila so. Radio Koper.", "en": "{learner}, quiet! It is the news. Radio Koper.", "de": "{learner}, leise! Die Nachrichten laufen. Radio Koper.", "it": "{learner}, {m:zitto|f:zitta}! C'è il notiziario. Radio Capodistria." },
         { "choices": [
           { "sl": "Oprostite, teta. Kaj pravijo?", "en": "Sorry, auntie. What are they saying?", "de": "Entschuldigen Sie, Tante. Was sagen sie?", "it": "Mi scusi, zia. Che cosa dicono?", "ok": true,
             "reply": { "sl": "Jutri burja. Sto kilometrov na uro!", "en": "Burja tomorrow. A hundred kilometres an hour!", "de": "Morgen Bora. Hundert Kilometer pro Stunde!", "it": "Domani bora. Cento chilometri all'ora!" } },
@@ -243,12 +243,12 @@
         { "who": "ancka", "sl": "Jutri ne hodi z avtom v Gorico. Burja prevrne kamione!", "en": "Tomorrow do not drive to Gorizia. The burja overturns lorries!", "de": "Fahr morgen nicht mit dem Auto nach Görz. Die Bora wirft Lastwagen um!", "it": "Domani non andare in macchina a Gorizia. La bora ribalta i camion!" },
         { "choices": [
           { "sl": "Hvala za opozorilo, teta. Ostanem doma.", "en": "Thanks for the warning, auntie. I will stay at home.", "de": "Danke für die Warnung, Tante. Ich bleibe zu Hause.", "it": "Grazie dell'avvertimento, zia. Resto a casa.", "ok": true,
-            "reply": { "sl": "Priden. In pridi na kavo!", "en": "Good boy. And come for coffee!", "de": "Braver Junge. Und komm auf einen Kaffee vorbei!", "it": "Bravo ragazzo. E vieni a prendere un caffè!" } },
+            "reply": { "sl": "{m:Priden|f:Pridna}. In pridi na kavo!", "en": "{m:Good boy|f:Good girl}. And come for coffee!", "de": "{m:Braver Junge|f:Braves Mädchen}. Und komm auf einen Kaffee vorbei!", "it": "{m:Bravo ragazzo|f:Brava ragazza}. E vieni a prendere un caffè!" } },
           { "sl": "Hvala, teta. Jutri ne grem nikamor.", "en": "Thanks, auntie. Tomorrow I'm not going anywhere.", "de": "Danke, Tante. Morgen gehe ich nirgendwohin.", "it": "Grazie, zia. Domani non vado da nessuna parte.", "ok": true,
             "reply": { "sl": "Pametno! Burja ni šala.", "en": "Wise! The burja is no joke.", "de": "Vernünftig! Mit der Bora ist nicht zu spaßen.", "it": "Saggio! Con la bora non si scherza." } },
           { "sl": "Hvala za opozorilo, teta. Grem v Gorico!", "en": "Thanks for the warning, auntie. I am going to Gorizia!", "de": "Danke für die Warnung, Tante. Ich fahre nach Görz!", "it": "Grazie dell'avvertimento, zia. Vado a Gorizia!",
             "why": { "en": "She just told you not to: the burja. Stay home: ostanem doma.", "de": "Sie hat dir gerade davon abgeraten: die Bora. Bleib zu Hause: ostanem doma.", "it": "Te l'ha appena sconsigliato: la bora. Resta a casa: ostanem doma." },
-            "reply": { "sl": "V Gorico? Jutri? Burja te odnese, Jan!", "en": "To Gorizia? Tomorrow? The burja will blow you away, Jan!", "de": "Nach Görz? Morgen? Die Bora bläst dich weg, Jan!", "it": "A Gorizia? Domani? La bora ti porta via, Jan!" } }
+            "reply": { "sl": "V Gorico? Jutri? Burja te odnese, {learner}!", "en": "To Gorizia? Tomorrow? The burja will blow you away, {learner}!", "de": "Nach Görz? Morgen? Die Bora bläst dich weg, {learner}!", "it": "A Gorizia? Domani? La bora ti porta via, {learner}!" } }
         ] }
       ]
     }
@@ -257,15 +257,15 @@
     {
       "id": "potica-orehi",
       "lines": [
-        { "who": "babica", "sl": "O, Jan! Dobro, da si prišel. Pečem potico. Poglej v kredenco: so tam orehi?", "en": "Oh, Jan! Good that you've come. I'm baking potica. Look in the cupboard: are there walnuts in there?", "de": "Oh, Jan! Gut, dass du da bist. Ich backe Potica. Schau in den Küchenschrank: Sind da Walnüsse?", "it": "Oh, Jan! Meno male che sei venuto. Sto facendo la potica. Guarda nella credenza: ci sono le noci?",
+        { "who": "babica", "sl": "O, {learner}! Dobro, da si {m:prišel|f:prišla}. Pečem potico. Poglej v kredenco: so tam orehi?", "en": "Oh, {learner}! Good that you've come. I'm baking potica. Look in the cupboard: are there walnuts in there?", "de": "Oh, {learner}! Gut, dass du da bist. Ich backe Potica. Schau in den Küchenschrank: Sind da Walnüsse?", "it": "Oh, {learner}! Meno male che sei {m:venuto|f:venuta}. Sto facendo la potica. Guarda nella credenza: ci sono le noci?",
           "fx": { "oven": 1 } },
         { "choices": [
           { "sl": "Ne, v kredenci ni orehi.", "en": "No, in the cupboard there is no walnuts (nominative).", "de": "Nein, im Schrank gibt es keine Walnüsse (Nominativ).", "it": "No, nella credenza non ci sono noci (nominativo).",
             "grammar": "rodilnik-nikalnica", "why": { "en": "After ni (there is no), the genitive: ni orehov, ni moke.", "de": "Nach ni (es gibt kein) steht der Genitiv: ni orehov, ni moke.", "it": "Dopo ni (non c'è) si usa il genitivo: ni orehov, ni moke." },
-            "reply": { "sl": "Orehi … kaj? Moja ušesa so stara, fant.", "en": "Walnuts … what? My ears are old, lad.", "de": "Walnüsse … was? Meine Ohren sind alt, Junge.", "it": "Le noci … cosa? Le mie orecchie sono vecchie, ragazzo." } },
+            "reply": { "sl": "Orehi … kaj? Moja ušesa so stara, {m:fant|f:dekle}.", "en": "Walnuts … what? My ears are old, {m:lad|f:lass}.", "de": "Walnüsse … was? Meine Ohren sind alt, {m:Junge|f:Mädchen}.", "it": "Le noci … cosa? Le mie orecchie sono vecchie, {m:ragazzo|f:ragazza}." } },
           { "sl": "Ne, v kredenco ni orehov.", "en": "No, into the cupboard there are no walnuts.", "de": "Nein, in den Schrank hinein gibt es keine Walnüsse.", "it": "No, dentro alla credenza (moto) non ci sono noci.",
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Where something is (or isn't): v + locative, v kredenci. V kredenco is the direction (into it).", "de": "Wo etwas ist (oder nicht ist): v + Lokativ, v kredenci. V kredenco ist die Richtung (hinein).", "it": "Dove qualcosa si trova (o non si trova): v + locativo, v kredenci. V kredenco è la direzione (dentro)." },
-            "reply": { "sl": "Noter? Ne, ne, ne lezi v omaro, fant!", "en": "Inside? No, no, don't climb into the cupboard, lad!", "de": "Hinein? Nein, nein, kletter nicht in den Schrank, Junge!", "it": "Dentro? No, no, non entrare nell'armadio, ragazzo!" } },
+            "reply": { "sl": "Noter? Ne, ne, ne lezi v omaro, {m:fant|f:dekle}!", "en": "Inside? No, no, don't climb into the cupboard, {m:lad|f:lass}!", "de": "Hinein? Nein, nein, kletter nicht in den Schrank, {m:Junge|f:Mädchen}!", "it": "Dentro? No, no, non entrare nell'armadio, {m:ragazzo|f:ragazza}!" } },
           { "sl": "Ne, v kredenci ni orehov.", "en": "No, there are no walnuts in the cupboard.", "de": "Nein, im Schrank sind keine Walnüsse.", "it": "No, nella credenza non ci sono noci.", "ok": true,
             "reply": { "sl": "Nič? Joj, moja stara glava!", "en": "None? Oh dear, my old head!", "de": "Keine? Oje, mein alter Kopf!", "it": "Niente? Oh no, la mia vecchia testa!" } }
         ] },
@@ -275,26 +275,26 @@
             "reply": { "sl": "Jaz tudi! Zdaj pa mesiva testo.", "en": "Me too! Now let's knead the dough, the two of us.", "de": "Ich auch! Jetzt kneten wir zwei den Teig.", "it": "Anch'io! Adesso impastiamo, noi due." } },
           { "sl": "Mmm! Potico z rozine imam najraje!", "en": "Mmm! I like potica with raisins (nominative) best!", "de": "Mmm! Potica mit Rosinen (Nominativ) mag ich am liebsten!", "it": "Mmm! La potica con uvetta (nominativo) è la mia preferita!",
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z rozinami, z mlekom.", "de": "Z (mit) steht mit dem Instrumental: z rozinami, z mlekom.", "it": "Z (con) regge lo strumentale: z rozinami, z mlekom." },
-            "reply": { "sl": "Z rozine? Hm, kaj je to, fant? Nov recept?", "en": "Z rozine? Hm, what's that, lad? A new recipe?", "de": "Z rozine? Hm, was ist das, Junge? Ein neues Rezept?", "it": "Z rozine? Mm, che cos'è, ragazzo? Una ricetta nuova?" } }
+            "reply": { "sl": "Z rozine? Hm, kaj je to, {m:fant|f:dekle}? Nov recept?", "en": "Z rozine? Hm, what's that, {m:lad|f:lass}? A new recipe?", "de": "Z rozine? Hm, was ist das, {m:Junge|f:Mädchen}? Ein neues Rezept?", "it": "Z rozine? Mm, che cos'è, {m:ragazzo|f:ragazza}? Una ricetta nuova?" } }
         ] },
-        { "who": "babica", "sl": "Tako. Potica gre v peč. Ti si pa ves v moki, fant!", "en": "There. The potica goes into the oven. And you're all covered in flour, lad!", "de": "So. Die Potica kommt in den Ofen. Und du bist ja ganz voller Mehl, Junge!", "it": "Ecco. La potica va in forno. E tu sei tutto pieno di farina, ragazzo!",
+        { "who": "babica", "sl": "Tako. Potica gre v peč. Ti si pa {m:ves|f:vsa} v moki, {m:fant|f:dekle}!", "en": "There. The potica goes into the oven. And you're all covered in flour, {m:lad|f:lass}!", "de": "So. Die Potica kommt in den Ofen. Und du bist ja ganz voller Mehl, {m:Junge|f:Mädchen}!", "it": "Ecco. La potica va in forno. E tu sei {m:tutto pieno|f:tutta piena} di farina, {m:ragazzo|f:ragazza}!",
           "fx": { "oven": 1 } }
       ]
     },
     {
       "id": "potica-midva",
       "lines": [
-        { "who": "babica", "sl": "Jan, pridi! Danes pečeva potico midva, ti in jaz.", "en": "Jan, come! Today the two of us are baking potica, you and me.", "de": "Jan, komm! Heute backen wir zwei die Potica, du und ich.", "it": "Jan, vieni! Oggi la potica la facciamo noi due, tu e io.",
+        { "who": "babica", "sl": "{learner}, pridi! Danes pečeva potico midva, ti in jaz.", "en": "{learner}, come! Today the two of us are baking potica, you and me.", "de": "{learner}, komm! Heute backen wir zwei die Potica, du und ich.", "it": "{learner}, vieni! Oggi la potica la facciamo noi due, tu e io.",
           "fx": { "oven": 1 } },
         { "choices": [
           { "sl": "Prav, babica! Kaj bomo naredili najprej?", "en": "OK, grandma! What will we (all) do first?", "de": "Gut, Oma! Was machen wir (alle) zuerst?", "it": "Va bene, nonna! Che cosa facciamo (tutti) per prima cosa?",
-            "grammar": "dvojina", "why": { "en": "Just the two of you: the dual, bova naredila. Bomo is for three or more.", "de": "Nur ihr zwei: der Dual, bova naredila. Bomo gilt für drei oder mehr.", "it": "Solo voi due: il duale, bova naredila. Bomo è per tre o più." },
+            "grammar": "dvojina", "why": { "en": "Just the two of you: the dual, bova {m:naredila|f:naredili}. Bomo is for three or more.", "de": "Nur ihr zwei: der Dual, bova {m:naredila|f:naredili}. Bomo gilt für drei oder mehr.", "it": "Solo voi due: il duale, bova {m:naredila|f:naredili}. Bomo è per tre o più." },
             "reply": { "sl": "Kdo še? Maček spi na klopi!", "en": "Who else? The cat is asleep on the bench!", "de": "Wer noch? Die Katze schläft auf der Bank!", "it": "Chi altro? Il gatto dorme sulla panca!" } },
-          { "sl": "Prav, babica! Kaj bova naredila najprej?", "en": "OK, grandma! What shall we two do first?", "de": "Gut, Oma! Was machen wir zwei zuerst?", "it": "Va bene, nonna! Che cosa facciamo noi due per prima cosa?", "ok": true,
+          { "sl": "Prav, babica! Kaj bova {m:naredila|f:naredili} najprej?", "en": "OK, grandma! What shall we two do first?", "de": "Gut, Oma! Was machen wir zwei zuerst?", "it": "Va bene, nonna! Che cosa facciamo noi due per prima cosa?", "ok": true,
             "reply": { "sl": "Najprej moka in mleko. Potem mesiva testo.", "en": "First the flour and the milk. Then we two knead the dough.", "de": "Zuerst Mehl und Milch. Dann kneten wir zwei den Teig.", "it": "Prima la farina e il latte. Poi noi due impastiamo." } },
           { "sl": "Prav, babica! Kaj bosta naredila najprej?", "en": "OK, grandma! What will you two do first?", "de": "Gut, Oma! Was macht ihr zwei zuerst?", "it": "Va bene, nonna! Che cosa fate voi due per prima cosa?",
-            "grammar": "dvojina", "why": { "en": "Bosta is 'you two will'. You mean yourself and her: bova naredila.", "de": "Bosta heißt ‚ihr zwei werdet‘. Du meinst dich und sie: bova naredila.", "it": "Bosta significa 'voi due farete'. Tu intendi te e lei: bova naredila." },
-            "reply": { "sl": "Vidva? Kdo pa je drugi? Jaz sem sama, fant!", "en": "You two? Who's the other one? I'm on my own, lad!", "de": "Ihr zwei? Wer ist denn der andere? Ich bin allein, Junge!", "it": "Voi due? E chi è l'altro? Io sono da sola, ragazzo!" } }
+            "grammar": "dvojina", "why": { "en": "Bosta is 'you two will'. You mean yourself and her: bova {m:naredila|f:naredili}.", "de": "Bosta heißt ‚ihr zwei werdet‘. Du meinst dich und sie: bova {m:naredila|f:naredili}.", "it": "Bosta significa 'voi due farete'. Tu intendi te e lei: bova {m:naredila|f:naredili}." },
+            "reply": { "sl": "Vidva? Kdo pa je drugi? Jaz sem sama, {m:fant|f:dekle}!", "en": "You two? Who's the other one? I'm on my own, {m:lad|f:lass}!", "de": "Ihr zwei? Wer ist denn der andere? Ich bin allein, {m:Junge|f:Mädchen}!", "it": "Voi due? E chi è l'altro? Io sono da sola, {m:ragazzo|f:ragazza}!" } }
         ] },
         { "who": "babica", "sl": "Tole je moj recept. Od moje mame, veš.", "en": "This is my recipe. From my mother, you know.", "de": "Das ist mein Rezept. Von meiner Mutter, weißt du.", "it": "Questa è la mia ricetta. Di mia mamma, sai." },
         { "choices": [
@@ -302,35 +302,35 @@
             "grammar": "pridevniki-ujemanje", "why": { "en": "Recept is masculine: vaš recept. Vaša goes with feminine nouns (vaša potica).", "de": "Recept ist männlich: vaš recept. Vaša passt zu weiblichen Nomen (vaša potica).", "it": "Recept è maschile: vaš recept. Vaša va con i nomi femminili (vaša potica)." },
             "reply": { "sl": "Vaša? Misliš potico? Ja, tudi ta je dobra!", "en": "Vaša (feminine)? You mean the potica? Yes, that's good too!", "de": "Vaša (weiblich)? Meinst du die Potica? Ja, die ist auch gut!", "it": "Vaša (femminile)? Intendi la potica? Sì, anche quella è buona!" } },
           { "sl": "Vaš recept je najboljši v vasi!", "en": "Your recipe is the best in the village!", "de": "Ihr Rezept ist das beste im Dorf!", "it": "La Sua ricetta è la migliore del paese!", "ok": true,
-            "reply": { "sl": "Oj, fant, ti pa znaš lepo govoriti!", "en": "Oh, lad, you do know how to talk nicely!", "de": "Oh, Junge, du kannst aber schön reden!", "it": "Oh, ragazzo, come parli bene!" } }
+            "reply": { "sl": "Oj, {m:fant|f:dekle}, ti pa znaš lepo govoriti!", "en": "Oh, {m:lad|f:lass}, you do know how to talk nicely!", "de": "Oh, {m:Junge|f:Mädchen}, du kannst aber schön reden!", "it": "Oh, {m:ragazzo|f:ragazza}, come parli bene!" } }
         ] },
-        { "who": "babica", "sl": "Tako. Še eno uro, pa bo pečena. Midva sva dobra ekipa, fant!", "en": "There. One more hour and it'll be baked. We two are a good team, lad!", "de": "So. Noch eine Stunde, dann ist sie gebacken. Wir zwei sind ein gutes Team, Junge!", "it": "Ecco. Ancora un'ora e sarà cotta. Noi due siamo una bella squadra, ragazzo!",
+        { "who": "babica", "sl": "Tako. Še eno uro, pa bo pečena. Midva sva dobra ekipa, {m:fant|f:dekle}!", "en": "There. One more hour and it'll be baked. We two are a good team, {m:lad|f:lass}!", "de": "So. Noch eine Stunde, dann ist sie gebacken. Wir zwei sind ein gutes Team, {m:Junge|f:Mädchen}!", "it": "Ecco. Ancora un'ora e sarà cotta. Noi due siamo una bella squadra, {m:ragazzo|f:ragazza}!",
           "fx": { "oven": 1 } }
       ]
     },
     {
       "id": "kava-sanje",
       "lines": [
-        { "who": "babica", "sl": "Dobro jutro, Jan! Kava je že na mizi. Kako si spal?", "en": "Good morning, Jan! The coffee is already on the table. How did you sleep?", "de": "Guten Morgen, Jan! Der Kaffee steht schon auf dem Tisch. Wie hast du geschlafen?", "it": "Buongiorno, Jan! Il caffè è già in tavola. Come hai dormito?",
+        { "who": "babica", "sl": "Dobro jutro, {learner}! Kava je že na mizi. Kako si {m:spal|f:spala}?", "en": "Good morning, {learner}! The coffee is already on the table. How did you sleep?", "de": "Guten Morgen, {learner}! Der Kaffee steht schon auf dem Tisch. Wie hast du geschlafen?", "it": "Buongiorno, {learner}! Il caffè è già in tavola. Come hai dormito?",
           "fx": { "steam": 1 } },
         { "choices": [
           { "sl": "Dobro spim, hvala.", "en": "I sleep well, thanks.", "de": "Ich schlafe gut, danke.", "it": "Dormo bene, grazie.",
-            "grammar": "pretekli-cas", "why": { "en": "She asks about last night: the past, sem spal. Spim is 'I sleep' (now).", "de": "Sie fragt nach der letzten Nacht: die Vergangenheit, sem spal. Spim heißt ‚ich schlafe‘ (jetzt).", "it": "Ti chiede della notte scorsa: il passato, sem spal. Spim significa 'dormo' (adesso)." },
-            "reply": { "sl": "Zdaj? Saj imaš oči odprte, fant!", "en": "Now? But your eyes are open, lad!", "de": "Jetzt? Du hast doch die Augen offen, Junge!", "it": "Adesso? Ma hai gli occhi aperti, ragazzo!" } },
-          { "sl": "Dobro bom spal, hvala.", "en": "I will sleep well, thanks.", "de": "Ich werde gut schlafen, danke.", "it": "Dormirò bene, grazie.",
-            "grammar": "pretekli-cas", "why": { "en": "Bom spal is the future (I will sleep). She asks about last night: sem spal.", "de": "Bom spal ist die Zukunft (ich werde schlafen). Sie fragt nach der letzten Nacht: sem spal.", "it": "Bom spal è il futuro (dormirò). Lei chiede della notte scorsa: sem spal." },
+            "grammar": "pretekli-cas", "why": { "en": "She asks about last night: the past, sem {m:spal|f:spala}. Spim is 'I sleep' (now).", "de": "Sie fragt nach der letzten Nacht: die Vergangenheit, sem {m:spal|f:spala}. Spim heißt ‚ich schlafe‘ (jetzt).", "it": "Ti chiede della notte scorsa: il passato, sem {m:spal|f:spala}. Spim significa 'dormo' (adesso)." },
+            "reply": { "sl": "Zdaj? Saj imaš oči odprte, {m:fant|f:dekle}!", "en": "Now? But your eyes are open, {m:lad|f:lass}!", "de": "Jetzt? Du hast doch die Augen offen, {m:Junge|f:Mädchen}!", "it": "Adesso? Ma hai gli occhi aperti, {m:ragazzo|f:ragazza}!" } },
+          { "sl": "Dobro bom {m:spal|f:spala}, hvala.", "en": "I will sleep well, thanks.", "de": "Ich werde gut schlafen, danke.", "it": "Dormirò bene, grazie.",
+            "grammar": "pretekli-cas", "why": { "en": "Bom {m:spal|f:spala} is the future (I will sleep). She asks about last night: sem {m:spal|f:spala}.", "de": "Bom {m:spal|f:spala} ist die Zukunft (ich werde schlafen). Sie fragt nach der letzten Nacht: sem {m:spal|f:spala}.", "it": "Bom {m:spal|f:spala} è il futuro (dormirò). Lei chiede della notte scorsa: sem {m:spal|f:spala}." },
             "reply": { "sl": "Že spet v posteljo? Najprej popij kavo!", "en": "Back to bed already? Drink your coffee first!", "de": "Schon wieder ins Bett? Trink erst deinen Kaffee!", "it": "Di nuovo a letto? Prima bevi il caffè!" } },
-          { "sl": "Dobro sem spal, hvala.", "en": "I slept well, thanks.", "de": "Ich habe gut geschlafen, danke.", "it": "Ho dormito bene, grazie.", "ok": true,
+          { "sl": "Dobro sem {m:spal|f:spala}, hvala.", "en": "I slept well, thanks.", "de": "Ich habe gut geschlafen, danke.", "it": "Ho dormito bene, grazie.", "ok": true,
             "reply": { "sl": "Lepo. Jaz sem pa sanjala celo noč.", "en": "Good. And I was dreaming all night.", "de": "Schön. Und ich habe die ganze Nacht geträumt.", "it": "Bene. Io invece ho sognato tutta la notte." } }
         ] },
-        { "who": "babica", "sl": "In ti? Kaj si sanjal?", "en": "And you? What did you dream about?", "de": "Und du? Was hast du geträumt?", "it": "E tu? Che cosa hai sognato?" },
+        { "who": "babica", "sl": "In ti? Kaj si {m:sanjal|f:sanjala}?", "en": "And you? What did you dream about?", "de": "Und du? Was hast du geträumt?", "it": "E tu? Che cosa hai sognato?" },
         { "choices": [
-          { "sl": "Sanjal sem o vaši potici!", "en": "I dreamt about your potica!", "de": "Ich habe von Ihrer Potica geträumt!", "it": "Ho sognato la Sua potica!", "ok": true,
+          { "sl": "{m:Sanjal|f:Sanjala} sem o vaši potici!", "en": "I dreamt about your potica!", "de": "Ich habe von Ihrer Potica geträumt!", "it": "Ho sognato la Sua potica!", "ok": true,
             "reply": { "sl": "O potici? Ha! V soboto jo spečem.", "en": "About potica? Ha! I'll bake one on Saturday.", "de": "Von Potica? Ha! Am Samstag backe ich eine.", "it": "La potica? Ah! Sabato ne faccio una." } },
-          { "sl": "Sanjal sem o vaša potica!", "en": "I dreamt about your potica (nominative)!", "de": "Ich habe von Ihre Potica (Nominativ) geträumt!", "it": "Ho sognato di la Sua potica (nominativo)!",
+          { "sl": "{m:Sanjal|f:Sanjala} sem o vaša potica!", "en": "I dreamt about your potica (nominative)!", "de": "Ich habe von Ihre Potica (Nominativ) geträumt!", "it": "Ho sognato di la Sua potica (nominativo)!",
             "grammar": "mestnik", "why": { "en": "O (about) takes the locative: o vaši potici.", "de": "O (über, von) steht mit dem Lokativ: o vaši potici.", "it": "O (di, su) regge il locativo: o vaši potici." },
             "reply": { "sl": "Potica, potica … ti misliš samo na jed!", "en": "Potica, potica … you only think about food!", "de": "Potica, Potica … du denkst nur ans Essen!", "it": "Potica, potica … tu pensi solo al cibo!" } },
-          { "sl": "Sanjal sem o tvoji potici!", "en": "I dreamt about your (ti) potica!", "de": "Ich habe von deiner (ti) Potica geträumt!", "it": "Ho sognato la tua (ti) potica!",
+          { "sl": "{m:Sanjal|f:Sanjala} sem o tvoji potici!", "en": "I dreamt about your (ti) potica!", "de": "Ich habe von deiner (ti) Potica geträumt!", "it": "Ho sognato la tua (ti) potica!",
             "grammar": "ti-vi", "why": { "en": "Babica Micka is old: vi, so vaši. Tvoji is for someone you say ti to.", "de": "Babica Micka ist alt: vi, also vaši. Tvoji sagt man zu jemandem, den man duzt.", "it": "Babica Micka è anziana: vi, quindi vaši. Tvoji è per chi si dà del tu." },
             "reply": { "sl": "Tvoji? Oho, zdaj sva pa na ti? Hi hi.", "en": "Tvoji (your, ti)? Oho, so now we're on ti terms? Hee hee.", "de": "Tvoji (deiner)? Oho, sind wir jetzt per du? Hihi.", "it": "Tvoji (tua)? Oho, adesso ci diamo del tu? Ih ih." } }
         ] },
@@ -341,28 +341,28 @@
     {
       "id": "kava-mocna",
       "lines": [
-        { "who": "babica", "sl": "Dobro jutro, Jan! Danes sem skuhala močno kavo. Poskusi!", "en": "Good morning, Jan! Today I made strong coffee. Taste it!", "de": "Guten Morgen, Jan! Heute habe ich starken Kaffee gekocht. Probier mal!", "it": "Buongiorno, Jan! Oggi ho fatto un caffè forte. Assaggia!",
+        { "who": "babica", "sl": "Dobro jutro, {learner}! Danes sem skuhala močno kavo. Poskusi!", "en": "Good morning, {learner}! Today I made strong coffee. Taste it!", "de": "Guten Morgen, {learner}! Heute habe ich starken Kaffee gekocht. Probier mal!", "it": "Buongiorno, {learner}! Oggi ho fatto un caffè forte. Assaggia!",
           "fx": { "steam": 1 } },
         { "choices": [
           { "sl": "Mmm! Danes je bolj dobra kot včeraj.", "en": "Mmm! Today it's more good than yesterday.", "de": "Mmm! Heute ist er mehr gut als gestern.", "it": "Mmm! Oggi è più buono di ieri (detto male).",
             "grammar": "primernik", "why": { "en": "Dober has its own comparative: boljši, boljša (better). Bolj dobra is not said.", "de": "Dober hat eine eigene Steigerung: boljši, boljša (besser). Bolj dobra sagt man nicht.", "it": "Dober ha un comparativo tutto suo: boljši, boljša (migliore). Bolj dobra non si dice." },
-            "reply": { "sl": "Bolj dobra? Ti si pa danes bolj zaspan, fant!", "en": "More good? You're more sleepy today, lad!", "de": "Mehr gut? Du bist heute eher mehr verschlafen, Junge!", "it": "Più buona? Tu oggi sei più addormentato, ragazzo!" } },
+            "reply": { "sl": "Bolj dobra? Ti si pa danes bolj {m:zaspan|f:zaspana}, {m:fant|f:dekle}!", "en": "More good? You're more sleepy today, {m:lad|f:lass}!", "de": "Mehr gut? Du bist heute eher mehr verschlafen, {m:Junge|f:Mädchen}!", "it": "Più buona? Tu oggi sei più {m:addormentato|f:addormentata}, {m:ragazzo|f:ragazza}!" } },
           { "sl": "Mmm! Danes je boljša kot včeraj.", "en": "Mmm! Today it's better than yesterday.", "de": "Mmm! Heute ist er besser als gestern.", "it": "Mmm! Oggi è più buono di ieri.", "ok": true,
             "reply": { "sl": "Seveda! Več kave, manj vode.", "en": "Of course! More coffee, less water.", "de": "Natürlich! Mehr Kaffee, weniger Wasser.", "it": "Certo! Più caffè, meno acqua." } },
           { "sl": "Mmm! Danes je najboljša kot včeraj.", "en": "Mmm! Today it's the best than yesterday.", "de": "Mmm! Heute ist er der beste als gestern.", "it": "Mmm! Oggi è il migliore di ieri.",
             "grammar": "primernik", "why": { "en": "Comparing two days: the comparative, boljša kot. Najboljša is 'the best'.", "de": "Zwei Tage vergleichen: der Komparativ, boljša kot. Najboljša heißt ‚die beste‘.", "it": "Per confrontare due giorni: il comparativo, boljša kot. Najboljša significa 'la migliore'." },
-            "reply": { "sl": "Najboljša na svetu? Oj, fant, pretiravaš!", "en": "The best in the world? Oh, lad, you exaggerate!", "de": "Die beste der Welt? Ach, Junge, du übertreibst!", "it": "La migliore del mondo? Oh, ragazzo, esageri!" } }
+            "reply": { "sl": "Najboljša na svetu? Oj, {m:fant|f:dekle}, pretiravaš!", "en": "The best in the world? Oh, {m:lad|f:lass}, you exaggerate!", "de": "Die beste der Welt? Ach, {m:Junge|f:Mädchen}, du übertreibst!", "it": "La migliore del mondo? Oh, {m:ragazzo|f:ragazza}, esageri!" } }
         ] },
         { "who": "babica", "sl": "Še sladkor? Ena žlička ali dve?", "en": "Sugar too? One spoonful or two?", "de": "Noch Zucker? Ein Löffelchen oder zwei?", "it": "Anche lo zucchero? Un cucchiaino o due?" },
         { "choices": [
           { "sl": "Dve žličke, prosim.", "en": "Two spoonfuls (3–4 form), please.", "de": "Zwei Löffelchen (Form für 3–4), bitte.", "it": "Due cucchiaini (forma per 3–4), per favore.",
             "grammar": "stevila-samostalniki", "why": { "en": "Two takes the dual: dve žlički. Žličke is for three and four.", "de": "Bei zwei steht der Dual: dve žlički. Žličke gilt für drei und vier.", "it": "Con due si usa il duale: dve žlički. Žličke è per tre e quattro." },
-            "reply": { "sl": "Tri? Štiri? Joj, to bo preveč sladko, fant!", "en": "Three? Four? Oh dear, that'll be too sweet, lad!", "de": "Drei? Vier? Oje, das wird zu süß, Junge!", "it": "Tre? Quattro? Oh no, sarà troppo dolce, ragazzo!" } },
+            "reply": { "sl": "Tri? Štiri? Joj, to bo preveč sladko, {m:fant|f:dekle}!", "en": "Three? Four? Oh dear, that'll be too sweet, {m:lad|f:lass}!", "de": "Drei? Vier? Oje, das wird zu süß, {m:Junge|f:Mädchen}!", "it": "Tre? Quattro? Oh no, sarà troppo dolce, {m:ragazzo|f:ragazza}!" } },
           { "sl": "Dva žlički, prosim.", "en": "Two (masculine) spoonfuls, please.", "de": "Zwei (männlich) Löffelchen, bitte.", "it": "Due (maschile) cucchiaini, per favore.",
             "grammar": "stevila-samostalniki", "why": { "en": "Žlička is feminine: dve žlički. Dva is for masculine nouns (dva kozarca).", "de": "Žlička ist weiblich: dve žlički. Dva steht bei männlichen Nomen (dva kozarca).", "it": "Žlička è femminile: dve žlički. Dva è per i nomi maschili (dva kozarca)." },
             "reply": { "sl": "Dva? Dva kaj? Kozarca kave? Ne, ne!", "en": "Dva (two, masculine)? Two what? Two glasses of coffee? No, no!", "de": "Dva (zwei, männlich)? Zwei was? Zwei Gläser Kaffee? Nein, nein!", "it": "Dva (due, maschile)? Due cosa? Due bicchieri di caffè? No, no!" } },
           { "sl": "Dve žlički, prosim.", "en": "Two spoonfuls, please.", "de": "Zwei Löffelchen, bitte.", "it": "Due cucchiaini, per favore.", "ok": true,
-            "reply": { "sl": "Oho, ti si pa sladkosned!", "en": "Oho, you've got a sweet tooth!", "de": "Oho, du bist ja eine Naschkatze!", "it": "Oho, sei proprio un goloso!" } }
+            "reply": { "sl": "Oho, ti si pa {m:sladkosned|f:sladkosneda}!", "en": "Oho, you've got a sweet tooth!", "de": "Oho, du bist ja eine Naschkatze!", "it": "Oho, sei proprio {m:un goloso|f:una golosa}!" } }
         ] },
         { "who": "babica", "sl": "Izvoli. Močna in sladka, kot mora biti.", "en": "Here you are. Strong and sweet, as it should be.", "de": "Bitte schön. Stark und süß, wie es sich gehört.", "it": "Ecco. Forte e dolce, come dev'essere.",
           "fx": { "steam": 1 } }
@@ -373,29 +373,29 @@
       "count": { "from": "villagers", "min": 2, "max": 30, "gender": "m", "case": "acc" },
       "talk": "nedeljsko-kosilo",
       "lines": [
-        { "who": "babica", "sl": "Jan, nedelja je! Na kosilo pride vsa vas. Si si umil roke?", "en": "Jan, it's Sunday! The whole village is coming to lunch. Have you washed your hands?", "de": "Jan, es ist Sonntag! Das ganze Dorf kommt zum Mittagessen. Hast du dir die Hände gewaschen?", "it": "Jan, è domenica! A pranzo viene tutto il paese. Ti sei lavato le mani?",
+        { "who": "babica", "sl": "{learner}, nedelja je! Na kosilo pride vsa vas. Si si {m:umil|f:umila} roke?", "en": "{learner}, it's Sunday! The whole village is coming to lunch. Have you washed your hands?", "de": "{learner}, es ist Sonntag! Das ganze Dorf kommt zum Mittagessen. Hast du dir die Hände gewaschen?", "it": "{learner}, è domenica! A pranzo viene tutto il paese. Ti sei {m:lavato|f:lavata} le mani?",
           "fx": { "oven": 0.8 } },
         { "choices": [
-          { "sl": "Ja, roke si sem že umil.", "en": "Yes, I've already washed my hands (wrong word order).", "de": "Ja, ich habe mir die Hände schon gewaschen (falsche Wortstellung).", "it": "Sì, mi sono già lavato le mani (ordine sbagliato).",
-            "grammar": "naslonke", "why": { "en": "Short words keep a fixed order: sem comes before si: roke sem si že umil.", "de": "Die kurzen Wörter haben eine feste Reihenfolge: sem kommt vor si: roke sem si že umil.", "it": "Le parole brevi hanno un ordine fisso: sem viene prima di si: roke sem si že umil." },
+          { "sl": "Ja, roke si sem že {m:umil|f:umila}.", "en": "Yes, I've already washed my hands (wrong word order).", "de": "Ja, ich habe mir die Hände schon gewaschen (falsche Wortstellung).", "it": "Sì, mi sono già {m:lavato|f:lavata} le mani (ordine sbagliato).",
+            "grammar": "naslonke", "why": { "en": "Short words keep a fixed order: sem comes before si: roke sem si že {m:umil|f:umila}.", "de": "Die kurzen Wörter haben eine feste Reihenfolge: sem kommt vor si: roke sem si že {m:umil|f:umila}.", "it": "Le parole brevi hanno un ordine fisso: sem viene prima di si: roke sem si že {m:umil|f:umila}." },
             "reply": { "sl": "Hm? Kdo je umil roke, ti ali jaz?", "en": "Hm? Who washed their hands, you or me?", "de": "Hm? Wer hat sich die Hände gewaschen, du oder ich?", "it": "Mm? Chi si è lavato le mani, tu o io?" } },
-          { "sl": "Ja, roke sem si že umil.", "en": "Yes, I've already washed my hands.", "de": "Ja, ich habe mir die Hände schon gewaschen.", "it": "Sì, mi sono già lavato le mani.", "ok": true,
-            "reply": { "sl": "Priden. Zdaj pa pogrni mizo.", "en": "Good boy. Now lay the table.", "de": "Braver Junge. Jetzt deck den Tisch.", "it": "Bravo ragazzo. Adesso apparecchia la tavola." } },
+          { "sl": "Ja, roke sem si že {m:umil|f:umila}.", "en": "Yes, I've already washed my hands.", "de": "Ja, ich habe mir die Hände schon gewaschen.", "it": "Sì, mi sono già {m:lavato|f:lavata} le mani.", "ok": true,
+            "reply": { "sl": "{m:Priden|f:Pridna}. Zdaj pa pogrni mizo.", "en": "{m:Good boy|f:Good girl}. Now lay the table.", "de": "{m:Braver Junge|f:Braves Mädchen}. Jetzt deck den Tisch.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Adesso apparecchia la tavola." } },
           { "sl": "Seveda! Poglejte, čiste so.", "en": "Of course! Look, they're clean.", "de": "Natürlich! Schauen Sie, sie sind sauber.", "it": "Certo! Guardi, sono pulite.", "ok": true,
             "reply": { "sl": "Res so! Zdaj pa pogrni mizo.", "en": "So they are! Now lay the table.", "de": "Tatsächlich! Jetzt deck den Tisch.", "it": "È vero! Adesso apparecchia la tavola." } }
         ] },
-        { "who": "babica", "sl": "Za vsakega en krožnik. Poglej, koliko si jih dal na mizo.", "en": "One plate for everyone. Look how many you've put on the table.", "de": "Für jeden einen Teller. Schau, wie viele du auf den Tisch gestellt hast.", "it": "Un piatto per ciascuno. Guarda quanti ne hai messi in tavola." },
+        { "who": "babica", "sl": "Za vsakega en krožnik. Poglej, koliko si jih {m:dal|f:dala} na mizo.", "en": "One plate for everyone. Look how many you've put on the table.", "de": "Für jeden einen Teller. Schau, wie viele du auf den Tisch gestellt hast.", "it": "Un piatto per ciascuno. Guarda quanti ne hai messi in tavola." },
         { "choices": [
-          { "sl": "Na mizo sem dal {n} {!krožnik|krožnika|krožnike|krožnikov}.", "en": "I have put {n} {plate|plates} on the table.", "de": "Ich habe {n} Teller auf den Tisch gestellt.", "it": "Ho messo in tavola {n} {piatto|piatti}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+          { "sl": "Na mizo sem {m:dal|f:dala} {n} {!krožnik|krožnika|krožnike|krožnikov}.", "en": "I have put {n} {plate|plates} on the table.", "de": "Ich habe {n} Teller auf den Tisch gestellt.", "it": "Ho messo in tavola {n} {piatto|piatti}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {krožnik|krožnika|krožnike|krožnikov}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {n} {krožnik|krožnika|krožnike|krožnikov}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in su il genitivo plurale}: {n} {krožnik|krožnika|krožnike|krožnikov}." },
             "reply": { "sl": "Koliko? Moje oči niso več mlade, veš …", "en": "How many? My eyes aren't young any more, you know …", "de": "Wie viele? Meine Augen sind nicht mehr jung, weißt du …", "it": "Quanti? I miei occhi non sono più giovani, sai …" } },
-          { "sl": "Na mizo sem dal {n} {krožnik|krožnika|krožnike|krožnikov}.", "en": "I have put {n} {plate|plates} on the table.", "de": "Ich habe {n} Teller auf den Tisch gestellt.", "it": "Ho messo in tavola {n} {piatto|piatti}.", "ok": true,
+          { "sl": "Na mizo sem {m:dal|f:dala} {n} {krožnik|krožnika|krožnike|krožnikov}.", "en": "I have put {n} {plate|plates} on the table.", "de": "Ich habe {n} Teller auf den Tisch gestellt.", "it": "Ho messo in tavola {n} {piatto|piatti}.", "ok": true,
             "reply": { "sl": "Tako je! Vsak dobi svoj krožnik.", "en": "That's right! Everyone gets their own plate.", "de": "Genau! Jeder bekommt seinen eigenen Teller.", "it": "Esatto! Ognuno ha il suo piatto." } },
-          { "sl": "Na mizo sem dal {n} {!krožnik|krožnika|krožnike|krožnikov}.", "en": "I have put {n} {plate|plates} on the table.", "de": "Ich habe {n} Teller auf den Tisch gestellt.", "it": "Ho messo in tavola {n} {piatto|piatti}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+          { "sl": "Na mizo sem {m:dal|f:dala} {n} {!krožnik|krožnika|krožnike|krožnikov}.", "en": "I have put {n} {plate|plates} on the table.", "de": "Ich habe {n} Teller auf den Tisch gestellt.", "it": "Ho messo in tavola {n} {piatto|piatti}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {krožnik|krožnika|krožnike|krožnikov}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {n} {krožnik|krožnika|krožnike|krožnikov}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in su il genitivo plurale}: {n} {krožnik|krožnika|krožnike|krožnikov}." },
-            "reply": { "sl": "Hm? Preštej še enkrat, fant. Počasi.", "en": "Hm? Count again, lad. Slowly.", "de": "Hm? Zähl noch einmal, Junge. Langsam.", "it": "Mm? Conta di nuovo, ragazzo. Piano." } }
+            "reply": { "sl": "Hm? Preštej še enkrat, {m:fant|f:dekle}. Počasi.", "en": "Hm? Count again, {m:lad|f:lass}. Slowly.", "de": "Hm? Zähl noch einmal, {m:Junge|f:Mädchen}. Langsam.", "it": "Mm? Conta di nuovo, {m:ragazzo|f:ragazza}. Piano." } }
         ] },
-        { "who": "babica", "sl": "Priden fant. Juha je na mizi. Dober tek vsem!", "en": "Good boy. The soup is on the table. Enjoy your meal, everyone!", "de": "Braver Junge. Die Suppe steht auf dem Tisch. Guten Appetit allen!", "it": "Bravo ragazzo. Il brodo è in tavola. Buon appetito a tutti!",
+        { "who": "babica", "sl": "{m:Priden fant|f:Pridno dekle}. Juha je na mizi. Dober tek vsem!", "en": "{m:Good boy|f:Good girl}. The soup is on the table. Enjoy your meal, everyone!", "de": "{m:Braver Junge|f:Braves Mädchen}. Die Suppe steht auf dem Tisch. Guten Appetit allen!", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Il brodo è in tavola. Buon appetito a tutti!",
           "fx": { "steam": 1 } }
       ]
     },
@@ -403,7 +403,7 @@
       "id": "kosilo-pecenka",
       "talk": "nedeljsko-kosilo",
       "lines": [
-        { "who": "babica", "sl": "Jan, nedelja je! Kosilo je skoraj gotovo. Kaj boš jedel?", "en": "Jan, it's Sunday! Lunch is nearly ready. What will you have?", "de": "Jan, es ist Sonntag! Das Mittagessen ist fast fertig. Was möchtest du essen?", "it": "Jan, è domenica! Il pranzo è quasi pronto. Che cosa mangi?",
+        { "who": "babica", "sl": "{learner}, nedelja je! Kosilo je skoraj gotovo. Kaj boš {m:jedel|f:jedla}?", "en": "{learner}, it's Sunday! Lunch is nearly ready. What will you have?", "de": "{learner}, es ist Sonntag! Das Mittagessen ist fast fertig. Was möchtest du essen?", "it": "{learner}, è domenica! Il pranzo è quasi pronto. Che cosa mangi?",
           "fx": { "oven": 0.8 } },
         { "choices": [
           { "sl": "Pečenko s krompir, prosim.", "en": "Roast with potato (nominative), please.", "de": "Braten mit Kartoffeln (Nominativ), bitte.", "it": "Arrosto con patate (nominativo), per favore.",
@@ -411,59 +411,59 @@
             "reply": { "sl": "S krompir? Kaj je to, nova jed?", "en": "S krompir? What's that, a new dish?", "de": "S krompir? Was ist das, ein neues Gericht?", "it": "S krompir? Che cos'è, un piatto nuovo?" } },
           { "sl": "Pečenka s krompirjem, prosim.", "en": "Roast (nominative) with potatoes, please.", "de": "Braten (Nominativ) mit Kartoffeln, bitte.", "it": "Arrosto (nominativo) con patate, per favore.",
             "grammar": "tozilnik", "why": { "en": "What you ask for is the object: pečenko (accusative). Pečenka is the nominative.", "de": "Worum du bittest, ist das Objekt: pečenko (Akkusativ). Pečenka ist der Nominativ.", "it": "Ciò che chiedi è il complemento oggetto: pečenko (accusativo). Pečenka è il nominativo." },
-            "reply": { "sl": "Pečenka? Ja, v peči je. In kaj bi rad?", "en": "The roast? Yes, it's in the oven. And what would you like?", "de": "Der Braten? Ja, der ist im Ofen. Und was möchtest du?", "it": "L'arrosto? Sì, è in forno. E tu che cosa vuoi?" } },
+            "reply": { "sl": "Pečenka? Ja, v peči je. In kaj bi {m:rad|f:rada}?", "en": "The roast? Yes, it's in the oven. And what would you like?", "de": "Der Braten? Ja, der ist im Ofen. Und was möchtest du?", "it": "L'arrosto? Sì, è in forno. E tu che cosa vuoi?" } },
           { "sl": "Pečenko s krompirjem, prosim.", "en": "Roast with potatoes, please.", "de": "Braten mit Kartoffeln, bitte.", "it": "Arrosto con patate, per favore.", "ok": true,
             "reply": { "sl": "Dobro! Ampak najprej juha, seveda.", "en": "Good! But soup first, of course.", "de": "Gut! Aber zuerst die Suppe, natürlich.", "it": "Bene! Ma prima il brodo, naturalmente." } }
         ] },
-        { "who": "babica", "sl": "Ob enih pridejo vsi. Kaj boš naredil do takrat?", "en": "Everyone comes at one. What will you do until then?", "de": "Um eins kommen alle. Was machst du bis dahin?", "it": "All'una arrivano tutti. Che cosa fai fino ad allora?" },
+        { "who": "babica", "sl": "Ob enih pridejo vsi. Kaj boš {m:naredil|f:naredila} do takrat?", "en": "Everyone comes at one. What will you do until then?", "de": "Um eins kommen alle. Was machst du bis dahin?", "it": "All'una arrivano tutti. Che cosa fai fino ad allora?" },
         { "choices": [
-          { "sl": "Pogrnil bom mizo.", "en": "I'll lay the table.", "de": "Ich werde den Tisch decken.", "it": "Apparecchierò la tavola.", "ok": true,
-            "reply": { "sl": "Priden. Prt je v predalu.", "en": "Good boy. The tablecloth is in the drawer.", "de": "Braver Junge. Die Tischdecke ist in der Schublade.", "it": "Bravo ragazzo. La tovaglia è nel cassetto." } },
-          { "sl": "Pogrnil sem mizo.", "en": "I have laid the table.", "de": "Ich habe den Tisch gedeckt.", "it": "Ho apparecchiato la tavola.",
-            "grammar": "prihodnjik", "why": { "en": "She asks what you will do: the future, bom pogrnil. Sem pogrnil means it's already done.", "de": "Sie fragt, was du tun wirst: die Zukunft, bom pogrnil. Sem pogrnil heißt, es ist schon erledigt.", "it": "Ti chiede che cosa farai: il futuro, bom pogrnil. Sem pogrnil vuol dire che è già fatto." },
+          { "sl": "{m:Pogrnil|f:Pogrnila} bom mizo.", "en": "I'll lay the table.", "de": "Ich werde den Tisch decken.", "it": "Apparecchierò la tavola.", "ok": true,
+            "reply": { "sl": "{m:Priden|f:Pridna}. Prt je v predalu.", "en": "{m:Good boy|f:Good girl}. The tablecloth is in the drawer.", "de": "{m:Braver Junge|f:Braves Mädchen}. Die Tischdecke ist in der Schublade.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. La tovaglia è nel cassetto." } },
+          { "sl": "{m:Pogrnil|f:Pogrnila} sem mizo.", "en": "I have laid the table.", "de": "Ich habe den Tisch gedeckt.", "it": "Ho apparecchiato la tavola.",
+            "grammar": "prihodnjik", "why": { "en": "She asks what you will do: the future, bom {m:pogrnil|f:pogrnila}. Sem {m:pogrnil|f:pogrnila} means it's already done.", "de": "Sie fragt, was du tun wirst: die Zukunft, bom {m:pogrnil|f:pogrnila}. Sem {m:pogrnil|f:pogrnila} heißt, es ist schon erledigt.", "it": "Ti chiede che cosa farai: il futuro, bom {m:pogrnil|f:pogrnila}. Sem {m:pogrnil|f:pogrnila} vuol dire che è già fatto." },
             "reply": { "sl": "Že? Kje? Miza je še prazna!", "en": "Already? Where? The table is still empty!", "de": "Schon? Wo? Der Tisch ist noch leer!", "it": "Già? Dove? La tavola è ancora vuota!" } },
-          { "sl": "Pogrnil bo mizo.", "en": "He'll lay the table.", "de": "Er wird den Tisch decken.", "it": "Lui apparecchierà la tavola.",
-            "grammar": "prihodnjik", "why": { "en": "Bo is 'he or she will'. For yourself: bom pogrnil.", "de": "Bo heißt ‚er oder sie wird‘. Für dich selbst: bom pogrnil.", "it": "Bo significa 'lui o lei farà'. Per te stesso: bom pogrnil." },
-            "reply": { "sl": "Kdo? Maček? Ha, kar ti jo pogrni, fant!", "en": "Who? The cat? Ha, you lay it yourself, lad!", "de": "Wer? Die Katze? Ha, deck du ihn mal selbst, Junge!", "it": "Chi? Il gatto? Ah, apparecchiala tu, ragazzo!" } }
+          { "sl": "{m:Pogrnil|f:Pogrnila} bo mizo.", "en": "{m:He'll|f:She'll} lay the table.", "de": "{m:Er|f:Sie} wird den Tisch decken.", "it": "{m:Lui|f:Lei} apparecchierà la tavola.",
+            "grammar": "prihodnjik", "why": { "en": "Bo is 'he or she will'. For yourself: bom {m:pogrnil|f:pogrnila}.", "de": "Bo heißt ‚er oder sie wird‘. Für dich selbst: bom {m:pogrnil|f:pogrnila}.", "it": "Bo significa 'lui o lei farà'. Per te {m:stesso|f:stessa}: bom {m:pogrnil|f:pogrnila}." },
+            "reply": { "sl": "Kdo? {m:Maček|f:Mačka}? Ha, kar ti jo pogrni, {m:fant|f:dekle}!", "en": "Who? The cat? Ha, you lay it yourself, {m:lad|f:lass}!", "de": "Wer? Die Katze? Ha, deck du ihn mal selbst, {m:Junge|f:Mädchen}!", "it": "Chi? {m:Il gatto|f:La gatta}? Ah, apparecchiala tu, {m:ragazzo|f:ragazza}!" } }
         ] },
-        { "who": "babica", "sl": "Jaz pa bom pazila na juho. Dela je dovolj za oba!", "en": "And I'll keep an eye on the soup. There's enough work for both of us!", "de": "Und ich passe auf die Suppe auf. Arbeit gibt es genug für uns beide!", "it": "E io bado al brodo. C'è lavoro per tutti e due!",
+        { "who": "babica", "sl": "Jaz pa bom pazila na juho. Dela je dovolj za {m:oba|f:obe}!", "en": "And I'll keep an eye on the soup. There's enough work for both of us!", "de": "Und ich passe auf die Suppe auf. Arbeit gibt es genug für uns beide!", "it": "E io bado al brodo. C'è lavoro per {m:tutti|f:tutte} e due!",
           "fx": { "steam": 1 } }
       ]
     },
     {
       "id": "krompir-kile",
       "count": { "from": "dice", "min": 2, "max": 9, "gender": "f", "case": "acc" },
-      "memory": { "sl": "večer, ko sva skupaj lupila krompir", "en": "the evening we peeled potatoes together", "de": "den Abend, an dem wir zusammen Kartoffeln geschält haben", "it": "la sera in cui abbiamo pelato le patate insieme" },
+      "memory": { "sl": "večer, ko sva skupaj {m:lupila|f:lupili} krompir", "en": "the evening we peeled potatoes together", "de": "den Abend, an dem wir zusammen Kartoffeln geschält haben", "it": "la sera in cui abbiamo pelato le patate insieme" },
       "lines": [
-        { "who": "babica", "sl": "Jan, pridi, pomagaj mi lupiti krompir. Jutri pride veliko ljudi.", "en": "Jan, come and help me peel potatoes. Lots of people are coming tomorrow.", "de": "Jan, komm, hilf mir Kartoffeln schälen. Morgen kommen viele Leute.", "it": "Jan, vieni ad aiutarmi a pelare le patate. Domani viene tanta gente." },
+        { "who": "babica", "sl": "{learner}, pridi, pomagaj mi lupiti krompir. Jutri pride veliko ljudi.", "en": "{learner}, come and help me peel potatoes. Lots of people are coming tomorrow.", "de": "{learner}, komm, hilf mir Kartoffeln schälen. Morgen kommen viele Leute.", "it": "{learner}, vieni ad aiutarmi a pelare le patate. Domani viene tanta gente." },
         { "choices": [
           { "sl": "Dober večer, babica! Seveda pomagam.", "en": "Good evening, grandma! Of course I'll help.", "de": "Guten Abend, Oma! Natürlich helfe ich.", "it": "Buonasera, nonna! Certo che ti aiuto.", "ok": true,
-            "reply": { "sl": "Priden. Tu imaš nož.", "en": "Good boy. Here's a knife for you.", "de": "Braver Junge. Hier hast du ein Messer.", "it": "Bravo ragazzo. Ecco un coltello." } },
+            "reply": { "sl": "{m:Priden|f:Pridna}. Tu imaš nož.", "en": "{m:Good boy|f:Good girl}. Here's a knife for you.", "de": "{m:Braver Junge|f:Braves Mädchen}. Hier hast du ein Messer.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Ecco un coltello." } },
           { "sl": "Dobro jutro, babica! Seveda pomagam.", "en": "Good morning, grandma! Of course I'll help.", "de": "Guten Morgen, Oma! Natürlich helfe ich.", "it": "Buongiorno, nonna! Certo che ti aiuto.",
             "why": { "en": "It's evening: dober večer. Dobro jutro is for the morning.", "de": "Es ist Abend: dober večer. Dobro jutro sagt man am Morgen.", "it": "È sera: dober večer. Dobro jutro si dice al mattino." },
-            "reply": { "sl": "Jutro? Zunaj je že tema, fant!", "en": "Morning? It's already dark outside, lad!", "de": "Morgen? Draußen ist es schon dunkel, Junge!", "it": "Mattina? Fuori è già buio, ragazzo!" } },
+            "reply": { "sl": "Jutro? Zunaj je že tema, {m:fant|f:dekle}!", "en": "Morning? It's already dark outside, {m:lad|f:lass}!", "de": "Morgen? Draußen ist es schon dunkel, {m:Junge|f:Mädchen}!", "it": "Mattina? Fuori è già buio, {m:ragazzo|f:ragazza}!" } },
           { "sl": "Dober večer! Z veseljem.", "en": "Good evening! With pleasure.", "de": "Guten Abend! Sehr gern.", "it": "Buonasera! Con piacere.", "ok": true,
             "reply": { "sl": "Oj, kako lepo rečeš! Tu imaš nož.", "en": "Oh, how nicely you put it! Here's a knife for you.", "de": "Oh, wie schön du das sagst! Hier hast du ein Messer.", "it": "Oh, come lo dici bene! Ecco un coltello." } }
         ] },
-        { "who": "babica", "sl": "Olupke v vedro, krompir v skledo. Zdaj pa poglej na tehtnico: koliko sva olupila?", "en": "Peels in the bucket, potatoes in the bowl. Now look at the scales: how much have we two peeled?", "de": "Schalen in den Eimer, Kartoffeln in die Schüssel. Jetzt schau auf die Waage: Wie viel haben wir zwei geschält?", "it": "Le bucce nel secchio, le patate nella ciotola. Adesso guarda la bilancia: quanto abbiamo pelato noi due?" },
+        { "who": "babica", "sl": "Olupke v vedro, krompir v skledo. Zdaj pa poglej na tehtnico: koliko sva {m:olupila|f:olupili}?", "en": "Peels in the bucket, potatoes in the bowl. Now look at the scales: how much have we two peeled?", "de": "Schalen in den Eimer, Kartoffeln in die Schüssel. Jetzt schau auf die Waage: Wie viel haben wir zwei geschält?", "it": "Le bucce nel secchio, le patate nella ciotola. Adesso guarda la bilancia: quanto abbiamo pelato noi due?" },
         { "choices": [
-          { "sl": "Olupila sva že {n} {kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "ok": true,
-            "reply": { "sl": "Tako je! Še malo, pa sva gotova.", "en": "That's right! A little more and we're done.", "de": "Genau! Noch ein bisschen, dann sind wir fertig.", "it": "Esatto! Ancora un po' e abbiamo finito." } },
-          { "sl": "Olupila sva že {n} {!kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
+          { "sl": "{m:Olupila|f:Olupili} sva že {n} {kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "ok": true,
+            "reply": { "sl": "Tako je! Še malo, pa sva {m:gotova|f:gotovi}.", "en": "That's right! A little more and we're done.", "de": "Genau! Noch ein bisschen, dann sind wir fertig.", "it": "Esatto! Ancora un po' e abbiamo finito." } },
+          { "sl": "{m:Olupila|f:Olupili} sva že {n} {!kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {kilo|kili|kile|kil}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {n} {kilo|kili|kile|kil}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in su il genitivo plurale}: {n} {kilo|kili|kile|kil}." },
-            "reply": { "sl": "Hm? Moje oči so stare. Še enkrat, fant?", "en": "Hm? My eyes are old. Once more, lad?", "de": "Hm? Meine Augen sind alt. Noch einmal, Junge?", "it": "Mm? I miei occhi sono vecchi. Ancora una volta, ragazzo?" } },
-          { "sl": "Olupila sva že {n} {!kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
+            "reply": { "sl": "Hm? Moje oči so stare. Še enkrat, {m:fant|f:dekle}?", "en": "Hm? My eyes are old. Once more, {m:lad|f:lass}?", "de": "Hm? Meine Augen sind alt. Noch einmal, {m:Junge|f:Mädchen}?", "it": "Mm? I miei occhi sono vecchi. Ancora una volta, {m:ragazzo|f:ragazza}?" } },
+          { "sl": "{m:Olupila|f:Olupili} sva že {n} {!kilo|kili|kile|kil}.", "en": "We've already peeled {n} {kilo|kilos}.", "de": "Wir haben schon {n} Kilo geschält.", "it": "Abbiamo già pelato {n} {chilo|chili}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {kilo|kili|kile|kil}.", "de": "{Bei eins steht der Singular|Bei zwei der Dual|Bei drei und vier der Plural|Ab fünf der Genitiv Plural}: {n} {kilo|kili|kile|kil}.", "it": "{Con uno si usa il singolare|Con due il duale|Con tre e quattro il plurale|Da cinque in su il genitivo plurale}: {n} {kilo|kili|kile|kil}." },
             "reply": { "sl": "Koliko? Počakaj, očala sem pozabila …", "en": "How much? Wait, I've forgotten my glasses …", "de": "Wie viel? Warte, ich hab meine Brille vergessen …", "it": "Quanto? Aspetta, ho dimenticato gli occhiali …" } }
         ] },
-        { "who": "babica", "sl": "Hvala, fant. Brez tebe bi lupila do polnoči!", "en": "Thank you, lad. Without you I'd be peeling till midnight!", "de": "Danke, Junge. Ohne dich würde ich bis Mitternacht schälen!", "it": "Grazie, ragazzo. Senza di te pelerei fino a mezzanotte!" }
+        { "who": "babica", "sl": "Hvala, {m:fant|f:dekle}. Brez tebe bi lupila do polnoči!", "en": "Thank you, {m:lad|f:lass}. Without you I'd be peeling till midnight!", "de": "Danke, {m:Junge|f:Mädchen}. Ohne dich würde ich bis Mitternacht schälen!", "it": "Grazie, {m:ragazzo|f:ragazza}. Senza di te pelerei fino a mezzanotte!" }
       ]
     },
     {
       "id": "krompir-lonec",
-      "memory": { "sl": "krompir, ki sva ga skuhala v velikem loncu", "en": "the potatoes we boiled in the big pot", "de": "die Kartoffeln, die wir im großen Topf gekocht haben", "it": "le patate che abbiamo bollito nella pentola grande" },
+      "memory": { "sl": "krompir, ki sva ga {m:skuhala|f:skuhali} v velikem loncu", "en": "the potatoes we boiled in the big pot", "de": "die Kartoffeln, die wir im großen Topf gekocht haben", "it": "le patate che abbiamo bollito nella pentola grande" },
       "lines": [
-        { "who": "babica", "sl": "Jan, krompir je olupljen. Daj ga v lonec, prosim, za večerjo.", "en": "Jan, the potatoes are peeled. Put them in the pot, please, for supper.", "de": "Jan, die Kartoffeln sind geschält. Tu sie bitte in den Topf, fürs Abendessen.", "it": "Jan, le patate sono pelate. Mettile nella pentola, per favore, per la cena.",
+        { "who": "babica", "sl": "{learner}, krompir je olupljen. Daj ga v lonec, prosim, za večerjo.", "en": "{learner}, the potatoes are peeled. Put them in the pot, please, for supper.", "de": "{learner}, die Kartoffeln sind geschält. Tu sie bitte in den Topf, fürs Abendessen.", "it": "{learner}, le patate sono pelate. Mettile nella pentola, per favore, per la cena.",
           "fx": { "oven": 1 } },
         { "choices": [
           { "sl": "Prav. Krompir je že v lonec!", "en": "OK. The potatoes are already into the pot!", "de": "Gut. Die Kartoffeln sind schon in den Topf!", "it": "Va bene. Le patate sono già verso la pentola!",
@@ -475,22 +475,22 @@
           { "sl": "Prav. Krompir je že v loncu!", "en": "OK. The potatoes are already in the pot!", "de": "Gut. Die Kartoffeln sind schon im Topf!", "it": "Va bene. Le patate sono già nella pentola!", "ok": true,
             "reply": { "sl": "Hitro si! Zdaj pa še malo soli.", "en": "You're quick! Now a little salt too.", "de": "Du bist schnell! Jetzt noch ein bisschen Salz.", "it": "Sei veloce! Adesso anche un po' di sale." } }
         ] },
-        { "who": "babica", "sl": "Pazi, lonec je vroč! Voda že vre.", "en": "Careful, the pot is hot! The water is already boiling.", "de": "Vorsicht, der Topf ist heiß! Das Wasser kocht schon.", "it": "Attento, la pentola scotta! L'acqua bolle già.",
+        { "who": "babica", "sl": "Pazi, lonec je vroč! Voda že vre.", "en": "Careful, the pot is hot! The water is already boiling.", "de": "Vorsicht, der Topf ist heiß! Das Wasser kocht schon.", "it": "{m:Attento|f:Attenta}, la pentola scotta! L'acqua bolle già.",
           "fx": { "steam": 1 } },
         { "choices": [
           { "sl": "Vem. Tudi voda je vroč.", "en": "I know. The water is hot (masculine) too.", "de": "Ich weiß. Das Wasser ist auch heiß (männlich).", "it": "Lo so. Anche l'acqua è caldo (maschile).",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Voda is feminine: vroča. Vroč goes with masculine nouns (lonec je vroč).", "de": "Voda ist weiblich: vroča. Vroč passt zu männlichen Nomen (lonec je vroč).", "it": "Voda è femminile: vroča. Vroč va con i nomi maschili (lonec je vroč)." },
-            "reply": { "sl": "Kdo je vroč? Ti? Imaš vročino, fant?", "en": "Who's hot? You? Have you got a fever, lad?", "de": "Wer ist heiß? Du? Hast du Fieber, Junge?", "it": "Chi è caldo? Tu? Hai la febbre, ragazzo?" } },
+            "reply": { "sl": "Kdo je vroč? Ti? Imaš vročino, {m:fant|f:dekle}?", "en": "Who's hot? You? Have you got a fever, {m:lad|f:lass}?", "de": "Wer ist heiß? Du? Hast du Fieber, {m:Junge|f:Mädchen}?", "it": "Chi è caldo? Tu? Hai la febbre, {m:ragazzo|f:ragazza}?" } },
           { "sl": "Vem. Tudi voda je vroča.", "en": "I know. The water is hot too.", "de": "Ich weiß. Das Wasser ist auch heiß.", "it": "Lo so. Anche l'acqua è calda.", "ok": true,
             "reply": { "sl": "Tako. Čez dvajset minut jemo.", "en": "There. We eat in twenty minutes.", "de": "So. In zwanzig Minuten essen wir.", "it": "Ecco. Fra venti minuti si mangia." } }
         ] },
-        { "who": "babica", "sl": "Mmm, že diši! Ti si moj najboljši pomočnik.", "en": "Mmm, it smells good already! You are my best helper.", "de": "Mmm, es duftet schon! Du bist mein bester Helfer.", "it": "Mmm, che profumino! Sei il mio aiutante migliore." }
+        { "who": "babica", "sl": "Mmm, že diši! Ti si {m:moj najboljši pomočnik|f:moja najboljša pomočnica}.", "en": "Mmm, it smells good already! You are my best helper.", "de": "Mmm, es duftet schon! Du bist {m:mein bester Helfer|f:meine beste Helferin}.", "it": "Mmm, che profumino! Sei {m:il mio aiutante migliore|f:la mia aiutante migliore}." }
       ]
     },
     {
       "id": "radio-vreme",
       "lines": [
-        { "who": "ancka", "sl": "Jan! Pridi, pridi. Radio je govoril o vremenu, pa nisem slišala!", "en": "Jan! Come here, come here. The radio talked about the weather, and I didn't hear it!", "de": "Jan! Komm her, komm her. Im Radio kam das Wetter, und ich hab's nicht gehört!", "it": "Jan! Vieni, vieni. La radio ha parlato del tempo, e io non ho sentito!" },
+        { "who": "ancka", "sl": "{learner}! Pridi, pridi. Radio je govoril o vremenu, pa nisem slišala!", "en": "{learner}! Come here, come here. The radio talked about the weather, and I didn't hear it!", "de": "{learner}! Komm her, komm her. Im Radio kam das Wetter, und ich hab's nicht gehört!", "it": "{learner}! Vieni, vieni. La radio ha parlato del tempo, e io non ho sentito!" },
         { "choices": [
           { "sl": "Rekli so, da je jutri deževalo.", "en": "They said it rained tomorrow.", "de": "Sie haben gesagt, dass es morgen geregnet hat.", "it": "Hanno detto che domani ha piovuto.",
             "grammar": "prihodnjik", "why": { "en": "Jutri (tomorrow) needs the future: bo deževalo. Je deževalo is the past.", "de": "Jutri (morgen) braucht die Zukunft: bo deževalo. Je deževalo ist die Vergangenheit.", "it": "Jutri (domani) vuole il futuro: bo deževalo. Je deževalo è il passato." },
@@ -509,7 +509,7 @@
           { "sl": "Ja, samo osem stopinj. Mrzlo bo.", "en": "Yes, only eight degrees. It will be cold.", "de": "Ja, nur acht Grad. Es wird kalt.", "it": "Sì, solo otto gradi. Farà freddo.", "ok": true,
             "reply": { "sl": "Osem! Brr. Jutri kurim peč ves dan.", "en": "Eight! Brr. Tomorrow I'll keep the stove going all day.", "de": "Acht! Brr. Morgen heize ich den ganzen Tag.", "it": "Otto! Brr. Domani tengo la stufa accesa tutto il giorno." } }
         ] },
-        { "who": "ancka", "sl": "Hvala, Jan! Zdaj vem vse. To povem celi vasi!", "en": "Thank you, Jan! Now I know everything. I'll tell the whole village!", "de": "Danke, Jan! Jetzt weiß ich alles. Das erzähle ich dem ganzen Dorf!", "it": "Grazie, Jan! Adesso so tutto. Lo racconto a tutto il paese!" }
+        { "who": "ancka", "sl": "Hvala, {learner}! Zdaj vem vse. To povem celi vasi!", "en": "Thank you, {learner}! Now I know everything. I'll tell the whole village!", "de": "Danke, {learner}! Jetzt weiß ich alles. Das erzähle ich dem ganzen Dorf!", "it": "Grazie, {learner}! Adesso so tutto. Lo racconto a tutto il paese!" }
       ]
     }
   ]
