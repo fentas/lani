@@ -1,3 +1,4 @@
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -158,6 +159,34 @@ val gitCommitCount: Int = providers.exec { commandLine("git", "rev-list", "--cou
 val laniVersionCode = 1000 + gitCommitCount
 val laniVersionName = "0.2.$gitCommitCount"
 
+/**
+ * The release key, never in the repository: the keystore LANI_KEYSTORE names, with LANI_KEYSTORE_PASSWORD, LANI_KEY_ALIAS
+ * (lani) and LANI_KEY_PASSWORD (the keystore's), as the release workflow sets them from its secrets; else the
+ * signing.properties of ~/.config/lani (LANI_CONFIG_DIR): storeFile (relative to it), storePassword, keyAlias and
+ * keyPassword, as companion/bin/lani-keystore writes it. Without either, the release build is signed with the debug key,
+ * as the sideloaded app always was. A phone takes an update only with the key its app was installed with.
+ */
+class ReleaseKey(val store: File, val storePassword: String, val alias: String, val keyPassword: String)
+
+val releaseKey: ReleaseKey? = run {
+    fun env(name: String) = providers.environmentVariable(name).orNull?.takeIf { it.isNotBlank() }
+    env("LANI_KEYSTORE")?.let { store ->
+        val password = env("LANI_KEYSTORE_PASSWORD") ?: error("LANI_KEYSTORE is set but LANI_KEYSTORE_PASSWORD is not")
+        return@run ReleaseKey(file(store), password, env("LANI_KEY_ALIAS") ?: "lani", env("LANI_KEY_PASSWORD") ?: password)
+    }
+    val config = env("LANI_CONFIG_DIR")?.let(::File)
+        ?: File(env("HOME") ?: System.getProperty("user.home"), ".config/lani")
+    val file = config.resolve("signing.properties")
+    val text = providers.fileContents(layout.projectDirectory.file(file.absolutePath)).asText.orNull ?: return@run null
+    val props = Properties().apply { load(text.reader()) }
+    fun prop(name: String) = props.getProperty(name)?.takeIf { it.isNotBlank() } ?: error("$file has no $name")
+    val password = prop("storePassword")
+    ReleaseKey(
+        config.resolve(prop("storeFile").replaceFirst(Regex("^~(?=/)"), env("HOME") ?: System.getProperty("user.home"))),
+        password, props.getProperty("keyAlias") ?: "lani", props.getProperty("keyPassword") ?: password,
+    )
+}
+
 android {
     namespace = "si.lanisce.lani"
     compileSdk = 36
@@ -170,10 +199,21 @@ android {
         versionName = laniVersionName
     }
 
+    signingConfigs {
+        releaseKey?.let { key ->
+            create("release") {
+                storeFile = key.store
+                storePassword = key.storePassword
+                keyAlias = key.alias
+                keyPassword = key.keyPassword
+            }
+        }
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug") // sideloaded personal app
+            // sideloaded: the release key when one is set (releaseKey), else the debug key
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -188,6 +228,13 @@ android {
     // The unit tests read the curated content said to the learner it was written for before its placeholders (a man named
     // Jan): every text reads as it always did (l10n/Learner.kt; a test of another learner sets its own).
     testOptions { unitTests.all { it.systemProperty("lani.learner", "Jan") } }
+    // No dependency report in the signing block: it is encrypted for Google Play, which only Google can read, and
+    // differs on every build. Without it a release APK is the same, byte for byte, wherever it is built (on GitHub, in
+    // Docker, with a local Gradle), so its SHA-256 can be checked against a build of the same commit.
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
 }
 
 dependencies {

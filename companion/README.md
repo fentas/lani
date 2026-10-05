@@ -37,7 +37,9 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking (see [Towns](#towns)). |
 | `bin/voice-build` | Counts and prebuilds the voice clips (see [Voice](#voice)). |
 | `bin/lexicon-build` | Builds a word lookup dictionary from a kaikki.org extract of Wiktionary, gives its lemmas their meanings in the other languages (from the English, German and Italian Wiktionaries), and shows how much of the content it knows (see [Word lookup](#word-lookup)). |
-| `bin/release-app` | Builds a release APK and publishes it to the app's self-update. |
+| `bin/release-app` | Builds a release APK (`--docker`: in Docker) and publishes it to the app's self-update; `--github [<tag>]` publishes a GitHub release's APK instead (see [Android app](#android-app)). |
+| `bin/lani-build-app` | Builds the app in Docker or Podman, without a JDK or an Android SDK: the debug or release APK, the unit tests, any Gradle task (see [Build in Docker](#build-in-docker)). |
+| `bin/lani-keystore` | Creates the app's release key outside the repository (`~/.config/lani`) and shows how to give it to the release workflow (see [docs/releasing.md](../docs/releasing.md)). |
 | `bin/qa` | End-to-end check on an emulator against a dev bridge on a copy of the data, and a second dev town to visit. |
 | `bin/lani-backup` | Snapshots of the learner data, with restore (see [Backups](#backups)). |
 | `.claude/skills/lani-studio/` | How Claude designs, publishes, fixes and retires app modules. |
@@ -1924,11 +1926,66 @@ a pack word, a villager) is logged, not refused. No `/` or `→` in what is voic
 
 ## Android app
 
+The APK comes from one of three places:
+
+- **The GitHub releases** ([fentas/lani/releases](https://github.com/fentas/lani/releases)): `lani-<version>.apk`,
+  signed with the project's release key, with its SHA-256. A bridge offers it to its app's self-update with
+  `companion/bin/release-app --github` (the latest release, or `--github v0.2.40`).
+- **A Docker build**, without a JDK or an Android SDK: `companion/bin/lani-build-app` (below).
+- **A local Gradle build**, with JDK 21 and the Android SDK (platform 36, build tools 36.0.0):
+
 ```bash
 cd companion/android
 JAVA_HOME=$(mise where java@temurin-21) ./gradlew :app:assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
+
+### Build in Docker
+
+```bash
+companion/bin/lani-build-app                          # the debug APK, app/build/outputs/apk/debug/app-debug.apk
+companion/bin/lani-build-app --release --out ~/apk/   # the release APK, as ~/apk/lani-<versionName>.apk
+companion/bin/lani-build-app --test                   # the unit tests first, then the debug APK
+companion/bin/lani-build-app -- :app:testDebugUnitTest --tests '*RoadPlayerTest'   # any Gradle arguments
+companion/bin/release-app --docker "notes"            # build in Docker and publish to the app's self-update
+```
+
+The image (`companion/android/docker/Dockerfile`, about 1 GB) has Temurin JDK 21.0.11, the Android SDK command-line
+tools 20.0, platform `android-36`, build tools 36.0.0 and the platform tools; the base image is pinned by its digest and
+the command-line tools by their SHA-256. `lani-build-app` builds it on first use and again when the Dockerfile changes,
+as `lani-android-build:local`. The build runs as you, so its files are yours, with:
+
+- the repository mounted at the same path, and a worktree's git directory with it (the version is the commit count);
+- `~/.cache/lani/android-build` as the build's home (`LANI_BUILD_CACHE`): the Gradle cache (about 1.5 GB after the
+  first build, which takes a few minutes; later ones are quicker) and Robolectric's jars;
+- `~/.android` (`ANDROID_USER_HOME`) with the debug key, so a debug build is signed as a local Gradle build is and the
+  phone takes either as an update;
+- a memory limit of 8 GB (`LANI_BUILD_MEMORY`, empty for none); a build with the unit tests peaks at about 5 GB.
+
+Docker comes first; Podman (`LANI_CONTAINER=podman`, or when Docker isn't installed) runs rootless with
+`--userns=keep-id`, and is less tried. `--exec <command>` runs a command in the build container, in
+`companion/android`, such as `apksigner verify --print-certs app/build/outputs/apk/release/app-release.apk`; `--image`
+only builds the image and prints its name.
+
+The same commit and the same key give the same APK, byte for byte, in Docker and with a local Gradle: the release
+build leaves out the dependency report that AGP puts in the signing block for Google Play, which differs on every
+build.
+
+### Signing
+
+A debug build is signed with the debug key (`~/.android/debug.keystore`). A release build is signed with the release
+key when one is set, else with the debug key, as the sideloaded app always was:
+
+- `LANI_KEYSTORE` (the keystore's path), `LANI_KEYSTORE_PASSWORD`, `LANI_KEY_ALIAS` (`lani` if unset) and
+  `LANI_KEY_PASSWORD` (the keystore's if unset), as the release workflow sets them;
+- else `~/.config/lani/signing.properties` (`LANI_CONFIG_DIR`): `storeFile` (relative to the file), `storePassword`,
+  `keyAlias`, `keyPassword`.
+
+`companion/bin/lani-keystore` creates both files there and shows how to give GitHub the same key. A phone takes an
+update only with the key its app was installed with: changing keys means installing the app again once. See
+[docs/releasing.md](../docs/releasing.md) for the key, the GitHub secrets and the tags.
+
+### Install and pair
 
 On first launch, scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj QR · Scan the QR code"),
 or enter the bridge URL (`tailscale serve status`) and the token. For Slovene speech, install the
@@ -1943,15 +2000,23 @@ The story notebook's handwriting is Kalam (Indian Type Foundry, SIL Open Font Li
 ```bash
 cd companion/bridge && bun test/smoke.ts
 cd companion/android && ./gradlew :app:testDebugUnitTest
+companion/bin/lani-build-app -- :app:testDebugUnitTest   # the same without a JDK, in Docker
 python3 -m unittest discover companion/tests     # backups, the Whisper worker (models faked)
 python3 tests/test_update_db.py                  # update-db.py
-python3 -m unittest discover -s tests            # also lani.env (test_config), the data repository, lani-setup end to end
+python3 -m unittest discover -s tests            # update-db.py, card.py, the languages, the old names, lani.env (test_config), the data repository, lani-setup end to end
 companion/bin/qa                                 # end to end, on the lani-qa emulator
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
+
+**CI.** `.github/workflows/ci.yml` runs on every push and pull request: the bridge's typecheck
+(`bunx tsc --noEmit -p .`) and the whole smoke, which needs no local workers, network or tmux (it starts its bridges
+on 8799 and the ports after it, and fakes the voice and speech servers; ffmpeg is installed for the voice checks);
+both Python suites; and the app's unit tests with the debug APK, built with `companion/bin/lani-build-app` in the
+build image, the APK kept for a week as an artifact. The QA on an emulator stays local. The release APKs come from
+`.github/workflows/android-release.yml` (see [docs/releasing.md](../docs/releasing.md)).
 
 **The road's player in the unit tests.** `road/RoadPlayerTest` runs under Robolectric (a test dependency only, with
 media3's test utilities: a fake clock and fake renderers). It builds `RoadPlayer` over a real ExoPlayer with road

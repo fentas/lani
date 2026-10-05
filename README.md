@@ -66,6 +66,11 @@ committed after each session. Run it again to change anything. The guide, and th
 bridge as a service, backups) is in [companion/README.md](companion/README.md). The tutor also works on its own, in the
 terminal: [docs/claude-tutor.md](docs/claude-tutor.md).
 
+The app: install `lani-<version>.apk` from the [releases](https://github.com/fentas/lani/releases), and let your
+bridge offer the next ones as updates with `companion/bin/release-app --github`. Or build it yourself in Docker, with
+no JDK or Android SDK: `companion/bin/lani-build-app --release` (an app built with your own key updates only from
+your own builds).
+
 ## Contributing
 
 Corrections to the Slovene are especially welcome: much of the content is machine-written and marked so until a
