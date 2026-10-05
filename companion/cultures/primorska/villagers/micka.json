@@ -17,7 +17,7 @@
       { "id": "pec", "at": "4:35", "until": "4:55", "to": "spot:woodpile", "doing": "carry", "title": {"sl": "Micka prinese drva in zakuri peč", "en": "Micka fetches wood and lights the stove", "de": "Micka holt Holz und heizt den Ofen an", "it": "Micka prende la legna e accende la stufa"} }
     ]
   },
-  "personality": "Warm grandmother, always cooking, feeds everyone who comes near. Forgets words, never people. Says ti to Jan like to a grandson and expects vi back. Short warm sentences: 'pridi, pridi', 'jej, jej'; calls Jan 'fant' (lad). Worries about the burja and about people not eating enough.",
+  "personality": "Warm grandmother, always cooking, feeds everyone who comes near. Forgets words, never people. Says ti to {learner} {m:like to a grandson|f:like to a granddaughter} and expects vi back. Short warm sentences: 'pridi, pridi', 'jej, jej'; calls {learner} {m:'fant' (lad)|f:'dekle' (lass)}. Worries about the burja and about people not eating enough.",
   "story": "Micka has cooked for the whole village since her daughter was small; her potica wins at every feast in Trnovo. Her granddaughter Zala lives with her. Until the village has a house she keeps her kitchen by the woodpile, where the fire is, and nobody leaves hungry.",
   "likes": [
     { "sl": "potica", "en": "potica (the Slovene rolled walnut cake)", "de": "Potica (der slowenische gerollte Nusskuchen)", "it": "la potica (il dolce sloveno arrotolato alle noci)" },
@@ -27,17 +27,17 @@
   ],
   "lines": {
     "greet": [
-      { "sl": "Dober dan. Si lačen?", "en": "Good day. Are you hungry?", "de": "Guten Tag. Hast du Hunger?", "it": "Buongiorno. Hai fame?", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober dan. Si {m:lačen|f:lačna}?", "en": "Good day. Are you hungry?", "de": "Guten Tag. Hast du Hunger?", "it": "Buongiorno. Hai fame?", "level": 0, "when": ["morning", "afternoon"] },
       { "sl": "O, pridi, pridi. Sedi.", "en": "Oh, come in, come in. Sit down.", "de": "Oh, komm rein, komm rein. Setz dich.", "it": "Oh, vieni, vieni. Siediti.", "level": 0 },
-      { "sl": "O, Jan! Ravno kuham. Si lačen?", "en": "Oh, Jan! I am just cooking. Are you hungry?", "de": "Oh, Jan! Ich koche gerade. Hast du Hunger?", "it": "Oh, Jan! Sto cucinando. Hai fame?", "level": 1 },
-      { "sl": "Jan, fant moj! Pridi, juha je vroča.", "en": "Jan, my lad! Come, the soup is hot.", "de": "Jan, mein Junge! Komm, die Suppe ist heiß.", "it": "Jan, ragazzo mio! Vieni, la minestra è calda.", "level": 2 },
-      { "sl": "Jan! Kje si bil tako dolgo? Sedi, sedi.", "en": "Jan! Where have you been so long? Sit, sit.", "de": "Jan! Wo warst du so lange? Setz dich, setz dich.", "it": "Jan! Dove sei stato tutto questo tempo? Siediti, siediti.", "level": 3 },
-      { "sl": "Moj Jan! Kot da si moj vnuk. Pridi k mizi.", "en": "My Jan! As if you were my grandson. Come to the table.", "de": "Mein Jan! Als wärst du mein Enkel. Komm an den Tisch.", "it": "Il mio Jan! Come se fossi mio nipote. Vieni a tavola.", "level": 4 }
+      { "sl": "O, {learner}! Ravno kuham. Si {m:lačen|f:lačna}?", "en": "Oh, {learner}! I am just cooking. Are you hungry?", "de": "Oh, {learner}! Ich koche gerade. Hast du Hunger?", "it": "Oh, {learner}! Sto cucinando. Hai fame?", "level": 1 },
+      { "sl": "{learner}, {m:fant moj|f:dekle moje}! Pridi, juha je vroča.", "en": "{learner}, {m:my lad|f:my lass}! Come, the soup is hot.", "de": "{learner}, {m:mein Junge|f:mein Mädchen}! Komm, die Suppe ist heiß.", "it": "{learner}, {m:ragazzo mio|f:ragazza mia}! Vieni, la minestra è calda.", "level": 2 },
+      { "sl": "{learner}! Kje si {m:bil|f:bila} tako dolgo? Sedi, sedi.", "en": "{learner}! Where have you been so long? Sit, sit.", "de": "{learner}! Wo warst du so lange? Setz dich, setz dich.", "it": "{learner}! Dove sei {m:stato|f:stata} tutto questo tempo? Siediti, siediti.", "level": 3 },
+      { "sl": "{m:Moj|f:Moja} {learner}! Kot da si {m:moj vnuk|f:moja vnukinja}. Pridi k mizi.", "en": "My {learner}! As if you were my {m:grandson|f:granddaughter}. Come to the table.", "de": "{m:Mein|f:Meine} {learner}! Als wärst du {m:mein Enkel|f:meine Enkelin}. Komm an den Tisch.", "it": "{m:Il mio|f:La mia} {learner}! Come se fossi {m:mio nipote|f:mia nipote}. Vieni a tavola.", "level": 4 }
     ],
     "thanks": [
-      { "sl": "Hvala, fant. Brez tebe ne bi šlo.", "en": "Thank you, lad. It would not have worked without you.", "de": "Danke, Junge. Ohne dich hätte es nicht geklappt.", "it": "Grazie, ragazzo. Senza di te non ce l'avrei fatta." },
-      { "sl": "Priden si. Vzemi še kos potice.", "en": "Good boy. Take another piece of potica.", "de": "Braver Junge. Nimm noch ein Stück Potica.", "it": "Bravo ragazzo. Prendi un'altra fetta di potica." },
-      { "sl": "Hvala, Jan. Ti si zlat.", "en": "Thank you, Jan. You are a treasure (literally: golden).", "de": "Danke, Jan. Du bist ein Schatz (wörtlich: golden).", "it": "Grazie, Jan. Sei un tesoro (letteralmente: d'oro)." }
+      { "sl": "Hvala, {m:fant|f:dekle}. Brez tebe ne bi šlo.", "en": "Thank you, {m:lad|f:lass}. It would not have worked without you.", "de": "Danke, {m:Junge|f:Mädchen}. Ohne dich hätte es nicht geklappt.", "it": "Grazie, {m:ragazzo|f:ragazza}. Senza di te non ce l'avrei fatta." },
+      { "sl": "{m:Priden|f:Pridna} si. Vzemi še kos potice.", "en": "{m:Good boy|f:Good girl}. Take another piece of potica.", "de": "{m:Braver Junge|f:Braves Mädchen}. Nimm noch ein Stück Potica.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Prendi un'altra fetta di potica." },
+      { "sl": "Hvala, {learner}. Ti si {m:zlat|f:zlata}.", "en": "Thank you, {learner}. You are a treasure (literally: golden).", "de": "Danke, {learner}. Du bist ein Schatz (wörtlich: golden).", "it": "Grazie, {learner}. Sei un tesoro (letteralmente: d'oro)." }
     ],
     "remember": [
       { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -48,11 +48,11 @@
       { "sl": "Danes pečem kruh. Vonjaš?", "en": "I am baking bread today. Can you smell it?", "de": "Heute backe ich Brot. Riechst du es?", "it": "Oggi faccio il pane. Senti il profumo?" },
       { "sl": "Krompir je treba olupiti. Pet kil!", "en": "The potatoes need peeling. Five kilos!", "de": "Die Kartoffeln müssen geschält werden. Fünf Kilo!", "it": "Bisogna pelare le patate. Cinque chili!" },
       { "sl": "V nedeljo pride cela družina na kosilo.", "en": "The whole family is coming to lunch on Sunday.", "de": "Am Sonntag kommt die ganze Familie zum Mittagessen.", "it": "Domenica viene tutta la famiglia a pranzo." },
-      { "sl": "Burja piha. Zapri vrata, fant.", "en": "The burja is blowing. Close the door, lad.", "de": "Die Bora weht. Mach die Tür zu, Junge.", "it": "Soffia la bora. Chiudi la porta, ragazzo." }
+      { "sl": "Burja piha. Zapri vrata, {m:fant|f:dekle}.", "en": "The burja is blowing. Close the door, {m:lad|f:lass}.", "de": "Die Bora weht. Mach die Tür zu, {m:Junge|f:Mädchen}.", "it": "Soffia la bora. Chiudi la porta, {m:ragazzo|f:ragazza}." }
     ],
     "cheer": [
-      { "sl": "Bravo, fant!", "en": "Well done, lad!", "de": "Gut gemacht, Junge!", "it": "Bravo, ragazzo!" },
-      { "sl": "Tako, tako! Priden si.", "en": "That's it! Good boy.", "de": "Genau so! Braver Junge.", "it": "Ecco, così! Bravo ragazzo." },
+      { "sl": "Bravo, {m:fant|f:dekle}!", "en": "Well done, {m:lad|f:lass}!", "de": "Gut gemacht, {m:Junge|f:Mädchen}!", "it": "{m:Bravo, ragazzo|f:Brava, ragazza}!" },
+      { "sl": "Tako, tako! {m:Priden|f:Pridna} si.", "en": "That's it! {m:Good boy|f:Good girl}.", "de": "Genau so! {m:Braver Junge|f:Braves Mädchen}.", "it": "Ecco, così! {m:Bravo ragazzo|f:Brava ragazza}." },
       { "sl": "Odlično! Za to dobiš kos potice.", "en": "Excellent! You get a piece of potica for that.", "de": "Ausgezeichnet! Dafür bekommst du ein Stück Potica.", "it": "Ottimo! Per questo ti meriti una fetta di potica." },
       { "sl": "Vidiš, znaš!", "en": "See, you can do it!", "de": "Siehst du, du kannst es!", "it": "Vedi, lo sai fare!" }
     ],
@@ -64,26 +64,26 @@
     "listen": [
       { "sl": "Poslušaj babico.", "en": "Listen to grandma.", "de": "Hör der Oma zu.", "it": "Ascolta la nonna." },
       { "sl": "Tiho, poslušaj.", "en": "Quiet, listen.", "de": "Leise, hör zu.", "it": "Silenzio, ascolta." },
-      { "sl": "Dobro poslušaj, fant.", "en": "Listen carefully, lad.", "de": "Hör gut zu, Junge.", "it": "Ascolta bene, ragazzo." }
+      { "sl": "Dobro poslušaj, {m:fant|f:dekle}.", "en": "Listen carefully, {m:lad|f:lass}.", "de": "Hör gut zu, {m:Junge|f:Mädchen}.", "it": "Ascolta bene, {m:ragazzo|f:ragazza}." }
     ],
     "bye": [
-      { "sl": "Adijo, Jan. Pridi spet!", "en": "Bye, Jan. Come again!", "de": "Tschüss, Jan. Komm wieder!", "it": "Ciao, Jan. Torna a trovarmi!" },
-      { "sl": "Lahko noč, fant. In jej!", "en": "Good night, lad. And eat!", "de": "Gute Nacht, Junge. Und iss!", "it": "Buonanotte, ragazzo. E mangia!", "when": ["evening", "night"] },
-      { "sl": "Pa lep dan, fant. In jej!", "en": "Have a nice day, lad. And eat!", "de": "Einen schönen Tag noch, Junge. Und iss!", "it": "Buona giornata, ragazzo. E mangia!", "when": ["morning", "afternoon"] },
+      { "sl": "Adijo, {learner}. Pridi spet!", "en": "Bye, {learner}. Come again!", "de": "Tschüss, {learner}. Komm wieder!", "it": "Ciao, {learner}. Torna a trovarmi!" },
+      { "sl": "Lahko noč, {m:fant|f:dekle}. In jej!", "en": "Good night, {m:lad|f:lass}. And eat!", "de": "Gute Nacht, {m:Junge|f:Mädchen}. Und iss!", "it": "Buonanotte, {m:ragazzo|f:ragazza}. E mangia!", "when": ["evening", "night"] },
+      { "sl": "Pa lep dan, {m:fant|f:dekle}. In jej!", "en": "Have a nice day, {m:lad|f:lass}. And eat!", "de": "Einen schönen Tag noch, {m:Junge|f:Mädchen}. Und iss!", "it": "Buona giornata, {m:ragazzo|f:ragazza}. E mangia!", "when": ["morning", "afternoon"] },
       { "sl": "Na svidenje. Jutri je kosilo ob enih!", "en": "Goodbye. Tomorrow lunch is at one!", "de": "Auf Wiedersehen. Morgen gibt's Mittagessen um eins!", "it": "Arrivederci. Domani il pranzo è all'una!" }
     ],
     "gift": {
       "liked": [
-        { "sl": "O, fant! Kako si vedel, da imam to tako rada?", "en": "Oh, lad! How did you know I love this so much?", "de": "Oh, Junge! Woher wusstest du, dass ich das so gern mag?", "it": "Oh, ragazzo! Come sapevi che mi piace tanto?" },
-        { "sl": "Zame? Oj, Jan, ti si zlat! Pridi, dobiš kos potice.", "en": "For me? Oh, Jan, you're a treasure! Come, you get a piece of potica.", "de": "Für mich? Oh, Jan, du bist ein Schatz! Komm, du bekommst ein Stück Potica.", "it": "Per me? Oh, Jan, sei un tesoro! Vieni, ti do una fetta di potica." },
-        { "sl": "Točno to sem si želela! Hvala, moj fant.", "en": "Just what I wanted! Thank you, my lad.", "de": "Genau das habe ich mir gewünscht! Danke, mein Junge.", "it": "Proprio quello che volevo! Grazie, ragazzo mio." }
+        { "sl": "O, {m:fant|f:dekle}! Kako si {m:vedel|f:vedela}, da imam to tako rada?", "en": "Oh, {m:lad|f:lass}! How did you know I love this so much?", "de": "Oh, {m:Junge|f:Mädchen}! Woher wusstest du, dass ich das so gern mag?", "it": "Oh, {m:ragazzo|f:ragazza}! Come sapevi che mi piace tanto?" },
+        { "sl": "Zame? Oj, {learner}, ti si {m:zlat|f:zlata}! Pridi, dobiš kos potice.", "en": "For me? Oh, {learner}, you're a treasure! Come, you get a piece of potica.", "de": "Für mich? Oh, {learner}, du bist ein Schatz! Komm, du bekommst ein Stück Potica.", "it": "Per me? Oh, {learner}, sei un tesoro! Vieni, ti do una fetta di potica." },
+        { "sl": "Točno to sem si želela! Hvala, {m:moj fant|f:moje dekle}.", "en": "Just what I wanted! Thank you, {m:my lad|f:my lass}.", "de": "Genau das habe ich mir gewünscht! Danke, {m:mein Junge|f:mein Mädchen}.", "it": "Proprio quello che volevo! Grazie, {m:ragazzo mio|f:ragazza mia}." }
       ],
       "ordinary": [
-        { "sl": "O, hvala, fant. Ni bilo treba!", "en": "Oh, thank you, lad. You didn't have to!", "de": "Oh, danke, Junge. Das wäre nicht nötig gewesen!", "it": "Oh, grazie, ragazzo. Non dovevi!" },
-        { "sl": "Lepo od tebe, Jan. Zdaj pa sedi in jej.", "en": "That's kind of you, Jan. Now sit down and eat.", "de": "Nett von dir, Jan. Jetzt setz dich und iss.", "it": "Gentile da parte tua, Jan. Adesso siediti e mangia." }
+        { "sl": "O, hvala, {m:fant|f:dekle}. Ni bilo treba!", "en": "Oh, thank you, {m:lad|f:lass}. You didn't have to!", "de": "Oh, danke, {m:Junge|f:Mädchen}. Das wäre nicht nötig gewesen!", "it": "Oh, grazie, {m:ragazzo|f:ragazza}. Non dovevi!" },
+        { "sl": "Lepo od tebe, {learner}. Zdaj pa sedi in jej.", "en": "That's kind of you, {learner}. Now sit down and eat.", "de": "Nett von dir, {learner}. Jetzt setz dich und iss.", "it": "Gentile da parte tua, {learner}. Adesso siediti e mangia." }
       ],
       "rare": [
-        { "sl": "Joj, Jan! Kaj takega pa še nisem dobila. Hvala, hvala!", "en": "Oh my, Jan! Nobody ever gave me anything like this. Thank you, thank you!", "de": "Ach je, Jan! So etwas hat mir noch nie jemand geschenkt. Danke, danke!", "it": "Oh mamma, Jan! Nessuno mi ha mai regalato una cosa così. Grazie, grazie!" }
+        { "sl": "Joj, {learner}! Kaj takega pa še nisem dobila. Hvala, hvala!", "en": "Oh my, {learner}! Nobody ever gave me anything like this. Thank you, thank you!", "de": "Ach je, {learner}! So etwas hat mir noch nie jemand geschenkt. Danke, danke!", "it": "Oh mamma, {learner}! Nessuno mi ha mai regalato una cosa così. Grazie, grazie!" }
       ]
     }
   }

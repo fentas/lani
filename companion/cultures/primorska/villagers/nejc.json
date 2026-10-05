@@ -13,7 +13,7 @@
   "since": "zaselek",
   "order": 12,
   "routine": { "up": "7:15", "bed": "20:30" },
-  "personality": "Nine, Gostilničarka Vida's son, the ringleader of the village children. Quick, cheeky, always running, always hungry, says ti to everybody including Stari Janez (and gets told off). Short sentences, 'Jan, Jan!', 'pridi!', 'ha ha'; teases but is kind. Talks fast, so he is good practice for listening.",
+  "personality": "Nine, Gostilničarka Vida's son, the ringleader of the village children. Quick, cheeky, always running, always hungry, says ti to everybody including Stari Janez (and gets told off). Short sentences, '{learner}, {learner}!', 'pridi!', 'ha ha'; teases but is kind. Talks fast, so he is good practice for listening.",
   "story": "Nejc lives at the inn and is supposed to help his mother, but he is mostly at the pond, in a tree or playing football under the linden with Zala and Tine. Football, tag and hide-and-seek: he is 'it' more often than he admits. He wants to go up Triglav before Stari Janez's sixth time.",
   "likes": [
     { "sl": "nogomet", "en": "football", "de": "Fußball", "it": "il calcio" },
@@ -25,15 +25,15 @@
     "greet": [
       { "sl": "Ej! Kdo si ti?", "en": "Hey! Who are you?", "de": "He! Wer bist du?", "it": "Ehi! Chi sei?", "level": 0 },
       { "sl": "Živjo! Jaz sem Nejc. Igraš nogomet?", "en": "Hi! I'm Nejc. Do you play football?", "de": "Hallo! Ich bin Nejc. Spielst du Fußball?", "it": "Ciao! Io sono Nejc. Giochi a calcio?", "level": 0 },
-      { "sl": "Jan, Jan! Pridi, igramo se!", "en": "Jan, Jan! Come, we're playing!", "de": "Jan, Jan! Komm, wir spielen!", "it": "Jan, Jan! Vieni, giochiamo!", "level": 1 },
-      { "sl": "Jan! Končno! Kje si bil?", "en": "Jan! Finally! Where were you?", "de": "Jan! Endlich! Wo warst du?", "it": "Jan! Finalmente! Dov'eri?", "level": 2 },
-      { "sl": "Jan, ti si najboljši! Pridi, nekaj ti pokažem.", "en": "Jan, you're the best! Come, I'll show you something.", "de": "Jan, du bist der Beste! Komm, ich zeig dir was.", "it": "Jan, sei il migliore! Vieni, ti faccio vedere una cosa.", "level": 3 },
-      { "sl": "Jan! Zala, Tine, Jan je tu! Naš Jan!", "en": "Jan! Zala, Tine, Jan is here! Our Jan!", "de": "Jan! Zala, Tine, Jan ist da! Unser Jan!", "it": "Jan! Zala, Tine, c'è Jan! Il nostro Jan!", "level": 4 }
+      { "sl": "{learner}, {learner}! Pridi, igramo se!", "en": "{learner}, {learner}! Come, we're playing!", "de": "{learner}, {learner}! Komm, wir spielen!", "it": "{learner}, {learner}! Vieni, giochiamo!", "level": 1 },
+      { "sl": "{learner}! Končno! Kje si {m:bil|f:bila}?", "en": "{learner}! Finally! Where were you?", "de": "{learner}! Endlich! Wo warst du?", "it": "{learner}! Finalmente! Dov'eri?", "level": 2 },
+      { "sl": "{learner}, ti si {m:najboljši|f:najboljša}! Pridi, nekaj ti pokažem.", "en": "{learner}, you're the best! Come, I'll show you something.", "de": "{learner}, du bist {m:der Beste|f:die Beste}! Komm, ich zeig dir was.", "it": "{learner}, sei {m:il migliore|f:la migliore}! Vieni, ti faccio vedere una cosa.", "level": 3 },
+      { "sl": "{learner}! Zala, Tine, {learner} je tu! {m:Naš|f:Naša} {learner}!", "en": "{learner}! Zala, Tine, {learner} is here! Our {learner}!", "de": "{learner}! Zala, Tine, {learner} ist da! {m:Unser|f:Unsere} {learner}!", "it": "{learner}! Zala, Tine, c'è {learner}! {m:Il nostro|f:La nostra} {learner}!", "level": 4 }
     ],
     "thanks": [
-      { "sl": "Hvala, Jan! Ti si car.", "en": "Thanks, Jan! You're the boss (slang: you're great).", "de": "Danke, Jan! Du bist der Boss (Slang: du bist super).", "it": "Grazie, Jan! Sei un grande (gergo: sei fantastico)." },
+      { "sl": "Hvala, {learner}! Ti si {m:car|f:carica}.", "en": "Thanks, {learner}! You're the boss (slang: you're great).", "de": "Danke, {learner}! Du bist {m:der Boss|f:die Chefin} (Slang: du bist super).", "it": "Grazie, {learner}! {m:Sei un grande|f:Sei una grande} (gergo: sei fantastico)." },
       { "sl": "Super! Hvala! Jutri spet?", "en": "Great! Thanks! Again tomorrow?", "de": "Super! Danke! Morgen wieder?", "it": "Forte! Grazie! Domani di nuovo?" },
-      { "sl": "Hvala! Mami povem, da si mi pomagal.", "en": "Thanks! I'll tell mum you helped me.", "de": "Danke! Ich sag Mama, dass du mir geholfen hast.", "it": "Grazie! Dico alla mamma che mi hai aiutato." }
+      { "sl": "Hvala! Mami povem, da si mi {m:pomagal|f:pomagala}.", "en": "Thanks! I'll tell mum you helped me.", "de": "Danke! Ich sag Mama, dass du mir geholfen hast.", "it": "Grazie! Dico alla mamma che mi hai aiutato." }
     ],
     "remember": [
       { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -47,9 +47,9 @@
       { "sl": "Tine je počasen. Ampak je moj prijatelj.", "en": "Tine is slow. But he's my friend.", "de": "Tine ist langsam. Aber er ist mein Freund.", "it": "Tine è lento. Ma è mio amico." }
     ],
     "cheer": [
-      { "sl": "Jaaa! Bravo!", "en": "Yesss! Well done!", "de": "Jaaa! Gut gemacht!", "it": "Sììì! Bravo!" },
+      { "sl": "Jaaa! Bravo!", "en": "Yesss! Well done!", "de": "Jaaa! Gut gemacht!", "it": "Sììì! {m:Bravo|f:Brava}!" },
       { "sl": "Gol!", "en": "Goal!", "de": "Tor!", "it": "Gol!" },
-      { "sl": "Ti si car!", "en": "You're the boss!", "de": "Du bist der Boss!", "it": "Sei un grande!" },
+      { "sl": "Ti si {m:car|f:carica}!", "en": "You're the boss!", "de": "Du bist {m:der Boss|f:die Chefin}!", "it": "Sei {m:un grande|f:una grande}!" },
       { "sl": "Točno! Ha ha, lahko je!", "en": "Exactly! Ha ha, it's easy!", "de": "Genau! Ha ha, ist doch leicht!", "it": "Esatto! Ah ah, è facile!" }
     ],
     "comfort": [
@@ -63,22 +63,22 @@
       { "sl": "Ušesa! Poslušaj.", "en": "Ears! Listen.", "de": "Ohren auf! Hör zu.", "it": "Orecchie! Ascolta." }
     ],
     "bye": [
-      { "sl": "Čav, Jan!", "en": "Bye, Jan! (čav: Primorska for bye)", "de": "Tschüss, Jan! (čav: so sagt man in Primorska tschüss)", "it": "Ciao, Jan! (čav: il ciao della Primorska)" },
+      { "sl": "Čav, {learner}!", "en": "Bye, {learner}! (čav: Primorska for bye)", "de": "Tschüss, {learner}! (čav: so sagt man in Primorska tschüss)", "it": "Ciao, {learner}! (čav: il ciao della Primorska)" },
       { "sl": "Adijo! Jutri ob treh, pri ognju!", "en": "Bye! Tomorrow at three, by the fire!", "de": "Tschüss! Morgen um drei, am Feuer!", "it": "Ciao! Domani alle tre, al fuoco!" },
       { "sl": "Grem, mama kliče. Čav!", "en": "I'm off, mum's calling. Bye!", "de": "Ich muss los, Mama ruft. Tschüss!", "it": "Vado, la mamma mi chiama. Ciao!" }
     ],
     "gift": {
       "liked": [
-        { "sl": "Jaaa! Zame? Ti si car, Jan!", "en": "Yesss! For me? You're the best, Jan!", "de": "Jaaa! Für mich? Du bist der Beste, Jan!", "it": "Sììì! Per me? Sei il migliore, Jan!" },
-        { "sl": "Kako si vedel? To imam najraje! Hvala!", "en": "How did you know? This is my favourite! Thanks!", "de": "Woher wusstest du das? Das mag ich am liebsten! Danke!", "it": "Come lo sapevi? È la cosa che preferisco! Grazie!" },
+        { "sl": "Jaaa! Zame? Ti si {m:car|f:carica}, {learner}!", "en": "Yesss! For me? You're the best, {learner}!", "de": "Jaaa! Für mich? Du bist {m:der Beste|f:die Beste}, {learner}!", "it": "Sììì! Per me? Sei {m:il migliore|f:la migliore}, {learner}!" },
+        { "sl": "Kako si {m:vedel|f:vedela}? To imam najraje! Hvala!", "en": "How did you know? This is my favourite! Thanks!", "de": "Woher wusstest du das? Das mag ich am liebsten! Danke!", "it": "Come lo sapevi? È la cosa che preferisco! Grazie!" },
         { "sl": "Super! Tega ne dam nikomur. No, mogoče Tinetu.", "en": "Great! I'm not giving this to anyone. Well, maybe to Tine.", "de": "Super! Das gebe ich keinem. Na ja, vielleicht Tine.", "it": "Forte! Questo non lo do a nessuno. Beh, forse a Tine." }
       ],
       "ordinary": [
         { "sl": "O, hvala! Mami povem.", "en": "Oh, thanks! I'll tell Mum.", "de": "Oh, danke! Ich sag's Mama.", "it": "Oh, grazie! Lo dico alla mamma." },
-        { "sl": "Hvala, Jan! Greva zdaj igrat nogomet?", "en": "Thanks, Jan! Shall we two go and play football now?", "de": "Danke, Jan! Gehen wir zwei jetzt Fußball spielen?", "it": "Grazie, Jan! Andiamo noi due a giocare a calcio adesso?" }
+        { "sl": "Hvala, {learner}! Greva zdaj igrat nogomet?", "en": "Thanks, {learner}! Shall we two go and play football now?", "de": "Danke, {learner}! Gehen wir zwei jetzt Fußball spielen?", "it": "Grazie, {learner}! Andiamo noi due a giocare a calcio adesso?" }
       ],
       "rare": [
-        { "sl": "Uau! Tega nima nihče v vasi! Jan, ti si največji car!", "en": "Wow! Nobody in the village has this! Jan, you're the very best!", "de": "Wow! So etwas hat keiner im Dorf! Jan, du bist der Allerbeste!", "it": "Uau! In paese non ce l'ha nessuno! Jan, sei proprio il migliore!" }
+        { "sl": "Uau! Tega nima nihče v vasi! {learner}, ti si {m:največji car|f:največja carica}!", "en": "Wow! Nobody in the village has this! {learner}, you're the very best!", "de": "Wow! So etwas hat keiner im Dorf! {learner}, du bist {m:der Allerbeste|f:die Allerbeste}!", "it": "Uau! In paese non ce l'ha nessuno! {learner}, sei proprio {m:il migliore|f:la migliore}!" }
       ]
     }
   }

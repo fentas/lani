@@ -4,12 +4,12 @@
   "review": "Machine-written (Claude), not reviewed by a native speaker.",
   "cast": {
     "micka": {
-      "memory": {"sl": "dan, ko si prvič poskusil mojo potico", "en": "the day you first tasted my potica", "de": "den Tag, an dem du zum ersten Mal meine Potica probiert hast", "it": "il giorno in cui hai assaggiato per la prima volta la mia potica"},
+      "memory": {"sl": "dan, ko si prvič {m:poskusil|f:poskusila} mojo potico", "en": "the day you first tasted my potica", "de": "den Tag, an dem du zum ersten Mal meine Potica probiert hast", "it": "il giorno in cui hai assaggiato per la prima volta la mia potica"},
       "levels": {
         "A1": {
-          "late": {"who": "micka", "sl": "O, Jan! Nisva se še prav spoznala, kajne? Jaz sem Micka, babica Micka.", "en": "Oh, Jan! We haven't properly met yet, have we? I'm Micka, Grandma Micka.", "de": "Oh, Jan! Wir haben uns noch gar nicht richtig kennengelernt, oder? Ich bin Micka, Oma Micka.", "it": "Oh, Jan! Non ci siamo ancora conosciuti per bene, vero? Io sono Micka, nonna Micka."},
+          "late": {"who": "micka", "sl": "O, {learner}! Nisva se še prav {m:spoznala|f:spoznali}, kajne? Jaz sem Micka, babica Micka.", "en": "Oh, {learner}! We haven't properly met yet, have we? I'm Micka, Grandma Micka.", "de": "Oh, {learner}! Wir haben uns noch gar nicht richtig kennengelernt, oder? Ich bin Micka, Oma Micka.", "it": "Oh, {learner}! Non ci siamo ancora {m:conosciuti|f:conosciute} per bene, vero? Io sono Micka, nonna Micka."},
           "lines": [
-            {"who": "micka", "sl": "Dober dan, fant! Jaz sem Micka, babica Micka.", "en": "Good day, lad! I'm Micka, Grandma Micka.", "de": "Guten Tag, Junge! Ich bin Micka, Oma Micka.", "it": "Buongiorno, ragazzo! Io sono Micka, nonna Micka."},
+            {"who": "micka", "sl": "Dober dan, {m:fant|f:dekle}! Jaz sem Micka, babica Micka.", "en": "Good day, {m:lad|f:lass}! I'm Micka, Grandma Micka.", "de": "Guten Tag, {m:Junge|f:Mädchen}! Ich bin Micka, Oma Micka.", "it": "Buongiorno, {m:ragazzo|f:ragazza}! Io sono Micka, nonna Micka."},
             {
               "choices": [
                 {
@@ -18,7 +18,7 @@
                   "de": "Guten Tag! Freut mich.",
                   "it": "Buongiorno! Piacere.",
                   "ok": true,
-                  "reply": {"sl": "Tudi mene, fant. Dobrodošel!", "en": "Me too, lad. Welcome!", "de": "Mich auch, Junge. Willkommen!", "it": "Piacere mio, ragazzo. Benvenuto!"}
+                  "reply": {"sl": "Tudi mene, {m:fant|f:dekle}. {m:Dobrodošel|f:Dobrodošla}!", "en": "Me too, {m:lad|f:lass}. Welcome!", "de": "Mich auch, {m:Junge|f:Mädchen}. Willkommen!", "it": "Piacere mio, {m:ragazzo|f:ragazza}. {m:Benvenuto|f:Benvenuta}!"}
                 },
                 {
                   "sl": "Živjo, Micka! Kako si?",
@@ -26,12 +26,12 @@
                   "de": "Hallo, Micka! Wie geht's dir?",
                   "it": "Ciao, Micka! Come stai?",
                   "why": {"en": "Micka is older and expects vi: dober dan and kako ste, not živjo and kako si.", "de": "Micka ist älter und erwartet vi: dober dan und kako ste, nicht živjo und kako si.", "it": "Micka è anziana e si aspetta il Lei (vi): dober dan e kako ste, non živjo e kako si."},
-                  "reply": {"sl": "Kako si? Oho, fant, kot da sva sošolca!", "en": "Kako si? Oho, lad, as if we were classmates!", "de": "Kako si? Oho, Junge, als wären wir Schulkameraden!", "it": "Kako si? Oho, ragazzo, come se fossimo compagni di scuola!"}
+                  "reply": {"sl": "Kako si? Oho, {m:fant|f:dekle}, kot da sva {m:sošolca|f:sošolki}!", "en": "Kako si? Oho, {m:lad|f:lass}, as if we were classmates!", "de": "Kako si? Oho, {m:Junge|f:Mädchen}, als wären wir Schulkameraden!", "it": "Kako si? Oho, {m:ragazzo|f:ragazza}, come se fossimo {m:compagni|f:compagne} di scuola!"}
                 }
               ]
             },
             {"who": "micka", "sl": "Kuham za vse. Vsak dan!", "en": "I cook for everyone. Every day!", "de": "Ich koche für alle. Jeden Tag!", "it": "Cucino per tutti. Ogni giorno!"},
-            {"who": "micka", "sl": "Si lačen? Izvoli, kos potice!", "en": "Are you hungry? Here you are, a piece of potica!", "de": "Hast du Hunger? Hier, ein Stück Potica!", "it": "Hai fame? Tieni, una fetta di potica!"},
+            {"who": "micka", "sl": "Si {m:lačen|f:lačna}? Izvoli, kos potice!", "en": "Are you hungry? Here you are, a piece of potica!", "de": "Hast du Hunger? Hier, ein Stück Potica!", "it": "Hai fame? Tieni, una fetta di potica!"},
             {
               "choices": [
                 {
@@ -40,7 +40,7 @@
                   "de": "Vielen Dank!",
                   "it": "Grazie mille!",
                   "ok": true,
-                  "reply": {"sl": "Jej, jej! Suh si, fant.", "en": "Eat, eat! You're thin, lad.", "de": "Iss, iss! Du bist dünn, Junge.", "it": "Mangia, mangia! Sei magro, ragazzo."}
+                  "reply": {"sl": "Jej, jej! {m:Suh|f:Suha} si, {m:fant|f:dekle}.", "en": "Eat, eat! You're thin, {m:lad|f:lass}.", "de": "Iss, iss! Du bist dünn, {m:Junge|f:Mädchen}.", "it": "Mangia, mangia! Sei {m:magro|f:magra}, {m:ragazzo|f:ragazza}."}
                 },
                 {
                   "sl": "Na zdravje!",
@@ -48,7 +48,7 @@
                   "de": "Prost!",
                   "it": "Salute!",
                   "why": {"en": "Na zdravje is cheers (with a drink) or bless you; when someone gives you food, say hvala.", "de": "Na zdravje sagt man beim Anstoßen oder nach dem Niesen; wenn dir jemand Essen gibt, sagst du hvala.", "it": "Na zdravje si dice brindando o dopo uno starnuto; quando qualcuno ti dà da mangiare, si dice hvala."},
-                  "reply": {"sl": "Na zdravje? Fant, to ni vino, to je potica!", "en": "Cheers? Lad, this isn't wine, it's potica!", "de": "Prost? Junge, das ist kein Wein, das ist Potica!", "it": "Salute? Ragazzo, questo non è vino, è potica!"}
+                  "reply": {"sl": "Na zdravje? {m:Fant|f:Dekle}, to ni vino, to je potica!", "en": "Cheers? {m:Lad|f:Lass}, this isn't wine, it's potica!", "de": "Prost? {m:Junge|f:Mädchen}, das ist kein Wein, das ist Potica!", "it": "Salute? {m:Ragazzo|f:Ragazza}, questo non è vino, è potica!"}
                 }
               ]
             },
@@ -56,9 +56,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "micka", "sl": "Jan, fant! Že dolgo si tu, pa se še nisva prav spoznala. Jaz sem babica Micka.", "en": "Jan, lad! You've been here a long time, and we still haven't properly met. I'm Grandma Micka.", "de": "Jan, Junge! Du bist schon lange hier, und wir haben uns noch nicht richtig kennengelernt. Ich bin Oma Micka.", "it": "Jan, ragazzo! Sei qui da tanto tempo e non ci siamo ancora conosciuti per bene. Io sono nonna Micka."},
+          "late": {"who": "micka", "sl": "{learner}, {m:fant|f:dekle}! Že dolgo si tu, pa se še nisva prav {m:spoznala|f:spoznali}. Jaz sem babica Micka.", "en": "{learner}, {m:lad|f:lass}! You've been here a long time, and we still haven't properly met. I'm Grandma Micka.", "de": "{learner}, {m:Junge|f:Mädchen}! Du bist schon lange hier, und wir haben uns noch nicht richtig kennengelernt. Ich bin Oma Micka.", "it": "{learner}, {m:ragazzo|f:ragazza}! Sei qui da tanto tempo e non ci siamo ancora {m:conosciuti|f:conosciute} per bene. Io sono nonna Micka."},
           "lines": [
-            {"who": "micka", "sl": "Pridi, pridi, fant! Jaz sem Micka, babica Micka.", "en": "Come, come, lad! I'm Micka, Grandma Micka.", "de": "Komm, komm, Junge! Ich bin Micka, Oma Micka.", "it": "Vieni, vieni, ragazzo! Io sono Micka, nonna Micka."},
+            {"who": "micka", "sl": "Pridi, pridi, {m:fant|f:dekle}! Jaz sem Micka, babica Micka.", "en": "Come, come, {m:lad|f:lass}! I'm Micka, Grandma Micka.", "de": "Komm, komm, {m:Junge|f:Mädchen}! Ich bin Micka, Oma Micka.", "it": "Vieni, vieni, {m:ragazzo|f:ragazza}! Io sono Micka, nonna Micka."},
             {
               "choices": [
                 {
@@ -67,7 +67,7 @@
                   "de": "Guten Tag! Wie geht es Ihnen?",
                   "it": "Buongiorno! Come sta?",
                   "ok": true,
-                  "reply": {"sl": "Dobro, fant, dobro. Samo noge so že stare.", "en": "Fine, lad, fine. Only my legs are old now.", "de": "Gut, Junge, gut. Nur die Beine sind schon alt.", "it": "Bene, ragazzo, bene. Solo le gambe sono ormai vecchie."}
+                  "reply": {"sl": "Dobro, {m:fant|f:dekle}, dobro. Samo noge so že stare.", "en": "Fine, {m:lad|f:lass}, fine. Only my legs are old now.", "de": "Gut, {m:Junge|f:Mädchen}, gut. Nur die Beine sind schon alt.", "it": "Bene, {m:ragazzo|f:ragazza}, bene. Solo le gambe sono ormai vecchie."}
                 },
                 {
                   "sl": "Živjo! Kako si?",
@@ -81,7 +81,7 @@
             },
             {"who": "micka", "sl": "Prej sem živela v Trnovem. Zdaj bom kuhala tukaj, za celo vas.", "en": "I used to live in Trnovo. Now I'll cook here, for the whole village.", "de": "Früher habe ich in Trnovo gewohnt. Jetzt koche ich hier, für das ganze Dorf.", "it": "Prima abitavo a Tarnova. Adesso cucinerò qui, per tutto il paese."},
             {"who": "micka", "sl": "Prišla sem sama, le z loncem in s kuhalnico. Vas brez kuhinje ni vas!", "en": "I came on my own, with just a pot and a wooden spoon. A village without a kitchen is no village!", "de": "Ich bin allein gekommen, nur mit einem Topf und einem Kochlöffel. Ein Dorf ohne Küche ist kein Dorf!", "it": "Sono venuta da sola, solo con una pentola e un mestolo. Un paese senza cucina non è un paese!"},
-            {"who": "micka", "sl": "Si lačen? Izvoli, kos potice. Sama sem jo spekla.", "en": "Are you hungry? Here you are, a piece of potica. I baked it myself.", "de": "Hast du Hunger? Hier, ein Stück Potica. Ich habe sie selbst gebacken.", "it": "Hai fame? Tieni, una fetta di potica. L'ho fatta io."},
+            {"who": "micka", "sl": "Si {m:lačen|f:lačna}? Izvoli, kos potice. Sama sem jo spekla.", "en": "Are you hungry? Here you are, a piece of potica. I baked it myself.", "de": "Hast du Hunger? Hier, ein Stück Potica. Ich habe sie selbst gebacken.", "it": "Hai fame? Tieni, una fetta di potica. L'ho fatta io."},
             {
               "choices": [
                 {
@@ -106,9 +106,9 @@
           ]
         },
         "B1": {
-          "late": {"who": "micka", "sl": "Jan, počakaj malo! Že dolgo si v vasi, pa se še nisva prav spoznala. Sedi k ognju! Jaz sem Micka, a vsi mi pravijo babica.", "en": "Jan, wait a moment! You've been in the village a long time, and we still haven't properly met. Sit by the fire! I'm Micka, but everyone calls me Grandma.", "de": "Jan, warte mal! Du bist schon lange im Dorf, und wir kennen uns noch nicht richtig. Setz dich ans Feuer! Ich bin Micka, aber alle sagen Oma.", "it": "Jan, aspetta! Sei in paese da tanto e non ci siamo ancora conosciuti per bene. Siediti al fuoco! Sono Micka, ma tutti mi chiamano nonna."},
+          "late": {"who": "micka", "sl": "{learner}, počakaj malo! Že dolgo si v vasi, pa se še nisva prav {m:spoznala|f:spoznali}. Sedi k ognju! Jaz sem Micka, a vsi mi pravijo babica.", "en": "{learner}, wait a moment! You've been in the village a long time, and we still haven't properly met. Sit by the fire! I'm Micka, but everyone calls me Grandma.", "de": "{learner}, warte mal! Du bist schon lange im Dorf, und wir kennen uns noch nicht richtig. Setz dich ans Feuer! Ich bin Micka, aber alle sagen Oma.", "it": "{learner}, aspetta! Sei in paese da tanto e non ci siamo ancora {m:conosciuti|f:conosciute} per bene. Siediti al fuoco! Sono Micka, ma tutti mi chiamano nonna."},
           "lines": [
-            {"who": "micka", "sl": "Pridi, pridi, fant, kar sedi k ognju! Jaz sem Micka, a vsi mi pravijo babica.", "en": "Come, come, lad, sit down by the fire! I'm Micka, but everyone calls me Grandma.", "de": "Komm, komm, Junge, setz dich ans Feuer! Ich bin Micka, aber alle nennen mich Oma.", "it": "Vieni, vieni, ragazzo, siediti vicino al fuoco! Io sono Micka, ma tutti mi chiamano nonna."},
+            {"who": "micka", "sl": "Pridi, pridi, {m:fant|f:dekle}, kar sedi k ognju! Jaz sem Micka, a vsi mi pravijo babica.", "en": "Come, come, {m:lad|f:lass}, sit down by the fire! I'm Micka, but everyone calls me Grandma.", "de": "Komm, komm, {m:Junge|f:Mädchen}, setz dich ans Feuer! Ich bin Micka, aber alle nennen mich Oma.", "it": "Vieni, vieni, {m:ragazzo|f:ragazza}, siediti vicino al fuoco! Io sono Micka, ma tutti mi chiamano nonna."},
             {
               "choices": [
                 {
@@ -117,7 +117,7 @@
                   "de": "Danke. Wie lange kochen Sie denn schon für andere?",
                   "it": "Grazie. E da quanto tempo cucina per gli altri?",
                   "ok": true,
-                  "reply": {"sl": "Oh, fant, odkar je bila moja hči še majhna. Že zelo dolgo!", "en": "Oh, lad, ever since my daughter was little. A very long time!", "de": "Ach, Junge, seit meine Tochter noch klein war. Schon sehr lange!", "it": "Oh, ragazzo, da quando mia figlia era piccola. Da tantissimo tempo!"}
+                  "reply": {"sl": "Oh, {m:fant|f:dekle}, odkar je bila moja hči še majhna. Že zelo dolgo!", "en": "Oh, {m:lad|f:lass}, ever since my daughter was little. A very long time!", "de": "Ach, {m:Junge|f:Mädchen}, seit meine Tochter noch klein war. Schon sehr lange!", "it": "Oh, {m:ragazzo|f:ragazza}, da quando mia figlia era piccola. Da tantissimo tempo!"}
                 },
                 {
                   "sl": "Hvala. Kako dolgo pa že kuhaš za druge?",
@@ -125,7 +125,7 @@
                   "de": "Danke. Wie lange kochst du denn schon für andere?",
                   "it": "Grazie. E da quanto tempo cucini per gli altri?",
                   "why": {"en": "Micka expects vi: kuhate, not kuhaš.", "de": "Micka erwartet vi: kuhate, nicht kuhaš.", "it": "Micka si aspetta il Lei (vi): kuhate, non kuhaš."},
-                  "reply": {"sl": "Kuhaš? Hihi, fant, kot da sva hodila v isti razred!", "en": "Kuhaš? Hee hee, lad, as if we'd been in the same class at school!", "de": "Kuhaš? Hihi, Junge, als wären wir in dieselbe Klasse gegangen!", "it": "Kuhaš? Ih ih, ragazzo, come se fossimo stati in classe insieme!"}
+                  "reply": {"sl": "Kuhaš? Hihi, {m:fant|f:dekle}, kot da sva {m:hodila|f:hodili} v isti razred!", "en": "Kuhaš? Hee hee, {m:lad|f:lass}, as if we'd been in the same class at school!", "de": "Kuhaš? Hihi, {m:Junge|f:Mädchen}, als wären wir in dieselbe Klasse gegangen!", "it": "Kuhaš? Ih ih, {m:ragazzo|f:ragazza}, come se fossimo {m:stati|f:state} in classe insieme!"}
                 }
               ]
             },
@@ -135,24 +135,24 @@
             {
               "choices": [
                 {
-                  "sl": "Hvala! Mmm, še nikoli nisem jedel tako dobre potice.",
+                  "sl": "Hvala! Mmm, še nikoli nisem {m:jedel|f:jedla} tako dobre potice.",
                   "en": "Thank you! Mmm, I've never eaten such good potica.",
                   "de": "Danke! Mmm, so gute Potica habe ich noch nie gegessen.",
                   "it": "Grazie! Mmm, non ho mai mangiato una potica così buona.",
                   "ok": true,
-                  "reply": {"sl": "Oh, fant! Za to pa dobiš še en kos.", "en": "Oh, lad! For that you get another piece.", "de": "Oh, Junge! Dafür bekommst du noch ein Stück.", "it": "Oh, ragazzo! Per questo ti meriti un'altra fetta."}
+                  "reply": {"sl": "Oh, {m:fant|f:dekle}! Za to pa dobiš še en kos.", "en": "Oh, {m:lad|f:lass}! For that you get another piece.", "de": "Oh, {m:Junge|f:Mädchen}! Dafür bekommst du noch ein Stück.", "it": "Oh, {m:ragazzo|f:ragazza}! Per questo ti meriti un'altra fetta."}
                 },
                 {
-                  "sl": "Hvala! Mmm, še nikoli nisem jedel tako dobro potico.",
+                  "sl": "Hvala! Mmm, še nikoli nisem {m:jedel|f:jedla} tako dobro potico.",
                   "en": "Thank you! Mmm, I've never eaten such good potica. (accusative after a negation)",
                   "de": "Danke! Mmm, so gute Potica habe ich noch nie gegessen. (Akkusativ nach Verneinung)",
                   "it": "Grazie! Mmm, non ho mai mangiato una potica così buona. (accusativo dopo la negazione)",
-                  "why": {"en": "After a negation (nisem jedel), the object goes into the genitive: tako dobre potice.", "de": "Nach einer Verneinung (nisem jedel) steht das Objekt im Genitiv: tako dobre potice.", "it": "Dopo una negazione (nisem jedel) il complemento oggetto va al genitivo: tako dobre potice."},
-                  "reply": {"sl": "Hm? Kako, fant? Počasi, s polnimi usti se ne govori!", "en": "Hm? What's that, lad? Slowly, don't talk with your mouth full!", "de": "Hm? Wie bitte, Junge? Langsam, mit vollem Mund spricht man nicht!", "it": "Mm? Come, ragazzo? Piano, non si parla con la bocca piena!"}
+                  "why": {"en": "After a negation (nisem {m:jedel|f:jedla}), the object goes into the genitive: tako dobre potice.", "de": "Nach einer Verneinung (nisem {m:jedel|f:jedla}) steht das Objekt im Genitiv: tako dobre potice.", "it": "Dopo una negazione (nisem {m:jedel|f:jedla}) il complemento oggetto va al genitivo: tako dobre potice."},
+                  "reply": {"sl": "Hm? Kako, {m:fant|f:dekle}? Počasi, s polnimi usti se ne govori!", "en": "Hm? What's that, {m:lad|f:lass}? Slowly, don't talk with your mouth full!", "de": "Hm? Wie bitte, {m:Junge|f:Mädchen}? Langsam, mit vollem Mund spricht man nicht!", "it": "Mm? Come, {m:ragazzo|f:ragazza}? Piano, non si parla con la bocca piena!"}
                 }
               ]
             },
-            {"who": "micka", "sl": "Tako. Vsako nedeljo je pri meni kosilo, ob enih. In ti si povabljen, fant.", "en": "There. Every Sunday there's lunch at my place, at one. And you're invited, lad.", "de": "So. Jeden Sonntag gibt es bei mir Mittagessen, um eins. Und du bist eingeladen, Junge.", "it": "Ecco. Ogni domenica da me c'è il pranzo, all'una. E tu sei invitato, ragazzo."}
+            {"who": "micka", "sl": "Tako. Vsako nedeljo je pri meni kosilo, ob enih. In ti si {m:povabljen|f:povabljena}, {m:fant|f:dekle}.", "en": "There. Every Sunday there's lunch at my place, at one. And you're invited, {m:lad|f:lass}.", "de": "So. Jeden Sonntag gibt es bei mir Mittagessen, um eins. Und du bist eingeladen, {m:Junge|f:Mädchen}.", "it": "Ecco. Ogni domenica da me c'è il pranzo, all'una. E tu sei {m:invitato|f:invitata}, {m:ragazzo|f:ragazza}."}
           ]
         }
       }
@@ -167,12 +167,12 @@
             {
               "choices": [
                 {
-                  "sl": "Živjo, Luka! Jaz sem Jan.",
-                  "en": "Hi, Luka! I'm Jan.",
-                  "de": "Hallo, Luka! Ich bin Jan.",
-                  "it": "Ciao, Luka! Io sono Jan.",
+                  "sl": "Živjo, Luka! Jaz sem {learner}.",
+                  "en": "Hi, Luka! I'm {learner}.",
+                  "de": "Hallo, Luka! Ich bin {learner}.",
+                  "it": "Ciao, Luka! Io sono {learner}.",
                   "ok": true,
-                  "reply": {"sl": "Jan! Super. Pridi, pokažem ti ovce!", "en": "Jan! Great. Come on, I'll show you the sheep!", "de": "Jan! Super. Komm, ich zeig dir die Schafe!", "it": "Jan! Forte. Vieni, ti faccio vedere le pecore!"}
+                  "reply": {"sl": "{learner}! Super. Pridi, pokažem ti ovce!", "en": "{learner}! Great. Come on, I'll show you the sheep!", "de": "{learner}! Super. Komm, ich zeig dir die Schafe!", "it": "{learner}! Forte. Vieni, ti faccio vedere le pecore!"}
                 },
                 {
                   "sl": "Dober dan, gospod Luka.",
@@ -209,9 +209,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "luka", "sl": "Ej, Jan! Slišal sem že zate, pa se še nisva spoznala. Luka sem, pastir.", "en": "Hey, Jan! I've heard about you, but we haven't met yet. I'm Luka, the shepherd.", "de": "He, Jan! Ich hab schon von dir gehört, aber wir kennen uns noch nicht. Ich bin Luka, der Hirte.", "it": "Ehi, Jan! Ho già sentito parlare di te, ma non ci conosciamo ancora. Sono Luka, il pastore."},
+          "late": {"who": "luka", "sl": "Ej, {learner}! Slišal sem že zate, pa se še nisva spoznala. Luka sem, pastir.", "en": "Hey, {learner}! I've heard about you, but we haven't met yet. I'm Luka, the shepherd.", "de": "He, {learner}! Ich hab schon von dir gehört, aber wir kennen uns noch nicht. Ich bin Luka, der Hirte.", "it": "Ehi, {learner}! Ho già sentito parlare di te, ma non ci conosciamo ancora. Sono Luka, il pastore."},
           "lines": [
-            {"who": "luka", "sl": "Ej, živjo! Ti si Jan, ne? Jaz sem Luka, pastir.", "en": "Hey, hi! You're Jan, aren't you? I'm Luka, the shepherd.", "de": "He, hallo! Du bist Jan, oder? Ich bin Luka, der Hirte.", "it": "Ehi, ciao! Tu sei Jan, vero? Io sono Luka, il pastore."},
+            {"who": "luka", "sl": "Ej, živjo! Ti si {learner}, ne? Jaz sem Luka, pastir.", "en": "Hey, hi! You're {learner}, aren't you? I'm Luka, the shepherd.", "de": "He, hallo! Du bist {learner}, oder? Ich bin Luka, der Hirte.", "it": "Ehi, ciao! Tu sei {learner}, vero? Io sono Luka, il pastore."},
             {
               "choices": [
                 {
@@ -242,7 +242,7 @@
                   "de": "Willkommen im Dorf, Luka!",
                   "it": "Benvenuto in paese, Luka!",
                   "ok": true,
-                  "reply": {"sl": "Hvala! Ej, in ti mi boš pomagal iskati Belo, ja?", "en": "Thanks! Hey, and you'll help me look for Bela, yes?", "de": "Danke! He, und du hilfst mir, Bela zu suchen, ja?", "it": "Grazie! Ehi, e tu mi aiuterai a cercare Bela, vero?"}
+                  "reply": {"sl": "Hvala! Ej, in ti mi boš {m:pomagal|f:pomagala} iskati Belo, ja?", "en": "Thanks! Hey, and you'll help me look for Bela, yes?", "de": "Danke! He, und du hilfst mir, Bela zu suchen, ja?", "it": "Grazie! Ehi, e tu mi aiuterai a cercare Bela, vero?"}
                 },
                 {
                   "sl": "Dobrodošla v vasi, Luka!",
@@ -258,9 +258,9 @@
           ]
         },
         "B1": {
-          "late": {"who": "luka", "sl": "Ej, Jan, počakaj! Vsi govorijo o tebi, midva pa se še nisva spoznala. Luka sem, pastir. Tista, ki spet uhaja, je Bela.", "en": "Hey, Jan, wait! Everyone talks about you, and we still haven't met. I'm Luka, the shepherd. The one running off again is Bela.", "de": "He, Jan, warte! Alle reden von dir, und wir kennen uns noch nicht. Ich bin Luka, der Hirte. Die da, die schon wieder abhaut, ist Bela.", "it": "Ehi, Jan, aspetta! Tutti parlano di te e noi due non ci conosciamo ancora. Sono Luka, il pastore. Quella che scappa di nuovo è Bela."},
+          "late": {"who": "luka", "sl": "Ej, {learner}, počakaj! Vsi govorijo o tebi, midva pa se še nisva spoznala. Luka sem, pastir. Tista, ki spet uhaja, je Bela.", "en": "Hey, {learner}, wait! Everyone talks about you, and we still haven't met. I'm Luka, the shepherd. The one running off again is Bela.", "de": "He, {learner}, warte! Alle reden von dir, und wir kennen uns noch nicht. Ich bin Luka, der Hirte. Die da, die schon wieder abhaut, ist Bela.", "it": "Ehi, {learner}, aspetta! Tutti parlano di te e noi due non ci conosciamo ancora. Sono Luka, il pastore. Quella che scappa di nuovo è Bela."},
           "lines": [
-            {"who": "luka", "sl": "Ej, živjo! Ti si gotovo Jan. Jaz sem Luka, pastir. Poglej, tista tam, ki spet uhaja, je Bela.", "en": "Hey, hi! You must be Jan. I'm Luka, the shepherd. Look, that one over there running off again is Bela.", "de": "He, hallo! Du bist bestimmt Jan. Ich bin Luka, der Hirte. Schau, die da drüben, die schon wieder abhaut, ist Bela.", "it": "Ehi, ciao! Tu devi essere Jan. Io sono Luka, il pastore. Guarda, quella laggiù che scappa di nuovo è Bela."},
+            {"who": "luka", "sl": "Ej, živjo! Ti si gotovo {learner}. Jaz sem Luka, pastir. Poglej, tista tam, ki spet uhaja, je Bela.", "en": "Hey, hi! You must be {learner}. I'm Luka, the shepherd. Look, that one over there running off again is Bela.", "de": "He, hallo! Du bist bestimmt {learner}. Ich bin Luka, der Hirte. Schau, die da drüben, die schon wieder abhaut, ist Bela.", "it": "Ehi, ciao! Tu devi essere {learner}. Io sono Luka, il pastore. Guarda, quella laggiù che scappa di nuovo è Bela."},
             {
               "choices": [
                 {
@@ -294,15 +294,15 @@
                   "reply": {"sl": "Ker se v megli ovce izgubijo. Najprej Bela, seveda!", "en": "Because the sheep get lost in the fog. Bela first, of course!", "de": "Weil sich die Schafe im Nebel verlaufen. Bela zuerst, natürlich!", "it": "Perché nella nebbia le pecore si perdono. Prima di tutte Bela, naturalmente!"}
                 },
                 {
-                  "sl": "Tudi jaz imam rad burjo!",
+                  "sl": "Tudi jaz imam {m:rad|f:rada} burjo!",
                   "en": "I love the burja too!",
                   "de": "Ich mag die Bora auch!",
                   "it": "Anche a me piace la bora!",
                   "ok": true,
-                  "reply": {"sl": "Ej, potem si pravi Primorec!", "en": "Hey, then you're a real Primorska man!", "de": "He, dann bist du ein echter Primorec!", "it": "Ehi, allora sei un vero figlio del Litorale!"}
+                  "reply": {"sl": "Ej, potem si {m:pravi Primorec|f:prava Primorka}!", "en": "Hey, then you're a real {m:Primorska man|f:Primorska woman}!", "de": "He, dann bist du {m:ein echter Primorec|f:eine echte Primorka}!", "it": "Ehi, allora sei {m:un vero figlio|f:una vera figlia} del Litorale!"}
                 },
                 {
-                  "sl": "Tudi jaz imam rad meglo!",
+                  "sl": "Tudi jaz imam {m:rad|f:rada} meglo!",
                   "en": "I love fog too!",
                   "de": "Ich mag Nebel auch!",
                   "it": "Anche a me piace la nebbia!",
@@ -321,9 +321,9 @@
       "memory": {"sl": "dan, ko sem prišla živet k babici", "en": "the day I came to live with Grandma", "de": "den Tag, an dem ich zu Oma gezogen bin", "it": "il giorno in cui sono venuta a vivere dalla nonna"},
       "levels": {
         "A1": {
-          "late": {"who": "micka", "sl": "Jan! Saj še ne poznaš moje vnukinje, kajne?", "en": "Jan! You don't know my granddaughter yet, do you?", "de": "Jan! Du kennst meine Enkelin noch gar nicht, oder?", "it": "Jan! Non conosci ancora mia nipote, vero?"},
+          "late": {"who": "micka", "sl": "{learner}! Saj še ne poznaš moje vnukinje, kajne?", "en": "{learner}! You don't know my granddaughter yet, do you?", "de": "{learner}! Du kennst meine Enkelin noch gar nicht, oder?", "it": "{learner}! Non conosci ancora mia nipote, vero?"},
           "lines": [
-            {"who": "micka", "sl": "Jan, poglej! To je moja vnukinja Zala.", "en": "Jan, look! This is my granddaughter Zala.", "de": "Jan, schau! Das ist meine Enkelin Zala.", "it": "Jan, guarda! Questa è mia nipote Zala."},
+            {"who": "micka", "sl": "{learner}, poglej! To je moja vnukinja Zala.", "en": "{learner}, look! This is my granddaughter Zala.", "de": "{learner}, schau! Das ist meine Enkelin Zala.", "it": "{learner}, guarda! Questa è mia nipote Zala."},
             {"who": "zala", "sl": "Živjo! Jaz sem Zala. Stara sem osem let.", "en": "Hi! I'm Zala. I'm eight years old.", "de": "Hallo! Ich bin Zala. Ich bin acht Jahre alt.", "it": "Ciao! Io sono Zala. Ho otto anni."},
             {
               "choices": [
@@ -370,17 +370,17 @@
           ]
         },
         "A2": {
-          "late": {"who": "micka", "sl": "Jan, počakaj! Nekoga ti še nisem predstavila. Zala, pridi sem!", "en": "Jan, wait! There's someone I haven't introduced to you yet. Zala, come here!", "de": "Jan, warte! Jemanden habe ich dir noch nicht vorgestellt. Zala, komm her!", "it": "Jan, aspetta! C'è qualcuno che non ti ho ancora presentato. Zala, vieni qui!"},
+          "late": {"who": "micka", "sl": "{learner}, počakaj! Nekoga ti še nisem predstavila. Zala, pridi sem!", "en": "{learner}, wait! There's someone I haven't introduced to you yet. Zala, come here!", "de": "{learner}, warte! Jemanden habe ich dir noch nicht vorgestellt. Zala, komm her!", "it": "{learner}, aspetta! C'è qualcuno che non ti ho ancora presentato. Zala, vieni qui!"},
           "lines": [
-            {"who": "micka", "sl": "Jan, pridi sem! To je moja vnukinja Zala. Od danes živi pri meni.", "en": "Jan, come here! This is my granddaughter Zala. From today she lives with me.", "de": "Jan, komm her! Das ist meine Enkelin Zala. Ab heute wohnt sie bei mir.", "it": "Jan, vieni qui! Questa è mia nipote Zala. Da oggi abita da me."},
+            {"who": "micka", "sl": "{learner}, pridi sem! To je moja vnukinja Zala. Od danes živi pri meni.", "en": "{learner}, come here! This is my granddaughter Zala. From today she lives with me.", "de": "{learner}, komm her! Das ist meine Enkelin Zala. Ab heute wohnt sie bei mir.", "it": "{learner}, vieni qui! Questa è mia nipote Zala. Da oggi abita da me."},
             {"who": "zala", "sl": "Živjo! Jaz sem Zala. Stara sem osem let in znam že brati.", "en": "Hi! I'm Zala. I'm eight and I can already read.", "de": "Hallo! Ich bin Zala. Ich bin acht und kann schon lesen.", "it": "Ciao! Io sono Zala. Ho otto anni e so già leggere."},
             {
               "choices": [
                 {
-                  "sl": "Živjo, Zala! Jaz sem Jan.",
-                  "en": "Hi, Zala! I'm Jan.",
-                  "de": "Hallo, Zala! Ich bin Jan.",
-                  "it": "Ciao, Zala! Io sono Jan.",
+                  "sl": "Živjo, Zala! Jaz sem {learner}.",
+                  "en": "Hi, Zala! I'm {learner}.",
+                  "de": "Hallo, Zala! Ich bin {learner}.",
+                  "it": "Ciao, Zala! Io sono {learner}.",
                   "ok": true,
                   "reply": {"sl": "Vem! Babica mi je vse povedala.", "en": "I know! Grandma told me everything.", "de": "Weiß ich! Oma hat mir alles erzählt.", "it": "Lo so! La nonna mi ha raccontato tutto."}
                 },
@@ -404,7 +404,7 @@
                   "de": "Freut mich. Willkommen im Dorf!",
                   "it": "Piacere. Benvenuta in paese!",
                   "ok": true,
-                  "reply": {"sl": "Hvala! Mi boš pokazal ovce?", "en": "Thanks! Will you show me the sheep?", "de": "Danke! Zeigst du mir die Schafe?", "it": "Grazie! Mi farai vedere le pecore?"}
+                  "reply": {"sl": "Hvala! Mi boš {m:pokazal|f:pokazala} ovce?", "en": "Thanks! Will you show me the sheep?", "de": "Danke! Zeigst du mir die Schafe?", "it": "Grazie! Mi farai vedere le pecore?"}
                 },
                 {
                   "sl": "Me veseli. Dobrodošel v vasi!",
@@ -420,26 +420,26 @@
           ]
         },
         "B1": {
-          "late": {"who": "micka", "sl": "Jan, počakaj malo! Moje vnukinje pa še ne poznaš, kajne? Zala, pridi sem!", "en": "Jan, wait a moment! You don't know my granddaughter yet, do you? Zala, come here!", "de": "Jan, warte mal! Meine Enkelin kennst du noch gar nicht, oder? Zala, komm her!", "it": "Jan, aspetta un attimo! Mia nipote non la conosci ancora, vero? Zala, vieni qui!"},
+          "late": {"who": "micka", "sl": "{learner}, počakaj malo! Moje vnukinje pa še ne poznaš, kajne? Zala, pridi sem!", "en": "{learner}, wait a moment! You don't know my granddaughter yet, do you? Zala, come here!", "de": "{learner}, warte mal! Meine Enkelin kennst du noch gar nicht, oder? Zala, komm her!", "it": "{learner}, aspetta un attimo! Mia nipote non la conosci ancora, vero? Zala, vieni qui!"},
           "lines": [
-            {"who": "micka", "sl": "Jan, poglej, kdo je prišel! Moja vnukinja Zala. Od danes bo živela pri meni.", "en": "Jan, look who's here! My granddaughter Zala. From today she'll live with me.", "de": "Jan, schau, wer da ist! Meine Enkelin Zala. Ab heute wohnt sie bei mir.", "it": "Jan, guarda chi è arrivato! Mia nipote Zala. Da oggi abiterà da me."},
-            {"who": "zala", "sl": "Živjo! Ti si Jan, ne? Babica pravi, da se učiš slovensko. Jaz te lahko popravljam!", "en": "Hi! You're Jan, aren't you? Grandma says you're learning Slovene. I can correct you!", "de": "Hallo! Du bist Jan, oder? Oma sagt, du lernst Slowenisch. Ich kann dich verbessern!", "it": "Ciao! Tu sei Jan, vero? La nonna dice che stai imparando lo sloveno. Posso correggerti io!"},
+            {"who": "micka", "sl": "{learner}, poglej, kdo je prišel! Moja vnukinja Zala. Od danes bo živela pri meni.", "en": "{learner}, look who's here! My granddaughter Zala. From today she'll live with me.", "de": "{learner}, schau, wer da ist! Meine Enkelin Zala. Ab heute wohnt sie bei mir.", "it": "{learner}, guarda chi è arrivato! Mia nipote Zala. Da oggi abiterà da me."},
+            {"who": "zala", "sl": "Živjo! Ti si {learner}, ne? Babica pravi, da se učiš slovensko. Jaz te lahko popravljam!", "en": "Hi! You're {learner}, aren't you? Grandma says you're learning Slovene. I can correct you!", "de": "Hallo! Du bist {learner}, oder? Oma sagt, du lernst Slowenisch. Ich kann dich verbessern!", "it": "Ciao! Tu sei {learner}, vero? La nonna dice che stai imparando lo sloveno. Posso correggerti io!"},
             {
               "choices": [
                 {
-                  "sl": "Živjo, Zala! Me veseli, da sva se spoznala.",
+                  "sl": "Živjo, Zala! Me veseli, da sva se {m:spoznala|f:spoznali}.",
                   "en": "Hi, Zala! I'm glad we've met.",
                   "de": "Hallo, Zala! Schön, dass wir uns kennengelernt haben.",
-                  "it": "Ciao, Zala! Mi fa piacere che ci siamo conosciuti.",
+                  "it": "Ciao, Zala! Mi fa piacere che ci siamo {m:conosciuti|f:conosciute}.",
                   "ok": true,
-                  "reply": {"sl": "Tudi mene! Vidiš, to je bilo pravilno. Bravo!", "en": "Me too! See, that was correct. Well done!", "de": "Mich auch! Siehst du, das war richtig. Bravo!", "it": "Anche a me! Vedi, era giusto. Bravo!"}
+                  "reply": {"sl": "Tudi mene! Vidiš, to je bilo pravilno. Bravo!", "en": "Me too! See, that was correct. Well done!", "de": "Mich auch! Siehst du, das war richtig. Bravo!", "it": "Anche a me! Vedi, era giusto. {m:Bravo|f:Brava}!"}
                 },
                 {
-                  "sl": "Živjo, Zala! Me veseli, da smo se spoznali.",
+                  "sl": "Živjo, Zala! Me veseli, da smo se {m:spoznali|f:spoznale}.",
                   "en": "Hi, Zala! I'm glad we've met. (plural, as if there were more of us)",
                   "de": "Hallo, Zala! Schön, dass wir uns kennengelernt haben. (Plural, als wären wir mehr)",
-                  "it": "Ciao, Zala! Mi fa piacere che ci siamo conosciuti. (plurale, come se fossimo in tanti)",
-                  "why": {"en": "You and Zala are two: that takes the dual, sva se spoznala, not the plural smo se spoznali.", "de": "Du und Zala seid zwei: Das verlangt den Dual, sva se spoznala, nicht den Plural smo se spoznali.", "it": "Tu e Zala siete in due: ci vuole il duale, sva se spoznala, non il plurale smo se spoznali."},
+                  "it": "Ciao, Zala! Mi fa piacere che ci siamo {m:conosciuti|f:conosciute}. (plurale, come se fossimo in tanti)",
+                  "why": {"en": "You and Zala are two: that takes the dual, sva se {m:spoznala|f:spoznali}, not the plural smo se {m:spoznali|f:spoznale}.", "de": "Du und Zala seid zwei: Das verlangt den Dual, sva se {m:spoznala|f:spoznali}, nicht den Plural smo se {m:spoznali|f:spoznale}.", "it": "Tu e Zala siete in due: ci vuole il duale, sva se {m:spoznala|f:spoznali}, non il plurale smo se {m:spoznali|f:spoznale}."},
                   "reply": {"sl": "Smo? Kje pa so ostali? Jaz vidim samo tebe!", "en": "Smo? Where are the others? I only see you!", "de": "Smo? Wo sind denn die anderen? Ich sehe nur dich!", "it": "Smo? E gli altri dove sono? Io vedo solo te!"}
                 }
               ]
@@ -472,12 +472,12 @@
       }
     },
     "janez": {
-      "memory": {"sl": "dan, ko si prvič sedel k meni", "en": "the day you first sat down beside me", "de": "den Tag, an dem du dich zum ersten Mal zu mir gesetzt hast", "it": "il giorno in cui ti sei seduto accanto a me per la prima volta"},
+      "memory": {"sl": "dan, ko si prvič {m:sedel|f:sedla} k meni", "en": "the day you first sat down beside me", "de": "den Tag, an dem du dich zum ersten Mal zu mir gesetzt hast", "it": "il giorno in cui ti sei {m:seduto|f:seduta} accanto a me per la prima volta"},
       "levels": {
         "A1": {
-          "late": {"who": "janez", "sl": "Dober dan, fant. Nisva se še spoznala, kajne? Jaz sem Janez, Stari Janez.", "en": "Good day, lad. We haven't met yet, have we? I'm Janez, Old Janez.", "de": "Guten Tag, Junge. Wir kennen uns noch nicht, oder? Ich bin Janez, der alte Janez.", "it": "Buongiorno, ragazzo. Non ci conosciamo ancora, vero? Io sono Janez, il vecchio Janez."},
+          "late": {"who": "janez", "sl": "Dober dan, {m:fant|f:dekle}. Nisva se še spoznala, kajne? Jaz sem Janez, Stari Janez.", "en": "Good day, {m:lad|f:lass}. We haven't met yet, have we? I'm Janez, Old Janez.", "de": "Guten Tag, {m:Junge|f:Mädchen}. Wir kennen uns noch nicht, oder? Ich bin Janez, der alte Janez.", "it": "Buongiorno, {m:ragazzo|f:ragazza}. Non ci conosciamo ancora, vero? Io sono Janez, il vecchio Janez."},
           "lines": [
-            {"who": "janez", "sl": "Dober dan, mladi mož. Jaz sem Janez, Stari Janez.", "en": "Good day, young man. I'm Janez, Old Janez.", "de": "Guten Tag, junger Mann. Ich bin Janez, der alte Janez.", "it": "Buongiorno, giovanotto. Io sono Janez, il vecchio Janez."},
+            {"who": "janez", "sl": "Dober dan, {m:mladi mož|f:gospodična}. Jaz sem Janez, Stari Janez.", "en": "Good day, {m:young man|f:young lady}. I'm Janez, Old Janez.", "de": "Guten Tag, {m:junger Mann|f:junge Frau}. Ich bin Janez, der alte Janez.", "it": "Buongiorno, {m:giovanotto|f:signorina}. Io sono Janez, il vecchio Janez."},
             {
               "choices": [
                 {
@@ -494,7 +494,7 @@
                   "de": "Guten Tag! Wie geht es Ihnen?",
                   "it": "Buongiorno! Come sta?",
                   "ok": true,
-                  "reply": {"sl": "Star sem, fant. Ampak dobro. Sedi, sedi.", "en": "I'm old, lad. But well. Sit, sit.", "de": "Ich bin alt, Junge. Aber gut. Setz dich, setz dich.", "it": "Sono vecchio, ragazzo. Ma sto bene. Siediti, siediti."}
+                  "reply": {"sl": "Star sem, {m:fant|f:dekle}. Ampak dobro. Sedi, sedi.", "en": "I'm old, {m:lad|f:lass}. But well. Sit, sit.", "de": "Ich bin alt, {m:Junge|f:Mädchen}. Aber gut. Setz dich, setz dich.", "it": "Sono vecchio, {m:ragazzo|f:ragazza}. Ma sto bene. Siediti, siediti."}
                 },
                 {
                   "sl": "Živjo, Janez! Kako si?",
@@ -527,13 +527,13 @@
                 }
               ]
             },
-            {"who": "janez", "sl": "Počasi se daleč pride, fant. Pridi jutri. Povem ti zgodbo.", "en": "Slowly one gets far, lad. Come tomorrow. I'll tell you a story.", "de": "Langsam kommt man weit, Junge. Komm morgen. Ich erzähl dir eine Geschichte.", "it": "Piano piano si va lontano, ragazzo. Vieni domani. Ti racconto una storia."}
+            {"who": "janez", "sl": "Počasi se daleč pride, {m:fant|f:dekle}. Pridi jutri. Povem ti zgodbo.", "en": "Slowly one gets far, {m:lad|f:lass}. Come tomorrow. I'll tell you a story.", "de": "Langsam kommt man weit, {m:Junge|f:Mädchen}. Komm morgen. Ich erzähl dir eine Geschichte.", "it": "Piano piano si va lontano, {m:ragazzo|f:ragazza}. Vieni domani. Ti racconto una storia."}
           ]
         },
         "A2": {
-          "late": {"who": "janez", "sl": "O, fant. Že nekaj časa si tu, pa se še nisva spoznala. Sedi, sedi. Jaz sem Stari Janez.", "en": "Oh, lad. You've been here a while, and we haven't met yet. Sit, sit. I'm Old Janez.", "de": "Oh, Junge. Du bist schon eine Weile hier, und wir kennen uns noch nicht. Setz dich, setz dich. Ich bin der alte Janez.", "it": "Oh, ragazzo. Sei qui già da un po' e non ci conosciamo ancora. Siediti, siediti. Io sono il vecchio Janez."},
+          "late": {"who": "janez", "sl": "O, {m:fant|f:dekle}. Že nekaj časa si tu, pa se še nisva spoznala. Sedi, sedi. Jaz sem Stari Janez.", "en": "Oh, {m:lad|f:lass}. You've been here a while, and we haven't met yet. Sit, sit. I'm Old Janez.", "de": "Oh, {m:Junge|f:Mädchen}. Du bist schon eine Weile hier, und wir kennen uns noch nicht. Setz dich, setz dich. Ich bin der alte Janez.", "it": "Oh, {m:ragazzo|f:ragazza}. Sei qui già da un po' e non ci conosciamo ancora. Siediti, siediti. Io sono il vecchio Janez."},
           "lines": [
-            {"who": "janez", "sl": "Dober dan, mladi mož. Sedi, sedi. Jaz sem Janez, Stari Janez.", "en": "Good day, young man. Sit, sit. I'm Janez, Old Janez.", "de": "Guten Tag, junger Mann. Setz dich, setz dich. Ich bin Janez, der alte Janez.", "it": "Buongiorno, giovanotto. Siediti, siediti. Io sono Janez, il vecchio Janez."},
+            {"who": "janez", "sl": "Dober dan, {m:mladi mož|f:gospodična}. Sedi, sedi. Jaz sem Janez, Stari Janez.", "en": "Good day, {m:young man|f:young lady}. Sit, sit. I'm Janez, Old Janez.", "de": "Guten Tag, {m:junger Mann|f:junge Frau}. Setz dich, setz dich. Ich bin Janez, der alte Janez.", "it": "Buongiorno, {m:giovanotto|f:signorina}. Siediti, siediti. Io sono Janez, il vecchio Janez."},
             {"who": "janez", "sl": "Nekoč sem bil lovec in gozdar, tam gori v Trnovskem gozdu. Zdaj pa pripovedujem zgodbe.", "en": "I used to be a hunter and a forester, up there in the Trnovo Forest. Now I tell stories.", "de": "Früher war ich Jäger und Förster, dort oben im Wald von Trnovo. Jetzt erzähle ich Geschichten.", "it": "Una volta ero cacciatore e guardaboschi, lassù nella Selva di Tarnova. Adesso racconto storie."},
             {
               "choices": [
@@ -551,29 +551,29 @@
                   "de": "Guten Tag! Was für Geschichten erzählst du denn?",
                   "it": "Buongiorno! E che storie racconti?",
                   "why": {"en": "Janez is old and expects vi: pripovedujete, not pripoveduješ.", "de": "Janez ist alt und erwartet vi: pripovedujete, nicht pripoveduješ.", "it": "Janez è anziano e si aspetta il Lei (vi): pripovedujete, non pripoveduješ."},
-                  "reply": {"sl": "Pripoveduješ? Hm, fant … nisva skupaj pasla krav.", "en": "Pripoveduješ? Hm, lad … we never herded cows together. (Slovene for: we're not on ti terms)", "de": "Pripoveduješ? Hm, Junge … wir haben nicht zusammen Kühe gehütet. (slowenisch für: wir duzen uns nicht)", "it": "Pripoveduješ? Mh, ragazzo … non abbiamo pascolato le mucche insieme. (modo di dire sloveno: non ci diamo del tu)"}
+                  "reply": {"sl": "Pripoveduješ? Hm, {m:fant|f:dekle} … nisva skupaj pasla krav.", "en": "Pripoveduješ? Hm, {m:lad|f:lass} … we never herded cows together. (Slovene for: we're not on ti terms)", "de": "Pripoveduješ? Hm, {m:Junge|f:Mädchen} … wir haben nicht zusammen Kühe gehütet. (slowenisch für: wir duzen uns nicht)", "it": "Pripoveduješ? Mh, {m:ragazzo|f:ragazza} … non abbiamo pascolato le mucche insieme. (modo di dire sloveno: non ci diamo del tu)"}
                 }
               ]
             },
             {"who": "janez", "sl": "Moja Ana je umrla pred nekaj leti. Zato sem prišel v vas, med ljudi. Z Murijem, seveda.", "en": "My Ana died a few years ago. So I came to the village, among people. With Muri, of course.", "de": "Meine Ana ist vor ein paar Jahren gestorben. Darum bin ich ins Dorf gekommen, unter Menschen. Mit Muri, natürlich.", "it": "La mia Ana è morta qualche anno fa. Per questo sono venuto in paese, tra la gente. Con Muri, naturalmente."},
-            {"who": "janez", "sl": "Si že bil na Triglavu? Jaz sem bil petkrat.", "en": "Have you been up Triglav yet? I've been five times.", "de": "Warst du schon auf dem Triglav? Ich war fünfmal oben.", "it": "Sei già stato sul Tricorno? Io ci sono stato cinque volte."},
+            {"who": "janez", "sl": "Si že {m:bil|f:bila} na Triglavu? Jaz sem bil petkrat.", "en": "Have you been up Triglav yet? I've been five times.", "de": "Warst du schon auf dem Triglav? Ich war fünfmal oben.", "it": "Sei già {m:stato|f:stata} sul Tricorno? Io ci sono stato cinque volte."},
             {
               "choices": [
                 {
-                  "sl": "Ne, še nisem bil.",
+                  "sl": "Ne, še nisem {m:bil|f:bila}.",
                   "en": "No, I haven't been yet.",
                   "de": "Nein, ich war noch nicht oben.",
-                  "it": "No, non ci sono ancora stato.",
+                  "it": "No, non ci sono ancora {m:stato|f:stata}.",
                   "ok": true,
-                  "reply": {"sl": "Moraš, fant. Vsak Slovenec mora enkrat gor. In ti tudi!", "en": "You must, lad. Every Slovene must go up once. And you too!", "de": "Du musst, Junge. Jeder Slowene muss einmal hinauf. Und du auch!", "it": "Devi, ragazzo. Ogni sloveno deve salirci una volta. E anche tu!"}
+                  "reply": {"sl": "Moraš, {m:fant|f:dekle}. Vsak Slovenec mora enkrat gor. In ti tudi!", "en": "You must, {m:lad|f:lass}. Every Slovene must go up once. And you too!", "de": "Du musst, {m:Junge|f:Mädchen}. Jeder Slowene muss einmal hinauf. Und du auch!", "it": "Devi, {m:ragazzo|f:ragazza}. Ogni sloveno deve salirci una volta. E anche tu!"}
                 },
                 {
-                  "sl": "Ne, še nisi bil.",
+                  "sl": "Ne, še nisi {m:bil|f:bila}.",
                   "en": "No, you haven't been yet.",
                   "de": "Nein, du warst noch nicht oben.",
-                  "it": "No, tu non ci sei ancora stato.",
-                  "why": {"en": "Nisi bil means you haven't been; about yourself you say nisem bil.", "de": "Nisi bil heißt du warst nicht; über dich selbst sagst du nisem bil.", "it": "Nisi bil vuol dire tu non sei stato; di te stesso dici nisem bil."},
-                  "reply": {"sl": "Kdo, jaz? Petkrat, fant! Petkrat!", "en": "Who, me? Five times, lad! Five times!", "de": "Wer, ich? Fünfmal, Junge! Fünfmal!", "it": "Chi, io? Cinque volte, ragazzo! Cinque volte!"}
+                  "it": "No, tu non ci sei ancora {m:stato|f:stata}.",
+                  "why": {"en": "Nisi {m:bil|f:bila} means you haven't been; about yourself you say nisem {m:bil|f:bila}.", "de": "Nisi {m:bil|f:bila} heißt du warst nicht; über dich selbst sagst du nisem {m:bil|f:bila}.", "it": "Nisi {m:bil|f:bila} vuol dire tu non sei stato; di te stesso dici nisem {m:bil|f:bila}."},
+                  "reply": {"sl": "Kdo, jaz? Petkrat, {m:fant|f:dekle}! Petkrat!", "en": "Who, me? Five times, {m:lad|f:lass}! Five times!", "de": "Wer, ich? Fünfmal, {m:Junge|f:Mädchen}! Fünfmal!", "it": "Chi, io? Cinque volte, {m:ragazzo|f:ragazza}! Cinque volte!"}
                 }
               ]
             },
@@ -581,9 +581,9 @@
           ]
         },
         "B1": {
-          "late": {"who": "janez", "sl": "Počakaj, fant. Že dolgo te gledam, kako hodiš mimo, pa se še nisva spoznala. Sedi, klop je dovolj dolga za dva.", "en": "Wait, lad. I've watched you walk past for a long time, and we still haven't met. Sit down, the bench is long enough for two.", "de": "Warte, Junge. Ich sehe dich schon lange vorbeigehen, und wir kennen uns noch nicht. Setz dich, die Bank reicht für zwei.", "it": "Aspetta, ragazzo. Da tanto ti vedo passare e non ci conosciamo ancora. Siediti, la panca è abbastanza lunga per due."},
+          "late": {"who": "janez", "sl": "Počakaj, {m:fant|f:dekle}. Že dolgo te gledam, kako hodiš mimo, pa se še nisva spoznala. Sedi, klop je dovolj dolga za dva.", "en": "Wait, {m:lad|f:lass}. I've watched you walk past for a long time, and we still haven't met. Sit down, the bench is long enough for two.", "de": "Warte, {m:Junge|f:Mädchen}. Ich sehe dich schon lange vorbeigehen, und wir kennen uns noch nicht. Setz dich, die Bank reicht für zwei.", "it": "Aspetta, {m:ragazzo|f:ragazza}. Da tanto ti vedo passare e non ci conosciamo ancora. Siediti, la panca è abbastanza lunga per due."},
           "lines": [
-            {"who": "janez", "sl": "Dober dan, mladi mož. Sedi, sedi, klop je dovolj dolga za dva.", "en": "Good day, young man. Sit, sit, the bench is long enough for two.", "de": "Guten Tag, junger Mann. Setz dich, setz dich, die Bank ist lang genug für zwei.", "it": "Buongiorno, giovanotto. Siediti, siediti, la panca è abbastanza lunga per due."},
+            {"who": "janez", "sl": "Dober dan, {m:mladi mož|f:gospodična}. Sedi, sedi, klop je dovolj dolga za dva.", "en": "Good day, {m:young man|f:young lady}. Sit, sit, the bench is long enough for two.", "de": "Guten Tag, {m:junger Mann|f:junge Frau}. Setz dich, setz dich, die Bank ist lang genug für zwei.", "it": "Buongiorno, {m:giovanotto|f:signorina}. Siediti, siediti, la panca è abbastanza lunga per due."},
             {
               "choices": [
                 {
@@ -614,7 +614,7 @@
                   "de": "Das tut mir leid. Aber schön, dass Sie jetzt hier sind.",
                   "it": "Mi dispiace. Ma è bello che adesso Lei sia qui.",
                   "ok": true,
-                  "reply": {"sl": "Hvala, fant. Kdor posluša, ni nikoli sam.", "en": "Thank you, lad. Whoever listens is never alone.", "de": "Danke, Junge. Wer zuhört, ist nie allein.", "it": "Grazie, ragazzo. Chi ascolta non è mai solo."}
+                  "reply": {"sl": "Hvala, {m:fant|f:dekle}. Kdor posluša, ni nikoli sam.", "en": "Thank you, {m:lad|f:lass}. Whoever listens is never alone.", "de": "Danke, {m:Junge|f:Mädchen}. Wer zuhört, ist nie allein.", "it": "Grazie, {m:ragazzo|f:ragazza}. Chi ascolta non è mai solo."}
                 },
                 {
                   "sl": "Žal me je. Ampak lepo je, da ste zdaj tukaj.",
@@ -622,7 +622,7 @@
                   "de": "Es tut mich leid. Aber schön, dass Sie jetzt hier sind.",
                   "it": "Mi dispiace (con me). Ma è bello che adesso Lei sia qui.",
                   "why": {"en": "Žal je takes the dative, the one it is sorry to: žal mi je (to me). Me is the accusative.", "de": "Žal je steht mit dem Dativ, dem, dem es leid tut: žal mi je (mir). Me ist der Akkusativ.", "it": "Žal je vuole il dativo, a chi dispiace: žal mi je (a me). Me è l'accusativo."},
-                  "reply": {"sl": "Hvala, fant. Vem, kaj misliš.", "en": "Thank you, lad. I know what you mean.", "de": "Danke, Junge. Ich weiß, was du meinst.", "it": "Grazie, ragazzo. So cosa vuoi dire."}
+                  "reply": {"sl": "Hvala, {m:fant|f:dekle}. Vem, kaj misliš.", "en": "Thank you, {m:lad|f:lass}. I know what you mean.", "de": "Danke, {m:Junge|f:Mädchen}. Ich weiß, was du meinst.", "it": "Grazie, {m:ragazzo|f:ragazza}. So cosa vuoi dire."}
                 }
               ]
             },
@@ -669,7 +669,7 @@
                   "de": "Willkommen im Dorf, France!",
                   "it": "Benvenuto in paese, France!",
                   "ok": true,
-                  "reply": {"sl": "Hvala, sosed!", "en": "Thanks, neighbour!", "de": "Danke, Nachbar!", "it": "Grazie, vicino!"}
+                  "reply": {"sl": "Hvala, {m:sosed|f:soseda}!", "en": "Thanks, neighbour!", "de": "Danke, {m:Nachbar|f:Nachbarin}!", "it": "Grazie, {m:vicino|f:vicina}!"}
                 },
                 {
                   "sl": "Dobrodošel v vasi, France!",
@@ -677,7 +677,7 @@
                   "de": "Willkommen im Dorf, France! (per du)",
                   "it": "Benvenuto in paese, France! (dandogli del tu)",
                   "why": {"en": "France is older and expects vi: dobrodošli (dobrodošel is the ti form).", "de": "France ist älter und erwartet vi: dobrodošli (dobrodošel ist die ti-Form).", "it": "France è più anziano e si aspetta il Lei (vi): dobrodošli (dobrodošel è la forma col tu)."},
-                  "reply": {"sl": "Dobrodošel? Hm, fant, jaz bi lahko bil tvoj dedek.", "en": "Dobrodošel? Hm, lad, I could be your grandfather.", "de": "Dobrodošel? Hm, Junge, ich könnte dein Großvater sein.", "it": "Dobrodošel? Mh, ragazzo, potrei essere tuo nonno."}
+                  "reply": {"sl": "Dobrodošel? Hm, {m:fant|f:dekle}, jaz bi lahko bil tvoj dedek.", "en": "Dobrodošel? Hm, {m:lad|f:lass}, I could be your grandfather.", "de": "Dobrodošel? Hm, {m:Junge|f:Mädchen}, ich könnte dein Großvater sein.", "it": "Dobrodošel? Mh, {m:ragazzo|f:ragazza}, potrei essere tuo nonno."}
                 }
               ]
             },
@@ -685,9 +685,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "france", "sl": "Dober dan, fant! Že dolgo si v vasi, pa se še nisva spoznala. France sem, mlinar.", "en": "Good day, lad! You've been in the village a long time, and we still haven't met. I'm France, the miller.", "de": "Guten Tag, Junge! Du bist schon lange im Dorf, und wir kennen uns noch nicht. Ich bin France, der Müller.", "it": "Buongiorno, ragazzo! Sei in paese da tanto tempo e non ci conosciamo ancora. Sono France, il mugnaio."},
+          "late": {"who": "france", "sl": "Dober dan, {m:fant|f:dekle}! Že dolgo si v vasi, pa se še nisva spoznala. France sem, mlinar.", "en": "Good day, {m:lad|f:lass}! You've been in the village a long time, and we still haven't met. I'm France, the miller.", "de": "Guten Tag, {m:Junge|f:Mädchen}! Du bist schon lange im Dorf, und wir kennen uns noch nicht. Ich bin France, der Müller.", "it": "Buongiorno, {m:ragazzo|f:ragazza}! Sei in paese da tanto tempo e non ci conosciamo ancora. Sono France, il mugnaio."},
           "lines": [
-            {"who": "france", "sl": "Dober dan, fant! Jaz sem France, mlinar in kmet.", "en": "Good day, lad! I'm France, miller and farmer.", "de": "Guten Tag, Junge! Ich bin France, Müller und Bauer.", "it": "Buongiorno, ragazzo! Io sono France, mugnaio e contadino."},
+            {"who": "france", "sl": "Dober dan, {m:fant|f:dekle}! Jaz sem France, mlinar in kmet.", "en": "Good day, {m:lad|f:lass}! I'm France, miller and farmer.", "de": "Guten Tag, {m:Junge|f:Mädchen}! Ich bin France, Müller und Bauer.", "it": "Buongiorno, {m:ragazzo|f:ragazza}! Io sono France, mugnaio e contadino."},
             {
               "choices": [
                 {
@@ -704,7 +704,7 @@
                   "de": "Hallo! Wie geht's dir?",
                   "it": "Ciao! Come stai?",
                   "why": {"en": "France is older and expects vi: dober dan and kako ste, not živjo and kako si.", "de": "France ist älter und erwartet vi: dober dan und kako ste, nicht živjo und kako si.", "it": "France è più anziano e si aspetta il Lei (vi): dober dan e kako ste, non živjo e kako si."},
-                  "reply": {"sl": "Kako si? Hm. Tega ne bom štel, fant. Še enkrat.", "en": "Kako si? Hm. That one doesn't count, lad. Once more.", "de": "Kako si? Hm. Das zählt nicht, Junge. Noch einmal.", "it": "Kako si? Mh. Questa non la conto, ragazzo. Ancora una volta."}
+                  "reply": {"sl": "Kako si? Hm. Tega ne bom štel, {m:fant|f:dekle}. Še enkrat.", "en": "Kako si? Hm. That one doesn't count, {m:lad|f:lass}. Once more.", "de": "Kako si? Hm. Das zählt nicht, {m:Junge|f:Mädchen}. Noch einmal.", "it": "Kako si? Mh. Questa non la conto, {m:ragazzo|f:ragazza}. Ancora una volta."}
                 }
               ]
             },
@@ -719,7 +719,7 @@
                   "de": "Zwei Pferde.",
                   "it": "Due cavalli.",
                   "ok": true,
-                  "reply": {"sl": "Tako je! Dva. Ti znaš šteti, fant.", "en": "That's right! Two. You can count, lad.", "de": "Genau! Zwei. Du kannst zählen, Junge.", "it": "Esatto! Due. Tu sai contare, ragazzo."}
+                  "reply": {"sl": "Tako je! Dva. Ti znaš šteti, {m:fant|f:dekle}.", "en": "That's right! Two. You can count, {m:lad|f:lass}.", "de": "Genau! Zwei. Du kannst zählen, {m:Junge|f:Mädchen}.", "it": "Esatto! Due. Tu sai contare, {m:ragazzo|f:ragazza}."}
                 },
                 {
                   "sl": "Dva konji.",
@@ -731,7 +731,7 @@
                 }
               ]
             },
-            {"who": "france", "sl": "Adijo, sosed! Grem na njivo. Pridi kadarkoli.", "en": "Bye, neighbour! I'm off to the field. Come any time.", "de": "Tschüss, Nachbar! Ich geh aufs Feld. Komm, wann du willst.", "it": "Ciao, vicino! Vado al campo. Vieni quando vuoi."}
+            {"who": "france", "sl": "Adijo, {m:sosed|f:soseda}! Grem na njivo. Pridi kadarkoli.", "en": "Bye, neighbour! I'm off to the field. Come any time.", "de": "Tschüss, {m:Nachbar|f:Nachbarin}! Ich geh aufs Feld. Komm, wann du willst.", "it": "Ciao, {m:vicino|f:vicina}! Vado al campo. Vieni quando vuoi."}
           ]
         }
       }
@@ -741,17 +741,17 @@
       "memory": {"sl": "dan, ko sem ti pokazal svojega konja", "en": "the day I showed you my horse", "de": "den Tag, an dem ich dir mein Pferd gezeigt habe", "it": "il giorno in cui ti ho fatto vedere il mio cavallo"},
       "levels": {
         "A1": {
-          "late": {"who": "france", "sl": "Jan! Mojega vnuka pa še ne poznaš, kajne? Tine, pridi!", "en": "Jan! You don't know my grandson yet, do you? Tine, come here!", "de": "Jan! Meinen Enkel kennst du noch gar nicht, oder? Tine, komm her!", "it": "Jan! Mio nipote non lo conosci ancora, vero? Tine, vieni qui!"},
+          "late": {"who": "france", "sl": "{learner}! Mojega vnuka pa še ne poznaš, kajne? Tine, pridi!", "en": "{learner}! You don't know my grandson yet, do you? Tine, come here!", "de": "{learner}! Meinen Enkel kennst du noch gar nicht, oder? Tine, komm her!", "it": "{learner}! Mio nipote non lo conosci ancora, vero? Tine, vieni qui!"},
           "lines": [
-            {"who": "france", "sl": "Jan, poglej. To je moj vnuk Tine.", "en": "Jan, look. This is my grandson Tine.", "de": "Jan, schau. Das ist mein Enkel Tine.", "it": "Jan, guarda. Questo è mio nipote Tine."},
+            {"who": "france", "sl": "{learner}, poglej. To je moj vnuk Tine.", "en": "{learner}, look. This is my grandson Tine.", "de": "{learner}, schau. Das ist mein Enkel Tine.", "it": "{learner}, guarda. Questo è mio nipote Tine."},
             {"who": "tine", "sl": "Živjo. Jaz sem Tine. Star sem šest let.", "en": "Hi. I'm Tine. I'm six years old.", "de": "Hallo. Ich bin Tine. Ich bin sechs Jahre alt.", "it": "Ciao. Io sono Tine. Ho sei anni."},
             {
               "choices": [
                 {
-                  "sl": "Živjo, Tine! Jaz sem Jan.",
-                  "en": "Hi, Tine! I'm Jan.",
-                  "de": "Hallo, Tine! Ich bin Jan.",
-                  "it": "Ciao, Tine! Io sono Jan.",
+                  "sl": "Živjo, Tine! Jaz sem {learner}.",
+                  "en": "Hi, Tine! I'm {learner}.",
+                  "de": "Hallo, Tine! Ich bin {learner}.",
+                  "it": "Ciao, Tine! Io sono {learner}.",
                   "ok": true,
                   "reply": {"sl": "Vem. Dedek te pozna.", "en": "I know. Grandpa knows you.", "de": "Weiß ich. Opa kennt dich.", "it": "Lo so. Il nonno ti conosce."}
                 },
@@ -790,9 +790,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "france", "sl": "Jan, počakaj! Mojega vnuka ti še nisem predstavil. Tine, pridi sem!", "en": "Jan, wait! I haven't introduced my grandson to you yet. Tine, come here!", "de": "Jan, warte! Meinen Enkel habe ich dir noch nicht vorgestellt. Tine, komm her!", "it": "Jan, aspetta! Non ti ho ancora presentato mio nipote. Tine, vieni qui!"},
+          "late": {"who": "france", "sl": "{learner}, počakaj! Mojega vnuka ti še nisem predstavil. Tine, pridi sem!", "en": "{learner}, wait! I haven't introduced my grandson to you yet. Tine, come here!", "de": "{learner}, warte! Meinen Enkel habe ich dir noch nicht vorgestellt. Tine, komm her!", "it": "{learner}, aspetta! Non ti ho ancora presentato mio nipote. Tine, vieni qui!"},
           "lines": [
-            {"who": "france", "sl": "Jan, to je moj vnuk Tine. Malo je sramežljiv.", "en": "Jan, this is my grandson Tine. He's a bit shy.", "de": "Jan, das ist mein Enkel Tine. Er ist ein bisschen schüchtern.", "it": "Jan, questo è mio nipote Tine. È un po' timido."},
+            {"who": "france", "sl": "{learner}, to je moj vnuk Tine. Malo je sramežljiv.", "en": "{learner}, this is my grandson Tine. He's a bit shy.", "de": "{learner}, das ist mein Enkel Tine. Er ist ein bisschen schüchtern.", "it": "{learner}, questo è mio nipote Tine. È un po' timido."},
             {"who": "tine", "sl": "… Živjo. Tine sem.", "en": "… Hi. I'm Tine.", "de": "… Hallo. Ich bin Tine.", "it": "… Ciao. Sono Tine."},
             {
               "choices": [
@@ -837,7 +837,7 @@
                 }
               ]
             },
-            {"who": "tine", "sl": "Jan … se bojiš teme? Jaz se malo.", "en": "Jan … are you afraid of the dark? I am, a bit.", "de": "Jan … hast du Angst im Dunkeln? Ich ein bisschen.", "it": "Jan … hai paura del buio? Io un pochino."}
+            {"who": "tine", "sl": "{learner} … se bojiš teme? Jaz se malo.", "en": "{learner} … are you afraid of the dark? I am, a bit.", "de": "{learner} … hast du Angst im Dunkeln? Ich ein bisschen.", "it": "{learner} … hai paura del buio? Io un pochino."}
           ]
         }
       }
@@ -847,19 +847,19 @@
       "memory": {"sl": "dan, ko sem ti prvič povedala vse novice", "en": "the day I first told you all the news", "de": "den Tag, an dem ich dir zum ersten Mal alle Neuigkeiten erzählt habe", "it": "il giorno in cui ti ho raccontato per la prima volta tutte le novità"},
       "levels": {
         "A1": {
-          "late": {"who": "micka", "sl": "Jan! Moje sestre pa še ne poznaš, kajne? Ančka, pridi!", "en": "Jan! You don't know my sister yet, do you? Ančka, come here!", "de": "Jan! Meine Schwester kennst du noch gar nicht, oder? Ančka, komm her!", "it": "Jan! Mia sorella non la conosci ancora, vero? Ančka, vieni qui!"},
+          "late": {"who": "micka", "sl": "{learner}! Moje sestre pa še ne poznaš, kajne? Ančka, pridi!", "en": "{learner}! You don't know my sister yet, do you? Ančka, come here!", "de": "{learner}! Meine Schwester kennst du noch gar nicht, oder? Ančka, komm her!", "it": "{learner}! Mia sorella non la conosci ancora, vero? Ančka, vieni qui!"},
           "lines": [
-            {"who": "micka", "sl": "Jan, to je moja sestra Ančka. Malo slabo sliši.", "en": "Jan, this is my sister Ančka. She's a bit hard of hearing.", "de": "Jan, das ist meine Schwester Ančka. Sie hört ein bisschen schlecht.", "it": "Jan, questa è mia sorella Ančka. Ci sente un po' poco."},
+            {"who": "micka", "sl": "{learner}, to je moja sestra Ančka. Malo slabo sliši.", "en": "{learner}, this is my sister Ančka. She's a bit hard of hearing.", "de": "{learner}, das ist meine Schwester Ančka. Sie hört ein bisschen schlecht.", "it": "{learner}, questa è mia sorella Ančka. Ci sente un po' poco."},
             {"who": "ancka", "sl": "Kaj? Kdo je to? Glasneje!", "en": "What? Who's that? Louder!", "de": "Was? Wer ist das? Lauter!", "it": "Cosa? Chi è? Più forte!"},
             {
               "choices": [
                 {
-                  "sl": "Dober dan! Jaz sem Jan!",
-                  "en": "Good day! I'm Jan!",
-                  "de": "Guten Tag! Ich bin Jan!",
-                  "it": "Buongiorno! Io sono Jan!",
+                  "sl": "Dober dan! Jaz sem {learner}!",
+                  "en": "Good day! I'm {learner}!",
+                  "de": "Guten Tag! Ich bin {learner}!",
+                  "it": "Buongiorno! Io sono {learner}!",
                   "ok": true,
-                  "reply": {"sl": "Jan? A, Jan! Slišala sem že o tebi!", "en": "Jan? Oh, Jan! I've heard about you!", "de": "Jan? Ach, Jan! Ich hab von dir gehört!", "it": "Jan? Ah, Jan! Ho sentito parlare di te!"}
+                  "reply": {"sl": "{learner}? A, {learner}! Slišala sem že o tebi!", "en": "{learner}? Oh, {learner}! I've heard about you!", "de": "{learner}? Ach, {learner}! Ich hab von dir gehört!", "it": "{learner}? Ah, {learner}! Ho sentito parlare di te!"}
                 },
                 {
                   "sl": "Živjo, Ančka! Kako si?",
@@ -897,10 +897,10 @@
           ]
         },
         "A2": {
-          "late": {"who": "micka", "sl": "Jan, počakaj! Mojo sestro moraš spoznati. Ančka, pridi sem!", "en": "Jan, wait! You must meet my sister. Ančka, come here!", "de": "Jan, warte! Du musst meine Schwester kennenlernen. Ančka, komm her!", "it": "Jan, aspetta! Devi conoscere mia sorella. Ančka, vieni qui!"},
+          "late": {"who": "micka", "sl": "{learner}, počakaj! Mojo sestro moraš spoznati. Ančka, pridi sem!", "en": "{learner}, wait! You must meet my sister. Ančka, come here!", "de": "{learner}, warte! Du musst meine Schwester kennenlernen. Ančka, komm her!", "it": "{learner}, aspetta! Devi conoscere mia sorella. Ančka, vieni qui!"},
           "lines": [
-            {"who": "micka", "sl": "Jan, to je Ančka, moja mlajša sestra. Prišla je iz Trnovega.", "en": "Jan, this is Ančka, my younger sister. She's come from Trnovo.", "de": "Jan, das ist Ančka, meine jüngere Schwester. Sie kommt aus Trnovo.", "it": "Jan, questa è Ančka, mia sorella minore. È arrivata da Tarnova."},
-            {"who": "ancka", "sl": "Kaj? Starejša? Jaz nisem starejša! … A, ti si Jan! Sem že slišala o tebi.", "en": "What? Older? I'm not the older one! … Oh, you're Jan! I've heard about you already.", "de": "Was? Älter? Ich bin nicht die Ältere! … Ach, du bist Jan! Ich hab schon von dir gehört.", "it": "Cosa? Maggiore? Io non sono la maggiore! … Ah, tu sei Jan! Ho già sentito parlare di te."},
+            {"who": "micka", "sl": "{learner}, to je Ančka, moja mlajša sestra. Prišla je iz Trnovega.", "en": "{learner}, this is Ančka, my younger sister. She's come from Trnovo.", "de": "{learner}, das ist Ančka, meine jüngere Schwester. Sie kommt aus Trnovo.", "it": "{learner}, questa è Ančka, mia sorella minore. È arrivata da Tarnova."},
+            {"who": "ancka", "sl": "Kaj? Starejša? Jaz nisem starejša! … A, ti si {learner}! Sem že slišala o tebi.", "en": "What? Older? I'm not the older one! … Oh, you're {learner}! I've heard about you already.", "de": "Was? Älter? Ich bin nicht die Ältere! … Ach, du bist {learner}! Ich hab schon von dir gehört.", "it": "Cosa? Maggiore? Io non sono la maggiore! … Ah, tu sei {learner}! Ho già sentito parlare di te."},
             {
               "choices": [
                 {
@@ -917,7 +917,7 @@
                   "de": "Hallo! Wie geht's dir?",
                   "it": "Ciao! Come stai?",
                   "why": {"en": "Ančka is older and expects vi: dober dan and kako ste, not živjo and kako si.", "de": "Ančka ist älter und erwartet vi: dober dan und kako ste, nicht živjo und kako si.", "it": "Ančka è anziana e si aspetta il Lei (vi): dober dan e kako ste, non živjo e kako si."},
-                  "reply": {"sl": "Si? Tikaš me? Micka, slišiš? Tika me!", "en": "Si? You're saying ti to me? Micka, do you hear? He says ti to me!", "de": "Si? Du duzt mich? Micka, hörst du? Er duzt mich!", "it": "Si? Mi dai del tu? Micka, senti? Mi dà del tu!"}
+                  "reply": {"sl": "Si? Tikaš me? Micka, slišiš? Tika me!", "en": "Si? You're saying ti to me? Micka, do you hear? {m:He|f:She} says ti to me!", "de": "Si? Du duzt mich? Micka, hörst du? {m:Er|f:Sie} duzt mich!", "it": "Si? Mi dai del tu? Micka, senti? Mi dà del tu!"}
                 }
               ]
             },
@@ -943,7 +943,7 @@
                 }
               ]
             },
-            {"who": "micka", "sl": "Ančka, pusti fanta. Jan, zdaj cela vas ve, da se poznata!", "en": "Ančka, leave the lad alone. Jan, now the whole village knows you two have met!", "de": "Ančka, lass den Jungen in Ruhe. Jan, jetzt weiß das ganze Dorf, dass ihr euch kennt!", "it": "Ančka, lascia stare il ragazzo. Jan, adesso tutto il paese sa che vi conoscete!"}
+            {"who": "micka", "sl": "Ančka, pusti {m:fanta|f:dekle}. {learner}, zdaj cela vas ve, da se poznata!", "en": "Ančka, leave {m:the lad|f:the lass} alone. {learner}, now the whole village knows you two have met!", "de": "Ančka, lass {m:den Jungen|f:das Mädchen} in Ruhe. {learner}, jetzt weiß das ganze Dorf, dass ihr euch kennt!", "it": "Ančka, lascia stare {m:il ragazzo|f:la ragazza}. {learner}, adesso tutto il paese sa che vi conoscete!"}
           ]
         }
       }
@@ -963,7 +963,7 @@
                   "de": "Guten Tag. Freut mich.",
                   "it": "Buongiorno. Piacere.",
                   "ok": true,
-                  "reply": {"sl": "Tudi mene. Lepo, da ste prišli.", "en": "Me too. It's nice that you've come.", "de": "Mich auch. Schön, dass Sie gekommen sind.", "it": "Piacere mio. È bello che sia venuto."}
+                  "reply": {"sl": "Tudi mene. Lepo, da ste prišli.", "en": "Me too. It's nice that you've come.", "de": "Mich auch. Schön, dass Sie gekommen sind.", "it": "Piacere mio. È bello che sia {m:venuto|f:venuta}."}
                 },
                 {
                   "sl": "Živjo, Anton! Kako si?",
@@ -1007,12 +1007,12 @@
             {
               "choices": [
                 {
-                  "sl": "Dober dan. Jaz sem Jan.",
-                  "en": "Good day. I'm Jan.",
-                  "de": "Guten Tag. Ich bin Jan.",
-                  "it": "Buongiorno. Io sono Jan.",
+                  "sl": "Dober dan. Jaz sem {learner}.",
+                  "en": "Good day. I'm {learner}.",
+                  "de": "Guten Tag. Ich bin {learner}.",
+                  "it": "Buongiorno. Io sono {learner}.",
                   "ok": true,
-                  "reply": {"sl": "Lepo, da ste prišli, Jan.", "en": "It's nice that you've come, Jan.", "de": "Schön, dass Sie gekommen sind, Jan.", "it": "È bello che sia venuto, Jan."}
+                  "reply": {"sl": "Lepo, da ste prišli, {learner}.", "en": "It's nice that you've come, {learner}.", "de": "Schön, dass Sie gekommen sind, {learner}.", "it": "È bello che sia {m:venuto|f:venuta}, {learner}."}
                 },
                 {
                   "sl": "Živjo, Anton!",
@@ -1080,7 +1080,7 @@
             {
               "choices": [
                 {
-                  "sl": "Tega nisem vedel. Hvala, da ste mi povedali.",
+                  "sl": "Tega nisem {m:vedel|f:vedela}. Hvala, da ste mi povedali.",
                   "en": "I didn't know that. Thank you for telling me.",
                   "de": "Das wusste ich nicht. Danke, dass Sie es mir gesagt haben.",
                   "it": "Non lo sapevo. Grazie di avermelo detto.",
@@ -1088,7 +1088,7 @@
                   "reply": {"sl": "Z veseljem. Kdor posluša, se veliko nauči.", "en": "My pleasure. Whoever listens learns a lot.", "de": "Gern. Wer zuhört, lernt viel.", "it": "Con piacere. Chi ascolta impara molto."}
                 },
                 {
-                  "sl": "Tega nisem vedel. Hvala, da si mi povedal.",
+                  "sl": "Tega nisem {m:vedel|f:vedela}. Hvala, da si mi povedal.",
                   "en": "I didn't know that. Thank you for telling me. (ti)",
                   "de": "Das wusste ich nicht. Danke, dass du es mir gesagt hast.",
                   "it": "Non lo sapevo. Grazie di avermelo detto. (dandogli del tu)",
@@ -1155,9 +1155,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "tone", "sl": "Jan, ne? Dan. Midva se še ne poznava.", "en": "Jan, right? 'Day. We don't know each other yet.", "de": "Jan, oder? Tag. Wir zwei kennen uns noch nicht.", "it": "Jan, vero? Salve. Noi due non ci conosciamo ancora."},
+          "late": {"who": "tone", "sl": "{learner}, ne? Dan. Midva se še ne poznava.", "en": "{learner}, right? 'Day. We don't know each other yet.", "de": "{learner}, oder? Tag. Wir zwei kennen uns noch nicht.", "it": "{learner}, vero? Salve. Noi due non ci conosciamo ancora."},
           "lines": [
-            {"who": "tone", "sl": "Dan. Ti si Jan, ne?", "en": "'Day. You're Jan, right?", "de": "Tag. Du bist Jan, oder?", "it": "Salve. Tu sei Jan, vero?"},
+            {"who": "tone", "sl": "Dan. Ti si {learner}, ne?", "en": "'Day. You're {learner}, right?", "de": "Tag. Du bist {learner}, oder?", "it": "Salve. Tu sei {learner}, vero?"},
             {
               "choices": [
                 {
@@ -1263,13 +1263,13 @@
                 }
               ]
             },
-            {"who": "marko", "sl": "Ciao, Jan! Se vidimo!", "en": "Ciao, Jan! See you!", "de": "Ciao, Jan! Bis bald!", "it": "Ciao, Jan! Ci vediamo!"}
+            {"who": "marko", "sl": "Ciao, {learner}! Se vidimo!", "en": "Ciao, {learner}! See you!", "de": "Ciao, {learner}! Bis bald!", "it": "Ciao, {learner}! Ci vediamo!"}
           ]
         },
         "A2": {
-          "late": {"who": "marko", "sl": "Allora, Jan! Jaz sem Marko. Toliko časa si že tu, pa še nisva spila kozarca skupaj!", "en": "Allora, Jan! I'm Marko. You've been here so long, and we still haven't had a glass together!", "de": "Allora, Jan! Ich bin Marko. Du bist schon so lange hier, und wir haben noch kein Glas zusammen getrunken!", "it": "Allora, Jan! Io sono Marko. Sei qui da così tanto e non abbiamo ancora bevuto un bicchiere insieme!"},
+          "late": {"who": "marko", "sl": "Allora, {learner}! Jaz sem Marko. Toliko časa si že tu, pa še nisva spila kozarca skupaj!", "en": "Allora, {learner}! I'm Marko. You've been here so long, and we still haven't had a glass together!", "de": "Allora, {learner}! Ich bin Marko. Du bist schon so lange hier, und wir haben noch kein Glas zusammen getrunken!", "it": "Allora, {learner}! Io sono Marko. Sei qui da così tanto e non abbiamo ancora bevuto un bicchiere insieme!"},
           "lines": [
-            {"who": "marko", "sl": "Ej, ciao! Ti si Jan, ne? Jaz sem Marko.", "en": "Hey, ciao! You're Jan, right? I'm Marko.", "de": "He, ciao! Du bist Jan, oder? Ich bin Marko.", "it": "Ehi, ciao! Tu sei Jan, vero? Io sono Marko."},
+            {"who": "marko", "sl": "Ej, ciao! Ti si {learner}, ne? Jaz sem Marko.", "en": "Hey, ciao! You're {learner}, right? I'm Marko.", "de": "He, ciao! Du bist {learner}, oder? Ich bin Marko.", "it": "Ehi, ciao! Tu sei {learner}, vero? Io sono Marko."},
             {
               "choices": [
                 {
@@ -1313,7 +1313,7 @@
                 }
               ]
             },
-            {"who": "marko", "sl": "Allora, kozarec rebule? Na zdravje, Jan! Za dobre sosede!", "en": "Allora, a glass of rebula? Cheers, Jan! To good neighbours!", "de": "Allora, ein Glas Rebula? Prost, Jan! Auf gute Nachbarn!", "it": "Allora, un bicchiere di rebula? Salute, Jan! Ai buoni vicini!"}
+            {"who": "marko", "sl": "Allora, kozarec rebule? Na zdravje, {learner}! Za dobre sosede!", "en": "Allora, a glass of rebula? Cheers, {learner}! To good neighbours!", "de": "Allora, ein Glas Rebula? Prost, {learner}! Auf gute Nachbarn!", "it": "Allora, un bicchiere di rebula? Salute, {learner}! Ai buoni vicini!"}
           ]
         }
       }
@@ -1322,7 +1322,7 @@
       "memory": {"sl": "dan, ko sem vam prvič skuhala kavo", "en": "the day I first made you a coffee", "de": "den Tag, an dem ich Ihnen zum ersten Mal einen Kaffee gemacht habe", "it": "il giorno in cui le ho preparato il primo caffè"},
       "levels": {
         "A1": {
-          "late": {"who": "vida", "sl": "Dober dan! Oprostite, sva se že spoznala? Ne? Jaz sem Vida!", "en": "Good day! Sorry, have we met already? No? I'm Vida!", "de": "Guten Tag! Entschuldigung, kennen wir uns schon? Nein? Ich bin Vida!", "it": "Buongiorno! Mi scusi, ci siamo già conosciuti? No? Io sono Vida!"},
+          "late": {"who": "vida", "sl": "Dober dan! Oprostite, sva se že {m:spoznala|f:spoznali}? Ne? Jaz sem Vida!", "en": "Good day! Sorry, have we met already? No? I'm Vida!", "de": "Guten Tag! Entschuldigung, kennen wir uns schon? Nein? Ich bin Vida!", "it": "Buongiorno! Mi scusi, ci siamo già {m:conosciuti|f:conosciute}? No? Io sono Vida!"},
           "lines": [
             {"who": "vida", "sl": "Dober dan, dober dan! Jaz sem Vida, gostilničarka.", "en": "Good day, good day! I'm Vida, the innkeeper.", "de": "Guten Tag, guten Tag! Ich bin Vida, die Wirtin.", "it": "Buongiorno, buongiorno! Io sono Vida, l'ostessa."},
             {
@@ -1370,9 +1370,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "vida", "sl": "Jan! Oprostite, toliko dela imam, da se sploh še nisva spoznala! Vida sem.", "en": "Jan! Sorry, I've got so much work that we haven't even met yet! I'm Vida.", "de": "Jan! Entschuldigung, ich habe so viel Arbeit, dass wir uns noch nicht einmal kennengelernt haben! Ich bin Vida.", "it": "Jan! Mi scusi, ho così tanto lavoro che non ci siamo nemmeno ancora conosciuti! Sono Vida."},
+          "late": {"who": "vida", "sl": "{learner}! Oprostite, toliko dela imam, da se sploh še nisva {m:spoznala|f:spoznali}! Vida sem.", "en": "{learner}! Sorry, I've got so much work that we haven't even met yet! I'm Vida.", "de": "{learner}! Entschuldigung, ich habe so viel Arbeit, dass wir uns noch nicht einmal kennengelernt haben! Ich bin Vida.", "it": "{learner}! Mi scusi, ho così tanto lavoro che non ci siamo nemmeno ancora {m:conosciuti|f:conosciute}! Sono Vida."},
           "lines": [
-            {"who": "vida", "sl": "Dober dan, dober dan! Vi ste Jan? Jaz sem Vida.", "en": "Good day, good day! You're Jan? I'm Vida.", "de": "Guten Tag, guten Tag! Sie sind Jan? Ich bin Vida.", "it": "Buongiorno, buongiorno! Lei è Jan? Io sono Vida."},
+            {"who": "vida", "sl": "Dober dan, dober dan! Vi ste {learner}? Jaz sem Vida.", "en": "Good day, good day! You're {learner}? I'm Vida.", "de": "Guten Tag, guten Tag! Sie sind {learner}? Ich bin Vida.", "it": "Buongiorno, buongiorno! Lei è {learner}? Io sono Vida."},
             {
               "choices": [
                 {
@@ -1426,19 +1426,19 @@
       "memory": {"sl": "dan, ko sem te prvič povabil na nogomet", "en": "the day I first asked you to play football", "de": "den Tag, an dem ich dich zum ersten Mal zum Fußball eingeladen habe", "it": "il giorno in cui ti ho invitato per la prima volta a giocare a calcio"},
       "levels": {
         "A1": {
-          "late": {"who": "vida", "sl": "Jan! Mojega sina pa še ne poznate, kajne? Nejc! Pridi sem!", "en": "Jan! You don't know my son yet, do you? Nejc! Come here!", "de": "Jan! Meinen Sohn kennen Sie noch gar nicht, oder? Nejc! Komm her!", "it": "Jan! Mio figlio non lo conosce ancora, vero? Nejc! Vieni qui!"},
+          "late": {"who": "vida", "sl": "{learner}! Mojega sina pa še ne poznate, kajne? Nejc! Pridi sem!", "en": "{learner}! You don't know my son yet, do you? Nejc! Come here!", "de": "{learner}! Meinen Sohn kennen Sie noch gar nicht, oder? Nejc! Komm her!", "it": "{learner}! Mio figlio non lo conosce ancora, vero? Nejc! Vieni qui!"},
           "lines": [
-            {"who": "vida", "sl": "Jan, to je moj sin Nejc. Nejc, pozdravi!", "en": "Jan, this is my son Nejc. Nejc, say hello!", "de": "Jan, das ist mein Sohn Nejc. Nejc, sag Hallo!", "it": "Jan, questo è mio figlio Nejc. Nejc, saluta!"},
+            {"who": "vida", "sl": "{learner}, to je moj sin Nejc. Nejc, pozdravi!", "en": "{learner}, this is my son Nejc. Nejc, say hello!", "de": "{learner}, das ist mein Sohn Nejc. Nejc, sag Hallo!", "it": "{learner}, questo è mio figlio Nejc. Nejc, saluta!"},
             {"who": "nejc", "sl": "Ej, živjo! Jaz sem Nejc. Star sem devet let.", "en": "Hey, hi! I'm Nejc. I'm nine.", "de": "He, hallo! Ich bin Nejc. Ich bin neun.", "it": "Ehi, ciao! Io sono Nejc. Ho nove anni."},
             {
               "choices": [
                 {
-                  "sl": "Živjo, Nejc! Jaz sem Jan.",
-                  "en": "Hi, Nejc! I'm Jan.",
-                  "de": "Hallo, Nejc! Ich bin Jan.",
-                  "it": "Ciao, Nejc! Io sono Jan.",
+                  "sl": "Živjo, Nejc! Jaz sem {learner}.",
+                  "en": "Hi, Nejc! I'm {learner}.",
+                  "de": "Hallo, Nejc! Ich bin {learner}.",
+                  "it": "Ciao, Nejc! Io sono {learner}.",
                   "ok": true,
-                  "reply": {"sl": "Jan! Kratko ime. Super!", "en": "Jan! Short name. Cool!", "de": "Jan! Kurzer Name. Super!", "it": "Jan! Nome corto. Forte!"}
+                  "reply": {"sl": "{learner}! Kratko ime. Super!", "en": "{learner}! Short name. Cool!", "de": "{learner}! Kurzer Name. Super!", "it": "{learner}! Nome corto. Forte!"}
                 },
                 {
                   "sl": "Dober dan, gospod Nejc.",
@@ -1475,10 +1475,10 @@
           ]
         },
         "A2": {
-          "late": {"who": "vida", "sl": "Jan, počakajte! Mojega Nejca še niste spoznali, kajne?", "en": "Jan, wait! You haven't met my Nejc yet, have you?", "de": "Jan, warten Sie! Meinen Nejc haben Sie noch nicht kennengelernt, oder?", "it": "Jan, aspetti! Il mio Nejc non l'ha ancora conosciuto, vero?"},
+          "late": {"who": "vida", "sl": "{learner}, počakajte! Mojega Nejca še niste spoznali, kajne?", "en": "{learner}, wait! You haven't met my Nejc yet, have you?", "de": "{learner}, warten Sie! Meinen Nejc haben Sie noch nicht kennengelernt, oder?", "it": "{learner}, aspetti! Il mio Nejc non l'ha ancora conosciuto, vero?"},
           "lines": [
-            {"who": "vida", "sl": "Jan, to je moj sin Nejc. Pomaga mi v gostilni. No, včasih.", "en": "Jan, this is my son Nejc. He helps me at the inn. Well, sometimes.", "de": "Jan, das ist mein Sohn Nejc. Er hilft mir im Gasthaus. Na ja, manchmal.", "it": "Jan, questo è mio figlio Nejc. Mi aiuta all'osteria. Beh, a volte."},
-            {"who": "nejc", "sl": "Živjo, Jan! Jaz sem Nejc! Star sem devet let in najhitreje tečem v vasi!", "en": "Hi, Jan! I'm Nejc! I'm nine and I'm the fastest runner in the village!", "de": "Hallo, Jan! Ich bin Nejc! Ich bin neun und der schnellste Läufer im Dorf!", "it": "Ciao, Jan! Io sono Nejc! Ho nove anni e sono il più veloce del paese!"},
+            {"who": "vida", "sl": "{learner}, to je moj sin Nejc. Pomaga mi v gostilni. No, včasih.", "en": "{learner}, this is my son Nejc. He helps me at the inn. Well, sometimes.", "de": "{learner}, das ist mein Sohn Nejc. Er hilft mir im Gasthaus. Na ja, manchmal.", "it": "{learner}, questo è mio figlio Nejc. Mi aiuta all'osteria. Beh, a volte."},
+            {"who": "nejc", "sl": "Živjo, {learner}! Jaz sem Nejc! Star sem devet let in najhitreje tečem v vasi!", "en": "Hi, {learner}! I'm Nejc! I'm nine and I'm the fastest runner in the village!", "de": "Hallo, {learner}! Ich bin Nejc! Ich bin neun und der schnellste Läufer im Dorf!", "it": "Ciao, {learner}! Io sono Nejc! Ho nove anni e sono il più veloce del paese!"},
             {
               "choices": [
                 {
@@ -1509,7 +1509,7 @@
                   "de": "Willkommen im Dorf, Nejc!",
                   "it": "Benvenuto in paese, Nejc!",
                   "ok": true,
-                  "reply": {"sl": "Hvala! Ej, Jan, igraš nogomet?", "en": "Thanks! Hey, Jan, do you play football?", "de": "Danke! He, Jan, spielst du Fußball?", "it": "Grazie! Ehi, Jan, giochi a calcio?"}
+                  "reply": {"sl": "Hvala! Ej, {learner}, igraš nogomet?", "en": "Thanks! Hey, {learner}, do you play football?", "de": "Danke! He, {learner}, spielst du Fußball?", "it": "Grazie! Ehi, {learner}, giochi a calcio?"}
                 },
                 {
                   "sl": "Dobrodošla v vasi, Nejc!",
@@ -1527,12 +1527,12 @@
       }
     },
     "mojca": {
-      "memory": {"sl": "dan, ko sva imela prvo uro", "en": "the day we had our first lesson", "de": "den Tag, an dem wir unsere erste Stunde hatten", "it": "il giorno in cui abbiamo fatto la nostra prima lezione"},
+      "memory": {"sl": "dan, ko sva {m:imela|f:imeli} prvo uro", "en": "the day we had our first lesson", "de": "den Tag, an dem wir unsere erste Stunde hatten", "it": "il giorno in cui abbiamo fatto la nostra prima lezione"},
       "levels": {
         "A1": {
-          "late": {"who": "mojca", "sl": "Dober dan! Vi ste Jan, kajne? Nisva se še spoznala. Mojca sem, učiteljica.", "en": "Good day! You're Jan, aren't you? We haven't met yet. I'm Mojca, the teacher.", "de": "Guten Tag! Sie sind Jan, nicht wahr? Wir kennen uns noch nicht. Ich bin Mojca, die Lehrerin.", "it": "Buongiorno! Lei è Jan, vero? Non ci conosciamo ancora. Sono Mojca, la maestra."},
+          "late": {"who": "mojca", "sl": "Dober dan! Vi ste {learner}, kajne? Nisva se še {m:spoznala|f:spoznali}. Mojca sem, učiteljica.", "en": "Good day! You're {learner}, aren't you? We haven't met yet. I'm Mojca, the teacher.", "de": "Guten Tag! Sie sind {learner}, nicht wahr? Wir kennen uns noch nicht. Ich bin Mojca, die Lehrerin.", "it": "Buongiorno! Lei è {learner}, vero? Non ci conosciamo ancora. Sono Mojca, la maestra."},
           "lines": [
-            {"who": "mojca", "sl": "Dober dan! Vi ste Jan? Jaz sem Mojca, učiteljica.", "en": "Good day! You're Jan? I'm Mojca, the teacher.", "de": "Guten Tag! Sie sind Jan? Ich bin Mojca, die Lehrerin.", "it": "Buongiorno! Lei è Jan? Io sono Mojca, la maestra."},
+            {"who": "mojca", "sl": "Dober dan! Vi ste {learner}? Jaz sem Mojca, učiteljica.", "en": "Good day! You're {learner}? I'm Mojca, the teacher.", "de": "Guten Tag! Sie sind {learner}? Ich bin Mojca, die Lehrerin.", "it": "Buongiorno! Lei è {learner}? Io sono Mojca, la maestra."},
             {
               "choices": [
                 {
@@ -1579,9 +1579,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "mojca", "sl": "Dober dan, Jan. Že nekaj časa sem tukaj, pa se še nisva spoznala. Mojca, učiteljica.", "en": "Good day, Jan. I've been here a while, and we haven't met yet. Mojca, the teacher.", "de": "Guten Tag, Jan. Ich bin schon eine Weile hier, und wir kennen uns noch nicht. Mojca, die Lehrerin.", "it": "Buongiorno, Jan. Sono qui già da un po' e non ci conosciamo ancora. Mojca, la maestra."},
+          "late": {"who": "mojca", "sl": "Dober dan, {learner}. Že nekaj časa sem tukaj, pa se še nisva {m:spoznala|f:spoznali}. Mojca, učiteljica.", "en": "Good day, {learner}. I've been here a while, and we haven't met yet. Mojca, the teacher.", "de": "Guten Tag, {learner}. Ich bin schon eine Weile hier, und wir kennen uns noch nicht. Mojca, die Lehrerin.", "it": "Buongiorno, {learner}. Sono qui già da un po' e non ci conosciamo ancora. Mojca, la maestra."},
           "lines": [
-            {"who": "mojca", "sl": "Dober dan! Vi ste gotovo Jan. Jaz sem Mojca, nova učiteljica.", "en": "Good day! You must be Jan. I'm Mojca, the new teacher.", "de": "Guten Tag! Sie sind bestimmt Jan. Ich bin Mojca, die neue Lehrerin.", "it": "Buongiorno! Lei dev'essere Jan. Io sono Mojca, la nuova maestra."},
+            {"who": "mojca", "sl": "Dober dan! Vi ste gotovo {learner}. Jaz sem Mojca, nova učiteljica.", "en": "Good day! You must be {learner}. I'm Mojca, the new teacher.", "de": "Guten Tag! Sie sind bestimmt {learner}. Ich bin Mojca, die neue Lehrerin.", "it": "Buongiorno! Lei dev'essere {learner}. Io sono Mojca, la nuova maestra."},
             {
               "choices": [
                 {
@@ -1604,23 +1604,23 @@
             },
             {"who": "mojca", "sl": "Prej sem učila v Novi Gorici. Ko so tu odprli šolo, sem prišla.", "en": "I used to teach in Nova Gorica. When they opened the school here, I came.", "de": "Früher habe ich in Nova Gorica unterrichtet. Als hier die Schule aufging, bin ich gekommen.", "it": "Prima insegnavo a Nova Gorica. Quando qui hanno aperto la scuola, sono venuta."},
             {"who": "mojca", "sl": "Vsako jutro tečem po planoti. Deset kilometrov!", "en": "Every morning I run across the plateau. Ten kilometres!", "de": "Jeden Morgen laufe ich über die Hochebene. Zehn Kilometer!", "it": "Ogni mattina corro sull'altopiano. Dieci chilometri!"},
-            {"who": "mojca", "sl": "Zdaj pa kratka ura. Jaz sem učiteljica, vi ste učenec. Midva …?", "en": "And now a short lesson. I'm the teacher, you're the pupil. The two of us …?", "de": "Und jetzt eine kurze Stunde. Ich bin die Lehrerin, Sie sind der Schüler. Wir zwei …?", "it": "E adesso una breve lezione. Io sono la maestra, Lei è l'alunno. Noi due …?"},
+            {"who": "mojca", "sl": "Zdaj pa kratka ura. Jaz sem učiteljica, vi ste {m:učenec|f:učenka}. {m:Midva|f:Midve} …?", "en": "And now a short lesson. I'm the teacher, you're the pupil. The two of us …?", "de": "Und jetzt eine kurze Stunde. Ich bin die Lehrerin, Sie sind {m:der Schüler|f:die Schülerin}. Wir zwei …?", "it": "E adesso una breve lezione. Io sono la maestra, Lei è {m:l'alunno|f:l'alunna}. Noi due …?"},
             {
               "choices": [
                 {
-                  "sl": "Midva sva dober par!",
+                  "sl": "{m:Midva|f:Midve} sva dober par!",
                   "en": "The two of us are a good pair!",
                   "de": "Wir zwei sind ein gutes Paar!",
                   "it": "Noi due siamo una bella coppia!",
                   "ok": true,
-                  "reply": {"sl": "Odlično! Midva sva: dvojina. Pet plus!", "en": "Excellent! Midva sva: the dual. Top marks!", "de": "Ausgezeichnet! Midva sva: der Dual. Eins plus!", "it": "Ottimo! Midva sva: il duale. Dieci e lode!"}
+                  "reply": {"sl": "Odlično! {m:Midva|f:Midve} sva: dvojina. Pet plus!", "en": "Excellent! {m:Midva|f:Midve} sva: the dual. Top marks!", "de": "Ausgezeichnet! {m:Midva|f:Midve} sva: der Dual. Eins plus!", "it": "Ottimo! {m:Midva|f:Midve} sva: il duale. Dieci e lode!"}
                 },
                 {
-                  "sl": "Midva smo dober par!",
+                  "sl": "{m:Midva|f:Midve} smo dober par!",
                   "en": "The two of us are a good pair! (smo: plural)",
                   "de": "Wir zwei sind ein gutes Paar! (smo: Plural)",
                   "it": "Noi due siamo una bella coppia! (smo: plurale)",
-                  "why": {"en": "Midva (we two) takes the dual verb: sva, not the plural smo.", "de": "Midva (wir zwei) verlangt das Verb im Dual: sva, nicht den Plural smo.", "it": "Midva (noi due) vuole il verbo al duale: sva, non il plurale smo."},
+                  "why": {"en": "{m:Midva|f:Midve} (we two) takes the dual verb: sva, not the plural smo.", "de": "{m:Midva|f:Midve} (wir zwei) verlangt das Verb im Dual: sva, nicht den Plural smo.", "it": "{m:Midva|f:Midve} (noi due) vuole il verbo al duale: sva, non il plurale smo."},
                   "reply": {"sl": "Smo? Hm … kdo še? Jaz vidim samo vas in sebe.", "en": "Smo (all of us)? Hm … who else? I only see you and me.", "de": "Smo (wir alle)? Hm … wer noch? Ich sehe nur Sie und mich.", "it": "Smo (noi tutti)? Mh … chi altro? Io vedo solo Lei e me."}
                 }
               ]
@@ -1629,9 +1629,9 @@
           ]
         },
         "B1": {
-          "late": {"who": "mojca", "sl": "Dober dan, Jan. Že nekaj časa učim tukaj, midva pa se še nisva spoznala. Jaz sem Mojca, učiteljica.", "en": "Good day, Jan. I've been teaching here for a while, and the two of us haven't met yet. I'm Mojca, the teacher.", "de": "Guten Tag, Jan. Ich unterrichte schon eine Weile hier, und wir zwei kennen uns noch nicht. Ich bin Mojca, die Lehrerin.", "it": "Buongiorno, Jan. Insegno qui già da un po', e noi due non ci conosciamo ancora. Sono Mojca, la maestra."},
+          "late": {"who": "mojca", "sl": "Dober dan, {learner}. Že nekaj časa učim tukaj, {m:midva|f:midve} pa se še nisva {m:spoznala|f:spoznali}. Jaz sem Mojca, učiteljica.", "en": "Good day, {learner}. I've been teaching here for a while, and the two of us haven't met yet. I'm Mojca, the teacher.", "de": "Guten Tag, {learner}. Ich unterrichte schon eine Weile hier, und wir zwei kennen uns noch nicht. Ich bin Mojca, die Lehrerin.", "it": "Buongiorno, {learner}. Insegno qui già da un po', e noi due non ci conosciamo ancora. Sono Mojca, la maestra."},
           "lines": [
-            {"who": "mojca", "sl": "Dober dan! Vi ste gotovo Jan, o katerem mi otroci ves čas pripovedujejo. Jaz sem Mojca, učiteljica.", "en": "Good day! You must be the Jan the children keep telling me about. I'm Mojca, the teacher.", "de": "Guten Tag! Sie sind bestimmt der Jan, von dem mir die Kinder ständig erzählen. Ich bin Mojca, die Lehrerin.", "it": "Buongiorno! Lei dev'essere il Jan di cui i bambini mi parlano sempre. Io sono Mojca, la maestra."},
+            {"who": "mojca", "sl": "Dober dan! Vi ste gotovo {learner}, {m:o katerem|f:o kateri} mi otroci ves čas pripovedujejo. Jaz sem Mojca, učiteljica.", "en": "Good day! You must be the {learner} the children keep telling me about. I'm Mojca, the teacher.", "de": "Guten Tag! Sie sind bestimmt {m:der {learner}, von dem|f:die {learner}, von der} mir die Kinder ständig erzählen. Ich bin Mojca, die Lehrerin.", "it": "Buongiorno! Lei dev'essere {m:il|f:la} {learner} di cui i bambini mi parlano sempre. Io sono Mojca, la maestra."},
             {
               "choices": [
                 {
@@ -1654,11 +1654,11 @@
             },
             {"who": "mojca", "sl": "Prej sem učila na veliki šoli v Novi Gorici. V razredu je bilo trideset otrok.", "en": "I used to teach at a big school in Nova Gorica. There were thirty children in a class.", "de": "Früher habe ich an einer großen Schule in Nova Gorica unterrichtet. In einer Klasse waren dreißig Kinder.", "it": "Prima insegnavo in una grande scuola di Nova Gorica. In una classe c'erano trenta bambini."},
             {"who": "mojca", "sl": "Ko sem slišala, da bodo v vasi odprli šolo, se nisem dolgo odločala. Tu učim vse otroke skupaj, od Tineta do Zale.", "en": "When I heard they would open a school in the village, I didn't think twice. Here I teach all the children together, from Tine to Zala.", "de": "Als ich hörte, dass im Dorf eine Schule aufmacht, habe ich nicht lange überlegt. Hier unterrichte ich alle Kinder zusammen, von Tine bis Zala.", "it": "Quando ho saputo che in paese avrebbero aperto una scuola, non ci ho pensato due volte. Qui insegno a tutti insieme, da Tine a Zala."},
-            {"who": "mojca", "sl": "Veste, kaj imam najraje? Dvojino. Poskusite: kaj zdaj delava midva?", "en": "Do you know what I like best? The dual. Try it: what are the two of us doing right now?", "de": "Wissen Sie, was ich am liebsten mag? Den Dual. Versuchen Sie es: Was machen wir zwei gerade?", "it": "Sa che cosa preferisco? Il duale. Provi: che cosa stiamo facendo noi due adesso?"},
+            {"who": "mojca", "sl": "Veste, kaj imam najraje? Dvojino. Poskusite: kaj zdaj delava {m:midva|f:midve}?", "en": "Do you know what I like best? The dual. Try it: what are the two of us doing right now?", "de": "Wissen Sie, was ich am liebsten mag? Den Dual. Versuchen Sie es: Was machen wir zwei gerade?", "it": "Sa che cosa preferisco? Il duale. Provi: che cosa stiamo facendo noi due adesso?"},
             {
               "choices": [
                 {
-                  "sl": "Midva se pogovarjava.",
+                  "sl": "{m:Midva|f:Midve} se pogovarjava.",
                   "en": "We two are talking.",
                   "de": "Wir zwei unterhalten uns.",
                   "it": "Noi due stiamo parlando.",
@@ -1666,11 +1666,11 @@
                   "reply": {"sl": "Odlično! Pet plus. Vidite, da znate.", "en": "Excellent! Top marks. See, you can do it.", "de": "Ausgezeichnet! Eins plus. Sehen Sie, Sie können es.", "it": "Ottimo! Dieci e lode. Vede che lo sa fare?"}
                 },
                 {
-                  "sl": "Midva se pogovarjamo.",
+                  "sl": "{m:Midva|f:Midve} se pogovarjamo.",
                   "en": "We two are talking. (pogovarjamo: plural)",
                   "de": "Wir zwei unterhalten uns. (pogovarjamo: Plural)",
                   "it": "Noi due stiamo parlando. (pogovarjamo: plurale)",
-                  "why": {"en": "Midva (we two) takes the dual ending -va: pogovarjava, not the plural -mo.", "de": "Midva (wir zwei) verlangt die Dualendung -va: pogovarjava, nicht die Pluralendung -mo.", "it": "Midva (noi due) vuole la desinenza duale -va: pogovarjava, non quella plurale -mo."},
+                  "why": {"en": "{m:Midva|f:Midve} (we two) takes the dual ending -va: pogovarjava, not the plural -mo.", "de": "{m:Midva|f:Midve} (wir zwei) verlangt die Dualendung -va: pogovarjava, nicht die Pluralendung -mo.", "it": "{m:Midva|f:Midve} (noi due) vuole la desinenza duale -va: pogovarjava, non quella plurale -mo."},
                   "reply": {"sl": "Pogovarjamo? Hm … je še kdo prišel?", "en": "Pogovarjamo (all of us)? Hm … has someone else come?", "de": "Pogovarjamo (wir alle)? Hm … ist noch jemand gekommen?", "it": "Pogovarjamo (noi tutti)? Mh … è arrivato qualcun altro?"}
                 }
               ]
@@ -1686,9 +1686,9 @@
       "memory": {"sl": "dan, ko sva skupaj gledala srne", "en": "the day we watched the deer together", "de": "den Tag, an dem wir zusammen die Rehe beobachtet haben", "it": "il giorno in cui abbiamo guardato insieme i caprioli"},
       "levels": {
         "A1": {
-          "late": {"who": "janez", "sl": "Pst, fant! Si že spoznal Jožeta? Ne? Pridi.", "en": "Psst, lad! Have you met Jože yet? No? Come.", "de": "Pst, Junge! Kennst du Jože schon? Nein? Komm.", "it": "Psst, ragazzo! Hai già conosciuto Jože? No? Vieni."},
+          "late": {"who": "janez", "sl": "Pst, {m:fant|f:dekle}! Si že {m:spoznal|f:spoznala} Jožeta? Ne? Pridi.", "en": "Psst, {m:lad|f:lass}! Have you met Jože yet? No? Come.", "de": "Pst, {m:Junge|f:Mädchen}! Kennst du Jože schon? Nein? Komm.", "it": "Psst, {m:ragazzo|f:ragazza}! Hai già conosciuto Jože? No? Vieni."},
           "lines": [
-            {"who": "janez", "sl": "Fant, to je Jože. Lovec, moj stari prijatelj.", "en": "Lad, this is Jože. A hunter, an old friend of mine.", "de": "Junge, das ist Jože. Ein Jäger, ein alter Freund von mir.", "it": "Ragazzo, questo è Jože. Un cacciatore, un mio vecchio amico."},
+            {"who": "janez", "sl": "{m:Fant|f:Dekle}, to je Jože. Lovec, moj stari prijatelj.", "en": "{m:Lad|f:Lass}, this is Jože. A hunter, an old friend of mine.", "de": "{m:Junge|f:Mädchen}, das ist Jože. Ein Jäger, ein alter Freund von mir.", "it": "{m:Ragazzo|f:Ragazza}, questo è Jože. Un cacciatore, un mio vecchio amico."},
             {"who": "joze", "sl": "Lovski blagor! Tako se pozdravimo lovci.", "en": "Lovski blagor! That's how we hunters greet each other.", "de": "Lovski blagor! (wie Waidmannsheil) So grüßen wir Jäger uns.", "it": "Lovski blagor! Così ci salutiamo noi cacciatori."},
             {
               "choices": [
@@ -1724,9 +1724,9 @@
           ]
         },
         "A2": {
-          "late": {"who": "janez", "sl": "Fant, počakaj. Jožeta še ne poznaš, kajne? Lovec je, moj stari prijatelj.", "en": "Wait, lad. You don't know Jože yet, do you? He's a hunter, an old friend of mine.", "de": "Warte, Junge. Jože kennst du noch nicht, oder? Er ist Jäger, ein alter Freund von mir.", "it": "Aspetta, ragazzo. Jože non lo conosci ancora, vero? È un cacciatore, un mio vecchio amico."},
+          "late": {"who": "janez", "sl": "{m:Fant|f:Dekle}, počakaj. Jožeta še ne poznaš, kajne? Lovec je, moj stari prijatelj.", "en": "Wait, {m:lad|f:lass}. You don't know Jože yet, do you? He's a hunter, an old friend of mine.", "de": "Warte, {m:Junge|f:Mädchen}. Jože kennst du noch nicht, oder? Er ist Jäger, ein alter Freund von mir.", "it": "Aspetta, {m:ragazzo|f:ragazza}. Jože non lo conosci ancora, vero? È un cacciatore, un mio vecchio amico."},
           "lines": [
-            {"who": "janez", "sl": "Fant, to je Jože, moj stari prijatelj. Lovec je, kot sem bil jaz nekoč.", "en": "Lad, this is Jože, an old friend of mine. He's a hunter, as I once was.", "de": "Junge, das ist Jože, ein alter Freund von mir. Er ist Jäger, wie ich es einmal war.", "it": "Ragazzo, questo è Jože, un mio vecchio amico. È cacciatore, come lo ero io una volta."},
+            {"who": "janez", "sl": "{m:Fant|f:Dekle}, to je Jože, moj stari prijatelj. Lovec je, kot sem bil jaz nekoč.", "en": "{m:Lad|f:Lass}, this is Jože, an old friend of mine. He's a hunter, as I once was.", "de": "{m:Junge|f:Mädchen}, das ist Jože, ein alter Freund von mir. Er ist Jäger, wie ich es einmal war.", "it": "{m:Ragazzo|f:Ragazza}, questo è Jože, un mio vecchio amico. È cacciatore, come lo ero io una volta."},
             {"who": "joze", "sl": "Lovski blagor! Pst … govoriva tiho, srne so blizu.", "en": "Lovski blagor! Psst … let's talk quietly, the deer are close.", "de": "Lovski blagor! Pst … reden wir leise, die Rehe sind nah.", "it": "Lovski blagor! Psst … parliamo piano, i caprioli sono vicini."},
             {
               "choices": [
@@ -1782,7 +1782,7 @@
       "memory": {"sl": "dan, ko sem se {g, select, f {preselila} other {preselil}} v vas", "en": "the day I moved into the village", "de": "den Tag, an dem ich ins Dorf gezogen bin", "it": "il giorno in cui mi sono {g, select, f {trasferita} other {trasferito}} in paese"},
       "levels": {
         "A1": {
-          "late": {"who": "self", "sl": "Dober dan! Nisva se še spoznala, kajne? Jaz sem {name}.", "en": "Good day! We haven't met yet, have we? I'm {name}.", "de": "Guten Tag! Wir kennen uns noch nicht, oder? Ich bin {name}.", "it": "Buongiorno! Non ci conosciamo ancora, vero? Io sono {name}."},
+          "late": {"who": "self", "sl": "Dober dan! Nisva se še {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}, kajne? Jaz sem {name}.", "en": "Good day! We haven't met yet, have we? I'm {name}.", "de": "Guten Tag! Wir kennen uns noch nicht, oder? Ich bin {name}.", "it": "Buongiorno! Non ci conosciamo ancora, vero? Io sono {name}."},
           "lines": [
             {"who": "self", "sl": "Dober dan! Jaz sem {name}.", "en": "Good day! I'm {name}.", "de": "Guten Tag! Ich bin {name}.", "it": "Buongiorno! Io sono {name}."},
             {"who": "self", "sl": "Sem {g, select, f {nova} other {nov}} {role} v vasi.", "en": "I'm the new {role} in the village.", "de": "Ich bin {g, select, f {die neue} other {der neue}} {role} im Dorf.", "it": "Sono {g, select, f {la nuova} other {il nuovo}} {role} del paese."},
@@ -1810,18 +1810,18 @@
           ]
         },
         "A2": {
-          "late": {"who": "self", "sl": "Dober dan! Tu sem že nekaj dni, pa se še nisva spoznala. Jaz sem {name}.", "en": "Good day! I've been here a few days, and we still haven't met. I'm {name}.", "de": "Guten Tag! Ich bin schon ein paar Tage hier, und wir kennen uns noch nicht. Ich bin {name}.", "it": "Buongiorno! Sono qui già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
+          "late": {"who": "self", "sl": "Dober dan! Tu sem že nekaj dni, pa se še nisva {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}. Jaz sem {name}.", "en": "Good day! I've been here a few days, and we still haven't met. I'm {name}.", "de": "Guten Tag! Ich bin schon ein paar Tage hier, und wir kennen uns noch nicht. Ich bin {name}.", "it": "Buongiorno! Sono qui già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
           "lines": [
             {"who": "self", "sl": "Dober dan! Jaz sem {name}. Ravnokar sem {g, select, f {prišla} other {prišel}} v vas.", "en": "Good day! I'm {name}. I've just arrived in the village.", "de": "Guten Tag! Ich bin {name}. Ich bin gerade im Dorf angekommen.", "it": "Buongiorno! Io sono {name}. Sono appena {g, select, f {arrivata} other {arrivato}} in paese."},
             {
               "choices": [
                 {
-                  "sl": "Dober dan! Jaz sem Jan. Me veseli.",
-                  "en": "Good day! I'm Jan. Nice to meet you.",
-                  "de": "Guten Tag! Ich bin Jan. Freut mich.",
-                  "it": "Buongiorno! Io sono Jan. Piacere.",
+                  "sl": "Dober dan! Jaz sem {learner}. Me veseli.",
+                  "en": "Good day! I'm {learner}. Nice to meet you.",
+                  "de": "Guten Tag! Ich bin {learner}. Freut mich.",
+                  "it": "Buongiorno! Io sono {learner}. Piacere.",
                   "ok": true,
-                  "reply": {"sl": "Tudi mene, Jan!", "en": "Nice to meet you too, Jan!", "de": "Freut mich auch, Jan!", "it": "Piacere mio, Jan!"}
+                  "reply": {"sl": "Tudi mene, {learner}!", "en": "Nice to meet you too, {learner}!", "de": "Freut mich auch, {learner}!", "it": "Piacere mio, {learner}!"}
                 },
                 {
                   "sl": "Živjo! Kako si?",
@@ -1859,9 +1859,9 @@
           ]
         },
         "B1": {
-          "late": {"who": "self", "sl": "Dober dan! Končno! Že nekaj dni sem v vasi, pa se še nisva spoznala. Jaz sem {name}.", "en": "Good day! At last! I've been in the village for a few days, and we haven't met yet. I'm {name}.", "de": "Guten Tag! Endlich! Ich bin schon ein paar Tage im Dorf, und wir kennen uns noch nicht. Ich bin {name}.", "it": "Buongiorno! Finalmente! Sono in paese già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
+          "late": {"who": "self", "sl": "Dober dan! Končno! Že nekaj dni sem v vasi, pa se še nisva {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}. Jaz sem {name}.", "en": "Good day! At last! I've been in the village for a few days, and we haven't met yet. I'm {name}.", "de": "Guten Tag! Endlich! Ich bin schon ein paar Tage im Dorf, und wir kennen uns noch nicht. Ich bin {name}.", "it": "Buongiorno! Finalmente! Sono in paese già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
           "lines": [
-            {"who": "self", "sl": "Dober dan! Jaz sem {name}, {g, select, f {nova} other {nov}} {role}. Vi ste gotovo Jan?", "en": "Good day! I'm {name}, the new {role}. You must be Jan?", "de": "Guten Tag! Ich bin {name}, {g, select, f {die neue} other {der neue}} {role}. Sie sind bestimmt Jan?", "it": "Buongiorno! Io sono {name}, {g, select, f {la nuova} other {il nuovo}} {role}. Lei dev'essere Jan?"},
+            {"who": "self", "sl": "Dober dan! Jaz sem {name}, {g, select, f {nova} other {nov}} {role}. Vi ste gotovo {learner}?", "en": "Good day! I'm {name}, the new {role}. You must be {learner}?", "de": "Guten Tag! Ich bin {name}, {g, select, f {die neue} other {der neue}} {role}. Sie sind bestimmt {learner}?", "it": "Buongiorno! Io sono {name}, {g, select, f {la nuova} other {il nuovo}} {role}. Lei dev'essere {learner}?"},
             {
               "choices": [
                 {
@@ -1888,18 +1888,18 @@
             {
               "choices": [
                 {
-                  "sl": "Prepričan sem, da jih boste našli.",
+                  "sl": "{m:Prepričan|f:Prepričana} sem, da jih boste našli.",
                   "en": "I'm sure you'll find them.",
                   "de": "Ich bin sicher, Sie werden welche finden.",
-                  "it": "Sono sicuro che li troverà.",
+                  "it": "Sono {m:sicuro|f:sicura} che li troverà.",
                   "ok": true,
                   "reply": {"sl": "{g, select, f {Hvala! Enega sem že našla, mislim.} other {Hvala! Enega sem že našel, mislim.}}", "en": "Thank you! I think I've already found one.", "de": "Danke! Einen habe ich, glaube ich, schon gefunden.", "it": "Grazie! Credo di averne già trovato uno."}
                 },
                 {
-                  "sl": "Prepričan sem, da jih boš našel.",
+                  "sl": "{m:Prepričan|f:Prepričana} sem, da jih boš našel.",
                   "en": "I'm sure you'll find them. (ti)",
                   "de": "Ich bin sicher, du wirst welche finden.",
-                  "it": "Sono sicuro che li troverai.",
+                  "it": "Sono {m:sicuro|f:sicura} che li troverai.",
                   "why": {"en": "{first} is a grown-up you've just met: say vi, boste našli, not boš našel.", "de": "{first} ist erwachsen und neu für dich: Sag vi, boste našli, nicht boš našel.", "it": "{first} è una persona adulta appena conosciuta: dai del Lei, boste našli, non boš našel."},
                   "reply": {"sl": "Boš? Hm, se že tikava? Tako hitri v mestu nismo bili.", "en": "Boš? Hm, on ti terms already? We were never that quick in town.", "de": "Boš? Hm, wir duzen uns schon? So schnell waren wir in der Stadt nie.", "it": "Boš? Mh, ci diamo già del tu? In città non eravamo mai così svelti."}
                 }
@@ -1911,12 +1911,12 @@
       }
     },
     "birth": {
-      "memory": {"sl": "dan, ko si me prvič videl", "en": "the day you first saw me", "de": "den Tag, an dem du mich zum ersten Mal gesehen hast", "it": "il giorno in cui mi hai visto per la prima volta"},
+      "memory": {"sl": "dan, ko si me prvič {m:videl|f:videla}", "en": "the day you first saw me", "de": "den Tag, an dem du mich zum ersten Mal gesehen hast", "it": "il giorno in cui mi hai visto per la prima volta"},
       "levels": {
         "A1": {
-          "late": {"who": "parent", "sl": "Jan! Pridi, pridi! Še nisi videl {g, select, f {naše punčke} other {našega fantka}}!", "en": "Jan! Come, come! You haven't seen our little {g, select, f {girl} other {boy}} yet!", "de": "Jan! Komm, komm! Du hast unser Baby noch nicht gesehen!", "it": "Jan! Vieni, vieni! Non hai ancora visto {g, select, f {la nostra bambina} other {il nostro bambino}}!"},
+          "late": {"who": "parent", "sl": "{learner}! Pridi, pridi! Še nisi {m:videl|f:videla} {g, select, f {naše punčke} other {našega fantka}}!", "en": "{learner}! Come, come! You haven't seen our little {g, select, f {girl} other {boy}} yet!", "de": "{learner}! Komm, komm! Du hast unser Baby noch nicht gesehen!", "it": "{learner}! Vieni, vieni! Non hai ancora visto {g, select, f {la nostra bambina} other {il nostro bambino}}!"},
           "lines": [
-            {"who": "parent", "sl": "Jan, poglej! {g, select, f {To je naša punčka.} other {To je naš fantek.}}", "en": "Jan, look! This is our little {g, select, f {girl} other {boy}}.", "de": "Jan, schau! Das ist unser {g, select, f {kleines Mädchen} other {kleiner Junge}}.", "it": "Jan, guarda! {g, select, f {Questa è la nostra bambina.} other {Questo è il nostro bambino.}}"},
+            {"who": "parent", "sl": "{learner}, poglej! {g, select, f {To je naša punčka.} other {To je naš fantek.}}", "en": "{learner}, look! This is our little {g, select, f {girl} other {boy}}.", "de": "{learner}, schau! Das ist unser {g, select, f {kleines Mädchen} other {kleiner Junge}}.", "it": "{learner}, guarda! {g, select, f {Questa è la nostra bambina.} other {Questo è il nostro bambino.}}"},
             {"who": "parent2", "sl": "{g, select, f {Ime ji je} other {Ime mu je}} {first}.", "en": "{g, select, f {Her} other {His}} name is {first}.", "de": "{g, select, f {Sie} other {Er}} heißt {first}.", "it": "Si chiama {first}."},
             {
               "choices": [
@@ -1938,13 +1938,13 @@
                 }
               ]
             },
-            {"who": "parent", "sl": "Hvala, ker si prišel!", "en": "Thanks for coming!", "de": "Danke, dass du gekommen bist!", "it": "Grazie di essere venuto!"}
+            {"who": "parent", "sl": "Hvala, ker si {m:prišel|f:prišla}!", "en": "Thanks for coming!", "de": "Danke, dass du gekommen bist!", "it": "Grazie di essere {m:venuto|f:venuta}!"}
           ]
         },
         "A2": {
-          "late": {"who": "parent", "sl": "Jan, končno! {g, select, f {Naše punčke} other {Našega fantka}} pa še nisi videl!", "en": "Jan, at last! You haven't seen our little {g, select, f {girl} other {boy}} yet!", "de": "Jan, endlich! Du hast unser Baby ja noch gar nicht gesehen!", "it": "Jan, finalmente! Non hai ancora visto {g, select, f {la nostra bambina} other {il nostro bambino}}!"},
+          "late": {"who": "parent", "sl": "{learner}, končno! {g, select, f {Naše punčke} other {Našega fantka}} pa še nisi {m:videl|f:videla}!", "en": "{learner}, at last! You haven't seen our little {g, select, f {girl} other {boy}} yet!", "de": "{learner}, endlich! Du hast unser Baby ja noch gar nicht gesehen!", "it": "{learner}, finalmente! Non hai ancora visto {g, select, f {la nostra bambina} other {il nostro bambino}}!"},
           "lines": [
-            {"who": "parent", "sl": "Jan, pridi bliže! Poglej, kdo je prišel k nam.", "en": "Jan, come closer! Look who has come to us.", "de": "Jan, komm näher! Schau, wer zu uns gekommen ist.", "it": "Jan, avvicinati! Guarda chi è arrivato da noi."},
+            {"who": "parent", "sl": "{learner}, pridi bliže! Poglej, kdo je prišel k nam.", "en": "{learner}, come closer! Look who has come to us.", "de": "{learner}, komm näher! Schau, wer zu uns gekommen ist.", "it": "{learner}, avvicinati! Guarda chi è arrivato da noi."},
             {"who": "parent2", "sl": "To je {first}. {g, select, f {Rodila se je} other {Rodil se je}} ponoči, ko je vsa vas spala.", "en": "This is {first}. {g, select, f {She} other {He}} was born at night, while the whole village was asleep.", "de": "Das ist {first}. {g, select, f {Sie} other {Er}} ist in der Nacht geboren, als das ganze Dorf schlief.", "it": "{g, select, f {Questa è} other {Questo è}} {first}. È {g, select, f {nata} other {nato}} di notte, mentre tutto il paese dormiva."},
             {
               "choices": [
@@ -1967,11 +1967,11 @@
               ]
             },
             {"who": "parent", "sl": "{pg, select, f {Malo sem utrujena, ampak zelo srečna.} other {Malo sem utrujen, ampak zelo srečen.}}", "en": "I'm a bit tired, but very happy.", "de": "Ich bin ein bisschen müde, aber sehr glücklich.", "it": "Sono un po' {pg, select, f {stanca} other {stanco}}, ma {pg, select, f {felicissima} other {felicissimo}}."},
-            {"who": "parent", "sl": "Bi {g, select, f {jo} other {ga}} malo podržal?", "en": "Would you like to hold {g, select, f {her} other {him}} for a moment?", "de": "Möchtest du {g, select, f {sie} other {ihn}} kurz halten?", "it": "Vuoi {g, select, f {tenerla} other {tenerlo}} un momento in braccio?"},
+            {"who": "parent", "sl": "Bi {g, select, f {jo} other {ga}} malo {m:podržal|f:podržala}?", "en": "Would you like to hold {g, select, f {her} other {him}} for a moment?", "de": "Möchtest du {g, select, f {sie} other {ihn}} kurz halten?", "it": "Vuoi {g, select, f {tenerla} other {tenerlo}} un momento in braccio?"},
             {
               "choices": [
                 {
-                  "sl": "Ja, rad! Previdno …",
+                  "sl": "Ja, {m:rad|f:rada}! Previdno …",
                   "en": "Yes, I'd love to! Carefully …",
                   "de": "Ja, gern! Vorsichtig …",
                   "it": "Sì, volentieri! Con attenzione …",
@@ -1979,12 +1979,12 @@
                   "reply": {"sl": "{g, select, f {Glej, nasmehnila se je!} other {Glej, nasmehnil se je!}}", "en": "Look, {g, select, f {she} other {he}} smiled!", "de": "Schau, {g, select, f {sie} other {er}} hat gelächelt!", "it": "Guarda, ha sorriso!"}
                 },
                 {
-                  "sl": "Ne, hvala, nisem lačen.",
+                  "sl": "Ne, hvala, nisem {m:lačen|f:lačna}.",
                   "en": "No, thanks, I'm not hungry.",
                   "de": "Nein, danke, ich habe keinen Hunger.",
                   "it": "No, grazie, non ho fame.",
                   "why": {"en": "Podržati means to hold for a moment: you're being offered the baby to hold, not food.", "de": "Podržati heißt kurz halten: Man bietet dir an, das Baby zu halten, nicht etwas zu essen.", "it": "Podržati vuol dire tenere un momento: ti offrono di tenere in braccio il bambino, non da mangiare."},
-                  "reply": {"sl": "Lačen? Ha ha, saj ti ne ponujam kosila!", "en": "Hungry? Ha ha, I'm not offering you lunch!", "de": "Hunger? Haha, ich biete dir doch kein Mittagessen an!", "it": "Fame? Ah ah, mica ti offro il pranzo!"}
+                  "reply": {"sl": "{m:Lačen|f:Lačna}? Ha ha, saj ti ne ponujam kosila!", "en": "Hungry? Ha ha, I'm not offering you lunch!", "de": "Hunger? Haha, ich biete dir doch kein Mittagessen an!", "it": "Fame? Ah ah, mica ti offro il pranzo!"}
                 }
               ]
             },
@@ -1997,7 +1997,7 @@
       "memory": {"sl": "dan, ko sem {g, select, f {prišla} other {prišel}} iz kraja {from} v vas", "en": "the day I came to the village from {from}", "de": "den Tag, an dem ich aus {from} ins Dorf gekommen bin", "it": "il giorno in cui sono {g, select, f {arrivata} other {arrivato}} in paese da {from}"},
       "levels": {
         "A1": {
-          "late": {"who": "self", "sl": "Dober dan! Nisva se še spoznala, kajne? Jaz sem {name}, iz kraja {from}.", "en": "Good day! We haven't met yet, have we? I'm {name}, from {from}.", "de": "Guten Tag! Wir kennen uns noch nicht, oder? Ich bin {name}, aus {from}.", "it": "Buongiorno! Non ci conosciamo ancora, vero? Sono {name}, vengo da {from}."},
+          "late": {"who": "self", "sl": "Dober dan! Nisva se še {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}, kajne? Jaz sem {name}, iz kraja {from}.", "en": "Good day! We haven't met yet, have we? I'm {name}, from {from}.", "de": "Guten Tag! Wir kennen uns noch nicht, oder? Ich bin {name}, aus {from}.", "it": "Buongiorno! Non ci conosciamo ancora, vero? Sono {name}, vengo da {from}."},
           "lines": [
             {"who": "self", "sl": "Dober dan! Jaz sem {name}. Sem iz kraja {from}.", "en": "Good day! I'm {name}. I'm from {from}.", "de": "Guten Tag! Ich bin {name}. Ich komme aus {from}.", "it": "Buongiorno! Io sono {name}. Vengo da {from}."},
             {
@@ -2016,7 +2016,7 @@
                   "de": "Hallo! Wie geht's dir?",
                   "it": "Ciao! Come stai?",
                   "why": {"en": "{first} is a grown-up you have just met: say vi (dober dan, kako ste).", "de": "{first} ist erwachsen und neu für dich: Sag vi (dober dan, kako ste).", "it": "{first} è una persona adulta che hai appena conosciuto: dai del Lei (dober dan, kako ste)."},
-                  "reply": {"sl": "Kako si? Hm … sva se že kje srečala? Mogoče v kraju {from}?", "en": "Kako si? Hm … have we met somewhere? In {from}, maybe?", "de": "Kako si? Hm … kennen wir uns irgendwoher? Vielleicht aus {from}?", "it": "Kako si? Mh … ci siamo già visti da qualche parte? Magari a {from}?"}
+                  "reply": {"sl": "Kako si? Hm … sva se že kje {m:srečala|f:{g, select, f {srečali} other {srečala}}}? Mogoče v kraju {from}?", "en": "Kako si? Hm … have we met somewhere? In {from}, maybe?", "de": "Kako si? Hm … kennen wir uns irgendwoher? Vielleicht aus {from}?", "it": "Kako si? Mh … ci siamo già visti da qualche parte? Magari a {from}?"}
                 }
               ]
             },
@@ -2045,7 +2045,7 @@
           ]
         },
         "A2": {
-          "late": {"who": "self", "sl": "Dober dan! Tu sem že nekaj dni, pa se še nisva spoznala. Jaz sem {name}.", "en": "Good day! I've been here a few days, and we still haven't met. I'm {name}.", "de": "Guten Tag! Ich bin schon ein paar Tage hier, und wir kennen uns noch nicht. Ich bin {name}.", "it": "Buongiorno! Sono qui già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
+          "late": {"who": "self", "sl": "Dober dan! Tu sem že nekaj dni, pa se še nisva {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}. Jaz sem {name}.", "en": "Good day! I've been here a few days, and we still haven't met. I'm {name}.", "de": "Guten Tag! Ich bin schon ein paar Tage hier, und wir kennen uns noch nicht. Ich bin {name}.", "it": "Buongiorno! Sono qui già da qualche giorno e non ci conosciamo ancora. Io sono {name}."},
           "lines": [
             {"who": "self", "sl": "Dober dan! Jaz sem {name}. Prej sem {g, select, f {živela} other {živel}} v kraju {from}.", "en": "Good day! I'm {name}. I used to live in {from}.", "de": "Guten Tag! Ich bin {name}. Früher habe ich in {from} gewohnt.", "it": "Buongiorno! Io sono {name}. Prima abitavo a {from}."},
             {
@@ -2056,7 +2056,7 @@
                   "de": "Guten Tag! Willkommen im Dorf!",
                   "it": "Buongiorno! {g, select, f {Benvenuta} other {Benvenuto}} in paese!",
                   "ok": true,
-                  "reply": {"sl": "Hvala lepa! Vi ste gotovo Jan.", "en": "Thank you very much! You must be Jan.", "de": "Vielen Dank! Sie sind bestimmt Jan.", "it": "Grazie mille! Lei dev'essere Jan."}
+                  "reply": {"sl": "Hvala lepa! Vi ste gotovo {learner}.", "en": "Thank you very much! You must be {learner}.", "de": "Vielen Dank! Sie sind bestimmt {learner}.", "it": "Grazie mille! Lei dev'essere {learner}."}
                 },
                 {
                   "sl": "Dober dan! {g, select, f {Dobrodošla} other {Dobrodošel}} v vasi!",
@@ -2086,7 +2086,7 @@
                   "de": "Du sprichst sehr gut!",
                   "it": "Parli molto bene!",
                   "why": {"en": "{first} is a grown-up you've just met: say vi, govorite, not govoriš.", "de": "{first} ist erwachsen und neu für dich: Sag vi, govorite, nicht govoriš.", "it": "{first} è una persona adulta appena conosciuta: dai del Lei, govorite, non govoriš."},
-                  "reply": {"sl": "Govoriš? Oho, pa sva že prijatelja!", "en": "Govoriš? Oho, so we're friends already!", "de": "Govoriš? Oho, dann sind wir ja schon Freunde!", "it": "Govoriš? Oho, allora siamo già amici!"}
+                  "reply": {"sl": "Govoriš? Oho, pa sva že {m:prijatelja|f:{g, select, f {prijateljici} other {prijatelja}}}!", "en": "Govoriš? Oho, so we're friends already!", "de": "Govoriš? Oho, dann sind wir ja schon {m:Freunde|f:{g, select, f {Freundinnen} other {Freunde}}}!", "it": "Govoriš? Oho, allora siamo già {m:amici|f:{g, select, f {amiche} other {amici}}}!"}
                 }
               ]
             },

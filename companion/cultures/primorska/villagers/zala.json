@@ -12,7 +12,7 @@
   "skill": "wood",
   "order": 3,
   "routine": { "up": "7:00", "bed": "20:00" },
-  "personality": "Eight, Babica Micka's granddaughter. Cheeky, curious, asks 'zakaj?' about everything, corrects everyone's Slovene including the adults', and Jan's too, kindly. Says ti to Jan. Quick, sing-song sentences; loves animals and berries; hates being called small.",
+  "personality": "Eight, Babica Micka's granddaughter. Cheeky, curious, asks 'zakaj?' about everything, corrects everyone's Slovene including the adults', and {learner}'s too, kindly. Says ti to {learner}. Quick, sing-song sentences; loves animals and berries; hates being called small.",
   "story": "Zala lives with her grandmother Micka and follows Luka to the meadow whenever there are lambs. She picks blueberries in the forest (and eats half), knows every cat in the village by name, and reads better than Nejc, which she mentions. She wants to be a teacher like Mojca, or a shepherd, or both.",
   "likes": [
     { "sl": "jagnjeta", "en": "lambs", "de": "Lämmer", "it": "gli agnellini" },
@@ -22,15 +22,15 @@
   ],
   "lines": {
     "greet": [
-      { "sl": "Živjo. Ti si Jan, ne? Jaz sem Zala.", "en": "Hi. You're Jan, aren't you? I'm Zala.", "de": "Hallo. Du bist Jan, oder? Ich bin Zala.", "it": "Ciao. Tu sei Jan, vero? Io sono Zala.", "level": 0 },
+      { "sl": "Živjo. Ti si {learner}, ne? Jaz sem Zala.", "en": "Hi. You're {learner}, aren't you? I'm Zala.", "de": "Hallo. Du bist {learner}, oder? Ich bin Zala.", "it": "Ciao. Tu sei {learner}, vero? Io sono Zala.", "level": 0 },
       { "sl": "Živjo! Zakaj si tukaj?", "en": "Hi! Why are you here?", "de": "Hallo! Warum bist du hier?", "it": "Ciao! Perché sei qui?", "level": 0 },
-      { "sl": "Jan! Živjo! Veš, kaj sem danes videla?", "en": "Jan! Hi! Do you know what I saw today?", "de": "Jan! Hallo! Weißt du, was ich heute gesehen habe?", "it": "Jan! Ciao! Sai cosa ho visto oggi?", "level": 1 },
-      { "sl": "Jan, Jan! Pridi, jagnje je!", "en": "Jan, Jan! Come, there's a lamb!", "de": "Jan, Jan! Komm, da ist ein Lamm!", "it": "Jan, Jan! Vieni, c'è un agnellino!", "level": 2 },
-      { "sl": "Jan! Babica te je iskala. In jaz tudi.", "en": "Jan! Grandma was looking for you. And so was I.", "de": "Jan! Oma hat dich gesucht. Und ich auch.", "it": "Jan! La nonna ti cercava. E anch'io.", "level": 3 },
-      { "sl": "Jan! Ti si moj najboljši prijatelj. Ne povej Nejcu.", "en": "Jan! You're my best friend. Don't tell Nejc.", "de": "Jan! Du bist mein bester Freund. Sag's nicht Nejc.", "it": "Jan! Sei il mio migliore amico. Non dirlo a Nejc.", "level": 4 }
+      { "sl": "{learner}! Živjo! Veš, kaj sem danes videla?", "en": "{learner}! Hi! Do you know what I saw today?", "de": "{learner}! Hallo! Weißt du, was ich heute gesehen habe?", "it": "{learner}! Ciao! Sai cosa ho visto oggi?", "level": 1 },
+      { "sl": "{learner}, {learner}! Pridi, jagnje je!", "en": "{learner}, {learner}! Come, there's a lamb!", "de": "{learner}, {learner}! Komm, da ist ein Lamm!", "it": "{learner}, {learner}! Vieni, c'è un agnellino!", "level": 2 },
+      { "sl": "{learner}! Babica te je iskala. In jaz tudi.", "en": "{learner}! Grandma was looking for you. And so was I.", "de": "{learner}! Oma hat dich gesucht. Und ich auch.", "it": "{learner}! La nonna ti cercava. E anch'io.", "level": 3 },
+      { "sl": "{learner}! Ti si {m:moj najboljši prijatelj|f:moja najboljša prijateljica}. Ne povej Nejcu.", "en": "{learner}! You're my best friend. Don't tell Nejc.", "de": "{learner}! Du bist {m:mein bester Freund|f:meine beste Freundin}. Sag's nicht Nejc.", "it": "{learner}! Sei {m:il mio migliore amico|f:la mia migliore amica}. Non dirlo a Nejc.", "level": 4 }
     ],
     "thanks": [
-      { "sl": "Hvala, Jan! Ti si prijazen.", "en": "Thanks, Jan! You're kind.", "de": "Danke, Jan! Du bist lieb.", "it": "Grazie, Jan! Sei gentile." },
+      { "sl": "Hvala, {learner}! Ti si {m:prijazen|f:prijazna}.", "en": "Thanks, {learner}! You're kind.", "de": "Danke, {learner}! Du bist lieb.", "it": "Grazie, {learner}! Sei gentile." },
       { "sl": "Hvala! Za to dobiš borovnice. Pol.", "en": "Thanks! You get blueberries for that. Half.", "de": "Danke! Dafür kriegst du Heidelbeeren. Die Hälfte.", "it": "Grazie! Per questo ti do dei mirtilli. Metà." },
       { "sl": "Hvala, hvala! Babici povem.", "en": "Thanks, thanks! I'll tell grandma.", "de": "Danke, danke! Ich sag's der Oma.", "it": "Grazie, grazie! Lo dico alla nonna." }
     ],
@@ -47,7 +47,7 @@
     ],
     "cheer": [
       { "sl": "Jaaa! Pravilno!", "en": "Yesss! Correct!", "de": "Jaaa! Richtig!", "it": "Sììì! Giusto!" },
-      { "sl": "Bravo, Jan! Skoraj tako dobro kot jaz.", "en": "Well done, Jan! Almost as good as me.", "de": "Gut gemacht, Jan! Fast so gut wie ich.", "it": "Bravo, Jan! Quasi bravo come me." },
+      { "sl": "Bravo, {learner}! Skoraj tako dobro kot jaz.", "en": "Well done, {learner}! Almost as good as me.", "de": "Gut gemacht, {learner}! Fast so gut wie ich.", "it": "{m:Bravo|f:Brava}, {learner}! Quasi {m:bravo|f:brava} come me." },
       { "sl": "Vidiš? Lahko je!", "en": "See? It's easy!", "de": "Siehst du? Ist doch leicht!", "it": "Vedi? È facile!" },
       { "sl": "Super! Še enkrat!", "en": "Great! Again!", "de": "Super! Noch mal!", "it": "Forte! Ancora!" }
     ],
@@ -62,22 +62,22 @@
       { "sl": "Tiho! Poslušaj.", "en": "Quiet! Listen.", "de": "Ruhe! Hör zu.", "it": "Silenzio! Ascolta." }
     ],
     "bye": [
-      { "sl": "Čav, Jan!", "en": "Bye, Jan! (čav: Primorska for bye)", "de": "Tschüss, Jan! (čav: so sagt man in Primorska tschüss)", "it": "Ciao, Jan! (čav: il ciao della Primorska)" },
+      { "sl": "Čav, {learner}!", "en": "Bye, {learner}! (čav: Primorska for bye)", "de": "Tschüss, {learner}! (čav: so sagt man in Primorska tschüss)", "it": "Ciao, {learner}! (čav: il ciao della Primorska)" },
       { "sl": "Adijo! Grem k babici.", "en": "Bye! I'm going to grandma's.", "de": "Tschüss! Ich geh zur Oma.", "it": "Ciao! Vado dalla nonna." },
       { "sl": "Se vidimo! Jutri nabiramo borovnice.", "en": "See you! Tomorrow we pick blueberries.", "de": "Bis bald! Morgen sammeln wir Heidelbeeren.", "it": "Ci vediamo! Domani raccogliamo i mirtilli." }
     ],
     "gift": {
       "liked": [
-        { "sl": "Zame? Jaaa! Kako si vedel, da imam to rada?", "en": "For me? Yaaay! How did you know I like this?", "de": "Für mich? Jaaa! Woher wusstest du, dass ich das mag?", "it": "Per me? Sììì! Come sapevi che mi piace?" },
-        { "sl": "Hvala, Jan! Babici ne dam nič. No, malo.", "en": "Thanks, Jan! I'm not giving Granny any. Well, a little.", "de": "Danke, Jan! Der Oma geb ich nichts ab. Na gut, ein bisschen.", "it": "Grazie, Jan! Alla nonna non ne do. Va be', un pochino." },
+        { "sl": "Zame? Jaaa! Kako si {m:vedel|f:vedela}, da imam to rada?", "en": "For me? Yaaay! How did you know I like this?", "de": "Für mich? Jaaa! Woher wusstest du, dass ich das mag?", "it": "Per me? Sììì! Come sapevi che mi piace?" },
+        { "sl": "Hvala, {learner}! Babici ne dam nič. No, malo.", "en": "Thanks, {learner}! I'm not giving Granny any. Well, a little.", "de": "Danke, {learner}! Der Oma geb ich nichts ab. Na gut, ein bisschen.", "it": "Grazie, {learner}! Alla nonna non ne do. Va be', un pochino." },
         { "sl": "Juhu! To je moje najljubše! Hvala, hvala!", "en": "Yay! This is my favourite! Thank you, thank you!", "de": "Juhu! Das mag ich am allerliebsten! Danke, danke!", "it": "Evviva! È la cosa che preferisco! Grazie, grazie!" }
       ],
       "ordinary": [
-        { "sl": "Hvala, Jan. Zakaj pa to?", "en": "Thanks, Jan. What's this for?", "de": "Danke, Jan. Wofür ist das denn?", "it": "Grazie, Jan. E questo perché?" },
+        { "sl": "Hvala, {learner}. Zakaj pa to?", "en": "Thanks, {learner}. What's this for?", "de": "Danke, {learner}. Wofür ist das denn?", "it": "Grazie, {learner}. E questo perché?" },
         { "sl": "O, hvala! Babica pravi, da se reče hvala. Hvala!", "en": "Oh, thanks! Granny says you say thank you. Thank you!", "de": "Oh, danke! Oma sagt, man sagt danke. Danke!", "it": "Oh, grazie! La nonna dice che si dice grazie. Grazie!" }
       ],
       "rare": [
-        { "sl": "Ooo! Tega nima nihče! Niti Nejc! Hvala, Jan!", "en": "Ooh! Nobody has this! Not even Nejc! Thanks, Jan!", "de": "Oooh! Das hat keiner! Nicht mal Nejc! Danke, Jan!", "it": "Oooh! Questo non ce l'ha nessuno! Neanche Nejc! Grazie, Jan!" }
+        { "sl": "Ooo! Tega nima nihče! Niti Nejc! Hvala, {learner}!", "en": "Ooh! Nobody has this! Not even Nejc! Thanks, {learner}!", "de": "Oooh! Das hat keiner! Nicht mal Nejc! Danke, {learner}!", "it": "Oooh! Questo non ce l'ha nessuno! Neanche Nejc! Grazie, {learner}!" }
       ]
     }
   }

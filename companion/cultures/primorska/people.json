@@ -69,11 +69,11 @@
       "greet": [
         { "sl": "Dober dan!", "en": "Good day!", "de": "Guten Tag!", "it": "Buongiorno!", "when": ["morning", "afternoon"] },
         { "sl": "Dober večer!", "en": "Good evening!", "de": "Guten Abend!", "it": "Buonasera!", "when": ["evening", "night"] },
-        { "sl": "Živjo, Jan!", "en": "Hi, Jan!", "de": "Hallo, Jan!", "it": "Ciao, Jan!", "level": 2 }
+        { "sl": "Živjo, {learner}!", "en": "Hi, {learner}!", "de": "Hallo, {learner}!", "it": "Ciao, {learner}!", "level": 2 }
       ],
       "thanks": [
         { "sl": "Hvala lepa!", "en": "Thank you very much!", "de": "Vielen Dank!", "it": "Grazie mille!" },
-        { "sl": "Res si mi pomagal. Hvala!", "en": "You really helped me. Thanks!", "de": "Du hast mir wirklich geholfen. Danke!", "it": "Mi hai davvero aiutato. Grazie!", "level": 1 }
+        { "sl": "Res si mi {m:pomagal|f:pomagala}. Hvala!", "en": "You really helped me. Thanks!", "de": "Du hast mir wirklich geholfen. Danke!", "it": "Mi hai davvero aiutato. Grazie!", "level": 1 }
       ],
       "remember": [
         { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 }
@@ -100,7 +100,7 @@
     "child": {
       "greet": [
         { "sl": "Živjo!", "en": "Hi!", "de": "Hallo!", "it": "Ciao!" },
-        { "sl": "Ej, Jan! Se greš igrat?", "en": "Hey, Jan! Coming to play?", "de": "He, Jan! Kommst du spielen?", "it": "Ehi, Jan! Vieni a giocare?", "level": 1 }
+        { "sl": "Ej, {learner}! Se greš igrat?", "en": "Hey, {learner}! Coming to play?", "de": "He, {learner}! Kommst du spielen?", "it": "Ehi, {learner}! Vieni a giocare?", "level": 1 }
       ],
       "thanks": [
         { "sl": "Hvala!", "en": "Thanks!", "de": "Danke!", "it": "Grazie!" }

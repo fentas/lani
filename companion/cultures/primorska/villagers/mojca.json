@@ -14,8 +14,8 @@
   "since": "vas",
   "order": 13,
   "routine": { "up": "6:30", "bed": "22:00" },
-  "personality": "Kind but precise; explains why a rule exists and loves the dual. Says vi to Jan (a teacher's habit) and expects vi. Full, clear sentences: 'Poglejte', 'Odlično'; counts things in twos to show the dual and gives small homework. Praises exactly what was right.",
-  "story": "Mojca came from Nova Gorica to teach at the village school when it opened, and stayed. She teaches all the children in one room, from Tine to Zala, and Jan too, when they let her. She runs on the plateau every morning and knows every child's favourite mistake by heart.",
+  "personality": "Kind but precise; explains why a rule exists and loves the dual. Says vi to {learner} (a teacher's habit) and expects vi. Full, clear sentences: 'Poglejte', 'Odlično'; counts things in twos to show the dual and gives small homework. Praises exactly what was right.",
+  "story": "Mojca came from Nova Gorica to teach at the village school when it opened, and stayed. She teaches all the children in one room, from Tine to Zala, and {learner} too, when they let her. She runs on the plateau every morning and knows every child's favourite mistake by heart.",
   "likes": [
     { "sl": "dvojina", "en": "the dual", "de": "der Dual", "it": "il duale" },
     { "sl": "knjige", "en": "books", "de": "Bücher", "it": "i libri" },
@@ -24,16 +24,16 @@
   ],
   "lines": {
     "greet": [
-      { "sl": "Dober dan. Vi ste Jan? Mojca, učiteljica.", "en": "Good day. You are Jan? Mojca, the teacher.", "de": "Guten Tag. Sie sind Jan? Mojca, die Lehrerin.", "it": "Buongiorno. Lei è Jan? Mojca, la maestra.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober dan. Vi ste {learner}? Mojca, učiteljica.", "en": "Good day. You are {learner}? Mojca, the teacher.", "de": "Guten Tag. Sie sind {learner}? Mojca, die Lehrerin.", "it": "Buongiorno. Lei è {learner}? Mojca, la maestra.", "level": 0, "when": ["morning", "afternoon"] },
       { "sl": "Dobro jutro. Pouk se začne.", "en": "Good morning. Class is starting.", "de": "Guten Morgen. Der Unterricht beginnt.", "it": "Buongiorno. Comincia la lezione.", "level": 0, "when": ["morning"] },
-      { "sl": "Dober večer. Vi ste Jan? Mojca, učiteljica.", "en": "Good evening. You are Jan? Mojca, the teacher.", "de": "Guten Abend. Sie sind Jan? Mojca, die Lehrerin.", "it": "Buonasera. Lei è Jan? Mojca, la maestra.", "level": 0, "when": ["evening", "night"] },
-      { "sl": "Dober dan, Jan! Ste naredili nalogo?", "en": "Good day, Jan! Have you done the homework?", "de": "Guten Tag, Jan! Haben Sie die Hausaufgabe gemacht?", "it": "Buongiorno, Jan! Ha fatto i compiti?", "level": 1, "when": ["morning", "afternoon"] },
-      { "sl": "O, Jan! Odlično. Danes: dvojina.", "en": "Oh, Jan! Excellent. Today: the dual.", "de": "Oh, Jan! Ausgezeichnet. Heute: der Dual.", "it": "Oh, Jan! Ottimo. Oggi: il duale.", "level": 2 },
-      { "sl": "Jan, moj najboljši učenec! Sedite, sedite.", "en": "Jan, my best pupil! Sit down, sit down.", "de": "Jan, mein bester Schüler! Setzen Sie sich, setzen Sie sich.", "it": "Jan, il mio allievo migliore! Si sieda, si sieda.", "level": 3 },
-      { "sl": "Jan! Midva sva dober par: učiteljica in učenec. Dvojina!", "en": "Jan! We two make a good pair: teacher and pupil. The dual!", "de": "Jan! Wir zwei sind ein gutes Paar: Lehrerin und Schüler. Der Dual!", "it": "Jan! Noi due siamo una bella coppia: maestra e allievo. Il duale!", "level": 4 }
+      { "sl": "Dober večer. Vi ste {learner}? Mojca, učiteljica.", "en": "Good evening. You are {learner}? Mojca, the teacher.", "de": "Guten Abend. Sie sind {learner}? Mojca, die Lehrerin.", "it": "Buonasera. Lei è {learner}? Mojca, la maestra.", "level": 0, "when": ["evening", "night"] },
+      { "sl": "Dober dan, {learner}! Ste naredili nalogo?", "en": "Good day, {learner}! Have you done the homework?", "de": "Guten Tag, {learner}! Haben Sie die Hausaufgabe gemacht?", "it": "Buongiorno, {learner}! Ha fatto i compiti?", "level": 1, "when": ["morning", "afternoon"] },
+      { "sl": "O, {learner}! Odlično. Danes: dvojina.", "en": "Oh, {learner}! Excellent. Today: the dual.", "de": "Oh, {learner}! Ausgezeichnet. Heute: der Dual.", "it": "Oh, {learner}! Ottimo. Oggi: il duale.", "level": 2 },
+      { "sl": "{learner}, {m:moj najboljši učenec|f:moja najboljša učenka}! Sedite, sedite.", "en": "{learner}, my best pupil! Sit down, sit down.", "de": "{learner}, {m:mein bester Schüler|f:meine beste Schülerin}! Setzen Sie sich, setzen Sie sich.", "it": "{learner}, {m:il mio allievo migliore|f:la mia allieva migliore}! Si sieda, si sieda.", "level": 3 },
+      { "sl": "{learner}! {m:Midva|f:Midve} sva dober par: učiteljica in {m:učenec|f:učenka}. Dvojina!", "en": "{learner}! We two make a good pair: teacher and {m:pupil|f:pupil}. The dual!", "de": "{learner}! Wir zwei sind ein gutes Paar: Lehrerin und {m:Schüler|f:Schülerin}. Der Dual!", "it": "{learner}! Noi due siamo una bella coppia: maestra e {m:allievo|f:allieva}. Il duale!", "level": 4 }
     ],
     "thanks": [
-      { "sl": "Hvala, Jan. Odlično delo.", "en": "Thank you, Jan. Excellent work.", "de": "Danke, Jan. Ausgezeichnete Arbeit.", "it": "Grazie, Jan. Ottimo lavoro." },
+      { "sl": "Hvala, {learner}. Odlično delo.", "en": "Thank you, {learner}. Excellent work.", "de": "Danke, {learner}. Ausgezeichnete Arbeit.", "it": "Grazie, {learner}. Ottimo lavoro." },
       { "sl": "Hvala vam. Otroci so se veliko naučili.", "en": "Thank you. The children learned a lot.", "de": "Ich danke Ihnen. Die Kinder haben viel gelernt.", "it": "La ringrazio. I bambini hanno imparato molto." },
       { "sl": "Hvala. Pet plus!", "en": "Thank you. An A plus! (pet, five, is the top mark in Slovenia)", "de": "Danke. Eine Eins plus! (pet, fünf, ist in Slowenien die beste Note)", "it": "Grazie. Dieci e lode! (pet, cinque, è il voto più alto in Slovenia)" }
     ],
@@ -51,7 +51,7 @@
     "cheer": [
       { "sl": "Odlično!", "en": "Excellent!", "de": "Ausgezeichnet!", "it": "Ottimo!" },
       { "sl": "Pravilno! Končnica je prava.", "en": "Correct! The ending is right.", "de": "Richtig! Die Endung stimmt.", "it": "Giusto! La desinenza è corretta." },
-      { "sl": "Bravo, Jan. Pet!", "en": "Well done, Jan. Top marks!", "de": "Gut gemacht, Jan. Eine Eins!", "it": "Bravo, Jan. Dieci!" },
+      { "sl": "Bravo, {learner}. Pet!", "en": "Well done, {learner}. Top marks!", "de": "Gut gemacht, {learner}. Eine Eins!", "it": "{m:Bravo|f:Brava}, {learner}. Dieci!" },
       { "sl": "Tako je. Vidite, pravilo deluje.", "en": "That's right. See, the rule works.", "de": "So ist es. Sehen Sie, die Regel funktioniert.", "it": "Proprio così. Vede, la regola funziona." }
     ],
     "comfort": [
@@ -65,22 +65,22 @@
       { "sl": "Ušesa. Poslušajte dobro.", "en": "Ears. Listen well.", "de": "Ohren auf. Hören Sie gut zu.", "it": "Orecchie aperte. Ascolti bene." }
     ],
     "bye": [
-      { "sl": "Na svidenje, Jan. Ne pozabite: dva stavka!", "en": "Goodbye, Jan. Don't forget: two sentences!", "de": "Auf Wiedersehen, Jan. Vergessen Sie nicht: zwei Sätze!", "it": "Arrivederci, Jan. Non dimentichi: due frasi!" },
+      { "sl": "Na svidenje, {learner}. Ne pozabite: dva stavka!", "en": "Goodbye, {learner}. Don't forget: two sentences!", "de": "Auf Wiedersehen, {learner}. Vergessen Sie nicht: zwei Sätze!", "it": "Arrivederci, {learner}. Non dimentichi: due frasi!" },
       { "sl": "Na svidenje. Jutri ob osmih.", "en": "Goodbye. Tomorrow at eight.", "de": "Auf Wiedersehen. Morgen um acht.", "it": "Arrivederci. Domani alle otto." },
       { "sl": "Adijo! In berite!", "en": "Bye! And read!", "de": "Tschüss! Und lesen Sie!", "it": "Ciao! E legga!" }
     ],
     "gift": {
       "liked": [
         { "sl": "O, kako lepo! Kako ste vedeli, da imam to rada?", "en": "Oh, how lovely! How did you know I like this?", "de": "Oh, wie schön! Woher wussten Sie, dass ich das mag?", "it": "Oh, che bello! Come sapeva che mi piace?" },
-        { "sl": "Hvala, Jan! Odlično darilo. Pet plus!", "en": "Thank you, Jan! An excellent gift. Top marks!", "de": "Danke, Jan! Ein ausgezeichnetes Geschenk. Eine Eins plus!", "it": "Grazie, Jan! Un regalo ottimo. Dieci e lode!" },
+        { "sl": "Hvala, {learner}! Odlično darilo. Pet plus!", "en": "Thank you, {learner}! An excellent gift. Top marks!", "de": "Danke, {learner}! Ein ausgezeichnetes Geschenk. Eine Eins plus!", "it": "Grazie, {learner}! Un regalo ottimo. Dieci e lode!" },
         { "sl": "To imam zelo rada. Poglejte, kako sem vesela!", "en": "I like this very much. Look how happy I am!", "de": "Das mag ich sehr. Sehen Sie, wie ich mich freue!", "it": "Mi piace molto. Guardi come sono contenta!" }
       ],
       "ordinary": [
-        { "sl": "Hvala vam, Jan. Zelo prijazno.", "en": "Thank you, Jan. Very kind.", "de": "Ich danke Ihnen, Jan. Sehr freundlich.", "it": "La ringrazio, Jan. Molto gentile." },
+        { "sl": "Hvala vam, {learner}. Zelo prijazno.", "en": "Thank you, {learner}. Very kind.", "de": "Ich danke Ihnen, {learner}. Sehr freundlich.", "it": "La ringrazio, {learner}. Molto gentile." },
         { "sl": "Hvala. Lepo, da ste pomislili name.", "en": "Thank you. It's nice that you thought of me.", "de": "Danke. Schön, dass Sie an mich gedacht haben.", "it": "Grazie. Che bello che abbia pensato a me." }
       ],
       "rare": [
-        { "sl": "Jan! To je pa res posebno darilo. Najlepša hvala!", "en": "Jan! This really is a special gift. Thank you so much!", "de": "Jan! Das ist wirklich ein besonderes Geschenk. Vielen herzlichen Dank!", "it": "Jan! È davvero un regalo speciale. Grazie infinite!" }
+        { "sl": "{learner}! To je pa res posebno darilo. Najlepša hvala!", "en": "{learner}! This really is a special gift. Thank you so much!", "de": "{learner}! Das ist wirklich ein besonderes Geschenk. Vielen herzlichen Dank!", "it": "{learner}! È davvero un regalo speciale. Grazie infinite!" }
       ]
     }
   }

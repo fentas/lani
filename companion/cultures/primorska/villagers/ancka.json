@@ -13,7 +13,7 @@
   "since": "tabor",
   "order": 7,
   "routine": { "up": "6:30", "bed": "21:45" },
-  "personality": "The village's news service: knows everything before it happens, hears badly, so she shouts and asks people to repeat. Says ti to Jan, expects vi. Warm and nosy: 'Kaj? Glasneje!', 'Sem slišala, da …'. Loves the times, dates and numbers from the radio and repeats them.",
+  "personality": "The village's news service: knows everything before it happens, hears badly, so she shouts and asks people to repeat. Says ti to {learner}, expects vi. Warm and nosy: 'Kaj? Glasneje!', 'Sem slišala, da …'. Loves the times, dates and numbers from the radio and repeats them.",
   "story": "Ančka is Micka's younger sister and Zala's great-aunt, and owns the loudest radio in Trnovo, tuned to Radio Koper all day. She sits by the road so nobody passes without a word, and knows every wedding and every burja forecast a week ahead.",
   "likes": [
     { "sl": "radio", "en": "the radio", "de": "das Radio", "it": "la radio" },
@@ -24,16 +24,16 @@
   "lines": {
     "greet": [
       { "sl": "Kaj? Kdo ste? Glasneje!", "en": "What? Who are you? Louder!", "de": "Was? Wer sind Sie? Lauter!", "it": "Cosa? Chi è Lei? Più forte!", "level": 0 },
-      { "sl": "Dober dan. Ančka. Sem slišala, da si nov.", "en": "Good day. Ančka. I heard you are new.", "de": "Guten Tag. Ančka. Ich habe gehört, du bist neu.", "it": "Buongiorno. Ančka. Ho sentito che sei nuovo.", "level": 0, "when": ["morning", "afternoon"] },
-      { "sl": "Jan! Dober dan. Sem slišala, da si bil v gozdu.", "en": "Jan! Good day. I heard you were in the forest.", "de": "Jan! Guten Tag. Ich habe gehört, du warst im Wald.", "it": "Jan! Buongiorno. Ho sentito che sei stato nel bosco.", "level": 1, "when": ["morning", "afternoon"] },
-      { "sl": "O, Jan! Pridi bliže, slabo slišim. Kaj je novega?", "en": "Oh, Jan! Come closer, I can't hear well. What's new?", "de": "Oh, Jan! Komm näher, ich höre schlecht. Was gibt's Neues?", "it": "Oh, Jan! Vieni più vicino, ci sento poco. Che novità ci sono?", "level": 2 },
-      { "sl": "Jan, moj! Sedi. Radio pravi, da bo jutri burja.", "en": "Jan, my dear! Sit. The radio says there will be burja tomorrow.", "de": "Jan, mein Lieber! Setz dich. Das Radio sagt, morgen kommt die Bora.", "it": "Jan, caro mio! Siediti. La radio dice che domani c'è la bora.", "level": 3 },
-      { "sl": "Jan! Vsem sem povedala, da si kot moj nečak.", "en": "Jan! I've told everybody you're like my nephew.", "de": "Jan! Ich habe allen erzählt, dass du wie mein Neffe bist.", "it": "Jan! Ho detto a tutti che sei come un nipote per me.", "level": 4 }
+      { "sl": "Dober dan. Ančka. Sem slišala, da si {m:nov|f:nova}.", "en": "Good day. Ančka. I heard you are new.", "de": "Guten Tag. Ančka. Ich habe gehört, du bist neu.", "it": "Buongiorno. Ančka. Ho sentito che sei {m:nuovo|f:nuova}.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "{learner}! Dober dan. Sem slišala, da si {m:bil|f:bila} v gozdu.", "en": "{learner}! Good day. I heard you were in the forest.", "de": "{learner}! Guten Tag. Ich habe gehört, du warst im Wald.", "it": "{learner}! Buongiorno. Ho sentito che sei {m:stato|f:stata} nel bosco.", "level": 1, "when": ["morning", "afternoon"] },
+      { "sl": "O, {learner}! Pridi bliže, slabo slišim. Kaj je novega?", "en": "Oh, {learner}! Come closer, I can't hear well. What's new?", "de": "Oh, {learner}! Komm näher, ich höre schlecht. Was gibt's Neues?", "it": "Oh, {learner}! Vieni più vicino, ci sento poco. Che novità ci sono?", "level": 2 },
+      { "sl": "{learner}, {m:moj|f:moja}! Sedi. Radio pravi, da bo jutri burja.", "en": "{learner}, my dear! Sit. The radio says there will be burja tomorrow.", "de": "{learner}, {m:mein Lieber|f:meine Liebe}! Setz dich. Das Radio sagt, morgen kommt die Bora.", "it": "{learner}, {m:caro mio|f:cara mia}! Siediti. La radio dice che domani c'è la bora.", "level": 3 },
+      { "sl": "{learner}! Vsem sem povedala, da si kot {m:moj nečak|f:moja nečakinja}.", "en": "{learner}! I've told everybody you're like my {m:nephew|f:niece}.", "de": "{learner}! Ich habe allen erzählt, dass du wie {m:mein Neffe|f:meine Nichte} bist.", "it": "{learner}! Ho detto a tutti che sei come {m:un nipote|f:una nipote} per me.", "level": 4 }
     ],
     "thanks": [
-      { "sl": "Hvala, Jan. Zdaj vse slišim!", "en": "Thank you, Jan. Now I hear everything!", "de": "Danke, Jan. Jetzt höre ich alles!", "it": "Grazie, Jan. Adesso sento tutto!" },
+      { "sl": "Hvala, {learner}. Zdaj vse slišim!", "en": "Thank you, {learner}. Now I hear everything!", "de": "Danke, {learner}. Jetzt höre ich alles!", "it": "Grazie, {learner}. Adesso sento tutto!" },
       { "sl": "Hvala! To povem celi vasi.", "en": "Thank you! I'll tell the whole village.", "de": "Danke! Das erzähle ich dem ganzen Dorf.", "it": "Grazie! Lo racconto a tutto il paese." },
-      { "sl": "Priden fant. Hvala.", "en": "Good lad. Thank you.", "de": "Braver Junge. Danke.", "it": "Bravo ragazzo. Grazie." }
+      { "sl": "{m:Priden fant|f:Pridno dekle}. Hvala.", "en": "{m:Good lad|f:Good lass}. Thank you.", "de": "{m:Braver Junge|f:Braves Mädchen}. Danke.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Grazie." }
     ],
     "remember": [
       { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -48,8 +48,8 @@
     ],
     "cheer": [
       { "sl": "Točno! Sem slišala!", "en": "Exactly! I heard it!", "de": "Genau! Ich hab's gehört!", "it": "Esatto! L'ho sentito!" },
-      { "sl": "Bravo, Jan! Glasno in jasno.", "en": "Well done, Jan! Loud and clear.", "de": "Gut gemacht, Jan! Laut und deutlich.", "it": "Bravo, Jan! Forte e chiaro." },
-      { "sl": "Tako, tako. Priden.", "en": "That's it. Good boy.", "de": "So, so. Brav.", "it": "Così, così. Bravo." }
+      { "sl": "Bravo, {learner}! Glasno in jasno.", "en": "Well done, {learner}! Loud and clear.", "de": "Gut gemacht, {learner}! Laut und deutlich.", "it": "{m:Bravo|f:Brava}, {learner}! Forte e chiaro." },
+      { "sl": "Tako, tako. {m:Priden|f:Pridna}.", "en": "That's it. {m:Good boy|f:Good girl}.", "de": "So, so. Brav.", "it": "Così, così. {m:Bravo|f:Brava}." }
     ],
     "comfort": [
       { "sl": "Kaj? Še enkrat, glasneje.", "en": "What? Once more, louder.", "de": "Was? Noch einmal, lauter.", "it": "Cosa? Ancora una volta, più forte." },
@@ -62,23 +62,23 @@
       { "sl": "Uho k radiu. Poslušaj.", "en": "Ear to the radio. Listen.", "de": "Ohr ans Radio. Hör zu.", "it": "L'orecchio alla radio. Ascolta." }
     ],
     "bye": [
-      { "sl": "Adijo, Jan. Povej, če kaj slišiš!", "en": "Bye, Jan. Tell me if you hear anything!", "de": "Tschüss, Jan. Sag Bescheid, wenn du was hörst!", "it": "Ciao, Jan. Dimmi se senti qualcosa!" },
+      { "sl": "Adijo, {learner}. Povej, če kaj slišiš!", "en": "Bye, {learner}. Tell me if you hear anything!", "de": "Tschüss, {learner}. Sag Bescheid, wenn du was hörst!", "it": "Ciao, {learner}. Dimmi se senti qualcosa!" },
       { "sl": "Na svidenje. Ob dvanajstih so poročila!", "en": "Goodbye. The news is at twelve!", "de": "Auf Wiedersehen. Um zwölf kommen die Nachrichten!", "it": "Arrivederci. Alle dodici c'è il notiziario!" },
       { "sl": "Lahko noč. Zapri okno, burja bo.", "en": "Good night. Close the window, there will be burja.", "de": "Gute Nacht. Mach das Fenster zu, die Bora kommt.", "it": "Buonanotte. Chiudi la finestra, arriva la bora.", "when": ["evening", "night"] },
       { "sl": "Lep dan! Radio pravi, da bo sončno.", "en": "Have a nice day! The radio says it will be sunny.", "de": "Einen schönen Tag! Das Radio sagt, es wird sonnig.", "it": "Buona giornata! La radio dice che ci sarà il sole.", "when": ["morning", "afternoon"] }
     ],
     "gift": {
       "liked": [
-        { "sl": "Kaj? Zame? O, Jan! To imam pa res rada!", "en": "What? For me? Oh, Jan! I really love this!", "de": "Was? Für mich? Oh, Jan! Das mag ich wirklich sehr!", "it": "Cosa? Per me? Oh, Jan! Questo mi piace proprio tanto!" },
-        { "sl": "Kako si vedel, da imam to rada? To povem vsej vasi!", "en": "How did you know I like this? I'll tell the whole village!", "de": "Woher wusstest du, dass ich das mag? Das erzähle ich dem ganzen Dorf!", "it": "Come sapevi che mi piace? Lo racconto a tutto il paese!" },
-        { "sl": "Jan, moj! Točno to! Sedi in povej, kje si to dobil.", "en": "Jan, my dear! Exactly this! Sit down and tell me where you got it.", "de": "Jan, mein Lieber! Genau das! Setz dich und erzähl, wo du das herhast.", "it": "Jan, caro mio! Proprio questo! Siediti e dimmi dove l'hai preso." }
+        { "sl": "Kaj? Zame? O, {learner}! To imam pa res rada!", "en": "What? For me? Oh, {learner}! I really love this!", "de": "Was? Für mich? Oh, {learner}! Das mag ich wirklich sehr!", "it": "Cosa? Per me? Oh, {learner}! Questo mi piace proprio tanto!" },
+        { "sl": "Kako si {m:vedel|f:vedela}, da imam to rada? To povem vsej vasi!", "en": "How did you know I like this? I'll tell the whole village!", "de": "Woher wusstest du, dass ich das mag? Das erzähle ich dem ganzen Dorf!", "it": "Come sapevi che mi piace? Lo racconto a tutto il paese!" },
+        { "sl": "{learner}, {m:moj|f:moja}! Točno to! Sedi in povej, kje si to {m:dobil|f:dobila}.", "en": "{learner}, my dear! Exactly this! Sit down and tell me where you got it.", "de": "{learner}, {m:mein Lieber|f:meine Liebe}! Genau das! Setz dich und erzähl, wo du das herhast.", "it": "{learner}, {m:caro mio|f:cara mia}! Proprio questo! Siediti e dimmi dove l'hai preso." }
       ],
       "ordinary": [
-        { "sl": "Kaj? Darilo? Hvala, Jan, hvala!", "en": "What? A present? Thank you, Jan, thank you!", "de": "Was? Ein Geschenk? Danke, Jan, danke!", "it": "Cosa? Un regalo? Grazie, Jan, grazie!" },
-        { "sl": "Hvala, priden fant. Pridi bliže, slabo slišim.", "en": "Thank you, good lad. Come closer, I can't hear well.", "de": "Danke, braver Junge. Komm näher, ich höre schlecht.", "it": "Grazie, bravo ragazzo. Vieni più vicino, ci sento poco." }
+        { "sl": "Kaj? Darilo? Hvala, {learner}, hvala!", "en": "What? A present? Thank you, {learner}, thank you!", "de": "Was? Ein Geschenk? Danke, {learner}, danke!", "it": "Cosa? Un regalo? Grazie, {learner}, grazie!" },
+        { "sl": "Hvala, {m:priden fant|f:pridno dekle}. Pridi bliže, slabo slišim.", "en": "Thank you, {m:good lad|f:good lass}. Come closer, I can't hear well.", "de": "Danke, {m:braver Junge|f:braves Mädchen}. Komm näher, ich höre schlecht.", "it": "Grazie, {m:bravo ragazzo|f:brava ragazza}. Vieni più vicino, ci sento poco." }
       ],
       "rare": [
-        { "sl": "Kaj?! Tega pa v vasi še nihče nima! Hvala, Jan!", "en": "What?! Nobody in the village has this yet! Thank you, Jan!", "de": "Was?! So etwas hat im Dorf noch keiner! Danke, Jan!", "it": "Cosa?! In paese questo non ce l'ha ancora nessuno! Grazie, Jan!" }
+        { "sl": "Kaj?! Tega pa v vasi še nihče nima! Hvala, {learner}!", "en": "What?! Nobody in the village has this yet! Thank you, {learner}!", "de": "Was?! So etwas hat im Dorf noch keiner! Danke, {learner}!", "it": "Cosa?! In paese questo non ce l'ha ancora nessuno! Grazie, {learner}!" }
       ]
     }
   }

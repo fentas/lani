@@ -27,17 +27,17 @@
   ],
   "lines": {
     "greet": [
-      { "sl": "Ej, živjo! Si ti novi?", "en": "Hey, hi! Are you the new one?", "de": "He, hallo! Bist du der Neue?", "it": "Ehi, ciao! Sei tu il nuovo?", "level": 0 },
+      { "sl": "Ej, živjo! Si ti {m:novi|f:nova}?", "en": "Hey, hi! Are you the new one?", "de": "He, hallo! Bist du {m:der Neue|f:die Neue}?", "it": "Ehi, ciao! Sei tu {m:il nuovo|f:la nuova}?", "level": 0 },
       { "sl": "Živjo! Luka sem. Pastir.", "en": "Hi! I am Luka. The shepherd.", "de": "Hallo! Ich bin Luka. Der Hirte.", "it": "Ciao! Sono Luka. Il pastore.", "level": 0 },
-      { "sl": "Ej, Jan! Kako si?", "en": "Hey, Jan! How are you?", "de": "He, Jan! Wie geht's dir?", "it": "Ehi, Jan! Come stai?", "level": 1 },
-      { "sl": "Jan! Ravno prav. Si videl Belo?", "en": "Jan! Just in time. Have you seen Bela?", "de": "Jan! Gerade recht. Hast du Bela gesehen?", "it": "Jan! Arrivi giusto. Hai visto Bela?", "level": 2 },
-      { "sl": "Ej, Jan, prijatelj! Pridi, ovce te že poznajo.", "en": "Hey, Jan, my friend! Come, the sheep know you already.", "de": "He, Jan, mein Freund! Komm, die Schafe kennen dich schon.", "it": "Ehi, Jan, amico mio! Vieni, le pecore ti conoscono già.", "level": 3 },
-      { "sl": "Jan! Brat! Danes greva na planino, ja?", "en": "Jan! Brother! Today we two go up to the pasture, yes?", "de": "Jan! Bruder! Heute gehen wir zwei auf die Alm, ja?", "it": "Jan! Fratello! Oggi noi due saliamo al pascolo, sì?", "level": 4, "when": ["morning", "afternoon"] }
+      { "sl": "Ej, {learner}! Kako si?", "en": "Hey, {learner}! How are you?", "de": "He, {learner}! Wie geht's dir?", "it": "Ehi, {learner}! Come stai?", "level": 1 },
+      { "sl": "{learner}! Ravno prav. Si {m:videl|f:videla} Belo?", "en": "{learner}! Just in time. Have you seen Bela?", "de": "{learner}! Gerade recht. Hast du Bela gesehen?", "it": "{learner}! Arrivi giusto. Hai visto Bela?", "level": 2 },
+      { "sl": "Ej, {learner}, {m:prijatelj|f:prijateljica}! Pridi, ovce te že poznajo.", "en": "Hey, {learner}, my friend! Come, the sheep know you already.", "de": "He, {learner}, {m:mein Freund|f:meine Freundin}! Komm, die Schafe kennen dich schon.", "it": "Ehi, {learner}, {m:amico mio|f:amica mia}! Vieni, le pecore ti conoscono già.", "level": 3 },
+      { "sl": "{learner}! {m:Brat|f:Punca}! Danes greva na planino, ja?", "en": "{learner}! {m:Brother|f:Girl}! Today we two go up to the pasture, yes?", "de": "{learner}! {m:Bruder|f:Mädel}! Heute gehen wir zwei auf die Alm, ja?", "it": "{learner}! {m:Fratello|f:Ragazza}! Oggi noi due saliamo al pascolo, sì?", "level": 4, "when": ["morning", "afternoon"] }
     ],
     "thanks": [
-      { "sl": "Hvala ti, res si mi pomagal.", "en": "Thank you, you really helped me.", "de": "Danke dir, du hast mir echt geholfen.", "it": "Grazie, mi hai aiutato davvero." },
+      { "sl": "Hvala ti, res si mi {m:pomagal|f:pomagala}.", "en": "Thank you, you really helped me.", "de": "Danke dir, du hast mir echt geholfen.", "it": "Grazie, mi hai aiutato davvero." },
       { "sl": "Ej, hvala! Brez tebe bi Bela še zdaj tavala.", "en": "Hey, thanks! Without you Bela would still be wandering.", "de": "He, danke! Ohne dich würde Bela jetzt noch herumirren.", "it": "Ehi, grazie! Senza di te Bela starebbe ancora vagando." },
-      { "sl": "Super si, Jan. Hvala!", "en": "You're great, Jan. Thanks!", "de": "Du bist super, Jan. Danke!", "it": "Sei grande, Jan. Grazie!" }
+      { "sl": "Super si, {learner}. Hvala!", "en": "You're great, {learner}. Thanks!", "de": "Du bist super, {learner}. Danke!", "it": "Sei grande, {learner}. Grazie!" }
     ],
     "remember": [
       { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -51,7 +51,7 @@
       { "sl": "Megla, megla. Sovražim meglo.", "en": "Fog, fog. I hate fog.", "de": "Nebel, Nebel. Ich hasse Nebel.", "it": "Nebbia, nebbia. Odio la nebbia." }
     ],
     "cheer": [
-      { "sl": "Bravo!", "en": "Well done!", "de": "Gut gemacht!", "it": "Bravo!" },
+      { "sl": "Bravo!", "en": "Well done!", "de": "Gut gemacht!", "it": "{m:Bravo|f:Brava}!" },
       { "sl": "Točno tako!", "en": "Exactly!", "de": "Genau!", "it": "Esatto!" },
       { "sl": "Ej, to je to!", "en": "Hey, that's it!", "de": "He, genau so!", "it": "Ehi, proprio così!" },
       { "sl": "Super! Še enkrat tako!", "en": "Great! Once more like that!", "de": "Super! Noch mal so!", "it": "Forte! Un'altra volta così!" }
@@ -68,21 +68,21 @@
     ],
     "bye": [
       { "sl": "Adijo!", "en": "Bye!", "de": "Tschüss!", "it": "Ciao!" },
-      { "sl": "Čav, Jan! Grem po ovce.", "en": "Bye, Jan! I'm off to get the sheep. (čav: Primorska for bye)", "de": "Tschüss, Jan! Ich hol die Schafe. (čav: so sagt man in Primorska tschüss)", "it": "Ciao, Jan! Vado a prendere le pecore. (čav: il ciao della Primorska)" },
-      { "sl": "Se vidimo! Pazi na burjo.", "en": "See you! Watch out for the burja.", "de": "Bis bald! Pass auf die Bora auf.", "it": "Ci vediamo! Attento alla bora." }
+      { "sl": "Čav, {learner}! Grem po ovce.", "en": "Bye, {learner}! I'm off to get the sheep. (čav: Primorska for bye)", "de": "Tschüss, {learner}! Ich hol die Schafe. (čav: so sagt man in Primorska tschüss)", "it": "Ciao, {learner}! Vado a prendere le pecore. (čav: il ciao della Primorska)" },
+      { "sl": "Se vidimo! Pazi na burjo.", "en": "See you! Watch out for the burja.", "de": "Bis bald! Pass auf die Bora auf.", "it": "Ci vediamo! {m:Attento|f:Attenta} alla bora." }
     ],
     "gift": {
       "liked": [
-        { "sl": "Ej, Jan! Kako si vedel? To imam res rad!", "en": "Hey, Jan! How did you know? I really like this!", "de": "He, Jan! Woher wusstest du das? Das mag ich echt!", "it": "Ehi, Jan! Come lo sapevi? Questo mi piace un sacco!" },
-        { "sl": "Zame? Super! Bela, poglej, kaj mi je dal Jan!", "en": "For me? Great! Bela, look what Jan gave me!", "de": "Für mich? Super! Bela, schau, was Jan mir geschenkt hat!", "it": "Per me? Forte! Bela, guarda cosa mi ha regalato Jan!" },
-        { "sl": "Ej, hvala, prijatelj! Točno to rabim na planini.", "en": "Hey, thanks, friend! Exactly what I need up on the pasture.", "de": "He, danke, Freund! Genau das brauche ich auf der Alm.", "it": "Ehi, grazie, amico! Proprio quello che mi serve al pascolo." }
+        { "sl": "Ej, {learner}! Kako si {m:vedel|f:vedela}? To imam res rad!", "en": "Hey, {learner}! How did you know? I really like this!", "de": "He, {learner}! Woher wusstest du das? Das mag ich echt!", "it": "Ehi, {learner}! Come lo sapevi? Questo mi piace un sacco!" },
+        { "sl": "Zame? Super! Bela, poglej, kaj mi je dal {learner}!", "en": "For me? Great! Bela, look what {learner} gave me!", "de": "Für mich? Super! Bela, schau, was {learner} mir geschenkt hat!", "it": "Per me? Forte! Bela, guarda cosa mi ha regalato {learner}!" },
+        { "sl": "Ej, hvala, {m:prijatelj|f:prijateljica}! Točno to rabim na planini.", "en": "Hey, thanks, friend! Exactly what I need up on the pasture.", "de": "He, danke, {m:Freund|f:Freundin}! Genau das brauche ich auf der Alm.", "it": "Ehi, grazie, {m:amico|f:amica}! Proprio quello che mi serve al pascolo." }
       ],
       "ordinary": [
-        { "sl": "Ej, hvala, Jan! Lepo od tebe.", "en": "Hey, thanks, Jan! That's nice of you.", "de": "He, danke, Jan! Nett von dir.", "it": "Ehi, grazie, Jan! Gentile da parte tua." },
+        { "sl": "Ej, hvala, {learner}! Lepo od tebe.", "en": "Hey, thanks, {learner}! That's nice of you.", "de": "He, danke, {learner}! Nett von dir.", "it": "Ehi, grazie, {learner}! Gentile da parte tua." },
         { "sl": "O, hvala! Ni treba, veš. Ampak hvala.", "en": "Oh, thanks! You don't have to, you know. But thanks.", "de": "Oh, danke! Das wäre nicht nötig gewesen, weißt du. Aber danke.", "it": "Oh, grazie! Non dovevi, sai. Ma grazie." }
       ],
       "rare": [
-        { "sl": "Ej, ej, ej! Tega pa še nisem imel! Hvala, brat!", "en": "Hey, hey, hey! I've never had this! Thanks, brother!", "de": "He, he, he! So was hatte ich noch nie! Danke, Bruder!", "it": "Ehi, ehi, ehi! Una cosa così non l'ho mai avuta! Grazie, fratello!" }
+        { "sl": "Ej, ej, ej! Tega pa še nisem imel! Hvala, {m:brat|f:punca}!", "en": "Hey, hey, hey! I've never had this! Thanks, {m:brother|f:girl}!", "de": "He, he, he! So was hatte ich noch nie! Danke, {m:Bruder|f:Mädel}!", "it": "Ehi, ehi, ehi! Una cosa così non l'ho mai avuta! Grazie, {m:fratello|f:ragazza}!" }
       ]
     }
   }

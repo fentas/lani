@@ -4,9 +4,9 @@
   "level": "A1",
   "title": { "sl": "Pismo od Marka", "en": "A letter from Marko", "de": "Ein Brief von Marko", "it": "Una lettera di Marko" },
   "by": "marko",
-  "intro": { "sl": "Vinar Marko je Janu napisal kratko pismo.", "en": "Marko the winemaker wrote Jan a short letter.", "de": "Winzer Marko hat Jan einen kurzen Brief geschrieben.", "it": "Il vignaiolo Marko ha scritto a Jan una breve lettera." },
+  "intro": { "sl": "Vinar Marko je {learner:dat} napisal kratko pismo.", "en": "Marko the winemaker wrote {learner} a short letter.", "de": "Winzer Marko hat {learner} einen kurzen Brief geschrieben.", "it": "Il vignaiolo Marko ha scritto a {learner} una breve lettera." },
   "lines": [
-    { "text": { "sl": "Dragi Jan!", "en": "Dear Jan,", "de": "Lieber Jan,", "it": "Caro Jan," } },
+    { "text": { "sl": "{m:Dragi|f:Draga} {learner}!", "en": "Dear {learner},", "de": "{m:Lieber|f:Liebe} {learner},", "it": "{m:Caro|f:Cara} {learner}," } },
     { "text": { "sl": "V soboto bo pri nas trgatev.", "en": "On Saturday we're having the grape harvest.", "de": "Am Samstag ist bei uns Weinlese.", "it": "Sabato da noi c'è la vendemmia." } },
     { "text": { "sl": "Grozdje je letos sladko in lepo.", "en": "The grapes are sweet and fine this year.", "de": "Die Trauben sind dieses Jahr süß und schön.", "it": "Quest'anno l'uva è dolce e bella." } },
     { "text": { "sl": "Ali prideš pomagat? Začnemo ob osmih zjutraj.", "en": "Will you come and help? We start at eight in the morning.", "de": "Kommst du helfen? Wir fangen um acht Uhr morgens an.", "it": "Vieni ad aiutare? Cominciamo alle otto di mattina." } },
@@ -18,13 +18,13 @@
   "questions": [
     {
       "type": "main_idea",
-      "ask": { "sl": "Zakaj Marko piše Janu?", "en": "Why is Marko writing to Jan?", "de": "Warum schreibt Marko Jan?", "it": "Perché Marko scrive a Jan?" },
+      "ask": { "sl": "Zakaj Marko piše {learner:dat}?", "en": "Why is Marko writing to {learner}?", "de": "Warum schreibt Marko {learner}?", "it": "Perché Marko scrive a {learner}?" },
       "options": ["Povabi ga na trgatev", "Prosi ga za vino", "Pove mu, da je bolan"],
       "explain": {
-        "sl": "Marko Jana povabi, naj v soboto pride pomagat pri trgatvi.",
-        "en": "Marko invites Jan to come and help with the grape harvest on Saturday.",
-        "de": "Marko lädt Jan ein, am Samstag bei der Weinlese zu helfen.",
-        "it": "Marko invita Jan a venire ad aiutare con la vendemmia sabato."
+        "sl": "Marko {learner:acc} povabi, naj v soboto pride pomagat pri trgatvi.",
+        "en": "Marko invites {learner} to come and help with the grape harvest on Saturday.",
+        "de": "Marko lädt {learner} ein, am Samstag bei der Weinlese zu helfen.",
+        "it": "Marko invita {learner} a venire ad aiutare con la vendemmia sabato."
       }
     },
     {
@@ -52,13 +52,13 @@
     },
     {
       "type": "true_false",
-      "ask": { "sl": "Jan mora prinesti kosilo.", "en": "Jan has to bring lunch.", "de": "Jan muss das Mittagessen mitbringen.", "it": "Jan deve portare il pranzo." },
+      "ask": { "sl": "{learner} mora prinesti kosilo.", "en": "{learner} has to bring lunch.", "de": "{learner} muss das Mittagessen mitbringen.", "it": "{learner} deve portare il pranzo." },
       "answer": false,
       "explain": {
-        "sl": "Ne drži: kosilo bo prinesla Vida. Jan naj prinese škarje in klobuk.",
-        "en": "False: Vida will bring lunch. Jan should bring shears and a hat.",
-        "de": "Stimmt nicht: Das Mittagessen bringt Vida. Jan soll eine Schere und einen Hut mitbringen.",
-        "it": "Falso: il pranzo lo porterà Vida. Jan deve portare le forbici e un cappello."
+        "sl": "Ne drži: kosilo bo prinesla Vida. {learner} naj prinese škarje in klobuk.",
+        "en": "False: Vida will bring lunch. {learner} should bring shears and a hat.",
+        "de": "Stimmt nicht: Das Mittagessen bringt Vida. {learner} soll eine Schere und einen Hut mitbringen.",
+        "it": "Falso: il pranzo lo porterà Vida. {learner} deve portare le forbici e un cappello."
       }
     },
     {
@@ -66,10 +66,10 @@
       "ask": { "sl": "Kakšno vreme bo v soboto?", "en": "What will the weather be like on Saturday?", "de": "Wie wird das Wetter am Samstag?", "it": "Che tempo farà sabato?" },
       "options": ["Sončno in toplo", "Deževno", "Mrzlo, s snegom"],
       "explain": {
-        "sl": "Marko piše, naj Jan prinese klobuk, »ker bo vroče«.",
-        "en": "Marko writes that Jan should bring a hat »because it will be hot«.",
-        "de": "Marko schreibt, Jan soll einen Hut mitbringen, »denn es wird heiß«.",
-        "it": "Marko scrive che Jan porti un cappello, «perché farà caldo»."
+        "sl": "Marko piše, naj {learner} prinese klobuk, »ker bo vroče«.",
+        "en": "Marko writes that {learner} should bring a hat »because it will be hot«.",
+        "de": "Marko schreibt, {learner} soll einen Hut mitbringen, »denn es wird heiß«.",
+        "it": "Marko scrive che {learner} porti un cappello, «perché farà caldo»."
       }
     }
   ],

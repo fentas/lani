@@ -12,7 +12,7 @@
   "skill": "wisdom",
   "order": 4,
   "routine": { "up": "6:30", "bed": "22:45" },
-  "personality": "Slow and proverbial. Short sentences with pauses, a saying for everything ('Brez muje se še čevelj ne obuje'), likes 'veš, fant' and 'nekoč'. Says ti to Jan, expects vi. Has climbed Triglav five times and reminds everyone that every Slovene must go up once. Gruff on the outside, moved by a good story.",
+  "personality": "Slow and proverbial. Short sentences with pauses, a saying for everything ('Brez muje se še čevelj ne obuje'), likes {m:'veš, fant'|f:'veš, dekle'} and 'nekoč'. Says ti to {learner}, expects vi. Has climbed Triglav five times and reminds everyone that every Slovene must go up once. Gruff on the outside, moved by a good story.",
   "story": "The village's storyteller. Janez was a hunter and a forester on the Trnovo plateau; now he sits under the linden, or on the old high seat at the forest edge, and tells of Zlatorog, King Matjaž and the winters when the snow reached the roofs. His wife Ana died some years ago; his small brown dog Muri keeps him company.",
   "likes": [
     { "sl": "zgodbe", "en": "stories", "de": "Geschichten", "it": "le storie" },
@@ -23,17 +23,17 @@
   "lines": {
     "greet": [
       { "sl": "Dober dan. Sedi, sedi.", "en": "Good day. Sit, sit.", "de": "Guten Tag. Setz dich, setz dich.", "it": "Buongiorno. Siediti, siediti.", "level": 0, "when": ["morning", "afternoon"] },
-      { "sl": "Dober dan, mladi mož.", "en": "Good day, young man.", "de": "Guten Tag, junger Mann.", "it": "Buongiorno, giovanotto.", "level": 0, "when": ["morning", "afternoon"] },
-      { "sl": "Dober večer, mladi mož. Sedi k ognju.", "en": "Good evening, young man. Sit by the fire.", "de": "Guten Abend, junger Mann. Setz dich ans Feuer.", "it": "Buonasera, giovanotto. Siediti vicino al fuoco.", "level": 0, "when": ["evening", "night"] },
-      { "sl": "O, Jan. Sedi k meni. Lep dan, ne?", "en": "Oh, Jan. Sit by me. A nice day, isn't it?", "de": "Oh, Jan. Setz dich zu mir. Ein schöner Tag, nicht?", "it": "Oh, Jan. Siediti vicino a me. Una bella giornata, vero?", "level": 1, "when": ["morning", "afternoon"] },
-      { "sl": "Jan, fant. Imaš čas za eno zgodbo?", "en": "Jan, lad. Do you have time for a story?", "de": "Jan, Junge. Hast du Zeit für eine Geschichte?", "it": "Jan, ragazzo. Hai tempo per una storia?", "level": 2 },
-      { "sl": "Jan! Muri te je že slišal. Sedi, sedi.", "en": "Jan! Muri heard you coming. Sit, sit.", "de": "Jan! Muri hat dich schon kommen hören. Setz dich, setz dich.", "it": "Jan! Muri ti ha già sentito arrivare. Siediti, siediti.", "level": 3 },
-      { "sl": "Moj fant. Danes ti povem zgodbo, ki je še nihče ne pozna.", "en": "My lad. Today I will tell you a story nobody knows yet.", "de": "Mein Junge. Heute erzähle ich dir eine Geschichte, die noch niemand kennt.", "it": "Ragazzo mio. Oggi ti racconto una storia che nessuno conosce ancora.", "level": 4 }
+      { "sl": "Dober dan, {m:mladi mož|f:gospodična}.", "en": "Good day, {m:young man|f:young lady}.", "de": "Guten Tag, {m:junger Mann|f:junge Frau}.", "it": "Buongiorno, {m:giovanotto|f:signorina}.", "level": 0, "when": ["morning", "afternoon"] },
+      { "sl": "Dober večer, {m:mladi mož|f:gospodična}. Sedi k ognju.", "en": "Good evening, {m:young man|f:young lady}. Sit by the fire.", "de": "Guten Abend, {m:junger Mann|f:junge Frau}. Setz dich ans Feuer.", "it": "Buonasera, {m:giovanotto|f:signorina}. Siediti vicino al fuoco.", "level": 0, "when": ["evening", "night"] },
+      { "sl": "O, {learner}. Sedi k meni. Lep dan, ne?", "en": "Oh, {learner}. Sit by me. A nice day, isn't it?", "de": "Oh, {learner}. Setz dich zu mir. Ein schöner Tag, nicht?", "it": "Oh, {learner}. Siediti vicino a me. Una bella giornata, vero?", "level": 1, "when": ["morning", "afternoon"] },
+      { "sl": "{learner}, {m:fant|f:dekle}. Imaš čas za eno zgodbo?", "en": "{learner}, {m:lad|f:lass}. Do you have time for a story?", "de": "{learner}, {m:Junge|f:Mädchen}. Hast du Zeit für eine Geschichte?", "it": "{learner}, {m:ragazzo|f:ragazza}. Hai tempo per una storia?", "level": 2 },
+      { "sl": "{learner}! Muri te je že slišal. Sedi, sedi.", "en": "{learner}! Muri heard you coming. Sit, sit.", "de": "{learner}! Muri hat dich schon kommen hören. Setz dich, setz dich.", "it": "{learner}! Muri ti ha già sentito arrivare. Siediti, siediti.", "level": 3 },
+      { "sl": "{m:Moj fant|f:Moje dekle}. Danes ti povem zgodbo, ki je še nihče ne pozna.", "en": "{m:My lad|f:My lass}. Today I will tell you a story nobody knows yet.", "de": "{m:Mein Junge|f:Mein Mädchen}. Heute erzähle ich dir eine Geschichte, die noch niemand kennt.", "it": "{m:Ragazzo mio|f:Ragazza mia}. Oggi ti racconto una storia che nessuno conosce ancora.", "level": 4 }
     ],
     "thanks": [
-      { "sl": "Hvala, fant. Star sem, a ne pozabim.", "en": "Thank you, lad. I am old, but I do not forget.", "de": "Danke, Junge. Ich bin alt, aber ich vergesse nicht.", "it": "Grazie, ragazzo. Sono vecchio, ma non dimentico." },
+      { "sl": "Hvala, {m:fant|f:dekle}. Star sem, a ne pozabim.", "en": "Thank you, {m:lad|f:lass}. I am old, but I do not forget.", "de": "Danke, {m:Junge|f:Mädchen}. Ich bin alt, aber ich vergesse nicht.", "it": "Grazie, {m:ragazzo|f:ragazza}. Sono vecchio, ma non dimentico." },
       { "sl": "Hvala ti. Kdor pomaga, ni nikoli sam.", "en": "Thank you. Whoever helps is never alone.", "de": "Danke dir. Wer hilft, ist nie allein.", "it": "Grazie. Chi aiuta non è mai solo." },
-      { "sl": "Dobro delo, Jan. Muri, daj tačko!", "en": "Good work, Jan. Muri, give a paw!", "de": "Gute Arbeit, Jan. Muri, gib Pfötchen!", "it": "Bel lavoro, Jan. Muri, dai la zampa!" }
+      { "sl": "Dobro delo, {learner}. Muri, daj tačko!", "en": "Good work, {learner}. Muri, give a paw!", "de": "Gute Arbeit, {learner}. Muri, gib Pfötchen!", "it": "Bel lavoro, {learner}. Muri, dai la zampa!" }
     ],
     "remember": [
       { "sl": "Še vedno mislim na {memory}.", "en": "I still think of {memory}.", "de": "Ich denke noch oft an {memory}.", "it": "Ricordo ancora {memory}.", "level": 1 },
@@ -49,7 +49,7 @@
     "cheer": [
       { "sl": "Tako je. Dobro.", "en": "That's right. Good.", "de": "So ist es. Gut.", "it": "Proprio così. Bene." },
       { "sl": "Vidiš? Počasi se daleč pride.", "en": "See? Slowly one gets far.", "de": "Siehst du? Langsam kommt man weit.", "it": "Vedi? Piano piano si arriva lontano." },
-      { "sl": "Bravo, fant. Kot pravi Slovenec.", "en": "Well done, lad. Like a real Slovene.", "de": "Gut gemacht, Junge. Wie ein echter Slowene.", "it": "Bravo, ragazzo. Come un vero sloveno." }
+      { "sl": "Bravo, {m:fant|f:dekle}. Kot {m:pravi Slovenec|f:prava Slovenka}.", "en": "Well done, {m:lad|f:lass}. Like a real Slovene.", "de": "Gut gemacht, {m:Junge|f:Mädchen}. Wie {m:ein echter Slowene|f:eine echte Slowenin}.", "it": "{m:Bravo, ragazzo|f:Brava, ragazza}. Come {m:un vero sloveno|f:una vera slovena}." }
     ],
     "comfort": [
       { "sl": "Nič hudega. Tudi na Triglav ne prideš v eni uri.", "en": "Never mind. You do not get up Triglav in an hour either.", "de": "Macht nichts. Auf den Triglav kommst du auch nicht in einer Stunde.", "it": "Non fa niente. Neanche sul Tricorno ci arrivi in un'ora." },
@@ -57,28 +57,28 @@
       { "sl": "Brez muje se še čevelj ne obuje.", "en": "Without effort not even a shoe gets put on (a Slovene proverb: nothing comes without effort).", "de": "Ohne Mühe zieht man nicht einmal einen Schuh an (ein slowenisches Sprichwort: Ohne Mühe gibt es nichts).", "it": "Senza fatica non si infila neanche una scarpa (un proverbio sloveno: niente si ottiene senza fatica)." }
     ],
     "listen": [
-      { "sl": "Poslušaj, fant. Samo enkrat povem.", "en": "Listen, lad. I will say it only once.", "de": "Hör zu, Junge. Ich sage es nur einmal.", "it": "Ascolta, ragazzo. Lo dico una volta sola." },
+      { "sl": "Poslušaj, {m:fant|f:dekle}. Samo enkrat povem.", "en": "Listen, {m:lad|f:lass}. I will say it only once.", "de": "Hör zu, {m:Junge|f:Mädchen}. Ich sage es nur einmal.", "it": "Ascolta, {m:ragazzo|f:ragazza}. Lo dico una volta sola." },
       { "sl": "Tiho. Poslušaj.", "en": "Quiet. Listen.", "de": "Ruhe. Hör zu.", "it": "Silenzio. Ascolta." },
       { "sl": "Zdaj pa poslušaj.", "en": "Now listen.", "de": "Jetzt hör zu.", "it": "Adesso ascolta." }
     ],
     "bye": [
-      { "sl": "Lahko noč, fant.", "en": "Good night, lad.", "de": "Gute Nacht, Junge.", "it": "Buonanotte, ragazzo.", "when": ["evening", "night"] },
-      { "sl": "Lep dan, fant. Dan je dolg, ne hiti.", "en": "Have a nice day, lad. The day is long, don't hurry.", "de": "Einen schönen Tag, Junge. Der Tag ist lang, eil dich nicht.", "it": "Buona giornata, ragazzo. La giornata è lunga, non avere fretta.", "when": ["morning", "afternoon"] },
-      { "sl": "Na svidenje, Jan. Muri, domov!", "en": "Goodbye, Jan. Muri, home!", "de": "Auf Wiedersehen, Jan. Muri, nach Hause!", "it": "Arrivederci, Jan. Muri, a casa!" },
+      { "sl": "Lahko noč, {m:fant|f:dekle}.", "en": "Good night, {m:lad|f:lass}.", "de": "Gute Nacht, {m:Junge|f:Mädchen}.", "it": "Buonanotte, {m:ragazzo|f:ragazza}.", "when": ["evening", "night"] },
+      { "sl": "Lep dan, {m:fant|f:dekle}. Dan je dolg, ne hiti.", "en": "Have a nice day, {m:lad|f:lass}. The day is long, don't hurry.", "de": "Einen schönen Tag, {m:Junge|f:Mädchen}. Der Tag ist lang, eil dich nicht.", "it": "Buona giornata, {m:ragazzo|f:ragazza}. La giornata è lunga, non avere fretta.", "when": ["morning", "afternoon"] },
+      { "sl": "Na svidenje, {learner}. Muri, domov!", "en": "Goodbye, {learner}. Muri, home!", "de": "Auf Wiedersehen, {learner}. Muri, nach Hause!", "it": "Arrivederci, {learner}. Muri, a casa!" },
       { "sl": "Pojdi, pojdi. Jutri je nov dan.", "en": "Go, go. Tomorrow is a new day.", "de": "Geh nur, geh. Morgen ist ein neuer Tag.", "it": "Vai, vai. Domani è un altro giorno." }
     ],
     "gift": {
       "liked": [
-        { "sl": "O, fant. Kako si vedel? To imam zelo rad.", "en": "Oh, lad. How did you know? I like this very much.", "de": "Oh, Junge. Woher wusstest du das? Das mag ich sehr.", "it": "Oh, ragazzo. Come lo sapevi? Questo mi piace tanto." },
-        { "sl": "Veš, fant: majhno darilo, veliko srce. Hvala.", "en": "You know, lad: a small gift, a big heart. Thank you.", "de": "Weißt du, Junge: kleines Geschenk, großes Herz. Danke.", "it": "Sai, ragazzo: piccolo regalo, grande cuore. Grazie." },
-        { "sl": "Lepo, lepo. Muri, poglej, kaj mi je prinesel Jan!", "en": "Nice, nice. Muri, look what Jan brought me!", "de": "Schön, schön. Muri, schau, was Jan mir gebracht hat!", "it": "Bello, bello. Muri, guarda cosa mi ha portato Jan!" }
+        { "sl": "O, {m:fant|f:dekle}. Kako si {m:vedel|f:vedela}? To imam zelo rad.", "en": "Oh, {m:lad|f:lass}. How did you know? I like this very much.", "de": "Oh, {m:Junge|f:Mädchen}. Woher wusstest du das? Das mag ich sehr.", "it": "Oh, {m:ragazzo|f:ragazza}. Come lo sapevi? Questo mi piace tanto." },
+        { "sl": "Veš, {m:fant|f:dekle}: majhno darilo, veliko srce. Hvala.", "en": "You know, {m:lad|f:lass}: a small gift, a big heart. Thank you.", "de": "Weißt du, {m:Junge|f:Mädchen}: kleines Geschenk, großes Herz. Danke.", "it": "Sai, {m:ragazzo|f:ragazza}: piccolo regalo, grande cuore. Grazie." },
+        { "sl": "Lepo, lepo. Muri, poglej, kaj mi je {m:prinesel|f:prinesla} {learner}!", "en": "Nice, nice. Muri, look what {learner} brought me!", "de": "Schön, schön. Muri, schau, was {learner} mir gebracht hat!", "it": "Bello, bello. Muri, guarda cosa mi ha portato {learner}!" }
       ],
       "ordinary": [
-        { "sl": "Hvala, fant. Kdor hitro da, dvakrat da.", "en": "Thank you, lad. Who gives quickly gives twice.", "de": "Danke, Junge. Wer schnell gibt, gibt doppelt.", "it": "Grazie, ragazzo. Chi dà subito dà due volte." },
-        { "sl": "Hvala ti, Jan. Sedi, sedi.", "en": "Thank you, Jan. Sit, sit.", "de": "Danke dir, Jan. Setz dich, setz dich.", "it": "Grazie, Jan. Siediti, siediti." }
+        { "sl": "Hvala, {m:fant|f:dekle}. Kdor hitro da, dvakrat da.", "en": "Thank you, {m:lad|f:lass}. Who gives quickly gives twice.", "de": "Danke, {m:Junge|f:Mädchen}. Wer schnell gibt, gibt doppelt.", "it": "Grazie, {m:ragazzo|f:ragazza}. Chi dà subito dà due volte." },
+        { "sl": "Hvala ti, {learner}. Sedi, sedi.", "en": "Thank you, {learner}. Sit, sit.", "de": "Danke dir, {learner}. Setz dich, setz dich.", "it": "Grazie, {learner}. Siediti, siediti." }
       ],
       "rare": [
-        { "sl": "Fant, fant … Kaj takega nisem dobil že sto let. Hvala ti.", "en": "Lad, lad … Nobody has given me anything like this in a hundred years. Thank you.", "de": "Junge, Junge … So etwas hat mir seit hundert Jahren keiner geschenkt. Danke dir.", "it": "Ragazzo, ragazzo … Da cent'anni nessuno mi regalava una cosa così. Grazie." }
+        { "sl": "{m:Fant, fant|f:Dekle, dekle} … Kaj takega nisem dobil že sto let. Hvala ti.", "en": "{m:Lad, lad|f:Lass, lass} … Nobody has given me anything like this in a hundred years. Thank you.", "de": "{m:Junge, Junge|f:Mädchen, Mädchen} … So etwas hat mir seit hundert Jahren keiner geschenkt. Danke dir.", "it": "{m:Ragazzo, ragazzo|f:Ragazza, ragazza} … Da cent'anni nessuno mi regalava una cosa così. Grazie." }
       ]
     }
   }
