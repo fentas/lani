@@ -238,6 +238,8 @@ class SetupWizardTest(unittest.TestCase):
         self.ok()  # nothing asked, nothing told: nothing changes
         self.assertEqual(head, self.git(data, "rev-parse", "HEAD"))
         self.assertEqual(text, self.lani_env.read_text())
+        self.assertIn("imported before", self.ok("--import", str(old)))  # the same command again: done already
+        self.assertEqual(head, self.git(data, "rev-parse", "HEAD"))
         self.ok("--level", "B1", "--goal", "45")
         learner = json.loads((data / "learner-profile.json").read_text())["learner"]
         self.assertEqual(("B1", "B2", 45, "male"), (learner["current_level"], learner["target_level"], learner["daily_goal_minutes"], learner["gender"]))

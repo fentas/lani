@@ -244,10 +244,13 @@ let dataDir = resolve(
 )
 const voiceCache = resolve(expandHome(cfg.LANI_VOICE_CACHE ?? defaultVoiceCache(), homeOf()))
 const releaseDir = resolve(expandHome(cfg.LANI_RELEASE_DIR ?? defaultReleaseDir(), homeOf()))
+const wasRepo = existsSync(join(dataDir, '.git'))
 if (holdsLearner(dataDir)) {
-  if (source && source !== dataDir) die(`${tilde(dataDir)} holds a learner already. Import into a directory without one (--data), or move it away first.`)
+  // the learner set up before (lani.env names this directory): an --import again is done already
+  if (source && dataDir !== existing) die(`${tilde(dataDir)} holds a learner already. Import into a directory without one (--data), or move it away first.`)
   if (existing && existing !== dataDir) die(`${tilde(dataDir)} holds another learner's data. lani-setup sets up one learner (the others: companion/bin/lani-profile).`)
-  applyLearner(dataDir, answers) && p.log.success("Updated the learner's profile.")
+  if (source) p.log.info(`${tilde(dataDir)} has the learner already (imported before): nothing imported again.`)
+  if (applyLearner(dataDir, answers)) p.log.success("Updated the learner's profile.")
 } else if (existing && existing !== dataDir) {
   // a new place for the same learner: the data repository is copied; the old one stays until you remove it
   const s = spin()
@@ -278,7 +281,8 @@ if (holdsLearner(dataDir)) {
   initLearnerData(projectDir, dataDir, { name, target, base, level, gender: answers.gender, goal, culture, results: join(dataDir, 'results') })
   p.log.success(`A new learner, ${name}, in ${tilde(dataDir)}.`)
 }
-const init = dataRepo(projectDir, ['init', dataDir, '-m', source ? `lani-setup: imported from ${source}` : `lani-setup: ${name}'s data`])
+const message = wasRepo ? `lani-setup: ${name}'s profile` : source ? `lani-setup: imported from ${source}` : `lani-setup: ${name}'s data`
+const init = dataRepo(projectDir, ['init', dataDir, '-m', message])
 if (!init.ok) die(`The data repository: ${init.err}`)
 p.log.success(`The data is a git repository${init.out ? ` (commit ${init.out})` : ''}: commits after each session; secrets and caches stay out (.gitignore).`)
 Object.assign(cfg, {
