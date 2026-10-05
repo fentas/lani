@@ -81,6 +81,7 @@ class RoadService : MediaLibraryService() {
     override fun onCreate() {
         super.onCreate()
         LangSetting(this).apply()
+        si.lanisce.lani.l10n.LearnerSetting(this).apply() // and the content said to the learner of the profile
         store = RoadStore(this)
         library = store.readLibrary() ?: RoadLibrary()
         player = ExoPlayer.Builder(this)

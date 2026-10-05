@@ -402,7 +402,7 @@ class SceneController(
     private suspend fun fixture(): List<SceneSpec> {
         if (!BuildConfig.DEBUG) return emptyList()
         return withContext(Dispatchers.IO) {
-            runCatching { app.assets.open(FIXTURE).bufferedReader().use { parseScenes(it.readText()) } }.getOrDefault(emptyList())
+            runCatching { app.assets.open(FIXTURE).bufferedReader().use { parseScenes(si.lanisce.lani.l10n.Learner.current.renderJson(it.readText())) } }.getOrDefault(emptyList())
         }
     }
 

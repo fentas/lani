@@ -6,6 +6,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 
 const LANG = /^[a-z]{2,3}$/
 const str = z.string().trim().min(1)
@@ -134,7 +135,7 @@ function standsIn(word: string, all: string): boolean {
  * new word's form in the text, who reads it among the [cast] (named [castWhere]). Each problem with [where] (the file).
  */
 export function checkReading(r: Reading, lang: string, where: string, cast?: { id: string }[], castWhere = 'the cast'): string[] {
-  const errors: string[] = []
+  const errors: string[] = learnerErrorsIn(r).map(e => `${where}: ${e}`)
   const langs = Object.keys(r.title)
   if (!langs.some(l => l !== lang)) errors.push(`${where}: title: no translation (a language besides "${lang}")`)
   for (const [path, t] of texts(r, 'reading')) {

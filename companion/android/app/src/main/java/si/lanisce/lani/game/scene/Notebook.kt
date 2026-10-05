@@ -122,7 +122,7 @@ object Notebook {
         if (outside.isEmpty()) return false
         if (outside.trimEnd(' ', '.', '!', '…', ':', ',', '«', '»', '"', '“', '”').endsWith('?') || outside.contains("?")) return true
         val low = outside.lowercase()
-        if (NAMES.any { it.containsMatchIn(outside) }) return true
+        if (names().any { it.containsMatchIn(outside) }) return true
         return ASIDES[lang].orEmpty().any { it.containsMatchIn(low) } || VOCATIVES[lang]?.containsMatchIn(outside) == true
     }
 
@@ -154,8 +154,14 @@ object Notebook {
     private fun word(phrase: String): Regex =
         if (phrase.endsWith("*")) Regex("(?<![\\p{L}\\p{N}])${phrase.dropLast(1)}") else Regex("(?<![\\p{L}\\p{N}])$phrase(?![\\p{L}\\p{N}])")
 
-    /** The learner the tellings talk to. */
-    private val NAMES = listOf(word("Jan"))
+    /** The learner the tellings talk to, by every form of their name (l10n/Learner.kt), made once for each learner. */
+    @Volatile
+    private var named: Pair<si.lanisce.lani.l10n.Learner, List<Regex>>? = null
+
+    private fun names(): List<Regex> {
+        val l = si.lanisce.lani.l10n.Learner.current
+        return named?.takeIf { it.first === l }?.second ?: l.names.map { word(Regex.escape(it)) }.also { named = l to it }
+    }
 
     /** An aside a sentence opens with: "Veš, …", "Sai, …", "Weißt du, …", "You know, …". */
     private val LEADS = mapOf(
@@ -165,12 +171,12 @@ object Notebook {
         "en" to Regex("^(You know|You see|Listen|Look|Mind you|Well)[,:]\\s*"),
     )
 
-    /** The listener called by a name the tellings give him: at a comma, a colon or the sentence's edge. */
+    /** The listener called by a name the tellings give them (a boy's or a girl's): at a comma, a colon or the sentence's edge. */
     private val VOCATIVES = mapOf(
-        "sl" to Regex("(^|[,:;!]\\s*)(fant|fantič|mali|otrok|prijatelj)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
+        "sl" to Regex("(^|[,:;!]\\s*)(fant|fantič|mali|mala|otrok|prijatelj|prijateljica|dekle|deklica|punca|punčka)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
         "it" to Regex("(^|[,:;!]\\s*)(piccol[oa]|ragazz[oa]|car[oa]|bambin[oa])\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
-        "de" to Regex("(^|[,:;!]\\s*)(Kleiner|Kleine|Junge|mein Junge|Bub|Bursch)\\s*([,:;!.]|$)"),
-        "en" to Regex("(^|[,:;!]\\s*)(lad|son|my boy|boy|little one|young one)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
+        "de" to Regex("(^|[,:;!]\\s*)(Kleiner|Kleine|Junge|mein Junge|Bub|Bursch|Mädchen|mein Mädchen|Mädel|Dirndl)\\s*([,:;!.]|$)"),
+        "en" to Regex("(^|[,:;!]\\s*)(lad|lass|son|my boy|my girl|boy|girl|little one|young one)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
     )
 
     /** What a teller says to the listener, not of the story: the greetings, "sit", "listen", "tell me", tonight and tomorrow, the story itself. */

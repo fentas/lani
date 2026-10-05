@@ -81,7 +81,7 @@ private data class ModuleWire(
  * (published by a newer bridge) becomes [Exercise.Unsupported] instead of failing the module.
  */
 fun parseModule(raw: String): Module {
-    val w = json.decodeFromString<ModuleWire>(raw)
+    val w = json.decodeFromString<ModuleWire>(si.lanisce.lani.l10n.Learner.current.renderJson(raw))
     val exercises = w.exercises.map { o ->
         runCatching { json.decodeFromJsonElement(Exercise.serializer(), o) }
             .getOrElse { Exercise.Unsupported(o["type"]?.jsonPrimitive?.contentOrNull ?: "?") }
@@ -365,7 +365,17 @@ data class Dashboard(
      * words a building's upgrade asks for count when they're here (companion/GAME.md, "Knowledge builds").
      */
     val learned: Set<String> = emptySet(),
+    /**
+     * Who the content speaks to (l10n/Learner.kt): the profile's `learner.gender` ("male", "female"; null when it doesn't
+     * say: male) and `learner.name_forms` (the cases of [name] the rules get wrong).
+     */
+    val gender: String? = null,
+    val nameForms: Map<String, String> = emptyMap(),
 ) {
+    /** The profile's learner as the content addresses them (l10n/LearnerSetting.kt keeps it). */
+    val addressee: si.lanisce.lani.l10n.LearnerSetting.Profile
+        get() = si.lanisce.lani.l10n.LearnerSetting.Profile(name.takeIf { it.isNotBlank() }, gender, nameForms)
+
     /** The languages other than the home one: each has its own review deck and stats. */
     val otherLanguages: List<LanguageSummary> get() = languages.filter { !it.home && it.code.isNotEmpty() }
 
@@ -516,6 +526,8 @@ data class Dashboard(
                 reviewMarks = marks,
                 practised = practised,
                 levelSince = day(learner.str("level_since")) ?: day(profile.str("profile_created")) ?: practised.minOrNull(),
+                gender = learner.str("gender")?.trim()?.takeIf { it.isNotEmpty() },
+                nameForms = learner["name_forms"].obj().mapNotNull { (k, v) -> (v as? JsonPrimitive)?.contentOrNull?.let { k to it } }.toMap(),
             )
         }
     }

@@ -52,9 +52,9 @@ const profilesIn = z.object({
 const redesignIn = z.object({ person: personId, description: z.string().trim().min(10).max(900).optional(), like: z.string().trim().min(2).max(64).optional() })
 
 /** Every text to voice (in the village's language) from the review cards and the current packs, modules, scenarios, scenes, villagers, grammar pages, stories and the car's drills. */
-function voiceCorpus({ modules, packs, scenarios, scenes, villagers, learner, culture, grammar, stories, drills }: Ctx): CorpusItem[] {
+function voiceCorpus({ modules, packs, scenarios, scenes, villagers, learner, culture, grammar, stories, drills, addressee }: Ctx): CorpusItem[] {
   const current = modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? [])
-  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k) })), villagers: villagers.all(), cards: learner.reviewCards(), grammar: grammar.all(), stories: stories.all(), drills: drills.all(), ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language })
+  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k) })), villagers: villagers.all(), cards: learner.reviewCards(), grammar: grammar.all(), stories: stories.all(), drills: drills.all(), ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
 }
 
 export const voice: FeatureFactory = ctx => {

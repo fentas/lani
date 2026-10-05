@@ -10,6 +10,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { grammarRef } from './grammar'
 import { LANG, langText } from './langs'
@@ -182,7 +183,9 @@ export type LoadedDrill = Drill & { source: 'curated' }
 export function validateDrill(input: unknown): { ok: true; drill: Drill } | { ok: false; errors: string } {
   const raw = input && typeof input === 'object' && !Array.isArray(input) ? Object.fromEntries(Object.entries(input).filter(([k]) => k !== 'source')) : input
   const r = drillSpec.safeParse(raw)
-  return r.success ? { ok: true, drill: r.data } : { ok: false, errors: z.prettifyError(r.error) }
+  if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
+  const learner = learnerErrorsIn(r.data)
+  return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : { ok: true, drill: r.data }
 }
 
 /** "Micka kuha kosilo." / "micka kuha kosilo" → the same sentence. */

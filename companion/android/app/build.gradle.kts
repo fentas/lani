@@ -185,6 +185,9 @@ android {
         buildConfig = true
     }
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
+    // The unit tests read the curated content said to the learner it was written for before its placeholders (a man named
+    // Jan): every text reads as it always did (l10n/Learner.kt; a test of another learner sets its own).
+    testOptions { unitTests.all { it.systemProperty("lani.learner", "Jan") } }
 }
 
 dependencies {

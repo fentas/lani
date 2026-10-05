@@ -2,6 +2,7 @@
 // number comes from, and its texts carry {n} and the forms that agree with it ({ovca|ovci|ovce|ovc}). The app renders
 // them (game/scene/Numbers.kt, Counts.render); the bridge checks them, with the same categories (a parity test compares).
 import { z } from 'zod'
+import { withoutLearner } from './addressee'
 
 /** Where a count's number comes from: the day's dice, a store of the village, its people, its buildings of a type. */
 export const COUNT_SOURCES = ['dice', 'food', 'wood', 'stone', 'wisdom', 'villagers'] as const
@@ -35,7 +36,8 @@ export const WRONG_SL: Record<number, [number, number]> = { 0: [2, 1], 1: [2, 3]
 /** The wrong category learners put for [n] among [forms] forms: [k] 1 the likeliest, 2 the next (Numbers.wrong). */
 export const wrongCategory = (n: number, forms: number, k: number) => (forms === 4 ? WRONG_SL[slovene(n)][k === 2 ? 1 : 0] : 1 - category(n, 2))
 
-const PLACEHOLDER = /\{(!?)([^{}]*)\}/g
+/** A count's placeholder ({n}, {a|b}, {!a|b}); not the learner's ({learner}, {m:…|f:…}: addressee.ts). */
+const PLACEHOLDER = /\{(?!learner\b|[mf]:)(!?)([^{}]*)\}/g
 
 /** The placeholders of [t]: {n}, and the selects {a|b} / {a|b|c|d} (marked ! for a wrong choice's wrong forms). */
 export function placeholders(t: string): { n: boolean; selects: { marked: boolean; forms: string[] }[]; other: string[] } {
@@ -106,7 +108,7 @@ export function countErrors(d: CountDialog, lang: string, at: string, langs: rea
         else if (!d.count) errs.push(`${here}: wrong_form without a count`)
         else if (typeof c[lang] === 'string' && !placeholders(c[lang] as string).selects.length) errs.push(`${here}: wrong_form, but what it says has no forms ({a|b})`)
       }
-      if (!c.ok && c.reply && Object.values(c.reply).some(v => typeof v === 'string' && /[{}]/.test(v)))
+      if (!c.ok && c.reply && Object.values(c.reply).some(v => typeof v === 'string' && /[{}]/.test(withoutLearner(v))))
         errs.push(`${here}.reply: a reaction has no {…}: it never says the right form`)
     })
   })

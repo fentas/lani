@@ -1,0 +1,47 @@
+{
+  "about": "The learner in the content (companion/SCENES.md, \"The learner in the content\"): how a first name declines and how a text with {learner}, its cases and {m:…|f:…} is said to a learner. The bridge (src/addressee.ts, the smoke's learner section) and the app (l10n/Learner.kt, LearnerTest) read these same cases.",
+  "names": [
+    { "name": "Jan", "gender": "male", "forms": { "gen": "Jana", "dat": "Janu", "acc": "Jana", "loc": "Janu", "ins": "Janom", "poss": "Janov" } },
+    { "name": "Ana", "gender": "female", "forms": { "gen": "Ane", "dat": "Ani", "acc": "Ano", "loc": "Ani", "ins": "Ano", "poss": "Anin" } },
+    { "name": "Mojca", "gender": "female", "forms": { "gen": "Mojce", "dat": "Mojci", "acc": "Mojco", "loc": "Mojci", "ins": "Mojco", "poss": "Mojčin" } },
+    { "name": "Luka", "gender": "male", "forms": { "gen": "Luke", "dat": "Luki", "acc": "Luko", "loc": "Luki", "ins": "Luko", "poss": "Lukov" } },
+    { "name": "Marko", "gender": "male", "forms": { "gen": "Marka", "dat": "Marku", "acc": "Marka", "loc": "Marku", "ins": "Markom", "poss": "Markov" } },
+    { "name": "Tone", "gender": "male", "forms": { "gen": "Toneta", "dat": "Tonetu", "acc": "Toneta", "loc": "Tonetu", "ins": "Tonetom", "poss": "Tonetov" } },
+    { "name": "Toni", "gender": "male", "forms": { "gen": "Tonija", "dat": "Toniju", "acc": "Tonija", "loc": "Toniju", "ins": "Tonijem", "poss": "Tonijev" } },
+    { "name": "Nejc", "gender": "male", "forms": { "gen": "Nejca", "dat": "Nejcu", "acc": "Nejca", "loc": "Nejcu", "ins": "Nejcem", "poss": "Nejčev" } },
+    { "name": "Matej", "gender": "male", "forms": { "gen": "Mateja", "dat": "Mateju", "acc": "Mateja", "loc": "Mateju", "ins": "Matejem", "poss": "Matejev" } },
+    { "name": "Pavel", "gender": "male", "forms": { "gen": "Pavla", "dat": "Pavlu", "acc": "Pavla", "loc": "Pavlu", "ins": "Pavlom", "poss": "Pavlov" } },
+    { "name": "Peter", "gender": "male", "forms": { "gen": "Petra", "dat": "Petru", "acc": "Petra", "loc": "Petru", "ins": "Petrom", "poss": "Petrov" } },
+    { "name": "Aleksander", "gender": "male", "forms": { "gen": "Aleksandra", "dat": "Aleksandru", "acc": "Aleksandra", "loc": "Aleksandru", "ins": "Aleksandrom", "poss": "Aleksandrov" } },
+    { "name": "Tonček", "gender": "male", "forms": { "gen": "Tončka", "dat": "Tončku", "acc": "Tončka", "loc": "Tončku", "ins": "Tončkom", "poss": "Tončkov" } },
+    { "name": "Igor", "gender": "male", "forms": { "gen": "Igorja", "dat": "Igorju", "acc": "Igorja", "loc": "Igorju", "ins": "Igorjem", "poss": "Igorjev" } },
+    { "name": "Gabriel", "gender": "male", "forms": { "gen": "Gabriela", "dat": "Gabrielu", "acc": "Gabriela", "loc": "Gabrielu", "ins": "Gabrielom", "poss": "Gabrielov" } },
+    { "name": "Nives", "gender": "female", "forms": { "gen": "Nives", "dat": "Nives", "acc": "Nives", "loc": "Nives", "ins": "Nives", "poss": "Nivesin" } },
+    { "name": "Beti", "gender": "female", "forms": { "gen": "Beti", "dat": "Beti", "acc": "Beti", "loc": "Beti", "ins": "Beti", "poss": "Betin" } }
+  ],
+  "texts": [
+    { "learner": { "name": "Jan" }, "text": "Dober večer, {learner}! Si {m:lačen|f:lačna}?", "said": "Dober večer, Jan! Si lačen?" },
+    { "learner": { "name": "Ana", "gender": "female" }, "text": "Dober večer, {learner}! Si {m:lačen|f:lačna}?", "said": "Dober večer, Ana! Si lačna?" },
+    { "learner": { "name": "Ana", "gender": "female" }, "text": "{f:Draga {learner}|m:Dragi {learner}}!", "said": "Draga Ana!" },
+    { "learner": { "name": "Jan" }, "text": "{f:Draga {learner}|m:Dragi {learner}}!", "said": "Dragi Jan!" },
+    { "learner": { "name": "Jan" }, "text": "Marko je {learner:dat} napisal pismo. Pri {learner:loc} je, z {learner:ins}. To je {learner:poss}a hiša.", "said": "Marko je Janu napisal pismo. Pri Janu je, z Janom. To je Janova hiša." },
+    { "learner": { "name": "Ana", "gender": "female" }, "text": "Marko je {learner:dat} napisal pismo. Pri {learner:loc} je, z {learner:ins}. To je {learner:poss}a hiša.", "said": "Marko je Ani napisal pismo. Pri Ani je, z Ano. To je Anina hiša." },
+    { "learner": { "name": "Ana", "gender": "female", "forms": { "gen": "Anice" } }, "text": "Brez {learner:gen} ni nič.", "said": "Brez Anice ni nič." },
+    { "learner": { "gender": "male" }, "text": "{learner}! Pridi, {learner}.", "said": "Prijatelj! Pridi, prijatelj." },
+    { "learner": { "gender": "female" }, "text": "Hvala. {learner}, poglej: {m:sam|f:sama} si!", "said": "Hvala. Prijateljica, poglej: sama si!" },
+    { "learner": { "name": "{YOUR_NAME}", "gender": "female" }, "text": "Živjo, {learner}!", "said": "Živjo, prijateljica!" },
+    { "learner": { "name": "Jan" }, "text": "Tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}, {learner}. {g, select, f {Dobrodošla} other {Dobrodošel}}, {name}!", "said": "Tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}, Jan. {g, select, f {Dobrodošla} other {Dobrodošel}}, {name}!" },
+    { "learner": { "name": "Ana", "gender": "female" }, "text": "Nothing to say to anyone here.", "said": "Nothing to say to anyone here." },
+    { "learner": { "name": "Ana", "gender": "female" }, "text": "{learner:foo} {m:a} {m:a|m:b}", "said": "{learner:foo} {m:a} {m:a|m:b}" }
+  ],
+  "errors": [
+    { "text": "Dober večer, {learner}! Si {m:lačen|f:lačna}?", "errors": 0 },
+    { "text": "{f:Draga {learner}|m:Dragi {learner}}!", "errors": 0 },
+    { "text": "{learner:foo}", "errors": 1 },
+    { "text": "{m:a}", "errors": 1 },
+    { "text": "{m:a|m:b}", "errors": 1 },
+    { "text": "{m:a|f:b|n:c}", "errors": 1 },
+    { "text": "{m:{n} ovc|f:b}", "errors": 1 },
+    { "text": "{learner} {learner:gen} {learner:poss}a", "errors": 0 }
+  ]
+}

@@ -26,6 +26,7 @@ import variants from './smoke/variants'
 import stories from './smoke/stories'
 import readings from './smoke/readings'
 import villagers from './smoke/villagers'
+import learner from './smoke/learner'
 import arrivals from './smoke/arrivals'
 import cultures from './smoke/cultures'
 import friuli from './smoke/friuli'
@@ -45,5 +46,5 @@ import rename from './smoke/rename'
 // pairing runs last: it fills the bridge's limit on wrong pairing codes. towns starts two more bridges of its own, service
 // its bridge services and their shims (docs/plans/04-bridge-service.md). level raises the learner to A2 (and their
 // Italian): it runs late, after the checks that read the level.
-for (const section of [core, chat, modules, grammar, drills, events, reviews, outbox, releases, game, packs, lexicon, forms, sentences, meanings, rhythm, scenarios, scenes, variants, stories, readings, villagers, arrivals, cultures, friuli, kaernten, lakeland, pairs, family, voice, stt, towns, languages, service, level, pairing, rename]) await section()
+for (const section of [core, chat, modules, grammar, drills, events, reviews, outbox, releases, game, packs, lexicon, forms, sentences, meanings, rhythm, scenarios, scenes, variants, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, pairs, family, voice, stt, towns, languages, service, level, pairing, rename]) await section()
 await done()

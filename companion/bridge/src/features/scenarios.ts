@@ -20,13 +20,14 @@ then persist it with the lani-db-updater skill as a speaking session. To write n
 ("let's practise at the post office"), load lani-studio and use publish_scenario.
 `.trim()
 
-export const scenarios: FeatureFactory = ({ scenarios, events, voice }) => ({
+export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee }) => ({
   instructions,
   routes: [
-    { method: 'GET', path: '/scenarios', handle: () => json(scenarios.all()) },
+    { method: 'GET', path: '/scenarios', addressed: true, handle: () => json(scenarios.all()) },
     {
       method: 'GET',
       path: /^\/scenarios\/([a-z0-9-]+)$/,
+      addressed: true,
       handle: ({ params: [id] }) => {
         const s = scenarios.get(id)
         return s ? json(s) : json({ error: 'not found' }, 404)
@@ -54,7 +55,7 @@ export const scenarios: FeatureFactory = ({ scenarios, events, voice }) => ({
         const err = scenarios.publish(v.scenario)
         if (err) return fail(err)
         events.emit({ type: 'scenario_published', id: v.scenario.id, title: v.scenario.title, emoji: v.scenario.emoji, note: note.data ?? undefined })
-        voice.enqueue(corpus({ packs: [], modules: [], scenarios: [v.scenario] }))
+        voice.enqueue(corpus({ packs: [], modules: [], scenarios: [v.scenario], learner: addressee() }))
         return ok(`published scenario ${v.scenario.id} (${v.scenario.goals.length} goals); curated and published: ${scenarios.all().map(s => s.id).join(', ')}`)
       },
     },

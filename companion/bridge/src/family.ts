@@ -4,6 +4,7 @@ import { randomBytes } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { addressee, sloveneName } from './addressee'
 import { bearer, json, loadToken, readBody, readJson } from './http'
 import type { RecordingLeveller } from './voice'
 
@@ -82,14 +83,14 @@ export function sniffAudio(b: Uint8Array): 'm4a' | 'ogg' | 'webm' | null {
   return null
 }
 
-/** Slovene "from" form of a first name: Maja → Maje, Marko → Marka, Jan → Jana. */
+/**
+ * Slovene "from" form of a first name: Maja → Maje, Marko → Marka, Jan → Jana, Pavel → Pavla (addressee.ts declines it;
+ * a name in -e, -i or -u stays as it is: whose it is, Tone's or Beti's, the name alone doesn't say).
+ */
 export function genitive(name: string): string {
   const n = name.trim()
-  if (!n) return n
-  if (/a$/i.test(n)) return n.slice(0, -1) + 'e'
-  if (/o$/i.test(n)) return n.slice(0, -1) + 'a'
-  if (/[eiu]$/i.test(n)) return n
-  return n + 'a'
+  if (!n || /[eiu]$/i.test(n)) return n
+  return sloveneName(n, /a$/i.test(n) ? 'female' : 'male').gen
 }
 
 const challengeIn = z.object({
@@ -159,7 +160,7 @@ export class Family {
   settings(): Settings & { learner_name: string; from_label: string } {
     const s = this.read<Settings>(this.settingsPath, { partner_name: '', partner_emoji: '💌' })
     const profile = this.read<any>(join(this.d.dataDir, 'learner-profile.json'), {})
-    return { ...s, learner_name: profile?.learner?.name ?? 'Jan', from_label: s.from_sl || genitive(s.partner_name) }
+    return { ...s, learner_name: addressee({ name: profile?.learner?.name, gender: profile?.learner?.gender }).name, from_label: s.from_sl || genitive(s.partner_name) }
   }
 
   // --- audio --------------------------------------------------------------------------

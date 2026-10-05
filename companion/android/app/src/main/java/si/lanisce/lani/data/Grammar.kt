@@ -132,7 +132,7 @@ object Grammar {
 
     /** GET /grammar: the pages in the bridge's order. */
     fun parseList(raw: String): List<GrammarPage> =
-        (json.parseToJsonElement(raw) as? JsonArray).orEmpty().mapNotNull { (it as? JsonObject)?.let(::parse) }
+        (json.parseToJsonElement(si.lanisce.lani.l10n.Learner.current.renderJson(raw)) as? JsonArray).orEmpty().mapNotNull { (it as? JsonObject)?.let(::parse) }
 
     /**
      * The curated pages of [language] the app bundles (companion/grammar/<language>/, resources grammar/<language>/ with
@@ -146,7 +146,7 @@ object Grammar {
     }
 
     private fun resource(path: String): String? =
-        Grammar::class.java.getResourceAsStream("/grammar/$path")?.use { it.readBytes().decodeToString() }
+        Grammar::class.java.getResourceAsStream("/grammar/$path")?.use { si.lanisce.lani.l10n.Learner.current.renderJson(it.readBytes().decodeToString()) }
 
     /** The book: the bridge's pages (the tutor's included, and what the tutor added), then bundled ones it doesn't list. */
     fun merge(bundled: List<GrammarPage>, bridge: List<GrammarPage>?): List<GrammarPage> {

@@ -40,6 +40,7 @@
 import '../bridge/src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { addresseeOf } from '../bridge/src/addressee'
 import { cast, castVoiced, denoiseVoices, isSpeaker, personVoice, useCastFile, usePersonVoices } from '../bridge/src/cast'
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
@@ -253,6 +254,8 @@ const items = corpus({
     return existsSync(sr) ? cardTexts(JSON.parse(readFileSync(sr, 'utf8')).items ?? {}) : []
   })(),
   language,
+  // rendered for the learner ({learner}, {m:…|f:…}: addressee.ts), as the app says it
+  learner: addresseeOf(join(appDir, '..'), language),
 })
 
 const opts = { maxChars, upgrade: flag('--upgrade'), revoice, revoiceWords, max }

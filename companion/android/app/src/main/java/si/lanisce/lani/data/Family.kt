@@ -58,8 +58,11 @@ data class FamilyChallenge(
 data class FamilySettings(
     @SerialName("partner_name") val partnerName: String = "",
     @SerialName("partner_emoji") val partnerEmoji: String = "💌",
-    @SerialName("learner_name") val learnerName: String = "Jan",
-)
+    @SerialName("learner_name") val learnerName: String = "",
+) {
+    /** The learner's name as the family page has it, else as the content does (l10n/Learner.kt). */
+    val learner: String get() = learnerName.ifBlank { si.lanisce.lani.l10n.Learner.current.name }
+}
 
 /** Something worth recording (GET /family/api/words): pack words, examples, review cards. */
 @Serializable
@@ -69,16 +72,14 @@ object Family {
     /** Answering a family challenge pays wisdom like this many correct answers. */
     const val REWARD_ANSWERS = 3
 
-    /** Slovene "from" form of a first name: Maja → Maje, Marko → Marka, Jan → Jana. */
+    /**
+     * Slovene "from" form of a first name: Maja → Maje, Marko → Marka, Jan → Jana, Pavel → Pavla (l10n/Learner.kt declines
+     * it; a name in -e, -i or -u stays as it is: whose it is, Tone's or Beti's, the name alone doesn't say).
+     */
     fun genitive(name: String): String {
         val n = name.trim()
-        return when {
-            n.isEmpty() -> n
-            n.endsWith("a", true) -> n.dropLast(1) + "e"
-            n.endsWith("o", true) -> n.dropLast(1) + "a"
-            n.last().lowercaseChar() in "eiu" -> n
-            else -> n + "a"
-        }
+        if (n.isEmpty() || n.last().lowercaseChar() in "eiu") return n
+        return si.lanisce.lani.l10n.Learner.slovene(n, female = n.endsWith("a", true)).getValue("gen")
     }
 
     /** "Od Maje · From Maja"; [fromSl] is the family's own spelling of "Maje", if they gave one. */

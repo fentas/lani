@@ -19,14 +19,18 @@ object ChipLabels {
     /** The mark the sentence [solution] ends with ("." "?" "!" "…"), shown after the answer; empty when there is none. */
     fun ending(solution: List<String>): String = solution.lastOrNull()?.takeLastWhile { !it.isLetterOrDigit() }?.trim().orEmpty()
 
-    /** The names of the village (its people, in every form a sentence gives them) and [more], lowercase, for [label]. */
+    /**
+     * The names of the village (its people, in every form a sentence gives them, and the learner's), and [more], lowercase,
+     * for [label].
+     */
     fun names(language: String, more: Collection<String> = emptyList()): Set<String> {
         val people = runCatching { si.lanisce.lani.game.villagers.Mentions.cast }.getOrDefault(emptyList())
         val forms = people.flatMap { v ->
             val name = si.lanisce.lani.game.villagers.Mentions.personal(v)
             si.lanisce.lani.game.villagers.Mentions.forms(name, language)
         }
-        return (forms + more + PLACES).map { it.lowercase() }.toSet()
+        // the learner's name keeps its capital too (l10n/Learner.kt)
+        return (forms + more + PLACES + si.lanisce.lani.l10n.Learner.current.names).map { it.lowercase() }.toSet()
     }
 
     /** Places the curated sentences name (a chip keeps their capital). */
@@ -34,6 +38,6 @@ object ChipLabels {
         "Slovenija", "Slovenije", "Sloveniji", "Slovenijo", "Ljubljana", "Ljubljane", "Ljubljani", "Ljubljano",
         "Gorica", "Gorice", "Gorici", "Gorico", "Trnovo", "Trnovega", "Trnovem", "Triglav", "Triglava", "Triglavu",
         "Bled", "Bleda", "Bledu", "Brda", "Brdih", "Trst", "Trsta", "Trstu", "Italija", "Italije", "Italiji", "Italijo",
-        "Avstrija", "Avstrije", "Avstriji", "Avstrijo", "Nemčija", "Nemčije", "Nemčiji", "Nemčijo", "Jan", "Jana", "Janu", "Janom",
+        "Avstrija", "Avstrije", "Avstriji", "Avstrijo", "Nemčija", "Nemčije", "Nemčiji", "Nemčijo",
     )
 }

@@ -412,7 +412,7 @@ class VillagerController(
     private suspend fun fixture(): List<Villager> {
         if (!BuildConfig.DEBUG) return emptyList()
         return withContext(Dispatchers.IO) {
-            runCatching { app.assets.open(FIXTURE).bufferedReader().use { parseVillagers(it.readText()) } }.getOrDefault(emptyList())
+            runCatching { app.assets.open(FIXTURE).bufferedReader().use { parseVillagers(si.lanisce.lani.l10n.Learner.current.renderJson(it.readText())) } }.getOrDefault(emptyList())
         }
     }
 

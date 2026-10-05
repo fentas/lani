@@ -41,7 +41,7 @@ export const arrivals: FeatureFactory = ctx => {
     instructions: arrivalsInstructions(language, LANGUAGES[language] ?? language),
     routes: [
       // The tutor's arrivals; the app has the culture pack's (an older app never asks)
-      { method: 'GET', path: '/arrivals', handle: () => json({ schema: ARRIVAL_SCHEMA, language, arrivals: store.all() }) },
+      { method: 'GET', path: '/arrivals', addressed: true, handle: () => json({ schema: ARRIVAL_SCHEMA, language, arrivals: store.all() }) },
     ],
     tools: [
       {

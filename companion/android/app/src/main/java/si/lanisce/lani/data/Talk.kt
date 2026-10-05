@@ -53,8 +53,8 @@ data class Scenario(
     val characterGender: String get() = if (voice == Clips.MALE) Clips.MALE else Clips.FEMALE
 }
 
-fun parseScenarios(raw: String): List<Scenario> = json.decodeFromString(raw)
-fun parseScenario(raw: String): Scenario = json.decodeFromString(raw)
+fun parseScenarios(raw: String): List<Scenario> = json.decodeFromString(si.lanisce.lani.l10n.Learner.current.renderJson(raw))
+fun parseScenario(raw: String): Scenario = json.decodeFromString(si.lanisce.lani.l10n.Learner.current.renderJson(raw))
 
 /**
  * The tutor's `data` on a roleplay reply. An in-character line has [sl] (and [en]); a hint

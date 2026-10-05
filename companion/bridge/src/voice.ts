@@ -11,6 +11,7 @@ import { createHash, randomUUID } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { renderDeep, type Addressee } from './addressee'
 import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, isNarrator, isVoice, personVoice, speakerFor, type DenoisePreset } from './cast'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
@@ -956,7 +957,7 @@ const drillPriority = (level: (typeof LEVELS)[number]) => PRIORITY_LABELS.indexO
  * at his pile: his meeting and his story, every telling at every level, as a scene's dialog in his speaker's voice), then
  * the stories told at A2, the drills above A1, the stories at B1 and up.
  */
-export function corpus(c: {
+export function corpus(input: {
   packs: (Pick<Pack, 'id' | 'words'> & { language?: Pack['language'] })[]
   modules: ModuleSpec[]
   scenarios: Scenario[]
@@ -980,7 +981,17 @@ export function corpus(c: {
    */
   ownVoice?: (villager: string) => boolean
   language?: string
+  /**
+   * Whom the content speaks to (addressee.ts): every text is rendered for them first ({learner}, {m:…|f:…}), as the app
+   * gets it, so a clip is keyed by what the app says. Without, a text with such a placeholder is voiced when played.
+   */
+  learner?: Addressee
 }): CorpusItem[] {
+  if (input.learner) {
+    const { ownVoice, learner, ...content } = input
+    input = { ...renderDeep(content, learner), ownVoice }
+  }
+  const c = input
   const language = c.language ?? 'sl'
   const villagerVoice = new Map((c.villagers ?? []).map(v => [v.id, speakerFor(v)]))
   const out: CorpusItem[] = []

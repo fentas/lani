@@ -74,10 +74,11 @@ export const readings: FeatureFactory = ({ readings: store, villagers, learner, 
   return {
     instructions,
     routes: [
-      { method: 'GET', path: '/readings', handle: () => json(store.all()) },
+      { method: 'GET', path: '/readings', addressed: true, handle: () => json(store.all()) },
       {
         method: 'GET',
         path: /^\/readings\/([a-z0-9][a-z0-9_-]{0,62})$/,
+        addressed: true,
         handle: ({ params: [id] }) => {
           const r = store.get(id)
           return r ? json(r) : json({ error: 'not found' }, 404)

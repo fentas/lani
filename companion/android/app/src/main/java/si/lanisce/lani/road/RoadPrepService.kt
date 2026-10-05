@@ -58,6 +58,7 @@ class RoadPrepService : Service() {
     override fun onCreate() {
         super.onCreate()
         LangSetting(this).apply() // the labels in the learner's pair
+        si.lanisce.lani.l10n.LearnerSetting(this).apply() // and the content said to the learner of the profile
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

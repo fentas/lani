@@ -22,7 +22,7 @@ function packInfo(p: LoadedPack, items: Record<string, SrItem>) {
   return { ...meta, total: words.length, learned: learnedWords(p, items).length }
 }
 
-export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox, voice, cfg, culture }) => {
+export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox, voice, cfg, culture, addressee }) => {
   /** The village's language and the learner's base: a pack's words are learned in the one and meant in the other. */
   const langs = () => learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
 
@@ -78,6 +78,7 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
       {
         method: 'GET',
         path: '/packs',
+        addressed: true,
         handle: () => {
           const items = learner.srItems()
           return json(packs.all().map(p => packInfo(p, items)))
@@ -86,6 +87,7 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
       {
         method: 'GET',
         path: /^\/packs\/([a-z0-9-]+)$/,
+        addressed: true,
         handle: ({ params: [id] }) => {
           const p = packs.get(id)
           return p ? json({ ...p, learned: learnedWords(p, learner.srItems()) }) : json({ error: 'not found' }, 404)
@@ -115,7 +117,7 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
           if (err) return fail(err)
           const { target, base } = langs()
           events.emit({ type: 'pack_published', id: v.pack.id, title: titleFor(v.pack, target, base), emoji: v.pack.emoji, note: note.data ?? undefined })
-          voice.enqueue(corpus({ packs: [v.pack], modules: [], scenarios: [], language: target }))
+          voice.enqueue(corpus({ packs: [v.pack], modules: [], scenarios: [], language: target, learner: addressee() }))
           return ok(`published pack ${v.pack.id} (${v.pack.words.length} words)`)
         },
       },

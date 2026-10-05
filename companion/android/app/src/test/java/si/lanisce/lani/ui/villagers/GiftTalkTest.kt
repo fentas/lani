@@ -32,7 +32,7 @@ class GiftTalkTest {
     }
 
     private val cast: List<Villager> = File("../../cultures/primorska/villagers").listFiles { f -> f.name.endsWith(".json") }.orEmpty()
-        .sortedBy { it.name }.map { json.decodeFromString(Villager.serializer(), it.readText()) }
+        .sortedBy { it.name }.map { json.decodeFromString(Villager.serializer(), si.lanisce.lani.l10n.Learner.current.renderJson(it.readText())) }
     private fun v(id: String) = cast.first { it.id == id }
 
     private fun village(vararg goods: Pair<String, Int>): GameState = GameEngine.newGame(1, t0).copy(

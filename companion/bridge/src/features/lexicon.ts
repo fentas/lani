@@ -9,6 +9,7 @@ import { join } from 'node:path'
 import { z } from 'zod'
 import { fail, ok } from '../channel'
 import { cultureIds, readManifest } from '../cultures'
+import { renderDeep } from '../addressee'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { languageParam, type SrItem } from '../learner'
@@ -74,7 +75,7 @@ const LINES_TTL_MS = 10 * 60_000
 /** What the tutor publishes or takes back that has lines in it: the lines are read again at the next ask. */
 const CONTENT_EVENTS = new Set(['scene_published', 'scene_removed', 'story_published', 'story_removed', 'reading_published', 'reading_removed', 'variant_published', 'variant_removed', 'grammar_published', 'pack_published'])
 
-export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox, packs, villagers, culture, profile, log, scenes, stories, readings, grammar }) => {
+export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox, packs, villagers, culture, profile, log, scenes, stories, readings, grammar, addressee }) => {
   const language = culture.manifest?.language ?? 'sl'
   const lexiconDir = process.env.LANI_LEXICON_DIR || join(cfg.projectDir, 'companion/lexicon')
   const { base } = learnerLangs(cfg.dataDir, language)
@@ -92,7 +93,8 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
   function content(): { index: LineIndex; pages: Set<string> } {
     if (lineIndex && Date.now() - lineIndex.at < LINES_TTL_MS) return lineIndex
     const pages = grammar.all()
-    const lines = contentLines({ language, scenes: scenes.all(), stories: stories.all(), readings: readings.all(), grammar: pages, packs: packs.all() })
+    // as the app says them: rendered for the learner ({learner}, {m:…|f:…}: addressee.ts)
+    const lines = contentLines(renderDeep({ language, scenes: scenes.all(), stories: stories.all(), readings: readings.all(), grammar: pages, packs: packs.all() }, addressee()))
     lineIndex = { at: Date.now(), index: new LineIndex(lines), pages: new Set(pages.map(p => p.id)) }
     return lineIndex
   }

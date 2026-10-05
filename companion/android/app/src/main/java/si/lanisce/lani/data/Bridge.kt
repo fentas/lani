@@ -26,6 +26,7 @@ import okhttp3.sse.EventSource
 import okhttp3.sse.EventSourceListener
 import okhttp3.sse.EventSources
 import si.lanisce.lani.game.GameState
+import si.lanisce.lani.l10n.Learner
 import java.io.File
 import java.io.IOException
 
@@ -36,7 +37,13 @@ class Bridge(private val config: BridgeConfig) {
     private val http = Http.client(connectSeconds = 10, readSeconds = 60) // the SSE stream pings every 25 s
 
     private fun request(path: String) = config.request(path)
-    private suspend fun get(path: String) = http.text(request(path).build())
+    /**
+     * A GET's answer, its texts said to the learner of this phone ({learner}, {m:…|f:…}: l10n/Learner.kt). The bridge
+     * renders what it serves already; this is for one that doesn't (a newer content than it).
+     */
+    private suspend fun get(path: String) = Learner.current.renderJson(http.text(request(path).build()))
+    /** [exchange] for content: the body said to the learner, as [get]. */
+    private suspend fun content(req: Request): Pair<Int, String> = exchange(req).let { (code, body) -> code to Learner.current.renderJson(body) }
     private suspend fun post(path: String, body: JsonElement) =
         http.text(request(path).post(body.toString().toRequestBody(Http.jsonType)).build())
     private suspend fun exchange(req: Request) = http.exchange(req)
@@ -57,7 +64,7 @@ class Bridge(private val config: BridgeConfig) {
 
     /** The grammar book's pages (GET /grammar: the curated ones with the tutor's additions, then the tutor's); null from an older bridge (404). */
     suspend fun grammar(): List<GrammarPage>? {
-        val (code, body) = exchange(request("/grammar").build())
+        val (code, body) = content(request("/grammar").build())
         return when (code) {
             200 -> Grammar.parseList(body)
             404 -> null
@@ -66,7 +73,7 @@ class Bridge(private val config: BridgeConfig) {
     }
     /** The car's audio drills (GET /drills, lani.drill/v0); null from an older bridge without them (404): the app's own then. */
     suspend fun drills(): List<Drill>? {
-        val (code, body) = exchange(request("/drills").build())
+        val (code, body) = content(request("/drills").build())
         return when (code) {
             200 -> Drills.parseList(body)
             404 -> null
@@ -96,7 +103,7 @@ class Bridge(private val config: BridgeConfig) {
      * as the node sends them; null from an older bridge without them (404). The culture pack's are bundled in the app.
      */
     suspend fun arrivals(): String? {
-        val (code, body) = exchange(request("/arrivals").build())
+        val (code, body) = content(request("/arrivals").build())
         return when (code) {
             200 -> body
             404 -> null
@@ -177,7 +184,7 @@ class Bridge(private val config: BridgeConfig) {
      * from an older bridge without them (404).
      */
     suspend fun readings(): List<si.lanisce.lani.game.culture.ReadingFile>? {
-        val (code, body) = exchange(request("/readings").build())
+        val (code, body) = content(request("/readings").build())
         return when (code) {
             200 -> ReadingPractice.parseServed(body)
             404 -> null
@@ -202,7 +209,7 @@ class Bridge(private val config: BridgeConfig) {
      * app draws them ([SceneArt.VERSION], as [scenes]).
      */
     suspend fun townPart(id: String, kind: String, time: TimeOfDay = TimeOfDay.now()): Pair<Int, String> =
-        exchange(
+        content(
             request(
                 "/towns/$id/$kind?time=${time.name.lowercase()}" + if (kind == Visits.SCENES) "&arts=${si.lanisce.lani.game.scene.SceneArt.VERSION}" else "",
             ).build(),
@@ -221,7 +228,7 @@ class Bridge(private val config: BridgeConfig) {
      */
     suspend fun townTalk(id: String, body: JsonObject, time: TimeOfDay = TimeOfDay.now()): Pair<Int, String> {
         val timed = JsonObject(body + ("time" to JsonPrimitive(time.name.lowercase())))
-        return exchange(request("/towns/$id/talk").post(timed.toString().toRequestBody(Http.jsonType)).build())
+        return content(request("/towns/$id/talk").post(timed.toString().toRequestBody(Http.jsonType)).build())
     }
 
     /** What guests from linked towns brought this town (GET /towns/guests); null from an older bridge (404). */

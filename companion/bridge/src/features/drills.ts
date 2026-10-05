@@ -6,10 +6,11 @@ import { json } from '../http'
 
 export const drills: FeatureFactory = ({ drills: store }) => ({
   routes: [
-    { method: 'GET', path: '/drills', handle: () => json(store.all()) },
+    { method: 'GET', path: '/drills', addressed: true, handle: () => json(store.all()) },
     {
       method: 'GET',
       path: /^\/drills\/([a-z0-9-]+)$/,
+      addressed: true,
       handle: ({ params: [id] }) => {
         const d = store.get(id)
         return d ? json(d) : json({ error: 'not found' }, 404)

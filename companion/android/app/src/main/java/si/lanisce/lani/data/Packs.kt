@@ -133,7 +133,7 @@ data class Pack(
 fun parsePacks(raw: String): List<PackInfo> = json.decodeFromString(raw)
 
 /** A pack, each word knowing the pack's language (what [PackWord.word] is in). */
-fun parsePack(raw: String): Pack = json.decodeFromString<Pack>(raw).let { p -> p.copy(words = p.words.map { if (it.lang == null) it.copy(lang = p.language) else it }) }
+fun parsePack(raw: String): Pack = json.decodeFromString<Pack>(si.lanisce.lani.l10n.Learner.current.renderJson(raw)).let { p -> p.copy(words = p.words.map { if (it.lang == null) it.copy(lang = p.language) else it }) }
 
 /** Choosing words, building their practice, and grading it for SM-2. */
 object PackSession {

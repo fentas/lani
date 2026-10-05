@@ -6,6 +6,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { LANG, langText, textIn, type LangText } from './langs'
 import { WORD_LANGUAGES } from './packs'
@@ -100,7 +101,9 @@ const SERVED = ['source', 'extended', 'published_at'] as const
 export function validateGrammar(input: unknown): { ok: true; page: GrammarPage } | { ok: false; errors: string } {
   const raw = input && typeof input === 'object' && !Array.isArray(input) ? Object.fromEntries(Object.entries(input).filter(([k]) => !(SERVED as readonly string[]).includes(k))) : input
   const r = grammarSpec.safeParse(raw)
-  return r.success ? { ok: true, page: r.data } : { ok: false, errors: z.prettifyError(r.error) }
+  if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
+  const learner = learnerErrorsIn(r.data)
+  return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : { ok: true, page: r.data }
 }
 
 /** "Šotor stoji ob ribniku." / "šotor stoji ob ribniku" → the same example. */

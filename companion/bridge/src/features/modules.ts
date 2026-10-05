@@ -10,13 +10,14 @@ To create, change or retire practice content in the app, load the lani-studio sk
 publish_module / list_modules / get_module / rollback_module. Never write module files directly.
 `.trim()
 
-export const modules: FeatureFactory = ({ modules: store, events, voice, grammar }) => ({
+export const modules: FeatureFactory = ({ modules: store, events, voice, grammar, addressee }) => ({
   instructions,
   routes: [
-    { method: 'GET', path: '/modules', handle: () => json(store.list()) },
+    { method: 'GET', path: '/modules', addressed: true, handle: () => json(store.list()) },
     {
       method: 'GET',
       path: /^\/modules\/([a-z0-9-]+)$/,
+      addressed: true,
       handle: ({ url, params: [id] }) => {
         const v = url.searchParams.get('version')
         const m = store.get(id, v ? Number(v) : undefined)
@@ -44,7 +45,7 @@ export const modules: FeatureFactory = ({ modules: store, events, voice, grammar
         if (!note.success) return badNote()
         const version = store.publish(v.spec)
         events.emit({ type: 'module_published', id: v.spec.id, version, title: v.spec.title, note: note.data ?? undefined })
-        voice.enqueue(corpus({ packs: [], modules: [v.spec], scenarios: [] }))
+        voice.enqueue(corpus({ packs: [], modules: [v.spec], scenarios: [], learner: addressee() }))
         // an exercise's grammar page the book doesn't have: said back, not refused (the page may come next)
         const pages = new Set(grammar.all().map(p => p.id))
         const missing = [...new Set(v.spec.exercises.flatMap(e => (e.grammar && !pages.has(e.grammar) ? [e.grammar] : [])))]

@@ -100,10 +100,11 @@ export const villagers: FeatureFactory = ctx => {
     instructions: villagersInstructions(place, villagers.all(), LANGUAGES[place.target] ?? place.target),
     routes: [
       // a line's `when` only to an app that reads it (it says its time of day); an older one gets the lines without
-      { method: 'GET', path: '/villagers', handle: ({ url }) => json(villagers.all().map(v => (readsWhen(url) ? v : withoutWhen(v)))) },
+      { method: 'GET', path: '/villagers', addressed: true, handle: ({ url }) => json(villagers.all().map(v => (readsWhen(url) ? v : withoutWhen(v)))) },
       {
         method: 'GET',
         path: /^\/villagers\/([a-z0-9-]+)$/,
+        addressed: true,
         handle: ({ params: [id], url }) => {
           const v = villagers.get(id)
           return v ? json(readsWhen(url) ? v : withoutWhen(v)) : json({ error: 'not found' }, 404)
@@ -112,6 +113,7 @@ export const villagers: FeatureFactory = ctx => {
       {
         method: 'GET',
         path: /^\/villagers\/([a-z0-9-]+)\/scenario$/,
+        addressed: true,
         handle: ({ params: [id], url }) => {
           const t = talk(id, url.searchParams.get('time'))
           return t ? json({ ...t.scenario, source: t.source }) : json({ error: 'not found' }, 404)
@@ -156,7 +158,7 @@ export const villagers: FeatureFactory = ctx => {
           const replaced = villagers.isCurated(v.villager.id)
           villagers.publish(v.villager)
           events.emit({ type: 'villager_published', id: v.villager.id, name: v.villager.name, emoji: v.villager.emoji, note: note.data ?? undefined })
-          voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], villagers: [v.villager], language: culture.manifest?.language }))
+          voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], villagers: [v.villager], language: culture.manifest?.language, learner: ctx.addressee() }))
           const n = allLines(v.villager.lines).length
           return ok(`published villager ${v.villager.id} (${v.villager.name}, ${n} lines)` + (replaced ? `; it replaces the curated villager "${v.villager.id}" until remove_villager` : ''))
         },

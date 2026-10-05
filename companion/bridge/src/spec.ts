@@ -1,6 +1,7 @@
 // lani.module/v0 — the contract between Claude (author) and the app (renderer).
 // Keep in sync with .claude/skills/lani-studio/reference/module-spec.md.
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { grammarRef } from './grammar'
 
@@ -189,5 +190,7 @@ export type Validation = { ok: true; spec: ModuleSpec } | { ok: false; errors: s
 
 export function validateModule(input: unknown): Validation {
   const r = moduleSpec.safeParse(input)
-  return r.success ? { ok: true, spec: r.data } : { ok: false, errors: z.prettifyError(r.error) }
+  if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
+  const learner = learnerErrorsIn(r.data)
+  return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : { ok: true, spec: r.data }
 }

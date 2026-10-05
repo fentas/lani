@@ -12,6 +12,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrors, withoutLearner } from './addressee'
 import { schemaField } from './schema'
 import { dialogLine, offStage, reply, SCENE_LANGUAGES } from './scenes'
 import { LEVELS, type Level } from './stories'
@@ -179,9 +180,11 @@ export function arrivalErrors(a: ArrivalBody, rules: Rules, at = ''): string[] {
   const which = (missing: string[]) => (missing.includes(rules.lang) && rules.lang !== 'en' ? ' (the village\'s language)' : rules.all ? ' (every language the pack serves)' : '')
   /** Its placeholders: only a template's arguments, as the app's messages write them. */
   const named = (s: string, p: string) => {
+    // the learner's placeholders are no arguments ({learner}, {m:…|f:…}: addressee.ts): any arrival may say them
+    for (const e of learnerErrors(s)) errs.push(`${where(p)}: ${e}`)
     let used: Set<string>
     try {
-      used = messageArgs(s)
+      used = messageArgs(withoutLearner(s))
     } catch (e) {
       return void errs.push(`${where(p)}: ${(e as Error).message}`)
     }

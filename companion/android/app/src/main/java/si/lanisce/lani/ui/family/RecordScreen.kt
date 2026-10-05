@@ -101,7 +101,7 @@ fun RecordScreen(vm: AppViewModel) {
                 Surface(color = MaterialTheme.colorScheme.tertiaryContainer, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text(
-                            bi("recordScreen.recordWordsOwnVoice", "learnerName" to f.settings.learnerName),
+                            bi("recordScreen.recordWordsOwnVoice", "learnerName" to f.settings.learner),
                             style = MaterialTheme.typography.bodyMedium,
                         )
                         WhoSpeaks(vm)
@@ -271,7 +271,7 @@ private fun RecordDialog(vm: AppViewModel, text: String, onClose: () -> Unit) {
             title = { Text("🎙️ ${bi("common.microphone")}") },
             text = {
                 Text(
-                    bi("recordScreen.laniListensOnlyWhile", "learnerName" to vm.family.settings.learnerName),
+                    bi("recordScreen.laniListensOnlyWhile", "learnerName" to vm.family.settings.learner),
                 )
             },
             confirmButton = { TextButton(onClick = { rationale = false; permission.launch(Manifest.permission.RECORD_AUDIO) }) { Text(bi("common.allow")) } },

@@ -42,6 +42,7 @@ import java.util.concurrent.TimeUnit
 class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         LangSetting(applicationContext).apply() // notifications in the learner's languages, with the app closed
+        si.lanisce.lani.l10n.LearnerSetting(applicationContext).apply() // and the content said to the learner of the profile
         CultureSetting(applicationContext).apply() // and their village's culture
         val prefs = Prefs(applicationContext)
         val config = prefs.config() ?: return Result.success()

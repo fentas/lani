@@ -11,13 +11,13 @@ import java.util.IdentityHashMap
  * cast, the extras, and the people born here or who moved in, when the list has them) by their own name, as a sentence of
  * that language says it. In Slovene a name is declined ([Mentions.forms]): "Anton", "Antona", "Antonu", "z Antonom",
  * "Antonov med"; "Micka", "pri Micki", "Mickina kuhinja"; "Tone", "Toneta"; in German "Resis Küche"; with or without their
- * title ("Čebelar Anton", "Babica Micka"). Nobody else counts: the learner ("Jan", "Jana"), a word that is a name only
+ * title ("Čebelar Anton", "Babica Micka"). Nobody else counts: the learner (their name in any form: l10n/Learner.kt), a word that is a name only
  * with its capital ("luka", a harbour; "rosa", pink), someone else with the same first name and a surname or a title of
  * their own ("France Prešeren", "Franceta Prešerna", "King Arthur", "Lepa Vida"; not in German, which capitalises every
  * noun). A cast member's own name is the last word of theirs ("Čebelar Anton" → Anton, "Mr Tyson" → Tyson); someone who
  * moved in or was born here goes by their first name ("Ana Furlan" → Ana).
  */
-class Names(cast: List<Villager>, val language: String) {
+class Names(cast: List<Villager>, val language: String, learner: Set<String> = si.lanisce.lani.l10n.Learner.current.names) {
     /** Each form a name takes, and whose name it is (ids: two people may share a name). */
     private val forms: Map<String, Set<String>>
 
@@ -45,7 +45,8 @@ class Names(cast: List<Villager>, val language: String) {
             val own = Mentions.personal(v)
             if (own.length < 2 || !own[0].isUpperCase()) continue
             n[v.id] = v.name
-            for (form in Mentions.forms(own, language)) f.getOrPut(form) { LinkedHashSet() } += v.id
+            // the learner's own name is never someone of the village a text names (a newcomer of the same name aside)
+            for (form in Mentions.forms(own, language)) if (form !in learner) f.getOrPut(form) { LinkedHashSet() } += v.id
             if (Mentions.resident(v)) v.name.trim().substringAfter(' ', "").substringAfterLast(' ').takeIf { it.isNotEmpty() }?.let { fam[v.id] = it }
             t[v.id] = v.name.trim().split(' ').filter { it.isNotEmpty() && it != own }.map { w -> if (w.length > 3) w.dropLast(1) else w }
         }
@@ -140,7 +141,7 @@ object Mentions {
 
     /** The names of [cast] in [language] (kept for the same people). */
     fun names(language: String, cast: List<Villager> = this.cast): Names {
-        val key = cast.joinToString("|", "$language|") { "${it.id}:${it.name}:${resident(it)}" }
+        val key = cast.joinToString("|", "$language|${si.lanisce.lani.l10n.Learner.current.name}|") { "${it.id}:${it.name}:${resident(it)}" }
         return synchronized(built) { built.getOrPut(key) { Names(cast, language) } }
     }
 

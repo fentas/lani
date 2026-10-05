@@ -4,6 +4,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { SPEAKER_ID } from './cast'
 
@@ -30,7 +31,9 @@ export type LoadedScenario = Scenario & { source: 'curated' | 'tutor'; published
 
 export function validateScenario(input: unknown): { ok: true; scenario: Scenario } | { ok: false; errors: string } {
   const r = scenarioSpec.safeParse(input)
-  return r.success ? { ok: true, scenario: r.data } : { ok: false, errors: z.prettifyError(r.error) }
+  if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
+  const learner = learnerErrorsIn(r.data)
+  return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : { ok: true, scenario: r.data }
 }
 
 /** What the tutor needs on every roleplay turn, so the character survives a compacted context. */

@@ -26,7 +26,7 @@ object ReadingPractice {
 
     /** The readings GET /readings serves, each read on its own (one the app can't read is left out). */
     fun parseServed(raw: String): List<ReadingFile> =
-        (runCatching { json.parseToJsonElement(raw) }.getOrNull() as? JsonArray).orEmpty().mapNotNull { e ->
+        (runCatching { json.parseToJsonElement(si.lanisce.lani.l10n.Learner.current.renderJson(raw)) }.getOrNull() as? JsonArray).orEmpty().mapNotNull { e ->
             runCatching { json.decodeFromJsonElement(ReadingFile.serializer(), e) }.getOrNull()
         }
 

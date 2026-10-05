@@ -1,0 +1,1730 @@
+{
+ "about": "The curated content's texts at 854f737 (before: a hash of canonical(), test/learner-content.ts) and each file as its learner's placeholders left it (after: a hash of the file). Said to Jan, a file not edited since reads as before (the smoke's learner section). Made by: bun test/learner-content.ts --write",
+ "base": "854f737",
+ "files": {
+  "companion/scenes/kuhinja.json": {
+   "before": "3b3baa93028cc59e1a71bd2d30fd1420d71f2c8adf24884538bca77dd642e679",
+   "after": "835ce5184b1e1c20ab3830a0fcb3d34531e0715539aeaa9dcb9216271fcc30fa"
+  },
+  "companion/scenes/na-njivi.json": {
+   "before": "af00fcdb53fdd7e27e98e6792ccb870f2d33f15727afd66a2a1543dbd54bee8e",
+   "after": "8e32270058b5b507ca7a8144f17a2003b2c8b83c693b9f4bd3b2aa7fd8cf48b2"
+  },
+  "companion/scenes/na-stolpu.json": {
+   "before": "9a1c53c1cc9c77162743045a7b5d0142ee44b1ffe4e7497ef52a956bb32b7afd",
+   "after": "fe532bcee8d88b645a46fe46bd3908df237ef1e424cfd7c4b2f93cc8c85f2a98"
+  },
+  "companion/scenes/na-trznici.json": {
+   "before": "caa8d157bbca2fdadb641c05f290a4f9ae4f870860b3761943cf428aa0aec1dd",
+   "after": "ff3d201f959d8a7f99fccd6624dc42a68a1492c2412878511136c319474c446d"
+  },
+  "companion/scenes/na-vasi.json": {
+   "before": "1b15cc2de0f7ab3e3766651cbb2756c344f38f1b002d7e774b7dca23bdf1f952",
+   "after": "2368142ff1797ba1372672fd288891a81400676a831a091aa326025718bb0fb8"
+  },
+  "companion/scenes/ob-ognju.json": {
+   "before": "d3ebd8c6ae938efbbf346f319306c88ae271927a3ffa3766e13ba003eac60fb7",
+   "after": "4fc665b422f5969166d9fdd03e94f0552720dce2e4423c3bf915499db389804c"
+  },
+  "companion/scenes/ob-potoku.json": {
+   "before": "7a92fa3ae2036742e43b7d1f454d5ecfe850bfb1837b7ade05b14b0955df2b20",
+   "after": "973aec1a73be957196a387ca98165b5c2621435f3c9cb561aa626fef6eca438a"
+  },
+  "companion/scenes/pri-cebelnjaku.json": {
+   "before": "83208cb4bcf27baae73888e3a88a307d101d137f87c4a9b2e8fd8ec2f74c6d93",
+   "after": "2be174546ce92b5f6cc5d9d6b1528fa927fa3bbeb6d7cdf676376e4e1b4e937e"
+  },
+  "companion/scenes/pri-ribniku.json": {
+   "before": "f9d64f2e944225c7710af553973e64232af25a2f0119af21fa72d5d3b0d77bdf",
+   "after": "f4bb706f00cf4f48a7cda8dfa1f8b0f5a295abb74dd741407b8916f418be57ad"
+  },
+  "companion/scenes/v-cerkvi.json": {
+   "before": "61e59b0936da798d7b4acc7c35d4f8c5ac8be43a409602b8614b148bfab4547f",
+   "after": "24ff73c5dc18127c4c4e5ef69568deb1d61de6dda480b3510a40e5bade2fbeaf"
+  },
+  "companion/scenes/v-delavnici.json": {
+   "before": "0fdea7cb8a936be3d4afa435f1c1d3970a2f8ed6bfd1cec45ddaa15f7cec872d",
+   "after": "50cd4c6bc029d54b34a6ac26e22bcb3db4d7ca83b1ab31428bedcf110808f5b3"
+  },
+  "companion/scenes/v-gozdu.json": {
+   "before": "3274ce754a5bfdcefd4112b7eabe93fd926f2bbd3ebd153a551e4666524c7a3b",
+   "after": "99909843366d5a14f2b99db18fadc3a805d03f2969b95780cf6c6c8fe9fa4963"
+  },
+  "companion/scenes/v-hisi.json": {
+   "before": "eebe388de08a97201ecd0508dd538cd49b717146b9fb69f4f62ef50c87128d76",
+   "after": "6fc8871e4f01eebd26d6e5c6b28e670f64f8a1692aa16bb2aaab9cf45464f9ab"
+  },
+  "companion/scenes/v-kleti.json": {
+   "before": "4c752a0d92bcb7a037242d905fa20d75ef30f13c06d1870b0fdc3ea737074d83",
+   "after": "34212b340ec5eeabe8ef64b2b92f1f5aa0a7e3d44372d56edb0d65c944726a0c"
+  },
+  "companion/scenes/v-kovacnici.json": {
+   "before": "abc119ed91a8bc677f5a3a591e2eba188df7d700f1bbe5c730ecf8b335252194",
+   "after": "6e5d0c85c8d265391fdc0f02bf61be22680f72539a7062ff5479923d8297a442"
+  },
+  "companion/scenes/v-podstresju.json": {
+   "before": "b0d1e69ddf1f66ef1758f9dcf4cc38d12f6dc4d7fb45715f6ba1077711293964",
+   "after": "227cd8cd44f10366d939ba2f66e9b88d314cc3de476c798de0b7eb00852422ab"
+  },
+  "companion/scenes/v-soli.json": {
+   "before": "7eabb4d539a5e594ed47a092a8fb5a89d8211c640d9fff0a448bef31288b15f1",
+   "after": "f55dbc0f8386fb145494e80d17b7c7cbd89374b7cffd5b8816fe4435c77e4f78"
+  },
+  "companion/scenes/v-sotoru.json": {
+   "before": "bfc546b92df09ac0f5b6fc8e425fecb1ce1c22caf4e0b9b90600234f9a429a38",
+   "after": "46d65d4655a97ba19be358265456d97d291e865b00c98a5792985f210cd4df7d"
+  },
+  "companion/cultures/friuli/arrivals.json": {
+   "before": "bf304f05ac5742347162c9ad550153bfa7197d0f608856bd69ba9bf545f2bc40",
+   "after": "1193d9bf6d1328f053cdeb2acae0d44aa1229e63fa20bd7baf028c60b3656d7e"
+  },
+  "companion/cultures/friuli/chest.json": {
+   "before": "7d19c672255734f4f38d8c54d5c550ec33d3190c5a346dba3d3e749695ccf04c",
+   "after": "528db8728f5c79efbb291a58770d56c70abb570bfaa7f6d36366ebbf767a6057"
+  },
+  "companion/cultures/friuli/chronicle.json": {
+   "before": "9384f499dae1a6578c27ccf5b1f5de958fa829646c2ea54cf7513f2904ec9e1b",
+   "after": "5102f86b218cb05d799071fdd5f8072838caf31f6cb60609aa82dcbb205f43bd"
+  },
+  "companion/cultures/friuli/culture.json": {
+   "before": "628752dfca4da1059cb0deda865f58a588153b2a850f5de78bc379713a659106",
+   "after": "d9051a3211cc5e38b1e2496a64385bdbfa6789825818dc0b206418c58b270760"
+  },
+  "companion/cultures/friuli/events.json": {
+   "before": "3eb4f6d93be7d0a775c3b35639b2cdaf6d0454bd35ddb2505d81bfbdb309855f",
+   "after": "a7224236f71cf1c7dda43eace40e531f7b71c34d531a716208204b949a8903e1"
+  },
+  "companion/cultures/friuli/festivals.json": {
+   "before": "7fcdd3da4a32f10c16754dffc64ed7795ad9e4d7d1bd75eb576cdb046eb74131",
+   "after": "32a2effb2b35c9f8f3ef2588de1289e2e23537a6676ca95e3f341336ef6bbffb"
+  },
+  "companion/cultures/friuli/packs/al-fuoco.json": {
+   "before": "32991c3f440d249c3cbaa0d8b67ea6335c77c40c4e415318f7f868cdb7aef6b8",
+   "after": "42681f929d21f07e33961f5caa236f655b627705bc3282c464dc8184c5bd2e07"
+  },
+  "companion/cultures/friuli/packs/alla-carbonaia.json": {
+   "before": "de6aa096f8abfbb993bc279c2341daccda12d887ef3d527b50c2361ab07ebedd",
+   "after": "865a5c5ba3619a744a8ca42ff92cdfe65fc7afe1fb1a6f3657ed4d41094b977c"
+  },
+  "companion/cultures/friuli/packs/festa-capodanno.json": {
+   "before": "d59b6cbf4983eb69c8967c72e0eeeb5d3d86a5e54693fc1a411bc6a1504faa00",
+   "after": "faae24a27b5db734a3fccde9170d079c22d11f1f100fe699304c6450358891ff"
+  },
+  "companion/cultures/friuli/packs/festa-carnevale.json": {
+   "before": "809a29890ec37d9dcd7f532f4e42d5bfdc1a300f66fb9b579a1baee0738522b3",
+   "after": "6264f4cfd34c2d6717b853d348b81664eab109ec7d2d6e0c223c5324dd7030de"
+  },
+  "companion/cultures/friuli/packs/festa-epifania.json": {
+   "before": "1f315c7a9c5e8b86ab3fadc00ad11303160b80f4813b31d98138f406c9915407",
+   "after": "ea85df6284c5bbd16911853b07659d1e4415ae1f87c82f0802a1eeb5f8f7070e"
+  },
+  "companion/cultures/friuli/packs/festa-ferragosto.json": {
+   "before": "f6a5dddeaaeadaf4fdf6279da93b17d024c9b3028c1356930d25ca450f46bdef",
+   "after": "82509cfb2cf6451268c0701142174fa7007d1e3f31d7c9504d1d82dd23feb342"
+  },
+  "companion/cultures/friuli/packs/festa-liberazione.json": {
+   "before": "6e18c73f3aed8c80ff5e2a3e9ad0097a27972de1378a3b692c3d73e09de69fe9",
+   "after": "9251d5ebe903998d4d88197c732baf24b419bf404af4f204077f48203c08e3d6"
+  },
+  "companion/cultures/friuli/packs/festa-natale.json": {
+   "before": "ea03ab029c35c383a5b55fd8379f29f7c63a17ba4ef7b4ca323895965df47288",
+   "after": "0815cad540d3b620f2b2133e7ae1b3981cdd6a9f3274b3bf2b71d959ab773928"
+  },
+  "companion/cultures/friuli/packs/festa-pasqua.json": {
+   "before": "32a720dd0942dc482a53a7c71f6e95e75b20623db6e1379c4612d88ea30681dc",
+   "after": "2b193d0662fb4f4197909a81a84bce5ecfd318692d139cbd60749d5a6164b920"
+  },
+  "companion/cultures/friuli/packs/festa-pasquetta.json": {
+   "before": "456864103172b3925c95112afc4cd5cbd155b6457bdb17b11430c82797556aff",
+   "after": "ac478ec0536b8b24a67cf1f520413aa4ab3306fe83c14af179ddf5f299e9cae6"
+  },
+  "companion/cultures/friuli/packs/festa-patria-friuli.json": {
+   "before": "a50c7a622b4f172c0c10d984416645b4756ceabb102f14d8e6be2ea6fd7fc997",
+   "after": "6bd8839b6d9ad2828793fb95c4caa5e7eae9003d6b20c08e87b8e58d03fb2732"
+  },
+  "companion/cultures/friuli/packs/festa-repubblica.json": {
+   "before": "8b836051c790a80a98bc98ff45bdd8d2b3697d0d445ead352e4009c84fdc5f64",
+   "after": "6e4fb719b85447e8b3b9730b27d87ebc4b0872aae67ca8dcb057a459aea5146e"
+  },
+  "companion/cultures/friuli/packs/festa-san-martino.json": {
+   "before": "2a157c028a34ed296060b0d19126e916892d876316ec1a4c6a572310abb849c7",
+   "after": "9da2cf6cd6bb1b80a315f9ad030cb92d473298208d024d38941595b98529c588"
+  },
+  "companion/cultures/friuli/packs/festa-san-nicolo.json": {
+   "before": "2b9e0abda5be12f9c3122e964593eaf597c32cb7080ec244e909445fc057d47d",
+   "after": "0816c4614a3a1d61ef74f14c81e7de2250972f9e06bae30b36d1445f091fb474"
+  },
+  "companion/cultures/friuli/packs/festa-santo-stefano.json": {
+   "before": "c4d7022edadcceb1bb5b44702f7325001f818df3f64442f22e56f93f071c844b",
+   "after": "f20a9a32e991ec24b2a6655786b40b4dc0540bfbc8d4649f8ae07b3339413ed2"
+  },
+  "companion/cultures/friuli/packs/festa-vendemmia.json": {
+   "before": "4156dcbbf24e926d3302b375ff170e51e808840e1e609c1ab1ea2a854bf67e16",
+   "after": "e6d74d3edfa88807b89b39f7200094b9c93e00d260b1722db54b308996ffd349"
+  },
+  "companion/cultures/friuli/packs/il-cielo.json": {
+   "before": "971960a04f06fe734809468229d7d38d6b7cdbf07062290f493bf0e09937eaed",
+   "after": "4a43aeaa7d4c585fb845c3605acd340cc7107a032b701b1bcb3e4e0cf61a1006"
+  },
+  "companion/cultures/friuli/packs/il-mare.json": {
+   "before": "f85be354cedb5c762141bcc20bf11ebd77ad21993f089fea7acdfecd5702fc59",
+   "after": "ad48a227f6289fc2046a3e13b57d7ffcc28e88a0ecf600de795ba368456fac57"
+  },
+  "companion/cultures/friuli/packs/leggende.json": {
+   "before": "7641c3ea81b4dd393a15cf610f57de092f53b8361400809b9f47e693fc37358f",
+   "after": "25c07c986a998a26160bd5ab49ab01a42138bc155d92ac35076a75fc3b4366b7"
+  },
+  "companion/cultures/friuli/packs/storie.json": {
+   "before": "0f9bf1626fe102ec03e2411bbbf342569bb6a7ed7927a5ffdbfe145b4eb3af81",
+   "after": "d97913496318010c5d9e8944f506322b5988616452a33efb307d60a45cd8e50a"
+  },
+  "companion/cultures/friuli/people.json": {
+   "before": "6b0ed450bcf88bf5bf4adc6be1816dd1e136d4f023b55a4789eb47ee42920531",
+   "after": "59e97e90ab4f432c0a0ec7c9ff6760ff86b5e4bf8ba7ef856ee585d254df6cef"
+  },
+  "companion/cultures/friuli/projects.json": {
+   "before": "3686b8e0ba98bca9699b77f2c367bfaf9423de407b745edfcab057c5e42bbb74",
+   "after": "475c7a32f7948c35fdc4a0c948b7e34a9621074a8bc50b942266ed1150219087"
+  },
+  "companion/cultures/friuli/quests.json": {
+   "before": "92675ff3718b08283e603b25824b32bfe146687b89a9ed758a79a98ffd2bb8eb",
+   "after": "f65c1b0c018a095743ecae67a6d7296f9cf1d99072bccd9f7d01fcb92217eaa6"
+  },
+  "companion/cultures/friuli/readings/frico.json": {
+   "before": "36398f75c2de9a47b2b69f4e64a04f3601e7b7c11979b654fc881edfa0c5e644",
+   "after": "8698092733c3a860977e6fe5938bf7cc41ce7f7ed382a917851abb88c98ab5b9"
+  },
+  "companion/cultures/friuli/readings/gubana.json": {
+   "before": "1dd4ea789bcd3913c7a636e42ee0f8a7502bfdddd4e59b9b10c2f0ad2ad77ee3",
+   "after": "d83d387536c92be19e4f7e20c1c12404febd6b69044a80f86207278120266ff3"
+  },
+  "companion/cultures/friuli/readings/libro-antico.json": {
+   "before": "1f000c84d9f16c042e85be95b34769851125f1943bba1841b25cfdd5d5ad062c",
+   "after": "f7ef72bafe5b04eab3319977764eb58b9cdb091f505ed86bc05d703f1d61b5cd"
+  },
+  "companion/cultures/friuli/readings/proverbi.json": {
+   "before": "a6bbd21b235e7f076557e04300cc5db56a2ec12d55d91eed522597e79baa2547",
+   "after": "cdedc89d85ac954104af7a98dd0b22b286d9f292a26bed0ba1e139005f8d573a"
+  },
+  "companion/cultures/friuli/scenes/al-fuoco.json": {
+   "before": "cdc54ade8a90e93de057f2eaa8978b5fb22e280f0ff6e07072302f1bf29e447a",
+   "after": "186135eec20bca0df9938ce4ac7414aec3c6b05f68f83b4d21dbc894492ca5b7"
+  },
+  "companion/cultures/friuli/scenes/il-mare.json": {
+   "before": "a2cc4b3abdb828d4cbc9fad928b5c1519633193188dd117567c996133e460bda",
+   "after": "9da21191dadcd14f2a2d3b612fec26ce8654cd1ff1c19eb4ef89995499b38f3e"
+  },
+  "companion/cultures/friuli/sky.json": {
+   "before": "8a969f8ed47f0e0b729cad337142d2b4125b97b5bfae96eee12354a8f3f51756",
+   "after": "908ee2f21385001699d9486bd60cc1d9cde851e1287117cc4f321f701be7ff2b"
+  },
+  "companion/cultures/friuli/stories/gli-sbilfs.json": {
+   "before": "14ce66d1fa77f0bc66fd87d3446d957f9553f5871a1683a2e0a021a498e86184",
+   "after": "de975a54afd689f712b03661c170a7d65d1f02f826180784758468e1e7669191"
+  },
+  "companion/cultures/friuli/stories/il-colle-di-udine.json": {
+   "before": "fb4393013d94b31ce4398c49946125eb6f61dbe1cf821b72d081311045c18f70",
+   "after": "a800bfeae79f84bd1cc72b795ba38383fffa0859073ccdf0533732712e9b31ca"
+  },
+  "companion/cultures/friuli/stories/il-ponte-del-diavolo.json": {
+   "before": "897afe98afab77ea1bd533a9be635cb486db9dc154e8d7d50915837c844056e6",
+   "after": "a6a21d3896d619cabd7c0838ed0b74ad37ff31f3796d593a32be58ba4126454a"
+  },
+  "companion/cultures/friuli/stories/l-orcolat.json": {
+   "before": "5a0ff4b63bc28228d054937346eb8cf00d0b32e74b5a85110891b8f3415a74bc",
+   "after": "6750aa5b5eea1b44c64db21864f333211e6145edb7bc6c653fa03e335da0d938"
+  },
+  "companion/cultures/friuli/stories/la-bora.json": {
+   "before": "49d0ddd548e64674610ffbc0ee71be0f5e1adaa85a11e96b1b5f7c47e2ae195a",
+   "after": "c996b7d1797bc2673fd665b9d58019ac89827762e3d8a5966250bb0dafc7a102"
+  },
+  "companion/cultures/friuli/stories/la-dama-bianca.json": {
+   "before": "fa92c3b66ec488841556bd26c20fad38ae66bcf7657522ae1061bba9fd8b5cf6",
+   "after": "b342e7f7cce9645fd56db5144d2462139830457f8ae9188fb7007543e91e4016"
+  },
+  "companion/cultures/friuli/stories/la-madonna-del-lussari.json": {
+   "before": "50ee86a28b0359983a560904cbe4b30fc929180117bfe447b65ee5f1df9f8bd4",
+   "after": "309c0ce5bdb463a4945a9d620d6975564b4b8faed4da626c5d2a44f62e0ff038"
+  },
+  "companion/cultures/friuli/stories/le-agane.json": {
+   "before": "a14c97b8c99d4445e47684ad61d1cd502b28248e75c494b67a14851c23f926e3",
+   "after": "521066f8b0246653a7685c2692707d58f7b67c07fe611936795e1ede032a7475"
+  },
+  "companion/cultures/friuli/stories/le-krivapete.json": {
+   "before": "c250f6e2a1c4c18eff70b9f972d78ad62cce43b6232a8f119fc0afe68a6ee3a9",
+   "after": "e361e16c6b2787ff29a68ad439c63df8ebb8fdbc7bc0e45e1b74c297d443ff98"
+  },
+  "companion/cultures/friuli/stories/lopichis-e-il-lupo.json": {
+   "before": "4b868564b0e10833f9ad1738abee328952bfd536784db2938db29844f4d0fdfd",
+   "after": "2cad610b94dab9549074e7c28d8a1c50988c28e4c43b419896583d8991725988"
+  },
+  "companion/cultures/friuli/surprises.json": {
+   "before": "9e2ff1a5b2acf518e348d113bee4375770f017c1c263e71cf61e33d87c6b7533",
+   "after": "a3354af74571b557fbb707895f9154fafb3e5cc51adc1fab8a91ce1f211a44b6"
+  },
+  "companion/cultures/friuli/villagers/aldo.json": {
+   "before": "0df7b1dd00e972531f9a83f3526100f1a8dce00afe3a0bb0d1b7df6b68cd1c1b",
+   "after": "d4237d39ebfd5efc02c767966c616af1c84181a0dd7bcd68c5ca84f35e581a14"
+  },
+  "companion/cultures/friuli/villagers/bepi.json": {
+   "before": "c01f1214e13460e6635dcf2614136ebcdad5b0c1d20707bf8ea3bed6378d5325",
+   "after": "8ed81b5cdec5874e42374382901400f1b19d111a3bb44bcd351848edb41a9b8c"
+  },
+  "companion/cultures/friuli/villagers/bruno.json": {
+   "before": "3ccaa1c8d4e3fa472da5997d76bd5094447a6bb08f408208b72035583d3afb02",
+   "after": "11974cbdf8da576632d1f01cd774351e1b5b29f704e630c87209782daf6bf1fe"
+  },
+  "companion/cultures/friuli/villagers/davide.json": {
+   "before": "10d6298fa16136fc961684be183a75ec1ec5130398403388a81f704730281075",
+   "after": "5a978672504584156e5cfba96c7a956c076149f9db04be84101d0d08ef609a9f"
+  },
+  "companion/cultures/friuli/villagers/elena.json": {
+   "before": "3e8fffe353d4dbb48350e21d196874bb0967b8ba7c20bbd89c92a434215b7511",
+   "after": "e62e2c7d17d52db589f88b7a1d706c370635d844fe15ca49501f725ebc632bf6"
+  },
+  "companion/cultures/friuli/villagers/franco.json": {
+   "before": "2bdfe1e340da9904629ad6790a6093e2068247122af458acb538a20aaa1bd8be",
+   "after": "463cd27e33f3a0247034c852e2723e18253310016d0b900b81bf980a700eb7ae"
+  },
+  "companion/cultures/friuli/villagers/giulia.json": {
+   "before": "620a957858d6a336967999775181679fa009e37f3a0915202072bc81ed05f257",
+   "after": "a8f9211fc40d0f71152e7000b9a0e130a2698ed76a11fe888d371a62ad6d52d4"
+  },
+  "companion/cultures/friuli/villagers/lorenzo.json": {
+   "before": "71d574fc32046caaccac2145bca2082f484b980e2092c4cc302ec60e56b34cfb",
+   "after": "f9b20728f9a9262b80cf8387f4148d6d4ee15ba3a6bfbd80ea7e5dc56592f0ce"
+  },
+  "companion/cultures/friuli/villagers/marisa.json": {
+   "before": "595916fa50e5a5b32815fb93be4a99535e95b0ba034f33f7c278c2875f5e7d72",
+   "after": "38f626f20b9b0ba64090d5cd9d84851e11b847fd6d4f167967e33af54201e739"
+  },
+  "companion/cultures/friuli/villagers/matteo.json": {
+   "before": "fcccb4513ad38e41d4889e73b5bc92d48100aa4b444492e6a81cabf10d5dd0f0",
+   "after": "36c9d9cc7024fd392cfc632eb75d3a736b628d7c5c804d5aa37f8e943206c073"
+  },
+  "companion/cultures/friuli/villagers/nives.json": {
+   "before": "7b9825b686166f98e0616ba8e3024198f244c1740894d0a41f2bbbc28c72c4ae",
+   "after": "1f28e5229e8183bfedcc79892575a5901f4db15c8a8f5fff1db3871323ed674e"
+  },
+  "companion/cultures/friuli/villagers/rosa.json": {
+   "before": "80ff5e6e564f9e9d8d36faaa928da08c59e230fd5966fdbee848e76e16ce1d19",
+   "after": "0b73aea85d4ecbb742e4ecb58a549d4aff3b1d287009290e67daa79e384d1daf"
+  },
+  "companion/cultures/friuli/villagers/tommaso.json": {
+   "before": "205662be61e639bd8fe8fa62e83cf1499ae0d2abadfaf2dfd154b7ab0e19d653",
+   "after": "7dc832688e283c6aeb37b0e6179308cea634dfe8267a55b1ebd4d132cbfd4aa5"
+  },
+  "companion/cultures/friuli/voice-cast.json": {
+   "before": "bae59c802891996aeb515c674fc04af45c0e312b4cd423c43674d1138fe7b570",
+   "after": "ff6fe9f34c2e5cabec42c9ebfefcf9f6cfbe83c5008392c776f205ea8cb9fa42"
+  },
+  "companion/cultures/friuli/world.json": {
+   "before": "fccaba668f1a54372d4e4f3e3bb0c19e78b6d6ce1318e156ee6888f3e176322b",
+   "after": "38f7c3c72997c2bae97ae42762cc025fde87b6517e70ce81f17743a64482d66c"
+  },
+  "companion/cultures/kaernten/arrivals.json": {
+   "before": "304f639516dbc00e1e290f09be8f893e28cb49577fe57a2926a83c45ca2fb31f",
+   "after": "b781b500d3cd234d296fe279de57e9520746e30074842a79fa5eaba5d9ebaf35"
+  },
+  "companion/cultures/kaernten/chest.json": {
+   "before": "d0d69a307c56e6f4b1a8884e9ba531eceabb1c4e61f18e4bd287c6ff2f5232c8",
+   "after": "27a5af1638f67f9943432798baadf010fa551095c68b085cd0b6efb0c35d6f4a"
+  },
+  "companion/cultures/kaernten/chronicle.json": {
+   "before": "0040e0cc8710bc89a45bfe82ec913098fa5213642056e613af3819f2d1ce6801",
+   "after": "c73e56e3501c47d695cff242a5884861e0ec6571d0af0d32834503f91568b95b"
+  },
+  "companion/cultures/kaernten/culture.json": {
+   "before": "fd4b3de5cbcf3b85b22c0a263b7bd3b80b7577032f6d7aaced77ab9d4b2a788a",
+   "after": "c908c4cb4af13b9bfd48d81e07b9d0c064992a7a93b6cf833cebd1142345db84"
+  },
+  "companion/cultures/kaernten/events.json": {
+   "before": "ed477d0d83f4c7ea926020beedd801015c3dc15530fdba31aff6f52f08d3994b",
+   "after": "2dad94c9f1166df28a6068ff545d8ec46e80d8c5476203980c25dd6050c5f33a"
+  },
+  "companion/cultures/kaernten/festivals.json": {
+   "before": "aebfedf5723a7542f232e432b0419f6d92644478b3de3fca68122fe1bfc0de9c",
+   "after": "2f4e90a7aa5681f492d7f22c7dfd58a8bf367fe05b62c7d85206d163dbc262c2"
+  },
+  "companion/cultures/kaernten/packs/am-feuer.json": {
+   "before": "c007e58b3c0999a90c1619e029c2de0aad1500fc30be4f75ff6af6ef27ebc821",
+   "after": "4891da858a6adb37a4c5558d958cf2969d41eaa5dee83e2dfcac373df1844583"
+  },
+  "companion/cultures/kaernten/packs/am-meiler.json": {
+   "before": "e6a8c882d7f8659feb9e2ce09b2c528553d2bf4ba1d6a7662f2357ca2013751a",
+   "after": "5082d3871a9ed0f6dee997dad915219e4b92e44cdb4aa7390ccbd4fac1381019"
+  },
+  "companion/cultures/kaernten/packs/am-see.json": {
+   "before": "98a9b87531be2bd918820bd470906eb1a87b2b9286a7085f84699a5e039e8ece",
+   "after": "4de2f95648ecc4e1b4948b0b3ec5fa3d5a88503b0ed1d199339621b5fddcae7c"
+  },
+  "companion/cultures/kaernten/packs/der-himmel.json": {
+   "before": "bde794498f11bd0716edf5257b1c9ba317b2bfcbd89345f4bc94394727ea6dc4",
+   "after": "063ea0637b4228d9ec9da83d92241a1cb05eca143b38e0a2772bb64cac4c9794"
+  },
+  "companion/cultures/kaernten/packs/fest-almabtrieb.json": {
+   "before": "a67077f70db481783ec1000a71833348c29a36326da7d4e965d54d9fdabaced1",
+   "after": "02aab76889d4b0859f1bb277bca99cfba28c399004e7453040946071de608368"
+  },
+  "companion/cultures/kaernten/packs/fest-dreikoenig.json": {
+   "before": "85d0f7af7d65a2a7d1a76427f131924746428564abe09ff70cc156f6ec43be40",
+   "after": "b78948d57c77fcb4b7e6aeeb47985f6eb53d9dac7086ca90d961f0cd87ab6918"
+  },
+  "companion/cultures/kaernten/packs/fest-fasching.json": {
+   "before": "2f876190f6560915794501b6d74af75d4569c2a7e5e9d9a7597aa26295041763",
+   "after": "92258ceed7d6d884eb257e48888534dc26deaf9dffa227bd3f9c09c0e1ada96e"
+  },
+  "companion/cultures/kaernten/packs/fest-kirchtag.json": {
+   "before": "0886fa34acf891f1554f9b3e87254f973f5ddce0dbbe03aaf0c86d9da1bf057d",
+   "after": "4ff13384c6975924cac36faa715abb15785bc6ab8b5ff624c323ca7de1ffe0c5"
+  },
+  "companion/cultures/kaernten/packs/fest-kufenstechen.json": {
+   "before": "044c0905659647c441b5fef5a1adad923ecdcad8673c6ea3a0ab112004d4cfd3",
+   "after": "f815778d91a21f0159976dcaf959cf8b0b4d28334bfad8e84f3bae54791d213a"
+  },
+  "companion/cultures/kaernten/packs/fest-maibaum.json": {
+   "before": "4821e41d94c88729bb550562958b6cfd5576a8460a9500584b96fa462ea3868f",
+   "after": "849a30731e4c965d4665f8b36c2737c549acd7044e89a39f478d639233b5d1ef"
+  },
+  "companion/cultures/kaernten/packs/fest-martini.json": {
+   "before": "c2913fb429f113c02a7fb3c1927cdff152a5b3a98f2439208a0182bd4d20854f",
+   "after": "13929dd5ed525b871bde9b47a3480e777a8a1314ec10a1f8d6b2109a0d0fbf59"
+  },
+  "companion/cultures/kaernten/packs/fest-nationalfeiertag.json": {
+   "before": "98616449eb35abdfee43482827b9faa767d1a16ebc5725be35b4bbb8c2def48f",
+   "after": "b6068febda4d55ed6f77614af68431b538a9136338c4c06fe95986a8cca1a060"
+  },
+  "companion/cultures/kaernten/packs/fest-neujahr.json": {
+   "before": "b1f7bc8f0ed225cfe12d9ebec5753a8dff3c00ad7073926ecac3b7e120415784",
+   "after": "80b8f437cd1d46b3ae6c5defcc3a3de82b5186ce6394ab91d66c360dbffa81cb"
+  },
+  "companion/cultures/kaernten/packs/fest-nikolo.json": {
+   "before": "7b7949b4d6b881dbaa9ff66aef778019b95c6addad6bd5083acc7d77265146a2",
+   "after": "209e73e7a354434d8218040f91014821e37b62f353eb289f072a1ff710701297"
+  },
+  "companion/cultures/kaernten/packs/fest-ostern.json": {
+   "before": "95d007a470341366785e1c2f92c9ec409bd4dd6a5362e27edf63f07a2e452c21",
+   "after": "04ce6ca27f2401f2f191c09e03528a271fc009ae9fcbaf81b99e63c79da3a3f8"
+  },
+  "companion/cultures/kaernten/packs/fest-palmsonntag.json": {
+   "before": "3e36ca0c0fe58818ee81f9935ca10d2d8ccdfe0cc526f35fceb766a6b6339220",
+   "after": "74890d590871b630cae48289beb11590e08472f81d60e34b38add4106a12f459"
+  },
+  "companion/cultures/kaernten/packs/fest-sonnwende.json": {
+   "before": "1cb87f6b12d8980dfa8d860caf1fa4e24596a060b7c47265046f38d815247e5b",
+   "after": "c456e91e9cfe4c27c1cc2d58128dadd4581407dd42afb35847f8276e00ed22fc"
+  },
+  "companion/cultures/kaernten/packs/fest-weihnachten.json": {
+   "before": "173ff24465aefb19bf8613bb4d3856ace48e78f2d55d6386550222c34bfcb94a",
+   "after": "d05fff2f448ce9aac5b91eda354b2c2a4b9e500e76ea5a2204876b5297e8cf82"
+  },
+  "companion/cultures/kaernten/packs/geschichten.json": {
+   "before": "9ac01e6a659e86e103580b54e8fb0e10a37765261017e4da98cdd18b047114ea",
+   "after": "035dfe1273c9b2a63b6146e76e7a08298e788d393d1096ac34e7e55c77a5ab0a"
+  },
+  "companion/cultures/kaernten/packs/sagen.json": {
+   "before": "5880fb407e186e08cbd5e3f40123c34caa2aa482d5df44f799ca9c2675407709",
+   "after": "006e7f64aea73263bcb78145f6adb87e632297d318753489c26534daf4dd7123"
+  },
+  "companion/cultures/kaernten/people.json": {
+   "before": "ab50ce6922403d5d27c5b5a9aa9e62df6a94130907b11f2bc6bc04a51708de58",
+   "after": "21428d123c96ac38f8fc1bfe90c72b64bf6f118a8a5120cfb5b616f06927adc1"
+  },
+  "companion/cultures/kaernten/projects.json": {
+   "before": "c8f9452cdfe66fcb1f6da13fdccf1a0648dbe0e7508a48a307cecda54bbc7ef0",
+   "after": "86691f52fbdf847306e5b7608b66562adb92bc16cfdf80037f60ffc41ac02c7a"
+  },
+  "companion/cultures/kaernten/quests.json": {
+   "before": "d790724fe5caeccd445ddfa12e2fa0a93fe0fe5fe81907e03f33a8bb869bb98a",
+   "after": "b8269d84eb82eedbb271125b6f303ed2ba4757b8be11c225d60567cf290b85d1"
+  },
+  "companion/cultures/kaernten/readings/altes-buch.json": {
+   "before": "264781e95028206d669ee2546282de74392ebce10fe01433164168b74b2e8f1e",
+   "after": "6805823a1506ebefd09bd1fa2a1f828b9270d153960ddc5d85e1b3845d05dd73"
+  },
+  "companion/cultures/kaernten/readings/kasnudeln.json": {
+   "before": "1f430e2664ec1e2cdda1a452e669f09cec8399229c9c027f724493c38fc9f4bd",
+   "after": "dd8ed0742d19b03c2794f30cd553cf48ab2187ea4ce9eff2a8837a052c8174e0"
+  },
+  "companion/cultures/kaernten/readings/reindling.json": {
+   "before": "d7b998c472da29334a8acaf366c0e99b38c3ec03fa060f3527c707168428804e",
+   "after": "2016f170e45ac820c671121c729dca577f2141fedfd448e479ec3fe03163590e"
+  },
+  "companion/cultures/kaernten/readings/sprichwoerter.json": {
+   "before": "284a562674e4b06ef71ae549143b0e7b36f48c8c78cd3fdb28e94ed503acdaa8",
+   "after": "6e7a7b40df78f11d792734df069ca666816881d17d1d31c4429a58157dfc6dbe"
+  },
+  "companion/cultures/kaernten/scenes/am-feuer.json": {
+   "before": "e25ec96f600dd5e382794f0869d574aa2a4b78fb30113e289e1b597cca1dd229",
+   "after": "8055763ddde5c28d41f415c3bd630984681a9e56e6e712d706fdbf8c60fa0778"
+  },
+  "companion/cultures/kaernten/scenes/am-see.json": {
+   "before": "8cd1aa27697b5236278f2e7bc1fb8f67684a63b2a5dbf66b2dc9aa14a2f441dd",
+   "after": "69e79deb4a168a10733e3b0766db177cb275a574cd4edafab21f40d8ed87421a"
+  },
+  "companion/cultures/kaernten/sky.json": {
+   "before": "5efff322d192ba884818016fb0092f4e31ea370e7ebe78957f4b285d8fe883e8",
+   "after": "99e86774b935d7dbe57c2dbcbb2970ebd172c5df43b874d1ea519daa85ad0276"
+  },
+  "companion/cultures/kaernten/stories/das-kasermandl.json": {
+   "before": "abc7944575ffdc685b9bc7fafc0ade3dda6612f35c2c0de2c8c1cb9e21150528",
+   "after": "8b7359c6ef2ef772b54e6c790d7d8022d89f3040fba1397e18f432d577613468"
+  },
+  "companion/cultures/kaernten/stories/der-dobratsch.json": {
+   "before": "3fae49ccec0dcf053210087a3a7e6be25f9bd7f15bfb3349318a4be320464f31",
+   "after": "9220f08642a83632dbf25d0e6aa22f562be19f92f4d8d2a43f62364499009662"
+  },
+  "companion/cultures/kaernten/stories/der-lindwurm.json": {
+   "before": "5719abb6c1b1813d576a03f42f58f70f597b40c8c52995d74ebc4823313458b0",
+   "after": "4ad7dade6e55ab0816d0b04e6c3cdb48480cf0761e02d28e73adf56ad8f164b7"
+  },
+  "companion/cultures/kaernten/stories/der-woerthersee.json": {
+   "before": "4e4aa2964ec1fdd3daa37cf1f4b359fbac439a7cdd725d8d79b290d644fe61b3",
+   "after": "39fd25006559d0f60f6f97602750ac222611ebca777bf688464bb1f127a85ca6"
+  },
+  "companion/cultures/kaernten/stories/die-heilige-hemma.json": {
+   "before": "ea455f04eb815b3478c237ee834e34110e25ab31b13c8a1a55abaa07a471f3e9",
+   "after": "41d1534734ada238213d8a9378cddfb8756ccf3bfe1a23a763d1b6454f68e2c8"
+  },
+  "companion/cultures/kaernten/stories/die-maultasch-vor-hochosterwitz.json": {
+   "before": "c673ad859aa4787427e01f09e4304a8a745ef7a4322bed6df6fa68b887fddfc1",
+   "after": "9143855918b157fd33ded8a033bb8fe9775031bd7e560519cb130a93a2e96d75"
+  },
+  "companion/cultures/kaernten/stories/die-perchtl.json": {
+   "before": "2e54ecfcddc7bc3b263eb31859b4a1a37a39eee2d19fa81fec87dd2d40f74ffa",
+   "after": "1e2454c577a5cb7c15485743e637f74b052ae5ef60a88a51a00d44d4de476c7f"
+  },
+  "companion/cultures/kaernten/stories/die-riesen.json": {
+   "before": "6e19f18f949b8b457bb437f2b47ca3a08998f7be9e23aa1661b27c8a1f9a131d",
+   "after": "748d6d4c50c3999f25f0bc0aff3a3840de81bf2beda761b2ebba12bff698679c"
+  },
+  "companion/cultures/kaernten/stories/die-tausend-statuen.json": {
+   "before": "a25b340524d31929c102186382a25a66a8cb9fa2b57ff8af33fa09d5b3bb70c0",
+   "after": "003c2ba83f0c7cf19c530d436642356b4d1fbd54a6001ff19959096c6627f225"
+  },
+  "companion/cultures/kaernten/stories/koenig-matthias.json": {
+   "before": "96789ebab5c31725463f36ef6d51c17498d642c7ae60c2512e8063b21aa64d22",
+   "after": "3b33942aa8bf212211b73b8c03d3a19fbd4b1be47164cf31d729a7ae4355dcdc"
+  },
+  "companion/cultures/kaernten/surprises.json": {
+   "before": "bcfd6e57e93dcf26dc56193df7d15a4c93fe98d559840b3bd626941891fd85bc",
+   "after": "a9b1b9e6c386e14b0de78b7aabaaac403b1818d9a9ee6483b8fa267e4c067890"
+  },
+  "companion/cultures/kaernten/villagers/eva.json": {
+   "before": "1357ad255b634bfbe1043ad444e5942a3f5dac20833b12a2432fff9219a6cfdd",
+   "after": "913afb19f453733275faba958d986efdee5cbd03fc000007d245894c98e41f33"
+  },
+  "companion/cultures/kaernten/villagers/florian.json": {
+   "before": "59e815487c92b8de8c864e59ba96675e190333a73157e82ad1cae362db18886e",
+   "after": "d0cb9cc7f686aa4a5b0d33bf6e5875869c67d3181b0ba28f3a5bf7b4fd7731e5"
+  },
+  "companion/cultures/kaernten/villagers/franz.json": {
+   "before": "da64c6167608c532e05b51be1d7ca9e83941a6d71a10b0eb6c65d499c3a48665",
+   "after": "eea8f95b9cab28f533f444ed2b4fead2f9254bcf72b9198016f873daf79562d4"
+  },
+  "companion/cultures/kaernten/villagers/jakob.json": {
+   "before": "5168e1533f86f027926c75651b0db19541b518e090c766948fbb24afb00def43",
+   "after": "0e42142a5de6a4d5a7de61e1c67e870cb91b3aa11194fdca3975c483144da535"
+  },
+  "companion/cultures/kaernten/villagers/kathi.json": {
+   "before": "6117e82d05f0428e990283892dd1f7293ff8e005d3ac768579d8690618c88187",
+   "after": "3622254160a95acd0b47f09350215906cc04d5db11ade2748168d8fc94935f55"
+  },
+  "companion/cultures/kaernten/villagers/lena.json": {
+   "before": "a6070091d3ac09dab89f1c26c2dbf69ddf5e35d40410d6f43aa06b111ed22eaf",
+   "after": "07f48df28f23815da0aeb67c488e5fa5012fa7cd3792a1eb88ed5a21e63d6086"
+  },
+  "companion/cultures/kaernten/villagers/maxi.json": {
+   "before": "a5c78ea57579f20141c7ebca13d49ccdd988c0458f2e46a7a3e84e2abbb38237",
+   "after": "123544de10bf1f5bd1fe7d523be182f8e71672e2a88f429c0ec3855cf63c4c8e"
+  },
+  "companion/cultures/kaernten/villagers/mitzi.json": {
+   "before": "8b3005f36ee74ab6454a31dbf26ff7aedc22c3ef13909df3d4590dc1d6ebb85f",
+   "after": "0c5b7e7f2b6db955ede57b757139cf8a4a604be692e7dd56faccdabece715f8b"
+  },
+  "companion/cultures/kaernten/villagers/resi.json": {
+   "before": "e4cea9bc183c23b7b7f6779551ad89b4a6af48514c997b644cf2f9190b707b28",
+   "after": "6c3e510ee7d05fb2ab925e51e70ce5117f0280936d8c7b0b94fe24d507812e41"
+  },
+  "companion/cultures/kaernten/villagers/sepp.json": {
+   "before": "f00cc54f3aa9e5981a5fabc9189111818e881d5c47fcf64cc1cc9ef61f135d2e",
+   "after": "1d6e9ff5376df44e129577eaedb598c4fc6c0e28d1c541ba26066f28148c09af"
+  },
+  "companion/cultures/kaernten/villagers/stanko.json": {
+   "before": "8e5daa4be91f2a0582ba1100026e758ce2c84d37b2f32576a23af3ff3c0fffd4",
+   "after": "d2c64c216250b73450b1cd66ec9d78b68bf4d8fc752157a9cc49e2922d850b42"
+  },
+  "companion/cultures/kaernten/villagers/stefan.json": {
+   "before": "3ad76b2de8005be8b8e5f6adde622acc5211983160beea7cd1228618e67bb3c9",
+   "after": "67bfb285c830c20dad724b86b0f025801857e478201437c8c2a28cb5d10f504c"
+  },
+  "companion/cultures/kaernten/villagers/toni.json": {
+   "before": "a6794de326eecb67cb6be11748dc3a56b59063fb865da1371e4b8dff412d8fdb",
+   "after": "0a396d647b335fc953a23651bb0a0fe5dd737f19a13fb6fd5a41c0934d60c10f"
+  },
+  "companion/cultures/kaernten/voice-cast.json": {
+   "before": "46c92bd9291ef71e02e2b0520f61b8ce2466b7b227f2c68ae99936b3d7de5384",
+   "after": "662bd5d211062c31900f366e14f9ff729885e3acf249cbbc68324b511e56635c"
+  },
+  "companion/cultures/kaernten/world.json": {
+   "before": "e4ed63adcd7c971e8b9ffc355935ad827925bbbe521fb000434117fae212a768",
+   "after": "f6e9e9dc0e998729ab494b95245bc07c6c4562a2c41fb3bc0f9e11e872991d18"
+  },
+  "companion/cultures/lakeland/arrivals.json": {
+   "before": "d9d0984ef4e3e842a1f09eba4be9ac61289e2ca7e531a7e33e804e4dab21c4da",
+   "after": "6b10067bd91c330593e493858a890996d704d54a54de7dc03bb6d3be466c2d1b"
+  },
+  "companion/cultures/lakeland/chest.json": {
+   "before": "d6b7760bce985f2b053c5e14dae1011fd132318789847786f510c13f00adc1ce",
+   "after": "379b266fea7919e7e2a9578b9eec266157602b1ee144c51debef3778518b728e"
+  },
+  "companion/cultures/lakeland/chronicle.json": {
+   "before": "e96c33a43b7708aa22c9ac7d9c0c6ae990eb9bc604f138e5c6518d8c01453257",
+   "after": "4120ec8426b0effe7064faa7e0c05f36589620b291e8cd9d795ffabf6addbf2d"
+  },
+  "companion/cultures/lakeland/culture.json": {
+   "before": "beb6912b5e40c527332fe95cef0a0763f1e8c59eb9d79447465d06600a0d2043",
+   "after": "7b83f457f421f0efc7f2d3131ca86ec6e2a1a0d9d02361d55a8695d5b6d384f8"
+  },
+  "companion/cultures/lakeland/events.json": {
+   "before": "68856796b007901d2dc83dccfa3c493133f0c34d2dedd4dcbbf7203194fd963c",
+   "after": "c0a1676d743c447e6e2e3e46ff29b12eb236cab67356e5bf16a0e62e0381a960"
+  },
+  "companion/cultures/lakeland/festivals.json": {
+   "before": "71aec46d1aeb47fd191b54d841cfb773584ad3128078f81fb4af5e8e28fc7517",
+   "after": "c6850d20d0793d7b46ffe02a54e6c31616abd6f3f25ffa820de0671dcfc90cdd"
+  },
+  "companion/cultures/lakeland/packs/at-the-pit.json": {
+   "before": "791b29bb1ff0b5229a42c1e3bd7d982c6070e239ed9b3766137fd7f9f5a5eb56",
+   "after": "49d6e3fc1d9fee807b55e4e015140a41a1c5de05a4ceacb0af44d97bd7a028cc"
+  },
+  "companion/cultures/lakeland/packs/by-the-fire.json": {
+   "before": "53a8569a392fc1abd401e37378fea0ad770b1c079fc3a6951ff0a1115b2e7bc2",
+   "after": "6982d8b27dfac70aa19c8ab415efec33bcaa320e25e1bd43622263a96dc05621"
+  },
+  "companion/cultures/lakeland/packs/feast-bonfire-night.json": {
+   "before": "e50fee4baa031fa529965e42d0e35cf5cf0049f9e00b6eb540d731399054e675",
+   "after": "0943e13f2d7f6e6061bcacb7a6e28b2890dff5c9b0c7ed495c097f72db4ddcd4"
+  },
+  "companion/cultures/lakeland/packs/feast-boxing-day.json": {
+   "before": "a039ac8bcfcd28d5cd67eaca3304c4cced0da99f8d9b9e5aa1fa1e5528702499",
+   "after": "31eeee18f5b1af8387c945797298bd755ddf7b695697e66fa2219f2a7645cb22"
+  },
+  "companion/cultures/lakeland/packs/feast-christmas.json": {
+   "before": "11ffafbc82411f983642db7116f1a0b98c2cc4df10adf5990963b1327dc0a656",
+   "after": "7938c18dcf0a4c24d27a641564610217b5a2a82d6962eb3d114e6aeeb121562d"
+  },
+  "companion/cultures/lakeland/packs/feast-easter.json": {
+   "before": "731719b0fb7908671cdf696dd5bf57cf6b73845dfeb0a61005b532c5fa5091ae",
+   "after": "445ca2c1034234cf252449e0cde76f55f6f53557028d13f44f0d7f44cb90f9f6"
+  },
+  "companion/cultures/lakeland/packs/feast-egg-rolling.json": {
+   "before": "3b8b774fca6da13e8b66f2dea06b47b3234d0f337f38acb579028832c26ccb89",
+   "after": "5b4ff4e556edcabd0be5dadd18f7f69df6b0e35b849d6cb2b2af1c59eb4e87ca"
+  },
+  "companion/cultures/lakeland/packs/feast-harvest.json": {
+   "before": "571720ff7935504c706613214a31a5922790a81b8ebb5916ac1503d00b6a30ce",
+   "after": "f5a6db2e681122846f192c80c0c66749a6d26494a35c1417d9f4528c9a9db9d7"
+  },
+  "companion/cultures/lakeland/packs/feast-may-day.json": {
+   "before": "7549c7b3f5f9ef7819a92d07b28857a3789f99e0a5b6204c4186f9b51e11b290",
+   "after": "86161108c58b41608acd12e3dbcb654dd173b2255a3e47dbdfc3525cc82fd9cb"
+  },
+  "companion/cultures/lakeland/packs/feast-mothering-sunday.json": {
+   "before": "86f6d3faa2474132dbb8f74ce3d194d9880fe9db746f883039ff857b419f5f30",
+   "after": "685709252001b8bd29a7771b0acd83a51b1eb0975072fd36796eb546b818f844"
+  },
+  "companion/cultures/lakeland/packs/feast-new-year.json": {
+   "before": "a2d0813767b90402137229ebeb54e3cc85dac45c18dfa581e57aca60aeb0b8a1",
+   "after": "68fa266f557f6450e2f8fc27c8696719acfe53bc2481ea41d28db2e35db01207"
+  },
+  "companion/cultures/lakeland/packs/feast-pancake-day.json": {
+   "before": "0485efc5b8816f0cce85ec1f3f2e3d7400f5d79a9df976cb5438bece2054f257",
+   "after": "24443e7783668c11cd8f362e648893e6044e2825f57a8be899d4f0f5add72afa"
+  },
+  "companion/cultures/lakeland/packs/feast-rushbearing.json": {
+   "before": "b11d2d057fd0ba46bdf1a4ba5f968a347a01668ec9af56876a92da4069ba7a3f",
+   "after": "80edf5d25bfc186446b6cb20381e7e003c5f28327754a81587a9a9287170ded4"
+  },
+  "companion/cultures/lakeland/packs/feast-shepherds-meet.json": {
+   "before": "d144c553cd34283d8ccada6edd39e54f29f229192134fc0485d9c6c0ef26a3b4",
+   "after": "7f3c92ff3fdba6f0ae67cf93003fd8072bdc584a81dc4122431fd3f3d98c077a"
+  },
+  "companion/cultures/lakeland/packs/feast-show.json": {
+   "before": "7ec07f5f4c8377790563fb0602fbb29d7a070b24cc93dfaa5dbc0babf9347f17",
+   "after": "76b6291d6220ef5cf8ee3cb2a0cb63d1c55ed0fa4c95b80e2bc545b998cc2e62"
+  },
+  "companion/cultures/lakeland/packs/feast-st-george.json": {
+   "before": "dce3215e9b4117df39c68835110f85f52fe915a306104c39f5da4f4e3cdf746d",
+   "after": "21d70f053f2523d9f406bdcd1bccab1c62d37d53fc320f2929e053debcab0e0e"
+  },
+  "companion/cultures/lakeland/packs/legends.json": {
+   "before": "e28f069b3825b0fda171dad64402470bb863d89db29e92b3c74dbdce502db4e9",
+   "after": "39bfefb257177f0b4a4c0b88f141f1c920a774000bb02737588a3c7e0a20682a"
+  },
+  "companion/cultures/lakeland/packs/on-the-fell.json": {
+   "before": "9641b0b47c414f63a74ba12b6961d2b32c48626cfae76fbf6e306fb82ea0e27b",
+   "after": "b08f3bd7feaae22ba8644089693618073508cc90211c2b476e5c7e1ff40b2bed"
+  },
+  "companion/cultures/lakeland/packs/tales.json": {
+   "before": "62e5e28fc2725fd919e0d99a6b25d0d2fa3f117400a2d96bf277838a2e230543",
+   "after": "d3ff8090d9b17b42ff0844e153fc74605c7cc4b9b691e1589868959e4f15cfdf"
+  },
+  "companion/cultures/lakeland/packs/the-night-sky.json": {
+   "before": "ec5ddbe0a41ca9bc75727e17a35a7153852b58f6885d02edf01af46de1e1c564",
+   "after": "5ab116c914969ee75b2b0dc226c1cb678e601e7003334c97bfbd31d7b8d558d1"
+  },
+  "companion/cultures/lakeland/people.json": {
+   "before": "561a0de3660deefa12c1b2bd7f0afa1b6e281f09509564a7b1740e616fc49703",
+   "after": "53cdaede7d79f286279f78ff829db0019fb5308d82511f9be4a186e0deebc0f1"
+  },
+  "companion/cultures/lakeland/projects.json": {
+   "before": "4d3bad060722f7dfaf7d82942f7a5cd94a2fe48368fbea69ea71947430f4207c",
+   "after": "afb620df045d2943c4e34cebcb8492eb906ca47da047ce06a57d317d4e36ecbb"
+  },
+  "companion/cultures/lakeland/quests.json": {
+   "before": "85f7c477a84692c251523f7340a55f960dd20ba5a18d2701137f4cc6a75a12dc",
+   "after": "623e2556a04c4a4cd3306231839efa0a704a815767f8b3bf20287e2ae3822141"
+  },
+  "companion/cultures/lakeland/readings/counting-sheep.json": {
+   "before": "a2d24cbbc258271383571bd21cf6afb6f2dcc62f482b10cbda254d39ea47cec5",
+   "after": "fb9f2b8abd0bd9a22318f27b35513ce5c671242df0ac438b43adfffa4dc2f71d"
+  },
+  "companion/cultures/lakeland/readings/plurals.json": {
+   "before": "f381bb92662929312d7a264864f3f231bc38b66c352ad3b4d28cd501ead83b44",
+   "after": "50d7800a44e6980f03e41ae484cfa4dc9331e5491185f2d6f5979c27815f26bc"
+  },
+  "companion/cultures/lakeland/readings/sayings.json": {
+   "before": "8623bbdc32b09a1a214e69a1b71a103292396f52040975e1a97cdf965a32acaf",
+   "after": "7b9b3d04472f591965889f860e728f8a1c69dff0f6d13a0846964bf8c4132d78"
+  },
+  "companion/cultures/lakeland/readings/sticky-toffee-pudding.json": {
+   "before": "8e05800ef567ca9980794ae5ad01d2d7a390b574a7e941604f8667d8e7eb7c12",
+   "after": "63efa0442e6d7d767a300a30a7430f5bc591c39b177474574ff9c763d0e27859"
+  },
+  "companion/cultures/lakeland/readings/tatie-pot.json": {
+   "before": "5c02f9f2bd79e2f6141bd1c004185559b749a81b8c3d578431daee9bc41d7e06",
+   "after": "27ae129ef8379ce14d1445cb08b51a29bbf2f0ce8a704a92ccc4d9a0cfc43058"
+  },
+  "companion/cultures/lakeland/scenes/by-the-fire.json": {
+   "before": "56e0d9dc23cc090166ed5af0bbd2610c0934a87236785f233cff128a0871c43f",
+   "after": "1937ba3bfe5332fa49f24df4a619159de05cfba5151b0adf706f643e316c2e10"
+  },
+  "companion/cultures/lakeland/scenes/on-the-fell.json": {
+   "before": "d393570acc2497036c8399422068d1695db7b3a5813231fe935c7b34feba2d2d",
+   "after": "290cd1d540bdbc6dbea6c302b8cf1cd309c63f9152ee8583ee4c47518847f4ba"
+  },
+  "companion/cultures/lakeland/sky.json": {
+   "before": "098e1ba9eafc2127f2e33182926ca9e86e7bed559e92cb4880195b1de675f434",
+   "after": "7f70c92bd5fbe7e355ce9882053b6d951e66c98d409edee4fd9def81f72bdbdc"
+  },
+  "companion/cultures/lakeland/stories/king-dunmails-crown.json": {
+   "before": "888d2542945e2ad02a174bf46e3e17c128c59c69918591ba18aace6ce0304a44",
+   "after": "1316b5f5df19b570a7a10a1b3c54fe2f479e4e3fbe6c9c5ce305f62de41fa7f9"
+  },
+  "companion/cultures/lakeland/stories/long-meg-and-her-daughters.json": {
+   "before": "470934e3d13bd17d045fc26c972d13e6d156e848b881adffb6afb52e244b1022",
+   "after": "abe067f61d98db59556623f2918c30bc634bb85af1c60ff5378ddc7a45578e81"
+  },
+  "companion/cultures/lakeland/stories/the-borrowdale-cuckoo.json": {
+   "before": "79f6a0f2aed8c8496dc550941afef6c7673dc5e0aa4941b9dcfbd6558772ae25",
+   "after": "b24a6004de39fadc14b2e559370dc93139763442d6334face6b7dcac454f627a"
+  },
+  "companion/cultures/lakeland/stories/the-bowder-stone.json": {
+   "before": "d6f8e59c6f8964d3c8c5a55ef74888d15b5fb023275d372626c19d0d9e642d2d",
+   "after": "1991f9ad632253574fbf5606143b7d5869055d4fcae2d64daa30715deafb7243"
+  },
+  "companion/cultures/lakeland/stories/the-crier-of-claife.json": {
+   "before": "c91a001fbbc2162b4a2e42e7f6468bbe324792926049d7aad3b6ae432b9c6bde",
+   "after": "ff4e6cd315c8deb133f86e800a63015d33890551c5fd24dad4b47252601277ef"
+  },
+  "companion/cultures/lakeland/stories/the-giants-grave.json": {
+   "before": "739d33b4f8dd8ca6c275a3facb0ac53e8a3a7c8b9bea082e69d1c4d109c0308f",
+   "after": "907d5a7139942113d65465f1e14cc1f70f0b28719c3e86080cacd632855c0667"
+  },
+  "companion/cultures/lakeland/stories/the-hob.json": {
+   "before": "98ecc353380b71585b75a22245589f2df418a99c64386fb9a9d8c0a12dab330e",
+   "after": "05f0f93a5ae9c6a593ff56470014675465e93332ad0f02907564cc60353341ae"
+  },
+  "companion/cultures/lakeland/stories/the-lady-of-the-lake.json": {
+   "before": "7af3f0f312b1eed56803e93b1bc64996d43a4e82dc9c2ceefc6a3b5f7b23b9b0",
+   "after": "952d667f53b33f6ae1bbd04d4a8e48a77a6dfa9384bf1635a6ef34ac1fbbab8a"
+  },
+  "companion/cultures/lakeland/stories/the-luck-of-edenhall.json": {
+   "before": "aecffc3e544ca9b0e16979d7d2d55356230589a503cd23833a57bdcba2f63789",
+   "after": "f7e99a58d59bbefc1a1f08979bb42ee1b5c02f9abf86e5986f65e3240ea5c597"
+  },
+  "companion/cultures/lakeland/stories/tom-fool-of-muncaster.json": {
+   "before": "34448347ae748336bd46d67f1bc4647d771858a50c4378c0be62b1773a26030f",
+   "after": "0be1907f99dd73c9fed5f550392099bcc8303acb3a3705a09ec124b451613f29"
+  },
+  "companion/cultures/lakeland/surprises.json": {
+   "before": "8c4bce9c6aba37a339521e0b025962b4f82f8359efe410cd84c644781def4960",
+   "after": "5fce153286a44aa006fe0f5a2f00a798cfc800c93d256ea4c551fa5eb33fb50f"
+  },
+  "companion/cultures/lakeland/villagers/alfie.json": {
+   "before": "fa419df96708b8886c0591d3175057e30a7bb30dc65146225906c088407415d2",
+   "after": "775504a37fba163dd5b7d612fdd18fd34de981faee156706762f9f94fb73d00a"
+  },
+  "companion/cultures/lakeland/villagers/arthur.json": {
+   "before": "516338a040e3e46f28d99cea51e19eb8477defa615b8142d28a0f86f3e90e511",
+   "after": "94f6619317a5615c06c82694c800076398c40c7cf75e6b3a4a7b325f27b827db"
+  },
+  "companion/cultures/lakeland/villagers/birkett.json": {
+   "before": "e6c14a7405e272be940b5f27f22da2b87db56f7916244f4b4b7cc3a0de6f4c1e",
+   "after": "f7420792ba1e1047a4ce7150c0bb2da1e162d31daeb5173f0ee2354aeec4e170"
+  },
+  "companion/cultures/lakeland/villagers/dixon.json": {
+   "before": "9b06688e66cd19fe9f3bb9ead739aac7263b4f8b11a0d74ecdc8b4443e81b5ee",
+   "after": "7a13789053c2a018475a56cecd043f3de88795ece0601f6847946c80049f6a02"
+  },
+  "companion/cultures/lakeland/villagers/edna.json": {
+   "before": "f34b39753caeb16d94fd3cacd020ed7da1c23a35e4e09f2c36791f033b83ffe7",
+   "after": "da5557af90ccd3853ff28f11e61e1c2d7b049213acddfcf7ba94b184c4bb9d51"
+  },
+  "companion/cultures/lakeland/villagers/harry.json": {
+   "before": "f88fdd25b5e1919aeebe9025af939eabde82d94661e232a2eb7301e548189b21",
+   "after": "fbf70bddf31da9ce789302cea014a53ee84b1eccfbadde8747654e4cb78f37d3"
+  },
+  "companion/cultures/lakeland/villagers/hartley.json": {
+   "before": "4d7f192550c629dc2617ff7826cda6857c48d43254b66ea936916575bfab2be1",
+   "after": "044183e40139d7750bf8f4f28bb968086da92e1a586fa7dbdd9c4ceaca828d6d"
+  },
+  "companion/cultures/lakeland/villagers/jack.json": {
+   "before": "3c7002a05e217324f046fbb49651f08e2b7c7ee734c7dd9b3709f852a366df7a",
+   "after": "fcb31a3bd043cee64951c15737bf46fc88484c7936dd41a279dbd72660014a2c"
+  },
+  "companion/cultures/lakeland/villagers/maggie.json": {
+   "before": "c0004dec6bfd2fef853d6742511cd2efd8e8656c466ee69abdc5f8f6b550e55a",
+   "after": "f7f051945d43e5943acf8e7ab8ac87a3633f55b09afd479c74b3b390aad13215"
+  },
+  "companion/cultures/lakeland/villagers/poppy.json": {
+   "before": "fa2abd85567411f6c1827c9da7cf874e9408075726d7a42f72d67611c71ffc61",
+   "after": "b07dcf19fb73e317c78c6d5a35870823ba368f79ac700b4e1865efa4f50d7c92"
+  },
+  "companion/cultures/lakeland/villagers/sam.json": {
+   "before": "4c32edd69b6362cf550d57d7c4283876e49b98d97d9a7ec8f8f96979ac006b0c",
+   "after": "149f10b851d17340f4a3a1bc591864893b35c6d9ed111430386787a4f941b0f2"
+  },
+  "companion/cultures/lakeland/villagers/tyson.json": {
+   "before": "4091744a9777fde025777c774e61afe09c7e49b87164cb7d0c8f5beebd2ae3e6",
+   "after": "36f1a20e662620ce59c2ad8ba1984c1bb5f0bb62bbf6ddb94d9e45ed21c134f1"
+  },
+  "companion/cultures/lakeland/villagers/wilf.json": {
+   "before": "be8ae43819aa25f29632c1b0f1b8526bc2cda0bf84589e6b7ba6d4b22fdfbcee",
+   "after": "bd8a14a523b8c45780301327bd912a0fa287f52cab274846399d2c36132f164a"
+  },
+  "companion/cultures/lakeland/voice-cast.json": {
+   "before": "a15a2096a6c8b52a7d75af93b1900b1e4bd6a7fbe626ddb6f302c8c42d499b83",
+   "after": "d4c7b76336b837d6d8c88917fb3740adceaab10d634ead9afa5842c0addadf3c"
+  },
+  "companion/cultures/lakeland/world.json": {
+   "before": "a0d52ba78ebe897699db220cb6932e5514f7f42a3875851e4a894eecfd50d686",
+   "after": "6e618b8d9553d661ead4f480d4690c237dcb179827c55c0000d9e75470dca902"
+  },
+  "companion/cultures/primorska/arrivals.json": {
+   "before": "b5543699da10678e022cb2e3f549871a971a3010a15f51f1ff1e63066594417f",
+   "after": "c7b66aa5fceed1b29799ea9434cd391ffaca8d1424284e8e4f9f7a3017045823"
+  },
+  "companion/cultures/primorska/chest.json": {
+   "before": "e03fcfb6f77bd1ea3b2e99caf54e63ef3f544e9027e0d6a6aa01099995862dca",
+   "after": "d526b734a4dbab5957e279fc0e6c1b02435301b3dc63ed511d50fb17be066db7"
+  },
+  "companion/cultures/primorska/chronicle.json": {
+   "before": "96afedd7ef3d3c46affc65cea31c6d4feabf540e4589f4e2010e5091f03eefc0",
+   "after": "9dd521784b232f2acd2a68a7ec713d837de5f8b7eea5f407e8aac4f7529a7dee"
+  },
+  "companion/cultures/primorska/culture.json": {
+   "before": "534d7ae1c1d2105a75d7a8b4026cf971e7f62cecf9d869e0414c32cbe15e2385",
+   "after": "548670055cca06603d93796c167437ec9ba53479eda26c2dc6b6ef0926b60f5e"
+  },
+  "companion/cultures/primorska/events.json": {
+   "before": "a21106d1aa94ffc1e5e634fbfc7d60eabc29fee76f070a572c9d42d60e911043",
+   "after": "a742ded4370887fa662a6d6fa4575c5f9c58aea16f68d8843f1dde9f182f4910"
+  },
+  "companion/cultures/primorska/festivals.json": {
+   "before": "0c78e4a2d1118a9532e322102d27e97212e4c98751c2fdf87c26f42766b35bc1",
+   "after": "5af3488a9995d12232ed31137edf87b6132b05ac204ffa77f098b1cf082e8db5"
+  },
+  "companion/cultures/primorska/packs/na-gricih.json": {
+   "before": "7a91722c41b420ee935e4424050fc72f01f6b6c510c246ebd859df435f2c75e0",
+   "after": "d6c4d2b6dfaba0c74e41e867983c80d51a973c24166ac2d4f442b2955aee0320"
+  },
+  "companion/cultures/primorska/packs/nebo.json": {
+   "before": "d7e717cdcfcf819bba2f6fb7ecbdaf4a711ef558a4ddbde14943dd0876abe80c",
+   "after": "54d03092bbab2fb96ff25d82d3bcb824e4270c5fee26fd62858408993d754c1b"
+  },
+  "companion/cultures/primorska/packs/pri-kopi.json": {
+   "before": "c1ff9cf71704cb2dccde0dcee1744f890c112836559a230f3c606015748a12dc",
+   "after": "f495bdc8f6c636117b50a3db32845898d603e605d4f659c2bef7b28e5d13fb96"
+  },
+  "companion/cultures/primorska/packs/pripovedke.json": {
+   "before": "30fc080fe95749b56c06672cfd16359d44929329c07fb272906ed15e12d8bd5a",
+   "after": "4d6b06136241f5acaf4392a03114114a7be6258567b9880d528ba3d47b51a32c"
+  },
+  "companion/cultures/primorska/packs/v-gorah.json": {
+   "before": "22db00332a388c95a8349ef0f63f16041f695dd34843dea531f3adb9f9db3d46",
+   "after": "10b52e1da4dcaee3a0a8bc8753ca5c916fa46e99a4f1d19aa076cf4a78044645"
+  },
+  "companion/cultures/primorska/packs/zgodbe.json": {
+   "before": "76a58be6f9ff979fc5d7e0eded6151f34c5c8cc9fac4561eddc4a0282419cbed",
+   "after": "bba3ea6f60ad913c12023d07f9a2d92b9430a32f50f102ae747089936de6a44d"
+  },
+  "companion/cultures/primorska/people.json": {
+   "before": "03101f35381ccec2357f1e2d9003461796c996a2017f1d876c45d15ab4c46e71",
+   "after": "4b040fc6dc8ab7a7f161898fc926764633d2e76e40b243eb8493956f93bd1688"
+  },
+  "companion/cultures/primorska/projects.json": {
+   "before": "037be3674d94162c4f91238495e4da32e89f5fc42b2ffba615ce48380ee90caa",
+   "after": "451acae9ad50dff4d5e3726cd7ab864842e340dd3f1c206fe679a73a89ee1b63"
+  },
+  "companion/cultures/primorska/quests.json": {
+   "before": "ec5a5a68ac9b28f07634dfbcff103cd38a3a4073366b96eed9ec7d080e1fef94",
+   "after": "24c16433a25ea1abf696259af43643633bbb84124f6f1880a11a5015b2db0fa3"
+  },
+  "companion/cultures/primorska/readings/burja.json": {
+   "before": "5e45ba68df035cf38c8c28929571cb660638c4b9cb92a29584f281bc341b8e87",
+   "after": "ebfcc97f55226d07730b4179863f45678501bd21d54dcdd1a0d7048b21b685c0"
+  },
+  "companion/cultures/primorska/readings/frtalja.json": {
+   "before": "f9dea3cbab4d494621baaab646b4c5bf2bbe9cfef027cdfdfc5f9904a553e6a1",
+   "after": "c1d3b1f3306353befc35ccd86d2bb5efca4981ac83cfc58c25d10093ce4df990"
+  },
+  "companion/cultures/primorska/readings/jutro-v-vasi.json": {
+   "before": "c64ae2ea4087f12feea78bbd67e712d426c0b42dad8a4a3524a4506417046f62",
+   "after": "109149ae0b6a86c260f37a96ba4065f322bc788c80df0ac0acd4c3d87ea6f352"
+  },
+  "companion/cultures/primorska/readings/knjiga-pregovorov.json": {
+   "before": "c85ee228d0f4772bc5fc6a41e85fe2caceab85ed2a65c77b17afe0847e34033b",
+   "after": "5260e6080f36f85baf69af449fe6a9f26ff373e1716055e8f7567b7ed3c41368"
+  },
+  "companion/cultures/primorska/readings/pismo-od-marka.json": {
+   "before": "7675175e39f70790a345c33ada6005148e384d2d24a7b7b27860f00a4c0bd584",
+   "after": "c85763152dec6869f1ce041ce1c71673ece55945892f4e9da5dc89c7adfbbecf"
+  },
+  "companion/cultures/primorska/readings/potica.json": {
+   "before": "92731b3871809cea2ed997513463897e05310ea04e6b342febb1deae8cd61550",
+   "after": "cb139b0fa0ab5f9323da7ad09819fcb55d8f17be1349da46a8598827c30dd518"
+  },
+  "companion/cultures/primorska/readings/stara-pratika.json": {
+   "before": "da0f29880d9432ef386493f0c1a649682a33685ca0912f3a476d371bcaf458a7",
+   "after": "eada789c5b7693d50b444a334cda1f61cfa997575bc97064f74505cca3371e01"
+  },
+  "companion/cultures/primorska/readings/ucbenik-dvojina.json": {
+   "before": "4137b7ca6339f18e6d34f44358682d596c3d4bcdd5f9b8fe59646022b8cc5cd7",
+   "after": "c2f5ae526e14df764bab8dc4acf651ebf38f0d9c99fd3a6e0d80886df4acd03c"
+  },
+  "companion/cultures/primorska/readings/zdravljica.json": {
+   "before": "e271e4307237f6e9f1cd71750463bc763fc961bd24782276ed709c89a5474a79",
+   "after": "db409da4c7665661789a5145079b331e83b4f6fde56e1dc43e74708eff7e03dc"
+  },
+  "companion/cultures/primorska/scenes/na-gricih.json": {
+   "before": "4f6ad4b62b240d827ad6d0a4c9d96e0cb6407679be12539d7e3bd86e11f61729",
+   "after": "434899de4eff45e06c6ccc0e421733a1b185c411ded964d27b76a206b9a8ecb8"
+  },
+  "companion/cultures/primorska/scenes/v-gorah.json": {
+   "before": "f7e096b7709ab9eba1f4d8be5c033452759dabb8d0c6519ba3b8e58da2621a6f",
+   "after": "8560417b9fe85d69a95f13a8331d685eaeca560a9f08084a3513b99e6ac01608"
+  },
+  "companion/cultures/primorska/sky.json": {
+   "before": "90223fb60adb45cab69e1801b096ed5fb2a4aedda91cd0db6810bba92b3f022c",
+   "after": "28b3e87841691092efcfa6859c099b92b5f48ef0e6f3d4e5c47e1413e5c2e77d"
+  },
+  "companion/cultures/primorska/stories/ajdovska-deklica.json": {
+   "before": "e8411b94eaf7f33d37e986258d07de0dd140df88a19b734b122c40a1eb20ddd7",
+   "after": "3d4db7759f52703a969fa94f68b80543b5cfa8f473043312a7cfd23455232885"
+  },
+  "companion/cultures/primorska/stories/bogatinovo-zlato.json": {
+   "before": "7667ebe8376437b9b9f427ce142e1a92041be52de15c6a2ff12652a91d409f97",
+   "after": "ed1f15fd6804011995fc347b711ca4eba852db838ac88df3da5d287f3120ae41"
+  },
+  "companion/cultures/primorska/stories/desetnica.json": {
+   "before": "834fc5ca8df017897bd8b8173c0d8301535b3c572c518e4c65e8171ce33eaa43",
+   "after": "fda93e813711e2d06dd9b56fd9f92e4fab3dec3399636ae97b2c54f92d1dcb8a"
+  },
+  "companion/cultures/primorska/stories/jurij-kozjak.json": {
+   "before": "d746f9a19ea739a53f7eba38187bac11a01e2c699575cffc1c376cbeb77a3e4e",
+   "after": "cfb24f41f89a73d6cbbbaafe1b5e76ba4b22634c493d258619090b27f383f8ab"
+  },
+  "companion/cultures/primorska/stories/kekec.json": {
+   "before": "7c7f7b19323c65ae35773e6ff2ef411abee6d1719f2a2dfff2f1abefc7060b5d",
+   "after": "62aa62df83bf4ab0d1a917b3eefc6b28e27ec6b6e5230eebb12b8d5e1f0e01e6"
+  },
+  "companion/cultures/primorska/stories/kralj-matjaz.json": {
+   "before": "f8717455860f122a07c24cf9c8c189d5c1626fc6fea8dca7ad779e9981e897bf",
+   "after": "6ed8b8df238f0f670b63aeeb0a716118d112ded9eacacbde11601723d6317a7a"
+  },
+  "companion/cultures/primorska/stories/lepa-vida.json": {
+   "before": "783891caf174f222e5c03db7817abaed588431e04fc91a5e2b7ec10767337972",
+   "after": "bed1deb726bbabe8b71d81bd1b72c9797643aa615a6f49f8dd2756d449e017f1"
+  },
+  "companion/cultures/primorska/stories/martin-krpan.json": {
+   "before": "59130057d4e5d09fcc4f86c02667cf55a67143d35c697ec47ad563b562625150",
+   "after": "f39390a766a5ab9ff5ff7357d98fdca7be4ab2796091c93021ec29d48f625ee0"
+  },
+  "companion/cultures/primorska/stories/mojca-pokrajculja.json": {
+   "before": "12cfe034ba185b77c8f7dd359ee93221a5d93664d88516dca1ed6373eff35126",
+   "after": "f087e0dbec4c4135beef043a2144e67570f714dc57d14149f54ee7adb0fc9ec0"
+  },
+  "companion/cultures/primorska/stories/pegam-in-lambergar.json": {
+   "before": "362ea2daa33f1f272dc453c9feb132ceba2b035f3ae5f63d09157bfb45a41c58",
+   "after": "51af61a071ca120982c20b1337695142ed99158697a7b6dfb792bb13e716f909"
+  },
+  "companion/cultures/primorska/stories/peter-klepec.json": {
+   "before": "d730e3c2c2241ac5dea063aa8e69fc2a668d713c338a29ed19f6c23d087862d0",
+   "after": "b300c45274a68271b640dfca18d1d44df564a4ecf75216735673239a0c545985"
+  },
+  "companion/cultures/primorska/stories/povodni-moz.json": {
+   "before": "50ecb8414a2a9638bc20b3a54fad31ffc56718cd63e3a5e09646d52180e5e167",
+   "after": "5ddccac980baa925787fc580fdd1820824947edf7d24e7040382a555c5ac0c98"
+  },
+  "companion/cultures/primorska/stories/veronika-deseniska.json": {
+   "before": "77ec40ef5117a6aa1138473f9761580174a619193ed2c7e4fe2e8fdf3c241304",
+   "after": "657c503535a7a497fb487f3870338d7ff19e23debc22d6b3abcd561c620875c2"
+  },
+  "companion/cultures/primorska/stories/zlatorog.json": {
+   "before": "add67931ed859bd16575938c90911739692069b6847155f0607b469f682994d4",
+   "after": "e580a065d991a6027b7e6d15c3b345c7ce5b2edb753c57af3ee6ea8e89a376c0"
+  },
+  "companion/cultures/primorska/stories/zmaj-ljubljanski.json": {
+   "before": "2d2ce323e1c648e7ecebdb3ca996c2477d0ca18e44810f2d944356569ed36097",
+   "after": "4ec3c04464cb268e7116f9de1d52ac3c647384d1da1be47628c0586f1062d4d2"
+  },
+  "companion/cultures/primorska/stories/zvon-zelja.json": {
+   "before": "35076bb93634ea30fca4d8eb6f3fe6b98889e8bea5c759df3bcece4e77d81c15",
+   "after": "ada01e9721500b85528e0a934d107c85a812d8f3b26eab4c168404602bc442f1"
+  },
+  "companion/cultures/primorska/surprises.json": {
+   "before": "530f18c1317aeae7455ec5d855fe95108872d08df5a4ec5b0d1b5ff76715c6f3",
+   "after": "9c6ea4bcb60902a9f399f0930042f4c9bd2fa3152a9ff8945ed53ae6105f96b0"
+  },
+  "companion/cultures/primorska/villagers/ancka.json": {
+   "before": "e14fb4c29f6187be4779dcdc610bb7fb349cebad85c7efba238f0b5191fe0d66",
+   "after": "cf2e60688a43808b0c80448c33d494fae8af2dc4e790406f6125af03125296ae"
+  },
+  "companion/cultures/primorska/villagers/anton.json": {
+   "before": "c458e33d144099be0a9e63705a747c308b26003e15c0297e78545dbe61849a8c",
+   "after": "13bed1bf0b08b5349d80428c79f2106d99f36a11b2d7fce8a147bf971a889ad7"
+  },
+  "companion/cultures/primorska/villagers/france.json": {
+   "before": "6c5b8df4a56ee6bf94fddff58e6aea06bc86989431e63e8d7fd21d05f12e9c93",
+   "after": "3ed0cd9ca0fe652e339babea6d5720b57a267d24e8528f5414478e628df1734f"
+  },
+  "companion/cultures/primorska/villagers/janez.json": {
+   "before": "4a0a17190ed7fbdbb278979f3e2dadea83e7418ff9d427ad322d5caf9aaaee07",
+   "after": "3333608d6f8cfcf10c3a6f80f3b58715f411bebf74cc84a66f42b7d1e67a9a7a"
+  },
+  "companion/cultures/primorska/villagers/joze.json": {
+   "before": "dbac0b680bdae15ab33e5741847440688cd744602df2f66628bc5d234989ba8b",
+   "after": "0cb6a42fbde76e6bfc5827b2d54a14d6a0b8e7b243a6c6e898aab8f5c95bd2c6"
+  },
+  "companion/cultures/primorska/villagers/luka.json": {
+   "before": "f2d731402b69ccdab8953e1ab0ec5681bb856163734eb594bd662128abfe3343",
+   "after": "73848f42e423caf6e7b0c2c5e2b5e124d639257783235b19e048e29831817ba5"
+  },
+  "companion/cultures/primorska/villagers/marko.json": {
+   "before": "f2607a1837ceb8255b987beba86d03ad22af79173a856079977028962d7aff64",
+   "after": "a646cd4c825bb7e2021f7b0a11e18321723e1ada81d8a35f1fc66aeb0ad353de"
+  },
+  "companion/cultures/primorska/villagers/micka.json": {
+   "before": "923975eb81ce1ea34b9b701e65a1f5ca04c752be02fa56fa28680e8b71470b6a",
+   "after": "1a1febcc044d6be94b3e1d00de599adde3c1efa042d149dd6a4697c07120ef1a"
+  },
+  "companion/cultures/primorska/villagers/mojca.json": {
+   "before": "e7d0afc024c7ff871239b1f8bb600ffd026568ab5b3c27542a5b3e57b65abdd5",
+   "after": "f63bfebc5fd2e88836e4dc011bdea930a4d2dfa7e89a40e76d2b74fd7fd1a369"
+  },
+  "companion/cultures/primorska/villagers/nejc.json": {
+   "before": "fd1da42b9de03f38f36dad6d7b3d8d46ae602aebcb36d776070318143b78cfc9",
+   "after": "4918c3cf6df3501adaa62f3c0ecd119872dd15ec91c71903cf1931d58c4bb670"
+  },
+  "companion/cultures/primorska/villagers/tine.json": {
+   "before": "85c5cf847033f024798958dd3055aa15985fb9b5ce410927c68ed2ed75b109ee",
+   "after": "a3c348d001eb61a1b51495bcd9203e8ddb8ba6d1af1455456cab1c6408d733bb"
+  },
+  "companion/cultures/primorska/villagers/tone.json": {
+   "before": "0b2c40bf3aaf4118809cc843674e1d7edf5a31a95b3b36067dd5d1c46d324300",
+   "after": "1df878403d1781fcf083af1d4905fc381fb39444f15bed50c3bf9874260b1ed5"
+  },
+  "companion/cultures/primorska/villagers/vida.json": {
+   "before": "0e4fb5e72a3b0603c89e3eeb03cf170b5420ff5692810763886d243158a06398",
+   "after": "552c5825dc7b17f985c6d08ba4ffaefe2a69a3ef0015856481a56a9033a78f1d"
+  },
+  "companion/cultures/primorska/villagers/zala.json": {
+   "before": "669afa67ff57415e2b43694c302f206358504b7a4d405786d57829115e5c4166",
+   "after": "621b47a91873e85f152b4399ff9cac7ac3e415060128d6bcf9c3a8c144f62aba"
+  },
+  "companion/cultures/primorska/world.json": {
+   "before": "05d7ee0e16fae0741ee330df8e3afc24af4ddcf8d4c7abac9b580fbea1233c7d",
+   "after": "f194ec949fec9a3f1bf68eb7dc5b3f89ed11a54fcb3267b96ffd4d1c12eb7c7a"
+  },
+  "companion/packs/babicina-kuhinja.json": {
+   "before": "fb79ff31969654d190084d0f4686b2a57dc97739d6fa31b74835382cfd6b1014",
+   "after": "265a88ed6471cebd409e082022512071c305fef2ba34dfabe46f994b9e1ed17a"
+  },
+  "companion/packs/cas-in-koledar.json": {
+   "before": "08a3f0c1b36a52369d0e86736a63f47cc874c76c00ecd3e85e8a805094535c9e",
+   "after": "7ad22ae21fa2c834f7261b79ee73ec3427146915b4c8c8d8ef9e1b8235aa365b"
+  },
+  "companion/packs/de/essen.json": {
+   "before": "4cf0414e46326f583a0b9b235149a4774e920ed4f8602edeb28a11c41539ddd7",
+   "after": "fcbf1c5aa1df530e8e354bf010823bd85ef34672d907e5378be547e2c6639bd0"
+  },
+  "companion/packs/de/familie.json": {
+   "before": "462c7e55fb6ff3ef84162a0a031c32980b1e5a9f037eab7a9d535f87a43b4122",
+   "after": "6bccafdfecd4282ee8ff130ea8a6891e5f84307ced63175715711cf17dd51510"
+  },
+  "companion/packs/de/gruesse.json": {
+   "before": "38bc1ab017738edeed8a2736084c5c390b3366a2e5c6d6f9db10d66c82e06dea",
+   "after": "f168a23f67d4df98a36156b742cd9e3393023d685372d2e89953067b3d0b5fef"
+  },
+  "companion/packs/de/haus-und-kueche.json": {
+   "before": "95f57e8a5b5f396cde0109b573267bce7725d713cd7964dd8a34fa6ca211ca97",
+   "after": "b920bab898115250128152781342b03bf1a502d2002ff7161c0224d0e405cf2f"
+  },
+  "companion/packs/de/im-dorf.json": {
+   "before": "5bd10d460d7c612047c2758e986b51517eee56ea74e414a643ea1df1f2bbb97d",
+   "after": "d5f721d0fccf682e940db5487866507060648aced893d3ce3bd1f8668dc0649d"
+  },
+  "companion/packs/de/zahlen-und-uhrzeit.json": {
+   "before": "2770e8f2570b09ca837c7c04e238e65f57633fa43810b8e0a08aea6deb758c1e",
+   "after": "f4779dbed6aadb2046999fca7ee66483813d35d7f6cc274589fc32b4cc7f3283"
+  },
+  "companion/packs/delo-in-pisarna.json": {
+   "before": "0d38a75c164c8f94d21e2c767fe0d351acb3b4bdea916174f69fc30574a055f9",
+   "after": "9ee66af5acc2e50c47e19190badea360c24a9ca641b22704635bcf23519a6ef0"
+  },
+  "companion/packs/dom-in-hisa.json": {
+   "before": "d862a071c11ebeb2d4d612ccdd76fcb06a0741cd395efb218e1fb75a2b6581c0",
+   "after": "c9d5a5081802691c53ae516e4037d675121f987ced3d1677fc70610e40010f43"
+  },
+  "companion/packs/druzina.json": {
+   "before": "3187bf23c474b08baa9800748166bdb7292661c017826ad01602a47ae74936c9",
+   "after": "dd11513b0af0c417801f3981525a564dd74d7a229ab755d1f59d47434fb0a81e"
+  },
+  "companion/packs/en/family.json": {
+   "before": "ab4b05d7c7ae2d6742fceee0b32c5a12ae11373995f2036c22010aae892fa429",
+   "after": "a3ef543b467112693257a3a6056945c1bd555a8a719a927263f524d978c5c73e"
+  },
+  "companion/packs/en/food.json": {
+   "before": "ddb21bd7bd3a18f9fa674eb81d0d01c2f2b2cb6ef10a1e3febeb8e7e03ac6748",
+   "after": "443572469ebf030dcce38f90a6bfee05ea7b78886a573764fd05bff5b11efbe6"
+  },
+  "companion/packs/en/greetings.json": {
+   "before": "7b3d0e666e017785dbcce4fb78bac12054dcc4117cc865823041013b33d5930a",
+   "after": "ec7989b5889712ab0479879ea0ed82e3c4c9c2ce1a72322f5f13e030dd388206"
+  },
+  "companion/packs/en/home-and-kitchen.json": {
+   "before": "4aa0db7df49baf3c10020b76f11048cba45b4d2201507cb0754cca6ef56c48a0",
+   "after": "a5dd678e473bb51989c682335f9e820dde18dd7477d3699d18b2e67742ae848a"
+  },
+  "companion/packs/en/in-the-village.json": {
+   "before": "acf9a7e9d306a3165b1d644e59b97b278744bd6a05b7b5857560a185e3fce3ee",
+   "after": "345dcd828b92d09e7c6b2df3dd36ae5b76d467b54a976f932e32336e80d3b9e3"
+  },
+  "companion/packs/en/numbers-and-time.json": {
+   "before": "93b89df17c798fd66ba472bac17fab01859709ce0cecfe2ed36ab2edaf0f144f",
+   "after": "ec1a619037163be5b702b6b05d0214d971b5182cc103f8240f2d8979fa121a97"
+  },
+  "companion/packs/glagoli-vsak-dan.json": {
+   "before": "1b0ade535b160dde03a3b2aa838c6dc798b756bef03d2f3157935de2599f30ad",
+   "after": "5c2352c363e493043028b8abb08de6b08a9569da43f091034eb9a219a47428db"
+  },
+  "companion/packs/it/casa-e-cucina.json": {
+   "before": "970ec99e8c560e58c465a8f5256711c75d306f89d84bf20b767f6303da708f54",
+   "after": "dd0c7a251eecd20b0868b34c0ce4edcdf1dd3ed1417a98e1883250acac52702e"
+  },
+  "companion/packs/it/cibo.json": {
+   "before": "1970880aa332fc2ba4e3d996df3b58727b63dcbc16d55905b2fe010d0fed1bf1",
+   "after": "3826110b96037eb9ae28659ff3f6d56debf39f359fd41c94db77339325ffeaeb"
+  },
+  "companion/packs/it/famiglia.json": {
+   "before": "48bfd02744365f493c67438180ee4116b77492c2ede70de8acd02ff6756dc6d6",
+   "after": "e35bdf2af075cb68b66771af42c6456b1dc3b45d7856efe0b7405804fe044015"
+  },
+  "companion/packs/it/in-paese.json": {
+   "before": "76b5516fc495f7b07aaf7beb81e8b4f4d66702f63a6291e375c701b8d1f67aee",
+   "after": "ad35653b9f196b837841dba0f6086ce243266d5d58bebb634b6699eef6de2d6b"
+  },
+  "companion/packs/it/numeri-e-ore.json": {
+   "before": "f02e31355452ccd5ca0ecb36b42fa4a8da1a7bbf8a494e1510df706d130de3f0",
+   "after": "6a3d53567b8e2a1caa57988cd2cf8a0eafb2e7a067eb6c18951e3d67fb31faaa"
+  },
+  "companion/packs/it/saluti.json": {
+   "before": "33f2cc9a2c3cc5670dcfda417fa14b4b3446b1ef3da2a7ba27b42753c26cf4fd",
+   "after": "7f786cfe5684e55814e1f037989195d5b7f2d02fd5772cc15509008027c4bd75"
+  },
+  "companion/packs/na-njivi.json": {
+   "before": "648215293d60bf454137d683db64214f44c69535802846c16f90ab5c120b7ead",
+   "after": "ce618e28223e97f879864fd9ceb1e71039a33f2cf0813193f38f441615698bc8"
+  },
+  "companion/packs/na-prezi.json": {
+   "before": "f46f97b9d9a92df4e79030a2d3329b559280c72dfa4c0df2916657af9da27fba",
+   "after": "3925d8d5d7bd0588f5c30be9c07cdaa0b93f3ff8c6f89d3f67039918fbe416b5"
+  },
+  "companion/packs/na-stolpu.json": {
+   "before": "8db997d4b32f0f574948dd2de3da94c3857bf642616b5b689fcb511b257194dc",
+   "after": "b19dcef70ef2ae1095036f6e959b509abba6798a7d0e41cf6902dc380c40ccd3"
+  },
+  "companion/packs/na-trznici.json": {
+   "before": "a1c963029d955e00ca895094455c11cdd486982e1c397d890c8927196422d183",
+   "after": "f52156d840ff7d129b9ec07d53ba82e16d928b9e1cb017a740c6864ba0838f1d"
+  },
+  "companion/packs/na-vasi.json": {
+   "before": "5a23d63bc8910edd0723441f79769543baaef09efe5f3872f4fd5f7b994f7231",
+   "after": "7f84b44374cc0231dae7946237103f023030e329516d8c5788e21570e3b1d8ca"
+  },
+  "companion/packs/ob-ognju.json": {
+   "before": "37596ad38200f9ac1b91d2ae7a6fe45813b4c4010f18bb2803513e1ff4d58ede",
+   "after": "06f574b17c04570fdc0551be2fce14ed696abd2eb98431e6dec997a6c535736b"
+  },
+  "companion/packs/ob-vodi.json": {
+   "before": "05f39e0926081f74a6af926881a1339cc1f98689c1377eba664704ea8232eb74",
+   "after": "aaf1553bba8fd8765abdeb26b43b9ece921e7b1bb1a13e9d2fdeb91b0a7209de"
+  },
+  "companion/packs/pot-in-promet.json": {
+   "before": "480b6b456122488c5d66b26df0c0796d4987da75fe1cc45e4b9f2cf233abc273",
+   "after": "89390a6ec82f35c8fc7bc937472e717fa19bc50e6f32571c25fb9977e16332d7"
+  },
+  "companion/packs/praznik-bozic.json": {
+   "before": "6aea24ab6f44295edac80aa22722224edc35d3d5b0d72d78f841e6eb2e16bd79",
+   "after": "1ea630bf95745b0b5a11c582f280355fe5c4c5fb6f5e5bb809044d0e090d926a"
+  },
+  "companion/packs/praznik-dan-cebel.json": {
+   "before": "82166d53b2dccfbd1fb704532618396131985d2035cf1d9ed8eefa35b12276ff",
+   "after": "a2cfdf1385cd3605816d0e8d3758ce8ac77fad68689590104011aa9a2b9d8184"
+  },
+  "companion/packs/praznik-kres.json": {
+   "before": "855cbe84ee592666f729bcaad9000a7c7ad0ce120502e78d4bae752f67ecd6c0",
+   "after": "cf4d1fe78bbc6bb203b3e546a595befaa687055afd7bf6bc74c1c7ddc481a32d"
+  },
+  "companion/packs/praznik-martinovo.json": {
+   "before": "970007c3468c42821818a0d130e1755a3c0022d4117584d5cc7cc08034680c1f",
+   "after": "f0a71b06ce4e4cfc4a6fba334935869af08b5391796478d027e91f6fb6a6a713"
+  },
+  "companion/packs/praznik-miklavz.json": {
+   "before": "c1096716fcf25ba97818a0e9e218b8512f74c595527cad92a1ffee091e8ba3ed",
+   "after": "6ec3e401f10077447d8f273d796c1323db22671310c801834b35f31753bcb04c"
+  },
+  "companion/packs/praznik-novo-leto.json": {
+   "before": "749445f20564a82b3a502fd3970899ccc7eb2234aec0aaeba2691a10979f3506",
+   "after": "283f7b4a26ec2f6f9221808d48413937e066954d2a5a958b00bbe551bc6d4ff3"
+  },
+  "companion/packs/praznik-presernov-dan.json": {
+   "before": "fc146196e9d6f97d3db68ff32d053da573b92a070501f1e26a005f34516d8ebc",
+   "after": "069bb4f28dc1c69f5f9777538194273172ce5488b3e791a49ce88e6d26aff58a"
+  },
+  "companion/packs/praznik-prvi-maj.json": {
+   "before": "7fb685b7d994b3566d41998dd12c66f37ed3651550670553a49d4c90f6cdfff2",
+   "after": "333a4665cece6b4af497c126c7a1ad0bfea048c6e5da15ac3c937e6fc768c235"
+  },
+  "companion/packs/praznik-pust.json": {
+   "before": "5ca3662f83a2ca8dfc695967c0fdf3e594b47d3883508e70ef72ede240b4ddd0",
+   "after": "efbe2d0c38901fea606708cfda42a9805cd3a6675b3eecd236871d8aec04dff0"
+  },
+  "companion/packs/praznik-trgatev.json": {
+   "before": "1b1308deae31fe5c82b59677cef2ae6537dc46fcfe4dbc064023b2c02d601db1",
+   "after": "d09f9f909d8f0cb0932753e7c66ee5c3397821735910f96801f08d6801cab02d"
+  },
+  "companion/packs/praznik-velika-noc.json": {
+   "before": "78a6a443f30bc1f56ebf3ba9784163fc0294e4617f2525c47cecc8d6f7a21156",
+   "after": "fee1992d9ee7b21d6d70cfa113b3aec001d2b9a2a58268c103cc01ad28f85f47"
+  },
+  "companion/packs/pri-cebelnjaku.json": {
+   "before": "dc9b282f3caa6377dcaa21f8fe656094b73c7b0f59b0563a711c83c350cbb167",
+   "after": "facac3e3169f920cfda85d2efd642c471f53f4c0cf8baf6e2942a97fc8749ac5"
+  },
+  "companion/packs/stevila.json": {
+   "before": "41d53bca1601f9f1fcf2c01b5ce515834260729f5bcd063e4ae992fd3874aae1",
+   "after": "a94036fa92d6257307132c7803ffd2fcec3ad9f3ee3be3da3ef0bb698cf27c18"
+  },
+  "companion/packs/telo-in-zdravje.json": {
+   "before": "f29bf59fa1b3a0d6b20915f6b4900e1bdc609fef7cba92833473f10a27b83dc3",
+   "after": "abe168b73d6d0f61ab3c331e797c4b2941f7871cb64dc31a00ca6f4d5fdbf640"
+  },
+  "companion/packs/trzni-dan.json": {
+   "before": "1455d384a9ab4186ddb1c75e325cb71877cd4a86ba1c436f0930ae2fb5a18026",
+   "after": "60cf3cce1425f640a3e7db19ac679536f58bcd2d0d9f06d438d11fd7431f2c41"
+  },
+  "companion/packs/v-cerkvi.json": {
+   "before": "04252898e8240e7fc1bb0a99ee4ecdea748fcee34e1a8050dc426ff1184ae75d",
+   "after": "9b80d7b9480c9ec3c5836ce473267c8f36f77e2fd178bd86d044996f89036055"
+  },
+  "companion/packs/v-delavnici.json": {
+   "before": "f19fea396b6a4c8101c265b757a208b10e59f57d57e926a1038e38ed9f637661",
+   "after": "1f8030f12ae79a01cec4363e1f493e82e0617cf4f19ec7e12ee57568facb133f"
+  },
+  "companion/packs/v-gozdu.json": {
+   "before": "e69e5d81fe8518dbd4cd15d9e04ce7b233f9eeec513b6ec5ecf27607e04b2a23",
+   "after": "aceb9bb4a84f0b712e07e2ff2db98cdd03b11542e340e15055ec332a7b20c004"
+  },
+  "companion/packs/v-hisi.json": {
+   "before": "61d32e7765bbc273de72f2c4cedc06cc61f2365c43f87c2b2c8cae63acaa372b",
+   "after": "57e017ce6df82fb791e7e325e2ebe76ca99abce04791169ea9d2920f4fbaed9a"
+  },
+  "companion/packs/v-kleti.json": {
+   "before": "e052c01508423b307b8dfbaec801b936b57823aeb20b07400e78216eb7022e4b",
+   "after": "698ba3435c0a3f67ade57dfe9333c4f86accc9815387c0fce7b9f67a6329510f"
+  },
+  "companion/packs/v-kovacnici.json": {
+   "before": "7b9a272268d0210cca6ba3beeb7bcec7108c1fff68c13997ce08b2ccab2a0ea7",
+   "after": "cd16b99a046ea1340cae5851616b39e5a85a0e7ba3ebd8cfd462d4fcf88408c2"
+  },
+  "companion/packs/v-kuhinji.json": {
+   "before": "1297f85d22da9d5e601caf6285439b294fc633b88d3d0e4e3fb9397a26ae02be",
+   "after": "fbfe3c87ef4464a70ab99cb115838125ace9b57a21b72a94fda4d0f5121b2340"
+  },
+  "companion/packs/v-soli.json": {
+   "before": "19feb90d02a1f221a035acb8d27ff45d401c2d1ad2fb7fc74dc236536b5463d8",
+   "after": "41d58048fc9c11b97948f05c2cc7b5efe52d3f2b20d9ad0884711de571f894be"
+  },
+  "companion/packs/v-sotoru.json": {
+   "before": "0eb5f35ebbb7b663dd045a137ee94bb537e1d7b771f992c0ded68d5f69ddd86a",
+   "after": "2fb93a39d670df54404e755255d9deb6a69965df23ed0114f1f746115a94d553"
+  },
+  "companion/packs/v-vasi.json": {
+   "before": "47b661fbff08478b198e630e50350eda9a272475a892805d1645e72b64f13ed2",
+   "after": "7d11bd651b25e847bc253c41f0a4baa480f6f32f0d224bcf34a316719bfd2555"
+  },
+  "companion/packs/vreme-in-dan.json": {
+   "before": "e4b0b9dcc7d33b71733fe8a856f5e6320a1fd750591717b8903ebea75bbafe41",
+   "after": "820188db1e1db9de59babb959a058bf09b35d722df8b2e7d561bbc5d63b3808f"
+  },
+  "companion/packs/zivali-v-gozdu.json": {
+   "before": "883f64df10ff0729005fea6b21443cd118f525b35c63265010a617927b264a2d",
+   "after": "71fba9755c1a9faef45157e3e24aafa6fec10797562c758bb1fcc7afd9c72f40"
+  },
+  "companion/modules/biti-sedanjik.json": {
+   "before": "15d2be2eb9a81b85fa5d6929f5e047bd0087533d21b9f9db2ba79c4f439faa8e",
+   "after": "39d4aa03dee2c37b62ff4850ec376bfa74ac4fa59894ccfa307d57bba59407ee"
+  },
+  "companion/modules/dvojina-osnove.json": {
+   "before": "870f434bd8e2459a192243e7f5da4e38d25d5284d1b768b9dc25ddb30012e627",
+   "after": "96efb0a318e3591af4d7384376a9675167cf14f97b8428e649e11c67aceee502"
+  },
+  "companion/modules/imeti-in-iti.json": {
+   "before": "486fce08bae7e6c2dba648cf89b1319b9e0dbd66ab06c8a8d4ff033cefb5140f",
+   "after": "c26afb968462e409b2e948fc5de4c1a39bcf78bbd777e22f5c9da1134718d006"
+  },
+  "companion/modules/predlogi-kraja.json": {
+   "before": "d505a82cd5536264820ab4be76ef9f402762c2cc0e0477053e74ed383708ea17",
+   "after": "476586384275787dac77c022f08293a26509e9cbd1ae136ce3c58be928e8f79b"
+  },
+  "companion/modules/rodilnik-po-nikalnici.json": {
+   "before": "b9e766a93f95a9b663fd898c0f283b847bfccb9475b58b22d90e7a96079f2809",
+   "after": "c96f21c1124792e5728e74875efe1159e8feb40babc3481d4f2ac95bef13306d"
+  },
+  "companion/modules/tozilnik-osnove.json": {
+   "before": "b608b7052f5da56459dcafd3efa834d9d5378e08d817ef3d71c2c2062b04db3a",
+   "after": "0fdae6fb394a5c558a2606afd89eec72ae1a9434c4dd5ae1717adaeecc95c160"
+  },
+  "companion/scenarios/na-trznici.json": {
+   "before": "84fb7b0e20b7b34c250c2140bf2204352a3b6155151e803cac16f6df5eba8813",
+   "after": "f2b92e1990ded8c8966091d172930750c82fac14b5dcb967675235f42252e8d7"
+  },
+  "companion/scenarios/nedeljsko-kosilo.json": {
+   "before": "cf2480ef61d1c8d1d452d781a68997ffb9ecc499a66edf191d9e40f6f7279fec",
+   "after": "eab0fb3e7c74776f7edfcb2eccea5811ab6f97cd810a0e2e3177e6b1e5bed837"
+  },
+  "companion/scenarios/pri-zdravniku.json": {
+   "before": "7db805bc6352e2a56b7e1a492af5b31d2eeabbddf392b804213678092aa79da3",
+   "after": "3a87e44b9def67955eb3ec25f754ad1b002c51e28b67c0322a4d95447cfa7563"
+  },
+  "companion/scenarios/soseda-cez-ograjo.json": {
+   "before": "3f765f3d227c76349a3d900807c3b012e755981f88cf3305babc630555457025",
+   "after": "f1ab9dcf53d74cd02a0de1fbece27547b171034a611eee456e9ac38a1ff5f63a"
+  },
+  "companion/scenarios/v-gostilni.json": {
+   "before": "5de09d078cb9ca3d435f5a292dbbd3617314e3f6eff8556dfb47f766f4f0ec54",
+   "after": "6717e19aa7c68a47bbb54681133169ac6813e97fc27d7cf3330ace027c8c3c0f"
+  },
+  "companion/scenarios/v-pekarni.json": {
+   "before": "168ff9de618f502955d1f0e59f8ce4d625b777c7ab46a8d86091eabba97291c1",
+   "after": "3de0e9744595332dc2047e4afa6106f17fc0df755086bc6806ed76f9298df3ce"
+  },
+  "companion/grammar/de/akkusativ.json": {
+   "before": "3115328294bfcfb517db15cfb6d5ec1f072aa1b47021d95325ed882adc374226",
+   "after": "2203d2d86b5ac81d6c7cc8c67751b0f77c04e1cb50c58b5494361d23be146f12"
+  },
+  "companion/grammar/de/artikel-genus.json": {
+   "before": "a95880c6e75ab4be7717d67b32121ce1c3306c7082c98593e65f46a4d711ed6f",
+   "after": "a481563ba46ee786d695261efed7b4a241e7808022b495559372635bd2e05090"
+  },
+  "companion/grammar/de/dativ.json": {
+   "before": "b395987d01d63a8a220fbbc75b7e47252f58bd614078e6ac1c3a7cc7c5270d2f",
+   "after": "07bac55feae8f78fc34810bebc8697c81eec72858be1236e822bf5bb1ba175ea"
+  },
+  "companion/grammar/de/du-sie.json": {
+   "before": "205f55fccbd6bc618464bf9bef369a8233eec8fa43aa980fe889e7588c6b70ea",
+   "after": "a65735b0ba9420111268a43493436824ddc98f1faf273d3237110d6251baa50e"
+  },
+  "companion/grammar/de/faelle.json": {
+   "before": "c758129e1e04542e10a4f12b2e9f9a292c80d71aca396f8838e8eb2e0d46fba2",
+   "after": "768ebc9a28c2491867e05efa2049967f3566fe2d0b7c4b014979b0e58af0f00f"
+  },
+  "companion/grammar/de/fragen.json": {
+   "before": "e13f583f522e2c7315a21fb7cbcb4b4fd5de58b7e5007cf5493676a61a36732e",
+   "after": "b5d28a6dc629d3e87f8817148c8d769637ec35a07e9ec55db0d352282dc42c89"
+  },
+  "companion/grammar/de/kein-nicht.json": {
+   "before": "48973b787bc5adb372f8fd7c737d39d1c2afeb56516895fe749f7d287b9be392",
+   "after": "8e68f7b44765f917541367f46373f61fe604f3903128595f68c76dc26a0c655c"
+  },
+  "companion/grammar/de/modalverben.json": {
+   "before": "6863a872aac7e6c5a20f18b56d2e2ee5357da6e2a88a847ebb9ea8ef7960bc61",
+   "after": "fb3140fd74288e0ae6026873c750924b6f6a868ebf76c54177f30ba9c0aa9afb"
+  },
+  "companion/grammar/de/nebensatz.json": {
+   "before": "a458a6a741a1942b53b24239512c17e80ed357f4bb72a261151ed27c9811ff3c",
+   "after": "1f6b3220f1fd7e92666d101a0249e6761b38116925081cf4fb065125080ae79b"
+  },
+  "companion/grammar/de/perfekt.json": {
+   "before": "848990a18c7ed28e0f2ada02c7c440dd7b30850cc194b441a6c59db140a62d0a",
+   "after": "54a1a79b814a5d48d95ca925d23f2d3c12ef795ad4e6fe44fdd1eba794470dd3"
+  },
+  "companion/grammar/de/plural.json": {
+   "before": "ec5c88d9d259259ea49e69847ab14e87cc611adde67852d9af73397959f00a12",
+   "after": "997bafdc2c874eccb349e6b683d41a6f1317e373be2439596deff89213b3de7c"
+  },
+  "companion/grammar/de/praesens.json": {
+   "before": "038d1fe312327f248c43a3cd8a157ddfe20f268a8e0986afc09066fdec776230",
+   "after": "0dc1e0e663963f0296a183ec079098e767c64c41f2fd8014906a030fc255d9ec"
+  },
+  "companion/grammar/de/sein-haben.json": {
+   "before": "7112dc0169ab8170fe16011d47115237f13b2dcf8bc817e2c7969f68d4360d46",
+   "after": "f444bcb9ae13291973400b0f6bcc18f3ed0de33ca1804eabc11a124db12186a8"
+  },
+  "companion/grammar/de/trennbare-verben.json": {
+   "before": "b4617645dccca75024765646f7a1b48fc9eca35bd45a8a2b67beefad9abf49e8",
+   "after": "7ed5b5f34d398daf24ebe7659566182c3881382952a22f77667d34e3c6b90c57"
+  },
+  "companion/grammar/de/wechselpraepositionen.json": {
+   "before": "da3067fb51245bb18b8aafbebd8744c360ab0a03ed8824308a23db013bf522be",
+   "after": "c60585dd5bc6ba63351131c59a166ef9dd946624e271f181020e891511870977"
+  },
+  "companion/grammar/de/wortstellung.json": {
+   "before": "3dcc134dedf456ab94906fbf57ef6b094a6e78d58d9185beea6e2ed31d11368e",
+   "after": "23df2f31740baf1ea566e6f984ec09fbc4f9c3a3fb92dc5ef96bc3f72208bc2c"
+  },
+  "companion/grammar/en/articles.json": {
+   "before": "608ff8c5fb79cea52be5b295a6293dacd856d03008d802ab8c956c04f71a67ca",
+   "after": "911025352f946434168be1dbc757a1033956419a3fab599e58ffff7815379d89"
+  },
+  "companion/grammar/en/can.json": {
+   "before": "e40303119ee9cb4b3ec01f4de9ac49dbe3dfd8987bf6e78913282efc24d4ac99",
+   "after": "fd4564ba6696a073608ed004e85eee47af2c86d91c87d7457203715928114395"
+  },
+  "companion/grammar/en/future.json": {
+   "before": "aaf99530271e02bcad6f85b9e68ea18eeaa8a798dae5641aa9b86032f0992e51",
+   "after": "9f1361ad6f81dd6d9656e7aafee71d592681211e09acdb8b21dbd1bfc67bc6aa"
+  },
+  "companion/grammar/en/past-simple.json": {
+   "before": "3d64a0dcb3628edb6695775dc01454209117ef37f463217d6151836dd0c7c337",
+   "after": "3f58d13602ed79441e226fb9fd5a4e8b2b79a11fb92e43c9625ef7194ad66c6d"
+  },
+  "companion/grammar/en/plurals.json": {
+   "before": "d693ac924025e29b8c4ea89119527a69da37eb58dda9c3b826376528594e64dc",
+   "after": "736bb23b2c84df2b503395d12fc2ddf53c5a444ad7cbe9267e5e1043e6324a5c"
+  },
+  "companion/grammar/en/possessive-s.json": {
+   "before": "8135bfb518f873c3114a428f6cb5f805a5cd94a8e329d9bca49b3e5a3b1a8d2a",
+   "after": "eafd0fba0d141f31e8d8e7b07607af20af7a315da1135c7d62bf8650a9d91d0f"
+  },
+  "companion/grammar/en/prepositions-place.json": {
+   "before": "05f3faa093cec44d350a4f0bb9ba536f189768626ca5dc7e9fe77ec26463c29e",
+   "after": "abfd0c7e541660e07d3070b164d2ca7c232c177ff8ddb052a731b1fcc4e191bc"
+  },
+  "companion/grammar/en/present-continuous.json": {
+   "before": "c6ce137a2b16a2b3d23243630cfb249a08f96ec13456e0a54070c3135465e961",
+   "after": "b9aa195aeaac4bf7cc26da45cf3f0dc7af63dc3c4bafad4625d66ef7f688496c"
+  },
+  "companion/grammar/en/present-perfect.json": {
+   "before": "a92e9f6a1f775efe259eb710c960bb3faee49d9f85be4c08edbf44f6cbcfb618",
+   "after": "c6df216262098b406b75a202acb33238fc2a91164277da6b528baeb4f697d314"
+  },
+  "companion/grammar/en/present-simple.json": {
+   "before": "2e40a50fccc3a2602e1f209722a0a1c41c9c3a41e3dd6ac1a31a00ddbd1b220e",
+   "after": "0883d7a43c5e81b2ae02c167912414d36f6824882296a13ac938d006cc582e05"
+  },
+  "companion/grammar/en/questions-do.json": {
+   "before": "9e6a0be5a2db449fc066fb090d28995f2a4754a6c9658b41a44429afaf5f7b1c",
+   "after": "377af060141d7f1be4ed439cbb896da60f813dea751b3f3d9904e06de5d16237"
+  },
+  "companion/grammar/en/some-any.json": {
+   "before": "7d247c044e35bab60bff3f89ecf536b803af499e2913bea021bd566d633208dc",
+   "after": "b42c174e9cf13bdfc334cbd4beecdac0a03c0b947ed57919e0d9fd751c3edbfa"
+  },
+  "companion/grammar/en/there-is-are.json": {
+   "before": "8be98e2c0510d99fd53a4ac7493f89eee9dadffd6f75fa2b4fdef570925e009b",
+   "after": "21fd64406ef27c2393ea6b7e16e1d85907df7197735a46512418dddda7f7b4d2"
+  },
+  "companion/grammar/en/to-be.json": {
+   "before": "fac97829cb24a9051adb6e461d126d9c29c36e51bbab8deae5e986a7ff37292a",
+   "after": "266a78f97664610d53e41409cb4d99361b75b7bc4f62be03bbf3314580ed964b"
+  },
+  "companion/grammar/en/to-have.json": {
+   "before": "3307056088c488ef21ac21ea487603059df359b90242a1c52d0f82a8c62f5df1",
+   "after": "0cc102e723958f1bd5ec3c3bac31e82033d186fcd90d3a7a3065b508268c3d33"
+  },
+  "companion/grammar/en/word-order.json": {
+   "before": "f30b414b30eb0384a83bc780eaf93c3abcf61569287a8ac1d9de6c947534d3d9",
+   "after": "6cc6743fd15147089c445157fa40eac3bd63fcae67460fd1ce3e81e8f547ddb2"
+  },
+  "companion/grammar/it/aggettivi-accordo.json": {
+   "before": "d8d774500982a4ac4c8e4e91e6ae0d19ff5055ceef7f09cfaf7c55975493d508",
+   "after": "fcbf3409bb6cc07d5616d666f022cfde73f78829b5355501f04d393ef36c53ba"
+  },
+  "companion/grammar/it/articoli-genere.json": {
+   "before": "99a1f00c963cb2a81842ea8545424acd19a7142c178d7c46e72a649d9649a35e",
+   "after": "cdad6c9f02ca9af6a8397c40d85bacc6149280808d7e4e701532c08f4ba63853"
+  },
+  "companion/grammar/it/ce-ci-sono.json": {
+   "before": "217a6f18f5e4a81ccedce84e7bcab98beaa69a8ba4e7a4b72ad26b7f65ea9c4b",
+   "after": "36138d97ab7fa554e282c1484b05cbe78f396dc34f3608b86abe214ce25bf073"
+  },
+  "companion/grammar/it/domande.json": {
+   "before": "abe6ad8ecf1f3e2cda5740445a4161c5497698966b910b9de275d68d918e7e63",
+   "after": "8e837b57449735de1b5b52a05d3bebada945fdc01888036d1846382c7ff956fe"
+  },
+  "companion/grammar/it/dove-preposizioni.json": {
+   "before": "e245e3466086d59008cd7674f87507a5dfd08544d041c5ca821b45bd9f7d5dbb",
+   "after": "34bf7161ba0dbfca6521c3a38c383a3cb487526657010605b54ec1b35bb35826"
+  },
+  "companion/grammar/it/essere-avere.json": {
+   "before": "e4f5a622ba0a250c45a1c0d7ab0c9e69321d4fcc0ac42ee2494fcd16ed7ea861",
+   "after": "08a83ff1c503cea0f21a8306895bd2fcdbcc042cab07544c1040e3735f8e1f58"
+  },
+  "companion/grammar/it/numeri.json": {
+   "before": "2c98b283b241a4fc182921c6e8839548c520d42182272ee198454ff42e2265ba",
+   "after": "f706f3dcf411b91ec3852fe2059d68f0f713bb7d7edfdb3bb5a3cf7f8f7b940c"
+  },
+  "companion/grammar/it/partitivo.json": {
+   "before": "1f69f8b4b5fb41ad4cc6fc86aa38a4076f7138d1618b2053f265194fcc9c6e23",
+   "after": "4232e813b1cf80811a44d4cf5057d8663d2533efdfb2c20357441c3f16d456f9"
+  },
+  "companion/grammar/it/passato-prossimo.json": {
+   "before": "395f1a73d3c3d7fa3ae113939649848207c9edf63ab9fe7a22fa6cabd5203ed0",
+   "after": "9f445971e00fac9bd35c3f600663ed793bf927f8316f5528810913befc2a032b"
+  },
+  "companion/grammar/it/piacere.json": {
+   "before": "7d5d9f06241b7cdb4152ae48bdc2fc4e72f77316fa1676f7cc624220eed4e557",
+   "after": "3365992e47bc0f6bf0e580c7d4a749d098ed8d5ae14471a0d1c4dc8c1a031a16"
+  },
+  "companion/grammar/it/plurale.json": {
+   "before": "058c27dbf349f2c44eeb04214838a10045382922401336febfdfb0bc46799c82",
+   "after": "3a7769e37a36350c5ee2a7359bce5f4a83c9e8a7a91c2b04e4de80cda05d3c9f"
+  },
+  "companion/grammar/it/possessivi.json": {
+   "before": "e63305254e3f78ee7d9a265489cd7b7cd1233647aef44ea2d50f0ee64be0ce69",
+   "after": "bd427d9c215fb0304ea4c2313dddd26442877d4a1632c5380a379fbadf0a0377"
+  },
+  "companion/grammar/it/preposizioni-articolate.json": {
+   "before": "6a9578ba342ea7651a555bd1bba4e3198aa490781b01d2a4fc9b30432c71ff22",
+   "after": "c32c9c5f8d584e0b94f7ebedc2a7e8c3b3ad32a31d4c5d39bcf39ccc666d16be"
+  },
+  "companion/grammar/it/presente-regolare.json": {
+   "before": "6168016ee8a971c43153c84e9d34433d60f3bdd52e39b7a1f05b363267e303ee",
+   "after": "eab1db92396dfe0a6423846a65deced65176d4edfc76b0117fb853805611b376"
+  },
+  "companion/grammar/it/tu-lei.json": {
+   "before": "55e2049da1a0c75cc2d7e0bdd09e0b465363ed38529df737bb00a4fcc95ac3ed",
+   "after": "1704e48bcdacd65062e3fdfb6b51f25bebc283920ecd92653041e8ab710b7a76"
+  },
+  "companion/grammar/it/verbi-irregolari.json": {
+   "before": "19a1da10cd43229718cc43e712b421e92ebacd85b91d21ceb0c8bc0d29b97daa",
+   "after": "67b534167496179c0eebd622130d25276d4ebbeb377167ff70dcca7a34b5d067"
+  },
+  "companion/grammar/sl/biti.json": {
+   "before": "d094200958f4bfd63bab91cd140dba4d6779d4c0ac698f3c2eb5331693d567e2",
+   "after": "c14353747a24c8769cc5e7b44e70c396ce9e9548975d7a4f553524fd65f2387f"
+  },
+  "companion/grammar/sl/dajalnik.json": {
+   "before": "a587c966b9a7cb569c2e569c8e7ba47bf936ff77845301e9f159d1860415bea5",
+   "after": "20c5909a6b4efc77b6f12b3fbbbdb6f094e99db06250a48bfdec72cfb772fa47"
+  },
+  "companion/grammar/sl/datumi.json": {
+   "before": "d26946277edd3598e8721435ee1bb8f88a5320621cec8c51e8760e08583ac3bd",
+   "after": "521dbac922ca48016919263d4eab83b4bea73380ed33b49bef9c48abd4be02b2"
+  },
+  "companion/grammar/sl/dvojina.json": {
+   "before": "aa71c5fda994fc84bbb7eb37fad9972f97d0180d2346d77dc5948508e8d3e199",
+   "after": "9a121a50c18c5e341a4ff8c0a67beccabbec7fc3d3bdd913a73e1cb90520adcb"
+  },
+  "companion/grammar/sl/glagoli-sedanjik.json": {
+   "before": "77083fceff3f4eb9cb9ebd605e0d5bc641f2e04c1dbb778e86aa08dbcbddc185",
+   "after": "7d0c94ce25dfddc740b99f22355c1e959256aa35a8fc6afa4028cdb2432cf8e5"
+  },
+  "companion/grammar/sl/glagolski-vid.json": {
+   "before": "c873a2a8a1a46ecfa0de8629f40497333a67714d9e9d6eec15dd21b9b4661e79",
+   "after": "f99a8f41e1ce4b870984fd93a0d06370c5353f8ea3170daa181ae3869bf5a01b"
+  },
+  "companion/grammar/sl/imenovalnik.json": {
+   "before": "37c489717d1ab0e756fb505e15bb4b44b6553a805a4dff0eaf306c26e7b2501f",
+   "after": "57d507aa3ce6574ace1c48b5d4e1704c9b46ec517508f12a0cf060a1e204b8b6"
+  },
+  "companion/grammar/sl/imeti-iti.json": {
+   "before": "78a92ea0fd8c25fdf6fd3975e0df48a004a0bf7d8ddd987d598cd4dca0745ee5",
+   "after": "1e23029b0afb418a1a032c3b41e916baa9a552d26df2f417c35b0c2031649325"
+  },
+  "companion/grammar/sl/kam-tozilnik.json": {
+   "before": "add127bfb859b014d6bd8eb1c3b39ce8ec7a1c32cae1e554f9f29995a3ab1f03",
+   "after": "f0703bba80136ffacbec06af7d675b5ec76a6ee74abdfef72fcf22ee951dd543"
+  },
+  "companion/grammar/sl/kdaj-cas.json": {
+   "before": "bac97c2c2243c4acc031ab77cac39b64e1a90578e27ccd07bc540167172a9d34",
+   "after": "e4acca53821ae0ae1f9642116d0eb47745d256ad458f47d2b5aa4d76644dec1b"
+  },
+  "companion/grammar/sl/kje-mestnik-orodnik.json": {
+   "before": "4ee08972609b0f1f93fe2cf88006b64af0a14fbfde4e1766f7edd78dadb2e297",
+   "after": "db30cb747d658cb3e6075ff672d0f54074eaf110e22d33152617852fe61d0e4e"
+  },
+  "companion/grammar/sl/mestnik.json": {
+   "before": "1455893f0891b8b7cfb4a4dab17494a594a9328165894c6eb8797a033bb226fe",
+   "after": "76fb916e48b7f63e09d0de054014e220463374a503fd6a1e911a3db716a02ce8"
+  },
+  "companion/grammar/sl/mnozina.json": {
+   "before": "686e0affbd529d16a0c392dcb18d5932a2e800f15282974345a0f433a8b28a9e",
+   "after": "e67a6731106fddb6776694344bc4d9a5df4189400e16af8cb7231901a2ad73b2"
+  },
+  "companion/grammar/sl/modalni-glagoli.json": {
+   "before": "303aa3762afbcd4555e00ea5b8b1b4abbf56c097b042e1135c663aaa26b23fcd",
+   "after": "90d9fb945090d653e67ce83a6e314a8a8a10b0d4f38fe4ce938c9b58ad21be7b"
+  },
+  "companion/grammar/sl/namenilnik.json": {
+   "before": "49cbb9d7fedbd3f92eedcd83a153c65f4985929aa3544660e788ca8bdfa00e6c",
+   "after": "bb61dd5bb6dba7a184d0b54debb14f1dc6f9667d5c5ca0c0cdbb9c79ce4d029c"
+  },
+  "companion/grammar/sl/naslonke.json": {
+   "before": "0783570d9886fbe6d93411b467a9cf3b928da182b2ff4bb65829221795cad818",
+   "after": "24271992f0d04494f39c30e250dc2a4f4000e3e942bc91ea29166461bde4537c"
+  },
+  "companion/grammar/sl/odvisni-govor.json": {
+   "before": "49bb1434c210aad9ee663070c5d0536af8cfbcd0a3a0fdb377b45e2b090789bf",
+   "after": "9feff49f5833210154c5f1a2106f02d907900e6e6bcb3ec7ffaac0c341b7833b"
+  },
+  "companion/grammar/sl/orodnik.json": {
+   "before": "2367c741761aba2edd6f3faa6991f506b72af3931b50edca9c628d104eb03d2c",
+   "after": "f809e5577289def2e586cd06f2406fb5248ca9daa609c7608d1558751cb7b30c"
+  },
+  "companion/grammar/sl/osebni-zaimki.json": {
+   "before": "5dd90588674122c0bcce3a4f8ba6d1713c8f97a45537f2f0ed2c4ece1a481e85",
+   "after": "a18e9077ff1824a0f667826759d1d43ef8507d41d64de74b89b7fe50ca1f2411"
+  },
+  "companion/grammar/sl/oziralni-ki.json": {
+   "before": "75ef1ac2c95293a7f5e3706bc4871ab7e3ec9e330afd742c1aae591fa356781c",
+   "after": "b1bc84dfb70663ec7dde135a17b148973cb3e1410a3f571657200c01a8440d9c"
+  },
+  "companion/grammar/sl/pogojnik.json": {
+   "before": "656a4dca6f4001cdcaf975720d18ecb2ec0573396eba27694c5fe650968437a6",
+   "after": "03af9a866dbb1fc0413bf7af945982b82ce2eb7a8391cf9e89de609cadcdc831"
+  },
+  "companion/grammar/sl/povratni-glagoli.json": {
+   "before": "b36296ba34d21e52e642e57debdd3718a52da7b0adc4ddf36707a640000d1319",
+   "after": "5dc184347f46aeaffd86de8bd374413a8e1b4de1ba8472ccb888cd12bc63dc4a"
+  },
+  "companion/grammar/sl/pretekli-cas.json": {
+   "before": "1316648aad9ecd57c5dda163bde8fd96c0242003cfbad619fd0b59fcc3d74011",
+   "after": "8002bd85624aa809cf6cee54424c442a86e8a4c3bb81dba6c206a31b09abf36d"
+  },
+  "companion/grammar/sl/pridevniki-ujemanje.json": {
+   "before": "46fed02d24c7b3e4a70a1b9943ec0b7ead62906f68edcb03065cf432c427173a",
+   "after": "ce75f6af225784d671bddb265a661d4a82cc10abd7091f85f998eb78a50e19d6"
+  },
+  "companion/grammar/sl/prihodnjik.json": {
+   "before": "39870ac7a4935d5ca5ffb13c6796f809f1100f82bc7a3bb825b78034e91d8ec7",
+   "after": "7446d75e7f7c93933ee576675c35a1357239948dcc0af57ca14599b564830843"
+  },
+  "companion/grammar/sl/primernik.json": {
+   "before": "46e03493969891c39ab46d21619af25a2e9418e84dd96992358c5b4a5d9a74d6",
+   "after": "d90b5de4ab21c0c04c3a8a3c394d798e04fcb567e31b328e28b081ced1e65683"
+  },
+  "companion/grammar/sl/prislovi.json": {
+   "before": "cc011762e46b946969655583fb2bd860cb5892b3e52ad013963bb28b3cfc53fb",
+   "after": "c81be026f2d5d6cf8125da446c767f10f88c4a7cec3d145fc2ef3542a95d51fa"
+  },
+  "companion/grammar/sl/rodilnik-kolicina.json": {
+   "before": "4be0de155ca4ae40242abec410c78080d06d06db21e28c66e9c9a610ecd6b100",
+   "after": "798bb028c0d0cf841098048ed259395db7f6fc47ffbcbafee3de8c7b655cd366"
+  },
+  "companion/grammar/sl/rodilnik-nikalnica.json": {
+   "before": "bbfaa4b9ffd976530b0e327bb9770b481a31f8a8afe97fe38be98e477fc08355",
+   "after": "98c69f3b3071fe6a86fe38dc22dfff6ba7c1fddecaa2c8ac4e721af2b805b358"
+  },
+  "companion/grammar/sl/rodilnik-predlogi.json": {
+   "before": "06c9de64eedb2df121a0554db5c9f857afc4ad69b6aa8dd5fd80d7e304f44b4b",
+   "after": "680e8f77a9a37d761a43fc27999411a64cca033aaf0181a578f85039f35f840a"
+  },
+  "companion/grammar/sl/rodilnik.json": {
+   "before": "84e957a190a7c6ddb8e09661a1b4ce5a3bdf96efd53bc46026c9a4d927791b6b",
+   "after": "bdceb66d2a1a5e5390df8e60bba08ad2d9d898ca63f8b9b9c4c044117e3aa576"
+  },
+  "companion/grammar/sl/sklanjatev-moski.json": {
+   "before": "e8b8f1586d2292af697f49183e5c66b109ff0ad7ad770af705113442e3afa3aa",
+   "after": "0445dd7f77104088cf483579b53715880b64307f56967ddc19de88463d6e85e5"
+  },
+  "companion/grammar/sl/sklanjatev-srednji.json": {
+   "before": "2c15acc173048abc3ef253411c492e86f941242f9a49d3353bc3be2d318971e0",
+   "after": "10be8132ebf01e746443323220575fc9f1e7828e0f7b9e64ba8ed3f06db07a14"
+  },
+  "companion/grammar/sl/sklanjatev-zenski.json": {
+   "before": "15d62930e68f8703d249d0fb07e24a382b4a9f5e0a7caf674bfab056b2950212",
+   "after": "b2074c35d23ea81cce3749a39dff935f36de9f3646f52d1d6bf039d4e106ed41"
+  },
+  "companion/grammar/sl/skloni.json": {
+   "before": "434da6abb71a2444de8bb4394208b3d617421f5a94d65d9832c598c9fd3656ff",
+   "after": "2bcb03547718d4735ea6056021bed4ef0b1105b2c5410c51a65dcaaf0b2fdb26"
+  },
+  "companion/grammar/sl/spol-samostalnikov.json": {
+   "before": "0ba7bc88c6089c02f6c9f426285f9ef098d45a66e38119f4b44cd7b8c06aaa6d",
+   "after": "f7eb7f48e9c29d22ec54a3ed34ab94ca534e75d05029eae1c934ab6ba9f131ae"
+  },
+  "companion/grammar/sl/stevila-samostalniki.json": {
+   "before": "95873de394d8e6ebb72beec36fa16505d460bf3aa451d59cdb142915f84f27fc",
+   "after": "d573ebaae5d1b1a7c874e46daf2e73e07eb6ae8496dd9fe1a7e893d49d0d44d8"
+  },
+  "companion/grammar/sl/svoj.json": {
+   "before": "14b17d2da755835e180d5427f73600450c1ec7135b60786601b78e6a1e8f3888",
+   "after": "5d552879bac15f9e0a97630f1b1a8bbc3417131d6b3c284dcb4d070da4edadc1"
+  },
+  "companion/grammar/sl/ti-vi.json": {
+   "before": "b8ae337817d6c9203db586ee0e94677bc859bf91d3befde35e126633fcf059b0",
+   "after": "efffa8a67835d57342233bab4186f22d72e1657c8d2e7bc3272afc1e28398bf3"
+  },
+  "companion/grammar/sl/tozilnik.json": {
+   "before": "0e3530247b9c7af23effb396510a51f53fa58ac37ed97ae022f9f6618ff00146",
+   "after": "4e6d26f5d15a9bb2bde32ed54c7d256e0805e9204b2d538e10c273aefd4d3355"
+  },
+  "companion/grammar/sl/velelnik.json": {
+   "before": "dc2286ecf576ce737f100b10ebccda3056e4a28e18592c4561bccc11f0a66e19",
+   "after": "f7f7d0b54dcf4c0d21b1860030929ddd2282630176c337115cc9501877b1a107"
+  },
+  "companion/grammar/sl/vezniki.json": {
+   "before": "a692acbdff1d20edaa55af05305402a3c5373beacfd886b2133cc9869087625f",
+   "after": "b888feef8a71a5ae571323e78aa732a1e6b267076dc96e82b0ab268e5cb503ea"
+  },
+  "companion/grammar/sl/vprasalnice.json": {
+   "before": "c9873364bc943528ecae7b1566d4a0fff6cc52ef6bc35501bd65a62c7ef96d95",
+   "after": "bf566d80eff8294cca32ba5b74fa4daaf51ec96120d74d9c2a2638ad4e297d8b"
+  },
+  "companion/grammar/sl/zanikanje.json": {
+   "before": "5b4463aa8a01e7b1b4f286f54ad11683914552bbdf01d36d9edc4e7535a81dc0",
+   "after": "de355abf2ad24b91b2e542f7784554d7297cf7e5b706d92f4a8ee38f26903299"
+  },
+  "companion/drills/sl/gradnja.json": {
+   "before": "3dedc5c14dd4f57d5871bfc5aa1a23a761974e431b17eaa92c143ba5f7a618fb",
+   "after": "ba795de9e340de5f60d51f6341812f2791a9688e9397d3158d4054ba56e79ee4"
+  },
+  "companion/drills/sl/hitri-odziv.json": {
+   "before": "29a0a08962776ffa523ca9f1315f6a15322d10d744382a3549af016f5ab904c5",
+   "after": "2d20f4b3235c2c656983f9cf255f6fd732e0fa145c66ba8fb288f2e690401846"
+  },
+  "companion/drills/sl/preobrat.json": {
+   "before": "6e190f85256a5f96107429737f5f4bd46312554ba300c871c6de5b9629d4f3a7",
+   "after": "c0bd1beb5952c3ebb04e9b496a9dbe6823422c646203b75f3673e6ca59b5f4ef"
+  },
+  "companion/drills/sl/uganke.json": {
+   "before": "7853980b8e7b35aa3d916da81cb7366483fe8718f96b7d6a90f18dc7fbbacad4",
+   "after": "c4b064431a01dd9c54c01ca94264747e31fe479e4e3551712db80b0d8bc304a0"
+  }
+ }
+}

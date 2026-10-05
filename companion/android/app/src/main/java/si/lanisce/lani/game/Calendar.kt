@@ -29,8 +29,11 @@ object FestivalPacks {
 
     fun pack(id: String): Pack? = synchronized(cache) { cache.getOrPut(id) { load(id) } }
 
+    /** Read them again (the learner the content speaks to changed: [si.lanisce.lani.l10n.Learner.current]). */
+    fun forget() = synchronized(cache) { cache.clear() }
+
     private fun load(id: String): Pack? = runCatching {
-        FestivalPacks::class.java.getResourceAsStream("/packs/$id.json")?.use { parsePack(it.readBytes().decodeToString()) }
+        FestivalPacks::class.java.getResourceAsStream("/packs/$id.json")?.use { parsePack(si.lanisce.lani.l10n.Learner.current.renderJson(it.readBytes().decodeToString())) }
     }.getOrNull()
 }
 

@@ -306,4 +306,5 @@ object BaseLabel : KSerializer<String> {
 }
 
 /** GET /villagers */
-fun parseVillagers(raw: String): List<Villager> = json.decodeFromString(raw)
+/** The people as the bridge sends them, their lines said to the learner of this phone (l10n/Learner.kt). */
+fun parseVillagers(raw: String): List<Villager> = json.decodeFromString(si.lanisce.lani.l10n.Learner.current.renderJson(raw))

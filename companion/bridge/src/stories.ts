@@ -13,6 +13,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { label, labelEn, labelTarget, langText, type Label } from './langs'
 import { dialogLine, offStage, reactionErrors, reply, SCENE_ART, SCENE_LANGUAGES, staysErrors, type ResolvedScene, type SceneRefs } from './scenes'
@@ -330,7 +331,7 @@ export function crossCheck(s: Story, refs?: StoryRefs): string[] {
 export function validateStory(input: unknown, refs?: StoryRefs): { ok: true; story: Story } | { ok: false; errors: string } {
   const r = storySpec.safeParse(input)
   if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
-  const errs = crossCheck(r.data, refs)
+  const errs = [...learnerErrorsIn(r.data), ...crossCheck(r.data, refs)]
   return errs.length ? { ok: false, errors: errs.map(e => `✖ ${e}`).join('\n') } : { ok: true, story: r.data }
 }
 

@@ -63,7 +63,7 @@ function sceneInfo(s: LoadedScene) {
   }
 }
 
-export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, log }) => {
+export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, addressee, log }) => {
   const asks = new VariantAsks(join(cfg.appDir, 'variant-asks.json'))
   // what the last check saw (the day, and what was heard): a village write that changes none of it (most) costs nothing
   let seen = ''
@@ -138,6 +138,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       {
         method: 'GET',
         path: '/scenes',
+        addressed: true,
         handle: ({ url }) => {
           const told = stories.resolved()
           return json(forApp(scenes.resolved(), artsOf(url)).map(s => attachStories(forHost(s), told)))
@@ -146,6 +147,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       {
         method: 'GET',
         path: /^\/scenes\/([a-z0-9-]+)$/,
+        addressed: true,
         handle: ({ url, params: [id] }) => {
           const s = forApp([scenes.resolve(id)].filter(x => x !== undefined), artsOf(url))[0]
           return s ? json(attachStories(forHost(s), stories.resolved())) : json({ error: 'not found' }, 404)
@@ -190,7 +192,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           events.emit({ type: 'scene_published', id: v.scene.id, title: titleOf(v.scene.title), emoji: v.scene.emoji, note: note.data ?? undefined })
           const resolved = scenes.resolve(v.scene.id)
           // The villagers decide the voices; only the scene's own texts are queued.
-          if (resolved) voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], scenes: [resolved], villagers: villagers.all() }).filter(i => i.source === `scene:${resolved.id}`))
+          if (resolved) voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], scenes: [resolved], villagers: villagers.all(), learner: addressee() }).filter(i => i.source === `scene:${resolved.id}`))
           return ok(
             `published scene ${v.scene.id} (${v.scene.objects.length} objects, ${v.scene.happenings.length} happenings, ${v.scene.dialogs.length} dialogs)` +
               (replaced ? `; it replaces the curated scene "${v.scene.id}" until remove_scene` : '') +
@@ -252,7 +254,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           scenes.publishVariant(sceneId, hid, dialog)
           events.emit({ type: 'variant_published', scene: sceneId, happening: hid, id: did, title: titleOf(s.title), emoji: h.marker, note: note.data ?? undefined })
           const resolved = scenes.resolve(sceneId)
-          if (resolved) voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], scenes: [resolved], villagers: villagers.all() }).filter(i => i.source === `scene:${resolved.id}`))
+          if (resolved) voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], scenes: [resolved], villagers: villagers.all(), learner: addressee() }).filter(i => i.source === `scene:${resolved.id}`))
           const now = resolved?.happenings.find(x => x.id === hid)
           return ok(
             `published variant ${did} of ${sceneId}/${hid} (its dialogs now: ${variantsOf(now ?? h).join(', ')}); it plays the next time the happening comes, as the one not heard yet` +

@@ -4,6 +4,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { LANG, label, labelEn, labelShown, type Label } from './langs'
 
@@ -102,7 +103,9 @@ export type LoadedPack = Pack & { source: PackSource; published_at?: number }
 
 export function validatePack(input: unknown): { ok: true; pack: Pack } | { ok: false; errors: string } {
   const r = packSpec.safeParse(input)
-  return r.success ? { ok: true, pack: r.data } : { ok: false, errors: z.prettifyError(r.error) }
+  if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
+  const learner = learnerErrorsIn(r.data)
+  return learner.length ? { ok: false, errors: learner.map(e => `✖ ${e}`).join('\n') } : { ok: true, pack: r.data }
 }
 
 /** The spaced-repetition item a pack word becomes. */

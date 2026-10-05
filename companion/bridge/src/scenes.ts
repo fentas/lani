@@ -7,6 +7,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn, sameFor } from './addressee'
 import { schemaField } from './schema'
 import type { Pack } from './packs'
 import type { Gender } from './cast'
@@ -534,6 +535,8 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
         if (l.who || SCENE_LANGUAGES.some(k => l[k])) errs.push(`${here}: a choice turn has no who/${lang}/en`)
         if (l.choices.length < 2) errs.push(`${here}: a choice turn needs 2-3 choices`)
         if (!l.choices.some(c => c.ok)) errs.push(`${here}: no choice is ok`)
+        const same = sameFor(l.choices.map(c => c[lang] as string | undefined))
+        if (same) errs.push(`${here}: two choices read the same to a ${same} learner ({m:…|f:…}): a turn never tests the learner's own gender`)
         l.choices.forEach((c, ci) => {
           if (!c.ok && !c.why) errs.push(`${here}.choices[${ci}]: a wrong choice needs a why`)
           errs.push(...reactionErrors(c, `${here}.choices[${ci}]`))
@@ -686,7 +689,7 @@ export function forHost<T extends Pick<Scene, 'happenings' | 'dialogs'>>(s: T): 
 export function validateScene(input: unknown, refs?: SceneRefs): { ok: true; scene: Scene } | { ok: false; errors: string } {
   const r = sceneSpec.safeParse(input)
   if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
-  const errs = crossCheck(r.data, refs)
+  const errs = [...learnerErrorsIn(r.data), ...crossCheck(r.data, refs)]
   return errs.length ? { ok: false, errors: errs.map(e => `✖ ${e}`).join('\n') } : { ok: true, scene: r.data }
 }
 

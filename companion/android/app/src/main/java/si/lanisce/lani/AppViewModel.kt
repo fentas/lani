@@ -99,6 +99,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     var langPairChosen by mutableStateOf(languages.chosen)
         private set
     val langPairOfProfile: LangPair get() = languages.profile
+    /** Who the content speaks to (l10n/LearnerSetting.kt): applied before anything below reads a text of the content. */
+    private val learners = si.lanisce.lani.l10n.LearnerSetting(app)
+    /** The learner the content speaks to, by name and gender; MainActivity builds the screens anew when it changes. */
+    var learner by mutableStateOf(learners.apply())
+        private set
     /** The learner's village's culture pack (game/culture/CultureSetting.kt), applied before the village builds a text. */
     private val cultures = CultureSetting(app)
     /** The culture pack the village is in; MainActivity builds the screens anew when it changes. */
@@ -129,7 +134,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val sync = SyncController(app, viewModelScope, node, notices, onSaved = ::refresh)
     val content: ContentController = ContentController(app, prefs, node, onDashboard = {
         game.refreshWidget()
-        content.dashboard?.let { if (languages.profileSays(it.pair)) showLanguages() }
+        content.dashboard?.let {
+            if (languages.profileSays(it.pair)) showLanguages()
+            if (learners.profileSays(it.addressee)) relearn()
+        }
     })
     val packs = PacksController(prefs, node, notices, sync)
     val game: GameController = GameController(
@@ -448,6 +456,17 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         languages.choose(p)
         langPairChosen = p
         showLanguages()
+    }
+
+    /**
+     * The profile names another learner, or another gender (the setup asked): the content speaks to them from now on. The
+     * bundled culture pack and festivals' words are read again for them; what the bridge serves comes rendered for them.
+     */
+    private fun relearn() {
+        learner = learners.apply()
+        si.lanisce.lani.game.culture.Cultures.forget()
+        si.lanisce.lani.game.FestivalPacks.forget()
+        culture = cultures.apply()
     }
 
     /** The learner's pair applied; what shows ([langPair]) is a visit's while one is on. */

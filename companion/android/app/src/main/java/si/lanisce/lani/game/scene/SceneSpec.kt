@@ -318,12 +318,17 @@ data class DialogReply(
 )
 
 /** GET /scenes: every scene, resolved, read in the learner's pair ([inPair]). */
-fun parseScenes(raw: String): List<SceneSpec> {
+/** Scenes as the bridge sends them, said to the learner of this phone ({learner}, {m:…|f:…}: l10n/Learner.kt). */
+fun parseScenes(raw: String): List<SceneSpec> = parseScenesSaid(si.lanisce.lani.l10n.Learner.current.renderJson(raw))
+
+private fun parseScenesSaid(raw: String): List<SceneSpec> {
     val list = json.parseToJsonElement(raw) as? JsonArray ?: return json.decodeFromString(raw)
     return json.decodeFromJsonElement(ListSerializer(SceneSpec.serializer()), JsonArray(list.map { (it as? JsonObject)?.let(::inPair) ?: it }))
 }
 
-fun parseScene(raw: String): SceneSpec {
+fun parseScene(raw: String): SceneSpec = parseSceneSaid(si.lanisce.lani.l10n.Learner.current.renderJson(raw))
+
+private fun parseSceneSaid(raw: String): SceneSpec {
     val o = json.parseToJsonElement(raw) as? JsonObject ?: return json.decodeFromString(raw)
     return json.decodeFromJsonElement(SceneSpec.serializer(), inPair(o))
 }

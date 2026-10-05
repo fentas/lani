@@ -34,7 +34,7 @@ export const family: FeatureFactory = ({ cfg, family }) => ({
     { method: 'DELETE', path: /^\/audio\/file\/([^/]+)$/, access: 'any', handle: ({ params: [file] }) => family.remove(file) },
     { method: 'GET', path: '/family/api/settings', access: 'any', handle: () => json(family.settings()) },
     { method: 'PUT', path: '/family/api/settings', access: 'any', handle: ({ req }) => family.saveSettings(req) },
-    { method: 'GET', path: '/family/api/words', access: 'any', handle: () => json(family.wordList()) },
+    { method: 'GET', path: '/family/api/words', access: 'any', addressed: true, handle: () => json(family.wordList()) },
     { method: 'GET', path: '/family/api/challenges', access: 'any', handle: () => json(family.challenges().slice().reverse()) },
     { method: 'POST', path: '/family/api/challenges', access: 'any', handle: ({ req }) => family.createChallenge(req) },
     // Jan's answer: the app token only.

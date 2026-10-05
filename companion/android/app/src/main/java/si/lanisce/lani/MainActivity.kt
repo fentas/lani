@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
         if (savedInstanceState == null) openLink(intent)
         // The speaker everywhere (not only in exercises), so tutor texts can speak their Slovene. The labels read the
         // learner's language pair when they're built: another pair builds the screens anew.
-        setContent { LaniTheme { CompositionLocalProvider(LocalSpeaker provides vm.speaker) { key(vm.langPair, vm.culture) { App(vm) } } } }
+        setContent { LaniTheme { CompositionLocalProvider(LocalSpeaker provides vm.speaker) { key(vm.langPair, vm.culture, vm.learner) { App(vm) } } } }
     }
 
     override fun onNewIntent(intent: Intent) {

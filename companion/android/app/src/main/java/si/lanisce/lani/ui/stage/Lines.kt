@@ -8,17 +8,18 @@ import si.lanisce.lani.game.villagers.Bonds
 import si.lanisce.lani.game.villagers.VillagerLine
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
+import si.lanisce.lani.l10n.Learner
 
 /**
  * What people say on the stage and in intros when their own lines (lani.villager/v0 `lines`) don't
- * cover it: built-in lines, each in the ti and the vi form. Slovene said to Jan uses masculine forms.
- * A1–A2, short enough to read at a glance.
+ * cover it: built-in lines, each in the ti and the vi form, said to the learner as the content is ({learner} and
+ * {m:…|f:…}: l10n/Learner.kt). A1–A2, short enough to read at a glance.
  *
  * In Italian (a learner whose village is Italian, the second learner's) they say tu: the villagers speak to a child, and vi (Lei)
  * is only how the learner addresses them. Their Slovene is then the learner's translation: the ti form, or [G.itSl]
- * where the Slovene line says something the Italian doesn't (Jan's name). In German (a village of the kaernten pack)
+ * where the Slovene line says something the Italian doesn't (the learner's name). In German (a village of the kaernten pack)
  * they say du likewise; its Slovene is [G.deSl], else the Italian's, else the ti form, and its Italian the [G.it] line.
- * In English (the lakeland village) the English line is said, or [G.enSaid] where that names Jan, meant in Slovene in the
+ * In English (the lakeland village) the English line is said, or [G.enSaid] where that names the learner, meant in Slovene in the
  * register's form. A line keeps its Slovene and English, and the learner's base language when it has a line in it
  * (German for a learner of Slovene from German).
  */
@@ -26,7 +27,7 @@ object Lines {
     /**
      * One built-in line: [ti] and [vi] forms (often the same), English, the friendship level it needs, in Italian
      * ([it]; [itSl]: its Slovene translation when that isn't the ti form) and in German ([de]; [deSl] likewise), what
-     * English villagers say where [en] names Jan ([enSaid]), and the times of day it is said at ([times], a line's
+     * English villagers say where [en] names the learner ([enSaid]), and the times of day it is said at ([times], a line's
      * `when`: "Lep dan še naprej!" by day; none, any time).
      */
     private class G(
@@ -42,7 +43,7 @@ object Lines {
         fun of(register: String): VillagerLine {
             val pair = L10n.pair
             val sl = if (register == "vi") vi else ti
-            // away from Jan's Slovene village, a line that names Jan is said without the name, in every language
+            // away from a Slovene village, a line that names the learner is said without the name, in every language
             val english = enSaid ?: en
             val said = when (pair.target) {
                 Lang.IT -> it?.let { linkedMapOf("it" to it, "sl" to (itSl ?: ti), "en" to english) }
@@ -57,7 +58,7 @@ object Lines {
                 else -> null
             }
             if (base != null && pair.base.code !in said) said[pair.base.code] = base
-            return VillagerLine(said, level, times)
+            return VillagerLine(said.mapValues { (_, t) -> Learner.said(t) }, level, times)
         }
     }
 
@@ -68,7 +69,7 @@ object Lines {
         G("Točno tako!", "Exactly!", it = "Esatto!", de = "Genau!"),
         G("Odlično!", "Excellent!", it = "Ottimo!", de = "Ausgezeichnet!"),
         G("Tako je!", "That's right!", it = "Giusto!", de = "Richtig!"),
-        G("Lepo, Jan!", "Nice, Jan!", 1, it = "Che bravo!", itSl = "Tako priden!", de = "Schön gemacht!", deSl = "Lepo narejeno!", enSaid = "Nicely done!"),
+        G("Lepo, {learner}!", "Nice, {learner}!", 1, it = "Che {m:bravo|f:brava}!", itSl = "Tako {m:priden|f:pridna}!", de = "Schön gemacht!", deSl = "Lepo narejeno!", enSaid = "Nicely done!"),
         G("Kar tako naprej!", "Keep it up!", 1, it = "Continua così!", de = "Weiter so!"),
         G("Vidiš, da znaš!", "Vidite, da znate!", "You see, you know it!", 2, it = "Vedi che lo sai!", de = "Siehst du, du kannst es!"),
     )
@@ -102,7 +103,7 @@ object Lines {
     )
 
     private val GREET = listOf(
-        G("Pozdravljen, Jan!", "Hello, Jan!", it = "Ciao! Eccoti qua!", itSl = "Živjo! Tu si!", de = "Servus! Da bist du ja!", enSaid = "Hello! There you are!"),
+        G("{m:Pozdravljen|f:Pozdravljena}, {learner}!", "Hello, {learner}!", it = "Ciao! Eccoti qua!", itSl = "Živjo! Tu si!", de = "Servus! Da bist du ja!", enSaid = "Hello! There you are!"),
         G("Greva vadit?", "Shall we practise, the two of us?", 1, it = "Ci esercitiamo insieme?", itSl = "Bova vadila skupaj?", de = "Üben wir zusammen?"),
         G("Lepo te je videti!", "Lepo vas je videti!", "Nice to see you!", 1, it = "Che bello vederti!", de = "Schön, dich zu sehen!"),
     )
@@ -149,7 +150,7 @@ object Lines {
         is Exercise.Dictation -> LISTEN
         is Exercise.Speak -> listOf(G("Povej na glas!", "Povejte na glas!", "Say it out loud!", it = "Dillo ad alta voce!", de = "Sag es laut!"))
         is Exercise.Free -> listOf(G("Napiši mi nekaj.", "Napišite mi nekaj.", "Write me something.", it = "Scrivimi qualcosa.", de = "Schreib mir etwas."))
-        is Exercise.Scenario -> listOf(G("Kaj bi rekel?", "Kaj bi rekli?", "What would you say?", it = "Che cosa diresti?", de = "Was würdest du sagen?"))
+        is Exercise.Scenario -> listOf(G("Kaj bi {m:rekel|f:rekla}?", "Kaj bi rekli?", "What would you say?", it = "Che cosa diresti?", de = "Was würdest du sagen?"))
         is Exercise.Multi -> listOf(G("Poišči vse prave.", "Poiščite vse prave.", "Find all the right ones.", it = "Trova tutte quelle giuste.", de = "Finde alle richtigen."))
         is Exercise.Unsupported -> listOf(G("Tole je nekaj novega.", "This is something new.", it = "Questa è una cosa nuova.", de = "Das ist etwas Neues."))
     }.of(register)
@@ -202,7 +203,7 @@ object Lines {
             return G("Hvala za trud! Jutri bo še bolje.", "Thanks for trying! Tomorrow will be even better.", it = "Grazie per l'impegno! Domani andrà ancora meglio.", de = "Danke fürs Mitmachen! Morgen wird es noch besser.").of(register)
         }
         val praise = when {
-            correct * 10 >= total * 8 -> G("Odlično si se odrezal!", "Odlično ste se odrezali!", "You did excellently!", it = "Sei stato bravissimo!", de = "Das hast du super gemacht!")
+            correct * 10 >= total * 8 -> G("Odlično si se {m:odrezal|f:odrezala}!", "Odlično ste se odrezali!", "You did excellently!", it = "Sei {m:stato bravissimo|f:stata bravissima}!", de = "Das hast du super gemacht!")
             correct * 2 >= total -> G("Dobro delo!", "Good work!", it = "Bel lavoro!", de = "Gute Arbeit!")
             else -> G("Jutri bo še bolje.", "Tomorrow will be even better.", it = "Domani andrà ancora meglio.", de = "Morgen wird es noch besser.")
         }.of(register)

@@ -12,6 +12,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn } from './addressee'
 import { schemaField } from './schema'
 import { arrivalErrors, cultureArrivals, PACK_LANGUAGES, type ArrivalBody } from './arrivals'
 import { grammarRef } from './grammar'
@@ -345,6 +346,8 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
     }
   }
   if (errors.length) return { ok: false, errors: errors.join('\n') }
+  // the learner's placeholders ({learner}, {m:…|f:…}: addressee.ts), well formed wherever they are
+  for (const f of FILES) errors.push(...learnerErrorsIn(files[f], f).map(e => `${cultureId}/${e}`))
   const pack = { manifest: m.manifest, files } as Pack
   const lang = m.manifest.language
   for (const [path, t] of [...texts(m.manifest, 'culture'), ...FILES.flatMap(f => texts(pack.files[f], f))]) {

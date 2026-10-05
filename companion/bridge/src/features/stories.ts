@@ -139,7 +139,7 @@ export const stories: FeatureFactory = ({ stories, scenes, packs, villagers, eve
 
   return {
     instructions,
-    routes: [{ method: 'GET', path: '/stories', handle: () => json(stories.resolved()) }],
+    routes: [{ method: 'GET', path: '/stories', addressed: true, handle: () => json(stories.resolved()) }],
     start: () => {
       game.onWrite(doc => void checkLow(doc).catch(e => log(`stories_low: ${(e as Error).message}`)))
       void checkLow(game.read()).catch(e => log(`stories_low: ${(e as Error).message}`))

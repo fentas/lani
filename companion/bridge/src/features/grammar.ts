@@ -51,7 +51,7 @@ const otherBook = (lang: string, name: string, curated: number) =>
 /** The learner's record of a page in the village state (the app's GameState.grammar, "<language>/<id>"); `run`: right in a row now. */
 type Met = { on?: string; right?: number; wrong?: number; run?: number }
 
-export const grammar: FeatureFactory = ({ grammar: book, modules, game, events, voice, cfg, culture }) => {
+export const grammar: FeatureFactory = ({ grammar: book, modules, game, events, voice, cfg, culture, addressee }) => {
   const langs = () => learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
   /** What the learner has met of each page, from the village state. */
   const met = (): Record<string, Met> =>
@@ -74,10 +74,11 @@ export const grammar: FeatureFactory = ({ grammar: book, modules, game, events, 
     // Jan's paragraph as written; a village in another language says whose book it is
     instructions: own === 'sl' ? instructions : `${instructions}\n${otherBook(own, LANGUAGES[own] ?? own, book.curated().length)}`,
     routes: [
-      { method: 'GET', path: '/grammar', handle: () => json(book.all()) },
+      { method: 'GET', path: '/grammar', addressed: true, handle: () => json(book.all()) },
       {
         method: 'GET',
         path: /^\/grammar\/([a-z0-9-]+)$/,
+        addressed: true,
         handle: ({ params: [id] }) => {
           const p = book.get(id)
           return p ? json(p) : json({ error: 'not found' }, 404)
@@ -109,7 +110,7 @@ export const grammar: FeatureFactory = ({ grammar: book, modules, game, events, 
           const { target, base } = langs()
           events.emit({ type: 'grammar_published', id: served.id, title: titleFor(served, target, base), emoji: served.emoji, extended: r.extended, note: note.data ?? undefined })
           // the examples are heard with 🔊: voiced like a module's lines
-          voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], grammar: [served], language: own }))
+          voice.enqueue(corpus({ packs: [], modules: [], scenarios: [], grammar: [served], language: own, learner: addressee() }))
           const warn = unknown(served)
           const what = r.extended
             ? `extended the curated page ${served.id}: ${r.added} example(s) of yours${v.page.more ? ', your explanation' : ''}`

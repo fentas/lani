@@ -183,7 +183,7 @@ object Drills {
 
     /** GET /drills: the drills in the bridge's order. */
     fun parseList(raw: String): List<Drill> =
-        (json.parseToJsonElement(raw) as? JsonArray).orEmpty().mapNotNull { (it as? JsonObject)?.let(::parse) }
+        (json.parseToJsonElement(si.lanisce.lani.l10n.Learner.current.renderJson(raw)) as? JsonArray).orEmpty().mapNotNull { (it as? JsonObject)?.let(::parse) }
 
     /**
      * The drills of [language] the app bundles (companion/drills/<language>/, resources drills/<language>/ with
@@ -197,7 +197,7 @@ object Drills {
     }
 
     private fun resource(path: String): String? =
-        Drills::class.java.getResourceAsStream("/drills/$path")?.use { it.readBytes().decodeToString() }
+        Drills::class.java.getResourceAsStream("/drills/$path")?.use { si.lanisce.lani.l10n.Learner.current.renderJson(it.readBytes().decodeToString()) }
 
     /** The drills played: the bridge's (null: an older bridge without them), then the bundled ones it doesn't have. */
     fun merge(bundled: List<Drill>, bridge: List<Drill>?): List<Drill> {

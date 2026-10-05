@@ -405,7 +405,7 @@ object VillagerLogic {
         }
         // the shepherd's request to move the tent to the pond
         pack.tentMove?.takeIf { q.id == si.lanisce.lani.game.TentMove.ID }?.memory?.let { return Memory(day.toString(), it.target, it.base, "quest") }
-        QUEST_MEMORIES[sl]?.let { (msl, men) -> return Memory(day.toString(), msl, men, "quest") }
+        QUEST_MEMORIES[sl]?.let { (msl, men) -> return Memory(day.toString(), si.lanisce.lani.l10n.Learner.said(msl), men, "quest") }
         val en = titleEn(q.title)
         // an Italian village remembers it in Italian (the villagers say tu to the learner, a child)
         if (si.lanisce.lani.l10n.L10n.pair.target == si.lanisce.lani.l10n.Lang.IT) {
@@ -415,7 +415,7 @@ object VillagerLogic {
         if (si.lanisce.lani.l10n.L10n.pair.target == si.lanisce.lani.l10n.Lang.DE) {
             return Memory(day.toString(), "den Tag, an dem du mir geholfen hast: „$sl“", en.takeIf { it != sl }?.let { "the day you helped me: “$it”" } ?: "", "quest")
         }
-        val helped = if (v?.register == "vi") "ko ste mi pomagali" else "ko si mi pomagal"
+        val helped = if (v?.register == "vi") "ko ste mi pomagali" else si.lanisce.lani.l10n.Learner.said("ko si mi {m:pomagal|f:pomagala}")
         return Memory(day.toString(), "dan, $helped: „$sl“", "the day you helped me: “$en”", "quest")
     }
 
@@ -427,12 +427,12 @@ object VillagerLogic {
 
     /**
      * The local quests (game/Quests.kt) as the giver remembers them: accusative after "mislim na", said by
-     * the giver ("sva" is the two of them, which suits both ti and vi).
+     * the giver ("sva" is the two of them, which suits both ti and vi; two women's is the feminine dual, {m:…|f:…}).
      */
     val QUEST_MEMORIES: Map<String, Pair<String, String>> = mapOf(
-        "Mickina kuhinja" to ("potico, ki sva jo spekla skupaj" to "the potica we baked together"),
+        "Mickina kuhinja" to ("potico, ki sva jo {m:spekla|f:spekli} skupaj" to "the potica we baked together"),
         "Nedeljsko kosilo" to ("nedeljsko kosilo z vso družino" to "Sunday lunch with the whole family"),
-        "Gostje pri Micki" to ("goste iz Nemčije, ki sva jih lepo pozdravila" to "the guests from Germany we welcomed so nicely"),
+        "Gostje pri Micki" to ("goste iz Nemčije, ki sva jih lepo {m:pozdravila|f:pozdravili}" to "the guests from Germany we welcomed so nicely"),
         "Francetov seznam" to ("seznam za mlin, ki sva ga znova napisala" to "the list for the mill we wrote again"),
         "Žetev" to ("žetev, ko je bil kozolec poln snopov" to "the harvest, when the hayrack was full of sheaves"),
         "Antonov med" to ("med, ki sva ga točila skupaj" to "the honey we extracted together"),
@@ -440,14 +440,14 @@ object VillagerLogic {
         "Lukovi klici" to ("klice čez dolino" to "the calls across the valley"),
         "Izgubljena ovca" to ("ovco, ki sva jo našla v gozdu" to "the sheep we found in the forest"),
         "Zvonci v megli" to ("zvonce v megli" to "the bells in the fog"),
-        "Ančkin radio" to ("novice na Radiu Koper, ki sva jih poslušala" to "the news on Radio Koper we listened to"),
+        "Ančkin radio" to ("novice na Radiu Koper, ki sva jih {m:poslušala|f:poslušali}" to "the news on Radio Koper we listened to"),
         "Od kod so tujci?" to ("tujce, ki so prišli v vas" to "the strangers who came to the village"),
         "Tonetova naročila" to ("naročila iz Gorice" to "the orders from Gorizia"),
         "Podkev za konja" to ("podkev, ki sva jo skovala" to "the horseshoe we forged"),
         "Stari plug" to ("stari plug, ki sva ga popravila" to "the old plough we repaired"),
         "Mojčina ura" to ("uro o končnicah" to "the lesson on endings"),
-        "Dvojina" to ("dvojino, ki sva jo vadila" to "the dual we practised"),
-        "Napake na tabli" to ("napake na tabli, ki sva jih popravila" to "the mistakes on the blackboard we fixed"),
+        "Dvojina" to ("dvojino, ki sva jo {m:vadila|f:vadili}" to "the dual we practised"),
+        "Napake na tabli" to ("napake na tabli, ki sva jih {m:popravila|f:popravili}" to "the mistakes on the blackboard we fixed"),
         "Janezove zgodbe" to ("zgodbe pod lipo, ki sva jih dokončala skupaj" to "the stories under the linden we finished together"),
         "Petkrat na Triglavu" to ("najin pogovor o Triglavu" to "our talk about Triglav"),
         "Vaška lipa" to ("pismo o vaški lipi" to "the letter about the village linden"),

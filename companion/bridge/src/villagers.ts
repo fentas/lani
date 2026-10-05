@@ -7,6 +7,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
+import { learnerErrorsIn, withoutLearner } from './addressee'
 import { schemaField } from './schema'
 import { cast, genderOf, isSpeaker, newcomerSpeaker, SPEAKER_ID, speakerFor, type Gender } from './cast'
 import { PRIMORSKA_TUTOR, type CultureTutor } from './cultures'
@@ -194,12 +195,12 @@ export function crossCheck(v: z.infer<typeof villagerSpec>): string[] {
       if (kind === 'remember') {
         if (!texts.some(([k, s]) => k !== 'en' && s.includes('{memory}'))) errs.push(`lines.remember[${i}]: a remember line must contain {memory}`)
         else for (const [k, s] of texts) if (!s.includes('{memory}')) errs.push(`lines.remember[${i}]: the ${k === 'en' ? 'English' : `"${k}"`} needs {memory} too`)
-      } else if (texts.some(([, s]) => /\{/.test(s))) errs.push(`lines.${kind}[${i}]: only remember lines may contain {memory}`)
+      } else if (texts.some(([, s]) => /\{/.test(withoutLearner(s)))) errs.push(`lines.${kind}[${i}]: only remember lines may contain {memory} (and any the learner's: {learner}, {m:…|f:…})`)
     })
   }
   for (const kind of GIFT_KINDS) {
     ;(v.lines.gift?.[kind] ?? []).forEach((l, i) => {
-      if (lineLangs(l).some(k => /\{/.test(l[k] as string))) errs.push(`lines.gift.${kind}[${i}]: a gift line is said as it is (no {…})`)
+      if (lineLangs(l).some(k => /\{/.test(withoutLearner(l[k] as string)))) errs.push(`lines.gift.${kind}[${i}]: a gift line is said as it is (no {…} but the learner's: {learner}, {m:…|f:…})`)
     })
   }
   errs.push(...routineErrors(v.routine))
@@ -254,7 +255,7 @@ export function speakerErrors(v: Pick<Villager, 'voice' | 'speaker'>): string[] 
 export function validateVillager(input: unknown): { ok: true; villager: Villager } | { ok: false; errors: string } {
   const r = villagerSpec.safeParse(input)
   if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }
-  const errs = crossCheck(r.data)
+  const errs = [...learnerErrorsIn(r.data), ...crossCheck(r.data)]
   if (errs.length) return { ok: false, errors: errs.map(e => `✖ ${e}`).join('\n') }
   return { ok: true, villager: { ...r.data, voice: r.data.voice ?? spriteVoice(r.data.art) } }
 }
@@ -444,8 +445,8 @@ export function residentVillager(game: GameDoc | undefined, id: string, place: T
     order: 100,
     lines: young
       ? {
-          greet: [l('Živjo!', 'Hi!'), l('Ej, Jan! Se greš igrat?', 'Hey, Jan! Coming to play?', 1)],
-          thanks: [l('Hvala!', 'Thanks!'), l('Hvala, Jan!', 'Thanks, Jan!')],
+          greet: [l('Živjo!', 'Hi!'), l('Ej, {learner}! Se greš igrat?', 'Hey, {learner}! Coming to play?', 1)],
+          thanks: [l('Hvala!', 'Thanks!'), l('Hvala, {learner}!', 'Thanks, {learner}!')],
           remember: [l('Se spomniš? {memory}!', 'Remember? {memory}!', 1), l('Še vedno mislim na {memory}.', 'I still think of {memory}.', 1)],
           idle: [l('Danes je lep dan za igro.', 'Today is a nice day for playing.', 0, notNight), l('Kje so ostali otroci?', 'Where are the other children?')],
           cheer: [l('Juhu!', 'Yay!'), l('Super!', 'Super!')],
@@ -454,7 +455,7 @@ export function residentVillager(game: GameDoc | undefined, id: string, place: T
           bye: [l('Adijo!', 'Bye!'), l('Čav!', 'Bye! (čav: Primorska for bye)')],
         }
       : {
-          greet: [l('Dober dan!', 'Good day!', 0, day), l('Dober večer!', 'Good evening!', 0, evening), l('Živjo, Jan!', 'Hi, Jan!', 2)],
+          greet: [l('Dober dan!', 'Good day!', 0, day), l('Dober večer!', 'Good evening!', 0, evening), l('Živjo, {learner}!', 'Hi, {learner}!', 2)],
           thanks: [l('Hvala lepa!', 'Thank you very much!'), l('Res ste mi pomagali. Hvala!', 'You really helped me. Thanks!', 1)],
           remember: [l('Še vedno mislim na {memory}.', 'I still think of {memory}.', 1), l('Ne pozabim na {memory}.', 'I do not forget {memory}.', 2)],
           idle: [l('Lep dan je danes.', 'It is a nice day today.', 0, notNight), l('V vasi je vedno kaj za delati.', 'There is always something to do in the village.')],

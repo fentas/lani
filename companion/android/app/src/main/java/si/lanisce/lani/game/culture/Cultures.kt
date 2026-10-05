@@ -13,6 +13,7 @@ import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.Res
 import si.lanisce.lani.game.villagers.VillagerLines
 import si.lanisce.lani.l10n.Lang
+import si.lanisce.lani.l10n.Learner
 import si.lanisce.lani.l10n.Message
 import java.util.concurrent.ConcurrentHashMap
 
@@ -91,8 +92,20 @@ object Cultures {
         active = c
     }
 
+    /** A bundled file of the packs, said to the learner of this phone ({learner}, {m:…|f:…}: l10n/Learner.kt). */
     private fun resource(path: String): String? =
-        Cultures::class.java.getResourceAsStream("/cultures/$path")?.use { it.readBytes().decodeToString() }
+        Cultures::class.java.getResourceAsStream("/cultures/$path")?.use { Learner.current.renderJson(it.readBytes().decodeToString()) }
+
+    /**
+     * The learner the content speaks to changed ([Learner.current]): every pack is read again for them, the village's at
+     * the next [use] (or [current]).
+     */
+    fun forget() {
+        loaded.clear()
+        libraries.clear()
+        skies.clear()
+        active = null
+    }
 
     /**
      * Reads pack [id] from [read] (a file name → its text, null when missing) and checks it. Throws [CultureError] with
@@ -100,8 +113,10 @@ object Cultures {
      */
     fun parse(id: String, read: (String) -> String?): Culture {
         val problems = ArrayList<String>()
+        // said to the learner of this phone: {learner} and {m:…|f:…} rendered before anything reads a text
+        val said: (String) -> String? = { name -> read(name)?.let(Learner.current::renderJson) }
         fun <T> file(name: String, s: KSerializer<T>): T? {
-            val raw = read("$name.json") ?: return null.also { problems += "$id/$name.json: missing" }
+            val raw = said("$name.json") ?: return null.also { problems += "$id/$name.json: missing" }
             return try {
                 json.decodeFromString(s, raw)
             } catch (e: SerializationException) {
@@ -145,7 +160,7 @@ object Cultures {
         c.people(people!!)
         c.chronicle(chronicle!!)
         if (c.problems.isNotEmpty()) throw CultureError(id, c.problems)
-        return Culture(m, world, quests, festivals, surprises, chest, projects, events, people, chronicle, readings, arrivals(id, m.language, read))
+        return Culture(m, world, quests, festivals, surprises, chest, projects, events, people, chronicle, readings, arrivals(id, m.language, said))
     }
 
     /**

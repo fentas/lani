@@ -387,7 +387,7 @@ object Arrivals {
 
     /** The tutor's arrivals as the node serves them (GET /arrivals: {arrivals: [{id, …}]}), by id. */
     fun parseServed(raw: String): Map<String, JsonObject> {
-        val o = runCatching { json.parseToJsonElement(raw) as? JsonObject }.getOrNull() ?: return emptyMap()
+        val o = runCatching { json.parseToJsonElement(si.lanisce.lani.l10n.Learner.current.renderJson(raw)) as? JsonObject }.getOrNull() ?: return emptyMap()
         val list = o["arrivals"] as? JsonArray ?: return emptyMap()
         return list.mapNotNull { e -> (e as? JsonObject)?.let { a -> str(a, "id")?.let { it to a } } }.toMap()
     }

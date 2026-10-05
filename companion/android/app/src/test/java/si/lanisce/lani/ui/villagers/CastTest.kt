@@ -21,7 +21,7 @@ import java.time.LocalDate
 class CastTest {
     private val day = LocalDate.of(2026, 9, 24)
     private val cast: List<Villager> = File("../../cultures/primorska/villagers").listFiles { f -> f.name.endsWith(".json") }.orEmpty()
-        .sortedBy { it.name }.map { json.decodeFromString(Villager.serializer(), it.readText()) }
+        .sortedBy { it.name }.map { json.decodeFromString(Villager.serializer(), si.lanisce.lani.l10n.Learner.current.renderJson(it.readText())) }
 
     @Test fun `every local quest's giver is in the cast, so a done quest befriends them`() {
         assertTrue(cast.size >= 10)

@@ -2,6 +2,7 @@
 // the server.
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { mentionsLearner, renderDeep, type Addressee } from './addressee'
 import type { Log } from './config'
 
 /** Who is asking: the app (Jan's token), the family page (the family token), or nobody. */
@@ -18,7 +19,35 @@ export type Route = {
   /** An exact path, or a RegExp whose groups become `params`. */
   path: string | RegExp
   access?: Access
+  /**
+   * The answer is content that speaks to the learner (scenes, villagers, packs …): its JSON is rendered for them
+   * ([addressed], addressee.ts) before it goes out.
+   */
+  addressed?: boolean
   handle: (c: RouteCtx) => Response | Promise<Response>
+}
+
+/**
+ * [routes] with the answers of those [Route.addressed] rendered for the learner [who] says ({learner}, {m:…|f:…}:
+ * addressee.ts): a JSON answer that went well, anything else as it is.
+ */
+export function addressed(routes: Route[], who: () => Addressee): Route[] {
+  return routes.map(r =>
+    r.addressed
+      ? {
+          ...r,
+          handle: async c => {
+            const res = await r.handle(c)
+            if (res.status !== 200 || !(res.headers.get('content-type') ?? '').includes('json')) return res
+            const text = await res.text()
+            const headers = new Headers(res.headers)
+            headers.delete('content-length')
+            const body = mentionsLearner(text) ? JSON.stringify(renderDeep(JSON.parse(text), who())) : text
+            return new Response(body, { status: res.status, headers })
+          },
+        }
+      : r,
+  )
 }
 
 /** The largest body the server reads at all. A route that needs more must raise this. */

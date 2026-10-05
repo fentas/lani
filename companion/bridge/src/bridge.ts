@@ -8,6 +8,7 @@
 // (src/features/*.ts) brings its HTTP routes, MCP tools and a paragraph of channel instructions.
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
+import { addresseeOf, renderDeep } from './addressee'
 import { ArrivalStore } from './arrivals'
 import { runService } from './bridge-service'
 import { castVoiced, useCastFile } from './cast'
@@ -47,7 +48,7 @@ import { voice } from './features/voice'
 import { GameStore } from './game'
 import { DrillStore, drillsDir } from './drills'
 import { grammarDir, GrammarStore } from './grammar'
-import { bearer, json, loadToken, router, serve, type Route } from './http'
+import { addressed, bearer, json, loadToken, router, serve, type Route } from './http'
 import { Learner } from './learner'
 import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, profileFromEnv } from './learners'
 import { Outbox } from './outbox'
@@ -112,6 +113,7 @@ export async function startBridge(o: BridgeOptions) {
     bridgeKey: loadBridgeKey(appDir),
     // The home language's databases, and another language's (visits) in languages/<code>/ (docs/DB_SCRIPTS.md).
     learner: new Learner(projectDir, dataDir, language),
+    addressee: () => addresseeOf(dataDir, language),
     events: new Events(),
     channel: new Channel(),
     outbox: new Outbox(join(appDir, 'client-ids.json'), log),
@@ -165,7 +167,8 @@ export async function startBridge(o: BridgeOptions) {
   ctx.profiles = new Profiles(ctx.voice.database, {
     eleven,
     sttUrl: env.LANI_STT_URL || 'http://127.0.0.1:8796',
-    cast: () => ctx.villagers.all(),
+    // their lines as they say them to this learner (Voice Design hears a sample of them)
+    cast: () => renderDeep(ctx.villagers.all(), ctx.addressee()),
     language,
     accent: tutorOf(culture.manifest).voice,
     log,
@@ -209,7 +212,8 @@ export async function startBridge(o: BridgeOptions) {
   }
   const health: Route = { method: '*', path: '/health', access: 'public', handle: () => json({ ok: true }) }
   const roleOf = (req: Request) => (isApp(req) || devices.authorize(req) ? 'app' : ctx.family.authorized(req) ? 'family' : null)
-  const routes = [health, ...features.flatMap(f => f.routes ?? [])]
+  // what speaks to the learner goes out rendered for them ({learner}, {m:…|f:…}: addressee.ts)
+  const routes = addressed([health, ...features.flatMap(f => f.routes ?? [])], ctx.addressee)
   const where = `data ${dataDir}, culture ${culture.id}${profile.isDefault ? '' : `, profile ${profile.id}${profile.child ? ' (child)' : ''}`}`
 
   // The service: the app's API always, the session's shim on the control socket, the instructions asked again for

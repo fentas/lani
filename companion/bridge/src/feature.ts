@@ -1,5 +1,6 @@
 // The one shape every feature has: routes for the app, tools for the session, a paragraph of
 // channel instructions, and optional background work. Features get the shared context.
+import type { Addressee } from './addressee'
 import type { ArrivalStore } from './arrivals'
 import type { Profiles } from './profiles'
 import type { Channel, Tool } from './channel'
@@ -44,6 +45,11 @@ export type Ctx = {
   /** The bridge's own key: its fingerprint is in the pairing QR code. */
   bridgeKey: BridgeKey
   learner: Learner
+  /**
+   * Who the content speaks to (addressee.ts): the learner profile's name, its cases and their gender, read again when the
+   * profile changes. What the bridge serves the app, speaks or hands the tutor is rendered for them.
+   */
+  addressee: () => Addressee
   events: Events
   channel: Channel
   outbox: Outbox

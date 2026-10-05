@@ -75,6 +75,7 @@ class VillageWidget : AppWidgetProvider() {
 
         private fun update(context: Context, manager: AppWidgetManager, ids: IntArray) {
             LangSetting(context).apply() // the system may start the app for the widget alone
+            si.lanisce.lani.l10n.LearnerSetting(context).apply() // and the content said to the learner of the profile
             CultureSetting(context).apply()
             val state = GameStore(context).read()?.state
             val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
