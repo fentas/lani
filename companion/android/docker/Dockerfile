@@ -6,9 +6,9 @@
 # user who runs it (the files it writes are theirs, not root's).
 #
 # Keep it in step with the build: the JDK is the one the build uses on Jan's machine (Temurin 21, `mise where java`),
-# the platform is compileSdk/targetSdk and the build tools are what AGP (gradle/libs.versions.toml) asks for. A build
-# that needs another SDK package fails here (the SDK is read-only), so add the package below instead of letting
-# Gradle download it.
+# the platform is compileSdk/targetSdk and the build tools are what AGP (gradle/libs.versions.toml) asks for. The SDK
+# is read-only for the build, so Gradle can't download into it: a build that needs another SDK package fails (or, for
+# one it can do without, warns that "automatic installation failed"). Add the package below.
 FROM eclipse-temurin:21.0.11_10-jdk-noble@sha256:8a79c84cdf6967ae437eba13c8859d74d41aeccb1e65a42191ca57b1992ad0b8
 
 # The Android SDK command-line tools 20.0 (sdkmanager), pinned by their SHA-256.
