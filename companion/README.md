@@ -2008,3 +2008,10 @@ typed, focuses its field and checks with the keyboard up that the field, the let
 sentence with the gap lie above the keyboard's top (its frame from `adb shell dumpsys window`, `type=ime`), that the
 panel rose over the picture (its ✕ higher, the top bar gone), and that both come back once the keyboard is down.
 An app without the hooks gets the steps as before (the fire's card, the scenes' links; the double taps).
+
+Two more are for recordings (the site's clips), not used by QA's steps: `bubbles:<n>` shows only the n bubbles nearest
+the fire in the village (`bubbles:` all again), and `clock:<f>` runs the towns' and scenes' time at f of the wall's
+(0.05 to 1; `clock:` undoes it). A slow emulator then renders every frame of a recording that is sped up again
+afterwards: with `clock:0.2`, set the animator duration scale to 5 too (`adb shell settings put global
+animator_duration_scale 5`, back to 1 afterwards) for the camera's flights and the bubbles' bob, record (e.g. `adb emu
+screenrecord start --fps 30`), and speed the clip up five times (`ffmpeg -vf setpts=PTS/5,fps=30`).
