@@ -11,6 +11,9 @@ Usage:
 See docs/DB_SCRIPTS.md for the full input schema. A report with "record_session": false
 only adds new_vocabulary review items, without a session (no minutes, no streak day).
 
+When the data directory is a data repository (lani-setup, lani_data_repo.py), a session is committed after it is
+written ("session 2026-10-05: 12 reviews, 2 new words") and pushed in the background when a remote is set.
+
 A report's "language" (a code or name; default: the home language, the learner's town's) says
 whose data it goes to: another language's six databases are in data/languages/<code>/, created
 the first time it is practised (docs/DB_SCRIPTS.md, "Languages"). Data from before language
@@ -30,6 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lani_paths import ensure_data_dir, ensure_backups_dir, force_utf8_io  # noqa: E402
 import lani_languages as langs  # noqa: E402
+import lani_data_repo  # noqa: E402
 
 force_utf8_io()
 DATA_DIR = ensure_data_dir()
@@ -798,6 +802,10 @@ def main():
     print(f"[Lani] 📈 Overall accuracy: {stats['accuracy_rate']*100:.0f}% ({stats['total_exercises']} exercises)")
     print(f"[Lani] 🧠 SR: {data['sr']['metadata']['total_items_tracked']} items tracked, {sr_tomorrow} due tomorrow")
     print(f"[Lani] 📝 Errors tracked: {data['mistakes']['metadata']['total_patterns_tracked']} patterns")
+
+    # The learner's data repository (lani-setup): this session as a commit of its own, pushed in the background when it
+    # has a remote. A data directory that isn't a repository is left as it is; a failed commit never fails the session.
+    lani_data_repo.autocommit(DATA_DIR, lani_data_repo.session_message(session))
 
     sys.exit(0)
 
