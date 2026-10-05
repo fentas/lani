@@ -32,6 +32,8 @@
     { "learner": { "name": "{YOUR_NAME}", "gender": "female" }, "text": "Živjo, {learner}!", "said": "Živjo, prijateljica!" },
     { "learner": { "name": "Jan" }, "text": "Tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}, {learner}. {g, select, f {Dobrodošla} other {Dobrodošel}}, {name}!", "said": "Tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}, Jan. {g, select, f {Dobrodošla} other {Dobrodošel}}, {name}!" },
     { "learner": { "name": "Ana", "gender": "female" }, "text": "Nothing to say to anyone here.", "said": "Nothing to say to anyone here." },
+    { "learner": { "name": "Ana", "gender": "female" }, "text": "Nisva se še {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}, {learner}.", "said": "Nisva se še {g, select, f {spoznali} other {spoznala}}, Ana." },
+    { "learner": { "name": "Jan" }, "text": "Nisva se še {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}, {learner}.", "said": "Nisva se še spoznala, Jan." },
     { "learner": { "name": "Ana", "gender": "female" }, "text": "{learner:foo} {m:a} {m:a|m:b}", "said": "{learner:foo} {m:a} {m:a|m:b}" }
   ],
   "errors": [
@@ -42,6 +44,8 @@
     { "text": "{m:a|m:b}", "errors": 1 },
     { "text": "{m:a|f:b|n:c}", "errors": 1 },
     { "text": "{m:{n} ovc|f:b}", "errors": 1 },
+    { "text": "{m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}", "errors": 0 },
+    { "text": "{m:spoznala|f:{g, select, f {spoznali} other {spo{x}znala}}}", "errors": 1 },
     { "text": "{learner} {learner:gen} {learner:poss}a", "errors": 0 }
   ]
 }

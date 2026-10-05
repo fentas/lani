@@ -176,7 +176,7 @@ export const stories: FeatureFactory = ({ stories, scenes, packs, villagers, eve
       {
         name: 'publish_story',
         description:
-          "Validate a lani.story/v0 story and publish it: the village's storyteller tells it by the fire (it joins the rotation: the next evening's story when the learner has heard the others) and it becomes a book with its pictures. With \"continues\": the story it goes on from (told after it, in its book). Replaces a tutor story with the same id; a curated id is replaced until remove_story. Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using.",
+          "Validate a lani.story/v0 story and publish it: the village's storyteller tells it by the fire (it joins the rotation: the next evening's story when the learner has heard the others) and it becomes a book with its pictures. With \"continues\": the story it goes on from (told after it, in its book). Replaces a tutor story with the same id; a curated id is replaced until remove_story. Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
         inputSchema: {
           type: 'object',
           properties: {

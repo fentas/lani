@@ -14,6 +14,7 @@ import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, tempDir } from './harness'
+import { JAN } from '../learner-content'
 
 const android = resolve(import.meta.dir, '../../../android/app/src/main/java/si/lanisce/lani/game')
 
@@ -126,9 +127,9 @@ export default async function cultures() {
   )
   // voice-build voices his talks (the corpus's keepers): his lines and his replies in his voice, the learner's choices in
   // the default one, each telling's; Primorska's burner in his speaker's
-  const tinyVoiced = corpus({ packs: [], modules: [], scenarios: [], keepers: [tk].map(k => ({ ...k, tellings: keeperTellings(k) })), language: 'it' })
+  const tinyVoiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], keepers: [tk].map(k => ({ ...k, tellings: keeperTellings(k) })), language: 'it' })
   const miha = cultureKeepers(culturesDir, 'primorska')[0]
-  const mihaVoiced = corpus({ packs: [], modules: [], scenarios: [], keepers: [miha].map(k => ({ ...k, tellings: keeperTellings(k) })) })
+  const mihaVoiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], keepers: [miha].map(k => ({ ...k, tellings: keeperTellings(k) })) })
   check(
     "… voiced by voice-build: his lines and replies in his voice (Miha in the grandpa's), the learner's choices in the default one, every telling",
     ['Buonasera!', 'Stasera accendo la carbonaia.', 'Una carbonaia nuova! Stasera piove, ma la accendo.', 'Nero e leggero.'].every(t => tinyVoiced.some(i => i.text === t && i.voice === 'male' && i.source === 'keeper:gino')) &&

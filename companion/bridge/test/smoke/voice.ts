@@ -13,6 +13,7 @@ import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } fro
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
 import { auth, base, bridgeEleven, bridgeGepard, check, client, culturesDir, dataDir, fakeEleven, fakeGepard, fam, guideOf, mp3, tempDir } from './harness'
+import { JAN } from '../learner-content'
 
 /** The node's ffmpeg: the carrier cut. Without it the carrier checks that need a real cut are skipped. */
 const ffmpeg = ffmpegCutter()
@@ -132,7 +133,7 @@ export default async function voice() {
     writeFileSync(join(vbPacks, 'vb-pack.json'), JSON.stringify(vbPack))
     writeFileSync(join(vbModules, 'vb-mod.json'), JSON.stringify(vbModule))
     writeFileSync(join(vbScenarios, 'vb-scene.json'), JSON.stringify(vbScenario))
-    const items = corpus({ packs: [vbPack as any], modules: vbm.ok ? [vbm.spec] : [], scenarios: vbs.ok ? [vbs.scenario] : [] })
+    const items = corpus({ learner: JAN, packs: [vbPack as any], modules: vbm.ok ? [vbm.spec] : [], scenarios: vbs.ok ? [vbs.scenario] : [] })
     const texts = (p: number) => items.filter(i => i.priority === p).map(i => i.text)
     check('corpus: pack words, split phrases', JSON.stringify(texts(1)) === JSON.stringify(['Kako ste?', 'Kako si?', 'kruh', 'mleko', 'sir', 'jajce', 'juha', 'vilice', 'nož']), texts(1))
     check('corpus: examples, deduplicated', JSON.stringify(texts(2)) === JSON.stringify(['Kruh je še topel.', 'Mleko je hladno.']), texts(2))

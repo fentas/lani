@@ -9,7 +9,8 @@ package si.lanisce.lani.l10n
  * - `{learner:gen}`, `:dat`, `:acc`, `:loc`, `:ins`: the Slovene cases (Jana, Janu, Jana, pri Janu, z Janom; Ane, Ani …);
  *   `{learner:poss}`: the possessive's stem, its ending written after it ("{learner:poss}a hiša": Janova, Anina hiša);
  * - `{m:prišel|f:prišla}`: what agrees with the learner ("Si {m:lačen|f:lačna}?"), either order; a branch may hold the
- *   name, nothing else in braces.
+ *   name and a message's select of someone else's gender (a newcomer's `{g, select, f {…} other {…}}`), nothing else in
+ *   braces.
  *
  * The bridge renders them for its learner wherever it serves a text (bridge/src/addressee.ts, the same rules); the app
  * renders what it bundles (the culture packs, the festivals' packs, the grammar book, the drills) and, should a bridge
@@ -71,7 +72,9 @@ data class Learner(val name: String, val female: Boolean, val forms: Map<String,
 
         private val CASE = "(?::(" + CASES.joinToString("|") + "))?"
         private val NAME = Regex("""\{learner$CASE\}""")
-        private val BRANCH = """((?:[^\{\}|]|\{learner(?::(?:${CASES.joinToString("|")}))?\})*)"""
+        /** A message's select of someone else's in a branch (a newcomer's {g}), its branches plain text. */
+        private const val SELECT = """\{\w+, select,(?: \w+ \{[^\{\}]*\})+\}"""
+        private val BRANCH = """((?:[^\{\}|]|\{learner(?::(?:${CASES.joinToString("|")}))?\}|$SELECT)*)"""
         private val PAIR = Regex("""\{([mf]):$BRANCH\|([mf]):$BRANCH\}""")
 
         /** What a sentence starts after: the end of one, a line break or an opening quote (a JSON string's own too). */

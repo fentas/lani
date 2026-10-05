@@ -9,6 +9,7 @@ import { forHost, resolveScene, validateScene, type LoadedScene } from '../../sr
 import { allHeard, VariantAsks, weakSpots } from '../../src/variants'
 import { corpus } from '../../src/voice'
 import { auth, base, channelEvents, check, client, dataDir, scenesDir, tempDir } from './harness'
+import { JAN } from '../learner-content'
 
 const android = resolve(import.meta.dir, '../../../android/app/src/main/java/si/lanisce/lani/game/scene')
 /** A tool result's text. */
@@ -151,7 +152,7 @@ export default async function variants() {
   check('a file with only dialogs: an older app gets the first variant without a count as its dialog', only.happenings[0].dialog === 'ovce-2', only.happenings[0])
   const guest = forHost(resolveScene({ ...loaded, happenings: [{ ...loaded.happenings[0], guests: true }] }, []))
   check("a guests' happening goes from its own village's app with all its variants", guest.happenings.length === 0 && guest.dialogs.length === 0, guest)
-  const items = corpus({ packs: [], modules: [], scenarios: [], scenes: [r] })
+  const items = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], scenes: [r] })
   check('the voice corpus leaves the counted texts out (voiced when played) and keeps the rest of a variant',
     !items.some(i => i.text.includes('{')) && items.some(i => i.text === 'Jan, preštej ovce pri vodi!') && items.some(i => i.text === "Jan! Jagnje noče piti."), items.map(i => i.text))
 

@@ -11,13 +11,15 @@ import si.lanisce.lani.data.json
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.LangPair
+import si.lanisce.lani.l10n.Learner
 import java.io.File
 
 /** The culture packs' stories as the bridge serves them with a village's campfire, for the story and book tests. */
 object StoryFixtures {
     val companion: File = listOf(File("../.."), File(".."), File("companion")).first { File(it, "cultures").isDirectory && File(it, "scenes").isDirectory }
 
-    fun obj(f: File): JsonObject = json.parseToJsonElement(f.readText()).jsonObject
+    /** [f] as the app reads it: said to the learner ({learner}, {m:…|f:…}: l10n/Learner.kt). */
+    fun obj(f: File): JsonObject = json.parseToJsonElement(Learner.current.renderJson(f.readText())).jsonObject
 
     /** [culture]'s story files, in their order. */
     fun files(culture: String): List<File> =

@@ -10,6 +10,7 @@ import { VillagerStore } from '../../src/villagers'
 import { corpus, PRIORITY_LABELS } from '../../src/voice'
 import { reference } from './fixtures'
 import { auth, base, check, client, dataDir, fam, scenesDir, guideOf } from './harness'
+import { JAN } from '../learner-content'
 
 const android = resolve(import.meta.dir, '../../../android/app/src/main/java/si/lanisce/lani/game')
 /** A tool result's text (JSON.stringify would escape the quotes in it). */
@@ -161,12 +162,12 @@ export default async function scenes() {
 
   // the voice corpus: each person's lines in their sprite's voice, replies too, the learner's choices female
   const fire = curated.find(s => s.id === 'ob-ognju')!
-  const items = corpus({ packs: [], modules: [], scenarios: [], scenes: [resolveScene(fire, refs.packs)] })
+  const items = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], scenes: [resolveScene(fire, refs.packs)] })
   const of = (text: string) => items.find(i => i.text === text)
   check('corpus: scene objects are pack words (priority 1) and examples (2)', of('ogenj')?.priority === 1 && of('Ogenj gori.')?.priority === 2, items.slice(0, 3))
   check('corpus: dialog lines in the speaker\'s voice, replies too, choices female', of('Dober večer, Jan! Si lačen?')?.voice === 'female' && of('Dober dan, Jan! Drva sem prinesel. Suha so, dobro gorijo.')?.voice === 'male' && of('Nič. Sosedje smo.')?.voice === 'male' && of('Dober dan! Hvala lepa. Koliko sem dolžan?')?.voice === 'female' && of('Dober dan! Hvala lepa. Koliko sem dolžan?')?.priority === PRIORITY_LABELS.indexOf('scenes'), items.filter(i => i.priority === PRIORITY_LABELS.indexOf('scenes')).slice(0, 6))
   // with the cast, a person speaks with their villager's speaker: the children (child sprites, female by default) are Nejc, the boy voice
-  const withCast = corpus({ packs: [], modules: [], scenarios: [], scenes: [resolveScene(fire, refs.packs)], villagers: cast })
+  const withCast = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], scenes: [resolveScene(fire, refs.packs)], villagers: cast })
   const inCast = (t: string) => withCast.find(i => i.text === t && i.source.startsWith('scene:'))
   check("corpus: a person's villager decides the voice (Otroci is Nejc: the boy, Micka the grandma, France the grandpa), the choices stay female", of('Jan, Jan! Pridi, lovimo se!')?.voice === 'female' && inCast('Jan, Jan! Pridi, lovimo se!')?.voice === 'boy' && inCast('Dober večer, Jan! Si lačen?')?.voice === 'grandma' && inCast('Dober dan, Jan! Drva sem prinesel. Suha so, dobro gorijo.')?.voice === 'grandpa' && inCast('Prav, pridem! Kdo lovi?')?.voice === 'female', withCast.filter(i => i.text.includes('lovi')))
 

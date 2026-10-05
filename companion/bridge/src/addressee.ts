@@ -7,10 +7,11 @@
 //   {learner:poss}                              the possessive's stem, its ending written after it: {learner:poss}a hiša
 //   {m:prišel|f:prišla}                         what agrees with the learner: Si {m:lačen|f:lačna}? (either order)
 //
-// A branch may hold the name ({m:Dragi {learner}|f:Draga {learner}}), nothing else in braces. The bridge renders them for
-// its learner (learner-profile.json: learner.name, learner.gender "male" | "female", male when missing, and
-// learner.name_forms for the cases the rules get wrong) wherever it serves the app a text, speaks one or hands one to the
-// tutor; the app renders what it bundles the same way (l10n/Learner.kt). Rendered for a male learner whose name is the
+// A branch may hold the name ({m:Dragi {learner}|f:Draga {learner}}) and a message's select of someone else's gender
+// (a newcomer's: {m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}), nothing else in braces. The bridge renders
+// them for its learner (learner-profile.json: learner.name, learner.gender "male" | "female", male when missing, and
+// learner.name_forms for the cases the rules get wrong) wherever it serves the app a text or speaks one (the tutor's tools
+// show the placeholders the tutor writes); the app renders what it bundles the same way (l10n/Learner.kt). Rendered for a male learner whose name is the
 // one a text had before, every text reads as it did, so its voice clip is the same.
 import { readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
@@ -30,7 +31,12 @@ export type Addressee = { name: string; gender: Gender; forms: NameForms; generi
 
 const CASE = `(?::(${NAME_CASES.join('|')}))?`
 const NAME_SRC = `\\{learner${CASE}\\}`
-const BRANCH = `((?:[^{}|]|\\{learner(?::(?:${NAME_CASES.join('|')}))?\\})*)`
+/**
+ * A message's select of someone else's in a branch (a newcomer's {g}: `{m:spoznala|f:{g, select, f {spoznali} other
+ * {spoznala}}}`, the dual of two women), its branches plain text.
+ */
+const SELECT = `\\{\\w+, select,(?: \\w+ \\{[^{}]*\\})+\\}`
+const BRANCH = `((?:[^{}|]|\\{learner(?::(?:${NAME_CASES.join('|')}))?\\}|${SELECT})*)`
 /** A name placeholder, its case the first group. */
 const NAME_RE = new RegExp(NAME_SRC, 'g')
 /** A gender pair: the first label and its text, the second label and its text. */

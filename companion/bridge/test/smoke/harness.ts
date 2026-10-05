@@ -38,6 +38,13 @@ export const dataDir = tempDir('lani-smoke-')
 // never depend on, or copy, the real learner data.
 const templates = resolve(import.meta.dir, '../../../../data-examples')
 for (const f of readdirSync(templates).filter(f => f.endsWith('-template.json'))) cpSync(join(templates, f), join(dataDir, f.replace('-template', '')))
+// The smoke's learner is Jan, a man, whom the curated content was written to: what the bridge serves reads as it did
+// (test/smoke/learner.ts says it to a woman too).
+{
+  const profile = join(dataDir, 'learner-profile.json')
+  const p = JSON.parse(readFileSync(profile, 'utf8'))
+  writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, name: 'Jan', gender: 'male' } }, null, 2))
+}
 // Curated packs come from a temp dir too, so the repo's companion/packs don't affect the checks.
 export const curatedDir = tempDir('lani-smoke-packs-')
 // Curated scenes too (test/smoke/scenes.ts writes them; the bridge reads them per request).

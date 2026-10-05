@@ -16,6 +16,7 @@ import si.lanisce.lani.game.scene.parseScene
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.LangPair
+import si.lanisce.lani.l10n.Learner
 import java.io.File
 
 /**
@@ -34,7 +35,8 @@ class BaseLanguagesTest {
     }
 
     private fun text(path: String) = companion.resolve(path).readText()
-    private fun raw(path: String) = json.parseToJsonElement(text(path)).jsonObject
+    /** [path] as the app reads it: said to the learner ({learner}, {m:…|f:…}: l10n/Learner.kt). */
+    private fun raw(path: String) = json.parseToJsonElement(Learner.current.renderJson(text(path))).jsonObject
     private fun JsonObject.str(k: String) = getValue(k).jsonPrimitive.content
     private fun JsonObject.obj(k: String) = getValue(k).jsonObject
 

@@ -10,6 +10,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import si.lanisce.lani.data.json
+import si.lanisce.lani.l10n.Learner
 import si.lanisce.lani.ui.scene.ChoiceDiff
 import si.lanisce.lani.ui.scene.DialogRun
 import si.lanisce.lani.ui.words.WordTokens
@@ -30,6 +31,9 @@ class DialogReactionsTest {
         File(companion, "cultures").listFiles().orEmpty().flatMap { File(it, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList() })
         .sortedBy { it.path }
     private val langs = listOf("sl", "en", "it", "de")
+
+    /** The learners a text is said to here: a man and a woman ({learner}, {m:…|f:…}: l10n/Learner.kt). */
+    private val learners = listOf(Learner.of("Jan"), Learner.of("Ana", "female"))
 
     private fun JsonElement?.obj() = this as? JsonObject
 
@@ -178,14 +182,15 @@ class DialogReactionsTest {
     }
 
     @Test fun `no reaction says the right choice, nor the words that set it apart`() {
-        val told = scenes.flatMap { s ->
+        // said to a man and to a woman: a turn's forms that agree with the learner are the same for each choice
+        val told = learners.flatMap { who -> scenes.flatMap { s ->
             val lang = s.str("language") ?: "sl"
             turns(s).flatMap { (at, choices) ->
-                val rights = choices.filter { it.ok }.mapNotNull { it.str(lang) }
+                val rights = choices.filter { it.ok }.mapNotNull { it.str(lang)?.let(who::render) }
                 choices.withIndex().filter { !it.value.ok }.flatMap { (k, c) ->
                     val reply = c["reply"].obj() ?: return@flatMap emptyList()
-                    val said = reply.str(lang).orEmpty()
-                    val wrong = c.str(lang).orEmpty()
+                    val said = who.render(reply.str(lang).orEmpty())
+                    val wrong = who.render(c.str(lang).orEmpty())
                     rights.flatMap { right ->
                         buildList {
                             if (says(said, words(right))) add("$at/$k says the right choice: «$said»")
@@ -193,7 +198,7 @@ class DialogReactionsTest {
                                 if (says(said, run)) add("$at/$k says «${run.joinToString(" ")}»: «$said»")
                                 // in a translation too, where it could be read as the answer ("vam", not "je")
                                 for (l in langs - lang) {
-                                    val meant = reply.str(l) ?: continue
+                                    val meant = reply.str(l)?.let(who::render) ?: continue
                                     if (run.joinToString(" ").length >= 3 && says(meant, run)) add("$at/$k.$l says «${run.joinToString(" ")}»: «$meant»")
                                 }
                             }
@@ -201,7 +206,7 @@ class DialogReactionsTest {
                     }
                 }
             }
-        }
+        } }.distinct()
         assertTrue(told.joinToString("\n"), told.isEmpty())
     }
 
@@ -216,7 +221,8 @@ class DialogReactionsTest {
                     when {
                         reply["sky"] != null -> "$at/$k: a reaction with a sky cue"
                         !effects.containsAll(fx) -> "$at/$k: effects $fx, the art has $effects"
-                        reply.str(lang).orEmpty().length > 80 -> "$at/$k: a long reaction «${reply.str(lang)}»"
+                        // as long as it is said to a man or to a woman (not its {m:…|f:…})
+                        learners.maxOf { it.render(reply.str(lang).orEmpty()).length } > 80 -> "$at/$k: a long reaction «${reply.str(lang)}»"
                         else -> null
                     }
                 }

@@ -89,7 +89,7 @@ export const grammar: FeatureFactory = ({ grammar: book, modules, game, events, 
       {
         name: 'publish_grammar',
         description:
-          "Validate a lani.grammar/v0 page of the grammar book and publish it to the app: a new page, or a page again with your examples or a clearer explanation (\"more\") added. Under a curated page's id it extends that page (the curated text stays; your examples are marked yours). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using.",
+          "Validate a lani.grammar/v0 page of the grammar book and publish it to the app: a new page, or a page again with your examples or a clearer explanation (\"more\") added. Under a curated page's id it extends that page (the curated text stays; your examples are marked yours). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
         inputSchema: {
           type: 'object',
           properties: {

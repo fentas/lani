@@ -9,10 +9,13 @@
 //   bun test/learner-content.ts --write     the fixture again (the files as they are now, and [BASE] from git)
 //   bun test/learner-content.ts             the check alone
 //   bun test/learner-content.ts --all       the check of every file, those edited since too (while the placeholders go in)
+//
+// And every file as the placeholders keep it (audit()): no learner called Jan any more, no malformed placeholder, and no
+// turn whose choices read the same to a man or to a woman.
 import { createHash } from 'node:crypto'
 import { existsSync, lstatSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
-import { addressee, renderDeep, type Addressee } from '../src/addressee'
+import { addressee, learnerErrors, renderDeep, sameFor, type Addressee } from '../src/addressee'
 
 /** The commit the content had its learner's name and gender written out at (the branch point of the placeholders). */
 export const BASE = '854f737'
@@ -94,6 +97,41 @@ export function compare(fx: Fixture, all = false): { compared: number; edited: s
   return out
 }
 
+/** Jan as a name in a text (Jan, Jana, Janu, Janom, Janov …): the learner's name was written out like this. */
+const JAN_NAME = /(?<!\p{L})Jan(?:a|u|om|ov\p{L}*)?(?!\p{L})/u
+/** The Jans the content keeps: the 15th-century captain Jan Vitovec, and the listener's "Jan?" back at Stari Janez when he names him. */
+const OTHER_JANS = /\bJan Vitovec\b|^Jan\? /
+
+/**
+ * The content as its placeholders keep it, file by file: [literal] the texts that still name Jan for the learner, [errors]
+ * malformed placeholders (addressee.ts learnerErrors), [same] the turns whose choices read the same to a man or to a woman
+ * (sameFor: a turn never tests the learner's own gender). Each "file path: …".
+ */
+export function audit(files = contentFiles()): { literal: string[]; errors: string[]; same: string[] } {
+  const out = { literal: [] as string[], errors: [] as string[], same: [] as string[] }
+  for (const path of files) {
+    const walk = (x: unknown, at: string) => {
+      if (typeof x === 'string') {
+        if (JAN_NAME.test(x) && !OTHER_JANS.test(x)) out.literal.push(`${path} ${at}: ${x}`)
+        for (const e of learnerErrors(x)) out.errors.push(`${path} ${at}: ${e}`)
+      } else if (Array.isArray(x)) x.forEach((y, i) => walk(y, `${at}/${i}`))
+      else if (x && typeof x === 'object') {
+        const o = x as Record<string, unknown>
+        if (Array.isArray(o.choices) && o.choices.every(c => c && typeof c === 'object')) {
+          const choices = o.choices as Record<string, unknown>[]
+          for (const lang of ['sl', 'it', 'de', 'en']) {
+            const g = sameFor(choices.map(c => (typeof c[lang] === 'string' ? (c[lang] as string) : undefined)))
+            if (g) out.same.push(`${path} ${at}/choices (${lang}): two read the same to a ${g} learner`)
+          }
+        }
+        for (const [k, y] of Object.entries(o)) walk(y, `${at}/${k}`)
+      }
+    }
+    walk(JSON.parse(readFileSync(join(repoDir, path), 'utf8')), '')
+  }
+  return out
+}
+
 if (import.meta.main) {
   if (process.argv.includes('--write')) {
     const old: Fixture | undefined = existsSync(FIXTURE) ? JSON.parse(readFileSync(FIXTURE, 'utf8')) : undefined
@@ -114,5 +152,8 @@ if (import.meta.main) {
   const r = compare(JSON.parse(readFileSync(FIXTURE, 'utf8')), process.argv.includes('--all'))
   console.log(`compared ${r.compared}, edited since ${r.edited.length}, missing ${r.missing.length}, differ ${Object.keys(r.differ).length}`)
   for (const [p, d] of Object.entries(r.differ)) console.log(`${p}\n  ${d.join('\n  ')}`)
-  process.exit(Object.keys(r.differ).length ? 1 : 0)
+  const a = audit()
+  console.log(`audit: ${a.literal.length} texts naming Jan, ${a.errors.length} malformed placeholders, ${a.same.length} turns the same for one gender`)
+  for (const l of [...a.literal, ...a.errors, ...a.same].slice(0, 40)) console.log(`  ${l}`)
+  process.exit(Object.keys(r.differ).length || a.literal.length || a.errors.length || a.same.length ? 1 : 0)
 }

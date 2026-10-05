@@ -153,7 +153,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
   // their file changes.
   let shelf: { at: number; packs: LoadedPack[]; people: Person[] } = { at: 0, packs: [], people: [] }
   function lookupShelf() {
-    if (Date.now() - shelf.at > 5_000) shelf = { at: Date.now(), packs: packs.all(), people: people() }
+    if (Date.now() - shelf.at > 5_000) shelf = { at: Date.now(), packs: renderDeep(packs.all(), addressee()), people: people() }
     return shelf
   }
   const sr = new Map<string, { mtime: number; items: Record<string, SrItem> }>()
@@ -243,7 +243,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
     const b = r.data
     const { base } = learnerLangs(cfg.dataDir, language)
     // a pack word becomes the same card as learning it from its pack
-    const packWord = b.item_id ? packs.all().flatMap(p => p.words.map(w => ({ p, w }))).find(({ p, w }) => itemId(p.id, w.id) === b.item_id) : undefined
+    const packWord = b.item_id ? renderDeep(packs.all(), addressee()).flatMap(p => p.words.map(w => ({ p, w }))).find(({ p, w }) => itemId(p.id, w.id) === b.item_id) : undefined
     if (b.item_id && !packWord && !b.item_id.startsWith('vocab_word_')) return json({ error: 'item_id: a pack word\'s or vocab_word_…, as GET /lookup gave it' }, 400)
     const id = packWord ? itemId(packWord.p.id, packWord.w.id) : (b.item_id ?? wordItemId(b.sl))
     const content = packWord ? wordOf(packWord.p, packWord.w) : b.sl
@@ -317,7 +317,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
           } else {
             const v = visitedOf(lang)
             await Promise.race([v.ready, Bun.sleep(WAIT_MS)])
-            r = lookup(w, at, { lexicon: v.dict, base: b, packs: v.packs.curatedOnly(), people: [], items: srItems(lang) })
+            r = lookup(w, at, { lexicon: v.dict, base: b, packs: renderDeep(v.packs.curatedOnly(), addressee()), people: [], items: srItems(lang) })
           }
           noteGaps(r, lang, b)
           return json(r)

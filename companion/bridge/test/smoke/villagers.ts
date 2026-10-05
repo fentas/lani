@@ -12,6 +12,8 @@ import { SPOT_NAMES } from '../../src/scenes'
 import { corpus } from '../../src/voice'
 import { reference } from './fixtures'
 import { auth, base, channelEvents, check, client, dataDir, fam, guideOf } from './harness'
+import { JAN } from '../learner-content'
+import { render } from '../../src/addressee'
 
 const android = resolve(import.meta.dir, '../../../android/app/src/main/java/si/lanisce/lani/game')
 const text = (r: any) => (r.content ?? []).map((c: any) => c.text ?? '').join('\n')
@@ -152,12 +154,13 @@ export default async function villagers() {
   const stranger = villagerScenario(luka, bondOf(undefined, 'luka'))
   check('a stranger gets the level-0 greeting, ti hints, open goals, the male voice and his speaker', stranger.id === 'villager:luka' && stranger.opener_sl === luka.lines.greet[0].sl && stranger.role.startsWith('Pastir Luka,') && stranger.goals.length === 4 && stranger.vocabulary_hints[0].sl === 'Kako si?' && stranger.voice === 'male' && stranger.speaker === 'young-man' && stranger.setting.includes('Stranger'), stranger)
   const friend = villagerScenario(luka, { points: 35, memories: [{ sl: 'ko si mi pomagal najti Belo' }] })
-  check('a friend gets a warmer greeting and the setting says so', bondLevel(35) === 2 && friend.opener_sl === 'Jan! Ravno prav. Si videl Belo?' && friend.setting.includes('Prijatelj') && friend.setting.includes('1 shared memory'), friend)
+  check('a friend gets a warmer greeting and the setting says so', bondLevel(35) === 2 && render(friend.opener_sl, JAN) === 'Jan! Ravno prav. Si videl Belo?' && friend.setting.includes('Prijatelj') && friend.setting.includes('1 shared memory'), friend)
   const micka = villagerScenario(cast.find(v => v.id === 'micka')!, bondOf(undefined, 'micka'), 'A2')
   check('a vi villager: polite goal and hints, the learner\'s level', micka.goals[0].includes('(vi)') && micka.vocabulary_hints[0].sl === 'Kako ste?' && micka.vocabulary_hints.at(-1)?.sl === 'Na svidenje!' && micka.level === 'A2' && micka.role.length <= 300 && micka.setting.length <= 400, micka)
 
   // --- the time of day: a line's `when` (VILLAGERS.md) ----------------------------------------------------------------
-  const opener = (v: (typeof cast)[number], part: Part, points = 0, place = JAN_PLACE) => villagerScenario(v, { points, memories: [] }, 'A1', place, part).opener_sl
+  // as the bridge serves it to Jan (its scenario route says it to the learner of the profile)
+  const opener = (v: (typeof cast)[number], part: Part, points = 0, place = JAN_PLACE) => render(villagerScenario(v, { points, memories: [] }, 'A1', place, part).opener_sl, JAN)
   const timedLuka = {
     ...luka,
     lines: {
@@ -178,7 +181,7 @@ export default async function villagers() {
   const bare = withoutWhen(timedLuka)
   check('an app that doesn\'t say its time gets the lines without "when" (an older app refuses them); one that says it, with', readsWhen(new URL('http://x/villagers?time=evening')) && !readsWhen(new URL('http://x/villagers')) && bare.lines.greet.every(l => !('when' in l)) && bare.lines.greet[1].sl === 'Dober večer, Jan!' && JSON.stringify(timedLuka.lines.greet[1].when) === '["evening","night"]' && bare.lines.bye.length === luka.lines.bye.length, bare.lines.greet)
   const noWhen = (vs: typeof cast) => JSON.parse(JSON.stringify(vs, (k, x) => (k === 'when' ? undefined : x)))
-  check('the time of day changes no voice clip: the voice corpus is the same without "when"', JSON.stringify(corpus({ packs: [], modules: [], scenarios: [], villagers: cast })) === JSON.stringify(corpus({ packs: [], modules: [], scenarios: [], villagers: noWhen(cast) })))
+  check('the time of day changes no voice clip: the voice corpus is the same without "when"', JSON.stringify(corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: cast })) === JSON.stringify(corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: noWhen(cast) })))
   // --- the packs' lines by the time of day ------------------------------------------------------------------------
   const anton = cast.find(v => v.id === 'anton')!
   check('the opener greets for the time of day: Anton by day with "Dober dan", from the evening with his own "Dober večer"',
@@ -219,7 +222,7 @@ export default async function villagers() {
   check('every line of the cast is meant in German and in Italian, and said in Slovene as before', cast.every(v => allLines(v.lines).every(l => !!l.de && !!l.it && said(l, 'sl') === l.sl && meant(l, 'sl', 'de') === l.de && meant(l, 'sl', 'it') === l.it && meant(l, 'sl', 'en') === l.en)))
   check('the roles and likes read as ever for Jan, and in German for a learner from German', cast.every(v => labelShown(v.role, 'sl', 'en') === `${labelTarget(v.role, 'sl')} · ${labelEn(v.role)}` && v.likes.every(l => typeof l !== 'string' && !!l.de && labelShown(l, 'sl', 'de') === `${l.sl} · ${l.de}`)) && labelShown(mickaV.role, 'sl', 'en') === 'Babica · Grandmother', cast.map(v => v.role))
   const withoutBases = (vs: typeof cast) => JSON.parse(JSON.stringify(vs, (k, x) => ((k === 'de' || k === 'it') && typeof x === 'string' ? undefined : x)))
-  check('the translations change no voice clip: the voice corpus is the same without them', JSON.stringify(corpus({ packs: [], modules: [], scenarios: [], villagers: cast })) === JSON.stringify(corpus({ packs: [], modules: [], scenarios: [], villagers: withoutBases(cast) })))
+  check('the translations change no voice clip: the voice corpus is the same without them', JSON.stringify(corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: cast })) === JSON.stringify(corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: withoutBases(cast) })))
   const druzina = validatePack(JSON.parse(readFileSync(join(repo, 'packs/druzina.json'), 'utf8')))
   if (!druzina.ok) throw new Error(druzina.errors)
   const dp = druzina.pack
@@ -426,10 +429,10 @@ export default async function villagers() {
   check('list_villagers shows the cast and the newcomer with their homes and line counts', !ls.isError && text(ls).includes('Babica Micka') && text(ls).includes('Ana Furlan') && text(ls).includes('"spot:meadow"') && text(ls).includes('"greet": 6'), ls)
 
   // --- the voice corpus --------------------------------------------------------------------------------
-  const items = corpus({ packs: [], modules: [], scenarios: [], villagers: cast })
+  const items = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: cast })
   const of = (t: string) => items.find(i => i.text === t)
   check('corpus: villager lines in their speaker\'s voice, first, remember lines skipped', of('Ej, živjo! Si ti novi?')?.voice === 'young-man' && of('Ej, živjo! Si ti novi?')?.priority === 0 && of('Dober dan. Si lačen?')?.voice === 'grandma' && of('Živjo! Jaz sem Nejc. Igraš nogomet?')?.voice === 'boy' && !items.some(i => i.text.includes('{memory}')) && of('Ej, živjo! Si ti novi?')?.source === 'villager:luka', items.slice(0, 4))
-  const lost = corpus({ packs: [], modules: [], scenarios: [], villagers: [{ ...cast.find(v => v.id === 'luka')!, speaker: 'nobody' }] })
+  const lost = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: [{ ...cast.find(v => v.id === 'luka')!, speaker: 'nobody' }] })
   check('corpus: a speaker the cast lost falls back to the gender voice', lost.every(i => i.voice === 'male') && lost.length > 0, lost.slice(0, 2))
   const st = await (await fetch(`${base}/voice/status`, { headers: auth })).json()
   check('voice status counts the villagers in the corpus', st.corpus?.by_source?.villager?.texts >= 300, st.corpus?.by_source)

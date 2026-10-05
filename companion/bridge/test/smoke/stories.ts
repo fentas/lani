@@ -14,6 +14,8 @@ import type { ResolvedScene } from '../../src/scenes'
 import { clipKey, corpus, PRIORITY_LABELS } from '../../src/voice'
 import { reference } from './fixtures'
 import { auth, base, channelEvents, check, client, culturesDir, dataDir, guideOf, tempDir } from './harness'
+import { JAN } from '../learner-content'
+import { renderDeep } from '../../src/addressee'
 
 /** The vignette library as Vignettes.kt declares it (comments stripped, then its three lists). */
 function vignettesFromKotlin() {
@@ -38,7 +40,8 @@ export default async function stories() {
   }
 
   // --- the culture packs' stories -------------------------------------------------------------------
-  const jan = read('primorska').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
+  // as the bridge serves them to Jan (said to the learner of the profile: addressee.ts)
+  const jan = read('primorska').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [renderDeep(v.story, JAN)] : []))
   const janIds = jan.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map(s => s.id)
   check(
     "primorska: sixteen of Stari Janez's legends and tales, in their order",
@@ -69,7 +72,7 @@ export default async function stories() {
   )
   check("… a story's lines are the teller's alone (no who), with a turn for the learner in every telling", jan.every(s => chaptersOf(s).every(c => Object.values(c.levels).every(v => v!.lines.every(l => !l.who) && v!.lines.some(l => l.choices.length)))))
   check('… the wishing bell rings: the campfire\'s distant bell', JSON.stringify(jan.find(s => s.id === 'zvon-zelja')).includes('"bell":1'))
-  const second = read('friuli').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
+  const second = read('friuli').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [renderDeep(v.story, JAN)] : []))
   check(
     "friuli: ten of Nonno Bepi's legends in Italian, at A1 and A2, every text in Italian, Slovene and English, marked machine-written",
     second.length === 10 && second.every(s => s.teller === 'bepi' && s.language === 'it' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.it === 'string' && typeof t.sl === 'string' && typeof t.en === 'string') && !!s.teaser.it && !!s.memory.it),
@@ -147,7 +150,7 @@ export default async function stories() {
   // (the car plays a telling only when its clips exist; the app by the fire and the car ask for the teller's lines in his
   // own voice first, "@janez", when he has one)
   const ownJanez = (id: string) => id === 'janez'
-  const voiced = corpus({ packs: [], modules: [], scenarios: [], villagers: refs.villagers, stories: [...jan, ...second], ownVoice: ownJanez })
+  const voiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: refs.villagers, stories: [...jan, ...second], ownVoice: ownJanez })
   const told = voiced.filter(i => i.source.startsWith('story:'))
   const at = (t: string | undefined) => told.find(i => i.text === t)
   const zlatorog = jan.find(s => s.id === 'zlatorog')!
@@ -168,7 +171,7 @@ export default async function stories() {
     at(right.sl)?.voice === 'female' && at(right.reply?.sl)?.voice === '@janez' && at(wrong.reply?.sl)?.voice === '@janez' && !at(wrong.sl) && at(right.sl)?.priority === opening?.priority,
     turn1.map(c => [c.sl, at(c.sl), at(c.reply?.sl)]),
   )
-  const shared = corpus({ packs: [], modules: [], scenarios: [], villagers: refs.villagers, stories: [zlatorog], ownVoice: () => false })
+  const shared = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: refs.villagers, stories: [zlatorog], ownVoice: () => false })
   const ownDb = new Database(':memory:')
   ownDb.exec('CREATE TABLE profiles (person TEXT PRIMARY KEY, archetype TEXT NOT NULL, elevenlabs TEXT, status TEXT NOT NULL)')
   ownDb.exec("INSERT INTO profiles VALUES ('janez', 'grandpa', 'el-janez', 'own'), ('micka', 'grandma', NULL, 'shared'), ('luka', 'young-man', 'el-luka', 'designing')")
@@ -195,7 +198,7 @@ export default async function stories() {
     id: 'smoke-ogenj', language: 'sl', objects: [], people: [{ id: 'ded', villager: 'janez', art: 'grandpa' }],
     dialogs: [{ id: 'd', lines: [{ who: 'ded', sl: 'Kar sedi, fant.', en: 'Sit, lad.', choices: [] }, { choices: [{ sl: right.sl, en: right.en, ok: true }] }] }],
   } as unknown as ResolvedScene
-  const inOrder = corpus({ packs: [], modules: [], scenarios: [], villagers: refs.villagers, scenes: [fireside], stories: [zlatorog], ownVoice: ownJanez })
+  const inOrder = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: refs.villagers, scenes: [fireside], stories: [zlatorog], ownVoice: ownJanez })
   const idx = (t: string | undefined) => inOrder.findIndex(i => i.text === t)
   check(
     "… in the prebuild's order: the A1 telling before the scene's dialog (a text of both is the telling's), the A2 telling after it",
@@ -206,8 +209,8 @@ export default async function stories() {
   check(
     "… the village's language only (Nonno Bepi's Italian ones not in a Slovene village's), a teller not in the cast in the female narrator's voice",
     !told.some(i => second.some(s => i.source === `story:${s.id}`)) &&
-      corpus({ packs: [], modules: [], scenarios: [], stories: [zlatorog] }).find(i => i.text === opening?.text)?.voice === 'female' &&
-      corpus({ packs: [], modules: [], scenarios: [], stories: second, language: 'it' }).some(i => i.source === `story:${second[0].id}` && i.voice === 'female'),
+      corpus({ learner: JAN, packs: [], modules: [], scenarios: [], stories: [zlatorog] }).find(i => i.text === opening?.text)?.voice === 'female' &&
+      corpus({ learner: JAN, packs: [], modules: [], scenarios: [], stories: second, language: 'it' }).some(i => i.source === `story:${second[0].id}` && i.voice === 'female'),
   )
   const placeholder = { ...zlatorog, levels: { A1: { lines: [{ ...a1[0], sl: 'Imaš {n} let.' }, ...a1.slice(1)] } } } as Story
   check("… a text with a placeholder is voiced when played, as the scenes'", !corpus({ packs: [], modules: [], scenarios: [], stories: [placeholder] }).some(i => i.text.includes('{')))

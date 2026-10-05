@@ -77,6 +77,16 @@ class LearnerTest {
         assertFalse("Janez" in jan.names)
     }
 
+    @Test fun `the app's labels agree with the learner (learnerGender)`() {
+        Learner.current = Learner.of("Ana", "female")
+        assertEquals("Pripravljena si!", L10n.text(Lang.SL, "villageScreen.readyGrow"))
+        assertEquals("Sei pronta!", L10n.text(Lang.IT, "villageScreen.readyGrow"))
+        assertEquals("Spoznala si: Micka (Lanišče)", L10n.text(Lang.SL, "guests.youMet", mapOf("who" to "Micka", "town" to "Lanišče")))
+        Learner.current = Learner.of("Jan")
+        assertEquals("Pripravljen si!", L10n.text(Lang.SL, "villageScreen.readyGrow"))
+        assertEquals("Sei pronto!", L10n.text(Lang.IT, "villageScreen.readyGrow"))
+    }
+
     @Test fun `the family's from form declines as before, and further`() {
         assertEquals("Maje", Family.genitive("Maja"))
         assertEquals("Jana", Family.genitive("Jan"))

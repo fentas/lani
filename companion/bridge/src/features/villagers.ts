@@ -139,7 +139,7 @@ export const villagers: FeatureFactory = ctx => {
       {
         name: 'publish_villager',
         description:
-          'Validate a lani.villager/v0 villager and publish them to the app (replaces a tutor villager with the same id; a curated id is replaced until remove_villager; a newcomer keeps the id, name, art and voice the app sent). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using.',
+          'Validate a lani.villager/v0 villager and publish them to the app (replaces a tutor villager with the same id; a curated id is replaced until remove_villager; a newcomer keeps the id, name, art and voice the app sent). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
         inputSchema: {
           type: 'object',
           properties: {

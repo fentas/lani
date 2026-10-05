@@ -10,6 +10,7 @@ import { VillagerStore } from '../../src/villagers'
 import { clipKey, corpus, PRIORITY_LABELS } from '../../src/voice'
 import { normalizeText } from '../../src/family'
 import { auth, base, check, culturesDir, dataDir } from './harness'
+import { JAN } from '../learner-content'
 
 const repo = resolve(import.meta.dir, '../../..')
 
@@ -130,7 +131,7 @@ export default async function drills() {
   const all = drillTexts(curated, 'sl')
   check('drillTexts: every sentence and answer, the numbers generated, a riddle\'s texts its teller\'s', all.some(t => t.text === 'enaindvajset') && all.some(t => t.text === 'Micka je kuhala kosilo.' && !t.teller) && all.every(t => (t.source === 'drill:uganke') === (t.teller === 'janez')) && drillTexts(curated, 'it').length === 0, all.length)
   const scene = { id: 'smoke-drill-scene', language: 'sl', objects: [], people: [], dialogs: [{ id: 'd', lines: [{ choices: [{ sl: 'Ura je pol štirih.', en: 'x', ok: true }] }] }] } as any
-  const items = corpus({ packs: [], modules: [], scenarios: [], villagers: refs.villagers, scenes: [scene], drills: curated, ownVoice: id => id === 'janez' })
+  const items = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: refs.villagers, scenes: [scene], drills: curated, ownVoice: id => id === 'janez' })
   const at = (t: string, voice = 'female') => items.find(i => i.text === t && i.voice === voice)
   const [pA1, pScenes, pA2] = ['drills A1', 'scenes', 'drills A2+'].map(l => PRIORITY_LABELS.indexOf(l))
   const clue = uganke.riddles[0].clues[0].sl
@@ -143,6 +144,6 @@ export default async function drills() {
       clipKey(normalizeText('Kaj sem?'), '@janez') === '@janez:kaj sem',
     { a1: at('Ura je pol štirih.'), clue: items.find(i => i.text === clue), a2: a2 && at(a2) },
   )
-  const shared = corpus({ packs: [], modules: [], scenarios: [], villagers: refs.villagers, drills: curated })
+  const shared = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: refs.villagers, drills: curated })
   check('… without a voice of his own, the riddles in his speaker (grandpa)', shared.find(i => i.text === clue)?.voice === 'grandpa')
 }

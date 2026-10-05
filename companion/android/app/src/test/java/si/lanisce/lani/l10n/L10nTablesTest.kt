@@ -69,8 +69,8 @@ class L10nTablesTest {
         val sl = L10n.table(Lang.SL)
         for (lang in Lang.entries) for ((key, msg) in L10n.table(lang)) {
             val m = runCatching { Message.parse(msg) }.getOrElse { throw AssertionError("${lang.code} $key: ${it.message}") }
-            // targetLang comes with every message (L10n.text), whether the code passes it or not
-            val want = Message.parse(sl[key] ?: continue).args + Message.parse(L10n.table(Lang.EN)[key] ?: continue).args + L10n.TARGET_LANG
+            // targetLang and learnerGender come with every message (L10n.text), whether the code passes them or not
+            val want = Message.parse(sl[key] ?: continue).args + Message.parse(L10n.table(Lang.EN)[key] ?: continue).args + L10n.TARGET_LANG + L10n.LEARNER_GENDER
             assertTrue("${lang.code} $key uses ${m.args - want}, which the code doesn't pass", (m.args - want).isEmpty())
         }
     }

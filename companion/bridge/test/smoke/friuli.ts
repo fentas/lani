@@ -14,6 +14,7 @@ import { JAN_PLACE, allLines, bondOf, validateVillager, villagerScenario } from 
 import { corpus } from '../../src/voice'
 import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, tempDir, guideOf, languageBook } from './harness'
 import { lexiconFixture } from './lexicon-fixture'
+import { JAN } from '../learner-content'
 
 const repo = resolve(import.meta.dir, '../../../..')
 const port = Number(process.env.LANI_SMOKE_FRIULI_PORT ?? 8798)
@@ -32,7 +33,7 @@ export default async function friuli() {
   check('friuli, for a learner from German: the opener is Italian, meant in German; the hints too', friuliCast.length === 13 && rosaDe.opener_sl === rosaV.lines.greet[0].it && rosaDe.opener_en === rosaV.lines.greet[0].de && rosaDe.vocabulary_hints[0].sl === 'Come stai?' && rosaDe.vocabulary_hints[0].en === "Wie geht's dir?", rosaDe)
   check('friuli: every line is meant in German, said in Italian as before; the roles and likes read in German', friuliCast.every(v => allLines(v.lines).every(l => !!l.de && said(l, 'it') === l.it && meant(l, 'it', 'de') === l.de && meant(l, 'it', 'sl') === l.sl) && labelShown(v.role, 'it', 'de') === `${(v.role as Record<string, string>).it} · ${(v.role as Record<string, string>).de}` && v.likes.every(l => typeof l !== 'string' && !!l.de)))
   const noGerman = JSON.parse(JSON.stringify(friuliCast, (k, x) => (k === 'de' && typeof x === 'string' ? undefined : x)))
-  check('friuli: the German changes no voice clip', JSON.stringify(corpus({ packs: [], modules: [], scenarios: [], villagers: friuliCast, language: 'it' })) === JSON.stringify(corpus({ packs: [], modules: [], scenarios: [], villagers: noGerman, language: 'it' })))
+  check('friuli: the German changes no voice clip', JSON.stringify(corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: friuliCast, language: 'it' })) === JSON.stringify(corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: noGerman, language: 'it' })))
   const famiglia = validatePack(JSON.parse(readFileSync(join(repo, 'companion/packs/it/famiglia.json'), 'utf8')))
   if (!famiglia.ok) throw new Error(famiglia.errors)
   const fp = famiglia.pack

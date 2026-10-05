@@ -65,7 +65,7 @@ export const arrivals: FeatureFactory = ctx => {
       {
         name: 'publish_arrival',
         description:
-          'Validate a lani.arrival/v0 arrival (the introduction dialog of someone who joined the village) and publish it to the app: it replaces the template for that newcomer or baby (or the culture pack\'s for a cast member, until remove_arrival). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using.',
+          'Validate a lani.arrival/v0 arrival (the introduction dialog of someone who joined the village) and publish it to the app: it replaces the template for that newcomer or baby (or the culture pack\'s for a cast member, until remove_arrival). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
         inputSchema: {
           type: 'object',
           properties: {

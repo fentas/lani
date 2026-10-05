@@ -73,12 +73,21 @@ object L10n {
     const val TARGET_LANG = "targetLang"
 
     /**
+     * The other argument every message may read: the learner's gender ([Learner.current]), "f" or "m", so a label
+     * agrees with them: "{learnerGender, select, f {Pripravljena} other {Pripravljen}} si!" (companion/SCENES.md, "The
+     * learner in the content": the content's own texts say it {m:…|f:…}; a table is ICU, and its {learner} is an argument).
+     */
+    const val LEARNER_GENDER = "learnerGender"
+
+    /**
      * [key] in [lang] with [args]; formatted by the plural rules of the language it came in. An argument that is
-     * [Localized] (an age's name, a date) shows in that language too. [TARGET_LANG] is [target]'s code.
+     * [Localized] (an age's name, a date) shows in that language too. [TARGET_LANG] is [target]'s code, [LEARNER_GENDER]
+     * the learner's.
      */
     fun text(lang: Lang, key: String, args: Map<String, Any?> = emptyMap(), target: Lang = pair.target): String {
         val (l, pattern) = lookup(lang, key) ?: return key
-        val all = if (TARGET_LANG in args) args else args + (TARGET_LANG to target.code)
+        val withTarget = if (TARGET_LANG in args) args else args + (TARGET_LANG to target.code)
+        val all = if (LEARNER_GENDER in withTarget) withTarget else withTarget + (LEARNER_GENDER to (if (Learner.current.female) "f" else "m"))
         return Message.of(pattern).format(l, Localized.resolve(all, l))
     }
 

@@ -38,7 +38,7 @@ export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee 
     {
       name: 'publish_scenario',
       description:
-        'Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using.',
+        'Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
       inputSchema: {
         type: 'object',
         properties: {

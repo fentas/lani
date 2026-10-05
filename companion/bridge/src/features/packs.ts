@@ -5,6 +5,7 @@ import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import type { SrItem } from '../learner'
 import { LANGUAGES, learnerLangs } from '../learners'
+import { renderDeep } from '../addressee'
 import { itemId, learnedWords, learnPayload, learnRun, meaningOf, titleEn, titleFor, validatePack, wordOf, type LoadedPack } from '../packs'
 import { corpus } from '../voice'
 
@@ -28,8 +29,10 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
 
   /** Adds a pack's newly learned words as SR vocabulary via update-db.py; Claude hears a summary. */
   async function handleLearn(req: Request, id: string): Promise<Response> {
-    const pack = packs.get(id)
-    if (!pack) return json({ error: 'not found' }, 404)
+    const raw = packs.get(id)
+    if (!raw) return json({ error: 'not found' }, 404)
+    // the words as the learner learned them ({m:rad|f:rada} imam: addressee.ts), and so in their data
+    const pack = renderDeep(raw, addressee())
     const r = learnRun.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
     const unknown = r.data.results.filter(x => !pack.words.some(w => w.id === x.word_id)).map(x => x.word_id)
@@ -99,7 +102,7 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
       {
         name: 'publish_pack',
         description:
-          'Validate a lani.pack/v0 word pack and publish it to the app (replaces a tutor pack with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using.',
+          'Validate a lani.pack/v0 word pack and publish it to the app (replaces a tutor pack with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
         inputSchema: {
           type: 'object',
           properties: {
