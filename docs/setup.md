@@ -74,21 +74,30 @@ Then detach with Ctrl-b d. The tutor keeps running. `tmux attach -t lani` brings
 
 ## 3. Get the app
 
-- **A release APK.** Signed APKs will be on [GitHub Releases](https://github.com/fentas/lani/releases).
-- **Build it with Docker**, without an Android SDK: the image and its command come with the release builds.
-- **Build it with the Android SDK** (JDK 21; the SDK in `ANDROID_HOME`, or `sdk.dir` in
-  `companion/android/local.properties`):
+The simplest way: the latest release from GitHub, sent to the phone over Tailscale (no cable):
 
-  ```bash
-  cd companion/android && ./gradlew :app:assembleRelease
-  # app/build/outputs/apk/release/app-release.apk
-  ```
+```bash
+companion/bin/release-app --github     # the latest release (its SHA-256 checked), where your bridge offers it to the app
+companion/bin/lani-send-app            # sends it to your phone over Tailscale (Taildrop)
+```
 
-  Or `companion/bin/release-app "notes"`: it builds the APK and puts it where your bridge offers it to the app as an
-  update (`LANI_RELEASE_DIR`).
+On the phone, open `lani-<version>.apk` from **Files → Downloads** (or from Tailscale's notification) and allow
+installing from that app once. `lani-send-app` sends to the only device Taildrop can reach, or asks which one
+(`companion/bin/lani-send-app <device>`, as `tailscale file cp --targets` lists them).
 
-Install the APK: `adb install -r <file>.apk` over USB, or copy it to the phone and open it. Once it runs, the app updates
-itself from your bridge whenever you publish a new build with `release-app`.
+Other ways to the phone: `adb install -r <apk>` over USB, or download the APK from
+[GitHub Releases](https://github.com/fentas/lani/releases) on the phone itself.
+
+Or build it yourself:
+
+- **In Docker**, without a JDK or an Android SDK: `companion/bin/lani-build-app --release --out ~/apk/`, then
+  `companion/bin/lani-send-app --file ~/apk/lani-<version>.apk`.
+- **With the Android SDK** (JDK 21; the SDK in `ANDROID_HOME`, or `sdk.dir` in `companion/android/local.properties`):
+  `companion/bin/release-app "notes"` builds the APK and puts it where your bridge offers it; then `lani-send-app`.
+
+A phone takes an update only with the key its app was installed with: an app from the GitHub releases updates from
+them (`release-app --github`), one you built with your own key (`companion/bin/lani-keystore`) from your own builds.
+Once the app runs, it updates itself from your bridge whenever you publish a new APK with `release-app`.
 
 ## 4. Pair the phone
 

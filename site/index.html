@@ -826,9 +826,9 @@ companion/bin/lani-setup</code></pre><button class="copy" type="button" data-t="
           <div class="code"><pre><code>companion/bin/lani-session</code></pre><button class="copy" type="button" data-t="run.7">Copy</button></div>
         </li>
         <li>
-          <p data-t="run.8">Build the app (JDK 21 and the Android SDK) and install it</p>
-          <div class="code"><pre><code>cd companion/android &amp;&amp; ./gradlew :app:assembleRelease
-adb install -r app/build/outputs/apk/release/app-release.apk</code></pre><button class="copy" type="button" data-t="run.9">Copy</button></div>
+          <p data-t="run.8">Get the app onto your phone: the latest release from GitHub, sent over Tailscale (or adb install over USB)</p>
+          <div class="code"><pre><code>companion/bin/release-app --github
+companion/bin/lani-send-app</code></pre><button class="copy" type="button" data-t="run.9">Copy</button></div>
         </li>
         <li>
           <p data-t="run.10">Pair the phone: scan the QR code in the app</p>

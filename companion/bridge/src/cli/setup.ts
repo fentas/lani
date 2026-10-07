@@ -509,7 +509,7 @@ if (tutor && interactive && Bun.which('claude') && Bun.which('tmux') && !env.TMU
 // --- 8. the phone ---------------------------------------------------------------------------------------------------------------
 
 p.log.step('8/8 · The phone')
-p.log.message('The app: docs/setup.md, "Get the app" (an APK from GitHub Releases soon; or build it, with Docker or the Android SDK).')
+p.log.message('The app: companion/bin/release-app --github (the latest release), then companion/bin/lani-send-app sends it to the phone over Tailscale; or adb install over USB, or a build of your own (docs/setup.md, "Get the app").')
 const up = await bridgeAnswers(port)
 if (up && (await ask.confirm('The bridge runs: show the QR code to pair your phone?', true, f.pair))) run(bin('lani-pair'), [], { inherit: true })
 else if (!up) p.log.info('Once the tutor runs: companion/bin/lani-pair shows the QR code; scan it in the app.')

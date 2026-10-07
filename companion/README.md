@@ -34,6 +34,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-bridge` | Runs each learner's bridge service in tmux: `start`, `restart` (deploys new bridge code without a tutor restart), `status`, `stop`, `logs` (see [The bridge as a service](#the-bridge-as-a-service)). `systemd/` has a user unit template for it, not installed. |
 | `bin/lani-profile` | Adds a learner (their own data, bridge port, tmux session and tokens) and shows how to publish, start and pair them. |
 | `bin/lani-pair` | Pairs a phone with a learner's tutor: prints a one-time QR code; lists and unpairs phones (see [Pair a phone](#pair-a-phone)). |
+| `bin/lani-send-app` | Sends the app (the newest APK of the release directory) to a phone over Tailscale (Taildrop), no cable (see [Android app](#android-app)). |
 | `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking (see [Towns](#towns)). |
 | `bin/voice-build` | Counts and prebuilds the voice clips (see [Voice](#voice)). |
 | `bin/lexicon-build` | Builds a word lookup dictionary from a kaikki.org extract of Wiktionary, gives its lemmas their meanings in the other languages (from the English, German and Italian Wiktionaries), and shows how much of the content it knows (see [Word lookup](#word-lookup)). |
@@ -1939,6 +1940,10 @@ cd companion/android
 JAVA_HOME=$(mise where java@temurin-21) ./gradlew :app:assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
+
+To the phone without a cable: `companion/bin/lani-send-app` sends the newest APK of the release directory (where
+`release-app` and `release-app --github` put it; another with `--file`) over Tailscale (Taildrop), to the only device
+Taildrop can reach or to the one named (`lani-send-app <device>`). On the phone it waits in Files → Downloads.
 
 ### Build in Docker
 
