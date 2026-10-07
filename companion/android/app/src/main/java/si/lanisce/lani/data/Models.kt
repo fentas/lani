@@ -272,6 +272,11 @@ data class ReviewCard(
     val lookup: Boolean = false,
     /** When its next review is due (the item's `due_date`, else `next_review`); null when the node doesn't say. */
     val due: java.time.LocalDate? = null,
+    /**
+     * Its interval in days (the item's `interval_days`, at least 1): how early before [due] a word met in play may review
+     * it ([si.lanisce.lani.game.PlayReviews.window]).
+     */
+    val interval: Int = 1,
     /** When it was last reviewed (the item's `last_reviewed`); null when never or the node doesn't say. */
     val lastReviewed: java.time.LocalDate? = null,
 ) {
@@ -375,7 +380,24 @@ data class Dashboard(
      */
     val gender: String? = null,
     val nameForms: Map<String, String> = emptyMap(),
+    /**
+     * What the bridge says it takes besides what every bridge does (GET /state's `features`): "dialog-words", a review of a
+     * dialog's words with their slips ([si.lanisce.lani.app.DialogWordsController]); empty from an older bridge.
+     */
+    val features: Set<String> = emptySet(),
 ) {
+    /**
+     * The learner's words a dialog just reviewed ([ids], [today]), before the node has them: reviewed today, so no other
+     * dialog counts them again and today's review doesn't ask them; and right, as a review's answers count ([reviewed]).
+     */
+    fun reviewedInDialog(ids: Collection<String>, today: java.time.LocalDate): Dashboard {
+        val set = ids.toSet()
+        if (set.isEmpty()) return this
+        fun done(c: ReviewCard) = if (c.id in set) c.copy(lastReviewed = today) else c
+        return copy(pool = pool.map(::done), dueCards = dueCards.filter { it.id !in set }, rusty = rusty.map(::done))
+            .reviewed(set.map { it to 4 })
+    }
+
     /** The profile's learner as the content addresses them (l10n/LearnerSetting.kt keeps it). */
     val addressee: si.lanisce.lani.l10n.LearnerSetting.Profile
         get() = si.lanisce.lani.l10n.LearnerSetting.Profile(name.takeIf { it.isNotBlank() }, gender, nameForms)
@@ -458,6 +480,7 @@ data class Dashboard(
                     category = item.str("category")?.trim()?.takeIf { it.isNotEmpty() },
                     lookup = item.str("source") == "lookup",
                     due = dayOf(item.str("due_date") ?: item.str("next_review")),
+                    interval = item.int("interval_days").coerceAtLeast(1),
                     lastReviewed = dayOf(item.str("last_reviewed")),
                 )
             }
@@ -535,6 +558,7 @@ data class Dashboard(
                 levelSince = day(learner.str("level_since")) ?: day(profile.str("profile_created")) ?: practised.minOrNull(),
                 gender = learner.str("gender")?.trim()?.takeIf { it.isNotEmpty() },
                 nameForms = learner["name_forms"].obj().mapNotNull { (k, v) -> (v as? JsonPrimitive)?.contentOrNull?.let { k to it } }.toMap(),
+                features = (root["features"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull }.toSet(),
             )
         }
     }

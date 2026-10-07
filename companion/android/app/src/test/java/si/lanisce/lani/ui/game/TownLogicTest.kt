@@ -525,6 +525,14 @@ class TownLogicTest {
         assertTrue(TownOverview.laterToday(scenes, camp, afternoon.withHour(23)).isEmpty())
     }
 
+    @Test fun `a happening on now says how many of the learner's words its dialog tests`() {
+        val o = TownOverview.of(camp, scenes, afternoon, words = { a -> if (a.key == "ob-ognju/igra") 3 else 0 })
+        val now = o.today.filterIsInstance<TodayItem.Happening>()
+        // only what's on now is asked (the scroll's row of it); later today says none yet
+        assertEquals(mapOf("ob-ognju/igra" to 3, "ob-ognju/juha" to 0), now.associate { it.on.key to it.words })
+        assertTrue(TownOverview.of(camp, scenes, afternoon).today.filterIsInstance<TodayItem.Happening>().all { it.words == 0 })
+    }
+
     @Test fun `places list the village's own places with the scenes that open there`() {
         val o = TownOverview.of(camp, scenes, afternoon)
         assertEquals(listOf(TownPlace.Fire, TownPlace.Forest, TownPlace.At(BuildingType.TENT), TownPlace.At(BuildingType.HUT)), o.places.map { it.place })

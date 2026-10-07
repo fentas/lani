@@ -2,9 +2,14 @@ package si.lanisce.lani.ui.scene
 
 import si.lanisce.lani.data.Grading
 import si.lanisce.lani.data.SpeechGrading
+import si.lanisce.lani.game.DialogWords
 import si.lanisce.lani.game.FormGap
 import si.lanisce.lani.game.Forms
 import si.lanisce.lani.game.TurnMode
+import si.lanisce.lani.game.TurnWord
+import si.lanisce.lani.game.TurnWords
+import si.lanisce.lani.game.WordAnswer
+import si.lanisce.lani.game.WordTest
 import si.lanisce.lani.game.scene.Dialog
 import si.lanisce.lani.game.scene.DialogChoice
 import si.lanisce.lani.game.scene.DialogLine
@@ -66,6 +71,11 @@ data class Said(val who: String?, val sl: String, val en: String, val wrong: Boo
  *   them ([meetings]); an echo turn ([TurnMode.ECHO], [echo]) is only heard and repeated
  * @param meetings the rules not yet met so far, in order, one for each such turn passed: the dialog's screen records the
  *   new ones ([meetingsOf])
+ * @param words the turns (by line index) that test the learner's own words, and which ([DialogWords]; companion/SCENES.md,
+ *   "Your words in the dialogs"): a word only there, in a line or a choice where the choices differ otherwise, isn't one
+ * @param wordAnswers the first answer of each turn on the learner's words it tests, in order ([WordAnswer]): the dialog's
+ *   screen counts the new ones as reviews of their cards ([wordsOf]); its end lists them ("Tvoje besede · Your words")
+ * @param wordCards the word cards to show after the turns got wrong: each after the line said at its index ([WordShown])
  */
 data class DialogRun(
     val dialog: Dialog,
@@ -93,7 +103,19 @@ data class DialogRun(
     val hinted: Boolean = false,
     val notYet: Map<Int, List<String>> = emptyMap(),
     val meetings: List<String> = emptyList(),
+    val words: Map<Int, TurnWords> = emptyMap(),
+    val wordAnswers: List<WordAnswer> = emptyList(),
+    val wordCards: List<WordShown> = emptyList(),
 ) {
+    /** The card of a word the learner got wrong ([answer]), shown after the line said at index [after] of [said]. */
+    data class WordShown(val after: Int, val answer: WordAnswer)
+
+    /** The answers on the learner's words [next] (this run after an answer) adds: what the dialog counts on their cards. */
+    fun wordsOf(next: DialogRun?): List<WordAnswer> = next?.wordAnswers?.drop(wordAnswers.size).orEmpty()
+
+    /** The learner's words the dialog tested, each once, by the first answer on it: what its end lists. */
+    val wordSummary: List<WordAnswer> get() = wordAnswers.distinctBy { it.card.id }
+
     /**
      * An answer on a rule of the grammar book: its [page], whether it was [right], what the learner [said], and (a wrong
      * one) what was [correct].
@@ -261,12 +283,45 @@ data class DialogRun(
         val puzzled = line.puzzled ?: DialogReply(inTarget("adaptive.puzzled"), inBase("adaptive.puzzled"))
         val right = line.choices.firstOrNull { it.ok }?.sl
         val pages = gapPages(line).filter { it !in notYet[at].orEmpty() }
+        // the learner's word in the gap, got wrong the first time: its form (another ending of it) or its meaning
+        val word = if (missed) null else gapWord(line)?.let { w ->
+            WordAnswer(w, false, DialogWords.typed(w.card, sentence.let { s -> Forms.words(s).getOrNull(w.slot) ?: s }), produced = true, at, sentence, right.orEmpty())
+        }
         return copy(
             said = said + Said(null, sentence, "", wrong = true) + Said(by, puzzled.sl, puzzled.en),
             why = bi("adaptive.notThatForm"), wrongPick = null, puzzledBy = puzzled, mistakes = mistakes + 1,
             missedTurns = missedTurns + if (missed) 0 else 1, missed = true, rule = line.grammar ?: pages.firstOrNull(),
             answers = answers + pages.map { RuleAnswer(it, false, sentence, right) },
+            wordAnswers = wordAnswers + listOfNotNull(word),
         )
+    }
+
+    /** The learner's word in the gap of the form turn [line] (typed or said: [TurnWords.inGap]); null when it isn't one of theirs. */
+    private fun gapWord(line: DialogLine): TurnWord? {
+        val tw = words[at] ?: return null
+        val right = line.choices.indexOfFirst { it.ok }.takeIf { it >= 0 } ?: return null
+        val slot = form(line)?.gap?.slot ?: return null
+        return tw.inGap(right, slot)
+    }
+
+    /**
+     * What answering choice [filed] (its index in the file) the first time says about the learner's words the turn tests
+     * ([words]): a right one answers them right (typed or said, [produced]: the word in the gap; a tap turn, the thing
+     * tapped); a wrong one gets wrong those it tests (a tap turn, the thing the right place was). Empty when the turn tests
+     * none of theirs, isn't graded (an echo), or was answered before.
+     */
+    private fun wordAnswersOf(line: DialogLine, filed: Int, right: Boolean, produced: Boolean): List<WordAnswer> {
+        val tw = words[at] ?: return emptyList()
+        if (missed) return emptyList()
+        val c = line.choices[filed]
+        val expected = line.choices.firstOrNull { it.ok }?.sl.orEmpty()
+        tw.thing?.let { t -> return listOf(WordAnswer(t, right, WordTest.THING, produced = false, at, c.sl, expected)) }
+        if (!right) return tw.missed(filed).map { (w, how) -> WordAnswer(w, false, how, produced, at, c.sl, expected) }
+        val got = if (produced) listOfNotNull(form(line)?.gap?.slot?.let { tw.inGap(filed, it) }) else tw.answered(filed)
+        return got.map { w ->
+            val how = tw.byRight[filed].orEmpty().firstOrNull { it.word.card.id == w.card.id }?.by?.values.orEmpty()
+            WordAnswer(w, true, if (WordTest.MEANING in how) WordTest.MEANING else WordTest.FORM, produced, at, c.sl, c.sl)
+        }
     }
 
     /** The sky the dialog's cues have made of [base] so far (see [skyAt]). */
@@ -314,6 +369,7 @@ data class DialogRun(
                 said = said + heard, tried = tried + k, why = c.why ?: bi("dialogRun.tryAnotherOne"), wrongPick = k, mistakes = mistakes + 1,
                 missedTurns = missedTurns + if (missed) 0 else 1, missed = true, puzzledBy = null, rule = page,
                 answers = answers + listOfNotNull(page?.let { RuleAnswer(it, false, c.sl, turn.firstOrNull { o -> o.ok }?.sl) }),
+                wordAnswers = wordAnswers + if (graded) wordAnswersOf(line, filed, right = false, produced) else emptyList(),
             )
         }
         // right the first time: on the turn's page (picked: the one its choices name; typed or said: what its gap tests)
@@ -322,13 +378,17 @@ data class DialogRun(
             produced -> line.grammar?.let(::listOf) ?: gapPages(line)
             else -> listOfNotNull(line.grammar ?: turn.mapNotNull { it.grammar }.distinct().singleOrNull())
         }.filter { it !in notHere }
+        // the learner's words the turn tests: right the first time, or (got wrong before) their cards after the turn
+        val words = if (graded) wordAnswersOf(line, filed, right = true, produced) else emptyList()
+        val missedHere = wordAnswers.filter { it.turn == at && !it.right }
         val mine = copy(
             at = at + 1, said = said + Said(null, c.sl, c.en), tried = emptySet(), why = null, wrongPick = null, picks = picks + filed,
             rule = null, missed = false, puzzledBy = null, answers = answers + pages.map { RuleAnswer(it, true, c.sl, null, hinted) }, hinted = false,
-            meetings = meetings + notHere,
+            meetings = meetings + notHere, wordAnswers = wordAnswers + words,
         )
-        val reply = c.reply ?: return mine.play()
-        return mine.copy(said = mine.said + Said(by, reply.sl, reply.en)).afterLine()
+        val shown = { r: DialogRun -> if (missedHere.isEmpty()) r else r.copy(wordCards = r.wordCards + missedHere.map { WordShown(r.said.lastIndex, it) }) }
+        val reply = c.reply ?: return shown(mine).play()
+        return shown(mine.copy(said = mine.said + Said(by, reply.sl, reply.en))).afterLine()
     }
 
     /** Plays from [at]: someone's line is said; the learner's turn waits for a choice; past the end is [Step.END]. */
@@ -359,13 +419,17 @@ data class DialogRun(
 
         /**
          * [modes]: how its turns are asked when not by choosing (by the line index; see [DialogRun]); [notYet]: the turns
-         * that say rules not introduced yet, and those rules ([si.lanisce.lani.game.Introduction.dialog]).
+         * that say rules not introduced yet, and those rules ([si.lanisce.lani.game.Introduction.dialog]); [words]: the turns
+         * that test the learner's own words ([DialogWords.of], on [dialog] as it is played).
          */
         fun start(
             dialog: Dialog, partner: String?, seed: Long? = null, repliers: Map<Int, String> = emptyMap(), modes: Map<Int, TurnMode> = emptyMap(),
-            notYet: Map<Int, List<String>> = emptyMap(),
+            notYet: Map<Int, List<String>> = emptyMap(), words: Map<Int, TurnWords> = emptyMap(),
         ): DialogRun =
-            DialogRun(dialog, partner, seed = seed, repliers = repliers, modes = modes.filterValues { it != TurnMode.CHOOSE }, notYet = notYet.filterValues { it.isNotEmpty() }).play()
+            DialogRun(
+                dialog, partner, seed = seed, repliers = repliers, modes = modes.filterValues { it != TurnMode.CHOOSE }, notYet = notYet.filterValues { it.isNotEmpty() },
+                words = words.filterValues { !it.isEmpty },
+            ).play()
 
         /**
          * [dialog]'s tap turns asked by tapping the picture ([TurnMode.TAP]), by their line index: where it is played in its

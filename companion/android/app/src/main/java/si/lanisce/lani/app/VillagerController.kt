@@ -139,6 +139,12 @@ class VillagerController(
 
     // --- arrivals: meeting someone who joined the village (companion/VILLAGERS.md "Arrivals") -------------------------
 
+    /**
+     * The turns of an introduction (its dialog, in a language) that test the learner's own words ([DialogWordsController.words];
+     * companion/SCENES.md, "Your words in the dialogs"); set by the view model, none until then.
+     */
+    var dialogWords: (si.lanisce.lani.game.scene.Dialog, String) -> Map<Int, si.lanisce.lani.game.TurnWords> = { _, _ -> emptyMap() }
+
     /** The introduction being played (ArrivalScene); null when none. */
     var meeting by mutableStateOf<MeetingTalk?>(null)
         private set
@@ -166,7 +172,7 @@ class VillagerController(
             id = p.id, name = v?.name ?: p.id, emoji = v?.emoji ?: p.emoji, art = v?.art ?: "woman", slot = "", villager = p.id,
         )
         val happening = si.lanisce.lani.game.scene.Happening(id = "arrival", title = Arrivals.title(p, v), who = p.id, marker = p.emoji)
-        val run = si.lanisce.lani.ui.scene.DialogRun.start(m.dialog, p.id, seed = kotlin.random.Random.nextLong(), repliers = m.repliers)
+        val run = si.lanisce.lani.ui.scene.DialogRun.start(m.dialog, p.id, seed = kotlin.random.Random.nextLong(), repliers = m.repliers, words = dialogWords(m.dialog, lang))
         meeting = MeetingTalk(m, SceneTalk("arrival:${p.id}", "arrival:${p.id}", person, happening, m.dialog, run))
         settleMeeting()
         return true

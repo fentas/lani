@@ -211,7 +211,10 @@ fun VillageScreen(vm: AppViewModel) {
     val people = remember(s, cast, visitorId, stranger, keepers) {
         vm.villagers.people(s).filter { vm.villagers.livesHere(s, it.id) || it.id == visitorId } + listOfNotNull(stranger) + keepers.map(Keepers::villager)
     }
-    val overview = remember(s, scenes, minute, cast, vm.content.dashboard, keepers) { TownOverview.of(s, scenes, LocalDateTime.now(), cast, vm::levelIn, keepers) }
+    // what's on today, and how many of the learner's own words each happening's dialog tests (the scroll's "📇 3 tvoje besede")
+    val overview = remember(s, scenes, minute, cast, vm.content.dashboard, keepers, vm.forms.cache) {
+        TownOverview.of(s, scenes, LocalDateTime.now(), cast, vm::levelIn, keepers, words = { a -> vm.dialogWords.inHappening(a, s) })
+    }
     // Everyone is on the map at most once: who has a happening on stands at its place (far off, only their bubble shows
     // there, with their face), and a plain villager waits only where someone not drawn about the village has one. Who is
     // at a spot now stays there (the burner sits by his pile).

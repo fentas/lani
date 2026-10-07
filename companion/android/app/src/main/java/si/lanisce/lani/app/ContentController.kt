@@ -60,6 +60,13 @@ class ContentController(
         if (n !== d) dashboard = n
     }
 
+    /** The learner's words a dialog just reviewed ([ids]), before the node has them ([Dashboard.reviewedInDialog]). */
+    fun reviewedInDialog(ids: Collection<String>, today: java.time.LocalDate = java.time.LocalDate.now()) {
+        val d = dashboard ?: return
+        val n = d.reviewedInDialog(ids, today)
+        if (n !== d) dashboard = n
+    }
+
     /**
      * Words of pack [packId] just learned in the app ([results]: word id → quality; [words]: the pack's), before the node
      * has them: the ones answered right count at once ([Dashboard.learnedWords]), as a pack's words do.

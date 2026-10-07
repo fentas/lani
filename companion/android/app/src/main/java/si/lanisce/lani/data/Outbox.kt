@@ -191,16 +191,19 @@ object Writes {
     /**
      * Flashcard reviews, persisted deterministically (update-db.py on the node). [language]: another language's deck
      * (its own data on the node); null for the home language's. [forms]: the word forms the review asked
-     * ([si.lanisce.lani.app.FormsController.answered]), for the tutor's note; an older bridge leaves them out.
+     * ([si.lanisce.lani.app.FormsController.answered]), for the tutor's note; an older bridge leaves them out. [dialog]:
+     * the learner's words a dialog tested ([si.lanisce.lani.app.DialogWordsController]: where, and each word's answer,
+     * the slips the bridge lowers gently); an older bridge leaves it out and takes [results] as a review's.
      */
     fun reviews(
         results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: JsonArray? = null,
-        id: String = Outbox.newId(), now: Long = System.currentTimeMillis(),
+        id: String = Outbox.newId(), now: Long = System.currentTimeMillis(), dialog: JsonObject? = null,
     ): OutboxEntry {
         var body = graded("item_id", results, minutes)
         if (language != null) body = JsonObject(body + ("language" to JsonPrimitive(language)))
         if (forms != null && forms.isNotEmpty()) body = JsonObject(body + ("forms" to forms))
-        return entry("/reviews", bi("outbox.review"), body, id, now)
+        if (dialog != null) body = JsonObject(body + ("dialog" to dialog))
+        return entry("/reviews", if (dialog != null) bi("outbox.dialogWords") else bi("outbox.review"), body, id, now)
     }
 
     /** Pack words become SR vocabulary on the node; already known words are skipped there. */

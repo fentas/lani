@@ -157,6 +157,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val words = WordsController(viewModelScope, node, sync, chat, notices)
     /** A word's forms: the form questions of the reviews, the table on a word's card (companion/GAME.md, "A word's forms"). */
     val forms = si.lanisce.lani.app.FormsController(app, viewModelScope, node, grammar)
+    /**
+     * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
+     * a day (companion/SCENES.md, "Your words in the dialogs").
+     */
+    val dialogWords = si.lanisce.lani.app.DialogWordsController(app, viewModelScope, content, forms, sync, home = { grammar.language })
     /** "🔍 Slovnica stavka · The sentence's grammar": a dialog line's words, their forms and why (a long press on it). */
     val sentences = SentenceController(viewModelScope, node, chat, grammar)
     /** "📖 Branje · Reading": the reading corner's readings, and the reading practice reported to the node. */
@@ -177,6 +182,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val progress = ProgressController(app, viewModelScope, node, notices)
     /** The people of the village and the friendship with each. */
     val villagers = VillagerController(app, viewModelScope, node, notices, game, post = { sync.submitLater(it) }, level = ::levelIn).also { v ->
+        v.dialogWords = { d, language -> dialogWords.words(d, language) }
         game.onQuestDone = v::questDone
         game.onArrived = v::arrived
         game.gainOf = { id, before, after -> si.lanisce.lani.ui.villagers.VillagerLogic.gain(id, v.byId(id, after), before, after) }
@@ -188,6 +194,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         dialogHeard = game::dialogHeard, keeperTold = game::keeperTold,
         // the learner's own traps, and turns typed or said as far as they have the rule (companion/SCENES.md, "Adaptive turns")
         adapt = { d, language -> grammar.adapt(d, language, canListen()) },
+        // the turns that test the learner's own words count on their cards (companion/SCENES.md, "Your words in the dialogs")
+        words = dialogWords::words,
     ).also { s -> grammar.scenes = { s.all } }
 
     /**

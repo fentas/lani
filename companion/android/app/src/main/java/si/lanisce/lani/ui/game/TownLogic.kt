@@ -754,8 +754,11 @@ sealed interface TodayItem {
 
     data class Event(val event: GameEvent, override val place: TownPlace) : TodayItem
 
-    /** A happening on [now] (true) or later today, at [time]. */
-    data class Happening(val on: ActiveHappening, val time: TimeOfDay, val now: Boolean, override val place: TownPlace) : TodayItem
+    /**
+     * A happening on [now] (true) or later today, at [time]; [words]: how many of the learner's own words its dialog tests
+     * today ("📇 3 tvoje besede", companion/SCENES.md "Your words in the dialogs").
+     */
+    data class Happening(val on: ActiveHappening, val time: TimeOfDay, val now: Boolean, override val place: TownPlace, val words: Int = 0) : TodayItem
 
     data class Task(val quest: Quest, override val place: TownPlace) : TodayItem
 
@@ -844,11 +847,12 @@ data class TownOverview(
         /** Start hours of the parts of a day, in order (see [TimeOfDay.of]). */
         /**
          * [level]: the learner's level in a language, for the storyteller's story ("Jutri"). [keepers]: who is at a spot of
-         * the landscape now ([si.lanisce.lani.game.scene.Keepers.here]), listed while their bubble is on the map.
+         * the landscape now ([si.lanisce.lani.game.scene.Keepers.here]), listed while their bubble is on the map. [words]: how
+         * many of the learner's own words a happening's dialog tests today (si.lanisce.lani.app.DialogWordsController).
          */
         fun of(
             state: GameState, scenes: List<SceneSpec>, now: LocalDateTime, cast: List<Villager> = emptyList(), level: (String) -> String = { "A1" },
-            keepers: List<si.lanisce.lani.game.scene.ActiveKeeper> = emptyList(),
+            keepers: List<si.lanisce.lani.game.scene.ActiveKeeper> = emptyList(), words: (ActiveHappening) -> Int = { 0 },
         ): TownOverview {
             val active = Happenings.active(scenes, state, now)
             val time = TimeOfDay.of(now.hour)
@@ -858,7 +862,7 @@ data class TownOverview(
             state.event?.let { today += TodayItem.Event(it, TownMarkers.eventPlace(it.kind, state)) }
             // who joined the village and waits to be met: first, as nobody else does anything with them before
             for (m in markers.filter { it.id.startsWith("arrival:") }) today += TodayItem.Arrival(m.id.removePrefix("arrival:"), m.emoji, m.label, m.place)
-            for (a in active) today += TodayItem.Happening(a, time, now = true, TownMarkers.placeOf(a, state))
+            for (a in active) today += TodayItem.Happening(a, time, now = true, TownMarkers.placeOf(a, state), words(a))
             // who sits at a spot now with something to say (the burner by his pile), as his bubble: until his talk is done
             for (m in markers.filter { it.id.startsWith(si.lanisce.lani.game.scene.Keepers.MARKER) }) {
                 si.lanisce.lani.game.scene.Keepers.of(keepers, m.id)?.let { today += TodayItem.Keeper(it, it.place) }

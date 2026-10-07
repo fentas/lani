@@ -116,6 +116,11 @@ class SceneController(
      * [GrammarController.adapt]). As it is by default.
      */
     private val adapt: (Dialog, String) -> AdaptedDialog = { d, _ -> AdaptedDialog(d) },
+    /**
+     * The turns of a dialog (as played) in a language that test the learner's own words, in a scene (its things, for a tap
+     * turn) or none ([DialogWordsController.words]; companion/SCENES.md, "Your words in the dialogs"). None by default.
+     */
+    private val words: (Dialog, String, SceneSpec?) -> Map<Int, si.lanisce.lani.game.TurnWords> = { _, _, _ -> emptyMap() },
 ) {
     private val app = context.applicationContext
     private val store = SceneStore(context.filesDir)
@@ -242,7 +247,8 @@ class SceneController(
             val d = t.dialog()
             // the header and the chronicle name the story; the teller remembers it
             val h = a.happening.copy(title = t.title, memory = t.story.memory ?: a.happening.memory)
-            talk = SceneTalk(a.scene.id, a.key, p, h, d, DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong()), story = t, started = ScreenClock.app.now())
+            val run = DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), words = words(d, a.scene.language, null))
+            talk = SceneTalk(a.scene.id, a.key, p, h, d, run, story = t, started = ScreenClock.app.now())
             settle()
             return true
         }
@@ -250,7 +256,8 @@ class SceneController(
         // the picture above it
         val (h, file) = DialogVariants.play(a, village() ?: GameState(), LocalDate.now()) ?: return false
         val (d, modes, notYet) = adapt(file, a.scene.language)
-        talk = SceneTalk(a.scene.id, a.key, p, h, d, DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = DialogRun.tapModes(d) + modes, notYet = notYet))
+        val run = DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = DialogRun.tapModes(d) + modes, notYet = notYet, words = words(d, a.scene.language, a.scene))
+        talk = SceneTalk(a.scene.id, a.key, p, h, d, run)
         settle()
         return true
     }
@@ -320,7 +327,8 @@ class SceneController(
         val lang = si.lanisce.lani.game.culture.Cultures.current.manifest.language
         val (d, modes, notYet) = adapt(Keepers.talk(k, level(lang), lang) ?: return false, lang)
         val p = Keepers.person(k)
-        keeperTalk = KeeperTalk(k, SceneTalk(k.key, k.key, p, Keepers.happening(k), d, DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = modes, notYet = notYet)))
+        val run = DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = modes, notYet = notYet, words = words(d, lang, null))
+        keeperTalk = KeeperTalk(k, SceneTalk(k.key, k.key, p, Keepers.happening(k), d, run))
         settleKeeper()
         return true
     }

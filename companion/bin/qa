@@ -14,7 +14,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "🚗 Za pot" (a small library got ready, played, next, paused, browsed as Android Auto does);
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
-                       the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one
+                       the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
+                       "your-words" a dialog that tests the learner's own words answered right, its end listing them;
+                       "word-missed" one got wrong first, its card after the turn
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -879,6 +881,217 @@ def words_in_dialog():
     assert tap("Zapri · Close", 3), "close the dialog"
     assert tap("‹ Vas · Village", 5), "back from the scene"
     assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+
+
+YOUR_WORDS = "Tvoje besede · Your words"  # a dialog's end, the learner's words it tested (dialogWords.yours)
+QA_WORD = re.compile(r"[^\W_]+(?:['’][^\W_]+)*")
+
+
+def _lcs(a: list, b: list) -> set:
+    """The positions in [a] of a longest common subsequence of [a] and [b] (game/DialogWords.kt's alignment)."""
+    n = [[0] * (len(b) + 1) for _ in range(len(a) + 1)]
+    for i in range(len(a) - 1, -1, -1):
+        for j in range(len(b) - 1, -1, -1):
+            n[i][j] = n[i + 1][j + 1] + 1 if a[i] == b[j] else max(n[i + 1][j], n[i][j + 1])
+    out, i, j = set(), 0, 0
+    while i < len(a) and j < len(b):
+        if a[i] == b[j]:
+            out.add(i)
+            i, j = i + 1, j + 1
+        elif n[i + 1][j] >= n[i][j + 1]:
+            i += 1
+        else:
+            j += 1
+    return out
+
+
+def tested_words(right: str, wrong: str) -> list:
+    """The words of [right] a wrong choice [wrong] tests (companion/SCENES.md, "Your words in the dialogs"): where they
+    differ, one or two words, the rest shared (a one-word answer always)."""
+    r = [w.lower() for w in QA_WORD.findall(right)]
+    w = [x.lower() for x in QA_WORD.findall(wrong)]
+    off = [i for i in range(len(r)) if i not in _lcs(r, w)]
+    if not off or len(off) > 2 or (len(r) > 1 and len(r) - len(off) < len(off)):
+        return []
+    return [r[i] for i in off]
+
+
+def dialogs_with_words() -> list:
+    """The happenings whose dialogs test one of the dev deck's words as written (no form needed to find it), as
+    (scene, happening, the words), those whose every dialog does first."""
+    try:
+        scenes, cards = api("/scenes?arts=2"), set(deck_lemmas())
+    except (OSError, RuntimeError, ValueError) as e:
+        print(f"    the dev bridge's scenes or deck: {e}")
+        return []
+    out = []
+    for s in scenes:
+        if not isinstance(s, dict):
+            continue
+        dialogs = {d["id"]: d for d in s.get("dialogs", [])}
+        for h in s.get("happenings", []):
+            if h.get("stories") or h.get("guests"):
+                continue
+            each = []
+            for did in h.get("dialogs") or ([h["dialog"]] if h.get("dialog") else []):
+                found = set()
+                for line in dialogs.get(did, {}).get("lines", []):
+                    ch = [c for c in line.get("choices", []) if not c.get("tap")]
+                    for r in (c for c in ch if c.get("ok")):
+                        for w in (c for c in ch if not c.get("ok")):
+                            found |= {x for x in tested_words(r.get("sl", ""), w.get("sl", "")) if x in cards}
+                each.append(found)
+            if any(each):
+                out.append((s["id"], h["id"], sorted(set().union(*each)), all(each)))
+    out.sort(key=lambda k: (not k[3], k[0] != "ob-ognju"))
+    return [(sid, hid, words) for sid, hid, words, _ in out]
+
+
+def your_words():
+    """A dialog whose turns test the learner's own words (the dev bridge's copy of the deck), answered right all through:
+    its end lists them ("📇 Tvoje besede · Your words: kruh ✓"; companion/SCENES.md "Your words in the dialogs"), and the
+    review it sent reaches the dev bridge. Its turns are answered by the right choice the scene has (a typed, said or tap
+    turn by "✋ Izberi raje · Let me choose" first)."""
+    try:
+        return words_answered()
+    finally:
+        qa_hook("happening:")
+
+
+def answer_right(ok_texts: set) -> bool:
+    """At the learner's turn: picks the right choice on screen (one of [ok_texts]); False when none is there."""
+    ns = list(nodes())
+    labels = [t for t, _ in ns]
+    if any("Izberi raje" in t for t in labels):
+        tap("Izberi raje", 2)
+        ns = list(nodes())
+    if any("Poslušaj in ponovi" in t for t in labels):
+        return tap("Naprej · Next", 2)
+    # a choice's row reads its Slovene, then its translation ("Daj mi žlico, prosim., A spoon, please."): the exact text
+    # first, then a row that begins with it
+    c = next((c for t, c in ns if t in ok_texts), None) or next(
+        (c for t, c in ns for ok in sorted(ok_texts, key=len, reverse=True) if t.startswith(ok + ",") or t.startswith(ok + " ")), None)
+    if c is None:
+        return False
+    tap_at(c)
+    return True
+
+
+def words_answered():
+    """[your_words], QA's happening counted as on."""
+    tried = dialogs_with_words()
+    if not tried:
+        return "no happening's dialog tests a word of the dev deck"
+    try:
+        scenes = {s["id"]: s for s in api("/scenes?arts=2") if isinstance(s, dict)}
+    except (OSError, RuntimeError, ValueError) as e:
+        return f"the dev bridge's scenes: {e}"
+    for sid, hid, words in tried[:4]:
+        ok = {c["sl"] for d in scenes[sid].get("dialogs", []) for l in d.get("lines", []) for c in l.get("choices", []) if c.get("ok")}
+        qa_hook(f"happening:{sid}/{hid}", f"scene:{sid}@{sid}/{hid}")
+        if wait_for("‹ Vas · Village", 8) is None or wait_for("Zapri · Close", 6) is None:
+            plain_village()
+            continue
+        print(f"    {sid}/{hid}: its dialogs test {', '.join(words)}")
+        for _ in range(16):
+            labels = [t for t, _ in nodes()]
+            if any(YOUR_WORDS in t for t in labels) or any("Nazaj v prizor" in t for t in labels):
+                break  # the end
+            if any(t.startswith("Tvoj odgovor") or "Izberi raje" in t or "Poslušaj in ponovi" in t for t in labels):
+                assert answer_right(ok), f"{sid}/{hid}: the right choice on screen"
+                continue
+            if not tap("Naprej · Next", 3):
+                time.sleep(1)
+        if scroll_to(YOUR_WORDS, 3) is not None or wait_for(YOUR_WORDS, 3):
+            shot("your-words")
+            marks = [t for t, _ in nodes() if "✓" in t or "prav · right" in t]
+            assert marks, "a word of the learner's marked right"
+            print(f"    the end lists: {', '.join(marks[:4])}")
+            tap("Nazaj v prizor", 3)
+            plain_village()
+            return None
+        print(f"    {sid}/{hid}: its end lists no word of the learner's (the variant played today tests none)")
+        plain_village()
+    raise AssertionError(f"no dialog's end listed the learner's words ({', '.join(f'{s}/{h}' for s, h, _ in tried[:4])} tried)")
+
+
+YOUR_WORD = "Tvoja beseda · Your word"  # a word got wrong, its card after the turn (dialogWords.yourWord)
+
+
+def word_missed():
+    """A word of the learner's got wrong in a dialog: the first pick at a turn that tests it is a wrong choice that
+    differs from the right one in that word; once the turn is passed, its card shows in the conversation ("📇 Tvoja beseda ·
+    Your word: … — …"), the dialog goes on, and its end marks the word ✗."""
+    try:
+        return missed_in_dialog()
+    finally:
+        qa_hook("happening:")
+
+
+def missed_in_dialog():
+    """[word_missed], QA's happening counted as on."""
+    tried = dialogs_with_words()
+    if not tried:
+        return "no happening's dialog tests a word of the dev deck"
+    try:
+        scenes = {s["id"]: s for s in api("/scenes?arts=2") if isinstance(s, dict)}
+        cards = set(deck_lemmas())
+    except (OSError, RuntimeError, ValueError) as e:
+        return f"the dev bridge's scenes: {e}"
+    for sid, hid, words in tried[:4]:
+        turns = [l.get("choices", []) for d in scenes[sid].get("dialogs", []) for l in d.get("lines", []) if len(l.get("choices", [])) >= 2]
+        ok = {c["sl"] for ch in turns for c in ch if c.get("ok")}
+        # each right choice → a wrong choice of its turn that tests one of the learner's words in it
+        traps = {}
+        for ch in turns:
+            for r in (c for c in ch if c.get("ok") and not c.get("tap")):
+                for w in (c for c in ch if not c.get("ok")):
+                    if any(x in cards for x in tested_words(r["sl"], w.get("sl", ""))):
+                        traps.setdefault(r["sl"], w["sl"])
+        qa_hook(f"happening:{sid}/{hid}", f"scene:{sid}@{sid}/{hid}")
+        if wait_for("‹ Vas · Village", 8) is None or wait_for("Zapri · Close", 6) is None:
+            plain_village()
+            continue
+        missed, seen = None, False
+        for _ in range(18):
+            labels = [t for t, _ in nodes()]
+            if any(YOUR_WORD in t for t in labels) and missed and not seen:
+                seen = True
+                shot("word-missed-card")
+            if any(YOUR_WORDS in t for t in labels) or any("Nazaj v prizor" in t for t in labels):
+                break
+            if any(t.startswith("Tvoj odgovor") or "Izberi raje" in t for t in labels):
+                if any("Izberi raje" in t for t in labels):
+                    tap("Izberi raje", 2)
+                    labels = [t for t, _ in nodes()]
+                here = next((r for r in traps if any(t == r or t.startswith(r + ",") or t.startswith(r + " ") for t in labels)), None)
+                wrong = traps.get(here) if here and not missed else None
+                c = next((c for t, c in nodes() if wrong and (t == wrong or t.startswith(wrong + ",") or t.startswith(wrong + " "))), None)
+                if c is not None:
+                    tap_at(c)  # the wrong one first: the person reacts, the learner picks again
+                    missed = wrong
+                    print(f"    picked «{wrong}» first")
+                assert answer_right(ok), f"{sid}/{hid}: the right choice on screen"
+                continue
+            if any("Poslušaj in ponovi" in t for t in labels):
+                tap("Naprej · Next", 2)
+                continue
+            if not tap("Naprej · Next", 3):
+                time.sleep(1)
+        if missed is None:
+            print(f"    {sid}/{hid}: no turn played tested a word of the learner's")
+            plain_village()
+            continue
+        if not seen:
+            seen = scroll_to(YOUR_WORD, 2) is not None
+        assert seen, f"{sid}/{hid}: the word's card after the turn got wrong"
+        if scroll_to(YOUR_WORDS, 3) is not None or wait_for(YOUR_WORDS, 3):
+            shot("word-missed-end")
+            assert any("✗" in t for t, _ in nodes()), "the word marked wrong at the end"
+        tap("Nazaj v prizor", 3)
+        plain_village()
+        return None
+    return "no dialog played a turn that tests the learner's words"
 
 
 TYPED_TURN = "Napiši manjkajočo besedo"  # a dialog's typed turn's title (adaptive.typeMissingWord)
@@ -1916,6 +2129,8 @@ def plan():
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("ispy", ispy, v, False, ""),
+        ("your-words", your_words, v, False, ""),
+        ("word-missed", word_missed, v, False, ""),
         ("story-in-scene", story_in_scene, v, False, ""),
         ("counting", counting, v, False, ""),
         ("forest", forest, v, False, ""),

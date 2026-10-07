@@ -77,6 +77,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.CustomAccessibilityAction
@@ -84,6 +85,9 @@ import androidx.compose.ui.semantics.onLongClick
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.SceneTalk
 import si.lanisce.lani.app.SentenceQuery
+import si.lanisce.lani.app.WordQuery
+import si.lanisce.lani.game.DialogReviews
+import si.lanisce.lani.game.WordAnswer
 import si.lanisce.lani.game.HintPiece
 import si.lanisce.lani.game.HintSpeech
 import si.lanisce.lani.game.HintText
@@ -176,8 +180,19 @@ fun DialogPanel(
     val storyEnded = talk.story != null && run.step == DialogRun.Step.END
     LaunchedEffect(talk.story?.story?.id, storyEnded) { if (storyEnded) talk.story?.let { vm.scenes.loadPacks(it.story) } }
     // an answer on a turn that names a grammar book page counts on the rule (and may unlock the page), picked, typed or
-    // said: what it adds to the run's answers, once ([DialogRun.answersOf]); a turn of a rule not yet meets it
-    val count: (DialogRun?) -> Unit = { next -> countAnswers(vm, run, next) }
+    // said: what it adds to the run's answers, once ([DialogRun.answersOf]); a turn of a rule not yet meets it; and a turn
+    // that tests the learner's own words counts on their cards ([DialogRun.wordsOf], once a card a day)
+    val count: (DialogRun?) -> Unit = { next ->
+        countAnswers(vm, run, next)
+        vm.dialogWords.answered(talk, run, next)
+    }
+    // what the dialog counted on the learner's words goes to the node at its end, or when it is left before
+    val ended = run.step == DialogRun.Step.END
+    LaunchedEffect(talk.key, run.seed, ended) { if (ended) vm.dialogWords.finish(talk) }
+    DisposableEffect(talk.key, run.seed) {
+        val played = talk // the dialog as played this time (its key and its run's seed): what finish sends
+        onDispose { vm.dialogWords.finish(played) }
+    }
     val choose: (Int) -> Unit = { k ->
         count(run.choose(k))
         onChoose(k)
@@ -233,6 +248,7 @@ fun DialogPanel(
                     onLearnStory = onLearnStory?.takeIf { talk.story?.let { t -> vm.scenes.toLearn(t.story) } != null },
                     closeLabel = closeLabel,
                     onNotebook = { s -> vm.openNotebook(s.id) },
+                    yourWords = { YourWords(vm, talk) },
                 )
             } else {
                 if (!prefs.wordHintSeen) WordHint(prefs::sawWordHint)
@@ -318,6 +334,8 @@ internal fun lookUp(vm: AppViewModel, line: String, en: String): (WordToken) -> 
 @Composable
 private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Modifier, speakers: Map<String, Speaking> = emptyMap(), translations: Boolean = true) {
     val said = talk.run.said
+    // the cards of the learner's words a turn got wrong, after the line said where it ended (by its index)
+    val cards = remember(talk.run.wordCards) { talk.run.wordCards.groupBy { it.after } }
     val list = rememberLazyListState()
     val haptics = LocalHapticFeedback.current
     LaunchedEffect(said.size) { if (said.isNotEmpty()) list.animateScrollToItem(said.lastIndex) }
@@ -343,8 +361,89 @@ private fun Lines(vm: AppViewModel, talk: SceneTalk, voice: Spoken, modifier: Mo
                     vm.sentences.open(sentenceOf(talk, s))
                 }
             }
-            if (s.who == null) Mine(s, onWord, translation, onLong)
-            else Theirs(s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation, onLong = onLong)
+            val missed = cards[i].orEmpty()
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (s.who == null) Mine(s, onWord, translation, onLong)
+                else Theirs(s, who?.emoji ?: talk.person.emoji, vm.speaker, who?.voice ?: voice, typing = i == said.lastIndex, onWord = onWord, translation = translation, onLong = onLong)
+                // the learner's words the turn just passed got wrong: their cards, after it (the dialog goes on)
+                for (c in missed) MissedWord(vm, c.answer)
+            }
+        }
+    }
+}
+
+/**
+ * A word of the learner's a turn tested and they got wrong ([DialogRun.wordCards]): its card in short, in the conversation
+ * after the turn ("📇 Tvoja beseda · Your word: žlica — spoon", and the form the sentence wanted); a tap opens the whole
+ * card, its forms too.
+ */
+@Composable
+private fun MissedWord(vm: AppViewModel, a: WordAnswer) {
+    val open = { vm.words.open(WordQuery(a.word.said, a.expected, null, Words.SCENE)) }
+    val here = a.word.said.takeIf { !it.equals(a.card.word, ignoreCase = true) }
+    Row(Modifier.fillMaxWidth().popIn(a, from = 0.9f), horizontalArrangement = Arrangement.Center) {
+        Surface(
+            onClick = open,
+            shape = RoundedCornerShape(14.dp),
+            color = MaterialTheme.colorScheme.secondaryContainer,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            modifier = Modifier.widthIn(max = 320.dp).semantics(mergeDescendants = true) { role = Role.Button },
+        ) {
+            Column(Modifier.padding(horizontal = 14.dp, vertical = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("📇 ${bi("dialogWords.yourWord")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                Text(
+                    "${a.card.word} — ${a.card.means}",
+                    style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+                if (here != null) {
+                    Text("${bi("dialogWords.here")}: «$here»", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                }
+            }
+        }
+    }
+}
+
+/**
+ * "📇 Tvoje besede · Your words: žlica ✓, krožnik ✓" at the dialog's end: the learner's words its turns tested, each by its
+ * first answer (a tap opens its card), which counted as their review today, and those that come back tomorrow (lowered
+ * gently by a bridge that takes a dialog's words). Nothing when the dialog tested none of theirs.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun YourWords(vm: AppViewModel, talk: SceneTalk) {
+    val words = talk.run.wordSummary
+    if (words.isEmpty()) return
+    val kinds = vm.dialogWords.outcomesOf(talk).distinctBy { it.answer.card.id }.associate { it.answer.card.id to it.kind }
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f), shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("📇 ${bi("dialogWords.yours")}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                for (a in words) {
+                    val mark = if (a.right) "✓" else "✗"
+                    Surface(
+                        onClick = { vm.words.open(WordQuery(a.word.said, a.expected, null, Words.SCENE)) },
+                        color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(50),
+                        border = BorderStroke(1.dp, if (a.right) AlpineGreen else TriglavRed),
+                        modifier = Modifier.semantics { contentDescription = "${a.card.word} — ${a.card.means}: ${if (a.right) bi("dialogWords.right") else bi("sceneDialog.wrong")}" },
+                    ) {
+                        Text(
+                            "${a.card.word} $mark",
+                            style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold,
+                            color = if (a.right) AlpineGreen else TriglavRed,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp).heightIn(min = 24.dp),
+                        )
+                    }
+                }
+            }
+            fun named(k: DialogReviews.Kind) = words.filter { kinds[it.card.id] == k }.joinToString(", ") { it.card.word }
+            named(DialogReviews.Kind.REVIEW).takeIf { it.isNotEmpty() }?.let {
+                Text("🔁 ${bi("dialogWords.reviewed")}: $it", style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+            }
+            val lowers = vm.content.dashboard?.features?.contains(si.lanisce.lani.app.DialogWordsController.FEATURE) == true
+            named(DialogReviews.Kind.LOWERED).takeIf { it.isNotEmpty() && lowers }?.let {
+                Text("↩️ ${bi("dialogWords.backTomorrow")}: $it", style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center)
+            }
         }
     }
 }
@@ -994,6 +1093,8 @@ private fun DialogResult(
     closeLabel: String? = null,
     /** A story told: its page in the story notebook. */
     onNotebook: ((Story) -> Unit)? = null,
+    /** "📇 Tvoje besede · Your words": the learner's words the dialog tested ([YourWords]). */
+    yourWords: @Composable () -> Unit = {},
 ) {
     val m = talk.run.mistakes
     val paid = talk.paid
@@ -1013,6 +1114,7 @@ private fun DialogResult(
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
             )
         }
+        yourWords()
         talk.story?.let { StoryEnd(it, onLearnStory, onNotebook) }
         when {
             paid == null || paid.due.isEmpty() -> Unit

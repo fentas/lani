@@ -635,7 +635,9 @@ private fun today(k: Counted, c: Contents, pal: Paper) {
             PaperRow(
                 emoji = h.on.person?.emoji ?: h.on.happening.marker, badge = h.on.happening.marker.takeIf { it != h.on.person?.emoji },
                 title = h.on.happening.title,
-                sub = listOfNotNull(h.on.person?.name, h.place.where()).joinToString(" · "),
+                sub = listOfNotNull(h.on.person?.name, h.place.where()).joinToString(" · ") +
+                    // the learner's own words its dialog tests today
+                    (if (h.words > 0) "\n📇 ${bi("dialogWords.inHappening", "n" to h.words)}" else ""),
                 extra = rewardText(h.on.happening.reward)?.let { "💬 ${bi("townScroll.chat")}: $it" },
                 pal = pal, onClick = { a.onScene(h.on.scene, h.on.key) }, onShow = { a.onShow(h.place) },
             )
