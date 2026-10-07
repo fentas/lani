@@ -262,7 +262,9 @@ the app draws edge to edge, so the window doesn't shrink for the keyboard): in a
 picture to just under the status bar, the top bar out of the way; in a keeper's talk and an arrival the portraits fold
 away. The turn takes the room it needs and the lines keep the rest, at least the last line said; on a small screen (or
 with large fonts) the turn scrolls instead, kept down at the sentence with the gap, the field, the letter chips and
-"Preveri · Check". Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it.
+"Preveri · Check". Once the keyboard is down, the picture comes back; a tap turn, with no keyboard, keeps it. The
+keyboard is an answer's (README.md, "Answer fields and the keyboard"): no suggestion strip and no auto-correct. It
+opens in the scene's language (Slovene at home, the town's language on a visit), and the learner can switch it.
 
 The rule a wrong choice tests is its `grammar` (or its turn's), as [above](#a-why-that-is-a-rule-of-the-grammar-book):
 

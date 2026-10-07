@@ -2000,6 +2000,42 @@ The story notebook's handwriting is Kalam (Indian Type Foundry, SIL Open Font Li
 `app/src/main/res/font/`; its licence and credits are in `app/src/main/assets/fonts/`. The ambient sounds' are in
 `app/src/main/assets/ambient/CREDITS.md`.
 
+### Answer fields and the keyboard
+
+What the learner types as an answer (an exercise, a review card, a dialog's typed turn, what they say in a talk) gets
+no suggestion strip and no auto-correct: both would give the words away (Gboard's Slovene makes "hisa" "hiša"). The
+keyboard opens in the answer's language, and the learner can still switch it as in any other field.
+`ui/AnswerKeyboard.kt` (`NoSuggestions`, `AnswerEditor`) asks for this on each answer field's `EditorInfo`:
+
+- plain text with `TYPE_TEXT_FLAG_NO_SUGGESTIONS`, without `TYPE_TEXT_FLAG_AUTO_CORRECT`;
+- `privateImeOptions` `com.google.android.inputmethod.latin.noDecoding`: Gboard shows its toolbar instead of the
+  strip and does not decode (no suggestions, no auto-correct, no glide typing). The globe key, a long press on the
+  space bar and the long-press letters (č on c) work as in any field. Gboard does not document this option. If a
+  Gboard update drops it, the strip comes back (still without auto-correct), and `typed-turn` in `companion/bin/qa`
+  fails;
+- `hintLocales` with the answer's language code (the learner's target; on a visit, the town's language): `sl`.
+  Gboard opens in the learner's Slovene layout. A language that is not installed (`it`) is used for that field only.
+  The next field without a hint (the tutor chat) gets the learner's own language again.
+
+The tutor chat keeps the keyboard's suggestions and its language. The letter chips under an answer field (č, š, ž …)
+stay. Until October 2026, answer fields were visible passwords (`TYPE_TEXT_VARIATION_VISIBLE_PASSWORD`). That removed
+the strip, but in a password field Gboard drops the globe key when the emoji key is shown, and on Jan's phone it kept
+to English.
+
+What Gboard 15.1.08 (the QA emulator, Android 16; English, Slovene QWERTZ and German installed) does with an answer
+field, after "teh" or "hisa" is typed:
+
+| EditorInfo | Strip | Auto-correct | Language switch | Layout with hint `sl` |
+|---|---|---|---|---|
+| plain text (auto-correct flag off) | suggestions | on: "teh" → "the", "hisa" → "hiša" | globe, long press on space | Slovene |
+| + `TYPE_TEXT_FLAG_NO_SUGGESTIONS` | suggestions: Gboard honours the flag only in its own list of apps | off | yes | Slovene |
+| + `IME_FLAG_NO_PERSONALIZED_LEARNING` | suggestions, incognito icon | off | yes | – |
+| `URI`, `FILTER`, `PERSON_NAME`, `WEB_EDIT_TEXT`, `PHONETIC`, `POSTAL_ADDRESS`; `TYPE_TEXT_FLAG_AUTO_COMPLETE` (each with no suggestions) | suggestions | off | yes | – |
+| `EMAIL_ADDRESS`, `WEB_EMAIL_ADDRESS` (with no suggestions) | the typed word only | off | yes, "@" instead of the comma | – |
+| `VISIBLE_PASSWORD`, `PASSWORD`, `WEB_PASSWORD` (until now) | none, a number row | off | globe key only when it replaces the emoji key, else long press on space; none on Jan's phone | Slovene |
+| `privateImeOptions` `noDecoding` (without the package) | suggestions | off | yes | – |
+| `privateImeOptions` `com.google.android.inputmethod.latin.noDecoding` (now) | none, the toolbar | off | globe or emoji key as in any field, long press on space | Slovene (no name on the space bar) |
+
 ## Test
 
 ```bash
@@ -2077,6 +2113,10 @@ a small library for the car ready, and `road:car` browses and plays the car's se
 typed, focuses its field and checks with the keyboard up that the field, the letter chips, "Preveri · Check" and the
 sentence with the gap lie above the keyboard's top (its frame from `adb shell dumpsys window`, `type=ime`), that the
 panel rose over the picture (its ✕ higher, the top bar gone), and that both come back once the keyboard is down.
+It also types "hisa" into the field and reads `adb shell dumpsys input_method` to check what the field asked for
+([Answer fields and the keyboard](#answer-fields-and-the-keyboard)): plain text with no suggestions, Gboard's
+`noDecoding`, and `hintLocales` `[sl]`. With Gboard it also checks that the current subtype is Slovene and that its
+candidate strip (`LatinFixedCountCandidatesHolderView`) is not visible.
 An app without the hooks gets the steps as before (the fire's card, the scenes' links; the double taps).
 
 Two more are for recordings (the site's clips), not used by QA's steps: `bubbles:<n>` shows only the n bubbles nearest

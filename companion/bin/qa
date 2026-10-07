@@ -12,7 +12,8 @@ the visit steps go to it from Friends and back home.
 Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
   --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
                        "🚗 Za pot" (a small library got ready, played, next, paused, browsed as Android Auto does);
-                       "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type")
+                       "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
+                       keyboard the answer's (its language, no suggestion strip)
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -800,6 +801,50 @@ def words_in_dialog():
 TYPED_TURN = "Napiši manjkajočo besedo"  # a dialog's typed turn's title (adaptive.typeMissingWord)
 ANSWER_FIELD = "Napiši odgovor"  # the answer field's placeholder (playerScreen.typeAnswer)
 CHECK = "Preveri · Check"
+TARGET = "sl"  # the language the dev data's learner learns: an answer's (QA's labels are Slovene too)
+GBOARD = "com.google.android.inputmethod.latin"
+NO_DECODING = f"{GBOARD}.noDecoding"  # app/ui/AnswerKeyboard.kt, GBOARD_NO_DECODING
+
+
+def answer_keyboard(lang=TARGET) -> str:
+    """What the focused answer field asks of the keyboard and what the keyboard does with it, from `dumpsys
+    input_method` (app/ui/AnswerKeyboard.kt): plain text with no suggestions and no auto-correct (not a password's type,
+    where Gboard can lose its language switch), Gboard's "no decoding", the answer's language as the keyboard's hint.
+    With Gboard as the keyboard, its language is the hinted one (the learner's layout for it, or for this field alone
+    when it isn't installed) and, "hisa" typed (its Slovene would offer "hiša"), no suggestion strip shows (its toolbar
+    does). Types into the field; a line of what it found."""
+    adb("shell", "input", "text", "hisa")
+    time.sleep(1.2)
+    d = adb("shell", "dumpsys", "input_method", check=False)
+    at = d.find("curEditorInfo:")
+    assert at >= 0, "the focused field's EditorInfo (dumpsys input_method)"
+    info = d[at:at + 1500]
+    m = re.search(r"inputType=0x([0-9a-f]+) imeOptions=0x[0-9a-f]+ privateImeOptions=(\S*)", info)
+    assert m, f"the field's input type in: {info[:200]!r}"
+    t, private = int(m.group(1), 16), m.group(2).split(",")
+    hint = (re.search(r"hintLocales=(\S+)", info) or [None, "?"])[1]
+    assert t & 0xf == 0x1 and t & 0xff0 == 0, f"plain text, not a password's or another variation: inputType 0x{t:x}"
+    assert t & 0x80000, f"no suggestions asked (TYPE_TEXT_FLAG_NO_SUGGESTIONS): inputType 0x{t:x}"
+    assert not t & 0x8000, f"no auto-correct asked: inputType 0x{t:x}"
+    assert NO_DECODING in private, f"Gboard's no decoding asked: privateImeOptions {','.join(private)}"
+    assert hint == f"[{lang}]", f"the keyboard's hint is the answer's language ({lang}): hintLocales {hint}"
+    said = f"inputType 0x{t:x}, hintLocales {hint}, noDecoding"
+    ime = adb("shell", "settings", "get", "secure", "default_input_method", check=False).strip()
+    if not ime.startswith(GBOARD + "/"):
+        return f"{said}; the keyboard is {ime or '?'}, not Gboard: its language and strip not checked"
+    version = (re.search(r"versionName=(\S+)", adb("shell", "dumpsys", "package", GBOARD, check=False)) or [None, "?"])[1]
+
+    def block(name):
+        i = d.find(f"[{name} ")
+        return d[i:d.find(f"[/{name} ", i)] if i >= 0 else ""
+    now = (re.search(r"languageTag = (\S+)", block("CurrentInputMethodSubtypeNotification")) or [None, "?"])[1]
+    layout = (re.search(r"variant = (\S+)", block("CurrentInputMethodEntryNotification")) or [None, "?"])[1]
+    installed = re.findall(r"languageTag = (\S+)", block("EnabledInputMethodEntriesNotification"))
+    assert now.split("-")[0] == lang, f"Gboard opened in the answer's language ({lang}), not {now} (its languages: {installed})"
+    strip = re.findall(r'<LatinFixedCountCandidatesHolderView[^>]*visibility="(\d)"', d)
+    assert "0" not in strip, "no suggestion strip with the keyboard up and a word typed (Gboard's candidates shown)"
+    has = "installed" if any(l.split("-")[0] == lang for l in installed) else "for this field: not among " + ", ".join(installed)
+    return f"{said}; Gboard {version} in {now} ({layout}, {has}), no suggestion strip"
 
 
 def ime_top():
@@ -830,7 +875,8 @@ def typed_turn():
     """A dialog's typed turn (QA's hook asks every turn that tests a form typed into its gap) with the keyboard up: the
     field, the letter chips and "Preveri · Check" above the keyboard's top (its frame from `dumpsys window`), the sentence
     with the gap on screen too; the panel has risen over the picture (its header higher, the top bar gone) and comes back
-    down once the keyboard is."""
+    down once the keyboard is. The keyboard is an answer's ([answer_keyboard]): in the answer's language, without a
+    suggestion strip."""
     try:
         return typed_in_dialog()
     finally:
@@ -900,6 +946,8 @@ def typed_in_dialog():
     assert box_of(bs, "‹ Vas · Village") is None, "the scene's top bar out of the way while the panel is up"
     print(f"    keyboard's top {top}px; Check {parts['Check'][1]}–{parts['Check'][3]}, field {parts['the field'][1]}–"
           f"{parts['the field'][3]}, gap's sentence from {parts['the sentence with the gap'][1]}; ✕ {header[1]} → {risen[1]}")
+    print(f"    the answer's keyboard: {answer_keyboard()}")
+    shot("typed-turn-answer-keyboard")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the keyboard down: the picture comes back
     time.sleep(1.5)
     assert ime_top() is None, "the keyboard went down"
