@@ -1225,14 +1225,14 @@ ahead of the lazy re-voice:
 `voice_status` shows today's re-records (`carrier.redos`) and the part of the cap kept for them
 (`carrier.kept`).
 
-**Costs.** The Starter plan has 30,935 characters a month, reset on the 24th. The quota guard reads
-the subscription at most every 10 minutes. Prebuilds and background jobs stop when fewer than 5,000
-characters would be left (`LANI_VOICE_RESERVE`); that reserve is for live lines (the tutor's
-role-play lines, voiced as they come). The content is about 42,500 characters (the scene dialogs are
-half of it). The subscription counted about half a character per character of `eleven_v3` text
-(September 2026: 34,100 characters voiced for about 17,000), so one month voiced all of it; the guard
-counts every character between subscription reads, so it stops early rather than late. New content
-and a month that runs short go in the order below, and the next month goes on where one stopped.
+**Costs.** The quota guard reads the subscription at most every 10 minutes. Prebuilds and background jobs stop
+when fewer than 5,000 characters would be left (`LANI_VOICE_RESERVE`); that reserve is for live lines (the tutor's
+role-play lines, voiced as they come). Every line of a new learner's village, voiced once (October 2026): Primorska
+252,000 characters in 8,129 lines, Friuli 58,000, Kärnten 66,000, Lakeland 69,000 (`voice-build`'s dry run on an
+empty voice cache; docs/setup.md, "Your own ElevenLabs"). The subscription counted about half a character per
+character of `eleven_v3` text (September 2026: 34,100 characters voiced for about 17,000); the guard counts every
+character between subscription reads, so it stops early rather than late. New content and a month that runs short go
+in the order below, and the next month goes on where one stopped.
 
 **Prebuild**, in priority order: villager lines in their speakers' voices, review cards and pack
 words, examples, modules, scenarios, the storyteller's stories told at A1 (`stories A1`), the car's drills at A1

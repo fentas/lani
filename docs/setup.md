@@ -226,12 +226,53 @@ More on the service mode: [companion/README.md, "The bridge as a service"](../co
 | Tier | Needs | Gets |
 |---|---|---|
 | Minimal | nothing more | The phone's text-to-speech and speech recognizer. |
-| Standard | an ElevenLabs key (Starter is enough) | Natural voices, a voice for each villager. |
+| Standard | an ElevenLabs key ([your own ElevenLabs](#your-own-elevenlabs)) | Natural voices, a voice for each villager. |
 | Full | a GPU with about 6 GB (CUDA or ROCm) | Local Whisper for exact speaking checks, Gepard as the offline Slovene voice. |
 
 The local workers install as user services: `companion/voice-local/install.sh` and `companion/stt-local/install.sh`
 (each about 15 GB). See [companion/README.md, "Voice"](../companion/README.md#voice) and
 [stt-local/README.md](../companion/stt-local/README.md).
+
+### Your own ElevenLabs
+
+Lani speaks with ElevenLabs on your own account: you pay ElevenLabs for what is voiced, and nothing goes through
+anyone else.
+
+1. **An account and an API key.** Sign up at [elevenlabs.io](https://elevenlabs.io) and create an API key. If you
+   restrict it, it needs: text to speech, reading voices (`/v1/voices`), reading the user's subscription (the quota
+   guard), and voice generation only if villagers get voices of their own (below).
+2. **The key into Lani:** the wizard asks for it (step 5), or
+   `companion/bin/lani-setup --elevenlabs-key-file -` reads it from standard input. It goes to
+   `~/.config/lani/keys.env` (mode 600) as `ELEVENLABS_API_KEY`, never onto a command line; `lani-session` hands it
+   to the tutor's bridge.
+3. **What it costs.** Every line of a new learner's village, voiced once (measured in October 2026):
+
+   | Village | Lines | Characters | ElevenLabs credits (≈) |
+   |---|---|---|---|
+   | Primorska (Slovene) | 8,129 | 252,000 | 126,000 |
+   | Friuli (Italian) | 1,742 | 58,000 | 29,000 |
+   | Kärnten (German) | 1,765 | 66,000 | 33,000 |
+   | Lakeland (English) | 1,824 | 69,000 | 34,000 |
+
+   The model is `eleven_v3` (the only one with Slovene), which counted about half a credit per character. Plans and
+   their monthly credits are on [ElevenLabs' pricing page](https://elevenlabs.io/pricing).
+4. **All at once, or as you go.** You needn't voice everything up front. The bridge voices what you meet, in order of
+   need (villagers' lines, your review words, examples, modules, stories at your level first), and keeps the last
+   5,000 characters of your quota for the tutor's live role-play lines (`LANI_VOICE_RESERVE`). A line without a clip yet is spoken
+   by the local Gepard voice (Slovene, if installed) or by the phone. So a small plan fills in over a few months; a
+   larger month voices it all at once:
+
+   ```bash
+   companion/bin/voice-build                      # dry run: lines, characters, what's missing, the quota left
+   companion/bin/voice-build --run --max-chars 20000   # voice up to 20,000 characters now
+   LANI_CULTURE=friuli companion/bin/voice-build --run # another village's lines
+   ```
+
+5. **The voices.** The cast (`companion/voice-cast.json`) uses voices from ElevenLabs' voice library by their ids;
+   the first request with one adds it to your account, and it takes no voice slot. A villager's voice of their own
+   (designed by the tutor, `LANI_VOICE_DESIGN`, on by default) takes a voice slot each and costs a few credits to
+   design; `LANI_VOICE_DESIGN=off` keeps to the cast. To swap a voice: companion/README.md, "Voice".
+6. **Privacy.** Every line voiced goes to ElevenLabs as text ([privacy.md](privacy.md)). Without a key, nothing does.
 
 ## Manual setup
 
