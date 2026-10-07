@@ -1,0 +1,135 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "il-mare",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl and en translations, from the scene's picture (its painter's colours and where each thing is drawn; the gull and the crab are described, not placed); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "sea": {
+      "clues": [
+        { "kind": "colour", "it": "È azzurro.", "sl": "Je modre barve.", "en": "It's blue.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È grandissimo.", "sl": "To je nekaj zelo velikega.", "en": "It's huge.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "L'acqua è salata.", "sl": "Voda je slana.", "en": "The water is salty.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "Arriva fino all'orizzonte.", "sl": "Sega do obzorja.", "en": "It reaches as far as the horizon.", "grammar": ["presente-regolare", "preposizioni-articolate"], "ref": "horizon" },
+        { "kind": "use", "it": "D'estate ci facciamo il bagno.", "sl": "Poleti se tam kopamo.", "en": "In summer we swim in it.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "lagoon": {
+      "clues": [
+        { "kind": "trait", "it": "L'acqua è calma.", "sl": "Voda je mirna.", "en": "The water is calm.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È a sinistra.", "sl": "Je na levi.", "en": "It's on the left.", "grammar": ["dove-preposizioni"] },
+        { "kind": "trait", "it": "Ha tante isolette.", "sl": "Ima veliko otočkov.", "en": "It has lots of little islands.", "grammar": ["essere-avere"] },
+        { "kind": "use", "it": "Ci sono i casoni dei pescatori.", "sl": "Tam so ribiške koče.", "en": "The fishermen's huts are there.", "grammar": ["ce-ci-sono", "preposizioni-articolate"] }
+      ]
+    },
+    "casone": {
+      "name": { "en": "fisherman's hut" },
+      "clues": [
+        { "kind": "material", "it": "È di paglia.", "sl": "Je iz slame.", "en": "It's made of straw.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "Ha il tetto a punta.", "sl": "Ima koničasto streho.", "en": "It has a pointed roof.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "Ha una porta piccola.", "sl": "Ima majhna vrata.", "en": "It has a small door.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È su un'isoletta.", "sl": "Stoji na otočku.", "en": "It's on a little island.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "Ci abitano i pescatori.", "sl": "Tam živijo ribiči.", "en": "Fishermen live in it.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "boat": {
+      "clues": [
+        { "kind": "colour", "it": "È nera.", "sl": "Je črne barve.", "en": "It's black.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha un albero alto.", "sl": "Ima visok jambor.", "en": "It has a tall mast.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "where", "it": "È vicino al molo.", "sl": "Je ob pomolu.", "en": "It's by the pier.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "pier" },
+        { "kind": "where", "it": "Galleggia nella laguna.", "sl": "Plava na laguni.", "en": "It floats on the lagoon.", "grammar": ["presente-regolare", "preposizioni-articolate"], "ref": "lagoon" },
+        { "kind": "use", "it": "Nonno Bepi ci va a pescare.", "sl": "Nonno Bepi gre s tem lovit ribe.", "en": "Nonno Bepi goes fishing in it.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "posts": {
+      "name": { "en": "post" },
+      "clues": [
+        { "kind": "colour", "it": "È marrone scuro.", "sl": "Je temno rjave barve.", "en": "It's dark brown.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "È lungo e sottile.", "sl": "To je nekaj dolgega in tankega.", "en": "It's long and thin.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "Sta nell'acqua.", "sl": "Stoji v vodi.", "en": "It stands in the water.", "grammar": ["verbi-irregolari", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Mostra la strada alle barche.", "sl": "Kaže pot čolnom.", "en": "It shows the boats the way.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "gull": {
+      "clues": [
+        { "kind": "colour", "it": "È bianco e grigio.", "sl": "Je bele in sive barve.", "en": "It's white and grey.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha il becco giallo.", "sl": "Ima rumen kljun.", "en": "It has a yellow beak.", "grammar": ["essere-avere", "aggettivi-accordo"] },
+        { "kind": "does", "it": "Vola sopra il mare.", "sl": "Leti nad morjem.", "en": "It flies over the sea.", "grammar": ["presente-regolare", "dove-preposizioni"] },
+        { "kind": "does", "it": "Mangia i pesci.", "sl": "Je ribe.", "en": "It eats fish.", "grammar": ["presente-regolare"] },
+        { "kind": "does", "it": "Grida forte.", "sl": "Glasno kriči.", "en": "It cries loudly.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "wave": {
+      "clues": [
+        { "kind": "colour", "it": "È bianca.", "sl": "Je bele barve.", "en": "It's white.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Fa la schiuma.", "sl": "Peni se.", "en": "It foams.", "grammar": ["verbi-irregolari"] },
+        { "kind": "where", "it": "È tra il mare e la spiaggia.", "sl": "Je med morjem in plažo.", "en": "It's between the sea and the beach.", "grammar": ["dove-preposizioni"], "ref": "beach" },
+        { "kind": "does", "it": "Va e viene.", "sl": "Pride in gre.", "en": "It comes and goes.", "grammar": ["verbi-irregolari"] },
+        { "kind": "does", "it": "Arriva sulla spiaggia.", "sl": "Pride na plažo.", "en": "It comes up onto the beach.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "beach": {
+      "clues": [
+        { "kind": "colour", "it": "È chiara.", "sl": "Je svetle barve.", "en": "It's light-coloured.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di sabbia.", "sl": "Je iz peska.", "en": "It's made of sand.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È vicino al mare.", "sl": "Je ob morju.", "en": "It's by the sea.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "sea" },
+        { "kind": "trait", "it": "D'estate scotta.", "sl": "Poleti peče pod nogami.", "en": "In summer it's burning hot.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Ci facciamo i castelli di sabbia.", "sl": "Tam delamo gradove iz peska.", "en": "We build sandcastles on it.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "pier": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "grammar": ["essere-avere"] },
+        { "kind": "size", "it": "È lungo.", "sl": "To je nekaj dolgega.", "en": "It's long.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "Entra nella laguna.", "sl": "Sega v laguno.", "en": "It runs out into the lagoon.", "grammar": ["presente-regolare", "preposizioni-articolate"], "ref": "lagoon" },
+        { "kind": "use", "it": "Ci camminiamo sopra.", "sl": "Po tem hodimo.", "en": "We walk on it.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Sopra c'è una cassetta di pesci.", "sl": "Na tem je zaboj rib.", "en": "There's a crate of fish on it.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "shell": {
+      "clues": [
+        { "kind": "colour", "it": "È bianca e rosa.", "sl": "Je bele in rožnate barve.", "en": "It's white and pink.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È sulla spiaggia.", "sl": "Je na plaži.", "en": "It's on the beach.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "beach" },
+        { "kind": "trait", "it": "Se l'ascolti, senti il mare.", "sl": "Če prisluhneš, slišiš morje.", "en": "If you listen to it, you can hear the sea.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "fish": {
+      "clues": [
+        { "kind": "colour", "it": "È argentato.", "sl": "Je srebrne barve.", "en": "It's silvery.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le squame.", "sl": "Ima luske.", "en": "It has scales.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È in una cassetta.", "sl": "Je v zaboju.", "en": "It's in a crate.", "grammar": ["dove-preposizioni"] },
+        { "kind": "where", "it": "È sul molo.", "sl": "Je na pomolu.", "en": "It's on the pier.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "pier" },
+        { "kind": "does", "it": "Vive nell'acqua.", "sl": "Živi v vodi.", "en": "It lives in the water.", "grammar": ["presente-regolare", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Nonno Bepi lo pesca.", "sl": "To lovi nonno Bepi.", "en": "Nonno Bepi catches it.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "net": {
+      "clues": [
+        { "kind": "trait", "it": "Ha tanti buchi.", "sl": "Ima veliko lukenj.", "en": "It has lots of holes.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È appesa sul molo.", "sl": "Visi na pomolu.", "en": "It hangs on the pier.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "pier" },
+        { "kind": "does", "it": "Si asciuga.", "sl": "Suši se.", "en": "It's drying.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "La usiamo per pescare.", "sl": "To rabimo za ribolov.", "en": "We use it for fishing.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Ci prendiamo i pesci.", "sl": "S tem lovimo ribe.", "en": "We catch fish with it.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "horizon": {
+      "clues": [
+        { "kind": "where", "it": "È lontanissimo.", "sl": "Je zelo daleč.", "en": "It's very far away.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È tra il mare e il cielo.", "sl": "Je med morjem in nebom.", "en": "It's between the sea and the sky.", "grammar": ["dove-preposizioni"] },
+        { "kind": "trait", "it": "C'è una nave.", "sl": "Tam je ladja.", "en": "There's a ship on it.", "grammar": ["ce-ci-sono"] },
+        { "kind": "use", "it": "Non ci arriviamo mai.", "sl": "Nikoli ne pridemo tja.", "en": "We never get there.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "crab": {
+      "clues": [
+        { "kind": "colour", "it": "È rosso.", "sl": "Je rdeče barve.", "en": "It's red.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le chele.", "sl": "Ima klešče.", "en": "It has pincers.", "grammar": ["essere-avere"] },
+        { "kind": "does", "it": "Cammina di lato.", "sl": "Hodi postrani.", "en": "It walks sideways.", "grammar": ["presente-regolare"] }
+      ]
+    }
+  }
+}

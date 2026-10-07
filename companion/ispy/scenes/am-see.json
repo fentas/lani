@@ -1,0 +1,157 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "am-see",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl and en translations, from the scene's picture (its painter's colours and where each thing is drawn, through the seasons); the chamois and the ibex come and go, so they are described and never placed; not reviewed by a native speaker",
+  "things": {
+    "mountain": {
+      "clues": [
+        { "kind": "size", "de": "Er ist sehr hoch.", "sl": "Je zelo visoko.", "en": "It's very high.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Oben liegt Schnee.", "sl": "Zgoraj je sneg.", "en": "There's snow on top.", "grammar": ["praesens", "wortstellung"] },
+        { "kind": "where", "de": "Er steht hinter dem See.", "sl": "Stoji za jezerom.", "en": "It stands behind the lake.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "lake" },
+        { "kind": "use", "de": "Im Sommer wandern wir hinauf.", "sl": "Poleti gremo peš gor.", "en": "In summer we hike up it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "peak": {
+      "clues": [
+        { "kind": "trait", "de": "Er ist spitz.", "sl": "Je koničasto.", "en": "It's pointed.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "compare", "de": "Er ist der höchste.", "sl": "To je najvišje.", "en": "It's the highest.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er ist ganz oben.", "sl": "Je čisto zgoraj.", "en": "It's right at the top.", "grammar": ["sein-haben"] },
+        { "kind": "use", "de": "Von dort oben sieht man weit.", "sl": "Od tam zgoraj se vidi daleč.", "en": "From up there you can see far.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "lake": {
+      "clues": [
+        { "kind": "size", "de": "Er ist groß.", "sl": "Je veliko.", "en": "It's big.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist tief.", "sl": "Je globoko.", "en": "It's deep.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er liegt unten im Tal.", "sl": "Leži spodaj v dolini.", "en": "It lies down in the valley.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Im Sommer schwimmen wir darin.", "sl": "Poleti v tem plavamo.", "en": "In summer we swim in it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "church": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist weiß.", "sl": "Je bele barve.", "en": "It's white.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat einen Turm.", "sl": "Ima stolp.", "en": "It has a tower.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Sie steht neben der Brücke.", "sl": "Stoji zraven mostu.", "en": "It stands next to the bridge.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "bridge" },
+        { "kind": "use", "de": "Am Sonntag gehen wir hinein.", "sl": "V nedeljo gremo noter.", "en": "On Sunday we go in.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "bridge": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist grau.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat zwei Bögen.", "sl": "Ima dva loka.", "en": "It has two arches.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "material", "de": "Sie ist aus Stein.", "sl": "Je iz kamna.", "en": "It's made of stone.", "grammar": ["sein-haben", "dativ"] },
+        { "kind": "where", "de": "Sie ist neben der Kirche.", "sl": "Je zraven cerkve.", "en": "It's next to the church.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "church" }
+      ]
+    },
+    "pasture": {
+      "name": { "en": "mountain pasture" },
+      "clues": [
+        { "kind": "colour", "de": "Im Sommer ist sie grün.", "sl": "Poleti je zelene barve.", "en": "In summer it's green.", "grammar": ["sein-haben", "artikel-genus", "wortstellung"] },
+        { "kind": "size", "de": "Sie ist groß.", "sl": "Je veliko.", "en": "It's big.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Sie liegt vor dem See.", "sl": "Leži pred jezerom.", "en": "It lies in front of the lake.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "lake" },
+        { "kind": "use", "de": "Dort weiden die Kühe.", "sl": "Tam se pasejo krave.", "en": "The cows graze there.", "grammar": ["praesens", "wortstellung", "plural"] }
+      ]
+    },
+    "hut": {
+      "name": { "en": "Alm hut" },
+      "clues": [
+        { "kind": "colour", "de": "Sie ist braun.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat ein graues Dach.", "sl": "Ima sivo streho.", "en": "It has a grey roof.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Sie steht auf der Wiese.", "sl": "Stoji na travniku.", "en": "It stands in the meadow.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Dort macht man Käse.", "sl": "Tam delajo sir.", "en": "Cheese is made there.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "cow": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist braun und weiß.", "sl": "Je rjave in bele barve.", "en": "It's brown and white.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie trägt eine Glocke.", "sl": "Nosi zvonec.", "en": "It wears a bell.", "grammar": ["praesens", "akkusativ"] },
+        { "kind": "where", "de": "Sie steht vor der Hütte.", "sl": "Stoji pred kočo.", "en": "It stands in front of the hut.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "hut" },
+        { "kind": "does", "de": "Sie gibt Milch.", "sl": "Daje mleko.", "en": "It gives milk.", "grammar": ["praesens", "akkusativ"] }
+      ]
+    },
+    "cowbell": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist golden.", "sl": "Je zlate barve.", "en": "It's golden.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Sie ist klein.", "sl": "Je majhno.", "en": "It's small.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "does", "de": "Sie klingelt laut.", "sl": "Glasno zvoni.", "en": "It rings loudly.", "grammar": ["praesens"] },
+        { "kind": "use", "de": "Ein Tier trägt sie um den Hals.", "sl": "Žival to nosi okrog vratu.", "en": "An animal wears it round its neck.", "grammar": ["praesens", "akkusativ"] }
+      ]
+    },
+    "larch": {
+      "clues": [
+        { "kind": "colour", "de": "Im Herbst ist sie golden.", "sl": "Jeseni je zlate barve.", "en": "In autumn it's golden.", "grammar": ["sein-haben", "artikel-genus", "wortstellung"] },
+        { "kind": "size", "de": "Sie ist hoch.", "sl": "Je visoko.", "en": "It's tall.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Im Winter hat sie keine Nadeln.", "sl": "Pozimi nima iglic.", "en": "In winter it has no needles.", "grammar": ["sein-haben", "kein-nicht", "wortstellung"] },
+        { "kind": "where", "de": "Sie steht rechts.", "sl": "Stoji na desni.", "en": "It stands on the right.", "grammar": ["praesens"] }
+      ]
+    },
+    "spruce": {
+      "clues": [
+        { "kind": "colour", "de": "Auch im Winter ist sie grün.", "sl": "Tudi pozimi je zelene barve.", "en": "It's green in winter too.", "grammar": ["sein-haben", "artikel-genus", "wortstellung"] },
+        { "kind": "size", "de": "Sie ist hoch.", "sl": "Je visoko.", "en": "It's tall.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat Nadeln.", "sl": "Ima iglice.", "en": "It has needles.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Sie steht links.", "sl": "Stoji na levi.", "en": "It stands on the left.", "grammar": ["praesens"] }
+      ]
+    },
+    "waterfall": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist weiß.", "sl": "Je bele barve.", "en": "It's white.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Er ist klein.", "sl": "Je majhno.", "en": "It's small.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er ist zwischen großen Steinen.", "sl": "Je med velikimi kamni.", "en": "It's between big stones.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "does", "de": "Er rauscht laut.", "sl": "Glasno šumi.", "en": "It roars loudly.", "grammar": ["praesens"] }
+      ]
+    },
+    "stream": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist türkis.", "sl": "Je turkizne barve.", "en": "It's turquoise.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Er ist schmal.", "sl": "Je ozko.", "en": "It's narrow.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist eiskalt.", "sl": "Je ledeno mrzlo.", "en": "It's ice-cold.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "does", "de": "Er fließt schnell.", "sl": "Hitro teče.", "en": "It flows fast.", "grammar": ["praesens"] }
+      ]
+    },
+    "stone": {
+      "name": { "en": "rock" },
+      "clues": [
+        { "kind": "colour", "de": "Er ist grau.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Er ist groß.", "sl": "Je veliko.", "en": "It's big.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er liegt am Bach.", "sl": "Leži ob potoku.", "en": "It lies by the stream.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "stream" },
+        { "kind": "use", "de": "Darauf wächst Moos.", "sl": "Na tem raste mah.", "en": "Moss grows on it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "wall": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist grau.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Sie ist lang und niedrig.", "sl": "Je dolgo in nizko.", "en": "It's long and low.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Sie ist aus Steinen.", "sl": "Je iz kamnov.", "en": "It's made of stones.", "grammar": ["sein-haben", "dativ"] },
+        { "kind": "where", "de": "Sie steht vorne links.", "sl": "Stoji spredaj na levi.", "en": "It stands at the front on the left.", "grammar": ["praesens"] }
+      ]
+    },
+    "path": {
+      "clues": [
+        { "kind": "size", "de": "Er ist schmal.", "sl": "Je ozko.", "en": "It's narrow.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist kurvig.", "sl": "Je vijugasto.", "en": "It's winding.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "does", "de": "Er führt zur Hütte.", "sl": "Vodi do koče.", "en": "It leads to the hut.", "grammar": ["praesens", "dativ"], "ref": "hut" },
+        { "kind": "use", "de": "Darauf gehen wir.", "sl": "Po tem hodimo.", "en": "We walk along it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "chamois": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist dunkelbraun.", "sl": "Je temno rjave barve.", "en": "It's dark brown.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat kleine Hörner.", "sl": "Ima majhne rogove.", "en": "It has little horns.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "does", "de": "Sie klettert sehr gut.", "sl": "Zelo dobro pleza.", "en": "It climbs very well.", "grammar": ["praesens"] },
+        { "kind": "does", "de": "Sie springt über die Felsen.", "sl": "Skače čez skale.", "en": "It leaps over the rocks.", "grammar": ["praesens", "wechselpraepositionen"] },
+        { "kind": "use", "de": "Sie lebt hoch in den Bergen.", "sl": "Živi visoko v gorah.", "en": "It lives high in the mountains.", "grammar": ["praesens", "dativ"] }
+      ]
+    },
+    "ibex": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist graubraun.", "sl": "Je sivo rjave barve.", "en": "It's greyish brown.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er hat große, gebogene Hörner.", "sl": "Ima velike, ukrivljene rogove.", "en": "It has big, curved horns.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "compare", "de": "Er ist größer als eine Gams.", "sl": "Je večje od gamsa.", "en": "It's bigger than a chamois.", "grammar": ["sein-haben"] },
+        { "kind": "does", "de": "Er klettert auf steile Felsen.", "sl": "Pleza po strmih skalah.", "en": "It climbs up steep rocks.", "grammar": ["praesens", "wechselpraepositionen"] }
+      ]
+    }
+  }
+}

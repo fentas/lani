@@ -1,0 +1,125 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "pri-cebelnjaku",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn; the linden and the flower bed change with the season, so those clues say \"poleti\"); not reviewed by a native speaker",
+  "things": {
+    "beehouse": {
+      "name": { "en": "bee house" },
+      "clues": [
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "material", "sl": "Je lesen.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "material", "sl": "Je iz lesa.", "en": "It's made of wood.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "les", "form": "lesa" },
+        { "kind": "trait", "sl": "Spredaj ima pisane slike.", "en": "It has colourful pictures on its front.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "use", "sl": "V njem so panji.", "en": "There are hives in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "hive": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rumen.", "en": "It's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "material", "sl": "Je slamnat.", "en": "It's made of straw.", "grammar": ["pridevniki-ujemanje"], "adj": "slamnat" },
+        { "kind": "material", "sl": "Je iz slame.", "en": "It's made of straw.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "slama", "form": "slame" },
+        { "kind": "where", "sl": "Stoji na štoru.", "en": "It stands on a tree stump.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "štor", "form": "štoru" },
+        { "kind": "where", "sl": "Stoji zraven čebelnjaka.", "en": "It stands next to the bee house.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "beehouse", "form": "čebelnjaka" },
+        { "kind": "use", "sl": "V njem živijo čebele.", "en": "Bees live in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "panel": {
+      "clues": [
+        { "kind": "colour", "sl": "Je pisana.", "en": "It's colourful.", "grammar": ["pridevniki-ujemanje"], "adj": "pisan" },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "trait", "sl": "Na njej je slika.", "en": "There's a picture on it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "where", "sl": "Je na čebelnjaku.", "en": "It's on the bee house.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "beehouse", "form": "čebelnjaku" },
+        { "kind": "use", "sl": "Po njej čebela najde svoj dom.", "en": "By it a bee finds its home.", "grammar": ["mestnik", "svoj"], "pronoun": "loc" }
+      ]
+    },
+    "bee": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rumena in črna.", "en": "It's yellow and black.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Brenči.", "en": "It buzzes.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "trait", "sl": "Lahko piči.", "en": "It can sting.", "grammar": ["modalni-glagoli"] },
+        { "kind": "use", "sl": "Dela med.", "en": "It makes honey.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "honey": {
+      "clues": [
+        { "kind": "colour", "sl": "Je zlat.", "en": "It's golden.", "grammar": ["pridevniki-ujemanje"], "adj": "zlat" },
+        { "kind": "trait", "sl": "Je sladek.", "en": "It's sweet.", "grammar": ["pridevniki-ujemanje"], "adj": "sladek" },
+        { "kind": "where", "sl": "Je v kozarcih.", "en": "It's in jars.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "kozarec", "noun_number": "pl", "form": "kozarcih" },
+        { "kind": "where", "sl": "Je na mizi.", "en": "It's on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "use", "sl": "Delajo ga čebele.", "en": "Bees make it.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "comb": {
+      "name": { "en": "honeycomb" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rumeno.", "en": "It's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "trait", "sl": "Ima veliko majhnih luknjic.", "en": "It has lots of little holes.", "grammar": ["rodilnik-kolicina"] },
+        { "kind": "where", "sl": "Stoji na mizi.", "en": "It stands on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "use", "sl": "V njem je med.", "en": "There's honey in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "flowers": {
+      "name": { "en": "flower" },
+      "clues": [
+        { "kind": "colour", "sl": "Poleti je pisan.", "en": "In summer it's colourful.", "grammar": ["pridevniki-ujemanje"], "adj": "pisan" },
+        { "kind": "where", "sl": "Raste na travniku.", "en": "It grows in the meadow.", "grammar": ["glagoli-sedanjik", "mestnik"], "prep": "na", "case": "loc", "noun": "travnik", "form": "travniku" },
+        { "kind": "does", "sl": "Lepo diši.", "en": "It smells nice.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "use", "sl": "Čebele ga imajo rade.", "en": "Bees like it.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Iz njega čebele nabirajo med.", "en": "Bees gather honey from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "tree": {
+      "name": { "en": "linden tree" },
+      "clues": [
+        { "kind": "size", "sl": "Je velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "colour", "sl": "Poleti je zelena.", "en": "In summer it's green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "where", "sl": "Stoji pri klopi.", "en": "It stands by the bench.", "grammar": ["mestnik"], "prep": "pri", "case": "loc", "ref": "bench", "form": "klopi" },
+        { "kind": "trait", "sl": "Junija ima rumene cvetove.", "en": "In June it has yellow blossoms.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "use", "sl": "Iz nje kuhamo čaj.", "en": "We make tea from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "smoker": {
+      "name": { "en": "smoker" },
+      "clues": [
+        { "kind": "colour", "sl": "Je siv.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "material", "sl": "Je kovinski.", "en": "It's made of metal.", "grammar": ["pridevniki-ujemanje"], "adj": "kovinski" },
+        { "kind": "where", "sl": "Stoji na štoru.", "en": "It stands on a tree stump.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "štor", "form": "štoru" },
+        { "kind": "does", "sl": "Iz njega gre dim.", "en": "Smoke comes out of it.", "grammar": ["glagoli-sedanjik", "rodilnik-predlogi"], "pronoun": "gen" },
+        { "kind": "use", "sl": "Čebelar ga rabi pri delu.", "en": "The beekeeper needs it for his work.", "grammar": ["tozilnik", "mestnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njim pomirimo čebele.", "en": "We calm the bees with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "extractor": {
+      "name": { "en": "honey extractor" },
+      "clues": [
+        { "kind": "colour", "sl": "Je sivo.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "material", "sl": "Je kovinsko.", "en": "It's made of metal.", "grammar": ["pridevniki-ujemanje"], "adj": "kovinski" },
+        { "kind": "trait", "sl": "Ima tri noge.", "en": "It has three legs.", "grammar": ["stevila-samostalniki"] },
+        { "kind": "where", "sl": "Stoji zraven mize.", "en": "It stands next to the table.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "noun": "miza", "form": "mize" },
+        { "kind": "use", "sl": "Iz njega teče med.", "en": "Honey runs out of it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "wax": {
+      "name": { "en": "wax" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rumen.", "en": "It's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "does", "sl": "Lepo diši.", "en": "It smells nice.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "where", "sl": "Je na mizi.", "en": "It's on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "use", "sl": "Delajo ga čebele.", "en": "Bees make it.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Iz njega delamo sveče.", "en": "We make candles from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji pri lipi.", "en": "It stands by the linden.", "grammar": ["mestnik"], "prep": "pri", "case": "loc", "ref": "tree", "form": "lipi" },
+        { "kind": "where", "sl": "Stoji pod lipo.", "en": "It stands under the linden.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "tree", "form": "lipo" },
+        { "kind": "use", "sl": "Na njej sedimo.", "en": "We sit on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    }
+  }
+}

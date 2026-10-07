@@ -1,0 +1,33 @@
+{
+  "schema": "lani.ispy-lines/v0",
+  "language": "sl",
+  "machine_written": true,
+  "review": "machine-written (Claude): the child's lines in sl, their translations in en, de and it; not reviewed by a native speaker",
+  "about": "What the child says in «Vidim, vidim» (companion/SCENES.md, \"I spy\"): {word} is the thing's word as the scene says it (in a translation: what it means), {letter} the word's first letter.",
+  "offer": {"sl": "Se igrava «Vidim, vidim»?", "en": "Shall we play I spy?", "de": "Spielen wir «Ich sehe was, was du nicht siehst»?", "it": "Giochiamo a «Vedo, vedo»?"},
+  "start": {"sl": "Vidim, vidim nekaj, česar ti ne vidiš …", "en": "I spy with my little eye something …", "de": "Ich sehe was, was du nicht siehst …", "it": "Vedo, vedo una cosa che tu non vedi …"},
+  "again": {"sl": "Še enkrat! Vidim, vidim nekaj, česar ti ne vidiš …", "en": "Again! I spy with my little eye something …", "de": "Noch mal! Ich sehe was, was du nicht siehst …", "it": "Ancora! Vedo, vedo una cosa che tu non vedi …"},
+  "cold": [
+    {"sl": "Ne, to ni to.", "en": "No, that's not it.", "de": "Nein, das ist es nicht.", "it": "No, non è quello."},
+    {"sl": "Mrzlo, mrzlo!", "en": "Cold, cold!", "de": "Kalt, kalt!", "it": "Freddo, freddo!"},
+    {"sl": "Ne, ne! Še en namig.", "en": "No, no! One more clue.", "de": "Nein, nein! Noch ein Tipp.", "it": "No, no! Un altro indizio."},
+    {"sl": "Hi hi, ne!", "en": "Hee hee, no!", "de": "Hihi, nein!", "it": "Ih ih, no!"}
+  ],
+  "warm": [
+    {"sl": "Toplo, toplo!", "en": "Warm, warm!", "de": "Warm, warm!", "it": "Caldo, caldo!"},
+    {"sl": "Skoraj! Toplo je.", "en": "Almost! You're warm.", "de": "Fast! Es ist warm.", "it": "Quasi! Fa caldo."}
+  ],
+  "found": {
+    "sg": {"sl": "Ja, to je {word}! Bravo!", "en": "Yes, the {word}! Well done!", "de": "Ja, {word}! Super!", "it": "Sì, {word}! Bravo!"},
+    "pl": {"sl": "Ja, to so {word}! Bravo!", "en": "Yes, the {word}! Well done!", "de": "Ja, {word}! Super!", "it": "Sì, {word}! Bravo!"}
+  },
+  "show": {
+    "sg": {"sl": "To je {word}! Glej, tukaj je.", "en": "It's the {word}! Look, here it is.", "de": "Es ist {word}! Schau, hier.", "it": "È {word}! Guarda, è qui."},
+    "pl": {"sl": "To so {word}! Glej, tukaj so.", "en": "It's the {word}! Look, here.", "de": "Es ist {word}! Schau, hier.", "it": "È {word}! Guarda, qui."}
+  },
+  "end": {"sl": "Hvala, lepo je bilo! Jutri spet?", "en": "Thanks, that was fun! Again tomorrow?", "de": "Danke, das war schön! Morgen wieder?", "it": "Grazie, è stato bello! Domani di nuovo?"},
+  "end_all": {"sl": "Vse si {m:našel|f:našla}! Hvala, lepo je bilo.", "en": "You found them all! Thanks, that was fun.", "de": "Du hast alles gefunden! Danke, das war schön.", "it": "Hai trovato tutto! Grazie, è stato bello."},
+  "letter": {"sl": "Začne se s črko {letter}.", "en": "It starts with the letter {letter}.", "de": "Es fängt mit dem Buchstaben {letter} an.", "it": "Inizia con la lettera {letter}."},
+  "letters": {"sl": "Ima {n} {črko|črki|črke|črk}.", "en": "It has {n} {letter|letters}.", "de": "Es hat {n} {Buchstaben|Buchstaben}.", "it": "Ha {n} {lettera|lettere}."},
+  "memory": {"sl": "najino igro «Vidim, vidim»", "en": "our game of I spy", "de": "unser Spiel «Ich sehe was, was du nicht siehst»", "it": "il nostro gioco di «Vedo, vedo»"}
+}

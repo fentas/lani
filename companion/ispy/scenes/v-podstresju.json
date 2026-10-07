@@ -1,0 +1,131 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "v-podstresju",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn at each level); not reviewed by a native speaker",
+  "things": {
+    "bed": {
+      "clues": [
+        { "kind": "trait", "sl": "Je mehka.", "en": "It's soft.", "grammar": ["pridevniki-ujemanje"], "adj": "mehek" },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji pod streho.", "en": "It stands under the roof.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "roof", "form": "streho" },
+        { "kind": "use", "sl": "V njej spi Nejc.", "en": "Nejc sleeps in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "pillow": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "trait", "sl": "Je mehka.", "en": "It's soft.", "grammar": ["pridevniki-ujemanje"], "adj": "mehek" },
+        { "kind": "where", "sl": "Leži na postelji.", "en": "It's lying on the bed.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "bed", "form": "postelji" },
+        { "kind": "use", "sl": "Na njej spimo.", "en": "We sleep on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "blanket": {
+      "clues": [
+        { "kind": "colour", "sl": "Je pisana.", "en": "It's colourful.", "grammar": ["pridevniki-ujemanje"], "adj": "pisan" },
+        { "kind": "where", "sl": "Leži na postelji.", "en": "It's lying on the bed.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "bed", "form": "postelji" },
+        { "kind": "does", "sl": "Ponoči nas greje.", "en": "At night it keeps us warm.", "grammar": ["glagoli-sedanjik"], "verb": "greti" },
+        { "kind": "use", "sl": "Z njo se pokrijemo.", "en": "We cover ourselves with it.", "grammar": ["orodnik", "povratni-glagoli"], "pronoun": "ins" }
+      ]
+    },
+    "cradle": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji pri postelji.", "en": "It stands by the bed.", "grammar": ["mestnik"], "prep": "pri", "case": "loc", "ref": "bed", "form": "postelji" },
+        { "kind": "use", "sl": "V njej spi dojenček.", "en": "A baby sleeps in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "chest": {
+      "clues": [
+        { "kind": "trait", "sl": "Ima pokrov.", "en": "It has a lid.", "grammar": ["imeti-iti"] },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji ob steni.", "en": "It stands against the wall.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Stoji pod ogledalom.", "en": "It stands under the mirror.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "mirror", "form": "ogledalom" },
+        { "kind": "use", "sl": "V njej so oblačila.", "en": "There are clothes in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "roof": {
+      "clues": [
+        { "kind": "size", "sl": "Je velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Je strma.", "en": "It's steep.", "grammar": ["pridevniki-ujemanje"], "adj": "strm" },
+        { "kind": "does", "sl": "Varuje nas pred dežjem.", "en": "It keeps the rain off us.", "grammar": ["glagoli-sedanjik", "orodnik"] },
+        { "kind": "use", "sl": "Pod njo spimo.", "en": "We sleep under it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhno.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "material", "sl": "Je iz stekla.", "en": "It's made of glass.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "steklo", "form": "stekla" },
+        { "kind": "where", "sl": "Je visoko na steni.", "en": "It's high up on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Je zraven omare.", "en": "It's next to the wardrobe.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "wardrobe", "form": "omare" },
+        { "kind": "use", "sl": "Odpremo ga, ko je vroče.", "en": "We open it when it's hot.", "grammar": ["tozilnik", "vezniki"], "pronoun": "acc" }
+      ]
+    },
+    "stairs": {
+      "clues": [
+        { "kind": "material", "sl": "So lesene.", "en": "They're wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "trait", "sl": "Okrog njih je ograja.", "en": "There's a railing round them.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" },
+        { "kind": "where", "sl": "So v kotu.", "en": "They're in the corner.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "kot", "form": "kotu" },
+        { "kind": "use", "sl": "Po njih gremo dol.", "en": "We go down them.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "wardrobe": {
+      "clues": [
+        { "kind": "colour", "sl": "Je modra.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        { "kind": "size", "sl": "Je visoka.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "where", "sl": "Stoji ob steni.", "en": "It stands against the wall.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Stoji zraven okna.", "en": "It stands next to the window.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "window", "form": "okna" },
+        { "kind": "use", "sl": "V njej visijo obleke.", "en": "Clothes hang in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "rug": {
+      "name": { "en": "rug" },
+      "clues": [
+        { "kind": "colour", "sl": "Je pisana.", "en": "It's colourful.", "grammar": ["pridevniki-ujemanje"], "adj": "pisan" },
+        { "kind": "trait", "sl": "Je mehka.", "en": "It's soft.", "grammar": ["pridevniki-ujemanje"], "adj": "mehek" },
+        { "kind": "where", "sl": "Leži na tleh.", "en": "It's lying on the floor.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "tla", "noun_number": "pl", "form": "tleh" },
+        { "kind": "where", "sl": "Leži pred posteljo.", "en": "It's lying in front of the bed.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "bed", "form": "posteljo" },
+        { "kind": "use", "sl": "Po njej hodimo bosi.", "en": "We walk on it barefoot.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "lamp": {
+      "name": { "en": "lamp" },
+      "clues": [
+        { "kind": "trait", "sl": "Ima zelen senčnik.", "en": "It has a green shade.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Visi na verigi.", "en": "It hangs on a chain.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "veriga", "form": "verigi" },
+        { "kind": "where", "sl": "Visi nad posteljo.", "en": "It hangs above the bed.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "bed", "form": "posteljo" },
+        { "kind": "does", "sl": "Zvečer sveti.", "en": "It shines in the evening.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "use", "sl": "Zvečer jo prižgemo.", "en": "We switch it on in the evening.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "ball": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeča in bela.", "en": "It's red and white.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "trait", "sl": "Je okrogla.", "en": "It's round.", "grammar": ["pridevniki-ujemanje"], "adj": "okrogel" },
+        { "kind": "where", "sl": "Leži na tleh.", "en": "It's lying on the floor.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "tla", "noun_number": "pl", "form": "tleh" },
+        { "kind": "use", "sl": "Brcamo jo.", "en": "We kick it.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njo se igramo zunaj.", "en": "We play with it outside.", "grammar": ["orodnik", "povratni-glagoli"], "pronoun": "ins" }
+      ]
+    },
+    "mirror": {
+      "clues": [
+        { "kind": "trait", "sl": "Ima lesen okvir.", "en": "It has a wooden frame.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "material", "sl": "Je iz stekla.", "en": "It's made of glass.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "steklo", "form": "stekla" },
+        { "kind": "where", "sl": "Visi na steni.", "en": "It hangs on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Visi nad skrinjo.", "en": "It hangs above the chest.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "chest", "form": "skrinjo" },
+        { "kind": "use", "sl": "V njem se vidimo.", "en": "We see ourselves in it.", "grammar": ["mestnik", "povratni-glagoli"], "pronoun": "loc" }
+      ]
+    },
+    "toy": {
+      "name": { "en": "toy" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima rdečo pentljo.", "en": "It has a red bow.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Sedi na skrinji.", "en": "It's sitting on the chest.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "chest", "form": "skrinji" },
+        { "kind": "use", "sl": "Nejc jo ima rad.", "en": "Nejc loves it.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    }
+  }
+}

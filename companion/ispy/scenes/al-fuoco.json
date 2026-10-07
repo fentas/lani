@@ -1,0 +1,119 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "al-fuoco",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl and en translations, from the scene's picture (its painter's colours and where each thing is drawn; the moon and the stars only at night); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "fire": {
+      "clues": [
+        { "kind": "colour", "it": "È arancione.", "sl": "Je oranžne barve.", "en": "It's orange.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È molto caldo.", "sl": "To je nekaj zelo vročega.", "en": "It's very hot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È in mezzo ai sassi.", "sl": "Je sredi kamnov.", "en": "It's in the middle of the stones.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "stones" },
+        { "kind": "does", "it": "Di notte ci scalda.", "sl": "Ponoči nas greje.", "en": "At night it keeps us warm.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Ci cuciniamo sopra.", "sl": "Na tem kuhamo.", "en": "We cook on it.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "logs": {
+      "name": { "en": "firewood" },
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È secca.", "sl": "To je nekaj suhega.", "en": "It's dry.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È in una catasta.", "sl": "Ležijo na kupu.", "en": "It's in a woodpile.", "grammar": ["dove-preposizioni"] },
+        { "kind": "use", "it": "La mettiamo sul fuoco.", "sl": "Damo jih na ogenj.", "en": "We put it on the fire.", "grammar": ["presente-regolare", "preposizioni-articolate"] },
+        { "kind": "use", "it": "Tommaso la raccoglie nel bosco.", "sl": "Tommaso jih nabira v gozdu.", "en": "Tommaso gathers it in the woods.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "kettle": {
+      "name": { "en": "kettle" },
+      "clues": [
+        { "kind": "colour", "it": "È nero.", "sl": "Je črne barve.", "en": "It's black.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di ferro.", "sl": "Je iz železa.", "en": "It's made of iron.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "Pende da una catena.", "sl": "Visi na verigi.", "en": "It hangs from a chain.", "grammar": ["presente-regolare"] },
+        { "kind": "where", "it": "È appeso sopra il fuoco.", "sl": "Visi nad ognjem.", "en": "It hangs over the fire.", "grammar": ["dove-preposizioni", "aggettivi-accordo"], "ref": "fire" },
+        { "kind": "use", "it": "Ci facciamo la tisana.", "sl": "V tem kuhamo čaj.", "en": "We make herbal tea in it.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "stones": {
+      "name": { "en": "stone" },
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È duro.", "sl": "To je nekaj trdega.", "en": "It's hard.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È intorno al fuoco.", "sl": "Je okrog ognja.", "en": "It's around the fire.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "fire" },
+        { "kind": "use", "it": "Protegge l'erba dal fuoco.", "sl": "Varuje travo pred ognjem.", "en": "It protects the grass from the fire.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "smoke": {
+      "clues": [
+        { "kind": "colour", "it": "È grigio.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Pizzica gli occhi.", "sl": "Ščiplje v oči.", "en": "It stings your eyes.", "grammar": ["presente-regolare"] },
+        { "kind": "where", "it": "È sopra il fuoco.", "sl": "Je nad ognjem.", "en": "It's above the fire.", "grammar": ["dove-preposizioni"], "ref": "fire" },
+        { "kind": "does", "it": "Sale verso il cielo.", "sl": "Gre proti nebu.", "en": "It rises toward the sky.", "grammar": ["verbi-irregolari"] }
+      ]
+    },
+    "sparks": {
+      "name": { "en": "spark" },
+      "clues": [
+        { "kind": "size", "it": "È piccolissima.", "sl": "To je nekaj zelo majhnega.", "en": "It's tiny.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "colour", "it": "È arancione.", "sl": "Je oranžne barve.", "en": "It's orange.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "È calda.", "sl": "To je nekaj vročega.", "en": "It's hot.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Si spegne subito.", "sl": "Hitro ugasne.", "en": "It goes out right away.", "grammar": ["presente-regolare"] },
+        { "kind": "does", "it": "Vola fuori dal fuoco.", "sl": "Leti iz ognja.", "en": "It flies out of the fire.", "grammar": ["presente-regolare", "preposizioni-articolate"] }
+      ]
+    },
+    "moon": {
+      "clues": [
+        { "kind": "colour", "it": "È bianca.", "sl": "Je bele barve.", "en": "It's white.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È nel cielo.", "sl": "Je na nebu.", "en": "It's in the sky.", "grammar": ["dove-preposizioni", "preposizioni-articolate"] },
+        { "kind": "trait", "it": "Ogni giorno è un po' diversa.", "sl": "Vsak dan je malo drugačna.", "en": "Every day it's a little different.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "does", "it": "Brilla di notte.", "sl": "Sveti ponoči.", "en": "It shines at night.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "stars": {
+      "name": { "en": "star" },
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "colour", "it": "È luminosa.", "sl": "Je svetla.", "en": "It's bright.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "where", "it": "È nel cielo.", "sl": "Je na nebu.", "en": "It's in the sky.", "grammar": ["dove-preposizioni", "preposizioni-articolate"] },
+        { "kind": "does", "it": "Luccica.", "sl": "Migota.", "en": "It twinkles.", "grammar": ["presente-regolare"] },
+        { "kind": "trait", "it": "Di notte ce ne sono tantissime.", "sl": "Ponoči jih je zelo veliko.", "en": "At night there are lots and lots of them.", "grammar": ["ce-ci-sono"] }
+      ]
+    },
+    "tent": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Sembra un triangolo.", "sl": "Je kot trikotnik.", "en": "It looks like a triangle.", "grammar": ["presente-regolare"] },
+        { "kind": "material", "it": "È di tela.", "sl": "Je iz platna.", "en": "It's made of canvas.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "Ha una bandierina.", "sl": "Ima zastavico.", "en": "It has a little flag.", "grammar": ["essere-avere"] },
+        { "kind": "use", "it": "Ci dormiamo dentro.", "sl": "V tem spimo.", "en": "We sleep in it.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "it": "È affilata.", "sl": "To je nekaj ostrega.", "en": "It's sharp.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha il manico di legno.", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È piantata in un tronco.", "sl": "Tiči v hlodu.", "en": "It's stuck in a log.", "grammar": ["dove-preposizioni", "aggettivi-accordo"] },
+        { "kind": "use", "it": "La usiamo per la legna.", "sl": "To rabimo za drva.", "en": "We use it for firewood.", "grammar": ["presente-regolare"] },
+        { "kind": "use", "it": "Serve per spaccare la legna.", "sl": "S tem cepimo drva.", "en": "It's for splitting firewood.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "grammar": ["essere-avere"] },
+        { "kind": "trait", "it": "Ha i cerchi di ferro.", "sl": "Ima železne obroče.", "en": "It has iron hoops.", "grammar": ["essere-avere"] },
+        { "kind": "use", "it": "Dentro c'è l'acqua.", "sl": "V tem je voda.", "en": "There's water in it.", "grammar": ["ce-ci-sono"] },
+        { "kind": "use", "it": "Ci portiamo l'acqua.", "sl": "S tem nosimo vodo.", "en": "We carry water in it.", "grammar": ["presente-regolare"] }
+      ]
+    },
+    "stump": {
+      "name": { "en": "tree stump" },
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["aggettivi-accordo"] },
+        { "kind": "trait", "it": "Ha le radici.", "sl": "Ima korenine.", "en": "It has roots.", "grammar": ["essere-avere"] },
+        { "kind": "where", "it": "È davanti al fuoco.", "sl": "Je pred ognjem.", "en": "It's in front of the fire.", "grammar": ["dove-preposizioni", "preposizioni-articolate"], "ref": "fire" },
+        { "kind": "use", "it": "Ci sediamo sopra.", "sl": "Na tem sedimo.", "en": "We sit on it.", "grammar": ["presente-regolare"] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "na-njivi",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn; the crops' colours change with the season, so those clues say \"poleti\"); not reviewed by a native speaker",
+  "things": {
+    "wheat": {
+      "clues": [
+        { "kind": "colour", "sl": "Poleti je rumena.", "en": "In summer it's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "where", "sl": "Raste za ograjo.", "en": "It grows behind the fence.", "grammar": ["orodnik"], "prep": "za", "case": "ins", "ref": "fence", "form": "ograjo" },
+        { "kind": "use", "sl": "Poleti jo žanjemo.", "en": "We harvest it in summer.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Iz nje naredimo moko.", "en": "We make flour from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "corn": {
+      "name": { "en": "corn" },
+      "clues": [
+        { "kind": "colour", "sl": "Poleti je zelena.", "en": "In summer it's green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "size", "sl": "Poleti je visoka.", "en": "In summer it's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "where", "sl": "Raste na levi strani.", "en": "It grows on the left side.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stran", "form": "levi strani" },
+        { "kind": "use", "sl": "Kokoši jo rade jedo.", "en": "Hens like to eat it.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Iz nje kuhamo polento.", "en": "We cook polenta from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "potatoes": {
+      "name": { "en": "potatoes" },
+      "clues": [
+        { "kind": "trait", "sl": "Poleti ima bele cvetove.", "en": "In summer it has white flowers.", "grammar": ["tozilnik"] },
+        { "kind": "where", "sl": "Raste ob poti.", "en": "It grows by the path.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "path", "form": "poti" },
+        { "kind": "does", "sl": "Raste v zemlji.", "en": "It grows in the ground.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "rasti" },
+        { "kind": "use", "sl": "Jeseni ga kopljemo.", "en": "In autumn we dig it up.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Olupimo ga in skuhamo.", "en": "We peel it and cook it.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "cabbage": {
+      "clues": [
+        { "kind": "colour", "sl": "Poleti je svetlo zeleno.", "en": "In summer it's light green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "where", "sl": "Raste za ograjo.", "en": "It grows behind the fence.", "grammar": ["orodnik"], "prep": "za", "case": "ins", "ref": "fence", "form": "ograjo" },
+        { "kind": "use", "sl": "Zajci ga radi jedo.", "en": "Hares like to eat it.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Pozimi ga jemo kislo.", "en": "In winter we eat it sour.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "kozolec": {
+      "name": { "en": "hayrack" },
+      "clues": [
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "material", "sl": "Je lesen.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "material", "sl": "Je iz lesa.", "en": "It's made of wood.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "les", "form": "lesa" },
+        { "kind": "where", "sl": "Stoji na travniku.", "en": "It stands in the meadow.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "travnik", "form": "travniku" },
+        { "kind": "use", "sl": "Na njem se suši seno.", "en": "Hay dries on it.", "grammar": ["mestnik", "povratni-glagoli"], "pronoun": "loc" }
+      ]
+    },
+    "hay": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rumeno.", "en": "It's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "trait", "sl": "Je suho.", "en": "It's dry.", "grammar": ["pridevniki-ujemanje"], "adj": "suh" },
+        { "kind": "where", "sl": "Visi pod streho.", "en": "It hangs under a roof.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "noun": "streha", "form": "streho" },
+        { "kind": "does", "sl": "Lepo diši.", "en": "It smells nice.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "use", "sl": "Pozimi ga jedo krave.", "en": "In winter the cows eat it.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "scythe": {
+      "clues": [
+        { "kind": "trait", "sl": "Je ostra.", "en": "It's sharp.", "grammar": ["pridevniki-ujemanje"], "adj": "oster" },
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "trait", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "grammar": ["tozilnik"] },
+        { "kind": "where", "sl": "Sloni ob ograji.", "en": "It leans against the fence.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "fence", "form": "ograji" },
+        { "kind": "use", "sl": "Z njo režemo travo.", "en": "We cut grass with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "rake": {
+      "number": "pl",
+      "clues": [
+        { "kind": "colour", "sl": "So rjave.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "material", "sl": "So lesene.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "trait", "sl": "Imajo zobe.", "en": "It has teeth.", "grammar": ["tozilnik"] },
+        { "kind": "use", "sl": "Rabimo jih za seno.", "en": "We need it for the hay.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njimi obračamo seno.", "en": "We turn the hay with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "basket": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima ročaj.", "en": "It has a handle.", "grammar": ["tozilnik"] },
+        { "kind": "where", "sl": "Stoji na njivi.", "en": "It stands in the field.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "njiva", "form": "njivi" },
+        { "kind": "where", "sl": "Stoji med zelenjavo.", "en": "It stands among the vegetables.", "grammar": ["orodnik"], "prep": "med", "case": "ins", "noun": "zelenjava", "form": "zelenjavo" },
+        { "kind": "use", "sl": "V njej nosimo zelje in krompir.", "en": "We carry cabbage and potatoes in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "cart": {
+      "name": { "en": "cart" },
+      "clues": [
+        { "kind": "material", "sl": "Je lesen.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "trait", "sl": "Ima dve kolesi.", "en": "It has two wheels.", "grammar": ["dvojina"] },
+        { "kind": "where", "sl": "Stoji na poti.", "en": "It stands on the path.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "path", "form": "poti" },
+        { "kind": "does", "sl": "Vleče ga konj.", "en": "A horse pulls it.", "grammar": ["glagoli-sedanjik", "tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "scarecrow": {
+      "clues": [
+        { "kind": "colour", "sl": "Je modro.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        { "kind": "trait", "sl": "Ima slamnat klobuk.", "en": "It has a straw hat.", "grammar": ["tozilnik"] },
+        { "kind": "where", "sl": "Stoji na njivi.", "en": "It stands in the field.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "njiva", "form": "njivi" },
+        { "kind": "where", "sl": "Stoji sredi njive.", "en": "It stands in the middle of the field.", "grammar": ["rodilnik-predlogi"], "prep": "sredi", "case": "gen", "noun": "njiva", "form": "njive" },
+        { "kind": "does", "sl": "Odganja ptice.", "en": "It scares the birds away.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "fence": {
+      "clues": [
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "material", "sl": "Je iz lesa.", "en": "It's made of wood.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "les", "form": "lesa" },
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "where", "sl": "Stoji ob poti.", "en": "It stands by the path.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "path", "form": "poti" },
+        { "kind": "use", "sl": "Ob njej sloni kosa.", "en": "A scythe leans against it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "path": {
+      "name": { "en": "path" },
+      "clues": [
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "where", "sl": "Je med ograjo in krompirjem.", "en": "It's between the fence and the potatoes.", "grammar": ["orodnik"], "prep": "med", "case": "ins", "ref": "fence", "form": "ograjo" },
+        { "kind": "does", "sl": "Pelje v vas.", "en": "It leads to the village.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"], "verb": "peljati" },
+        { "kind": "use", "sl": "Po njej hodimo.", "en": "We walk on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "horse": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjav.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "where", "sl": "Stoji pri vozu.", "en": "It stands by the cart.", "grammar": ["mestnik"], "prep": "pri", "case": "loc", "ref": "cart", "form": "vozu" },
+        { "kind": "does", "sl": "Vleče voz.", "en": "It pulls the cart.", "grammar": ["glagoli-sedanjik"], "verb": "vleči" }
+      ]
+    },
+    "deer": {
+      "name": { "en": "roe deer" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Je plaha.", "en": "It's shy.", "grammar": ["pridevniki-ujemanje"], "adj": "plah" },
+        { "kind": "trait", "sl": "Ima tanke noge.", "en": "It has thin legs.", "grammar": ["tozilnik"] },
+        { "kind": "does", "sl": "Živi v gozdu.", "en": "It lives in the forest.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "živeti" },
+        { "kind": "does", "sl": "Zjutraj in zvečer pride na njivo.", "en": "In the morning and evening it comes to the field.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"], "verb": "priti" }
+      ]
+    },
+    "hare": {
+      "name": { "en": "hare" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjav.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima dolga ušesa.", "en": "It has long ears.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Hitro teče.", "en": "It runs fast.", "grammar": ["glagoli-sedanjik"], "verb": "teči" },
+        { "kind": "use", "sl": "Rad je zelje.", "en": "It likes eating cabbage.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "butterfly": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "trait", "sl": "Ima pisana krila.", "en": "It has colourful wings.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Rad ima rože.", "en": "It likes flowers.", "grammar": ["glagoli-sedanjik"], "verb": "imeti" },
+        { "kind": "does", "sl": "Leti od rože do rože.", "en": "It flies from flower to flower.", "grammar": ["glagoli-sedanjik", "rodilnik-predlogi"], "verb": "leteti" }
+      ]
+    },
+    "fox": {
+      "clues": [
+        { "kind": "colour", "sl": "Je oranžna.", "en": "It's orange.", "grammar": ["pridevniki-ujemanje"], "adj": "oranžen" },
+        { "kind": "trait", "sl": "Ima košat rep.", "en": "It has a bushy tail.", "grammar": ["tozilnik"] },
+        { "kind": "trait", "sl": "Je zvita.", "en": "It's sly.", "grammar": ["pridevniki-ujemanje"], "adj": "zvit" },
+        { "kind": "does", "sl": "Lovi miši.", "en": "It hunts mice.", "grammar": ["glagoli-sedanjik"], "verb": "loviti" }
+      ]
+    },
+    "boar": {
+      "clues": [
+        { "kind": "colour", "sl": "Je temno rjav.", "en": "It's dark brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Je močan.", "en": "It's strong.", "grammar": ["pridevniki-ujemanje"], "adj": "močan" },
+        { "kind": "trait", "sl": "Ima progaste mladiče.", "en": "It has striped young.", "grammar": ["tozilnik"] },
+        { "kind": "does", "sl": "Ponoči rije po zemlji.", "en": "At night it digs in the ground.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "riti" },
+        { "kind": "does", "sl": "Živi v gozdu.", "en": "It lives in the forest.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "živeti" }
+      ]
+    },
+    "bat": {
+      "clues": [
+        { "kind": "colour", "sl": "Je črn.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Leti ponoči.", "en": "It flies at night.", "grammar": ["glagoli-sedanjik"], "verb": "leteti" },
+        { "kind": "does", "sl": "Podnevi spi.", "en": "By day it sleeps.", "grammar": ["glagoli-sedanjik"], "verb": "spati" },
+        { "kind": "does", "sl": "Spi z glavo navzdol.", "en": "It sleeps upside down.", "grammar": ["glagoli-sedanjik", "orodnik"], "verb": "spati" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "by-the-fire",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture (its painter's colours and where each thing is drawn; the moon and the stars only at night); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "fire": {
+      "clues": [
+        { "kind": "colour", "en": "It's orange.", "sl": "Je oranžne barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's very hot.", "sl": "To je nekaj zelo vročega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in a ring of stones.", "sl": "Je v krogu kamnov.", "grammar": ["to-be", "prepositions-place"], "ref": "stones" },
+        { "kind": "does", "en": "It keeps us warm at night.", "sl": "Ponoči nas greje.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We cook on it.", "sl": "Na tem kuhamo.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "logs": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's dry.", "sl": "To je nekaj suhega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "There are lots of them in a pile.", "sl": "Veliko jih je na kupu.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "use", "en": "We put it on the fire.", "sl": "To damo na ogenj.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "use", "en": "Harry gathers them in the woods.", "sl": "Harry jih nabira v gozdu.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "kettle": {
+      "clues": [
+        { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of iron.", "sl": "Je iz železa.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It hangs on a chain.", "sl": "Visi na verigi.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "where", "en": "It hangs over the fire.", "sl": "Visi nad ognjem.", "grammar": ["present-simple", "prepositions-place"], "ref": "fire" },
+        { "kind": "use", "en": "We boil water in it.", "sl": "V tem zavremo vodo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "stones": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's hard.", "sl": "To je nekaj trdega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It lies around the fire.", "sl": "Leži okrog ognja.", "grammar": ["present-simple", "prepositions-place"], "ref": "fire" },
+        { "kind": "trait", "en": "There are lots of them in a ring.", "sl": "Veliko jih je v krogu.", "grammar": ["there-is-are"] },
+        { "kind": "use", "en": "It keeps the fire off the grass.", "sl": "Varuje travo pred ognjem.", "grammar": ["present-simple"] }
+      ]
+    },
+    "smoke": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It stings your eyes.", "sl": "Ščiplje v oči.", "grammar": ["present-simple"] },
+        { "kind": "where", "en": "It's above the fire.", "sl": "Je nad ognjem.", "grammar": ["to-be", "prepositions-place"], "ref": "fire" },
+        { "kind": "does", "en": "It goes up into the sky.", "sl": "Gre v nebo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "sparks": {
+      "clues": [
+        { "kind": "size", "en": "It's tiny.", "sl": "To je nekaj zelo majhnega.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "It's orange.", "sl": "Je oranžne barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's hot.", "sl": "To je nekaj vročega.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It flies up out of the fire.", "sl": "Leti iz ognja.", "grammar": ["present-simple"] },
+        { "kind": "does", "en": "It goes out very quickly.", "sl": "Zelo hitro ugasne.", "grammar": ["present-simple"] }
+      ]
+    },
+    "moon": {
+      "clues": [
+        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in the sky.", "sl": "Je na nebu.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "trait", "en": "It's a little different every night.", "sl": "Vsako noč je malo drugačna.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It shines at night.", "sl": "Sveti ponoči.", "grammar": ["present-simple"] }
+      ]
+    },
+    "stars": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "It's bright.", "sl": "Je svetla.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in the sky.", "sl": "Je na nebu.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "does", "en": "It twinkles.", "sl": "Migota.", "grammar": ["present-simple"] },
+        { "kind": "trait", "en": "At night there are lots of them.", "sl": "Ponoči jih je zelo veliko.", "grammar": ["there-is-are"] }
+      ]
+    },
+    "tent": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It looks like a triangle.", "sl": "Je kot trikotnik.", "grammar": ["present-simple"] },
+        { "kind": "material", "en": "It's made of canvas.", "sl": "Je iz platna.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a little flag.", "sl": "Ima zastavico.", "grammar": ["to-have"] },
+        { "kind": "use", "en": "We sleep in it.", "sl": "V tem spimo.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "en": "It's sharp.", "sl": "To je nekaj ostrega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a wooden handle.", "sl": "Ima lesen ročaj.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's stuck in a block of wood.", "sl": "Tiči v tnalu.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "We chop firewood with it.", "sl": "S tem cepimo drva.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has iron hoops.", "sl": "Ima železne obroče.", "grammar": ["to-have"] },
+        { "kind": "use", "en": "There's water in it.", "sl": "V tem je voda.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "use", "en": "We carry water in it.", "sl": "S tem nosimo vodo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "stump": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has roots.", "sl": "Ima korenine.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "It was a tree once.", "sl": "To je bilo nekoč drevo.", "grammar": ["past-simple"] },
+        { "kind": "where", "en": "It's in front of the fire.", "sl": "Je pred ognjem.", "grammar": ["to-be", "prepositions-place"], "ref": "fire" },
+        { "kind": "use", "en": "We sit on it.", "sl": "Na tem sedimo.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    }
+  }
+}

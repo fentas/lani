@@ -1,0 +1,160 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "v-gorah",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn, through the seasons); the chamois and the ibex come and go, so they are described and never placed; not reviewed by a native speaker",
+  "things": {
+    "mountain": {
+      "clues": [
+        { "kind": "size", "sl": "Je visoka.", "en": "It's high.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "trait", "sl": "Na vrhu ima sneg.", "en": "It has snow on top.", "grammar": ["mestnik"] },
+        { "kind": "where", "sl": "Stoji za jezerom.", "en": "It stands behind the lake.", "grammar": ["orodnik"], "prep": "za", "case": "ins", "ref": "lake", "form": "jezerom" },
+        { "kind": "use", "sl": "Planinci plezajo nanjo.", "en": "Mountaineers climb up it.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"] }
+      ]
+    },
+    "peak": {
+      "clues": [
+        { "kind": "size", "sl": "Je zelo visok.", "en": "It's very high.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "trait", "sl": "Ima tri glave.", "en": "It has three heads.", "grammar": ["imeti-iti", "stevila-samostalniki"] },
+        { "kind": "compare", "sl": "Je najvišji.", "en": "It's the highest.", "grammar": ["primernik"], "adj": "najvišji" },
+        { "kind": "use", "sl": "Imenuje se Triglav.", "en": "It's called Triglav.", "grammar": ["povratni-glagoli"] }
+      ]
+    },
+    "lake": {
+      "clues": [
+        { "kind": "size", "sl": "Je veliko.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Je globoko.", "en": "It's deep.", "grammar": ["pridevniki-ujemanje"], "adj": "globok" },
+        { "kind": "where", "sl": "Leži pod gorami.", "en": "It lies below the mountains.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "mountain", "ref_number": "pl", "form": "gorami" },
+        { "kind": "use", "sl": "V njem se vidijo gore.", "en": "The mountains show in it.", "grammar": ["mestnik", "povratni-glagoli"], "pronoun": "loc" }
+      ]
+    },
+    "church": {
+      "name": { "en": "little church" },
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "trait", "sl": "Ima zvonik.", "en": "It has a bell tower.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Stoji ob jezeru.", "en": "It stands by the lake.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "lake", "form": "jezeru" },
+        { "kind": "where", "sl": "Stoji zraven mostu.", "en": "It stands next to the bridge.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "bridge", "form": "mostu" },
+        { "kind": "use", "sl": "V njej molimo.", "en": "We pray in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "bridge": {
+      "clues": [
+        { "kind": "colour", "sl": "Je siv.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "material", "sl": "Je kamnit.", "en": "It's made of stone.", "grammar": ["pridevniki-ujemanje"], "adj": "kamnit" },
+        { "kind": "material", "sl": "Je iz kamna.", "en": "It's made of stone.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "kamen", "form": "kamna" },
+        { "kind": "where", "sl": "Je zraven cerkvice.", "en": "It's next to the little church.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "church", "form": "cerkvice" },
+        { "kind": "use", "sl": "Po njem gremo čez vodo.", "en": "We cross the water on it.", "grammar": ["mestnik", "kam-tozilnik"], "pronoun": "loc" }
+      ]
+    },
+    "pasture": {
+      "name": { "en": "mountain pasture" },
+      "clues": [
+        { "kind": "colour", "sl": "Poleti je zelena.", "en": "In summer it's green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "size", "sl": "Je velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "where", "sl": "Leži pred jezerom.", "en": "It lies in front of the lake.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "lake", "form": "jezerom" },
+        { "kind": "use", "sl": "Na njej se pasejo krave.", "en": "Cows graze on it.", "grammar": ["mestnik", "povratni-glagoli"], "pronoun": "loc" }
+      ]
+    },
+    "hut": {
+      "name": { "en": "shepherd's hut" },
+      "clues": [
+        { "kind": "trait", "sl": "Ima sivo streho.", "en": "It has a grey roof.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji na planini.", "en": "It stands on the mountain pasture.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "pasture", "form": "planini" },
+        { "kind": "use", "sl": "V njej delajo sir.", "en": "They make cheese in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "cow": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava in bela.", "en": "It's brown and white.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima zvonec.", "en": "It has a bell.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Stoji pred kočo.", "en": "It stands in front of the hut.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "hut", "form": "kočo" },
+        { "kind": "does", "sl": "Daje mleko.", "en": "It gives milk.", "grammar": ["glagoli-sedanjik"], "verb": "dajati" }
+      ]
+    },
+    "cowbell": {
+      "name": { "en": "cowbell" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rumen.", "en": "It's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Glasno se oglaša.", "en": "It rings out loudly.", "grammar": ["glagoli-sedanjik", "povratni-glagoli"] },
+        { "kind": "use", "sl": "Krava ga nosi okrog vratu.", "en": "A cow wears it round its neck.", "grammar": ["tozilnik", "rodilnik-predlogi"], "pronoun": "acc" }
+      ]
+    },
+    "larch": {
+      "clues": [
+        { "kind": "colour", "sl": "Jeseni je zlat.", "en": "In autumn it's golden.", "grammar": ["pridevniki-ujemanje"], "adj": "zlat" },
+        { "kind": "size", "sl": "Je visok.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "trait", "sl": "Pozimi nima iglic.", "en": "In winter it has no needles.", "grammar": ["rodilnik-nikalnica"] },
+        { "kind": "where", "sl": "Stoji na desni strani.", "en": "It stands on the right side.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stran", "form": "desni strani" }
+      ]
+    },
+    "spruce": {
+      "clues": [
+        { "kind": "colour", "sl": "Tudi pozimi je zelena.", "en": "It's green in winter too.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "size", "sl": "Je visoka.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "trait", "sl": "Ima iglice.", "en": "It has needles.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Stoji na levi strani.", "en": "It stands on the left side.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stran", "form": "levi strani" }
+      ]
+    },
+    "waterfall": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bel.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "where", "sl": "Je med skalami.", "en": "It's between the rocks.", "grammar": ["orodnik"], "prep": "med", "case": "ins", "noun": "skala", "noun_number": "pl", "form": "skalami" },
+        { "kind": "does", "sl": "Glasno šumi.", "en": "It roars loudly.", "grammar": ["glagoli-sedanjik", "prislovi"] }
+      ]
+    },
+    "stream": {
+      "clues": [
+        { "kind": "size", "sl": "Je ozek.", "en": "It's narrow.", "grammar": ["pridevniki-ujemanje"], "adj": "ozek" },
+        { "kind": "trait", "sl": "Je mrzel.", "en": "It's cold.", "grammar": ["pridevniki-ujemanje"], "adj": "mrzel" },
+        { "kind": "does", "sl": "Teče po planini.", "en": "It runs across the pasture.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "teči" },
+        { "kind": "use", "sl": "V njem je bistra voda.", "en": "There's clear water in it.", "grammar": ["mestnik", "pridevniki-ujemanje"], "pronoun": "loc" }
+      ]
+    },
+    "stone": {
+      "clues": [
+        { "kind": "colour", "sl": "Je siv.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "where", "sl": "Leži ob potoku.", "en": "It's lying by the stream.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "stream", "form": "potoku" },
+        { "kind": "use", "sl": "Na njem raste mah.", "en": "Moss grows on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "wall": {
+      "name": { "en": "dry-stone wall" },
+      "clues": [
+        { "kind": "colour", "sl": "Je siv.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "size", "sl": "Je dolg in nizek.", "en": "It's long and low.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "material", "sl": "Je kamnit.", "en": "It's made of stone.", "grammar": ["pridevniki-ujemanje"], "adj": "kamnit" },
+        { "kind": "material", "sl": "Je iz kamna.", "en": "It's made of stone.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "kamen", "form": "kamna" }
+      ]
+    },
+    "path": {
+      "clues": [
+        { "kind": "size", "sl": "Je ozka.", "en": "It's narrow.", "grammar": ["pridevniki-ujemanje"], "adj": "ozek" },
+        { "kind": "trait", "sl": "Je vijugasta.", "en": "It's winding.", "grammar": ["pridevniki-ujemanje"], "adj": "vijugast" },
+        { "kind": "does", "sl": "Vodi čez planino.", "en": "It leads across the pasture.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"], "verb": "voditi" },
+        { "kind": "use", "sl": "Po njej hodimo.", "en": "We walk along it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "chamois": {
+      "clues": [
+        { "kind": "colour", "sl": "Je temno rjav.", "en": "It's dark brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima majhne rogove.", "en": "It has little horns.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Hitro skače po skalah.", "en": "It leaps fast over the rocks.", "grammar": ["glagoli-sedanjik", "mestnik"] },
+        { "kind": "use", "sl": "Živi visoko v gorah.", "en": "It lives high in the mountains.", "grammar": ["glagoli-sedanjik", "mestnik"] }
+      ]
+    },
+    "ibex": {
+      "clues": [
+        { "kind": "colour", "sl": "Je sivo rjav.", "en": "It's greyish brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima kratko brado.", "en": "It has a short beard.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "compare", "sl": "Je večji od gamsa.", "en": "It's bigger than a chamois.", "grammar": ["primernik", "rodilnik-predlogi"], "adj": "večji" },
+        { "kind": "does", "sl": "Pleza po strmih skalah.", "en": "It climbs on steep rocks.", "grammar": ["glagoli-sedanjik", "mestnik"] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "v-kovacnici",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn at each level); not reviewed by a native speaker",
+  "things": {
+    "forge": {
+      "name": { "en": "forge" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeče.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "material", "sl": "Je iz opeke.", "en": "It's made of brick.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "opeka", "form": "opeke" },
+        { "kind": "where", "sl": "Stoji v kotu.", "en": "It stands in the corner.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "kot", "form": "kotu" },
+        { "kind": "use", "sl": "Na njem kovač greje železo.", "en": "The smith heats iron on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "fire": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rumen in rdeč.", "en": "It's yellow and red.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "trait", "sl": "Je vroč.", "en": "It's hot.", "grammar": ["pridevniki-ujemanje"], "adj": "vroč" },
+        { "kind": "does", "sl": "Gori in prasketa.", "en": "It burns and crackles.", "grammar": ["glagoli-sedanjik"], "verb": "goreti" },
+        { "kind": "use", "sl": "V njem kovač greje železo.", "en": "The smith heats iron in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "anvil": {
+      "clues": [
+        { "kind": "colour", "sl": "Je sivo.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "size", "sl": "Je težko.", "en": "It's heavy.", "grammar": ["pridevniki-ujemanje"], "adj": "težek" },
+        { "kind": "where", "sl": "Stoji na štoru.", "en": "It stands on a block of wood.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "štor", "form": "štoru" },
+        { "kind": "where", "sl": "Stoji sredi kovačnice.", "en": "It stands in the middle of the smithy.", "grammar": ["rodilnik-predlogi"], "prep": "sredi", "case": "gen", "noun": "kovačnica", "form": "kovačnice" },
+        { "kind": "use", "sl": "Na njem tolčemo železo.", "en": "We beat iron on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "hammer": {
+      "clues": [
+        { "kind": "size", "sl": "Je težko.", "en": "It's heavy.", "grammar": ["pridevniki-ujemanje"], "adj": "težek" },
+        { "kind": "trait", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Leži na nakovalu.", "en": "It's lying on the anvil.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "anvil", "form": "nakovalu" },
+        { "kind": "use", "sl": "Kovač ga rabi vsak dan.", "en": "The smith needs it every day.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njim kovač kuje podkve.", "en": "The smith forges horseshoes with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "tongs": {
+      "name": { "en": "tongs" },
+      "clues": [
+        { "kind": "colour", "sl": "So črne.", "en": "They're black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "size", "sl": "So dolge.", "en": "They're long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "where", "sl": "Stojijo ob nakovalu.", "en": "They stand against the anvil.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "anvil", "form": "nakovalu" },
+        { "kind": "use", "sl": "Kovač jih rabi za vroče železo.", "en": "The smith needs them for hot iron.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njimi držimo vroče železo.", "en": "We hold hot iron with them.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "bellows": {
+      "name": { "en": "bellows" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjav.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "where", "sl": "Stoji zraven ognjišča.", "en": "It stands next to the forge.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "forge", "form": "ognjišča" },
+        { "kind": "does", "sl": "Piha v ogenj.", "en": "It blows into the fire.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"], "verb": "pihati" }
+      ]
+    },
+    "horseshoe": {
+      "clues": [
+        { "kind": "colour", "sl": "Je črna.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "trait", "sl": "Je kot črka U.", "en": "It's like the letter U.", "grammar": ["biti"] },
+        { "kind": "where", "sl": "Visi na steni.", "en": "It hangs on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Visi zraven vrat.", "en": "It hangs next to the door.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "door", "form": "vrat" },
+        { "kind": "use", "sl": "Konj jo nosi na kopitu.", "en": "A horse wears it on its hoof.", "grammar": ["tozilnik", "mestnik"], "pronoun": "acc" }
+      ]
+    },
+    "nails": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "trait", "sl": "Je oster.", "en": "It's sharp.", "grammar": ["pridevniki-ujemanje"], "adj": "oster" },
+        { "kind": "where", "sl": "Je v škatli.", "en": "It's in a box.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "škatla", "form": "škatli" },
+        { "kind": "where", "sl": "Je pred mehom.", "en": "It's in front of the bellows.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "bellows", "form": "mehom" },
+        { "kind": "use", "sl": "Z njim pribijemo podkev.", "en": "We nail a horseshoe on with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "trait", "sl": "Ima železne obroče.", "en": "It has iron hoops.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "material", "sl": "Je leseno.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji pred nakovalom.", "en": "It stands in front of the anvil.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "anvil", "form": "nakovalom" },
+        { "kind": "use", "sl": "V njem hladimo vroče železo.", "en": "We cool hot iron in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "chain": {
+      "clues": [
+        { "kind": "colour", "sl": "Je siva.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "trait", "sl": "Ima kavelj.", "en": "It has a hook.", "grammar": ["imeti-iti"] },
+        { "kind": "material", "sl": "Je železna.", "en": "It's made of iron.", "grammar": ["pridevniki-ujemanje"], "adj": "železen" },
+        { "kind": "where", "sl": "Visi nad mehom.", "en": "It hangs above the bellows.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "bellows", "form": "mehom" }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "sl": "Je ostra.", "en": "It's sharp.", "grammar": ["pridevniki-ujemanje"], "adj": "oster" },
+        { "kind": "material", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Visi na steni.", "en": "It hangs on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Visi zraven okna.", "en": "It hangs next to the window.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "window", "form": "okna" },
+        { "kind": "use", "sl": "Rabimo jo za drva.", "en": "We need it for firewood.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njo cepimo drva.", "en": "We split firewood with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "wheel": {
+      "clues": [
+        { "kind": "trait", "sl": "Je okroglo.", "en": "It's round.", "grammar": ["pridevniki-ujemanje"], "adj": "okrogel" },
+        { "kind": "material", "sl": "Je leseno.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji ob steni.", "en": "It stands against the wall.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Stoji pod sekiro.", "en": "It stands under the axe.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "axe", "form": "sekiro" },
+        { "kind": "use", "sl": "Rabimo ga za voz.", "en": "We need it for a cart.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhno.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "material", "sl": "Je iz stekla.", "en": "It's made of glass.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "steklo", "form": "stekla" },
+        { "kind": "where", "sl": "Je na levi steni.", "en": "It's on the left wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "levi steni" },
+        { "kind": "use", "sl": "Odpremo ga, ko je vroče.", "en": "We open it when it's hot.", "grammar": ["tozilnik", "vezniki"], "pronoun": "acc" }
+      ]
+    },
+    "door": {
+      "number": "pl",
+      "clues": [
+        { "kind": "colour", "sl": "So rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Imajo železen obroč.", "en": "It has an iron ring.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "So na desni steni.", "en": "It's on the right wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "desni steni" },
+        { "kind": "use", "sl": "Odpremo jih in gremo ven.", "en": "We open it and go out.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    }
+  }
+}

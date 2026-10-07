@@ -1,0 +1,121 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "ob-ognju",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn; the moon and the stars only at night, the moon as the real one of the day, so its shape isn't said); not reviewed by a native speaker",
+  "things": {
+    "fire": {
+      "clues": [
+        { "kind": "colour", "sl": "Je oranžen.", "en": "It's orange.", "grammar": ["pridevniki-ujemanje"], "adj": "oranžen" },
+        { "kind": "trait", "sl": "Je vroč.", "en": "It's hot.", "grammar": ["pridevniki-ujemanje"], "adj": "vroč" },
+        { "kind": "where", "sl": "Gori med kamni.", "en": "It burns among the stones.", "grammar": ["glagoli-sedanjik", "orodnik"], "prep": "med", "case": "ins", "ref": "stones", "ref_number": "pl", "form": "kamni" },
+        { "kind": "does", "sl": "Ponoči nas greje.", "en": "At night it keeps us warm.", "grammar": ["glagoli-sedanjik"], "verb": "greti" },
+        { "kind": "use", "sl": "Na njem kuhamo.", "en": "We cook on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "logs": {
+      "number": "pl",
+      "name": { "en": "firewood" },
+      "clues": [
+        { "kind": "colour", "sl": "So rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "So suha.", "en": "It's dry.", "grammar": ["pridevniki-ujemanje"], "adj": "suh" },
+        { "kind": "where", "sl": "Ležijo na kupu.", "en": "It's lying in a pile.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "kup", "form": "kupu" },
+        { "kind": "use", "sl": "Damo jih na ogenj.", "en": "We put it on the fire.", "grammar": ["tozilnik", "kam-tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njimi kurimo.", "en": "We make the fire with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "kettle": {
+      "name": { "en": "kettle" },
+      "clues": [
+        { "kind": "colour", "sl": "Je črn.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "material", "sl": "Je železen.", "en": "It's made of iron.", "grammar": ["pridevniki-ujemanje"], "adj": "železen" },
+        { "kind": "where", "sl": "Visi na verigi.", "en": "It hangs on a chain.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "veriga", "form": "verigi" },
+        { "kind": "where", "sl": "Visi nad ognjem.", "en": "It hangs over the fire.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "fire", "form": "ognjem" },
+        { "kind": "use", "sl": "V njem kuhamo čaj.", "en": "We make tea in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "stones": {
+      "name": { "en": "stone" },
+      "clues": [
+        { "kind": "colour", "sl": "Je siv.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "trait", "sl": "Je trd.", "en": "It's hard.", "grammar": ["pridevniki-ujemanje"], "adj": "trd" },
+        { "kind": "where", "sl": "Leži ob ognju.", "en": "It lies by the fire.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "fire", "form": "ognju" },
+        { "kind": "trait", "sl": "Je težek.", "en": "It's heavy.", "grammar": ["pridevniki-ujemanje"], "adj": "težek" }
+      ]
+    },
+    "smoke": {
+      "clues": [
+        { "kind": "colour", "sl": "Je siv.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "trait", "sl": "Ščiplje v oči.", "en": "It stings your eyes.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"] },
+        { "kind": "where", "sl": "Je nad ognjem.", "en": "It's above the fire.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "fire", "form": "ognjem" },
+        { "kind": "does", "sl": "Gre v nebo.", "en": "It goes up into the sky.", "grammar": ["glagoli-sedanjik", "kam-tozilnik"], "verb": "iti" }
+      ]
+    },
+    "sparks": {
+      "name": { "en": "spark" },
+      "clues": [
+        { "kind": "size", "sl": "Je zelo majhna.", "en": "It's very small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "colour", "sl": "Je oranžna.", "en": "It's orange.", "grammar": ["pridevniki-ujemanje"], "adj": "oranžen" },
+        { "kind": "trait", "sl": "Je vroča.", "en": "It's hot.", "grammar": ["pridevniki-ujemanje"], "adj": "vroč" },
+        { "kind": "does", "sl": "Hitro ugasne.", "en": "It goes out quickly.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "does", "sl": "Leti iz ognja.", "en": "It flies out of the fire.", "grammar": ["glagoli-sedanjik", "rodilnik-predlogi"], "verb": "leteti" }
+      ]
+    },
+    "moon": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "where", "sl": "Je na nebu.", "en": "It's in the sky.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "nebo", "form": "nebu" },
+        { "kind": "trait", "sl": "Vsak dan je malo drugačna.", "en": "Every day it's a little different.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Sveti ponoči.", "en": "It shines at night.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "stars": {
+      "name": { "en": "star" },
+      "clues": [
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "colour", "sl": "Je svetla.", "en": "It's bright.", "grammar": ["pridevniki-ujemanje"], "adj": "svetel" },
+        { "kind": "where", "sl": "Je na nebu.", "en": "It's in the sky.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "nebo", "form": "nebu" },
+        { "kind": "does", "sl": "Migota.", "en": "It twinkles.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "trait", "sl": "Na nebu jih je zelo veliko.", "en": "There are very many of them in the sky.", "grammar": ["rodilnik-kolicina"] }
+      ]
+    },
+    "tent": {
+      "clues": [
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Je kot trikotnik.", "en": "It's like a triangle.", "grammar": ["biti"] },
+        { "kind": "material", "sl": "Je iz platna.", "en": "It's made of canvas.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "platno", "form": "platna" },
+        { "kind": "trait", "sl": "Ima majhno zastavico.", "en": "It has a little flag.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "use", "sl": "V njem spimo.", "en": "We sleep in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "sl": "Je ostra.", "en": "It's sharp.", "grammar": ["pridevniki-ujemanje"], "adj": "oster" },
+        { "kind": "trait", "sl": "Ima lesen ročaj.", "en": "It has a wooden handle.", "grammar": ["tozilnik"] },
+        { "kind": "where", "sl": "Tiči v tnalu.", "en": "It's stuck in the chopping block.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "tnalo", "form": "tnalu" },
+        { "kind": "use", "sl": "Rabimo jo za drva.", "en": "We need it for firewood.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njo cepimo drva.", "en": "We split firewood with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjavo.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "material", "sl": "Je leseno.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "trait", "sl": "Ima železne obroče.", "en": "It has iron hoops.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "use", "sl": "V njem je voda.", "en": "There's water in it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Z njim nosimo vodo.", "en": "We carry water with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "stump": {
+      "name": { "en": "tree stump" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjav.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima korenine.", "en": "It has roots.", "grammar": ["tozilnik"] },
+        { "kind": "trait", "sl": "Nekoč je tu raslo drevo.", "en": "Once a tree grew here.", "grammar": ["pretekli-cas"] },
+        { "kind": "where", "sl": "Stoji pred ognjem.", "en": "It stands in front of the fire.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "fire", "form": "ognjem" },
+        { "kind": "use", "sl": "Na njem sedimo.", "en": "We sit on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "v-sotoru",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn); not reviewed by a native speaker",
+  "things": {
+    "lantern": {
+      "name": { "en": "lantern" },
+      "clues": [
+        { "kind": "colour", "sl": "Je črna.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "where", "sl": "Visi na verigi.", "en": "It hangs on a chain.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "veriga", "form": "verigi" },
+        { "kind": "where", "sl": "Visi nad mizo.", "en": "It hangs above the table.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "noun": "miza", "form": "mizo" },
+        { "kind": "use", "sl": "Zvečer jo prižgemo.", "en": "We light it in the evening.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "sleepingbag": {
+      "name": { "en": "sleeping bag" },
+      "clues": [
+        { "kind": "colour", "sl": "Je zelena.", "en": "It's green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "trait", "sl": "Ima zadrgo.", "en": "It has a zip.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Leži na postelji.", "en": "It's lying on the bed.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "postelja", "form": "postelji" },
+        { "kind": "does", "sl": "Ponoči nas greje.", "en": "At night it keeps us warm.", "grammar": ["glagoli-sedanjik"], "verb": "greti" }
+      ]
+    },
+    "blanket": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeča.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "material", "sl": "Je iz volne.", "en": "It's made of wool.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "volna", "form": "volne" },
+        { "kind": "where", "sl": "Leži na postelji.", "en": "It's lying on the bed.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "postelja", "form": "postelji" },
+        { "kind": "use", "sl": "Ko nas zebe, jo vzamemo.", "en": "When we're cold, we take it.", "grammar": ["tozilnik", "vezniki"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njo se pokrijemo.", "en": "We cover ourselves with it.", "grammar": ["orodnik", "povratni-glagoli"], "pronoun": "ins" }
+      ]
+    },
+    "pillow": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "trait", "sl": "Je mehka.", "en": "It's soft.", "grammar": ["pridevniki-ujemanje"], "adj": "mehek" },
+        { "kind": "where", "sl": "Leži na postelji.", "en": "It's lying on the bed.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "postelja", "form": "postelji" },
+        { "kind": "use", "sl": "Na njej spimo.", "en": "We sleep on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "backpack": {
+      "clues": [
+        { "kind": "trait", "sl": "Ima žep.", "en": "It has a pocket.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Stoji na tleh.", "en": "It stands on the floor.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "tla", "noun_number": "pl", "form": "tleh" },
+        { "kind": "where", "sl": "Stoji zraven jakne.", "en": "It stands next to the jacket.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "coat", "form": "jakne" },
+        { "kind": "use", "sl": "V njem nosimo stvari.", "en": "We carry things in it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Z njim gremo na izlet.", "en": "We go on a trip with it.", "grammar": ["orodnik", "kam-tozilnik"], "pronoun": "ins" }
+      ]
+    },
+    "map": {
+      "clues": [
+        { "kind": "colour", "sl": "Je zelen in moder.", "en": "It's green and blue.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "where", "sl": "Visi na steni.", "en": "It hangs on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Visi nad posteljo.", "en": "It hangs above the bed.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "noun": "postelja", "form": "posteljo" },
+        { "kind": "use", "sl": "Na njem je pot do zaklada.", "en": "There's a path to a treasure on it.", "grammar": ["mestnik", "rodilnik-predlogi"], "pronoun": "loc" }
+      ]
+    },
+    "boots": {
+      "number": "pl",
+      "name": { "en": "boots" },
+      "clues": [
+        { "kind": "colour", "sl": "So rjavi.", "en": "They're brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "material", "sl": "So iz usnja.", "en": "They're made of leather.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "usnje", "form": "usnja" },
+        { "kind": "where", "sl": "Stojijo na tleh.", "en": "They stand on the floor.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "tla", "noun_number": "pl", "form": "tleh" },
+        { "kind": "use", "sl": "Nosimo jih na nogah.", "en": "We wear them on our feet.", "grammar": ["tozilnik", "mestnik"], "pronoun": "acc" }
+      ]
+    },
+    "coat": {
+      "clues": [
+        { "kind": "colour", "sl": "Je modra.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        { "kind": "trait", "sl": "Ima rumene gumbe.", "en": "It has yellow buttons.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Visi na drogu.", "en": "It hangs on the pole.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "drog", "form": "drogu" },
+        { "kind": "where", "sl": "Visi pod kapo.", "en": "It hangs under the hat.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "hat", "form": "kapo" },
+        { "kind": "use", "sl": "Oblečemo jo, ko je mrzlo.", "en": "We put it on when it's cold.", "grammar": ["tozilnik", "vezniki"], "pronoun": "acc" }
+      ]
+    },
+    "hat": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima pero.", "en": "It has a feather.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Je na drogu.", "en": "It's on the pole.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "drog", "form": "drogu" },
+        { "kind": "where", "sl": "Je nad jakno.", "en": "It's above the jacket.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "coat", "form": "jakno" },
+        { "kind": "use", "sl": "Nosimo jo na glavi.", "en": "We wear it on our head.", "grammar": ["tozilnik", "mestnik"], "pronoun": "acc" }
+      ]
+    },
+    "book": {
+      "clues": [
+        { "kind": "colour", "sl": "Ima rdeče platnice.", "en": "It has a red cover.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "trait", "sl": "Je odprta.", "en": "It's open.", "grammar": ["pridevniki-ujemanje"], "adj": "odprt" },
+        { "kind": "where", "sl": "Leži na mizi.", "en": "It's lying on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "use", "sl": "Zvečer jo beremo.", "en": "We read it in the evening.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "cup": {
+      "name": { "en": "tin mug" },
+      "clues": [
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "trait", "sl": "Ima ročaj.", "en": "It has a handle.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Stoji na mizi.", "en": "It stands on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "use", "sl": "V njem je čaj.", "en": "There's tea in it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Iz njega pijemo čaj.", "en": "We drink tea out of it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "rope": {
+      "clues": [
+        { "kind": "colour", "sl": "Je svetlo rjava.", "en": "It's light brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "where", "sl": "Leži zunaj na tleh.", "en": "It's lying outside on the ground.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "tla", "noun_number": "pl", "form": "tleh" },
+        { "kind": "use", "sl": "Rabimo jo za šotor.", "en": "We need it for the tent.", "grammar": ["tozilnik"], "pronoun": "acc" },
+        { "kind": "use", "sl": "Z njo privežemo šotor.", "en": "We tie the tent down with it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "pri-ribniku",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn; the animals are described, not placed: the ducks swim to and fro, the frog jumps off its pad, the wild ones come and go); not reviewed by a native speaker",
+  "things": {
+    "pond": {
+      "clues": [
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Voda v njem je mirna.", "en": "The water in it is still.", "grammar": ["mestnik", "pridevniki-ujemanje"], "pronoun": "loc" },
+        { "kind": "where", "sl": "Je v gozdu.", "en": "It's in the forest.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "gozd", "form": "gozdu" },
+        { "kind": "does", "sl": "Pozimi zamrzne.", "en": "In winter it freezes.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "use", "sl": "V njem plavajo race.", "en": "Ducks swim in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "lilies": {
+      "name": { "en": "water lily" },
+      "clues": [
+        { "kind": "trait", "sl": "Ima okrogle liste.", "en": "It has round leaves.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "colour", "sl": "Poleti ima bele cvetove.", "en": "In summer it has white flowers.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Plava na vodi.", "en": "It floats on the water.", "grammar": ["glagoli-sedanjik", "mestnik"], "prep": "na", "case": "loc", "noun": "voda", "form": "vodi" },
+        { "kind": "where", "sl": "Raste v ribniku.", "en": "It grows in the pond.", "grammar": ["glagoli-sedanjik", "mestnik"], "prep": "v", "case": "loc", "ref": "pond", "form": "ribniku" }
+      ]
+    },
+    "reeds": {
+      "name": { "en": "reeds" },
+      "clues": [
+        { "kind": "colour", "sl": "Poleti je zeleno.", "en": "In summer it's green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "size", "sl": "Je visoko.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "trait", "sl": "Ima dolga stebla.", "en": "It has long stalks.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "where", "sl": "Raste ob ribniku.", "en": "It grows by the pond.", "grammar": ["glagoli-sedanjik", "mestnik"], "prep": "ob", "case": "loc", "ref": "pond", "form": "ribniku" },
+        { "kind": "use", "sl": "V njem se skrivajo race.", "en": "Ducks hide in it.", "grammar": ["mestnik", "povratni-glagoli"], "pronoun": "loc" }
+      ]
+    },
+    "frog": {
+      "clues": [
+        { "kind": "colour", "sl": "Je zelena.", "en": "It's green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Rega.", "en": "It croaks.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "does", "sl": "Dobro skače.", "en": "It's good at jumping.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "use", "sl": "Lovi muhe.", "en": "It catches flies.", "grammar": ["glagoli-sedanjik"], "verb": "loviti" }
+      ]
+    },
+    "ducks": {
+      "name": { "en": "duck" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima mladiče.", "en": "It has young ones.", "grammar": ["tozilnik"] },
+        { "kind": "does", "sl": "Lepo plava.", "en": "It swims nicely.", "grammar": ["glagoli-sedanjik"], "verb": "plavati" },
+        { "kind": "does", "sl": "Gaga.", "en": "It quacks.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "jetty": {
+      "clues": [
+        { "kind": "material", "sl": "Je lesen.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "size", "sl": "Je dolg.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        { "kind": "where", "sl": "Je nad vodo.", "en": "It's above the water.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "noun": "voda", "form": "vodo" },
+        { "kind": "use", "sl": "Ob njem je čoln.", "en": "There's a boat by it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Z njega lovimo ribe.", "en": "We fish from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "boat": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjav.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "material", "sl": "Je lesen.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Je ob pomolu.", "en": "It's by the jetty.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "ref": "jetty", "form": "pomolu" },
+        { "kind": "trait", "sl": "Privezan je z vrvjo.", "en": "It's tied with a rope.", "grammar": ["orodnik"] },
+        { "kind": "use", "sl": "Z njim se peljemo po vodi.", "en": "We go out on the water in it.", "grammar": ["orodnik"], "pronoun": "ins" }
+      ]
+    },
+    "fish": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Nima nog.", "en": "It has no legs.", "grammar": ["rodilnik-nikalnica"] },
+        { "kind": "trait", "sl": "Ima luske.", "en": "It has scales.", "grammar": ["tozilnik"] },
+        { "kind": "where", "sl": "Plava pod vodo.", "en": "It swims under the water.", "grammar": ["glagoli-sedanjik", "orodnik"], "prep": "pod", "case": "ins", "noun": "voda", "form": "vodo" },
+        { "kind": "does", "sl": "Zna skočiti iz vode.", "en": "It can jump out of the water.", "grammar": ["glagoli-sedanjik", "modalni-glagoli", "rodilnik-predlogi"] }
+      ]
+    },
+    "heron": {
+      "clues": [
+        { "kind": "colour", "sl": "Je siva.", "en": "It's grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "trait", "sl": "Ima dolge noge.", "en": "It has long legs.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "trait", "sl": "Ima dolg kljun.", "en": "It has a long beak.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Lovi ribe.", "en": "It catches fish.", "grammar": ["glagoli-sedanjik"], "verb": "loviti" },
+        { "kind": "does", "sl": "Dolgo stoji na eni nogi.", "en": "It stands on one leg for a long time.", "grammar": ["glagoli-sedanjik", "mestnik"] }
+      ]
+    },
+    "dragonfly": {
+      "name": { "en": "dragonfly" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeč.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "trait", "sl": "Ima dolgo telo.", "en": "It has a long body.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "trait", "sl": "Ima štiri krila.", "en": "It has four wings.", "grammar": ["stevila-samostalniki"] },
+        { "kind": "does", "sl": "Hitro leti nad vodo.", "en": "It flies fast over the water.", "grammar": ["glagoli-sedanjik", "orodnik"], "verb": "leteti" }
+      ]
+    },
+    "deer": {
+      "name": { "en": "roe deer" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Je plaha.", "en": "It's shy.", "grammar": ["pridevniki-ujemanje"], "adj": "plah" },
+        { "kind": "trait", "sl": "Ima tanke noge.", "en": "It has thin legs.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Živi v gozdu.", "en": "It lives in the forest.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "živeti" },
+        { "kind": "does", "sl": "Zjutraj in zvečer pije vodo.", "en": "In the morning and evening it drinks water.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "fox": {
+      "clues": [
+        { "kind": "colour", "sl": "Je oranžna.", "en": "It's orange.", "grammar": ["pridevniki-ujemanje"], "adj": "oranžen" },
+        { "kind": "trait", "sl": "Ima košat rep.", "en": "It has a bushy tail.", "grammar": ["tozilnik"] },
+        { "kind": "trait", "sl": "Je zvita.", "en": "It's sly.", "grammar": ["pridevniki-ujemanje"], "adj": "zvit" },
+        { "kind": "does", "sl": "Lovi miši.", "en": "It hunts mice.", "grammar": ["glagoli-sedanjik"], "verb": "loviti" }
+      ]
+    },
+    "butterfly": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "trait", "sl": "Ima pisana krila.", "en": "It has colourful wings.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "does", "sl": "Rad ima rože.", "en": "It likes flowers.", "grammar": ["glagoli-sedanjik"], "verb": "imeti" },
+        { "kind": "does", "sl": "Leti od rože do rože.", "en": "It flies from flower to flower.", "grammar": ["glagoli-sedanjik", "rodilnik-predlogi"], "verb": "leteti" }
+      ]
+    },
+    "bat": {
+      "clues": [
+        { "kind": "colour", "sl": "Je črn.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Leti ponoči.", "en": "It flies at night.", "grammar": ["glagoli-sedanjik"], "verb": "leteti" },
+        { "kind": "does", "sl": "Podnevi spi.", "en": "By day it sleeps.", "grammar": ["glagoli-sedanjik"], "verb": "spati" },
+        { "kind": "does", "sl": "Spi z glavo navzdol.", "en": "It sleeps upside down.", "grammar": ["glagoli-sedanjik", "orodnik"], "verb": "spati" }
+      ]
+    }
+  }
+}

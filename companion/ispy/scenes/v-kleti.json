@@ -1,0 +1,139 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "v-kleti",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture (its painter's colours and where each thing is drawn at each level); not reviewed by a native speaker",
+  "things": {
+    "barrel": {
+      "clues": [
+        { "kind": "size", "sl": "Je velik.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Ima pipo.", "en": "It has a tap.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Leži ob steni.", "en": "It's lying against the wall.", "grammar": ["mestnik"], "prep": "ob", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "use", "sl": "V njem je vino.", "en": "There's wine in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "press": {
+      "name": { "en": "wine press" },
+      "clues": [
+        { "kind": "trait", "sl": "Ima velik vijak.", "en": "It has a big screw.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji sredi kleti.", "en": "It stands in the middle of the cellar.", "grammar": ["rodilnik-predlogi"], "prep": "sredi", "case": "gen", "noun": "klet", "form": "kleti" },
+        { "kind": "use", "sl": "V njej stiskamo grozdje.", "en": "We press grapes in it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Iz nje teče mošt.", "en": "Grape juice runs out of it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "stairs": {
+      "clues": [
+        { "kind": "colour", "sl": "So sive.", "en": "They're grey.", "grammar": ["pridevniki-ujemanje"], "adj": "siv" },
+        { "kind": "material", "sl": "So kamnite.", "en": "They're made of stone.", "grammar": ["pridevniki-ujemanje"], "adj": "kamnit" },
+        { "kind": "where", "sl": "So pod vrati.", "en": "They're below the door.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "door", "form": "vrati" },
+        { "kind": "use", "sl": "Po njih gremo gor.", "en": "We go up them.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "door": {
+      "number": "pl",
+      "clues": [
+        { "kind": "colour", "sl": "So rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Zgoraj so okrogla.", "en": "It's round at the top.", "grammar": ["pridevniki-ujemanje"], "adj": "okrogel" },
+        { "kind": "where", "sl": "So na desni steni.", "en": "It's on the right wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "desni steni" },
+        { "kind": "where", "sl": "So zraven police.", "en": "It's next to the shelf.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "shelf", "form": "police" },
+        { "kind": "use", "sl": "Odpremo jih in gremo ven.", "en": "We open it and go out.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhno.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "material", "sl": "Je iz stekla.", "en": "It's made of glass.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "steklo", "form": "stekla" },
+        { "kind": "where", "sl": "Je visoko na steni.", "en": "It's high up on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Je nad polico.", "en": "It's above the shelf.", "grammar": ["orodnik"], "prep": "nad", "case": "ins", "ref": "shelf", "form": "polico" },
+        { "kind": "where", "sl": "Je zraven pršuta.", "en": "It's next to the ham.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "ham", "form": "pršuta" },
+        { "kind": "use", "sl": "Odpremo ga za svež zrak.", "en": "We open it for fresh air.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "candle": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "where", "sl": "Stoji na mizi.", "en": "It stands on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "does", "sl": "Gori.", "en": "It's burning.", "grammar": ["glagoli-sedanjik"], "verb": "goreti" },
+        { "kind": "use", "sl": "V temi jo prižgemo.", "en": "We light it in the dark.", "grammar": ["tozilnik", "mestnik"], "pronoun": "acc" }
+      ]
+    },
+    "jug": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjav.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "trait", "sl": "Ima ročaj.", "en": "It has a handle.", "grammar": ["imeti-iti"] },
+        { "kind": "where", "sl": "Stoji pod sodom.", "en": "It stands under the barrel.", "grammar": ["orodnik"], "prep": "pod", "case": "ins", "ref": "barrel", "form": "sodom" },
+        { "kind": "use", "sl": "V njem nosimo vino.", "en": "We carry wine in it.", "grammar": ["mestnik"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Iz njega točimo vino.", "en": "We pour wine from it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "glass": {
+      "clues": [
+        { "kind": "material", "sl": "Je steklen.", "en": "It's made of glass.", "grammar": ["pridevniki-ujemanje"], "adj": "steklen" },
+        { "kind": "where", "sl": "Stoji na mizi.", "en": "It stands on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" },
+        { "kind": "use", "sl": "V njem je rdeče vino.", "en": "There's red wine in it.", "grammar": ["mestnik", "pridevniki-ujemanje"], "pronoun": "loc" },
+        { "kind": "use", "sl": "Iz njega pijemo.", "en": "We drink out of it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "crate": {
+      "clues": [
+        { "kind": "material", "sl": "Je lesen.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Stoji na tleh.", "en": "It stands on the floor.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "tla", "noun_number": "pl", "form": "tleh" },
+        { "kind": "where", "sl": "Stoji zraven preše.", "en": "It stands next to the wine press.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "press", "form": "preše" },
+        { "kind": "use", "sl": "V njem nosimo grozdje.", "en": "We carry grapes in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "shelf": {
+      "clues": [
+        { "kind": "material", "sl": "Je lesena.", "en": "It's wooden.", "grammar": ["pridevniki-ujemanje"], "adj": "lesen" },
+        { "kind": "where", "sl": "Visi na steni.", "en": "It hangs on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Je zraven vrat.", "en": "It's next to the door.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "door", "form": "vrat" },
+        { "kind": "use", "sl": "Na njej so steklenice.", "en": "There are bottles on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "bottle": {
+      "clues": [
+        { "kind": "colour", "sl": "Je temno zelena.", "en": "It's dark green.", "grammar": ["pridevniki-ujemanje"], "adj": "zelen" },
+        { "kind": "material", "sl": "Je steklena.", "en": "It's made of glass.", "grammar": ["pridevniki-ujemanje"], "adj": "steklen" },
+        { "kind": "where", "sl": "Stoji na polici.", "en": "It stands on the shelf.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "shelf", "form": "polici" },
+        { "kind": "use", "sl": "V njej je vino.", "en": "There's wine in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "grapes": {
+      "clues": [
+        { "kind": "colour", "sl": "Je modro.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        { "kind": "where", "sl": "Je zraven preše.", "en": "It's next to the wine press.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "press", "form": "preše" },
+        { "kind": "does", "sl": "Raste na trti.", "en": "It grows on a vine.", "grammar": ["glagoli-sedanjik", "mestnik"], "verb": "rasti" },
+        { "kind": "use", "sl": "Iz njega naredimo vino.", "en": "We make wine out of it.", "grammar": ["rodilnik-predlogi"], "pronoun": "gen" }
+      ]
+    },
+    "wine": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeče.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "material", "sl": "Je iz grozdja.", "en": "It's made from grapes.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "ref": "grapes", "form": "grozdja" },
+        { "kind": "where", "sl": "Je v pletenki.", "en": "It's in a wicker bottle.", "grammar": ["mestnik"], "prep": "v", "case": "loc", "noun": "pletenka", "form": "pletenki" },
+        { "kind": "where", "sl": "Stoji pred prešo.", "en": "It stands in front of the wine press.", "grammar": ["orodnik"], "prep": "pred", "case": "ins", "ref": "press", "form": "prešo" },
+        { "kind": "use", "sl": "Odrasli ga pijejo.", "en": "Grown-ups drink it.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "ham": {
+      "name": { "en": "ham" },
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeč in bel.", "en": "It's red and white.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "trait", "sl": "Je slan.", "en": "It's salty.", "grammar": ["pridevniki-ujemanje"], "adj": "slan" },
+        { "kind": "where", "sl": "Visi na steni.", "en": "It hangs on the wall.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "stena", "form": "steni" },
+        { "kind": "where", "sl": "Visi zraven okna.", "en": "It hangs next to the window.", "grammar": ["rodilnik-predlogi"], "prep": "zraven", "case": "gen", "ref": "window", "form": "okna" },
+        { "kind": "use", "sl": "Jemo ga s kruhom.", "en": "We eat it with bread.", "grammar": ["tozilnik", "orodnik"], "pronoun": "acc" }
+      ]
+    },
+    "cheese": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rumen.", "en": "It's yellow.", "grammar": ["pridevniki-ujemanje"], "adj": "rumen" },
+        { "kind": "trait", "sl": "Je okrogel.", "en": "It's round.", "grammar": ["pridevniki-ujemanje"], "adj": "okrogel" },
+        { "kind": "material", "sl": "Je iz mleka.", "en": "It's made from milk.", "grammar": ["rodilnik-predlogi"], "prep": "iz", "case": "gen", "noun": "mleko", "form": "mleka" },
+        { "kind": "where", "sl": "Leži na mizi.", "en": "It's lying on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "noun": "miza", "form": "mizi" }
+      ]
+    }
+  }
+}

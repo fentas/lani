@@ -1,0 +1,113 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "am-feuer",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl and en translations, from the scene's picture (its painter's colours and where each thing is drawn); the moon and the stars come and go, so nothing is placed by them; not reviewed by a native speaker",
+  "things": {
+    "fire": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist orange und gelb.", "sl": "Je oranžne in rumene barve.", "en": "It's orange and yellow.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Es ist heiß.", "sl": "Je vroče.", "en": "It's hot.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Es brennt zwischen den Steinen.", "sl": "Gori med kamni.", "en": "It burns between the stones.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "stones" },
+        { "kind": "does", "de": "Es knistert und wärmt uns.", "sl": "Prasketa in nas greje.", "en": "It crackles and keeps us warm.", "grammar": ["praesens", "akkusativ"] }
+      ]
+    },
+    "logs": {
+      "name": { "en": "firewood" },
+      "clues": [
+        { "kind": "colour", "de": "Es ist braun.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Es ist trocken.", "sl": "Je suho.", "en": "It's dry.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Es liegt hinten am Waldrand.", "sl": "Leži zadaj, ob robu gozda.", "en": "It lies at the back, at the edge of the woods.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Es brennt gut.", "sl": "Dobro gori.", "en": "It burns well.", "grammar": ["praesens"] },
+        { "kind": "use", "de": "Wir legen es ins Feuer.", "sl": "To damo v ogenj.", "en": "We put it on the fire.", "grammar": ["akkusativ", "wechselpraepositionen"], "ref": "fire" }
+      ]
+    },
+    "kettle": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist schwarz.", "sl": "Je črne barve.", "en": "It's black.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist heiß.", "sl": "Je vroče.", "en": "It's hot.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er hängt über dem Feuer.", "sl": "Visi nad ognjem.", "en": "It hangs over the fire.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "fire" },
+        { "kind": "use", "de": "Darin kochen wir Tee.", "sl": "V tem kuhamo čaj.", "en": "We make tea in it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "stones": {
+      "name": { "en": "stone" },
+      "clues": [
+        { "kind": "colour", "de": "Er ist grau.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist hart.", "sl": "Je trdo.", "en": "It's hard.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er liegt am Feuer.", "sl": "Leži ob ognju.", "en": "It lies by the fire.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "fire" },
+        { "kind": "use", "de": "Wir legen ihn rund um das Feuer.", "sl": "To položimo okrog ognja.", "en": "We lay it all round the fire.", "grammar": ["akkusativ", "artikel-genus"] }
+      ]
+    },
+    "smoke": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist grau.", "sl": "Je sive barve.", "en": "It's grey.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er ist über dem Feuer.", "sl": "Je nad ognjem.", "en": "It's above the fire.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "fire" },
+        { "kind": "does", "de": "Er steigt nach oben.", "sl": "Dviga se kvišku.", "en": "It rises up.", "grammar": ["praesens"] },
+        { "kind": "does", "de": "Er steigt in den Himmel.", "sl": "Dviga se v nebo.", "en": "It rises into the sky.", "grammar": ["praesens", "wechselpraepositionen"] }
+      ]
+    },
+    "sparks": {
+      "name": { "en": "spark" },
+      "clues": [
+        { "kind": "colour", "de": "Er ist orange.", "sl": "Je oranžne barve.", "en": "It's orange.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Er ist ganz klein.", "sl": "Je čisto majhno.", "en": "It's really small.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist heiß.", "sl": "Je vroče.", "en": "It's hot.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "does", "de": "Er glüht und fliegt.", "sl": "Žari in leti.", "en": "It glows and flies.", "grammar": ["praesens"] },
+        { "kind": "does", "de": "Er fliegt aus dem Feuer.", "sl": "Leti iz ognja.", "en": "It flies out of the fire.", "grammar": ["praesens", "dativ"], "ref": "fire" }
+      ]
+    },
+    "moon": {
+      "clues": [
+        { "kind": "trait", "de": "Manchmal ist er rund, manchmal schmal.", "sl": "Včasih je okrogle oblike, včasih ozke.", "en": "Sometimes it's round, sometimes thin.", "grammar": ["sein-haben", "artikel-genus", "wortstellung"] },
+        { "kind": "where", "de": "Er ist sehr weit weg.", "sl": "Je zelo daleč.", "en": "It's very far away.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Er ist am Himmel.", "sl": "Je na nebu.", "en": "It's in the sky.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "does", "de": "Er leuchtet nachts.", "sl": "Ponoči sveti.", "en": "It shines at night.", "grammar": ["praesens"] }
+      ]
+    },
+    "stars": {
+      "name": { "en": "star" },
+      "clues": [
+        { "kind": "size", "de": "Er ist klein.", "sl": "Je majhno.", "en": "It's small.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er ist am Himmel.", "sl": "Je na nebu.", "en": "It's in the sky.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "does", "de": "Er funkelt nachts.", "sl": "Ponoči miglja.", "en": "It twinkles at night.", "grammar": ["praesens"] },
+        { "kind": "use", "de": "Am Himmel gibt es ganz viele.", "sl": "Na nebu jih je ogromno.", "en": "There are lots and lots of them in the sky.", "grammar": ["wortstellung", "dativ"] }
+      ]
+    },
+    "tent": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist beige.", "sl": "Je bež barve.", "en": "It's beige.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Es hat eine kleine Fahne.", "sl": "Ima majhno zastavico.", "en": "It has a little flag.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Es steht rechts.", "sl": "Stoji na desni.", "en": "It stands on the right.", "grammar": ["praesens"] },
+        { "kind": "use", "de": "Darin schlafen wir.", "sl": "V tem spimo.", "en": "We sleep in it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "axe": {
+      "clues": [
+        { "kind": "trait", "de": "Sie ist scharf.", "sl": "Je ostro.", "en": "It's sharp.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Ihr Stiel ist aus Holz.", "sl": "Ročaj je iz lesa.", "en": "Its handle is made of wood.", "grammar": ["sein-haben", "dativ"] },
+        { "kind": "where", "de": "Sie steckt im Hackklotz.", "sl": "Tiči v tnalu.", "en": "It's stuck in the chopping block.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Damit hacken wir Holz.", "sl": "S tem cepimo drva.", "en": "We chop wood with it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist braun.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er hat zwei Eisenringe.", "sl": "Ima dva železna obroča.", "en": "It has two iron hoops.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Er steht ganz links.", "sl": "Stoji čisto na levi.", "en": "It stands far on the left.", "grammar": ["praesens"] },
+        { "kind": "use", "de": "Damit löschen wir das Feuer.", "sl": "S tem pogasimo ogenj.", "en": "We put the fire out with it.", "grammar": ["praesens", "akkusativ", "wortstellung"], "ref": "fire" }
+      ]
+    },
+    "stump": {
+      "name": { "en": "tree stump" },
+      "clues": [
+        { "kind": "colour", "de": "Er ist braun.", "sl": "Je rjave barve.", "en": "It's brown.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er hat Wurzeln.", "sl": "Ima korenine.", "en": "It has roots.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Er steht vorne.", "sl": "Stoji spredaj.", "en": "It stands at the front.", "grammar": ["praesens"] },
+        { "kind": "where", "de": "Er steht vor dem Feuer.", "sl": "Stoji pred ognjem.", "en": "It stands in front of the fire.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "fire" },
+        { "kind": "use", "de": "Darauf sitzen wir.", "sl": "Na tem sedimo.", "en": "We sit on it.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    }
+  }
+}
