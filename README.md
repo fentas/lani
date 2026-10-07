@@ -24,8 +24,9 @@ Claude Code session: your own tutor, which writes new dialogs, stories and exerc
 - **The village.** A dozen villagers with their own days: the farmer in his field, the smith at his forge, Stari
   Janez telling a legend by the fire every evening. They ask you for help in Slovene; what you build with their
   requests grows the village.
-- **Scenes and dialogs.** Close-up scenes (the kitchen, the fire, the field) where you find the words in the picture
-  and talk to people. Dialog turns adapt to you: choose, tap the picture, type the missing word, or say it.
+- **Scenes and dialogs.** Close-up scenes (the kitchen, the fire, the field) where you find the words in the picture,
+  play I spy with the village's children («Vidim, vidim nekaj, česar ti ne vidiš …») and talk to people. Dialog turns
+  adapt to you: choose, tap the picture, type the missing word, or say it.
 - **A grammar book that grows with you.** The six cases, aspect, the dual: a page opens when you're ready for it, the
   dialogs only ask for what you've met, and your mistakes show up on the rule's page.
 - **Words that stay.** Spaced repetition (SM-2) in many forms: flashcards, listening, dictation, speaking, and once

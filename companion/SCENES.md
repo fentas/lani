@@ -18,7 +18,7 @@ Village (full screen, pinch zoom, pan)         Scene (close-up)
 
 | Part | Code |
 |---|---|
-| Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
+| Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
 | Village view: full screen, camera, bubbles, the scroll/book | `ui/game/VillageScreen.kt` and friends, `game/render/` (the village renderer) |
 | Scene art: one painter per art, people sprites, the wild animals (`Wild.kt`) | `game/render/scene/` |
 | Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt` |
@@ -1037,6 +1037,135 @@ its words are in it, so there is no hint for them. A painter that makes a word c
 
 The panel looks again every minute, at the picture's inputs as the scene view draws them (`SceneSights.frame`: the clock,
 the moon and the real sky, the village's seed for its animals, the effects a finished dialog left for the day).
+
+### I spy: «Vidim, vidim nekaj, česar ti ne vidiš»
+
+A child of the village plays I spy with the learner in the scene's picture: they pick a thing in it and give clues one at a
+time, in the scene's language with the translation as the dialogs show it (the 👁 hides it, a tap on a line shows its
+own), voiced like a dialog's lines; the learner taps the thing in the picture. So the scene's words are asked for in play,
+not only found and learned in a pack run (`game/scene/ISpy.kt`: the content, who plays, which things and clues, the day;
+`ui/scene/ISpyRun.kt`: a game, pure; `ui/scene/ISpyPanel.kt`: its panel and the offer; `app/ISpyController.kt`).
+
+**Who plays, and when.** The child of the scene who is in the picture now (Zala in the living room, Nejc in the attic,
+"Otroci" by the fire: Nejc), else a child of the village who comes by (living here and met, awake by their day:
+`Routine`, not at a happening of their own elsewhere; the day's dice picks one, the same all day in the scene) and stands
+at a person spot of the scene nobody stands at, the door where there is one (Zala comes into the kitchen). No child about
+(the children are in bed from eight, none lives here yet): no game. The words panel offers it above "Danes tukaj · Here
+today": "🔍 Vidim, vidim · I spy", the child asking «Se igrava «Vidim, vidim»?» with its meaning under it, the games left
+today and "🔍 Igrajva · Let's play"; a 🔍 over the child in the picture does the same (unless a happening of theirs has its
+own marker). Two games a day in each scene (`ISpy.GAMES_PER_DAY`), then "✓ Vidim, vidim: jutri spet · again tomorrow".
+A game has three rounds (`ROUNDS`), fewer where fewer things can be spied.
+
+**A round** (`ISpyRun`): "Vidim, vidim nekaj, česar ti ne vidiš …" (the next rounds: "Še enkrat! …") and the first clue;
+"👆 Poišči v prizoru · Find it in the scene". A tap on a thing in the picture is the learner's guess, their line ("Miza?";
+a tap is a find, as anywhere in the scene). The right thing: "Ja, to je nož! Bravo!", the thing outlined in the picture
+and its word one tap away ("✓ 🔪 nož · knife" opens its bubble over the thing, as a find does), then "Naprej · Next". A wrong one: the guess marked wrong, the
+child's kind reaction, warm where the tap was near the thing (their areas within `WARM_PX` of each other: "Toplo, toplo!"),
+else cold ("Ne, to ni to.", "Mrzlo, mrzlo!"), and the next clue; the same wrong thing again gets a reaction and no new
+clue. "💡 Še en namig · Another clue" gives the next one without a tap, "🙈 Pokaži mi · Show me" gives up; a wrong tap after
+the last clue has the child show it: "To je nož! Glej, tukaj je." (a plural word: "To so vrata! Glej, tukaj so."). The
+end: "Hvala, lepo je bilo! Jutri spet?" ("Vse si {m:našel|f:našla}! …" when every round was found), what it brought, and
+"Nazaj v prizor · Back to the scene". "✋ Izberi raje · Let me choose" lists the things in the picture as chips, a chip a tap
+on its thing; TalkBack always has them, hears each clue as it comes (the newest line is a polite live region) and reads the
+lines as the dialogs' are, with their translations. A tap on a person does nothing while a round is on; back closes the game.
+
+**Which things** (`ISpy.rounds`): only what the picture shows now (`SceneSights`: not the stars by day, nor a wild animal
+that isn't out, nor what the village hasn't built), with two clues to give; not one spied in the scene today already (unless
+that leaves too few). Picked by weight, the learner's words first: their card due or nearly due (8, [GAME.md](GAME.md#words-met-in-play)),
+their card still being learned (5), a thing found before (3), a word known well (2), a thing never found (1).
+
+**Which clues** (`ISpy.clues`): the thing's clues in the scene's clue file, by kind, in this order: `colour`, `size`,
+`trait`, `material`, `compare`, `where`, `does`, `use` (what it looks like first, what it is for last), one of each, at
+most four (`MAX_CLUES`). A clue is said only when the grammar book's pages it names are introduced to the learner (none of
+them `Mastery.NOT_YET`, as the dialogs' turns: [Rules not yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar))
+and the thing it names (its `ref`) is in the picture now (the pot "na ognjišču" in a hut at level 1, "na štedilniku" from
+level 2). Of a kind, the last in the file that may be said: the files list the simple ones first, so the clues grow with the
+book (a scene of another language than the book's gates none):
+
+| A clue | For example | Pages | Level |
+|---|---|---|---|
+| an adjective that agrees: colour, size, a trait, the material | Je rdeča. Je lesen. So rjava. | `pridevniki-ujemanje` | A1 |
+| where, with the locative after v, na, pri, ob, po | Leži na mizi. Stoji ob steni. | `mestnik` | A1 |
+| what it is for, the thing as ga, jo, jih | Pijemo ga za zajtrk. | `tozilnik` | A1 |
+| in it, on it: v, na with the pronoun | Na njem sedimo. V njej je juha. | `mestnik` | A1 |
+| what it does | Ponoči sveti. Lepo diši. | `glagoli-sedanjik` | A1 |
+| a no with the genitive | Nima barve. | `rodilnik-nikalnica` | A1 |
+| where, with the instrumental after pod, nad, za, pred, med | Stoji pod oknom. Raste za ograjo. | `orodnik` | A2 |
+| what it is used with: z/s with the pronoun | Z njim režemo kruh. | `orodnik` | A2 |
+| what it is made of (iz), where with zraven, sredi, blizu | Je iz lesa. Visi zraven kredence. | `rodilnik-predlogi` | A2 |
+| a comparison | Je večji od vedra. | `primernik`, `rodilnik-predlogi` | A2 |
+
+A thing with fewer than two clues to give (a scene the tutor wrote has no clue file) gets clues that need no picture: its
+first letter ("Začne se s črko K.") and, a word of one piece, how many letters it has ("Ima štiri črke.", the forms that
+agree with the number as a [counting dialog's](#numbers-counting-what-the-village-has); voiced when played).
+
+**What it brings.** At the end each round pays as an answer (🌾, [GAME.md](GAME.md#resources)): a quick find (within
+`QUICK`, two clues) as a right one, a later find as an almost, a thing shown still something; the first game of the day
+with a child grows their friendship (+3 ♥, `ISpyController.FRIENDSHIP`, and a memory: "Še vedno mislim na najino igro
+«Vidim, vidim»", 🔍 on their page) and is time spent with them, 🤝 1 ([GAME.md](GAME.md#helping-people)). A quick find of a
+word the learner has a card of is a review of the card ([GAME.md](GAME.md#words-met-in-play)): once a card a day, due or
+nearly, quality 4, sent as a review (POST /reviews) when the game ends or is closed; the end card says how many words
+were reviewed. A game closed before its end pays nothing, and a round played spends a game of the day. The day is kept in
+`GameState.ispy` (the games of each scene, the things spied, the children played with), which syncs as the rest of the
+village does; an older bridge keeps it as it is.
+
+**The content** (`companion/ispy`, machine-written: `machine_written`, `review`): the child's lines in each language,
+`<language>.json` (`lani.ispy-lines/v0`: `offer`, `start`, `again`, `cold` and `warm` reactions, `found` and `show` for a
+singular and a plural word with `{word}`, `end`, `end_all`, `letter` with `{letter}`, `letters` with `{n}` and its forms,
+`memory`; each text in the language and its translations), and each scene's clues, `scenes/<scene>.json`
+(`lani.ispy/v0`). The app bundles them (the Gradle task `ispyFiles`, read in the learner's pair as a scene is), and the
+bridge serves none of them: the scenes' format, which an older bridge checks strictly, doesn't change. voice-build reads
+them for the voices (below). The 26 scenes' 397 things have 1797 clues: the 20 Slovene scenes' 311 things 1408 (the
+kitchen's 27 things 115, the forest's 24 things 99), the Friuli ones' 26 things 124 in Italian, Kärnten's 30 things 124
+in German, Lakeland's 30 things 141 in English; all machine-written, for a native speaker to read (the colours a child
+might name otherwise, a few "where"s the picture shows only roughly, the sounds' verbs: Rega, Gaga, Žubori).
+
+```json
+{ "schema": "lani.ispy/v0", "scene": "kuhinja", "language": "sl", "machine_written": true, "review": "…",
+  "things": {
+    "knife": { "clues": [
+      { "kind": "trait", "sl": "Je oster.", "en": "It's sharp.", "grammar": ["pridevniki-ujemanje"], "adj": "oster" },
+      { "kind": "where", "sl": "Leži na mizi.", "en": "It's lying on the table.", "grammar": ["mestnik"], "prep": "na", "case": "loc", "ref": "table", "form": "mizi" },
+      { "kind": "use", "sl": "Rabimo ga za kruh.", "en": "We need it for the bread.", "grammar": ["tozilnik"], "pronoun": "acc" },
+      { "kind": "use", "sl": "Z njim režemo kruh.", "en": "We cut bread with it.", "grammar": ["orodnik"], "pronoun": "ins" } ] },
+    "door": { "number": "pl", "clues": [ { "kind": "colour", "sl": "So rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" }, "…" ] } } }
+```
+
+| Field | Rules |
+|---|---|
+| `things` | every object of the scene, by its slot, in the scene's order |
+| `number` | `"pl"` for a plural word (vrata, vilice, grablje, orgle, klešče, stopnice, drva, očala, škornji): everything that agrees is plural |
+| `name` | what the word means as the found line says it, where the pack's meaning isn't one plain word (`ura`: `{"en": "clock"}`) |
+| `clues[]` | 3–6: `kind`; the sentence in the scene's language, its translation in English (a scene of another language: Slovene and English too); `grammar`, the pages it needs (two at least all A1); and what the check reads: `adj` (the adjective's dictionary form; a comparative's own), `prep`, `case`, `form` and `ref` (a thing of the scene) or `noun` (another noun: stena, tla, nebo; `noun_number`), `pronoun` (the case of the pronoun that stands for the thing), `verb` |
+
+Rules for writing them: true to the picture (the colour drawn, where the painter draws it at each level of a room); never
+the thing's own word; never where a person, the sun, the moon or a wild animal is (they move), a wild animal described,
+never placed; short, natural, a child's sentences; together the clues single the thing out among what the picture shows.
+
+**The checks.** `ISpyContentTest`: every scene has its clues, every thing three at least and two a beginner gets; every
+clue a sentence with its translations, its pages the book's; the Slovene against the dictionary (companion/lexicon/sl.json):
+the adjective's ending by the noun's gender and number, the copula's and the verb's number, the case a preposition takes
+and the noun's form in it, the pronoun for the thing, s/z and k/h by the next sound, never the answer's own word (a form
+the dictionary lacks takes the regular paradigm, listed in the test's output, or a hand-checked table); "where" against
+the picture, each art drawn as the scene view draws it at every level, wherever the two are drawn together ("na" on its
+top, "v" inside, "pod" under, "nad" above, "pri", "ob", "zraven" right by it, "za" behind, "pred" in front); Italian
+adjectives and German pronouns by the noun's gender. `ISpyTest`: the clues by the grammar, the things picked, who plays,
+the day, a game's turns, the reviews, the content as the app reads it.
+
+**The voices.** voice-build voices the child's lines, each scene's clues and each thing's find and reveal with its word
+("Ja, to je nož! Bravo!"), after the scenes' dialogs (its "ispy" row), in the voice of each child who may play in the
+scene (its own children's, else every child of the cast: one comes by); the picture-free clues are voiced when played. The
+bridge's own prebuild reads them too once it is restarted with this code.
+
+**Other villages.** The same game in the scenes of the other culture packs, in their language: "Vedo, vedo una cosa che
+tu non vedi …" by the Friuli fire and the sea (Tommaso; warm and cold are "Fuochino!" and "Acqua, acqua!"), "Ich sehe was,
+was du nicht siehst …" in Kärnten (Maxi), "I spy with my little eye something …" in Lakeland (Harry), with the Slovene
+and English meanings; their gates are their books' pages (an Italian "dove" with `dove-preposizioni`, a German "auf dem
+Tisch" with `wechselpraepositionen`, A2).
+
+**QA:** `companion/bin/qa --steps ispy`: by the fire, QA's hook ("ispy:ob-ognju/stump") offers the game whatever the day
+and spies the stump first; a wrong thing tapped in the picture, the stump, the rounds to the end card (the debug build logs
+where each round's things are on the screen, tag `ISpy`).
 
 ### Stickers: a word's picture from its scene
 

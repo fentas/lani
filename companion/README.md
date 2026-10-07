@@ -1237,7 +1237,9 @@ in the order below, and the next month goes on where one stopped.
 **Prebuild**, in priority order: villager lines in their speakers' voices, review cards and pack
 words, examples, modules, scenarios, the storyteller's stories told at A1 (`stories A1`), the car's drills at A1
 (`drills A1`), scene dialogs and the keepers' talks (the culture's spots: the charcoal burner's meeting and his story,
-every telling at every level, in his speaker's voice), then the stories at A2 (`stories A2`), the drills above A1
+every telling at every level, in his speaker's voice), what a child says playing I spy in the scenes (`ispy`: the lines,
+the clues and each thing's find and reveal of companion/ispy, in the voice of each child who may play in the scene;
+companion/SCENES.md, "I spy"), then the stories at A2 (`stories A2`), the drills above A1
 (`drills A2+`) and the stories at B1 and up (`stories B1+`). A story's teller speaks their lines and replies in their own designed voice once the voice
 profiles have it ready (`@janez`), else in their speaker; the right choices are in the default voice. A riddle is in
 its teller's voice the same way; a drill's other texts (a transformation's sentence and answer, a rapid answer and the
@@ -2117,7 +2119,12 @@ It also types "hisa" into the field and reads `adb shell dumpsys input_method` t
 ([Answer fields and the keyboard](#answer-fields-and-the-keyboard)): plain text with no suggestions, Gboard's
 `noDecoding`, and `hintLocales` `[sl]`. With Gboard it also checks that the current subtype is Slovene and that its
 candidate strip (`LatinFixedCountCandidatesHolderView`) is not visible.
-An app without the hooks gets the steps as before (the fire's card, the scenes' links; the double taps).
+`ispy:<scene>/<slot>` offers «Vidim, vidim» in that scene whatever the day (a child comes by if none is there), its first
+round spying that thing, and the debug build logs where each round's things are on the screen (tag `ISpy`, with the
+thing's word); `ispy` (companion/SCENES.md, "I spy") plays a game by the fire: the stump spied, a wrong thing (the
+woodpile) tapped in the picture, the child's reaction and the next clue, the stump tapped and cheered, the other rounds'
+things through "✋ Izberi raje · Let me choose", the end card. An app without the hooks gets the steps as before (the
+fire's card, the scenes' links; the double taps).
 
 Two more are for recordings (the site's clips), not used by QA's steps: `bubbles:<n>` shows only the n bubbles nearest
 the fire in the village (`bubbles:` all again), and `clock:<f>` runs the towns' and scenes' time at f of the wall's

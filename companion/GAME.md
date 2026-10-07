@@ -33,6 +33,7 @@ Every source pays through `GameEngine.earn`, one entry per answer. Typical amoun
 | Village project step | 5 | the answers; the step itself costs (see "Village projects") |
 | Festival | 6 | the answers, plus 20 × (…) 🌾 and 10 × (…) of the scarcest other resource |
 | The day's surprise | 2–3 | the answers, plus 12 × (…) of the scarcest resource |
+| «Vidim, vidim» with a child in a scene (SCENES.md, "I spy") | 1–3 | the answers: 🌾, a quick find a right one, a later one an almost, a thing shown a wrong one |
 
 Most practice is vocabulary, so 🌾 and 🪵 are the bulk resources. Grammar modules and gathering bring 🪨. Talk is by far the biggest 📜 source; a learner who never talks still gets 📜 from quests, the linden (gathering) and the modules.
 
@@ -505,6 +506,23 @@ A word Jan added (a word card's "➕ Dodaj med moje besede", a pack's word) is o
 - **Verb partners:** a tapped form two verbs share ("sedite": sesti and sedeti) shows the one the line means ("📍 tukaj · here", by its translation: "Sit down, sit down" → sesti) and the other under it as its partner, not as a second meaning: "↔ par · partner: sedeti — to sit" and how the two differ ("sesti: a movement, once · sedeti: a state that lasts"; an aspect pair: "kupiti: once, to the end (perfective) · kupovati: ongoing or repeated (imperfective)"), with its own ➕. A verb of the bridge's pairs says its aspect ("dovršni · perfective").
 - **QA:** `companion/bin/qa --steps word-forms`: the dev bridge's forms of the deck's words, then the debug build's "forms" hook starts a review of the words with a form reached, each asking one.
 
+### Words met in play
+
+A word the learner has a card of, met in play and answered right, counts as a review of the card (`game/PlayReviews.kt`):
+«Vidim, vidim»'s quick find now (SCENES.md, "I spy": the thing tapped within two clues), a dialog's word some day. Not
+every time, and never worse than nothing:
+
+- **Once a card a day**: not when the deck reviewed it today (the card's `last_reviewed`) nor when play counted it today
+  already (`GameState.playReviews`, the day's cards; it syncs, so another phone doesn't count it again).
+- **Due or nearly due**: its `due_date` today or before, or tomorrow (`PlayReviews.EARLY_DAYS`): a review the deck would ask
+  soon anyway. A card the phone made from today's pack run, which the node hasn't sent back yet, has no due date: it doesn't
+  count.
+- **A good answer only**, quality 4 (`PlayReviews.QUALITY`): SM-2 leaves the card's ease as it is and lengthens its
+  interval. A wrong tap, a find after more clues or a word shown counts nothing: no failed review, no quality that lowers
+  the ease.
+- It goes to the node as a review does (POST /reviews, persisted by update-db.py; the tutor hears it as an app review),
+  when the game ends or is closed, with the minutes on screen.
+
 ## Zemljevid zaklada · The treasure map
 
 The learner's level in the village's language (`current_level` in their learner profile) decides what is theirs: the
@@ -592,6 +610,7 @@ comes when its signs are there (the days at it count from the day the treasure w
 | plays a scene's happening to its end (once a day each, like its pay) | 1 |
 | answers a family challenge | 1 |
 | helps with the day's surprise: reads someone their letter, finds Luka's lamb, shows a pilgrim the way, guesses a child's riddle | 1 |
+| plays «Vidim, vidim» with a child to its end (the first game of the day with them; SCENES.md, "I spy") | 1 |
 | (the host) a visitor from a linked town does one of the village's requests (companion/README.md, "Things to do on a visit") | 3 |
 
 **Moba.** A moba is the Slovene tradition of neighbours coming to help build a house or bring in the harvest. When Jan builds, upgrades or repairs, they can call one: the neighbours bring part of the 🪵 and 🪨, and they pay for it in 🤝.
