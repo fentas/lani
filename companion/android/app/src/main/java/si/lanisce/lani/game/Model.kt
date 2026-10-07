@@ -372,8 +372,8 @@ data class GameState(
      */
     val ispy: si.lanisce.lani.game.scene.ISpyToday? = null,
     /**
-     * The learner's cards a word met in play counted a review for today (see [PlayReviews]: once a card a day, whatever
-     * the game); gone the next day.
+     * The learner's cards a word met in play counted a review for today, or a dialog lowered (see [PlayReviews]: once a
+     * card a day, whatever the game); gone the next day.
      */
     val playReviews: PlayReviewDay? = null,
 ) {

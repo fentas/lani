@@ -161,7 +161,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
      * a day (companion/SCENES.md, "Your words in the dialogs").
      */
-    val dialogWords = si.lanisce.lani.app.DialogWordsController(app, viewModelScope, content, forms, sync, home = { grammar.language })
+    val dialogWords = si.lanisce.lani.app.DialogWordsController(content, forms, sync, game, home = { grammar.language })
     /** "🔍 Slovnica stavka · The sentence's grammar": a dialog line's words, their forms and why (a long press on it). */
     val sentences = SentenceController(viewModelScope, node, chat, grammar)
     /** "📖 Branje · Reading": the reading corner's readings, and the reading practice reported to the node. */

@@ -478,16 +478,20 @@ export function wovenToday(variants: { scene: string; happening: string; dialog:
 
 // --- the reviews a dialog brings: the bridge re-checks the app ------------------------------------------------------
 
-/** How many days before its due date a card counts in a dialog: a tenth of its interval, 1 to 3 days. */
+/**
+ * How many days before its due date a card counts in a dialog: a tenth of its interval, 1 to 3 days (the app's
+ * PlayReviews.window, for «Vidim, vidim» and the dialogs alike).
+ */
 export const dialogWindow = (interval?: number): number => Math.min(3, Math.max(1, Math.round((typeof interval === 'number' && interval > 0 ? interval : 1) / 10)))
 
 /**
- * Whether a right answer in a dialog counts as a review of card [c] [today]: it wasn't reviewed today (a card added
- * today was), and it is due within its window (dialogWindow; no due date: due).
+ * Whether a right answer in a dialog counts as a review of card [c] [today], as the app decides it (PlayReviews.counts):
+ * it wasn't reviewed today (a card added today was), and it is due within its window (dialogWindow); a card without a
+ * due date doesn't.
  */
 export function countsInDialog(c: Card | undefined, today: string): boolean {
   if (!c) return false
   if (typeof c.last_reviewed === 'string' && c.last_reviewed >= today) return false
-  if (typeof c.due_date !== 'string' || !c.due_date) return true
+  if (typeof c.due_date !== 'string' || !c.due_date) return false
   return c.due_date <= addDays(today, dialogWindow(c.interval_days))
 }

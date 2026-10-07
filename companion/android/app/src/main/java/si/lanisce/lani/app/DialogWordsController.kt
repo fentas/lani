@@ -1,11 +1,6 @@
 package si.lanisce.lani.app
 
-import android.content.Context
 import androidx.compose.runtime.mutableStateMapOf
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
@@ -16,9 +11,9 @@ import si.lanisce.lani.data.ReviewCard
 import si.lanisce.lani.data.ReviewPlanner
 import si.lanisce.lani.data.ScreenClock
 import si.lanisce.lani.data.Writes
-import si.lanisce.lani.data.json
 import si.lanisce.lani.game.DialogReviews
 import si.lanisce.lani.game.DialogWords
+import si.lanisce.lani.game.PlayReviews
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.MyWord
 import si.lanisce.lani.game.MyWords
@@ -29,28 +24,24 @@ import si.lanisce.lani.game.scene.Dialog
 import si.lanisce.lani.game.scene.DialogVariants
 import si.lanisce.lani.game.scene.SceneSpec
 import si.lanisce.lani.ui.scene.DialogRun
-import java.io.File
 import java.time.LocalDate
 
 /**
  * The learner's own words in the dialogs (companion/SCENES.md, "Your words in the dialogs"; companion/GAME.md, "Your words
  * in the dialogs"): which turns of a dialog test them ([words], when it starts), what each first answer on one does to its
- * card ([answered], once a card a day: [DialogReviews]), and the review the dialog sends at its end or when it is left
- * ([finish]: POST /reviews through the outbox, one per dialog). Only the home language's words (the review deck's), in a
- * dialog of the home language; a visit's dialogs are as they were.
+ * card ([answered]: [DialogReviews], words met in play as «Vidim, vidim»'s are, a card's schedule changed once a day: the
+ * village state's record, [PlayReviews]), and the review the dialog sends at its end or when it is left ([finish]: POST
+ * /reviews through the outbox, one per dialog). Only the home language's words (the review deck's), in a dialog of the home
+ * language; a visit's dialogs are as they were.
  */
 class DialogWordsController(
-    context: Context,
-    private val scope: CoroutineScope,
     private val content: ContentController,
     private val forms: FormsController,
     private val sync: SyncController,
+    private val game: GameController,
     /** The home language (the book's): the review deck's words are in it. */
     private val home: () -> String,
 ) {
-    private val file = File(context.filesDir, "dialog-words.json")
-    private val io = Dispatchers.IO.limitedParallelism(1)
-    private var ledger = DialogReviews.Ledger()
 
     /** What each dialog played counted on the learner's words so far ([idOf]): its summary at the end. */
     val outcomes = mutableStateMapOf<String, List<DialogReviews.Outcome>>()
@@ -58,14 +49,6 @@ class DialogWordsController(
     /** What a dialog still has to send ([finish]): where it was, when its first answer came, and its outcomes. */
     private class Pending(val talk: SceneTalk, val since: Long, val outcomes: List<DialogReviews.Outcome>)
     private val pending = HashMap<String, Pending>()
-
-    init {
-        scope.launch {
-            val kept = withContext(io) { runCatching { json.decodeFromString(DialogReviews.Ledger.serializer(), file.readText()) }.getOrNull() }
-            // what was counted before the file was read (a dialog in the first second) stays
-            if (kept != null) ledger = if (ledger.day == kept.day) kept.copy(cards = kept.cards + ledger.cards) else if (ledger.day.isEmpty()) kept else ledger
-        }
-    }
 
     // --- the learner's words, as the dialogs meet them ----------------------------------------------------------------
 
@@ -130,22 +113,23 @@ class DialogWordsController(
 
     /**
      * An answer at a turn of [talk]'s dialog ([run] before it, [next] after): its new answers on the learner's words
-     * ([DialogRun.wordsOf]) settled on their cards, once a card a day ([DialogReviews.settle]); a review counts on the
-     * phone at once ([ContentController.reviewedInDialog]), and goes to the node with the dialog's others ([finish]).
+     * ([DialogRun.wordsOf]) settled on their cards ([DialogReviews.settle]): the village state records the cards whose
+     * schedule it changes today ([GameController.playReviewed]: once a day, «Vidim, vidim» too), a review counts on the
+     * phone at once ([ContentController.reviewedInDialog]), and all go to the node with the dialog's others ([finish]).
      */
     fun answered(talk: SceneTalk, run: DialogRun, next: DialogRun?) {
         val new = run.wordsOf(next)
         if (new.isEmpty()) return
         val today = LocalDate.now()
         val cards = content.dashboard?.pool.orEmpty().associateBy { it.id }
-        val (out, led) = DialogReviews.settle(new, cards::get, ledger, today)
-        if (out.isEmpty()) return
-        ledger = led
-        save(led)
         val id = idOf(talk)
-        outcomes[id] = outcomes[id].orEmpty() + out
+        val before = outcomes[id].orEmpty()
+        val out = DialogReviews.settle(new, cards::get, PlayReviews.counted(game.state, today), today, before.map { it.answer.card.id }.toSet())
+        if (out.isEmpty()) return
+        outcomes[id] = before + out
         val was = pending[id]
         pending[id] = Pending(talk, was?.since ?: ScreenClock.app.now(), was?.outcomes.orEmpty() + out)
+        out.filter { it.changes }.map { it.answer.card.id }.takeIf { it.isNotEmpty() }?.let(game::playReviewed)
         out.filter { it.kind == DialogReviews.Kind.REVIEW }.map { it.answer.card.id }.takeIf { it.isNotEmpty() }?.let { content.reviewedInDialog(it, today) }
     }
 
@@ -166,16 +150,6 @@ class DialogWordsController(
         if (results.isEmpty() && !takes) return
         val minutes = (((ScreenClock.app.now() - p.since) / 60_000).toInt() + 1).coerceIn(1, 240)
         sync.submitLater(Writes.reviews(results, minutes, dialog = body(p.talk, sent)))
-    }
-
-    private fun save(l: DialogReviews.Ledger) {
-        scope.launch(io) {
-            runCatching {
-                val tmp = File(file.path + ".tmp")
-                tmp.writeText(json.encodeToString(DialogReviews.Ledger.serializer(), l))
-                tmp.renameTo(file)
-            }
-        }
     }
 
     companion object {
