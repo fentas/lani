@@ -15,7 +15,7 @@ import { json, readJson } from '../http'
 import { languageParam, type SrItem } from '../learner'
 import { LANGUAGES, learnerFacts, learnerLangs } from '../learners'
 import { ATTRIBUTION, glossIn, Lexicon, lookup, wordItemId, type LookupResult, type Person } from '../lexicon'
-import { contentLines, FormsBook, formsOf, LineIndex, partnerOf } from '../forms'
+import { contentLines, formsOf, LineIndex, partnerOf } from '../forms'
 import { fetchLexicon, lexiconCacheDir, parseLexicon } from '../lexicon-download'
 import { itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wordOf, type LoadedPack } from '../packs'
 import { labelEn } from '../langs'
@@ -75,13 +75,12 @@ const LINES_TTL_MS = 10 * 60_000
 /** What the tutor publishes or takes back that has lines in it: the lines are read again at the next ask. */
 const CONTENT_EVENTS = new Set(['scene_published', 'scene_removed', 'story_published', 'story_removed', 'reading_published', 'reading_removed', 'variant_published', 'variant_removed', 'grammar_published', 'pack_published'])
 
-export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox, packs, villagers, culture, profile, log, scenes, stories, readings, grammar, addressee }) => {
+export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox, packs, villagers, culture, profile, log, scenes, stories, readings, grammar, addressee, dictionary }) => {
   const language = culture.manifest?.language ?? 'sl'
   const lexiconDir = process.env.LANI_LEXICON_DIR || join(cfg.projectDir, 'companion/lexicon')
-  const { base } = learnerLangs(cfg.dataDir, language)
-  const dict = new Lexicon({ dir: lexiconDir, language, base, tutorFile: join(cfg.appDir, 'lexicon.json'), log })
-  // the forms book: the hand-checked tables of the irregular verbs and the verb pairs (lexicon/<language>.forms.json)
-  const book = new FormsBook({ dir: lexiconDir, language, log })
+  // the village's dictionary, and the forms book: the hand-checked tables of the irregular verbs and the verb pairs
+  // (lexicon/<language>.forms.json); shared through the context (the woven words' check reads them too)
+  const { dict, book } = dictionary
   const partners = (lemma: string) => partnerOf(book, dict, lemma)
 
   // The content's lines a form may be asked in, by their words: made at the first ask, again after LINES_TTL_MS or when

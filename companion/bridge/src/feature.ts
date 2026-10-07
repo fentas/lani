@@ -9,11 +9,13 @@ import type { DrillStore } from './drills'
 import type { Manifest } from './cultures'
 import type { Events } from './events'
 import type { Family } from './family'
+import type { FormsBook } from './forms'
 import type { GameStore } from './game'
 import type { GrammarStore } from './grammar'
 import type { Route } from './http'
 import type { Learner } from './learner'
 import type { Profile } from './learners'
+import type { Lexicon } from './lexicon'
 import type { Outbox } from './outbox'
 import type { PackStore } from './packs'
 import type { BridgeKey, Devices } from './pairing'
@@ -80,6 +82,12 @@ export type Ctx = {
   family: Family
   /** The role-plays started on visits to other towns (their brief rides along every turn: chat.ts, features/towns.ts). */
   visitTalks: VisitTalks
+  /**
+   * The village language's dictionary (lexicon.ts: Wiktionary's, the supplement, the tutor's glosses; read at its first
+   * use) and its forms book (forms.ts), one of each: the word lookup serves them, and the check of a dialog's woven words
+   * reads which lemma a form is of (dialog-words.ts).
+   */
+  dictionary: { dict: Lexicon; book: FormsBook; language: string }
 }
 
 export type FeatureFactory = (ctx: Ctx) => Feature

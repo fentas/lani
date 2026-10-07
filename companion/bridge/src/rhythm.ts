@@ -88,7 +88,7 @@ export class RhythmStore {
 /** What each routine asks of the tutor (appended to the channel event). */
 export const routineAsk: Record<Routine, string> = {
   morning:
-    'Morning. Plan Jan\'s day: pick the one thing that matters most today (weakest pattern, due reviews, or what the village lacks). If useful, publish one fresh module or quest for it (lani-studio). Then reply with a short plan: 2–3 bullets, one of them a 5-minute option. Greet in Slovene. Put {"plan": true} in data.',
+    'Morning. Plan Jan\'s day: pick the one thing that matters most today (weakest pattern, due reviews, or what the village lacks). If useful, publish one fresh module or quest for it (lani-studio). With words_to_weave, you may also write at most 2 variants today that weave those words in (publish_dialog_variant, declared in its "words", each tested by a turn). Then reply with a short plan: 2–3 bullets, one of them a 5-minute option. Greet in Slovene. Put {"plan": true} in data.',
   evening:
     'Evening. If Jan practised today: a warm 2–3 line recap and one tip for tomorrow. If not: a gentle, guilt-free nudge with one 5-minute thing to keep the streak. Reply, short.',
   weekly:

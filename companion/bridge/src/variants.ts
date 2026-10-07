@@ -91,9 +91,16 @@ const said = (t: unknown, lang: string): string | undefined =>
 
 /**
  * The note to the tutor for [a]: which happening, its person (named with [nameOf]), the dialogs heard (their first lines
- * and when), the learner's [level] and [weak] spots; how to write the fresh one.
+ * and when), the learner's [level] and [weak] spots, and the learner's [words] that fit the happening (dialog-words.ts,
+ * fittingWords: weak, due or new cards of its scene's packs or its person's); how to write the fresh one.
  */
-export function variantNote(a: AllHeard, level: string, weak: WeakSpot[], nameOf: (id: string) => string | undefined = () => undefined): string {
+export function variantNote(
+  a: AllHeard,
+  level: string,
+  weak: WeakSpot[],
+  nameOf: (id: string) => string | undefined = () => undefined,
+  words: { item_id: string; lemma: string; meaning?: string; why: string }[] = [],
+): string {
   const s = a.scene
   const lang = s.language
   const person = s.people.find(p => p.id === a.happening.who)
@@ -113,15 +120,25 @@ export function variantNote(a: AllHeard, level: string, weak: WeakSpot[], nameOf
       return { dialog: id, on: a.heard[id], first_line: said(d?.lines[0], lang), ...(d?.count ? { counts: true } : {}), ...(d?.source === 'tutor' ? { tutor: true } : {}) }
     }),
     weak_spots: weak,
+    ...(words.length ? { words_to_weave: words } : {}),
   }
+  // the learner's words, when some fit: each the tested element of a turn, or it counts for nothing
+  const which = words.length === 1 ? "the learner's word below (words_to_weave)" : words.length === 2 ? "the learner's two words below (words_to_weave)" : `2–${Math.min(4, words.length)} of the learner's words below (words_to_weave)`
+  const weave = words.length
+    ? ` Weave ${which} in where ${words.length === 1 ? 'it fits' : 'they fit'} ` +
+      `naturally, each as the tested element of a turn (a wrong choice that differs from the right one in that word, or a ` +
+      `form turn on it; at their level, within the grammar the book has opened), and declare them in the dialog's "words" ` +
+      `(their lemmas or item_ids); a word only said or only present counts for nothing. Nothing forced: leave out what doesn't fit.`
+    : ''
   return (
     `App: the learner has heard every dialog of a happening, ${name} in ${said(s.title, lang) ?? s.id}, "${said(a.happening.title, lang) ?? a.happening.id}" ` +
     `(${a.variants.length} ${a.variants.length === 1 ? 'dialog' : 'variants'}). Write a fresh variant with publish_dialog_variant (scene "${s.id}", ` +
     `happening "${a.happening.id}"): the same situation (its title, its time, its person) in other words, with another point of ` +
     `grammar, at the learner's level (${level}), around one of their weak spots below where it fits naturally. The rules of a ` +
     `scene's dialogs hold (load lani-studio, "Scenes"): a reaction to every wrong choice that never says the right form, two ` +
-    `right answers where people would accept either, the learner's lines in the masculine, a text naming only the person and ` +
-    `whom the happening names; a number with "count" ({n}) where something is counted. It plays the next time the happening ` +
+    `right answers where people would accept either, the learner as {learner} and every form that agrees with them a pair ` +
+    `{m:…|f:…} (the placeholders kept), a text naming only the person and ` +
+    `whom the happening names; a number with "count" ({n}) where something is counted.${weave} It plays the next time the happening ` +
     `comes. No reply needed (the tool's note is optional).\n\n\`\`\`json\n${JSON.stringify(info, null, 2)}\n\`\`\``
   )
 }

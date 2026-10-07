@@ -247,11 +247,16 @@ def session_message(report: dict) -> str:
     """'session 2026-10-05: 12 reviews, 2 new words, 1 mistake', and a line with the session's id, its command and
     language, from an update-db.py report."""
     parts = []
-    reviews = report.get("review_results") or []
+    # a gentle lowering (a word got wrong in a dialog: update-db.py, lower_gently) is no review
+    results = report.get("review_results") or []
+    reviews = [r for r in results if not (isinstance(r, dict) and r.get("gentle") is True)]
+    lowered = len(results) - len(reviews)
     words = report.get("new_vocabulary") or []
     errors = report.get("errors") or []
     if reviews:
         parts.append(_count(len(reviews), "review", "reviews"))
+    if lowered:
+        parts.append(_count(lowered, "card lowered", "cards lowered"))
     if words:
         parts.append(_count(len(words), "new word", "new words"))
     if errors:

@@ -417,6 +417,77 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self.assertEqual(self._run(again).returncode, 0)
         self.assertEqual(self._load("languages/it/learner-profile.json")["learner"]["level_since"], "2026-04-24")
 
+    # --- A word got wrong in a dialog: its card lowered gently (review_results' "gentle") ---
+
+    def _card(self, **fields):
+        """vocab_dag, well on its way (interval 6, due in a week, reviewed four days ago), with [fields] over it."""
+        path = self.tmp / "data" / "spaced-repetition.json"
+        sr = json.loads(path.read_text())
+        sr["items"]["vocab_dag"].update({
+            "interval_days": 6, "repetitions": 2, "easiness_factor": 2.5, "due_date": "2026-04-30",
+            "consecutive_correct": 2, "last_reviewed": "2026-04-20", "last_quality": 4, "mastery_level": 1,
+            "total_reviews": 2, "review_history": [{"date": "2026-04-20", "quality": 4, "score": 0}], **fields,
+        })
+        path.write_text(json.dumps(sr))
+
+    def _dialog(self, session_id, results, date="2026-04-24"):
+        return {
+            "session_id": session_id, "date": date, "duration_minutes": 2, "command_used": "/lani-app-dialog-words",
+            "skills_practiced": ["vocabulary"], "skill_scores": {"vocabulary": {"exercises": 1, "correct": 0, "time_minutes": 2}},
+            "review_results": results, "session_notes": "Words in a dialog in the Lani app.",
+        }
+
+    def test_gentle_lowers_a_card_without_a_review(self):
+        self._card()
+        proc = self._run(self._dialog("session-200", [{"item_id": "vocab_dag", "gentle": True}]))
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        dag = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        # a little harder, back tomorrow, its interval halved; its repetitions kept
+        self.assertEqual((dag["easiness_factor"], dag["interval_days"], dag["repetitions"], dag["due_date"]), (2.36, 3, 2, "2026-04-25"))
+        self.assertEqual(dag["consecutive_correct"], 0)
+        self.assertEqual((dag["lapses"], dag["last_lapse"]), (1, "2026-04-24"))
+        # no review: what readiness and "rusty" read stays as it was
+        self.assertEqual((dag["last_quality"], dag["last_reviewed"], dag["mastery_level"], dag["total_reviews"]), (4, "2026-04-20", 1, 2))
+        self.assertEqual(len(dag["review_history"]), 1)
+        self.assertEqual(dag["consecutive_incorrect"], 0)
+        self.assertIn("vocab_dag", self._load("spaced-repetition.json")["review_queue"]["tomorrow"])
+
+    def test_gentle_keeps_an_earlier_due_date_and_the_floors(self):
+        self._card(due_date="2026-04-22", interval_days=1, easiness_factor=1.35)
+        self.assertEqual(self._run(self._dialog("session-201", [{"item_id": "vocab_dag", "gentle": True, "quality": 0}])).returncode, 0)
+        dag = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        # overdue already: it stays due; the interval and the easiness stop at their floors; the quality is ignored
+        self.assertEqual((dag["due_date"], dag["interval_days"], dag["easiness_factor"], dag["repetitions"]), ("2026-04-22", 1, 1.3, 2))
+        self.assertEqual(dag["last_quality"], 4)
+
+    def test_gentle_once_a_day(self):
+        self._card()
+        self.assertEqual(self._run(self._dialog("session-202", [{"item_id": "vocab_dag", "gentle": True}])).returncode, 0)
+        once = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        self.assertEqual(self._run(self._dialog("session-203", [{"item_id": "vocab_dag", "gentle": True}])).returncode, 0)
+        twice = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        self.assertEqual(twice, once)  # a second slip the same day changes nothing
+        # the next day it may lower again
+        self.assertEqual(self._run(self._dialog("session-204", [{"item_id": "vocab_dag", "gentle": True}], date="2026-04-25")).returncode, 0)
+        later = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        self.assertEqual((later["lapses"], later["last_lapse"], later["easiness_factor"], later["interval_days"]), (2, "2026-04-25", 2.22, 1))
+
+    def test_a_review_after_a_gentle_lowering_is_a_review(self):
+        self._card()
+        self.assertEqual(self._run(self._dialog("session-205", [{"item_id": "vocab_dag", "gentle": True}])).returncode, 0)
+        proc = self._run(self._dialog("session-206", [{"item_id": "vocab_dag", "quality": 5}], date="2026-04-25"))
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        dag = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        # SM-2 from where the lowering left it: interval 3 x 2.36 → 8, the easiness up by 0.1
+        self.assertEqual((dag["repetitions"], dag["interval_days"], dag["easiness_factor"], dag["due_date"]), (3, 8, 2.46, "2026-05-03"))
+        self.assertEqual((dag["last_quality"], dag["last_reviewed"], dag["total_reviews"], dag["consecutive_correct"]), (5, "2026-04-25", 3, 1))
+        self.assertEqual((dag["lapses"], len(dag["review_history"])), (1, 2))
+
+    def test_gentle_for_a_card_that_isnt_there_is_nothing(self):
+        proc = self._run(self._dialog("session-207", [{"item_id": "vocab_nope", "gentle": True}]))
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        self.assertNotIn("vocab_nope", self._load("spaced-repetition.json")["items"])
+
     # --- Review items without a session (record_session: false) ---
 
     WORD = {"item_id": "vocab_word_gozd", "item_type": "vocabulary", "content": "gozd",

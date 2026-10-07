@@ -296,6 +296,13 @@ export const dialog = z.object({
   memory: reply.optional(),
   /** A variant the tutor wrote (publish_dialog_variant); the curated ones say nothing. */
   source: z.enum(['curated', 'tutor']).optional(),
+  /**
+   * The learner's words the dialog weaves in and tests (the tutor's): 1-6, each a lemma ("žlica") or a review card's id
+   * ("vocab_v-kuhinji_zlica"). Each must be the tested element of a turn (dialog-words.ts, checkWoven: publish refuses
+   * otherwise); the app finds the tested words itself and serves this as it is. Curated dialogs have none, and an older
+   * bridge strips it.
+   */
+  words: z.array(z.string().trim().min(1).max(80)).min(1).max(6).optional(),
 })
 export type Dialog = z.infer<typeof dialog>
 /** The top level a building can be upgraded to (Catalog.MAX_LEVEL in Catalog.kt). */

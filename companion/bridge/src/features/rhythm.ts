@@ -2,9 +2,11 @@
 // compact snapshot of the learner's day. The scheduling rules live in ../rhythm.ts.
 import { join } from 'node:path'
 import { fail, ok } from '../channel'
+import { lemmaFinder, WEAVES_A_DAY, wordsToWeave, weavePlan, wovenToday, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { ofLanguage, ripeRules } from '../grammar'
-import { dueRoutines, RhythmStore, routineAsk, type Routine } from '../rhythm'
+import { dueRoutines, localDate, RhythmStore, routineAsk, type Routine } from '../rhythm'
+import { VariantAsks } from '../variants'
 import { learnerLevel } from '../villagers'
 
 const instructions = `
@@ -13,11 +15,33 @@ Jan's progress. Do what the event asks (plan the day, recap, weekly review) and 
 "main"; the reply reaches Jan's phone as a notification. Keep these short and warm, never guilt-tripping.
 Jan can change the times ("wake me at 8", "no evening messages"): use set_rhythm.
 A snapshot's grammar_ripe lists rules the dialogs said often enough without asking for them: a good day to introduce
-one (see Grammar book, "Rules not yet").
+one (see Grammar book, "Rules not yet"). A morning's words_to_weave lists happenings with the learner's words that fit
+them: weave them into at most 2 fresh variants a day (publish_dialog_variant, the dialog's "words"; lani-studio).
 `.trim()
 
-export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, grammar: book }) => {
+export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, grammar: book, scenes, packs, villagers, dictionary }) => {
   const store = new RhythmStore(join(cfg.appDir, 'rhythm.json'))
+  const asks = new VariantAsks(join(cfg.appDir, 'variant-asks.json'))
+
+  /**
+   * The learner's words to weave into today's dialogs (dialog-words.ts): a few happenings with 2-4 of their words that
+   * fit each, at their level; none once the day's woven variants are written (WEAVES_A_DAY), or when nothing fits.
+   */
+  function weave(today: string, items: Record<string, Card>, mistakes: unknown) {
+    try {
+      const done = wovenToday(scenes.tutorVariants(), asks.read(), today, t => localDate(new Date(t)))
+      if (done >= WEAVES_A_DAY) return undefined
+      const words = wordsToWeave({
+        items, today, mistakes, scenes: scenes.resolved(), packs: packs.all(), villagers: villagers.all(),
+        lemmaOf: lemmaFinder(dictionary.dict, dictionary.book, dictionary.language), language: dictionary.language,
+      })
+      const happenings = weavePlan(words)
+      return happenings.length ? { level: learnerLevel(cfg.dataDir), variants_left_today: WEAVES_A_DAY - done, happenings } : undefined
+    } catch (e) {
+      log(`rhythm: no words to weave (${(e as Error).message})`)
+      return undefined
+    }
+  }
 
   /**
    * The rules ripe to introduce (companion/GAME.md, "Rules not yet"): the dialogs said them often enough without asking
@@ -33,8 +57,8 @@ export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, gramm
     }
   }
 
-  /** A compact picture of today for the tutor: enough to plan without reading every database. */
-  function snapshot(): string {
+  /** A compact picture of today for the tutor: enough to plan without reading every database; [r]: whose it is. */
+  function snapshot(r: Routine = 'evening'): string {
     const st = learner.state()
     const db = st.databases
     const today = st.computed.today
@@ -57,6 +81,8 @@ export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, gramm
         village: g ? { age: g.age, resources: g.resources, event: g.event?.kind ?? null } : null,
         // rules the dialogs said often enough without asking for them: ripe to introduce (a module, the page extended)
         grammar_ripe: ripe(g),
+        // the morning's: the learner's words that fit a happening, to weave into a fresh variant or two
+        ...(r === 'morning' ? { words_to_weave: weave(today, db.spaced_repetition?.items ?? {}, db.mistakes_db) } : {}),
       },
       null,
       2,
@@ -76,7 +102,7 @@ export const rhythm: FeatureFactory = ({ cfg, channel, game, learner, log, gramm
       store.markRan(r, now) // before sending: a failing snapshot must not fire every minute
       let snap = '{}'
       try {
-        snap = snapshot()
+        snap = snapshot(r)
       } catch (e) {
         log(`rhythm snapshot failed: ${(e as Error).message}`)
       }

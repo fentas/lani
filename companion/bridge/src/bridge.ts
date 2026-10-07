@@ -49,8 +49,10 @@ import { GameStore } from './game'
 import { DrillStore, drillsDir } from './drills'
 import { grammarDir, GrammarStore } from './grammar'
 import { addressed, bearer, json, loadToken, router, serve, type Route } from './http'
+import { FormsBook } from './forms'
 import { Learner } from './learner'
-import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, profileFromEnv } from './learners'
+import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, learnerLangs, profileFromEnv } from './learners'
+import { Lexicon } from './lexicon'
 import { Outbox } from './outbox'
 import { PackStore, packsDirs } from './packs'
 import { Devices, loadBridgeKey } from './pairing'
@@ -105,6 +107,7 @@ export async function startBridge(o: BridgeOptions) {
   if (!engines.length) log(`voice: the ${culture.id} voice cast has no voices yet: the app speaks with the phone's text-to-speech`)
   /** The village projects of the culture (its projects.json), which a scene's `needs` may name. */
   const villageProjects = cultureProjects(culturesDir, culture.id)
+  const lexiconDir = env.LANI_LEXICON_DIR || join(projectDir, 'companion/lexicon')
 
   const ctx: Ctx = {
     cfg,
@@ -166,6 +169,13 @@ export async function startBridge(o: BridgeOptions) {
     // Set right below: the profiles share the voice store's database.
     profiles: undefined as unknown as Profiles,
     visitTalks: new VisitTalks(),
+    // The village language's dictionary and forms book (companion/lexicon, LANI_LEXICON_DIR for another): read at the first
+    // lookup, a download for a language the repository lacks (features/lexicon.ts).
+    dictionary: {
+      dict: new Lexicon({ dir: lexiconDir, language, base: learnerLangs(dataDir, language).base, tutorFile: join(appDir, 'lexicon.json'), log }),
+      book: new FormsBook({ dir: lexiconDir, language, log }),
+      language,
+    },
   }
   ctx.profiles = new Profiles(ctx.voice.database, {
     eleven,

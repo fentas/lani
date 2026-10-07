@@ -10,7 +10,8 @@ import { labelShown } from '../langs'
 import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
-import { artsOf, dialogGrammar, forApp, forHost, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
+import { checkWoven, fittingWords, lemmaFinder, testedAt, WEAVES_A_DAY, wordsToWeave, wovenToday, type Card, type WeaveWord } from '../dialog-words'
+import { artsOf, dialogGrammar, forApp, forHost, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
 import { attachStories } from '../stories'
 import { allHeard, variantNote, VariantAsks, weakSpots } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -39,7 +40,13 @@ twice in a row. A dialog may count something with the village's number of the da
 {ovca|ovci|ovce|ovc}, the wrong choices "wrong_form": companion/SCENES.md "Numbers"). dialog_variants_heard: the
 learner has heard every dialog of a happening; write a fresh one with publish_dialog_variant (the same situation, other
 words, another point of grammar, at their level, around a weak spot the note names), no message to the learner needed;
-remove_dialog_variant takes one back. In an art with a stage (companion/SCENES.md "Stage directions": the living room,
+remove_dialog_variant takes one back. The learner's words: a dialog may declare "words" (1-6 lemmas or card ids
+it weaves in), each the tested element of a turn (a wrong choice differs from the right one in that word: another word,
+or a wrong form of it; or a tap on its thing): a right first answer there is a review of its card, and a word only said
+or only present counts for nothing (publish refuses it). dialog_variants_heard and the morning's words_to_weave name
+the words that fit a happening: weave 2-4 where natural, at the learner's level and within the grammar the book has
+opened, the placeholders kept; at most 2 woven variants a day besides the asks (lani-studio, "A fresh variant").
+In an art with a stage (companion/SCENES.md "Stage directions": the living room,
 the tent) a line or a reply can move its people ("act": {"zala": {"to": "behind-door", "pose": "hide"}}: to a spot of the
 stage, in a pose; "act_stays": true keeps it until midnight), and a learner's turn can be answered by tapping the picture
 (each choice's "tap": a spot, a slot of the art or a person; a tap turn may have 4 choices): Zala hides, and the learner
@@ -70,8 +77,46 @@ function sceneInfo(s: LoadedScene) {
   }
 }
 
-export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, addressee, log }) => {
+export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, addressee, log, dictionary }) => {
   const asks = new VariantAsks(join(cfg.appDir, 'variant-asks.json'))
+  /** Which lemmas a word may be a form of: the village's dictionary and forms book (a fresh cache per use). */
+  const lemmas = () => lemmaFinder(dictionary.dict, dictionary.book, dictionary.language)
+  const cards = () => learner.srItems() as Record<string, Card>
+  /** The learner's words worth weaving today, with the happenings each fits (dialog-words.ts). */
+  const weavable = (today: string) =>
+    wordsToWeave({
+      items: cards(), today, mistakes: learner.state().databases?.mistakes_db, scenes: scenes.resolved(), packs: packs.all(),
+      villagers: villagers.all(), lemmaOf: lemmas(), language: dictionary.language,
+    })
+  /**
+   * Whether the words dialog [d] of [scene] declares are each tested by a turn (checkWoven): the errors (nothing is to be
+   * published then), and what to say back: which turn tests each word, and a word that is none of the learner's cards.
+   */
+  const woven = (scene: Scene, d: Dialog, at = ''): { errors: string[]; said: string } => {
+    if (!d.words?.length) return { errors: [], said: '' }
+    const objects = resolveScene({ ...scene, source: 'tutor' }, packs.all()).objects
+    const r = checkWoven(d, { language: scene.language, objects }, d.words, { items: cards(), lemmaOf: lemmas() })
+    const where = at ? `${at}: ` : ''
+    const tests = r.words.map(w => `"${w.declared}"${w.item_id && w.item_id !== w.declared ? ` (${w.item_id})` : ''}: ${w.tests.map(testedAt).join('; ')}`)
+    return {
+      errors: r.errors.map(e => `${where}${e}`),
+      said: `\nWords woven${at ? ` in ${at}` : ''}: ${tests.join(' | ')}` + r.notes.map(n => `\nNote: ${where}${n}`).join(''),
+    }
+  }
+  /**
+   * After a woven variant of [scene]/[happening] is published: whether today's woven variants are past the day's limit
+   * (WEAVES_A_DAY, by their files' time). An answer to today's dialog_variants_heard about that happening isn't counted:
+   * those asks have their own limit. Never a refusal: the tutor is told, the variant stays.
+   */
+  const weaveLimit = (scene: string, happening: string): string => {
+    const today = localDate(new Date())
+    const asked = asks.read()
+    if (asked[`${scene}/${happening}`]?.on === today) return ''
+    const n = wovenToday(scenes.tutorVariants(), asked, today, t => localDate(new Date(t)))
+    return n > WEAVES_A_DAY
+      ? `\nNote: that makes ${n} woven variants today: the day's limit of ${WEAVES_A_DAY} (besides the dialog_variants_heard asks) is reached. It is published all the same; weave no more today.`
+      : ''
+  }
   // what the last check saw (the day, and what was heard): a village write that changes none of it (most) costs nothing
   let seen = ''
   /**
@@ -90,9 +135,16 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       if (!due.length) return
       const weak = weakSpots(learner.state().databases?.mistakes_db)
       const nameOf = (id: string) => villagers.get(id)?.name
+      // the learner's words that fit each happening: the fresh variant may weave them in (a failure leaves them out)
+      let words: WeaveWord[] = []
+      try {
+        words = weavable(today)
+      } catch (e) {
+        log(`variants: no words to weave (${(e as Error).message})`)
+      }
       for (const a of due) {
         asks.mark(a, today) // before sending: a failing channel mustn't ask again on every write
-        await channel.notify(variantNote(a, learnerLevel(cfg.dataDir), weak, nameOf), {
+        await channel.notify(variantNote(a, learnerLevel(cfg.dataDir), weak, nameOf, fittingWords(words, a.scene.id, a.happening.id)), {
           kind: 'dialog_variants_heard',
           conversation_id: 'main',
           msg_id: `variants-${a.key.replace('/', '-')}-${Date.now().toString(36)}`,
@@ -194,6 +246,10 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           if (!v.ok) return fail(`scene invalid, nothing published:\n${v.errors}`)
           const note = noteIn.safeParse(args.note)
           if (!note.success) return badNote()
+          // the dialogs that weave the learner's words: each word tested by a turn
+          const checks = [...v.scene.dialogs.map((d, i) => woven(v.scene, d, `dialogs[${i}] (${d.id})`)), ...v.scene.variants.map((d, i) => woven(v.scene, d, `variants[${i}] (${d.id})`))]
+          const wrong = checks.flatMap(c => c.errors)
+          if (wrong.length) return fail(`the dialogs' words don't hold, nothing published:\n${wrong.map(e => `✖ ${e}`).join('\n')}`)
           const replaced = scenes.isCurated(v.scene.id)
           scenes.publish(v.scene)
           events.emit({ type: 'scene_published', id: v.scene.id, title: titleOf(v.scene.title), emoji: v.scene.emoji, note: note.data ?? undefined })
@@ -204,7 +260,8 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
             `published scene ${v.scene.id} (${v.scene.objects.length} objects, ${v.scene.happenings.length} happenings, ${v.scene.dialogs.length} dialogs)` +
               (replaced ? `; it replaces the curated scene "${v.scene.id}" until remove_scene` : '') +
               waiting(v.scene) +
-              lacking(v.scene),
+              lacking(v.scene) +
+              checks.map(c => c.said).join(''),
           )
         },
       },
@@ -258,6 +315,9 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           const note = noteIn.safeParse(args.note)
           if (!note.success) return badNote()
           const dialog = v.scene.variants.find(d => d.id === did)!
+          // the learner's words it weaves: each the tested element of a turn, else nothing is published
+          const w = woven(v.scene, dialog)
+          if (w.errors.length) return fail(`the dialog's words don't hold, nothing published:\n${w.errors.map(e => `✖ ${e}`).join('\n')}`)
           scenes.publishVariant(sceneId, hid, dialog)
           events.emit({ type: 'variant_published', scene: sceneId, happening: hid, id: did, title: titleOf(s.title), emoji: h.marker, note: note.data ?? undefined })
           const resolved = scenes.resolve(sceneId)
@@ -265,7 +325,9 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           const now = resolved?.happenings.find(x => x.id === hid)
           return ok(
             `published variant ${did} of ${sceneId}/${hid} (its dialogs now: ${variantsOf(now ?? h).join(', ')}); it plays the next time the happening comes, as the one not heard yet` +
-              waiting({ ...v.scene, happenings: v.scene.happenings.filter(x => x.id === hid).map(x => ({ ...x, dialogs: [did] })) }),
+              waiting({ ...v.scene, happenings: v.scene.happenings.filter(x => x.id === hid).map(x => ({ ...x, dialogs: [did] })) }) +
+              w.said +
+              (dialog.words?.length ? weaveLimit(sceneId, hid) : ''),
           )
         },
       },

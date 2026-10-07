@@ -213,6 +213,9 @@ class DataRepoTest(unittest.TestCase):
         import lani_data_repo as r
         self.assertEqual("session 2026-10-05: 1 review, 1 mistake", r.session_message(
             {"date": "2026-10-05", "review_results": [{}], "errors": [{}]}).splitlines()[0])
+        # a word got wrong in a dialog lowers its card gently: no review
+        self.assertEqual("session 2026-10-05: 1 review, 1 card lowered", r.session_message(
+            {"date": "2026-10-05", "review_results": [{"item_id": "a", "quality": 4}, {"item_id": "b", "gentle": True}]}).splitlines()[0])
         self.assertEqual("session 2026-10-05: 7 exercises", r.session_message(
             {"date": "2026-10-05", "skill_scores": {"writing": {"exercises": 7}}}).splitlines()[0])
         self.assertEqual("session 2026-10-05: 20 min", r.session_message({"date": "2026-10-05", "duration_minutes": 20}))

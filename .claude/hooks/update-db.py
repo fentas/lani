@@ -467,12 +467,34 @@ def update_mastery_db(mastery: dict, session: dict, progress: dict):
     mastery.setdefault("metadata", {})["last_updated"] = today
 
 
+def lower_gently(item: dict, today: str):
+    """A word the learner got wrong where a dialog asked its meaning (POST /reviews' dialog words): not a review, a
+    nudge. The card comes back sooner and a little harder (easiness - 0.14, the interval halved, due tomorrow at the
+    latest) but keeps its repetitions, and its last review, quality, mastery and history stay as they were, so the
+    app's readiness and "rusty" never see it. Once a day: a second slip the same day changes nothing."""
+    if item.get("last_lapse") == today:
+        return
+    item["easiness_factor"] = round(max(1.3, item.get("easiness_factor", 2.5) - 0.14), 2)
+    item["interval_days"] = max(1, int(item.get("interval_days", 1) or 1) // 2)
+    due = item.get("due_date")
+    tom = tomorrow(today)
+    item["due_date"] = due if isinstance(due, str) and due and due < tom else tom
+    item["consecutive_correct"] = 0
+    item["lapses"] = item.get("lapses", 0) + 1
+    item["last_lapse"] = today
+
+
 def update_spaced_repetition(sr: dict, session: dict):
     today = session["date"]
     items = sr.setdefault("items", {})
 
     for review in session.get("review_results", []):
         item_id = review["item_id"]
+        if review.get("gentle") is True:
+            # its quality, if any, is ignored: it is no review
+            if item_id in items:
+                lower_gently(items[item_id], today)
+            continue
         quality = review["quality"]
         if item_id in items:
             item = items[item_id]
