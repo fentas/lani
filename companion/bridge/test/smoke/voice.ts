@@ -173,7 +173,7 @@ export default async function voice() {
     const gpBefore = fg.st.calls.length
     const dry = await voiceBuild('--json')
     const plan = JSON.parse(dry.stdout || '{}')
-    check('voice-build dry run counts the corpus, the villager first, in his speaker', dry.exitCode === 0 && plan.texts === 38 && plan.missing === 38 && plan.cached === 0 && JSON.stringify(plan.rows?.map((r: any) => r.texts)) === '[14,9,2,11,2,0,0,0,0,0,0]' && plan.rows[0].label === 'villagers' && plan.by_voice?.grandpa?.texts === 14, plan)
+    check('voice-build dry run counts the corpus, the villager first, in his speaker', dry.exitCode === 0 && plan.texts === 38 && plan.missing === 38 && plan.cached === 0 && JSON.stringify(plan.rows?.map((r: any) => r.texts)) === '[14,9,2,11,2,0,0,0,0,0,0,0]' && plan.rows[0].label === 'villagers' && plan.by_voice?.grandpa?.texts === 14, plan)
     check('voice-build dry run reads the quota and the worker', plan.quota?.remaining === 5_030 && plan.quota.reserve === 5_000 && plan.gepard_up === true, plan.quota)
     check('voice-build plans ElevenLabs within the budget, the worker for the rest', plan.would?.elevenlabs.chars > 0 && plan.would.elevenlabs.chars <= 30 && plan.would.elevenlabs.texts + plan.would.gepard.texts === 38 && plan.would.later.texts === 0, plan.would)
     check('voice-build dry run synthesizes nothing and writes no DB', fe.st.tts.length === ttsBefore && fg.st.calls.length === gpBefore && !existsSync(join(vbData, 'app/voice/voice.db')))

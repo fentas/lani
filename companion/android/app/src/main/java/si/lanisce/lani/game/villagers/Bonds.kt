@@ -28,7 +28,7 @@ data class Memory(
     val sl: String,
     /** "when you helped me find Bela" */
     val en: String = "",
-    /** quest | dialog | talk | training | gift | arrival (the day they met: [Arrivals]) */
+    /** quest | dialog | talk | training | gift | arrival (the day they met: [Arrivals]) | ispy (a game of «Vidim, vidim») */
     val kind: String = "dialog",
 )
 

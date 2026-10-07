@@ -13,7 +13,8 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
   --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
                        "🚗 Za pot" (a small library got ready, played, next, paused, browsed as Android Auto does);
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
-                       keyboard the answer's (its language, no suggestion strip)
+                       keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
+                       the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -709,6 +710,88 @@ def story_in_scene():
         time.sleep(1)
     finally:
         qa_hook("happening:")
+    return None
+
+
+def ispy_positions(timeout=10.0):
+    """The latest round QA's I spy logged (app/ISpyController.log, a debug build): (round, target, {slot: (x, y)}, word), the
+    things' centres on the screen and the word of the thing spied; None when none came."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        lines = [l for l in adb("logcat", "-d", "-s", "ISpy:D", check=False).splitlines() if " round " in l]
+        if lines:
+            m = re.search(r"round (\d+) target (\S+) things (.*?) word (.*)$", lines[-1])
+            if m:
+                at = {}
+                for part in m.group(3).split():
+                    slot, _, xy = part.partition("@")
+                    x, _, y = xy.partition(",")
+                    if x.lstrip("-").isdigit() and y.lstrip("-").isdigit():
+                        at[slot] = (int(x), int(y))
+                return int(m.group(1)), m.group(2), at, m.group(4).strip()
+        time.sleep(1)
+    return None
+
+
+def ispy():
+    """«Vidim, vidim» (companion/SCENES.md, "I spy") by the fire: QA's hook ("ispy:ob-ognju/stump") offers it whatever the
+    day, with a child who comes by, its first round spying the stump. "🔍 Igrajva · Let's play" starts it; the round's first
+    clue shows; a wrong thing tapped in the picture (the woodpile) is the learner's guess, marked wrong, with the child's
+    kind reaction and the next clue; the stump tapped is found ("Ja, to je štor!"); then each round's thing (the debug
+    build logs where it is on the screen) to the end card."""
+    try:
+        adb("logcat", "-c")
+        qa_hook("ispy:ob-ognju/stump", "scene:ob-ognju")
+        if wait_for("‹ Vas · Village", 10) is None:
+            return "the fire's scene didn't open (no scenes on this node)"
+        # the child who offers it has a 🔍 over them in the picture ("<name>: Vidim, vidim · I spy. Igrajva · Let's play"),
+        # once the village's people are loaded; the panel's card says it too
+        marker = wait_for("Vidim, vidim · I spy. Igrajva", 20)
+        card = scroll_to("🔍 Igrajva · Let's play", 5)
+        assert marker is not None or card is not None, "the offer «Vidim, vidim»: the 🔍 over the child, the card on the panel"
+        shot("ispy-offer")
+        tap_at(card if card is not None else marker)
+        assert wait_for("Vidim, vidim nekaj", 8), "the child's opening line"
+        assert wait_for("Poišči v prizoru · Find it in the scene", 5), "the round: find it in the picture"
+        got = ispy_positions()
+        assert got is not None, "the debug build's ISpy log of where the things are"
+        rnd, target, at, _ = got
+        assert target == "stump" and "stump" in at, f"the first round spies the stump (QA's hook): {target}, {sorted(at)}"
+        wrong = "logs" if "logs" in at else next(s for s in at if s != target)
+        tap_at(at[wrong])
+        time.sleep(1.5)
+        reacted = any(r in t for t, _ in nodes() for r in ("Ne, to ni to", "Mrzlo", "Toplo", "Hi hi, ne", "Še en namig", "Skoraj"))
+        assert reacted, f"the child's reaction to a wrong guess ({wrong})"
+        shot("ispy-wrong")
+        tap_at(at[target])
+        assert wait_for("Ja, to je štor", 6), "the child's cheer: the stump found"
+        shot("ispy-found")
+        # the other rounds: the thing's word among the things listed ("✋ Izberi raje · Let me choose", as TalkBack has them),
+        # then on to the end (a thing's area can lie under another's, the stars' under the smoke: its centre is no sure tap)
+        for _ in range(4):
+            if not tap("Naprej", 3):
+                break
+            time.sleep(1.5)
+            got = ispy_positions(5)
+            if got is None or got[0] == rnd:
+                break
+            rnd, target, at, word = got
+            assert tap("Izberi raje", 3), "✋ Izberi raje · Let me choose: the things as chips"
+            time.sleep(1)
+            chip = next((c for t, c in nodes() if t == word), None)
+            assert chip is not None, f"the chip of «{word}»"
+            tap_at(chip)
+            time.sleep(1.5)
+            assert find(f"{word}! Bravo") is not None, f"the child's cheer for «{word}»"
+        if find("Konec") is not None:
+            tap("Konec", 3)
+        assert wait_for("Hvala za igro! · Thanks for the game!", 8), "the end card"
+        shot("ispy-end")
+        assert tap("Nazaj v prizor · Back to the scene", 4), "back to the scene"
+        time.sleep(1)
+        assert tap("‹ Vas · Village", 3), "back from the scene"
+    finally:
+        qa_hook("ispy:")
     return None
 
 
@@ -1832,6 +1915,7 @@ def plan():
         ("scene", scene, v, False, ""),
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
+        ("ispy", ispy, v, False, ""),
         ("story-in-scene", story_in_scene, v, False, ""),
         ("counting", counting, v, False, ""),
         ("forest", forest, v, False, ""),

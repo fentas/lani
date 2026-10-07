@@ -1,11 +1,13 @@
 // Voice clips: natural Slovene audio made once on the node (../voice.ts). The clips are readable
 // with either token; synthesis and status are the app's.
+import { join } from 'node:path'
 import { z } from 'zod'
 import { fail, ok } from '../channel'
 import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
 import { cultureKeepers, keeperTellings } from '../cultures'
+import { readISpy } from '../ispy'
 import { corpus, fileUrl, voiceInstructions, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
 // voice: a speaker of the cast (female, male, grandma, …) or someone's own voice ("@micka"); an unknown one is a
@@ -52,9 +54,11 @@ const profilesIn = z.object({
 const redesignIn = z.object({ person: personId, description: z.string().trim().min(10).max(900).optional(), like: z.string().trim().min(2).max(64).optional() })
 
 /** Every text to voice (in the village's language) from the review cards and the current packs, modules, scenarios, scenes, villagers, grammar pages, stories and the car's drills. */
-function voiceCorpus({ modules, packs, scenarios, scenes, villagers, learner, culture, grammar, stories, drills, addressee }: Ctx): CorpusItem[] {
+function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learner, culture, grammar, stories, drills, addressee }: Ctx): CorpusItem[] {
   const current = modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? [])
-  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k) })), villagers: villagers.all(), cards: learner.reviewCards(), grammar: grammar.all(), stories: stories.all(), drills: drills.all(), ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
+  // «Vidim, vidim»: the content the app bundles (companion/ispy), read here for its voices only
+  const ispy = readISpy(join(cfg.projectDir, 'companion/ispy'))
+  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k) })), villagers: villagers.all(), cards: learner.reviewCards(), grammar: grammar.all(), stories: stories.all(), drills: drills.all(), ispy, ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
 }
 
 export const voice: FeatureFactory = ctx => {

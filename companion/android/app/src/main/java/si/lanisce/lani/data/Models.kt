@@ -270,6 +270,10 @@ data class ReviewCard(
     val category: String? = null,
     /** Added without an answer (looked up in a dialog): it never rusts ([Stats.rusty]). */
     val lookup: Boolean = false,
+    /** When its next review is due (the item's `due_date`, else `next_review`); null when the node doesn't say. */
+    val due: java.time.LocalDate? = null,
+    /** When it was last reviewed (the item's `last_reviewed`); null when never or the node doesn't say. */
+    val lastReviewed: java.time.LocalDate? = null,
 ) {
     /** A failed review ([quality] below 3) leaves this card rusty ([Stats.rusty]). */
     fun rustsAt(quality: Int): Boolean = quality < 3 && kind == "vocabulary" && !lookup
@@ -430,6 +434,7 @@ data class Dashboard(
         private fun JsonElement?.obj() = this as? JsonObject ?: JsonObject(emptyMap())
         private fun JsonObject.str(k: String) = this[k]?.jsonPrimitive?.contentOrNull
         private fun JsonObject.int(k: String) = this[k]?.jsonPrimitive?.intOrNull ?: 0
+        private fun dayOf(s: String?) = s?.take(10)?.let { runCatching { java.time.LocalDate.parse(it) }.getOrNull() }
 
         fun parse(raw: String): Dashboard {
             val root = json.parseToJsonElement(raw).jsonObject
@@ -452,6 +457,8 @@ data class Dashboard(
                     id, front, back, item.str("type") ?: "vocabulary", item.int("repetitions"), item.int("last_quality"),
                     category = item.str("category")?.trim()?.takeIf { it.isNotEmpty() },
                     lookup = item.str("source") == "lookup",
+                    due = dayOf(item.str("due_date") ?: item.str("next_review")),
+                    lastReviewed = dayOf(item.str("last_reviewed")),
                 )
             }
             val cards = due.mapNotNull(::card).take(20)

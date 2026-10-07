@@ -27,6 +27,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   "turns:" lets the learner's own masteries decide again.
  * - "bubbles:<n>": the village shows only the n bubbles nearest the fire ([fewer]), for a recording that isn't crowded;
  *   "bubbles:" shows them all again.
+ * - "ispy:<scene>/<slot>": «Vidim, vidim» is offered in that scene whatever the day (games played, the hour: a child comes
+ *   by if none is there), and its first round spies [slot]; the debug build logs where the round's things are on screen
+ *   (tag ISpy), so QA taps them. "ispy:" lets it go again.
  * - "clock:<f>": the towns' and scenes' time runs at f of the wall's (0.05 to 1; [TownClock.rate]), so a slow emulator
  *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
@@ -53,6 +56,10 @@ object QaHooks {
     var typedTurns = false
         private set
 
+    /** «Vidim, vidim» QA offers ("scene/slot": the scene, the thing its first round spies), or null. */
+    var ispy by mutableStateOf<String?>(null)
+        private set
+
     /** How many bubbles the village shows while QA asks for fewer ("bubbles:<n>"), or null: all of them. */
     var bubbles by mutableStateOf<Int?>(null)
         private set
@@ -70,6 +77,7 @@ object QaHooks {
             }
             command == "forms:off" -> this.forms = false
             command.startsWith("turns:") -> typedTurns = command == "turns:type"
+            command.startsWith("ispy:") -> ispy = command.removePrefix("ispy:").takeIf { '/' in it }
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
         }

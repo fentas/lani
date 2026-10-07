@@ -366,6 +366,16 @@ data class GameState(
     val treasure: TreasureHunt? = null,
     /** The treasures found, by the level each brought ("A2" → the ISO day): their keepsakes are the village's for good. */
     val treasures: Map<String, String> = emptyMap(),
+    /**
+     * «Vidim, vidim» played today (see [si.lanisce.lani.game.scene.ISpy]): the games in each scene and the things spied, and
+     * the children who played; a day of its own, gone the next. An older bridge keeps it as it is.
+     */
+    val ispy: si.lanisce.lani.game.scene.ISpyToday? = null,
+    /**
+     * The learner's cards a word met in play counted a review for today (see [PlayReviews]: once a card a day, whatever
+     * the game); gone the next day.
+     */
+    val playReviews: PlayReviewDay? = null,
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

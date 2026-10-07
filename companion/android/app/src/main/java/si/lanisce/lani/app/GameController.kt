@@ -73,6 +73,9 @@ import si.lanisce.lani.l10n.bi
  * What a finished happening brought the village: [paid] (what fit in the stores) of [due] (its reward after
  * the mistakes), and [help] 🤝; nothing when it was paid today already ([again]).
  */
+/** What a game of «Vidim, vidim» paid: its answers' resources, the 🤝 of the day's first game with the child, and how many of the answers paid half. */
+data class ISpyPaid(val paid: Map<Res, Int>, val help: Int = 0, val tired: Int = 0)
+
 data class HappeningPaid(val paid: Map<Res, Int>, val due: Map<Res, Int>, val again: Boolean, val help: Int = 0) {
     /** The stores were too full for part of it. */
     val full: Boolean get() = !again && due.any { (r, n) -> (paid[r] ?: 0) < n }
@@ -730,6 +733,32 @@ class GameController(
         val (n, paid) = GameEngine.completeHappening(s, key, reward, mistakes, today, System.currentTimeMillis(), entry)
         if (n != s) commit(n)
         HappeningPaid(paid, GameEngine.happeningPay(reward, mistakes), again = Happenings.done(s, key, today), help = n.help - s.help)
+    }
+
+    /**
+     * A game of «Vidim, vidim» ended in [scene] with [child] (a villager id, or null; companion/SCENES.md, "I spy"): each round
+     * pays as an answer ([verdicts]: 🌾, a quick find a right one, a thing shown still something), and the day keeps the
+     * game and the [things] spied; the first game of the day with the child is time spent with them, helping as a happening
+     * does ([Catalog.HELP_HAPPENING] 🤝, [befriends]). Null when the village isn't loaded.
+     */
+    fun finishISpy(scene: String, child: String?, things: List<String>, verdicts: List<Verdict>, befriends: Boolean): ISpyPaid? = notices.village {
+        if (state == null) return@village null
+        val earned = earn(verdicts.map { Res.FOOD to it })
+        val s = state ?: return@village null
+        val today = LocalDate.now()
+        val help = if (befriends && child != null) Catalog.HELP_HAPPENING else 0
+        val n = si.lanisce.lani.game.scene.ISpy.played(s, scene, things, child, today).let { if (help > 0) si.lanisce.lani.game.Help.earn(it, help) else it }
+        if (n != s) commit(n)
+        ISpyPaid(earned, help, tired)
+    }
+
+    /** The learner's cards [ids] got a review from a word met in play today ([si.lanisce.lani.game.PlayReviews]): once a card a day. */
+    fun playReviewed(ids: Collection<String>) {
+        notices.village {
+            val s = state ?: return@village
+            val n = si.lanisce.lani.game.PlayReviews.record(s, ids, LocalDate.now())
+            if (n != s) commit(n)
+        }
     }
 
     /**

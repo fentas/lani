@@ -142,8 +142,36 @@ val drillFiles = tasks.register<DrillFiles>("drillFiles") {
     drills.set(layout.projectDirectory.dir("../../drills"))
 }
 
+/**
+ * «Vidim, vidim» (I spy, companion/SCENES.md): the child's lines in each language (companion/ispy/<language>.json,
+ * lani.ispy-lines/v0) and each scene's clues (companion/ispy/scenes/<scene>.json, lani.ispy/v0), bundled as Java resources
+ * under ispy/ (app/ISpyController.kt). The bridge doesn't serve them (its voice-build reads them for the voices).
+ */
+abstract class ISpyFiles : DefaultTask() {
+    @get:InputDirectory @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val ispy: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val dir = out.get().asFile.resolve("ispy")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        val root = ispy.get().asFile
+        root.listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty().forEach { it.copyTo(dir.resolve(it.name)) }
+        root.resolve("scenes").listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty().forEach { it.copyTo(dir.resolve("scenes/${it.name}")) }
+    }
+}
+
+val ispyFiles = tasks.register<ISpyFiles>("ispyFiles") {
+    ispy.set(layout.projectDirectory.dir("../../ispy"))
+}
+
 androidComponents {
     onVariants { variant ->
+        variant.sources.resources?.addGeneratedSourceDirectory(ispyFiles, ISpyFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(festivalPacks, FestivalPacks::out)
         variant.sources.resources?.addGeneratedSourceDirectory(culturePacks, CulturePacks::out)
         variant.sources.resources?.addGeneratedSourceDirectory(grammarPages, GrammarPages::out)

@@ -608,6 +608,7 @@ private fun MemoryRow(m: Memory, last: Boolean) {
         "talk" -> "🗣️"
         "training" -> "🏋️"
         "gift" -> "🎁"
+        "ispy" -> "🔍"
         else -> "💬"
     }
     Row(Modifier.fillMaxWidth().semantics(mergeDescendants = true) { }) {

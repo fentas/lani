@@ -16,6 +16,7 @@ import { renderDeep, type Addressee } from './addressee'
 import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, isNarrator, isVoice, personVoice, speakerFor, type DenoisePreset } from './cast'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
+import { ispyTexts, type ISpyBook, type ISpyLines } from './ispy'
 import type { GrammarPage } from './grammar'
 import { said } from './langs'
 import { exampleOf, wordOf, type Pack } from './packs'
@@ -929,10 +930,12 @@ export function cardTexts(items: Record<string, { type?: string; content?: strin
 }
 
 /** The corpus priorities, in prebuild order (CorpusItem.priority is the index). */
-export const PRIORITY_LABELS = ['villagers', 'pack words', 'examples', 'modules', 'scenarios', 'stories A1', 'drills A1', 'scenes', 'stories A2', 'drills A2+', 'stories B1+']
+export const PRIORITY_LABELS = ['villagers', 'pack words', 'examples', 'modules', 'scenarios', 'stories A1', 'drills A1', 'scenes', 'ispy', 'stories A2', 'drills A2+', 'stories B1+']
 
 /** The scenes' dialogs. */
 const SCENES = PRIORITY_LABELS.indexOf('scenes')
+/** What a child says playing «Vidim, vidim» in the scenes (ispy.ts): after the scenes' dialogs. */
+const ISPY = PRIORITY_LABELS.indexOf('ispy')
 /**
  * The storyteller's tellings at [level]: the A1 ones before the scenes (the learner's level: the car plays a telling
  * only when its clips exist), A2 after them, then B1 and up.
@@ -968,8 +971,13 @@ export function corpus(input: {
    * telling of his talks (cultures.ts keeperTellings): the app plays them as a scene's dialog, in his speaker's voice.
    */
   keepers?: { id: string; voice: 'female' | 'male'; speaker?: string; tellings: { lines: ResolvedScene['dialogs'][number]['lines'] }[] }[]
-  villagers?: Pick<Villager, 'id' | 'voice' | 'speaker' | 'lines'>[]
+  villagers?: (Pick<Villager, 'id' | 'voice' | 'speaker' | 'lines'> & { art?: string })[]
   cards?: string[]
+  /**
+   * «Vidim, vidim» (ispy.ts, companion/ispy): the child's lines by language and the scenes' clues; a scene's are voiced in
+   * the voice of each child who may play there (its own children, else every child of the cast: one comes by).
+   */
+  ispy?: { lines: Record<string, ISpyLines>; books: Record<string, ISpyBook> }
   /** The grammar book's pages: their examples in the village's language (grammar.ts). */
   grammar?: Pick<GrammarPage, 'id' | 'language' | 'examples'>[]
   /** The storyteller's stories (stories.ts): the curated ones of the village's culture pack, and the tutor's. */
@@ -1091,6 +1099,26 @@ export function corpus(input: {
           add(said(ch.reply), src, SCENES, speaker)
         }
       }
+    }
+  }
+  // «Vidim, vidim»: the child's lines, each thing's clues, its find and its reveal, in every child's voice who plays there
+  if (c.ispy) {
+    const children = (c.villagers ?? []).filter(v => v.art?.startsWith('child'))
+    for (const s of c.scenes ?? []) {
+      const lang = s.language ?? 'sl'
+      const lines = c.ispy.lines[lang]
+      if (!lines) continue
+      const own = s.people.filter(p => p.art.startsWith('child')).map(p => (p.villager && villagerVoice.get(p.villager)) || spriteVoice(p.art))
+      const voices = [...new Set(own.length ? own : children.map(v => villagerVoice.get(v.id) ?? speakerFor(v)))]
+      const words: Record<string, string> = {}
+      const plural = new Set<string>()
+      for (const o of s.objects) {
+        const w = inScene(s, o)
+        if (!w) continue
+        words[o.slot] = w
+        if (o.plural === w) plural.add(o.slot)
+      }
+      for (const t of ispyTexts(lines, c.ispy.books[s.id], lang, words, plural)) for (const v of voices) add(t, `ispy:${s.id}`, ISPY, v)
     }
   }
   // the keepers' talks, as a scene's dialog: his lines and his replies in his speaker's voice, the learner's choices in

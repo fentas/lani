@@ -274,7 +274,7 @@ fun DialogPanel(
  * TalkBack hears both.
  */
 @Composable
-private fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit) {
+internal fun TranslationsToggle(on: Boolean, onChange: (Boolean) -> Unit) {
     FilterChip(
         selected = on,
         onClick = { onChange(!on) },
@@ -307,7 +307,7 @@ private fun WordHint(onSeen: () -> Unit) {
 }
 
 /** What a tap on a word of the dialog's [line] does: its card (and the hint about it has done its job). */
-private fun lookUp(vm: AppViewModel, line: String, en: String): (WordToken) -> Unit {
+internal fun lookUp(vm: AppViewModel, line: String, en: String): (WordToken) -> Unit {
     val open = lookUpIn(vm, line, en, Words.SCENE)
     return { t ->
         vm.dialogPrefs.sawWordHint()
@@ -366,10 +366,10 @@ private fun sentenceOf(talk: SceneTalk, s: Said): SentenceQuery {
  * line beside its words opened it ([toggle]; a tap again closes it). A line without a translation has nothing to open.
  */
 @Stable
-private class LineTranslation(val shows: Boolean, val toggle: (() -> Unit)?)
+internal class LineTranslation(val shows: Boolean, val toggle: (() -> Unit)?)
 
 @Composable
-private fun rememberTranslation(s: Said, translations: Boolean): LineTranslation {
+internal fun rememberTranslation(s: Said, translations: Boolean): LineTranslation {
     val open = remember(s) { mutableStateOf(false) }
     val toggle = remember(open) { { open.value = !open.value } }
     val has = s.en.isNotBlank()
@@ -402,7 +402,7 @@ private fun SemanticsPropertyReceiver.describeLine(s: Said, t: LineTranslation, 
  * below (unless translations are hidden: a tap on the line beside its words shows it).
  */
 @Composable
-private fun Theirs(s: Said, emoji: String, speaker: Speaker, voice: Spoken, typing: Boolean, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit) {
+internal fun Theirs(s: Said, emoji: String, speaker: Speaker, voice: Spoken, typing: Boolean, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit) {
     var shown by remember(s) { mutableIntStateOf(if (typing) 0 else s.sl.length) }
     LaunchedEffect(s) {
         while (shown < s.sl.length) {
@@ -448,7 +448,7 @@ private fun Theirs(s: Said, emoji: String, speaker: Speaker, voice: Spoken, typi
  * translation as someone's line has it ([translation]).
  */
 @Composable
-private fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit) {
+internal fun Mine(s: Said, onWord: (WordToken) -> Unit, translation: LineTranslation, onLong: () -> Unit) {
     Row(Modifier.fillMaxWidth().popIn(s, from = 0.85f, origin = androidx.compose.ui.graphics.TransformOrigin(1f, 0f)), horizontalArrangement = Arrangement.End) {
         Spacer(Modifier.width(48.dp))
         val ink = if (s.wrong) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onPrimaryContainer
@@ -849,7 +849,7 @@ private fun TapTurn(
 
 /** Whether TalkBack (touch exploration) is on now: a tap turn then shows its choices, which it can read. */
 @Composable
-private fun rememberTalkBack(): Boolean {
+internal fun rememberTalkBack(): Boolean {
     val context = androidx.compose.ui.platform.LocalContext.current
     val am = remember(context) { context.getSystemService(android.view.accessibility.AccessibilityManager::class.java) }
     var on by remember(am) { mutableStateOf(am?.isTouchExplorationEnabled == true) }

@@ -52,8 +52,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -72,6 +75,7 @@ import si.lanisce.lani.game.render.Moon
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.DayAct
 import si.lanisce.lani.game.scene.Happenings
+import si.lanisce.lani.game.scene.ISpy
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.ScenePerson
 import si.lanisce.lani.game.scene.SceneObject
@@ -165,6 +169,8 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         scene.happenings.filter { h -> state != null && Happenings.done(state, "${scene.id}/${h.id}", now.toLocalDate()) }.map { it.id }
     }
     val talk = scenes.talk?.takeIf { it.sceneId == scene.id }
+    // «Vidim, vidim» being played here (companion/SCENES.md, "I spy")
+    val ispy = vm.ispy.play?.takeIf { it.sceneId == scene.id }
     // A villager speaks with their own voice (their speaker), anyone else with their sprite's.
     fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { vm.villagers.byId(it) })
 
@@ -200,8 +206,31 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         if (!scenes.startTalk(a)) greeted = a.person?.id
     }
 
+    // a wrong guess near the thing spied is warm: their areas in the picture within a few pixels
+    fun near(a: String, b: String?): Boolean {
+        val ha = anchors.hits.lastOrNull { it.target == SceneTarget.Thing(a) } ?: return false
+        val hb = b?.let { s -> anchors.hits.lastOrNull { it.target == SceneTarget.Thing(s) } } ?: return false
+        val dx = maxOf(hb.left - ha.right, ha.left - hb.right, 0)
+        val dy = maxOf(hb.top - ha.bottom, ha.top - hb.bottom, 0)
+        return dx * dx + dy * dy <= ISpy.WARM_PX * ISpy.WARM_PX
+    }
+
+    // «Vidim, vidim»: a thing guessed, in the picture or among the chips
+    fun guess(slot: String) {
+        val g = vm.ispy.play?.takeIf { it.sceneId == scene.id } ?: return
+        if (scene.objects.none { it.slot == slot }) return
+        selected = null
+        greeted = null
+        vm.ispy.tap(scene, slot, near(slot, g.run.current?.slot))
+    }
+
     fun tapped(t: SceneTarget?) {
         if (scenes.talk != null) return
+        // a round of «Vidim, vidim» on: a thing tapped is the learner's guess (a person, the scenery: nothing)
+        if (vm.ispy.play?.takeIf { it.sceneId == scene.id }?.run?.step == ISpyRun.Step.FIND) {
+            (t as? SceneTarget.Thing)?.slot?.let(::guess)
+            return
+        }
         when (t) {
             is SceneTarget.Thing -> scene.objects.firstOrNull { it.slot == t.slot }?.let(::select) ?: run { selected = null }
             is SceneTarget.Person -> {
@@ -239,6 +268,26 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         delay(700L + line.sl.length * 70L)
         talking = false
     }
+    // The child's lines of «Vidim, vidim» are said aloud one after another, each as it comes, and the child is drawn talking.
+    var ispyTalking by remember { mutableStateOf(false) }
+    var ispySpoken by remember { mutableIntStateOf(0) }
+    LaunchedEffect(ispy?.started, ispy?.run?.said?.size) {
+        val g = ispy
+        val said = g?.run?.said.orEmpty()
+        if (g == null) { ispySpoken = 0; ispyTalking = false; return@LaunchedEffect }
+        if (ispySpoken > said.size) ispySpoken = 0
+        val fresh = said.drop(ispySpoken).filter { it.who != null }
+        ispySpoken = said.size
+        if (fresh.isEmpty()) return@LaunchedEffect
+        delay(350)
+        val who = voiceOf(g.host.person)
+        for (line in fresh) {
+            speaker.say(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person)
+            ispyTalking = true
+            delay(700L + line.sl.length * 70L)
+        }
+        ispyTalking = false
+    }
     // The scene takes part in the dialog: the weather and effects its lines bring, how the person reacts (SceneLife.kt).
     var micOn by remember { mutableStateOf(false) }
     val cues = rememberSceneCues(state, scene, talk?.run, now.toLocalDate())
@@ -257,20 +306,56 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     BackHandler {
         when {
             scenes.talk != null -> scenes.closeTalk()
+            vm.ispy.play?.sceneId == scene.id -> { vm.ispy.close(scene); selected = null }
             selected != null || greeted != null -> { selected = null; greeted = null }
             else -> vm.openVillage()
         }
     }
 
     val present = remember(state) { state?.let { Residents.present(it, LocalDate.now()) } }
-    val people = remember(scene, here, sleepers, about, talk?.person, talking, present, pose, state) {
+    val ispyHost = ispy?.host?.person?.id
+    val drawn = remember(scene, here, sleepers, about, talk?.person, talking, present, pose, state, ispyTalking, ispyHost) {
         // whoever a dialog left somewhere for the day (act_stays: Luka by the lantern while it rains) is still there, and
         // who is here by their day (France hoeing the field)
         val stayed = Stage.stayed(scene, DayAct.of(state, now.toLocalDate(), scene.id), present)
         val base = Sleep.inBed((Happenings.peopleIn(scene, here, present) + stayed + about).distinctBy { it.id }, sleepers)
         // Whoever is talking stays until the dialog is closed, also once it's done for today.
         val all = talk?.person?.takeIf { p -> base.none { it.id == p.id } }?.let { base + PersonInScene(it.id, it.art, it.slot) } ?: base
-        all.map { it.copy(talking = talking && it.id == talk?.person?.id, pose = if (it.id == talk?.person?.id) pose else it.pose) }
+        all.map { it.copy(talking = (talking && it.id == talk?.person?.id) || (ispyTalking && it.id == ispyHost), pose = if (it.id == talk?.person?.id) pose else it.pose) }
+    }
+    // «Vidim, vidim» (companion/SCENES.md, "I spy"): a child in the picture, or one of the village's who comes by (awake, not
+    // busy elsewhere; QA's hook takes any child), offers it while the day has games left; in a game the child stays
+    val children = remember(everyone, state, now, day, present, si.lanisce.lani.app.QaHooks.ispy) {
+        val forced = si.lanisce.lani.app.QaHooks.ispy?.substringBefore('/') == scene.id
+        everyone.filter { v ->
+            ISpy.isChild(v.art) && (forced || state == null || (
+                (present == null || v.id in present) && v.id !in (day?.busy.orEmpty()) &&
+                    si.lanisce.lani.game.villagers.Routine.now(v, state, now, day ?: Routine.Day()).where != si.lanisce.lani.game.villagers.Where.ASLEEP
+                ))
+        }
+    }
+    val offer = remember(scene, state, drawn, children, groups, ispy != null, talk != null, si.lanisce.lani.app.QaHooks.ispy) {
+        if (talk != null || ispy != null) null
+        else vm.ispy.offer(scene, state, drawn, children, { id -> everyone.firstOrNull { it.id == id } }, groups.now.map { it.slot }.toSet(), now.toLocalDate())
+    }
+    val host = ispy?.host ?: offer?.host
+    val people = remember(drawn, host, ispyTalking) {
+        val p = host?.takeIf { h -> h.comes && drawn.none { it.id == h.person.id } }?.person
+        if (p == null) drawn else drawn + PersonInScene(p.id, p.art, p.slot, talking = ispyTalking && p.id == ispyHost)
+    }
+    fun startISpy(o: si.lanisce.lani.app.ISpyOffer) {
+        selected = null
+        greeted = null
+        if (!vm.ispy.start(scene, o, state, groups.now.map { it.slot }.toSet(), found)) vm.notices.banner = bi("ispy.nothing")
+    }
+    // where the picture is in the window: a debug build logs where a round's things are on the screen, for QA to tap them
+    var viewAt by remember { mutableStateOf(Offset.Zero) }
+    LaunchedEffect(ispy?.run?.round, ispy?.run?.step, anchors.hits.isNotEmpty(), viewAt) {
+        val r = ispy?.run?.takeIf { it.step == ISpyRun.Step.FIND } ?: return@LaunchedEffect
+        val at = groups.now.mapNotNull { o ->
+            anchors.bounds(SceneTarget.Thing(o.slot))?.let { b -> o.slot to ((viewAt.x + b.center.x).toInt() to (viewAt.y + b.center.y).toInt()) }
+        }.toMap()
+        vm.ispy.log(r.round, r.current?.slot.orEmpty(), r.current?.word.orEmpty(), at)
     }
     val bubbleColor = MaterialTheme.colorScheme.surface
     val density = LocalDensity.current
@@ -286,9 +371,9 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             SceneView(
                 scene = scene,
                 people = people,
-                highlight = talk?.person?.id ?: selected ?: greeted,
+                highlight = talk?.person?.id ?: ispy?.run?.solved ?: selected ?: greeted,
                 onTap = ::tapped,
-                modifier = Modifier.fillMaxWidth().height(sceneHeight),
+                modifier = Modifier.fillMaxWidth().height(sceneHeight).onGloballyPositioned { viewAt = it.positionInWindow() },
                 anchors = anchors,
                 cues = cues,
                 world = world,
@@ -319,13 +404,28 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                 },
             )
             AnimatedContent(
-                targetState = talk != null,
+                targetState = when {
+                    talk != null -> 1
+                    ispy != null -> 2
+                    else -> 0
+                },
                 transitionSpec = { (slideInVertically { it / 3 } + fadeIn()) togetherWith (slideOutVertically { it / 3 } + fadeOut()) },
                 modifier = Modifier.fillMaxSize().padding(top = panelTop),
                 label = "panel",
-            ) { inTalk ->
+            ) { mode ->
                 val t = scenes.talk?.takeIf { it.sceneId == scene.id }
-                if (inTalk && t != null) {
+                val g = vm.ispy.play?.takeIf { it.sceneId == scene.id }
+                if (mode == 2 && g != null) {
+                    ISpyPanel(
+                        vm, scene, g, voiceOf(g.host.person), visible = groups.now,
+                        onTap = ::guess,
+                        onMore = vm.ispy::more,
+                        onReveal = vm.ispy::reveal,
+                        onNext = { selected = null; vm.ispy.next(scene) },
+                        onClose = { vm.ispy.close(scene); selected = null },
+                        onWord = { slot -> greeted = null; selected = slot },
+                    )
+                } else if (mode == 1 && t != null) {
                     DialogPanel(
                         vm = vm,
                         talk = t,
@@ -348,7 +448,10 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                         scene.people.firstOrNull { it.id == s.id }
                             ?: everyone.firstOrNull { it.id == s.id }?.let { v -> ScenePerson(v.id, v.name, v.emoji, v.art, s.slot, villager = v.id) }
                     }
-                    WordsPanel(vm, scene, groups, here, later, doneToday, found, selected, asleep, onWord = ::select, onTalk = ::talkTo, onLearn = { vm.learnScene(scene.id) }, opens = ::opens)
+                    WordsPanel(
+                        vm, scene, groups, here, later, doneToday, found, selected, asleep, onWord = ::select, onTalk = ::talkTo, onLearn = { vm.learnScene(scene.id) }, opens = ::opens,
+                        ispy = { ISpyOfferCard(offer, offer == null && vm.ispy.doneToday(scene, state, now.toLocalDate()), vm.dialogPrefs.translations) { offer?.let(::startISpy) } },
+                    )
                 }
             }
         }
@@ -356,13 +459,22 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         // Over the picture: markers over people with something to say, the word or greeting bubble, the top bar.
         // They follow the camera (read when placing) and wait, unplaced, while their thing is out of view.
         if (talk == null) {
-            for (a in here) {
+            if (ispy == null) for (a in here) {
                 val p = a.person ?: continue
                 if (!opens(a)) continue
                 val target = SceneTarget.Person(p.id)
                 if (!anchors.drawn(target)) continue
                 Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold) {
                     SpeechMarker(a.happening.marker, bi("sceneScreen.talk", "pName" to p.name, "happeningTitle" to a.happening.title), XpGold) { talkTo(a) }
+                }
+            }
+            // the child who offers «Vidim, vidim» (unless a happening of theirs has its own marker over them)
+            if (ispy == null && offer != null && here.none { it.person?.id == offer.host.person.id && opens(it) }) {
+                val target = SceneTarget.Person(offer.host.person.id)
+                if (anchors.drawn(target)) {
+                    Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold) {
+                        SpeechMarker("🔍", "${offer.host.person.name}: ${bi("ispy.title")}. ${bi("ispy.play")}", XpGold) { startISpy(offer) }
+                    }
                 }
             }
             // a word seen before opens over the picture even while its thing isn't in it (the owl's eyes by day), with when it shows
@@ -479,6 +591,8 @@ private fun WordsPanel(
     onLearn: () -> Unit,
     /** Whether someone here opens something (their dialog, the storyteller's story tonight). */
     opens: (ActiveHappening) -> Boolean = { it.talks },
+    /** «Vidim, vidim» offered here (its card, [ISpyOfferCard]), before who is here today. */
+    ispy: @Composable () -> Unit = {},
 ) {
     val packs = vm.scenes.packs
     val present = vm.game.state?.let { Residents.present(it, LocalDate.now()) }
@@ -518,6 +632,7 @@ private fun WordsPanel(
                 Text("✅ ${bi("sceneScreen.knowEveryWordHere")}", style = MaterialTheme.typography.titleSmall, color = AlpineGreen)
             }
         }
+        ispy()
         People(scene, here, later, doneToday, present, asleep, onTalk, opens)
     }
 }

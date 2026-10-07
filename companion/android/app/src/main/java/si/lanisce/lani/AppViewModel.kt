@@ -190,6 +190,19 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         adapt = { d, language -> grammar.adapt(d, language, canListen()) },
     ).also { s -> grammar.scenes = { s.all } }
 
+    /**
+     * «Vidim, vidim» (companion/SCENES.md, "I spy"): a child plays I spy with the learner in a scene's picture; a quick find
+     * is a review of the word's card once a day ([si.lanisce.lani.game.PlayReviews]), the end pays the village.
+     */
+    val ispy = si.lanisce.lani.app.ISpyController(
+        scenes, game,
+        words = { content.dashboard?.let { si.lanisce.lani.game.WordBook.of(it) } },
+        mastery = grammar::mastery,
+        bookLanguage = { grammar.language },
+        befriend = { id, points, memory -> villagers.befriend(id, points, memory, announce = false) },
+        saveReviews = { results, minutes -> finishReview(results, minutes) },
+    )
+
     /** Some recognizer can listen to the learner: the node's, or the phone's (unless it's known not to take the language). */
     fun canListen(): Boolean =
         stt.available == true || ((recognizer.inApp || recognizer.dialog) && recognizer.support != si.lanisce.lani.data.Recognizer.Support.NO)
