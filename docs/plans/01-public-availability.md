@@ -48,7 +48,8 @@ subscription unless Anthropic approves it. It must use API keys: ours, or the le
   - **It's short and easy in any language.** In Slovene and Croatian "lani" means "last year", hence the
     tagline *"Lani nisem znal, letos znam · Last year I didn't know it, this year I do."*
   - **The domains' roles:**
-    - **lani.page:** the app and its site, later the hosted service; now the dev setup (`glas.lani.page`).
+    - **lani.page:** the app and its site (GitHub Pages since 2026-10-07: apex A/AAAA to GitHub, `www` a CNAME), later the
+      hosted service; the dev setup keeps its subdomains (`glas.lani.page`).
     - **lani.help:** docs, FAQ, support, the privacy policy.
     - **lani.team:** family and friends: invites, visiting each other's towns, the family page.
   - **A name to watch:** a small "Lani AI" chat and horoscope app on Google Play (another category). Check

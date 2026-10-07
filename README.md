@@ -1,7 +1,7 @@
 # Lani
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
-[![Site](https://img.shields.io/badge/site-fentas.github.io%2Flani-2e7d32)](https://fentas.github.io/lani/)
+[![Site](https://img.shields.io/badge/site-lani.page-2e7d32)](https://lani.page/)
 
 <p align="center">
   <img src="site/media/hero.webp" height="280" alt="The village by day: autumn trees round a palisade, the fire in the middle, request bubbles over the villagers">
@@ -14,7 +14,7 @@
 to you, a tutor that knows what you got wrong yesterday, and a grammar book that opens as you go. Behind it runs a
 Claude Code session: your own tutor, which writes new dialogs, stories and exercises for you as you progress.
 
-→ **[fentas.github.io/lani](https://fentas.github.io/lani/)** for a tour with pictures.
+→ **[lani.page](https://lani.page/)** for a tour with pictures.
 
 > Lani is in early, active development and is used daily by one learner (Jan). Slovene is the first language;
 > Italian (Friuli), German (Kärnten) and English (Lakeland) villages exist for visits.

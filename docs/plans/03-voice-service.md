@@ -250,7 +250,8 @@ check a new voice's loudness and peak-to-loudness ratio before it is saved.
 
 ## Where the proof of concept runs
 
-- `lani.page` resolves to a LAN address, the local dev cluster, until the move to the cloud. glas runs at
+- `lani.page` itself is the site (GitHub Pages); its subdomains for the dev setup resolve to a LAN address, the local
+  dev cluster, until the move to the cloud. glas runs at
   **`glas.lani.page`**.
 - **TLS in dev is self-signed.**
   - cert-manager's `platform-issuer` is a CA issuer that signs from the **mkcert root CA** (the
