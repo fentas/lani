@@ -30,7 +30,8 @@ Claude Code session: your own tutor, which writes new dialogs, stories and exerc
 - **A grammar book that grows with you.** The six cases, aspect, the dual: a page opens when you're ready for it, the
   dialogs only ask for what you've met, and your mistakes show up on the rule's page.
 - **Words that stay.** Spaced repetition (SM-2) in many forms: flashcards, listening, dictation, speaking, and once
-  you know a word, its conjugations and cases as the grammar book opens them.
+  you know a word, its conjugations and cases as the grammar book opens them. Your words come back in the dialogs too:
+  a turn that asks for one of them counts as its review, and the tutor writes them into the day's conversations.
 - **Stories and a notebook.** Legends told in chapters by the fire (Martin Krpan, Zlatorog, Peter Klepec), each
   written down in a hand-drawn notebook with sketches.
 - **In the car.** An Android Auto mode with listening drills, echoes and quick responses for long drives.

@@ -21,7 +21,7 @@ Village (full screen, pinch zoom, pan)         Scene (close-up)
 | Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
 | Village view: full screen, camera, bubbles, the scroll/book | `ui/game/VillageScreen.kt` and friends, `game/render/` (the village renderer) |
 | Scene art: one painter per art, people sprites, the wild animals (`Wild.kt`) | `game/render/scene/` |
-| Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt` |
+| Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt`; the learner's words a dialog tests (see [Your words in the dialogs](#your-words-in-the-dialogs)): `game/DialogWords.kt`, `game/DialogReviews.kt` (on `game/PlayReviews.kt`), `app/DialogWordsController.kt` |
 | Stickers: a word's picture cut out of its scene (see [Stickers](#stickers-a-words-picture-from-its-scene)) | `game/scene/WordStickers.kt`, `game/render/scene/Stickers.kt`, `ui/words/WordPicture.kt` |
 | Content and serving | `companion/scenes/*.json`, a culture pack's own `companion/cultures/<id>/scenes/*.json`, `bridge/src/scenes.ts`, `bridge/src/features/scenes.ts`; the stories: `companion/cultures/<id>/stories/*.json`, `bridge/src/stories.ts`, `bridge/src/features/stories.ts` |
 
@@ -87,7 +87,7 @@ published by the tutor with `publish_scene`.
 | `objects[]` | `slot` (one of the art's slots, each at most once) and `word`; `needs`: what the village must have built for the thing to be there (see [What the village has built](#what-the-village-has-built)). The bridge serves them resolved: `sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en` copied from the pack. |
 | `people[]` | `id`, `name`, `emoji`, `art` (a sprite), `slot` (one of the art's person spots), `always` (there all day, without a happening), `villager` (their id in the cast, [VILLAGERS.md](VILLAGERS.md): the friendship grows here too). |
 | `happenings[]` | `who` (a person here), `when` (`morning` 5–11, `afternoon` 11–17, `evening` 17–22, `night` 22–5, `dawn`: the morning's first two or three hours round the month's sunrise, see [What's on today](#whats-on-today); empty = all day), `weekdays` (1 = Monday … 7), `chance` (per day), `dialog`, `dialogs` (its variants, see [Variants](#variants-not-the-same-dialog-every-time)), `reward` (`food`, `wood`, `stone`, `wisdom`; paid once a day when the dialog is done), `marker` (emoji for the village bubble), `needs` (the earliest age, `"vas"`, or what the village must have built, as an object's), `memory` (`{sl, en}`: what the person remembers afterwards, fitting "Še vedno mislim na …"), `guests` (`true`: only a visitor from a linked town meets it, see [Dialogs for guests](#dialogs-for-guests)), `stories` (`true`: the person tells tonight's story instead of a `dialog`, see [Stories](#stories-the-evening-story)). |
-| `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's) and, a tutor's, `source: "tutor"`. |
+| `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's), `words` (the learner's words a tutor's variant weaves in, each the tested element of a turn, see [Your words in the dialogs](#your-words-in-the-dialogs)) and, a tutor's, `source: "tutor"`. |
 | `variants[]` | more dialogs, the same as `dialogs[]`: the happenings' other variants. The curated scenes keep them here, because an older bridge reads at most 12 `dialogs` (and skips a scene with more) and leaves `variants` out; the bridge serves them to the app in `dialogs`. At most 36. |
 
 Slovene must be correct and natural at the scene's level. The learner's own lines, and whatever anyone says to them
@@ -188,6 +188,12 @@ added. The tutor writes a fresh one with `publish_dialog_variant` (the scene, th
 a scene's dialogs): it is kept in `<data>/app/variants/`, joins the happening's `dialogs` after the others (the one not
 heard yet, it plays the next time the happening comes) and is served with `"source": "tutor"`. `remove_dialog_variant`
 takes one back.
+
+**With the learner's words.** The note names the learner's words that fit the happening (`words_to_weave`: new, due and
+weak cards of its scene's packs or of its person's), and the morning plan a few happenings with theirs: the tutor writes
+2–4 of them into a variant, each the tested element of a turn ([Your words in the dialogs](#your-words-in-the-dialogs)),
+declared in its `words`, at most two such variants a day besides the asks above (past them, `publish_dialog_variant` still
+publishes and says the day's limit is reached; the morning snapshot offers no more words that day).
 
 ### Numbers: counting what the village has
 
@@ -456,6 +462,56 @@ personal pronouns (7), the conditional (4), the genitive (3), svoj (2) and aspec
 them. A keeper's talk at a spot of the landscape is trimmed like a scene's dialog; a visit, a story, an arrival and a
 dialog in another language than the book's are as they were. An older bridge changes nothing: it is all the app's, and
 the meetings ride in the village state, which a bridge keeps as it is.
+
+### Your words in the dialogs
+
+The learner's review cards come into the dialogs: a turn that **tests** one of their words counts as meeting it in
+context, a review of its card, as «Vidim, vidim»'s quick find is ([GAME.md](GAME.md#your-words-in-the-dialogs): when, and
+how much; one rule for words met in play, once a card a day). A word that is only
+there counts for nothing: picking the right one of three sentences that differ in a greeting shows nothing about the other
+words in them. A turn tests a word of its right choice (`game/DialogWords.kt`, `DialogWords.turn`):
+
+- **a choice turn** when a wrong choice differs from the right one in that word: another word in its place, a distractor
+  of its meaning ("Daj mi **žlico**." / "Daj mi **vilice**."), or another form of it ("Deset **jajc**." / "Deset
+  **jajce**.": the grammar book's rule counts it too, [Adaptive turns](#adaptive-turns)). The two are aligned word by word
+  (a longest common subsequence, case and punctuation aside, like `Forms.turn` but for any length): the words of the right
+  choice off it are where they differ, and a wrong choice tests them when they are one or two and at least as many are
+  shared ("Daj mi eno žlico." / "Daj mi dve vilici." tests eno and žlico; "Ja, zelo." / "Dobro jutro!" tests nothing; a
+  one-word answer, "Žlica." / "Vilica.", always). A word said in its place that is a form of the same word ([word
+  forms](GAME.md#a-words-forms), GET /forms), or looks like one (the same stem, another ending), or a wrong choice that
+  names a page of the book, is its form; one of the learner's other words, or another word, its meaning. With two right
+  choices, a wrong one gets wrong what it tests of the one it nearly copies ("Kdo je to? Toliko čebel!" for "Kaj je to?
+  Toliko čebel!", not for "Ojoj, čebele! Ali pičijo?": kaj);
+- **a typed turn**: the word in its gap (the form turn's word), typed right or wrong;
+- **a said turn**: the word in its gap, when the sentence said passes ("only the word graded");
+- **a tap turn**: the thing its right place is, when it is one of the learner's words (the scene's object at that slot);
+- an echo turn tests nothing, and neither does a line said by someone.
+
+The learner's words are their one-word vocabulary cards of the home deck (`PackSession.wordKeys`: "dober dan / živjo"
+gives živjo), each with the forms of its word the phone has (`FormsController`), checked against the dialog as it is
+played (trimmed, with their own traps); a dialog in another language (a visit) tests none. It works wherever the dialog
+panel plays: a scene's dialogs, the curated ones and the tutor's variants, the storyteller's evening story, a keeper's
+talk and a newcomer's arrival. Of the 494 learner's turns of the curated Slovene scenes, 227 test one of the packs'
+one-word words, 143 different ones (`DialogWordsContentTest`, the words' forms from the bundled dictionary).
+
+**In the dialog** (`DialogRun.wordAnswers`, the first answer of each turn on its words; `DialogWordsController`): a right
+first answer is right on the word; a wrong one is wrong on the words it tests, once a turn, and once the turn is passed the
+word's card shows in the conversation after it, "📇 Tvoja beseda · Your word: žlica — spoon" and the form the sentence
+wanted ("tukaj · here: «žlico»"), a tap opening its whole card; the dialog goes on as before. A wrong form is a slip on
+the rule as ever. At the end, under the result: "📇 Tvoje besede · Your words: žlica ✓, krožnik ✓, vilice ✗", each word by
+its first answer (a tap opens its card), "🔁 Šteje kot ponovitev · Counts as a review: žlica" for those it reviewed and
+"↩️ Spet jutri · Again tomorrow: vilice" for those a bridge that takes them lowered.
+
+**In the village:** the scroll's "Today" says under a happening on now how many of the learner's words the dialog it plays
+today tests: "Babica Micka · v kuhinji", "📇 3 tvoje besede · 3 of your words" (`TownOverview.of`, `inHappening`; a
+story's evening says none, its telling is the evening's).
+
+**The tutor weaves them in.** A tutor's variant may say which of the learner's words it weaves, `words`: lemmas or card
+ids, 1 to 6 (`"words": ["žlica", "vocab_v-kuhinji_krozniki"]`). `publish_dialog_variant` (and `publish_scene`) checks each
+is the tested element of a turn by the rule above (`bridge/src/dialog-words.ts`) and refuses the dialog otherwise, naming
+the word and how to fix it; a lemma that isn't one of the learner's cards publishes, said so. An older bridge strips the
+key (a `z.object`), and the app reads past it: it finds the tested words itself. The bridge hands the tutor the words to
+weave, with the happenings they fit, in `dialog_variants_heard` and in the morning plan ([Variants](#variants-not-the-same-dialog-every-time)).
 
 ### In another language
 

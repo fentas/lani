@@ -177,6 +177,25 @@ added it to their words) becomes a review item without a session:
 `example` and `example_translation` (optional, in any `new_vocabulary` item) keep the
 sentence the word was met in.
 
+### A word got wrong in a dialog: lowered gently
+
+A `review_results` entry with `"gentle": true` is no review: the learner got the word wrong in a
+dialog of the Lani app, where it may have been the sentence's grammar and not the word
+(companion/GAME.md, "Your words in the dialogs"). The bridge's POST /reviews writes it for a
+dialog's slips; its `quality` is ignored.
+
+```json
+{ "item_id": "vocab_v-kuhinji_zlica", "quality": 2, "gentle": true }
+```
+
+- `easiness_factor` − 0.14 (as a quality 3 would; not under 1.3), `interval_days` halved (at
+  least 1), `due_date` tomorrow when it was later (never pushed back); `repetitions` stay.
+- `consecutive_correct` back to 0; `last_quality`, `last_reviewed`, `mastery_level` and
+  `review_history` stay as they were: no review is recorded, so the card isn't rusty and the
+  readiness for the next level sees none.
+- `lapses` + 1 and `last_lapse` the day; once a day per card (a second one the same day changes
+  nothing).
+
 `source` (optional string, in any `new_vocabulary` item) says where a new item came from and is
 kept only when the item is created. The Lani app's word card sends `"lookup"`: the learner
 added the word and did not answer it, so its `last_quality` (`initial_quality`) does not mean

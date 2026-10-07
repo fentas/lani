@@ -509,19 +509,48 @@ A word Jan added (a word card's "➕ Dodaj med moje besede", a pack's word) is o
 ### Words met in play
 
 A word the learner has a card of, met in play and answered right, counts as a review of the card (`game/PlayReviews.kt`):
-«Vidim, vidim»'s quick find now (SCENES.md, "I spy": the thing tapped within two clues), a dialog's word some day. Not
-every time, and never worse than nothing:
+«Vidim, vidim»'s quick find (SCENES.md, "I spy": the thing tapped within two clues) and a dialog's turn that tests the word
+(below). Not every time, and never worse than nothing:
 
-- **Once a card a day**: not when the deck reviewed it today (the card's `last_reviewed`) nor when play counted it today
-  already (`GameState.playReviews`, the day's cards; it syncs, so another phone doesn't count it again).
-- **Due or nearly due**: its `due_date` today or before, or tomorrow (`PlayReviews.EARLY_DAYS`): a review the deck would ask
-  soon anyway. A card the phone made from today's pack run, which the node hasn't sent back yet, has no due date: it doesn't
-  count.
+- **Once a day a card's schedule changes in play**: not when the deck reviewed it today (the card's `last_reviewed`) nor
+  when play reviewed it, or a dialog lowered it, today already (`GameState.playReviews`, the day's cards; it syncs, so
+  another phone or the other game doesn't count it again).
+- **Due or nearly due**: its `due_date` today or before, or within a tenth of its interval (`PlayReviews.window`: one day
+  up to an interval of 14 days, `EARLY_DAYS`, two up to 24, three from 25 on, `MAX_EARLY_DAYS`): a review at nine tenths of
+  the interval or more is about the one SM-2 asks for, and the deck would ask it soon anyway; a card further from due is
+  only met, reviewing it early would stretch its interval on too little. A card the phone made from today's pack run,
+  which the node hasn't sent back yet, has no due date: it doesn't count.
 - **A good answer only**, quality 4 (`PlayReviews.QUALITY`): SM-2 leaves the card's ease as it is and lengthens its
-  interval. A wrong tap, a find after more clues or a word shown counts nothing: no failed review, no quality that lowers
-  the ease.
+  interval. A wrong tap, a find after more clues or a word shown counts nothing in «Vidim, vidim»: no failed review, no
+  quality that lowers the ease.
 - It goes to the node as a review does (POST /reviews, persisted by update-db.py; the tutor hears it as an app review),
   when the game ends or is closed, with the minutes on screen.
+
+### Your words in the dialogs
+
+A dialog's turn that tests one of Jan's words (another word in its place among the choices, another form of it, the word
+in a typed gap, the thing tapped; never a word that is only there: [SCENES.md](SCENES.md#your-words-in-the-dialogs)) is a
+word met in play (above), with what a dialog adds (`game/DialogReviews.kt`; the bridge checks it again):
+
+- **A right first answer reviews the card** when it counts (due or nearly, once a day: above), of quality 4 chosen or
+  tapped, 5 typed or said (produced, as the deck's typed answer): SM-2's easiness never drops at 4 or 5. A reviewed card
+  is done for today on the phone at once (`Dashboard.reviewedInDialog`: today's review doesn't ask it again).
+- **A wrong answer about the word** (another word picked or typed in its place, the wrong thing tapped) lowers its card
+  gently, due or not: the bridge brings it back tomorrow (its due date, when later), halves its interval and takes 0.14 off
+  its easiness (what a quality 3 would), without resetting its repetitions, nor marking it rusty or failed, since it may
+  have been the sentence's grammar, not the word; no review is recorded (the readiness's 80 % sees none). Its card shows
+  after the turn. The next day's review judges it.
+- **A wrong form of it** (žlice for žlico) leaves the card as it is: the word was there, its ending wasn't, and the
+  grammar book's rule counts the slip as a dialog's form turn always did.
+- **Once:** in a dialog the first answer on a card decides; a card a dialog reviewed or lowered is in the day's
+  `playReviews`, so the same dialog again, another one or «Vidim, vidim» counts nothing more that day. The bridge counts a
+  review only of a card not reviewed today and within its window, and lowers a card once a day, so a phone that was
+  offline or stale can't count one twice.
+- **To the node:** one `POST /reviews` per dialog, at its end or when it is left, through the outbox: the reviews in
+  `results` (as any review's: an older bridge takes them as they are) and the dialog's words in `dialog` (where, each
+  word's answer and how; [README.md](README.md#app-api)). Only to a bridge whose GET /state lists `"dialog-words"` in its
+  `features` does a dialog with slips but no review go: an older one has nothing to lower, and a slip changes nothing
+  there. The tutor hears a line of it (`dialog_words`).
 
 ## Zemljevid zaklada · The treasure map
 
