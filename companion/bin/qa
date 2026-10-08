@@ -11,7 +11,8 @@ the visit steps go to it from Friends and back home.
 
 Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
   --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
-                       "🚗 Za pot" (a small library got ready, played, next, paused, browsed as Android Auto does);
+                       "🚗 Za pot" (a small library got ready, played, next, paused; "❓ Kviz": a pick by next, a
+                       question again by previous; browsed as Android Auto does: two tabs, each session played);
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -1831,7 +1832,9 @@ def packs():
 # --- the car ("🚗 Za pot"; companion/README.md, "Im Auto · In the car") --------------------------------------------
 
 ROAD_SERVICE = f"{PKG}/.road.RoadService"
-ROAD_TITLE = "🚗 Za pot · For the road"  # the sheet's title, and its first session's button
+ROAD_TITLE = "🚗 Za pot · For the road"  # the sheet's title
+ROAD_CONTINUE = "▶ Nadaljuj · Continue"  # the sheet's (and the car's) first big button: "🚗 Za pot" where it left off
+ROAD_QUIZ = "❓ Kviz · Quiz"
 ROAD_PROBLEMS = ("Priprava ni uspela", "Za pripravo mora", "Telefon nima glasu")  # road.failed, road.needsNode, road.noVoice
 
 
@@ -1850,12 +1853,17 @@ def road_session() -> dict:
 
 def road_now() -> dict:
     """What the road's service plays, from its dump (a debug build's, road/RoadService.dump): "session", "item", "piece"
-    of "pieces", "sound" ("pause:SAY" the pause to say the Slovene, "clip", "prompt" …), "state"; "sessions": each
-    session's items on the phone."""
+    of "pieces", "sound" ("pause:SAY" the pause to say the Slovene, "clip", "prompt" …), "state"; in a quiz's question
+    "quiz", what plays of it ("TEXT:1": the second option heard, being read; "ASK:-1" the question), and "last", the last
+    pick ("<question>:<place heard>:right|wrong"); "sessions": each session's items on the phone."""
     out = adb("shell", "dumpsys", "activity", "service", ROAD_SERVICE, check=False)
     now: dict = {}
     if m := re.search(r"road: session=(\S+) item=(\S+) piece=(-?\d+)/(\d+) sound=(\S+) state=(\d+) playing=(\w+)", out):
         now = {"session": m[1], "item": m[2], "piece": int(m[3]), "pieces": int(m[4]), "sound": m[5], "state": int(m[6]), "playing": m[7] == "true"}
+    if m := re.search(r"road: session=.* quiz=(\S+)", out):
+        now["quiz"] = m[1]
+    if m := re.search(r"road: quiz answered=(\d+) right=(\d+) last=(\S+)", out):
+        now["last"] = m[3]
     if m := re.search(r"road: sessions ([^\n]*)", out):
         now["sessions"] = {k: int(v) for k, v in (p.split("=") for p in m[1].split())}
     return now
@@ -1883,6 +1891,18 @@ def media_key(key: str):
         adb("shell", "input", "keyevent", f"KEYCODE_MEDIA_{key.upper()}")
 
 
+def sheet_button(label: str) -> bool:
+    """Taps the road sheet's button [label], scrolling the sheet down to it; False when it isn't there."""
+    for _ in range(5):
+        found = [b for t, b in boxes() if t == label]
+        if found:
+            tap_at(centre(found[-1]))
+            return True
+        adb("shell", "input", "swipe", "540", "1800", "540", "1100", "400")
+        time.sleep(1)
+    return False
+
+
 def road_car_log() -> list[str]:
     """What QA's car ("road:car", road/RoadCarCheck) logged in its last check, a line each."""
     lines = [m[1] for l in adb("logcat", "-d", "-s", "RoadCar:I", check=False).splitlines() if (m := re.search(r"RoadCar\s*: (.*)", l))]
@@ -1891,12 +1911,15 @@ def road_car_log() -> list[str]:
 
 
 def road():
-    """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind from the dev bridge, the files got in
-    the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says "Končano"; "🚗 Za pot" started
-    from the sheet plays (dumpsys media_session: PLAYING, an item); next in the pause to say the Slovene plays the answer
-    (the same item, on past the pause), next after it the next item, the app still running and playing; paused. Then as
-    Android Auto does ("road:car": the platform's media browser browses the tab and plays each session from its id): every
-    session with items on the phone plays, none fails ("Failed to load selection" in a car), the app still runs."""
+    """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind and eight quiz questions from the dev
+    bridge, the files got in the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says
+    "Končano"; "▶ Nadaljuj" started from the sheet plays (dumpsys media_session: PLAYING, an item); next in the pause to say
+    the Slovene plays the answer (the same item, on past the pause), next after it the next item, the app still running
+    and playing; paused. "❓ Kviz" from the sheet: next while the second option is read picks it (its feedback plays,
+    "✓ …" or "✗ …"), previous during the next question's options asks it again, paused. Then as Android Auto does
+    ("road:car": the platform's media browser browses the root's two tabs, "🚗 Za pot" a grid of four and "Več" a list,
+    and plays each session from its id): every session with items on the phone plays, none fails ("Failed to load
+    selection" in a car), the app still runs."""
     go_home()
     tile = scroll_to("Za pot", 6, exact=True)
     assert tile, "the 🚗 Za pot tile"
@@ -1922,17 +1945,10 @@ def road():
     print(f"    notification: {seen or 'the progress not caught (ready within seconds)'}; at the end: {done[0] if done else 'none (notifications not allowed?)'}")
     sessions = road_now().get("sessions", {})
     assert sessions.get("road:mix"), f"nothing in 🚗 Za pot on the phone: {sessions}"
-    # the sheet's player: "🚗 Za pot" is its first session, below the title of the same name
-    for _ in range(4):
-        buttons = [b for t, b in boxes() if t == ROAD_TITLE]
-        if len(buttons) > 1:
-            tap_at(centre(max(buttons, key=lambda b: b[1])))
-            break
-        adb("shell", "input", "swipe", "540", "1800", "540", "1100", "400")
-        time.sleep(1)
-    else:
-        raise AssertionError("the sheet's \"🚗 Za pot\" session button")
-    s = still_playing("after 🚗 Za pot was started from the sheet")
+    assert sessions.get("road:quiz"), f"no quiz question on the phone: {sessions}"
+    # the sheet's menu: four big buttons, "▶ Nadaljuj" the first
+    assert sheet_button(ROAD_CONTINUE), f"the sheet's \"{ROAD_CONTINUE}\" button"
+    s = still_playing("after ▶ Nadaljuj was started from the sheet")
     shot("road-playing")
     print(f"    playing: {s['title']!r}; sessions on the phone: {', '.join(f'{k.removeprefix('road:')} {v}' for k, v in sessions.items())}")
     # next in the pause to say the Slovene: the answer at once. Sent as a pause begins (it lasts 2.5 s or more).
@@ -1963,9 +1979,10 @@ def road():
     time.sleep(1.5)
     assert app_alive(), "the app closed on pause"
     assert road_session().get("state") == 2, f"not paused: {road_session()}"
+    road_quiz()
     # as Android Auto: browse, then play each session from its id
     qa_hook("road:car")
-    end = time.time() + 200 * slow()
+    end = time.time() + 240 * slow()
     while time.time() < end and not any(l.startswith(("done", "FAILED")) for l in road_car_log()):
         assert app_alive(), f"the app closed while the car browsed and played ({' / '.join(road_car_log()[-2:])})"
         time.sleep(2)
@@ -1975,7 +1992,11 @@ def road():
     assert log and log[-1].startswith("done"), f"the car's check didn't finish: {' / '.join(log[-3:]) or 'nothing logged'}"
     failed = [l for l in log if "FAILED" in l]
     assert not failed, " / ".join(failed)
-    assert any(l.startswith("session road:mix: playing") for l in log), "🚗 Za pot didn't play from its id"
+    assert any(l.startswith("tabs: 2 (road:tab ") and " road:more " in l for l in log), "the root's two tabs (🚗 Za pot, Več)"
+    assert any(l.startswith("tab road:tab: 4 (road:mix road:quiz road:easy road:story) grid") for l in log), "🚗 Za pot: a grid of four"
+    assert any(l.startswith("tab road:more: 9 ") and " list" in l for l in log), "Več: a list of nine"
+    assert any(l.startswith("session road:mix: playing") for l in log), "🚗 Za pot (▶ Nadaljuj) didn't play from its id"
+    assert any(l.startswith("session road:quiz: playing") for l in log), "❓ Kviz didn't play from its id"
     silent = [k for k, n in sessions.items() if n and not any(l.startswith(f"session {k}: playing") for l in log)]
     assert not silent, f"sessions with items on the phone that didn't play from their id: {', '.join(silent)}"
     assert app_alive(), "the app closed after the car's check"
@@ -1983,6 +2004,57 @@ def road():
     shot("road-car")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the sheet
     time.sleep(1)
+
+
+def road_quiz():
+    """"❓ Kviz" from the sheet: next while the second option of a question is read picks it (the feedback plays: "✓ …"
+    or "✗ …", the pick in the dump), previous during the next question's options asks it again (back to the question,
+    the same item), and it pauses."""
+    assert sheet_button(ROAD_QUIZ), f"the sheet's \"{ROAD_QUIZ}\" button"
+    s = still_playing("after ❓ Kviz was started from the sheet")
+    first = road_now()
+    print(f"    quiz: {s['title']!r} ({first.get('item')}, {first.get('quiz')})")
+    assert (first.get("item") or "").startswith("quiz:"), f"❓ Kviz plays no question: {first}"
+    # next while the second option is read ("Dve: …"): it is picked
+    picked, end = None, time.time() + 120 * slow()
+    while picked is None and time.time() < end:
+        now = road_now()
+        if now.get("quiz") == "TEXT:1" and "#" not in now.get("item", "#"):
+            media_key("next")
+            time.sleep(1.2)
+            picked = (now, road_now())
+        time.sleep(0.15)
+    assert picked, "the quiz never read a second option (within two minutes)"
+    asked, after = picked
+    assert after.get("item", "").startswith(asked["item"] + "#"), f"next while the second option was read played no feedback ({asked} → {after})"
+    assert after.get("last", "").startswith(asked["item"].removeprefix("quiz:") + ":1:"), f"the pick isn't the second option: {after.get('last')}"
+    s = still_playing("after a pick in the quiz")
+    assert (s.get("title") or " ")[0] in "✓✗", f"the car doesn't show the feedback: {s}"
+    shot("road-quiz-feedback")
+    print(f"    quiz: next while \"Dve\" was read picked it: {after['last']} ({s['title']!r})")
+    # the next question; previous during its options asks it again
+    repeated, end = None, time.time() + 90 * slow()
+    while repeated is None and time.time() < end:
+        now = road_now()
+        if (now.get("quiz") or "").startswith(("NUMBER:", "TEXT:", "GAP:")) and "#" not in now.get("item", "#") and now.get("item") != asked["item"]:
+            media_key("previous")
+            time.sleep(1)
+            repeated = (now, road_now())
+        time.sleep(0.15)
+    assert repeated, "no next question's options heard (within 90 s)"
+    during, again = repeated
+    assert again.get("item") == during["item"], f"previous during the options left the question: {during} → {again}"
+    assert (again.get("quiz") or "").startswith("ASK") or again.get("piece", 99) < during.get("piece", 0), f"previous didn't ask the question again: {during} → {again}"
+    still_playing("after previous in the quiz")
+    print(f"    quiz: previous during {during['quiz']} of {during['item']} asked it again ({again['quiz']}, piece {during['piece']} → {again['piece']})")
+    # paused: during the question play/pause pauses (during the options it would pick: then once more, in the feedback)
+    for _ in range(3):
+        media_key("pause")
+        time.sleep(1.2)
+        if road_session().get("state") == 2:
+            break
+    assert app_alive(), "the app closed in the quiz"
+    assert road_session().get("state") == 2, f"the quiz didn't pause: {road_session()}"
 
 
 def optional_screen(label: str, marker: str, exact: bool = False):
