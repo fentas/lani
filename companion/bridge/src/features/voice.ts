@@ -7,7 +7,9 @@ import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
 import { cultureKeepers, keeperTellings } from '../cultures'
+import { normalizeText } from '../family'
 import { readISpy } from '../ispy'
+import { localDate } from '../rhythm'
 import { corpus, fileUrl, voiceInstructions, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
 // voice: a speaker of the cast (female, male, grandma, …) or someone's own voice ("@micka"); an unknown one is a
@@ -15,6 +17,11 @@ import { corpus, fileUrl, voiceInstructions, type CorpusItem, type Redo, type Vo
 const sayIn = z.object({ text: z.string().trim().min(1).max(300), voice: z.union([z.string().regex(SPEAKER_ID), z.string().regex(PERSON_VOICE)]).default('female') })
 // a re-record (the app's long press on 🔊): the text and the voice the app plays it in; client_id makes a retry harmless
 const redoIn = sayIn.extend({ client_id: z.string().optional() })
+// the car's getting ready: up to 20 texts, each in the voice the app plays it in
+const prepareIn = z.object({ texts: z.array(sayIn).min(1).max(20) })
+/** The characters /voice/prepare may have voiced new a day (the node's local day), unless LANI_VOICE_ROAD_DAILY says. */
+const ROAD_DAILY = 6_000
+type Prepared = { text: string; voice: string; url: string | null; engine?: string }
 
 /**
  * A re-record's answer: 200 with the new clip ("done"), or the clip re-recorded earlier today ("not_needed"); 429
@@ -69,6 +76,32 @@ export const voice: FeatureFactory = ctx => {
     if (!isVoice(r.data.voice)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
     return redoAnswer(await voice.redo(r.data.text, r.data.voice), voice)
   }
+  const roadDaily = process.env.LANI_VOICE_ROAD_DAILY ? Number(process.env.LANI_VOICE_ROAD_DAILY) : ROAD_DAILY
+  // the characters /voice/prepare had voiced new today; kept in memory (a restart counts the day again)
+  const road = { day: '', chars: 0 }
+  const roadToday = () => {
+    const day = localDate(new Date())
+    if (road.day !== day) Object.assign(road, { day, chars: 0 })
+    return road.chars
+  }
+  const handlePrepare = async (req: Request) => {
+    const r = prepareIn.safeParse(await readJson(req))
+    if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+    const clips: Prepared[] = []
+    for (const { text, voice: v } of r.data.texts) {
+      // a voice not in the cast: none for this text only (the app asks in the voice it wants, no other voice's clip)
+      if (!isVoice(v)) {
+        clips.push({ text, voice: v, url: null })
+        continue
+      }
+      const had = voice.get(normalizeText(text), v)
+      // not live: ElevenLabs only above the reserve, then the local worker; nothing new over the day's cap
+      const c = had ?? (roadToday() + voice.cost(text, v) <= roadDaily ? await voice.voice(text, v, 'road') : null)
+      if (c && !had && c.source === 'road') road.chars = roadToday() + c.chars
+      clips.push(c ? { text, voice: v, url: fileUrl(c.file), engine: c.engine } : { text, voice: v, url: null })
+    }
+    return json({ clips, today: roadToday(), daily: roadDaily })
+  }
   const views = () => {
     profiles.syncCast()
     return { people: profiles.views() }
@@ -113,6 +146,11 @@ export const voice: FeatureFactory = ctx => {
       },
       // Jan's re-record of a clip they hear wrong (a long press on 🔊): made again now, once a clip a day, within the day's cap.
       { method: 'POST', path: '/voice/redo', handle: ({ req, url }) => outbox.once(req, url.pathname, handleRedo) },
+      // The car's quiz getting ready ("🚗 Za pot", in the background): clips for the options the store lacks (a turn's
+      // wrong answers, a sentence's wrong forms, "Prav!"), up to 20 at a time, each in the voice asked for (url null when
+      // it can't be had). Not a live line: never the reserve, no rate limit; at most LANI_VOICE_ROAD_DAILY characters
+      // (6,000) voiced new a day, the clips there come all the same. A clip made once is reused: a retry is harmless.
+      { method: 'POST', path: '/voice/prepare', handle: ({ req }) => handlePrepare(req) },
       { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
       { method: 'GET', path: '/voice/profiles', handle: () => json(views()) },

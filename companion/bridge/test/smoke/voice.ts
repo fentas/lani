@@ -885,6 +885,28 @@ export default async function voice() {
       check('POST /voice/redo: the family token may not, nor no token', (await redo({ text: 'Živjo', voice: 'female' }, { ...fam, 'content-type': 'application/json' })).status === 403 && (await redo({ text: 'Živjo', voice: 'female' }, { 'content-type': 'application/json' })).status === 401)
     }
 
+    // The car's quiz getting ready: POST /voice/prepare voices the options the store lacks, not as a live line.
+    {
+      const prepare = (body: unknown, headers: Record<string, string> = auth) => fetch(`${base}/voice/prepare`, { method: 'POST', headers, body: JSON.stringify(body) })
+      check('POST /voice/prepare: no texts, an empty text, more than 20 are a 400',
+        (await prepare({ texts: [] })).status === 400 && (await prepare({ texts: [{ text: '  ' }] })).status === 400 && (await prepare({})).status === 400 &&
+          (await prepare({ texts: Array.from({ length: 21 }, (_, i) => ({ text: `Ena ${i}.` })) })).status === 400)
+      check('POST /voice/prepare: the family token may not', (await prepare({ texts: [{ text: 'Ena.' }] }, { ...fam, 'content-type': 'application/json' })).status === 403)
+      const have = (await (await fetch(`${base}/voice/index`, { headers: auth })).json())['dobro jutro micka']?.female
+      const n0 = bridgeEleven.st.tts.length
+      const fresh = 'Prav! Druga je prava.'
+      const body = { texts: [{ text: 'Dobro jutro, Micka!' }, { text: fresh, voice: 'male' }, { text: 'Ena.', voice: 'nobody' }] }
+      const r = await prepare(body)
+      const p = await r.json()
+      check('POST /voice/prepare: a clip the store has as it is, a new one voiced (Daniel), a voice not in the cast none; the day\'s count and cap',
+        r.ok && p.clips?.length === 3 && !!have && p.clips[0].url === have && p.clips[0].voice === 'female' &&
+          p.clips[1].text === fresh && p.clips[1].voice === 'male' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(p.clips[1].url) && p.clips[1].engine === 'elevenlabs' &&
+          p.clips[2].voice === 'nobody' && p.clips[2].url === null && p.daily === 6_000 && p.today === fresh.length &&
+          bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === fresh && bridgeEleven.st.tts.at(-1)?.voice === 'onwK4e9ZLuTAKqWW03F9', p)
+      const again = await (await prepare(body)).json()
+      check('POST /voice/prepare again: the same clips, nothing voiced, the day\'s count as it was', JSON.stringify(again.clips) === JSON.stringify(p.clips) && again.today === p.today && bridgeEleven.st.tts.length === n0 + 1, again)
+    }
+
     bridgeEleven.st.fail = 500
     const s4 = await (await say('Kje je pošta?')).json()
     check('ElevenLabs down: the local worker answers', s4.engine === 'gepard', s4)
