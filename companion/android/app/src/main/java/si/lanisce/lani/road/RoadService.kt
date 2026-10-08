@@ -2,6 +2,7 @@ package si.lanisce.lani.road
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.annotation.OptIn
 import androidx.media3.common.AudioAttributes
@@ -48,11 +49,13 @@ import java.util.concurrent.ConcurrentHashMap
  * browses and the steering wheel's and Bluetooth's play, pause, next and previous control. It plays what the app got
  * ready on the phone ([RoadStore]): nothing needs the node, the screen or typing.
  *
- * The browse tree is short: one tab with the sessions ([RoadMix], the drills' [RoadDrills]); an item of a session is one
- * card, word, dialog, evening's story, phrase or drill's item (next skips it, or during the pause to say the Slovene plays
- * the answer at once; previous plays it again: [RoadPlayer]). A card or a word has two buttons, "✓ Znal sem · I knew it" and "✗ Nisem · I didn't", which record
- * its review ([RoadRatings]), as a steering-wheel button held does (fast-forward 👍, rewind 👎); nothing pressed, nothing
- * graded.
+ * The browse tree needs no scrolling ([RoadMenu]): a tab "🚗 Za pot" with four big items (▶ Nadaljuj, ❓ Kviz, 🌙 Mirno, 📖
+ * Zgodba) and a tab "Več · More" with each kind's session ([RoadMix], the drills' [RoadDrills]). An item of a session is
+ * one card, word, dialog, evening's story, phrase or drill's item (next skips it, or during the pause to say the Slovene
+ * plays the answer at once; previous plays it again: [RoadPlayer]), or a quiz's question ([RoadQuiz]: next picks the option
+ * being read, previous repeats it; its answer is recorded, "Prav!" or "Ne, prav je: …" follows). A card or a word has two
+ * buttons, "✓ Znal sem · I knew it" and "✗ Nisem · I didn't", which record its review ([RoadRatings]), as a steering-wheel
+ * button held does (fast-forward 👍, rewind 👎); nothing pressed, nothing graded. Every item has "🌙 Mirno" and "❓ Kviz".
  */
 @OptIn(UnstableApi::class)
 class RoadService : MediaLibraryService() {
@@ -113,7 +116,10 @@ class RoadService : MediaLibraryService() {
         })
         val open = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         // a steering-wheel button held (fast-forward, rewind): 👍 or 👎 on a card or a word
-        roadPlayer = RoadPlayer(player, { queued[it] }, ::rate)
+        roadPlayer = RoadPlayer(player, { queued[it] }, ::rate, object : QuizHooks {
+            override fun play(mediaId: String): RoadQuiz.QuizPlay? = plays[mediaId]
+            override fun pick(shown: Int) = this@RoadService.pick(shown)
+        })
         session = MediaLibrarySession.Builder(this, roadPlayer, Callback())
             .setSessionActivity(open)
             .build()
@@ -150,12 +156,13 @@ class RoadService : MediaLibraryService() {
         queued[item.id] = item
         // a card or a word shows its meaning only: the Slovene is what the learner says before hearing it
         val flash = item.kind == Kind.CARD || item.kind == Kind.WORD
+        val quiz = item.kind == Kind.QUIZ
         return MediaItem.Builder()
             .setMediaId(item.id)
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setTitle(if (flash) item.subtitle else item.title)
-                    .setArtist(if (flash) null else item.subtitle.ifBlank { null })
+                    .setArtist(if (quiz) "❓ ${bi("road.quiz")}" else if (flash) null else item.subtitle.ifBlank { null })
                     .setAlbumTitle(album)
                     .setIsBrowsable(false)
                     .setIsPlayable(true)
@@ -166,19 +173,22 @@ class RoadService : MediaLibraryService() {
 
     /** The playlist of session [id]: its items as media items; empty when there is nothing on the phone for it. */
     private fun playlist(id: String): List<MediaItem> {
-        val label = label(id)
         playing = id
-        return items(id).map { mediaItem(it, label) }
+        return sessionItems(id)
     }
 
+    /** Session [id]'s items as media items: a quiz's questions as they play ([quizList]). */
+    private fun sessionItems(id: String): List<MediaItem> = if (id == QUIZ) quizList() else items(id).map { mediaItem(it, label(id)) }
+
     /**
-     * "🌙": from any session to "🌙 Mirno · Easy listening" at once (sudden heavy traffic, tiredness), from Mirno back to
-     * "🚗 Za pot"; the session's items made off the main thread. Nothing changes when there is nothing to play there.
+     * A custom action: from any session to [to] at once ("🌙 Mirno · Easy listening" for sudden heavy traffic, "❓ Kviz"),
+     * from it back to "🚗 Za pot" ([RoadMenu.toggle]); the session's items made off the main thread. Nothing changes when
+     * there is nothing to play there.
      */
-    private fun toggleEasy() {
-        val to = if (playing == EASY) MIX else EASY
+    private fun switchTo(target: String) {
+        val to = RoadMenu.toggle(playing, target)
         scope.launch {
-            val list = kotlinx.coroutines.withContext(Dispatchers.IO) { items(to).map { mediaItem(it, label(to)) } }
+            val list = kotlinx.coroutines.withContext(Dispatchers.IO) { sessionItems(to) }
             if (list.isEmpty()) return@launch
             playing = to
             player.setMediaItems(list)
@@ -186,6 +196,70 @@ class RoadService : MediaLibraryService() {
             player.play()
             refreshButtons()
         }
+    }
+
+    // --- the quiz ----------------------------------------------------------------------------------------------------
+
+    /** The quiz's questions as they play, and their feedbacks, by media id: what [RoadPlayer] asks ([QuizHooks.play]). */
+    private val plays = ConcurrentHashMap<String, RoadQuiz.QuizPlay>()
+
+    /** The quiz's fixed phrases as they play (each the first of its alternatives on the phone). */
+    @Volatile
+    private var kit: QuizKit.Resolved? = null
+
+    /** The answers since the last summary. */
+    @Volatile
+    private var score = QuizScore()
+
+    /** The last pick, for QA's dump: "<question>:<place heard>:right|wrong". */
+    @Volatile
+    private var lastPick = "-"
+
+    /**
+     * "❓ Kviz · Quiz": its questions on the phone ([RoadQuiz.session]), each composed as it plays today ([RoadQuiz.compose]:
+     * the options in the day's order, numbered by the kit); none without the kit's phrases on the phone.
+     */
+    private fun quizList(): List<MediaItem> {
+        val lib = library
+        val k = lib.kit?.resolve { store.has(it, lib.base) } ?: return emptyList()
+        kit = k
+        score = QuizScore()
+        val seed = LocalDate.now().toEpochDay()
+        return items(QUIZ).mapNotNull { item ->
+            val q = item.quiz ?: return@mapNotNull null
+            val play = RoadQuiz.compose(item, k.numbers, RoadQuiz.order(q, seed, k.numbers.size))
+            plays[item.id] = play
+            mediaItem(play.item, label(QUIZ))
+        }
+    }
+
+    /**
+     * The option heard at [shown] picked ([RoadPlayer]: next, or play/pause during the options): the answer kept for the
+     * outbox ([RoadStore.answer]), "Prav!" or "Ne, prav je: …" next, and every [RoadQuiz.SUMMARY_EVERY] answers the
+     * summary; then the next question. A question is answered once.
+     */
+    private fun pick(shown: Int) {
+        val m = player.currentMediaItem ?: return
+        val play = plays[m.mediaId]?.takeIf { !it.feedback && !it.answered } ?: return
+        val k = kit ?: return
+        val option = play.option(shown) ?: return
+        play.answered = true
+        val q = play.question
+        val right = option == q.right
+        lastPick = "${q.id}:$shown:${if (right) "right" else "wrong"}"
+        val answer = QuizAnswer(q.id, q.kind, q.options[option], right, q.answerText, q.cards, q.form, System.currentTimeMillis())
+        scope.launch(Dispatchers.IO) { store.answer(answer) }
+        score = score.add(right)
+        val next = mutableListOf(RoadQuiz.feedback(q, right, k))
+        if (score.summary) {
+            next += RoadQuiz.summary(score.right, k)
+            score = QuizScore()
+        }
+        val album = m.mediaMetadata.albumTitle?.toString() ?: label(QUIZ)
+        val at = player.currentMediaItemIndex + 1
+        player.addMediaItems(at, next.map { p -> plays[p.item.id] = p; mediaItem(p.item, album) })
+        player.seekTo(at, 0)
+        if (!player.playWhenReady) player.play()
     }
 
     /** "🚗 Za pot" near its end: the next block, with items not queued yet (made off the main thread). */
@@ -216,6 +290,8 @@ class RoadService : MediaLibraryService() {
 
     private fun label(id: String): String = when (id) {
         MIX -> "🚗 ${bi("road.title")}"
+        QUIZ -> "❓ ${bi("road.quiz")}"
+        STORY -> "📖 ${bi("road.story")}"
         EASY -> "🌙 ${bi("road.easy")}"
         SHADOW -> "🗣️ ${bi("road.shadow")}"
         REVIEWS -> "🔁 ${bi("road.reviews", "count" to library.due(today()).size)}"
@@ -229,24 +305,55 @@ class RoadService : MediaLibraryService() {
         else -> id
     }
 
-    private fun node(id: String, title: String, playable: Boolean, browsable: Boolean, subtitle: String? = null): MediaItem =
-        MediaItem.Builder().setMediaId(id).setMediaMetadata(
+    /** What the menu shows for [id]: a tab's name, a session's ("▶ Nadaljuj · Continue" for "🚗 Za pot"). */
+    private fun title(id: String): String = when (id) {
+        ROOT -> "Lani"
+        TAB -> "🚗 ${bi("road.title")}"
+        RoadMenu.MORE -> bi("road.more")
+        NONE -> "📱 ${bi("road.firstInApp")}"
+        MIX -> "▶ ${bi("road.continue")}"
+        else -> label(id)
+    }
+
+    /** The first tab's items are big: each with its picture. */
+    private fun icon(id: String): Int? = when (id) {
+        MIX -> R.drawable.ic_road_continue
+        QUIZ -> R.drawable.ic_road_quiz
+        EASY -> R.drawable.ic_road_easy
+        STORY -> R.drawable.ic_road_story
+        else -> null
+    }
+
+    /**
+     * A node of the menu ([RoadMenu.Node]): a tab shows its items as a grid of big ones ("🚗 Za pot") or as a list ("Več");
+     * a session plays.
+     */
+    private fun node(n: RoadMenu.Node): MediaItem =
+        MediaItem.Builder().setMediaId(n.id).setMediaMetadata(
             MediaMetadata.Builder()
-                .setTitle(title)
-                .setSubtitle(subtitle)
-                .setIsPlayable(playable)
-                .setIsBrowsable(browsable)
-                .setMediaType(if (browsable) MediaMetadata.MEDIA_TYPE_FOLDER_MIXED else MediaMetadata.MEDIA_TYPE_PLAYLIST)
-                // Android Auto: the sessions as a list of big rows, not a grid
-                .setExtras(if (browsable) Bundle().apply { putInt(MediaConstants.EXTRAS_KEY_CONTENT_STYLE_PLAYABLE, MediaConstants.EXTRAS_VALUE_CONTENT_STYLE_LIST_ITEM) } else null)
+                .setTitle(title(n.id))
+                // what plays, where the menu names it otherwise ("▶ Nadaljuj" plays "🚗 Za pot")
+                .setSubtitle(label(n.id).takeIf { n.playable && it != title(n.id) })
+                .setIsPlayable(n.playable)
+                .setIsBrowsable(n.browsable)
+                .setMediaType(if (n.browsable) MediaMetadata.MEDIA_TYPE_FOLDER_MIXED else MediaMetadata.MEDIA_TYPE_PLAYLIST)
+                .setArtworkUri(icon(n.id)?.let { Uri.parse("android.resource://$packageName/$it") })
+                // Android Auto: the first tab's four as a grid, the second's as a list of rows
+                .setExtras(
+                    if (n.browsable) Bundle().apply {
+                        putInt(
+                            MediaConstants.EXTRAS_KEY_CONTENT_STYLE_PLAYABLE,
+                            if (n.grid) MediaConstants.EXTRAS_VALUE_CONTENT_STYLE_GRID_ITEM else MediaConstants.EXTRAS_VALUE_CONTENT_STYLE_LIST_ITEM,
+                        )
+                    } else null,
+                )
                 .build(),
         ).build()
 
-    /** The tab's items: the sessions, or where to get ready first. */
-    private fun sessions(): List<MediaItem> {
+    /** The items under [parent] ([RoadMenu.children]): where to get ready first, when the phone has nothing yet. */
+    private fun children(parent: String): List<MediaItem>? {
         library = store.readLibrary() ?: RoadLibrary()
-        if (library.items.isEmpty()) return listOf(node(NONE, "📱 ${bi("road.firstInApp")}", playable = false, browsable = false))
-        return ORDER.map { node(it, label(it), playable = true, browsable = false) }
+        return RoadMenu.children(parent, ready = library.items.isNotEmpty())?.map(::node)
     }
 
     /** A session's media id, or an item's queued before: what a controller asked to play. */
@@ -273,10 +380,15 @@ class RoadService : MediaLibraryService() {
             is Sound.Spoken -> "spoken"
             is Sound.Prompt -> "prompt"
         }
+        // a quiz's question: what its sound playing is ("TEXT:1": the second option heard, being read)
+        val quiz = item?.let { plays[it.id] }?.let { p ->
+            RoadPlay.pieces(p.item.sounds).getOrNull(piece)?.let(p.parts::getOrNull)?.let { "${it.role}:${it.option}" }
+        } ?: "-"
         writer.println(
             "road: session=$playing item=${item?.id ?: "-"} piece=$piece/${item?.let { RoadPlay.pieces(it.sounds).size } ?: 0} sound=$sound " +
-                "state=${player.playbackState} playing=${player.isPlaying} position=${player.currentPosition} queued=${player.mediaItemCount}",
+                "state=${player.playbackState} playing=${player.isPlaying} position=${player.currentPosition} queued=${player.mediaItemCount} quiz=$quiz",
         )
+        writer.println("road: quiz answered=${score.answered} right=${score.right} last=$lastPick")
         writer.println("road: sessions " + ORDER.joinToString(" ") { "$it=${items(it).size}" })
     }
 
@@ -297,17 +409,19 @@ class RoadService : MediaLibraryService() {
 
     /**
      * The buttons for the item playing: ✓ and ✗ for a card or a word (filled once pressed), and on every item "🌙 Mirno"
-     * ([toggleEasy]; in Mirno "🚗 Za pot").
+     * and "❓ Kviz" ([switchTo]; in the one playing, "🚗 Za pot" back).
      */
     private fun buttons(): List<CommandButton> {
         val item = current() ?: return emptyList()
-        val easy = playing == EASY
-        val toggle = CommandButton.Builder(CommandButton.ICON_UNDEFINED)
-            .setCustomIconResId(if (easy) R.drawable.ic_road_mix else R.drawable.ic_road_easy)
-            .setDisplayName(if (easy) "🚗 ${bi("road.title")}" else "🌙 ${bi("road.easy")}")
-            .setSessionCommand(EASY_COMMAND)
-            .build()
-        if (item.rate == null) return listOf(toggle)
+        val toggles = RoadMenu.actions(playing).map { to ->
+            val back = playing == to
+            CommandButton.Builder(CommandButton.ICON_UNDEFINED)
+                .setCustomIconResId(if (back) R.drawable.ic_road_mix else if (to == QUIZ) R.drawable.ic_road_quiz else R.drawable.ic_road_easy)
+                .setDisplayName(if (back) "🚗 ${bi("road.title")}" else label(to))
+                .setSessionCommand(if (to == QUIZ) QUIZ_COMMAND else EASY_COMMAND)
+                .build()
+        }
+        if (item.rate == null) return toggles
         val rated = ratedNow[item.id.substringBefore('#')]
         return listOf(
             CommandButton.Builder(if (rated == true) CommandButton.ICON_THUMB_UP_FILLED else CommandButton.ICON_THUMB_UP_UNFILLED)
@@ -318,19 +432,22 @@ class RoadService : MediaLibraryService() {
                 .setDisplayName("✗ ${bi("road.didnt")}")
                 .setSessionCommand(DIDNT_COMMAND)
                 .build(),
-            toggle,
-        )
+        ) + toggles
     }
 
     private fun refreshButtons() {
         session?.setMediaButtonPreferences(buttons())
     }
 
-    /** The ratings pressed so far go to the app's outbox, and out to the node when it can be reached. */
+    /**
+     * The ratings pressed so far and the quiz's answers go to the app's outbox (the quiz's as a dialog's words do,
+     * [RoadStore.commitQuiz]), and out to the node when it can be reached.
+     */
     private fun commitRatings() {
         scope.launch(Dispatchers.IO) {
             val outbox = Outbox(this@RoadService)
-            if (store.commit(outbox) == 0 && outbox.size == 0) return@launch
+            val quiz = runCatching { store.commitQuiz(outbox, store.readLibrary() ?: library, "🚗 ${bi("road.quiz")}") }.getOrDefault(0)
+            if (store.commit(outbox) + quiz == 0 && outbox.size == 0) return@launch
             val config = runCatching { Prefs(this@RoadService).config() }.getOrNull() ?: return@launch
             val b = Bridge(config)
             runCatching { outbox.flush { b.deliver(it) } }
@@ -341,7 +458,7 @@ class RoadService : MediaLibraryService() {
         override fun onConnect(session: MediaSession, controller: MediaSession.ControllerInfo): MediaSession.ConnectionResult =
             MediaSession.ConnectionResult.AcceptedResultBuilder(session)
                 .setAvailableSessionCommands(
-                    MediaSession.ConnectionResult.DEFAULT_SESSION_AND_LIBRARY_COMMANDS.buildUpon().add(KNEW_COMMAND).add(DIDNT_COMMAND).add(EASY_COMMAND).build(),
+                    MediaSession.ConnectionResult.DEFAULT_SESSION_AND_LIBRARY_COMMANDS.buildUpon().add(KNEW_COMMAND).add(DIDNT_COMMAND).add(EASY_COMMAND).add(QUIZ_COMMAND).build(),
                 )
                 .setMediaButtonPreferences(buttons())
                 .build()
@@ -350,32 +467,27 @@ class RoadService : MediaLibraryService() {
             when (customCommand.customAction) {
                 KNEW -> rate(true)
                 DIDNT -> rate(false)
-                TOGGLE_EASY -> toggleEasy()
+                TOGGLE_EASY -> switchTo(EASY)
+                TOGGLE_QUIZ -> switchTo(QUIZ)
                 else -> return Futures.immediateFuture(SessionResult(SessionError.ERROR_NOT_SUPPORTED))
             }
             return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
         }
 
         override fun onGetLibraryRoot(session: MediaLibrarySession, browser: MediaSession.ControllerInfo, params: LibraryParams?): ListenableFuture<LibraryResult<MediaItem>> =
-            Futures.immediateFuture(LibraryResult.ofItem(node(ROOT, "Lani", playable = false, browsable = true), params))
+            Futures.immediateFuture(LibraryResult.ofItem(node(RoadMenu.node(ROOT)!!), params))
 
         override fun onGetChildren(
             session: MediaLibrarySession, browser: MediaSession.ControllerInfo, parentId: String, page: Int, pageSize: Int, params: LibraryParams?,
         ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
-            return when (parentId) {
-                ROOT -> Futures.immediateFuture(LibraryResult.ofItemList(ImmutableList.of(node(TAB, "🚗 ${bi("road.title")}", playable = false, browsable = true)), params))
-                TAB -> later { LibraryResult.ofItemList(ImmutableList.copyOf(sessions()), params) }
-                else -> Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE))
-            }
+            if (RoadMenu.children(parentId, ready = true) == null) return Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE))
+            return later { LibraryResult.ofItemList(ImmutableList.copyOf(children(parentId).orEmpty()), params) }
         }
 
         override fun onGetItem(session: MediaLibrarySession, browser: MediaSession.ControllerInfo, mediaId: String): ListenableFuture<LibraryResult<MediaItem>> {
-            val item = when (mediaId) {
-                ROOT -> node(ROOT, "Lani", playable = false, browsable = true)
-                TAB -> node(TAB, "🚗 ${bi("road.title")}", playable = false, browsable = true)
-                in SESSIONS -> node(mediaId, label(mediaId), playable = true, browsable = false)
-                else -> queued[mediaId]?.let { mediaItem(it, "") } ?: return Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE))
-            }
+            val item = RoadMenu.node(mediaId)?.let(::node)
+                ?: queued[mediaId]?.let { mediaItem(it, "") }
+                ?: return Futures.immediateFuture(LibraryResult.ofError(SessionError.ERROR_BAD_VALUE))
             return Futures.immediateFuture(LibraryResult.ofItem(item, null))
         }
 
@@ -397,7 +509,11 @@ class RoadService : MediaLibraryService() {
             }
         }
 
-        /** The car's play button with nothing queued (after a restart): "🚗 Za pot". */
+        /**
+         * The car's play button with nothing queued (after a restart, the app not running: the manifest's
+         * MediaButtonReceiver starts the service), and the system's and Android Auto's "resume" as the car connects:
+         * "▶ Nadaljuj", "🚗 Za pot" where it left off (the least recently heard first). The learner presses play, nothing else.
+         */
         override fun onPlaybackResumption(mediaSession: MediaSession, controller: MediaSession.ControllerInfo, isForPlayback: Boolean): ListenableFuture<MediaSession.MediaItemsWithStartPosition> =
             later {
                 val list = playlist(MIX)
@@ -407,10 +523,16 @@ class RoadService : MediaLibraryService() {
     }
 
     companion object {
-        const val ROOT = "road:root"
-        const val TAB = "road:tab"
-        const val NONE = "road:none"
+        const val ROOT = RoadMenu.ROOT
+        const val TAB = RoadMenu.TAB
+        const val NONE = RoadMenu.NONE
+
+        /** "🚗 Za pot", the menu's "▶ Nadaljuj · Continue". */
         const val MIX = "road:mix"
+        const val QUIZ = "road:quiz"
+
+        /** "📖 Zgodba · Story": the story under way, from its next evening ([RoadMix.story]). */
+        const val STORY = "road:story"
         const val EASY = "road:easy"
         const val SHADOW = "road:shadow"
         const val REVIEWS = "road:reviews"
@@ -422,15 +544,17 @@ class RoadService : MediaLibraryService() {
         const val BUILDS = "road:build"
         const val RIDDLES = "road:riddles"
 
-        /** The sessions in the browse tree's order: the drills' ([RoadDrills]) after the others. */
+        /** The sessions in the menu's order ([RoadMenu]): every id a car may remember plays. */
         val ORDER = RoadMix.SESSIONS
         val SESSIONS = ORDER.toSet()
 
         const val KNEW = "si.lanisce.lani.road.KNEW"
         const val DIDNT = "si.lanisce.lani.road.DIDNT"
         const val TOGGLE_EASY = "si.lanisce.lani.road.EASY"
+        const val TOGGLE_QUIZ = "si.lanisce.lani.road.QUIZ"
         val KNEW_COMMAND = SessionCommand(KNEW, Bundle.EMPTY)
         val DIDNT_COMMAND = SessionCommand(DIDNT, Bundle.EMPTY)
         val EASY_COMMAND = SessionCommand(TOGGLE_EASY, Bundle.EMPTY)
+        val QUIZ_COMMAND = SessionCommand(TOGGLE_QUIZ, Bundle.EMPTY)
     }
 }

@@ -26,19 +26,19 @@ object RoadMix {
     /** The day's seed of the rapid fire's order ([RoadDrills.rapid]): [today] (ISO). */
     fun seed(today: String): Long = today.hashCode().toLong()
 
-    /** The sessions of the browse tree ([RoadService]'s ids) in its order: the drills' ([RoadDrills]) after the others. */
-    val SESSIONS = listOf(
-        RoadService.MIX, RoadService.EASY, RoadService.SHADOW, RoadService.REVIEWS, RoadService.WORDS, RoadService.DIALOGS,
-        RoadService.STORIES, RoadService.TRANSFORMS, RoadService.RAPID, RoadService.BUILDS, RoadService.RIDDLES,
-    )
+    /** The sessions of the browse tree ([RoadService]'s ids) in the menu's order ([RoadMenu]: its first tab, then "Več"). */
+    val SESSIONS = RoadMenu.SESSIONS
 
     /**
      * What session [id] plays ([SESSIONS]), in its order, before the files on the phone are checked: "🚗 Za pot" its first
-     * block; nothing for an id that isn't a session.
+     * block, "❓ Kviz" its questions as they are on the phone ([RoadQuiz.session]: the service plays each as a question);
+     * nothing for an id that isn't a session.
      */
     fun session(id: String, lib: RoadLibrary, heard: Map<String, Long>, today: String): List<RoadItem> = when (id) {
         RoadService.MIX -> block(lib, heard, today)
+        RoadService.QUIZ -> RoadQuiz.session(lib, heard, today)
         RoadService.EASY -> easy(lib, heard)
+        RoadService.STORY -> story(lib, heard)
         RoadService.SHADOW -> shadow(lib, heard)
         RoadService.REVIEWS -> reviews(lib, heard, today)
         RoadService.WORDS -> words(lib, heard)
@@ -73,6 +73,20 @@ object RoadMix {
         return byStory.entries.withIndex()
             .sortedWith(compareBy({ g -> g.value.value.maxOf { heard[it.id] ?: 0L } }, { it.index }))
             .flatMap { it.value.value.sortedBy(::chapterOf) }
+    }
+
+    /**
+     * "📖 Zgodba · Story": the story under way from its next evening (the story whose evening was heard last, from the evening
+     * after it), then the other stories as "📖 Zgodbe" has them; with none under way (none heard, or the last one heard to
+     * its end), as "📖 Zgodbe".
+     */
+    fun story(lib: RoadLibrary, heard: Map<String, Long>): List<RoadItem> {
+        val all = stories(lib, heard)
+        val last = lib.of(Kind.STORY).filter { heard.containsKey(it.id) }.maxByOrNull { heard.getValue(it.id) } ?: return all
+        val evenings = lib.of(Kind.STORY).filter { storyOf(it.id) == storyOf(last.id) }.sortedBy(::chapterOf)
+        val next = evenings.filter { chapterOf(it) > chapterOf(last) }
+        if (next.isEmpty()) return all
+        return next + all.filter { it.id !in next.map(RoadItem::id).toSet() && storyOf(it.id) != storyOf(last.id) }
     }
 
     /**

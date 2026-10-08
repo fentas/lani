@@ -12,14 +12,18 @@ import android.util.Log
 
 /**
  * QA's car (app/QaHooks, "road:car"; a debug build only): browses the road's library and plays each session as Android
- * Auto does, through the platform's media browser and controller (the protocol a car speaks): the root, its tab, the
- * sessions, then each session played from its media id until its first item plays, or not (in a car, "Failed to load
- * selection"). What it finds goes to the log, a line each (tag RoadCar), for companion/bin/qa's road step; at the end the
+ * Auto does, through the platform's media browser and controller (the protocol a car speaks): the root, its tabs ("🚗 Za
+ * pot", a grid of four; "Več", a list), each tab's sessions, then each session played from its media id until its first
+ * item plays, or not (in a car, "Failed to load selection"). What it finds goes to the log, a line each (tag RoadCar), for companion/bin/qa's road step; at the end the
  * session is paused and "done" is logged. Nothing here is asked of a release build.
  */
 object RoadCarCheck {
     private const val TAG = "RoadCar"
     private const val WAIT_MS = 10_000L
+
+    /** Android Auto's hint how a folder's playable items show (androidx.media3.session.MediaConstants), and its grid. */
+    private const val STYLE_PLAYABLE = "android.media.browse.CONTENT_STYLE_PLAYABLE_HINT"
+    private const val GRID = 2
 
     private var browser: MediaBrowser? = null
     private val main = Handler(Looper.getMainLooper())
@@ -44,15 +48,30 @@ object RoadCarCheck {
 
     private fun browse(context: Context, b: MediaBrowser) {
         children(b, b.root) { top ->
-            val tab = top.firstOrNull { it.isBrowsable } ?: return@children end(b, null, "FAILED: no tab under the root")
-            log("tab: ${tab.mediaId} \"${tab.description.title}\"")
-            children(b, tab.mediaId.orEmpty()) { sessions ->
-                val playable = sessions.filter { it.isPlayable }
-                log("sessions: ${playable.size} (${playable.joinToString(" ") { it.mediaId.orEmpty() }})")
-                if (playable.isEmpty()) return@children end(b, null, "FAILED: no session to play (${sessions.firstOrNull()?.description?.title})")
-                val c = MediaController(context, b.sessionToken)
-                play(b, c, playable.map { it.mediaId.orEmpty() to it.description.title?.toString().orEmpty() }, 0, 0)
+            val tabs = top.filter { it.isBrowsable }
+            if (tabs.isEmpty()) return@children end(b, null, "FAILED: no tab under the root")
+            log("tabs: ${tabs.size} (${tabs.joinToString(" ") { "${it.mediaId} \"${it.description.title}\"" }})")
+            val sessions = mutableListOf<Pair<String, String>>()
+            fun tab(i: Int) {
+                val t = tabs.getOrNull(i) ?: run {
+                    if (sessions.isEmpty()) return end(b, null, "FAILED: no session to play")
+                    return play(b, MediaController(context, b.sessionToken), sessions.distinctBy { it.first }, 0, 0)
+                }
+                children(b, t.mediaId.orEmpty()) { items ->
+                    val playable = items.filter { it.isPlayable }
+                    val style = t.description.extras?.getInt(STYLE_PLAYABLE, 0)
+                    log(
+                        "tab ${t.mediaId}: ${playable.size} (${playable.joinToString(" ") { it.mediaId.orEmpty() }}) " +
+                            (if (style == GRID) "grid" else "list") +
+                            playable.joinToString("") { " | \"${it.description.title}\"" },
+                    )
+                    if (playable.isEmpty()) log("tab ${t.mediaId}: only \"${items.firstOrNull()?.description?.title}\"")
+                    // what plays is the session's: its album, the node's subtitle where it differs from the title ("▶ Nadaljuj")
+                    sessions += playable.map { it.mediaId.orEmpty() to (it.description.subtitle ?: it.description.title)?.toString().orEmpty() }
+                    tab(i + 1)
+                }
             }
+            tab(0)
         }
     }
 

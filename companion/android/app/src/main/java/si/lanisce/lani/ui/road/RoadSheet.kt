@@ -15,9 +15,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +41,7 @@ import java.time.LocalDate
 /**
  * "🚗 Za pot · For the road" (companion/README.md, "Im Auto · In the car"): getting the car's sessions ready on the phone,
  * with its progress (the work goes on in the background, road/RoadPrepService; the sessions play once the first block is
- * there), and a plain player for Bluetooth without Android Auto (the sessions, ⏮ ⏯ ⏭, ✓ and ✗). No exercises:
+ * there), and a plain player for Bluetooth without Android Auto (the car's menu, ⏮ ⏯ ⏭, ✓ and ✗). No exercises:
  * while driving, the steering wheel or Android Auto does it all.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +70,8 @@ fun RoadSheet(vm: AppViewModel, onDismiss: () -> Unit) {
                 }
                 Text(
                     "🔁 ${lib.due(LocalDate.now().toString()).size} · 🆕 ${lib.of(Kind.WORD).size} · 💬 ${lib.of(Kind.DIALOG).size} · 📖 ${lib.of(Kind.STORY).size} · 🗣️ ${lib.of(Kind.PHRASE).size}" +
-                        " · 🔄 ${lib.of(Kind.TRANSFORM).size} · ⚡ ${lib.of(Kind.RAPID).size} · 🧱 ${lib.of(Kind.BUILD).size} · 🕵️ ${lib.of(Kind.RIDDLE).size}",
+                        " · 🔄 ${lib.of(Kind.TRANSFORM).size} · ⚡ ${lib.of(Kind.RAPID).size} · 🧱 ${lib.of(Kind.BUILD).size} · 🕵️ ${lib.of(Kind.RIDDLE).size}" +
+                        " · ❓ ${lib.of(Kind.QUIZ).size}",
                     style = MaterialTheme.typography.bodyMedium,
                 )
             } else {
@@ -100,26 +106,46 @@ fun RoadSheet(vm: AppViewModel, onDismiss: () -> Unit) {
     }
 }
 
-/** The sessions, and big buttons for what plays. */
+/**
+ * The car's menu as Android Auto has it ([RoadMenu]): four big buttons (▶ Nadaljuj, ❓ Kviz, 🌙 Mirno, 📖 Zgodba), "Več ·
+ * More" with each kind's session; then what plays and big buttons for it.
+ */
 @Composable
 private fun Player(remote: RoadRemote, due: Int) {
     Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        val sessions = listOf(
-            RoadService.MIX to "🚗 ${bi("road.title")}",
+        val main = listOf(
+            RoadService.MIX to "▶ ${bi("road.continue")}",
+            RoadService.QUIZ to "❓ ${bi("road.quiz")}",
             RoadService.EASY to "🌙 ${bi("road.easy")}",
-            RoadService.SHADOW to "🗣️ ${bi("road.shadow")}",
-            RoadService.REVIEWS to "🔁 ${bi("road.reviews", "count" to due)}",
-            RoadService.WORDS to "🆕 ${bi("road.words")}",
-            RoadService.DIALOGS to "💬 ${bi("road.dialogs")}",
-            RoadService.STORIES to "📖 ${bi("road.stories")}",
-            RoadService.TRANSFORMS to "🔄 ${bi("road.transform")}",
-            RoadService.RAPID to "⚡ ${bi("road.rapid")}",
-            RoadService.BUILDS to "🧱 ${bi("road.build")}",
-            RoadService.RIDDLES to "🕵️ ${bi("road.riddles")}",
+            RoadService.STORY to "📖 ${bi("road.story")}",
         )
-        for ((id, label) in sessions) {
-            OutlinedButton(onClick = { remote.play(id) }, enabled = remote.connected, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
-                Text(label, style = MaterialTheme.typography.labelLarge)
+        for (row in main.chunked(2)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            for ((id, label) in row) {
+                OutlinedButton(onClick = { remote.play(id) }, enabled = remote.connected, modifier = Modifier.weight(1f).heightIn(min = 72.dp)) {
+                    Text(label, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center)
+                }
+            }
+        }
+        var more by rememberSaveable { mutableStateOf(false) }
+        TextButton(onClick = { more = !more }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+            Text("${if (more) "▾" else "▸"} ${bi("road.more")}", style = MaterialTheme.typography.labelLarge)
+        }
+        if (more) {
+            val sessions = listOf(
+                RoadService.REVIEWS to "🔁 ${bi("road.reviews", "count" to due)}",
+                RoadService.WORDS to "🆕 ${bi("road.words")}",
+                RoadService.DIALOGS to "💬 ${bi("road.dialogs")}",
+                RoadService.STORIES to "📖 ${bi("road.stories")}",
+                RoadService.SHADOW to "🗣️ ${bi("road.shadow")}",
+                RoadService.TRANSFORMS to "🔄 ${bi("road.transform")}",
+                RoadService.RAPID to "⚡ ${bi("road.rapid")}",
+                RoadService.BUILDS to "🧱 ${bi("road.build")}",
+                RoadService.RIDDLES to "🕵️ ${bi("road.riddles")}",
+            )
+            for ((id, label) in sessions) {
+                OutlinedButton(onClick = { remote.play(id) }, enabled = remote.connected, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) {
+                    Text(label, style = MaterialTheme.typography.labelLarge)
+                }
             }
         }
         Text(
@@ -133,6 +159,8 @@ private fun Player(remote: RoadRemote, due: Int) {
             Big(if (remote.playing) "⏸" else "▶", Modifier.weight(1f), remote.connected) { remote.toggle() }
             Big("⏭", Modifier.weight(1f), remote.connected) { remote.next() }
         }
+        // a quiz's question: what the buttons do
+        if (remote.quiz) Text(bi("road.quizHow"), style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
         if (remote.rateable) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             BigButton("✓ ${bi("road.knew")}", onClick = { remote.rate(true) }, modifier = Modifier.weight(1f))
             BigButton("✗ ${bi("road.didnt")}", onClick = { remote.rate(false) }, modifier = Modifier.weight(1f), color = TriglavRed)

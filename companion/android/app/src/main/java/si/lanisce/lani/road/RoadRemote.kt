@@ -29,6 +29,9 @@ class RoadRemote(private val context: Context) {
     /** The item playing is a card or a word: the ratings count. */
     var rateable by mutableStateOf(false)
         private set
+    /** The item playing is a quiz's question: ⏭ picks, ⏮ asks again. */
+    var quiz by mutableStateOf(false)
+        private set
     var connected by mutableStateOf(false)
         private set
 
@@ -68,6 +71,7 @@ class RoadRemote(private val context: Context) {
         session = m?.mediaMetadata?.albumTitle?.toString()
         playing = p.isPlaying
         rateable = m?.mediaId?.let { it.startsWith("card:") || it.startsWith("word:") } == true
+        quiz = m?.mediaId?.let { it.startsWith("quiz:") && '#' !in it } == true
     }
 
     /** Plays session [id] ([RoadService.MIX] …) from its start. */
@@ -88,8 +92,8 @@ class RoadRemote(private val context: Context) {
 
     fun next() { controller?.seekToNextMediaItem() }
 
-    /** The item again from its start. */
-    fun again() { controller?.seekTo(0) }
+    /** The item again from its start (a quiz's question: asked again, [RoadPlayer]). */
+    fun again() { controller?.seekToPrevious() }
 
     fun rate(knew: Boolean) {
         controller?.sendCustomCommand(if (knew) RoadService.KNEW_COMMAND else RoadService.DIDNT_COMMAND, Bundle.EMPTY)

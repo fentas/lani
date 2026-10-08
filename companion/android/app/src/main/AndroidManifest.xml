@@ -72,6 +72,16 @@
             </intent-filter>
         </service>
 
+        <!-- The car's play with the app not running (after a restart, as the car connects): the session starts and resumes
+             "▶ Nadaljuj" (RoadService.onPlaybackResumption); the system's media controls offer it to resume too. -->
+        <receiver
+            android:name="androidx.media3.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
         <!-- Getting the car's sessions ready in the background: "🚗 Pripravljam za pot … 40 %". -->
         <service
             android:name=".road.RoadPrepService"
