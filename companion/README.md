@@ -1716,7 +1716,9 @@ elsewhere too, sync the backup directory to another tailnet device, e.g. with `r
 
 "🚗 Za pot · For the road" is a learning session for the car that uses sound only. Nothing is read, typed or looked
 at. The app plays it as a media app: in **Android Auto**, and over Bluetooth with the car's and the steering wheel's
-play, pause, next and previous. It plays only what is on the phone, so the drive works without the node.
+play, pause, next and previous. It plays only what is on the phone, so the drive works without the node. Besides
+listening and saying things aloud, "❓ Kviz · Quiz" asks questions that the learner answers with the steering wheel's
+buttons (see [The quiz](#the-quiz-answered-with-the-steering-wheel)).
 
 **Get ready (before the drive, with the node reachable).** On Home, tap the "🚗 Za pot · For the road" tile, then
 "🚗 Pripravi za pot · Get ready for the road". The app:
@@ -1727,15 +1729,17 @@ play, pause, next and previous. It plays only what is on the phone, so the drive
    app's own copy; see [The drills](#the-drills));
 2. keeps only the items whose Slovene clips are in the voice store's index (`GET /voice/index`), in the voice each
    person speaks in (their own voice, their archetype, their gender's narrator, the female narrator). A dialog that
-   misses more than a quarter of its lines is left out; a single missing line is skipped. It never asks the node to
-   voice anything (`/voice/say`, `/voice/redo`), so the car costs no ElevenLabs characters;
+   misses more than a quarter of its lines is left out; a single missing line is skipped. The listening sessions never
+   ask the node to voice anything (`/voice/say`, `/voice/redo`). Only the quiz does, for the options the voice store
+   lacks (a sentence with a wrong form, "Prav!"): see [The quiz's audio](#the-quizs-audio);
 3. copies the clips from the phone's clip cache, or downloads them with `?count=0`: the bridge then doesn't count the
    download, so an old-style narrator word is not queued for its carrier re-voice (`features/voice.ts`; a bridge
    started before this change counts the download like the app's other downloads);
 4. renders the prompts in Jan's base language (English) with the phone's own text-to-speech, to WAV files (the
-   meanings, "You say: …", the stories' setups and recaps, and the drills' instructions, questions and meanings);
-5. writes the library. Everything is in the app's `files/road/` (`road.json`, `clips/`, `prompts/`), not in the
-   50 MB clip cache, so nothing is dropped. Getting ready again takes only what is new.
+   meanings, "You say: …", the stories' setups and recaps, the drills' instructions, questions and meanings, and the
+   quiz's questions and its meanings to choose from);
+5. writes the library. Everything is in the app's `files/road/` (`road.json`, `clips/`, `prompts/`, `spoken/`), not
+   in the 50 MB clip cache, so nothing is dropped. Getting ready again takes only what is new.
 
 **In the background, playable early.** Steps 3 to 5 run in a foreground service (`RoadPrepService`, a data sync with
 a partial wake lock), so they go on with the screen off or the app in the background. Its notification shows how far
@@ -1787,21 +1791,36 @@ Once voiced they add about 3.4 hours: transformations about 55 minutes at A1 (an
 minutes, riddles about 35, rapid fire about 25 (it goes round again in another order each day), and about 800 more
 prompts (about 60 MB).
 
-**The browse tree** in Android Auto is one tab, "🚗 Za pot · For the road", with eleven sessions:
+**The menu** in Android Auto has two tabs, so nothing needs scrolling while driving (`road/RoadMenu.kt`):
+
+| Tab | Items |
+|---|---|
+| 🚗 Za pot · For the road | Four big items in a grid: **▶ Nadaljuj · Continue** ("🚗 Za pot", where it left off), **❓ Kviz · Quiz**, **🌙 Mirno · Easy listening**, **📖 Zgodba · Story** (the story under way, from its next evening) |
+| Več · More | Each kind on its own, a list: 🔁 Ponavljanje, 🆕 Besede, 💬 Pogovori, 📖 Zgodbe, 🗣️ Odmev, 🔄 Preobrat, ⚡ Hitri odziv, 🧱 Gradnja stavkov, 🕵️ Uganke |
+
+Every session id from before still plays (a car remembers the one it played last), and the first tab keeps its id.
+The sessions:
 
 | Session | What plays |
 |---|---|
-| 🚗 Za pot · For the road | Blocks of about 30 minutes, one after the other: two due cards, two new words, a dialog, again; each new word comes back three items later; an evening of a story about every 10 minutes; a short burst of a drill about every 7 minutes, the first after 4 (four transformations of one set, five rapid answers, three sentences built or three riddles: the kinds in turn, the one heard least recently first). The least recently heard first; when everything was heard, it goes round again. |
+| ▶ Nadaljuj · Continue (🚗 Za pot · For the road) | Blocks of about 30 minutes, one after the other: two due cards, two new words, a dialog, again; each new word comes back three items later; an evening of a story about every 10 minutes; a short burst of a drill about every 7 minutes, the first after 4 (four transformations of one set, five rapid answers, three sentences built or three riddles: the kinds in turn, the one heard least recently first). The least recently heard first; when everything was heard, it goes round again. |
+| ❓ Kviz · Quiz | Questions answered with the steering wheel: see [The quiz](#the-quiz-answered-with-the-steering-wheel). |
 | 🌙 Mirno · Easy listening | For heavy traffic or when Jan is tired: only the stories and the dialogs, with no "say it" prompts or pauses. An evening of a story, then about 10 minutes of dialogs, again. A dialog plays as an audio play: the other person's lines and the learner's right answers in turn. A story keeps its English setup and recaps. |
-| 🗣️ Odmev · Shadowing | Short Slovene phrases from the dialogs (the villagers' lines, the learner's right answers and the replies to them; 2 to 8 words, from the scenes at Jan's level or below): the phrase, a pause to say it along in the same rhythm, the phrase again. No English, nothing graded. |
+| 📖 Zgodba · Story | The story under way (the one whose evening was heard last) from its next evening, then the other stories as "📖 Zgodbe" has them; with none under way, as "📖 Zgodbe". |
 | 🔁 Ponavljanje · Reviews (N) | Today's due cards as audio flashcards. |
 | 🆕 Besede · New words | The new words, each heard again three items later. |
 | 💬 Pogovori · Dialogs | The scenes' dialogs as short audio plays. |
 | 📖 Zgodbe · Stories | The storyteller's stories, a chapter at a time, in order. |
+| 🗣️ Odmev · Shadowing | Short Slovene phrases from the dialogs (the villagers' lines, the learner's right answers and the replies to them; 2 to 8 words, from the scenes at Jan's level or below): the phrase, a pause to say it along in the same rhythm, the phrase again. No English, nothing graded. |
 | 🔄 Preobrat · Transformations | A sentence and what to do with it; say the new sentence. Six of a set in a row, then six of the next set; the set heard least recently first. |
 | ⚡ Hitri odziv · Rapid fire | Numbers, the clock, days, months and dates at a fast pace. Six of a set in a row, then the next set; the ones heard alike in another order each day. |
 | 🧱 Gradnja stavkov · Sentence building | Sentences built in three or four steps, the least recently heard first. |
 | 🕵️ Uganke · Riddles | Stari Janez's riddles, the least recently heard first. |
+
+**Starting by itself.** When the car connects, or when Jan presses play on the steering wheel and the app isn't
+running (after a restart), the session starts "▶ Nadaljuj" (Media3's playback resumption, `onPlaybackResumption`; the
+manifest's `MediaButtonReceiver` lets the button start the service). The phone's media controls offer it to resume too.
+Jan presses play and nothing else.
 
 **How an item sounds** (say it aloud before you hear it):
 
@@ -1842,10 +1861,11 @@ riddle gives 5 s to guess. Next during any of these pauses plays the answer at o
 | Button | What it does |
 |---|---|
 | ⏭ Next (steering wheel, Android Auto, the notification) | During the pause to say the Slovene: plays the answer at once (Jan said it already). At any other moment: skips to the next item. |
-| ⏮ Previous | Plays the item again from its start (pressed twice quickly, the item before). |
+| ⏮ Previous | Plays the item again from its start (pressed twice quickly, the item before). In the quiz: see [its buttons](#the-quiz-answered-with-the-steering-wheel). |
 | Next or ⏩ held (the car sends fast-forward) | On a card or a word: 👍 "Znal sem · I knew it". Elsewhere: nothing. |
 | Previous or ⏪ held (the car sends rewind) | On a card or a word: 👎 "Nisem · I didn't". Elsewhere: nothing. |
 | 🌙 Mirno (Android Auto, the notification) | Switches the session playing to "🌙 Mirno" at once, for sudden heavy traffic. In Mirno the button is "🚗 Za pot" and goes back. |
+| ❓ Kviz (Android Auto, the notification) | Switches to "❓ Kviz" at once. In the quiz the button is "🚗 Za pot" and goes back. |
 
 Whether holding a steering-wheel button sends fast-forward or rewind depends on the car: many do; others send nothing
 or a repeated next, and then nothing changes. The session offers fast-forward and rewind at all times, so a car that
@@ -1860,9 +1880,9 @@ the learner's words). If nothing is pressed, nothing is graded. The ratings are 
 go to the app's outbox as one session when the session is paused or ends (the car switched off, a button), when the
 service stops, and when the app opens. The outbox sends them when the node can be reached.
 
-**Without Android Auto** (Bluetooth only): the sheet has a simple player: the eleven sessions, ⏮ ⏯ ⏭ and, on a card or
-a word, ✓ and ✗. Start a session before the drive; then the steering wheel's buttons and the media notification control
-it.
+**Without Android Auto** (Bluetooth only): the sheet has a simple player with the same menu (four big buttons, and
+"▸ Več · More" folded with the other sessions), ⏮ ⏯ ⏭ and, on a card or a word, ✓ and ✗; in the quiz a line says what
+⏭ and ⏮ do. Start a session before the drive; then the steering wheel's buttons and the media notification control it.
 
 **Enable Lani in Android Auto.** Android Auto hides apps that were not installed from the Play Store until its
 developer settings allow them:
@@ -1880,15 +1900,76 @@ driving, or from Android Auto's media screen.
 **Code.** `app/src/main/java/si/lanisce/lani/road/`: `RoadPlay` (how an item sounds, only from clips that exist; the
 pauses; Mirno's straight play; the phrases to shadow), `RoadStory` (a story's setup and recaps), `RoadDrills` (the
 drills' items, which are offered, their sessions' order and the bursts), `RoadMix` (the sessions and their order, the
-ratings' writes), `RoadGather` (the items from the node's content), `RoadPrep` (getting ready as the sheet shows it,
+ratings' writes), `RoadMenu` (the two tabs, the custom actions), `RoadQuiz` (the quiz's questions, its session, a
+question composed as it plays, the feedback, `QuizControls`: what each button does when), `RoadQuizCount` (what its
+answers count), `RoadGather` (the items from the node's content), `RoadPrep` (getting ready as the sheet shows it,
 and the gathering into a plan), `RoadWork` (the plan, and the order the files are got in), `RoadPrepWork` (getting the
 files, writing the library as it grows), `RoadPrepService` (the foreground service that runs it, its notification),
 `RoadPrompts` (the phone's voice), `RoadStore` (the files), `RoadService` (the Media3 `MediaLibraryService`, the browse
 tree, the buttons), `RoadControls` (what next and a held button do, and `RoadPlayer`, the plain `ForwardingPlayer` the
-session gets: a `ForwardingSimpleBasePlayer` rebuilds the timeline and crashed on an item's pieces not prepared yet),
+session gets, with the quiz's picks: a `ForwardingSimpleBasePlayer` rebuilds the timeline and crashed on an item's pieces not prepared yet),
 `RoadSources` (an item as one media source: its prompts, clips and pauses), `RoadRemote` (the phone's player) and
 `RoadCarCheck` (QA's car, a debug build only). The Android Auto declaration is `res/xml/automotive_app_desc.xml` and
 the manifest's `com.google.android.gms.car.application`.
+
+### The quiz: answered with the steering wheel
+
+A question is read, then its options one at a time, numbered: "Ena: …", "Dve: …", "Tri: …", each followed by a short
+gap. Jan presses ⏭ while the right one is read, or just after it. With nothing pressed, the options come once more,
+then the next question (skipped: it counts nothing). After a pick: "Prav!" and the right answer whole, or "Ne, prav je:"
+and the right answer; then the next question. After every ten answers a short summary: "Sedem od desetih." The volume
+keys can't be used: in Android Auto and over Bluetooth the car keeps them, they never reach a media app.
+
+| Button | During the question | While an option is read, or in its gap | In the feedback ("Prav!") |
+|---|---|---|---|
+| ⏭ Next | On to the options at once | Picks it: the option being read, or the one just read (its gap of 1.2 s, the pause between the rounds and at the end, and the first half second of the next one's number) | On to the next question |
+| ⏮ Previous | The question again from its start | The question and its options again from the start (never the question before) | The feedback again |
+| ⏯ Play/pause (where the car sends it) | Pauses | Picks, as ⏭ does | Pauses |
+| Held (fast-forward, rewind) | Nothing | Nothing | Nothing |
+
+On Android Auto's screen and in the media notification, the pause button also picks while the options are read: to
+pause, press it during the question or the feedback. A navigation prompt or a call pauses the quiz as any session.
+`road/RoadQuiz.kt` (`QuizControls`) has the timing, `road/RoadControls.kt` (`RoadPlayer`) the buttons.
+
+**How a question sounds** (the options in another order each day, the right one anywhere among them):
+
+| Kind | The question | The options |
+|---|---|---|
+| A dialog's turn | Its context line in the speaker's voice ("Kaj boš?"), then "You want to say: Ten eggs, please." when the turn tests a form (or has no context), else "What do you answer?" | The right answer and up to three wrong ones of the turn, in the learner's voice ("Deset jajc, prosim." / "Deset jajce, prosim.") |
+| A card's meaning | "What does it mean?" and the Slovene ("kruh") | Its meaning and two other cards', in English |
+| A card's word | "How do you say: bread?" | Its Slovene and two other cards' |
+| A word's form | "Which is right?", the word ("sesti"), the sentence's meaning when it is a line of the content | The sentence with each form: "Jaz sedem na klop.", "Jaz sedim na klop.", "Jaz sede na klop." |
+| A riddle | Stari Janez's clues and "Kaj sem?" in his voice | "Miza!" and two other riddles' answers (a word's or a villager's) |
+| The grammar book's practice | The sentence's meaning ("I don't have time."), else "Which is right?" | The sentence with each choice: "Nimam čas.", "Nimam časa.", "Nimam času." |
+
+**Which questions.** What Jan has, at Jan's level: the dialogs' turns of the scenes at Jan's level or below (a turn
+whose rule isn't introduced yet is trimmed as in the app: [GAME.md](GAME.md#rules-not-yet); an echo turn and a tap turn
+are no questions), the vocabulary cards whose Slovene the voice store has (one of a card's two questions a day), the
+forms of the familiar one-word cards (the form a review would ask next, always chosen: [GAME.md](GAME.md#a-words-forms)),
+the riddles offered at Jan's level, and the grammar book's choice exercises with a sentence to fill, of the pages met
+(the modules', the tent's, the letters'). At most 80 dialog turns, 60 cards of each kind, 40 forms, 40 riddles and 40
+exercises. The session: the questions on the cards due (or nearly due) first, then the rest; each part the kinds in
+turn, each kind the least recently heard first.
+
+**What an answer counts**, as the app's own play does ([GAME.md](GAME.md#words-met-in-play)): a right answer on one of
+Jan's words (a card's question, a dialog's turn that tests it, a form, a riddle of a pack word) is a word met in play, a
+review of quality 4 when the card is due or nearly and wasn't reviewed today, once a day; a wrong one about its meaning
+lowers it gently; a wrong form leaves it as it is. A dialog's turn, a form and an exercise count on their grammar page,
+as a dialog's pick counts. The answers go to the outbox when the session is paused or ends (one `POST /reviews` with the
+quiz's words, as a dialog's: the bridge checks again what may count), offline until the phone reaches the node. The
+rules, the forms asked and the cards changed today are counted by the app when it next opens (`files/road/quiz-app.json`).
+
+#### The quiz's audio
+
+Everything is on the phone before the drive, got ready with the rest. The question's and its options' Slovene come from
+the voice store first. What it lacks (a wrong form in a sentence, a grammar exercise's wrong choice, the fixed phrases)
+is asked of the node while getting ready (`POST /voice/prepare`, up to 20 texts at a time): voiced now if it can, but not
+as a live line (ElevenLabs only above the reserve kept for live lines, then the local Gepard worker), at most 6,000
+characters a day (`LANI_VOICE_ROAD_DAILY`); else by the phone's own voice in Slovene, if it has one. A question whose
+options can't all be had isn't played. The fixed phrases ("Ena.", "Dve.", "Tri.", "Štiri.", "Prav!", "Ne, prav je:",
+"Sedem od desetih.", machine-written) fall back to the base language's prompt ("One.", "Right!", "7 of ten."). The
+questions in English ("What does it mean?", "You want to say: …") and the meanings are the phone's voice, as every
+prompt. A bridge from before `/voice/prepare` (404): only the phone's voice.
 
 ### The drills
 
@@ -2070,29 +2151,43 @@ items as `RoadSources` makes them (WAV prompts and clips, pauses of silence: one
 media session. The session and the test read the player's whole state at every change, also while pieces are still
 being prepared and have no duration. It checks the commands a car can send, and next in the pause to say it and after
 it. With 0.1.543's `ForwardingSimpleBasePlayer` both tests fail with the crash from the car, "Periods other than last
-need a duration".
+need a duration". A third plays a quiz's question (`RoadQuiz.compose`, three options, twice): next during the question
+goes on to the options, next while an option is read, in its gap or just into the next one's number picks it,
+previous asks the question again, play/pause picks during the options and pauses during the question; a card plays on
+as ever. It seeks to exact positions with the player paused: `untilPosition` overshoots with these many short pieces.
+The quiz's pure parts have their own tests: `RoadQuizTest` (a question's sounds and parts, each button at each moment,
+every kind of question, the session's order, the fixed phrases), `RoadQuizCountTest` (what the answers count),
+`RoadMenuTest` (the tabs, the old ids, the custom actions, "📖 Zgodba") and `RoadWorkTest` (the spoken texts got ready).
 
 **QA of the car** (`--steps road`, the last step). On a fresh install, it opens the 🚗 sheet and asks the debug build
 for a small library (`road:mini`): two items of each kind from the dev bridge (cards, words, dialogs, stories,
-phrases, drills), their clips downloaded and their prompts rendered in the background. It waits until the sheet says
+phrases, drills) and eight quiz questions (the kinds in turn) with the quiz's fixed phrases, their clips downloaded,
+their prompts rendered and the quiz's texts the voice store lacks voiced (the dev bridge has no engine: the
+emulator's own voice) in the background. It waits until the sheet says
 "✅ Končano" and reports the notifications ("🚗 Pripravljam za pot … %" if it is quick enough to catch it, "Končano" at
 the end). Then it:
 
-1. starts "🚗 Za pot" from the sheet's player, and checks with `adb shell dumpsys media_session` that the app's session
-   is PLAYING with a current item (what a car sees);
+1. starts "▶ Nadaljuj · Continue" from the sheet's menu, and checks with `adb shell dumpsys media_session` that the
+   app's session is PLAYING with a current item (what a car sees);
 2. follows the item with the road service's dump (`adb shell dumpsys activity service si.lanisce.lani/.road.RoadService`,
    a debug build's: the session, the item, its piece and what it is, such as `pause:SAY`, and each session's items on
    the phone). When a pause to say the Slovene begins, it sends next (`cmd media_session dispatch next`, as a steering
    wheel does). The same item must go on past the pause (the answer at once). Next again must go to the next item. The
    app must still run (`pidof`) and play after each;
 3. pauses (`dispatch pause`) and checks PAUSED;
-4. plays the car's part (`road:car`, `road/RoadCarCheck`). The platform's media browser and controller, the protocol
-   Android Auto speaks, connect to the service, browse the root and the tab to its eleven sessions, and play each one
-   from its media id (the service's `onSetMediaItems`), until its first item plays. The app logs a line each (tag
-   `RoadCar`). Every session that has items on the phone must play, none may fail ("Failed to load selection" in a car),
-   and the app must still run at the end, paused.
+4. starts "❓ Kviz · Quiz" from the sheet. The dump says which part of a question plays (`quiz=TEXT:1`: the second
+   option, being read). Then it sends next: the question's feedback must play ("✓ …" or "✗ …" in `dumpsys
+   media_session`), with the pick in the dump (`last=<question>:1:right`). During the next question's options it sends
+   previous: the same question again from its start (`ASK`). Then it pauses;
+5. plays the car's part (`road:car`, `road/RoadCarCheck`). The platform's media browser and controller, the protocol
+   Android Auto speaks, connect to the service and browse the root: two tabs, "🚗 Za pot" a grid of four (`road:mix
+   road:quiz road:easy road:story`) and "Več" a list of nine. Then they play each session from its media id (the
+   service's `onSetMediaItems`), until its first item plays. The app logs a line each (tag `RoadCar`). Every session
+   that has items on the phone must play, the quiz too, none may fail ("Failed to load selection" in a car), and the app
+   must still run at the end, paused.
 
-The step takes about 70 seconds (with setup and without the build, about 2 minutes). With 0.1.543's player it fails
+Android Auto's own screen (the grid's look, its pictures) isn't checked: the Desktop Head Unit isn't installed here.
+The step takes about 2 minutes (with setup and without the build, about 3 minutes). With 0.1.543's player it fails
 at step 1: the app closes as the session starts ("Periods other than last need a duration" in the crash check).
 
 **QA with two towns.** `companion/bin/qa` runs the dev bridge (`127.0.0.1:8791`, on a copy of `data/` without its

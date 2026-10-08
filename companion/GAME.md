@@ -509,8 +509,8 @@ A word Jan added (a word card's "➕ Dodaj med moje besede", a pack's word) is o
 ### Words met in play
 
 A word the learner has a card of, met in play and answered right, counts as a review of the card (`game/PlayReviews.kt`):
-«Vidim, vidim»'s quick find (SCENES.md, "I spy": the thing tapped within two clues) and a dialog's turn that tests the word
-(below). Not every time, and never worse than nothing:
+«Vidim, vidim»'s quick find (SCENES.md, "I spy": the thing tapped within two clues), a dialog's turn that tests the word
+(below) and the car's quiz (below). Not every time, and never worse than nothing:
 
 - **Once a day a card's schedule changes in play**: not when the deck reviewed it today (the card's `last_reviewed`) nor
   when play reviewed it, or a dialog lowered it, today already (`GameState.playReviews`, the day's cards; it syncs, so
@@ -551,6 +551,26 @@ word met in play (above), with what a dialog adds (`game/DialogReviews.kt`; the 
   word's answer and how; [README.md](README.md#app-api)). Only to a bridge whose GET /state lists `"dialog-words"` in its
   `features` does a dialog with slips but no review go: an older one has nothing to lower, and a slip changes nothing
   there. The tutor hears a line of it (`dialog_words`).
+
+### The car's quiz
+
+"❓ Kviz · Quiz" in the car ([README.md](README.md#the-quiz-answered-with-the-steering-wheel)) asks by sound, answered with
+the steering wheel's buttons: a dialog's turn, a card's meaning or the word for it, a word's form in a sentence, a riddle,
+the grammar book's choice exercise. Its answers count as the dialogs' do (`road/RoadQuizCount.kt`, with
+`DialogReviews.settle`):
+
+- **The learner's words**: a right answer on one (the card asked, a word the turn tests, the form's word, a riddle's pack
+  word) is a word met in play: a review of quality 4 when the card is due or nearly and not reviewed today, met
+  otherwise. A wrong answer about its meaning lowers its card gently (to a bridge with `"dialog-words"`), a wrong form
+  leaves it as it is. **Once a day**: the day's first answer on a card decides, and a card play counted today when the
+  car was got ready (the village state's `playReviews` then) counts nothing; the bridge checks it all again.
+- **The rules**: a dialog's turn counts on the page its choices name, as its pick does in the scene (right on the turn's
+  page, wrong on the wrong choice's); a form on its page (a slip with both sentences, as the review's form question); a
+  grammar exercise on its page. Only rules introduced: a turn's rule not yet isn't asked for at all
+  ([Rules not yet](#rules-not-yet)).
+- **When**: the reviews go to the outbox when the session is paused or ends (one `POST /reviews` with the quiz's words,
+  `dialog.scene` "road"), and to the node when it can be reached. What the village state keeps (the rules answered, the
+  forms each card asked, the cards play changed today) waits in `files/road/quiz-app.json` until the app opens.
 
 ## Zemljevid zaklada · The treasure map
 
