@@ -81,6 +81,7 @@ import si.lanisce.lani.ui.talk.TalkModel
 import si.lanisce.lani.ui.villagers.VillagerLogic
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inBase
+import si.lanisce.lani.l10n.inTarget
 import java.io.File
 
 /**
@@ -674,8 +675,31 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 cache = clips.dir,
                 drillWords = si.lanisce.lani.road.RoadDrills.Words({ inBase("road.buildSay", "text" to it) }, { inBase("road.buildAdd", "text" to it) }),
                 mini = mini,
+                quizWords = quizWords(),
             )
         }
+    }
+
+    /**
+     * What the car's quiz says (road/RoadQuiz): its questions' prompts in the learner's base language, its fixed phrases
+     * in the target language ("Ena.", "Prav!", "Sedem od desetih.") with the base's as the fallback.
+     */
+    private fun quizWords(): si.lanisce.lani.road.QuizWords {
+        val target = L10n.pair.target.code
+        fun both(key: String) = inTarget(key) to inBase(key)
+        fun number(n: Int): String = if (n == 0) inTarget("road.quizNone")
+            else si.lanisce.lani.data.Drills.number(n, target)?.said(target)?.takeIf { it.isNotBlank() } ?: "$n"
+        return si.lanisce.lani.road.QuizWords(
+            whatMeans = inBase("road.quizWhatMeans"),
+            howSay = { inBase("road.quizHowSay", "text" to it) },
+            youWant = { inBase("road.quizYouWant", "text" to it) },
+            whatAnswer = inBase("road.quizWhatAnswer"),
+            whichRight = inBase("road.quizWhichRight"),
+            numbers = listOf("road.quizOne", "road.quizTwo", "road.quizThree", "road.quizFour").map(::both),
+            right = both("road.quizRight"),
+            wrong = both("road.quizWrong"),
+            score = { n -> inTarget("road.quizScore", "n" to number(n)).replaceFirstChar { it.titlecase() } to inBase("road.quizScore", "n" to n) },
+        )
     }
 
     /**
@@ -728,16 +752,73 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         return si.lanisce.lani.road.RoadInputs(
             cards = cards, words = words, scenes = scenes.all, villagers = villagers.all, profiles = clips.profiles,
             index = index, level = levelIn(target.code), target = target, base = L10n.pair.base, drills = drills, notYet = notYet,
+            quiz = gatherQuiz(b, target),
         )
     }
 
-    /** Ratings pressed in the car that the road's service didn't hand to the outbox yet go now, and out to the node. */
+    /**
+     * What the car's quiz asks (road/RoadQuiz): the learner's cards with their schedule, their words a dialog's turn
+     * tests, the form each word asks (the forms asked of the bridge first, a short while), the grammar book's masteries
+     * and its choice exercises (the modules', the tent's, the letters'), and what play counted today. In another language
+     * than the book's, no forms, rules or exercises.
+     */
+    private suspend fun gatherQuiz(b: si.lanisce.lani.data.Bridge, target: si.lanisce.lani.l10n.Lang): si.lanisce.lani.road.QuizInputs {
+        val d = content.dashboard
+        val pool = d?.pool.orEmpty()
+        val home = target.code == grammar.language
+        if (home) {
+            kotlinx.coroutines.withTimeoutOrNull(20_000) { forms.reload(b, pool.filter { si.lanisce.lani.data.WordFormsWire.lemmaOf(it) != null }) }
+            kotlinx.coroutines.withTimeoutOrNull(20_000) { content.loadModuleExercises() }
+        }
+        val seed = System.currentTimeMillis()
+        val exercises = if (!home) emptyList() else (
+            content.moduleExercises().map { it.second } +
+                si.lanisce.lani.game.TentMove.exercises(seed, false) + si.lanisce.lani.game.Surprises.onRules(seed)
+            ).filterIsInstance<si.lanisce.lani.data.Exercise.Choice>().filter { it.grammar != null }
+        return si.lanisce.lani.road.QuizInputs(
+            cards = pool,
+            words = if (home) dialogWords.words() else si.lanisce.lani.game.MyWords.NONE,
+            forms = if (home) forms.chosen(pool) else emptyMap(),
+            mastery = if (home) grammar.pages.mapNotNull { p -> grammar.mastery(p.id)?.let { p.id to it } }.toMap() else emptyMap(),
+            exercises = exercises,
+            played = game.state?.playReviews,
+            dialogWords = d?.features?.contains(si.lanisce.lani.app.DialogWordsController.FEATURE) == true,
+        )
+    }
+
+    /**
+     * Ratings pressed in the car and the quiz's answers that the road's service didn't hand to the outbox yet go now, and
+     * out to the node; what the quiz's answers left for the app is counted ([takeQuiz]).
+     */
     private fun commitRoadRatings() {
         viewModelScope.launch {
-            val n = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
-                runCatching { road.store.commit(si.lanisce.lani.data.Outbox(getApplication<Application>())) }.getOrDefault(0)
+            val (n, handOffs) = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                val outbox = si.lanisce.lani.data.Outbox(getApplication<Application>())
+                val quiz = runCatching { road.store.commitQuiz(outbox, road.store.readLibrary(), "🚗 ${bi("road.quiz")}") }.getOrDefault(0)
+                (runCatching { road.store.commit(outbox) }.getOrDefault(0) + quiz) to runCatching { road.store.takeHandOffs() }.getOrDefault(emptyList())
             }
+            takeQuiz(handOffs)
             if (n > 0) sync.flush()
+        }
+    }
+
+    /**
+     * What the car's quiz answered, for what the app keeps (road/RoadQuizCount, companion/GAME.md "Words met in play"):
+     * each rule's answer in the grammar book as a dialog's pick counts it, each form asked in its card's record; the cards
+     * whose schedule it changed today are play's for today (once a day), those it reviewed done for today on the phone.
+     */
+    private fun takeQuiz(handOffs: List<si.lanisce.lani.road.QuizHandOff>) {
+        if (handOffs.isEmpty()) return
+        val today = java.time.LocalDate.now().toString()
+        for (h in handOffs) {
+            for (r in h.rules) {
+                val verdict = if (r.right) si.lanisce.lani.data.Grading.Verdict.CORRECT else si.lanisce.lani.data.Grading.Verdict.WRONG
+                grammar.answered(r.page, verdict, r.said.takeIf { r.right }, r.said, r.correct.takeIf { !r.right })
+            }
+            for (f in h.forms) forms.answeredInCar(f.card, f.key, f.right, f.repetitions, h.day)
+            if (h.day != today) continue
+            if (h.changed.isNotEmpty()) game.playReviewed(h.changed)
+            if (h.reviewed.isNotEmpty()) content.reviewedInDialog(h.reviewed)
         }
     }
 

@@ -39,6 +39,15 @@ sealed interface Sound {
     /** A moment of silence: [gap] says what for (null: between two sounds). */
     @Serializable @SerialName("pause")
     data class Pause(val ms: Long, val gap: Gap? = null) : Sound
+
+    /**
+     * The target language that the voice store didn't have when getting ready (a quiz's wrong option, its fixed phrases):
+     * voiced in [voice] while getting ready, by the node if it can within its quota (POST /voice/prepare), else by the
+     * phone's own voice in the target language; one file either way ([RoadStore.spoken]). An item whose spoken file
+     * couldn't be had isn't played.
+     */
+    @Serializable @SerialName("spoken")
+    data class Spoken(val text: String, val voice: String) : Sound
 }
 
 /**
@@ -48,9 +57,12 @@ sealed interface Sound {
 @Serializable
 enum class Gap { SAY, REPEAT }
 
-/** What an item is: a review card, a word, a dialog, a story's evening, a phrase to shadow, or one of a drill's ([RoadDrills]). */
+/**
+ * What an item is: a review card, a word, a dialog, a story's evening, a phrase to shadow, one of a drill's ([RoadDrills]),
+ * a quiz's question ([QUIZ], [RoadQuiz]), or the quiz's fixed phrases ([KIT]: never played as an item).
+ */
 @Serializable
-enum class Kind { CARD, WORD, DIALOG, STORY, PHRASE, TRANSFORM, RAPID, BUILD, RIDDLE }
+enum class Kind { CARD, WORD, DIALOG, STORY, PHRASE, TRANSFORM, RAPID, BUILD, RIDDLE, QUIZ, KIT }
 
 /**
  * What "✓ Znal sem · I knew it" or "✗ Nisem · I didn't" records: a review card's answer ([pack] null: POST /reviews), or
@@ -76,6 +88,10 @@ data class RoadItem(
     val rate: Rate? = null,
     /** A review card's due date (ISO), so a library prepared yesterday still knows what's due today. */
     val due: String? = null,
+    /** A quiz's question ([Kind.QUIZ]): what it asks; [sounds] are then every sound it may play, for getting ready. */
+    val quiz: QuizQuestion? = null,
+    /** The quiz's fixed phrases ([Kind.KIT]); [sounds] are then all their alternatives. */
+    val kit: QuizKit? = null,
 ) {
     /** Roughly how long it plays, for the blocks' length and the hours of material. */
     val seconds: Double get() = sounds.sumOf { RoadPlay.seconds(it) }
@@ -85,6 +101,7 @@ data class RoadItem(
         when (it) {
             is Sound.Clip -> it.files
             is Sound.Prompt -> listOf(promptFile(it.text))
+            is Sound.Spoken -> listOf(RoadPlay.spokenFile(it.voice, it.text))
             is Sound.Pause -> emptyList()
         }
     }
@@ -97,8 +114,17 @@ data class RoadLibrary(
     /** The base language's code ("en"): the prompts are in it. */
     val base: String = "en",
     val items: List<RoadItem> = emptyList(),
+    /** The target language's code ("sl"): the quiz's [Sound.Spoken] are voiced in it. */
+    val target: String = "sl",
+    /** The cards play counted on the day of getting ready (the village state's then): the quiz counts a card once a day. */
+    val played: si.lanisce.lani.game.PlayReviewDay? = null,
+    /** The bridge took a dialog's words then: a quiz's slip on a word's meaning may lower its card. */
+    val dialogWords: Boolean = false,
 ) {
     fun of(kind: Kind): List<RoadItem> = items.filter { it.kind == kind }
+
+    /** The quiz's fixed phrases ([Kind.KIT]), when the library has the quiz. */
+    val kit: QuizKit? get() = items.firstOrNull { it.kind == Kind.KIT }?.kit
 
     /** The review cards due on [today] (ISO date). */
     fun due(today: String): List<RoadItem> = of(Kind.CARD).filter { (it.due ?: "") <= today }
@@ -142,6 +168,7 @@ object RoadPlay {
     /** Roughly how long [s] takes: Slovene clips about 12 characters a second, the phone's English about 14. */
     fun seconds(s: Sound): Double = when (s) {
         is Sound.Clip -> 0.5 + s.text.length / 12.0
+        is Sound.Spoken -> 0.5 + s.text.length / 12.0
         is Sound.Prompt -> 0.4 + s.text.length / 14.0
         is Sound.Pause -> s.ms / 1000.0
     }
@@ -157,6 +184,15 @@ object RoadPlay {
     fun promptFile(base: String, text: String): String {
         val d = MessageDigest.getInstance("SHA-1").digest("$base|$text".toByteArray())
         return d.joinToString("") { "%02x".format(it) }.take(20) + ".wav"
+    }
+
+    /**
+     * A spoken text's file name ([Sound.Spoken]): the same text in the same voice is had once, from the node (an MP3) or
+     * the phone's voice (a WAV); the player tells them apart by their content.
+     */
+    fun spokenFile(voice: String, text: String): String {
+        val d = MessageDigest.getInstance("SHA-1").digest("$voice|${text.trim()}".toByteArray())
+        return d.joinToString("") { "%02x".format(it) }.take(20) + ".snd"
     }
 
     /** A clip URL's file name, as the phone's clip cache names it ([Clips.file]). */

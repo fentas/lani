@@ -40,6 +40,8 @@ data class RoadInputs(
     val drills: List<Drill> = emptyList(),
     /** The grammar book's rules not introduced to the learner yet ([si.lanisce.lani.game.Mastery.NOT_YET]): their drills are left out. */
     val notYet: Set<String> = emptySet(),
+    /** What the quiz asks about and how its answers count ([RoadQuiz]). */
+    val quiz: QuizInputs = QuizInputs(),
 )
 
 /** Everything on the road, from what the app has: pure, so the tests build it too. */
@@ -98,8 +100,9 @@ object RoadGather {
      * The road's items from [inputs]: the cards, the words (with their examples), the scenes' dialogs and the stories at the
      * learner's level (each evening with its setup and recaps, [RoadStory]), the dialogs' phrases to shadow (of the scenes
      * at the learner's level or below), the drills' items ([RoadDrills.items]: of the rules introduced, a riddle in its
-     * teller's voices), only what has its clips in [RoadInputs.index]. [youSay] makes "You say: …" in the base language,
-     * [drillWords] a build's "Say: …" and "Now add: …".
+     * teller's voices), only what has its clips in [RoadInputs.index]; and the quiz's questions ([RoadQuiz.items]: what the
+     * voice store lacks of their options voiced while getting ready). [youSay] makes "You say: …" in the base language,
+     * [drillWords] a build's "Say: …" and "Now add: …", [quizWords] what the quiz says.
      */
     fun library(
         inputs: RoadInputs,
@@ -107,6 +110,7 @@ object RoadGather {
         now: Long = System.currentTimeMillis(),
         clips: ClipLookup = ClipLookup.of(inputs.index),
         drillWords: RoadDrills.Words = RoadDrills.Words.EN,
+        quizWords: QuizWords = QuizWords.EN,
     ): RoadLibrary {
         val base = inputs.base
         val byId = inputs.villagers.associateBy { it.id }
@@ -152,7 +156,18 @@ object RoadGather {
             inputs.drills, inputs.target.code, base.code, inputs.level, inputs.notYet::contains,
             teller = { id -> voices(id?.let(byId::get), null, inputs.profiles) }, words = drillWords, clips = clips,
         )
-        return RoadLibrary(now, base.code, items.distinctBy { it.id })
+        items += RoadQuiz.items(
+            inputs, clips, quizWords,
+            voicesOf = { scene, who ->
+                val p = who?.let { w -> scene.people.firstOrNull { it.id == w } }
+                if (p == null) RoadPlay.NARRATOR else voices(p.villager?.let(byId::get), p.art, inputs.profiles)
+            },
+            teller = { id -> voices(id?.let(byId::get), null, inputs.profiles) },
+        )
+        return RoadLibrary(
+            now, base.code, items.distinctBy { it.id },
+            target = inputs.target.code, played = inputs.quiz.played, dialogWords = inputs.quiz.dialogWords,
+        )
     }
 
     /** A pack word's example in the learner's base language, else English. */

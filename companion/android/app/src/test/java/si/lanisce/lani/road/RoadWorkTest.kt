@@ -163,4 +163,45 @@ class RoadWorkTest {
         assertTrue(noVoice.noVoice)
         assertTrue(noVoice.library.items.all { RoadWork.prompts(it).isEmpty() })
     }
+
+    @Test fun `the quiz's texts the voice store lacked are voiced while getting ready, a question whose can't be isn't played, the kit always is`() = runBlocking {
+        val q = { id: String, wrong: String ->
+            RoadQuiz.item(
+                QuizQuestion(
+                    id, QuizKind.DIALOG, id, listOf(Sound.Prompt("What do you answer?")),
+                    listOf(QuizOption("Hvala.", Sound.Clip("Hvala.", listOf("hvala.mp3"))), QuizOption(wrong, Sound.Spoken(wrong, "female"))),
+                    0, listOf(Sound.Clip("Hvala.", listOf("hvala.mp3"))), "Hvala.",
+                ),
+            )
+        }
+        val kit = RoadQuiz.kitItem(QuizKit(listOf(listOf(Sound.Spoken("Ena.", "female"), Sound.Prompt("One."))), listOf(Sound.Prompt("Right!")), listOf(Sound.Prompt("No:")), emptyList()))
+        val l = lib().let { it.copy(items = it.items + q("a", "Hvala ti.") + q("b", "Hvalim.") + kit) }
+        val store = RoadStore(tmp.newFolder("road"))
+        val asked = mutableListOf<List<String>>()
+        val result = RoadPrepWork(
+            store,
+            fetch = { f -> store.clip(f).writeText("clip"); true },
+            render = { t -> store.prompt("en", t).writeText("prompt"); true },
+            today = today,
+            // the node voices one, not the other; nor "Ena." (the kit's prompt stands in)
+            speak = { texts ->
+                asked += texts.map { it.text }
+                texts.map { s -> (s.text == "Hvala ti.").also { if (it) store.spoken(s.voice, s.text).writeText("mp3") } }
+            },
+        ).run(RoadPlan(l))
+        val ids = result.library.items.map { it.id }
+        assertTrue("quiz:a" in ids)
+        assertFalse("quiz:b" in ids)
+        assertTrue(RoadQuiz.KIT_ID in ids)
+        assertEquals(2, result.spokenFailed)
+        // each text asked once, the kit's soon after the first block
+        assertEquals(setOf("Hvala ti.", "Hvalim.", "Ena."), asked.flatten().toSet())
+        assertEquals(asked.flatten().size, asked.flatten().toSet().size)
+        assertTrue(store.playable(result.library.items.first { it.id == "quiz:a" }, "en"))
+        assertEquals(Sound.Prompt("One."), result.library.kit!!.resolve { store.has(it, "en") }!!.numbers.single())
+        // a second run asks nothing that is there
+        val again = mutableListOf<String>()
+        RoadPrepWork(store, fetch = { true }, render = { true }, today = today, speak = { t -> again += t.map { it.text }; t.map { false } }).run(RoadPlan(l))
+        assertFalse("Hvala ti." in again)
+    }
 }

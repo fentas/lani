@@ -65,7 +65,8 @@ class RoadPrep(private val context: Context, private val scope: CoroutineScope) 
     /**
      * Gets the road ready: [gather] what there is (it throws when the node can't be reached), then the files in the
      * background. [cache] is the phone's clip cache ([si.lanisce.lani.data.Clips.dir]), copied from first. [youSay] and
-     * [drillWords] are the prompts in the learner's base language. [mini]: QA's small library ([RoadWork.mini]).
+     * [drillWords] are the prompts in the learner's base language, [quizWords] what the quiz says. [mini]: QA's small library
+     * ([RoadWork.mini]).
      */
     fun start(
         gather: suspend () -> RoadInputs,
@@ -73,6 +74,7 @@ class RoadPrep(private val context: Context, private val scope: CoroutineScope) 
         cache: File,
         drillWords: RoadDrills.Words = RoadDrills.Words.EN,
         mini: Boolean = false,
+        quizWords: QuizWords = QuizWords.EN,
     ) {
         if (running) return
         RoadPrepState.problem = null
@@ -87,7 +89,7 @@ class RoadPrep(private val context: Context, private val scope: CoroutineScope) 
                     ClipLookup { t, v -> l.urls(t, v)?.also { us -> us.forEach { urls[RoadPlay.fileOf(it)] = it } } }
                 }
                 val plan = withContext(Dispatchers.Default) {
-                    val built = RoadGather.library(inputs, youSay, clips = lookup, drillWords = drillWords).let { if (mini) RoadWork.mini(it) else it }
+                    val built = RoadGather.library(inputs, youSay, clips = lookup, drillWords = drillWords, quizWords = quizWords).let { if (mini) RoadWork.mini(it) else it }
                     val files = built.items.flatMap(RoadWork::clips).toSet()
                     RoadPlan(built, urls.filterKeys { it in files }, cache.path)
                 }

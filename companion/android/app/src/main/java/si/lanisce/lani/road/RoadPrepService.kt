@@ -97,9 +97,14 @@ class RoadPrepService : Service() {
             acquire(WAKE_MS)
         }
         val base = plan.library.base
+        val target = plan.library.target
         val voice = RoadPrompts(this)
         var opened: Boolean? = null
+        // the quiz's target-language texts the node can't voice: the phone's own voice in the target language, if it has one
+        val own = RoadPrompts(this)
+        var ownOpened: Boolean? = null
         val api = runCatching { Prefs(this).config() }.getOrNull()?.let(::ClipsApi)
+        var prepares = api != null
         try {
             val result = RoadPrepWork(
                 store,
@@ -111,6 +116,24 @@ class RoadPrepService : Service() {
                 },
                 progress = { p -> scope.launch { progressed(p) } },
                 publish = { lib -> scope.launch { RoadPrepState.library = lib } },
+                speak = { texts ->
+                    // the node first (within its quota, not as a live line), each of its clips downloaded as the others are
+                    val urls = if (!prepares) null else try {
+                        withContext(Dispatchers.IO) { api?.prepare(texts.map { it.text to it.voice }) }.also { if (it == null) prepares = false }
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        null
+                    }
+                    texts.mapIndexed { i, s ->
+                        val to = store.spoken(s.voice, s.text)
+                        val got = urls?.getOrNull(i)?.let { u -> runCatching { download(store, api, u, to) }.getOrDefault(false) } == true
+                        got || run {
+                            if (ownOpened == null) ownOpened = withContext(Dispatchers.Main) { own.open(Locale.forLanguageTag(Lang.of(target)?.locale ?: target)) }
+                            ownOpened == true && own.render(s.text, to)
+                        }
+                    }
+                },
             ).run(plan)
             withContext(Dispatchers.IO) { store.clearPlan() }
             RoadPrepState.library = result.library
@@ -120,7 +143,11 @@ class RoadPrepService : Service() {
                 else -> null
             }
             RoadPrepState.done = true
-            Log.i(TAG, "ready: ${result.library.items.size} items, ${result.clipsFailed}/${result.clipsTried} clips and ${result.promptsFailed} prompts not had")
+            Log.i(
+                TAG,
+                "ready: ${result.library.items.size} items, ${result.clipsFailed}/${result.clipsTried} clips, ${result.promptsFailed} prompts and " +
+                    "${result.spokenFailed} quiz texts not had",
+            )
             finished(result.library)
         } catch (e: CancellationException) {
             throw e
@@ -131,7 +158,16 @@ class RoadPrepService : Service() {
             stop()
         } finally {
             voice.close()
+            own.close()
         }
+    }
+
+    /** A clip of the node's at [url] into [to] (`?count=0`: getting ready isn't a request to count). */
+    private suspend fun download(store: RoadStore, api: ClipsApi?, url: String, to: File): Boolean = withContext(Dispatchers.IO) {
+        if (to.isFile) return@withContext true
+        val part = File(store.spoken, "${to.name}.part")
+        (api ?: return@withContext false).download(url + (if ('?' in url) "&" else "?") + "count=0", part)
+        part.length() > 0 && part.renameTo(to)
     }
 
     /** Clip [f] into the road's clips: from the phone's clip cache, else downloaded (`?count=0`: the node doesn't count it). */

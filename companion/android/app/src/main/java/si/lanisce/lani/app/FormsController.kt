@@ -161,6 +161,34 @@ class FormsController(
     }
 
     /**
+     * The form each of [cards] asks in the car's quiz ("🚗 Za pot", road/RoadQuiz): the one a review would ask next of
+     * those reached ([WordForms.pick] with the card's record), always chosen among the word's own forms (the quiz is heard,
+     * nothing is typed); familiar or not (the quiz takes the familiar ones). By card id; none without forms.
+     */
+    fun chosen(cards: List<ReviewCard>): Map<String, FormQuestion> {
+        val locks = grammar.formLocks()
+        val base = L10n.pair.base.code
+        val open = { s: si.lanisce.lani.data.FormSlot -> locks(s).isEmpty() }
+        return cards.mapNotNull { card ->
+            val entries = WordFormsWire.lemmaOf(card)?.let(::entriesOf)?.takeIf { it.isNotEmpty() } ?: return@mapNotNull null
+            val lemma = WordFormsWire.entryFor(entries, card.back) ?: return@mapNotNull null
+            val slot = WordForms.pick(lemma, record(card.id), open) ?: return@mapNotNull null
+            WordForms.question(lemma, slot, null, ReviewPlanner.meaning(card.back), base, open)?.let { card.id to it }
+        }.toMap()
+    }
+
+    /**
+     * A form asked in the car's quiz (road/RoadQuizCount, handed over when the app opens): the card's record gets it as a
+     * review's answer does ([answered]), so the next form is chosen as ever.
+     */
+    fun answeredInCar(cardId: String, key: String, right: Boolean, repetitions: Int, day: String) {
+        val k = WordForms.recordKey(language, cardId)
+        asked = asked + (k to WordForms.answered(asked[k], key, right, repetitions, day))
+        val all = asked
+        scope.launch { withContext(io) { runCatching { write(askedFile, json.encodeToString(RECORDS, all)) } } }
+    }
+
+    /**
      * A review's form answers ([tasks] with their [verdicts] and what was [answers]ed): each card's record gets the form
      * asked and whether it was right (a slip in the stem counts right: the ending is what's asked), for the next to
      * choose; the answers as POST /reviews' `forms`, for the tutor's note (null when none was a form).

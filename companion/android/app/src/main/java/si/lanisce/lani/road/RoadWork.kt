@@ -36,6 +36,8 @@ object RoadWork {
         }
         RoadMix.block(lib, heard, today).forEach(::take)
         val first = out.size
+        // the quiz's fixed phrases next: without them no question plays
+        lib.of(Kind.KIT).forEach(::take)
         val queues = RoadMix.SESSIONS.filter { it != RoadService.MIX }.map { ArrayDeque(RoadMix.session(it, lib, heard, today)) }
         val minutes = DoubleArray(queues.size)
         while (true) {
@@ -48,14 +50,20 @@ object RoadWork {
         return Order(out.values.toList(), first)
     }
 
-    /** QA's small library (app/QaHooks, "road:mini"): the first [each] items of every kind, got ready in a minute. */
-    fun mini(lib: RoadLibrary, each: Int = 2): RoadLibrary {
+    /**
+     * QA's small library (app/QaHooks, "road:mini"): the first [each] items of every kind, got ready in a minute; of the
+     * quiz [quiz] questions (the kinds in turn), and its fixed phrases.
+     */
+    fun mini(lib: RoadLibrary, each: Int = 2, quiz: Int = 8): RoadLibrary {
         val count = HashMap<Kind, Int>()
-        return lib.copy(items = lib.items.filter { count.merge(it.kind, 1, Int::plus)!! <= each })
+        return lib.copy(items = lib.items.filter { count.merge(it.kind, 1, Int::plus)!! <= if (it.kind == Kind.QUIZ) quiz else each })
     }
 
     /** The clip files and the prompts' texts [item] plays, each once. */
     fun clips(item: RoadItem): List<String> = item.sounds.filterIsInstance<Sound.Clip>().flatMap { it.files }.distinct()
 
     fun prompts(item: RoadItem): List<String> = item.sounds.filterIsInstance<Sound.Prompt>().map { it.text }.distinct()
+
+    /** The target-language texts [item] has voiced while getting ready ([Sound.Spoken]), each once. */
+    fun spoken(item: RoadItem): List<Sound.Spoken> = item.sounds.filterIsInstance<Sound.Spoken>().distinct()
 }

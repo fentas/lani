@@ -46,6 +46,8 @@ class RoadSources(
                     any = true
                 }
                 is Sound.Prompt -> { b.add(files.createMediaSource(MediaItem.fromUri(Uri.fromFile(store.prompt(base(), s.text)))), ms); any = true }
+                // the node's MP3 or the phone's WAV, one file name: the extractors tell them apart by their content
+                is Sound.Spoken -> { b.add(files.createMediaSource(MediaItem.fromUri(Uri.fromFile(store.spoken(s.voice, s.text)))), ms); any = true }
                 is Sound.Pause -> { b.add(silence(s.ms), s.ms); any = true }
             }
         }

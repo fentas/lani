@@ -12,6 +12,7 @@ import androidx.media3.test.utils.robolectric.TestPlayerRunHelper
 import androidx.test.core.app.ApplicationProvider
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -97,13 +98,13 @@ class RoadPlayerTest {
         p.seekForwardIncrement
     }
 
-    private fun start(items: List<RoadItem>) {
+    private fun start(items: List<RoadItem>, quiz: QuizHooks? = null, promptMs: Int = 800, clipMs: Int = 600) {
         val store = RoadStore(tmp.newFolder("road"))
-        items.forEach { i -> RoadWork.prompts(i).forEach { wav(store.prompt("en", it), 800) } }
-        items.flatMap(RoadWork::clips).distinct().forEach { wav(store.clip(it), 600) }
+        items.forEach { i -> RoadWork.prompts(i).forEach { wav(store.prompt("en", it), promptMs) } }
+        items.flatMap(RoadWork::clips).distinct().forEach { wav(store.clip(it), clipMs) }
         val byId = items.associateBy { it.id }
         exo = TestExoPlayerBuilder(context).setMediaSourceFactory(RoadSources(context, store, { "en" }, byId::get)).build()
-        road = RoadPlayer(exo, byId::get) { held += it }
+        road = RoadPlayer(exo, byId::get, { held += it }, quiz)
         road.addListener(object : Player.Listener {
             override fun onEvents(player: Player, events: Player.Events) = readAll(player)
         })
@@ -168,5 +169,101 @@ class RoadPlayerTest {
         TestPlayerRunHelper.run(exo).untilPosition(2, 500)
         assertTrue("$reads", reads > 0)
         assertEquals(2, road.currentMediaItemIndex)
+    }
+
+    // --- a quiz's question ------------------------------------------------------------------------------------------
+
+    /**
+     * A question of three options, played: the question (a prompt of 2 s, a pause of 0.7 s), then each option's number (a
+     * clip of 1.5 s), a short pause, the option (a prompt of 2 s) and its gap (1.2 s), twice. The first option's number
+     * begins at 2.7 s, the second's at 7.55 s (its option at 9.2 s, its gap at 11.2 s). Long pieces: the main thread's view
+     * of the position trails the playback a little here.
+     */
+    private fun quiz(): RoadQuiz.QuizPlay {
+        val q = QuizQuestion(
+            "meaning:c1", QuizKind.MEANING, "hvala", listOf(Sound.Prompt("What does it mean?")),
+            listOf("thank you", "please", "sorry").map { QuizOption(it, Sound.Prompt(it)) }, 0, listOf(Sound.Clip("hvala", listOf("hvala.mp3"))), "hvala",
+        )
+        val numbers = listOf("ena", "dve", "tri").map { Sound.Clip(it, listOf("$it.mp3")) }
+        return RoadQuiz.compose(RoadQuiz.item(q), numbers, listOf(0, 1, 2))
+    }
+
+    private val picks = mutableListOf<Int>()
+
+    private fun hooks(play: RoadQuiz.QuizPlay) = object : QuizHooks {
+        override fun play(mediaId: String) = play.takeIf { mediaId == it.item.id }
+        override fun pick(shown: Int) {
+            picks += shown
+        }
+    }
+
+    /** The sound of the question playing ([RoadPlay.pieces]). */
+    private fun sound(play: RoadQuiz.QuizPlay): RoadQuiz.Part = play.parts[RoadPlay.pieces(play.item.sounds)[piece()]]
+
+    /** At [ms] of the question, paused (exact: the position doesn't run on), every piece up to it prepared. */
+    private fun at(ms: Long) {
+        exo.pause()
+        exo.seekTo(0, ms)
+        TestPlayerRunHelper.run(exo).untilPendingCommandsAreFullyHandled()
+    }
+
+    @Test fun `in a quiz's question next picks the option being read or just read, previous asks it again, play or pause picks too`() {
+        val play = quiz()
+        start(listOf(play.item, card(2)), hooks(play), promptMs = 2_000, clipMs = 1_500)
+        // next or previous on the first item at its start: offered all the same (the car's buttons reach the app)
+        assertTrue(road.isCommandAvailable(Player.COMMAND_SEEK_TO_PREVIOUS))
+        TestPlayerRunHelper.play(exo).untilState(Player.STATE_READY)
+        // every piece prepared: the question played through once
+        TestPlayerRunHelper.run(exo).untilPosition(1, 100)
+        // during the question: on to the options at once
+        at(600)
+        assertEquals(RoadQuiz.Role.ASK, sound(play).role)
+        road.seekToNext()
+        TestPlayerRunHelper.run(exo).untilPendingCommandsAreFullyHandled()
+        readAll(road)
+        assertEquals(2_700, road.currentPosition)
+        assertEquals(RoadQuiz.Part(RoadQuiz.Role.NUMBER, 0), sound(play))
+        assertTrue(picks.isEmpty())
+        // the second option being read: it
+        at(10_000)
+        assertEquals(RoadQuiz.Part(RoadQuiz.Role.TEXT, 1), sound(play))
+        road.seekToNext()
+        assertEquals(listOf(1), picks)
+        assertEquals(0, road.currentMediaItemIndex) // the service plays the feedback; here nothing moves
+        // previous: the question again from its start
+        road.seekToPrevious()
+        TestPlayerRunHelper.run(exo).untilPendingCommandsAreFullyHandled()
+        assertEquals(0, road.currentMediaItemIndex)
+        assertEquals(0, road.currentPosition)
+        // just into "Dve" (the grace after the first): the first; later in it, the second
+        at(7_800)
+        assertEquals(RoadQuiz.Part(RoadQuiz.Role.NUMBER, 1), sound(play))
+        road.seekToNextMediaItem() // the sheet's ⏭
+        at(8_300)
+        road.seekToNext()
+        assertEquals(listOf(1, 0, 1), picks)
+        // in the gap after the third: play or pause picks it, and the question plays on
+        at(16_500)
+        assertEquals(RoadQuiz.Part(RoadQuiz.Role.GAP, 2), sound(play))
+        exo.play()
+        road.pause()
+        assertEquals(listOf(1, 0, 1, 2), picks)
+        assertTrue(road.playWhenReady)
+        // during the question play or pause pauses
+        at(100)
+        exo.play()
+        road.setPlayWhenReady(false)
+        assertFalse(road.playWhenReady)
+        assertEquals(4, picks.size)
+        // not a question (a card): next as ever, the answer at once in the pause to say it
+        exo.seekTo(1, 2_500) // its prompt is 2 s here: the pause to say it
+        TestPlayerRunHelper.run(exo).untilPendingCommandsAreFullyHandled()
+        assertEquals(1, piece())
+        road.seekToNext()
+        TestPlayerRunHelper.run(exo).untilPendingCommandsAreFullyHandled()
+        assertEquals(1, road.currentMediaItemIndex)
+        assertEquals(2, piece())
+        assertEquals(4, picks.size)
+        readAll(road)
     }
 }

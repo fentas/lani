@@ -37,12 +37,12 @@ sealed interface RoadProgress {
 
 /**
  * Gets the files of a [RoadPlan] onto the phone ([RoadStore]) in [RoadWork.order], what plays first first: the clips
- * ([fetch]: into [RoadStore.clip], from the clip cache or the node, a few at once) and the prompts ([render]: into
- * [RoadStore.prompt], the phone's voice, one by one) go down the order side by side, and an item is ready once both passed
- * it. When the first block of "🚗 Za pot" is ready the library is written with what is ready ([publish]): the sessions can
- * start; then again every [PUBLISH_MS] while the rest comes in, and at the end with everything that could be had. What is
- * on the phone already is kept, so a run stopped halfway goes on where it stopped. No Android here: the tests run it with
- * fakes.
+ * ([fetch]: into [RoadStore.clip], from the clip cache or the node, a few at once), the prompts ([render]: into
+ * [RoadStore.prompt], the phone's voice, one by one) and the quiz's target-language texts the voice store lacked ([speak]:
+ * into [RoadStore.spoken], an item's at once) go down the order side by side, and an item is ready once all passed it. When
+ * the first block of "🚗 Za pot" is ready the library is written with what is ready ([publish]): the sessions can start;
+ * then again every [PUBLISH_MS] while the rest comes in, and at the end with everything that could be had. What is on the
+ * phone already is kept, so a run stopped halfway goes on where it stopped. No Android here: the tests run it with fakes.
  */
 class RoadPrepWork(
     private val store: RoadStore,
@@ -52,9 +52,21 @@ class RoadPrepWork(
     private val publish: (RoadLibrary) -> Unit = {},
     private val today: String = LocalDate.now().toString(),
     private val clock: () -> Long = System::currentTimeMillis,
+    /** The texts' files had, each true or false in their order (none by default: a quiz question needing one isn't played). */
+    private val speak: suspend (List<Sound.Spoken>) -> List<Boolean> = { l -> l.map { false } },
 ) {
-    /** How a run ended: the library written, the clips and prompts that couldn't be had, whether the phone had no voice. */
-    data class Result(val library: RoadLibrary, val clipsTried: Int, val clipsFailed: Int, val promptsFailed: Int, val noVoice: Boolean = false)
+    /**
+     * How a run ended: the library written, the clips, prompts and spoken texts that couldn't be had, whether the phone had
+     * no voice.
+     */
+    data class Result(
+        val library: RoadLibrary,
+        val clipsTried: Int,
+        val clipsFailed: Int,
+        val promptsFailed: Int,
+        val noVoice: Boolean = false,
+        val spokenFailed: Int = 0,
+    )
 
     /** [render] throws it when the phone has no voice for the prompts: the run ends with what plays without them. */
     class NoVoice : Exception("no voice for the prompts")
@@ -68,39 +80,54 @@ class RoadPrepWork(
         val items = order.items
         val clipsOf = items.map(RoadWork::clips)
         val promptsOf = items.map(RoadWork::prompts)
+        val spokenOf = items.map(RoadWork::spoken)
         val allClips = clipsOf.flatten().toSet()
         val allPrompts = promptsOf.flatten().toSet()
+        val allSpoken = spokenOf.flatten().toSet()
         val gotClips = HashSet<String>()
         val gotPrompts = HashSet<String>()
+        val gotSpoken = HashSet<Sound.Spoken>()
         withContext(Dispatchers.IO) {
             store.clips.mkdirs()
             store.prompts.mkdirs()
+            store.spoken.mkdirs()
             allClips.filterTo(gotClips) { store.clip(it).isFile }
             allPrompts.filterTo(gotPrompts) { store.prompt(lib.base, it).isFile }
+            allSpoken.filterTo(gotSpoken) { store.spoken(it.voice, it.text).isFile }
         }
         var clipsDone = gotClips.size
         var promptsDone = gotPrompts.size
+        var spokenDone = gotSpoken.size
         var clipsTried = 0
         var clipsFailed = 0
         var promptsFailed = 0
+        var spokenFailed = 0
         // how far down the order each has come: the items before both are ready (or can't be had)
         var clipsAt = 0
         var promptsAt = 0
         var published = -1
+        var spokenPublished = gotSpoken.size
         var library = lib.copy(items = emptyList())
         var publishing = false
         var lastPublish = 0L
 
-        fun ready(item: RoadItem) = RoadWork.clips(item).all { it in gotClips } && RoadWork.prompts(item).all { it in gotPrompts }
-        fun report() = progress(RoadProgress.Files(clipsDone, allClips.size, promptsDone, allPrompts.size, playable = published >= order.first))
+        fun ready(item: RoadItem) = RoadWork.clips(item).all { it in gotClips } && RoadWork.prompts(item).all { it in gotPrompts } &&
+            RoadWork.spoken(item).all { it in gotSpoken }
+
+        // the spoken texts are rendered like the prompts: they count among them
+        fun report() = progress(
+            RoadProgress.Files(clipsDone, allClips.size, promptsDone + spokenDone, allPrompts.size + allSpoken.size, playable = published >= order.first),
+        )
 
         suspend fun publishNow(at: Int) {
             publishing = true
             try {
-                val now = lib.copy(items = lib.items.filter(::ready))
+                // the quiz's fixed phrases always: each is played from the first of its alternatives on the phone
+                val now = lib.copy(items = lib.items.filter { it.kind == Kind.KIT || ready(it) })
                 withContext(Dispatchers.IO) { store.writeLibrary(now) }
                 library = now
                 published = at
+                spokenPublished = gotSpoken.size
                 lastPublish = clock()
                 publish(now)
                 report()
@@ -111,7 +138,9 @@ class RoadPrepWork(
 
         suspend fun maybePublish() {
             val at = minOf(clipsAt, promptsAt)
-            if (publishing || at <= published || at < order.first) return
+            if (publishing || at < order.first) return
+            // further down the order, or quiz questions whose texts were voiced since
+            if (at <= published && gotSpoken.size <= spokenPublished) return
             if (published >= order.first && clock() - lastPublish < PUBLISH_MS) return
             publishNow(at)
         }
@@ -159,12 +188,31 @@ class RoadPrepWork(
                         maybePublish()
                     }
                 }
+                launch {
+                    // an item's texts at once (the node voices a few in one ask); a question waits for them, the rest doesn't
+                    val tried = HashSet(gotSpoken)
+                    for (texts in spokenOf) {
+                        val todo = texts.filter { tried.add(it) }
+                        if (todo.isEmpty()) continue
+                        val ok = try {
+                            speak(todo)
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Exception) {
+                            todo.map { false }
+                        }
+                        todo.forEachIndexed { k, t -> if (ok.getOrElse(k) { false }) gotSpoken += t else spokenFailed++ }
+                        spokenDone += todo.size
+                        report()
+                        maybePublish()
+                    }
+                }
             }
         } catch (e: NoVoice) {
             noVoice = true
         }
         publishNow(items.size)
-        Result(library, clipsTried, clipsFailed, promptsFailed, noVoice)
+        Result(library, clipsTried, clipsFailed, promptsFailed, noVoice, spokenFailed)
     }
 
     companion object {

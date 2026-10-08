@@ -76,6 +76,25 @@ class ClipsApi(private val config: BridgeConfig) {
         return RedoAnswer.parse(raw, voice, text)
     }
 
+    /**
+     * Asks the node for clips of [texts] (text and voice; at most 20) while getting ready for the road ("🚗 Za pot"'s
+     * quiz): each the clip it has, or one voiced now but not as a live line (within its quota, never the reserve kept for
+     * live lines; companion/bridge/src/features/voice.ts). Each URL in their order, null where none could be had; null for
+     * all from a bridge without it (404).
+     */
+    suspend fun prepare(texts: List<Pair<String, String>>): List<String?>? {
+        val body = buildJsonObject {
+            put("texts", kotlinx.serialization.json.buildJsonArray {
+                for ((t, v) in texts) add(buildJsonObject { put("text", t); put("voice", v) })
+            })
+        }.toString().toRequestBody(Http.jsonType)
+        val (code, raw) = http.exchange(config.request("/voice/prepare").post(body).build())
+        if (code == 404) return null
+        if (code !in 200..299) throw IOException("HTTP $code")
+        val clips = json.parseToJsonElement(raw).jsonObject["clips"] as? kotlinx.serialization.json.JsonArray ?: return texts.map { null }
+        return texts.indices.map { i -> (clips.getOrNull(i) as? JsonObject)?.get("url")?.let { runCatching { it.jsonPrimitive.contentOrNull }.getOrNull() } }
+    }
+
     suspend fun download(url: String, to: File) = http.downloadTo(config.request(url).build(), to)
 
     /** Everyone's voice profile; null from an older bridge without them. */

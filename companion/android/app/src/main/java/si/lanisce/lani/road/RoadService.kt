@@ -270,6 +270,7 @@ class RoadService : MediaLibraryService() {
             null -> "-"
             is Sound.Pause -> "pause" + (s.gap?.let { ":$it" } ?: "")
             is Sound.Clip -> "clip"
+            is Sound.Spoken -> "spoken"
             is Sound.Prompt -> "prompt"
         }
         writer.println(
