@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -203,7 +204,7 @@ class LandmarksTest {
                 (System.nanoTime() - t0) / 1e6 / n
             }
             println("landmarks: %.2f ms/frame without, %.2f ms/frame with all twelve (1080×2400 town, night, k=%d)".format(times[0], times[1], k))
-            assertTrue("k=$k too slow: ${times[1]} ms", times[1] < 30.0)
+            assertTrue("k=$k too slow: ${times[1]} ms", times[1] < FrameBudget.scaled(30.0))
         }
         // placing them all is done once and cached
         val t0 = System.nanoTime()

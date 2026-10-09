@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
@@ -149,7 +150,7 @@ class SleepRenderTest {
             repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0, pokes = if (it % 2 == 0) poke(art, it % 4 / 2, 0.8, 2 + it / 12.0) else emptyMap())) }
             val ms = (System.nanoTime() - t0) / 1e6 / n
             println("ScenePainter %s asleep: %.2f ms/frame (night, 360x240)".format(art, ms))
-            assertTrue("$art asleep too slow: $ms ms", ms < 20.0)
+            assertTrue("$art asleep too slow: $ms ms", ms < FrameBudget.scaled(20.0))
             // closer up, the view's worth of the picture at detail 3
             val lens = Lens(3, (360 * 3 - 360) / 2, (240 * 3 - 240) / 2, 360, 240)
             repeat(5) { p.render(c, f.copy(time = it / 12.0), lens) }
@@ -157,7 +158,7 @@ class SleepRenderTest {
             repeat(20) { p.render(c, f.copy(time = 2 + it / 12.0), lens) }
             val msFine = (System.nanoTime() - t1) / 1e6 / 20
             println("ScenePainter %s asleep: %.2f ms/frame (night, detail 3)".format(art, msFine))
-            assertTrue("$art asleep closer up too slow: $msFine ms", msFine < 60.0)
+            assertTrue("$art asleep closer up too slow: $msFine ms", msFine < FrameBudget.scaled(60.0))
         }
     }
 

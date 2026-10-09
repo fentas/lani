@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -312,7 +313,7 @@ class ScenePaintersTest {
             repeat(n) { p.render(c, f.copy(time = 2 + it / 12.0)) }
             val ms = (System.nanoTime() - t0) / 1e6 / n
             println("ScenePainter %s: %.2f ms/frame (night, 360x240)".format(art, ms))
-            assertTrue("$art too slow: $ms ms", ms < 20.0)
+            assertTrue("$art too slow: $ms ms", ms < FrameBudget.scaled(20.0))
         }
     }
 
@@ -391,7 +392,7 @@ class ScenePaintersTest {
             worst = maxOf(worst, us)
             println("Portrait %s %s: %.0f us/frame (64x64)".format(sprite, pose, us))
         }
-        assertTrue("portraits too slow: $worst us", worst < 3000.0)
+        assertTrue("portraits too slow: $worst us", worst < FrameBudget.scaled(3000.0))
     }
 
     private fun write(c: PixelCanvas, f: File, scale: Int = 4) {

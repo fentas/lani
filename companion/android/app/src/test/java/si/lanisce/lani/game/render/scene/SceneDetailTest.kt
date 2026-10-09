@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -142,7 +143,7 @@ class SceneDetailTest {
             val ms = (System.nanoTime() - t0) / 1e6 / n
             val weather = if (sky.clear) "" else " in all the weather, every effect and poke on"
             println("ScenePainter %s at detail %d: %.2f ms/frame (night%s, a %dx%d window)".format(art, k, ms, weather, bw, bh))
-            assertTrue("$art at detail $k$weather too slow: $ms ms", ms < 25.0)
+            assertTrue("$art at detail $k$weather too slow: $ms ms", ms < FrameBudget.scaled(25.0))
         }
     }
 

@@ -255,7 +255,13 @@ android {
     packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
     // The unit tests read the curated content said to the learner it was written for before its placeholders (a man named
     // Jan): every text reads as it always did (l10n/Learner.kt; a test of another learner sets its own).
-    testOptions { unitTests.all { it.systemProperty("lani.learner", "Jan") } }
+    testOptions {
+        unitTests.all {
+            it.systemProperty("lani.learner", "Jan")
+            // the renderers' time budgets, scaled on a slow runner (FrameBudget in the tests; CI sets LANI_PERF_SCALE)
+            it.systemProperty("lani.perfScale", System.getenv("LANI_PERF_SCALE") ?: "1")
+        }
+    }
     // No dependency report in the signing block: it is encrypted for Google Play, which only Google can read, and
     // differs on every build. Without it a release APK is the same, byte for byte, wherever it is built (on GitHub, in
     // Docker, with a local Gradle), so its SHA-256 can be checked against a build of the same commit.

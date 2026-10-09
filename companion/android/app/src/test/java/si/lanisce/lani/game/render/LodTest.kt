@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -309,7 +310,7 @@ class LodTest {
             val ms = (System.nanoTime() - t0) / 1e6 / n
             r.profile = false
             println("VillageRenderer: %.2f ms/frame (1080×2400 town, night, k=%d, %d×%d): %s".format(ms, k, fit.width, fit.height, r.lastProfile))
-            assertTrue("k=$k too slow: $ms ms", ms < 30.0)
+            assertTrue("k=$k too slow: $ms ms", ms < FrameBudget.scaled(30.0))
         }
     }
 

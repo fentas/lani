@@ -85,6 +85,8 @@ run=(run --rm --init --name "$name" --user "$(id -u):$(id -g)"
   -v "$root:$root" -w "$android"
   -v "$cache:/home/lani" -e HOME=/home/lani -e GRADLE_USER_HOME=/home/lani/.gradle
   -v "$android_user_home:/android-user-home" -e ANDROID_USER_HOME=/android-user-home)
+# the unit tests' time budgets, scaled on a slow machine (CI): app/build.gradle.kts hands it to the tests
+if [ -n "${LANI_PERF_SCALE:-}" ]; then run+=(-e "LANI_PERF_SCALE=$LANI_PERF_SCALE"); fi
 mem="${LANI_BUILD_MEMORY-8g}"
 [ -z "$mem" ] || run+=(--memory "$mem")
 if [ "$engine" = podman ]; then

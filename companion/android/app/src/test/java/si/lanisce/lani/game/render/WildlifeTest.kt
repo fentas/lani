@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render
 
+import si.lanisce.lani.FrameBudget
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -305,7 +306,7 @@ class WildlifeTest {
             repeat(n) { r.render(c, s, frame.copy(time = 2 + it / 12.0)) }
             val ms = (System.nanoTime() - t0) / 1e6 / n
             println("VillageRenderer with wildlife: %.2f ms/frame (1080×2400 town, %s, k=%d): %s".format(ms, today, k, r.wildlife.map { it.kind }))
-            assertTrue("k=$k too slow: $ms ms", ms < 30.0)
+            assertTrue("k=$k too slow: $ms ms", ms < FrameBudget.scaled(30.0))
         }
         // what the animals cost: the same night with them and without (a quiet one), frame for frame in turn
         val quiet = (0 until 400).map { LocalDate.ofEpochDay(start + it).toString() }.first { Wildlife.plan(s.seed, it, 22f, 9).isEmpty() }
@@ -327,7 +328,7 @@ class WildlifeTest {
         repeat(60) { r.render(side, s, frame.copy(time = 2 + it / 12.0)) }
         val ms = (System.nanoTime() - t0) / 1e6 / 60
         println("VillageRenderer with wildlife: %.2f ms/frame (400x180, night)".format(ms))
-        assertTrue("too slow: $ms ms", ms < 15.0)
+        assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(15.0))
         // where they can be is worked out once for a village, not every frame
         val t1 = System.nanoTime()
         val fresh = VillageRenderer()

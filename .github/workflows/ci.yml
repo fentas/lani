@@ -85,6 +85,9 @@ jobs:
           restore-keys: android-gradle-${{ runner.os }}-
 
       - name: Unit tests and the debug APK (companion/bin/lani-build-app)
+        # a shared runner is several times slower than a desktop: the renderers' time budgets scale (FrameBudget)
+        env:
+          LANI_PERF_SCALE: "4"
         run: companion/bin/lani-build-app --test --out "$RUNNER_TEMP/apk/"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

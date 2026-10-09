@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -329,7 +330,7 @@ class VillageRendererTest {
         repeat(n) { r.render(c, s.state, s.frame.copy(time = 2 + it / 12.0, hour = 22f)) }
         val ms = (System.nanoTime() - t0) / 1e6 / n
         println("VillageRenderer: %.2f ms/frame (town, night, %dx%d)".format(ms, s.w, s.h))
-        assertTrue("too slow: $ms ms", ms < 15.0)
+        assertTrue("too slow: $ms ms", ms < FrameBudget.scaled(15.0))
         // a phone's village screen (1080×1188 px) renders a taller canvas
         val tall = PixelCanvas(270, 297)
         repeat(10) { r.render(tall, s.state, s.frame.copy(time = it / 12.0)) }
@@ -337,7 +338,7 @@ class VillageRendererTest {
         repeat(n) { r.render(tall, s.state, s.frame.copy(time = 2 + it / 12.0, hour = 22f)) }
         val msTall = (System.nanoTime() - t1) / 1e6 / n
         println("VillageRenderer: %.2f ms/frame (town, night, 270x297)".format(msTall))
-        assertTrue("too slow: $msTall ms", msTall < 30.0)
+        assertTrue("too slow: $msTall ms", msTall < FrameBudget.scaled(30.0))
         // the full-screen town on a portrait phone renders the fitted canvas, 360×800
         val fit = SceneFit.town(1080, 2400)
         val full = PixelCanvas(fit.width, fit.height)
@@ -346,7 +347,7 @@ class VillageRendererTest {
         repeat(n) { r.render(full, s.state, s.frame.copy(time = 2 + it / 12.0, hour = 22f)) }
         val msFull = (System.nanoTime() - t2) / 1e6 / n
         println("VillageRenderer: %.2f ms/frame (town, night, %dx%d)".format(msFull, fit.width, fit.height))
-        assertTrue("too slow: $msFull ms", msFull < 50.0)
+        assertTrue("too slow: $msFull ms", msFull < FrameBudget.scaled(50.0))
     }
 
     private fun write(c: PixelCanvas, f: File, scale: Int = 4) {

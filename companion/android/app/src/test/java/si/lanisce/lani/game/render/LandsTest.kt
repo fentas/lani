@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render
 
+import si.lanisce.lani.FrameBudget
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
@@ -370,7 +371,7 @@ class LandsTest {
             repeat(n) { r.render(c, s, Frame(time = 2 + it / 12.0, hour = 22f, month = 9)) }
             val ms = (System.nanoTime() - t0) / 1e6 / n
             println("${l.id}: %.2f ms/frame (town, night, %dx%d)".format(ms, fit.width, fit.height))
-            assertTrue("${l.id} too slow: $ms ms", ms < 50.0)
+            assertTrue("${l.id} too slow: $ms ms", ms < FrameBudget.scaled(50.0))
         }
     }
 
