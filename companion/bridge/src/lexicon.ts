@@ -659,7 +659,9 @@ function phrasesAround(tokens: string[], positions: number[]): string[] {
  * What [word] means where it was tapped. The order:
  * 1. an expression of the line the word is part of ("prav" in "Ravno prav." → ravno prav, just in time);
  * 2. the entries whose glosses the line's translation [en] has ("Vidim vas." / "I see you": the pronoun first);
- * 3. the pack words, then the tutor's glosses, then the rest;
+ * 3. the pack words, then the tutor's glosses, then the rest; a pack word the tapped word is only a form of after the
+ *    pack words it is ("debel": thick, before the genitive plural of deblo), and, without a translation, after the word
+ *    itself when the supplement or the tutor wrote it ("ravno": the adverb, just, before raven, flat; "dolgo");
  * 4. the village's people; then the word itself, or what was written for it (the supplement), before Wiktionary's
  *    readings of it as a form of another word ("prav": the adverb before a genitive plural of pravo); Wiktionary's names
  *    last ("lepa": nice, not a cat's name), or first when the word is capitalized inside the line ("pozdravi Samo").
@@ -721,6 +723,8 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
   // the pack whose item Jan has already comes first
   const fresh = (h: (typeof hits)[number]) => (s.items[itemId(h.p.id, h.w.id)] ? 0 : 1)
   hits.sort((a, b) => fresh(a) - fresh(b))
+  // the pack words the tapped word is only a form of (not the word, its plural or a phrase of the line)
+  const formOf = new WeakSet<LookupEntry>()
   for (const { p, w, key, plural } of hits) {
     const lemma = wordOf(p, w)
     // the dictionary's reading of the pack word: the one whose gloss is the pack's (hvala: "thank you", not "praise")
@@ -754,6 +758,7 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
     }
     if ((withGrammar && isWiktionary(withGrammar)) || (theirs && isWiktionary(theirs))) attributed.add(e)
     if (phrases.includes(key)) inLine.add(keyOf(e))
+    else if (key !== form && plural !== form) formOf.add(e)
     entries.push(e)
   }
 
@@ -783,10 +788,14 @@ export function lookup(word: string, at: { line?: string; en?: string }, s: Look
     }
   }
   const en = englishWords(at.en)
-  const tier = (e: LookupEntry) => (e.source === 'pack' ? 0 : e.source === 'tutor' ? 1 : 2)
+  // without a translation to tell, the word itself as the supplement or the tutor wrote it ("ravno": just) comes before a
+  // pack word it is only a form of
+  const written = !en.size && [...byKey.values()].some(e => (e.source === 'extra' || e.source === 'tutor') && normalizeForm(e.lemma, lang) === form)
+  const tier = (e: LookupEntry) => (e.source === 'pack' ? (written && formOf.has(e) ? 2 : 0) : e.source === 'tutor' ? 1 : 2)
   const capitalizedInside = /^\p{Lu}/u.test(raw) && i > 0
   const kind = (e: LookupEntry) => {
     if (e.source === 'village') return -2
+    if (formOf.has(e)) return 1
     if (!fromWiktionary.has(e)) return 0
     if (e.pos === 'name') return capitalizedInside ? -1 : 2
     return normalizeForm(e.lemma, lang) === form ? 0 : 1
