@@ -227,12 +227,14 @@ More on the service mode: [companion/README.md, "The bridge as a service"](../co
 |---|---|---|
 | Minimal | nothing more | The phone's text-to-speech and speech recognizer. |
 | Standard | an ElevenLabs key ([your own ElevenLabs](#your-own-elevenlabs)) | Natural voices, a voice for each villager. |
-| Full | a GPU with about 6 GB (CUDA or ROCm) | Local Whisper for exact speaking checks, Gepard as the offline Slovene voice. |
+| Full | a GPU with about 6 GB (CUDA or ROCm) | Local Whisper for exact speaking checks, Gepard as the Slovene narrators' voice and the offline Slovene voice. |
 
 The local workers install as user services: `companion/voice-local/install.sh` and `companion/stt-local/install.sh`
 (each about 15 GB). See [companion/README.md, "Voice"](../companion/README.md#voice) and
-[stt-local/README.md](../companion/stt-local/README.md). The bridge shortens the long silences in Gepard's clips and
-speeds them up a little, to the ElevenLabs voices' pace (with ffmpeg; `LANI_VOICE_GEPARD_TEMPO`, 1.05, `off` for none).
+[stt-local/README.md](../companion/stt-local/README.md). The bridge trims every clip's silence at its edges (with
+ffmpeg). In a Slovene village the narrators speak only with Gepard (nina, marko), never with the English ElevenLabs
+voices; without the worker the phone speaks their lines, unless `LANI_VOICE_NARRATOR_SL=elevenlabs` keeps the English
+narrators.
 
 ### Your own ElevenLabs
 

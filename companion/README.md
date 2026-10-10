@@ -970,15 +970,16 @@ records ([GAME.md](GAME.md#background-sounds)).
 **The voice cast.** Who speaks is in `voice-cast.json`: each speaker has an ElevenLabs voice, a
 Gepard voice for when ElevenLabs can't, and a gender. The narrators `female` (default) and `male`
 read every generic text (words, examples, exercises, role-play characters by their scenario's
-`voice`). Each villager speaks with their own `speaker` (`cultures/<culture>/villagers/*.json`; `voice` stays their
+`voice`). In a Slovene village they speak with the local Gepard voice, nina and marko, never with their English
+library voices (below, "The narrators in Slovene"). Each villager speaks with their own `speaker` (`cultures/<culture>/villagers/*.json`; `voice` stays their
 gender, which the app needs for Slovene agreement), in their lines, their scene dialogs and their
 role-play. A scenario may set a `speaker` too. The character voices come from the ElevenLabs voice
 library, picked by audition (Slovene test sentences, word error rate with the local Whisper):
 
 | Speaker | Voice | Who |
 |---|---|---|
-| `female` | Matilda (premade) | narrator |
-| `male` | Daniel (premade) | narrator, male role-play characters |
+| `female` | Matilda (premade, English; Gepard nina in Slovene) | narrator |
+| `male` | Daniel (premade, English; Gepard marko in Slovene) | narrator, male role-play characters |
 | `grandma` | Zlata (Croatian) | Babica Micka, Teta Ančka |
 | `grandpa` | Tomasz Z (Polish) | Stari Janez, Mlinar France, Čebelar Anton |
 | `young-man` | Bartłomiej (Polish) | Pastir Luka, Vinar Marko, men who move in |
@@ -1137,8 +1138,8 @@ one loudness before it stores it:
   many the limiter holds, and by how much. `--level --run` levels them (`--max N` for a few first, `--data DIR`
   for another data directory; about 2 minutes for all 2,826). Each clip is levelled once, under a new file name;
   the old file is removed only after the new one is recorded. A clip whose voice's filter is due is filtered in
-  the same encode, and a local clip that waits for its pace is paced in it (`--denoise --run` and `--tempo --run` level
-  in the same encode too). A clip that the bridge made again meanwhile
+  the same encode, and a clip whose edges wait is trimmed in it (`--denoise --run`, `--edges --run` and `--tempo --run`
+  level in the same encode too). A clip that the bridge made again meanwhile
   keeps the new take. It uses no ElevenLabs characters. The bridge sees the changed clips within a minute and
   sends `voice_updated`, as for the denoise filter.
 - **A new target:** change `LEVEL.target`, then run `voice-build --level --run`. It levels the clips at the old
@@ -1153,61 +1154,129 @@ one loudness before it stores it:
 
 `voice_status` shows the target and the clips at it and waiting (`level`).
 
-**The pace of the local voice.** Jan heard the listening exercise (a sentence is said, then the right word is chosen) as
-too slow, and slower still at 🐢, while a word's 🔊 sounded right. The exercise speaks in the stage companion's voice,
-mostly with the local Gepard worker's clips; the word's 🔊 is the female narrator, an ElevenLabs clip. Measured on Jan's
-store (October 2026, texts of 15 to 80 characters):
+**The silence at a clip's edges.** In the listening exercise the word came late. A narrator's lone word, cut out of its
+carrier sentence, often had 0.2 to 0.7 s of silence before it. Measured on a copy of Jan's store (October 2026, 9,615
+clips; the silence before / after the sound, median and p90):
 
-- Gepard's clips ran at a median 8.3 characters a second (p10–p90 6.6–10.1), the ElevenLabs narrators' at 12.5 (3,297
-  clips).
-- The speech itself is not slower: 17.0 characters a second of sound, ElevenLabs' 16.2. The time goes to silence:
-  - about 1.2 s a clip before and after the sound (ElevenLabs: under 0.1 s);
-  - a pause at nearly every punctuation mark, up to 2 s.
-- So a plain speed-up of 1.5 would make the right characters a second, but the speech itself half again as fast as
-  ElevenLabs'. Gepard has no speed setting either.
+| Clips | Before the sound | After it |
+|---|---|---|
+| narrator words cut out of their carrier sentence (1,163) | 0.24 s (0.46) | 0.02 s (0.03) |
+| the local Gepard worker's, as it makes them (549) | 0.52 s (0.68) | 0.64 s (0.87) |
+| ElevenLabs' other clips (7,903) | 0.02 s (0.08) | 0.00 s (0.26) |
 
-So the bridge paces every Gepard clip before it stores it (`PACE` in `bridge/src/voice.ts`):
+So the bridge trims every clip's silence at its edges before it stores it, whatever made it (`EDGES` in
+`bridge/src/voice.ts`):
 
-- **The silences** (ffmpeg `silenceremove`): the silence before the sound down to 0.05 s, after it down to 0.1 s (a
-  carrier cut keeps 0.06 s and 0.12 s), and a pause longer than 0.4 s down to 0.4 s. Silence is under −50 dBFS (RMS, 20 ms
-  windows); the worker's silence is at about −66 dBFS.
-- **The speed** (ffmpeg `atempo`, the pitch kept): ×1.05, `LANI_VOICE_GEPARD_TEMPO`. A factor from 0.5 to 2; `1` only
-  shortens the silences; `off` (or `0`) leaves the clips as the worker makes them. 1.05 brings Gepard's characters a second
-  to the narrators'.
-- **One encode:** it runs in the level's encode, before the gain. The clip keeps its encoding (22.05 kHz, 64 kbit/s).
-- **Recorded:** the clip's row has the factor (`tempo` in `voice.db`; null: as the worker made it), and its file name
-  includes it. Without ffmpeg (or when ffmpeg fails), the clip is stored as the worker made it. This is logged, and the
-  clip waits for the batch below.
-- **The clips from before:** `companion/bin/voice-build --tempo` is a dry run. It measures every local clip that waits,
-  now and as it would be paced, by voice: the characters a second (median, p10–p90), the silence at the edges, the pauses
-  and the length. It also measures ElevenLabs' clips of the same voices, for comparison. `--tempo --run` paces them
-  (`--max N` for a few first, `--data DIR` for another data directory; about 30 s for 549 clips). Each clip is paced
-  once and brought to the level again in the same encode, under a new file name. The old file is removed only after the
-  new one is recorded. A clip that fails keeps its old file. A clip that the bridge made again meanwhile keeps the new
-  take. No engine is asked, and no characters are spent. The bridge sees the changed clips within a minute and sends
-  `voice_updated`. `--level --run` paces a local clip that waits too, in the same encode.
-- **A new factor:** change `LANI_VOICE_GEPARD_TEMPO` (in `lani.env`; the bridge reads it when it starts), then run
-  `voice-build --tempo --run`. It speeds the clips paced at the old factor up by the difference, from their files as they
-  are (one more encode).
-- **Measured on a copy** of Jan's 549 Gepard clips after `--tempo --run`: 8.3 → 12.5 characters a second (median; p10–p90
-  10.5–15.0; ElevenLabs 12.5), the sound 17.0 → 17.7, the silence at the edges 1.20 → 0.13 s and the pauses 0.62 →
-  0.44 s a clip (medians), all clips together 36.5 → 23.9 minutes. 🐢 plays them at 0.75× as before, now without the
-  long silences.
+- **What is kept:** 0.05 s of silence before the sound, 0.1 s after it, with a short fade where it cuts (5 ms in,
+  10 ms out).
+- **Where the sound starts:** at the first 20 ms window over −45 dBFS (RMS), as loud as the clip will be after the
+  level (27 dB under its −18 LUFS). From there it reaches back as long as the level stays over −60 dBFS, and the same at
+  the end. The voices' silence is at −61 to −84 dBFS.
+  - A soft h, f or v (hrbet, februar, včeraj) rises from −60 for up to 0.08 s before it passes −45. A trim at −45 alone
+    cut into it on 14 of the 1,163 carrier words; with the −60 floor, on none.
+  - A lower threshold alone takes the end of the carrier sentence's "je:" at the start of the cut for sound, and trims
+    nothing there.
+- **One encode:** it runs in the level's encode, after a voice's filter. The clip keeps its encoding.
+- **When:** a clip that is encoded anyway is trimmed to 0.05 s and 0.1 s. A clip that the level would keep as it is
+  is trimmed only when it has more than twice that (0.1 s before the sound, 0.2 s after it), so a clip is not encoded
+  again for a few milliseconds.
+- **Recorded:** the clip's row has `edges` (1: trimmed, or found short enough; null: not yet), and a trimmed clip's file
+  name includes it. Without ffmpeg (or when ffmpeg fails), the clip is stored as it is. This is logged, and the clip
+  waits for the batch below.
+- **The clips from before:** `companion/bin/voice-build --edges` is a dry run. It measures every clip that waits and
+  shows, per engine, how many it would trim and the silence before and after the sound, now and after. `--edges --run`
+  trims them (`--max N` for a few first, `--data DIR` for another data directory). Each clip that it trims is brought
+  to the level again in the same encode, under a new file name, and the old file is removed only after the new one is
+  recorded. A clip at the level keeps its loudness (one that the limiter held under the target stays so). The other
+  clips are only recorded. No engine is asked, and no characters are spent. The bridge sees the changed clips within a
+  minute and sends `voice_updated`.
+- **Measured on a copy** of Jan's store, the paced Gepard clips restored first (below): 2,584 of the 9,615 clips
+  trimmed (1,026 carrier words, 549 Gepard clips, 1,009 other ElevenLabs clips), 20 minutes of silence in all, in about
+  6 minutes. Measured again after it (in 20 ms windows): the carrier words' silence before the sound 0.24 → 0.06 s
+  (median), the Gepard clips' 0.52 → 0.06 s before and 0.64 → 0.11 s after. Each trimmed clip is as long as before less
+  the silence taken (within 2 ms), at −18.0 LUFS (median).
 
-`voice_status` shows the factor and the local clips paced and waiting (`tempo`).
+`voice_status` shows the clips trimmed (or found short enough) and waiting (`edges`).
 
-**Engines**, tried in this order for a text without a clip:
+**The local voice at its own pace.** Gepard's clips were once paced to the ElevenLabs narrators' characters a second
+(October 2026: the pauses at most 0.4 s, ×1.05). Jan heard them as too fast. So the local voice keeps its own pace: only
+its silence at the edges is trimmed, as every clip's.
+
+- **A pace stays settable**, off by default (`gepardPace` in `bridge/src/voice.ts`; in `lani.env`, read when the bridge
+  starts):
+  - `LANI_VOICE_GEPARD_TEMPO`: a factor from 0.5 to 2 (ffmpeg `atempo`, the pitch kept). The default is `1`.
+  - `LANI_VOICE_GEPARD_PAUSES`: the longest pause kept inside a clip, 0.1 to 2 s (silence: under −50 dBFS). The
+    default is `off`.
+- With a pace set, the bridge paces a new Gepard clip in the level's encode, before its edges are trimmed. The row
+  records the factor (`tempo`), and the file name includes it. `companion/bin/voice-build --tempo` then measures the
+  local clips not at that pace (a dry run), and `--tempo --run` paces them. Without a pace set, `--tempo` says so and
+  does nothing.
+- **The 549 clips paced before:** `companion/bin/voice-build --restore-gepard SNAPSHOT` puts them back as the worker
+  made them, from a `lani-backup` snapshot taken before they were paced (the snapshot directory, or its `voice/`):
+  - The dry run lists each paced clip (its row has `tempo`) and what it would restore, and the clips it can't restore,
+    with the reason (not in the snapshot, another text, not by the worker, its file missing).
+  - `--run` copies each clip's file from the snapshot into `files/` (under a temporary name, then renamed), checks it
+    byte for byte, and points the row at it with the snapshot's level, gain and filter. Its `tempo`, `edges` and engine
+    voice are cleared. Only then is the paced file removed. A clip that the bridge made again meanwhile keeps the new take.
+  - The snapshot is only read. Its database is read from a copy, so not even SQLite's side files are written next to
+    it.
+  - Then `--edges --run` trims the restored clips' edges.
+  - On a copy of Jan's store: 549 restored, all byte for byte the snapshot's files, no other row changed, no file left
+    without a row.
+
+**The narrators in Slovene: the local voice.** The narrators `female` and `male` are English library voices (Matilda,
+Daniel). In Slovene a lone word comes out with English sounds, even cut out of a carrier sentence. Jan compared a word
+side by side: "1. and 2. sound the same and slow (and wrong), 3. is in another league" (1 the ElevenLabs narrator, 2 the
+same trimmed, 3 Gepard's marko). So in a Slovene village the narrators speak only with the local Gepard voice:
+
+- **Who:** `female` → nina, `male` → marko (their `gepard` in `voice-cast.json`; Jan preferred nina over ana). The
+  bridge sends the worker the voice by name, so the worker's own aliases don't matter.
+- **What:** every text in a narrator's voice: words, examples, cards, exercises, the car's drills and quiz, a role-play
+  character by its scenario's `voice`, live lines.
+- **When the worker can't** (down, busy): a cast voice that speaks Slovene natively, of the narrator's gender, if the
+  cast has one (a speaker with `"native": ["sl"]`). The cast has none: the library's one Slovenian voice (Uros) isn't in
+  it. Else no clip, and the app speaks with the phone's Slovene voice. Never Matilda or Daniel.
+- **Not for:** the villagers (their speakers and their voices of their own): ElevenLabs first, then Gepard, as before.
+  Nor a village in another language: its cast's narrators speak (the Lakeland village's Alice and Daniel speak
+  English).
+- **The setting:** `LANI_VOICE_NARRATOR_SL` (in `lani.env`, read when the bridge starts): `gepard` (the default) or
+  `elevenlabs` (as before October 2026: the English narrators, a lone word in its carrier sentence).
+- **Recorded:** a clip's row has the engine's own voice (`engine_voice`: `nina`, an ElevenLabs voice id), and its file
+  name includes it, so the app downloads a clip whose voice changed. A Gepard clip from before has none: a female
+  narrator's was ana's.
+- **A re-record** (a long press on 🔊) of a narrator's clip from before is made in the local voice now, and isn't
+  counted in the day's cap. The local voice says a text the same way every time, so a clip that is in it already is
+  the one (`not_needed`). The lazy carrier re-voice leaves the narrators' words alone.
+- **The clips from before:** `companion/bin/voice-build --narrators` (a dry run) counts the narrators' clips that are
+  not in their local voice: ElevenLabs' (with the carrier words), and the female narrator's ana clips. It makes again
+  only the Slovene ones: a clip of this village's corpus, of a source the corpus has (a pack, a scene, a story), or a
+  line the app spoke here (`live`, `road`). It lists the others, which stay as they are. `--narrators --run` makes them
+  again with the worker, most asked for first (`--max N` for a few first). Each new clip has its edges trimmed and is
+  levelled, under a new file name, and the old file is removed once the new one is recorded. The ElevenLabs takes
+  aren't kept: the snapshot before the run has them. The worker makes one at a time, about a second each. A busy
+  worker is waited for, and a worker that is down stops the run. The next run goes on where it stopped. No ElevenLabs
+  characters.
+- **On a copy of Jan's store:** 4,690 narrator clips not in the local voice (4,326 female and 160 male ElevenLabs clips,
+  1,163 of them carrier words; 204 female ana clips), all Slovene by the corpus or their source, about 80 minutes of
+  the worker's time.
+
+`voice_status` shows the narrators' local voices and their clips in them and not (`narrators`), and a pace when one is
+set (`tempo`).
+
+**Engines**, tried in this order for a text without a clip (a Slovene narrator's: Gepard only, see above):
 
 | Engine | What | Setup |
 |---|---|---|
 | ElevenLabs | `eleven_v3` (the only model with Slovenian), `language_code: sl`, the speaker's voice from the cast. | `ELEVENLABS_API_KEY=…` in `~/.config/lani/keys.env` (mode 600). `bin/lani-session` exports it into the session, so the bridge inherits it. |
-| Gepard (local) | Slovenian TTS model as a worker on `127.0.0.1:8795` (`GET /health`, `POST /synth`), the speaker's `gepard` voice (`ana`, `marko`, `nina`). | Runs separately. When it is down, it is skipped. |
+| Gepard (local) | Slovenian TTS model as a worker on `127.0.0.1:8795` (`GET /health`, `POST /synth`), the speaker's `gepard` voice (`nina`, `marko`, `ana`), sent by name. | Runs separately. When it is down, it is skipped. |
 
 If neither can make a clip, the app uses phone TTS; an engine that is down never fails a request.
 A villager line whose narrator clip exists waits for ElevenLabs (no local clip in the character's
 key): the app plays the narrator clip until then.
 
-**Lone words: a carrier sentence.** The narrators are English library voices, and `eleven_v3` takes
+**Lone words: a carrier sentence.** Where the narrators speak with ElevenLabs (a village in another language whose
+cast marks them `carrier`, or `LANI_VOICE_NARRATOR_SL=elevenlabs`; in a Slovene village they speak with the local voice
+since October 2026): the narrators are English library voices, and `eleven_v3` takes
 `language_code: sl` only as a hint: a lone Slovene word (*kosilo*) comes out with English sounds, a
 sentence doesn't (`previous_text`/`next_text` are not supported for `eleven_v3`). So a speaker marked
 `"carrier": true` in the cast (the narrators; villagers' voices are Slovene enough) says a short text inside
@@ -1225,7 +1294,8 @@ a carrier sentence:
   asked for plainly, as before. If the word isn't in the timestamps, it is asked for plainly too (both takes
   are paid for), and the clip is marked `plain`, so it isn't tried again.
 
-**The words from before** (about 500 narrator words said plainly) are voiced again lazily. When the app
+**The words from before** (about 500 narrator words said plainly) are voiced again lazily, where the narrators speak
+with ElevenLabs (in a Slovene village `voice-build --narrators` makes them again in the local voice). When the app
 asks for one (it downloads the file, or `/voice/say` hands it over), it gets the old clip at once. The
 bridge counts the request and soon re-voices the word in its carrier sentence:
 
@@ -1252,7 +1322,9 @@ ahead of the lazy re-voice:
   has a clip in). A short text in a carrier voice is said in its carrier sentence and cut, as above. Anything
   else (a sentence, a villager's voice, someone's own voice) is a plain re-take: `eleven_v3` never says a text
   the same way twice. A clip that the local worker made is made again with ElevenLabs. A text without a clip is
-  voiced as `/voice/say` voices a live line, and is not counted.
+  voiced as `/voice/say` voices a live line, and is not counted. A Slovene narrator's clip is never made with
+  ElevenLabs: one from before is made in the local voice now (not counted), one in it already is the one
+  (`not_needed`: the local voice says a text the same way every time).
 - **Limits:** once a clip a day. Each re-record counts in the day's cap (40, shared with the lazy re-voice,
   which leaves the last 10 for re-records); a sentence counts as one, like a word. A re-record never goes into
   the reserve for live lines. A `voice-build --revoice-words` run counts in the same cap, so after a big run
@@ -1307,8 +1379,13 @@ companion/bin/voice-build --denoise --run  # filter them (ffmpeg only, no charac
 companion/bin/voice-build --denoise --data <dir>   # another data directory (a copy)
 companion/bin/voice-build --level          # dry run: every clip not at the level, each voice's loudness and gain
 companion/bin/voice-build --level --run    # level them (ffmpeg only, no characters)
-companion/bin/voice-build --tempo          # dry run: the local clips not paced yet, their characters a second now and paced
-companion/bin/voice-build --tempo --run    # pace them (ffmpeg only, no characters)
+companion/bin/voice-build --edges          # dry run: every clip's silence before and after its sound, how many to trim
+companion/bin/voice-build --edges --run    # trim them (ffmpeg only, no characters)
+companion/bin/voice-build --restore-gepard ~/.local/share/lani/backups/<snapshot>        # dry run: the paced local clips
+companion/bin/voice-build --restore-gepard ~/.local/share/lani/backups/<snapshot> --run  # back as the worker made them
+companion/bin/voice-build --narrators      # dry run: the narrators' clips not in the local voice yet (Slovene only)
+companion/bin/voice-build --narrators --run   # make them again with the local worker (resumable, no characters)
+companion/bin/voice-build --tempo          # only with LANI_VOICE_GEPARD_TEMPO or _PAUSES set: the local clips not at that pace
 ```
 
 `--revoice-words` makes only the old-style narrator words again, in their carrier sentence, within the
