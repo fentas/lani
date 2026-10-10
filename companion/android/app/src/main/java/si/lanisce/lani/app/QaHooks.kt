@@ -30,6 +30,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "ispy:<scene>/<slot>": «Vidim, vidim» is offered in that scene whatever the day (games played, the hour: a child comes
  *   by if none is there), and its first round spies [slot]; the debug build logs where the round's things are on screen
  *   (tag ISpy), so QA taps them. "ispy:" lets it go again.
+ * - "audio:<what>": the offline audio (companion/README.md, "Offline on the phone"): "audio:prefetch" makes the day's plan
+ *   now and gets its clips at once; "audio:voice" downloads the offline voice; "audio:say:<text>" and "audio:slow:<text>"
+ *   say a text as a 🔊 does (normal, 🐢), so QA hears the offline voice with the network off.
  * - "clock:<f>": the towns' and scenes' time runs at f of the wall's (0.05 to 1; [TownClock.rate]), so a slow emulator
  *   renders every frame of a recording that is sped up again afterwards (with the animator duration scale at 1/f for
  *   the camera's flights and the bubbles' bob); "clock:" lets it run at its pace again.
@@ -72,9 +75,10 @@ object QaHooks {
         private set
 
     /** Does what [command] asks; [road] gets what is asked of the road ("mini", "car"); [forms] starts the forms' review. */
-    fun handle(command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }) {
+    fun handle(command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {}) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
             command == "zoom" -> zooms++
             command.startsWith("happening:") -> happening = command.removePrefix("happening:").takeIf { '/' in it }
             command.startsWith("road:") -> command.removePrefix("road:").takeIf { it.isNotBlank() }?.let(road)

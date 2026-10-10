@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
 
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
-        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep)
+        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio)
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
@@ -194,4 +194,6 @@ private fun App(vm: AppViewModel) {
         NewsSheet(vm.game.news, onDismiss = vm.game::dismissNews)
     }
     vm.permission?.let { PermissionDialog(it, vm::answerPermission) }
+    // just paired: the offline voice is offered once (the connection sheet's settings have it too)
+    if (vm.permission == null) si.lanisce.lani.ui.home.OfflineVoiceOffer(vm.offlineAudio)
 }

@@ -27,7 +27,7 @@ import si.lanisce.lani.l10n.bi
 /**
  * "🔗 Povezava · Connection", from the tutor's status dot on Home: which tutor and learner this phone talks
  * to, and pairing again by QR code (a new code after the phone was unpaired, or instead of a typed token); and this
- * phone's settings: the languages, the background sounds.
+ * phone's settings: the languages, the background sounds, the offline audio.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +57,7 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
             BigButton("📷 ${bi("common.scanQrCode")}", onClick = onScan, color = TriglavRed)
             Languages(vm)
             AmbienceSettings(vm.ambience, Modifier.padding(top = 12.dp))
+            OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
         }
     }
 }
