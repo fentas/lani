@@ -231,7 +231,8 @@ More on the service mode: [companion/README.md, "The bridge as a service"](../co
 
 The local workers install as user services: `companion/voice-local/install.sh` and `companion/stt-local/install.sh`
 (each about 15 GB). See [companion/README.md, "Voice"](../companion/README.md#voice) and
-[stt-local/README.md](../companion/stt-local/README.md).
+[stt-local/README.md](../companion/stt-local/README.md). The bridge shortens the long silences in Gepard's clips and
+speeds them up a little, to the ElevenLabs voices' pace (with ffmpeg; `LANI_VOICE_GEPARD_TEMPO`, 1.05, `off` for none).
 
 ### Your own ElevenLabs
 

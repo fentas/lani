@@ -1137,7 +1137,8 @@ one loudness before it stores it:
   many the limiter holds, and by how much. `--level --run` levels them (`--max N` for a few first, `--data DIR`
   for another data directory; about 2 minutes for all 2,826). Each clip is levelled once, under a new file name;
   the old file is removed only after the new one is recorded. A clip whose voice's filter is due is filtered in
-  the same encode (`--denoise --run` levels in the same encode too). A clip that the bridge made again meanwhile
+  the same encode, and a local clip that waits for its pace is paced in it (`--denoise --run` and `--tempo --run` level
+  in the same encode too). A clip that the bridge made again meanwhile
   keeps the new take. It uses no ElevenLabs characters. The bridge sees the changed clips within a minute and
   sends `voice_updated`, as for the denoise filter.
 - **A new target:** change `LEVEL.target`, then run `voice-build --level --run`. It levels the clips at the old
@@ -1151,6 +1152,49 @@ one loudness before it stores it:
 - **The phone's TTS**, the last fallback, can't be levelled by the node.
 
 `voice_status` shows the target and the clips at it and waiting (`level`).
+
+**The pace of the local voice.** Jan heard the listening exercise (a sentence is said, then the right word is chosen) as
+too slow, and slower still at 🐢, while a word's 🔊 sounded right. The exercise speaks in the stage companion's voice,
+mostly with the local Gepard worker's clips; the word's 🔊 is the female narrator, an ElevenLabs clip. Measured on Jan's
+store (October 2026, texts of 15 to 80 characters):
+
+- Gepard's clips ran at a median 8.3 characters a second (p10–p90 6.6–10.1), the ElevenLabs narrators' at 12.5 (3,297
+  clips).
+- The speech itself is not slower: 17.0 characters a second of sound, ElevenLabs' 16.2. The time goes to silence:
+  - about 1.2 s a clip before and after the sound (ElevenLabs: under 0.1 s);
+  - a pause at nearly every punctuation mark, up to 2 s.
+- So a plain speed-up of 1.5 would make the right characters a second, but the speech itself half again as fast as
+  ElevenLabs'. Gepard has no speed setting either.
+
+So the bridge paces every Gepard clip before it stores it (`PACE` in `bridge/src/voice.ts`):
+
+- **The silences** (ffmpeg `silenceremove`): the silence before the sound down to 0.05 s, after it down to 0.1 s (a
+  carrier cut keeps 0.06 s and 0.12 s), and a pause longer than 0.4 s down to 0.4 s. Silence is under −50 dBFS (RMS, 20 ms
+  windows); the worker's silence is at about −66 dBFS.
+- **The speed** (ffmpeg `atempo`, the pitch kept): ×1.05, `LANI_VOICE_GEPARD_TEMPO`. A factor from 0.5 to 2; `1` only
+  shortens the silences; `off` (or `0`) leaves the clips as the worker makes them. 1.05 brings Gepard's characters a second
+  to the narrators'.
+- **One encode:** it runs in the level's encode, before the gain. The clip keeps its encoding (22.05 kHz, 64 kbit/s).
+- **Recorded:** the clip's row has the factor (`tempo` in `voice.db`; null: as the worker made it), and its file name
+  includes it. Without ffmpeg (or when ffmpeg fails), the clip is stored as the worker made it. This is logged, and the
+  clip waits for the batch below.
+- **The clips from before:** `companion/bin/voice-build --tempo` is a dry run. It measures every local clip that waits,
+  now and as it would be paced, by voice: the characters a second (median, p10–p90), the silence at the edges, the pauses
+  and the length. It also measures ElevenLabs' clips of the same voices, for comparison. `--tempo --run` paces them
+  (`--max N` for a few first, `--data DIR` for another data directory; about 30 s for 549 clips). Each clip is paced
+  once and brought to the level again in the same encode, under a new file name. The old file is removed only after the
+  new one is recorded. A clip that fails keeps its old file. A clip that the bridge made again meanwhile keeps the new
+  take. No engine is asked, and no characters are spent. The bridge sees the changed clips within a minute and sends
+  `voice_updated`. `--level --run` paces a local clip that waits too, in the same encode.
+- **A new factor:** change `LANI_VOICE_GEPARD_TEMPO` (in `lani.env`; the bridge reads it when it starts), then run
+  `voice-build --tempo --run`. It speeds the clips paced at the old factor up by the difference, from their files as they
+  are (one more encode).
+- **Measured on a copy** of Jan's 549 Gepard clips after `--tempo --run`: 8.3 → 12.5 characters a second (median; p10–p90
+  10.5–15.0; ElevenLabs 12.5), the sound 17.0 → 17.7, the silence at the edges 1.20 → 0.13 s and the pauses 0.62 →
+  0.44 s a clip (medians), all clips together 36.5 → 23.9 minutes. 🐢 plays them at 0.75× as before, now without the
+  long silences.
+
+`voice_status` shows the factor and the local clips paced and waiting (`tempo`).
 
 **Engines**, tried in this order for a text without a clip:
 
@@ -1263,6 +1307,8 @@ companion/bin/voice-build --denoise --run  # filter them (ffmpeg only, no charac
 companion/bin/voice-build --denoise --data <dir>   # another data directory (a copy)
 companion/bin/voice-build --level          # dry run: every clip not at the level, each voice's loudness and gain
 companion/bin/voice-build --level --run    # level them (ffmpeg only, no characters)
+companion/bin/voice-build --tempo          # dry run: the local clips not paced yet, their characters a second now and paced
+companion/bin/voice-build --tempo --run    # pace them (ffmpeg only, no characters)
 ```
 
 `--revoice-words` makes only the old-style narrator words again, in their carrier sentence, within the
