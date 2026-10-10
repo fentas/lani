@@ -736,6 +736,20 @@ class GameController(
     }
 
     /**
+     * Today's step of project [id] was played as its short scene to its end (companion/SCENES.md "Project steps"): the step
+     * is done ([si.lanisce.lani.game.Projects.stepPlayed]: its cost paid, its line in the chronicle; or why it couldn't be
+     * done now), and how the leader's friendship grew with it. Null when the village isn't loaded.
+     */
+    fun projectStepPlayed(id: String): Pair<ChallengeResult, FriendGain?>? = notices.village {
+        val s = state ?: return@village null
+        val (n, r) = si.lanisce.lani.game.Projects.stepPlayed(s, id, LocalDate.now(), System.currentTimeMillis())
+        if (n != s) commit(n)
+        if (r.won) celebrate++
+        val leader = si.lanisce.lani.game.Projects.spec(id)?.leader
+        r to leader?.let { gainOf(it, s, n)?.takeIf { g -> g.points > 0 } }
+    }
+
+    /**
      * A game of «Vidim, vidim» ended in [scene] with [child] (a villager id, or null; companion/SCENES.md, "I spy"): each round
      * pays as an answer ([verdicts]: 🌾, a quick find a right one, a thing shown still something), and the day keeps the
      * game and the [things] spied; the first game of the day with the child is time spent with them, helping as a happening

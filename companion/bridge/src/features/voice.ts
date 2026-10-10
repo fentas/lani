@@ -7,6 +7,7 @@ import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
 import { cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
 import { cultureKeepers, keeperTellings } from '../cultures'
+import { cultureStepFiles, stepTellings } from '../project-steps'
 import { normalizeText } from '../family'
 import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
@@ -65,7 +66,7 @@ function voiceCorpus({ cfg, modules, packs, scenarios, scenes, villagers, learne
   const current = modules.list().filter(m => !m.tags.includes('retired')).flatMap(m => modules.get(m.id) ?? [])
   // «Vidim, vidim»: the content the app bundles (companion/ispy), read here for its voices only
   const ispy = readISpy(join(cfg.projectDir, 'companion/ispy'))
-  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k) })), villagers: villagers.all(), cards: learner.reviewCards(), grammar: grammar.all(), stories: stories.all(), drills: drills.all(), ispy, ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
+  return corpus({ packs: packs.all(), modules: current, scenarios: scenarios.all(), scenes: scenes.resolved(), keepers: cultureKeepers(culture.dir, culture.id).map(k => ({ ...k, tellings: keeperTellings(k) })), steps: cultureStepFiles(culture.dir, culture.id).map(f => ({ project: f.project, tellings: stepTellings(f) })), villagers: villagers.all(), cards: learner.reviewCards(), grammar: grammar.all(), stories: stories.all(), drills: drills.all(), ispy, ownVoice: id => !!personVoice(`@${id}`), language: culture.manifest?.language, learner: addressee() })
 }
 
 export const voice: FeatureFactory = ctx => {

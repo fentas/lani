@@ -160,8 +160,35 @@ object Cultures {
         c.people(people!!)
         c.chronicle(chronicle!!)
         if (c.problems.isNotEmpty()) throw CultureError(id, c.problems)
-        return Culture(m, world, quests, festivals, surprises, chest, projects, events, people, chronicle, readings, arrivals(id, m.language, said))
+        return Culture(
+            m, world, quests, festivals, surprises, chest, projects, events, people, chronicle, readings, arrivals(id, m.language, said),
+            projectSteps(id, m.language, projects.projects.map { it.id }, said),
+        )
     }
+
+    /**
+     * Pack [id]'s projects' steps as short scenes (project-steps/<project>.json, optional: a project without one plays its
+     * steps as the practice it always had), read leniently: their dialogs are read in the learner's pair when one is
+     * played (game/Projects.kt), and the bridge checks the files (project-steps.ts). One in another language than the
+     * pack's, for another project, or that can't be read, is left out ([onProblem] hears why).
+     */
+    private fun projectSteps(id: String, language: String, projects: List<String>, read: (String) -> String?): Map<String, ProjectStepsFile> =
+        projects.mapNotNull { p ->
+            val raw = read("project-steps/$p.json") ?: return@mapNotNull null
+            val f = runCatching { si.lanisce.lani.data.json.decodeFromString(ProjectStepsFile.serializer(), raw) }
+                .onFailure { onProblem?.invoke(CultureError(id, listOf("$id/project-steps/$p.json: ${it.message?.lines()?.first()}"))) }.getOrNull()
+                ?: return@mapNotNull null
+            val wrong = when {
+                !Schema.matches(f.schema, PROJECT_STEPS_SCHEMA) -> "schema \"${f.schema}\", not \"$PROJECT_STEPS_SCHEMA\""
+                f.project != p -> "project \"${f.project}\", but the file is $p.json"
+                f.language != language -> "language \"${f.language}\", not the pack's \"$language\""
+                else -> null
+            }
+            if (wrong != null) null.also { onProblem?.invoke(CultureError(id, listOf("$id/project-steps/$p.json: $wrong"))) } else p to f
+        }.toMap()
+
+    /** The schema of project-steps/<project>.json. */
+    const val PROJECT_STEPS_SCHEMA = "lani.project-steps/v0"
 
     /**
      * How pack [id]'s people are introduced (arrivals.json, optional: a pack without it introduces nobody), read leniently:

@@ -63,6 +63,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.ui.text.font.FontStyle
@@ -1108,12 +1109,14 @@ private fun DialogResult(
             if (m == 0) bi("sceneDialog.excellentNoMistakes") else bi("sceneDialog.wellDoneTalkOver"),
             style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
         )
-        if (m > 0) {
+        // a project's step is done however it went (a wrong answer was answered again in it): no smaller reward
+        if (m > 0 && talk.step == null) {
             Text(
                 "${bi("sceneDialog.mistakes", "m" to m)}: ${bi("sceneDialog.smallerReward")}",
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
             )
         }
+        talk.step?.let { StepEnd(it) }
         yourWords()
         talk.story?.let { StoryEnd(it, onLearnStory, onNotebook) }
         when {
@@ -1151,6 +1154,40 @@ private fun DialogResult(
         }
         BigButton(closeLabel ?: bi("common.backScene"), onClick = onClose)
         Spacer(Modifier.widthIn(min = 1.dp))
+    }
+}
+
+/**
+ * The end of a village project's step played as its scene (companion/SCENES.md "Project steps"): the project and how far it
+ * is now ("🌲 Mlaj 2/5"), the step's line for the chronicle ("Luka in fantje so v gozdu izbrali visoko smreko."), and the
+ * project finished when it was the last; or, when the step couldn't be done after all (the stores emptied meanwhile), why.
+ */
+@Composable
+private fun StepEnd(st: si.lanisce.lani.app.StepTalk) {
+    val spec = remember(st.project) { si.lanisce.lani.game.Projects.spec(st.project) } ?: return
+    val r = st.result
+    Surface(color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.5f), shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            val done = if (r?.won == true) st.index + 1 else st.index
+            Text(
+                "${spec.emoji} ${spec.short} $done/${spec.steps.size}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
+                modifier = Modifier.semantics { heading() },
+            )
+            when {
+                r == null -> Unit
+                r.won -> {
+                    val line = spec.steps.getOrNull(st.index)?.lineText
+                    line?.let {
+                        Text("📜 ${it.target}", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                        val base = it.base
+                        if (base.isNotBlank() && base != it.target) Text(base, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                    }
+                    if (done >= spec.steps.size) Text("✅ ${spec.done}", style = MaterialTheme.typography.bodyMedium, color = AlpineGreen, textAlign = TextAlign.Center)
+                    else Text("🌙 ${bi("projects.workedToday")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                }
+                else -> Text("🔒 ${r.message}", style = MaterialTheme.typography.bodyMedium, color = TriglavRed, textAlign = TextAlign.Center)
+            }
+        }
     }
 }
 

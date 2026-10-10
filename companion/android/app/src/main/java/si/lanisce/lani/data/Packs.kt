@@ -107,6 +107,8 @@ data class PackInfo(
     val learned: Int = 0,
     /** The calendar festival whose words these are (game/Calendar.kt's id), for a festival's pack ("🎉 praznik · feast"). */
     val festival: String? = null,
+    /** The village project whose words these are (game/Projects.kt's id), for a project's pack ("🏗️ projekt · project"). */
+    val project: String? = null,
 ) {
     val left: Int get() = (total - learned).coerceAtLeast(0)
     val done: Boolean get() = total > 0 && learned >= total
@@ -126,6 +128,8 @@ data class Pack(
     val learned: List<String> = emptyList(),
     /** The calendar festival whose words these are (see [PackInfo.festival]). */
     val festival: String? = null,
+    /** The village project whose words these are (see [PackInfo.project]). */
+    val project: String? = null,
     /** The language of its words: "sl" (Jan's packs, and when it doesn't say), "it" … */
     val language: String = "sl",
 )
@@ -242,9 +246,12 @@ object PackSession {
             ?: plain.firstOrNull()
     }
 
-    /** Packs screen order: new tutor packs, in progress, untouched, then finished (the festivals' packs: see [feasts]). */
+    /**
+     * Packs screen order: new tutor packs, in progress, untouched, then finished (the festivals' packs: see [feasts]; the
+     * projects': see [projects]).
+     */
     fun order(packs: List<PackInfo>, isNew: (PackInfo) -> Boolean = { false }): List<PackInfo> =
-        packs.filter { it.festival == null }.sortedBy { p ->
+        packs.filter { it.festival == null && it.project == null }.sortedBy { p ->
             when {
                 p.done -> 3
                 p.source == "tutor" && isNew(p) -> 0
@@ -259,4 +266,11 @@ object PackSession {
      */
     fun feasts(packs: List<PackInfo>, next: (String) -> java.time.LocalDate?): List<PackInfo> =
         packs.filter { it.festival != null }.sortedWith(compareBy<PackInfo> { it.done }.thenBy { next(it.festival!!) ?: java.time.LocalDate.MAX })
+
+    /**
+     * The village projects' packs for their own section of the packs screen ("🏗️ Skupni projekti · Village projects"):
+     * those of the projects [open] (the ages reached), in progress first, then untouched, the finished ones last.
+     */
+    fun projects(packs: List<PackInfo>, open: Set<String>): List<PackInfo> =
+        packs.filter { it.project != null && it.project in open }.sortedBy { p -> if (p.done) 2 else if (p.learned > 0) 0 else 1 }
 }

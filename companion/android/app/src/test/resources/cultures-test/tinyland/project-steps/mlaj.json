@@ -1,0 +1,54 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "mlaj",
+  "language": "it",
+  "review": "Made up for the tests (CultureSwitchTest, ProjectStepsTest, the smoke).",
+  "pack": "progetto-albero",
+  "steps": [
+    {
+      "words": ["abete", "ascia"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "nino", "it": "Oggi scegliamo un abete.", "sl": "Danes izberemo smreko.", "en": "Today we choose a fir.", "de": "Heute suchen wir eine Tanne aus." },
+          { "who": "pina", "it": "Deve essere alto.", "sl": "Mora biti visoka.", "en": "It has to be tall.", "de": "Sie muss hoch sein." },
+          { "who": "nino", "it": "Che cosa cerchiamo?", "sl": "Kaj iščemo?", "en": "What are we looking for?", "de": "Was suchen wir?" },
+          { "choices": [
+            { "it": "Cerchiamo un abete.", "sl": "Iščemo smreko.", "en": "We're looking for a fir.", "de": "Wir suchen eine Tanne.", "ok": true,
+              "reply": { "it": "Bravo!", "sl": "Bravo!", "en": "Well done!", "de": "Bravo!" } },
+            { "it": "Cerchiamo un gatto.", "sl": "Iščemo mačko.", "en": "We're looking for a cat.", "de": "Wir suchen eine Katze.",
+              "why": { "sl": "Gatto je mačka: iščemo abete.", "en": "Gatto is a cat: we want a fir, abete.", "de": "Gatto ist eine Katze: wir suchen eine Tanne, abete." },
+              "reply": { "it": "Un gatto? Miao!", "sl": "Mačko? Mijav!", "en": "A cat? Meow!", "de": "Eine Katze? Miau!" } }
+          ] },
+          { "who": "nino", "it": "Che cosa mi serve?", "sl": "Kaj potrebujem?", "en": "What do I need?", "de": "Was brauche ich?" },
+          { "choices": [
+            { "it": "Ti serve un'ascia.", "sl": "Potrebuješ sekiro.", "en": "You need an axe.", "de": "Du brauchst eine Axt.", "ok": true,
+              "reply": { "it": "Eccola!", "sl": "Tukaj je!", "en": "Here it is!", "de": "Da ist sie!" } },
+            { "it": "Ti serve un cucchiaio.", "sl": "Potrebuješ žlico.", "en": "You need a spoon.", "de": "Du brauchst einen Löffel.",
+              "why": { "sl": "Cucchiaio je žlica: potrebuješ ascia.", "en": "Cucchiaio is a spoon: you need an axe, ascia.", "de": "Cucchiaio ist ein Löffel: du brauchst eine Axt, ascia." },
+              "reply": { "it": "Un cucchiaio? Ah ah!", "sl": "Žlico? Ha ha!", "en": "A spoon? Ha ha!", "de": "Einen Löffel? Ha ha!" } }
+          ] }
+        ] },
+        "A2": { "lines": [
+          { "who": "nino", "it": "Ci serve l'abete più alto del bosco.", "sl": "Potrebujemo najvišjo smreko v gozdu.", "en": "We need the tallest fir in the wood.", "de": "Wir brauchen die höchste Tanne im Wald." },
+          { "who": "pina", "it": "Quello è troppo piccolo.", "sl": "Tista je premajhna.", "en": "That one is too small.", "de": "Die ist zu klein." },
+          { "who": "nino", "it": "Che cosa cerchiamo, allora?", "sl": "Kaj torej iščemo?", "en": "So what are we looking for?", "de": "Was suchen wir also?" },
+          { "choices": [
+            { "it": "Cerchiamo un abete più alto.", "sl": "Iščemo višjo smreko.", "en": "We're looking for a taller fir.", "de": "Wir suchen eine höhere Tanne.", "ok": true,
+              "reply": { "it": "Proprio così.", "sl": "Prav tako.", "en": "Exactly.", "de": "Genau." } },
+            { "it": "Cerchiamo un gatto più alto.", "sl": "Iščemo višjo mačko.", "en": "We're looking for a taller cat.", "de": "Wir suchen eine größere Katze.",
+              "why": { "sl": "Gatto je mačka: iščemo abete.", "en": "Gatto is a cat: we want a fir, abete.", "de": "Gatto ist eine Katze: wir suchen eine Tanne, abete." },
+              "reply": { "it": "Un gatto alto? Ah ah!", "sl": "Visoko mačko? Ha ha!", "en": "A tall cat? Ha ha!", "de": "Eine große Katze? Ha ha!" } }
+          ] },
+          { "who": "nino", "it": "E per tagliarlo, che cosa mi dai?", "sl": "In s čim ga posekam?", "en": "And to fell it, what do you give me?", "de": "Und zum Fällen, was gibst du mir?" },
+          { "choices": [
+            { "it": "Ti do l'ascia.", "sl": "Dam ti sekiro.", "en": "I give you the axe.", "de": "Ich gebe dir die Axt.", "ok": true,
+              "reply": { "it": "Grazie!", "sl": "Hvala!", "en": "Thanks!", "de": "Danke!" } },
+            { "it": "Ti do il cucchiaio.", "sl": "Dam ti žlico.", "en": "I give you the spoon.", "de": "Ich gebe dir den Löffel.",
+              "why": { "sl": "Cucchiaio je žlica: potrebuješ ascia.", "en": "Cucchiaio is a spoon: you need an axe, ascia.", "de": "Cucchiaio ist ein Löffel: du brauchst eine Axt, ascia." },
+              "reply": { "it": "Il cucchiaio? Per la minestra!", "sl": "Žlico? Za juho!", "en": "The spoon? For the soup!", "de": "Den Löffel? Für die Suppe!" } }
+          ] }
+        ] }
+      }
+    }
+  ]
+}

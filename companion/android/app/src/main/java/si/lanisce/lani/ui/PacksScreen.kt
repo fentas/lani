@@ -60,6 +60,8 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
     // the festivals' packs in a section of their own, the next festival first: learn them early, or celebrate to learn
     val today = LocalDate.now()
     val feasts = PackSession.feasts(all) { id -> Calendar.byId(id)?.let { Calendar.occurrence(it, today) ?: Calendar.next(it, today) } }
+    // the village projects' packs of the ages reached, in a section of their own: their steps ask for these words
+    val projects = PackSession.projects(all, vm.game.state?.let { s -> si.lanisce.lani.game.Projects.open(s).map { it.id }.toSet() }.orEmpty())
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
         item {
             GradientHeader(
@@ -69,7 +71,7 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
                 onBack = { vm.leavePacks(fromVillage) },
             )
         }
-        if (packs.isEmpty() && feasts.isEmpty()) item {
+        if (packs.isEmpty() && feasts.isEmpty() && projects.isEmpty()) item {
             Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(bi("packsScreen.noPacksYet"), style = MaterialTheme.typography.titleMedium)
                 Text(bi("packsScreen.askTutorWordsAbout"), style = MaterialTheme.typography.bodyMedium)
@@ -92,7 +94,19 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
             val day = p.festival?.let(Calendar::byId)?.let { Calendar.whenText(it, today) }
             PackCard(p, isNew = false, feast = day, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id, fromVillage) }
         }
-        if (packs.isNotEmpty() || feasts.isNotEmpty()) item {
+        if (projects.isNotEmpty()) item("projects") {
+            Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 18.dp, bottom = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text("🏗️ ${bi("common.villageProjects")}", style = MaterialTheme.typography.titleMedium)
+                Text(
+                    bi("packsScreen.learnProjectsWordsWhen"),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+        items(projects, key = { it.id }) { p ->
+            PackCard(p, isNew = false, modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) { vm.startPack(p.id, fromVillage) }
+        }
+        if (packs.isNotEmpty() || feasts.isNotEmpty() || projects.isNotEmpty()) item {
             TextButton(onClick = vm.chat::open, modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                 Text("💬 ${bi("packsScreen.wantOtherWordsAsk")}")
             }
@@ -124,6 +138,9 @@ private fun PackCard(p: PackInfo, isNew: Boolean, modifier: Modifier = Modifier,
                     }
                     if (p.festival != null) Surface(color = XpGold.copy(alpha = 0.22f), shape = RoundedCornerShape(50)) {
                         Text("🎉 ${bi("packsScreen.feast")}", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
+                    }
+                    if (p.project != null) Surface(color = AlpineGreen.copy(alpha = 0.18f), shape = RoundedCornerShape(50)) {
+                        Text("🏗️ ${bi("packsScreen.project")}", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
                     }
                 }
                 feast?.let { Text("📅 $it", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }

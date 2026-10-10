@@ -17,7 +17,8 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
-                       "word-missed" one got wrong first, its card after the turn
+                       "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
+                       step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -1494,6 +1495,99 @@ def projects():
     assert wait_for("Zvitek · Scroll", 5) or find("Knjiga · Book"), "back closed more than the projects"
 
 
+def tap_places(timeout=10.0):
+    """The tap turn on screen as the debug build logged it (tag TapTurn, ui/scene/SceneScreen.kt): (its right place, {place:
+    (x, y)}), the places' centres on the screen; None when none came."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        lines = [l for l in adb("logcat", "-d", "-s", "TapTurn:D", check=False).splitlines() if " places " in l]
+        if lines:
+            m = re.search(r"turn \d+ right (\S+) places (.*)$", lines[-1])
+            if m:
+                at = {}
+                for part in m.group(2).split():
+                    place, _, xy = part.partition("@")
+                    x, _, y = xy.partition(",")
+                    if x.lstrip("-").isdigit() and y.lstrip("-").isdigit():
+                        at[place] = (int(x), int(y))
+                if at:
+                    return m.group(1), at
+        time.sleep(1)
+    return None
+
+
+def project_step():
+    """A village project's step as its short scene (companion/SCENES.md "Project steps"): QA's hook readies the maypole's
+    first step in the dev village's copy ("step:mlaj/1": the steps before it, the stores and the day for it) and the
+    projects sheet opens at it, with where it is played and its words; "🔨 Današnji korak · Today's step" opens the forest
+    with Luka (and Marko, when he lives here) on its stage; the tap turn is answered in the picture (the tree first, a
+    mistake with Luka's reaction, then the spruce, where the debug build logs them), the other turns chosen, and the step
+    is done: "Mlaj 1/5" and its line for the chronicle."""
+    steps = json.loads((ROOT / "companion/cultures/primorska/project-steps/mlaj.json").read_text())
+    ok = {c["sl"] for lv in steps["steps"][0]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok")}
+    adb("logcat", "-c")
+    try:
+        qa_hook("step:mlaj/1")
+        if wait_for("Skupni projekti · Village projects", 8) is None:
+            return "no village projects yet (they come with Zaselek)"
+        assert tap("Skupni projekti · Village projects", 5), "projects chip"
+        assert wait_for("En korak na dan", 8), "projects sheet"
+        time.sleep(1.5)
+        assert wait_for("Mlaj · The maypole", 5), "the sheet at the maypole (QA's hook)"
+        shot("project-sheet")
+        # the maypole's own button: the first "Današnji korak" below its title
+        btn = None
+        for _ in range(6):
+            title = find("Mlaj · The maypole")
+            below = sorted((c for t, c in nodes() if "Današnji korak" in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
+            if below and below[0][1] < 1900:
+                btn = below[0]
+                break
+            adb("shell", "input", "swipe", "540", "1500", "540", "1100", "400")
+            time.sleep(1)
+        assert btn is not None, "the maypole's 🔨 Današnji korak · Today's step"
+        assert find("V gozdu") is not None or find("Besede projekta") is not None, "where it is played, its words"
+        shot("project-sheet-step")
+        tap_at(btn)
+        assert wait_for("‹ Vas · Village", 10), "the forest opens for the step"
+        assert wait_for("Poišči v prizoru · Find it in the scene", 10), "the tap turn: find the spruce in the picture"
+        got = tap_places()
+        assert got is not None, "the debug build's TapTurn log of where the places are"
+        right, at = got
+        assert right == "spruce" and "spruce" in at, f"the spruce to tap: {right}, {sorted(at)}"
+        shot("project-step-tap")
+        wrong = "tree" if "tree" in at else next(p for p in at if p != right)
+        tap_at(at[wrong])
+        time.sleep(1.5)
+        assert any("Drevo?" in t or "Skala?" in t for t, _ in nodes()), f"Luka's reaction to a wrong place ({wrong})"
+        shot("project-step-wrong")
+        tap_at(at[right])
+        time.sleep(1.5)
+        assert any("Bravo! Ta je prava." in t or "Res je! Višja je" in t for t, _ in nodes()), "Luka's reply: the spruce found"
+        shot("project-step-found")
+        # on to the end: on from each line, the right choice at each turn
+        for _ in range(14):
+            labels = [t for t, _ in nodes()]
+            if any("Nazaj v prizor" in t for t in labels) or any("Mlaj 1/5" in t for t in labels):
+                break
+            if any(t in ok or any(t.startswith(o + ",") or t.startswith(o + " ") for o in ok) for t in labels) or \
+                    any(t.startswith("Tvoj odgovor") or "Izberi raje" in t or "Poslušaj in ponovi" in t for t in labels):
+                assert answer_right(ok), "the right choice on screen"
+                time.sleep(1.5)
+                continue
+            if not tap("Naprej · Next", 3):
+                time.sleep(1)
+        assert wait_for("Mlaj 1/5", 8), "the step done: Mlaj 1/5"
+        assert scroll_to("v gozdu izbrali visoko smreko", 2) is not None, "its line for the chronicle"
+        shot("project-step-done")
+        tap("Nazaj v prizor", 3)
+        time.sleep(1)
+        assert tap("‹ Vas · Village", 3), "back from the forest"
+    finally:
+        qa_hook("step:")
+    return None
+
+
 def build_sheet():
     # The bottom bar's Build opens the sheet; the next-goal card may have its own Build that builds
     # straight away (when affordable), so take the lowest match on screen.
@@ -2217,6 +2311,7 @@ def plan():
         ("back-to-village-2", back_to_village, v, False, ""),
         ("chest", chest, v, False, ""),
         ("projects", projects, v, False, ""),
+        ("project-step", project_step, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("friends", friends, h, True, "visit"),

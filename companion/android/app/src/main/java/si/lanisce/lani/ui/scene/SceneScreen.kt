@@ -255,19 +255,25 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         }
     }
 
-    // A person's new line is said aloud, and they're drawn talking meanwhile.
-    var talking by remember { mutableStateOf(false) }
+    // A person's new line is said aloud in their voice, and they're drawn talking meanwhile (a project's step has several
+    // people: each says their own lines).
+    var talkingId by remember { mutableStateOf<String?>(null) }
     val lastLine = talk?.run?.said?.lastOrNull()
+    fun speakerOf(id: String?): ScenePerson? = talk?.step?.cast?.firstOrNull { it.id == id } ?: talk?.person
     LaunchedEffect(talk?.key, talk?.run?.said?.size) {
         val line = lastLine
-        if (talk == null || line?.who == null) { talking = false; return@LaunchedEffect }
+        if (talk == null || line?.who == null) { talkingId = null; return@LaunchedEffect }
         delay(DialogMood.sayAfter(talk.run)) // let the panel, the bubble and the person's reaction come first
-        val who = voiceOf(talk.person)
+        val p = speakerOf(line.who) ?: talk.person
+        val who = voiceOf(p)
         speaker.say(line.sl, voiceName = who.voice, fallback = who.fallback, person = who.person)
-        talking = true
+        talkingId = p.id
         delay(700L + line.sl.length * 70L)
-        talking = false
+        talkingId = null
     }
+    // whom the learner answers: the person of the dialog, or in a project's step whoever spoke last
+    val facing = if (talk?.step != null) talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id else talk?.person?.id
+    val talking = talkingId != null && talkingId == facing
     // The child's lines of «Vidim, vidim» are said aloud one after another, each as it comes, and the child is drawn talking.
     var ispyTalking by remember { mutableStateOf(false) }
     var ispySpoken by remember { mutableIntStateOf(0) }
@@ -314,14 +320,21 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
 
     val present = remember(state) { state?.let { Residents.present(it, LocalDate.now()) } }
     val ispyHost = ispy?.host?.person?.id
-    val drawn = remember(scene, here, sleepers, about, talk?.person, talking, present, pose, state, ispyTalking, ispyHost) {
+    val cast = talk?.step?.cast.orEmpty()
+    val drawn = remember(scene, here, sleepers, about, talk?.person, cast, talkingId, facing, present, pose, state, ispyTalking, ispyHost) {
         // whoever a dialog left somewhere for the day (act_stays: Luka by the lantern while it rains) is still there, and
         // who is here by their day (France hoeing the field)
         val stayed = Stage.stayed(scene, DayAct.of(state, now.toLocalDate(), scene.id), present)
         val base = Sleep.inBed((Happenings.peopleIn(scene, here, present) + stayed + about).distinctBy { it.id }, sleepers)
+        // a project's step: its people on the stage where it puts them; whoever else stood there (or is one of them under the
+        // scene's own name) makes way
+        val ids = cast.map { it.id }.toSet()
+        val spots = cast.map { it.slot }.toSet()
+        fun villagerOf(id: String) = scene.people.firstOrNull { it.id == id }?.villager ?: id
+        val staged = if (cast.isEmpty()) base else base.filter { it.id !in ids && villagerOf(it.id) !in ids && it.slot !in spots } + cast.map { PersonInScene(it.id, it.art, it.slot) }
         // Whoever is talking stays until the dialog is closed, also once it's done for today.
-        val all = talk?.person?.takeIf { p -> base.none { it.id == p.id } }?.let { base + PersonInScene(it.id, it.art, it.slot) } ?: base
-        all.map { it.copy(talking = (talking && it.id == talk?.person?.id) || (ispyTalking && it.id == ispyHost), pose = if (it.id == talk?.person?.id) pose else it.pose) }
+        val all = talk?.person?.takeIf { p -> staged.none { it.id == p.id } }?.let { staged + PersonInScene(it.id, it.art, it.slot) } ?: staged
+        all.map { it.copy(talking = (talkingId != null && it.id == talkingId) || (ispyTalking && it.id == ispyHost), pose = if (it.id == facing) pose else it.pose) }
     }
     // «Vidim, vidim» (companion/SCENES.md, "I spy"): a child in the picture, or one of the village's who comes by (awake, not
     // busy elsewhere; QA's hook takes any child), offers it while the day has games left; in a game the child stays
@@ -356,6 +369,16 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             anchors.bounds(SceneTarget.Thing(o.slot))?.let { b -> o.slot to ((viewAt.x + b.center.x).toInt() to (viewAt.y + b.center.y).toInt()) }
         }.toMap()
         vm.ispy.log(r.round, r.current?.slot.orEmpty(), r.current?.word.orEmpty(), at)
+    }
+    // a tap turn's places on the screen: a debug build logs them (tag TapTurn), for QA to tap them in the picture
+    LaunchedEffect(talk?.key, talk?.run?.at, talk?.run?.mode, anchors.hits.isNotEmpty(), viewAt) {
+        val run = talk?.run ?: return@LaunchedEffect
+        if (!si.lanisce.lani.BuildConfig.DEBUG || run.mode != si.lanisce.lani.game.TurnMode.TAP) return@LaunchedEffect
+        val at = run.taps.mapNotNull { t ->
+            (anchors.bounds(SceneTarget.Thing(t)) ?: anchors.bounds(SceneTarget.Person(t)))?.let { b -> "$t@${(viewAt.x + b.center.x).toInt()},${(viewAt.y + b.center.y).toInt()}" }
+        }
+        val right = run.dialog.lines.getOrNull(run.at)?.choices?.firstOrNull { it.ok }?.tap
+        android.util.Log.d("TapTurn", "turn ${run.at} right $right places ${at.joinToString(" ")}")
     }
     val bubbleColor = MaterialTheme.colorScheme.surface
     val density = LocalDensity.current
@@ -442,6 +465,8 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                         onKeepTalking = { scenario -> scenes.closeTalk(); vm.openTalk(scenario) },
                         onListening = { micOn = it },
                         onLearnStory = { story -> vm.learnStory(scene.id, story) },
+                        // a project's step: its people's lines show their faces and are read in their voices
+                        speakers = t.step?.cast.orEmpty().associate { p -> p.id to Speaking(p.emoji, voiceOf(p)) },
                     )
                 } else {
                     val asleep = sleepers.mapNotNull { s ->

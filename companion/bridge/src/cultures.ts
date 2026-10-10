@@ -19,6 +19,7 @@ import { grammarRef } from './grammar'
 import { label, spokenLine, type Label } from './langs'
 import { SCENE_ART, RESOURCES, SPOT_NAMES, TIMES, checkNeeds, dialogGrammar, dialogLine, validateScene, type SceneProject, type SceneRefs } from './scenes'
 import { readReadings, type Reading } from './readings'
+import { cultureProjectSteps } from './project-steps'
 import { cultureSky } from './sky'
 import { CURATED_LEVELS, LEVELS, chaptersOf, curatedPictureErrors, validateStory } from './stories'
 
@@ -451,6 +452,10 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
   const own = projects.projects.map(p => ({ id: p.id, steps: p.steps.length }))
   errors.push(...cultureScenes(culturesDir, cultureId, lang, cast, refs && { ...refs, projects: own }, own, pages))
   errors.push(...cultureStories(culturesDir, cultureId, lang, cast, refs))
+  // its projects' steps as short scenes (project-steps/<project>.json, when the pack has them): each step's dialog said by
+  // the project's people, played in a scene of the village, its turns testing the project's words
+  const people = projects.projects.map(p => ({ id: p.id, leader: p.leader, helpers: p.helpers, steps: p.steps.length }))
+  errors.push(...cultureProjectSteps(culturesDir, cultureId, lang, people, { packs: refs?.packs, pages }).errors)
   // how its people are introduced (arrivals.json, when the pack has one): each of its cast, and the templates
   errors.push(...cultureArrivals(culturesDir, cultureId, lang, cast).errors)
   // its spots' texts (world.json `spots`): the story, the words in their pack, the keeper's talk

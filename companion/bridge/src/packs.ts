@@ -57,6 +57,10 @@ export const packSpec = z
     // "martinovo", "novo_leto"):
     // celebrating it in the village records them, and the packs screen shows it as a feast.
     festival: z.string().regex(/^[a-z][a-z_]{1,39}$/, 'festival must be a calendar festival id (lowercase, a-z and _)').optional(),
+    // The village project whose words these are (a culture pack's project ids, companion/cultures/<id>/projects.json:
+    // "mlaj", "vodnjak_na_trgu"): the projects sheet shows them on its card, its steps' dialogs test them, and the packs
+    // screen lists them with the projects. An older bridge strips the key (the pack is a plain one there).
+    project: z.string().regex(/^[a-z][a-z0-9_]{0,39}$/, 'project must be a village project id (lowercase, a-z, 0-9 and _)').optional(),
     words: z.array(word).min(8).max(24),
   })
   .superRefine((p, ctx) => {

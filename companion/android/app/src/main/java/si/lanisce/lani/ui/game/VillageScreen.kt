@@ -631,12 +631,22 @@ fun VillageScreen(vm: AppViewModel) {
             onReadAloud = { sheet = null; vm.openReadAloud(sh.readable.reading.id, fromVillage = true, fromCorner = false) },
         )
         is VillageSheet.Resource -> ResourceSheet(s, attrs, sh.res, onGather = { sheet = null; vm.startGather(sh.res) }, onDismiss = { sheet = null })
-        is VillageSheet.Projects -> ProjectsSheet(
-            s, vm.villagers.people(s), sh.focus,
-            onStep = { id -> sheet = null; scrollOpen = false; vm.startProject(id) },
-            onDismiss = { sheet = null },
-            onMeet = { id -> sheet = null; scrollOpen = false; vm.villagers.meet(id) },
-        )
+        is VillageSheet.Projects -> {
+            // the projects' words: their packs as the node has them (loaded for the sheet: which are learned), else as the
+            // app bundles them; and where today's step is played, when the village has its scene open
+            val packIds = remember(s.age) { si.lanisce.lani.game.Projects.open(s).mapNotNull { it.pack } }
+            LaunchedEffect(packIds) { for (id in packIds) runCatching { vm.scenes.loadPack(id) } }
+            ProjectsSheet(
+                // a debug build's QA readied a step: the sheet opens at its project
+                s, vm.villagers.people(s), sh.focus ?: si.lanisce.lani.app.QaHooks.project,
+                onStep = { id -> sheet = null; scrollOpen = false; vm.startProject(id) },
+                onDismiss = { sheet = null },
+                onMeet = { id -> sheet = null; scrollOpen = false; vm.villagers.meet(id) },
+                words = { spec -> vm.projectWords(spec) },
+                onWord = { w, line, meant -> vm.words.open(si.lanisce.lani.app.WordQuery(w, line, meant.takeIf { it.isNotBlank() }, si.lanisce.lani.data.Words.SCENE)) },
+                onLearn = { pack -> sheet = null; scrollOpen = false; vm.startPack(pack, fromVillage = true) },
+            )
+        }
         is VillageSheet.Building -> s.buildings.firstOrNull { it.id == sh.id }?.let { b ->
             // "↔ Premakni · Move": to the plot chooser, and back to this card when cancelled
             val move = PlotChoice.move(s, b).takeIf { it.building(s) != null && it.open(s) }

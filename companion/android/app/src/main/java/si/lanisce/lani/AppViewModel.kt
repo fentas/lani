@@ -197,6 +197,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         adapt = { d, language -> grammar.adapt(d, language, canListen()) },
         // the turns that test the learner's own words count on their cards (companion/SCENES.md, "Your words in the dialogs")
         words = dialogWords::words,
+        // a village project's step played as its scene: the step done (companion/SCENES.md, "Project steps")
+        stepPlayed = game::projectStepPlayed,
     ).also { s -> grammar.scenes = { s.all } }
 
     /**
@@ -711,6 +713,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             "mini" -> prepareRoad(mini = true)
             "car" -> si.lanisce.lani.road.RoadCarCheck.run(getApplication())
         }
+    }
+
+    /**
+     * QA's "step:<project>/<n>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready for that step
+     * today, and the village shown, where QA opens the projects sheet at it.
+     */
+    fun qaStep(project: String, n: Int) {
+        game.apply { si.lanisce.lani.app.QaHooks.readyStep(it, project, n, java.time.LocalDate.now()) }
+        openVillage()
     }
 
     /**
@@ -1278,8 +1289,49 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun startGather(res: Res, again: Boolean = false) = startChallenge(ChallengeOrigin.Gather(res), again)
     fun startEvent() = startChallenge(ChallengeOrigin.Event)
 
-    /** Today's step of village project [id], with its leader (companion/GAME.md, "Village projects"). */
-    fun startProject(id: String) = startChallenge(ChallengeOrigin.Project(id))
+    /**
+     * Today's step of village project [id], with its leader (companion/GAME.md, "Village projects"): its short scene that
+     * does it (companion/SCENES.md, "Project steps"), in the step's scene when the village has it open, else over the
+     * village; a step without one (an older content file) is its practice, as before.
+     */
+    fun startProject(id: String) {
+        if (!startProjectStep(id)) startChallenge(ChallengeOrigin.Project(id))
+    }
+
+    /**
+     * Project [spec]'s words on its card (companion/SCENES.md "Project steps"): its pack as the node has it (which are
+     * learned), else as the app bundles it, and where today's step is played (its scene's title, when the village has it
+     * open); null when it has no pack.
+     */
+    fun projectWords(spec: si.lanisce.lani.game.ProjectSpec): si.lanisce.lani.ui.game.ProjectWords? {
+        val id = spec.pack ?: return null
+        val p = scenes.packs[id] ?: si.lanisce.lani.game.FestivalPacks.pack(id) ?: return null
+        val s = game.state
+        val o = s?.let { si.lanisce.lani.game.Projects.option(it, spec, java.time.LocalDate.now()) }
+        val where = s?.let { st -> o?.next?.play?.let { play -> si.lanisce.lani.game.Projects.sceneOf(play, scenes.all, st, Cultures.current.manifest.language) } }
+            ?.let { "${it.emoji} ${it.title}" }
+        return si.lanisce.lani.ui.game.ProjectWords(id, p.words, p.learned.toSet(), where)
+    }
+
+    /** Today's step of project [id] as its short scene ([startProject]); false when it has none (or none to play now). */
+    private fun startProjectStep(id: String): Boolean {
+        val s = game.state ?: return false
+        val spec = si.lanisce.lani.game.Projects.spec(id) ?: return false
+        val today = java.time.LocalDate.now()
+        val o = si.lanisce.lani.game.Projects.option(s, spec, today)
+        val play = o.next?.play ?: return false
+        if (!o.available) {
+            o.reason?.let { notices.banner = "${spec.emoji} $it" }
+            return true
+        }
+        val lang = Cultures.current.manifest.language
+        // its scene, when the village has it open now (built, the age reached) and it is in the village's language
+        val scene = si.lanisce.lani.game.Projects.sceneOf(play, scenes.all, s, lang)
+        val people = villagers.people(s, today)
+        if (!scenes.startStep(spec, o.done, scene, si.lanisce.lani.game.villagers.Residents.present(s, today), people)) return false
+        if (scene != null) openScene(scene.id)
+        return true
+    }
 
     /** The festival [id] that is on today (companion/GAME.md, "The calendar"). */
     fun startFestival(id: String) = startChallenge(ChallengeOrigin.Festival(id))

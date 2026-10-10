@@ -12,6 +12,7 @@ import { ScenarioStore } from '../../src/scenarios'
 import { SCENE_ART, validateScene } from '../../src/scenes'
 import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
+import { cultureProjectSteps, cultureStepFiles, speakerGendered, stepTellings } from '../../src/project-steps'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, tempDir } from './harness'
 import { JAN } from '../learner-content'
@@ -185,6 +186,50 @@ export default async function cultures() {
     paged.ok && !unpaged.ok && unpaged.errors.includes('tinyland/world.json: spots.kopa.keeper: dialogs[3] (talks[0].levels.A2).lines[1].choices[1].grammar: no grammar page "nowhere" in companion/grammar/it'),
     { paged: !paged.ok && paged.errors, unpaged: !unpaged.ok && unpaged.errors },
   )
+  // --- a project's steps as short scenes (project-steps/<project>.json, lani.project-steps/v0; companion/SCENES.md "Project
+  // steps"): the test pack's maypole has its first step's dialog at A1 and A2, said by its leader and helper; checked with
+  // the pack (validateCulture above passes it), and what's wrong in one is named with the file
+  const tinySteps = cultureStepFiles(resolve(android, '../../../../../../test/resources/cultures-test'), 'tinyland')
+  check(
+    "the test pack's maypole plays its first step as a short scene (A1 and A2, Nino and Pina), the rest as practices",
+    tinySteps.length === 1 && tinySteps[0].project === 'mlaj' && tinySteps[0].steps.length === 1 && !!tinySteps[0].steps[0]?.levels.A1 && !!tinySteps[0].steps[0]?.levels.A2 &&
+      stepTellings(tinySteps[0]).every(t => t.lines.filter(l => l.who).every(l => ['nino', 'pina'].includes(l.who!))),
+    tinySteps,
+  )
+  const stepped = tempDir('lani-smoke-culture-steps-')
+  cpSync(resolve(android, '../../../../../../test/resources/cultures-test/tinyland'), join(stepped, 'tinyland'), { recursive: true })
+  const ts = JSON.parse(readFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), 'utf8'))
+  const a1 = ts.steps[0].levels.A1.lines
+  a1[1].who = 'gino'
+  delete a1[3].choices[1].why.de
+  delete a1[3].choices[1].reply
+  a1[3].choices[0].tap = 'spruce'
+  a1[3].choices[1].tap = 'tree'
+  delete ts.steps[0].levels.A2
+  ts.steps.push(...[null, null, null, null, null])
+  writeFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), JSON.stringify(ts))
+  writeFileSync(join(stepped, 'tinyland/project-steps/nowhere.json'), JSON.stringify({ ...ts, project: 'nowhere', steps: [] }))
+  const bst = validateCulture(stepped, 'tinyland')
+  const stepWrong = [
+    'tinyland/project-steps/mlaj.json: steps: 6, but the project has 5',
+    'tinyland/project-steps/mlaj.json: steps[0].levels: no A2 (a curated step is written for A1 and A2 at least)',
+    'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[1]: who "gino" is neither the project\'s leader nor a helper (nino, pina)',
+    'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3].choices[1].why: no "de" why',
+    'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3].choices[1]: a wrong choice needs a reaction',
+    'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3]: a tap turn needs the step\'s scene (its picture to tap in)',
+    'tinyland/project-steps/nowhere.json:',
+  ]
+  check("… a step: more steps than its project, a level missing, a line someone else says, a why or a reaction missing, a tap with no scene, a file of no project", !bst.ok && stepWrong.every(e => bst.errors.includes(e)), !bst.ok && bst.errors)
+  writeFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), JSON.stringify({ ...JSON.parse(readFileSync(resolve(android, '../../../../../../test/resources/cultures-test/tinyland/project-steps/mlaj.json'), 'utf8')), when: 'today' }))
+  writeFileSync(join(stepped, 'tinyland/project-steps/nowhere.json'), '{}')
+  const looseSteps = cultureProjectSteps(stepped, 'tinyland', 'it', [{ id: 'mlaj', leader: 'nino', helpers: ['pina'], steps: 5 }])
+  check('… and a key the format has not got', looseSteps.errors.some(e => e.includes('tinyland/project-steps/mlaj.json') && e.includes('when')), looseSteps.errors)
+  // a Slovene helper's line that says the speaker's gender: another may say it when they are away
+  check(
+    "… a helper's line may say nothing of who says it (another says it when they're away)",
+    speakerGendered('Prinesel sem vrv.') && speakerGendered('Danes sem utrujena.') && speakerGendered('Tega ne zmorem sam.') && !speakerGendered('Tukaj sem! Primimo vrv.') && !speakerGendered('Smreka je visoka.'),
+  )
+
   tw.spots = { nowhere: tw.spots.kopa }
   writeFileSync(join(spotted, 'tinyland/world.json'), JSON.stringify(tw))
   const nowhere = validateCulture(spotted, 'tinyland')

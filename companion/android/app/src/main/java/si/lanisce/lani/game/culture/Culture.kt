@@ -39,10 +39,19 @@ class Culture(
      * for a pack without them: then its village introduces nobody and everyone counts as met.
      */
     val arrivals: si.lanisce.lani.game.villagers.ArrivalsFile? = null,
+    /**
+     * Its projects' steps as short scenes (project-steps/<project>.json, by project id; companion/SCENES.md "Project
+     * steps"): a project without one plays its steps as the practice it always had.
+     */
+    val projectSteps: Map<String, ProjectStepsFile> = emptyMap(),
 ) {
     /** This pack with [a] as its arrivals (tests, and a pack whose arrivals come later). */
     fun withArrivals(a: si.lanisce.lani.game.villagers.ArrivalsFile?): Culture =
-        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, a)
+        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, a, projectSteps)
+
+    /** This pack with [steps] as its projects' steps (tests). */
+    fun withProjectSteps(steps: Map<String, ProjectStepsFile>): Culture =
+        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, steps)
 
     val id: String get() = manifest.id
     val language: Lang get() = checkNotNull(Lang.of(manifest.language)) { "${manifest.id}: language ${manifest.language} isn't one of the app's" }
@@ -106,11 +115,15 @@ class Culture(
 
     val projects: List<ProjectSpec> = Catalog.projectFrames.mapNotNull { frame ->
         val p = projectsFile.projects.firstOrNull { it.id == frame.id } ?: return@mapNotNull null
+        // each step as a short scene, where the pack has one for it (a step without: the practice it always had)
+        val played = projectSteps[frame.id]
         ProjectSpec(
             id = frame.id, landmark = frame.landmark, age = frame.age, leader = p.leader, emoji = frame.emoji,
             nameText = p.name, inText = over(p.name, p.inText), aboutText = p.about, skill = frame.skill, topics = frame.topics, site = frame.site,
-            steps = frame.steps.zip(p.steps) { (kind, help), s -> ProjectStep(kind, s.task, s.line, help) },
-            bonus = frame.bonus, helpers = p.helpers, doneText = p.done, memoryText = p.memory, whereText = p.where,
+            steps = frame.steps.zip(p.steps).mapIndexed { i, (frameStep, s) ->
+                ProjectStep(frameStep.first, s.task, s.line, frameStep.second, played?.steps?.getOrNull(i)?.takeIf { it.levels.isNotEmpty() })
+            },
+            bonus = frame.bonus, helpers = p.helpers, doneText = p.done, memoryText = p.memory, whereText = p.where, pack = played?.pack,
         )
     }
 

@@ -584,6 +584,39 @@ data class ProjectLines(/** {leader} */ @SerialName("try_again") val tryAgain: T
 @Serializable
 data class ProjectsFile(val projects: List<ProjectEntry>, val lines: ProjectLines)
 
+// --- project-steps/<project>.json ---------------------------------------------------------------------------------
+
+/**
+ * A village project's steps as short scenes (project-steps/<project>.json, lani.project-steps/v0; companion/SCENES.md
+ * "Project steps"): each step, in order, as it is played (null: as the practice it always was); [pack]: the word pack of
+ * the project's words, which its steps' turns test; [review]: who wrote it and who checked it. Read leniently (an older
+ * app never sees the file; a newer key is read past), checked by the bridge (project-steps.ts).
+ */
+@Serializable
+data class ProjectStepsFile(
+    val schema: String,
+    val project: String,
+    val language: String,
+    val review: String? = null,
+    val pack: String? = null,
+    val steps: List<StepPlay?> = emptyList(),
+)
+
+/**
+ * One step as a short scene: the [scene] it is played in (a scene id; played over the village when the village hasn't it
+ * open, or it is missing), the [words] of the project's pack its turns test, its dialog at each level ([levels]: "A1" →
+ * {"lines": […]}, a scene dialog's lines said by the project's leader and helpers, read in the learner's pair when it is
+ * played), and whether the sky or the effects it brings stay for the day ([skyStays], [fxStays], as a scene dialog's).
+ */
+@Serializable
+data class StepPlay(
+    val scene: String? = null,
+    val words: List<String> = emptyList(),
+    val levels: kotlinx.serialization.json.JsonObject = kotlinx.serialization.json.JsonObject(emptyMap()),
+    @SerialName("sky_stays") val skyStays: Boolean? = null,
+    @SerialName("fx_stays") val fxStays: Boolean? = null,
+)
+
 // --- events.json ------------------------------------------------------------------------------------------------
 
 @Serializable

@@ -28,6 +28,25 @@ class QaHooksTest {
         QaHooks.handle("turns:")
         QaHooks.handle("bubbles:")
         QaHooks.handle("clock:")
+        QaHooks.handle("step:")
+    }
+
+    @Test fun `a project's step readied, the sheet at its project, until let go`() {
+        val asked = ArrayList<Pair<String, Int>>()
+        QaHooks.handle("step:mlaj/2", step = { p, n -> asked += p to n })
+        assertEquals(listOf("mlaj" to 2), asked)
+        assertEquals("mlaj", QaHooks.project)
+        QaHooks.handle("step:")
+        assertNull(QaHooks.project)
+        // the village ready for it: the step before done, none today yet, the stores it costs
+        val day = java.time.LocalDate.of(2026, 9, 1)
+        val s = si.lanisce.lani.game.GameState(age = si.lanisce.lani.game.Age.ZASELEK, projects = mapOf("mlaj" to 4), projectDay = day.toString())
+        val r = QaHooks.readyStep(s, "mlaj", 2, day)
+        assertEquals(1, r.projects["mlaj"])
+        assertEquals("", r.projectDay)
+        val spec = si.lanisce.lani.game.Projects.spec("mlaj")!!
+        for ((res, n) in si.lanisce.lani.game.Catalog.stepCost(spec.age, spec.steps[1].kind)) assertTrue("$res", r.res(res) >= n)
+        assertTrue(r.help >= si.lanisce.lani.game.Catalog.stepHelp(spec.age)) // the second step brings the neighbours
     }
 
     @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {

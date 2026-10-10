@@ -1,11 +1,11 @@
 #!/usr/bin/env bun
 // Voice prebuild: counts the texts in villagers, packs, modules, scenarios, scenes, «Vidim, vidim» (what a child says
 // playing I spy in the scenes: companion/ispy), the keepers' talks (the culture's spots: the charcoal burner's meeting and
-// his story), the storyteller's stories and the car's drills (Slovene, or the
+// his story), the village projects' steps (the culture's project-steps/), the storyteller's stories and the car's drills (Slovene, or the
 // language of the learner's culture pack, LANI_CULTURE, with its own voice cast), what is voiced, what is missing and
 // the ElevenLabs quota left. With --run, generates the missing clips in priority order (villager lines in their
-// speakers' voices, pack words, examples, modules, scenarios, the stories' tellings at A1, the drills at A1, scenes and
-// the keepers' talks, I spy's lines (in the voice of each child who may play there), then the tellings at A2, the drills
+// speakers' voices, pack words, examples, modules, scenarios, the stories' tellings at A1, the drills at A1, scenes,
+// the keepers' talks and the projects' steps, I spy's lines (in the voice of each child who may play there), then the tellings at A2, the drills
 // above A1, the tellings at B1 and up; a telling and a
 // riddle in the teller's voice, their own designed one where it is ready ("@janez": ElevenLabs only), a drill's other
 // texts in the narrator's: the car plays a story or a drill's item only when its clips exist):
@@ -74,6 +74,7 @@ import { addresseeOf } from '../bridge/src/addressee'
 import { cast, castVoiced, denoiseVoices, isSpeaker, personVoice, useCastFile, usePersonVoices } from '../bridge/src/cast'
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
+import { cultureStepFiles, stepTellings } from '../bridge/src/project-steps'
 import { DrillStore, drillsDir } from '../bridge/src/drills'
 import { grammarDir, GrammarStore } from '../bridge/src/grammar'
 import { readISpy } from '../bridge/src/ispy'
@@ -509,6 +510,8 @@ const items = corpus({
   scenes: scenes.resolved(),
   // the culture's keepers' talks (world.json `spots`: the charcoal burner's meeting and his story, every telling)
   keepers: cultureKeepers(cultures, culture).map(k => ({ ...k, tellings: keeperTellings(k) })),
+  // the village projects' steps as short scenes (project-steps/: every telling, each line in its speaker's voice)
+  steps: cultureStepFiles(cultures, culture).map(f => ({ project: f.project, tellings: stepTellings(f) })),
   villagers: villagers.all(),
   stories: stories.all(),
   drills: drills.all(),

@@ -66,7 +66,17 @@ data class SceneTalk(
     val friend: FriendGain? = null,
     val story: StoryTonight? = null,
     val started: Long = 0L,
+    /** A village project's step played as its short scene (companion/SCENES.md "Project steps"); null for any other dialog. */
+    val step: StepTalk? = null,
 )
+
+/**
+ * A village project's step played as a short scene that does it (companion/SCENES.md "Project steps"): [project] and its
+ * step [index] (0: the first), whom it stages ([cast]: the leader first, each with where they stand in the scene; over the
+ * village their spot is empty), whether it is played [over] the village (no scene of its own open today), and once played to
+ * its end what came of it ([result]: the step done, its chronicle line; or why it couldn't be done now).
+ */
+data class StepTalk(val project: String, val index: Int, val cast: List<ScenePerson>, val over: Boolean, val result: si.lanisce.lani.game.ChallengeResult? = null)
 
 /** A talk with someone at a spot of the landscape ([keeper]: the charcoal burner by his kopa), played as a scene's dialog ([talk]). */
 data class KeeperTalk(val keeper: ActiveKeeper, val talk: SceneTalk)
@@ -121,6 +131,11 @@ class SceneController(
      * turn) or none ([DialogWordsController.words]; companion/SCENES.md, "Your words in the dialogs"). None by default.
      */
     private val words: (Dialog, String, SceneSpec?) -> Map<Int, si.lanisce.lani.game.TurnWords> = { _, _, _ -> emptyMap() },
+    /**
+     * A village project's step was played as its scene to its end: the step done (or why not) and how the leader's
+     * friendship grew ([GameController.projectStepPlayed]); null when the village isn't loaded.
+     */
+    private val stepPlayed: (String) -> Pair<si.lanisce.lani.game.ChallengeResult, FriendGain?>? = { null },
 ) {
     private val app = context.applicationContext
     private val store = SceneStore(context.filesDir)
@@ -307,6 +322,37 @@ class SceneController(
         talk = null
     }
 
+    // --- a village project's step as a short scene (companion/SCENES.md "Project steps") -----------------------------------
+
+    /**
+     * Starts step [index] of project [spec] as its short scene, at the learner's level in the village's language, read in
+     * their pair, its lines said by who is here today ([si.lanisce.lani.game.Projects.cast]: [present], null for everyone;
+     * [people], the cast and the village's own): in [scene], its people on the scene's stage and its tap turns answered in the
+     * picture, or without one over the village (ProjectStepScene). As this learner meets it: its turns of rules not yet
+     * trimmed, their traps and words in it. False when the step has no scene of its own (it is played as a practice).
+     */
+    fun startStep(spec: si.lanisce.lani.game.ProjectSpec, index: Int, scene: SceneSpec?, present: Set<String>?, people: List<si.lanisce.lani.game.villagers.Villager>): Boolean {
+        val lang = si.lanisce.lani.game.culture.Cultures.current.manifest.language
+        val file = si.lanisce.lani.game.Projects.dialog(spec, index, level(lang), lang) ?: return false
+        val cast = si.lanisce.lani.game.Projects.cast(spec, file, present, people)
+        val (d, modes, notYet) = adapt(si.lanisce.lani.game.Projects.recast(file, cast), lang)
+        val ids = si.lanisce.lani.game.Projects.speakers(spec, d)
+        val stage = scene?.let { si.lanisce.lani.game.Projects.placed(it, ids, people) }
+            ?: ids.map { id -> people.firstOrNull { it.id == id }.let { v -> ScenePerson(id, v?.name ?: id, v?.emoji ?: spec.emoji, v?.art ?: "man", "", villager = id) } }
+        val leader = stage.first()
+        val step = spec.steps[index]
+        val h = Happening(id = "${spec.id}-${index + 1}", title = "${spec.short} ${index + 1}/${spec.steps.size}: ${step.task}", who = leader.id, marker = spec.emoji)
+        val tap = if (scene != null) DialogRun.tapModes(d) else emptyMap()
+        val run = DialogRun.start(
+            d, leader.id, seed = kotlin.random.Random.nextLong(), repliers = si.lanisce.lani.game.Projects.repliers(d, leader.id),
+            modes = tap + modes, notYet = notYet, words = words(d, lang, scene),
+        )
+        val key = si.lanisce.lani.game.Projects.dialogId(spec, index)
+        talk = SceneTalk(scene?.id ?: key, key, leader, h, d, run, step = StepTalk(spec.id, index, stage, over = scene == null))
+        settle()
+        return true
+    }
+
     private fun step(f: (DialogRun) -> DialogRun) {
         val t = talk ?: return
         talk = t.copy(run = f(t.run))
@@ -394,6 +440,13 @@ class SceneController(
     private fun settle() {
         val t = talk ?: return
         if (t.settled || t.run.step != DialogRun.Step.END) return
+        // a project's step played to its end: the step is done (its cost paid, its line in the chronicle), nothing else paid
+        t.step?.let { st ->
+            val (result, friend) = stepPlayed(st.project) ?: (null to null)
+            talk = t.copy(settled = true, step = st.copy(result = result), friend = friend)
+            if (!st.over) keepScene(t.sceneId, t.run, byId(t.sceneId))
+            return
+        }
         val entry = t.person.emoji to "${t.person.name}: ${t.happening.title}"
         val paid = t.copy(settled = true, paid = pay(t.key, SceneWords.reward(t.happening.reward), t.run.mistakes, entry))
         talk = paid.copy(friend = befriend(paid))

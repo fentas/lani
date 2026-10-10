@@ -1217,7 +1217,8 @@ const drillPriority = (level: (typeof LEVELS)[number]) => PRIORITY_LABELS.indexO
  * scenarios, the storyteller's stories told at A1 ([storyTexts]), the car's drills at A1 ([drillTexts]: in the
  * narrator's voice, a riddle in its teller's), then the scenes' dialogs (each person's lines in their villager's speaker,
  * else their sprite's voice; the learner's choices in the default voice) and the keepers' talks (the charcoal burner's
- * at his pile: his meeting and his story, every telling at every level, as a scene's dialog in his speaker's voice), then
+ * at his pile: his meeting and his story, every telling at every level, as a scene's dialog in his speaker's voice) and
+ * the village projects' steps (every telling, each line in its speaker's voice), then
  * the stories told at A2, the drills above A1, the stories at B1 and up.
  */
 export function corpus(input: {
@@ -1230,6 +1231,11 @@ export function corpus(input: {
    * telling of his talks (cultures.ts keeperTellings): the app plays them as a scene's dialog, in his speaker's voice.
    */
   keepers?: { id: string; voice: 'female' | 'male'; speaker?: string; tellings: { lines: ResolvedScene['dialogs'][number]['lines'] }[] }[]
+  /**
+   * The village projects' steps as short scenes (project-steps.ts, stepTellings): every telling of every step, its lines
+   * said by the project's leader and helpers (each in their villager's speaker voice), as a scene's dialog.
+   */
+  steps?: { project: string; tellings: { lines: ResolvedScene['dialogs'][number]['lines'] }[] }[]
   villagers?: (Pick<Villager, 'id' | 'voice' | 'speaker' | 'lines'> & { art?: string })[]
   cards?: string[]
   /**
@@ -1394,6 +1400,28 @@ export function corpus(input: {
       for (const ch of l.choices) {
         add(say(ch), src, SCENES)
         add(say(ch.reply), src, SCENES, voice)
+      }
+    }
+  }
+  // the projects' steps, as a scene's dialog: each line in its speaker's voice (the leader's, a helper's), a reply in the
+  // voice of whoever spoke last, the learner's choices in the default one
+  for (const p of c.steps ?? []) {
+    const src = `project:${p.project}`
+    const say = (t: Partial<Record<string, unknown>> | undefined) => {
+      const x = t?.[language]
+      return typeof x === 'string' && x && !x.includes('{') ? x : undefined
+    }
+    for (const t of p.tellings) {
+      let speaker: VoiceName = 'female'
+      for (const l of t.lines) {
+        if (l.who) {
+          speaker = villagerVoice.get(l.who) ?? 'female'
+          add(say(l), src, SCENES, speaker)
+        }
+        for (const ch of l.choices) {
+          add(say(ch), src, SCENES)
+          add(say(ch.reply), src, SCENES, speaker)
+        }
       }
     }
   }

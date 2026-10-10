@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
 
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
-        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms)
+        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep)
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
@@ -184,6 +184,8 @@ private fun App(vm: AppViewModel) {
     vm.villagers.meeting?.let { si.lanisce.lani.ui.villagers.ArrivalScene(vm, it) }
     // someone at a spot of the landscape (the charcoal burner by his kopa, his bubble or himself tapped): his talk
     vm.scenes.keeperTalk?.let { si.lanisce.lani.ui.scene.KeeperScene(vm, it) }
+    // a village project's step played over the village (no scene of its own open today): its people and its dialog
+    vm.scenes.talk?.takeIf { it.step?.over == true }?.let { si.lanisce.lani.ui.scene.ProjectStepScene(vm, it) }
     vm.words.card?.let { WordSheet(vm, it) }
     // no village yet, anywhere: the learner chooses where it will be before anything else of the game
     val founding = vm.game.placeNeeded && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
