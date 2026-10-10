@@ -121,6 +121,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val clips = Clips(app, viewModelScope).also { speaker.clips = it }
     /** The hint's 🔊 in a dialog: its TL;DR in the learner's base with the Slovene in the app's voice; stopped by [speaker]. */
     val hintVoice = si.lanisce.lani.data.HintVoice(app, viewModelScope, speaker).also { speaker.hint = it }
+    /**
+     * "🔊 Zvok brez povezave · Offline audio": the day's clips got ready on Wi-Fi within the cap, and the phone's offline voice
+     * (Piper), which [speaker] speaks with when no clip can be had (app/OfflineAudioController).
+     */
+    val offlineAudio = si.lanisce.lani.app.OfflineAudioController(app, viewModelScope, config = { prefs.config() }).also { speaker.offline = it.piper }
     /** "🚗 Za pot · For the road": the car's sessions got ready on the phone (road/RoadPrep), played by road/RoadService. */
     val road = si.lanisce.lani.road.RoadPrep(app, viewModelScope)
     /** The phone's own player for the road's sessions (Bluetooth without Android Auto). */
@@ -345,6 +350,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 paired = o.info
                 connect(o.config)
                 notices.banner = Pairing.pairedBanner(o.info)
+                offlineAudio.afterPairing() // "Prenesi glas brez povezave?", once
                 done(null)
             }
         }
@@ -385,6 +391,22 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         clips.syncProfiles(villagers.voicePeople(game.state))
         // the node has the new level now, or the learner is ready for the next: the storyteller offers the map
         treasure.check()
+        // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi
+        offlineAudio.plan(::dayGather)
+    }
+
+    /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */
+    private fun dayGather(): si.lanisce.lani.app.DayAudioGather? {
+        val b = bridge ?: return null
+        val d = content.dashboard ?: return null
+        val target = L10n.ownPair.target.code
+        return si.lanisce.lani.app.DayAudioGather(
+            getApplication(), cards = d.pool, packs = packs.list,
+            pack = { id -> runCatching { b.pack(id) }.getOrNull() ?: scenes.packs[id] },
+            state = game.state, scenes = scenes.all, cast = villagers.all, profiles = clips.profiles, level = ::levelIn,
+            grammar = if (grammar.language == target) grammar.pages else emptyList(), mastery = grammar::mastery, ispy = ispy::book,
+            greetings = listOf(6, 12, 20).map { si.lanisce.lani.ui.greeting(it) }, target = target,
+        )
     }
 
     /** The culture pack the bridge plays for this learner; an older bridge (or none right now) keeps the one we have. */
@@ -722,6 +744,19 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun qaStep(project: String, n: Int) {
         game.apply { si.lanisce.lani.app.QaHooks.readyStep(it, project, n, java.time.LocalDate.now()) }
         openVillage()
+    }
+
+    /**
+     * What QA asks of the offline audio in a debug build (app/QaHooks, "audio:<what>"): "prefetch" the day's plan made and its
+     * clips got now, "voice" the offline voice downloaded, "say:<text>" / "slow:<text>" a text said as a 🔊 says it.
+     */
+    fun qaAudio(what: String) {
+        when {
+            what == "prefetch" -> offlineAudio.planAndFetch(::dayGather)
+            what == "voice" -> offlineAudio.downloadVoice()
+            what.startsWith("say:") -> speaker.say(what.removePrefix("say:"))
+            what.startsWith("slow:") -> speaker.say(what.removePrefix("slow:"), slow = true)
+        }
     }
 
     /**

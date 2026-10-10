@@ -29,6 +29,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import si.lanisce.lani.MainActivity
 import si.lanisce.lani.R
+import si.lanisce.lani.audio.AudioBudget
+import si.lanisce.lani.audio.AudioFiles
+import si.lanisce.lani.audio.AudioSettings
+import si.lanisce.lani.audio.ClipFiles
+import si.lanisce.lani.audio.Piper
+import si.lanisce.lani.audio.Room
 import si.lanisce.lani.data.ClipsApi
 import si.lanisce.lani.data.Prefs
 import si.lanisce.lani.l10n.Lang
@@ -105,14 +111,21 @@ class RoadPrepService : Service() {
         var ownOpened: Boolean? = null
         val api = runCatching { Prefs(this).config() }.getOrNull()?.let(::ClipsApi)
         var prepares = api != null
+        // the car's library counts in the learner's cap (si.lanisce.lani.audio.AudioCap), after the day's clips: what doesn't
+        // fit is left out, as what can't be had
+        val files = AudioFiles(filesDir)
+        val room = withContext(Dispatchers.IO) { roadRoom(files) }
+        // the quiz's target-language texts the node can't voice: the phone's offline voice first (Piper), if it has one
+        val piper = Piper(this).also { it.target = target }
         try {
             val result = RoadPrepWork(
                 store,
-                fetch = { f -> fetch(store, plan, api, f) },
+                fetch = { f -> fetch(store, plan, api, f, files, room) },
                 render = { t ->
                     if (opened == null) opened = withContext(Dispatchers.Main) { voice.open(Locale.forLanguageTag(Lang.of(base)?.locale ?: base)) }
                     if (opened != true) throw RoadPrepWork.NoVoice()
-                    voice.render(t, store.prompt(base, t))
+                    val to = store.prompt(base, t)
+                    voice.render(t, to) && fits(room, to)
                 },
                 progress = { p -> scope.launch { progressed(p) } },
                 publish = { lib -> scope.launch { RoadPrepState.library = lib } },
@@ -128,18 +141,27 @@ class RoadPrepService : Service() {
                     texts.mapIndexed { i, s ->
                         val to = store.spoken(s.voice, s.text)
                         val got = urls?.getOrNull(i)?.let { u -> runCatching { download(store, api, u, to) }.getOrDefault(false) } == true
-                        got || run {
+                        val had = got || runCatching { piper.render(s.text, 1f) }.getOrNull()?.let { wav ->
+                            withContext(Dispatchers.IO) { runCatching { wav.copyTo(to, overwrite = true); true }.getOrDefault(false) }
+                        } == true || run {
                             if (ownOpened == null) ownOpened = withContext(Dispatchers.Main) { own.open(Locale.forLanguageTag(Lang.of(target)?.locale ?: target)) }
                             ownOpened == true && own.render(s.text, to)
                         }
+                        had && fits(room, to)
                     }
                 },
             ).run(plan)
-            withContext(Dispatchers.IO) { store.clearPlan() }
+            withContext(Dispatchers.IO) {
+                store.clearPlan()
+                // the library grew: the clip cache makes room under the cap (the least recently played clips go)
+                files.forgetRoad()
+                runCatching { files.trim(AudioSettings(this@RoadPrepService).cap) }
+            }
             RoadPrepState.library = result.library
             RoadPrepState.problem = when {
                 result.noVoice -> bi("road.noVoice")
-                result.clipsTried > 0 && result.clipsFailed == result.clipsTried -> bi("road.needsNode")
+                result.clipsTried > 0 && result.clipsFailed == result.clipsTried && !room.full -> bi("road.needsNode")
+                room.full -> bi("road.cap")
                 else -> null
             }
             RoadPrepState.done = true
@@ -159,7 +181,27 @@ class RoadPrepService : Service() {
         } finally {
             voice.close()
             own.close()
+            piper.release()
         }
+    }
+
+    /**
+     * What the car's library may still take under the learner's cap ([AudioBudget.room]): the cap less the library and the
+     * day's clips. No limit with the cap off or unlimited (as before).
+     */
+    private fun roadRoom(files: AudioFiles): Room {
+        val cap = AudioSettings(this).cap
+        val limit = AudioBudget.limit(cap)?.takeIf { !AudioBudget.cacheOnly(cap) } ?: return Room(null)
+        files.forgetRoad()
+        val road = files.roadFiles(maxAgeMs = 0)
+        return Room(AudioBudget.room(files.cacheFiles(ids = true), road, limit, files.keep()))
+    }
+
+    /** [f], just got for the library, fits under the cap: counted; else it goes again (and the item is left out). */
+    private fun fits(room: Room, f: File): Boolean {
+        if (room.take(f.length())) return true
+        f.delete()
+        return false
     }
 
     /** A clip of the node's at [url] into [to] (`?count=0`: getting ready isn't a request to count). */
@@ -170,18 +212,21 @@ class RoadPrepService : Service() {
         part.length() > 0 && part.renameTo(to)
     }
 
-    /** Clip [f] into the road's clips: from the phone's clip cache, else downloaded (`?count=0`: the node doesn't count it). */
-    private suspend fun fetch(store: RoadStore, plan: RoadPlan, api: ClipsApi?, f: String): Boolean = withContext(Dispatchers.IO) {
+    /**
+     * Clip [f] into the road's clips: linked from the phone's clip cache when it has it (one file, nothing copied), else
+     * downloaded (`?count=0`: the node doesn't count it), once: a clip the day's prefetch is getting meanwhile is waited for
+     * ([ClipFiles]). Within the cap ([room]).
+     */
+    private suspend fun fetch(store: RoadStore, plan: RoadPlan, api: ClipsApi?, f: String, files: AudioFiles, room: Room): Boolean = withContext(Dispatchers.IO) {
         val to = store.clip(f)
         if (to.isFile) return@withContext true
-        val part = File(store.clips, "$f.part")
-        val cached = plan.cache?.let { File(it, f) }
-        if (cached?.isFile == true) cached.copyTo(part, overwrite = true)
-        else {
-            val url = plan.urls[f] ?: return@withContext false
-            (api ?: return@withContext false).download(url + (if ('?' in url) "&" else "?") + "count=0", part)
+        val url = plan.urls[f]
+        val from = listOfNotNull(plan.cache?.let { File(it, f) }, File(files.clips, f))
+        val got = ClipFiles.get(to, from) { into ->
+            if (url == null || api == null) throw java.io.IOException("no clip")
+            api.download(url + (if ('?' in url) "&" else "?") + "count=0", into)
         }
-        part.length() > 0 && part.renameTo(to)
+        got && fits(room, to)
     }
 
     private fun progressed(p: RoadProgress.Files) {

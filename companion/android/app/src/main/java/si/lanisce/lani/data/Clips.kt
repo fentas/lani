@@ -19,6 +19,9 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 import okhttp3.RequestBody.Companion.toRequestBody
+import si.lanisce.lani.audio.AudioFiles
+import si.lanisce.lani.audio.AudioSettings
+import si.lanisce.lani.audio.ClipFiles
 import java.io.File
 import java.io.IOException
 import java.util.UUID
@@ -116,11 +119,16 @@ class ClipsApi(private val config: BridgeConfig) {
 }
 
 /**
- * Node voice clips: natural Slovene made once on the node (ElevenLabs or the local model) and
- * cached here (LRU, [MAX_BYTES]). [Speaker.say] plays them when there is no family recording.
+ * Node voice clips: natural Slovene made once on the node (ElevenLabs or the local model) and kept here, in the app's files
+ * (voice-clips/, which Android doesn't clear behind the learner's back): the clips played and the day's clips got ready on
+ * Wi-Fi ([si.lanisce.lani.audio.Prefetch]), the least recently used dropped beyond the learner's cap
+ * ([si.lanisce.lani.audio.AudioCap]; with it off, beyond [MAX_BYTES] as before). [Speaker.say] plays them when there is no
+ * family recording.
  */
 class Clips(context: Context, private val scope: CoroutineScope) {
-    val dir: File = File(context.cacheDir, "voice-clips").apply { mkdirs() }
+    private val files = AudioFiles(context.filesDir)
+    private val settings = AudioSettings(context)
+    val dir: File = files.clips.also { moveOldCache(File(context.cacheDir, AudioFiles.CLIPS), it) }.apply { mkdirs() }
     private var api: ClipsApi? = null
     /** Texts the node could not voice lately (normalized text|first voice → when), so TTS speaks at once. */
     private val misses = ConcurrentHashMap<String, Long>()
@@ -257,14 +265,15 @@ class Clips(context: Context, private val scope: CoroutineScope) {
             }
             got
         }
-        val files = urls.map { u ->
+        val got = urls.map { u ->
             val f = file(u)
-            if (!f.exists()) a.download(u, f)
+            // the car's library may have it (one file, linked); one on its way for the car or the prefetch is waited for
+            if (!ClipFiles.get(f, listOf(File(files.roadClips, f.name))) { to -> a.download(u, to) }) throw IOException("no clip")
             f.setLastModified(System.currentTimeMillis())
             f
         }
         trim()
-        return files
+        return got
     }
 
     /**
@@ -298,7 +307,8 @@ class Clips(context: Context, private val scope: CoroutineScope) {
 
         override suspend fun fetch(url: String): File = withContext(Dispatchers.IO) {
             val f = file(url)
-            if (!f.exists()) (api ?: throw IOException("not connected")).download(url, f)
+            val a = api ?: throw IOException("not connected")
+            if (!ClipFiles.get(f, emptyList()) { to -> a.download(url, to) }) throw IOException("no clip")
             f.setLastModified(System.currentTimeMillis())
             f
         }
@@ -328,16 +338,27 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         }
     }
 
-    /** Drops the least recently used clips over [MAX_BYTES]. */
+    /**
+     * Drops the least recently used clips beyond the learner's cap, with the car's library counted in it (never the day's
+     * clips: [AudioFiles.trim]); with the cap off, beyond [MAX_BYTES] as before.
+     */
     private fun trim() {
-        val all = dir.listFiles()?.filter { it.name.endsWith(".mp3") }.orEmpty()
-        val drop = evict(all.map { Triple(it.name, it.length(), it.lastModified()) }, MAX_BYTES)
-        all.filter { it.name in drop }.forEach { it.delete() }
+        runCatching { files.trim(settings.cap) }
     }
 
     companion object {
         const val FEMALE = "female"
         const val MALE = "male"
+
+        /**
+         * The clips were in the app's cache (cache/voice-clips) before the cap: moved once into the files (one rename on the
+         * same file system), so nothing is downloaded again.
+         */
+        private fun moveOldCache(old: File, to: File) {
+            if (!old.isDirectory) return
+            if (!to.exists() && old.renameTo(to)) return
+            old.deleteRecursively()
+        }
         /**
          * How long a line waits for the node to voice it (ElevenLabs takes a few seconds for a new line) before
          * the phone's TTS speaks instead; a node that can't (no engine, an error) answers at once.
@@ -345,7 +366,8 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         const val WAIT_MS = 8_000L
         const val MAX_BYTES = 50L * 1024 * 1024
         private const val MISS_MS = 10 * 60_000L
-        private const val INDEX = "index.json"
+        /** The index's copy on the phone (the prefetch writes it too, with what the node voiced for it). */
+        const val INDEX = "index.json"
 
         private fun missKey(text: String, voice: String) = "${Voice.normalize(text)}|$voice"
 
