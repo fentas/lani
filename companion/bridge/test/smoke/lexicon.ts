@@ -64,6 +64,9 @@ export default async function lexicon() {
   check('GET /lookup: prav in "Ravno prav." is the expression first (ravno prav: just in time), then the adverb', ravnoPrav[0]?.lemma === 'ravno prav' && ravnoPrav[0].gloss.includes('just in time') && ravnoPrav[1]?.lemma === 'prav', ravnoPrav)
   const ravno = (await lookup('Ravno', 'Jan! Ravno prav. Si videl Belo?')).body.entries
   check('GET /lookup: ravno in the same line, without a translation: the expression, then the adverb before raven', ravno[0]?.lemma === 'ravno prav' && ravno[1]?.lemma === 'ravno' && ravno[1].pos === 'adv', ravno)
+  const [debel, dolgo, flat] = await Promise.all([lookup('debel'), lookup('dolgo'), lookup('ravno', 'Zdaj je ravno kot miza!', "Now it's as flat as a table!")])
+  const firstTwo = (r: typeof debel) => r.body.entries.slice(0, 2).map((e: any) => `${e.lemma}/${e.pos}/${e.source}`)
+  check('GET /lookup: a pack word the word is only a form of comes after the pack word it is (debel: thick, then deblo) and after the word itself as the supplement wrote it (dolgo: the adverb, then dolg); the translation still finds it (ravno: flat)', JSON.stringify(firstTwo(debel)) === JSON.stringify(['debel/adj/pack', 'deblo/noun/pack']) && JSON.stringify(firstTwo(dolgo)) === JSON.stringify(['dolgo/adv/extra', 'dolg/adj/pack']) && flat.body.entries[0]?.lemma === 'raven', [firstTwo(debel), firstTwo(dolgo), firstTwo(flat)])
   const expressions = await Promise.all([lookup('ti', 'Kaj pa ti?', 'And you?'), lookup('vem', 'Ne vem.'), lookup('noč', 'Lahko noč, Jan!', 'Good night, Jan!'), lookup('kaj', 'Ni za kaj.')])
   const firsts = expressions.map(x => x.body.entries[0]?.lemma)
   check('GET /lookup: an expression around the word comes first: kaj pa ti, ne vem, lahko noč, ni za kaj', JSON.stringify(firsts) === JSON.stringify(['kaj pa ti', 'ne vem', 'lahko noč', 'ni za kaj']), firsts)
