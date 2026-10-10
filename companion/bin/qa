@@ -18,7 +18,8 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
                        "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
-                       step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done
+                       step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
+                       then one over the village (the chapel's first, else the maypole's third)
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -1495,6 +1496,31 @@ def projects():
     assert wait_for("Zvitek · Scroll", 5) or find("Knjiga · Book"), "back closed more than the projects"
 
 
+# what shows while it is the learner's turn in a dialog (a choice's 🎤, a typed or said turn, an echo)
+TURN_UP = ("ali ga povej", "Izberi raje", "Poslušaj in ponovi", "Tvoj odgovor", "Napiši manjkajočo", "Povej cel stavek")
+def step_done(label: str, timeout=8.0) -> bool:
+    """A step's end card: it says the project and how far it is now, exactly ("🌲 Mlaj 1/5"; the header says "Mlaj 1/5:
+    …" all along). Its button back may be below the fold, under the words and the friendship (end_button)."""
+    end = time.time() + timeout
+    while True:
+        if any(t.strip() == label for t, _ in nodes()):
+            return True
+        if time.time() > end:
+            return False
+        time.sleep(1)
+
+
+def end_button(text: str, swipes=3):
+    """The dialog end's button back, on screen above the navigation bar, scrolled to when below the fold; None if not."""
+    for _ in range(swipes + 1):
+        c = find(text)
+        if c is not None and c[1] < 2280:
+            return c
+        adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+        time.sleep(1)
+    return None
+
+
 def tap_places(timeout=10.0):
     """The tap turn on screen as the debug build logged it (tag TapTurn, ui/scene/SceneScreen.kt): (its right place, {place:
     (x, y)}), the places' centres on the screen; None when none came."""
@@ -1524,10 +1550,11 @@ def project_step():
     mistake with Luka's reaction, then the spruce, where the debug build logs them), the other turns chosen, and the step
     is done: "Mlaj 1/5" and its line for the chronicle."""
     steps = json.loads((ROOT / "companion/cultures/primorska/project-steps/mlaj.json").read_text())
-    ok = {c["sl"] for lv in steps["steps"][0]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok")}
+    ok = {c["sl"] for lv in steps["steps"][0]["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok") and "tap" not in c}
     adb("logcat", "-c")
     try:
         qa_hook("step:mlaj/1")
+        plain_village()  # the hook shows the village: its intro or news first, on a fresh install
         if wait_for("Skupni projekti · Village projects", 8) is None:
             return "no village projects yet (they come with Zaselek)"
         assert tap("Skupni projekti · Village projects", 5), "projects chip"
@@ -1540,7 +1567,7 @@ def project_step():
         for _ in range(6):
             title = find("Mlaj · The maypole")
             below = sorted((c for t, c in nodes() if "Današnji korak" in t and (title is None or c[1] > title[1])), key=lambda c: c[1])
-            if below and below[0][1] < 1900:
+            if below and below[0][1] < 2280:  # above the navigation bar (the sheet's list may end there)
                 btn = below[0]
                 break
             adb("shell", "input", "swipe", "540", "1500", "540", "1100", "400")
@@ -1550,7 +1577,15 @@ def project_step():
         shot("project-sheet-step")
         tap_at(btn)
         assert wait_for("‹ Vas · Village", 10), "the forest opens for the step"
-        assert wait_for("Poišči v prizoru · Find it in the scene", 10), "the tap turn: find the spruce in the picture"
+        assert wait_for("Mlaj 1/5", 8), "the step's dialog: Mlaj 1/5 with Luka"
+        shot("project-step-opens")
+        # on from Luka's lines (and Marko's, or whoever says them) to the tap turn
+        for _ in range(6):
+            if find("Poišči v prizoru · Find it in the scene") is not None:
+                break
+            tap("Naprej · Next", 4)
+            time.sleep(1.5)
+        assert wait_for("Poišči v prizoru · Find it in the scene", 6), "the tap turn: find the spruce in the picture"
         got = tap_places()
         assert got is not None, "the debug build's TapTurn log of where the places are"
         right, at = got
@@ -1568,24 +1603,87 @@ def project_step():
         # on to the end: on from each line, the right choice at each turn
         for _ in range(14):
             labels = [t for t, _ in nodes()]
-            if any("Nazaj v prizor" in t for t in labels) or any("Mlaj 1/5" in t for t in labels):
+            if any(t.strip() == "🌲 Mlaj 1/5" for t in labels):  # the end card
                 break
-            if any(t in ok or any(t.startswith(o + ",") or t.startswith(o + " ") for o in ok) for t in labels) or \
-                    any(t.startswith("Tvoj odgovor") or "Izberi raje" in t or "Poslušaj in ponovi" in t for t in labels):
+            if any(any(m in t for m in TURN_UP) for t in labels):
                 assert answer_right(ok), "the right choice on screen"
                 time.sleep(1.5)
                 continue
             if not tap("Naprej · Next", 3):
                 time.sleep(1)
-        assert wait_for("Mlaj 1/5", 8), "the step done: Mlaj 1/5"
+        assert step_done("🌲 Mlaj 1/5"), "the step done: 🌲 Mlaj 1/5"
         assert scroll_to("v gozdu izbrali visoko smreko", 2) is not None, "its line for the chronicle"
         shot("project-step-done")
-        tap("Nazaj v prizor", 3)
+        back = end_button("Nazaj v prizor")
+        assert back is not None, "Nazaj v prizor · Back to the scene"
+        tap_at(back)
         time.sleep(1)
         assert tap("‹ Vas · Village", 3), "back from the forest"
+        over = over_the_village()
+        if over:
+            print(f"    over the village: {over}")
     finally:
         qa_hook("step:")
     return None
+
+
+def over_the_village():
+    """A step played over the village: the wayside chapel's (its road has no scene), else in a Zaselek the maypole's third
+    (the square isn't open before Vas): its people side by side on a backdrop, its dialog to the end, the step done. A note
+    when neither can be played over the dev village."""
+    for project, n, title, emoji, steps_n in (("kapelica", 1, "Kapelica · A wayside chapel", "🛐", 6), ("mlaj", 3, "Mlaj · The maypole", "🌲", 5)):
+        path = ROOT / f"companion/cultures/primorska/project-steps/{project}.json"
+        if not path.exists():
+            continue
+        step = json.loads(path.read_text())["steps"][n - 1]
+        ok = {c["sl"] for lv in step["levels"].values() for l in lv["lines"] for c in l.get("choices", []) if c.get("ok") and "tap" not in c}
+        qa_hook(f"step:{project}/{n}")
+        plain_village()
+        if not tap("Skupni projekti · Village projects", 8):
+            return "no projects chip"
+        if wait_for(title, 6) is None:
+            plain_village()
+            continue  # not open in the dev village (its age)
+        btn = None
+        for _ in range(6):
+            t = find(title)
+            below = sorted((c for x, c in nodes() if "Današnji korak" in x and (t is None or c[1] > t[1])), key=lambda c: c[1])
+            if below and below[0][1] < 2280:
+                btn = below[0]
+                break
+            adb("shell", "input", "swipe", "540", "1500", "540", "1100", "400")
+            time.sleep(1)
+        if btn is None:
+            plain_village()
+            continue
+        tap_at(btn)
+        time.sleep(2)
+        if find("🔍") is not None and find("‹ Vas · Village") is not None:
+            # the village has its scene open: played there, not over the village
+            tap("‹ Vas · Village", 3)
+            plain_village()
+            continue
+        assert wait_for(f"{title.split(' · ')[0]} {n}/{steps_n}", 8), f"the step over the village: {project} {n}"
+        shot("project-step-over-village")
+        done = f"{emoji} {title.split(' · ')[0]} {n}/{steps_n}"
+        for _ in range(14):
+            labels = [x for x, _ in nodes()]
+            if any(x.strip() == done for x in labels):  # the end card
+                break
+            if any(any(m in x for m in TURN_UP) for x in labels):
+                assert answer_right(ok), "the right choice on screen"
+                time.sleep(1.5)
+                continue
+            if not tap("Naprej · Next", 3):
+                time.sleep(1)
+        assert step_done(done), f"the step done over the village: {done}"
+        shot("project-step-over-village-done")
+        back = end_button("Nazaj v vas")
+        assert back is not None, "✓ Nazaj v vas · Back to the village"
+        tap_at(back)
+        time.sleep(1)
+        return None
+    return "no step over the dev village to play (the chapel isn't open, the square is)"
 
 
 def build_sheet():
