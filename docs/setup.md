@@ -277,6 +277,45 @@ anyone else.
    design; `LANI_VOICE_DESIGN=off` keeps to the cast. To swap a voice: companion/README.md, "Voice".
 6. **Privacy.** Every line voiced goes to ElevenLabs as text ([privacy.md](privacy.md)). Without a key, nothing does.
 
+### Without ElevenLabs
+
+Lani works without an ElevenLabs account; the voices are then one of these, best first:
+
+- **Gepard on a GPU.** The local Slovene voice (`companion/voice-local/install.sh`, a user service on `127.0.0.1:8795`)
+  needs a GPU with about 6 GB of memory, with ROCm (AMD) or CUDA (NVIDIA). It voices a line while the learner waits,
+  so the bridge makes the clips as the app asks for them, like ElevenLabs. It speaks Slovene only, in three voices (`ana`,
+  `marko`, `nina`): the villagers share them, each at their own pitch and pace. In a Slovene village it is the narrators'
+  voice anyway (`nina`, `marko`), with or without ElevenLabs.
+- **Gepard on a CPU.** The same worker without a GPU takes 3 to 15 seconds a sentence: too slow while the learner waits
+  (the app speaks with the phone meanwhile). Let it voice everything overnight instead: `companion/bin/voice-build` (a dry
+  run: what's missing), then `companion/bin/voice-build --run`, which goes on until the content is voiced. The phone then
+  gets those clips ahead on Wi-Fi like any others (below).
+- **Neither.** The phone speaks: with its offline voice (Piper, below), else with Android's text-to-speech. The clips
+  Gepard made before, or that another machine made into the same voice cache, still come. Without the worker the phone
+  speaks the narrators' lines too (unless `LANI_VOICE_NARRATOR_SL=elevenlabs`), so the offline voice is worth getting.
+
+### Offline on the phone
+
+So the day sounds the same without the machine (on the road, on a train, on a phone without a connection), the app:
+
+1. **gets the day's clips ahead on Wi-Fi**: the reviews due, the next words of the packs under way, the village's dialogs
+   and stories of the day, the villagers' lines, I spy's clues and the grammar examples practised; today's, and
+   tomorrow's while there is room. A background job does it a few times a day and when the app opens, only on Wi-Fi
+   (and, if the learner wants, only while charging). What the voice store lacks, the bridge voices for it within its
+   limits, so the store fills gradually;
+2. **keeps it within one number**: the app's settings (the tutor's status dot on Home, then "🔊 Zvok brez povezave ·
+   Offline audio") set how much of the phone Lani's audio may take: Off, 100 MB, 250 MB (the default), 500 MB or
+   Unlimited. It covers the day's clips, the clips played lately and the car's library ("🚗 Za pot"). The clips heard
+   longest ago go first. Off: nothing is got ahead, the clips come as they are played;
+3. **speaks with its own voice when there is no clip**: the offline voice, a Piper voice run on the phone (Slovene: Artur;
+   Italian, German and English: one each), about 61 MB once per phone. The app offers it after pairing and in the
+   settings; it comes through your bridge, which fetches it from Hugging Face once ([privacy.md](privacy.md)). Wi-Fi is
+   recommended for it. Without it, Android's text-to-speech speaks, if the phone has a voice for the language.
+
+The settings show what's on the phone now (megabytes and clips, the day's lines ready) and have "⬇️ Prenesi zdaj ·
+Download now" to get the day's clips at once, also on mobile data. Details: [companion/README.md, "Offline on the
+phone"](../companion/README.md#offline-on-the-phone).
+
 ## Manual setup
 
 What the wizard does, by hand:

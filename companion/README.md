@@ -754,6 +754,9 @@ newcomer|birth}`) tells the tutor someone moved in, so they can give them lines 
 | `POST` | `/voice/redo` | `{text, voice?, client_id?}` → the clip made again now (a long press on 🔊): `{status: done\|not_needed, url, key, voice, …}`, `429 {status: limit, reason: cap\|reserve}`, `503 {status: failed}`; once a clip a day, within the day's cap (see [Voice](#voice)) |
 | `POST` | `/voice/prepare` | `{texts: [{text, voice?}]}` (1 to 20; the car's quiz getting ready) → `{clips: [{text, voice, url, engine?}], today, daily}`, in order: the clip there, else voiced now but not as a live line (ElevenLabs only above the reserve, then the local worker); `url: null` when it can't be, or for a voice not in the cast (no other voice's clip); at most `LANI_VOICE_ROAD_DAILY` characters (6,000) voiced new a day |
 | `GET` | `/voice/status` | clips per voice and engine, ElevenLabs quota, engines up or down, the voice cast, corpus coverage, the voices filtered (`denoise`), the level (`level`: target, clips at it and waiting) |
+| `GET` | `/voice/offline` | the phone's offline voices, one per language (see [Voice](#offline-on-the-phone)): `{voices: [{language, id, name, quality, bytes, status: missing\|fetching\|ready\|failed, progress?, error?, licence, attribution, source, files?, inference?, sample_rate?, espeak?}]}`; `files: [{path, bytes, sha256}]` once ready |
+| `GET`, `POST` | `/voice/offline/:language` | one voice's entry; `POST` fetches it from Hugging Face into the node's cache unless it's there (`200`) or on its way (`202`), and after a failure tries again; `404` for a language without one |
+| `GET` | `/voice/offline/:language/<path>` | a file of a ready voice (only the paths its `files` list; Range requests answered), `application/octet-stream` |
 | `GET` | `/audio/index` | family recordings: normalized Slovene text → `[{file, speaker, recorded_at, text}]` |
 | `POST` | `/audio?text=…&speaker=…` | a recording (raw body or multipart `file`; m4a, ogg or webm, max 2 MB), stored at the voice clips' loudness |
 | `GET`, `DELETE` | `/audio/file/:name` | one recording |
@@ -960,11 +963,12 @@ stars). The app's labels for the chapter are in all four string tables.
 
 The app speaks Slovene with natural voices. The bridge makes each clip once, keeps it in the voice cache (SQLite
 `voice.db` + `files/<sha1>.mp3`: `LANI_VOICE_CACHE`, `~/.cache/lani/voice` after lani-setup; else `<data>/app/voice/`,
-which is also used while only it has the clips) and the app caches the clips it plays
-(LRU, 50 MB). Everywhere the app speaks, it plays, in this order: a family recording, a node clip,
-a clip the node makes on request (`POST /voice/say`; a new line waits up to 8 s for it, since ElevenLabs
-takes a few seconds, and a node that can't make it answers at once), then Android TTS, which is only
-the fallback. 🐢 plays clips at 0.75×. The village's background sounds duck under every voice, and stop while the microphone
+which is also used while only it has the clips) and the app keeps the clips it plays, and the day's clips it gets
+ready on Wi-Fi, within the learner's cap ([Offline on the phone](#offline-on-the-phone)). Everywhere the app speaks, it
+plays, in this order: a family recording, a node clip on the phone, a clip the node makes on request (`POST /voice/say`;
+a new line waits up to 8 s for it, since ElevenLabs takes a few seconds, and a node that can't make it answers at once),
+a clip on the phone in another of the speaker's voices, the phone's offline voice (Piper, when it's on the phone, in
+its own language only), then Android TTS, which is only the last fallback. 🐢 plays clips at 0.75×. The village's background sounds duck under every voice, and stop while the microphone
 records ([GAME.md](GAME.md#background-sounds)).
 
 **The voice cast.** Who speaks is in `voice-cast.json`: each speaker has an ElevenLabs voice, a
@@ -1309,7 +1313,7 @@ The new clip gets a new file name, and the bridge sends `voice_updated`. The app
 index and downloads the new file the next time it plays the word. Words that wait for the next day are
 taken up at the next request, or when the bridge starts.
 
-The phone keeps the clips it has (50 MB) and doesn't ask for them again. So the lazy re-voice reaches
+The phone keeps the clips it has (within the learner's cap) and doesn't ask for them again. So the lazy re-voice reaches
 mostly words the phone doesn't have yet. For the rest: Jan's long press on 🔊 (below), or
 `voice-build --revoice-words`: its plan shows how many words are old-style and what re-voicing them all
 costs. `voice_status` shows the same (`carrier`).
@@ -1400,6 +1404,108 @@ cover waits for later, and a cast without voices plans nothing.
 When the tutor publishes a pack, module, scenario or scene, the bridge voices its new texts in the
 background (one at a time) and sends the app a `voice_updated` event. `voice_status` (MCP tool) and
 `GET /voice/status` show coverage, quota and engines.
+
+### Offline on the phone
+
+The phone's audio comes in layers, so a day sounds the same without the node:
+
+| Layer | What | Where |
+|---|---|---|
+| 1. The day's clips, got ready ahead | What the learner will likely hear today (and tomorrow, while the cap has room), downloaded on Wi-Fi | `files/voice-clips/` |
+| 2. The clips played | Every clip a line played, kept until the cap needs the room (the least recently played go first) | `files/voice-clips/` |
+| 3. The phone's offline voice | Piper, run on the phone by sherpa-onnx, for a line without a clip when the node can't be reached | `files/piper/<language>/` |
+| 4. Android's text-to-speech | The last fallback, and the only one for a language without an offline voice | the system |
+
+**The day's clips** (`audio/DayAudio.kt`, `app/DayAudioGather.kt`). When the app opens, once the village is loaded, and
+again whenever the lines change (a pack learned, the village's day turned; at most once a minute), it writes what the
+learner will likely hear today and tomorrow (`files/audio/day.json`), each line in the voices the app
+plays it in (a villager's own voice first, then their archetype's, their gender's narrator, the female narrator):
+
+1. the review cards due (today also the overdue ones), as the review asks them (the front and each form it accepts), in
+   the day's companion's voice;
+2. the next words of the packs under way (at most three packs; tomorrow the session after) and their examples, in the
+   voice of whoever teaches them;
+3. the dialogs of the day's happenings (the variant each plays that day; the storyteller's chapter tonight among them),
+   each person's lines in their voices, the right answers and the replies;
+4. the lines of everyone in the village that day (meeting the learner, small talk, cheering, goodbye, the gifts'; not a
+   memory, which is said live) and the greetings of the day;
+5. I spy's clues (those a round would give, of the rules introduced) in the scenes with a happening that day or a child
+   of their own, not played out yet, in the voice of the child who plays there (the scene's own, else the one the day's
+   dice sends by);
+6. the grammar book's examples of the pages the learner practises (met, not secure yet).
+
+A line with a placeholder (`{name}`) is said live, not got ahead. Each text is in the list once per voice, at most
+3,000 a day.
+
+**The job** (`audio/Prefetch.kt`, `audio/PrefetchRun.kt`): WorkManager, every 6 hours and when the app opens or the plan
+changes (unless it ran in the last hour for the same plan; a new plan's run comes after one under way), only on an unmetered network (Wi-Fi), with the storage and the battery not low,
+and only while charging when the learner says so. It needs no open app: it asks the node for the due cards again (`GET
+/state`; the tutor adds cards in a session) and for its index (`GET /voice/index`), then:
+
+1. asks the node to voice what its store lacks in a line's wanted voice (`POST /voice/prepare`, 20 at a time, today's
+   first, within the node's own limits: not as a live line, `LANI_VOICE_ROAD_DAILY` characters a day); once the node voices
+   none of a batch, it isn't asked again that run. So the prefetch also fills the store gradually;
+2. takes each line's clips in the first of its voices that the store has whole, as the app finds them offline;
+3. marks those files as the day's (`files/audio/keep.txt`): the cache never drops them to make room;
+4. downloads them, four at a time, today's first, then tomorrow's while the cap has room. A clip the car's library has is
+   linked, not downloaded (one file with two names, counted once), and a clip the car's getting ready is downloading is
+   waited for (`audio/AudioFiles.kt`, `ClipFiles`): the two never fetch one twice. These downloads count on the node, as a
+   line played does, so an old-style narrator word is queued for its carrier re-voice; the next run gets the new take.
+
+What it did is in `files/audio/status.json` and the settings: when, the day's lines on the phone (in their wanted voice,
+in another of theirs, missing), the files and megabytes downloaded, the lines the node voiced, whether the cap stopped it.
+An older bridge without `/voice/prepare` (404): only what the store has.
+
+**The cap** (`audio/AudioBudget.kt`), in the settings: Off, 100 MB, 250 MB (the default), 500 MB or Unlimited. One number
+for all of Lani's audio on the phone: the day's clips, the clips played and the car's library ("🚗 Za pot"), each file
+once. The clips played go first, the least recently played first; the day's clips never; the car's library is never
+dropped either (it was got ready on purpose), so getting the road ready takes what the cap leaves after the day's clips,
+and what doesn't fit is left out like what can't be had (the sheet says so). The clip cache keeps at least 20 MB of its own
+whatever the car's library takes. **Off**: no prefetch; the clips stream as before, the last 50 MB kept; the car's library
+as big as it gets; the offline voice still speaks when it's on the phone. **Unlimited**: nothing is dropped. The clips are
+in the app's files, not its cache, so Android doesn't clear them behind the learner's back (an app from before moves its
+cache's clips there once).
+
+**The offline voice** (`audio/Piper.kt`, `audio/OfflineVoices.kt`). The runtime is in the APK: sherpa-onnx's Android library
+(Apache-2.0; onnxruntime linked in), for 64-bit ARM phones only (the debug build also for the x86_64 emulator). The voice is
+not in the APK: one per language, through the node. The node fetches it from Hugging Face once per machine
+(`bridge/src/offline-voice.ts`, `~/.cache/lani/piper/`, `LANI_PIPER_CACHE`), checks every file against its pinned SHA-256,
+adds the metadata sherpa-onnx reads to the model (byte for byte what sherpa-onnx's own `vits-piper.py` writes), writes
+`tokens.txt` from the voice's config and takes the espeak-ng data of its language only. The phone downloads the files and
+checks each one's size and SHA-256 again, into `files/piper/<language>.part/`, and moves the folder into place only once all
+are there; a download stopped halfway goes on where it stopped.
+
+| Language | Voice (rhasspy/piper-voices) | Size on the phone | Licence of the voice |
+|---|---|---|---|
+| Slovene | `sl_SI-artur-medium` (Artur) | about 61 MB | CC BY 4.0 (the ARTUR studio TTS dataset, trained by ppisljar) |
+| Italian | `it_IT-paola-medium` (Paola) | about 61 MB | CC0 1.0 (paolapersico1/Voice-Dataset-Italian) |
+| German | `de_DE-thorsten-medium` (Thorsten) | about 61 MB | CC0 (Thorsten-Voice) |
+| English | `en_GB-northern_english_male-medium` (a northern English man, for Lakeland) | about 61 MB | CC BY-SA 4.0 (OpenSLR 83) |
+
+The espeak-ng data (GPL-3.0-or-later, like espeak-ng, which sherpa-onnx links in) comes from sherpa-onnx's own converted
+Slovene voice (`csukuangfj/vits-piper-sl_SI-artur-medium`). The app offers the voice once after pairing ("🗣️ Prenesi glas
+brez povezave (61 MB)? · Download the offline voice (61 MB)?", Wi-Fi recommended); the settings have it too (download, its
+size, remove, its credit), and with it wanted the prefetch gets it again on Wi-Fi should it go.
+
+It speaks when no clip of the line is on the phone and the node can't make one now (offline, an error, a clip that won't
+play), before Android's TTS, and only in its own language: on a visit to a town in another language Android's TTS speaks
+as before. Normal speed, and 🐢 at 0.75 through the voice's length scale (the speech slower, not the playback), then
+played at the person's pitch and pace like a clip. Its speech comes out about 3.5 dB under the clips (−21.8 LUFS), so
+it is made 1.5 times louder, its peak held under −1 dBFS (the sample below: −17.6 LUFS, the clips' level being −18).
+The model loads on the first line and is let go after 5 minutes without one; what it said is kept as WAV (the newest
+20 MB of the cache) and plays at once again. The car's quiz uses it too for a Slovene text the node can't voice, before
+Android's voice.
+
+Measured on the x86_64 emulator (two threads; a phone's CPU is slower), with QA's `offline-voice` step: the model loads
+in 0.9 s; "Ko povezave ni, govori glas na telefonu." (40 characters) takes 0.17 s for 2.5 s of speech, at 🐢 0.21 s for
+3.0 s. The voice came to the emulator in 5 s through the dev bridge (its cache filled from a local mirror).
+
+**A day of Jan's**, measured on a copy of Jan's data (the dev bridge, October 2026; its voice worker pointed nowhere, so
+nothing new was voiced): 1,128 lines for today (76 of the dialogs, 389 of the villagers, 415 of I spy, 36 of the packs,
+212 of the grammar book; the cards were done that day) and 1,276 for tomorrow (45 cards among them). 582 of today's had
+clips in the store (279 in their wanted voice, 303 in another of theirs); the rest (I spy's clues and grammar examples
+not voiced yet, villagers' own voices) is for the node to voice as its limits let it. Today's and tomorrow's clips were
+750 files, 31.3 MB, downloaded in the first run when the app opened; the clip cache came to 36.5 MB.
 
 ## Speech recognition
 
@@ -1858,14 +1964,19 @@ buttons (see [The quiz](#the-quiz-answered-with-the-steering-wheel)).
    misses more than a quarter of its lines is left out; a single missing line is skipped. The listening sessions never
    ask the node to voice anything (`/voice/say`, `/voice/redo`). Only the quiz does, for the options the voice store
    lacks (a sentence with a wrong form, "Prav!"): see [The quiz's audio](#the-quizs-audio);
-3. copies the clips from the phone's clip cache, or downloads them with `?count=0`: the bridge then doesn't count the
-   download, so an old-style narrator word is not queued for its carrier re-voice (`features/voice.ts`; a bridge
-   started before this change counts the download like the app's other downloads);
+3. links the clips the phone's clip cache has (one file with two names, nothing copied: the day's prefetch got many of
+   them already), or downloads them with `?count=0`: the bridge then doesn't count the download, so an old-style
+   narrator word is not queued for its carrier re-voice (`features/voice.ts`; a bridge started before this change
+   counts the download like the app's other downloads). A clip the day's prefetch is downloading meanwhile is waited
+   for, not downloaded twice ([Offline on the phone](#offline-on-the-phone));
 4. renders the prompts in Jan's base language (English) with the phone's own text-to-speech, to WAV files (the
    meanings, "You say: …", the stories' setups and recaps, the drills' instructions, questions and meanings, and the
    quiz's questions and its meanings to choose from);
 5. writes the library. Everything is in the app's `files/road/` (`road.json`, `clips/`, `prompts/`, `spoken/`), not
-   in the 50 MB clip cache, so nothing is dropped. Getting ready again takes only what is new.
+   in the clip cache, so nothing is dropped. It counts in the learner's cap for audio (the settings' "🔊 Zvok brez
+   povezave · Offline audio"; 250 MB by default): getting ready takes what the cap leaves after the day's clips, and what
+   doesn't fit is left out, as what can't be had ("Prostor za zvok je poln · The storage cap for audio was reached").
+   With the cap off or unlimited, it takes what it gets, as before. Getting ready again takes only what is new.
 
 **In the background, playable early.** Steps 3 to 5 run in a foreground service (`RoadPrepService`, a data sync with
 a partial wake lock), so they go on with the screen off or the app in the background. Its notification shows how far
@@ -2152,6 +2263,14 @@ cd companion/android
 JAVA_HOME=$(mise where java@temurin-21) ./gradlew :app:assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
+
+**The processors.** The release APK runs on 64-bit ARM phones (`arm64-v8a`) only: the offline voice's runtime
+(sherpa-onnx, about 24 MB a processor type) would make it several times larger for all four. The debug build adds
+`x86_64`, for the emulator. The native libraries are compressed in the APK (`useLegacyPackaging`), so an update
+downloads less; the phone unpacks them once at install. The build gets sherpa-onnx's AAR from its GitHub releases (no
+Maven repository has it) and checks its SHA-256 (`gradle/verification-metadata.xml`; a new version needs its checksum
+there). Measured in October 2026: the release APK went from 22.2 to 31.0 MB with it (the library is 24.2 MB, 9.0 MB
+compressed), the debug APK from 30.5 to 51.3 MB (both processor types).
 
 To the phone without a cable: `companion/bin/lani-send-app` sends the newest APK of the release directory (where
 `release-app` and `release-app --github` put it; another with `--file`) over Tailscale (Taildrop), to the only device

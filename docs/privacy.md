@@ -65,10 +65,16 @@ this machine.
   (`companion/stt-local`) keeps it on your machine.
 - **Dictionaries:** with `LANI_LEXICON_URL` set, the bridge downloads the word-lookup dictionaries from there. The
   request carries nothing of the learner.
+- **The phone's offline voice:** when the learner asks for it (after pairing, or in the app's settings), the bridge
+  downloads that language's Piper voice from Hugging Face once per machine: the model from `rhasspy/piper-voices` and
+  the espeak-ng data from `csukuangfj/vits-piper-sl_SI-artur-medium`, at pinned revisions, each file checked against
+  its pinned SHA-256. Hugging Face sees the machine's address and which voice; the request carries nothing of the
+  learner. `LANI_PIPER_URL` names another source (a mirror, or a local directory). The voice then runs on the phone:
+  what it says doesn't leave the phone.
 - **The app:** it talks to your bridge only. It updates itself from your bridge, and you download it once (GitHub
   Releases, or your own build).
 
 ## What stays on the machine
 
-The learner's data, the tokens and the bridge's key, the voice clips, the backups (`~/.local/share/lani/backups`), the
+The learner's data, the tokens and the bridge's key, the voice clips (and the offline voice, `~/.cache/lani/piper`), the backups (`~/.local/share/lani/backups`), the
 logs (`~/.local/state/lani`) and `keys.env`. `lani-backup` snapshots stay on the machine unless you copy them.
