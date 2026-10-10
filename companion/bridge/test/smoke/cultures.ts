@@ -224,6 +224,27 @@ export default async function cultures() {
   writeFileSync(join(stepped, 'tinyland/project-steps/nowhere.json'), '{}')
   const looseSteps = cultureProjectSteps(stepped, 'tinyland', 'it', [{ id: 'mlaj', leader: 'nino', helpers: ['pina'], steps: 5 }])
   check('… and a key the format has not got', looseSteps.errors.some(e => e.includes('tinyland/project-steps/mlaj.json') && e.includes('when')), looseSteps.errors)
+  // Primorska's projects: every step a short scene at A1 and A2 with its words (validateCulture above checks each), voiced
+  // in each speaker's voice
+  const prSteps = cultureStepFiles(culturesDir, 'primorska')
+  const prProjects = JSON.parse(readFileSync(join(culturesDir, 'primorska/projects.json'), 'utf8')).projects as { id: string; steps: unknown[] }[]
+  check(
+    "primorska's 13 projects play every step as a short scene, at A1 and A2, testing 1-3 words of the project's pack",
+    prProjects.length === 13 && prProjects.every(p => {
+      const f = prSteps.find(x => x.project === p.id)
+      return !!f && !!f.pack && f.steps.length === p.steps.length && f.steps.every(s => !!s && !!s.levels.A1 && !!s.levels.A2 && s.words.length >= 1 && s.words.length <= 3)
+    }),
+    prSteps.map(f => `${f.project}: ${f.steps.length}`),
+  )
+  const prCast = new VillagerStore(join(culturesDir, 'primorska', 'villagers'), join(dataDir, 'unused-villagers-primorska-steps')).all()
+  const luka = prCast.find(v => v.id === 'luka')!
+  const stepVoiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: prCast, steps: prSteps.map(f => ({ project: f.project, tellings: stepTellings(f) })) })
+  check(
+    "… voice-build voices them: Luka's lines in his speaker's voice, the learner's choices in the default one",
+    stepVoiced.some(i => i.source === 'project:mlaj' && i.text === 'Danes gremo v gozd po smreko za mlaj!' && i.voice === speakerFor(luka)) &&
+      stepVoiced.some(i => i.source === 'project:mlaj' && i.text === 'Potrebujemo sekiro.' && i.voice === 'female'),
+    stepVoiced.filter(i => i.source === 'project:mlaj').slice(0, 4),
+  )
   // a Slovene helper's line that says the speaker's gender: another may say it when they are away
   check(
     "… a helper's line may say nothing of who says it (another says it when they're away)",

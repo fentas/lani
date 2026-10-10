@@ -1,0 +1,359 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "most",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-most",
+  "steps": [
+    {
+      "scene": "ob-potoku",
+      "words": ["sirok"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "france", "sl": "Tukaj bo stal naš most. Ampak najprej: kako širok je potok?", "en": "Our bridge will stand here. But first: how wide is the stream?", "de": "Hier wird unsere Brücke stehen. Aber zuerst: Wie breit ist der Bach?", "it": "Qui sorgerà il nostro ponte. Ma prima: quanto è largo il ruscello?" },
+          { "who": "luka", "sl": "Izmerimo ga!", "en": "Let's measure it!", "de": "Messen wir ihn!", "it": "Misuriamolo!" },
+          { "who": "france", "sl": "{learner}, kaj potrebujemo za to?", "en": "{learner}, what do we need for that?", "de": "{learner}, was brauchen wir dafür?", "it": "{learner}, che cosa ci serve per farlo?" },
+          { "choices": [
+            { "sl": "Potrebujemo meter.", "en": "We need a measuring tape.", "de": "Wir brauchen ein Maßband.", "it": "Ci serve un metro.", "ok": true,
+              "reply": { "sl": "Tako je. Tukaj ga imam. Primi konec!", "en": "That's right. I have it here. Hold the end!", "de": "Genau. Ich habe es hier. Halt das Ende!", "it": "Esatto. Ce l'ho qui. Tieni la punta!" } },
+            { "sl": "Potrebujemo žlico.", "en": "We need a spoon.", "de": "Wir brauchen einen Löffel.", "it": "Ci serve un cucchiaio.",
+              "why": { "en": "Žlica is a spoon. To measure, you need a measuring tape: meter.", "de": "Žlica ist ein Löffel. Zum Messen braucht man ein Maßband: meter.", "it": "Žlica è un cucchiaio. Per misurare ci vuole un metro: meter." },
+              "reply": { "sl": "Žlico? Potoka ne bomo pojedli, {learner}!", "en": "A spoon? We're not going to eat the stream, {learner}!", "de": "Einen Löffel? Den Bach essen wir doch nicht auf, {learner}!", "it": "Un cucchiaio? Mica ce lo mangiamo, il ruscello, {learner}!" } },
+            { "sl": "Potrebujemo uro.", "en": "We need a clock.", "de": "Wir brauchen eine Uhr.", "it": "Ci serve un orologio.",
+              "why": { "en": "Ura is a clock: it measures time. For a width you need a measuring tape: meter.", "de": "Ura ist eine Uhr: Sie misst die Zeit. Für die Breite braucht man ein Maßband: meter.", "it": "Ura è un orologio: misura il tempo. Per la larghezza ci vuole un metro: meter." },
+              "reply": { "sl": "Uro? Potok nikamor ne zamuja, ha ha!", "en": "A clock? The stream isn't late for anything, ha ha!", "de": "Eine Uhr? Der Bach kommt nirgendwo zu spät, ha ha!", "it": "Un orologio? Il ruscello non è in ritardo per niente, ah ah!" } }
+          ] },
+          { "who": "france", "sl": "Grem na drugi breg … Tako! Šest metrov, to je veliko!", "en": "I'm going over to the other bank … There! Six metres, that's a lot!", "de": "Ich gehe ans andere Ufer … So! Sechs Meter, das ist viel!", "it": "Vado sull'altra riva … Ecco! Sei metri, sono tanti!" },
+          { "choices": [
+            { "sl": "Ja, potok je širok!", "en": "Yes, the stream is wide!", "de": "Ja, der Bach ist breit!", "it": "Sì, il ruscello è largo!", "ok": true,
+              "reply": { "sl": "Res je. Most bo moral biti dolg.", "en": "It is. The bridge will have to be long.", "de": "Stimmt. Die Brücke muss lang werden.", "it": "È vero. Il ponte dovrà essere lungo." } },
+            { "sl": "Ja, potok je globok!", "en": "Yes, the stream is deep!", "de": "Ja, der Bach ist tief!", "it": "Sì, il ruscello è profondo!",
+              "why": { "en": "Globok means deep, and the water only reaches France's knees. Six metres across is how wide it is: širok.", "de": "Globok heißt tief, und das Wasser reicht France nur bis zu den Knien. Sechs Meter von Ufer zu Ufer ist die Breite: širok.", "it": "Globok vuol dire profondo, e l'acqua arriva a France solo alle ginocchia. Sei metri da riva a riva è la larghezza: širok." },
+              "reply": { "sl": "Globok? Ne, voda mi seže samo do kolen.", "en": "Deep? No, the water only comes up to my knees.", "de": "Tief? Nein, das Wasser geht mir nur bis zu den Knien.", "it": "Profondo? No, l'acqua mi arriva solo alle ginocchia." } },
+            { "sl": "Ja, potok je tih!", "en": "Yes, the stream is quiet!", "de": "Ja, der Bach ist leise!", "it": "Sì, il ruscello è silenzioso!",
+              "why": { "en": "Tih means quiet. Six metres across is about width: širok (wide).", "de": "Tih heißt leise. Sechs Meter von Ufer zu Ufer sind die Breite: širok (breit).", "it": "Tih vuol dire silenzioso. Sei metri da riva a riva sono la larghezza: širok (largo)." },
+              "reply": { "sl": "Tih? Poslušaj ga, kako šumi!", "en": "Quiet? Listen to it rushing!", "de": "Leise? Hör mal, wie er rauscht!", "it": "Silenzioso? Senti come scroscia!" } }
+          ] },
+          { "who": "luka", "sl": "Šest metrov … To bo pa dolg most!", "en": "Six metres … That'll be a long bridge!", "de": "Sechs Meter … Das wird eine lange Brücke!", "it": "Sei metri … Sarà un ponte lungo!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "france", "sl": "Preden začnemo graditi most, moramo vedeti, kako širok je potok.", "en": "Before we start building the bridge, we need to know how wide the stream is.", "de": "Bevor wir die Brücke bauen, müssen wir wissen, wie breit der Bach ist.", "it": "Prima di costruire il ponte, dobbiamo sapere quanto è largo il ruscello." },
+          { "who": "luka", "sl": "Dajte mi konec metra! Grem čez, na drugi breg.", "en": "Give me the end of the tape! I'll go across, to the other bank.", "de": "Gebt mir das Ende vom Maßband! Ich gehe hinüber, ans andere Ufer.", "it": "Datemi la punta del metro! Vado di là, sull'altra riva." },
+          { "who": "france", "sl": "Previdno, voda je mrzla! {learner}, preberi: koliko je?", "en": "Careful, the water is cold! {learner}, read it: how much is it?", "de": "Vorsicht, das Wasser ist kalt! {learner}, lies ab: Wie viel ist es?", "it": "Attenzione, l'acqua è fredda! {learner}, leggi: quanto fa?" },
+          { "choices": [
+            { "sl": "Šest metrov.", "en": "Six metres.", "de": "Sechs Meter.", "it": "Sei metri.", "ok": true,
+              "reply": { "sl": "Šest metrov, dobro. Zapišem si.", "en": "Six metres, good. I'll write it down.", "de": "Sechs Meter, gut. Ich schreibe es mir auf.", "it": "Sei metri, bene. Me lo segno." } },
+            { "sl": "Šest metra.", "en": "Six metres.", "de": "Sechs Meter.", "it": "Sei metri.", "grammar": "stevila-samostalniki",
+              "why": { "en": "From five on, a number takes the genitive plural: šest metrov.", "de": "Ab fünf steht nach der Zahl der Genitiv Plural: šest metrov.", "it": "Da cinque in su, il numero vuole il genitivo plurale: šest metrov." },
+              "reply": { "sl": "Šest … metra? Hm, kako, prosim?", "en": "Six … metra? Hm, pardon?", "de": "Sechs … metra? Hm, wie bitte?", "it": "Sei … metra? Mm, come, scusa?" } },
+            { "sl": "Šest kilogramov.", "en": "Six kilograms.", "de": "Sechs Kilo.", "it": "Sei chili.",
+              "why": { "en": "Kilograms measure weight. A width is in metres: šest metrov.", "de": "Kilo misst das Gewicht. Eine Breite misst man in Metern: šest metrov.", "it": "I chili misurano il peso. La larghezza si misura in metri: šest metrov." },
+              "reply": { "sl": "Kilogramov? Potoka ne bomo tehtali, ha ha!", "en": "Kilograms? We're not weighing the stream, ha ha!", "de": "Kilo? Den Bach wiegen wir doch nicht, ha ha!", "it": "Chili? Mica pesiamo il ruscello, ah ah!" } }
+          ] },
+          { "who": "france", "sl": "Šest metrov! Lani poleti je bil potok ožji.", "en": "Six metres! Last summer the stream was narrower.", "de": "Sechs Meter! Letzten Sommer war der Bach schmaler.", "it": "Sei metri! L'estate scorsa il ruscello era più stretto." },
+          { "choices": [
+            { "sl": "Ja, zdaj je širši, ker je več vode.", "en": "Yes, now it's wider, because there's more water.", "de": "Ja, jetzt ist er breiter, weil mehr Wasser da ist.", "it": "Sì, adesso è più largo, perché c'è più acqua.", "ok": true,
+              "reply": { "sl": "Prav imaš. Zato bo most malo daljši.", "en": "You're right. That's why the bridge will be a bit longer.", "de": "Du hast recht. Darum wird die Brücke etwas länger.", "it": "Hai ragione. Per questo il ponte sarà un po' più lungo." } },
+            { "sl": "Ja, zdaj je ožji, ker je več vode.", "en": "Yes, now it's narrower, because there's more water.", "de": "Ja, jetzt ist er schmaler, weil mehr Wasser da ist.", "it": "Sì, adesso è più stretto, perché c'è più acqua.",
+              "why": { "en": "Ožji means narrower. More water makes a stream wider: širši.", "de": "Ožji heißt schmaler. Mehr Wasser macht einen Bach breiter: širši.", "it": "Ožji vuol dire più stretto. Più acqua rende un ruscello più largo: širši." },
+              "reply": { "sl": "Ožji? Več vode, pa ožji? Hm, to pa ne gre skupaj.", "en": "Narrower? More water, and narrower? Hm, that doesn't add up.", "de": "Schmaler? Mehr Wasser und schmaler? Hm, das passt nicht zusammen.", "it": "Più stretto? Più acqua e più stretto? Mm, non torna." } },
+            { "sl": "Ja, zdaj je širok, ker je več vode.", "en": "Yes, now it's wide, because there's more water.", "de": "Ja, jetzt ist er breit, weil mehr Wasser da ist.", "it": "Sì, adesso è largo, perché c'è più acqua.", "grammar": "primernik",
+              "why": { "en": "You're comparing with last summer: the comparative, širši (wider).", "de": "Du vergleichst mit dem letzten Sommer: der Komparativ, širši (breiter).", "it": "Fai il confronto con l'estate scorsa: il comparativo, širši (più largo)." },
+              "reply": { "sl": "Širok je vedno. Ampak v primerjavi z lani?", "en": "It's always wide. But compared with last year?", "de": "Breit ist er immer. Aber im Vergleich zum letzten Jahr?", "it": "Largo lo è sempre. Ma rispetto all'anno scorso?" } }
+          ] },
+          { "who": "luka", "sl": "Hej, voda je res mrzla! Pohitimo!", "en": "Hey, the water really is cold! Let's hurry!", "de": "He, das Wasser ist wirklich kalt! Beeilen wir uns!", "it": "Ehi, l'acqua è proprio fredda! Sbrighiamoci!" }
+        ] }
+      }
+    },
+    {
+      "scene": "ob-potoku",
+      "words": ["kamen", "breg"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "france", "sl": "Za most potrebujemo dva kamnita stebra. Danes nabiramo kamenje!", "en": "For the bridge we need two stone pillars. Today we gather stones!", "de": "Für die Brücke brauchen wir zwei Steinpfeiler. Heute sammeln wir Steine!", "it": "Per il ponte ci servono due pilastri di pietra. Oggi raccogliamo pietre!" },
+          { "who": "tone", "sl": "Kamni morajo biti veliki in ravni.", "en": "The stones have to be big and flat.", "de": "Die Steine müssen groß und flach sein.", "it": "Le pietre devono essere grandi e piatte." },
+          { "who": "france", "sl": "{learner}, poišči velik kamen!", "en": "{learner}, find a big stone!", "de": "{learner}, such einen großen Stein!", "it": "{learner}, cerca una pietra grande!" },
+          { "choices": [
+            { "sl": "Tukaj je velik kamen!", "en": "Here's a big stone!", "de": "Hier ist ein großer Stein!", "it": "Ecco una pietra grande!", "ok": true, "tap": "stones",
+              "reply": { "sl": "Bravo! Tak je pravi.", "en": "Well done! That's the right kind.", "de": "Bravo! So einer ist richtig.", "it": "{m:Bravo|f:Brava}! Così va bene." } },
+            { "sl": "Tukaj je velika vrba!", "en": "Here's a big willow!", "de": "Hier ist eine große Weide!", "it": "Ecco un grande salice!", "tap": "willow",
+              "why": { "en": "Vrba is a willow tree. The pillars are built of stones: kamen.", "de": "Vrba ist eine Weide. Die Pfeiler baut man aus Steinen: kamen.", "it": "Vrba è un salice. I pilastri si fanno con le pietre: kamen." },
+              "reply": { "sl": "Vrba? Iz vrbe pletemo košare. Steber iz vrbe? Ha ha!", "en": "A willow? We weave baskets from willow. A pillar of willow? Ha ha!", "de": "Eine Weide? Aus Weiden flechten wir Körbe. Ein Pfeiler aus Weide? Ha ha!", "it": "Un salice? Col salice intrecciamo cesti. Un pilastro di salice? Ah ah!" } },
+            { "sl": "Tukaj je perilo!", "en": "Here's the laundry!", "de": "Hier ist die Wäsche!", "it": "Ecco il bucato!", "tap": "laundry",
+              "why": { "en": "Perilo is laundry, someone's washing. The pillars need stones: kamen.", "de": "Perilo ist Wäsche, die jemand gewaschen hat. Die Pfeiler brauchen Steine: kamen.", "it": "Perilo è il bucato di qualcuno. Per i pilastri servono pietre: kamen." },
+              "reply": { "sl": "Perilo? Iz srajc ne zidamo stebrov, ha ha!", "en": "Laundry? We don't build pillars out of shirts, ha ha!", "de": "Wäsche? Aus Hemden bauen wir keine Pfeiler, ha ha!", "it": "Il bucato? Con le camicie non si fanno pilastri, ah ah!" } }
+          ] },
+          { "who": "france", "sl": "Zdaj pa: kam nesemo kamne?", "en": "Now then: where do we carry the stones?", "de": "Und jetzt: Wohin tragen wir die Steine?", "it": "E adesso: dove portiamo le pietre?" },
+          { "choices": [
+            { "sl": "Nesemo jih na breg.", "en": "We carry them to the bank.", "de": "Wir tragen sie ans Ufer.", "it": "Le portiamo sulla riva.", "ok": true,
+              "reply": { "sl": "Tako je. Pol na ta breg, pol na drugega.", "en": "That's right. Half to this bank, half to the other.", "de": "Genau. Die Hälfte an dieses Ufer, die Hälfte ans andere.", "it": "Esatto. Metà su questa riva, metà sull'altra." } },
+            { "sl": "Nesemo jih na streho.", "en": "We carry them onto the roof.", "de": "Wir tragen sie aufs Dach.", "it": "Le portiamo sul tetto.",
+              "why": { "en": "Streha is a roof. The pillars stand on the banks of the stream: na breg.", "de": "Streha ist ein Dach. Die Pfeiler stehen an den Ufern des Bachs: na breg.", "it": "Streha è un tetto. I pilastri stanno sulle rive del ruscello: na breg." },
+              "reply": { "sl": "Na streho? Ha ha, most ne bo na strehi!", "en": "Onto the roof? Ha ha, the bridge won't be on a roof!", "de": "Aufs Dach? Ha ha, die Brücke kommt doch nicht aufs Dach!", "it": "Sul tetto? Ah ah, il ponte non sarà su un tetto!" } },
+            { "sl": "Nesemo jih v potok.", "en": "We carry them into the stream.", "de": "Wir tragen sie in den Bach.", "it": "Le portiamo nel ruscello.",
+              "why": { "en": "That's where they came from! The pillars stand on the bank: na breg.", "de": "Da kommen sie doch her! Die Pfeiler stehen am Ufer: na breg.", "it": "Ma è da lì che vengono! I pilastri stanno sulla riva: na breg." },
+              "reply": { "sl": "V potok? Saj smo jih ravno vzeli iz potoka!", "en": "Into the stream? We've only just taken them out of it!", "de": "In den Bach? Wir haben sie doch gerade erst herausgeholt!", "it": "Nel ruscello? Ma le abbiamo appena tirate fuori!" } }
+          ] },
+          { "who": "tone", "sl": "Uf, kamni so težki! Ampak kup raste.", "en": "Phew, the stones are heavy! But the pile is growing.", "de": "Puh, die Steine sind schwer! Aber der Haufen wächst.", "it": "Uff, le pietre sono pesanti! Ma il mucchio cresce." }
+        ] },
+        "A2": { "lines": [
+          { "who": "france", "sl": "Stebra bosta iz kamna, zato potrebujemo veliko kamenja.", "en": "The pillars will be of stone, so we need a lot of stones.", "de": "Die Pfeiler werden aus Stein, darum brauchen wir viele Steine.", "it": "I pilastri saranno di pietra, quindi ci servono tante pietre." },
+          { "who": "tone", "sl": "Kamni morajo biti veliki in ravni, da lepo ležijo drug na drugem.", "en": "The stones have to be big and flat, so they lie nicely one on another.", "de": "Die Steine müssen groß und flach sein, damit sie schön aufeinander liegen.", "it": "Le pietre devono essere grandi e piatte, così stanno bene una sull'altra." },
+          { "who": "france", "sl": "{learner}, kaj je pravo za steber? Pokaži!", "en": "{learner}, what's right for a pillar? Show us!", "de": "{learner}, was taugt für einen Pfeiler? Zeig es uns!", "it": "{learner}, che cosa va bene per un pilastro? Facci vedere!" },
+          { "choices": [
+            { "sl": "Tisti kamni tam so pravi!", "en": "Those stones over there are right!", "de": "Die Steine dort sind richtig!", "it": "Quelle pietre laggiù vanno bene!", "ok": true, "tap": "stones",
+              "reply": { "sl": "Res je. Gladki so in težki.", "en": "True. They're smooth and heavy.", "de": "Stimmt. Sie sind glatt und schwer.", "it": "È vero. Sono lisce e pesanti." } },
+            { "sl": "Tista vrba tam je prava!", "en": "That willow over there is right!", "de": "Die Weide dort ist richtig!", "it": "Quel salice laggiù va bene!", "tap": "willow",
+              "why": { "en": "Vrba is a willow tree. A stone pillar needs stones: kamen.", "de": "Vrba ist eine Weide. Ein Steinpfeiler braucht Steine: kamen.", "it": "Vrba è un salice. Un pilastro di pietra ha bisogno di pietre: kamen." },
+              "reply": { "sl": "Vrba? Lepo senco ima, ampak steber iz nje bi se upognil.", "en": "The willow? It gives nice shade, but a pillar of it would bend.", "de": "Die Weide? Sie gibt schönen Schatten, aber ein Pfeiler aus ihr würde sich biegen.", "it": "Il salice? Fa una bella ombra, ma un pilastro di salice si piegherebbe." } },
+            { "sl": "Tisto perilo tam je pravo!", "en": "That laundry over there is right!", "de": "Die Wäsche dort ist richtig!", "it": "Quel bucato laggiù va bene!", "tap": "laundry",
+              "why": { "en": "Perilo is laundry, someone's washing. A stone pillar needs stones: kamen.", "de": "Perilo ist Wäsche, die jemand gewaschen hat. Ein Steinpfeiler braucht Steine: kamen.", "it": "Perilo è il bucato di qualcuno. Un pilastro di pietra ha bisogno di pietre: kamen." },
+              "reply": { "sl": "Perilo? Iz srajc ne zidamo stebrov, ha ha!", "en": "Laundry? We don't build pillars out of shirts, ha ha!", "de": "Wäsche? Aus Hemden bauen wir keine Pfeiler, ha ha!", "it": "Il bucato? Con le camicie non si fanno pilastri, ah ah!" } }
+          ] },
+          { "who": "france", "sl": "Bravo. Kam jih bomo odnesli?", "en": "Well done. Where will we take them?", "de": "Bravo. Wohin bringen wir sie?", "it": "{m:Bravo|f:Brava}. Dove le porteremo?" },
+          { "choices": [
+            { "sl": "Na oba brega, ker bo na vsakem stal en steber.", "en": "To both banks, because a pillar will stand on each.", "de": "An beide Ufer, weil an jedem ein Pfeiler stehen wird.", "it": "Su tutte e due le rive, perché su ognuna ci sarà un pilastro.", "ok": true,
+              "reply": { "sl": "Tako je. Pol kamnov na ta breg, pol na drugega.", "en": "That's right. Half the stones to this bank, half to the other.", "de": "Genau. Die Hälfte der Steine an dieses Ufer, die Hälfte ans andere.", "it": "Esatto. Metà delle pietre su questa riva, metà sull'altra." } },
+            { "sl": "Na oba brege, ker bo na vsakem stal en steber.", "en": "To both banks, because a pillar will stand on each.", "de": "An beide Ufer, weil an jedem ein Pfeiler stehen wird.", "it": "Su tutte e due le rive, perché su ognuna ci sarà un pilastro.", "grammar": "dvojina",
+              "why": { "en": "Two banks: the dual, na oba brega. Brege is the plural, for three or more.", "de": "Zwei Ufer: der Dual, na oba brega. Brege ist der Plural, für drei oder mehr.", "it": "Due rive: il duale, na oba brega. Brege è il plurale, per tre o più." },
+              "reply": { "sl": "Na oba … brege? Hm, kako, prosim?", "en": "To both … brege? Hm, pardon?", "de": "An beide … brege? Hm, wie bitte?", "it": "Su tutte e due … brege? Mm, come, scusa?" } },
+            { "sl": "Na oba hriba, ker bo na vsakem stal en steber.", "en": "To both hills, because a pillar will stand on each.", "de": "Auf beide Hügel, weil auf jedem ein Pfeiler stehen wird.", "it": "Su tutte e due le colline, perché su ognuna ci sarà un pilastro.",
+              "why": { "en": "Hrib is a hill. A bridge over a stream stands on its two banks: na oba brega.", "de": "Hrib ist ein Hügel. Eine Brücke über einen Bach steht auf seinen beiden Ufern: na oba brega.", "it": "Hrib è una collina. Un ponte sul ruscello poggia sulle sue due rive: na oba brega." },
+              "reply": { "sl": "Na oba hriba? Potem bo most pa res dolg, ha ha!", "en": "Onto both hills? Then the bridge will be really long, ha ha!", "de": "Auf beide Hügel? Dann wird die Brücke aber richtig lang, ha ha!", "it": "Su tutte e due le colline? Allora sì che il ponte sarà lungo, ah ah!" } }
+          ] },
+          { "who": "tone", "sl": "Kup na tem bregu je že visok. Še nekaj košar, pa bo dovolj!", "en": "The pile on this bank is already high. A few more baskets and it'll be enough!", "de": "Der Haufen an diesem Ufer ist schon hoch. Noch ein paar Körbe, dann reicht es!", "it": "Il mucchio su questa riva è già alto. Ancora qualche cesto e basterà!" }
+        ] }
+      }
+    },
+    {
+      "scene": "ob-potoku",
+      "words": ["steber", "mocan"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "france", "sl": "Kamenje je tukaj. Danes začnemo zidati!", "en": "The stones are here. Today we start building!", "de": "Die Steine sind da. Heute fangen wir an zu mauern!", "it": "Le pietre sono qui. Oggi cominciamo a murare!" },
+          { "who": "anton", "sl": "Koliko stebrov pa potrebujemo?", "en": "So how many pillars do we need?", "de": "Wie viele Pfeiler brauchen wir denn?", "it": "Quanti pilastri ci servono, allora?" },
+          { "choices": [
+            { "sl": "Dva stebra, enega na vsakem bregu.", "en": "Two pillars, one on each bank.", "de": "Zwei Pfeiler, einen an jedem Ufer.", "it": "Due pilastri, uno su ogni riva.", "ok": true,
+              "reply": { "sl": "Aha, dva. Potem pa hitro na delo!", "en": "Aha, two. Then let's get to work!", "de": "Aha, zwei. Dann schnell an die Arbeit!", "it": "Ah, due. Allora subito al lavoro!" } },
+            { "sl": "Dva stebri, enega na vsakem bregu.", "en": "Two pillars, one on each bank.", "de": "Zwei Pfeiler, einen an jedem Ufer.", "it": "Due pilastri, uno su ogni riva.", "grammar": "dvojina",
+              "why": { "en": "Two of something: the dual, dva stebra. Stebri is the plural, for three or more.", "de": "Zwei von etwas: der Dual, dva stebra. Stebri ist der Plural, für drei oder mehr.", "it": "Due cose: il duale, dva stebra. Stebri è il plurale, per tre o più." },
+              "reply": { "sl": "Dva … stebri? Hm, kako, prosim?", "en": "Two … stebri? Hm, pardon?", "de": "Zwei … stebri? Hm, wie bitte?", "it": "Due … stebri? Mm, come, scusa?" } },
+            { "sl": "Dva stola, enega na vsakem bregu.", "en": "Two chairs, one on each bank.", "de": "Zwei Stühle, einen an jedem Ufer.", "it": "Due sedie, una su ogni riva.",
+              "why": { "en": "Stol is a chair. A bridge rests on pillars: dva stebra.", "de": "Stol ist ein Stuhl. Eine Brücke ruht auf Pfeilern: dva stebra.", "it": "Stol è una sedia. Un ponte poggia sui pilastri: dva stebra." },
+              "reply": { "sl": "Dva stola? Ha ha, most ni miza!", "en": "Two chairs? Ha ha, a bridge isn't a table!", "de": "Zwei Stühle? Ha ha, eine Brücke ist doch kein Tisch!", "it": "Due sedie? Ah ah, un ponte non è un tavolo!" } }
+          ] },
+          { "who": "france", "sl": "Kamen na kamen … {learner}, kakšen mora biti steber?", "en": "Stone on stone … {learner}, what must a pillar be like?", "de": "Stein auf Stein … {learner}, wie muss ein Pfeiler sein?", "it": "Pietra su pietra … {learner}, come deve essere un pilastro?" },
+          { "choices": [
+            { "sl": "Steber mora biti močan.", "en": "A pillar has to be strong.", "de": "Ein Pfeiler muss stark sein.", "it": "Un pilastro deve essere forte.", "ok": true,
+              "reply": { "sl": "Tako je. Nositi mora most in težke vozove.", "en": "That's right. It has to carry the bridge and heavy carts.", "de": "Genau. Er muss die Brücke und schwere Wagen tragen.", "it": "Esatto. Deve reggere il ponte e i carri pesanti." } },
+            { "sl": "Steber mora biti mehak.", "en": "A pillar has to be soft.", "de": "Ein Pfeiler muss weich sein.", "it": "Un pilastro deve essere morbido.",
+              "why": { "en": "Mehak means soft. A pillar carries the bridge: močan (strong).", "de": "Mehak heißt weich. Ein Pfeiler trägt die Brücke: močan (stark).", "it": "Mehak vuol dire morbido. Un pilastro regge il ponte: močan (forte)." },
+              "reply": { "sl": "Mehak? Kot blazina? Potem voz pade v vodo!", "en": "Soft? Like a pillow? Then the cart falls into the water!", "de": "Weich? Wie ein Kissen? Dann fällt der Wagen ins Wasser!", "it": "Morbido? Come un cuscino? Allora il carro finisce in acqua!" } }
+          ] },
+          { "who": "anton", "sl": "Glejte, stebra že stojita!", "en": "Look, the pillars are already standing!", "de": "Schaut, die Pfeiler stehen schon!", "it": "Guardate, i pilastri sono già in piedi!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "france", "sl": "Na vsak breg postavimo en steber. Zidali ga bomo kamen na kamen.", "en": "We put one pillar on each bank. We'll build it stone on stone.", "de": "An jedes Ufer stellen wir einen Pfeiler. Wir mauern ihn Stein auf Stein.", "it": "Su ogni riva mettiamo un pilastro. Lo tireremo su pietra su pietra." },
+          { "who": "tone", "sl": "Kamni so pripravljeni, malta tudi.", "en": "The stones are ready, the mortar too.", "de": "Die Steine sind bereit, der Mörtel auch.", "it": "Le pietre sono pronte, e anche la malta." },
+          { "who": "france", "sl": "{learner}, koliko stebrov bomo torej postavili?", "en": "{learner}, so how many pillars will we put up?", "de": "{learner}, wie viele Pfeiler stellen wir also auf?", "it": "{learner}, quanti pilastri tireremo su, allora?" },
+          { "choices": [
+            { "sl": "Dva stebra, enega na vsakem bregu.", "en": "Two pillars, one on each bank.", "de": "Zwei Pfeiler, einen an jedem Ufer.", "it": "Due pilastri, uno su ogni riva.", "ok": true,
+              "reply": { "sl": "Tako je. Začnimo na tem bregu.", "en": "That's right. Let's start on this bank.", "de": "Genau. Fangen wir an diesem Ufer an.", "it": "Esatto. Cominciamo da questa riva." } },
+            { "sl": "Dva stebri, enega na vsakem bregu.", "en": "Two pillars, one on each bank.", "de": "Zwei Pfeiler, einen an jedem Ufer.", "it": "Due pilastri, uno su ogni riva.", "grammar": "dvojina",
+              "why": { "en": "Two of something: the dual, dva stebra. Stebri is the plural, for three or more.", "de": "Zwei von etwas: der Dual, dva stebra. Stebri ist der Plural, für drei oder mehr.", "it": "Due cose: il duale, dva stebra. Stebri è il plurale, per tre o più." },
+              "reply": { "sl": "Dva … stebri? Hm, kako, prosim?", "en": "Two … stebri? Hm, pardon?", "de": "Zwei … stebri? Hm, wie bitte?", "it": "Due … stebri? Mm, come, scusa?" } },
+            { "sl": "Dva stola, enega na vsakem bregu.", "en": "Two chairs, one on each bank.", "de": "Zwei Stühle, einen an jedem Ufer.", "it": "Due sedie, una su ogni riva.",
+              "why": { "en": "Stol is a chair. A bridge rests on pillars: dva stebra.", "de": "Stol ist ein Stuhl. Eine Brücke ruht auf Pfeilern: dva stebra.", "it": "Stol è una sedia. Un ponte poggia sui pilastri: dva stebra." },
+              "reply": { "sl": "Dva stola? Ha ha, na mostu ne bomo sedeli!", "en": "Two chairs? Ha ha, we won't be sitting on the bridge!", "de": "Zwei Stühle? Ha ha, auf der Brücke sitzen wir doch nicht!", "it": "Due sedie? Ah ah, mica ci sediamo sul ponte!" } }
+          ] },
+          { "who": "anton", "sl": "Spomladi je voda zelo močna. Kakšen mora biti steber?", "en": "In spring the water is very strong. What must the pillar be like?", "de": "Im Frühling ist das Wasser sehr stark. Wie muss der Pfeiler sein?", "it": "In primavera l'acqua è fortissima. Come deve essere il pilastro?" },
+          { "choices": [
+            { "sl": "Močnejši od vode!", "en": "Stronger than the water!", "de": "Stärker als das Wasser!", "it": "Più forte dell'acqua!", "ok": true,
+              "reply": { "sl": "Prav. Potem ga voda ne odnese.", "en": "Right. Then the water won't carry it away.", "de": "Richtig. Dann reißt ihn das Wasser nicht mit.", "it": "Giusto. Così l'acqua non se lo porta via." } },
+            { "sl": "Močan od vode!", "en": "Strong than the water!", "de": "Stark als das Wasser!", "it": "Forte dell'acqua!", "grammar": "primernik",
+              "why": { "en": "Comparing with od (than), you need the comparative: močnejši od vode.", "de": "Beim Vergleich mit od (als) braucht man den Komparativ: močnejši od vode.", "it": "Per confrontare con od (di) serve il comparativo: močnejši od vode." },
+              "reply": { "sl": "Močan … od vode? Hm, kako, prosim?", "en": "Strong … than the water? Hm, pardon?", "de": "Stark … als das Wasser? Hm, wie bitte?", "it": "Forte … dell'acqua? Mm, come, scusa?" } },
+            { "sl": "Mehkejši od vode!", "en": "Softer than the water!", "de": "Weicher als das Wasser!", "it": "Più morbido dell'acqua!",
+              "why": { "en": "Mehkejši means softer: the water would wash it away. Stronger: močnejši.", "de": "Mehkejši heißt weicher: Das Wasser würde ihn wegspülen. Stärker: močnejši.", "it": "Mehkejši vuol dire più morbido: l'acqua lo porterebbe via. Più forte: močnejši." },
+              "reply": { "sl": "Mehkejši od vode? Potem ga voda odnese do morja!", "en": "Softer than the water? Then the water carries it all the way to the sea!", "de": "Weicher als das Wasser? Dann trägt ihn das Wasser bis ans Meer!", "it": "Più morbido dell'acqua? Allora l'acqua se lo porta fino al mare!" } }
+          ] },
+          { "who": "france", "sl": "Prav. Glejte, stebra že stojita!", "en": "Right. Look, the pillars are already standing!", "de": "Gut. Schaut, die Pfeiler stehen schon!", "it": "Bene. Guardate, i pilastri sono già in piedi!" }
+        ] }
+      }
+    },
+    {
+      "scene": "v-gozdu",
+      "words": ["hlod", "voz"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "france", "sl": "Stebra stojita. Zdaj gremo v gozd po hlode!", "en": "The pillars are standing. Now we go into the forest for logs!", "de": "Die Pfeiler stehen. Jetzt gehen wir in den Wald, Stämme holen!", "it": "I pilastri sono in piedi. Ora andiamo nel bosco a prendere i tronchi!" },
+          { "who": "luka", "sl": "Tukaj ležijo. Dolgi so in ravni!", "en": "Here they are, lying here. They're long and straight!", "de": "Hier liegen sie. Lang und gerade!", "it": "Eccoli, sono qui a terra. Lunghi e dritti!" },
+          { "who": "france", "sl": "{learner}, kam jih naložimo?", "en": "{learner}, where do we load them?", "de": "{learner}, wohin laden wir sie?", "it": "{learner}, dove li carichiamo?" },
+          { "choices": [
+            { "sl": "Naložimo jih na voz.", "en": "We load them onto the cart.", "de": "Wir laden sie auf den Wagen.", "it": "Li carichiamo sul carro.", "ok": true,
+              "reply": { "sl": "Tako je. Konj ga bo potegnil.", "en": "That's right. The horse will pull it.", "de": "Genau. Das Pferd wird ihn ziehen.", "it": "Esatto. Il cavallo lo tirerà." } },
+            { "sl": "Naložimo jih na kolo.", "en": "We load them onto the bicycle.", "de": "Wir laden sie aufs Fahrrad.", "it": "Li carichiamo sulla bicicletta.",
+              "why": { "en": "Kolo is a bicycle. Long logs go on the cart: voz.", "de": "Kolo ist ein Fahrrad. Lange Stämme kommen auf den Wagen: voz.", "it": "Kolo è una bicicletta. I tronchi lunghi vanno sul carro: voz." },
+              "reply": { "sl": "Na kolo? Ha ha, potem pa ti poganjaj!", "en": "Onto the bike? Ha ha, then you do the pedalling!", "de": "Aufs Fahrrad? Ha ha, dann trittst du in die Pedale!", "it": "Sulla bici? Ah ah, allora pedali tu!" } },
+            { "sl": "Naložimo jih na mizo.", "en": "We load them onto the table.", "de": "Wir laden sie auf den Tisch.", "it": "Li carichiamo sul tavolo.",
+              "why": { "en": "Miza is a table. Logs are carried on a cart: voz.", "de": "Miza ist ein Tisch. Stämme fährt man auf einem Wagen: voz.", "it": "Miza è un tavolo. I tronchi si portano col carro: voz." },
+              "reply": { "sl": "Na mizo? Hlodov pa ne bomo jedli!", "en": "Onto the table? We're not going to eat logs!", "de": "Auf den Tisch? Stämme essen wir doch nicht!", "it": "Sul tavolo? Mica mangiamo i tronchi!" } }
+          ] },
+          { "who": "luka", "sl": "Na vozu je še malo prostora. Kaj še naložimo?", "en": "There's still a bit of room on the cart. What else do we load?", "de": "Auf dem Wagen ist noch etwas Platz. Was laden wir noch auf?", "it": "Sul carro c'è ancora un po' di posto. Che altro carichiamo?" },
+          { "choices": [
+            { "sl": "Še en hlod!", "en": "One more log!", "de": "Noch einen Stamm!", "it": "Un altro tronco!", "ok": true,
+              "reply": { "sl": "Prav. Ta je zadnji, voz je poln!", "en": "Right. That's the last one, the cart is full!", "de": "Gut. Das ist der letzte, der Wagen ist voll!", "it": "Bene. È l'ultimo, il carro è pieno!" } },
+            { "sl": "Še en grm!", "en": "One more bush!", "de": "Noch einen Busch!", "it": "Un altro cespuglio!",
+              "why": { "en": "Grm is a bush: you can't make a bridge from a bush. Load one more log: hlod.", "de": "Grm ist ein Busch: Aus einem Busch wird keine Brücke. Lade noch einen Stamm: hlod.", "it": "Grm è un cespuglio: con un cespuglio non si fa un ponte. Carica un altro tronco: hlod." },
+              "reply": { "sl": "Grm? Grm naj kar raste, ha ha!", "en": "A bush? Let the bush grow, ha ha!", "de": "Einen Busch? Der Busch soll ruhig wachsen, ha ha!", "it": "Un cespuglio? Lascialo crescere, ah ah!" } },
+            { "sl": "Še en lonec!", "en": "One more pot!", "de": "Noch einen Topf!", "it": "Un'altra pentola!",
+              "why": { "en": "Lonec is a cooking pot. The bridge needs logs: hlod.", "de": "Lonec ist ein Kochtopf. Die Brücke braucht Stämme: hlod.", "it": "Lonec è una pentola. Al ponte servono tronchi: hlod." },
+              "reply": { "sl": "Lonec? Bomo v gozdu kuhali?", "en": "A pot? Are we going to cook in the forest?", "de": "Einen Topf? Kochen wir etwa im Wald?", "it": "Una pentola? Cuciniamo nel bosco?" } }
+          ] },
+          { "who": "france", "sl": "Gremo! Še po dolgi poti okoli, kmalu pa čez most.", "en": "Off we go! Still the long way round, but soon over the bridge.", "de": "Los geht's! Noch auf dem langen Weg außen herum, bald aber über die Brücke.", "it": "Andiamo! Ancora per la strada lunga, ma presto sul ponte." }
+        ] },
+        "A2": { "lines": [
+          { "who": "france", "sl": "Za most potrebujemo dolge hlode. V gozdu jih je dovolj.", "en": "For the bridge we need long logs. There are enough in the forest.", "de": "Für die Brücke brauchen wir lange Stämme. Im Wald gibt es genug.", "it": "Per il ponte ci servono tronchi lunghi. Nel bosco ce ne sono abbastanza." },
+          { "who": "luka", "sl": "Tukaj ležijo trije. Tale je najdaljši!", "en": "Three are lying here. This one is the longest!", "de": "Hier liegen drei. Der hier ist der längste!", "it": "Qui ce ne sono tre. Questo è il più lungo!" },
+          { "who": "france", "sl": "S čim jih bomo pripeljali do potoka, {learner}?", "en": "What will we bring them to the stream with, {learner}?", "de": "Womit bringen wir sie zum Bach, {learner}?", "it": "Con che cosa li porteremo al ruscello, {learner}?" },
+          { "choices": [
+            { "sl": "Z vozom, ker so pretežki za roke.", "en": "With the cart, because they're too heavy for our hands.", "de": "Mit dem Wagen, weil sie für die Hände zu schwer sind.", "it": "Con il carro, perché sono troppo pesanti da portare a mano.", "ok": true,
+              "reply": { "sl": "Tako je. Konj je že vprežen.", "en": "That's right. The horse is already harnessed.", "de": "Genau. Das Pferd ist schon eingespannt.", "it": "Esatto. Il cavallo è già attaccato." } },
+            { "sl": "Z voz, ker so pretežki za roke.", "en": "With the cart, because they're too heavy for our hands.", "de": "Mit dem Wagen, weil sie für die Hände zu schwer sind.", "it": "Con il carro, perché sono troppo pesanti da portare a mano.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: z vozom.", "de": "Z (mit) verlangt den Instrumental: z vozom.", "it": "Z (con) vuole lo strumentale: z vozom." },
+              "reply": { "sl": "Z … voz? Povej še enkrat.", "en": "With … voz? Say it again.", "de": "Mit … voz? Sag's noch einmal.", "it": "Con … voz? Ripetilo." } },
+            { "sl": "Na ramah, ker so pretežki za roke.", "en": "On our shoulders, because they're too heavy for our hands.", "de": "Auf den Schultern, weil sie für die Hände zu schwer sind.", "it": "Sulle spalle, perché sono troppo pesanti da portare a mano.",
+              "why": { "en": "Too heavy for your hands is too heavy for your shoulders too! Logs come by cart: z vozom.", "de": "Was für die Hände zu schwer ist, ist es auch für die Schultern! Stämme kommen mit dem Wagen: z vozom.", "it": "Se sono troppo pesanti per le mani, lo sono anche per le spalle! I tronchi arrivano col carro: z vozom." },
+              "reply": { "sl": "Na ramah? Saj si {m:rekel|f:rekla}, da so pretežki!", "en": "On our shoulders? You just said they're too heavy!", "de": "Auf den Schultern? Du hast doch gerade gesagt, sie sind zu schwer!", "it": "Sulle spalle? Ma hai appena detto che sono troppo pesanti!" } }
+          ] },
+          { "who": "luka", "sl": "Na vozu je še prostor za enega. Kaj še naložimo?", "en": "There's room for one more on the cart. What else do we load?", "de": "Auf dem Wagen ist noch Platz für einen. Was laden wir noch auf?", "it": "Sul carro c'è posto per un altro. Che altro carichiamo?" },
+          { "choices": [
+            { "sl": "Še en hlod, potem bo voz poln.", "en": "One more log, then the cart will be full.", "de": "Noch einen Stamm, dann ist der Wagen voll.", "it": "Un altro tronco, poi il carro sarà pieno.", "ok": true,
+              "reply": { "sl": "Prav. Uf, ta je pa res težak!", "en": "Right. Phew, this one really is heavy!", "de": "Gut. Puh, der ist aber wirklich schwer!", "it": "Bene. Uff, questo sì che è pesante!" } },
+            { "sl": "Še en grm, potem bo voz poln.", "en": "One more bush, then the cart will be full.", "de": "Noch einen Busch, dann ist der Wagen voll.", "it": "Un altro cespuglio, poi il carro sarà pieno.",
+              "why": { "en": "Grm is a bush: you can't make a bridge from a bush. Load one more log: hlod.", "de": "Grm ist ein Busch: Aus einem Busch wird keine Brücke. Lade noch einen Stamm: hlod.", "it": "Grm è un cespuglio: con un cespuglio non si fa un ponte. Carica un altro tronco: hlod." },
+              "reply": { "sl": "Grm? Iz grma pa ne bo mosta, ha ha!", "en": "A bush? You won't get a bridge out of a bush, ha ha!", "de": "Einen Busch? Aus einem Busch wird keine Brücke, ha ha!", "it": "Un cespuglio? Da un cespuglio non viene un ponte, ah ah!" } },
+            { "sl": "Še ena hlod, potem bo voz poln.", "en": "One more log, then the cart will be full.", "de": "Noch einen Stamm, dann ist der Wagen voll.", "it": "Un altro tronco, poi il carro sarà pieno.", "grammar": "spol-samostalnikov",
+              "why": { "en": "Hlod is masculine, ending in a consonant: še en hlod.", "de": "Hlod ist männlich, er endet auf einen Konsonanten: še en hlod.", "it": "Hlod è maschile, finisce in consonante: še en hlod." },
+              "reply": { "sl": "Ena hlod? Hm, kako, prosim?", "en": "Ena hlod? Hm, pardon?", "de": "Ena hlod? Hm, wie bitte?", "it": "Ena hlod? Mm, come, scusa?" } }
+          ] },
+          { "who": "france", "sl": "Hi! Do potoka je daleč, ker gremo okoli. Kmalu bo tega konec.", "en": "Giddy-up! It's far to the stream, because we go the long way round. Soon that'll be over.", "de": "Hü! Bis zum Bach ist es weit, weil wir außen herum fahren. Bald ist damit Schluss.", "it": "Arri! Fino al ruscello è lontano, perché facciamo il giro. Presto non servirà più." }
+        ] }
+      }
+    },
+    {
+      "scene": "ob-potoku",
+      "words": ["deska", "debel"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "france", "sl": "Hlodi ležijo na stebrih. Zdaj pa še tla za voz!", "en": "The logs lie on the pillars. Now a floor for the cart!", "de": "Die Stämme liegen auf den Pfeilern. Jetzt noch ein Boden für den Wagen!", "it": "I tronchi sono sui pilastri. Ora manca il piano per il carro!" },
+          { "who": "tone", "sl": "Les je tukaj, žeblji tudi.", "en": "The wood is here, the nails too.", "de": "Das Holz ist da, die Nägel auch.", "it": "Il legno è qui, e anche i chiodi." },
+          { "who": "france", "sl": "{learner}, kaj položimo na hlode?", "en": "{learner}, what do we lay on the logs?", "de": "{learner}, was legen wir auf die Stämme?", "it": "{learner}, che cosa posiamo sui tronchi?" },
+          { "choices": [
+            { "sl": "Debele deske.", "en": "Thick planks.", "de": "Dicke Bretter.", "it": "Assi spesse.", "ok": true,
+              "reply": { "sl": "Tako je. Tanke bi se zlomile.", "en": "That's right. Thin ones would break.", "de": "Genau. Dünne würden brechen.", "it": "Esatto. Quelle sottili si romperebbero." } },
+            { "sl": "Tanke deske.", "en": "Thin planks.", "de": "Dünne Bretter.", "it": "Assi sottili.",
+              "why": { "en": "Tanek means thin: a thin plank breaks under a cart. Thick: debele.", "de": "Tanek heißt dünn: Ein dünnes Brett bricht unter einem Wagen. Dick: debele.", "it": "Tanek vuol dire sottile: un'asse sottile si rompe sotto un carro. Spesse: debele." },
+              "reply": { "sl": "Tanke? Pod vozom bodo naredile krc!", "en": "Thin? Under a cart they'll go crack!", "de": "Dünne? Unter dem Wagen machen die knacks!", "it": "Sottili? Sotto il carro faranno crac!" } },
+            { "sl": "Debele vrvi.", "en": "Thick ropes.", "de": "Dicke Seile.", "it": "Corde spesse.",
+              "why": { "en": "Vrv is a rope. A bridge's floor is made of planks: deske.", "de": "Vrv ist ein Seil. Den Boden einer Brücke macht man aus Brettern: deske.", "it": "Vrv è una corda. Il piano di un ponte si fa con le assi: deske." },
+              "reply": { "sl": "Vrvi? Saj ne gradimo gugalnice, ha ha!", "en": "Ropes? We're not building a swing, ha ha!", "de": "Seile? Wir bauen doch keine Schaukel, ha ha!", "it": "Corde? Mica costruiamo un'altalena, ah ah!" } }
+          ] },
+          { "who": "france", "sl": "Zdaj pa žeblji. Kaj mi daš?", "en": "Now the nails. What will you give me?", "de": "Jetzt die Nägel. Was gibst du mir?", "it": "Adesso i chiodi. Che cosa mi dai?" },
+          { "choices": [
+            { "sl": "Izvolite kladivo.", "en": "Here's the hammer.", "de": "Bitte, der Hammer.", "it": "Ecco il martello.", "ok": true,
+              "reply": { "sl": "Hvala. Bum, bum, bum!", "en": "Thanks. Bang, bang, bang!", "de": "Danke. Bumm, bumm, bumm!", "it": "Grazie. Bum, bum, bum!" } },
+            { "sl": "Izvolite kruh.", "en": "Here's some bread.", "de": "Bitte, Brot.", "it": "Ecco del pane.",
+              "why": { "en": "Kruh is bread. Nails go in with a hammer: kladivo.", "de": "Kruh ist Brot. Nägel schlägt man mit einem Hammer ein: kladivo.", "it": "Kruh è il pane. I chiodi si piantano col martello: kladivo." },
+              "reply": { "sl": "Kruh? Hvala, ampak z njim ne zabijem žeblja!", "en": "Bread? Thanks, but I can't drive a nail in with it!", "de": "Brot? Danke, aber damit schlage ich keinen Nagel ein!", "it": "Pane? Grazie, ma con quello non pianto un chiodo!" } }
+          ] },
+          { "who": "tone", "sl": "Deska za desko … Most ima tla!", "en": "Plank after plank … The bridge has a floor!", "de": "Brett für Brett … Die Brücke hat einen Boden!", "it": "Asse dopo asse … Il ponte ha il suo piano!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "france", "sl": "Hlodi so na stebrih. Zdaj bomo nanje položili deske, eno ob drugo.", "en": "The logs are on the pillars. Now we'll lay planks on them, one next to the other.", "de": "Die Stämme liegen auf den Pfeilern. Jetzt legen wir Bretter darauf, eins neben das andere.", "it": "I tronchi sono sui pilastri. Ora ci posiamo sopra le assi, una accanto all'altra." },
+          { "who": "tone", "sl": "Žeblji so tukaj, kladivo tudi.", "en": "The nails are here, the hammer too.", "de": "Die Nägel sind da, der Hammer auch.", "it": "I chiodi sono qui, e anche il martello." },
+          { "who": "france", "sl": "Po mostu bodo vozili težki vozovi. {learner}, katere deske vzamemo?", "en": "Heavy carts will drive over the bridge. {learner}, which planks do we take?", "de": "Über die Brücke werden schwere Wagen fahren. {learner}, welche Bretter nehmen wir?", "it": "Sul ponte passeranno carri pesanti. {learner}, quali assi prendiamo?" },
+          { "choices": [
+            { "sl": "Debele, ker se tanke zlomijo.", "en": "Thick ones, because thin ones break.", "de": "Dicke, weil dünne brechen.", "it": "Quelle spesse, perché quelle sottili si rompono.", "ok": true,
+              "reply": { "sl": "Prav imaš. Debela deska drži tudi poln voz.", "en": "You're right. A thick plank holds even a full cart.", "de": "Du hast recht. Ein dickes Brett hält auch einen vollen Wagen.", "it": "Hai ragione. Un'asse spessa regge anche un carro pieno." } },
+            { "sl": "Tanke, ker se debele zlomijo.", "en": "Thin ones, because thick ones break.", "de": "Dünne, weil dicke brechen.", "it": "Quelle sottili, perché quelle spesse si rompono.",
+              "why": { "en": "The other way round: thin planks break. Take thick ones: debele.", "de": "Umgekehrt: Dünne Bretter brechen. Nimm dicke: debele.", "it": "Al contrario: sono le assi sottili a rompersi. Prendi quelle spesse: debele." },
+              "reply": { "sl": "Debele se zlomijo? Hm, jaz mislim, da je obratno.", "en": "Thick ones break? Hm, I think it's the other way round.", "de": "Dicke brechen? Hm, ich glaube, es ist umgekehrt.", "it": "Quelle spesse si rompono? Mm, secondo me è il contrario." } }
+          ] },
+          { "who": "france", "sl": "{learner}, poglej kup. Koliko desk je še tam?", "en": "{learner}, look at the pile. How many planks are left there?", "de": "{learner}, schau auf den Stapel. Wie viele Bretter liegen noch da?", "it": "{learner}, guarda la catasta. Quante assi ci sono ancora?" },
+          { "choices": [
+            { "sl": "Še deset desk.", "en": "Ten more planks.", "de": "Noch zehn Bretter.", "it": "Ancora dieci assi.", "ok": true,
+              "reply": { "sl": "Dobro, to je dovolj za cel most.", "en": "Good, that's enough for the whole bridge.", "de": "Gut, das reicht für die ganze Brücke.", "it": "Bene, bastano per tutto il ponte." } },
+            { "sl": "Še deset deske.", "en": "Ten more planks.", "de": "Noch zehn Bretter.", "it": "Ancora dieci assi.", "grammar": "stevila-samostalniki",
+              "why": { "en": "From five on, a number takes the genitive plural: deset desk.", "de": "Ab fünf steht nach der Zahl der Genitiv Plural: deset desk.", "it": "Da cinque in su, il numero vuole il genitivo plurale: deset desk." },
+              "reply": { "sl": "Deset … deske? Hm, kako, prosim?", "en": "Ten … deske? Hm, pardon?", "de": "Zehn … deske? Hm, wie bitte?", "it": "Dieci … deske? Mm, come, scusa?" } },
+            { "sl": "Še deset kladiv.", "en": "Ten more hammers.", "de": "Noch zehn Hämmer.", "it": "Ancora dieci martelli.",
+              "why": { "en": "Kladivo is a hammer. On the pile lie planks: desk.", "de": "Kladivo ist ein Hammer. Auf dem Stapel liegen Bretter: desk.", "it": "Kladivo è un martello. Sulla catasta ci sono assi: desk." },
+              "reply": { "sl": "Deset kladiv? Toliko rok pa nimamo, ha ha!", "en": "Ten hammers? We haven't got that many hands, ha ha!", "de": "Zehn Hämmer? So viele Hände haben wir gar nicht, ha ha!", "it": "Dieci martelli? Non abbiamo tutte quelle mani, ah ah!" } }
+          ] },
+          { "who": "tone", "sl": "Deska za desko … Zdaj ima most tla!", "en": "Plank after plank … Now the bridge has a floor!", "de": "Brett für Brett … Jetzt hat die Brücke einen Boden!", "it": "Asse dopo asse … Ora il ponte ha il suo piano!" }
+        ] }
+      }
+    },
+    {
+      "scene": "ob-potoku",
+      "words": ["most", "ploskati"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "france", "sl": "Most je gotov! Danes gre čez prvi voz.", "en": "The bridge is finished! Today the first cart goes over it.", "de": "Die Brücke ist fertig! Heute fährt der erste Wagen darüber.", "it": "Il ponte è finito! Oggi ci passa sopra il primo carro." },
+          { "who": "luka", "sl": "Vsa vas je prišla gledat!", "en": "The whole village has come to watch!", "de": "Das ganze Dorf ist zum Zuschauen gekommen!", "it": "È venuto a vedere tutto il paese!" },
+          { "who": "france", "sl": "{learner}, sedi na voz! Kam gremo?", "en": "{learner}, sit on the cart! Where are we going?", "de": "{learner}, setz dich auf den Wagen! Wohin fahren wir?", "it": "{learner}, sali sul carro! Dove andiamo?" },
+          { "choices": [
+            { "sl": "Gremo čez most!", "en": "We're going over the bridge!", "de": "Wir fahren über die Brücke!", "it": "Attraversiamo il ponte!", "ok": true,
+              "reply": { "sl": "Tako je! Hi, konjiček!", "en": "That's right! Giddy-up, horsey!", "de": "Genau! Hü, Pferdchen!", "it": "Esatto! Arri, cavallino!" } },
+            { "sl": "Gremo čez streho!", "en": "We're going over the roof!", "de": "Wir fahren übers Dach!", "it": "Passiamo sopra il tetto!",
+              "why": { "en": "Streha is a roof: carts don't drive over roofs. Over the bridge: čez most.", "de": "Streha ist ein Dach: Wagen fahren nicht über Dächer. Über die Brücke: čez most.", "it": "Streha è un tetto: i carri non passano sui tetti. Sul ponte: čez most." },
+              "reply": { "sl": "Čez streho? Konj ni mačka, ha ha!", "en": "Over the roof? The horse isn't a cat, ha ha!", "de": "Übers Dach? Das Pferd ist doch keine Katze, ha ha!", "it": "Sopra il tetto? Il cavallo non è un gatto, ah ah!" } },
+            { "sl": "Gremo čez hrib!", "en": "We're going over the hill!", "de": "Wir fahren über den Hügel!", "it": "Passiamo per la collina!",
+              "why": { "en": "Hrib is a hill: that's the long way. Today you cross on the new bridge: čez most.", "de": "Hrib ist ein Hügel: Das ist der lange Weg. Heute fährt man über die neue Brücke: čez most.", "it": "Hrib è una collina: è la strada lunga. Oggi si passa sul ponte nuovo: čez most." },
+              "reply": { "sl": "Čez hrib? Ha ha, konj bi se pa razjezil!", "en": "Over the hill? Ha ha, the horse would be cross!", "de": "Über den Hügel? Ha ha, da würde das Pferd aber böse!", "it": "Oltre la collina? Ah ah, il cavallo si arrabbierebbe!" } }
+          ] },
+          { "who": "luka", "sl": "Kolesa so že na drugi strani. In suha so!", "en": "The wheels are already on the other side. And they're dry!", "de": "Die Räder sind schon auf der anderen Seite. Und sie sind trocken!", "it": "Le ruote sono già dall'altra parte. E sono asciutte!" },
+          { "choices": [
+            { "sl": "Ploskajmo!", "en": "Let's clap!", "de": "Klatschen wir!", "it": "Applaudiamo!", "ok": true,
+              "reply": { "sl": "Ja! Vsi skupaj: bravo!", "en": "Yes! All together: bravo!", "de": "Ja! Alle zusammen: Bravo!", "it": "Sì! Tutti insieme: bravo!" } },
+            { "sl": "Plavajmo!", "en": "Let's swim!", "de": "Schwimmen wir!", "it": "Nuotiamo!",
+              "why": { "en": "Plavati is to swim: no need with a bridge. Everyone claps: ploskajmo!", "de": "Plavati heißt schwimmen: Mit einer Brücke braucht man das nicht. Alle klatschen: ploskajmo!", "it": "Plavati vuol dire nuotare: col ponte non serve più. Tutti applaudono: ploskajmo!" },
+              "reply": { "sl": "Plavati? Zdaj, ko imamo most? Ha ha!", "en": "Swim? Now that we've got a bridge? Ha ha!", "de": "Schwimmen? Jetzt, wo wir eine Brücke haben? Ha ha!", "it": "Nuotare? Adesso che abbiamo il ponte? Ah ah!" } },
+            { "sl": "Spimo!", "en": "Let's sleep!", "de": "Schlafen wir!", "it": "Dormiamo!",
+              "why": { "en": "Spati is to sleep: not now, it's a party! Let's clap: ploskajmo.", "de": "Spati heißt schlafen: nicht jetzt, es ist ein Fest! Klatschen wir: ploskajmo.", "it": "Spati vuol dire dormire: non adesso, è festa! Applaudiamo: ploskajmo." },
+              "reply": { "sl": "Spati? Zdaj? Saj je praznik!", "en": "Sleep? Now? It's a celebration!", "de": "Schlafen? Jetzt? Es ist doch ein Fest!", "it": "Dormire? Adesso? Ma è festa!" } }
+          ] },
+          { "who": "france", "sl": "Hvala, sosedje! To je naš most.", "en": "Thank you, neighbours! This is our bridge.", "de": "Danke, Nachbarn! Das ist unsere Brücke.", "it": "Grazie, vicini! Questo è il nostro ponte." }
+        ] },
+        "A2": { "lines": [
+          { "who": "france", "sl": "Most je končno gotov. Ali bo zdržal težak voz?", "en": "The bridge is finally finished. Will it hold a heavy cart?", "de": "Die Brücke ist endlich fertig. Ob sie einen schweren Wagen aushält?", "it": "Il ponte è finalmente finito. Reggerà un carro pesante?" },
+          { "who": "tone", "sl": "Stebra sta močna, deske so debele. Brez skrbi!", "en": "The pillars are strong, the planks are thick. No worries!", "de": "Die Pfeiler sind stark, die Bretter dick. Keine Sorge!", "it": "I pilastri sono forti, le assi spesse. Niente paura!" },
+          { "who": "france", "sl": "{learner}, prisedi! Kam zapeljemo voz?", "en": "{learner}, hop on! Where do we drive the cart?", "de": "{learner}, steig auf! Wohin fahren wir den Wagen?", "it": "{learner}, sali su! Dove portiamo il carro?" },
+          { "choices": [
+            { "sl": "Na most!", "en": "Onto the bridge!", "de": "Auf die Brücke!", "it": "Sul ponte!", "ok": true,
+              "reply": { "sl": "Tako je. Hi, konjiček! Počasi …", "en": "That's right. Giddy-up, horsey! Slowly …", "de": "Genau. Hü, Pferdchen! Langsam …", "it": "Esatto. Arri, cavallino! Piano …" } },
+            { "sl": "Na mostu!", "en": "On the bridge!", "de": "Auf der Brücke!", "it": "Sul ponte!", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na most. Na mostu says where you already are.", "de": "Kam? (wohin) verlangt den Akkusativ: na most. Na mostu sagt, wo man schon ist.", "it": "Kam? (verso dove) vuole l'accusativo: na most. Na mostu dice dove si è già." },
+              "reply": { "sl": "Na mostu? Saj še nismo gor!", "en": "On the bridge? We're not up there yet!", "de": "Auf der Brücke? Wir sind doch noch gar nicht oben!", "it": "Sul ponte? Ma non ci siamo ancora sopra!" } },
+            { "sl": "Na streho!", "en": "Onto the roof!", "de": "Aufs Dach!", "it": "Sul tetto!",
+              "why": { "en": "Streha is a roof: carts don't drive onto roofs. Onto the bridge: na most.", "de": "Streha ist ein Dach: Wagen fahren nicht aufs Dach. Auf die Brücke: na most.", "it": "Streha è un tetto: i carri non salgono sui tetti. Sul ponte: na most." },
+              "reply": { "sl": "Na streho? Konj ni mačka, ha ha!", "en": "Onto the roof? The horse isn't a cat, ha ha!", "de": "Aufs Dach? Das Pferd ist doch keine Katze, ha ha!", "it": "Sul tetto? Il cavallo non è un gatto, ah ah!" } }
+          ] },
+          { "who": "luka", "sl": "Most drži! Voz je že na drugi strani. Kaj zdaj, vsi skupaj?", "en": "The bridge holds! The cart is already on the other side. What now, all together?", "de": "Die Brücke hält! Der Wagen ist schon auf der anderen Seite. Was jetzt, alle zusammen?", "it": "Il ponte regge! Il carro è già dall'altra parte. E adesso, tutti insieme?" },
+          { "choices": [
+            { "sl": "Ploskajmo, ker je most zdržal!", "en": "Let's clap, because the bridge held!", "de": "Klatschen wir, weil die Brücke gehalten hat!", "it": "Applaudiamo, perché il ponte ha retto!", "ok": true,
+              "reply": { "sl": "Bravo, bravo! Kolesa so prvič ostala suha!", "en": "Bravo, bravo! For the first time the wheels stayed dry!", "de": "Bravo, bravo! Zum ersten Mal sind die Räder trocken geblieben!", "it": "Bravo, bravo! Per la prima volta le ruote sono rimaste asciutte!" } },
+            { "sl": "Ploskajva, ker je most zdržal!", "en": "Let's clap, the two of us, because the bridge held!", "de": "Klatschen wir zwei, weil die Brücke gehalten hat!", "it": "Applaudiamo noi due, perché il ponte ha retto!", "grammar": "dvojina",
+              "why": { "en": "The whole village, more than two: ploskajmo. Ploskajva is for just two people.", "de": "Das ganze Dorf, mehr als zwei: ploskajmo. Ploskajva ist nur für zwei.", "it": "Tutto il paese, più di due: ploskajmo. Ploskajva è solo per due persone." },
+              "reply": { "sl": "Ploskajva? Samo midva? Saj je tukaj vsa vas!", "en": "Just the two of us? The whole village is here!", "de": "Nur wir zwei? Das ganze Dorf ist doch da!", "it": "Solo noi due? Ma c'è tutto il paese!" } },
+            { "sl": "Plavajmo, ker je most zdržal!", "en": "Let's swim, because the bridge held!", "de": "Schwimmen wir, weil die Brücke gehalten hat!", "it": "Nuotiamo, perché il ponte ha retto!",
+              "why": { "en": "Plavati is to swim: with a bridge nobody needs to. Clap: ploskajmo.", "de": "Plavati heißt schwimmen: Mit einer Brücke muss das keiner mehr. Klatscht: ploskajmo.", "it": "Plavati vuol dire nuotare: col ponte non serve più a nessuno. Applaudite: ploskajmo." },
+              "reply": { "sl": "Plavati? Zdaj, ko imamo most? Ha ha!", "en": "Swim? Now that we've got a bridge? Ha ha!", "de": "Schwimmen? Jetzt, wo wir eine Brücke haben? Ha ha!", "it": "Nuotare? Adesso che abbiamo il ponte? Ah ah!" } }
+          ] },
+          { "who": "france", "sl": "Hvala vsem, sosedje! To je naš most.", "en": "Thank you all, neighbours! This is our bridge.", "de": "Danke euch allen, Nachbarn! Das ist unsere Brücke.", "it": "Grazie a tutti, vicini! Questo è il nostro ponte." }
+        ] }
+      }
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "igrisce",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-igrisce",
+  "steps": [
+    {
+      "scene": "v-soli",
+      "words": ["kreda", "risati"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "mojca", "sl": "Dobro jutro! Danes imamo posebno uro: novo igrišče!", "en": "Good morning! Today we have a special lesson: a new playground!", "de": "Guten Morgen! Heute haben wir eine besondere Stunde: einen neuen Spielplatz!", "it": "Buongiorno! Oggi facciamo una lezione speciale: un nuovo parco giochi!" },
+          { "who": "nejc", "sl": "Gugalnico! In tobogan!", "en": "A swing! And a slide!", "de": "Eine Schaukel! Und eine Rutsche!", "it": "Un'altalena! E uno scivolo!" },
+          { "who": "mojca", "sl": "{learner}, kaj potrebujemo za tablo?", "en": "{learner}, what do we need for the blackboard?", "de": "{learner}, was brauchen wir für die Tafel?", "it": "{learner}, che cosa ci serve per la lavagna?" },
+          { "choices": [
+            { "sl": "Tukaj je kreda!", "en": "Here's the chalk!", "de": "Hier ist die Kreide!", "it": "Ecco il gesso!", "ok": true, "tap": "chalk",
+              "reply": { "sl": "Tako je. Bela kreda, pa še rdeča in modra!", "en": "That's right. White chalk, and red and blue too!", "de": "Genau. Weiße Kreide, und noch rote und blaue!", "it": "Esatto. Gesso bianco, e anche rosso e blu!" } },
+            { "sl": "Tukaj je gobica!", "en": "Here's the sponge!", "de": "Hier ist der Schwamm!", "it": "Ecco la spugna!", "tap": "sponge",
+              "why": { "en": "Gobica is the sponge: it wipes the board clean. You draw on it with chalk: kreda.", "de": "Gobica ist der Schwamm: er wischt die Tafel sauber. Darauf zeichnet man mit Kreide: kreda.", "it": "Gobica è la spugna: pulisce la lavagna. Ci si disegna col gesso: kreda." },
+              "reply": { "sl": "Gobica? Z njo tablo brišemo, ne rišemo.", "en": "The sponge? We wipe the board with it, we don't draw.", "de": "Der Schwamm? Damit wischen wir die Tafel, wir zeichnen nicht.", "it": "La spugna? Con quella la lavagna si pulisce, non si disegna." } },
+            { "sl": "Tukaj je torba!", "en": "Here's the bag!", "de": "Hier ist die Tasche!", "it": "Ecco la cartella!", "tap": "bag",
+              "why": { "en": "Torba is a school bag. On the board you draw with chalk: kreda.", "de": "Torba ist eine Schultasche. Auf die Tafel zeichnet man mit Kreide: kreda.", "it": "Torba è la cartella. Sulla lavagna si disegna col gesso: kreda." },
+              "reply": { "sl": "Torba? Torba je za knjige.", "en": "The bag? The bag is for books.", "de": "Die Tasche? Die Tasche ist für Bücher.", "it": "La cartella? La cartella è per i libri." } }
+          ] },
+          { "who": "zala", "sl": "{learner}, kaj delaš s kredo?", "en": "{learner}, what are you doing with the chalk?", "de": "{learner}, was machst du mit der Kreide?", "it": "{learner}, che cosa fai col gesso?" },
+          { "choices": [
+            { "sl": "Rišem gugalnico!", "en": "I'm drawing a swing!", "de": "Ich zeichne eine Schaukel!", "it": "Disegno un'altalena!", "ok": true,
+              "reply": { "sl": "Lepa je! Še vrvi ji nariši.", "en": "It's nice! Draw it some ropes too.", "de": "Sie ist schön! Mal ihr noch Seile dazu.", "it": "È bella! Disegnale anche le corde." } },
+            { "sl": "Pišem gugalnico!", "en": "I'm writing a swing!", "de": "Ich schreibe eine Schaukel!", "it": "Scrivo un'altalena!",
+              "why": { "en": "Pisati is to write words. A picture you draw: risati, rišem.", "de": "Pisati heißt Wörter schreiben. Ein Bild zeichnet man: risati, rišem.", "it": "Pisati vuol dire scrivere parole. Un disegno si fa con risati: rišem." },
+              "reply": { "sl": "Pišeš? Gugalnico? Hi hi, s črkami?", "en": "You're writing? A swing? Hee hee, in letters?", "de": "Du schreibst? Eine Schaukel? Hihi, mit Buchstaben?", "it": "Scrivi? Un'altalena? Ih ih, con le lettere?" } },
+            { "sl": "Jem gugalnico!", "en": "I'm eating a swing!", "de": "Ich esse eine Schaukel!", "it": "Mangio un'altalena!",
+              "why": { "en": "Jesti is to eat! With chalk on a board you draw: risati, rišem.", "de": "Jesti heißt essen! Mit Kreide auf der Tafel zeichnet man: risati, rišem.", "it": "Jesti vuol dire mangiare! Col gesso sulla lavagna si disegna: risati, rišem." },
+              "reply": { "sl": "Ješ jo? Hi hi, gugalnica ni torta!", "en": "You're eating it? Hee hee, a swing isn't a cake!", "de": "Du isst sie? Hihi, eine Schaukel ist doch kein Kuchen!", "it": "La mangi? Ih ih, un'altalena non è una torta!" } }
+          ] },
+          { "who": "mojca", "sl": "Krasno! Zdaj ima tabla celo igrišče.", "en": "Wonderful! Now there's a whole playground on the board.", "de": "Wunderbar! Jetzt ist ein ganzer Spielplatz auf der Tafel.", "it": "Meraviglioso! Ora sulla lavagna c'è un parco giochi intero." }
+        ] },
+        "A2": { "lines": [
+          { "who": "mojca", "sl": "Danes ne bomo računali. Danes vsak pokaže, kakšno igrišče si želi!", "en": "Today we won't do sums. Today everyone shows what kind of playground they'd like!", "de": "Heute rechnen wir nicht. Heute zeigt jeder, was für einen Spielplatz er sich wünscht!", "it": "Oggi niente conti. Oggi ognuno mostra che parco giochi vorrebbe!" },
+          { "who": "tine", "sl": "Na tablo ali v zvezke?", "en": "On the board or in our notebooks?", "de": "An die Tafel oder ins Heft?", "it": "Alla lavagna o sui quaderni?" },
+          { "who": "mojca", "sl": "Na tablo, da bo vsak videl. {learner}, s čim?", "en": "On the board, so everyone can see. {learner}, with what?", "de": "An die Tafel, damit es jeder sieht. {learner}, womit?", "it": "Alla lavagna, così tutti vedono. {learner}, con che cosa?" },
+          { "choices": [
+            { "sl": "S kredo!", "en": "With chalk!", "de": "Mit Kreide!", "it": "Col gesso!", "ok": true, "tap": "chalk", "grammar": "orodnik",
+              "reply": { "sl": "Tako je. Tukaj je bela, tam rdeča.", "en": "That's right. Here's white, and there's red.", "de": "Genau. Hier ist weiße, da rote.", "it": "Esatto. Qui c'è quello bianco, lì quello rosso." } },
+            { "sl": "Z gobico!", "en": "With the sponge!", "de": "Mit dem Schwamm!", "it": "Con la spugna!", "tap": "sponge",
+              "why": { "en": "Gobica is the sponge: it wipes the board. You draw with chalk: s kredo.", "de": "Gobica ist der Schwamm: er wischt die Tafel. Man zeichnet mit Kreide: s kredo.", "it": "Gobica è la spugna: pulisce la lavagna. Si disegna col gesso: s kredo." },
+              "reply": { "sl": "Z gobico? Potem bo tabla spet prazna!", "en": "With the sponge? Then the board will be empty again!", "de": "Mit dem Schwamm? Dann ist die Tafel wieder leer!", "it": "Con la spugna? Allora la lavagna torna vuota!" } },
+            { "sl": "S svinčnikom!", "en": "With a pencil!", "de": "Mit einem Bleistift!", "it": "Con una matita!", "tap": "pencil",
+              "why": { "en": "Svinčnik is a pencil: it's for the notebook. On the board you draw with chalk: s kredo.", "de": "Svinčnik ist ein Bleistift: der ist fürs Heft. An die Tafel zeichnet man mit Kreide: s kredo.", "it": "Svinčnik è la matita: è per il quaderno. Sulla lavagna si disegna col gesso: s kredo." },
+              "reply": { "sl": "S svinčnikom? Na tabli ga nihče ne bo videl.", "en": "With a pencil? Nobody will see it on the board.", "de": "Mit einem Bleistift? An der Tafel sieht das keiner.", "it": "Con una matita? Sulla lavagna non lo vedrà nessuno." } }
+          ] },
+          { "who": "zala", "sl": "Kaj pa je na tvoji sliki, {learner}?", "en": "And what's in your picture, {learner}?", "de": "Und was ist auf deinem Bild, {learner}?", "it": "E che cosa c'è nel tuo disegno, {learner}?" },
+          { "choices": [
+            { "sl": "Rišem visok tobogan in dve gugalnici.", "en": "I'm drawing a tall slide and two swings.", "de": "Ich zeichne eine hohe Rutsche und zwei Schaukeln.", "it": "Disegno uno scivolo alto e due altalene.", "ok": true,
+              "reply": { "sl": "Dve? Super, potem ni treba čakati!", "en": "Two? Great, then nobody has to wait!", "de": "Zwei? Super, dann muss keiner warten!", "it": "Due? Fantastico, così nessuno deve aspettare!" } },
+            { "sl": "Pišem visok tobogan in dve gugalnici.", "en": "I'm writing a tall slide and two swings.", "de": "Ich schreibe eine hohe Rutsche und zwei Schaukeln.", "it": "Scrivo uno scivolo alto e due altalene.",
+              "why": { "en": "Pisati is to write words. A picture you draw: risati, rišem.", "de": "Pisati heißt Wörter schreiben. Ein Bild zeichnet man: risati, rišem.", "it": "Pisati vuol dire scrivere parole. Un disegno si fa con risati: rišem." },
+              "reply": { "sl": "Pišeš? Tobogan? Hi hi, s črkami?", "en": "You're writing? A slide? Hee hee, in letters?", "de": "Du schreibst? Eine Rutsche? Hihi, mit Buchstaben?", "it": "Scrivi? Uno scivolo? Ih ih, con le lettere?" } },
+            { "sl": "Rišem visok tobogan in dve gugalnice.", "en": "I'm drawing a tall slide and two swings.", "de": "Ich zeichne eine hohe Rutsche und zwei Schaukeln.", "it": "Disegno uno scivolo alto e due altalene.", "grammar": "dvojina",
+              "why": { "en": "Two (dve) takes the dual: dve gugalnici.", "de": "Zwei (dve) verlangt den Dual: dve gugalnici.", "it": "Due (dve) vuole il duale: dve gugalnici." },
+              "reply": { "sl": "Dve gugalnice? Hm, koliko pa jih je?", "en": "Dve gugalnice? Hm, how many are there?", "de": "Dve gugalnice? Hm, wie viele sind es denn?", "it": "Dve gugalnice? Mm, quante sono?" } }
+          ] },
+          { "who": "mojca", "sl": "Odlično! To sliko pokažem vsej vasi.", "en": "Excellent! I'll show this picture to the whole village.", "de": "Ausgezeichnet! Dieses Bild zeige ich dem ganzen Dorf.", "it": "Ottimo! Questo disegno lo mostro a tutto il paese." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["trata", "kamen", "pobrati"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "mojca", "sl": "Tukaj bo igrišče. Ampak poglejte tla!", "en": "The playground will be here. But look at the ground!", "de": "Hier kommt der Spielplatz hin. Aber schaut euch den Boden an!", "it": "Il parco giochi sarà qui. Ma guardate per terra!" },
+          { "who": "nejc", "sl": "Au! Tukaj se spotakneš na vsakem koraku!", "en": "Ouch! You trip at every step here!", "de": "Au! Hier stolpert man bei jedem Schritt!", "it": "Ahi! Qui si inciampa a ogni passo!" },
+          { "who": "mojca", "sl": "{learner}, kaj leži v travi?", "en": "{learner}, what's lying in the grass?", "de": "{learner}, was liegt im Gras?", "it": "{learner}, che cosa c'è nell'erba?" },
+          { "choices": [
+            { "sl": "V travi so kamni!", "en": "There are stones in the grass!", "de": "Im Gras sind Steine!", "it": "Nell'erba ci sono sassi!", "ok": true,
+              "reply": { "sl": "Tako je. Veliki in majhni, povsod!", "en": "That's right. Big ones and small ones, everywhere!", "de": "Genau. Große und kleine, überall!", "it": "Esatto. Grandi e piccoli, dappertutto!" } },
+            { "sl": "V travi so jajca!", "en": "There are eggs in the grass!", "de": "Im Gras sind Eier!", "it": "Nell'erba ci sono uova!",
+              "why": { "en": "Jajca are eggs. What you trip over is stones: kamni.", "de": "Jajca sind Eier. Worüber man stolpert, sind Steine: kamni.", "it": "Jajca sono le uova. Quello su cui si inciampa sono i sassi: kamni." },
+              "reply": { "sl": "Jajca? Ne, ne, kokoši tukaj ne nesejo.", "en": "Eggs? No, no, the hens don't lay here.", "de": "Eier? Nein, nein, hier legen die Hühner nicht.", "it": "Uova? No, no, qui le galline non fanno le uova." } },
+            { "sl": "V travi so gobe!", "en": "There are mushrooms in the grass!", "de": "Im Gras sind Pilze!", "it": "Nell'erba ci sono funghi!",
+              "why": { "en": "Gobe are mushrooms. What you trip over is stones: kamni.", "de": "Gobe sind Pilze. Worüber man stolpert, sind Steine: kamni.", "it": "Gobe sono i funghi. Quello su cui si inciampa sono i sassi: kamni." },
+              "reply": { "sl": "Gobe? Gobe rastejo v gozdu, ne tukaj.", "en": "Mushrooms? Mushrooms grow in the forest, not here.", "de": "Pilze? Pilze wachsen im Wald, nicht hier.", "it": "Funghi? I funghi crescono nel bosco, non qui." } }
+          ] },
+          { "who": "tine", "sl": "Kaj zdaj naredimo?", "en": "What do we do now?", "de": "Was machen wir jetzt?", "it": "Che cosa facciamo adesso?" },
+          { "choices": [
+            { "sl": "Poberemo vse kamne s trate!", "en": "We pick all the stones off the lawn!", "de": "Wir sammeln alle Steine von der Wiese auf!", "it": "Togliamo tutti i sassi dal prato!", "ok": true,
+              "reply": { "sl": "Prav! V košaro z njimi!", "en": "Right! Into the basket with them!", "de": "Gut! Ab in den Korb damit!", "it": "Giusto! Nel cesto, via!" } },
+            { "sl": "Pojemo vse kamne s trate!", "en": "We eat all the stones off the lawn!", "de": "Wir essen alle Steine von der Wiese auf!", "it": "Mangiamo tutti i sassi del prato!",
+              "why": { "en": "Pojesti is to eat up! Stones you pick up: pobrati, poberemo.", "de": "Pojesti heißt aufessen! Steine sammelt man auf: pobrati, poberemo.", "it": "Pojesti vuol dire mangiare tutto! I sassi si raccolgono: pobrati, poberemo." },
+              "reply": { "sl": "Pojemo? Kamne? Joj, zobje!", "en": "Eat them? The stones? Ouch, our teeth!", "de": "Aufessen? Die Steine? Au, die Zähne!", "it": "Mangiarli? I sassi? Ahi, i denti!" } },
+            { "sl": "Poberemo vse kamne s strehe!", "en": "We pick all the stones off the roof!", "de": "Wir sammeln alle Steine vom Dach auf!", "it": "Togliamo tutti i sassi dal tetto!",
+              "why": { "en": "Streha is a roof. The stones lie on the lawn: trata, s trate.", "de": "Streha ist ein Dach. Die Steine liegen auf der Wiese: trata, s trate.", "it": "Streha è il tetto. I sassi sono sul prato: trata, s trate." },
+              "reply": { "sl": "S strehe? Ne, ne, kamni so tukaj spodaj!", "en": "Off the roof? No, no, the stones are down here!", "de": "Vom Dach? Nein, nein, die Steine sind hier unten!", "it": "Dal tetto? No, no, i sassi sono quaggiù!" } }
+          ] },
+          { "who": "mojca", "sl": "Bravo! Trata je čista. Jutri lahko gradimo.", "en": "Well done! The lawn is clear. Tomorrow we can build.", "de": "Bravo! Die Wiese ist sauber. Morgen können wir bauen.", "it": "Bravi! Il prato è pulito. Domani possiamo costruire." }
+        ] },
+        "A2": { "lines": [
+          { "who": "mojca", "sl": "Tukaj bo igrišče. Ampak tla niso varna za otroke.", "en": "The playground will be here. But the ground isn't safe for children.", "de": "Hier kommt der Spielplatz hin. Aber der Boden ist nicht sicher für Kinder.", "it": "Il parco giochi sarà qui. Ma il terreno non è sicuro per i bambini." },
+          { "who": "nejc", "sl": "Res je, včeraj se je nekdo spotaknil in padel.", "en": "That's true, yesterday somebody tripped and fell.", "de": "Stimmt, gestern ist jemand gestolpert und hingefallen.", "it": "È vero, ieri qualcuno è inciampato ed è caduto." },
+          { "who": "mojca", "sl": "{learner}, poglej okoli. Kaj vidiš v travi?", "en": "{learner}, look around. What do you see in the grass?", "de": "{learner}, schau dich um. Was siehst du im Gras?", "it": "{learner}, guardati intorno. Che cosa vedi nell'erba?" },
+          { "choices": [
+            { "sl": "V travi vidim veliko kamnov.", "en": "I see a lot of stones in the grass.", "de": "Ich sehe viele Steine im Gras.", "it": "Vedo tanti sassi nell'erba.", "ok": true,
+              "reply": { "sl": "Tako je. Nekateri so veliki kot hlebec kruha!", "en": "That's right. Some are as big as a loaf of bread!", "de": "Genau. Manche sind groß wie ein Laib Brot!", "it": "Esatto. Alcuni sono grandi come una pagnotta!" } },
+            { "sl": "V travi vidim veliko kamni.", "en": "I see a lot of stones in the grass.", "de": "Ich sehe viele Steine im Gras.", "it": "Vedo tanti sassi nell'erba.", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive plural: veliko kamnov.", "de": "Veliko (viel) verlangt den Genitiv Plural: veliko kamnov.", "it": "Veliko (molto) vuole il genitivo plurale: veliko kamnov." },
+              "reply": { "sl": "Veliko … kamni? Hm, povej še enkrat, prosim.", "en": "A lot of … stones? Hm, say it again, please.", "de": "Viele … Steine? Hm, sag es bitte noch einmal.", "it": "Tanti … sassi? Mm, ripetilo, per favore." } },
+            { "sl": "V travi vidim veliko polžev.", "en": "I see a lot of snails in the grass.", "de": "Ich sehe viele Schnecken im Gras.", "it": "Vedo tante lumache nell'erba.",
+              "why": { "en": "Polži are snails, and they don't make anyone fall. What lies in the grass is stones: kamni.", "de": "Polži sind Schnecken, und über die fällt keiner. Im Gras liegen Steine: kamni.", "it": "Polži sono le lumache, e non fanno cadere nessuno. Nell'erba ci sono sassi: kamni." },
+              "reply": { "sl": "Polžev? Ti so prijazni, ti lahko ostanejo!", "en": "Snails? They're friendly, they can stay!", "de": "Schnecken? Die sind freundlich, die dürfen bleiben!", "it": "Lumache? Sono simpatiche, possono restare!" } }
+          ] },
+          { "who": "zala", "sl": "Kaj naredimo s kamni?", "en": "What do we do with the stones?", "de": "Was machen wir mit den Steinen?", "it": "Che cosa facciamo con i sassi?" },
+          { "choices": [
+            { "sl": "Poberemo jih in odnesemo s trate.", "en": "We pick them up and carry them off the lawn.", "de": "Wir sammeln sie auf und tragen sie von der Wiese.", "it": "Li raccogliamo e li portiamo via dal prato.", "ok": true,
+              "reply": { "sl": "Prav! Kdo jih pobere več?", "en": "Right! Who can pick up more?", "de": "Gut! Wer sammelt mehr?", "it": "Giusto! Chi ne raccoglie di più?" } },
+            { "sl": "Poberemo jih in odnesemo s trata.", "en": "We pick them up and carry them off the lawn.", "de": "Wir sammeln sie auf und tragen sie von der Wiese.", "it": "Li raccogliamo e li portiamo via dal prato.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "S (off, down from) takes the genitive: a feminine -a becomes -e: s trate.", "de": "S (von … herunter) verlangt den Genitiv: ein weibliches -a wird zu -e: s trate.", "it": "S (da) vuole il genitivo: una -a femminile diventa -e: s trate." },
+              "reply": { "sl": "S … trata? Hi hi, kako že?", "en": "Off … lawn? Hee hee, how's that again?", "de": "Von … Wiese? Hihi, wie war das?", "it": "Dal … prato? Ih ih, come hai detto?" } },
+            { "sl": "Pojemo jih in odnesemo s trate.", "en": "We eat them and carry them off the lawn.", "de": "Wir essen sie auf und tragen sie von der Wiese.", "it": "Li mangiamo e li portiamo via dal prato.",
+              "why": { "en": "Pojesti is to eat up! Stones you pick up: pobrati, poberemo.", "de": "Pojesti heißt aufessen! Steine sammelt man auf: pobrati, poberemo.", "it": "Pojesti vuol dire mangiare tutto! I sassi si raccolgono: pobrati, poberemo." },
+              "reply": { "sl": "Pojemo? Kamne? Hi hi, raje kosilo!", "en": "Eat them? Stones? Hee hee, lunch would be nicer!", "de": "Aufessen? Steine? Hihi, lieber Mittagessen!", "it": "Mangiarli? I sassi? Ih ih, meglio il pranzo!" } }
+          ] },
+          { "who": "mojca", "sl": "Bravo vsem! Kamne zložimo ob ograjo. Trata je zdaj kot preproga.", "en": "Well done, everyone! We stack the stones by the fence. The lawn is like a carpet now.", "de": "Bravo, alle! Die Steine stapeln wir am Zaun. Die Wiese ist jetzt wie ein Teppich.", "it": "Bravi tutti! I sassi li ammucchiamo vicino alla staccionata. Il prato ora è come un tappeto." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["gugalnica", "varen"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "mojca", "sl": "Sosedje so prinesli les, vrvi in desko.", "en": "The neighbours have brought wood, ropes and a plank.", "de": "Die Nachbarn haben Holz, Seile und ein Brett gebracht.", "it": "I vicini hanno portato legno, corde e un'asse." },
+          { "who": "tine", "sl": "Kaj bo to? Kaj bo to?", "en": "What's it going to be? What's it going to be?", "de": "Was wird das? Was wird das?", "it": "Che cosa diventa? Che cosa diventa?" },
+          { "who": "mojca", "sl": "{learner}, povej, kaj bo to.", "en": "{learner}, tell us what it will be.", "de": "{learner}, sag, was das wird.", "it": "{learner}, di' che cosa diventerà." },
+          { "choices": [
+            { "sl": "To bo gugalnica!", "en": "It'll be a swing!", "de": "Das wird eine Schaukel!", "it": "Sarà un'altalena!", "ok": true,
+              "reply": { "sl": "Tako je! Deska je sedež, vrvi držijo.", "en": "That's right! The plank is the seat, the ropes hold it.", "de": "Genau! Das Brett ist der Sitz, die Seile halten.", "it": "Esatto! L'asse è il sedile, le corde la reggono." } },
+            { "sl": "To bo postelja!", "en": "It'll be a bed!", "de": "Das wird ein Bett!", "it": "Sarà un letto!",
+              "why": { "en": "Postelja is a bed. Ropes and a plank to sit on make a swing: gugalnica.", "de": "Postelja ist ein Bett. Seile und ein Brett zum Sitzen ergeben eine Schaukel: gugalnica.", "it": "Postelja è il letto. Corde e un'asse per sedersi fanno un'altalena: gugalnica." },
+              "reply": { "sl": "Postelja? Na igrišču se ne spi!", "en": "A bed? Nobody sleeps on a playground!", "de": "Ein Bett? Auf dem Spielplatz wird nicht geschlafen!", "it": "Un letto? Al parco giochi non si dorme!" } },
+            { "sl": "To bo miza!", "en": "It'll be a table!", "de": "Das wird ein Tisch!", "it": "Sarà un tavolo!",
+              "why": { "en": "Miza is a table. Ropes and a plank to sit on make a swing: gugalnica.", "de": "Miza ist ein Tisch. Seile und ein Brett zum Sitzen ergeben eine Schaukel: gugalnica.", "it": "Miza è il tavolo. Corde e un'asse per sedersi fanno un'altalena: gugalnica." },
+              "reply": { "sl": "Miza na vrveh? Potem juha leti po zraku!", "en": "A table on ropes? Then the soup flies through the air!", "de": "Ein Tisch an Seilen? Dann fliegt die Suppe durch die Luft!", "it": "Un tavolo appeso alle corde? Allora la minestra vola per aria!" } }
+          ] },
+          { "who": "mojca", "sl": "Najprej preizkus. {learner}, potegni za vrvi! No?", "en": "First a test. {learner}, pull on the ropes! Well?", "de": "Zuerst ein Test. {learner}, zieh an den Seilen! Na?", "it": "Prima una prova. {learner}, tira le corde! Allora?" },
+          { "choices": [
+            { "sl": "Gugalnica je varna!", "en": "The swing is safe!", "de": "Die Schaukel ist sicher!", "it": "L'altalena è sicura!", "ok": true,
+              "reply": { "sl": "Odlično! Kdo bo prvi?", "en": "Excellent! Who'll go first?", "de": "Ausgezeichnet! Wer ist der Erste?", "it": "Ottimo! Chi va per primo?" } },
+            { "sl": "Gugalnica je lačna!", "en": "The swing is hungry!", "de": "Die Schaukel hat Hunger!", "it": "L'altalena ha fame!",
+              "why": { "en": "Lačen is hungry, and swings don't eat. Strong ropes, so: safe, varna.", "de": "Lačen heißt hungrig, und Schaukeln essen nichts. Feste Seile, also: sicher, varna.", "it": "Lačen vuol dire affamato, e le altalene non mangiano. Corde robuste, quindi: sicura, varna." },
+              "reply": { "sl": "Lačna? Gugalnice ne jedo, {learner}!", "en": "Hungry? Swings don't eat, {learner}!", "de": "Hungrig? Schaukeln essen nichts, {learner}!", "it": "Affamata? Le altalene non mangiano, {learner}!" } },
+            { "sl": "Gugalnica je varen!", "en": "The swing is safe!", "de": "Die Schaukel ist sicher!", "it": "L'altalena è sicura!", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Gugalnica is feminine, so its adjective too: varna.", "de": "Gugalnica ist weiblich, also auch ihr Adjektiv: varna.", "it": "Gugalnica è femminile, quindi anche il suo aggettivo: varna." },
+              "reply": { "sl": "Varen? Kdo je varen?", "en": "Varen? Who's safe?", "de": "Varen? Wer ist sicher?", "it": "Varen? Chi è sicuro?" } }
+          ] },
+          { "who": "tine", "sl": "Juhu! Gugamo se do neba!", "en": "Yippee! We're swinging up to the sky!", "de": "Juhu! Wir schaukeln bis zum Himmel!", "it": "Evviva! Andiamo in altalena fino al cielo!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "mojca", "sl": "Sosedje so prinesli dva hrastova stebra, debelo desko in vrvi.", "en": "The neighbours have brought two oak posts, a thick plank and ropes.", "de": "Die Nachbarn haben zwei Eichenpfosten, ein dickes Brett und Seile gebracht.", "it": "I vicini hanno portato due pali di quercia, un'asse spessa e delle corde." },
+          { "who": "nejc", "sl": "Uganem, kaj bo iz tega!", "en": "I can guess what this will become!", "de": "Ich weiß, was daraus wird!", "it": "Indovino che cosa diventerà!" },
+          { "who": "mojca", "sl": "No, {learner}, kaj bomo naredili iz tega?", "en": "Well, {learner}, what will we make out of this?", "de": "Nun, {learner}, was machen wir daraus?", "it": "Allora, {learner}, che cosa ne faremo?" },
+          { "choices": [
+            { "sl": "Naredili bomo leseno gugalnico.", "en": "We'll make a wooden swing.", "de": "Wir bauen eine Holzschaukel.", "it": "Faremo un'altalena di legno.", "ok": true,
+              "reply": { "sl": "Tako je! Deska bo sedež, vrvi pa bodo držale.", "en": "That's right! The plank will be the seat, and the ropes will hold it.", "de": "Genau! Das Brett wird der Sitz, und die Seile halten.", "it": "Esatto! L'asse sarà il sedile, e le corde la reggeranno." } },
+            { "sl": "Naredili bomo leseno gugalnica.", "en": "We'll make a wooden swing.", "de": "Wir bauen eine Holzschaukel.", "it": "Faremo un'altalena di legno.", "grammar": "tozilnik",
+              "why": { "en": "What you make is the accusative: a feminine -a becomes -o: gugalnico.", "de": "Was man baut, steht im Akkusativ: ein weibliches -a wird zu -o: gugalnico.", "it": "Ciò che si fa va all'accusativo: una -a femminile diventa -o: gugalnico." },
+              "reply": { "sl": "Gugalnica? Ja … in kaj z njo?", "en": "Gugalnica? Yes … and what about it?", "de": "Gugalnica? Ja … und was ist damit?", "it": "Gugalnica? Sì … e allora?" } },
+            { "sl": "Naredili bomo leseno posteljo.", "en": "We'll make a wooden bed.", "de": "Wir bauen ein Holzbett.", "it": "Faremo un letto di legno.",
+              "why": { "en": "Postelja is a bed. A plank on ropes to swing on is a swing: gugalnica.", "de": "Postelja ist ein Bett. Ein Brett an Seilen zum Schaukeln ist eine Schaukel: gugalnica.", "it": "Postelja è il letto. Un'asse appesa alle corde per dondolarsi è un'altalena: gugalnica." },
+              "reply": { "sl": "Posteljo? Na igrišču se ne spi, ampak igra!", "en": "A bed? On a playground you don't sleep, you play!", "de": "Ein Bett? Auf dem Spielplatz schläft man nicht, man spielt!", "it": "Un letto? Al parco giochi non si dorme, si gioca!" } }
+          ] },
+          { "who": "mojca", "sl": "Preden se kdo usede, jo moramo preizkusiti. {learner}, potegni za vrvi!", "en": "Before anyone sits on it, we have to test it. {learner}, pull on the ropes!", "de": "Bevor sich jemand draufsetzt, müssen wir sie testen. {learner}, zieh an den Seilen!", "it": "Prima che qualcuno ci si sieda, dobbiamo provarla. {learner}, tira le corde!" },
+          { "choices": [
+            { "sl": "Vrvi so trdne, zato je gugalnica varna.", "en": "The ropes are strong, so the swing is safe.", "de": "Die Seile sind fest, deshalb ist die Schaukel sicher.", "it": "Le corde sono robuste, quindi l'altalena è sicura.", "ok": true,
+              "reply": { "sl": "Odlično. Bolj varne ni daleč naokoli!", "en": "Excellent. There's no safer one for miles around!", "de": "Ausgezeichnet. Eine sicherere gibt es weit und breit nicht!", "it": "Ottimo. Una più sicura non c'è nei dintorni!" } },
+            { "sl": "Vrvi so trdne, zato je gugalnica nevarna.", "en": "The ropes are strong, so the swing is dangerous.", "de": "Die Seile sind fest, deshalb ist die Schaukel gefährlich.", "it": "Le corde sono robuste, quindi l'altalena è pericolosa.",
+              "why": { "en": "Nevaren is dangerous. With strong ropes the swing is safe: varna.", "de": "Nevaren heißt gefährlich. Mit festen Seilen ist die Schaukel sicher: varna.", "it": "Nevaren vuol dire pericoloso. Con corde robuste l'altalena è sicura: varna." },
+              "reply": { "sl": "Nevarna? S trdnimi vrvmi? Poglej še enkrat.", "en": "Dangerous? With strong ropes? Look again.", "de": "Gefährlich? Mit festen Seilen? Schau noch einmal.", "it": "Pericolosa? Con corde robuste? Guarda meglio." } },
+            { "sl": "Vrvi so trdne, zato je gugalnica varno.", "en": "The ropes are strong, so the swing is safe.", "de": "Die Seile sind fest, deshalb ist die Schaukel sicher.", "it": "Le corde sono robuste, quindi l'altalena è sicura.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Gugalnica is feminine, so its adjective ends in -a: varna.", "de": "Gugalnica ist weiblich, also endet ihr Adjektiv auf -a: varna.", "it": "Gugalnica è femminile, quindi il suo aggettivo finisce in -a: varna." },
+              "reply": { "sl": "Varno? Hm, kaj je varno?", "en": "Varno? Hm, what's safe?", "de": "Varno? Hm, was ist sicher?", "it": "Varno? Mm, che cosa è sicuro?" } }
+          ] },
+          { "who": "tine", "sl": "Juhu! Gugamo se do neba!", "en": "Yippee! We're swinging up to the sky!", "de": "Juhu! Wir schaukeln bis zum Himmel!", "it": "Evviva! Andiamo in altalena fino al cielo!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["peskovnik", "pesek", "tobogan"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "mojca", "sl": "Danes delamo dve stvari: eno za kopanje in eno za drsenje!", "en": "Today we're making two things: one for digging and one for sliding!", "de": "Heute bauen wir zwei Sachen: eine zum Buddeln und eine zum Rutschen!", "it": "Oggi facciamo due cose: una per scavare e una per scivolare!" },
+          { "who": "nejc", "sl": "Na vozu je nekaj rumenega in mehkega!", "en": "There's something yellow and soft on the cart!", "de": "Auf dem Wagen ist etwas Gelbes und Weiches!", "it": "Sul carro c'è qualcosa di giallo e morbido!" },
+          { "who": "mojca", "sl": "{learner}, kaj naredimo s tem?", "en": "{learner}, what do we do with it?", "de": "{learner}, was machen wir damit?", "it": "{learner}, che cosa ne facciamo?" },
+          { "choices": [
+            { "sl": "Pesek damo v peskovnik!", "en": "We put the sand in the sandpit!", "de": "Wir schütten den Sand in den Sandkasten!", "it": "Mettiamo la sabbia nella sabbiera!", "ok": true,
+              "reply": { "sl": "Tako je! Pa še lopatke in vedra zraven.", "en": "That's right! And little spades and buckets with it.", "de": "Genau! Und noch Schäufelchen und Eimer dazu.", "it": "Esatto! E anche palette e secchielli." } },
+            { "sl": "Juho damo v peskovnik!", "en": "We put the soup in the sandpit!", "de": "Wir schütten die Suppe in den Sandkasten!", "it": "Mettiamo la minestra nella sabbiera!",
+              "why": { "en": "Juha is soup! The yellow, soft stuff on the cart is sand: pesek.", "de": "Juha ist Suppe! Das Gelbe, Weiche auf dem Wagen ist Sand: pesek.", "it": "Juha è la minestra! La cosa gialla e morbida sul carro è la sabbia: pesek." },
+              "reply": { "sl": "Juho? Juha je za kosilo, ne za igro!", "en": "Soup? Soup is for lunch, not for playing!", "de": "Suppe? Suppe ist fürs Mittagessen, nicht zum Spielen!", "it": "Minestra? La minestra è per pranzo, non per giocare!" } },
+            { "sl": "Pesek damo v kuhinjo!", "en": "We put the sand in the kitchen!", "de": "Wir schütten den Sand in die Küche!", "it": "Mettiamo la sabbia in cucina!",
+              "why": { "en": "Kuhinja is the kitchen: nobody wants sand in the soup! Sand goes in the sandpit: peskovnik.", "de": "Kuhinja ist die Küche: keiner will Sand in der Suppe! Sand kommt in den Sandkasten: peskovnik.", "it": "Kuhinja è la cucina: nessuno vuole sabbia nella minestra! La sabbia va nella sabbiera: peskovnik." },
+              "reply": { "sl": "V kuhinjo? Potem bo pesek v juhi!", "en": "Into the kitchen? Then there'll be sand in the soup!", "de": "In die Küche? Dann ist Sand in der Suppe!", "it": "In cucina? Allora ci sarà sabbia nella minestra!" } }
+          ] },
+          { "who": "tine", "sl": "In tisto leseno, s stopnicami gor in gladko dol?", "en": "And that wooden thing, with steps up and smooth going down?", "de": "Und das Holzding da, mit Stufen hinauf und glatt hinunter?", "it": "E quella cosa di legno, con i gradini su e liscia giù?" },
+          { "choices": [
+            { "sl": "To je tobogan!", "en": "That's a slide!", "de": "Das ist eine Rutsche!", "it": "Quello è uno scivolo!", "ok": true,
+              "reply": { "sl": "Juhu! Kdo gre prvi dol?", "en": "Yippee! Who goes down first?", "de": "Juhu! Wer rutscht zuerst?", "it": "Evviva! Chi scende per primo?" } },
+            { "sl": "To je lestev!", "en": "That's a ladder!", "de": "Das ist eine Leiter!", "it": "Quella è una scala a pioli!",
+              "why": { "en": "Lestev is a ladder: it only goes up. This goes up and then slides down: tobogan.", "de": "Lestev ist eine Leiter: die geht nur hinauf. Das hier geht hinauf und rutscht dann hinunter: tobogan.", "it": "Lestev è la scala a pioli: va solo su. Questo va su e poi si scivola giù: tobogan." },
+              "reply": { "sl": "Lestev? Ampak na drugi strani se spustiš dol!", "en": "A ladder? But on the other side you slide down!", "de": "Eine Leiter? Aber auf der anderen Seite rutschst du runter!", "it": "Una scala? Ma dall'altra parte scivoli giù!" } },
+            { "sl": "To je streha!", "en": "That's a roof!", "de": "Das ist ein Dach!", "it": "Quello è un tetto!",
+              "why": { "en": "Streha is a roof. Steps up and a smooth slope down make a slide: tobogan.", "de": "Streha ist ein Dach. Stufen hinauf und glatt hinunter: das ist eine Rutsche, tobogan.", "it": "Streha è il tetto. Gradini su e una discesa liscia fanno uno scivolo: tobogan." },
+              "reply": { "sl": "Streha? Hi hi, pod njo ni hiše!", "en": "A roof? Hee hee, there's no house under it!", "de": "Ein Dach? Hihi, da ist kein Haus drunter!", "it": "Un tetto? Ih ih, sotto non c'è nessuna casa!" } }
+          ] },
+          { "who": "mojca", "sl": "Majhen je, ampak ravno prav za najmlajše.", "en": "It's small, but just right for the youngest.", "de": "Sie ist klein, aber genau richtig für die Kleinsten.", "it": "È piccolo, ma proprio giusto per i più piccoli." }
+        ] },
+        "A2": { "lines": [
+          { "who": "mojca", "sl": "Zraven gugalnice bomo naredili še nekaj za najmlajše.", "en": "Next to the swing we'll make something for the youngest too.", "de": "Neben der Schaukel bauen wir noch etwas für die Kleinsten.", "it": "Accanto all'altalena faremo anche qualcosa per i più piccoli." },
+          { "who": "nejc", "sl": "Sosedje so pripeljali voz nečesa rumenega in mehkega.", "en": "The neighbours have brought a cartload of something yellow and soft.", "de": "Die Nachbarn haben eine Wagenladung von etwas Gelbem und Weichem gebracht.", "it": "I vicini hanno portato un carro di qualcosa di giallo e morbido." },
+          { "who": "mojca", "sl": "{learner}, kaj je na vozu in za kaj je?", "en": "{learner}, what's on the cart, and what is it for?", "de": "{learner}, was ist auf dem Wagen, und wofür ist es?", "it": "{learner}, che cosa c'è sul carro, e a che cosa serve?" },
+          { "choices": [
+            { "sl": "Na vozu je veliko peska za peskovnik.", "en": "There's lots of sand on the cart for the sandpit.", "de": "Auf dem Wagen ist viel Sand für den Sandkasten.", "it": "Sul carro c'è tanta sabbia per la sabbiera.", "ok": true,
+              "reply": { "sl": "Tako je. Še lopatke in vedra, pa lahko gradimo gradove!", "en": "That's right. A few little spades and buckets, and we can build castles!", "de": "Genau. Noch Schäufelchen und Eimer, und wir können Burgen bauen!", "it": "Esatto. Ancora palette e secchielli, e si possono costruire castelli!" } },
+            { "sl": "Na vozu je veliko pesek za peskovnik.", "en": "There's lots of sand on the cart for the sandpit.", "de": "Auf dem Wagen ist viel Sand für den Sandkasten.", "it": "Sul carro c'è tanta sabbia per la sabbiera.", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive: veliko peska.", "de": "Veliko (viel) verlangt den Genitiv: veliko peska.", "it": "Veliko (molto) vuole il genitivo: veliko peska." },
+              "reply": { "sl": "Veliko … pesek? Hm, kako, prosim?", "en": "Lots of … sand? Hm, pardon?", "de": "Viel … Sand? Hm, wie bitte?", "it": "Tanta … sabbia? Mm, come, scusa?" } },
+            { "sl": "Na vozu je veliko peska za kuhinjo.", "en": "There's lots of sand on the cart for the kitchen.", "de": "Auf dem Wagen ist viel Sand für die Küche.", "it": "Sul carro c'è tanta sabbia per la cucina.",
+              "why": { "en": "Kuhinja is the kitchen: nobody wants sand in the soup! The sand is for the sandpit: peskovnik.", "de": "Kuhinja ist die Küche: keiner will Sand in der Suppe! Der Sand ist für den Sandkasten: peskovnik.", "it": "Kuhinja è la cucina: nessuno vuole sabbia nella minestra! La sabbia è per la sabbiera: peskovnik." },
+              "reply": { "sl": "Za kuhinjo? Potem bo pesek v juhi!", "en": "For the kitchen? Then there'll be sand in the soup!", "de": "Für die Küche? Dann ist Sand in der Suppe!", "it": "Per la cucina? Allora ci sarà sabbia nella minestra!" } }
+          ] },
+          { "who": "tine", "sl": "Kam pa grejo tiste stopnice gor?", "en": "And where do those steps up go?", "de": "Und wohin führen die Stufen da hinauf?", "it": "E dove portano quei gradini su?" },
+          { "choices": [
+            { "sl": "Na tobogan! Z njega se spustiš v pesek.", "en": "Up the slide! From there you slide down into the sand.", "de": "Auf die Rutsche! Von dort rutschst du in den Sand.", "it": "Sullo scivolo! Da lì scivoli giù nella sabbia.", "ok": true,
+              "reply": { "sl": "Juhu! Majhen je, ampak hiter!", "en": "Yippee! It's small, but fast!", "de": "Juhu! Sie ist klein, aber schnell!", "it": "Evviva! È piccolo, ma veloce!" } },
+            { "sl": "Na toboganu! Z njega se spustiš v pesek.", "en": "On the slide! From there you slide down into the sand.", "de": "Auf der Rutsche! Von dort rutschst du in den Sand.", "it": "Sullo scivolo! Da lì scivoli giù nella sabbia.", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na tobogan. Na toboganu says where you already are.", "de": "Kam? (wohin) verlangt den Akkusativ: na tobogan. Na toboganu sagt, wo man schon ist.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na tobogan. Na toboganu dice dove si è già." },
+              "reply": { "sl": "Na toboganu? Saj še nisem gor, hi hi!", "en": "On the slide? I'm not even up yet, hee hee!", "de": "Auf der Rutsche? Ich bin doch noch gar nicht oben, hihi!", "it": "Sullo scivolo? Ma non ci sono ancora salito, ih ih!" } },
+            { "sl": "Na streho! Z nje se spustiš v pesek.", "en": "Onto the roof! From there you slide down into the sand.", "de": "Aufs Dach! Von dort rutschst du in den Sand.", "it": "Sul tetto! Da lì scivoli giù nella sabbia.",
+              "why": { "en": "Streha is a roof! The steps lead up the slide: tobogan.", "de": "Streha ist ein Dach! Die Stufen führen auf die Rutsche: tobogan.", "it": "Streha è il tetto! I gradini portano sullo scivolo: tobogan." },
+              "reply": { "sl": "Na streho? Joj, to je pa previsoko!", "en": "Onto the roof? Oh no, that's far too high!", "de": "Aufs Dach? Oje, das ist viel zu hoch!", "it": "Sul tetto? Accidenti, è troppo alto!" } }
+          ] },
+          { "who": "mojca", "sl": "Pazite, eden za drugim! Najprej najmlajši.", "en": "Careful, one after the other! The youngest first.", "de": "Vorsicht, einer nach dem anderen! Die Kleinsten zuerst.", "it": "Attenzione, uno alla volta! Prima i più piccoli." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["igrisce", "teci"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "mojca", "sl": "Pouk je končan. In danes … je vse pripravljeno!", "en": "Lessons are over. And today … everything is ready!", "de": "Der Unterricht ist aus. Und heute … ist alles bereit!", "it": "Le lezioni sono finite. E oggi … è tutto pronto!" },
+          { "who": "zala", "sl": "Lahko gremo? Prosim, prosim!", "en": "Can we go? Please, please!", "de": "Dürfen wir gehen? Bitte, bitte!", "it": "Possiamo andare? Per favore, per favore!" },
+          { "who": "mojca", "sl": "{learner}, kam gremo vsi?", "en": "{learner}, where are we all going?", "de": "{learner}, wohin gehen wir alle?", "it": "{learner}, dove andiamo tutti?" },
+          { "choices": [
+            { "sl": "Na igrišče!", "en": "To the playground!", "de": "Auf den Spielplatz!", "it": "Al parco giochi!", "ok": true,
+              "reply": { "sl": "Tako je! Igrišče je odprto!", "en": "That's right! The playground is open!", "de": "Genau! Der Spielplatz ist eröffnet!", "it": "Esatto! Il parco giochi è aperto!" } },
+            { "sl": "Na igrišču!", "en": "At the playground!", "de": "Auf dem Spielplatz!", "it": "Al parco giochi!", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na igrišče. Na igrišču says where you already are.", "de": "Kam? (wohin) verlangt den Akkusativ: na igrišče. Na igrišču sagt, wo man schon ist.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na igrišče. Na igrišču dice dove si è già." },
+              "reply": { "sl": "Na igrišču? Saj smo še tukaj!", "en": "At the playground? But we're still here!", "de": "Auf dem Spielplatz? Wir sind doch noch hier!", "it": "Al parco giochi? Ma siamo ancora qui!" } },
+            { "sl": "Na pošto!", "en": "To the post office!", "de": "Zur Post!", "it": "Alla posta!",
+              "why": { "en": "Pošta is the post office. The children want to play: na igrišče.", "de": "Pošta ist die Post. Die Kinder wollen spielen: na igrišče.", "it": "Pošta è l'ufficio postale. I bambini vogliono giocare: na igrišče." },
+              "reply": { "sl": "Na pošto? Pisma lahko počakajo!", "en": "To the post office? The letters can wait!", "de": "Zur Post? Die Briefe können warten!", "it": "Alla posta? Le lettere possono aspettare!" } }
+          ] },
+          { "who": "nejc", "sl": "Kako gremo? Počasi?", "en": "How do we go? Slowly?", "de": "Wie gehen wir? Langsam?", "it": "Come andiamo? Piano?" },
+          { "choices": [
+            { "sl": "Ne, tečemo!", "en": "No, we run!", "de": "Nein, wir rennen!", "it": "No, corriamo!", "ok": true,
+              "reply": { "sl": "Gremo! Kdor je prvi, se prvi guga!", "en": "Let's go! Whoever's first swings first!", "de": "Los! Wer zuerst da ist, schaukelt zuerst!", "it": "Andiamo! Chi arriva primo va prima sull'altalena!" } },
+            { "sl": "Ne, plavamo!", "en": "No, we swim!", "de": "Nein, wir schwimmen!", "it": "No, nuotiamo!",
+              "why": { "en": "Plavati is to swim, and there's no water here. To get there fast, you run: teči, tečemo.", "de": "Plavati heißt schwimmen, und hier gibt es kein Wasser. Um schnell hinzukommen, rennt man: teči, tečemo.", "it": "Plavati vuol dire nuotare, e qui non c'è acqua. Per arrivare in fretta si corre: teči, tečemo." },
+              "reply": { "sl": "Plavamo? Po travi? Hi hi!", "en": "Swim? Through the grass? Hee hee!", "de": "Schwimmen? Durchs Gras? Hihi!", "it": "Nuotare? Nell'erba? Ih ih!" } },
+            { "sl": "Ne, spimo!", "en": "No, we sleep!", "de": "Nein, wir schlafen!", "it": "No, dormiamo!",
+              "why": { "en": "Spati is to sleep! To get there fast, you run: teči, tečemo.", "de": "Spati heißt schlafen! Um schnell hinzukommen, rennt man: teči, tečemo.", "it": "Spati vuol dire dormire! Per arrivare in fretta si corre: teči, tečemo." },
+              "reply": { "sl": "Spimo? Zdaj? Nikoli, hi hi!", "en": "Sleep? Now? Never, hee hee!", "de": "Schlafen? Jetzt? Niemals, hihi!", "it": "Dormire? Adesso? Mai, ih ih!" } }
+          ] },
+          { "who": "mojca", "sl": "Pazite na najmlajše! … Joj, kako se smejijo.", "en": "Watch out for the youngest! … Oh, how they laugh.", "de": "Passt auf die Kleinsten auf! … Ach, wie sie lachen.", "it": "Attenzione ai più piccoli! … Oh, come ridono." }
+        ] },
+        "A2": { "lines": [
+          { "who": "mojca", "sl": "Zadnja ura je končana. Danes je prvič odprto … veste kaj!", "en": "The last lesson is over. Today, for the first time, it's open … you know what!", "de": "Die letzte Stunde ist vorbei. Heute ist zum ersten Mal offen … ihr wisst schon was!", "it": "L'ultima ora è finita. Oggi per la prima volta è aperto … sapete cosa!" },
+          { "who": "tine", "sl": "Lahko gremo takoj? Brez domače naloge?", "en": "Can we go right away? Without homework?", "de": "Dürfen wir sofort gehen? Ohne Hausaufgaben?", "it": "Possiamo andare subito? Senza compiti?" },
+          { "who": "mojca", "sl": "Danes brez naloge. {learner}, kam bomo šli?", "en": "No homework today. {learner}, where will we go?", "de": "Heute ohne Hausaufgaben. {learner}, wohin gehen wir?", "it": "Oggi niente compiti. {learner}, dove andremo?" },
+          { "choices": [
+            { "sl": "Šli bomo na novo igrišče!", "en": "We'll go to the new playground!", "de": "Wir gehen auf den neuen Spielplatz!", "it": "Andremo al nuovo parco giochi!", "ok": true,
+              "reply": { "sl": "Tako je. Igrišče je odprto do večera!", "en": "That's right. The playground is open till evening!", "de": "Genau. Der Spielplatz ist bis zum Abend offen!", "it": "Esatto. Il parco giochi è aperto fino a sera!" } },
+            { "sl": "Šli bomo na novem igrišču!", "en": "We'll go at the new playground!", "de": "Wir gehen auf dem neuen Spielplatz!", "it": "Andremo al nuovo parco giochi!", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na novo igrišče. Na novem igrišču says where you already are.", "de": "Kam? (wohin) verlangt den Akkusativ: na novo igrišče. Na novem igrišču sagt, wo man schon ist.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na novo igrišče. Na novem igrišču dice dove si è già." },
+              "reply": { "sl": "Na novem igrišču? Saj smo še tukaj!", "en": "At the new playground? But we're still here!", "de": "Auf dem neuen Spielplatz? Wir sind doch noch hier!", "it": "Al nuovo parco giochi? Ma siamo ancora qui!" } },
+            { "sl": "Šli bomo na novo pošto!", "en": "We'll go to the new post office!", "de": "Wir gehen zur neuen Post!", "it": "Andremo al nuovo ufficio postale!",
+              "why": { "en": "Pošta is the post office. The children want to play: na igrišče.", "de": "Pošta ist die Post. Die Kinder wollen spielen: na igrišče.", "it": "Pošta è l'ufficio postale. I bambini vogliono giocare: na igrišče." },
+              "reply": { "sl": "Na pošto? Pisma lahko počakajo do jutri!", "en": "To the post office? The letters can wait till tomorrow!", "de": "Zur Post? Die Briefe können bis morgen warten!", "it": "Alla posta? Le lettere possono aspettare fino a domani!" } }
+          ] },
+          { "who": "zala", "sl": "Kdo bo prej pri toboganu?", "en": "Who'll get to the slide first?", "de": "Wer ist zuerst an der Rutsche?", "it": "Chi arriva prima allo scivolo?" },
+          { "choices": [
+            { "sl": "Kdor najhitreje teče!", "en": "Whoever runs fastest!", "de": "Wer am schnellsten läuft!", "it": "Chi corre più veloce!", "ok": true,
+              "reply": { "sl": "Potem gremo! Ena, dve, tri … zdaj!", "en": "Then let's go! One, two, three … now!", "de": "Dann los! Eins, zwei, drei … jetzt!", "it": "Allora andiamo! Uno, due, tre … via!" } },
+            { "sl": "Kdor najhitreje plava!", "en": "Whoever swims fastest!", "de": "Wer am schnellsten schwimmt!", "it": "Chi nuota più veloce!",
+              "why": { "en": "Plavati is to swim, and there's no water on the way. To get there first, you run: teče.", "de": "Plavati heißt schwimmen, und unterwegs gibt es kein Wasser. Um zuerst da zu sein, rennt man: teče.", "it": "Plavati vuol dire nuotare, e per strada non c'è acqua. Per arrivare primi si corre: teče." },
+              "reply": { "sl": "Plava? Po travi? Hi hi, poskusi!", "en": "Swims? Through the grass? Hee hee, go on, try!", "de": "Schwimmt? Durchs Gras? Hihi, versuch's mal!", "it": "Nuota? Nell'erba? Ih ih, prova!" } },
+            { "sl": "Kdor najhitreje spi!", "en": "Whoever sleeps fastest!", "de": "Wer am schnellsten schläft!", "it": "Chi dorme più veloce!",
+              "why": { "en": "Spati is to sleep: that won't get you anywhere! To get there first, you run: teče.", "de": "Spati heißt schlafen: damit kommt man nirgendwohin! Um zuerst da zu sein, rennt man: teče.", "it": "Spati vuol dire dormire: così non si arriva da nessuna parte! Per arrivare primi si corre: teče." },
+              "reply": { "sl": "Kdor najhitreje spi? Hi hi, potem zmaga moja mačka!", "en": "Whoever sleeps fastest? Hee hee, then my cat wins!", "de": "Wer am schnellsten schläft? Hihi, dann gewinnt meine Katze!", "it": "Chi dorme più veloce? Ih ih, allora vince la mia gatta!" } }
+          ] },
+          { "who": "mojca", "sl": "Smeh se sliši do šole. Tako mora biti.", "en": "The laughter can be heard all the way to the school. That's how it should be.", "de": "Das Lachen hört man bis zur Schule. So soll es sein.", "it": "Le risate si sentono fino a scuola. È così che deve essere." }
+        ] }
+      }
+    }
+  ]
+}

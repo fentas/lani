@@ -1,0 +1,360 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "cebelji_travnik",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-cebelji-travnik",
+  "steps": [
+    {
+      "scene": "na-njivi",
+      "words": ["kosa", "trava"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "anton", "sl": "Tukaj bo travnik za čebele. Ampak vse je staro in suho.", "en": "There'll be a meadow for the bees here. But everything is old and dry.", "de": "Hier wird eine Wiese für die Bienen. Aber alles ist alt und trocken.", "it": "Qui ci sarà un prato per le api. Ma è tutto vecchio e secco." },
+          { "who": "nejc", "sl": "Kaj pa naredimo najprej?", "en": "So what do we do first?", "de": "Was machen wir denn zuerst?", "it": "E che cosa facciamo prima?" },
+          { "choices": [
+            { "sl": "Najprej pokosimo travo.", "en": "First we mow the grass.", "de": "Zuerst mähen wir das Gras.", "it": "Prima falciamo l'erba.", "ok": true,
+              "reply": { "sl": "Aha! Potem bo prostor za rože.", "en": "Aha! Then there'll be room for flowers.", "de": "Aha! Dann ist Platz für Blumen.", "it": "Ah! Così ci sarà posto per i fiori." } },
+            { "sl": "Najprej pokosimo ograjo.", "en": "First we mow the fence.", "de": "Zuerst mähen wir den Zaun.", "it": "Prima falciamo il recinto.",
+              "why": { "en": "Ograja is the fence: it stays. The old grass gets mown: travo.", "de": "Ograja ist der Zaun: Der bleibt. Gemäht wird das alte Gras: travo.", "it": "Ograja è il recinto: resta. Si falcia l'erba vecchia: travo." },
+              "reply": { "sl": "Ograjo? Ha ha, ograja naj kar stoji!", "en": "The fence? Ha ha, let the fence stand!", "de": "Den Zaun? Ha ha, der Zaun soll ruhig stehen bleiben!", "it": "Il recinto? Ah ah, lasciamolo in piedi!" } },
+            { "sl": "Najprej pokosimo strašilo.", "en": "First we mow the scarecrow.", "de": "Zuerst mähen wir die Vogelscheuche.", "it": "Prima falciamo lo spaventapasseri.",
+              "why": { "en": "Strašilo is the scarecrow: it did nothing wrong! The old grass gets mown: travo.", "de": "Strašilo ist die Vogelscheuche: Sie hat doch nichts getan! Gemäht wird das alte Gras: travo.", "it": "Strašilo è lo spaventapasseri: non ha fatto niente di male! Si falcia l'erba vecchia: travo." },
+              "reply": { "sl": "Strašilo? Ubogo strašilo, kaj ti je pa naredilo?", "en": "The scarecrow? Poor scarecrow, what did it ever do to you?", "de": "Die Vogelscheuche? Arme Vogelscheuche, was hat sie dir denn getan?", "it": "Lo spaventapasseri? Povero spaventapasseri, che cosa ti ha fatto?" } }
+          ] },
+          { "who": "anton", "sl": "Tako je. {learner}, prinesi orodje za košnjo!", "en": "That's right. {learner}, bring the mowing tool!", "de": "Genau. {learner}, bring das Werkzeug zum Mähen!", "it": "Esatto. {learner}, porta l'attrezzo per falciare!" },
+          { "choices": [
+            { "sl": "Tukaj je kosa!", "en": "Here's the scythe!", "de": "Hier ist die Sense!", "it": "Ecco la falce!", "ok": true, "tap": "scythe",
+              "reply": { "sl": "Hvala. Kosa je ostra, stopi nazaj.", "en": "Thank you. The scythe is sharp, step back.", "de": "Danke. Die Sense ist scharf, tritt zurück.", "it": "Grazie. La falce è affilata, fatti indietro." } },
+            { "sl": "Tukaj so grablje!", "en": "Here's the rake!", "de": "Hier ist der Rechen!", "it": "Ecco il rastrello!", "tap": "rake",
+              "why": { "en": "Grablje is the rake: it comes after, for the cut grass. To mow you need a scythe: kosa.", "de": "Grablje ist der Rechen: Der kommt danach, für das gemähte Gras. Zum Mähen braucht man eine Sense: kosa.", "it": "Grablje è il rastrello: serve dopo, per l'erba tagliata. Per falciare ci vuole la falce: kosa." },
+              "reply": { "sl": "Grablje? Te pridejo pozneje, ko je trava pokošena.", "en": "The rake? That comes later, when the grass is mown.", "de": "Den Rechen? Der kommt später, wenn das Gras gemäht ist.", "it": "Il rastrello? Quello viene dopo, quando l'erba è falciata." } },
+            { "sl": "Tukaj je košara!", "en": "Here's the basket!", "de": "Hier ist der Korb!", "it": "Ecco il cesto!", "tap": "basket",
+              "why": { "en": "Košara is a basket: you can't mow with it. To mow you need a scythe: kosa (and lunch, kosilo, is at noon).", "de": "Košara ist ein Korb: Damit kann man nicht mähen. Zum Mähen braucht man eine Sense: kosa (und das Mittagessen, kosilo, gibt's erst mittags).", "it": "Košara è un cesto: non ci si falcia. Per falciare ci vuole la falce: kosa (e il pranzo, kosilo, è a mezzogiorno)." },
+              "reply": { "sl": "Košara? Kosilo pa je šele opoldne!", "en": "The basket? Lunch isn't until noon!", "de": "Den Korb? Mittagessen gibt's erst um zwölf!", "it": "Il cesto? Il pranzo è solo a mezzogiorno!" } }
+          ] },
+          { "who": "micka", "sl": "Šššš, šššš … Stara trava leži na tleh.", "en": "Swish, swish … The old grass lies on the ground.", "de": "Wusch, wusch … Das alte Gras liegt am Boden.", "it": "Sss, sss … L'erba vecchia è a terra." }
+        ] },
+        "A2": { "lines": [
+          { "who": "anton", "sl": "Tukaj bo travnik za čebele. Ampak vse je staro in suho, čebele tega ne marajo.", "en": "There'll be a meadow for the bees here. But everything is old and dry, and bees don't like that.", "de": "Hier wird eine Wiese für die Bienen. Aber alles ist alt und trocken, das mögen Bienen nicht.", "it": "Qui ci sarà un prato per le api. Ma è tutto vecchio e secco, e alle api non piace." },
+          { "who": "nejc", "sl": "Kaj bomo naredili najprej?", "en": "What shall we do first?", "de": "Was machen wir zuerst?", "it": "Che cosa faremo prima?" },
+          { "choices": [
+            { "sl": "Najprej bomo pokosili staro travo.", "en": "First we'll mow the old grass.", "de": "Zuerst mähen wir das alte Gras.", "it": "Prima falceremo l'erba vecchia.", "ok": true,
+              "reply": { "sl": "Aha! Potem bo prostor za nove rože.", "en": "Aha! Then there'll be room for new flowers.", "de": "Aha! Dann ist Platz für neue Blumen.", "it": "Ah! Così ci sarà posto per fiori nuovi." } },
+            { "sl": "Najprej bomo pokosili staro ograjo.", "en": "First we'll mow the old fence.", "de": "Zuerst mähen wir den alten Zaun.", "it": "Prima falceremo il vecchio recinto.",
+              "why": { "en": "Ograja is the fence: it stays. The old grass gets mown: travo.", "de": "Ograja ist der Zaun: Der bleibt. Gemäht wird das alte Gras: travo.", "it": "Ograja è il recinto: resta. Si falcia l'erba vecchia: travo." },
+              "reply": { "sl": "Ograjo? Ha ha, ograja naj kar stoji!", "en": "The fence? Ha ha, let the fence stand!", "de": "Den Zaun? Ha ha, der Zaun soll ruhig stehen bleiben!", "it": "Il recinto? Ah ah, lasciamolo in piedi!" } },
+            { "sl": "Najprej bomo pokosili staro strašilo.", "en": "First we'll mow the old scarecrow.", "de": "Zuerst mähen wir die alte Vogelscheuche.", "it": "Prima falceremo il vecchio spaventapasseri.",
+              "why": { "en": "Strašilo is the scarecrow: it did nothing wrong! The old grass gets mown: travo.", "de": "Strašilo ist die Vogelscheuche: Sie hat doch nichts getan! Gemäht wird das alte Gras: travo.", "it": "Strašilo è lo spaventapasseri: non ha fatto niente di male! Si falcia l'erba vecchia: travo." },
+              "reply": { "sl": "Strašilo? Ubogo strašilo, kaj ti je pa naredilo?", "en": "The scarecrow? Poor scarecrow, what did it ever do to you?", "de": "Die Vogelscheuche? Arme Vogelscheuche, was hat sie dir denn getan?", "it": "Lo spaventapasseri? Povero spaventapasseri, che cosa ti ha fatto?" } }
+          ] },
+          { "who": "anton", "sl": "Prav. {learner}, s čim kosimo?", "en": "Right. {learner}, what do we mow with?", "de": "Gut. {learner}, womit mähen wir?", "it": "Bene. {learner}, con che cosa si falcia?" },
+          { "choices": [
+            { "sl": "S koso, seveda!", "en": "With a scythe, of course!", "de": "Mit der Sense, natürlich!", "it": "Con la falce, naturalmente!", "ok": true, "tap": "scythe",
+              "reply": { "sl": "Tako je. Stopite nazaj, kosa je ostra!", "en": "That's right. Step back, everyone, the scythe is sharp!", "de": "Genau. Tretet zurück, die Sense ist scharf!", "it": "Esatto. Fatevi indietro, la falce è affilata!" } },
+            { "sl": "Z grabljami, seveda!", "en": "With a rake, of course!", "de": "Mit dem Rechen, natürlich!", "it": "Col rastrello, naturalmente!", "tap": "rake",
+              "why": { "en": "Grablje is the rake: it gathers the grass after mowing. You mow with a scythe: s koso.", "de": "Grablje ist der Rechen: Er sammelt das Gras nach dem Mähen. Man mäht mit der Sense: s koso.", "it": "Grablje è il rastrello: raccoglie l'erba dopo la falciatura. Si falcia con la falce: s koso." },
+              "reply": { "sl": "Z grabljami? Te pridejo pozneje, ko je trava pokošena.", "en": "With a rake? That comes later, when the grass is mown.", "de": "Mit dem Rechen? Der kommt später, wenn das Gras gemäht ist.", "it": "Col rastrello? Quello viene dopo, quando l'erba è falciata." } },
+            { "sl": "S košaro, seveda!", "en": "With a basket, of course!", "de": "Mit dem Korb, natürlich!", "it": "Col cesto, naturalmente!", "tap": "basket",
+              "why": { "en": "Košara is a basket: you can't mow with it. You mow with a scythe: s koso (and lunch, kosilo, is at noon).", "de": "Košara ist ein Korb: Damit kann man nicht mähen. Man mäht mit der Sense: s koso (und das Mittagessen, kosilo, gibt's erst mittags).", "it": "Košara è un cesto: non ci si falcia. Si falcia con la falce: s koso (e il pranzo, kosilo, è a mezzogiorno)." },
+              "reply": { "sl": "S košaro? Kosilo pa je šele opoldne!", "en": "With a basket? Lunch isn't until noon!", "de": "Mit dem Korb? Mittagessen gibt's erst um zwölf!", "it": "Col cesto? Il pranzo è solo a mezzogiorno!" } }
+          ] },
+          { "who": "micka", "sl": "Šššš, šššš … Stara trava leži, zdaj bo prostor za cvetje.", "en": "Swish, swish … The old grass is down, now there'll be room for flowers.", "de": "Wusch, wusch … Das alte Gras liegt, jetzt ist Platz für Blumen.", "it": "Sss, sss … L'erba vecchia è a terra, ora ci sarà posto per i fiori." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-njivi",
+      "words": ["ajda", "detelja"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "anton", "sl": "Trava je pokošena. Zdaj pa sejemo cvetje za čebele!", "en": "The grass is mown. Now we sow flowers for the bees!", "de": "Das Gras ist gemäht. Jetzt säen wir Blumen für die Bienen!", "it": "L'erba è falciata. Ora seminiamo fiori per le api!" },
+          { "who": "zala", "sl": "Kaj pa točno sejemo?", "en": "So what exactly are we sowing?", "de": "Und was genau säen wir?", "it": "E che cosa seminiamo, di preciso?" },
+          { "choices": [
+            { "sl": "Sejemo ajdo in deteljo.", "en": "We're sowing buckwheat and clover.", "de": "Wir säen Buchweizen und Klee.", "it": "Seminiamo grano saraceno e trifoglio.", "ok": true,
+              "reply": { "sl": "Juhu! Ajda bo bela, detelja pa rdeča.", "en": "Yay! The buckwheat will be white and the clover red.", "de": "Juhu! Der Buchweizen wird weiß und der Klee rot.", "it": "Evviva! Il grano saraceno sarà bianco e il trifoglio rosso." } },
+            { "sl": "Sejemo krompir in deteljo.", "en": "We're sowing potatoes and clover.", "de": "Wir säen Kartoffeln und Klee.", "it": "Seminiamo patate e trifoglio.",
+              "why": { "en": "Krompir is potatoes: they're planted, and bees don't care for them. Bees love buckwheat: ajdo.", "de": "Krompir sind Kartoffeln: Die werden gesetzt, und Bienen machen sich nichts daraus. Bienen lieben Buchweizen: ajdo.", "it": "Krompir sono le patate: si piantano, e alle api non interessano. Le api adorano il grano saraceno: ajdo." },
+              "reply": { "sl": "Krompir? Hi hi, čebele pa krompirja ne marajo!", "en": "Potatoes? Hee hee, bees don't like potatoes!", "de": "Kartoffeln? Hihi, Bienen mögen keine Kartoffeln!", "it": "Patate? Ih ih, alle api le patate non piacciono!" } },
+            { "sl": "Sejemo ajdo in kamne.", "en": "We're sowing buckwheat and stones.", "de": "Wir säen Buchweizen und Steine.", "it": "Seminiamo grano saraceno e pietre.",
+              "why": { "en": "Kamni are stones: they don't grow! Bees love clover: deteljo.", "de": "Kamni sind Steine: Die wachsen nicht! Bienen lieben Klee: deteljo.", "it": "Kamni sono pietre: non crescono! Le api adorano il trifoglio: deteljo." },
+              "reply": { "sl": "Kamne? Hi hi, kamni pa ne rastejo!", "en": "Stones? Hee hee, stones don't grow!", "de": "Steine? Hihi, Steine wachsen doch nicht!", "it": "Pietre? Ih ih, le pietre non crescono!" } }
+          ] },
+          { "who": "nejc", "sl": "Semena so tako majhna! Kam jih damo?", "en": "The seeds are so small! Where do we put them?", "de": "Die Samen sind so klein! Wohin tun wir sie?", "it": "I semi sono così piccoli! Dove li mettiamo?" },
+          { "choices": [
+            { "sl": "V zemljo!", "en": "Into the soil!", "de": "In die Erde!", "it": "Nella terra!", "ok": true,
+              "reply": { "sl": "Prav! Malo zemlje čez, pa je.", "en": "Right! A bit of soil on top, and that's it.", "de": "Gut! Ein bisschen Erde drüber, fertig.", "it": "Bene! Un po' di terra sopra, ed è fatta." } },
+            { "sl": "V žep!", "en": "Into my pocket!", "de": "In die Tasche!", "it": "In tasca!",
+              "why": { "en": "Žep is a pocket: seeds don't grow there. Into the soil: v zemljo.", "de": "Žep ist eine Hosentasche: Da wachsen keine Samen. In die Erde: v zemljo.", "it": "Žep è una tasca: lì i semi non crescono. Nella terra: v zemljo." },
+              "reply": { "sl": "V žep? Potem bodo rože rasle v hlačah, ha ha!", "en": "Into your pocket? Then flowers will grow in your trousers, ha ha!", "de": "In die Tasche? Dann wachsen Blumen in deiner Hose, ha ha!", "it": "In tasca? Allora ti cresceranno i fiori nei pantaloni, ah ah!" } },
+            { "sl": "V juho!", "en": "Into the soup!", "de": "In die Suppe!", "it": "Nella minestra!",
+              "why": { "en": "Juha is soup! Seeds go into the soil: v zemljo.", "de": "Juha ist Suppe! Samen kommen in die Erde: v zemljo.", "it": "Juha è la minestra! I semi vanno nella terra: v zemljo." },
+              "reply": { "sl": "V juho? Ha ha, potem pa ne bo travnika!", "en": "Into the soup? Ha ha, then there won't be a meadow!", "de": "In die Suppe? Ha ha, dann gibt's keine Wiese!", "it": "Nella minestra? Ah ah, allora niente prato!" } }
+          ] },
+          { "who": "anton", "sl": "Bravo, vsi! Zdaj samo še malo dežja in sonca.", "en": "Well done, everyone! Now just a little rain and sun.", "de": "Bravo, alle! Jetzt nur noch ein bisschen Regen und Sonne.", "it": "Bravi tutti! Ora solo un po' di pioggia e di sole." }
+        ] },
+        "A2": { "lines": [
+          { "who": "anton", "sl": "Trava je pokošena. Zdaj bomo posejali cvetje, ki ga imajo čebele najraje.", "en": "The grass is mown. Now we'll sow the flowers bees like best.", "de": "Das Gras ist gemäht. Jetzt säen wir die Blumen, die Bienen am liebsten haben.", "it": "L'erba è falciata. Ora semineremo i fiori che le api amano di più." },
+          { "who": "zala", "sl": "Katero cvetje pa imajo čebele najraje?", "en": "And which flowers do bees like best?", "de": "Und welche Blumen mögen Bienen am liebsten?", "it": "E quali fiori amano di più le api?" },
+          { "choices": [
+            { "sl": "Najraje imajo ajdo in deteljo.", "en": "They like buckwheat and clover best.", "de": "Am liebsten mögen sie Buchweizen und Klee.", "it": "Amano soprattutto il grano saraceno e il trifoglio.", "ok": true,
+              "reply": { "sl": "Ajdo in deteljo! Potem bo travnik ves pisan.", "en": "Buckwheat and clover! Then the whole meadow will be colourful.", "de": "Buchweizen und Klee! Dann wird die ganze Wiese bunt.", "it": "Grano saraceno e trifoglio! Allora il prato sarà tutto colorato." } },
+            { "sl": "Najraje imajo krompir in deteljo.", "en": "They like potatoes and clover best.", "de": "Am liebsten mögen sie Kartoffeln und Klee.", "it": "Amano soprattutto le patate e il trifoglio.",
+              "why": { "en": "Krompir is potatoes: bees don't care for them. Bees love buckwheat: ajdo.", "de": "Krompir sind Kartoffeln: Bienen machen sich nichts daraus. Bienen lieben Buchweizen: ajdo.", "it": "Krompir sono le patate: alle api non interessano. Le api adorano il grano saraceno: ajdo." },
+              "reply": { "sl": "Krompir? Hi hi, čebele pa krompirja ne marajo!", "en": "Potatoes? Hee hee, bees don't like potatoes!", "de": "Kartoffeln? Hihi, Bienen mögen keine Kartoffeln!", "it": "Patate? Ih ih, alle api le patate non piacciono!" } },
+            { "sl": "Najraje imajo ajdo in kamne.", "en": "They like buckwheat and stones best.", "de": "Am liebsten mögen sie Buchweizen und Steine.", "it": "Amano soprattutto il grano saraceno e le pietre.",
+              "why": { "en": "Kamni are stones: they don't flower! Bees love clover: deteljo.", "de": "Kamni sind Steine: Die blühen nicht! Bienen lieben Klee: deteljo.", "it": "Kamni sono pietre: non fioriscono! Le api adorano il trifoglio: deteljo." },
+              "reply": { "sl": "Kamne? Hi hi, kamni pa ne cvetijo!", "en": "Stones? Hee hee, stones don't flower!", "de": "Steine? Hihi, Steine blühen doch nicht!", "it": "Pietre? Ih ih, le pietre non fioriscono!" } }
+          ] },
+          { "who": "nejc", "sl": "Semena so tako majhna! Kam jih bomo dali?", "en": "The seeds are so small! Where shall we put them?", "de": "Die Samen sind so klein! Wohin tun wir sie?", "it": "I semi sono così piccoli! Dove li metteremo?" },
+          { "choices": [
+            { "sl": "V zemljo, da bodo zrasla.", "en": "Into the soil, so they'll grow.", "de": "In die Erde, damit sie wachsen.", "it": "Nella terra, così cresceranno.", "ok": true,
+              "reply": { "sl": "Prav! Malo zemlje čez, pa je.", "en": "Right! A bit of soil on top, and that's it.", "de": "Gut! Ein bisschen Erde drüber, fertig.", "it": "Bene! Un po' di terra sopra, ed è fatta." } },
+            { "sl": "V zemlji, da bodo zrasla.", "en": "In the soil, so they'll grow.", "de": "In der Erde, damit sie wachsen.", "it": "Nella terra, così cresceranno.", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: v zemljo. V zemlji says where something already is.", "de": "Kam? (wohin) verlangt den Akkusativ: v zemljo. V zemlji sagt, wo etwas schon ist.", "it": "Kam? (verso dove) vuole l'accusativo: v zemljo. V zemlji dice dove qualcosa è già." },
+              "reply": { "sl": "V zemlji? Saj še niso tam!", "en": "In the soil? But they're not there yet!", "de": "In der Erde? Da sind sie doch noch gar nicht!", "it": "Nella terra? Ma non ci sono ancora!" } },
+            { "sl": "V žep, da bodo zrasla.", "en": "Into my pocket, so they'll grow.", "de": "In die Tasche, damit sie wachsen.", "it": "In tasca, così cresceranno.",
+              "why": { "en": "Žep is a pocket: seeds don't grow there. Into the soil: v zemljo.", "de": "Žep ist eine Hosentasche: Da wachsen keine Samen. In die Erde: v zemljo.", "it": "Žep è una tasca: lì i semi non crescono. Nella terra: v zemljo." },
+              "reply": { "sl": "V žep? Potem bodo rože rasle v hlačah, ha ha!", "en": "Into your pocket? Then flowers will grow in your trousers, ha ha!", "de": "In die Tasche? Dann wachsen Blumen in deiner Hose, ha ha!", "it": "In tasca? Allora ti cresceranno i fiori nei pantaloni, ah ah!" } }
+          ] },
+          { "who": "anton", "sl": "Bravo, vsi! Ajda bo cvetela bela, detelja pa rdeča.", "en": "Well done, everyone! The buckwheat will flower white, and the clover red.", "de": "Bravo, alle! Der Buchweizen wird weiß blühen und der Klee rot.", "it": "Bravi tutti! Il grano saraceno fiorirà bianco, e il trifoglio rosso." }
+        ] }
+      }
+    },
+    {
+      "scene": "pri-cebelnjaku",
+      "words": ["panj", "cebela"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "anton", "sl": "Travnik je posejan. Zdaj pa naredimo nove domove.", "en": "The meadow is sown. Now we make new homes.", "de": "Die Wiese ist gesät. Jetzt bauen wir neue Häuschen.", "it": "Il prato è seminato. Ora facciamo delle case nuove." },
+          { "who": "nejc", "sl": "Domove? Za koga pa?", "en": "Homes? For whom?", "de": "Häuschen? Für wen denn?", "it": "Case? E per chi?" },
+          { "choices": [
+            { "sl": "Za čebele!", "en": "For the bees!", "de": "Für die Bienen!", "it": "Per le api!", "ok": true,
+              "reply": { "sl": "Aha! Čebele bodo dobile nove hišice!", "en": "Aha! The bees will get new little houses!", "de": "Aha! Die Bienen bekommen neue Häuschen!", "it": "Ah! Le api avranno delle casette nuove!" } },
+            { "sl": "Za kokoši!", "en": "For the hens!", "de": "Für die Hühner!", "it": "Per le galline!",
+              "why": { "en": "Kokoši are hens: they get a henhouse. These homes are for bees: čebele.", "de": "Kokoši sind Hühner: Die bekommen einen Hühnerstall. Diese Häuschen sind für Bienen: čebele.", "it": "Kokoši sono le galline: per loro c'è il pollaio. Queste case sono per le api: čebele." },
+              "reply": { "sl": "Za kokoši? Kokoši pa medu ne delajo!", "en": "For the hens? Hens don't make honey!", "de": "Für die Hühner? Hühner machen doch keinen Honig!", "it": "Per le galline? Le galline il miele non lo fanno!" } },
+            { "sl": "Za ribe!", "en": "For the fish!", "de": "Für die Fische!", "it": "Per i pesci!",
+              "why": { "en": "Ribe are fish: they live in water. These homes are for bees: čebele.", "de": "Ribe sind Fische: Die leben im Wasser. Diese Häuschen sind für Bienen: čebele.", "it": "Ribe sono i pesci: vivono nell'acqua. Queste case sono per le api: čebele." },
+              "reply": { "sl": "Za ribe? Ha ha, ribe živijo v vodi!", "en": "For the fish? Ha ha, fish live in water!", "de": "Für die Fische? Ha ha, Fische leben im Wasser!", "it": "Per i pesci? Ah ah, i pesci vivono nell'acqua!" } }
+          ] },
+          { "who": "anton", "sl": "Tako je. {learner}, kje živijo čebele? Pokaži!", "en": "That's right. {learner}, where do bees live? Show us!", "de": "Genau. {learner}, wo wohnen Bienen? Zeig es uns!", "it": "Esatto. {learner}, dove vivono le api? Facci vedere!" },
+          { "choices": [
+            { "sl": "Tukaj, v panju!", "en": "Here, in the hive!", "de": "Hier, im Bienenstock!", "it": "Qui, nell'arnia!", "ok": true, "tap": "hive",
+              "reply": { "sl": "Tako je. Tak panj bomo naredili.", "en": "That's right. We'll make a hive like that.", "de": "Genau. So einen Bienenstock bauen wir.", "it": "Esatto. Faremo un'arnia così." } },
+            { "sl": "Tukaj, v kadilniku!", "en": "Here, in the smoker!", "de": "Hier, im Smoker!", "it": "Qui, nell'affumicatore!", "tap": "smoker",
+              "why": { "en": "Kadilnik is the smoker: only smoke lives in there. Bees live in a hive: panj.", "de": "Kadilnik ist der Smoker: Da drin wohnt nur Rauch. Bienen wohnen in einem Bienenstock: panj.", "it": "Kadilnik è l'affumicatore: lì dentro c'è solo fumo. Le api vivono nell'arnia: panj." },
+              "reply": { "sl": "V kadilniku? Ha ha, tam je samo dim!", "en": "In the smoker? Ha ha, there's only smoke in there!", "de": "Im Smoker? Ha ha, da ist nur Rauch drin!", "it": "Nell'affumicatore? Ah ah, lì c'è solo fumo!" } },
+            { "sl": "Tukaj, v medu!", "en": "Here, in the honey!", "de": "Hier, im Honig!", "it": "Qui, nel miele!", "tap": "honey",
+              "why": { "en": "In the honey they'd get stuck! Bees live in a hive: panj.", "de": "Im Honig würden sie kleben bleiben! Bienen wohnen in einem Bienenstock: panj.", "it": "Nel miele resterebbero appiccicate! Le api vivono nell'arnia: panj." },
+              "reply": { "sl": "V medu? Ha ha, potem bi bile vse lepljive!", "en": "In the honey? Ha ha, then they'd all be sticky!", "de": "Im Honig? Ha ha, dann wären sie alle klebrig!", "it": "Nel miele? Ah ah, allora sarebbero tutte appiccicose!" } }
+          ] },
+          { "who": "micka", "sl": "Deske so tu, žeblji tudi. Tok, tok … nov panj je gotov!", "en": "The boards are here, the nails too. Tap, tap … a new hive is done!", "de": "Die Bretter sind da, die Nägel auch. Klopf, klopf … ein neuer Bienenstock ist fertig!", "it": "Le assi sono qui, e anche i chiodi. Toc, toc … un'arnia nuova è pronta!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "anton", "sl": "Travnik je posejan. Ampak čebele, ki bodo nabirale na njem, potrebujejo nove domove.", "en": "The meadow is sown. But the bees that will gather on it need new homes.", "de": "Die Wiese ist gesät. Aber die Bienen, die dort sammeln werden, brauchen neue Häuschen.", "it": "Il prato è seminato. Ma le api che ci bottineranno hanno bisogno di case nuove." },
+          { "who": "nejc", "sl": "Kje pa živijo čebele?", "en": "And where do bees live?", "de": "Und wo wohnen Bienen?", "it": "E dove vivono le api?" },
+          { "choices": [
+            { "sl": "V panjih, takih kot tale!", "en": "In hives, like this one!", "de": "In Bienenstöcken, so wie dem hier!", "it": "Nelle arnie, come questa!", "ok": true, "tap": "hive",
+              "reply": { "sl": "Aha! Potem jih naredimo še več!", "en": "Aha! Then let's make more of them!", "de": "Aha! Dann bauen wir noch mehr davon!", "it": "Ah! Allora facciamone ancora!" } },
+            { "sl": "V kadilnikih, takih kot tale!", "en": "In smokers, like this one!", "de": "In Smokern, so wie dem hier!", "it": "Negli affumicatori, come questo!", "tap": "smoker",
+              "why": { "en": "Kadilnik is the smoker: only smoke lives in there. Bees live in hives: panj.", "de": "Kadilnik ist der Smoker: Da drin wohnt nur Rauch. Bienen wohnen in Bienenstöcken: panj.", "it": "Kadilnik è l'affumicatore: lì dentro c'è solo fumo. Le api vivono nelle arnie: panj." },
+              "reply": { "sl": "V kadilniku? Ha ha, tam je samo dim!", "en": "In the smoker? Ha ha, there's only smoke in there!", "de": "Im Smoker? Ha ha, da ist nur Rauch drin!", "it": "Nell'affumicatore? Ah ah, lì c'è solo fumo!" } },
+            { "sl": "V medu, takem kot tale!", "en": "In honey, like this!", "de": "Im Honig, so wie dem hier!", "it": "Nel miele, come questo!", "tap": "honey",
+              "why": { "en": "In the honey they'd get stuck! Bees live in hives: panj.", "de": "Im Honig würden sie kleben bleiben! Bienen wohnen in Bienenstöcken: panj.", "it": "Nel miele resterebbero appiccicate! Le api vivono nelle arnie: panj." },
+              "reply": { "sl": "V medu? Ha ha, potem bi bile vse lepljive!", "en": "In the honey? Ha ha, then they'd all be sticky!", "de": "Im Honig? Ha ha, dann wären sie alle klebrig!", "it": "Nel miele? Ah ah, allora sarebbero tutte appiccicose!" } }
+          ] },
+          { "who": "anton", "sl": "Tako je. Ena družina, en panj. {learner}, koliko čebel živi v enem panju?", "en": "That's right. One family, one hive. {learner}, how many bees live in one hive?", "de": "Genau. Ein Volk, ein Stock. {learner}, wie viele Bienen leben in einem Bienenstock?", "it": "Esatto. Una famiglia, un'arnia. {learner}, quante api vivono in un'arnia?" },
+          { "choices": [
+            { "sl": "Veliko čebel, več tisoč!", "en": "Lots of bees, several thousand!", "de": "Viele Bienen, mehrere Tausend!", "it": "Tante api, diverse migliaia!", "ok": true,
+              "reply": { "sl": "Res je. Zato mora biti panj trden in suh.", "en": "True. That's why a hive has to be solid and dry.", "de": "Stimmt. Darum muss ein Bienenstock fest und trocken sein.", "it": "È vero. Per questo l'arnia deve essere solida e asciutta." } },
+            { "sl": "Veliko čebele, več tisoč!", "en": "Lots of bees, several thousand!", "de": "Viele Bienen, mehrere Tausend!", "it": "Tante api, diverse migliaia!", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive plural: veliko čebel.", "de": "Veliko (viel) verlangt den Genitiv Plural: veliko čebel.", "it": "Veliko (tanto) vuole il genitivo plurale: veliko čebel." },
+              "reply": { "sl": "Veliko … čebele? Hm, kako, prosim?", "en": "Lots of … čebele? Hm, pardon?", "de": "Viele … čebele? Hm, wie bitte?", "it": "Tante … čebele? Mm, come, scusa?" } },
+            { "sl": "Veliko kokoši, več tisoč!", "en": "Lots of hens, several thousand!", "de": "Viele Hühner, mehrere Tausend!", "it": "Tante galline, diverse migliaia!",
+              "why": { "en": "Kokoši are hens: imagine a thousand of them in a hive! Bees: čebel.", "de": "Kokoši sind Hühner: Stell dir tausend davon in einem Bienenstock vor! Bienen: čebel.", "it": "Kokoši sono le galline: immagina mille galline in un'arnia! Api: čebel." },
+              "reply": { "sl": "Kokoši? Tisoč kokoši v panju? Ha ha, kakšen hrup!", "en": "Hens? A thousand hens in a hive? Ha ha, what a racket!", "de": "Hühner? Tausend Hühner in einem Bienenstock? Ha ha, was für ein Lärm!", "it": "Galline? Mille galline in un'arnia? Ah ah, che baccano!" } }
+          ] },
+          { "who": "micka", "sl": "Deske so tu, žeblji tudi. Tok, tok … nov panj je gotov!", "en": "The boards are here, the nails too. Tap, tap … a new hive is done!", "de": "Die Bretter sind da, die Nägel auch. Klopf, klopf … ein neuer Bienenstock ist fertig!", "it": "Le assi sono qui, e anche i chiodi. Toc, toc … un'arnia nuova è pronta!" }
+        ] }
+      }
+    },
+    {
+      "scene": "pri-cebelnjaku",
+      "words": ["koncnica", "copic"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "anton", "sl": "Panji so gotovi, ampak spredaj so še brez slik.", "en": "The hives are done, but they still have no pictures at the front.", "de": "Die Bienenstöcke sind fertig, aber vorne haben sie noch keine Bilder.", "it": "Le arnie sono pronte, ma davanti non hanno ancora disegni." },
+          { "who": "zala", "sl": "Lahko slikamo? Prosim!", "en": "Can we paint? Please!", "de": "Dürfen wir malen? Bitte!", "it": "Possiamo dipingere? Per favore!" },
+          { "who": "anton", "sl": "Seveda. {learner}, pokaži, kaj bomo poslikali!", "en": "Of course. {learner}, show us what we'll paint!", "de": "Natürlich. {learner}, zeig uns, was wir bemalen!", "it": "Certo. {learner}, facci vedere che cosa dipingeremo!" },
+          { "choices": [
+            { "sl": "To končnico!", "en": "This hive panel!", "de": "Dieses Stirnbrett!", "it": "Questo frontalino!", "ok": true, "tap": "panel",
+              "reply": { "sl": "Tako je. Na končnico pride slika.", "en": "That's right. The picture goes on the hive panel.", "de": "Genau. Auf das Stirnbrett kommt ein Bild.", "it": "Esatto. Sul frontalino va il disegno." } },
+            { "sl": "To klop!", "en": "This bench!", "de": "Diese Bank!", "it": "Questa panchina!", "tap": "bench",
+              "why": { "en": "Klop is the bench: you sit on it. The painted front board of a hive is the končnica.", "de": "Klop ist die Bank: Darauf sitzt man. Das bemalte Stirnbrett eines Bienenstocks ist die končnica.", "it": "Klop è la panchina: ci si siede. Il frontalino dipinto dell'arnia è la končnica." },
+              "reply": { "sl": "Klop? Na klopi bomo sedeli, ne slikali!", "en": "The bench? We'll sit on the bench, not paint it!", "de": "Die Bank? Auf der Bank sitzen wir, wir bemalen sie nicht!", "it": "La panchina? Sulla panchina ci sediamo, non la dipingiamo!" } },
+            { "sl": "Ta kadilnik!", "en": "This smoker!", "de": "Diesen Smoker!", "it": "Questo affumicatore!", "tap": "smoker",
+              "why": { "en": "Kadilnik is the smoker: it's black from smoke anyway. You paint the hive's front board: končnica.", "de": "Kadilnik ist der Smoker: Der ist sowieso schwarz vom Rauch. Bemalt wird das Stirnbrett des Bienenstocks: končnica.", "it": "Kadilnik è l'affumicatore: è già nero di fumo. Si dipinge il frontalino dell'arnia: končnica." },
+              "reply": { "sl": "Kadilnik? Ta je že tako črn od dima, ha ha!", "en": "The smoker? That's black from smoke already, ha ha!", "de": "Den Smoker? Der ist doch schon schwarz vom Rauch, ha ha!", "it": "L'affumicatore? È già nero di fumo, ah ah!" } }
+          ] },
+          { "who": "zala", "sl": "Barve so tu! Kaj še potrebujemo?", "en": "The paints are here! What else do we need?", "de": "Die Farben sind da! Was brauchen wir noch?", "it": "I colori sono qui! Che altro ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo čopič.", "en": "We need a brush.", "de": "Wir brauchen einen Pinsel.", "it": "Ci serve un pennello.", "ok": true,
+              "reply": { "sl": "Juhu! Čopič, pa začnemo.", "en": "Yay! A brush, and off we go.", "de": "Juhu! Ein Pinsel, und los geht's.", "it": "Evviva! Un pennello, e si comincia." } },
+            { "sl": "Potrebujemo metlo.", "en": "We need a broom.", "de": "Wir brauchen einen Besen.", "it": "Ci serve una scopa.",
+              "why": { "en": "Metla is a broom: far too big for a small picture. You paint with a brush: čopič.", "de": "Metla ist ein Besen: viel zu groß für ein kleines Bild. Man malt mit einem Pinsel: čopič.", "it": "Metla è una scopa: troppo grande per un disegnino. Si dipinge col pennello: čopič." },
+              "reply": { "sl": "Metlo? Hi hi, z metlo slikajo samo velikani!", "en": "A broom? Hee hee, only giants paint with brooms!", "de": "Einen Besen? Hihi, mit einem Besen malen nur Riesen!", "it": "Una scopa? Ih ih, con la scopa dipingono solo i giganti!" } },
+            { "sl": "Potrebujemo vilice.", "en": "We need a fork.", "de": "Wir brauchen eine Gabel.", "it": "Ci serve una forchetta.",
+              "why": { "en": "Vilice is a fork: for eating, not painting. A brush: čopič.", "de": "Vilice ist eine Gabel: zum Essen, nicht zum Malen. Ein Pinsel: čopič.", "it": "Vilice è una forchetta: per mangiare, non per dipingere. Un pennello: čopič." },
+              "reply": { "sl": "Vilice? Hi hi, slikamo, ne jemo!", "en": "A fork? Hee hee, we're painting, not eating!", "de": "Eine Gabel? Hihi, wir malen, wir essen nicht!", "it": "Una forchetta? Ih ih, dipingiamo, non mangiamo!" } }
+          ] },
+          { "who": "anton", "sl": "Lepo! Zdaj bo vsaka čebela našla svoj panj.", "en": "Lovely! Now every bee will find its own hive.", "de": "Schön! Jetzt findet jede Biene ihren eigenen Stock.", "it": "Bello! Ora ogni ape troverà la sua arnia." }
+        ] },
+        "A2": { "lines": [
+          { "who": "anton", "sl": "Panji so gotovi, ampak spredaj so še brez slik. Pri nas so panji vedno poslikani.", "en": "The hives are done, but they still have no pictures at the front. Here our hives are always painted.", "de": "Die Bienenstöcke sind fertig, aber vorne haben sie noch keine Bilder. Bei uns sind die Stöcke immer bemalt.", "it": "Le arnie sono pronte, ma davanti non hanno ancora disegni. Da noi le arnie sono sempre dipinte." },
+          { "who": "zala", "sl": "Zakaj pa? Ali čebele gledajo slike?", "en": "Why? Do bees look at pictures?", "de": "Warum denn? Schauen Bienen Bilder an?", "it": "E perché? Le api guardano i disegni?" },
+          { "who": "anton", "sl": "Ja, po sliki najdejo svoj panj! {learner}, kaj bomo poslikali?", "en": "Yes, by the picture they find their own hive! {learner}, what shall we paint?", "de": "Ja, am Bild finden sie ihren Stock! {learner}, was bemalen wir?", "it": "Sì, dal disegno ritrovano la loro arnia! {learner}, che cosa dipingeremo?" },
+          { "choices": [
+            { "sl": "Tisto končnico spredaj na panju!", "en": "That panel on the front of the hive!", "de": "Das Stirnbrett vorne am Stock!", "it": "Quel frontalino davanti all'arnia!", "ok": true, "tap": "panel",
+              "reply": { "sl": "Tako je. Vsak panj dobi svojo sliko.", "en": "That's right. Every hive gets its own picture.", "de": "Genau. Jeder Stock bekommt sein eigenes Bild.", "it": "Esatto. Ogni arnia avrà il suo disegno." } },
+            { "sl": "Tisto klop pred čebelnjakom!", "en": "That bench in front of the bee house!", "de": "Die Bank vor dem Bienenhaus!", "it": "Quella panchina davanti all'apiario!", "tap": "bench",
+              "why": { "en": "Klop is the bench: you sit on it. The painted front board of a hive is the končnica.", "de": "Klop ist die Bank: Darauf sitzt man. Das bemalte Stirnbrett eines Bienenstocks ist die končnica.", "it": "Klop è la panchina: ci si siede. Il frontalino dipinto dell'arnia è la končnica." },
+              "reply": { "sl": "Klop? Na klopi bomo sedeli, ne slikali!", "en": "The bench? We'll sit on the bench, not paint it!", "de": "Die Bank? Auf der Bank sitzen wir, wir bemalen sie nicht!", "it": "La panchina? Sulla panchina ci sediamo, non la dipingiamo!" } },
+            { "sl": "Tisti stari kadilnik!", "en": "That old smoker!", "de": "Den alten Smoker da!", "it": "Quel vecchio affumicatore!", "tap": "smoker",
+              "why": { "en": "Kadilnik is the smoker: it's black from smoke anyway. You paint the hive's front board: končnica.", "de": "Kadilnik ist der Smoker: Der ist sowieso schwarz vom Rauch. Bemalt wird das Stirnbrett des Bienenstocks: končnica.", "it": "Kadilnik è l'affumicatore: è già nero di fumo. Si dipinge il frontalino dell'arnia: končnica." },
+              "reply": { "sl": "Kadilnik? Ta je že tako črn od dima, ha ha!", "en": "The smoker? That's black from smoke already, ha ha!", "de": "Den Smoker? Der ist doch schon schwarz vom Rauch, ha ha!", "it": "L'affumicatore? È già nero di fumo, ah ah!" } }
+          ] },
+          { "who": "zala", "sl": "Barve so tu. S čim bomo slikali?", "en": "The paints are here. What shall we paint with?", "de": "Die Farben sind da. Womit malen wir?", "it": "I colori sono qui. Con che cosa dipingeremo?" },
+          { "choices": [
+            { "sl": "S čopičem, seveda.", "en": "With a brush, of course.", "de": "Mit einem Pinsel, natürlich.", "it": "Con il pennello, naturalmente.", "ok": true,
+              "reply": { "sl": "Juhu! Narišimo medveda, ki krade med!", "en": "Yay! Let's paint a bear stealing honey!", "de": "Juhu! Malen wir einen Bären, der Honig stiehlt!", "it": "Evviva! Disegniamo un orso che ruba il miele!" } },
+            { "sl": "S čopič, seveda.", "en": "With a brush, of course.", "de": "Mit einem Pinsel, natürlich.", "it": "Con il pennello, naturalmente.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental: s čopičem.", "de": "S (mit) verlangt den Instrumental: s čopičem.", "it": "S (con) vuole lo strumentale: s čopičem." },
+              "reply": { "sl": "S … čopič? Hm, kako, prosim?", "en": "With … čopič? Hm, pardon?", "de": "Mit … čopič? Hm, wie bitte?", "it": "Con … čopič? Mm, come, scusa?" } },
+            { "sl": "S kladivom, seveda.", "en": "With a hammer, of course.", "de": "Mit einem Hammer, natürlich.", "it": "Con il martello, naturalmente.",
+              "why": { "en": "Kladivo is a hammer: it makes holes, not pictures. A brush: s čopičem.", "de": "Kladivo ist ein Hammer: Er macht Löcher, keine Bilder. Ein Pinsel: s čopičem.", "it": "Kladivo è un martello: fa buchi, non disegni. Un pennello: s čopičem." },
+              "reply": { "sl": "S kladivom? Potem bo končnica imela luknje, ne slike!", "en": "With a hammer? Then the panel will get holes, not pictures!", "de": "Mit einem Hammer? Dann hat das Stirnbrett Löcher statt Bilder!", "it": "Col martello? Allora il frontalino avrà buchi, non disegni!" } }
+          ] },
+          { "who": "anton", "sl": "Lepo! Zdaj bo vsaka čebela našla svoj dom.", "en": "Lovely! Now every bee will find its home.", "de": "Schön! Jetzt findet jede Biene ihr Zuhause.", "it": "Bello! Ora ogni ape troverà la sua casa." }
+        ] }
+      }
+    },
+    {
+      "scene": "pri-cebelnjaku",
+      "words": ["cebelnjak"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "anton", "sl": "Panji so poslikani. Ampak na dežju ne morejo stati.", "en": "The hives are painted. But they can't stand out in the rain.", "de": "Die Bienenstöcke sind bemalt. Aber im Regen können sie nicht stehen.", "it": "Le arnie sono dipinte. Ma non possono stare sotto la pioggia." },
+          { "who": "micka", "sl": "Potrebujejo streho nad glavo, kot mi vsi.", "en": "They need a roof over their heads, like all of us.", "de": "Sie brauchen ein Dach über dem Kopf, wie wir alle.", "it": "Hanno bisogno di un tetto sopra la testa, come tutti noi." },
+          { "who": "anton", "sl": "Tako je. {learner}, kaj postavimo?", "en": "That's right. {learner}, what do we put up?", "de": "Genau. {learner}, was stellen wir auf?", "it": "Esatto. {learner}, che cosa costruiamo?" },
+          { "choices": [
+            { "sl": "Postavimo čebelnjak.", "en": "We put up a bee house.", "de": "Wir stellen ein Bienenhaus auf.", "it": "Montiamo un apiario.", "ok": true,
+              "reply": { "sl": "Tako je. Majhno hišico za panje.", "en": "That's right. A little house for the hives.", "de": "Genau. Ein kleines Häuschen für die Stöcke.", "it": "Esatto. Una casetta per le arnie." } },
+            { "sl": "Postavimo kozolec.", "en": "We put up a hayrack.", "de": "Wir stellen eine Heuharfe auf.", "it": "Montiamo un essiccatoio per il fieno.",
+              "why": { "en": "Kozolec is a hayrack: it's for hay. Hives go into a bee house: čebelnjak.", "de": "Kozolec ist eine Heuharfe: Die ist fürs Heu. Bienenstöcke kommen in ein Bienenhaus: čebelnjak.", "it": "Kozolec è l'essiccatoio per il fieno. Le arnie vanno nell'apiario: čebelnjak." },
+              "reply": { "sl": "Kozolec? Ta je za seno, ne za čebele!", "en": "A hayrack? That's for hay, not for bees!", "de": "Eine Heuharfe? Die ist fürs Heu, nicht für Bienen!", "it": "Un essiccatoio? Quello è per il fieno, non per le api!" } },
+            { "sl": "Postavimo šotor.", "en": "We put up a tent.", "de": "Wir stellen ein Zelt auf.", "it": "Montiamo una tenda.",
+              "why": { "en": "Šotor is a tent. Hives need a bee house: čebelnjak.", "de": "Šotor ist ein Zelt. Bienenstöcke brauchen ein Bienenhaus: čebelnjak.", "it": "Šotor è una tenda. Le arnie hanno bisogno di un apiario: čebelnjak." },
+              "reply": { "sl": "Šotor? Ha ha, čebele niso taborniki!", "en": "A tent? Ha ha, bees aren't scouts!", "de": "Ein Zelt? Ha ha, Bienen sind doch keine Pfadfinder!", "it": "Una tenda? Ah ah, le api non sono scout!" } }
+          ] },
+          { "who": "anton", "sl": "Prav. Kje pa bo stal?", "en": "Right. And where will it stand?", "de": "Gut. Und wo soll es stehen?", "it": "Bene. E dove lo mettiamo?" },
+          { "choices": [
+            { "sl": "Na robu travnika.", "en": "At the edge of the meadow.", "de": "Am Rand der Wiese.", "it": "Al margine del prato.", "ok": true,
+              "reply": { "sl": "Tako je. Tam čebele ne bodo nikogar motile.", "en": "That's right. There the bees won't bother anyone.", "de": "Genau. Dort stören die Bienen niemanden.", "it": "Esatto. Lì le api non daranno fastidio a nessuno." } },
+            { "sl": "Na sredini travnika.", "en": "In the middle of the meadow.", "de": "In der Mitte der Wiese.", "it": "In mezzo al prato.",
+              "why": { "en": "Sredina is the middle: there the bees would be in everyone's way. At the edge: na robu.", "de": "Sredina ist die Mitte: Da wären die Bienen allen im Weg. Am Rand: na robu.", "it": "Sredina è il mezzo: lì le api darebbero fastidio a tutti. Al margine: na robu." },
+              "reply": { "sl": "Na sredini? Potem bomo vsi hodili med čebelami!", "en": "In the middle? Then we'll all be walking among the bees!", "de": "In der Mitte? Dann laufen wir alle zwischen den Bienen herum!", "it": "In mezzo? Allora cammineremo tutti tra le api!" } }
+          ] },
+          { "who": "nejc", "sl": "Deske gor, streha gor … Čebelnjak stoji!", "en": "Boards up, roof up … The bee house is standing!", "de": "Bretter hoch, Dach drauf … Das Bienenhaus steht!", "it": "Su le assi, su il tetto … L'apiario è in piedi!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "anton", "sl": "Panji so poslikani, ampak na dežju in snegu ne morejo stati zunaj.", "en": "The hives are painted, but they can't stand outside in the rain and snow.", "de": "Die Bienenstöcke sind bemalt, aber bei Regen und Schnee können sie nicht draußen stehen.", "it": "Le arnie sono dipinte, ma con la pioggia e la neve non possono stare fuori." },
+          { "who": "micka", "sl": "Potrebujejo streho nad glavo, kot mi vsi.", "en": "They need a roof over their heads, like all of us.", "de": "Sie brauchen ein Dach über dem Kopf, wie wir alle.", "it": "Hanno bisogno di un tetto sopra la testa, come tutti noi." },
+          { "who": "anton", "sl": "{learner}, kaj bomo zgradili zanje?", "en": "{learner}, what shall we build for them?", "de": "{learner}, was bauen wir für sie?", "it": "{learner}, che cosa costruiremo per loro?" },
+          { "choices": [
+            { "sl": "Majhen čebelnjak, kjer bodo panji na suhem.", "en": "A small bee house, where the hives will be dry.", "de": "Ein kleines Bienenhaus, wo die Stöcke im Trockenen stehen.", "it": "Un piccolo apiario, dove le arnie staranno all'asciutto.", "ok": true,
+              "reply": { "sl": "Tako je. Hišico za vse panje.", "en": "That's right. A little house for all the hives.", "de": "Genau. Ein Häuschen für alle Stöcke.", "it": "Esatto. Una casetta per tutte le arnie." } },
+            { "sl": "Majhen kozolec, kjer bodo panji na suhem.", "en": "A small hayrack, where the hives will be dry.", "de": "Eine kleine Heuharfe, wo die Stöcke im Trockenen stehen.", "it": "Un piccolo essiccatoio, dove le arnie staranno all'asciutto.",
+              "why": { "en": "Kozolec is a hayrack: it's for hay. Hives go into a bee house: čebelnjak.", "de": "Kozolec ist eine Heuharfe: Die ist fürs Heu. Bienenstöcke kommen in ein Bienenhaus: čebelnjak.", "it": "Kozolec è l'essiccatoio per il fieno. Le arnie vanno nell'apiario: čebelnjak." },
+              "reply": { "sl": "Kozolec? Ta je za seno, čebele pa sena ne jedo!", "en": "A hayrack? That's for hay, and bees don't eat hay!", "de": "Eine Heuharfe? Die ist fürs Heu, und Bienen fressen kein Heu!", "it": "Un essiccatoio? Quello è per il fieno, e le api il fieno non lo mangiano!" } },
+            { "sl": "Majhen šotor, kjer bodo panji na suhem.", "en": "A small tent, where the hives will be dry.", "de": "Ein kleines Zelt, wo die Stöcke im Trockenen stehen.", "it": "Una piccola tenda, dove le arnie staranno all'asciutto.",
+              "why": { "en": "Šotor is a tent. Hives need a bee house: čebelnjak.", "de": "Šotor ist ein Zelt. Bienenstöcke brauchen ein Bienenhaus: čebelnjak.", "it": "Šotor è una tenda. Le arnie hanno bisogno di un apiario: čebelnjak." },
+              "reply": { "sl": "Šotor? Ha ha, čebele niso taborniki!", "en": "A tent? Ha ha, bees aren't scouts!", "de": "Ein Zelt? Ha ha, Bienen sind doch keine Pfadfinder!", "it": "Una tenda? Ah ah, le api non sono scout!" } }
+          ] },
+          { "who": "anton", "sl": "Prav. Kje naj stoji, da čebele ne bodo nikogar motile?", "en": "Right. Where should it stand, so the bees won't bother anyone?", "de": "Gut. Wo soll es stehen, damit die Bienen niemanden stören?", "it": "Bene. Dove lo mettiamo, così le api non danno fastidio a nessuno?" },
+          { "choices": [
+            { "sl": "Na robu travnika, daleč od poti.", "en": "At the edge of the meadow, far from the path.", "de": "Am Rand der Wiese, weit weg vom Weg.", "it": "Al margine del prato, lontano dal sentiero.", "ok": true,
+              "reply": { "sl": "Tako je. Tam bodo imele mir.", "en": "That's right. They'll have peace there.", "de": "Genau. Dort haben sie ihre Ruhe.", "it": "Esatto. Lì staranno tranquille." } },
+            { "sl": "Na rob travnika, daleč od poti.", "en": "To the edge of the meadow, far from the path.", "de": "An den Rand der Wiese, weit weg vom Weg.", "it": "Verso il margine del prato, lontano dal sentiero.", "grammar": "kje-mestnik-orodnik",
+              "why": { "en": "Kje? (where) takes the locative: na robu. Na rob answers kam? (where to).", "de": "Kje? (wo) verlangt den Lokativ: na robu. Na rob antwortet auf kam? (wohin).", "it": "Kje? (dove, stato) vuole il locativo: na robu. Na rob risponde a kam? (verso dove)." },
+              "reply": { "sl": "Na rob? Hm, kako, prosim?", "en": "Na rob? Hm, pardon?", "de": "Na rob? Hm, wie bitte?", "it": "Na rob? Mm, come, scusa?" } },
+            { "sl": "Na sredini travnika, daleč od poti.", "en": "In the middle of the meadow, far from the path.", "de": "In der Mitte der Wiese, weit weg vom Weg.", "it": "In mezzo al prato, lontano dal sentiero.",
+              "why": { "en": "Sredina is the middle: there the bees would be in everyone's way. At the edge: na robu.", "de": "Sredina ist die Mitte: Da wären die Bienen allen im Weg. Am Rand: na robu.", "it": "Sredina è il mezzo: lì le api darebbero fastidio a tutti. Al margine: na robu." },
+              "reply": { "sl": "Na sredini? Potem bomo vsi hodili med čebelami!", "en": "In the middle? Then we'll all be walking among the bees!", "de": "In der Mitte? Dann laufen wir alle zwischen den Bienen herum!", "it": "In mezzo? Allora cammineremo tutti tra le api!" } }
+          ] },
+          { "who": "nejc", "sl": "Deske gor, streha gor … Čebelnjak stoji!", "en": "Boards up, roof up … The bee house is standing!", "de": "Bretter hoch, Dach drauf … Das Bienenhaus steht!", "it": "Su le assi, su il tetto … L'apiario è in piedi!" }
+        ] }
+      }
+    },
+    {
+      "scene": "pri-cebelnjaku",
+      "words": ["kadilnik", "med"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "anton", "sl": "Satje je polno in zlato. Danes je velik dan!", "en": "The combs are full and golden. Today is a big day!", "de": "Die Waben sind voll und golden. Heute ist ein großer Tag!", "it": "I favi sono pieni e dorati. Oggi è un gran giorno!" },
+          { "who": "zala", "sl": "Ampak čebele pikajo! Ojoj …", "en": "But bees sting! Oh dear …", "de": "Aber Bienen stechen! Oje …", "it": "Ma le api pungono! Ahi ahi …" },
+          { "who": "anton", "sl": "Brez skrbi. {learner}, podaj mi tisto, kar dela dim!", "en": "Don't worry. {learner}, hand me the thing that makes smoke!", "de": "Keine Sorge. {learner}, gib mir das Ding, das Rauch macht!", "it": "Niente paura. {learner}, passami quella cosa che fa il fumo!" },
+          { "choices": [
+            { "sl": "Izvolite kadilnik!", "en": "Here's the smoker!", "de": "Bitte, der Smoker!", "it": "Ecco l'affumicatore!", "ok": true, "tap": "smoker",
+              "reply": { "sl": "Hvala. Malo dima, pa so čebele mirne.", "en": "Thank you. A little smoke, and the bees are calm.", "de": "Danke. Ein bisschen Rauch, und die Bienen sind ruhig.", "it": "Grazie. Un po' di fumo, e le api stanno tranquille.", "fx": { "smoke": 1 } } },
+            { "sl": "Izvolite točilo!", "en": "Here's the extractor!", "de": "Bitte, die Schleuder!", "it": "Ecco lo smielatore!", "tap": "extractor",
+              "why": { "en": "Točilo is the honey extractor: it spins, it doesn't smoke. The smoker: kadilnik.", "de": "Točilo ist die Honigschleuder: Sie dreht sich, sie raucht nicht. Der Smoker: kadilnik.", "it": "Točilo è lo smielatore: gira, non fa fumo. L'affumicatore: kadilnik." },
+              "reply": { "sl": "Točilo? To pride na vrsto pozneje!", "en": "The extractor? That comes later!", "de": "Die Schleuder? Die ist später dran!", "it": "Lo smielatore? Quello tocca dopo!" } },
+            { "sl": "Izvolite satje!", "en": "Here's the honeycomb!", "de": "Bitte, die Waben!", "it": "Ecco il favo!", "tap": "comb",
+              "why": { "en": "Satje is the honeycomb: that's what we want to get out. The smoker: kadilnik.", "de": "Satje sind die Waben: Die wollen wir ja erst herausholen. Der Smoker: kadilnik.", "it": "Satje è il favo: è proprio quello che vogliamo tirare fuori. L'affumicatore: kadilnik." },
+              "reply": { "sl": "Satje? Tega moramo šele vzeti iz panja!", "en": "The comb? We still have to take that out of the hive!", "de": "Die Waben? Die müssen wir erst aus dem Stock holen!", "it": "Il favo? Quello dobbiamo ancora tirarlo fuori dall'arnia!" } }
+          ] },
+          { "who": "nejc", "sl": "Satje je v točilu. Vrtimo, vrtimo … Kaj teče ven?", "en": "The combs are in the extractor. Spin, spin … What's running out?", "de": "Die Waben sind in der Schleuder. Drehen, drehen … Was läuft heraus?", "it": "I favi sono nello smielatore. Giriamo, giriamo … Che cosa esce?" },
+          { "choices": [
+            { "sl": "Med teče ven!", "en": "Honey's running out!", "de": "Honig läuft heraus!", "it": "Esce il miele!", "ok": true,
+              "reply": { "sl": "Ja! Zlat in gost!", "en": "Yes! Golden and thick!", "de": "Ja! Golden und dick!", "it": "Sì! Dorato e denso!", "fx": { "honey": 1 } } },
+            { "sl": "Mleko teče ven!", "en": "Milk's running out!", "de": "Milch läuft heraus!", "it": "Esce il latte!",
+              "why": { "en": "Mleko is milk: that comes from cows, not bees. From the extractor runs honey: med.", "de": "Mleko ist Milch: Die kommt von Kühen, nicht von Bienen. Aus der Schleuder läuft Honig: med.", "it": "Mleko è il latte: viene dalle mucche, non dalle api. Dallo smielatore esce il miele: med." },
+              "reply": { "sl": "Mleko? Ha ha, čebele niso krave!", "en": "Milk? Ha ha, bees aren't cows!", "de": "Milch? Ha ha, Bienen sind doch keine Kühe!", "it": "Latte? Ah ah, le api non sono mucche!" } },
+            { "sl": "Voda teče ven!", "en": "Water's running out!", "de": "Wasser läuft heraus!", "it": "Esce l'acqua!",
+              "why": { "en": "Voda is water, but this is thick and golden. Honey: med.", "de": "Voda ist Wasser, aber das hier ist dick und golden. Honig: med.", "it": "Voda è l'acqua, ma questo è denso e dorato. Miele: med." },
+              "reply": { "sl": "Voda? Poglej, kako je gosto in zlato!", "en": "Water? Look how thick and golden it is!", "de": "Wasser? Schau, wie dick und golden das ist!", "it": "Acqua? Guarda com'è denso e dorato!" } }
+          ] },
+          { "who": "anton", "sl": "Poskusite vsi! Diši po ajdi in detelji.", "en": "Everyone have a taste! It smells of buckwheat and clover.", "de": "Probiert alle! Er duftet nach Buchweizen und Klee.", "it": "Assaggiate tutti! Profuma di grano saraceno e trifoglio." }
+        ] },
+        "A2": { "lines": [
+          { "who": "anton", "sl": "Satje je polno in zlato. Danes bomo vzeli prvi med!", "en": "The combs are full and golden. Today we'll take the first honey!", "de": "Die Waben sind voll und golden. Heute holen wir den ersten Honig!", "it": "I favi sono pieni e dorati. Oggi prenderemo il primo miele!" },
+          { "who": "zala", "sl": "Ampak čebele pikajo! Kaj, če bodo jezne?", "en": "But bees sting! What if they get angry?", "de": "Aber Bienen stechen! Was, wenn sie böse werden?", "it": "Ma le api pungono! E se si arrabbiano?" },
+          { "who": "anton", "sl": "Ne bodo, če jih pomirimo. {learner}, s čim jih pomirimo?", "en": "They won't, if we calm them down. {learner}, what do we calm them with?", "de": "Werden sie nicht, wenn wir sie beruhigen. {learner}, womit beruhigen wir sie?", "it": "No, se le calmiamo. {learner}, con che cosa le calmiamo?" },
+          { "choices": [
+            { "sl": "S kadilnikom! Dim jih pomiri.", "en": "With the smoker! Smoke calms them.", "de": "Mit dem Smoker! Rauch beruhigt sie.", "it": "Con l'affumicatore! Il fumo le calma.", "ok": true, "tap": "smoker",
+              "reply": { "sl": "Tako je. Malo dima, pa so čebele mirne.", "en": "That's right. A little smoke, and the bees are calm.", "de": "Genau. Ein bisschen Rauch, und die Bienen sind ruhig.", "it": "Esatto. Un po' di fumo, e le api stanno tranquille.", "fx": { "smoke": 1 } } },
+            { "sl": "S točilom! Vrtenje jih pomiri.", "en": "With the extractor! Spinning calms them.", "de": "Mit der Schleuder! Drehen beruhigt sie.", "it": "Con lo smielatore! Girare le calma.", "tap": "extractor",
+              "why": { "en": "Točilo is the honey extractor: it spins the combs later. Bees calm down with smoke: s kadilnikom.", "de": "Točilo ist die Honigschleuder: Sie dreht später die Waben. Bienen beruhigt man mit Rauch: s kadilnikom.", "it": "Točilo è lo smielatore: più tardi farà girare i favi. Le api si calmano col fumo: s kadilnikom." },
+              "reply": { "sl": "S točilom? Ha ha, potem se jim bo samo vrtelo!", "en": "With the extractor? Ha ha, then they'll just get dizzy!", "de": "Mit der Schleuder? Ha ha, dann wird ihnen nur schwindlig!", "it": "Con lo smielatore? Ah ah, così gli gira solo la testa!" } },
+            { "sl": "Z medom! Sladko jih pomiri.", "en": "With honey! Sweetness calms them.", "de": "Mit Honig! Süßes beruhigt sie.", "it": "Col miele! Il dolce le calma.", "tap": "honey",
+              "why": { "en": "Med is honey: we want to take it, not give it! Bees calm down with smoke: s kadilnikom.", "de": "Med ist Honig: Den wollen wir nehmen, nicht geben! Bienen beruhigt man mit Rauch: s kadilnikom.", "it": "Med è il miele: lo vogliamo prendere, non dare! Le api si calmano col fumo: s kadilnikom." },
+              "reply": { "sl": "Z medom? Ha ha, saj ga hočemo vzeti, ne dati!", "en": "With honey? Ha ha, we want to take it, not give it!", "de": "Mit Honig? Ha ha, den wollen wir doch nehmen, nicht geben!", "it": "Col miele? Ah ah, lo vogliamo prendere, non dare!" } }
+          ] },
+          { "who": "nejc", "sl": "Glejte, kaj teče iz točila! Koliko ga je?", "en": "Look what's running out of the extractor! How much is there?", "de": "Schaut, was aus der Schleuder läuft! Wie viel ist das?", "it": "Guardate che cosa esce dallo smielatore! Quanto ce n'è?", "fx": { "honey": 1 } },
+          { "choices": [
+            { "sl": "Veliko medu, cel kozarec!", "en": "Lots of honey, a whole jar!", "de": "Viel Honig, ein ganzes Glas!", "it": "Tanto miele, un vasetto intero!", "ok": true,
+              "reply": { "sl": "Ja! In še enega!", "en": "Yes! And another one!", "de": "Ja! Und noch eins!", "it": "Sì! E un altro ancora!" } },
+            { "sl": "Veliko med, cel kozarec!", "en": "Lots of honey, a whole jar!", "de": "Viel Honig, ein ganzes Glas!", "it": "Tanto miele, un vasetto intero!", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive: med becomes medu.", "de": "Veliko (viel) verlangt den Genitiv: med wird zu medu.", "it": "Veliko (tanto) vuole il genitivo: med diventa medu." },
+              "reply": { "sl": "Veliko … med? Hm, kako, prosim?", "en": "Lots of … med? Hm, pardon?", "de": "Viel … med? Hm, wie bitte?", "it": "Tanto … med? Mm, come, scusa?" } },
+            { "sl": "Veliko mleka, cel kozarec!", "en": "Lots of milk, a whole glass!", "de": "Viel Milch, ein ganzes Glas!", "it": "Tanto latte, un bicchiere intero!",
+              "why": { "en": "Mleko is milk: that comes from cows, not bees. Honey: medu.", "de": "Mleko ist Milch: Die kommt von Kühen, nicht von Bienen. Honig: medu.", "it": "Mleko è il latte: viene dalle mucche, non dalle api. Miele: medu." },
+              "reply": { "sl": "Mleka? Ha ha, čebele niso krave!", "en": "Milk? Ha ha, bees aren't cows!", "de": "Milch? Ha ha, Bienen sind doch keine Kühe!", "it": "Latte? Ah ah, le api non sono mucche!" } }
+          ] },
+          { "who": "anton", "sl": "Poskusite vsi! Diši po ajdi in detelji.", "en": "Everyone have a taste! It smells of buckwheat and clover.", "de": "Probiert alle! Er duftet nach Buchweizen und Klee.", "it": "Assaggiate tutti! Profuma di grano saraceno e trifoglio." }
+        ] }
+      }
+    }
+  ]
+}

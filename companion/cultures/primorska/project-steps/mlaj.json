@@ -1,0 +1,294 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "mlaj",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-mlaj",
+  "steps": [
+    {
+      "scene": "v-gozdu",
+      "words": ["smreka", "sekira"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Danes gremo v gozd po smreko za mlaj!", "en": "Today we go into the forest for a spruce for the maypole!", "de": "Heute gehen wir in den Wald, eine Fichte für den Maibaum holen!", "it": "Oggi andiamo nel bosco a prendere un abete per l'albero di maggio!" },
+          { "who": "marko", "sl": "Smreka mora biti visoka in ravna.", "en": "The spruce has to be tall and straight.", "de": "Die Fichte muss hoch und gerade sein.", "it": "L'abete deve essere alto e dritto." },
+          { "who": "luka", "sl": "{learner}, poišči visoko smreko!", "en": "{learner}, find a tall spruce!", "de": "{learner}, such eine hohe Fichte!", "it": "{learner}, cerca un abete alto!" },
+          { "choices": [
+            { "sl": "Tukaj je visoka smreka!", "en": "Here is a tall spruce!", "de": "Hier ist eine hohe Fichte!", "it": "Ecco un abete alto!", "ok": true, "tap": "spruce",
+              "reply": { "sl": "Bravo! Ta je prava.", "en": "Well done! That's the right one.", "de": "Bravo! Das ist die richtige.", "it": "Bravo! È quello giusto." } },
+            { "sl": "Tukaj je visoko drevo!", "en": "Here is a tall tree!", "de": "Hier ist ein hoher Baum!", "it": "Ecco un albero alto!", "tap": "tree",
+              "why": { "en": "That one has leaves. A spruce (smreka) is dark green, with needles, and pointed at the top.", "de": "Der hat Blätter. Eine Fichte (smreka) ist dunkelgrün, hat Nadeln und ist oben spitz.", "it": "Quello ha le foglie. L'abete rosso (smreka) è verde scuro, con gli aghi, e appuntito in cima." },
+              "reply": { "sl": "Drevo? To ima liste, iglic pa nima!", "en": "A tree? That one has leaves, and no needles!", "de": "Ein Baum? Der hat Blätter und keine Nadeln!", "it": "Un albero? Quello ha le foglie, e niente aghi!" } },
+            { "sl": "Tukaj je visoka skala!", "en": "Here is a tall rock!", "de": "Hier ist ein hoher Felsen!", "it": "Ecco una roccia alta!", "tap": "stone",
+              "why": { "en": "A rock (skala) won't make a maypole: look for the spruce.", "de": "Aus einem Felsen (skala) wird kein Maibaum: such die Fichte.", "it": "Da una roccia (skala) non viene un albero di maggio: cerca l'abete." },
+              "reply": { "sl": "Skala? Ha ha, skale ne postavimo sredi vasi!", "en": "A rock? Ha ha, we're not putting a rock in the middle of the village!", "de": "Ein Felsen? Ha ha, einen Felsen stellen wir nicht mitten ins Dorf!", "it": "Una roccia? Ah ah, non mettiamo una roccia in mezzo al paese!" } }
+          ] },
+          { "who": "luka", "sl": "Odlično! Zdaj jo posekamo. Kaj potrebujemo?", "en": "Great! Now we fell it. What do we need?", "de": "Super! Jetzt fällen wir sie. Was brauchen wir?", "it": "Ottimo! Ora lo abbattiamo. Che cosa ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo sekiro.", "en": "We need an axe.", "de": "Wir brauchen eine Axt.", "it": "Ci serve un'ascia.", "ok": true,
+              "reply": { "sl": "Tako je. Tukaj jo imam.", "en": "That's right. I have it here.", "de": "Genau. Ich habe sie hier.", "it": "Esatto. Ce l'ho qui." } },
+            { "sl": "Potrebujemo žlico.", "en": "We need a spoon.", "de": "Wir brauchen einen Löffel.", "it": "Ci serve un cucchiaio.",
+              "why": { "en": "Žlica is a spoon. To fell a tree you need an axe: sekira.", "de": "Žlica ist ein Löffel. Um einen Baum zu fällen, braucht man eine Axt: sekira.", "it": "Žlica è un cucchiaio. Per abbattere un albero ci vuole un'ascia: sekira." },
+              "reply": { "sl": "Žlico? Ha ha, s tem bomo tukaj do zime!", "en": "A spoon? Ha ha, with that we'll be here till winter!", "de": "Einen Löffel? Ha ha, damit sind wir bis zum Winter hier!", "it": "Un cucchiaio? Ah ah, con quello stiamo qui fino all'inverno!" } },
+            { "sl": "Potrebujemo vedro.", "en": "We need a bucket.", "de": "Wir brauchen einen Eimer.", "it": "Ci serve un secchio.",
+              "why": { "en": "Vedro is a bucket. To fell a tree you need an axe: sekira.", "de": "Vedro ist ein Eimer. Um einen Baum zu fällen, braucht man eine Axt: sekira.", "it": "Vedro è un secchio. Per abbattere un albero ci vuole un'ascia: sekira." },
+              "reply": { "sl": "Vedro? Saj ne gremo po vodo!", "en": "A bucket? We're not going for water!", "de": "Einen Eimer? Wir holen doch kein Wasser!", "it": "Un secchio? Mica andiamo a prendere l'acqua!" } }
+          ] },
+          { "who": "marko", "sl": "Pazite! Smreka pada!", "en": "Watch out! The spruce is falling!", "de": "Achtung! Die Fichte fällt!", "it": "Attenzione! L'abete cade!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Za mlaj potrebujemo najvišjo smreko v gozdu.", "en": "For the maypole we need the tallest spruce in the forest.", "de": "Für den Maibaum brauchen wir die höchste Fichte im Wald.", "it": "Per l'albero di maggio ci serve l'abete più alto del bosco." },
+          { "who": "marko", "sl": "Ta tukaj je lepa, ampak premajhna.", "en": "This one here is pretty, but too small.", "de": "Die hier ist schön, aber zu klein.", "it": "Questo qui è bello, ma troppo piccolo." },
+          { "who": "luka", "sl": "{learner}, ti imaš dobre oči. Katera je najvišja?", "en": "{learner}, you have good eyes. Which one is the tallest?", "de": "{learner}, du hast gute Augen. Welche ist die höchste?", "it": "{learner}, tu hai la vista buona. Qual è il più alto?" },
+          { "choices": [
+            { "sl": "Tista smreka tam je najvišja!", "en": "That spruce over there is the tallest!", "de": "Die Fichte dort ist die höchste!", "it": "Quell'abete laggiù è il più alto!", "ok": true, "tap": "spruce",
+              "reply": { "sl": "Res je! Višja je od vseh drugih.", "en": "True! It's taller than all the others.", "de": "Stimmt! Sie ist höher als alle anderen.", "it": "È vero! È più alto di tutti gli altri." } },
+            { "sl": "Tisto drevo tam je najvišje!", "en": "That tree over there is the tallest!", "de": "Der Baum dort ist der höchste!", "it": "Quell'albero laggiù è il più alto!", "tap": "tree",
+              "why": { "en": "That one has leaves. A spruce (smreka) is dark green, with needles, and pointed at the top.", "de": "Der hat Blätter. Eine Fichte (smreka) ist dunkelgrün, hat Nadeln und ist oben spitz.", "it": "Quello ha le foglie. L'abete rosso (smreka) è verde scuro, con gli aghi, e appuntito in cima." },
+              "reply": { "sl": "Drevo? Lepo je, ampak ima liste. Mi pa iščemo iglice.", "en": "A tree? It's nice, but it has leaves. We're looking for needles.", "de": "Ein Baum? Schön, aber er hat Blätter. Wir suchen Nadeln.", "it": "Un albero? È bello, ma ha le foglie. Noi cerchiamo gli aghi." } },
+            { "sl": "Tista skala tam je najvišja!", "en": "That rock over there is the tallest!", "de": "Der Felsen dort ist der höchste!", "it": "Quella roccia laggiù è la più alta!", "tap": "stone",
+              "why": { "en": "A rock (skala) won't make a maypole: look for the spruce.", "de": "Aus einem Felsen (skala) wird kein Maibaum: such die Fichte.", "it": "Da una roccia (skala) non viene un albero di maggio: cerca l'abete." },
+              "reply": { "sl": "Skala? Ha ha, skale pa res ne bomo nesli v vas.", "en": "A rock? Ha ha, we're really not carrying a rock into the village.", "de": "Ein Felsen? Ha ha, einen Felsen tragen wir wirklich nicht ins Dorf.", "it": "Una roccia? Ah ah, una roccia in paese non la portiamo di certo." } }
+          ] },
+          { "who": "luka", "sl": "Zdaj jo moramo posekati. Kaj mi daš?", "en": "Now we have to fell it. What will you give me?", "de": "Jetzt müssen wir sie fällen. Was gibst du mir?", "it": "Ora dobbiamo abbatterlo. Che cosa mi dai?" },
+          { "choices": [
+            { "sl": "Izvoli sekiro.", "en": "Here's the axe.", "de": "Hier, die Axt.", "it": "Ecco l'ascia.", "ok": true,
+              "reply": { "sl": "Hvala. Stopite nazaj, prosim!", "en": "Thanks. Step back, please!", "de": "Danke. Tretet bitte zurück!", "it": "Grazie. Fatevi indietro, per favore!" } },
+            { "sl": "Izvoli sekira.", "en": "Here's the axe.", "de": "Hier, die Axt.", "it": "Ecco l'ascia.", "grammar": "tozilnik",
+              "why": { "en": "You give something: the accusative. A feminine -a becomes -o: sekiro.", "de": "Man gibt etwas: der Akkusativ. Ein weibliches -a wird zu -o: sekiro.", "it": "Si dà qualcosa: l'accusativo. Una -a femminile diventa -o: sekiro." },
+              "reply": { "sl": "Sekira? Ja, sekira je. Pa?", "en": "Sekira? Yes, it's an axe. So?", "de": "Sekira? Ja, das ist eine Axt. Und?", "it": "Sekira? Sì, è un'ascia. E allora?" } },
+            { "sl": "Izvoli žlico.", "en": "Here's a spoon.", "de": "Hier, ein Löffel.", "it": "Ecco un cucchiaio.",
+              "why": { "en": "Žlica is a spoon. To fell a tree you need an axe: sekira.", "de": "Žlica ist ein Löffel. Um einen Baum zu fällen, braucht man eine Axt: sekira.", "it": "Žlica è un cucchiaio. Per abbattere un albero ci vuole un'ascia: sekira." },
+              "reply": { "sl": "Žlico? S tem bomo sekali do zime!", "en": "A spoon? We'll be chopping with that till winter!", "de": "Einen Löffel? Damit hacken wir bis zum Winter!", "it": "Un cucchiaio? Con quello tagliamo fino all'inverno!" } }
+          ] },
+          { "who": "marko", "sl": "Pazite, smreka pada! … Bum!", "en": "Watch out, the spruce is falling! … Boom!", "de": "Achtung, die Fichte fällt! … Bumm!", "it": "Attenzione, l'abete cade! … Bum!" }
+        ] }
+      }
+    },
+    {
+      "scene": "v-gozdu",
+      "words": ["tezek", "rama"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Smreka leži na tleh. Zdaj jo nesemo v vas!", "en": "The spruce is lying on the ground. Now we carry it into the village!", "de": "Die Fichte liegt am Boden. Jetzt tragen wir sie ins Dorf!", "it": "L'abete è a terra. Ora lo portiamo in paese!" },
+          { "who": "marko", "sl": "Ojoj, deblo je zelo dolgo.", "en": "Oh dear, the trunk is very long.", "de": "Oje, der Stamm ist sehr lang.", "it": "Accidenti, il tronco è lunghissimo." },
+          { "who": "luka", "sl": "{learner}, primi spredaj! Je lahka?", "en": "{learner}, take hold at the front! Is it light?", "de": "{learner}, pack vorne an! Ist sie leicht?", "it": "{learner}, prendi davanti! È leggero?" },
+          { "choices": [
+            { "sl": "Ne, zelo je težka!", "en": "No, it's very heavy!", "de": "Nein, sie ist sehr schwer!", "it": "No, è pesantissimo!", "ok": true,
+              "reply": { "sl": "Ja, res. Gremo počasi.", "en": "Yes, it really is. Let's go slowly.", "de": "Ja, wirklich. Gehen wir langsam.", "it": "Sì, davvero. Andiamo piano." } },
+            { "sl": "Ne, zelo je mehka!", "en": "No, it's very soft!", "de": "Nein, sie ist sehr weich!", "it": "No, è morbidissimo!",
+              "why": { "en": "Mehka is soft. Something you can hardly lift is heavy: težka.", "de": "Mehka heißt weich. Was man kaum heben kann, ist schwer: težka.", "it": "Mehka vuol dire morbido. Una cosa che si solleva a fatica è pesante: težka." },
+              "reply": { "sl": "Mehka? Smreka? Potipaj lubje, ha ha!", "en": "Soft? A spruce? Feel the bark, ha ha!", "de": "Weich? Eine Fichte? Fühl mal die Rinde, ha ha!", "it": "Morbido? Un abete? Tocca la corteccia, ah ah!" } },
+            { "sl": "Ne, zelo je tiha!", "en": "No, it's very quiet!", "de": "Nein, sie ist sehr leise!", "it": "No, è silenziosissimo!",
+              "why": { "en": "Tiha is quiet. Luka asks if it is light; it is heavy: težka.", "de": "Tiha heißt leise. Luka fragt, ob sie leicht ist; sie ist schwer: težka.", "it": "Tiha vuol dire silenzioso. Luka chiede se è leggero; è pesante: težka." },
+              "reply": { "sl": "Tiha? Seveda, smreke ne govorijo!", "en": "Quiet? Of course, spruces don't talk!", "de": "Leise? Natürlich, Fichten reden nicht!", "it": "Silenzioso? Certo, gli abeti non parlano!" } }
+          ] },
+          { "who": "luka", "sl": "Kako jo bomo nesli?", "en": "How will we carry it?", "de": "Wie tragen wir sie?", "it": "Come lo portiamo?" },
+          { "choices": [
+            { "sl": "Nesimo jo na ramah!", "en": "Let's carry it on our shoulders!", "de": "Tragen wir sie auf den Schultern!", "it": "Portiamolo sulle spalle!", "ok": true,
+              "reply": { "sl": "Dobra ideja! Ena, dve, tri, gor!", "en": "Good idea! One, two, three, up!", "de": "Gute Idee! Eins, zwei, drei, hoch!", "it": "Buona idea! Uno, due, tre, su!" } },
+            { "sl": "Nesimo jo na glavah!", "en": "Let's carry it on our heads!", "de": "Tragen wir sie auf den Köpfen!", "it": "Portiamolo sulla testa!",
+              "why": { "en": "Glave are heads. A trunk goes on the shoulders: na ramah.", "de": "Glave sind Köpfe. Ein Stamm kommt auf die Schultern: na ramah.", "it": "Glave sono le teste. Un tronco va sulle spalle: na ramah." },
+              "reply": { "sl": "Na glavah? Ha ha, potem pa ti prvi!", "en": "On our heads? Ha ha, you go first then!", "de": "Auf den Köpfen? Ha ha, dann du zuerst!", "it": "Sulla testa? Ah ah, allora prima tu!" } }
+          ] },
+          { "who": "marko", "sl": "Uf, počasi! Vas je še daleč.", "en": "Phew, slowly! The village is still far.", "de": "Puh, langsam! Das Dorf ist noch weit.", "it": "Uff, piano! Il paese è ancora lontano." }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Smreko smo posekali. Zdaj jo moramo prinesti v vas.", "en": "We've felled the spruce. Now we have to bring it into the village.", "de": "Die Fichte ist gefällt. Jetzt müssen wir sie ins Dorf bringen.", "it": "L'abete è abbattuto. Ora dobbiamo portarlo in paese." },
+          { "who": "marko", "sl": "Ta smreka je težja od vseh lanskih!", "en": "This spruce is heavier than all of last year's!", "de": "Diese Fichte ist schwerer als alle vom letzten Jahr!", "it": "Questo abete è più pesante di tutti quelli dell'anno scorso!" },
+          { "who": "luka", "sl": "Kako bomo nesli deblo? {learner}, kaj praviš?", "en": "How will we carry the trunk? {learner}, what do you say?", "de": "Wie tragen wir den Stamm? {learner}, was meinst du?", "it": "Come portiamo il tronco? {learner}, che ne dici?" },
+          { "choices": [
+            { "sl": "Na ramah, ker je zelo težko.", "en": "On our shoulders, because it's very heavy.", "de": "Auf den Schultern, weil er sehr schwer ist.", "it": "Sulle spalle, perché è molto pesante.", "ok": true,
+              "reply": { "sl": "Prav imaš. Z rokami ga ne dvignemo.", "en": "You're right. We can't lift it with our hands.", "de": "Du hast recht. Mit den Händen heben wir ihn nicht.", "it": "Hai ragione. Con le mani non lo solleviamo." } },
+            { "sl": "Na ramah, ker je zelo lahko.", "en": "On our shoulders, because it's very light.", "de": "Auf den Schultern, weil er sehr leicht ist.", "it": "Sulle spalle, perché è molto leggero.",
+              "why": { "en": "Lahko is light (in weight); Marko just said it's heavier than ever: težko.", "de": "Lahko heißt leicht; Marko hat gerade gesagt, er ist schwerer als je: težko.", "it": "Lahko vuol dire leggero; Marko ha appena detto che è più pesante che mai: težko." },
+              "reply": { "sl": "Lahko? Potem ga pa ti nesi {m:sam|f:sama}, ha ha!", "en": "Light? Then you carry it on your own, ha ha!", "de": "Leicht? Dann trag du ihn allein, ha ha!", "it": "Leggero? Allora portalo tu da {m:solo|f:sola}, ah ah!" } },
+            { "sl": "Na ramah, ker je zelo težek.", "en": "On our shoulders, because it's very heavy.", "de": "Auf den Schultern, weil er sehr schwer ist.", "it": "Sulle spalle, perché è molto pesante.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Deblo (the trunk) is neuter, so its adjective too: težko.", "de": "Deblo (der Stamm) ist sächlich, also auch sein Adjektiv: težko.", "it": "Deblo (il tronco) è neutro, quindi anche il suo aggettivo: težko." },
+              "reply": { "sl": "Težek? Kdo je težek? Jaz?", "en": "Težek? Who's heavy? Me?", "de": "Težek? Wer ist schwer? Ich?", "it": "Težek? Chi è pesante? Io?" } }
+          ] },
+          { "who": "luka", "sl": "Dobro. Vsi skupaj, ena, dve, tri … Kam ga dvignemo?", "en": "Good. All together, one, two, three … Where do we lift it to?", "de": "Gut. Alle zusammen, eins, zwei, drei … Wohin heben wir ihn?", "it": "Bene. Tutti insieme, uno, due, tre … Dove lo solleviamo?" },
+          { "choices": [
+            { "sl": "Na rame!", "en": "Onto our shoulders!", "de": "Auf die Schultern!", "it": "Sulle spalle!", "ok": true,
+              "reply": { "sl": "Gor! Bravo, zdaj gremo.", "en": "Up! Well done, now off we go.", "de": "Hoch! Bravo, jetzt gehen wir.", "it": "Su! Bravo, ora andiamo." } },
+            { "sl": "Na rami!", "en": "On our shoulders!", "de": "Auf den Schultern!", "it": "Sulle spalle!", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na rame. Na rami says where something already is.", "de": "Kam? (wohin) verlangt den Akkusativ: na rame. Na rami sagt, wo etwas schon ist.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na rame. Na rami dice dove qualcosa è già." },
+              "reply": { "sl": "Na rami? Saj ga še nimamo gor, ha ha!", "en": "On our shoulders? We haven't got it up yet, ha ha!", "de": "Auf den Schultern? Wir haben ihn doch noch gar nicht oben, ha ha!", "it": "Sulle spalle? Ma non l'abbiamo ancora su, ah ah!" } },
+            { "sl": "Na glave!", "en": "Onto our heads!", "de": "Auf die Köpfe!", "it": "Sulla testa!",
+              "why": { "en": "Glave are heads. A trunk goes on the shoulders: na rame.", "de": "Glave sind Köpfe. Ein Stamm kommt auf die Schultern: na rame.", "it": "Glave sono le teste. Un tronco va sulle spalle: na rame." },
+              "reply": { "sl": "Na glave? Ha ha, potem pa ti prvi!", "en": "Onto our heads? Ha ha, you go first then!", "de": "Auf die Köpfe? Ha ha, dann du zuerst!", "it": "Sulla testa? Ah ah, allora prima tu!" } }
+          ] },
+          { "who": "marko", "sl": "Uf, počasi, počasi! Vas je še daleč.", "en": "Phew, slowly, slowly! The village is still far.", "de": "Puh, langsam, langsam! Das Dorf ist noch weit.", "it": "Uff, piano, piano! Il paese è ancora lontano." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["deblo", "lubje"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Smreka je v vasi. Zdaj olupimo deblo!", "en": "The spruce is in the village. Now we peel the trunk!", "de": "Die Fichte ist im Dorf. Jetzt schälen wir den Stamm!", "it": "L'abete è in paese. Ora scortecciamo il tronco!" },
+          { "who": "marko", "sl": "Lubje je trdo, ampak gre dol.", "en": "The bark is hard, but it comes off.", "de": "Die Rinde ist hart, aber sie geht ab.", "it": "La corteccia è dura, ma viene via." },
+          { "who": "luka", "sl": "{learner}, kaj olupimo?", "en": "{learner}, what do we peel?", "de": "{learner}, was schälen wir?", "it": "{learner}, che cosa scortecciamo?" },
+          { "choices": [
+            { "sl": "Olupimo deblo.", "en": "We peel the trunk.", "de": "Wir schälen den Stamm.", "it": "Scortecciamo il tronco.", "ok": true,
+              "reply": { "sl": "Tako je. Samo vrh ostane zelen.", "en": "That's right. Only the top stays green.", "de": "Genau. Nur die Spitze bleibt grün.", "it": "Esatto. Solo la cima resta verde." } },
+            { "sl": "Olupimo vrh.", "en": "We peel the top.", "de": "Wir schälen die Spitze.", "it": "Scortecciamo la cima.",
+              "why": { "en": "Vrh is the top: on a maypole it stays green. You peel the trunk: deblo.", "de": "Vrh ist die Spitze: bei einem Maibaum bleibt sie grün. Man schält den Stamm: deblo.", "it": "Vrh è la cima: sull'albero di maggio resta verde. Si scorteccia il tronco: deblo." },
+              "reply": { "sl": "Vrh? Ne, ne! Vrh ostane zelen.", "en": "The top? No, no! The top stays green.", "de": "Die Spitze? Nein, nein! Die Spitze bleibt grün.", "it": "La cima? No, no! La cima resta verde." } },
+            { "sl": "Olupimo krompir.", "en": "We peel potatoes.", "de": "Wir schälen Kartoffeln.", "it": "Sbucciamo le patate.",
+              "why": { "en": "Krompir are potatoes: that's for Babica's kitchen. Here you peel the trunk: deblo.", "de": "Krompir sind Kartoffeln: das ist für Babicas Küche. Hier schält man den Stamm: deblo.", "it": "Krompir sono le patate: quelle sono per la cucina della Babica. Qui si scorteccia il tronco: deblo." },
+              "reply": { "sl": "Krompir? Ha ha, zdaj nisem lačen!", "en": "Potatoes? Ha ha, I'm not hungry now!", "de": "Kartoffeln? Ha ha, ich habe jetzt keinen Hunger!", "it": "Patate? Ah ah, adesso non ho fame!" } }
+          ] },
+          { "who": "luka", "sl": "Glej, kaj pade na tla?", "en": "Look, what falls to the ground?", "de": "Schau, was fällt auf den Boden?", "it": "Guarda, che cosa cade a terra?" },
+          { "choices": [
+            { "sl": "Lubje pade na tla.", "en": "The bark falls to the ground.", "de": "Die Rinde fällt auf den Boden.", "it": "La corteccia cade a terra.", "ok": true,
+              "reply": { "sl": "Ja. Zvečer ga damo v ogenj.", "en": "Yes. In the evening we put it in the fire.", "de": "Ja. Am Abend werfen wir sie ins Feuer.", "it": "Sì. Stasera la mettiamo nel fuoco." } },
+            { "sl": "Listje pade na tla.", "en": "The leaves fall to the ground.", "de": "Die Blätter fallen auf den Boden.", "it": "Le foglie cadono a terra.",
+              "why": { "en": "Listje is leaves; a spruce has needles. What you peel off is the bark: lubje.", "de": "Listje sind Blätter; eine Fichte hat Nadeln. Was man abschält, ist die Rinde: lubje.", "it": "Listje sono le foglie; l'abete ha gli aghi. Quello che si toglie è la corteccia: lubje." },
+              "reply": { "sl": "Listje? Smreka nima listov!", "en": "Leaves? A spruce has no leaves!", "de": "Blätter? Eine Fichte hat keine Blätter!", "it": "Foglie? L'abete non ha foglie!" } }
+          ] },
+          { "who": "marko", "sl": "Glej, kako bel je les!", "en": "Look how white the wood is!", "de": "Schau, wie weiß das Holz ist!", "it": "Guarda com'è bianco il legno!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Preden mlaj postavimo, moramo deblo olupiti.", "en": "Before we put up the maypole, we have to peel the trunk.", "de": "Bevor wir den Maibaum aufstellen, müssen wir den Stamm schälen.", "it": "Prima di innalzare l'albero di maggio, dobbiamo scortecciare il tronco." },
+          { "who": "marko", "sl": "Lubje je trdo, ampak gre dol v dolgih trakovih.", "en": "The bark is hard, but it comes off in long strips.", "de": "Die Rinde ist hart, aber sie geht in langen Streifen ab.", "it": "La corteccia è dura, ma viene via a strisce lunghe." },
+          { "who": "luka", "sl": "{learner}, ali olupimo tudi vrh?", "en": "{learner}, do we peel the top too?", "de": "{learner}, schälen wir auch die Spitze?", "it": "{learner}, scortecciamo anche la cima?" },
+          { "choices": [
+            { "sl": "Ne, vrh ostane zelen. Olupimo samo deblo.", "en": "No, the top stays green. We only peel the trunk.", "de": "Nein, die Spitze bleibt grün. Wir schälen nur den Stamm.", "it": "No, la cima resta verde. Scortecciamo solo il tronco.", "ok": true,
+              "reply": { "sl": "Tako je, kot vsako leto.", "en": "That's right, like every year.", "de": "Genau, wie jedes Jahr.", "it": "Esatto, come ogni anno." } },
+            { "sl": "Ne, vrh ostane zelen. Olupimo samo vejo.", "en": "No, the top stays green. We only peel a branch.", "de": "Nein, die Spitze bleibt grün. Wir schälen nur einen Ast.", "it": "No, la cima resta verde. Scortecciamo solo un ramo.",
+              "why": { "en": "Veja is a branch. A maypole is the whole trunk: deblo.", "de": "Veja ist ein Ast. Ein Maibaum ist der ganze Stamm: deblo.", "it": "Veja è un ramo. L'albero di maggio è tutto il tronco: deblo." },
+              "reply": { "sl": "Samo vejo? Ena veja ne bo mlaj, ha ha!", "en": "Just a branch? One branch won't make a maypole, ha ha!", "de": "Nur einen Ast? Ein Ast ist noch kein Maibaum, ha ha!", "it": "Solo un ramo? Un ramo non fa un albero di maggio, ah ah!" } }
+          ] },
+          { "who": "luka", "sl": "Prav. S čim bomo olupili lubje?", "en": "Right. What will we peel the bark off with?", "de": "Gut. Womit schälen wir die Rinde ab?", "it": "Bene. Con che cosa togliamo la corteccia?" },
+          { "choices": [
+            { "sl": "Lubje olupimo z nožem.", "en": "We peel the bark off with a knife.", "de": "Wir schälen die Rinde mit einem Messer ab.", "it": "Togliamo la corteccia con un coltello.", "ok": true,
+              "reply": { "sl": "Tako je. Tukaj je moj stari nož.", "en": "That's right. Here's my old knife.", "de": "Genau. Hier ist mein altes Messer.", "it": "Esatto. Ecco il mio vecchio coltello." } },
+            { "sl": "Lubje olupimo z nož.", "en": "We peel the bark off with a knife.", "de": "Wir schälen die Rinde mit einem Messer ab.", "it": "Togliamo la corteccia con un coltello.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: z nožem.", "de": "Z (mit) verlangt den Instrumental: z nožem.", "it": "Z (con) vuole lo strumentale: z nožem." },
+              "reply": { "sl": "Z … nož? Hm, kako, prosim?", "en": "With … knife? Hm, pardon?", "de": "Mit … Messer? Hm, wie bitte?", "it": "Con … coltello? Mm, come, scusa?" } },
+            { "sl": "Listje olupimo z nožem.", "en": "We peel the leaves off with a knife.", "de": "Wir schälen die Blätter mit einem Messer ab.", "it": "Togliamo le foglie con un coltello.",
+              "why": { "en": "Listje is leaves; a spruce has needles. What comes off the trunk is the bark: lubje.", "de": "Listje sind Blätter; eine Fichte hat Nadeln. Was vom Stamm abgeht, ist die Rinde: lubje.", "it": "Listje sono le foglie; l'abete ha gli aghi. Quello che si toglie dal tronco è la corteccia: lubje." },
+              "reply": { "sl": "Listje? Kje vidiš listje na smreki?", "en": "Leaves? Where do you see leaves on a spruce?", "de": "Blätter? Wo siehst du Blätter an einer Fichte?", "it": "Foglie? Dove vedi foglie su un abete?" } }
+          ] },
+          { "who": "marko", "sl": "Glej, les pod lubjem je čisto bel!", "en": "Look, the wood under the bark is pure white!", "de": "Schau, das Holz unter der Rinde ist ganz weiß!", "it": "Guarda, il legno sotto la corteccia è bianchissimo!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["venec", "pisan"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Mlaj potrebuje venec. Otroci, pomagajte!", "en": "The maypole needs a wreath. Children, help!", "de": "Der Maibaum braucht einen Kranz. Kinder, helft mit!", "it": "L'albero di maggio ha bisogno di una corona. Bambini, aiutate!" },
+          { "who": "nejc", "sl": "Tukaj so rože in smrekove veje!", "en": "Here are flowers and spruce branches!", "de": "Hier sind Blumen und Fichtenzweige!", "it": "Ecco i fiori e i rami di abete!" },
+          { "who": "luka", "sl": "{learner}, kaj pletemo?", "en": "{learner}, what are we weaving?", "de": "{learner}, was flechten wir?", "it": "{learner}, che cosa intrecciamo?" },
+          { "choices": [
+            { "sl": "Pletemo venec.", "en": "We're weaving a wreath.", "de": "Wir flechten einen Kranz.", "it": "Intrecciamo una corona.", "ok": true,
+              "reply": { "sl": "Tako je! Velik in okrogel.", "en": "That's right! Big and round.", "de": "Genau! Groß und rund.", "it": "Esatto! Grande e rotonda." } },
+            { "sl": "Pletemo nogavice.", "en": "We're knitting socks.", "de": "Wir stricken Socken.", "it": "Facciamo i calzini a maglia.",
+              "why": { "en": "Nogavice are socks: Babica knits those. For the maypole you weave a wreath: venec.", "de": "Nogavice sind Socken: die strickt die Babica. Für den Maibaum flicht man einen Kranz: venec.", "it": "Nogavice sono i calzini: quelli li fa la Babica. Per l'albero di maggio si intreccia una corona: venec." },
+              "reply": { "sl": "Nogavice? Za mlaj? Ha ha, da ga ne zebe!", "en": "Socks? For the maypole? Ha ha, so it doesn't get cold!", "de": "Socken? Für den Maibaum? Ha ha, damit er nicht friert!", "it": "Calzini? Per l'albero di maggio? Ah ah, così non ha freddo!" } },
+            { "sl": "Pletemo košaro.", "en": "We're weaving a basket.", "de": "Wir flechten einen Korb.", "it": "Intrecciamo un cesto.",
+              "why": { "en": "Košara is a basket. On top of the maypole goes a wreath: venec.", "de": "Košara ist ein Korb. Oben auf den Maibaum kommt ein Kranz: venec.", "it": "Košara è un cesto. In cima all'albero di maggio va una corona: venec." },
+              "reply": { "sl": "Košaro? Lepa ideja, ampak ne za mlaj.", "en": "A basket? Nice idea, but not for the maypole.", "de": "Einen Korb? Schöne Idee, aber nicht für den Maibaum.", "it": "Un cesto? Bella idea, ma non per l'albero di maggio." } }
+          ] },
+          { "who": "nejc", "sl": "Na venec privežemo trakove. Kakšne?", "en": "We tie ribbons to the wreath. What kind?", "de": "An den Kranz binden wir Bänder. Was für welche?", "it": "Alla corona leghiamo dei nastri. Di che tipo?" },
+          { "choices": [
+            { "sl": "Pisane trakove!", "en": "Colourful ribbons!", "de": "Bunte Bänder!", "it": "Nastri colorati!", "ok": true,
+              "reply": { "sl": "Ja! Rdeče, modre in rumene!", "en": "Yes! Red, blue and yellow ones!", "de": "Ja! Rote, blaue und gelbe!", "it": "Sì! Rossi, blu e gialli!" } },
+            { "sl": "Lačne trakove!", "en": "Hungry ribbons!", "de": "Hungrige Bänder!", "it": "Nastri affamati!",
+              "why": { "en": "Lačen is hungry, and ribbons don't eat. Colourful: pisane.", "de": "Lačen heißt hungrig, und Bänder essen nichts. Bunt: pisane.", "it": "Lačen vuol dire affamato, e i nastri non mangiano. Colorati: pisane." },
+              "reply": { "sl": "Lačne? Trakovi ne jejo, hi hi!", "en": "Hungry? Ribbons don't eat, hee hee!", "de": "Hungrig? Bänder essen nichts, hihi!", "it": "Affamati? I nastri non mangiano, ih ih!" } }
+          ] },
+          { "who": "luka", "sl": "Lepo! Venec je pripravljen.", "en": "Lovely! The wreath is ready.", "de": "Schön! Der Kranz ist fertig.", "it": "Bello! La corona è pronta." }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Brez venca mlaj ni pravi mlaj. Kdo ga bo spletel?", "en": "Without a wreath a maypole isn't a real maypole. Who will weave it?", "de": "Ohne Kranz ist ein Maibaum kein richtiger Maibaum. Wer flicht ihn?", "it": "Senza corona l'albero di maggio non è un vero albero di maggio. Chi la intreccia?" },
+          { "who": "nejc", "sl": "Mi ga bomo! Imamo rože in smrekove veje.", "en": "We will! We have flowers and spruce branches.", "de": "Wir machen das! Wir haben Blumen und Fichtenzweige.", "it": "Lo facciamo noi! Abbiamo fiori e rami di abete." },
+          { "who": "luka", "sl": "{learner}, pomagaj otrokom! Kaj boste spletli?", "en": "{learner}, help the children! What will you weave?", "de": "{learner}, hilf den Kindern! Was flechtet ihr?", "it": "{learner}, aiuta i bambini! Che cosa intrecciate?" },
+          { "choices": [
+            { "sl": "Spletli bomo venec.", "en": "We'll weave a wreath.", "de": "Wir flechten einen Kranz.", "it": "Intrecceremo una corona.", "ok": true,
+              "reply": { "sl": "Odlično! Velik in okrogel naj bo.", "en": "Great! Make it big and round.", "de": "Super! Groß und rund soll er sein.", "it": "Ottimo! Che sia grande e rotonda." } },
+            { "sl": "Spletli bomo nogavice.", "en": "We'll knit socks.", "de": "Wir stricken Socken.", "it": "Faremo dei calzini a maglia.",
+              "why": { "en": "Nogavice are socks. For the maypole you weave a wreath: venec.", "de": "Nogavice sind Socken. Für den Maibaum flicht man einen Kranz: venec.", "it": "Nogavice sono i calzini. Per l'albero di maggio si intreccia una corona: venec." },
+              "reply": { "sl": "Nogavice? Za mlaj? Ha ha, da ga ne bo zeblo!", "en": "Socks? For the maypole? Ha ha, so it won't be cold!", "de": "Socken? Für den Maibaum? Ha ha, damit er nicht friert!", "it": "Calzini? Per l'albero di maggio? Ah ah, così non avrà freddo!" } }
+          ] },
+          { "who": "nejc", "sl": "Kakšni trakovi so najlepši?", "en": "Which ribbons are the nicest?", "de": "Welche Bänder sind die schönsten?", "it": "Quali nastri sono i più belli?" },
+          { "choices": [
+            { "sl": "Pisani trakovi so najlepši.", "en": "Colourful ribbons are the nicest.", "de": "Bunte Bänder sind die schönsten.", "it": "I nastri colorati sono i più belli.", "ok": true,
+              "reply": { "sl": "Ja! Rdeči, modri in rumeni!", "en": "Yes! Red, blue and yellow!", "de": "Ja! Rote, blaue und gelbe!", "it": "Sì! Rossi, blu e gialli!" } },
+            { "sl": "Pisane trakovi so najlepši.", "en": "Colourful ribbons are the nicest.", "de": "Bunte Bänder sind die schönsten.", "it": "I nastri colorati sono i più belli.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Trakovi is masculine plural, so its adjective too: pisani.", "de": "Trakovi ist männlich Plural, also auch sein Adjektiv: pisani.", "it": "Trakovi è maschile plurale, quindi anche il suo aggettivo: pisani." },
+              "reply": { "sl": "Pisane? Hm, katere pa?", "en": "Pisane? Hm, which ones?", "de": "Pisane? Hm, welche denn?", "it": "Pisane? Mm, quali?" } },
+            { "sl": "Lačni trakovi so najlepši.", "en": "Hungry ribbons are the nicest.", "de": "Hungrige Bänder sind die schönsten.", "it": "I nastri affamati sono i più belli.",
+              "why": { "en": "Lačen is hungry, and ribbons don't eat. Colourful: pisani.", "de": "Lačen heißt hungrig, und Bänder essen nichts. Bunt: pisani.", "it": "Lačen vuol dire affamato, e i nastri non mangiano. Colorati: pisani." },
+              "reply": { "sl": "Lačni? Trakovi ne jejo, hi hi!", "en": "Hungry? Ribbons don't eat, hee hee!", "de": "Hungrig? Bänder essen nichts, hihi!", "it": "Affamati? I nastri non mangiano, ih ih!" } }
+          ] },
+          { "who": "luka", "sl": "Lepo! Jutri gre venec na vrh mlaja.", "en": "Lovely! Tomorrow the wreath goes on top of the maypole.", "de": "Schön! Morgen kommt der Kranz oben auf den Maibaum.", "it": "Bello! Domani la corona va in cima all'albero di maggio." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["vrv", "visok"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Danes je velik dan. Danes postavimo mlaj!", "en": "Today is a big day. Today we put up the maypole!", "de": "Heute ist ein großer Tag. Heute stellen wir den Maibaum auf!", "it": "Oggi è un gran giorno. Oggi innalziamo l'albero di maggio!" },
+          { "who": "marko", "sl": "Vsa vas je tukaj. Godba že igra!", "en": "The whole village is here. The band is already playing!", "de": "Das ganze Dorf ist da. Die Blaskapelle spielt schon!", "it": "C'è tutto il paese. La banda suona già!" },
+          { "who": "luka", "sl": "{learner}, kaj potrebujemo, da ga dvignemo?", "en": "{learner}, what do we need to lift it?", "de": "{learner}, was brauchen wir, um ihn hochzuheben?", "it": "{learner}, che cosa ci serve per sollevarlo?" },
+          { "choices": [
+            { "sl": "Potrebujemo vrv.", "en": "We need a rope.", "de": "Wir brauchen ein Seil.", "it": "Ci serve una corda.", "ok": true,
+              "reply": { "sl": "Tako je! Vsi primite vrv!", "en": "That's right! Everyone grab the rope!", "de": "Genau! Alle ans Seil!", "it": "Esatto! Tutti alla corda!" } },
+            { "sl": "Potrebujemo kruh.", "en": "We need bread.", "de": "Wir brauchen Brot.", "it": "Ci serve il pane.",
+              "why": { "en": "Kruh is bread. To pull the maypole up you need a rope: vrv.", "de": "Kruh ist Brot. Um den Maibaum hochzuziehen, braucht man ein Seil: vrv.", "it": "Kruh è il pane. Per tirare su l'albero di maggio ci vuole una corda: vrv." },
+              "reply": { "sl": "Kruh? Kruh je za potem, ha ha!", "en": "Bread? Bread is for afterwards, ha ha!", "de": "Brot? Brot gibt's danach, ha ha!", "it": "Pane? Il pane è per dopo, ah ah!" } },
+            { "sl": "Potrebujemo žogo.", "en": "We need a ball.", "de": "Wir brauchen einen Ball.", "it": "Ci serve una palla.",
+              "why": { "en": "Žoga is a ball. To pull the maypole up you need a rope: vrv.", "de": "Žoga ist ein Ball. Um den Maibaum hochzuziehen, braucht man ein Seil: vrv.", "it": "Žoga è una palla. Per tirare su l'albero di maggio ci vuole una corda: vrv." },
+              "reply": { "sl": "Žogo? Z žogo se igrajo otroci!", "en": "A ball? The children play with a ball!", "de": "Einen Ball? Mit dem Ball spielen die Kinder!", "it": "Una palla? Con la palla ci giocano i bambini!" } }
+          ] },
+          { "who": "luka", "sl": "Vlecite! Ena, dve, tri … Glej ga! Kakšen je?", "en": "Pull! One, two, three … Look at it! What's it like?", "de": "Zieht! Eins, zwei, drei … Schau ihn dir an! Wie ist er?", "it": "Tirate! Uno, due, tre … Guardalo! Com'è?" },
+          { "choices": [
+            { "sl": "Zelo visok je!", "en": "It's very tall!", "de": "Er ist sehr hoch!", "it": "È altissimo!", "ok": true,
+              "reply": { "sl": "Ja! Najvišji mlaj daleč naokoli!", "en": "Yes! The tallest maypole for miles around!", "de": "Ja! Der höchste Maibaum weit und breit!", "it": "Sì! L'albero di maggio più alto da queste parti!" } },
+            { "sl": "Zelo majhen je!", "en": "It's very small!", "de": "Er ist sehr klein!", "it": "È piccolissimo!",
+              "why": { "en": "Majhen is small, but the maypole is the tallest thing in the village. Tall: visok.", "de": "Majhen heißt klein, aber der Maibaum ist das Höchste im Dorf. Hoch: visok.", "it": "Majhen vuol dire piccolo, ma l'albero di maggio è la cosa più alta del paese. Alto: visok." },
+              "reply": { "sl": "Majhen? Poglej gor, čisto do vrha!", "en": "Small? Look up, all the way to the top!", "de": "Klein? Schau hinauf, bis ganz nach oben!", "it": "Piccolo? Guarda su, fino in cima!" } },
+            { "sl": "Zelo lačen je!", "en": "It's very hungry!", "de": "Er hat großen Hunger!", "it": "Ha tanta fame!",
+              "why": { "en": "Lačen is hungry, and a maypole doesn't eat. Tall: visok.", "de": "Lačen heißt hungrig, und ein Maibaum isst nichts. Hoch: visok.", "it": "Lačen vuol dire affamato, e un albero di maggio non mangia. Alto: visok." },
+              "reply": { "sl": "Lačen? Mlaj? Ha ha, ti si {m:lačen|f:lačna}!", "en": "Hungry? The maypole? Ha ha, you're the hungry one!", "de": "Hungrig? Der Maibaum? Ha ha, du hast Hunger!", "it": "Affamato? L'albero di maggio? Ah ah, sei tu che hai fame!" } }
+          ] },
+          { "who": "marko", "sl": "Bravo! Mlaj stoji sredi vasi!", "en": "Bravo! The maypole stands in the middle of the village!", "de": "Bravo! Der Maibaum steht mitten im Dorf!", "it": "Bravo! L'albero di maggio è in piedi in mezzo al paese!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Venec je na vrhu, trakovi so privezani. Zdaj moramo mlaj postaviti.", "en": "The wreath is on the top, the ribbons are tied. Now we have to put up the maypole.", "de": "Der Kranz ist oben, die Bänder sind festgebunden. Jetzt müssen wir den Maibaum aufstellen.", "it": "La corona è in cima, i nastri sono legati. Ora dobbiamo innalzare l'albero di maggio." },
+          { "who": "marko", "sl": "Fantje, primite! Na tri vlečemo.", "en": "Lads, grab hold! On three we pull.", "de": "Burschen, packt an! Auf drei ziehen wir.", "it": "Ragazzi, afferrate! Al tre tiriamo." },
+          { "who": "luka", "sl": "{learner}, s čim ga bomo dvignili?", "en": "{learner}, what will we lift it with?", "de": "{learner}, womit heben wir ihn hoch?", "it": "{learner}, con che cosa lo solleviamo?" },
+          { "choices": [
+            { "sl": "Z vrvjo.", "en": "With a rope.", "de": "Mit einem Seil.", "it": "Con una corda.", "ok": true,
+              "reply": { "sl": "Tako je. Vrvi so že tukaj.", "en": "That's right. The ropes are already here.", "de": "Genau. Die Seile sind schon da.", "it": "Esatto. Le corde sono già qui." } },
+            { "sl": "Z vrv.", "en": "With a rope.", "de": "Mit einem Seil.", "it": "Con una corda.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: a feminine noun without -a gets -jo: z vrvjo.", "de": "Z (mit) verlangt den Instrumental: ein weibliches Nomen ohne -a bekommt -jo: z vrvjo.", "it": "Z (con) vuole lo strumentale: un nome femminile senza -a prende -jo: z vrvjo." },
+              "reply": { "sl": "Z … kaj? Povej še enkrat.", "en": "With … what? Say it again.", "de": "Mit … was? Sag's noch einmal.", "it": "Con … che cosa? Ripetilo." } },
+            { "sl": "Z žlico.", "en": "With a spoon.", "de": "Mit einem Löffel.", "it": "Con un cucchiaio.",
+              "why": { "en": "Žlica is a spoon. To pull the maypole up you need a rope: vrv.", "de": "Žlica ist ein Löffel. Um den Maibaum hochzuziehen, braucht man ein Seil: vrv.", "it": "Žlica è un cucchiaio. Per tirare su l'albero di maggio ci vuole una corda: vrv." },
+              "reply": { "sl": "Z žlico? Ha ha, potem bomo tukaj do jutri!", "en": "With a spoon? Ha ha, then we'll be here till tomorrow!", "de": "Mit einem Löffel? Ha ha, dann sind wir morgen noch hier!", "it": "Con un cucchiaio? Ah ah, allora stiamo qui fino a domani!" } }
+          ] },
+          { "who": "luka", "sl": "Vlecite! … Stoji! Je višji od lanskega?", "en": "Pull! … It stands! Is it taller than last year's?", "de": "Zieht! … Er steht! Ist er höher als der vom letzten Jahr?", "it": "Tirate! … È in piedi! È più alto di quello dell'anno scorso?" },
+          { "choices": [
+            { "sl": "Ja, letošnji je višji!", "en": "Yes, this year's is taller!", "de": "Ja, der von diesem Jahr ist höher!", "it": "Sì, quello di quest'anno è più alto!", "ok": true,
+              "reply": { "sl": "Res je! Najvišji mlaj daleč naokoli!", "en": "That's true! The tallest maypole for miles around!", "de": "Stimmt! Der höchste Maibaum weit und breit!", "it": "È vero! L'albero di maggio più alto da queste parti!" } },
+            { "sl": "Ja, letošnji je visok!", "en": "Yes, this year's is tall!", "de": "Ja, der von diesem Jahr ist hoch!", "it": "Sì, quello di quest'anno è alto!", "grammar": "primernik",
+              "why": { "en": "Comparing two, you need the comparative: višji (taller).", "de": "Wenn man zwei vergleicht, braucht man den Komparativ: višji (höher).", "it": "Per confrontarne due serve il comparativo: višji (più alto)." },
+              "reply": { "sl": "Visok že, ampak lanski je bil tudi visok.", "en": "Tall, sure, but last year's was tall too.", "de": "Hoch schon, aber der vom letzten Jahr war auch hoch.", "it": "Alto sì, ma anche quello dell'anno scorso era alto." } },
+            { "sl": "Ja, letošnji je nižji!", "en": "Yes, this year's is lower!", "de": "Ja, der von diesem Jahr ist niedriger!", "it": "Sì, quello di quest'anno è più basso!",
+              "why": { "en": "Nižji means lower; you said yes to taller: višji.", "de": "Nižji heißt niedriger; du hast ja zu höher gesagt: višji.", "it": "Nižji vuol dire più basso; hai detto sì a più alto: višji." },
+              "reply": { "sl": "Nižji? Ja ali ne? Zdaj pa ne vem več.", "en": "Lower? Yes or no? Now I'm confused.", "de": "Niedriger? Ja oder nein? Jetzt weiß ich nicht mehr.", "it": "Più basso? Sì o no? Adesso non ci capisco più niente." } }
+          ] },
+          { "who": "marko", "sl": "Bravo, fantje! Zdaj pa godba in klobase!", "en": "Bravo, lads! And now the band and the sausages!", "de": "Bravo, Burschen! Und jetzt die Blaskapelle und die Würste!", "it": "Bravi, ragazzi! E ora la banda e le salsicce!" }
+        ] }
+      }
+    }
+  ]
+}

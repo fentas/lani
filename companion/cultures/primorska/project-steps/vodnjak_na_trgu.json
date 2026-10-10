@@ -1,0 +1,372 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "vodnjak_na_trgu",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-vodnjak-na-trgu",
+  "steps": [
+    {
+      "scene": "v-kovacnici",
+      "words": ["nacrt", "cev"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "tone", "sl": "Vodnjak bo stal sredi trga. Ampak najprej papir in svinčnik.", "en": "The fountain will stand in the middle of the square. But first, paper and pencil.", "de": "Der Brunnen kommt mitten auf den Platz. Aber zuerst Papier und Bleistift.", "it": "La fontana starà in mezzo alla piazza. Ma prima carta e matita." },
+          { "who": "marko", "sl": "Kovač, ki riše? To je pa novo!", "en": "A blacksmith who draws? Now that's new!", "de": "Ein Schmied, der zeichnet? Das ist ja was Neues!", "it": "Un fabbro che disegna? Questa è nuova!" },
+          { "who": "tone", "sl": "Hm. {learner}, kaj je to na nakovalu?", "en": "Hm. {learner}, what's this on the anvil?", "de": "Hm. {learner}, was ist das auf dem Amboss?", "it": "Mm. {learner}, che cos'è questo sull'incudine?" },
+          { "choices": [
+            { "sl": "To je načrt za vodnjak!", "en": "It's a plan for the fountain!", "de": "Das ist ein Plan für den Brunnen!", "it": "È il progetto della fontana!", "ok": true,
+              "reply": { "sl": "Tako je. Kamnito korito in steber na sredini.", "en": "That's right. A stone basin and a pillar in the middle.", "de": "Genau. Ein Steinbecken und eine Säule in der Mitte.", "it": "Esatto. Una vasca di pietra e una colonna in mezzo." } },
+            { "sl": "To je pismo za vodnjak!", "en": "It's a letter for the fountain!", "de": "Das ist ein Brief für den Brunnen!", "it": "È una lettera per la fontana!",
+              "why": { "en": "Pismo is a letter. A drawing of what you'll build is a plan: načrt.", "de": "Pismo ist ein Brief. Eine Zeichnung von dem, was man bauen will, ist ein Plan: načrt.", "it": "Pismo è una lettera. Il disegno di ciò che si costruirà è un progetto: načrt." },
+              "reply": { "sl": "Pismo? Vodnjak ne zna brati.", "en": "A letter? The fountain can't read.", "de": "Ein Brief? Der Brunnen kann nicht lesen.", "it": "Una lettera? La fontana non sa leggere." } },
+            { "sl": "To je račun za vodnjak!", "en": "It's the bill for the fountain!", "de": "Das ist die Rechnung für den Brunnen!", "it": "È il conto della fontana!",
+              "why": { "en": "Račun is a bill. A drawing of what you'll build is a plan: načrt.", "de": "Račun ist eine Rechnung. Eine Zeichnung von dem, was man bauen will, ist ein Plan: načrt.", "it": "Račun è il conto. Il disegno di ciò che si costruirà è un progetto: načrt." },
+              "reply": { "sl": "Račun? Ne straši me. Plačamo pozneje.", "en": "The bill? Don't scare me. We pay later.", "de": "Die Rechnung? Mach mir keine Angst. Bezahlt wird später.", "it": "Il conto? Non spaventarmi. Si paga dopo." } }
+          ] },
+          { "who": "tone", "sl": "Voda bo tekla na štiri strani. Kaj narišem?", "en": "The water will run out on four sides. What do I draw?", "de": "Das Wasser soll nach vier Seiten laufen. Was zeichne ich?", "it": "L'acqua uscirà da quattro lati. Che cosa disegno?" },
+          { "choices": [
+            { "sl": "Štiri cevi!", "en": "Four spouts!", "de": "Vier Röhren!", "it": "Quattro cannelle!", "ok": true,
+              "reply": { "sl": "Prav. Na vsako stran eno.", "en": "Right. One on each side.", "de": "Richtig. Auf jede Seite eine.", "it": "Giusto. Una per lato." } },
+            { "sl": "Štiri sveče!", "en": "Four candles!", "de": "Vier Kerzen!", "it": "Quattro candele!",
+              "why": { "en": "Sveča is a candle. Water runs out of spouts: cev, štiri cevi.", "de": "Sveča ist eine Kerze. Wasser läuft aus Röhren: cev, štiri cevi.", "it": "Sveča è una candela. L'acqua esce dalle cannelle: cev, štiri cevi." },
+              "reply": { "sl": "Sveče? Iz vodnjaka teče voda, ne vosek.", "en": "Candles? Water runs from a fountain, not wax.", "de": "Kerzen? Aus einem Brunnen läuft Wasser, kein Wachs.", "it": "Candele? Dalla fontana esce acqua, non cera." } },
+            { "sl": "Štiri cev!", "en": "Four spouts!", "de": "Vier Röhren!", "it": "Quattro cannelle!", "grammar": "stevila-samostalniki",
+              "why": { "en": "Three and four take the plural: štiri cevi.", "de": "Drei und vier verlangen den Plural: štiri cevi.", "it": "Tre e quattro vogliono il plurale: štiri cevi." },
+              "reply": { "sl": "Štiri … cev? Ena ali štiri?", "en": "Four … spout? One or four?", "de": "Vier … Röhre? Eine oder vier?", "it": "Quattro … cannella? Una o quattro?" } }
+          ] },
+          { "who": "mojca", "sl": "Lepo! Takšnega vodnjaka nima nobena vas daleč naokoli.", "en": "Lovely! No village for miles around has a fountain like this.", "de": "Schön! So einen Brunnen hat kein Dorf weit und breit.", "it": "Bello! Nessun paese nei dintorni ha una fontana così." }
+        ] },
+        "A2": { "lines": [
+          { "who": "tone", "sl": "Vsi hočejo vodnjak, takoj. Ampak jaz najprej rišem.", "en": "Everyone wants a fountain, right now. But I draw first.", "de": "Alle wollen sofort einen Brunnen. Aber ich zeichne zuerst.", "it": "Tutti vogliono una fontana, subito. Ma io prima disegno." },
+          { "who": "marko", "sl": "Zakaj pa ne začnemo kar takoj? Kamen je, voda je …", "en": "Why don't we just start right away? There's stone, there's water …", "de": "Warum fangen wir nicht gleich an? Stein ist da, Wasser ist da …", "it": "Perché non cominciamo subito? La pietra c'è, l'acqua c'è …" },
+          { "who": "tone", "sl": "{learner}, zakaj ne začnemo takoj?", "en": "{learner}, why don't we start right away?", "de": "{learner}, warum fangen wir nicht gleich an?", "it": "{learner}, perché non cominciamo subito?" },
+          { "choices": [
+            { "sl": "Ker brez načrta ne gre.", "en": "Because it won't work without a plan.", "de": "Weil es ohne Plan nicht geht.", "it": "Perché senza un progetto non si fa.", "ok": true,
+              "reply": { "sl": "Tako je. Prvo glava, potem roke.", "en": "That's right. Head first, then hands.", "de": "Genau. Erst der Kopf, dann die Hände.", "it": "Esatto. Prima la testa, poi le mani." } },
+            { "sl": "Ker brez načrt ne gre.", "en": "Because it won't work without a plan.", "de": "Weil es ohne Plan nicht geht.", "it": "Perché senza un progetto non si fa.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Brez (without) takes the genitive: brez načrta.", "de": "Brez (ohne) verlangt den Genitiv: brez načrta.", "it": "Brez (senza) vuole il genitivo: brez načrta." },
+              "reply": { "sl": "Brez … načrt? Hm. Še enkrat, počasi.", "en": "Without … plan? Hm. Again, slowly.", "de": "Ohne … Plan? Hm. Noch mal, langsam.", "it": "Senza … progetto? Mm. Di nuovo, piano." } },
+            { "sl": "Ker brez kosila ne gre.", "en": "Because it won't work without lunch.", "de": "Weil es ohne Mittagessen nicht geht.", "it": "Perché senza pranzo non si fa.",
+              "why": { "en": "Kosilo is lunch, true enough, but here you need a drawing first: načrt.", "de": "Kosilo ist das Mittagessen, schon wahr, aber hier braucht es zuerst eine Zeichnung: načrt.", "it": "Kosilo è il pranzo, è vero, ma qui serve prima un disegno: načrt." },
+              "reply": { "sl": "Kosila? Res je, ampak kosilo ne nariše vodnjaka.", "en": "Lunch? True, but lunch doesn't draw a fountain.", "de": "Mittagessen? Stimmt, aber das Mittagessen zeichnet keinen Brunnen.", "it": "Il pranzo? È vero, ma il pranzo non disegna una fontana." } }
+          ] },
+          { "who": "mojca", "sl": "Lepa risba! Kakšen pa bo vodnjak?", "en": "A nice drawing! And what will the fountain be like?", "de": "Eine schöne Zeichnung! Und wie wird der Brunnen?", "it": "Un bel disegno! E come sarà la fontana?" },
+          { "choices": [
+            { "sl": "Kamnit vodnjak s štirimi cevmi.", "en": "A stone fountain with four spouts.", "de": "Ein Steinbrunnen mit vier Röhren.", "it": "Una fontana di pietra con quattro cannelle.", "ok": true,
+              "reply": { "sl": "Štiri cevi, štiri strani trga. Pametno!", "en": "Four spouts, four sides of the square. Clever!", "de": "Vier Röhren, vier Seiten des Platzes. Klug!", "it": "Quattro cannelle, quattro lati della piazza. Furbo!" } },
+            { "sl": "Kamnit vodnjak s štiri cevi.", "en": "A stone fountain with four spouts.", "de": "Ein Steinbrunnen mit vier Röhren.", "it": "Una fontana di pietra con quattro cannelle.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental, the number too: s štirimi cevmi.", "de": "S (mit) verlangt den Instrumental, auch die Zahl: s štirimi cevmi.", "it": "S (con) vuole lo strumentale, anche il numero: s štirimi cevmi." },
+              "reply": { "sl": "S štiri cevi? Hm, kako, prosim?", "en": "With four … spouts? Hm, pardon?", "de": "Mit vier … Röhren? Hm, wie bitte?", "it": "Con quattro … cannelle? Mm, come, scusa?" } },
+            { "sl": "Kamnit vodnjak s štirimi svečami.", "en": "A stone fountain with four candles.", "de": "Ein Steinbrunnen mit vier Kerzen.", "it": "Una fontana di pietra con quattro candele.",
+              "why": { "en": "Sveča is a candle. Water runs out of spouts: cevi.", "de": "Sveča ist eine Kerze. Wasser läuft aus Röhren: cevi.", "it": "Sveča è una candela. L'acqua esce dalle cannelle: cevi." },
+              "reply": { "sl": "S svečami? Za božič morda, ampak voda?", "en": "With candles? For Christmas maybe, but water?", "de": "Mit Kerzen? Zu Weihnachten vielleicht, aber Wasser?", "it": "Con le candele? A Natale forse, ma l'acqua?" } }
+          ] },
+          { "who": "tone", "sl": "Načrt je gotov. Jutri gremo po kamen.", "en": "The plan is done. Tomorrow we go for stone.", "de": "Der Plan ist fertig. Morgen holen wir Stein.", "it": "Il progetto è pronto. Domani andiamo a prendere la pietra." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["kamnolom", "kamen", "bel"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "tone", "sl": "Za korito potrebujemo nekaj trdega in lepega.", "en": "For the basin we need something hard and beautiful.", "de": "Für das Becken brauchen wir etwas Hartes und Schönes.", "it": "Per la vasca ci serve qualcosa di duro e bello." },
+          { "who": "marko", "sl": "Voz je tukaj! Konj je čisto utrujen.", "en": "The cart is here! The horse is completely worn out.", "de": "Der Wagen ist da! Das Pferd ist ganz erschöpft.", "it": "Il carro è qui! Il cavallo è sfinito." },
+          { "who": "tone", "sl": "{learner}, od kod je ta kamen, kaj misliš?", "en": "{learner}, where's this stone from, do you think?", "de": "{learner}, woher ist dieser Stein, was meinst du?", "it": "{learner}, da dove viene questa pietra, secondo te?" },
+          { "choices": [
+            { "sl": "Iz kamnoloma, seveda!", "en": "From the quarry, of course!", "de": "Aus dem Steinbruch, natürlich!", "it": "Dalla cava, naturalmente!", "ok": true,
+              "reply": { "sl": "Tako je. Iz kamnoloma za hribom.", "en": "That's right. From the quarry behind the hill.", "de": "Genau. Aus dem Steinbruch hinter dem Hügel.", "it": "Esatto. Dalla cava dietro la collina." } },
+            { "sl": "Iz pekarne, seveda!", "en": "From the bakery, of course!", "de": "Aus der Bäckerei, natürlich!", "it": "Dalla panetteria, naturalmente!",
+              "why": { "en": "Pekarna is a bakery. Stone is cut in a quarry: kamnolom.", "de": "Pekarna ist eine Bäckerei. Stein bricht man im Steinbruch: kamnolom.", "it": "Pekarna è la panetteria. La pietra si cava in una cava: kamnolom." },
+              "reply": { "sl": "Iz pekarne? Ta kruh bi bil pa trd!", "en": "From the bakery? That would be hard bread!", "de": "Aus der Bäckerei? Das wäre aber hartes Brot!", "it": "Dalla panetteria? Sarebbe un pane bello duro!" } },
+            { "sl": "Iz gozda, seveda!", "en": "From the forest, of course!", "de": "Aus dem Wald, natürlich!", "it": "Dal bosco, naturalmente!",
+              "why": { "en": "Gozd is the forest: wood comes from there. Stone comes from a quarry: kamnolom.", "de": "Gozd ist der Wald: von dort kommt Holz. Stein kommt aus dem Steinbruch: kamnolom.", "it": "Gozd è il bosco: da lì viene il legno. La pietra viene dalla cava: kamnolom." },
+              "reply": { "sl": "Iz gozda? V gozdu raste les, ne kamen.", "en": "From the forest? Wood grows in the forest, not stone.", "de": "Aus dem Wald? Im Wald wächst Holz, kein Stein.", "it": "Dal bosco? Nel bosco cresce il legno, non la pietra." } }
+          ] },
+          { "who": "france", "sl": "Poglejte, kako se sveti na soncu! Kot sneg!", "en": "Look how it shines in the sun! Like snow!", "de": "Schaut, wie er in der Sonne glänzt! Wie Schnee!", "it": "Guardate come brilla al sole! Come la neve!" },
+          { "choices": [
+            { "sl": "Ja, ta kamen je čisto bel!", "en": "Yes, this stone is pure white!", "de": "Ja, dieser Stein ist ganz weiß!", "it": "Sì, questa pietra è bianchissima!", "ok": true,
+              "reply": { "sl": "Najlepši kamen daleč naokoli!", "en": "The finest stone for miles around!", "de": "Der schönste Stein weit und breit!", "it": "La pietra più bella dei dintorni!" } },
+            { "sl": "Ja, ta les je čisto bel!", "en": "Yes, this wood is pure white!", "de": "Ja, dieses Holz ist ganz weiß!", "it": "Sì, questo legno è bianchissimo!",
+              "why": { "en": "Les is wood. What came from the quarry is stone: kamen.", "de": "Les ist Holz. Was aus dem Steinbruch kommt, ist Stein: kamen.", "it": "Les è il legno. Quello che viene dalla cava è pietra: kamen." },
+              "reply": { "sl": "Les? Potrkaj nanj, ha ha, zveni drugače!", "en": "Wood? Knock on it, ha ha, it sounds different!", "de": "Holz? Klopf mal drauf, ha ha, das klingt anders!", "it": "Legno? Bussaci sopra, ah ah, suona diverso!" } },
+            { "sl": "Ja, ta kamen je čisto moker!", "en": "Yes, this stone is completely wet!", "de": "Ja, dieser Stein ist ganz nass!", "it": "Sì, questa pietra è tutta bagnata!",
+              "why": { "en": "Moker is wet. Shining like snow in the sun means white: bel.", "de": "Moker heißt nass. Wer in der Sonne wie Schnee glänzt, ist weiß: bel.", "it": "Moker vuol dire bagnato. Brillare come la neve al sole vuol dire bianco: bel." },
+              "reply": { "sl": "Moker? Ne, ne, suh je kot poper!", "en": "Wet? No, no, it's bone dry!", "de": "Nass? Nein, nein, der ist staubtrocken!", "it": "Bagnata? No, no, è asciutta come un osso!" } }
+          ] },
+          { "who": "tone", "sl": "Dobro. Jutri začnem klesati.", "en": "Good. Tomorrow I start carving.", "de": "Gut. Morgen fange ich an zu meißeln.", "it": "Bene. Domani comincio a scolpire." }
+        ] },
+        "A2": { "lines": [
+          { "who": "tone", "sl": "Voz je šel zjutraj po kamen. Zdaj je že poldne.", "en": "The cart left this morning for stone. It's already noon now.", "de": "Der Wagen ist heute früh nach Stein gefahren. Jetzt ist es schon Mittag.", "it": "Il carro è partito stamattina per la pietra. Ora è già mezzogiorno." },
+          { "who": "mojca", "sl": "Pot je dolga in strma. Počasi gre.", "en": "The road is long and steep. It's slow going.", "de": "Der Weg ist lang und steil. Es geht langsam.", "it": "La strada è lunga e ripida. Si va piano." },
+          { "who": "tone", "sl": "{learner}, kaj misliš, kje so tako dolgo?", "en": "{learner}, what do you think, where have they been so long?", "de": "{learner}, was meinst du, wo bleiben sie so lange?", "it": "{learner}, secondo te, dove sono finiti?" },
+          { "choices": [
+            { "sl": "Še nalagajo v kamnolomu, ker so kamni težki.", "en": "They're still loading at the quarry, because the stones are heavy.", "de": "Sie laden noch im Steinbruch, weil die Steine schwer sind.", "it": "Stanno ancora caricando alla cava, perché le pietre sono pesanti.", "ok": true,
+              "reply": { "sl": "Verjetno. Dober kamen je težak kamen.", "en": "Probably. Good stone is heavy stone.", "de": "Wahrscheinlich. Guter Stein ist schwerer Stein.", "it": "Probabilmente. La pietra buona è pietra pesante." } },
+            { "sl": "Še nalagajo v kamnolom, ker so kamni težki.", "en": "They're still loading into the quarry, because the stones are heavy.", "de": "Sie laden noch in den Steinbruch, weil die Steine schwer sind.", "it": "Stanno ancora caricando nella cava, perché le pietre sono pesanti.", "grammar": "mestnik",
+              "why": { "en": "Kje? (where) takes the locative: v kamnolomu.", "de": "Kje? (wo) verlangt den Lokativ: v kamnolomu.", "it": "Kje? (dove, stato in luogo) vuole il locativo: v kamnolomu." },
+              "reply": { "sl": "V kamnolom? Saj so že tam.", "en": "Into the quarry? They're already there.", "de": "In den Steinbruch? Da sind sie doch schon.", "it": "Nella cava? Ma ci sono già." } },
+            { "sl": "Še nalagajo v pekarni, ker so kamni težki.", "en": "They're still loading at the bakery, because the stones are heavy.", "de": "Sie laden noch in der Bäckerei, weil die Steine schwer sind.", "it": "Stanno ancora caricando in panetteria, perché le pietre sono pesanti.",
+              "why": { "en": "Pekarna is a bakery. Stone is loaded at the quarry: kamnolom.", "de": "Pekarna ist eine Bäckerei. Stein lädt man im Steinbruch: kamnolom.", "it": "Pekarna è la panetteria. La pietra si carica alla cava: kamnolom." },
+              "reply": { "sl": "V pekarni? Potem bomo jedli kamnit kruh.", "en": "At the bakery? Then we'll be eating stone bread.", "de": "In der Bäckerei? Dann essen wir Steinbrot.", "it": "In panetteria? Allora mangeremo pane di pietra." } }
+          ] },
+          { "who": "marko", "sl": "Prihajajo! Poglejte, kako se sveti na soncu!", "en": "They're coming! Look how it shines in the sun!", "de": "Sie kommen! Schaut, wie es in der Sonne glänzt!", "it": "Arrivano! Guardate come brilla al sole!" },
+          { "choices": [
+            { "sl": "Ta kamen je belejši od snega!", "en": "This stone is whiter than snow!", "de": "Dieser Stein ist weißer als Schnee!", "it": "Questa pietra è più bianca della neve!", "ok": true,
+              "reply": { "sl": "Res je! Takega ni nikjer v deželi.", "en": "True! There's none like it anywhere in the land.", "de": "Stimmt! So einen gibt es nirgends im Land.", "it": "È vero! Una così non c'è da nessuna parte." } },
+            { "sl": "Ta les je belejši od snega!", "en": "This wood is whiter than snow!", "de": "Dieses Holz ist weißer als Schnee!", "it": "Questo legno è più bianco della neve!",
+              "why": { "en": "Les is wood. What comes from the quarry is stone: kamen.", "de": "Les ist Holz. Was aus dem Steinbruch kommt, ist Stein: kamen.", "it": "Les è il legno. Quello che viene dalla cava è pietra: kamen." },
+              "reply": { "sl": "Les? Potrkaj nanj, ha ha, zveni čisto drugače!", "en": "Wood? Knock on it, ha ha, it sounds completely different!", "de": "Holz? Klopf mal drauf, ha ha, das klingt ganz anders!", "it": "Legno? Bussaci sopra, ah ah, suona tutto diverso!" } },
+            { "sl": "Ta kamen je bel od snega!", "en": "This stone is white from the snow!", "de": "Dieser Stein ist weiß vom Schnee!", "it": "Questa pietra è bianca di neve!", "grammar": "primernik",
+              "why": { "en": "Comparing with od (than) needs the comparative: belejši.", "de": "Ein Vergleich mit od (als) braucht den Komparativ: belejši.", "it": "Un confronto con od (di) richiede il comparativo: belejši." },
+              "reply": { "sl": "Bel od snega? Hm, saj ni snežilo.", "en": "White from the snow? Hm, but it hasn't snowed.", "de": "Weiß vom Schnee? Hm, es hat doch nicht geschneit.", "it": "Bianca di neve? Mm, ma non ha nevicato." } }
+          ] },
+          { "who": "tone", "sl": "Dober kamen. Jutri začnem klesati korito.", "en": "Good stone. Tomorrow I start carving the basin.", "de": "Guter Stein. Morgen fange ich an, das Becken zu meißeln.", "it": "Bella pietra. Domani comincio a scolpire la vasca." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["dleto", "korito"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "tone", "sl": "Kamen je tukaj. Zdaj začne pravo delo.", "en": "The stone is here. Now the real work begins.", "de": "Der Stein ist da. Jetzt beginnt die richtige Arbeit.", "it": "La pietra è qui. Ora comincia il vero lavoro." },
+          { "who": "marko", "sl": "Kladivo je tukaj. Kaj še manjka?", "en": "The hammer's here. What else is missing?", "de": "Der Hammer ist da. Was fehlt noch?", "it": "Il martello è qui. Che cosa manca ancora?" },
+          { "who": "tone", "sl": "{learner}, podaj mi še tisto ostro železo.", "en": "{learner}, pass me that sharp iron too.", "de": "{learner}, gib mir noch das scharfe Eisen.", "it": "{learner}, passami anche quel ferro affilato." },
+          { "choices": [
+            { "sl": "Izvolite dleto!", "en": "Here's the chisel!", "de": "Bitte, der Meißel!", "it": "Ecco lo scalpello!", "ok": true,
+              "reply": { "sl": "Hvala. Zdaj pa stopite nazaj, kamenje leti.", "en": "Thanks. Now step back, chips are flying.", "de": "Danke. Jetzt tretet zurück, die Splitter fliegen.", "it": "Grazie. Ora fatevi indietro, volano schegge." } },
+            { "sl": "Izvolite nož!", "en": "Here's a knife!", "de": "Bitte, ein Messer!", "it": "Ecco un coltello!",
+              "why": { "en": "Nož is a knife: it won't cut stone. For stone you need a chisel: dleto.", "de": "Nož ist ein Messer: das schneidet keinen Stein. Für Stein braucht man einen Meißel: dleto.", "it": "Nož è il coltello: la pietra non la taglia. Per la pietra ci vuole lo scalpello: dleto." },
+              "reply": { "sl": "Nož? Za kruh, ja. Za kamen, ne.", "en": "A knife? For bread, yes. For stone, no.", "de": "Ein Messer? Für Brot, ja. Für Stein, nein.", "it": "Un coltello? Per il pane, sì. Per la pietra, no." } },
+            { "sl": "Izvolite metlo!", "en": "Here's a broom!", "de": "Bitte, ein Besen!", "it": "Ecco una scopa!",
+              "why": { "en": "Metla is a broom: that's for later, for the dust. To carve stone you need a chisel: dleto.", "de": "Metla ist ein Besen: der ist für später, für den Staub. Um Stein zu meißeln, braucht man einen Meißel: dleto.", "it": "Metla è la scopa: quella serve dopo, per la polvere. Per scolpire la pietra ci vuole lo scalpello: dleto." },
+              "reply": { "sl": "Metlo? Pometli bomo potem.", "en": "A broom? We'll sweep afterwards.", "de": "Einen Besen? Gekehrt wird danach.", "it": "Una scopa? Spazziamo dopo." } }
+          ] },
+          { "who": "mojca", "sl": "Tok, tok, tok … Kaj bo iz tega kamna?", "en": "Tap, tap, tap … What will this stone become?", "de": "Tock, tock, tock … Was wird aus diesem Stein?", "it": "Toc, toc, toc … Che cosa diventerà questa pietra?" },
+          { "choices": [
+            { "sl": "Iz kamna bo korito.", "en": "The stone will become a basin.", "de": "Aus dem Stein wird ein Becken.", "it": "La pietra diventerà una vasca.", "ok": true,
+              "reply": { "sl": "Lepo! Veliko in globoko bo.", "en": "Lovely! It'll be big and deep.", "de": "Schön! Es wird groß und tief.", "it": "Bello! Sarà grande e profonda." } },
+            { "sl": "Iz kamna bo postelja.", "en": "The stone will become a bed.", "de": "Aus dem Stein wird ein Bett.", "it": "La pietra diventerà un letto.",
+              "why": { "en": "Postelja is a bed! A fountain's water collects in a basin: korito.", "de": "Postelja ist ein Bett! Das Wasser eines Brunnens sammelt sich in einem Becken: korito.", "it": "Postelja è il letto! L'acqua della fontana si raccoglie in una vasca: korito." },
+              "reply": { "sl": "Postelja? Kamnita? Ne, hvala, raje mehko!", "en": "A bed? Of stone? No, thanks, something softer!", "de": "Ein Bett? Aus Stein? Nein danke, lieber weich!", "it": "Un letto? Di pietra? No, grazie, meglio morbido!" } },
+            { "sl": "Iz kamna bo klobuk.", "en": "The stone will become a hat.", "de": "Aus dem Stein wird ein Hut.", "it": "La pietra diventerà un cappello.",
+              "why": { "en": "Klobuk is a hat. A fountain's water collects in a basin: korito.", "de": "Klobuk ist ein Hut. Das Wasser eines Brunnens sammelt sich in einem Becken: korito.", "it": "Klobuk è il cappello. L'acqua della fontana si raccoglie in una vasca: korito." },
+              "reply": { "sl": "Klobuk? Za velikana morda!", "en": "A hat? For a giant, maybe!", "de": "Ein Hut? Für einen Riesen vielleicht!", "it": "Un cappello? Per un gigante, forse!" } }
+          ] },
+          { "who": "tone", "sl": "Še veliko dela. Potrpite!", "en": "Still lots of work. Be patient!", "de": "Noch viel Arbeit. Geduld!", "it": "Ancora tanto lavoro. Pazienza!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "tone", "sl": "Iz tega kamna bo nekaj velikega. Dela je za cel teden.", "en": "This stone will become something big. There's a whole week's work in it.", "de": "Aus diesem Stein wird etwas Großes. Das ist Arbeit für eine ganze Woche.", "it": "Da questa pietra verrà fuori qualcosa di grande. C'è lavoro per una settimana intera." },
+          { "who": "france", "sl": "Kladivo imamo. Kaj še manjka?", "en": "We have the hammer. What's still missing?", "de": "Den Hammer haben wir. Was fehlt noch?", "it": "Il martello ce l'abbiamo. Che cosa manca ancora?" },
+          { "who": "tone", "sl": "{learner}, s čim bom klesal?", "en": "{learner}, what will I carve with?", "de": "{learner}, womit werde ich meißeln?", "it": "{learner}, con che cosa scolpirò?" },
+          { "choices": [
+            { "sl": "S kladivom in dletom.", "en": "With a hammer and a chisel.", "de": "Mit Hammer und Meißel.", "it": "Con martello e scalpello.", "ok": true,
+              "reply": { "sl": "Tako je. Dleto, kladivo in veliko potrpljenja.", "en": "That's right. Chisel, hammer and lots of patience.", "de": "Genau. Meißel, Hammer und viel Geduld.", "it": "Esatto. Scalpello, martello e tanta pazienza." } },
+            { "sl": "S kladivom in dleto.", "en": "With a hammer and a chisel.", "de": "Mit Hammer und Meißel.", "it": "Con martello e scalpello.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental, for both things: in dletom.", "de": "S (mit) verlangt den Instrumental, für beide Dinge: in dletom.", "it": "S (con) vuole lo strumentale, per entrambe le cose: in dletom." },
+              "reply": { "sl": "In … dleto? Hm. Še enkrat.", "en": "And … chisel? Hm. Once more.", "de": "Und … Meißel? Hm. Noch mal.", "it": "E … scalpello? Mm. Di nuovo." } },
+            { "sl": "S kladivom in nožem.", "en": "With a hammer and a knife.", "de": "Mit Hammer und Messer.", "it": "Con martello e coltello.",
+              "why": { "en": "Nož is a knife: it won't cut stone. Stone is carved with a chisel: dleto.", "de": "Nož ist ein Messer: das schneidet keinen Stein. Stein meißelt man mit dem Meißel: dleto.", "it": "Nož è il coltello: la pietra non la taglia. La pietra si scolpisce con lo scalpello: dleto." },
+              "reply": { "sl": "Z nožem? Z nožem režem kruh, ne kamna.", "en": "With a knife? I cut bread with a knife, not stone.", "de": "Mit einem Messer? Mit dem Messer schneide ich Brot, keinen Stein.", "it": "Con un coltello? Col coltello taglio il pane, non la pietra." } }
+          ] },
+          { "who": "mojca", "sl": "Tok, tok, tok … Že tretji dan. Kaj bo iz tega?", "en": "Tap, tap, tap … The third day already. What's it going to be?", "de": "Tock, tock, tock … Schon der dritte Tag. Was wird das?", "it": "Toc, toc, toc … Già il terzo giorno. Che cosa diventa?" },
+          { "choices": [
+            { "sl": "To bo korito, v katerega bo tekla voda.", "en": "It'll be a basin for the water to run into.", "de": "Das wird ein Becken, in das das Wasser fließt.", "it": "Sarà una vasca in cui scorrerà l'acqua.", "ok": true,
+              "reply": { "sl": "Kako lepo! Otroci bodo v njem spuščali barčice.", "en": "How lovely! The children will float little boats in it.", "de": "Wie schön! Die Kinder werden darin Schiffchen schwimmen lassen.", "it": "Che bello! I bambini ci faranno navigare le barchette." } },
+            { "sl": "To bo klobuk, v katerega bo tekla voda.", "en": "It'll be a hat for the water to run into.", "de": "Das wird ein Hut, in den das Wasser fließt.", "it": "Sarà un cappello in cui scorrerà l'acqua.",
+              "why": { "en": "Klobuk is a hat! What holds a fountain's water is a basin: korito.", "de": "Klobuk ist ein Hut! Was das Wasser eines Brunnens fasst, ist ein Becken: korito.", "it": "Klobuk è il cappello! Ciò che raccoglie l'acqua della fontana è una vasca: korito." },
+              "reply": { "sl": "Klobuk? Za velikana morda!", "en": "A hat? For a giant, maybe!", "de": "Ein Hut? Für einen Riesen vielleicht!", "it": "Un cappello? Per un gigante, forse!" } },
+            { "sl": "To bo postelja, v katero bo tekla voda.", "en": "It'll be a bed for the water to run into.", "de": "Das wird ein Bett, in das das Wasser fließt.", "it": "Sarà un letto in cui scorrerà l'acqua.",
+              "why": { "en": "Postelja is a bed! What holds a fountain's water is a basin: korito.", "de": "Postelja ist ein Bett! Was das Wasser eines Brunnens fasst, ist ein Becken: korito.", "it": "Postelja è il letto! Ciò che raccoglie l'acqua della fontana è una vasca: korito." },
+              "reply": { "sl": "Postelja z vodo? Hvala, raje spim na suhem!", "en": "A bed full of water? Thanks, I'd rather sleep somewhere dry!", "de": "Ein Bett voller Wasser? Danke, ich schlafe lieber im Trockenen!", "it": "Un letto pieno d'acqua? Grazie, preferisco dormire all'asciutto!" } }
+          ] },
+          { "who": "tone", "sl": "Še štiri dni. Potem bo tako gladko, da se boste videli v njem.", "en": "Four more days. Then it'll be so smooth you'll see yourselves in it.", "de": "Noch vier Tage. Dann ist es so glatt, dass ihr euch darin seht.", "it": "Ancora quattro giorni. Poi sarà così liscia che vi ci vedrete dentro." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["jarek", "kopati"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "tone", "sl": "Korito je gotovo. Zdaj potrebujemo vodo.", "en": "The basin is done. Now we need water.", "de": "Das Becken ist fertig. Jetzt brauchen wir Wasser.", "it": "La vasca è finita. Ora ci serve l'acqua." },
+          { "who": "france", "sl": "Izvir je zgoraj, nad vasjo. Kako pride voda do trga?", "en": "The spring is up above the village. How does the water get to the square?", "de": "Die Quelle ist oben, über dem Dorf. Wie kommt das Wasser zum Platz?", "it": "La sorgente è lassù, sopra il paese. Come arriva l'acqua in piazza?" },
+          { "who": "tone", "sl": "{learner}, kaj naredimo?", "en": "{learner}, what do we do?", "de": "{learner}, was machen wir?", "it": "{learner}, che cosa facciamo?" },
+          { "choices": [
+            { "sl": "Kopljemo jarek do trga!", "en": "We dig a trench to the square!", "de": "Wir graben einen Graben bis zum Platz!", "it": "Scaviamo un fosso fino alla piazza!", "ok": true,
+              "reply": { "sl": "Tako je. Lopate v roke!", "en": "That's right. Shovels in hand!", "de": "Genau. Schaufeln in die Hand!", "it": "Esatto. Pale in mano!" } },
+            { "sl": "Pečemo jarek do trga!", "en": "We bake a trench to the square!", "de": "Wir backen einen Graben bis zum Platz!", "it": "Cuociamo un fosso fino alla piazza!",
+              "why": { "en": "Peči is to bake! A trench you dig: kopati, kopljemo.", "de": "Peči heißt backen! Einen Graben gräbt man: kopati, kopljemo.", "it": "Peči vuol dire cuocere al forno! Un fosso si scava: kopati, kopljemo." },
+              "reply": { "sl": "Pečemo? Jarek ni potica.", "en": "Bake? A trench isn't a potica.", "de": "Backen? Ein Graben ist doch keine Potica.", "it": "Cuocere? Un fosso mica è una potica." } },
+            { "sl": "Kopljemo krompir do trga!", "en": "We dig potatoes to the square!", "de": "Wir graben Kartoffeln bis zum Platz!", "it": "Scaviamo patate fino alla piazza!",
+              "why": { "en": "Krompir is potatoes. Water runs along a trench: jarek.", "de": "Krompir sind Kartoffeln. Wasser fließt in einem Graben: jarek.", "it": "Krompir sono le patate. L'acqua scorre in un fosso: jarek." },
+              "reply": { "sl": "Krompir? Ta je na njivi, ne tukaj!", "en": "Potatoes? They're in the field, not here!", "de": "Kartoffeln? Die sind auf dem Acker, nicht hier!", "it": "Patate? Quelle sono nel campo, non qui!" } }
+          ] },
+          { "who": "marko", "sl": "Jarek je gotov. Zdaj odpremo izvir … Glejte!", "en": "The trench is done. Now we open the spring … Look!", "de": "Der Graben ist fertig. Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito. Ora apriamo la sorgente … Guardate!" },
+          { "choices": [
+            { "sl": "Voda teče po jarku!", "en": "The water's running along the trench!", "de": "Das Wasser fließt den Graben entlang!", "it": "L'acqua scorre lungo il fosso!", "ok": true,
+              "reply": { "sl": "Do trga! Samo cevi še manjkajo.", "en": "To the square! Only the spouts are missing now.", "de": "Bis zum Platz! Nur die Röhren fehlen noch.", "it": "Fino alla piazza! Mancano solo le cannelle." } },
+            { "sl": "Voda teče po jarek!", "en": "The water's running along the trench!", "de": "Das Wasser fließt den Graben entlang!", "it": "L'acqua scorre lungo il fosso!", "grammar": "mestnik",
+              "why": { "en": "Po (along) takes the locative: po jarku.", "de": "Po (entlang) verlangt den Lokativ: po jarku.", "it": "Po (lungo) vuole il locativo: po jarku." },
+              "reply": { "sl": "Po … jarek? Hm, kako, prosim?", "en": "Along … trench? Hm, pardon?", "de": "Entlang … Graben? Hm, wie bitte?", "it": "Lungo … fosso? Mm, come, scusa?" } },
+            { "sl": "Vino teče po jarku!", "en": "Wine's running along the trench!", "de": "Wein fließt den Graben entlang!", "it": "Il vino scorre lungo il fosso!",
+              "why": { "en": "Vino is wine, sadly not. From the spring comes water: voda.", "de": "Vino ist Wein, leider nicht. Aus der Quelle kommt Wasser: voda.", "it": "Vino è il vino, purtroppo no. Dalla sorgente viene l'acqua: voda." },
+              "reply": { "sl": "Vino? Ah, ko bi le bilo res!", "en": "Wine? Ah, if only that were true!", "de": "Wein? Ach, wenn das nur wahr wäre!", "it": "Vino? Ah, magari fosse vero!" } }
+          ] },
+          { "who": "tone", "sl": "Dobro. Zdaj potrebujemo samo še cevi.", "en": "Good. Now we just need the spouts.", "de": "Gut. Jetzt brauchen wir nur noch die Röhren.", "it": "Bene. Ora ci servono solo le cannelle." }
+        ] },
+        "A2": { "lines": [
+          { "who": "tone", "sl": "Korito je pripravljeno. Brez vode pa je samo velik kamen.", "en": "The basin is ready. But without water it's just a big stone.", "de": "Das Becken ist bereit. Aber ohne Wasser ist es nur ein großer Stein.", "it": "La vasca è pronta. Ma senza acqua è solo una grossa pietra." },
+          { "who": "france", "sl": "Izvir je nad vasjo. Voda teče navzdol, to je dobro.", "en": "The spring is above the village. Water runs downhill, that's good.", "de": "Die Quelle ist über dem Dorf. Wasser fließt bergab, das ist gut.", "it": "La sorgente è sopra il paese. L'acqua scende, ed è un bene." },
+          { "who": "tone", "sl": "{learner}, kako bomo pripeljali vodo do trga?", "en": "{learner}, how will we bring the water to the square?", "de": "{learner}, wie bringen wir das Wasser zum Platz?", "it": "{learner}, come porteremo l'acqua fino alla piazza?" },
+          { "choices": [
+            { "sl": "Kopali bomo jarek od izvira do trga.", "en": "We'll dig a trench from the spring to the square.", "de": "Wir graben einen Graben von der Quelle bis zum Platz.", "it": "Scaveremo un fosso dalla sorgente fino alla piazza.", "ok": true,
+              "reply": { "sl": "Tako je. Pol vasi z lopatami.", "en": "That's right. Half the village with shovels.", "de": "Genau. Das halbe Dorf mit Schaufeln.", "it": "Esatto. Mezzo paese con le pale." } },
+            { "sl": "Pekli bomo jarek od izvira do trga.", "en": "We'll bake a trench from the spring to the square.", "de": "Wir backen einen Graben von der Quelle bis zum Platz.", "it": "Cuoceremo un fosso dalla sorgente fino alla piazza.",
+              "why": { "en": "Peči is to bake! A trench you dig: kopati.", "de": "Peči heißt backen! Einen Graben gräbt man: kopati.", "it": "Peči vuol dire cuocere al forno! Un fosso si scava: kopati." },
+              "reply": { "sl": "Pekli? Jarek ni potica.", "en": "Bake? A trench isn't a potica.", "de": "Backen? Ein Graben ist doch keine Potica.", "it": "Cuocere? Un fosso mica è una potica." } },
+            { "sl": "Kopali bomo krompir od izvira do trga.", "en": "We'll dig potatoes from the spring to the square.", "de": "Wir graben Kartoffeln von der Quelle bis zum Platz.", "it": "Scaveremo patate dalla sorgente fino alla piazza.",
+              "why": { "en": "Krompir is potatoes. Water runs along a trench: jarek.", "de": "Krompir sind Kartoffeln. Wasser fließt in einem Graben: jarek.", "it": "Krompir sono le patate. L'acqua scorre in un fosso: jarek." },
+              "reply": { "sl": "Krompir od izvira do trga? To bi bila dolga njiva.", "en": "Potatoes from the spring to the square? That'd be a long field.", "de": "Kartoffeln von der Quelle bis zum Platz? Das wäre ein langer Acker.", "it": "Patate dalla sorgente alla piazza? Sarebbe un campo bello lungo." } }
+          ] },
+          { "who": "marko", "sl": "Jarek je gotov! Zdaj pa odpremo izvir … Glejte!", "en": "The trench is done! Now we open the spring … Look!", "de": "Der Graben ist fertig! Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito! Ora apriamo la sorgente … Guardate!" },
+          { "choices": [
+            { "sl": "Voda že teče po jarku proti trgu!", "en": "The water's already running along the trench towards the square!", "de": "Das Wasser fließt schon den Graben entlang zum Platz!", "it": "L'acqua scorre già lungo il fosso verso la piazza!", "ok": true,
+              "reply": { "sl": "Bravo! Do trga je samo še streljaj.", "en": "Bravo! It's only a stone's throw to the square now.", "de": "Bravo! Bis zum Platz ist es nur noch ein Katzensprung.", "it": "Bravo! Alla piazza manca solo un tiro di schioppo." } },
+            { "sl": "Voda že teče po jarek proti trgu!", "en": "The water's already running along the trench towards the square!", "de": "Das Wasser fließt schon den Graben entlang zum Platz!", "it": "L'acqua scorre già lungo il fosso verso la piazza!", "grammar": "mestnik",
+              "why": { "en": "Po (along) takes the locative: po jarku.", "de": "Po (entlang) verlangt den Lokativ: po jarku.", "it": "Po (lungo) vuole il locativo: po jarku." },
+              "reply": { "sl": "Po … jarek? Hm, kako, prosim?", "en": "Along … trench? Hm, pardon?", "de": "Entlang … Graben? Hm, wie bitte?", "it": "Lungo … fosso? Mm, come, scusa?" } },
+            { "sl": "Vino že teče po jarku proti trgu!", "en": "Wine's already running along the trench towards the square!", "de": "Wein fließt schon den Graben entlang zum Platz!", "it": "Il vino scorre già lungo il fosso verso la piazza!",
+              "why": { "en": "Vino is wine, sadly not. From the spring comes water: voda.", "de": "Vino ist Wein, leider nicht. Aus der Quelle kommt Wasser: voda.", "it": "Vino è il vino, purtroppo no. Dalla sorgente viene l'acqua: voda." },
+              "reply": { "sl": "Vino? Ah, ko bi le bilo res!", "en": "Wine? Ah, if only that were true!", "de": "Wein? Ach, wenn das nur wahr wäre!", "it": "Vino? Ah, magari fosse vero!" } }
+          ] },
+          { "who": "tone", "sl": "Dobro. Zdaj potrebujemo samo še cevi.", "en": "Good. Now we just need the spouts.", "de": "Gut. Jetzt brauchen wir nur noch die Röhren.", "it": "Bene. Ora ci servono solo le cannelle." }
+        ] }
+      }
+    },
+    {
+      "scene": "v-kovacnici",
+      "words": ["zelezo", "kladivo"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "tone", "sl": "Zadnje delo je moje. Štiri cevi skujem tukaj.", "en": "The last job is mine. I'll forge four spouts here.", "de": "Die letzte Arbeit ist meine. Vier Röhren schmiede ich hier.", "it": "L'ultimo lavoro è mio. Qui forgio quattro cannelle.", "fx": { "forge": 1 } },
+          { "who": "marko", "sl": "Ogenj je že vroč!", "en": "The fire's already hot!", "de": "Das Feuer ist schon heiß!", "it": "Il fuoco è già caldo!" },
+          { "who": "tone", "sl": "{learner}, iz česa bodo cevi?", "en": "{learner}, what will the spouts be made of?", "de": "{learner}, woraus werden die Röhren?", "it": "{learner}, di che cosa saranno le cannelle?" },
+          { "choices": [
+            { "sl": "Iz železa!", "en": "Of iron!", "de": "Aus Eisen!", "it": "Di ferro!", "ok": true,
+              "reply": { "sl": "Tako je. Železo ne poči pozimi.", "en": "That's right. Iron doesn't crack in winter.", "de": "Genau. Eisen platzt im Winter nicht.", "it": "Esatto. Il ferro d'inverno non si spacca." } },
+            { "sl": "Iz papirja!", "en": "Of paper!", "de": "Aus Papier!", "it": "Di carta!",
+              "why": { "en": "Papir is paper: water would turn it to mush. Spouts are made of iron: železo.", "de": "Papir ist Papier: Wasser macht daraus Brei. Röhren macht man aus Eisen: železo.", "it": "Papir è la carta: l'acqua la scioglierebbe. Le cannelle si fanno di ferro: železo." },
+              "reply": { "sl": "Iz papirja? Prvi dan bi jih voda odnesla.", "en": "Of paper? The water would wash them away the first day.", "de": "Aus Papier? Das Wasser würde sie am ersten Tag wegspülen.", "it": "Di carta? L'acqua se le porterebbe via il primo giorno." } },
+            { "sl": "Iz kruha!", "en": "Of bread!", "de": "Aus Brot!", "it": "Di pane!",
+              "why": { "en": "Kruh is bread! Spouts are made of iron: železo.", "de": "Kruh ist Brot! Röhren macht man aus Eisen: železo.", "it": "Kruh è il pane! Le cannelle si fanno di ferro: železo." },
+              "reply": { "sl": "Iz kruha? Potem bi iz vodnjaka tekla juha.", "en": "Of bread? Then soup would come out of the fountain.", "de": "Aus Brot? Dann käme Suppe aus dem Brunnen.", "it": "Di pane? Allora dalla fontana uscirebbe minestra." } }
+          ] },
+          { "who": "tone", "sl": "Železo je rdeče. Hitro! S čim ga kujem?", "en": "The iron is red. Quick! What do I forge it with?", "de": "Das Eisen glüht rot. Schnell! Womit schmiede ich es?", "it": "Il ferro è rovente. Presto! Con che cosa lo batto?" },
+          { "choices": [
+            { "sl": "Tukaj je kladivo!", "en": "Here's the hammer!", "de": "Hier ist der Hammer!", "it": "Ecco il martello!", "ok": true, "tap": "hammer",
+              "reply": { "sl": "Dobro! Bum, bum, bum!", "en": "Good! Bang, bang, bang!", "de": "Gut! Bumm, bumm, bumm!", "it": "Bene! Bum, bum, bum!", "fx": { "sparks": 1 } } },
+            { "sl": "Tukaj so klešče!", "en": "Here are the tongs!", "de": "Hier ist die Zange!", "it": "Ecco le tenaglie!", "tap": "tongs",
+              "why": { "en": "Klešče are tongs: they hold the hot iron. You strike it with the hammer: kladivo.", "de": "Klešče ist die Zange: sie hält das heiße Eisen. Schlagen tut man mit dem Hammer: kladivo.", "it": "Klešče sono le tenaglie: tengono il ferro caldo. Si batte col martello: kladivo." },
+              "reply": { "sl": "Klešče? Z njimi držim, ne tolčem.", "en": "The tongs? I hold with them, I don't strike.", "de": "Die Zange? Damit halte ich, ich schlage nicht.", "it": "Le tenaglie? Con quelle tengo, non batto." } },
+            { "sl": "Tukaj je vedro!", "en": "Here's the bucket!", "de": "Hier ist der Eimer!", "it": "Ecco il secchio!", "tap": "bucket",
+              "why": { "en": "Vedro is the bucket: the water cools the iron at the end. Now you strike it with the hammer: kladivo.", "de": "Vedro ist der Eimer: das Wasser kühlt das Eisen am Ende. Jetzt schlägt man mit dem Hammer: kladivo.", "it": "Vedro è il secchio: l'acqua raffredda il ferro alla fine. Ora si batte col martello: kladivo." },
+              "reply": { "sl": "Vedro? Voda pride na koncu. Zdaj tolčemo!", "en": "The bucket? The water comes at the end. Now we strike!", "de": "Der Eimer? Das Wasser kommt am Ende. Jetzt wird geschlagen!", "it": "Il secchio? L'acqua viene alla fine. Ora si batte!" } },
+            { "sl": "Tukaj je podkev!", "en": "Here's a horseshoe!", "de": "Hier ist ein Hufeisen!", "it": "Ecco un ferro di cavallo!", "tap": "horseshoe",
+              "why": { "en": "Podkev is a horseshoe: for a horse. You strike the iron with the hammer: kladivo.", "de": "Podkev ist ein Hufeisen: für ein Pferd. Das Eisen schlägt man mit dem Hammer: kladivo.", "it": "Podkev è il ferro di cavallo: per un cavallo. Il ferro si batte col martello: kladivo." },
+              "reply": { "sl": "Podkev? Ta je za konja, ne za vodnjak.", "en": "A horseshoe? That's for a horse, not for the fountain.", "de": "Ein Hufeisen? Das ist für ein Pferd, nicht für den Brunnen.", "it": "Un ferro di cavallo? Quello è per un cavallo, non per la fontana." } }
+          ] },
+          { "who": "marko", "sl": "Ena, dve, tri, štiri cevi! Lepo se svetijo.", "en": "One, two, three, four spouts! They shine beautifully.", "de": "Eins, zwei, drei, vier Röhren! Sie glänzen schön.", "it": "Una, due, tre, quattro cannelle! Brillano che è un piacere." }
+        ] },
+        "A2": { "lines": [
+          { "who": "tone", "sl": "Zadnje delo je spet v kovačnici: štiri cevi, ki bodo zdržale sto let.", "en": "The last job is back in the smithy: four spouts that will last a hundred years.", "de": "Die letzte Arbeit ist wieder in der Schmiede: vier Röhren, die hundert Jahre halten.", "it": "L'ultimo lavoro è di nuovo in fucina: quattro cannelle che dureranno cent'anni.", "fx": { "forge": 1 } },
+          { "who": "france", "sl": "Ali ne bi bile lesene cevi cenejše?", "en": "Wouldn't wooden spouts be cheaper?", "de": "Wären Holzröhren nicht billiger?", "it": "Le cannelle di legno non costerebbero meno?" },
+          { "who": "tone", "sl": "{learner}, povej, zakaj ne les.", "en": "{learner}, tell them why not wood.", "de": "{learner}, sag, warum kein Holz.", "it": "{learner}, di' perché niente legno." },
+          { "choices": [
+            { "sl": "Ker je železo močnejše od lesa.", "en": "Because iron is stronger than wood.", "de": "Weil Eisen stärker ist als Holz.", "it": "Perché il ferro è più forte del legno.", "ok": true,
+              "reply": { "sl": "Tako je. Les v vodi zgnije, železo pa ostane.", "en": "That's right. Wood rots in water, but iron stays.", "de": "Genau. Holz fault im Wasser, Eisen aber bleibt.", "it": "Esatto. Il legno nell'acqua marcisce, il ferro invece resta." } },
+            { "sl": "Ker je papir močnejši od lesa.", "en": "Because paper is stronger than wood.", "de": "Weil Papier stärker ist als Holz.", "it": "Perché la carta è più forte del legno.",
+              "why": { "en": "Papir is paper, and it's weaker than wood. Spouts are made of iron: železo.", "de": "Papir ist Papier, und das ist schwächer als Holz. Röhren macht man aus Eisen: železo.", "it": "Papir è la carta, ed è più debole del legno. Le cannelle si fanno di ferro: železo." },
+              "reply": { "sl": "Papir? Poskusi ga dati pod vodo.", "en": "Paper? Try putting it under water.", "de": "Papier? Halt es mal unter Wasser.", "it": "La carta? Prova a metterla sott'acqua." } },
+            { "sl": "Ker je železo močnejše od les.", "en": "Because iron is stronger than wood.", "de": "Weil Eisen stärker ist als Holz.", "it": "Perché il ferro è più forte del legno.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Od (than) takes the genitive: od lesa.", "de": "Od (als) verlangt den Genitiv: od lesa.", "it": "Od (di, nel confronto) vuole il genitivo: od lesa." },
+              "reply": { "sl": "Od … les? Hm, kako, prosim?", "en": "Than … wood? Hm, pardon?", "de": "Als … Holz? Hm, wie bitte?", "it": "Del … legno? Mm, come, scusa?" } }
+          ] },
+          { "who": "tone", "sl": "Železo je rdeče, zdaj hitro! {learner}, kaj mi podaš?", "en": "The iron is red, quick now! {learner}, what will you hand me?", "de": "Das Eisen glüht, jetzt schnell! {learner}, was gibst du mir?", "it": "Il ferro è rovente, presto! {learner}, che cosa mi passi?" },
+          { "choices": [
+            { "sl": "Izvolite težko kladivo!", "en": "Here's the heavy hammer!", "de": "Bitte, der schwere Hammer!", "it": "Ecco il martello pesante!", "ok": true, "tap": "hammer",
+              "reply": { "sl": "Hvala. Bum, bum, bum!", "en": "Thanks. Bang, bang, bang!", "de": "Danke. Bumm, bumm, bumm!", "it": "Grazie. Bum, bum, bum!", "fx": { "sparks": 1 } } },
+            { "sl": "Izvolite vroče klešče!", "en": "Here are the hot tongs!", "de": "Bitte, die heiße Zange!", "it": "Ecco le tenaglie calde!", "tap": "tongs",
+              "why": { "en": "Klešče are tongs: they hold the hot iron. You strike it with the hammer: kladivo.", "de": "Klešče ist die Zange: sie hält das heiße Eisen. Schlagen tut man mit dem Hammer: kladivo.", "it": "Klešče sono le tenaglie: tengono il ferro caldo. Si batte col martello: kladivo." },
+              "reply": { "sl": "Klešče že imam v levi roki. Kaj pa v desni?", "en": "I've already got the tongs in my left hand. And in my right?", "de": "Die Zange habe ich schon in der linken Hand. Und in der rechten?", "it": "Le tenaglie ce le ho già nella mano sinistra. E nella destra?" } },
+            { "sl": "Izvolite polno vedro!", "en": "Here's a full bucket!", "de": "Bitte, ein voller Eimer!", "it": "Ecco un secchio pieno!", "tap": "bucket",
+              "why": { "en": "Vedro is the bucket: the water cools the iron at the end. Now you strike it with the hammer: kladivo.", "de": "Vedro ist der Eimer: das Wasser kühlt das Eisen am Ende. Jetzt schlägt man mit dem Hammer: kladivo.", "it": "Vedro è il secchio: l'acqua raffredda il ferro alla fine. Ora si batte col martello: kladivo." },
+              "reply": { "sl": "Vedro? Voda pride na koncu. Zdaj tolčemo!", "en": "The bucket? The water comes at the end. Now we strike!", "de": "Der Eimer? Das Wasser kommt am Ende. Jetzt wird geschlagen!", "it": "Il secchio? L'acqua viene alla fine. Ora si batte!" } }
+          ] },
+          { "who": "mojca", "sl": "Kako se iskri! Kot ognjemet za novo leto.", "en": "Look at the sparks! Like fireworks at New Year.", "de": "Wie es Funken sprüht! Wie ein Feuerwerk an Neujahr.", "it": "Che scintille! Come i fuochi d'artificio a Capodanno." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["teci"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "tone", "sl": "Cevi so na mestu. Danes odpremo vodo!", "en": "The spouts are in place. Today we turn on the water!", "de": "Die Röhren sind an ihrem Platz. Heute lassen wir das Wasser laufen!", "it": "Le cannelle sono al loro posto. Oggi apriamo l'acqua!" },
+          { "who": "mojca", "sl": "Vsi otroci so tukaj. Nihče ne diha!", "en": "All the children are here. Nobody's breathing!", "de": "Alle Kinder sind da. Keiner atmet!", "it": "Ci sono tutti i bambini. Nessuno respira!" },
+          { "who": "tone", "sl": "Ena, dve, tri … {learner}, glej! Kaj dela voda?", "en": "One, two, three … {learner}, look! What's the water doing?", "de": "Eins, zwei, drei … {learner}, schau! Was macht das Wasser?", "it": "Uno, due, tre … {learner}, guarda! Che cosa fa l'acqua?" },
+          { "choices": [
+            { "sl": "Voda teče!", "en": "The water's flowing!", "de": "Das Wasser fließt!", "it": "L'acqua scorre!", "ok": true,
+              "reply": { "sl": "Ja! Iz vseh štirih cevi!", "en": "Yes! From all four spouts!", "de": "Ja! Aus allen vier Röhren!", "it": "Sì! Da tutte e quattro le cannelle!" } },
+            { "sl": "Voda spi!", "en": "The water's sleeping!", "de": "Das Wasser schläft!", "it": "L'acqua dorme!",
+              "why": { "en": "Spati is to sleep, and this water is wide awake! It's flowing: teče.", "de": "Spati heißt schlafen, und dieses Wasser ist hellwach! Es fließt: teče.", "it": "Spati vuol dire dormire, e quest'acqua è sveglissima! Scorre: teče." },
+              "reply": { "sl": "Spi? Ta voda je zelo budna!", "en": "Sleeping? This water is wide awake!", "de": "Schläft? Dieses Wasser ist hellwach!", "it": "Dorme? Quest'acqua è sveglissima!" } },
+            { "sl": "Voda pleše!", "en": "The water's dancing!", "de": "Das Wasser tanzt!", "it": "L'acqua balla!",
+              "why": { "en": "Plesati is to dance. Water from a spout flows: teči, teče.", "de": "Plesati heißt tanzen. Wasser aus einer Röhre fließt: teči, teče.", "it": "Plesati vuol dire ballare. L'acqua da una cannella scorre: teči, teče." },
+              "reply": { "sl": "Pleše? Brez godbe?", "en": "Dancing? Without a band?", "de": "Tanzen? Ohne Blaskapelle?", "it": "Balla? Senza la banda?" } }
+          ] },
+          { "who": "marko", "sl": "Pij, {learner}! Kakšna je voda?", "en": "Drink, {learner}! What's the water like?", "de": "Trink, {learner}! Wie ist das Wasser?", "it": "Bevi, {learner}! Com'è l'acqua?" },
+          { "choices": [
+            { "sl": "Voda je mrzla in dobra!", "en": "The water is cold and good!", "de": "Das Wasser ist kalt und gut!", "it": "L'acqua è fredda e buona!", "ok": true,
+              "reply": { "sl": "Kot iz gore! Pijte vsi!", "en": "Like from a mountain! Everyone, drink!", "de": "Wie vom Berg! Trinkt alle!", "it": "Come di montagna! Bevete tutti!" } },
+            { "sl": "Voda je mrzel in dobra!", "en": "The water is cold and good!", "de": "Das Wasser ist kalt und gut!", "it": "L'acqua è fredda e buona!", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Voda (water) is feminine, so its adjective ends in -a: mrzla.", "de": "Voda (Wasser) ist weiblich, also endet das Adjektiv auf -a: mrzla.", "it": "Voda (acqua) è femminile, quindi l'aggettivo finisce in -a: mrzla." },
+              "reply": { "sl": "Mrzel? Kdo je mrzel?", "en": "Mrzel? Who's cold?", "de": "Mrzel? Wer ist kalt?", "it": "Mrzel? Chi è freddo?" } },
+            { "sl": "Voda je vroča in dobra!", "en": "The water is hot and good!", "de": "Das Wasser ist heiß und gut!", "it": "L'acqua è calda e buona!",
+              "why": { "en": "Vroč is hot. Fresh spring water is cold: mrzla.", "de": "Vroč heißt heiß. Frisches Quellwasser ist kalt: mrzla.", "it": "Vroč vuol dire caldo. L'acqua fresca di sorgente è fredda: mrzla." },
+              "reply": { "sl": "Vroča? Potem pa skuhajmo čaj!", "en": "Hot? Then let's make tea!", "de": "Heiß? Dann kochen wir Tee!", "it": "Calda? Allora facciamoci un tè!" } }
+          ] },
+          { "who": "tone", "sl": "Hm. Dobro delo, vsi skupaj.", "en": "Hm. Good work, all of you.", "de": "Hm. Gute Arbeit, alle zusammen.", "it": "Mm. Bel lavoro, tutti insieme." }
+        ] },
+        "A2": { "lines": [
+          { "who": "tone", "sl": "Cevi so pritrjene, jarek je pokrit. Zdaj bomo videli, ali sem vse prav izračunal.", "en": "The spouts are fixed, the trench is covered. Now we'll see if I worked it all out right.", "de": "Die Röhren sind befestigt, der Graben ist zugedeckt. Jetzt sehen wir, ob ich alles richtig berechnet habe.", "it": "Le cannelle sono fissate, il fosso è coperto. Ora vediamo se ho calcolato tutto bene." },
+          { "who": "france", "sl": "Vsa vas je na trgu. Še psi čakajo.", "en": "The whole village is on the square. Even the dogs are waiting.", "de": "Das ganze Dorf ist auf dem Platz. Sogar die Hunde warten.", "it": "Tutto il paese è in piazza. Aspettano perfino i cani." },
+          { "who": "tone", "sl": "Odpiram … {learner}, kaj se dogaja?", "en": "I'm opening it … {learner}, what's happening?", "de": "Ich mache auf … {learner}, was passiert?", "it": "Apro … {learner}, che cosa succede?" },
+          { "choices": [
+            { "sl": "Voda teče iz vseh štirih cevi!", "en": "Water's flowing from all four spouts!", "de": "Wasser fließt aus allen vier Röhren!", "it": "L'acqua scorre da tutte e quattro le cannelle!", "ok": true,
+              "reply": { "sl": "Teče! Vse sem prav izračunal!", "en": "It flows! I worked it all out right!", "de": "Es fließt! Ich habe alles richtig berechnet!", "it": "Scorre! Ho calcolato tutto bene!" } },
+            { "sl": "Voda pleše iz vseh štirih cevi!", "en": "Water's dancing from all four spouts!", "de": "Wasser tanzt aus allen vier Röhren!", "it": "L'acqua balla da tutte e quattro le cannelle!",
+              "why": { "en": "Plesati is to dance. Water from a spout flows: teči, teče.", "de": "Plesati heißt tanzen. Wasser aus einer Röhre fließt: teči, teče.", "it": "Plesati vuol dire ballare. L'acqua da una cannella scorre: teči, teče." },
+              "reply": { "sl": "Pleše? Brez godbe?", "en": "Dancing? Without a band?", "de": "Tanzen? Ohne Blaskapelle?", "it": "Balla? Senza la banda?" } },
+            { "sl": "Voda teče iz vse štiri cevi!", "en": "Water's flowing from all four spouts!", "de": "Wasser fließt aus allen vier Röhren!", "it": "L'acqua scorre da tutte e quattro le cannelle!", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Iz (out of) takes the genitive, the numbers too: iz vseh štirih cevi.", "de": "Iz (aus) verlangt den Genitiv, auch die Zahlwörter: iz vseh štirih cevi.", "it": "Iz (da) vuole il genitivo, anche i numerali: iz vseh štirih cevi." },
+              "reply": { "sl": "Iz vse štiri …? Hm, kako, prosim?", "en": "From all four …? Hm, pardon?", "de": "Aus allen vier …? Hm, wie bitte?", "it": "Da tutte e quattro …? Mm, come, scusa?" } }
+          ] },
+          { "who": "mojca", "sl": "Otroci, ne vsi naenkrat! {learner}, poskusi! Kakšna je?", "en": "Children, not all at once! {learner}, try it! What's it like?", "de": "Kinder, nicht alle auf einmal! {learner}, probier mal! Wie ist es?", "it": "Bambini, non tutti insieme! {learner}, assaggia! Com'è?" },
+          { "choices": [
+            { "sl": "Mrzla je kot led, ker prihaja iz gore.", "en": "It's cold as ice, because it comes from the mountain.", "de": "Es ist eiskalt, weil es vom Berg kommt.", "it": "È fredda come il ghiaccio, perché viene dalla montagna.", "ok": true,
+              "reply": { "sl": "Res je. In čista kot solza!", "en": "True. And clear as a teardrop!", "de": "Stimmt. Und klar wie eine Träne!", "it": "È vero. E limpida come una lacrima!" } },
+            { "sl": "Vroča je kot led, ker prihaja iz gore.", "en": "It's hot as ice, because it comes from the mountain.", "de": "Es ist heiß wie Eis, weil es vom Berg kommt.", "it": "È calda come il ghiaccio, perché viene dalla montagna.",
+              "why": { "en": "Vroč is hot, and ice is anything but. Water from the mountain is cold: mrzla.", "de": "Vroč heißt heiß, und Eis ist alles andere als das. Wasser vom Berg ist kalt: mrzla.", "it": "Vroč vuol dire caldo, e il ghiaccio è tutt'altro. L'acqua di montagna è fredda: mrzla." },
+              "reply": { "sl": "Vroča kot led? Hm, to pa ne gre skupaj!", "en": "Hot as ice? Hm, those two don't go together!", "de": "Heiß wie Eis? Hm, das passt nicht zusammen!", "it": "Calda come il ghiaccio? Mm, le due cose non vanno d'accordo!" } },
+            { "sl": "Mrzel je kot led, ker prihaja iz gore.", "en": "It's cold as ice, because it comes from the mountain.", "de": "Es ist eiskalt, weil es vom Berg kommt.", "it": "È fredda come il ghiaccio, perché viene dalla montagna.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Voda (water) is feminine, so its adjective ends in -a: mrzla.", "de": "Voda (Wasser) ist weiblich, also endet das Adjektiv auf -a: mrzla.", "it": "Voda (acqua) è femminile, quindi l'aggettivo finisce in -a: mrzla." },
+              "reply": { "sl": "Mrzel? Kdo je mrzel?", "en": "Mrzel? Who's cold?", "de": "Mrzel? Wer ist kalt?", "it": "Mrzel? Chi è freddo?" } }
+          ] },
+          { "who": "tone", "sl": "Hm. Ne jokam, samo voda mi je prišla v oči.", "en": "Hm. I'm not crying, I just got water in my eyes.", "de": "Hm. Ich weine nicht, ich hab nur Wasser in die Augen gekriegt.", "it": "Mm. Non sto piangendo, mi è solo entrata acqua negli occhi." }
+        ] }
+      }
+    }
+  ]
+}

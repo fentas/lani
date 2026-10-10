@@ -1,0 +1,366 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "gasilski_dom",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-gasilski-dom",
+  "steps": [
+    {
+      "scene": "na-vasi",
+      "words": ["lopata", "temelj"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Danes začnemo gasilski dom! Najprej kopljemo.", "en": "Today we start the fire station! First we dig.", "de": "Heute fangen wir mit dem Feuerwehrhaus an! Zuerst graben wir.", "it": "Oggi cominciamo la caserma dei pompieri! Prima scaviamo." },
+          { "who": "tone", "sl": "Zemlja je trda. Brez orodja ne gre.", "en": "The ground is hard. It won't work without tools.", "de": "Die Erde ist hart. Ohne Werkzeug geht es nicht.", "it": "La terra è dura. Senza attrezzi non si fa niente." },
+          { "who": "luka", "sl": "{learner}, kaj potrebujemo za kopanje?", "en": "{learner}, what do we need for digging?", "de": "{learner}, was brauchen wir zum Graben?", "it": "{learner}, che cosa ci serve per scavare?" },
+          { "choices": [
+            { "sl": "Potrebujemo lopato.", "en": "We need a shovel.", "de": "Wir brauchen eine Schaufel.", "it": "Ci serve una pala.", "ok": true,
+              "reply": { "sl": "Tako je! Vsak dobi svojo lopato.", "en": "That's right! Everyone gets their own shovel.", "de": "Genau! Jeder bekommt seine eigene Schaufel.", "it": "Esatto! Ognuno prende la sua pala." } },
+            { "sl": "Potrebujemo metlo.", "en": "We need a broom.", "de": "Wir brauchen einen Besen.", "it": "Ci serve una scopa.",
+              "why": { "en": "Metla is a broom, for sweeping. For digging you need a shovel: lopata.", "de": "Metla ist ein Besen, zum Kehren. Zum Graben braucht man eine Schaufel: lopata.", "it": "Metla è la scopa, per spazzare. Per scavare ci vuole una pala: lopata." },
+              "reply": { "sl": "Metlo? Najprej kopljemo, pometamo potem!", "en": "A broom? First we dig, the sweeping comes later!", "de": "Einen Besen? Erst graben wir, gekehrt wird danach!", "it": "Una scopa? Prima scaviamo, a spazzare ci pensiamo dopo!" } },
+            { "sl": "Potrebujemo žogo.", "en": "We need a ball.", "de": "Wir brauchen einen Ball.", "it": "Ci serve una palla.",
+              "why": { "en": "Žoga is a ball. For digging you need a shovel: lopata.", "de": "Žoga ist ein Ball. Zum Graben braucht man eine Schaufel: lopata.", "it": "Žoga è la palla. Per scavare ci vuole una pala: lopata." },
+              "reply": { "sl": "Žogo? Igramo se potem, zdaj kopljemo!", "en": "A ball? We'll play later, now we dig!", "de": "Einen Ball? Gespielt wird später, jetzt graben wir!", "it": "Una palla? Giochiamo dopo, adesso si scava!" } }
+          ] },
+          { "who": "luka", "sl": "Uf, težko je! {learner}, kaj že kopljemo?", "en": "Phew, it's hard! {learner}, what are we digging again?", "de": "Puh, ist das schwer! {learner}, was graben wir noch mal?", "it": "Uff, che fatica! {learner}, che cosa stiamo scavando?" },
+          { "choices": [
+            { "sl": "Kopljemo temelje.", "en": "We're digging the foundations.", "de": "Wir heben das Fundament aus.", "it": "Scaviamo le fondamenta.", "ok": true,
+              "reply": { "sl": "Tako je! Globoke in ravne.", "en": "That's right! Deep and straight.", "de": "Genau! Tief und gerade.", "it": "Esatto! Profonde e dritte." } },
+            { "sl": "Kopljemo krompir.", "en": "We're digging potatoes.", "de": "Wir graben Kartoffeln aus.", "it": "Raccogliamo le patate.",
+              "why": { "en": "Krompir is potatoes: you dig those in the field. Here you dig the foundations: temelji.", "de": "Krompir sind Kartoffeln: die gräbt man auf dem Acker aus. Hier hebt man das Fundament aus: temelji.", "it": "Krompir sono le patate: quelle si cavano nel campo. Qui si scavano le fondamenta: temelji." },
+              "reply": { "sl": "Krompir? Na vasi? Ha ha, tukaj ga ni!", "en": "Potatoes? On the square? Ha ha, there aren't any here!", "de": "Kartoffeln? Auf dem Dorfplatz? Ha ha, hier gibt's keine!", "it": "Patate? In piazza? Ah ah, qui non ce ne sono!" } }
+          ] },
+          { "who": "france", "sl": "Uf! Še malo in jama je gotova.", "en": "Phew! A little more and the pit is done.", "de": "Puh! Noch ein bisschen, und die Grube ist fertig.", "it": "Uff! Ancora un po' e la fossa è finita." }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Gasilski dom bo stal tukaj, sredi vasi. Najprej moramo kopati.", "en": "The fire station will stand here, in the middle of the village. First we have to dig.", "de": "Das Feuerwehrhaus wird hier stehen, mitten im Dorf. Zuerst müssen wir graben.", "it": "La caserma dei pompieri sarà qui, in mezzo al paese. Prima dobbiamo scavare." },
+          { "who": "tone", "sl": "Zemlja je trda in polna kamenja. Kopati bo težko.", "en": "The ground is hard and full of stones. Digging will be tough.", "de": "Die Erde ist hart und voller Steine. Das Graben wird schwer.", "it": "La terra è dura e piena di sassi. Scavare sarà dura." },
+          { "who": "luka", "sl": "{learner}, s čim bomo kopali?", "en": "{learner}, what will we dig with?", "de": "{learner}, womit graben wir?", "it": "{learner}, con che cosa scaviamo?" },
+          { "choices": [
+            { "sl": "Z lopato, seveda.", "en": "With a shovel, of course.", "de": "Mit einer Schaufel, natürlich.", "it": "Con una pala, naturalmente.", "ok": true,
+              "reply": { "sl": "Seveda. Lopate so že pri ograji.", "en": "Of course. The shovels are already by the fence.", "de": "Natürlich. Die Schaufeln stehen schon am Zaun.", "it": "Certo. Le pale sono già vicino alla staccionata." } },
+            { "sl": "Z lopata, seveda.", "en": "With a shovel, of course.", "de": "Mit einer Schaufel, natürlich.", "it": "Con una pala, naturalmente.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: a feminine -a becomes -o: z lopato.", "de": "Z (mit) verlangt den Instrumental: ein weibliches -a wird zu -o: z lopato.", "it": "Z (con) vuole lo strumentale: una -a femminile diventa -o: z lopato." },
+              "reply": { "sl": "Z … lopata? Hm, kako, prosim?", "en": "With … shovel? Hm, pardon?", "de": "Mit … Schaufel? Hm, wie bitte?", "it": "Con … pala? Mm, come, scusa?" } },
+            { "sl": "Z žlico, seveda.", "en": "With a spoon, of course.", "de": "Mit einem Löffel, natürlich.", "it": "Con un cucchiaio, naturalmente.",
+              "why": { "en": "Žlica is a spoon. For digging you need a shovel: lopata.", "de": "Žlica ist ein Löffel. Zum Graben braucht man eine Schaufel: lopata.", "it": "Žlica è il cucchiaio. Per scavare ci vuole una pala: lopata." },
+              "reply": { "sl": "Z žlico? Potem bomo kopali do božiča!", "en": "With a spoon? Then we'll be digging till Christmas!", "de": "Mit einem Löffel? Dann graben wir bis Weihnachten!", "it": "Con un cucchiaio? Allora scaviamo fino a Natale!" } }
+          ] },
+          { "who": "luka", "sl": "Kopljemo že dve uri. Zakaj sploh tako globoko?", "en": "We've been digging for two hours. Why so deep, anyway?", "de": "Wir graben schon zwei Stunden. Warum überhaupt so tief?", "it": "Scaviamo già da due ore. Ma perché così a fondo?" },
+          { "choices": [
+            { "sl": "Ker dom brez dobrih temeljev ne stoji.", "en": "Because a building doesn't stand without good foundations.", "de": "Weil ein Haus ohne gutes Fundament nicht steht.", "it": "Perché una casa senza buone fondamenta non sta in piedi.", "ok": true,
+              "reply": { "sl": "Prav imaš. No, dobro, kopljem naprej.", "en": "You're right. Oh well, I'll keep digging.", "de": "Du hast recht. Na gut, ich grabe weiter.", "it": "Hai ragione. Va be', continuo a scavare." } },
+            { "sl": "Ker dom brez dobrih temelji ne stoji.", "en": "Because a building doesn't stand without good foundations.", "de": "Weil ein Haus ohne gutes Fundament nicht steht.", "it": "Perché una casa senza buone fondamenta non sta in piedi.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Brez (without) takes the genitive: in the plural, temelji becomes temeljev.", "de": "Brez (ohne) verlangt den Genitiv: im Plural wird temelji zu temeljev.", "it": "Brez (senza) vuole il genitivo: al plurale temelji diventa temeljev." },
+              "reply": { "sl": "Brez … temelji? Hm, ne razumem čisto.", "en": "Without … foundations? Hm, I don't quite get it.", "de": "Ohne … Fundament? Hm, ich versteh's nicht ganz.", "it": "Senza … fondamenta? Mm, non capisco bene." } },
+            { "sl": "Ker dom brez dobrih klobas ne stoji.", "en": "Because a building doesn't stand without good sausages.", "de": "Weil ein Haus ohne gute Würste nicht steht.", "it": "Perché una casa senza buone salsicce non sta in piedi.",
+              "why": { "en": "Klobase are sausages: they're for the fête. A building stands on its foundations: temelji.", "de": "Klobase sind Würste: die gibt's beim Fest. Ein Haus steht auf seinem Fundament: temelji.", "it": "Klobase sono le salsicce: quelle sono per la festa. Una casa sta sulle sue fondamenta: temelji." },
+              "reply": { "sl": "Klobas? Ha ha, ti si pa {m:lačen|f:lačna}!", "en": "Sausages? Ha ha, somebody's hungry!", "de": "Würste? Ha ha, da hat wohl jemand Hunger!", "it": "Salsicce? Ah ah, qualcuno ha fame!" } }
+          ] },
+          { "who": "france", "sl": "Lepo ravno je. Na takih temeljih bo dom stal sto let.", "en": "Nice and straight. On foundations like these the station will stand a hundred years.", "de": "Schön gerade. Auf so einem Fundament steht das Haus hundert Jahre.", "it": "Bello dritto. Su fondamenta così la caserma starà in piedi cent'anni." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["opeka", "stena"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Temelji so gotovi. Danes zidamo!", "en": "The foundations are done. Today we build the walls!", "de": "Das Fundament ist fertig. Heute mauern wir!", "it": "Le fondamenta sono finite. Oggi tiriamo su i muri!" },
+          { "who": "marko", "sl": "Ciao! Voz je poln, konj je utrujen.", "en": "Ciao! The cart is full, the horse is tired.", "de": "Ciao! Der Wagen ist voll, das Pferd ist müde.", "it": "Ciao! Il carro è pieno, il cavallo è stanco." },
+          { "who": "luka", "sl": "{learner}, podaj mi nekaj za zid!", "en": "{learner}, pass me something for the wall!", "de": "{learner}, gib mir etwas für die Mauer!", "it": "{learner}, passami qualcosa per il muro!" },
+          { "choices": [
+            { "sl": "Izvoli opeko!", "en": "Here's a brick!", "de": "Hier, ein Ziegel!", "it": "Ecco un mattone!", "ok": true,
+              "reply": { "sl": "Hvala! Še eno, pa še eno …", "en": "Thanks! Another one, and another …", "de": "Danke! Noch einen, und noch einen …", "it": "Grazie! Un altro, e un altro ancora …" } },
+            { "sl": "Izvoli opeka!", "en": "Here's a brick!", "de": "Hier, ein Ziegel!", "it": "Ecco un mattone!", "grammar": "tozilnik",
+              "why": { "en": "You give something: the accusative. A feminine -a becomes -o: opeko.", "de": "Man gibt etwas: der Akkusativ. Ein weibliches -a wird zu -o: opeko.", "it": "Si dà qualcosa: l'accusativo. Una -a femminile diventa -o: opeko." },
+              "reply": { "sl": "Opeka? Ja, opeka je. Pa?", "en": "Opeka? Yes, it's a brick. So?", "de": "Opeka? Ja, das ist ein Ziegel. Und?", "it": "Opeka? Sì, è un mattone. E allora?" } },
+            { "sl": "Izvoli jajce!", "en": "Here's an egg!", "de": "Hier, ein Ei!", "it": "Ecco un uovo!",
+              "why": { "en": "Jajce is an egg. A wall is built of bricks: opeka.", "de": "Jajce ist ein Ei. Eine Mauer baut man aus Ziegeln: opeka.", "it": "Jajce è un uovo. Un muro si fa con i mattoni: opeka." },
+              "reply": { "sl": "Jajce? Ha ha, iz jajc ne zidamo!", "en": "An egg? Ha ha, we don't build with eggs!", "de": "Ein Ei? Ha ha, aus Eiern mauern wir nicht!", "it": "Un uovo? Ah ah, con le uova non si costruisce!" } }
+          ] },
+          { "who": "marko", "sl": "Imam še pet opek. Kam jih dam?", "en": "I've got five more bricks. Where do I put them?", "de": "Ich habe noch fünf Ziegel. Wohin damit?", "it": "Ho ancora cinque mattoni. Dove li metto?" },
+          { "choices": [
+            { "sl": "Na steno, zgoraj!", "en": "On the wall, up top!", "de": "Auf die Mauer, oben!", "it": "Sul muro, in alto!", "ok": true,
+              "reply": { "sl": "Prav! Stena je že kar visoka.", "en": "Right! The wall is already pretty high.", "de": "Gut! Die Mauer ist schon ganz schön hoch.", "it": "Va bene! Il muro è già bello alto." } },
+            { "sl": "Na steni, zgoraj!", "en": "On the wall, up top!", "de": "Auf der Mauer, oben!", "it": "Sul muro, in alto!", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na steno. Na steni says where something already is.", "de": "Kam? (wohin) verlangt den Akkusativ: na steno. Na steni sagt, wo etwas schon ist.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na steno. Na steni dice dove qualcosa è già." },
+              "reply": { "sl": "Na steni? Saj še niso gor!", "en": "On the wall? They're not up there yet!", "de": "Auf der Mauer? Die sind doch noch gar nicht oben!", "it": "Sul muro? Ma non sono ancora lassù!" } },
+            { "sl": "Na streho, zgoraj!", "en": "On the roof, up top!", "de": "Aufs Dach, oben!", "it": "Sul tetto, in alto!",
+              "why": { "en": "Streha is the roof, and there isn't one yet. The bricks go on the wall: stena.", "de": "Streha ist das Dach, und das gibt es noch nicht. Die Ziegel kommen auf die Mauer: stena.", "it": "Streha è il tetto, e non c'è ancora. I mattoni vanno sul muro: stena." },
+              "reply": { "sl": "Na streho? Strehe še ni, ha ha!", "en": "On the roof? There's no roof yet, ha ha!", "de": "Aufs Dach? Es gibt noch kein Dach, ha ha!", "it": "Sul tetto? Il tetto non c'è ancora, ah ah!" } }
+          ] },
+          { "who": "tone", "sl": "Stena je ravna kot sveča. Dobro delo!", "en": "The wall is dead straight. Good work!", "de": "Die Mauer ist kerzengerade. Gute Arbeit!", "it": "Il muro è dritto come un fuso. Bel lavoro!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Temelji so gotovi. Danes zidamo, da bo dom do zime pod streho.", "en": "The foundations are done. Today we build, so the station is under a roof before winter.", "de": "Das Fundament ist fertig. Heute mauern wir, damit das Haus vor dem Winter unter Dach ist.", "it": "Le fondamenta sono finite. Oggi costruiamo, così prima dell'inverno la caserma ha un tetto." },
+          { "who": "marko", "sl": "Ciao! Pripeljali smo sto opek. Dovolj?", "en": "Ciao! We've brought a hundred bricks. Enough?", "de": "Ciao! Wir haben hundert Ziegel gebracht. Reicht das?", "it": "Ciao! Abbiamo portato cento mattoni. Bastano?" },
+          { "who": "tone", "sl": "Sto? Za štiri stene jih potrebujemo vsaj tisoč!", "en": "A hundred? For four walls we need at least a thousand!", "de": "Hundert? Für vier Wände brauchen wir mindestens tausend!", "it": "Cento? Per quattro muri ce ne vogliono almeno mille!" },
+          { "who": "luka", "sl": "{learner}, zakaj zidamo iz opeke in ne iz lesa?", "en": "{learner}, why are we building with brick and not wood?", "de": "{learner}, warum mauern wir mit Ziegeln und nicht mit Holz?", "it": "{learner}, perché costruiamo con i mattoni e non col legno?" },
+          { "choices": [
+            { "sl": "Ker opeka ne gori.", "en": "Because brick doesn't burn.", "de": "Weil Ziegel nicht brennt.", "it": "Perché il mattone non brucia.", "ok": true,
+              "reply": { "sl": "Tako je. Za gasilski dom je to najbolj pomembno.", "en": "That's right. For a fire station that matters most.", "de": "Genau. Für ein Feuerwehrhaus ist das das Wichtigste.", "it": "Esatto. Per una caserma dei pompieri è la cosa più importante." } },
+            { "sl": "Ker opeka ne poje.", "en": "Because brick doesn't sing.", "de": "Weil Ziegel nicht singt.", "it": "Perché il mattone non canta.",
+              "why": { "en": "Peti is to sing: true, but it's no reason. Brick is chosen because it doesn't burn: ne gori.", "de": "Peti heißt singen: stimmt, ist aber kein Grund. Ziegel nimmt man, weil er nicht brennt: ne gori.", "it": "Peti vuol dire cantare: è vero, ma non è un motivo. Si sceglie il mattone perché non brucia: ne gori." },
+              "reply": { "sl": "Ne poje? Res je, ampak les tudi ne!", "en": "Doesn't sing? True, but neither does wood!", "de": "Singt nicht? Stimmt, aber Holz auch nicht!", "it": "Non canta? È vero, ma neanche il legno!" } },
+            { "sl": "Ker sir ne gori.", "en": "Because cheese doesn't burn.", "de": "Weil Käse nicht brennt.", "it": "Perché il formaggio non brucia.",
+              "why": { "en": "Sir is cheese, and walls aren't made of it. Walls are made of brick: opeka.", "de": "Sir ist Käse, und daraus baut man keine Mauern. Mauern baut man aus Ziegeln: opeka.", "it": "Sir è il formaggio, e i muri non si fanno così. I muri si fanno con i mattoni: opeka." },
+              "reply": { "sl": "Sir? Ha ha, potem bi miši pojedle gasilski dom!", "en": "Cheese? Ha ha, then the mice would eat the fire station!", "de": "Käse? Ha ha, dann würden die Mäuse das Feuerwehrhaus auffressen!", "it": "Formaggio? Ah ah, allora i topi si mangerebbero la caserma!" } }
+          ] },
+          { "who": "marko", "sl": "Imam še zadnjih deset opek. Kam z njimi?", "en": "I've got the last ten bricks. Where shall I put them?", "de": "Ich habe die letzten zehn Ziegel. Wohin damit?", "it": "Ho gli ultimi dieci mattoni. Dove li metto?" },
+          { "choices": [
+            { "sl": "Na tisto steno, ker je še najnižja.", "en": "On that wall, because it's still the lowest.", "de": "Auf die Mauer da, weil sie noch die niedrigste ist.", "it": "Su quel muro, perché è ancora il più basso.", "ok": true,
+              "reply": { "sl": "Prav. Še deset in stena je gotova!", "en": "Right. Ten more and the wall is done!", "de": "Gut. Noch zehn, und die Mauer ist fertig!", "it": "Va bene. Ancora dieci e il muro è finito!" } },
+            { "sl": "Na tisti steni, ker je še najnižja.", "en": "On that wall, because it's still the lowest.", "de": "Auf der Mauer da, weil sie noch die niedrigste ist.", "it": "Su quel muro, perché è ancora il più basso.", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na tisto steno. Na tisti steni says where something already is.", "de": "Kam? (wohin) verlangt den Akkusativ: na tisto steno. Na tisti steni sagt, wo etwas schon ist.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na tisto steno. Na tisti steni dice dove qualcosa è già." },
+              "reply": { "sl": "Na tisti steni? Saj še niso gor!", "en": "On that wall? They're not up there yet!", "de": "Auf der Mauer? Die sind doch noch nicht oben!", "it": "Su quel muro? Ma non sono ancora lassù!" } },
+            { "sl": "Na tisto streho, ker je še najnižja.", "en": "On that roof, because it's still the lowest.", "de": "Auf das Dach da, weil es noch das niedrigste ist.", "it": "Su quel tetto, perché è ancora il più basso.",
+              "why": { "en": "Streha is the roof, and there isn't one yet. The bricks go on the wall: stena.", "de": "Streha ist das Dach, und das gibt es noch nicht. Die Ziegel kommen auf die Mauer: stena.", "it": "Streha è il tetto, e non c'è ancora. I mattoni vanno sul muro: stena." },
+              "reply": { "sl": "Na streho? Strehe še nimamo, ha ha!", "en": "On the roof? We haven't got a roof yet, ha ha!", "de": "Aufs Dach? Wir haben noch gar kein Dach, ha ha!", "it": "Sul tetto? Il tetto non ce l'abbiamo ancora, ah ah!" } }
+          ] }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["vrata", "lesen"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Gasilski voz mora noter. Potrebujemo velika vrata!", "en": "The fire cart has to get in. We need big doors!", "de": "Der Feuerwehrwagen muss hinein. Wir brauchen ein großes Tor!", "it": "Il carro dei pompieri deve entrare. Ci serve un grande portone!" },
+          { "who": "france", "sl": "Hrastove deske so suhe. Iz njih bodo dobra vrata.", "en": "The oak planks are dry. They'll make good doors.", "de": "Die Eichenbretter sind trocken. Daraus wird ein gutes Tor.", "it": "Le assi di quercia sono asciutte. Ne verrà un buon portone." },
+          { "who": "luka", "sl": "{learner}, iz česa bodo vrata?", "en": "{learner}, what will the doors be made of?", "de": "{learner}, woraus wird das Tor?", "it": "{learner}, di che cosa sarà il portone?" },
+          { "choices": [
+            { "sl": "Vrata bodo lesena.", "en": "The doors will be wooden.", "de": "Das Tor wird aus Holz sein.", "it": "Il portone sarà di legno.", "ok": true,
+              "reply": { "sl": "Tako je, iz hrastovih desk!", "en": "That's right, out of oak planks!", "de": "Genau, aus Eichenbrettern!", "it": "Esatto, di assi di quercia!" } },
+            { "sl": "Vrata bodo kamnita.", "en": "The doors will be stone.", "de": "Das Tor wird aus Stein sein.", "it": "Il portone sarà di pietra.",
+              "why": { "en": "Kamnit is made of stone: far too heavy to open. The planks are wood: lesena.", "de": "Kamnit heißt aus Stein: viel zu schwer zum Öffnen. Die Bretter sind aus Holz: lesena.", "it": "Kamnit vuol dire di pietra: troppo pesante da aprire. Le assi sono di legno: lesena." },
+              "reply": { "sl": "Kamnita? Potem jih nihče ne odpre, ha ha!", "en": "Stone? Then nobody will ever open them, ha ha!", "de": "Aus Stein? Dann macht es keiner mehr auf, ha ha!", "it": "Di pietra? Allora non lo apre più nessuno, ah ah!" } },
+            { "sl": "Vrata bodo lesen.", "en": "The doors will be wooden.", "de": "Das Tor wird aus Holz sein.", "it": "Il portone sarà di legno.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Vrata (doors) is a neuter plural, so its adjective too: lesena.", "de": "Vrata (Tor) ist ein sächliches Pluralwort, also auch sein Adjektiv: lesena.", "it": "Vrata (porta) è un neutro plurale, quindi anche il suo aggettivo: lesena." },
+              "reply": { "sl": "Lesen? Hm, kaj bo lesen?", "en": "Lesen? Hm, what will be wooden?", "de": "Lesen? Hm, was wird aus Holz sein?", "it": "Lesen? Mm, che cosa sarà di legno?" } }
+          ] },
+          { "who": "luka", "sl": "Visijo! Zdaj poskusimo. {learner}, kaj naredimo?", "en": "They're hanging! Now let's try them. {learner}, what do we do?", "de": "Es hängt! Jetzt probieren wir's. {learner}, was machen wir?", "it": "È montato! Ora proviamo. {learner}, che cosa facciamo?" },
+          { "choices": [
+            { "sl": "Odprimo vrata!", "en": "Let's open the doors!", "de": "Machen wir das Tor auf!", "it": "Apriamo il portone!", "ok": true,
+              "reply": { "sl": "Odprta so! Voz bo zlahka noter.", "en": "They're open! The cart will get in easily.", "de": "Es ist offen! Der Wagen kommt leicht hinein.", "it": "È aperto! Il carro entrerà facilmente." } },
+            { "sl": "Odprimo okno!", "en": "Let's open the window!", "de": "Machen wir das Fenster auf!", "it": "Apriamo la finestra!",
+              "why": { "en": "Okno is a window. You're trying out the new doors: vrata.", "de": "Okno ist ein Fenster. Ihr probiert das neue Tor aus: vrata.", "it": "Okno è la finestra. State provando il nuovo portone: vrata." },
+              "reply": { "sl": "Okno? Saj okna še ni!", "en": "The window? There's no window yet!", "de": "Das Fenster? Es gibt doch noch kein Fenster!", "it": "La finestra? Ma la finestra non c'è ancora!" } },
+            { "sl": "Odprimo vino!", "en": "Let's open the wine!", "de": "Machen wir den Wein auf!", "it": "Apriamo il vino!",
+              "why": { "en": "Vino is wine: that's for the evening. You're trying out the doors: vrata.", "de": "Vino ist Wein: der ist für den Abend. Ihr probiert das Tor aus: vrata.", "it": "Vino è il vino: quello è per stasera. State provando il portone: vrata." },
+              "reply": { "sl": "Vino? Najprej delo, potem vino, ha ha!", "en": "The wine? Work first, wine later, ha ha!", "de": "Den Wein? Erst die Arbeit, dann der Wein, ha ha!", "it": "Il vino? Prima il lavoro, poi il vino, ah ah!" } }
+          ] },
+          { "who": "tone", "sl": "Železni tečaji so iz kovačnice. Ta vrata zdržijo sto let!", "en": "The iron hinges are from the smithy. These doors will last a hundred years!", "de": "Die eisernen Angeln sind aus der Schmiede. Dieses Tor hält hundert Jahre!", "it": "I cardini di ferro vengono dalla fucina. Questo portone dura cent'anni!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Gasilski voz je širok. Vrata morajo biti večja od navadnih.", "en": "The fire cart is wide. The doors have to be bigger than ordinary ones.", "de": "Der Feuerwehrwagen ist breit. Das Tor muss größer sein als ein gewöhnliches.", "it": "Il carro dei pompieri è largo. Il portone deve essere più grande di uno normale." },
+          { "who": "france", "sl": "V skednju so suhe hrastove deske. Iz njih bodo trdna vrata.", "en": "There are dry oak planks in the barn. They'll make strong doors.", "de": "In der Scheune liegen trockene Eichenbretter. Daraus wird ein festes Tor.", "it": "Nel fienile ci sono assi di quercia asciutte. Ne verrà un portone robusto." },
+          { "who": "luka", "sl": "{learner}, ali naj bodo vrata železna?", "en": "{learner}, should the doors be iron?", "de": "{learner}, soll das Tor aus Eisen sein?", "it": "{learner}, il portone lo facciamo di ferro?" },
+          { "choices": [
+            { "sl": "Ne, lesena, ker so lažja.", "en": "No, wooden, because they're lighter.", "de": "Nein, aus Holz, weil es leichter ist.", "it": "No, di legno, perché è più leggero.", "ok": true,
+              "reply": { "sl": "Prav imaš. Železna bi bila pretežka za odpiranje.", "en": "You're right. Iron ones would be too heavy to open.", "de": "Du hast recht. Eins aus Eisen wäre zu schwer zum Öffnen.", "it": "Hai ragione. Uno di ferro sarebbe troppo pesante da aprire." } },
+            { "sl": "Ne, lesene, ker so lažja.", "en": "No, wooden, because they're lighter.", "de": "Nein, aus Holz, weil es leichter ist.", "it": "No, di legno, perché è più leggero.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Vrata is a neuter plural, so its adjective ends in -a: lesena.", "de": "Vrata ist ein sächliches Pluralwort, also endet sein Adjektiv auf -a: lesena.", "it": "Vrata è un neutro plurale, quindi il suo aggettivo finisce in -a: lesena." },
+              "reply": { "sl": "Lesene? Hm, katere pa?", "en": "Lesene? Hm, which ones?", "de": "Lesene? Hm, welche denn?", "it": "Lesene? Mm, quali?" } },
+            { "sl": "Ne, steklena, ker so lažja.", "en": "No, glass, because they're lighter.", "de": "Nein, aus Glas, weil es leichter ist.", "it": "No, di vetro, perché è più leggero.",
+              "why": { "en": "Steklen is made of glass: it would break at the first knock. The planks in the barn are wood: lesena.", "de": "Steklen heißt aus Glas: das bricht beim ersten Stoß. Die Bretter in der Scheune sind aus Holz: lesena.", "it": "Steklen vuol dire di vetro: si romperebbe al primo colpo. Le assi nel fienile sono di legno: lesena." },
+              "reply": { "sl": "Steklena? Ha ha, prvi gasilec jih razbije!", "en": "Glass? Ha ha, the first firefighter would smash them!", "de": "Aus Glas? Ha ha, der erste Feuerwehrmann schlägt es kaputt!", "it": "Di vetro? Ah ah, il primo pompiere lo rompe!" } }
+          ] },
+          { "who": "tone", "sl": "Tečaji so skovani. Kam jih pribijemo?", "en": "The hinges are forged. Where do we nail them?", "de": "Die Angeln sind geschmiedet. Wo nageln wir sie an?", "it": "I cardini sono forgiati. Dove li inchiodiamo?" },
+          { "choices": [
+            { "sl": "Na vrata, zgoraj in spodaj.", "en": "Onto the doors, top and bottom.", "de": "Ans Tor, oben und unten.", "it": "Sul portone, in alto e in basso.", "ok": true,
+              "reply": { "sl": "Tako. Zdaj bodo vrata držala sto let.", "en": "There. Now the doors will hold for a hundred years.", "de": "So. Jetzt hält das Tor hundert Jahre.", "it": "Ecco. Ora il portone regge cent'anni." } },
+            { "sl": "Na vratih, zgoraj in spodaj.", "en": "On the doors, top and bottom.", "de": "Am Tor, oben und unten.", "it": "Sul portone, in alto e in basso.", "grammar": "kam-tozilnik",
+              "why": { "en": "Kam? (where to) takes the accusative: na vrata. Na vratih says where they already are.", "de": "Kam? (wohin) verlangt den Akkusativ: na vrata. Na vratih sagt, wo sie schon sind.", "it": "Kam? (dove, moto a luogo) vuole l'accusativo: na vrata. Na vratih dice dove sono già." },
+              "reply": { "sl": "Na vratih? Saj jih šele pribijamo.", "en": "On the doors? We're only just nailing them on.", "de": "Am Tor? Wir nageln sie doch erst an.", "it": "Sul portone? Ma li stiamo inchiodando adesso." } },
+            { "sl": "Na streho, zgoraj in spodaj.", "en": "Onto the roof, top and bottom.", "de": "Aufs Dach, oben und unten.", "it": "Sul tetto, in alto e in basso.",
+              "why": { "en": "Streha is the roof. Hinges hold the doors: vrata.", "de": "Streha ist das Dach. Angeln halten das Tor: vrata.", "it": "Streha è il tetto. I cardini reggono il portone: vrata." },
+              "reply": { "sl": "Na streho? Strehe pa ne bomo odpirali!", "en": "On the roof? We won't be opening the roof!", "de": "Aufs Dach? Das Dach werden wir nicht öffnen!", "it": "Sul tetto? Il tetto mica lo apriamo!" } }
+          ] },
+          { "who": "luka", "sl": "Poskusimo! … Odpirajo se brez škripanja!", "en": "Let's try! … They open without a creak!", "de": "Probieren wir's! … Es geht auf, ohne zu quietschen!", "it": "Proviamo! … Si apre senza cigolare!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["brizgalna", "voz"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Slišite? Nekaj prihaja po cesti!", "en": "Do you hear that? Something is coming down the road!", "de": "Hört ihr? Da kommt etwas die Straße entlang!", "it": "Sentite? Arriva qualcosa lungo la strada!" },
+          { "who": "marko", "sl": "Ciao! Pot iz Gorice je dolga. Konj je utrujen!", "en": "Ciao! The road from Gorizia is long. The horse is tired!", "de": "Ciao! Der Weg aus Görz ist lang. Das Pferd ist müde!", "it": "Ciao! La strada da Gorizia è lunga. Il cavallo è stanco!" },
+          { "who": "luka", "sl": "{learner}, kaj je na vozu?", "en": "{learner}, what's on the cart?", "de": "{learner}, was ist auf dem Wagen?", "it": "{learner}, che cosa c'è sul carro?" },
+          { "choices": [
+            { "sl": "Na vozu je brizgalna!", "en": "There's a fire pump on the cart!", "de": "Auf dem Wagen ist eine Feuerspritze!", "it": "Sul carro c'è una pompa antincendio!", "ok": true,
+              "reply": { "sl": "Ja! Stara je, ampak dela!", "en": "Yes! It's old, but it works!", "de": "Ja! Sie ist alt, aber sie funktioniert!", "it": "Sì! È vecchia, ma funziona!" } },
+            { "sl": "Na vozu je krava!", "en": "There's a cow on the cart!", "de": "Auf dem Wagen ist eine Kuh!", "it": "Sul carro c'è una mucca!",
+              "why": { "en": "Krava is a cow. On the cart is the fire pump: brizgalna.", "de": "Krava ist eine Kuh. Auf dem Wagen ist die Feuerspritze: brizgalna.", "it": "Krava è la mucca. Sul carro c'è la pompa antincendio: brizgalna." },
+              "reply": { "sl": "Krava? Ha ha, krava ne gasi ognja!", "en": "A cow? Ha ha, a cow doesn't put out fires!", "de": "Eine Kuh? Ha ha, eine Kuh löscht kein Feuer!", "it": "Una mucca? Ah ah, una mucca non spegne il fuoco!" } },
+            { "sl": "Na vozu je harmonika!", "en": "There's an accordion on the cart!", "de": "Auf dem Wagen ist eine Ziehharmonika!", "it": "Sul carro c'è una fisarmonica!",
+              "why": { "en": "Harmonika is an accordion: that's for the fête. On the cart is the fire pump: brizgalna.", "de": "Harmonika ist eine Ziehharmonika: die ist fürs Fest. Auf dem Wagen ist die Feuerspritze: brizgalna.", "it": "Harmonika è la fisarmonica: quella è per la festa. Sul carro c'è la pompa antincendio: brizgalna." },
+              "reply": { "sl": "Harmonika? Za ples je še prezgodaj!", "en": "An accordion? It's too early for dancing!", "de": "Eine Ziehharmonika? Zum Tanzen ist es noch zu früh!", "it": "Una fisarmonica? È ancora presto per ballare!" } }
+          ] },
+          { "who": "tone", "sl": "Brizgalna je težka. Jo nesemo dol?", "en": "The pump is heavy. Do we carry it down?", "de": "Die Spritze ist schwer. Tragen wir sie runter?", "it": "La pompa è pesante. La portiamo giù?" },
+          { "choices": [
+            { "sl": "Ne, naj ostane na vozu!", "en": "No, let it stay on the cart!", "de": "Nein, sie soll auf dem Wagen bleiben!", "it": "No, che resti sul carro!", "ok": true,
+              "reply": { "sl": "Pametno. Z vozom je hitro pri ognju.", "en": "Smart. On the cart it gets to a fire quickly.", "de": "Klug. Mit dem Wagen ist sie schnell beim Feuer.", "it": "Furbo. Con il carro arriva subito al fuoco." } },
+            { "sl": "Ne, naj ostane na voz!", "en": "No, let it stay on the cart!", "de": "Nein, sie soll auf dem Wagen bleiben!", "it": "No, che resti sul carro!", "grammar": "mestnik",
+              "why": { "en": "Na for where something is takes the locative: na vozu.", "de": "Na für den Ort, wo etwas ist, verlangt den Lokativ: na vozu.", "it": "Na per il luogo dove qualcosa è vuole il locativo: na vozu." },
+              "reply": { "sl": "Na … voz? Hm. Kje?", "en": "On … cart? Hm. Where?", "de": "Auf … Wagen? Hm. Wo?", "it": "Sul … carro? Mm. Dove?" } },
+            { "sl": "Ne, naj ostane na lipi!", "en": "No, let it stay in the linden!", "de": "Nein, sie soll auf der Linde bleiben!", "it": "No, che resti sul tiglio!",
+              "why": { "en": "Lipa is the linden tree. A pump has to get to fires fast: on the cart, na vozu.", "de": "Lipa ist die Linde. Eine Spritze muss schnell beim Feuer sein: auf dem Wagen, na vozu.", "it": "Lipa è il tiglio. Una pompa deve arrivare in fretta al fuoco: sul carro, na vozu." },
+              "reply": { "sl": "Na lipi? In kdo jo bo spravil gor?", "en": "In the linden? And who's going to get it up there?", "de": "Auf der Linde? Und wer bringt sie da rauf?", "it": "Sul tiglio? E chi ce la porta lassù?" } }
+          ] },
+          { "who": "marko", "sl": "In konj dobi oves. Zaslužil si ga je!", "en": "And the horse gets oats. It's earned them!", "de": "Und das Pferd bekommt Hafer. Den hat es sich verdient!", "it": "E il cavallo si prende la biada. Se l'è meritata!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Brizgalna iz Gorice bi morala biti že tukaj. Kje so?", "en": "The fire pump from Gorizia should be here by now. Where are they?", "de": "Die Feuerspritze aus Görz müsste schon hier sein. Wo bleiben sie?", "it": "La pompa da Gorizia dovrebbe già essere qui. Dove sono?" },
+          { "who": "marko", "sl": "Ciao! Oprostite, cesta je blatna in konj je počasen.", "en": "Ciao! Sorry, the road is muddy and the horse is slow.", "de": "Ciao! Entschuldigt, die Straße ist schlammig und das Pferd langsam.", "it": "Ciao! Scusate, la strada è fangosa e il cavallo è lento." },
+          { "who": "luka", "sl": "Glej, {learner}! Kaj so pripeljali?", "en": "Look, {learner}! What have they brought?", "de": "Schau, {learner}! Was haben sie gebracht?", "it": "Guarda, {learner}! Che cosa hanno portato?" },
+          { "choices": [
+            { "sl": "Pripeljali so voz z brizgalno.", "en": "They've brought a cart with a fire pump.", "de": "Sie haben einen Wagen mit einer Feuerspritze gebracht.", "it": "Hanno portato un carro con una pompa antincendio.", "ok": true,
+              "reply": { "sl": "Ja! Stara je, ampak še vedno brizga!", "en": "Yes! It's old, but it still squirts!", "de": "Ja! Sie ist alt, aber sie spritzt noch!", "it": "Sì! È vecchia, ma spruzza ancora!" } },
+            { "sl": "Pripeljali so voz z brizgalna.", "en": "They've brought a cart with a fire pump.", "de": "Sie haben einen Wagen mit einer Feuerspritze gebracht.", "it": "Hanno portato un carro con una pompa antincendio.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: a feminine -a becomes -o: z brizgalno.", "de": "Z (mit) verlangt den Instrumental: ein weibliches -a wird zu -o: z brizgalno.", "it": "Z (con) vuole lo strumentale: una -a femminile diventa -o: z brizgalno." },
+              "reply": { "sl": "Z … brizgalna? Hm, kako, prosim?", "en": "With … fire pump? Hm, pardon?", "de": "Mit … Feuerspritze? Hm, wie bitte?", "it": "Con … pompa? Mm, come, scusa?" } },
+            { "sl": "Pripeljali so voz s harmoniko.", "en": "They've brought a cart with an accordion.", "de": "Sie haben einen Wagen mit einer Ziehharmonika gebracht.", "it": "Hanno portato un carro con una fisarmonica.",
+              "why": { "en": "Harmonika is an accordion: that's for the fête. On the cart is the fire pump: brizgalna.", "de": "Harmonika ist eine Ziehharmonika: die ist fürs Fest. Auf dem Wagen ist die Feuerspritze: brizgalna.", "it": "Harmonika è la fisarmonica: quella è per la festa. Sul carro c'è la pompa antincendio: brizgalna." },
+              "reply": { "sl": "S harmoniko? Za ples bo še čas, ha ha!", "en": "With an accordion? There'll be time for dancing later, ha ha!", "de": "Mit einer Ziehharmonika? Zum Tanzen ist später noch Zeit, ha ha!", "it": "Con una fisarmonica? Per ballare c'è tempo dopo, ah ah!" } }
+          ] },
+          { "who": "tone", "sl": "Brizgalna je pretežka za nošenje. Kje naj bo?", "en": "The pump is too heavy to carry. Where should it be kept?", "de": "Die Spritze ist zu schwer zum Tragen. Wo soll sie stehen?", "it": "La pompa è troppo pesante da portare. Dove la teniamo?" },
+          { "choices": [
+            { "sl": "Na vozu, da bo hitro pri ognju.", "en": "On the cart, so it gets to a fire quickly.", "de": "Auf dem Wagen, damit sie schnell beim Feuer ist.", "it": "Sul carro, così arriva subito al fuoco.", "ok": true,
+              "reply": { "sl": "Pametno. Voz gre v dom, za velika vrata.", "en": "Smart. The cart goes into the station, behind the big doors.", "de": "Klug. Der Wagen kommt ins Haus, hinter das große Tor.", "it": "Furbo. Il carro va in caserma, dietro il grande portone." } },
+            { "sl": "Na voz, da bo hitro pri ognju.", "en": "Onto the cart, so it gets to a fire quickly.", "de": "Auf den Wagen, damit sie schnell beim Feuer ist.", "it": "Sul carro, così arriva subito al fuoco.", "grammar": "kje-mestnik-orodnik",
+              "why": { "en": "Kje? (where) takes the locative: na vozu. Na voz says where something goes.", "de": "Kje? (wo) verlangt den Lokativ: na vozu. Na voz sagt, wohin etwas kommt.", "it": "Kje? (dove, stato in luogo) vuole il locativo: na vozu. Na voz dice dove qualcosa va." },
+              "reply": { "sl": "Na voz? Saj je že gor.", "en": "Onto the cart? It's already on it.", "de": "Auf den Wagen? Sie ist doch schon drauf.", "it": "Sul carro? Ma c'è già sopra." } },
+            { "sl": "Na lipi, da bo hitro pri ognju.", "en": "In the linden, so it gets to a fire quickly.", "de": "Auf der Linde, damit sie schnell beim Feuer ist.", "it": "Sul tiglio, così arriva subito al fuoco.",
+              "why": { "en": "Lipa is the linden tree. A pump goes to the fire on a cart: na vozu.", "de": "Lipa ist die Linde. Eine Spritze fährt auf einem Wagen zum Feuer: na vozu.", "it": "Lipa è il tiglio. Una pompa va al fuoco su un carro: na vozu." },
+              "reply": { "sl": "Na lipi? In kdo jo bo spravil gor, ti?", "en": "In the linden? And who's going to get it up there, you?", "de": "Auf der Linde? Und wer bringt sie da rauf, du?", "it": "Sul tiglio? E chi ce la porta lassù, tu?" } }
+          ] },
+          { "who": "marko", "sl": "In konj dobi oves. Zaslužil si ga je!", "en": "And the horse gets oats. It's earned them!", "de": "Und das Pferd bekommt Hafer. Den hat es sich verdient!", "it": "E il cavallo si prende la biada. Se l'è meritata!" }
+        ] }
+      }
+    },
+    {
+      "scene": "ob-potoku",
+      "words": ["cev", "moker"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Prva vaja! Brizgalna stoji ob potoku.", "en": "The first drill! The pump stands by the stream.", "de": "Die erste Übung! Die Spritze steht am Bach.", "it": "La prima esercitazione! La pompa è vicino al ruscello." },
+          { "who": "tone", "sl": "Brizgalna je pripravljena. Vodo vzamemo iz potoka.", "en": "The pump is ready. We take the water from the stream.", "de": "Die Spritze ist bereit. Das Wasser nehmen wir aus dem Bach.", "it": "La pompa è pronta. L'acqua la prendiamo dal ruscello." },
+          { "who": "luka", "sl": "{learner}, kaj damo v vodo?", "en": "{learner}, what do we put in the water?", "de": "{learner}, was stecken wir ins Wasser?", "it": "{learner}, che cosa mettiamo nell'acqua?" },
+          { "choices": [
+            { "sl": "Cev, seveda!", "en": "The hose, of course!", "de": "Den Schlauch, natürlich!", "it": "Il tubo, naturalmente!", "ok": true,
+              "reply": { "sl": "Tako je. Cev v vodo … in zdaj črpamo!", "en": "That's right. The hose into the water … and now we pump!", "de": "Genau. Den Schlauch ins Wasser … und jetzt pumpen wir!", "it": "Esatto. Il tubo in acqua … e ora pompiamo!" } },
+            { "sl": "Čevelj, seveda!", "en": "A shoe, of course!", "de": "Einen Schuh, natürlich!", "it": "Una scarpa, naturalmente!",
+              "why": { "en": "Čevelj is a shoe! The pump drinks through the hose: cev.", "de": "Čevelj ist ein Schuh! Die Spritze trinkt durch den Schlauch: cev.", "it": "Čevelj è una scarpa! La pompa beve attraverso il tubo: cev." },
+              "reply": { "sl": "Čevelj? Ha ha, potem pa greš bos domov!", "en": "A shoe? Ha ha, then you'll walk home barefoot!", "de": "Einen Schuh? Ha ha, dann gehst du barfuß heim!", "it": "Una scarpa? Ah ah, allora torni a casa {m:scalzo|f:scalza}!" } },
+            { "sl": "Kruh, seveda!", "en": "Bread, of course!", "de": "Brot, natürlich!", "it": "Il pane, naturalmente!",
+              "why": { "en": "Kruh is bread: the fish would be happy. Into the water goes the hose: cev.", "de": "Kruh ist Brot: da freuen sich die Fische. Ins Wasser kommt der Schlauch: cev.", "it": "Kruh è il pane: i pesci sarebbero contenti. In acqua va il tubo: cev." },
+              "reply": { "sl": "Kruh? Ribe bodo vesele, ha ha!", "en": "Bread? The fish will be pleased, ha ha!", "de": "Brot? Da freuen sich die Fische, ha ha!", "it": "Pane? I pesci saranno contenti, ah ah!" } }
+          ] },
+          { "who": "marko", "sl": "Joj, cev se zvija kot kača! Kakšni smo vsi?", "en": "Oh no, the hose is wriggling like a snake! What do we all look like?", "de": "Oje, der Schlauch windet sich wie eine Schlange! Wie sehen wir alle aus?", "it": "Accidenti, il tubo si contorce come un serpente! Come siamo ridotti?" },
+          { "choices": [
+            { "sl": "Vsi smo mokri!", "en": "We're all wet!", "de": "Wir sind alle nass!", "it": "Siamo tutti bagnati!", "ok": true,
+              "reply": { "sl": "Do kože! Ampak brizgalna dela!", "en": "Soaked to the skin! But the pump works!", "de": "Bis auf die Haut! Aber die Spritze funktioniert!", "it": "Bagnati fradici! Ma la pompa funziona!" } },
+            { "sl": "Vsi smo suhi!", "en": "We're all dry!", "de": "Wir sind alle trocken!", "it": "Siamo tutti asciutti!",
+              "why": { "en": "Suh is dry. After that shower you're all wet: mokri.", "de": "Suh heißt trocken. Nach dieser Dusche seid ihr alle nass: mokri.", "it": "Suh vuol dire asciutto. Dopo quella doccia siete tutti bagnati: mokri." },
+              "reply": { "sl": "Suhi? Poglej si hlače, ha ha!", "en": "Dry? Look at your trousers, ha ha!", "de": "Trocken? Schau dir deine Hose an, ha ha!", "it": "Asciutti? Guardati i pantaloni, ah ah!" } },
+            { "sl": "Vsi smo lačni!", "en": "We're all hungry!", "de": "Wir haben alle Hunger!", "it": "Abbiamo tutti fame!",
+              "why": { "en": "Lačen is hungry. After that shower you're all wet: mokri.", "de": "Lačen heißt hungrig. Nach dieser Dusche seid ihr alle nass: mokri.", "it": "Lačen vuol dire affamato. Dopo quella doccia siete tutti bagnati: mokri." },
+              "reply": { "sl": "Lačni? Najprej se posušimo, potem jemo!", "en": "Hungry? First we dry off, then we eat!", "de": "Hungrig? Erst trocknen wir uns, dann essen wir!", "it": "Affamati? Prima ci asciughiamo, poi mangiamo!" } }
+          ] },
+          { "who": "luka", "sl": "Bravo, gasilci! Naslednjič ciljamo ogenj, ne nas.", "en": "Well done, firefighters! Next time we aim at the fire, not at us.", "de": "Bravo, Feuerwehr! Nächstes Mal zielen wir aufs Feuer, nicht auf uns.", "it": "Bravi, pompieri! La prossima volta miriamo al fuoco, non a noi." }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Danes imamo prvo vajo. Če bo kdaj gorelo, moramo biti hitri.", "en": "Today we have our first drill. If there's ever a fire, we have to be quick.", "de": "Heute haben wir unsere erste Übung. Wenn es einmal brennt, müssen wir schnell sein.", "it": "Oggi facciamo la prima esercitazione. Se un giorno scoppia un incendio, dobbiamo essere veloci." },
+          { "who": "tone", "sl": "Brizgalna stoji ob potoku. Vode je tukaj dovolj.", "en": "The pump stands by the stream. There's plenty of water here.", "de": "Die Spritze steht am Bach. Hier gibt es genug Wasser.", "it": "La pompa è vicino al ruscello. Qui l'acqua non manca." },
+          { "who": "luka", "sl": "{learner}, kako spravimo vodo iz potoka v brizgalno?", "en": "{learner}, how do we get the water from the stream into the pump?", "de": "{learner}, wie bekommen wir das Wasser aus dem Bach in die Spritze?", "it": "{learner}, come portiamo l'acqua dal ruscello nella pompa?" },
+          { "choices": [
+            { "sl": "S cevjo, seveda.", "en": "With the hose, of course.", "de": "Mit dem Schlauch, natürlich.", "it": "Con il tubo, naturalmente.", "ok": true,
+              "reply": { "sl": "Tako je. Cev v vodo, in zdaj črpajte!", "en": "That's right. The hose into the water, and now pump!", "de": "Genau. Den Schlauch ins Wasser, und jetzt pumpt!", "it": "Esatto. Il tubo in acqua, e ora pompate!" } },
+            { "sl": "S cev, seveda.", "en": "With the hose, of course.", "de": "Mit dem Schlauch, natürlich.", "it": "Con il tubo, naturalmente.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental: a feminine noun without -a gets -jo: s cevjo.", "de": "S (mit) verlangt den Instrumental: ein weibliches Nomen ohne -a bekommt -jo: s cevjo.", "it": "S (con) vuole lo strumentale: un nome femminile senza -a prende -jo: s cevjo." },
+              "reply": { "sl": "S … cev? Hm, povej še enkrat.", "en": "With … hose? Hm, say it again.", "de": "Mit … Schlauch? Hm, sag's noch einmal.", "it": "Con … tubo? Mm, ripetilo." } },
+            { "sl": "S čevljem, seveda.", "en": "With a shoe, of course.", "de": "Mit einem Schuh, natürlich.", "it": "Con una scarpa, naturalmente.",
+              "why": { "en": "Čevelj is a shoe! Water gets to the pump through the hose: cev.", "de": "Čevelj ist ein Schuh! Das Wasser kommt durch den Schlauch in die Spritze: cev.", "it": "Čevelj è una scarpa! L'acqua arriva alla pompa attraverso il tubo: cev." },
+              "reply": { "sl": "S čevljem? Ha ha, to bo trajalo do jutri!", "en": "With a shoe? Ha ha, that'll take till tomorrow!", "de": "Mit einem Schuh? Ha ha, das dauert bis morgen!", "it": "Con una scarpa? Ah ah, ci vorrà fino a domani!" } }
+          ] },
+          { "who": "marko", "sl": "Joj, cev je ušla iz rok! Vsi smo pod prho!", "en": "Oh no, the hose got loose! We're all under a shower!", "de": "Oje, der Schlauch ist entwischt! Wir stehen alle unter der Dusche!", "it": "Accidenti, il tubo è scappato di mano! Siamo tutti sotto la doccia!" },
+          { "choices": [
+            { "sl": "Moje hlače so čisto mokre!", "en": "My trousers are soaking wet!", "de": "Meine Hose ist klatschnass!", "it": "I miei pantaloni sono fradici!", "ok": true,
+              "reply": { "sl": "Moje tudi! Ampak brizgalna brizga kot nora!", "en": "Mine too! But the pump squirts like crazy!", "de": "Meine auch! Aber die Spritze spritzt wie verrückt!", "it": "Anche i miei! Ma la pompa spruzza come una matta!" } },
+            { "sl": "Moje hlače so čisto moker!", "en": "My trousers are soaking wet!", "de": "Meine Hose ist klatschnass!", "it": "I miei pantaloni sono fradici!", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Hlače (trousers) is feminine plural, so its adjective ends in -e: mokre.", "de": "Hlače (Hose) ist weiblich Plural, also endet das Adjektiv auf -e: mokre.", "it": "Hlače (pantaloni) è femminile plurale, quindi l'aggettivo finisce in -e: mokre." },
+              "reply": { "sl": "Moker? Kdo je moker, jaz?", "en": "Moker? Who's wet, me?", "de": "Moker? Wer ist nass, ich?", "it": "Moker? Chi è bagnato, io?" } },
+            { "sl": "Moje hlače so čisto suhe!", "en": "My trousers are completely dry!", "de": "Meine Hose ist ganz trocken!", "it": "I miei pantaloni sono asciuttissimi!",
+              "why": { "en": "Suh is dry. The water hit everyone: your trousers are wet: mokre.", "de": "Suh heißt trocken. Das Wasser hat alle getroffen: deine Hose ist nass: mokre.", "it": "Suh vuol dire asciutto. L'acqua ha preso tutti: i tuoi pantaloni sono bagnati: mokre." },
+              "reply": { "sl": "Suhe? Čudež! Poglej še enkrat, ha ha!", "en": "Dry? A miracle! Look again, ha ha!", "de": "Trocken? Ein Wunder! Schau noch mal hin, ha ha!", "it": "Asciutti? Un miracolo! Guarda meglio, ah ah!" } }
+          ] },
+          { "who": "luka", "sl": "Dobra vaja! Naslednjič cev držimo trdno, ne?", "en": "A good drill! Next time we hold the hose tight, right?", "de": "Gute Übung! Nächstes Mal halten wir den Schlauch fest, ja?", "it": "Bella esercitazione! La prossima volta il tubo lo teniamo stretto, eh?" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["godba", "plesati", "veselica"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "luka", "sl": "Gasilski dom je gotov. Danes praznujemo!", "en": "The fire station is finished. Today we celebrate!", "de": "Das Feuerwehrhaus ist fertig. Heute feiern wir!", "it": "La caserma è finita. Oggi si fa festa!" },
+          { "who": "marko", "sl": "Ciao! Klobase so na žaru, vino je hladno.", "en": "Ciao! The sausages are on the grill, the wine is cool.", "de": "Ciao! Die Würste sind auf dem Grill, der Wein ist kühl.", "it": "Ciao! Le salsicce sono sulla griglia, il vino è fresco." },
+          { "who": "tone", "sl": "Slišite? Pod lipo nekaj igra.", "en": "Hear that? Something's playing under the linden.", "de": "Hört ihr? Unter der Linde spielt etwas.", "it": "Sentite? Sotto il tiglio suona qualcosa." },
+          { "choices": [
+            { "sl": "Tam igra godba!", "en": "The band's playing there!", "de": "Da spielt die Blaskapelle!", "it": "Lì suona la banda!", "ok": true,
+              "reply": { "sl": "Ja. Glasni so, ampak lepo igrajo.", "en": "Yes. They're loud, but they play nicely.", "de": "Ja. Laut sind sie, aber sie spielen schön.", "it": "Sì. Fanno rumore, ma suonano bene." } },
+            { "sl": "Tam igra radio!", "en": "A radio's playing there!", "de": "Da spielt ein Radio!", "it": "Lì suona una radio!",
+              "why": { "en": "Radio is a radio. Under the linden real musicians are playing: godba, the band.", "de": "Radio ist ein Radio. Unter der Linde spielen echte Musikanten: godba, die Blaskapelle.", "it": "Radio è una radio. Sotto il tiglio suonano musicisti veri: godba, la banda." },
+              "reply": { "sl": "Radio? Ne, poglej trobente in boben!", "en": "A radio? No, look at the trumpets and the drum!", "de": "Ein Radio? Nein, schau dir die Trompeten und die Trommel an!", "it": "Una radio? No, guarda le trombe e il tamburo!" } },
+            { "sl": "Tam igra koza!", "en": "A goat's playing there!", "de": "Da spielt eine Ziege!", "it": "Lì suona una capra!",
+              "why": { "en": "Koza is a goat, and goats don't make music. It's the band: godba.", "de": "Koza ist eine Ziege, und Ziegen machen keine Musik. Das ist die Blaskapelle: godba.", "it": "Koza è la capra, e le capre non suonano. È la banda: godba." },
+              "reply": { "sl": "Koza? Koze znajo samo jesti!", "en": "A goat? Goats can only eat!", "de": "Eine Ziege? Ziegen können nur fressen!", "it": "Una capra? Le capre sanno solo mangiare!" } }
+          ] },
+          { "who": "luka", "sl": "{learner}, kaj delamo nocoj?", "en": "{learner}, what are we doing tonight?", "de": "{learner}, was machen wir heute Abend?", "it": "{learner}, che cosa facciamo stasera?" },
+          { "choices": [
+            { "sl": "Nocoj plešemo na veselici!", "en": "Tonight we dance at the fête!", "de": "Heute Abend tanzen wir auf dem Fest!", "it": "Stasera balliamo alla festa!", "ok": true,
+              "reply": { "sl": "Tako je! Pridi, plešiva polko!", "en": "That's right! Come on, let's dance a polka!", "de": "Genau! Komm, tanzen wir eine Polka!", "it": "Esatto! Vieni, balliamo una polka!" } },
+            { "sl": "Nocoj spimo na veselici!", "en": "Tonight we sleep at the fête!", "de": "Heute Abend schlafen wir auf dem Fest!", "it": "Stasera dormiamo alla festa!",
+              "why": { "en": "Spati is to sleep. With a band playing, you dance: plesati, plešemo.", "de": "Spati heißt schlafen. Wenn eine Blaskapelle spielt, tanzt man: plesati, plešemo.", "it": "Spati vuol dire dormire. Quando suona la banda, si balla: plesati, plešemo." },
+              "reply": { "sl": "Spimo? Ob taki glasbi? Nikoli!", "en": "Sleep? With music like this? Never!", "de": "Schlafen? Bei so einer Musik? Niemals!", "it": "Dormire? Con una musica così? Mai!" } },
+            { "sl": "Nocoj plešemo na vaji!", "en": "Tonight we dance at the drill!", "de": "Heute Abend tanzen wir bei der Übung!", "it": "Stasera balliamo all'esercitazione!",
+              "why": { "en": "Vaja is a drill: work with the hose. Tonight is the fête: veselica.", "de": "Vaja ist eine Übung: Arbeit mit dem Schlauch. Heute Abend ist das Fest: veselica.", "it": "Vaja è l'esercitazione: lavoro col tubo. Stasera c'è la festa: veselica." },
+              "reply": { "sl": "Na vaji? Ha ha, na vaji smo bili samo mokri!", "en": "At the drill? Ha ha, at the drill we just got wet!", "de": "Bei der Übung? Ha ha, bei der Übung sind wir nur nass geworden!", "it": "All'esercitazione? Ah ah, all'esercitazione ci siamo solo bagnati!" } }
+          ] },
+          { "who": "marko", "sl": "Ena, dve, tri … Vsa vas pleše!", "en": "One, two, three … The whole village is dancing!", "de": "Eins, zwei, drei … Das ganze Dorf tanzt!", "it": "Uno, due, tre … Tutto il paese balla!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "luka", "sl": "Dom stoji, brizgalna je v njem. Nocoj to praznujemo!", "en": "The station stands, the pump is inside. Tonight we celebrate!", "de": "Das Haus steht, die Spritze ist drin. Heute Abend feiern wir!", "it": "La caserma è in piedi, la pompa è dentro. Stasera si festeggia!" },
+          { "who": "marko", "sl": "Ciao! Vino iz Brd je že tukaj. Najboljše!", "en": "Ciao! The wine from Brda is already here. The best!", "de": "Ciao! Der Wein aus Brda ist schon da. Der beste!", "it": "Ciao! Il vino del Collio è già qui. Il migliore!" },
+          { "who": "luka", "sl": "{learner}, povej vsem, kaj bo nocoj!", "en": "{learner}, tell everyone what's on tonight!", "de": "{learner}, sag allen, was heute Abend los ist!", "it": "{learner}, di' a tutti che cosa c'è stasera!" },
+          { "choices": [
+            { "sl": "Nocoj bo veselica z godbo!", "en": "Tonight there'll be a fête with a band!", "de": "Heute Abend gibt es ein Fest mit Blaskapelle!", "it": "Stasera c'è la festa con la banda!", "ok": true,
+              "reply": { "sl": "Tako je! Godba že nosi trobente pod lipo.", "en": "That's right! The band is already carrying its trumpets under the linden.", "de": "Genau! Die Blaskapelle trägt schon die Trompeten unter die Linde.", "it": "Esatto! La banda sta già portando le trombe sotto il tiglio." } },
+            { "sl": "Nocoj bo veselica z godba!", "en": "Tonight there'll be a fête with a band!", "de": "Heute Abend gibt es ein Fest mit Blaskapelle!", "it": "Stasera c'è la festa con la banda!", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: a feminine -a becomes -o: z godbo.", "de": "Z (mit) verlangt den Instrumental: ein weibliches -a wird zu -o: z godbo.", "it": "Z (con) vuole lo strumentale: una -a femminile diventa -o: z godbo." },
+              "reply": { "sl": "Z … godba? Hm, kako, prosim?", "en": "With … band? Hm, pardon?", "de": "Mit … Blaskapelle? Hm, wie bitte?", "it": "Con … banda? Mm, come, scusa?" } },
+            { "sl": "Nocoj bo vaja z godbo!", "en": "Tonight there'll be a drill with a band!", "de": "Heute Abend gibt es eine Übung mit Blaskapelle!", "it": "Stasera c'è un'esercitazione con la banda!",
+              "why": { "en": "Vaja is a drill: you've had that. Tonight there's music and dancing: veselica.", "de": "Vaja ist eine Übung: die hattet ihr schon. Heute Abend gibt es Musik und Tanz: veselica.", "it": "Vaja è l'esercitazione: quella l'avete già fatta. Stasera ci sono musica e balli: veselica." },
+              "reply": { "sl": "Vaja? Spet bomo vsi mokri? Ne, hvala!", "en": "A drill? We'll all get wet again? No, thanks!", "de": "Eine Übung? Werden wir wieder alle nass? Nein, danke!", "it": "Un'esercitazione? Di nuovo tutti bagnati? No, grazie!" } }
+          ] },
+          { "who": "tone", "sl": "Ples ni zame. Raje sedim pri vinu.", "en": "Dancing isn't for me. I'd rather sit by the wine.", "de": "Tanzen ist nichts für mich. Ich sitze lieber beim Wein.", "it": "Ballare non fa per me. Preferisco restare vicino al vino." },
+          { "choices": [
+            { "sl": "Nocoj gremo vsi plesat!", "en": "Tonight we're all going dancing!", "de": "Heute Abend gehen alle tanzen!", "it": "Stasera andiamo tutti a ballare!", "ok": true,
+              "reply": { "sl": "Vsi? No, prav. Ampak samo en ples!", "en": "Everyone? Oh, all right. But just one dance!", "de": "Alle? Na gut. Aber nur ein Tanz!", "it": "Tutti? E va bene. Ma solo un ballo!" } },
+            { "sl": "Nocoj gremo vsi plesati!", "en": "Tonight we're all going dancing!", "de": "Heute Abend gehen alle tanzen!", "it": "Stasera andiamo tutti a ballare!", "grammar": "namenilnik",
+              "why": { "en": "After a verb of going (iti), the purpose takes the supine, without the -i: plesat.", "de": "Nach einem Verb der Bewegung (iti) steht das Supinum, ohne -i: plesat.", "it": "Dopo un verbo di moto (iti) si usa il supino, senza la -i: plesat." },
+              "reply": { "sl": "Hm? Kako, prosim?", "en": "Hm? Come again?", "de": "Hm? Wie bitte?", "it": "Mm? Come, scusa?" } },
+            { "sl": "Nocoj gremo vsi spat!", "en": "Tonight we're all going to bed!", "de": "Heute Abend gehen alle schlafen!", "it": "Stasera andiamo tutti a dormire!",
+              "why": { "en": "Spat is to sleep. With the band playing, you go dancing: plesat.", "de": "Spat heißt schlafen. Wenn die Blaskapelle spielt, geht man tanzen: plesat.", "it": "Spat vuol dire dormire. Quando suona la banda, si va a ballare: plesat." },
+              "reply": { "sl": "Spat? To mi je pa všeč! Ampak godba ne pusti.", "en": "To bed? Now that I like! But the band won't let us.", "de": "Schlafen? Das gefällt mir! Aber die Blaskapelle lässt uns nicht.", "it": "A dormire? Questo sì che mi piace! Ma la banda non ce lo lascia fare." } }
+          ] },
+          { "who": "marko", "sl": "Bravo! Ena, dve, tri … Vsa vas pleše polko!", "en": "Bravo! One, two, three … The whole village is dancing the polka!", "de": "Bravo! Eins, zwei, drei … Das ganze Dorf tanzt Polka!", "it": "Bravo! Uno, due, tre … Tutto il paese balla la polka!" }
+        ] }
+      }
+    }
+  ]
+}

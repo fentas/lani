@@ -50,7 +50,7 @@ class MentionsContentTest {
         "villagers" to Policy.HELD, "arrivals.json" to Policy.HELD, "festivals.json" to Policy.RULED, "projects.json" to Policy.RULED,
         "events.json" to Policy.RULED, "people.json" to Policy.NOBODY, "chronicle.json" to Policy.NOBODY, "chest.json" to Policy.NOTES,
         "culture.json" to Policy.NOTES, "world.json" to Policy.NOTES, "packs" to Policy.NOTES, "voice-cast.json" to Policy.NOTES,
-        "sky.json" to Policy.NOTES, "stories" to Policy.LEGENDS,
+        "sky.json" to Policy.NOTES, "stories" to Policy.LEGENDS, "project-steps" to Policy.RULED,
     )
 
     private fun castOf(id: String): List<Villager> =
@@ -160,6 +160,15 @@ class MentionsContentTest {
                 val leader = str(p, "leader")
                 if ((named - setOfNotNull(leader)).isNotEmpty()) report.appendLine("  project ${str(p, "id")} (${leader}): ${shown(named)}")
                 only("the project ${str(p, "id")}", named, setOfNotNull(leader))
+            }
+
+            // the projects' steps as short scenes: they wait for their leader only (a helper who is away has their lines said
+            // by someone else), so they name only the leader (SCENES.md, "Project steps")
+            for (f in dir.resolve("project-steps").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
+                val project = projects.firstOrNull { str(it, "id") == f.nameWithoutExtension }
+                val named = names.inTexts(read(f), lang)
+                if (named.isNotEmpty()) report.appendLine("  project ${f.nameWithoutExtension}'s steps: ${shown(named)}")
+                only("the steps of the project ${f.nameWithoutExtension}", named, setOfNotNull(str(project, "leader")))
             }
 
             // events: the defender stands with the learner; they name only them

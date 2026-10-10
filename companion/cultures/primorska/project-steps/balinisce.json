@@ -1,0 +1,304 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "balinisce",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-balinisce",
+  "steps": [
+    {
+      "scene": "na-vasi",
+      "words": ["lipa", "raven"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "janez", "sl": "Balinanje je najlepša igra. Ampak kje bomo igrali?", "en": "Bocce is the finest game. But where shall we play?", "de": "Boccia ist das schönste Spiel. Aber wo sollen wir spielen?", "it": "Le bocce sono il gioco più bello. Ma dove giocheremo?" },
+          { "who": "marko", "sl": "Igrišče mora biti v senci. Poleti je vroče!", "en": "The court has to be in the shade. It's hot in summer!", "de": "Die Bahn muss im Schatten sein. Im Sommer ist es heiß!", "it": "Il campo deve stare all'ombra. D'estate fa caldo!" },
+          { "who": "janez", "sl": "{learner}, kje je največ sence? Pokaži!", "en": "{learner}, where is the most shade? Show us!", "de": "{learner}, wo ist am meisten Schatten? Zeig es uns!", "it": "{learner}, dov'è che c'è più ombra? Facci vedere!" },
+          { "choices": [
+            { "sl": "Pod lipo je senca!", "en": "There's shade under the linden!", "de": "Unter der Linde ist Schatten!", "it": "Sotto il tiglio c'è ombra!", "ok": true, "tap": "linden",
+              "reply": { "sl": "Prav. Lipa je stara, kot jaz. Dobra družba.", "en": "Right. The linden is old, like me. Good company.", "de": "Richtig. Die Linde ist alt, wie ich. Gute Gesellschaft.", "it": "Giusto. Il tiglio è vecchio, come me. Buona compagnia." } },
+            { "sl": "Pod klopjo je senca!", "en": "There's shade under the bench!", "de": "Unter der Bank ist Schatten!", "it": "Sotto la panchina c'è ombra!", "tap": "bench",
+              "why": { "en": "Under the bench there's only room for a cat. The big shade is under the linden: lipa.", "de": "Unter der Bank ist nur Platz für eine Katze. Den großen Schatten gibt die Linde: lipa.", "it": "Sotto la panchina c'è posto solo per un gatto. La grande ombra è sotto il tiglio: lipa." },
+              "reply": { "sl": "Pod klopjo? Tam je senca samo za mačko.", "en": "Under the bench? That's shade for a cat.", "de": "Unter der Bank? Das ist Schatten für eine Katze.", "it": "Sotto la panchina? Quella è ombra per un gatto." } },
+            { "sl": "Pri hiši je senca!", "en": "There's shade by the house!", "de": "Am Haus ist Schatten!", "it": "Vicino alla casa c'è ombra!", "tap": "house",
+              "why": { "en": "By the house the balls would fly into the windows. The best shade is under the linden: pod lipo.", "de": "Am Haus würden die Kugeln in die Fenster fliegen. Der beste Schatten ist unter der Linde: pod lipo.", "it": "Vicino alla casa le bocce finirebbero nelle finestre. L'ombra migliore è sotto il tiglio: pod lipo." },
+              "reply": { "sl": "Pri hiši? Potem bodo krogle letele v okna!", "en": "By the house? Then the balls will fly into the windows!", "de": "Am Haus? Dann fliegen die Kugeln in die Fenster!", "it": "Vicino alla casa? Allora le bocce voleranno nelle finestre!" } }
+          ] },
+          { "who": "janez", "sl": "Zdaj pa poglej tla. Kakšna morajo biti za balinanje?", "en": "Now look at the ground. What must it be like for bocce?", "de": "Jetzt schau dir den Boden an. Wie muss er fürs Boccia sein?", "it": "Ora guarda il terreno. Come deve essere per le bocce?" },
+          { "choices": [
+            { "sl": "Tla morajo biti ravna.", "en": "The ground has to be flat.", "de": "Der Boden muss eben sein.", "it": "Il terreno deve essere piano.", "ok": true,
+              "reply": { "sl": "Tako je. Krogla mora teči naravnost.", "en": "That's right. The ball has to run straight.", "de": "Genau. Die Kugel muss geradeaus laufen.", "it": "Esatto. La boccia deve correre dritta." } },
+            { "sl": "Tla morajo biti strma.", "en": "The ground has to be steep.", "de": "Der Boden muss steil sein.", "it": "Il terreno deve essere ripido.",
+              "why": { "en": "Strm means steep: the balls would roll away. Flat: ravna.", "de": "Strm heißt steil: Die Kugeln würden davonrollen. Eben: ravna.", "it": "Strm vuol dire ripido: le bocce rotolerebbero via. Piano: ravna." },
+              "reply": { "sl": "Strma? Potem bomo krogle lovili do potoka!", "en": "Steep? Then we'll be chasing the balls down to the stream!", "de": "Steil? Dann jagen wir den Kugeln bis zum Bach hinterher!", "it": "Ripido? Allora rincorreremo le bocce fino al ruscello!" } },
+            { "sl": "Tla morajo biti mokra.", "en": "The ground has to be wet.", "de": "Der Boden muss nass sein.", "it": "Il terreno deve essere bagnato.",
+              "why": { "en": "Moker means wet: the balls would stick in the mud. Flat: ravna.", "de": "Moker heißt nass: Die Kugeln blieben im Schlamm stecken. Eben: ravna.", "it": "Moker vuol dire bagnato: le bocce resterebbero nel fango. Piano: ravna." },
+              "reply": { "sl": "Mokra? Saj nismo žabe.", "en": "Wet? We're not frogs.", "de": "Nass? Wir sind doch keine Frösche.", "it": "Bagnato? Mica siamo rane." } }
+          ] },
+          { "who": "anton", "sl": "Tukaj pod lipo je skoraj ravno. Dober prostor!", "en": "Here under the linden it's almost flat. A good spot!", "de": "Hier unter der Linde ist es fast eben. Ein guter Platz!", "it": "Qui sotto il tiglio è quasi piano. Un buon posto!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "janez", "sl": "Za balinanje potrebujemo dolg prostor. Pa senco, ker nisem več mlad.", "en": "For bocce we need a long space. And shade, because I'm not young any more.", "de": "Fürs Boccia brauchen wir einen langen Platz. Und Schatten, weil ich nicht mehr jung bin.", "it": "Per le bocce ci serve uno spazio lungo. E l'ombra, perché non sono più giovane." },
+          { "who": "marko", "sl": "Poleti je tukaj zelo vroče. Brez sence ne gre!", "en": "In summer it's very hot here. It won't work without shade!", "de": "Im Sommer ist es hier sehr heiß. Ohne Schatten geht es nicht!", "it": "D'estate qui fa molto caldo. Senza ombra non si può!" },
+          { "who": "janez", "sl": "{learner}, kje je največ sence?", "en": "{learner}, where is the most shade?", "de": "{learner}, wo ist am meisten Schatten?", "it": "{learner}, dov'è che c'è più ombra?" },
+          { "choices": [
+            { "sl": "Pod lipo je največ sence!", "en": "There's the most shade under the linden!", "de": "Unter der Linde ist am meisten Schatten!", "it": "Sotto il tiglio c'è più ombra!", "ok": true, "tap": "linden",
+              "reply": { "sl": "Prav. Pod lipo so balinali že naši dedje.", "en": "Right. Our grandfathers already played bocce under the linden.", "de": "Richtig. Unter der Linde haben schon unsere Großväter Boccia gespielt.", "it": "Giusto. Sotto il tiglio giocavano a bocce già i nostri nonni." } },
+            { "sl": "Pod klopjo je največ sence!", "en": "There's the most shade under the bench!", "de": "Unter der Bank ist am meisten Schatten!", "it": "Sotto la panchina c'è più ombra!", "tap": "bench",
+              "why": { "en": "Under the bench there's only room for a cat. The big shade is under the linden: lipa.", "de": "Unter der Bank ist nur Platz für eine Katze. Den großen Schatten gibt die Linde: lipa.", "it": "Sotto la panchina c'è posto solo per un gatto. La grande ombra è sotto il tiglio: lipa." },
+              "reply": { "sl": "Pod klopjo? Tam bi balinala samo mačka.", "en": "Under the bench? Only a cat could play bocce there.", "de": "Unter der Bank? Da könnte höchstens eine Katze Boccia spielen.", "it": "Sotto la panchina? Lì giocherebbe a bocce solo un gatto." } },
+            { "sl": "Pri hiši je največ sence!", "en": "There's the most shade by the house!", "de": "Am Haus ist am meisten Schatten!", "it": "Vicino alla casa c'è più ombra!", "tap": "house",
+              "why": { "en": "By the house the balls would fly into the windows. The best shade is under the linden: pod lipo.", "de": "Am Haus würden die Kugeln in die Fenster fliegen. Der beste Schatten ist unter der Linde: pod lipo.", "it": "Vicino alla casa le bocce finirebbero nelle finestre. L'ombra migliore è sotto il tiglio: pod lipo." },
+              "reply": { "sl": "Pri hiši? Potem bodo krogle letele sosedom v okna!", "en": "By the house? Then the balls will fly into the neighbours' windows!", "de": "Am Haus? Dann fliegen die Kugeln den Nachbarn in die Fenster!", "it": "Vicino alla casa? Allora le bocce voleranno nelle finestre dei vicini!" } }
+          ] },
+          { "who": "janez", "sl": "Pod lipo, prav. Pri hiši so tla grbasta. Kaj pa tukaj?", "en": "Under the linden, right. By the house the ground is bumpy. And here?", "de": "Unter der Linde, gut. Am Haus ist der Boden holprig. Und hier?", "it": "Sotto il tiglio, va bene. Vicino alla casa il terreno è pieno di gobbe. E qui?" },
+          { "choices": [
+            { "sl": "Tukaj je prostor ravnejši kot pri hiši.", "en": "Here the ground is flatter than by the house.", "de": "Hier ist der Platz ebener als am Haus.", "it": "Qui il posto è più piano che vicino alla casa.", "ok": true,
+              "reply": { "sl": "Tako je. Še malo ga poravnamo, pa bo kot miza.", "en": "That's right. We'll level it a bit more and it'll be like a table.", "de": "Genau. Noch ein bisschen ebnen, dann ist er wie ein Tisch.", "it": "Esatto. Lo livelliamo ancora un po' e sarà come un tavolo." } },
+            { "sl": "Tukaj je prostor raven kot pri hiši.", "en": "Here the ground is as flat as by the house.", "de": "Hier ist der Platz so eben wie am Haus.", "it": "Qui il posto è piano come vicino alla casa.", "grammar": "primernik",
+              "why": { "en": "Comparing two places with kot, use the comparative: ravnejši kot pri hiši (flatter than).", "de": "Beim Vergleich zweier Plätze mit kot braucht man den Komparativ: ravnejši kot pri hiši (ebener als).", "it": "Per confrontare due posti con kot serve il comparativo: ravnejši kot pri hiši (più piano di)." },
+              "reply": { "sl": "Raven kot pri hiši? Ampak tam so tla grbasta!", "en": "As flat as by the house? But the ground's bumpy there!", "de": "So eben wie am Haus? Aber dort ist der Boden doch holprig!", "it": "Piano come vicino alla casa? Ma lì il terreno è pieno di gobbe!" } },
+            { "sl": "Tukaj je prostor strmejši kot pri hiši.", "en": "Here the ground is steeper than by the house.", "de": "Hier ist der Platz steiler als am Haus.", "it": "Qui il posto è più ripido che vicino alla casa.",
+              "why": { "en": "Strmejši means steeper: the balls would roll away. Flatter: ravnejši.", "de": "Strmejši heißt steiler: Die Kugeln würden davonrollen. Ebener: ravnejši.", "it": "Strmejši vuol dire più ripido: le bocce rotolerebbero via. Più piano: ravnejši." },
+              "reply": { "sl": "Strmejši? Potem bodo krogle same tekle do potoka!", "en": "Steeper? Then the balls will run down to the stream all by themselves!", "de": "Steiler? Dann rollen die Kugeln von allein bis zum Bach!", "it": "Più ripido? Allora le bocce correranno da sole fino al ruscello!" } }
+          ] },
+          { "who": "anton", "sl": "Res je. Malo poravnamo, pa bo.", "en": "True. We level it a little, and that'll do.", "de": "Stimmt. Ein bisschen ebnen, dann passt es.", "it": "È vero. Lo livelliamo un po', e andrà bene." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["zemlja", "grablje"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "janez", "sl": "Danes je delo za mlade roke. Jaz bom gledal s klopi.", "en": "Today's work is for young hands. I'll watch from the bench.", "de": "Heute ist Arbeit für junge Hände. Ich schaue von der Bank aus zu.", "it": "Oggi è un lavoro per mani giovani. Io guardo dalla panchina." },
+          { "who": "france", "sl": "Kaj pa moramo narediti?", "en": "So what do we have to do?", "de": "Was müssen wir denn tun?", "it": "E che cosa dobbiamo fare?" },
+          { "choices": [
+            { "sl": "Poravnati moramo zemljo.", "en": "We have to level the ground.", "de": "Wir müssen den Boden ebnen.", "it": "Dobbiamo livellare il terreno.", "ok": true,
+              "reply": { "sl": "Prav. Grbine morajo stran.", "en": "Right. The bumps have to go.", "de": "Gut. Die Buckel müssen weg.", "it": "Bene. Le gobbe devono sparire." } },
+            { "sl": "Poravnati moramo lipo.", "en": "We have to level the linden.", "de": "Wir müssen die Linde ebnen.", "it": "Dobbiamo livellare il tiglio.",
+              "why": { "en": "Lipa is the linden tree: it stays as it is. You level the ground: zemljo.", "de": "Lipa ist die Linde: Sie bleibt, wie sie ist. Geebnet wird der Boden: zemljo.", "it": "Lipa è il tiglio: resta com'è. Si livella il terreno: zemljo." },
+              "reply": { "sl": "Lipo? Ha ha, lipa je ravna že sto let!", "en": "The linden? Ha ha, the linden's been straight for a hundred years!", "de": "Die Linde? Ha ha, die Linde ist seit hundert Jahren gerade!", "it": "Il tiglio? Ah ah, il tiglio è dritto da cent'anni!" } },
+            { "sl": "Poravnati moramo klop.", "en": "We have to level the bench.", "de": "Wir müssen die Bank ebnen.", "it": "Dobbiamo livellare la panchina.",
+              "why": { "en": "Klop is the bench, and Janez is sitting on it. You level the ground: zemljo.", "de": "Klop ist die Bank, und Janez sitzt darauf. Geebnet wird der Boden: zemljo.", "it": "Klop è la panchina, e ci sta seduto Janez. Si livella il terreno: zemljo." },
+              "reply": { "sl": "Klop? Na klopi sedi Janez, njega pustimo pri miru!", "en": "The bench? Janez is sitting on it, let's leave him in peace!", "de": "Die Bank? Da sitzt Janez drauf, den lassen wir in Ruhe!", "it": "La panchina? Ci sta seduto Janez, lasciamolo in pace!" } }
+          ] },
+          { "who": "janez", "sl": "Brez orodja ne bo šlo. {learner}, kaj potrebujete?", "en": "It won't work without tools. {learner}, what do you all need?", "de": "Ohne Werkzeug geht es nicht. {learner}, was braucht ihr?", "it": "Senza attrezzi non si fa niente. {learner}, che cosa vi serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo grablje.", "en": "We need a rake.", "de": "Wir brauchen einen Rechen.", "it": "Ci serve un rastrello.", "ok": true,
+              "reply": { "sl": "Dobro. Jaz bom pa štel grbine.", "en": "Good. And I'll count the bumps.", "de": "Gut. Und ich zähle die Buckel.", "it": "Bene. E io conterò le gobbe." } },
+            { "sl": "Potrebujemo vilice.", "en": "We need a fork.", "de": "Wir brauchen eine Gabel.", "it": "Ci serve una forchetta.",
+              "why": { "en": "Vilice is a fork for eating. To level the ground you need a rake: grablje.", "de": "Vilice ist eine Gabel zum Essen. Zum Ebnen braucht man einen Rechen: grablje.", "it": "Vilice è una forchetta per mangiare. Per livellare il terreno ci vuole un rastrello: grablje." },
+              "reply": { "sl": "Vilice? Zemljo boste pa jedli, a?", "en": "A fork? Going to eat the ground, are you?", "de": "Eine Gabel? Wollt ihr den Boden etwa essen?", "it": "Una forchetta? Volete mangiarvi la terra, eh?" } },
+            { "sl": "Potrebujemo metlo.", "en": "We need a broom.", "de": "Wir brauchen einen Besen.", "it": "Ci serve una scopa.",
+              "why": { "en": "Metla is a broom: it sweeps, it doesn't level. A rake: grablje.", "de": "Metla ist ein Besen: Er fegt, er ebnet nicht. Ein Rechen: grablje.", "it": "Metla è una scopa: spazza, non livella. Un rastrello: grablje." },
+              "reply": { "sl": "Metlo? Z metlo boste samo prah dvigovali.", "en": "A broom? With a broom you'll only stir up dust.", "de": "Einen Besen? Mit dem Besen wirbelt ihr nur Staub auf.", "it": "Una scopa? Con la scopa alzerete solo polvere." } }
+          ] },
+          { "who": "anton", "sl": "Grabimo, grabimo … zdaj je ravno kot miza!", "en": "Raking, raking … now it's flat as a table!", "de": "Rechen, rechen … jetzt ist es eben wie ein Tisch!", "it": "Rastrelliamo, rastrelliamo … ora è piano come un tavolo!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "janez", "sl": "Danes je delo za mlade roke. Jaz bom svetoval s klopi.", "en": "Today's work is for young hands. I'll give advice from the bench.", "de": "Heute ist Arbeit für junge Hände. Ich gebe von der Bank aus Ratschläge.", "it": "Oggi è un lavoro per mani giovani. Io darò consigli dalla panchina." },
+          { "who": "france", "sl": "Tukaj je veliko grbin in kamnov. Kaj bomo naredili?", "en": "There are lots of bumps and stones here. What shall we do?", "de": "Hier gibt es viele Buckel und Steine. Was machen wir?", "it": "Qui ci sono tante gobbe e pietre. Che cosa faremo?" },
+          { "choices": [
+            { "sl": "Zemljo bomo poravnali, da bo krogla tekla naravnost.", "en": "We'll level the ground, so the ball runs straight.", "de": "Wir ebnen den Boden, damit die Kugel geradeaus läuft.", "it": "Livelleremo il terreno, così la boccia correrà dritta.", "ok": true,
+              "reply": { "sl": "Prav. Grbine morajo stran.", "en": "Right. The bumps have to go.", "de": "Gut. Die Buckel müssen weg.", "it": "Bene. Le gobbe devono sparire." } },
+            { "sl": "Lipo bomo poravnali, da bo krogla tekla naravnost.", "en": "We'll level the linden, so the ball runs straight.", "de": "Wir ebnen die Linde, damit die Kugel geradeaus läuft.", "it": "Livelleremo il tiglio, così la boccia correrà dritta.",
+              "why": { "en": "Lipa is the linden tree: it stays as it is. You level the ground: zemljo.", "de": "Lipa ist die Linde: Sie bleibt, wie sie ist. Geebnet wird der Boden: zemljo.", "it": "Lipa è il tiglio: resta com'è. Si livella il terreno: zemljo." },
+              "reply": { "sl": "Lipo? Ha ha, lipa je ravna že sto let!", "en": "The linden? Ha ha, the linden's been straight for a hundred years!", "de": "Die Linde? Ha ha, die Linde ist seit hundert Jahren gerade!", "it": "Il tiglio? Ah ah, il tiglio è dritto da cent'anni!" } },
+            { "sl": "Zemlja bomo poravnali, da bo krogla tekla naravnost.", "en": "We'll level the ground, so the ball runs straight.", "de": "Wir ebnen den Boden, damit die Kugel geradeaus läuft.", "it": "Livelleremo il terreno, così la boccia correrà dritta.", "grammar": "tozilnik",
+              "why": { "en": "Poravnati (to level) takes the accusative: a feminine -a becomes -o, zemljo.", "de": "Poravnati (ebnen) verlangt den Akkusativ: Ein weibliches -a wird zu -o, zemljo.", "it": "Poravnati (livellare) vuole l'accusativo: una -a femminile diventa -o, zemljo." },
+              "reply": { "sl": "Zemlja? Ja, zemlja je tu. Pa?", "en": "Zemlja? Yes, the ground is here. So?", "de": "Zemlja? Ja, der Boden ist da. Und?", "it": "Zemlja? Sì, la terra è qui. E allora?" } }
+          ] },
+          { "who": "janez", "sl": "S čim pa boste to delali?", "en": "And what will you do it with?", "de": "Und womit wollt ihr das machen?", "it": "E con che cosa lo farete?" },
+          { "choices": [
+            { "sl": "Z grabljami in lopatami.", "en": "With rakes and shovels.", "de": "Mit Rechen und Schaufeln.", "it": "Con rastrelli e pale.", "ok": true,
+              "reply": { "sl": "Dobro. Jaz bom pa štel grbine.", "en": "Good. And I'll count the bumps.", "de": "Gut. Und ich zähle die Buckel.", "it": "Bene. E io conterò le gobbe." } },
+            { "sl": "Z grablje in lopatami.", "en": "With rakes and shovels.", "de": "Mit Rechen und Schaufeln.", "it": "Con rastrelli e pale.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental; grablje is a plural word: z grabljami.", "de": "Z (mit) verlangt den Instrumental; grablje ist ein Pluralwort: z grabljami.", "it": "Z (con) vuole lo strumentale; grablje è un nome plurale: z grabljami." },
+              "reply": { "sl": "Z … grablje? Hm, kako, prosim?", "en": "With … grablje? Hm, pardon?", "de": "Mit … grablje? Hm, wie bitte?", "it": "Con … grablje? Mm, come, scusa?" } },
+            { "sl": "Z vilicami in lopatami.", "en": "With forks and shovels.", "de": "Mit Gabeln und Schaufeln.", "it": "Con forchette e pale.",
+              "why": { "en": "Vilice is a fork for eating. To level the ground you need rakes: z grabljami.", "de": "Vilice ist eine Gabel zum Essen. Zum Ebnen braucht man Rechen: z grabljami.", "it": "Vilice è una forchetta per mangiare. Per livellare ci vogliono i rastrelli: z grabljami." },
+              "reply": { "sl": "Z vilicami? Zemljo boste pa jedli, a?", "en": "With forks? Going to eat the ground, are you?", "de": "Mit Gabeln? Wollt ihr den Boden etwa essen?", "it": "Con le forchette? Volete mangiarvi la terra, eh?" } }
+          ] },
+          { "who": "anton", "sl": "Še malo … Zdaj je ravno kot miza!", "en": "A little more … Now it's flat as a table!", "de": "Noch ein bisschen … Jetzt ist es eben wie ein Tisch!", "it": "Ancora un po' … Ora è piano come un tavolo!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["deska", "zebelj", "kladivo"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "janez", "sl": "Krogle so kot otroci: rade pobegnejo.", "en": "Bocce balls are like children: they like to run off.", "de": "Kugeln sind wie Kinder: Sie laufen gern davon.", "it": "Le bocce sono come i bambini: amano scappare." },
+          { "who": "marko", "sl": "Zato potrebujemo nekaj okoli igrišča.", "en": "That's why we need something around the court.", "de": "Darum brauchen wir etwas rund um die Bahn.", "it": "Per questo ci serve qualcosa intorno al campo." },
+          { "who": "janez", "sl": "{learner}, kaj postavimo okoli igrišča?", "en": "{learner}, what do we put up around the court?", "de": "{learner}, was stellen wir rund um die Bahn auf?", "it": "{learner}, che cosa mettiamo intorno al campo?" },
+          { "choices": [
+            { "sl": "Postavimo deske.", "en": "We put up boards.", "de": "Wir stellen Bretter auf.", "it": "Montiamo delle assi.", "ok": true,
+              "reply": { "sl": "Tako je. Lesene in nizke.", "en": "That's right. Wooden and low.", "de": "Genau. Aus Holz und niedrig.", "it": "Esatto. Di legno e basse." } },
+            { "sl": "Postavimo rože.", "en": "We put up flowers.", "de": "Wir stellen Blumen auf.", "it": "Mettiamo dei fiori.",
+              "why": { "en": "Rože are flowers: a ball rolls right through them. Around the court go boards: deske.", "de": "Rože sind Blumen: Eine Kugel rollt einfach hindurch. Rund um die Bahn kommen Bretter: deske.", "it": "Rože sono i fiori: una boccia ci passa attraverso. Intorno al campo vanno le assi: deske." },
+              "reply": { "sl": "Rože? Lepe so, ampak krogle ne ustavijo.", "en": "Flowers? They're pretty, but they won't stop a ball.", "de": "Blumen? Hübsch sind sie, aber eine Kugel halten sie nicht auf.", "it": "Fiori? Sono belli, ma una boccia non la fermano." } },
+            { "sl": "Postavimo mize.", "en": "We put up tables.", "de": "Wir stellen Tische auf.", "it": "Mettiamo dei tavoli.",
+              "why": { "en": "Miza is a table. Around a court go boards: deske.", "de": "Miza ist ein Tisch. Rund um eine Bahn kommen Bretter: deske.", "it": "Miza è un tavolo. Intorno a un campo vanno le assi: deske." },
+              "reply": { "sl": "Mize? Potem pa še kosilo, a?", "en": "Tables? And lunch too, then?", "de": "Tische? Und dann gleich noch Mittagessen, was?", "it": "Tavoli? E poi anche il pranzo, eh?" } }
+          ] },
+          { "who": "marko", "sl": "Deske so tu. Kaj še potrebujemo?", "en": "The boards are here. What else do we need?", "de": "Die Bretter sind da. Was brauchen wir noch?", "it": "Le assi sono qui. Che altro ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo kladivo in žeblje.", "en": "We need a hammer and nails.", "de": "Wir brauchen einen Hammer und Nägel.", "it": "Ci servono un martello e dei chiodi.", "ok": true,
+              "reply": { "sl": "Prav! Tok, tok, tok …", "en": "Right! Tap, tap, tap …", "de": "Gut! Klopf, klopf, klopf …", "it": "Bene! Toc, toc, toc …" } },
+            { "sl": "Potrebujemo kladivo in jajca.", "en": "We need a hammer and eggs.", "de": "Wir brauchen einen Hammer und Eier.", "it": "Ci servono un martello e delle uova.",
+              "why": { "en": "Jajca are eggs. Boards are fixed with nails: žeblje.", "de": "Jajca sind Eier. Bretter befestigt man mit Nägeln: žeblje.", "it": "Jajca sono le uova. Le assi si fissano coi chiodi: žeblje." },
+              "reply": { "sl": "Jajca? Ha ha, saj ne pečemo palačink!", "en": "Eggs? Ha ha, we're not making pancakes!", "de": "Eier? Ha ha, wir backen doch keine Palatschinken!", "it": "Uova? Ah ah, mica facciamo le crêpe!" } },
+            { "sl": "Potrebujemo blazino in žeblje.", "en": "We need a pillow and nails.", "de": "Wir brauchen ein Kissen und Nägel.", "it": "Ci servono un cuscino e dei chiodi.",
+              "why": { "en": "Blazina is a pillow. Nails go in with a hammer: kladivo.", "de": "Blazina ist ein Kissen. Nägel schlägt man mit einem Hammer ein: kladivo.", "it": "Blazina è un cuscino. I chiodi si piantano col martello: kladivo." },
+              "reply": { "sl": "Blazino? Ha ha, za spanje je še prezgodaj!", "en": "A pillow? Ha ha, it's too early for a nap!", "de": "Ein Kissen? Ha ha, zum Schlafen ist es noch zu früh!", "it": "Un cuscino? Ah ah, è troppo presto per dormire!" } }
+          ] },
+          { "who": "janez", "sl": "Tako. Zdaj krogle ne bodo več pobegnile.", "en": "There. Now the balls won't run off any more.", "de": "So. Jetzt laufen die Kugeln nicht mehr davon.", "it": "Ecco. Ora le bocce non scapperanno più." }
+        ] },
+        "A2": { "lines": [
+          { "who": "janez", "sl": "Krogle so kot otroci: rade pobegnejo. Zato potrebujemo ograjo.", "en": "Bocce balls are like children: they like to run off. That's why we need a fence.", "de": "Kugeln sind wie Kinder: Sie laufen gern davon. Darum brauchen wir einen Zaun.", "it": "Le bocce sono come i bambini: amano scappare. Per questo ci serve un recinto." },
+          { "who": "marko", "sl": "Iz česa jo bomo naredili?", "en": "What shall we make it from?", "de": "Woraus machen wir ihn?", "it": "Con che cosa lo faremo?" },
+          { "choices": [
+            { "sl": "Iz lesenih desk.", "en": "From wooden boards.", "de": "Aus Holzbrettern.", "it": "Con assi di legno.", "ok": true,
+              "reply": { "sl": "Dobro. Les je trden, pa še lep je.", "en": "Good. Wood is solid, and nice to look at too.", "de": "Gut. Holz ist fest und noch dazu schön.", "it": "Bene. Il legno è solido, e pure bello." } },
+            { "sl": "Iz lesenih deske.", "en": "From wooden boards.", "de": "Aus Holzbrettern.", "it": "Con assi di legno.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Iz (from, out of) takes the genitive; in the plural: iz desk.", "de": "Iz (aus) verlangt den Genitiv; im Plural: iz desk.", "it": "Iz (da, di) vuole il genitivo; al plurale: iz desk." },
+              "reply": { "sl": "Iz lesenih … deske? Hm, kako, prosim?", "en": "From wooden … deske? Hm, pardon?", "de": "Aus hölzernen … deske? Hm, wie bitte?", "it": "Con … deske di legno? Mm, come, scusa?" } },
+            { "sl": "Iz lesenih žlic.", "en": "From wooden spoons.", "de": "Aus Holzlöffeln.", "it": "Con cucchiai di legno.",
+              "why": { "en": "Žlica is a spoon. A fence around a court is made of boards: iz desk.", "de": "Žlica ist ein Löffel. Ein Zaun um die Bahn wird aus Brettern gemacht: iz desk.", "it": "Žlica è un cucchiaio. Un recinto intorno al campo si fa con le assi: iz desk." },
+              "reply": { "sl": "Iz lesenih žlic? Toliko žlic nima niti gostilna!", "en": "From wooden spoons? Not even the inn has that many spoons!", "de": "Aus Holzlöffeln? So viele Löffel hat nicht einmal das Gasthaus!", "it": "Con cucchiai di legno? Tanti cucchiai non li ha nemmeno l'osteria!" } }
+          ] },
+          { "who": "janez", "sl": "Dobro. Kaj pa potrebujete, da deske pritrdite?", "en": "Good. And what do you need to fasten the boards?", "de": "Gut. Und was braucht ihr, um die Bretter zu befestigen?", "it": "Bene. E che cosa vi serve per fissare le assi?" },
+          { "choices": [
+            { "sl": "Kladivo in veliko žebljev.", "en": "A hammer and lots of nails.", "de": "Einen Hammer und viele Nägel.", "it": "Un martello e tanti chiodi.", "ok": true,
+              "reply": { "sl": "Prav. Jaz pa vam bom držal pesti.", "en": "Right. And I'll keep my fingers crossed for you.", "de": "Gut. Und ich drücke euch die Daumen.", "it": "Bene. E io terrò le dita incrociate per voi." } },
+            { "sl": "Kladivo in veliko žeblji.", "en": "A hammer and lots of nails.", "de": "Einen Hammer und viele Nägel.", "it": "Un martello e tanti chiodi.", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive plural: veliko žebljev.", "de": "Veliko (viel) verlangt den Genitiv Plural: veliko žebljev.", "it": "Veliko (tanto) vuole il genitivo plurale: veliko žebljev." },
+              "reply": { "sl": "Veliko … žeblji? Hm, kako, prosim?", "en": "Lots of … žeblji? Hm, pardon?", "de": "Viele … žeblji? Hm, wie bitte?", "it": "Tanti … žeblji? Mm, come, scusa?" } },
+            { "sl": "Blazino in veliko žebljev.", "en": "A pillow and lots of nails.", "de": "Ein Kissen und viele Nägel.", "it": "Un cuscino e tanti chiodi.",
+              "why": { "en": "Blazina is a pillow. Nails go in with a hammer: kladivo.", "de": "Blazina ist ein Kissen. Nägel schlägt man mit einem Hammer ein: kladivo.", "it": "Blazina è un cuscino. I chiodi si piantano col martello: kladivo." },
+              "reply": { "sl": "Blazino? Za tistega, ki bo izgubil? Dobra ideja.", "en": "A pillow? For whoever loses? Good idea.", "de": "Ein Kissen? Für den, der verliert? Gute Idee.", "it": "Un cuscino? Per chi perderà? Buona idea." } }
+          ] },
+          { "who": "marko", "sl": "Tok, tok, tok! Adijo, pobegle krogle!", "en": "Tap, tap, tap! Bye-bye, runaway balls!", "de": "Klopf, klopf, klopf! Adieu, ausgebüxte Kugeln!", "it": "Toc, toc, toc! Addio, bocce fuggiasche!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["pesek", "droben"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "janez", "sl": "Zemlja je ravna, deske stojijo. Zdaj pa še zadnja stvar.", "en": "The ground is flat, the boards are up. Now just one last thing.", "de": "Der Boden ist eben, die Bretter stehen. Jetzt noch eine letzte Sache.", "it": "Il terreno è piano, le assi sono montate. Ora l'ultima cosa." },
+          { "who": "anton", "sl": "Zemlja je trda. Krogla skače.", "en": "The ground is hard. The ball bounces.", "de": "Der Boden ist hart. Die Kugel springt.", "it": "Il terreno è duro. La boccia rimbalza." },
+          { "who": "janez", "sl": "{learner}, kaj posujemo po igrišču?", "en": "{learner}, what do we spread over the court?", "de": "{learner}, was streuen wir auf die Bahn?", "it": "{learner}, che cosa spargiamo sul campo?" },
+          { "choices": [
+            { "sl": "Posujemo pesek.", "en": "We spread sand.", "de": "Wir streuen Sand.", "it": "Spargiamo la sabbia.", "ok": true,
+              "reply": { "sl": "Tako je. Pesek je mehak.", "en": "That's right. Sand is soft.", "de": "Genau. Sand ist weich.", "it": "Esatto. La sabbia è morbida." } },
+            { "sl": "Posujemo sladkor.", "en": "We spread sugar.", "de": "Wir streuen Zucker.", "it": "Spargiamo lo zucchero.",
+              "why": { "en": "Sladkor is sugar: the ants would love it. On a court you spread sand: pesek.", "de": "Sladkor ist Zucker: Die Ameisen würden sich freuen. Auf eine Bahn streut man Sand: pesek.", "it": "Sladkor è lo zucchero: le formiche ne sarebbero felici. Sul campo si sparge la sabbia: pesek." },
+              "reply": { "sl": "Sladkor? Potem bodo z nami balinale vse mravlje.", "en": "Sugar? Then every ant around will be playing bocce with us.", "de": "Zucker? Dann spielen alle Ameisen mit uns Boccia.", "it": "Zucchero? Allora tutte le formiche giocheranno a bocce con noi." } },
+            { "sl": "Posujemo moko.", "en": "We spread flour.", "de": "Wir streuen Mehl.", "it": "Spargiamo la farina.",
+              "why": { "en": "Moka is flour: the first rain would turn it into dough. On a court you spread sand: pesek.", "de": "Moka ist Mehl: Der erste Regen macht Teig daraus. Auf eine Bahn streut man Sand: pesek.", "it": "Moka è la farina: alla prima pioggia diventa impasto. Sul campo si sparge la sabbia: pesek." },
+              "reply": { "sl": "Moko? Ob prvem dežju bomo imeli testo.", "en": "Flour? At the first rain we'll have dough.", "de": "Mehl? Beim ersten Regen haben wir Teig.", "it": "Farina? Alla prima pioggia avremo l'impasto." } }
+          ] },
+          { "who": "anton", "sl": "Tukaj sta dva kupa peska. Kateri je boljši?", "en": "Here are two heaps of sand. Which one is better?", "de": "Hier sind zwei Haufen Sand. Welcher ist besser?", "it": "Qui ci sono due mucchi di sabbia. Quale è meglio?" },
+          { "choices": [
+            { "sl": "Droben pesek je boljši.", "en": "Fine sand is better.", "de": "Feiner Sand ist besser.", "it": "La sabbia fine è meglio.", "ok": true,
+              "reply": { "sl": "Prav. Mehak je kot moka.", "en": "Right. It's soft as flour.", "de": "Gut. Er ist weich wie Mehl.", "it": "Giusto. È morbida come la farina." } },
+            { "sl": "Grob pesek je boljši.", "en": "Coarse sand is better.", "de": "Grober Sand ist besser.", "it": "La sabbia grossa è meglio.",
+              "why": { "en": "Grob means coarse: the ball would jump on it. Fine: droben.", "de": "Grob heißt grob: Die Kugel würde darauf springen. Fein: droben.", "it": "Grob vuol dire grosso: la boccia ci salterebbe sopra. Fine: droben." },
+              "reply": { "sl": "Grob? Potem bo krogla skakala kot žaba.", "en": "Coarse? Then the ball will hop like a frog.", "de": "Grob? Dann hüpft die Kugel wie ein Frosch.", "it": "Grossa? Allora la boccia salterà come una rana." } },
+            { "sl": "Moker pesek je boljši.", "en": "Wet sand is better.", "de": "Nasser Sand ist besser.", "it": "La sabbia bagnata è meglio.",
+              "why": { "en": "Moker means wet: the ball would stick in it. Fine: droben.", "de": "Moker heißt nass: Die Kugel bliebe darin kleben. Fein: droben.", "it": "Moker vuol dire bagnato: la boccia ci resterebbe incollata. Fine: droben." },
+              "reply": { "sl": "Moker? Potem se bo krogla kar prilepila!", "en": "Wet? Then the ball will just stick!", "de": "Nass? Dann bleibt die Kugel einfach kleben!", "it": "Bagnata? Allora la boccia ci resta incollata!" } }
+          ] },
+          { "who": "janez", "sl": "Posujte in pograbite … Lepo! Igrišče je kot preproga.", "en": "Spread it and rake it … Lovely! The court is like a carpet.", "de": "Streut ihn und recht ihn glatt … Schön! Die Bahn ist wie ein Teppich.", "it": "Spargetela e rastrellatela … Bello! Il campo è come un tappeto." }
+        ] },
+        "A2": { "lines": [
+          { "who": "janez", "sl": "Zemlja je ravna, deske stojijo. Manjka samo še ena stvar.", "en": "The ground is flat, the boards are up. Only one thing is still missing.", "de": "Der Boden ist eben, die Bretter stehen. Es fehlt nur noch eine Sache.", "it": "Il terreno è piano, le assi sono montate. Manca solo un'ultima cosa." },
+          { "who": "anton", "sl": "Zemlja je trda, krogla na njej skače kot žaba.", "en": "The ground is hard, the ball hops on it like a frog.", "de": "Der Boden ist hart, die Kugel hüpft darauf wie ein Frosch.", "it": "Il terreno è duro, la boccia ci salta sopra come una rana." },
+          { "who": "janez", "sl": "{learner}, kaj bomo posuli po igrišču?", "en": "{learner}, what shall we spread over the court?", "de": "{learner}, was streuen wir auf die Bahn?", "it": "{learner}, che cosa spargeremo sul campo?" },
+          { "choices": [
+            { "sl": "Posuli bomo pesek, da bo krogla lepo tekla.", "en": "We'll spread sand, so the ball runs nicely.", "de": "Wir streuen Sand, damit die Kugel schön läuft.", "it": "Spargeremo la sabbia, così la boccia correrà bene.", "ok": true,
+              "reply": { "sl": "Tako je. Pesek je mehak.", "en": "That's right. Sand is soft.", "de": "Genau. Sand ist weich.", "it": "Esatto. La sabbia è morbida." } },
+            { "sl": "Posuli bomo sladkor, da bo krogla lepo tekla.", "en": "We'll spread sugar, so the ball runs nicely.", "de": "Wir streuen Zucker, damit die Kugel schön läuft.", "it": "Spargeremo lo zucchero, così la boccia correrà bene.",
+              "why": { "en": "Sladkor is sugar: the ants would love it. On a court you spread sand: pesek.", "de": "Sladkor ist Zucker: Die Ameisen würden sich freuen. Auf eine Bahn streut man Sand: pesek.", "it": "Sladkor è lo zucchero: le formiche ne sarebbero felici. Sul campo si sparge la sabbia: pesek." },
+              "reply": { "sl": "Sladkor? Potem bodo z nami balinale vse mravlje.", "en": "Sugar? Then every ant around will be playing bocce with us.", "de": "Zucker? Dann spielen alle Ameisen mit uns Boccia.", "it": "Zucchero? Allora tutte le formiche giocheranno a bocce con noi." } },
+            { "sl": "Posuli bomo moko, da bo krogla lepo tekla.", "en": "We'll spread flour, so the ball runs nicely.", "de": "Wir streuen Mehl, damit die Kugel schön läuft.", "it": "Spargeremo la farina, così la boccia correrà bene.",
+              "why": { "en": "Moka is flour: the first rain would turn it into dough. On a court you spread sand: pesek.", "de": "Moka ist Mehl: Der erste Regen macht Teig daraus. Auf eine Bahn streut man Sand: pesek.", "it": "Moka è la farina: alla prima pioggia diventa impasto. Sul campo si sparge la sabbia: pesek." },
+              "reply": { "sl": "Moko? Ob prvem dežju bomo imeli testo.", "en": "Flour? At the first rain we'll have dough.", "de": "Mehl? Beim ersten Regen haben wir Teig.", "it": "Farina? Alla prima pioggia avremo l'impasto." } }
+          ] },
+          { "who": "anton", "sl": "Ta pesek ima velika zrna. Je dober?", "en": "This sand has big grains. Is it good?", "de": "Dieser Sand hat große Körner. Ist er gut?", "it": "Questa sabbia ha i granelli grossi. Va bene?" },
+          { "choices": [
+            { "sl": "Ne, potrebujemo droben pesek.", "en": "No, we need fine sand.", "de": "Nein, wir brauchen feinen Sand.", "it": "No, ci serve sabbia fine.", "ok": true,
+              "reply": { "sl": "Prav imaš. Ta z velikimi zrni je za cesto.", "en": "You're right. The one with big grains is for the road.", "de": "Du hast recht. Der mit den großen Körnern ist für die Straße.", "it": "Hai ragione. Quella coi granelli grossi è per la strada." } },
+            { "sl": "Ne, potrebujemo grob pesek.", "en": "No, we need coarse sand.", "de": "Nein, wir brauchen groben Sand.", "it": "No, ci serve sabbia grossa.",
+              "why": { "en": "Grob means coarse, like this sand with big grains. A court needs fine sand: droben.", "de": "Grob heißt grob, wie dieser Sand mit großen Körnern. Eine Bahn braucht feinen Sand: droben.", "it": "Grob vuol dire grosso, come questa sabbia dai granelli grossi. Un campo vuole sabbia fine: droben." },
+              "reply": { "sl": "Grob? Saj ta je grob! Zdaj pa res ne vem več.", "en": "Coarse? But this one is coarse! Now I really don't know any more.", "de": "Grob? Der hier ist doch grob! Jetzt weiß ich wirklich nicht mehr weiter.", "it": "Grossa? Ma questa è grossa! Adesso non ci capisco più niente." } },
+            { "sl": "Ne, potrebujemo droben sladkor.", "en": "No, we need fine sugar.", "de": "Nein, wir brauchen feinen Zucker.", "it": "No, ci serve zucchero fine.",
+              "why": { "en": "Sladkor is sugar. On a court goes sand: pesek.", "de": "Sladkor ist Zucker. Auf eine Bahn kommt Sand: pesek.", "it": "Sladkor è lo zucchero. Sul campo va la sabbia: pesek." },
+              "reply": { "sl": "Droben sladkor? Za potico že, za igrišče pa ne!", "en": "Fine sugar? For a potica cake, sure, but not for the court!", "de": "Feinen Zucker? Für eine Potica schon, für die Bahn aber nicht!", "it": "Zucchero fine? Per la potizza sì, per il campo no!" } }
+          ] },
+          { "who": "janez", "sl": "Posujte in pograbite … Lepo. Igrišče je mehko kot preproga.", "en": "Spread it and rake it … Lovely. The court is soft as a carpet.", "de": "Streut ihn und recht ihn glatt … Schön. Die Bahn ist weich wie ein Teppich.", "it": "Spargetela e rastrellatela … Bello. Il campo è morbido come un tappeto." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-vasi",
+      "words": ["krogla", "zmagati"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "janez", "sl": "Igrišče je gotovo. Prvi met je moj! {learner}, kaj mi podaš?", "en": "The court is finished. The first throw is mine! {learner}, what will you hand me?", "de": "Die Bahn ist fertig. Der erste Wurf gehört mir! {learner}, was reichst du mir?", "it": "Il campo è finito. Il primo tiro è mio! {learner}, che cosa mi passi?" },
+          { "choices": [
+            { "sl": "Izvolite kroglo.", "en": "Here's the ball.", "de": "Bitte, die Kugel.", "it": "Ecco la boccia.", "ok": true,
+              "reply": { "sl": "Hvala. Zdaj pa glejte in se učite.", "en": "Thank you. Now watch and learn.", "de": "Danke. Jetzt schaut zu und lernt.", "it": "Grazie. Ora guardate e imparate." } },
+            { "sl": "Izvolite žogo.", "en": "Here's the ball.", "de": "Bitte, der Ball.", "it": "Ecco il pallone.",
+              "why": { "en": "Žoga is a ball for kicking. For bocce you throw a heavy ball: krogla.", "de": "Žoga ist ein Ball zum Kicken. Beim Boccia wirft man eine schwere Kugel: krogla.", "it": "Žoga è un pallone da calciare. A bocce si tira una palla pesante: krogla." },
+              "reply": { "sl": "Žogo? Ta je za otroke. Jaz pa nisem več otrok, žal.", "en": "A ball? That's for children. And I'm no child any more, sadly.", "de": "Einen Ball? Der ist für Kinder. Und ich bin leider kein Kind mehr.", "it": "Un pallone? Quello è per i bambini. E io non sono più un bambino, purtroppo." } },
+            { "sl": "Izvolite krogla.", "en": "Here's the ball.", "de": "Bitte, die Kugel.", "it": "Ecco la boccia.", "grammar": "tozilnik",
+              "why": { "en": "You give something: the accusative. A feminine -a becomes -o: kroglo.", "de": "Man gibt etwas: der Akkusativ. Ein weibliches -a wird zu -o: kroglo.", "it": "Si dà qualcosa: l'accusativo. Una -a femminile diventa -o: kroglo." },
+              "reply": { "sl": "Krogla? Vem, da je krogla. Mi jo daš?", "en": "Krogla? I know it's a ball. Will you give it to me?", "de": "Krogla? Ich weiß, dass es eine Kugel ist. Gibst du sie mir?", "it": "Krogla? Lo so che è una boccia. Me la dai?" } }
+          ] },
+          { "who": "marko", "sl": "Glejte! Krogla je čisto pri bulinu!", "en": "Look! The ball is right next to the jack!", "de": "Schaut! Die Kugel liegt direkt beim Pallino!", "it": "Guardate! La boccia è attaccata al pallino!" },
+          { "who": "janez", "sl": "No, {learner}, kaj praviš?", "en": "Well, {learner}, what do you say?", "de": "Na, {learner}, was sagst du?", "it": "Allora, {learner}, che ne dici?" },
+          { "choices": [
+            { "sl": "Zmagali ste!", "en": "You won!", "de": "Sie haben gewonnen!", "it": "Ha vinto!", "ok": true,
+              "reply": { "sl": "Seveda. Pri mojih letih ni časa za izgubljanje.", "en": "Of course. At my age there's no time for losing.", "de": "Natürlich. In meinem Alter hat man keine Zeit zum Verlieren.", "it": "Certo. Alla mia età non c'è tempo per perdere." } },
+            { "sl": "Izgubili ste!", "en": "You lost!", "de": "Sie haben verloren!", "it": "Ha perso!",
+              "why": { "en": "Izgubiti is to lose. His ball lies right by the jack: zmagali ste (you won).", "de": "Izgubiti heißt verlieren. Seine Kugel liegt direkt beim Pallino: zmagali ste (Sie haben gewonnen).", "it": "Izgubiti vuol dire perdere. La sua boccia è attaccata al pallino: zmagali ste (ha vinto)." },
+              "reply": { "sl": "Izgubil? Poglej še enkrat, {m:fant|f:dekle}.", "en": "Lost? Take another look, {m:lad|f:lass}.", "de": "Verloren? Schau noch einmal hin, {m:Junge|f:Mädchen}.", "it": "Perso? Guarda meglio, {m:ragazzo|f:ragazza}." } },
+            { "sl": "Zmagal si!", "en": "You won!", "de": "Du hast gewonnen!", "it": "Hai vinto!", "grammar": "ti-vi",
+              "why": { "en": "Janez is older and expects vi from you: zmagali ste.", "de": "Janez ist älter und erwartet von dir vi: zmagali ste.", "it": "Janez è più anziano e da te si aspetta il vi: zmagali ste." },
+              "reply": { "sl": "Tikaš me? No, ker sem zmagal, ti oprostim.", "en": "Saying ti to me? Well, since I won, I'll forgive you.", "de": "Du duzt mich? Na, weil ich gewonnen habe, verzeihe ich dir.", "it": "Mi dai del tu? Beh, visto che ho vinto, ti perdono." } }
+          ] },
+          { "who": "france", "sl": "Bravo, Janez! Prva igra na novem igrišču!", "en": "Bravo, Janez! The first game on the new court!", "de": "Bravo, Janez! Das erste Spiel auf der neuen Bahn!", "it": "Bravo, Janez! La prima partita sul campo nuovo!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "janez", "sl": "Igrišče je gotovo. Prvi met je moj! {learner}, s čim balinamo?", "en": "The court is finished. The first throw is mine! {learner}, what do we play bocce with?", "de": "Die Bahn ist fertig. Der erste Wurf gehört mir! {learner}, womit spielen wir Boccia?", "it": "Il campo è finito. Il primo tiro è mio! {learner}, con che cosa si gioca a bocce?" },
+          { "choices": [
+            { "sl": "S težkimi kroglami.", "en": "With heavy balls.", "de": "Mit schweren Kugeln.", "it": "Con bocce pesanti.", "ok": true,
+              "reply": { "sl": "Tako je. In z malo sreče.", "en": "That's right. And a little luck.", "de": "Genau. Und mit ein bisschen Glück.", "it": "Esatto. E con un po' di fortuna." } },
+            { "sl": "S težkimi krogle.", "en": "With heavy balls.", "de": "Mit schweren Kugeln.", "it": "Con bocce pesanti.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental; in the plural it ends in -ami: s kroglami.", "de": "S (mit) verlangt den Instrumental; im Plural endet er auf -ami: s kroglami.", "it": "S (con) vuole lo strumentale; al plurale finisce in -ami: s kroglami." },
+              "reply": { "sl": "S težkimi … krogle? Hm, kako, prosim?", "en": "With heavy … krogle? Hm, pardon?", "de": "Mit schweren … krogle? Hm, wie bitte?", "it": "Con … krogle pesanti? Mm, come, scusa?" } },
+            { "sl": "S težkimi žogami.", "en": "With heavy footballs.", "de": "Mit schweren Bällen.", "it": "Con palloni pesanti.",
+              "why": { "en": "Žoga is a ball for kicking. Bocce is played with heavy balls: s kroglami.", "de": "Žoga ist ein Ball zum Kicken. Boccia spielt man mit schweren Kugeln: s kroglami.", "it": "Žoga è un pallone da calciare. A bocce si gioca con palle pesanti: s kroglami." },
+              "reply": { "sl": "Z žogami? Te so za otroke. Jaz pa nisem več otrok, žal.", "en": "With footballs? Those are for children. And I'm no child any more, sadly.", "de": "Mit Bällen? Die sind für Kinder. Und ich bin leider kein Kind mehr.", "it": "Con i palloni? Quelli sono per i bambini. E io non sono più un bambino, purtroppo." } }
+          ] },
+          { "who": "marko", "sl": "Glejte! Krogla se je ustavila čisto pri bulinu!", "en": "Look! The ball has stopped right next to the jack!", "de": "Schaut! Die Kugel ist direkt beim Pallino liegen geblieben!", "it": "Guardate! La boccia si è fermata attaccata al pallino!" },
+          { "who": "janez", "sl": "No, {learner}, kaj praviš?", "en": "Well, {learner}, what do you say?", "de": "Na, {learner}, was sagst du?", "it": "Allora, {learner}, che ne dici?" },
+          { "choices": [
+            { "sl": "Zmagali ste, ker je vaša krogla najbližje.", "en": "You won, because your ball is the closest.", "de": "Sie haben gewonnen, weil Ihre Kugel am nächsten liegt.", "it": "Ha vinto, perché la sua boccia è la più vicina.", "ok": true,
+              "reply": { "sl": "Seveda. Pri mojih letih ni časa za izgubljanje.", "en": "Of course. At my age there's no time for losing.", "de": "Natürlich. In meinem Alter hat man keine Zeit zum Verlieren.", "it": "Certo. Alla mia età non c'è tempo per perdere." } },
+            { "sl": "Izgubili ste, ker je vaša krogla najbližje.", "en": "You lost, because your ball is the closest.", "de": "Sie haben verloren, weil Ihre Kugel am nächsten liegt.", "it": "Ha perso, perché la sua boccia è la più vicina.",
+              "why": { "en": "Izgubiti is to lose. The ball closest to the jack wins: zmagali ste.", "de": "Izgubiti heißt verlieren. Die Kugel, die dem Pallino am nächsten liegt, gewinnt: zmagali ste.", "it": "Izgubiti vuol dire perdere. Vince la boccia più vicina al pallino: zmagali ste." },
+              "reply": { "sl": "Izgubil? S tako lepo kroglo? Poglej še enkrat.", "en": "Lost? With such a beautiful ball? Take another look.", "de": "Verloren? Mit so einer schönen Kugel? Schau noch einmal hin.", "it": "Perso? Con una boccia così bella? Guarda meglio." } },
+            { "sl": "Zmagal si, ker je tvoja krogla najbližje.", "en": "You won, because your ball is the closest.", "de": "Du hast gewonnen, weil deine Kugel am nächsten liegt.", "it": "Hai vinto, perché la tua boccia è la più vicina.", "grammar": "ti-vi",
+              "why": { "en": "Janez is older and expects vi from you: zmagali ste, vaša krogla.", "de": "Janez ist älter und erwartet von dir vi: zmagali ste, vaša krogla.", "it": "Janez è più anziano e da te si aspetta il vi: zmagali ste, vaša krogla." },
+              "reply": { "sl": "Tikaš me? No, danes sem zmagal, pa ti oprostim.", "en": "Saying ti to me? Well, I won today, so I'll forgive you.", "de": "Du duzt mich? Na, heute habe ich gewonnen, da verzeihe ich dir.", "it": "Mi dai del tu? Beh, oggi ho vinto, quindi ti perdono." } }
+          ] },
+          { "who": "france", "sl": "Bravo, Janez! Kdo se bo zdaj še upal igrati z vami?", "en": "Bravo, Janez! Who'll dare play against you now?", "de": "Bravo, Janez! Wer traut sich jetzt noch, gegen Sie zu spielen?", "it": "Bravo, Janez! Chi avrà più il coraggio di giocare contro di lei?" }
+        ] }
+      }
+    }
+  ]
+}

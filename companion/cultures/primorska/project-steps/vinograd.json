@@ -1,0 +1,421 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "vinograd",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-vinograd",
+  "steps": [
+    {
+      "scene": "na-njivi",
+      "words": ["grmovje", "skarje"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Ciao! Vidiš hrib nad njivo? Tam bo moj vinograd!", "en": "Ciao! See the hill above the field? That's where my vineyard will be!", "de": "Ciao! Siehst du den Hügel über dem Feld? Dort wird mein Weinberg sein!", "it": "Ciao! Vedi la collina sopra il campo? Lì ci sarà la mia vigna!" },
+          { "who": "luka", "sl": "Ampak tam gor je vse zaraščeno!", "en": "But up there everything's overgrown!", "de": "Aber da oben ist alles zugewachsen!", "it": "Ma lassù è tutto incolto!" },
+          { "who": "marko", "sl": "Res je. {learner}, kaj najprej porežemo?", "en": "True. {learner}, what do we cut first?", "de": "Stimmt. {learner}, was schneiden wir zuerst?", "it": "È vero. {learner}, che cosa tagliamo prima?" },
+          { "choices": [
+            { "sl": "Najprej porežemo grmovje.", "en": "First we cut the bushes.", "de": "Zuerst schneiden wir das Gestrüpp.", "it": "Prima tagliamo i cespugli.", "ok": true,
+              "reply": { "sl": "Tako je. Potem bomo videli zemljo.", "en": "That's right. Then we'll see the soil.", "de": "Genau. Dann sehen wir die Erde.", "it": "Esatto. Poi vedremo la terra." } },
+            { "sl": "Najprej porežemo koruzo.", "en": "First we cut the corn.", "de": "Zuerst schneiden wir den Mais.", "it": "Prima tagliamo il mais.",
+              "why": { "en": "Koruza is the corn in the field below: it isn't in the way. On the hill you cut the bushes: grmovje.", "de": "Koruza ist der Mais auf dem Feld unten: Der stört nicht. Auf dem Hügel schneidet man das Gestrüpp: grmovje.", "it": "Koruza è il mais nel campo di sotto: non dà fastidio. Sulla collina si tagliano i cespugli: grmovje." },
+              "reply": { "sl": "Koruzo? Ne, ne, ta je od soseda!", "en": "The corn? No, no, that's the neighbour's!", "de": "Den Mais? Nein, nein, der gehört dem Nachbarn!", "it": "Il mais? No, no, quello è del vicino!" } },
+            { "sl": "Najprej porežemo lase.", "en": "First we cut our hair.", "de": "Zuerst schneiden wir uns die Haare.", "it": "Prima ci tagliamo i capelli.",
+              "why": { "en": "Lasje is hair: that's for the barber! On the hill you cut the bushes: grmovje.", "de": "Lasje sind Haare: Das ist was für den Friseur! Auf dem Hügel schneidet man das Gestrüpp: grmovje.", "it": "Lasje sono i capelli: quello è roba da barbiere! Sulla collina si tagliano i cespugli: grmovje." },
+              "reply": { "sl": "Lase? Ha ha, k frizerju pa greš jutri!", "en": "Our hair? Ha ha, you can go to the barber tomorrow!", "de": "Die Haare? Ha ha, zum Friseur gehst du morgen!", "it": "I capelli? Ah ah, dal barbiere ci vai domani!" } }
+          ] },
+          { "who": "marko", "sl": "Grmovje je trdo in bodeče. Kaj potrebujemo?", "en": "The bushes are tough and prickly. What do we need?", "de": "Das Gestrüpp ist hart und stachelig. Was brauchen wir?", "it": "I cespugli sono duri e pungenti. Che cosa ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo škarje.", "en": "We need shears.", "de": "Wir brauchen eine Schere.", "it": "Ci servono le cesoie.", "ok": true,
+              "reply": { "sl": "Prav. Ostre so, pazi na prste!", "en": "Right. They're sharp, mind your fingers!", "de": "Gut. Sie ist scharf, pass auf deine Finger auf!", "it": "Bene. Sono affilate, {m:attento|f:attenta} alle dita!" } },
+            { "sl": "Potrebujemo grablje.", "en": "We need a rake.", "de": "Wir brauchen einen Rechen.", "it": "Ci serve un rastrello.",
+              "why": { "en": "Grablje is a rake: it gathers, it doesn't cut. To cut bushes you need shears: škarje.", "de": "Grablje ist ein Rechen: Er sammelt, er schneidet nicht. Für Gestrüpp braucht man eine Schere: škarje.", "it": "Grablje è un rastrello: raccoglie, non taglia. Per i cespugli ci vogliono le cesoie: škarje." },
+              "reply": { "sl": "Grablje? Z grabljami bomo grmovje kvečjemu počesali!", "en": "A rake? With a rake we'd only comb the bushes!", "de": "Einen Rechen? Mit dem Rechen kämmen wir das Gestrüpp höchstens!", "it": "Un rastrello? Col rastrello al massimo pettiniamo i cespugli!" } },
+            { "sl": "Potrebujemo strašilo.", "en": "We need a scarecrow.", "de": "Wir brauchen eine Vogelscheuche.", "it": "Ci serve uno spaventapasseri.",
+              "why": { "en": "Strašilo is a scarecrow: it scares birds, not bushes. To cut you need shears: škarje.", "de": "Strašilo ist eine Vogelscheuche: Sie erschreckt Vögel, kein Gestrüpp. Zum Schneiden braucht man eine Schere: škarje.", "it": "Strašilo è uno spaventapasseri: spaventa gli uccelli, non i cespugli. Per tagliare ci vogliono le cesoie: škarje." },
+              "reply": { "sl": "Strašilo? Ptice prestraši, grmovja pa ne!", "en": "A scarecrow? It scares the birds, but not the bushes!", "de": "Eine Vogelscheuche? Die erschreckt Vögel, aber kein Gestrüpp!", "it": "Uno spaventapasseri? Spaventa gli uccelli, ma i cespugli no!" } }
+          ] },
+          { "who": "france", "sl": "Režemo, režemo … Hrib je že bolj čist!", "en": "Cutting, cutting … The hill is already cleaner!", "de": "Schneiden, schneiden … Der Hügel ist schon sauberer!", "it": "Tagliamo, tagliamo … La collina è già più pulita!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Ciao! Na hribu nad njivo bo moj vinograd. Ampak najprej moramo počistiti.", "en": "Ciao! On the hill above the field there'll be my vineyard. But first we have to clear it.", "de": "Ciao! Auf dem Hügel über dem Feld wird mein Weinberg sein. Aber zuerst müssen wir aufräumen.", "it": "Ciao! Sulla collina sopra il campo ci sarà la mia vigna. Ma prima dobbiamo ripulire." },
+          { "who": "luka", "sl": "Tam gor je vse zaraščeno. Še koze ne pridejo skozi!", "en": "Up there everything's overgrown. Not even goats get through!", "de": "Da oben ist alles zugewachsen. Nicht einmal Ziegen kommen durch!", "it": "Lassù è tutto incolto. Nemmeno le capre ci passano!" },
+          { "who": "marko", "sl": "{learner}, kaj bomo najprej porezali?", "en": "{learner}, what shall we cut first?", "de": "{learner}, was schneiden wir zuerst?", "it": "{learner}, che cosa taglieremo prima?" },
+          { "choices": [
+            { "sl": "Najprej bomo porezali grmovje, potem bomo kopali.", "en": "First we'll cut the bushes, then we'll dig.", "de": "Zuerst schneiden wir das Gestrüpp, dann graben wir.", "it": "Prima taglieremo i cespugli, poi vangheremo.", "ok": true,
+              "reply": { "sl": "Tako je. Korak za korakom.", "en": "That's right. Step by step.", "de": "Genau. Schritt für Schritt.", "it": "Esatto. Un passo alla volta." } },
+            { "sl": "Najprej bomo porezali koruzo, potem bomo kopali.", "en": "First we'll cut the corn, then we'll dig.", "de": "Zuerst schneiden wir den Mais, dann graben wir.", "it": "Prima taglieremo il mais, poi vangheremo.",
+              "why": { "en": "Koruza is the corn in the field below: it isn't in the way. On the hill you cut the bushes: grmovje.", "de": "Koruza ist der Mais auf dem Feld unten: Der stört nicht. Auf dem Hügel schneidet man das Gestrüpp: grmovje.", "it": "Koruza è il mais nel campo di sotto: non dà fastidio. Sulla collina si tagliano i cespugli: grmovje." },
+              "reply": { "sl": "Koruzo? Ojoj, ta je sosedova! Ne bi bil vesel.", "en": "The corn? Oh dear, that's the neighbour's! He wouldn't be happy.", "de": "Den Mais? Oje, der gehört dem Nachbarn! Der wäre nicht froh.", "it": "Il mais? Ahi, quello è del vicino! Non sarebbe contento." } },
+            { "sl": "Najprej bomo porezali lase, potem bomo kopali.", "en": "First we'll cut our hair, then we'll dig.", "de": "Zuerst schneiden wir uns die Haare, dann graben wir.", "it": "Prima ci taglieremo i capelli, poi vangheremo.",
+              "why": { "en": "Lasje is hair: that's for the barber! On the hill you cut the bushes: grmovje.", "de": "Lasje sind Haare: Das ist was für den Friseur! Auf dem Hügel schneidet man das Gestrüpp: grmovje.", "it": "Lasje sono i capelli: quello è roba da barbiere! Sulla collina si tagliano i cespugli: grmovje." },
+              "reply": { "sl": "Lase? Ha ha, k frizerju pa greš jutri!", "en": "Our hair? Ha ha, you can go to the barber tomorrow!", "de": "Die Haare? Ha ha, zum Friseur gehst du morgen!", "it": "I capelli? Ah ah, dal barbiere ci vai domani!" } }
+          ] },
+          { "who": "marko", "sl": "Grmovje je trdo in bodeče. S čim ga bomo porezali?", "en": "The bushes are tough and prickly. What shall we cut them with?", "de": "Das Gestrüpp ist hart und stachelig. Womit schneiden wir es?", "it": "I cespugli sono duri e pungenti. Con che cosa li taglieremo?" },
+          { "choices": [
+            { "sl": "S škarjami, ker so ostre.", "en": "With shears, because they're sharp.", "de": "Mit der Schere, weil sie scharf ist.", "it": "Con le cesoie, perché sono affilate.", "ok": true,
+              "reply": { "sl": "Prav. Ampak pazi na prste!", "en": "Right. But mind your fingers!", "de": "Gut. Aber pass auf deine Finger auf!", "it": "Bene. Ma {m:attento|f:attenta} alle dita!" } },
+            { "sl": "S škarje, ker so ostre.", "en": "With shears, because they're sharp.", "de": "Mit der Schere, weil sie scharf ist.", "it": "Con le cesoie, perché sono affilate.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental; škarje is a plural word: s škarjami.", "de": "S (mit) verlangt den Instrumental; škarje ist ein Pluralwort: s škarjami.", "it": "S (con) vuole lo strumentale; škarje è un nome plurale: s škarjami." },
+              "reply": { "sl": "S … škarje? Hm, kako, prosim?", "en": "With … škarje? Hm, pardon?", "de": "Mit … škarje? Hm, wie bitte?", "it": "Con … škarje? Mm, come, scusa?" } },
+            { "sl": "Z grabljami, ker so ostre.", "en": "With a rake, because it's sharp.", "de": "Mit dem Rechen, weil er scharf ist.", "it": "Col rastrello, perché è affilato.",
+              "why": { "en": "Grablje is a rake: it gathers, it doesn't cut. To cut bushes you need shears: s škarjami.", "de": "Grablje ist ein Rechen: Er sammelt, er schneidet nicht. Für Gestrüpp braucht man eine Schere: s škarjami.", "it": "Grablje è un rastrello: raccoglie, non taglia. Per i cespugli ci vogliono le cesoie: s škarjami." },
+              "reply": { "sl": "Z grabljami? Z njimi bomo grmovje kvečjemu počesali!", "en": "With a rake? We'd only comb the bushes with that!", "de": "Mit dem Rechen? Damit kämmen wir das Gestrüpp höchstens!", "it": "Col rastrello? Al massimo pettiniamo i cespugli!" } }
+          ] },
+          { "who": "france", "sl": "Režemo in režemo … Hrib je že bolj čist kot njiva spodaj!", "en": "Cutting and cutting … The hill is already cleaner than the field below!", "de": "Schneiden und schneiden … Der Hügel ist schon sauberer als das Feld unten!", "it": "Tagliamo e tagliamo … La collina è già più pulita del campo di sotto!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-njivi",
+      "words": ["kamen", "kosara"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Za terase potrebujemo zidove. {learner}, kaj nabiramo na njivi?", "en": "For the terraces we need walls. {learner}, what do we gather in the field?", "de": "Für die Terrassen brauchen wir Mauern. {learner}, was sammeln wir auf dem Feld?", "it": "Per le terrazze ci servono muri. {learner}, che cosa raccogliamo nel campo?" },
+          { "choices": [
+            { "sl": "Nabiramo kamne!", "en": "We gather stones!", "de": "Wir sammeln Steine!", "it": "Raccogliamo pietre!", "ok": true,
+              "reply": { "sl": "Tako je! Velike in majhne.", "en": "That's right! Big ones and small ones.", "de": "Genau! Große und kleine.", "it": "Esatto! Grandi e piccole." } },
+            { "sl": "Nabiramo gobe!", "en": "We gather mushrooms!", "de": "Wir sammeln Pilze!", "it": "Raccogliamo funghi!",
+              "why": { "en": "Gobe are mushrooms, and they grow in the forest. For walls you gather stones: kamne.", "de": "Gobe sind Pilze, und die wachsen im Wald. Für Mauern sammelt man Steine: kamne.", "it": "Gobe sono i funghi, e crescono nel bosco. Per i muri si raccolgono pietre: kamne." },
+              "reply": { "sl": "Gobe? Na njivi? Ha ha, gobe so v gozdu!", "en": "Mushrooms? In the field? Ha ha, mushrooms are in the forest!", "de": "Pilze? Auf dem Feld? Ha ha, Pilze sind im Wald!", "it": "Funghi? Nel campo? Ah ah, i funghi sono nel bosco!" } },
+            { "sl": "Nabiramo rože!", "en": "We gather flowers!", "de": "Wir sammeln Blumen!", "it": "Raccogliamo fiori!",
+              "why": { "en": "Rože are flowers: a wall of flowers falls over. For walls: stones, kamne.", "de": "Rože sind Blumen: Eine Mauer aus Blumen fällt um. Für Mauern: Steine, kamne.", "it": "Rože sono i fiori: un muro di fiori crolla. Per i muri: pietre, kamne." },
+              "reply": { "sl": "Rože? Lepo, ampak iz rož ne bo zidu!", "en": "Flowers? Nice, but you can't build a wall out of flowers!", "de": "Blumen? Schön, aber aus Blumen wird keine Mauer!", "it": "Fiori? Belli, ma con i fiori non si fa un muro!" } }
+          ] },
+          { "who": "luka", "sl": "Joj, toliko kamnov! Kam z njimi?", "en": "Wow, so many stones! Where do they go?", "de": "Oje, so viele Steine! Wohin damit?", "it": "Mamma mia, quante pietre! Dove le mettiamo?" },
+          { "choices": [
+            { "sl": "Tukaj, v košaro!", "en": "Here, into the basket!", "de": "Hier, in den Korb!", "it": "Qui, nel cesto!", "ok": true, "tap": "basket",
+              "reply": { "sl": "Prav! Košara bo kmalu polna.", "en": "Right! The basket will soon be full.", "de": "Gut! Der Korb ist bald voll.", "it": "Bene! Il cesto sarà presto pieno." } },
+            { "sl": "Tukaj, v zelje!", "en": "Here, into the cabbage!", "de": "Hier, in den Kohl!", "it": "Qui, nel cavolo!", "tap": "cabbage",
+              "why": { "en": "Zelje is cabbage, growing in the field. Stones go into the basket: košara.", "de": "Zelje ist Kohl, der auf dem Feld wächst. Steine kommen in den Korb: košara.", "it": "Zelje è il cavolo che cresce nel campo. Le pietre vanno nel cesto: košara." },
+              "reply": { "sl": "V zelje? Ha ha, potem bo zelje kamnito!", "en": "Into the cabbage? Ha ha, then the cabbage will be stony!", "de": "In den Kohl? Ha ha, dann wird der Kohl steinhart!", "it": "Nel cavolo? Ah ah, allora il cavolo diventa di pietra!" } },
+            { "sl": "Tukaj, na strašilo!", "en": "Here, onto the scarecrow!", "de": "Hier, auf die Vogelscheuche!", "it": "Qui, sullo spaventapasseri!", "tap": "scarecrow",
+              "why": { "en": "Strašilo is the scarecrow: it can't carry anything. Stones go into the basket: košara.", "de": "Strašilo ist die Vogelscheuche: Sie kann nichts tragen. Steine kommen in den Korb: košara.", "it": "Strašilo è lo spaventapasseri: non può portare niente. Le pietre vanno nel cesto: košara." },
+              "reply": { "sl": "Na strašilo? Ha ha, ubogo strašilo!", "en": "Onto the scarecrow? Ha ha, poor scarecrow!", "de": "Auf die Vogelscheuche? Ha ha, arme Vogelscheuche!", "it": "Sullo spaventapasseri? Ah ah, povero spaventapasseri!" } }
+          ] },
+          { "who": "vida", "sl": "Košara je polna. Uf, kako težka!", "en": "The basket is full. Phew, how heavy!", "de": "Der Korb ist voll. Puh, wie schwer!", "it": "Il cesto è pieno. Uff, che pesante!" },
+          { "who": "marko", "sl": "Bravo! Vse gre na hrib.", "en": "Well done! It all goes up the hill.", "de": "Bravo! Alles kommt auf den Hügel.", "it": "Bravi! Tutto va sulla collina." }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Za terase bomo potrebovali dolge zidove.", "en": "For the terraces we'll need long walls.", "de": "Für die Terrassen werden wir lange Mauern brauchen.", "it": "Per le terrazze ci serviranno muri lunghi." },
+          { "who": "france", "sl": "Na njivah je polno kamenja. Vsako pomlad ga plug potegne na dan.", "en": "The fields are full of stones. Every spring the plough brings them up.", "de": "Die Felder sind voller Steine. Jeden Frühling holt sie der Pflug ans Licht.", "it": "I campi sono pieni di pietre. Ogni primavera l'aratro le tira fuori." },
+          { "who": "marko", "sl": "Odlično. {learner}, koliko jih bomo nabrali?", "en": "Great. {learner}, how many shall we gather?", "de": "Super. {learner}, wie viele sammeln wir?", "it": "Ottimo. {learner}, quante ne raccoglieremo?" },
+          { "choices": [
+            { "sl": "Veliko kamnov, ker bodo zidovi dolgi.", "en": "Lots of stones, because the walls will be long.", "de": "Viele Steine, weil die Mauern lang werden.", "it": "Tante pietre, perché i muri saranno lunghi.", "ok": true,
+              "reply": { "sl": "Tako je. Na delo!", "en": "That's right. To work!", "de": "Genau. An die Arbeit!", "it": "Esatto. Al lavoro!" } },
+            { "sl": "Veliko kamni, ker bodo zidovi dolgi.", "en": "Lots of stones, because the walls will be long.", "de": "Viele Steine, weil die Mauern lang werden.", "it": "Tante pietre, perché i muri saranno lunghi.", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive plural: veliko kamnov.", "de": "Veliko (viel) verlangt den Genitiv Plural: veliko kamnov.", "it": "Veliko (tanto) vuole il genitivo plurale: veliko kamnov." },
+              "reply": { "sl": "Veliko … kamni? Hm, kako, prosim?", "en": "Lots of … kamni? Hm, pardon?", "de": "Viele … kamni? Hm, wie bitte?", "it": "Tante … kamni? Mm, come, scusa?" } },
+            { "sl": "Veliko krompirja, ker bodo zidovi dolgi.", "en": "Lots of potatoes, because the walls will be long.", "de": "Viele Kartoffeln, weil die Mauern lang werden.", "it": "Tante patate, perché i muri saranno lunghi.",
+              "why": { "en": "Krompir is potatoes: you can't build a wall from them. Stones: kamnov.", "de": "Krompir sind Kartoffeln: Daraus baut man keine Mauer. Steine: kamnov.", "it": "Krompir sono le patate: con quelle non si fa un muro. Pietre: kamnov." },
+              "reply": { "sl": "Krompirja? Iz krompirja pa ne bo zidu, ha ha!", "en": "Potatoes? You won't get a wall out of potatoes, ha ha!", "de": "Kartoffeln? Aus Kartoffeln wird keine Mauer, ha ha!", "it": "Patate? Con le patate non viene un muro, ah ah!" } }
+          ] },
+          { "who": "luka", "sl": "S čim jih bomo nosili na hrib?", "en": "What shall we carry them up the hill in?", "de": "Womit tragen wir sie auf den Hügel?", "it": "Con che cosa le porteremo sulla collina?" },
+          { "choices": [
+            { "sl": "S tisto košaro!", "en": "With that basket!", "de": "Mit dem Korb da!", "it": "Con quel cesto!", "ok": true, "tap": "basket",
+              "reply": { "sl": "Prav! Ena košara, dve, tri …", "en": "Right! One basket, two, three …", "de": "Gut! Ein Korb, zwei, drei …", "it": "Bene! Un cesto, due, tre …" } },
+            { "sl": "S tistim strašilom!", "en": "With that scarecrow!", "de": "Mit der Vogelscheuche da!", "it": "Con quello spaventapasseri!", "tap": "scarecrow",
+              "why": { "en": "Strašilo is the scarecrow: it only holds straw. You carry stones in a basket: košara.", "de": "Strašilo ist die Vogelscheuche: Sie hält nur Stroh. Steine trägt man im Korb: košara.", "it": "Strašilo è lo spaventapasseri: tiene solo paglia. Le pietre si portano nel cesto: košara." },
+              "reply": { "sl": "S strašilom? Ha ha, ta ima v rokah samo slamo!", "en": "With the scarecrow? Ha ha, all it holds is straw!", "de": "Mit der Vogelscheuche? Ha ha, die hat nur Stroh in den Händen!", "it": "Con lo spaventapasseri? Ah ah, quello in mano ha solo paglia!" } },
+            { "sl": "S tistim zeljem!", "en": "With that cabbage!", "de": "Mit dem Kohl da!", "it": "Con quel cavolo!", "tap": "cabbage",
+              "why": { "en": "Zelje is cabbage: it goes in the pot. You carry stones in a basket: košara.", "de": "Zelje ist Kohl: Der kommt in den Topf. Steine trägt man im Korb: košara.", "it": "Zelje è il cavolo: va in pentola. Le pietre si portano nel cesto: košara." },
+              "reply": { "sl": "Z zeljem? Ha ha, zelje je za v lonec!", "en": "With the cabbage? Ha ha, cabbage goes in the pot!", "de": "Mit dem Kohl? Ha ha, Kohl gehört in den Topf!", "it": "Col cavolo? Ah ah, il cavolo va in pentola!" } }
+          ] },
+          { "who": "vida", "sl": "Košara je polna. Uf, težka je kot sod vina!", "en": "The basket is full. Phew, it's as heavy as a barrel of wine!", "de": "Der Korb ist voll. Puh, er ist schwer wie ein Fass Wein!", "it": "Il cesto è pieno. Uff, pesa come una botte di vino!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-njivi",
+      "words": ["zid", "terasa"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Kamne imamo. Zdaj gremo na hrib in zidamo!", "en": "We have the stones. Now we go up the hill and build!", "de": "Die Steine haben wir. Jetzt geht's auf den Hügel, wir mauern!", "it": "Le pietre ce le abbiamo. Ora andiamo sulla collina a murare!" },
+          { "who": "luka", "sl": "Kaj pa zidamo?", "en": "And what are we building?", "de": "Und was mauern wir?", "it": "E che cosa muriamo?" },
+          { "choices": [
+            { "sl": "Zidamo zid.", "en": "We're building a wall.", "de": "Wir mauern eine Mauer.", "it": "Facciamo un muro.", "ok": true,
+              "reply": { "sl": "Aha. Ampak brez malte?", "en": "Aha. But without mortar?", "de": "Aha. Aber ohne Mörtel?", "it": "Ah. Ma senza malta?" } },
+            { "sl": "Zidamo peč.", "en": "We're building a stove.", "de": "Wir mauern einen Ofen.", "it": "Facciamo una stufa.",
+              "why": { "en": "Peč is a stove. On the hill you're building a wall: zid.", "de": "Peč ist ein Ofen. Auf dem Hügel mauert man eine Mauer: zid.", "it": "Peč è una stufa. Sulla collina si fa un muro: zid." },
+              "reply": { "sl": "Peč? Ha ha, na hribu je že tako dovolj vroče!", "en": "A stove? Ha ha, it's hot enough on the hill as it is!", "de": "Einen Ofen? Ha ha, auf dem Hügel ist es so schon heiß genug!", "it": "Una stufa? Ah ah, sulla collina fa già abbastanza caldo!" } },
+            { "sl": "Zidamo most.", "en": "We're building a bridge.", "de": "Wir bauen eine Brücke.", "it": "Facciamo un ponte.",
+              "why": { "en": "Most is a bridge: there's no stream up on the hill! You're building a wall: zid.", "de": "Most ist eine Brücke: Auf dem Hügel gibt es keinen Bach! Ihr mauert eine Mauer: zid.", "it": "Most è un ponte: sulla collina non c'è il ruscello! State facendo un muro: zid." },
+              "reply": { "sl": "Most? Na hribu ni potoka, ha ha!", "en": "A bridge? There's no stream on the hill, ha ha!", "de": "Eine Brücke? Auf dem Hügel ist kein Bach, ha ha!", "it": "Un ponte? Sulla collina non c'è il ruscello, ah ah!" } }
+          ] },
+          { "who": "marko", "sl": "Ja, brez malte. To je suh zid: kamen drži kamen.", "en": "Yes, without mortar. It's a dry-stone wall: stone holds stone.", "de": "Ja, ohne Mörtel. Das ist eine Trockenmauer: Stein hält Stein.", "it": "Sì, senza malta. È un muretto a secco: pietra tiene pietra." },
+          { "who": "vida", "sl": "Zid nad zidom, vedno višje … Kaj nastaja?", "en": "Wall above wall, higher and higher … What's taking shape?", "de": "Mauer über Mauer, immer höher … Was entsteht da?", "it": "Muro sopra muro, sempre più su … Che cosa sta venendo fuori?" },
+          { "choices": [
+            { "sl": "To so terase!", "en": "Those are terraces!", "de": "Das sind Terrassen!", "it": "Sono terrazze!", "ok": true,
+              "reply": { "sl": "Res je! Kot velike zelene stopnice.", "en": "True! Like big green steps.", "de": "Stimmt! Wie große grüne Stufen.", "it": "È vero! Come grandi gradini verdi." } },
+            { "sl": "To so ribniki!", "en": "Those are ponds!", "de": "Das sind Teiche!", "it": "Sono stagni!",
+              "why": { "en": "Ribniki are ponds: there's no water up here. Earth steps behind stone walls are terraces: terase.", "de": "Ribniki sind Teiche: Hier oben gibt es kein Wasser. Erdstufen hinter Steinmauern sind Terrassen: terase.", "it": "Ribniki sono stagni: quassù non c'è acqua. I gradini di terra dietro i muri di pietra sono terrazze: terase." },
+              "reply": { "sl": "Ribniki? Ha ha, na hribu ni vode!", "en": "Ponds? Ha ha, there's no water on the hill!", "de": "Teiche? Ha ha, auf dem Hügel gibt es kein Wasser!", "it": "Stagni? Ah ah, sulla collina non c'è acqua!" } },
+            { "sl": "To so stopnice!", "en": "Those are stairs!", "de": "Das sind Treppen!", "it": "Sono scale!",
+              "why": { "en": "Stopnice are stairs, for feet. Wide earth steps for vines are terraces: terase.", "de": "Stopnice sind Treppen, für Füße. Breite Erdstufen für Reben sind Terrassen: terase.", "it": "Stopnice sono scale, per i piedi. Larghi gradini di terra per le viti sono terrazze: terase." },
+              "reply": { "sl": "Stopnice? Ja, za velikane, ha ha!", "en": "Stairs? Yes, for giants, ha ha!", "de": "Treppen? Ja, für Riesen, ha ha!", "it": "Scale? Sì, per i giganti, ah ah!" } }
+          ] },
+          { "who": "marko", "sl": "Lepo, lepo! Tukaj bodo rasle trte.", "en": "Lovely, lovely! This is where the vines will grow.", "de": "Schön, schön! Hier werden die Reben wachsen.", "it": "Bello, bello! Qui cresceranno le viti." }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Hrib je strm, zato bomo zgradili pet teras. Vsaka potrebuje suh zid.", "en": "The hill is steep, so we'll build five terraces. Each one needs a dry-stone wall.", "de": "Der Hügel ist steil, darum bauen wir fünf Terrassen. Jede braucht eine Trockenmauer.", "it": "La collina è ripida, quindi faremo cinque terrazze. Ognuna ha bisogno di un muretto a secco." },
+          { "who": "luka", "sl": "Koliko jih bomo torej zgradili?", "en": "So how many of them will we build?", "de": "Wie viele davon bauen wir also?", "it": "Quanti ne costruiremo, allora?" },
+          { "choices": [
+            { "sl": "Pet zidov, enega nad drugim.", "en": "Five walls, one above the other.", "de": "Fünf Mauern, eine über der anderen.", "it": "Cinque muri, uno sopra l'altro.", "ok": true,
+              "reply": { "sl": "Pet! Potem pa pohitimo.", "en": "Five! Then let's get a move on.", "de": "Fünf! Dann beeilen wir uns.", "it": "Cinque! Allora sbrighiamoci." } },
+            { "sl": "Pet zidi, enega nad drugim.", "en": "Five walls, one above the other.", "de": "Fünf Mauern, eine über der anderen.", "it": "Cinque muri, uno sopra l'altro.", "grammar": "stevila-samostalniki",
+              "why": { "en": "From five on, a number takes the genitive plural: pet zidov.", "de": "Ab fünf steht nach der Zahl der Genitiv Plural: pet zidov.", "it": "Da cinque in su, il numero vuole il genitivo plurale: pet zidov." },
+              "reply": { "sl": "Pet … zidi? Hm, kako, prosim?", "en": "Five … zidi? Hm, pardon?", "de": "Fünf … zidi? Hm, wie bitte?", "it": "Cinque … zidi? Mm, come, scusa?" } },
+            { "sl": "Pet mostov, enega nad drugim.", "en": "Five bridges, one above the other.", "de": "Fünf Brücken, eine über der anderen.", "it": "Cinque ponti, uno sopra l'altro.",
+              "why": { "en": "Most is a bridge: there's no stream on the hill. Each terrace gets a wall: pet zidov.", "de": "Most ist eine Brücke: Auf dem Hügel gibt es keinen Bach. Jede Terrasse bekommt eine Mauer: pet zidov.", "it": "Most è un ponte: sulla collina non c'è il ruscello. Ogni terrazza ha un muro: pet zidov." },
+              "reply": { "sl": "Pet mostov? Na hribu ni niti enega potoka!", "en": "Five bridges? There isn't a single stream on the hill!", "de": "Fünf Brücken? Auf dem Hügel ist nicht ein einziger Bach!", "it": "Cinque ponti? Sulla collina non c'è nemmeno un ruscello!" } }
+          ] },
+          { "who": "marko", "sl": "Zidovi so suhi, brez malte. Kamen drži kamen.", "en": "The walls are dry, without mortar. Stone holds stone.", "de": "Die Mauern sind trocken, ohne Mörtel. Stein hält Stein.", "it": "I muri sono a secco, senza malta. Pietra tiene pietra." },
+          { "who": "vida", "sl": "Zid nad zidom … Kje pa bodo rasle trte?", "en": "Wall above wall … And where will the vines grow?", "de": "Mauer über Mauer … Und wo werden die Reben wachsen?", "it": "Muro sopra muro … E dove cresceranno le viti?" },
+          { "choices": [
+            { "sl": "Na terasah, kjer je veliko sonca.", "en": "On the terraces, where there's lots of sun.", "de": "Auf den Terrassen, wo viel Sonne ist.", "it": "Sulle terrazze, dove c'è tanto sole.", "ok": true,
+              "reply": { "sl": "Lepo. Sonce in kamen, to imajo trte rade.", "en": "Lovely. Sun and stone, that's what vines like.", "de": "Schön. Sonne und Stein, das mögen Reben.", "it": "Bello. Sole e pietra, è quello che piace alle viti." } },
+            { "sl": "Na terase, kjer je veliko sonca.", "en": "Onto the terraces, where there's lots of sun.", "de": "Auf die Terrassen, wo viel Sonne ist.", "it": "Sulle terrazze, dove c'è tanto sole.", "grammar": "kje-mestnik-orodnik",
+              "why": { "en": "Kje? (where) takes the locative; in the plural -ah: na terasah. Na terase answers kam? (where to).", "de": "Kje? (wo) verlangt den Lokativ; im Plural -ah: na terasah. Na terase antwortet auf kam? (wohin).", "it": "Kje? (dove, stato) vuole il locativo; al plurale -ah: na terasah. Na terase risponde a kam? (verso dove)." },
+              "reply": { "sl": "Na terase? Hm, kako, prosim?", "en": "Na terase? Hm, pardon?", "de": "Na terase? Hm, wie bitte?", "it": "Na terase? Mm, come, scusa?" } },
+            { "sl": "Na strehah, kjer je veliko sonca.", "en": "On the roofs, where there's lots of sun.", "de": "Auf den Dächern, wo viel Sonne ist.", "it": "Sui tetti, dove c'è tanto sole.",
+              "why": { "en": "Strehe are roofs: nobody plants vines up there. On the terraces: na terasah.", "de": "Strehe sind Dächer: Da oben pflanzt niemand Reben. Auf den Terrassen: na terasah.", "it": "Strehe sono i tetti: lassù nessuno pianta viti. Sulle terrazze: na terasah." },
+              "reply": { "sl": "Na strehah? Ha ha, kdo bo pa trgal grozdje na strehi?", "en": "On the roofs? Ha ha, and who'll pick grapes on a roof?", "de": "Auf den Dächern? Ha ha, und wer liest dann auf dem Dach Trauben?", "it": "Sui tetti? Ah ah, e chi vendemmia sul tetto?" } }
+          ] },
+          { "who": "marko", "sl": "Bravo! Terasa za teraso, kot doma v Brdih.", "en": "Well done! Terrace after terrace, just like at home in Brda.", "de": "Bravo! Terrasse um Terrasse, wie daheim in Brda.", "it": "Bravi! Terrazza dopo terrazza, come a casa nel Collio." }
+        ] }
+      }
+    },
+    {
+      "scene": "na-njivi",
+      "words": ["zemlja", "motika"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Terase stojijo. Ampak trte imajo dolge korenine.", "en": "The terraces are standing. But vines have long roots.", "de": "Die Terrassen stehen. Aber Reben haben lange Wurzeln.", "it": "Le terrazze sono pronte. Ma le viti hanno radici lunghe." },
+          { "who": "france", "sl": "Zato kopljemo globoko. Kaj pa prekopljemo?", "en": "So we dig deep. And what do we dig over?", "de": "Darum graben wir tief. Und was graben wir um?", "it": "Per questo vanghiamo a fondo. E che cosa vanghiamo?" },
+          { "choices": [
+            { "sl": "Prekopljemo zemljo.", "en": "We dig over the soil.", "de": "Wir graben die Erde um.", "it": "Vanghiamo la terra.", "ok": true,
+              "reply": { "sl": "Tako je. Globoko in dobro.", "en": "That's right. Deep and well.", "de": "Genau. Tief und gründlich.", "it": "Esatto. A fondo e bene." } },
+            { "sl": "Prekopljemo zid.", "en": "We dig over the wall.", "de": "Wir graben die Mauer um.", "it": "Vanghiamo il muro.",
+              "why": { "en": "Zid is the wall you've just built! You dig the soil: zemljo.", "de": "Zid ist die Mauer, die ihr gerade gebaut habt! Umgegraben wird die Erde: zemljo.", "it": "Zid è il muro che avete appena fatto! Si vanga la terra: zemljo." },
+              "reply": { "sl": "Zid? Ojoj, ne! Ravno smo ga postavili!", "en": "The wall? Oh no! We've only just built it!", "de": "Die Mauer? Oje, nein! Die haben wir gerade erst gebaut!", "it": "Il muro? Oh no! L'abbiamo appena tirato su!" } },
+            { "sl": "Prekopljemo vodo.", "en": "We dig over the water.", "de": "Wir graben das Wasser um.", "it": "Vanghiamo l'acqua.",
+              "why": { "en": "Voda is water: you can't dig water. The soil: zemljo.", "de": "Voda ist Wasser: Wasser kann man nicht umgraben. Die Erde: zemljo.", "it": "Voda è l'acqua: l'acqua non si vanga. La terra: zemljo." },
+              "reply": { "sl": "Vodo? Ha ha, vode se ne da kopati!", "en": "Water? Ha ha, you can't dig water!", "de": "Wasser? Ha ha, Wasser kann man nicht umgraben!", "it": "L'acqua? Ah ah, l'acqua non si può vangare!" } }
+          ] },
+          { "who": "marko", "sl": "Tukaj je orodje. {learner}, kaj vzameš?", "en": "Here are the tools. {learner}, what do you take?", "de": "Hier ist das Werkzeug. {learner}, was nimmst du?", "it": "Ecco gli attrezzi. {learner}, che cosa prendi?" },
+          { "choices": [
+            { "sl": "Vzamem motiko.", "en": "I take a hoe.", "de": "Ich nehme eine Hacke.", "it": "Prendo una zappa.", "ok": true,
+              "reply": { "sl": "Bravo. Z motiko gre najlaže.", "en": "Well done. It's easiest with a hoe.", "de": "Bravo. Mit der Hacke geht es am leichtesten.", "it": "{m:Bravo|f:Brava}. Con la zappa è più facile." } },
+            { "sl": "Vzamem grablje.", "en": "I take a rake.", "de": "Ich nehme einen Rechen.", "it": "Prendo un rastrello.",
+              "why": { "en": "Grablje is a rake: it smooths, it doesn't dig deep. To dig: motika (a hoe).", "de": "Grablje ist ein Rechen: Er glättet, er gräbt nicht tief. Zum Graben: motika (eine Hacke).", "it": "Grablje è un rastrello: livella, non scava a fondo. Per vangare: motika (una zappa)." },
+              "reply": { "sl": "Grablje? Te so za na koncu, ko je zemlja že mehka.", "en": "A rake? That's for the end, when the soil is already soft.", "de": "Einen Rechen? Der kommt am Schluss, wenn die Erde schon weich ist.", "it": "Il rastrello? Quello serve alla fine, quando la terra è già morbida." } },
+            { "sl": "Vzamem kozarec.", "en": "I take a glass.", "de": "Ich nehme ein Glas.", "it": "Prendo un bicchiere.",
+              "why": { "en": "Kozarec is a glass: that's for the evening! To dig: motika (a hoe).", "de": "Kozarec ist ein Glas: Das ist für den Abend! Zum Graben: motika (eine Hacke).", "it": "Kozarec è un bicchiere: quello è per stasera! Per vangare: motika (una zappa)." },
+              "reply": { "sl": "Kozarec? Ta pride na vrsto zvečer, ha ha!", "en": "A glass? That comes in the evening, ha ha!", "de": "Ein Glas? Das ist erst am Abend dran, ha ha!", "it": "Un bicchiere? Quello tocca stasera, ah ah!" } }
+          ] },
+          { "who": "vida", "sl": "Uf, kopljemo in kopljemo … Zemlja je mehka kot testo!", "en": "Phew, digging and digging … The soil is soft as dough!", "de": "Puh, graben und graben … Die Erde ist weich wie Teig!", "it": "Uff, vanghiamo e vanghiamo … La terra è morbida come l'impasto!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Terase stojijo. Ampak trte imajo dolge korenine, zato morajo iti globoko.", "en": "The terraces are standing. But vines have long roots, so they have to go deep.", "de": "Die Terrassen stehen. Aber Reben haben lange Wurzeln, darum müssen sie tief hinein.", "it": "Le terrazze sono pronte. Ma le viti hanno radici lunghe, quindi devono andare a fondo." },
+          { "who": "france", "sl": "Kaj moramo torej narediti?", "en": "So what do we have to do?", "de": "Was müssen wir also tun?", "it": "Che cosa dobbiamo fare, allora?" },
+          { "choices": [
+            { "sl": "Zemljo moramo globoko prekopati.", "en": "We have to dig the soil over deeply.", "de": "Wir müssen die Erde tief umgraben.", "it": "Dobbiamo vangare a fondo la terra.", "ok": true,
+              "reply": { "sl": "Tako je. Globoko in dobro.", "en": "That's right. Deep and well.", "de": "Genau. Tief und gründlich.", "it": "Esatto. A fondo e bene." } },
+            { "sl": "Zid moramo globoko prekopati.", "en": "We have to dig the wall over deeply.", "de": "Wir müssen die Mauer tief umgraben.", "it": "Dobbiamo vangare a fondo il muro.",
+              "why": { "en": "Zid is the wall you've just built! You dig the soil: zemljo.", "de": "Zid ist die Mauer, die ihr gerade gebaut habt! Umgegraben wird die Erde: zemljo.", "it": "Zid è il muro che avete appena fatto! Si vanga la terra: zemljo." },
+              "reply": { "sl": "Zid? Ojoj, ne! Ravno smo ga postavili!", "en": "The wall? Oh no! We've only just built it!", "de": "Die Mauer? Oje, nein! Die haben wir gerade erst gebaut!", "it": "Il muro? Oh no! L'abbiamo appena tirato su!" } },
+            { "sl": "Zemlja moramo globoko prekopati.", "en": "We have to dig the soil over deeply.", "de": "Wir müssen die Erde tief umgraben.", "it": "Dobbiamo vangare a fondo la terra.", "grammar": "tozilnik",
+              "why": { "en": "Prekopati (to dig over) takes the accusative: a feminine -a becomes -o, zemljo.", "de": "Prekopati (umgraben) verlangt den Akkusativ: Ein weibliches -a wird zu -o, zemljo.", "it": "Prekopati (vangare) vuole l'accusativo: una -a femminile diventa -o, zemljo." },
+              "reply": { "sl": "Zemlja? Ja, zemlja je. In?", "en": "Zemlja? Yes, it's soil. And?", "de": "Zemlja? Ja, das ist Erde. Und?", "it": "Zemlja? Sì, è terra. E allora?" } }
+          ] },
+          { "who": "marko", "sl": "Bravo. {learner}, s čim bomo kopali?", "en": "Well done. {learner}, what shall we dig with?", "de": "Bravo. {learner}, womit graben wir?", "it": "{m:Bravo|f:Brava}. {learner}, con che cosa vangheremo?" },
+          { "choices": [
+            { "sl": "Z motiko, ker je zemlja trda.", "en": "With a hoe, because the soil is hard.", "de": "Mit der Hacke, weil die Erde hart ist.", "it": "Con la zappa, perché la terra è dura.", "ok": true,
+              "reply": { "sl": "Tako je. Z motiko gre najlaže.", "en": "That's right. It's easiest with a hoe.", "de": "Genau. Mit der Hacke geht es am leichtesten.", "it": "Esatto. Con la zappa è più facile." } },
+            { "sl": "Z motika, ker je zemlja trda.", "en": "With a hoe, because the soil is hard.", "de": "Mit der Hacke, weil die Erde hart ist.", "it": "Con la zappa, perché la terra è dura.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental: a feminine -a becomes -o, z motiko.", "de": "Z (mit) verlangt den Instrumental: Ein weibliches -a wird zu -o, z motiko.", "it": "Z (con) vuole lo strumentale: una -a femminile diventa -o, z motiko." },
+              "reply": { "sl": "Z … motika? Hm, kako, prosim?", "en": "With … motika? Hm, pardon?", "de": "Mit … motika? Hm, wie bitte?", "it": "Con … motika? Mm, come, scusa?" } },
+            { "sl": "S kozarcem, ker je zemlja trda.", "en": "With a glass, because the soil is hard.", "de": "Mit einem Glas, weil die Erde hart ist.", "it": "Con un bicchiere, perché la terra è dura.",
+              "why": { "en": "Kozarec is a glass: that's for the evening! You dig with a hoe: z motiko.", "de": "Kozarec ist ein Glas: Das ist für den Abend! Man gräbt mit der Hacke: z motiko.", "it": "Kozarec è un bicchiere: quello è per stasera! Si vanga con la zappa: z motiko." },
+              "reply": { "sl": "S kozarcem? Ta pride na vrsto zvečer, ha ha!", "en": "With a glass? That comes in the evening, ha ha!", "de": "Mit einem Glas? Das ist erst am Abend dran, ha ha!", "it": "Con un bicchiere? Quello tocca stasera, ah ah!" } }
+          ] },
+          { "who": "vida", "sl": "Kopljemo in kopljemo … Zemlja je zdaj mehka kot testo za kruh!", "en": "Digging and digging … Now the soil is soft as bread dough!", "de": "Graben und graben … Jetzt ist die Erde weich wie Brotteig!", "it": "Vanghiamo e vanghiamo … Ora la terra è morbida come l'impasto del pane!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-njivi",
+      "words": ["kol", "kladivo"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Mlade trte so šibke. Potrebujejo pomoč.", "en": "Young vines are weak. They need help.", "de": "Junge Reben sind schwach. Sie brauchen Hilfe.", "it": "Le viti giovani sono deboli. Hanno bisogno di aiuto." },
+          { "who": "luka", "sl": "Kakšno pomoč? Saj ne znajo hoditi!", "en": "What kind of help? It's not as if they can walk!", "de": "Was für Hilfe? Laufen können sie doch nicht!", "it": "Che aiuto? Mica sanno camminare!" },
+          { "who": "marko", "sl": "Ha ha. {learner}, kaj postavimo k vsaki trti?", "en": "Ha ha. {learner}, what do we put next to every vine?", "de": "Ha ha. {learner}, was stellen wir zu jeder Rebe?", "it": "Ah ah. {learner}, che cosa mettiamo accanto a ogni vite?" },
+          { "choices": [
+            { "sl": "Postavimo lesen kol.", "en": "We put a wooden stake.", "de": "Wir setzen einen Holzpfahl.", "it": "Mettiamo un palo di legno.", "ok": true,
+              "reply": { "sl": "Tako je. Trta se ga bo držala.", "en": "That's right. The vine will hold on to it.", "de": "Genau. Die Rebe hält sich daran fest.", "it": "Esatto. La vite ci si aggrapperà." } },
+            { "sl": "Postavimo lesen stol.", "en": "We put a wooden chair.", "de": "Wir stellen einen Holzstuhl hin.", "it": "Mettiamo una sedia di legno.",
+              "why": { "en": "Stol is a chair: a vine doesn't sit! It leans on a wooden stake: kol.", "de": "Stol ist ein Stuhl: Eine Rebe sitzt nicht! Sie lehnt an einem Holzpfahl: kol.", "it": "Stol è una sedia: una vite non si siede! Si appoggia a un palo di legno: kol." },
+              "reply": { "sl": "Stol? Ha ha, trta ne bo sedela!", "en": "A chair? Ha ha, the vine isn't going to sit down!", "de": "Einen Stuhl? Ha ha, die Rebe setzt sich doch nicht!", "it": "Una sedia? Ah ah, la vite non si siede!" } },
+            { "sl": "Postavimo lesen most.", "en": "We put a wooden bridge.", "de": "Wir bauen eine Holzbrücke.", "it": "Mettiamo un ponte di legno.",
+              "why": { "en": "Most is a bridge: vines don't cross streams. A vine needs a stake: kol.", "de": "Most ist eine Brücke: Reben gehen über keinen Bach. Eine Rebe braucht einen Pfahl: kol.", "it": "Most è un ponte: le viti non attraversano ruscelli. Una vite ha bisogno di un palo: kol." },
+              "reply": { "sl": "Most? Ha ha, trte ne gredo čez potok!", "en": "A bridge? Ha ha, vines don't cross the stream!", "de": "Eine Brücke? Ha ha, Reben gehen nicht über den Bach!", "it": "Un ponte? Ah ah, le viti non attraversano il ruscello!" } }
+          ] },
+          { "who": "vida", "sl": "Kol stoji, ampak se maje. Kaj potrebujemo?", "en": "The stake stands, but it wobbles. What do we need?", "de": "Der Pfahl steht, aber er wackelt. Was brauchen wir?", "it": "Il palo sta in piedi, ma traballa. Che cosa ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo kladivo.", "en": "We need a hammer.", "de": "Wir brauchen einen Hammer.", "it": "Ci serve un martello.", "ok": true,
+              "reply": { "sl": "Prav. Udarite močno!", "en": "Right. Hit it hard!", "de": "Gut. Fest zuschlagen!", "it": "Bene. Colpite forte!" } },
+            { "sl": "Potrebujemo pero.", "en": "We need a feather.", "de": "Wir brauchen eine Feder.", "it": "Ci serve una piuma.",
+              "why": { "en": "Pero is a feather: it tickles, it doesn't hammer. You drive a stake in with a hammer: kladivo.", "de": "Pero ist eine Feder: Sie kitzelt, sie hämmert nicht. Einen Pfahl schlägt man mit dem Hammer ein: kladivo.", "it": "Pero è una piuma: fa il solletico, non martella. Un palo si pianta col martello: kladivo." },
+              "reply": { "sl": "Pero? Ha ha, s peresom bomo kol samo žgečkali!", "en": "A feather? Ha ha, with a feather we'd only tickle the stake!", "de": "Eine Feder? Ha ha, damit kitzeln wir den Pfahl nur!", "it": "Una piuma? Ah ah, con la piuma al palo facciamo solo il solletico!" } },
+            { "sl": "Potrebujemo kruh.", "en": "We need bread.", "de": "Wir brauchen Brot.", "it": "Ci serve il pane.",
+              "why": { "en": "Kruh is bread. A wobbly stake needs a hammer: kladivo.", "de": "Kruh ist Brot. Ein wackliger Pfahl braucht einen Hammer: kladivo.", "it": "Kruh è il pane. Un palo che traballa ha bisogno del martello: kladivo." },
+              "reply": { "sl": "Kruh? Ha ha, kol ni lačen!", "en": "Bread? Ha ha, the stake isn't hungry!", "de": "Brot? Ha ha, der Pfahl hat keinen Hunger!", "it": "Pane? Ah ah, il palo non ha fame!" } }
+          ] },
+          { "who": "marko", "sl": "Bum, bum! Zdaj kol trdno stoji. Še devetinštirideset!", "en": "Bang, bang! Now the stake stands firm. Forty-nine to go!", "de": "Bumm, bumm! Jetzt steht der Pfahl fest. Noch neunundvierzig!", "it": "Bum, bum! Ora il palo sta saldo. Ne mancano quarantanove!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Mlade trte so šibke. Brez opore bi padle po tleh.", "en": "Young vines are weak. Without support they'd fall to the ground.", "de": "Junge Reben sind schwach. Ohne Stütze würden sie umfallen.", "it": "Le viti giovani sono deboli. Senza sostegno cadrebbero a terra." },
+          { "who": "luka", "sl": "Opore? Kaj jim bomo pa dali, palice za hojo?", "en": "Support? What are we going to give them, walking sticks?", "de": "Stütze? Was geben wir ihnen denn, Spazierstöcke?", "it": "Sostegno? E che cosa gli diamo, i bastoni da passeggio?" },
+          { "who": "marko", "sl": "Skoraj! Vsaka trta dobi svoj kol. Imamo petdeset trt, {learner}. Koliko jih potrebujemo?", "en": "Nearly! Every vine gets its own stake. We have fifty vines, {learner}. How many do we need?", "de": "Fast! Jede Rebe bekommt ihren Pfahl. Wir haben fünfzig Reben, {learner}. Wie viele brauchen wir?", "it": "Quasi! Ogni vite ha il suo palo. Abbiamo cinquanta viti, {learner}. Quanti ce ne servono?" },
+          { "choices": [
+            { "sl": "Petdeset kolov, za vsako trto enega.", "en": "Fifty stakes, one for each vine.", "de": "Fünfzig Pfähle, einen für jede Rebe.", "it": "Cinquanta pali, uno per ogni vite.", "ok": true,
+              "reply": { "sl": "Tako je. Petdeset kolov za petdeset trt.", "en": "That's right. Fifty stakes for fifty vines.", "de": "Genau. Fünfzig Pfähle für fünfzig Reben.", "it": "Esatto. Cinquanta pali per cinquanta viti." } },
+            { "sl": "Petdeset koli, za vsako trto enega.", "en": "Fifty stakes, one for each vine.", "de": "Fünfzig Pfähle, einen für jede Rebe.", "it": "Cinquanta pali, uno per ogni vite.", "grammar": "stevila-samostalniki",
+              "why": { "en": "From five on, a number takes the genitive plural: petdeset kolov.", "de": "Ab fünf steht nach der Zahl der Genitiv Plural: petdeset kolov.", "it": "Da cinque in su, il numero vuole il genitivo plurale: petdeset kolov." },
+              "reply": { "sl": "Petdeset … koli? Hm, kako, prosim?", "en": "Fifty … koli? Hm, pardon?", "de": "Fünfzig … koli? Hm, wie bitte?", "it": "Cinquanta … koli? Mm, come, scusa?" } },
+            { "sl": "Petdeset stolov, za vsako trto enega.", "en": "Fifty chairs, one for each vine.", "de": "Fünfzig Stühle, einen für jede Rebe.", "it": "Cinquanta sedie, una per ogni vite.",
+              "why": { "en": "Stol is a chair: a vine doesn't sit! It needs a stake: kolov.", "de": "Stol ist ein Stuhl: Eine Rebe sitzt nicht! Sie braucht einen Pfahl: kolov.", "it": "Stol è una sedia: una vite non si siede! Le serve un palo: kolov." },
+              "reply": { "sl": "Petdeset stolov? Ha ha, trte ne bodo sedele!", "en": "Fifty chairs? Ha ha, the vines won't be sitting down!", "de": "Fünfzig Stühle? Ha ha, die Reben setzen sich doch nicht!", "it": "Cinquanta sedie? Ah ah, le viti non si siedono!" } }
+          ] },
+          { "who": "vida", "sl": "S čim pa jih bomo zabili v zemljo?", "en": "And what shall we drive them into the ground with?", "de": "Und womit schlagen wir sie in die Erde?", "it": "E con che cosa li pianteremo nella terra?" },
+          { "choices": [
+            { "sl": "S težkim kladivom.", "en": "With a heavy hammer.", "de": "Mit einem schweren Hammer.", "it": "Con un martello pesante.", "ok": true,
+              "reply": { "sl": "Prav. Udarite močno!", "en": "Right. Hit hard!", "de": "Gut. Fest zuschlagen!", "it": "Bene. Colpite forte!" } },
+            { "sl": "S težkim kladivo.", "en": "With a heavy hammer.", "de": "Mit einem schweren Hammer.", "it": "Con un martello pesante.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental: s kladivom.", "de": "S (mit) verlangt den Instrumental: s kladivom.", "it": "S (con) vuole lo strumentale: s kladivom." },
+              "reply": { "sl": "S težkim … kladivo? Hm, kako, prosim?", "en": "With a heavy … kladivo? Hm, pardon?", "de": "Mit einem schweren … kladivo? Hm, wie bitte?", "it": "Con un pesante … kladivo? Mm, come, scusa?" } },
+            { "sl": "S težkim peresom.", "en": "With a heavy feather.", "de": "Mit einer schweren Feder.", "it": "Con una piuma pesante.",
+              "why": { "en": "Pero is a feather: hardly heavy! You drive stakes in with a hammer: s kladivom.", "de": "Pero ist eine Feder: alles andere als schwer! Pfähle schlägt man mit dem Hammer ein: s kladivom.", "it": "Pero è una piuma: tutt'altro che pesante! I pali si piantano col martello: s kladivom." },
+              "reply": { "sl": "S peresom? Ha ha, s peresom jih bomo samo žgečkali!", "en": "With a feather? Ha ha, we'd only tickle them with a feather!", "de": "Mit einer Feder? Ha ha, damit kitzeln wir sie nur!", "it": "Con una piuma? Ah ah, con la piuma gli facciamo solo il solletico!" } }
+          ] },
+          { "who": "marko", "sl": "Bum, bum! Zdaj pa še devetinštirideset!", "en": "Bang, bang! Now forty-nine more!", "de": "Bumm, bumm! Jetzt noch neunundvierzig!", "it": "Bum, bum! Ora ne mancano quarantanove!" }
+        ] }
+      }
+    },
+    {
+      "scene": "na-njivi",
+      "words": ["trta", "mlad"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Danes je velik dan! Danes sadimo.", "en": "Today is a big day! Today we plant.", "de": "Heute ist ein großer Tag! Heute pflanzen wir.", "it": "Oggi è un gran giorno! Oggi si pianta." },
+          { "who": "vida", "sl": "Kaj pa sadimo? Krompir?", "en": "And what are we planting? Potatoes?", "de": "Und was pflanzen wir? Kartoffeln?", "it": "E che cosa piantiamo? Patate?" },
+          { "choices": [
+            { "sl": "Ne, sadimo trte.", "en": "No, we're planting vines.", "de": "Nein, wir pflanzen Reben.", "it": "No, piantiamo viti.", "ok": true,
+              "reply": { "sl": "Trte! Seveda, saj je to vinograd.", "en": "Vines! Of course, this is a vineyard after all.", "de": "Reben! Natürlich, das ist ja ein Weinberg.", "it": "Viti! Certo, è una vigna." } },
+            { "sl": "Ne, sadimo zelje.", "en": "No, we're planting cabbage.", "de": "Nein, wir pflanzen Kohl.", "it": "No, piantiamo cavoli.",
+              "why": { "en": "Zelje is cabbage: that grows in the field below. On the terraces go vines: trte.", "de": "Zelje ist Kohl: Der wächst auf dem Feld unten. Auf die Terrassen kommen Reben: trte.", "it": "Zelje è il cavolo: cresce nel campo di sotto. Sulle terrazze vanno le viti: trte." },
+              "reply": { "sl": "Zelje? Na terasah? Ha ha, potem bo vino kislo!", "en": "Cabbage? On the terraces? Ha ha, then the wine will be sour!", "de": "Kohl? Auf den Terrassen? Ha ha, dann wird der Wein sauer!", "it": "Cavoli? Sulle terrazze? Ah ah, allora il vino verrà acido!" } },
+            { "sl": "Ne, sadimo kamne.", "en": "No, we're planting stones.", "de": "Nein, wir pflanzen Steine.", "it": "No, piantiamo pietre.",
+              "why": { "en": "Kamni are stones: the hill has enough of those already. You plant vines: trte.", "de": "Kamni sind Steine: Davon hat der Hügel schon genug. Man pflanzt Reben: trte.", "it": "Kamni sono pietre: la collina ne ha già abbastanza. Si piantano viti: trte." },
+              "reply": { "sl": "Kamne? Teh je na hribu že dovolj!", "en": "Stones? There are enough of those on the hill already!", "de": "Steine? Davon gibt es auf dem Hügel schon genug!", "it": "Pietre? Sulla collina ce ne sono già abbastanza!" } }
+          ] },
+          { "who": "marko", "sl": "Rebula, kot doma v Brdih. Poglej, kako majhne so! Kakšne so te trte?", "en": "Rebula, like at home in Brda. Look how small they are! What are these vines like?", "de": "Rebula, wie daheim in Brda. Schau, wie klein sie sind! Wie sind diese Reben?", "it": "Ribolla, come a casa nel Collio. Guarda come sono piccole! Come sono queste viti?" },
+          { "choices": [
+            { "sl": "Te trte so mlade.", "en": "These vines are young.", "de": "Diese Reben sind jung.", "it": "Queste viti sono giovani.", "ok": true,
+              "reply": { "sl": "Tako je. Ampak na soncu bodo hitro rasle.", "en": "That's right. But in the sun they'll grow fast.", "de": "Genau. Aber in der Sonne wachsen sie schnell.", "it": "Esatto. Ma al sole cresceranno in fretta." } },
+            { "sl": "Te trte so stare.", "en": "These vines are old.", "de": "Diese Reben sind alt.", "it": "Queste viti sono vecchie.",
+              "why": { "en": "Star means old: old vines are big and thick. Small new ones are young: mlade.", "de": "Star heißt alt: Alte Reben sind groß und dick. Kleine neue sind jung: mlade.", "it": "Star vuol dire vecchio: le viti vecchie sono grandi e grosse. Quelle piccole e nuove sono giovani: mlade." },
+              "reply": { "sl": "Stare? Ha ha, stare so šele en teden!", "en": "Old? Ha ha, they're just a week old!", "de": "Alt? Ha ha, die sind gerade mal eine Woche alt!", "it": "Vecchie? Ah ah, hanno appena una settimana!" } },
+            { "sl": "Te trte so glasne.", "en": "These vines are loud.", "de": "Diese Reben sind laut.", "it": "Queste viti sono rumorose.",
+              "why": { "en": "Glasen means loud. Small new vines are young: mlade.", "de": "Glasen heißt laut. Kleine neue Reben sind jung: mlade.", "it": "Glasen vuol dire rumoroso. Le viti piccole e nuove sono giovani: mlade." },
+              "reply": { "sl": "Glasne? Ha ha, trte ne pojejo, samo vinarji!", "en": "Loud? Ha ha, vines don't sing, only winemakers do!", "de": "Laut? Ha ha, Reben singen nicht, nur Winzer!", "it": "Rumorose? Ah ah, le viti non cantano, solo i vignaioli!" } }
+          ] },
+          { "who": "luka", "sl": "Vsaka trta k svojemu kolu. Ena, dve, tri …", "en": "Each vine to its own stake. One, two, three …", "de": "Jede Rebe an ihren Pfahl. Eins, zwei, drei …", "it": "Ogni vite al suo palo. Una, due, tre …" }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Danes je velik dan! Danes bomo sadili.", "en": "Today is a big day! Today we'll plant.", "de": "Heute ist ein großer Tag! Heute wird gepflanzt.", "it": "Oggi è un gran giorno! Oggi pianteremo." },
+          { "who": "vida", "sl": "Kaj pa boste sadili? Krompir?", "en": "And what will you plant? Potatoes?", "de": "Und was pflanzt ihr? Kartoffeln?", "it": "E che cosa pianterete? Patate?" },
+          { "choices": [
+            { "sl": "Ne, sadili bomo trte rebule.", "en": "No, we'll plant rebula vines.", "de": "Nein, wir pflanzen Rebula-Reben.", "it": "No, pianteremo viti di ribolla.", "ok": true,
+              "reply": { "sl": "Trte! Seveda, saj je to vinograd.", "en": "Vines! Of course, this is a vineyard after all.", "de": "Reben! Natürlich, das ist ja ein Weinberg.", "it": "Viti! Certo, è una vigna." } },
+            { "sl": "Ne, sadili bomo zelje.", "en": "No, we'll plant cabbage.", "de": "Nein, wir pflanzen Kohl.", "it": "No, pianteremo cavoli.",
+              "why": { "en": "Zelje is cabbage: that grows in the field below. On the terraces go vines: trte.", "de": "Zelje ist Kohl: Der wächst auf dem Feld unten. Auf die Terrassen kommen Reben: trte.", "it": "Zelje è il cavolo: cresce nel campo di sotto. Sulle terrazze vanno le viti: trte." },
+              "reply": { "sl": "Zelje? Na terasah? Ha ha, potem bo vino kislo!", "en": "Cabbage? On the terraces? Ha ha, then the wine will be sour!", "de": "Kohl? Auf den Terrassen? Ha ha, dann wird der Wein sauer!", "it": "Cavoli? Sulle terrazze? Ah ah, allora il vino verrà acido!" } },
+            { "sl": "Ne, sadili bomo trta rebule.", "en": "No, we'll plant rebula vines.", "de": "Nein, wir pflanzen Rebula-Reben.", "it": "No, pianteremo viti di ribolla.", "grammar": "tozilnik",
+              "why": { "en": "Saditi (to plant) takes the accusative; for many vines the plural: trte.", "de": "Saditi (pflanzen) verlangt den Akkusativ; für viele Reben der Plural: trte.", "it": "Saditi (piantare) vuole l'accusativo; per tante viti il plurale: trte." },
+              "reply": { "sl": "Trta? Hm, kako, prosim?", "en": "Trta? Hm, pardon?", "de": "Trta? Hm, wie bitte?", "it": "Trta? Mm, come, scusa?" } }
+          ] },
+          { "who": "marko", "sl": "Rebula je stara sorta iz Brd. {learner}, zakaj so te trte tako majhne?", "en": "Rebula is an old variety from Brda. {learner}, why are these vines so small?", "de": "Rebula ist eine alte Sorte aus Brda. {learner}, warum sind diese Reben so klein?", "it": "La ribolla è un vitigno antico del Collio. {learner}, perché queste viti sono così piccole?" },
+          { "choices": [
+            { "sl": "Ker so še mlade.", "en": "Because they're still young.", "de": "Weil sie noch jung sind.", "it": "Perché sono ancora giovani.", "ok": true,
+              "reply": { "sl": "Tako je. Ampak na soncu bodo hitro rasle.", "en": "That's right. But in the sun they'll grow fast.", "de": "Genau. Aber in der Sonne wachsen sie schnell.", "it": "Esatto. Ma al sole cresceranno in fretta." } },
+            { "sl": "Ker so še mladi.", "en": "Because they're still young.", "de": "Weil sie noch jung sind.", "it": "Perché sono ancora giovani.", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Trte is feminine plural, so its adjective too: mlade.", "de": "Trte ist weiblich Plural, also auch sein Adjektiv: mlade.", "it": "Trte è femminile plurale, quindi anche il suo aggettivo: mlade." },
+              "reply": { "sl": "Mladi? Ja, jaz sem mlad. Pa trte?", "en": "Mladi? Yes, I'm young. And the vines?", "de": "Mladi? Ja, ich bin jung. Und die Reben?", "it": "Mladi? Sì, io sono giovane. E le viti?" } },
+            { "sl": "Ker so še stare.", "en": "Because they're still old.", "de": "Weil sie noch alt sind.", "it": "Perché sono ancora vecchie.",
+              "why": { "en": "Star means old: old vines would be big. Small ones are young: mlade.", "de": "Star heißt alt: Alte Reben wären groß. Kleine sind jung: mlade.", "it": "Star vuol dire vecchio: le viti vecchie sarebbero grandi. Quelle piccole sono giovani: mlade." },
+              "reply": { "sl": "Še stare? Ha ha, stare so šele en teden!", "en": "Still old? Ha ha, they're just a week old!", "de": "Noch alt? Ha ha, die sind gerade mal eine Woche alt!", "it": "Ancora vecchie? Ah ah, hanno appena una settimana!" } }
+          ] },
+          { "who": "luka", "sl": "Vsaka trta k svojemu kolu. Ena, dve, tri …", "en": "Each vine to its own stake. One, two, three …", "de": "Jede Rebe an ihren Pfahl. Eins, zwei, drei …", "it": "Ogni vite al suo palo. Una, due, tre …" }
+        ] }
+      }
+    },
+    {
+      "words": ["kozarec", "vino"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "marko", "sl": "Delo je končano. Zdaj pa vsi na teraso!", "en": "The work is done. Now everyone up to the terrace!", "de": "Die Arbeit ist getan. Jetzt alle auf die Terrasse!", "it": "Il lavoro è finito. Adesso tutti sulla terrazza!" },
+          { "who": "vida", "sl": "Tukaj je nekaj za žejo. Kaj še potrebujemo?", "en": "Here's something for the thirst. What else do we need?", "de": "Hier ist etwas gegen den Durst. Was brauchen wir noch?", "it": "Ecco qualcosa per la sete. Che altro ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo kozarce.", "en": "We need glasses.", "de": "Wir brauchen Gläser.", "it": "Ci servono i bicchieri.", "ok": true,
+              "reply": { "sl": "Prav. Za vsakega enega.", "en": "Right. One for everyone.", "de": "Gut. Für jeden eins.", "it": "Bene. Uno per ciascuno." } },
+            { "sl": "Potrebujemo lonce.", "en": "We need pots.", "de": "Wir brauchen Töpfe.", "it": "Ci servono le pentole.",
+              "why": { "en": "Lonec is a cooking pot: a bit big for wine! You drink from glasses: kozarce.", "de": "Lonec ist ein Kochtopf: ein bisschen groß für Wein! Man trinkt aus Gläsern: kozarce.", "it": "Lonec è una pentola: un po' grande per il vino! Si beve dai bicchieri: kozarce." },
+              "reply": { "sl": "Lonce? Ha ha, toliko pa spet ne bomo pili!", "en": "Pots? Ha ha, we won't be drinking that much!", "de": "Töpfe? Ha ha, so viel trinken wir dann auch wieder nicht!", "it": "Pentole? Ah ah, non berremo mica così tanto!" } },
+            { "sl": "Potrebujemo žlice.", "en": "We need spoons.", "de": "Wir brauchen Löffel.", "it": "Ci servono i cucchiai.",
+              "why": { "en": "Žlica is a spoon, and wine isn't eaten! You drink it from glasses: kozarce.", "de": "Žlica ist ein Löffel, und Wein isst man nicht! Man trinkt ihn aus Gläsern: kozarce.", "it": "Žlica è un cucchiaio, e il vino non si mangia! Si beve dai bicchieri: kozarce." },
+              "reply": { "sl": "Žlice? Vina se ne je, vino se pije!", "en": "Spoons? You don't eat wine, you drink it!", "de": "Löffel? Wein isst man nicht, Wein trinkt man!", "it": "Cucchiai? Il vino non si mangia, si beve!" } }
+          ] },
+          { "who": "marko", "sl": "{learner}, kaj pijemo nocoj?", "en": "{learner}, what are we drinking tonight?", "de": "{learner}, was trinken wir heute Abend?", "it": "{learner}, che cosa beviamo stasera?" },
+          { "choices": [
+            { "sl": "Pijemo vino.", "en": "We're drinking wine.", "de": "Wir trinken Wein.", "it": "Beviamo vino.", "ok": true,
+              "reply": { "sl": "Tako je, rebulo iz Brd. Na zdravje!", "en": "That's right, rebula from Brda. Cheers!", "de": "Genau, Rebula aus Brda. Prost!", "it": "Esatto, ribolla del Collio. Salute!" } },
+            { "sl": "Pijemo mleko.", "en": "We're drinking milk.", "de": "Wir trinken Milch.", "it": "Beviamo latte.",
+              "why": { "en": "Mleko is milk: lovely, but not on a winemaker's terrace! Wine: vino.", "de": "Mleko ist Milch: schön, aber nicht auf der Terrasse eines Winzers! Wein: vino.", "it": "Mleko è il latte: buono, ma non sulla terrazza di un vignaiolo! Vino: vino." },
+              "reply": { "sl": "Mleko? Ha ha, na terasi vinarja? Ne, ne!", "en": "Milk? Ha ha, on a winemaker's terrace? No, no!", "de": "Milch? Ha ha, auf der Terrasse eines Winzers? Nein, nein!", "it": "Latte? Ah ah, sulla terrazza di un vignaiolo? No, no!" } },
+            { "sl": "Pijemo kavo.", "en": "We're drinking coffee.", "de": "Wir trinken Kaffee.", "it": "Beviamo caffè.",
+              "why": { "en": "Kava is coffee: in the evening nobody would sleep! Wine: vino.", "de": "Kava ist Kaffee: Am Abend würde dann keiner schlafen! Wein: vino.", "it": "Kava è il caffè: la sera nessuno dormirebbe! Vino: vino." },
+              "reply": { "sl": "Kavo? Zvečer? Potem nihče ne bo spal!", "en": "Coffee? In the evening? Then nobody will sleep!", "de": "Kaffee? Am Abend? Dann schläft keiner!", "it": "Caffè? Di sera? Allora nessuno dormirà!" } }
+          ] },
+          { "who": "france", "sl": "Na zdravje! Glejte, nebo je čisto rdeče.", "en": "Cheers! Look, the sky is all red.", "de": "Prost! Schaut, der Himmel ist ganz rot.", "it": "Salute! Guardate, il cielo è tutto rosso." }
+        ] },
+        "A2": { "lines": [
+          { "who": "marko", "sl": "Delo je končano! Zdaj pa vsi gor, na teraso.", "en": "The work is done! Now everyone up to the terrace.", "de": "Die Arbeit ist getan! Jetzt alle hinauf auf die Terrasse.", "it": "Il lavoro è finito! Adesso tutti su, sulla terrazza." },
+          { "who": "vida", "sl": "Tukaj je vrč in kruh s sirom. Kaj še manjka?", "en": "Here's a jug, and bread with cheese. What's still missing?", "de": "Hier ist ein Krug und Brot mit Käse. Was fehlt noch?", "it": "Ecco una brocca, e pane e formaggio. Che cosa manca ancora?" },
+          { "choices": [
+            { "sl": "Nimamo še kozarcev.", "en": "We don't have glasses yet.", "de": "Wir haben noch keine Gläser.", "it": "Non abbiamo ancora i bicchieri.", "ok": true,
+              "reply": { "sl": "Res. Takoj jih prinesem.", "en": "True. I'll bring them right away.", "de": "Stimmt. Ich bringe sie sofort.", "it": "È vero. Li porto subito." } },
+            { "sl": "Nimamo še kozarce.", "en": "We don't have glasses yet.", "de": "Wir haben noch keine Gläser.", "it": "Non abbiamo ancora i bicchieri.", "grammar": "rodilnik-nikalnica",
+              "why": { "en": "After a no (nimamo), the genitive: kozarcev.", "de": "Nach einer Verneinung (nimamo) steht der Genitiv: kozarcev.", "it": "Dopo una negazione (nimamo) si usa il genitivo: kozarcev." },
+              "reply": { "sl": "Nimamo … kozarce? Hm, kako, prosim?", "en": "We don't have … kozarce? Hm, pardon?", "de": "Wir haben keine … kozarce? Hm, wie bitte?", "it": "Non abbiamo … kozarce? Mm, come, scusa?" } },
+            { "sl": "Nimamo še loncev.", "en": "We don't have pots yet.", "de": "Wir haben noch keine Töpfe.", "it": "Non abbiamo ancora le pentole.",
+              "why": { "en": "Lonec is a cooking pot: a bit big for wine! You drink from glasses: kozarcev.", "de": "Lonec ist ein Kochtopf: ein bisschen groß für Wein! Man trinkt aus Gläsern: kozarcev.", "it": "Lonec è una pentola: un po' grande per il vino! Si beve dai bicchieri: kozarcev." },
+              "reply": { "sl": "Loncev? Ha ha, toliko pa spet ne bomo pili!", "en": "Pots? Ha ha, we won't be drinking that much!", "de": "Töpfe? Ha ha, so viel trinken wir dann auch wieder nicht!", "it": "Pentole? Ah ah, non berremo mica così tanto!" } }
+          ] },
+          { "who": "marko", "sl": "{learner}, kaj bomo pili nocoj?", "en": "{learner}, what shall we drink tonight?", "de": "{learner}, was trinken wir heute Abend?", "it": "{learner}, che cosa berremo stasera?" },
+          { "choices": [
+            { "sl": "Pili bomo vino iz Brd.", "en": "We'll drink wine from Brda.", "de": "Wir trinken Wein aus Brda.", "it": "Berremo vino del Collio.", "ok": true,
+              "reply": { "sl": "Tako je, rebulo. Na zdravje!", "en": "That's right, rebula. Cheers!", "de": "Genau, Rebula. Prost!", "it": "Esatto, ribolla. Salute!" } },
+            { "sl": "Pili bomo mleko iz Brd.", "en": "We'll drink milk from Brda.", "de": "Wir trinken Milch aus Brda.", "it": "Berremo latte del Collio.",
+              "why": { "en": "Mleko is milk: Brda is famous for wine, not for milk! Wine: vino.", "de": "Mleko ist Milch: Brda ist für Wein berühmt, nicht für Milch! Wein: vino.", "it": "Mleko è il latte: il Collio è famoso per il vino, non per il latte! Vino: vino." },
+              "reply": { "sl": "Mleko iz Brd? Ha ha, v Brdih imamo raje trte kot krave!", "en": "Milk from Brda? Ha ha, in Brda we prefer vines to cows!", "de": "Milch aus Brda? Ha ha, in Brda haben wir lieber Reben als Kühe!", "it": "Latte del Collio? Ah ah, nel Collio preferiamo le viti alle mucche!" } },
+            { "sl": "Pili bomo kavo iz Brd.", "en": "We'll drink coffee from Brda.", "de": "Wir trinken Kaffee aus Brda.", "it": "Berremo caffè del Collio.",
+              "why": { "en": "Kava is coffee: in the evening nobody would sleep! Wine: vino.", "de": "Kava ist Kaffee: Am Abend würde dann keiner schlafen! Wein: vino.", "it": "Kava è il caffè: la sera nessuno dormirebbe! Vino: vino." },
+              "reply": { "sl": "Kavo? Zvečer? Potem nihče ne bo spal!", "en": "Coffee? In the evening? Then nobody will sleep!", "de": "Kaffee? Am Abend? Dann schläft keiner!", "it": "Caffè? Di sera? Allora nessuno dormirà!" } }
+          ] },
+          { "who": "france", "sl": "Na zdravje! Glejte, kako je nebo nad hribi rdeče.", "en": "Cheers! Look how red the sky is over the hills.", "de": "Prost! Schaut, wie rot der Himmel über den Hügeln ist.", "it": "Salute! Guardate com'è rosso il cielo sopra le colline." }
+        ] }
+      }
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "kapelica",
+  "language": "sl",
+  "review": "Machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "projekt-kapelica",
+  "steps": [
+    {
+      "words": ["nacrt", "svincnik"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "ancka", "sl": "Ob cesti bo stala kapelica. Ampak najprej jo moram narisati!", "en": "A little chapel will stand by the road. But first I have to draw it!", "de": "An der Straße wird eine kleine Kapelle stehen. Aber zuerst muss ich sie zeichnen!", "it": "Lungo la strada sorgerà una cappelletta. Ma prima devo disegnarla!" },
+          { "who": "zala", "sl": "Lahko pomagam? Papir je tukaj!", "en": "Can I help? The paper is here!", "de": "Kann ich helfen? Das Papier ist hier!", "it": "Posso aiutare? La carta è qui!" },
+          { "who": "ancka", "sl": "{learner}, kaj še potrebujem?", "en": "{learner}, what else do I need?", "de": "{learner}, was brauche ich noch?", "it": "{learner}, che altro mi serve?" },
+          { "choices": [
+            { "sl": "Potrebujete svinčnik.", "en": "You need a pencil.", "de": "Sie brauchen einen Bleistift.", "it": "Le serve una matita.", "ok": true,
+              "reply": { "sl": "Tako je! Hvala, srček.", "en": "That's right! Thank you, sweetheart.", "de": "Genau! Danke, Schätzchen.", "it": "Esatto! Grazie, tesoro." } },
+            { "sl": "Potrebujete radio.", "en": "You need a radio.", "de": "Sie brauchen ein Radio.", "it": "Le serve una radio.",
+              "why": { "en": "A radio Ančka already has, and a loud one. To draw you need a pencil: svinčnik.", "de": "Ein Radio hat Ančka schon, und zwar ein lautes. Zum Zeichnen braucht man einen Bleistift: svinčnik.", "it": "La radio Ančka ce l'ha già, e pure rumorosa. Per disegnare ci vuole una matita: svinčnik." },
+              "reply": { "sl": "Radio? Ha ha, tega imam, pa še kako glasnega!", "en": "A radio? Ha ha, I've got one, and a loud one too!", "de": "Ein Radio? Ha ha, das habe ich, und was für ein lautes!", "it": "Una radio? Ah ah, ce l'ho, e pure bella rumorosa!" } },
+            { "sl": "Potrebuješ svinčnik.", "en": "You need a pencil.", "de": "Du brauchst einen Bleistift.", "it": "Ti serve una matita.", "grammar": "ti-vi",
+              "why": { "en": "Ančka is older and expects vi from you: potrebujete.", "de": "Ančka ist älter und erwartet von dir vi: potrebujete.", "it": "Ančka è più anziana e da te si aspetta il vi: potrebujete." },
+              "reply": { "sl": "Tikaš me? No, saj sem še mlada po srcu!", "en": "Saying ti to me? Well, I'm still young at heart!", "de": "Du duzt mich? Na ja, im Herzen bin ich ja noch jung!", "it": "Mi dai del tu? Beh, di cuore sono ancora giovane!" } }
+          ] },
+          { "who": "ancka", "sl": "Tako … majhna, z oknom in zvončkom. Gotovo! Kaj imamo zdaj?", "en": "There … small, with a window and a little bell. Done! What do we have now?", "de": "So … klein, mit einem Fenster und einem Glöckchen. Fertig! Was haben wir jetzt?", "it": "Ecco … piccola, con una finestra e una campanella. Fatto! Che cosa abbiamo adesso?" },
+          { "choices": [
+            { "sl": "Zdaj imamo načrt!", "en": "Now we have a plan!", "de": "Jetzt haben wir einen Plan!", "it": "Adesso abbiamo un progetto!", "ok": true,
+              "reply": { "sl": "Tako je! Po njem bomo zidali.", "en": "That's right! We'll build by it.", "de": "Genau! Danach werden wir bauen.", "it": "Esatto! Costruiremo seguendo questo." } },
+            { "sl": "Zdaj imamo kapelico!", "en": "Now we have a chapel!", "de": "Jetzt haben wir eine Kapelle!", "it": "Adesso abbiamo la cappelletta!",
+              "why": { "en": "The chapel isn't built yet: it's only on paper. A drawing to build from is a plan: načrt.", "de": "Die Kapelle ist noch nicht gebaut: Sie ist nur auf Papier. Eine Zeichnung, nach der man baut, ist ein Plan: načrt.", "it": "La cappelletta non è ancora costruita: è solo sulla carta. Un disegno per costruire è un progetto: načrt." },
+              "reply": { "sl": "Kapelico? Ne še! Samo na papirju je.", "en": "A chapel? Not yet! It's only on paper.", "de": "Eine Kapelle? Noch nicht! Sie ist nur auf dem Papier.", "it": "La cappelletta? Non ancora! È solo sulla carta." } },
+            { "sl": "Zdaj imamo kosilo!", "en": "Now we have lunch!", "de": "Jetzt haben wir Mittagessen!", "it": "Adesso abbiamo il pranzo!",
+              "why": { "en": "Kosilo is lunch. On the paper there's a plan: načrt.", "de": "Kosilo ist das Mittagessen. Auf dem Papier ist ein Plan: načrt.", "it": "Kosilo è il pranzo. Sulla carta c'è un progetto: načrt." },
+              "reply": { "sl": "Kosilo? Ne, ne, kosilo bo pozneje!", "en": "Lunch? No, no, lunch comes later!", "de": "Mittagessen? Nein, nein, das gibt's später!", "it": "Il pranzo? No, no, il pranzo è più tardi!" } }
+          ] },
+          { "who": "zala", "sl": "Lepo je! Majhna je, z zvončkom na strehi.", "en": "It's lovely! It's small, with a little bell on the roof.", "de": "Wie schön! Sie ist klein, mit einem Glöckchen auf dem Dach.", "it": "Che bella! È piccola, con una campanella sul tetto." }
+        ] },
+        "A2": { "lines": [
+          { "who": "ancka", "sl": "Kapelica bo majhna, ampak lepa. Preden začnemo, jo bom narisala.", "en": "The chapel will be small, but pretty. Before we start, I'll draw it.", "de": "Die Kapelle wird klein, aber schön. Bevor wir anfangen, zeichne ich sie.", "it": "La cappelletta sarà piccola, ma bella. Prima di cominciare, la disegnerò." },
+          { "who": "zala", "sl": "Papir je tukaj. Lahko ga držim?", "en": "The paper is here. Can I hold it?", "de": "Das Papier ist hier. Darf ich es halten?", "it": "La carta è qui. Posso tenerla?" },
+          { "who": "ancka", "sl": "Seveda. {learner}, s čim bom risala?", "en": "Of course. {learner}, what shall I draw with?", "de": "Natürlich. {learner}, womit soll ich zeichnen?", "it": "Certo. {learner}, con che cosa disegno?" },
+          { "choices": [
+            { "sl": "S svinčnikom, da lahko kaj zbrišete.", "en": "With a pencil, so you can rub something out.", "de": "Mit einem Bleistift, damit Sie etwas wegradieren können.", "it": "Con la matita, così può cancellare qualcosa.", "ok": true,
+              "reply": { "sl": "Pametno! Tudi jaz se kdaj zmotim.", "en": "Clever! I make mistakes sometimes too.", "de": "Klug! Ich vertue mich auch manchmal.", "it": "Intelligente! Anch'io a volte sbaglio." } },
+            { "sl": "S svinčnik, da lahko kaj zbrišete.", "en": "With a pencil, so you can rub something out.", "de": "Mit einem Bleistift, damit Sie etwas wegradieren können.", "it": "Con la matita, così può cancellare qualcosa.", "grammar": "orodnik",
+              "why": { "en": "S (with) takes the instrumental: s svinčnikom.", "de": "S (mit) verlangt den Instrumental: s svinčnikom.", "it": "S (con) vuole lo strumentale: s svinčnikom." },
+              "reply": { "sl": "S … svinčnik? Hm, kako, prosim?", "en": "With … svinčnik? Hm, pardon?", "de": "Mit … svinčnik? Hm, wie bitte?", "it": "Con … svinčnik? Mm, come, scusa?" } },
+            { "sl": "S kladivom, da lahko kaj zbrišete.", "en": "With a hammer, so you can rub something out.", "de": "Mit einem Hammer, damit Sie etwas wegradieren können.", "it": "Con il martello, così può cancellare qualcosa.",
+              "why": { "en": "Kladivo is a hammer: it makes holes, not lines. You draw with a pencil: s svinčnikom.", "de": "Kladivo ist ein Hammer: Er macht Löcher, keine Linien. Man zeichnet mit einem Bleistift: s svinčnikom.", "it": "Kladivo è un martello: fa buchi, non linee. Si disegna con la matita: s svinčnikom." },
+              "reply": { "sl": "S kladivom? Potem bo načrt poln lukenj!", "en": "With a hammer? Then the plan will be full of holes!", "de": "Mit einem Hammer? Dann ist der Plan voller Löcher!", "it": "Con il martello? Allora il progetto sarà pieno di buchi!" } }
+          ] },
+          { "who": "ancka", "sl": "Gotovo! {learner}, zakaj sem morala najprej risati?", "en": "Done! {learner}, why did I have to draw first?", "de": "Fertig! {learner}, warum musste ich zuerst zeichnen?", "it": "Fatto! {learner}, perché dovevo disegnare prima?" },
+          { "choices": [
+            { "sl": "Ker brez načrta ne vemo, kako zidati.", "en": "Because without a plan we don't know how to build.", "de": "Weil wir ohne Plan nicht wissen, wie wir bauen sollen.", "it": "Perché senza un progetto non sappiamo come costruire.", "ok": true,
+              "reply": { "sl": "Tako je! Brez načrta bi zidali kar na pamet.", "en": "That's right! Without a plan we'd be building any old how.", "de": "Genau! Ohne Plan würden wir einfach drauflos bauen.", "it": "Esatto! Senza progetto costruiremmo a occhio." } },
+            { "sl": "Ker brez načrt ne vemo, kako zidati.", "en": "Because without a plan we don't know how to build.", "de": "Weil wir ohne Plan nicht wissen, wie wir bauen sollen.", "it": "Perché senza un progetto non sappiamo come costruire.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Brez (without) takes the genitive: brez načrta.", "de": "Brez (ohne) verlangt den Genitiv: brez načrta.", "it": "Brez (senza) vuole il genitivo: brez načrta." },
+              "reply": { "sl": "Brez … načrt? Hm, kako, prosim?", "en": "Without … načrt? Hm, pardon?", "de": "Ohne … načrt? Hm, wie bitte?", "it": "Senza … načrt? Mm, come, scusa?" } },
+            { "sl": "Ker brez kosila ne vemo, kako zidati.", "en": "Because without lunch we don't know how to build.", "de": "Weil wir ohne Mittagessen nicht wissen, wie wir bauen sollen.", "it": "Perché senza pranzo non sappiamo come costruire.",
+              "why": { "en": "Kosilo is lunch: important, but it doesn't show how to build. A plan does: brez načrta.", "de": "Kosilo ist das Mittagessen: wichtig, aber es zeigt nicht, wie man baut. Das tut ein Plan: brez načrta.", "it": "Kosilo è il pranzo: importante, ma non mostra come costruire. Lo fa il progetto: brez načrta." },
+              "reply": { "sl": "Brez kosila? Ha ha, lačni res ne zidamo dobro!", "en": "Without lunch? Ha ha, true, we don't build well hungry!", "de": "Ohne Mittagessen? Ha ha, hungrig bauen wir wirklich nicht gut!", "it": "Senza pranzo? Ah ah, a pancia vuota non si costruisce bene davvero!" } }
+          ] },
+          { "who": "zala", "sl": "Lepo je! Majhna kapelica z zvončkom na strehi.", "en": "It's lovely! A little chapel with a bell on the roof.", "de": "Wie schön! Eine kleine Kapelle mit einem Glöckchen auf dem Dach.", "it": "Che bella! Una cappelletta con la campanella sul tetto." }
+        ] }
+      }
+    },
+    {
+      "words": ["temelj", "lopata"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "ancka", "sl": "Načrt imamo. Zdaj gremo k cesti!", "en": "We have the plan. Now we go to the road!", "de": "Den Plan haben wir. Jetzt gehen wir zur Straße!", "it": "Il progetto ce l'abbiamo. Ora andiamo alla strada!" },
+          { "who": "tone", "sl": "Najprej moramo kopati. Kje je orodje?", "en": "First we have to dig. Where are the tools?", "de": "Zuerst müssen wir graben. Wo ist das Werkzeug?", "it": "Prima dobbiamo scavare. Dove sono gli attrezzi?" },
+          { "choices": [
+            { "sl": "Tukaj je lopata.", "en": "Here's a shovel.", "de": "Hier ist eine Schaufel.", "it": "Ecco una pala.", "ok": true,
+              "reply": { "sl": "Dobro. Kopljimo!", "en": "Good. Let's dig!", "de": "Gut. Graben wir!", "it": "Bene. Scaviamo!" } },
+            { "sl": "Tukaj je metla.", "en": "Here's a broom.", "de": "Hier ist ein Besen.", "it": "Ecco una scopa.",
+              "why": { "en": "Metla is a broom: it sweeps. To dig you need a shovel: lopata.", "de": "Metla ist ein Besen: Er fegt. Zum Graben braucht man eine Schaufel: lopata.", "it": "Metla è una scopa: spazza. Per scavare ci vuole una pala: lopata." },
+              "reply": { "sl": "Metla? Z metlo pa ne bomo kopali!", "en": "A broom? We're not going to dig with a broom!", "de": "Ein Besen? Mit einem Besen graben wir doch nicht!", "it": "Una scopa? Con la scopa non si scava!" } },
+            { "sl": "Tukaj je žlica.", "en": "Here's a spoon.", "de": "Hier ist ein Löffel.", "it": "Ecco un cucchiaio.",
+              "why": { "en": "Žlica is a spoon. To dig you need a shovel: lopata.", "de": "Žlica ist ein Löffel. Zum Graben braucht man eine Schaufel: lopata.", "it": "Žlica è un cucchiaio. Per scavare ci vuole una pala: lopata." },
+              "reply": { "sl": "Žlica? Ha ha, to bo pa dolgo trajalo!", "en": "A spoon? Ha ha, that'll take a while!", "de": "Ein Löffel? Ha ha, das dauert aber!", "it": "Un cucchiaio? Ah ah, ci vorrà un bel po'!" } }
+          ] },
+          { "who": "ancka", "sl": "Jama je dovolj globoka. Kaj zdaj, {learner}?", "en": "The pit is deep enough. What now, {learner}?", "de": "Die Grube ist tief genug. Was jetzt, {learner}?", "it": "La buca è abbastanza profonda. E adesso, {learner}?" },
+          { "choices": [
+            { "sl": "Zdaj postavimo temelje.", "en": "Now we lay the foundations.", "de": "Jetzt legen wir das Fundament.", "it": "Adesso posiamo le fondamenta.", "ok": true,
+              "reply": { "sl": "Tako je. Iz kamna, da bodo trdni.", "en": "That's right. Of stone, so they're solid.", "de": "Genau. Aus Stein, damit es fest ist.", "it": "Esatto. Di pietra, così sono solide." } },
+            { "sl": "Zdaj postavimo streho.", "en": "Now we put up the roof.", "de": "Jetzt setzen wir das Dach auf.", "it": "Adesso mettiamo il tetto.",
+              "why": { "en": "Streha is the roof: it comes last. In the pit go the foundations: temelje.", "de": "Streha ist das Dach: Das kommt zuletzt. In die Grube kommt das Fundament: temelje.", "it": "Streha è il tetto: viene per ultimo. Nella buca vanno le fondamenta: temelje." },
+              "reply": { "sl": "Streho? V jamo? Ha ha, potem bomo imeli kapelico pod zemljo!", "en": "The roof? In the pit? Ha ha, then we'll have an underground chapel!", "de": "Das Dach? In die Grube? Ha ha, dann haben wir eine Kapelle unter der Erde!", "it": "Il tetto? Nella buca? Ah ah, allora avremo una cappelletta sottoterra!" } },
+            { "sl": "Zdaj postavimo zvonček.", "en": "Now we put up the little bell.", "de": "Jetzt hängen wir das Glöckchen auf.", "it": "Adesso mettiamo la campanella.",
+              "why": { "en": "Zvonček is the little bell: that's the very last thing. First the foundations: temelje.", "de": "Zvonček ist das Glöckchen: Das kommt ganz zum Schluss. Zuerst das Fundament: temelje.", "it": "Zvonček è la campanella: è l'ultimissima cosa. Prima le fondamenta: temelje." },
+              "reply": { "sl": "Zvonček? Tako hitro? Še zidov nimamo!", "en": "The bell? So soon? We haven't even got walls!", "de": "Das Glöckchen? So schnell? Wir haben noch nicht einmal Mauern!", "it": "La campanella? Così presto? Non abbiamo ancora i muri!" } }
+          ] },
+          { "who": "tone", "sl": "Kamen ob kamen. Temelji so trdni.", "en": "Stone by stone. The foundations are solid.", "de": "Stein an Stein. Das Fundament ist fest.", "it": "Pietra accanto a pietra. Le fondamenta sono solide." }
+        ] },
+        "A2": { "lines": [
+          { "who": "ancka", "sl": "Načrt imamo. Zdaj pa k cesti! Najprej bomo kopali.", "en": "We have the plan. Now off to the road! First we'll dig.", "de": "Den Plan haben wir. Jetzt zur Straße! Zuerst wird gegraben.", "it": "Il progetto ce l'abbiamo. Ora alla strada! Prima scaveremo." },
+          { "who": "tone", "sl": "S čim pa bomo kopali?", "en": "And what will we dig with?", "de": "Und womit graben wir?", "it": "E con che cosa scaveremo?" },
+          { "choices": [
+            { "sl": "Z lopatami, ker je zemlja trda.", "en": "With shovels, because the ground is hard.", "de": "Mit Schaufeln, weil der Boden hart ist.", "it": "Con le pale, perché la terra è dura.", "ok": true,
+              "reply": { "sl": "Prav. Vsak dobi svojo.", "en": "Right. Everyone gets their own.", "de": "Gut. Jeder bekommt seine eigene.", "it": "Bene. Ognuno avrà la sua." } },
+            { "sl": "Z lopate, ker je zemlja trda.", "en": "With shovels, because the ground is hard.", "de": "Mit Schaufeln, weil der Boden hart ist.", "it": "Con le pale, perché la terra è dura.", "grammar": "orodnik",
+              "why": { "en": "Z (with) takes the instrumental; in the plural it ends in -ami: z lopatami.", "de": "Z (mit) verlangt den Instrumental; im Plural endet er auf -ami: z lopatami.", "it": "Z (con) vuole lo strumentale; al plurale finisce in -ami: z lopatami." },
+              "reply": { "sl": "Z … lopate? Hm, kako, prosim?", "en": "With … lopate? Hm, pardon?", "de": "Mit … lopate? Hm, wie bitte?", "it": "Con … lopate? Mm, come, scusa?" } },
+            { "sl": "Z žlicami, ker je zemlja trda.", "en": "With spoons, because the ground is hard.", "de": "Mit Löffeln, weil der Boden hart ist.", "it": "Con i cucchiai, perché la terra è dura.",
+              "why": { "en": "Žlica is a spoon. To dig hard ground you need shovels: z lopatami.", "de": "Žlica ist ein Löffel. Für harten Boden braucht man Schaufeln: z lopatami.", "it": "Žlica è un cucchiaio. Per la terra dura ci vogliono le pale: z lopatami." },
+              "reply": { "sl": "Z žlicami? Potem bomo kopali do božiča!", "en": "With spoons? Then we'll be digging till Christmas!", "de": "Mit Löffeln? Dann graben wir bis Weihnachten!", "it": "Con i cucchiai? Allora scaveremo fino a Natale!" } }
+          ] },
+          { "who": "ancka", "sl": "Jama je globoka. {learner}, na čem bo stala kapelica?", "en": "The pit is deep. {learner}, what will the chapel stand on?", "de": "Die Grube ist tief. {learner}, worauf wird die Kapelle stehen?", "it": "La buca è profonda. {learner}, su che cosa poggerà la cappelletta?" },
+          { "choices": [
+            { "sl": "Na trdnih temeljih iz kamna.", "en": "On solid stone foundations.", "de": "Auf einem festen Fundament aus Stein.", "it": "Su solide fondamenta di pietra.", "ok": true,
+              "reply": { "sl": "Tako je. Trdno bo stala, tudi ob burji.", "en": "That's right. It'll stand firm, even in the bora wind.", "de": "Genau. Sie wird fest stehen, auch bei Bora.", "it": "Esatto. Starà salda, anche con la bora." } },
+            { "sl": "Na trdnih temelji iz kamna.", "en": "On solid stone foundations.", "de": "Auf einem festen Fundament aus Stein.", "it": "Su solide fondamenta di pietra.", "grammar": "mestnik",
+              "why": { "en": "Na (on), saying where, takes the locative; in the plural -ih: na temeljih.", "de": "Na (auf) für den Ort verlangt den Lokativ; im Plural -ih: na temeljih.", "it": "Na (su), per dire dove, vuole il locativo; al plurale -ih: na temeljih." },
+              "reply": { "sl": "Na trdnih … temelji? Hm, kako, prosim?", "en": "On solid … temelji? Hm, pardon?", "de": "Auf festen … temelji? Hm, wie bitte?", "it": "Su solide … temelji? Mm, come, scusa?" } },
+            { "sl": "Na trdnih nogah iz kamna.", "en": "On solid stone legs.", "de": "Auf festen Beinen aus Stein.", "it": "Su solide gambe di pietra.",
+              "why": { "en": "Noge are legs: a chapel doesn't walk anywhere! It stands on foundations: na temeljih.", "de": "Noge sind Beine: Eine Kapelle läuft nirgendwohin! Sie steht auf einem Fundament: na temeljih.", "it": "Noge sono le gambe: una cappelletta non va da nessuna parte! Poggia sulle fondamenta: na temeljih." },
+              "reply": { "sl": "Na nogah? Ha ha, kapelica ne bo hodila!", "en": "On legs? Ha ha, the chapel isn't going to walk!", "de": "Auf Beinen? Ha ha, die Kapelle wird nicht spazieren gehen!", "it": "Sulle gambe? Ah ah, la cappelletta non andrà a spasso!" } }
+          ] },
+          { "who": "tone", "sl": "Kamen ob kamen. Ti temelji bodo stali sto let.", "en": "Stone by stone. These foundations will last a hundred years.", "de": "Stein an Stein. Dieses Fundament hält hundert Jahre.", "it": "Pietra accanto a pietra. Queste fondamenta dureranno cent'anni." }
+        ] }
+      }
+    },
+    {
+      "words": ["kamen", "zid"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "ancka", "sl": "Temelji so gotovi. Danes kapelica zraste!", "en": "The foundations are done. Today the chapel grows!", "de": "Das Fundament ist fertig. Heute wächst die Kapelle!", "it": "Le fondamenta sono pronte. Oggi la cappelletta cresce!" },
+          { "who": "micka", "sl": "Kaj pa potrebujemo za to?", "en": "And what do we need for that?", "de": "Und was brauchen wir dafür?", "it": "E che cosa ci serve per farlo?" },
+          { "choices": [
+            { "sl": "Potrebujemo kamne.", "en": "We need stones.", "de": "Wir brauchen Steine.", "it": "Ci servono pietre.", "ok": true,
+              "reply": { "sl": "Ah, seveda. Kamenja je dovolj.", "en": "Ah, of course. There are stones enough.", "de": "Ach, natürlich. Steine gibt es genug.", "it": "Ah, certo. Di pietre ce ne sono abbastanza." } },
+            { "sl": "Potrebujemo blazine.", "en": "We need pillows.", "de": "Wir brauchen Kissen.", "it": "Ci servono cuscini.",
+              "why": { "en": "Blazine are pillows: soft, but not for walls. You build with stones: kamne.", "de": "Blazine sind Kissen: weich, aber nicht für Mauern. Man mauert mit Steinen: kamne.", "it": "Blazine sono cuscini: morbidi, ma non per i muri. Si mura con le pietre: kamne." },
+              "reply": { "sl": "Blazine? Mehko bi bilo, ampak ne za dolgo!", "en": "Pillows? It would be soft, but not for long!", "de": "Kissen? Weich wäre es, aber nicht für lange!", "it": "Cuscini? Sarebbe morbido, ma non per molto!" } },
+            { "sl": "Potrebujemo jabolka.", "en": "We need apples.", "de": "Wir brauchen Äpfel.", "it": "Ci servono mele.",
+              "why": { "en": "Jabolka are apples. Walls are built of stones: kamne.", "de": "Jabolka sind Äpfel. Mauern baut man aus Steinen: kamne.", "it": "Jabolka sono le mele. I muri si fanno con le pietre: kamne." },
+              "reply": { "sl": "Jabolka? Ta bomo pojedli za malico, ne zidali!", "en": "Apples? We'll eat those as a snack, not build with them!", "de": "Äpfel? Die essen wir zur Jause, wir mauern nicht damit!", "it": "Mele? Quelle le mangiamo a merenda, non ci si mura!" } }
+          ] },
+          { "who": "ancka", "sl": "Kamen na kamen … {learner}, kaj zidamo?", "en": "Stone on stone … {learner}, what are we building?", "de": "Stein auf Stein … {learner}, was mauern wir?", "it": "Pietra su pietra … {learner}, che cosa stiamo murando?" },
+          { "choices": [
+            { "sl": "Zidamo zidove!", "en": "We're building the walls!", "de": "Wir mauern die Mauern!", "it": "Tiriamo su i muri!", "ok": true,
+              "reply": { "sl": "Tako je. Štiri majhne zidove.", "en": "That's right. Four little walls.", "de": "Genau. Vier kleine Mauern.", "it": "Esatto. Quattro muretti." } },
+            { "sl": "Zidamo grad!", "en": "We're building a castle!", "de": "Wir bauen eine Burg!", "it": "Costruiamo un castello!",
+              "why": { "en": "Grad is a castle: a bit big for a little chapel! You're building walls: zidove.", "de": "Grad ist eine Burg: ein bisschen groß für eine kleine Kapelle! Ihr mauert Mauern: zidove.", "it": "Grad è un castello: un po' grande per una cappelletta! State facendo i muri: zidove." },
+              "reply": { "sl": "Grad? Ha ha, tako velikih načrtov pa nimam!", "en": "A castle? Ha ha, my plans aren't that big!", "de": "Eine Burg? Ha ha, so große Pläne habe ich nicht!", "it": "Un castello? Ah ah, non ho progetti così grandi!" } },
+            { "sl": "Zidamo peč!", "en": "We're building a stove!", "de": "Wir bauen einen Ofen!", "it": "Costruiamo una stufa!",
+              "why": { "en": "Peč is a stove. You're building the chapel's walls: zidove.", "de": "Peč ist ein Ofen. Ihr mauert die Mauern der Kapelle: zidove.", "it": "Peč è una stufa. State facendo i muri della cappelletta: zidove." },
+              "reply": { "sl": "Peč? V kapelici ne bomo kuhali!", "en": "A stove? We won't be cooking in the chapel!", "de": "Einen Ofen? In der Kapelle kochen wir doch nicht!", "it": "Una stufa? Nella cappelletta non si cucina!" } }
+          ] },
+          { "who": "zala", "sl": "Kamen na kamen … Zidovi so že do pasu!", "en": "Stone on stone … The walls are already waist-high!", "de": "Stein auf Stein … Die Mauern reichen schon bis zur Hüfte!", "it": "Pietra su pietra … I muri arrivano già alla vita!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "ancka", "sl": "Temelji so gotovi. Danes bo kapelica zrasla!", "en": "The foundations are done. Today the chapel will grow!", "de": "Das Fundament ist fertig. Heute wächst die Kapelle in die Höhe!", "it": "Le fondamenta sono pronte. Oggi la cappelletta crescerà!" },
+          { "who": "micka", "sl": "Iz česa pa bodo zidovi?", "en": "And what will the walls be made of?", "de": "Und woraus werden die Mauern?", "it": "E di che cosa saranno i muri?" },
+          { "choices": [
+            { "sl": "Iz kamna, kot stare hiše v vasi.", "en": "Of stone, like the old houses in the village.", "de": "Aus Stein, wie die alten Häuser im Dorf.", "it": "Di pietra, come le vecchie case del paese.", "ok": true,
+              "reply": { "sl": "Res je. Kamen je trden in topel.", "en": "True. Stone is solid and warm.", "de": "Stimmt. Stein ist fest und warm.", "it": "È vero. La pietra è solida e calda." } },
+            { "sl": "Iz kamen, kot stare hiše v vasi.", "en": "Of stone, like the old houses in the village.", "de": "Aus Stein, wie die alten Häuser im Dorf.", "it": "Di pietra, come le vecchie case del paese.", "grammar": "rodilnik-predlogi",
+              "why": { "en": "Iz (out of) takes the genitive; kamen drops its e: iz kamna.", "de": "Iz (aus) verlangt den Genitiv; kamen verliert sein e: iz kamna.", "it": "Iz (da, di) vuole il genitivo; kamen perde la e: iz kamna." },
+              "reply": { "sl": "Iz … kamen? Hm, kako, prosim?", "en": "Of … kamen? Hm, pardon?", "de": "Aus … kamen? Hm, wie bitte?", "it": "Di … kamen? Mm, come, scusa?" } },
+            { "sl": "Iz papirja, kot stare hiše v vasi.", "en": "Of paper, like the old houses in the village.", "de": "Aus Papier, wie die alten Häuser im Dorf.", "it": "Di carta, come le vecchie case del paese.",
+              "why": { "en": "Papir is paper: the first rain and it's gone. The old houses are of stone: iz kamna.", "de": "Papir ist Papier: Beim ersten Regen ist es weg. Die alten Häuser sind aus Stein: iz kamna.", "it": "Papir è la carta: alla prima pioggia non c'è più. Le vecchie case sono di pietra: iz kamna." },
+              "reply": { "sl": "Iz papirja? Prvi dež, pa kapelice ni več!", "en": "Of paper? The first rain, and the chapel's gone!", "de": "Aus Papier? Der erste Regen, und die Kapelle ist weg!", "it": "Di carta? Alla prima pioggia, addio cappelletta!" } }
+          ] },
+          { "who": "ancka", "sl": "Kamen na kamen … Poglej, kako raste! {learner}, kaj je že višje od tebe?", "en": "Stone on stone … Look how it's growing! {learner}, what's already taller than you?", "de": "Stein auf Stein … Schau, wie sie wächst! {learner}, was ist schon größer als du?", "it": "Pietra su pietra … Guarda come cresce! {learner}, che cosa è già più alto di te?" },
+          { "choices": [
+            { "sl": "Zidovi so že višji od mene!", "en": "The walls are already taller than me!", "de": "Die Mauern sind schon höher als ich!", "it": "I muri sono già più alti di me!", "ok": true,
+              "reply": { "sl": "Res je! Še malo, pa pride streha.", "en": "True! A bit more and the roof comes.", "de": "Stimmt! Noch ein bisschen, dann kommt das Dach.", "it": "È vero! Ancora un po' e arriva il tetto." } },
+            { "sl": "Rože so že višje od mene!", "en": "The flowers are already taller than me!", "de": "Die Blumen sind schon höher als ich!", "it": "I fiori sono già più alti di me!",
+              "why": { "en": "Rože are flowers, and they don't grow that tall by the road. What grows stone by stone is the walls: zidovi.", "de": "Rože sind Blumen, und die werden an der Straße nicht so hoch. Was Stein für Stein wächst, sind die Mauern: zidovi.", "it": "Rože sono i fiori, e lungo la strada non crescono così alti. Quello che cresce pietra su pietra sono i muri: zidovi." },
+              "reply": { "sl": "Rože? Ha ha, tako visokih rož pa še nisem videla!", "en": "Flowers? Ha ha, I've never seen flowers that tall!", "de": "Blumen? Ha ha, so hohe Blumen habe ich noch nie gesehen!", "it": "Fiori? Ah ah, fiori così alti non li ho mai visti!" } },
+            { "sl": "Zidovi so že višje od mene!", "en": "The walls are already taller than me!", "de": "Die Mauern sind schon höher als ich!", "it": "I muri sono già più alti di me!", "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Zidovi is masculine plural, so the adjective too: višji.", "de": "Zidovi ist männlich Plural, also auch das Adjektiv: višji.", "it": "Zidovi è maschile plurale, quindi anche l'aggettivo: višji." },
+              "reply": { "sl": "Višje? Hm, kaj pa je višje?", "en": "Višje? Hm, what is?", "de": "Višje? Hm, was denn?", "it": "Višje? Mm, che cosa?" } }
+          ] },
+          { "who": "zala", "sl": "Še ena vrsta, pa je zid gotov!", "en": "One more row, and the wall is done!", "de": "Noch eine Reihe, dann ist die Mauer fertig!", "it": "Ancora una fila, e il muro è finito!" }
+        ] }
+      }
+    },
+    {
+      "words": ["lestev", "skodla"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "ancka", "sl": "Zidovi stojijo. Zdaj pa gor, na streho!", "en": "The walls are standing. Now up onto the roof!", "de": "Die Mauern stehen. Jetzt rauf aufs Dach!", "it": "I muri sono in piedi. Ora su, sul tetto!" },
+          { "who": "tone", "sl": "Streha je visoko. Kaj potrebujemo?", "en": "The roof is high up. What do we need?", "de": "Das Dach ist hoch oben. Was brauchen wir?", "it": "Il tetto è in alto. Che cosa ci serve?" },
+          { "choices": [
+            { "sl": "Potrebujemo lestev.", "en": "We need a ladder.", "de": "Wir brauchen eine Leiter.", "it": "Ci serve una scala.", "ok": true,
+              "reply": { "sl": "Prav. Lestev je pri zidu.", "en": "Right. The ladder is by the wall.", "de": "Gut. Die Leiter steht an der Mauer.", "it": "Bene. La scala è vicino al muro." } },
+            { "sl": "Potrebujemo stol.", "en": "We need a chair.", "de": "Wir brauchen einen Stuhl.", "it": "Ci serve una sedia.",
+              "why": { "en": "Stol is a chair: far too low for a roof. You climb up a ladder: lestev.", "de": "Stol ist ein Stuhl: viel zu niedrig fürs Dach. Man steigt auf eine Leiter: lestev.", "it": "Stol è una sedia: troppo bassa per un tetto. Si sale su una scala: lestev." },
+              "reply": { "sl": "Stol? S stola pa do strehe ne pridemo!", "en": "A chair? We won't reach the roof from a chair!", "de": "Einen Stuhl? Vom Stuhl aus kommen wir nicht aufs Dach!", "it": "Una sedia? Da una sedia non arriviamo al tetto!" } },
+            { "sl": "Potrebujemo dežnik.", "en": "We need an umbrella.", "de": "Wir brauchen einen Regenschirm.", "it": "Ci serve un ombrello.",
+              "why": { "en": "Dežnik is an umbrella. To get up there you need a ladder: lestev.", "de": "Dežnik ist ein Regenschirm. Um hinaufzukommen, braucht man eine Leiter: lestev.", "it": "Dežnik è un ombrello. Per salire lassù ci vuole una scala: lestev." },
+              "reply": { "sl": "Dežnik? Saj ne bomo leteli, ha ha!", "en": "An umbrella? We're not going to fly up, ha ha!", "de": "Einen Regenschirm? Wir fliegen doch nicht hinauf, ha ha!", "it": "Un ombrello? Mica voliamo, ah ah!" } }
+          ] },
+          { "who": "ancka", "sl": "{learner}, kaj damo na streho?", "en": "{learner}, what do we put on the roof?", "de": "{learner}, was legen wir aufs Dach?", "it": "{learner}, che cosa mettiamo sul tetto?" },
+          { "choices": [
+            { "sl": "Na streho damo skodle.", "en": "We put shingles on the roof.", "de": "Aufs Dach legen wir Schindeln.", "it": "Sul tetto mettiamo le scandole.", "ok": true,
+              "reply": { "sl": "Tako je. Lesene skodle, ena čez drugo.", "en": "That's right. Wooden shingles, one over the other.", "de": "Genau. Holzschindeln, eine über der anderen.", "it": "Esatto. Scandole di legno, una sopra l'altra." } },
+            { "sl": "Na streho damo seno.", "en": "We put hay on the roof.", "de": "Aufs Dach legen wir Heu.", "it": "Sul tetto mettiamo il fieno.",
+              "why": { "en": "Seno is hay. A chapel roof gets wooden shingles: skodle.", "de": "Seno ist Heu. Ein Kapellendach bekommt Holzschindeln: skodle.", "it": "Seno è il fieno. Il tetto di una cappelletta si fa con scandole di legno: skodle." },
+              "reply": { "sl": "Seno? Potem bodo krave jedle streho!", "en": "Hay? Then the cows will eat the roof!", "de": "Heu? Dann fressen die Kühe das Dach!", "it": "Fieno? Allora le mucche si mangeranno il tetto!" } },
+            { "sl": "Na streho damo liste.", "en": "We put leaves on the roof.", "de": "Aufs Dach legen wir Blätter.", "it": "Sul tetto mettiamo le foglie.",
+              "why": { "en": "Listi are leaves: the first wind blows them away. A roof gets shingles: skodle.", "de": "Listi sind Blätter: Der erste Wind weht sie weg. Aufs Dach kommen Schindeln: skodle.", "it": "Listi sono le foglie: il primo vento le porta via. Sul tetto vanno le scandole: skodle." },
+              "reply": { "sl": "Liste? Prvi veter, pa jih ni več!", "en": "Leaves? The first wind, and they're gone!", "de": "Blätter? Der erste Wind, und sie sind weg!", "it": "Foglie? Al primo vento non ci sono più!" } }
+          ] },
+          { "who": "zala", "sl": "Skodle so kot ribje luske!", "en": "The shingles look like fish scales!", "de": "Die Schindeln sehen aus wie Fischschuppen!", "it": "Le scandole sembrano squame di pesce!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "ancka", "sl": "Zidovi stojijo. Zdaj bomo pokrili streho.", "en": "The walls are standing. Now we'll cover the roof.", "de": "Die Mauern stehen. Jetzt decken wir das Dach.", "it": "I muri sono in piedi. Ora copriremo il tetto." },
+          { "who": "tone", "sl": "Streha je visoko. Kako bomo prišli gor?", "en": "The roof is high up. How will we get up there?", "de": "Das Dach ist hoch oben. Wie kommen wir hinauf?", "it": "Il tetto è in alto. Come ci arriveremo?" },
+          { "choices": [
+            { "sl": "Po lestvi, ki stoji ob zidu.", "en": "Up the ladder that's standing by the wall.", "de": "Über die Leiter, die an der Mauer steht.", "it": "Con la scala che è appoggiata al muro.", "ok": true,
+              "reply": { "sl": "Prav. Eden za drugim, počasi.", "en": "Right. One after the other, slowly.", "de": "Gut. Einer nach dem anderen, langsam.", "it": "Bene. Uno dopo l'altro, piano." } },
+            { "sl": "Po lestev, ki stoji ob zidu.", "en": "Up the ladder that's standing by the wall.", "de": "Über die Leiter, die an der Mauer steht.", "it": "Con la scala che è appoggiata al muro.", "grammar": "mestnik",
+              "why": { "en": "Po (up, along) takes the locative here; lestev drops its e: po lestvi.", "de": "Po (auf, entlang) verlangt hier den Lokativ; lestev verliert sein e: po lestvi.", "it": "Po (su, lungo) qui vuole il locativo; lestev perde la e: po lestvi." },
+              "reply": { "sl": "Po … lestev? Hm, kako, prosim?", "en": "Up … lestev? Hm, pardon?", "de": "Über … lestev? Hm, wie bitte?", "it": "Con … lestev? Mm, come, scusa?" } },
+            { "sl": "Po vrvi, ki stoji ob zidu.", "en": "Up the rope that's standing by the wall.", "de": "Am Seil, das an der Mauer steht.", "it": "Con la corda che è appoggiata al muro.",
+              "why": { "en": "Vrv is a rope: you'd climb it like in a circus. Up a ladder: po lestvi.", "de": "Vrv ist ein Seil: Da klettert man wie im Zirkus. Über eine Leiter: po lestvi.", "it": "Vrv è una corda: ci si arrampica come al circo. Con la scala: po lestvi." },
+              "reply": { "sl": "Po vrvi? Saj nismo v cirkusu!", "en": "Up a rope? We're not in a circus!", "de": "Am Seil? Wir sind doch nicht im Zirkus!", "it": "Con la corda? Mica siamo al circo!" } }
+          ] },
+          { "who": "ancka", "sl": "Koliko skodel bomo potrebovali, {learner}?", "en": "How many shingles will we need, {learner}?", "de": "Wie viele Schindeln werden wir brauchen, {learner}?", "it": "Quante scandole ci serviranno, {learner}?" },
+          { "choices": [
+            { "sl": "Veliko skodel, vsaj tristo!", "en": "Lots of shingles, three hundred at least!", "de": "Viele Schindeln, mindestens dreihundert!", "it": "Tante scandole, almeno trecento!", "ok": true,
+              "reply": { "sl": "Res je. Vsi bomo nosili.", "en": "True. We'll all be carrying.", "de": "Stimmt. Wir tragen alle mit.", "it": "È vero. Porteremo tutti." } },
+            { "sl": "Veliko skodle, vsaj tristo!", "en": "Lots of shingles, three hundred at least!", "de": "Viele Schindeln, mindestens dreihundert!", "it": "Tante scandole, almeno trecento!", "grammar": "rodilnik-kolicina",
+              "why": { "en": "Veliko (a lot of) takes the genitive plural: veliko skodel.", "de": "Veliko (viel) verlangt den Genitiv Plural: veliko skodel.", "it": "Veliko (tanto) vuole il genitivo plurale: veliko skodel." },
+              "reply": { "sl": "Veliko … skodle? Hm, kako, prosim?", "en": "Lots of … skodle? Hm, pardon?", "de": "Viele … skodle? Hm, wie bitte?", "it": "Tante … skodle? Mm, come, scusa?" } },
+            { "sl": "Veliko listov, vsaj tristo!", "en": "Lots of leaves, three hundred at least!", "de": "Viele Blätter, mindestens dreihundert!", "it": "Tante foglie, almeno trecento!",
+              "why": { "en": "Listi are leaves: the first wind blows them away. A roof needs shingles: skodel.", "de": "Listi sind Blätter: Der erste Wind weht sie weg. Ein Dach braucht Schindeln: skodel.", "it": "Listi sono le foglie: il primo vento le porta via. Un tetto ha bisogno di scandole: skodel." },
+              "reply": { "sl": "Listov? Prvi veter, pa jih ni več!", "en": "Leaves? The first wind, and they're gone!", "de": "Blätter? Der erste Wind, und sie sind weg!", "it": "Foglie? Al primo vento non ci sono più!" } }
+          ] },
+          { "who": "zala", "sl": "Skodla za skodlo … Streha je kot ribje luske!", "en": "Shingle after shingle … The roof looks like fish scales!", "de": "Schindel um Schindel … Das Dach sieht aus wie Fischschuppen!", "it": "Scandola dopo scandola … Il tetto sembra fatto di squame!" }
+        ] }
+      }
+    },
+    {
+      "words": ["prt", "oltar"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "ancka", "sl": "Kapelica je gotova. Ampak oltar je še prazen.", "en": "The chapel is finished. But the altar is still bare.", "de": "Die Kapelle ist fertig. Aber der Altar ist noch leer.", "it": "La cappelletta è finita. Ma l'altare è ancora spoglio." },
+          { "who": "zala", "sl": "Kaj mu manjka?", "en": "What's it missing?", "de": "Was fehlt ihm?", "it": "Che cosa gli manca?" },
+          { "choices": [
+            { "sl": "Manjka mu prt.", "en": "It's missing a cloth.", "de": "Ihm fehlt ein Tuch.", "it": "Gli manca una tovaglia.", "ok": true,
+              "reply": { "sl": "Prt! Bel in lep!", "en": "A cloth! White and pretty!", "de": "Ein Tuch! Weiß und schön!", "it": "Una tovaglia! Bianca e bella!" } },
+            { "sl": "Manjka mu kruh.", "en": "It's missing bread.", "de": "Ihm fehlt Brot.", "it": "Gli manca il pane.",
+              "why": { "en": "Kruh is bread: it belongs on the table. An altar gets a cloth: prt.", "de": "Kruh ist Brot: Das gehört auf den Tisch. Ein Altar bekommt ein Tuch: prt.", "it": "Kruh è il pane: va sulla tavola. Un altare ha una tovaglia: prt." },
+              "reply": { "sl": "Kruh? Oltar ni lačen, hi hi!", "en": "Bread? The altar isn't hungry, hee hee!", "de": "Brot? Der Altar hat doch keinen Hunger, hihi!", "it": "Il pane? L'altare non ha fame, ih ih!" } },
+            { "sl": "Manjka mu kolo.", "en": "It's missing a bicycle.", "de": "Ihm fehlt ein Fahrrad.", "it": "Gli manca una bicicletta.",
+              "why": { "en": "Kolo is a bicycle: an altar goes nowhere! It needs a cloth: prt.", "de": "Kolo ist ein Fahrrad: Ein Altar fährt nirgendwohin! Er braucht ein Tuch: prt.", "it": "Kolo è una bicicletta: un altare non va da nessuna parte! Gli serve una tovaglia: prt." },
+              "reply": { "sl": "Kolo? Oltar ne gre nikamor, hi hi!", "en": "A bike? The altar isn't going anywhere, hee hee!", "de": "Ein Fahrrad? Der Altar fährt nirgendwohin, hihi!", "it": "Una bici? L'altare non va da nessuna parte, ih ih!" } }
+          ] },
+          { "who": "micka", "sl": "Tukaj je! Bel je, z vezenimi rožami.", "en": "Here it is! It's white, with embroidered flowers.", "de": "Hier ist es! Es ist weiß, mit gestickten Blumen.", "it": "Eccola! È bianca, con fiori ricamati." },
+          { "who": "ancka", "sl": "Oh, kako lep! {learner}, kam ga položimo?", "en": "Oh, how lovely! {learner}, where do we lay it?", "de": "Oh, wie schön! {learner}, wohin legen wir es?", "it": "Oh, che bella! {learner}, dove la stendiamo?" },
+          { "choices": [
+            { "sl": "Na oltar.", "en": "On the altar.", "de": "Auf den Altar.", "it": "Sull'altare.", "ok": true,
+              "reply": { "sl": "Tako je. Zdaj je kapelica res naša.", "en": "That's right. Now the chapel is really ours.", "de": "Genau. Jetzt ist die Kapelle wirklich unsere.", "it": "Esatto. Ora la cappelletta è davvero nostra." } },
+            { "sl": "Na tla.", "en": "On the floor.", "de": "Auf den Boden.", "it": "Per terra.",
+              "why": { "en": "Tla is the floor: people would walk on it. The cloth goes on the altar: na oltar.", "de": "Tla ist der Boden: Da würden alle drauf herumlaufen. Das Tuch kommt auf den Altar: na oltar.", "it": "Tla è il pavimento: tutti ci camminerebbero sopra. La tovaglia va sull'altare: na oltar." },
+              "reply": { "sl": "Na tla? Ojoj, takega lepega prta pa ne!", "en": "On the floor? Oh dear, not such a beautiful cloth!", "de": "Auf den Boden? Ojemine, nicht so ein schönes Tuch!", "it": "Per terra? Ahimè, una tovaglia così bella no!" } },
+            { "sl": "Na streho.", "en": "On the roof.", "de": "Aufs Dach.", "it": "Sul tetto.",
+              "why": { "en": "Streha is the roof: the wind would take the cloth. It goes on the altar: na oltar.", "de": "Streha ist das Dach: Der Wind würde das Tuch mitnehmen. Es kommt auf den Altar: na oltar.", "it": "Streha è il tetto: il vento si porterebbe via la tovaglia. Va sull'altare: na oltar." },
+              "reply": { "sl": "Na streho? Potem ga bo veter odnesel do gozda!", "en": "On the roof? Then the wind will carry it off to the forest!", "de": "Aufs Dach? Dann trägt es der Wind bis in den Wald!", "it": "Sul tetto? Allora il vento se la porta fino al bosco!" } }
+          ] },
+          { "who": "zala", "sl": "Zdaj je kapelica res lepa!", "en": "Now the chapel is really beautiful!", "de": "Jetzt ist die Kapelle wirklich schön!", "it": "Ora la cappelletta è proprio bella!" }
+        ] },
+        "A2": { "lines": [
+          { "who": "ancka", "sl": "Zunaj je kapelica gotova, notri pa je oltar še prazen.", "en": "Outside the chapel is finished, but inside the altar is still bare.", "de": "Außen ist die Kapelle fertig, aber innen ist der Altar noch leer.", "it": "Fuori la cappelletta è finita, ma dentro l'altare è ancora spoglio." },
+          { "who": "zala", "sl": "Kaj bi lahko položili nanj?", "en": "What could we lay on it?", "de": "Was könnten wir darauflegen?", "it": "Che cosa potremmo metterci sopra?" },
+          { "choices": [
+            { "sl": "Položili bi bel prt z rožami.", "en": "We'd lay a white cloth with flowers.", "de": "Wir würden ein weißes Tuch mit Blumen darauflegen.", "it": "Ci metteremmo una tovaglia bianca con i fiori.", "ok": true,
+              "reply": { "sl": "Ja! Prt z rožami bo najlepši.", "en": "Yes! A cloth with flowers will be the prettiest.", "de": "Ja! Ein Tuch mit Blumen ist am schönsten.", "it": "Sì! Una tovaglia con i fiori sarà la più bella." } },
+            { "sl": "Položili bi bel kruh z rožami.", "en": "We'd lay white bread with flowers.", "de": "Wir würden weißes Brot mit Blumen darauflegen.", "it": "Ci metteremmo del pane bianco con i fiori.",
+              "why": { "en": "Kruh is bread: it belongs on the table. On an altar goes a cloth: prt.", "de": "Kruh ist Brot: Das gehört auf den Tisch. Auf einen Altar kommt ein Tuch: prt.", "it": "Kruh è il pane: va sulla tavola. Sull'altare va una tovaglia: prt." },
+              "reply": { "sl": "Kruh z rožami? Hi hi, to bi bilo pa čudno kosilo!", "en": "Bread with flowers? Hee hee, that would be a funny lunch!", "de": "Brot mit Blumen? Hihi, das wäre aber ein seltsames Mittagessen!", "it": "Pane coi fiori? Ih ih, sarebbe un pranzo ben strano!" } }
+          ] },
+          { "who": "micka", "sl": "Tukaj ga imamo. Vezen je, z rdečimi rožami.", "en": "Here we have it. It's embroidered, with red flowers.", "de": "Hier haben wir es. Es ist bestickt, mit roten Blumen.", "it": "Eccola qui. È ricamata, con fiori rossi." },
+          { "who": "ancka", "sl": "Kako lep! {learner}, kje bo najlepše videti?", "en": "How lovely! {learner}, where will it look best?", "de": "Wie schön! {learner}, wo sieht es am schönsten aus?", "it": "Che bella! {learner}, dove starà meglio?" },
+          { "choices": [
+            { "sl": "Na oltarju, seveda.", "en": "On the altar, of course.", "de": "Auf dem Altar, natürlich.", "it": "Sull'altare, naturalmente.", "ok": true,
+              "reply": { "sl": "Tako je. Tam ga bodo videli vsi popotniki.", "en": "That's right. Every traveller will see it there.", "de": "Genau. Dort sehen es alle Reisenden.", "it": "Esatto. Lì la vedranno tutti i viandanti." } },
+            { "sl": "Na oltar, seveda.", "en": "On the altar, of course.", "de": "Auf den Altar, natürlich.", "it": "Sull'altare, naturalmente.", "grammar": "kje-mestnik-orodnik",
+              "why": { "en": "Kje? (where) takes the locative: na oltarju. Na oltar answers kam? (where to).", "de": "Kje? (wo) verlangt den Lokativ: na oltarju. Na oltar antwortet auf kam? (wohin).", "it": "Kje? (dove, stato) vuole il locativo: na oltarju. Na oltar risponde a kam? (verso dove)." },
+              "reply": { "sl": "Na oltar? Hm, kako, prosim?", "en": "Na oltar? Hm, pardon?", "de": "Na oltar? Hm, wie bitte?", "it": "Na oltar? Mm, come, scusa?" } },
+            { "sl": "Na tleh, seveda.", "en": "On the floor, of course.", "de": "Auf dem Boden, natürlich.", "it": "Per terra, naturalmente.",
+              "why": { "en": "Na tleh is on the floor: everyone would walk on it. On the altar: na oltarju.", "de": "Na tleh heißt auf dem Boden: Alle würden darauf herumlaufen. Auf dem Altar: na oltarju.", "it": "Na tleh vuol dire per terra: tutti ci camminerebbero sopra. Sull'altare: na oltarju." },
+              "reply": { "sl": "Na tleh? Ojoj, potem bodo vsi hodili po njem!", "en": "On the floor? Oh dear, then everyone will walk on it!", "de": "Auf dem Boden? Ojemine, dann laufen alle darauf herum!", "it": "Per terra? Ahimè, allora tutti ci cammineranno sopra!" } }
+          ] },
+          { "who": "zala", "sl": "Zdaj je kapelica res lepa!", "en": "Now the chapel is really beautiful!", "de": "Jetzt ist die Kapelle wirklich schön!", "it": "Ora la cappelletta è proprio bella!" }
+        ] }
+      }
+    },
+    {
+      "words": ["zvoncek", "zvoniti"],
+      "levels": {
+        "A1": { "lines": [
+          { "who": "ancka", "sl": "Še zadnja stvar manjka. Kapelica mora peti!", "en": "One last thing is missing. The chapel has to sing!", "de": "Eine letzte Sache fehlt noch. Die Kapelle muss singen!", "it": "Manca un'ultima cosa. La cappelletta deve cantare!" },
+          { "who": "tone", "sl": "Tukaj je, nov in svetel.", "en": "Here it is, new and shiny.", "de": "Hier ist es, neu und glänzend.", "it": "Eccola, nuova e lucente." },
+          { "who": "ancka", "sl": "{learner}, kaj obesimo pod streho?", "en": "{learner}, what do we hang under the roof?", "de": "{learner}, was hängen wir unters Dach?", "it": "{learner}, che cosa appendiamo sotto il tetto?" },
+          { "choices": [
+            { "sl": "Obesimo zvonček.", "en": "We hang the little bell.", "de": "Wir hängen das Glöckchen auf.", "it": "Appendiamo la campanella.", "ok": true,
+              "reply": { "sl": "Tako je! Mali zvonček za popotnike.", "en": "That's right! A little bell for the travellers.", "de": "Genau! Ein kleines Glöckchen für die Reisenden.", "it": "Esatto! Una campanella per i viandanti." } },
+            { "sl": "Obesimo perilo.", "en": "We hang up the laundry.", "de": "Wir hängen die Wäsche auf.", "it": "Stendiamo il bucato.",
+              "why": { "en": "Perilo is laundry. Under the chapel roof hangs a little bell: zvonček.", "de": "Perilo ist Wäsche. Unter dem Kapellendach hängt ein Glöckchen: zvonček.", "it": "Perilo è il bucato. Sotto il tetto della cappelletta si appende una campanella: zvonček." },
+              "reply": { "sl": "Perilo? Ha ha, kapelica ni sušilnica!", "en": "Laundry? Ha ha, the chapel isn't a drying room!", "de": "Wäsche? Ha ha, die Kapelle ist doch kein Trockenraum!", "it": "Il bucato? Ah ah, la cappelletta non è uno stenditoio!" } },
+            { "sl": "Obesimo klobaso.", "en": "We hang up a sausage.", "de": "Wir hängen eine Wurst auf.", "it": "Appendiamo una salsiccia.",
+              "why": { "en": "Klobasa is a sausage. A chapel gets a little bell: zvonček.", "de": "Klobasa ist eine Wurst. Eine Kapelle bekommt ein Glöckchen: zvonček.", "it": "Klobasa è una salsiccia. Una cappelletta ha una campanella: zvonček." },
+              "reply": { "sl": "Klobaso? Potem bodo prišli vsi psi iz vasi!", "en": "A sausage? Then every dog in the village will come!", "de": "Eine Wurst? Dann kommen alle Hunde aus dem Dorf!", "it": "Una salsiccia? Allora arriveranno tutti i cani del paese!" } }
+          ] },
+          { "who": "ancka", "sl": "Cin, cin, cin! {learner}, kaj dela zvonček?", "en": "Ding, ding, ding! {learner}, what is the little bell doing?", "de": "Bim, bim, bim! {learner}, was macht das Glöckchen?", "it": "Din, din, din! {learner}, che cosa fa la campanella?" },
+          { "choices": [
+            { "sl": "Zvonček zvoni!", "en": "The little bell is ringing!", "de": "Das Glöckchen läutet!", "it": "La campanella suona!", "ok": true,
+              "reply": { "sl": "Ja! In kako lepo!", "en": "Yes! And how lovely!", "de": "Ja! Und wie schön!", "it": "Sì! E che bel suono!" } },
+            { "sl": "Zvonček laja!", "en": "The little bell is barking!", "de": "Das Glöckchen bellt!", "it": "La campanella abbaia!",
+              "why": { "en": "Lajati is to bark: that's a dog's job. A bell rings: zvoni.", "de": "Lajati heißt bellen: Das ist die Arbeit eines Hundes. Eine Glocke läutet: zvoni.", "it": "Lajati vuol dire abbaiare: è il lavoro del cane. Una campana suona: zvoni." },
+              "reply": { "sl": "Laja? Ha ha, saj ni pes!", "en": "Barking? Ha ha, it's not a dog!", "de": "Bellen? Ha ha, es ist doch kein Hund!", "it": "Abbaia? Ah ah, mica è un cane!" } },
+            { "sl": "Zvonček spi!", "en": "The little bell is sleeping!", "de": "Das Glöckchen schläft!", "it": "La campanella dorme!",
+              "why": { "en": "Spati is to sleep: but it's making a noise! A bell rings: zvoni.", "de": "Spati heißt schlafen: Aber es macht doch Lärm! Eine Glocke läutet: zvoni.", "it": "Spati vuol dire dormire: ma sta facendo rumore! Una campana suona: zvoni." },
+              "reply": { "sl": "Spi? Ha ha, s takim glasom pa ne!", "en": "Sleeping? Ha ha, not with a voice like that!", "de": "Schlafen? Ha ha, nicht mit so einer Stimme!", "it": "Dorme? Ah ah, non con una voce così!" } }
+          ] },
+          { "who": "zala", "sl": "Tako glasno! Popotniki se bodo ustavili.", "en": "So loud! The travellers will stop.", "de": "So laut! Die Reisenden werden anhalten.", "it": "Che forte! I viandanti si fermeranno." }
+        ] },
+        "A2": { "lines": [
+          { "who": "ancka", "sl": "Kapelica je skoraj gotova. Ampak tiha je, manjka ji glas.", "en": "The chapel is almost finished. But it's quiet: it has no voice.", "de": "Die Kapelle ist fast fertig. Aber sie ist still, ihr fehlt eine Stimme.", "it": "La cappelletta è quasi finita. Ma è silenziosa, le manca la voce." },
+          { "who": "tone", "sl": "Tukaj je, nov in svetel. Lahko ga obesimo.", "en": "Here it is, new and shiny. We can hang it up.", "de": "Hier ist es, neu und glänzend. Wir können es aufhängen.", "it": "Eccola, nuova e lucente. Possiamo appenderla." },
+          { "who": "ancka", "sl": "{learner}, kaj bomo obesili pod streho?", "en": "{learner}, what shall we hang under the roof?", "de": "{learner}, was hängen wir unters Dach?", "it": "{learner}, che cosa appenderemo sotto il tetto?" },
+          { "choices": [
+            { "sl": "Obesili bomo zvonček, da ga bodo slišali popotniki.", "en": "We'll hang the little bell, so the travellers hear it.", "de": "Wir hängen das Glöckchen auf, damit die Reisenden es hören.", "it": "Appenderemo la campanella, così i viandanti la sentiranno.", "ok": true,
+              "reply": { "sl": "Tako je! In da se bodo ustavili.", "en": "That's right! And so they'll stop.", "de": "Genau! Und damit sie anhalten.", "it": "Esatto! E così si fermeranno." } },
+            { "sl": "Obesili bomo klobaso, da jo bodo slišali popotniki.", "en": "We'll hang a sausage, so the travellers hear it.", "de": "Wir hängen eine Wurst auf, damit die Reisenden sie hören.", "it": "Appenderemo una salsiccia, così i viandanti la sentiranno.",
+              "why": { "en": "Klobasa is a sausage, and sausages are quiet. A chapel gets a little bell: zvonček.", "de": "Klobasa ist eine Wurst, und Würste sind still. Eine Kapelle bekommt ein Glöckchen: zvonček.", "it": "Klobasa è una salsiccia, e le salsicce non fanno rumore. Una cappelletta ha una campanella: zvonček." },
+              "reply": { "sl": "Klobaso? Potem bodo prišli vsi psi iz vasi!", "en": "A sausage? Then every dog in the village will come!", "de": "Eine Wurst? Dann kommen alle Hunde aus dem Dorf!", "it": "Una salsiccia? Allora arriveranno tutti i cani del paese!" } },
+            { "sl": "Obesili bomo perilo, da ga bodo slišali popotniki.", "en": "We'll hang the laundry, so the travellers hear it.", "de": "Wir hängen die Wäsche auf, damit die Reisenden sie hören.", "it": "Stenderemo il bucato, così i viandanti lo sentiranno.",
+              "why": { "en": "Perilo is laundry, and nobody hears laundry. Under the roof hangs a little bell: zvonček.", "de": "Perilo ist Wäsche, und Wäsche hört niemand. Unter dem Dach hängt ein Glöckchen: zvonček.", "it": "Perilo è il bucato, e il bucato non si sente. Sotto il tetto va una campanella: zvonček." },
+              "reply": { "sl": "Perilo? Perila pa nihče ne sliši, ha ha!", "en": "Laundry? Nobody can hear laundry, ha ha!", "de": "Wäsche? Wäsche hört doch keiner, ha ha!", "it": "Il bucato? Il bucato non lo sente nessuno, ah ah!" } }
+          ] },
+          { "who": "ancka", "sl": "Cin, cin, cin! {learner}, kaj praviš, kako glasno je?", "en": "Ding, ding, ding! {learner}, what do you say, how loud is it?", "de": "Bim, bim, bim! {learner}, was meinst du, wie laut ist es?", "it": "Din, din, din! {learner}, che ne dici, quanto è forte?" },
+          { "choices": [
+            { "sl": "Zvoni glasneje kot vaš radio!", "en": "It rings louder than your radio!", "de": "Es läutet lauter als Ihr Radio!", "it": "Suona più forte della sua radio!", "ok": true,
+              "reply": { "sl": "Ha ha! No, skoraj tako glasno.", "en": "Ha ha! Well, almost as loud.", "de": "Ha ha! Na, fast so laut.", "it": "Ah ah! Beh, quasi altrettanto." } },
+            { "sl": "Zvonijo glasneje kot vaš radio!", "en": "They ring louder than your radio!", "de": "Sie läuten lauter als Ihr Radio!", "it": "Suonano più forte della sua radio!", "grammar": "glagoli-sedanjik",
+              "why": { "en": "One bell: the singular, zvoni. Zvonijo is for several.", "de": "Ein Glöckchen: der Singular, zvoni. Zvonijo gilt für mehrere.", "it": "Una campanella: il singolare, zvoni. Zvonijo è per più di una." },
+              "reply": { "sl": "Zvonijo? Koliko jih pa slišiš? Jaz samo enega!", "en": "They ring? How many do you hear? I hear just one!", "de": "Sie läuten? Wie viele hörst du denn? Ich nur eins!", "it": "Suonano? Quante ne senti? Io una sola!" } },
+            { "sl": "Laja glasneje kot vaš radio!", "en": "It barks louder than your radio!", "de": "Es bellt lauter als Ihr Radio!", "it": "Abbaia più forte della sua radio!",
+              "why": { "en": "Lajati is to bark: that's a dog's job. A bell rings: zvoni.", "de": "Lajati heißt bellen: Das ist die Arbeit eines Hundes. Eine Glocke läutet: zvoni.", "it": "Lajati vuol dire abbaiare: è il lavoro del cane. Una campana suona: zvoni." },
+              "reply": { "sl": "Laja? Ha ha, saj ni pes!", "en": "Barks? Ha ha, it's not a dog!", "de": "Bellt? Ha ha, es ist doch kein Hund!", "it": "Abbaia? Ah ah, mica è un cane!" } }
+          ] },
+          { "who": "zala", "sl": "Tako glasno! Vsak popotnik se bo ustavil.", "en": "So loud! Every traveller will stop.", "de": "So laut! Jeder Reisende wird anhalten.", "it": "Che forte! Ogni viandante si fermerà." }
+        ] }
+      }
+    }
+  ]
+}
