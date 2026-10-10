@@ -7,18 +7,34 @@ import android.speech.tts.UtteranceProgressListener
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import si.lanisce.lani.audio.OfflineVoice
+import si.lanisce.lani.audio.Piper
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
+import java.io.File
 import java.util.Locale
 
 /**
- * Speaks the learner's target language (Slovene for Jan): a family recording, else a node clip ([Clips]), else
- * text-to-speech. [available] is false when the phone has no TTS voice for it (sl-SI, it-IT …).
+ * Speaks the learner's target language (Slovene for Jan): a family recording, else a node clip ([Clips]), else the phone's
+ * offline voice ([offline]: Piper, when its voice of the target language is on the phone), else text-to-speech. [available]
+ * is false when the phone has no TTS voice for it (sl-SI, it-IT …).
  */
 class Speaker(private val context: Context) {
+    /**
+     * The phone's own voice of the target language ([Piper], got through the node): it speaks when no clip can be had,
+     * before Android's text-to-speech, and only in its own language ([fallback]).
+     */
+    var offline: OfflineVoice? = null
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
     /** Compose state, so screens update once the engine has initialised. */
     var available by mutableStateOf(false)
         private set
@@ -31,8 +47,8 @@ class Speaker(private val context: Context) {
     /** Natural voice clips from the node, after family recordings and before TTS. */
     var clips: Clips? = null
 
-    /** Something can speak: a TTS voice, or the node's voice store. */
-    val canSay: Boolean get() = available || clips?.enabled == true
+    /** Something can speak: a TTS voice, the node's voice store, or the offline voice of the target language. */
+    val canSay: Boolean get() = available || clips?.enabled == true || offline?.speaks(L10n.pair.target.code) == true
 
     /** Worth a 🔊: a clip or family recording exists for [text], or it reads as the target language (Slovene for Jan). */
     fun isSlovene(text: String): Boolean =
@@ -105,12 +121,41 @@ class Speaker(private val context: Context) {
         available = r != TextToSpeech.LANG_MISSING_DATA && r != TextToSpeech.LANG_NOT_SUPPORTED
     }
 
+    /** What speaks a line when no clip of the voice wanted can be had (see [fallback]). */
+    enum class Fallback { CLIP, OFFLINE, TTS, NONE }
+
     companion object {
         /** The text-to-speech locale of [lang] (the recognizer takes the same). */
         fun locale(lang: Lang): Locale = Locale.forLanguageTag(lang.locale)
 
         /** How many lines [preload] asks the node for at once. */
         private const val PRELOAD_AT_ONCE = 3
+
+        /**
+         * What speaks when the wanted voice's clip can't be had (offline, the node can't make it now, a clip that won't
+         * play): another voice of theirs whose clip is on the phone ([clip]), else the phone's offline voice ([offline]: it
+         * speaks the target language, [target], and nothing else), else Android's text-to-speech when it has a voice
+         * ([tts]), else nothing.
+         */
+        fun fallback(clip: Boolean, offline: String?, target: String, tts: Boolean): Fallback = when {
+            clip -> Fallback.CLIP
+            offline != null && offline == target -> Fallback.OFFLINE
+            tts -> Fallback.TTS
+            else -> Fallback.NONE
+        }
+
+        /**
+         * The voices for a line said by [voiceName] (falling back to [fallback], their gender's narrator) as [profile]'s (a
+         * villager's or resident's: their own voice "@micka", else their archetype first): the ones to try, best first;
+         * [Voices.shared]: their archetype's and the chain's; [Voices.own]: they have a voice of their own, heard only in it
+         * unless the node can't make it now. The day's audio asks for the same ([si.lanisce.lani.audio.DayAudio]).
+         */
+        fun voices(voiceName: String = Clips.FEMALE, fallback: String? = null, profile: VoiceProfile? = null): Voices {
+            val own = profile?.own == true
+            // their archetype first (the node's profile knows it even where the caller passes a narrator), then the chain
+            val shared = (listOfNotNull(profile?.takeIf { !own }?.speaker) + Clips.chain(voiceName, fallback)).distinct()
+            return Voices(if (own) listOf(profile!!.speaker) else shared, shared, own)
+        }
 
         private const val KEY_TIP_SEEN = "re_record_tip_seen"
         private const val KEY_FIRST_USED = "first_used"
@@ -146,27 +191,51 @@ class Speaker(private val context: Context) {
             missedRecently = c?.missedRecently(text, voices) == true,
         )
         if (route != Route.TTS && ready) tts.stop()
-        /** A clip on the phone in another voice of theirs (their shared one, for a voice of their own), when the wanted one couldn't be had; else TTS. */
+        /** No clip to play: the offline voice, else TTS ([fallback]). */
+        fun withoutClip() = speakOffline(t, text, slow, pitch, rate)
+        /**
+         * A clip on the phone in another voice of theirs (their shared one, for a voice of their own), when the wanted one
+         * couldn't be had; else the offline voice, else TTS.
+         */
         fun otherwise() {
             val alt = c?.onDevice(text, if (own) shared else voices.drop(1))
-            if (alt != null && v != null) v.playClips(alt, slow, pitch, rate) { synthesize(text, slow) } else synthesize(text, slow)
+            if (alt != null && v != null) v.playClips(alt, slow, pitch, rate) { withoutClip() } else withoutClip()
         }
         when (route) {
-            Route.FAMILY -> v!!.play(text, slow) { synthesize(text, slow) }
-            Route.CLIP -> v!!.playClips(local!!, slow, pitch, rate) { synthesize(text, slow) }
+            Route.FAMILY -> v!!.play(text, slow) { withoutClip() }
+            Route.CLIP -> v!!.playClips(local!!, slow, pitch, rate) { withoutClip() }
             Route.NODE -> {
                 v!!.stop()
                 loading = true
                 c!!.prepare(text, voices) { files ->
                     if (t != turn) return@prepare
-                    if (files != null) v.playClips(files, slow, pitch, rate) { synthesize(text, slow) } else otherwise()
                     loading = false
+                    if (files != null) v.playClips(files, slow, pitch, rate) { withoutClip() } else otherwise()
                 }
             }
             Route.TTS -> {
                 v?.stop()
-                if (c != null) otherwise() else synthesize(text, slow)
+                if (c != null) otherwise() else withoutClip()
             }
+        }
+    }
+
+    /**
+     * [text] without a clip ([fallback]): the phone's offline voice when it speaks the target language (rendered in the
+     * background, 🐢 through its length scale, then played as a clip at the person's pitch and pace), else text-to-speech.
+     * [t]: the turn it was asked in; a line that comes late doesn't talk over the next one.
+     */
+    private fun speakOffline(t: Int, text: String, slow: Boolean, pitch: Float, rate: Float) {
+        val o = offline
+        val v = voice
+        val target = L10n.pair.target.code
+        if (o == null || v == null || fallback(false, o.language, target, available) != Fallback.OFFLINE) return synthesize(text, slow)
+        loading = true
+        scope.launch {
+            val f: File? = runCatching { o.render(text, if (slow) Piper.SLOW else 1f) }.getOrNull()
+            if (t != turn) return@launch
+            loading = false
+            if (f != null) v.playClips(listOf(f), false, pitch, rate) { synthesize(text, slow) } else synthesize(text, slow)
         }
     }
 
@@ -174,15 +243,12 @@ class Speaker(private val context: Context) {
      * The voices for a line (see [say]): the ones to try, best first; [shared]: their archetype's and the chain's; [own]:
      * they have a voice of their own, and the line is heard only in it unless the node can't make it now.
      */
-    private data class Voices(val voices: List<String>, val shared: List<String>, val own: Boolean)
-
-    private fun voicesFor(voiceName: String, fallback: String?, person: String?): Voices {
-        val profile = clips?.profile(person)
-        val own = profile?.own == true
-        // their archetype first (the node's profile knows it even where the caller passes a narrator), then the chain
-        val shared = (listOfNotNull(profile?.takeIf { !own }?.speaker) + Clips.chain(voiceName, fallback)).distinct()
-        return Voices(if (own) listOf(profile!!.speaker) else shared, shared, own)
+    data class Voices(val voices: List<String>, val shared: List<String>, val own: Boolean) {
+        /** Every voice it may be heard in from the phone, best first: the wanted one, then the ones played offline. */
+        val all: List<String> get() = (voices + shared).distinct()
     }
+
+    private fun voicesFor(voiceName: String, fallback: String?, person: String?): Voices = voices(voiceName, fallback, clips?.profile(person))
 
     /** [person]'s pitch and pace with their archetype's voice (1 with a voice of their own, or for no one). */
     private fun pitchRate(person: String?): Pair<Float, Float> {

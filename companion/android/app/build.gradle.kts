@@ -246,6 +246,13 @@ android {
             isMinifyEnabled = false
             // sideloaded: the release key when one is set (releaseKey), else the debug key
             signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
+            // The offline voice's runtime (sherpa-onnx, about 24 MB a processor type) only for the phones' 64-bit ARM: the
+            // APK stays small. A 32-bit or x86 phone can't install it then.
+            ndk { abiFilters += listOf("arm64-v8a") }
+        }
+        getByName("debug") {
+            // and for the x86_64 emulator QA runs on
+            ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         }
     }
     compileOptions {
@@ -256,7 +263,12 @@ android {
         compose = true
         buildConfig = true
     }
-    packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
+    packaging {
+        resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        // the native libraries compressed in the APK (the offline voice's runtime: 24 MB, 9 MB compressed), so an update
+        // downloads less; the phone unpacks them once when it installs it
+        jniLibs.useLegacyPackaging = true
+    }
     // The unit tests read the curated content said to the learner it was written for before its placeholders (a man named
     // Jan): every text reads as it always did (l10n/Learner.kt; a test of another learner sets its own).
     testOptions {
@@ -297,6 +309,8 @@ dependencies {
     implementation(libs.zxing.core)
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.session)
+    // The phone's offline voice: Piper models run by sherpa-onnx (data/Piper.kt); the voice itself comes through the bridge.
+    implementation("com.k2fsa.sherpa.onnx:sherpa-onnx-static-link-onnxruntime:${libs.versions.sherpaOnnx.get()}@aar")
     testImplementation(libs.junit)
     testImplementation(libs.icu4j)
     testImplementation(libs.robolectric)

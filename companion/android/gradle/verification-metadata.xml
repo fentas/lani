@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Gradle's dependency verification, for one artifact: sherpa-onnx's AAR (the offline voice's runtime), which comes from
+  the project's GitHub releases rather than a Maven repository (settings.gradle.kts). Every other group is trusted as
+  before (Google's and Maven Central's repositories); a new sherpa-onnx version needs its SHA-256 here.
+-->
+<verification-metadata xmlns="https://schema.gradle.org/dependency-verification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://schema.gradle.org/dependency-verification https://schema.gradle.org/dependency-verification/dependency-verification-1.3.xsd">
+   <configuration>
+      <verify-metadata>false</verify-metadata>
+      <verify-signatures>false</verify-signatures>
+      <trusted-artifacts>
+         <trust group="^(?!com[.]k2fsa[.]sherpa[.]onnx$).*$" regex="true"/>
+      </trusted-artifacts>
+   </configuration>
+   <components>
+      <component group="com.k2fsa.sherpa.onnx" name="sherpa-onnx-static-link-onnxruntime" version="1.13.8">
+         <artifact name="sherpa-onnx-static-link-onnxruntime-1.13.8.aar">
+            <sha256 value="b22c3fc1b6a45666d28892bb2f7694beeb77a8362d7ebd77c1a5431ec9435471" origin="Downloaded from github.com/k2-fsa/sherpa-onnx/releases v1.13.8, 2026-10-10"/>
+         </artifact>
+      </component>
+   </components>
+</verification-metadata>

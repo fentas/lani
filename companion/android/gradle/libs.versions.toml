@@ -16,6 +16,8 @@ icu4j = "78.3"
 media3 = "1.11.1"
 robolectric = "4.17"
 androidxTestCore = "1.7.0"
+# The phone's offline voice (Piper through sherpa-onnx, Apache-2.0): the AAR with onnxruntime linked in (settings.gradle.kts).
+sherpaOnnx = "1.13.8"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
