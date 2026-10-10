@@ -105,3 +105,30 @@ class OfflineVoicesTest {
         assertEquals(100L, l[1].progress!!.total)
     }
 }
+
+class PiperWavTest {
+    @Test fun `Piper's speech comes nearer the clips' level, its peak held under -1 dBFS`() {
+        val quiet = floatArrayOf(0f, 0.2f, -0.4f)
+        assertEquals(listOf(0f, 0.3f, -0.6f), Piper.louder(quiet).map { Math.round(it * 1000) / 1000f })
+        // a loud one: only as much as the ceiling lets it
+        val loud = floatArrayOf(0.8f, -0.1f)
+        assertEquals(Piper.CEILING, Piper.louder(loud).maxOf { kotlin.math.abs(it) }, 1e-4f)
+        // over the ceiling already: brought down to it
+        assertEquals(Piper.CEILING, Piper.louder(floatArrayOf(1f)).single(), 1e-4f)
+        assertTrue(Piper.louder(FloatArray(0)).isEmpty())
+    }
+
+    @Test fun `a WAV of 16-bit mono PCM`() {
+        val w = Piper.wav(floatArrayOf(0f, 1f, -1f), 22050)
+        val b = java.nio.ByteBuffer.wrap(w).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+        assertEquals("RIFF", String(w, 0, 4))
+        assertEquals("WAVE", String(w, 8, 4))
+        assertEquals(44 + 6, w.size)
+        assertEquals(36 + 6, b.getInt(4))
+        assertEquals(22050, b.getInt(24))
+        assertEquals(16.toShort(), b.getShort(34))
+        assertEquals(6, b.getInt(40))
+        assertEquals(Short.MAX_VALUE, b.getShort(46))
+        assertEquals((-Short.MAX_VALUE).toShort(), b.getShort(48))
+    }
+}

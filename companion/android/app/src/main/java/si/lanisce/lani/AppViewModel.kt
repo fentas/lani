@@ -305,6 +305,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             snapshotFlow { villagers.voicePeople(game.state) }.distinctUntilChanged().collect { clips.syncProfiles(it) }
         }
+        // the day's audio is planned once the village and the cards are there (a reload may end before the village loads)
+        viewModelScope.launch {
+            snapshotFlow { game.state != null && content.dashboard != null }.distinctUntilChanged().collect { if (it) offlineAudio.plan(::dayGather) }
+        }
         // an upgrade asks for the building's words ("Knowledge builds", companion/GAME.md "Upgrades")
         game.upgradeWords = ::upgradeWords
         // a drill of the tutor's is found for the task it shares a grammar page with (companion/GAME.md "Quests")
@@ -399,6 +403,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     private fun dayGather(): si.lanisce.lani.app.DayAudioGather? {
         val b = bridge ?: return null
         val d = content.dashboard ?: return null
+        if (game.state == null && !game.placeNeeded) return null // the village is still loading: its day comes with it
         val target = L10n.ownPair.target.code
         return si.lanisce.lani.app.DayAudioGather(
             getApplication(), cards = d.pool, packs = packs.list,

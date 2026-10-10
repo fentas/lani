@@ -28,6 +28,8 @@ import si.lanisce.lani.audio.AudioCap
 import si.lanisce.lani.audio.MB
 import si.lanisce.lani.audio.OfflineVoiceInfo
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
+import si.lanisce.lani.l10n.inTarget
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -131,11 +133,12 @@ private fun OfflineVoiceRow(c: OfflineAudioController) {
         else -> Text(bi("offlineAudio.voiceNone"), style = MaterialTheme.typography.bodySmall, color = muted)
     }
     c.voiceProblem?.takeIf { p == null && v == null }?.let { Text("⚠️ ${bi("offlineAudio.voiceFailed", "why" to it)}", style = MaterialTheme.typography.bodySmall, color = muted) }
-    (v ?: o)?.let(::credit)?.let { Text(bi("offlineAudio.voiceCredit", "attribution" to it), style = MaterialTheme.typography.bodySmall, color = muted) }
+    // the attribution is the voice's own (English): the credit once, in the learner's base language
+    (v ?: o)?.let(::credit)?.let { Text(inBase("offlineAudio.voiceCredit", "attribution" to it), style = MaterialTheme.typography.bodySmall, color = muted) }
 }
 
 /**
- * After pairing, once: "Prenesi glas brez povezave (65 MB)? · Download the offline voice (65 MB)?" (Wi-Fi recommended); the
+ * After pairing, once: "Prenesi glas brez povezave (61 MB)? · Download the offline voice (61 MB)?" (Wi-Fi recommended); the
  * settings have it too.
  */
 @Composable
@@ -148,7 +151,7 @@ fun OfflineVoiceOffer(c: OfflineAudioController) {
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(bi("offlineAudio.offerText", "name" to o.name.ifBlank { "Piper" }))
-                credit(o)?.let { Text(bi("offlineAudio.voiceCredit", "attribution" to it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                credit(o)?.let { Text(inBase("offlineAudio.voiceCredit", "attribution" to it), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             }
         },
         confirmButton = { Button(onClick = c::downloadVoice) { Text("⬇️ ${bi("offlineAudio.offerYes")}") } },
@@ -159,11 +162,11 @@ fun OfflineVoiceOffer(c: OfflineAudioController) {
 private fun capLabel(cap: AudioCap): String = when (cap) {
     AudioCap.OFF -> bi("offlineAudio.capOff")
     AudioCap.UNLIMITED -> bi("offlineAudio.capUnlimited")
-    else -> bi("offlineAudio.capMb", "mb" to (cap.bytes!! / MB).toString())
+    else -> inTarget("offlineAudio.capMb", "mb" to (cap.bytes!! / MB).toString()) // "250 MB" in either language: once
 }
 
-/** "63" (MB), "0.4" below one: a size as the settings show it. */
-private fun mb(bytes: Long): String = if (bytes in 1 until MB) "%.1f".format(bytes.toDouble() / MB) else (bytes / MB).toString()
+/** "61" (MB, rounded), "0.4" below one: a size as the settings show it. */
+private fun mb(bytes: Long): String = if (bytes in 1 until MB) "%.1f".format(bytes.toDouble() / MB) else ((bytes + MB / 2) / MB).toString()
 
 /** "14:05" today, else "8. 10. 14:05". */
 private fun time(at: Long): String {

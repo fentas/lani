@@ -96,7 +96,8 @@ class Piper(context: Context, private val voices: OfflineVoices = OfflineVoices(
                 Log.i(TAG, "Piper said ${text.length} characters (%.1f s of speech, speed $speed) in ${System.currentTimeMillis() - started} ms".format(secs))
                 wavs.mkdirs()
                 val part = File(wavs, "${out.nameWithoutExtension}.part")
-                if (!audio.save(part.path) || !part.renameTo(out)) return@withLock null
+                part.writeBytes(wav(louder(audio.samples), audio.sampleRate))
+                if (!part.renameTo(out)) return@withLock null
                 trim()
                 out
             } catch (e: Throwable) {
@@ -169,11 +170,41 @@ class Piper(context: Context, private val voices: OfflineVoices = OfflineVoices(
         /** The lines it said, kept for saying again. */
         const val WAV_BYTES = 20L * MB
 
-        /** Two threads: fast enough for a line (a medium voice, about a fifth of the line's length on a phone), and the app stays smooth. */
+        /**
+         * Two threads: a line takes a fraction of its length (the x86_64 emulator: 2.5 s of speech in 0.17 s, the model loaded
+         * in 0.9 s), and the app stays smooth.
+         */
         const val THREADS = 2
 
         /** 🐢: the speech itself at three quarters, through the voice's length scale, as the clips play at 0.75. */
         const val SLOW = 0.75f
+
+        /**
+         * Piper's speech comes out about 3.5 dB under the clips (measured: −21.8 LUFS, the clips' level −18): this much
+         * louder, so the offline voice doesn't drop when it takes over a line.
+         */
+        const val GAIN = 1.5f
+
+        /** The peak it may reach, −1 dBFS. */
+        const val CEILING = 0.89f
+
+        /** [samples] (−1 to 1) [GAIN] times louder, less where the peak would go over [CEILING]. */
+        fun louder(samples: FloatArray, gain: Float = GAIN): FloatArray {
+            val peak = samples.maxOfOrNull { kotlin.math.abs(it) } ?: return samples
+            val g = if (peak <= 0f) 1f else minOf(gain, CEILING / peak).coerceAtLeast(minOf(1f, CEILING / peak))
+            return if (g == 1f) samples else FloatArray(samples.size) { samples[it] * g }
+        }
+
+        /** [samples] as a WAV file: 16-bit PCM, mono, at [rate]. */
+        fun wav(samples: FloatArray, rate: Int): ByteArray {
+            val data = samples.size * 2
+            val b = java.nio.ByteBuffer.allocate(44 + data).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+            b.put("RIFF".toByteArray()).putInt(36 + data).put("WAVE".toByteArray())
+            b.put("fmt ".toByteArray()).putInt(16).putShort(1).putShort(1).putInt(rate).putInt(rate * 2).putShort(2).putShort(16)
+            b.put("data".toByteArray()).putInt(data)
+            for (x in samples) b.putShort((x.coerceIn(-1f, 1f) * Short.MAX_VALUE).toInt().toShort())
+            return b.array()
+        }
 
         fun key(voice: String, speed: Float, text: String): String =
             MessageDigest.getInstance("SHA-1").digest("$voice|$speed|$text".toByteArray()).joinToString("") { "%02x".format(it) }
