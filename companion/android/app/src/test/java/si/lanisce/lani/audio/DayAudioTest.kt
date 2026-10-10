@@ -123,3 +123,17 @@ class DayAudioTest {
         assertEquals(listOf("nova"), DayPlans.days(null, today, listOf(card("n", "nova", today)))[0].wants.map { it.text })
     }
 }
+
+class DayPlanTest {
+    private val w = DayWant("Dober dan!", listOf("grandma", "female"), "dialog:a/b")
+
+    @Test fun `a plan made again with the same lines is the same, whenever it was made`() {
+        val a = DayPlan(1, "sl", listOf(DayList("2026-10-10", listOf(w))))
+        assertTrue(a.sameAs(a.copy(made = 2)))
+        // a line more (the village loaded meanwhile), another voice, another day: not the same
+        assertFalse(a.sameAs(a.copy(days = listOf(DayList("2026-10-10", listOf(w, w.copy(text = "Živijo!")))))))
+        assertFalse(a.sameAs(a.copy(days = listOf(DayList("2026-10-10", listOf(w.copy(voices = listOf("female"))))))))
+        assertFalse(a.sameAs(a.copy(days = listOf(DayList("2026-10-11", listOf(w))))))
+        assertFalse(a.sameAs(a.copy(language = "it")))
+    }
+}

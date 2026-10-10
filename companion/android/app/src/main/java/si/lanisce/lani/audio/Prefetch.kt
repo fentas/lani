@@ -86,7 +86,7 @@ object Prefetch {
         wm.enqueueUniquePeriodicWork(PERIODIC, ExistingPeriodicWorkPolicy.UPDATE, periodic(settings))
     }
 
-    /** The app opened: the job runs once on Wi-Fi, unless it ran lately for the same plan. */
+    /** The app opened, or the day's plan changed: the job runs once on Wi-Fi, unless it ran lately for the same plan. */
     fun onOpen(context: Context) {
         val settings = AudioSettings(context)
         if (!wanted(settings)) return
@@ -94,7 +94,8 @@ object Prefetch {
         val last = DayPlans.readStatus(files)
         val made = DayPlans.read(files)?.made ?: 0
         if (last != null && System.currentTimeMillis() - last.at < OPEN_AFTER_MS && last.at >= made) return
-        WorkManager.getInstance(context).enqueueUniqueWork(OPEN, ExistingWorkPolicy.KEEP, once(settings, now = false))
+        // after a run under way (it read the plan before this one): the new plan's clips come right after it
+        WorkManager.getInstance(context).enqueueUniqueWork(OPEN, ExistingWorkPolicy.APPEND_OR_REPLACE, once(settings, now = false))
     }
 
     /** "⬇️ Prenesi zdaj · Download now": at once, on any network. */

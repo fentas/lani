@@ -205,29 +205,29 @@ class OfflineAudioController(
         }
     }
 
-    /** The plan made last (when), so it isn't made again at every refresh. */
+    /** When the plan was last made, so a burst of refreshes doesn't make it again each time. */
     private var planned = 0L
-    private var plannedDay = ""
 
     /**
-     * Writes the days ahead ([DayAudioGather]) for the background job and asks it to run on Wi-Fi ([Prefetch.onOpen]); at most
-     * every [PLAN_EVERY_MS], unless the day changed. Not with the cap off, nor on a visit (the town's language isn't the
-     * learner's).
+     * Writes the days ahead ([DayAudioGather]) for the background job and asks it to run on Wi-Fi ([Prefetch.onOpen]) when
+     * they changed ([DayPlan.sameAs]: the village or the cards loaded meanwhile, a pack learned, the day turned); made at most
+     * every [PLAN_EVERY_MS]. Not with the cap off, nor on a visit (the town's language isn't the learner's).
      */
     fun plan(gather: () -> DayAudioGather?, force: Boolean = false, then: () -> Unit = { Prefetch.onOpen(app) }) {
         if (!settings.cap.prefetch) return
         val now = System.currentTimeMillis()
-        val day = java.time.LocalDate.now().toString()
-        if (!force && day == plannedDay && now - planned < PLAN_EVERY_MS) return
+        if (!force && now - planned < PLAN_EVERY_MS) return
         val g = gather() ?: return
         planned = now
-        plannedDay = day
         scope.launch {
             try {
                 val plan = withContext(Dispatchers.Default) { g.plan() } // the village's day, hour by hour: off the main thread
-                withContext(Dispatchers.IO) { DayPlans.write(files, plan) }
-                android.util.Log.i("OfflineAudio", "the day's plan: ${plan.days.joinToString { "${it.day} ${it.wants.size} lines" }}")
-                then()
+                val changed = withContext(Dispatchers.IO) {
+                    val old = DayPlans.read(files)
+                    (old == null || !plan.sameAs(old)).also { if (it) DayPlans.write(files, plan) }
+                }
+                android.util.Log.i("OfflineAudio", "the day's plan${if (changed) "" else " (as before)"}: ${plan.days.joinToString { "${it.day} ${it.wants.size} lines" }}")
+                if (changed || force) then()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -238,7 +238,7 @@ class OfflineAudioController(
     }
 
     companion object {
-        /** The day's plan is made again at most this often while the app is open (each refresh would otherwise). */
-        const val PLAN_EVERY_MS = 20 * 60_000L
+        /** The day's plan is made again at most this often while the app is open (a burst of refreshes would otherwise). */
+        const val PLAN_EVERY_MS = 60_000L
     }
 }

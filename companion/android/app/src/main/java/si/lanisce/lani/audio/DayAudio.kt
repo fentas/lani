@@ -35,6 +35,10 @@ data class DayList(val day: String, val wants: List<DayWant>, val companion: Lis
 data class DayPlan(val made: Long, val language: String, val days: List<DayList>) {
     /** The list for [day] (today's, or yesterday's tomorrow when the app wasn't opened since) and the days after it. */
     fun from(day: LocalDate): List<DayList> = days.filter { it.day >= day.toString() }.sortedBy { it.day }
+
+    /** The same days with the same lines in the same voices as [other] (when it was made aside): nothing new to get. */
+    fun sameAs(other: DayPlan): Boolean =
+        language == other.language && days.map { d -> d.day to d.wants.map { it.text to it.voices } } == other.days.map { d -> d.day to d.wants.map { it.text to it.voices } }
 }
 
 /**
