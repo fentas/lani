@@ -30,6 +30,7 @@ import { grammar as grammarFeature } from './features/grammar'
 import { level } from './features/level'
 import { lexicon } from './features/lexicon'
 import { modules } from './features/modules'
+import { offlineVoice } from './features/offline-voice'
 import { packs } from './features/packs'
 import { pairing } from './features/pairing'
 import { townQuestions } from './features/questions'
@@ -202,7 +203,7 @@ export async function startBridge(o: BridgeOptions) {
 
   // The channel instructions are the features' paragraphs in this order, and so is the tool list.
   // A new feature: a module exporting `(ctx: Ctx) => Feature`, added to this list.
-  const features: Feature[] = [chat, modules, grammarFeature, drillsFeature, rhythm, game, packs, lexicon, sentences, scenarios, scenes, stories, readings, villagers, arrivals, cultureFeature, family, voice, stt, reviews, level, events, releases, pairing, towns, friendship, townQuestions, ...(o.extraFeatures ?? [])].map(f => f(ctx))
+  const features: Feature[] = [chat, modules, grammarFeature, drillsFeature, rhythm, game, packs, lexicon, sentences, scenarios, scenes, stories, readings, villagers, arrivals, cultureFeature, family, voice, offlineVoice, stt, reviews, level, events, releases, pairing, towns, friendship, townQuestions, ...(o.extraFeatures ?? [])].map(f => f(ctx))
 
   // The default learner set up by lani-setup, their data a repository of its own: the instructions name them from their
   // profile and say where their data and session results are.

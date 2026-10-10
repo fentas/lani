@@ -37,6 +37,7 @@ import kaernten from './smoke/kaernten'
 import lakeland from './smoke/lakeland'
 import pairs from './smoke/pairs'
 import family from './smoke/family'
+import offlineVoice from './smoke/offline-voice'
 import voice from './smoke/voice'
 import stt from './smoke/stt'
 import languages from './smoke/languages'
@@ -50,5 +51,5 @@ import setup from './smoke/setup'
 // pairing runs last: it fills the bridge's limit on wrong pairing codes. towns starts two more bridges of its own, service
 // its bridge services and their shims (docs/plans/04-bridge-service.md); setup a bridge configured by lani.env alone. level raises the learner to A2 (and their
 // Italian): it runs late, after the checks that read the level.
-for (const section of [core, chat, modules, grammar, drills, ispy, events, reviews, outbox, releases, game, packs, lexicon, forms, sentences, meanings, rhythm, scenarios, scenes, variants, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, pairs, family, voice, stt, towns, languages, service, level, pairing, rename, setup]) await section()
+for (const section of [core, chat, modules, grammar, drills, ispy, events, reviews, outbox, releases, game, packs, lexicon, forms, sentences, meanings, rhythm, scenarios, scenes, variants, dialogWords, stories, readings, villagers, learner, arrivals, cultures, friuli, kaernten, lakeland, pairs, family, offlineVoice, voice, stt, towns, languages, service, level, pairing, rename, setup]) await section()
 await done()
