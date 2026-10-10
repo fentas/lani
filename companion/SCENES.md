@@ -24,6 +24,7 @@ Village (full screen, pinch zoom, pan)         Scene (close-up)
 | Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt`; the learner's words a dialog tests (see [Your words in the dialogs](#your-words-in-the-dialogs)): `game/DialogWords.kt`, `game/DialogReviews.kt` (on `game/PlayReviews.kt`), `app/DialogWordsController.kt` |
 | Stickers: a word's picture cut out of its scene (see [Stickers](#stickers-a-words-picture-from-its-scene)) | `game/scene/WordStickers.kt`, `game/render/scene/Stickers.kt`, `ui/words/WordPicture.kt` |
 | Content and serving | `companion/scenes/*.json`, a culture pack's own `companion/cultures/<id>/scenes/*.json`, `bridge/src/scenes.ts`, `bridge/src/features/scenes.ts`; the stories: `companion/cultures/<id>/stories/*.json`, `bridge/src/stories.ts`, `bridge/src/features/stories.ts` |
+| A village project's step as a short scene (see [Project steps](#project-steps-a-village-projects-step-as-a-short-scene)) | `companion/cultures/<id>/project-steps/*.json`, `game/Projects.kt` (its dialog, who says what, where they stand, the step done), `app/SceneController.kt` (`startStep`), `ui/scene/ProjectStepScene.kt` (over the village), `bridge/src/project-steps.ts` (the check) |
 
 ## Format: `lani.scene/v0`
 
@@ -108,8 +109,8 @@ that line's translation (a tap again hides it; TalkBack: "Pokaži prevod · Show
 🔊 and the why stay. Beside the 🎤, a turn whose rule has a page shows "📖 Namig · Hint" (the rule, never the answer: see
 [The hint](#the-hint-the-rule-never-the-answer)), and a long press on a line said opens its grammar word by word (see
 [The sentence's grammar](#the-sentences-grammar-a-long-press-on-a-line)). Every dialog is this panel: a scene's, the
-storyteller's evening story, a keeper's talk at a spot of the landscape, a newcomer's arrival and a guest's dialog on a
-visit. The chip replaced "🎤 Odgovarjaj z glasom ·
+storyteller's evening story, a keeper's talk at a spot of the landscape, a newcomer's arrival, a village project's step
+([Project steps](#project-steps-a-village-projects-step-as-a-short-scene)) and a guest's dialog on a visit. The chip replaced "🎤 Odgovarjaj z glasom ·
 Answer by speaking", which made the choices untappable (the 🎤 the only way to answer, "👆 Raje tapni · Tap instead"
 after two failed takes); the 🎤 beside the choices does that job, and a mastered rule's turn is said whole anyway (see
 [Adaptive turns](#adaptive-turns)).
@@ -491,7 +492,7 @@ The learner's words are their one-word vocabulary cards of the home deck (`PackS
 gives živjo), each with the forms of its word the phone has (`FormsController`), checked against the dialog as it is
 played (trimmed, with their own traps); a dialog in another language (a visit) tests none. It works wherever the dialog
 panel plays: a scene's dialogs, the curated ones and the tutor's variants, the storyteller's evening story, a keeper's
-talk and a newcomer's arrival. Of the 494 learner's turns of the curated Slovene scenes, 227 test one of the packs'
+talk, a newcomer's arrival and a village project's step (whose turns are written to test the project's words). Of the 494 learner's turns of the curated Slovene scenes, 227 test one of the packs'
 one-word words, 143 different ones (`DialogWordsContentTest`, the words' forms from the bundled dictionary).
 
 **In the dialog** (`DialogRun.wordAnswers`, the first answer of each turn on its words; `DialogWordsController`): a right
@@ -663,8 +664,9 @@ and the school grow with their building's level (above). The watchtower's view d
 is, and then the wolves' eyes shine in the forest below at night (off by default, so tools and tests see the plain view).
 The vineyard waits whole: it opens only once its terraces
 are finished (`from: ["project:vinograd"]`, see [Scenes of a culture pack](#scenes-of-a-culture-pack)). The other projects
-have no place in a scene yet (the bocce court, the chapel, the bee meadow, the fire station, the playground, the fountain,
-the lookout tower): they stand on the village map (GAME.md, "Village projects").
+have no picture in a scene yet (the bocce court, the chapel, the bee meadow, the fire station, the playground, the fountain,
+the lookout tower): they stand on the village map (GAME.md, "Village projects"). Their steps are played in the scenes all
+the same, where they happen ([Project steps](#project-steps-a-village-projects-step-as-a-short-scene)).
 
 Happenings that need a level: Micka's potica and the Sunday lunch want the kitchen's stove and table (`{"level": 2}`),
 Nejc at the bellows the smithy's second level, Marko's broken wheel its third, Zala at the globe the school's second; in
@@ -679,6 +681,73 @@ third level is its top one), that the arts without fixtures look the same whatev
 isn't there has no hit. `RoomLevelsRenderTest` renders every room (the kitchen, the houses' rooms, the smithy, the school)
 at levels 1, 2 and 3, empty, side by side and one by one (`app/build/scene-snapshots/rooms/<art>-levels.png`,
 `<art>-L1.png` …), and checks that each level differs from the one before and that what can be tapped is what the level has.
+
+### Project steps: a village project's step as a short scene
+
+A village project's step (GAME.md, "Village projects") is a short dialog that does what the step says, with the project's
+leader and helpers, where it happens: choosing the spruce for the maypole is Luka and Marko in the forest, "{learner},
+poišči visoko smreko!", and Jan taps the spruce in the picture (the tree has leaves, Luka laughs: "Drevo? To ima liste,
+iglic pa nima!"), then says what they need to fell it ("Potrebujemo sekiro."); the trunk is peeled on the village square,
+the wreath woven there with the children, the bridge's pillars set by the stream, the double hayrack raised in the field,
+the town clock's gears forged in the smithy. Played to its end, the step is done: what it costs is paid, its line goes to
+the chronicle and shows at the dialog's end under the project and how far it is now ("🌲 Mlaj 2/5", "📜 Fantje so smreko
+prinesli v vas. Bila je zelo težka!"), and the leader grows closer, as a passed practice did it (`Projects.stepPlayed`;
+the price, the leader's presence and one step a day as ever). A wrong answer in it gets the person's reaction and the turn
+again, as in any dialog, so there is nothing left to pass or fail; the mistakes take nothing off.
+
+**Where it is played** (`Projects.sceneOf`): in its scene when the village has it open now (its place built, the age
+reached: the square from Vas, the field once it is tilled, the smithy once it stands), in the village's language; its
+people stand on the scene's stage (`Projects.placed`: where the scene has them, Luka on the forest path, else on the art's
+free spots, those who stood there making way), each line in its speaker's voice and with their face (`DialogPanel`'s
+speakers), whoever speaks drawn talking and the one the learner answers reacting; a tap turn is answered in the picture
+([Tap turns](#tap-turns-answer-by-tapping-the-scene)), and its cues ([Effects](#effects-the-place-joins-in): the mill's
+wheel as the water comes, the bell when the clock first strikes) play there. Without its scene (the square in a Zaselek,
+the chapel's road, which has no scene), it is played over the village (`ui/scene/ProjectStepScene.kt`), as an arrival is:
+its people side by side on a backdrop of where it happens (the forest, the square, the field …, else the leader's place),
+the leader first and big, the dialog below; a tap turn is chosen there.
+
+**Who says what** (`Projects.cast`): the leader their own lines; a helper theirs when they are in the village and met,
+else another of the project's helpers who is (a child for a child), else anyone else of the village of their age, else the
+leader. So a step never waits for its helpers (they needn't live here: GAME.md), and its texts name only its leader
+([VILLAGERS.md](VILLAGERS.md#who-a-text-may-name)); a helper's lines say nothing of who says them (no first person that
+agrees with the speaker: the bridge checks "Prinesel sem", "sem utrujena", "sam"). A choice's reply is said by whoever
+spoke last before the turn (`Projects.repliers`).
+
+**As this learner meets it**: at their level in the village's language (the highest the step has up to theirs, else its
+easiest), read in their pair; its turns adapt as a scene's dialog's do ([Adaptive turns](#adaptive-turns), [Rules not
+yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar)), its answers count on the grammar book's rules, and
+its turns test the project's words ([Your words in the dialogs](#your-words-in-the-dialogs)): each step's turns test 1–3
+words of the project's word pack, a word chosen against another in its place ("Potrebujemo sekiro." / "Potrebujemo
+žlico.") or a thing tapped (the spruce, smreka), in a form the dictionary knows, so a right answer is a review of the
+learner's card when it's due. The projects sheet shows a project's words on its card, today's step's first ("👉 današnji
+korak jih sprašuje"), each to look up, and "📚 Nauči se besed · Learn the words" (the pack run of those not learned yet),
+so a project is also where new words come from; the packs screen lists the projects' packs in a section of their own
+("🏗️ Skupni projekti"), and today's step on the card says where it is played ("📍 🌲 V gozdu · In the forest").
+
+**The files** (`lani.project-steps/v0`): a culture pack's `project-steps/<project>.json` (the project's id, as in its
+`projects.json`), in the pack's language, every text in the four languages the pack serves and a why in each base:
+
+| Field | What |
+|---|---|
+| `project`, `language`, `review` | the project, the pack's language, who wrote it and who checked it |
+| `pack` | the word pack of the project's words (`packs/projekt-<project>.json`, its `project` the project's id) |
+| `steps[]` | one per step of the project, in order; `null` (or a file shorter than the project): that step is the practice it always was |
+| `steps[].scene` | the scene id it is played in (one of the village's language or the pack's own); none: over the village |
+| `steps[].words` | 1–3 word ids of the pack its turns test, at every level |
+| `steps[].levels` | `"A1"`, `"A2"` (at least): `{"lines": […]}`, 4–7 of a scene dialog's lines, 1–3 turns, said by the leader (at least once) and the helpers; a reaction and a why to every wrong choice; a tap turn and `sky`/`fx` cues only with a scene (its art's places and effects, never a thing that comes and goes: an animal, a well or a mill not built yet); no `act` (its people are who is here today) |
+| `steps[].sky_stays`, `fx_stays` | as a scene dialog's |
+
+The app bundles them with the pack (`app/build.gradle.kts`, `CulturePacks`) and reads them leniently (`Cultures.projectSteps`:
+one in another language or for another project is left out, said why); the bridge checks them with the pack
+(`bridge/src/project-steps.ts`, from `validateCulture`: the speakers, the scene and its tap targets, each word tested at
+each level by the dictionary's forms, the grammar pages; `bun test/check-steps.ts primorska [project]` checks one), and
+voice-build voices their lines in each speaker's voice. A pack without the directory, an older content file or a step
+without a dialog plays the step as the practice it always was (`GameEngine.projectChallenge`). An older bridge never reads
+`project-steps/` and serves a project's pack as a plain one (it strips `project`); an older app bundles the packs it was
+built with: the content can go out before the code that plays it.
+
+Primorska's 13 projects have every step (78) at A1 and A2. QA's hook "step:<project>/<n>" (a debug build) readies the dev
+village for that step today and opens the projects sheet at it (`companion/bin/qa --steps project-step`).
 
 ### Houses and their rooms
 

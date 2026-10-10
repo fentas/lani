@@ -420,7 +420,8 @@ A text says it in the village's language (a scene's `language`, the pack's); tra
 legends name who they name: history, not the village. The strangers (the pedlar, the pilgrim) aren't anyone's to name.
 
 **What can't wait names only whom it always may**, and `MentionsContentTest` checks it in all four packs: a project's lines its
-leader (its helpers needn't live here: the lines say "the neighbours", "die Burschen", "the children"), an event its
+leader (its helpers needn't live here: the lines say "the neighbours", "die Burschen", "the children"), and so do its steps'
+dialogs (`project-steps/`: a helper who is away has their lines said by someone else who is, SCENES.md "Project steps"), an event its
 defender, the shepherd's lamb the shepherd, a letter its addressee, the tent's move its shepherd; a festival (led by
 whichever of its leaders lives here), the pedlar, the pilgrim, the riddles, the newcomers' plain lines and the chronicle
 nobody. It scans every scene's happenings, the requests, the introductions, the villagers' lines, the readings and the
@@ -515,9 +516,11 @@ The villagers carry the long ages (GAME.md, "Village projects", "The calendar", 
 - **Projects.** Each village project is led by one of the cast: Luka the maypole and the fire station, France the
   bridge and the toplar, Janez the bocce court, Ančka the wayside chapel, Marko the vineyard terraces, Anton the bee
   meadow, Mojca the playground and the town clock, Tone the fountain, Vida the lookout tower. A project waits for its
-  leader to live here (or visit today); the leader is on the stage for each step, and its helpers (three each, in
-  the culture pack's `projects.json`) grow closer when it's finished. The step lines name only the leader and groups (the young men,
-  the neighbours, the children), so they fit whoever lives here.
+  leader to live here (or visit today); each step is a short scene with the leader and the helpers who are here (one who
+  isn't has their lines said by another helper, else by someone of the village of their age, else by the leader:
+  SCENES.md, "Project steps"), and its helpers (three each, in the culture pack's `projects.json`) grow closer when it's
+  finished. The step lines and the steps' dialogs name only the leader and groups (the young men, the neighbours, the
+  children), so they fit whoever lives here.
 - **Festivals.** Each festival has a few people who lead it, the first of them who lives here: Marko the grape
   harvest and St Martin's Day, Micka Easter and Christmas, the children carnival, Luka May Day, Anton World Bee Day,
   Janez midsummer night, St Nicholas and Prešeren Day, Vida the New Year. They ask Jan to celebrate in their words

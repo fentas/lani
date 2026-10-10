@@ -143,6 +143,7 @@ New vocabulary, not drills. Validator: `companion/bridge/src/packs.ts`. Curated 
 | `review` | string? | who wrote which languages and who checked them: `"de, it: machine-written, not reviewed by a native speaker"` |
 | `giver` | `{name, emoji}`? | the villager who teaches it |
 | `festival` | string? | a calendar festival's id (`martinovo`, `novo_leto`; the app's `game/Calendar.kt`): its words. Only the curated festival packs `companion/packs/praznik-<festival>.json` (and a culture pack's `festa-*.json`) set it: the app bundles them, the festival's run asks their words and records the answers, the packs screen lists them under "🎉 Prazniki · Feasts". Don't set it in tutor packs |
+| `project` | string? | a village project's id (`mlaj`, `vodnjak_na_trgu`; the culture pack's `projects.json`): its words. Only the curated project packs (a culture pack's `packs/projekt-<project>.json`) set it: the projects sheet shows them on the project's card with "📚 Learn the words", its steps' dialogs test them (see "Village project steps" below), the packs screen lists them under "🏗️ Skupni projekti · Village projects". Don't set it in tutor packs |
 | `words` | Word[] | 8-24 |
 
 Word: `id` (kebab-case, unique in the pack), the word in the pack's language (`sl`, or `it` …: what is learned and typed; a word or short phrase, ≤ 60 chars), `en` (always), the learner's base language if it isn't English (`sl` for a learner of Italian from Slovene, `de` for one from German), and optional `emoji`, `gender` (`m`/`f`/`n`, nouns), `plural`, an example in each language (`example_sl`, `example_it`, `example_de`, `example_en`), `note` (English) and a note in each other base language (`note_sl`, `note_it`, `note_de`).
@@ -155,6 +156,28 @@ Word: `id` (kebab-case, unique in the pack), the word in the pack's language (`s
 ```
 
 Rules: Slovene words in their dictionary form (nominative singular, infinitive), no articles; Italian nouns with their definite article (`la mamma`, `l'uovo`, `lo zaino`), and the plural with it (`le uova`); no slashes or brackets (it is typed in practice); one meaning per word; examples short and at the pack's level. Each learned word becomes SR item `vocab_<pack-id>_<word-id>` (content = the word in the pack's language, answer = its meaning in the learner's base, category = pack id).
+
+## Village project steps (`lani.project-steps/v0`, curated)
+
+Each step of a village project (the "🏗️ Skupni projekti" of `get_village`: the maypole, the bridge, the mill …) is a short
+dialog that does what the step says, with the project's leader and helpers, played in a fitting scene of the village (the
+spruce chosen in `v-gozdu`, the maypole raised on `na-vasi`; over the village when the village hasn't that scene open):
+companion/SCENES.md, "Project steps". They are curated, in the culture pack's `project-steps/<project>.json` (Primorska's
+13 projects, every step at A1 and A2), validated by `companion/bridge/src/project-steps.ts` (`cd companion/bridge && bun
+test/check-steps.ts primorska <project>`); there is no tool to publish one. What the tutor needs to know about them:
+
+- **The learner meets them** from the projects sheet ("🔨 Današnji korak"), one step a day. A dialog's answers come to you
+  like a scene's: the words it tested (`dialog_words`: `scene` is the step's scene or `project:<id>/<n>`, `happening` the
+  project and step, `mlaj-2`) and the grammar answers in the session reports.
+- **How one is written** (when the developer asks, or `/lani-fix` reports one): per step a `scene` (a scene id), the
+  `words` (1–3 word ids of the project's pack, each the tested element of a turn at every level: another word in its
+  place, or the thing tapped), and `levels` (`A1`, `A2`): 4–7 lines of a scene dialog, 1–3 turns, said by the leader (at
+  least once) and the helpers (ids of `projects.json`), every text in the pack's four languages, a why (in each base) and a
+  reaction (never the right form) to each wrong choice, a wrong choice that is a grammar slip naming its page. Its texts
+  name only the leader (helpers may not live here: someone else says their lines then), and a helper's lines say nothing
+  of their own gender ("Prinesel sem" is refused). A tap turn and `fx`/`sky` cues only with a scene (its art's places and
+  effects, never one that comes and goes). No `act`.
+- **A fix** to a step's line is a change of the curated file (a note for the developer, as for the curated scenes).
 
 ## Role-play scenarios (`lani.scenario/v0`)
 

@@ -159,6 +159,13 @@ How:
 
 **The learner's words in a variant.** When the note (or the morning snapshot) has `words_to_weave` (the learner's new, due and weak cards that fit the happening), weave 2-4 of them in where they fit naturally and declare them in the dialog's `words` (lemmas or card ids). Each must be the **tested element of a turn**: a wrong choice that differs from the right one in that word (another word in its place, or a wrong form of it), or a tap turn on its thing; a word only said or only present counts for nothing, and `publish_dialog_variant` refuses it (the result says which turn tests each word). Keep the learner's level and the grammar the book has opened (a form turn of a rule not yet becomes an echo: test such a word by its meaning), the placeholders `{learner}` and `{m:…|f:…}`, and nothing forced: leave out a word that doesn't fit. At most 2 woven variants a day besides the answers to `dialog_variants_heard` (the result says when the day's limit is reached). A right first answer on the word is a review of its card in the app, a slip lowers it gently (reference, "Scenes": "The learner's words").
 
+**A village project's steps** are short scenes too (curated, the culture pack's `project-steps/`): each step is a dialog
+with the project's leader and helpers that does what the step says (choosing the spruce for the maypole in the forest,
+raising it on the square), its turns testing the project's words (its pack `projekt-<project>`, which the projects sheet
+offers to learn). There is no tool to publish one; when the learner reports one or the developer asks, the format and its
+rules are in the reference ("Village project steps") and `companion/SCENES.md` ("Project steps"). A step's words that
+come back in `dialog_words` are the learner's like any scene's.
+
 ### Stories (the evening story by the fire)
 
 Every evening Stari Janez tells a story at the campfire (`lani.story/v0`): the next one the learner hasn't heard, at their level, a long legend (Martin Krpan) in chapters, one an evening; once all are heard he retells them a level up. Nine curated legends ship in `companion/cultures/primorska/stories/` (A1 and A2, three at B1). The format and the rules are in the reference ("Stories") and in `companion/SCENES.md`.

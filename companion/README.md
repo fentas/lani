@@ -699,7 +699,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
 | `GET` | `/state[?language=it]` | all 6 learner databases + computed fields (no LLM involved), the home language's or, with `language`, that language's; always with `language` (whose they are) and `languages: [{code, name, level, words, due, source: home\|visits}]`, the home one first (see [docs/DB_SCRIPTS.md](../docs/DB_SCRIPTS.md#languages)), and `features`: what this bridge takes that an older one doesn't (`"dialog-words"`: POST /reviews' `dialog`); an older bridge has none, and the app sends it only what it takes |
 | `GET` | `/modules`, `/modules/:id[?version=N]` | published modules |
-| `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`) |
+| `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`) |
 | `GET` | `/packs/:id` | a pack with its words and the ids of words already learned |
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
 | `GET` | `/grammar/:id` | one page |
@@ -1468,7 +1468,10 @@ With `&base=de`, the same entry has `"gloss": ["Wald", "Forst"], "gloss_lang": "
      glosses or Wiktionary): "prav" in "Ravno prav." is "ravno prav — just right; just in time"; a pack phrase
      matches without its punctuation ("Lahko noč!").
   2. The entries whose glosses the translation `en` has ("Vidim vas." / "I see you": the pronoun before the village).
-  3. Pack words, then the tutor's glosses, then the others.
+  3. Pack words, then the tutor's glosses, then the others. A pack word the tapped word is only a form of (not the
+     word, its plural or a phrase of the line) comes after the pack words the word is ("debel": thick, then deblo),
+     and, without a translation, after the word itself as the supplement or the tutor wrote it ("ravno": the adverb,
+     just, then raven, flat).
   4. Among the others: the village's people; the word itself (its own lemma) and the supplement's entries; then
      Wiktionary's readings of it as a form of another word ("prav" alone: the adverb before a genitive plural of
      pravo); Wiktionary's names last ("lepa": nice, not a cat's name), but first when the word is capitalized inside
