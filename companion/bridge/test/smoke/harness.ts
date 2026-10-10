@@ -160,7 +160,8 @@ export function fakeEleven() {
   return { st, url: `http://127.0.0.1:${server.port}` }
 }
 export function fakeGepard() {
-  const st = { up: true, busy: false, calls: [] as any[] }
+  // [audio]: what it says (a real MP3, the worker's silences and all); else a tag of the text, which ffmpeg can't read
+  const st = { up: true, busy: false, calls: [] as any[], audio: undefined as Uint8Array<ArrayBuffer> | undefined }
   const server = Bun.serve({
     hostname: '127.0.0.1',
     port: 0,
@@ -171,7 +172,7 @@ export function fakeGepard() {
         const body = await req.json()
         st.calls.push(body)
         if (st.busy || !st.up) return new Response('busy', { status: 503 })
-        return new Response(mp3(`gp:${body.text}`), { headers: { 'content-type': 'audio/mpeg' } })
+        return new Response(st.audio ?? mp3(`gp:${body.text}`), { headers: { 'content-type': 'audio/mpeg' } })
       }
       return new Response('not found', { status: 404 })
     },

@@ -5,8 +5,8 @@
 // A clip is keyed by its speaker from the voice cast (cast.ts): the narrators female/male or a
 // character voice ("grandma"). A narrator says a lone word inside a carrier sentence, cut out by its
 // timestamps (CARRIERS); their clips from before that are made again as the app asks for them. A voice the cast
-// marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), and every
-// clip is brought to one loudness (LEVEL).
+// marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), the local
+// worker's clips are brought to a normal pace (PACE), and every clip is brought to one loudness (LEVEL).
 import { Database } from 'bun:sqlite'
 import { createHash, randomUUID } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs'
@@ -56,6 +56,11 @@ export type Clip = {
   level?: number | null
   /** The gain that took it there, in all, from the clip as it was made (dB; 0: kept as it was). */
   gain?: number | null
+  /**
+   * A local (Gepard) clip's pace (PACE): the factor it was sped up by, in all, from the clip as it was made, its silences
+   * shortened; null or absent: as the worker made it.
+   */
+  tempo?: number | null
 }
 
 /** A text to voice ahead of time; lower [priority] goes first. */
@@ -279,6 +284,122 @@ function mp3Frames(b: Uint8Array): { secs: number; bytes: number } {
   return { secs, bytes }
 }
 
+// --- the local voice's pace ---------------------------------------------------------------------------------------
+//
+// Jan heard the listening exercise's sentences as too slow, and slower still at 🐢, where a word's 🔊 sounded right.
+// The sentences were mostly the local Gepard worker's: its clips ran at a median 8.3 characters a second, ElevenLabs'
+// narrators at 12.5 (texts of 15 to 80 characters: Jan's 516 Gepard clips, 3,297 of the narrators', October 2026). The
+// speech itself is not slower: 17.0 characters a second of sound, ElevenLabs' 16.2. The time goes to silence:
+// - about half a second of it before a clip and 0.7 s after it (ElevenLabs: 0.04 s and none);
+// - a pause at nearly every punctuation mark: 1.8 a clip of 0.1 s or more, p90 0.84 s, up to 2 s (ElevenLabs: 0.6 a
+//   clip, p90 0.6 s).
+// A plain speed-up (atempo 1.5) gives the right characters a second, but the speech itself is then half again as fast
+// as ElevenLabs'. So a Gepard clip is paced before it is stored:
+// - silenceremove: the silence before it down to 0.05 s, after it to 0.1 s (a carrier cut keeps 0.06 s and 0.12 s), and
+//   a pause longer than 0.4 s down to 0.4 s. Silence is under −50 dBFS RMS in 20 ms windows (the worker's is at −66);
+// - atempo, the pitch kept, by PACE.tempo, 1.05 (LANI_VOICE_GEPARD_TEMPO).
+// Measured on a copy of Jan's store after voice-build --tempo --run: 8.3 → 12.5 characters a second (median, p10–p90
+// 10.5–15.0; ElevenLabs 12.5), their sound 17.0 → 17.7. It runs in the level's encode, before the gain: one encode.
+
+/**
+ * The local voice's pace: the factor its clips are sped up by (atempo, the pitch kept), the silence kept before and
+ * after the sound (s), the longest pause kept (s), and what counts as silence (dBFS RMS, 20 ms windows).
+ */
+export const PACE = { tempo: 1.05, lead: 0.05, tail: 0.1, pause: 0.4, silence: -50 }
+export type PaceSpec = typeof PACE
+
+/**
+ * The factor the local voice's clips are sped up by: LANI_VOICE_GEPARD_TEMPO, 0.5 to 2 (1: only the silences shortened);
+ * "off" or 0: none, the clips stay as the worker makes them (null); else PACE.tempo (a value out of range is logged).
+ */
+export function gepardTempo(env: Record<string, string | undefined> = process.env, log?: Log): number | null {
+  const v = env.LANI_VOICE_GEPARD_TEMPO?.trim()
+  if (!v) return PACE.tempo
+  if (v === 'off' || v === '0') return null
+  const n = Number(v)
+  if (Number.isFinite(n) && n >= 0.5 && n <= 2) return Math.round(n * 100) / 100
+  log?.(`voice: LANI_VOICE_GEPARD_TEMPO=${v} is not a factor from 0.5 to 2 (or off): ${PACE.tempo} it is`)
+  return PACE.tempo
+}
+
+/**
+ * The ffmpeg chain that paces a clip: the silence before the sound down to [spec].lead, the pauses down to .pause, the
+ * silence after the sound down to .tail (the clip reversed for that), then sped up by [tempo], the pitch kept (1: not).
+ * silenceremove keeps a pause of its stop_duration and stop_silence together, so each is half the pause.
+ */
+export function paceChain(tempo: number, spec: PaceSpec = PACE): string {
+  const silence = (keep: number) => `silenceremove=start_periods=1:start_threshold=${spec.silence}dB:start_silence=${keep}`
+  const pauses = `stop_periods=-1:stop_threshold=${spec.silence}dB:stop_duration=${spec.pause / 2}:stop_silence=${spec.pause / 2}`
+  return [`${silence(spec.lead)}:${pauses}`, 'areverse', silence(spec.tail), 'areverse', tempo !== 1 ? `atempo=${tempo}` : ''].filter(Boolean).join(',')
+}
+
+/**
+ * A clip's pace: its length; the silence before and after its sound; the sound's span (from its start to its end) and
+ * the time with sound in it; its pauses of 0.1 s or more within the span (how many, how long in all, the longest). Seconds.
+ */
+export type Pace = { secs: number; lead: number; tail: number; span: number; sound: number; pauses: number; paused: number; longest: number }
+
+/** An MP3's pace (through the audio filter [af] first: what that would make of it, nothing written); null when ffmpeg failed. */
+export type PaceMeasure = (mp3: Uint8Array, af?: string) => Promise<Pace | null>
+
+/** Characters a second: [text] said in [secs]. */
+export const charsPerSecond = (text: string, secs: number) => (secs > 0 ? text.trim().length / secs : 0)
+
+/**
+ * The pace measure with ffmpeg (found as for the cut: [bin], LANI_FFMPEG, the PATH): undefined when there is none. The
+ * clip decoded to 16 kHz mono; a 20 ms window over −45 dBFS RMS has sound (speech's quiet consonants are over it, the
+ * voices' silence under it: Gepard's at −66, ElevenLabs' at −61). voice-build --tempo's measure.
+ */
+export function ffmpegPace(bin?: string): PaceMeasure | undefined {
+  const path = ffmpegPath(bin)
+  if (!path) return undefined
+  const decode = (file: string, af?: string) =>
+    new Promise<Float32Array | null>(done => {
+      const p = Bun.spawn([path, '-hide_banner', '-loglevel', 'error', '-i', file, ...(af ? ['-af', af] : []), '-ac', '1', '-ar', '16000', '-f', 'f32le', 'pipe:1'], { stdin: 'ignore', stdout: 'pipe', stderr: 'ignore' })
+      const timer = setTimeout(() => p.kill(), 30_000)
+      Promise.all([new Response(p.stdout).arrayBuffer(), p.exited])
+        .then(([b, code]) => done(code === 0 ? new Float32Array(b, 0, b.byteLength >> 2) : null))
+        .catch(() => done(null))
+        .finally(() => clearTimeout(timer))
+    })
+  return (mp3, af) =>
+    isMp3(mp3)
+      ? inTemp(mp3, 'mp3', async file => {
+          const x = await decode(file, af)
+          if (!x) return null
+          const n = 320 // 20 ms
+          const sound: boolean[] = []
+          for (let i = 0; i + n <= x.length; i += n) {
+            let e = 0
+            for (let k = i; k < i + n; k++) e += x[k] * x[k]
+            sound.push(10 * Math.log10(e / n + 1e-12) > -45)
+          }
+          const w = n / 16000
+          const a = sound.indexOf(true)
+          const b = sound.lastIndexOf(true)
+          const secs = x.length / 16000
+          if (a < 0) return { secs, lead: secs, tail: 0, span: 0, sound: 0, pauses: 0, paused: 0, longest: 0 }
+          let pauses = 0
+          let paused = 0
+          let longest = 0
+          let run = 0
+          for (let i = a; i <= b; i++) {
+            if (!sound[i]) run++
+            else {
+              if (run * w >= 0.1) {
+                pauses++
+                paused += run * w
+              }
+              longest = Math.max(longest, run * w)
+              run = 0
+            }
+          }
+          const r3 = (v: number) => Math.round(v * 1000) / 1000
+          return { secs: r3(secs), lead: r3(a * w), tail: r3(secs - (b + 1) * w), span: r3((b - a + 1) * w), sound: r3(sound.filter(Boolean).length * w), pauses, paused: r3(paused), longest: r3(longest) }
+        }).catch(() => null)
+      : Promise.resolve(null)
+}
+
 // --- every clip at one loudness: the level -------------------------------------------------------------------
 //
 // The voices came out of ElevenLabs up to 10 dB apart (integrated loudness, the median of each voice: the girl voice
@@ -375,40 +496,48 @@ async function inTemp<T>(bytes: Uint8Array, ext: string, f: (file: string, tmp: 
   }
 }
 
-/** An MP3's loudness (through the denoise preset [pre] first, as it would be levelled); null when ffmpeg failed. */
-export type Measure = (mp3: Uint8Array, pre?: DenoisePreset) => Promise<Loudness | null>
+/** What runs before the gain, in the same encode: a voice's denoise preset [pre], then the local voice's pace sped up by [tempo] (PACE). */
+const preChain = (pre?: DenoisePreset, tempo?: number) => [pre ? DENOISE[pre] : undefined, tempo ? paceChain(tempo) : undefined].filter(Boolean).join(',') || undefined
+
+/** An MP3's loudness (through the denoise preset [pre] and the pace [tempo] first, as it would be levelled); null when ffmpeg failed. */
+export type Measure = (mp3: Uint8Array, pre?: DenoisePreset, tempo?: number) => Promise<Loudness | null>
 
 /** The measure with ffmpeg (found as for the cut: [bin], LANI_FFMPEG, the PATH): undefined when there is none. */
 export function ffmpegLoudness(bin?: string): Measure | undefined {
   const path = ffmpegPath(bin)
   if (!path) return undefined
-  return (mp3, pre) => (isMp3(mp3) ? inTemp(mp3, 'mp3', file => loudnessOf(path, file, pre ? DENOISE[pre] : undefined)).catch(() => null) : Promise.resolve(null))
+  return (mp3, pre, tempo) => (isMp3(mp3) ? inTemp(mp3, 'mp3', file => loudnessOf(path, file, preChain(pre, tempo))).catch(() => null) : Promise.resolve(null))
 }
 
 /**
  * A clip brought to the level: the MP3 (the same bytes when it was kept as it was), the gain applied (dB; 0 when
- * kept), whether the limiter held its peaks, and its loudness before (after the denoise filter, when one ran).
+ * kept), whether the limiter held its peaks, and its loudness before (after the denoise filter and the pace, when they ran).
  */
 export type Levelled = { bytes: Uint8Array; gain: number; limited: boolean; before: Loudness }
 
-/** Brings MP3s to the loudness [target] (LUFS): [level] an MP3, through a denoise preset [pre] first in the same encode. */
-export type Leveller = { readonly target: number; level(mp3: Uint8Array, pre?: DenoisePreset): Promise<Levelled | null> }
+/**
+ * Brings MP3s to the loudness [target] (LUFS): [level] an MP3, through a denoise preset [pre] and the local voice's pace
+ * ([tempo]: PACE, sped up by that) first, in the same encode.
+ */
+export type Leveller = { readonly target: number; level(mp3: Uint8Array, pre?: DenoisePreset, tempo?: number): Promise<Levelled | null> }
 
 /** The level with ffmpeg (found as for the cut), to [spec]: undefined when there is no ffmpeg. */
 export function ffmpegLeveller(bin?: string, spec: LevelSpec = LEVEL): Leveller | undefined {
   const path = ffmpegPath(bin)
   if (!path) return undefined
   const measure = (b: Uint8Array, af?: string) => inTemp(b, 'mp3', file => loudnessOf(path, file, af))
-  const encode = (mp3: Uint8Array, denoise: string | undefined, gain: number, limit: boolean) =>
-    ffmpegMp3(path, mp3, [denoise, `volume=${gain.toFixed(2)}dB`, limit ? limiter(spec.peak) : undefined].filter(Boolean).join(','), true, mp3Kbps(mp3))
-  const level = async (mp3: Uint8Array, pre?: DenoisePreset): Promise<Levelled | null> => {
+  const encode = (mp3: Uint8Array, pre: string | undefined, gain: number, limit: boolean) =>
+    ffmpegMp3(path, mp3, [pre, `volume=${gain.toFixed(2)}dB`, limit ? limiter(spec.peak) : undefined].filter(Boolean).join(','), true, mp3Kbps(mp3))
+  const level = async (mp3: Uint8Array, pre?: DenoisePreset, tempo?: number): Promise<Levelled | null> => {
     if (!isMp3(mp3) || !mp3Duration(mp3)) return null
-    const denoise = pre ? DENOISE[pre] : undefined
+    const denoise = preChain(pre, tempo)
     const before = await measure(mp3, denoise)
     if (!before) return null
     const g = levelGain(before, spec)
     if (g.keep && !denoise) return { bytes: mp3, gain: 0, limited: false, before }
     const out = await encode(mp3, denoise, g.gain, g.limit)
+    // paced to nothing (a clip of silence): not stored that way
+    if (out && tempo && mp3Duration(out) < 0.1) return null
     if (!out || !(before.lufs > -70)) return out ? { bytes: out, gain: g.gain, limited: g.limit, before } : null
     // The encode itself takes about 0.4 dB off (LAME at a constant bitrate), and the limiter some more: measured, and
     // when that's more than a quarter dB off, encoded again from the clip as it was (not from the encode) with the
@@ -421,12 +550,15 @@ export function ffmpegLeveller(bin?: string, spec: LevelSpec = LEVEL): Leveller 
     const again = await encode(mp3, denoise, gain, limit)
     return again ? { bytes: again, gain, limited: limit, before } : { bytes: out, gain: g.gain, limited: g.limit, before }
   }
-  return { target: spec.target, level: (mp3, pre) => level(mp3, pre).catch(() => null) }
+  return { target: spec.target, level: (mp3, pre, tempo) => level(mp3, pre, tempo).catch(() => null) }
 }
 
-/** The new file name of an existing clip once levelled to [level] (and filtered with [denoise]): voice-build --level, --denoise. */
-export const processedFile = (file: string, o: { denoise?: DenoisePreset | null; level?: number | null }) =>
-  `${createHash('sha1').update(`${file}${o.denoise ? `|denoise:${o.denoise}` : ''}${o.level != null ? `|level:${o.level}` : ''}`).digest('hex')}.mp3`
+/**
+ * The new file name of an existing clip once levelled to [level] (filtered with [denoise], paced at [tempo]):
+ * voice-build --level, --denoise, --tempo.
+ */
+export const processedFile = (file: string, o: { denoise?: DenoisePreset | null; level?: number | null; tempo?: number | null }) =>
+  `${createHash('sha1').update(`${file}${o.denoise ? `|denoise:${o.denoise}` : ''}${o.level != null ? `|level:${o.level}` : ''}${o.tempo != null ? `|tempo:${o.tempo}` : ''}`).digest('hex')}.mp3`
 
 /** A family recording's container: its codec and bitrate as the recorders make it (the app: AAC 96 kbit/s; the family page: Opus 64 kbit/s). */
 const RECORDING: Record<'m4a' | 'ogg' | 'webm', string[]> = {
@@ -1230,7 +1362,7 @@ export type Redo =
   | { status: 'failed'; message: string }
 
 /**
- * What voice-build --level --run (or --denoise --run) came to: clips done (of them [kept] as they were, only recorded,
+ * What voice-build --level --run (or --denoise --run, --tempo --run) came to: clips done (of them [kept] as they were, only recorded,
  * and [limited]), left as they were (gone, busy, or changed meanwhile), failed; [left]: still waiting.
  */
 export type Processed = { done: number; kept: number; limited: number; skipped: number; failed: number; left: number }
@@ -1250,6 +1382,8 @@ export class VoiceStore {
   private noDenoiserLogged = false
   private levelling?: Leveller | null
   private noLevelLogged = false
+  private pacing?: number | null
+  private noPaceLogged = false
   /** Every clip's file, and the database's version, when last looked at: see [checkExternal]. */
   private seen?: { version: number; files: Map<string, string> }
   private watching?: ReturnType<typeof setInterval>
@@ -1276,6 +1410,11 @@ export class VoiceStore {
        * (null: clips are stored as they are, and logged), or another.
        */
       level?: Leveller | null
+      /**
+       * The local voice's pace (PACE): the factor its new clips are sped up by, their silences shortened, in the level's
+       * encode (undefined: LANI_VOICE_GEPARD_TEMPO, else PACE.tempo; null: off, stored as the worker makes them).
+       */
+      tempo?: number | null
       liveLimit?: { max: number; windowMs: number }
       /**
        * Clips re-voiced a day (LANI_VOICE_REVOICE_DAILY; DEFAULT_REVOICE_DAILY; 0: none): old-style short narrator
@@ -1309,12 +1448,14 @@ export class VoiceStore {
         hits INTEGER NOT NULL DEFAULT 0,
         denoise TEXT,
         level REAL,
-        gain REAL
+        gain REAL,
+        tempo REAL
       )`)
       // a store from before the carrier sentence: how a clip was made, and how often the app asked for it; from before
-      // the denoise filter: the filter it went through; from before the level: the loudness it is at, and the gain
+      // the denoise filter: the filter it went through; from before the level: the loudness it is at, and the gain; from
+      // before the local voice's pace: the factor a local clip was sped up by
       const cols = new Set((this.db.query('PRAGMA table_info(clips)').all() as { name: string }[]).map(c => c.name))
-      for (const [col, spec] of [['method', 'TEXT'], ['hits', 'INTEGER NOT NULL DEFAULT 0'], ['denoise', 'TEXT'], ['level', 'REAL'], ['gain', 'REAL']]) {
+      for (const [col, spec] of [['method', 'TEXT'], ['hits', 'INTEGER NOT NULL DEFAULT 0'], ['denoise', 'TEXT'], ['level', 'REAL'], ['gain', 'REAL'], ['tempo', 'REAL']]) {
         try {
           if (!cols.has(col)) this.db.exec(`ALTER TABLE clips ADD COLUMN ${col} ${spec}`)
         } catch {} // another process (voice-build) added it meanwhile
@@ -1415,26 +1556,37 @@ export class VoiceStore {
   /** The loudness clips are brought to (LUFS): the level's target. */
   get levelTarget(): number { return this.leveller?.target ?? LEVEL.target }
 
+  /** The factor the local voice's clips are sped up by (PACE; LANI_VOICE_GEPARD_TEMPO), their silences shortened; null: off. */
+  get tempo(): number | null {
+    if (this.pacing === undefined) this.pacing = this.o.tempo === undefined ? gepardTempo(process.env, this.o.log) : this.o.tempo
+    return this.pacing
+  }
+
   /**
-   * [bytes] as they are stored: through [voice]'s filter ([filtered]) and brought to the level, in one encode when both
-   * are ffmpeg's. What can't be done now (no ffmpeg, ffmpeg failed) is left out and logged once: voice-build --level
-   * (and --denoise) does it later.
+   * [bytes] as they are stored: through [voice]'s filter ([filtered]), a local clip paced ([tempo]), and brought to the
+   * level, in one encode when they are ffmpeg's. What can't be done now (no ffmpeg, ffmpeg failed) is left out and
+   * logged (no ffmpeg: once): voice-build --level (and --denoise, --tempo) does it later.
    */
-  private async processed(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null; level: number | null; gain: number | null }> {
+  private async processed(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null; level: number | null; gain: number | null; tempo: number | null }> {
     const preset = engine === 'elevenlabs' ? denoiseOf(voice) : undefined
+    const tempo = engine === 'gepard' ? (this.tempo ?? undefined) : undefined
     const lv = this.leveller
-    if (preset && lv && this.o.denoise === undefined) {
-      const r = await lv.level(bytes, preset)
-      if (r) return { bytes: r.bytes, denoise: preset, level: lv.target, gain: r.gain }
+    if (lv && (tempo || (preset && this.o.denoise === undefined))) {
+      const r = await lv.level(bytes, preset, tempo)
+      if (r) return { bytes: r.bytes, denoise: preset ?? null, level: lv.target, gain: r.gain, tempo: tempo ?? null }
+    }
+    if (tempo && (lv || !this.noPaceLogged)) {
+      this.noPaceLogged ||= !lv
+      this.o.log?.(`voice: "${text}" (${voice}) stored at the local voice's own pace: ${lv ? 'ffmpeg failed' : 'no ffmpeg'}; voice-build --tempo paces it later`)
     }
     const f = await this.filtered(bytes, voice, engine, text)
     const r = lv ? await lv.level(f.bytes) : null
-    if (r) return { ...f, bytes: r.bytes, level: lv!.target, gain: r.gain }
+    if (r) return { ...f, bytes: r.bytes, level: lv!.target, gain: r.gain, tempo: null }
     if (!this.noLevelLogged) {
       this.noLevelLogged = true
       this.o.log?.(`voice: "${text}" (${voice}) stored without the level: ${lv ? 'ffmpeg failed' : 'no ffmpeg'}; voice-build --level levels it later (logged once)`)
     }
-    return { ...f, level: null, gain: null }
+    return { ...f, level: null, gain: null, tempo: null }
   }
 
   private async save(
@@ -1442,28 +1594,29 @@ export class VoiceStore {
     take: Omit<Take, 'bytes'> & { /** Another take of the same (a re-record): a name of its own. */ salt?: string } = {},
   ): Promise<Clip> {
     const key = clipKey(norm, voice)
-    // a voice that hisses (the cast's `denoise`): filtered; every clip: brought to the level
+    // a voice that hisses (the cast's `denoise`): filtered; a local clip: paced; every clip: brought to the level
     const f = await this.processed(bytes, voice, engine, text)
     // An ElevenLabs clip's name carries the voice id, so a swapped voice's clips get new names (the app caches by name);
     // a carrier cut is a new take of the same text, so it gets a new name too and the app downloads it; so does a re-record,
-    // and so does a filtered or levelled clip.
+    // and so does a filtered, paced or levelled clip.
     const tag = engine === 'elevenlabs' ? `|${elevenlabsOf(voice) ?? ''}` : ''
     const how = take.method === 'carrier' ? '|carrier' : ''
     const salt = take.salt ? `|${take.salt}` : ''
     const filter = f.denoise ? `|denoise:${f.denoise}` : ''
     const level = f.level !== null ? `|level:${f.level}` : ''
-    const file = `${createHash('sha1').update(`${key}|${engine}${tag}${how}${salt}${filter}${level}`).digest('hex')}.mp3`
+    const pace = f.tempo !== null ? `|tempo:${f.tempo}` : ''
+    const file = `${createHash('sha1').update(`${key}|${engine}${tag}${how}${salt}${filter}${level}${pace}`).digest('hex')}.mp3`
     const p = join(this.filesDir, file)
     writeFileSync(`${p}.tmp`, f.bytes)
     renameSync(`${p}.tmp`, p)
     const old = this.get(norm, voice)
     const clip: Clip = {
       key, norm, text, voice, engine, file, chars: take.chars ?? text.length, created_at: new Date().toISOString(), source,
-      method: take.method ?? null, hits: old?.hits ?? 0, denoise: f.denoise, level: f.level, gain: f.gain,
+      method: take.method ?? null, hits: old?.hits ?? 0, denoise: f.denoise, level: f.level, gain: f.gain, tempo: f.tempo,
     }
     this.db
-      .query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits, denoise, level, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-      .run(key, norm, text, voice, engine, file, clip.chars, clip.created_at, source, clip.method ?? null, clip.hits ?? 0, clip.denoise ?? null, clip.level ?? null, clip.gain ?? null)
+      .query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits, denoise, level, gain, tempo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .run(key, norm, text, voice, engine, file, clip.chars, clip.created_at, source, clip.method ?? null, clip.hits ?? 0, clip.denoise ?? null, clip.level ?? null, clip.gain ?? null, clip.tempo ?? null)
     this.seen?.files.set(key, file) // the bridge's own clip: not another process's change
     if (old && old.file !== file) {
       try {
@@ -1818,16 +1971,19 @@ export class VoiceStore {
 
   /**
    * Each clip of [list] (at most [max]; a few at a time) through what it waits for, in one encode: its voice's denoise
-   * filter (an ElevenLabs clip of a voice the cast marks, not filtered yet) and the level (not at the level's target:
-   * never levelled, or levelled to another target, which is re-levelled from the file as it is now). Written under a
-   * new file name (the app caches by name), recorded, and only then the old file removed; a clip the level keeps as it
-   * is (within the tolerance) keeps its file and is only recorded. A clip the bridge made again meanwhile (a re-record)
-   * keeps that take. The app is told ([onUpdated]; when this runs in voice-build, the bridge's [watch] tells it).
+   * filter (an ElevenLabs clip of a voice the cast marks, not filtered yet), the local voice's pace (a Gepard clip not
+   * paced at [tempo] yet: never paced, or by another factor, which is sped up by the difference from the file as it is
+   * now) and the level (not at the level's target: never levelled, or levelled to another target, which is re-levelled
+   * from the file as it is now; a paced clip is levelled again with it). Written under a new file name (the app caches
+   * by name), recorded, and only then the old file removed; a clip the level keeps as it is (within the tolerance)
+   * keeps its file and is only recorded. A clip the bridge made again meanwhile (a re-record) keeps that take. The app
+   * is told ([onUpdated]; when this runs in voice-build, the bridge's [watch] tells it).
    */
   private async processClips(list: Clip[], what: string, o: { max?: number; out?: (line: string) => void }): Promise<Processed> {
     const r: Processed = { done: 0, kept: 0, limited: 0, skipped: 0, failed: 0, left: list.length }
     const lv = this.leveller
     const f = this.denoise
+    const factor = this.tempo
     if (this.o.readonly) return r
     const todo = list.slice(0, o.max ?? list.length)
     const one = async (c: Clip) => {
@@ -1839,33 +1995,41 @@ export class VoiceStore {
         return line(this.running.has(c.key) ? '· busy' : '· no file')
       }
       const preset = c.engine === 'elevenlabs' && !c.denoise ? denoiseVoices()[c.voice] : undefined
-      const toLevel = !!lv && c.level !== lv.target
+      // the local voice's pace: what the clip is sped up by now (the factor, or what is left of it after another one)
+      const tempo = lv && c.engine === 'gepard' && factor !== null && c.tempo !== factor ? Math.round((factor / (c.tempo ?? 1)) * 10_000) / 10_000 : undefined
+      const toLevel = !!lv && (c.level !== lv.target || !!tempo)
       const bytes: Uint8Array = new Uint8Array(readFileSync(src))
       let out = bytes
       let levelled: Levelled | null = null
       if (toLevel && (!preset || this.o.denoise === undefined)) {
-        // ffmpeg's own filter and the level: one encode
-        levelled = await lv!.level(bytes, preset)
+        // ffmpeg's own filter, the pace and the level: one encode
+        levelled = await lv!.level(bytes, preset, tempo)
         if (!levelled) {
           r.failed++
           return line('✗ failed')
         }
         out = levelled.bytes
       } else {
-        // another filter (a stand-in): the filter, then the level
+        // another filter (a stand-in): the filter, then the pace and the level
         const d = preset ? await f?.(bytes, preset).catch(() => null) : bytes
         if (!d) {
           r.failed++
           return line('✗ failed')
         }
         out = d
-        levelled = toLevel ? await lv!.level(d) : null
+        levelled = toLevel ? await lv!.level(d, undefined, tempo) : null
+        if (tempo && !levelled) {
+          r.failed++
+          return line('✗ failed')
+        }
         if (levelled) out = levelled.bytes
       }
       const denoise = preset ?? c.denoise ?? null
       const level = levelled ? lv!.target : (c.level ?? null)
       const gain = levelled ? Math.round(((c.gain ?? 0) + levelled.gain) * 100) / 100 : (c.gain ?? null)
-      const how = `${preset ? `${preset} ` : ''}${levelled ? (out === bytes ? `= kept (${levelled.before.lufs.toFixed(1)} LUFS)` : `${levelled.before.lufs.toFixed(1)} ${levelled.gain >= 0 ? '+' : ''}${levelled.gain.toFixed(1)} dB${levelled.limited ? ' limited' : ''}`) : ''}`
+      const paced = tempo ? factor : (c.tempo ?? null)
+      const secs = (b: Uint8Array) => mp3Duration(b).toFixed(1)
+      const how = `${preset ? `${preset} ` : ''}${tempo ? `×${factor} ${secs(bytes)}→${secs(out)} s ` : ''}${levelled ? (out === bytes ? `= kept (${levelled.before.lufs.toFixed(1)} LUFS)` : `${levelled.before.lufs.toFixed(1)} ${levelled.gain >= 0 ? '+' : ''}${levelled.gain.toFixed(1)} dB${levelled.limited ? ' limited' : ''}`) : ''}`
       // kept as it is: only recorded, while it is still the clip that was measured
       if (out === bytes) {
         if (!this.db.query('UPDATE clips SET level = ?, gain = ? WHERE key = ? AND file = ?').run(level, gain, c.key, c.file).changes) {
@@ -1876,12 +2040,12 @@ export class VoiceStore {
         r.kept++
         return line(`✓ ${how}`)
       }
-      const file = processedFile(c.file, { denoise: preset, level: levelled ? level : null })
+      const file = processedFile(c.file, { denoise: preset, level: levelled ? level : null, tempo: tempo ? paced : null })
       const p = join(this.filesDir, file)
       writeFileSync(`${p}.tmp`, out)
       renameSync(`${p}.tmp`, p)
       // only while it is still the clip that was processed
-      if (!this.db.query('UPDATE clips SET file = ?, denoise = ?, level = ?, gain = ? WHERE key = ? AND file = ?').run(file, denoise, level, gain, c.key, c.file).changes) {
+      if (!this.db.query('UPDATE clips SET file = ?, denoise = ?, level = ?, gain = ?, tempo = ? WHERE key = ? AND file = ?').run(file, denoise, level, gain, paced, c.key, c.file).changes) {
         try {
           unlinkSync(p)
         } catch {}
@@ -1934,6 +2098,35 @@ export class VoiceStore {
       levelled = (this.db.query('SELECT COUNT(*) AS n FROM clips WHERE level = ?').get(this.levelTarget) as { n: number }).n
     } catch {} // a store from before the level, only read: none yet
     return { target: this.levelTarget, peak: LEVEL.peak, levelled, waiting: this.levelQueue().length, ffmpeg: !!this.leveller }
+  }
+
+  // --- the local voice's pace: the clips from before it ---------------------------------------------------------
+
+  /** The local (Gepard) clips waiting for the pace: never paced, or paced by another factor; oldest first. None while it is off. */
+  tempoQueue(): Clip[] {
+    const factor = this.tempo
+    if (factor === null) return []
+    // a store from before the pace has no tempo column: every local clip waits
+    return (this.db.query("SELECT * FROM clips WHERE engine = 'gepard' ORDER BY created_at").all() as Clip[]).filter(c => c.tempo !== factor)
+  }
+
+  /**
+   * voice-build --tempo --run: each local clip waiting for the pace ([tempoQueue], at most [max]): its silences
+   * shortened, sped up and levelled again, in one encode ([processClips]). No engine is asked, no characters.
+   */
+  async tempoClips(o: { max?: number; out?: (line: string) => void } = {}): Promise<Processed> {
+    const list = this.tempoQueue()
+    if (!this.leveller) return { done: 0, kept: 0, limited: 0, skipped: 0, failed: 0, left: list.length }
+    return this.processClips(list, 'paced', o)
+  }
+
+  /** The local voice's pace: its factor (null: off), the local clips paced at it and waiting, and whether the node can (ffmpeg). */
+  tempoStats() {
+    let paced = 0
+    try {
+      if (this.tempo !== null) paced = (this.db.query("SELECT COUNT(*) AS n FROM clips WHERE engine = 'gepard' AND tempo = ?").get(this.tempo) as { n: number }).n
+    } catch {} // a store from before the pace, only read: none yet
+    return { tempo: this.tempo, paced, waiting: this.tempoQueue().length, ffmpeg: !!this.leveller }
   }
 
   /** The voices the cast filters (`denoise`): each one's preset and its clips filtered and waiting; whether the node can filter (ffmpeg). */
@@ -2079,6 +2272,7 @@ export class VoiceStore {
       ...(this.eleven ? { carrier: this.carrierStats() } : {}),
       ...(Object.keys(denoiseVoices()).length ? { denoise: this.denoiseStats() } : {}),
       level: this.levelStats(),
+      tempo: this.tempoStats(),
       ...(items ? { corpus: this.coverage(items) } : {}),
     }
   }
@@ -2108,4 +2302,6 @@ A voice that hisses (Stari Janez's own) has its clips filtered: "denoise" in com
 shows the voices filtered and their clips still waiting).
 Every clip is brought to one loudness (−18 LUFS) when it is stored, so no voice is louder than the others; voice_status
 shows the clips still waiting (level), which companion/bin/voice-build --level levels.
+The local Gepard voice's clips are brought to a normal pace when they are stored (their long silences shortened, a
+slight speed-up); voice_status shows the clips still waiting (tempo), which companion/bin/voice-build --tempo paces.
 `.trim()

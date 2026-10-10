@@ -19,6 +19,7 @@
 //        companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --tempo [--max N] [--run] [--json] [--data DIR]
 //   --upgrade        also replace local (Gepard) clips with ElevenLabs ones while the quota lasts
 //   --revoice S      make every clip of speaker S again with ElevenLabs (after swapping its voice in companion/voice-cast.json)
 //   --max-chars N    spend at most N ElevenLabs characters in this run
@@ -35,7 +36,15 @@
 //                    target keeps its file). A clip whose voice's filter is due is filtered in the same encode. Each
 //                    under a new file name, the old file removed once the new one is recorded; a running bridge tells
 //                    the app within a minute (voice_updated).
-//                    --denoise and --level use ffmpeg only: no ElevenLabs, no characters.
+//   --tempo          the local (Gepard) clips not at the local voice's pace yet (PACE in bridge/src/voice.ts: the silence
+//                    before and after the sound and the long pauses shortened, then sped up by LANI_VOICE_GEPARD_TEMPO,
+//                    1.05, the pitch kept; the bridge paces new ones as it stores them), oldest first, at most --max N.
+//                    The dry run measures each clip's characters a second now and as it would be paced, against
+//                    ElevenLabs' clips of the same voices. A clip is paced once: its row records the factor (tempo);
+//                    after a change of the factor, --tempo speeds the clips up by the difference, from their files as
+//                    they are. Levelled again in the same encode, under a new file name, the old file removed once the
+//                    new one is recorded.
+//                    --denoise, --level and --tempo use ffmpeg only: no ElevenLabs, no characters.
 //   --data DIR       the learner data directory, as LANI_DATA_DIR (a copy; another learner's profiles/<id>/data with
 //                    their LANI_CULTURE)
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
@@ -54,7 +63,7 @@ import { ScenarioStore } from '../bridge/src/scenarios'
 import { SceneStore, scenesDirs } from '../bridge/src/scenes'
 import { StoryStore, storiesDirs } from '../bridge/src/stories'
 import { VillagerStore } from '../bridge/src/villagers'
-import { cardTexts, corpus, enginesFromEnv, ffmpegDenoiser, ffmpegLeveller, ffmpegLoudness, FILE, LEVEL, levelGain, LIMIT_MARGIN, VoiceStore, type Loudness } from '../bridge/src/voice'
+import { cardTexts, charsPerSecond, corpus, enginesFromEnv, ffmpegDenoiser, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, PACE, paceChain, VoiceStore, type Clip, type Loudness, type Pace } from '../bridge/src/voice'
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
 import { keysFile } from '../bridge/src/env'
 import { voiceDir } from '../bridge/src/paths'
@@ -84,20 +93,22 @@ const unknown = revoice.filter(s => !isSpeaker(s))
 const revoiceWords = flag('--revoice-words')
 const denoise = flag('--denoise')
 const level = flag('--level')
+const tempo = flag('--tempo')
 const maxAt2 = args.indexOf('--max')
 const max = maxAt2 >= 0 ? Number(args[maxAt2 + 1]) : undefined
 const badMax = max !== undefined && !(Number.isInteger(max) && max >= 0)
 const dataAt = args.indexOf('--data')
 const data = dataAt >= 0 ? args[dataAt + 1] : undefined
 const badData = dataAt >= 0 && !(data && existsSync(data) && statSync(data).isDirectory())
-const modes = [revoiceWords, denoise, level, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
-if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || (maxAt2 >= 0 && !revoiceWords && !denoise && !level) || modes > 1 || ((denoise || level) && maxAt >= 0)) {
+const modes = [revoiceWords, denoise, level, tempo, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
+if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || (maxAt2 >= 0 && !revoiceWords && !denoise && !level && !tempo) || modes > 1 || ((denoise || level || tempo) && maxAt >= 0)) {
   if (unknown.length) console.error(`not in the voice cast: ${unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
   if (badData) console.error(`--data: no directory ${data ?? ''}`)
   console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --tempo [--max N] [--run] [--json] [--data DIR]')
   process.exit(flag('--help') || flag('-h') ? 0 : 2)
 }
 // the data directory the clips are in (ensure_data_dir.py reads LANI_DATA_DIR)
@@ -155,13 +166,15 @@ if (level) {
   const target = store.levelTarget
   const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
   if (!flag('--run')) {
-    // each clip measured as it would be levelled (through its voice's filter when that is due): nothing is written
+    // each clip measured as it would be levelled (through its voice's filter and a local clip's pace when they are due):
+    // nothing is written
     const measure = ffmpegLoudness()
     const voices = denoiseVoices()
+    const factor = store.tempo
     const list = queue.slice(0, max)
     if (!measure) console.error('voice-build --level: no ffmpeg here (LANI_FFMPEG names one): nothing measured')
     else if (list.length) console.error(`Measuring ${list.length} clip(s) …`)
-    type Row = { key: string; voice: string; engine: string; file: string; text: string; denoise?: string; before?: Loudness; gain?: number; limit?: boolean; keep?: boolean }
+    type Row = { key: string; voice: string; engine: string; file: string; text: string; denoise?: string; tempo?: number; before?: Loudness; gain?: number; limit?: boolean; keep?: boolean }
     const rows: Row[] = []
     let next = 0
     await Promise.all(Array.from({ length: 4 }, async () => {
@@ -169,9 +182,10 @@ if (level) {
         const c = list[next++]
         const path = join(store.filesDir, c.file)
         const pre = c.engine === 'elevenlabs' && !c.denoise ? voices[c.voice] : undefined
-        const m = measure && FILE.test(c.file) && existsSync(path) ? await measure(new Uint8Array(readFileSync(path)), pre) : null
+        const pace = c.engine === 'gepard' && factor !== null && c.tempo !== factor ? Math.round((factor / (c.tempo ?? 1)) * 10_000) / 10_000 : undefined
+        const m = measure && FILE.test(c.file) && existsSync(path) ? await measure(new Uint8Array(readFileSync(path)), pre, pace) : null
         const g = m ? levelGain(m, { ...LEVEL, target }) : undefined
-        rows.push({ key: c.key, voice: c.voice, engine: c.engine, file: c.file, text: c.text, ...(pre ? { denoise: pre } : {}), ...(m && g ? { before: m, gain: g.gain, limit: g.limit, keep: g.keep && !pre } : {}) })
+        rows.push({ key: c.key, voice: c.voice, engine: c.engine, file: c.file, text: c.text, ...(pre ? { denoise: pre } : {}), ...(pace ? { tempo: pace } : {}), ...(m && g ? { before: m, gain: g.gain, limit: g.limit, keep: g.keep && !pre && !pace } : {}) })
       }
     }))
     const q = (xs: number[], f: number) => {
@@ -190,7 +204,7 @@ if (level) {
         name, clips: g.length, measured: m.length,
         lufs: { median: q(lufs, 0.5), p10: q(lufs, 0.1), p90: q(lufs, 0.9) },
         gain: { median: q(gains, 0.5), min: Math.min(...gains), max: Math.max(...gains) },
-        kept: g.filter(r => r.keep).length, limited: limited.length, over: q(limited.map(r => r.before!.peak + r.gain! - (LEVEL.peak - LIMIT_MARGIN)), 0.5), denoise: g.filter(r => r.denoise).length,
+        kept: g.filter(r => r.keep).length, limited: limited.length, over: q(limited.map(r => r.before!.peak + r.gain! - (LEVEL.peak - LIMIT_MARGIN)), 0.5), denoise: g.filter(r => r.denoise).length, paced: g.filter(r => r.tempo).length,
       }
     }).sort((a, b) => b.lufs.median - a.lufs.median)
     const summary = { target, peak: LEVEL.peak, waiting: queue.length, measured: rows.filter(r => r.before).length, ffmpeg: !!measure, dir: store.dir }
@@ -201,10 +215,10 @@ if (level) {
     const f1 = (x: number) => (Number.isFinite(x) ? `${x > 0 ? '+' : ''}${x.toFixed(1)}` : '—').padStart(6)
     console.log(`The level: ${target} LUFS integrated, true peak at most ${LEVEL.peak} dBTP. Clips in ${store.dir} not at it: ${queue.length}${max !== undefined && max < queue.length ? `; this run: ${max}` : ''}`)
     if (groups.length) {
-      console.log(`\n${'voice'.padEnd(22)} clips  LUFS now (p10 … p90)       gain (min … max)        kept  limited (over by)  filtered too`)
+      console.log(`\n${'voice'.padEnd(22)} clips  LUFS now (p10 … p90)       gain (min … max)        kept  limited (over by)  filtered too  paced too`)
       for (const g of groups) {
         const lim = g.limited ? `${g.limited} (${g.over.toFixed(1)} dB)` : '0'
-        console.log(`${g.name.padEnd(22)} ${String(g.clips).padStart(5)}  ${f1(g.lufs.median)} (${f1(g.lufs.p10)} … ${f1(g.lufs.p90)})  ${f1(g.gain.median)} (${f1(g.gain.min)} … ${f1(g.gain.max)})  ${String(g.kept).padStart(5)}  ${lim.padStart(17)}  ${String(g.denoise).padStart(12)}`)
+        console.log(`${g.name.padEnd(22)} ${String(g.clips).padStart(5)}  ${f1(g.lufs.median)} (${f1(g.lufs.p10)} … ${f1(g.lufs.p90)})  ${f1(g.gain.median)} (${f1(g.gain.min)} … ${f1(g.gain.max)})  ${String(g.kept).padStart(5)}  ${lim.padStart(17)}  ${String(g.denoise).padStart(12)}  ${String(g.paced).padStart(9)}`)
       }
       console.log(`(limited: the clips whose true peak the gain would take over ${LEVEL.peak - LIMIT_MARGIN} dB, where the limiter holds it, and by how much, the median)`)
       const unmeasured = rows.filter(r => !r.before).length
@@ -212,7 +226,7 @@ if (level) {
     }
     if (!queue.length) process.exit(0)
     console.log(`\nDry run: nothing changed. Each clip would get the gain (about 0.4 dB more where it is encoded again: the MP3 encode takes that off),`)
-    console.log(`the limiter where its true peak would pass ${LEVEL.peak} dBTP, its voice's filter where that is due, in one encode; a clip within ${LEVEL.tolerance} dB`)
+    console.log(`the limiter where its true peak would pass ${LEVEL.peak} dBTP, its voice's filter and a local clip's pace where they are due, in one encode; a clip within ${LEVEL.tolerance} dB`)
     console.log(`of the target keeps its file. The others are stored under a new file name, the old file removed once the new one is recorded.`)
     console.log(`Level with: companion/bin/voice-build --level --run${tail}`)
     process.exit(0)
@@ -225,6 +239,110 @@ if (level) {
   const r = await store.levelClips({ max, out: line => console.log(line) })
   console.log(`\nLevelled ${r.done} clip(s) (${r.kept} kept as they were, ${r.limited} limited)${r.skipped ? `; ${r.skipped} skipped (no file, or made again meanwhile)` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} waiting.`)
   if (r.done > r.kept) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(r.failed ? 1 : 0)
+}
+if (tempo) {
+  // the local voice's pace: ffmpeg only, the corpus and the engines aren't needed
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run') })
+  const factor = store.tempo
+  if (factor === null) {
+    console.log("The local voice's pace is off (LANI_VOICE_GEPARD_TEMPO=off): its clips stay as the worker makes them.")
+    process.exit(0)
+  }
+  const queue = store.tempoQueue()
+  const chars = queue.reduce((n, c) => n + c.text.trim().length, 0)
+  const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
+  const what = `the silence before the sound down to ${PACE.lead} s, after it to ${PACE.tail} s, pauses over ${PACE.pause} s to ${PACE.pause} s, then sped up ×${factor} (LANI_VOICE_GEPARD_TEMPO), the pitch kept`
+  if (!flag('--run')) {
+    const pace = ffmpegPace()
+    if (!pace) console.error('voice-build --tempo: no ffmpeg here (LANI_FFMPEG names one): nothing measured')
+    const list = queue.slice(0, max)
+    // characters a second on texts of 15 to 80 characters (a lone word is mostly its edges)
+    const sentence = (t: string) => t.trim().length >= 15 && t.trim().length <= 80
+    const q = (xs: number[], f: number) => {
+      const s = [...xs].sort((a, b) => a - b)
+      return s.length ? s[Math.min(s.length - 1, Math.floor(f * (s.length - 1) + 0.5))] : NaN
+    }
+    const stat = (xs: number[]) => ({ median: q(xs, 0.5), p10: q(xs, 0.1), p90: q(xs, 0.9), n: xs.length })
+    // [n] clips spread over [all] (the same ones every time)
+    const spread = <T,>(all: T[], n: number) => (all.length <= n ? all : Array.from({ length: n }, (_, i) => all[Math.floor((i * all.length) / n)]))
+    const measureAll = async <T extends { file: string },>(xs: T[], af: (x: T) => string | undefined) => {
+      const out: (T & { pace?: Pace; after?: Pace })[] = []
+      let next = 0
+      await Promise.all(Array.from({ length: 4 }, async () => {
+        while (next < xs.length) {
+          const x = xs[next++]
+          const path = join(store.filesDir, x.file)
+          const bytes = pace && FILE.test(x.file) && existsSync(path) ? new Uint8Array(readFileSync(path)) : undefined
+          const now = bytes ? await pace!(bytes) : null
+          const chain = af(x)
+          const after = bytes && chain ? await pace!(bytes, chain) : null
+          out.push({ ...x, ...(now ? { pace: now } : {}), ...(after ? { after } : {}) })
+        }
+      }))
+      return out
+    }
+    if (list.length && pace) console.error(`Measuring ${list.length} clip(s) …`)
+    const rows = await measureAll(list, c => paceChain(Math.round((factor / (c.tempo ?? 1)) * 10_000) / 10_000))
+    // the reference: ElevenLabs' clips of the same voices; and the local clips paced already, as they are now
+    const local = [...new Set(store.database.query("SELECT DISTINCT voice FROM clips WHERE engine = 'gepard'").all().map(r => (r as { voice: string }).voice))]
+    const ofVoices = (engine: string) => (store.database.query(`SELECT * FROM clips WHERE engine = ? AND voice IN (${local.map(() => '?').join(', ') || "''"}) ORDER BY key`).all(engine, ...local) as Clip[]).filter(c => sentence(c.text))
+    const eleven = pace ? await measureAll(spread(ofVoices('elevenlabs'), 120), () => undefined) : []
+    const done = pace ? await measureAll(spread(ofVoices('gepard').filter(c => c.tempo === factor), 120), () => undefined) : []
+    const rate = (xs: { text: string; pace?: Pace }[], k: 'pace' | 'after' = 'pace') =>
+      stat(xs.filter(x => sentence(x.text) && (x as Record<string, unknown>)[k]).map(x => charsPerSecond(x.text, ((x as Record<string, unknown>)[k] as Pace).secs)))
+    const by = new Map<string, typeof rows>()
+    for (const r of rows) by.set(r.voice, [...(by.get(r.voice) ?? []), r])
+    const group = (name: string, g: typeof rows) => {
+      const m = g.filter(r => r.pace && r.after)
+      const sum = (k: 'pace' | 'after') => m.reduce((n, r) => n + r[k]!.secs, 0)
+      return {
+        name, clips: g.length, measured: m.length,
+        rate: { now: rate(m), after: rate(m, 'after') },
+        edges: { now: stat(m.map(r => r.pace!.lead + r.pace!.tail)).median, after: stat(m.map(r => r.after!.lead + r.after!.tail)).median },
+        paused: { now: stat(m.map(r => r.pace!.paused)).median, after: stat(m.map(r => r.after!.paused)).median },
+        seconds: { now: sum('pace'), after: sum('after') },
+      }
+    }
+    const groups = [...[...by].map(([v, g]) => group(`${v} gepard`, g)).sort((a, b) => b.clips - a.clips), ...(by.size > 1 ? [group('all', rows)] : [])]
+    const summary = { tempo: factor, pace: { ...PACE, tempo: factor }, waiting: queue.length, chars, measured: rows.filter(r => r.after).length, ffmpeg: !!pace, dir: store.dir, elevenlabs: rate(eleven), paced: rate(done) }
+    if (flag('--json')) {
+      console.log(JSON.stringify({ ...summary, voices: Object.fromEntries(groups.map(({ name, ...g }) => [name, g])), clips: rows.map(({ key, voice, file, text, tempo, pace, after }) => ({ key, voice, file, text, tempo, now: pace, after })) }, null, 2))
+      process.exit(0)
+    }
+    const f1 = (x: number, w = 5) => (Number.isFinite(x) ? x.toFixed(1) : '—').padStart(w)
+    const r3 = (s: { median: number; p10: number; p90: number }) => `${f1(s.median)} (${f1(s.p10, 4)} … ${f1(s.p90, 4)})`
+    console.log(`The local voice's pace: ${what}.`)
+    console.log(`Local clips in ${store.dir} not at it: ${queue.length} (${chars} characters)${max !== undefined && max < queue.length ? `; this run: ${max}` : ''}`)
+    if (groups.length && pace) {
+      console.log(`\n${'voice'.padEnd(16)} clips  chars/s now (p10 … p90)   paced (p10 … p90)     edges now → paced   pauses now → paced   length now → paced`)
+      for (const g of groups) {
+        const edges = `${g.edges.now.toFixed(2)} → ${g.edges.after.toFixed(2)} s`
+        const pauses = `${g.paused.now.toFixed(2)} → ${g.paused.after.toFixed(2)} s`
+        console.log(`${g.name.padEnd(16)} ${String(g.clips).padStart(5)}  ${r3(g.rate.now)}    ${r3(g.rate.after)}  ${edges.padStart(17)}   ${pauses.padStart(18)}   ${(g.seconds.now / 60).toFixed(1)} → ${(g.seconds.after / 60).toFixed(1)} min`)
+      }
+      console.log('(chars/s: the medians of texts of 15 to 80 characters; edges: the silence before and after the sound, pauses: of 0.1 s or more in all; the medians a clip)')
+      const unmeasured = rows.filter(r => !r.after).length
+      if (unmeasured) console.log(`(${unmeasured} clip(s) not measured: no file, or ffmpeg failed)`)
+    }
+    if (pace && summary.elevenlabs.n) console.log(`\nElevenLabs, the same voices (${summary.elevenlabs.n} clips of 15 to 80 characters): ${r3(summary.elevenlabs)} chars/s`)
+    if (pace && summary.paced.n) console.log(`Local clips paced already (×${factor}; ${summary.paced.n} of 15 to 80 characters): ${r3(summary.paced)} chars/s`)
+    if (!queue.length) process.exit(0)
+    console.log(`\nDry run: nothing changed. Each clip would be paced and brought to the level again in one encode, under a new file name, the`)
+    console.log('old file removed once the new one is recorded. No engine is asked, no characters spent.')
+    console.log(`Pace with: companion/bin/voice-build --tempo --run${tail}`)
+    process.exit(0)
+  }
+  if (!ffmpegLeveller()) {
+    console.error('voice-build --tempo: no ffmpeg (LANI_FFMPEG names one)')
+    process.exit(1)
+  }
+  console.log(`Pacing ${max !== undefined ? Math.min(max, queue.length) : queue.length} of ${queue.length} local clip(s): ${what} …`)
+  const r = await store.tempoClips({ max, out: line => console.log(line) })
+  console.log(`\nPaced ${r.done} clip(s)${r.limited ? ` (${r.limited} limited)` : ''}${r.skipped ? `; ${r.skipped} skipped (no file, or made again meanwhile)` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} waiting.`)
+  if (r.done) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
   if (flag('--json')) console.log(JSON.stringify(r))
   store.close()
   process.exit(r.failed ? 1 : 0)

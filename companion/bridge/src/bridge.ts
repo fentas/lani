@@ -63,7 +63,7 @@ import { StoryStore, storiesDirs } from './stories'
 import { ModuleStore } from './store'
 import { VillagerStore } from './villagers'
 import { VisitTalks } from './visits'
-import { enginesFromEnv, ffmpegRecordingLeveller, VoiceStore } from './voice'
+import { enginesFromEnv, ffmpegRecordingLeveller, gepardTempo, VoiceStore } from './voice'
 import { Profiles } from './profiles'
 import { resultsDirOf, voiceDir } from './paths'
 
@@ -164,6 +164,8 @@ export async function startBridge(o: BridgeOptions) {
       queueDelayMs: env.LANI_VOICE_QUEUE_DELAY_MS ? Number(env.LANI_VOICE_QUEUE_DELAY_MS) : undefined,
       // short narrator words from before the carrier sentence, re-voiced a day as the app asks for them
       revoiceDaily: env.LANI_VOICE_REVOICE_DAILY ? Number(env.LANI_VOICE_REVOICE_DAILY) : undefined,
+      // the local voice's pace: what its clips are sped up by, their silences shortened (off: as the worker makes them)
+      tempo: gepardTempo(env, log),
       onUpdated: made => ctx.events.emit({ type: 'voice_updated', clips: made }),
     }),
     // Set right below: the profiles share the voice store's database.
