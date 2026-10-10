@@ -19,7 +19,11 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
                        "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
-                       then one over the village (the chapel's first, else the maypole's third)
+                       then one over the village (the chapel's first, else the maypole's third); "offline-audio" the
+                       settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
+                       hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
+                       through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
+                       pulled into the run's folder; airplane mode off again after)
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -28,6 +32,8 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        someone beside it); a dialog step lets it go again
 Output: companion/qa-shots/<timestamp>/  (NN-step.png, contact-sheet.png, report.txt, bridge.log, town.log)
 Env: ANDROID_SERIAL picks the device when several run; LANI_DEV_PORT the dev bridge's port (default 8791);
+LANI_PIPER_CACHE the dev bridge's offline voices (default ~/.cache/lani-qa/piper, kept between runs: the voice is fetched
+from Hugging Face once), LANI_PIPER_URL where it fetches them (default Hugging Face; a local mirror of its layout);
 LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_DATA the data the dev bridge copies (default: the default
 learner's, LANI_DATA_DIR in lani.env, else data/).
 """
@@ -2102,6 +2108,148 @@ def road_car_log() -> list[str]:
     return lines[start:]
 
 
+# --- the offline audio (companion/README.md, "Offline on the phone") -----------------------------------------------
+
+def run_as(*args) -> str:
+    """A shell command in the app's own folder (a debug build: run-as)."""
+    return adb("shell", "run-as", PKG, *args, check=False)
+
+
+def pull(path: str, to: Path) -> bool:
+    """The app's file [path] (relative to its folder) copied to [to]."""
+    out = subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", "run-as", PKG, "cat", path], capture_output=True).stdout
+    if not out:
+        return False
+    to.write_bytes(out)
+    return True
+
+
+def open_connection_sheet():
+    """Home's tutor status dot opens the connection sheet (the phone's settings)."""
+    go_home()
+    to_top()
+    for label in ("Tutor online", "Offline", "Connecting"):
+        if tap(label, 3):
+            break
+    else:
+        raise AssertionError("the tutor's status dot")
+    assert wait_for("Povezava · Connection", 8), "the connection sheet"
+
+
+def offline_audio():
+    """The connection sheet's "🔊 Zvok brez povezave · Offline audio": the cap's chips (Off, 100, 250, 500 MB, Unlimited),
+    "only while charging", what's on the phone, "⬇️ Prenesi zdaj · Download now", and the offline voice the node offers."""
+    open_connection_sheet()
+    assert scroll_to("Zvok brez povezave · Offline audio", 10), "the offline audio section"
+    for chip in ("Izklopljeno · Off", "100 MB", "250 MB", "500 MB", "Brez omejitve · Unlimited"):
+        assert scroll_to(chip, 2), f"the cap's chip {chip}"
+    assert scroll_to("Le med polnjenjem", 2) or scroll_to("Prenašaj le med polnjenjem", 2), "only while charging"
+    shot("offline-audio-cap")
+    assert scroll_to("Prenesi zdaj · Download now", 3) or find("Prenašam"), "download now"
+    assert scroll_to("Glas brez povezave · Offline voice", 4), "the offline voice"
+    assert find("Prenesi glas") or find("je na telefonu") or find("Prenašam glas"), "the offline voice offered (or on the phone)"
+    shot("offline-audio-voice")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+
+
+def prefetch():
+    """QA's "audio:prefetch": the day's plan made and its clips got at once from the dev bridge (its voice worker pointed
+    nowhere: what it lacks it can't voice, unless ElevenLabs is set). The status must say the day's lines are on the phone;
+    the plan, the status and the clip folder's size go to prefetch.json."""
+    go_home()
+
+    def status_now():
+        raw = run_as("cat", "files/audio/status.json")
+        return json.loads(raw) if raw.strip().startswith("{") else None
+
+    def told(s: dict, seconds=None) -> str:
+        g = lambda k: s.get(k, 0)  # noqa: E731 (a field at its default isn't written)
+        took = f" in {seconds} s" if seconds is not None else ""
+        return (f"{g('wants')} lines today, {g('wanted')} in their voice, {g('other')} in another, {g('missing')} missing; "
+                f"{g('downloaded')} files, {g('bytes') / 1048576:.1f} MB{took}; tomorrow {'too' if s.get('tomorrow') else 'not'}"
+                + (f"; {s['problem']}" if s.get("problem") else ""))
+
+    # the run the app asked for when it opened (on Wi-Fi), if it ran already: the day's clips from nothing
+    first = status_now()
+    if first:
+        print(f"    prefetch when the app opened: {told(first)}")
+    run_as("rm", "-f", "files/audio/status.json")
+    started = time.time()
+    qa_hook("audio:prefetch")
+    status = None
+    while time.time() - started < 600 * slow() and status is None:
+        time.sleep(3)
+        status = status_now()
+    assert status, "no prefetch status after 10 minutes"
+    seconds = round(time.time() - started)
+    for name in ("files/audio/day.json", "files/voice-clips/index.json"):
+        pull(name, OUT / Path(name).name)
+    plan = json.loads((OUT / "day.json").read_text() if (OUT / "day.json").exists() else "{}")
+    kb = run_as("du", "-sk", "files/voice-clips").split()
+    days = [{"day": d["day"], "lines": len(d["wants"]),
+             "by": {k: sum(1 for w in d["wants"] if w["why"].split(":")[0] == k) for k in sorted({w["why"].split(":")[0] for w in d["wants"]})}}
+            for d in plan.get("days", [])]
+    facts = {"first": first, "status": status, "seconds": seconds, "days": days, "clips_kb": int(kb[0]) if kb and kb[0].isdigit() else None}
+    (OUT / "prefetch.json").write_text(json.dumps(facts, indent=2, ensure_ascii=False) + "\n")
+    print(f"    prefetch asked now: {told(status, seconds)}; the clip cache {facts['clips_kb']} kB")
+    assert not status.get("problem"), f"the prefetch failed: {status.get('problem')}"
+    assert status.get("wants", 0) > 0, "the day's plan has no lines"
+    assert status.get("wanted", 0) + status.get("other", 0) > 0, "none of the day's lines is on the phone"
+    open_connection_sheet()
+    assert scroll_to("Na telefonu", 10), "what's on the phone"
+    shot("offline-audio-on-phone")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+
+
+PIPER_LINE = "Ko povezave ni, govori glas na telefonu."  # a sentence no clip has
+
+
+def offline_voice():
+    """The offline voice: downloaded through the dev bridge (QA's "audio:voice"; the bridge fetches it from LANI_PIPER_URL
+    once into its cache), then with airplane mode on a line without a clip said ("audio:say:…"), and slowly
+    ("audio:slow:…"): Piper speaks it (the log's "Piper … loaded", WAVs in its cache, pulled into the run's folder).
+    Airplane mode goes off again whatever happens."""
+    go_home()
+    qa_hook("audio:voice")
+    started = time.time()
+    while time.time() - started < 900 * slow():
+        if run_as("ls", "files/piper/sl/voice.json").strip().endswith("voice.json"):
+            break
+        time.sleep(5)
+    else:
+        raise AssertionError("the offline voice isn't on the phone after 15 minutes")
+    print(f"    offline voice on the phone after {round(time.time() - started)} s ({run_as('du', '-sk', 'files/piper/sl').split()[0]} kB)")
+    run_as("sh", "-c", "rm -f cache/piper-wav/*.wav")
+    adb("logcat", "-c")
+    adb("shell", "cmd", "connectivity", "airplane-mode", "enable")
+    try:
+        time.sleep(3)
+        qa_hook(f"'audio:say:{PIPER_LINE}'")  # quoted: the device's shell would split it
+        wavs = []
+        end = time.time() + 60 * slow()
+        while time.time() < end and not wavs:
+            wavs = [w for w in run_as("ls", "cache/piper-wav").split() if w.endswith(".wav")]
+            time.sleep(1)
+        assert wavs, "Piper said nothing (no WAV in its cache)"
+        time.sleep(4)
+        qa_hook(f"'audio:slow:{PIPER_LINE}'")
+        end = time.time() + 60 * slow()
+        while time.time() < end and len(wavs) < 2:
+            wavs = [w for w in run_as("ls", "cache/piper-wav").split() if w.endswith(".wav")]
+            time.sleep(1)
+        assert len(wavs) >= 2, "Piper didn't say it slowly"
+        time.sleep(5)
+        log = [l for l in adb("logcat", "-d", "-s", "Piper:*", check=False).splitlines() if "Piper" in l]
+        print("    " + " / ".join(l.split(": ", 1)[-1] for l in log[-3:]))
+        assert any(f"said {len(PIPER_LINE)} characters" in l for l in log), "Piper didn't say the whole line"
+        for i, w in enumerate(sorted(wavs, key=lambda w: int(run_as("stat", "-c", "%s", f"cache/piper-wav/{w}").strip() or 0))):
+            pull(f"cache/piper-wav/{w}", OUT / f"piper-{'normal' if i == 0 else 'slow'}.wav")
+        shot("offline-voice")
+    finally:
+        adb("shell", "cmd", "connectivity", "airplane-mode", "disable")
+        time.sleep(3)
+
+
 def road():
     """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind and eight quiz questions from the dev
     bridge, the files got in the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says
@@ -2264,11 +2412,13 @@ def optional_screen(label: str, marker: str, exact: bool = False):
 # --- the bridges ----------------------------------------------------------------------------
 
 def start_bridge():
-    """The dev bridge on PORT, on a copy of the learner data (test/dev-bridge.ts); whatever listened there is stopped."""
+    """The dev bridge on PORT, on a copy of the learner data (test/dev-bridge.ts); whatever listened there is stopped. Its
+    offline voices in QA's own cache (never the machine's), kept between runs."""
     for pid in listeners(PORT):
         subprocess.run(["kill", pid])
+    piper = os.environ.get("LANI_PIPER_CACHE") or str(Path.home() / ".cache/lani-qa/piper")
     bridge = subprocess.Popen(["bun", "test/dev-bridge.ts"], cwd=BRIDGE, stdout=open(OUT / "bridge.log", "w"), stderr=subprocess.STDOUT,
-                              env={**os.environ, "LANI_DEV_PORT": PORT})
+                              env={**os.environ, "LANI_DEV_PORT": PORT, "LANI_PIPER_CACHE": piper})
     if "--keep-bridge" not in sys.argv:
         atexit.register(bridge.terminate)  # also when a step raises past the end, or QA is interrupted
     return bridge
@@ -2425,6 +2575,9 @@ def plan():
         ("progress", optional_screen("Napredek · Progress", "📊 Napredek · Progress"), None, False, ""),
         ("talk", optional_screen("Pogovor", "Učitelj igra drugo osebo", exact=True), None, False, ""),
         ("road", road, go_home, False, ""),
+        ("offline-audio", offline_audio, go_home, False, ""),
+        ("prefetch", prefetch, go_home, False, ""),
+        ("offline-voice", offline_voice, go_home, False, ""),
     ]
 
 
