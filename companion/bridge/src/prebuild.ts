@@ -47,11 +47,14 @@ export function budget(q: BuildPlan['quota'], maxChars?: number): number {
   return maxChars !== undefined ? Math.min(b, maxChars) : b
 }
 
-/** Todo items for --run: missing ones, plus local clips to replace with [upgrade], plus every clip of a [revoice] speaker. */
+/**
+ * Todo items for --run: missing ones, plus local clips to replace with [upgrade] (not a narrator's whose lines come from
+ * the local voice: a Slovene village's), plus every clip of a [revoice] speaker.
+ */
 export function todo(items: CorpusItem[], store: VoiceStore, upgrade = false, revoice: string[] = []): CorpusItem[] {
   return items.filter(i => {
     const c = store.get(normalizeText(i.text), i.voice)
-    return !c || (upgrade && c.engine !== 'elevenlabs') || revoice.includes(i.voice)
+    return !c || (upgrade && c.engine !== 'elevenlabs' && !store.localNarrator(i.voice)) || revoice.includes(i.voice)
   })
 }
 
@@ -101,6 +104,15 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
   }
   for (const i of todo(items, store, o.upgrade, o.revoice)) {
     const n = i.text.length
+    // a narrator whose lines come from the local voice (a Slovene village): the worker, else a native voice the cast may
+    // have, never the English narrators
+    if (store.localNarrator(i.voice)) {
+      const to = gepard_up ? 'gepard' : store.nativeOf(i.voice) && n <= left ? 'elevenlabs' : 'later'
+      if (to === 'elevenlabs') left -= n
+      would[to].texts++
+      would[to].chars += n
+      continue
+    }
     const cost = eleven.cost(i.text, i.voice) // a short narrator word: its carrier sentence
     const norm = normalizeText(i.text)
     const had = store.get(norm, i.voice) // a replacement: it has a clip already
@@ -198,7 +210,8 @@ export async function run(
     let engines: EngineName[] | undefined
     if (had) {
       if (overCap) continue
-      engines = ['elevenlabs'] // --upgrade: replace a local clip; --revoice: any clip of that speaker
+      // --upgrade: replace a local clip; --revoice: any clip of that speaker (a local narrator's: in the local voice)
+      engines = store.localNarrator(it.voice) ? undefined : ['elevenlabs']
     } else if (overCap) {
       if (store.waitsForElevenLabs(norm, it.voice)) continue
       engines = ['gepard']

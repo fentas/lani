@@ -12,14 +12,18 @@
 // ElevenLabs down to the reserve, then the local worker (not for a villager line whose narrator clip
 // exists: the app plays that one until ElevenLabs makes theirs).
 //
-// A narrator says a short text (1–3 words) inside a carrier sentence, which is cut out (README, "Voice"); the plan shows
-// how many narrator words are still old-style (said plainly, before that) and what re-voicing them all costs.
+// In a Slovene village the narrators (female, male) speak with the local Gepard voice (nina, marko), never the English
+// library voices (README, "Voice"); elsewhere a narrator says a short text (1–3 words) inside a carrier sentence, which is
+// cut out, and the plan shows how many narrator words are still old-style (said plainly) and what re-voicing them costs.
 //
 // Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]
 //        companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --edges [--max N] [--run] [--json] [--data DIR]
 //        companion/bin/voice-build --tempo [--max N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --restore-gepard SNAPSHOT [--max N] [--run] [--json] [--data DIR]
+//        companion/bin/voice-build --narrators [--max N] [--run] [--json] [--data DIR]
 //   --upgrade        also replace local (Gepard) clips with ElevenLabs ones while the quota lasts
 //   --revoice S      make every clip of speaker S again with ElevenLabs (after swapping its voice in companion/voice-cast.json)
 //   --max-chars N    spend at most N ElevenLabs characters in this run
@@ -36,15 +40,30 @@
 //                    target keeps its file). A clip whose voice's filter is due is filtered in the same encode. Each
 //                    under a new file name, the old file removed once the new one is recorded; a running bridge tells
 //                    the app within a minute (voice_updated).
-//   --tempo          the local (Gepard) clips not at the local voice's pace yet (PACE in bridge/src/voice.ts: the silence
-//                    before and after the sound and the long pauses shortened, then sped up by LANI_VOICE_GEPARD_TEMPO,
-//                    1.05, the pitch kept; the bridge paces new ones as it stores them), oldest first, at most --max N.
-//                    The dry run measures each clip's characters a second now and as it would be paced, against
-//                    ElevenLabs' clips of the same voices. A clip is paced once: its row records the factor (tempo);
-//                    after a change of the factor, --tempo speeds the clips up by the difference, from their files as
-//                    they are. Levelled again in the same encode, under a new file name, the old file removed once the
-//                    new one is recorded.
-//                    --denoise, --level and --tempo use ffmpeg only: no ElevenLabs, no characters.
+//   --edges          every clip whose silence at the edges isn't trimmed yet (EDGES in bridge/src/voice.ts: 0.05 s kept
+//                    before the sound, 0.1 s after it; the bridge trims new clips as it stores them), of every engine,
+//                    oldest first, at most --max N. The dry run measures them: per engine, how many have more than
+//                    0.1 s of silence before the sound or 0.2 s after it (twice what is kept), and the silence now and
+//                    after. --run trims those, levelled again in the same encode, each under a new file name, the old
+//                    file removed once the new one is recorded; the others are only recorded (edges), so no clip is
+//                    done twice.
+//   --tempo          only with a pace set (LANI_VOICE_GEPARD_TEMPO, a factor; LANI_VOICE_GEPARD_PAUSES, the longest
+//                    pause kept; neither by default: the local voice keeps its own pace): the local (Gepard) clips not
+//                    at it yet, at most --max N; the dry run measures each clip's characters a second now and as it
+//                    would be paced. Levelled again in the same encode, under a new file name.
+//                    --denoise, --level, --edges and --tempo use ffmpeg only: no ElevenLabs, no characters.
+//   --restore-gepard SNAPSHOT
+//                    the local clips paced before (tempo set: October 2026's ×1.05 pass) back to their files and rows in
+//                    SNAPSHOT, a lani-backup snapshot taken before that (its voice/, or a voice store's directory: voice.db
+//                    and files/; read only, its database from a copy). The dry run lists what it would restore and what
+//                    it can't; --run copies each file back (checked byte for byte), points the row at it with the
+//                    snapshot's level and gain, and removes the paced file once the row is moved. Then --edges trims them.
+//   --narrators      in a Slovene village: the narrators' clips (female, male) not in their local voice yet (nina,
+//                    marko: ElevenLabs' English narrators, the female narrator's ana) made again by the local worker,
+//                    most asked for first, at most --max N, one at a time (about a second each). Only Slovene texts: a
+//                    clip of this village's corpus, of a source the corpus has (a pack, a scene, …), or a line the app
+//                    spoke here (live, road); the dry run lists the others, which stay as they are. The edges trimmed
+//                    and levelled as every new clip; a worker that is down stops the run, and the next run goes on.
 //   --data DIR       the learner data directory, as LANI_DATA_DIR (a copy; another learner's profiles/<id>/data with
 //                    their LANI_CULTURE)
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
@@ -56,6 +75,7 @@ import { cast, castVoiced, denoiseVoices, isSpeaker, personVoice, useCastFile, u
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
 import { DrillStore, drillsDir } from '../bridge/src/drills'
+import { grammarDir, GrammarStore } from '../bridge/src/grammar'
 import { readISpy } from '../bridge/src/ispy'
 import { ModuleStore } from '../bridge/src/store'
 import { PackStore, packsDirs } from '../bridge/src/packs'
@@ -63,8 +83,9 @@ import { ScenarioStore } from '../bridge/src/scenarios'
 import { SceneStore, scenesDirs } from '../bridge/src/scenes'
 import { StoryStore, storiesDirs } from '../bridge/src/stories'
 import { VillagerStore } from '../bridge/src/villagers'
-import { cardTexts, charsPerSecond, corpus, enginesFromEnv, ffmpegDenoiser, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, PACE, paceChain, VoiceStore, type Clip, type Loudness, type Pace } from '../bridge/src/voice'
+import { cardTexts, charsPerSecond, clipKey, corpus, EDGES, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, localNarrators, paceChain, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
+import { normalizeText } from '../bridge/src/family'
 import { keysFile } from '../bridge/src/env'
 import { voiceDir } from '../bridge/src/paths'
 import { setting } from '../bridge/src/env'
@@ -94,21 +115,34 @@ const revoiceWords = flag('--revoice-words')
 const denoise = flag('--denoise')
 const level = flag('--level')
 const tempo = flag('--tempo')
+const edges = flag('--edges')
+const narrators = flag('--narrators')
+const restoreAt = args.indexOf('--restore-gepard')
+const snapshotArg = restoreAt >= 0 ? args[restoreAt + 1] : undefined
+// a lani-backup snapshot (its voice/), or a voice store's own directory (voice.db and files/)
+const snapshot = snapshotArg ? [join(snapshotArg, 'voice'), snapshotArg].find(d => existsSync(join(d, 'voice.db')) && existsSync(join(d, 'files'))) : undefined
+const badSnapshot = restoreAt >= 0 && !snapshot
+const restore = restoreAt >= 0
 const maxAt2 = args.indexOf('--max')
 const max = maxAt2 >= 0 ? Number(args[maxAt2 + 1]) : undefined
 const badMax = max !== undefined && !(Number.isInteger(max) && max >= 0)
 const dataAt = args.indexOf('--data')
 const data = dataAt >= 0 ? args[dataAt + 1] : undefined
 const badData = dataAt >= 0 && !(data && existsSync(data) && statSync(data).isDirectory())
-const modes = [revoiceWords, denoise, level, tempo, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
-if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || (maxAt2 >= 0 && !revoiceWords && !denoise && !level && !tempo) || modes > 1 || ((denoise || level || tempo) && maxAt >= 0)) {
+const modes = [revoiceWords, denoise, level, tempo, edges, restore, narrators, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
+const ffmpegOnly = denoise || level || tempo || edges || restore || narrators
+if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0)) {
   if (unknown.length) console.error(`not in the voice cast: ${unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
   if (badData) console.error(`--data: no directory ${data ?? ''}`)
+  if (badSnapshot) console.error(`--restore-gepard: no voice store (voice.db and files/) in ${snapshotArg ?? '(none given)'} or its voice/`)
   console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --denoise [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --level [--max N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --edges [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --tempo [--max N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --restore-gepard SNAPSHOT [--max N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --narrators [--max N] [--run] [--json] [--data DIR]')
   process.exit(flag('--help') || flag('-h') ? 0 : 2)
 }
 // the data directory the clips are in (ensure_data_dir.py reads LANI_DATA_DIR)
@@ -129,10 +163,12 @@ const appDir = join(p.stdout.toString().trim(), 'app')
 // the clips: the voice cache ($LANI_VOICE_CACHE, lani.env's for the default learner), else <data>/app/voice
 
 const log = (...a: unknown[]) => console.error('[voice-build]', ...a)
+// the store as the bridge has it: the narrators of a Slovene village in the local voice (LANI_VOICE_NARRATOR_SL)
+const villageVoices = { language, localNarrators: localNarrators(language, process.env, log) }
 
 if (denoise) {
   // the clips of the voices that hiss, through their filter: ffmpeg only, the corpus and the engines aren't needed
-  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run') })
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run'), ...villageVoices })
   const voices = denoiseVoices()
   const queue = store.denoiseQueue()
   const summary = { voices, waiting: queue.length, stats: store.denoiseStats(), dir: store.dir }
@@ -161,7 +197,7 @@ if (denoise) {
 }
 if (level) {
   // every clip at one loudness: ffmpeg only, the corpus and the engines aren't needed
-  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run') })
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run'), ...villageVoices })
   const queue = store.levelQueue()
   const target = store.levelTarget
   const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
@@ -170,7 +206,7 @@ if (level) {
     // nothing is written
     const measure = ffmpegLoudness()
     const voices = denoiseVoices()
-    const factor = store.tempo
+    const factor = store.pace
     const list = queue.slice(0, max)
     if (!measure) console.error('voice-build --level: no ffmpeg here (LANI_FFMPEG names one): nothing measured')
     else if (list.length) console.error(`Measuring ${list.length} clip(s) …`)
@@ -182,10 +218,10 @@ if (level) {
         const c = list[next++]
         const path = join(store.filesDir, c.file)
         const pre = c.engine === 'elevenlabs' && !c.denoise ? voices[c.voice] : undefined
-        const pace = c.engine === 'gepard' && factor !== null && c.tempo !== factor ? Math.round((factor / (c.tempo ?? 1)) * 10_000) / 10_000 : undefined
-        const m = measure && FILE.test(c.file) && existsSync(path) ? await measure(new Uint8Array(readFileSync(path)), pre, pace) : null
+        const pace = c.engine === 'gepard' && factor && c.tempo !== factor.tempo ? { tempo: Math.round((factor.tempo / (c.tempo ?? 1)) * 10_000) / 10_000, pause: factor.pause } : undefined
+        const m = measure && FILE.test(c.file) && existsSync(path) ? await measure(new Uint8Array(readFileSync(path)), { denoise: pre, pace }) : null
         const g = m ? levelGain(m, { ...LEVEL, target }) : undefined
-        rows.push({ key: c.key, voice: c.voice, engine: c.engine, file: c.file, text: c.text, ...(pre ? { denoise: pre } : {}), ...(pace ? { tempo: pace } : {}), ...(m && g ? { before: m, gain: g.gain, limit: g.limit, keep: g.keep && !pre && !pace } : {}) })
+        rows.push({ key: c.key, voice: c.voice, engine: c.engine, file: c.file, text: c.text, ...(pre ? { denoise: pre } : {}), ...(pace ? { tempo: pace.tempo } : {}), ...(m && g ? { before: m, gain: g.gain, limit: g.limit, keep: g.keep && !pre && !pace } : {}) })
       }
     }))
     const q = (xs: number[], f: number) => {
@@ -243,18 +279,118 @@ if (level) {
   store.close()
   process.exit(r.failed ? 1 : 0)
 }
-if (tempo) {
-  // the local voice's pace: ffmpeg only, the corpus and the engines aren't needed
-  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run') })
-  const factor = store.tempo
-  if (factor === null) {
-    console.log("The local voice's pace is off (LANI_VOICE_GEPARD_TEMPO=off): its clips stay as the worker makes them.")
+if (edges) {
+  // the silence at every clip's edges: ffmpeg only, the corpus and the engines aren't needed
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run'), ...villageVoices })
+  const queue = store.edgesQueue()
+  const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
+  const what = `${EDGES.lead} s kept before the sound, ${EDGES.tail} s after it (sound: over ${EDGES.threshold} dBFS in 20 ms, back and on while over ${EDGES.floor})`
+  if (!flag('--run')) {
+    // each clip measured as its file is (they are at the level): nothing is written
+    const measure = ffmpegFileEdges()
+    if (!measure) console.error('voice-build --edges: no ffmpeg here (LANI_FFMPEG names one): nothing measured')
+    const list = queue.slice(0, max)
+    if (measure && list.length) console.error(`Measuring ${list.length} clip(s) …`)
+    type Row = { key: string; voice: string; engine: string; method?: string | null; text: string; edges?: Edges; trim?: boolean }
+    const rows: Row[] = []
+    let next = 0
+    await Promise.all(Array.from({ length: 8 }, async () => {
+      while (next < list.length) {
+        const c = list[next++]
+        const path = join(store.filesDir, c.file)
+        const e = measure && FILE.test(c.file) && existsSync(path) ? await measure(path) : null
+        rows.push({ key: c.key, voice: c.voice, engine: c.engine, method: c.method ?? null, text: c.text, ...(e ? { edges: e, trim: trimmable(e, true) } : {}) })
+      }
+    }))
+    const q = (xs: number[], f: number) => {
+      const v = [...xs].sort((a, b) => a - b)
+      return v.length ? v[Math.min(v.length - 1, Math.floor(f * (v.length - 1) + 0.5))] : NaN
+    }
+    // after: a trimmed clip's silence down to EDGES; the others' as it is
+    const after = (r: Row) => (r.trim ? { lead: Math.min(r.edges!.lead, EDGES.lead), tail: Math.min(r.edges!.tail, EDGES.tail) } : r.edges!)
+    const groupOf = (r: Row) => `${r.engine}${r.method === 'carrier' ? ' carrier' : ''}`
+    const by = new Map<string, Row[]>()
+    for (const r of rows) by.set(groupOf(r), [...(by.get(groupOf(r)) ?? []), r])
+    const group = (name: string, g: Row[]) => {
+      const m = g.filter(r => r.edges)
+      const st = (xs: number[]) => ({ median: q(xs, 0.5), p90: q(xs, 0.9) })
+      return {
+        name, clips: g.length, measured: m.length, trim: m.filter(r => r.trim).length,
+        lead: { now: st(m.map(r => r.edges!.lead)), after: st(m.map(r => after(r).lead)) },
+        tail: { now: st(m.map(r => r.edges!.tail)), after: st(m.map(r => after(r).tail)) },
+        seconds: m.reduce((n, r) => n + r.edges!.lead - after(r).lead + r.edges!.tail - after(r).tail, 0),
+      }
+    }
+    const groups = [...[...by].map(([n, g]) => group(n, g)).sort((a, b) => b.clips - a.clips), ...(by.size > 1 ? [group('all', rows)] : [])]
+    const summary = { edges: EDGES, waiting: queue.length, measured: rows.filter(r => r.edges).length, trim: rows.filter(r => r.trim).length, ffmpeg: !!measure, dir: store.dir }
+    if (flag('--json')) {
+      // and how many have more than 0.15 s at either edge (October 2026's measure)
+      const over = (g: Row[]) => g.filter(r => r.edges && (r.edges.lead > 0.15 || r.edges.tail > 0.15)).length
+      console.log(JSON.stringify({ ...summary, over_015: Object.fromEntries([...by].map(([n, g]) => [n, over(g)])), groups: Object.fromEntries(groups.map(({ name, ...g }) => [name, g])), clips: rows }, null, 2))
+      process.exit(0)
+    }
+    const f2 = (x: number) => (Number.isFinite(x) ? x.toFixed(2) : '—')
+    console.log(`The edges: ${what}.`)
+    console.log(`Clips in ${store.dir} not through it yet: ${queue.length}${max !== undefined && max < queue.length ? `; this run: ${max}` : ''}`)
+    if (groups.length && measure) {
+      console.log(`\n${'engine'.padEnd(20)} clips   to trim  before: now (p90) → after     after: now (p90) → after    trimmed`)
+      for (const g of groups) {
+        console.log(`${g.name.padEnd(20)} ${String(g.clips).padStart(5)}  ${String(g.trim).padStart(10)}  ${`${f2(g.lead.now.median)} (${f2(g.lead.now.p90)}) → ${f2(g.lead.after.median)} (${f2(g.lead.after.p90)})`.padEnd(26)}  ${`${f2(g.tail.now.median)} (${f2(g.tail.now.p90)}) → ${f2(g.tail.after.median)} (${f2(g.tail.after.p90)})`.padEnd(26)} ${(g.seconds / 60).toFixed(1)} min`)
+      }
+      console.log(`(before / after: the silence before and after the sound, seconds, the median and p90; to trim: the clips with more than ${EDGES.slack.lead} s before it or ${EDGES.slack.tail} s after it)`)
+      const unmeasured = rows.filter(r => !r.edges).length
+      if (unmeasured) console.log(`(${unmeasured} clip(s) not measured: no file, or ffmpeg failed)`)
+    }
+    if (!queue.length) process.exit(0)
+    console.log(`\nDry run: nothing changed. The clips to trim are trimmed and brought to the level again in one encode, each under a new`)
+    console.log('file name, the old file removed once the new one is recorded; the others are only recorded. No engine is asked, no characters spent.')
+    console.log(`Trim with: companion/bin/voice-build --edges --run${tail}`)
     process.exit(0)
   }
+  if (!ffmpegLeveller()) {
+    console.error('voice-build --edges: no ffmpeg (LANI_FFMPEG names one)')
+    process.exit(1)
+  }
+  console.log(`Through the edges: ${max !== undefined ? Math.min(max, queue.length) : queue.length} of ${queue.length} clip(s): ${what} …`)
+  const r = await store.edgesClips({ max, out: line => console.log(line) })
+  console.log(`\n${r.done} clip(s) done: ${r.trimmed} trimmed, ${r.kept} kept as they were${r.limited ? `, ${r.limited} limited` : ''}${r.skipped ? `; ${r.skipped} skipped (no file, or made again meanwhile)` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} waiting.`)
+  if (r.done > r.kept) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(r.failed ? 1 : 0)
+}
+if (restore) {
+  // the local clips paced before, back from a snapshot: no engine, no ffmpeg
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run'), ...villageVoices })
+  const run = flag('--run')
+  const quiet = flag('--json')
+  console.error(`The local clips paced before (tempo set) in ${store.dir}, from ${snapshot} …`)
+  const r = store.restorePaced(snapshot!, { run, max, out: quiet ? undefined : line => console.log(line) })
+  if (quiet) console.log(JSON.stringify(r, null, 2))
+  else {
+    console.log(`\nPaced local clips: ${r.paced}. ${run ? 'Restored' : 'To restore'}: ${r.restored}${run ? ` (${r.verified} byte for byte the snapshot's file)` : ''}; not restorable: ${r.missing.length}${r.skipped ? `; ${r.skipped} changed meanwhile` : ''}${r.failed ? `; ${r.failed} failed` : ''}; still paced: ${r.left}.`)
+    if (!run && r.restored) console.log(`Dry run: nothing changed. Restore with: companion/bin/voice-build --restore-gepard ${snapshotArg} --run${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`)
+    if (run && r.restored) console.log('Then trim their edges: companion/bin/voice-build --edges --run. A running bridge tells the app within a minute (voice_updated).')
+  }
+  store.close()
+  process.exit(r.failed ? 1 : 0)
+}
+if (tempo) {
+  // the local voice's pace: ffmpeg only, the corpus and the engines aren't needed
+  const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: [], log, readonly: !flag('--run'), ...villageVoices })
+  const set = store.pace
+  if (!set) {
+    const st = store.tempoStats()
+    console.log("The local voice keeps its own pace (no LANI_VOICE_GEPARD_TEMPO or LANI_VOICE_GEPARD_PAUSES): nothing to pace.")
+    if (st.paced) console.log(`${st.paced} local clip(s) were paced before: back with companion/bin/voice-build --restore-gepard <a snapshot from before>, then --edges.`)
+    console.log('Their silence at the edges is trimmed as every clip\'s: companion/bin/voice-build --edges.')
+    process.exit(0)
+  }
+  const factor = set.tempo
   const queue = store.tempoQueue()
   const chars = queue.reduce((n, c) => n + c.text.trim().length, 0)
   const tail = `${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`
-  const what = `the silence before the sound down to ${PACE.lead} s, after it to ${PACE.tail} s, pauses over ${PACE.pause} s to ${PACE.pause} s, then sped up ×${factor} (LANI_VOICE_GEPARD_TEMPO), the pitch kept`
+  const what = `${set.pause ? `pauses over ${set.pause} s down to it (LANI_VOICE_GEPARD_PAUSES), ` : ''}${factor !== 1 ? `sped up ×${factor} (LANI_VOICE_GEPARD_TEMPO), the pitch kept, ` : ''}the edges trimmed`
   if (!flag('--run')) {
     const pace = ffmpegPace()
     if (!pace) console.error('voice-build --tempo: no ffmpeg here (LANI_FFMPEG names one): nothing measured')
@@ -285,7 +421,7 @@ if (tempo) {
       return out
     }
     if (list.length && pace) console.error(`Measuring ${list.length} clip(s) …`)
-    const rows = await measureAll(list, c => paceChain(Math.round((factor / (c.tempo ?? 1)) * 10_000) / 10_000))
+    const rows = await measureAll(list, c => paceChain({ tempo: Math.round((factor / (c.tempo ?? 1)) * 10_000) / 10_000, pause: set.pause }) || undefined)
     // the reference: ElevenLabs' clips of the same voices; and the local clips paced already, as they are now
     const local = [...new Set(store.database.query("SELECT DISTINCT voice FROM clips WHERE engine = 'gepard'").all().map(r => (r as { voice: string }).voice))]
     const ofVoices = (engine: string) => (store.database.query(`SELECT * FROM clips WHERE engine = ? AND voice IN (${local.map(() => '?').join(', ') || "''"}) ORDER BY key`).all(engine, ...local) as Clip[]).filter(c => sentence(c.text))
@@ -307,7 +443,7 @@ if (tempo) {
       }
     }
     const groups = [...[...by].map(([v, g]) => group(`${v} gepard`, g)).sort((a, b) => b.clips - a.clips), ...(by.size > 1 ? [group('all', rows)] : [])]
-    const summary = { tempo: factor, pace: { ...PACE, tempo: factor }, waiting: queue.length, chars, measured: rows.filter(r => r.after).length, ffmpeg: !!pace, dir: store.dir, elevenlabs: rate(eleven), paced: rate(done) }
+    const summary = { tempo: factor, pace: set, waiting: queue.length, chars, measured: rows.filter(r => r.after).length, ffmpeg: !!pace, dir: store.dir, elevenlabs: rate(eleven), paced: rate(done) }
     if (flag('--json')) {
       console.log(JSON.stringify({ ...summary, voices: Object.fromEntries(groups.map(({ name, ...g }) => [name, g])), clips: rows.map(({ key, voice, file, text, tempo, pace, after }) => ({ key, voice, file, text, tempo, now: pace, after })) }, null, 2))
       process.exit(0)
@@ -356,10 +492,12 @@ const scenes = new SceneStore(scenesDirs(process.env.LANI_SCENES_DIR ?? join(roo
 const stories = new StoryStore(storiesDirs(cultures, culture), join(appDir, 'stories'), () => ({ packs: packs.all(), villagers: villagers.all() }), log)
 // the car's audio drills of the village's language (companion/drills/<language>), as the bridge has them
 const drills = new DrillStore(drillsDir(process.env.LANI_DRILLS_DIR ?? join(root, 'companion/drills'), language), language, () => ({ packs: packs.all(), villagers: villagers.all() }), log)
+// the grammar book of the village's language and the tutor's pages: their examples, as the bridge has them
+const grammar = new GrammarStore(grammarDir(process.env.LANI_GRAMMAR_DIR ?? join(root, 'companion/grammar'), language), language, join(appDir, 'grammar'), log)
 
 const { eleven, gepard } = enginesFromEnv(process.env, log, language)
 // the local worker speaks only Slovene; a culture's cast without voices yet voices nothing (the phone's TTS speaks)
-const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : [], log, readonly: !flag('--run') })
+const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: language === 'sl' ? [eleven, gepard] : castVoiced() ? [eleven] : [], log, readonly: !flag('--run'), ...villageVoices })
 // the voices of their own that are ready (the voice profiles, in the store's database): a storyteller who has one tells
 // in it ("@janez", as the app asks for it by the fire), and ElevenLabs makes those clips in it
 const own = ownVoicesIn(store.database)
@@ -374,6 +512,7 @@ const items = corpus({
   villagers: villagers.all(),
   stories: stories.all(),
   drills: drills.all(),
+  grammar: grammar.all(),
   // «Vidim, vidim»: what a child says playing I spy in the scenes (companion/ispy, the app bundles it)
   ispy: readISpy(process.env.LANI_ISPY_DIR ?? join(root, 'companion/ispy')),
   ownVoice: id => !!personVoice(`@${id}`),
@@ -385,6 +524,59 @@ const items = corpus({
   // rendered for the learner ({learner}, {m:…|f:…}: addressee.ts), as the app says it
   learner: addresseeOf(join(appDir, '..'), language),
 })
+
+if (narrators) {
+  // the narrators' Slovene clips in their local voice: the corpus tells which are Slovene, no ElevenLabs
+  if (!villageVoices.localNarrators) {
+    console.log(language !== 'sl' ? `The narrators of this village (${language}) speak as its voice cast has them: nothing to do.` : 'LANI_VOICE_NARRATOR_SL=elevenlabs: the narrators speak with their ElevenLabs voices: nothing to do.')
+    process.exit(0)
+  }
+  // Slovene: a clip of this village's corpus, of a source the corpus has, or a line the app spoke here
+  const keys = new Set(items.map(i => clipKey(normalizeText(i.text), i.voice)))
+  const sources = new Set(items.map(i => i.source))
+  const spoken = new Set(['live', 'road'])
+  const slovene = (c: Clip) => keys.has(c.key) || sources.has(c.source) || spoken.has(c.source)
+  const { todo, skipped } = store.narratorQueue(slovene)
+  const count = (xs: Clip[]) => {
+    const by: Record<string, number> = {}
+    for (const c of xs) {
+      const k = `${c.voice} ${c.engine}${c.method === 'carrier' ? ' carrier' : ''}${c.engine === 'gepard' ? ` (${c.engine_voice ?? 'ana'})` : ''}`
+      by[k] = (by[k] ?? 0) + 1
+    }
+    return by
+  }
+  const up = await gepard.up()
+  const voices = { female: store.localVoiceOf('female'), male: store.localVoiceOf('male') }
+  if (!flag('--run')) {
+    if (flag('--json')) {
+      console.log(JSON.stringify({ voices, todo: todo.length, chars: todo.reduce((n, c) => n + c.text.length, 0), by: count(todo), skipped: skipped.map(c => ({ key: c.key, source: c.source, engine: c.engine, text: c.text })), gepard_up: up, dir: store.dir }, null, 2))
+      process.exit(0)
+    }
+    console.log(`The narrators' local voices: female ${voices.female}, male ${voices.male}. Their clips in ${store.dir} not in them yet: ${todo.length + skipped.length}`)
+    for (const [k, n] of Object.entries(count(todo)).sort((a, b) => b[1] - a[1])) console.log(`  ${k.padEnd(32)} ${String(n).padStart(5)}`)
+    console.log(`Slovene, to make again: ${todo.length} (${todo.reduce((n, c) => n + c.text.length, 0)} characters; about ${Math.ceil(todo.length / 60)} minutes at a second a clip)${max !== undefined && max < todo.length ? `; this run: ${max}` : ''}`)
+    if (skipped.length) {
+      console.log(`Left as they are, not known to be Slovene (not in this village's corpus, its sources, or spoken here): ${skipped.length}`)
+      for (const c of skipped) console.log(`  · ${c.voice.padEnd(7)} ${c.source.padEnd(24)} ${c.text.length > 60 ? `${c.text.slice(0, 59)}…` : c.text}`)
+    }
+    console.log(`Local Gepard worker: ${up ? 'up' : 'down (the run needs it)'}`)
+    console.log(`\nDry run: nothing changed. Each is made again by the local worker, its edges trimmed and levelled, under a new file name, the old`)
+    console.log('file removed once the new one is recorded. No ElevenLabs. The run can stop any time: the next one goes on where it stopped.')
+    console.log(`Re-voice with: companion/bin/voice-build --narrators --run${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`)
+    process.exit(0)
+  }
+  if (!up) {
+    console.error('voice-build --narrators: the local Gepard worker is down (LANI_GEPARD_URL)')
+    process.exit(1)
+  }
+  console.log(`Re-voicing ${max !== undefined ? Math.min(max, todo.length) : todo.length} of ${todo.length} narrator clip(s) in the local voice (female ${voices.female}, male ${voices.male}) …`)
+  const r = await store.revoiceNarrators(slovene, { max, out: line => console.log(line) })
+  console.log(`\nMade ${r.made} again in the local voice${r.skipped ? `; ${r.skipped} changed meanwhile` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} left${r.stopped ? ` (stopped: ${r.stopped})` : ''}.`)
+  if (r.made) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(r.failed || r.stopped ? 1 : 0)
+}
 
 const opts = { maxChars, upgrade: flag('--upgrade'), revoice, revoiceWords, max }
 

@@ -24,6 +24,9 @@ const speakerSpec = z.object({
   // says a lone word inside a carrier sentence, which is cut out (voice.ts, CARRIERS): an English library voice says a
   // lone Slovene word the English way
   carrier: z.boolean().optional(),
+  // the languages its ElevenLabs voice speaks natively ("en" for the English library narrators): a Slovene narrator line
+  // that the local voice can't make goes to a cast voice native in Slovene of the narrator's gender (nativeSpeaker)
+  native: z.array(z.string().regex(/^[a-z]{2}$/)).optional(),
   name: z.string().max(80).optional(),
   role: z.string().max(200).optional(),
 })
@@ -34,10 +37,10 @@ const castSpec = z
 export type Speaker = z.infer<typeof speakerSpec>
 export type Cast = Record<string, Speaker>
 
-/** The narrators alone, when there's no cast file: Matilda and Daniel, the worker's ana and marko. */
+/** The narrators alone, when there's no cast file: Matilda and Daniel (English), the worker's nina and marko. */
 export const NARRATORS: Cast = {
-  female: { gender: 'female', elevenlabs: 'XrExE9yKIg1WjnnlVkGX', gepard: 'ana', name: 'Matilda', carrier: true },
-  male: { gender: 'male', elevenlabs: 'onwK4e9ZLuTAKqWW03F9', gepard: 'marko', name: 'Daniel', carrier: true },
+  female: { gender: 'female', elevenlabs: 'XrExE9yKIg1WjnnlVkGX', gepard: 'nina', name: 'Matilda', carrier: true, native: ['en'] },
+  male: { gender: 'male', elevenlabs: 'onwK4e9ZLuTAKqWW03F9', gepard: 'marko', name: 'Daniel', carrier: true, native: ['en'] },
 }
 
 export const CAST_FILE = join(import.meta.dir, '../../voice-cast.json')
@@ -150,6 +153,15 @@ export const elevenlabsOf = (name: string): string | undefined => personVoice(na
  * library voices). A person's own voice is designed from Slovene and never needs it.
  */
 export const carrierVoice = (name: string): boolean => isSpeaker(name) && cast()[name].carrier === true
+
+/**
+ * A speaker of the cast whose ElevenLabs voice speaks [language] natively (its `native`), of [gender]: where a Slovene
+ * narrator line goes when the local voice can't make it (voice.ts). Undefined when the cast has none: the library has one
+ * Slovenian voice, and the cast doesn't use it.
+ */
+export function nativeSpeaker(gender: Gender, language: string): string | undefined {
+  return Object.entries(cast()).find(([, s]) => s.gender === gender && !!s.elevenlabs && !!s.native?.includes(language))?.[0]
+}
 
 /** Whether anyone in the cast has a voice (an ElevenLabs id or a local Gepard voice): a culture's cast may have none yet. */
 export const castVoiced = (): boolean => Object.values(cast()).some(s => !!s.elevenlabs || !!s.gepard)

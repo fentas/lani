@@ -1,14 +1,14 @@
 // Smoke checks: the voice store, companion/bin/voice-build, and the voice routes.
 import { Database } from 'bun:sqlite'
 import { createHash } from 'node:crypto'
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { CAST_FILE, carrierVoice, cast, fallbacks, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, denoisedFile, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardTempo, isMp3, isShortText, LEVEL, levelGain, mp3Duration, mp3Kbps, PACE, paceChain, processedFile, redoKept, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isShortText, LEVEL, levelGain, localNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, redoKept, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -170,7 +170,7 @@ export default async function voice() {
     const vbCultures = mkdtempSync(join(tmpdir(), 'lani-vb-cultures-'))
     mkdirSync(join(vbCultures, 'primorska'))
     cpSync(join(culturesDir, 'primorska/culture.json'), join(vbCultures, 'primorska/culture.json'))
-    const vbEnv = { ...process.env, LANI_CULTURES_DIR: vbCultures, LANI_DATA_DIR: vbData, LANI_PACKS_DIR: vbPacks, LANI_MODULES_DIR: vbModules, LANI_SCENARIOS_DIR: vbScenarios, LANI_SCENES_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-scenes-')), LANI_DRILLS_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-drills-')), LANI_VILLAGERS_DIR: vbVillagers, LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fe.url, LANI_GEPARD_URL: fg.url } as Record<string, string>
+    const vbEnv = { ...process.env, LANI_CULTURES_DIR: vbCultures, LANI_DATA_DIR: vbData, LANI_PACKS_DIR: vbPacks, LANI_MODULES_DIR: vbModules, LANI_SCENARIOS_DIR: vbScenarios, LANI_SCENES_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-scenes-')), LANI_DRILLS_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-drills-')), LANI_GRAMMAR_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-grammar-')), LANI_VILLAGERS_DIR: vbVillagers, LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fe.url, LANI_GEPARD_URL: fg.url, LANI_VOICE_NARRATOR_SL: 'elevenlabs' } as Record<string, string>
     // Async: the fake engines run in this process and must keep answering.
     const voiceBuildIn = async (env: Record<string, string>, ...args: string[]) => {
       const p = Bun.spawn(['bun', resolve(import.meta.dir, '../../../bin/voice-build'), ...args], { env, stdout: 'pipe', stderr: 'pipe' })
@@ -190,7 +190,7 @@ export default async function voice() {
     check('voice-build dry run prints a table, the stories and the drills by level: A1 before the scenes, the others after them', human.exitCode === 0 && human.stdout.includes('pack words') && /scenarios[\s\S]*stories A1[\s\S]*drills A1[\s\S]*scenes[\s\S]*stories A2[\s\S]*drills A2\+[\s\S]*stories B1\+/.test(human.stdout) && human.stdout.includes('Dry run'), human.stdout)
     const ran = await voiceBuild('--run')
     const ranOut = ran.stdout + ran.stderr
-    check('voice-build --run generates in priority order, the villager first in his speaker\'s voice', ran.exitCode === 0 && fe.st.tts.length - ttsBefore === plan.would.elevenlabs.texts && fg.st.calls.length - gpBefore === plan.would.gepard.texts && fe.st.tts[ttsBefore]?.body.text === 'Dober dan, mladi mož.' && fe.st.tts[ttsBefore]?.voice === cast().grandpa.elevenlabs && fg.st.calls[gpBefore]?.speaker === 'marko' && fg.st.calls.at(-1)?.text === 'Kruh, prosim.' && fg.st.calls.at(-1)?.speaker === 'ana', ranOut)
+    check('voice-build --run generates in priority order, the villager first in his speaker\'s voice', ran.exitCode === 0 && fe.st.tts.length - ttsBefore === plan.would.elevenlabs.texts && fg.st.calls.length - gpBefore === plan.would.gepard.texts && fe.st.tts[ttsBefore]?.body.text === 'Dober dan, mladi mož.' && fe.st.tts[ttsBefore]?.voice === cast().grandpa.elevenlabs && fg.st.calls[gpBefore]?.speaker === 'marko' && fg.st.calls.at(-1)?.text === 'Kruh, prosim.' && fg.st.calls.at(-1)?.speaker === 'nina', ranOut)
     check('voice-build never prints the key', !ranOut.includes('test-key'))
     const after = JSON.parse((await voiceBuild('--json')).stdout || '{}')
     check('after --run everything is cached', after.cached === 38 && after.missing === 0 && after.by_engine?.elevenlabs === plan.would.elevenlabs.texts, after)
@@ -239,6 +239,50 @@ export default async function voice() {
       const after2 = JSON.parse((await voiceBuild('--json')).stdout || '{}')
       check('voice-build --revoice-words --max 3 --run: three words again in their carrier sentence, counted for the day', rw.exitCode === 0 && fe.st.tts.length - tsBefore === 3 && fe.st.tts.slice(tsBefore).every(c => c.timestamps && c.body.text.startsWith('Beseda je: ')) && after2.carrier?.old === words.length - 3 && after2.carrier.carrier === 3 && after2.carrier.today === 3, [rw.stdout + rw.stderr, after2.carrier])
     }
+
+    // The narrators in the local voice (the default for a Slovene village): voice-build --narrators on this store, whose
+    // narrator clips are ElevenLabs' now (the English narrators, said plainly or in their carrier sentence)
+    {
+      const vbLocal = { ...vbEnv, LANI_VOICE_NARRATOR_SL: 'gepard' }
+      const nb = (...args: string[]) => voiceBuildIn(vbLocal, ...args)
+      const vdb = () => new Database(join(vbData, 'app/voice/voice.db'))
+      // one more: a narrator clip from another source than this village's corpus (another village's pack): left as it is
+      const foreign = `${createHash('sha1').update('smoke|foreign').digest('hex')}.mp3`
+      writeFileSync(join(vbData, 'app/voice/files', foreign), mp3('el:foreign'))
+      const d0 = vdb()
+      d0.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:buongiorno', 'buongiorno', 'Buongiorno', 'female', 'elevenlabs', foreign, 10, '2026-09-01T10:00:00.000Z', 'pack:it-saluti')
+      const narratorRows = () => (vdb().query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[])
+      const before = narratorRows()
+      d0.close()
+      const english = before.filter(c => c.engine === 'elevenlabs' && c.key !== 'female:buongiorno')
+      const ana = before.filter(c => c.engine === 'gepard' && c.voice === 'female' && c.engine_voice !== 'nina')
+      const ndry = JSON.parse((await nb('--narrators', '--json')).stdout || '{}')
+      const nhuman = await nb('--narrators')
+      check('voice-build --narrators (dry run): the narrators\' clips not in their local voice (ElevenLabs\' English narrators, the female narrator\'s ana), the Slovene ones to make again, the one from another village\'s pack left out and listed; nothing changed',
+        english.length > 5 && ndry.voices?.female === 'nina' && ndry.voices.male === 'marko' && ndry.todo === english.length + ana.length && ndry.skipped?.map((c: any) => c.key).join() === 'female:buongiorno' && ndry.gepard_up === true &&
+          nhuman.stdout.includes('Left as they are, not known to be Slovene') && nhuman.stdout.includes('pack:it-saluti') && nhuman.stdout.includes('--narrators --run') && JSON.stringify(narratorRows()) === JSON.stringify(before),
+        [ndry, nhuman.stdout])
+      const fgBefore = fg.st.calls.length
+      const ttsBefore2 = fe.st.tts.length
+      const n1 = await nb('--narrators', '--run', '--max', '2')
+      const left1 = JSON.parse((await nb('--narrators', '--json')).stdout || '{}').todo
+      const n2 = await nb('--narrators', '--run')
+      const nafter = narratorRows()
+      const nby = Object.fromEntries(nafter.map(c => [c.key, c]))
+      check('voice-build --narrators --run (--max 2, then the rest): each Slovene narrator clip made again by the local worker (nina, marko), never ElevenLabs, under a new name, the old file gone; the foreign one as it was',
+        n1.exitCode === 0 && n1.stdout.includes('Made 2 again') && left1 === ndry.todo - 2 && n2.exitCode === 0 && n2.stdout.includes(`Made ${ndry.todo - 2} again`) && fe.st.tts.length === ttsBefore2 && fg.st.calls.length - fgBefore === ndry.todo &&
+          fg.st.calls.slice(fgBefore).every((c: any) => c.speaker === 'nina' || c.speaker === 'marko') &&
+          [...english, ...ana].every(c => nby[c.key]?.engine === 'gepard' && nby[c.key].engine_voice === (c.voice === 'female' ? 'nina' : 'marko') && nby[c.key].file !== c.file && nby[c.key].hits === c.hits && nby[c.key].source === c.source && !existsSync(join(vbData, 'app/voice/files', c.file))) &&
+          nby['female:buongiorno']?.engine === 'elevenlabs' && nby['female:buongiorno'].file === foreign && JSON.parse((await nb('--narrators', '--json')).stdout || '{}').todo === 0,
+        [n1.stdout + n1.stderr, n2.stdout.slice(-400), nafter.filter(c => c.engine !== 'gepard')])
+      fg.st.up = false
+      const ndown = await nb('--narrators', '--run')
+      fg.st.up = true
+      check('voice-build --narrators --run with the worker down: stops, says so (the next run goes on)', ndown.exitCode === 1 && ndown.stderr.includes('worker is down'), ndown.stderr)
+      const plain = JSON.parse((await nb('--json')).stdout || '{}')
+      check('voice-build\'s plan in a Slovene village: the narrators\' texts go to the local worker, never the ElevenLabs budget', plain.would?.elevenlabs.texts === 0 && plain.missing === 0, plain.would)
+      check('voice-build --narrators where the narrators keep ElevenLabs (LANI_VOICE_NARRATOR_SL=elevenlabs): nothing to do', (await voiceBuild('--narrators')).stdout.includes('nothing to do'))
+    }
   }
 
   // --- a village in another language: ElevenLabs is told which (in-process against the fake) -------------------
@@ -246,6 +290,62 @@ export default async function voice() {
     const fe = fakeEleven()
     for (const language of ['it', 'de', 'en']) await new ElevenLabs({ key: 'test-key', base: fe.url, language }).synth('Ciao!', 'female')
     check('a village in Italian, German or English: each clip asks ElevenLabs for its language_code', JSON.stringify(fe.st.tts.map(c => c.body.language_code)) === '["it","de","en"]', fe.st.tts.map(c => c.body))
+  }
+
+  // --- the narrators of a Slovene village: the local voice, never the English library voices (in-process) ----------
+  {
+    const fe = fakeEleven()
+    const fg = fakeGepard()
+    const el = new ElevenLabs({ key: 'test-key', base: fe.url })
+    const ns = new VoiceStore({ appDir: tempDir('lani-narrators-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null, localNarrators: true, language: 'sl' })
+    const w = await ns.voice('kruh', 'female', 'pack:hrana')
+    check('a Slovene narrator line: the local voice first (female: nina), never Matilda, the quota there or not', w?.engine === 'gepard' && w.engine_voice === 'nina' && fg.st.calls.at(-1)?.speaker === 'nina' && fe.st.tts.length === 0 && ns.localNarrator('female') && !ns.localNarrator('grandma'), w)
+    const m = await ns.say('Dober dan, Jan.', 'male')
+    check('…a live line too (male: marko); a villager keeps ElevenLabs first', m?.engine === 'gepard' && fg.st.calls.at(-1)?.speaker === 'marko' && fe.st.tts.length === 0 && (await ns.voice('Kje je mlin?', 'grandpa', 'villager:janez'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().grandpa.elevenlabs, m)
+    fg.st.busy = true
+    const none = await ns.voice('Lahko noč.', 'female', 'test')
+    check('…the worker can\'t: no clip (the phone speaks), never an English narrator', none === null && fe.st.tts.every(c => c.voice !== cast().female.elevenlabs && c.voice !== cast().male.elevenlabs), [none, fe.st.tts.map(c => c.voice)])
+    // a voice native in Slovene in the cast, male: the male narrator's fallback, not the female's
+    const castDir = tempDir('lani-narrators-cast-')
+    const withNative = JSON.parse(readFileSync(CAST_FILE, 'utf8'))
+    withNative.speakers.uros = { gender: 'male', elevenlabs: 'UrosNativeVoice001', native: ['sl'], name: 'Uros' }
+    writeFileSync(join(castDir, 'voice-cast.json'), JSON.stringify(withNative))
+    process.env.LANI_VOICE_CAST = join(castDir, 'voice-cast.json')
+    const um = await ns.voice('Lahko noč.', 'male', 'test')
+    const uf = await ns.voice('Lahko noč.', 'female', 'test')
+    check('…with a voice native in Slovene in the cast of the narrator\'s gender: that one, plainly (no carrier sentence), as the narrator\'s clip; not for the other gender',
+      um?.engine === 'elevenlabs' && um.voice === 'male' && um.engine_voice === 'UrosNativeVoice001' && fe.st.tts.at(-1)?.voice === 'UrosNativeVoice001' && fe.st.tts.at(-1)?.body.text === 'Lahko noč.' && !fe.st.tts.at(-1)?.timestamps && uf === null, [um, uf])
+    delete process.env.LANI_VOICE_CAST
+    fg.st.busy = false
+    // a clip from before, in an English narrator's voice: not re-voiced by ElevenLabs lazily, re-recorded in the local voice
+    const old = `${createHash('sha1').update('smoke|narrator|old').digest('hex')}.mp3`
+    writeFileSync(join(ns.filesDir, old), mp3('el:old:mleko'))
+    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:mleko', 'mleko', 'mleko', 'female', 'elevenlabs', old, 6, '2026-09-01T10:00:00.000Z', 'pack:hrana', 4)
+    const oldRow = ns.get('mleko', 'female')!
+    check('an English narrator\'s word from before: not old-style (no lazy ElevenLabs re-voice), not in the local voice', !ns.oldStyle(oldRow) && ns.revoiceQueue(false).length === 0 && !ns.inLocalVoice(oldRow) && ns.inLocalVoice(w!), oldRow)
+    const ttsBefore = fe.st.tts.length
+    const r1 = await ns.redo('mleko', 'female')
+    const r2 = await ns.redo('mleko', 'female')
+    check('…a re-record (long press) makes it in the local voice now, not counted, the old file gone; again: the local voice says it the same way (not_needed)',
+      r1.status === 'done' && r1.clip.engine === 'gepard' && r1.clip.engine_voice === 'nina' && r1.clip.hits === 4 && !existsSync(join(ns.filesDir, old)) && fe.st.tts.length === ttsBefore && ns.revoicedToday() === 0 &&
+        r2.status === 'not_needed' && r2.clip.file === r1.clip.file, [r1, r2])
+    // the female narrator's clips made with ana (before nina; no engine voice recorded) wait for the local voice too
+    const anaFile = `${createHash('sha1').update('smoke|narrator|ana').digest('hex')}.mp3`
+    writeFileSync(join(ns.filesDir, anaFile), mp3('gp:ana:sir'))
+    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:sir', 'sir', 'sir', 'female', 'gepard', anaFile, 3, '2026-09-02T10:00:00.000Z', 'pack:hrana')
+    const markoFile = `${createHash('sha1').update('smoke|narrator|marko').digest('hex')}.mp3`
+    writeFileSync(join(ns.filesDir, markoFile), mp3('gp:marko:jajce'))
+    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run('male:jajce', 'jajce', 'jajce', 'male', 'gepard', markoFile, 5, '2026-09-02T10:00:00.000Z', 'pack:hrana')
+    const q = ns.narratorQueue(c => c.source.startsWith('pack:'))
+    check('the narrator queue: the female narrator\'s ana clip waits, the male\'s marko (the same voice) doesn\'t; a clip not known to be Slovene (the native voice\'s, from a test) is apart',
+      q.todo.map(c => c.key).join() === 'female:sir' && q.skipped.length === 1 && q.skipped[0].voice === 'male' && q.skipped[0].engine === 'elevenlabs' && ns.narratorStats().local && ns.narratorStats().voices.female === 'nina' && ns.narratorStats().other === 2, [q, ns.narratorStats()])
+    const rn = await ns.revoiceNarrators(c => c.source.startsWith('pack:'), { waitMs: 0 })
+    check('…made again by the worker in nina, the old file gone; nothing waits then', rn.made === 1 && rn.left === 0 && ns.get('sir', 'female')?.engine_voice === 'nina' && !existsSync(join(ns.filesDir, anaFile)) && ns.narratorQueue(c => c.source.startsWith('pack:')).todo.length === 0, rn)
+    ns.close()
+    // where the narrators keep ElevenLabs (LANI_VOICE_NARRATOR_SL=elevenlabs, another village): as before
+    const en = new VoiceStore({ appDir: tempDir('lani-narrators-en-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null })
+    check('…a store whose narrators keep ElevenLabs: Matilda first, as before', (await en.voice('Dober večer, Jan.', 'female', 'test'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().female.elevenlabs && en.narratorQueue(() => true).todo.length === 0)
+    en.close()
   }
 
   // --- a lone word in a carrier sentence, cut out (in-process against the fake) ---------------------------
@@ -436,15 +536,16 @@ export default async function voice() {
     check('denoise in the cast: a speaker or someone\'s own voice → a preset (true: hiss); a typo, an unknown preset, false: left out, the rest of the cast stays',
       JSON.stringify(denoiseVoices()) === JSON.stringify({ grandma: 'hiss', female: 'hiss', '@janez': 'hiss-strong' }) && cast().male?.elevenlabs === castJson.speakers.male.elevenlabs && Object.keys(cast()).length === Object.keys(castJson.speakers).length, denoiseVoices())
 
-    // the real filter (ffmpeg): 1 s of hiss at −51 dBFS, then a tone in it, then hiss again
-    const noisy = ffmpeg && Bun.spawnSync(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', "aevalsrc='0.5*sin(2*PI*440*t)*between(t,1,1.5)+0.005*(2*random(0)-1)':s=44100:d=1.8", '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '128k', '-f', 'mp3', 'pipe:1'])
+    // the real filter (ffmpeg): hiss at −51 dBFS all through, a tone in it at the start and at the end (so there is no
+    // silence at the edges to trim: EDGES), a pause of hiss alone between them (measured from 0.8 s: past the gate's release)
+    const noisy = ffmpeg && Bun.spawnSync(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i', "aevalsrc='0.5*sin(2*PI*440*t)*(between(t,0,0.5)+between(t,1.3,1.8))+0.005*(2*random(0)-1)':s=44100:d=1.8", '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '128k', '-f', 'mp3', 'pipe:1'])
     const pcm = (b: Uint8Array) => new Float32Array(Bun.spawnSync(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-f', 'mp3', '-i', 'pipe:0', '-ac', '1', '-ar', '44100', '-f', 'f32le', 'pipe:1'], { stdin: b }).stdout.buffer)
     const level = (x: Float32Array, from: number, to: number) => {
       let e = 0
       for (let k = Math.floor(from * 44100); k < Math.floor(to * 44100); k++) e += x[k] ** 2
       return 10 * Math.log10(e / ((to - from) * 44100) + 1e-12)
     }
-    const onset = (x: Float32Array) => x.findIndex((v, i) => i > 22050 && Math.abs(v) > 0.25) / 44100
+    const onset = (x: Float32Array) => x.findIndex((v, i) => i > 0.9 * 44100 && Math.abs(v) > 0.25) / 44100 // the second tone's
     let hissy = mp3('not audio')
     if (noisy && noisy.exitCode === 0) {
       hissy = new Uint8Array(noisy.stdout)
@@ -452,8 +553,8 @@ export default async function voice() {
       const out = await f(hissy, 'hiss')
       const [a, b] = [pcm(hissy), out ? pcm(out) : new Float32Array()]
       check('the filter (hiss): the hiss goes (over 20 dB), the tone stays (within 1 dB), nothing moves in time (the 25 ms of afftdn put back) and the length stays',
-        !!out && isMp3(out) && level(a, 0.2, 0.9) - level(b, 0.2, 0.9) > 20 && Math.abs(level(a, 1.1, 1.4) - level(b, 1.1, 1.4)) < 1 && Math.abs(onset(a) - onset(b)) < 0.002 && Math.abs(a.length - b.length) < 0.01 * 44100,
-        [level(a, 0.2, 0.9), level(b, 0.2, 0.9), level(a, 1.1, 1.4), level(b, 1.1, 1.4), onset(a), onset(b), a.length, b.length])
+        !!out && isMp3(out) && level(a, 0.8, 1.2) - level(b, 0.8, 1.2) > 20 && Math.abs(level(a, 1.4, 1.7) - level(b, 1.4, 1.7)) < 1 && Math.abs(onset(a) - onset(b)) < 0.002 && Math.abs(a.length - b.length) < 0.01 * 44100,
+        [level(a, 0.8, 1.2), level(b, 0.8, 1.2), level(a, 1.4, 1.7), level(b, 1.4, 1.7), onset(a), onset(b), a.length, b.length])
       check('the filter: hiss-strong is a preset too; no ffmpeg, no filter', !!(await f(hissy, 'hiss-strong')) && !ffmpegDenoiser('off') && !ffmpegDenoiser('/nonexistent/ffmpeg') && (await f(mp3('not audio'), 'hiss')) === null)
     }
 
@@ -578,7 +679,7 @@ export default async function voice() {
           others.every(c => !c.denoise && c.level == null && c.file === oldFile[`${c.voice}:${c.text}`] && existsSync(join(vbData, 'app/voice/files', c.file))) && fe.st.tts.length === tts0,
         [run1.stdout + run1.stderr, run2.stdout, run3.stdout, rows])
       const clip = new Uint8Array(readFileSync(join(vbData, 'app/voice/files', janez[0].file)))
-      check('the filtered clip is audio, as long as before, with less hiss', isMp3(clip) && Math.abs(pcm(clip).length - pcm(hissy).length) < 0.01 * 44100 && level(pcm(hissy), 0.2, 0.9) - level(pcm(clip), 0.2, 0.9) > 20)
+      check('the filtered clip is audio, as long as before (no silence at its edges), with less hiss', isMp3(clip) && Math.abs(pcm(clip).length - pcm(hissy).length) < 0.01 * 44100 && level(pcm(hissy), 0.8, 1.2) - level(pcm(clip), 0.8, 1.2) > 20)
       const n = bridge.checkExternal()
       check('the bridge sees clips another process changed (voice-build) and tells the app once (voice_updated)', n === 3 && told.join() === '3' && bridge.checkExternal() === 0 && told.length === 1, [n, told])
       await bridge.voice('Dober večer.', 'female', 'test')
@@ -599,11 +700,34 @@ export default async function voice() {
       [levelGain({ lufs: -10, peak: -6 }), levelGain({ lufs: -50, peak: -40 })])
     check('no ffmpeg, no level', !ffmpegLeveller('off') && !ffmpegLeveller('/nonexistent/ffmpeg') && !ffmpegLoudness('off') && !ffmpegRecordingLeveller('off'))
     const said: string[] = []
-    const heard = (v: string) => gepardTempo({ LANI_VOICE_GEPARD_TEMPO: v }, (...a) => void said.push(a.join(' ')))
-    check('the local voice\'s pace: LANI_VOICE_GEPARD_TEMPO a factor from 0.5 to 2, "off" or 0 for none, else 1.05 (a value out of range logged)',
-      gepardTempo({}) === PACE.tempo && PACE.tempo === 1.05 && heard('1.2') === 1.2 && heard('1') === 1 && heard('off') === null && heard('0') === null && heard('3') === PACE.tempo && heard('fast') === PACE.tempo && said.length === 2 && !ffmpegPace('off'),
+    const heard = (e: Record<string, string>) => JSON.stringify(gepardPace(e, (...a) => void said.push(a.join(' '))))
+    check('the local voice\'s pace: none by default (its own); LANI_VOICE_GEPARD_TEMPO a factor from 0.5 to 2, LANI_VOICE_GEPARD_PAUSES the longest pause (0.1 to 2 s), "off" or 0 for none (a wrong value logged, left out)',
+      gepardPace({}) === null && heard({ LANI_VOICE_GEPARD_TEMPO: '1' }) === 'null' && heard({ LANI_VOICE_GEPARD_TEMPO: 'off' }) === 'null' && heard({ LANI_VOICE_GEPARD_TEMPO: '1.2' }) === '{"tempo":1.2,"pause":null}' &&
+        heard({ LANI_VOICE_GEPARD_PAUSES: '0.4' }) === '{"tempo":1,"pause":0.4}' && heard({ LANI_VOICE_GEPARD_TEMPO: '3' }) === 'null' && heard({ LANI_VOICE_GEPARD_PAUSES: 'long' }) === 'null' && said.length === 2 && !ffmpegPace('off'),
       said)
-    check('…its chain: the silences shortened (before, the pauses, after), then atempo; at 1 none', paceChain(1.05).startsWith('silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.05:') && paceChain(1.05).endsWith(',areverse,atempo=1.05') && !paceChain(1).includes('atempo') && charsPerSecond(' Dober dan. ', 2) === 5, paceChain(1.05))
+    check('…its chain: the pauses shortened, then atempo; neither for its own pace', paceChain({ tempo: 1.05, pause: 0.4 }) === 'silenceremove=stop_periods=-1:stop_threshold=-50dB:stop_duration=0.2:stop_silence=0.2,atempo=1.05' && paceChain({ tempo: 1, pause: null }) === '' && charsPerSecond(' Dober dan. ', 2) === 5, paceChain({ tempo: 1.05, pause: 0.4 }))
+    // the edges: [parts] of a 300 Hz tone, each [secs] long at [db] dBFS RMS (−120: silence), at 32 kHz
+    const tone32 = (parts: [number, number][]) => {
+      const x = new Float32Array(Math.round(parts.reduce((n, [d]) => n + d, 0) * 32_000))
+      let i = 0
+      for (const [d, db] of parts) for (let k = 0; k < Math.round(d * 32_000); k++, i++) x[i] = Math.SQRT2 * 10 ** (db / 20) * Math.sin((2 * Math.PI * 300 * i) / 32_000)
+      return x
+    }
+    const soft = edgesOf(tone32([[0.5, -120], [0.08, -52], [0.6, -20], [0.06, -55], [0.3, -120]]), 32_000)
+    const hard = edgesOf(tone32([[0.5, -120], [0.08, -66], [0.6, -20], [0.3, -120]]), 32_000)
+    check('the edges: the sound from the first 20 ms over −45 dBFS, back and on while over −60 (a soft h rising, a vowel fading, kept); under −60 silence',
+      Math.abs(soft.lead - 0.5) < 0.021 && Math.abs(soft.tail - 0.3) < 0.021 && Math.abs(hard.lead - 0.58) < 0.021 && Math.abs(hard.tail - 0.3) < 0.021 && EDGES.threshold === -45 && EDGES.floor === -60 &&
+        // measured as loud as the gain will make it: −52 + 10 dB is over −45
+        Math.abs(edgesOf(tone32([[0.5, -120], [0.2, -64], [0.6, -20], [0.3, -120]]), 32_000, 10).lead - 0.5) < 0.021 && edgesOf(tone32([[1, -120]]), 32_000).lead === 1,
+      [soft, hard])
+    check('…the trim: 0.05 s kept before the sound, 0.1 s after it, with a short fade where it cuts; a clip encoded anyway trimmed to that, else only over 0.1 s before or 0.2 s after',
+      trimChain({ secs: 1.44, lead: 0.5, tail: 0.3 }) === 'atrim=start=0.450:end=1.240,asetpts=PTS-STARTPTS,afade=t=in:d=0.005,afade=t=out:st=0.780:d=0.01' &&
+        trimChain({ secs: 1, lead: 0.02, tail: 0.3 }) === 'atrim=end=0.800,asetpts=PTS-STARTPTS,afade=t=out:st=0.790:d=0.01' && trimChain({ secs: 1, lead: 0.04, tail: 0.05 }) === '' && trimChain({ secs: 1, lead: 1, tail: 0 }) === '' &&
+        trimmable({ secs: 1, lead: 0.08, tail: 0 }) && !trimmable({ secs: 1, lead: 0.08, tail: 0 }, true) && trimmable({ secs: 1, lead: 0.12, tail: 0 }, true) && !trimmable({ secs: 1, lead: 0.02, tail: 0.18 }, true) && trimmable({ secs: 1, lead: 0.02, tail: 0.25 }, true) && !trimmable({ secs: 1, lead: 1, tail: 0 }) && !ffmpegEdges('off'),
+      [trimChain({ secs: 1.44, lead: 0.5, tail: 0.3 }), trimChain({ secs: 1, lead: 0.02, tail: 0.3 })])
+    check('the narrators of a Slovene village speak with the local voice (LANI_VOICE_NARRATOR_SL=elevenlabs: as before); another village\'s as its cast has them',
+      localNarrators('sl', {}) && localNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'gepard' }) && !localNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'elevenlabs' }) && !localNarrators('en', {}) && !localNarrators('it', { LANI_VOICE_NARRATOR_SL: 'gepard' }) &&
+        cast().female.gepard === 'nina' && cast().male.gepard === 'marko' && cast().female.native?.join() === 'en')
   }
   if (ffmpeg) {
     // speech-like test clips: a vowel-like tone (180 Hz, its level moving 4 times a second) after [lead] s of silence
@@ -647,12 +771,14 @@ export default async function voice() {
     const vs = new VoiceStore({ appDir: dir, engines: [stub('elevenlabs', loud)], queueDelayMs: 0, onUpdated: n => void updated.push(n) })
     const zala = await vs.voice('Živjo, Jan!', 'girl', 'test')
     const zm = zala ? await measure(new Uint8Array(readFileSync(join(vs.filesDir, zala.file)))) : null
+    const ze = zala ? await ffmpegEdges()!(new Uint8Array(readFileSync(join(vs.filesDir, zala.file)))) : null
     check('a new clip is levelled before it is stored: its row records the level and the gain', zala?.level === LEVEL.target && (zala.gain ?? 0) < -5 && vs.get(normalizeText('Živjo, Jan!'), 'girl')?.level === LEVEL.target && near(zm), [zala, zm])
-    check('…so it is not levelled twice: nothing waits, the batch does nothing', vs.levelQueue().length === 0 && (await vs.levelClips()).done === 0 && vs.levelStats().levelled === 1 && vs.levelStats().waiting === 0, vs.levelStats())
+    check('…and its silence at the edges trimmed in the same encode (0.4 s before the sound down to 0.05 s), recorded (edges)', zala?.edges === 1 && !!ze && Math.abs(ze.lead - EDGES.lead) <= 0.03 && Math.abs(ze.secs - (1.6 - 0.35)) < 0.05, [zala, ze])
+    check('…so it is not levelled or trimmed twice: nothing waits, the batch does nothing', vs.levelQueue().length === 0 && vs.edgesQueue().length === 0 && (await vs.levelClips()).done === 0 && (await vs.edgesClips()).done === 0 && vs.levelStats().levelled === 1 && vs.levelStats().waiting === 0 && vs.edgesStats().done === 1, vs.levelStats())
     const lvs = new VoiceStore({ appDir: tempDir('lani-level-gepard-'), engines: [stub('gepard', local)], queueDelayMs: 0 })
     const kruh = await lvs.voice('Kruh je še topel.', 'male', 'test')
     const kb = kruh ? new Uint8Array(readFileSync(join(lvs.filesDir, kruh.file))) : new Uint8Array()
-    check('…a local worker\'s clip too, in its own encoding (and paced in the same encode)', kruh?.engine === 'gepard' && kruh.level === LEVEL.target && kruh.tempo === lvs.tempo && lvs.tempo !== null && near(await measure(kb)) && rateOf(kb) === 22050 && mp3Kbps(kb) === 64, kruh)
+    check('…a local worker\'s clip too, in its own encoding, at its own pace (its edges trimmed)', kruh?.engine === 'gepard' && kruh.level === LEVEL.target && kruh.tempo === null && kruh.edges === 1 && lvs.pace === null && near(await measure(kb)) && rateOf(kb) === 22050 && mp3Kbps(kb) === 64, kruh)
     lvs.close()
 
     // a voice that hisses: filtered and levelled in one encode (the level runs its filter first)
@@ -661,9 +787,9 @@ export default async function voice() {
     castJson.denoise = { grandma: 'hiss' }
     writeFileSync(join(castDir, 'voice-cast.json'), JSON.stringify(castJson))
     process.env.LANI_VOICE_CAST = join(castDir, 'voice-cast.json')
-    const hissy = gen("0.5*sin(2*PI*440*t)*between(t,1,1.5)+0.005*(2*random(0)-1)", 1.8)
+    const hissy = gen("0.5*sin(2*PI*440*t)*(between(t,0,0.5)+between(t,1.3,1.8))+0.005*(2*random(0)-1)", 1.8) // no silence at its edges
     const calls: (string | undefined)[] = []
-    const spy: Leveller = { target: lv.target, level: (b, pre) => (calls.push(pre), lv.level(b, pre)) }
+    const spy: Leveller = { target: lv.target, level: (b, o) => (calls.push(o?.denoise), lv.level(b, o)) }
     const hs = new VoiceStore({ appDir: tempDir('lani-level-hiss-'), engines: [stub('elevenlabs', hissy)], queueDelayMs: 0, level: spy })
     const gm = await hs.voice('Dober večer.', 'grandma', 'test')
     const [h0, h1] = [samples(hissy), gm ? samples(new Uint8Array(readFileSync(join(hs.filesDir, gm.file)))) : new Float32Array()]
@@ -673,7 +799,7 @@ export default async function voice() {
       return 10 * Math.log10(e / ((to - from) * 44100) + 1e-12)
     }
     // the tone over the hiss, before and after: the hiss went down (the filter) more than the tone (the gain)
-    const snr = (x: Float32Array) => rms(x, 1.1, 1.4) - rms(x, 0.2, 0.9)
+    const snr = (x: Float32Array) => rms(x, 1.4, 1.7) - rms(x, 0.8, 1.2)
     check('a flagged voice\'s new clip: its filter and the level in one encode (the level called once, with the preset), both recorded',
       gm?.denoise === 'hiss' && gm.level === LEVEL.target && JSON.stringify(calls) === '["hiss"]' && snr(h1) - snr(h0) > 15 && near(await measure(new Uint8Array(readFileSync(join(hs.filesDir, gm.file))))), [gm, calls, snr(h0), snr(h1)])
     hs.close()
@@ -700,7 +826,7 @@ export default async function voice() {
       ['Živjo! Zakaj si tukaj?', 'boy', 'elevenlabs', loud], // loud, and no hiss (the girl's voice is filtered too),
       ['Tiho. Poslušaj.', 'grandpa', 'elevenlabs', quiet],
       ['Adijo! Grem nazaj v Brda.', 'male', 'gepard', local],
-      ['okno', 'female', 'elevenlabs', l!.bytes], // at the level already
+      ['okno', 'female', 'elevenlabs', s!.bytes], // at the level already, no silence at its edges
       ['Bravo, fant.', '@janez', 'elevenlabs', hissy], // a voice that hisses: filtered in the same encode
     ]
     clips.forEach(([text, voice, engine, bytes], i) => {
@@ -729,7 +855,7 @@ export default async function voice() {
     const dj = JSON.parse((await vb('--level', '--json', '--data', vbData)).stdout || '{}')
     const row = (voice: string) => dj.clips?.find((c: any) => c.voice === voice)
     check('voice-build --level (dry run): every clip measured, each voice\'s loudness now and the gain (the loud one down, the quiet one up, the one at the level kept, the one that hisses filtered too); nothing changed',
-      dry.exitCode === 0 && dj.target === LEVEL.target && dj.waiting === 5 && dj.measured === 5 && row('boy')?.gain < -5 && row('grandpa')?.gain > 5 && row('female')?.keep === true && row('@janez')?.denoise === 'hiss' && row('male')?.tempo === PACE.tempo && dj.voices?.['boy elevenlabs']?.lufs.median > -12 &&
+      dry.exitCode === 0 && dj.target === LEVEL.target && dj.waiting === 5 && dj.measured === 5 && row('boy')?.gain < -5 && row('grandpa')?.gain > 5 && row('female')?.keep === true && row('@janez')?.denoise === 'hiss' && row('male')?.tempo === undefined && dj.voices?.['boy elevenlabs']?.lufs.median > -12 &&
         dry.stdout.includes('boy elevenlabs') && dry.stdout.includes('Dry run') && dry.stdout.includes('--level --run') && !cols().includes('level') && Object.values(oldFile).every(f => existsSync(join(vbData, 'app/voice/files', f))),
       [dry.stdout, dry.stderr, dj])
     check('voice-build --level: no --max-chars (no characters are spent), not with another mode', (await vb('--level', '--max-chars', '10', '--data', vbData)).exitCode === 2 && (await vb('--level', '--denoise', '--data', vbData)).exitCode === 2)
@@ -745,11 +871,11 @@ export default async function voice() {
     d.close()
     const at = (voice: string) => new Uint8Array(readFileSync(join(vbData, 'app/voice/files', rows[voice].file)))
     const levels = await Promise.all(Object.keys(rows).map(v => measure(at(v))))
-    check('voice-build --level --run (--max 2, then the rest, then nothing): each clip levelled once, under a new name, the old file gone; the one at the level kept (its file, gain 0); Janez\'s filtered in the same encode, the local one paced',
+    check('voice-build --level --run (--max 2, then the rest, then nothing): each clip levelled once, its edges trimmed in the same encode, under a new name, the old file gone; the one at the level kept (its file, gain 0); Janez\'s filtered in the same encode, the local one at its own pace',
       run1.exitCode === 0 && run1.stdout.includes('Levelled 2 clip(s)') && run2.exitCode === 0 && run2.stdout.includes('Levelled 3 clip(s)') && run3.stdout.includes('Levelled 0 clip(s)') &&
-        Object.values(rows).every(c => c.level === LEVEL.target && c.hits === 2) &&
-        ['boy', 'grandpa'].every(v => rows[v].file === processedFile(oldFile[v], { level: LEVEL.target }) && !existsSync(join(vbData, 'app/voice/files', oldFile[v]))) &&
-        rows.male.tempo === PACE.tempo && rows.male.file === processedFile(oldFile.male, { level: LEVEL.target, tempo: PACE.tempo }) && !existsSync(join(vbData, 'app/voice/files', oldFile.male)) && rows.boy.tempo == null &&
+        Object.values(rows).every(c => c.level === LEVEL.target && c.hits === 2 && c.edges === 1) &&
+        ['boy', 'grandpa', 'male'].every(v => rows[v].file === processedFile(oldFile[v], { level: LEVEL.target, edges: true }) && !existsSync(join(vbData, 'app/voice/files', oldFile[v]))) &&
+        rows.male.tempo == null && rows.boy.tempo == null &&
         rows.female.file === oldFile.female && rows.female.gain === 0 && rows['@janez'].denoise === 'hiss' && rows['@janez'].file === processedFile(oldFile['@janez'], { denoise: 'hiss', level: LEVEL.target }) &&
         levels.every(m => near(m)) && rateOf(at('male')) === 22050 && mp3Kbps(at('male')) === 64,
       [run1.stdout + run1.stderr, run2.stdout, run3.stdout, rows, levels])
@@ -779,7 +905,7 @@ export default async function voice() {
     const sb = new Uint8Array(await stored.arrayBuffer())
     check('POST /audio: a loud recording is stored at the level, as an m4a still', up.ok && stored.ok && stored.headers.get('content-type') === 'audio/mp4' && Math.abs(loudnessOf(sb, 'm4a') - LEVEL.target) <= 0.5, [upBody, loudnessOf(sb, 'm4a')])
 
-    // --- the local voice's pace: its silences shortened, a slight speed-up, in the level's encode -------------------
+    // --- the local voice: its own pace, its edges trimmed; a pace only when one is set ------------------------------
     const worker = workerClip()
     const pace = ffmpegPace()!
     const p0 = await pace(worker)
@@ -790,51 +916,59 @@ export default async function voice() {
     fg.st.audio = worker
     const pdir = tempDir('lani-pace-')
     const ps = new VoiceStore({ appDir: pdir, engines: [new Gepard({ url: fg.url })], queueDelayMs: 0 })
-    const factor = ps.tempo!
     const said = 'Dober dan. Kako ste?'
     const pc = await ps.voice(said, 'male', 'test')
     const pb = pc ? new Uint8Array(readFileSync(join(ps.filesDir, pc.file))) : new Uint8Array()
     const p1 = await pace(pb)
-    check('a clip from the local worker is paced before it is stored: 0.05 s of silence before its sound, 0.1 s after it, the pause down to 0.4 s, sped up by the factor (1.05); recorded (tempo), levelled in the same encode, in its own encoding',
-      pc?.engine === 'gepard' && factor === PACE.tempo && pc.tempo === factor && pc.level === LEVEL.target && !!p1 && p1.lead <= 0.08 && p1.tail <= 0.16 && Math.abs(p1.longest - PACE.pause / factor) < 0.06 && Math.abs(p1.sound - 1.6 / factor) < 0.1 &&
-        Math.abs(p1.secs - (PACE.lead + 1.6 + PACE.pause + PACE.tail) / factor) < 0.12 && near(await measure(pb)) && rateOf(pb) === 22050 && mp3Kbps(pb) === 64,
+    check('a clip from the local worker keeps its own pace: only its edges trimmed (0.05 s before its sound, 0.1 s after it), its pause and its speed as made; recorded (edges, no tempo), levelled in the same encode, in its own encoding',
+      pc?.engine === 'gepard' && ps.pace === null && pc.tempo === null && pc.edges === 1 && pc.level === LEVEL.target && !!p1 && p1.lead <= 0.08 && p1.tail <= 0.16 && Math.abs(p1.longest - 1) < 0.06 && Math.abs(p1.sound - 1.6) < 0.1 &&
+        Math.abs(p1.secs - (EDGES.lead + 1.6 + 1 + EDGES.tail)) < 0.12 && near(await measure(pb)) && rateOf(pb) === 22050 && mp3Kbps(pb) === 64,
       [pc, p0, p1])
-    check('…so it is not paced twice: nothing waits, the batch does nothing', ps.tempoQueue().length === 0 && (await ps.tempoClips()).done === 0 && JSON.stringify(ps.tempoStats()) === JSON.stringify({ tempo: factor, paced: 1, waiting: 0, ffmpeg: true }), ps.tempoStats())
-    const off = new VoiceStore({ appDir: tempDir('lani-pace-off-'), engines: [new Gepard({ url: fg.url })], queueDelayMs: 0, tempo: null })
-    const oc = await off.voice(said, 'male', 'test')
-    const po = oc ? await pace(new Uint8Array(readFileSync(join(off.filesDir, oc.file)))) : null
-    check('…the pace off (LANI_VOICE_GEPARD_TEMPO=off): as the worker made it, only levelled, under another name; nothing waits for the pace',
-      oc?.engine === 'gepard' && oc.tempo === null && oc.level === LEVEL.target && oc.file !== pc?.file && !!po && Math.abs(po.secs - 3.9) < 0.1 && off.tempoQueue().length === 0 && off.tempoStats().tempo === null, [oc, po])
-    off.close()
-    const pel = await new VoiceStore({ appDir: pdir, engines: [stub('elevenlabs', worker)], queueDelayMs: 0 }).voice('Dober večer.', 'female', 'test')
-    check('…an ElevenLabs clip keeps its pace (only the local voice is paced)', pel?.engine === 'elevenlabs' && pel.tempo == null && pel.level === LEVEL.target && ps.tempoQueue().length === 0, pel)
+    check('…its name carries the worker\'s voice (marko), recorded too; nothing waits for a pace; it is not trimmed twice',
+      pc?.engine_voice === 'marko' && fg.st.calls.at(-1)?.speaker === 'marko' && ps.tempoQueue().length === 0 && (await ps.tempoClips()).done === 0 && ps.edgesQueue().length === 0 &&
+        JSON.stringify(ps.tempoStats()) === JSON.stringify({ tempo: null, pause: null, paced: 0, waiting: 0, ffmpeg: true }), [pc, ps.tempoStats()])
+    // a pace set (LANI_VOICE_GEPARD_TEMPO=1.05, LANI_VOICE_GEPARD_PAUSES=0.4): the pause shortened, sped up, then the edges
+    const set = new VoiceStore({ appDir: tempDir('lani-pace-set-'), engines: [new Gepard({ url: fg.url })], queueDelayMs: 0, pace: { tempo: 1.05, pause: 0.4 } })
+    const sc = await set.voice(said, 'male', 'test')
+    const s1 = sc ? await pace(new Uint8Array(readFileSync(join(set.filesDir, sc.file)))) : null
+    check('…with a pace set: the pause down to 0.4 s and sped up ×1.05 in the same encode, the edges trimmed after; recorded (tempo)',
+      sc?.tempo === 1.05 && sc.edges === 1 && !!s1 && s1.lead <= 0.08 && s1.tail <= 0.16 && Math.abs(s1.longest - 0.4 / 1.05) < 0.06 && Math.abs(s1.secs - (EDGES.lead + (1.6 + 0.4) / 1.05 + EDGES.tail)) < 0.12 && set.tempoQueue().length === 0, [sc, s1])
+    const pel = await new VoiceStore({ appDir: pdir, engines: [stub('elevenlabs', worker)], queueDelayMs: 0, pace: { tempo: 1.05, pause: 0.4 } }).voice('Dober večer.', 'female', 'test')
+    const pe = pel ? await pace(new Uint8Array(readFileSync(join(ps.filesDir, pel.file)))) : null
+    check('…an ElevenLabs clip keeps its pace (only the local voice is paced), its edges trimmed as every clip\'s', pel?.engine === 'elevenlabs' && pel.tempo == null && pel.edges === 1 && pel.level === LEVEL.target && !!pe && Math.abs(pe.longest - 1) < 0.06 && pe.lead <= 0.08, [pel, pe])
     // a new factor: the clips paced at the old one are sped up by the difference, from their files as they are
-    const faster = new VoiceStore({ appDir: pdir, engines: [], tempo: 1.2 })
+    const faster = new VoiceStore({ appDir: set.dir.replace(/\/voice$/, ''), engines: [], pace: { tempo: 1.2, pause: 0.4 } })
     const waits = faster.tempoQueue().map(c => c.key)
     const fr = await faster.tempoClips()
     const fc = faster.get(normalizeText(said), 'male')
-    const p2 = fc ? await pace(new Uint8Array(readFileSync(join(ps.filesDir, fc.file)))) : null
+    const p2 = fc ? await pace(new Uint8Array(readFileSync(join(set.filesDir, fc.file)))) : null
     check('a new factor (1.2): the clip paced at 1.05 waits, and is sped up by the difference from its file, under a new name, levelled again',
-      waits.join() === `male:${normalizeText(said)}` && fr.done === 1 && fc?.tempo === 1.2 && fc.file === processedFile(pc!.file, { level: LEVEL.target, tempo: 1.2 }) && !existsSync(join(ps.filesDir, pc!.file)) &&
-        !!p1 && !!p2 && Math.abs(p2.secs - (p1.secs * factor) / 1.2) < 0.1 && near(await measure(new Uint8Array(readFileSync(join(ps.filesDir, fc.file))))), [waits, fr, fc, p1, p2])
+      waits.join() === `male:${normalizeText(said)}` && fr.done === 1 && fc?.tempo === 1.2 && fc.file === processedFile(sc!.file, { level: LEVEL.target, tempo: 1.2 }) && !existsSync(join(set.filesDir, sc!.file)) &&
+        !!s1 && !!p2 && Math.abs(p2.secs - (s1.secs * 1.05) / 1.2) < 0.1 && near(await measure(new Uint8Array(readFileSync(join(set.filesDir, fc.file))))), [waits, fr, fc, s1, p2])
     faster.close()
+    set.close()
     ps.close()
 
-    // voice-build --tempo on a copy of the data: a store from before the pace (no tempo column), levelled, real MP3s
+    // voice-build --tempo, --edges and --restore-gepard on a copy of the data: a store from before the pace and the edges
+    // (no tempo, no edges column), levelled, real MP3s: two local clips as the worker made them, an ElevenLabs one
     const tData = tempDir('lani-pace-data-')
     mkdirSync(join(tData, 'app/voice/files'), { recursive: true })
     const tdb = new Database(join(tData, 'app/voice/voice.db'))
     tdb.exec('CREATE TABLE clips (key TEXT PRIMARY KEY, norm TEXT NOT NULL, text TEXT NOT NULL, voice TEXT NOT NULL, engine TEXT NOT NULL, file TEXT NOT NULL, chars INTEGER NOT NULL, created_at TEXT NOT NULL, source TEXT NOT NULL, method TEXT, hits INTEGER NOT NULL DEFAULT 0, denoise TEXT, level REAL, gain REAL)')
     const tFile: Record<string, string> = {}
     const levelled = (await lv.level(worker))!.bytes // as the store has them: at the level already
-    const tclips: [string, string, string][] = [[said, 'male', 'gepard'], ['Hvala, dobro. In vi?', 'female', 'gepard'], ['Lepo vreme imamo danes.', 'female', 'elevenlabs']]
-    tclips.forEach(([text, voice, engine], i) => {
+    const tight = (await lv.level(gen(vowel(0.12, 0.03), 1.5)))!.bytes // at the level, its sound from 0.03 s to the end: nothing to trim
+    const tclips: [string, string, string, Uint8Array][] = [[said, 'male', 'gepard', levelled], ['Hvala, dobro. In vi?', 'female', 'gepard', levelled], ['Lepo vreme imamo danes.', 'female', 'elevenlabs', levelled], ['Kje je pošta?', 'grandma', 'elevenlabs', tight]]
+    tclips.forEach(([text, voice, engine, bytes], i) => {
       const file = `${createHash('sha1').update(`pace|${voice}|${text}`).digest('hex')}.mp3`
       tFile[`${voice}:${text}`] = file
-      writeFileSync(join(tData, 'app/voice/files', file), levelled)
+      writeFileSync(join(tData, 'app/voice/files', file), bytes)
       tdb.query('INSERT INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits, level, gain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run(`${voice}:${normalizeText(text)}`, normalizeText(text), text, voice, engine, file, text.length, `2026-10-0${i + 1}T10:00:00.000Z`, 'test', 3, LEVEL.target, 0)
     })
     tdb.close()
+    // the store as it was before (a lani-backup snapshot's voice/: the clips as the worker made them)
+    const snap = tempDir('lani-pace-snapshot-')
+    cpSync(join(tData, 'app/voice'), join(snap, 'voice'), { recursive: true })
     const vbt = async (extra: Record<string, string>, ...args: string[]) => {
       const p = Bun.spawn(['bun', resolve(import.meta.dir, '../../../bin/voice-build'), ...args], { env: { ...env, ...extra }, stdout: 'pipe', stderr: 'pipe' })
       const [stdout, stderr, exitCode] = await Promise.all([new Response(p.stdout).text(), new Response(p.stderr).text(), p.exited])
@@ -846,35 +980,87 @@ export default async function voice() {
       d.close()
       return c
     }
-    const tdry = await vbt({}, '--tempo', '--data', tData)
-    const tj = JSON.parse((await vbt({}, '--tempo', '--json', '--data', tData)).stdout || '{}')
-    check('voice-build --tempo (dry run): the two local clips, each measured now and as it would be paced (shorter, more characters a second), ElevenLabs\' clips of the same voices beside them; nothing changed',
-      tdry.exitCode === 0 && tj.tempo === PACE.tempo && tj.waiting === 2 && tj.chars === 40 && tj.measured === 2 && tj.clips?.map((c: any) => c.text).sort().join('|') === `${said}|Hvala, dobro. In vi?` &&
-        tj.clips.every((c: any) => c.after.secs < c.now.secs - 1 && c.after.lead < 0.08) && tj.voices?.['male gepard']?.rate.after.median > tj.voices['male gepard'].rate.now.median * 1.4 && tj.elevenlabs?.n === 1 &&
+    const trowsNow = () => {
+      const d = new Database(join(tData, 'app/voice/voice.db'), { readonly: true })
+      const r = Object.fromEntries((d.query('SELECT * FROM clips').all() as Clip[]).map(c => [`${c.voice}:${c.text}`, c]))
+      d.close()
+      return r
+    }
+    const paceSet = { LANI_VOICE_GEPARD_TEMPO: '1.05', LANI_VOICE_GEPARD_PAUSES: '0.4' }
+    const own = await vbt({}, '--tempo', '--data', tData)
+    check('voice-build --tempo without a pace set: the local voice keeps its own pace, nothing to do (and how to trim the edges)', own.exitCode === 0 && own.stdout.includes('keeps its own pace') && own.stdout.includes('--edges') && !tcols().includes('tempo'), own.stdout)
+    const tdry = await vbt(paceSet, '--tempo', '--data', tData)
+    const tj = JSON.parse((await vbt(paceSet, '--tempo', '--json', '--data', tData)).stdout || '{}')
+    check('voice-build --tempo (dry run) with a pace set: the two local clips, each measured now and as it would be paced (shorter, more characters a second), ElevenLabs\' clips of the same voices beside them; nothing changed',
+      tdry.exitCode === 0 && tj.tempo === 1.05 && tj.pace?.pause === 0.4 && tj.waiting === 2 && tj.chars === 40 && tj.measured === 2 && tj.clips?.map((c: any) => c.text).sort().join('|') === `${said}|Hvala, dobro. In vi?` &&
+        tj.clips.every((c: any) => c.after.secs < c.now.secs - 0.5) && tj.voices?.['male gepard']?.rate.after.median > tj.voices['male gepard'].rate.now.median * 1.15 && tj.elevenlabs?.n === 1 &&
         tdry.stdout.includes('male gepard') && tdry.stdout.includes('ElevenLabs, the same voices') && tdry.stdout.includes('Dry run') && tdry.stdout.includes('--tempo --run') && !tcols().includes('tempo') && Object.values(tFile).every(f => existsSync(join(tData, 'app/voice/files', f))),
       [tdry.stdout, tdry.stderr, tj])
-    check('voice-build --tempo: no --max-chars (no characters are spent), not with another mode; with the pace off, nothing to do',
-      (await vbt({}, '--tempo', '--max-chars', '10', '--data', tData)).exitCode === 2 && (await vbt({}, '--tempo', '--level', '--data', tData)).exitCode === 2 && (await vbt({ LANI_VOICE_GEPARD_TEMPO: 'off' }, '--tempo', '--run', '--data', tData)).stdout.includes('is off'))
+    check('voice-build --tempo, --edges, --restore-gepard: no --max-chars (no characters are spent), not with another mode; --restore-gepard needs a snapshot',
+      (await vbt({}, '--tempo', '--max-chars', '10', '--data', tData)).exitCode === 2 && (await vbt({}, '--tempo', '--level', '--data', tData)).exitCode === 2 && (await vbt({}, '--edges', '--max-chars', '10', '--data', tData)).exitCode === 2 &&
+        (await vbt({}, '--edges', '--tempo', '--data', tData)).exitCode === 2 && (await vbt({}, '--restore-gepard', tempDir('lani-no-snapshot-'), '--data', tData)).exitCode === 2 && (await vbt({}, '--restore-gepard', '--data', tData)).exitCode === 2)
     // the bridge, running on the same data: it tells the app when another process changed the clips
     const ttold: number[] = []
     const tbridge = new VoiceStore({ appDir: join(tData, 'app'), engines: [], queueDelayMs: 0, onUpdated: n => void ttold.push(n) })
     tbridge.checkExternal()
-    const t1 = await vbt({}, '--tempo', '--run', '--max', '1', '--data', tData)
-    const t2 = await vbt({}, '--tempo', '--run', '--data', tData)
-    const t3 = await vbt({}, '--tempo', '--run', '--data', tData)
-    const td = new Database(join(tData, 'app/voice/voice.db'), { readonly: true })
-    const trows = Object.fromEntries((td.query('SELECT * FROM clips').all() as Clip[]).map(c => [`${c.voice}:${c.text}`, c]))
-    td.close()
+    const t1 = await vbt(paceSet, '--tempo', '--run', '--max', '1', '--data', tData)
+    const t2 = await vbt(paceSet, '--tempo', '--run', '--data', tData)
+    const t3 = await vbt(paceSet, '--tempo', '--run', '--data', tData)
+    const trows = trowsNow()
     const tlocal = [`male:${said}`, 'female:Hvala, dobro. In vi?']
     const tp = await Promise.all(tlocal.map(k => pace(new Uint8Array(readFileSync(join(tData, 'app/voice/files', trows[k].file))))))
     const elKey = 'female:Lepo vreme imamo danes.'
-    check('voice-build --tempo --run (--max 1, then the rest, then nothing): each local clip paced once and levelled in the same encode, under a new name, the old file gone; the ElevenLabs clip as it was',
-      t1.exitCode === 0 && t1.stdout.includes('Paced 1 clip(s)') && t2.exitCode === 0 && t2.stdout.includes('Paced 1 clip(s)') && t3.stdout.includes('Paced 0 clip(s)') && tcols().includes('tempo') &&
-        tlocal.every(k => trows[k].tempo === PACE.tempo && trows[k].level === LEVEL.target && trows[k].hits === 3 && trows[k].file === processedFile(tFile[k], { level: LEVEL.target, tempo: PACE.tempo }) && !existsSync(join(tData, 'app/voice/files', tFile[k]))) &&
-        tp.every(p => !!p && p.secs < 2.3 && p.lead <= 0.08 && p.longest < 0.45) && trows[elKey]?.tempo == null && trows[elKey].file === tFile[elKey] && existsSync(join(tData, 'app/voice/files', tFile[elKey])),
+    check('voice-build --tempo --run (--max 1, then the rest, then nothing): each local clip paced once, its edges trimmed and levelled in the same encode, under a new name, the old file gone; the ElevenLabs clips as they were',
+      t1.exitCode === 0 && t1.stdout.includes('Paced 1 clip(s)') && t2.exitCode === 0 && t2.stdout.includes('Paced 1 clip(s)') && t3.stdout.includes('Paced 0 clip(s)') && tcols().includes('tempo') && tcols().includes('edges') &&
+        tlocal.every(k => trows[k].tempo === 1.05 && trows[k].edges === 1 && trows[k].level === LEVEL.target && trows[k].hits === 3 && trows[k].file === processedFile(tFile[k], { level: LEVEL.target, tempo: 1.05, edges: true }) && !existsSync(join(tData, 'app/voice/files', tFile[k]))) &&
+        tp.every(p => !!p && p.secs < 2.3 && p.lead <= 0.08 && p.longest < 0.45) && trows[elKey]?.tempo == null && trows[elKey].edges == null && trows[elKey].file === tFile[elKey] && existsSync(join(tData, 'app/voice/files', tFile[elKey])),
       [t1.stdout + t1.stderr, t2.stdout, t3.stdout, trows, tp])
     const tn = tbridge.checkExternal()
     check('the bridge sees the clips voice-build paced and tells the app once (voice_updated)', tn === 2 && ttold.join() === '2' && tbridge.checkExternal() === 0, [tn, ttold])
+
+    // --restore-gepard: the paced local clips back to their files and rows in the snapshot from before
+    const snapFiles = () => JSON.stringify(Object.fromEntries(readdirSync(join(snap, 'voice/files')).sort().map(f => [f, createHash('sha1').update(readFileSync(join(snap, 'voice/files', f))).digest('hex')])))
+    const snapBefore = snapFiles()
+    const rdry = await vbt({}, '--restore-gepard', snap, '--data', tData)
+    const rj = JSON.parse((await vbt({}, '--restore-gepard', join(snap, 'voice'), '--json', '--data', tData)).stdout || '{}')
+    check('voice-build --restore-gepard (dry run; the snapshot or its voice/): the two paced local clips to restore, none missing; nothing changed, the snapshot not written to',
+      rdry.exitCode === 0 && rdry.stdout.includes('To restore: 2') && rdry.stdout.includes('--restore-gepard') && rj.paced === 2 && rj.restored === 2 && rj.missing?.length === 0 && rj.left === 2 &&
+        JSON.stringify(trowsNow()) === JSON.stringify(trows) && snapFiles() === snapBefore && readdirSync(join(snap, 'voice')).sort().join() === 'files,voice.db', [rdry.stdout, rdry.stderr, rj])
+    const r1 = await vbt({}, '--restore-gepard', snap, '--run', '--max', '1', '--data', tData)
+    const r2 = await vbt({}, '--restore-gepard', snap, '--run', '--data', tData)
+    const r3 = await vbt({}, '--restore-gepard', snap, '--run', '--data', tData)
+    const rrows = trowsNow()
+    const snapRows = Object.fromEntries((new Database(join(snap, 'voice/voice.db'), { readonly: true }).query('SELECT * FROM clips').all() as Clip[]).map(c => [`${c.voice}:${c.text}`, c]))
+    const back = await Promise.all(tlocal.map(k => pace(new Uint8Array(readFileSync(join(tData, 'app/voice/files', rrows[k].file))))))
+    check('voice-build --restore-gepard --run (--max 1, then the rest, then nothing): each paced local clip back to its file (byte for byte the snapshot\'s) and its row (level, gain; tempo and edges cleared), the paced file gone; the other clips as they were',
+      r1.exitCode === 0 && r1.stdout.includes('Restored: 1 (1 byte for byte') && r2.stdout.includes('Restored: 1 (1 byte for byte') && r2.stdout.includes('still paced: 0') && r3.stdout.includes('Paced local clips: 0') &&
+        tlocal.every(k => rrows[k].file === tFile[k] && rrows[k].tempo == null && rrows[k].edges == null && rrows[k].level === snapRows[k].level && rrows[k].gain === snapRows[k].gain && rrows[k].hits === 3 &&
+          Buffer.from(readFileSync(join(tData, 'app/voice/files', tFile[k]))).equals(readFileSync(join(snap, 'voice/files', tFile[k]))) && !existsSync(join(tData, 'app/voice/files', trows[k].file))) &&
+        back.every(p => !!p && Math.abs(p.secs - 3.9) < 0.1) && JSON.stringify(rrows[elKey]) === JSON.stringify(trows[elKey]) && snapFiles() === snapBefore,
+      [r1.stdout + r1.stderr, r2.stdout, r3.stdout, rrows])
+    const rn = tbridge.checkExternal()
+    check('…the bridge sees the restored clips and tells the app (voice_updated)', rn === 2 && ttold.join() === '2,2', [rn, ttold])
+
+    // --edges: every clip's silence at its edges, the local ones as restored, the ElevenLabs ones as they were
+    const edry = await vbt({}, '--edges', '--data', tData)
+    const ej = JSON.parse((await vbt({}, '--edges', '--json', '--data', tData)).stdout || '{}')
+    check('voice-build --edges (dry run): every clip measured, per engine how many to trim (the three with 0.6 s before their sound, not the one without), the silence now and after; nothing changed',
+      edry.exitCode === 0 && ej.waiting === 4 && ej.measured === 4 && ej.trim === 3 && ej.groups?.gepard?.trim === 2 && ej.groups?.elevenlabs?.trim === 1 && ej.groups.gepard.lead.now.median > 0.5 && ej.groups.gepard.lead.after.median === EDGES.lead &&
+        ej.clips?.find((c: any) => c.voice === 'grandma')?.trim === false && edry.stdout.includes('to trim') && edry.stdout.includes('--edges --run') && JSON.stringify(trowsNow()) === JSON.stringify(rrows), [edry.stdout, edry.stderr, ej])
+    const e1 = await vbt({}, '--edges', '--run', '--max', '2', '--data', tData)
+    const e2 = await vbt({}, '--edges', '--run', '--data', tData)
+    const e3 = await vbt({}, '--edges', '--run', '--data', tData)
+    const erows = trowsNow()
+    const ep = await Promise.all([...tlocal, elKey].map(k => pace(new Uint8Array(readFileSync(join(tData, 'app/voice/files', erows[k].file))))))
+    check('voice-build --edges --run (--max 2, then the rest, then nothing): the three trimmed once and levelled again, under a new name, the old file gone; the one without silence only recorded (its file kept); at their own pace',
+      e1.exitCode === 0 && e1.stdout.includes('2 clip(s) done') && e2.stdout.includes('2 clip(s) done') && e3.stdout.includes('0 clip(s) done') &&
+        [...tlocal, elKey].every(k => erows[k].edges === 1 && erows[k].file === processedFile(rrows[k].file, { level: LEVEL.target, edges: true }) && !existsSync(join(tData, 'app/voice/files', rrows[k].file)) && erows[k].tempo == null) &&
+        erows['grandma:Kje je pošta?'].edges === 1 && erows['grandma:Kje je pošta?'].file === tFile['grandma:Kje je pošta?'] &&
+        ep.every(p => !!p && p.lead <= 0.08 && p.tail <= 0.16 && Math.abs(p.longest - 1) < 0.06 && Math.abs(p.secs - (EDGES.lead + 2.6 + EDGES.tail)) < 0.12) &&
+        (await Promise.all([...tlocal, elKey].map(k => measure(new Uint8Array(readFileSync(join(tData, 'app/voice/files', erows[k].file))))))).every(m => near(m)),
+      [e1.stdout + e1.stderr, e2.stdout, e3.stdout, erows, ep])
+    const en = tbridge.checkExternal()
+    check('…the bridge sees the trimmed clips and tells the app (voice_updated); the one only recorded is no change', en === 3 && ttold.join() === '2,2,3', [en, ttold])
     tbridge.close()
   }
 
@@ -918,17 +1104,19 @@ export default async function voice() {
 
     const say = (text: string, voice?: string, headers: Record<string, string> = auth) =>
       fetch(`${base}/voice/say`, { method: 'POST', headers, body: JSON.stringify(voice ? { text, voice } : { text }) })
+    // the Slovene village's narrators speak with the local voice (LANI_VOICE_NARRATOR_SL: gepard by default)
     const calls = bridgeEleven.st.tts.length
+    const gcalls = bridgeGepard.st.calls.length
     const s1 = await say('Dobro jutro, Micka!')
     const s1Body = await s1.json()
-    check('POST /voice/say synthesizes with ElevenLabs', s1.ok && s1Body.engine === 'elevenlabs' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(s1Body.url) && bridgeEleven.st.tts.length === calls + 1, s1Body)
+    check('POST /voice/say: a narrator\'s line in the Slovene village from the local voice (female: nina), never ElevenLabs\' Matilda', s1.ok && s1Body.engine === 'gepard' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(s1Body.url) && bridgeEleven.st.tts.length === calls && bridgeGepard.st.calls.length === gcalls + 1 && bridgeGepard.st.calls.at(-1)?.speaker === 'nina', s1Body)
     const s2 = await (await say('dobro jutro micka')).json()
-    check('POST /voice/say serves the cached clip', s2.url === s1Body.url && bridgeEleven.st.tts.length === calls + 1)
+    check('POST /voice/say serves the cached clip', s2.url === s1Body.url && bridgeGepard.st.calls.length === gcalls + 1 && bridgeEleven.st.tts.length === calls)
     const s3 = await (await say('Dobro jutro, Micka!', 'male')).json()
-    check('male voice is its own clip (Daniel)', s3.url !== s1Body.url && s3.voice === 'male' && bridgeEleven.st.tts.at(-1)?.voice === 'onwK4e9ZLuTAKqWW03F9', s3)
+    check('male voice is its own clip (marko)', s3.url !== s1Body.url && s3.voice === 'male' && s3.engine === 'gepard' && bridgeGepard.st.calls.at(-1)?.speaker === 'marko' && bridgeEleven.st.tts.length === calls, s3)
     const file = await fetch(`${base}${s1Body.url}`, { headers: auth })
     const bytes = new TextDecoder().decode((await file.arrayBuffer()).slice(6))
-    check('GET /voice/file serves audio/mpeg', file.ok && file.headers.get('content-type') === 'audio/mpeg' && bytes === 'el:XrExE9yKIg1WjnnlVkGX:Dobro jutro, Micka!', bytes)
+    check('GET /voice/file serves audio/mpeg', file.ok && file.headers.get('content-type') === 'audio/mpeg' && bytes === 'gp:Dobro jutro, Micka!', bytes)
     check('GET /voice/file rejects odd names', (await fetch(`${base}/voice/file/..%2Fvoice.db`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/file/${'0'.repeat(40)}.mp3`, { headers: auth })).status === 404)
     const idx2 = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
     check('GET /voice/index has both voices', idx2['dobro jutro micka']?.female === s1Body.url && idx2['dobro jutro micka']?.male === s3.url, idx2['dobro jutro micka'])
@@ -953,9 +1141,13 @@ export default async function voice() {
     check('GET /voice/status: the short narrator words (carrier sentence, old-style, the daily cap)', st.carrier?.daily === 40 && typeof st.carrier.old === 'number' && st.carrier.cut === !!ffmpeg, st.carrier)
     check('GET /voice/status: the voices the cast filters (denoise: Stari Janez\'s own voice), and whether the node can (ffmpeg)', st.denoise?.voices?.['@janez']?.preset === 'hiss' && st.denoise.ffmpeg === !!ffmpeg, st.denoise)
     check('GET /voice/status: the level (its target and peak, the clips at it and waiting, ffmpeg)', st.level?.target === LEVEL.target && st.level.peak === LEVEL.peak && typeof st.level.levelled === 'number' && typeof st.level.waiting === 'number' && st.level.ffmpeg === !!ffmpeg, st.level)
+    check('GET /voice/status: the edges (what is kept, the clips done and waiting), the narrators in the local voice (nina, marko), no pace set',
+      st.edges?.lead === EDGES.lead && st.edges.tail === EDGES.tail && typeof st.edges.done === 'number' && typeof st.edges.waiting === 'number' && st.narrators?.local === true && st.narrators.voices?.female === 'nina' && st.narrators.voices.male === 'marko' &&
+        st.tempo?.tempo === null && st.tempo.pause === null, [st.edges, st.narrators, st.tempo])
 
-    // A narrator word from before the carrier sentence in the bridge's store: the app downloads it, gets it as it is,
-    // and soon it is voiced again in its carrier sentence under a new name, and the app is told.
+    // A narrator word from before the carrier sentence in the bridge's store: the app downloads it and gets it as it is.
+    // In the Slovene village it is not voiced again by ElevenLabs (the narrators speak with the local voice; voice-build
+    // --narrators makes it again there); a long press makes it in the local voice.
     if (ffmpeg) {
       const voiceDir = join(dataDir, 'app/voice')
       const oldFile = `${createHash('sha1').update('smoke|old|kolovrat').digest('hex')}.mp3`
@@ -967,14 +1159,14 @@ export default async function voice() {
       const u0 = await updates()
       const got = await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })
       check('GET /voice/file of an old-style narrator word: the old clip, at once', got.ok && new TextDecoder().decode((await got.arrayBuffer()).slice(6)) === 'el:old:kolovrat')
-      let url = `/voice/file/${oldFile}`
-      for (let i = 0; i < 100 && url.endsWith(oldFile); i++) {
-        await Bun.sleep(50)
-        url = (await (await fetch(`${base}/voice/index`, { headers: auth })).json()).kolovrat?.female ?? url
-      }
-      const fresh = await fetch(`${base}${url}`, { headers: auth })
-      const freshBytes = new Uint8Array(await fresh.arrayBuffer())
-      check('…then voiced again in its carrier sentence, under a new name (the old one gone), and the app told (voice_updated)', !url.endsWith(oldFile) && fresh.ok && mp3Duration(freshBytes) > 0.3 && bridgeEleven.st.tts.some(c => c.timestamps && c.body.text === 'Beseda je: kolovrat.') && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).status === 404 && (await updates()) > u0, url)
+      await Bun.sleep(300)
+      const url = (await (await fetch(`${base}/voice/index`, { headers: auth })).json()).kolovrat?.female
+      check('…and no ElevenLabs re-voice in its carrier sentence (an English narrator)', url === `/voice/file/${oldFile}` && !bridgeEleven.st.tts.some(c => c.body.text === 'Beseda je: kolovrat.'), url)
+      const rk = await fetch(`${base}/voice/redo`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'kolovrat', voice: 'female', client_id: 'redo-smoke-kolovrat' }) })
+      const rkb = await rk.json()
+      check('…a long press makes it in the local voice (nina), under a new name, the old one gone, the app told; not counted in the day\'s cap',
+        rk.ok && rkb.status === 'done' && rkb.url !== url && bridgeGepard.st.calls.at(-1)?.text === 'kolovrat' && bridgeGepard.st.calls.at(-1)?.speaker === 'nina' && !bridgeEleven.st.tts.some(c => c.body.text.includes('kolovrat')) &&
+          (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).status === 404 && (await updates()) > u0 && rkb.today === 0, rkb)
     }
 
     // Jan's re-record (a long press on 🔊): POST /voice/redo makes the clip again now, under a new name.
@@ -983,18 +1175,20 @@ export default async function voice() {
       const updates = async () => ((await (await fetch(`${base}/events/backlog?since=0`, { headers: auth })).json()) as any[]).filter(b => b.event.type === 'voice_updated').length
       const u0 = await updates()
       const n0 = bridgeEleven.st.tts.length
-      const r = await redo({ text: 'Dobro jutro, Micka!', voice: 'female', client_id: 'redo-smoke-0001' })
+      const r = await redo({ text: 'Dobro jutro, Micka!', voice: 'grandma', client_id: 'redo-smoke-0001' })
       const rb = await r.json()
       const idx = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
       check('POST /voice/redo: made again now (a plain re-take of a sentence), a new file, the old one gone, the index on it, the app told (voice_updated)',
-        r.ok && rb.status === 'done' && rb.url !== s1Body.url && rb.key === 'female:dobro jutro micka' && rb.norm === 'dobro jutro micka' && rb.voice === 'female' && rb.method === null && rb.daily === 40 && rb.today >= 1 &&
-          bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === 'Dobro jutro, Micka!' && (await fetch(`${base}${s1Body.url}`, { headers: auth })).status === 404 &&
-          (await fetch(`${base}${rb.url}`, { headers: auth })).ok && idx['dobro jutro micka']?.female === rb.url && (await updates()) > u0, rb)
-      const replay = await redo({ text: 'Dobro jutro, Micka!', voice: 'female', client_id: 'redo-smoke-0001' })
+        r.ok && rb.status === 'done' && rb.url !== s7.url && rb.key === 'grandma:dobro jutro micka' && rb.norm === 'dobro jutro micka' && rb.voice === 'grandma' && rb.method === null && rb.daily === 40 && rb.today >= 1 &&
+          bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === 'Dobro jutro, Micka!' && (await fetch(`${base}${s7.url}`, { headers: auth })).status === 404 &&
+          (await fetch(`${base}${rb.url}`, { headers: auth })).ok && idx['dobro jutro micka']?.grandma === rb.url && (await updates()) > u0, rb)
+      const replay = await redo({ text: 'Dobro jutro, Micka!', voice: 'grandma', client_id: 'redo-smoke-0001' })
       check('POST /voice/redo: a retry with the same client_id gets the same answer, no second take', replay.headers.get('x-lani-replay') === '1' && (await replay.json()).url === rb.url && bridgeEleven.st.tts.length === n0 + 1)
-      const again = await redo({ text: 'dobro jutro micka', voice: 'female' })
+      const again = await redo({ text: 'dobro jutro micka', voice: 'grandma' })
       const ab = await again.json()
       check('POST /voice/redo: once a clip a day, then "not_needed" with the take from before', again.ok && ab.status === 'not_needed' && ab.url === rb.url && !!ab.message && bridgeEleven.st.tts.length === n0 + 1, ab)
+      const nr = await (await redo({ text: 'Dobro jutro, Micka!', voice: 'female' })).json()
+      check('POST /voice/redo of a narrator\'s clip in the local voice: "not_needed" (it says a text the same way every time), no ElevenLabs', nr.status === 'not_needed' && nr.url === s1Body.url && bridgeEleven.st.tts.length === n0 + 1, nr)
       const st = await (await fetch(`${base}/voice/status`, { headers: auth })).json()
       check('GET /voice/status counts the re-records of the day, and the part of the cap kept for them', st.carrier?.redos === 1 && st.carrier.kept === 10, st.carrier)
       check('POST /voice/redo: a voice not in the cast is a 400, no text a 400', (await redo({ text: 'Živjo', voice: 'soprano' })).status === 400 && (await redo({ text: ' ', voice: 'female' })).status === 400)
@@ -1010,29 +1204,31 @@ export default async function voice() {
       check('POST /voice/prepare: the family token may not', (await prepare({ texts: [{ text: 'Ena.' }] }, { ...fam, 'content-type': 'application/json' })).status === 403)
       const have = (await (await fetch(`${base}/voice/index`, { headers: auth })).json())['dobro jutro micka']?.female
       const n0 = bridgeEleven.st.tts.length
+      const g0 = bridgeGepard.st.calls.length
       const fresh = 'Prav! Druga je prava.'
       const body = { texts: [{ text: 'Dobro jutro, Micka!' }, { text: fresh, voice: 'male' }, { text: 'Ena.', voice: 'nobody' }] }
       const r = await prepare(body)
       const p = await r.json()
-      check('POST /voice/prepare: a clip the store has as it is, a new one voiced (Daniel), a voice not in the cast none; the day\'s count and cap',
+      check('POST /voice/prepare: a clip the store has as it is, a new one voiced (the male narrator: marko), a voice not in the cast none; the day\'s count and cap',
         r.ok && p.clips?.length === 3 && !!have && p.clips[0].url === have && p.clips[0].voice === 'female' &&
-          p.clips[1].text === fresh && p.clips[1].voice === 'male' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(p.clips[1].url) && p.clips[1].engine === 'elevenlabs' &&
+          p.clips[1].text === fresh && p.clips[1].voice === 'male' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(p.clips[1].url) && p.clips[1].engine === 'gepard' &&
           p.clips[2].voice === 'nobody' && p.clips[2].url === null && p.daily === 6_000 && p.today === fresh.length &&
-          bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === fresh && bridgeEleven.st.tts.at(-1)?.voice === 'onwK4e9ZLuTAKqWW03F9', p)
+          bridgeEleven.st.tts.length === n0 && bridgeGepard.st.calls.length === g0 + 1 && bridgeGepard.st.calls.at(-1)?.text === fresh && bridgeGepard.st.calls.at(-1)?.speaker === 'marko', p)
       const again = await (await prepare(body)).json()
-      check('POST /voice/prepare again: the same clips, nothing voiced, the day\'s count as it was', JSON.stringify(again.clips) === JSON.stringify(p.clips) && again.today === p.today && bridgeEleven.st.tts.length === n0 + 1, again)
+      check('POST /voice/prepare again: the same clips, nothing voiced, the day\'s count as it was', JSON.stringify(again.clips) === JSON.stringify(p.clips) && again.today === p.today && bridgeEleven.st.tts.length === n0 && bridgeGepard.st.calls.length === g0 + 1, again)
     }
 
     bridgeEleven.st.fail = 500
     const s4 = await (await say('Kje je pošta?')).json()
-    check('ElevenLabs down: the local worker answers', s4.engine === 'gepard', s4)
+    const s4g = await (await say('Kje je pošta?', 'grandpa')).json()
+    check('ElevenLabs down: the local worker answers (a narrator\'s line anyway, a villager\'s too)', s4.engine === 'gepard' && s4g.engine === 'gepard' && s4g.voice === 'grandpa', [s4, s4g])
     if (ffmpeg) {
       bridgeGepard.st.audio = workerClip()
       const sp = await (await say('Kje je trgovina? Tam, za vogalom.')).json()
       const spBytes = new Uint8Array(await (await fetch(`${base}${sp.url}`, { headers: auth })).arrayBuffer())
       const stp = (await (await fetch(`${base}/voice/status`, { headers: auth })).json()).tempo
-      check('…and the bridge paces its clip before it stores it (3.9 s as the worker made it, about 2 s stored); GET /voice/status counts it (tempo)',
-        sp.engine === 'gepard' && mp3Duration(spBytes) < 2.3 && stp?.tempo === PACE.tempo && stp.paced >= 1 && typeof stp.waiting === 'number' && stp.ffmpeg === true, [sp, mp3Duration(spBytes), stp])
+      check('…and the bridge keeps its clip at the worker\'s pace, only the edges trimmed (3.9 s as the worker made it, about 2.75 s stored); nothing paced',
+        sp.engine === 'gepard' && Math.abs(mp3Duration(spBytes) - (EDGES.lead + 2.6 + EDGES.tail)) < 0.15 && stp?.tempo === null && stp.paced === 0 && stp.waiting === 0 && stp.ffmpeg === true, [sp, mp3Duration(spBytes), stp])
       bridgeGepard.st.audio = undefined
     }
     bridgeGepard.st.busy = true
