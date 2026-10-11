@@ -37,9 +37,9 @@ export default async function formsSection() {
     slotsOf('verb', 'first/second/third-person singular imperative'),
   )
   check(
-    'moodInEnglish: "The king sits" and "is sitting" are a present, "Then sit down", "Sit closer, lad" an imperative, "Does the owl see" neither',
+    'moodInEnglish: "The king sits" and "is sitting" are a present, "Then sit down", "Sit closer" an imperative, "Does the owl see" neither',
     moodInEnglish('The king sits at the table.', ['to sit']) === 'pres' && moodInEnglish('The cat is sitting on the windowsill.', ['to sit']) === 'pres' &&
-      moodInEnglish('Then sit down by the fire.', ['to sit down']) === 'imp' && moodInEnglish('Good. Sit closer, lad.', ['to sit']) === 'imp' &&
+      moodInEnglish('Then sit down by the fire.', ['to sit down']) === 'imp' && moodInEnglish('Good. Sit closer.', ['to sit']) === 'imp' &&
       moodInEnglish('Does the owl see well at night?', ['to see']) === null && moodInEnglish("Let's go!", ['to go'], true) === 'imp' && moodInEnglish('See you tomorrow!', ['to see'], true) === null,
   )
 

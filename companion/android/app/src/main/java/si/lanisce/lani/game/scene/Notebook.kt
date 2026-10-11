@@ -114,7 +114,7 @@ object Notebook {
 
     /**
      * Whether [sentence] (in [lang]) is the teller talking to the listener rather than telling: a question, a greeting,
-     * the listener named or called ("fant", "piccolo", "lad"), told to sit, listen or say, or the story itself talked of
+     * the listener named or called ("fant", "sinko", "piccolo", "lad"), told to sit, listen or say, or the story itself talked of
      * ("Nocoj ti povem zgodbo"). What is said inside quotes is the story's.
      */
     fun aside(sentence: String, lang: String): Boolean {
@@ -173,8 +173,8 @@ object Notebook {
 
     /** The listener called by a name the tellings give them (a boy's or a girl's): at a comma, a colon or the sentence's edge. */
     private val VOCATIVES = mapOf(
-        "sl" to Regex("(^|[,:;!]\\s*)(fant|fantič|mali|mala|otrok|prijatelj|prijateljica|dekle|deklica|punca|punčka)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
-        "it" to Regex("(^|[,:;!]\\s*)(piccol[oa]|ragazz[oa]|car[oa]|bambin[oa])\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
+        "sl" to Regex("(^|[,:;!]\\s*)(fant|fantič|sinko|mali|mala|otrok|prijatelj|prijateljica|dekle|deklica|punca|punčka)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
+        "it" to Regex("(^|[,:;!]\\s*)(piccol[oa]|ragazz[oa]|figliol[oa]|car[oa]|bambin[oa])\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
         "de" to Regex("(^|[,:;!]\\s*)(Kleiner|Kleine|Junge|mein Junge|Bub|Bursch|Mädchen|mein Mädchen|Mädel|Dirndl)\\s*([,:;!.]|$)"),
         "en" to Regex("(^|[,:;!]\\s*)(lad|lass|son|my boy|my girl|boy|girl|little one|young one)\\s*([,:;!.]|$)", RegexOption.IGNORE_CASE),
     )

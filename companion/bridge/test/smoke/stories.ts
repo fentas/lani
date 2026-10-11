@@ -140,7 +140,7 @@ export default async function stories() {
   }
   const line = (sl: string) => ({ sl, en: `(${sl})` })
   const turn = { choices: [{ sl: 'Kaj pa potem?', en: 'And then?', ok: true, reply: line('Poslušaj.') }, { sl: 'Kdo pa potem?', en: 'Who then?', why: 'Kdo is who.' }] }
-  const telling = { lines: [line('Nekoč je živel kralj.'), turn, line('Lahko noč, fant.')] }
+  const telling = { lines: [line('Nekoč je živel kralj.'), turn, line('Lahko noč, Jan.')] }
   const story = {
     schema: 'lani.story/v0', id: 'smoke-kralj', title: 'Kralj · The king', teller: 'janez', teaser: { sl: 'Janez pove o kralju', en: 'Janez tells of a king' },
     memory: { sl: 'zgodbo o kralju', en: 'the story of the king' }, pack: 'zgodbe', words: ['kralj', { word: 'gora', pack: 'v-gorah' }], levels: { A2: telling },
@@ -196,14 +196,14 @@ export default async function stories() {
   // a scene whose dialog has the learner say what they say at the fire in Zlatorog, and a line of its own
   const fireside = {
     id: 'smoke-ogenj', language: 'sl', objects: [], people: [{ id: 'ded', villager: 'janez', art: 'grandpa' }],
-    dialogs: [{ id: 'd', lines: [{ who: 'ded', sl: 'Kar sedi, fant.', en: 'Sit, lad.', choices: [] }, { choices: [{ sl: right.sl, en: right.en, ok: true }] }] }],
+    dialogs: [{ id: 'd', lines: [{ who: 'ded', sl: 'Kar sedi, Jan.', en: 'Sit, Jan.', choices: [] }, { choices: [{ sl: right.sl, en: right.en, ok: true }] }] }],
   } as unknown as ResolvedScene
   const inOrder = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: refs.villagers, scenes: [fireside], stories: [zlatorog], ownVoice: ownJanez })
   const idx = (t: string | undefined) => inOrder.findIndex(i => i.text === t)
   check(
     "… in the prebuild's order: the A1 telling before the scene's dialog (a text of both is the telling's), the A2 telling after it",
-    inOrder[idx(right.sl)]?.priority === p1 && inOrder[idx(right.sl)]?.source === 'story:zlatorog' && inOrder[idx('Kar sedi, fant.')]?.priority === pScenes &&
-      idx(opening?.text) < idx('Kar sedi, fant.') && idx('Kar sedi, fant.') < inOrder.findIndex(i => i.priority === p2) && inOrder.some(i => i.priority === p2),
+    inOrder[idx(right.sl)]?.priority === p1 && inOrder[idx(right.sl)]?.source === 'story:zlatorog' && inOrder[idx('Kar sedi, Jan.')]?.priority === pScenes &&
+      idx(opening?.text) < idx('Kar sedi, Jan.') && idx('Kar sedi, Jan.') < inOrder.findIndex(i => i.priority === p2) && inOrder.some(i => i.priority === p2),
     inOrder.map(i => [i.priority, i.source, i.text]).slice(0, 4),
   )
   check(

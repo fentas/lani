@@ -114,14 +114,14 @@ class DialogRunTest {
     private val hungry = Dialog(
         id = "lacen",
         lines = listOf(
-            DialogLine(who = "babica", sl = "Si lačen, fant?", en = "Are you hungry, lad?"),
+            DialogLine(who = "babica", sl = "Si lačen, Jan?", en = "Are you hungry, Jan?"),
             DialogLine(choices = listOf(
                 DialogChoice("Ja, zelo sem lačen.", "Yes, I am very hungry.", ok = true, reply = DialogReply("Jej, jej!", "Eat, eat!", fx = mapOf("steam" to 1f))),
                 DialogChoice("Ja, zelo sem žejen.", "Yes, I am very thirsty.", why = "Žejen is thirsty. Hungry: lačen.",
                     reply = DialogReply("Žejen? Tu imaš vodo.", "Thirsty? Here is some water.", fx = mapOf("oven" to 1f))),
                 DialogChoice("Ja, zelo sem lačna.", "Yes, I am very hungry.", why = "You are a man: lačen."),
             )),
-            DialogLine(who = "babica", sl = "Adijo, fant!", en = "Bye, lad!"),
+            DialogLine(who = "babica", sl = "Adijo, Jan!", en = "Bye, Jan!"),
             DialogLine(choices = listOf(
                 DialogChoice("Nasvidenje, babica!", "Goodbye, grandma!", ok = true, reply = DialogReply("Pridi spet.", "Come again.")),
                 DialogChoice("Čav, babica!", "Bye, grandma!", ok = true, reply = DialogReply("Čav, čav! Ti si pa en frajer.", "Bye, bye! Aren't you a cool one.", sky = SkyCue(fog = 0.5f))),

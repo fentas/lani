@@ -98,7 +98,9 @@ class NotebookTest {
         assertEquals(listOf(0, 0, 1, 2, 3), p.upTo.toList())
         // an aside a sentence opens with goes, the rest stays
         assertEquals("Zlatorogovi rogovi so ključ do zaklada.", Notebook.clean("Veš, zlatorogovi rogovi so ključ do zaklada.", "sl"))
-        assertNull(Notebook.clean("Povej mi, fant: kaj zraste, kjer pade kri?", "sl"))
+        assertNull(Notebook.clean("Povej mi: kaj zraste, kjer pade kri?", "sl"))
+        assertNull(Notebook.clean("Tako je, sinko.", "sl"))
+        assertNull(Notebook.clean("Proprio così, figliolo.", "it"))
         assertNull(Notebook.clean("Dimmi, piccolo: dove vivono le agane?", "it"))
         assertNull(Notebook.clean("Heute Abend erzähle ich dir eine Sage.", "de"))
         assertNull(Notebook.clean("Good evening, lad. Did you help Granny Maggie today?", "en"))

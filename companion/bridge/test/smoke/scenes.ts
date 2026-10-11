@@ -314,7 +314,7 @@ export default async function scenes() {
         { who: 'janez', sl: 'Dober večer, Jan. Sedi.', en: 'Good evening, Jan. Sit down.', sky: { fog: 0.4, gloom: 0.3 } },
         { choices: [
           { sl: 'Hvala, Janez.', en: 'Thanks, Janez.', ok: true, reply: { sl: 'Poslušaj zgodbo.', en: 'Listen to the story.', sky: { rain: 0.5, lightning: true } } },
-          { sl: 'Dobro jutro, Janez.', en: 'Good morning, Janez.', why: 'Evening: dober večer.', reply: { sl: 'Jutro? Saj je že tema, fant.', en: 'Morning? But it is dark already, lad.', fx: { flare: 1 } } },
+          { sl: 'Dobro jutro, Janez.', en: 'Good morning, Janez.', why: 'Evening: dober večer.', reply: { sl: 'Jutro? Saj je že tema.', en: 'Morning? But it is dark already.', fx: { flare: 1 } } },
         ] },
         { who: 'janez', sl: 'Lahko noč, Jan.', en: 'Good night, Jan.', fx: { flare: 0.5, steam: true } },
       ],
@@ -331,7 +331,7 @@ export default async function scenes() {
   const pubDialog = pubServed.dialogs?.[0]
   check('sky cues and sky_stays are served as published', JSON.stringify(pubDialog?.lines[0].sky) === '{"fog":0.4,"gloom":0.3}' && JSON.stringify(pubDialog?.lines[1].choices[0].reply.sky) === '{"rain":0.5,"lightning":true}' && pubDialog?.sky_stays === false && pubDialog?.lines[2].sky === undefined, pubDialog)
   check('fx cues are served as published', JSON.stringify(pubDialog?.lines[2].fx) === '{"flare":0.5,"steam":true}' && pubDialog?.lines[0].fx === undefined && pubDialog?.fx_stays === undefined, pubDialog?.lines)
-  check("a wrong choice's reaction is served with its passing effect", pubDialog?.lines[1].choices[1].reply?.sl === 'Jutro? Saj je že tema, fant.' && JSON.stringify(pubDialog?.lines[1].choices[1].reply?.fx) === '{"flare":1}' && pubDialog?.lines[1].choices[1].ok === false, pubDialog?.lines[1])
+  check("a wrong choice's reaction is served with its passing effect", pubDialog?.lines[1].choices[1].reply?.sl === 'Jutro? Saj je že tema.' && JSON.stringify(pubDialog?.lines[1].choices[1].reply?.fx) === '{"flare":1}' && pubDialog?.lines[1].choices[1].ok === false, pubDialog?.lines[1])
   await Bun.sleep(100)
   const ev = await (await fetch(`${base}/events/backlog?since=0`, { headers: auth })).json()
   check('scene_published event', ev.some((b: any) => b.event.type === 'scene_published' && b.event.id === 'smoke-ogenj' && b.event.note === 'Janez tells stories by the fire' && b.event.emoji === '🔥'))
@@ -340,7 +340,7 @@ export default async function scenes() {
     await Bun.sleep(100)
   }
   const vIdx = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
-  check("a published scene's dialog is voiced: Janez male, the learner's line female, the reply and the reaction male", !!vIdx['dober večer jan sedi']?.male && !vIdx['dober večer jan sedi']?.female && !!vIdx['hvala janez']?.female && !!vIdx['poslušaj zgodbo']?.male && !!vIdx['jutro saj je že tema fant']?.male, Object.keys(vIdx).filter(k => k.includes('janez') || k.includes('zgodbo') || k.includes('tema')))
+  check("a published scene's dialog is voiced: Janez male, the learner's line female, the reply and the reaction male", !!vIdx['dober večer jan sedi']?.male && !vIdx['dober večer jan sedi']?.female && !!vIdx['hvala janez']?.female && !!vIdx['poslušaj zgodbo']?.male && !!vIdx['jutro saj je že tema']?.male, Object.keys(vIdx).filter(k => k.includes('janez') || k.includes('zgodbo') || k.includes('tema')))
   const st = await (await fetch(`${base}/voice/status`, { headers: auth })).json()
   check('voice status counts the scenes in the corpus', st.corpus?.by_source?.scene?.texts >= 3, st.corpus?.by_source)
 

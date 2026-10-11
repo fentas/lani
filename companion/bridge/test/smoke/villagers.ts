@@ -189,7 +189,7 @@ export default async function villagers() {
     opener(anton, 'morning') === 'Dober dan. Tiho, prosim. Čebele.' && opener(anton, 'afternoon') === 'Dober dan. Tiho, prosim. Čebele.' && opener(anton, 'evening') === 'Dober večer. Tiho, prosim. Čebele spijo.' && opener(anton, 'night') === 'Dober večer. Tiho, prosim. Čebele spijo.',
     PARTS.map(p => opener(anton, p)))
   const babica = cast.find(v => v.id === 'micka')!
-  check('… Micka in the evening with a greeting of any time, not her "Dober dan"; a friend at night still the warmest', opener(babica, 'evening') === 'O, pridi, pridi. Sedi.' && opener(babica, 'morning') === 'Dober dan. Si lačen?' && opener(babica, 'night', 35) === 'Jan, fant moj! Pridi, juha je vroča.', PARTS.map(p => opener(babica, p)))
+  check('… Micka in the evening with a greeting of any time, not her "Dober dan"; a friend at night still the warmest', opener(babica, 'evening') === 'O, pridi, pridi. Sedi.' && opener(babica, 'morning') === 'Dober dan. Si lačen?' && opener(babica, 'night', 35) === 'Jan! Pridi, juha je vroča.', PARTS.map(p => opener(babica, p)))
   // every culture pack's lines: a goodnight is the evening's and the night's, a good day the day's, by what the line says
   const NIGHT = /Lahko noč|Dober večer|Buonanotte|Buonasera|Gute Nacht|Guten Abend|Good night|Good evening/
   const DAY = /Dober dan|Dobro jutro|Buongiorno|Guten Tag|Guten Morgen|Good morning|Good afternoon|Good day/

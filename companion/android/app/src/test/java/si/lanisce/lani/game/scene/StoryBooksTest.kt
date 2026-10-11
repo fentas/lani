@@ -64,7 +64,7 @@ class StoryBooksTest {
         assertEquals("Dober večer, Jan. Sedi k ognju. Nocoj ti povem zgodbo.", q.first().ask)
         assertEquals("Good evening, Jan. Sit by the fire. Tonight I will tell you a story.", q.first().askBase)
         assertEquals("Rdeča roža.", q.last().answer.sl)
-        assertEquals("Povej mi, fant: kaj zraste, kjer pade kri?", q.last().ask)
+        assertEquals("Povej mi: kaj zraste, kjer pade kri?", q.last().ask)
         assertTrue(q.all { it.answer.ok && it.answer in it.options && it.right(it.answer) && it.options.filterNot { o -> o.ok }.none(it::right) })
         // the options in an order of their own, the same every time
         assertEquals(q.map { it.options }, StoryBooks.questions(b, "A1").map { it.options })

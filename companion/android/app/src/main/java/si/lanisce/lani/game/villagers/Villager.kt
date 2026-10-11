@@ -140,7 +140,7 @@ data class GiftLines(
  * its first language that isn't English; its translation ([base]) is in the learner's base language when the line has
  * it, else in English. For Jan (sl · en) that is the "sl" and the "en", as ever.
  *
- * A line bound to a time of day says when ([times], the file's `"when": ["evening", "night"]`: "Lahko noč, fant."):
+ * A line bound to a time of day says when ([times], the file's `"when": ["evening", "night"]`: "Lahko noč!"):
  * it is only said then ([fits]); a line without it fits any time.
  */
 @Serializable(with = VillagerLine.Serializer::class)

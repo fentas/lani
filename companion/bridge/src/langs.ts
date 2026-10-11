@@ -76,7 +76,7 @@ export const fits = (l: { when?: readonly string[] }, part: Part): boolean => !l
 /**
  * A spoken line: its text per language ({"sl": "Dober dan!", "en": "Good day!"}, or {"it": "Buongiorno!", "sl": "Dober
  * dan!", "en": "Good day!"}), the friendship level from which it can be said, and the parts of the day it is said in when
- * it's bound to one (`"when": ["evening", "night"]`: "Lahko noč, fant."; without it, any time). English is always there
+ * it's bound to one (`"when": ["evening", "night"]`: "Lahko noč!"; without it, any time). English is always there
  * (the tutor reads it, and it's the translation of last resort); at least one other language is what is said.
  */
 export const spokenLine = (max = 200): z.ZodType<SpokenLine, SpokenLineIn> =>

@@ -128,9 +128,9 @@ class TimeOfDayLinesTest {
         val micka = person(cast("primorska").first { it.id == "micka" }, 2)
         fun ends(time: TimeOfDay) = (1L..80L).map { Director(micka, it, day) { time }.end(4, 5, 5).line!!.target }.toSet()
         val morning = ends(nine)
-        assertTrue(morning.toString(), morning.all { it.startsWith("4 od 5 pravilno.") } && morning.none { "Lahko noč" in it } && morning.any { it.endsWith("Pa lep dan, fant. In jej!") })
+        assertTrue(morning.toString(), morning.all { it.startsWith("4 od 5 pravilno.") } && morning.none { "Lahko noč" in it } && morning.any { it.endsWith("Pa lep dan. In jej!") })
         val night = ends(ten)
-        assertTrue(night.toString(), night.any { it.endsWith("Lahko noč, fant. In jej!") } && night.none { "lep dan" in it.lowercase() })
+        assertTrue(night.toString(), night.any { it.endsWith("Lahko noč. In jej!") } && night.none { "lep dan" in it.lowercase() })
     }
 
     @Test fun `the end of a run says a goodnight in the evening and at night, a good day by day`() {
@@ -141,16 +141,16 @@ class TimeOfDayLinesTest {
             lines = VillagerLines(
                 bye = listOf(
                     VillagerLine("Adijo, Jan. Pridi spet!", "Bye, Jan. Come again!"),
-                    VillagerLine("Lahko noč, fant. In jej!", "Good night, lad. And eat!", times = setOf(TimeOfDay.EVENING, TimeOfDay.NIGHT)),
-                    VillagerLine("Pa lep dan, fant. In jej!", "Have a nice day, lad. And eat!", times = setOf(TimeOfDay.MORNING, TimeOfDay.AFTERNOON)),
+                    VillagerLine("Lahko noč. In jej!", "Good night. And eat!", times = setOf(TimeOfDay.EVENING, TimeOfDay.NIGHT)),
+                    VillagerLine("Pa lep dan. In jej!", "Have a nice day. And eat!", times = setOf(TimeOfDay.MORNING, TimeOfDay.AFTERNOON)),
                 ),
             ),
         )
         fun ends(time: TimeOfDay) = (1L..80L).map { Director(micka, it, day) { time }.end(4, 5, 5).line!!.target }.toSet()
         val morning = ends(nine)
-        assertTrue(morning.toString(), morning.all { it.startsWith("4 od 5 pravilno.") } && morning.none { "Lahko noč" in it } && morning.any { it.endsWith("Pa lep dan, fant. In jej!") })
+        assertTrue(morning.toString(), morning.all { it.startsWith("4 od 5 pravilno.") } && morning.none { "Lahko noč" in it } && morning.any { it.endsWith("Pa lep dan. In jej!") })
         val night = ends(ten)
-        assertTrue(night.toString(), night.any { it.endsWith("Lahko noč, fant. In jej!") } && night.none { "lep dan" in it.lowercase() })
+        assertTrue(night.toString(), night.any { it.endsWith("Lahko noč. In jej!") } && night.none { "lep dan" in it.lowercase() })
     }
 
     @Test fun `a slot with no line for the time says a plain one for it, never a wrong-time one`() {

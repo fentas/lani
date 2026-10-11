@@ -610,7 +610,7 @@ const SUBJECTS = new Set(['i', 'you', 'we', 'they'])
 
 /**
  * Whether a line's translation [en] says the verb glossed [gloss] ("to sit") in the present ("The king sits", "is
- * sitting", "we sit") or as an imperative: starting a clause ("Then sit down by the fire", "Sit closer, lad"), or after
+ * sitting", "we sit") or as an imperative: starting a clause ("Then sit down by the fire", "Sit closer"), or after
  * "let's" for the first person's ([first]: "Let's go"). Null when it says neither, or both.
  */
 export function moodInEnglish(en: string, gloss: string[], first = false): 'pres' | 'imp' | null {

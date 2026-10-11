@@ -156,13 +156,13 @@ export default async function voice() {
       schema: 'lani.villager/v0', id: 'vb-dedek', name: 'Dedek Vinko', art: 'grandpa', speaker: 'grandpa', role: 'Dedek · Grandfather', home: ['spot:highseat'], register: 'vi',
       lines: {
         greet: [vl('Dober dan, mladi mož.', 'Good day, young man.'), vl('O, Jan, sedi.', 'Oh, Jan, sit.', 2)],
-        thanks: [vl('Hvala, fant.', 'Thanks, lad.'), vl('Dobro delo.', 'Good work.')],
+        thanks: [vl('Hvala, Jan.', 'Thanks, Jan.'), vl('Dobro delo.', 'Good work.')],
         remember: [vl('Še vedno mislim na {memory}.', 'I still think of {memory}.', 1), vl('Ne pozabim na {memory}.', 'I do not forget {memory}.', 2)],
         idle: [vl('Nekoč je bil sneg do strehe.', 'Once the snow reached the roof.'), vl('Muri, kje si?', 'Muri, where are you?')],
-        cheer: [vl('Tako je.', 'That is right.'), vl('Bravo, fant.', 'Well done, lad.')],
-        comfort: [vl('Počasi. Še enkrat.', 'Slowly. Once more.'), vl('Nič hudega, fant.', 'Never mind, lad.')],
-        listen: [vl('Poslušaj, fant.', 'Listen, lad.'), vl('Tiho. Poslušaj.', 'Quiet. Listen.')],
-        bye: [vl('Lahko noč, fant.', 'Good night, lad.'), vl('Pojdi, pojdi.', 'Go, go.')],
+        cheer: [vl('Tako je.', 'That is right.'), vl('Bravo, Jan.', 'Well done, Jan.')],
+        comfort: [vl('Počasi. Še enkrat.', 'Slowly. Once more.'), vl('Nič hudega, Jan.', 'Never mind, Jan.')],
+        listen: [vl('Poslušaj, Jan.', 'Listen, Jan.'), vl('Tiho. Poslušaj.', 'Quiet. Listen.')],
+        bye: [vl('Lahko noč, Jan.', 'Good night, Jan.'), vl('Pojdi, pojdi.', 'Go, go.')],
       },
     }))
     fe.st.used = fe.st.limit - 5_000 - 30 // 30 characters above the reserve
@@ -792,7 +792,7 @@ export default async function voice() {
     const old = new Database(join(vbData, 'app/voice/voice.db'))
     old.exec('CREATE TABLE clips (key TEXT PRIMARY KEY, norm TEXT NOT NULL, text TEXT NOT NULL, voice TEXT NOT NULL, engine TEXT NOT NULL, file TEXT NOT NULL, chars INTEGER NOT NULL, created_at TEXT NOT NULL, source TEXT NOT NULL, method TEXT, hits INTEGER NOT NULL DEFAULT 0)')
     const oldFile: Record<string, string> = {}
-    ;[['Ha! In ti boš tudi, Jan.', '@janez', 'elevenlabs'], ['Lahko noč, fant.', '@janez', 'elevenlabs'], ['Pridi spet k lipi.', '@janez', 'elevenlabs'], ['Lahko noč, fant.', 'grandpa', 'elevenlabs'], ['Lahko noč, fant.', 'male', 'gepard']].forEach(([text, voice, engine], i) => {
+    ;[['Ha! In ti boš tudi, Jan.', '@janez', 'elevenlabs'], ['Lahko noč, Jan.', '@janez', 'elevenlabs'], ['Pridi spet k lipi.', '@janez', 'elevenlabs'], ['Lahko noč, Jan.', 'grandpa', 'elevenlabs'], ['Lahko noč, Jan.', 'male', 'gepard']].forEach(([text, voice, engine], i) => {
       const file = `${createHash('sha1').update(`vb|${voice}|${text}`).digest('hex')}.mp3`
       oldFile[`${voice}:${text}`] = file
       writeFileSync(join(vbData, 'app/voice/files', file), hissy)
@@ -819,7 +819,7 @@ export default async function voice() {
     }
     check('voice-build --denoise (dry run): lists Janez\'s three ElevenLabs clips (not the archetype\'s, not a local clip), changes nothing, calls nobody',
       dry.exitCode === 0 && dryJson.waiting === 3 && dryJson.voices?.['@janez'] === 'hiss' && dryJson.clips?.every((c: any) => c.voice === '@janez') && dry.stdout.includes('Pridi spet k lipi.') && dry.stdout.includes('Dry run') && dry.stdout.includes('--denoise --run') &&
-        !dry.stdout.includes(oldFile['grandpa:Lahko noč, fant.']) && Object.values(oldFile).every(f => existsSync(join(vbData, 'app/voice/files', f))) && !cols().includes('denoise') && fe.st.tts.length === tts0, [dry.stdout, dry.stderr, dryJson])
+        !dry.stdout.includes(oldFile['grandpa:Lahko noč, Jan.']) && Object.values(oldFile).every(f => existsSync(join(vbData, 'app/voice/files', f))) && !cols().includes('denoise') && fe.st.tts.length === tts0, [dry.stdout, dry.stderr, dryJson])
     // the bridge, running on the same data: it tells the app when another process changed the clips
     const told: number[] = []
     const bridge = new VoiceStore({ appDir: join(vbData, 'app'), engines: [el], queueDelayMs: 0, onUpdated: n => void told.push(n) })
@@ -1010,7 +1010,7 @@ export default async function voice() {
       ['Tiho. Poslušaj.', 'grandpa', 'elevenlabs', quiet],
       ['Adijo! Grem nazaj v Brda.', 'male', 'gepard', local],
       ['okno', 'female', 'elevenlabs', s!.bytes], // at the level already, no silence at its edges
-      ['Bravo, fant.', '@janez', 'elevenlabs', hissy], // a voice that hisses: filtered in the same encode
+      ['Bravo, Jan.', '@janez', 'elevenlabs', hissy], // a voice that hisses: filtered in the same encode
     ]
     clips.forEach(([text, voice, engine, bytes], i) => {
       const file = `${createHash('sha1').update(`level|${voice}|${text}`).digest('hex')}.mp3`
@@ -1263,7 +1263,7 @@ export default async function voice() {
       if (own?.speaker !== '@micka') await Bun.sleep(100)
     }
     check('the bridge designs a voice for Micka by itself (she lives here, the account has room)', own?.speaker === '@micka' && own.status === 'own' && bridgeEleven.st.created.length >= 1, own)
-    const said = await (await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Pridi k mizi, fant.', voice: '@micka' }) })).json()
+    const said = await (await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Pridi k mizi, Jan.', voice: '@micka' }) })).json()
     check('POST /voice/say in her own voice', said.voice === '@micka' && !!bridgeEleven.st.tts.at(-1)?.voice?.startsWith('own'), [said, bridgeEleven.st.tts.at(-1)])
     check('POST /voice/say for someone without a voice of their own is a 400 (the app uses the archetype)', (await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Živjo.', voice: '@n-rok-humar' }) })).status === 400)
     const tp = await client.callTool({ name: 'voice_profiles', arguments: {} })
@@ -1447,7 +1447,7 @@ export default async function voice() {
     })
     const vs = new VoiceStore({ appDir: mkdtempSync(join(tmpdir(), 'lani-prof-')), engines: [el], queueDelayMs: 0 })
     const castList = [
-      { id: 'micka', name: 'Babica Micka', voice: 'female' as const, speaker: 'grandma', role: 'Babica · Grandmother', personality: 'Warm grandmother, always cooking. Forgets words, never people. Worries.', order: 1, lines: { greet: [{ sl: 'Dober dan. Si lačen?' }, { sl: 'O, pridi, pridi. Sedi.' }, { sl: 'Jan, fant moj! Pridi, juha je vroča.' }], idle: [{ sl: 'Kje si bil tako dolgo? Sedi, sedi, jej.' }, { sl: 'Rada mislim na {memory}.' }] } },
+      { id: 'micka', name: 'Babica Micka', voice: 'female' as const, speaker: 'grandma', role: 'Babica · Grandmother', personality: 'Warm grandmother, always cooking. Forgets words, never people. Worries.', order: 1, lines: { greet: [{ sl: 'Dober dan. Si lačen?' }, { sl: 'O, pridi, pridi. Sedi.' }, { sl: 'Jan! Pridi, juha je vroča.' }], idle: [{ sl: 'Kje si bil tako dolgo? Sedi, sedi, jej.' }, { sl: 'Rada mislim na {memory}.' }] } },
       { id: 'ancka', name: 'Teta Ančka', voice: 'female' as const, speaker: 'grandma', order: 5 },
       { id: 'luka', name: 'Pastir Luka', voice: 'male' as const, speaker: 'young-man', order: 2 },
     ]
@@ -1475,7 +1475,7 @@ export default async function voice() {
     const vm = prof.views()
     check('profiles: Micka now speaks as "@micka", at her own voice\'s pitch; Ana with the young woman at hers', vm.micka.speaker === '@micka' && vm.micka.pitch === 1 && vm['n-ana-furlan'].speaker === 'young-woman' && vm['n-ana-furlan'].pitch === va.pitch, vm)
     check('cast: "@micka" is a voice, her own, in for the grandmother', personVoice('@micka')?.elevenlabs === 'own1' && elevenlabsOf('@micka') === 'own1' && fallbacks('@micka')[0] === 'grandma' && !personVoice('@ancka'), fallbacks('@micka'))
-    const line = await vs.say('Jej, jej, fant.', '@micka')
+    const line = await vs.say('Jej, jej, Jan.', '@micka')
     check('voice store: a line of hers is voiced in her own voice, under her own key', line?.voice === '@micka' && line.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === 'own1', line)
 
     // slots: 4, one kept spare, Micka has one: Luka moves in and gets the second; then the cast waiting keeps the rest
@@ -1486,7 +1486,7 @@ export default async function voice() {
 
     // a redesign: a new voice, the old one and its clips go
     const re = await prof.redesign('micka', 'An old woman in her eighties with a very soft, trembling voice. A native Slovene speaker.')
-    check('redesign: a new voice from the new description, the old one deleted, her old clips dropped', 'person' in re && re.elevenlabs === 'own3' && fe.st.deleted.includes('own1') && changed.includes('@micka') && !vs.get('jej jej fant', '@micka') && fe.st.designs.at(-1)?.voice_description.includes('eighties'), [re, fe.st.deleted, changed])
+    check('redesign: a new voice from the new description, the old one deleted, her old clips dropped', 'person' in re && re.elevenlabs === 'own3' && fe.st.deleted.includes('own1') && changed.includes('@micka') && !vs.get('jej jej jan', '@micka') && fe.st.designs.at(-1)?.voice_description.includes('eighties'), [re, fe.st.deleted, changed])
     check('redesign: an unknown person is an error', 'error' in (await prof.redesign('nobody')))
     const like = await prof.redesign('luka', undefined, 'grandpa')
     check('redesign like another voice: its sample recording lends the timbre (reference audio), the prompt the rest', 'person' in like && like.status === 'own' && !!fe.st.designs.at(-1)?.reference_audio_base64 && fe.st.designs.at(-1)?.prompt_strength === 0.4, fe.st.designs.at(-1) && { ...fe.st.designs.at(-1), reference_audio_base64: '…' })

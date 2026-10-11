@@ -166,7 +166,7 @@ export default async function variants() {
     lines: [
       { who: 'luka', sl: 'Jan, danes so ovce lačne.', en: 'Jan, the sheep are hungry today.' },
       { choices: [
-        { sl: 'Dam jim seno.', en: "I'll give them hay.", ok: true, reply: { sl: 'Bravo, fant.', en: 'Well done, lad.' } },
+        { sl: 'Dam jim seno.', en: "I'll give them hay.", ok: true, reply: { sl: 'Bravo!', en: 'Well done!' } },
         { sl: 'Dam jim sena.', en: "I'll give them some hay.", why: 'Dati takes the accusative here: seno.', reply: { sl: 'Sena? Koliko sena?', en: 'Sena? How much hay?' } },
       ] },
       { who: 'luka', sl: 'Hvala, Jan.', en: 'Thanks, Jan.' },
