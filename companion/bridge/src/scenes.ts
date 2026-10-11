@@ -113,7 +113,7 @@ export const SCENE_ART = {
     apiary: ['swarm', 'smoke', 'honey'],
     market: ['bustle', 'bell', 'pigeons'],
     watchtower: ['torch', 'horn', 'birds', 'wolves'],
-    livingroom: ['stove', 'dog'],
+    livingroom: ['stove', 'dog', 'dog-hides'],
     workshop: ['dust'],
     cellar: ['tap', 'candle'],
     attic: ['lamp', 'cradle'],
@@ -142,6 +142,13 @@ export const SCENE_STAGE: Record<string, Record<string, { poses: string[]; cover
     bench: { poses: ['sit'] },
     'under-table': { poses: ['stand', 'hide', 'peek'], cover: 'table' },
     'behind-door': { poses: ['stand', 'hide', 'peek'], cover: 'door' },
+  },
+  campfire: {
+    left: { poses: ['sit'] },
+    right: { poses: ['sit'] },
+    back: { poses: ['stand'] },
+    'behind-stump': { poses: ['stand', 'hide', 'peek'], cover: 'stump' },
+    'behind-logs': { poses: ['stand', 'hide', 'peek'], cover: 'logs' },
   },
   tent: {
     left: { poses: ['stand'] },

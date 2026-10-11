@@ -142,11 +142,12 @@ class StageTest {
         assertEquals(setOf("stove", "door", "table"), Stage.tapSlots("livingroom", taps))
     }
 
-    @Test fun `every art's stage has its person spots, standing, and the poses the app knows`() {
+    @Test fun `every art's stage has its person spots, standing or seats, and the poses the app knows`() {
         for ((art, spots) in SceneArt.stage) {
             val names = spots.map { it.name }
             assertEquals("$art: a spot once", names.toSet().size, names.size)
-            for (slot in SceneArt.personSlots.getValue(art)) assertTrue("$art: its person spot $slot is a spot, standing", spots.any { it.name == slot && "stand" in it.poses })
+            // a person spot is where one stands, or a seat (the logs by the fire: sitting only)
+            for (slot in SceneArt.personSlots.getValue(art)) assertTrue("$art: its person spot $slot is a spot, standing or a seat", spots.any { it.name == slot && ("stand" in it.poses || it.poses == listOf("sit")) })
             for (s in spots) {
                 assertTrue("$art/${s.name}: poses", s.poses.isNotEmpty() && s.poses.all { Stance.of(it) != null })
                 s.cover?.let { assertTrue("$art/${s.name}: its cover $it is a slot", it in SceneArt.objects.getValue(art)) }

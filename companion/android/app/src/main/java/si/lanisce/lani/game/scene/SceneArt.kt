@@ -189,8 +189,9 @@ object SceneArt {
         // the watch's torch: 0 out, 1 lit (not set: lit from dusk); the horn blown, its call going out over the valley (how
         // loud); a flock rising off the forest and away (how far); wolves' eyes in the dark forest (how many), grey shapes by day
         "watchtower" to listOf("torch", "horn", "birds", "wolves"),
-        // the stove fired up, warm light on the bench (how warm); Muri the dog awake on the bench, sitting up (0: asleep)
-        "livingroom" to listOf("stove", "dog"),
+        // the stove fired up, warm light on the bench (how warm); Muri the dog awake on the bench, sitting up (0: asleep);
+        // Muri hidden behind the door (it stands open), his tail wagging past its leaf (0: back on his bench)
+        "livingroom" to listOf("stove", "dog", "dog-hides"),
         // sawdust flying off the workbench as a board is sawn (how much)
         "workshop" to listOf("dust"),
         // wine running from the barrel's tap into the jug; the candle: 0 out, 1 lit (not set: lit, the cellar is dark)
@@ -226,6 +227,15 @@ object SceneArt {
             Spot("bench", "sit"),
             Spot("under-table", "stand", "hide", "peek", cover = "table"),
             Spot("behind-door", "stand", "hide", "peek", cover = "door"),
+        ),
+        // Ob ognju: on the logs by the fire, sitting; between the fire and the tent, where the children play;
+        // behind the stump in front and behind the woodpile at the back, to hide (the top of a head shows over them) or peek
+        // out, or standing there
+        "campfire" to listOf(
+            Spot("left", "sit"), Spot("right", "sit"),
+            Spot("back", "stand"),
+            Spot("behind-stump", "stand", "hide", "peek", cover = "stump"),
+            Spot("behind-logs", "stand", "hide", "peek", cover = "logs"),
         ),
         // V šotoru: inside on the rug, by the front outside, out on the meadow; by the lantern under the roof, on the
         // bedroll behind the table (out of the rain)

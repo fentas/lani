@@ -196,6 +196,47 @@ class StageRenderTest {
         shoot("tent", "luka-4-by-the-lantern", listOf(luka.copy(slot = "lantern", stance = Stance.SIT)), tent, lit)
     }
 
+    @Test fun `hide-and-seek by the fire, and Muri behind the door`() {
+        val out = File(dir, "hide-and-seek").apply { mkdirs() }
+        fun shoot(art: String, name: String, people: List<PersonInScene>, box: IntArray, f: (SceneFrame) -> SceneFrame = { it }) {
+            val frame = f(frame(art, people, hour = 16f))
+            val (c, _) = render(art, frame)
+            write(c, "hide-and-seek/$name", 3)
+            val k = 3
+            val w = PixelCanvas(box[2] * k, box[3] * k)
+            ScenePainters.create(art).render(w, frame, Lens(k, box[0] * k, box[1] * k, bw, bh))
+            write(w, "hide-and-seek/$name-closer", 2)
+        }
+        val nejc = PersonInScene("otroci", "child1", "back")
+        val luka = PersonInScene("luka", "shepherd", "right", stance = Stance.SIT)
+        val fire = intArrayOf(80, 110, 160, 120)
+        val pile = intArrayOf(40, 90, 130, 100)
+        shoot("campfire", "fire-1-before", listOf(nejc.copy(talking = true), luka), fire)
+        shoot("campfire", "fire-2-running-to-hide", listOf(nejc.copy(slot = "behind-stump", stance = Stance.HIDE, from = "back", moveAge = 0.25f), luka), fire)
+        shoot("campfire", "fire-3-hidden-behind-the-stump", listOf(nejc.copy(slot = "behind-stump", stance = Stance.HIDE, talking = true), luka), fire)
+        shoot("campfire", "fire-4-peeking-at-a-wrong-guess", listOf(nejc.copy(slot = "behind-stump", stance = Stance.PEEK), luka), fire)
+        shoot("campfire", "fire-5-found", listOf(nejc.copy(slot = "back", from = "behind-stump", fromStance = Stance.HIDE, moveAge = 0.2f), luka), fire)
+        shoot("campfire", "fire-6-hidden-behind-the-woodpile", listOf(nejc.copy(slot = "behind-logs", stance = Stance.HIDE), luka), pile)
+        shoot("campfire", "fire-7-peeking-from-the-woodpile", listOf(nejc.copy(slot = "behind-logs", stance = Stance.PEEK), luka), pile)
+        shoot("campfire", "fire-8-out-of-the-woodpile", listOf(nejc.copy(slot = "behind-logs"), luka), pile)
+        shoot("campfire", "fire-9-night-hidden-behind-the-stump", listOf(nejc.copy(slot = "behind-stump", stance = Stance.HIDE), luka), fire, { it.copy(hour = 21.5f) })
+        val room = intArrayOf(70, 80, 140, 100)
+        val muri = { f: SceneFrame -> f.copy(fx = mapOf("dog-hides" to 1f)) }
+        shoot("livingroom", "muri-1-on-the-bench", listOf(zala.copy(talking = true)), room, { it.copy(fx = mapOf("dog" to 1f)) })
+        shoot("livingroom", "muri-2-hidden-behind-the-door", listOf(zala.copy(talking = true)), room, muri)
+        shoot("livingroom", "muri-3-and-zala-hidden-behind-the-door", listOf(zala.copy(slot = "behind-door", stance = Stance.HIDE)), room, muri)
+        shoot("livingroom", "muri-4-level-1", listOf(zala), room, { muri(it).copy(world = si.lanisce.lani.game.scene.SceneWorld.room(1, si.lanisce.lani.game.BuildingType.HOUSE)) })
+    }
+
+    @Test fun `Muri behind the door, the door open, a tail to tap for the dog`() {
+        val art = "livingroom"
+        val (on, hits) = render(art, frame(art, listOf(zala)).copy(fx = mapOf("dog-hides" to 1f)))
+        val (off, _) = render(art, frame(art, listOf(zala)).copy(fx = mapOf("dog" to 1f)))
+        assertTrue("the dog can be tapped (his tail)", hits.any { it.target == SceneTarget.Thing("dog") })
+        assertTrue("the door can be tapped", hits.any { it.target == SceneTarget.Thing("door") })
+        assertTrue("the picture changes", on.pixels.indices.count { on.pixels[it] != off.pixels[it] } > 60)
+    }
+
     @Test fun `snapshots of the living room's stage`() {
         val art = "livingroom"
         val views = listOf(

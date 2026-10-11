@@ -6,8 +6,11 @@ import si.lanisce.lani.game.render.Moon
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import si.lanisce.lani.game.scene.PersonInScene
+import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.Poke
 import si.lanisce.lani.game.scene.SceneSights
+import si.lanisce.lani.game.scene.Stance
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
@@ -36,6 +39,11 @@ import kotlin.math.sqrt
  * tent's canvas its weave and stitches, and the moon its craters over fainter stars and the Milky Way's dust.
  *
  * Tapped ([pokes]), the fire leaps up in a burst of sparks; tapped again, higher, a shower of them.
+ *
+ * Its stage (companion/SCENES.md, "Stage directions", [marks]): the logs by the fire, sitting ("left", "right"); between
+ * the fire and the tent, where the children play ("back"); and two places to hide, each with where one stands when out of
+ * it: behind the stump in front, crouched, the top of a head and a shoulder over it; behind the woodpile at the back,
+ * between it and the trees, the top of a head over the logs.
  */
 internal class CampfirePainter : DioramaPainter() {
     override val art = "campfire"
@@ -63,6 +71,55 @@ internal class CampfirePainter : DioramaPainter() {
     private val bucketX = 3.2f; private val bucketY = 11.4f
     private val stumpX = 9.6f; private val stumpY = 10.9f
 
+    /**
+     * The stage: the seats on the logs, the place between the fire and the tent, and the two hiding places, each where one
+     * stands when out of it (behind the stump: at its left; behind the woodpile: in front of it). Who hides behind the stump
+     * is drawn before it, standing there too; behind the woodpile before it, standing in front of it after the children's.
+     */
+    override val marks = mapOf(
+        "left" to Mark(leftX, leftY),
+        "right" to Mark(rightX, rightY, flip = true),
+        "back" to Mark(backX, backY, flip = true),
+        "behind-stump" to Mark(STUMP_OUT_X, STUMP_OUT_Y, flip = true, layer = "stump"),
+        "behind-logs" to Mark(LOGS_OUT_X, LOGS_OUT_Y, layer = "logs-front", hidden = "logs"),
+    )
+
+    /** A shadow at the feet of whoever stands on the grass. */
+    override fun footprint(x: Float, y: Float) = footShadow(x, y)
+
+    /** Nobody walks through the fire: round the hearth and the tripod's legs. */
+    override val around = listOf(floatArrayOf(fireX, fireY, 1.75f))
+
+    /** On a log by the fire one sits, whatever the stance says (someone placed without the stage), its shadow at the feet too. */
+    override fun settle(p: PersonInScene, spot: String, m: Mark, stance: Stance, lift: Int) {
+        val seat = spot == "left" || spot == "right"
+        if (seat) footShadow(m.x, m.y)
+        super.settle(p, spot, m, if (seat) Stance.SIT else stance, lift)
+    }
+
+    /**
+     * Someone hiding behind the stump (crouched behind it, toward the fire: the hair and an ear over its cut) or behind the
+     * woodpile (standing between it and the trees: the top of the head over the top logs); peeking,
+     * crouched at the stump's left, or at the woodpile's near end, in full view.
+     */
+    override fun hiding(p: PersonInScene, spot: String, m: Mark, peek: Boolean) {
+        when (spot) {
+            "behind-stump" ->
+                if (peek) person(p, sx(STUMP_PEEK_X, STUMP_PEEK_Y), sy(STUMP_PEEK_X, STUMP_PEEK_Y) + detail, flip = true, crouch = true)
+                else figure(p, sx(STUMP_HIDE_X, STUMP_HIDE_Y), sy(STUMP_HIDE_X, STUMP_HIDE_Y) + detail, flip = true, crouch = true)
+            "behind-logs" ->
+                if (peek) person(p, sx(LOGS_PEEK_X, LOGS_PEEK_Y), sy(LOGS_PEEK_X, LOGS_PEEK_Y) + detail, flip = false, crouch = true)
+                else figure(p, sx(LOGS_HIDE_X, LOGS_HIDE_Y), sy(LOGS_HIDE_X, LOGS_HIDE_Y) + detail, flip = false)
+            else -> super.hiding(p, spot, m, peek)
+        }
+    }
+
+    /** Whoever dozes off at [spot] (the stage leaves sleepers to the painter): lying there on a pillow of their own. */
+    private fun dozing(spot: String) {
+        val m = marks.getValue(spot)
+        for (p in peopleAt(spot)) if (p.pose == Pose.SLEEP) personAt(p, m.x, m.y, flip = m.flip)
+    }
+
     override fun paint() {
         fit()
         vignette()
@@ -84,7 +141,8 @@ internal class CampfirePainter : DioramaPainter() {
         for (b in BACK_BUSHES) prop(Pal.OUTLINE_TREE) { bush(b[0], b[1], b[2], b[3].toInt()) }
         undergrowth()
 
-        // the woodpile
+        // the woodpile, and whoever hides behind it
+        cast("logs")
         thing("logs") { woodpile() }
 
         // the tent (once the village has pitched it: TENT), its guy ropes and stakes; the chopping block and its axe by its corner
@@ -100,8 +158,9 @@ internal class CampfirePainter : DioramaPainter() {
         prop { choppingBlock() }
         thing("axe", slop = 1) { axe() }
 
-        // behind the fire, near the tent
-        for (p in peopleAt("back")) { footShadow(backX, backY); personAt(p, backX, backY, flip = true) }
+        // behind the fire, near the tent; out of the woodpile, in front of it
+        cast("back"); dozing("back")
+        cast("logs-front")
 
         // the hearth: the tripod's back leg, the stones behind, the fire, the kettle, the stones in front, the front legs
         prop { tripodLeg(-1.14f, -1.14f) }
@@ -115,9 +174,10 @@ internal class CampfirePainter : DioramaPainter() {
         // the bucket, the logs by the fire and the people on them, the stump in front
         thing("bucket", slop = 1) { bucket(lit) }
         prop { seat(leftX, leftY, 0.45f, 71) }
-        for (p in peopleAt("left")) { footShadow(leftX, leftY); personAt(p, leftX, leftY, flip = false, seated = true) }
+        cast("left"); dozing("left")
         prop { seat(rightX, rightY, 0.55f, 73) }
-        for (p in peopleAt("right")) { footShadow(rightX, rightY); personAt(p, rightX, rightY, flip = true, seated = true) }
+        cast("right"); dozing("right")
+        cast("stump")
         thing("stump") { stump() }
 
         fireflies(iso.ix(0f, 9f), iso.iy(0f, 3f, 20f), iso.ix(12f, 3f), iso.iy(12f, 9f, 0f), 14, 21)
@@ -1374,5 +1434,13 @@ internal class CampfirePainter : DioramaPainter() {
 
         /** Hazel bushes in the two side corners: x, y, size, seed. */
         private val BACK_BUSHES = arrayOf(floatArrayOf(11.4f, 0.7f, 0.9f, 3f), floatArrayOf(0.7f, 11.3f, 0.9f, 7f))
+
+        // the hiding places: where one crouches hidden, peeks out, stands when out of it
+        const val STUMP_HIDE_X = 9.0f; const val STUMP_HIDE_Y = 10.15f
+        const val STUMP_PEEK_X = 8.85f; const val STUMP_PEEK_Y = 11.25f
+        const val STUMP_OUT_X = 8.65f; const val STUMP_OUT_Y = 10.75f
+        const val LOGS_HIDE_X = 0.3f; const val LOGS_HIDE_Y = 6.2f
+        const val LOGS_PEEK_X = 1.45f; const val LOGS_PEEK_Y = 8.85f
+        const val LOGS_OUT_X = 2.75f; const val LOGS_OUT_Y = 6.5f
     }
 }

@@ -147,13 +147,14 @@ object Stage {
     fun spots(art: String): Map<String, SceneArt.Spot> = SceneArt.stage[art].orEmpty().associateBy { it.name }
 
     /**
-     * Where everyone of [scene] is before a dialog moves them: their spot ([ScenePerson.slot]) standing, over it what today
-     * keeps ([kept], [DayAct]), as far as the art's stage has the spot and the pose.
+     * Where everyone of [scene] is before a dialog moves them: their spot ([ScenePerson.slot]) in its first pose (standing;
+     * on the logs by the fire, sitting), over it what today keeps ([kept], [DayAct]), as far as the art's stage has the
+     * spot and the pose.
      */
     fun base(scene: SceneSpec, kept: Map<String, Placement>): Map<String, Placement> {
         val spots = spots(scene.art)
         if (spots.isEmpty()) return emptyMap()
-        val home = scene.people.filter { it.slot in spots }.associate { it.id to Placement.at(it.slot) }
+        val home = scene.people.filter { it.slot in spots }.associate { it.id to Placement(it.slot, spots.getValue(it.slot).poses.first()) }
         return home + kept.filter { (id, p) -> id in home && fits(spots, p) }
     }
 

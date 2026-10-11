@@ -26,7 +26,8 @@ import kotlin.math.sin
  * painted; at level 3 the stencilled border, the holy corner, the wedding photo, Janez's book and his glasses on the table.
  *
  * Its effects: `stove` (fired up: its tiles warm and a glow on the bench), `dog` (Muri awake, sitting up; at night he
- * sleeps whatever).
+ * sleeps whatever), `dog-hides` (Muri hidden behind the door, which stands open: his paws under its leaf, his tail
+ * wagging past its free edge; not while Janez sleeps).
  *
  * At night Janez sleeps on the zapeček ([beds]: "zapecek"), along its front run, his head on a pillow in the warm corner,
  * his hat off, under a loden-green wool blanket with a cream check; Muri curls up at the wall end, at his feet. Lovec Jože,
@@ -107,12 +108,16 @@ internal class LivingRoomPainter : RoomPainter() {
         walls()
         thing("window") { window() }
         if (there("curtains")) thing("curtains") { curtains() }
-        // the door stands open while someone hides behind it (and until they are out): they are between it and the wall
-        val ajar = at("behind-door", Stance.HIDE, Stance.PEEK)
+        // the door stands open while someone hides behind it (and until they are out): they are between it and the wall; so
+        // does Muri when he hides there ("dog-hides"), his tail wagging past the leaf
+        val muriHides = fxOn("dog-hides") > 0.5f && asleep == null
+        val ajar = at("behind-door", Stance.HIDE, Stance.PEEK) || muriHides
         thing("door") { door(open = ajar) }
         if (ajar) {
             cast("behind-door")
+            if (muriHides) prop { dogBehindDoor() }
             thing("door") { leaf() }
+            if (muriHides) thing("dog", slop = 2) { dogTail() }
         }
         if (there("clock")) thing("clock", slop = 1) { clock() }
         if (there("photo")) thing("photo", slop = 1) { photo() }
@@ -136,7 +141,7 @@ internal class LivingRoomPainter : RoomPainter() {
             prop { pillowBox(end - 0.68f, sy1 + 0.08f, end - 0.08f, sy1 + bd - 0.08f, top) }
             sleeperOn(p, JANEZ_FEET, sy1, end, sy1 + bd, top, alongY = false, GREEN_WOOL, foot = 0f, far = true)
         }
-        thing("dog", slop = 1) { dog(if (asleep != null) DOG_ASLEEP_X else 3.6f, sy1 + bd / 2f, bz + 0.9f) }
+        if (!muriHides) thing("dog", slop = 1) { dog(if (asleep != null) DOG_ASLEEP_X else 3.6f, sy1 + bd / 2f, bz + 0.9f) }
         thing("chest") { chest() }
         prop { cornerBench() }
         cast("stove")
@@ -303,6 +308,42 @@ internal class LivingRoomPainter : RoomPainter() {
         c.fillRect(floor(cx + 1.2f * p).toInt(), floor(by - 0.8f * p).toInt(), max(1, P) * 2, max(1, P), bl)
     }
 
+    /**
+     * Muri hidden behind the open door: sitting on the floor between its leaf and the wall, facing the hinge, his rump to the
+     * leaf's free edge; the leaf (drawn after) hides all but his paws under it. His tail is [dogTail], drawn over the leaf.
+     */
+    private fun dogBehindDoor() {
+        val x = doorA - MURI_BACK; val y = y0 + MURI_ALONG
+        val cx = iso.sx(x, y); val by = iso.sy(x, y, fl)
+        val p = P.toFloat()
+        val b = Col.hex(0x8A5A34); val bl = Col.hex(0xB07A48); val bd = Col.hex(0x5E3A20)
+        c.fillEllipse(cx, by - 2.6f * p, 2.8f * p, 2.6f * p, b)
+        c.fillEllipse(cx - 0.8f * p, by - 6.0f * p, 2.0f * p, 1.9f * p, b)
+        c.fillEllipse(cx - 2.3f * p, by - 5.5f * p, 1.1f * p, 0.8f * p, bl)
+        c.fillEllipse(cx + 0.2f * p, by - 7.5f * p, 0.8f * p, 1.3f * p, bd)
+        // the front paws, which show under the leaf
+        c.fillRect(floor(cx - 1.6f * p).toInt(), floor(by - 0.9f * p).toInt(), max(1, P) * 2, max(1, P), bl)
+        c.fillRect(floor(cx - 0.2f * p).toInt(), floor(by - 0.9f * p).toInt(), max(1, P) * 2, max(1, P), bl)
+    }
+
+    /** Muri's tail past the open leaf's free edge, wagging: what gives him away ("Glej, rep!"): bushy, curling up, a light tip. */
+    private fun dogTail() {
+        val w = doorB - doorA
+        val ax = iso.sx(doorA - 0.12f, y0 + w - 0.05f); val ay = iso.sy(doorA - 0.12f, y0 + w - 0.05f, fl + 3.4f)
+        val p = P.toFloat()
+        val wag = sin(t * 12.0).toFloat()
+        val b = Col.hex(0x8A5A34); val bl = Col.hex(0xB07A48); val tip = Col.hex(0xC89A68)
+        val n = 7
+        for (i in 0..n) {
+            val u = i / n.toFloat()
+            // out to the left and curling up, swinging with the wag the further out
+            val x = ax - (4.6f * u + 0.5f * wag * u * u) * p
+            val y = ay - (0.6f * u + 3.6f * u * u + 1.2f * wag * u * u) * p
+            val r = (1.25f - 0.45f * u) * p
+            c.fillEllipse(x, y, r, r, if (u > 0.8f) tip else if (i % 2 == 0) b else bl)
+        }
+    }
+
     // ------------------------------------------------------------------ the left wall
 
     // ------------------------------------------------------------------ hiding (companion/SCENES.md, "Stage directions")
@@ -408,6 +449,8 @@ internal class LivingRoomPainter : RoomPainter() {
         /** Janez asleep on the zapeček's front run, his head in the corner: his feet this far along it; Muri at the wall end past them. */
         const val JANEZ_FEET = 2.0f
         const val DOG_ASLEEP_X = 1.65f
+        // Muri hidden behind the open door: how far behind the leaf and how far along it from the wall
+        const val MURI_BACK = 0.42f; const val MURI_ALONG = 0.95f
 
         /** How warm the stove glows while Janez sleeps by it (as the `stove` effect's level). */
         const val SLEEP_WARM = 0.5f

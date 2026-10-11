@@ -21,6 +21,7 @@ import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * A close-up as a diorama: one place built on a floating plot of ground in the village's isometric
@@ -235,10 +236,34 @@ internal abstract class DioramaPainter : ArtPainter() {
     protected open fun footprint(x: Float, y: Float) {}
 
     /**
+     * What a walk from spot to spot goes round, as world circles (x, y, radius): a fire, a well. A walk whose straight way
+     * comes nearer to one than its radius turns aside past it, on the side the way was nearer. None by default.
+     */
+    protected open val around: List<FloatArray> = emptyList()
+
+    /** The way from [a] to [b]: the two, and in between a point beside each of [around] the straight way would cut through. */
+    internal fun way(a: Mark, b: Mark): List<FloatArray> {
+        val dx = b.x - a.x; val dy = b.y - a.y
+        val len2 = dx * dx + dy * dy
+        val past = ArrayList<FloatArray>()
+        if (len2 > 1e-4f) for (o in around) {
+            val t = (((o[0] - a.x) * dx + (o[1] - a.y) * dy) / len2).coerceIn(0f, 1f)
+            val nx = a.x + dx * t - o[0]; val ny = a.y + dy * t - o[1]
+            val d = hypot(nx, ny)
+            if (d >= o[2] || t <= 0f || t >= 1f) continue
+            // out from the middle toward where the way came nearest (straight through it: to the way's left)
+            val (ux, uy) = if (d > 1e-3f) nx / d to ny / d else -dy / sqrt(len2) to dx / sqrt(len2)
+            past.add(floatArrayOf(o[0] + ux * o[2] * 1.15f, o[1] + uy * o[2] * 1.15f, t))
+        }
+        past.sortBy { it[2] }
+        return listOf(floatArrayOf(a.x, a.y)) + past + listOf(floatArrayOf(b.x, b.y))
+    }
+
+    /**
      * Draws the people of the frame whose place in the painting order is [layer] (a spot's, [Mark.layer], or where they hide
      * there, [Mark.hidden]), each as the stage has them: at their spot in their [Stance], or on their way there
      * ([PersonInScene.from]): out of hiding first with a hop and a puff where they hid ([POP_S]), then a walk from spot to
-     * spot ([walkS], the walking look, turned the way they go; drawn at the first spot's layer for the first half, the
+     * spot ([walkS], round what is [around], the walking look, turned the way they go; drawn at the first spot's layer for the first half, the
      * second's after), or a dash into hiding (a puff where they stood, [SLIP_S]: nobody sees where they went), the hiding
      * place showing its clue once they are gone. Someone asleep is the painter's (in a bed); someone at a spot the stage
      * lacks is not drawn here.
@@ -272,13 +297,20 @@ internal abstract class DioramaPainter : ArtPainter() {
             return
         }
         if (a == b) { if (layerOf(b, p.stance) == layer) settle(p, b, mb, p.stance); return }
-        // a walk from spot to spot, standing up first, into the pose there at the end
-        val u = age / walkS(hypot(mb.x - ma.x, mb.y - ma.y))
+        // a walk from spot to spot (round what is in the way), standing up first, into the pose there at the end
+        val pts = way(ma, mb)
+        val legs = FloatArray(pts.size - 1) { hypot(pts[it + 1][0] - pts[it][0], pts[it + 1][1] - pts[it][1]) }
+        val total = legs.sum()
+        val u = age / walkS(total)
         if (u >= 1f) { if (layerOf(b, p.stance) == layer) settle(p, b, mb, p.stance); return }
         if (layerOf(if (u < 0.5f) a else b, Stance.STAND) != layer) return
-        val x = ma.x + (mb.x - ma.x) * u; val y = ma.y + (mb.y - ma.y) * u; val z = ma.z + (mb.z - ma.z) * u
+        var gone = u * total; var i = 0
+        while (i < legs.size - 1 && gone > legs[i]) { gone -= legs[i]; i++ }
+        val f = if (legs[i] > 1e-4f) (gone / legs[i]).coerceIn(0f, 1f) else 1f
+        val p0 = pts[i]; val p1 = pts[i + 1]
+        val x = p0[0] + (p1[0] - p0[0]) * f; val y = p0[1] + (p1[1] - p0[1]) * f; val z = ma.z + (mb.z - ma.z) * u
         footprint(x, y)
-        val left = iso.sx(mb.x, mb.y) < iso.sx(ma.x, ma.y)
+        val left = iso.sx(p1[0], p1[1]) < iso.sx(p0[0], p0[1])
         person(p.copy(stance = Stance.STAND), sx(x, y), sy(x, y, z) + detail, left, walking = true)
     }
 

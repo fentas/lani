@@ -881,7 +881,7 @@ spot of the art's stage) and how (`pose`). `to` alone: they stand there; `pose` 
 | Field | Rules |
 |---|---|
 | `act.<person>` | a person of the scene (their `id`); a cue names at least one |
-| `act.<person>.to` | a spot of the art's stage (the table below); every person spot of an art with a stage is one of its spots |
+| `act.<person>.to` | a spot of the art's stage (the table below); every person spot of an art with a stage is one of its spots, and its first pose is how people are there by themselves (on the campfire's logs they sit) |
 | `act.<person>.pose` | `stand`, `sit`, `crouch` (squatting), `hide` (only a clue shows), `peek` (half out of the hiding place), `lie`: one the spot has |
 | `act_stays` (dialog) | `true`: where it leaves people stays until midnight; by default they go back to their spots when it closes. Only with an `act` cue on a line or a reply to a right choice |
 
@@ -892,7 +892,8 @@ is (their spot in the scene, or where an earlier cue or today put them): `Dialog
 `game/scene/Stage.kt`, pure.
 
 **How they get there** (`DioramaPainter.cast`, drawn from the time since they set off, so the scene's canvas and its closer
-look agree): a walk from spot to spot, 0.7–1.9 s by how far, with the sprites' walking look and turned the way they go; into
+look agree): a walk from spot to spot, 0.7–1.9 s by how far, with the sprites' walking look and turned the way they go, round
+what is in the way (`DioramaPainter.around`: nobody walks through the campfire, they go round the hearth and the tripod); into
 hiding, a puff of dust where they stood, and they are gone (nobody sees where to); out of hiding, a hop and a puff where they
 hid, then the walk on; from hiding to peeking and back, at once. Every move is over within `Stage.MOVE_S` (2.6 s). The mood
 of the person Jan talks to ([Effects](#effects-the-place-joins-in): the wave, the hop, the puzzled hand at the chin) is drawn
@@ -913,13 +914,15 @@ people stay where they stand), and a bridge from before stage directions strips 
 
 | Art | Spots (poses) | Hiding places: what hides them, what shows of someone there |
 |---|---|---|
-| `livingroom` | `stove`, `table`, `door` (stand: the person spots); `bench` (sit: on the zapeček along the stove); `under-table`, `behind-door` (stand, hide, peek) | `under-table`: crouched under the corner table, its top and cloth over them, their shoes and a bit of their clothes under it; peeking, crouched at its front corner, the head out under the cloth; standing, beside the table (the `table` hides it: a tap on the table is a tap there). `behind-door`: the door stands open, its leaf at right angles to the wall and a hand off the floor, and they stand pressed to the wall behind it, a braid or a sleeve past its sides and the shoes under it; peeking, half out past its edge; standing, in front of the open door (the `door`) |
+| `livingroom` | `stove`, `table`, `door` (stand: the person spots); `bench` (sit: on the zapeček along the stove); `under-table`, `behind-door` (stand, hide, peek) | `under-table`: crouched under the corner table, its top and cloth over them, their shoes and a bit of their clothes under it; peeking, crouched at its front corner, the head out under the cloth; standing, beside the table (the `table` hides it: a tap on the table is a tap there). `behind-door`: the door stands open, its leaf at right angles to the wall and a hand off the floor, and they stand pressed to the wall behind it, a braid or a sleeve past its sides and the shoes under it; peeking, half out past its edge; standing, in front of the open door (the `door`). Muri hides there too, as an effect, not a person: `dog-hides` ([Arts](#arts)) |
+| `campfire` | `left`, `right` (sit: the person spots, on the logs by the fire); `back` (stand: the person spot, between the fire and the tent, where the children play); `behind-stump`, `behind-logs` (stand, hide, peek) | `behind-stump`: crouched behind the stump in front, toward the fire, the hair and an ear over its cut; peeking, crouched at its left, in full view; standing, at its left (the `stump` hides it). `behind-logs`: standing between the woodpile and the trees, the top of the head over the top logs; peeking, crouched at the pile's near end; standing, in front of the pile (the `logs`) |
 | `tent` | `left`, `right`, `door` (stand: the person spots); `lantern` (sit, stand: on the bedroll behind the table, under the lantern and the roof) | none. Walking in from `door` (the meadow) to the `lantern`, they come through the open front; the weather keeps off them inside as off the tent's inside ([Sky cues](#sky-cues-the-weather-in-a-dialog)) |
 
 `StageTest` and `DialogTapTest` check where everyone is after each step, what a reaction and a day keep, and the moves;
 `StageRenderTest` that every spot and pose draws at every detail as the whole picture does, the hits in place, the hidden
-untappable, a clue showing, a peek showing more, no rain on Luka by the lantern or on his way in, and renders the living
-room's and the tent's for review (`build/scene-snapshots/stage`).
+untappable, a clue showing, a peek showing more, no rain on Luka by the lantern or on his way in, Muri's tail to tap behind
+the door, and renders the living room's, the tent's and the hide-and-seek by the fire and with Muri for review
+(`build/scene-snapshots/stage`).
 
 ### Tap turns: answer by tapping the scene
 
@@ -1676,13 +1679,13 @@ directions](#stage-directions-people-move-on-cue), with their spots and poses).
 
 | Art | Object slots | Person spots | Effects (`fx`) |
 |---|---|---|---|
-| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back | `flare` (the fire burns higher, sparks fly), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon) |
+| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon) |
 | `kitchen` | stove, pot, bowl, table, chair, bread, plate, glass, cup, spoon, fork, knife, window, door, cupboard, clock, milk, eggs, water, salt, potatoes, hearth, bench, bed, shelf, curtains, corner (by the level: see [What the village has built](#what-the-village-has-built)) | stove, table, door | `oven` (the stove fired up, smoke from the chimney; at level 1 the hearth's fire burns higher), `steam` (off the cup and the bowl) |
 | `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many) |
 | `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings) |
 | `tent` | lantern, sleepingbag, blanket, pillow, backpack, map, boots, coat, hat, book, cup, rope | left, right, door | `lantern` (0 dark, 1 lit) |
 | `field` | wheat, corn, potatoes, cabbage, kozolec, hay, scythe, rake, basket, cart, scarecrow, fence, path, horse; the wild: deer, hare, butterfly, fox, boar, bat | field, kozolec, path | `crows` (crows come to the scarecrow), `bell` (the church bell on the hill, its rings coming over the fields; not set: the ave, a few minutes round sunset), `bats` |
-| `livingroom` | stove, bench, table, chest, window, door, dog, chair, curtains, rug, lamp, clock, corner, photo, glasses, book (by the level) | stove, table, door | `stove` (fired up: its tiles warm, a glow on the bench), `dog` (Muri awake, sitting up and wagging; at night he sleeps whatever) |
+| `livingroom` | stove, bench, table, chest, window, door, dog, chair, curtains, rug, lamp, clock, corner, photo, glasses, book (by the level) | stove, table, door | `stove` (fired up: its tiles warm, a glow on the bench), `dog` (Muri awake, sitting up and wagging; at night he sleeps whatever), `dog-hides` (Muri plays hide-and-seek: off the bench and behind the open door, only his bushy tail wagging past the leaf's edge, the `dog` to tap; while Janez sleeps on the bench, Muri stays curled up by him) |
 | `workshop` | workbench, hammer, nails, boards, axe, broom, window, door, saw, tools, ladder, rake, wheelbarrow, horse, lantern (by the level) | bench, floor, door | `dust` (sawdust flying off the vice as a board is sawn) |
 | `cellar` | barrel, press, stairs, door, window, candle, jug, glass, crate, shelf, bottle, grapes, wine, ham, cheese (by the level) | barrel, press, stairs | `tap` (wine running from the barrel's tap into the jug, filling it), `candle` (0 out; lit, its flame flaring up the higher, as just lit; not set: lit, calm) |
 | `attic` | bed, pillow, blanket, cradle, chest, roof, window, stairs, wardrobe, rug, lamp, ball, mirror, toy (by the level) | bed, chest, stairs | `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (the cradle rocks: how far) |

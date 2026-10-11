@@ -54,9 +54,9 @@ function stageFromKotlin() {
 export default async function scenes() {
   // --- the registry can't drift from the app ---------------------------------------------------
   const ktStage = stageFromKotlin()
-  check('the bridge stages match SceneArt.kt (the living room, the tent)', JSON.stringify(ktStage) === JSON.stringify(SCENE_STAGE) && Object.keys(ktStage).length >= 2, { kt: ktStage, ts: SCENE_STAGE })
-  check("every stage has its art's person spots, standing, and only the poses the app knows",
-    Object.entries(SCENE_STAGE).every(([art, spots]) => SCENE_ART.personSlots[art].every(p => spots[p]?.poses.includes('stand')) &&
+  check('the bridge stages match SceneArt.kt (the living room, the campfire, the tent)', JSON.stringify(ktStage) === JSON.stringify(SCENE_STAGE) && Object.keys(ktStage).length >= 3, { kt: ktStage, ts: SCENE_STAGE })
+  check("every stage has its art's person spots, standing or seats (the logs by the fire), and only the poses the app knows",
+    Object.entries(SCENE_STAGE).every(([art, spots]) => SCENE_ART.personSlots[art].every(p => spots[p]?.poses.includes('stand') || JSON.stringify(spots[p]?.poses) === '["sit"]') &&
       Object.values(spots).every(s => s.poses.length && s.poses.every(p => (POSES as readonly string[]).includes(p)) && (!s.cover || SCENE_ART.objects[art].includes(s.cover)))) &&
       JSON.stringify(POSES) === JSON.stringify([...readFileSync(join(android, 'scene/Stage.kt'), 'utf8').matchAll(/[A-Z]+\("(\w+)"\)/g)].map(m => m[1])),
     SCENE_STAGE)
