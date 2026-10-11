@@ -65,15 +65,20 @@ import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.ui.words.StickerOr
 import si.lanisce.lani.l10n.bi
+import kotlin.math.abs
 
 /**
  * Places [content] next to [target] (view pixels, in this layout's space): above it when there is room
- * below [topLimit], else below it, kept inside the screen, with a small tail pointing at it. [target] is read
- * when placing, so a target that moves (the scene's camera) only moves the bubble; while it's null (out of
- * view) nothing is placed, but the content stays composed (its state, a greeting said once).
+ * below [topLimit], else below it, kept inside the screen and off what is over the picture ([keepOff]: the top bar's
+ * pills, see [BubblePlace]), with a small tail pointing at it. [target] and [keepOff] are read when placing, so a target
+ * that moves (the scene's camera) only moves the bubble; while it's null (out of view) nothing is placed, but the content
+ * stays composed (its state, a greeting said once).
  */
 @Composable
-fun Anchored(target: () -> IntRect?, topLimit: Int, color: Color, modifier: Modifier = Modifier.fillMaxSize(), content: @Composable () -> Unit) {
+fun Anchored(
+    target: () -> IntRect?, topLimit: Int, color: Color, modifier: Modifier = Modifier.fillMaxSize(),
+    keepOff: () -> Collection<IntRect> = { emptyList() }, content: @Composable () -> Unit,
+) {
     val density = LocalDensity.current
     val gap = with(density) { 10.dp.roundToPx() }
     val margin = with(density) { 10.dp.roundToPx() }
@@ -88,14 +93,40 @@ fun Anchored(target: () -> IntRect?, topLimit: Int, color: Color, modifier: Modi
         val bubble = ms[1].measure(Constraints(maxWidth = (c.maxWidth - 2 * margin).coerceAtLeast(0), maxHeight = c.maxHeight))
         layout(c.maxWidth, c.maxHeight) {
             val r = target() ?: return@layout
+            val at = BubblePlace.of(r, bubble.width, bubble.height, c.maxWidth, c.maxHeight, gap, margin, topLimit, keepOff())
             val cx = (r.left + r.right) / 2
-            val x = (cx - bubble.width / 2).coerceIn(margin, (c.maxWidth - margin - bubble.width).coerceAtLeast(margin))
-            val above = r.top - gap - bubble.height
-            val onTop = above >= topLimit
-            val y = if (onTop) above else (r.bottom + gap).coerceAtMost(c.maxHeight - bubble.height).coerceAtLeast(0)
-            val tx = cx.coerceIn(x + tail.width, x + bubble.width - tail.width) - tail.width / 2
-            tail.place(tx, if (onTop) y + bubble.height - tail.height / 2 - 2 else y - tail.height / 2 + 2)
-            bubble.place(x, y)
+            val tx = cx.coerceIn(at.x + tail.width, at.x + bubble.width - tail.width) - tail.width / 2
+            tail.place(tx, if (at.above) at.y + bubble.height - tail.height / 2 - 2 else at.y - tail.height / 2 + 2)
+            bubble.place(at.x, at.y)
+        }
+    }
+}
+
+/** Where a bubble goes ([Anchored]): its top left ([x], [y]) and whether it is [above] its target (its tail at its foot). */
+data class BubblePlace(val x: Int, val y: Int, val above: Boolean) {
+    companion object {
+        /**
+         * A bubble [bw] × [bh] for [r] in a [w] × [h] view: centred over it [gap] above, or below it when there is no room
+         * above [topLimit], [margin] in from the sides. One that would lie on something of [keepOff] (the top bar's pills:
+         * a marker over someone standing high in the picture) moves aside past its nearer end that is clear, at most its
+         * own width (its tail still finds the target), else down below it.
+         */
+        fun of(r: IntRect, bw: Int, bh: Int, w: Int, h: Int, gap: Int, margin: Int, topLimit: Int, keepOff: Collection<IntRect> = emptyList()): BubblePlace {
+            val cx = (r.left + r.right) / 2
+            fun clampX(x: Int) = x.coerceIn(margin, (w - margin - bw).coerceAtLeast(margin))
+            val x = clampX(cx - bw / 2)
+            val over = r.top - gap - bh
+            val above = over >= topLimit
+            val y = if (above) over else (r.bottom + gap).coerceAtMost(h - bh).coerceAtLeast(0)
+            fun on(x: Int, y: Int): List<IntRect> = keepOff.filter { it.left < x + bw && x < it.right && it.top < y + bh && y < it.bottom }
+            val lies = on(x, y)
+            if (lies.isEmpty()) return BubblePlace(x, y, above)
+            val aside = keepOff.flatMap { listOf(clampX(it.right + gap / 2), clampX(it.left - gap / 2 - bw)) }
+                .filter { abs(it - x) <= bw && on(it, y).isEmpty() }
+                .minByOrNull { abs(it - x) }
+            if (aside != null) return BubblePlace(aside, y, above)
+            val below = (lies.maxOf { it.bottom } + gap / 2).coerceAtMost(h - bh)
+            return BubblePlace(x, below, above)
         }
     }
 }

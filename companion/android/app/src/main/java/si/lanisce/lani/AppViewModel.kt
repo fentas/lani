@@ -643,10 +643,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** Each upgrade's practice run is a screen of its own ([Screen.UpgradeWords.n]). */
     private var upgradeRuns = 0
 
-    /** The building whose card the village opens when it's shown again (after its words' run); null: none. */
+    /**
+     * The building whose card opens again after its words' run, where the run was started from: the village, or the
+     * building's scene ([leaveRun]); null: none.
+     */
     private var buildingCard: String? = null
 
-    /** The building card to open as the village shows (once), see [practiseUpgrade]. */
+    /** The building card to open as the village or a scene shows (once), see [practiseUpgrade]. */
     fun takeBuildingCard(): String? = buildingCard.also { buildingCard = null }
 
     /** Whether the village opens the ages' sheet as it shows (once): asked for from a building's card in a scene. */
@@ -663,8 +666,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /**
      * "🎯 Vadi jih zdaj · Practise them now" on building [id]'s card: a short run of exactly the words its upgrade still
      * asks for ([si.lanisce.lani.game.BuildingWords.run]: new ones learned, met and rusty ones reviewed); afterwards
-     * the village opens the card again, the upgrade one tap away. Also again from the run's own end, for what is still
-     * missing.
+     * the card opens again where it was opened (the village, or the building's scene), the upgrade one tap away. Also
+     * again from the run's own end, for what is still missing.
      */
     fun practiseUpgrade(id: String) = launchSafely {
         val s = game.state ?: return@launchSafely
@@ -917,8 +920,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         screen = s
     }
 
-    /** Leaves a run that hasn't started (its intro's "Later"): back where it was started from. */
+    /**
+     * Leaves a run that hasn't started (its intro's "Later"), or one that's done: back where it was started from. A
+     * building's words run opens its card there again ([buildingCard]: the village's, or the building's scene's); anywhere
+     * else it is dropped, so it doesn't open on a later visit.
+     */
     fun leaveRun() {
+        if (runFrom != Screen.Village && runFrom !is Screen.Scene) buildingCard = null
         when (val from = runFrom) {
             Screen.Village -> village()
             is Screen.Packs -> openPacks(from.fromVillage)

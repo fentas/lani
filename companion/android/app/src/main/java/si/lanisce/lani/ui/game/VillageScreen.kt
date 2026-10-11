@@ -165,12 +165,8 @@ fun VillageScreen(vm: AppViewModel) {
     val attrs = remember(s) { GameEngine.attributes(s) }
     // with the cast: a workplace whose person has nowhere to live waits, and says how to make room (a dwelling's upgrade
     // with the words it asks for)
-    val options = remember(s, vm.villagers.all, vm.content.dashboard, vm.scenes.packs, vm.scenes.all) {
-        GameEngine.buildOptions(s, vm.villagers.all) { id -> vm.upgradeWords(s, id) }
-    }
-    val check = remember(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty) {
-        GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty)
-    }
+    val options = rememberBuildOptions(vm, s)
+    val check = rememberAdvanceCheck(vm, s)
     val goal = remember(s, options, check, attrs) { nextGoal(s, options, check, attrs.caps) }
     // Where the Build sheet's outline goes: the goal's building lands beside its partner (Placement), others take the
     // next free plot.
@@ -178,8 +174,13 @@ fun VillageScreen(vm: AppViewModel) {
         (goal as? NextGoal.Build)?.let { si.lanisce.lani.game.Placement.plotFor(s, it.option.type) }
             ?: (0 until PLOTS_PER_AGE[s.age.ordinal]).firstOrNull { p -> s.buildings.none { it.type.onPlot && it.plot == p } }
     }
-    // back from a building's words run: its card again, the upgrade one tap away; from a building's card in a scene, the ages
-    var sheet by remember { mutableStateOf<VillageSheet?>(vm.takeBuildingCard()?.let { VillageSheet.Building(it) } ?: VillageSheet.Ages.takeIf { vm.takeAgesCard() }) }
+    // back from a building's words run: its card again, the upgrade one tap away; from a building's card in a scene, the
+    // ages. Both are taken (a card left waiting would open on a later visit)
+    var sheet by remember {
+        val card = vm.takeBuildingCard()
+        val ages = vm.takeAgesCard()
+        mutableStateOf<VillageSheet?>(card?.let { VillageSheet.Building(it) } ?: VillageSheet.Ages.takeIf { ages })
+    }
     /** The plot chooser over the map: a building to put on a plot, or one to move (see [PlotBar]). */
     var choosing by remember { mutableStateOf<Choosing?>(null) }
     var ceremony by remember { mutableStateOf<Age?>(null) }
@@ -650,17 +651,14 @@ fun VillageScreen(vm: AppViewModel) {
         is VillageSheet.Building -> s.buildings.firstOrNull { it.id == sh.id }?.let { b ->
             // "↔ Premakni · Move": to the plot chooser, and back to this card when cancelled
             val move = PlotChoice.move(s, b).takeIf { it.building(s) != null && it.open(s) }
-            // the words its upgrade asks for: their packs on the phone first
-            LaunchedEffect(b.id) { vm.loadBuildingWords(b.id) }
-            BuildingSheet(s, b, options.firstOrNull { it.type == b.type }, check, onAges = { sheet = VillageSheet.Ages }, onMove = move?.let { m -> { choose(Choosing(m, cancel = sh)) } }, onRepair = { moba ->
-                if (vm.game.repair(b.id, moba)) haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-            }, onUpgrade = { moba ->
-                if (vm.game.upgrade(b.id, moba)) {
-                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                    sheet = null
-                    card = null
-                }
-            }, onDismiss = { sheet = null }, words = vm.upgradeWords(s, b.id), onPractise = { sheet = null; card = null; vm.practiseUpgrade(b.id) })
+            BuildingCard(
+                vm, s, b, options, check,
+                onUpgraded = { sheet = null; card = null },
+                onPractise = { sheet = null; card = null },
+                onAges = { sheet = VillageSheet.Ages },
+                onDismiss = { sheet = null },
+                onMove = move?.let { m -> { choose(Choosing(m, cancel = sh)) } },
+            )
         }
     }
     skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }

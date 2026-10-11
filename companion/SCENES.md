@@ -615,9 +615,13 @@ Hut, stopnja 3: kartica in nadgradnja", and that it can be upgraded or is damage
 (`BuildingSheet`): the repair, the next level's cost and the words it asks for. Upgraded there, the learner stays: the card
 closes and the room redraws at its new level, with confetti and a banner ("⬆️ 🛖 Koča · Hut · Stopnja 4"), its new things
 to find; back in the village the building goes up as after an upgrade there. "🎯 Vadi jih zdaj · Practise them now" runs
-the words and comes back to the village with the card open, as from the village; the next age's row opens the village's
-ages (`AppViewModel.openVillageAges`). A scene of no building (the fire, a spot of the land) has none. QA's
-`scene-building` opens the first building's scene the village has and its card from there.
+the words and comes back into the scene with the card open again, the upgrade one tap away, as the village's card comes
+back in the village (the card is opened again where it was opened, and nowhere else: `AppViewModel.leaveRun`); "⬆️
+Nadgradi zdaj · Upgrade now" at the run's end goes to the village, where the building goes up. The next age's row opens
+the village's ages (`AppViewModel.openVillageAges`). The card is the village's own (`BuildingCard`, shared by both
+screens). Over the picture, the markers and bubbles keep off the top bar's pills (`BubblePlace`: aside, else below), so
+someone's 🍲💬 never covers the 🛖. A scene of no building (the fire, a spot of the land) has none. QA's `scene-building`
+opens the first building's scene the village has and its card from there, practises its words and comes back to it.
 
 An object or a happening says what it needs with `needs`:
 

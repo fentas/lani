@@ -637,10 +637,16 @@ def building_scenes() -> list:
     return [s["id"] for s in scenes if isinstance(s, dict) and any(f not in open_air and not f.startswith("spot:") for f in s.get("from", []))]
 
 
+def building_card() -> bool:
+    """A building's card is open (its state: in good shape, the repair, the top level)."""
+    return any(find(t) is not None for t in ("V dobrem stanju", "Popravi", "Najvišja stopnja"))
+
+
 def scene_building():
     """A building's scene (a room of a house, the hut's kitchen, the smithy …) shows the building in its top bar, its emoji
     and level (⬆️ when its upgrade can be done now): a tap opens its card, the upgrade a tap away without going back to
-    the village; back closes the card, and back again leads to the village."""
+    the village; its words' run ("🎯 Vadi jih zdaj", left at once by its ✕) comes back into the scene with the card open
+    again; back closes the card, back again leads to the village, and the card doesn't open there."""
     card = "kartica in nadgradnja"
     for sid in building_scenes()[:8]:
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"scene:{sid}")
@@ -656,12 +662,37 @@ def scene_building():
     print(f"    {pill}")
     shot("scene-building")
     assert tap(card, 3), "the building in the scene's top bar"
-    assert wait_for("V dobrem stanju", 8) or find("Popravi") or find("Najvišja stopnja"), "its card"
+    end = time.time() + 8 * slow()
+    while not building_card() and time.time() < end:
+        time.sleep(1)
+    assert building_card(), "its card"
     time.sleep(1)
     shot("scene-building-card")
+    # its words' run from the scene's card: back into the scene, the card open again
+    practise = scroll_to("Vadi jih zdaj", 3)
+    if practise is None:
+        print("    no words to practise for its next level (the top level, or all known): the run is left out")
+    else:
+        tap_at(practise)
+        end = time.time() + 10 * slow()
+        while find(card) is not None and time.time() < end:  # the scene gives way to the run
+            time.sleep(1)
+        if find(card) is not None:
+            print("    the run didn't start (its words all known now: a banner instead)")
+        else:
+            shot("scene-building-run")
+            assert tap("Zapri · Close", 8), "the run's ✕"
+            assert wait_for(card, 10), "back in the scene from the run"
+            end = time.time() + 6 * slow()
+            while not building_card() and time.time() < end:
+                time.sleep(1)
+            assert building_card(), "the building's card open again in the scene"
+            time.sleep(1)
+            shot("scene-building-card-again")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1.2)
     assert find(card) is not None, "back in the scene, the card closed"
+    assert not building_card(), "the card closed"
     assert tap("‹ Vas · Village", 3), "back from the scene"
     plain_village()  # past the village's first-time intro and its news, when this step runs alone
     assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
