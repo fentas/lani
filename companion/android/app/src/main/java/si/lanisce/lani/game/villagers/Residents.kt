@@ -160,7 +160,8 @@ object Residents {
     fun stage(r: Resident, today: LocalDate): Stage? {
         val born = r.born?.let { runCatching { LocalDate.parse(it) }.getOrNull() } ?: return null
         val days = ChronoUnit.DAYS.between(born, today)
-        return Stage.entries.last { days >= it.days }
+        // born "after" today (the phone's clock set back): still a baby, never a crash
+        return Stage.entries.lastOrNull { days >= it.days } ?: Stage.entries.first()
     }
 
     /**

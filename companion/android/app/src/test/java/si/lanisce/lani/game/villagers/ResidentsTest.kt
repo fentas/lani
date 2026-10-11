@@ -184,6 +184,8 @@ class ResidentsTest {
         assertEquals(Residents.Stage.BABY, Residents.stage(baby, day))
         assertEquals(Residents.Stage.CHILD, Residents.stage(baby, day.plusDays(60)))
         assertEquals(Residents.Stage.ADULT, Residents.stage(baby, day.plusDays(500)))
+        // the phone's clock set back before the birth: a baby still, no crash
+        assertEquals(Residents.Stage.BABY, Residents.stage(baby, day.minusDays(30)))
         assertEquals("baby", Residents.villagerOf(baby, cast, day)!!.art)
         assertEquals("Deklica · Girl", Residents.villagerOf(baby, cast, day.plusDays(60))!!.role)
     }
