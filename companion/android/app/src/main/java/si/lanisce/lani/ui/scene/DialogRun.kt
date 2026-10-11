@@ -334,11 +334,12 @@ data class DialogRun(
     fun fx(base: Map<String, Float>): Map<String, Float> = dialog.fxAt(at, picks, base).let { m -> reaction?.fx?.takeIf { it.isNotEmpty() }?.let { m + it } ?: m }
 
     /**
-     * Where the dialog's stage directions have put people so far, over [base] (everyone's placement before it, see
-     * [actAt]), and the [reaction]'s while it lasts (Zala peeks out, "Tu me ni!", and hides again at the next pick). Only
-     * the people moved.
+     * Where the dialog's stage directions have put people on [art]'s stage so far, over [base] (everyone's placement
+     * before it, see [actAt]), and the [reaction]'s while it lasts (Zala peeks out, "Tu me ni!", and hides again at the
+     * next pick). Only the people moved.
      */
-    fun act(base: Map<String, Placement>): Map<String, Placement> = actOver(dialog.actAt(at, picks, base), reaction?.act.orEmpty(), base)
+    fun act(art: String, base: Map<String, Placement>): Map<String, Placement> =
+        actOver(art, dialog.actAt(art, at, picks, base), reaction?.act.orEmpty(), base)
 
     /** On from a line the learner listened to. */
     fun next(): DialogRun = if (step == Step.LISTEN) copy(listening = false).play() else this

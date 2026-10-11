@@ -99,16 +99,16 @@ class DialogTapTest {
 
     @Test fun `where everyone is after each step, hidden with the count's reply, peeking with a reaction until the next pick, out when found`() {
         val start = DialogRun.start(seek, "zala", seed = 7, modes = DialogRun.tapModes(seek))
-        assertEquals(emptyMap<String, Placement>(), start.act(base))
+        assertEquals(emptyMap<String, Placement>(), start.act("livingroom", base))
         val hidden = atTap()
-        assertEquals(mapOf("zala" to Placement("behind-door", "hide")), hidden.act(base))
+        assertEquals(mapOf("zala" to Placement("behind-door", "hide")), hidden.act("livingroom", base))
         val peek = hidden.tap("under-table")
-        assertEquals(mapOf("zala" to Placement("behind-door", "peek")), peek.act(base))
+        assertEquals(mapOf("zala" to Placement("behind-door", "peek")), peek.act("livingroom", base))
         val cold = peek.tap("stove") // another reaction: its own (none), the peek gone
-        assertEquals(mapOf("zala" to Placement("behind-door", "hide")), cold.act(base))
+        assertEquals(mapOf("zala" to Placement("behind-door", "hide")), cold.act("livingroom", base))
         val found = cold.tap("behind-door")
-        assertEquals(mapOf("zala" to Placement("door", "stand")), found.act(base))
-        assertEquals(mapOf("zala" to Placement("door", "stand")), found.next().act(base)) // to the end
+        assertEquals(mapOf("zala" to Placement("door", "stand")), found.act("livingroom", base))
+        assertEquals(mapOf("zala" to Placement("door", "stand")), found.next().act("livingroom", base)) // to the end
     }
 
     @Test fun `the person reacts to a tap as to a pick, puzzled at a wrong place they answer, a hop at the right one`() {

@@ -39,24 +39,50 @@ class StageTest {
     private val base = mapOf("zala" to Placement.at("stove"), "janez" to Placement.at("table"))
 
     @Test fun `the cues move people as the dialog goes, the reply to the right pick, not the reaction`() {
-        assertEquals(emptyMap<String, Placement>(), hide.actAt(1, emptyList(), base)) // the turn is up, nobody moved yet
-        assertEquals(mapOf("zala" to Placement("behind-door", "hide")), hide.actAt(2, listOf(0), base))
+        assertEquals(emptyMap<String, Placement>(), hide.actAt("livingroom", 1, emptyList(), base)) // the turn is up, nobody moved yet
+        assertEquals(mapOf("zala" to Placement("behind-door", "hide")), hide.actAt("livingroom", 2, listOf(0), base))
         // found: she comes out and stands at the door; Janez, never named, isn't among the moved
-        assertEquals(mapOf("zala" to Placement("door", "stand")), hide.actAt(3, listOf(0, 0), base))
+        assertEquals(mapOf("zala" to Placement("door", "stand")), hide.actAt("livingroom", 3, listOf(0, 0), base))
         // a pose alone is taken where they are; someone the scene lacks is let go
         val peek = Dialog("x", listOf(DialogLine(who = "zala", sl = "A", en = "a", act = mapOf("zala" to ActCue(pose = "peek"), "tine" to ActCue("door")))))
-        assertEquals(mapOf("zala" to Placement("stove", "peek")), peek.actAt(1, emptyList(), base))
+        assertEquals(mapOf("zala" to Placement("stove", "peek")), peek.actAt("livingroom", 1, emptyList(), base))
         assertTrue(hide.hasAct)
         assertFalse(hide.actKept)
         assertTrue(hide.copy(actStays = true).actKept)
     }
 
-    @Test fun `a placement after a cue, a spot alone stands there, a pose alone is taken where one is`() {
+    @Test fun `a placement after a cue, a spot alone in its first pose, a pose alone is taken where one is`() {
         val hidden = Placement("behind-door", "hide")
-        assertEquals(Placement("door", "stand"), hidden + ActCue(to = "door"))
-        assertEquals(Placement("behind-door", "peek"), hidden + ActCue(pose = "peek"))
-        assertEquals(Placement("bench", "sit"), hidden + ActCue("bench", "sit"))
+        assertEquals(Placement("door", "stand"), Stage.arrive("livingroom", hidden, ActCue(to = "door")))
+        assertEquals(Placement("behind-door", "peek"), Stage.arrive("livingroom", hidden, ActCue(pose = "peek")))
+        assertEquals(Placement("bench", "sit"), Stage.arrive("livingroom", hidden, ActCue("bench", "sit")))
+        // the zapeček and the logs by the fire are for sitting: a spot alone sits there, as everyone starts there (base)
+        assertEquals(Placement("bench", "sit"), Stage.arrive("livingroom", hidden, ActCue(to = "bench")))
+        assertEquals(Placement("left", "sit"), Stage.arrive("campfire", Placement("back"), ActCue(to = "left")))
+        assertEquals(Placement("back", "stand"), Stage.arrive("campfire", Placement("left", "sit"), ActCue(to = "back")))
+        assertEquals(Placement("lantern", "sit"), Stage.arrive("tent", Placement("door"), ActCue(to = "lantern")))
+        assertEquals(Placement("lantern", "stand"), Stage.arrive("tent", Placement("door"), ActCue("lantern", "stand")))
+        // a spot the stage lacks: standing (and not shown)
+        assertEquals(Placement("attic", "stand"), Stage.arrive("campfire", Placement("back"), ActCue(to = "attic")))
         assertEquals(Stance.STAND, Placement("door", "dance").stance) // a pose a later app knows: standing here
+    }
+
+    @Test fun `by the fire the children sit on the logs, run off to the woodpile, and come back to sit`() {
+        val fire = SceneSpec(
+            id = "ob-ognju", title = "Ob ognju", art = "campfire", from = listOf("fire"),
+            people = listOf(ScenePerson("otroci", "Otroci", art = "child1", slot = "right"), ScenePerson("luka", "Luka", art = "shepherd", slot = "left")),
+        )
+        val start = Stage.base(fire, emptyMap())
+        assertEquals(mapOf("otroci" to Placement("right", "sit"), "luka" to Placement("left", "sit")), start)
+        val tag = Dialog("tag", listOf(
+            DialogLine(who = "otroci", sl = "Lovimo se!", en = "Tag!", act = mapOf("otroci" to ActCue(to = "behind-logs"))),
+            DialogLine(who = "otroci", sl = "Še enkrat!", en = "Again!", act = mapOf("otroci" to ActCue(to = "right"))),
+        ))
+        assertEquals(mapOf("otroci" to Placement("behind-logs", "stand")), tag.actAt("campfire", 1, emptyList(), start))
+        val back = tag.actAt("campfire", 2, emptyList(), start)
+        assertEquals(mapOf("otroci" to Placement("right", "sit")), back)
+        // shown as they are: the logs have no standing
+        assertEquals(back, Stage.shown("campfire", back))
     }
 
     @Test fun `the format reads act, act_stays and tap, and a file without them as before`() {

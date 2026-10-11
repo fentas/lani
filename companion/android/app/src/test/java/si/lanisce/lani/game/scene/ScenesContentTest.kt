@@ -163,7 +163,7 @@ class ScenesContentTest {
         fun acts(scene: String, dialog: String): List<Map<String, Placement>> {
             val d = scenes.getValue(scene).dialogs.first { it.id == dialog }
             val picks = d.lines.filter { it.choices.isNotEmpty() }.map { l -> l.choices.indexOfFirst { it.ok } }
-            return d.lines.indices.map { at -> d.actAt(at + 1, picks.take(d.lines.take(at + 1).count { it.choices.isNotEmpty() }), base(scene)) }
+            return d.lines.indices.map { at -> d.actAt(scenes.getValue(scene).art, at + 1, picks.take(d.lines.take(at + 1).count { it.choices.isNotEmpty() }), base(scene)) }
         }
         // asked in out of the rain, Luka comes into the tent and sits by the lantern; the sun out, he goes back to his sheep
         for (v in listOf("dez", "dez-cakava")) {

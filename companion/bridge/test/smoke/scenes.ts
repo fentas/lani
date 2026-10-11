@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 import { cultureProjects } from '../../src/cultures'
 import { PackStore } from '../../src/packs'
 import { ScenarioStore } from '../../src/scenarios'
-import { forApp, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
+import { arrive, firstPose, forApp, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
 import { VillagerStore } from '../../src/villagers'
 import { corpus, PRIORITY_LABELS } from '../../src/voice'
 import { reference } from './fixtures'
@@ -438,6 +438,41 @@ async function stage(kitchen: any, curated: LoadedScene[], refs: Parameters<type
     const r = await client.callTool({ name: 'publish_scene', arguments: { scene } })
     check(`publish_scene rejects ${label}`, r.isError && text(r).includes(mention), r)
   }
+  // by the fire the logs are for sitting: a spot alone there sits (its first pose, as the app's Stage.firstPose), so the
+  // children can run off to the woodpile and come back to their log; standing on a log is no pose of it
+  const fire = {
+    ...room, id: 'smoke-ogenj', title: 'Ob ognju · At the fire', art: 'campfire', from: ['fire'],
+    people: [{ id: 'otroci', name: 'Otroci', emoji: '🧒', art: 'child1', slot: 'right' }],
+    happenings: [{ id: 'lovljenje', title: 'Lovljenje · Tag', who: 'otroci', dialog: 'lovljenje', reward: { food: 15 } }],
+    dialogs: [{
+      id: 'lovljenje',
+      lines: [
+        { who: 'otroci', sl: 'Lovimo se!', en: "Let's play tag!", act: { otroci: { to: 'behind-logs' } } },
+        { choices: [
+          { sl: 'Počakajte!', en: 'Wait (all of you)!', ok: true, reply: { sl: 'Ha ha!', en: 'Ha ha!', act: { otroci: { to: 'right' } } } },
+          { sl: 'Počakaj!', en: 'Wait (one of you)!', why: 'Several children: počakajte.', reply: { sl: 'Jaz?', en: 'Me?' } },
+        ] },
+        { who: 'otroci', sl: 'Še enkrat!', en: 'Once more!', act: { otroci: { to: 'left' } } },
+      ],
+    }],
+  }
+  const seated = validateScene(fire, refs)
+  check('by the fire a spot alone on the logs sits there: the children run to the woodpile and back to their log', seated.ok, seated)
+  const firstLine = fire.dialogs[0].lines[0] as any
+  const onFire = (act: object) => ({ ...fire, dialogs: [{ ...fire.dialogs[0], lines: [{ ...firstLine, act }, ...fire.dialogs[0].lines.slice(1)] }] })
+  for (const [label, act, mention] of [
+    ['standing on a log', { otroci: { to: 'left', pose: 'stand' } }, 'the spot "left" has no pose "stand"'],
+    ['peeking out on a log', { otroci: { pose: 'peek' } }, 'the spot "right" has no pose "peek"'],
+  ] as [string, object, string][]) {
+    const r = validateScene(onFire(act), refs)
+    check(`by the fire, ${label} is refused`, !r.ok && r.errors.includes(mention), r)
+  }
+  check("the first pose is the app's: sitting on the logs and by the lantern, standing elsewhere",
+    firstPose('campfire', 'left') === 'sit' && firstPose('tent', 'lantern') === 'sit' && firstPose('livingroom', 'door') === 'stand' && firstPose('campfire', 'attic') === 'stand' &&
+      JSON.stringify(arrive('campfire', { spot: 'back', pose: 'stand' }, { to: 'right' })) === '{"spot":"right","pose":"sit"}' &&
+      JSON.stringify(arrive('campfire', { spot: 'right', pose: 'sit' }, { to: 'behind-stump', pose: 'hide' })) === '{"spot":"behind-stump","pose":"hide"}' &&
+      JSON.stringify(arrive('campfire', { spot: 'behind-stump', pose: 'hide' }, { pose: 'peek' })) === '{"spot":"behind-stump","pose":"peek"}')
+
   const told = offStage({ lines: [{ act: { luka: { to: 'lantern' } }, choices: [] }, { choices: [{ tap: 'door' }, { tap: 'table' }] }] }, 'levels.A1', 'a story')
   check('a story, an introduction or a keeper has no stage: no act, no tap', told.length === 2 && told[0].includes('no act cue') && told[1].includes('no tap'), told)
 

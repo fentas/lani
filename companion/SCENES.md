@@ -886,7 +886,10 @@ speak they are drawn talking.
 In an art with a stage, a dialog can move its people: Jan asks Luka into the tent out of the rain and Luka comes in and sits
 down by the lantern; Zala says "Ti mižiš, jaz se skrijem!" and when Jan has counted to ten she is gone, hidden behind the
 door with a braid showing past it. A line or a reply carries an `act` cue: for each person it names, where they go (`to`: a
-spot of the art's stage) and how (`pose`). `to` alone: they stand there; `pose` alone: they take it where they are.
+spot of the art's stage) and how (`pose`). `to` alone: they take the spot's first pose there (they stand; on the logs by
+the fire and by the tent's lantern they sit); `pose` alone: they take it where they are. The app (`Stage.arrive`,
+`Stage.firstPose`) and the bridge's check (`stageErrors`) follow the one rule, and everyone starts on their spot in its
+first pose.
 
 ```json
 { "sl": "Seveda, pridi v šotor! Sedi k svetilki.", "en": "Sure, come into the tent! Sit by the lantern.", "ok": true,

@@ -786,7 +786,7 @@ class GameController(
             val today = LocalDate.now()
             val sky = DaySky.keep(s, scene, run.dialog, run.sky(DaySky.of(s, today, scene)), today)
             val fx = DayFx.keep(sky, scene, run.dialog, run.fx(DayFx.of(s, today, scene)), today)
-            val n = spec?.let { sc -> DayAct.keep(fx, scene, run.dialog, Stage.shown(sc.art, run.act(Stage.base(sc, DayAct.of(s, today, scene)))), today) } ?: fx
+            val n = spec?.let { sc -> DayAct.keep(fx, scene, run.dialog, Stage.shown(sc.art, run.act(sc.art, Stage.base(sc, DayAct.of(s, today, scene)))), today) } ?: fx
             if (n != s) commit(n)
         }
     }

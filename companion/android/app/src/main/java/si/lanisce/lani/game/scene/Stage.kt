@@ -24,7 +24,8 @@ enum class Stance(val id: String) {
 
 /**
  * A stage direction for one person: go [to] a spot of the art's stage, in [pose] (a [Stance]'s name). `to` alone: they
- * stand there; `pose` alone: they take it where they are.
+ * take the spot's first pose there (stand; on the logs by the fire, sit: [Stage.arrive]); `pose` alone: they take it
+ * where they are.
  */
 @Serializable
 data class ActCue(val to: String? = null, val pose: String? = null)
@@ -34,8 +35,12 @@ data class ActCue(val to: String? = null, val pose: String? = null)
 data class Placement(val spot: String, val pose: String = "stand") {
     val stance: Stance get() = Stance.of(pose) ?: Stance.STAND
 
-    /** After [cue]: its spot, standing there unless it says a pose; or its pose, here. */
-    operator fun plus(cue: ActCue): Placement = Placement(cue.to ?: spot, cue.pose ?: if (cue.to != null) Stance.STAND.id else pose)
+    /**
+     * After [cue]: its spot, in the pose it says or else in the spot's [first] pose (its name → the first of its poses on
+     * the art's stage, [Stage.arrive]; standing where the stage lacks it); or its pose, here.
+     */
+    fun after(cue: ActCue, first: (String) -> String?): Placement =
+        Placement(cue.to ?: spot, cue.pose ?: cue.to?.let { first(it) ?: Stance.STAND.id } ?: pose)
 
     companion object {
         fun at(spot: String) = Placement(spot)
@@ -49,21 +54,21 @@ val Dialog.hasAct: Boolean get() = lines.any { l -> l.act.isNotEmpty() || l.answ
 val Dialog.actKept: Boolean get() = hasAct && actStays == true
 
 /**
- * Where the people the dialog's cues moved are, once it has come to line [at] with the learner's right [picks] (see
- * [skyAt]), from [base]: everyone's placement before it (their spot in the scene, and what today keeps of earlier
- * dialogs). Only those its cues named; someone [base] lacks (not in the scene) is let go.
+ * Where the people the dialog's cues moved are on [art]'s stage, once it has come to line [at] with the learner's right
+ * [picks] (see [skyAt]), from [base]: everyone's placement before it (their spot in the scene, and what today keeps of
+ * earlier dialogs). Only those its cues named; someone [base] lacks (not in the scene) is let go.
  */
-fun Dialog.actAt(at: Int, picks: List<Int>, base: Map<String, Placement>): Map<String, Placement> {
+fun Dialog.actAt(art: String, at: Int, picks: List<Int>, base: Map<String, Placement>): Map<String, Placement> {
     val moved = LinkedHashMap<String, Placement>()
-    played(at, picks) { _, _, act -> for ((who, cue) in act) (moved[who] ?: base[who])?.let { moved[who] = it + cue } }
+    played(at, picks) { _, _, act -> for ((who, cue) in act) (moved[who] ?: base[who])?.let { moved[who] = Stage.arrive(art, it, cue) } }
     return moved
 }
 
-/** [cue] applied over [placed] (a reaction's, while it lasts), from [base] for whoever it names first. */
-fun actOver(placed: Map<String, Placement>, cue: Map<String, ActCue>, base: Map<String, Placement>): Map<String, Placement> {
+/** [cue] applied over [placed] on [art]'s stage (a reaction's, while it lasts), from [base] for whoever it names first. */
+fun actOver(art: String, placed: Map<String, Placement>, cue: Map<String, ActCue>, base: Map<String, Placement>): Map<String, Placement> {
     if (cue.isEmpty()) return placed
     val out = LinkedHashMap(placed)
-    for ((who, c) in cue) (out[who] ?: base[who])?.let { out[who] = it + c }
+    for ((who, c) in cue) (out[who] ?: base[who])?.let { out[who] = Stage.arrive(art, it, c) }
     return out
 }
 
@@ -147,9 +152,18 @@ object Stage {
     fun spots(art: String): Map<String, SceneArt.Spot> = SceneArt.stage[art].orEmpty().associateBy { it.name }
 
     /**
-     * Where everyone of [scene] is before a dialog moves them: their spot ([ScenePerson.slot]) in its first pose (standing;
-     * on the logs by the fire, sitting), over it what today keeps ([kept], [DayAct]), as far as the art's stage has the
-     * spot and the pose.
+     * The pose one takes on arriving at [spot] of [art]'s stage when no pose is said: the spot's first (standing; on the
+     * logs by the fire, sitting); null for a spot the stage lacks. One rule for where people start ([base]) and where a
+     * cue's `to` alone puts them ([arrive]); the bridge checks the content by the same (scenes.ts, `stageErrors`).
+     */
+    fun firstPose(art: String, spot: String): String? = SceneArt.stage[art]?.firstOrNull { it.name == spot }?.poses?.firstOrNull()
+
+    /** [from] after [cue] on [art]'s stage: a spot alone in its [firstPose]. */
+    fun arrive(art: String, from: Placement, cue: ActCue): Placement = from.after(cue) { firstPose(art, it) }
+
+    /**
+     * Where everyone of [scene] is before a dialog moves them: their spot ([ScenePerson.slot]) in its [firstPose], over it
+     * what today keeps ([kept], [DayAct]), as far as the art's stage has the spot and the pose.
      */
     fun base(scene: SceneSpec, kept: Map<String, Placement>): Map<String, Placement> {
         val spots = spots(scene.art)

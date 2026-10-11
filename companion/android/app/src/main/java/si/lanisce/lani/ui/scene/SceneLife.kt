@@ -48,7 +48,7 @@ fun rememberSceneCues(state: GameState?, scene: SceneSpec, run: DialogRun?, toda
     val sky = run?.sky(daySky) ?: daySky
     val fx = run?.fx(dayFx) ?: dayFx
     val base = remember(scene, state, today) { Stage.base(scene, DayAct.of(state, today, scene.id)) }
-    val placed: Map<String, Placement> = run?.let { base + Stage.shown(scene.art, it.act(base)) } ?: base
+    val placed: Map<String, Placement> = run?.let { base + Stage.shown(scene.art, it.act(scene.art, base)) } ?: base
     var cues by remember(scene.id) { mutableStateOf(SceneCues(SkyEase.still(sky), FxEase.still(fx), StageEase.still(placed))) }
     LaunchedEffect(sky, fx, placed) {
         val now = SkyEase.clock()

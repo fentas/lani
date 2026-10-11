@@ -159,6 +159,21 @@ export const SCENE_STAGE: Record<string, Record<string, { poses: string[]; cover
 }
 
 /**
+ * The pose one takes on arriving at [spot] of [art]'s stage when no pose is said: the spot's first (standing; on the logs
+ * by the fire, sitting); standing at a spot the stage lacks. Where people start, and where a cue's `to` alone puts them
+ * ([arrive]): the app's rule (Stage.firstPose in Stage.kt).
+ */
+export function firstPose(art: string, spot: string): string {
+  return SCENE_STAGE[art]?.[spot]?.poses[0] ?? 'stand'
+}
+
+/** Where someone at [from] is after a stage direction [cue] on [art]'s stage: its spot in its pose, or the spot's first; a pose alone where they are. */
+export function arrive(art: string, from: { spot: string; pose: string }, cue: { to?: string; pose?: string }): { spot: string; pose: string } {
+  const spot = cue.to ?? from.spot
+  return { spot, pose: cue.pose ?? (cue.to !== undefined ? firstPose(art, spot) : from.pose) }
+}
+
+/**
  * Which arts and slots an app draws (SceneArt.VERSION in SceneArt.kt): 1 the first seventeen arts, 2 the rooms of the houses
  * and the kitchen's level slots. The app says it when it asks for its scenes (GET /scenes?arts=2); one that doesn't is an
  * older one, which gets what the first arts drew ([forApp]).
@@ -604,15 +619,15 @@ export function stageErrors(d: Dialog, s: Pick<Scene, 'art' | 'people'>, at: str
   const stage = SCENE_STAGE[s.art]
   const slots = SCENE_ART.objects[s.art] ?? []
   const people = new Set(s.people.map(p => p.id))
-  const where = new Map(s.people.map(p => [p.id, { spot: p.slot, pose: 'stand' }]))
+  // everyone starts on their spot in its first pose, as the app has them (Stage.base): sitting on the logs by the fire
+  const where = new Map(s.people.map(p => [p.id, { spot: p.slot, pose: firstPose(s.art, p.slot) }]))
   const follow = (act: Act | undefined, here: string, move: boolean) => {
     if (!act) return
     if (!stage) return void errs.push(`${here}.act: the art "${s.art}" has no stage for stage directions yet (arts with one: ${Object.keys(SCENE_STAGE).join(', ')})`)
     for (const [who, cue] of Object.entries(act)) {
       const was = where.get(who)
       if (!was || !people.has(who)) { errs.push(`${here}.act: "${who}" is not a person of this scene`); continue }
-      const spot = cue.to ?? was.spot
-      const pose = cue.pose ?? (cue.to !== undefined ? 'stand' : was.pose)
+      const { spot, pose } = arrive(s.art, was, cue)
       const it = stage[spot]
       if (!it) { errs.push(`${here}.act.${who}: the art "${s.art}" has no spot "${spot}" on its stage (spots: ${Object.keys(stage).join(', ')})`); continue }
       if (!it.poses.includes(pose)) { errs.push(`${here}.act.${who}: the spot "${spot}" has no pose "${pose}" (its poses: ${it.poses.join(', ')})`); continue }
