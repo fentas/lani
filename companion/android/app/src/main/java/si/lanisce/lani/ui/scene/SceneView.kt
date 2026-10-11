@@ -271,7 +271,7 @@ fun SceneView(
             if (sw.shownK > 0) ps.keep(if (sw.shownK > 1) ps.fine else ps.base)
             sw.wantK = k
         }
-        val now = LocalDateTime.now()
+        val now = si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())
         // someone on their way (a walk, a dash into hiding): where they are this frame; at rest the settled list
         val cueNow = SkyEase.clock()
         val cast = if (cues.stage.moving(cueNow)) cues.stage.apply(people, cueNow) else settled
@@ -292,7 +292,7 @@ fun SceneView(
             village = village,
             day = now.toLocalDate().toEpochDay(),
             // the real sky over the village this minute, the shooting stars by the clock
-            skyNow = SkyCards.now(),
+            skyNow = if (si.lanisce.lani.app.QaHooks.sceneHour != null) null else SkyCards.now(),
             wall = System.currentTimeMillis(),
             skyMark = skyMark,
         )

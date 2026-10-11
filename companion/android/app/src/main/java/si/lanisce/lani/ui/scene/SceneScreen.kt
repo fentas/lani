@@ -145,7 +145,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     // What's on changes with the time of day: look again every minute.
     var minute by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) { while (true) { delay(60_000); minute++ } }
-    val now = remember(minute) { LocalDateTime.now() }
+    val now = remember(minute) { si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now()) }
     val active = remember(state, scenes.all, now) { state?.let { scenes.active(it, now) }.orEmpty() }
     val here = active.filter { it.scene.id == scene.id }
     // the village's day, as the map has it (Routine): who is out here now, and at night who sleeps in their bed here (a tap

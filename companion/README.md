@@ -2592,3 +2592,11 @@ screenrecord start --fps 30`), and speed the clip up five times (`ffmpeg -vf set
 and in the scenes, without a line in the chronicle: `season:2027-05-10`, or `season:05-10` for the next 10 May from
 today; the rest of the game keeps today, and `season:` goes by today again (screenshots of the maypole up in May and
 down in autumn).
+
+`hour:<h>` shows a scene at that hour of today (`hour:7.5`; 0 to 24): its light, sky and wild animals, who is there and
+who sleeps, without the real night sky; `hour:` goes by the clock again. With it, `field-cues` (companion/SCENES.md,
+"Effects") sees each scene at its hour whatever the hour of the run, and plays a dialog of each to its cue through the
+happening hook: France's hare in the field at dawn (a burst of shots from the dialog's opening: the grass stirs, the
+hare leaps out and is off within four seconds), the pedlar on the road below the tower in the morning and walking in at
+the gate, Micka's hen flying onto Marko's cart and the tap turn that finds her there, Muri barking by the jetty and
+asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and said.

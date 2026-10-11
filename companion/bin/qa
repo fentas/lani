@@ -18,7 +18,7 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "fire-peek" hide-and-seek by the fire: the children hidden behind the stump, peeking out at a
                        wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "field-cues"
                        the cues of the field, the tower, the market and the pond: the hare startled out of the grass,
-                       the pedlar on the road, the hen on the cart (a tap turn), Muri barking on the jetty, each dialog
+                       the pedlar on the road, the hen on the cart (a tap turn), Muri barking by the jetty, each dialog
                        opened through the hook and played to its cue; "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -411,7 +411,7 @@ def qa_hook(command: str, link=None):
     """Asks the debug build [command] (app/QaHooks.kt): "zoom" zooms the camera on screen in, as its "Približaj · Zoom
     in" action does; "happening:<scene>/<happening>" counts that happening as on ("happening:" lets it go); for recordings,
     "bubbles:<n>" shows only the n bubbles nearest the fire and "clock:<f>" slows the towns' time ("bubbles:", "clock:"
-    undo them). Then opens
+    undo them); "hour:<h>" shows the scenes at that hour of today ("hour:" by the clock again). Then opens
     [link] ("scene:<id>@<focus>"), if given. One intent to the running app (singleTop: nothing else changes)."""
     adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, command, *(("--es", OPEN, link) if link else ()))
     time.sleep(1.5)
@@ -749,12 +749,33 @@ def burst(name: str, n=4, gap=0.35):
         time.sleep(gap)
 
 
-def play_to(said: str, ok_texts: set, tries=8) -> bool:
-    """Plays the open dialog on (Next, the right choice of [ok_texts] at a turn) until a line with [said] is on screen."""
+def answer_choice(ok_texts: set) -> bool:
+    """At the learner's turn: picks the right choice (one of [ok_texts]) by a tap low on its row's left, on its small
+    translation: its centre may be one of the learner's own words, bold, whose tap opens its card. False: none there."""
+    labels = [t for t, _ in nodes()]
+    if not any("Tvoj odgovor" in t or "Izberi raje" in t for t in labels):
+        return False  # no turn up: a line said, "Naprej · Next" (the learner's own line said reads as the choice did)
+    if any("Izberi raje" in t for t in labels):
+        tap("Izberi raje", 2)
+    for t, (x0, y0, x1, y1) in boxes():
+        if t in ok_texts or any(t.startswith(ok + ",") or t.startswith(ok + " ") for ok in ok_texts):
+            tap_at((x0 + 40, y1 - 18))
+            return True
+    return False
+
+
+def play_to(said: str, ok_texts: set, tries=10) -> bool:
+    """Plays the open dialog on (Next, the right choice of [ok_texts] at a turn) until a line with [said] is on screen; a
+    word card a slow tap opened instead (a long press on a choice's word) is closed and the turn tried again."""
     for _ in range(tries):
         if find(said) is not None:
             return True
-        if not answer_right(ok_texts):
+        if any(w in t for t, _ in nodes() for w in WORD_CARD):
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.5)
+            continue
+        time.sleep(1.5)  # the line typed in first: the choices under it stop moving
+        if not answer_choice(ok_texts):
             tap("Naprej · Next", 2)
     return find(said) is not None
 
@@ -764,18 +785,26 @@ def field_cues():
     dialog opened through QA's hook ("happening:<scene>/<happening>/<dialog>") and played to its cue: France's "nekaj se
     premika v travi" (the grass stirs by the fence, the hare leaps out and is off: a burst from the dialog's opening, it is
     over in four seconds); the pedlar on the road below the tower ("Poglej, krošnjar na cesti!") and walking in at the gate; Micka's
-    hen flying over the lane onto Marko's cart and the tap turn that finds her there; Muri on the jetty with Janez,
-    barking, then asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and said."""
+    hen flying over the lane onto Marko's cart and the tap turn that finds her there; Muri by the jetty with Janez,
+    barking, then asleep. Each scene is seen at its hour (QA's hook "hour:<h>"), whatever the hour of the run. A scene the
+    village hasn't opened yet (no market, no tower) is skipped and said."""
     skipped = []
+    # each at its hour of the day (QA's hook "hour:<h>"): France mows at dawn, the pedlar comes in the morning, the market
+    # is in the morning, Janez fishes at dawn
     plays = [
-        ("na-njivi", "kosnja", "kosnja-zajec", "cue-hare"),
-        ("na-stolpu", "krosnjar", "krosnjar-denar", "cue-pedlar"),
-        ("na-trznici", "jajca", "jajca-kokos", "cue-hen"),
-        ("pri-ribniku", "zora", "zora-muri", "cue-muri"),
+        ("na-njivi", "kosnja", "kosnja-zajec", "cue-hare", 7.6),
+        ("na-stolpu", "krosnjar", "krosnjar-denar", "cue-pedlar", 10.5),
+        ("na-trznici", "jajca", "jajca-kokos", "cue-hen", 9.5),
+        ("pri-ribniku", "zora", "zora-muri", "cue-muri", 7.6),
     ]
-    for sid, hid, did, name in plays:
+    for sid, hid, did, name, hour in plays:
         try:
+            qa_hook(f"hour:{hour}")
             qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+            if name in ("cue-hare", "cue-hen"):
+                # France's line comes with his turn: the grass stirs for two seconds, then the hare is out and away; Micka's
+                # hen flies over the lane onto the cart in three: shots at once, from the dialog's first moment
+                burst(name, n=10 if name == "cue-hare" else 6, gap=0)
             if wait_for("‹ Vas · Village", 10) is None:
                 skipped.append(f"{sid} (not open in the dev village)")
                 continue
@@ -784,27 +813,21 @@ def field_cues():
                 plain_village()
                 continue
             if name == "cue-hare":
-                # France's line comes with his turn: the grass stirs for two seconds, then the hare is out and away
-                burst("cue-hare", n=8, gap=0.2)
                 assert find("nekaj se premika v travi") is not None, "France's first line"
-                answer_right({"Zajec je skočil iz trave!"})
+                answer_choice({"Zajec je skočil iz trave!"})
             elif name == "cue-pedlar":
                 assert wait_for("krošnjar na cesti", 12), "Nejc's first line"
                 time.sleep(4)
                 shot("cue-pedlar-on-the-road")
                 assert play_to("Samo gledat!", {"Kupil bi leseno žlico.", "Kupila bi leseno žlico.", "Ne, tudi jaz nimam denarja."}), "Nejc's last line"
-                time.sleep(2.2)
-                shot("cue-pedlar-at-the-gate")
+                shot("cue-pedlar-at-the-gate")  # at once: he is in at the gate within four seconds
             elif name == "cue-hen":
                 assert wait_for("Moja kokoš je pobegnila", 12), "Micka's first line"
-                time.sleep(1.4)
-                shot("cue-hen-flies")
-                time.sleep(3)
-                shot("cue-hen-on-the-cart")
-                assert play_to("Poišči v prizoru", set()) or find("Tam je, na vozu") is not None, "the tap turn"
                 time.sleep(1)
+                # her turn comes with her line: "👆 Poišči v prizoru · Find it in the scene" over the picture, the hen there
                 shot("cue-hen-tap-turn")
-                assert answer_right({"Tam je, na vozu!"}), "on the cart"
+                assert find("Poišči v prizoru") is not None, "the tap turn"
+                assert answer_choice({"Tam je, na vozu!"}), "on the cart"
                 time.sleep(2)
                 shot("cue-hen-found")
             elif name == "cue-muri":
@@ -819,6 +842,7 @@ def field_cues():
             tap("Zapri · Close", 3)
         finally:
             qa_hook("happening:")
+            qa_hook("hour:")
         plain_village()
     return f"skipped: {', '.join(skipped)}" if skipped else None
 

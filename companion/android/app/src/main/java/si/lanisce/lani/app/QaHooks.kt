@@ -45,6 +45,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "season:<day>": the landmarks with a season (the maypole, game/ProjectSeasons) stand or not as on that day
  *   ("2027-05-10", or "05-10": the next 10 May from today; [seasonDay]), on the map and in the scenes, without a line in
  *   the chronicle; the rest of the game keeps today. "season:" goes by today again.
+ * - "hour:<h>": a scene is seen at that hour of today (0 to 24, "hour:7.5"; [sceneNow]): its picture's light, sky and wild
+ *   animals, who is there and who sleeps, without the real night sky; so a dawn's or a morning's cue looks as it does then,
+ *   whatever the hour QA runs at. "hour:" goes by the clock again.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -76,6 +79,10 @@ object QaHooks {
     var project by mutableStateOf<String?>(null)
         private set
 
+    /** The hour of today QA asks the scenes to be seen at ("hour:<h>"), or null: the clock's. */
+    var sceneHour: Float? = null
+        private set
+
     /** How many bubbles the village shows while QA asks for fewer ("bubbles:<n>"), or null: all of them. */
     var bubbles by mutableStateOf<Int?>(null)
         private set
@@ -99,6 +106,7 @@ object QaHooks {
             command.startsWith("turns:") -> typedTurns = command == "turns:type"
             command.startsWith("ispy:") -> ispy = command.removePrefix("ispy:").takeIf { '/' in it }
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
+            command.startsWith("hour:") -> sceneHour = command.removePrefix("hour:").toFloatOrNull()?.takeIf { it in 0f..24f }
             command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
             command.startsWith("season:") -> {
                 si.lanisce.lani.game.ProjectSeasons.qaDay = seasonDay(command.removePrefix("season:"), java.time.LocalDate.now())
@@ -111,6 +119,13 @@ object QaHooks {
                 project?.let { step(it, n!!) }
             }
         }
+    }
+
+    /** [now], or today at the hour QA asks the scenes to be seen at ("hour:<h>"). */
+    fun sceneNow(now: java.time.LocalDateTime): java.time.LocalDateTime {
+        val h = sceneHour?.takeIf { enabled } ?: return now
+        val m = (h * 60).toInt().coerceIn(0, 24 * 60 - 1)
+        return now.toLocalDate().atTime(m / 60, m % 60)
     }
 
     /** The mastery a dialog's turns are asked by: [own] (the learner's), or secure for every rule while QA asks for typed turns. */
