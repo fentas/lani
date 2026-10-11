@@ -225,9 +225,39 @@ class ScenesContentTest {
         assertEquals(1f, effects("na-trznici", "jajca").first()["bell"])
         assertEquals(1f, effects("na-trznici", "gostilna").first()["bustle"])
         assertEquals(1f, effects("na-trznici", "rebula").last()["pigeons"])
+        // France's hare leaps out of the grass and is gone; Sivko is away and comes home; the scarecrow gets the learner's
+        // hat and grandpa's scarf
+        assertEquals(1f, effects("na-njivi", "kosnja-zajec").first()["hare"])
+        val sivko = effects("na-njivi", "konj-hlev")
+        assertTrue(sivko.first()["horse"] == 0f && sivko.last()["horse"] == 1f)
+        val dressed = effects("na-njivi", "strasilo-klobuk")
+        assertTrue(dressed.first()["hat"] == 0f && dressed.last() == mapOf("hat" to 1f, "scarf" to 1f))
+        // the pedlar seen from the tower comes down the road and is in at the gate
+        for (v in listOf("krosnjar", "krosnjar-daljnogled", "krosnjar-denar")) assertEquals(v, 1f, effects("na-stolpu", v).last()["pedlar"])
+        // Micka's hen runs off onto Marko's cart, found there by a tap (na vozu), and is back in her coop
+        val hen = effects("na-trznici", "jajca-kokos")
+        assertTrue(hen.first()["hen"] == 1f && hen.last()["hen"] == 0f)
+        val find = files.map { parseScene(it.readText()) }.first { it.id == "na-trznici" }.dialogs.first { it.id == "jajca-kokos" }.lines.first { it.tapTurn }
+        assertEquals("cart", find.choices.single { it.ok }.tap)
+        assertEquals("kje-mestnik-orodnik", find.choices.single { it.ok }.grammar)
+        assertTrue(find.choices.all { it.tap in SceneArt.objects.getValue("market") })
+        // Muri barks on the jetty and falls asleep; the tadpoles in the shallows; the lamb drinks at last
+        val muri = effects("pri-ribniku", "zora-muri")
+        assertTrue(muri.any { it["dog"] == 1f } && muri.last()["dog"] == 0f)
+        assertEquals(1f, effects("pri-ribniku", "zaba-paglavci").first()["tadpoles"])
+        val lamb = effects("ob-potoku", "ovce-jagnje")
+        assertTrue(lamb.first()["lamb"] == 0f && lamb.last()["lamb"] == 1f)
         val kept = files.map { parseScene(it.readText()) }.flatMap { s -> s.dialogs.filter { it.fxKept }.map { "${s.id}/${it.id}" } }
-        // and their variants: the candles lit, the lantern left burning
-        assertEquals(listOf("na-stolpu/straza", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem", "v-cerkvi/sveca-veter", "v-sotoru/svetilka", "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka"), kept)
+        // and their variants: the candles lit, the lantern left burning; what is gone or home or dressed for good, until
+        // midnight: the hare, Sivko, the scarecrow, the pedlar in at the gate, the lamb drinking
+        assertEquals(
+            listOf(
+                "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec", "na-stolpu/straza", "na-stolpu/krosnjar",
+                "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem",
+                "v-cerkvi/sveca-veter", "v-sotoru/svetilka", "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka",
+            ),
+            kept,
+        )
     }
 
     @Test fun `at dawn and dusk the hunter on his high seat, the mowing in the dew, fishing in the fog, the mill waking`() {

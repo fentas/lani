@@ -82,6 +82,7 @@
     },
     {
       "id": "krosnjar",
+      "fx_stays": true,
       "lines": [
         { "who": "nejc", "sl": "{learner}, {learner}! Pridi gor! Mama pravi, da danes pride krošnjar.", "en": "{learner}, {learner}! Come up! Mum says the pedlar is coming today.", "de": "{learner}, {learner}! Komm rauf! Mama sagt, heute kommt der Hausierer.", "it": "{learner}, {learner}! Vieni su! La mamma dice che oggi arriva il venditore ambulante." },
         { "choices": [
@@ -95,15 +96,15 @@
           "fx": { "birds": 1 } },
         { "choices": [
           { "sl": "Nekdo jih je prestrašil. Mogoče je na cesti v gozdu.", "en": "Someone scared them. Maybe he is on the road in the forest.", "de": "Jemand hat sie erschreckt. Vielleicht ist er auf der Straße im Wald.", "it": "Qualcuno li ha spaventati. Forse è sulla strada nel bosco.", "ok": true,
-            "reply": { "sl": "Ja! Tam je! Velik koš ima na hrbtu!", "en": "Yes! There he is! He has a big basket on his back!", "de": "Ja! Da ist er! Er hat einen großen Korb auf dem Rücken!", "it": "Sì! Eccolo! Ha una grande gerla sulla schiena!" } },
+            "reply": { "sl": "Ja! Tam je! Velik koš ima na hrbtu!", "en": "Yes! There he is! He has a big basket on his back!", "de": "Ja! Da ist er! Er hat einen großen Korb auf dem Rücken!", "it": "Sì! Eccolo! Ha una grande gerla sulla schiena!", "fx": { "pedlar": 0.25 } } },
           { "sl": "Nekdo jih je prestrašil. Mogoče je na cesto v gozdu.", "en": "Someone scared them. Maybe he is on the road in the forest.", "de": "Jemand hat sie erschreckt. Vielleicht ist er auf der Straße im Wald.", "it": "Qualcuno li ha spaventati. Forse è sulla strada nel bosco.",
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Where someone is takes the locative: na cesti. Na cesto (accusative) is where you go: grem na cesto.", "de": "Wo jemand ist, steht im Lokativ: na cesti. Na cesto (Akkusativ) ist, wohin du gehst: grem na cesto.", "it": "Dove si trova qualcuno vuole il locativo: na cesti. Na cesto (accusativo) è dove vai: grem na cesto." },
             "reply": { "sl": "Ha? {learner}, {learner}, kaj praviš? Hitro!", "en": "Huh? {learner}, {learner}, what are you saying? Quick!", "de": "Hä? {learner}, {learner}, was sagst du? Schnell!", "it": "Eh? {learner}, {learner}, che dici? {m:Svelto|f:Svelta}!" } }
         ] },
-        { "who": "nejc", "sl": "Pridi, greva dol k vratom! Jaz bom prvi pri njem!", "en": "Come on, let us go down to the gate! I will be the first one there!", "de": "Komm, gehen wir runter zum Tor! Ich bin als Erster dort!", "it": "Dai, scendiamo alla porta! Arrivo io per primo!" },
+        { "who": "nejc", "sl": "Pridi, greva dol k vratom! Jaz bom prvi pri njem!", "en": "Come on, let us go down to the gate! I will be the first one there!", "de": "Komm, gehen wir runter zum Tor! Ich bin als Erster dort!", "it": "Dai, scendiamo alla porta! Arrivo io per primo!", "fx": { "pedlar": 0.6 } },
         { "choices": [
           { "sl": "Počasi, Nejc! Lestev je strma.", "en": "Slowly, Nejc! The ladder is steep.", "de": "Langsam, Nejc! Die Leiter ist steil.", "it": "Piano, Nejc! La scala è ripida.", "ok": true,
-            "reply": { "sl": "Ti si {m:počasen|f:počasna}, jaz sem hiter! Ha ha!", "en": "You are slow, I am fast! Ha ha!", "de": "Du bist langsam, ich bin schnell! Ha ha!", "it": "Tu sei {m:lento|f:lenta}, io sono veloce! Ah ah!" } },
+            "reply": { "sl": "Ti si {m:počasen|f:počasna}, jaz sem hiter! Ha ha!", "en": "You are slow, I am fast! Ha ha!", "de": "Du bist langsam, ich bin schnell! Ha ha!", "it": "Tu sei {m:lento|f:lenta}, io sono veloce! Ah ah!", "fx": { "pedlar": 1 } } },
           { "sl": "Počasi, Nejc! Lestev je strm.", "en": "Slowly, Nejc! The ladder is steep.", "de": "Langsam, Nejc! Die Leiter ist steil.", "it": "Piano, Nejc! La scala è ripida.",
             "grammar": "spol-samostalnikov", "why": { "en": "Lestev is feminine, like cerkev: lestev je strma.", "de": "Lestev ist weiblich, wie cerkev: lestev je strma.", "it": "Lestev è femminile, come cerkev: lestev je strma." },
             "reply": { "sl": "Strm? Jaz? Ha ha, jaz nisem strm!", "en": "Strm (steep)? Me? Ha ha, I'm not steep!", "de": "Strm (steil)? Ich? Haha, ich bin doch nicht steil!", "it": "Strm (ripido)? Io? Ah ah, io non sono ripido!" } }
@@ -209,6 +210,7 @@
     },
     {
       "id": "krosnjar-daljnogled",
+      "fx_stays": true,
       "lines": [
         { "who": "nejc", "sl": "{learner}, {learner}! Krošnjar prihaja! Daj mi daljnogled, prosim!", "en": "{learner}, {learner}! The pedlar is coming! Give me the spyglass, please!", "de": "{learner}, {learner}! Der Hausierer kommt! Gib mir das Fernrohr, bitte!", "it": "{learner}, {learner}! Arriva il venditore ambulante! Dammi il cannocchiale, per favore!" },
         { "choices": [
@@ -220,7 +222,7 @@
           { "sl": "Na, Nejc. Ne spusti ga!", "en": "Here, Nejc. Don't drop it!", "de": "Da, Nejc. Lass es nicht fallen!", "it": "Tieni, Nejc. Non farlo cadere!", "ok": true,
             "reply": { "sl": "Ne bom! Oho, vse je tako blizu!", "en": "I won't! Oho, everything is so close!", "de": "Mach ich nicht! Oho, alles ist so nah!", "it": "Non lo farò! Oho, è tutto così vicino!" } }
         ] },
-        { "who": "nejc", "sl": "Tam je, na cesti! Kdaj bo pri nas?", "en": "There he is, on the road! When will he be here?", "de": "Da ist er, auf der Straße! Wann ist er bei uns?", "it": "Eccolo, sulla strada! Quando arriva da noi?" },
+        { "who": "nejc", "sl": "Tam je, na cesti! Kdaj bo pri nas?", "en": "There he is, on the road! When will he be here?", "de": "Da ist er, auf der Straße! Wann ist er bei uns?", "it": "Eccolo, sulla strada! Quando arriva da noi?", "fx": { "pedlar": 0.15 } },
         { "choices": [
           { "sl": "Pred eno uro bo pri vratih.", "en": "An hour ago he'll be at the gate.", "de": "Vor einer Stunde wird er am Tor sein.", "it": "Un'ora fa sarà alla porta.",
             "grammar": "kdaj-cas", "why": { "en": "Čez (in) is for later: čez eno uro. Pred eno uro means an hour ago.", "de": "Čez (in) steht für später: čez eno uro. Pred eno uro heißt vor einer Stunde.", "it": "Čez (fra) è per dopo: čez eno uro. Pred eno uro significa un'ora fa." },
@@ -229,15 +231,16 @@
             "grammar": "kdaj-cas", "why": { "en": "Čez takes the accusative: čez eno uro.", "de": "Čez steht mit dem Akkusativ: čez eno uro.", "it": "Čez regge l'accusativo: čez eno uro." },
             "reply": { "sl": "Ena ura? Ura česa? Hitro povej!", "en": "One hour? Hour of what? Tell me quick!", "de": "Eine Stunde? Stunde wovon? Sag schnell!", "it": "Un'ora? Un'ora di cosa? Dimmelo presto!" } },
           { "sl": "Čez eno uro bo pri vratih.", "en": "In an hour he'll be at the gate.", "de": "In einer Stunde ist er am Tor.", "it": "Fra un'ora sarà alla porta.", "ok": true,
-            "reply": { "sl": "Cela ura? Predolgo! Tečem mu naproti!", "en": "A whole hour? Too long! I'm running to meet him!", "de": "Eine ganze Stunde? Zu lange! Ich lauf ihm entgegen!", "it": "Un'ora intera? Troppo! Gli corro incontro!" } }
+            "reply": { "sl": "Cela ura? Predolgo! Tečem mu naproti!", "en": "A whole hour? Too long! I'm running to meet him!", "de": "Eine ganze Stunde? Zu lange! Ich lauf ihm entgegen!", "it": "Un'ora intera? Troppo! Gli corro incontro!", "fx": { "pedlar": 0.35 } } }
         ] },
-        { "who": "nejc", "sl": "Pridi, {learner}! Kdo bo prvi pri vratih?", "en": "Come on, {learner}! Who'll be first at the gate?", "de": "Komm, {learner}! Wer ist Erster am Tor?", "it": "Dai, {learner}! Chi arriva per primo alla porta?" }
+        { "who": "nejc", "sl": "Pridi, {learner}! Kdo bo prvi pri vratih?", "en": "Come on, {learner}! Who'll be first at the gate?", "de": "Komm, {learner}! Wer ist Erster am Tor?", "it": "Dai, {learner}! Chi arriva per primo alla porta?", "fx": { "pedlar": 1 } }
       ]
     },
     {
       "id": "krosnjar-denar",
+      "fx_stays": true,
       "lines": [
-        { "who": "nejc", "sl": "{learner}! Poglej, krošnjar na cesti! Ima poln koš lepih stvari. Kaj kupiš ti?", "en": "{learner}! Look, the pedlar on the road! He has a basket full of nice things. What are you buying?", "de": "{learner}! Schau, der Hausierer auf der Straße! Er hat einen Korb voller schöner Sachen. Was kaufst du?", "it": "{learner}! Guarda, il venditore ambulante sulla strada! Ha una gerla piena di belle cose. Tu che cosa compri?" },
+        { "who": "nejc", "sl": "{learner}! Poglej, krošnjar na cesti! Ima poln koš lepih stvari. Kaj kupiš ti?", "en": "{learner}! Look, the pedlar on the road! He has a basket full of nice things. What are you buying?", "de": "{learner}! Schau, der Hausierer auf der Straße! Er hat einen Korb voller schöner Sachen. Was kaufst du?", "it": "{learner}! Guarda, il venditore ambulante sulla strada! Ha una gerla piena di belle cose. Tu che cosa compri?", "fx": { "pedlar": 0.4 } },
         { "choices": [
           { "sl": "Kupim bi leseno žlico.", "en": "I-buy would a wooden spoon.", "de": "Ich kaufe würde einen Holzlöffel.", "it": "Compro vorrei un cucchiaio di legno.",
             "grammar": "pogojnik", "why": { "en": "Bi goes with the -l form: {m:kupil|f:kupila} bi (I would buy).", "de": "Bi steht mit der l-Form: {m:kupil|f:kupila} bi (ich würde kaufen).", "it": "Bi va con la forma in -l: {m:kupil|f:kupila} bi (comprerei)." },
@@ -259,7 +262,7 @@
           { "sl": "Ne, tudi jaz nimam denarja.", "en": "No, I have no money either.", "de": "Nein, ich habe auch kein Geld.", "it": "No, non ho soldi neanch'io.", "ok": true,
             "reply": { "sl": "Nič hudega. Gledati je zastonj! Ha ha!", "en": "Never mind. Looking is free! Ha ha!", "de": "Macht nichts. Schauen kostet nichts! Ha ha!", "it": "Non fa niente. Guardare è gratis! Ah ah!" } }
         ] },
-        { "who": "nejc", "sl": "Pridi, greva dol! Samo gledat!", "en": "Come on, let's go down! Just to look!", "de": "Komm, gehen wir runter! Nur schauen!", "it": "Dai, scendiamo! Solo a guardare!" }
+        { "who": "nejc", "sl": "Pridi, greva dol! Samo gledat!", "en": "Come on, let's go down! Just to look!", "de": "Komm, gehen wir runter! Nur schauen!", "it": "Dai, scendiamo! Solo a guardare!", "fx": { "pedlar": 1 } }
       ]
     },
     {

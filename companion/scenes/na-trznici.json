@@ -200,13 +200,16 @@
       "memory": { "sl": "kokoš, ki si jo {m:ujel|f:ujela} na tržnici", "en": "the hen you caught at the market", "de": "das Huhn, das du auf dem Markt gefangen hast", "it": "la gallina che hai preso al mercato" },
       "lines": [
         { "who": "micka", "sl": "Ojej! Moja kokoš je pobegnila. Kje je zdaj?", "en": "Oh dear! My hen has run off. Where is she now?", "de": "Oje! Mein Huhn ist weggelaufen. Wo ist es jetzt?", "it": "Oddio! La mia gallina è scappata. Dov'è adesso?",
-          "fx": { "bustle": 0.6 } },
+          "fx": { "hen": 1, "bustle": 0.6 } },
         { "choices": [
-          { "sl": "Tam je, na voz!", "en": "There she is, onto the cart!", "de": "Da ist es, auf den Wagen!", "it": "Eccola là, su per il carro!",
-            "grammar": "kje-mestnik-orodnik", "why": { "en": "Where something is takes the locative: na vozu. Na voz (accusative) is where it goes: skoči na voz.", "de": "Wo etwas ist, steht im Lokativ: na vozu. Na voz (Akkusativ) ist, wohin es geht: skoči na voz.", "it": "Dove si trova qualcosa vuole il locativo: na vozu. Na voz (accusativo) è dove va: skoči na voz." },
-            "reply": { "sl": "Na voz? Kam gre? Ojej, ta kokoš!", "en": "Na voz (onto the cart)? Where's she off to? Oh dear, that hen!", "de": "Na voz (auf den Wagen)? Wo will es hin? Oje, dieses Huhn!", "it": "Na voz (sul carro, verso)? Dove va? Oddio, questa gallina!" } },
-          { "sl": "Tam je, na vozu!", "en": "There she is, on the cart!", "de": "Da ist es, auf dem Wagen!", "it": "Eccola là, sul carro!", "ok": true,
-            "reply": { "sl": "Res je! Pridi dol, požrešnica!", "en": "So she is! Come down, you greedy thing!", "de": "Tatsächlich! Komm runter, du Vielfraß!", "it": "È vero! Scendi, golosona!", "fx": { "pigeons": 1 } } }
+          { "sl": "Tam je, pod stojnico!", "en": "There she is, under the stall!", "de": "Da ist es, unter dem Stand!", "it": "Eccola là, sotto la bancarella!", "tap": "stall",
+            "why": { "en": "Look for her: brown, with a red comb, and higher up.", "de": "Such es: braun, mit rotem Kamm, und weiter oben.", "it": "Cercala: marrone, con la cresta rossa, e più in alto." },
+            "reply": { "sl": "Pod stojnico? Ne, tam je ni.", "en": "Under the stall? No, she's not there.", "de": "Unter dem Stand? Nein, da ist es nicht.", "it": "Sotto la bancarella? No, lì non c'è." } },
+          { "sl": "Tam je, na vozu!", "en": "There she is, on the cart!", "de": "Da ist es, auf dem Wagen!", "it": "Eccola là, sul carro!", "ok": true, "tap": "cart", "grammar": "kje-mestnik-orodnik",
+            "reply": { "sl": "Res je! Pridi dol, požrešnica!", "en": "So she is! Come down, you greedy thing!", "de": "Tatsächlich! Komm runter, du Vielfraß!", "it": "È vero! Scendi, golosona!", "fx": { "pigeons": 1 } } },
+          { "sl": "Tam je, v košari!", "en": "There she is, in the basket!", "de": "Da ist es, im Korb!", "it": "Eccola là, nel cesto!", "tap": "basket",
+            "why": { "en": "Not in there: she flew higher up. Look for a red comb.", "de": "Nicht da drin: es ist höher geflogen. Such einen roten Kamm.", "it": "Non lì dentro: è volata più in alto. Cerca una cresta rossa." },
+            "reply": { "sl": "V košari? Ne, ne, poglej malo višje!", "en": "In the basket? No, no, look a bit higher!", "de": "Im Korb? Nein, nein, schau ein bisschen höher!", "it": "Nel cesto? No, no, guarda un po' più in alto!" } }
         ] },
         { "who": "micka", "sl": "Hitro, primi kokoš! Jaz ne morem tako hitro.", "en": "Quick, grab the hen! I can't go that fast.", "de": "Schnell, fang das Huhn! Ich kann nicht so schnell.", "it": "{m:Svelto|f:Svelta}, prendi la gallina! Io non ce la faccio a correre così." },
         { "choices": [
@@ -217,7 +220,7 @@
             "grammar": "spol-samostalnikov", "why": { "en": "Kokoš is feminine, so 'her' is jo: imam jo. Ga is for masculine nouns (petelin, pes).", "de": "Kokoš ist weiblich, also heißt ‚sie‘ jo: imam jo. Ga steht für männliche Nomen (petelin, pes).", "it": "Kokoš è femminile, quindi 'la' è jo: imam jo. Ga è per i nomi maschili (petelin, pes)." },
             "reply": { "sl": "Ga? Petelina? Ne, kokoš sem izgubila!", "en": "Ga (him)? The rooster? No, it's the hen I lost!", "de": "Ga (ihn)? Den Hahn? Nein, das Huhn ist mir weggelaufen!", "it": "Ga (lui)? Il gallo? No, ho perso la gallina!" } },
           { "sl": "Imam jo! Izvolite, babica.", "en": "Got her! Here you are, Grandma.", "de": "Ich hab es! Bitte schön, Oma.", "it": "Presa! Ecco a Lei, nonna.", "ok": true,
-            "reply": { "sl": "Hvala! Za to dobiš tri jajca zastonj.", "en": "Thank you! For that you get three eggs for free.", "de": "Danke! Dafür bekommst du drei Eier umsonst.", "it": "Grazie! Per questo ti do tre uova gratis." } }
+            "reply": { "sl": "Hvala! Za to dobiš tri jajca zastonj.", "en": "Thank you! For that you get three eggs for free.", "de": "Danke! Dafür bekommst du drei Eier umsonst.", "it": "Grazie! Per questo ti do tre uova gratis.", "fx": { "hen": 0 } } }
         ] },
         { "who": "micka", "sl": "Kokoši so kot otroci. Vedno nekam bežijo.", "en": "Hens are like children. Always running off somewhere.", "de": "Hühner sind wie Kinder. Immer laufen sie irgendwohin weg.", "it": "Le galline sono come i bambini. Scappano sempre da qualche parte." }
       ]

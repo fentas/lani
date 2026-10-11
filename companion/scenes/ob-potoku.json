@@ -304,9 +304,10 @@
     },
     {
       "id": "ovce-jagnje",
+      "fx_stays": true,
       "memory": { "sl": "jagnje, ki ni hotelo piti", "en": "the lamb that wouldn't drink", "de": "das Lamm, das nicht trinken wollte", "it": "l'agnellino che non voleva bere" },
       "lines": [
-        { "who": "luka", "sl": "Ej, {learner}! Poglej to jagnje. Ne pije. Nič!", "en": "Hey, {learner}! Look at this lamb. It isn't drinking. Nothing!", "de": "He, {learner}! Schau dir dieses Lamm an. Es trinkt nicht. Gar nichts!", "it": "Ehi, {learner}! Guarda quest'agnellino. Non beve. Niente!" },
+        { "who": "luka", "sl": "Ej, {learner}! Poglej to jagnje. Ne pije. Nič!", "en": "Hey, {learner}! Look at this lamb. It isn't drinking. Nothing!", "de": "He, {learner}! Schau dir dieses Lamm an. Es trinkt nicht. Gar nichts!", "it": "Ehi, {learner}! Guarda quest'agnellino. Non beve. Niente!", "fx": { "lamb": 0 } },
         { "choices": [
           { "sl": "Res, ne pije vodo. Je bolno?", "en": "Right, it isn't drinking the water. Is it ill?", "de": "Stimmt, es trinkt das Wasser nicht. Ist es krank?", "it": "È vero, non beve l'acqua. È malato?",
             "grammar": "rodilnik-nikalnica", "why": { "en": "After a no, the object goes into the genitive: ne pije vode.", "de": "Nach einer Verneinung steht das Objekt im Genitiv: ne pije vode.", "it": "Dopo una negazione il complemento va al genitivo: ne pije vode." },
@@ -326,9 +327,9 @@
             "grammar": "osebni-zaimki", "why": { "en": "One lamb: mu, to it. Jim is to them.", "de": "Ein Lamm: mu, ihm. Jim heißt ihnen.", "it": "Un agnellino solo: mu, a lui. Jim è a loro." },
             "reply": { "sl": "Jim? Ostale ovce že znajo piti, veš!", "en": "Them? The other sheep can drink already, you know!", "de": "Ihnen? Die anderen Schafe können schon trinken, weißt du!", "it": "A loro? Le altre pecore sanno già bere, sai!" } },
           { "sl": "Pokaži mu, kako se pije!", "en": "Show it how to drink!", "de": "Zeig ihm, wie man trinkt!", "it": "Fagli vedere come si beve!", "ok": true,
-            "reply": { "sl": "Ha! Prav. Glej, mali: tako se pije!", "en": "Ha! All right. Look, little one: this is how you drink!", "de": "Ha! Na gut. Schau, Kleines: So trinkt man!", "it": "Ah! Va bene. Guarda, piccolo: si beve così!" } }
+            "reply": { "sl": "Ha! Prav. Glej, mali: tako se pije!", "en": "Ha! All right. Look, little one: this is how you drink!", "de": "Ha! Na gut. Schau, Kleines: So trinkt man!", "it": "Ah! Va bene. Guarda, piccolo: si beve così!", "fx": { "lamb": 0.45 } } }
         ] },
-        { "who": "luka", "sl": "Glej! Zdaj pije. Ej, ti si pa {m:dober pastir|f:dobra pastirica}!", "en": "Look! Now it's drinking. Hey, you're a good {m:shepherd|f:shepherdess}!", "de": "Schau! Jetzt trinkt es. He, du bist ja {m:ein guter Hirte|f:eine gute Hirtin}!", "it": "Guarda! Adesso beve. Ehi, sei proprio {m:un bravo pastore|f:una brava pastora}!" }
+        { "who": "luka", "sl": "Glej! Zdaj pije. Ej, ti si pa {m:dober pastir|f:dobra pastirica}!", "en": "Look! Now it's drinking. Hey, you're a good {m:shepherd|f:shepherdess}!", "de": "Schau! Jetzt trinkt es. He, du bist ja {m:ein guter Hirte|f:eine gute Hirtin}!", "it": "Guarda! Adesso beve. Ehi, sei proprio {m:un bravo pastore|f:una brava pastora}!", "fx": { "lamb": 1 } }
       ]
     },
     {

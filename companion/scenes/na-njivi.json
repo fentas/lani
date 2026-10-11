@@ -433,20 +433,21 @@
     },
     {
       "id": "strasilo-klobuk",
+      "fx_stays": true,
       "memory": { "sl": "strašilo, ki si mu {m:dal|f:dala} svoj klobuk", "en": "the scarecrow you gave your hat to", "de": "die Vogelscheuche, der du deinen Hut geschenkt hast", "it": "lo spaventapasseri a cui hai dato il tuo cappello" },
       "lines": [
-        { "who": "tine", "sl": "{learner}, {learner}! Strašilo nima klobuka. Kaj naredimo?", "en": "{learner}, {learner}! The scarecrow has no hat. What shall we do?", "de": "{learner}, {learner}! Die Vogelscheuche hat keinen Hut. Was machen wir?", "it": "{learner}, {learner}! Lo spaventapasseri non ha il cappello. Che cosa facciamo?" },
+        { "who": "tine", "sl": "{learner}, {learner}! Strašilo nima klobuka. Kaj naredimo?", "en": "{learner}, {learner}! The scarecrow has no hat. What shall we do?", "de": "{learner}, {learner}! Die Vogelscheuche hat keinen Hut. Was machen wir?", "it": "{learner}, {learner}! Lo spaventapasseri non ha il cappello. Che cosa facciamo?", "fx": { "hat": 0 } },
         { "choices": [
           { "sl": "Strašilu dam tvoj klobuk!", "en": "I'll give the scarecrow your hat!", "de": "Ich gebe der Vogelscheuche deinen Hut!", "it": "Do allo spaventapasseri il tuo cappello!",
             "grammar": "svoj", "why": { "en": "It's your own hat: svoj klobuk. Tvoj is Tine's, the one you're talking to.", "de": "Es ist dein eigener Hut: svoj klobuk. Tvoj ist der von Tine, mit dem du sprichst.", "it": "È il tuo cappello: svoj klobuk. Tvoj è quello di Tine, a cui stai parlando." },
             "reply": { "sl": "Moj klobuk? Ne! Moj je premajhen. Poglej!", "en": "My hat? No! Mine's too small. Look!", "de": "Mein Hut? Nein! Meiner ist zu klein. Schau!", "it": "Il mio cappello? No! Il mio è troppo piccolo. Guarda!" } },
           { "sl": "Strašilu dam svoj klobuk!", "en": "I'll give the scarecrow my hat!", "de": "Ich gebe der Vogelscheuche meinen Hut!", "it": "Do allo spaventapasseri il mio cappello!", "ok": true,
-            "reply": { "sl": "Juhu! Zdaj je strašilo kot dedek!", "en": "Yay! Now the scarecrow looks like grandpa!", "de": "Juhu! Jetzt sieht die Vogelscheuche aus wie Opa!", "it": "Evviva! Adesso lo spaventapasseri sembra il nonno!" } },
+            "reply": { "sl": "Juhu! Zdaj je strašilo kot dedek!", "en": "Yay! Now the scarecrow looks like grandpa!", "de": "Juhu! Jetzt sieht die Vogelscheuche aus wie Opa!", "it": "Evviva! Adesso lo spaventapasseri sembra il nonno!", "fx": { "hat": 0.55 } } },
           { "sl": "Strašilo dam svoj klobuk!", "en": "I'll give away the scarecrow (nominative) my hat!", "de": "Die Vogelscheuche (Nominativ) gebe ich meinen Hut!", "it": "Lo spaventapasseri (nominativo) do il mio cappello!",
             "grammar": "dajalnik", "why": { "en": "Who gets something is in the dative: strašilu dam. Strašilo is the nominative.", "de": "Wer etwas bekommt, steht im Dativ: strašilu dam. Strašilo ist der Nominativ.", "it": "Chi riceve qualcosa va al dativo: strašilu dam. Strašilo è il nominativo." },
             "reply": { "sl": "Strašilo daš? Komu? Ne, ne, strašilo je naše!", "en": "You're giving the scarecrow away? To whom? No, no, it's ours!", "de": "Du verschenkst die Vogelscheuche? Wem? Nein, nein, die gehört uns!", "it": "Regali lo spaventapasseri? A chi? No, no, è nostro!" } }
         ] },
-        { "who": "tine", "sl": "Ha ha! Klobuk je velik, pade mu na nos. Kaj še potrebuje?", "en": "Ha ha! The hat is big, it falls onto its nose. What else does it need?", "de": "Ha ha! Der Hut ist groß, er rutscht ihr auf die Nase. Was braucht sie noch?", "it": "Ah ah! Il cappello è grande, gli cade sul naso. Che cos'altro gli serve?" },
+        { "who": "tine", "sl": "Ha ha! Klobuk je velik, pade mu na nos. Kaj še potrebuje?", "en": "Ha ha! The hat is big, it falls onto its nose. What else does it need?", "de": "Ha ha! Der Hut ist groß, er rutscht ihr auf die Nase. Was braucht sie noch?", "it": "Ah ah! Il cappello è grande, gli cade sul naso. Che cos'altro gli serve?", "fx": { "hat": 1 } },
         { "choices": [
           { "sl": "Potrebuje še rdečega šala.", "en": "It needs a red scarf (genitive).", "de": "Sie braucht noch eines roten Schals (Genitiv).", "it": "Gli serve ancora di una sciarpa rossa (genitivo).",
             "grammar": "tozilnik", "why": { "en": "Potrebovati takes the accusative: rdeč šal. Rdečega šala is the genitive.", "de": "Potrebovati steht mit dem Akkusativ: rdeč šal. Rdečega šala ist der Genitiv.", "it": "Potrebovati regge l'accusativo: rdeč šal. Rdečega šala è il genitivo." },
@@ -455,16 +456,17 @@
             "grammar": "pridevniki-ujemanje", "why": { "en": "Šal (scarf) is masculine: rdeč šal. Rdeča goes with feminine nouns (rdeča ruta).", "de": "Šal (Schal) ist männlich: rdeč šal. Rdeča passt zu weiblichen Nomen (rdeča ruta).", "it": "Šal (sciarpa) è maschile: rdeč šal. Rdeča va con i nomi femminili (rdeča ruta)." },
             "reply": { "sl": "Rdeča? Rdeča kaj? Ruta?", "en": "Red (feminine)? Red what? A headscarf?", "de": "Rote? Rote was? Ein Kopftuch?", "it": "Rossa? Rossa cosa? Un fazzoletto?" } },
           { "sl": "Potrebuje še rdeč šal.", "en": "It needs a red scarf too.", "de": "Sie braucht noch einen roten Schal.", "it": "Gli serve ancora una sciarpa rossa.", "ok": true,
-            "reply": { "sl": "Imam ga! Dedkov stari šal.", "en": "I've got one! Grandpa's old scarf.", "de": "Ich hab einen! Opas alter Schal.", "it": "Ce l'ho! La vecchia sciarpa del nonno." } }
+            "reply": { "sl": "Imam ga! Dedkov stari šal.", "en": "I've got one! Grandpa's old scarf.", "de": "Ich hab einen! Opas alter Schal.", "it": "Ce l'ho! La vecchia sciarpa del nonno.", "fx": { "scarf": 1 } } }
         ] },
         { "who": "tine", "sl": "Zdaj ima strašilo klobuk in šal. Najlepše strašilo na svetu!", "en": "Now the scarecrow has a hat and a scarf. The nicest scarecrow in the world!", "de": "Jetzt hat die Vogelscheuche einen Hut und einen Schal. Die schönste Vogelscheuche der Welt!", "it": "Adesso lo spaventapasseri ha il cappello e la sciarpa. Lo spaventapasseri più bello del mondo!" }
       ]
     },
     {
       "id": "konj-hlev",
+      "fx_stays": true,
       "memory": { "sl": "večer, ko sva iskala Sivka", "en": "the evening we looked for Sivko", "de": "den Abend, an dem wir Sivko gesucht haben", "it": "la sera in cui abbiamo cercato Sivko" },
       "lines": [
-        { "who": "france", "sl": "Dober večer, {learner}. Iščem Sivka. Je bil kje tukaj?", "en": "Good evening, {learner}. I'm looking for Sivko. Has he been around here?", "de": "Guten Abend, {learner}. Ich suche Sivko. War er hier irgendwo?", "it": "Buonasera, {learner}. Cerco Sivko. È passato di qui?" },
+        { "who": "france", "sl": "Dober večer, {learner}. Iščem Sivka. Je bil kje tukaj?", "en": "Good evening, {learner}. I'm looking for Sivko. Has he been around here?", "de": "Guten Abend, {learner}. Ich suche Sivko. War er hier irgendwo?", "it": "Buonasera, {learner}. Cerco Sivko. È passato di qui?", "fx": { "horse": 0 } },
         { "choices": [
           { "sl": "Ja, {m:videl|f:videla} sem konja pri ograjo.", "en": "Yes, I saw the horse by-towards the fence.", "de": "Ja, ich habe das Pferd beim Zaun (Akkusativ) gesehen.", "it": "Sì, ho visto il cavallo verso lo steccato (accusativo).",
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Pri (by, at) takes the locative: pri ograji.", "de": "Pri (bei) steht mit dem Lokativ: pri ograji.", "it": "Pri (presso) regge il locativo: pri ograji." },
@@ -486,7 +488,7 @@
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z vami.", "de": "Z (mit) steht mit dem Instrumental: z vami.", "it": "Z (con) regge lo strumentale: z vami." },
             "reply": { "sl": "Z vi? Hm, kako že? Pojdi, pojdi, tema bo.", "en": "Z vi? Hm, how's that? Come on, come on, it's getting dark.", "de": "Z vi? Hm, wie bitte? Komm, komm, es wird dunkel.", "it": "Z vi? Mm, come? Dai, dai, si fa buio." } }
         ] },
-        { "who": "france", "sl": "Tam je, za hlevom! Sivko, ti stari lenuh. Hvala, {learner}.", "en": "There he is, behind the stable! Sivko, you old lazybones. Thanks, {learner}.", "de": "Da ist er, hinterm Stall! Sivko, du alter Faulpelz. Danke, {learner}.", "it": "Eccolo, dietro la stalla! Sivko, vecchio pigrone. Grazie, {learner}." }
+        { "who": "france", "sl": "Tam je, za hlevom! Sivko, ti stari lenuh. Hvala, {learner}.", "en": "There he is, behind the stable! Sivko, you old lazybones. Thanks, {learner}.", "de": "Da ist er, hinterm Stall! Sivko, du alter Faulpelz. Danke, {learner}.", "it": "Eccolo, dietro la stalla! Sivko, vecchio pigrone. Grazie, {learner}.", "fx": { "horse": 1 } }
       ]
     },
     {
@@ -520,9 +522,10 @@
     },
     {
       "id": "kosnja-zajec",
+      "fx_stays": true,
       "memory": { "sl": "jutro, ko je zajec skočil iz trave", "en": "the morning the hare jumped out of the grass", "de": "den Morgen, an dem der Hase aus dem Gras gesprungen ist", "it": "la mattina in cui la lepre è saltata fuori dall'erba" },
       "lines": [
-        { "who": "france", "sl": "Dobro jutro, {learner}! Tiho … nekaj se premika v travi.", "en": "Good morning, {learner}! Quiet … something is moving in the grass.", "de": "Guten Morgen, {learner}! Leise … da bewegt sich etwas im Gras.", "it": "Buongiorno, {learner}! {m:Zitto|f:Zitta} … qualcosa si muove nell'erba." },
+        { "who": "france", "sl": "Dobro jutro, {learner}! Tiho … nekaj se premika v travi.", "en": "Good morning, {learner}! Quiet … something is moving in the grass.", "de": "Guten Morgen, {learner}! Leise … da bewegt sich etwas im Gras.", "it": "Buongiorno, {learner}! {m:Zitto|f:Zitta} … qualcosa si muove nell'erba.", "fx": { "hare": 1 } },
         { "choices": [
           { "sl": "Zajec je skočil iz trave!", "en": "A hare jumped out of the grass!", "de": "Ein Hase ist aus dem Gras gesprungen!", "it": "Una lepre è saltata fuori dall'erba!", "ok": true,
             "reply": { "sl": "Ha! Hiter je kot veter.", "en": "Ha! He's as fast as the wind.", "de": "Ha! Der ist schnell wie der Wind.", "it": "Ah! È veloce come il vento." } },

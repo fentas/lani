@@ -298,14 +298,15 @@
     {
       "scene": "ob-potoku",
       "words": ["most", "ploskati"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "france", "sl": "Most je gotov! Danes gre čez prvi voz.", "en": "The bridge is finished! Today the first cart goes over it.", "de": "Die Brücke ist fertig! Heute fährt der erste Wagen darüber.", "it": "Il ponte è finito! Oggi ci passa sopra il primo carro." },
           { "who": "luka", "sl": "Vsa vas je prišla gledat!", "en": "The whole village has come to watch!", "de": "Das ganze Dorf ist zum Zuschauen gekommen!", "it": "È venuto a vedere tutto il paese!" },
-          { "who": "france", "sl": "{learner}, sedi na voz! Kam gremo?", "en": "{learner}, sit on the cart! Where are we going?", "de": "{learner}, setz dich auf den Wagen! Wohin fahren wir?", "it": "{learner}, sali sul carro! Dove andiamo?" },
+          { "who": "france", "sl": "{learner}, sedi na voz! Kam gremo?", "en": "{learner}, sit on the cart! Where are we going?", "de": "{learner}, setz dich auf den Wagen! Wohin fahren wir?", "it": "{learner}, sali sul carro! Dove andiamo?", "fx": { "cart": 0 } },
           { "choices": [
             { "sl": "Gremo čez most!", "en": "We're going over the bridge!", "de": "Wir fahren über die Brücke!", "it": "Attraversiamo il ponte!", "ok": true,
-              "reply": { "sl": "Tako je! Hi, konjiček!", "en": "That's right! Giddy-up, horsey!", "de": "Genau! Hü, Pferdchen!", "it": "Esatto! Arri, cavallino!" } },
+              "reply": { "sl": "Tako je! Hi, konjiček!", "en": "That's right! Giddy-up, horsey!", "de": "Genau! Hü, Pferdchen!", "it": "Esatto! Arri, cavallino!", "fx": { "cart": 0.45 } } },
             { "sl": "Gremo čez streho!", "en": "We're going over the roof!", "de": "Wir fahren übers Dach!", "it": "Passiamo sopra il tetto!",
               "why": { "en": "Streha is a roof: carts don't drive over roofs. Over the bridge: čez most.", "de": "Streha ist ein Dach: Wagen fahren nicht über Dächer. Über die Brücke: čez most.", "it": "Streha è un tetto: i carri non passano sui tetti. Sul ponte: čez most." },
               "reply": { "sl": "Čez streho? Konj ni mačka, ha ha!", "en": "Over the roof? The horse isn't a cat, ha ha!", "de": "Übers Dach? Das Pferd ist doch keine Katze, ha ha!", "it": "Sopra il tetto? Il cavallo non è un gatto, ah ah!" } },
@@ -313,7 +314,7 @@
               "why": { "en": "Hrib is a hill: that's the long way. Today you cross on the new bridge: čez most.", "de": "Hrib ist ein Hügel: Das ist der lange Weg. Heute fährt man über die neue Brücke: čez most.", "it": "Hrib è una collina: è la strada lunga. Oggi si passa sul ponte nuovo: čez most." },
               "reply": { "sl": "Čez hrib? Ha ha, konj bi se pa razjezil!", "en": "Over the hill? Ha ha, the horse would be cross!", "de": "Über den Hügel? Ha ha, da würde das Pferd aber böse!", "it": "Oltre la collina? Ah ah, il cavallo si arrabbierebbe!" } }
           ] },
-          { "who": "luka", "sl": "Kolesa so že na drugi strani. In suha so!", "en": "The wheels are already on the other side. And they're dry!", "de": "Die Räder sind schon auf der anderen Seite. Und sie sind trocken!", "it": "Le ruote sono già dall'altra parte. E sono asciutte!" },
+          { "who": "luka", "sl": "Kolesa so že na drugi strani. In suha so!", "en": "The wheels are already on the other side. And they're dry!", "de": "Die Räder sind schon auf der anderen Seite. Und sie sind trocken!", "it": "Le ruote sono già dall'altra parte. E sono asciutte!", "fx": { "cart": 0.8 } },
           { "choices": [
             { "sl": "Ploskajmo!", "en": "Let's clap!", "de": "Klatschen wir!", "it": "Applaudiamo!", "ok": true,
               "reply": { "sl": "Ja! Vsi skupaj: bravo!", "en": "Yes! All together: bravo!", "de": "Ja! Alle zusammen: Bravo!", "it": "Sì! Tutti insieme: bravo!" } },
@@ -324,15 +325,15 @@
               "why": { "en": "Spati is to sleep: not now, it's a party! Let's clap: ploskajmo.", "de": "Spati heißt schlafen: nicht jetzt, es ist ein Fest! Klatschen wir: ploskajmo.", "it": "Spati vuol dire dormire: non adesso, è festa! Applaudiamo: ploskajmo." },
               "reply": { "sl": "Spati? Zdaj? Saj je praznik!", "en": "Sleep? Now? It's a celebration!", "de": "Schlafen? Jetzt? Es ist doch ein Fest!", "it": "Dormire? Adesso? Ma è festa!" } }
           ] },
-          { "who": "france", "sl": "Hvala, sosedje! To je naš most.", "en": "Thank you, neighbours! This is our bridge.", "de": "Danke, Nachbarn! Das ist unsere Brücke.", "it": "Grazie, vicini! Questo è il nostro ponte." }
+          { "who": "france", "sl": "Hvala, sosedje! To je naš most.", "en": "Thank you, neighbours! This is our bridge.", "de": "Danke, Nachbarn! Das ist unsere Brücke.", "it": "Grazie, vicini! Questo è il nostro ponte.", "fx": { "cart": 1 } }
         ] },
         "A2": { "lines": [
           { "who": "france", "sl": "Most je končno gotov. Ali bo zdržal težak voz?", "en": "The bridge is finally finished. Will it hold a heavy cart?", "de": "Die Brücke ist endlich fertig. Ob sie einen schweren Wagen aushält?", "it": "Il ponte è finalmente finito. Reggerà un carro pesante?" },
           { "who": "tone", "sl": "Stebra sta močna, deske so debele. Brez skrbi!", "en": "The pillars are strong, the planks are thick. No worries!", "de": "Die Pfeiler sind stark, die Bretter dick. Keine Sorge!", "it": "I pilastri sono forti, le assi spesse. Niente paura!" },
-          { "who": "france", "sl": "{learner}, prisedi! Kam zapeljemo voz?", "en": "{learner}, hop on! Where do we drive the cart?", "de": "{learner}, steig auf! Wohin fahren wir den Wagen?", "it": "{learner}, sali su! Dove portiamo il carro?" },
+          { "who": "france", "sl": "{learner}, prisedi! Kam zapeljemo voz?", "en": "{learner}, hop on! Where do we drive the cart?", "de": "{learner}, steig auf! Wohin fahren wir den Wagen?", "it": "{learner}, sali su! Dove portiamo il carro?", "fx": { "cart": 0 } },
           { "choices": [
             { "sl": "Na most!", "en": "Onto the bridge!", "de": "Auf die Brücke!", "it": "Sul ponte!", "ok": true,
-              "reply": { "sl": "Tako je. Hi, konjiček! Počasi …", "en": "That's right. Giddy-up, horsey! Slowly …", "de": "Genau. Hü, Pferdchen! Langsam …", "it": "Esatto. Arri, cavallino! Piano …" } },
+              "reply": { "sl": "Tako je. Hi, konjiček! Počasi …", "en": "That's right. Giddy-up, horsey! Slowly …", "de": "Genau. Hü, Pferdchen! Langsam …", "it": "Esatto. Arri, cavallino! Piano …", "fx": { "cart": 0.45 } } },
             { "sl": "Na mostu!", "en": "On the bridge!", "de": "Auf der Brücke!", "it": "Sul ponte!", "grammar": "kam-tozilnik",
               "why": { "en": "Kam? (where to) takes the accusative: na most. Na mostu says where you already are.", "de": "Kam? (wohin) verlangt den Akkusativ: na most. Na mostu sagt, wo man schon ist.", "it": "Kam? (verso dove) vuole l'accusativo: na most. Na mostu dice dove si è già." },
               "reply": { "sl": "Na mostu? Saj še nismo gor!", "en": "On the bridge? We're not up there yet!", "de": "Auf der Brücke? Wir sind doch noch gar nicht oben!", "it": "Sul ponte? Ma non ci siamo ancora sopra!" } },
@@ -340,7 +341,7 @@
               "why": { "en": "Streha is a roof: carts don't drive onto roofs. Onto the bridge: na most.", "de": "Streha ist ein Dach: Wagen fahren nicht aufs Dach. Auf die Brücke: na most.", "it": "Streha è un tetto: i carri non salgono sui tetti. Sul ponte: na most." },
               "reply": { "sl": "Na streho? Konj ni mačka, ha ha!", "en": "Onto the roof? The horse isn't a cat, ha ha!", "de": "Aufs Dach? Das Pferd ist doch keine Katze, ha ha!", "it": "Sul tetto? Il cavallo non è un gatto, ah ah!" } }
           ] },
-          { "who": "luka", "sl": "Most drži! Voz je že na drugi strani. Kaj zdaj, vsi skupaj?", "en": "The bridge holds! The cart is already on the other side. What now, all together?", "de": "Die Brücke hält! Der Wagen ist schon auf der anderen Seite. Was jetzt, alle zusammen?", "it": "Il ponte regge! Il carro è già dall'altra parte. E adesso, tutti insieme?" },
+          { "who": "luka", "sl": "Most drži! Voz je že na drugi strani. Kaj zdaj, vsi skupaj?", "en": "The bridge holds! The cart is already on the other side. What now, all together?", "de": "Die Brücke hält! Der Wagen ist schon auf der anderen Seite. Was jetzt, alle zusammen?", "it": "Il ponte regge! Il carro è già dall'altra parte. E adesso, tutti insieme?", "fx": { "cart": 0.8 } },
           { "choices": [
             { "sl": "Ploskajmo, ker je most zdržal!", "en": "Let's clap, because the bridge held!", "de": "Klatschen wir, weil die Brücke gehalten hat!", "it": "Applaudiamo, perché il ponte ha retto!", "ok": true,
               "reply": { "sl": "Bravo, bravo! Kolesa so prvič ostala suha!", "en": "Bravo, bravo! For the first time the wheels stayed dry!", "de": "Bravo, bravo! Zum ersten Mal sind die Räder trocken geblieben!", "it": "Bravo, bravo! Per la prima volta le ruote sono rimaste asciutte!" } },
@@ -351,7 +352,7 @@
               "why": { "en": "Plavati is to swim: with a bridge nobody needs to. Clap: ploskajmo.", "de": "Plavati heißt schwimmen: Mit einer Brücke muss das keiner mehr. Klatscht: ploskajmo.", "it": "Plavati vuol dire nuotare: col ponte non serve più a nessuno. Applaudite: ploskajmo." },
               "reply": { "sl": "Plavati? Zdaj, ko imamo most? Ha ha!", "en": "Swim? Now that we've got a bridge? Ha ha!", "de": "Schwimmen? Jetzt, wo wir eine Brücke haben? Ha ha!", "it": "Nuotare? Adesso che abbiamo il ponte? Ah ah!" } }
           ] },
-          { "who": "france", "sl": "Hvala vsem, sosedje! To je naš most.", "en": "Thank you all, neighbours! This is our bridge.", "de": "Danke euch allen, Nachbarn! Das ist unsere Brücke.", "it": "Grazie a tutti, vicini! Questo è il nostro ponte." }
+          { "who": "france", "sl": "Hvala vsem, sosedje! To je naš most.", "en": "Thank you all, neighbours! This is our bridge.", "de": "Danke euch allen, Nachbarn! Das ist unsere Brücke.", "it": "Grazie a tutti, vicini! Questo è il nostro ponte.", "fx": { "cart": 1 } }
         ] }
       }
     }

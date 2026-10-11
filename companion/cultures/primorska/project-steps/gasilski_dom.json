@@ -247,12 +247,12 @@
       "words": ["cev", "moker"],
       "levels": {
         "A1": { "lines": [
-          { "who": "luka", "sl": "Prva vaja! Brizgalna stoji ob potoku.", "en": "The first drill! The pump stands by the stream.", "de": "Die erste Übung! Die Spritze steht am Bach.", "it": "La prima esercitazione! La pompa è vicino al ruscello." },
+          { "who": "luka", "sl": "Prva vaja! Brizgalna stoji ob potoku.", "en": "The first drill! The pump stands by the stream.", "de": "Die erste Übung! Die Spritze steht am Bach.", "it": "La prima esercitazione! La pompa è vicino al ruscello.", "fx": { "hose": 0 } },
           { "who": "tone", "sl": "Brizgalna je pripravljena. Vodo vzamemo iz potoka.", "en": "The pump is ready. We take the water from the stream.", "de": "Die Spritze ist bereit. Das Wasser nehmen wir aus dem Bach.", "it": "La pompa è pronta. L'acqua la prendiamo dal ruscello." },
           { "who": "luka", "sl": "{learner}, kaj damo v vodo?", "en": "{learner}, what do we put in the water?", "de": "{learner}, was stecken wir ins Wasser?", "it": "{learner}, che cosa mettiamo nell'acqua?" },
           { "choices": [
             { "sl": "Cev, seveda!", "en": "The hose, of course!", "de": "Den Schlauch, natürlich!", "it": "Il tubo, naturalmente!", "ok": true,
-              "reply": { "sl": "Tako je. Cev v vodo … in zdaj črpamo!", "en": "That's right. The hose into the water … and now we pump!", "de": "Genau. Den Schlauch ins Wasser … und jetzt pumpen wir!", "it": "Esatto. Il tubo in acqua … e ora pompiamo!" } },
+              "reply": { "sl": "Tako je. Cev v vodo … in zdaj črpamo!", "en": "That's right. The hose into the water … and now we pump!", "de": "Genau. Den Schlauch ins Wasser … und jetzt pumpen wir!", "it": "Esatto. Il tubo in acqua … e ora pompiamo!", "fx": { "hose": 0.5 } } },
             { "sl": "Čevelj, seveda!", "en": "A shoe, of course!", "de": "Einen Schuh, natürlich!", "it": "Una scarpa, naturalmente!",
               "why": { "en": "Čevelj is a shoe! The pump drinks through the hose: cev.", "de": "Čevelj ist ein Schuh! Die Spritze trinkt durch den Schlauch: cev.", "it": "Čevelj è una scarpa! La pompa beve attraverso il tubo: cev." },
               "reply": { "sl": "Čevelj? Ha ha, potem pa greš bos domov!", "en": "A shoe? Ha ha, then you'll walk home barefoot!", "de": "Einen Schuh? Ha ha, dann gehst du barfuß heim!", "it": "Una scarpa? Ah ah, allora torni a casa {m:scalzo|f:scalza}!" } },
@@ -260,7 +260,7 @@
               "why": { "en": "Kruh is bread: the fish would be happy. Into the water goes the hose: cev.", "de": "Kruh ist Brot: da freuen sich die Fische. Ins Wasser kommt der Schlauch: cev.", "it": "Kruh è il pane: i pesci sarebbero contenti. In acqua va il tubo: cev." },
               "reply": { "sl": "Kruh? Ribe bodo vesele, ha ha!", "en": "Bread? The fish will be pleased, ha ha!", "de": "Brot? Da freuen sich die Fische, ha ha!", "it": "Pane? I pesci saranno contenti, ah ah!" } }
           ] },
-          { "who": "marko", "sl": "Joj, cev se zvija kot kača! Kakšni smo vsi?", "en": "Oh no, the hose is wriggling like a snake! What do we all look like?", "de": "Oje, der Schlauch windet sich wie eine Schlange! Wie sehen wir alle aus?", "it": "Accidenti, il tubo si contorce come un serpente! Come siamo ridotti?" },
+          { "who": "marko", "sl": "Joj, cev se zvija kot kača! Kakšni smo vsi?", "en": "Oh no, the hose is wriggling like a snake! What do we all look like?", "de": "Oje, der Schlauch windet sich wie eine Schlange! Wie sehen wir alle aus?", "it": "Accidenti, il tubo si contorce come un serpente! Come siamo ridotti?", "fx": { "hose": 1 } },
           { "choices": [
             { "sl": "Vsi smo mokri!", "en": "We're all wet!", "de": "Wir sind alle nass!", "it": "Siamo tutti bagnati!", "ok": true,
               "reply": { "sl": "Do kože! Ampak brizgalna dela!", "en": "Soaked to the skin! But the pump works!", "de": "Bis auf die Haut! Aber die Spritze funktioniert!", "it": "Bagnati fradici! Ma la pompa funziona!" } },
@@ -271,15 +271,15 @@
               "why": { "en": "Lačen is hungry. After that shower you're all wet: mokri.", "de": "Lačen heißt hungrig. Nach dieser Dusche seid ihr alle nass: mokri.", "it": "Lačen vuol dire affamato. Dopo quella doccia siete tutti bagnati: mokri." },
               "reply": { "sl": "Lačni? Najprej se posušimo, potem jemo!", "en": "Hungry? First we dry off, then we eat!", "de": "Hungrig? Erst trocknen wir uns, dann essen wir!", "it": "Affamati? Prima ci asciughiamo, poi mangiamo!" } }
           ] },
-          { "who": "luka", "sl": "Bravo, gasilci! Naslednjič ciljamo ogenj, ne nas.", "en": "Well done, firefighters! Next time we aim at the fire, not at us.", "de": "Bravo, Feuerwehr! Nächstes Mal zielen wir aufs Feuer, nicht auf uns.", "it": "Bravi, pompieri! La prossima volta miriamo al fuoco, non a noi." }
+          { "who": "luka", "sl": "Bravo, gasilci! Naslednjič ciljamo ogenj, ne nas.", "en": "Well done, firefighters! Next time we aim at the fire, not at us.", "de": "Bravo, Feuerwehr! Nächstes Mal zielen wir aufs Feuer, nicht auf uns.", "it": "Bravi, pompieri! La prossima volta miriamo al fuoco, non a noi.", "fx": { "hose": 0 } }
         ] },
         "A2": { "lines": [
-          { "who": "luka", "sl": "Danes imamo prvo vajo. Če bo kdaj gorelo, moramo biti hitri.", "en": "Today we have our first drill. If there's ever a fire, we have to be quick.", "de": "Heute haben wir unsere erste Übung. Wenn es einmal brennt, müssen wir schnell sein.", "it": "Oggi facciamo la prima esercitazione. Se un giorno scoppia un incendio, dobbiamo essere veloci." },
+          { "who": "luka", "sl": "Danes imamo prvo vajo. Če bo kdaj gorelo, moramo biti hitri.", "en": "Today we have our first drill. If there's ever a fire, we have to be quick.", "de": "Heute haben wir unsere erste Übung. Wenn es einmal brennt, müssen wir schnell sein.", "it": "Oggi facciamo la prima esercitazione. Se un giorno scoppia un incendio, dobbiamo essere veloci.", "fx": { "hose": 0 } },
           { "who": "tone", "sl": "Brizgalna stoji ob potoku. Vode je tukaj dovolj.", "en": "The pump stands by the stream. There's plenty of water here.", "de": "Die Spritze steht am Bach. Hier gibt es genug Wasser.", "it": "La pompa è vicino al ruscello. Qui l'acqua non manca." },
           { "who": "luka", "sl": "{learner}, kako spravimo vodo iz potoka v brizgalno?", "en": "{learner}, how do we get the water from the stream into the pump?", "de": "{learner}, wie bekommen wir das Wasser aus dem Bach in die Spritze?", "it": "{learner}, come portiamo l'acqua dal ruscello nella pompa?" },
           { "choices": [
             { "sl": "S cevjo, seveda.", "en": "With the hose, of course.", "de": "Mit dem Schlauch, natürlich.", "it": "Con il tubo, naturalmente.", "ok": true,
-              "reply": { "sl": "Tako je. Cev v vodo, in zdaj črpajte!", "en": "That's right. The hose into the water, and now pump!", "de": "Genau. Den Schlauch ins Wasser, und jetzt pumpt!", "it": "Esatto. Il tubo in acqua, e ora pompate!" } },
+              "reply": { "sl": "Tako je. Cev v vodo, in zdaj črpajte!", "en": "That's right. The hose into the water, and now pump!", "de": "Genau. Den Schlauch ins Wasser, und jetzt pumpt!", "it": "Esatto. Il tubo in acqua, e ora pompate!", "fx": { "hose": 0.5 } } },
             { "sl": "S cev, seveda.", "en": "With the hose, of course.", "de": "Mit dem Schlauch, natürlich.", "it": "Con il tubo, naturalmente.", "grammar": "orodnik",
               "why": { "en": "S (with) takes the instrumental: a feminine noun without -a gets -jo: s cevjo.", "de": "S (mit) verlangt den Instrumental: ein weibliches Nomen ohne -a bekommt -jo: s cevjo.", "it": "S (con) vuole lo strumentale: un nome femminile senza -a prende -jo: s cevjo." },
               "reply": { "sl": "S … cev? Hm, povej še enkrat.", "en": "With … hose? Hm, say it again.", "de": "Mit … Schlauch? Hm, sag's noch einmal.", "it": "Con … tubo? Mm, ripetilo." } },
@@ -287,7 +287,7 @@
               "why": { "en": "Čevelj is a shoe! Water gets to the pump through the hose: cev.", "de": "Čevelj ist ein Schuh! Das Wasser kommt durch den Schlauch in die Spritze: cev.", "it": "Čevelj è una scarpa! L'acqua arriva alla pompa attraverso il tubo: cev." },
               "reply": { "sl": "S čevljem? Ha ha, to bo trajalo do jutri!", "en": "With a shoe? Ha ha, that'll take till tomorrow!", "de": "Mit einem Schuh? Ha ha, das dauert bis morgen!", "it": "Con una scarpa? Ah ah, ci vorrà fino a domani!" } }
           ] },
-          { "who": "marko", "sl": "Joj, cev je ušla iz rok! Vsi smo pod prho!", "en": "Oh no, the hose got loose! We're all under a shower!", "de": "Oje, der Schlauch ist entwischt! Wir stehen alle unter der Dusche!", "it": "Accidenti, il tubo è scappato di mano! Siamo tutti sotto la doccia!" },
+          { "who": "marko", "sl": "Joj, cev je ušla iz rok! Vsi smo pod prho!", "en": "Oh no, the hose got loose! We're all under a shower!", "de": "Oje, der Schlauch ist entwischt! Wir stehen alle unter der Dusche!", "it": "Accidenti, il tubo è scappato di mano! Siamo tutti sotto la doccia!", "fx": { "hose": 1 } },
           { "choices": [
             { "sl": "Moje hlače so čisto mokre!", "en": "My trousers are soaking wet!", "de": "Meine Hose ist klatschnass!", "it": "I miei pantaloni sono fradici!", "ok": true,
               "reply": { "sl": "Moje tudi! Ampak brizgalna brizga kot nora!", "en": "Mine too! But the pump squirts like crazy!", "de": "Meine auch! Aber die Spritze spritzt wie verrückt!", "it": "Anche i miei! Ma la pompa spruzza come una matta!" } },
@@ -298,7 +298,7 @@
               "why": { "en": "Suh is dry. The water hit everyone: your trousers are wet: mokre.", "de": "Suh heißt trocken. Das Wasser hat alle getroffen: deine Hose ist nass: mokre.", "it": "Suh vuol dire asciutto. L'acqua ha preso tutti: i tuoi pantaloni sono bagnati: mokre." },
               "reply": { "sl": "Suhe? Čudež! Poglej še enkrat, ha ha!", "en": "Dry? A miracle! Look again, ha ha!", "de": "Trocken? Ein Wunder! Schau noch mal hin, ha ha!", "it": "Asciutti? Un miracolo! Guarda meglio, ah ah!" } }
           ] },
-          { "who": "luka", "sl": "Dobra vaja! Naslednjič cev držimo trdno, ne?", "en": "A good drill! Next time we hold the hose tight, right?", "de": "Gute Übung! Nächstes Mal halten wir den Schlauch fest, ja?", "it": "Bella esercitazione! La prossima volta il tubo lo teniamo stretto, eh?" }
+          { "who": "luka", "sl": "Dobra vaja! Naslednjič cev držimo trdno, ne?", "en": "A good drill! Next time we hold the hose tight, right?", "de": "Gute Übung! Nächstes Mal halten wir den Schlauch fest, ja?", "it": "Bella esercitazione! La prossima volta il tubo lo teniamo stretto, eh?", "fx": { "hose": 0 } }
         ] }
       }
     },

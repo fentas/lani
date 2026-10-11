@@ -272,7 +272,7 @@
       "months": [3, 4, 5, 6],
       "memory": { "sl": "paglavce v ribniku", "en": "the tadpoles in the pond", "de": "die Kaulquappen im Teich", "it": "i girini nello stagno" },
       "lines": [
-        { "who": "nejc", "sl": "{learner}, {learner}! Žabe nisem ujel. Ampak glej! V vodi je polno majhnih črnih stvari!", "en": "{learner}, {learner}! I didn't catch the frog. But look! The water is full of little black things!", "de": "{learner}, {learner}! Den Frosch hab ich nicht gefangen. Aber schau! Im Wasser sind lauter kleine schwarze Dinger!", "it": "{learner}, {learner}! La rana non l'ho presa. Ma guarda! Nell'acqua è pieno di cosine nere!" },
+        { "who": "nejc", "sl": "{learner}, {learner}! Žabe nisem ujel. Ampak glej! V vodi je polno majhnih črnih stvari!", "en": "{learner}, {learner}! I didn't catch the frog. But look! The water is full of little black things!", "de": "{learner}, {learner}! Den Frosch hab ich nicht gefangen. Aber schau! Im Wasser sind lauter kleine schwarze Dinger!", "it": "{learner}, {learner}! La rana non l'ho presa. Ma guarda! Nell'acqua è pieno di cosine nere!", "fx": { "tadpoles": 1 } },
         { "choices": [
           { "sl": "To so paglavci. Stare žabe!", "en": "Those are tadpoles. Old frogs!", "de": "Das sind Kaulquappen. Alte Frösche!", "it": "Sono girini. Rane vecchie!",
             "why": { "en": "Paglavci are baby frogs: mlade, young. Stare is old.", "de": "Paglavci sind Froschbabys: mlade, jung. Stare heißt alt.", "it": "I paglavci sono rane piccole: mlade, giovani. Stare vuol dire vecchie." },
@@ -390,7 +390,7 @@
       "sky_stays": false,
       "memory": { "sl": "Murija, ki je lajal na ribe", "en": "Muri barking at the fish", "de": "Muri, der die Fische angebellt hat", "it": "Muri che abbaiava ai pesci" },
       "lines": [
-        { "who": "janez", "sl": "Dobro jutro, {learner}. Tiho … Muri je z mano. Ribe ga ne marajo.", "en": "Good morning, {learner}. Quiet … Muri is with me. The fish don't like him.", "de": "Guten Morgen, {learner}. Leise … Muri ist bei mir. Die Fische mögen ihn nicht.", "it": "Buongiorno, {learner}. Piano … Muri è con me. Ai pesci non piace.", "sky": { "fog": 0.7 } },
+        { "who": "janez", "sl": "Dobro jutro, {learner}. Tiho … Muri je z mano. Ribe ga ne marajo.", "en": "Good morning, {learner}. Quiet … Muri is with me. The fish don't like him.", "de": "Guten Morgen, {learner}. Leise … Muri ist bei mir. Die Fische mögen ihn nicht.", "it": "Buongiorno, {learner}. Piano … Muri è con me. Ai pesci non piace.", "sky": { "fog": 0.7 }, "fx": { "dog": 0.5 } },
         { "choices": [
           { "sl": "Je to vaša pes?", "en": "Is this your (feminine) dog?", "de": "Ist das Ihre (weiblich) Hund?", "it": "È questa la Sua (femminile) cane?",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Pes is masculine: vaš. Vaša goes with a feminine word (vaša hiša).", "de": "Pes ist männlich: vaš. Vaša gehört zu einem weiblichen Wort (vaša hiša).", "it": "Pes è maschile: vaš. Vaša va con una parola femminile (vaša hiša)." },
@@ -399,7 +399,7 @@
             "grammar": "pridevniki-ujemanje", "why": { "en": "Pes is masculine: vaš. Vaše goes with a neuter word (vaše vedro).", "de": "Pes ist männlich: vaš. Vaše gehört zu einem sächlichen Wort (vaše vedro).", "it": "Pes è maschile: vaš. Vaše va con una parola neutra (vaše vedro)." },
             "reply": { "sl": "Vaše? … Hm. Muri ni vedro.", "en": "Vaše, neuter? … Hm. Muri isn't a bucket.", "de": "Vaše, sächlich? … Hm. Muri ist doch kein Eimer.", "it": "Vaše, neutro? … Mah. Muri non è mica un secchio." } },
           { "sl": "Je to vaš pes?", "en": "Is this your dog?", "de": "Ist das Ihr Hund?", "it": "È il Suo cane?", "ok": true,
-            "reply": { "sl": "Moj, ja. Muri. Star je, kot jaz.", "en": "Mine, yes. Muri. He's old, like me.", "de": "Meiner, ja. Muri. Er ist alt, wie ich.", "it": "Mio, sì. Muri. È vecchio, come me." } }
+            "reply": { "sl": "Moj, ja. Muri. Star je, kot jaz.", "en": "Mine, yes. Muri. He's old, like me.", "de": "Meiner, ja. Muri. Er ist alt, wie ich.", "it": "Mio, sì. Muri. È vecchio, come me.", "fx": { "dog": 1 } } }
         ] },
         { "who": "janez", "sl": "Muri, tiho! … Lačen je. Imaš kaj zanj?", "en": "Muri, quiet! … He's hungry. Have you got anything for him?", "de": "Muri, still! … Er hat Hunger. Hast du etwas für ihn?", "it": "Muri, zitto! … Ha fame. Hai qualcosa per lui?" },
         { "choices": [
@@ -407,12 +407,12 @@
             "grammar": "rodilnik-kolicina", "why": { "en": "Kos (a piece of) takes the genitive: kos kruha.", "de": "Kos (ein Stück) steht mit dem Genitiv: kos kruha.", "it": "Kos (un pezzo di) vuole il genitivo: kos kruha." },
             "reply": { "sl": "Kos kruh? … Hm. Muri razume, jaz pa ne.", "en": "Kos kruh? … Hm. Muri understands, I don't.", "de": "Kos kruh? … Hm. Muri versteht es, ich nicht.", "it": "Kos kruh? … Mah. Muri capisce, io no." } },
           { "sl": "Imam. Dam mu kos kruha.", "en": "I have. I'll give him a piece of bread.", "de": "Ja. Ich gebe ihm ein Stück Brot.", "it": "Sì. Gli do un pezzo di pane.", "ok": true,
-            "reply": { "sl": "Hvala. … Zdaj bo tiho. Mogoče.", "en": "Thanks. … Now he'll be quiet. Maybe.", "de": "Danke. … Jetzt ist er still. Vielleicht.", "it": "Grazie. … Adesso starà zitto. Forse." } },
+            "reply": { "sl": "Hvala. … Zdaj bo tiho. Mogoče.", "en": "Thanks. … Now he'll be quiet. Maybe.", "de": "Danke. … Jetzt ist er still. Vielleicht.", "it": "Grazie. … Adesso starà zitto. Forse.", "fx": { "dog": 0.5 } } },
           { "sl": "Imam. Dam ga kos kruha.", "en": "I have. I'll give him away, a piece of bread.", "de": "Ja. Ich gebe ihn weg, ein Stück Brot.", "it": "Sì. Lo do via, un pezzo di pane.",
             "grammar": "dajalnik", "why": { "en": "Giving to Muri: the dative, mu. Ga is the accusative.", "de": "Muri etwas geben: der Dativ, mu. Ga ist der Akkusativ.", "it": "Dare a Muri: il dativo, mu. Ga è l'accusativo." },
             "reply": { "sl": "Ga daš? Murija? Ne, ne, Muri ostane pri meni!", "en": "Give him away? Muri? No, no, Muri stays with me!", "de": "Ihn weggeben? Muri? Nein, nein, Muri bleibt bei mir!", "it": "Darlo via? Muri? No, no, Muri resta con me!" } }
         ] },
-        { "who": "janez", "sl": "Glej, megla gre. Muri spi, ribe prijemajo.", "en": "Look, the fog's going. Muri's asleep, the fish are biting.", "de": "Schau, der Nebel geht. Muri schläft, die Fische beißen.", "it": "Guarda, la nebbia se ne va. Muri dorme, i pesci abboccano.", "sky": { "fog": 0 }, "fx": { "fish": 1 } }
+        { "who": "janez", "sl": "Glej, megla gre. Muri spi, ribe prijemajo.", "en": "Look, the fog's going. Muri's asleep, the fish are biting.", "de": "Schau, der Nebel geht. Muri schläft, die Fische beißen.", "it": "Guarda, la nebbia se ne va. Muri dorme, i pesci abboccano.", "sky": { "fog": 0 }, "fx": { "dog": 0, "fish": 1 } }
       ]
     }
   ]
