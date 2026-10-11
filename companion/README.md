@@ -1519,6 +1519,15 @@ What it did is in `files/audio/status.json` and the settings: when, the day's li
 in another of theirs, missing), the files and megabytes downloaded, the lines the node voiced, whether the cap stopped it.
 An older bridge without `/voice/prepare` (404): only what the store has.
 
+**A re-voiced line keeps its old clip until the new one is here** (`audio/PreviousClips.kt`). A new take has a new file
+name, so when the index changes (the app's refresh after `voice_updated`, the prefetch) the phone notes, for each line whose
+URL changed, the earlier clip it still has (`files/voice-clips/previous.json`, the newest of a chain), and plays it
+offline instead of the phone's voice; online the new clip downloads in the background for the next play, and a line
+waiting on the node gets the old clip, not TTS, when the new one doesn't come in time. Once the new file is on the phone (a
+play, the prefetch, the car's library) the old one is deleted, unless another line still plays it or it played in the last
+minute; the day keeps a line's old clip while its new one is missing and counts the line as on the phone with it, each line
+once; a re-record on request drops it on purpose, and an old clip the cap dropped is forgotten.
+
 **The cap** (`audio/AudioBudget.kt`), in the settings: Off, 100 MB, 250 MB (the default), 500 MB or Unlimited. One number
 for all of Lani's audio on the phone: the day's clips, the clips played and the car's library ("🚗 Za pot"), each file
 once. The clips played go first, the least recently played first; the day's clips never; the car's library is never

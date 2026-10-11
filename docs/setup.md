@@ -310,7 +310,9 @@ So the day sounds the same without the machine (on the road, on a train, on a ph
 2. **keeps it within one number**: the app's settings (the tutor's status dot on Home, then "🔊 Zvok brez povezave ·
    Offline audio") set how much of the phone Lani's audio may take: Off, 100 MB, 250 MB (the default), 500 MB or
    Unlimited. It covers the day's clips, the clips played lately and the car's library ("🚗 Za pot"). The clips heard
-   longest ago go first. Off: nothing is got ahead, the clips come as they are played;
+   longest ago go first. Off: nothing is got ahead, the clips come as they are played. When the bridge re-voices a line
+   (a narrator's local clip gets its ElevenLabs take), the phone keeps playing the old clip until the new one is
+   downloaded, then lets the old one go;
 3. **speaks with its own voice when there is no clip**: the offline voice, a Piper voice run on the phone (Slovene: Artur;
    Italian, German and English: one each), about 61 MB once per phone. The app offers it after pairing and in the
    settings; it comes through your bridge, which fetches it from Hugging Face once ([privacy.md](privacy.md)). Wi-Fi is
