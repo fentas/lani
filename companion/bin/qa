@@ -684,16 +684,16 @@ def scene_building():
         else:
             shot("scene-building-run")
             assert tap("Zapri · Close", 8), "the run's ✕"
-            assert wait_for(card, 10), "back in the scene from the run"
-            end = time.time() + 6 * slow()
+            # the card open again (over it, the scene's top bar isn't in the screen's tree: closed, it is below)
+            end = time.time() + 10 * slow()
             while not building_card() and time.time() < end:
                 time.sleep(1)
-            assert building_card(), "the building's card open again in the scene"
+            assert building_card(), "the building's card open again, back from the run"
             time.sleep(1)
             shot("scene-building-card-again")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1.2)
-    assert find(card) is not None, "back in the scene, the card closed"
+    assert wait_for(card, 5) is not None, "the card closed, the scene under it"
     assert not building_card(), "the card closed"
     assert tap("‹ Vas · Village", 3), "back from the scene"
     plain_village()  # past the village's first-time intro and its news, when this step runs alone
