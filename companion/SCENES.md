@@ -87,8 +87,8 @@ published by the tutor with `publish_scene`.
 | `pack` | the word pack the objects teach. Every object's `word` is a word id in that pack (or in the object's own `pack`), so learning a scene's words is learning pack words: they count, get reviewed and pay the village like any pack word. |
 | `objects[]` | `slot` (one of the art's slots, each at most once) and `word`; `needs`: what the village must have built for the thing to be there (see [What the village has built](#what-the-village-has-built)). The bridge serves them resolved: `sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en` copied from the pack. |
 | `people[]` | `id`, `name`, `emoji`, `art` (a sprite), `slot` (one of the art's person spots), `always` (there all day, without a happening), `villager` (their id in the cast, [VILLAGERS.md](VILLAGERS.md): the friendship grows here too). |
-| `happenings[]` | `who` (a person here), `when` (`morning` 5–11, `afternoon` 11–17, `evening` 17–22, `night` 22–5, `dawn`: the morning's first two or three hours round the month's sunrise, see [What's on today](#whats-on-today); empty = all day), `weekdays` (1 = Monday … 7), `chance` (per day), `dialog`, `dialogs` (its variants, see [Variants](#variants-not-the-same-dialog-every-time)), `reward` (`food`, `wood`, `stone`, `wisdom`; paid once a day when the dialog is done), `marker` (emoji for the village bubble), `needs` (the earliest age, `"vas"`, or what the village must have built, as an object's), `memory` (`{sl, en}`: what the person remembers afterwards, fitting "Še vedno mislim na …"), `guests` (`true`: only a visitor from a linked town meets it, see [Dialogs for guests](#dialogs-for-guests)), `stories` (`true`: the person tells tonight's story instead of a `dialog`, see [Stories](#stories-the-evening-story)). |
-| `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's), `words` (the learner's words a tutor's variant weaves in, each the tested element of a turn, see [Your words in the dialogs](#your-words-in-the-dialogs)) and, a tutor's, `source: "tutor"`. |
+| `happenings[]` | `who` (a person here), `when` (`morning` 5–11, `afternoon` 11–17, `evening` 17–22, `night` 22–5, `dawn`: the morning's first two or three hours round the month's sunrise, see [What's on today](#whats-on-today); empty = all day), `weekdays` (1 = Monday … 7), `months` (1 = January … 12, the months it is on in: the hay `[6, 7, 8, 9]`; empty = all year, see [Seasons](#seasons-in-their-months)), `chance` (per day), `dialog`, `dialogs` (its variants, see [Variants](#variants-not-the-same-dialog-every-time)), `reward` (`food`, `wood`, `stone`, `wisdom`; paid once a day when the dialog is done), `marker` (emoji for the village bubble), `needs` (the earliest age, `"vas"`, or what the village must have built, as an object's), `memory` (`{sl, en}`: what the person remembers afterwards, fitting "Še vedno mislim na …"), `guests` (`true`: only a visitor from a linked town meets it, see [Dialogs for guests](#dialogs-for-guests)), `stories` (`true`: the person tells tonight's story instead of a `dialog`, see [Stories](#stories-the-evening-story)). |
+| `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's), `months` (the months it plays in, within its happening's: a variant about the snow in winter, see [Seasons](#seasons-in-their-months)), `words` (the learner's words a tutor's variant weaves in, each the tested element of a turn, see [Your words in the dialogs](#your-words-in-the-dialogs)) and, a tutor's, `source: "tutor"`. |
 | `variants[]` | more dialogs, the same as `dialogs[]`: the happenings' other variants. The curated scenes keep them here, because an older bridge reads at most 12 `dialogs` (and skips a scene with more) and leaves `variants` out; the bridge serves them to the app in `dialogs`. At most 36. |
 
 Slovene must be correct and natural at the scene's level. The learner's own lines, and whatever anyone says to them
@@ -170,6 +170,8 @@ a [count](#numbers-counting-what-the-village-has) as it, for an older app.
 
 **Which one plays** (`DialogVariants.pick`, pure, the same all day):
 
+Of those in season ([Seasons](#seasons-in-their-months): a variant with `months` only in them):
+
 1. one the learner hasn't heard yet: the first in `dialogs`;
 2. once all are heard, a review: the one heard longest ago, if that was at least three days ago (`DialogVariants.GAP`)
    and it isn't the one heard last; never the same twice in a row;
@@ -182,7 +184,8 @@ with the bridge like the rest of the village. On a visit to a linked town the da
 variants (the host's record is the host's). A variant may carry its own `memory`, what the person remembers of it; else
 the happening's.
 
-**The tutor writes new ones.** When the learner has heard all of a happening's variants, the bridge tells the tutor
+**The tutor writes new ones.** When the learner has heard all of a happening's variants (those in season this month; a
+happening out of season isn't asked about until it is back), the bridge tells the tutor
 (`dialog_variants_heard`: the scene and the happening, its person, the variants heard with their first lines and dates,
 the learner's level and weak spots from mistakes-db), at most three happenings a day and each once until a variant is
 added. The tutor writes a fresh one with `publish_dialog_variant` (the scene, the happening, the dialog; the same rules as
@@ -580,7 +583,7 @@ place is built, the age reached), its person must be in the village and met (som
 introduced has no happening, and isn't "here today" or asleep in a scene: VILLAGERS.md, "Arrivals"), and so must
 everyone of the cast its dialog, its title and its memory name (VILLAGERS.md, "Who a text may name": Zala's "Jan! Anton
 toči med!" waits until Anton lives here and Jan has met him; the beehive brings him), the happening's
-`when`, `weekdays` and `needs` must fit (`dawn` is no part of the day
+`months` (and one of its dialogs', [Seasons](#seasons-in-their-months)), `when`, `weekdays` and `needs` must fit (`dawn` is no part of the day
 of its own but the morning's first hours round the sunrise of the month, `TimeOfDay.dawn`: 5–6 in June, 6–8 in December,
 so a happening `when` the morning is on then too, one `when` dawn only then; the scroll lists one still to come under the
 morning) (the age, and what the
@@ -590,6 +593,41 @@ kept in `GameState.happeningsDone` (`scene/happening` → date). A place where s
 happening there without a `when` (all day) doesn't come up from 22 to 5; the ones that name `night` (Zala's story and
 Babica's blanket in the tent) and the evening's are as they were. The storyteller's evening story is on until 23:30, then he
 goes home to bed ([Stories](#stories-the-evening-story)).
+
+### Seasons: in their months
+
+The pictures follow the seasons (snow in winter, the vines bare, the bear and the dormouse asleep, the garden's
+vegetables), and so does what people talk about: a happening or a dialog that only makes sense in part of the year has
+its `months`, 1 (January) … 12 (December), the same numbers as the wild animals' months ([Wild animals](#wild-animals)).
+Without them it is all year, as before.
+
+```json
+{ "id": "seno", "who": "luka", "when": ["afternoon", "evening"], "months": [6, 7, 8, 9], "dialogs": ["seno-grom", "seno"], "…": "…" }
+{ "id": "konj-hlev", "months": [12, 1, 2], "lines": ["…"] }
+```
+
+- **A happening** is on only in its months (`Happenings.on`, by the phone's date, as the festivals and the art go):
+  Luka brings in the hay from June to September, France mows in the dew from May to September.
+- **A dialog** (a variant) plays only in its months (`Happenings.variant`): a happening that is there all year may have
+  one variant about the snow for the winter and the others for the rest of the year. A dialog's months lie within its
+  happening's (the bridge refuses one that never would play). A happening with no dialog in season today rests, as one
+  whose variants are all heard lately does.
+- **Out of season** a happening isn't offered: no bubble, no marker over its person in the scene, not in "Danes tukaj ·
+  Here today" nor under later today, no clips fetched for it. A dialog the learner is in the middle of goes on: what plays
+  is the talk begun (`SceneController.talk`), never asked about the date again.
+- **A scene is never empty**: in every month at least one of its happenings is on, if it has any (those only a guest meets
+  aside): the bridge refuses a scene that would stand empty in some month (`emptyMonths`, "months: in September–May none
+  of the scene's happenings is on").
+- **Generous windows**, round the real year in Primorska, and in the Alps a little longer for the cold: the hay June to
+  September (the second mowing), the wheat harvest July and August, mushrooms August to November, snow and frost December
+  to February (in the mountains November to March), the bear and the bees out March to October or November, the frog's
+  spawn and tadpoles March to September. Where the season is only a passing word and the line reads fine all year, a
+  rewritten line is better than a season.
+- **The tutor** sees them in `list_scenes` ("months": "June–September", and `out_of_season` while it is; the dialogs' own
+  in `dialog_months`), the guide asks that a variant fit its happening's months, and a dialog it publishes may have its
+  own (`publish_dialog_variant`).
+
+An older bridge strips `months` (its scenes play all year, as before); an older app ignores them.
 
 ### What the village has built
 

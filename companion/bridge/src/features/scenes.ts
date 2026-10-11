@@ -11,7 +11,7 @@ import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
 import { checkWoven, fittingWords, lemmaFinder, testedAt, WEAVES_A_DAY, wordsToWeave, wovenToday, type Card, type WeaveWord } from '../dialog-words'
-import { artsOf, dialogGrammar, forApp, forHost, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
+import { artsOf, dialogGrammar, forApp, forHost, inSeason, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
 import { attachStories } from '../stories'
 import { allHeard, variantNote, VariantAsks, weakSpots } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -20,7 +20,13 @@ import { corpus } from '../voice'
 const instructions = `
 Scenes are the village's close-ups (the campfire, the forest, the kitchen, the square; lani.scene/v0,
 companion/SCENES.md): tappable objects that teach pack words, and happenings (someone is there at a
-time of day, on some weekdays, by chance) with a short dialog of Slovene choices the learner answers.
+time of day, on some weekdays, in some months, by chance) with a short dialog of Slovene choices the learner answers.
+A happening or a dialog that talks of a season has its months ("months": [6, 7, 8, 9], 1 = January; absent = all
+year), by the phone's date: the hay and the mowing in summer, mushrooms in autumn, snow and frost in winter, the bear
+and the bees out from spring to autumn; out of them it isn't offered (a variant with months of its own plays only
+then, its happening's others as before). Whatever you write for a happening fits its months (no snow in a dialog of
+a summer's happening); a scene is never empty: in every month one of its happenings is on (publish says which months
+would stand empty). list_scenes says each happening's and dialog's months and "out_of_season" while it isn't.
 list_scenes shows what exists and what's on when, get_scene one scene's spec, publish_scene adds or
 changes a scene (a tutor scene with a curated id replaces it; remove_scene brings the curated one
 back). To stage a happening for a weak point or a season, load lani-studio ("Scenes"). The app pays
@@ -62,20 +68,28 @@ moved ("Hvala, {m:sinko|f:{learner}}."); praise stays. The app and the bridge sa
 content"); publish_* refuses a malformed one.
 `.trim()
 
-function sceneInfo(s: LoadedScene) {
+/**
+ * A scene as list_scenes shows it; [month] (1-12, today's): a happening or a dialog with months says them ("June–September")
+ * and, when it isn't now, that it is out of season.
+ */
+export function sceneInfo(s: LoadedScene, month: number) {
   const { schema: _, objects, people, happenings, dialogs, variants, ...meta } = s
   const tutor = new Set(variants.filter(d => d.source === 'tutor').map(d => d.id))
+  const seasonal = [...dialogs, ...variants].filter(d => d.months)
+  const season = (months: number[] | undefined) => (months ? { months: monthsSaid(months), ...(inSeason(months, month) ? {} : { out_of_season: true }) } : {})
   return {
     ...meta,
     objects: objects.length,
     people: people.map(p => `${p.id} (${p.name})`),
     happenings: happenings.map(h => ({
-      id: h.id, title: h.title, who: h.who, when: h.when, weekdays: h.weekdays, chance: h.chance, dialog: h.dialog,
+      id: h.id, title: h.title, who: h.who, when: h.when, weekdays: h.weekdays, ...season(h.months), chance: h.chance, dialog: h.dialog,
       ...(h.dialogs ? { dialogs: h.dialogs } : {}), ...(h.dialogs?.some(d => tutor.has(d)) ? { tutor_variants: h.dialogs.filter(d => tutor.has(d)) } : {}),
       reward: h.reward, needs: h.needs, ...(h.guests ? { guests: true } : {}), ...(h.stories ? { stories: true } : {}),
     })),
     dialogs: dialogs.map(d => d.id),
     ...(variants.length ? { variants: variants.map(d => d.id) } : {}),
+    // the dialogs with months of their own: when each plays
+    ...(seasonal.length ? { dialog_months: Object.fromEntries(seasonal.map(d => [d.id, season(d.months)])) } : {}),
   }
 }
 
@@ -133,7 +147,8 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       const key = `${today}|${JSON.stringify(state.dialogsHeard)}`
       if (key === seen) return
       seen = key
-      const due = asks.due(allHeard(scenes.resolved(), state), today)
+      // (a happening out of season waits until it comes back: today's month)
+      const due = asks.due(allHeard(scenes.resolved(), state, Number(today.slice(5, 7))), today)
       if (!due.length) return
       const weak = weakSpots(learner.state().databases?.mistakes_db)
       const nameOf = (id: string) => villagers.get(id)?.name
@@ -218,9 +233,13 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
     tools: [
       {
         name: 'list_scenes',
-        description: "List the village's scenes (curated and tutor-written): where each opens, its people, and its happenings with their times, weekdays and chances.",
+        description:
+          "List the village's scenes (curated and tutor-written): where each opens, its people, and its happenings with their times, weekdays, months (a season: out_of_season while it isn't) and chances, and the dialogs with months of their own.",
         inputSchema: { type: 'object', properties: {} },
-        handle: () => ok(JSON.stringify(scenes.all().map(sceneInfo), null, 2)),
+        handle: () => {
+          const month = Number(localDate(new Date()).slice(5, 7))
+          return ok(JSON.stringify(scenes.all().map(s => sceneInfo(s, month)), null, 2))
+        },
       },
       {
         name: 'get_scene',
@@ -281,13 +300,13 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       {
         name: 'publish_dialog_variant',
         description:
-          "Add a fresh dialog to a happening of a scene (a variant: companion/SCENES.md \"Variants\"), e.g. when dialog_variants_heard says the learner has heard all its dialogs. The same situation (the happening's title, time and person), other words, another point of grammar, at the learner's level; a dialog of lani.scene/v0 (3-8 lines, the person's line first, a reaction on every wrong choice, optionally a count with {n}, a memory of its own). It plays the next time the happening comes, marked as the tutor's. Validates it with the scene; a tutor variant with the same id is replaced. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+          "Add a fresh dialog to a happening of a scene (a variant: companion/SCENES.md \"Variants\"), e.g. when dialog_variants_heard says the learner has heard all its dialogs. The same situation (the happening's title, time, months and person), other words, another point of grammar, at the learner's level; a dialog of lani.scene/v0 (3-8 lines, the person's line first, a reaction on every wrong choice, optionally a count with {n}, a memory of its own). It plays the next time the happening comes, marked as the tutor's. Validates it with the scene; a tutor variant with the same id is replaced. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
         inputSchema: {
           type: 'object',
           properties: {
             scene: { type: 'string', description: 'The scene id (list_scenes)' },
             happening: { type: 'string', description: 'The happening id in that scene' },
-            dialog: { type: 'object', description: 'The dialog (lani.scene/v0: id, lines, optional count, memory, talk, sky_stays, fx_stays)' },
+            dialog: { type: 'object', description: 'The dialog (lani.scene/v0: id, lines, optional count, memory, talk, sky_stays, fx_stays, months: a season of its own within the happening\'s)' },
             note: { type: 'string', description: 'Optional one-line announcement shown in the app' },
           },
           required: ['scene', 'happening', 'dialog'],

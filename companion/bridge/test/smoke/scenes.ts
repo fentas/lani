@@ -5,7 +5,8 @@ import { join, resolve } from 'node:path'
 import { cultureProjects } from '../../src/cultures'
 import { PackStore } from '../../src/packs'
 import { ScenarioStore } from '../../src/scenarios'
-import { arrive, firstPose, forApp, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
+import { arrive, emptyMonths, firstPose, forApp, inSeason, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
+import { allHeard } from '../../src/variants'
 import { VillagerStore } from '../../src/villagers'
 import { corpus, PRIORITY_LABELS } from '../../src/voice'
 import { reference } from './fixtures'
@@ -262,6 +263,14 @@ export default async function scenes() {
     ['a grammar page that is no id', withLines([l1, { choices: [l2.choices![0], { ...l2.choices![1], grammar: 'Dvojina!' }] }, l3]), 'grammar'],
     ['a puzzled reaction without English', withLines([l1, { ...l2, puzzled: { sl: 'Hm?' } }, l3]), 'puzzled: no "en" text'],
     ["a puzzled reaction on someone's line", withLines([{ ...l1, puzzled: { sl: 'Hm?', en: 'Hm?' } }, l2, l3]), "puzzled is a learner's turn's"],
+    // a season (companion/SCENES.md, "Seasons"): months 1-12, each once; a dialog in its happening's months; never an empty month
+    ['a month 13', { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [12, 13] }] }, 'months'],
+    ['no months at all', { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [] }] }, 'months'],
+    ['a month twice', { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [6, 7, 6] }], dialogs: [{ ...kitchen.dialogs[0] }] }, 'duplicate month in happenings[0] (juha) "6"'],
+    ["a dialog's month that is no month", { ...kitchen, dialogs: [{ ...kitchen.dialogs[0], months: [0] }] }, 'months'],
+    ["a dialog outside its happening's months", { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [6, 7, 8] }], dialogs: [{ ...kitchen.dialogs[0], months: [12, 1, 2] }] }, 'dialog "juha" plays in December–February and the happening is on in June–August only: it would never play'],
+    ['a scene empty out of the summer', { ...kitchen, happenings: [{ ...kitchen.happenings[0], months: [6, 7, 8] }] }, 'months: in September–May none of the scene'],
+    ["a scene empty while its only dialog is out of season", { ...kitchen, dialogs: [{ ...kitchen.dialogs[0], months: [11, 12, 1, 2, 3] }] }, 'months: in April–October none of the scene'],
   ]
   for (const [label, scene, mention] of bad) {
     const r = await client.callTool({ name: 'publish_scene', arguments: { scene } })
@@ -273,6 +282,38 @@ export default async function scenes() {
     { slot: 'eggs', word: 'jajce', needs: { building: 'SMITHY', level: 3 } }, { slot: 'pot', word: 'juha', needs: { building: 'house', level: 5, before: true } },
   ] }
   check('validateScene takes a level alone, with a building, and until it (before)', validateScene(levels).ok, validateScene(levels))
+  // a season: the hay from June to September beside a happening all year, a variant of its own in winter; the months
+  // said for a person, round the year's end too
+  const seasonal = {
+    ...kitchen,
+    happenings: [
+      { ...kitchen.happenings[0], dialogs: ['juha-zima', 'juha'] },
+      { ...kitchen.happenings[0], id: 'seno', title: 'Babica grablja seno · Grandma rakes the hay', dialog: 'seno', months: [6, 7, 8, 9] },
+    ],
+    dialogs: [{ ...kitchen.dialogs[0] }, { ...kitchen.dialogs[0], id: 'seno', months: [6, 7, 8] }],
+    variants: [{ ...kitchen.dialogs[0], id: 'juha-zima', months: [12, 1, 2] }],
+  }
+  const sv = validateScene(seasonal)
+  check("validateScene keeps a happening's months and a dialog's and a variant's (a scene with something on in every month)",
+    sv.ok && JSON.stringify(sv.scene.happenings[1].months) === '[6,7,8,9]' && JSON.stringify(sv.scene.dialogs[1].months) === '[6,7,8]' && JSON.stringify(sv.scene.variants[0].months) === '[12,1,2]' && sv.scene.happenings[0].months === undefined, sv)
+  // (the hay's dialog is June to August: in September the happening has nothing to play)
+  check('emptyMonths: none in a scene with something on all year; the months a seasonal one leaves bare, its dialogs\' too; none without happenings',
+    sv.ok && emptyMonths(sv.scene).length === 0 && JSON.stringify(emptyMonths({ ...sv.scene, happenings: [sv.scene.happenings[1]] })) === '[1,2,3,4,5,9,10,11,12]' &&
+      JSON.stringify(emptyMonths({ ...sv.scene, happenings: [sv.scene.happenings[1]], dialogs: [{ ...sv.scene.dialogs[1], months: [7] }] })) === '[1,2,3,4,5,6,8,9,10,11,12]' &&
+      emptyMonths({ ...sv.scene, happenings: [] }).length === 0,
+    sv.ok && emptyMonths({ ...sv.scene, happenings: [sv.scene.happenings[1]] }))
+  check('the months said: a run, round the year\'s end, apart, all year', monthsSaid([6, 7, 8, 9]) === 'June–September' && monthsSaid([1, 2, 12]) === 'December–February' &&
+    monthsSaid([11, 12, 1, 2, 3]) === 'November–March' && monthsSaid([4, 6]) === 'April, June' && monthsSaid(undefined) === 'all year' && monthsSaid([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) === 'all year' &&
+    inSeason(undefined, 3) && inSeason([12, 1], 1) && !inSeason([6, 7], 1),
+    [monthsSaid([6, 7, 8, 9]), monthsSaid([1, 2, 12]), monthsSaid([4, 6])])
+  // a happening out of season isn't asked about (dialog_variants_heard), and of its dialogs those in season count
+  if (sv.ok) {
+    const heard = { dialogsHeard: { 'smoke-kuhinja/seno': { heard: { seno: '2026-07-01' } }, 'smoke-kuhinja/juha': { heard: { juha: '2026-07-01' } } } }
+    const rs = resolveScene({ ...sv.scene, source: 'curated' }, refs.packs)
+    const keys = (month?: number) => allHeard([rs], heard, month).map(a => a.key).sort().join(',')
+    check('allHeard by the month: the hay in July (heard), not in January; the soup in July (its winter variant out of season), not in January (that one not heard yet)',
+      keys(7) === 'smoke-kuhinja/juha,smoke-kuhinja/seno' && keys(1) === '' && keys() === 'smoke-kuhinja/seno', [keys(7), keys(1), keys()])
+  }
   const adaptive = validateScene(withLines([l1, { ...l2, puzzled: { sl: 'Kako, prosim?', en: 'Pardon?' }, choices: [l2.choices![0], { ...l2.choices![1], grammar: 'tozilnik' }] }, l3]))
   check("validateScene keeps a wrong choice's grammar page and a turn's puzzled reaction", adaptive.ok && adaptive.scene.dialogs[0].lines[1].puzzled?.en === 'Pardon?' && adaptive.scene.dialogs[0].lines[1].choices[1].grammar === 'tozilnik', adaptive)
 
@@ -363,6 +404,21 @@ export default async function scenes() {
   const lsText = text(ls)
   check('list_scenes shows both scenes with their happenings', !ls.isError && lsText.includes('smoke-ogenj') && lsText.includes('smoke-kuhinja') && lsText.includes('Janez pripoveduje') && lsText.includes('"when"'), ls)
   check('instructions mention the scenes', JSON.stringify(await guideOf()).includes('publish_scene'))
+  // a season: published, served with its months, and list_scenes says them and whether each is in season now
+  const letni = { ...seasonal, id: 'smoke-letni' }
+  const pl = await client.callTool({ name: 'publish_scene', arguments: { scene: letni } })
+  const ls2 = text(await client.callTool({ name: 'list_scenes', arguments: {} }))
+  const servedLetni = await (await fetch(`${base}/scenes/smoke-letni`, { headers: auth })).json()
+  const month = new Date().getMonth() + 1
+  const shown = JSON.parse(ls2).find((x: any) => x.id === 'smoke-letni')
+  check("a seasonal scene is published and served with its months (the happening's, the dialog's, the variant's among the dialogs)",
+    !pl.isError && JSON.stringify(servedLetni.happenings?.[1]?.months) === '[6,7,8,9]' && servedLetni.happenings[0].months === undefined &&
+      JSON.stringify(servedLetni.dialogs?.find((d: any) => d.id === 'juha-zima')?.months) === '[12,1,2]', [pl, servedLetni.happenings])
+  check('list_scenes says the months ("June–September") and out_of_season while it is (by today\'s month)',
+    shown?.happenings[1].months === 'June–September' && !!shown.happenings[1].out_of_season === ![6, 7, 8, 9].includes(month) && shown.happenings[0].months === undefined &&
+      shown.dialog_months?.['juha-zima']?.months === 'December–February' && !!shown.dialog_months['juha-zima'].out_of_season === ![12, 1, 2].includes(month) && shown.dialog_months.juha === undefined,
+    shown)
+  await client.callTool({ name: 'remove_scene', arguments: { id: 'smoke-letni' } })
   await stage(kitchen, curated, refs)
 }
 

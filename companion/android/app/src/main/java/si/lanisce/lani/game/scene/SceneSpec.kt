@@ -13,6 +13,7 @@ import si.lanisce.lani.game.render.Env
 import si.lanisce.lani.game.villagers.Label
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.LangPair
+import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.math.floor
 import kotlin.math.max
@@ -121,6 +122,11 @@ data class Happening(
     val `when`: List<TimeOfDay> = emptyList(),
     /** ISO weekdays 1 (Monday) … 7 (Sunday); empty = every day. */
     val weekdays: List<Int> = emptyList(),
+    /**
+     * The months it can be on, 1 (January) … 12 (December), by the phone's date: the hay from June to September; empty =
+     * all year ([inSeason]). Each of its dialogs may have months of its own besides ([Dialog.months]).
+     */
+    val months: List<Int> = emptyList(),
     /** Probability per day, 0..1. */
     val chance: Float = 1f,
     /** A [Dialog.id] of this scene to play when the learner talks to [who]; with [dialogs], what an older app plays. */
@@ -221,9 +227,26 @@ data class Dialog(
     val count: DialogCount? = null,
     /** What the person remembers of this variant, instead of the happening's [Happening.memory]. */
     val memory: DialogReply? = null,
+    /**
+     * The months it plays in, 1 (January) … 12 (December): a variant about the snow only in winter while its happening's
+     * others play all year; empty = whenever its happening is on ([inSeason]).
+     */
+    val months: List<Int> = emptyList(),
     /** curated | tutor: a variant the tutor wrote (publish_dialog_variant). */
     val source: String = "curated",
 )
+
+/**
+ * Whether [months] (1 … 12: a happening's or a dialog's) has [day]'s month, so what is said about the hay, the snow or
+ * the mushrooms comes only in its season (companion/SCENES.md, "Seasons"); empty: all year.
+ */
+fun inSeason(months: List<Int>, day: LocalDate): Boolean = months.isEmpty() || day.monthValue in months
+
+/** Whether this happening can be on on [day] ([Happening.months]). */
+fun Happening.inSeason(day: LocalDate): Boolean = inSeason(months, day)
+
+/** Whether this dialog plays on [day] ([Dialog.months]). */
+fun Dialog.inSeason(day: LocalDate): Boolean = inSeason(months, day)
 
 /**
  * Either a line someone says ([who] + [sl]/[en]) or the learner's turn ([choices]). [sl] is what is said, in the scene's

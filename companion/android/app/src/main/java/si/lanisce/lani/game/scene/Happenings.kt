@@ -83,8 +83,9 @@ object Happenings {
     }
 
     /**
-     * Whether one happening is on (what it [Happening.needs]: the age, a building, a project; the weekday, the time of
-     * day, today's chance; a story to tell, for the storyteller's; a variant to play, [variant]) and not done today.
+     * Whether one happening is on (what it [Happening.needs]: the age, a building, a project; its months, the weekday, the
+     * time of day, today's chance; a story to tell, for the storyteller's; a variant to play in season, [variant]) and not
+     * done today.
      * [world] is [state]'s, as the happening's scene sees it (in its building: [ActiveHappening.home], else
      * [Homes.buildingOf]); [dawn]: whether it is dawn now, the first hours of the [time]'s morning ([TimeOfDay.isDawn]),
      * when a happening "when" dawn is on. Its person, and everyone of [cast] its title and memory name, must be in the
@@ -107,28 +108,34 @@ object Happenings {
         // nor does the village talk of someone who isn't here, or whom the learner doesn't know yet
         if (present != null && cast.isNotEmpty() && !Mentions.known(Mentions.inTitle(h, Mentions.names(a.scene.language, cast)), present)) return false
         if (h.needs?.met(world) == false) return false
+        // the hay in summer, the snow in winter: only in its months (by the phone's date)
+        if (!h.inSeason(today)) return false
         if (h.weekdays.isNotEmpty() && today.dayOfWeek.value !in h.weekdays) return false
         if (h.`when`.isNotEmpty() && time !in h.`when` && !(dawn && TimeOfDay.DAWN in h.`when`)) return false
         // a place where someone sleeps is quiet at night: only what is meant for the night comes up there (see Sleep)
         if (h.`when`.isEmpty() && Sleep.night(time) && Sleep.bedded(a.scene.art)) return false
         if (done(state, a.key, today)) return false
         if (roll(state.seed, today, a.key) >= h.chance) return false
-        // a happening with dialogs plays one of them: with none today (all heard lately, or naming whom the learner
-        // doesn't know yet) it rests
+        // a happening with dialogs plays one of them: with none today (all heard lately, naming whom the learner doesn't
+        // know yet, or out of season) it rests
         return h.stories || DialogVariants.of(h).isEmpty() || variant(a, state, today, cast, guest) != null
     }
 
     /**
-     * The variant happening [a] plays [today] ([DialogVariants.pick]): of its dialogs in the scene that name only people of
-     * [cast] who are here and met, one not heard yet, else a review; on a visit ([guest]) the day's dice picks. Null: none.
+     * The variant happening [a] plays [today] ([DialogVariants.pick]): of its dialogs in the scene that are in season
+     * ([Dialog.months]) and name only people of [cast] who are here and met, one not heard yet, else a review; on a visit
+     * ([guest]) the day's dice picks. Null: none.
      */
     fun variant(a: ActiveHappening, state: GameState, today: LocalDate, cast: List<Villager> = Mentions.cast, guest: Boolean = false): String? {
         val all = DialogVariants.of(a.happening)
         if (all.isEmpty()) return null
         val present = si.lanisce.lani.game.villagers.Residents.present(state, today)
         val names = if (present != null && cast.isNotEmpty()) Mentions.names(a.scene.language, cast) else null
-        // (a dialog the scene lacks names nobody: the talk just doesn't start, as it always was)
-        val playable = all.filter { id -> names == null || Mentions.known(Mentions.inDialog(a.scene.dialogs.firstOrNull { it.id == id }, names), present) }
+        // (a dialog the scene lacks names nobody and has no season: the talk just doesn't start, as it always was)
+        val playable = all.filter { id ->
+            val d = a.scene.dialogs.firstOrNull { it.id == id }
+            d?.inSeason(today) != false && (names == null || Mentions.known(Mentions.inDialog(d, names), present))
+        }
         val dice = if (guest) roll(state.seed, today, a.key + "#variant") else null
         return DialogVariants.pick(all, playable, state.dialogsHeard[a.key], today, dice)
     }

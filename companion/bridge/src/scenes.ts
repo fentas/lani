@@ -223,6 +223,34 @@ export const RESOURCES = ['food', 'wood', 'stone', 'wisdom'] as const
 /** The parts of the day a happening can be on in; dawn is the morning's first hours, round sunrise (TimeOfDay in SceneSpec.kt). */
 export const TIMES = ['morning', 'afternoon', 'evening', 'night', 'dawn'] as const
 
+/**
+ * The months a happening is on in, or a dialog plays in, 1 (January) … 12 (December), by the phone's date (companion/SCENES.md,
+ * "Seasons"): the hay [6, 7, 8, 9], the snow [12, 1, 2]; absent, all year (inSeason in SceneSpec.kt).
+ */
+export const monthsSpec = z.array(z.number().int().min(1).max(12)).min(1).max(12)
+
+/** Whether [months] (absent: all year) has [month] (1-12). */
+export const inSeason = (months: readonly number[] | undefined, month: number): boolean => !months?.length || months.includes(month)
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+/** [months] said for a person: "June–September", "December–February", "April, June"; absent: "all year". */
+export function monthsSaid(months: readonly number[] | undefined): string {
+  if (!months?.length) return 'all year'
+  const set = new Set(months)
+  if (set.size === 12) return 'all year'
+  // the runs of months in a row, round the year's end too (December–February)
+  const start = [...set].sort((a, b) => a - b).find(m => !set.has(m === 1 ? 12 : m - 1)) ?? 1
+  const runs: number[][] = []
+  for (let i = 0, m = start; i < 12; i++, m = (m % 12) + 1) {
+    if (!set.has(m)) continue
+    const last = runs[runs.length - 1]
+    if (last && last[last.length - 1] === (m === 1 ? 12 : m - 1)) last.push(m)
+    else runs.push([m])
+  }
+  return runs.map(r => (r.length === 1 ? MONTH_NAMES[r[0] - 1] : `${MONTH_NAMES[r[0] - 1]}–${MONTH_NAMES[r[r.length - 1] - 1]}`)).join(', ')
+}
+
 /** Which voice a sprite speaks with in the app's clips (a villager's own voice wins when there is one). */
 export function spriteVoice(art: string): Gender {
   return ['grandpa', 'shepherd', 'smith', 'farmer', 'beekeeper', 'winemaker', 'man', 'hunter', 'burner'].includes(art) ? 'male' : 'female'
@@ -316,6 +344,11 @@ export const dialog = z.object({
   count: countSpec.optional(),
   /** What the person remembers of this variant, instead of the happening's memory. */
   memory: reply.optional(),
+  /**
+   * The months it plays in (a variant about the snow in winter, while its happening's others play all year); absent:
+   * whenever its happening is on. An older bridge strips it (and its app plays the dialog all year).
+   */
+  months: monthsSpec.optional(),
   /** A variant the tutor wrote (publish_dialog_variant); the curated ones say nothing. */
   source: z.enum(['curated', 'tutor']).optional(),
   /**
@@ -373,6 +406,8 @@ const happening = z.object({
   who: id,
   when: z.array(z.enum(TIMES)).max(5).default([]),
   weekdays: z.array(z.number().int().min(1).max(7)).max(7).default([]),
+  /** The months it is on in (the hay from June to September); absent: all year. An older bridge strips it. */
+  months: monthsSpec.optional(),
   chance: z.number().min(0).max(1).default(1),
   dialog: id.optional(),
   /**
@@ -543,9 +578,21 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
     if (h.stories && (h.dialog || h.dialogs)) errs.push(`${at}: a happening tells tonight's story (stories) or plays a dialog, not both`)
     if (h.stories && people.has(h.who) && !s.people.find(p => p.id === h.who)?.villager) errs.push(`${at}: the storyteller "${h.who}" needs a villager (the stories' teller)`)
     dupes(h.weekdays.map(String), `weekday in ${at}`)
+    dupes((h.months ?? []).map(String), `month in ${at}`)
+    // a dialog of the happening's whose months are none of the happening's would never play
+    for (const v of variantsOf(h)) {
+      const d = dialogs.get(v)
+      if (d?.months && h.months && !d.months.some(m => h.months!.includes(m)))
+        errs.push(`${at}: dialog "${v}" plays in ${monthsSaid(d.months)} and the happening is on in ${monthsSaid(h.months)} only: it would never play`)
+    }
     titled(h.title, `${at}.title`)
     inLang(h.memory, `${at}.memory`)
   })
+  all.forEach(d => dupes((d.months ?? []).map(String), `month in dialog "${d.id}"`))
+  // a scene is never empty: something is on in it in every month, if anything is (what only a guest meets aside)
+  const bare = emptyMonths(s)
+  if (bare.length)
+    errs.push(`months: in ${monthsSaid(bare)} none of the scene's happenings is on (their months, their dialogs' months): a scene is never empty, give one of them those months or none (all year)`)
 
   const scenarios = refs && new Set(refs.scenarios.map(x => x.id))
   const effects = SCENE_ART.effects[s.art] ?? []
@@ -699,6 +746,28 @@ export function staysErrors(d: Lines, at: string): string[] {
 /** Whether happening [h] of [s] is only for guests: it says so, or its dialog does. */
 export const forGuests = (s: Pick<Scene, 'dialogs'>, h: Scene['happenings'][number]) =>
   h.guests === true || s.dialogs.some(d => variantsOf(h).includes(d.id) && d.guests === true)
+
+/**
+ * Whether happening [h] of [s] can be on in [month] (1-12): its own months have it, and it tells a story or one of its
+ * dialogs plays then (a dialog the scene lacks has no season), as the app's Happenings.on and variant decide.
+ */
+export function onInMonth(s: Pick<Scene, 'dialogs'> & { variants?: Scene['variants'] }, h: Scene['happenings'][number], month: number): boolean {
+  if (!inSeason(h.months, month)) return false
+  const ids = variantsOf(h)
+  if (h.stories || !ids.length) return true
+  const dialogs = [...s.dialogs, ...(s.variants ?? [])]
+  return ids.some(id => inSeason(dialogs.find(d => d.id === id)?.months, month))
+}
+
+/**
+ * The months in which none of [s]'s happenings can be on (onInMonth), those only a guest meets aside: none when it has
+ * none (a scene of objects alone), else the months it would stand empty, which a scene never does.
+ */
+export function emptyMonths(s: Pick<Scene, 'dialogs' | 'happenings'> & { variants?: Scene['variants'] }): number[] {
+  const own = s.happenings.filter(h => !forGuests(s, h))
+  if (!own.length) return []
+  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter(m => !own.some(h => onInMonth(s, h, m)))
+}
 
 /** The dialogs happening [h] plays: its variants (`dialogs`), else its one `dialog` (Happening.dialogs in SceneSpec.kt). */
 export const variantsOf = (h: Pick<Scene['happenings'][number], 'dialog' | 'dialogs'>): string[] => h.dialogs ?? (h.dialog ? [h.dialog] : [])

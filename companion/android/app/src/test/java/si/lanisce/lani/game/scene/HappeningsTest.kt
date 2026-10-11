@@ -93,6 +93,59 @@ class HappeningsTest {
         assertEquals(listOf(TimeOfDay.DAWN, TimeOfDay.EVENING), si.lanisce.lani.data.json.decodeFromString(Happening.serializer(), """{"id": "x", "title": "x", "who": "joze", "when": ["dawn", "evening"]}""").`when`)
     }
 
+    @Test fun `a happening and a dialog in their months only - absent all year, a variant its own`() {
+        val france = ScenePerson("france", "France", "👨‍🌾", "farmer", "field")
+        val luka = ScenePerson("luka", "Luka", "🐑", "shepherd", "kozolec")
+        val tine = ScenePerson("tine", "Tine", "🧒", "child1", "path")
+        fun lines(id: String) = listOf(DialogLine("france", id, id), DialogLine(choices = listOf(DialogChoice("Ja.", ok = true), DialogChoice("Ne.", why = "…"))), DialogLine("france", "Adijo.", "Bye."))
+        val field = SceneSpec(
+            id = "na-njivi", title = "Na njivi", art = "field", from = listOf("fire"), people = listOf(france, luka, tine),
+            happenings = listOf(
+                // the hay: in the afternoons from June to September
+                Happening("seno", "Luka spravlja seno", who = "luka", `when` = listOf(TimeOfDay.AFTERNOON), months = listOf(6, 7, 8, 9), dialog = "seno"),
+                // the horse all year: one variant only in winter, when the horse stays in the stable
+                Happening("konj", "Francetov konj", who = "france", dialogs = listOf("konj-hlev", "konj")),
+                // no months: all year
+                Happening("strasilo", "Tine in strašilo", who = "tine", dialog = "strasilo"),
+            ),
+            dialogs = listOf(Dialog("seno", lines("seno")), Dialog("konj", lines("konj")), Dialog("konj-hlev", lines("konj-hlev"), months = listOf(12, 1, 2)), Dialog("strasilo", lines("strasilo"))),
+        )
+        val july = LocalDateTime.of(2026, 7, 15, 14, 0)
+        val january = LocalDateTime.of(2027, 1, 15, 14, 0)
+        fun on(t: LocalDateTime, s: GameState = camp) = Happenings.active(listOf(field), s, t).associate { it.happening.id to it.dialog }
+        assertEquals(mapOf("seno" to "seno", "konj" to "konj", "strasilo" to "strasilo"), on(july))
+        // in January no hay: not on, not later today; the horse's winter variant first (not heard yet)
+        assertEquals(mapOf("konj" to "konj-hlev", "strasilo" to "strasilo"), on(january))
+        assertTrue(Happenings.later(listOf(field), camp, july.withHour(6)).any { it.second.happening.id == "seno" })
+        assertTrue(Happenings.later(listOf(field), camp, january.withHour(6)).none { it.second.happening.id == "seno" })
+        // the edges of the window: from 1 June to 30 September
+        assertTrue("seno" in on(LocalDateTime.of(2026, 6, 1, 14, 0)) && "seno" in on(LocalDateTime.of(2026, 9, 30, 14, 0)))
+        assertFalse("seno" in on(LocalDateTime.of(2026, 5, 31, 14, 0)) || "seno" in on(LocalDateTime.of(2026, 10, 1, 14, 0)))
+        // out of season a variant isn't picked even when it hasn't been heard: with the summer's heard just now, the horse
+        // rests in July; in winter the stable's plays
+        val heard = camp.copy(dialogsHeard = mapOf("na-njivi/konj" to DialogsHeard(mapOf("konj" to "2026-07-14"), "konj")))
+        assertFalse("konj" in on(july, heard))
+        assertEquals("konj-hlev", on(january, heard)["konj"])
+        // a happening whose only dialog is out of season rests
+        val winterOnly = field.copy(dialogs = field.dialogs.map { if (it.id == "strasilo") it.copy(months = listOf(12, 1, 2)) else it })
+        assertTrue(Happenings.active(listOf(winterOnly), camp, july).none { it.happening.id == "strasilo" })
+        assertTrue(Happenings.active(listOf(winterOnly), camp, january).any { it.happening.id == "strasilo" })
+        // on a visit too: the day's dice picks among the dialogs in season only
+        for (d in 0L until 20L) assertEquals("konj", Happenings.active(listOf(field), camp, july.plusDays(d), guest = true).first { it.happening.id == "konj" }.dialog)
+        // a dialog begun goes on: what is played isn't asked about the date (a talk begun on 30 September still plays on the 1st)
+        val begun = Happenings.active(listOf(field), camp, LocalDateTime.of(2026, 9, 30, 16, 50)).first { it.happening.id == "seno" }
+        assertEquals("seno", DialogVariants.play(begun, camp, LocalDateTime.of(2026, 10, 1, 0, 1).toLocalDate())?.second?.id)
+        // the pure rule
+        assertTrue(inSeason(emptyList(), january.toLocalDate()) && inSeason(listOf(11, 12, 1, 2, 3), january.toLocalDate()) && !inSeason(listOf(6, 7, 8), january.toLocalDate()))
+        // the file format: "months" on a happening, a dialog and a variant
+        val raw = """{"id":"s","title":"S","art":"field","from":["fire"],"happenings":[{"id":"h","title":"H","who":"p","months":[6,7,8],"dialogs":["a","b"]}],
+            "dialogs":[{"id":"a","lines":[],"months":[12,1,2]}],"variants":[{"id":"b","lines":[],"months":[3,4,5]}]}"""
+        val s = parseScene(raw)
+        assertEquals(listOf(6, 7, 8), s.happenings[0].months)
+        assertEquals(listOf(listOf(12, 1, 2), listOf(3, 4, 5)), s.dialogs.map { it.months })
+        assertEquals(emptyList<Int>(), parseScene("""{"id":"s","title":"S","art":"field","from":["fire"],"happenings":[{"id":"h","title":"H","who":"p"}]}""").happenings[0].months)
+    }
+
     @Test fun `a scene opens only where its place is built`() {
         assertTrue(Happenings.open(fire, camp))
         assertFalse(Happenings.open(kitchen, camp))

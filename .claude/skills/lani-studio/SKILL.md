@@ -146,7 +146,7 @@ Write a happening (or a whole scene) when:
 
 - **A weak point keeps coming back.** `mistakes-db` or a `session_end` shows a pattern (ti/vi, the case after a preposition, the dual, an adverb vs an adjective) and the drills are not enough: stage it in a dialog where the learner has to choose it, with the wrong choices wrong for exactly that reason. E.g. Učiteljica Mojca at the well counting in the dual, Kovač Tone at the smithy asking for the accusative.
 - **The learner's real life comes up.** A visit to the in-laws on Sunday, a doctor's appointment, the first burja of the year: put it in the kitchen or on the square that week, and give the dialog a `talk` scenario so it can go on with you.
-- **A festival or a season.** Advent and potica in December, chestnuts (kostanj) and jurčki in October, kresovanje (bonfires) on 30 April, World Bee Day on 20 May with Čebelar Anton: a happening with `weekdays` and a `chance`, and objects that teach the words of the season. Remove it again afterwards.
+- **A festival or a season.** Advent and potica in December, chestnuts (kostanj) and jurčki in October, kresovanje (bonfires) on 30 April, World Bee Day on 20 May with Čebelar Anton: a happening with its `months` (it comes back every year in its season), `weekdays` and a `chance`, and objects that teach the words of the season. Whatever a happening says fits its months: no snow in summer, no hay in winter (a variant may have months of its own); the scene keeps a happening for every month.
 
 How:
 
