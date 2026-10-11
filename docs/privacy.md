@@ -80,4 +80,5 @@ this machine.
 The learner's data, the tokens and the bridge's key, the voice clips (and the offline voice, `~/.cache/lani/piper`), the backups (`~/.local/share/lani/backups`), the
 logs (`~/.local/state/lani`) and `keys.env`. `lani-backup` snapshots stay on the machine unless you copy them. The
 learner's recent answers (`app/answers.json`: what they typed or said in the last 7 days, at most 500 answers) stay
-too: the data repository leaves them out.
+too: a data repository never commits them, so they are never pushed (each commit keeps them out, also in a repository
+set up before they were kept).

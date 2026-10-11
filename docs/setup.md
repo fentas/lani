@@ -147,9 +147,12 @@ machine.
   happened.
 - **What stays out** (`.gitignore`, written once; edit it as you like): the tokens and the bridge's key, pairing and
   invitation codes, the voice clips and APKs, files the bridge rewrites all the time (`client-ids.json`,
-  `devices-seen.json`, `events.json`, `channel-queue.json`, `answers.json`), backups and temporary files. `devices.json`
-  is in: it holds only hashes of the phones' tokens. A repository set up before a line was added keeps its own
-  `.gitignore`: add `/app/answers.json` to it (the answers of the last days, companion/README.md "Recent answers").
+  `devices-seen.json`, `events.json`, `channel-queue.json`), backups and temporary files. `devices.json` is in: it holds
+  only hashes of the phones' tokens.
+- **What never goes in:** the learner's recent answers (`app/answers.json`, what they typed or said in the last days,
+  companion/README.md "Recent answers"). Each commit makes sure the `.gitignore` keeps `/app/answers.json*` out, adding
+  the line when it's missing (a repository set up before it, or a `.gitignore` edited since), and stops tracking it if it
+  was ever committed (the file stays on the machine).
 - **Only a repository's root counts.** The checkout's `data/` is never committed into Lani's repository.
 
 | Setting (lani.env) | Default | |

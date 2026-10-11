@@ -693,7 +693,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `POST` | `/message` | `{kind: chat\|answer\|session_end\|roleplay\|roleplay_end\|villager_arrived, conversation_id, text, data?}` → into the session (`fam_…` conversation ids are the bridge's); a chat's `data.reply_to` quotes an earlier message of the chat (see [Tutor chat](#tutor-chat)) |
 | `GET` | `/events` | SSE stream: `reply`, `module_published`, `pack_published`, `grammar_published` (`{id, title, emoji, extended, note}`), `scenario_published`, `scene_published`, `scene_removed`, `variant_published` and `variant_removed` (a happening's dialog the tutor wrote or took back, `{scene, happening, id, title, emoji, note}`: the app reloads the scene, news only with a note), `villager_published`, `villager_removed`, `permission_request`, `app_update`, `partner_challenge`, `voice_updated`, `words_added`, `lexicon_updated`, `reading_published` (`{id, title, level, note}`) and `reading_removed` (`{id}`), `town_guest` (a guest from a linked town brought help, a gift, a trade or help against trouble, or a move changed: `{key, kind, from, learner}`, kind `help`, `gift`, `trade`, `aid`, `move`), `town_question` and `town_answer` (a guest's question to the learner, the answer to the learner's: `{key, from, learner, text}`). Resume with `Last-Event-ID`. |
 | `POST` | `/permission` | `{request_id, behavior: allow\|deny}` → answers a tool approval prompt |
-| `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
+| `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
 | `POST` | `/level` | `{from, to, stations: [{id, skill, right, total, minutes?}], duration_minutes?, language?, client_id}`: the treasure found (the level test at the end of `from` passed, [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map)) → the new level `to` (the one after `from`, else `400`) persisted via `update-db.py` (the report's `level` sets `current_level` and `level_since`; a session `/lani-app-treasure`, the stations' answers by skill), Claude gets a `level_up` summary with the new level's grammar pages; `{already: true, level}` and nothing written when the level is there already. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
@@ -863,21 +863,31 @@ survive app updates, but not clearing the app's data or a reinstall (`android:al
 A card reported later in a plain message ("kurim was marked wrong") came without it, and the app kept no answers, so the
 tutor could only guess why. Now the node keeps what Jan typed or said lately:
 
-- **What:** each review card's exercise (the review screen and the grammar book's card practice): the card, how it was
-  asked (`variant`: type, tiles, listen, …), the exercise and what it asked, what was typed or heard, what was expected,
-  the verdict, the grading hint (typo, ending, diacritics, …) and the hints used. The app sends them with the review
-  (`POST /reviews` `answers`, `ui/PlayerScreen.kt` `reviewAnswer`); a self-rated flashcard has no answer to keep. The
-  forms a review asked and a dialog's word turns, which the app sent already, go in too.
-- **Where:** `<data>/app/answers.json` (`bridge/src/answers.ts`), written once the review is persisted, with the quality
-  it gave each card and the session. A rolling log: the last 7 days, at most 500 answers, the oldest dropped as new ones
-  come. Nothing else reads it, the learner's databases don't change with it, and the data repository leaves it out
-  (runtime state; a repository set up before keeps its own `.gitignore`: add `/app/answers.json` to it).
+- **What:** every card a review counts, one entry each, wherever in the app it was answered (`from`: the review screen,
+  the grammar book's card practice, a building's words run, a village challenge, I spy, the car's ✓/✗): the card, how it
+  was asked (`variant`: type, tiles, listen, …), the exercise and what it asked, what was typed or heard, what was
+  expected, the verdict, the grading hint (typo, ending, diacritics, …) and the hints used. The app sends them with the
+  review (`POST /reviews` `answers`, `ui/PlayerScreen.kt` `reviewAnswer`). Where nothing is typed the entry says so: a
+  self-rated flashcard, the car's ratings (knew or didn't), I spy's taps (the clues heard and the thing found). A form a
+  review asked joins its card's answer (its slot and grammar page); a dialog's word turns go in too, a form the car's
+  quiz asked once, with its word's turn.
+- **When:** as answered: the app sends the review's time (`answered_at`; the car each rating's own), so a review the
+  outbox sends a day later keeps its time; without one (an app from before), when it reached the node.
+- **Where:** `<data>/app/answers.json` (`bridge/src/answers.ts`, readable by this user only), written once the review
+  is persisted, with the quality it gave each card (a dialog's only for the cards the bridge counted) and the session. A
+  rolling log: the last 7 days, at most 500 answers, the oldest dropped as new ones come; a review's first 100 answers
+  (never a reason to refuse the review). Nothing else reads it, the learner's databases don't change with it, and a data
+  repository never commits it: each commit makes sure its `.gitignore` keeps `/app/answers.json*` out, also in a
+  repository set up before the line (`.claude/hooks/lani_data_repo.py` `PRIVATE`).
 - **The tutor:** the `review_done` note names the answers typed wrong ("Answered wrong: vocab_hvala "hvla" for
-  "hvala""). The tool `recent_answers` lists them, newest first, for a card (`card_id`), a word in what was asked, typed
-  or expected (`text`), only the wrong ones (`wrong_only`) or a deck (`language`). The lani-fix skill asks it when Jan
+  "hvala""), a form slip only with the forms. The tool `recent_answers` lists them, newest first, for a card
+  (`card_id`), a word in what was asked, typed or expected (`text`, any case, diacritics optional: "zivjo" finds
+  "živjo"), only the wrong ones (`wrong_only`: by the verdict, so a right answer whose hints lowered its quality isn't
+  one) or a deck (`language`). With none it says what the log holds since when. The lani-fix skill asks it when Jan
   reports a card without "Ask", so the card can be fixed and its review taken back in one go.
-- **An older app or bridge:** an app from before sends no review answers (the tool says so, and the tutor asks Jan); an
-  older bridge ignores them.
+- **An older app or bridge:** an app from before sends only the qualities: each card is logged with its quality and "no
+  answer sent (an app from before)", and the tutor asks Jan; an older bridge ignores the answers, and its tutor has no
+  `recent_answers` until the bridge restarts.
 
 ## Grammar book
 
