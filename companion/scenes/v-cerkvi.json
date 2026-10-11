@@ -84,7 +84,7 @@
         { "who": "tine", "sl": "{learner}! {learner}! Poglej, vrv! Zdaj je poldne. Zvoniva?", "en": "{learner}! {learner}! Look, the rope! It's noon now. Shall we ring the bell, the two of us?", "de": "{learner}! {learner}! Schau, das Seil! Jetzt ist Mittag. Läuten wir zwei die Glocke?", "it": "{learner}! {learner}! Guarda, la corda! Adesso è mezzogiorno. Suoniamo la campana, noi due?" },
         { "choices": [
           { "sl": "Zvoniva! Ampak ti prvi.", "en": "Let's ring it! But you first.", "de": "Läuten wir! Aber du zuerst.", "it": "Suoniamo! Ma prima tu.", "ok": true,
-            "reply": { "sl": "Ena, dva, tri … vleci!", "en": "One, two, three … pull!", "de": "Eins, zwei, drei … zieh!", "it": "Uno, due, tre … tira!", "fx": { "bell": 1 } } },
+            "reply": { "sl": "Ena, dva, tri … vleci!", "en": "One, two, three … pull!", "de": "Eins, zwei, drei … zieh!", "it": "Uno, due, tre … tira!", "fx": { "bell": 1 }, "act": { "tine": { "to": "rope" } } } },
           { "sl": "Zvonimo! Ampak ti prvi.", "en": "Let's all ring it! But you first.", "de": "Läuten wir alle! Aber du zuerst.", "it": "Suoniamo tutti! Ma prima tu.",
             "grammar": "dvojina", "why": { "en": "There are two of you: the dual zvoniva. Zvonimo is for three or more.", "de": "Ihr seid zu zweit: der Dual zvoniva. Zvonimo gilt für drei oder mehr.", "it": "Siete in due: il duale zvoniva. Zvonimo è per tre o più persone." },
             "reply": { "sl": "Zvonimo? Kdo še? Nejca ni!", "en": "Zvonimo (all of us)? Who else? Nejc isn't here!", "de": "Zvonimo (wir alle)? Wer noch? Nejc ist nicht da!", "it": "Zvonimo (tutti)? Chi altro? Nejc non c'è!" } },
@@ -104,7 +104,7 @@
             "reply": { "sl": "Glasna? Kdo? Teta Ančka? Hi hi!", "en": "Glasna (loud, a she)? Who? Aunt Ančka? Hee hee!", "de": "Glasna (laut, eine Sie)? Wer? Tante Ančka? Hihi!", "it": "Glasna (forte, lei)? Chi? Zia Ančka? Ih ih!" } }
         ] },
         { "who": "tine", "sl": "Dedek pravi: ko zvoni poldne, gremo jest. Greš z mano?", "en": "Grandpa says: when the noon bell rings, we go and eat. Are you coming with me?", "de": "Opa sagt: Wenn die Mittagsglocke läutet, gehen wir essen. Kommst du mit?", "it": "Il nonno dice: quando suona mezzogiorno, si va a mangiare. Vieni con me?",
-          "fx": { "bell": 0 } },
+          "fx": { "bell": 0 }, "act": { "tine": { "to": "door" } } },
         { "choices": [
           { "sl": "Grem! Kaj je za kosilo?", "en": "I'm coming! What's for lunch?", "de": "Ich komme! Was gibt's zum Mittagessen?", "it": "Vengo! Cosa c'è per pranzo?", "ok": true,
             "reply": { "sl": "Juha! Pa štruklji. Pridi!", "en": "Soup! And štruklji. Come!", "de": "Suppe! Und Štruklji. Komm!", "it": "Minestra! E štruklji. Vieni!" } },
@@ -222,7 +222,7 @@
             "why": { "en": "Lahko me dvigneš means Tine lifts you. You lift him: lahko te dvignem.", "de": "Lahko me dvigneš heißt, Tine hebt dich hoch. Du hebst ihn: lahko te dvignem.", "it": "Lahko me dvigneš significa che Tine solleva te. Sei tu a sollevare lui: lahko te dvignem." },
             "reply": { "sl": "Tebe? Jaz? Ti si {m:prevelik|f:prevelika}, {learner}!", "en": "Lift you? Me? You're too big, {learner}!", "de": "Dich? Ich? Du bist zu groß, {learner}!", "it": "Te? Io? Sei troppo grande, {learner}!" } },
           { "sl": "Lahko te dvignem.", "en": "I can lift you up.", "de": "Ich kann dich hochheben.", "it": "Posso sollevarti.", "ok": true,
-            "reply": { "sl": "Ja! Gor, gor! Zdaj jo imam!", "en": "Yes! Up, up! Now I've got it!", "de": "Ja! Hoch, hoch! Jetzt hab ich es!", "it": "Sì! Su, su! Adesso ce l'ho!" } },
+            "reply": { "sl": "Ja! Gor, gor! Zdaj jo imam!", "en": "Yes! Up, up! Now I've got it!", "de": "Ja! Hoch, hoch! Jetzt hab ich es!", "it": "Sì! Su, su! Adesso ce l'ho!", "act": { "tine": { "to": "rope" } } } },
           { "sl": "Lahko ti dvignem.", "en": "I can lift for you.", "de": "Ich kann dir hochheben.", "it": "Posso sollevare per te.",
             "grammar": "tozilnik", "why": { "en": "Lifting someone takes the accusative: te (you). Ti here is the dative, 'to you, for you'.", "de": "Jemanden heben verlangt den Akkusativ: te (dich). Ti ist hier der Dativ, ‚dir‘.", "it": "Sollevare qualcuno vuole l'accusativo: te. Ti qui è il dativo, 'a te, per te'." },
             "reply": { "sl": "Kaj mi dvigneš? Mojo kapo?", "en": "Lift what for me? My cap?", "de": "Was hebst du mir hoch? Meine Mütze?", "it": "Cosa mi sollevi? Il mio berretto?" } }
@@ -240,7 +240,7 @@
             "reply": { "sl": "Še malo … bim, bam! Roke me bolijo!", "en": "A little more … ding, dong! My arms hurt!", "de": "Noch ein bisschen … bim, bam! Mir tun die Arme weh!", "it": "Ancora un po' … din, don! Mi fanno male le braccia!" } }
         ] },
         { "who": "tine", "sl": "Dovolj! Hvala, {learner}. Zdaj pa kosilo!", "en": "Enough! Thanks, {learner}. Now lunch!", "de": "Genug! Danke, {learner}. Jetzt Mittagessen!", "it": "Basta! Grazie, {learner}. Adesso si pranza!",
-          "fx": { "bell": 0 } }
+          "fx": { "bell": 0 }, "act": { "tine": { "to": "door" } } }
       ]
     },
     {
@@ -268,10 +268,10 @@
             "grammar": "ti-vi", "why": { "en": "Tine is a child: ti, vleci. Vlecite is for vi (several people, or politely).", "de": "Tine ist ein Kind: ti, vleci. Vlecite ist für vi (mehrere Leute oder höflich).", "it": "Tine è un bambino: ti, vleci. Vlecite è per il vi (più persone o per cortesia)." },
             "reply": { "sl": "Vlecite? Jaz sem samo eden! Hi hi.", "en": "Vlecite (you all)? There's only one of me! Hee hee.", "de": "Vlecite (ihr alle)? Ich bin doch nur einer! Hihi.", "it": "Vlecite (voi)? Io sono uno solo! Ih ih." } },
           { "sl": "Prav! Vleci, Tine!", "en": "OK! Pull, Tine!", "de": "Gut! Zieh, Tine!", "it": "Va bene! Tira, Tine!", "ok": true,
-            "reply": { "sl": "Bim, bam! Juhu!", "en": "Ding, dong! Hooray!", "de": "Bim, bam! Juhu!", "it": "Din, don! Evviva!", "fx": { "bell": 1 } } }
+            "reply": { "sl": "Bim, bam! Juhu!", "en": "Ding, dong! Hooray!", "de": "Bim, bam! Juhu!", "it": "Din, don! Evviva!", "fx": { "bell": 1 }, "act": { "tine": { "to": "rope" } } } }
         ] },
         { "who": "tine", "sl": "Dovolj! Skupaj je lepše. Zdaj pa kosilo!", "en": "Enough! It's nicer together. Now lunch!", "de": "Genug! Zusammen ist es schöner. Jetzt Mittagessen!", "it": "Basta! Insieme è più bello. Adesso a pranzo!",
-          "fx": { "bell": 0 } }
+          "fx": { "bell": 0 }, "act": { "tine": { "to": "door" } } }
       ]
     },
     {
@@ -308,7 +308,7 @@
       "fx_stays": true,
       "lines": [
         { "who": "babica", "sl": "{learner}, pridi. Joj, veter! Moja sveča ne gori več.", "en": "{learner}, come here. Oh dear, the wind! My candle isn't burning any more.", "de": "{learner}, komm her. Oje, der Wind! Meine Kerze brennt nicht mehr.", "it": "{learner}, vieni. Oddio, il vento! La mia candela non brucia più.",
-          "fx": { "candles": 0 } },
+          "fx": { "candles": 0, "door": 1 } },
         { "choices": [
           { "sl": "Vrata je odprta. Zaprem jih.", "en": "The door (singular) is open. I'll close it.", "de": "Die Tür (Einzahl) ist offen. Ich mache sie zu.", "it": "La porta (singolare) è aperta. La chiudo.",
             "grammar": "imenovalnik", "why": { "en": "Vrata (door) is plural in Slovene: vrata so odprta.", "de": "Vrata (Tür) ist im Slowenischen ein Plural: vrata so odprta.", "it": "Vrata (porta) in sloveno è plurale: vrata so odprta." },
@@ -317,7 +317,7 @@
             "grammar": "osebni-zaimki", "why": { "en": "Vrata is plural: jih (them). Ga is for one masculine or neuter thing.", "de": "Vrata ist Plural: jih (sie). Ga steht für ein männliches oder sächliches Ding.", "it": "Vrata è plurale: jih (li). Ga è per una cosa maschile o neutra." },
             "reply": { "sl": "Ga? Koga? Tu ni nikogar.", "en": "Ga (him)? Who? There's nobody here.", "de": "Ga (ihn)? Wen? Hier ist niemand.", "it": "Ga (lo)? Chi? Qui non c'è nessuno." } },
           { "sl": "Vrata so odprta. Zaprem jih.", "en": "The door is open. I'll close it.", "de": "Die Tür ist offen. Ich mache sie zu.", "it": "La porta è aperta. La chiudo.", "ok": true,
-            "reply": { "sl": "Ja, zapri jih. Tako je bolje.", "en": "Yes, close it. That's better.", "de": "Ja, mach sie zu. So ist es besser.", "it": "Sì, chiudila. Così va meglio." } }
+            "reply": { "sl": "Ja, zapri jih. Tako je bolje.", "en": "Yes, close it. That's better.", "de": "Ja, mach sie zu. So ist es besser.", "it": "Sì, chiudila. Così va meglio.", "fx": { "door": 0 } } }
         ] },
         { "who": "babica", "sl": "Hvala. Joj, vžigalice so mokre. Kaj zdaj?", "en": "Thank you. Oh dear, the matches are wet. What now?", "de": "Danke. Oje, die Streichhölzer sind nass. Was jetzt?", "it": "Grazie. Oddio, i fiammiferi sono bagnati. E adesso?" },
         { "choices": [

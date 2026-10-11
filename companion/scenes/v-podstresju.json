@@ -31,13 +31,13 @@
   ],
   "happenings": [
     { "id": "vstani", "title": { "sl": "Nejc se ne zbudi", "en": "Nejc won't wake up", "de": "Nejc wacht nicht auf", "it": "Nejc non si sveglia" }, "who": "nejc",
-      "when": ["dawn", "morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "vstani", "dialogs": ["vstani-umij", "vstani-ribnik", "vstani"], "reward": { "food": 15 }, "marker": "⏰",
+      "when": ["dawn", "morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "vstani", "dialogs": ["vstani-umij", "vstani-ribnik", "vstani"], "reward": { "food": 15 }, "marker": "⏰", "act": { "nejc": { "to": "in-bed" } },
       "memory": { "sl": "jutro, ko si me {m:zbudil|f:zbudila} za šolo", "en": "the morning you woke me up for school", "de": "den Morgen, an dem du mich für die Schule geweckt hast", "it": "la mattina in cui mi hai svegliato per la scuola" } },
     { "id": "zibelka", "title": { "sl": "Vida pospravlja podstrešje", "en": "Vida is tidying the attic", "de": "Vida räumt den Dachboden auf", "it": "Vida mette in ordine la soffitta" }, "who": "vida",
       "when": ["afternoon"], "chance": 0.4, "dialog": "zibelka", "dialogs": ["zibelka-kapica", "zibelka"], "reward": { "wisdom": 20 }, "marker": "👶",
       "memory": { "sl": "staro zibelko, ki sva jo {m:pokrila|f:pokrili} z odejo", "en": "the old cradle we covered with the blanket", "de": "die alte Wiege, die wir mit der Decke zugedeckt haben", "it": "la vecchia culla che abbiamo coperto con la coperta" } },
     { "id": "burja", "title": { "sl": "Nejc ne more spati", "en": "Nejc can't sleep", "de": "Nejc kann nicht schlafen", "it": "Nejc non riesce a dormire" }, "who": "nejc",
-      "when": ["night"], "chance": 0.5, "dialog": "burja", "dialogs": ["burja-zgodba", "burja-okno", "burja"], "reward": { "wood": 15 }, "marker": "🌬️", "needs": { "level": 2 },
+      "when": ["night"], "chance": 0.5, "dialog": "burja", "dialogs": ["burja-zgodba", "burja-okno", "burja"], "reward": { "wood": 15 }, "marker": "🌬️", "needs": { "level": 2 }, "act": { "nejc": { "to": "in-bed" } },
       "memory": { "sl": "noč, ko je burja tulila na strehi", "en": "the night the burja howled on the roof", "de": "die Nacht, in der die Bora auf dem Dach heulte", "it": "la notte in cui la bora ululava sul tetto" } }
   ],
   "dialogs": [
@@ -56,17 +56,17 @@
         { "who": "nejc", "sl": "Še pet minut … Samo še pet minut, prosim …", "en": "Five more minutes … Just five more minutes, please …", "de": "Noch fünf Minuten … Nur noch fünf Minuten, bitte …", "it": "Altri cinque minuti … Solo altri cinque minuti, per favore …" },
         { "choices": [
           { "sl": "Nejc, vstani! Zajtrk je na mizi.", "en": "Nejc, get up! Breakfast is on the table.", "de": "Nejc, steh auf! Das Frühstück steht auf dem Tisch.", "it": "Nejc, alzati! La colazione è in tavola.", "ok": true,
-            "reply": { "sl": "Zajtrk? Palačinke? Že grem!", "en": "Breakfast? Pancakes? I'm coming!", "de": "Frühstück? Palatschinken? Ich komme schon!", "it": "Colazione? Crêpes? Arrivo!" } },
+            "reply": { "sl": "Zajtrk? Palačinke? Že grem!", "en": "Breakfast? Pancakes? I'm coming!", "de": "Frühstück? Palatschinken? Ich komme schon!", "it": "Colazione? Crêpes? Arrivo!", "act": { "nejc": { "pose": "sit" } } } },
           { "sl": "Vstani, zaspanec! Šola čaka.", "en": "Get up, sleepyhead! School is waiting.", "de": "Steh auf, Schlafmütze! Die Schule wartet.", "it": "Alzati, dormiglione! La scuola aspetta.", "ok": true,
-            "reply": { "sl": "{m:Zaspanec|f:Zaspanka} si ti! Dobro, dobro, vstajam.", "en": "You're the sleepyhead! OK, OK, I'm getting up.", "de": "Selber Schlafmütze! Gut, gut, ich steh ja auf.", "it": "{m:Dormiglione|f:Dormigliona} sarai tu! Va bene, va bene, mi alzo." } },
+            "reply": { "sl": "{m:Zaspanec|f:Zaspanka} si ti! Dobro, dobro, vstajam.", "en": "You're the sleepyhead! OK, OK, I'm getting up.", "de": "Selber Schlafmütze! Gut, gut, ich steh ja auf.", "it": "{m:Dormiglione|f:Dormigliona} sarai tu! Va bene, va bene, mi alzo.", "act": { "nejc": { "pose": "sit" } } } },
           { "sl": "Nejc, vstanite! Zajtrk je na mizi.", "en": "Nejc, (vi) get up! Breakfast is on the table.", "de": "Nejc, stehen Sie (vi) auf! Das Frühstück steht auf dem Tisch.", "it": "Nejc, si alzi (vi)! La colazione è in tavola.",
             "grammar": "ti-vi", "why": { "en": "Nejc is a child, and one person: ti, vstani. Vstanite is vi.", "de": "Nejc ist ein Kind und eine Person: ti, vstani. Vstanite ist vi.", "it": "Nejc è un bambino, e una persona sola: ti, vstani. Vstanite è il vi." },
             "reply": { "sl": "Vstanite? Hi hi, nisem župan, {learner}!", "en": "Vstanite (vi)? Hee hee, I'm not the mayor, {learner}!", "de": "Vstanite (Sie)? Hihi, ich bin doch nicht der Bürgermeister, {learner}!", "it": "Vstanite (Lei)? Ih ih, non sono mica il sindaco, {learner}!" } }
         ] },
-        { "who": "nejc", "sl": "Dobro, vstajam. Ampak kje so moje hlače?", "en": "OK, I'm getting up. But where are my trousers?", "de": "Gut, ich steh auf. Aber wo ist meine Hose?", "it": "Va bene, mi alzo. Ma dove sono i miei pantaloni?" },
+        { "who": "nejc", "sl": "Dobro, vstajam. Ampak kje so moje hlače?", "en": "OK, I'm getting up. But where are my trousers?", "de": "Gut, ich steh auf. Aber wo ist meine Hose?", "it": "Va bene, mi alzo. Ma dove sono i miei pantaloni?", "act": { "nejc": { "to": "bed" } } },
         { "choices": [
           { "sl": "Tvoje hlače so na skrinji.", "en": "Your trousers are on the chest.", "de": "Deine Hose liegt auf der Truhe.", "it": "I tuoi pantaloni sono sulla cassapanca.", "ok": true,
-            "reply": { "sl": "Aha! Mami jih je zložila.", "en": "Aha! Mum folded them.", "de": "Aha! Mama hat sie zusammengelegt.", "it": "Ah! Li ha piegati la mamma." } },
+            "reply": { "sl": "Aha! Mami jih je zložila.", "en": "Aha! Mum folded them.", "de": "Aha! Mama hat sie zusammengelegt.", "it": "Ah! Li ha piegati la mamma.", "act": { "nejc": { "to": "chest" } } } },
           { "sl": "Tvoja hlače so na skrinji.", "en": "Your trousers are on the chest.", "de": "Deine Hose liegt auf der Truhe.", "it": "I tuoi pantaloni sono sulla cassapanca.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Hlače (trousers) is a feminine plural: tvoje hlače. Tvoja is for one feminine thing.", "de": "Hlače (Hose) ist ein weiblicher Plural: tvoje hlače. Tvoja steht bei einer weiblichen Sache.", "it": "Hlače (pantaloni) è un femminile plurale: tvoje hlače. Tvoja è per una sola cosa femminile." },
             "reply": { "sl": "Tvoja? Samo ena hlačnica? Ha ha!", "en": "Tvoja? Just the one trouser leg? Ha ha!", "de": "Tvoja? Nur ein Hosenbein? Ha ha!", "it": "Tvoja? Una gamba sola dei pantaloni? Ah ah!" } },
@@ -137,9 +137,9 @@
         { "who": "nejc", "sl": "{learner} … lahko luč ostane prižgana? Samo malo?", "en": "{learner} … can the light stay on? Just for a bit?", "de": "{learner} … darf das Licht anbleiben? Nur ein bisschen?", "it": "{learner} … la luce può restare accesa? Solo un pochino?" },
         { "choices": [
           { "sl": "Lahko. Lahko noč, Nejc.", "en": "It can. Good night, Nejc.", "de": "Darf es. Gute Nacht, Nejc.", "it": "Sì. Buona notte, Nejc.", "ok": true,
-            "reply": { "sl": "Lahko noč, {learner}. In hvala.", "en": "Good night, {learner}. And thanks.", "de": "Gute Nacht, {learner}. Und danke.", "it": "Buona notte, {learner}. E grazie." } },
+            "reply": { "sl": "Lahko noč, {learner}. In hvala.", "en": "Good night, {learner}. And thanks.", "de": "Gute Nacht, {learner}. Und danke.", "it": "Buona notte, {learner}. E grazie.", "act": { "nejc": { "pose": "sleep" } } } },
           { "sl": "Seveda. Lahko noč, Nejc, lepo spi.", "en": "Of course. Good night, Nejc, sleep well.", "de": "Natürlich. Gute Nacht, Nejc, schlaf gut.", "it": "Certo. Buona notte, Nejc, dormi bene.", "ok": true,
-            "reply": { "sl": "Ti tudi, {learner}. Burja, tiho bodi!", "en": "You too, {learner}. Burja, be quiet!", "de": "Du auch, {learner}. Bora, sei still!", "it": "Anche tu, {learner}. Bora, stai zitta!" } },
+            "reply": { "sl": "Ti tudi, {learner}. Burja, tiho bodi!", "en": "You too, {learner}. Burja, be quiet!", "de": "Du auch, {learner}. Bora, sei still!", "it": "Anche tu, {learner}. Bora, stai zitta!", "act": { "nejc": { "pose": "sleep" } } } },
           { "sl": "Lahko. Dobro noč, Nejc.", "en": "It can. Good night, Nejc.", "de": "Darf es. Gute Nacht, Nejc.", "it": "Sì. Buona notte, Nejc.",
             "why": { "en": "Good night in Slovene is lahko noč (literally 'easy night'), not dobro noč.", "de": "Gute Nacht heißt auf Slowenisch lahko noč (wörtlich ‚leichte Nacht‘), nicht dobro noč.", "it": "Buona notte in sloveno è lahko noč (letteralmente 'notte leggera'), non dobro noč." },
             "reply": { "sl": "Dobro noč? Ha ha, to je nemško, {learner}!", "en": "Dobro noč? Ha ha, that's German, {learner}!", "de": "Dobro noč? Ha ha, das ist Deutsch, {learner}!", "it": "Dobro noč? Ah ah, questo è tedesco, {learner}!" } }
@@ -151,7 +151,7 @@
     {
       "id": "vstani-umij",
       "lines": [
-        { "who": "nejc", "sl": "Mmm … {learner}? Dobro, vstajam. Zakaj si ti že {m:oblečen|f:oblečena}?", "en": "Mmm … {learner}? OK, I'm getting up. Why are you dressed already?", "de": "Mmm … {learner}? Gut, ich steh auf. Warum bist du schon angezogen?", "it": "Mmm … {learner}? Va bene, mi alzo. Perché sei già {m:vestito|f:vestita}?" },
+        { "who": "nejc", "sl": "Mmm … {learner}? Dobro, vstajam. Zakaj si ti že {m:oblečen|f:oblečena}?", "en": "Mmm … {learner}? OK, I'm getting up. Why are you dressed already?", "de": "Mmm … {learner}? Gut, ich steh auf. Warum bist du schon angezogen?", "it": "Mmm … {learner}? Va bene, mi alzo. Perché sei già {m:vestito|f:vestita}?", "act": { "nejc": { "pose": "sit" } } },
         { "choices": [
           { "sl": "Ker sem že {m:umil|f:umila} in {m:oblekel|f:oblekla}.", "en": "Because I've already washed and dressed (what?).", "de": "Weil ich schon gewaschen und angezogen habe (was?).", "it": "Perché ho già lavato e vestito (cosa?).",
             "grammar": "povratni-glagoli", "why": { "en": "Washing and dressing yourself is reflexive: sem se {m:umil|f:umila}, sem se {m:oblekel|f:oblekla}. Without se you washed something else.", "de": "Sich waschen und sich anziehen ist reflexiv: sem se {m:umil|f:umila}, sem se {m:oblekel|f:oblekla}. Ohne se hast du etwas anderes gewaschen.", "it": "Lavarsi e vestirsi sono riflessivi: sem se {m:umil|f:umila}, sem se {m:oblekel|f:oblekla}. Senza se hai lavato qualcos'altro." },
@@ -165,7 +165,7 @@
         { "who": "nejc", "sl": "Jaz se ne umivam. Voda je mrzla!", "en": "I'm not washing. The water's cold!", "de": "Ich wasch mich nicht. Das Wasser ist kalt!", "it": "Io non mi lavo. L'acqua è fredda!" },
         { "choices": [
           { "sl": "Umij se, Nejc! Hitro, pa bo mimo.", "en": "Wash, Nejc! Quick, and it's over.", "de": "Wasch dich, Nejc! Schnell, dann ist es vorbei.", "it": "Lavati, Nejc! Svelto, e passa.", "ok": true,
-            "reply": { "sl": "Brr! Dobro, dobro. Ampak samo obraz.", "en": "Brr! OK, OK. But only my face.", "de": "Brr! Gut, gut. Aber nur das Gesicht.", "it": "Brr! Va bene, va bene. Ma solo la faccia." } },
+            "reply": { "sl": "Brr! Dobro, dobro. Ampak samo obraz.", "en": "Brr! OK, OK. But only my face.", "de": "Brr! Gut, gut. Aber nur das Gesicht.", "it": "Brr! Va bene, va bene. Ma solo la faccia.", "act": { "nejc": { "to": "bed" } } } },
           { "sl": "Umij, Nejc! Hitro, pa bo mimo.", "en": "Wash (what?), Nejc! Quick, and it's over.", "de": "Wasch (was?), Nejc! Schnell, dann ist es vorbei.", "it": "Lava (cosa?), Nejc! Svelto, e passa.",
             "grammar": "povratni-glagoli", "why": { "en": "Wash yourself: umij se. Umij alone needs a thing to wash: umij krožnik.", "de": "Wasch dich: umij se. Umij allein braucht etwas, das man wäscht: umij krožnik.", "it": "Lavati: umij se. Umij da solo vuole una cosa da lavare: umij krožnik." },
             "reply": { "sl": "Umij? Kaj naj umijem? Tebe? Hi hi!", "en": "Wash? Wash what? You? Hee hee!", "de": "Waschen? Was denn? Dich? Hihi!", "it": "Lavare? Cosa? Te? Ih ih!" } },
@@ -173,7 +173,7 @@
             "grammar": "velelnik", "why": { "en": "You're telling Nejc what to do: the imperative, umij se. Umijem se is 'I wash'.", "de": "Du sagst Nejc, was er tun soll: der Imperativ, umij se. Umijem se heißt ‚ich wasche mich‘.", "it": "Dici a Nejc che cosa fare: l'imperativo, umij se. Umijem se significa 'mi lavo'." },
             "reply": { "sl": "Spet? Saj si že {m:čist|f:čista}, {learner}!", "en": "Again? You're already clean, {learner}!", "de": "Schon wieder? Du bist doch schon sauber, {learner}!", "it": "Di nuovo? Ma sei già {m:pulito|f:pulita}, {learner}!" } }
         ] },
-        { "who": "nejc", "sl": "Zdaj sem pa buden! Greva jest?", "en": "Now I'm wide awake! Shall we go and eat?", "de": "Jetzt bin ich wach! Gehen wir essen?", "it": "Adesso sì che sono sveglio! Andiamo a mangiare?" }
+        { "who": "nejc", "sl": "Zdaj sem pa buden! Greva jest?", "en": "Now I'm wide awake! Shall we go and eat?", "de": "Jetzt bin ich wach! Gehen wir essen?", "it": "Adesso sì che sono sveglio! Andiamo a mangiare?", "act": { "nejc": { "to": "stairs" } } }
       ]
     },
     {
@@ -191,10 +191,10 @@
             "grammar": "prihodnjik", "why": { "en": "The future is bom + the l-form: bom {m:prišel|f:prišla}. Pridem is the present.", "de": "Das Futur ist bom + die l-Form: bom {m:prišel|f:prišla}. Pridem ist das Präsens.", "it": "Il futuro è bom + la forma in -l: bom {m:prišel|f:prišla}. Pridem è il presente." },
             "reply": { "sl": "Bom pridem? Hi hi, zdaj pa ti spiš, {learner}!", "en": "Bom pridem? Hee hee, now you're the one asleep, {learner}!", "de": "Bom pridem? Hihi, jetzt schläfst du ja, {learner}!", "it": "Bom pridem? Ih ih, adesso sei tu che dormi, {learner}!" } }
         ] },
-        { "who": "nejc", "sl": "Dobro, vstajam! Kaj pa na ribniku?", "en": "OK, I'm getting up! And what at the pond?", "de": "Gut, ich steh auf! Und was am Teich?", "it": "Va bene, mi alzo! E allo stagno, che si fa?" },
+        { "who": "nejc", "sl": "Dobro, vstajam! Kaj pa na ribniku?", "en": "OK, I'm getting up! And what at the pond?", "de": "Gut, ich steh auf! Und was am Teich?", "it": "Va bene, mi alzo! E allo stagno, che si fa?", "act": { "nejc": { "pose": "sit" } } },
         { "choices": [
           { "sl": "Lovila bova žabe. In ribe!", "en": "We'll catch frogs, the two of us. And fish!", "de": "Wir zwei fangen Frösche. Und Fische!", "it": "Prenderemo le rane, noi due. E i pesci!", "ok": true,
-            "reply": { "sl": "Žabe! Super! Že sem pokonci!", "en": "Frogs! Great! I'm up already!", "de": "Frösche! Super! Ich bin schon auf!", "it": "Rane! Forte! Sono già in piedi!" } },
+            "reply": { "sl": "Žabe! Super! Že sem pokonci!", "en": "Frogs! Great! I'm up already!", "de": "Frösche! Super! Ich bin schon auf!", "it": "Rane! Forte! Sono già in piedi!", "act": { "nejc": { "to": "bed" } } } },
           { "sl": "Lovili bomo žabe. In ribe!", "en": "We'll catch frogs, all of us. And fish!", "de": "Wir alle fangen Frösche. Und Fische!", "it": "Prenderemo le rane, tutti noi. E i pesci!",
             "grammar": "dvojina", "why": { "en": "Two of you: the dual, lovila bova. Lovili bomo is for three or more.", "de": "Ihr seid zu zweit: der Dual, lovila bova. Lovili bomo ist für drei oder mehr.", "it": "Siete in due: il duale, lovila bova. Lovili bomo è per tre o più." },
             "reply": { "sl": "Bomo? Kdo še pride? Samo midva, ja?", "en": "Bomo (all of us)? Who else is coming? Just the two of us, right?", "de": "Bomo (wir alle)? Wer kommt noch? Nur wir zwei, oder?", "it": "Bomo (tutti)? Chi altro viene? Solo noi due, vero?" } },
@@ -202,7 +202,7 @@
             "grammar": "dvojina", "why": { "en": "You'll both go: the dual, lovila bova. {m:Lovil|f:Lovila} bom is just you.", "de": "Ihr geht beide: der Dual, lovila bova. {m:Lovil|f:Lovila} bom bist nur du.", "it": "Ci andate tutti e due: il duale, lovila bova. {m:Lovil|f:Lovila} bom sei solo tu." },
             "reply": { "sl": "Samo ti? In jaz? Jaz tudi hočem žabe!", "en": "Just you? And me? I want frogs too!", "de": "Nur du? Und ich? Ich will auch Frösche!", "it": "Solo tu? E io? Anch'io voglio le rane!" } }
         ] },
-        { "who": "nejc", "sl": "Hlače, torba, zajtrk … Greva, {learner}!", "en": "Trousers, bag, breakfast … Let's go, {learner}!", "de": "Hose, Tasche, Frühstück … Los, {learner}!", "it": "Pantaloni, cartella, colazione … Andiamo, {learner}!" }
+        { "who": "nejc", "sl": "Hlače, torba, zajtrk … Greva, {learner}!", "en": "Trousers, bag, breakfast … Let's go, {learner}!", "de": "Hose, Tasche, Frühstück … Los, {learner}!", "it": "Pantaloni, cartella, colazione … Andiamo, {learner}!", "act": { "nejc": { "to": "stairs" } } }
       ]
     },
     {
@@ -264,7 +264,7 @@
       "id": "burja-okno",
       "lines": [
         { "who": "nejc", "sl": "{learner}! Bum! Okno … burja ga je odprla! Mrzlo je!", "en": "{learner}! Bang! The window … the burja blew it open! It's cold!", "de": "{learner}! Bumm! Das Fenster … die Bora hat es aufgerissen! Es ist kalt!", "it": "{learner}! Bum! La finestra … la bora l'ha spalancata! Fa freddo!",
-          "sky": { "wind": 0.9, "gloom": 0.3 } },
+          "sky": { "wind": 0.9, "gloom": 0.3 }, "fx": { "window": 1 }, "act": { "nejc": { "pose": "sit" } } },
         { "choices": [
           { "sl": "Počakaj, moram zapreti okno.", "en": "Hang on, I have to shut the window.", "de": "Warte, ich muss das Fenster zumachen.", "it": "Aspetta, devo chiudere la finestra.", "ok": true,
             "reply": { "sl": "Hitro, hitro! Burja je močna!", "en": "Quick, quick! The burja is strong!", "de": "Schnell, schnell! Die Bora ist stark!", "it": "{m:Svelto, svelto|f:Svelta, svelta}! La bora è forte!" } },
@@ -272,7 +272,7 @@
             "grammar": "modalni-glagoli", "why": { "en": "After moram (I must) comes the infinitive: moram zapreti.", "de": "Nach moram (ich muss) steht der Infinitiv: moram zapreti.", "it": "Dopo moram (devo) viene l'infinito: moram zapreti." },
             "reply": { "sl": "Moram zaprem? Hi hi, kar zapri, {learner}!", "en": "Moram zaprem? Hee hee, just shut it, {learner}!", "de": "Moram zaprem? Hihi, mach's einfach zu, {learner}!", "it": "Moram zaprem? Ih ih, chiudila e basta, {learner}!" } }
         ] },
-        { "who": "nejc", "sl": "Uf, hvala. {learner}, jaz nisem zaspan. Nočem v posteljo.", "en": "Phew, thanks. {learner}, I'm not sleepy. I don't want to go to bed.", "de": "Puh, danke. {learner}, ich bin nicht müde. Ich will nicht ins Bett.", "it": "Uff, grazie. {learner}, non ho sonno. Non voglio andare a letto." },
+        { "who": "nejc", "sl": "Uf, hvala. {learner}, jaz nisem zaspan. Nočem v posteljo.", "en": "Phew, thanks. {learner}, I'm not sleepy. I don't want to go to bed.", "de": "Puh, danke. {learner}, ich bin nicht müde. Ich will nicht ins Bett.", "it": "Uff, grazie. {learner}, non ho sonno. Non voglio andare a letto.", "fx": { "window": 0 } },
         { "choices": [
           { "sl": "Smeš spati. Pozno je.", "en": "You may sleep. It's late.", "de": "Du darfst schlafen. Es ist spät.", "it": "Puoi dormire. È tardi.",
             "grammar": "modalni-glagoli", "why": { "en": "Smeš means 'you may'. Here it's a must: moraš spati.", "de": "Smeš heißt ‚du darfst‘. Hier ist es ein Muss: moraš spati.", "it": "Smeš significa 'puoi, ti è permesso'. Qui è un obbligo: moraš spati." },
@@ -281,7 +281,7 @@
             "grammar": "modalni-glagoli", "why": { "en": "After moraš (you must) comes the infinitive: moraš spati.", "de": "Nach moraš (du musst) steht der Infinitiv: moraš spati.", "it": "Dopo moraš (devi) viene l'infinito: moraš spati." },
             "reply": { "sl": "Moraš spiš? Hi hi, kako že gre to, {learner}?", "en": "Moraš spiš? Hee hee, how does that go again, {learner}?", "de": "Moraš spiš? Hihi, wie geht das nochmal, {learner}?", "it": "Moraš spiš? Ih ih, com'è che si dice, {learner}?" } },
           { "sl": "Moraš spati. Pozno je.", "en": "You have to sleep. It's late.", "de": "Du musst schlafen. Es ist spät.", "it": "Devi dormire. È tardi.", "ok": true,
-            "reply": { "sl": "Uf. Dobro. Ampak ti ostaneš tukaj, ja?", "en": "Ugh. OK. But you stay here, OK?", "de": "Uff. Gut. Aber du bleibst hier, ja?", "it": "Uffa. Va bene. Ma tu resti qui, eh?" } }
+            "reply": { "sl": "Uf. Dobro. Ampak ti ostaneš tukaj, ja?", "en": "Ugh. OK. But you stay here, OK?", "de": "Uff. Gut. Aber du bleibst hier, ja?", "it": "Uffa. Va bene. Ma tu resti qui, eh?", "act": { "nejc": { "pose": "lie" } } } }
         ] },
         { "who": "nejc", "sl": "Burja je že tišja. Lahko noč, {learner}.", "en": "The burja's quieter already. Good night, {learner}.", "de": "Die Bora ist schon leiser. Gute Nacht, {learner}.", "it": "La bora è già più calma. Buona notte, {learner}.",
           "sky": { "wind": 0.4 } }

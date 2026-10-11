@@ -33,7 +33,7 @@
       "when": ["evening"], "chance": 0.5, "dialog": "svetilka", "dialogs": ["svetilka-bom", "svetilka-komu", "svetilka"],"reward": { "wood": 15 }, "marker": "🏮",
       "memory": { "sl": "svetilko, ki sem ti jo prinesel v šotor", "en": "the lamp I brought you in the tent", "de": "die Lampe, die ich dir ins Zelt gebracht habe", "it": "la lampada che ti ho portato nella tenda" } },
     { "id": "zgodba", "title": { "sl": "Zala hoče zgodbo", "en": "Zala wants a story", "de": "Zala will eine Geschichte", "it": "Zala vuole una storia" }, "who": "zala",
-      "when": ["evening", "night"], "chance": 0.4, "dialog": "zgodba", "dialogs": ["zgodba-medved", "zgodba"],"reward": { "wisdom": 20 }, "marker": "📖",
+      "when": ["evening", "night"], "chance": 0.4, "dialog": "zgodba", "dialogs": ["zgodba-medved", "zgodba"],"reward": { "wisdom": 20 }, "marker": "📖", "act": { "zala": { "pose": "lie" } },
       "memory": { "sl": "zgodbo o Zlatorogu, ki si mi jo povedal v šotoru", "en": "the story of Zlatorog you told me in the tent", "de": "die Geschichte von Zlatorog, die du mir im Zelt erzählt hast", "it": "la storia di Zlatorog che mi hai raccontato nella tenda" } },
     { "id": "odeja", "title": { "sl": "Babica prinese odejo", "en": "Grandma brings a blanket", "de": "Oma bringt eine Decke", "it": "La nonna porta una coperta" }, "who": "babica",
       "when": ["evening", "night"], "chance": 0.4, "dialog": "odeja", "dialogs": ["odeja-caj", "odeja"],"reward": { "food": 15 }, "marker": "🛌",
@@ -114,7 +114,7 @@
         { "who": "zala", "sl": "Povej. Ampak počasi. In ne strašno!", "en": "Tell it. But slowly. And not scary!", "de": "Erzähl. Aber langsam. Und nicht gruselig!", "it": "Racconta. Ma piano. E niente di pauroso!" },
         { "choices": [
           { "sl": "Nekoč je visoko v gorah živel bel gams …", "en": "Once, high in the mountains, there lived a white chamois …", "de": "Einst lebte hoch in den Bergen ein weißer Gamsbock …", "it": "C'era una volta, in alto sulle montagne, un camoscio bianco …", "ok": true,
-            "reply": { "sl": "Mmm … in potem? … zzz …", "en": "Mmm … and then? … zzz …", "de": "Mmm … und dann? … zzz …", "it": "Mmm … e poi? … zzz …" } },
+            "reply": { "sl": "Mmm … in potem? … zzz …", "en": "Mmm … and then? … zzz …", "de": "Mmm … und dann? … zzz …", "it": "Mmm … e poi? … zzz …", "act": { "zala": { "pose": "sleep" } } } },
           { "sl": "Nekoč je visoko v gorah živela bel gams …", "en": "Once, high in the mountains, there lived a white chamois …", "de": "Einst lebte hoch in den Bergen ein weißer Gamsbock …", "it": "C'era una volta, in alto sulle montagne, un camoscio bianco …",
             "grammar": "pretekli-cas", "why": { "en": "Gams is masculine: je živel. Živela is feminine (srna je živela).", "de": "Gams ist männlich: je živel. Živela ist weiblich (srna je živela).", "it": "Gams è maschile: je živel. Živela è femminile (srna je živela)." },
             "reply": { "sl": "Živela? Gams je punca? Hi hi!", "en": "Živela (she lived)? The chamois is a girl? Tee-hee!", "de": "Živela (sie lebte)? Der Gams ist ein Mädchen? Hihi!", "it": "Živela (lei visse)? Il camoscio è una femmina? Ih ih!" } },
@@ -331,7 +331,7 @@
           { "sl": "O medvedu, ki je imel rad med.", "en": "About a bear who liked honey.", "de": "Von einem Bären, der Honig mochte.", "it": "Di un orso che amava il miele.", "ok": true,
             "reply": { "sl": "Mmm, med … Tudi jaz imam rada med …", "en": "Mmm, honey … I like honey too …", "de": "Mmm, Honig … Ich mag auch Honig …", "it": "Mmm, il miele … Anche a me piace il miele …" } }
         ] },
-        { "who": "zala", "sl": "Medved … med … zzz. Lahko noč, {learner}.", "en": "Bear … honey … zzz. Good night, {learner}.", "de": "Bär … Honig … zzz. Gute Nacht, {learner}.", "it": "Orso … miele … zzz. Buonanotte, {learner}." }
+        { "who": "zala", "sl": "Medved … med … zzz. Lahko noč, {learner}.", "en": "Bear … honey … zzz. Good night, {learner}.", "de": "Bär … Honig … zzz. Gute Nacht, {learner}.", "it": "Orso … miele … zzz. Buonanotte, {learner}.", "act": { "zala": { "pose": "sleep" } } }
       ]
     },
     {

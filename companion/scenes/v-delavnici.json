@@ -59,7 +59,7 @@
         { "who": "france", "sl": "Zdaj pa žeblji. Koliko jih je v škatli? Preštej, prosim.", "en": "Now the nails. How many are there in the tin? Count them, please.", "de": "Jetzt die Nägel. Wie viele sind in der Dose? Zähl sie bitte.", "it": "Adesso i chiodi. Quanti ce ne sono nella scatola? Contali, per favore." },
         { "choices": [
           { "sl": "V škatli so samo štirje žeblji.", "en": "There are only four nails in the tin.", "de": "In der Dose sind nur vier Nägel.", "it": "Nella scatola ci sono solo quattro chiodi.", "ok": true,
-            "reply": { "sl": "Štirje bodo dovolj. Zdaj pa drži desko.", "en": "Four will do. Now hold the board.", "de": "Vier reichen. Jetzt halt das Brett.", "it": "Quattro bastano. Adesso tieni l'asse." } },
+            "reply": { "sl": "Štirje bodo dovolj. Zdaj pa drži desko.", "en": "Four will do. Now hold the board.", "de": "Vier reichen. Jetzt halt das Brett.", "it": "Quattro bastano. Adesso tieni l'asse.", "fx": { "hammer": 1 } } },
           { "sl": "V škatli so samo štiri žeblji.", "en": "There are only four nails in the tin.", "de": "In der Dose sind nur vier Nägel.", "it": "Nella scatola ci sono solo quattro chiodi.",
             "grammar": "stevila-samostalniki", "why": { "en": "Žebelj (nail) is masculine: štirje žeblji. Štiri is for feminine and neuter things (štiri deske).", "de": "Žebelj (Nagel) ist männlich: štirje žeblji. Štiri steht bei weiblichen und sächlichen Dingen (štiri deske).", "it": "Žebelj (chiodo) è maschile: štirje žeblji. Štiri è per le cose femminili e neutre (štiri deske)." },
             "reply": { "sl": "Štiri? Kot štiri deske? Prešteti moram še enkrat.", "en": "Štiri? Like four boards? I'll have to count again.", "de": "Štiri? Wie vier Bretter? Ich muss noch mal zählen.", "it": "Štiri? Come quattro assi? Devo contare di nuovo." } },
@@ -67,7 +67,7 @@
             "grammar": "stevila-samostalniki", "why": { "en": "Up to four, the plural: štirje žeblji. Žebljev (the genitive plural) comes from five on: pet žebljev.", "de": "Bis vier der Plural: štirje žeblji. Žebljev (Genitiv Plural) kommt ab fünf: pet žebljev.", "it": "Fino a quattro, il plurale: štirje žeblji. Žebljev (genitivo plurale) si usa da cinque in poi: pet žebljev." },
             "reply": { "sl": "Žebljev? Potem jih prinesi pet!", "en": "Žebljev? Then bring five!", "de": "Žebljev? Dann bring fünf!", "it": "Žebljev? Allora portane cinque!" } }
         ] },
-        { "who": "france", "sl": "Tako! Klop je kot nova. Sosedje smo, klop je za vse. Kam daš kladivo?", "en": "There! The bench is as good as new. We're neighbours, the bench is for everyone. Where do you put the hammer?", "de": "So! Die Bank ist wie neu. Wir sind Nachbarn, die Bank ist für alle. Wohin tust du den Hammer?", "it": "Ecco! La panca è come nuova. Siamo vicini, la panca è di tutti. Dove metti il martello?" },
+        { "who": "france", "sl": "Tako! Klop je kot nova. Sosedje smo, klop je za vse. Kam daš kladivo?", "en": "There! The bench is as good as new. We're neighbours, the bench is for everyone. Where do you put the hammer?", "de": "So! Die Bank ist wie neu. Wir sind Nachbarn, die Bank ist für alle. Wohin tust du den Hammer?", "it": "Ecco! La panca è come nuova. Siamo vicini, la panca è di tutti. Dove metti il martello?", "fx": { "hammer": 0 } },
         { "choices": [
           { "sl": "Obesim ga na steno.", "en": "I'll hang it on the wall.", "de": "Ich hänge ihn an die Wand.", "it": "Lo appendo al muro.", "ok": true,
             "reply": { "sl": "Prav. Red mora biti.", "en": "Right. There has to be order.", "de": "Richtig. Ordnung muss sein.", "it": "Giusto. Ci vuole ordine." } },
@@ -170,9 +170,9 @@
             "grammar": "spol-samostalnikov", "why": { "en": "Deska is feminine: jo. Ga is for a masculine or neuter word (kladivo).", "de": "Deska ist weiblich: jo. Ga steht für ein männliches oder sächliches Wort (kladivo).", "it": "Deska è femminile: jo. Ga è per una parola maschile o neutra (kladivo)." },
             "reply": { "sl": "Ga? Kladivo imam jaz, ti drži desko!", "en": "Ga (him)? I've got the hammer, you hold the board!", "de": "Ga (ihn)? Den Hammer hab ich, du hältst das Brett!", "it": "Ga (lo)? Il martello ce l'ho io, tu tieni l'asse!" } },
           { "sl": "Prav, držim jo trdno.", "en": "All right, I'm holding it tight.", "de": "Gut, ich halte es fest.", "it": "Va bene, la tengo ferma.", "ok": true,
-            "reply": { "sl": "Tako. Ena, dva … bum!", "en": "That's it. One, two … bang!", "de": "So. Eins, zwei … bumm!", "it": "Così. Uno, due … bum!" } }
+            "reply": { "sl": "Tako. Ena, dva … bum!", "en": "That's it. One, two … bang!", "de": "So. Eins, zwei … bumm!", "it": "Così. Uno, due … bum!", "fx": { "hammer": 1 } } }
         ] },
-        { "who": "france", "sl": "Tako! Klop je spet trdna. Sosedje smo, jutri sediva na njej.", "en": "There! The bench is steady again. We're neighbours: tomorrow we'll sit on it, the two of us.", "de": "So! Die Bank ist wieder fest. Wir sind Nachbarn: Morgen sitzen wir zwei darauf.", "it": "Ecco! La panca è di nuovo stabile. Siamo vicini: domani ci sediamo sopra noi due." }
+        { "who": "france", "sl": "Tako! Klop je spet trdna. Sosedje smo, jutri sediva na njej.", "en": "There! The bench is steady again. We're neighbours: tomorrow we'll sit on it, the two of us.", "de": "So! Die Bank ist wieder fest. Wir sind Nachbarn: Morgen sitzen wir zwei darauf.", "it": "Ecco! La panca è di nuovo stabile. Siamo vicini: domani ci sediamo sopra noi due.", "fx": { "hammer": 0 } }
       ]
     },
     {

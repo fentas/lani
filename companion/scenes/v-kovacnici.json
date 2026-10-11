@@ -265,7 +265,7 @@
       "id": "meh-pazi",
       "lines": [
         { "who": "nejc", "sl": "{learner}! Tone pije kavo. Jaz gonim meh. Glej, kako velik ogenj!", "en": "{learner}! Tone is having coffee. I'm working the bellows. Look how big the fire is!", "de": "{learner}! Tone trinkt Kaffee. Ich mache den Blasebalg. Schau, wie groß das Feuer ist!", "it": "{learner}! Tone beve il caffè. Io aziono il mantice. Guarda che fuoco grande!",
-          "fx": { "forge": 1 } },
+          "fx": { "forge": 1 }, "act": { "tone": { "to": "door" } } },
         { "choices": [
           { "sl": "Nejc, pazim! Iskre letijo!", "en": "Nejc, I'm careful! Sparks are flying!", "de": "Nejc, ich pass auf! Funken fliegen!", "it": "Nejc, sto {m:attento|f:attenta}! Volano scintille!",
             "grammar": "velelnik", "why": { "en": "You're telling Nejc what to do: the imperative, pazi! Pazim means 'I am careful'.", "de": "Du sagst Nejc, was er tun soll: der Imperativ, pazi! Pazim heißt ‚ich passe auf‘.", "it": "Dici a Nejc che cosa fare: l'imperativo, pazi! Pazim significa 'sto {m:attento|f:attenta} io'." },
@@ -285,7 +285,7 @@
             "reply": { "sl": "Ti počakaš? Prav, jaz pa pihnem še enkrat!", "en": "You'll wait? OK, then I'll give it one more puff!", "de": "Du wartest? Gut, dann puste ich noch einmal!", "it": "Aspetti tu? Va bene, allora io soffio ancora una volta!", "fx": { "sparks": 1 } } }
         ] },
         { "who": "nejc", "sl": "Pst! Tone prihaja. Midva nisva nič naredila, ja?", "en": "Psst! Tone's coming. We didn't do anything, right?", "de": "Pst! Tone kommt. Wir zwei haben nichts gemacht, ja?", "it": "Ssst! Arriva Tone. Noi due non abbiamo fatto niente, vero?",
-          "fx": { "forge": 0 } }
+          "fx": { "forge": 0 }, "act": { "tone": { "to": "anvil" } } }
       ]
     },
     {

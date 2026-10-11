@@ -321,12 +321,13 @@
     },
     {
       "id": "roke-ovce",
+      "months": [9, 10],
       "sky_stays": false,
       "count": { "from": "dice", "min": 16, "max": 24, "gender": "f" },
       "memory": { "sl": "jutro, ko sva štela ovce v megli", "en": "the morning we counted the sheep in the fog", "de": "den Morgen, an dem wir im Nebel die Schafe gezählt haben", "it": "la mattina in cui abbiamo contato le pecore nella nebbia" },
       "lines": [
         { "who": "luka", "sl": "Ej, {learner}, dobro jutro! Ovce gredo s planine. Pomagaj mi jih prešteti!", "en": "Hey, {learner}, good morning! The sheep are coming down from the pasture. Help me count them!", "de": "He, {learner}, guten Morgen! Die Schafe kommen von der Alm herunter. Hilf mir, sie zu zählen!", "it": "Ehi, {learner}, buongiorno! Le pecore scendono dal pascolo. Aiutami a contarle!",
-          "sky": { "fog": 0.45 } },
+          "sky": { "fog": 0.45 }, "fx": { "sheepbells": 1 } },
         { "choices": [
           { "sl": "Tu {!je|sta|so|je} {n} {!ovca|ovci|ovce|ovc}.", "en": "There {is|are} {n} sheep here.", "de": "Hier {ist|sind} {n} {Schaf|Schafe}.", "it": "Qui {c'è|ci sono} {n} {pecora|pecore}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, 21 to 24 too, the genitive plural with je}: tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}.", "de": "{Eins: der Singular|Zwei: der Dual|Drei und vier: der Plural|Ab fünf, auch 21 bis 24: der Genitiv Plural mit je}: tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}.", "it": "{Uno: il singolare|Due: il duale|Tre e quattro: il plurale|Da cinque in su, anche da 21 a 24: il genitivo plurale con je}: tu {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}." },
