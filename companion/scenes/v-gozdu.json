@@ -89,7 +89,7 @@
             "grammar": "dvojina", "why": { "en": "Grem is 'I go'. Luka is coming too, so the two of you: greva.", "de": "Grem heißt ‚ich gehe‘. Luka kommt mit, also ihr zwei: greva.", "it": "Grem significa 'vado'. Anche Luka viene, quindi voi due: greva." },
             "reply": { "sl": "Grem? Kam, domov? Ej, ovca še manjka!", "en": "Grem (I'm going)? Where, home? Hey, the sheep's still missing!", "de": "Grem (ich gehe)? Wohin, nach Hause? He, das Schaf fehlt doch noch!", "it": "Grem (vado)? Dove, a casa? Ehi, la pecora manca ancora!" } }
         ] },
-        { "who": "luka", "sl": "Slišiš? Zvonec! Tam, za smreko!", "en": "Hear that? A bell! There, behind the spruce!", "de": "Hörst du das? Eine Glocke! Dort, hinter der Fichte!", "it": "Senti? Un campanaccio! Là, dietro l'abete!" },
+        { "who": "luka", "sl": "Slišiš? Zvonec! Tam, za smreko!", "en": "Hear that? A bell! There, behind the spruce!", "de": "Hörst du das? Eine Glocke! Dort, hinter der Fichte!", "it": "Senti? Un campanaccio! Là, dietro l'abete!", "fx": { "sheepbells": 1 } },
         { "choices": [
           { "sl": "Vidim jo! Ovca je za smreko.", "en": "I see her! The sheep is behind the spruce.", "de": "Ich sehe es! Das Schaf ist hinter der Fichte.", "it": "La vedo! La pecora è dietro l'abete.", "ok": true,
             "reply": { "sl": "Bela! Kje si bila? Hvala, {learner}!", "en": "Bela! Where were you? Thanks, {learner}!", "de": "Bela! Wo warst du? Danke, {learner}!", "it": "Bela! Dov'eri? Grazie, {learner}!" } },
@@ -347,7 +347,7 @@
             "grammar": "glagoli-sedanjik", "why": { "en": "Pomagaš mi means you help me. You help him: pomagam ti.", "de": "Pomagaš mi heißt, du hilfst mir. Du hilfst ihm: pomagam ti.", "it": "Pomagaš mi significa 'mi aiuti tu'. Sei tu ad aiutare lui: pomagam ti." },
             "reply": { "sl": "Jaz tebi? Ej, ovca je moja, ne tvoja!", "en": "Me help you? Hey, the sheep's mine, not yours!", "de": "Ich dir? He, das Schaf ist meins, nicht deins!", "it": "Io a te? Ehi, la pecora è mia, non tua!" } }
         ] },
-        { "who": "luka", "sl": "Poslušaj … zvonec! Ampak kje? Nič ne vidim.", "en": "Listen … a bell! But where? I can't see a thing.", "de": "Hör mal … eine Glocke! Aber wo? Ich sehe nichts.", "it": "Ascolta … un campanaccio! Ma dove? Non vedo niente." },
+        { "who": "luka", "sl": "Poslušaj … zvonec! Ampak kje? Nič ne vidim.", "en": "Listen … a bell! But where? I can't see a thing.", "de": "Hör mal … eine Glocke! Aber wo? Ich sehe nichts.", "it": "Ascolta … un campanaccio! Ma dove? Non vedo niente.", "fx": { "sheepbells": 1 } },
         { "choices": [
           { "sl": "Tam, pri potok!", "en": "There, by the stream (nominative)!", "de": "Dort, bei der Bach!", "it": "Là, vicino il ruscello!",
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Pri (by, at) takes the locative: pri potoku, pri hiši.", "de": "Pri (bei, an) verlangt den Lokativ: pri potoku, pri hiši.", "it": "Pri (presso, vicino a) vuole il locativo: pri potoku, pri hiši." },

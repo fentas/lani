@@ -92,7 +92,7 @@
         { "who": "otroci", "sl": "{learner}, {learner}! Pridi, lovimo se!", "en": "{learner}, {learner}! Come, we are playing tag!", "de": "{learner}, {learner}! Komm, wir spielen Fangen!", "it": "{learner}, {learner}! Vieni, giochiamo ad acchiapparella!" },
         { "choices": [
           { "sl": "Prav, pridem! Kdo lovi?", "en": "OK, I am coming! Who is 'it'?", "de": "Gut, ich komme! Wer fängt?", "it": "Va bene, arrivo! Chi acchiappa?", "ok": true,
-            "reply": { "sl": "Ti loviš! Ena, dve, tri!", "en": "You are 'it'! One, two, three!", "de": "Du fängst! Eins, zwei, drei!", "it": "Acchiappi tu! Uno, due, tre!" } },
+            "reply": { "sl": "Ti loviš! Ena, dve, tri!", "en": "You are 'it'! One, two, three!", "de": "Du fängst! Eins, zwei, drei!", "it": "Acchiappi tu! Uno, due, tre!", "act": { "otroci": { "to": "behind-stump" } } } },
           { "sl": "Prav, pridem! Kdo lovite?", "en": "OK, I am coming! Who are you (all) catching?", "de": "Gut, ich komme! Wen fangt ihr?", "it": "Va bene, arrivo! Chi acchiappate?",
             "grammar": "glagoli-sedanjik", "why": { "en": "Kdo (who) is singular: kdo lovi. Lovite is 'you (several) catch'.", "de": "Kdo (wer) steht im Singular: kdo lovi. Lovite heißt ‚ihr fangt‘.", "it": "Kdo (chi) è singolare: kdo lovi. Lovite significa 'voi acchiappate'." },
             "reply": { "sl": "Mi? Mi ne lovimo, mi bežimo! Ha ha!", "en": "Us? We're not catching, we're running away! Ha ha!", "de": "Wir? Wir fangen nicht, wir rennen weg! Haha!", "it": "Noi? Noi non acchiappiamo, noi scappiamo! Ah ah!" } },
@@ -100,10 +100,10 @@
             "grammar": "vprasalnice", "why": { "en": "Kje is 'where'. You want to ask who: kdo.", "de": "Kje heißt ‚wo‘. Du willst fragen, wer: kdo.", "it": "Kje significa 'dove'. Tu vuoi chiedere chi: kdo." },
             "reply": { "sl": "Kje? Povsod! Okoli ognja!", "en": "Kje (where)? Everywhere! Round the fire!", "de": "Kje (wo)? Überall! Ums Feuer herum!", "it": "Kje (dove)? Dappertutto! Intorno al fuoco!" } }
         ] },
-        { "who": "otroci", "sl": "Ne moreš nas ujeti! Prehitri smo!", "en": "You cannot catch us! We are too fast!", "de": "Du kannst uns nicht fangen! Wir sind zu schnell!", "it": "Non riesci a prenderci! Siamo troppo veloci!" },
+        { "who": "otroci", "sl": "Ne moreš nas ujeti! Prehitri smo!", "en": "You cannot catch us! We are too fast!", "de": "Du kannst uns nicht fangen! Wir sind zu schnell!", "it": "Non riesci a prenderci! Siamo troppo veloci!", "act": { "otroci": { "to": "behind-logs" } } },
         { "choices": [
           { "sl": "Počakajte! {m:Utrujen|f:Utrujena} sem.", "en": "Wait! I am tired.", "de": "Wartet! Ich bin müde.", "it": "Aspettate! Sono {m:stanco|f:stanca}.", "ok": true,
-            "reply": { "sl": "Ha, ha! Še enkrat!", "en": "Ha ha! One more time!", "de": "Haha! Noch einmal!", "it": "Ah ah! Ancora una volta!" } },
+            "reply": { "sl": "Ha, ha! Še enkrat!", "en": "Ha ha! One more time!", "de": "Haha! Noch einmal!", "it": "Ah ah! Ancora una volta!", "act": { "otroci": { "to": "back" } } } },
           { "sl": "Počakaj! {m:Utrujen|f:Utrujena} sem.", "en": "Wait (one of you)! I am tired.", "de": "Warte (einer von euch)! Ich bin müde.", "it": "Aspetta (uno di voi)! Sono {m:stanco|f:stanca}.",
             "grammar": "ti-vi", "why": { "en": "You are talking to several children, so the imperative is plural: počakajte. Počakaj is for one person.", "de": "Du sprichst mit mehreren Kindern, also steht der Imperativ im Plural: počakajte. Počakaj ist für eine Person.", "it": "Parli con più bambini, quindi l'imperativo è plurale: počakajte. Počakaj è per una persona sola." },
             "reply": { "sl": "Jaz? Samo jaz? Drugi že tečejo!", "en": "Me? Only me? The others are already running!", "de": "Ich? Nur ich? Die anderen rennen schon!", "it": "Io? Solo io? Gli altri corrono già!" } },
@@ -141,7 +141,7 @@
             "reply": { "sl": "Sedite? Kdo pa še? Ovce?", "en": "Sedite (sit, you all)? Who else, then? The sheep?", "de": "Sedite (setzt euch)? Wer denn noch? Die Schafe?", "it": "Sedite (sedetevi)? E chi altro? Le pecore?" } }
         ] },
         { "who": "luka", "sl": "Ovce so še na planini. Megla je. Slišiš zvonce?", "en": "The sheep are still up on the pasture. There is fog. Can you hear the bells?", "de": "Die Schafe sind noch oben auf der Alm. Es ist neblig. Hörst du die Glocken?", "it": "Le pecore sono ancora su al pascolo. C'è nebbia. Senti i campanacci?",
-          "sky": { "fog": 0.65, "gloom": 0.25 } },
+          "sky": { "fog": 0.65, "gloom": 0.25 }, "fx": { "sheepbells": 1 } },
         { "choices": [
           { "sl": "Ja, slišim jih. Koliko ovc imaš?", "en": "Yes, I hear them. How many sheep do you have?", "de": "Ja, ich höre sie. Wie viele Schafe hast du?", "it": "Sì, li sento. Quante pecore hai?", "ok": true,
             "reply": { "sl": "Dvajset. In enega psa.", "en": "Twenty. And one dog.", "de": "Zwanzig. Und einen Hund.", "it": "Venti. E un cane." } },
@@ -300,15 +300,15 @@
             "grammar": "velelnik", "why": { "en": "Telling them not to: the imperative, ne tecite. Ne tečete only says they aren't running.", "de": "Um es ihnen zu verbieten: der Imperativ, ne tecite. Ne tečete sagt nur, dass sie nicht rennen.", "it": "Per dire di non farlo: l'imperativo, ne tecite. Ne tečete dice solo che non corrono." },
             "reply": { "sl": "Ne tečemo? Ha ha, poglej, že tečemo!", "en": "We aren't running? Ha ha, look, we're running already!", "de": "Wir rennen nicht? Haha, schau, wir rennen schon!", "it": "Non corriamo? Ah ah, guarda, corriamo già!" } },
           { "sl": "Ne, ne! Ne tecite blizu ognja!", "en": "No, no! Don't run near the fire!", "de": "Nein, nein! Rennt nicht so nah am Feuer!", "it": "No, no! Non correte vicino al fuoco!", "ok": true,
-            "reply": { "sl": "Prav, prav. Gremo tja, na travo!", "en": "OK, OK. Let's go over there, onto the grass!", "de": "Gut, gut. Gehen wir dort hinüber, auf die Wiese!", "it": "Va bene, va bene. Andiamo là, sul prato!" } },
+            "reply": { "sl": "Prav, prav. Gremo tja, na travo!", "en": "OK, OK. Let's go over there, onto the grass!", "de": "Gut, gut. Gehen wir dort hinüber, auf die Wiese!", "it": "Va bene, va bene. Andiamo là, sul prato!", "act": { "otroci": { "to": "behind-stump" } } } },
           { "sl": "Ne, ne! Ne tecite blizu ogenj!", "en": "No, no! Don't run near fire (nominative)!", "de": "Nein, nein! Rennt nicht nah Feuer (Nominativ)!", "it": "No, no! Non correte vicino fuoco (nominativo)!",
             "grammar": "rodilnik-predlogi", "why": { "en": "Blizu (near) takes the genitive: blizu ognja.", "de": "Blizu (nahe) steht mit dem Genitiv: blizu ognja.", "it": "Blizu (vicino) regge il genitivo: blizu ognja." },
             "reply": { "sl": "Ogenj? Ja, ogenj je tu. Saj je lep, ne?", "en": "The fire? Yes, the fire's here. It's pretty, isn't it?", "de": "Das Feuer? Ja, das Feuer ist hier. Schön, oder?", "it": "Il fuoco? Sì, il fuoco è qui. È bello, no?" } }
         ] },
-        { "who": "otroci", "sl": "Na travi! Ti loviš, {learner}! Ujemi nas, če moreš!", "en": "On the grass! You're it, {learner}! Catch us if you can!", "de": "Auf der Wiese! Du fängst, {learner}! Fang uns, wenn du kannst!", "it": "Sul prato! Acchiappi tu, {learner}! Prendici, se ci riesci!" },
+        { "who": "otroci", "sl": "Na travi! Ti loviš, {learner}! Ujemi nas, če moreš!", "en": "On the grass! You're it, {learner}! Catch us if you can!", "de": "Auf der Wiese! Du fängst, {learner}! Fang uns, wenn du kannst!", "it": "Sul prato! Acchiappi tu, {learner}! Prendici, se ci riesci!", "act": { "otroci": { "to": "behind-logs" } } },
         { "choices": [
           { "sl": "{m:Ujel|f:Ujela} sem te!", "en": "Caught you!", "de": "Hab dich!", "it": "Preso!", "ok": true,
-            "reply": { "sl": "Ojoj! Zdaj pa jaz lovim!", "en": "Oh no! Now I'm it!", "de": "Oje! Jetzt fange ich!", "it": "Oh no! Adesso acchiappo io!" } },
+            "reply": { "sl": "Ojoj! Zdaj pa jaz lovim!", "en": "Oh no! Now I'm it!", "de": "Oje! Jetzt fange ich!", "it": "Oh no! Adesso acchiappo io!", "act": { "otroci": { "to": "behind-stump" } } } },
           { "sl": "{m:Ujel|f:Ujela} sem ti!", "en": "I caught for you!", "de": "Ich habe dir gefangen!", "it": "Ho preso a te!",
             "grammar": "tozilnik", "why": { "en": "Ujeti takes the accusative: {m:ujel|f:ujela} sem te. Ti is the dative (to you).", "de": "Ujeti steht mit dem Akkusativ: {m:ujel|f:ujela} sem te. Ti ist der Dativ (dir).", "it": "Ujeti regge l'accusativo: {m:ujel|f:ujela} sem te. Ti è il dativo (a te)." },
             "reply": { "sl": "Meni? Kaj si mi {m:ujel|f:ujela}? Metulja?", "en": "For me? What did you catch for me? A butterfly?", "de": "Mir? Was hast du mir gefangen? Einen Schmetterling?", "it": "Per me? Cosa mi hai preso? Una farfalla?" } },
