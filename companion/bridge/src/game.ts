@@ -55,9 +55,10 @@ export class GameStore {
 
   /**
    * A compact view of the village for the tutor: enough to talk about it, not the whole state. [nameOf]: a cast member's
-   * name ("Čebelar Anton"), for who lives there.
+   * name ("Čebelar Anton"), for who lives there; [calendar]: the culture's calendar now, given the festivals kept (id →
+   * day): the days on and the next (towns.ts calendarOn), a quiet one said to be quiet.
    */
-  summary(nameOf: (id: string) => string | undefined = () => undefined): string {
+  summary(nameOf: (id: string) => string | undefined = () => undefined, calendar?: (kept: Record<string, unknown>) => unknown): string {
     const g = this.read()
     if (!g) return 'No village yet: Jan has not opened the game.'
     const s = g.state as any
@@ -100,6 +101,7 @@ export class GameStore {
         // it again on the eve of May Day): it isn't in the village or on its square; the project stays finished
         landmarks_down: Array.isArray(s.landmarksDown) && s.landmarksDown.length ? s.landmarksDown : undefined,
         festivals: s.festivals ?? {},
+        calendar: calendar?.(s.festivals && typeof s.festivals === 'object' ? s.festivals : {}),
         surprise: s.surprise ?? undefined,
         stats: s.stats,
         chronicle: (s.log ?? []).slice(-10),

@@ -579,8 +579,11 @@ object Cultures {
         /** The festivals [c]'s `thanks_rotation` gives a seasonal good for: each one of festivals.json [f]. */
         private fun seasons(f: FestivalsFile, c: ChestFile) {
             val ids = f.festivals.map { it.id }.toSet()
+            val quiet = f.festivals.filter { it.quiet }.map { it.id }.toSet()
             for ((who, r) in c.thanksRotation) for (fid in r.seasonal.keys) {
                 if (fid !in ids) fail("thanks_rotation.$who.seasonal", "no festival \"$fid\" in festivals.json")
+                // a quiet day is no season for a festive thank-you
+                if (fid in quiet) fail("thanks_rotation.$who.seasonal", "\"$fid\" is a quiet day: no seasonal good")
             }
         }
 
@@ -690,6 +693,8 @@ object Cultures {
                 text("$at.about", e.about)
                 text("$at.line", e.line)
                 good("$at.good", e.good)
+                // a quiet day is remembered, not celebrated: no festive good
+                if (e.quiet && e.good != null) fail("$at.good", "a quiet day (quiet) brings no good")
                 if (e.goods < 1) fail("$at.goods", "at least 1")
                 if (e.words.isBlank()) fail("$at.words", "the id of its word pack")
             }

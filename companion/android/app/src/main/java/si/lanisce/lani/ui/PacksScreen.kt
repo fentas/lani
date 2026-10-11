@@ -137,7 +137,12 @@ private fun PackCard(p: PackInfo, isNew: Boolean, modifier: Modifier = Modifier,
                         Text(inTarget("learningGrid.newBadge"), color = Color.White, style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
                     }
                     if (p.festival != null) Surface(color = XpGold.copy(alpha = 0.22f), shape = RoundedCornerShape(50)) {
-                        Text("🎉 ${bi("packsScreen.feast")}", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
+                        // a quiet day's words (Dan spomina na mrtve): "🕯️ spominski dan · day of remembrance"
+                        val quiet = Calendar.byId(p.festival)?.quiet == true
+                        Text(
+                            if (quiet) "🕯️ ${bi("calendar.quietDay")}" else "🎉 ${bi("packsScreen.feast")}",
+                            style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                        )
                     }
                     if (p.project != null) Surface(color = AlpineGreen.copy(alpha = 0.18f), shape = RoundedCornerShape(50)) {
                         Text("🏗️ ${bi("packsScreen.project")}", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))

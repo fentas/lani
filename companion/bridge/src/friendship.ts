@@ -146,9 +146,13 @@ const DAY = /^\d{4}-\d{2}-\d{2}$/
 export const dayNumber = (d: unknown) => (typeof d === 'string' && DAY.test(d.slice(0, 10)) ? Date.UTC(+d.slice(0, 4), +d.slice(5, 7) - 1, +d.slice(8, 10)) / 86_400_000 : NaN)
 const isoDay = (n: number) => new Date(n * 86_400_000).toISOString().slice(0, 10)
 
-/** The village's last feast: the feast under the linden (lastFeast) or a festival celebrated, whichever is later; null for none. */
-export function feastOf(state: Record<string, any> | undefined, today = localDate()): string | null {
-  const days = [state?.lastFeast, ...Object.values(state?.festivals && typeof state.festivals === 'object' ? state.festivals : {})]
+/**
+ * The village's last feast: the feast under the linden (lastFeast) or a festival celebrated, whichever is later; null for
+ * none. A quiet day kept ([quiet]: festival ids, Dan spomina na mrtve) is no feast to share.
+ */
+export function feastOf(state: Record<string, any> | undefined, today = localDate(), quiet: ReadonlySet<string> = new Set()): string | null {
+  const kept = state?.festivals && typeof state.festivals === 'object' ? Object.entries(state.festivals).filter(([id]) => !quiet.has(id)).map(([, d]) => d) : []
+  const days = [state?.lastFeast, ...kept]
     .filter(d => !Number.isNaN(dayNumber(d)) && dayNumber(d) <= dayNumber(today))
     .map(d => String(d).slice(0, 10))
     .sort()

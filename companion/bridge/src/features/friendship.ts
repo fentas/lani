@@ -15,7 +15,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
-import { cultureDir } from '../cultures'
+import { cultureDir, cultureFestivals } from '../cultures'
 import type { FeatureFactory } from '../feature'
 import {
   AID_LEVEL,
@@ -68,6 +68,8 @@ export const friendship: FeatureFactory = ({ cfg, bridgeKey, profile, game, cult
   const limits = new WriteLimits(limitsFromEnv())
   const self = bridgeKey.fingerprint
   const language = culture.manifest?.language ?? 'sl'
+  // the culture's quiet days (Dan spomina na mrtve): kept, not celebrated, so no feast to share
+  const quiet = new Set(cultureFestivals(culture.dir, culture.id).filter(f => f.quiet).map(f => f.id))
   const display = () => selfDisplay({ dataDir: cfg.dataDir, profile, culture: culture.id, manifest: culture.manifest, towns: store })
 
   function villageState(): Record<string, any> | undefined {
@@ -114,7 +116,7 @@ export const friendship: FeatureFactory = ({ cfg, bridgeKey, profile, game, cult
   /** What this town tells town [from]: its counts with it, its trouble now, its last feast, whether it is a child's. */
   const report = (from: string): Report => {
     const state = villageState()
-    return { v: TOWN_VERSION, town: self, with: from, date: localDate(), ...ledger.counts(from), event: troubleOf(state), feast: feastOf(state), child: profile.child }
+    return { v: TOWN_VERSION, town: self, with: from, date: localDate(), ...ledger.counts(from), event: troubleOf(state), feast: feastOf(state, undefined, quiet), child: profile.child }
   }
 
   // --- moves ----------------------------------------------------------------------------------------------------------
@@ -210,7 +212,7 @@ export const friendship: FeatureFactory = ({ cfg, bridgeKey, profile, game, cult
     const shown = l.display ?? cleanDisplay({})
     const r = f.report
     const state = villageState()
-    const mine = feastOf(state)
+    const mine = feastOf(state, undefined, quiet)
     const theirs = r?.feast ?? null
     const shared = sharedFeast(mine, theirs, f.level)
     const trouble = r?.event ?? null

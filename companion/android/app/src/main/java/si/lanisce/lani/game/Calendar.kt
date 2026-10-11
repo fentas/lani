@@ -76,6 +76,13 @@ data class Festival(
     val goods: Int = 1,
     /** Its word pack's id ("praznik-novo-leto"); the pack names it back (`festival`). */
     val pack: String = "praznik-" + id.replace('_', '-'),
+    /**
+     * A quiet day (Dan spomina na mrtve): kept, not celebrated. The leader asks Jan to come and remember ("Spomni se ·
+     * Remember" where a feast says "Praznuj · Celebrate"); the run is the same, and done it brings only the leader's and
+     * everyone's ♥ and the chronicle's line: no morale, no good, no treat, and a try that doesn't pass costs nothing and
+     * pays nothing ([Calendar.celebrate]).
+     */
+    val quiet: Boolean = false,
 ) {
     /** "Martinovo · St Martin's Day". */
     val name: String get() = nameText.bi()
@@ -152,10 +159,13 @@ object Calendar {
     fun occurrence(f: Festival, today: LocalDate): LocalDate? = listOf(today.year, today.year - 1).map { f.rule.date(it) }
         .firstOrNull { d -> !today.isBefore(d) && !today.isAfter(d.plusDays(GRACE_DAYS)) }
 
-    /** The festivals on [today] (their day or a grace day after), whether done or not. */
+    /**
+     * The festivals on [today] (their day or a grace day after), whether done or not; the one whose day is today first
+     * (where one's grace day is another's day, the day's own leads).
+     */
     fun on(s: GameState, today: LocalDate): List<FestivalDay> = festivals.mapNotNull { f ->
         occurrence(f, today)?.let { d -> FestivalDay(f, d, ChronoUnit.DAYS.between(d, today).toInt(), s.festivals[f.id] == d.toString()) }
-    }
+    }.sortedBy { it.late }
 
     /** The festivals Jan can celebrate [today]: on, not celebrated yet, from Tabor (the village has people). */
     fun open(s: GameState, today: LocalDate): List<FestivalDay> =
@@ -187,11 +197,11 @@ object Calendar {
     }
 
     /**
-     * When [f] is, for its word pack's card: "Danes · Today" on the day, "Še traja · Not over yet" on a grace day, a
-     * countdown in its last days, else its date ("11. novembra · 11 November").
+     * When [f] is, for its word pack's card: "Danes · Today" on the day, "Še traja · Not over yet" on a grace day (a quiet
+     * day's: "Še je čas · There's still time"), a countdown in its last days, else its date ("11. novembra · 11 November").
      */
     fun whenText(f: Festival, today: LocalDate): String {
-        occurrence(f, today)?.let { d -> return if (d == today) bi("common.today") else bi("calendar.whenStillOn") }
+        occurrence(f, today)?.let { d -> return if (d == today) bi("common.today") else bi(if (f.quiet) "calendar.whenStillTime" else "calendar.whenStillOn") }
         val d = next(f, today)
         val days = ChronoUnit.DAYS.between(today, d)
         return when {
@@ -204,9 +214,22 @@ object Calendar {
     /** "11. novembra · 11 November": a day of the year in the learner's two languages (see [Dates]). */
     fun dateText(d: LocalDate): String = "${Dates.dayMonth(d, L10n.pair.target)} · ${Dates.dayMonth(d, L10n.pair.base)}"
 
-    /** "Danes: Martinovo 🍷 · Today: St Martin's Day", or a day or two late: "Martinovo še traja 🍷 · St Martin's Day isn't over yet". */
-    fun todayText(d: FestivalDay): String =
-        if (d.late == 0) countdown(d.festival, 0) else bi("calendar.notOver", "name" to d.festival.nameText, "emoji" to d.festival.emoji)
+    /**
+     * "Danes: Martinovo 🍷 · Today: St Martin's Day", or a day or two late: "Martinovo še traja 🍷 · St Martin's Day isn't
+     * over yet"; a quiet day then: "Dan spomina na mrtve: še je čas za spomin 🕯️ · Remembrance Day: there's still time to
+     * remember".
+     */
+    fun todayText(d: FestivalDay): String = when {
+        d.late == 0 -> countdown(d.festival, 0)
+        d.festival.quiet -> bi("calendar.notOverQuiet", "name" to d.festival.nameText, "emoji" to d.festival.emoji)
+        else -> bi("calendar.notOver", "name" to d.festival.nameText, "emoji" to d.festival.emoji)
+    }
+
+    /** What the festival's button says: "Praznuj · Celebrate", a quiet day's "Spomni se · Remember". */
+    fun action(f: Festival): String = if (f.quiet) bi("calendar.remember") else bi("common.celebrate")
+
+    /** What a festival done says: "Praznovano · Celebrated", a quiet day's "Spomnili smo se · We remembered". */
+    fun done(f: Festival): String = if (f.quiet) bi("calendar.remembered") else bi("townScroll.celebrated")
 
     /** Who leads [f] today: the first of its leaders in the village; null when none is (the whole village then). */
     fun leader(s: GameState, f: Festival, today: LocalDate): String? {
@@ -224,7 +247,8 @@ object Calendar {
         val all = f.words
         val words = all.shuffled(r).take(EXERCISES)
         val lines = Cultures.current.festivalsFile.lines
-        val tag = "${f.emoji} ${lines.tag.bi()}"
+        // a quiet day's: "Besede za spomin · Words to remember"
+        val tag = "${f.emoji} ${if (f.quiet) bi("calendar.quietWords") else lines.tag.bi()}"
         return words.mapIndexed { i, w ->
             val others = all.filter { it != w }.shuffled(r).take(3)
             // the example sentence after the answer, when the pack has one
@@ -247,11 +271,14 @@ object Calendar {
     /**
      * [id]'s run was played [today]: [correct] of [total]. Enough right celebrates it: morale (less a day or two late),
      * its good for the chest, what it pays, the leader and everyone who lives here closer, the chronicle's line; once
-     * each year. A try that didn't pass lifts the spirits a little and pays a fifth; it can be tried again.
+     * each year. A try that didn't pass lifts the spirits a little and pays a fifth; it can be tried again. A quiet day
+     * ([Festival.quiet]) is remembered instead: only the leader and everyone closer and the chronicle's line, and a try
+     * that didn't pass is thanked for, gently, and nothing else.
      */
     fun celebrate(s: GameState, id: String, correct: Int, total: Int, today: LocalDate, now: Long): Pair<GameState, ChallengeResult> {
         val d = open(s, today).firstOrNull { it.festival.id == id } ?: return s to ChallengeResult(false, emptyMap(), emptyMap(), emptyList(), "")
         val f = d.festival
+        if (f.quiet) return remember(s, d, correct, total, today, now)
         val pay = reward(s)
         if (total <= 0 || correct < passMark(total)) {
             val (paid, got) = credit(s.copy(morale = (s.morale + TRY_MORALE).coerceAtMost(100)), pay.mapValues { (_, n) -> (n / 5).coerceAtLeast(1) })
@@ -265,6 +292,20 @@ object Calendar {
         leader(s, f, today)?.let { st = Bonds.add(st, it, LEADER_POINTS - ALL_POINTS, today, now = now) }
         for (r in st.residents) st = Bonds.add(st, r.id, ALL_POINTS, today, now = now)
         return st to ChallengeResult(true, got, emptyMap(), emptyList(), "${f.emoji} ${f.line}", thanks = good, thanksCount = f.goods)
+    }
+
+    /**
+     * A quiet day's run ([d], of a [Festival.quiet] festival) was played: enough right and the village remembers with the
+     * leader (+[LEADER_POINTS] ♥, everyone who lives here +[ALL_POINTS]) and the chronicle keeps its line ("Na pokopališču
+     * so gorele sveče …"); no morale, no good, nothing paid. Less is thanked for and costs nothing: it can be tried again.
+     */
+    private fun remember(s: GameState, d: FestivalDay, correct: Int, total: Int, today: LocalDate, now: Long): Pair<GameState, ChallengeResult> {
+        val f = d.festival
+        if (total <= 0 || correct < passMark(total)) return s to ChallengeResult(false, emptyMap(), emptyMap(), emptyList(), "${f.emoji} ${bi("calendar.quietTried")}")
+        var st = s.copy(festivals = s.festivals + (f.id to d.day.toString())).logged(now, f.emoji to f.line)
+        leader(s, f, today)?.let { st = Bonds.add(st, it, LEADER_POINTS - ALL_POINTS, today, now = now) }
+        for (r in st.residents) st = Bonds.add(st, r.id, ALL_POINTS, today, now = now)
+        return st to ChallengeResult(true, emptyMap(), emptyMap(), emptyList(), "${f.emoji} ${f.line}")
     }
 
     /**

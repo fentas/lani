@@ -188,6 +188,8 @@ class SimulationTest {
         private val polisher = Learner(seed + 1)
         /** The answers to Luka's request to move the tent (TentMove), on their own dice too. */
         private val mover = Learner(seed + 2)
+        /** The answers to the festivals' runs, on their own dice: a day added to the calendar doesn't reshuffle the rest. */
+        private val celebrant = Learner(seed + 3)
         var s: GameState = GameEngine.newGame(gameSeed, Fixtures.noon(Fixtures.day0)).copy(
             buildings = listOf(Building("tent-1", TENT, 0)), // Jan has built their first tent
             resources = mapOf(Res.FOOD to 5, Res.WOOD to 5),
@@ -377,7 +379,7 @@ class SimulationTest {
             val d = Calendar.open(s, today).firstOrNull() ?: return emptyList()
             val c = GameEngine.festivalChallenge(s, d.festival.id, today) ?: return emptyList()
             train(Calendar.leader(s, d.festival, today) ?: companion())
-            val correct = play("festivals", c)
+            val correct = play("festivals", c, celebrant)
             val before = s
             val (after, r) = Calendar.celebrate(s, d.festival.id, correct, c.exercises.size, today, now)
             s = after
@@ -485,8 +487,8 @@ class SimulationTest {
             }
         }
 
-        private fun play(source: String, c: Challenge): Int {
-            val results = c.skills.map { it to learner.verdict(0.75, 0.10) }
+        private fun play(source: String, c: Challenge, dice: Learner = learner): Int {
+            val results = c.skills.map { it to dice.verdict(0.75, 0.10) }
             credit(source, results)
             return results.count { it.second == Verdict.CORRECT }
         }

@@ -4,8 +4,10 @@
 // Catalog has numbers for.
 import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { cultureIds, cultureKeepers, cultureReadings, cultureScenes, DEFAULT_CULTURE, FILES, PRICES, PRIMORSKA_TUTOR, READING_KINDS, READING_LEVELS, keeperTellings, readingRefs, readManifest, resolveCulture, TOOL_EFFECTS, validateCulture } from '../../src/cultures'
+import { cultureFestivals, cultureIds, cultureKeepers, cultureReadings, cultureScenes, DEFAULT_CULTURE, FILES, PRICES, PRIMORSKA_TUTOR, READING_KINDS, READING_LEVELS, keeperTellings, readingRefs, readManifest, resolveCulture, TOOL_EFFECTS, validateCulture } from '../../src/cultures'
 import { speakerFor } from '../../src/cast'
+import { feastOf } from '../../src/friendship'
+import { calendarOn } from '../../src/towns'
 import { corpus } from '../../src/voice'
 import { PackStore, packsDirs } from '../../src/packs'
 import { ScenarioStore } from '../../src/scenarios'
@@ -287,6 +289,41 @@ export default async function cultures() {
   writeFileSync(join(broken, 'primorska/quests.json'), JSON.stringify(quests))
   const b2 = validateCulture(broken, 'primorska', [{ id: 'micka', name: 'Babica Micka' }])
   check('… a text without the pack\'s language, a good that isn\'t there, someone who isn\'t in the cast', !b2.ok && b2.errors.includes('quests.requests[0].title: no "sl" text') && b2.errors.includes('chest.thanks_default: no good "gubana"') && b2.errors.includes('no villager named "Pastir Luka"') && b2.errors.includes('no villager "luka"'), !b2.ok && b2.errors)
+  // a quiet day (companion/GAME.md "The calendar": Dan spomina na mrtve): the schema takes `quiet`; a quiet day brings no
+  // good and is no season for a thank-you; the tutor's calendar marks it, and kept it is no feast to share with a friend
+  const quietDir = tempDir('lani-smoke-culture-quiet-')
+  cpSync(join(culturesDir, 'primorska'), join(quietDir, 'primorska'), { recursive: true })
+  const fests = JSON.parse(readFileSync(join(quietDir, 'primorska/festivals.json'), 'utf8'))
+  const mart = fests.festivals.find((f: any) => f.id === 'martinovo')
+  mart.quiet = true
+  writeFileSync(join(quietDir, 'primorska/festivals.json'), JSON.stringify(fests))
+  const q1 = validateCulture(quietDir, 'primorska')
+  check('a quiet day with a good, or a seasonal thank-you for it, is refused', !q1.ok && q1.errors.includes('a quiet day (quiet) brings no good') && q1.errors.includes('"martinovo" is a quiet day: no seasonal good'), !q1.ok && q1.errors)
+  delete mart.good
+  writeFileSync(join(quietDir, 'primorska/festivals.json'), JSON.stringify(fests))
+  const rotation = JSON.parse(readFileSync(join(quietDir, 'primorska/chest.json'), 'utf8'))
+  for (const r of Object.values(rotation.thanks_rotation) as any[]) delete r.seasonal?.martinovo
+  writeFileSync(join(quietDir, 'primorska/chest.json'), JSON.stringify(rotation))
+  // (the copy has no scenes for the project steps beside it: only what is said of the quiet day counts here)
+  const q2 = validateCulture(quietDir, 'primorska')
+  check('… without them it is a quiet day of the calendar', q2.ok || !/quiet/.test(q2.errors), !q2.ok && q2.errors)
+  const quietRules = cultureFestivals(quietDir, 'primorska')
+  const cal = calendarOn(quietRules, '2026-11-12', { martinovo: '2026-11-11' })
+  const ahead = calendarOn(quietRules, '2026-11-08')
+  check(
+    "the tutor's calendar: a quiet day on (kept) and coming, marked quiet; a feast isn't",
+    cal.on.some(d => d.id === 'martinovo' && d.quiet === true && d.late === 1 && d.done && !!d.note) && ahead.next?.id === 'martinovo' && ahead.next.in_days === 3 && ahead.next.quiet === true &&
+      calendarOn(quietRules, '2026-12-06').on.some(d => d.id === 'miklavz' && d.quiet === undefined && !d.done),
+    { cal, ahead },
+  )
+  check(
+    'a quiet day kept is no feast to share; a feast is',
+    feastOf({ festivals: { martinovo: '2026-11-11' } }, '2026-11-12', new Set(['martinovo'])) === null && feastOf({ festivals: { martinovo: '2026-11-11' } }, '2026-11-12') === '2026-11-11',
+  )
+  mart.quiet = 'yes'
+  writeFileSync(join(quietDir, 'primorska/festivals.json'), JSON.stringify(fests))
+  const q3 = validateCulture(quietDir, 'primorska')
+  check('… and `quiet` is true or false', !q3.ok && q3.errors.includes('quiet'), !q3.ok && q3.errors)
   // the pack's own people need their gift lines, in its language; the tutor's may go without (the app has plain ones)
   const l = (sl: string, en: string) => ({ sl, en, level: 0 })
   const cast0 = new VillagerStore(join(culturesDir, 'primorska', 'villagers'), join(dataDir, 'unused-villagers-primorska-gifts')).all()

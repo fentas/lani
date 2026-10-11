@@ -152,8 +152,13 @@ fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
     }
 }
 
+/** Whether [origin] is a quiet day's run (Dan spomina na mrtve: [si.lanisce.lani.game.Festival.quiet]): remembered, not celebrated. */
+private fun quietDay(origin: ChallengeOrigin): Boolean = (origin as? ChallengeOrigin.Festival)?.let { Calendar.byId(it.id)?.quiet } == true
+
 private fun backdrop(origin: ChallengeOrigin, won: Boolean? = null): Brush = Brush.verticalGradient(
     when {
+        // a quiet day stays calm, whatever the run: the dusk's slate blue
+        quietDay(origin) -> listOf(Color(0xFF232838), Color(0xFF4A5370))
         won == true -> listOf(Color(0xFF0C4A35), Color(0xFF16A06E))
         won == false -> listOf(Color(0xFF2A0B12), Color(0xFF6B1426))
         origin == ChallengeOrigin.Event -> listOf(Color(0xFF1A0A12), Color(0xFF5A1422))
@@ -212,7 +217,9 @@ private class ChallengeRun(
                     val run = lead(if (s != null && f != null) Calendar.leader(s, f, today) else null)
                     val good = f?.good?.let { Catalog.goods[it] }
                     ChallengeRun(run, null, null) { c, who ->
-                        Intros.task(
+                        // a quiet day brings no treat, no good and no morale: only the ♥ with whoever asks
+                        if (f?.quiet == true) Intros.task(c, who, run, ask = Intros.split(f.ask), bond = Calendar.LEADER_POINTS)
+                        else Intros.task(
                             c, who, run, ask = f?.let { Intros.split(it.ask) }, reward = s?.let { Calendar.reward(it) }.orEmpty(),
                             stake = listOfNotNull(good?.let { "${it.name.emoji} ${it.name.sl} · ${it.name.en}" + if (f.goods > 1) " ×${f.goods}" else "" }, "+${Calendar.MORALE} 😊")
                                 .joinToString(", "),
@@ -256,9 +263,13 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
     val back: () -> Unit = if (treasure) ({ vm.openTreasure(vm.treasure.fromVillage) }) else vm::village
     BackHandler(onBack = back)
     val trade = r.trade.takeIf { origin is ChallengeOrigin.Trade }
+    val quiet = quietDay(origin)
     val (emoji, title) = when {
         trade != null && won -> "🤝" to bi("trade.traded")
         trade != null -> "🙂" to bi("trade.notTraded")
+        // a quiet day: remembered, or thanked for all the same (Dan spomina na mrtve)
+        quiet && won -> c.emoji to bi("calendar.remembered")
+        quiet -> c.emoji to bi("challengeScreen.neverMind")
         treasure && won -> "🗺️" to bi("treasure.stationDone")
         treasure -> "🧭" to bi("treasure.stationBlocked")
         origin is ChallengeOrigin.Gather -> (if (r.earned.isNotEmpty()) "🧺" else "🍂") to (if (r.earned.isNotEmpty()) bi("challengeScreen.gathered") else bi("challengeScreen.emptyHanded"))
@@ -299,7 +310,8 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             // a request, a project's step or a feast not passed: say so plainly, and what it takes (it stays open)
             val open = !won && (origin is ChallengeOrigin.Quest || origin is ChallengeOrigin.Project || origin is ChallengeOrigin.Festival || treasure)
             if (open && c.passMark > 0) Text(
-                "🔸 ${bi("challengeScreen.notDoneYet", "mark" to c.passMark, "total" to r.total)}",
+                if (quiet) "🕯️ ${bi("calendar.quietNotYet", "mark" to c.passMark, "total" to r.total)}"
+                else "🔸 ${bi("challengeScreen.notDoneYet", "mark" to c.passMark, "total" to r.total)}",
                 color = Color.White, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center,
             )
             // a request: how close Jan is now, and after a few tries the rules it missed, one tap away
@@ -338,6 +350,6 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
                 TextButton(onClick = { vm.startQuest(origin.questId) }) { Text("🔁 ${bi("challengeScreen.onceMore")}", color = Color.White) }
             }
         }
-        if (won || (origin is ChallengeOrigin.Gather && r.earned.isNotEmpty())) Confetti(key = c)
+        if ((won && !quiet) || (origin is ChallengeOrigin.Gather && r.earned.isNotEmpty())) Confetti(key = c)
     }
 }

@@ -54,6 +54,10 @@ class Culture(
     fun withProjectSteps(steps: Map<String, ProjectStepsFile>): Culture =
         Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, steps)
 
+    /** This pack with [f] as its calendar (tests: a quiet day among its festivals). */
+    fun withFestivals(f: FestivalsFile): Culture =
+        Culture(manifest, world, quests, f, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, projectSteps)
+
     val id: String get() = manifest.id
     val language: Lang get() = checkNotNull(Lang.of(manifest.language)) { "${manifest.id}: language ${manifest.language} isn't one of the app's" }
 
@@ -109,7 +113,7 @@ class Culture(
     // --- the calendar ---------------------------------------------------------------------------------------------
 
     val festivals: List<Festival> = festivalsFile.festivals.map { f ->
-        Festival(f.id, f.emoji, f.name, rule(f.date), f.leaders, f.ask, f.about, f.line, f.good, f.goods, f.words)
+        Festival(f.id, f.emoji, f.name, rule(f.date), f.leaders, f.ask, f.about, f.line, f.good, f.goods, f.words, f.quiet)
     }
 
     // --- village projects: Catalog's frames with the pack's words -------------------------------------------------

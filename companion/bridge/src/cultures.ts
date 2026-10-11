@@ -157,6 +157,9 @@ export const fileSpecs = {
       date: obj({ month: z.number().int().min(1).max(12).optional(), day: z.number().int().min(1).max(31).optional(), easter: z.number().int().optional(), last: z.enum(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']).optional() })
         .refine(d => [d.easter !== undefined, d.last !== undefined, d.day !== undefined].filter(Boolean).length === 1 && (d.easter !== undefined || d.month !== undefined), 'one of {"month", "day"}, {"easter": days} or {"month", "last": weekday}'),
       name: text, leaders: z.array(id).min(1), ask: text, about: text, line: text, good: id.optional(), goods: z.number().int().min(1).default(1), words: id,
+      // a quiet day, kept and not celebrated (Dan spomina na mrtve): the leader asks to come and remember; no good, no
+      // morale, no treat (the app's Festival.quiet, companion/GAME.md "The calendar")
+      quiet: z.boolean().optional(),
     })),
     lines: obj({ tag: text, means: text, say: text, tried: text }),
   }),
@@ -385,6 +388,7 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
   // and its seasons are festivals of the pack
   const rare = new Set(chest.goods.filter(g => g.rare).map(g => g.id))
   const feasts = new Set(festivals.festivals.map(f => f.id))
+  const quiet = new Set(festivals.festivals.filter(f => f.quiet).map(f => f.id))
   for (const [who, r] of Object.entries(chest.thanks_rotation)) {
     const at = `chest.thanks_rotation.${who}`
     const first = chest.thanks[who]
@@ -397,6 +401,7 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
     })
     for (const [f, g] of Object.entries(r.seasonal)) {
       if (!feasts.has(f)) errors.push(`${cultureId}: ${at}.seasonal: no festival "${f}" in festivals.json`)
+      if (quiet.has(f)) errors.push(`${cultureId}: ${at}.seasonal: "${f}" is a quiet day: no seasonal good`)
       good(`${at}.seasonal.${f}`, g)
     }
   }
@@ -404,7 +409,11 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
   for (const [who, list] of Object.entries(chest.likes)) list.forEach((g, i) => good(`chest.likes.${who}[${i}]`, g))
   chest.likes_default.forEach((g, i) => good(`chest.likes_default[${i}]`, g))
   surprises.pedlar.goods.forEach((g, i) => good(`surprises.pedlar.goods[${i}]`, g))
-  festivals.festivals.forEach((f, i) => good(`festivals.festivals[${i}].good`, f.good))
+  festivals.festivals.forEach((f, i) => {
+    good(`festivals.festivals[${i}].good`, f.good)
+    // a quiet day is remembered, not celebrated: no festive good (the app's Cultures check says the same)
+    if (f.quiet && f.good !== undefined) errors.push(`${cultureId}: festivals.festivals[${i}].good: a quiet day (quiet) brings no good`)
+  })
   // what the chest's things hold to read: each a reading of the pack
   const read = cultureReadings(culturesDir, cultureId, lang, cast)
   errors.push(...read.errors)
@@ -616,6 +625,19 @@ export function cultureProjects(culturesDir: string, cultureId: string): ScenePr
     return r.success ? r.data.projects.map(p => ({ id: p.id, steps: p.steps.length })) : undefined
   } catch {
     return undefined
+  }
+}
+
+/**
+ * The festivals of pack [cultureId] (festivals.json) as the calendar has them (its days, and which are quiet: kept, not
+ * celebrated); none when there are none to read.
+ */
+export function cultureFestivals(culturesDir: string, cultureId: string): z.infer<typeof fileSpecs.festivals>['festivals'] {
+  try {
+    const r = fileSpecs.festivals.safeParse(JSON.parse(readFileSync(join(cultureDir(culturesDir, cultureId), 'festivals.json'), 'utf8')))
+    return r.success ? r.data.festivals : []
+  } catch {
+    return []
   }
 }
 

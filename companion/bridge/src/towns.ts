@@ -480,8 +480,11 @@ const dayOf = (iso: unknown) => {
 }
 const isoOf = (day: number) => new Date(day * 86_400_000).toISOString().slice(0, 10)
 
-/** A festival of a culture pack (festivals.json), as far as the public state needs it. */
-export type FestivalRule = { id: string; emoji: string; name: Record<string, string>; date: { month?: number; day?: number; easter?: number; last?: string } }
+/**
+ * A festival of a culture pack (festivals.json), as far as the public state and the tutor's calendar need it; [quiet]: a
+ * day kept, not celebrated (Dan spomina na mrtve).
+ */
+export type FestivalRule = { id: string; emoji: string; name: Record<string, string>; date: { month?: number; day?: number; easter?: number; last?: string }; quiet?: boolean }
 
 /** Easter Sunday's day number (the Gregorian computus, as the app's Calendar.easter). */
 function easter(year: number): number {
@@ -510,6 +513,35 @@ export function festivalDay(f: FestivalRule, year: number): number {
 
 /** Days a festival can still be celebrated after its day (the app's Calendar.GRACE_DAYS). */
 export const FESTIVAL_GRACE_DAYS = 2
+/** Days ahead the app counts a festival down (the app's Calendar.COUNTDOWN_DAYS). */
+export const FESTIVAL_COUNTDOWN_DAYS = 5
+
+/** A day of the calendar as the tutor sees it: its id, emoji and name, its day, and whether it is a quiet one. */
+export type CalendarDay = { id: string; emoji: string; name: Record<string, string>; day: string; quiet?: true; note?: string }
+
+const QUIET_NOTE = 'a quiet day: remembered, not celebrated (no feast, no good); speak of it gently'
+
+/**
+ * The calendar on [today] for the tutor (get_village): the festivals on (their day or a grace day; [kept]: the village's
+ * festivals, id → the day kept, says which are done) and the next one within the countdown. A quiet day says so.
+ */
+export function calendarOn(festivals: FestivalRule[], today: string, kept: Record<string, unknown> = {}): { on: (CalendarDay & { late: number; done: boolean })[]; next: (CalendarDay & { in_days: number }) | null } {
+  const t = dayOf(today)
+  const year = Number(today.slice(0, 4))
+  if (Number.isNaN(t)) return { on: [], next: null }
+  const shown = (f: FestivalRule, day: number): CalendarDay => ({
+    id: f.id, emoji: f.emoji, name: f.name, day: isoOf(day), ...(f.quiet ? { quiet: true as const, note: QUIET_NOTE } : {}),
+  })
+  const on = festivals.flatMap(f => {
+    const day = [year, year - 1].map(y => festivalDay(f, y)).find(d => t >= d && t <= d + FESTIVAL_GRACE_DAYS)
+    return day === undefined ? [] : [{ ...shown(f, day), late: t - day, done: kept[f.id] === isoOf(day) }]
+  }).sort((a, b) => a.late - b.late)
+  const next = festivals
+    .flatMap(f => [year, year + 1].map(y => ({ f, day: festivalDay(f, y) })))
+    .filter(x => x.day > t && x.day <= t + FESTIVAL_COUNTDOWN_DAYS)
+    .sort((a, b) => a.day - b.day)[0]
+  return { on, next: next ? { ...shown(next.f, next.day), in_days: next.day - t } : null }
+}
 
 /** How old a child born in the village is (the app's Residents.Stage: 0, 45, 240, 420 days). */
 export function stageOf(born: unknown, today: string): 'baby' | 'child' | 'youth' | 'adult' {

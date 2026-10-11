@@ -465,7 +465,8 @@ fun VillageScreen(vm: AppViewModel) {
                 val v = overview.village
                 val festival = v.festival?.takeIf { !it.done }
                 if (festival != null) {
-                    TeaserPill(festival.festival.emoji, si.lanisce.lani.game.Calendar.todayText(festival).replace(" ${festival.festival.emoji}", ""), gold = true) {
+                    // a feast's pill is gold; a quiet day's (Dan spomina na mrtve) plain
+                    TeaserPill(festival.festival.emoji, si.lanisce.lani.game.Calendar.todayText(festival).replace(" ${festival.festival.emoji}", ""), gold = !festival.festival.quiet) {
                         vm.startFestival(festival.festival.id)
                     }
                 } else v.teasers.firstOrNull()?.let { t -> TeaserPill(t.emoji, t.text) { openScroll(ScrollSection.TODAY) } }

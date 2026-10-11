@@ -1,8 +1,11 @@
 // The village game ("Moja vas"): the app saves its state here, the tutor reads a summary.
 import { z } from 'zod'
 import { ok } from '../channel'
+import { cultureFestivals } from '../cultures'
 import type { FeatureFactory } from '../feature'
 import { json, readText } from '../http'
+import { localDate } from '../rhythm'
+import { calendarOn } from '../towns'
 
 const instructions = `
 The app has a village game, "Moja vas": practice earns resources (vocabulary → food, listening →
@@ -15,12 +18,15 @@ A villager shows at most two open requests at once (their own first, then the ne
 the rest wait in the Scroll under "Later", so don't pile several modules on one villager. For a
 task Jan keeps failing (get_village shows its tries, best and the pages missed), publish a short
 drill at the same giver with quest.helps = that task's module id: the task waits behind the drill
-and comes back once the drill is passed.
+and comes back once the drill is passed. get_village's calendar names the culture's days that are on
+(their day or the two after, done once kept) and the next within five days. One marked quiet (Dan
+spomina na mrtve) is a day of remembrance, not a feast: the leader asks the learner to come and
+remember, nothing is won; speak of it gently, never as a celebration.
 `.trim()
 
 const gamePut = z.object({ rev: z.number().int().min(0), state: z.record(z.string(), z.unknown()) })
 
-export const game: FeatureFactory = ({ game, villagers }) => ({
+export const game: FeatureFactory = ({ game, villagers, culture }) => ({
   instructions,
   routes: [
     {
@@ -60,9 +66,10 @@ export const game: FeatureFactory = ({ game, villagers }) => ({
     {
       name: 'get_village',
       description:
-        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), recent chronicle.",
+        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), recent chronicle.",
       inputSchema: { type: 'object', properties: {} },
-      handle: () => ok(game.summary(id => villagers.get(id)?.name)),
+      // the calendar as the app has it today: the days on, the next, which are quiet (towns.ts calendarOn)
+      handle: () => ok(game.summary(id => villagers.get(id)?.name, kept => calendarOn(cultureFestivals(culture.dir, culture.id), localDate(new Date()), kept))),
     },
   ],
 })

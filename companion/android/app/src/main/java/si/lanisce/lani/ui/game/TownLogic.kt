@@ -816,7 +816,8 @@ data class VillageToday(
             val projects = Projects.options(state, today).filter { !it.finished && it.waiting != ProjectOption.Why.AGE }
                 .sortedWith(compareByDescending<ProjectOption> { it.available }.thenByDescending { it.done > 0 })
             return VillageToday(
-                festival = if (state.age >= Age.TABOR) Calendar.on(state, today).firstOrNull() else null,
+                // of two on at once (a grace day and the next one's day), the one still to keep
+                festival = if (state.age >= Age.TABOR) Calendar.on(state, today).let { on -> on.firstOrNull { !it.done } ?: on.firstOrNull() } else null,
                 countdown = Calendar.upcoming(today)?.let { (f, d) -> f to java.time.temporal.ChronoUnit.DAYS.between(today, d) },
                 surprise = sp,
                 surpriseText = sp?.let { Surprises.intro(it, name) }.orEmpty(),

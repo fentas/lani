@@ -909,7 +909,9 @@ class GameController(
             message = if (earned.isNotEmpty()) bi("gameController.youGathered", "earned" to formatRes(earned, ""))
             else "${bi("gameController.nothingThisTime")}. ${bi("recordScreen.tryAgain")}!",
         )
-        if (result.won) celebrate++
+        // the village cheers a win, not a quiet day remembered (Dan spomina na mrtve)
+        val quiet = (origin as? ChallengeOrigin.Festival)?.let { si.lanisce.lani.game.Calendar.byId(it.id)?.quiet } == true
+        if (result.won && !quiet) celebrate++
         val after = state
         val friend = if (!result.won) null
         else quest?.let(onQuestDone) ?: person?.let { id -> if (before != null && after != null) gainOf(id, before, after)?.takeIf { it.points > 0 } else null }

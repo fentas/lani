@@ -253,6 +253,11 @@ data class FestivalEntry(
     val goods: Int = 1,
     /** The word pack of its words (companion/packs, lani.pack/v0). */
     val words: String,
+    /**
+     * A quiet day, kept and not celebrated (Dan spomina na mrtve): the leader asks Jan to come and remember, and it brings
+     * no festive good, no morale and no treat; see [si.lanisce.lani.game.Festival.quiet].
+     */
+    val quiet: Boolean = false,
 )
 
 @Serializable

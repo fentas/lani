@@ -716,9 +716,11 @@ private fun village(k: Counted, c: Contents, pal: Paper) {
     v.festival?.let { d ->
         k.item("festival") {
             val f = d.festival
+            // a feast in gold; a quiet day (Dan spomina na mrtve) in the dusk's slate blue
+            val colors = if (f.quiet) listOf(Color(0xFF3C4560), Color(0xFF66708C)) else listOf(Color(0xFFB36B00), Color(0xFFE0A21E))
             Column(
                 Modifier.fillMaxWidth().clip(MaterialTheme.shapes.medium)
-                    .background(Brush.horizontalGradient(listOf(Color(0xFFB36B00), Color(0xFFE0A21E))))
+                    .background(Brush.horizontalGradient(colors))
                     .then(if (!d.done) Modifier.clickable { a.onFestival(f.id) } else Modifier).padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
@@ -736,7 +738,7 @@ private fun village(k: Counted, c: Contents, pal: Paper) {
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Text(
-                            if (d.done) "✅ ${bi("townScroll.celebrated")}" else "🎉 ${bi("common.celebrate")}",
+                            if (d.done) "${if (f.quiet) "🕯️" else "✅"} ${Calendar.done(f)}" else "${if (f.quiet) "🕯️" else "🎉"} ${Calendar.action(f)}",
                             color = Color.White, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
                         )
                     }
