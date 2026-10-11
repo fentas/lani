@@ -2551,7 +2551,8 @@ the second town out.
 **QA's hooks in a debug build** (`app/QaHooks.kt`; a release build ignores them). QA asks them through the launch
 intent's `si.lanisce.lani.qa` extra: `happening:<scene>/<happening>` counts that happening as on, so
 `dialog-words` opens its dialog through its deep link (`scene:<scene>@<scene>/<happening>`) whatever the hour, the
-day's dice or who has been met, then lets it go (`happening:`); `zoom` zooms the camera on screen in, as its "Približaj ·
+day's dice or who has been met, then lets it go (`happening:`), and `happening:<scene>/<happening>/<dialog>` with that
+variant of its dialogs whatever was heard lately (`fire-peek`: the fire's hide-and-seek); `zoom` zooms the camera on screen in, as its "Približaj ·
 Zoom in" action does, where two double taps came too far apart on a busy machine (`scene`, `zoom`); `road:mini` gets
 a small library for the car ready, and `road:car` browses and plays the car's sessions as Android Auto does (`road`);
 `turns:type` asks the dialogs opened from then on to type every turn that tests a form, as if each rule were secure

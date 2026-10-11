@@ -9,6 +9,7 @@ import si.lanisce.lani.game.Adaptive
 import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.game.TurnMode
 import si.lanisce.lani.game.render.TownClock
+import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.parseScene
 import java.io.File
 
@@ -116,6 +117,21 @@ class QaHooksTest {
         QaHooks.handle("happening:")
         assertNull(QaHooks.happening)
         assertTrue(QaHooks.withForced(listOf(fire), emptyList()).isEmpty())
+    }
+
+    @Test fun `a happening QA names with a variant plays that variant, also when the day has it on with another`() {
+        val tag = fire.happenings.first { it.id == "lovljenje" }
+        val k = "${fire.id}/${tag.id}"
+        val v = "lovljenje-skrivalnice"
+        QaHooks.handle("happening:$k/$v")
+        val on = QaHooks.withForced(listOf(fire), emptyList())
+        assertEquals(listOf(k), on.map { it.key })
+        assertEquals(v, on.single().dialog)
+        // on today with the day's variant: QA's instead, once
+        val day = ActiveHappening(fire, tag, null, dialog = "lovljenje")
+        assertEquals(listOf(v), QaHooks.withForced(listOf(fire), listOf(day)).map { it.dialog })
+        // a variant the scene lacks: the happening's own dialog
+        assertNull(QaHooks.withForced(listOf(fire), emptyList(), "$k/nothing").single().dialog)
     }
 
     @Test fun `what QA asks of the road goes to the road, and a release build hears nothing`() {

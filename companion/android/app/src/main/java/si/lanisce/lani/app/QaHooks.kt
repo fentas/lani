@@ -17,7 +17,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "zoom": the camera on screen (the village's, a scene's) zooms in, as its "Približaj · Zoom in" action does: a double
  *   tap sent through adb comes too slow on a busy machine, and adb can't reach a TalkBack action.
  * - "happening:<scene>/<happening>": that happening counts as on ([withForced]), so its deep link ("scene:<scene>@<key>")
- *   opens its dialog whatever the hour, the day's dice or who has been met; "happening:" alone lets it go again.
+ *   opens its dialog whatever the hour, the day's dice or who has been met; "happening:<scene>/<happening>/<dialog>" with
+ *   that variant of its dialogs, whatever was heard lately; "happening:" alone lets it go again.
  * - "road:<what>": asked of the road (the car's "🚗 Za pot"): "road:mini" gets a small library ready (a couple of items of
  *   each kind, in a minute), "road:car" browses and plays the sessions as Android Auto does (road/RoadCarCheck).
  * - "forms": a review of the word cards that have a form reached starts (due or not), and it and the next reviews ask
@@ -56,7 +57,7 @@ object QaHooks {
     var forms by mutableStateOf(false)
         private set
 
-    /** The happening QA counts as on ("scene/happening"), or null. */
+    /** The happening QA counts as on ("scene/happening", or "scene/happening/dialog" with that variant), or null. */
     var happening by mutableStateOf<String?>(null)
         private set
 
@@ -131,9 +132,13 @@ object QaHooks {
 
     /** [active] with the happening QA counts as on first, when it is one of [scenes]' and isn't on already. */
     fun withForced(scenes: List<SceneSpec>, active: List<ActiveHappening>, key: String? = happening): List<ActiveHappening> {
-        if (!enabled || key == null || active.any { it.key == key }) return active
-        val s = scenes.firstOrNull { it.id == key.substringBefore('/') } ?: return active
-        val h = s.happenings.firstOrNull { it.id == key.substringAfter('/') } ?: return active
-        return listOf(ActiveHappening(s, h, s.people.firstOrNull { it.id == h.who })) + active
+        if (!enabled || key == null) return active
+        val (sid, hid, variant) = (key.split('/', limit = 3) + listOf("", "")).take(3)
+        // a variant asked for plays even when the happening is on already (with the day's)
+        if (variant.isEmpty() && active.any { it.key == "$sid/$hid" }) return active
+        val s = scenes.firstOrNull { it.id == sid } ?: return active
+        val h = s.happenings.firstOrNull { it.id == hid } ?: return active
+        val dialog = variant.takeIf { v -> s.dialogs.any { it.id == v } }
+        return listOf(ActiveHappening(s, h, s.people.firstOrNull { it.id == h.who }, dialog = dialog)) + active.filter { it.key != "$sid/$hid" }
     }
 }
