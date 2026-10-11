@@ -185,10 +185,11 @@
     {
       "scene": "na-vasi",
       "words": ["brizgalna", "voz"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "luka", "sl": "Slišite? Nekaj prihaja po cesti!", "en": "Do you hear that? Something is coming down the road!", "de": "Hört ihr? Da kommt etwas die Straße entlang!", "it": "Sentite? Arriva qualcosa lungo la strada!" },
-          { "who": "marko", "sl": "Ciao! Pot iz Gorice je dolga. Konj je utrujen!", "en": "Ciao! The road from Gorizia is long. The horse is tired!", "de": "Ciao! Der Weg aus Görz ist lang. Das Pferd ist müde!", "it": "Ciao! La strada da Gorizia è lunga. Il cavallo è stanco!" },
+          { "who": "marko", "sl": "Ciao! Pot iz Gorice je dolga. Konj je utrujen!", "en": "Ciao! The road from Gorizia is long. The horse is tired!", "de": "Ciao! Der Weg aus Görz ist lang. Das Pferd ist müde!", "it": "Ciao! La strada da Gorizia è lunga. Il cavallo è stanco!", "fx": { "cart-pump": 1 } },
           { "who": "luka", "sl": "{learner}, kaj je na vozu?", "en": "{learner}, what's on the cart?", "de": "{learner}, was ist auf dem Wagen?", "it": "{learner}, che cosa c'è sul carro?" },
           { "choices": [
             { "sl": "Na vozu je brizgalna!", "en": "There's a fire pump on the cart!", "de": "Auf dem Wagen ist eine Feuerspritze!", "it": "Sul carro c'è una pompa antincendio!", "ok": true,
@@ -215,7 +216,7 @@
         ] },
         "A2": { "lines": [
           { "who": "luka", "sl": "Brizgalna iz Gorice bi morala biti že tukaj. Kje so?", "en": "The fire pump from Gorizia should be here by now. Where are they?", "de": "Die Feuerspritze aus Görz müsste schon hier sein. Wo bleiben sie?", "it": "La pompa da Gorizia dovrebbe già essere qui. Dove sono?" },
-          { "who": "marko", "sl": "Ciao! Oprostite, cesta je blatna in konj je počasen.", "en": "Ciao! Sorry, the road is muddy and the horse is slow.", "de": "Ciao! Entschuldigt, die Straße ist schlammig und das Pferd langsam.", "it": "Ciao! Scusate, la strada è fangosa e il cavallo è lento." },
+          { "who": "marko", "sl": "Ciao! Oprostite, cesta je blatna in konj je počasen.", "en": "Ciao! Sorry, the road is muddy and the horse is slow.", "de": "Ciao! Entschuldigt, die Straße ist schlammig und das Pferd langsam.", "it": "Ciao! Scusate, la strada è fangosa e il cavallo è lento.", "fx": { "cart-pump": 1 } },
           { "who": "luka", "sl": "Glej, {learner}! Kaj so pripeljali?", "en": "Look, {learner}! What have they brought?", "de": "Schau, {learner}! Was haben sie gebracht?", "it": "Guarda, {learner}! Che cosa hanno portato?" },
           { "choices": [
             { "sl": "Pripeljali so voz z brizgalno.", "en": "They've brought a cart with a fire pump.", "de": "Sie haben einen Wagen mit einer Feuerspritze gebracht.", "it": "Hanno portato un carro con una pompa antincendio.", "ok": true,
@@ -305,11 +306,12 @@
     {
       "scene": "na-vasi",
       "words": ["godba", "plesati", "veselica"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "luka", "sl": "Gasilski dom je gotov. Danes praznujemo!", "en": "The fire station is finished. Today we celebrate!", "de": "Das Feuerwehrhaus ist fertig. Heute feiern wir!", "it": "La caserma è finita. Oggi si fa festa!" },
           { "who": "marko", "sl": "Ciao! Klobase so na žaru, vino je hladno.", "en": "Ciao! The sausages are on the grill, the wine is cool.", "de": "Ciao! Die Würste sind auf dem Grill, der Wein ist kühl.", "it": "Ciao! Le salsicce sono sulla griglia, il vino è fresco." },
-          { "who": "tone", "sl": "Slišite? Pod lipo nekaj igra.", "en": "Hear that? Something's playing under the linden.", "de": "Hört ihr? Unter der Linde spielt etwas.", "it": "Sentite? Sotto il tiglio suona qualcosa." },
+          { "who": "tone", "sl": "Slišite? Pod lipo nekaj igra.", "en": "Hear that? Something's playing under the linden.", "de": "Hört ihr? Unter der Linde spielt etwas.", "it": "Sentite? Sotto il tiglio suona qualcosa.", "fx": { "band": 1 } },
           { "choices": [
             { "sl": "Tam igra godba!", "en": "The band's playing there!", "de": "Da spielt die Blaskapelle!", "it": "Lì suona la banda!", "ok": true,
               "reply": { "sl": "Ja. Glasni so, ampak lepo igrajo.", "en": "Yes. They're loud, but they play nicely.", "de": "Ja. Laut sind sie, aber sie spielen schön.", "it": "Sì. Fanno rumore, ma suonano bene." } },
@@ -331,7 +333,7 @@
               "why": { "en": "Vaja is a drill: work with the hose. Tonight is the fête: veselica.", "de": "Vaja ist eine Übung: Arbeit mit dem Schlauch. Heute Abend ist das Fest: veselica.", "it": "Vaja è l'esercitazione: lavoro col tubo. Stasera c'è la festa: veselica." },
               "reply": { "sl": "Na vaji? Ha ha, na vaji smo bili samo mokri!", "en": "At the drill? Ha ha, at the drill we just got wet!", "de": "Bei der Übung? Ha ha, bei der Übung sind wir nur nass geworden!", "it": "All'esercitazione? Ah ah, all'esercitazione ci siamo solo bagnati!" } }
           ] },
-          { "who": "marko", "sl": "Ena, dve, tri … Vsa vas pleše!", "en": "One, two, three … The whole village is dancing!", "de": "Eins, zwei, drei … Das ganze Dorf tanzt!", "it": "Uno, due, tre … Tutto il paese balla!" }
+          { "who": "marko", "sl": "Ena, dve, tri … Vsa vas pleše!", "en": "One, two, three … The whole village is dancing!", "de": "Eins, zwei, drei … Das ganze Dorf tanzt!", "it": "Uno, due, tre … Tutto il paese balla!", "fx": { "dance": 1 } }
         ] },
         "A2": { "lines": [
           { "who": "luka", "sl": "Dom stoji, brizgalna je v njem. Nocoj to praznujemo!", "en": "The station stands, the pump is inside. Tonight we celebrate!", "de": "Das Haus steht, die Spritze ist drin. Heute Abend feiern wir!", "it": "La caserma è in piedi, la pompa è dentro. Stasera si festeggia!" },
@@ -339,7 +341,7 @@
           { "who": "luka", "sl": "{learner}, povej vsem, kaj bo nocoj!", "en": "{learner}, tell everyone what's on tonight!", "de": "{learner}, sag allen, was heute Abend los ist!", "it": "{learner}, di' a tutti che cosa c'è stasera!" },
           { "choices": [
             { "sl": "Nocoj bo veselica z godbo!", "en": "Tonight there'll be a fête with a band!", "de": "Heute Abend gibt es ein Fest mit Blaskapelle!", "it": "Stasera c'è la festa con la banda!", "ok": true,
-              "reply": { "sl": "Tako je! Godba že nosi trobente pod lipo.", "en": "That's right! The band is already carrying its trumpets under the linden.", "de": "Genau! Die Blaskapelle trägt schon die Trompeten unter die Linde.", "it": "Esatto! La banda sta già portando le trombe sotto il tiglio." } },
+              "reply": { "sl": "Tako je! Godba že nosi trobente pod lipo.", "en": "That's right! The band is already carrying its trumpets under the linden.", "de": "Genau! Die Blaskapelle trägt schon die Trompeten unter die Linde.", "it": "Esatto! La banda sta già portando le trombe sotto il tiglio.", "fx": { "band": 1 } } },
             { "sl": "Nocoj bo veselica z godba!", "en": "Tonight there'll be a fête with a band!", "de": "Heute Abend gibt es ein Fest mit Blaskapelle!", "it": "Stasera c'è la festa con la banda!", "grammar": "orodnik",
               "why": { "en": "Z (with) takes the instrumental: a feminine -a becomes -o: z godbo.", "de": "Z (mit) verlangt den Instrumental: ein weibliches -a wird zu -o: z godbo.", "it": "Z (con) vuole lo strumentale: una -a femminile diventa -o: z godbo." },
               "reply": { "sl": "Z … godba? Hm, kako, prosim?", "en": "With … band? Hm, pardon?", "de": "Mit … Blaskapelle? Hm, wie bitte?", "it": "Con … banda? Mm, come, scusa?" } },
@@ -358,7 +360,7 @@
               "why": { "en": "Spat is to sleep. With the band playing, you go dancing: plesat.", "de": "Spat heißt schlafen. Wenn die Blaskapelle spielt, geht man tanzen: plesat.", "it": "Spat vuol dire dormire. Quando suona la banda, si va a ballare: plesat." },
               "reply": { "sl": "Spat? To mi je pa všeč! Ampak godba ne pusti.", "en": "To bed? Now that I like! But the band won't let us.", "de": "Schlafen? Das gefällt mir! Aber die Blaskapelle lässt uns nicht.", "it": "A dormire? Questo sì che mi piace! Ma la banda non ce lo lascia fare." } }
           ] },
-          { "who": "marko", "sl": "Bravo! Ena, dve, tri … Vsa vas pleše polko!", "en": "Bravo! One, two, three … The whole village is dancing the polka!", "de": "Bravo! Eins, zwei, drei … Das ganze Dorf tanzt Polka!", "it": "Bravo! Uno, due, tre … Tutto il paese balla la polka!" }
+          { "who": "marko", "sl": "Bravo! Ena, dve, tri … Vsa vas pleše polko!", "en": "Bravo! One, two, three … The whole village is dancing the polka!", "de": "Bravo! Eins, zwei, drei … Das ganze Dorf tanzt Polka!", "it": "Bravo! Uno, due, tre … Tutto il paese balla la polka!", "fx": { "dance": 1 } }
         ] }
       }
     }

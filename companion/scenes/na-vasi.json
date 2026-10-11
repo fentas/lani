@@ -48,6 +48,7 @@
   "dialogs": [
     {
       "id": "nogomet",
+      "fx_stays": true,
       "lines": [
         { "who": "otroci", "sl": "{learner}! Igraš nogomet? Manjka nam en igralec!", "en": "{learner}! Do you play football? We are one player short!", "de": "{learner}! Spielst du Fußball? Uns fehlt ein Spieler!", "it": "{learner}! Giochi a calcio? Ci manca un giocatore!" },
         { "choices": [
@@ -59,7 +60,8 @@
           { "sl": "Seveda! Kje je žoga?", "en": "Of course! Where's the ball?", "de": "Klar! Wo ist der Ball?", "it": "Certo! Dov'è la palla?", "ok": true,
             "reply": { "sl": "Tukaj! Hitro, ti greš v gol!", "en": "Here! Quick, you go in goal!", "de": "Hier! Schnell, du gehst ins Tor!", "it": "Eccola! {m:Svelto|f:Svelta}, tu vai in porta!" } }
         ] },
-        { "who": "otroci", "sl": "Gol! Ena proti nič! {learner}, pazi, žoga!", "en": "Goal! One nil! {learner}, watch out, the ball!", "de": "Tor! Eins zu null! {learner}, pass auf, der Ball!", "it": "Gol! Uno a zero! {learner}, {m:attento|f:attenta}, la palla!" },
+        { "who": "otroci", "sl": "Gol! Ena proti nič! {learner}, pazi, žoga!", "en": "Goal! One nil! {learner}, watch out, the ball!", "de": "Tor! Eins zu null! {learner}, pass auf, der Ball!", "it": "Gol! Uno a zero! {learner}, {m:attento|f:attenta}, la palla!",
+          "fx": { "goal": 1 } },
         { "choices": [
           { "sl": "Au! Žoga me je zadela v glavo.", "en": "Ow! The ball hit me on the head.", "de": "Au! Der Ball hat mich am Kopf getroffen.", "it": "Ahi! La palla mi ha colpito in testa.", "ok": true,
             "reply": { "sl": "Ha, ha! Si {m:cel|f:cela}?", "en": "Ha ha! Are you in one piece?", "de": "Ha ha! Ist noch alles dran?", "it": "Ah ah! Sei {m:tutto intero|f:tutta intera}?" } },
@@ -123,8 +125,10 @@
     },
     {
       "id": "muri",
+      "fx_stays": true,
       "lines": [
-        { "who": "janez", "sl": "{learner}, si {m:videl|f:videla} mojega psa? Rjav je, majhen. Ime mu je Muri.", "en": "{learner}, have you seen my dog? He is brown, small. His name is Muri.", "de": "{learner}, hast du meinen Hund gesehen? Er ist braun, klein. Er heißt Muri.", "it": "{learner}, hai visto il mio cane? È marrone, piccolo. Si chiama Muri." },
+        { "who": "janez", "sl": "{learner}, si {m:videl|f:videla} mojega psa? Rjav je, majhen. Ime mu je Muri.", "en": "{learner}, have you seen my dog? He is brown, small. His name is Muri.", "de": "{learner}, hast du meinen Hund gesehen? Er ist braun, klein. Er heißt Muri.", "it": "{learner}, hai visto il mio cane? È marrone, piccolo. Si chiama Muri.",
+          "fx": { "dog": 0 } },
         { "choices": [
           { "sl": "Ne, nisem ga {m:videl|f:videla}. Kdaj je pobegnil?", "en": "No, I have not seen him. When did he run off?", "de": "Nein, ich habe ihn nicht gesehen. Wann ist er weggelaufen?", "it": "No, non l'ho visto. Quando è scappato?", "ok": true,
             "reply": { "sl": "Popoldne. Vedno gre k mesarju.", "en": "In the afternoon. He always goes to the butcher's.", "de": "Am Nachmittag. Er geht immer zum Metzger.", "it": "Nel pomeriggio. Va sempre dal macellaio." } },
@@ -135,10 +139,11 @@
             "grammar": "pretekli-cas", "why": { "en": "The past tense needs the participle: nisem {m:videl|f:videla}. Vidim is the present.", "de": "Die Vergangenheit braucht das Partizip: nisem {m:videl|f:videla}. Vidim ist das Präsens.", "it": "Il passato vuole il participio: nisem {m:videl|f:videla}. Vidim è il presente." },
             "reply": { "sl": "Vidim? Zdaj ali prej? Hm, ne razumem.", "en": "Vidim (I see)? Now or before? Hm, I don't follow.", "de": "Vidim (ich sehe)? Jetzt oder vorher? Hm, das versteh ich nicht.", "it": "Vidim (vedo)? Adesso o prima? Mah, non capisco." } }
         ] },
-        { "who": "janez", "sl": "Muri! Muri! Poglej, tam pri rožah! Pokliči ga, tebe ima rad.", "en": "Muri! Muri! Look, there by the flowers! Call him, he likes you.", "de": "Muri! Muri! Schau, dort bei den Blumen! Ruf ihn, dich mag er.", "it": "Muri! Muri! Guarda, là vicino ai fiori! Chiamalo, a te vuole bene." },
+        { "who": "janez", "sl": "Muri! Muri! Poglej, tam pri rožah! Pokliči ga, tebe ima rad.", "en": "Muri! Muri! Look, there by the flowers! Call him, he likes you.", "de": "Muri! Muri! Schau, dort bei den Blumen! Ruf ihn, dich mag er.", "it": "Muri! Muri! Guarda, là vicino ai fiori! Chiamalo, a te vuole bene.",
+          "fx": { "dog": 0.5 } },
         { "choices": [
           { "sl": "Muri, pridi sem! Priden pes!", "en": "Muri, come here! Good dog!", "de": "Muri, komm her! Braver Hund!", "it": "Muri, vieni qui! Bravo cane!", "ok": true,
-            "reply": { "sl": "Vidiš? Tebe posluša, mene pa ne.", "en": "See? He listens to you, but not to me.", "de": "Siehst du? Auf dich hört er, auf mich nicht.", "it": "Vedi? Ascolta te, ma non me." } },
+            "reply": { "sl": "Vidiš? Tebe posluša, mene pa ne.", "en": "See? He listens to you, but not to me.", "de": "Siehst du? Auf dich hört er, auf mich nicht.", "it": "Vedi? Ascolta te, ma non me.", "fx": { "dog": 1, "wag": 1 } } },
           { "sl": "Muri, pridite sem! Priden pes!", "en": "Muri, come here (vi)! Good dog!", "de": "Muri, kommen Sie her (vi)! Braver Hund!", "it": "Muri, venga qui (vi)! Bravo cane!",
             "grammar": "ti-vi", "why": { "en": "To one dog, or one friend: pridi. Pridite is for several, or the polite vi.", "de": "Zu einem Hund oder einem Freund: pridi. Pridite gilt für mehrere, oder für das höfliche vi.", "it": "A un cane, o a un amico: pridi. Pridite è per più persone, o per il vi di cortesia." },
             "reply": { "sl": "Vikaš psa? Ha! Muri, zdaj si gospod.", "en": "You say vi to a dog? Ha! Muri, now you're a gentleman.", "de": "Du siezt den Hund? Ha! Muri, jetzt bist du ein feiner Herr.", "it": "Dai del lei al cane? Ah! Muri, adesso sei un signore." } },
@@ -146,7 +151,8 @@
             "why": { "en": "Here, towards me, is sem. Tam is 'there'.", "de": "Her, zu mir hin, heißt sem. Tam heißt ‚dort‘.", "it": "Qui, verso di me, è sem. Tam significa 'là'." },
             "reply": { "sl": "Tam? Zdaj pa teče tja, k mesarju!", "en": "Tam (there)? Now he's running off there, to the butcher's!", "de": "Tam (dort)? Jetzt läuft er dorthin, zum Metzger!", "it": "Tam (là)? Adesso corre là, dal macellaio!" } }
         ] },
-        { "who": "janez", "sl": "Hvala, {learner}. Muri, domov! Lahko noč.", "en": "Thanks, {learner}. Muri, home! Good night.", "de": "Danke, {learner}. Muri, nach Hause! Gute Nacht.", "it": "Grazie, {learner}. Muri, a casa! Buonanotte." },
+        { "who": "janez", "sl": "Hvala, {learner}. Muri, domov! Lahko noč.", "en": "Thanks, {learner}. Muri, home! Good night.", "de": "Danke, {learner}. Muri, nach Hause! Gute Nacht.", "it": "Grazie, {learner}. Muri, a casa! Buonanotte.",
+          "fx": { "wag": 0 } },
         { "choices": [
           { "sl": "Lahko noč, Janez. Lahko noč, Muri!", "en": "Good night, Janez. Good night, Muri!", "de": "Gute Nacht, Janez. Gute Nacht, Muri!", "it": "Buonanotte, Janez. Buonanotte, Muri!", "ok": true,
             "reply": { "sl": "Hov!", "en": "Woof!", "de": "Wuff!", "it": "Bau!" } },
@@ -199,8 +205,10 @@
     },
     {
       "id": "macka",
+      "fx_stays": true,
       "lines": [
-        { "who": "otroci", "sl": "{learner}, pomagaj! Mačka je na lipi in ne more dol!", "en": "{learner}, help! The cat is up the linden and cannot get down!", "de": "{learner}, Hilfe! Die Katze ist auf der Linde und kommt nicht runter!", "it": "{learner}, aiuto! La gatta è sul tiglio e non riesce a scendere!" },
+        { "who": "otroci", "sl": "{learner}, pomagaj! Mačka je na lipi in ne more dol!", "en": "{learner}, help! The cat is up the linden and cannot get down!", "de": "{learner}, Hilfe! Die Katze ist auf der Linde und kommt nicht runter!", "it": "{learner}, aiuto! La gatta è sul tiglio e non riesce a scendere!",
+          "fx": { "cat": 0 } },
         { "choices": [
           { "sl": "Katera mačka? Vaša?", "en": "Which cat? Yours?", "de": "Welche Katze? Eure?", "it": "Quale gatta? La vostra?", "ok": true,
             "reply": { "sl": "Ne, Mickina! Muca, pridi dol!", "en": "No, Micka's! Kitty, come down!", "de": "Nein, Mickas! Mieze, komm runter!", "it": "No, quella di Micka! Micia, vieni giù!" } },
@@ -222,7 +230,8 @@
             "grammar": "ti-vi", "why": { "en": "Several children: prinesite. Prinesi is for one person.", "de": "Mehrere Kinder: prinesite. Prinesi gilt für eine Person.", "it": "Più bambini: prinesite. Prinesi è per una persona sola." },
             "reply": { "sl": "Jaz? Sam? Zakaj pa vedno jaz, {learner}?", "en": "Me? Alone? Why is it always me, {learner}?", "de": "Ich? Allein? Warum immer ich, {learner}?", "it": "Io? Da solo? Perché sempre io, {learner}?" } }
         ] },
-        { "who": "otroci", "sl": "Muca! Mleko! Poglej, gre dol! Sama!", "en": "Kitty! Milk! Look, she is coming down! By herself!", "de": "Mieze! Milch! Schau, sie kommt runter! Ganz allein!", "it": "Micia! Il latte! Guarda, scende! Da sola!" },
+        { "who": "otroci", "sl": "Muca! Mleko! Poglej, gre dol! Sama!", "en": "Kitty! Milk! Look, she is coming down! By herself!", "de": "Mieze! Milch! Schau, sie kommt runter! Ganz allein!", "it": "Micia! Il latte! Guarda, scende! Da sola!",
+          "fx": { "cat": 1 } },
         { "choices": [
           { "sl": "Vidite? Mačka ni neumna.", "en": "See? The cat is not stupid.", "de": "Seht ihr? Die Katze ist nicht dumm.", "it": "Vedete? La gatta non è stupida.", "ok": true,
             "reply": { "sl": "Hvala, {learner}! Ti si {m:pameten|f:pametna} kot mačka!", "en": "Thanks, {learner}! You are as clever as a cat!", "de": "Danke, {learner}! Du bist so schlau wie eine Katze!", "it": "Grazie, {learner}! Sei {m:furbo|f:furba} come un gatto!" } },
@@ -238,18 +247,20 @@
   "variants": [
     {
       "id": "nogomet-zoga",
+      "fx_stays": true,
       "memory": { "sl": "žogo pod klopjo in tvoj gol", "en": "the ball under the bench and your goal", "de": "den Ball unter der Bank und dein Tor", "it": "la palla sotto la panchina e il tuo gol" },
       "lines": [
-        { "who": "otroci", "sl": "{learner}, {learner}! Kje je žoga? Iščemo jo že pet minut!", "en": "{learner}, {learner}! Where is the ball? We've been looking for it for five minutes!", "de": "{learner}, {learner}! Wo ist der Ball? Wir suchen ihn schon fünf Minuten!", "it": "{learner}, {learner}! Dov'è la palla? La cerchiamo da cinque minuti!" },
+        { "who": "otroci", "sl": "{learner}, {learner}! Kje je žoga? Iščemo jo že pet minut!", "en": "{learner}, {learner}! Where is the ball? We've been looking for it for five minutes!", "de": "{learner}, {learner}! Wo ist der Ball? Wir suchen ihn schon fünf Minuten!", "it": "{learner}, {learner}! Dov'è la palla? La cerchiamo da cinque minuti!",
+          "fx": { "ball": 0 } },
         { "choices": [
-          { "sl": "Tam je, pod klop!", "en": "There it is, (going) under the bench!", "de": "Da ist er, unter die Bank!", "it": "Eccola, sotto la panchina (moto)!",
-            "grammar": "orodnik", "why": { "en": "Where something is: pod + instrumental, pod klopjo. Pod klop (accusative) is where it goes: žoga gre pod klop.", "de": "Wo etwas ist: pod + Instrumental, pod klopjo. Pod klop (Akkusativ) ist, wohin es geht: žoga gre pod klop.", "it": "Dove si trova qualcosa: pod + strumentale, pod klopjo. Pod klop (accusativo) è dove va: žoga gre pod klop." },
-            "reply": { "sl": "Pod klop? Kam gre? Pokaži s prstom, {learner}!", "en": "Pod klop (going under the bench)? Where's it going? Point with your finger, {learner}!", "de": "Pod klop (unter die Bank)? Wohin rollt er? Zeig mit dem Finger, {learner}!", "it": "Pod klop (sotto la panchina, moto)? Dove va? Indica col dito, {learner}!" } },
-          { "sl": "Tam je, pod klopjo!", "en": "There it is, under the bench!", "de": "Da ist er, unter der Bank!", "it": "Eccola, sotto la panchina!", "ok": true,
-            "reply": { "sl": "Res! Hvala, {learner}! Zdaj pa igramo!", "en": "So it is! Thanks, {learner}! Now let's play!", "de": "Tatsächlich! Danke, {learner}! Jetzt spielen wir!", "it": "È vero! Grazie, {learner}! Adesso giochiamo!" } },
-          { "sl": "Tam je, pod klopi!", "en": "There it is, under the bench (locative)!", "de": "Da ist er, unter der Bank (Lokativ)!", "it": "Eccola, sotto la panchina (locativo)!",
-            "grammar": "orodnik", "why": { "en": "Pod takes the instrumental for a place: pod klopjo. The locative klopi goes with v, na, pri: na klopi.", "de": "Pod steht für einen Ort mit dem Instrumental: pod klopjo. Der Lokativ klopi steht nach v, na, pri: na klopi.", "it": "Pod per un luogo regge lo strumentale: pod klopjo. Il locativo klopi va con v, na, pri: na klopi." },
-            "reply": { "sl": "Klopi? Kje, kje? Ne najdem je!", "en": "Klopi? Where, where? I can't find it!", "de": "Klopi? Wo, wo? Ich finde ihn nicht!", "it": "Klopi? Dove, dove? Non la trovo!" } }
+          { "sl": "Tam je, pod lipo!", "en": "There it is, under the linden!", "de": "Da ist er, unter der Linde!", "it": "Eccola, sotto il tiglio!", "tap": "linden",
+            "why": { "en": "Look for something round and white with a red stripe: it shows somewhere, low down.", "de": "Such etwas Rundes, Weißes mit einem roten Streifen: Es schaut irgendwo weiter unten hervor.", "it": "Cerca qualcosa di rotondo e bianco con una striscia rossa: spunta da qualche parte, in basso." },
+            "reply": { "sl": "Pod lipo? Tu je ni, {learner}!", "en": "Under the linden? It isn't here, {learner}!", "de": "Unter der Linde? Hier ist er nicht, {learner}!", "it": "Sotto il tiglio? Qui non c'è, {learner}!" } },
+          { "sl": "Tam je, pod klopjo!", "en": "There it is, under the bench!", "de": "Da ist er, unter der Bank!", "it": "Eccola, sotto la panchina!", "ok": true, "tap": "bench", "grammar": "orodnik",
+            "reply": { "sl": "Res! Hvala, {learner}! Zdaj pa igramo!", "en": "So it is! Thanks, {learner}! Now let's play!", "de": "Tatsächlich! Danke, {learner}! Jetzt spielen wir!", "it": "È vero! Grazie, {learner}! Adesso giochiamo!", "fx": { "ball": 1 } } },
+          { "sl": "Tam je, v rožah!", "en": "There it is, in the flowers!", "de": "Da ist er, in den Blumen!", "it": "Eccola, tra i fiori!", "tap": "flowers",
+            "why": { "en": "Look low down for a red and white stripe peeping out.", "de": "Schau weiter unten nach einem rot-weißen Streifen, der hervorschaut.", "it": "Guarda in basso: cerca una striscia rossa e bianca che spunta." },
+            "reply": { "sl": "V rožah? Tu so samo rože, {learner}!", "en": "In the flowers? There are only flowers here, {learner}!", "de": "In den Blumen? Hier sind nur Blumen, {learner}!", "it": "Tra i fiori? Qui ci sono solo fiori, {learner}!" } }
         ] },
         { "who": "otroci", "sl": "Mi smo trije, oni so štirje. Pomagaj nam!", "en": "There are three of us and four of them. Help us!", "de": "Wir sind drei, die sind vier. Hilf uns!", "it": "Noi siamo in tre, loro in quattro. Aiutaci!" },
         { "choices": [
@@ -262,7 +273,8 @@
           { "sl": "Prav, igram z vami!", "en": "OK, I'll play with you!", "de": "Gut, ich spiele mit euch!", "it": "Va bene, gioco con voi!", "ok": true,
             "reply": { "sl": "Juhu! Zdaj smo štirje proti štirim!", "en": "Yay! Now it's four against four!", "de": "Juhu! Jetzt steht es vier gegen vier!", "it": "Evviva! Adesso siamo quattro contro quattro!" } }
         ] },
-        { "who": "otroci", "sl": "Gol! Bravo, {learner}, kakšen strel!", "en": "Goal! Well done, {learner}, what a shot!", "de": "Tor! Bravo, {learner}, was für ein Schuss!", "it": "Gol! {m:Bravo|f:Brava}, {learner}, che tiro!" }
+        { "who": "otroci", "sl": "Gol! Bravo, {learner}, kakšen strel!", "en": "Goal! Well done, {learner}, what a shot!", "de": "Tor! Bravo, {learner}, was für ein Schuss!", "it": "Gol! {m:Bravo|f:Brava}, {learner}, che tiro!",
+          "fx": { "goal": 1 } }
       ]
     },
     {
@@ -367,7 +379,8 @@
             "why": { "en": "It is evening: dober večer. Dobro jutro is for the morning.", "de": "Es ist Abend: dober večer. Dobro jutro sagt man am Morgen.", "it": "È sera: dober večer. Dobro jutro è per la mattina." },
             "reply": { "sl": "Jutro? {m:Fant|f:Dekle}, še Muri ve, da gre dan spat.", "en": "Jutro (morning)? {m:Lad|f:Lass}, even Muri knows the day is going to bed.", "de": "Jutro (Morgen)? {m:Junge|f:Mädchen}, sogar Muri weiß, dass der Tag schlafen geht.", "it": "Jutro (mattino)? {m:Ragazzo|f:Ragazza}, perfino Muri sa che il giorno va a dormire." } }
         ] },
-        { "who": "janez", "sl": "Poglej ga, kako maha z repom. Zdaj sta prijatelja, ti in on.", "en": "Look at him wagging his tail. Now you two are friends, you and him.", "de": "Schau, wie er mit dem Schwanz wedelt. Jetzt seid ihr zwei Freunde, du und er.", "it": "Guarda come scodinzola. Adesso siete amici, tu e lui." },
+        { "who": "janez", "sl": "Poglej ga, kako maha z repom. Zdaj sta prijatelja, ti in on.", "en": "Look at him wagging his tail. Now you two are friends, you and him.", "de": "Schau, wie er mit dem Schwanz wedelt. Jetzt seid ihr zwei Freunde, du und er.", "it": "Guarda come scodinzola. Adesso siete amici, tu e lui.",
+          "fx": { "wag": 1 } },
         { "choices": [
           { "sl": "Ja, tudi jaz mu imam {m:rad|f:rada}.", "en": "Yes, I like to him too.", "de": "Ja, ich mag ihm auch.", "it": "Sì, anch'io voglio bene a lui (mu, dativo).",
             "grammar": "tozilnik", "why": { "en": "Imeti {m:rad|f:rada} (to like) takes the accusative: ga imam {m:rad|f:rada}. Mu is the dative (to him).", "de": "Imeti {m:rad|f:rada} (mögen) steht mit dem Akkusativ: ga imam {m:rad|f:rada}. Mu ist der Dativ (ihm).", "it": "Imeti {m:rad|f:rada} (voler bene) regge l'accusativo: ga imam {m:rad|f:rada}. Mu è il dativo (a lui)." },
@@ -441,9 +454,11 @@
     },
     {
       "id": "macka-sir",
+      "fx_stays": true,
       "memory": { "sl": "mačko na lipi in sir", "en": "the cat up the linden and the cheese", "de": "die Katze auf der Linde und den Käse", "it": "la gatta sul tiglio e il formaggio" },
       "lines": [
-        { "who": "otroci", "sl": "{learner}, {learner}! Mačka je spet na lipi!", "en": "{learner}, {learner}! The cat is up the linden again!", "de": "{learner}, {learner}! Die Katze ist wieder auf der Linde!", "it": "{learner}, {learner}! La gatta è di nuovo sul tiglio!" },
+        { "who": "otroci", "sl": "{learner}, {learner}! Mačka je spet na lipi!", "en": "{learner}, {learner}! The cat is up the linden again!", "de": "{learner}, {learner}! Die Katze ist wieder auf der Linde!", "it": "{learner}, {learner}! La gatta è di nuovo sul tiglio!",
+          "fx": { "cat": 0 } },
         { "choices": [
           { "sl": "Spet? Zakaj? Se boji psa?", "en": "Again? Why? Is she afraid of the dog?", "de": "Schon wieder? Warum? Hat sie Angst vor dem Hund?", "it": "Di nuovo? Perché? Ha paura del cane?", "ok": true,
             "reply": { "sl": "Ja! Pes je lajal in muca je zbežala gor.", "en": "Yes! The dog barked and kitty ran up.", "de": "Ja! Der Hund hat gebellt, und die Mieze ist hinaufgerannt.", "it": "Sì! Il cane ha abbaiato e la micia è scappata su." } },
@@ -462,7 +477,8 @@
           { "sl": "Ne, nimam ribe. Imam pa sir!", "en": "No, I haven't got a fish. But I've got cheese!", "de": "Nein, ich habe keinen Fisch. Aber ich habe Käse!", "it": "No, non ho pesce. Però ho il formaggio!", "ok": true,
             "reply": { "sl": "Sir? Poskusimo! Muca, sir!", "en": "Cheese? Let's try! Kitty, cheese!", "de": "Käse? Versuchen wir's! Mieze, Käse!", "it": "Formaggio? Proviamo! Micia, formaggio!" } }
         ] },
-        { "who": "otroci", "sl": "Glej, gre dol! Mačke imajo rade tudi sir! Hvala, {learner}!", "en": "Look, she's coming down! Cats like cheese too! Thanks, {learner}!", "de": "Schau, sie kommt runter! Katzen mögen auch Käse! Danke, {learner}!", "it": "Guarda, scende! Ai gatti piace anche il formaggio! Grazie, {learner}!" }
+        { "who": "otroci", "sl": "Glej, gre dol! Mačke imajo rade tudi sir! Hvala, {learner}!", "en": "Look, she's coming down! Cats like cheese too! Thanks, {learner}!", "de": "Schau, sie kommt runter! Katzen mögen auch Käse! Danke, {learner}!", "it": "Guarda, scende! Ai gatti piace anche il formaggio! Grazie, {learner}!",
+          "fx": { "cat": 1 } }
       ]
     }
   ]

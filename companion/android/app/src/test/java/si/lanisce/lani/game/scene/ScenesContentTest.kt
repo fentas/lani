@@ -247,13 +247,23 @@ class ScenesContentTest {
         assertEquals(1f, effects("pri-ribniku", "zaba-paglavci").first()["tadpoles"])
         val lamb = effects("ob-potoku", "ovce-jagnje")
         assertTrue(lamb.first()["lamb"] == 0f && lamb.last()["lamb"] == 1f)
+        // the square: the cat up the linden at once and down again, Muri away, at the flowers and home wagging, the ball lost
+        // under the bench and found, a goal; they end as the square is by itself (their 1)
+        for (d in listOf("macka", "macka-sir")) effects("na-vasi", d).let { assertTrue(d, it.first()["cat"] == 0f && it.last()["cat"] == 1f) }
+        val squareMuri = effects("na-vasi", "muri")
+        assertTrue(squareMuri.first()["dog"] == 0f && squareMuri.any { it["dog"] == 0.5f } && squareMuri.last()["dog"] == 1f && squareMuri.last()["wag"] == 0f)
+        assertEquals(1f, effects("na-vasi", "muri-kruh").last()["wag"])
+        val ball = effects("na-vasi", "nogomet-zoga")
+        assertTrue(ball.first()["ball"] == 0f && ball.last()["ball"] == 1f && ball.last()["goal"] == 1f)
+        assertEquals(1f, effects("na-vasi", "nogomet").last()["goal"])
         val kept = files.map { parseScene(it.readText()) }.flatMap { s -> s.dialogs.filter { it.fxKept }.map { "${s.id}/${it.id}" } }
         // and their variants: the candles lit, the lantern left burning; what is gone or home or dressed for good, until
-        // midnight: the hare, Sivko, the scarecrow, the pedlar in at the gate, the lamb drinking
+        // midnight: the hare, Sivko, the scarecrow, the pedlar in at the gate, the lamb drinking; the square as it is by itself
         assertEquals(
             listOf(
                 "na-njivi/strasilo-klobuk", "na-njivi/konj-hlev", "na-njivi/kosnja-zajec", "na-stolpu/straza", "na-stolpu/krosnjar",
-                "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem",
+                "na-stolpu/krosnjar-daljnogled", "na-stolpu/krosnjar-denar", "na-vasi/nogomet", "na-vasi/muri", "na-vasi/macka",
+                "na-vasi/nogomet-zoga", "na-vasi/macka-sir", "ob-potoku/ovce-jagnje", "v-cerkvi/sveca", "v-cerkvi/sveca-stejem",
                 "v-cerkvi/sveca-veter", "v-sotoru/svetilka", "v-sotoru/svetilka-bom", "v-sotoru/svetilka-komu", "v-sotoru/dez-svetilka",
             ),
             kept,

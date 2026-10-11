@@ -233,10 +233,11 @@
     {
       "scene": "na-vasi",
       "words": ["vrv", "visok"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "luka", "sl": "Danes je velik dan. Danes postavimo mlaj!", "en": "Today is a big day. Today we put up the maypole!", "de": "Heute ist ein großer Tag. Heute stellen wir den Maibaum auf!", "it": "Oggi è un gran giorno. Oggi innalziamo l'albero di maggio!" },
-          { "who": "marko", "sl": "Vsa vas je tukaj. Godba že igra!", "en": "The whole village is here. The band is already playing!", "de": "Das ganze Dorf ist da. Die Blaskapelle spielt schon!", "it": "C'è tutto il paese. La banda suona già!" },
+          { "who": "marko", "sl": "Vsa vas je tukaj. Godba že igra!", "en": "The whole village is here. The band is already playing!", "de": "Das ganze Dorf ist da. Die Blaskapelle spielt schon!", "it": "C'è tutto il paese. La banda suona già!", "fx": { "band": 1 } },
           { "who": "luka", "sl": "{learner}, kaj potrebujemo, da ga dvignemo?", "en": "{learner}, what do we need to lift it?", "de": "{learner}, was brauchen wir, um ihn hochzuheben?", "it": "{learner}, che cosa ci serve per sollevarlo?" },
           { "choices": [
             { "sl": "Potrebujemo vrv.", "en": "We need a rope.", "de": "Wir brauchen ein Seil.", "it": "Ci serve una corda.", "ok": true,
@@ -248,7 +249,7 @@
               "why": { "en": "Žoga is a ball. To pull the maypole up you need a rope: vrv.", "de": "Žoga ist ein Ball. Um den Maibaum hochzuziehen, braucht man ein Seil: vrv.", "it": "Žoga è una palla. Per tirare su l'albero di maggio ci vuole una corda: vrv." },
               "reply": { "sl": "Žogo? Z žogo se igrajo otroci!", "en": "A ball? The children play with a ball!", "de": "Einen Ball? Mit dem Ball spielen die Kinder!", "it": "Una palla? Con la palla ci giocano i bambini!" } }
           ] },
-          { "who": "luka", "sl": "Vlecite! Ena, dve, tri … Glej ga! Kakšen je?", "en": "Pull! One, two, three … Look at it! What's it like?", "de": "Zieht! Eins, zwei, drei … Schau ihn dir an! Wie ist er?", "it": "Tirate! Uno, due, tre … Guardalo! Com'è?" },
+          { "who": "luka", "sl": "Vlecite! Ena, dve, tri … Glej ga! Kakšen je?", "en": "Pull! One, two, three … Look at it! What's it like?", "de": "Zieht! Eins, zwei, drei … Schau ihn dir an! Wie ist er?", "it": "Tirate! Uno, due, tre … Guardalo! Com'è?", "fx": { "maypole": 1 } },
           { "choices": [
             { "sl": "Zelo visok je!", "en": "It's very tall!", "de": "Er ist sehr hoch!", "it": "È altissimo!", "ok": true,
               "reply": { "sl": "Ja! Najvišji mlaj daleč naokoli!", "en": "Yes! The tallest maypole for miles around!", "de": "Ja! Der höchste Maibaum weit und breit!", "it": "Sì! L'albero di maggio più alto da queste parti!" } },
@@ -275,7 +276,7 @@
               "why": { "en": "Žlica is a spoon. To pull the maypole up you need a rope: vrv.", "de": "Žlica ist ein Löffel. Um den Maibaum hochzuziehen, braucht man ein Seil: vrv.", "it": "Žlica è un cucchiaio. Per tirare su l'albero di maggio ci vuole una corda: vrv." },
               "reply": { "sl": "Z žlico? Ha ha, potem bomo tukaj do jutri!", "en": "With a spoon? Ha ha, then we'll be here till tomorrow!", "de": "Mit einem Löffel? Ha ha, dann sind wir morgen noch hier!", "it": "Con un cucchiaio? Ah ah, allora stiamo qui fino a domani!" } }
           ] },
-          { "who": "luka", "sl": "Vlecite! … Stoji! Je višji od lanskega?", "en": "Pull! … It stands! Is it taller than last year's?", "de": "Zieht! … Er steht! Ist er höher als der vom letzten Jahr?", "it": "Tirate! … È in piedi! È più alto di quello dell'anno scorso?" },
+          { "who": "luka", "sl": "Vlecite! … Stoji! Je višji od lanskega?", "en": "Pull! … It stands! Is it taller than last year's?", "de": "Zieht! … Er steht! Ist er höher als der vom letzten Jahr?", "it": "Tirate! … È in piedi! È più alto di quello dell'anno scorso?", "fx": { "maypole": 1 } },
           { "choices": [
             { "sl": "Ja, letošnji je višji!", "en": "Yes, this year's is taller!", "de": "Ja, der von diesem Jahr ist höher!", "it": "Sì, quello di quest'anno è più alto!", "ok": true,
               "reply": { "sl": "Res je! Najvišji mlaj daleč naokoli!", "en": "That's true! The tallest maypole for miles around!", "de": "Stimmt! Der höchste Maibaum weit und breit!", "it": "È vero! L'albero di maggio più alto da queste parti!" } },
@@ -286,7 +287,7 @@
               "why": { "en": "Nižji means lower; you said yes to taller: višji.", "de": "Nižji heißt niedriger; du hast ja zu höher gesagt: višji.", "it": "Nižji vuol dire più basso; hai detto sì a più alto: višji." },
               "reply": { "sl": "Nižji? Ja ali ne? Zdaj pa ne vem več.", "en": "Lower? Yes or no? Now I'm confused.", "de": "Niedriger? Ja oder nein? Jetzt weiß ich nicht mehr.", "it": "Più basso? Sì o no? Adesso non ci capisco più niente." } }
           ] },
-          { "who": "marko", "sl": "Bravo, fantje! Zdaj pa godba in klobase!", "en": "Bravo, lads! And now the band and the sausages!", "de": "Bravo, Burschen! Und jetzt die Blaskapelle und die Würste!", "it": "Bravi, ragazzi! E ora la banda e le salsicce!" }
+          { "who": "marko", "sl": "Bravo, fantje! Zdaj pa godba in klobase!", "en": "Bravo, lads! And now the band and the sausages!", "de": "Bravo, Burschen! Und jetzt die Blaskapelle und die Würste!", "it": "Bravi, ragazzi! E ora la banda e le salsicce!", "fx": { "band": 1 } }
         ] }
       }
     }

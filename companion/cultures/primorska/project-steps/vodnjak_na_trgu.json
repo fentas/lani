@@ -68,10 +68,11 @@
     {
       "scene": "na-vasi",
       "words": ["kamnolom", "kamen", "bel"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "tone", "sl": "Za korito potrebujemo nekaj trdega in lepega.", "en": "For the basin we need something hard and beautiful.", "de": "Für das Becken brauchen wir etwas Hartes und Schönes.", "it": "Per la vasca ci serve qualcosa di duro e bello." },
-          { "who": "marko", "sl": "Voz je tukaj! Konj je čisto utrujen.", "en": "The cart is here! The horse is completely worn out.", "de": "Der Wagen ist da! Das Pferd ist ganz erschöpft.", "it": "Il carro è qui! Il cavallo è sfinito." },
+          { "who": "marko", "sl": "Voz je tukaj! Konj je čisto utrujen.", "en": "The cart is here! The horse is completely worn out.", "de": "Der Wagen ist da! Das Pferd ist ganz erschöpft.", "it": "Il carro è qui! Il cavallo è sfinito.", "fx": { "cart-stone": 1 } },
           { "who": "tone", "sl": "{learner}, od kod je ta kamen, kaj misliš?", "en": "{learner}, where's this stone from, do you think?", "de": "{learner}, woher ist dieser Stein, was meinst du?", "it": "{learner}, da dove viene questa pietra, secondo te?" },
           { "choices": [
             { "sl": "Iz kamnoloma, seveda!", "en": "From the quarry, of course!", "de": "Aus dem Steinbruch, natürlich!", "it": "Dalla cava, naturalmente!", "ok": true,
@@ -110,7 +111,7 @@
               "why": { "en": "Pekarna is a bakery. Stone is loaded at the quarry: kamnolom.", "de": "Pekarna ist eine Bäckerei. Stein lädt man im Steinbruch: kamnolom.", "it": "Pekarna è la panetteria. La pietra si carica alla cava: kamnolom." },
               "reply": { "sl": "V pekarni? Potem bomo jedli kamnit kruh.", "en": "At the bakery? Then we'll be eating stone bread.", "de": "In der Bäckerei? Dann essen wir Steinbrot.", "it": "In panetteria? Allora mangeremo pane di pietra." } }
           ] },
-          { "who": "marko", "sl": "Prihajajo! Poglejte, kako se sveti na soncu!", "en": "They're coming! Look how it shines in the sun!", "de": "Sie kommen! Schaut, wie es in der Sonne glänzt!", "it": "Arrivano! Guardate come brilla al sole!" },
+          { "who": "marko", "sl": "Prihajajo! Poglejte, kako se sveti na soncu!", "en": "They're coming! Look how it shines in the sun!", "de": "Sie kommen! Schaut, wie es in der Sonne glänzt!", "it": "Arrivano! Guardate come brilla al sole!", "fx": { "cart-stone": 1 } },
           { "choices": [
             { "sl": "Ta kamen je belejši od snega!", "en": "This stone is whiter than snow!", "de": "Dieser Stein ist weißer als Schnee!", "it": "Questa pietra è più bianca della neve!", "ok": true,
               "reply": { "sl": "Res je! Takega ni nikjer v deželi.", "en": "True! There's none like it anywhere in the land.", "de": "Stimmt! So einen gibt es nirgends im Land.", "it": "È vero! Una così non c'è da nessuna parte." } },
@@ -188,6 +189,7 @@
     {
       "scene": "na-vasi",
       "words": ["jarek", "kopati"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "tone", "sl": "Korito je gotovo. Zdaj potrebujemo vodo.", "en": "The basin is done. Now we need water.", "de": "Das Becken ist fertig. Jetzt brauchen wir Wasser.", "it": "La vasca è finita. Ora ci serve l'acqua." },
@@ -203,7 +205,7 @@
               "why": { "en": "Krompir is potatoes. Water runs along a trench: jarek.", "de": "Krompir sind Kartoffeln. Wasser fließt in einem Graben: jarek.", "it": "Krompir sono le patate. L'acqua scorre in un fosso: jarek." },
               "reply": { "sl": "Krompir? Ta je na njivi, ne tukaj!", "en": "Potatoes? They're in the field, not here!", "de": "Kartoffeln? Die sind auf dem Acker, nicht hier!", "it": "Patate? Quelle sono nel campo, non qui!" } }
           ] },
-          { "who": "marko", "sl": "Jarek je gotov. Zdaj odpremo izvir … Glejte!", "en": "The trench is done. Now we open the spring … Look!", "de": "Der Graben ist fertig. Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito. Ora apriamo la sorgente … Guardate!" },
+          { "who": "marko", "sl": "Jarek je gotov. Zdaj odpremo izvir … Glejte!", "en": "The trench is done. Now we open the spring … Look!", "de": "Der Graben ist fertig. Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito. Ora apriamo la sorgente … Guardate!", "fx": { "fountain": 1 } },
           { "choices": [
             { "sl": "Voda teče po jarku!", "en": "The water's running along the trench!", "de": "Das Wasser fließt den Graben entlang!", "it": "L'acqua scorre lungo il fosso!", "ok": true,
               "reply": { "sl": "Do trga! Samo cevi še manjkajo.", "en": "To the square! Only the spouts are missing now.", "de": "Bis zum Platz! Nur die Röhren fehlen noch.", "it": "Fino alla piazza! Mancano solo le cannelle." } },
@@ -230,7 +232,7 @@
               "why": { "en": "Krompir is potatoes. Water runs along a trench: jarek.", "de": "Krompir sind Kartoffeln. Wasser fließt in einem Graben: jarek.", "it": "Krompir sono le patate. L'acqua scorre in un fosso: jarek." },
               "reply": { "sl": "Krompir od izvira do trga? To bi bila dolga njiva.", "en": "Potatoes from the spring to the square? That'd be a long field.", "de": "Kartoffeln von der Quelle bis zum Platz? Das wäre ein langer Acker.", "it": "Patate dalla sorgente alla piazza? Sarebbe un campo bello lungo." } }
           ] },
-          { "who": "marko", "sl": "Jarek je gotov! Zdaj pa odpremo izvir … Glejte!", "en": "The trench is done! Now we open the spring … Look!", "de": "Der Graben ist fertig! Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito! Ora apriamo la sorgente … Guardate!" },
+          { "who": "marko", "sl": "Jarek je gotov! Zdaj pa odpremo izvir … Glejte!", "en": "The trench is done! Now we open the spring … Look!", "de": "Der Graben ist fertig! Jetzt öffnen wir die Quelle … Schaut!", "it": "Il fosso è finito! Ora apriamo la sorgente … Guardate!", "fx": { "fountain": 1 } },
           { "choices": [
             { "sl": "Voda že teče po jarku proti trgu!", "en": "The water's already running along the trench towards the square!", "de": "Das Wasser fließt schon den Graben entlang zum Platz!", "it": "L'acqua scorre già lungo il fosso verso la piazza!", "ok": true,
               "reply": { "sl": "Bravo! Do trga je samo še streljaj.", "en": "Bravo! It's only a stone's throw to the square now.", "de": "Bravo! Bis zum Platz ist es nur noch ein Katzensprung.", "it": "Bravo! Alla piazza manca solo un tiro di schioppo." } },
@@ -311,11 +313,12 @@
     {
       "scene": "na-vasi",
       "words": ["teci"],
+      "fx_stays": true,
       "levels": {
         "A1": { "lines": [
           { "who": "tone", "sl": "Cevi so na mestu. Danes odpremo vodo!", "en": "The spouts are in place. Today we turn on the water!", "de": "Die Röhren sind an ihrem Platz. Heute lassen wir das Wasser laufen!", "it": "Le cannelle sono al loro posto. Oggi apriamo l'acqua!" },
           { "who": "mojca", "sl": "Vsi otroci so tukaj. Nihče ne diha!", "en": "All the children are here. Nobody's breathing!", "de": "Alle Kinder sind da. Keiner atmet!", "it": "Ci sono tutti i bambini. Nessuno respira!" },
-          { "who": "tone", "sl": "Ena, dve, tri … {learner}, glej! Kaj dela voda?", "en": "One, two, three … {learner}, look! What's the water doing?", "de": "Eins, zwei, drei … {learner}, schau! Was macht das Wasser?", "it": "Uno, due, tre … {learner}, guarda! Che cosa fa l'acqua?" },
+          { "who": "tone", "sl": "Ena, dve, tri … {learner}, glej! Kaj dela voda?", "en": "One, two, three … {learner}, look! What's the water doing?", "de": "Eins, zwei, drei … {learner}, schau! Was macht das Wasser?", "it": "Uno, due, tre … {learner}, guarda! Che cosa fa l'acqua?", "fx": { "fountain": 1 } },
           { "choices": [
             { "sl": "Voda teče!", "en": "The water's flowing!", "de": "Das Wasser fließt!", "it": "L'acqua scorre!", "ok": true,
               "reply": { "sl": "Ja! Iz vseh štirih cevi!", "en": "Yes! From all four spouts!", "de": "Ja! Aus allen vier Röhren!", "it": "Sì! Da tutte e quattro le cannelle!" } },
@@ -342,7 +345,7 @@
         "A2": { "lines": [
           { "who": "tone", "sl": "Cevi so pritrjene, jarek je pokrit. Zdaj bomo videli, ali sem vse prav izračunal.", "en": "The spouts are fixed, the trench is covered. Now we'll see if I worked it all out right.", "de": "Die Röhren sind befestigt, der Graben ist zugedeckt. Jetzt sehen wir, ob ich alles richtig berechnet habe.", "it": "Le cannelle sono fissate, il fosso è coperto. Ora vediamo se ho calcolato tutto bene." },
           { "who": "france", "sl": "Vsa vas je na trgu. Še psi čakajo.", "en": "The whole village is on the square. Even the dogs are waiting.", "de": "Das ganze Dorf ist auf dem Platz. Sogar die Hunde warten.", "it": "Tutto il paese è in piazza. Aspettano perfino i cani." },
-          { "who": "tone", "sl": "Odpiram … {learner}, kaj se dogaja?", "en": "I'm opening it … {learner}, what's happening?", "de": "Ich mache auf … {learner}, was passiert?", "it": "Apro … {learner}, che cosa succede?" },
+          { "who": "tone", "sl": "Odpiram … {learner}, kaj se dogaja?", "en": "I'm opening it … {learner}, what's happening?", "de": "Ich mache auf … {learner}, was passiert?", "it": "Apro … {learner}, che cosa succede?", "fx": { "fountain": 1 } },
           { "choices": [
             { "sl": "Voda teče iz vseh štirih cevi!", "en": "Water's flowing from all four spouts!", "de": "Wasser fließt aus allen vier Röhren!", "it": "L'acqua scorre da tutte e quattro le cannelle!", "ok": true,
               "reply": { "sl": "Teče! Vse sem prav izračunal!", "en": "It flows! I worked it all out right!", "de": "Es fließt! Ich habe alles richtig berechnet!", "it": "Scorre! Ho calcolato tutto bene!" } },
