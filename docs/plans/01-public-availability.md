@@ -3,6 +3,11 @@
 *Status: draft, 2026-09-25. [Plan 2](02-worlds-languages-multiplayer.md) builds on this one (own worlds, other
 languages, towns that visit each other); a later plan settles the rest: see [What a follow-up plan should settle](#what-a-follow-up-plan-should-settle).*
 
+*Changed 2026-10-11 by [plan 5](05-in-app-tutor.md): the hosted variant no longer runs Claude on our servers. The tutor
+runs in the app, on the learner's own API key (BYOK) or on ours through the SaaS as a metering proxy ("covered"). That
+replaces Variant 2's multi-user agent service, its Claude access options 2a and 2b, and its cost table. Variant 1.5 is
+dropped. Variant 1 and Phase 0 stand as written.*
+
 Today Lani is one learner's setup: Jan's machine, Jan's keys, Jan's data. This plan covers
 how other people could use it, in two variants:
 
