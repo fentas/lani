@@ -120,7 +120,7 @@
       "id": "sveca",
       "fx_stays": true,
       "lines": [
-        { "who": "babica", "sl": "{learner}, {m:fant|f:dekle}. Pridi, pridi. Tiho, smo v cerkvi.", "en": "{learner}, {m:lad|f:lass}. Come, come. Quietly, we're in church.", "de": "{learner}, {m:Junge|f:Mädchen}. Komm, komm. Leise, wir sind in der Kirche.", "it": "{learner}, {m:ragazzo mio|f:ragazza mia}. Vieni, vieni. Sottovoce, siamo in chiesa.",
+        { "who": "babica", "sl": "{learner}, pridi, pridi. Tiho, smo v cerkvi.", "en": "{learner}, come, come. Quietly, we're in church.", "de": "{learner}, komm, komm. Leise, wir sind in der Kirche.", "it": "{learner}, vieni, vieni. Sottovoce, siamo in chiesa.",
           "fx": { "candles": 0 } },
         { "choices": [
           { "sl": "Dober večer, babica Micka. Kaj delate?", "en": "Good evening, Grandma Micka. What are you doing?", "de": "Guten Abend, Oma Micka. Was machen Sie?", "it": "Buonasera, Nonna Micka. Che cosa fa?", "ok": true,
@@ -130,7 +130,7 @@
             "reply": { "sl": "Delaš? Hm, kdo je tu otrok, ti ali jaz?", "en": "Delaš (you, ti)? Hm, who's the child here, you or me?", "de": "Delaš (du machst)? Hm, wer ist hier das Kind, du oder ich?", "it": "Delaš (fai, col tu)? Mah, chi è il bambino qui, tu o io?" } },
           { "sl": "Dobro jutro, babica Micka. Kaj delate?", "en": "Good morning, Grandma Micka. What are you doing?", "de": "Guten Morgen, Oma Micka. Was machen Sie?", "it": "Buongiorno, Nonna Micka. Che cosa fa?",
             "why": { "en": "It's evening: dober večer.", "de": "Es ist Abend: dober večer.", "it": "È sera: dober večer." },
-            "reply": { "sl": "Jutro? Si {m:zaspal|f:zaspala} v cerkvi, {m:fant|f:dekle}?", "en": "Jutro (morning)? Did you fall asleep in church, {m:lad|f:lass}?", "de": "Jutro (Morgen)? Bist du in der Kirche eingeschlafen, {m:Junge|f:Mädchen}?", "it": "Jutro (mattina)? Ti sei {m:addormentato|f:addormentata} in chiesa, {m:ragazzo|f:ragazza}?" } }
+            "reply": { "sl": "Jutro? Si {m:zaspal|f:zaspala} v cerkvi?", "en": "Jutro (morning)? Did you fall asleep in church?", "de": "Jutro (Morgen)? Bist du in der Kirche eingeschlafen?", "it": "Jutro (mattina)? Ti sei {m:addormentato|f:addormentata} in chiesa?" } }
         ] },
         { "who": "babica", "sl": "Pomagaj mi. Tukaj so vžigalice. Prižgi še eno svečo.", "en": "Help me. Here are the matches. Light one more candle.", "de": "Hilf mir. Hier sind die Streichhölzer. Zünde noch eine Kerze an.", "it": "Aiutami. Ecco i fiammiferi. Accendi un'altra candela." },
         { "choices": [
@@ -143,7 +143,7 @@
             "grammar": "glagoli-sedanjik", "why": { "en": "You are saying what you'll do: prižgem (I light). Prižgi is the imperative, what Micka says to you.", "de": "Du sagst, was du tun wirst: prižgem (ich zünde an). Prižgi ist der Imperativ, das sagt Micka zu dir.", "it": "Dici che cosa farai: prižgem (accendo). Prižgi è l'imperativo, quello che Micka dice a te." },
             "reply": { "sl": "Prižgi? Jaz? Saj ti imaš vžigalice!", "en": "Prižgi (light it)? Me? You've got the matches!", "de": "Prižgi (zünde an)? Ich? Du hast doch die Streichhölzer!", "it": "Prižgi (accendi)? Io? I fiammiferi ce li hai tu!" } }
         ] },
-        { "who": "babica", "sl": "Hvala, {m:fant|f:dekle}. Zdaj pa domov. Zunaj je mraz.", "en": "Thank you, {m:lad|f:lass}. And now home. It's cold outside.", "de": "Danke, {m:Junge|f:Mädchen}. Und jetzt nach Hause. Draußen ist es kalt.", "it": "Grazie, {m:ragazzo mio|f:ragazza mia}. E adesso a casa. Fuori fa freddo." },
+        { "who": "babica", "sl": "Hvala. Zdaj pa domov. Zunaj je mraz.", "en": "Thank you. And now home. It's cold outside.", "de": "Danke. Und jetzt nach Hause. Draußen ist es kalt.", "it": "Grazie. E adesso a casa. Fuori fa freddo." },
         { "choices": [
           { "sl": "Pospremim vas domov, babica.", "en": "I'll walk you home, Grandma.", "de": "Ich begleite Sie nach Hause, Oma.", "it": "La accompagno a casa, nonna.", "ok": true,
             "reply": { "sl": "Ti si {m:pravi fant|f:pravo dekle}. Pojdiva.", "en": "You're a good {m:lad|f:lass}. Let's go, the two of us.", "de": "Du bist {m:ein guter Junge|f:ein gutes Mädchen}. Gehen wir zwei.", "it": "Sei {m:un bravo ragazzo|f:una brava ragazza}. Andiamo, noi due." } },
@@ -280,17 +280,17 @@
       "memory": { "sl": "večer, ko sva {m:prižgala|f:prižgali} sveče v cerkvi", "en": "the evening we lit the candles in the church", "de": "den Abend, an dem wir in der Kirche die Kerzen angezündet haben", "it": "la sera in cui abbiamo acceso le candele in chiesa" },
       "fx_stays": true,
       "lines": [
-        { "who": "babica", "sl": "{learner}, {m:fant|f:dekle}. Pridi, pridi. Tukaj so sveče, za vse, ki jih imam rada. Koliko jih prižgeš?", "en": "{learner}, {m:lad|f:lass}. Come, come. Here are candles, for everyone I love. How many will you light?", "de": "{learner}, {m:Junge|f:Mädchen}. Komm, komm. Hier sind Kerzen, für alle, die ich lieb habe. Wie viele zündest du an?", "it": "{learner}, {m:ragazzo mio|f:ragazza mia}. Vieni, vieni. Ecco delle candele, per tutti quelli a cui voglio bene. Quante ne accendi?",
+        { "who": "babica", "sl": "{learner}, pridi, pridi. Tukaj so sveče, za vse, ki jih imam rada. Koliko jih prižgeš?", "en": "{learner}, come, come. Here are candles, for everyone I love. How many will you light?", "de": "{learner}, komm, komm. Hier sind Kerzen, für alle, die ich lieb habe. Wie viele zündest du an?", "it": "{learner}, vieni, vieni. Ecco delle candele, per tutti quelli a cui voglio bene. Quante ne accendi?",
           "fx": { "candles": 0 } },
         { "choices": [
           { "sl": "Prižgem {n} {!svečo|sveči|sveče|sveč}.", "en": "I'll light {n} {candle|candles}.", "de": "Ich zünde {n} {Kerze|Kerzen} an.", "it": "Accendo {n} {candela|candele}.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "Prižgem takes the accusative, and {one takes the singular|two take the dual|three and four take the plural|from five on comes the genitive plural}: {n} {svečo|sveči|sveče|sveč}.", "de": "Prižgem verlangt den Akkusativ, und {bei eins steht der Singular|bei zwei der Dual|bei drei und vier der Plural|ab fünf der Genitiv Plural}: {n} {svečo|sveči|sveče|sveč}.", "it": "Prižgem vuole l'accusativo, e {con uno si usa il singolare|con due il duale|con tre e quattro il plurale|da cinque in poi il genitivo plurale}: {n} {svečo|sveči|sveče|sveč}." },
             "reply": { "sl": "Koliko? Moje stare oči … Povej še enkrat.", "en": "How many? My old eyes … Say it again.", "de": "Wie viele? Meine alten Augen … Sag es noch einmal.", "it": "Quante? I miei vecchi occhi … Ripetilo." } },
           { "sl": "Prižgem {n} {svečo|sveči|sveče|sveč}.", "en": "I'll light {n} {candle|candles}.", "de": "Ich zünde {n} {Kerze|Kerzen} an.", "it": "Accendo {n} {candela|candele}.", "ok": true,
-            "reply": { "sl": "Lepo, {m:fant|f:dekle}. Vsaka sveča je za nekoga.", "en": "Lovely, {m:lad|f:lass}. Every candle is for someone.", "de": "Schön, {m:Junge|f:Mädchen}. Jede Kerze ist für jemanden.", "it": "Bene, {m:ragazzo mio|f:ragazza mia}. Ogni candela è per qualcuno.", "fx": { "candles": 1 } } },
+            "reply": { "sl": "Lepo. Vsaka sveča je za nekoga.", "en": "Lovely. Every candle is for someone.", "de": "Schön. Jede Kerze ist für jemanden.", "it": "Bene. Ogni candela è per qualcuno.", "fx": { "candles": 1 } } },
           { "sl": "Prižgem {n} {!svečo|sveči|sveče|sveč}.", "en": "I'll light {n} {candle|candles}.", "de": "Ich zünde {n} {Kerze|Kerzen} an.", "it": "Accendo {n} {candela|candele}.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "Prižgem takes the accusative, and {one takes the singular|two take the dual|three and four take the plural|from five on comes the genitive plural}: {n} {svečo|sveči|sveče|sveč}.", "de": "Prižgem verlangt den Akkusativ, und {bei eins steht der Singular|bei zwei der Dual|bei drei und vier der Plural|ab fünf der Genitiv Plural}: {n} {svečo|sveči|sveče|sveč}.", "it": "Prižgem vuole l'accusativo, e {con uno si usa il singolare|con due il duale|con tre e quattro il plurale|da cinque in poi il genitivo plurale}: {n} {svečo|sveči|sveče|sveč}." },
-            "reply": { "sl": "Hm? Tiho, {m:fant|f:dekle}, in še enkrat, počasi.", "en": "Hm? Quietly, {m:lad|f:lass}, and once more, slowly.", "de": "Hm? Leise, {m:Junge|f:Mädchen}, und noch einmal, langsam.", "it": "Mm? Piano, {m:ragazzo mio|f:ragazza mia}, e ancora una volta, lentamente." } }
+            "reply": { "sl": "Hm? Tiho. In še enkrat, počasi.", "en": "Hm? Quietly. And once more, slowly.", "de": "Hm? Leise. Und noch einmal, langsam.", "it": "Mm? Piano. E ancora una volta, lentamente." } }
         ] },
         { "who": "babica", "sl": "Zdaj pa tiho. Še ena molitev, potem greva.", "en": "Now quiet. One more prayer, then we'll go.", "de": "Jetzt leise. Noch ein Gebet, dann gehen wir.", "it": "Adesso silenzio. Ancora una preghiera, poi andiamo." },
         { "choices": [
@@ -298,7 +298,7 @@
             "reply": { "sl": "{m:Priden fant|f:Pridno dekle}. Takoj pridem.", "en": "{m:Good lad|f:Good lass}. I'll be right there.", "de": "{m:Braver Junge|f:Braves Mädchen}. Ich komme gleich.", "it": "{m:Bravo ragazzo|f:Brava ragazza}. Arrivo subito." } },
           { "sl": "Prav. Počakam vas ven.", "en": "All right. I'll wait for you out-to.", "de": "Gut. Ich warte hinaus auf Sie.", "it": "Va bene. La aspetto verso fuori.",
             "grammar": "prislovi", "why": { "en": "Where you wait is a place: zunaj (outside). Ven is a direction (grem ven: I go out).", "de": "Wo du wartest, ist ein Ort: zunaj (draußen). Ven ist eine Richtung (grem ven: ich gehe hinaus).", "it": "Dove aspetti è un luogo: zunaj (fuori). Ven è una direzione (grem ven: esco)." },
-            "reply": { "sl": "Ven? Kam ven? Počakaj kar tu, {m:fant|f:dekle}.", "en": "Ven (out)? Out where? Just wait here, {m:lad|f:lass}.", "de": "Ven (hinaus)? Wohin hinaus? Warte einfach hier, {m:Junge|f:Mädchen}.", "it": "Ven (fuori)? Fuori dove? Aspetta pure qui, {m:ragazzo|f:ragazza}." } }
+            "reply": { "sl": "Ven? Kam ven? Počakaj kar tu.", "en": "Ven (out)? Out where? Just wait here.", "de": "Ven (hinaus)? Wohin hinaus? Warte einfach hier.", "it": "Ven (fuori)? Fuori dove? Aspetta pure qui." } }
         ] },
         { "who": "babica", "sl": "Amen. Zdaj pa greva domov. Zunaj je mraz.", "en": "Amen. Now we two go home. It's cold outside.", "de": "Amen. Jetzt gehen wir zwei nach Hause. Draußen ist es kalt.", "it": "Amen. Adesso andiamo a casa, noi due. Fuori fa freddo." }
       ]
@@ -307,7 +307,7 @@
       "id": "sveca-veter",
       "fx_stays": true,
       "lines": [
-        { "who": "babica", "sl": "{learner}, {m:fant|f:dekle}, pridi. Joj, veter! Moja sveča ne gori več.", "en": "{learner}, {m:lad|f:lass}, come here. Oh dear, the wind! My candle isn't burning any more.", "de": "{learner}, {m:Junge|f:Mädchen}, komm her. Oje, der Wind! Meine Kerze brennt nicht mehr.", "it": "{learner}, {m:ragazzo mio|f:ragazza mia}, vieni. Oddio, il vento! La mia candela non brucia più.",
+        { "who": "babica", "sl": "{learner}, pridi. Joj, veter! Moja sveča ne gori več.", "en": "{learner}, come here. Oh dear, the wind! My candle isn't burning any more.", "de": "{learner}, komm her. Oje, der Wind! Meine Kerze brennt nicht mehr.", "it": "{learner}, vieni. Oddio, il vento! La mia candela non brucia più.",
           "fx": { "candles": 0 } },
         { "choices": [
           { "sl": "Vrata je odprta. Zaprem jih.", "en": "The door (singular) is open. I'll close it.", "de": "Die Tür (Einzahl) ist offen. Ich mache sie zu.", "it": "La porta (singolare) è aperta. La chiudo.",
@@ -315,22 +315,22 @@
             "reply": { "sl": "Odprta? Kdo, jaz? {m:Fant|f:Dekle}, jaz nisem trgovina!", "en": "Open? Who, me? {m:Lad|f:Lass}, I'm not a shop!", "de": "Offen? Wer, ich? {m:Junge|f:Mädchen}, ich bin doch kein Laden!", "it": "Aperta? Chi, io? {m:Ragazzo|f:Ragazza}, non sono mica un negozio!" } },
           { "sl": "Vrata so odprta. Zaprem ga.", "en": "The door is open. I'll close him.", "de": "Die Tür ist offen. Ich mache ihn zu.", "it": "La porta è aperta. Lo chiudo.",
             "grammar": "osebni-zaimki", "why": { "en": "Vrata is plural: jih (them). Ga is for one masculine or neuter thing.", "de": "Vrata ist Plural: jih (sie). Ga steht für ein männliches oder sächliches Ding.", "it": "Vrata è plurale: jih (li). Ga è per una cosa maschile o neutra." },
-            "reply": { "sl": "Ga? Koga? Tu ni nikogar, {m:fant|f:dekle}.", "en": "Ga (him)? Who? There's nobody here, {m:lad|f:lass}.", "de": "Ga (ihn)? Wen? Hier ist niemand, {m:Junge|f:Mädchen}.", "it": "Ga (lo)? Chi? Qui non c'è nessuno, {m:ragazzo|f:ragazza}." } },
+            "reply": { "sl": "Ga? Koga? Tu ni nikogar.", "en": "Ga (him)? Who? There's nobody here.", "de": "Ga (ihn)? Wen? Hier ist niemand.", "it": "Ga (lo)? Chi? Qui non c'è nessuno." } },
           { "sl": "Vrata so odprta. Zaprem jih.", "en": "The door is open. I'll close it.", "de": "Die Tür ist offen. Ich mache sie zu.", "it": "La porta è aperta. La chiudo.", "ok": true,
-            "reply": { "sl": "Ja, zapri jih, {m:fant|f:dekle}. Tako je bolje.", "en": "Yes, close it, {m:lad|f:lass}. That's better.", "de": "Ja, mach sie zu, {m:Junge|f:Mädchen}. So ist es besser.", "it": "Sì, chiudila, {m:ragazzo mio|f:ragazza mia}. Così va meglio." } }
+            "reply": { "sl": "Ja, zapri jih. Tako je bolje.", "en": "Yes, close it. That's better.", "de": "Ja, mach sie zu. So ist es besser.", "it": "Sì, chiudila. Così va meglio." } }
         ] },
         { "who": "babica", "sl": "Hvala. Joj, vžigalice so mokre. Kaj zdaj?", "en": "Thank you. Oh dear, the matches are wet. What now?", "de": "Danke. Oje, die Streichhölzer sind nass. Was jetzt?", "it": "Grazie. Oddio, i fiammiferi sono bagnati. E adesso?" },
         { "choices": [
           { "sl": "Prižgem jo z druga sveča.", "en": "I'll light it with other candle.", "de": "Ich zünde sie mit andere Kerze an.", "it": "La accendo con altra candela.",
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z drugo svečo.", "de": "Z (mit) verlangt den Instrumental: z drugo svečo.", "it": "Z (con) vuole lo strumentale: z drugo svečo." },
-            "reply": { "sl": "Z … kaj? Počasi, {m:fant|f:dekle}, stara sem.", "en": "With … what? Slowly, {m:lad|f:lass}, I'm old.", "de": "Mit … was? Langsam, {m:Junge|f:Mädchen}, ich bin alt.", "it": "Con … cosa? Piano, {m:ragazzo|f:ragazza}, sono vecchia." } },
+            "reply": { "sl": "Z … kaj? Počasi, stara sem.", "en": "With … what? Slowly, I'm old.", "de": "Mit … was? Langsam, ich bin alt.", "it": "Con … cosa? Piano, sono vecchia." } },
           { "sl": "Prižgem jo z drugo svečo.", "en": "I'll light it with another candle.", "de": "Ich zünde sie mit einer anderen Kerze an.", "it": "La accendo con un'altra candela.", "ok": true,
             "reply": { "sl": "Pametno! Glej, spet gori.", "en": "Clever! Look, it's burning again.", "de": "Klug! Schau, sie brennt wieder.", "it": "{m:Furbo|f:Furba}! Guarda, brucia di nuovo.", "fx": { "candles": 1 } } },
           { "sl": "Prižgem jo z vodo.", "en": "I'll light it with water.", "de": "Ich zünde sie mit Wasser an.", "it": "La accendo con l'acqua.",
             "why": { "en": "Voda (water) puts a flame out. You light it from a flame: z drugo svečo.", "de": "Voda (Wasser) löscht eine Flamme. Anzünden kannst du sie mit einer Flamme: z drugo svečo.", "it": "Voda (acqua) spegne la fiamma. Si accende con una fiamma: z drugo svečo." },
-            "reply": { "sl": "Z vodo? Ojoj, {m:fant|f:dekle}, voda ne gori!", "en": "With water? Oh dear, {m:lad|f:lass}, water doesn't burn!", "de": "Mit Wasser? Oje, {m:Junge|f:Mädchen}, Wasser brennt nicht!", "it": "Con l'acqua? Oddio, {m:ragazzo|f:ragazza}, l'acqua non brucia!" } }
+            "reply": { "sl": "Z vodo? Ojoj, voda ne gori!", "en": "With water? Oh dear, water doesn't burn!", "de": "Mit Wasser? Oje, Wasser brennt nicht!", "it": "Con l'acqua? Oddio, l'acqua non brucia!" } }
         ] },
-        { "who": "babica", "sl": "Zdaj gori in vrata so zaprta. Hvala, {m:fant|f:dekle}.", "en": "Now it's burning and the door is shut. Thank you, {m:lad|f:lass}.", "de": "Jetzt brennt sie, und die Tür ist zu. Danke, {m:Junge|f:Mädchen}.", "it": "Adesso brucia e la porta è chiusa. Grazie, {m:ragazzo mio|f:ragazza mia}." }
+        { "who": "babica", "sl": "Zdaj gori in vrata so zaprta. Hvala, {m:sinko|f:{learner}}.", "en": "Now it's burning and the door is shut. Thank you, {m:son|f:{learner}}.", "de": "Jetzt brennt sie, und die Tür ist zu. Danke, {m:mein Junge|f:{learner}}.", "it": "Adesso brucia e la porta è chiusa. Grazie, {m:figliolo|f:{learner}}." }
       ]
     }
   ]

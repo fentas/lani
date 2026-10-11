@@ -47,7 +47,7 @@
       "id": "jajca",
       "talk": "na-trznici",
       "lines": [
-        { "who": "micka", "sl": "Dobro jutro, {m:fant|f:dekle}! Slišiš zvonec? Tržnica je odprta.", "en": "Good morning, {m:lad|f:lass}! Do you hear the bell? The market is open.", "de": "Guten Morgen, {m:Junge|f:Mädchen}! Hörst du die Glocke? Der Markt ist offen.", "it": "Buongiorno, {m:ragazzo|f:ragazza}! Senti la campanella? Il mercato è aperto.",
+        { "who": "micka", "sl": "Dobro jutro, {learner}! Slišiš zvonec? Tržnica je odprta.", "en": "Good morning, {learner}! Do you hear the bell? The market is open.", "de": "Guten Morgen, {learner}! Hörst du die Glocke? Der Markt ist offen.", "it": "Buongiorno, {learner}! Senti la campanella? Il mercato è aperto.",
           "fx": { "bell": 1 } },
         { "choices": [
           { "sl": "Dobro jutro, babica! Koliko stanejo jajca?", "en": "Good morning, Grandma! How much are the eggs?", "de": "Guten Morgen, Oma! Wie viel kosten die Eier?", "it": "Buongiorno, nonna! Quanto costano le uova?", "ok": true,
@@ -56,7 +56,7 @@
             "why": { "en": "It is morning, the market has just opened: dobro jutro. Dober večer is for the evening.", "de": "Es ist Morgen, der Markt hat gerade geöffnet: dobro jutro. Dober večer sagt man am Abend.", "it": "È mattina, il mercato ha appena aperto: dobro jutro. Dober večer è per la sera." },
             "reply": { "sl": "Dober večer? Ojej, sem res spala ves dan?", "en": "Dober večer (good evening)? Oh dear, did I really sleep all day?", "de": "Dober večer (guten Abend)? Oje, habe ich wirklich den ganzen Tag geschlafen?", "it": "Dober večer (buonasera)? Oddio, ho davvero dormito tutto il giorno?" } },
           { "sl": "Dobro jutro, babica! Kako lepa jajca! Po čem so?", "en": "Good morning, Grandma! What lovely eggs! How much are they?", "de": "Guten Morgen, Oma! Was für schöne Eier! Was kosten sie?", "it": "Buongiorno, nonna! Che belle uova! Quanto costano?", "ok": true,
-            "reply": { "sl": "Hvala, {m:fant|f:dekle}! Deset jajc za tri evre.", "en": "Thank you, {m:lad|f:lass}! Ten eggs for three euros.", "de": "Danke, {m:Junge|f:Mädchen}! Zehn Eier für drei Euro.", "it": "Grazie, {m:ragazzo|f:ragazza}! Dieci uova per tre euro.", "fx": { "bell": 0 } } }
+            "reply": { "sl": "Hvala! Deset jajc za tri evre.", "en": "Thank you! Ten eggs for three euros.", "de": "Danke! Zehn Eier für drei Euro.", "it": "Grazie! Dieci uova per tre euro.", "fx": { "bell": 0 } } }
         ] },
         { "who": "micka", "sl": "So čisto sveža, od mojih kokoši. Koliko jih boš {m:vzel|f:vzela}?", "en": "They are quite fresh, from my own hens. How many will you take?", "de": "Sie sind ganz frisch, von meinen eigenen Hühnern. Wie viele nimmst du?", "it": "Sono freschissime, delle mie galline. Quante ne prendi?" },
         { "choices": [
@@ -64,7 +64,7 @@
             "reply": { "sl": "Izvoli. Še kaj?", "en": "Here you are. Anything else?", "de": "Bitte schön. Sonst noch etwas?", "it": "Ecco a te. Altro?" } },
           { "sl": "Deset jajca, prosim.", "en": "Ten eggs, please.", "de": "Zehn Eier, bitte.", "it": "Dieci uova, per favore.",
             "grammar": "stevila-samostalniki", "why": { "en": "From five on, the noun goes into the genitive plural: pet jajc, deset jajc. Jajca is for three and four: tri jajca.", "de": "Ab fünf steht das Nomen im Genitiv Plural: pet jajc, deset jajc. Jajca gilt für drei und vier: tri jajca.", "it": "Da cinque in su, il nome va al genitivo plurale: pet jajc, deset jajc. Jajca è per tre e quattro: tri jajca." },
-            "reply": { "sl": "Deset česa, {m:fant|f:dekle}? Počasi, stara sem.", "en": "Ten of what, {m:lad|f:lass}? Slowly, I'm old.", "de": "Zehn was, {m:Junge|f:Mädchen}? Langsam, ich bin alt.", "it": "Dieci che cosa, {m:ragazzo|f:ragazza}? Piano, sono vecchia." } },
+            "reply": { "sl": "Deset česa? Počasi, stara sem.", "en": "Ten of what? Slowly, I'm old.", "de": "Zehn was? Langsam, ich bin alt.", "it": "Dieci che cosa? Piano, sono vecchia." } },
           { "sl": "Deset jajce, prosim.", "en": "Ten egg, please.", "de": "Zehn Ei, bitte.", "it": "Dieci uovo, per favore.",
             "grammar": "stevila-samostalniki", "why": { "en": "Jajce is one egg. Ten takes the genitive plural: deset jajc.", "de": "Jajce ist ein Ei. Zehn verlangt den Genitiv Plural: deset jajc.", "it": "Jajce è un uovo solo. Dieci vuole il genitivo plurale: deset jajc." },
             "reply": { "sl": "Eno jajce ali deset? Babica je zmedena.", "en": "One jajce (egg) or ten? Grandma is all mixed up.", "de": "Ein jajce (Ei) oder zehn? Die Oma ist ganz durcheinander.", "it": "Un jajce (uovo) o dieci? La nonna è confusa." } }
@@ -77,7 +77,7 @@
             "grammar": "rodilnik-kolicina", "why": { "en": "A loaf of what? Kruha: an amount takes the genitive, like kilogram sira or kozarec medu.", "de": "Ein Laib wovon? Kruha: eine Menge steht mit dem Genitiv, wie kilogram sira oder kozarec medu.", "it": "Una pagnotta di che cosa? Kruha: una quantità vuole il genitivo, come kilogram sira o kozarec medu." },
             "reply": { "sl": "Hlebec … kruh? Oprosti, nisem razumela.", "en": "A loaf … kruh? Sorry, I didn't catch that.", "de": "Ein Laib … kruh? Entschuldige, das habe ich nicht verstanden.", "it": "Una pagnotta … kruh? Scusa, non ho capito." } }
         ] },
-        { "who": "micka", "sl": "Jej, jej, {m:fant|f:dekle}! Preveč si {m:suh|f:suha}.", "en": "Eat, eat, {m:lad|f:lass}! You are too thin.", "de": "Iss, iss, {m:Junge|f:Mädchen}! Du bist zu dünn.", "it": "Mangia, mangia, {m:ragazzo|f:ragazza}! Sei troppo {m:magro|f:magra}." }
+        { "who": "micka", "sl": "Jej, jej! Preveč si {m:suh|f:suha}.", "en": "Eat, eat! You are too thin.", "de": "Iss, iss! Du bist zu dünn.", "it": "Mangia, mangia! Sei troppo {m:magro|f:magra}." }
       ]
     },
     {
@@ -157,25 +157,25 @@
       "talk": "na-trznici",
       "count": { "from": "dice", "min": 6, "max": 15, "gender": "n", "case": "acc" },
       "lines": [
-        { "who": "micka", "sl": "Dobro jutro, {m:fant|f:dekle}! Poglej, kako velika jajca imam danes!", "en": "Good morning, {m:lad|f:lass}! Look how big my eggs are today!", "de": "Guten Morgen, {m:Junge|f:Mädchen}! Schau, wie groß meine Eier heute sind!", "it": "Buongiorno, {m:ragazzo|f:ragazza}! Guarda che uova grandi ho oggi!",
+        { "who": "micka", "sl": "Dobro jutro, {learner}! Poglej, kako velika jajca imam danes!", "en": "Good morning, {learner}! Look how big my eggs are today!", "de": "Guten Morgen, {learner}! Schau, wie groß meine Eier heute sind!", "it": "Buongiorno, {learner}! Guarda che uova grandi ho oggi!",
           "fx": { "bustle": 0.5 } },
         { "choices": [
           { "sl": "Res so bolj velika kot včeraj!", "en": "They really are more big than yesterday!", "de": "Sie sind wirklich mehr groß als gestern!", "it": "Sono davvero più grandi di ieri!",
             "grammar": "primernik", "why": { "en": "Velik has its own comparative: večji, and with jajca večja. Bolj … is for adjectives that have none.", "de": "Velik hat einen eigenen Komparativ: večji, bei jajca večja. Bolj … steht bei Adjektiven, die keinen haben.", "it": "Velik ha un comparativo tutto suo: večji, con jajca večja. Bolj … si usa con gli aggettivi che non ce l'hanno." },
-            "reply": { "sl": "Bolj velika? Hi hi, {m:fant|f:dekle}, tako govorijo moji vnuki.", "en": "Bolj velika (more big)? Hee hee, {m:lad|f:lass}, that's how my grandchildren talk.", "de": "Bolj velika (mehr groß)? Hihi, {m:Junge|f:Mädchen}, so reden meine Enkel.", "it": "Bolj velika (più grandi, alla buona)? Hi hi, {m:ragazzo|f:ragazza}, parli come i miei nipotini." } },
+            "reply": { "sl": "Bolj velika? Hi hi, tako govorijo moji vnuki.", "en": "Bolj velika (more big)? Hee hee, that's how my grandchildren talk.", "de": "Bolj velika (mehr groß)? Hihi, so reden meine Enkel.", "it": "Bolj velika (più grandi, alla buona)? Hi hi, parli come i miei nipotini." } },
           { "sl": "Res so večja kot včeraj!", "en": "They really are bigger than yesterday!", "de": "Sie sind wirklich größer als gestern!", "it": "Sono davvero più grandi di ieri!", "ok": true,
             "reply": { "sl": "Kajne? Moje kokoši so bile pridne.", "en": "Aren't they? My hens have been busy.", "de": "Nicht wahr? Meine Hühner waren fleißig.", "it": "Vero? Le mie galline sono state brave." } },
           { "sl": "Res so manjša kot včeraj!", "en": "They really are smaller than yesterday!", "de": "Sie sind wirklich kleiner als gestern!", "it": "Sono davvero più piccole di ieri!",
             "why": { "en": "Manjša means smaller. She says they are big: večja (bigger).", "de": "Manjša heißt kleiner. Sie sagt, sie sind groß: večja (größer).", "it": "Manjša significa più piccole. Lei dice che sono grandi: večja (più grandi)." },
-            "reply": { "sl": "Manjša? Ojej, {m:fant|f:dekle}, ti rabiš očala, ne jaz!", "en": "Manjša (smaller)? Oh dear, {m:lad|f:lass}, you're the one who needs glasses, not me!", "de": "Manjša (kleiner)? Oje, {m:Junge|f:Mädchen}, du brauchst eine Brille, nicht ich!", "it": "Manjša (più piccole)? Oddio, {m:ragazzo|f:ragazza}, gli occhiali servono a te, non a me!" } }
+            "reply": { "sl": "Manjša? Ojej, ti rabiš očala, ne jaz!", "en": "Manjša (smaller)? Oh dear, you're the one who needs glasses, not me!", "de": "Manjša (kleiner)? Oje, du brauchst eine Brille, nicht ich!", "it": "Manjša (più piccole)? Oddio, gli occhiali servono a te, non a me!" } }
         ] },
-        { "who": "micka", "sl": "Kar vse vzemi, {m:fant|f:dekle}! Preštej jih in povej, koliko ti jih dam.", "en": "Just take them all, {m:lad|f:lass}! Count them and tell me how many to give you.", "de": "Nimm sie ruhig alle, {m:Junge|f:Mädchen}! Zähl sie und sag mir, wie viele ich dir geben soll.", "it": "Prendile pure tutte, {m:ragazzo|f:ragazza}! Contale e dimmi quante te ne do." },
+        { "who": "micka", "sl": "Kar vse vzemi! Preštej jih in povej, koliko ti jih dam.", "en": "Just take them all! Count them and tell me how many to give you.", "de": "Nimm sie ruhig alle! Zähl sie und sag mir, wie viele ich dir geben soll.", "it": "Prendile pure tutte! Contale e dimmi quante te ne do." },
         { "choices": [
           { "sl": "Dajte mi {n} {jajce|jajci|jajca|jajc}, prosim.", "en": "Give me {n} {egg|eggs}, please.", "de": "Geben Sie mir {n} {Ei|Eier}, bitte.", "it": "Mi dia {n} {uovo|uova}, per favore.", "ok": true,
             "reply": { "sl": "Izvoli, vse v vrečki. Pazi, da jih ne razbiješ!", "en": "Here you are, all in the bag. Careful you don't break them!", "de": "Bitte schön, alle in der Tüte. Pass auf, dass du sie nicht zerbrichst!", "it": "Ecco qua, tutte nel sacchetto. {m:Attento|f:Attenta} a non romperle!" } },
           { "sl": "Dajte mi {n} {!jajce|jajci|jajca|jajc}, prosim.", "en": "Give me {n} {egg|eggs}, please.", "de": "Geben Sie mir {n} {Ei|Eier}, bitte.", "it": "Mi dia {n} {uovo|uova}, per favore.", "wrong_form": 1, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {jajce|jajci|jajca|jajc}.", "de": "{Eins verlangt den Singular|Zwei verlangt den Dual|Drei und vier verlangen den Plural|Ab fünf steht der Genitiv Plural}: {n} {jajce|jajci|jajca|jajc}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {jajce|jajci|jajca|jajc}." },
-            "reply": { "sl": "Hm? Počasi, {m:fant|f:dekle}. Babica je stara.", "en": "Hm? Slowly, {m:lad|f:lass}. Grandma is old.", "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Die Oma ist alt.", "it": "Mm? Piano, {m:ragazzo|f:ragazza}. La nonna è vecchia." } },
+            "reply": { "sl": "Hm? Počasi. Babica je stara.", "en": "Hm? Slowly. Grandma is old.", "de": "Hm? Langsam. Die Oma ist alt.", "it": "Mm? Piano. La nonna è vecchia." } },
           { "sl": "Dajte mi {n} {!jajce|jajci|jajca|jajc}, prosim.", "en": "Give me {n} {egg|eggs}, please.", "de": "Geben Sie mir {n} {Ei|Eier}, bitte.", "it": "Mi dia {n} {uovo|uova}, per favore.", "wrong_form": 2, "grammar": "stevila-samostalniki",
             "why": { "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {jajce|jajci|jajca|jajc}.", "de": "{Eins verlangt den Singular|Zwei verlangt den Dual|Drei und vier verlangen den Plural|Ab fünf steht der Genitiv Plural}: {n} {jajce|jajci|jajca|jajc}.", "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {jajce|jajci|jajca|jajc}." },
             "reply": { "sl": "Eno ali več? Zdaj sem pa čisto zmedena.", "en": "One or more? Now I'm all mixed up.", "de": "Eins oder mehr? Jetzt bin ich ganz durcheinander.", "it": "Uno o di più? Adesso sono proprio confusa." } }
@@ -184,21 +184,21 @@
         { "choices": [
           { "sl": "Jutri sem {m:spekel|f:spekla} palačinke.", "en": "Tomorrow I baked pancakes.", "de": "Morgen habe ich Palatschinken gebacken.", "it": "Domani ho fatto le crêpes.",
             "grammar": "prihodnjik", "why": { "en": "Jutri (tomorrow) needs the future: bom {m:spekel|f:spekla}. Sem {m:spekel|f:spekla} is the past.", "de": "Jutri (morgen) verlangt das Futur: bom {m:spekel|f:spekla}. Sem {m:spekel|f:spekla} ist die Vergangenheit.", "it": "Jutri (domani) vuole il futuro: bom {m:spekel|f:spekla}. Sem {m:spekel|f:spekla} è il passato." },
-            "reply": { "sl": "Jutri si jih že {m:spekel|f:spekla}? Ti si pa {m:hiter|f:hitra}, {m:fant|f:dekle}!", "en": "You already baked them tomorrow? Aren't you quick, {m:lad|f:lass}!", "de": "Du hast sie morgen schon gebacken? Du bist aber schnell, {m:Junge|f:Mädchen}!", "it": "Le hai già fatte domani? Però, sei veloce, {m:ragazzo|f:ragazza}!" } },
+            "reply": { "sl": "Jutri si jih že {m:spekel|f:spekla}? Ti si pa {m:hiter|f:hitra}!", "en": "You already baked them tomorrow? Aren't you quick!", "de": "Du hast sie morgen schon gebacken? Du bist aber schnell!", "it": "Le hai già fatte domani? Però, sei veloce!" } },
           { "sl": "Jutri bo {m:spekel|f:spekla} palačinke.", "en": "Tomorrow {m:he|f:she} will bake pancakes.", "de": "Morgen wird {m:er|f:sie} Palatschinken backen.", "it": "Domani {m:lui|f:lei} farà le crêpes.",
             "grammar": "prihodnjik", "why": { "en": "Bo is 'he or she will'. You will bake them yourself: bom {m:spekel|f:spekla}.", "de": "Bo heißt ‚er oder sie wird‘. Du backst sie selbst: bom {m:spekel|f:spekla}.", "it": "Bo significa 'lui o lei farà'. Le fai tu: bom {m:spekel|f:spekla}." },
             "reply": { "sl": "Kdo? {m:Moj petelin|f:Moja kokoš}? Hi hi, ta ne zna peči.", "en": "Who? {m:My rooster|f:My hen}? Hee hee, {m:he|f:she} can't bake.", "de": "Wer? {m:Mein Hahn|f:Mein Huhn}? Hihi, {m:der|f:das} kann nicht backen.", "it": "Chi? {m:Il mio gallo|f:La mia gallina}? Hi hi, {m:quello|f:quella} non sa cucinare." } },
           { "sl": "Jutri bom {m:spekel|f:spekla} palačinke.", "en": "Tomorrow I will bake pancakes.", "de": "Morgen backe ich Palatschinken.", "it": "Domani farò le crêpes.", "ok": true,
-            "reply": { "sl": "Palačinke! Pa mi prinesi eno, {m:fant|f:dekle}.", "en": "Pancakes! Then bring me one, {m:lad|f:lass}.", "de": "Palatschinken! Dann bring mir einen, {m:Junge|f:Mädchen}.", "it": "Crêpes! Allora portamene una, {m:ragazzo|f:ragazza}." } }
+            "reply": { "sl": "Palačinke! Pa mi prinesi eno.", "en": "Pancakes! Then bring me one.", "de": "Palatschinken! Dann bring mir einen.", "it": "Crêpes! Allora portamene una." } }
         ] },
-        { "who": "micka", "sl": "Jej, jej, {m:fant|f:dekle}! In pridi spet v soboto.", "en": "Eat, eat, {m:lad|f:lass}! And come again on Saturday.", "de": "Iss, iss, {m:Junge|f:Mädchen}! Und komm am Samstag wieder.", "it": "Mangia, mangia, {m:ragazzo|f:ragazza}! E torna sabato." }
+        { "who": "micka", "sl": "Jej, jej! In pridi spet v soboto.", "en": "Eat, eat! And come again on Saturday.", "de": "Iss, iss! Und komm am Samstag wieder.", "it": "Mangia, mangia! E torna sabato." }
       ]
     },
     {
       "id": "jajca-kokos",
       "memory": { "sl": "kokoš, ki si jo {m:ujel|f:ujela} na tržnici", "en": "the hen you caught at the market", "de": "das Huhn, das du auf dem Markt gefangen hast", "it": "la gallina che hai preso al mercato" },
       "lines": [
-        { "who": "micka", "sl": "Ojej, {m:fant|f:dekle}! Moja kokoš je pobegnila. Kje je zdaj?", "en": "Oh dear, {m:lad|f:lass}! My hen has run off. Where is she now?", "de": "Oje, {m:Junge|f:Mädchen}! Mein Huhn ist weggelaufen. Wo ist es jetzt?", "it": "Oddio, {m:ragazzo|f:ragazza}! La mia gallina è scappata. Dov'è adesso?",
+        { "who": "micka", "sl": "Ojej! Moja kokoš je pobegnila. Kje je zdaj?", "en": "Oh dear! My hen has run off. Where is she now?", "de": "Oje! Mein Huhn ist weggelaufen. Wo ist es jetzt?", "it": "Oddio! La mia gallina è scappata. Dov'è adesso?",
           "fx": { "bustle": 0.6 } },
         { "choices": [
           { "sl": "Tam je, na voz!", "en": "There she is, onto the cart!", "de": "Da ist es, auf den Wagen!", "it": "Eccola là, su per il carro!",
@@ -207,16 +207,16 @@
           { "sl": "Tam je, na vozu!", "en": "There she is, on the cart!", "de": "Da ist es, auf dem Wagen!", "it": "Eccola là, sul carro!", "ok": true,
             "reply": { "sl": "Res je! Pridi dol, požrešnica!", "en": "So she is! Come down, you greedy thing!", "de": "Tatsächlich! Komm runter, du Vielfraß!", "it": "È vero! Scendi, golosona!", "fx": { "pigeons": 1 } } }
         ] },
-        { "who": "micka", "sl": "Hitro, {m:fant|f:dekle}, primi kokoš! Jaz ne morem tako hitro.", "en": "Quick, {m:lad|f:lass}, grab the hen! I can't go that fast.", "de": "Schnell, {m:Junge|f:Mädchen}, fang das Huhn! Ich kann nicht so schnell.", "it": "{m:Svelto|f:Svelta}, {m:ragazzo|f:ragazza}, prendi la gallina! Io non ce la faccio a correre così." },
+        { "who": "micka", "sl": "Hitro, primi kokoš! Jaz ne morem tako hitro.", "en": "Quick, grab the hen! I can't go that fast.", "de": "Schnell, fang das Huhn! Ich kann nicht so schnell.", "it": "{m:Svelto|f:Svelta}, prendi la gallina! Io non ce la faccio a correre così." },
         { "choices": [
           { "sl": "Imam jo! Izvoli, babica.", "en": "Got her! Here you are (ti), Grandma.", "de": "Ich hab es! Bitte schön (du), Oma.", "it": "Presa! Ecco a te (ti), nonna.",
             "grammar": "ti-vi", "why": { "en": "Micka says ti to you but expects vi back: izvolite. Izvoli is the ti form.", "de": "Micka sagt ti zu dir, erwartet aber vi zurück: izvolite. Izvoli ist die ti-Form.", "it": "Micka ti dà del ti, ma da te si aspetta il vi: izvolite. Izvoli è la forma del ti." },
             "reply": { "sl": "Izvoli? Hi hi, tikaš babico? No, prav.", "en": "Izvoli? Hee hee, saying ti to your granny? Well, all right.", "de": "Izvoli? Hihi, du duzt die Oma? Na gut.", "it": "Izvoli? Hi hi, dai del tu alla nonna? Va be'." } },
           { "sl": "Imam ga! Izvolite, babica.", "en": "I've got him! Here you are, Grandma.", "de": "Ich hab ihn! Bitte schön, Oma.", "it": "Preso lui! Ecco a Lei, nonna.",
             "grammar": "spol-samostalnikov", "why": { "en": "Kokoš is feminine, so 'her' is jo: imam jo. Ga is for masculine nouns (petelin, pes).", "de": "Kokoš ist weiblich, also heißt ‚sie‘ jo: imam jo. Ga steht für männliche Nomen (petelin, pes).", "it": "Kokoš è femminile, quindi 'la' è jo: imam jo. Ga è per i nomi maschili (petelin, pes)." },
-            "reply": { "sl": "Ga? Petelina? Ne, {m:fant|f:dekle}, kokoš sem izgubila!", "en": "Ga (him)? The rooster? No, {m:lad|f:lass}, it's the hen I lost!", "de": "Ga (ihn)? Den Hahn? Nein, {m:Junge|f:Mädchen}, das Huhn ist mir weggelaufen!", "it": "Ga (lui)? Il gallo? No, {m:ragazzo|f:ragazza}, ho perso la gallina!" } },
+            "reply": { "sl": "Ga? Petelina? Ne, kokoš sem izgubila!", "en": "Ga (him)? The rooster? No, it's the hen I lost!", "de": "Ga (ihn)? Den Hahn? Nein, das Huhn ist mir weggelaufen!", "it": "Ga (lui)? Il gallo? No, ho perso la gallina!" } },
           { "sl": "Imam jo! Izvolite, babica.", "en": "Got her! Here you are, Grandma.", "de": "Ich hab es! Bitte schön, Oma.", "it": "Presa! Ecco a Lei, nonna.", "ok": true,
-            "reply": { "sl": "Hvala, {m:fant|f:dekle}! Za to dobiš tri jajca zastonj.", "en": "Thank you, {m:lad|f:lass}! For that you get three eggs for free.", "de": "Danke, {m:Junge|f:Mädchen}! Dafür bekommst du drei Eier umsonst.", "it": "Grazie, {m:ragazzo|f:ragazza}! Per questo ti do tre uova gratis." } }
+            "reply": { "sl": "Hvala! Za to dobiš tri jajca zastonj.", "en": "Thank you! For that you get three eggs for free.", "de": "Danke! Dafür bekommst du drei Eier umsonst.", "it": "Grazie! Per questo ti do tre uova gratis." } }
         ] },
         { "who": "micka", "sl": "Kokoši so kot otroci. Vedno nekam bežijo.", "en": "Hens are like children. Always running off somewhere.", "de": "Hühner sind wie Kinder. Immer laufen sie irgendwohin weg.", "it": "Le galline sono come i bambini. Scappano sempre da qualche parte." }
       ]

@@ -137,7 +137,7 @@
             "reply": { "sl": "Tikaš babico? Oho! No, pa naj bo.", "en": "You say ti to Granny? Oho! Well, so be it.", "de": "Du sagst du zur Oma? Oho! Na, meinetwegen.", "it": "Dai del tu alla nonna? Oho! Be', e sia." } },
           { "sl": "O, babica, hvala vam! Res sem zebe.", "en": "Oh, grandma, thank you! I really am freeze.", "de": "Oh, Oma, ich danke Ihnen! Ich bin wirklich friert.", "it": "Oh, nonna, grazie a Lei! Sono proprio gela.",
             "grammar": "dajalnik", "why": { "en": "'I am cold' is zebe me (it freezes me): the verb stays zebe, the person is me. Sem is not used here.", "de": "‚Mir ist kalt‘ heißt zebe me (es friert mich): Das Verb bleibt zebe, die Person ist me. Sem steht hier nicht.", "it": "'Ho freddo' è zebe me (mi gela): il verbo resta zebe, la persona è me. Qui sem non si usa." },
-            "reply": { "sl": "Sem zebe? Ne razumem, {m:fant|f:dekle}. Si {m:lačen|f:lačna}?", "en": "Sem zebe? I don't follow, {m:lad|f:lass}. Are you hungry?", "de": "Sem zebe? Versteh ich nicht, {m:Junge|f:Mädchen}. Hast du Hunger?", "it": "Sem zebe? Non capisco, {m:ragazzo mio|f:ragazza mia}. Hai fame?" } }
+            "reply": { "sl": "Sem zebe? Ne razumem. Si {m:lačen|f:lačna}?", "en": "Sem zebe? I don't follow. Are you hungry?", "de": "Sem zebe? Versteh ich nicht. Hast du Hunger?", "it": "Sem zebe? Non capisco. Hai fame?" } }
         ] },
         { "who": "babica", "sl": "Volnena je. Moja mama jo je naredila. Stara je kot jaz!", "en": "It is woollen. My mother made it. It is as old as me!", "de": "Sie ist aus Wolle. Meine Mutter hat sie gemacht. Sie ist so alt wie ich!", "it": "È di lana. L'ha fatta mia mamma. È vecchia come me!" },
         { "choices": [
@@ -150,15 +150,15 @@
             "grammar": "pridevniki-ujemanje", "why": { "en": "Toplo is an adverb (zunaj je toplo). The blanket itself is topla, an adjective agreeing with odeja.", "de": "Toplo ist ein Adverb (zunaj je toplo). Die Decke selbst ist topla, ein Adjektiv, das zu odeja passt.", "it": "Toplo è un avverbio (zunaj je toplo). La coperta in sé è topla, un aggettivo concordato con odeja." },
             "reply": { "sl": "Toplo? Prej te je pa zeblo!", "en": "Toplo (it's warm)? But a minute ago you were cold!", "de": "Toplo (es ist warm)? Eben war dir doch noch kalt!", "it": "Toplo (fa caldo)? Ma un attimo fa avevi freddo!" } }
         ] },
-        { "who": "babica", "sl": "Zdaj pa spi. Jutri je nov dan. Lahko noč, {m:fant|f:dekle}.", "en": "Now sleep. Tomorrow is a new day. Good night, {m:lad|f:lass}.", "de": "Jetzt schlaf. Morgen ist ein neuer Tag. Gute Nacht, {m:Junge|f:Mädchen}.", "it": "Adesso dormi. Domani è un altro giorno. Buonanotte, {m:ragazzo mio|f:ragazza mia}." },
+        { "who": "babica", "sl": "Zdaj pa spi. Jutri je nov dan. Lahko noč, {m:sinko|f:{learner}}.", "en": "Now sleep. Tomorrow is a new day. Good night, {m:son|f:{learner}}.", "de": "Jetzt schlaf. Morgen ist ein neuer Tag. Gute Nacht, {m:mein Junge|f:{learner}}.", "it": "Adesso dormi. Domani è un altro giorno. Buonanotte, {m:figliolo|f:{learner}}." },
         { "choices": [
           { "sl": "Lahko noč, babica. In hvala za odejo.", "en": "Good night, grandma. And thanks for the blanket.", "de": "Gute Nacht, Oma. Und danke für die Decke.", "it": "Buonanotte, nonna. E grazie per la coperta.", "ok": true,
             "reply": { "sl": "Ni za kaj. Spi, spi.", "en": "You are welcome. Sleep, sleep.", "de": "Gern geschehen. Schlaf, schlaf.", "it": "Di niente. Dormi, dormi." } },
           { "sl": "Lahko noč, babica. Lepo spite!", "en": "Good night, grandma. Sleep well!", "de": "Gute Nacht, Oma. Schlafen Sie gut!", "it": "Buonanotte, nonna. Dorma bene!", "ok": true,
-            "reply": { "sl": "Ti tudi, {m:fant|f:dekle}. Sladko sanjaj.", "en": "You too, {m:lad|f:lass}. Sweet dreams.", "de": "Du auch, {m:Junge|f:Mädchen}. Träum was Schönes.", "it": "Anche tu, {m:ragazzo mio|f:ragazza mia}. Sogni d'oro." } },
+            "reply": { "sl": "Ti tudi. Sladko sanjaj.", "en": "You too. Sweet dreams.", "de": "Du auch. Träum was Schönes.", "it": "Anche tu. Sogni d'oro." } },
           { "sl": "Dobro jutro, babica. In hvala za odejo.", "en": "Good morning, grandma. And thanks for the blanket.", "de": "Guten Morgen, Oma. Und danke für die Decke.", "it": "Buongiorno, nonna. E grazie per la coperta.",
             "why": { "en": "It is night and she is leaving: lahko noč. Dobro jutro is the morning greeting.", "de": "Es ist Nacht und sie geht: lahko noč. Dobro jutro ist der Morgengruß.", "it": "È notte e lei se ne va: lahko noč. Dobro jutro è il saluto del mattino." },
-            "reply": { "sl": "Dobro jutro? Zajtrk je šele jutri, {m:fant|f:dekle}!", "en": "Dobro jutro (good morning)? Breakfast isn't till tomorrow, {m:lad|f:lass}!", "de": "Dobro jutro (guten Morgen)? Frühstück gibt's erst morgen, {m:Junge|f:Mädchen}!", "it": "Dobro jutro (buongiorno)? La colazione è solo domani, {m:ragazzo mio|f:ragazza mia}!" } }
+            "reply": { "sl": "Dobro jutro? Zajtrk je šele jutri!", "en": "Dobro jutro (good morning)? Breakfast isn't till tomorrow!", "de": "Dobro jutro (guten Morgen)? Frühstück gibt's erst morgen!", "it": "Dobro jutro (buongiorno)? La colazione è solo domani!" } }
         ] }
       ]
     },
@@ -341,7 +341,7 @@
         { "choices": [
           { "sl": "Še ne spim. Hvala, babica! Je čaj z med?", "en": "I'm not asleep yet. Thank you, grandma! Is the tea with honey (wrong case)?", "de": "Ich schlafe noch nicht. Danke, Oma! Ist der Tee mit Honig (falscher Fall)?", "it": "Non dormo ancora. Grazie, nonna! Il tè è con miele (caso sbagliato)?",
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z medom.", "de": "Z (mit) verlangt den Instrumental: z medom.", "it": "Z (con) vuole lo strumentale: z medom." },
-            "reply": { "sl": "Z med? Kako, prosim? Stara ušesa, {m:fant|f:dekle}.", "en": "Z med? Pardon? Old ears, {m:lad|f:lass}.", "de": "Z med? Wie bitte? Alte Ohren, {m:Junge|f:Mädchen}.", "it": "Z med? Come, scusa? Orecchie vecchie, {m:ragazzo mio|f:ragazza mia}." } },
+            "reply": { "sl": "Z med? Kako, prosim? Stara ušesa.", "en": "Z med? Pardon? Old ears.", "de": "Z med? Wie bitte? Alte Ohren.", "it": "Z med? Come, scusa? Orecchie vecchie." } },
           { "sl": "Še ne spim. Hvala, babica! Je čaj za medom?", "en": "I'm not asleep yet. Thank you, grandma! Is the tea behind the honey?", "de": "Ich schlafe noch nicht. Danke, Oma! Ist der Tee hinter dem Honig?", "it": "Non dormo ancora. Grazie, nonna! Il tè è dietro il miele?",
             "grammar": "orodnik", "why": { "en": "With is z + instrumental: z medom. Za medom means behind the honey.", "de": "Mit heißt z + Instrumental: z medom. Za medom heißt hinter dem Honig.", "it": "Con è z + strumentale: z medom. Za medom significa dietro il miele." },
             "reply": { "sl": "Za medom? Čaj se je skril? Ha ha.", "en": "Behind the honey? Is the tea hiding? Ha ha.", "de": "Hinter dem Honig? Hat sich der Tee versteckt? Haha.", "it": "Dietro il miele? Il tè si è nascosto? Ah ah." } },
@@ -352,14 +352,14 @@
         { "choices": [
           { "sl": "Ne, hvala. Ne potrebujem blazino. Imam že eno.", "en": "No, thanks. I don't need pillow (accusative). I already have one.", "de": "Nein, danke. Ich brauche Kissen (Akkusativ) nicht. Ich habe schon eins.", "it": "No, grazie. Non mi serve cuscino (accusativo). Ne ho già uno.",
             "grammar": "rodilnik-nikalnica", "why": { "en": "After a negation the object is in the genitive: ne potrebujem blazine. Blazino is the accusative.", "de": "Nach einer Verneinung steht das Objekt im Genitiv: ne potrebujem blazine. Blazino ist der Akkusativ.", "it": "Dopo una negazione l'oggetto va al genitivo: ne potrebujem blazine. Blazino è l'accusativo." },
-            "reply": { "sl": "Ne potrebuješ? Hm, nekaj si čudno {m:rekel|f:rekla}, {m:fant|f:dekle}.", "en": "You don't need it? Hm, you said something funny, {m:lad|f:lass}.", "de": "Du brauchst es nicht? Hm, du hast was Komisches gesagt, {m:Junge|f:Mädchen}.", "it": "Non ti serve? Mm, hai detto una cosa strana, {m:ragazzo mio|f:ragazza mia}." } },
+            "reply": { "sl": "Ne potrebuješ? Hm, nekaj si čudno {m:rekel|f:rekla}.", "en": "You don't need it? Hm, you said something funny.", "de": "Du brauchst es nicht? Hm, du hast was Komisches gesagt.", "it": "Non ti serve? Mm, hai detto una cosa strana." } },
           { "sl": "Ne, hvala. Ne potrebujem blazine. Imam že eno.", "en": "No, thanks. I don't need a pillow. I already have one.", "de": "Nein, danke. Ich brauche kein Kissen. Ich habe schon eins.", "it": "No, grazie. Non mi serve un cuscino. Ne ho già uno.", "ok": true,
-            "reply": { "sl": "Prav. Potem pa še nogavice obuj, {m:fant|f:dekle}.", "en": "All right. Then put your socks on too, {m:lad|f:lass}.", "de": "Gut. Dann zieh noch Socken an, {m:Junge|f:Mädchen}.", "it": "Va bene. Allora mettiti anche le calze, {m:ragazzo mio|f:ragazza mia}." } },
+            "reply": { "sl": "Prav. Potem pa še nogavice obuj.", "en": "All right. Then put your socks on too.", "de": "Gut. Dann zieh noch Socken an.", "it": "Va bene. Allora mettiti anche le calze." } },
           { "sl": "Ja, hvala. Ne potrebujem blazine. Imam že eno.", "en": "Yes, thanks. I don't need a pillow. I already have one.", "de": "Ja, danke. Ich brauche kein Kissen. Ich habe schon eins.", "it": "Sì, grazie. Non mi serve un cuscino. Ne ho già uno.",
             "why": { "en": "If you don't want one, say ne, hvala. Ja means yes.", "de": "Wenn du keins willst, sag ne, hvala. Ja heißt ja.", "it": "Se non lo vuoi, di' ne, hvala. Ja significa sì." },
-            "reply": { "sl": "Ja? Potem jo prinesem … Kaj? Zdaj sem pa zmedena, {m:fant|f:dekle}!", "en": "Yes? Then I'll bring one … What? Now I'm muddled, {m:lad|f:lass}!", "de": "Ja? Dann bringe ich eins … Was? Jetzt bin ich ganz durcheinander, {m:Junge|f:Mädchen}!", "it": "Sì? Allora te lo porto … Cosa? Adesso sono confusa, {m:ragazzo mio|f:ragazza mia}!" } }
+            "reply": { "sl": "Ja? Potem jo prinesem … Kaj? Zdaj sem pa zmedena!", "en": "Yes? Then I'll bring one … What? Now I'm muddled!", "de": "Ja? Dann bringe ich eins … Was? Jetzt bin ich ganz durcheinander!", "it": "Sì? Allora te lo porto … Cosa? Adesso sono confusa!" } }
         ] },
-        { "who": "babica", "sl": "Tako. Pij čaj in spi. Lahko noč, {m:fant|f:dekle}.", "en": "There. Drink your tea and sleep. Good night, {m:lad|f:lass}.", "de": "So. Trink deinen Tee und schlaf. Gute Nacht, {m:Junge|f:Mädchen}.", "it": "Ecco. Bevi il tè e dormi. Buonanotte, {m:ragazzo mio|f:ragazza mia}." }
+        { "who": "babica", "sl": "Tako. Pij čaj in spi. Lahko noč.", "en": "There. Drink your tea and sleep. Good night.", "de": "So. Trink deinen Tee und schlaf. Gute Nacht.", "it": "Ecco. Bevi il tè e dormi. Buonanotte." }
       ]
     },
     {

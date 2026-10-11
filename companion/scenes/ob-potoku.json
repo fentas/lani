@@ -124,20 +124,20 @@
         { "who": "babica", "sl": "O, {learner}! Pridi, pridi. Perem perilo. Voda je mrzla kot led!", "en": "Oh, {learner}! Come, come. I am washing the laundry. The water is as cold as ice!", "de": "Oh, {learner}! Komm, komm. Ich wasche Wäsche. Das Wasser ist kalt wie Eis!", "it": "Oh, {learner}! Vieni, vieni. Sto lavando i panni. L'acqua è fredda come il ghiaccio!" },
         { "choices": [
           { "sl": "Vam lahko pomagam?", "en": "Can I help you?", "de": "Kann ich Ihnen helfen?", "it": "Posso aiutarLa?", "ok": true,
-            "reply": { "sl": "Lahko, {m:fant|f:dekle}. Drži to rjuho.", "en": "You can, {m:lad|f:lass}. Hold this sheet.", "de": "Kannst du, {m:Junge|f:Mädchen}. Halt dieses Laken.", "it": "Puoi, {m:ragazzo|f:ragazza}. Tieni questo lenzuolo." } },
+            "reply": { "sl": "Lahko. Drži to rjuho.", "en": "You can. Hold this sheet.", "de": "Kannst du. Halt dieses Laken.", "it": "Puoi. Tieni questo lenzuolo." } },
           { "sl": "Ti lahko pomagam?", "en": "Can I help you (ti)?", "de": "Kann ich dir (ti) helfen?", "it": "Posso aiutarti (ti)?",
             "grammar": "ti-vi", "why": { "en": "Babica Micka expects vi from you: vam lahko pomagam?", "de": "Oma Micka erwartet von dir vi: vam lahko pomagam?", "it": "Nonna Micka si aspetta da te il vi: vam lahko pomagam?" },
             "reply": { "sl": "Ti? Joj, ta današnja mladina …", "en": "Ti? Oh, young people these days …", "de": "Ti (du)? Ach, die Jugend von heute …", "it": "Ti (tu)? Ah, i giovani d'oggi …" } },
           { "sl": "Vas lahko pomagam?", "en": "Can I help you?", "de": "Kann ich Ihnen helfen?", "it": "Posso aiutarLa?",
             "grammar": "dajalnik", "why": { "en": "Pomagati takes the dative: vam (to you), not vas.", "de": "Pomagati steht mit dem Dativ: vam (Ihnen), nicht vas.", "it": "Pomagati vuole il dativo: vam (a Lei), non vas." },
-            "reply": { "sl": "Kako, {m:fant|f:dekle}? Potok tako glasno šumi.", "en": "What's that, {m:lad|f:lass}? The stream is so loud.", "de": "Wie bitte, {m:Junge|f:Mädchen}? Der Bach rauscht so laut.", "it": "Come, {m:ragazzo|f:ragazza}? Il ruscello fa tanto rumore." } }
+            "reply": { "sl": "Kako? Potok tako glasno šumi.", "en": "What's that? The stream is so loud.", "de": "Wie bitte? Der Bach rauscht so laut.", "it": "Come? Il ruscello fa tanto rumore." } }
         ] },
         { "who": "babica", "sl": "Joj, poglej oblake. Dež gre!", "en": "Oh dear, look at the clouds. Rain is coming!", "de": "Oje, schau dir die Wolken an. Es kommt Regen!", "it": "Oh cielo, guarda le nuvole. Arriva la pioggia!", "sky": { "gloom": 0.55, "wind": 0.35 } },
         { "choices": [
           { "sl": "Hitro, perilo v košaro!", "en": "Quick, the laundry into the basket!", "de": "Schnell, die Wäsche in den Korb!", "it": "Presto, il bucato nella cesta!", "ok": true,
             "reply": { "sl": "Ja, ja! Že kaplja.", "en": "Yes, yes! The first drops are falling.", "de": "Ja, ja! Es tröpfelt schon.", "it": "Sì, sì! Cadono già le prime gocce.", "sky": { "rain": 0.3, "gloom": 0.75 } } },
           { "sl": "Jaz vzamem rjuhe, vi srajce!", "en": "I'll take the sheets, you the shirts!", "de": "Ich nehme die Laken, Sie die Hemden!", "it": "Io prendo le lenzuola, Lei le camicie!", "ok": true,
-            "reply": { "sl": "{m:Priden|f:Pridna} si, {m:fant|f:dekle}! Joj, prve kaplje!", "en": "{m:Good lad|f:Good lass}! Oh dear, the first drops!", "de": "{m:Braver Junge|f:Braves Mädchen}! Oje, die ersten Tropfen!", "it": "{m:Bravo ragazzo|f:Brava ragazza}! Oddio, le prime gocce!", "sky": { "rain": 0.3, "gloom": 0.75 } } },
+            "reply": { "sl": "{m:Priden|f:Pridna} si! Joj, prve kaplje!", "en": "{m:Good lad|f:Good lass}! Oh dear, the first drops!", "de": "{m:Braver Junge|f:Braves Mädchen}! Oje, die ersten Tropfen!", "it": "{m:Bravo ragazzo|f:Brava ragazza}! Oddio, le prime gocce!", "sky": { "rain": 0.3, "gloom": 0.75 } } },
           { "sl": "Počasi, perilo v košaro!", "en": "Slowly, the laundry into the basket!", "de": "Langsam, die Wäsche in den Korb!", "it": "Piano, il bucato nella cesta!",
             "why": { "en": "Počasi means slowly. With the rain coming: hitro!", "de": "Počasi heißt langsam. Wenn der Regen kommt: hitro!", "it": "Počasi significa piano. Con la pioggia in arrivo: hitro!" },
             "reply": { "sl": "Počasi? Dež pa ne bo čakal na naju!", "en": "Počasi, slowly? The rain won't wait for us!", "de": "Počasi, langsam? Der Regen wartet nicht auf uns!", "it": "Počasi, piano? La pioggia non ci aspetta mica!" } }
@@ -145,10 +145,10 @@
         { "who": "babica", "sl": "Zdaj sva {m:oba mokra|f:obe mokri}. In perilo tudi!", "en": "Now we are both wet. And the laundry too!", "de": "Jetzt sind wir beide nass. Und die Wäsche auch!", "it": "Adesso siamo {m:bagnati tutti|f:bagnate tutte} e due. E anche il bucato!", "sky": { "rain": 0.75, "gloom": 0.85 } },
         { "choices": [
           { "sl": "Nič hudega. Perilo je že mokro!", "en": "Never mind. The laundry is wet already!", "de": "Macht nichts. Die Wäsche ist schon nass!", "it": "Non fa niente. Il bucato è già bagnato!", "ok": true,
-            "reply": { "sl": "Ha, ha! Res je, {m:fant|f:dekle}. Pridi, skuham ti čaj.", "en": "Ha ha! That's true, {m:lad|f:lass}. Come, I will make you some tea.", "de": "Haha! Das stimmt, {m:Junge|f:Mädchen}. Komm, ich koche dir einen Tee.", "it": "Ah ah! È vero, {m:ragazzo|f:ragazza}. Vieni, ti preparo un tè." } },
+            "reply": { "sl": "Ha, ha! Res je. Pridi, skuham ti čaj.", "en": "Ha ha! That's true. Come, I will make you some tea.", "de": "Haha! Das stimmt. Komm, ich koche dir einen Tee.", "it": "Ah ah! È vero. Vieni, ti preparo un tè." } },
           { "sl": "Nič hudega. Perilo je že moker!", "en": "Never mind. The laundry is wet already!", "de": "Macht nichts. Die Wäsche ist schon nass!", "it": "Non fa niente. Il bucato è già bagnato!",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Perilo is neuter: mokro. Moker goes with a masculine noun (moker plašč).", "de": "Perilo ist sächlich: mokro. Moker gehört zu einem männlichen Nomen (moker plašč).", "it": "Perilo è neutro: mokro. Moker va con un nome maschile (moker plašč)." },
-            "reply": { "sl": "Moker? Ja, ti si {m:moker|f:mokra} kot miš, {m:fant|f:dekle}!", "en": "Moker, wet? Yes, you are, {m:lad|f:lass}, like a drowned rat!", "de": "Moker, nass? Ja, du bist es, {m:Junge|f:Mädchen}: pudelnass!", "it": "Moker, bagnato? Sì, lo sei tu, {m:ragazzo|f:ragazza}: {m:bagnato fradicio|f:bagnata fradicia}!" } }
+            "reply": { "sl": "Moker? Ja, ti si {m:moker|f:mokra} kot miš!", "en": "Moker, wet? Yes, you are, like a drowned rat!", "de": "Moker, nass? Ja, du bist es: pudelnass!", "it": "Moker, bagnato? Sì, lo sei tu: {m:bagnato fradicio|f:bagnata fradicia}!" } }
         ] }
       ]
     },
@@ -452,9 +452,9 @@
         { "choices": [
           { "sl": "Perete z milo?", "en": "Are you washing with soap?", "de": "Waschen Sie mit Seife?", "it": "Lava con il sapone?",
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z milom.", "de": "Z (mit) steht mit dem Instrumental: z milom.", "it": "Z (con) vuole lo strumentale: z milom." },
-            "reply": { "sl": "Z milo? Joj, moja ušesa so stara, {m:fant|f:dekle}.", "en": "Z milo? Oh dear, my ears are old, {m:lad|f:lass}.", "de": "Z milo? Ach, meine Ohren sind alt, {m:Junge|f:Mädchen}.", "it": "Z milo? Oddio, le mie orecchie sono vecchie, {m:ragazzo|f:ragazza}." } },
+            "reply": { "sl": "Z milo? Joj, moja ušesa so stara.", "en": "Z milo? Oh dear, my ears are old.", "de": "Z milo? Ach, meine Ohren sind alt.", "it": "Z milo? Oddio, le mie orecchie sono vecchie." } },
           { "sl": "Perete z milom?", "en": "Are you washing with soap?", "de": "Waschen Sie mit Seife?", "it": "Lava con il sapone?", "ok": true,
-            "reply": { "sl": "Z milom in z vodo. In z rokami, {m:fant|f:dekle}!", "en": "With soap and water. And with my hands, {m:lad|f:lass}!", "de": "Mit Seife und Wasser. Und mit den Händen, {m:Junge|f:Mädchen}!", "it": "Con il sapone e l'acqua. E con le mani, {m:ragazzo|f:ragazza}!" } }
+            "reply": { "sl": "Z milom in z vodo. In z rokami!", "en": "With soap and water. And with my hands!", "de": "Mit Seife und Wasser. Und mit den Händen!", "it": "Con il sapone e l'acqua. E con le mani!" } }
         ] },
         { "who": "babica", "sl": "Glej, to je moja najlepša rjuha. Od moje mame.", "en": "Look, this is my most beautiful sheet. From my mother.", "de": "Schau, das ist mein schönstes Laken. Von meiner Mutter.", "it": "Guarda, questo è il mio lenzuolo più bello. Era di mia madre." },
         { "choices": [
@@ -462,7 +462,7 @@
             "grammar": "imenovalnik", "why": { "en": "Rjuha is the subject here: the nominative, vaša rjuha. Vašo rjuho is the accusative (gledam vašo rjuho).", "de": "Rjuha ist hier das Subjekt: der Nominativ, vaša rjuha. Vašo rjuho ist der Akkusativ (gledam vašo rjuho).", "it": "Qui rjuha è il soggetto: il nominativo, vaša rjuha. Vašo rjuho è l'accusativo (gledam vašo rjuho)." },
             "reply": { "sl": "Vašo rjuho? Kaj je z njo? Je raztrgana?", "en": "Vašo rjuho, my sheet? What about it? Is it torn?", "de": "Vašo rjuho, mein Laken? Was ist damit? Ist es zerrissen?", "it": "Vašo rjuho, il mio lenzuolo? Che cos'ha? È strappato?" } },
           { "sl": "Vaša rjuha je res lepa.", "en": "Your sheet is really beautiful.", "de": "Ihr Laken ist wirklich schön.", "it": "Il Suo lenzuolo è davvero bello.", "ok": true,
-            "reply": { "sl": "Hvala, {m:fant|f:dekle}. Stara je skoraj kot jaz, hi hi.", "en": "Thank you, {m:lad|f:lass}. It's almost as old as me, hee hee.", "de": "Danke, {m:Junge|f:Mädchen}. Es ist fast so alt wie ich, hihi.", "it": "Grazie, {m:ragazzo|f:ragazza}. È vecchio quasi quanto me, ih ih." } },
+            "reply": { "sl": "Hvala. Stara je skoraj kot jaz, hi hi.", "en": "Thank you. It's almost as old as me, hee hee.", "de": "Danke. Es ist fast so alt wie ich, hihi.", "it": "Grazie. È vecchio quasi quanto me, ih ih." } },
           { "sl": "Vaš rjuha je res lepa.", "en": "Your (masculine) sheet is really beautiful.", "de": "Ihr (männlich) Laken ist wirklich schön.", "it": "Il Suo (maschile) lenzuolo è davvero bello.",
             "grammar": "pridevniki-ujemanje", "why": { "en": "Rjuha is feminine: vaša. Vaš goes with a masculine word (vaš predpasnik).", "de": "Rjuha ist weiblich: vaša. Vaš gehört zu einem männlichen Wort (vaš predpasnik).", "it": "Rjuha è femminile: vaša. Vaš va con una parola maschile (vaš predpasnik)." },
             "reply": { "sl": "Vaš? Moj predpasnik? Ta je pa umazan!", "en": "Vaš, masculine? My apron? That one's dirty!", "de": "Vaš, männlich? Meine Schürze? Die ist aber schmutzig!", "it": "Vaš, maschile? Il mio grembiule? Quello è sporco!" } }
