@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import kotlinx.serialization.json.JsonArray
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.Exercise
@@ -91,7 +92,9 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             vm.game.rewardPractice(tasks.map { it.exercise }, outcomes.map { it.paid })
             // the forms asked: what the next asks of each word, and the tutor's note
             val forms = if (home) vm.forms.answered(tasks.take(outcomes.size), outcomes.map { it.verdict }, outcomes.map { it.answer }) else null
-            vm.finishReview(tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms)
+            // what each card was answered with: the node keeps the last days', for the tutor (a card reported later)
+            val answers = JsonArray(tasks.zip(outcomes) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) })
+            vm.finishReview(tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms, answers)
         }
         return
     }

@@ -2,6 +2,7 @@ package si.lanisce.lani.data
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
@@ -83,6 +84,14 @@ class OutboxTest {
         assertEquals(500, ids.size)
         assertTrue(ids.all { Regex("^[0-9a-f]{32}$").matches(it) })
         assertTrue(Writes.reviews(listOf("x" to 3), 1).clientId != Writes.reviews(listOf("x" to 3), 1).clientId)
+    }
+
+    @Test fun `a review's body carries what each card was answered with, only when there is something`() {
+        val answers = kotlinx.serialization.json.buildJsonArray { add(buildJsonObject { put("item_id", "vocab_kurim"); put("answer", "kurim") }) }
+        val with = json.parseToJsonElement(Writes.reviews(listOf("vocab_kurim" to 1), 2, answers = answers, id = "r1").body).jsonObject
+        assertEquals("kurim", with["answers"]!!.jsonArray[0].jsonObject["answer"]!!.jsonPrimitive.content)
+        val without = json.parseToJsonElement(Writes.reviews(listOf("vocab_kurim" to 1), 2, answers = kotlinx.serialization.json.JsonArray(emptyList()), id = "r2").body).jsonObject
+        assertTrue("answers" !in without)
     }
 
     @Test fun `message bodies carry kind, conversation and data`() {

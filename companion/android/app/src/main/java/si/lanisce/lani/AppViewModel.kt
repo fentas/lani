@@ -582,10 +582,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    /** Saves a review; [language]: another language's deck (null: the home language's, whose rusty words it polishes). */
-    fun finishReview(results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: kotlinx.serialization.json.JsonArray? = null): Job {
+    /**
+     * Saves a review; [language]: another language's deck (null: the home language's, whose rusty words it polishes);
+     * [answers]: what each card was answered with ([si.lanisce.lani.ui.reviewAnswer]), for the node's log of recent answers.
+     */
+    fun finishReview(
+        results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: kotlinx.serialization.json.JsonArray? = null,
+        answers: kotlinx.serialization.json.JsonArray? = null,
+    ): Job {
         if (language == null) content.reviewed(results)
-        return sync.submitLater(Writes.reviews(results, minutes, language, forms))
+        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers))
     }
 
     /** Sends Jan's answer to the tutor (and the family page); answering pays wisdom in the village. */

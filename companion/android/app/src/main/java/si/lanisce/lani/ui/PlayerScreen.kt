@@ -100,6 +100,7 @@ import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.Hints
 import si.lanisce.lani.data.Module
+import si.lanisce.lani.data.ReviewPlanner
 import si.lanisce.lani.data.ScreenClock
 import si.lanisce.lani.data.Spoken
 import si.lanisce.lani.data.Words
@@ -1080,19 +1081,7 @@ internal fun saidOf(ex: Exercise, isSlovene: (String) -> Boolean): String? {
  * item it was, so a wrong or confusing one can be found and fixed.
  */
 internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: JsonObject? = null): ChatContext {
-    val (type, prompt) = when (ex) {
-        is Exercise.Flashcard -> "flashcard" to "${ex.front} = ${ex.back}"
-        is Exercise.Choice -> "choice" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
-        is Exercise.Cloze -> "cloze" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.text).joinToString(" · ")
-        is Exercise.Reorder -> "reorder" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
-        is Exercise.Translate -> "translate" to ex.prompt
-        is Exercise.Free -> "free" to ex.prompt
-        is Exercise.Multi -> "multi" to ex.prompt
-        is Exercise.Scenario -> "scenario" to listOfNotNull(ex.scene, ex.line?.let { "„$it“" }, ex.prompt).joinToString(" · ")
-        is Exercise.Dictation -> "dictation" to "🎧 ${ex.audio}"
-        is Exercise.Speak -> "speak" to "🎤 ${ex.prompt} → ${ex.say}"
-        is Exercise.Unsupported -> ex.kind to ex.kind
-    }
+    val (type, prompt) = typeAndPrompt(ex)
     val data = buildJsonObject {
         put("type", type)
         put("prompt", prompt)
@@ -1109,6 +1098,45 @@ internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: Js
     }
     val label = "${prompt.take(50)} → ${o.answer.take(30)}"
     return ChatContext(label, data)
+}
+
+/** An exercise's type ("translate") and what it asked, in one line, as the tutor sees it. */
+private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
+    is Exercise.Flashcard -> "flashcard" to "${ex.front} = ${ex.back}"
+    is Exercise.Choice -> "choice" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
+    is Exercise.Cloze -> "cloze" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.text).joinToString(" · ")
+    is Exercise.Reorder -> "reorder" to listOfNotNull(ex.audio?.let { "🎧 $it" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
+    is Exercise.Translate -> "translate" to ex.prompt
+    is Exercise.Free -> "free" to ex.prompt
+    is Exercise.Multi -> "multi" to ex.prompt
+    is Exercise.Scenario -> "scenario" to listOfNotNull(ex.scene, ex.line?.let { "„$it“" }, ex.prompt).joinToString(" · ")
+    is Exercise.Dictation -> "dictation" to "🎧 ${ex.audio}"
+    is Exercise.Speak -> "speak" to "🎤 ${ex.prompt} → ${ex.say}"
+    is Exercise.Unsupported -> ex.kind to ex.kind
+}
+
+/**
+ * What a review card's exercise was answered with, for the node's log of recent answers (POST /reviews `answers`,
+ * companion/bridge/src/answers.ts): the card, how it was asked ([variant]), the exercise and what it asked, what was typed
+ * or heard against what was expected, the verdict and the grading hint. A flashcard is self-rated: no answer to keep. So
+ * when Jan reports a card later without "Ask", the tutor can see what was typed.
+ */
+internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: ReviewPlanner.Variant): JsonObject {
+    val (type, prompt) = typeAndPrompt(ex)
+    return buildJsonObject {
+        put("item_id", cardId)
+        put("variant", variant.name.lowercase())
+        put("type", type)
+        put("prompt", prompt.take(160))
+        if (ex !is Exercise.Flashcard) {
+            put("answer", o.answer.take(200))
+            o.correct?.let { put("expected", it.take(200)) }
+        }
+        put("verdict", o.verdict.name.lowercase())
+        if (o.hint != Grading.Hint.NONE) put("hint", o.hint.name.lowercase())
+        if (o.spoken) put("spoken", true)
+        if (o.hints > 0) put("hints_used", o.hints)
+    }
 }
 
 private fun hintText(h: Grading.Hint): String? = when (h) {

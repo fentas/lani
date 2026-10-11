@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
@@ -28,6 +29,7 @@ import si.lanisce.lani.ui.ExerciseRun
 import si.lanisce.lani.ui.Finish
 import si.lanisce.lani.ui.Outcome
 import si.lanisce.lani.ui.minutesSince
+import si.lanisce.lani.ui.reviewAnswer
 import si.lanisce.lani.ui.stage.Run
 import si.lanisce.lani.ui.stage.rememberStage
 
@@ -63,7 +65,10 @@ fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Pr
             result = outs
             vm.game.rewardPractice(exercises, outs.map { it.paid })
             val minutes = minutesSince(started)
-            if (tasks != null) vm.finishReview(tasks.zip(outs) { t, o -> t.card.id to Hints.penalize(ReviewPlanner.quality(t.variant, o.verdict), o.hints) }, minutes)
+            if (tasks != null) vm.finishReview(
+                tasks.zip(outs) { t, o -> t.card.id to Hints.penalize(ReviewPlanner.quality(t.variant, o.verdict), o.hints) }, minutes,
+                answers = JsonArray(tasks.zip(outs) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) }),
+            )
             else if (outs.isNotEmpty()) vm.chat.sessionEnd(summary(pageId, page?.titleIn("en"), outs), sessionData(pageId, exercises, outs, minutes))
         }
         return
