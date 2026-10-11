@@ -123,7 +123,9 @@ export default async function towns() {
       ],
       visitor: { id: 'davide', on: today },
       sky: { on: today, scene: 'field', sky: { rain: 0.6, wind: 0.3, lightning: true } },
-      projects: { mulino: 2 },
+      projects: { mulino: 2, mlaj: 5 },
+      // the finished projects whose landmark is down for the season (the maypole after May); one it hasn't isn't passed on
+      landmarksDown: ['mlaj', 'vinograd'],
       quests: [{ id: 'q1', giver: 'Nonna Rosa', emoji: '👵', title: 'SECRET-QUEST', story: 's', skill: 'FOOD', reward: {} }],
       log: [{ at: 1, emoji: '📜', text: 'SECRET-CHRONICLE' }],
       chest: { goods: { miele: 3 }, tools: { rosa: { tier: 1 } } },
@@ -142,11 +144,11 @@ export default async function towns() {
     const text = await res.text()
     const pub = JSON.parse(text)
     check("towns: GET /town/public answers a linked town's signed request, signed back", res.status === 200 && verifySigned(miaKey.spki.toString('base64'), responseMessage(good[H.nonce], text), res.headers.get(H.signature) ?? ''), text.slice(0, 200))
-    check('towns: … the town, the day, the age, the buildings, the landmarks', pub.v === 1 && pub.town.id === miaKey.fingerprint && pub.town.learner === 'Mia' && pub.town.culture === 'friuli' && pub.town.language === 'it' && pub.town.name === 'Il mio villaggio' && pub.date === today && pub.age === 'VAS' && pub.founded_on === '2026-08-01' && pub.villagers === 3 && JSON.stringify(pub.buildings) === JSON.stringify([{ type: 'TENT', plot: -1, level: 1, damaged: false }, { type: 'HUT', plot: 1, level: 2, damaged: false }, { type: 'FIELD', plot: 2, level: 1, damaged: true }]) && pub.projects.mulino === 2, pub)
+    check('towns: … the town, the day, the age, the buildings, the landmarks', pub.v === 1 && pub.town.id === miaKey.fingerprint && pub.town.learner === 'Mia' && pub.town.culture === 'friuli' && pub.town.language === 'it' && pub.town.name === 'Il mio villaggio' && pub.date === today && pub.age === 'VAS' && pub.founded_on === '2026-08-01' && pub.villagers === 3 && JSON.stringify(pub.buildings) === JSON.stringify([{ type: 'TENT', plot: -1, level: 1, damaged: false }, { type: 'HUT', plot: 1, level: 2, damaged: false }, { type: 'FIELD', plot: 2, level: 1, damaged: true }]) && pub.projects.mulino === 2 && JSON.stringify(pub.projects_down) === '["mlaj"]', pub)
     check("towns: … who lives there (a cast member by the pack's name, a child born there as a child), today's visitor and sky", JSON.stringify(pub.residents) === JSON.stringify([{ id: 'rosa', name: 'Nonna Rosa', stage: 'adult' }, { id: 'n1', name: 'Chiara Furlan', stage: 'child', emoji: '👧', art: 'child2' }]) && pub.visitor?.name === 'Pastore Davide' && pub.sky?.scene === 'field' && pub.sky.rain === 0.6 && pub.sky.lightning === true && pub.sky.snow === 0, pub)
     const keys = Object.keys(pub).sort().join(',')
     check("towns: … the land it stands on: its landscape and its map's own number (not the village's seed)", pub.land?.kind === 'hills' && pub.land.map === -12345, pub.land)
-    check('towns: … and nothing private: only the public fields, none of the resources, requests, chest, friendships, chronicle, stats or tokens', keys === 'age,buildings,date,festival,founded_on,land,projects,residents,sky,town,v,villagers,visitor' && !/SECRET|miele|questsDone|mia-town-token|"(seed|morale|help|resources|fire|bonds|chest|log|quests|stats|surprise|role|family|parents|since|born|builtAt|id":"b\d)"/.test(text), keys)
+    check('towns: … and nothing private: only the public fields, none of the resources, requests, chest, friendships, chronicle, stats or tokens', keys === 'age,buildings,date,festival,founded_on,land,projects,projects_down,residents,sky,town,v,villagers,visitor' && !/SECRET|miele|questsDone|mia-town-token|"(seed|morale|help|resources|fire|bonds|chest|log|quests|stats|surprise|role|family|parents|since|born|builtAt|id":"b\d)"/.test(text), keys)
 
     const stale = signRequest(janKey, { method: 'GET', path: '/town/public', to: miaKey.fingerprint, now: Date.now() - 10 * 60_000 })
     const tampered = { ...signRequest(janKey, { method: 'GET', path: '/town/public', to: miaKey.fingerprint }) }

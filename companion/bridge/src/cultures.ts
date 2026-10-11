@@ -40,6 +40,12 @@ const str = z.string().trim().min(1)
 const text = z.record(z.string().regex(LANG, 'a language code (sl, en, it …)'), str).refine(t => Object.keys(t).length > 0, 'a text in at least one language')
 const id = z.string().regex(/^[a-z0-9][a-z0-9_-]{0,62}$/, 'lowercase letters, digits, - and _')
 const obj = <T extends z.ZodRawShape>(shape: T) => z.strictObject(shape)
+/** A day of the year, "04-30". */
+const monthDay = z.string().regex(/^(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/, 'a day of the year, MM-DD ("04-30")')
+  .refine(d => { const [m, day] = d.split('-').map(Number); return day <= [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1] }, 'no such day')
+/** When a finished project's landmark stands (the maypole: raised on the eve of May Day, down after May). */
+const stands = obj({ raised: monthDay, until: monthDay, min_days: z.number().int().min(0).max(366).default(14), up: text, down: text })
+  .refine(st => st.until >= st.raised, { message: 'until is before raised: a season within one year', path: ['until'] })
 const names = (keys: readonly string[]) => obj(Object.fromEntries(keys.map(k => [k, obj({ name: text, partitive: text.optional(), leader: str.optional() })])) as Record<string, z.ZodTypeAny>)
 
 export const manifestSpec = obj({
@@ -187,8 +193,12 @@ export const fileSpecs = {
     // remember line ("Še vedno mislim na {memory}"); without it the app says it as Primorska always has.
     lines: obj({ gift_tool: text, gift: text, given: text, bought: text, sold: text, forged: text, feast: text, gift_memory: text.optional() }),
   }),
+  // stands: when a finished project's landmark stands (the app's game/ProjectSeasons.kt): raised again every year on
+  // `raised` (month-day), taken down after `until` (the same year), standing at least `min_days` once raised, with the
+  // chronicle's lines `up` and `down`; without it, all year. A bridge from before the key rejects it (its check at start
+  // only logs it), an app from before it never reads it (it bundles the pack it was built with).
   projects: obj({
-    projects: z.array(obj({ id, leader: id, helpers: z.array(id).default([]), name: text, in_text: text.optional(), about: text, steps: z.array(obj({ task: text, line: text })).min(1), done: text, memory: text, where: text.optional() })),
+    projects: z.array(obj({ id, leader: id, helpers: z.array(id).default([]), name: text, in_text: text.optional(), about: text, steps: z.array(obj({ task: text, line: text })).min(1), done: text, memory: text, where: text.optional(), stands: stands.optional() })),
     lines: obj({ try_again: text }),
   }),
   events: obj({ wolves: events, bear: events, storm: events, merchant: events, festival: events, too_late: text }),

@@ -304,6 +304,14 @@ data class GameState(
     val projects: Map<String, Int> = emptyMap(),
     /** ISO date of the last project step: the village does one step a day, across all projects. */
     val projectDay: String = "",
+    /** The finished projects by id → the ISO date their last step was done (see [ProjectSeasons.finishedOn]). */
+    val projectsFinished: Map<String, String> = emptyMap(),
+    /**
+     * The finished projects whose landmark is down for the season (the maypole after May, see [ProjectSeasons]), as the
+     * last tick found it: the map and the scenes leave it out. The bridge reads it too (the tutor's get_village, what a
+     * linked town sees).
+     */
+    val landmarksDown: Set<String> = emptySet(),
     /** Calendar festivals celebrated (see [Calendar]): festival id → ISO date of the festival day it was for. */
     val festivals: Map<String, String> = emptyMap(),
     /** Today's surprise at the road (see [Surprises]); rolled at the day's first tick. */

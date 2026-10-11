@@ -135,7 +135,8 @@ object TownMarkers {
     fun has(state: GameState, place: TownPlace): Boolean = when (place) {
         TownPlace.Fire, TownPlace.Forest, is TownPlace.Spot -> true
         is TownPlace.At -> state.buildings.any { it.type == place.type && (place.id == null || it.id == place.id) }
-        is TownPlace.Landmark -> si.lanisce.lani.game.Projects.spec(place.project)?.let { si.lanisce.lani.game.Projects.finished(state, it) } == true
+        // a landmark is a place once its project is finished, and while it stands (the maypole: not after May)
+        is TownPlace.Landmark -> si.lanisce.lani.game.Projects.spec(place.project)?.let { si.lanisce.lani.game.Projects.standing(state, it) } == true
     }
 
     /**

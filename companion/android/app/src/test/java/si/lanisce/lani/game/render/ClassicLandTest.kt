@@ -77,9 +77,10 @@ class ClassicLandTest {
             "side-day" to "55ec8cebd23a88", "tall-day" to "b31cbb085ff759e1", "tall-dusk-k2" to "46079da81b31ca50",
             "tall-night-k3" to "9d73e8aee5151931", "compact" to "1934de8ad4b0682b", "widget" to "f8330619ecea4a4b",
         ),
+        // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side)
         "town" to mapOf(
-            "side-day" to "ddb9a45bd559a91c", "tall-day" to "bd5f1395382ad063", "tall-dusk-k2" to "473fba74ab5175bc",
-            "tall-night-k3" to "2a1e50a6c85a4bbc", "compact" to "f937a0419a48b3c8", "widget" to "2494de93332a4430",
+            "side-day" to "c77e866fd1705c48", "tall-day" to "b267acaa37cf7bff", "tall-dusk-k2" to "562ca2f056af1228",
+            "tall-night-k3" to "6b23b2190844438d", "compact" to "58c828c850a62194", "widget" to "6ad598e98c8e0a02",
         ),
     )
 

@@ -652,11 +652,13 @@ internal class SquarePainter : VistaPainter() {
      * The maypole (mlaj) in the square before the church, as far as the village has put it up (the project "mlaj"):
      * a peg with a ribbon where it will stand (the spruce chosen in the forest), the spruce lying on trestles (brought
      * in), peeled but for its green top (peeled), the wreath and the ribbons ready beside it (woven); raised, it stands
-     * with the wreath below its crown and the ribbons fluttering. Scenery: no word of its own here.
+     * with the wreath below its crown and the ribbons fluttering. Taken down for the season (after May, until the village
+     * raises it again on the eve of May Day: [si.lanisce.lani.game.ProjectSeasons]) nothing of it is here, not even the
+     * peg. Scenery: no word of its own here.
      */
     private fun maypole() {
         val st = stage(MAYPOLE)
-        if (st <= 0) return
+        if (st <= 0 || frame.world.isDown(MAYPOLE)) return
         val done = st >= stages(MAYPOLE)
         if (done) items.add(poleD to { prop { mlajStanding() } })
         else items.add(poleD - 2f to { prop { mlajLying(st) } })

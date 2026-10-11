@@ -91,6 +91,11 @@ data class PublicTown(
     val villagers: Int = 0,
     val buildings: List<PublicBuilding> = emptyList(),
     val projects: Map<String, Int> = emptyMap(),
+    /**
+     * Its finished projects whose landmark is down for the season (the maypole after May), as its village keeps them; null
+     * from an older bridge: the visitor goes by the season's rule on the town's day, as for a village that kept no day.
+     */
+    @SerialName("projects_down") val projectsDown: List<String>? = null,
     val residents: List<PublicResident> = emptyList(),
     val visitor: PublicVisitor? = null,
     val sky: PublicSky? = null,
@@ -164,7 +169,8 @@ object Visits {
      * The visited town as the game draws it: a read-only [GameState] from its public state [p]. Its age, buildings
      * (on their plots, levels, damage), project landmarks, the people who live there ([castIds]: who of them is the
      * host's cast, looked up by id; everyone else comes as they are, a child at their stage), today's visitor, the sky
-     * a scene left today, the festival celebrated, and the land it stands on (its map as the host sees it). What the public state doesn't say (resources, the fire's
+     * a scene left today, the festival celebrated, and the land it stands on (its map as the host sees it); a landmark down
+     * for the season is down there too ([PublicTown.projectsDown]). What the public state doesn't say (resources, the fire's
      * strength, morale, requests, the chest) is left at a new village's, and nothing is ever written back.
      */
     fun gameState(p: PublicTown, castIds: Set<String>, today: LocalDate = LocalDate.now()): GameState {
@@ -185,7 +191,7 @@ object Visits {
                 voice = voiceOf(r), born = bornFor(r.stage, today),
             )
         }
-        return GameState(
+        val s = GameState(
             seed = seedOf(p.town.id),
             age = age,
             buildings = buildings,
@@ -199,6 +205,9 @@ object Visits {
             festivals = p.festival?.takeIf { it.done && it.day.isNotBlank() }?.let { mapOf(it.id to it.day) }.orEmpty(),
             land = p.land?.takeIf { it.kind.isNotBlank() }?.let { Land(it.kind, it.map) },
         )
+        val down = p.projectsDown?.filter { it in s.projects }?.toSet()
+            ?: si.lanisce.lani.game.ProjectSeasons.down(s, runCatching { LocalDate.parse(p.date) }.getOrNull() ?: today)
+        return s.copy(landmarksDown = down)
     }
 
     private fun Float.unit() = if (isNaN()) 0f else coerceIn(0f, 1f)

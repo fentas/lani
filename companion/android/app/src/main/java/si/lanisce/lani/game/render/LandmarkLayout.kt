@@ -122,9 +122,13 @@ object LandmarkLayout {
 
     /**
      * The landmarks of [state] on a [w] × [h] nominal canvas ([compact]: a strip without the woods), in the catalog's
-     * order. A landmark with no room at all (a crowded village) is left out.
+     * order. A landmark with no room at all (a crowded village) is left out, and so is one down for the season
+     * ([Landmark.down]: the maypole after May): its place stays its own, the others keep theirs.
      */
-    fun of(state: GameState, w: Int, h: Int, compact: Boolean = false): List<LandmarkSpot> {
+    fun of(state: GameState, w: Int, h: Int, compact: Boolean = false): List<LandmarkSpot> = all(state, w, h, compact).filterNot { it.landmark.down }
+
+    /** [of], with the landmarks down for the season too (where each stands when it does). */
+    internal fun all(state: GameState, w: Int, h: Int, compact: Boolean = false): List<LandmarkSpot> {
         val marks = Projects.landmarks(state)
         if (marks.isEmpty()) return emptyList()
         val fg = if (compact) null else Foreground.of(state, w, h)

@@ -315,7 +315,8 @@ internal object Catalog {
     val projectFrames: List<ProjectFrame> = listOf(
         ProjectFrame(
             "mlaj", landmark = "mlaj", age = Age.ZASELEK, emoji = "🌲", skill = WOOD,
-            topics = listOf("nature", "animals", "directions"), site = listOf("lipa", "fire"),
+            // in the middle of the village: by the plaza round the fire (render/LandmarkLayout)
+            topics = listOf("nature", "animals", "directions"), site = listOf("fire"),
             steps = listOf(StepKind.TIMBER to false, StepKind.TIMBER to true, StepKind.WORK to false, StepKind.CRAFT to false, StepKind.FEAST to false),
             bonus = ToolEffect(morale = 3),
         ),

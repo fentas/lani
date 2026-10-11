@@ -535,6 +535,8 @@ export type PublicState = {
   villagers: number
   buildings: { type: string; plot: number; level: number; damaged: boolean }[]
   projects: Record<string, number>
+  /** The finished projects whose landmark is down for the season (the maypole after May); an older bridge leaves it out. */
+  projects_down?: string[]
   residents: { id: string; name: string; stage: string; emoji?: string; art?: string }[]
   visitor: { id: string; name: string } | null
   sky: { scene: string; rain: number; snow: number; fog: number; wind: number; gloom: number; lightning: boolean } | null
@@ -551,7 +553,7 @@ const landOf = (v: any, seed: 'seed' | 'map'): PublicState['land'] => (v && type
 
 /**
  * What a linked town may see of this one: who it is, the day's date, the age, the buildings (type, plot, level,
- * damaged), the projects' landmarks, who lives here (id, name, stage), today's visitor and sky, the festival that is
+ * damaged), the projects' landmarks (and which are down for the season), who lives here (id, name, stage), today's visitor and sky, the festival that is
  * on, the land it stands on (its landscape and its map's own number). Built field by field from the village's state, so nothing else of it ever leaves: no resources, requests,
  * chest, friendships, chronicle or statistics, and nothing of the learner's chat, mistakes, progress, words, tokens,
  * devices or family.
@@ -575,6 +577,7 @@ export function publicState(o: {
   for (const [id, n] of Object.entries(s?.projects && typeof s.projects === 'object' ? s.projects : {})) {
     if (token(id) && typeof n === 'number' && Number.isInteger(n) && n > 0) projects[id] = n
   }
+  const projectsDown = list(s?.landmarksDown).flatMap((id: unknown) => (token(id) && projects[id as string] ? [id as string] : []))
   const residents = list(s?.residents).flatMap((r: any) => {
     const id = token(r?.id)
     if (!id) return []
@@ -612,6 +615,7 @@ export function publicState(o: {
     villagers: s ? Math.max(0, int(s.villagers, 1)) : 0,
     buildings,
     projects,
+    ...(s ? { projects_down: projectsDown } : {}),
     residents,
     visitor: visitorName ? { id: visit.id, name: visitorName } : null,
     sky: sky
@@ -646,6 +650,8 @@ export function cleanPublicState(p: any, id: string): PublicState | undefined {
       return type ? [{ type, plot: int(b.plot, -1), level: int(b.level, 1), damaged: b.damaged === true }] : []
     }),
     projects: Object.fromEntries(Object.entries(p.projects && typeof p.projects === 'object' ? p.projects : {}).filter(([k, n]) => token(k) && typeof n === 'number' && Number.isInteger(n) && n > 0).slice(0, 50)) as Record<string, number>,
+    // from an older bridge: none said (the visitor's app goes by the season's rule)
+    ...(Array.isArray(p.projects_down) ? { projects_down: p.projects_down.filter((k: unknown) => token(k)).slice(0, 50) } : {}),
     residents: list(p.residents).flatMap((r: any) => {
       const rid = token(r?.id)
       const n = cleanText(r?.name)

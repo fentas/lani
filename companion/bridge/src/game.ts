@@ -96,6 +96,9 @@ export class GameStore {
         last_feast: s.lastFeast || undefined,
         // village projects (id → steps done), festivals celebrated (id → day), the day's surprise (companion/GAME.md)
         projects: s.projects ?? {},
+        // the finished projects whose landmark is down for the season now (the maypole after May, until the village raises
+        // it again on the eve of May Day): it isn't in the village or on its square; the project stays finished
+        landmarks_down: Array.isArray(s.landmarksDown) && s.landmarksDown.length ? s.landmarksDown : undefined,
         festivals: s.festivals ?? {},
         surprise: s.surprise ?? undefined,
         stats: s.stats,

@@ -60,7 +60,7 @@ export const game: FeatureFactory = ({ game, villagers }) => ({
     {
       name: 'get_village',
       description:
-        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, recent chronicle.",
+        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), recent chronicle.",
       inputSchema: { type: 'object', properties: {} },
       handle: () => ok(game.summary(id => villagers.get(id)?.name)),
     },

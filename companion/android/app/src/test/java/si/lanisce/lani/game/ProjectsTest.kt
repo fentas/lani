@@ -170,7 +170,7 @@ class ProjectsTest {
     @Test fun `the map's landmarks follow the steps`() {
         assertTrue(Projects.landmarks(village()).isEmpty())
         val two = steps(village(), "mlaj", 2)
-        assertEquals(listOf(Landmark("mlaj", "mlaj", listOf("lipa", "fire"), 2, 5)), Projects.landmarks(two))
+        assertEquals(listOf(Landmark("mlaj", "mlaj", listOf("fire"), 2, 5)), Projects.landmarks(two))
         assertFalse(Projects.landmarks(two).single().finished)
         assertTrue(Projects.landmarks(steps(village(), "mlaj", 5)).single().finished)
     }

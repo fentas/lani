@@ -769,6 +769,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /**
+     * QA's "season:<day>" (a debug build, app/QaHooks.kt): the landmarks with a season stand as on QA's day now (the dev
+     * bridge's copy; "season:" as today again), without a line in the chronicle, and the village shown.
+     */
+    fun qaSeason() {
+        game.apply { si.lanisce.lani.game.ProjectSeasons.update(it, java.time.LocalDate.now(), System.currentTimeMillis(), tell = false) }
+        openVillage()
+    }
+
+    /**
      * QA's "step:<project>/<n>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready for that step
      * today, and the village shown, where QA opens the projects sheet at it.
      */

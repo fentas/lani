@@ -11,6 +11,7 @@ import si.lanisce.lani.game.ItemName
 import si.lanisce.lani.game.ProjectSpec
 import si.lanisce.lani.game.ProjectStep
 import si.lanisce.lani.game.Res
+import si.lanisce.lani.game.Stands
 import si.lanisce.lani.game.ToolLine
 import si.lanisce.lani.l10n.Lang
 import java.time.DayOfWeek
@@ -124,6 +125,10 @@ class Culture(
                 ProjectStep(frameStep.first, s.task, s.line, frameStep.second, played?.steps?.getOrNull(i)?.takeIf { it.levels.isNotEmpty() })
             },
             bonus = frame.bonus, helpers = p.helpers, doneText = p.done, memoryText = p.memory, whereText = p.where, pack = played?.pack,
+            stands = p.stands?.let { st ->
+                val raised = StandsEntry.monthDay(st.raised); val until = StandsEntry.monthDay(st.until)
+                if (raised == null || until == null) null else Stands(raised, until, st.minDays, st.up, st.down)
+            },
         )
     }
 

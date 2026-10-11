@@ -30,6 +30,27 @@ class QaHooksTest {
         QaHooks.handle("bubbles:")
         QaHooks.handle("clock:")
         QaHooks.handle("step:")
+        QaHooks.handle("season:")
+    }
+
+    @Test fun `the landmarks' season as on QA's day, until let go`() {
+        var asked = 0
+        QaHooks.handle("season:2027-05-10", season = { asked++ })
+        assertEquals(java.time.LocalDate.of(2027, 5, 10), si.lanisce.lani.game.ProjectSeasons.qaDay)
+        assertEquals(1, asked)
+        // a month and day: the next one from today
+        val today = java.time.LocalDate.of(2026, 10, 11)
+        assertEquals(java.time.LocalDate.of(2027, 5, 10), QaHooks.seasonDay("05-10", today))
+        assertEquals(java.time.LocalDate.of(2026, 10, 30), QaHooks.seasonDay("10-30", today))
+        assertEquals(today, QaHooks.seasonDay("10-11", today))
+        assertNull(QaHooks.seasonDay("", today))
+        assertNull(QaHooks.seasonDay("13-40", today))
+        QaHooks.handle("season:")
+        assertNull(si.lanisce.lani.game.ProjectSeasons.qaDay)
+        // a release build ignores it
+        QaHooks.enabled = false
+        QaHooks.handle("season:05-10")
+        assertNull(si.lanisce.lani.game.ProjectSeasons.qaDay)
     }
 
     @Test fun `a project's step readied, the sheet at its project, until let go`() {

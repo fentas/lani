@@ -83,6 +83,8 @@ data class ProjectSpec(
     val whereText: Text? = null,
     /** The word pack of its words ("projekt-mlaj"), which its steps' scenes test; null: none. */
     val pack: String? = null,
+    /** When its landmark stands once it's finished (the maypole: May); null: all year. */
+    val stands: Stands? = null,
 ) {
     /** "Mlaj · The maypole". */
     val name: String get() = nameText.bi()
@@ -117,9 +119,10 @@ data class ProjectOption(
 
 /**
  * A project's landmark for the map: [stage] steps of [stages] done (1 … stages; the map shows nothing before the first
- * step). Drawn at the first of [site] that exists in the village.
+ * step). Drawn at the first of [site] that exists in the village; [down]: finished, but down for the season (the maypole
+ * after May, [ProjectSeasons]): its place is kept, nothing stands there.
  */
-data class Landmark(val id: String, val project: String, val site: List<String>, val stage: Int, val stages: Int) {
+data class Landmark(val id: String, val project: String, val site: List<String>, val stage: Int, val stages: Int, val down: Boolean = false) {
     val finished: Boolean get() = stage >= stages
 }
 
@@ -190,10 +193,16 @@ internal object Projects {
     fun effect(s: GameState): ToolEffect =
         Catalog.projects.filter { finished(s, it) }.fold(ToolEffect()) { acc, p -> acc + p.bonus }
 
-    /** The landmarks the map draws: every project with a step done, at its stage. */
+    /**
+     * Whether [spec]'s landmark stands now: it is finished and not down for the season ([GameState.landmarksDown], the
+     * maypole after May).
+     */
+    fun standing(s: GameState, spec: ProjectSpec): Boolean = finished(s, spec) && spec.id !in s.landmarksDown
+
+    /** The landmarks of the map: every project with a step done, at its stage (a finished one down for the season too, [Landmark.down]). */
     fun landmarks(s: GameState): List<Landmark> = Catalog.projects.mapNotNull { p ->
         val d = done(s, p)
-        if (d <= 0) null else Landmark(p.landmark, p.id, p.site, d, p.steps.size)
+        if (d <= 0) null else Landmark(p.landmark, p.id, p.site, d, p.steps.size, down = d >= p.steps.size && p.id in s.landmarksDown)
     }
 
     // --- a step as a short scene (companion/SCENES.md "Project steps") ---------------------------------------------------
@@ -325,7 +334,9 @@ internal object Projects {
         val memory = Memory(today.toString(), spec.memoryText.target, spec.memoryText.base, "project")
         st = Bonds.add(st, spec.leader, Catalog.PROJECT_STEP_POINTS, today, now = now)
         if (steps >= spec.steps.size) {
-            st = st.logged(now, spec.emoji to "${spec.short}: ${spec.done}")
+            // the day it was finished: a landmark with a season stands from it ([ProjectSeasons])
+            st = st.copy(projectsFinished = st.projectsFinished + (spec.id to today.toString()), landmarksDown = st.landmarksDown - spec.id)
+                .logged(now, spec.emoji to "${spec.short}: ${spec.done}")
             val living = st.residents.map { it.id }.toSet()
             for (h in (listOf(spec.leader) + spec.helpers).distinct()) {
                 if (living.isEmpty() || h in living) st = Bonds.add(st, h, Catalog.PROJECT_DONE_POINTS, today, memory, now = now)

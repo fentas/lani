@@ -792,6 +792,16 @@ object Cultures {
                 text("$at.done", e.done)
                 text("$at.memory", e.memory)
                 text("$at.where", e.where)
+                e.stands?.let { st ->
+                    val raised = StandsEntry.monthDay(st.raised)
+                    val until = StandsEntry.monthDay(st.until)
+                    if (raised == null) fail("$at.stands.raised", "\"${st.raised}\" isn't a day of the year (MM-DD: \"04-30\")")
+                    if (until == null) fail("$at.stands.until", "\"${st.until}\" isn't a day of the year (MM-DD: \"05-31\")")
+                    if (raised != null && until != null && until.isBefore(raised)) fail("$at.stands.until", "\"${st.until}\" is before \"${st.raised}\": a season within one year")
+                    if (st.minDays !in 0..366) fail("$at.stands.min_days", "${st.minDays}, not 0 … 366")
+                    text("$at.stands.up", st.up)
+                    text("$at.stands.down", st.down)
+                }
             }
             text("lines.try_again", p.lines.tryAgain, "leader")
         }

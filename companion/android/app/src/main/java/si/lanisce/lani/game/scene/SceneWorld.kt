@@ -46,6 +46,11 @@ data class SceneWorld(
      * its place is ([Homes.buildingOf]); null when that isn't known (tools, tests: the top level with [ALL]).
      */
     val here: Building? = null,
+    /**
+     * The finished projects whose landmark is down for the season ([GameState.landmarksDown]: the maypole after May): not
+     * there, in no stage of it.
+     */
+    val down: Set<String> = emptySet(),
 ) {
     /** Whether a building of [type] stands. */
     fun has(type: BuildingType): Boolean = buildings?.containsKey(type) ?: true
@@ -77,6 +82,12 @@ data class SceneWorld(
 
     fun finished(project: String): Boolean = stage(project) >= stages(project)
 
+    /** Whether [project]'s landmark stands: finished, and not down for the season ([down]). */
+    fun standing(project: String): Boolean = finished(project) && project !in down
+
+    /** Whether [project] is finished but down for the season: nothing of it is there. */
+    fun isDown(project: String): Boolean = finished(project) && project in down
+
     companion object {
         /** Everything there: the default for a painter's frame. */
         val ALL = SceneWorld()
@@ -98,6 +109,7 @@ data class SceneWorld(
             projects = state.projects,
             wolves = state.event?.kind == si.lanisce.lani.game.EventKind.WOLVES,
             here = here,
+            down = state.landmarksDown,
         )
 
         /** Everything built, seen in a room at [level]: what a tool shows of a room's stages (and a sticker of a thing that goes as the room grows). */
@@ -108,7 +120,8 @@ data class SceneWorld(
 /**
  * What a scene's object or happening needs to be there (lani.scene/v0 `needs`), besides its scene being open: an [age]
  * reached, a [building] standing (a [BuildingType] name, "KOZOLEC"), at least at [level] when it says one, a [project]
- * with at least [step] steps done (by default all of them: finished). A [level] alone is the place's own: the building the
+ * with at least [step] steps done (by default all of them: finished, and its landmark standing, not down for the season as
+ * the maypole is after May: [SceneWorld.down]). A [level] alone is the place's own: the building the
  * scene is seen in ([SceneWorld.here], the hut or the house opened) at least at that level (the kitchen's clock from the
  * third). With [before] it is the other way round: there until the building stands (or gets to the level) or the project
  * gets that far (France talks of the mill he wants to build until it grinds; the straw bed until the room's second level).
@@ -139,7 +152,8 @@ data class SceneNeeds(
             level != null -> world.hereLevel >= level
             else -> true
         }
-        val far = project == null || world.stage(project) >= (step ?: world.stages(project))
+        // a need of the whole project is its landmark standing: not while it's down for the season (the maypole after May)
+        val far = project == null || (step ?: world.stages(project)).let { need -> world.stage(project) >= need && !(need >= world.stages(project) && world.isDown(project)) }
         return (built && far) != before
     }
 

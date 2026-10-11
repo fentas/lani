@@ -576,7 +576,30 @@ data class ProjectEntry(
     val done: Text,
     val memory: Text,
     val where: Text? = null,
+    /** When its landmark stands once finished (the maypole in May); none: all year. */
+    val stands: StandsEntry? = null,
 )
+
+/**
+ * When a finished project's landmark stands (game/ProjectSeasons.kt): the village raises it again every year on [raised]
+ * ("04-30", month-day) and takes it down after [until] ("05-31", the same year, not before [raised]); raised, it stands at
+ * least [minDays] days (one finished outside its season, for the village's feast). [up]: the chronicle's line when the
+ * village raises it again; [down]: when it takes it down.
+ */
+@Serializable
+data class StandsEntry(
+    val raised: String,
+    val until: String,
+    @SerialName("min_days") val minDays: Int = 14,
+    val up: Text,
+    val down: Text,
+) {
+    companion object {
+        /** "04-30" as a day of the year; null when it isn't one. */
+        fun monthDay(s: String): java.time.MonthDay? =
+            if (Regex("\\d\\d-\\d\\d").matches(s)) runCatching { java.time.MonthDay.parse("--$s") }.getOrNull() else null
+    }
+}
 
 @Serializable
 data class ProjectLines(/** {leader} */ @SerialName("try_again") val tryAgain: Text)

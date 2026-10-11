@@ -22,7 +22,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
                        "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
-                       then one over the village (the chapel's first, else the maypole's third); "offline-audio" the
+                       then one over the village (the chapel's first, else the maypole's third); "maypole-season"
+                       the maypole on the map and on the square on 10 May (up) and 30 October (down; QA's hook
+                       "season:<day>"); "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
@@ -1660,6 +1662,49 @@ def tap_places(timeout=10.0):
     return None
 
 
+MAYPOLE = "Mlaj · The maypole"  # its landmark's target on the map (TownView's LandmarkTargets): there while it stands
+
+
+def maypole_season():
+    """The maypole's season (GAME.md "Village projects"; QA's hook "season:<day>": the landmarks as on that day, the rest
+    of the game today): on 10 May it stands by the plaza in the middle of the village (its target on the map) and before
+    the church on the square; on 30 October it's down, on the map and on the square, nothing of it there; then today
+    again ("season:"). A village that hasn't finished it skips."""
+    try:
+        qa_hook("season:05-10")
+        plain_village()
+        time.sleep(2)
+        if find(MAYPOLE) is None:
+            return "the maypole isn't finished in this village (its season is for a finished one)"
+        shot("maypole-may-village")
+        qa_hook("zoom")
+        time.sleep(2.5)
+        shot("maypole-may-closer")
+        plain_village()
+        qa_hook("season:05-10", link="scene:na-vasi")
+        assert wait_for("‹ Vas · Village", 10), "the square opens"
+        time.sleep(3)
+        shot("maypole-may-square")
+        assert tap("‹ Vas · Village", 3), "back from the square"
+        qa_hook("season:10-30")
+        plain_village()
+        time.sleep(2)
+        assert find(MAYPOLE) is None, "on 30 October the maypole is down: no target on the map"
+        shot("maypole-october-village")
+        qa_hook("zoom")
+        time.sleep(2.5)
+        shot("maypole-october-closer")
+        plain_village()
+        qa_hook("season:10-30", link="scene:na-vasi")
+        assert wait_for("‹ Vas · Village", 10), "the square opens"
+        time.sleep(3)
+        shot("maypole-october-square")
+        assert tap("‹ Vas · Village", 3), "back from the square"
+    finally:
+        qa_hook("season:")
+    return None
+
+
 def project_step():
     """A village project's step as its short scene (companion/SCENES.md "Project steps"): QA's hook readies the maypole's
     first step in the dev village's copy ("step:mlaj/1": the steps before it, the stores and the day for it) and the
@@ -2753,6 +2798,7 @@ def plan():
         ("intro-stage", intro_stage, v, True, ""),
         ("back-to-village-2", back_to_village, v, False, ""),
         ("chest", chest, v, False, ""),
+        ("maypole-season", maypole_season, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),

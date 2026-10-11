@@ -38,6 +38,10 @@ export default async function game() {
   check("PUT /game keeps the village's land when an older app's state leaves it out", founded.ok && older.ok && kept.rev === rev + 2 && kept.state.age === 'ZASELEK' && kept.state.land?.kind === 'hills' && kept.state.land.seed === -5, kept)
   const summary = JSON.stringify(await client.callTool({ name: 'get_village', arguments: {} }))
   check('get_village names the land the village stands on', summary.includes('\\"land\\": \\"hills\\"'), summary.slice(0, 300))
+  // the finished projects whose landmark is down for the season (the maypole after May): the tutor doesn't send the learner to it
+  const seasonal = await put(rev + 2, { age: 'ZASELEK', buildings: [], projects: { mlaj: 5 }, landmarksDown: ['mlaj'] })
+  const downNow = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} })))
+  check("get_village says which finished projects' landmarks are down for the season", seasonal.ok && JSON.stringify(downNow.landmarks_down) === '["mlaj"]' && downNow.projects.mlaj === 5, downNow.landmarks_down)
 
   // The open requests: each one's module, how often Jan tried it and their best try against its pass mark (8 of 12), and the
   // task a drill helps (quest.helps); a done request and the fields a request doesn't have yet are left out.
@@ -48,7 +52,7 @@ export default async function game() {
     { ...micka, id: 'q-old', title: 'Old soup', moduleId: 'micka-soup', done: true, tries: 1, best: 5, bestOf: 5 },
     { id: 'q-2026-09-30-1', giver: 'Kovač Tone', emoji: '⚒️', title: 'Nails', story: 'Tone needs nails.', skill: 'STONE', reward: { STONE: 20 }, source: 'LOCAL' },
   ]
-  const asked = await put(rev + 2, { age: 'ZASELEK', buildings: [], quests })
+  const asked = await put(rev + 3, { age: 'ZASELEK', buildings: [], quests })
   const open = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} }))).open_quests
   const [task, drill, local] = open ?? []
   check(

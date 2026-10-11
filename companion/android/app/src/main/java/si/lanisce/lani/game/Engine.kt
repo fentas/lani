@@ -198,8 +198,8 @@ object GameEngine {
     /**
      * Applies daily upkeep for each day since [GameState.lastTick] (at most 14), resolves an event
      * past its deadline as lost, may start a new event (at most one active), and keeps up to three
-     * open local quests (and, once people sleep under a roof, the shepherd's request to move the tent: [TentMove]).
-     * Days are calendar dates; a clock that moved back by more than a day starts the village again from [today]. An
+     * open local quests (and, once people sleep under a roof, the shepherd's request to move the tent: [TentMove]); the
+     * landmarks with a season go up and come down ([ProjectSeasons]: the maypole in May). Days are calendar dates; a clock that moved back by more than a day starts the village again from [today]. An
      * older save's palisade gives its plot back (see [offPlots]), its kozolec moves beside its field (see
      * [Placement.hayracksByFields]), and a save from before generated land is marked as standing on the classic valley
      * (see [Land]): only that mark, its look stays as it was.
@@ -247,6 +247,8 @@ object GameEngine {
         for (d in Calendar.on(s, today)) if (d.late == 0 && !d.done && s.age >= Age.TABOR && newDay) {
             s = s.logged(now, d.festival.emoji to Calendar.todayText(d))
         }
+        // the landmarks with a season: the maypole raised again on the eve of May Day, taken down after May
+        s = ProjectSeasons.update(s, today, now)
         return TickResult(s.copy(log = (state.log + s.log).takeLast(LOG_SIZE)), s.log)
     }
 

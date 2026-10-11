@@ -42,6 +42,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "step:<project>/<n>": the village (the dev bridge's copy) gets ready for step n of that project today ([readyStep]:
  *   its steps before it done, none today yet, the stores and the 🤝 it costs, a treat for a feast), and the projects sheet
  *   opens at it ([project]): QA plays it from there (companion/SCENES.md, "Project steps"). "step:" lets it go again.
+ * - "season:<day>": the landmarks with a season (the maypole, game/ProjectSeasons) stand or not as on that day
+ *   ("2027-05-10", or "05-10": the next 10 May from today; [seasonDay]), on the map and in the scenes, without a line in
+ *   the chronicle; the rest of the game keeps today. "season:" goes by today again.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -78,7 +81,10 @@ object QaHooks {
         private set
 
     /** Does what [command] asks; [road] gets what is asked of the road ("mini", "car"); [forms] starts the forms' review. */
-    fun handle(command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {}) {
+    fun handle(
+        command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
+        season: () -> Unit = {},
+    ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
@@ -94,6 +100,10 @@ object QaHooks {
             command.startsWith("ispy:") -> ispy = command.removePrefix("ispy:").takeIf { '/' in it }
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
+            command.startsWith("season:") -> {
+                si.lanisce.lani.game.ProjectSeasons.qaDay = seasonDay(command.removePrefix("season:"), java.time.LocalDate.now())
+                season()
+            }
             command.startsWith("step:") -> {
                 val arg = command.removePrefix("step:")
                 val n = arg.substringAfter('/', "").toIntOrNull()
@@ -128,6 +138,16 @@ object QaHooks {
             si.lanisce.lani.game.Catalog.goods.values.firstOrNull { it.food && !it.rare }?.let { g -> r = si.lanisce.lani.game.Chest.add(r, g.id, 1) }
         }
         return r
+    }
+
+    /**
+     * The day "season:<day>" asks for: an ISO date ("2027-05-10"), or a month and day ("05-10"): the next one from [today]
+     * on; null for none ("season:") or one that isn't a day.
+     */
+    fun seasonDay(arg: String, today: java.time.LocalDate): java.time.LocalDate? {
+        runCatching { java.time.LocalDate.parse(arg) }.getOrNull()?.let { return it }
+        val md = si.lanisce.lani.game.culture.StandsEntry.monthDay(arg) ?: return null
+        return md.atYear(today.year).let { if (it.isBefore(today)) md.atYear(today.year + 1) else it }
     }
 
     /** [active] with the happening QA counts as on first, when it is one of [scenes]' and isn't on already. */

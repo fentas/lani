@@ -636,7 +636,7 @@ An object or a happening says what it needs with `needs`:
 |---|---|
 | `building` | a building type (`BuildingType`, any case: `KOZOLEC`, `tent`) that stands in the village |
 | `level` | with `building`: one of that type at least at this level (1 … `Catalog.MAX_LEVEL`, 5), the one the scene is seen in when it is of that type, else the highest; alone: the place's own, the building the scene is seen in at least at this level (so the kitchen works the same from a hut and from a house). Only in a scene that opens from a building; never with `project` |
-| `project` | a village project of the culture (`projects.json`) with all its steps done, or at least `step` of them |
+| `project` | a village project of the culture (`projects.json`) with all its steps done, or at least `step` of them; all of them means its landmark standing: not while it is down for the season (the maypole after May, GAME.md "Village projects") |
 | `step` | only with `project`: 1 … the project's steps |
 | `before` | only with `building`, `level` or `project`: the other way round, there until the building stands (or gets to the level) or the project gets that far (France talks of the mill he wants until it grinds; the kitchen's straw bed is there until the hut's second level) |
 | `age` | the earliest age (a happening's `needs` may still be just the age as a string, `"vas"`) |
@@ -663,7 +663,7 @@ know. A thing that goes as the room grows (the straw bed) has its sticker cut fr
 | `smithy` | by its level: the `bellows` and the `chain` from 2; the `wheel` and the `axe` from 3 | a second, smaller anvil on its stump in front of the wheel from 3 |
 | `school` | by its level: the `map` and the `globe` from 2; the `clock` from 3 | |
 | `field` | `kozolec` and `hay`: the hayrack and the hay on it (KOZOLEC); without it the rake leans on the fence | the double hayrack beyond the wheat (`toplar`): oak logs, stone feet, eight posts, the poles, the plank roof, the first hay |
-| `square` | `well` (WELL); `tower`: the church with its bell tower (CHURCH) | the maypole before the church (`mlaj`): a peg with a ribbon, the spruce on trestles, peeled, the wreath and ribbons ready, raised; the tower's clock (`mestna_ura`): a slit window, the round window made for it, the face lifted in (stopped at twelve), then going and lit at night |
+| `square` | `well` (WELL); `tower`: the church with its bell tower (CHURCH) | the maypole before the church (`mlaj`): a peg with a ribbon, the spruce on trestles, peeled, the wreath and ribbons ready, raised; taken down for the season (after May, until the village raises it again on the eve of May Day: GAME.md "Village projects") nothing of it, not even the peg; the tower's clock (`mestna_ura`): a slit window, the round window made for it, the face lifted in (stopped at twelve), then going and lit at night |
 | `stream` | `mill`: France's mill, once it grinds (`mlin`) | the mill as it's built (`mlin`): pegs and a string, the stone footing with the timber waiting, the walls under bare rafters, the roof, the wheel and the flume still and dry, then the water on the wheel and the window lit; the cart bridge upstream (`most`): pegs and a line over the water, heaps of stones, the two stone piers, the logs, the plank deck, the railings and the cart road over it into the woods |
 
 The plank footbridge (`bridge`, brv) is always there: a simple crossing, the cart bridge comes in addition. Happenings

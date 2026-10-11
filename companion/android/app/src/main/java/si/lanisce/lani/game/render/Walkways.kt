@@ -233,7 +233,8 @@ object Walkways {
         val key = buildString {
             append(VillageLayout.of(state).key).append('/').append(state.age.name).append('/').append(w).append('x').append(h).append('/')
             for (b in state.buildings) append(b.plot).append(':').append(b.type.ordinal).append(',')
-            append('/').append(si.lanisce.lani.game.Projects.landmarks(state).joinToString(",") { it.project + ":" + it.finished })
+            // a landmark down for the season (the maypole after May) is nothing to go round
+            append('/').append(si.lanisce.lani.game.Projects.landmarks(state).joinToString(",") { it.project + ":" + it.finished + if (it.down) ":down" else "" })
         }
         synchronized(ways) { ways[key] }?.let { return it }
         return Ways(blocks(state, w, h)).also { synchronized(ways) { ways[key] = it } }

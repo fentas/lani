@@ -110,6 +110,17 @@ class SceneWorldRenderTest {
         }
     }
 
+    @Test fun `the maypole down for the season leaves nothing on the square, not even its peg`() {
+        val up = world(projects = mapOf("mlaj" to 5))
+        val down = up.copy(down = setOf("mlaj"))
+        val standing = render("square", frame("square", up))
+        val gone = render("square", frame("square", down))
+        write(standing, File(dir, "square-maypole-up.png"), 3)
+        write(gone, File(dir, "square-maypole-down.png"), 3)
+        assertNotEquals("the maypole stands in May", standing.pixels.toList(), gone.pixels.toList())
+        assertEquals("down, the square is as before the first step", render("square", frame("square", world())).pixels.toList(), gone.pixels.toList())
+    }
+
     @Test fun `the arts without fixtures look the same whatever is built`() {
         for (art in SceneArt.arts - stages.keys) {
             val all = render(art, frame(art, SceneWorld.ALL)).pixels.toList()

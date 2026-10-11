@@ -2577,3 +2577,8 @@ the fire in the village (`bubbles:` all again), and `clock:<f>` runs the towns' 
 afterwards: with `clock:0.2`, set the animator duration scale to 5 too (`adb shell settings put global
 animator_duration_scale 5`, back to 1 afterwards) for the camera's flights and the bubbles' bob, record (e.g. `adb emu
 screenrecord start --fps 30`), and speed the clip up five times (`ffmpeg -vf setpts=PTS/5,fps=30`).
+
+`season:<day>` shows the landmarks with a season (the maypole, GAME.md "Village projects") as on that day, on the map
+and in the scenes, without a line in the chronicle: `season:2027-05-10`, or `season:05-10` for the next 10 May from
+today; the rest of the game keeps today, and `season:` goes by today again (screenshots of the maypole up in May and
+down in autumn).

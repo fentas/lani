@@ -108,6 +108,19 @@ class VisitsTest {
         assertEquals(Visits.seedOf(mia), s.seed)
     }
 
+    @Test fun `a landmark down for the season in the town is down on the visit too`() {
+        VisitWorld.enter("it", "friuli")
+        val done = public.replace("\"projects\":{\"mlaj\":3,", "\"projects\":{\"mlaj\":5,")
+        // as the town's village keeps it (an id it hasn't finished is left out)
+        val down = Visits.gameState(Visits.parsePublic(done.replace("\"residents\":", "\"projects_down\":[\"mlaj\",\"mulino\"],\"residents\":")), emptySet(), today = today)
+        assertEquals(setOf("mlaj"), down.landmarksDown)
+        val up = Visits.gameState(Visits.parsePublic(done.replace("\"residents\":", "\"projects_down\":[],\"residents\":")), emptySet(), today = today)
+        assertTrue(up.landmarksDown.isEmpty())
+        // from an older bridge: the season's rule on the town's day, as for a village that kept no day
+        val old = Visits.gameState(Visits.parsePublic(done), emptySet(), today = today)
+        assertEquals(si.lanisce.lani.game.ProjectSeasons.down(old.copy(landmarksDown = emptySet()), today), old.landmarksDown)
+    }
+
     @Test fun `the plots the learner chose show the same on a visit`() {
         // the host's village: fields built where the learner chose (side by side on 1, 9 and 10), a hut moved, a swap
         var host = si.lanisce.lani.game.GameState(
