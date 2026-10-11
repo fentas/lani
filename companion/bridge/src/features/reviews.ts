@@ -10,7 +10,16 @@
 // may count (the card exists, wasn't reviewed today and is due within its window), so a stale or offline phone can't
 // farm reviews; a word got wrong where its meaning was asked lowers its card gently (no review), a form slip touches no
 // card (the app counts it on the grammar rule).
+//
+// What the learner typed or said (answers.ts): a review may carry each card's answer (answers: what was asked and how,
+// what was typed or said, what was expected, the verdict, the grading hint); with the forms and a dialog's words, which
+// carry theirs already, it goes into a rolling log of the last days once the review is persisted, and the tutor's note
+// names the wrong ones. When Jan reports a card later without the exercise attached, the tool recent_answers shows what
+// was typed (the lani-fix skill).
+import { join } from 'node:path'
 import { z } from 'zod'
+import { answerLine, AnswerLog, reviewAnswers, type Answer, type ReviewAnswer } from '../answers'
+import { fail, ok } from '../channel'
 import { countsInDialog, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
@@ -66,6 +75,8 @@ const reviewRun = z
     language: languageParam,
     forms: z.array(formAsked).max(50).optional(),
     dialog: dialogRun.optional(),
+    // each card's answer (answers.ts reviewAnswer): a bad one is left out of the log, never a reason to refuse the review
+    answers: z.array(z.unknown()).max(200).optional(),
   })
   .refine(r => r.dialog || r.results.length >= 1, { path: ['results'], message: 'at least one result (only a body with a dialog may have none)' })
 
@@ -79,6 +90,46 @@ export function formsNote(forms: z.infer<typeof formAsked>[] | undefined): strin
 
 type Result = { item_id: string; quality: number }
 type DialogRun = z.infer<typeof dialogRun>
+type FormAsked = z.infer<typeof formAsked>
+
+/**
+ * What of a review goes into the answer log: each card's answer (with the quality it gave the card), the forms asked
+ * whose card has no answer of its own there, and a dialog's words (what was said, against what was right).
+ */
+export function answersOf(o: { results: Result[]; answers?: ReviewAnswer[]; forms?: FormAsked[]; dialog?: DialogRun; session_id?: string; language?: string }): Omit<Answer, 'at'>[] {
+  const quality = new Map(o.results.map(x => [x.item_id, x.quality]))
+  const common = { ...(o.session_id ? { session_id: o.session_id } : {}), ...(o.language ? { language: o.language } : {}) }
+  const out: Omit<Answer, 'at'>[] = []
+  const answered = new Set<string>()
+  for (const a of o.answers ?? []) {
+    answered.add(a.item_id)
+    const q = quality.get(a.item_id)
+    out.push({ kind: 'review', ...a, ...(q !== undefined ? { quality: q } : {}), ...common })
+  }
+  for (const f of o.forms ?? []) {
+    if (answered.has(f.item_id)) continue
+    out.push({ kind: 'form', item_id: f.item_id, variant: f.key, answer: f.answer ?? '', ...(f.expected ? { expected: f.expected } : {}), verdict: f.right ? 'correct' : 'wrong', where: f.page, ...common })
+  }
+  if (o.dialog) {
+    const where = whereOf(o.dialog)
+    for (const w of o.dialog.words) {
+      const q = quality.get(w.item_id)
+      out.push({
+        kind: 'dialog', item_id: w.item_id, variant: w.how, prompt: w.word, ...(w.said !== undefined ? { answer: w.said } : {}), ...(w.expected ? { expected: w.expected } : {}),
+        verdict: w.right ? 'correct' : 'wrong', ...(q !== undefined ? { quality: q } : {}), where, ...common,
+      })
+    }
+  }
+  return out
+}
+
+/** " Answered wrong: vocab_kurim "kurim" for "kurim ogenj"; …" for the tutor's note: the wrong answers typed or said (at most 5); empty without. */
+export function wrongNote(answers: Omit<Answer, 'at'>[]): string {
+  const wrong = answers.filter(a => a.kind === 'review' && (a.verdict === 'wrong' || a.verdict === 'almost') && a.answer !== undefined)
+  if (!wrong.length) return ''
+  const said = wrong.slice(0, 5).map(a => `${a.item_id} ${a.answer ? `"${a.answer}"` : '(no answer)'}${a.expected ? ` for "${a.expected}"` : ''}${a.verdict === 'almost' ? ' (almost)' : ''}`)
+  return ` Answered wrong: ${said.join('; ')}${wrong.length > 5 ? `; ${wrong.length - 5} more` : ''} (recent_answers has them).`
+}
 
 /**
  * What of a dialog's body may be written [today], with the learner's cards [items]: the [results] that count (each card
@@ -113,7 +164,10 @@ const whereOf = (d: DialogRun): string => {
   return [d.person, d.title].filter(Boolean).join(', ') + (at ? ` (${at})` : '') || 'a dialog'
 }
 
-export const reviews: FeatureFactory = ({ learner, channel, outbox }) => {
+export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
+  // what the learner typed or said lately (answers.ts): a rolling log beside the learner's data
+  const log = new AnswerLog(join(cfg.appDir, 'answers.json'))
+
   /** A dialog's words (the body has `dialog`): written as far as they count, the tutor told in one line. */
   async function handleDialog(results: Result[], d: DialogRun, duration_minutes: number, forms: z.infer<typeof formAsked>[] | undefined, language: string | undefined): Promise<Response> {
     const state = learner.state(language)
@@ -136,6 +190,7 @@ export const reviews: FeatureFactory = ({ learner, channel, outbox }) => {
     }
     const words = d.words.map(fate).join('; ')
     if (!counted.length && !lowered.length) {
+      log.add(answersOf({ results, forms, dialog: d, language }))
       await channel.notify(`App: words in a dialog${deck}, ${whereOf(d)}: ${words}. Nothing to persist. No reply needed.${formsNote(forms)}`, {
         kind: 'dialog_words', conversation_id: 'main', msg_id: `dw-${Date.now().toString(36)}`,
       })
@@ -155,6 +210,7 @@ export const reviews: FeatureFactory = ({ learner, channel, outbox }) => {
     }
     const u = learner.update(payload)
     if (!u.ok) return json({ error: u.output }, 500)
+    log.add(answersOf({ results: counted, forms, dialog: d, session_id: payload.session_id, language }))
     await channel.notify(
       `App: words in a dialog${deck} (already persisted as ${payload.session_id}), ${whereOf(d)}: ${words}. No reply needed.${formsNote(forms)}`,
       { kind: 'dialog_words', conversation_id: 'main', msg_id: payload.session_id },
@@ -183,10 +239,13 @@ export const reviews: FeatureFactory = ({ learner, channel, outbox }) => {
     }
     const u = learner.update(payload)
     if (!u.ok) return json({ error: u.output }, 500)
+    // what was typed or said, into the log once the review is persisted (a retry after an error isn't logged twice)
+    const answered = answersOf({ results, answers: reviewAnswers(r.data.answers), forms: r.data.forms, session_id: payload.session_id, language })
+    log.add(answered)
     const weak = results.filter(x => x.quality < 3).map(x => x.item_id)
     const deck = language ? ` of ${LANGUAGES[language] ?? language} cards (language "${language}")` : ''
     await channel.notify(
-      `App review${deck} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${formsNote(r.data.forms)}`,
+      `App review${deck} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}`,
       { kind: 'review_done', conversation_id: 'main', msg_id: payload.session_id },
     )
     return json({ session_id: payload.session_id, correct, total: results.length, output: u.output, ...(language ? { language } : {}) })
@@ -207,5 +266,37 @@ export const reviews: FeatureFactory = ({ learner, channel, outbox }) => {
         },
       },
     ],
+    tools: [
+      {
+        name: 'recent_answers',
+        description:
+          `What the learner typed or said lately in the app (the last ${log.kept.days} days, at most ${log.kept.max} answers), newest first: each review card's exercise (how it was asked, what was typed or heard, what was expected, the verdict, the grading hint, the quality it gave the card), the forms of words a review asked, and a dialog's word turns. Use it when Jan says a card or an answer was marked wrong but the message has no about_exercise: look the card up (card_id, its id in spaced-repetition.json) or search a word (text, in what was asked, typed or expected). The lani-fix skill uses it.`,
+        inputSchema: {
+          type: 'object',
+          properties: {
+            card_id: { type: 'string', description: 'a review card id, e.g. vocab_kurim' },
+            text: { type: 'string', description: 'a word in what was asked, typed or expected, e.g. kurim' },
+            wrong_only: { type: 'boolean', description: 'only answers marked wrong or almost' },
+            language: { type: 'string', description: 'another language\'s deck ("it"); "" for the home language only' },
+            limit: { type: 'number', description: 'at most this many (default 20, at most 100)' },
+          },
+        },
+        handle: async (args: unknown) => {
+          const r = recentIn.safeParse(args ?? {})
+          if (!r.success) return fail(z.prettifyError(r.error))
+          const found = log.find({ item_id: r.data.card_id, text: r.data.text, wrong: r.data.wrong_only, language: r.data.language, limit: r.data.limit })
+          if (!found.length) return ok(`No answers${r.data.card_id ? ` for ${r.data.card_id}` : ''}${r.data.text ? ` with "${r.data.text}"` : ''} in the last ${log.kept.days} days. An app from before sends no review answers (only forms and dialog words); ask Jan what they typed.`)
+          return ok([`${found.length} answer(s), newest first (times UTC):`, ...found.map(answerLine)].join('\n'))
+        },
+      },
+    ],
   }
 }
+
+const recentIn = z.object({
+  card_id: z.string().trim().min(1).max(128).optional(),
+  text: z.string().trim().min(1).max(80).optional(),
+  wrong_only: z.boolean().optional(),
+  language: z.string().trim().max(8).optional(),
+  limit: z.number().int().min(1).max(100).optional(),
+})

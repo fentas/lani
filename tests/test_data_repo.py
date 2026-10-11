@@ -39,7 +39,7 @@ class DataRepoTest(unittest.TestCase):
         for d in ("voice/files", "release", "pairing", "town-invites", "audio", "modules"):
             (app / d).mkdir(parents=True)
         for f in ("bridge-token", "family-token", "bridge-key.pem", "client-ids.json", "devices-seen.json", "events.json",
-                  "channel-queue.json", "voice/voice.db", "voice/files/a.mp3", "release/lani-1001.apk",
+                  "channel-queue.json", "answers.json", "voice/voice.db", "voice/files/a.mp3", "release/lani-1001.apk",
                   "pairing/abc", "town-invites/def"):
             (app / f).write_text("x")
         (app / "game.json").write_text("{}")
@@ -98,7 +98,7 @@ class DataRepoTest(unittest.TestCase):
         for secret_or_cache in ("app/bridge-token", "app/family-token", "app/bridge-key.pem", "app/voice/voice.db",
                                 "app/voice/files/a.mp3", "app/release/lani-1001.apk", "app/pairing/abc",
                                 "app/town-invites/def", "app/client-ids.json", "app/devices-seen.json", "app/events.json",
-                                "app/channel-queue.json", ".backups/old.json", "learner-profile.json.backup-20261005-101010"):
+                                "app/channel-queue.json", "app/answers.json", ".backups/old.json", "learner-profile.json.backup-20261005-101010"):
             self.assertNotIn(secret_or_cache, files)
         self.assertEqual("main", git(self.data, "branch", "--show-current"))
         self.assertEqual("lani-setup: import", git(self.data, "log", "-1", "--format=%s"))

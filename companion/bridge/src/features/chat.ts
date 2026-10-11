@@ -39,7 +39,8 @@ else. kind is one of:
   read-db.py --language <code>.
 - review_done: a flashcard review in the app, ALREADY persisted by the bridge. Don't persist it again.
   Reply only if you have something useful to say (e.g. a tip for items Jan struggled with, or a new
-  module for them via lani-studio).
+  module for them via lani-studio). It names the answers typed wrong; recent_answers has every answer
+  of the last days (reviews, forms, dialog words), for when Jan reports a card later without Ask.
 - roleplay, roleplay_end: a role-play turn and its end (see Role-play); villager_arrived: someone
   moved into the village (see Villagers and Arrivals).
 

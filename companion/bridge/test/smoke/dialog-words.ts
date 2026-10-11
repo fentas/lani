@@ -120,6 +120,13 @@ async function words(kept: Record<string, string>) {
   await Bun.sleep(100)
   const note = channelEvents.filter(n => n.params?.meta?.kind === 'dialog_words').at(-1)?.params?.content ?? ''
   check('the tutor hears it in one line: each word, what came of it', note.includes('Babica Micka') && note.includes('counted as a review') && note.includes('lowered gently') && note.includes('form slip') && note.includes('not due'), note)
+  // what was said in each word's turn goes into the answer log (answers.ts), against what was right
+  const inLog = (JSON.parse(readFileSync(join(dataDir, 'app/answers.json'), 'utf8')).answers as any[]).filter(x => x.kind === 'dialog' && x.session_id === b1.session_id)
+  const miza = inLog.find(x => x.item_id === 'vocab_smoke-kitchen_miza')
+  const lookedUp: any = await client.callTool({ name: 'recent_answers', arguments: { card_id: 'vocab_smoke-kitchen_jajce' } })
+  check('… each word\'s turn is in the answer log: what was said against what was right, the verdict, the quality of the one counted, who and where',
+    inLog.length === 4 && miza?.answer === 'Daj mi stol.' && miza.expected === 'Daj mi mizo.' && miza.verdict === 'wrong' && miza.variant === 'meaning' && miza.where?.includes('Babica Micka') &&
+      inLog.find(x => x.item_id === 'vocab_smoke-kitchen_zlica')?.quality === 4 && String(lookedUp?.content?.[0]?.text).includes('dialog vocab_smoke-kitchen_jajce (form) "Deset jajce." for "Deset jajc.": wrong'), [inLog, lookedUp?.content])
 
   // the same again the same day: nothing more
   const r2 = await (await post({ results: [{ item_id: 'vocab_smoke-kitchen_zlica', quality: 5 }], duration_minutes: 1, dialog: { ...where, words: [w('vocab_smoke-kitchen_zlica', 'žlico', true, 'meaning', { review: true }), w('vocab_smoke-kitchen_miza', 'mizo', false, 'meaning')] } })).json()

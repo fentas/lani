@@ -107,7 +107,7 @@ export default async function service() {
     check('service: it serves the app without LANI_TUTOR or a port (the classic bridge then keeps only its tools)', loadConfig(bare, { service: true }).serveApp && !loadConfig(bare).serveApp)
     let svc = await startService(sam)
     const st0 = status(sam)
-    check('service: it answers /health and writes its status beside the socket: running, its pid and port, no tutor yet, its 41 tools', st0.state === 'running' && st0.pid === svc.pid && st0.port === sam.port && st0.session === null && st0.tools.length === 41 && st0.tools[0] === 'channel_guide', st0)
+    check('service: it answers /health and writes its status beside the socket: running, its pid and port, no tutor yet, its 42 tools', st0.state === 'running' && st0.pid === svc.pid && st0.port === sam.port && st0.session === null && st0.tools.length === 42 && st0.tools[0] === 'channel_guide', st0)
     const early = await post(sam, '/message', { text: 'Dober dan, is anyone there?', conversation_id: 'early' })
     const earlyBody = await early.json()
     const noVerdict = await post(sam, '/permission', { request_id: 'abcde', behavior: 'allow' })
@@ -123,7 +123,7 @@ export default async function service() {
     const instructions = t.client.getInstructions() ?? ''
     check("shim: its instructions are the service's channel rules, as in the snapshot beside the socket", instructions === snapshot.instructions && instructions.includes("Jan's Lani language tutor") && instructions.includes('channel_guide'), instructions.slice(0, 200))
     const tools = (await t.client.listTools()).tools
-    check("shim: tools/list is the service's, the guide first", tools.length === 41 && tools[0]?.name === 'channel_guide' && tools.some(x => x.name === 'reply') && tools.some(x => x.name === 'smoke_slow'), tools.map(x => x.name))
+    check("shim: tools/list is the service's, the guide first", tools.length === 42 && tools[0]?.name === 'channel_guide' && tools.some(x => x.name === 'reply') && tools.some(x => x.name === 'smoke_slow'), tools.map(x => x.name))
     await until(() => heard(t, 'early'), 3_000)
     const queued = heard(t, 'early')
     check('shim: the message that waited arrives when the session attaches, with queued_at and the hint to read the guide first', !!queued && /^\d{4}-\d\d-\d\dT/.test(queued.meta.queued_at ?? '') && queued.content.includes('Dober dan') && queued.content.includes('call the channel_guide tool') && queued.meta.kind === 'chat', queued)
@@ -170,7 +170,7 @@ export default async function service() {
     check('restart: the call that came during the stop was refused there and ran on the next service (the shim retried it once)', !retried.isError && !!ranOn && ranOn.event.at >= nextStarted, { retried, ranOn, nextStarted })
     await until(() => t.changed() > 0, 5_000)
     const after = (await t.client.listTools()).tools
-    check('restart: the shim reconnected and sent tools/list_changed; the new tool is listed and callable', t.changed() === 1 && after.length === 42 && after.some(x => x.name === 'smoke_new') && text(await t.client.callTool({ name: 'smoke_new', arguments: {} })) === 'new', { changed: t.changed(), tools: after.length })
+    check('restart: the shim reconnected and sent tools/list_changed; the new tool is listed and callable', t.changed() === 1 && after.length === 43 && after.some(x => x.name === 'smoke_new') && text(await t.client.callTool({ name: 'smoke_new', arguments: {} })) === 'new', { changed: t.changed(), tools: after.length })
     const replay = await backlog(sam, lastSeen)
     check("restart: the reply the phone hadn't fetched is still there for it (events.json), with ids after the last it saw", replay.some(b => b.event.type === 'reply' && b.event.text === 'Hvala! 🙏') && replay.every(b => b.id > lastSeen), replay.map(b => [b.id, b.event.type]))
     await post(sam, '/message', { text: 'Še eno vprašanje.', conversation_id: 'c3' })
@@ -191,7 +191,7 @@ export default async function service() {
     svc = await startService(sam, { LANI_PROBE_NEW: '1' })
     const held = await until(async () => (await backlog(sam)).some(b => b.event.type === 'permission_request' && b.event.request_id === 'vwxyz'), 5_000)
     check('outage: a permission prompt the session made meanwhile reaches the app once the service is back', held)
-    check('outage: the same tools after this restart: no list_changed', t.changed() === changedBefore && (await t.client.listTools()).tools.length === 42)
+    check('outage: the same tools after this restart: no list_changed', t.changed() === changedBefore && (await t.client.listTools()).tools.length === 43)
 
     // --- the session ends; what comes meanwhile waits, across a restart too --------------------------------------------
     const c0 = Date.now()
@@ -225,7 +225,7 @@ export default async function service() {
     await stopService(svc)
     const t4 = await shim(sam.env, { LANI_SHIM_START_WAIT_MS: '300' })
     const t4caps = t4.client.getServerCapabilities() as any
-    check("shim start, service down: from the service's last channel: its instructions, the permission relay, its 42 tools", t4.client.getInstructions() === snapshot.instructions && !!t4caps?.experimental?.['claude/channel/permission'] && (await t4.client.listTools()).tools.length === 42)
+    check("shim start, service down: from the service's last channel: its instructions, the permission relay, its 43 tools", t4.client.getInstructions() === snapshot.instructions && !!t4caps?.experimental?.['claude/channel/permission'] && (await t4.client.listTools()).tools.length === 43)
     svc = await startService(sam, { LANI_PROBE_NEW: '1' })
     await until(() => status(sam).session?.pid === t4.pid, 5_000)
     check('shim start, service down: it connects once the service is up; its calls work, the tools unchanged', status(sam).session?.pid === t4.pid && text(await t4.client.callTool({ name: 'smoke_new', arguments: {} })) === 'new' && t4.changed() === 0)

@@ -28,6 +28,8 @@ Skip this skill when Jan's answer really was wrong (explain it: `lani-feedback-f
 
 Other contexts: `about_exercise.error_pattern` (a mistake on the Progress screen: a mistakes-db pattern id); `lookup {word, line, en}` (a word card: the dictionary). Without a source (an older app; scene dialogs, stories, villager lines, readings and surprises have no Ask button), search the text Jan quotes: `card.py find <word>`, `list_scenes`/`get_scene`, `get_villager`, or `grep -rl "<text>" companion/ <data dir>/app/`.
 
+**Jan reports a card in a plain message** (no `about_exercise`: "kurim was marked wrong"): find the card (`card.py find <word>`), then ask `recent_answers {card_id}` (or `{text: "<word>"}`) what Jan typed or said, against what was expected, the verdict and the grading hint. It keeps the last 7 days of reviews, the forms a review asked and a dialog's word turns. With the answer in hand you can fix the card and take back what its fault cost in one go (§4–5). An app from before sends no review answers: then ask Jan what they typed before taking a review back.
+
 ## 2. Where each kind lives
 
 Curated content is in the repo (`companion/`); the tutor's in `<data dir>/app/`. Never edit repo files from the tutor session: publish an override where a tool allows it, and note the problem for the developer (§6).

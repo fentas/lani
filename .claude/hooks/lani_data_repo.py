@@ -61,6 +61,7 @@ keys.env
 /app/devices-seen.json
 /app/events.json
 /app/channel-queue.json
+/app/answers.json
 
 # Backups (snapshots already) and temporary files
 /.backups/
