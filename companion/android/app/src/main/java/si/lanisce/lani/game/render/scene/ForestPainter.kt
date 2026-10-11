@@ -1,5 +1,6 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.game.ambient.Sfx
 import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
@@ -1564,8 +1565,8 @@ internal class ForestPainter : WildPainter() {
     private fun sheepBell(cx: Float, by: Float) {
         val on = fxOn("sheepbells")
         val z = z
-        // the bell under its chin, brass, swinging while it rings
-        val swing = if (on > 0.05f) (sin(t * 9.0) * 0.9).toFloat() * z else 0f
+        // the bell under its chin, brass, swinging while it rings: its sound strikes at the swing's ends (Sfx.sheepBells)
+        val swing = if (on > 0.05f) (sin(t * Sfx.SHEEP_BELL_SWING) * 0.9).toFloat() * z else 0f
         val bs = max(1, z) * 2
         prop(outline = 0) {
             c.fillRect(floor(cx + 7.6f * z + swing).toInt(), floor(by - 6.2f * z).toInt(), bs, bs, Col.hex(0xC8962E))

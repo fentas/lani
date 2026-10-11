@@ -51,10 +51,10 @@ enum class Sound(val file: String) {
 
 /**
  * [sound] beginning at [at] (seconds on the picture's clock: [si.lanisce.lani.game.scene.SceneFrame.time], the village's
- * frame time), at [gain] (0..1, before the level of the whole), played [rate] times as fast (and as high); under a voice it
- * [ducks] with the rest, unless it comes with the line the voice says (a dialog's effect, [Sfx.fx]).
+ * frame time), at [gain] (0..1, before the level of the whole), played [rate] times as fast (and as high). Whether it
+ * ducks under a voice is up to whoever queues it (si.lanisce.lani.data.Ambience: a dialog's effect doesn't, [Sfx.fx]).
  */
-data class Cue(val sound: Sound, val at: Double, val gain: Float = 1f, val rate: Float = 1f, val ducks: Boolean = true)
+data class Cue(val sound: Sound, val at: Double, val gain: Float = 1f, val rate: Float = 1f)
 
 object Sfx {
     /**
@@ -101,8 +101,9 @@ object Sfx {
      * strike at each end of its swing as the painter swings it (far off over the field, the stream, the hills, the lake and
      * the woods); the cows' bells clank; the oven, the stove and the forge catch with a whoosh, the campfire as it flares
      * up; the smith strikes the anvil a few times with the sparks. Only the cue's first seconds: the picture may go on
-     * swinging, the sound doesn't. They don't duck under the voice ([Cue.ducks]): it is saying the line that rings the bell,
-     * and ducked the peal went unheard ("did not ring a bell"); at the background's own level it is still well under it.
+     * swinging, the sound doesn't. They don't duck under the voice (si.lanisce.lani.data.Ambience queues them so): it is
+     * saying the line that rings the bell, and ducked the peal went unheard ("did not ring a bell"); at the background's own
+     * level it is still well under it.
      */
     fun fx(art: String, before: Map<String, Float>, after: Map<String, Float>, now: Double): List<Cue> {
         val out = ArrayList<Cue>()
@@ -122,7 +123,7 @@ object Sfx {
                 "sparks" -> if (art == "smithy") out += blows(now, l)
             }
         }
-        return out.map { it.copy(ducks = false) }
+        return out
     }
 
     /** The sounds [place] under [sky] may play, to have them ready before they're wanted (a tap is heard at once). */
@@ -205,10 +206,11 @@ object Sfx {
 
     /**
      * Sheep's bells ringing ([level]): [bells] small ones (a cow's bell played faster and higher) clinking as the sheep move,
-     * each its own way, for 3 s, at [gain]: one close by in the forest, the flock's far off on the pasture.
+     * each its own way, for 3 s, at [gain]: one close by in the forest (the first: at the ends of its swing as the painter
+     * swings it, [SHEEP_BELL_SWING]), the flock's far off on the pasture.
      */
     private fun sheepBells(now: Double, level: Float, bells: Int, gain: Float): List<Cue> = (0 until bells).flatMap { k ->
-        strikes(9.5 + 1.3 * k, now + 0.1 + 0.23 * k, now + 3.0, phase = 1.7 * k).mapIndexed { i, t ->
+        strikes(SHEEP_BELL_SWING + 1.3 * k, now + 0.1 + 0.23 * k, now + 3.0, phase = 1.7 * k).mapIndexed { i, t ->
             val g = level * gain * (1f - 0.15f * k) * (1f - ease(t - now, 2.0, 3.0))
             Cue(Sound.COWBELL, t, g, (1.6f + 0.09f * k) * (if (i % 2 == 0) 1f else 1.04f))
         }
@@ -251,6 +253,9 @@ object Sfx {
     /** The square's bell swings as sin(5.5 t) (SquarePainter), the church's as sin(4.2 t) (ChurchPainter.swing). */
     private const val SQUARE_SWING = 5.5
     private const val CHURCH_SWING = 4.2
+
+    /** The bell under the lost sheep's chin swings as sin(9.5 t) (ForestPainter.sheepBell swings it so): it clinks at each end. */
+    const val SHEEP_BELL_SWING = 9.5
 
     /** The cow shakes her head as sin(14 a) (AlpsPainter). */
     private const val COW_SHAKE = 14.0

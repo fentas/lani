@@ -76,7 +76,8 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
 
     /**
      * [owner] (a screen) shows [place] under [sky], its picture on [clock]: its sounds fade in, the ones before fade out. An
-     * effect a dialog brings to the same scene sounds as it comes on (a bell's peal, the oven catching: [Sfx.fx]).
+     * effect a dialog brings to the same scene sounds as it comes on (a bell's peal, the oven catching: [Sfx.fx]), not
+     * ducked under the voice: it is saying the line that rings the bell ("did not ring a bell").
      */
     fun show(owner: Any, place: Place, sky: Sky, clock: TownClock? = null) {
         if (this.owner === owner && this.place == place && this.sky == sky && this.clock === clock) return
@@ -86,7 +87,7 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
         this.sky = sky
         this.clock = clock
         update()
-        if (before != null && place is Place.Scene && before.fx != place.fx) cue(clock) { now -> Sfx.fx(place.art, before.fx, place.fx, now) }
+        if (before != null && place is Place.Scene && before.fx != place.fx) cue(clock, duck = false) { now -> Sfx.fx(place.art, before.fx, place.fx, now) }
     }
 
     /** A tap on [id] of [art] set off its reaction [poked] (on the scene's [clock]): its sound, if it makes one ([Sfx.poke]). */
@@ -121,12 +122,12 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
         if (on && here != null) player.prepare(Sfx.sounds(here, sky))
     }
 
-    /** The short sounds [make] gives for the picture's second now, on [clock] (without one yet: from now). */
-    private fun cue(clock: TownClock?, make: (Double) -> List<Cue>) {
+    /** The short sounds [make] gives for the picture's second now, on [clock] (without one yet: from now); under a voice they [duck] or not. */
+    private fun cue(clock: TownClock?, duck: Boolean, make: (Double) -> List<Cue>) {
         if (!on) return
         val t = System.nanoTime()
         val origin = clock?.origin?.takeIf { it >= 0 } ?: t
-        player.play(make((t - origin) / 1e9), origin)
+        player.play(make((t - origin) / 1e9), origin, duck)
     }
 
     private companion object {

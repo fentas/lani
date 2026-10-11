@@ -29,7 +29,7 @@ import kotlin.random.Random
  * thread of its own. [set] says what plays and how loud; a loop is decoded from its asset the first time it's wanted and
  * kept. The short sounds ([Sound]) join in: [play] gives them with their times on the picture's clock, and [sky] the
  * lightning, whose flashes the thread looks for on that clock as it goes, each flash's thunder waiting for its time
- * ([Thunder]). Under a voice ([talking]) it all ducks (but a dialog's effect, [Cue.ducks]); while the microphone records ([micOpen]) or the app is away ([away])
+ * ([Thunder]). Under a voice ([talking]) it all ducks (but a dialog's effect: [play]'s `duck`); while the microphone records ([micOpen]) or the app is away ([away])
  * the track stops at once and what was still to come is dropped; with nothing to play it pauses, the thread asleep.
  */
 internal class AmbientPlayer(
@@ -103,12 +103,15 @@ internal class AmbientPlayer(
         if (lightning != null && on) start()
     }
 
-    /** [cues] to play when their time comes on the clock of [origin] (System.nanoTime of its second 0). */
-    fun play(cues: List<Cue>, origin: Long) {
+    /**
+     * [cues] to play when their time comes on the clock of [origin] (System.nanoTime of its second 0); under a voice they
+     * [duck] with the rest, unless not (a dialog's effect, rung by the line the voice says).
+     */
+    fun play(cues: List<Cue>, origin: Long, duck: Boolean = true) {
         if (cues.isEmpty() || !synchronized(lock) { on }) return
         for (c in cues) {
             want(c.sound)
-            incoming.add(Pending(c.sound, origin + (c.at * 1e9).toLong(), c.gain, c.rate, c.ducks))
+            incoming.add(Pending(c.sound, origin + (c.at * 1e9).toLong(), c.gain, c.rate, duck))
         }
         wake()
         start()

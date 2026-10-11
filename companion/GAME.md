@@ -1355,7 +1355,7 @@ loop. A far bell's peal and the cow's shaking bell stay under 0.9 (their strikes
 level of the whole like the loops. Then:
 
 - **Under a voice** (a clip, a family recording, the phone's TTS: `Speaker.talking`) they duck to 0.3 (−10 dB) in 0.3 s,
-  and come back in 1.2 s. A dialog's effect doesn't duck (`Cue.ducks`, `Sfx.fx`): the voice is saying the line that
+  and come back in 1.2 s. A dialog's effect doesn't duck (`Sfx.fx`, queued by `Ambience` with `duck = false`): the voice is saying the line that
   rings the bell or fires up the oven, and ducked, the church's peal under Tine's "Vlečem! Bim, bam!" was too quiet to
   hear. It plays at the level of the whole without the duck (`AmbientMixer.undimmed`): at the default volume a bell's
   strike is still about 27 dB under the voice (ducked, 37).
