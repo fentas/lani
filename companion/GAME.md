@@ -965,7 +965,7 @@ Zala's spoon of honey); the well opens the square as the linden does.
 |---|---|---|---|---|
 | 🎆 Novo leto · New Year | 1 January | Vida, Janez, Micka | novo leto, silvestrovo, polnoč, ognjemet, želja, zdravica, nazdraviti, Srečno! | 🥂 penina |
 | 📜 Prešernov dan · Prešeren Day | 8 February | Janez, Mojca, Micka | pesnik, pesem, knjiga, brati, kultura, himna, pisatelj, gledališče | 📕 Prešernove Poezije |
-| 🎭 Pust · Carnival | Shrove Tuesday (Easter − 47) | Nejc, Tine, Zala, Luka | maska, kurent, krof, zvonec, ples, zima, povorka, našemiti se | 🍩 krofi |
+| 🎭 Pust · Carnival (the škoromati of the Brkini) | Shrove Tuesday (Easter − 47) | Nejc, Tine, Zala, Luka | škoromat, maska, zvonec, krof, ples, zima, povorka, našemiti se | 🍩 krofi |
 | 🐣 Velika noč · Easter | Easter Sunday | Micka, Ančka | pisanica, jajce, košara, šunka, hren, pomlad, zajček, barvati | 🥚 pisanice |
 | 🌿 Prvi maj · May Day | 1 May | Luka, Marko, France | mlaj, kres, godba, delo, praznik, smreka, budnica, izlet | 🌭 kranjska klobasa |
 | 🐝 Svetovni dan čebel · World Bee Day | 20 May | Anton, Micka | čebela, med, panj, cvet, čebelar, satje, čebelnjak, pičiti | 🍯 med ×2 |

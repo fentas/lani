@@ -154,7 +154,7 @@ class CalendarTest {
     private val before = mapOf(
         "novo_leto" to listOf("novo leto", "polnoč", "ognjemet", "želja", "zdravica", "Srečno!"),
         "presernov_dan" to listOf("pesnik", "pesem", "knjiga", "brati", "kultura", "himna"),
-        "pust" to listOf("maska", "kurent", "krof", "zvonec", "ples", "zima"),
+        "pust" to listOf("maska", "škoromat", "krof", "zvonec", "ples", "zima"),
         "velika_noc" to listOf("pisanica", "jajce", "košara", "šunka", "hren", "pomlad"),
         "prvi_maj" to listOf("mlaj", "kres", "godba", "delo", "praznik", "smreka"),
         "dan_cebel" to listOf("čebela", "med", "panj", "cvet", "čebelar", "satje"),
