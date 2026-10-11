@@ -974,16 +974,16 @@ records ([GAME.md](GAME.md#background-sounds)).
 **The voice cast.** Who speaks is in `voice-cast.json`: each speaker has an ElevenLabs voice, a
 Gepard voice for when ElevenLabs can't, and a gender. The narrators `female` (default) and `male`
 read every generic text (words, examples, exercises, role-play characters by their scenario's
-`voice`). In a Slovene village they speak with the local Gepard voice, nina and marko, never with their English
-library voices (below, "The narrators in Slovene"). Each villager speaks with their own `speaker` (`cultures/<culture>/villagers/*.json`; `voice` stays their
+`voice`). In a Slovene village they speak with native Slovene library voices, Nina and Luka, and the local Gepard voice
+is their fallback, never with their English library voices (below, "The narrators in Slovene"). Each villager speaks with their own `speaker` (`cultures/<culture>/villagers/*.json`; `voice` stays their
 gender, which the app needs for Slovene agreement), in their lines, their scene dialogs and their
 role-play. A scenario may set a `speaker` too. The character voices come from the ElevenLabs voice
 library, picked by audition (Slovene test sentences, word error rate with the local Whisper):
 
 | Speaker | Voice | Who |
 |---|---|---|
-| `female` | Matilda (premade, English; Gepard nina in Slovene) | narrator |
-| `male` | Daniel (premade, English; Gepard marko in Slovene) | narrator, male role-play characters |
+| `female` | Matilda (premade, English); in Slovene Nina (Slovene), then Gepard ana (a lone word) or nina | narrator |
+| `male` | Daniel (premade, English); in Slovene Luka (Slovene), then Gepard marko | narrator, male role-play characters |
 | `grandma` | Zlata (Croatian) | Babica Micka, Teta Ančka |
 | `grandpa` | Tomasz Z (Polish) | Stari Janez, Mlinar France, Čebelar Anton |
 | `young-man` | Bartłomiej (Polish) | Pastir Luka, Vinar Marko, men who move in |
@@ -1063,6 +1063,9 @@ new description), deleting the old voice and its clips.
    again when it changes; no restart.
 3. Make that speaker's clips again: `companion/bin/voice-build --run --revoice grandma` (dry run
    first without `--run`). The new clips get new file names, so the app downloads them.
+
+A narrator's Slovene voice is its `languages` `sl` entry (below, "The narrators in Slovene"): put the new id in its
+`elevenlabs`, then `companion/bin/voice-build --run --revoice female`. The local clips stay as they are.
 
 **A voice that hisses: the denoise filter.** Stari Janez's own designed voice (`@janez`) has a steady hiss:
 its pauses are at about −35 dBFS, where the other voices are at −45 to −80 dBFS. It also has a rumble below
@@ -1200,6 +1203,13 @@ So the bridge trims every clip's silence at its edges before it stores it, whate
   (median), the Gepard clips' 0.52 → 0.06 s before and 0.64 → 0.11 s after. Each trimmed clip is as long as before less
   the silence taken (within 2 ms), at −18.0 LUFS (median).
 
+- **A single word** asked for as it is (one word, no sentence punctuation; not a carrier cut, which is the word already)
+  ends at its first pause of 0.25 s or more (`EDGES.wordGap`): what follows is cut off with the silence. ElevenLabs
+  sometimes adds a breath or the start of another sound after one word, louder than −45 dBFS, so the trim kept it. In the
+  check of October 2026 (Nina and Luka, 8 words, 24 plain takes) 5 takes had one, 0.38 to 1 s after the word (clips of
+  1.2 to 1.75 s). The guard cut those five to the word (0.46 to 0.64 s of sound) and left the other 19 as they were. No
+  word has such a pause inside: a stop's closure is 0.05 to 0.15 s. A phrase of two or three words keeps its pauses.
+
 `voice_status` shows the clips trimmed (or found short enough) and waiting (`edges`).
 
 **The local voice at its own pace.** Gepard's clips were once paced to the ElevenLabs narrators' characters a second
@@ -1228,59 +1238,109 @@ its silence at the edges is trimmed, as every clip's.
   - On a copy of Jan's store: 549 restored, all byte for byte the snapshot's files, no other row changed, no file left
     without a row.
 
-**The narrators in Slovene: the local voice.** The narrators `female` and `male` are English library voices (Matilda,
-Daniel). In Slovene a lone word comes out with English sounds, even cut out of a carrier sentence. Jan compared a word
-side by side: "1. and 2. sound the same and slow (and wrong), 3. is in another league" (1 the ElevenLabs narrator, 2 the
-same trimmed, 3 Gepard's marko). So in a Slovene village the narrators speak only with the local Gepard voice:
+**The narrators in Slovene: native voices, the local voice as the fallback.** The narrators `female` and `male` are
+English library voices (Matilda, Daniel). In Slovene a lone word comes out with English sounds, even cut out of a carrier
+sentence. Jan compared a word side by side: "1. and 2. sound the same and slow (and wrong), 3. is in another league" (1
+the ElevenLabs narrator, 2 the same trimmed, 3 Gepard's marko). So since 10 October 2026 the narrators of a Slovene village
+never speak with Matilda or Daniel. On 11 October Jan auditioned the native Slovene voices of the ElevenLabs library and
+picked one for each narrator. They come first now, and the local Gepard voice is their fallback:
 
-- **Who:** `female` → nina, `male` → marko (their `gepard` in `voice-cast.json`; Jan preferred nina over ana). The
+| | `female` | `male` |
+|---|---|---|
+| 1. ElevenLabs | Nina ("Nina - Warm, Proud Ad", `0IwLFuWc6siAnpd77hRG`) | Luka ("Luka - Warm, Amused Creator", a Štajerska colour, `SmCUS1ekZnVjC5lqnRQG`) |
+| 2. Gepard, the local voice | ana for a lone word, nina for a sentence | marko |
+| 3. The phone | its offline voice (Piper), then Android TTS | the same |
+
+- **Who:** the narrators' `languages` `sl` in `voice-cast.json` (a library voice, with its `library_owner`; it takes no
+  voice slot, and the first request with its id adds it to the account). Their clips are the voices `female.sl` and
+  `male.sl` in `voice.db`. The local voice is the narrator's `gepard`, and for a lone word (one to three words, no
+  sentence punctuation) its `gepard_words` when it has one: Jan preferred ana for single words, nina for sentences. The
   bridge sends the worker the voice by name, so the worker's own aliases don't matter.
 - **What:** every text in a narrator's voice: words, examples, cards, exercises, the car's drills and quiz, a role-play
   character by its scenario's `voice`, live lines.
-- **When the worker can't** (down, busy): a cast voice that speaks Slovene natively, of the narrator's gender, if the
-  cast has one (a speaker with `"native": ["sl"]`). The cast has none: the library's one Slovenian voice (Uros) isn't in
-  it. Else no clip, and the app speaks with the phone's Slovene voice. Never Matilda or Daniel.
+- **When ElevenLabs can't:** the quota is down to the reserve (5,000 characters, `LANI_VOICE_RESERVE`; a live line may
+  use the reserve), there is no key, it fails or is down. Then the local voice makes the clip. When it can't either (down,
+  busy), there is no clip, and the phone speaks. A cast whose narrators have no `sl` voice has the local voice only.
 - **Not for:** the villagers (their speakers and their voices of their own): ElevenLabs first, then Gepard, as before.
-  Nor a village in another language: its cast's narrators speak (the Lakeland village's Alice and Daniel speak
-  English).
-- **The setting:** `LANI_VOICE_NARRATOR_SL` (in `lani.env`, read when the bridge starts): `gepard` (the default) or
-  `elevenlabs` (as before October 2026: the English narrators, a lone word in its carrier sentence).
-- **Recorded:** a clip's row has the engine's own voice (`engine_voice`: `nina`, an ElevenLabs voice id), and its file
-  name includes it, so the app downloads a clip whose voice changed. A Gepard clip from before has none: a female
-  narrator's was ana's.
-- **A re-record** (a long press on 🔊) of a narrator's clip from before is made in the local voice now, and isn't
-  counted in the day's cap. The local voice says a text the same way every time, so a clip that is in it already is
-  the one (`not_needed`). The lazy carrier re-voice leaves the narrators' words alone.
-- **The clips from before:** `companion/bin/voice-build --narrators` (a dry run) counts the narrators' clips that are
-  not in their local voice: ElevenLabs' (with the carrier words), and the female narrator's ana clips. It makes again
-  only the Slovene ones: a clip of this village's corpus, of a source the corpus has (a pack, a scene, a story), or a
-  line the app spoke here (`live`, `road`). It lists the others, which stay as they are. `--narrators --run` makes them
-  again with the worker, most asked for first (`--max N` for a few first). Each new clip has its edges trimmed and is
-  levelled, under a new file name, and the old file is removed once the new one is recorded. The ElevenLabs takes
-  aren't kept: the snapshot before the run has them. The worker makes one at a time, about a second each. A busy
-  worker is waited for, and a worker that is down stops the run. The next run goes on where it stopped. No ElevenLabs
-  characters.
-- **On a copy of Jan's store:** 4,690 narrator clips not in the local voice (4,326 female and 160 male ElevenLabs clips,
-  1,163 of them carrier words; 204 female ana clips), all Slovene by the corpus or their source, about 80 minutes of
-  the worker's time.
+  Nor a village in another language: its cast's narrators speak (the Lakeland village's Alice and Daniel speak English,
+  the car's English prompts come from the phone).
+- **The setting:** `LANI_VOICE_NARRATOR_SL` (in `lani.env`, read when the bridge starts): `elevenlabs` (the default:
+  Nina and Luka first) or `gepard` (the local voice first, Nina and Luka when it can't; as from 10 October 2026).
+- **Lone words:** Nina and Luka say a lone word plainly, not in a carrier sentence. A check with Jan's key (8 words: Nina
+  *kosilo*, *žlica*, *hrbet*, *včeraj*; Luka *kosilo*, *miza*, *jajce*, *stol*; 268 characters, into a scratch store):
 
-`voice_status` shows the narrators' local voices and their clips in them and not (`narrators`), and a pace when one is
-set (`tempo`).
+  | Way | The takes | After the store's trim |
+  |---|---|---|
+  | in the carrier sentence, cut out | 0.50–0.97 s, 0.04–0.28 s of silence before the word | 0.44–0.81 s; 7 of 8 takes ended inside the word's last sound (the last 20 ms at −7 to −34 dBFS), and Luka's *stol* lost its end (0.26 s of sound, plainly 0.52 s) |
+  | plainly, as it is | 0.71–2.06 s, up to 1.24 s of silence after the word | 0.71–1.33 s; 2 of 8 with a breath after the word (below) |
+  | plainly, with a period | 0.78–1.75 s | 2 of 8 with a breath or another sound after the word |
+  | Gepard (for comparison) | | nina 0.99–1.07 s, marko 0.73–0.91 s (0.46–0.64 s of sound) |
 
-**Engines**, tried in this order for a text without a clip (a Slovene narrator's: Gepard only, see above):
+  So plainly, and every single word's sound ends at its first pause of 0.25 s or more ("The silence at a clip's edges",
+  above): with it, the plain takes are 0.71–0.99 s with 0.48–0.68 s of sound, like Gepard's. Plainly also costs the
+  word alone: *kosilo* is 6 characters, `Beseda je: kosilo.` 18.
+- **Two clips:** a narrator's line has a row for each voice: the ElevenLabs clip (`female.sl:<text>`) and the local clip
+  (`female:<text>`). The app knows only `female`. `/voice/index`, `/voice/say` and `/voice/prepare` give it the first
+  that is there, in the setting's order: with `elevenlabs`, Nina's clip, else the local one. So while Nina's clip is
+  missing, the app plays the local clip: no silence, no TTS. When Nina's clip is made, the local clip stays: it is the
+  fallback, and with `gepard` the app gets the local clips again at once, nothing made again. The phone caches by file
+  name, so it downloads Nina's clip the next time it plays the line (or with the day's clips on Wi-Fi); until then it
+  plays the local file it has.
+- **From the local clips to Nina and Luka:**
+  - **As the app asks:** when the app downloads a narrator's local clip (it plays the line, or gets the day's clips on
+    Wi-Fi) or `/voice/say` hands one over, and Nina's or Luka's clip of it is missing, the bridge makes that clip soon:
+    most asked for first, within the day's re-voice cap (`LANI_VOICE_REVOICE_DAILY`, shared with the carrier re-voice,
+    which leaves a quarter of it, at most 10, for re-records), never into the reserve. Then it sends `voice_updated`. Clips
+    that wait for the next day are taken up at the next request, or when the bridge starts (the app's requests are
+    counted in `hits`).
+  - **Ahead:** `companion/bin/voice-build --run` makes them in the priority order (pack words, examples, modules, …)
+    within the budget: the quota less the reserve, `--max-chars N` for less. Its dry run shows "Narrators in their Slovene
+    ElevenLabs voices: female (Nina) x/y (local z)" and how many `--run` would make now, "next to a local clip, which
+    stays". Every run goes on where the last one stopped.
+  - **A long press** on 🔊 makes the clip in Nina's or Luka's voice at once: a new take, or the first one where only the
+    local clip is there. It counts as any re-record (once a clip a day, in the day's cap).
+- **The local voice's lone words in ana:** `companion/bin/voice-build --narrators` (a dry run) counts the narrators' local
+  clips not in their local voice for their text: the female narrator's lone words in nina (for ana), sentences in ana
+  (for nina), and ElevenLabs' English clips from before (with the carrier words). It shows each group as it is and the
+  voice it is made in ("female gepard (nina) → ana"). It makes again only the Slovene ones: a clip of this village's
+  corpus, of a source the corpus has (a pack, a scene, a story), or a line the app spoke here (`live`, `road`). It lists
+  the others, which stay as they are. `--narrators --run` makes them again with the worker, most asked for first
+  (`--max N` for a few first). Each new clip has its edges trimmed and is levelled, under a new file name, and the old
+  file is removed once the new one is recorded. The worker makes one at a time, about a second each. A busy worker is
+  waited for, and a worker that is down stops the run. The next run goes on where it stopped. The clips in Nina's and
+  Luka's voices are left as they are. No ElevenLabs characters.
+- **Recorded:** a clip's row has the engine's own voice (`engine_voice`: Nina's voice id, `ana`), and its file name
+  includes it, so the app downloads a clip whose voice changed. A Gepard clip from before has none: a female narrator's
+  was ana's.
+- **With the local voice first** (`gepard`), a re-record of a narrator's clip from before is made in the local voice, and
+  isn't counted in the day's cap; a clip that is in it already is the one (`not_needed`: the local voice says a text the
+  same way every time). The lazy carrier re-voice leaves the Slovene narrators' words alone either way.
+- **On a copy of Jan's store** (11 October 2026): 5,042 narrator clips, all from the local voice (4,545 female in nina,
+  497 male in marko). 1,045 of the female ones are lone words in nina: `--narrators --run` makes them again in ana (7,284 characters of
+  text, about 18 minutes of the worker). The corpus has 5,621 narrator texts (116,083 characters), 4,223 of them with a
+  local clip. With 18,766 characters left until 24 October and 1,500 kept, `voice-build --run` would make 1,481 of them in
+  Nina's voice now (17,266 characters, pack words and examples first; 1,388 next to a local clip); the rest waits for the
+  next periods, and the app asks for more every day.
+
+`voice_status` shows the narrators (`narrators`): the setting (`mode`), their ElevenLabs voices and local voices (for a
+sentence and for a lone word), the clips in their ElevenLabs voices, their local clips in the local voice and not, and the
+local clips whose ElevenLabs one is still missing (`waiting`; `asked`: the app asked for them). It shows a pace when one
+is set (`tempo`).
+
+**Engines**, tried in this order for a text without a clip (a Slovene narrator's: its Slovene voice, then Gepard; see above):
 
 | Engine | What | Setup |
 |---|---|---|
-| ElevenLabs | `eleven_v3` (the only model with Slovenian), `language_code: sl`, the speaker's voice from the cast. | `ELEVENLABS_API_KEY=…` in `~/.config/lani/keys.env` (mode 600). `bin/lani-session` exports it into the session, so the bridge inherits it. |
+| ElevenLabs | `eleven_v3` (the only model with Slovenian), `language_code: sl`, the speaker's voice from the cast (a Slovene narrator's: its `languages` `sl`). | `ELEVENLABS_API_KEY=…` in `~/.config/lani/keys.env` (mode 600). `bin/lani-session` exports it into the session, so the bridge inherits it. |
 | Gepard (local) | Slovenian TTS model as a worker on `127.0.0.1:8795` (`GET /health`, `POST /synth`), the speaker's `gepard` voice (`nina`, `marko`, `ana`), sent by name. | Runs separately. When it is down, it is skipped. |
 
 If neither can make a clip, the app uses phone TTS; an engine that is down never fails a request.
 A villager line whose narrator clip exists waits for ElevenLabs (no local clip in the character's
 key): the app plays the narrator clip until then.
 
-**Lone words: a carrier sentence.** Where the narrators speak with ElevenLabs (a village in another language whose
-cast marks them `carrier`, or `LANI_VOICE_NARRATOR_SL=elevenlabs`; in a Slovene village they speak with the local voice
-since October 2026): the narrators are English library voices, and `eleven_v3` takes
+**Lone words: a carrier sentence.** Where an English library voice narrates with ElevenLabs (a village in another
+language whose cast marks a narrator `carrier`: the Kärnten village's Daniel; in a Slovene village the narrators speak
+with native voices since October 2026, which say a lone word plainly, above): `eleven_v3` takes
 `language_code: sl` only as a hint: a lone Slovene word (*kosilo*) comes out with English sounds, a
 sentence doesn't (`previous_text`/`next_text` are not supported for `eleven_v3`). So a speaker marked
 `"carrier": true` in the cast (the narrators; villagers' voices are Slovene enough) says a short text inside
@@ -1298,8 +1358,9 @@ a carrier sentence:
   asked for plainly, as before. If the word isn't in the timestamps, it is asked for plainly too (both takes
   are paid for), and the clip is marked `plain`, so it isn't tried again.
 
-**The words from before** (about 500 narrator words said plainly) are voiced again lazily, where the narrators speak
-with ElevenLabs (in a Slovene village `voice-build --narrators` makes them again in the local voice). When the app
+**The words from before** (about 500 narrator words said plainly) are voiced again lazily, where an English narrator
+speaks (in a Slovene village the narrators' clips go to Nina and Luka instead, the same way, and `voice-build
+--narrators` makes the local clips from before again in the local voice: above). When the app
 asks for one (it downloads the file, or `/voice/say` hands it over), it gets the old clip at once. The
 bridge counts the request and soon re-voices the word in its carrier sentence:
 
@@ -1326,9 +1387,10 @@ ahead of the lazy re-voice:
   has a clip in). A short text in a carrier voice is said in its carrier sentence and cut, as above. Anything
   else (a sentence, a villager's voice, someone's own voice) is a plain re-take: `eleven_v3` never says a text
   the same way twice. A clip that the local worker made is made again with ElevenLabs. A text without a clip is
-  voiced as `/voice/say` voices a live line, and is not counted. A Slovene narrator's clip is never made with
-  ElevenLabs: one from before is made in the local voice now (not counted), one in it already is the one
-  (`not_needed`: the local voice says a text the same way every time).
+  voiced as `/voice/say` voices a live line, and is not counted. A Slovene narrator's clip is made in its Slovene
+  voice (Nina, Luka): a new take, or the first one where only the local clip is there, which stays. With the local voice
+  first (`LANI_VOICE_NARRATOR_SL=gepard`), a clip from before is made in the local voice now (not counted), and one in it
+  already is the one (`not_needed`: the local voice says a text the same way every time).
 - **Limits:** once a clip a day. Each re-record counts in the day's cap (40, shared with the lazy re-voice,
   which leaves the last 10 for re-records); a sentence counts as one, like a word. A re-record never goes into
   the reserve for live lines. A `voice-build --revoice-words` run counts in the same cap, so after a big run
@@ -1372,7 +1434,7 @@ line when it is played), so the A1 tellings and drills (Jan's level) come before
 
 ```bash
 companion/bin/voice-build                  # dry run: texts, characters, cached, missing, quota left
-companion/bin/voice-build --run            # generate the missing clips
+companion/bin/voice-build --run            # generate the missing clips (and the Slovene narrators' clips in Nina's and Luka's voices)
 companion/bin/voice-build --run --upgrade  # also replace local clips while the quota lasts
 companion/bin/voice-build --run --revoice grandma   # a swapped voice: its clips again
 companion/bin/voice-build --run --max-chars 2000
@@ -1387,7 +1449,7 @@ companion/bin/voice-build --edges          # dry run: every clip's silence befor
 companion/bin/voice-build --edges --run    # trim them (ffmpeg only, no characters)
 companion/bin/voice-build --restore-gepard ~/.local/share/lani/backups/<snapshot>        # dry run: the paced local clips
 companion/bin/voice-build --restore-gepard ~/.local/share/lani/backups/<snapshot> --run  # back as the worker made them
-companion/bin/voice-build --narrators      # dry run: the narrators' clips not in the local voice yet (Slovene only)
+companion/bin/voice-build --narrators      # dry run: the narrators' local clips not in their local voice yet (lone words: ana)
 companion/bin/voice-build --narrators --run   # make them again with the local worker (resumable, no characters)
 companion/bin/voice-build --tempo          # only with LANI_VOICE_GEPARD_TEMPO or _PAUSES set: the local clips not at that pace
 ```
@@ -1450,7 +1512,8 @@ and only while charging when the learner says so. It needs no open app: it asks 
 4. downloads them, four at a time, today's first, then tomorrow's while the cap has room. A clip the car's library has is
    linked, not downloaded (one file with two names, counted once), and a clip the car's getting ready is downloading is
    waited for (`audio/AudioFiles.kt`, `ClipFiles`): the two never fetch one twice. These downloads count on the node, as a
-   line played does, so an old-style narrator word is queued for its carrier re-voice; the next run gets the new take.
+   line played does, so an old-style narrator word is queued for its carrier re-voice, and a Slovene narrator's local clip
+   for its clip in Nina's or Luka's voice; the next run gets the new take.
 
 What it did is in `files/audio/status.json` and the settings: when, the day's lines on the phone (in their wanted voice,
 in another of theirs, missing), the files and megabytes downloaded, the lines the node voiced, whether the cap stopped it.

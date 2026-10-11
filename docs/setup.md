@@ -226,15 +226,15 @@ More on the service mode: [companion/README.md, "The bridge as a service"](../co
 | Tier | Needs | Gets |
 |---|---|---|
 | Minimal | nothing more | The phone's text-to-speech and speech recognizer. |
-| Standard | an ElevenLabs key ([your own ElevenLabs](#your-own-elevenlabs)) | Natural voices, a voice for each villager. |
-| Full | a GPU with about 6 GB (CUDA or ROCm) | Local Whisper for exact speaking checks, Gepard as the Slovene narrators' voice and the offline Slovene voice. |
+| Standard | an ElevenLabs key ([your own ElevenLabs](#your-own-elevenlabs)) | Natural voices, a voice for each villager, native Slovene narrators. |
+| Full | a GPU with about 6 GB (CUDA or ROCm) | Local Whisper for exact speaking checks, Gepard as the Slovene narrators' fallback voice and the offline Slovene voice. |
 
 The local workers install as user services: `companion/voice-local/install.sh` and `companion/stt-local/install.sh`
 (each about 15 GB). See [companion/README.md, "Voice"](../companion/README.md#voice) and
 [stt-local/README.md](../companion/stt-local/README.md). The bridge trims every clip's silence at its edges (with
-ffmpeg). In a Slovene village the narrators speak only with Gepard (nina, marko), never with the English ElevenLabs
-voices; without the worker the phone speaks their lines, unless `LANI_VOICE_NARRATOR_SL=elevenlabs` keeps the English
-narrators.
+ffmpeg). In a Slovene village the narrators speak with native Slovene ElevenLabs voices (Nina, Luka), with Gepard as
+their fallback (ana for a lone word, nina for a sentence; marko), never with the English ElevenLabs voices. Without
+either, the phone speaks their lines. `LANI_VOICE_NARRATOR_SL=gepard` puts Gepard first.
 
 ### Your own ElevenLabs
 
@@ -272,9 +272,13 @@ anyone else.
    ```
 
 5. **The voices.** The cast (`companion/voice-cast.json`) uses voices from ElevenLabs' voice library by their ids;
-   the first request with one adds it to your account, and it takes no voice slot. A villager's voice of their own
-   (designed by the tutor, `LANI_VOICE_DESIGN`, on by default) takes a voice slot each and costs a few credits to
-   design; `LANI_VOICE_DESIGN=off` keeps to the cast. To swap a voice: companion/README.md, "Voice".
+   the first request with one adds it to your account, and it takes no voice slot. The narrators' Slovene voices are
+   native Slovene library voices too, so they take no slot: Nina and Luka (their `languages` `sl` in the cast, with the
+   library owner's id). In a Slovene village they come first; a narrator line ElevenLabs can't make (the quota down to
+   the reserve, no key) is spoken by Gepard, and the bridge makes Nina's or Luka's clip later, as the app asks for it,
+   within the day's re-voice cap (`LANI_VOICE_REVOICE_DAILY`); `voice-build --run` makes them ahead. A villager's voice
+   of their own (designed by the tutor, `LANI_VOICE_DESIGN`, on by default) takes a voice slot each and costs a few
+   credits to design; `LANI_VOICE_DESIGN=off` keeps to the cast. To swap a voice: companion/README.md, "Voice".
 6. **Privacy.** Every line voiced goes to ElevenLabs as text ([privacy.md](privacy.md)). Without a key, nothing does.
 
 ### Without ElevenLabs
@@ -285,14 +289,14 @@ Lani works without an ElevenLabs account; the voices are then one of these, best
   needs a GPU with about 6 GB of memory, with ROCm (AMD) or CUDA (NVIDIA). It voices a line while the learner waits,
   so the bridge makes the clips as the app asks for them, like ElevenLabs. It speaks Slovene only, in three voices (`ana`,
   `marko`, `nina`): the villagers share them, each at their own pitch and pace. In a Slovene village it is the narrators'
-  voice anyway (`nina`, `marko`), with or without ElevenLabs.
+  voice too (`ana` for a lone word, `nina` for a sentence; `marko`); with ElevenLabs, their fallback.
 - **Gepard on a CPU.** The same worker without a GPU takes 3 to 15 seconds a sentence: too slow while the learner waits
   (the app speaks with the phone meanwhile). Let it voice everything overnight instead: `companion/bin/voice-build` (a dry
   run: what's missing), then `companion/bin/voice-build --run`, which goes on until the content is voiced. The phone then
   gets those clips ahead on Wi-Fi like any others (below).
 - **Neither.** The phone speaks: with its offline voice (Piper, below), else with Android's text-to-speech. The clips
   Gepard made before, or that another machine made into the same voice cache, still come. Without the worker the phone
-  speaks the narrators' lines too (unless `LANI_VOICE_NARRATOR_SL=elevenlabs`), so the offline voice is worth getting.
+  speaks the narrators' lines too, so the offline voice is worth getting.
 
 ### Offline on the phone
 
