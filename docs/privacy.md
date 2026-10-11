@@ -10,8 +10,9 @@ Lani itself sends nothing to us.
 The tutor is a Claude Code session on your machine, signed in with your Claude account (a Pro or Max plan) or your
 Console API key. Claude Code sends the session's conversation to Anthropic to get the tutor's answers. That includes:
 
-- what comes from the app: chat messages, answers to exercises, finished sessions and reviews (a summary), role-play
-  turns, words the learner adds, a question the learner asks about an exercise;
+- what comes from the app: chat messages, answers to exercises, finished sessions and reviews (a summary, with the
+  answers typed wrong), role-play turns, words the learner adds, a question the learner asks about an exercise, and the
+  recent answers the tutor looks up (`recent_answers`) when the learner reports a card;
 - what the tutor reads to answer: the learner's databases (through `read-db.py`), the session results, the curated
   content, the files of this checkout it opens;
 - texts from other people, when you use those features: the partner's challenges on the family page, and questions,
@@ -77,4 +78,6 @@ this machine.
 ## What stays on the machine
 
 The learner's data, the tokens and the bridge's key, the voice clips (and the offline voice, `~/.cache/lani/piper`), the backups (`~/.local/share/lani/backups`), the
-logs (`~/.local/state/lani`) and `keys.env`. `lani-backup` snapshots stay on the machine unless you copy them.
+logs (`~/.local/state/lani`) and `keys.env`. `lani-backup` snapshots stay on the machine unless you copy them. The
+learner's recent answers (`app/answers.json`: what they typed or said in the last 7 days, at most 500 answers) stay
+too: the data repository leaves them out.

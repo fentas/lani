@@ -859,6 +859,26 @@ chat keeps a year: when it loads, older months are deleted, except their bookmar
 history (the event stream replays only its last 200 events), so neither the history nor the bookmarks sync: they
 survive app updates, but not clearing the app's data or a reinstall (`android:allowBackup="false"`).
 
+**Recent answers.** "Ask" on an exercise's feedback sends the tutor the exercise with Jan's answer (`about_exercise`).
+A card reported later in a plain message ("kurim was marked wrong") came without it, and the app kept no answers, so the
+tutor could only guess why. Now the node keeps what Jan typed or said lately:
+
+- **What:** each review card's exercise (the review screen and the grammar book's card practice): the card, how it was
+  asked (`variant`: type, tiles, listen, …), the exercise and what it asked, what was typed or heard, what was expected,
+  the verdict, the grading hint (typo, ending, diacritics, …) and the hints used. The app sends them with the review
+  (`POST /reviews` `answers`, `ui/PlayerScreen.kt` `reviewAnswer`); a self-rated flashcard has no answer to keep. The
+  forms a review asked and a dialog's word turns, which the app sent already, go in too.
+- **Where:** `<data>/app/answers.json` (`bridge/src/answers.ts`), written once the review is persisted, with the quality
+  it gave each card and the session. A rolling log: the last 7 days, at most 500 answers, the oldest dropped as new ones
+  come. Nothing else reads it, the learner's databases don't change with it, and the data repository leaves it out
+  (runtime state; a repository set up before keeps its own `.gitignore`: add `/app/answers.json` to it).
+- **The tutor:** the `review_done` note names the answers typed wrong ("Answered wrong: vocab_hvala "hvla" for
+  "hvala""). The tool `recent_answers` lists them, newest first, for a card (`card_id`), a word in what was asked, typed
+  or expected (`text`), only the wrong ones (`wrong_only`) or a deck (`language`). The lani-fix skill asks it when Jan
+  reports a card without "Ask", so the card can be fixed and its review taken back in one go.
+- **An older app or bridge:** an app from before sends no review answers (the tool says so, and the tutor asks Jan); an
+  older bridge ignores them.
+
 ## Grammar book
 
 The village book (the scroll before Vas) has a chapter "📖 Slovnica · Grammar": one page per rule of the language
