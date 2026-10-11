@@ -51,9 +51,10 @@ enum class Sound(val file: String) {
 
 /**
  * [sound] beginning at [at] (seconds on the picture's clock: [si.lanisce.lani.game.scene.SceneFrame.time], the village's
- * frame time), at [gain] (0..1, before the level of the whole), played [rate] times as fast (and as high).
+ * frame time), at [gain] (0..1, before the level of the whole), played [rate] times as fast (and as high); under a voice it
+ * [ducks] with the rest, unless it comes with the line the voice says (a dialog's effect, [Sfx.fx]).
  */
-data class Cue(val sound: Sound, val at: Double, val gain: Float = 1f, val rate: Float = 1f)
+data class Cue(val sound: Sound, val at: Double, val gain: Float = 1f, val rate: Float = 1f, val ducks: Boolean = true)
 
 object Sfx {
     /**
@@ -100,7 +101,8 @@ object Sfx {
      * strike at each end of its swing as the painter swings it (far off over the field, the stream, the hills, the lake and
      * the woods); the cows' bells clank; the oven, the stove and the forge catch with a whoosh, the campfire as it flares
      * up; the smith strikes the anvil a few times with the sparks. Only the cue's first seconds: the picture may go on
-     * swinging, the sound doesn't.
+     * swinging, the sound doesn't. They don't duck under the voice ([Cue.ducks]): it is saying the line that rings the bell,
+     * and ducked the peal went unheard ("did not ring a bell"); at the background's own level it is still well under it.
      */
     fun fx(art: String, before: Map<String, Float>, after: Map<String, Float>, now: Double): List<Cue> {
         val out = ArrayList<Cue>()
@@ -116,7 +118,7 @@ object Sfx {
                 "sparks" -> if (art == "smithy") out += blows(now, l)
             }
         }
-        return out
+        return out.map { it.copy(ducks = false) }
     }
 
     /** The sounds [place] under [sky] may play, to have them ready before they're wanted (a tap is heard at once). */

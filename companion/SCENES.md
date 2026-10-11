@@ -854,7 +854,8 @@ it is up.
 
 Some effects sound as they come on ([GAME.md](GAME.md#background-sounds)): a `bell` rings a peal, the `cowbells` clank,
 the `oven`, the `stove`, the `forge` and the campfire's `flare` catch with a whoosh, and the smithy's `sparks` bring the
-smith's blows on the anvil.
+smith's blows on the anvil. They don't duck under the voice saying the line that brings them, as the other background
+sounds do: the peal rings with Tine's "Vlečem! Bim, bam!" at the background's own level, not 10 dB under it.
 
 The effects go with the dialog when it closes, unless it says `"fx_stays": true`: then the ones it ended with
 stay in its scene until midnight (`GameState.sceneFx`, by scene), like the lantern Luka lit. A reaction's effect

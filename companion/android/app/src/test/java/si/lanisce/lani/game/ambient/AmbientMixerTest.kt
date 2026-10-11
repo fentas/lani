@@ -179,6 +179,25 @@ class AmbientMixerTest {
         assertEquals(listOf(0, 50, 100, 150, 200), d.take(5).map { it.toInt() })
     }
 
+    @Test fun `under a voice a short sound that doesn't duck plays at the whole's level without the duck, one that does ducks`() {
+        val m = AmbientMixer()
+        val none = targets()
+        val quiet = AmbientBus.target(on = true, volume = AmbientBus.DEFAULT_VOLUME, talking = false)
+        val ducked = AmbientBus.target(on = true, volume = AmbientBus.DEFAULT_VOLUME, talking = true)
+        // a voice speaks: the whole has ducked, the level without the duck is the whole's
+        repeat(((AmbientBus.FADE_S + 0.1f) * m.rate / 480).toInt()) { m.mix(ShortArray(480), none, ducked, AmbientBus.FADE_S, quiet, AmbientBus.FADE_S) }
+        assertEquals(ducked, m.bus, 1e-4f)
+        assertEquals(quiet, m.undimmed, 1e-4f)
+        m.play(ShortArray(2000) { 10_000 }, gain = 1f, duck = false)
+        m.play(ShortArray(2000) { 1_000 }, gain = 1f)
+        val out = ShortArray(480)
+        m.mix(out, none, ducked, AmbientBus.FADE_S, quiet, AmbientBus.FADE_S)
+        assertEquals(10_000 * quiet + 1_000 * ducked, out[10].toFloat(), 1f)
+        // switched off or stopped: nothing either way
+        m.stop()
+        assertEquals(0f, m.undimmed, 0f)
+    }
+
     @Test fun `short sounds join the loops under the whole, stopping or hushing drops them, and too many are left out`() {
         val m = AmbientMixer()
         m.load(Layer.RAIN, ShortArray(1000) { 1_000 })

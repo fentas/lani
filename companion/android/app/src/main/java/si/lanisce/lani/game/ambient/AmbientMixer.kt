@@ -8,7 +8,8 @@ import kotlin.math.roundToInt
  * blocks to the phone's audio): each loop at its level, fading toward its target ([AmbientBus.FADE_S]), all of them at the
  * level of the whole ([AmbientBus]). A loop not loaded yet waits silently and fades in once it is. Short sounds played once
  * ([play]: the thunder, a bell, the anvil …) join in at their gain, under the level of the whole like the loops, so they
- * duck under a voice with them.
+ * duck under a voice with them; one that doesn't duck (a dialog's bell, rung by the line the voice is saying) plays at the
+ * level of the whole without the duck ([mix]'s `open`).
  */
 class AmbientMixer(val rate: Int = RATE) {
     private val n = Layer.entries.size
@@ -17,15 +18,23 @@ class AmbientMixer(val rate: Int = RATE) {
     private val pos = IntArray(n)
     private var acc = FloatArray(0)
     private val whole = Fader()
+    private val open = Fader()
+    private var free = FloatArray(0)
     private val voices = ArrayList<Voice>()
 
-    /** A short sound playing once: [pcm] from [pos] on, [speed] samples of it a sample, at [gain], after [wait] samples. */
-    private class Voice(val pcm: ShortArray, val gain: Float, val speed: Float, var wait: Int) {
+    /**
+     * A short sound playing once: [pcm] from [pos] on, [speed] samples of it a sample, at [gain], after [wait] samples; under
+     * the whole's level, or the level without the duck when it doesn't [duck].
+     */
+    private class Voice(val pcm: ShortArray, val gain: Float, val speed: Float, var wait: Int, val duck: Boolean) {
         var pos = 0.0
     }
 
     /** The level of the whole now. */
     val bus: Float get() = whole.value
+
+    /** The level of the whole now without the duck under a voice: what a short sound that doesn't duck plays under. */
+    val undimmed: Float get() = open.value
 
     /** How many short sounds are playing or about to. */
     val playing: Int get() = voices.size
@@ -36,6 +45,7 @@ class AmbientMixer(val rate: Int = RATE) {
      */
     fun stop() {
         whole.set(0f)
+        open.set(0f)
         voices.clear()
     }
 
@@ -43,12 +53,13 @@ class AmbientMixer(val rate: Int = RATE) {
     fun hush() = voices.clear()
 
     /**
-     * [pcm] played once from [delay] samples into the next block on, at [gain] (0..1, then the level of the whole),
-     * [speed] times as fast (and as high: linearly between samples). At most [MAX_VOICES] at a time: more are left out.
+     * [pcm] played once from [delay] samples into the next block on, at [gain] (0..1, then the level of the whole; without
+     * the duck when it doesn't [duck]), [speed] times as fast (and as high: linearly between samples). At most [MAX_VOICES]
+     * at a time: more are left out.
      */
-    fun play(pcm: ShortArray, gain: Float, speed: Float = 1f, delay: Int = 0) {
+    fun play(pcm: ShortArray, gain: Float, speed: Float = 1f, delay: Int = 0, duck: Boolean = true) {
         if (pcm.size < 2 || gain <= 0f || voices.size >= MAX_VOICES) return
-        voices.add(Voice(pcm, gain.coerceIn(0f, 1f), speed.coerceIn(0.25f, 4f), max(0, delay)))
+        voices.add(Voice(pcm, gain.coerceIn(0f, 1f), speed.coerceIn(0.25f, 4f), max(0, delay), duck))
     }
 
     /** [layer]'s loop, one period of it ([LoopCut]); it starts at [start] (a sample of it), so the loops don't all begin together. */
@@ -73,14 +84,18 @@ class AmbientMixer(val rate: Int = RATE) {
 
     /**
      * The next [out].size samples: each loaded loop fading toward its level in [targets] (by [Layer] ordinal, 0..1) over
-     * [AmbientBus.FADE_S], the whole toward [busTarget] over [busSeconds] ([Fader]). The levels move smoothly within the
-     * block, no steps.
+     * [AmbientBus.FADE_S], the whole toward [busTarget] over [busSeconds] ([Fader]), and the short sounds that don't duck
+     * under the level without the duck, toward [openTarget] (the whole's when no voice speaks) over [openSeconds]. The levels
+     * move smoothly within the block, no steps.
      */
-    fun mix(out: ShortArray, targets: FloatArray, busTarget: Float, busSeconds: Float) {
+    fun mix(out: ShortArray, targets: FloatArray, busTarget: Float, busSeconds: Float, openTarget: Float = busTarget, openSeconds: Float = busSeconds) {
         val size = out.size
         if (acc.size != size) acc = FloatArray(size)
+        if (free.size != size) free = FloatArray(size)
         val a = acc
         a.fill(0f)
+        val f = free
+        f.fill(0f)
         val dt = size.toFloat() / rate
         for (l in 0 until n) {
             val pcm = loops[l] ?: continue
@@ -99,20 +114,25 @@ class AmbientMixer(val rate: Int = RATE) {
             }
             pos[l] = p
         }
-        if (voices.isNotEmpty()) voices(a)
+        if (voices.isNotEmpty()) voices(a, f)
         val b0 = whole.value
         val b1 = whole.step(busTarget.coerceIn(0f, 1f), dt, busSeconds)
         val bStep = (b1 - b0) / size
         var b = b0
+        val o0 = open.value
+        val o1 = open.step(openTarget.coerceIn(0f, 1f), dt, openSeconds)
+        val oStep = (o1 - o0) / size
+        var o = o0
         for (i in 0 until size) {
-            out[i] = (a[i] * b).roundToInt().coerceIn(-32768, 32767).toShort()
+            out[i] = (a[i] * b + f[i] * o).roundToInt().coerceIn(-32768, 32767).toShort()
             b += bStep
+            o += oStep
         }
     }
 
-    /** The short sounds into [a], each from where it is; one that has run out is done. */
-    private fun voices(a: FloatArray) {
-        val size = a.size
+    /** The short sounds into [ducked] (or [undimmed], those that don't duck), each from where it is; one that has run out is done. */
+    private fun voices(ducked: FloatArray, undimmed: FloatArray) {
+        val size = ducked.size
         val it = voices.iterator()
         while (it.hasNext()) {
             val v = it.next()
@@ -123,6 +143,7 @@ class AmbientMixer(val rate: Int = RATE) {
             var i = v.wait
             v.wait = 0
             val pcm = v.pcm
+            val a = if (v.duck) ducked else undimmed
             val last = pcm.size - 1
             var p = v.pos
             while (i < size) {

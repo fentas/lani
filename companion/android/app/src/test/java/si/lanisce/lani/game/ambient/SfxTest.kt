@@ -91,6 +91,17 @@ class SfxTest {
         assertEquals(emptyList<Cue>(), Sfx.fx("kitchen", emptyMap(), mapOf("bell" to 1f), now))
     }
 
+    @Test fun `a dialog's effect sounds over the voice saying its line, a tap's sound ducks under a voice`() {
+        val peal = Sfx.fx("church", emptyMap(), mapOf("bell" to 1f), 10.0)
+        assertTrue(peal.isNotEmpty())
+        assertTrue("the church's peal for Tine's line doesn't duck", peal.none { it.ducks })
+        for (art in listOf("kitchen", "campfire", "smithy", "alps", "field")) {
+            val fx = SceneArt.effects[art].orEmpty().associateWith { 1f }
+            assertTrue("$art: a dialog's effects don't duck", Sfx.fx(art, emptyMap(), fx, 3.0).none { it.ducks })
+        }
+        assertTrue("a tap's sound ducks with the rest", Sfx.poke("church", "rope", 0, 1.0).all { it.ducks })
+    }
+
     @Test fun `the fires catch with a whoosh, the campfire as it flares up, the cows' bells and the smith's blows`() {
         val now = 10.0
         assertEquals(listOf(Sound.WHOOSH), Sfx.fx("kitchen", emptyMap(), mapOf("oven" to 1f), now).map { it.sound })

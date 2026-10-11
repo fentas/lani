@@ -29,7 +29,7 @@ import kotlin.random.Random
  * thread of its own. [set] says what plays and how loud; a loop is decoded from its asset the first time it's wanted and
  * kept. The short sounds ([Sound]) join in: [play] gives them with their times on the picture's clock, and [sky] the
  * lightning, whose flashes the thread looks for on that clock as it goes, each flash's thunder waiting for its time
- * ([Thunder]). Under a voice ([talking]) it all ducks; while the microphone records ([micOpen]) or the app is away ([away])
+ * ([Thunder]). Under a voice ([talking]) it all ducks (but a dialog's effect, [Cue.ducks]); while the microphone records ([micOpen]) or the app is away ([away])
  * the track stops at once and what was still to come is dropped; with nothing to play it pauses, the thread asleep.
  */
 internal class AmbientPlayer(
@@ -67,8 +67,8 @@ internal class AmbientPlayer(
     /** Short sounds given ([play]) for the thread to take. */
     private val incoming = ConcurrentLinkedQueue<Pending>()
 
-    /** A short sound to begin at [at] (System.nanoTime). */
-    private class Pending(val sound: Sound, val at: Long, val gain: Float, val rate: Float)
+    /** A short sound to begin at [at] (System.nanoTime); under a voice it ducks, unless not [duck]. */
+    private class Pending(val sound: Sound, val at: Long, val gain: Float, val rate: Float, val duck: Boolean = true)
 
     private val loader = Executors.newSingleThreadExecutor { r -> Thread(r, "ambient-load").apply { isDaemon = true } }
 
@@ -108,7 +108,7 @@ internal class AmbientPlayer(
         if (cues.isEmpty() || !synchronized(lock) { on }) return
         for (c in cues) {
             want(c.sound)
-            incoming.add(Pending(c.sound, origin + (c.at * 1e9).toLong(), c.gain, c.rate))
+            incoming.add(Pending(c.sound, origin + (c.at * 1e9).toLong(), c.gain, c.rate, c.ducks))
         }
         wake()
         start()
@@ -234,10 +234,11 @@ internal class AmbientPlayer(
                     if (pcm == null && late <= LATE_NS && p.sound in askedShots) continue // still decoding
                     due.remove()
                     if (pcm != null && late <= LATE_NS) {
-                        mixer.play(pcm, p.gain, p.rate, ((p.at - start).coerceAtLeast(0L) * AmbientMixer.RATE / NANOS).toInt())
+                        mixer.play(pcm, p.gain, p.rate, ((p.at - start).coerceAtLeast(0L) * AmbientMixer.RATE / NANOS).toInt(), p.duck)
                     }
                 }
-                mixer.mix(block, want, busTarget, AmbientBus.seconds(mixer.bus, busTarget, talking))
+                val openTarget = AmbientBus.target(on, volume, talking = false)
+                mixer.mix(block, want, busTarget, AmbientBus.seconds(mixer.bus, busTarget, talking), openTarget, AmbientBus.seconds(mixer.undimmed, openTarget, false))
                 val t = track ?: newTrack()?.also { track = it } ?: return
                 if (!playing) {
                     t.play()
