@@ -94,7 +94,7 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             val forms = if (home) vm.forms.answered(tasks.take(outcomes.size), outcomes.map { it.verdict }, outcomes.map { it.answer }) else null
             // what each card was answered with: the node keeps the last days', for the tutor (a card reported later)
             val answers = JsonArray(tasks.zip(outcomes) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) })
-            vm.finishReview(tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms, answers)
+            vm.finishReview(tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms, answers, from = si.lanisce.lani.data.ReviewFrom.REVIEW)
         }
         return
     }

@@ -1,7 +1,12 @@
 package si.lanisce.lani.road
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import si.lanisce.lani.data.OutboxEntry
+import si.lanisce.lani.data.ReviewFrom
 import si.lanisce.lani.data.ReviewPlanner
 import si.lanisce.lani.data.Writes
 import si.lanisce.lani.data.Grading
@@ -219,19 +224,34 @@ object RoadRatings {
     /** "✗ Nisem · I didn't": a spoken answer that was wrong. */
     val DIDNT: Int = ReviewPlanner.quality(ReviewPlanner.Variant.SPEAK, Grading.Verdict.WRONG)
 
+    /**
+     * A card's rating as an answer for the node's log of recent answers: nothing typed (a button pressed), knew or didn't
+     * (right or wrong), when ([Rating.at]).
+     */
+    fun answer(r: Rating): JsonObject = buildJsonObject {
+        put("item_id", r.id)
+        put("type", "rated")
+        put("verdict", if (r.quality == KNEW) "correct" else "wrong")
+        put("at", Writes.isoTime(r.at))
+    }
+
     /** [ratings] with [r] added: an item rated again keeps its last rating. */
     fun add(ratings: List<Rating>, r: Rating): List<Rating> = ratings.filterNot { it.id == r.id && it.pack == r.pack } + r
 
     /**
-     * The writes for the node (through the app's outbox): the review cards' answers as one review session (POST /reviews),
-     * each pack's words as one learn session (POST /packs/<id>/learn); the minutes from the first rating to the last.
+     * The writes for the node (through the app's outbox): the review cards' answers as one review session (POST /reviews,
+     * from the car, each rating with when it was pressed: [answer]), each pack's words as one learn session
+     * (POST /packs/<id>/learn); the minutes from the first rating to the last.
      */
     fun writes(ratings: List<Rating>, id: () -> String = { si.lanisce.lani.data.Outbox.newId() }, now: Long = System.currentTimeMillis()): List<OutboxEntry> {
         if (ratings.isEmpty()) return emptyList()
         val minutes = (((ratings.maxOf { it.at } - ratings.minOf { it.at }) / 60_000L).toInt() + 1).coerceIn(1, 240)
         val out = mutableListOf<OutboxEntry>()
         val cards = ratings.filter { it.pack == null }
-        if (cards.isNotEmpty()) out += Writes.reviews(cards.map { it.id to it.quality }, minutes, id = id(), now = now)
+        if (cards.isNotEmpty()) out += Writes.reviews(
+            cards.map { it.id to it.quality }, minutes, id = id(), now = now,
+            answers = JsonArray(cards.map { answer(it) }), from = ReviewFrom.CAR, answeredAt = cards.maxOf { it.at },
+        )
         for ((pack, words) in ratings.filter { it.pack != null }.groupBy { it.pack!! }) {
             out += Writes.learnPack(pack, words.map { it.id to it.quality }, minutes, id = id(), now = now)
         }

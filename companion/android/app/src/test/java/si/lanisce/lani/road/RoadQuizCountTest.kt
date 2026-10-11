@@ -110,4 +110,17 @@ class RoadQuizCountTest {
         assertEquals(listOf(20, 5), w.map { (body(it)["dialog"] as JsonObject)["words"]!!.jsonArray.size })
         assertEquals(25, w.sumOf { body(it)["results"]!!.jsonArray.size })
     }
+
+    @Test fun `each write is from the car's quiz, answered when its last answer was, a form with the write that has its word`() {
+        val many = (1..22).map { answer(QuizCard("w$it", "beseda$it", "2026-10-08"), true, at = it * 60_000L) } +
+            answer(QuizCard("f1", "sedem", "2026-10-30", 20), false, form = true, page = "glagoli-sedanjik", at = 23 * 60_000L)
+        val w = RoadQuizCount.settle(many, today, QuizDay(), null, takesWords = true, id = id, now = 99_000_000).writes
+        assertEquals(2, w.size)
+        assertEquals(listOf("car-quiz", "car-quiz"), w.map { body(it)["from"]!!.jsonPrimitive.content })
+        assertEquals(listOf("1970-01-01T00:20:00Z", "1970-01-01T00:23:00Z"), w.map { body(it)["answered_at"]!!.jsonPrimitive.content })
+        // the form's word is in the second write: so is the form (the node logs it once, with the word's turn)
+        assertNull(body(w[0])["forms"])
+        assertEquals("f1", body(w[1])["forms"]!!.jsonArray.single().jsonObject["item_id"]!!.jsonPrimitive.content)
+        assertTrue((body(w[1])["dialog"] as JsonObject)["words"]!!.jsonArray.any { it.jsonObject["item_id"]!!.jsonPrimitive.content == "f1" })
+    }
 }

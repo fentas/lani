@@ -171,6 +171,29 @@ class Outbox(private val storage: OutboxStorage, private val clock: () -> Long =
     }
 }
 
+/**
+ * Where in the app a review was answered (POST /reviews `from`), for the node's log of recent answers: the tutor reads it
+ * as companion/bridge/src/answers.ts REVIEW_FROM says (and knows where nothing is typed: the car's ✓/✗, I spy's taps).
+ */
+object ReviewFrom {
+    /** The review screen (the deck, the rusty words, another language's). */
+    const val REVIEW = "review"
+    /** The grammar book's card practice. */
+    const val GRAMMAR = "grammar"
+    /** A building's words run ("🎯 Vadi jih zdaj · Practise them now"). */
+    const val UPGRADE = "upgrade"
+    /** A village challenge (an event, a quest, a request). */
+    const val CHALLENGE = "challenge"
+    /** «Vidim, vidim»: a quick find in a scene's picture. */
+    const val ISPY = "ispy"
+    /** The car's ✓ Znal sem / ✗ Nisem. */
+    const val CAR = "car"
+    /** The car's quiz (a dialog's words). */
+    const val CAR_QUIZ = "car-quiz"
+    /** A scene's dialog (its words). */
+    const val DIALOG = "dialog"
+}
+
 /** The queueable writes, each with its own client id. */
 object Writes {
     private fun entry(path: String, label: String, body: JsonObject, id: String, now: Long) = OutboxEntry(
@@ -181,6 +204,9 @@ object Writes {
         label = label,
         createdAt = now,
     )
+
+    /** [ms] (epoch) as the bridge reads a time: ISO 8601 in UTC ("2026-10-11T09:14:00.123Z"). */
+    fun isoTime(ms: Long): String = java.time.Instant.ofEpochMilli(ms).toString()
 
     /** `{"results": [{<key>: id, "quality": q}, …], "duration_minutes": m}`: the body of both SR writes. */
     private fun graded(key: String, results: List<Pair<String, Int>>, minutes: Int) = buildJsonObject {
@@ -195,17 +221,22 @@ object Writes {
      * the learner's words a dialog tested ([si.lanisce.lani.app.DialogWordsController]: where, and each word's answer,
      * the slips the bridge lowers gently); an older bridge leaves it out and takes [results] as a review's. [answers]: what
      * each card was answered with ([si.lanisce.lani.ui.reviewAnswer]), for the node's log of recent answers, which the
-     * tutor reads when Jan reports a card later; an older bridge leaves them out.
+     * tutor reads when Jan reports a card later; [from]: where in the app ([ReviewFrom]), so the tutor knows where nothing
+     * is typed; [answeredAt]: when (epoch ms; an answer may carry its own `at`), so a review sent late keeps its time. An
+     * older bridge leaves them out.
      */
     fun reviews(
         results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: JsonArray? = null,
         id: String = Outbox.newId(), now: Long = System.currentTimeMillis(), dialog: JsonObject? = null, answers: JsonArray? = null,
+        from: String? = null, answeredAt: Long = now,
     ): OutboxEntry {
         var body = graded("item_id", results, minutes)
         if (language != null) body = JsonObject(body + ("language" to JsonPrimitive(language)))
         if (forms != null && forms.isNotEmpty()) body = JsonObject(body + ("forms" to forms))
         if (dialog != null) body = JsonObject(body + ("dialog" to dialog))
         if (answers != null && answers.isNotEmpty()) body = JsonObject(body + ("answers" to answers))
+        if (from != null) body = JsonObject(body + ("from" to JsonPrimitive(from)))
+        body = JsonObject(body + ("answered_at" to JsonPrimitive(isoTime(answeredAt))))
         return entry("/reviews", if (dialog != null) bi("outbox.dialogWords") else bi("outbox.review"), body, id, now)
     }
 

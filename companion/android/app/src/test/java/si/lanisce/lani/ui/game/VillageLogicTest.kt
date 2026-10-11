@@ -167,4 +167,29 @@ class VillageLogicTest {
         val check = AdvanceCheck(Age.TABOR, false, listOf("Nauči se 30 besed · Know 30 words (12)"))
         assertEquals(NextGoal.Learn(Age.TABOR, check.missing), nextGoal(full, listOf(option(BuildingType.TENT, mapOf(Res.WOOD to 5))), check, emptyMap()))
     }
+
+    @Test fun `a challenge's answers are only its exercises backed by a card, as the review's, no variant`() {
+        val outs = listOf(
+            si.lanisce.lani.ui.Outcome(Verdict.CORRECT, "", null, null),
+            si.lanisce.lani.ui.Outcome(Verdict.WRONG, "Jaz si Jan.", "Jaz sem Jan.", null),
+        )
+        val a = challengeAnswers(listOf(null, "vocab_biti"), listOf(card, cloze), outs)
+        assertEquals(1, a.size)
+        val o = a.single() as kotlinx.serialization.json.JsonObject
+        assertEquals("\"vocab_biti\"", o["item_id"].toString())
+        assertEquals("\"Jaz si Jan.\"", o["answer"].toString())
+        assertEquals("\"wrong\"", o["verdict"].toString())
+        assertTrue("variant" !in o)
+        assertEquals(0, challengeAnswers(listOf("x"), listOf(card), emptyList()).size)
+    }
+
+    @Test fun `a building's words run sends the answers of the cards it reviewed, not of the new words`() {
+        fun task(id: String) = si.lanisce.lani.data.ReviewPlanner.Task(si.lanisce.lani.data.ReviewCard(id, id, id), si.lanisce.lani.data.ReviewPlanner.Variant.TYPE, cloze)
+        val tasks = listOf(task("pack_new"), task("vocab_old"), task("pack_new"))
+        val outs = List(3) { si.lanisce.lani.ui.Outcome(Verdict.CORRECT, "sem", "sem", null) }
+        val results = si.lanisce.lani.game.RunResults(mapOf("pack" to listOf("new" to 4)), listOf("vocab_old" to 4))
+        val a = upgradeAnswers(results, tasks, outs)
+        assertEquals(listOf("\"vocab_old\""), a.map { (it as kotlinx.serialization.json.JsonObject)["item_id"].toString() })
+        assertEquals("\"type\"", (a.single() as kotlinx.serialization.json.JsonObject)["variant"].toString())
+    }
 }

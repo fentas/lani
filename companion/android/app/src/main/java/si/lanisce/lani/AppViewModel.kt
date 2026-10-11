@@ -148,7 +148,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val packs = PacksController(prefs, node, notices, sync)
     val game: GameController = GameController(
         app, viewModelScope, prefs, node, content, notices,
-        canSpeak = { speaker.canSay }, reload = ::reload, saveReviews = ::finishReview,
+        canSpeak = { speaker.canSay }, reload = ::reload,
+        saveReviews = { results, minutes, answers -> finishReview(results, minutes, answers = answers, from = si.lanisce.lani.data.ReviewFrom.CHALLENGE) },
         saveWords = packs::saveWords,
         cast = { villagers.all },
     )
@@ -216,7 +217,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         mastery = grammar::mastery,
         bookLanguage = { grammar.language },
         befriend = { id, points, memory -> villagers.befriend(id, points, memory, announce = false) },
-        saveReviews = { results, minutes -> finishReview(results, minutes) },
+        saveReviews = { results, minutes, answers -> finishReview(results, minutes, answers = answers, from = si.lanisce.lani.data.ReviewFrom.ISPY) },
     )
 
     /** Some recognizer can listen to the learner: the node's, or the phone's (unless it's known not to take the language). */
@@ -584,14 +585,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /**
      * Saves a review; [language]: another language's deck (null: the home language's, whose rusty words it polishes);
-     * [answers]: what each card was answered with ([si.lanisce.lani.ui.reviewAnswer]), for the node's log of recent answers.
+     * [answers]: what each card was answered with ([si.lanisce.lani.ui.reviewAnswer]), for the node's log of recent answers;
+     * [from]: where in the app ([si.lanisce.lani.data.ReviewFrom]), so the tutor knows where nothing is typed.
      */
     fun finishReview(
         results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: kotlinx.serialization.json.JsonArray? = null,
-        answers: kotlinx.serialization.json.JsonArray? = null,
+        answers: kotlinx.serialization.json.JsonArray? = null, from: String,
     ): Job {
         if (language == null) content.reviewed(results)
-        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers))
+        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers, from = from))
     }
 
     /** Sends Jan's answer to the tutor (and the family page); answering pays wisdom in the village. */
@@ -669,16 +671,20 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /**
      * An upgrade's practice run ended: its new words saved like a pack's ([learned]: pack → word id → quality) and its
-     * reviews like a review's ([reviewed]: card id → quality), both counted at once, and the answers paid to the village.
+     * reviews like a review's ([reviewed]: card id → quality, with what each was answered with: [answers]), both counted
+     * at once, and the answers paid to the village.
      */
-    fun finishUpgradeWords(result: si.lanisce.lani.game.RunResults, run: si.lanisce.lani.game.UpgradeRun, exercises: List<Exercise>, verdicts: List<Verdict>, minutes: Int) {
+    fun finishUpgradeWords(
+        result: si.lanisce.lani.game.RunResults, run: si.lanisce.lani.game.UpgradeRun, exercises: List<Exercise>, verdicts: List<Verdict>, minutes: Int,
+        answers: kotlinx.serialization.json.JsonArray? = null,
+    ) {
         game.rewardPractice(exercises, verdicts)
         for ((pack, words) in result.learned) {
             packs.saveWords(pack, words, minutes)
             scenes.learned(pack, words.map { it.first })
             content.learnedWords(pack, run.learn.filter { it.pack == pack }.mapNotNull { it.learn }, words)
         }
-        if (result.reviewed.isNotEmpty()) finishReview(result.reviewed, minutes)
+        if (result.reviewed.isNotEmpty()) finishReview(result.reviewed, minutes, answers = answers, from = si.lanisce.lani.data.ReviewFrom.UPGRADE)
     }
 
     /**

@@ -113,11 +113,15 @@ object RoadQuizCount {
         val forms = answers.filter { it.form != null && it.picked.page != null }
         val writes = mutableListOf<OutboxEntry>()
         if (reviews.isNotEmpty() || (takesWords && sent.isNotEmpty())) {
-            sent.chunked(WORDS_PER_WRITE).forEachIndexed { n, chunk ->
+            val chunks = sent.chunked(WORDS_PER_WRITE)
+            // each form goes with the write that has its word (the node logs it once, with the word's turn); one without, with the first
+            val formsIn = forms.groupBy { a -> chunks.indexOfFirst { c -> c.any { it.answer.card.id == a.cards.firstOrNull()?.id } }.coerceAtLeast(0) }
+            chunks.forEachIndexed { n, chunk ->
                 val results = chunk.filter { it.kind == DialogReviews.Kind.REVIEW }.map { it.answer.card.id to (it.quality ?: 4) }
                 if (results.isEmpty() && !takesWords) return@forEachIndexed
-                val formsJson = if (n == 0 && forms.isNotEmpty()) buildJsonArray {
-                    for (a in forms) add(buildJsonObject {
+                val mine = formsIn[n].orEmpty()
+                val formsJson = if (mine.isNotEmpty()) buildJsonArray {
+                    for (a in mine) add(buildJsonObject {
                         put("item_id", a.cards.firstOrNull()?.id ?: a.question)
                         put("key", a.form!!)
                         put("page", a.picked.page!!)
@@ -126,7 +130,11 @@ object RoadQuizCount {
                         put("expected", a.rightText.take(160))
                     })
                 } else null
-                writes += Writes.reviews(results, minutes, forms = formsJson, id = id(), now = now, dialog = body(chunk, title))
+                // answered when its last answer was given in the car, not when the app hands it on
+                val answeredAt = chunk.mapNotNull { answers.getOrNull(it.answer.turn)?.at }.maxOrNull() ?: now
+                writes += Writes.reviews(
+                    results, minutes, forms = formsJson, id = id(), now = now, dialog = body(chunk, title), from = si.lanisce.lani.data.ReviewFrom.CAR_QUIZ, answeredAt = answeredAt,
+                )
             }
         }
         val handOff = QuizHandOff(

@@ -146,7 +146,7 @@ fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
             onLook = { looks++ },
         ) { outs ->
             val verdicts = outs.map { it.paid } // a hinted right answer pays like an almost
-            reward = vm.game.finishChallenge(origin, c, verdicts, minutesSince(started), looks, level)
+            reward = vm.game.finishChallenge(origin, c, verdicts, minutesSince(started), looks, level, answers = challengeAnswers(c.cardIds, c.exercises, outs))
                 ?: Reward(emptyMap(), correct = correctCount(verdicts), total = c.exercises.size, answered = verdicts.size, almost = verdicts.count { it == Verdict.ALMOST })
         }
     }

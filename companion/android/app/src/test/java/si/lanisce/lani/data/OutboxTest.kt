@@ -94,6 +94,15 @@ class OutboxTest {
         assertTrue("answers" !in without)
     }
 
+    @Test fun `a review's body says where in the app it was answered and when (ISO), the time when the write was made by default`() {
+        val b = json.parseToJsonElement(Writes.reviews(listOf("vocab_kurim" to 1), 2, id = "r1", now = 60_000, from = ReviewFrom.ISPY).body).jsonObject
+        assertEquals("ispy", b["from"]!!.jsonPrimitive.content)
+        assertEquals("1970-01-01T00:01:00Z", b["answered_at"]!!.jsonPrimitive.content)
+        val late = json.parseToJsonElement(Writes.reviews(listOf("vocab_kurim" to 1), 2, id = "r2", now = 9_000_000, answeredAt = 120_500).body).jsonObject
+        assertEquals("1970-01-01T00:02:00.500Z", late["answered_at"]!!.jsonPrimitive.content)
+        assertTrue("from" !in late)
+    }
+
     @Test fun `message bodies carry kind, conversation and data`() {
         val e = Writes.message("session_end", "main", "done", buildJsonObject { put("module_id", "m1") }, id = "z1")
         val o = json.parseToJsonElement(e.body).jsonObject

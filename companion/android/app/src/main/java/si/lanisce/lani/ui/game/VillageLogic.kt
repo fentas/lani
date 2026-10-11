@@ -93,6 +93,16 @@ fun challengeReviews(cardIds: List<String?>, verdicts: List<Verdict>): List<Pair
     verdicts.mapIndexedNotNull { i, v -> cardIds.getOrNull(i)?.let { it to challengeQuality(v) } }
 
 /**
+ * What a challenge's cards were answered with ([challengeReviews]' cards, in their order), for the node's log of recent
+ * answers ([si.lanisce.lani.ui.reviewAnswer]: no variant, no planner chose one).
+ */
+internal fun challengeAnswers(cardIds: List<String?>, exercises: List<Exercise>, outcomes: List<si.lanisce.lani.ui.Outcome>): kotlinx.serialization.json.JsonArray =
+    kotlinx.serialization.json.JsonArray(outcomes.mapIndexedNotNull { i, o ->
+        val card = cardIds.getOrNull(i) ?: return@mapIndexedNotNull null
+        exercises.getOrNull(i)?.let { si.lanisce.lani.ui.reviewAnswer(it, o, card, null) }
+    })
+
+/**
  * Answers that count towards an event's or a quest's pass mark: only fully correct ones. An almost
  * (a stem typo, a skipped tutor-graded answer) still earns resources, but does not win the fight.
  */

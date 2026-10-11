@@ -321,4 +321,16 @@ class ISpyTest {
         assertTrue(k.things.getValue("door").plural)
         assertEquals("clock", k.things.getValue("clock").meaning)
     }
+
+    @Test fun `a quick find goes to the node's log as an answer, the clues heard and the thing tapped against the thing spied, nothing typed`() {
+        val round = ISpyRound("knife", "nož", "knife", false, listOf(ISpyClue("colour", ISpyLine("Je srebrn.", "It is silver.")), ISpyClue("use", ISpyLine("Z njim režeš.", "You cut with it.")), ISpyClue("where", ISpyLine("Je na mizi."))))
+        val a = si.lanisce.lani.app.ISpyController.found("vocab_noz", round, ISpyResult("knife", true, 2, 0))
+        assertEquals("vocab_noz", a["item_id"]!!.toString().trim('"'))
+        assertEquals("ispy", a["type"]!!.toString().trim('"'))
+        assertEquals("Je srebrn. Z njim režeš.", a["prompt"]!!.toString().trim('"'))
+        assertEquals("nož", a["answer"]!!.toString().trim('"'))
+        assertEquals("nož", a["expected"]!!.toString().trim('"'))
+        assertEquals("correct", a["verdict"]!!.toString().trim('"'))
+        assertNull(si.lanisce.lani.app.ISpyController.found("vocab_noz", null, ISpyResult("knife", true, 1, 0))["answer"])
+    }
 }

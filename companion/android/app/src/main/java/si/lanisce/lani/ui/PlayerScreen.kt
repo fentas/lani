@@ -1117,15 +1117,16 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
 
 /**
  * What a review card's exercise was answered with, for the node's log of recent answers (POST /reviews `answers`,
- * companion/bridge/src/answers.ts): the card, how it was asked ([variant]), the exercise and what it asked, what was typed
- * or heard against what was expected, the verdict and the grading hint. A flashcard is self-rated: no answer to keep. So
- * when Jan reports a card later without "Ask", the tutor can see what was typed.
+ * companion/bridge/src/answers.ts): the card, how it was asked ([variant]; null where no planner chose it, as a
+ * challenge's exercise), the exercise and what it asked, what was typed or heard against what was expected, the verdict
+ * and the grading hint. A flashcard is self-rated: no answer to keep. So when Jan reports a card later without "Ask", the
+ * tutor can see what was typed.
  */
-internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: ReviewPlanner.Variant): JsonObject {
+internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: ReviewPlanner.Variant?): JsonObject {
     val (type, prompt) = typeAndPrompt(ex)
     return buildJsonObject {
         put("item_id", cardId)
-        put("variant", variant.name.lowercase())
+        variant?.let { put("variant", it.name.lowercase()) }
         put("type", type)
         put("prompt", prompt.take(160))
         if (ex !is Exercise.Flashcard) {

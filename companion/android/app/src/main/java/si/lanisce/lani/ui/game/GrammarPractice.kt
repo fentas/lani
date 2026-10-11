@@ -67,7 +67,7 @@ fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Pr
             val minutes = minutesSince(started)
             if (tasks != null) vm.finishReview(
                 tasks.zip(outs) { t, o -> t.card.id to Hints.penalize(ReviewPlanner.quality(t.variant, o.verdict), o.hints) }, minutes,
-                answers = JsonArray(tasks.zip(outs) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) }),
+                answers = JsonArray(tasks.zip(outs) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) }), from = si.lanisce.lani.data.ReviewFrom.GRAMMAR,
             )
             else if (outs.isNotEmpty()) vm.chat.sessionEnd(summary(pageId, page?.titleIn("en"), outs), sessionData(pageId, exercises, outs, minutes))
         }

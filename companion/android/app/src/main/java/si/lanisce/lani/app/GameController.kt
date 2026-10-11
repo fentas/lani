@@ -95,8 +95,8 @@ class GameController(
     private val canSpeak: () -> Boolean,
     /** Loads the dashboard and modules; a sync does it first when there is no dashboard yet. */
     private val reload: suspend () -> Unit,
-    /** Persists the flashcard reviews answered inside a challenge. */
-    private val saveReviews: (List<Pair<String, Int>>, Int) -> Unit,
+    /** Persists the flashcard reviews answered inside a challenge: card → quality, minutes, what each was answered with. */
+    private val saveReviews: (List<Pair<String, Int>>, Int, kotlinx.serialization.json.JsonArray?) -> Unit,
     /** Records the answers of a run on a word pack's words (a festival's) like a pack session: pack id, word id → quality, minutes. */
     private val saveWords: (String, List<Pair<String, Int>>, Int) -> Unit = { _, _, _ -> },
     /** The village's cast from the node (who can move in; see game/villagers/Residents). */
@@ -835,11 +835,15 @@ class GameController(
      * Ends a challenge: earn, persist its flashcard reviews and the words it asked about (a festival's pack: whether it's
      * celebrated or only tried, on its day or a grace day), resolve the event or quest. [looks]: how often its text ([GameChallenge.text],
      * the day's letter) was brought back while a question was open; at the learner's [level] they take a little off what it
-     * pays ([si.lanisce.lani.game.Peeks]), never the answers.
+     * pays ([si.lanisce.lani.game.Peeks]), never the answers. [answers]: what its cards were answered with
+     * ([si.lanisce.lani.ui.game.challengeAnswers]), for the node's log of recent answers.
      */
-    fun finishChallenge(origin: ChallengeOrigin, c: GameChallenge, verdicts: List<Verdict>, minutes: Int, looks: Int = 0, level: String = "A1"): Reward? = notices.village {
+    fun finishChallenge(
+        origin: ChallengeOrigin, c: GameChallenge, verdicts: List<Verdict>, minutes: Int, looks: Int = 0, level: String = "A1",
+        answers: kotlinx.serialization.json.JsonArray? = null,
+    ): Reward? = notices.village {
         val reviews = challengeReviews(c.cardIds, verdicts)
-        if (reviews.isNotEmpty()) saveReviews(reviews, minutes)
+        if (reviews.isNotEmpty()) saveReviews(reviews, minutes, answers)
         c.pack?.let { pack -> PackSession.results(c.packWords, verdicts).takeIf { it.isNotEmpty() }?.let { saveWords(pack, it, minutes) } }
         val cost = if (c.text != null) si.lanisce.lani.game.Peeks.cost(level, looks) else 0
         val earned = earn(earnPairs(c.exercises, verdicts, c.skills) { GameEngine.resourceOf(it) }, cost)

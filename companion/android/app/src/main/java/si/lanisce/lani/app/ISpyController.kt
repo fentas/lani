@@ -4,6 +4,10 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.data.ReviewCard
 import si.lanisce.lani.data.ScreenClock
@@ -15,6 +19,7 @@ import si.lanisce.lani.game.scene.ISpy
 import si.lanisce.lani.game.scene.ISpyBook
 import si.lanisce.lani.game.scene.ISpyHost
 import si.lanisce.lani.game.scene.ISpyLines
+import si.lanisce.lani.game.scene.ISpyRound
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.SceneObject
 import si.lanisce.lani.game.scene.SceneSpec
@@ -22,6 +27,7 @@ import si.lanisce.lani.game.villagers.Memory
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.ui.minutesSince
+import si.lanisce.lani.ui.scene.ISpyResult
 import si.lanisce.lani.ui.scene.ISpyRun
 import si.lanisce.lani.ui.scene.SceneWords
 import si.lanisce.lani.ui.villagers.FriendGain
@@ -62,8 +68,11 @@ class ISpyController(
     private val bookLanguage: () -> String,
     /** Friendship with a villager grows ([VillagerController.befriend]); the gain, for the end card. */
     private val befriend: (String, Int, Memory?) -> FriendGain?,
-    /** Reviews of the learner's cards (item id → quality) and the minutes they took ([si.lanisce.lani.AppViewModel.finishReview]). */
-    private val saveReviews: (List<Pair<String, Int>>, Int) -> Unit,
+    /**
+     * Reviews of the learner's cards (item id → quality), the minutes they took and what each find answered ([found]), for
+     * [si.lanisce.lani.AppViewModel.finishReview].
+     */
+    private val saveReviews: (List<Pair<String, Int>>, Int, JsonArray) -> Unit,
 ) {
     /** The game being played, or null. */
     var play by mutableStateOf<ISpyPlay?>(null)
@@ -203,12 +212,14 @@ class ISpyController(
         val today = LocalDate.now()
         val counted = PlayReviews.counted(game.state, today)
         val book = words() ?: return 0
-        val due = p.run.results.filter { it.quick }.mapNotNull { r ->
+        val finds = p.run.results.filter { it.quick }.mapNotNull { r ->
             val o = scene.objects.firstOrNull { it.slot == r.slot } ?: return@mapNotNull null
-            SceneWords.packOf(scene, o)?.let { pack -> book.card(pack, o.word, o.sl.ifBlank { o.word }) }
-        }.filter { PlayReviews.counts(it, today, counted) }.distinctBy { it.id }
+            SceneWords.packOf(scene, o)?.let { pack -> book.card(pack, o.word, o.sl.ifBlank { o.word }) }?.let { it to r }
+        }.filter { (card, _) -> PlayReviews.counts(card, today, counted) }.distinctBy { it.first.id }
+        val due = finds.map { it.first }
         if (due.isEmpty()) return 0
-        saveReviews(PlayReviews.results(due), minutesSince(p.started))
+        val answers = JsonArray(finds.map { (card, r) -> found(card.id, p.run.rounds.firstOrNull { it.slot == r.slot }, r) })
+        saveReviews(PlayReviews.results(due), minutesSince(p.started), answers)
         game.playReviewed(due.map { it.id })
         return due.size
     }
@@ -225,5 +236,21 @@ class ISpyController(
     companion object {
         /** The friendship a game brings the child, once a day: a little less than a dialog ([si.lanisce.lani.game.villagers.Bonds.DIALOG]). */
         const val FRIENDSHIP = 3
+
+        /**
+         * What a quick find answered, for the node's log of recent answers (POST /reviews `answers`): card [cardId], the
+         * clues heard ([round]'s first [ISpyResult.clues]) as what was asked, the thing tapped (its word) against the thing
+         * spied, right. Nothing typed: a tap in the picture.
+         */
+        fun found(cardId: String, round: ISpyRound?, r: ISpyResult): JsonObject = buildJsonObject {
+            put("item_id", cardId)
+            put("type", "ispy")
+            round?.clues?.take(r.clues)?.joinToString(" ") { it.line.sl }?.takeIf { it.isNotBlank() }?.let { put("prompt", it.take(160)) }
+            round?.word?.let {
+                put("answer", it.take(200))
+                put("expected", it.take(200))
+            }
+            put("verdict", r.verdict.name.lowercase())
+        }
     }
 }

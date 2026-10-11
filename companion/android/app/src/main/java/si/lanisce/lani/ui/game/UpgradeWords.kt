@@ -156,9 +156,18 @@ fun UpgradeWordsScreen(vm: AppViewModel, buildingId: String, toLevel: Int, run: 
         ) { o ->
             outs = o
             val results = BuildingWords.results(run, tasks, o.map { it.verdict }, o.map { it.hints })
-            vm.finishUpgradeWords(results, run, tasks.take(o.size).map { it.exercise }, o.map { it.paid }, minutesSince(started))
+            vm.finishUpgradeWords(results, run, tasks.take(o.size).map { it.exercise }, o.map { it.paid }, minutesSince(started), upgradeAnswers(results, tasks, o))
         }
     }
+}
+
+/**
+ * What the run's reviewed cards ([RunResults.reviewed]; not the new words, which a pack's run saves) were answered with,
+ * one for each of their tasks answered ([outcomes], the first tasks of [tasks]), for the node's log of recent answers.
+ */
+internal fun upgradeAnswers(results: si.lanisce.lani.game.RunResults, tasks: List<si.lanisce.lani.data.ReviewPlanner.Task>, outcomes: List<Outcome>): kotlinx.serialization.json.JsonArray {
+    val reviewed = results.reviewed.map { it.first }.toSet()
+    return kotlinx.serialization.json.JsonArray(tasks.zip(outcomes).filter { (t, _) -> t.card.id in reviewed }.map { (t, o) -> si.lanisce.lani.ui.reviewAnswer(t.exercise, o, t.card.id, t.variant) })
 }
 
 /** A new word of the run met, as a pack's: its card (picture, word said, meaning, example); back goes to the one before. */

@@ -149,7 +149,7 @@ class DialogWordsController(
         val takes = content.dashboard?.features?.contains(FEATURE) == true
         if (results.isEmpty() && !takes) return
         val minutes = (((ScreenClock.app.now() - p.since) / 60_000).toInt() + 1).coerceIn(1, 240)
-        sync.submitLater(Writes.reviews(results, minutes, dialog = body(p.talk, sent)))
+        sync.submitLater(Writes.reviews(results, minutes, dialog = body(p.talk, sent), from = si.lanisce.lani.data.ReviewFrom.DIALOG))
     }
 
     companion object {

@@ -58,6 +58,12 @@ class AskAboutTest {
         assertEquals(200, said["answer"]!!.jsonPrimitive.content.length)
     }
 
+    @Test fun `a card's answer where no planner chose how it was asked has no variant`() {
+        val a = reviewAnswer(Exercise.Translate("to make a fire", listOf("kuriti ogenj")), Outcome(Verdict.WRONG, "kurim", "kuriti ogenj", null), "vocab_kurim", null)
+        assertFalse("variant" in a)
+        assertEquals("kurim", a["answer"]!!.jsonPrimitive.content)
+    }
+
     @Test fun `without a source nothing is made up`() {
         val ctx = chatContext(Exercise.Flashcard("a", "b"), Outcome(Verdict.CORRECT, "", null, null), null)
         assertFalse("source" in ctx.data)

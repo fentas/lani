@@ -380,6 +380,20 @@ class RoadTest {
         assertTrue(RoadRatings.writes(emptyList()).isEmpty())
     }
 
+    @Test fun `the car's ratings go with the review as answers from the car, nothing typed, knew or didn't, each when it was pressed`() {
+        val r = listOf(Rating("c1", null, RoadRatings.DIDNT, 60_000), Rating("c2", null, RoadRatings.KNEW, 3_600_000), Rating("w1", "hrana", RoadRatings.KNEW, 90_000))
+        val review = json.parseToJsonElement(RoadRatings.writes(r, now = 99_000_000).first().body).jsonObject
+        assertEquals("car", review["from"]!!.jsonPrimitive.content)
+        // answered when the last rating was pressed, not when the app hands it on
+        assertEquals("1970-01-01T01:00:00Z", review["answered_at"]!!.jsonPrimitive.content)
+        val answers = review["answers"]!!.jsonArray.map { it.jsonObject }
+        assertEquals(listOf("c1", "c2"), answers.map { it["item_id"]!!.jsonPrimitive.content })
+        assertEquals(listOf("wrong", "correct"), answers.map { it["verdict"]!!.jsonPrimitive.content })
+        assertEquals(listOf("rated", "rated"), answers.map { it["type"]!!.jsonPrimitive.content })
+        assertEquals("1970-01-01T00:01:00Z", answers[0]["at"]!!.jsonPrimitive.content)
+        assertTrue(answers.none { "answer" in it })
+    }
+
     @Test fun `the library keeps its items, and a prompt's file is the same for the same text`() {
         val l = lib()
         val back = RoadPlay.json.decodeFromString(RoadLibrary.serializer(), RoadPlay.json.encodeToString(RoadLibrary.serializer(), l))
