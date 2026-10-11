@@ -16,7 +16,10 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "scene-building" a building's scene (the hut's kitchen, a house's room …) with the building in
                        its top bar, its card opened from there, its words' run and back to the card in the scene;
                        "fire-peek" hide-and-seek by the fire: the children hidden behind the stump, peeking out at a
-                       wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
+                       wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "field-cues"
+                       the cues of the field, the tower, the market and the pond: the hare startled out of the grass,
+                       the pedlar on the road, the hen on the cart (a tap turn), Muri barking on the jetty, each dialog
+                       opened through the hook and played to its cue; "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
@@ -737,6 +740,87 @@ def fire_peek():
     finally:
         qa_hook("happening:")
     return None
+
+
+def burst(name: str, n=4, gap=0.35):
+    """[n] screenshots in quick succession ([name]-1 …): a cue that is over in two seconds (the hare's leap) is in one."""
+    for k in range(n):
+        shot(f"{name}-{k + 1}")
+        time.sleep(gap)
+
+
+def play_to(said: str, ok_texts: set, tries=8) -> bool:
+    """Plays the open dialog on (Next, the right choice of [ok_texts] at a turn) until a line with [said] is on screen."""
+    for _ in range(tries):
+        if find(said) is not None:
+            return True
+        if not answer_right(ok_texts):
+            tap("Naprej · Next", 2)
+    return find(said) is not None
+
+
+def field_cues():
+    """The cues of the field, the tower, the market and the pond a player notices (companion/SCENES.md, "Effects"), each
+    dialog opened through QA's hook ("happening:<scene>/<happening>/<dialog>") and played to its cue: France's "nekaj se
+    premika v travi" (the grass stirs by the fence, the hare leaps out and is off: a burst from the dialog's opening, it is
+    over in four seconds); the pedlar on the road below the tower ("Poglej, krošnjar na cesti!") and walking in at the gate; Micka's
+    hen flying over the lane onto Marko's cart and the tap turn that finds her there; Muri on the jetty with Janez,
+    barking, then asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and said."""
+    skipped = []
+    plays = [
+        ("na-njivi", "kosnja", "kosnja-zajec", "cue-hare"),
+        ("na-stolpu", "krosnjar", "krosnjar-denar", "cue-pedlar"),
+        ("na-trznici", "jajca", "jajca-kokos", "cue-hen"),
+        ("pri-ribniku", "zora", "zora-muri", "cue-muri"),
+    ]
+    for sid, hid, did, name in plays:
+        try:
+            qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+            if wait_for("‹ Vas · Village", 10) is None:
+                skipped.append(f"{sid} (not open in the dev village)")
+                continue
+            if wait_for("Zapri · Close", 8) is None:
+                skipped.append(f"{sid}/{hid} (its dialog didn't open)")
+                plain_village()
+                continue
+            if name == "cue-hare":
+                # France's line comes with his turn: the grass stirs for two seconds, then the hare is out and away
+                burst("cue-hare", n=8, gap=0.2)
+                assert find("nekaj se premika v travi") is not None, "France's first line"
+                answer_right({"Zajec je skočil iz trave!"})
+            elif name == "cue-pedlar":
+                assert wait_for("krošnjar na cesti", 12), "Nejc's first line"
+                time.sleep(4)
+                shot("cue-pedlar-on-the-road")
+                assert play_to("Samo gledat!", {"Kupil bi leseno žlico.", "Kupila bi leseno žlico.", "Ne, tudi jaz nimam denarja."}), "Nejc's last line"
+                time.sleep(2.2)
+                shot("cue-pedlar-at-the-gate")
+            elif name == "cue-hen":
+                assert wait_for("Moja kokoš je pobegnila", 12), "Micka's first line"
+                time.sleep(1.4)
+                shot("cue-hen-flies")
+                time.sleep(3)
+                shot("cue-hen-on-the-cart")
+                assert play_to("Poišči v prizoru", set()) or find("Tam je, na vozu") is not None, "the tap turn"
+                time.sleep(1)
+                shot("cue-hen-tap-turn")
+                assert answer_right({"Tam je, na vozu!"}), "on the cart"
+                time.sleep(2)
+                shot("cue-hen-found")
+            elif name == "cue-muri":
+                assert wait_for("Muri je z mano", 12), "Janez's first line"
+                time.sleep(4)
+                shot("cue-muri-sits")
+                assert play_to("Muri, tiho!", {"Je to vaš pes?"}), "Muri, tiho!"
+                shot("cue-muri-barks")
+                assert play_to("Muri spi", {"Imam. Dam mu kos kruha."}), "Muri spi"
+                time.sleep(4.5)
+                shot("cue-muri-asleep")
+            tap("Zapri · Close", 3)
+        finally:
+            qa_hook("happening:")
+        plain_village()
+    return f"skipped: {', '.join(skipped)}" if skipped else None
 
 
 WORD_CARD = ("Vprašaj učitelja", "Dodaj med moje besede", "Med tvojimi besedami", "Poskusi znova", "Iščem")
@@ -2855,6 +2939,7 @@ def plan():
         ("your-words", your_words, v, False, ""),
         ("word-missed", word_missed, v, False, ""),
         ("story-in-scene", story_in_scene, v, False, ""),
+        ("field-cues", field_cues, v, False, ""),
         ("counting", counting, v, False, ""),
         ("forest", forest, v, False, ""),
         ("zoom", zoom, v, False, ""),

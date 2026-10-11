@@ -155,8 +155,12 @@ object SceneArt {
         // the lantern: 0 dark, 1 lit (not set: lit from dusk)
         "tent" to listOf("lantern"),
         // crows coming to the scarecrow, no longer afraid (the level is how far they have come); the church bell from the
-        // village, its rings coming over the field (not set: at the ave, round sunset); bats flitting over it (how many)
-        "field" to listOf("crows", "bell", "bats"),
+        // village, its rings coming over the field (not set: at the ave, round sunset); bats flitting over it (how many);
+        // a hare in the grass by the fence (up to 0.4 the grass stirs, then it leaps out and bounds off: how far, 1 gone);
+        // Sivko the horse coming back to the cart from beyond the picture's left edge (0 away, the shafts down; 1 back in
+        // them; not set: there); the scarecrow's hat (0 none; then a big felt hat drops onto its head and, at 1, slips down
+        // onto its nose; not set: its straw hat); a red scarf round its neck
+        "field" to listOf("crows", "bell", "bats", "hare", "horse", "hat", "scarf"),
         // the forge roaring as if the bellows blew; sparks off the anvil under the hammer
         "smithy" to listOf("forge", "sparks"),
         "school" to listOf(),
@@ -172,12 +176,16 @@ object SceneArt {
         "alps" to listOf("cowbells", "bell", "fish", "birds", "glow"),
         // a trout leaping out of the current again and again, rings where it falls back; the mill wheel's water:
         // 0 the flume dry and the wheel still, 1 a full gush and the wheel turning fast (not set: an easy turn); bats over the
-        // water (how many); the church bell from the village, its rings coming down to the water (not set: at the ave)
-        "stream" to listOf("trout", "wheel", "bats", "bell"),
+        // water (how many); the church bell from the village, its rings coming down to the water (not set: at the ave);
+        // a lamb by the drinking ewe (0 its head up, turned from the water; 1 drinking); the fire brigade's pump on the bank,
+        // its hose in the stream (0 still; then pumping, a jet over the water; at 1 the hose loose and spraying everyone);
+        // a horse and cart over the new bridge (how far: 0 waiting at its near end, 1 gone into the woods; once its deck is laid)
+        "stream" to listOf("trout", "wheel", "bats", "bell", "lamb", "hose", "cart"),
         // wild ducks flying up out of the reeds and away (the level is how far they have flown); the frog jumping off its
         // lily pad into the water (1: in the water, just its eyes out); a fish jumping again and again, rings on the water;
-        // bats hunting over the water (how many)
-        "pond" to listOf("ducks", "frog", "fish", "bats"),
+        // bats hunting over the water (how many); Muri at the jetty's foot (0 curled up asleep, 0.5 sitting up wagging, 1
+        // barking at the fish; not set: at home); tadpoles wriggling in the shallows by the reeds (how many)
+        "pond" to listOf("ducks", "frog", "fish", "bats", "dog", "tadpoles"),
         // the candles on the altar: 1 all of them lit, 0 all out (not set: two burn); the bell in the gable swinging and
         // ringing, the rope going up and down; the organ playing, notes rising from its pipes
         "church" to listOf("candles", "bell", "organ"),
@@ -185,11 +193,13 @@ object SceneArt {
         // running from the extractor's tap into a jar, the crank turning (how fast)
         "apiary" to listOf("swarm", "smoke", "honey"),
         // a busy market day, shoppers crowding the lane (how busy); the market bell on its post swinging and ringing; the
-        // pigeons flying up off the cobbles and wheeling away (how far they have flown)
-        "market" to listOf("bustle", "bell", "pigeons"),
+        // pigeons flying up off the cobbles and wheeling away (how far they have flown); Micka's hen out of her coop and over
+        // the lane onto Marko's cart (1: up on it, pecking: a tap on her there is a tap on the cart; 0: in her coop)
+        "market" to listOf("bustle", "bell", "pigeons", "hen"),
         // the watch's torch: 0 out, 1 lit (not set: lit from dusk); the horn blown, its call going out over the valley (how
-        // loud); a flock rising off the forest and away (how far); wolves' eyes in the dark forest (how many), grey shapes by day
-        "watchtower" to listOf("torch", "horn", "birds", "wolves"),
+        // loud); a flock rising off the forest and away (how far); wolves' eyes in the dark forest (how many), grey shapes by
+        // day; the pedlar under his krošnja walking down the road from the forest to the gate (how far: 1 in at the gate)
+        "watchtower" to listOf("torch", "horn", "birds", "wolves", "pedlar"),
         // the stove fired up, warm light on the bench (how warm); Muri the dog awake on the bench, sitting up (0: asleep);
         // Muri hidden behind the door (it stands open), his tail wagging past its leaf (0: back on his bench)
         "livingroom" to listOf("stove", "dog", "dog-hides"),

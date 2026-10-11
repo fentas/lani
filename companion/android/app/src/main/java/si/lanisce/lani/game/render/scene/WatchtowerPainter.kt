@@ -24,12 +24,13 @@ import kotlin.math.sqrt
  * climbs the hills; on the right the plateau ends and far below lies the valley with its fields and the river, and across
  * it wooded hills, a big mountain and the far ranges at the horizon.
  *
- * On the tower: the horn on its peg on the left post, the torch in its iron bracket on the right one, the flag on a pole,
- * the spyglass lying on the railing, a crow perched on it. At night the windows and the gate's torches are lit, and the
- * watch's torch burns from dusk. A dialog can light or put out the torch ("torch"), blow the horn ("horn"), send a flock up
- * off the forest ("birds") and show the wolves ("wolves": their eyes in the dark forest at night, grey shapes along its
- * edge by day); when the village's wolves event is on, their eyes shine in the forest at night by themselves. Fog lies in
- * the valley like a lake; rain veils the far hills first, lightning strikes over the mountains. Taps: the horn swings and
+ * On the tower: the horn on its peg on the left post, the torch in its iron bracket on the right one, the flag on a
+ * pole, the spyglass lying on the railing, a crow perched on it. At night the windows and the gate's torches are lit,
+ * and the watch's torch burns from dusk. A dialog can light or put out the torch ("torch"), blow the horn ("horn"),
+ * send a flock up off the forest ("birds"), show the wolves ("wolves": their eyes in the dark forest at night, grey
+ * shapes along its edge by day) and the pedlar coming down the road under his krošnja ("pedlar": how far, 1 in at the
+ * gate); when the village's wolves event is on, their eyes shine in the forest at night by themselves. Fog lies in the
+ * valley like a lake; rain veils the far hills first, lightning strikes over the mountains. Taps: the horn swings and
  * sounds, then longer; the crow caws, then flies off round the village and comes back.
  *
  * Closer up ([detail] 2 and 3) the same view is drawn finer: the stakes of the palisade one by one, windows, doors and
@@ -111,6 +112,7 @@ internal class WatchtowerPainter : VistaPainter() {
         thing("road", outline = 0) { road() }
         thing("forest", outline = Pal.OUTLINE_TREE) { forest() }
         wolves()
+        fx("pedlar")?.let { pedlar(it) }
 
         items.clear()
         items.add(RING_D + RING_RD to { thing("palisade") { palisade() } })
@@ -373,6 +375,41 @@ internal class WatchtowerPainter : VistaPainter() {
                 val r = Noise.rnd(px, py, 991)
                 val col = if (env.snow) (if (r < 0.4f) Pal.SNOW_D else Pal.SNOW_M) else if (r < 0.25f) Pal.DIRT_D else Pal.DIRT_L
                 c.set(px, py, hazy(col, d * 0.6f))
+            }
+        }
+    }
+
+    /**
+     * The pedlar a dialog sees coming ("pedlar": Nejc's "Tam je, na cesti! Velik koš ima na hrbtu!"): the krošnjar walking
+     * down the road from where it comes past the forest's edge to the gate, the level how far he has come (at 1 he is in).
+     * A little man in a black hat and a white shirt under his krošnja, its frame higher than his hat with a sieve on top:
+     * a sprite, so the eye finds him from up here (a man's size would be a pixel or two), in the haze of the road.
+     */
+    private fun pedlar(level: Float) {
+        if (level >= 0.995f) return
+        val z = z
+        val d = PEDLAR_D + (GATE_D + 1.2f - PEDLAR_D) * level.coerceIn(0f, 1f)
+        val bx = lx(roadX(d), d).toInt(); val by = ly(d).toInt()
+        if (by < edgeRow[bx.coerceIn(0, w - 1)]) return
+        fun col(c0: Int) = hazy(c0, d * 0.6f)
+        val hat = col(Col.hex(0x2A2426)); val shirt = col(Col.hex(0xE9E2D0)); val skin = col(Pal.SKIN); val legs = col(Col.hex(0x4A3A2F))
+        val wood = col(Pal.WOOD_M); val woodL = col(Pal.WOOD_L); val woodD = col(Pal.WOOD_D); val mesh = col(Pal.CANVAS_M)
+        // his steps, by the way he has come (standing, he stands): legs apart, then together (facing left, toward the gate)
+        val step = ((d / 5f).toInt() and 1) == 0
+        // outlined as the roofs below are, in the haze
+        prop(col(Pal.OUTLINE)) {
+            sprite(bx, by) {
+                // the krošnja behind him: two posts from his hips up past his hat, rails across, a sieve on the top rail
+                c.vline(bx + 1, by - 8, by - 3, woodD); c.vline(bx + 3, by - 8, by - 3, wood)
+                c.hline(bx + 1, bx + 3, by - 8, woodL); c.hline(bx + 1, bx + 3, by - 5, wood)
+                c.set(bx + 2, by - 7, woodD); c.set(bx + 2, by - 6, wood)
+                c.set(bx + 2, by - 10, woodL); c.set(bx + 1, by - 9, woodL); c.set(bx + 3, by - 9, wood); c.set(bx + 2, by - 9, mesh)
+                // the legs, the body, the head under the hat
+                c.hline(bx - 1, bx, by - 2, legs)
+                if (step) { c.set(bx - 2, by - 1, legs); c.set(bx + 1, by - 1, legs) } else c.hline(bx - 1, bx, by - 1, legs)
+                c.fillRect(bx - 1, by - 4, 2, 2, shirt)
+                c.set(bx - 1, by - 5, skin); c.set(bx, by - 5, skin)
+                c.hline(bx - 2, bx + 1, by - 6, hat); c.set(bx - 1, by - 7, hat); c.set(bx, by - 7, hat)
             }
         }
     }
@@ -1198,6 +1235,8 @@ internal class WatchtowerPainter : VistaPainter() {
         private const val GATE_X = -16f
         private val GATE_D = RING_D + RING_RD * sqrt(1f - (GATE_X / RING_RX) * (GATE_X / RING_RX))
         private const val SQUARE_D = 92f
+        /** Where the pedlar ("pedlar") comes onto the road, past the forest's edge (m). */
+        private const val PEDLAR_D = 212f
         /** The forest's near edge (m). */
         private const val FOREST_D = 188f
         /** The valley (the thing) begins right of this scene column, where the forest ends. */

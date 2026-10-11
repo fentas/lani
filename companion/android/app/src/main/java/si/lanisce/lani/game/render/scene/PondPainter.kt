@@ -24,7 +24,8 @@ import kotlin.math.sqrt
  *
  * A dialog can send wild ducks up out of the reeds and away over the trees ("ducks", the level is how far they have
  * flown), the frog off its pad into the water ("frog", 1: in the water, just its eyes out) and a fish jumping again and
- * again ("fish"). Rain rings the whole pond; fog lies thick on the water.
+ * again ("fish"); it can bring Muri to the jetty's foot ("dog": 0 asleep, 0.5 sitting up, 1 barking at the fish)
+ * and tadpoles into the shallows ("tadpoles": how many). Rain rings the whole pond; fog lies thick on the water.
  *
  * Its wild animals ([WildPainter]): butterflies over the reeds by day, a roe deer drinking at the far shore at dawn and
  * dusk, a fox at dawn, bats hunting low over the water at dusk and in the night ("bats" brings them, how many).
@@ -100,6 +101,9 @@ internal class PondPainter : WildPainter() {
         items.add(28f to { prop(Pal.OUTLINE_TREE) { reeds(10.5f, 28f, 3f, 1.2f, 14, big = false) } })
         items.add(26f to { prop(Pal.OUTLINE_TREE) { reeds(-11.5f, 25.5f, 2.2f, 1.4f, 12, big = false) } })
         for (p in peopleAt("jetty")) items.add(16.9f to { person(p, gx(jettyX, 16.9f).toInt(), (gy(16.9f) - deckH * pm(16.9f)).toInt(), flip = true) })
+        // Muri with Janez on the jetty ("dog"), the tadpoles in the shallows ("tadpoles")
+        fx("dog")?.let { v -> items.add(MURI_D to { groundShadow(MURI_X, MURI_D, 0.35f); prop { muri(v) } }) }
+        fx("tadpoles")?.let { v -> if (v > 0.02f && env.season != Season.WINTER) items.add(13.5f to { prop(0) { tadpoles(v) } }) }
         for (p in peopleAt("reeds")) items.add(11.2f to { groundShadow(-4.6f, 11.2f, 0.5f); person(p, gx(-4.6f, 11.2f).toInt(), gy(11.2f).toInt(), flip = false) })
         for (p in peopleAt("shore")) items.add(10.6f to { groundShadow(1.8f, 10.6f, 0.5f); person(p, gx(1.8f, 10.6f).toInt(), gy(10.6f).toInt(), flip = false) })
         wildlife()
@@ -118,6 +122,84 @@ internal class PondPainter : WildPainter() {
         fireflies(0, hz + 30 * z, w, h, 18, 37)
         s.fx { s.effects.leaves(env.season, env.month) }
         if (!env.snow) s.fx { dimples() }
+    }
+
+    /**
+     * Muri, Janez's small brown dog, with him at the pond at dawn ("dog": "Muri je z mano. Ribe ga ne marajo."), on the grass
+     * at the jetty's foot while Janez fishes at its end: curled up asleep below 0.25 ("Muri spi"), his flank rising; sitting
+     * up and wagging; from 0.75 barking at the fish, his muzzle open and the rings of his barks going out over the water
+     * ("Muri, tiho!"). A sprite, as the square's dog.
+     */
+    private fun muri(level: Float) {
+        val hx = gx(MURI_X, MURI_D).toInt(); val hy = gy(MURI_D).toInt()
+        val b = Col.hex(0x8A5A34); val bl = Col.hex(0xB07A48); val bd = Col.hex(0x5E3A20); val tip = Col.hex(0xC89A68)
+        if (level < 0.25f) {
+            sprite(hx, hy) {
+                // curled up on the boards: the body a loaf, darker underneath, lit along the back; the head on the paws toward
+                // the water, an ear flopped, the eye shut; the bushy tail round the front, its light tip
+                val breath = if (sin(t * 1.4) > 0.3) 1 else 0
+                c.fillEllipse(hx + 1.5f, hy - 2.6f - breath * 0.3f, 5f, 2.6f + breath * 0.3f, bd)
+                c.fillEllipse(hx + 1.2f, hy - 3f - breath * 0.3f, 4.4f, 2f, b)
+                c.fillEllipse(hx + 1f, hy - 4.2f - breath * 0.3f, 3.2f, 0.8f, bl)
+                c.fillRect(hx - 6, hy - 4, 4, 3, b); c.fillRect(hx - 8, hy - 3, 2, 2, bl); c.set(hx - 8, hy - 3, Pal.OUTLINE)
+                c.fillRect(hx - 4, hy - 5, 2, 3, bd)
+                c.hline(hx - 6, hx - 5, hy - 3, Pal.OUTLINE) // the eye shut
+                c.fillRect(hx - 7, hy - 1, 3, 1, bl) // the paws under the chin
+                c.hline(hx - 3, hx + 4, hy, b); c.hline(hx - 4, hx - 3, hy, tip)
+            }
+            return
+        }
+        val bark = level >= 0.75f
+        val ph = ((t / 1.5) % 1.0).toFloat() // a bark at the start of every 1.5 s
+        val open = bark && ph < 0.22f
+        val wag = if (sin(t * (if (bark) 16 else 11)) > 0) 1 else 0
+        sprite(hx, hy) {
+            // sitting, facing the water on the left: haunch, chest, the head up, an ear flopped, the bushy tail
+            c.fillEllipse(hx + 2.5f, hy - 3f, 3.5f, 3f, b)
+            c.fillRect(hx - 2, hy - 8, 4, 8, b); c.fillRect(hx - 2, hy - 6, 2, 4, bl)
+            c.fillRect(hx - 3, hy - 1, 2, 1, bl); c.fillRect(hx, hy - 1, 2, 1, bl)
+            val up = if (bark) 1 else 0 // barking, he stretches his head out
+            c.fillRect(hx - 5 - up, hy - 12 - up, 5, 4, b)
+            c.fillRect(hx - 7 - up, hy - 10 - up, 2, 2, b); c.set(hx - 7 - up, hy - 10 - up, Pal.OUTLINE)
+            if (open) { c.set(hx - 7 - up, hy - 9 - up, Col.hex(0x3A1A14)); c.fillRect(hx - 7 - up, hy - 8 - up, 2, 1, b); c.set(hx - 6 - up, hy - 9 - up, Col.hex(0xE0708A)) }
+            c.fillRect(hx - 2 - up, hy - 13 - up, 2, 3, bd)
+            c.set(hx - 4 - up, hy - 11 - up, Pal.OUTLINE)
+            c.set(hx + 6, hy - 3 - wag, b); c.set(hx + 7, hy - 4 - wag, b); c.set(hx + 7, hy - 5 - 2 * wag, bl); c.set(hx + 8, hy - 6 - 2 * wag, tip)
+        }
+        // the rings of his barks going out over the water
+        if (bark && ph < 0.45f) {
+            val z = z
+            s.fx { PokeArt.rings(c, hx - 9f * z, hy - 10f * z, ph / 0.45f, 8f * z, Col.hex(0xFFFFFF), max(1, z / 2 + 1), 0.75f, n = 2) }
+        }
+    }
+
+    /**
+     * Tadpoles in the shallows by the reeds ("tadpoles": Nejc's "V vodi je polno majhnih črnih stvari!"), how many the
+     * level says: little black heads with wriggling tails darting about under the surface, bigger than their size so the
+     * eye finds them. Not under the ice.
+     */
+    private fun tadpoles(level: Float) {
+        val n = (2 + 18 * level).toInt()
+        val z = z
+        val black = Col.hex(0x161A12)
+        for (i in 0 until n) {
+            // each wanders about its own spot, now and then darting off
+            val dart = ((t * 0.35 + Noise.rnd(i, 531)) % 1.0).toFloat()
+            val jump = if (dart > 0.9f) (dart - 0.9f) * 10f else 0f
+            val x = -3.0f + Noise.rnd(i, 532) * 3.6f + sin(t * 0.5 + i * 1.7).toFloat() * 0.18f + (Noise.rnd(i, 534) - 0.5f) * jump * 0.6f
+            val d = 13.0f + Noise.rnd(i, 533) * 1.1f + cos(t * 0.4 + i * 2.3).toFloat() * 0.07f
+            if (inPond(x, d) > 0.95f) continue
+            val px = gx(x, d).toInt(); val py = gy(d).toInt()
+            val dir = if (cos(t * 0.5 + i * 1.7) > 0) 1 else -1 // the way it swims: the tail behind
+            val wig = if (((t * 9).toInt() + i) and 1 == 0) -1 else 1
+            // its round head, z × z, then its tail, its tip wriggling
+            for (yy in 0 until z) for (xx in 0 until z) c.blend(px + xx, py + yy, black, 0.9f)
+            val tail = z + 1
+            for (q in 1..tail) {
+                val tx = if (dir > 0) px - q else px + z - 1 + q
+                c.blend(tx, py + z / 2 + (if (q == tail) wig else 0), black, 0.6f)
+            }
+        }
     }
 
     /** The pond's wild animals of the frame ([out]): the deer drinking and the fox at the far shore, butterflies by the reeds. */
@@ -931,6 +1013,12 @@ internal class PondPainter : WildPainter() {
     companion object {
         /** The moon's column on the stage: over the pond, so it lies on the water. */
         private const val MOON_X = 150
+        /**
+         * Where Muri ("dog") sits: on the grass by the jetty's foot, on its right where nobody stands, facing it and Janez
+         * fishing at its end (brown on green): side and depth (m).
+         */
+        private const val MURI_X = 5.3f
+        private const val MURI_D = 11.6f
         private const val SKY_STEPS = 24
         private const val HOLE_X = 2f
         private const val HOLE_D = 20.6f

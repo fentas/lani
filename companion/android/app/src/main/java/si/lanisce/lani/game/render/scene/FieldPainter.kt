@@ -6,6 +6,7 @@ import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
 import si.lanisce.lani.game.scene.Poke
+import si.lanisce.lani.game.scene.SceneSights
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -33,6 +34,12 @@ import kotlin.math.sqrt
  * Tapped ([pokes]), the scarecrow's crow flaps up off its arm and drops back; tapped again, it and the crows a dialog
  * brought fly off, wheel over the field and settle back.
  *
+ * A dialog can bring the crows to the scarecrow ("crows"), ring the church bell on the hill ("bell"), send bats over the
+ * field ("bats"), startle a hare out of the grass by the fence ("hare": the grass stirs, then it leaps out and bounds off),
+ * send Sivko away from the cart and bring him back over the meadow ("horse": 0 away, the shafts down; 1 home), take the
+ * scarecrow's straw hat off or give it the learner's felt one ("hat": 0 none; it drops on and slips down onto its nose)
+ * and wind a red scarf round its neck ("scarf").
+ *
  * Its wild animals ([WildPainter]): a hare in the potatoes, butterflies over the cabbages by day; a roe deer grazing at
  * the wheat's edge and a fox by the kozolec at dawn and dusk; the wild boar and her piglets digging up the potatoes at
  * night, bats over the field. Tapped,
@@ -58,6 +65,26 @@ internal class FieldPainter : WildPainter() {
     private companion object {
         /** The village project this field shows as it's built: the double hayrack. */
         const val TOPLAR = "toplar"
+
+        /** Sivko on his way back ("horse") is home from this level on: in the shafts, grazing. */
+        const val HOME = 0.985f
+
+        /**
+         * Where Sivko comes back from: beyond the picture's left edge at every width, over the meadow at [HORSE_D] in front
+         * of the kozolec to [HORSE_TURN], then up past its end to the cart (m).
+         */
+        const val HORSE_FROM = -22f
+        const val HORSE_D = 14.6f
+        const val HORSE_TURN = -4.6f
+
+        /** A horse's stride (m): his legs go round once a stride, so they keep to the ground. */
+        const val STRIDE = 1.7f
+
+        /**
+         * The startled hare ("hare"): up to this level the grass stirs over it, then it is out and away. A cue to 1 from
+         * France's line has the grass stir for the first two seconds of the ease, the hare out for the next two.
+         */
+        const val STIR = 0.4f
     }
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
@@ -96,11 +123,28 @@ internal class FieldPainter : WildPainter() {
         else items.add(12.6f to { thing("rake", slop = 1) { rake(fenceX + 0.4f, 12.6f) } })
         // the double hayrack (the project "toplar") beyond the wheat, as far as it's built
         toplar()
-        items.add(cartD to {
+        // Sivko in the cart's shafts; with a dialog's "horse" away beyond the picture's left edge or on his way back
+        val back = fx("horse")
+        val home = back == null || back >= HOME
+        if (home) items.add(cartD to {
             thing("horse", slop = 1) { horse(-2.6f, cartD + 0.2f) }
             if (k > 1) prop(0) { grazeTuft(-2.6f, cartD + 0.2f) }
-        })
-        items.add(cartD - 0.1f to { thing("cart") { cart(-1.2f, 2.1f, cartD) } })
+        }) else if (back > 0.002f) {
+            // over the meadow in front of the kozolec, then up past its end to the cart: seen all the way
+            val run = HORSE_TURN - HORSE_FROM
+            val climb = sqrt((-2.6f - HORSE_TURN) * (-2.6f - HORSE_TURN) + (cartD + 0.2f - HORSE_D) * (cartD + 0.2f - HORSE_D))
+            val went = back * (run + climb)
+            val q = ((went - run) / climb).coerceIn(0f, 1f)
+            val x = if (went < run) HORSE_FROM + went else HORSE_TURN + (-2.6f - HORSE_TURN) * q
+            val dd = HORSE_D + (cartD + 0.2f - HORSE_D) * q
+            // scenery while he is far, coming into the picture; the horse to tap again once he is well in it (SceneSights.away)
+            items.add(dd to {
+                groundShadow(x, dd, 0.9f, 0.84f)
+                if (SceneSights.away(back)) prop { horse(x, dd, stride = (went / STRIDE) % 1f) }
+                else thing("horse", slop = 1) { horse(x, dd, stride = (went / STRIDE) % 1f) }
+            })
+        }
+        items.add(cartD - 0.1f to { thing("cart") { cart(-1.2f, 2.1f, cartD, shafted = home) } })
         items.add(24f to { thing("fence") { fenceRun(13f, 24f) } })
         items.add(13f to { thing("fence") { fenceRun(3.5f, 13f) } })
         items.add(11.2f to { thing("scythe", slop = 1) { scythe(fenceX + 0.1f, 11.2f) } })
@@ -378,6 +422,53 @@ internal class FieldPainter : WildPainter() {
             // tapped: the piglets scatter and come running back to her
             val scatter = if (pk != null && a < 2.8f) PokeArt.ease(a, 0f, 0.6f) * (1f - PokeArt.ease(a, 1.6f, 2.8f)) else 0f
             items.add(bd to { groundShadow(bx, bd, 1f); creature("boar") { boars(gx(bx, bd), gy(bd), 22f / bd, left = u > 0.5f, piglets = 3, scatter = scatter) } })
+        }
+        fx("hare")?.let { startledHare(it) }
+    }
+
+    /** Where the hare a dialog startles ("hare") hides: in the grass between the track and the fence, by the cabbages. */
+    private val hareX = 2.2f
+    private val hareD = 12.8f
+
+    /**
+     * The hare a dialog's cue startles out of the grass ("hare": France's "Tiho … nekaj se premika v travi"): a clump of
+     * tall grass by the fence, its blades stirring the more up to [STIR], the hare unseen in it; then it leaps out over
+     * the track and bounds off over the meadow, out past the picture's left edge (gone at 1). Scenery: the day's hare (a
+     * word, in the potatoes) is another. The clump stays while the cue does.
+     */
+    private fun startledHare(level: Float) {
+        val stir = if (level < STIR) level / STIR else 0f
+        items.add(hareD + 0.05f to { prop(0) { tallGrass(hareX, hareD, stir) } })
+        if (level <= STIR || level >= 0.998f) return
+        val u = (level - STIR) / (1f - STIR)
+        val x = hareX + (-20f - hareX) * u
+        val d = hareD + 2.2f * u
+        // six bounds to the edge, the first out of the grass the highest
+        val bounds = 6f
+        val ph = (u * bounds) % 1f
+        val lift = if (u * bounds < 1f) sin(ph * PI.toFloat()) * 3.5f * (26f / d) * detail else 0f
+        items.add(d to {
+            groundShadow(x, d, 0.3f)
+            prop { hare(gx(x, d), gy(d) - lift, 26f / d, left = true, hop = ph) }
+        })
+    }
+
+    /**
+     * A clump of tall grass at ([x], [d]): blades up to half a metre, swaying with the wind, and shaking with [stir]
+     * (0..1) as something moves in it; under snow, a drift.
+     */
+    private fun tallGrass(x: Float, d: Float, stir: Float) {
+        val p = pm(d); val by = gy(d); val cx = gx(x, d)
+        val g = env.grass
+        if (env.snow) { c.fillEllipse(cx, by - 0.08f * p, 0.4f * p, 0.12f * p, Pal.SNOW_L); return }
+        val n = 14 + 5 * detail
+        for (i in 0 until n) {
+            val bx0 = cx + (Noise.rnd(i, 87) - 0.5f) * 0.85f * p
+            val hgt = (0.42f + Noise.rnd(i, 88) * 0.26f) * p
+            val shake = stir * sin(t * 15 + i * 1.7).toFloat() * 0.09f * p
+            val lean = (Noise.rnd(i, 89) - 0.5f) * 0.2f * p + sin(t * 1.3 + i).toFloat() * 0.02f * p * gust + shake
+            c.line(bx0.toInt(), by.toInt(), (bx0 + lean).toInt(), (by - hgt).toInt(), if (i % 3 == 0) g[3] else if (i % 3 == 1) g[2] else g[0])
+            if (detail > 1) c.line(bx0.toInt() + 1, by.toInt(), (bx0 + lean).toInt() + 1, (by - hgt * 0.8f).toInt(), g[1])
         }
     }
 
@@ -1282,19 +1373,33 @@ internal class FieldPainter : WildPainter() {
         while (tooth < tx + 0.35f * p) { c.vline(tooth.toInt(), ty.toInt() - 3 * k, ty.toInt() - k - 1, Pal.WOOD_X); c.set(tooth.toInt(), ty.toInt() - 3 * k, Pal.WOOD_D); tooth += max(2f, 0.12f * p) }
     }
 
-    /** The horse grazing in the shafts, facing left; now and then its head comes up to look. Closer up: its mane, its hooves and its harness. */
-    private fun horse(x: Float, d: Float) {
+    /**
+     * The horse grazing in the shafts, facing left; now and then its head comes up to look. Walking ([stride] 0..1 of a
+     * stride, its legs swinging in diagonal pairs; null: standing) he faces right, his head up: Sivko on his way back to the
+     * cart ("horse"). Closer up: its mane, its hooves and its harness.
+     */
+    private fun horse(x: Float, d: Float, stride: Float? = null) {
         val k = detail
         val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        // facing left (1) or, walking, right (-1): every offset along the body is turned with it
+        val dir = if (stride != null) -1f else 1f
         val coat = Col.hex(0x7A4A2A); val coatL = Col.hex(0x9A6640); val coatD = Col.hex(0x54321C); val mane = Col.hex(0x2E2018)
         val maneL = Col.hex(0x4A3626)
-        val graze = sin(t * 0.5) > -0.3
+        val graze = stride == null && sin(t * 0.5) > -0.3
         val bodyY = by - 1.2f * p
-        // legs, the far pair darker
+        // legs, the far pair darker; walking, the diagonal pairs swing as one
         for ((i, lx) in floatArrayOf(-0.75f, -0.55f, 0.55f, 0.75f).withIndex()) {
-            val sx = bx + lx * p
+            val sx = bx + dir * lx * p
             val lw = max(1, (0.13f * p).toInt())
-            c.fillRect(sx.toInt(), (bodyY + 0.2f * p).toInt(), lw, (0.95f * p).toInt(), if (i % 2 == 0) coatD else coat)
+            val col = if (i % 2 == 0) coatD else coat
+            if (stride != null) {
+                val swing = sin((stride + (if (i == 0 || i == 3) 0f else 0.5f)) * 2f * PI.toFloat()) * 0.22f * p
+                val hip = bodyY + 0.2f * p
+                thick(sx, hip, sx + swing, by - k, lw, col)
+                c.fillRect((sx + swing).toInt() - lw / 2, by.toInt() - k, lw, k, mane)
+                continue
+            }
+            c.fillRect(sx.toInt(), (bodyY + 0.2f * p).toInt(), lw, (0.95f * p).toInt(), col)
             if (k == 1) c.hline(sx.toInt(), sx.toInt() + lw - 1, by.toInt() - 1, mane)
             else {
                 // the hoof, the fetlock over it; the near legs lit down their front
@@ -1305,57 +1410,58 @@ internal class FieldPainter : WildPainter() {
             }
         }
         c.fillEllipse(bx, bodyY, 1.0f * p, 0.42f * p, coat)
-        c.fillEllipse(bx - 0.1f * p, bodyY - 0.15f * p, 0.7f * p, 0.2f * p, coatL)
+        c.fillEllipse(bx - dir * 0.1f * p, bodyY - 0.15f * p, 0.7f * p, 0.2f * p, coatL)
         c.hline((bx - 0.8f * p).toInt(), (bx + 0.8f * p).toInt(), (bodyY + 0.38f * p).toInt(), coatD)
         if (k > 1) {
             // the belly's shade, the haunch's curve
             for (xx in (bx - 0.7f * p).toInt()..(bx + 0.7f * p).toInt()) if ((xx and 1) == 0) c.set(xx, (bodyY + 0.38f * p).toInt() - 1, coatD)
-            for (a in 0..10) { val ang = PI * (0.55 + a * 0.06); c.set((bx + 0.62f * p + cos(ang) * 0.3f * p).toInt(), (bodyY - 0.02f * p - sin(ang) * 0.3f * p).toInt(), coatD) }
+            for (a in 0..10) { val ang = PI * (0.55 + a * 0.06); c.set((bx + dir * (0.62f * p + cos(ang).toFloat() * 0.3f * p)).toInt(), (bodyY - 0.02f * p - sin(ang) * 0.3f * p).toInt(), coatD) }
         }
         // the tail, swishing
         val swish = sin(t * 2.2).toFloat() * 0.1f * p
-        if (k == 1) c.line((bx + 0.95f * p).toInt(), (bodyY - 0.2f * p).toInt(), (bx + 1.15f * p + swish).toInt(), (bodyY + 0.6f * p).toInt(), mane)
+        if (k == 1) c.line((bx + dir * 0.95f * p).toInt(), (bodyY - 0.2f * p).toInt(), (bx + dir * (1.15f * p + swish)).toInt(), (bodyY + 0.6f * p).toInt(), mane)
         else for (i in 0 until 2 + k) {
             val sp = (i - (1 + k) / 2f) * 0.035f * p
-            c.line((bx + 0.95f * p).toInt() + i / 2, (bodyY - 0.2f * p).toInt(), (bx + 1.15f * p + swish + sp).toInt(), (bodyY + (0.58f + (i % 2) * 0.05f) * p).toInt(), if (i % 2 == 1) maneL else mane)
+            c.line((bx + dir * 0.95f * p).toInt() + i / 2, (bodyY - 0.2f * p).toInt(), (bx + dir * (1.15f * p + swish + sp)).toInt(), (bodyY + (0.58f + (i % 2) * 0.05f) * p).toInt(), if (i % 2 == 1) maneL else mane)
         }
         // the neck and head: down in the grass, or up
-        val nx = bx - 0.85f * p; val ny = bodyY - 0.2f * p
+        val nx = bx - dir * 0.85f * p; val ny = bodyY - 0.2f * p
         val hx: Float; val hy: Float
-        if (graze) { hx = bx - 1.45f * p; hy = by - 0.35f * p } else { hx = bx - 1.35f * p; hy = bodyY - 0.95f * p }
+        if (graze) { hx = bx - dir * 1.45f * p; hy = by - 0.35f * p } else { hx = bx - dir * 1.35f * p; hy = bodyY - 0.95f * p }
         for (i in 0..6) { val f = i / 6f; c.fillCircle(nx + (hx - nx) * f, ny + (hy - ny) * f, 0.2f * p * (1.1f - f * 0.3f), coat) }
-        c.fillEllipse(hx - 0.1f * p, hy, 0.3f * p, 0.16f * p, coat)
-        c.fillEllipse(hx - 0.3f * p, hy + 0.06f * p, 0.13f * p, 0.1f * p, coatD)
-        c.set((hx - 0.05f * p).toInt(), (hy - 0.06f * p).toInt(), Pal.OUTLINE)
+        c.fillEllipse(hx - dir * 0.1f * p, hy, 0.3f * p, 0.16f * p, coat)
+        c.fillEllipse(hx - dir * 0.3f * p, hy + 0.06f * p, 0.13f * p, 0.1f * p, coatD)
+        c.set((hx - dir * 0.05f * p).toInt(), (hy - 0.06f * p).toInt(), Pal.OUTLINE)
         if (k == 1) {
-            for (i in 0..4) { val f = i / 5f; c.set((nx + (hx - nx) * f + 0.1f * p).toInt(), (ny + (hy - ny) * f - 0.18f * p).toInt(), mane) }
+            for (i in 0..4) { val f = i / 5f; c.set((nx + (hx - nx) * f + dir * 0.1f * p).toInt(), (ny + (hy - ny) * f - 0.18f * p).toInt(), mane) }
             return
         }
         // a glint in the eye, the ear, the nostril
-        c.set((hx - 0.05f * p).toInt() - 1, (hy - 0.06f * p).toInt(), Col.hex(0xC8B8A0))
-        c.line((hx + 0.12f * p).toInt(), (hy - 0.12f * p).toInt(), (hx + 0.2f * p).toInt(), (hy - 0.24f * p).toInt(), coatD)
-        c.set((hx - 0.36f * p).toInt(), (hy + 0.04f * p).toInt(), Pal.OUTLINE)
+        c.set((hx - dir * 0.05f * p).toInt() - dir.toInt(), (hy - 0.06f * p).toInt(), Col.hex(0xC8B8A0))
+        c.line((hx + dir * 0.12f * p).toInt(), (hy - 0.12f * p).toInt(), (hx + dir * 0.2f * p).toInt(), (hy - 0.24f * p).toInt(), coatD)
+        c.set((hx - dir * 0.36f * p).toInt(), (hy + 0.04f * p).toInt(), Pal.OUTLINE)
         // the harness: the collar round the neck's foot with its hames, the traces back to the shafts, the back band, the bridle
         val leather = Col.hex(0x3A2418); val leatherL = Col.hex(0x6A4428)
         val colX = nx + (hx - nx) * 0.1f; val colY = ny + (hy - ny) * 0.1f
         c.fillEllipse(colX, colY + 0.05f * p, 0.12f * p, 0.32f * p, leather)
-        c.fillEllipse(colX - 0.04f * p, colY + 0.05f * p, 0.05f * p, 0.26f * p, Col.hex(0x8A6A3A))
-        c.line((colX - 0.1f * p).toInt(), (colY - 0.22f * p).toInt(), (colX - 0.1f * p).toInt(), (colY + 0.3f * p).toInt(), Pal.GOLD)
-        c.set((colX - 0.1f * p).toInt(), (colY - 0.25f * p).toInt() - 1, Pal.GOLD_L)
-        thick(colX + 0.08f * p, colY + 0.2f * p, bx + 0.25f * p, bodyY + 0.12f * p, max(1, k - 1), leather)
-        c.fillRect((bx - 0.2f * p).toInt(), (bodyY - 0.42f * p).toInt(), max(2, (0.07f * p).toInt()), (0.82f * p).toInt(), leather)
-        c.fillEllipse(bx - 0.17f * p, bodyY - 0.4f * p, 0.16f * p, 0.06f * p, leatherL)
-        c.line((hx + 0.08f * p).toInt(), (hy - 0.12f * p).toInt(), (hx - 0.02f * p).toInt(), (hy + 0.13f * p).toInt(), leather)
-        c.line((hx - 0.26f * p).toInt(), (hy - 0.05f * p).toInt(), (hx - 0.24f * p).toInt(), (hy + 0.14f * p).toInt(), leather)
+        c.fillEllipse(colX - dir * 0.04f * p, colY + 0.05f * p, 0.05f * p, 0.26f * p, Col.hex(0x8A6A3A))
+        c.line((colX - dir * 0.1f * p).toInt(), (colY - 0.22f * p).toInt(), (colX - dir * 0.1f * p).toInt(), (colY + 0.3f * p).toInt(), Pal.GOLD)
+        c.set((colX - dir * 0.1f * p).toInt(), (colY - 0.25f * p).toInt() - 1, Pal.GOLD_L)
+        thick(colX + dir * 0.08f * p, colY + 0.2f * p, bx + dir * 0.25f * p, bodyY + 0.12f * p, max(1, k - 1), leather)
+        val band = max(2, (0.07f * p).toInt())
+        c.fillRect((bx - dir * 0.2f * p).toInt() - (if (dir < 0) band else 0), (bodyY - 0.42f * p).toInt(), band, (0.82f * p).toInt(), leather)
+        c.fillEllipse(bx - dir * 0.17f * p, bodyY - 0.4f * p, 0.16f * p, 0.06f * p, leatherL)
+        c.line((hx + dir * 0.08f * p).toInt(), (hy - 0.12f * p).toInt(), (hx - dir * 0.02f * p).toInt(), (hy + 0.13f * p).toInt(), leather)
+        c.line((hx - dir * 0.26f * p).toInt(), (hy - 0.05f * p).toInt(), (hx - dir * 0.24f * p).toInt(), (hy + 0.14f * p).toInt(), leather)
         // the mane: strands along the neck's top, falling over it; a forelock
         val strands = max(6, (sqrt((hx - nx) * (hx - nx) + (hy - ny) * (hy - ny)) / 1.5f).toInt())
         for (i in 0 until strands) {
             val f = i / strands.toFloat() * 0.85f
-            val mx = nx + (hx - nx) * f + 0.1f * p; val my = ny + (hy - ny) * f - 0.18f * p
+            val mx = nx + (hx - nx) * f + dir * 0.1f * p; val my = ny + (hy - ny) * f - 0.18f * p
             val len = (0.1f + Noise.rnd(i, 58) * 0.08f) * p
-            c.line(mx.toInt(), my.toInt(), (mx - 0.04f * p).toInt(), (my + len).toInt(), if (i % 3 == 1) maneL else mane)
+            c.line(mx.toInt(), my.toInt(), (mx - dir * 0.04f * p).toInt(), (my + len).toInt(), if (i % 3 == 1) maneL else mane)
         }
-        c.line((hx + 0.04f * p).toInt(), (hy - 0.14f * p).toInt(), (hx - 0.08f * p).toInt(), (hy - 0.08f * p).toInt(), mane)
+        c.line((hx + dir * 0.04f * p).toInt(), (hy - 0.14f * p).toInt(), (hx - dir * 0.08f * p).toInt(), (hy - 0.08f * p).toInt(), mane)
     }
 
     /**
@@ -1386,9 +1492,12 @@ internal class FieldPainter : WildPainter() {
         }
     }
 
-    /** The hay cart from [xa] to [xb] m, [d] m away: a plank body on spoked wheels, the load by season, the shafts. */
-    private fun cart(xa: Float, xb: Float, d: Float) {
-        if (detail > 1) { cartFine(xa, xb, d); return }
+    /**
+     * The hay cart from [xa] to [xb] m, [d] m away: a plank body on spoked wheels, the load by season, the shafts: out to
+     * the horse, or with no horse in them ([shafted] false) down on the grass.
+     */
+    private fun cart(xa: Float, xb: Float, d: Float, shafted: Boolean = true) {
+        if (detail > 1) { cartFine(xa, xb, d, shafted); return }
         val p = pm(d); val by = gy(d)
         val x0 = gx(xa, d); val x1 = gx(xb, d)
         val bodyTop = by - 1.15f * p; val bodyBot = by - 0.62f * p
@@ -1408,8 +1517,8 @@ internal class FieldPainter : WildPainter() {
         c.fillRect(x0.toInt(), bodyTop.toInt(), (x1 - x0).toInt(), (bodyBot - bodyTop).toInt(), Pal.WOOD_M)
         c.hline(x0.toInt(), x1.toInt() - 1, bodyTop.toInt(), Pal.WOOD_L); c.hline(x0.toInt(), x1.toInt() - 1, bodyBot.toInt(), Pal.WOOD_D)
         if (p > 9f) c.hline(x0.toInt(), x1.toInt() - 1, ((bodyTop + bodyBot) / 2).toInt(), Pal.WOOD_D)
-        // the shafts out to the horse
-        c.line(x0.toInt(), (bodyBot - 0.1f * p).toInt(), (x0 - 1.4f * p).toInt(), (by - 1.0f * p).toInt(), Pal.WOOD_D)
+        // the shafts out to the horse, or down on the grass
+        c.line(x0.toInt(), (bodyBot - 0.1f * p).toInt(), (x0 - 1.4f * p).toInt(), (by - (if (shafted) 1.0f else 0.06f) * p).toInt(), Pal.WOOD_D)
         // wheels
         for ((wx, rr) in listOf(x0 + 0.55f * p to 0.52f * p, x1 - 0.6f * p to 0.58f * p)) {
             val wy = by - rr
@@ -1422,7 +1531,7 @@ internal class FieldPainter : WildPainter() {
     }
 
     /** The cart closer up: the load in strands, side boards with their joints and grain, iron straps and nails, the shafts, the wheels. */
-    private fun cartFine(xa: Float, xb: Float, d: Float) {
+    private fun cartFine(xa: Float, xb: Float, d: Float, shafted: Boolean) {
         val k = detail
         val p = pm(d); val by = gy(d)
         val x0 = gx(xa, d); val x1 = gx(xb, d)
@@ -1488,10 +1597,11 @@ internal class FieldPainter : WildPainter() {
             c.vline(sx.toInt(), bt, bb, ironL)
             for (i in 0..2) c.set(sx.toInt() + sw / 2, (bodyTop + (bodyBot - bodyTop) * (i + 0.5f) / 3f).toInt(), Col.hex(0xA8A4B0))
         }
-        // the shafts out to the horse
+        // the shafts out to the horse, or down on the grass
         val sth = max(1, (0.05f * p).toInt())
-        thick(x0, bodyBot - 0.1f * p, x0 - 1.4f * p, by - 1.0f * p, sth, Pal.WOOD_D)
-        c.line(x0.toInt(), (bodyBot - 0.1f * p).toInt() - sth / 2, (x0 - 1.4f * p).toInt(), (by - 1.0f * p).toInt() - sth / 2, Pal.WOOD_M)
+        val tipY = by - (if (shafted) 1.0f else 0.06f) * p
+        thick(x0, bodyBot - 0.1f * p, x0 - 1.4f * p, tipY, sth, Pal.WOOD_D)
+        c.line(x0.toInt(), (bodyBot - 0.1f * p).toInt() - sth / 2, (x0 - 1.4f * p).toInt(), tipY.toInt() - sth / 2, Pal.WOOD_M)
         for ((wx, rr) in listOf(x0 + 0.55f * p to 0.52f * p, x1 - 0.6f * p to 0.58f * p)) wheel(wx, by - rr, rr, p)
     }
 
@@ -1561,6 +1671,22 @@ internal class FieldPainter : WildPainter() {
             for (xx in (bx - 0.1f * p).toInt()..(bx + 0.1f * p).toInt() step 2) c.set(xx, my, Pal.OUTLINE)
             for (side in intArrayOf(-1, 1)) c.line((bx + side * 0.17f * p).toInt(), (by - 2.12f * p).toInt(), (bx + side * 0.27f * p).toInt(), (by - 2.0f * p).toInt(), Pal.HAY_L)
         }
+        // its straw hat; with a dialog's "hat" none, or the learner's big felt hat; a dialog's red "scarf"
+        val hat = fx("hat")
+        when {
+            hat == null -> strawHat(bx, by, p)
+            hat < 0.02f -> bareHead(bx, by, p)
+            else -> feltHat(bx, by, p, hat)
+        }
+        fx("scarf")?.let { if (it > 0.02f) scarf(bx, by, p, it) }
+        // the crow on the right arm, hopping now and then; startled off it by a tap it flies (see [crows])
+        val hop = if (sin(t * 2.3) > 0.7) 1 else 0
+        if (!crowUp(0, (bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt())) perchedCrow((bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt() - hop * k, flip = false)
+    }
+
+    /** The scarecrow's own straw hat over its sack head at ([bx], [by]) (its feet; [p] px a metre), snow on it in winter. */
+    private fun strawHat(bx: Float, by: Float, p: Float) {
+        val k = detail
         val brimY = (by - 2.18f * p).toInt()
         c.hline((bx - 0.35f * p).toInt(), (bx + 0.35f * p).toInt(), brimY, Pal.HAY_L)
         c.fillRect((bx - 0.15f * p).toInt(), (by - 2.38f * p).toInt(), (0.3f * p).toInt() + 1, (0.2f * p).toInt(), Pal.HAY_M)
@@ -1571,9 +1697,67 @@ internal class FieldPainter : WildPainter() {
             for (xx in (bx - 0.15f * p).toInt()..(bx + 0.15f * p).toInt()) for (yy in (by - 2.38f * p).toInt() until brimY - 1) if (((xx * 2 + yy) % 3) == 0) c.set(xx, yy, Pal.HAY_L)
         }
         if (env.snow) for (i in 0 until k) c.hline((bx - 0.15f * p).toInt(), (bx + 0.15f * p).toInt(), (by - 2.4f * p).toInt() - i, Pal.SNOW_L)
-        // the crow on the right arm, hopping now and then; startled off it by a tap it flies (see [crows])
-        val hop = if (sin(t * 2.3) > 0.7) 1 else 0
-        if (!crowUp(0, (bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt())) perchedCrow((bx + 0.55f * p).toInt(), (by - 1.8f * p).toInt() - hop * k, flip = false)
+    }
+
+    /** The scarecrow with no hat ("hat" 0, Tine's "Strašilo nima klobuka"): straw sticking up out of the sack's top. */
+    private fun bareHead(bx: Float, by: Float, p: Float) {
+        val top = by - 2.18f * p
+        for (i in 0 until 3 + 2 * detail) {
+            val u = (i + 0.5f) / (3 + 2 * detail) - 0.5f
+            val x0 = bx + u * 0.3f * p
+            c.line(x0.toInt(), top.toInt(), (x0 + u * 0.25f * p).toInt(), (top - (0.1f + Noise.rnd(i, 93) * 0.08f) * p).toInt(), if (i % 2 == 0) Pal.HAY_L else Pal.HAY_M)
+        }
+        if (env.snow) c.hline((bx - 0.12f * p).toInt(), (bx + 0.12f * p).toInt(), top.toInt(), Pal.SNOW_L)
+    }
+
+    /**
+     * The learner's felt hat on the scarecrow ("hat", Tine's "Zdaj je strašilo kot dedek!"): a big dark one with a band,
+     * like grandpa's. Up to 0.5 it drops from above onto its head; from there it slips down over its eyes onto its nose
+     * (1: "Klobuk je velik, pade mu na nos"), the mouth still showing under the brim.
+     */
+    private fun feltHat(bx: Float, by: Float, p: Float, level: Float) {
+        val k = detail
+        val drop = if (level < 0.5f) 1f - PokeArt.ease(level, 0f, 0.5f) else 0f
+        val slip = if (level > 0.5f) PokeArt.ease(level, 0.5f, 1f) else 0f
+        val brim = by - (2.18f + 1.4f * drop - 0.15f * slip) * p
+        val felt = Col.hex(0x4A3A30); val feltL = Col.hex(0x6A5848); val feltD = Col.hex(0x2E241E); val band = Col.hex(0x1E1A1A)
+        val crownH = 0.3f * p; val crownW = 0.2f * p; val brimW = 0.44f * p
+        // the crown, its top dented, lit on the left; the band round its foot
+        for (y in (brim - crownH).toInt()..brim.toInt()) {
+            val f = (brim - y) / crownH
+            val half = crownW * (1f - 0.12f * f)
+            for (xx in (bx - half).toInt()..(bx + half).toInt()) {
+                val u = (xx + 0.5f - bx) / max(1f, half)
+                c.set(xx, y, if (f > 0.92f && abs(u) < 0.35f) feltD else if (u < -0.45f) feltL else if (u > 0.55f) feltD else felt)
+            }
+        }
+        val bandH = max(1, (0.06f * p).toInt())
+        for (j in 1..bandH) c.hline((bx - crownW).toInt(), (bx + crownW).toInt(), brim.toInt() - j, band)
+        // the brim, wide and drooping a little at its ends
+        val bh = max(1, (0.05f * p).toInt())
+        for (j in 0 until bh) c.hline((bx - brimW).toInt(), (bx + brimW).toInt(), brim.toInt() + j, if (j == 0) feltL else felt)
+        c.set((bx - brimW).toInt(), brim.toInt() + bh, feltD); c.set((bx + brimW).toInt(), brim.toInt() + bh, feltD)
+        if (k > 1) c.hline((bx - brimW).toInt() + 1, (bx + brimW).toInt() - 1, brim.toInt() + bh, feltD)
+        if (env.snow) for (i in 0 until k) c.hline((bx - crownW * 0.8f).toInt(), (bx + crownW * 0.8f).toInt(), (brim - crownH).toInt() - i, Pal.SNOW_L)
+    }
+
+    /** A red wool scarf round the scarecrow's neck ("scarf": grandpa's old one), its ends hanging on the left and blowing; [level] winds it on. */
+    private fun scarf(bx: Float, by: Float, p: Float, level: Float) {
+        val red = Col.hex(0xC8302A); val redL = Col.hex(0xE8584A); val redD = Col.hex(0x8A1E1A)
+        val y = by - 1.82f * p
+        val hw = 0.24f * p; val hh = max(1f, 0.07f * p)
+        c.fillEllipse(bx, y, hw, hh, red)
+        c.hline((bx - hw * 0.8f).toInt(), (bx + hw * 0.8f).toInt(), (y - hh * 0.5f).toInt(), redL)
+        c.hline((bx - hw * 0.8f).toInt(), (bx + hw * 0.8f).toInt(), (y + hh * 0.6f).toInt(), redD)
+        // the two ends, as long as it is wound on, swinging in the wind
+        val len = 0.42f * p * level.coerceIn(0f, 1f)
+        val ew = max(1, (0.07f * p).toInt())
+        for ((j, x0) in floatArrayOf(bx - 0.12f * p, bx - 0.02f * p).withIndex()) {
+            val sway = sin(t * 2.4 + j * 1.3).toFloat() * 0.05f * p * gust
+            val x1 = x0 - (0.06f + 0.04f * j) * p * gust + sway
+            thick(x0, y, x1, y + len * (0.85f + 0.15f * j), ew, if (j == 0) red else redD)
+            if (detail > 1 && len > 2f) c.hline(x1.toInt() - ew / 2, x1.toInt() + ew / 2, (y + len * (0.85f + 0.15f * j)).toInt(), redL) // the fringe
+        }
     }
 
     /** Where [crowUp] puts a crow in flight (picture px). */

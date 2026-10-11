@@ -24,8 +24,10 @@ import kotlin.math.sqrt
  * window glows and the moon shimmers on the water; in winter ice grows out from the banks and snow lies on the stones.
  *
  * A dialog can send a trout leaping out of the current ("trout") and set the mill wheel's water ("wheel": 0 the flume
- * dry and the wheel still, 1 a full gush). In the rain the stream runs fuller and greyer, spilling over its banks;
- * fog lies thickest on the water.
+ * dry and the wheel still, 1 a full gush); bring a lamb by the ewe ("lamb": 0 turned from the water, 1 drinking), the
+ * fire brigade's pump with its hose in the stream ("hose": 0 still, then a jet over the water, at 1 the hose loose and
+ * spraying everyone) and, once the new bridge has its deck, a horse and cart over it ("cart": how far, 1 gone up the
+ * far road). In the rain the stream runs fuller and greyer, spilling over its banks; fog lies thickest on the water.
  *
  * Its wild animals ([WildPainter]): butterflies over the cress and the bank by day, a fox beyond the mill at dawn and
  * dusk, a hedgehog nosing along the near bank and bats low over the water at dusk and in the night ("bats" brings them).
@@ -109,6 +111,10 @@ internal class StreamPainter : WildPainter() {
         items.add(bridgeD to { thing("bridge") { footbridge() } })
         items.add(willowD to { thing("willow", outline = Pal.OUTLINE_TREE) { willow(willowX, willowD) } })
         items.add(17.3f to { groundShadow(2.25f, 17.3f, 0.6f); thing("sheep", slop = 1) { sheep(2.25f, 17.3f) } })
+        // a dialog's lamb by the ewe ("lamb"), the fire brigade's pump ("hose"), a cart over the new bridge ("cart")
+        fx("lamb")?.let { v -> items.add(LAMB_D to { groundShadow(LAMB_X, LAMB_D, 0.4f); prop { lamb(LAMB_X, LAMB_D, v) } }) }
+        fx("hose")?.let { v -> items.add(PUMP_D to { pump(v) }) }
+        fx("cart")?.let { v -> if (stage(BRIDGE) >= DECKED) bridgeCart(v) }
         items.add(stonesD to { thing("stones") { steppingStones() } })
         items.add(12.2f to { thing("trout", outline = 0, slop = 2) { trout(course(12.2f) + 0.2f, 12.2f) } })
         items.add(11.3f to { thing("laundry") { laundry() } })
@@ -988,6 +994,202 @@ internal class StreamPainter : WildPainter() {
         if (!env.snow) s.fx { ring(x - 0.95f, d - 0.05f, 0.12f + 0.18f * ((t * 0.9) % 1.0).toFloat(), 0.4f * (1f - ((t * 0.9) % 1.0).toFloat())) }
     }
 
+    /**
+     * A lamb by the drinking ewe ("lamb": Luka's "Poglej to jagnje. Ne pije. Nič!"): below 0.4 it stands turned from the
+     * water, its head up, tossing it now and then; from there it turns to the water and its head goes down, and from 0.9
+     * it drinks, rings on the water ("Glej! Zdaj pije."). Smaller than the ewe, its fleece shorter and whiter.
+     */
+    private fun lamb(x: Float, d: Float, level: Float) {
+        val z = z
+        val p = pm(d) * 0.62f; val bx = gx(x, d); val by = gy(d)
+        val wool = if (env.snow) Col.hex(0xF4F0E8) else Col.hex(0xFBF8F0); val woolD = Col.hex(0xD8D2C4); val face = Col.hex(0x3A3436)
+        val turned = level >= 0.4f // toward the water, on the left
+        val f = if (turned) 1f else -1f
+        val down = if (turned) PokeArt.ease(level, 0.4f, 0.95f) else 0f
+        val toss = if (!turned && sin(t * 1.9) > 0.8) 0.08f * p else 0f
+        for ((i, lx) in floatArrayOf(-0.3f, -0.12f, 0.18f, 0.34f).withIndex()) {
+            val lxp = bx - f * lx * p
+            for (j in 0 until max(1, (0.08f * p).toInt())) c.vline(lxp.toInt() + j, (by - 0.46f * p).toInt(), by.toInt() - 1, if (i % 2 == 0) Col.scale(face, 0.85f) else face)
+        }
+        val ex = bx + f * 0.05f * p; val ey = by - 0.66f * p; val rx = 0.46f * p; val ry = 0.3f * p
+        for (y in max((ey - ry).toInt() - 1, c.top)..min((ey + ry).toInt() + 1, c.bottom - 1)) for (xx in max((ex - rx).toInt() - 1, c.left)..min((ex + rx).toInt() + 1, c.right - 1)) {
+            val dx = (xx + 0.5f - ex) / rx; val dy = (y + 0.5f - ey) / ry
+            val curl = Noise.v2(xx * 1.2f / z, y * 1.2f / z, 393)
+            if (dx * dx + dy * dy > 1f + (curl - 0.5f) * 0.2f) continue
+            c.set(xx, y, if (dy > 0.4f || (z > 1 && curl > 0.76f)) woolD else wool)
+        }
+        // the head: up and looking away, or going down to the water
+        val hx = bx - f * (0.5f + 0.08f * down) * p; val hy = by - (0.98f - 0.72f * down) * p - toss
+        val nx = bx - f * 0.36f * p; val ny = by - 0.74f * p
+        for (i in 0..4) { val q = i / 4f; c.fillCircle(nx + (hx - nx) * q, ny + (hy - ny) * q, max(1f, 0.1f * p), face) }
+        c.fillEllipse(hx, hy, max(1.4f, 0.15f * p), max(1.1f, 0.12f * p), face)
+        c.fillEllipse(nx + f * 0.06f * p, ny - 0.04f * p, max(1f, 0.1f * p), max(1f, 0.08f * p), wool) // the woolly top-knot
+        c.set((hx + f * 0.12f * p).toInt(), (hy - 0.1f * p).toInt(), face) // an ear
+        // drinking: rings where its muzzle is in the water
+        if (level >= 0.9f && !env.snow) s.fx { ring(x - 0.75f, d - 0.05f, 0.08f + 0.14f * ((t * 1.1) % 1.0).toFloat(), 0.4f * (1f - ((t * 1.1) % 1.0).toFloat())) }
+    }
+
+    /**
+     * The fire brigade's pump on the right bank ("hose": the drill's "Brizgalna stoji ob potoku"): a red hand pump on two
+     * wheels, its beam on top, its suction hose down into the stream, the hose out lying on the bank toward us. Above 0 it
+     * is pumped, the beam see-sawing, and a jet arcs from the nozzle out over the water; from 0.6 the hose gets loose and
+     * rears up like a snake ("Joj, cev se zvija kot kača!"), the jet whipping round and spray coming down on everyone.
+     */
+    private fun pump(level: Float) {
+        val z = z
+        val d = PUMP_D; val p = pm(d); val bx = gx(PUMP_X, d); val by = gy(d)
+        val red = Col.hex(0xB0302A); val redL = Col.hex(0xD8584A); val redD = Col.hex(0x7A1E1A); val brass = Col.hex(0xD8A840)
+        val hose = Col.hex(0x4A443E); val hoseL = Col.hex(0x6E6862)
+        val pumping = level > 0.02f
+        // the suction hose from its left side down the bank into the water
+        prop(0) {
+            val sx = bx - 0.45f * p; val sy = by - 0.35f * p
+            val wx = gx(PUMP_X - 1.35f, d - 0.2f); val wy = gy(d - 0.2f) + 0.05f * p
+            for (j in 0 until max(z, (0.09f * p).toInt())) c.line(sx.toInt(), sy.toInt() + j, wx.toInt(), wy.toInt() + j, if (j == 0) hoseL else hose)
+        }
+        prop {
+            // two wheels, the box, the air vessel's dome, the beam see-sawing on its post with a handle at each end
+            for (wx in floatArrayOf(bx - 0.3f * p, bx + 0.32f * p)) {
+                val rr = 0.22f * p
+                c.fillCircle(wx, by - rr, rr, Pal.WOOD_D); c.fillCircle(wx, by - rr, rr * 0.6f, Pal.WOOD_M); c.fillCircle(wx, by - rr, max(1f, rr * 0.2f), Pal.WOOD_D)
+            }
+            box((bx - 0.5f * p).toInt(), (by - 0.62f * p).toInt(), (1f * p).toInt(), (0.38f * p).toInt(), redL, red, redD)
+            c.fillEllipse(bx, by - 0.68f * p, max(1.5f, 0.12f * p), max(1.5f, 0.16f * p), brass)
+            c.vline(bx.toInt(), (by - 0.95f * p).toInt(), (by - 0.62f * p).toInt(), Pal.WOOD_D)
+            val tilt = if (pumping) sin(t * 5.0).toFloat() * 0.16f * p else 0f
+            val ty = by - 0.95f * p
+            c.line((bx - 0.7f * p).toInt(), (ty - tilt).toInt(), (bx + 0.7f * p).toInt(), (ty + tilt).toInt(), Pal.WOOD_M)
+            c.vline((bx - 0.7f * p).toInt(), (ty - tilt).toInt(), (ty - tilt + 0.12f * p).toInt(), Pal.WOOD_L)
+            c.vline((bx + 0.7f * p).toInt(), (ty + tilt).toInt(), (ty + tilt + 0.12f * p).toInt(), Pal.WOOD_L)
+        }
+        // the hose out: along the bank toward us, then its last stretch with the brass nozzle; loose, it rears and whips
+        val wild = ((level - 0.6f) / 0.4f).coerceIn(0f, 1f)
+        val ax = bx + 0.5f * p; val ay = by - 0.25f * p
+        val mx = gx(PUMP_X + 0.2f, d - 1.3f); val my = gy(d - 1.3f) - 0.05f * pm(d - 1.3f)
+        val pn = pm(d - 1.6f)
+        val swing = wild * (sin(t * 4.3).toFloat() * 1.3f + sin(t * 7.1).toFloat() * 0.5f)
+        val ang = -2.55f + swing // where the nozzle points: up and out over the water on the left, whipping round when loose
+        val nl = 0.75f * pn
+        val rear = wild * (0.5f + 0.25f * sin(t * 5.3).toFloat()) * pn
+        val nx = mx + cos(ang) * nl * 0.4f; val ny = my - rear
+        val tx = nx + cos(ang) * nl * 0.5f; val tyy = ny + sin(ang) * nl * 0.5f
+        prop(0) {
+            val th = max(z, (0.09f * p).toInt())
+            // its belly on the bank, then up to the nozzle, kinked like a snake
+            for (j in 0 until th) {
+                c.line(ax.toInt(), ay.toInt() + j, mx.toInt(), my.toInt() + j, if (j == 0) hoseL else hose)
+                val kx = (mx + nx) / 2f + wild * sin(t * 6.0).toFloat() * 0.18f * pn; val ky = (my + ny) / 2f
+                c.line(mx.toInt(), my.toInt() + j, kx.toInt(), ky.toInt() + j, if (j == 0) hoseL else hose)
+                c.line(kx.toInt(), ky.toInt() + j, nx.toInt(), ny.toInt() + j, if (j == 0) hoseL else hose)
+            }
+            c.line(nx.toInt(), ny.toInt(), tx.toInt(), tyy.toInt(), brass)
+        }
+        if (!pumping) return
+        // the jet: a rope of water arcing from the nozzle, beads of it running along, then the spray coming down
+        s.fx {
+            val strength = 0.45f + 0.55f * min(1f, level * 1.6f)
+            val reach = 3.4f * strength * pn; val sag = 1.7f * pn
+            val dx = cos(ang); val dy = sin(ang)
+            val water = Col.hex(0xE8F4FF); val waterD = Col.hex(0xA8CCEC)
+            val n = (reach / max(1f, z * 0.8f)).toInt().coerceAtLeast(12)
+            for (i in 0..n) {
+                val q = i / n.toFloat()
+                val jx = tx + dx * reach * q
+                val jy = tyy + dy * reach * q + sag * q * q
+                val a = 0.9f * (1f - 0.55f * q)
+                for (o in 0 until z) { c.blend(jx.toInt() + o, jy.toInt(), water, a); c.blend(jx.toInt(), jy.toInt() + o, waterD, a * 0.6f) }
+            }
+            for (k in 0 until 4) {
+                val q = ((k / 4f + (t * 1.6).toFloat()) % 1f)
+                val jx = tx + dx * reach * q; val jy = tyy + dy * reach * q + sag * q * q
+                c.fillRect(jx.toInt() - z / 2, jy.toInt() - z / 2, z + 1, z + 1, water)
+            }
+            if (wild > 0f) for (i in 0 until (50 * wild).toInt() + 10 * z) {
+                // spray coming down all round, over the bank and the people on it: drops falling and thinning out
+                val q = ((Noise.rnd(i, 341) + t * (0.9 + Noise.rnd(i, 342) * 0.6)) % 1.0).toFloat()
+                val sx = ax + (Noise.rnd(i, 343) - 0.6f) * 4.2f * pn + sin(t * 2 + i).toFloat() * 0.1f * pn
+                val sy = ay - 2.4f * pn + q * 2.8f * pn + (Noise.rnd(i, 344) - 0.5f) * 0.6f * pn
+                val a = (1f - q * q) * 0.95f * wild
+                for (o in 0 until z) { c.blend(sx.toInt() + o, sy.toInt(), water, a); c.blend(sx.toInt() + o, sy.toInt() + z, waterD, a * 0.7f) }
+            }
+        }
+    }
+
+    /**
+     * The first cart over the new bridge ("cart": "Danes gre čez prvi voz."): a horse and a cart from the road on the right,
+     * up onto the deck and over the stream, down onto the far bank and away along the road behind the willow (the level how
+     * far: 0 waiting at the near end, 1 gone). Drawn once the deck is laid. Its legs and wheels go with the way it has come.
+     */
+    private fun bridgeCart(level: Float) {
+        val s0 = level.coerceIn(0f, 1f)
+        if (level >= 0.995f) return
+        // along the road: the near approach, the bridge's right end, its left end, the far road behind the willow
+        val pts = floatArrayOf(6.2f, 3.3f, -2.6f, -6.4f)
+        val at = floatArrayOf(0f, 0.15f, 0.7f, 1f)
+        var x = pts[0]
+        for (i in 0 until 3) if (s0 >= at[i]) x = pts[i] + (pts[i + 1] - pts[i]) * ((s0 - at[i]) / (at[i + 1] - at[i])).coerceIn(0f, 1f)
+        val d = roadMid(x)
+        val moving = s0 > 0.002f // waiting at the near end, the horse grazes
+        items.add(d - 0.02f to { prop { horseAndCart(x, d, moving) } })
+    }
+
+    /** How high the bridge carries something at side [x] (m): the deck's height over it, ramping down to the ground off its ends. */
+    private fun deckLift(x: Float): Float {
+        val lift = pierH + 0.3f
+        val off = max(cartL - x, x - cartR)
+        return if (off <= 0f) lift else lift * (1f - off / 3f).coerceIn(0f, 1f)
+    }
+
+    /**
+     * A brown horse in the shafts of a small cart behind it, side on, heading left; the cart's middle at side [x], depth
+     * [d]: walking ([moving]: the legs swing and the wheels turn with the ground covered), or at rest, the horse's head down.
+     */
+    private fun horseAndCart(x: Float, d: Float, moving: Boolean) {
+        val p = pm(d)
+        val coat = Col.hex(0x7A4A2A); val coatL = Col.hex(0x9A6640); val coatD = Col.hex(0x54321C); val mane = Col.hex(0x2E2018)
+        val sz = p / 10f / detail // a unit is ten centimetres (the kit's units are scene canvas px)
+        val k = sz * detail
+        val hxm = x - 2.6f // the horse's middle, ahead of the cart
+        val stride = ((x / 1.7f) % 1f + 1f) % 1f
+        // the cart: its bed on two wheels, a load of planks, the shafts out to the horse
+        val cy = gy(d) - deckLift(x) * p
+        anchor(gx(x, d), cy, sz)
+        val turn = x / 0.45f // the wheel turns with the ground covered
+        val r = 4.6f
+        ell(1.5f, -r, r, r, Pal.WOOD_D); ell(1.5f, -r, r - 1.1f, r - 1.1f, Pal.WOOD_M)
+        for (j in 0 until 6) { val a = j / 6f * 2f * PI.toFloat() + turn; seg(1.5f, -r, 1.5f + cos(a) * (r - 1.2f), -r + sin(a) * (r - 1.2f), 0.6f, Pal.WOOD_D) }
+        poly(Pal.WOOD_M, -11f, -11f, 11f, -11f, 11f, -6.5f, -11f, -6.5f)
+        poly(Pal.WOOD_L, -11f, -11f, 11f, -11f, 11f, -10f, -11f, -10f)
+        poly(Col.hex(0xC8A070), -9f, -14f, 9f, -14f, 9f, -11f, -9f, -11f) // the load of planks
+        poly(Col.hex(0xA88050), -9f, -12.6f, 9f, -12.6f, 9f, -12f, -9f, -12f)
+        dot(1.5f, -r, Pal.WOOD_D, 1.2f)
+        // the horse ahead of it, at its own height on the bridge or off it
+        val hy = gy(d) - deckLift(hxm) * p
+        val hx = gx(hxm, d)
+        seg(-11f, -8.5f, (hx - gx(x, d)) / k - 7.5f, (hy - cy) / k - 11.5f, 0.6f, Pal.WOOD_D) // the shafts, to the horse's collar
+        anchor(hx, hy, sz)
+        for ((i, lx) in floatArrayOf(-7f, -5f, 5f, 7f).withIndex()) {
+            val sw = if (moving) sin((stride + (if (i == 0 || i == 3) 0f else 0.5f)) * 2f * PI.toFloat()) * 2.2f else 0f
+            seg(lx, -9f, lx + sw, 0f, 1.3f, if (i % 2 == 0) coatD else coat)
+        }
+        ell(0f, -11.5f, 9.5f, 4.2f, coat); ell(-0.5f, -13.2f, 6.5f, 1.6f, coatL)
+        seg(9f, -12.5f, 11f, -6f, 1.4f, mane) // the tail
+        val headDown = !moving && sin(t * 0.5) > -0.3
+        if (headDown) {
+            poly(coat, -7f, -14f, -9f, -15f, -13f, -5f, -11f, -4f)
+            ell(-13f, -3.4f, 2.8f, 1.6f, coat); ell(-15.2f, -2.8f, 1.3f, 1.1f, coatD)
+            seg(-7.5f, -15f, -11.5f, -6f, 1f, mane)
+        } else {
+            poly(coat, -5f, -15f, -10f, -21f, -12.5f, -19.5f, -8f, -9.5f)
+            ell(-13f, -19.5f, 3f, 1.8f, coat); ell(-15.4f, -18.8f, 1.4f, 1.2f, coatD)
+            seg(-7f, -14f, -11f, -21f, 1.1f, mane)
+            seg(-11.5f, -21f, -11f, -23f, 0.8f, coatD) // an ear
+            dot(-12.6f, -20f, Pal.OUTLINE)
+        }
+        // the collar, where the shafts meet it
+        seg(-7f, -15.5f, -7.5f, -10f, 1.2f, Col.hex(0x3A2418))
+    }
+
     /** The trout holding in the current under the surface, head upstream, its tail beating; spotted closer up. */
     private fun trout(x: Float, d: Float) {
         val z = z
@@ -1255,6 +1457,14 @@ internal class StreamPainter : WildPainter() {
         /** The village projects this scene shows as they're built: France's mill, the cart bridge. */
         private const val MILL = "mlin"
         private const val BRIDGE = "most"
+        /** Steps of the bridge done when its deck is laid: a cart ("cart") can go over it. */
+        private const val DECKED = 5
+        /** The lamb by the ewe ("lamb"), in front of her at the water's edge. */
+        private const val LAMB_X = 1.7f
+        private const val LAMB_D = 15.9f
+        /** The fire brigade's pump ("hose") on the right bank, a step from the water. */
+        private const val PUMP_X = 1.9f
+        private const val PUMP_D = 12.4f
 
         /** The moon's column on the stage: over the stream's far reach, so it shimmers in the water. */
         private const val MOON_X = 128

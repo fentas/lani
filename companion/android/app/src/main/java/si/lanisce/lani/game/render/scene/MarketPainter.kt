@@ -26,10 +26,11 @@ import kotlin.math.sqrt
  * and a crate of bottles, stacked crates, the market bell on its post; pigeons pecking in the lane. Farther stalls sell
  * fruit, embroidery and wool socks, flowers and pottery. Snow lies on the awnings in winter, lanterns burn after dusk.
  *
- * A dialog can make it a busy day ("bustle": shoppers crowding the lane), ring the market bell ("bell") and send the
- * pigeons up ("pigeons": how far they have flown). Taps: the scale's beam tips and swings (then the other way, a weight
- * hopping), an apple rolls off its crate over the cobbles (then two), the hen flaps in its coop (then squawks, feathers
- * flying).
+ * A dialog can make it a busy day ("bustle": shoppers crowding the lane), ring the market bell ("bell"), send the
+ * pigeons up ("pigeons": how far they have flown) and let Micka's hen out of her coop, over the lane and up onto
+ * Marko's cart ("hen": 1 on it, where a tap on her is a tap on the cart; 0 back in her coop). Taps: the scale's beam
+ * tips and swings (then the other way, a weight hopping), an apple rolls off its crate over the cobbles (then two), the
+ * hen flaps in its coop (then squawks, feathers flying).
  *
  * The stall's seller stands by it ("stall"), a buyer in the lane before it ("buyer"), someone by the cart ("cart"): the
  * place where a trade could be bargained over.
@@ -99,7 +100,10 @@ internal class MarketPainter : VistaPainter() {
         items.add(11.4f to { groundShadow(-6.6f, 11.4f, 0.35f); thing("basket", slop = 1) { basket(-6.6f, 11.4f) } })
         items.add(11.15f to { thing("apples") { appleCrate(-5.6f, 11.0f) } })
         items.add(11.0f to { thing("vegetables") { vegCrate(-4.55f, 10.85f) } })
-        items.add(11.2f to { groundShadow(-3.55f, 11.2f, 0.35f); thing("hen", slop = 1) { henCoop(-3.55f, 11.2f) } })
+        // Micka's hen: in her coop, or with a dialog's "hen" out of it, over the lane and up on Marko's cart (see [cartBody])
+        val henOut = fxOn("hen")
+        items.add(11.2f to { groundShadow(-3.55f, 11.2f, 0.35f); thing("hen", slop = 1) { henCoop(-3.55f, 11.2f, empty = henOut > HEN_OUT) } })
+        henFlight(henOut)
         for (p in peopleAt("stall")) items.add(12.0f to { groundShadow(-2.0f, 12.0f, 0.45f); person(p, gx(-2.0f, 12.0f).toInt(), gy(12.0f).toInt(), flip = false) })
         for (p in peopleAt("buyer")) items.add(11.2f to { groundShadow(-0.55f, 11.2f, 0.45f); person(p, gx(-0.55f, 11.2f).toInt(), gy(11.2f).toInt(), flip = true) })
         for (p in peopleAt("cart")) items.add(11.0f to { groundShadow(1.9f, 11.0f, 0.45f); person(p, gx(1.9f, 11.0f).toInt(), gy(11.0f).toInt(), flip = true) })
@@ -766,26 +770,18 @@ internal class MarketPainter : VistaPainter() {
      * A hen (kokoš) in a wicker coop, brown with a red comb, looking about; poked, it flaps (a feather drifting off), then
      * squawks and flaps hard, feathers flying.
      */
-    private fun henCoop(x: Float, d: Float) {
+    private fun henCoop(x: Float, d: Float, empty: Boolean = false) {
         val z = z
         val p = pm(d)
         val bx = gx(x, d); val by = gy(d)
         val rw = 0.3f * p; val rh = 0.42f * p
-        val pk = poked("hen"); val a = pk?.age(t) ?: 0f
+        val pk = poked("hen")?.takeIf { !empty }; val a = pk?.age(t) ?: 0f
         val flap = if (pk != null) (if ((a * (if (pk.step == 0) 9f else 14f)).toInt() % 2 == 0) 1 else 0) else 0
-        // the hen inside, then the wicker bars over it
-        sprite(bx.toInt(), by.toInt()) {
-            val hx = bx.toInt(); val hy = by.toInt()
-            val brown = Col.hex(0xA05A26); val brownD = Col.hex(0x6E3A18)
+        // the hen inside (out of it: a feather left on its floor), then the wicker bars over it
+        if (empty) sprite(bx.toInt(), by.toInt()) { c.set(bx.toInt() - 1, by.toInt() - 1, Col.hex(0xE8C8A0)); c.set(bx.toInt(), by.toInt() - 1, Col.hex(0xC89A6A)) }
+        else sprite(bx.toInt(), by.toInt()) {
             val look = if (pk == null && sin(t * 1.3) > 0.3) 1 else 0
-            c.fillRect(hx - 3, hy - 4, 6, 3, brown)
-            c.fillRect(hx - 4, hy - 5, 2, 2, brownD)
-            if (flap == 1) { c.fillRect(hx - 3, hy - 7, 3, 2, brown); c.fillRect(hx + 1, hy - 7, 2, 2, brown) }
-            c.fillRect(hx + 2, hy - 7 + look, 2, 3, brown)
-            c.set(hx + 2, hy - 8 + look, Pal.GERANIUM); c.set(hx + 3, hy - 8 + look, Pal.GERANIUM)
-            c.set(hx + 4, hy - 6 + look, Pal.GOLD)
-            if (pk != null && pk.step == 1 && flap == 1) c.set(hx + 4, hy - 5 + look, Pal.GOLD)
-            c.set(hx + 3, hy - 6 + look, Col.hex(0x1E1A18))
+            hen(bx.toInt(), by.toInt(), flap == 1, look, squawk = pk != null && pk.step == 1 && flap == 1)
         }
         val wick = Col.hex(0xC89A5A); val wickD = Col.hex(0x8A6030)
         for (k in 0..6) {
@@ -808,6 +804,55 @@ internal class MarketPainter : VistaPainter() {
             }
             if (pk.step == 1 && a in 0.2f..1.6f) PokeArt.rings(c, bx + rw, by - rh * 0.7f, ((a - 0.2f) / 1.4f), 0.6f * p, Col.hex(0xFFFFFF), max(1, z / 2 + 1), 0.8f, n = 2)
         }
+    }
+
+    /**
+     * The hen at sprite offsets from ([hx], [hy]) (her feet's row; draw inside [sprite]), facing right or [left]: her brown
+     * body and darker tail, her head with its red comb and yellow beak raised by [look], or down pecking ([peck]); her wings
+     * up when [flap]; her beak open when she [squawk]s; her yellow legs when she [stands] on something.
+     */
+    private fun hen(hx: Int, hy: Int, flap: Boolean, look: Int = 0, peck: Boolean = false, squawk: Boolean = false, stands: Boolean = false, left: Boolean = false) {
+        val f = if (left) -1 else 1
+        fun px(dx: Int, dy: Int, w: Int, h: Int, col: Int) = c.fillRect(if (f > 0) hx + dx else hx - dx - w + 1, hy + dy, w, h, col)
+        fun dot(dx: Int, dy: Int, col: Int) = c.set(hx + f * dx, hy + dy, col)
+        val brown = Col.hex(0xA05A26); val brownD = Col.hex(0x6E3A18)
+        if (stands) { dot(-1, -1, Pal.GOLD); dot(1, -1, Pal.GOLD) }
+        px(-3, -4, 6, 3, brown)
+        px(-4, -5, 2, 2, brownD)
+        if (flap) { px(-3, -7, 3, 2, brown); px(1, -7, 2, 2, brown) }
+        val hd = if (peck) 3 else look // the head down to the boards, pecking
+        px(2, -7 + hd, 2, 3, brown)
+        dot(2, -8 + hd, Pal.GERANIUM); dot(3, -8 + hd, Pal.GERANIUM)
+        dot(4, -6 + hd, Pal.GOLD)
+        if (squawk) dot(4, -5 + hd, Pal.GOLD)
+        dot(3, -6 + hd, Col.hex(0x1E1A18))
+    }
+
+    /** Whether the hen was last seen on her way back to her coop ("hen" falling): she flies facing it. */
+    private var henWas = 0f
+    private var henBack = false
+
+    /**
+     * Micka's hen out of her coop ("hen": "Moja kokoš je pobegnila. Kje je zdaj?"): on her way she flutters up over the
+     * lane, wings beating, a feather drifting, and down onto Marko's cart, where she stands pecking (drawn with the cart,
+     * so a tap on her there is a tap on the cart: "Tam je, na vozu!"); the level falling, she flies back to her coop.
+     */
+    private fun henFlight(level: Float) {
+        if (level < henWas - 1e-4f) henBack = true else if (level > henWas + 1e-4f) henBack = false
+        henWas = level
+        if (level <= HEN_OUT || level >= HEN_ON) return
+        val u = (level - HEN_OUT) / (HEN_ON - HEN_OUT)
+        val x = -3.55f + (HEN_X - -3.55f) * u
+        val d = 11.2f + (CART_D - 11.2f) * u
+        val hgt = 0.12f + (CART_BED_HI - 0.12f) * u + sin(u * PI.toFloat()) * 1.1f
+        items.add(d to {
+            groundShadow(x, d, 0.3f, 0.86f)
+            prop {
+                val hx = gx(x, d).toInt(); val hy = hy(d, hgt).toInt()
+                sprite(hx, hy) { hen(hx, hy, ((t * 12).toInt() and 1) == 0, left = henBack) }
+            }
+            s.fx { val fu = ((t * 0.9) % 1.0).toFloat(); c.blend(gx(x - 0.3f, d).toInt(), (hy(d, hgt) + fu * 0.6f * pm(d)).toInt(), Col.hex(0xE8C8A0), 1f - fu) }
+        })
     }
 
     // ------------------------------------------------------------------ the right side
@@ -843,6 +888,11 @@ internal class MarketPainter : VistaPainter() {
             }
             // the near wheels
             for (wx in floatArrayOf(x0 + 0.75f, x1 - 0.7f)) wheelFront(wx, d0 - 0.08f, 0.55f, far = false)
+            // Micka's hen, run off up here ("hen" at 1): on the near side's top board, pecking
+            if (fxOn("hen") >= HEN_ON) {
+                val hx = gx(HEN_X, d0).toInt(); val hy = hy(d0, bedHi).toInt()
+                sprite(hx, hy) { hen(hx, hy, flap = sin(t * 0.7) > 0.93, peck = sin(t * 5.5) > 0.2, stands = true) }
+            }
         }
         thing("wine", slop = 1) { bottles(x0 + 1.15f, d0 + 0.6f, bedLo) }
     }
@@ -1142,6 +1192,12 @@ internal class MarketPainter : VistaPainter() {
         private const val CART_X0 = 2.9f
         private const val CART_X1 = 6.7f
         private const val CART_D = 12.5f
+        /** The top of the cart's near side (m up), where the hen ("hen") stands, at side [HEN_X] between the bottles and the barrel. */
+        private const val CART_BED_HI = 1.18f
+        private const val HEN_X = 4.85f
+        /** The hen ("hen") is out of her coop above this level, and up on the cart from [HEN_ON]. */
+        private const val HEN_OUT = 0.02f
+        private const val HEN_ON = 0.98f
 
         /** The house along the right of the square: its front at side [SIDE_X], from depth [SIDE_D0] to [SIDE_D1]. */
         private const val SIDE_X = 8.2f

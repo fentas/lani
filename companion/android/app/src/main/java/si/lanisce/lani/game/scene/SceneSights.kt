@@ -103,13 +103,26 @@ object SceneSights {
     /** Flown so far ([flies]' effect at [level]) that it's gone from the picture. */
     fun flownAway(level: Float): Boolean = level >= 0.995f
 
+    /** What an effect a dialog sets keeps away while it is low, coming back as it rises: art → object slot → the effect (Sivko, "horse"). */
+    val comesBack: Map<String, Map<String, String>> = mapOf("field" to mapOf("horse" to "horse"))
+
+    /**
+     * Not back yet ([comesBack]' effect at [level]): away beyond the picture's edge, or on the first half of the way back,
+     * where he comes into a wide view first; scenery then, not the word to tap (FieldPainter draws him so).
+     */
+    fun away(level: Float): Boolean = level < BACK
+
+    /** From here on the way back ([comesBack]) the thing is in the picture of every width (the nominal stage's too): the word again. */
+    const val BACK = 0.58f
+
     /**
      * Whether [slot] of [art] is sent away by the effects [fx] a dialog set (and left for the day): the pigeons flown off,
-     * the bats a cue has none of ([Wildlife.bats]).
+     * Sivko not back yet, the bats a cue has none of ([Wildlife.bats]).
      */
     fun byEffect(art: String, slot: String, fx: Map<String, Float>): Boolean {
         if (fx.isEmpty()) return false
         flies[art]?.get(slot)?.let { e -> fx[e]?.let { if (flownAway(it)) return true } }
+        comesBack[art]?.get(slot)?.let { e -> fx[e]?.let { if (away(it)) return true } }
         if (slot == BAT && slot in Wildlife.slots(art) && "bats" in SceneArt.effects[art].orEmpty()) fx["bats"]?.let { return Wildlife.bats(it) == 0 }
         return false
     }
