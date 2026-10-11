@@ -49,6 +49,7 @@
   "dialogs": [
     {
       "id": "prvic",
+      "months": [7, 8, 9],
       "lines": [
         { "who": "marko", "sl": "Ciao! Si prvič na gričih?", "en": "Hi! Is it your first time on the hills? (ciao: Primorska for hi, from Italian)", "de": "Hallo! Bist du zum ersten Mal auf den Hügeln? (ciao: in Primorska „hallo“, aus dem Italienischen)", "it": "Ciao! È la prima volta che vieni sulle colline? (ciao: il saluto della Primorska, preso dall'italiano)" },
         { "choices": [
@@ -80,6 +81,7 @@
     },
     {
       "id": "nevihta",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "lines": [
         { "who": "janez", "sl": "Sedi, {learner}. Zid je topel od sonca. Lep razgled, ne?", "en": "Sit down, {learner}. The wall is warm from the sun. A lovely view, isn't it?", "de": "Setz dich, {learner}. Die Mauer ist warm von der Sonne. Schöne Aussicht, nicht?", "it": "Siediti, {learner}. Il muro è caldo di sole. Bella vista, no?" },
         { "choices": [
@@ -128,6 +130,7 @@
   "variants": [
     {
       "id": "prvic-rebula",
+      "months": [8, 9, 10],
       "memory": { "sl": "{m:gosta, ki mu|f:gostjo, ki ji} je bilo všeč moje grozdje", "en": "the guest who liked my grapes", "de": "den Gast, dem meine Trauben geschmeckt haben", "it": "l'ospite a cui è piaciuta la mia uva" },
       "lines": [
         { "who": "marko", "sl": "Ciao! {m:Dobrodošel|f:Dobrodošla} na gričih. Kozarec rebule?", "en": "Ciao! Welcome to the hills. A glass of rebula? (rebula: a white wine of Brda)", "de": "Ciao! Willkommen auf den Hügeln. Ein Glas Rebula? (Rebula: ein Weißwein aus Brda)", "it": "Ciao! {m:Benvenuto|f:Benvenuta} sulle colline. Un bicchiere di rebula? (la rebula: un vino bianco del Collio)" },
@@ -178,6 +181,7 @@
     },
     {
       "id": "nevihta-sekunde",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "count": { "from": "dice", "min": 3, "max": 12, "gender": "f", "case": "acc" },
       "lines": [
         { "who": "janez", "sl": "Sedi, {learner}. Poglej, blisk! Zdaj pa štej. Do groma.", "en": "Sit down, {learner}. Look, lightning! Now count. Until the thunder.", "de": "Setz dich, {learner}. Schau, ein Blitz! Jetzt zähl. Bis zum Donner.", "it": "Siediti, {learner}. Guarda, un lampo! Adesso conta. Fino al tuono.",

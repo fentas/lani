@@ -34,7 +34,7 @@
       "when": ["morning"], "chance": 0.45, "dialog": "megla", "dialogs": ["megla-race", "megla"], "reward": { "wisdom": 15 }, "marker": "🌫️",
       "memory": { "sl": "jutro, ko se je megla dvignila z ribnika", "en": "the morning the fog lifted off the pond", "de": "den Morgen, an dem sich der Nebel vom Teich gehoben hat", "it": "la mattina in cui la nebbia si è alzata dallo stagno" } },
     { "id": "zaba", "title": { "sl": "Nejc lovi žabo", "en": "Nejc is after a frog", "de": "Nejc ist hinter einem Frosch her", "it": "Nejc dà la caccia a una rana" }, "who": "nejc",
-      "when": ["afternoon"], "chance": 0.5, "dialog": "zaba", "dialogs": ["zaba-mreza", "zaba-paglavci", "zaba"], "reward": { "food": 15 }, "marker": "🐸",
+      "when": ["afternoon"], "months": [3, 4, 5, 6, 7, 8, 9], "chance": 0.5, "dialog": "zaba", "dialogs": ["zaba-mreza", "zaba-paglavci", "zaba"], "reward": { "food": 15 }, "marker": "🐸",
       "memory": { "sl": "žabo, ki nama je ušla v vodo", "en": "the frog that got away from us into the water", "de": "den Frosch, der uns ins Wasser entwischt ist", "it": "la rana che ci è scappata in acqua" } },
     { "id": "ribe", "title": { "sl": "Janez lovi ribe", "en": "Janez is fishing", "de": "Janez angelt", "it": "Janez pesca" }, "who": "janez",
       "when": ["evening"], "chance": 0.45, "dialog": "ribe", "dialogs": ["ribe-stejem", "ribe-scuka", "ribe"], "reward": { "wisdom": 20 }, "marker": "🎣",
@@ -85,6 +85,7 @@
     },
     {
       "id": "zaba",
+      "months": [5, 6, 7, 8, 9],
       "lines": [
         { "who": "nejc", "sl": "{learner}, {learner}! Pridi hitro! Na lokvanju sedi žaba!", "en": "{learner}, {learner}! Come quick! There is a frog sitting on a water lily!", "de": "{learner}, {learner}! Komm schnell! Auf einer Seerose sitzt ein Frosch!", "it": "{learner}, {learner}! Vieni presto! C'è una rana seduta su una ninfea!" },
         { "choices": [
@@ -268,6 +269,7 @@
     },
     {
       "id": "zaba-paglavci",
+      "months": [3, 4, 5, 6],
       "memory": { "sl": "paglavce v ribniku", "en": "the tadpoles in the pond", "de": "die Kaulquappen im Teich", "it": "i girini nello stagno" },
       "lines": [
         { "who": "nejc", "sl": "{learner}, {learner}! Žabe nisem ujel. Ampak glej! V vodi je polno majhnih črnih stvari!", "en": "{learner}, {learner}! I didn't catch the frog. But look! The water is full of little black things!", "de": "{learner}, {learner}! Den Frosch hab ich nicht gefangen. Aber schau! Im Wasser sind lauter kleine schwarze Dinger!", "it": "{learner}, {learner}! La rana non l'ho presa. Ma guarda! Nell'acqua è pieno di cosine nere!" },

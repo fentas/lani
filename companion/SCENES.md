@@ -629,6 +629,26 @@ Without them it is all year, as before.
 
 An older bridge strips `months` (its scenes play all year, as before); an older app ignores them.
 
+What has a season (`ScenesContentTest`, "the seasons"; every other happening and dialog is all year, and every scene has
+something on in every month):
+
+| Scene | Happenings (their months) | Dialogs of their own (their months) |
+|---|---|---|
+| `na-njivi` | the wheat harvest 6–8, the potatoes dug 7–10, the hay 6–9, mowing in the dew 5–9 | |
+| `v-gozdu` | mushrooms 7–11, blueberries 6–8, the bear 3–11 | the hungry bear of autumn 9–11, the fawn a month old 5–8, the bats at dusk 4–10 (`mrak`, `mrak-stejem`, `sova`) |
+| `pri-cebelnjaku` | the hives opened 3–10, the swarm 4–7 | the honey taken 5–8, the bee sting 3–10 |
+| `pri-ribniku` | the frog 3–9 | the tadpoles 3–6, Nejc's swim 5–9 |
+| `ob-ognju` | Luka's cold hands 9–5 | |
+| `v-hisi` | the stove fired up 10–4 | |
+| `v-kleti` | the new wine 11–4 | |
+| `na-stolpu` | the storm 4–10 | the hay out in it 6–9 |
+| `na-trznici` | | "come to the trgatev" 5–10 |
+| `na-vasi`, `v-soli`, `v-podstresju` | school (the dual at the well, the blackboard, the dual, the homework) 9–6 | "let's wait for winter" 3–11; the summer's holiday asked of 1–6; Nejc to school 9–6 (the pond after it 3–6, 9) |
+| `kuhinja`, `ob-potoku`, `v-sotoru` | | eight degrees on the radio 10–4; the cold dawn at the mill 9–5; the blanket for the cold 9–5, the thunder 4–10 |
+| `na-gricih`, `v-gorah` | the cows on the planina, the milking 6–9 | the grapes offered 8–10, the starlings and "come to the trgatev" 7–9, the storm and the hail 4–10 |
+| `am-see`, `il-mare` | the Alm, the milking 6–9; a swim in the sea 5–9 | |
+| `al-fuoco`, `am-feuer` | | "are you cold?" by the fire 9–5 |
+
 ### What the village has built
 
 A scene shows the village as it is: the kozolec stands in the field only once the village has built one, France's

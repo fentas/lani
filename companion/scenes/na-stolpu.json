@@ -39,7 +39,7 @@
       "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "krosnjar", "dialogs": ["krosnjar-daljnogled", "krosnjar-denar", "krosnjar"], "reward": { "wisdom": 15 }, "marker": "🔭",
       "memory": { "sl": "krošnjarja, ki sva ga s stolpa videla na cesti", "en": "the pedlar we spotted on the road from the tower", "de": "den Hausierer, den wir vom Turm aus auf der Straße entdeckt haben", "it": "il venditore ambulante che abbiamo avvistato sulla strada dalla torre" } },
     { "id": "nevihta", "title": { "sl": "France vidi nevihto", "en": "France sees a storm coming", "de": "France sieht ein Gewitter kommen", "it": "France vede arrivare un temporale" }, "who": "france",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "nevihta", "dialogs": ["nevihta-sekunde", "nevihta-seno", "nevihta"], "reward": { "food": 15 }, "marker": "⛈️",
+      "when": ["afternoon"], "months": [4, 5, 6, 7, 8, 9, 10], "chance": 0.4, "dialog": "nevihta", "dialogs": ["nevihta-sekunde", "nevihta-seno", "nevihta"], "reward": { "food": 15 }, "marker": "⛈️",
       "memory": { "sl": "nevihto, ki sva jo videla priti čez dolino", "en": "the storm we watched coming across the valley", "de": "das Gewitter, das wir über das Tal heranziehen sahen", "it": "il temporale che abbiamo visto arrivare attraverso la valle" } }
   ],
   "dialogs": [
@@ -112,6 +112,7 @@
     },
     {
       "id": "nevihta",
+      "months": [6, 7, 8, 9],
       "sky_stays": true,
       "lines": [
         { "who": "france", "sl": "{learner}, poglej čez dolino. Oblaki! En, dva, trije … veliko oblakov.", "en": "{learner}, look across the valley. Clouds! One, two, three … lots of clouds.", "de": "{learner}, schau übers Tal. Wolken! Eine, zwei, drei … viele Wolken.", "it": "{learner}, guarda oltre la valle. Nuvole! Una, due, tre … tante nuvole.",
@@ -296,6 +297,7 @@
     },
     {
       "id": "nevihta-seno",
+      "months": [6, 7, 8, 9],
       "sky_stays": true,
       "lines": [
         { "who": "france", "sl": "{learner}! Poglej dol. Moje seno je še na travniku, nevihta pa gre!", "en": "{learner}! Look down there. My hay is still in the meadow, and the storm is coming!", "de": "{learner}! Schau runter. Mein Heu liegt noch auf der Wiese, und das Gewitter kommt!", "it": "{learner}! Guarda giù. Il mio fieno è ancora sul prato, e arriva il temporale!",

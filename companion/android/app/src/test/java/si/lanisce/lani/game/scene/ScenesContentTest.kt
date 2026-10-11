@@ -263,6 +263,52 @@ class ScenesContentTest {
         })
     }
 
+    @Test fun `the seasons - what is said fits the month, and no scene is ever empty`() {
+        val cultures = listOf(File("../../cultures"), File("../cultures"), File("companion/cultures")).first { it.isDirectory }
+        val all = (files + cultures.listFiles().orEmpty().flatMap { c -> File(c, "scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList() })
+            .map { parseScene(it.readText()) }
+        val scenes = all.associateBy { it.id }
+        fun day(month: Int) = java.time.LocalDate.of(2027, month, 15)
+        // what Happenings.on and variant ask of the months: the happening's, and one of its dialogs' (a story has none)
+        fun onIn(s: SceneSpec, h: Happening, month: Int): Boolean {
+            if (!h.inSeason(day(month))) return false
+            val ids = DialogVariants.of(h)
+            return h.stories || ids.isEmpty() || ids.any { id -> s.dialogs.firstOrNull { it.id == id }?.inSeason(day(month)) != false }
+        }
+        fun on(scene: String, h: String, month: Int) = scenes.getValue(scene).let { s -> onIn(s, s.happenings.first { it.id == h }, month) }
+        fun plays(scene: String, d: String, month: Int) = scenes.getValue(scene).dialogs.first { it.id == d }.inSeason(day(month))
+        for (s in all) for (m in 1..12) {
+            assertTrue("${s.id}: something on in month $m", s.happenings.any { !Happenings.forGuests(s, it) && onIn(s, it, m) })
+            for (h in s.happenings) for (id in DialogVariants.of(h)) {
+                val d = s.dialogs.firstOrNull { it.id == id } ?: continue
+                assertTrue("${s.id}/${h.id}/$id: its months lie in its happening's", h.months.isEmpty() || d.months.isEmpty() || d.months.any { it in h.months })
+            }
+        }
+        // the hay and the mowing in summer, the harvest of wheat and potatoes, the mushrooms and the blueberries
+        assertTrue((6..9).all { on("na-njivi", "seno", it) } && listOf(1, 5, 10, 12).none { on("na-njivi", "seno", it) })
+        assertTrue(on("na-njivi", "zetev", 7) && !on("na-njivi", "zetev", 1) && on("na-njivi", "krompir", 9) && !on("na-njivi", "krompir", 3))
+        assertTrue(on("na-njivi", "kosnja", 6) && !on("na-njivi", "kosnja", 12) && (1..12).all { on("na-njivi", "strasilo", it) })
+        assertTrue((8..11).all { on("v-gozdu", "gobe", it) } && !on("v-gozdu", "gobe", 3) && on("v-gozdu", "borovnice", 7) && !on("v-gozdu", "borovnice", 11))
+        // the bear sleeps through the winter, as the art has it (Wildlife: 3..11), and is hungry in autumn; the bats likewise
+        assertTrue((3..11).all { on("v-gozdu", "medved", it) } && listOf(12, 1, 2).none { on("v-gozdu", "medved", it) })
+        assertTrue(plays("v-gozdu", "medved", 10) && !plays("v-gozdu", "medved", 5) && plays("v-gozdu", "medved-sledi", 5))
+        assertTrue(listOf("mrak", "mrak-stejem", "sova").all { plays("v-gozdu", it, 7) && !plays("v-gozdu", it, 1) } && plays("v-gozdu", "mrak-tiho", 1))
+        // the bees: the hives opened and the swarms from spring, the honey taken in summer; tasting it all year
+        assertTrue(on("pri-cebelnjaku", "panji", 5) && !on("pri-cebelnjaku", "panji", 1) && on("pri-cebelnjaku", "roj", 5) && !on("pri-cebelnjaku", "roj", 9))
+        assertTrue(plays("pri-cebelnjaku", "med", 7) && !plays("pri-cebelnjaku", "med", 12) && (1..12).all { on("pri-cebelnjaku", "med", it) })
+        // the frog and its tadpoles; the cold of winter mornings, the stove, the blanket; the storm and its hay
+        assertTrue(on("pri-ribniku", "zaba", 4) && !on("pri-ribniku", "zaba", 12) && plays("pri-ribniku", "zaba-paglavci", 4) && !plays("pri-ribniku", "zaba-paglavci", 8))
+        assertTrue(on("ob-ognju", "roke", 1) && !on("ob-ognju", "roke", 7) && on("v-hisi", "pec", 1) && !on("v-hisi", "pec", 7))
+        assertTrue(plays("v-sotoru", "odeja", 1) && !plays("v-sotoru", "odeja", 7) && plays("v-sotoru", "odeja-caj", 7))
+        assertTrue(on("na-stolpu", "nevihta", 7) && !on("na-stolpu", "nevihta", 1) && !plays("na-stolpu", "nevihta-seno", 4) && plays("na-stolpu", "nevihta-sekunde", 4))
+        // school: not in the summer holidays; the new wine from St Martin's
+        assertTrue(on("v-soli", "tabla", 10) && !on("v-soli", "tabla", 8) && on("na-vasi", "dvojina", 3) && !on("na-vasi", "dvojina", 7))
+        assertTrue(on("v-kleti", "pokusina", 11) && !on("v-kleti", "pokusina", 8))
+        // the culture packs' places: the Alm's cows in summer, the sea's swim, the tea for the cold by the fire
+        assertTrue(on("am-see", "alm", 7) && !on("am-see", "alm", 1) && on("v-gorah", "planina", 7) && !on("v-gorah", "planina", 1) && on("v-gorah", "molza", 8) && !on("v-gorah", "molza", 12))
+        assertTrue(on("il-mare", "onde", 7) && !on("il-mare", "onde", 1) && !plays("al-fuoco", "tisana", 7) && plays("al-fuoco", "tisana", 1) && !plays("am-feuer", "tee", 7))
+    }
+
     @Test fun `happenings and dialogs point at people and dialogs of their scene`() {
         for (f in files) {
             val s = parseScene(f.readText())

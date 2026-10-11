@@ -38,7 +38,7 @@
       "when": ["afternoon"], "chance": 0.5, "dialog": "prsut", "dialogs": ["prsut-kruh", "prsut-noz", "prsut"], "reward": { "food": 25 }, "marker": "🍖", "needs": { "level": 3 },
       "memory": { "sl": "pršut, ki sva ga jedla v kleti", "en": "the pršut we ate in the cellar", "de": "den Pršut, den wir im Keller gegessen haben", "it": "il prosciutto che abbiamo mangiato in cantina" } },
     { "id": "pokusina", "title": { "sl": "Marko toči novo vino", "en": "Marko is drawing the new wine", "de": "Marko zapft den neuen Wein", "it": "Marko spilla il vino nuovo" }, "who": "marko",
-      "when": ["evening"], "chance": 0.5, "dialog": "pokusina", "dialogs": ["pokusina-kozarci", "pokusina-vsec", "pokusina"], "reward": { "wisdom": 20 }, "marker": "🍷",
+      "when": ["evening"], "months": [11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "pokusina", "dialogs": ["pokusina-kozarci", "pokusina-vsec", "pokusina"], "reward": { "wisdom": 20 }, "marker": "🍷",
       "memory": { "sl": "večer, ko sva v temi pokušala vino", "en": "the evening we tasted wine in the dark", "de": "den Abend, an dem wir im Dunkeln Wein probiert haben", "it": "la sera in cui abbiamo assaggiato il vino al buio" } }
   ],
   "dialogs": [

@@ -45,16 +45,16 @@
       "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "ovca", "dialogs": ["ovca-megla", "ovca-pikica", "ovca"],"reward": { "wood": 20 }, "marker": "🐑",
       "memory": { "sl": "dan, ko sva skupaj iskala Belo", "en": "the day we looked for Bela together", "de": "den Tag, an dem wir zusammen Bela gesucht haben", "it": "il giorno in cui abbiamo cercato Bela insieme" } },
     { "id": "gobe", "title": { "sl": "Anton nabira gobe", "en": "Anton is picking mushrooms", "de": "Anton sammelt Pilze", "it": "Anton raccoglie funghi" }, "who": "anton",
-      "when": ["morning"], "weekdays": [6, 7], "chance": 0.7, "dialog": "gobe", "dialogs": ["gobe-kosara", "gobe-dez", "gobe"],"reward": { "food": 20 }, "marker": "🍄",
+      "when": ["morning"], "months": [7, 8, 9, 10, 11], "weekdays": [6, 7], "chance": 0.7, "dialog": "gobe", "dialogs": ["gobe-kosara", "gobe-dez", "gobe"],"reward": { "food": 20 }, "marker": "🍄",
       "memory": { "sl": "jurčke, ki sva jih nabrala v gozdu", "en": "the porcini we picked in the forest", "de": "die Steinpilze, die wir im Wald gesammelt haben", "it": "i porcini che abbiamo raccolto nel bosco" } },
     { "id": "borovnice", "title": { "sl": "Otroci nabirajo borovnice", "en": "The children are picking blueberries", "de": "Die Kinder pflücken Heidelbeeren", "it": "I bambini raccolgono mirtilli" }, "who": "otroci",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "borovnice", "dialogs": ["borovnice-loncek", "borovnice"],"reward": { "food": 15 }, "marker": "🫐",
+      "when": ["afternoon"], "months": [6, 7, 8], "chance": 0.4, "dialog": "borovnice", "dialogs": ["borovnice-loncek", "borovnice"],"reward": { "food": 15 }, "marker": "🫐",
       "memory": { "sl": "borovnice, ki smo jih skupaj nabirali", "en": "the blueberries we all picked together", "de": "die Heidelbeeren, die wir alle zusammen gepflückt haben", "it": "i mirtilli che abbiamo raccolto tutti insieme" } },
     { "id": "sova", "title": { "sl": "Sova se oglaša", "en": "An owl is calling", "de": "Eine Eule ruft", "it": "Una civetta si fa sentire" }, "who": "luka",
       "when": ["evening", "night"], "chance": 0.5, "dialog": "sova", "dialogs": ["sova-glava", "sova-dve", "sova"],"reward": { "wisdom": 15 }, "marker": "🦉",
       "memory": { "sl": "sovo, ki sva jo slišala v gozdu", "en": "the owl we heard in the forest", "de": "die Eule, die wir im Wald gehört haben", "it": "la civetta che abbiamo sentito nel bosco" } },
     { "id": "medved", "title": { "sl": "Anton je videl medveda", "en": "Anton has seen a bear", "de": "Anton hat einen Bären gesehen", "it": "Anton ha visto un orso" }, "who": "anton",
-      "when": ["evening"], "chance": 0.25, "dialog": "medved", "dialogs": ["medved-sledi", "medved"],"reward": { "stone": 15 }, "marker": "🐻",
+      "when": ["evening"], "months": [3, 4, 5, 6, 7, 8, 9, 10, 11], "chance": 0.25, "dialog": "medved", "dialogs": ["medved-sledi", "medved"],"reward": { "stone": 15 }, "marker": "🐻",
       "memory": { "sl": "večer, ko sem ti pravil o medvedu", "en": "the evening I told you about the bear", "de": "den Abend, an dem ich dir vom Bären erzählt habe", "it": "la sera in cui ti ho raccontato dell'orso" } },
     { "id": "preza", "title": { "sl": "Jože na preži", "en": "Jože on the high seat", "de": "Jože auf dem Hochsitz", "it": "Jože sull'altana" }, "who": "joze",
       "when": ["dawn"], "chance": 0.7, "dialog": "preza", "dialogs": ["preza-daljnogled", "preza-caj", "preza"],"reward": { "wisdom": 20 }, "marker": "🦌",
@@ -180,6 +180,7 @@
     },
     {
       "id": "sova",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "lines": [
         { "who": "luka", "sl": "Pst. Slišiš? Huu, huu. To je sova.", "en": "Shh. Hear that? Hoo, hoo. That is an owl.", "de": "Pst. Hörst du das? Huu, huu. Das ist eine Eule.", "it": "Sst. Senti? Uu, uu. È una civetta.", "fx": { "hoot": 1 } },
         { "choices": [
@@ -217,6 +218,7 @@
     },
     {
       "id": "medved",
+      "months": [9, 10, 11],
       "lines": [
         { "who": "anton", "sl": "{learner}! Počasi. Danes sem videl medveda. Tam, pri potoku.", "en": "{learner}! Slowly. I saw a bear today. There, by the stream.", "de": "{learner}! Langsam. Heute habe ich einen Bären gesehen. Dort, am Bach.", "it": "{learner}! Piano. Oggi ho visto un orso. Là, vicino al ruscello." },
         { "choices": [
@@ -294,6 +296,7 @@
     },
     {
       "id": "mrak",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "lines": [
         { "who": "joze", "sl": "Dober večer, {learner}. Mrači se. Zdaj pridejo srne na travnik.", "en": "Good evening, {learner}. It is getting dark. Now the deer come out onto the meadow.", "de": "Guten Abend, {learner}. Es dämmert. Jetzt kommen die Rehe auf die Wiese.", "it": "Buonasera, {learner}. Si fa buio. Adesso i caprioli escono sul prato.", "fx": { "herd": 1 } },
         { "choices": [
@@ -545,6 +548,7 @@
     },
     {
       "id": "preza-daljnogled",
+      "months": [5, 6, 7, 8],
       "sky_stays": false,
       "memory": { "sl": "jutro, ko sva v megli gledala srno z mladičem", "en": "the morning we watched a doe and her fawn in the fog", "de": "den Morgen, an dem wir im Nebel ein Reh mit seinem Kitz beobachtet haben", "it": "la mattina in cui abbiamo guardato una capriola col suo piccolo nella nebbia" },
       "lines": [
@@ -597,6 +601,7 @@
     },
     {
       "id": "mrak-stejem",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "count": { "from": "dice", "min": 1, "max": 9, "gender": "f", "case": "acc" },
       "lines": [
         { "who": "joze", "sl": "Dober večer, {learner}. Pst … Mrači se. Danes pa ti preštej srne na travniku.", "en": "Good evening, {learner}. Shh … It's getting dark. Today you count the deer on the meadow.", "de": "Guten Abend, {learner}. Pst … Es dämmert. Heute zählst du die Rehe auf der Wiese.", "it": "Buonasera, {learner}. Sst … Si fa buio. Oggi conti tu i caprioli sul prato." },

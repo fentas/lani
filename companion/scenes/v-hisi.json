@@ -33,7 +33,7 @@
   ],
   "happenings": [
     { "id": "pec", "title": { "sl": "Janez kuri peč", "en": "Janez is firing up the stove", "de": "Janez heizt den Ofen ein", "it": "Janez accende la stufa" }, "who": "janez",
-      "when": ["dawn", "morning"], "chance": 0.5, "dialog": "pec", "dialogs": ["pec-polena", "pec-casopis", "pec"], "reward": { "wood": 15 }, "marker": "🔥",
+      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "pec", "dialogs": ["pec-polena", "pec-casopis", "pec"], "reward": { "wood": 15 }, "marker": "🔥",
       "memory": { "sl": "jutro, ko sva zakurila peč", "en": "the morning we fired up the stove", "de": "den Morgen, an dem wir den Ofen angeheizt haben", "it": "la mattina in cui abbiamo acceso la stufa" } },
     { "id": "muri", "title": { "sl": "Zala se igra z Murijem", "en": "Zala is playing with Muri", "de": "Zala spielt mit Muri", "it": "Zala gioca con Muri" }, "who": "zala",
       "when": ["afternoon"], "chance": 0.5, "dialog": "muri", "dialogs": ["muri-skrivalnice", "muri-klobasa", "muri"], "reward": { "wood": 15 }, "marker": "🐕",

@@ -127,6 +127,7 @@
     },
     {
       "id": "odeja",
+      "months": [9, 10, 11, 12, 1, 2, 3, 4, 5],
       "lines": [
         { "who": "babica", "sl": "{learner}? Spiš? Odejo sem ti prinesla. Ponoči je mraz.", "en": "{learner}? Are you asleep? I have brought you a blanket. It is cold at night.", "de": "{learner}? Schläfst du? Ich habe dir eine Decke gebracht. Nachts ist es kalt.", "it": "{learner}? Dormi? Ti ho portato una coperta. Di notte fa freddo.", "act": { "babica": { "to": "left" } } },
         { "choices": [
@@ -393,6 +394,7 @@
     },
     {
       "id": "dez-cakava",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "lines": [
         { "who": "luka", "sl": "{learner}! Uf, kakšen dež! Lahko počakam pri tebi?", "en": "{learner}! Phew, what rain! Can I wait at your place?", "de": "{learner}! Puh, was für ein Regen! Kann ich bei dir warten?", "it": "{learner}! Uff, che pioggia! Posso aspettare da te?",
           "sky": { "rain": 0.7, "gloom": 0.8, "wind": 0.3 } },
@@ -426,6 +428,7 @@
     },
     {
       "id": "dez-svetilka",
+      "months": [4, 5, 6, 7, 8, 9, 10],
       "act_stays": true,
       "fx_stays": true,
       "memory": { "sl": "dan, ko sva v šotoru poslušala dež", "en": "the day we two listened to the rain in the tent", "de": "den Tag, an dem wir zwei im Zelt dem Regen zugehört haben", "it": "il giorno in cui abbiamo ascoltato la pioggia nella tenda" },

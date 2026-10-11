@@ -29,10 +29,10 @@
   ],
   "happenings": [
     { "id": "panji", "title": { "sl": "Anton pregleduje panje", "en": "Anton is checking the hives", "de": "Anton prüft die Bienenstöcke", "it": "Anton controlla le arnie" }, "who": "anton",
-      "when": ["morning"], "chance": 0.6, "dialog": "panji", "dialogs": ["panji-stejem", "panji-matica", "panji"], "reward": { "food": 20 }, "marker": "🐝",
+      "when": ["morning"], "months": [3, 4, 5, 6, 7, 8, 9, 10], "chance": 0.6, "dialog": "panji", "dialogs": ["panji-stejem", "panji-matica", "panji"], "reward": { "food": 20 }, "marker": "🐝",
       "memory": { "sl": "končnica s hudičem, ki brusi babi jezik", "en": "the hive panel with the devil grinding an old woman's tongue", "de": "das Stirnbrett mit dem Teufel, der einer alten Frau die Zunge schleift", "it": "la tavoletta con il diavolo che affila la lingua a una vecchia" } },
     { "id": "roj", "title": { "sl": "Roj na lipi", "en": "A swarm on the linden", "de": "Ein Schwarm an der Linde", "it": "Uno sciame sul tiglio" }, "who": "janez",
-      "when": ["afternoon"], "chance": 0.35, "dialog": "roj", "dialogs": ["roj-kosara", "roj"], "reward": { "wisdom": 15 }, "marker": "🌳",
+      "when": ["afternoon"], "months": [4, 5, 6, 7], "chance": 0.35, "dialog": "roj", "dialogs": ["roj-kosara", "roj"], "reward": { "wisdom": 15 }, "marker": "🌳",
       "memory": { "sl": "roj, ki je sedel na lipo", "en": "the swarm that settled on the linden", "de": "den Schwarm, der sich auf der Linde niedergelassen hat", "it": "lo sciame che si è posato sul tiglio" } },
     { "id": "med", "title": { "sl": "Zala in med", "en": "Zala and the honey", "de": "Zala und der Honig", "it": "Zala e il miele" }, "who": "zala",
       "when": ["evening"], "chance": 0.5, "dialog": "med", "dialogs": ["med-zakaj", "med-pik", "med"], "reward": { "food": 20 }, "marker": "🍯",
@@ -112,6 +112,7 @@
     },
     {
       "id": "med",
+      "months": [5, 6, 7, 8],
       "lines": [
         { "who": "zala", "sl": "{learner}! Anton toči med! Poglej, kako teče!", "en": "{learner}! Anton is taking the honey out! Look how it runs!", "de": "{learner}! Anton holt den Honig heraus! Schau, wie er fließt!", "it": "{learner}! Anton sta tirando fuori il miele! Guarda come cola!",
           "fx": { "honey": 1 } },
@@ -267,6 +268,7 @@
     },
     {
       "id": "med-pik",
+      "months": [3, 4, 5, 6, 7, 8, 9, 10],
       "memory": { "sl": "večer, ko me je pičila čebela", "en": "the evening a bee stung me", "de": "den Abend, an dem mich eine Biene gestochen hat", "it": "la sera in cui mi ha punto un'ape" },
       "lines": [
         { "who": "zala", "sl": "Au! {learner}! Hotela sem med, pa me je pičila čebela!", "en": "Ouch! {learner}! I wanted some honey, and a bee stung me!", "de": "Au! {learner}! Ich wollte Honig, und eine Biene hat mich gestochen!", "it": "Ahi! {learner}! Volevo il miele, e un'ape mi ha punto!" },

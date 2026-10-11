@@ -40,7 +40,7 @@
       "when": ["evening", "night"], "chance": 1, "stories": true, "reward": { "wisdom": 30 }, "marker": "📖",
       "memory": { "sl": "večer, ko sem ti pripovedoval ob ognju", "en": "the evening I told you a story by the fire", "de": "den Abend, an dem ich dir am Feuer eine Geschichte erzählt habe", "it": "la sera in cui ti ho raccontato una storia accanto al fuoco" } },
     { "id": "roke", "title": { "sl": "Luka si greje roke", "en": "Luka warms his hands", "de": "Luka wärmt sich die Hände", "it": "Luka si scalda le mani" }, "who": "luka",
-      "when": ["morning"], "chance": 0.6, "dialog": "roke", "dialogs": ["roke-ovce", "roke-burja", "roke"], "reward": { "wood": 15 }, "marker": "🔥",
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5], "chance": 0.6, "dialog": "roke", "dialogs": ["roke-ovce", "roke-burja", "roke"], "reward": { "wood": 15 }, "marker": "🔥",
       "memory": { "sl": "jutro, ko sva si grela roke ob ognju", "en": "the morning we two warmed our hands by the fire", "de": "den Morgen, an dem wir zwei uns am Feuer die Hände gewärmt haben", "it": "la mattina in cui noi due ci siamo scaldati le mani accanto al fuoco" } },
     { "id": "drva", "title": { "sl": "France prinese drva", "en": "France brings firewood", "de": "France bringt Brennholz", "it": "France porta la legna" }, "who": "france",
       "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "drva", "dialogs": ["drva-polena", "drva-sekira", "drva"], "reward": { "wood": 20 }, "marker": "🪵",

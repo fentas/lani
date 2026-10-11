@@ -32,13 +32,13 @@
   ],
   "happenings": [
     { "id": "tabla", "title": { "sl": "Napake na tabli", "en": "Mistakes on the blackboard", "de": "Fehler an der Tafel", "it": "Errori alla lavagna" }, "who": "mojca",
-      "when": ["morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "tabla", "dialogs": ["tabla-rodilnik", "tabla-preteklik", "tabla"],"reward": { "stone": 20 }, "marker": "🖍️",
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "tabla", "dialogs": ["tabla-rodilnik", "tabla-preteklik", "tabla"],"reward": { "stone": 20 }, "marker": "🖍️",
       "memory": { "sl": "napake na tabli, ki ste jih popravili", "en": "the mistakes on the blackboard you corrected", "de": "die Fehler an der Tafel, die Sie verbessert haben", "it": "gli errori alla lavagna che Lei ha corretto" } },
     { "id": "dvojina", "title": { "sl": "Dva učenca, dve knjigi", "en": "Two pupils, two books", "de": "Zwei Schüler, zwei Bücher", "it": "Due alunni, due libri" }, "who": "mojca",
-      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "dvojina", "dialogs": ["dvojina-knjige", "dvojina-vceraj", "dvojina"],"reward": { "stone": 20 }, "marker": "✌️",
+      "when": ["afternoon"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "dvojina", "dialogs": ["dvojina-knjige", "dvojina-vceraj", "dvojina"],"reward": { "stone": 20 }, "marker": "✌️",
       "memory": { "sl": "dvojino, ki sva jo {m:vadila|f:vadili} v šoli", "en": "the dual we two practised at school", "de": "den Dual, den wir zwei in der Schule geübt haben", "it": "il duale che noi due abbiamo esercitato a scuola" } },
     { "id": "naloga", "title": { "sl": "Tine dela domačo nalogo", "en": "Tine is doing his homework", "de": "Tine macht seine Hausaufgaben", "it": "Tine fa i compiti" }, "who": "tine",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "naloga", "dialogs": ["naloga-strani", "naloga-dnevi", "naloga"],"reward": { "wisdom": 15 }, "marker": "✏️",
+      "when": ["afternoon"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "chance": 0.4, "dialog": "naloga", "dialogs": ["naloga-strani", "naloga-dnevi", "naloga"],"reward": { "wisdom": 15 }, "marker": "✏️",
       "memory": { "sl": "domačo nalogo, ki si mi jo {m:pomagal|f:pomagala} napisati", "en": "the homework you helped me write", "de": "die Hausaufgabe, bei der du mir geholfen hast", "it": "i compiti che mi hai aiutato a scrivere" } },
     { "id": "globus", "title": { "sl": "Zala in globus", "en": "Zala and the globe", "de": "Zala und der Globus", "it": "Zala e il mappamondo" }, "who": "zala",
       "when": ["morning"], "chance": 0.4, "dialog": "globus", "dialogs": ["globus-morje", "globus"],"reward": { "food": 15 }, "marker": "🌍", "needs": { "level": 2 },
@@ -411,6 +411,7 @@
     },
     {
       "id": "globus-morje",
+      "months": [1, 2, 3, 4, 5, 6],
       "memory": { "sl": "globus in školjko, ki mi jo prineseš z morja", "en": "the globe and the shell you will bring me from the sea", "de": "den Globus und die Muschel, die du mir vom Meer mitbringst", "it": "il mappamondo e la conchiglia che mi porterai dal mare" },
       "lines": [
         { "who": "zala", "sl": "{learner}, poglej globus! Slovenija je čisto majhna. Kaj pa Nemčija?", "en": "{learner}, look at the globe! Slovenia is really small. And Germany?", "de": "{learner}, schau den Globus an! Slowenien ist ganz klein. Und Deutschland?", "it": "{learner}, guarda il mappamondo! La Slovenia è piccolissima. E la Germania?" },

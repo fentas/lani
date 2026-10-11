@@ -39,7 +39,7 @@
       "when": ["evening"], "chance": 0.4, "dialog": "muri", "dialogs": ["muri-kruh", "muri"], "reward": { "wisdom": 15 }, "marker": "🐕",
       "memory": { "sl": "večer, ko si {m:poklical|f:poklicala} Murija", "en": "the evening you called Muri", "de": "den Abend, an dem du Muri gerufen hast", "it": "la sera in cui hai chiamato Muri" } },
     { "id": "dvojina", "title": { "sl": "Mojca pri vodnjaku: dvojina!", "en": "Mojca at the well: the dual!", "de": "Mojca am Brunnen: der Dual!", "it": "Mojca al pozzo: il duale!" }, "who": "mojca",
-      "when": ["morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "building": "WELL" },
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "building": "WELL" },
       "memory": { "sl": "dva otroka in dve vedri pri vodnjaku", "en": "the two children and the two buckets by the well", "de": "die zwei Kinder und die zwei Eimer am Brunnen", "it": "i due bambini e i due secchi al pozzo" } },
     { "id": "macka", "title": { "sl": "Mačka na lipi", "en": "The cat up the linden", "de": "Die Katze auf der Linde", "it": "La gatta sul tiglio" }, "who": "otroci",
       "when": ["morning", "evening"], "chance": 0.3, "dialog": "macka", "dialogs": ["macka-sir", "macka"], "reward": { "food": 15 }, "marker": "🐈",
@@ -324,6 +324,7 @@
     },
     {
       "id": "klop-sneg",
+      "months": [3, 4, 5, 6, 7, 8, 9, 10, 11],
       "memory": { "sl": "zgodbo o snegu do strehe", "en": "the story of the snow up to the roof", "de": "die Geschichte vom Schnee bis zum Dach", "it": "la storia della neve fino al tetto" },
       "lines": [
         { "who": "janez", "sl": "Dober dan, {learner}. Nekoč, veš, je bil tu sneg do strehe.", "en": "Good day, {learner}. Once, you know, the snow here came up to the roof.", "de": "Guten Tag, {learner}. Früher, weißt du, lag hier der Schnee bis zum Dach.", "it": "Buongiorno, {learner}. Una volta, sai, qui la neve arrivava fino al tetto." },

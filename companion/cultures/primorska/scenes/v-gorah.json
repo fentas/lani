@@ -41,7 +41,7 @@
     },
     {
       "id": "planina", "title": { "sl": "Luka na planini", "en": "Luka on the mountain pasture", "de": "Luka auf der Alm", "it": "Luka all'alpeggio" }, "who": "luka",
-      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "planina", "dialogs": ["planina-stejem", "planina-zvonec", "planina"],"reward": { "food": 20 }, "marker": "🐄",
+      "when": ["morning", "afternoon"], "months": [6, 7, 8, 9], "chance": 0.5, "dialog": "planina", "dialogs": ["planina-stejem", "planina-zvonec", "planina"],"reward": { "food": 20 }, "marker": "🐄",
       "memory": { "sl": "krave na planini", "en": "the cows on the mountain pasture", "de": "die Kühe auf der Alm", "it": "le mucche all'alpeggio" }
     },
     {
@@ -50,7 +50,7 @@
       "memory": { "sl": "ribo, ki je skočila iz jezera", "en": "the fish that jumped out of the lake", "de": "den Fisch, der aus dem See gesprungen ist", "it": "il pesce che è saltato fuori dal lago" }
     },
     { "id": "molza", "title": { "sl": "Luka molze ob zori", "en": "Luka milking at dawn", "de": "Luka melkt im Morgengrauen", "it": "Luka munge all'alba" }, "who": "luka",
-      "when": ["dawn"], "chance": 0.6, "dialog": "molza", "dialogs": ["molza-mleko", "molza-umivanje", "molza"],"reward": { "food": 20 }, "marker": "🥛",
+      "when": ["dawn"], "months": [6, 7, 8, 9], "chance": 0.6, "dialog": "molza", "dialogs": ["molza-mleko", "molza-umivanje", "molza"],"reward": { "food": 20 }, "marker": "🥛",
       "memory": { "sl": "jutro, ko so gore žarele", "en": "the morning the mountains glowed", "de": "den Morgen, an dem die Berge geglüht haben", "it": "la mattina in cui le montagne risplendevano" } }
   ],
   "dialogs": [

@@ -37,13 +37,13 @@
   ],
   "happenings": [
     { "id": "zetev", "title": { "sl": "France žanje pšenico", "en": "France is harvesting wheat", "de": "France erntet Weizen", "it": "France miete il grano" }, "who": "france",
-      "when": ["morning", "afternoon"], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "zetev", "dialogs": ["zetev-grablje", "zetev-oblaki", "zetev"], "reward": { "food": 20 }, "marker": "🌾",
+      "when": ["morning", "afternoon"], "months": [6, 7, 8], "weekdays": [1, 2, 3, 4, 5, 6], "chance": 0.5, "dialog": "zetev", "dialogs": ["zetev-grablje", "zetev-oblaki", "zetev"], "reward": { "food": 20 }, "marker": "🌾",
       "memory": { "sl": "žetev, ko si mi {m:pomagal|f:pomagala} na njivi", "en": "the harvest, when you helped me in the field", "de": "die Ernte, als du mir auf dem Feld geholfen hast", "it": "la mietitura, quando mi hai aiutato nel campo" } },
     { "id": "krompir", "title": { "sl": "France koplje krompir", "en": "France is digging potatoes", "de": "France gräbt Kartoffeln aus", "it": "France cava le patate" }, "who": "france",
-      "when": ["afternoon"], "chance": 0.4, "dialog": "krompir", "dialogs": ["krompir-kosare", "krompir-roke", "krompir"], "reward": { "food": 15 }, "marker": "🥔",
+      "when": ["afternoon"], "months": [7, 8, 9, 10], "chance": 0.4, "dialog": "krompir", "dialogs": ["krompir-kosare", "krompir-roke", "krompir"], "reward": { "food": 15 }, "marker": "🥔",
       "memory": { "sl": "krompir, ki sva ga skupaj pobirala", "en": "the potatoes we picked together", "de": "die Kartoffeln, die wir zusammen aufgelesen haben", "it": "le patate che abbiamo raccolto insieme" } },
     { "id": "seno", "title": { "sl": "Luka spravlja seno pred dežjem", "en": "Luka is bringing in the hay before the rain", "de": "Luka bringt das Heu vor dem Regen ein", "it": "Luka ritira il fieno prima della pioggia" }, "who": "luka",
-      "when": ["afternoon", "evening"], "chance": 0.4, "dialog": "seno", "dialogs": ["seno-grom", "seno"], "reward": { "wood": 15 }, "marker": "🌦️", "needs": { "building": "KOZOLEC" },
+      "when": ["afternoon", "evening"], "months": [6, 7, 8, 9], "chance": 0.4, "dialog": "seno", "dialogs": ["seno-grom", "seno"], "reward": { "wood": 15 }, "marker": "🌦️", "needs": { "building": "KOZOLEC" },
       "memory": { "sl": "seno, ki sva ga spravila pred dežjem", "en": "the hay we brought in before the rain", "de": "das Heu, das wir vor dem Regen eingebracht haben", "it": "il fieno che abbiamo ritirato prima della pioggia" } },
     { "id": "strasilo", "title": { "sl": "Tine in strašilo", "en": "Tine and the scarecrow", "de": "Tine und die Vogelscheuche", "it": "Tine e lo spaventapasseri" }, "who": "tine",
       "when": ["morning"], "chance": 0.4, "dialog": "strasilo", "dialogs": ["strasilo-klobuk", "strasilo"], "reward": { "food": 15 }, "marker": "🌾",
@@ -52,7 +52,7 @@
       "when": ["evening"], "chance": 0.3, "dialog": "konj", "dialogs": ["konj-hlev", "konj"], "reward": { "wisdom": 15 }, "marker": "🐴",
       "memory": { "sl": "Sivka, ki si ga {m:božal|f:božala} na njivi", "en": "Sivko, whom you stroked in the field", "de": "Sivko, den du auf dem Feld gestreichelt hast", "it": "Sivko, che hai accarezzato nel campo" } },
     { "id": "kosnja", "title": { "sl": "France kosi v rosi", "en": "France mows in the dew", "de": "France mäht im Tau", "it": "France falcia nella rugiada" }, "who": "france",
-      "when": ["dawn"], "chance": 0.6, "dialog": "kosnja", "dialogs": ["kosnja-vrste", "kosnja-zajec", "kosnja"], "reward": { "food": 15 }, "marker": "🌾",
+      "when": ["dawn"], "months": [5, 6, 7, 8, 9], "chance": 0.6, "dialog": "kosnja", "dialogs": ["kosnja-vrste", "kosnja-zajec", "kosnja"], "reward": { "food": 15 }, "marker": "🌾",
       "memory": { "sl": "jutro, ko sva kosila v rosi", "en": "the morning we mowed in the dew", "de": "den Morgen, an dem wir im Tau gemäht haben", "it": "la mattina in cui abbiamo falciato nella rugiada" } }
   ],
   "dialogs": [

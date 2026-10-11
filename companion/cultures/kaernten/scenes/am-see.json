@@ -42,7 +42,7 @@
     },
     {
       "id": "alm", "title": { "de": "Florian auf der Alm", "sl": "Florian na planini", "en": "Florian on the Alm", "it": "Florian all'alpeggio" }, "who": "florian",
-      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "alm", "dialogs": ["alm-zaehlen", "alm"], "reward": { "food": 20 }, "marker": "🐄",
+      "when": ["morning", "afternoon"], "months": [6, 7, 8, 9], "chance": 0.5, "dialog": "alm", "dialogs": ["alm-zaehlen", "alm"], "reward": { "food": 20 }, "marker": "🐄",
       "memory": { "de": "die Kühe auf der Alm", "sl": "krave na planini", "en": "the cows on the Alm", "it": "le mucche all'alpeggio" }
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "id": "morgenrot", "title": { "de": "Florian melkt im Morgenrot", "sl": "Florian molze ob zori", "en": "Florian milking at dawn", "it": "Florian munge all'alba" }, "who": "florian",
-      "when": ["dawn"], "chance": 0.6, "dialog": "morgenrot", "dialogs": ["morgenrot-handschuhe", "morgenrot"], "reward": { "food": 20 }, "marker": "🥛",
+      "when": ["dawn"], "months": [6, 7, 8, 9], "chance": 0.6, "dialog": "morgenrot", "dialogs": ["morgenrot-handschuhe", "morgenrot"], "reward": { "food": 20 }, "marker": "🥛",
       "memory": { "de": "den Morgen, an dem die Berge geglüht haben", "sl": "jutro, ko so gore žarele", "en": "the morning the mountains glowed", "it": "la mattina in cui le montagne erano rosse" }
     }
   ],

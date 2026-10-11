@@ -39,7 +39,11 @@ class VillageStoryTest {
             .joinToString(",", "[", "]") { it.readText() },
     )
     private val bees = parseScene(companion.resolve("scenes/pri-cebelnjaku.json").readText())
-    private val day = LocalDate.of(2026, 9, 27)
+    /**
+     * The village as it stood that evening, met at the bee house in the next summer: the hives opened, the swarm and the
+     * honey taken come only in their months (companion/SCENES.md, "Seasons"), and late September has none of the last two.
+     */
+    private val day = LocalDate.of(2027, 6, 27)
     private lateinit var was: Culture
     private lateinit var pair: LangPair
 
