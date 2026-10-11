@@ -220,8 +220,8 @@ function formatCarrier(p: BuildPlan): string[] {
     `Short narrator words (1–3 words): ${n(c.carrier)} in their carrier sentence, ${n(c.old)} old-style (said plainly: they may sound English; ` +
       `${n(c.asked)} asked for by the app)${c.plain ? `, ${n(c.plain)} kept plain (the word could not be cut out)` : ''}`,
     `  re-voicing all old-style: ${n(c.old_chars)} characters sent (≈ ${n(credits(c.old_chars))} on the subscription); ` +
-      `the bridge re-voices those the app asks for and Jan's re-records (a long press on 🔊), ${n(c.daily)} a day, ${n(c.kept)} of them kept for re-records ` +
-      `(${n(c.today)} today, ${n(c.redos)} re-records)` + (c.cut ? '' : '; no ffmpeg here: no carrier sentence'),
+      `the bridge re-voices those the app asks for, ${n(c.daily)} a day (${n(c.today)} today), and Jan's re-records (a long press on 🔊), ` +
+      `${n(c.redo_daily)} a day on their own (${n(c.redos)} today)` + (c.cut ? '' : '; no ffmpeg here: no carrier sentence'),
   ]
   const w = p.revoice_words
   if (w) {

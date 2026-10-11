@@ -8,7 +8,7 @@ import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, redoKept, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -372,7 +372,7 @@ export default async function voice() {
     const updated: number[] = []
     const dir = tempDir('lani-narrators-')
     // a day's cap of 4: 3 for the lazy re-voice, 1 kept for a re-record
-    const ns = new VoiceStore({ appDir: dir, engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'elevenlabs', language: 'sl', revoiceDaily: 4, onUpdated: n => void updated.push(n) })
+    const ns = new VoiceStore({ appDir: dir, engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'elevenlabs', language: 'sl', revoiceDaily: 3, redoDaily: 1, onUpdated: n => void updated.push(n) })
     const w = await ns.voice('kruh', 'female', 'pack:hrana')
     const call = fe.st.tts.at(-1)
     check('a Slovene narrator\'s line (the default): its Slovene ElevenLabs voice first (female: Nina), a lone word plainly (no carrier sentence), a clip of the voice "female.sl"; the app gets it as the narrator\'s',
@@ -412,7 +412,7 @@ export default async function voice() {
       !!up && up.engine_voice === NINA && !!ns.get('mleko je hladno', 'female.sl') && ns.get('mleko', 'male.sl')?.engine_voice === LUKA && fe.st.tts.length - t0 === 3 && fe.st.tts.slice(t0).every(c => !c.timestamps) && fe.st.tts[t0]?.body.text === 'mleko' &&
         ns.get('mleko', 'female')?.file === lw!.file && existsSync(join(ns.filesDir, lw!.file)) && existsSync(join(ns.filesDir, ls!.file)) && ns.index().mleko?.female === `/voice/file/${up!.file}` && ns.index().mleko?.male === `/voice/file/${ns.get('mleko', 'male.sl')!.file}` &&
         ns.revoicedToday() === 3 && updated.length > 0 && ns.upgradeQueue(false).length === 0, [up, fe.st.tts.slice(t0).map(c => c.body.text), ns.revoicedToday()])
-    // the day's cap: the lazy re-voice has used its 3; one more asked for waits, a long press still goes (in Nina's voice)
+    // the day's cap: the lazy re-voice has used its 3; one more asked for waits, a long press still goes (in Nina's voice): its own count
     fe.st.used = fe.st.limit - 5_000
     await el.subscription(true)
     const lj = await ns.voice('juha', 'female', 'pack:hrana')
@@ -422,11 +422,11 @@ export default async function voice() {
     await Bun.sleep(60)
     const capped = !ns.get('juha', 'female.sl')
     const rj = await ns.redo('juha', 'female')
-    check('…the day\'s cap: a fourth asked for waits (3 of 4 used); a long press makes it in Nina\'s voice now, counted (4 of 4), the local clip kept',
-      lj?.engine_voice === 'ana' && capped && rj.status === 'done' && rj.clip.voice === 'female.sl' && rj.clip.engine_voice === NINA && ns.revoicedToday() === 4 && ns.get('juha', 'female')?.file === lj!.file && existsSync(join(ns.filesDir, lj!.file)), [capped, rj])
+    check('…the day\'s cap: a fourth asked for waits (3 of 3 used); a long press makes it in Nina\'s voice now, a re-record of its own (1 of 1; the lazy re-voice\'s still 3), the local clip kept',
+      lj?.engine_voice === 'ana' && capped && rj.status === 'done' && rj.clip.voice === 'female.sl' && rj.clip.engine_voice === NINA && ns.redosToday() === 1 && ns.lazyToday() === 3 && ns.get('juha', 'female')?.file === lj!.file && existsSync(join(ns.filesDir, lj!.file)), [capped, rj])
     const rj2 = await ns.redo('juha', 'female')
     const rk = await ns.redo('kruh', 'female')
-    check('…again: once a clip a day (not_needed, that take); another one: the cap is spent', rj2.status === 'not_needed' && rj2.clip.file === (rj as any).clip.file && rk.status === 'limit' && (rk as any).reason === 'cap', [rj2, rk])
+    check('…again: once a clip a day (not_needed, that take); another one: the day\'s re-records are spent', rj2.status === 'not_needed' && rj2.clip.file === (rj as any).clip.file && rk.status === 'limit' && (rk as any).reason === 'cap', [rj2, rk])
     // an English narrator's clip from before in the narrator's key: not re-voiced in its carrier sentence, made in Nina's voice instead
     const old = `${createHash('sha1').update('smoke|narrator|old').digest('hex')}.mp3`
     writeFileSync(join(ns.filesDir, old), mp3('el:old:sir'))
@@ -618,40 +618,55 @@ export default async function voice() {
     const cut: Cutter = async (take, from, to) => (ffmpeg ? ffmpeg(take, from, to) : take.slice(0, Math.floor(take.length / 2)))
     const updated: number[] = []
     const el = new ElevenLabs({ key: 'test-key', base: fe.url, cut, refreshMs: 0 }) // reads the subscription every time
-    const vs = new VoiceStore({ appDir: mkdtempSync(join(tmpdir(), 'lani-redo-')), engines: [el], queueDelayMs: 0, revoiceDaily: 4, onUpdated: n => void updated.push(n) })
+    const vs = new VoiceStore({ appDir: mkdtempSync(join(tmpdir(), 'lani-redo-')), engines: [el], queueDelayMs: 0, revoiceDaily: 1, redoDaily: 4, onUpdated: n => void updated.push(n) })
     const d = new Date()
     const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-    check('the lazy re-voice leaves a quarter of the day\'s cap (at most 10) for re-records on request', vs.lazyDaily === 3 && redoKept(40) === 10 && redoKept(100) === 10 && redoKept(2) === 0 && redoKept(0) === 0)
+    check('re-records on request have a day\'s cap of their own (LANI_VOICE_REDO_DAILY, 30 by default), apart from the lazy re-voice\'s',
+      vs.redoDaily === 4 && vs.revoiceDaily === 1 && new VoiceStore({ appDir: mkdtempSync(join(tmpdir(), 'lani-redo-')), engines: [] }).redoDaily === DEFAULT_REDO_DAILY && DEFAULT_REDO_DAILY === 30 &&
+        redoDaily({ LANI_VOICE_REDO_DAILY: '90' }) === 90 && redoDaily({ LANI_VOICE_REDO_DAILY: '0' }) === 0 && redoDaily({}) === undefined && redoDaily({ LANI_VOICE_REDO_DAILY: 'all' }) === undefined)
     const k0 = await vs.voice('kosilo', 'female', 'pack:test')
     const t0 = fe.st.tts.length
     const r1 = await vs.redo('Kosilo', 'female')
     const c1 = r1.status === 'done' ? r1.clip : undefined
     check('a re-record of a narrator word: made now in its carrier sentence, under a new name, the old file gone, the index on it, the app told, counted for the day',
       !!c1 && c1.method === 'carrier' && !!k0 && c1.file !== k0.file && !vs.path(k0.file) && !!vs.path(c1.file) && c1.source === 'pack:test' && vs.index().kosilo?.female === `/voice/file/${c1.file}` &&
-        fe.st.tts.length === t0 + 1 && !!fe.st.tts.at(-1)?.timestamps && fe.st.tts.at(-1)?.body.text === 'Beseda je: kosilo.' && updated.join() === '1' && vs.revoicedToday() === 1 && vs.redosToday() === 1, [r1, updated])
+        fe.st.tts.length === t0 + 1 && !!fe.st.tts.at(-1)?.timestamps && fe.st.tts.at(-1)?.body.text === 'Beseda je: kosilo.' && updated.join() === '1' && vs.redosToday() === 1 && vs.lazyToday() === 0, [r1, updated])
     const r2 = await vs.redo('kosilo', 'female')
-    check('once a clip a day: the second is "not_needed", with the take from before; nothing asked, not counted', r2.status === 'not_needed' && r2.clip.file === c1?.file && fe.st.tts.length === t0 + 1 && vs.revoicedToday() === 1, r2)
+    check('once a clip a day: the second is "not_needed", with the take from before; nothing asked, not counted', r2.status === 'not_needed' && r2.clip.file === c1?.file && fe.st.tts.length === t0 + 1 && vs.redosToday() === 1, r2)
     const s0 = await vs.voice('Kosilo je na mizi.', 'female', 'test')
     const r3 = await vs.redo('Kosilo je na mizi.', 'female')
-    check('a sentence: a plain re-take (no carrier sentence), under a new name', r3.status === 'done' && !r3.clip.method && r3.clip.file !== s0?.file && fe.st.tts.at(-1)?.body.text === 'Kosilo je na mizi.' && !fe.st.tts.at(-1)?.timestamps && vs.revoicedToday() === 2, r3)
+    check('a sentence: a plain re-take (no carrier sentence), under a new name', r3.status === 'done' && !r3.clip.method && r3.clip.file !== s0?.file && fe.st.tts.at(-1)?.body.text === 'Kosilo je na mizi.' && !fe.st.tts.at(-1)?.timestamps && vs.redosToday() === 2, r3)
     const g0 = await vs.voice('kosilo', 'grandma', 'test', { live: true })
     const r4 = await vs.redo('kosilo', 'grandma')
-    check('a villager\'s voice: a plain re-take in it, under a new name', r4.status === 'done' && r4.clip.voice === 'grandma' && r4.clip.file !== g0?.file && fe.st.tts.at(-1)?.voice === cast().grandma.elevenlabs && !fe.st.tts.at(-1)?.timestamps && vs.revoicedToday() === 3, r4)
-    // an old-style narrator word the app asks for: the lazy re-voice has used its share (3 of 4), the re-record still goes
-    const oldFile = `${createHash('sha1').update('redo|old|potok').digest('hex')}.mp3`
-    writeFileSync(join(vs.filesDir, oldFile), mp3('old:potok'))
-    vs.database.query('INSERT INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, 0)').run('female:potok', 'potok', 'potok', 'female', 'elevenlabs', oldFile, 5, '2026-09-01T10:00:00.000Z', 'pack:old')
+    check('a villager\'s voice: a plain re-take in it, under a new name', r4.status === 'done' && r4.clip.voice === 'grandma' && r4.clip.file !== g0?.file && fe.st.tts.at(-1)?.voice === cast().grandma.elevenlabs && !fe.st.tts.at(-1)?.timestamps && vs.redosToday() === 3 && vs.lazyToday() === 0, r4)
+    // old-style narrator words the app asks for: the lazy re-voice takes one (its cap of 1), the re-records left untouched;
+    // the next waits for tomorrow, and a re-record of it still goes
+    const oldOf = (w: string) => {
+      const f = `${createHash('sha1').update(`redo|old|${w}`).digest('hex')}.mp3`
+      writeFileSync(join(vs.filesDir, f), mp3(`old:${w}`))
+      vs.database.query('INSERT INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, 0)').run(`female:${w}`, w, w, 'female', 'elevenlabs', f, w.length, '2026-09-01T10:00:00.000Z', 'pack:old')
+      return f
+    }
+    const oldPotok = oldOf('potok')
+    const oldMiza = oldOf('miza')
+    vs.requested(oldPotok)
+    for (let i = 0; i < 100 && !vs.get('potok', 'female')?.method; i++) await Bun.sleep(25)
+    check('the lazy re-voice spends its own cap (1 of 1), not the re-records\' (still 3 of 4)', vs.get('potok', 'female')?.method === 'carrier' && vs.lazyToday() === 1 && vs.redosToday() === 3, [vs.get('potok', 'female'), vs.lazyToday(), vs.redosToday()])
     const t1 = fe.st.tts.length
-    vs.requested(oldFile)
+    vs.requested(oldMiza)
     await Bun.sleep(100)
-    const lazyWaits = fe.st.tts.length === t1 && vs.get('potok', 'female')?.file === oldFile
-    const r5 = await vs.redo('potok', 'female')
-    check('a re-record goes first: the lazy re-voice leaves the rest of the cap for it', lazyWaits && r5.status === 'done' && r5.clip.method === 'carrier' && !vs.path(oldFile) && vs.revoicedToday() === 4 && !vs.revoiceQueue().length, [lazyWaits, r5])
+    const lazyWaits = fe.st.tts.length === t1 && vs.get('miza', 'female')?.file === oldMiza
+    const r5 = await vs.redo('miza', 'female')
+    check('…its cap spent, the next asked for waits; a re-record of it still goes (4 of 4)', lazyWaits && r5.status === 'done' && r5.clip.method === 'carrier' && !vs.path(oldMiza) && vs.redosToday() === 4 && vs.lazyToday() === 1 && !vs.revoiceQueue().length, [lazyWaits, r5])
     const st0 = await vs.voice('Stol je lesen.', 'female', 'test')
     const t2 = fe.st.tts.length
     const r6 = await vs.redo('Stol je lesen.', 'female')
     check('the day\'s cap spent: "limit" (cap), nothing asked, the clip as it was', r6.status === 'limit' && r6.reason === 'cap' && r6.message.includes('4 of 4') && fe.st.tts.length === t2 && vs.get('stol je lesen', 'female')?.file === st0?.file, r6)
-    vs.database.query('DELETE FROM revoices WHERE day = ?').run(today) // a new cap, as the next day
+    const cs = vs.carrierStats()
+    check('the carrier stats show today\'s re-voices of the lazy re-voice\'s cap and the re-records of theirs', cs.today === 1 && cs.daily === 1 && cs.redos === 4 && cs.redo_daily === 4, cs)
+    // a new day: both counts start again
+    vs.database.query('DELETE FROM revoices WHERE day = ?').run(today)
+    vs.database.query('DELETE FROM redos WHERE day = ?').run(today)
     fe.st.used = fe.st.limit - 5_000 - 10 // 10 characters above the reserve: less than the sentence
     const r7 = await vs.redo('Stol je lesen.', 'female')
     check('the reserve stays for live lines: "limit" (reserve), nothing asked', r7.status === 'limit' && r7.reason === 'reserve' && fe.st.tts.length === t2 && vs.revoicedToday() === 0, r7)
@@ -663,8 +678,6 @@ export default async function voice() {
     const r9 = await vs.redo('Stol je lesen.', 'female')
     fe.st.fail = 0
     check('ElevenLabs failing: "failed", the clip as it was, not counted, not marked as re-recorded', r9.status === 'failed' && vs.get('stol je lesen', 'female')?.file === st0?.file && vs.revoicedToday() === 0 && !vs.redoneToday('female:stol je lesen'), r9)
-    const cs = vs.carrierStats()
-    check('the carrier stats show today\'s re-records and the part of the cap kept for them', cs.redos === 4 && cs.kept === 1 && cs.daily === 4, cs)
     vs.close()
   }
 
@@ -1341,9 +1354,9 @@ export default async function voice() {
           (await updates()) > u0 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok, [url, kolo])
       const rk = await fetch(`${base}/voice/redo`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'kolovrat', voice: 'female', client_id: 'redo-smoke-kolovrat' }) })
       const rkb = await rk.json()
-      check('…a long press: a new take in Nina\'s voice, under a new name, the take before gone, the answer in the voice the app knows (female); counted in the day\'s cap',
+      check('…a long press: a new take in Nina\'s voice, under a new name, the take before gone, the answer in the voice the app knows (female); counted in the day\'s re-records (30)',
         rk.ok && rkb.status === 'done' && rkb.voice === 'female' && rkb.url !== url && bridgeEleven.st.tts.at(-1)?.body.text === 'kolovrat' && bridgeEleven.st.tts.at(-1)?.voice === NINA &&
-          (await fetch(`${base}${url}`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok && rkb.today >= 2, rkb)
+          (await fetch(`${base}${url}`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok && rkb.today >= 1 && rkb.daily === 30, rkb)
     }
 
     // Jan's re-record (a long press on 🔊): POST /voice/redo makes the clip again now, under a new name.
@@ -1356,7 +1369,7 @@ export default async function voice() {
       const rb = await r.json()
       const idx = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
       check('POST /voice/redo: made again now (a plain re-take of a sentence), a new file, the old one gone, the index on it, the app told (voice_updated)',
-        r.ok && rb.status === 'done' && rb.url !== s7.url && rb.key === 'grandma:dobro jutro micka' && rb.norm === 'dobro jutro micka' && rb.voice === 'grandma' && rb.method === null && rb.daily === 40 && rb.today >= 1 &&
+        r.ok && rb.status === 'done' && rb.url !== s7.url && rb.key === 'grandma:dobro jutro micka' && rb.norm === 'dobro jutro micka' && rb.voice === 'grandma' && rb.method === null && rb.daily === 30 && rb.today >= 1 &&
           bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === 'Dobro jutro, Micka!' && (await fetch(`${base}${s7.url}`, { headers: auth })).status === 404 &&
           (await fetch(`${base}${rb.url}`, { headers: auth })).ok && idx['dobro jutro micka']?.grandma === rb.url && (await updates()) > u0, rb)
       const replay = await redo({ text: 'Dobro jutro, Micka!', voice: 'grandma', client_id: 'redo-smoke-0001' })
@@ -1369,7 +1382,7 @@ export default async function voice() {
       check('POST /voice/redo of a narrator\'s clip: a re-take in its Slovene ElevenLabs voice (Nina), the answer in the voice the app knows (female); again: once a clip a day',
         nr.status === 'done' && nr.voice === 'female' && nr.url !== s1Body.url && bridgeEleven.st.tts.length === n0 + 2 && bridgeEleven.st.tts.at(-1)?.voice === NINA && nr2.status === 'not_needed' && nr2.url === nr.url, [nr, nr2])
       const st = await (await fetch(`${base}/voice/status`, { headers: auth })).json()
-      check('GET /voice/status counts the re-records of the day, and the part of the cap kept for them', st.carrier?.redos === (ffmpeg ? 3 : 2) && st.carrier.kept === 10, st.carrier)
+      check('GET /voice/status counts the re-records of the day and their cap, apart from the lazy re-voice\'s', st.carrier?.redos === (ffmpeg ? 3 : 2) && st.carrier.redo_daily === 30 && st.carrier.daily === 40, st.carrier)
       check('POST /voice/redo: a voice not in the cast is a 400, no text a 400', (await redo({ text: 'Živjo', voice: 'soprano' })).status === 400 && (await redo({ text: ' ', voice: 'female' })).status === 400)
       check('POST /voice/redo: the family token may not, nor no token', (await redo({ text: 'Živjo', voice: 'female' }, { ...fam, 'content-type': 'application/json' })).status === 403 && (await redo({ text: 'Živjo', voice: 'female' }, { 'content-type': 'application/json' })).status === 401)
     }

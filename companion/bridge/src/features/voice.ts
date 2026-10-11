@@ -27,11 +27,11 @@ type Prepared = { text: string; voice: string; url: string | null; engine?: stri
 /**
  * A re-record's answer: 200 with the new clip ("done"), or the clip re-recorded earlier today ("not_needed"); 429
  * "limit" with the reason ("cap": the day's re-records are spent; "reserve": the characters left are for live lines);
- * 503 "failed". The day's count and cap come along. The clip's voice is the one the app knows (a Slovene narrator's
+ * 503 "failed". The day's re-records and their cap come along. The clip's voice is the one the app knows (a Slovene narrator's
  * clip in its Slovene ElevenLabs voice, "female.sl", is the narrator's: female).
  */
 function redoAnswer(r: Redo, voice: VoiceStore): Response {
-  const day = { today: voice.revoicedToday(), daily: voice.revoiceDaily }
+  const day = { today: voice.redosToday(), daily: voice.redoDaily }
   switch (r.status) {
     case 'done':
     case 'not_needed': {

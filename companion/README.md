@@ -1319,8 +1319,8 @@ picked one for each narrator. They come first now, and the local Gepard voice is
 - **From the local clips to Nina and Luka:**
   - **As the app asks:** when the app downloads a narrator's local clip (it plays the line, or gets the day's clips on
     Wi-Fi) or `/voice/say` hands one over, and Nina's or Luka's clip of it is missing, the bridge makes that clip soon:
-    most asked for first, within the day's re-voice cap (`LANI_VOICE_REVOICE_DAILY`, shared with the carrier re-voice,
-    which leaves a quarter of it, at most 10, for re-records), never into the reserve. Then it sends `voice_updated`. Clips
+    most asked for first, within the day's re-voice cap (`LANI_VOICE_REVOICE_DAILY`, shared with the carrier re-voice;
+    re-records have their own), never into the reserve. Then it sends `voice_updated`. Clips
     that wait for the next day are taken up at the next request, or when the bridge starts (the app's requests are
     counted in `hits`).
   - **Ahead:** `companion/bin/voice-build --run` makes them in the priority order (pack words, examples, modules, …)
@@ -1328,7 +1328,7 @@ picked one for each narrator. They come first now, and the local Gepard voice is
     ElevenLabs voices: female (Nina) x/y (local z)" and how many `--run` would make now, "next to a local clip, which
     stays". Every run goes on where the last one stopped.
   - **A long press** on 🔊 makes the clip in Nina's or Luka's voice at once: a new take, or the first one where only the
-    local clip is there. It counts as any re-record (once a clip a day, in the day's cap).
+    local clip is there. It counts as any re-record (once a clip a day, in the day's re-records).
 - **The local voice's lone words in ana:** `companion/bin/voice-build --narrators` (a dry run) counts the narrators' local
   clips not in their local voice for their text: the female narrator's lone words in nina (for ana), sentences in ana
   (for nina), and ElevenLabs' English clips from before (with the carrier words). It shows each group as it is and the
@@ -1395,9 +1395,8 @@ asks for one (it downloads the file, or `/voice/say` hands it over), it gets the
 bridge counts the request and soon re-voices the word in its carrier sentence:
 
 - most asked for first;
-- at most 30 a day: the day's cap is 40 (`LANI_VOICE_REVOICE_DAILY`; 0 turns off re-voicing and
-  re-records), about 360 subscription characters, and the lazy re-voice leaves a quarter of it (at most 10)
-  for Jan's re-records (below);
+- at most 40 a day (`LANI_VOICE_REVOICE_DAILY`; 0 turns off the lazy re-voice), about 360 subscription
+  characters; Jan's re-records (below) have a cap of their own, which the lazy re-voice never spends;
 - never into the reserve for live lines.
 
 The new clip gets a new file name, and the bridge sends `voice_updated`. The app then reloads the
@@ -1421,11 +1420,11 @@ ahead of the lazy re-voice:
   voice (Nina, Luka): a new take, or the first one where only the local clip is there, which stays. With the local voice
   first (`LANI_VOICE_NARRATOR_SL=gepard`), a clip from before is made in the local voice now (not counted), and one in it
   already is the one (`not_needed`: the local voice says a text the same way every time).
-- **Limits:** once a clip a day. Each re-record counts in the day's cap (40, shared with the lazy re-voice,
-  which leaves the last 10 for re-records); a sentence counts as one, like a word. A re-record never goes into
-  the reserve for live lines. A `voice-build --revoice-words` run counts in the same cap, so after a big run
-  there are no re-records that day.
-- **The answer:** `200 {status: "done", url, file, key, norm, voice, method, today, daily}`: the new take
+- **Limits:** once a clip a day, and 30 re-records a day (`LANI_VOICE_REDO_DAILY`; 0 turns them off), on their
+  own count: the lazy re-voice and a `voice-build --revoice-words` run have the re-voice cap and never spend them. A
+  sentence counts as one, like a word. A re-record never goes into the reserve for live lines.
+- **The answer:** `200 {status: "done", url, file, key, norm, voice, method, today, daily}` (`today` of `daily`: the
+  day's re-records): the new take
   under a new file name; the old file is gone, and the bridge sends `voice_updated`.
   `200 {status: "not_needed", …, message}`: the clip was re-recorded on request today already, and this is
   that take. `429 {status: "limit", reason: "cap" | "reserve", message}`. `503 {status: "failed", message}`:
@@ -1437,8 +1436,8 @@ ahead of the lazy re-voice:
   TalkBack has it as the action "Posnemi znova · Re-record". After a week of use, the first tap on a 🔊 shows
   once where the long press is (not when Jan has found it already).
 
-`voice_status` shows today's re-records (`carrier.redos`) and the part of the cap kept for them
-(`carrier.kept`).
+`voice_status` shows today's re-records and their cap (`carrier.redos`, `carrier.redo_daily`), and the lazy re-voice's
+(`carrier.today`, `carrier.daily`).
 
 **Costs.** The quota guard reads the subscription at most every 10 minutes. Prebuilds and background jobs stop
 when fewer than 5,000 characters would be left (`LANI_VOICE_RESERVE`); that reserve is for live lines (the tutor's
@@ -1486,7 +1485,7 @@ companion/bin/voice-build --tempo          # only with LANI_VOICE_GEPARD_TEMPO o
 
 `--revoice-words` makes only the old-style narrator words again, in their carrier sentence, within the
 reserve. The daily cap doesn't hold it back, but it counts for the day, so the bridge doesn't add
-another 40 on top (and has no re-records left that day).
+another 40 on top (Jan's re-records have their own cap: they still go).
 
 **Another learner's village** (a culture pack in another language): `LANI_CULTURE=friuli companion/bin/voice-build
 --data <their data dir>` counts that pack's content in its language, with its voice cast; `--run` voices it. The

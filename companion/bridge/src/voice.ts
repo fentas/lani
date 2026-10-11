@@ -1527,17 +1527,20 @@ export type VoiceOptions = {
 /** Carrier re-voices a day, by default (about 360 subscription characters: eleven_v3 counts about half of 720 sent). */
 export const DEFAULT_REVOICE_DAILY = 40
 
-/** The day's re-voice cap the node set (LANI_VOICE_REVOICE_DAILY, a whole number, 0: none), else undefined: the default. */
-export function revoiceDaily(env: Record<string, string | undefined> = process.env): number | undefined {
-  const v = Number(env.LANI_VOICE_REVOICE_DAILY?.trim() || NaN)
+/** Re-records on request a day (the app's long press on 🔊), by default: on their own count, not the lazy re-voice's. */
+export const DEFAULT_REDO_DAILY = 30
+
+/** A whole number the node set in [name] (0 too), else undefined: the default. */
+function dailySetting(env: Record<string, string | undefined>, name: string): number | undefined {
+  const v = Number(env[name]?.trim() || NaN)
   return Number.isInteger(v) && v >= 0 ? v : undefined
 }
 
-/**
- * Of the day's cap, what the lazy re-voice leaves for Jan's re-records on request (the app's long press on 🔊): a
- * quarter, at most 10. So a re-record goes first even on a day the lazy re-voice has much to do.
- */
-export const redoKept = (daily: number) => Math.min(10, Math.floor(Math.max(0, daily) / 4))
+/** The day's re-voice cap the node set (LANI_VOICE_REVOICE_DAILY, a whole number, 0: none), else undefined: the default. */
+export const revoiceDaily = (env: Record<string, string | undefined> = process.env) => dailySetting(env, 'LANI_VOICE_REVOICE_DAILY')
+
+/** The day's re-records on request the node allows (LANI_VOICE_REDO_DAILY, a whole number, 0: none), else undefined: the default. */
+export const redoDaily = (env: Record<string, string | undefined> = process.env) => dailySetting(env, 'LANI_VOICE_REDO_DAILY')
 
 /** What re-voicing one clip in its carrier sentence came to. */
 export type Revoiced = 'made' | 'plain' | 'stop'
@@ -1660,11 +1663,16 @@ export class VoiceStore {
       language?: string
       liveLimit?: { max: number; windowMs: number }
       /**
-       * Clips re-voiced a day (LANI_VOICE_REVOICE_DAILY; DEFAULT_REVOICE_DAILY; 0: none): old-style short narrator
-       * clips in their carrier sentence and the Slovene narrators' clips in their ElevenLabs voices as the app asks for
-       * them, and Jan's re-records on request (see [redoKept]).
+       * Clips re-voiced a day by the lazy re-voice (LANI_VOICE_REVOICE_DAILY; DEFAULT_REVOICE_DAILY; 0: none): old-style
+       * short narrator clips in their carrier sentence and the Slovene narrators' clips in their ElevenLabs voices as the
+       * app asks for them.
        */
       revoiceDaily?: number
+      /**
+       * Re-records on request a day (LANI_VOICE_REDO_DAILY; DEFAULT_REDO_DAILY; 0: none): Jan's long press on 🔊, on their
+       * own count, so the lazy re-voice never spends them.
+       */
+      redoDaily?: number
     },
   ) {
     this.dir = o.dir ?? join(o.appDir, 'voice')
@@ -1792,8 +1800,7 @@ export class VoiceStore {
 
   get revoiceDaily(): number { return this.o.revoiceDaily ?? DEFAULT_REVOICE_DAILY }
 
-  /** Of the day's cap, what the lazy re-voice may use: the rest is kept for re-records on request ([redoKept]). */
-  get lazyDaily(): number { return this.revoiceDaily - redoKept(this.revoiceDaily) }
+  get redoDaily(): number { return this.o.redoDaily ?? DEFAULT_REDO_DAILY }
 
   /**
    * The characters ElevenLabs would be sent for [text] in [voice] (a short word's carrier sentence); a Slovene narrator's:
@@ -2206,9 +2213,17 @@ export class VoiceStore {
     return out
   }
 
-  /** One more re-voice (or re-record) in today's cap. */
+  /** One more re-voice (or re-record: [lazyToday] leaves those out) for today. */
   private countForToday() {
     this.db.query('INSERT INTO revoices (day, n) VALUES (?, 1) ON CONFLICT (day) DO UPDATE SET n = n + 1').run(localDay())
+  }
+
+  /**
+   * Today's re-voices of the lazy re-voice's cap ([revoiceDaily]; voice-build's counted in it too): the day's re-voices
+   * less the re-records on request, which have their own ([redoDaily]).
+   */
+  lazyToday(): number {
+    return Math.max(0, this.revoicedToday() - this.redosToday())
   }
 
   /** Re-records on request today (the node's local date). */
@@ -2234,8 +2249,8 @@ export class VoiceStore {
    * ahead of the lazy re-voice. A short text in a carrier voice is said in its carrier sentence (like the lazy re-voice),
    * anything else is a plain re-take (eleven_v3 never says a text the same way twice); a clip the local worker made is
    * made with ElevenLabs. The new take gets a new file name, the old file goes, and the app is told (voice_updated).
-   * Once a clip a day; each counts in the day's cap ([revoiceDaily], shared with the lazy re-voice, which leaves
-   * [redoKept] of it for these) and never goes into the reserve for live lines. A text without a clip is voiced as a
+   * Once a clip a day; each counts in the day's re-records ([redoDaily], their own: the lazy re-voice doesn't spend
+   * them) and never goes into the reserve for live lines. A text without a clip is voiced as a
    * live line is (/voice/say), not counted. A Slovene narrator ([sloveneNarrator]) is re-recorded in its Slovene
    * ElevenLabs voice (Nina, Luka) where that comes first: a re-take, or its first clip in it when only the local one is
    * there, counted as any re-record; the local clip stays. Where the local voice comes first (or ElevenLabs isn't set up),
@@ -2275,8 +2290,8 @@ export class VoiceStore {
       if (this.redoneToday(key)) return { status: 'not_needed', clip: this.get(norm, target) ?? have, message: `"${have.text}" was re-recorded today already (once a clip a day)` }
       const el = this.eleven
       if (!el?.configured) return { status: 'failed', message: 'ElevenLabs is not set up on the node' }
-      const today = this.revoicedToday()
-      if (today >= this.revoiceDaily) return { status: 'limit', reason: 'cap', message: `no re-recordings left today (${today} of ${this.revoiceDaily})` }
+      const today = this.redosToday()
+      if (today >= this.redoDaily) return { status: 'limit', reason: 'cap', message: `no re-recordings left today (${today} of ${this.redoDaily})` }
       const cost = el.cost(have.text, target)
       if (!(await el.ready(cost, false))) {
         const left = el.remaining()
@@ -2295,7 +2310,7 @@ export class VoiceStore {
       if (c || el.remaining() !== before) this.countForToday()
       if (!c) return { status: 'failed', message: 'ElevenLabs could not make it now' }
       this.db.query('INSERT OR IGNORE INTO redos (key, day) VALUES (?, ?)').run(key, localDay())
-      this.o.log?.(`voice: "${c.text}" (${target}) re-recorded on request, ${c.method ?? 'plainly'} (${this.revoicedToday()}/${this.revoiceDaily} today)`)
+      this.o.log?.(`voice: "${c.text}" (${target}) re-recorded on request, ${c.method ?? 'plainly'} (${this.redosToday()}/${this.redoDaily} today)`)
       this.o.onUpdated?.(1)
       return { status: 'done', clip: c }
     } catch (e) {
@@ -2313,7 +2328,7 @@ export class VoiceStore {
   }
 
   private scheduleRevoice() {
-    if (this.o.readonly || this.revoicing || this.revoiceSoon || this.lazyDaily <= 0) return
+    if (this.o.readonly || this.revoicing || this.revoiceSoon || this.revoiceDaily <= 0) return
     // a moment later: a screen's requests are counted first, so the most asked for go first
     this.revoiceSoon = setTimeout(() => {
       this.revoiceSoon = undefined
@@ -2323,8 +2338,8 @@ export class VoiceStore {
   }
 
   /**
-   * Takes up what the app asked for ([lazyQueue]), one at a time, most asked for first, up to the daily cap (less what
-   * is kept for re-records on request) and never into the reserve: an old-style word again in its carrier sentence, a
+   * Takes up what the app asked for ([lazyQueue]), one at a time, most asked for first, up to the daily cap ([lazyToday]
+   * of [revoiceDaily]; re-records on request have their own) and never into the reserve: an old-style word again in its carrier sentence, a
    * Slovene narrator's line in its Slovene ElevenLabs voice (its local clip kept); then the app is told (voice_updated)
    * and fetches the new files.
    */
@@ -2334,7 +2349,7 @@ export class VoiceStore {
     let words = 0
     let narrators = 0
     try {
-      while (this.revoicedToday() < this.lazyDaily) {
+      while (this.lazyToday() < this.revoiceDaily) {
         // a clip being re-recorded on request right now is not taken up again
         const c = this.lazyQueue().find(q => !this.running.has(q.key) && !this.running.has(clipKey(q.norm, this.slVoiceOf(q.voice) ?? q.voice)))
         if (!c) break
@@ -2348,8 +2363,8 @@ export class VoiceStore {
       this.o.log?.(`voice: re-voicing failed: ${(e as Error).message}`)
     } finally {
       this.revoicing = false
-      if (words) this.o.log?.(`voice: ${words} short word(s) re-voiced in their carrier sentence (${this.revoicedToday()}/${this.lazyDaily} today)`)
-      if (narrators) this.o.log?.(`voice: ${narrators} narrator line(s) made in their Slovene ElevenLabs voice, the local clips kept (${this.revoicedToday()}/${this.lazyDaily} today)`)
+      if (words) this.o.log?.(`voice: ${words} short word(s) re-voiced in their carrier sentence (${this.lazyToday()}/${this.revoiceDaily} today)`)
+      if (narrators) this.o.log?.(`voice: ${narrators} narrator line(s) made in their Slovene ElevenLabs voice, the local clips kept (${this.lazyToday()}/${this.revoiceDaily} today)`)
       if (words + narrators) this.o.onUpdated?.(words + narrators)
     }
   }
@@ -2380,8 +2395,8 @@ export class VoiceStore {
 
   /**
    * The short narrator clips: said in their carrier sentence, kept plain, old-style (and of those, asked for by the
-   * app), the characters re-voicing the old-style ones would send, today's re-voices of the daily cap (and of those,
-   * re-records on request; the part of the cap kept for them), and whether the node can cut (ffmpeg).
+   * app), the characters re-voicing the old-style ones would send, today's re-voices of the lazy re-voice's daily cap,
+   * today's re-records on request of theirs, and whether the node can cut (ffmpeg).
    */
   carrierStats() {
     const el = this.eleven
@@ -2396,10 +2411,10 @@ export class VoiceStore {
       old: old.length,
       old_chars: old.reduce((n, c) => n + (el?.carrierFor(c.text, c.voice)?.length ?? 0), 0),
       asked: old.filter(c => (c.hits ?? 0) > 0).length,
-      today: this.revoicedToday(),
+      today: this.lazyToday(),
       daily: this.revoiceDaily,
       redos: this.redosToday(),
-      kept: redoKept(this.revoiceDaily),
+      redo_daily: this.redoDaily,
       cut: !!el?.cut,
     }
   }

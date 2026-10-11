@@ -64,7 +64,7 @@ import { StoryStore, storiesDirs } from './stories'
 import { ModuleStore } from './store'
 import { VillagerStore } from './villagers'
 import { VisitTalks } from './visits'
-import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, revoiceDaily, sloveneNarrators, VoiceStore } from './voice'
+import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, redoDaily, revoiceDaily, sloveneNarrators, VoiceStore } from './voice'
 import { Profiles } from './profiles'
 import { resultsDirOf, voiceDir } from './paths'
 
@@ -165,6 +165,8 @@ export async function startBridge(o: BridgeOptions) {
       queueDelayMs: env.LANI_VOICE_QUEUE_DELAY_MS ? Number(env.LANI_VOICE_QUEUE_DELAY_MS) : undefined,
       // short narrator words from before the carrier sentence, re-voiced a day as the app asks for them
       revoiceDaily: revoiceDaily(env),
+      // Jan's re-records on request (a long press on 🔊) a day, on their own count
+      redoDaily: redoDaily(env),
       // the local voice's pace: its own unless LANI_VOICE_GEPARD_TEMPO or LANI_VOICE_GEPARD_PAUSES says
       pace: gepardPace(env, log),
       // the narrators of a Slovene village speak with their Slovene ElevenLabs voices (Nina, Luka), the local voice as their

@@ -280,7 +280,8 @@ anyone else.
    native Slovene library voices too, so they take no slot: Nina and Luka (their `languages` `sl` in the cast, with the
    library owner's id). In a Slovene village they come first; a narrator line ElevenLabs can't make (the quota down to
    the reserve, no key) is spoken by Gepard, and the bridge makes Nina's or Luka's clip later, as the app asks for it,
-   within the day's re-voice cap (`LANI_VOICE_REVOICE_DAILY`); `voice-build --run` makes them ahead. A villager's voice
+   within the day's re-voice cap (`LANI_VOICE_REVOICE_DAILY`, 40); `voice-build --run` makes them ahead. A long press
+   on 🔊 re-records a clip at once, 30 a day (`LANI_VOICE_REDO_DAILY`). A villager's voice
    of their own (designed by the tutor, `LANI_VOICE_DESIGN`, on by default) takes a voice slot each and costs a few
    credits to design; `LANI_VOICE_DESIGN=off` keeps to the cast. To swap a voice: companion/README.md, "Voice".
 6. **Privacy.** Every line voiced goes to ElevenLabs as text ([privacy.md](privacy.md)). Without a key, nothing does.
