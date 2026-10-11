@@ -1,6 +1,8 @@
 // Voice prebuild (companion/bin/voice-build): what is voiced, what is missing, and generating the
-// missing clips in priority order within the ElevenLabs quota guard, with the local worker for the rest.
-import { isNarrator } from './cast'
+// missing clips in priority order within the ElevenLabs quota guard, with the local worker for the rest. A Slovene
+// narrator's line wants its clip in the narrator's Slovene ElevenLabs voice (Nina, Luka) where that comes first, also
+// when its local clip is there (which stays, as the fallback).
+import { isNarrator, languageVoiceName } from './cast'
 import { normalizeText } from './family'
 import { PRIORITY_LABELS, type CorpusItem, type ElevenLabs, type EngineName, type Gepard, type VoiceStore } from './voice'
 
@@ -16,14 +18,23 @@ export type BuildPlan = {
   missing: number
   missing_chars: number
   rows: { label: string; texts: number; chars: number; cached: number; missing: number; missing_chars: number }[]
-  /** Per speaker: the corpus texts, and how many have an ElevenLabs clip in that voice. */
-  by_voice: Record<string, { texts: number; chars: number; elevenlabs: number }>
+  /**
+   * Per speaker: the corpus texts, and how many have an ElevenLabs clip in that voice (a Slovene narrator: in its Slovene
+   * ElevenLabs voice, and how many a local clip only).
+   */
+  by_voice: Record<string, { texts: number; chars: number; elevenlabs: number; local?: number }>
+  /** The Slovene narrators' ElevenLabs voices (female: Nina), where they come first; empty elsewhere. */
+  narrator_voices: Record<string, string>
   quota: { limit: number; used: number; remaining: number; reserve: number; resets_at?: number } | null
   /** Whether the local worker voices this village (Slovene only), and whether it is up. */
   local: boolean
   gepard_up: boolean
-  /** What --run would do now: ElevenLabs within budget (new clips, and replacements with --upgrade/--revoice), then the local worker, then later. */
-  would: { elevenlabs: Count & { replace: number; replace_chars: number }; gepard: Count; later: Count }
+  /**
+   * What --run would do now: ElevenLabs within budget (new clips, and replacements with --upgrade/--revoice; [narrators]:
+   * the Slovene narrators' lines in their ElevenLabs voices, of them [over_local] next to a local clip), then the local
+   * worker, then later.
+   */
+  would: { elevenlabs: Count & { replace: number; replace_chars: number; narrators: Count; over_local: number }; gepard: Count; later: Count }
   /** The short narrator words in the store: in their carrier sentence, and old-style (said plainly: they may sound English). */
   carrier: ReturnType<VoiceStore['carrierStats']>
   /** --revoice-words: the old-style ones it would re-voice now within the budget (and --max), and those left for later. */
@@ -48,13 +59,16 @@ export function budget(q: BuildPlan['quota'], maxChars?: number): number {
 }
 
 /**
- * Todo items for --run: missing ones, plus local clips to replace with [upgrade] (not a narrator's whose lines come from
- * the local voice: a Slovene village's), plus every clip of a [revoice] speaker.
+ * Todo items for --run: missing ones, plus local clips to replace with [upgrade], plus every clip of a [revoice] speaker.
+ * A Slovene narrator's line is to do while its clip in the narrator's Slovene ElevenLabs voice is wanted (it comes first)
+ * and missing, its local clip there or not; [upgrade] doesn't touch a Slovene narrator's local clips otherwise.
  */
 export function todo(items: CorpusItem[], store: VoiceStore, upgrade = false, revoice: string[] = []): CorpusItem[] {
   return items.filter(i => {
-    const c = store.get(normalizeText(i.text), i.voice)
-    return !c || (upgrade && c.engine !== 'elevenlabs' && !store.localNarrator(i.voice)) || revoice.includes(i.voice)
+    const norm = normalizeText(i.text)
+    if (store.sloveneNarrator(i.voice)) return !store.best(norm, i.voice) || store.wantsElevenLabs(norm, i.voice) || revoice.includes(i.voice)
+    const c = store.get(norm, i.voice)
+    return !c || (upgrade && c.engine !== 'elevenlabs') || revoice.includes(i.voice)
   })
 }
 
@@ -66,11 +80,17 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
     const r = rows[i.priority]
     r.texts++
     r.chars += i.text.length
-    const c = store.get(normalizeText(i.text), i.voice)
+    const norm = normalizeText(i.text)
+    const c = store.best(norm, i.voice)
     const v = (by_voice[i.voice] ??= { texts: 0, chars: 0, elevenlabs: 0 })
     v.texts++
     v.chars += i.text.length
-    if (c?.engine === 'elevenlabs') v.elevenlabs++
+    // a Slovene narrator's: in its Slovene ElevenLabs voice, or a local clip only
+    const sl = store.slVoiceOf(i.voice)
+    if (sl) {
+      if (store.get(norm, sl)) v.elevenlabs++
+      else if (c) v.local = (v.local ?? 0) + 1
+    } else if (c?.engine === 'elevenlabs') v.elevenlabs++
     if (c) {
       r.cached++
       by_engine[c.engine] = (by_engine[c.engine] ?? 0) + 1
@@ -87,7 +107,7 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
   const worker = uses('gepard')
   const gepard_up = worker && (await gepard.up())
   let left = uses('elevenlabs') ? budget(quota, o.maxChars) : 0
-  const would = { elevenlabs: { texts: 0, chars: 0, replace: 0, replace_chars: 0 }, gepard: { texts: 0, chars: 0 }, later: { texts: 0, chars: 0 } }
+  const would = { elevenlabs: { texts: 0, chars: 0, replace: 0, replace_chars: 0, narrators: { texts: 0, chars: 0 }, over_local: 0 }, gepard: { texts: 0, chars: 0 }, later: { texts: 0, chars: 0 } }
   // --revoice-words --run does only that, within the same budget
   let revoice_words: BuildPlan['revoice_words']
   if (o.revoiceWords) {
@@ -104,13 +124,28 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
   }
   for (const i of todo(items, store, o.upgrade, o.revoice)) {
     const n = i.text.length
-    // a narrator whose lines come from the local voice (a Slovene village): the worker, else a native voice the cast may
-    // have, never the English narrators
-    if (store.localNarrator(i.voice)) {
-      const to = gepard_up ? 'gepard' : store.nativeOf(i.voice) && n <= left ? 'elevenlabs' : 'later'
-      if (to === 'elevenlabs') left -= n
+    // a Slovene narrator's line, never in the English voice: its Slovene ElevenLabs voice first within the budget (a local
+    // clip there stays), else the worker for a line without a clip; or ('gepard') the worker first, else its Slovene
+    // ElevenLabs voice
+    if (store.sloveneNarrator(i.voice)) {
+      const norm = normalizeText(i.text)
+      const had = store.best(norm, i.voice)
+      const sl = store.slVoiceOf(i.voice)
+      const cost = sl && uses('elevenlabs') ? eleven.cost(i.text, sl) : Infinity
+      const first = store.elevenlabsFirst(i.voice)
+      const to = first ? (cost <= left ? 'elevenlabs' : !had && gepard_up ? 'gepard' : 'later') : gepard_up ? 'gepard' : cost <= left ? 'elevenlabs' : 'later'
+      if (to === 'elevenlabs') {
+        left -= cost
+        would.elevenlabs.narrators.texts++
+        would.elevenlabs.narrators.chars += cost
+        if (had) {
+          would.elevenlabs.replace++
+          would.elevenlabs.replace_chars += cost
+          if (had.engine === 'gepard') would.elevenlabs.over_local++
+        }
+      }
       would[to].texts++
-      would[to].chars += n
+      would[to].chars += to === 'elevenlabs' ? cost : n
       continue
     }
     const cost = eleven.cost(i.text, i.voice) // a short narrator word: its carrier sentence
@@ -130,8 +165,13 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
     would[to].chars += spent
   }
   const sum = (k: 'texts' | 'chars' | 'cached' | 'missing' | 'missing_chars') => rows.reduce((n, r) => n + r[k], 0)
+  const narrator_voices: Record<string, string> = {}
+  for (const v of ['female', 'male']) {
+    const sl = store.elevenlabsFirst(v) ? store.slVoiceOf(v) : undefined
+    if (sl) narrator_voices[v] = languageVoiceName(sl) ?? sl
+  }
   return {
-    texts: sum('texts'), chars: sum('chars'), cached: sum('cached'), by_engine, missing: sum('missing'), missing_chars: sum('missing_chars'), rows, by_voice, quota, local: worker, gepard_up, would,
+    texts: sum('texts'), chars: sum('chars'), cached: sum('cached'), by_engine, missing: sum('missing'), missing_chars: sum('missing_chars'), rows, by_voice, narrator_voices, quota, local: worker, gepard_up, would,
     carrier: store.carrierStats(), ...(revoice_words ? { revoice_words } : {}),
   }
 }
@@ -153,6 +193,9 @@ export function formatPlan(p: BuildPlan, dir: string): string {
     ...(characters.length
       ? [`Character voices (texts with an ElevenLabs clip / all): ${characters.map(([v, c]) => `${v} ${n(c.elevenlabs)}/${n(c.texts)}`).join(', ')}`]
       : []),
+    ...(Object.keys(p.narrator_voices).length
+      ? [`Narrators in their Slovene ElevenLabs voices (texts in it / all; a local clip only meanwhile): ${Object.entries(p.narrator_voices).map(([v, name]) => `${v} (${name}) ${n(p.by_voice[v]?.elevenlabs ?? 0)}/${n(p.by_voice[v]?.texts ?? 0)} (local ${n(p.by_voice[v]?.local ?? 0)})`).join(', ')}`]
+      : []),
     p.quota
       ? `ElevenLabs: ${n(p.quota.remaining)} of ${n(p.quota.limit)} characters left this period, ${n(p.quota.reserve)} kept for live lines` +
         (p.quota.resets_at ? `, resets ${new Date(p.quota.resets_at * 1000).toISOString().slice(0, 10)}` : '')
@@ -160,6 +203,7 @@ export function formatPlan(p: BuildPlan, dir: string): string {
     `Local Gepard worker: ${!p.local ? 'not for this village (it speaks Slovene only)' : p.gepard_up ? 'up' : 'down'}`,
     `--run would voice: ElevenLabs ${n(p.would.elevenlabs.texts)} texts (${n(p.would.elevenlabs.chars)} chars` +
       (p.would.elevenlabs.replace ? `; ${n(p.would.elevenlabs.replace)} of them replace a clip, ${n(p.would.elevenlabs.replace_chars)} chars` : '') +
+      (p.would.elevenlabs.narrators.texts ? `; the narrators in Slovene ${n(p.would.elevenlabs.narrators.texts)}, ${n(p.would.elevenlabs.narrators.chars)} chars, ${n(p.would.elevenlabs.over_local)} of them next to a local clip, which stays` : '') +
       `), Gepard ${n(p.would.gepard.texts)} (${n(p.would.gepard.chars)} chars), later ${n(p.would.later.texts)} (${n(p.would.later.chars)} chars)`,
     ...formatCarrier(p),
   ]
@@ -205,18 +249,27 @@ export async function run(
   const list = todo(items, store, o.upgrade, o.revoice)
   for (const it of list) {
     const norm = normalizeText(it.text)
-    const had = store.get(norm, it.voice)
+    const narrator = store.sloveneNarrator(it.voice)
+    const had = narrator ? store.best(norm, it.voice) : store.get(norm, it.voice)
     const overCap = o.maxChars !== undefined && spent + store.cost(it.text, it.voice) > o.maxChars
+    const revoiced = !!had && !!o.revoice?.includes(it.voice)
     let engines: EngineName[] | undefined
-    if (had) {
+    if (narrator) {
+      // a Slovene narrator's line: in its Slovene ElevenLabs voice where that comes first (a local clip there stays), the
+      // worker for a line without a clip; or ('gepard') in the local voice first (--revoice: again in it)
+      if (store.elevenlabsFirst(it.voice)) {
+        if (overCap && had) continue
+        engines = overCap ? ['gepard'] : had ? ['elevenlabs'] : undefined
+      } else if (overCap) engines = ['gepard']
+    } else if (had) {
       if (overCap) continue
-      // --upgrade: replace a local clip; --revoice: any clip of that speaker (a local narrator's: in the local voice)
-      engines = store.localNarrator(it.voice) ? undefined : ['elevenlabs']
+      // --upgrade: replace a local clip; --revoice: any clip of that speaker
+      engines = ['elevenlabs']
     } else if (overCap) {
       if (store.waitsForElevenLabs(norm, it.voice)) continue
       engines = ['gepard']
     }
-    const c = await store.voice(it.text, it.voice, it.source, { engines, replace: !!had, force: !!had && !!o.revoice?.includes(it.voice) })
+    const c = await store.voice(it.text, it.voice, it.source, { engines, replace: !!had, force: revoiced })
     if (!c || c.file === had?.file && c.created_at === had.created_at) {
       // Nothing took this one; a shorter text may still fit the quota.
       if (!(await anyReady())) break

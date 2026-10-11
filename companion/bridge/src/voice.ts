@@ -3,9 +3,10 @@
 // Gepard worker on 127.0.0.1:8795. Clips live in the voice cache, {voice.db,files/<sha1>.mp3}: $LANI_VOICE_CACHE
 // (~/.cache/lani/voice after lani-setup), else <data>/app/voice (paths.ts voiceDir).
 // A clip is keyed by its speaker from the voice cast (cast.ts): the narrators female/male or a
-// character voice ("grandma"). A narrator says a lone word inside a carrier sentence, cut out by its
+// character voice ("grandma"). An English narrator says a lone word inside a carrier sentence, cut out by its
 // timestamps (CARRIERS); their clips from before that are made again as the app asks for them. In a Slovene village the
-// narrators are the local voice (nina, marko), never the English library voices (localNarrators). A voice the cast
+// narrators speak with their native Slovene ElevenLabs voices (Nina, Luka: the voices "female.sl", "male.sl"), the local
+// voice (ana and nina, marko) as their fallback, never the English library voices (sloveneNarrators). A voice the cast
 // marks `denoise` (a designed voice that hisses) has its clips filtered before they are stored (DENOISE), every clip's
 // silence at its edges is trimmed (EDGES), and every clip is brought to one loudness (LEVEL).
 import { Database } from 'bun:sqlite'
@@ -14,7 +15,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSy
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { renderDeep, type Addressee } from './addressee'
-import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, nativeSpeaker, personVoice, speakerFor, type DenoisePreset } from './cast'
+import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, type DenoisePreset, type Gender } from './cast'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
 import { ispyTexts, type ISpyBook, type ISpyLines } from './ispy'
@@ -121,6 +122,9 @@ export function isShortText(text: string): boolean {
   const words = normalizeText(t).split(' ').filter(Boolean)
   return words.length >= 1 && words.length <= 3
 }
+
+/** One word alone, without sentence punctuation ("kosilo"): a short text of one word. */
+export const isOneWord = (text: string): boolean => isShortText(text) && normalizeText(text).split(' ').filter(Boolean).length === 1
 
 /** An ElevenLabs alignment: each character of the text said, and when it starts and ends (seconds). */
 export type Alignment = { characters?: string[]; character_start_times_seconds?: number[]; character_end_times_seconds?: number[] }
@@ -309,14 +313,21 @@ function mp3Frames(b: Uint8Array): { secs: number; bytes: number } {
 // The local voice keeps its own pace. Paced to ElevenLabs' characters a second (×1.05, the pauses at most 0.4 s: October
 // 2026), its clips sounded too fast to Jan. The pace stays settable, off by default (PACE: LANI_VOICE_GEPARD_TEMPO,
 // LANI_VOICE_GEPARD_PAUSES).
+//
+// One word alone from ElevenLabs (a native voice says it plainly, without a carrier sentence) sometimes has something
+// after it: in the check of October 2026 (Nina and Luka, 8 words, 24 plain takes), 5 takes had a breath or the start of
+// another sound 0.38 to 1 s after the word, louder than the threshold, so the trim kept it (clips of 1.2–1.75 s). So a
+// single word's sound ends at its first pause of [wordGap] (0.25 s) or more: no word has one inside (a stop's closure is
+// 0.05–0.15 s). On those takes it cut the five to the word (0.46–0.64 s of sound) and left the other 19 as the trim had them.
 
 /**
  * The edges of every clip: the silence kept before the sound and after it (s); what is sound (a 20 ms window over
- * [threshold] dBFS RMS, as the clip is levelled), reaching back and on while the level stays over [floor]; and the
- * silence before or after the sound over which a clip is trimmed even when it isn't encoded for anything else ([slack]:
- * twice what is kept; a clip encoded anyway is trimmed to [lead] and [tail]).
+ * [threshold] dBFS RMS, as the clip is levelled), reaching back and on while the level stays over [floor]; the silence
+ * before or after the sound over which a clip is trimmed even when it isn't encoded for anything else ([slack]: twice what
+ * is kept; a clip encoded anyway is trimmed to [lead] and [tail]); and the pause that ends a single word's sound
+ * ([wordGap], s: what comes after it is cut off).
  */
-export const EDGES = { lead: 0.05, tail: 0.1, threshold: -45, floor: -60, slack: { lead: 0.1, tail: 0.2 } }
+export const EDGES = { lead: 0.05, tail: 0.1, threshold: -45, floor: -60, slack: { lead: 0.1, tail: 0.2 }, wordGap: 0.25 }
 export type EdgeSpec = typeof EDGES
 
 /** A clip's edges: its length, and the silence before its sound and after it (s); no sound: [lead] is the whole clip. */
@@ -324,9 +335,10 @@ export type Edges = { secs: number; lead: number; tail: number }
 
 /**
  * The edges of [x] (mono samples at [rate] Hz), measured [shift] dB louder (the gain the clip will get): the first 20 ms
- * window over the threshold, back while the windows before it stay over the floor; the same from the end.
+ * window over the threshold, back while the windows before it stay over the floor; the same from the end. [word]: a single
+ * word, whose sound ends at its first pause of [spec].wordGap or more (what follows is no part of it).
  */
-export function edgesOf(x: Float32Array, rate: number, shift = 0, spec: EdgeSpec = EDGES): Edges {
+export function edgesOf(x: Float32Array, rate: number, shift = 0, spec: EdgeSpec = EDGES, word = false): Edges {
   const n = Math.max(1, Math.round(rate * 0.02))
   const db: number[] = []
   for (let i = 0; i + n <= x.length; i += n) {
@@ -341,6 +353,18 @@ export function edgesOf(x: Float32Array, rate: number, shift = 0, spec: EdgeSpec
   if (a < 0) return { secs: r3(secs), lead: r3(secs), tail: 0 }
   let b = db.length - 1
   while (db[b] <= spec.threshold) b--
+  if (word) {
+    // the first pause of wordGap or more after the sound started ends the word
+    const gap = Math.max(1, Math.round(spec.wordGap / w))
+    let quiet = 0
+    for (let i = a; i <= b; i++) {
+      quiet = db[i] > spec.threshold ? 0 : quiet + 1
+      if (quiet >= gap) {
+        b = i - quiet
+        break
+      }
+    }
+  }
   while (a > 0 && db[a - 1] > spec.floor) a--
   while (b < db.length - 1 && db[b + 1] > spec.floor) b++
   return { secs: r3(secs), lead: r3(a * w), tail: r3(Math.max(0, secs - (b + 1) * w)) }
@@ -384,25 +408,25 @@ function decodePcm(path: string, file: string, af?: string): Promise<Float32Arra
   })
 }
 
-/** An MP3's edges (through the audio filter [af] first, measured [shift] dB louder); null when ffmpeg failed. */
-export type EdgeMeasure = (mp3: Uint8Array, af?: string, shift?: number) => Promise<Edges | null>
+/** An MP3's edges (through the audio filter [af] first, measured [shift] dB louder; [word]: a single word's); null when ffmpeg failed. */
+export type EdgeMeasure = (mp3: Uint8Array, af?: string, shift?: number, word?: boolean) => Promise<Edges | null>
 
 /** The edges with ffmpeg (found as for the cut: [bin], LANI_FFMPEG, the PATH): undefined when there is none. */
 export function ffmpegEdges(bin?: string): EdgeMeasure | undefined {
   const path = ffmpegPath(bin)
   if (!path) return undefined
-  return (mp3, af, shift = 0) =>
+  return (mp3, af, shift = 0, word = false) =>
     isMp3(mp3) ? inTemp(mp3, 'mp3', async file => {
       const x = await decodePcm(path, file, af)
-      return x ? edgesOf(x, MEASURE_RATE, shift) : null
+      return x ? edgesOf(x, MEASURE_RATE, shift, EDGES, word) : null
     }).catch(() => null) : Promise.resolve(null)
 }
 
-/** The edges of an audio file as it is, with ffmpeg (found as for the cut): undefined when there is none. voice-build --edges' dry run. */
-export function ffmpegFileEdges(bin?: string): ((file: string) => Promise<Edges | null>) | undefined {
+/** The edges of an audio file as it is ([word]: a single word's), with ffmpeg (found as for the cut): undefined when there is none. voice-build --edges' dry run. */
+export function ffmpegFileEdges(bin?: string): ((file: string, word?: boolean) => Promise<Edges | null>) | undefined {
   const path = ffmpegPath(bin)
   if (!path) return undefined
-  return file => decodePcm(path, file).then(x => (x ? edgesOf(x, MEASURE_RATE) : null)).catch(() => null)
+  return (file, word = false) => decodePcm(path, file).then(x => (x ? edgesOf(x, MEASURE_RATE, 0, EDGES, word) : null)).catch(() => null)
 }
 
 /**
@@ -599,11 +623,11 @@ async function inTemp<T>(bytes: Uint8Array, ext: string, f: (file: string, tmp: 
 
 /**
  * What a clip goes through before it is levelled, in the level's encode: a voice's denoise filter, the local voice's pace,
- * and its edges trimmed. [levelled]: the clip is at the level already (voice-build --edges on a levelled clip): it keeps
- * its loudness (one the limiter held short of the target stays so), is encoded only to trim it, and then only made up
- * for what the encode takes off.
+ * and its edges trimmed ([word]: a single word's, which ends at its first long pause: EDGES.wordGap). [levelled]: the clip
+ * is at the level already (voice-build --edges on a levelled clip): it keeps its loudness (one the limiter held short of
+ * the target stays so), is encoded only to trim it, and then only made up for what the encode takes off.
  */
-export type LevelOptions = { denoise?: DenoisePreset; pace?: GepardPace; edges?: boolean; levelled?: boolean }
+export type LevelOptions = { denoise?: DenoisePreset; pace?: GepardPace; edges?: boolean; word?: boolean; levelled?: boolean }
 
 /** What runs before the gain, in the same encode: a voice's denoise preset, then the local voice's pace (PACE). */
 const preChain = (o: LevelOptions = {}) => [o.denoise ? DENOISE[o.denoise] : '', o.pace ? paceChain(o.pace) : ''].filter(Boolean).join(',') || undefined
@@ -652,7 +676,7 @@ export function ffmpegLeveller(bin?: string, spec: LevelSpec = LEVEL): Leveller 
     const to = o.levelled && before.lufs > -70 ? { ...spec, target: before.lufs } : spec
     const g = o.levelled ? { gain: 0, limit: false, keep: true } : levelGain(before, spec)
     // the edges as the clip will be: through the filter and the pace, the gain added
-    const edges = o.edges ? await edgesOfClip(mp3, pre, before.lufs > -70 ? g.gain : 0) : undefined
+    const edges = o.edges ? await edgesOfClip(mp3, pre, before.lufs > -70 ? g.gain : 0, o.word) : undefined
     if (o.edges && !edges) return null
     const trim = edges && trimmable(edges, g.keep && !pre) ? trimChain(edges) : ''
     const chain = [pre, trim].filter(Boolean).join(',') || undefined
@@ -1089,7 +1113,8 @@ export class ElevenLabs implements Engine {
 
 /**
  * The local Gepard worker: GET /health, POST /synth {text, speaker?} → MP3, 503 while busy. A cast
- * speaker's worker voice comes from the cast ([speakers] overrides it).
+ * speaker's worker voice comes from the cast ([speakers] overrides it); a lone word's from its `gepard_words` when it
+ * has one (the female narrator: ana for words, nina for sentences).
  */
 export class Gepard implements Engine {
   readonly name = 'gepard' as const
@@ -1099,11 +1124,17 @@ export class Gepard implements Engine {
     private readonly o: { url?: string; speakers?: Partial<Record<VoiceName, string>>; timeoutMs?: number; log?: Log } = {},
   ) {}
 
-  /** The worker's voice for [voice]: the override, else the cast's, else the gender narrator's. */
-  speakerOf(voice: VoiceName): string | undefined {
+  /**
+   * The worker's voice for [voice] (saying [text]): the override, else the cast's (a lone word: its `gepard_words` when
+   * it has them), else the gender narrator's.
+   */
+  speakerOf(voice: VoiceName, text?: string): string | undefined {
     const c = cast()
+    const word = text !== undefined && isShortText(text)
+    const of = (name: string) => (word && c[name]?.gepard ? (c[name].gepard_words ?? c[name].gepard) : c[name]?.gepard)
     const a = archetypeOf(voice)
-    return this.o.speakers?.[a] ?? c[a]?.gepard ?? this.o.speakers?.[genderOf(voice)] ?? c[genderOf(voice)]?.gepard
+    const g = genderOf(voice)
+    return this.o.speakers?.[a] ?? of(a) ?? this.o.speakers?.[g] ?? of(g)
   }
 
   private get url() { return (this.o.url ?? 'http://127.0.0.1:8795').replace(/\/$/, '') }
@@ -1123,7 +1154,7 @@ export class Gepard implements Engine {
 
   async synth(text: string, voice: VoiceName): Promise<Take | null> {
     try {
-      const speaker = this.speakerOf(voice)
+      const speaker = this.speakerOf(voice, text)
       const r = await fetch(`${this.url}/synth`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -1525,16 +1556,23 @@ export type Processed = { done: number; kept: number; limited: number; trimmed: 
 export type Denoised = Processed
 
 /**
- * Whether a village in [language] has its narrators' lines from the local Gepard voice: Slovene, unless
- * LANI_VOICE_NARRATOR_SL is "elevenlabs" (the English library narrators, as before October 2026). The worker speaks only
- * Slovene; a village in another language keeps the narrators its cast gives it.
+ * How a Slovene village's narrators speak (never with their English library voices, Matilda and Daniel): 'elevenlabs',
+ * their Slovene ElevenLabs voices first (the cast's `languages` `sl`: Nina, Luka), the local Gepard voice when ElevenLabs
+ * can't; 'gepard', the local voice first, their Slovene ElevenLabs voices when it can't (as from 10 October 2026).
  */
-export function localNarrators(language: string, env: Record<string, string | undefined> = process.env, log?: Log): boolean {
-  if (language !== 'sl') return false
+export type NarratorVoices = 'elevenlabs' | 'gepard'
+
+/**
+ * How a village in [language] has its narrators speak: in Slovene, LANI_VOICE_NARRATOR_SL ('elevenlabs' by default, or
+ * 'gepard'); undefined for a village in another language, which keeps the narrators its cast gives it (the worker speaks
+ * only Slovene). A wrong value is logged, and the default is taken.
+ */
+export function sloveneNarrators(language: string, env: Record<string, string | undefined> = process.env, log?: Log): NarratorVoices | undefined {
+  if (language !== 'sl') return undefined
   const v = env.LANI_VOICE_NARRATOR_SL?.trim()
-  if (v === 'elevenlabs') return false
-  if (v && v !== 'gepard') log?.(`voice: LANI_VOICE_NARRATOR_SL=${v} is not gepard or elevenlabs: gepard it is`)
-  return true
+  if (v === 'gepard' || v === 'elevenlabs') return v
+  if (v) log?.(`voice: LANI_VOICE_NARRATOR_SL=${v} is not elevenlabs or gepard: elevenlabs it is`)
+  return 'elevenlabs'
 }
 
 /** The local voice a narrator's Gepard clip from before the engine's voice was recorded was made with: the female narrator's was ana. */
@@ -1605,17 +1643,20 @@ export class VoiceStore {
        */
       pace?: GepardPace | null
       /**
-       * The narrators' lines (female, male) from the local voice, never the English library narrators (localNarrators: a
-       * Slovene village); when it can't, a cast voice native in the village's [language] of the narrator's gender
-       * (nativeSpeaker), else none: the phone speaks. False or absent: the narrators speak as the cast has them.
+       * How a Slovene village's narrators (female, male) speak, never with the English library narrators
+       * (sloveneNarrators): 'elevenlabs', their Slovene ElevenLabs voices (the cast's `languages` `sl`: Nina, Luka;
+       * their clips are the voices "female.sl", "male.sl"), the local voice as their fallback; 'gepard', the local voice
+       * first, their Slovene ElevenLabs voices when it can't; else none: the phone speaks. Absent: the narrators speak as
+       * the cast has them (a village in another language).
        */
-      localNarrators?: boolean
+      narrators?: NarratorVoices
       /** The village's language, the clips' ('sl' when absent). */
       language?: string
       liveLimit?: { max: number; windowMs: number }
       /**
        * Clips re-voiced a day (LANI_VOICE_REVOICE_DAILY; DEFAULT_REVOICE_DAILY; 0: none): old-style short narrator
-       * clips in their carrier sentence as the app asks for them, and Jan's re-records on request (see [redoKept]).
+       * clips in their carrier sentence and the Slovene narrators' clips in their ElevenLabs voices as the app asks for
+       * them, and Jan's re-records on request (see [redoKept]).
        */
       revoiceDaily?: number
     },
@@ -1684,29 +1725,63 @@ export class VoiceStore {
   /** The village's language, the clips'. */
   get language(): string { return this.o.language ?? 'sl' }
 
-  /** Whether [voice] is a narrator whose lines come from the local voice here (localNarrators: a Slovene village). */
-  localNarrator(voice: VoiceName): boolean {
-    return !!this.o.localNarrators && isNarrator(voice)
+  // --- the narrators in Slovene ------------------------------------------------------------------------------------
+  //
+  // A Slovene narrator's line has two clips, each a row of its own: in the narrator's Slovene ElevenLabs voice (Nina,
+  // Luka: the voice "female.sl", key "female.sl:<norm>") and in the local Gepard voice (the voice "female", key
+  // "female:<norm>": ana for a lone word, nina for a sentence; marko). The app knows only "female": the index gives it
+  // the first there of the two, the ElevenLabs one first ('elevenlabs', the default) or the local one ('gepard'). A
+  // local clip stays when the ElevenLabs one is made: it is the fallback, and what LANI_VOICE_NARRATOR_SL=gepard plays.
+
+  /** How the narrators speak here ([sloveneNarrators]: a Slovene village), if they don't speak as the cast has them. */
+  get narrators(): NarratorVoices | undefined { return this.o.narrators }
+
+  /** Whether [voice] is a narrator of this Slovene village: its Slovene ElevenLabs voice and the local voice, never its English one. */
+  sloveneNarrator(voice: VoiceName): boolean {
+    return !!this.o.narrators && isNarrator(voice)
   }
 
-  /** The cast voice native in the village's language that a local narrator's line goes to when the local voice can't (none yet). */
-  nativeOf(voice: VoiceName): VoiceName | undefined {
-    return this.localNarrator(voice) ? nativeSpeaker(genderOf(voice), this.language) : undefined
+  /** The voice a Slovene narrator's ElevenLabs clips are in ("female.sl": the cast's `languages` `sl`, Nina), if the cast gives it one. */
+  slVoiceOf(voice: VoiceName): VoiceName | undefined {
+    return this.sloveneNarrator(voice) ? languageVoice(voice, this.language) : undefined
   }
 
-  /** The local voice a narrator speaks with here: the worker's voice for it (the cast's `gepard`: female nina, male marko). */
-  localVoiceOf(voice: VoiceName): string | undefined {
-    return this.gepard?.speakerOf(voice) ?? cast()[voice]?.gepard
+  /** Whether a Slovene narrator's clip is wanted in its Slovene ElevenLabs voice first: 'elevenlabs', with a voice in the cast. */
+  elevenlabsFirst(voice: VoiceName): boolean {
+    return this.o.narrators === 'elevenlabs' && !!this.slVoiceOf(voice)
   }
 
   /**
-   * Whether [c], a narrator's clip, is in the narrator's local voice now: a Gepard clip of that worker voice (one from
-   * before the engine's voice was recorded: the female narrator's was ana's, GEPARD_BEFORE).
+   * The local voice a narrator speaks [text] with here: the worker's voice for it (the cast's `gepard`, a lone word's
+   * `gepard_words`: female ana for a word, nina for a sentence; male marko).
+   */
+  localVoiceOf(voice: VoiceName, text?: string): string | undefined {
+    return this.gepard?.speakerOf(voice, text) ?? new Gepard().speakerOf(voice, text)
+  }
+
+  /**
+   * Whether [c], a narrator's clip, is in the narrator's local voice now: a Gepard clip of that worker voice for its text
+   * (one from before the engine's voice was recorded: the female narrator's was ana's, GEPARD_BEFORE).
    */
   inLocalVoice(c: Clip): boolean {
     if (c.engine !== 'gepard') return false
-    const want = this.localVoiceOf(c.voice)
+    const want = this.localVoiceOf(c.voice, c.text)
     return !want || (c.engine_voice ?? GEPARD_BEFORE[c.voice] ?? want) === want
+  }
+
+  /**
+   * The clip the app gets for [norm] in [voice]: a Slovene narrator's in its Slovene ElevenLabs voice or in the local
+   * voice, whichever is there first in the order the setting gives ('elevenlabs': ElevenLabs first); anyone else's own.
+   */
+  best(norm: string, voice: VoiceName): Clip | undefined {
+    const sl = this.slVoiceOf(voice)
+    if (!sl) return this.get(norm, voice)
+    return this.o.narrators === 'elevenlabs' ? (this.get(norm, sl) ?? this.get(norm, voice)) : (this.get(norm, voice) ?? this.get(norm, sl))
+  }
+
+  /** Whether a Slovene narrator's line [norm] still wants its clip in the narrator's Slovene ElevenLabs voice (ElevenLabs first, none yet). */
+  wantsElevenLabs(norm: string, voice: VoiceName): boolean {
+    return this.elevenlabsFirst(voice) && !this.get(norm, this.slVoiceOf(voice)!)
   }
 
   get revoiceDaily(): number { return this.o.revoiceDaily ?? DEFAULT_REVOICE_DAILY }
@@ -1714,9 +1789,13 @@ export class VoiceStore {
   /** Of the day's cap, what the lazy re-voice may use: the rest is kept for re-records on request ([redoKept]). */
   get lazyDaily(): number { return this.revoiceDaily - redoKept(this.revoiceDaily) }
 
-  /** The characters ElevenLabs would be sent for [text] in [voice] (a short word's carrier sentence; a local narrator's: the text). */
+  /**
+   * The characters ElevenLabs would be sent for [text] in [voice] (a short word's carrier sentence); a Slovene narrator's:
+   * in its Slovene ElevenLabs voice where that comes first (Nina, Luka say a word plainly), else the text.
+   */
   cost(text: string, voice: VoiceName): number {
-    return (!this.localNarrator(voice) && this.eleven?.cost(text, voice)) || text.trim().length
+    if (this.sloveneNarrator(voice)) return (this.elevenlabsFirst(voice) && this.eleven?.cost(text, this.slVoiceOf(voice)!)) || text.trim().length
+    return this.eleven?.cost(text, voice) || text.trim().length
   }
 
   /** The store's database, which the voice profiles share. */
@@ -1741,11 +1820,24 @@ export class VoiceStore {
     return this.db.query('SELECT * FROM clips ORDER BY created_at').all() as Clip[]
   }
 
-  /** normalized text → speaker (female, male, grandma, …) → file URL. */
+  /**
+   * normalized text → speaker (female, male, grandma, …) → file URL. A Slovene narrator's entry is its clip in the
+   * narrator's Slovene ElevenLabs voice or in the local voice, the first there in the setting's order ([best]); the app
+   * knows the narrator by its own name.
+   */
   index(): Record<string, Record<VoiceName, string>> {
     const out: Record<string, Record<VoiceName, string>> = {}
+    // the Slovene narrators' voices: "female.sl" → female
+    const sl = new Map(GENDERS.map(v => [this.slVoiceOf(v), v] as const).filter((e): e is [string, Gender] => !!e[0]))
+    const later: Pick<Clip, 'norm' | 'voice' | 'file'>[] = []
     for (const c of this.db.query('SELECT norm, voice, file FROM clips').all() as Pick<Clip, 'norm' | 'voice' | 'file'>[]) {
-      ;(out[c.norm] ??= {})[c.voice] = fileUrl(c.file)
+      if (sl.has(c.voice)) later.push(c)
+      else if (!LANGUAGE_VOICE.test(c.voice)) (out[c.norm] ??= {})[c.voice] = fileUrl(c.file)
+    }
+    for (const c of later) {
+      const as = sl.get(c.voice)!
+      const at = (out[c.norm] ??= {})
+      if (this.o.narrators === 'elevenlabs' || !at[as]) at[as] = fileUrl(c.file)
     }
     return out
   }
@@ -1767,8 +1859,8 @@ export class VoiceStore {
    * voice; the local worker's clips are clean): the filtered bytes and the preset. When it can't be filtered now (no
    * ffmpeg, ffmpeg failed), the bytes as they are, logged: voice-build --denoise filters it later.
    */
-  private async filtered(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string, as?: VoiceName): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null }> {
-    const preset = engine === 'elevenlabs' ? denoiseOf(as ?? voice) : undefined
+  private async filtered(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null }> {
+    const preset = engine === 'elevenlabs' ? denoiseOf(voice) : undefined
     if (!preset) return { bytes, denoise: null }
     const f = this.denoise
     const out = f ? await f(bytes, preset).catch(() => null) : null
@@ -1796,26 +1888,26 @@ export class VoiceStore {
   }
 
   /**
-   * [bytes] as they are stored: through the filter of [voice] (or of [as], the voice that said it for [voice]:
-   * [filtered]), a local clip paced when a pace is set ([pace]), its edges trimmed (EDGES) and brought to the level, in one
-   * encode when they are ffmpeg's. What can't be done now (no ffmpeg, ffmpeg failed) is left out and logged (no ffmpeg:
-   * once): voice-build --level (and --denoise, --tempo, --edges) does it later.
+   * [bytes] as they are stored: through the filter of [voice] ([filtered]), a local clip paced when a pace is set
+   * ([pace]), its edges trimmed (EDGES; a single word's ends at its first long pause, [word]) and brought to the level, in
+   * one encode when they are ffmpeg's. What can't be done now (no ffmpeg, ffmpeg failed) is left out and logged (no
+   * ffmpeg: once): voice-build --level (and --denoise, --tempo, --edges) does it later.
    */
-  private async processed(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string, as?: VoiceName): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null; level: number | null; gain: number | null; tempo: number | null; edges: number | null }> {
-    const preset = engine === 'elevenlabs' ? denoiseOf(as ?? voice) : undefined
+  private async processed(bytes: Uint8Array, voice: VoiceName, engine: EngineName, text: string, word = false): Promise<{ bytes: Uint8Array; denoise: DenoisePreset | null; level: number | null; gain: number | null; tempo: number | null; edges: number | null }> {
+    const preset = engine === 'elevenlabs' ? denoiseOf(voice) : undefined
     const pace = engine === 'gepard' ? (this.pace ?? undefined) : undefined
     const lv = this.leveller
     // ffmpeg's own filter runs in the level's encode; another one (a stand-in) before it
     if (lv && (!preset || this.o.denoise === undefined)) {
-      const r = await lv.level(bytes, { denoise: preset, pace, edges: true })
+      const r = await lv.level(bytes, { denoise: preset, pace, edges: true, word })
       if (r) return { bytes: r.bytes, denoise: preset ?? null, level: lv.target, gain: r.gain, tempo: pace?.tempo ?? null, edges: r.edges ? 1 : null }
     }
     if (pace && (lv || !this.noPaceLogged)) {
       this.noPaceLogged ||= !lv
       this.o.log?.(`voice: "${text}" (${voice}) stored at the local voice's own pace: ${lv ? 'ffmpeg failed' : 'no ffmpeg'}; voice-build --tempo paces it later`)
     }
-    const f = await this.filtered(bytes, voice, engine, text, as)
-    const r = lv ? await lv.level(f.bytes, { edges: true }) : null
+    const f = await this.filtered(bytes, voice, engine, text)
+    const r = lv ? await lv.level(f.bytes, { edges: true, word }) : null
     if (r) return { ...f, bytes: r.bytes, level: lv!.target, gain: r.gain, tempo: null, edges: r.edges ? 1 : null }
     if (!this.noLevelLogged) {
       this.noLevelLogged = true
@@ -1829,18 +1921,17 @@ export class VoiceStore {
     take: Omit<Take, 'bytes'> & {
       /** Another take of the same (a re-record): a name of its own. */
       salt?: string
-      /** The cast voice that said it for [voice] (a Slovene narrator line in a native Slovene voice): its filter. */
-      as?: VoiceName
     } = {},
   ): Promise<Clip> {
     const key = clipKey(norm, voice)
     // a voice that hisses (the cast's `denoise`): filtered; a local clip: paced when a pace is set; every clip: its edges
-    // trimmed and brought to the level
-    const f = await this.processed(bytes, voice, engine, text, take.as)
+    // trimmed (a single word asked for as it is: up to its first long pause; a carrier cut is the word already) and
+    // brought to the level
+    const f = await this.processed(bytes, voice, engine, text, take.method !== 'carrier' && isOneWord(text))
     // A clip's name carries the engine's voice (the ElevenLabs voice id, the Gepard voice), so a swapped voice's clips get
     // new names (the app caches by name); a carrier cut is a new take of the same text, so it gets a new name too and the
     // app downloads it; so does a re-record, and so does a filtered, paced, trimmed or levelled clip.
-    const own = take.voice ?? (engine === 'elevenlabs' ? (elevenlabsOf(take.as ?? voice) ?? '') : undefined)
+    const own = take.voice ?? (engine === 'elevenlabs' ? (elevenlabsOf(voice) ?? '') : undefined)
     const tag = own !== undefined ? `|${own}` : ''
     const how = take.method === 'carrier' ? '|carrier' : ''
     const salt = take.salt ? `|${take.salt}` : ''
@@ -1877,42 +1968,35 @@ export class VoiceStore {
   waitsForElevenLabs(norm: string, voice: VoiceName): boolean {
     // someone's own voice is only ever theirs: a local clip in it would be someone else speaking
     if (personVoice(voice)) return true
-    return !isNarrator(voice) && !!this.get(norm, genderOf(voice))
+    return !isNarrator(voice) && !!this.best(norm, genderOf(voice))
   }
 
   /**
    * The clip for [text] in [voice] (a cast speaker): an existing one, else ElevenLabs if the quota
    * allows, else the local worker if it is up (not for a character whose gender clip exists, see
-   * [waitsForElevenLabs]). A narrator here whose lines come from the local voice ([localNarrator]: a Slovene village)
-   * gets the local worker first and never the English narrators: when the worker can't, a cast voice native in the
-   * village's language of the narrator's gender (nativeSpeaker), else nothing (the phone speaks). Null when no engine can
-   * make it now, or for a speaker not in the cast; never throws.
+   * [waitsForElevenLabs]). A Slovene narrator ([sloveneNarrator]) never speaks with its English voice: see
+   * [narratorVoice]. Null when no engine can make it now, or for a speaker not in the cast; never throws.
    */
   async voice(text: string, voice: VoiceName, source: string, opt: VoiceOptions = {}): Promise<Clip | null> {
     const norm = normalizeText(text)
     if (!norm || !isVoice(voice)) return null
+    if (this.sloveneNarrator(voice)) return this.narratorVoice(norm, text, voice, source, opt)
     const have = this.get(norm, voice)
     if (have && !opt.force && !(opt.replace && opt.engines && !opt.engines.includes(have.engine))) return have
     const waits = this.waitsForElevenLabs(norm, voice)
     const key = clipKey(norm, voice)
     const busy = this.running.get(key)
     if (busy) return busy
-    const local = this.localNarrator(voice)
-    const native = this.nativeOf(voice)
-    const engines = local ? [...this.o.engines].sort((a, b) => (a.name === 'gepard' ? 0 : 1) - (b.name === 'gepard' ? 0 : 1)) : this.o.engines
     const job = (async () => {
       const t = text.trim()
-      for (const e of engines) {
+      for (const e of this.o.engines) {
         if (opt.engines && !opt.engines.includes(e.name)) continue
         if (waits && e.name !== 'elevenlabs') continue
-        // a local narrator's line: ElevenLabs only in a native voice of the village's language
-        if (local && e.name === 'elevenlabs' && !native) continue
-        const as = local && e.name === 'elevenlabs' ? native : undefined
         try {
           // a short narrator word costs its carrier sentence
-          if (!(await e.ready(e.cost?.(t, as ?? voice) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, as ?? voice, { live: !!opt.live })
-          if (take) return await this.save(norm, t, voice, e.name, take.bytes, source, { ...take, as })
+          if (!(await e.ready(e.cost?.(t, voice) ?? t.length, !!opt.live))) continue
+          const take = await e.synth(t, voice, { live: !!opt.live })
+          if (take) return await this.save(norm, t, voice, e.name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${e.name} failed: ${(err as Error).message}`)
         }
@@ -1924,15 +2008,61 @@ export class VoiceStore {
   }
 
   /**
+   * A Slovene narrator's clip ([voice]: female, male): the one there ([best]), else made: in its Slovene ElevenLabs voice
+   * (the cast's `languages` `sl`: Nina, Luka; stored as that voice, "female.sl") and in the local voice (stored as the
+   * narrator: ana for a lone word, nina for a sentence; marko), in the setting's order ('elevenlabs': ElevenLabs first),
+   * never in the English library voice; else none, and the phone speaks. [opt].engines makes only those clips (an upgrade
+   * to ElevenLabs, a re-voice in the local voice), and the one there of those is the one unless [opt].force. Each clip
+   * is a row of its own, so a local clip stays when the ElevenLabs one is made.
+   */
+  private narratorVoice(norm: string, text: string, voice: VoiceName, source: string, opt: VoiceOptions): Promise<Clip | null> | Clip | null {
+    const have = this.best(norm, voice)
+    if (have && !opt.force && !opt.engines) return have
+    const sl = this.slVoiceOf(voice)
+    // each engine's clip: ElevenLabs' in the narrator's Slovene voice, the worker's in the narrator's key
+    const as = (e: EngineName): VoiceName | undefined => (e === 'gepard' ? voice : sl)
+    const order: EngineName[] = this.o.narrators === 'elevenlabs' ? ['elevenlabs', 'gepard'] : ['gepard', 'elevenlabs']
+    const engines = order.filter(e => (!opt.engines || opt.engines.includes(e)) && !!as(e))
+    if (!opt.force) {
+      for (const e of engines) {
+        const c = this.get(norm, as(e)!)
+        if (c) return c
+      }
+    }
+    const keys = engines.map(e => clipKey(norm, as(e)!))
+    const busy = keys.map(k => this.running.get(k)).find(Boolean)
+    if (busy) return busy
+    const job = (async () => {
+      const t = text.trim()
+      for (const name of engines) {
+        const e = this.o.engines.find(x => x.name === name)
+        if (!e) continue
+        const v = as(name)!
+        try {
+          // Nina and Luka say a lone word plainly (no carrier sentence): its characters
+          if (!(await e.ready(e.cost?.(t, v) ?? t.length, !!opt.live))) continue
+          const take = await e.synth(t, v, { live: !!opt.live })
+          if (take) return await this.save(norm, t, v, name, take.bytes, source, take)
+        } catch (err) {
+          this.o.log?.(`voice: ${name} failed: ${(err as Error).message}`)
+        }
+      }
+      return have ?? null
+    })().finally(() => keys.forEach(k => this.running.delete(k)))
+    for (const k of keys) this.running.set(k, job)
+    return job
+  }
+
+  /**
    * A live line from the app: rate-limited, may use the reserve; the speaker's gender clip, then the
    * other narrator's, beats nothing.
    */
   async say(text: string, voice: VoiceName): Promise<Clip | null> {
     const norm = normalizeText(text)
-    const have = this.get(norm, voice)
+    const have = this.best(norm, voice)
     if (have) return this.served(have)
     const other = () => {
-      const c = fallbacks(voice).map(v => this.get(norm, v)).find(Boolean)
+      const c = fallbacks(voice).map(v => this.best(norm, v)).find(Boolean)
       return c ? this.served(c) : null
     }
     if (!this.running.has(clipKey(norm, voice))) {
@@ -1956,23 +2086,69 @@ export class VoiceStore {
 
   /**
    * A clip the app is given (a download, /voice/say): its request is counted, and when it is old-style (a short
-   * narrator word said plainly) it is served as it is now and re-voiced in its carrier sentence soon.
+   * narrator word said plainly) it is served as it is now and re-voiced in its carrier sentence soon; a Slovene narrator's
+   * local clip whose ElevenLabs one is wanted ([wantsUpgrade]) is served as it is now, and the ElevenLabs one made soon.
    */
   private served(c: Clip): Clip {
     if (this.o.readonly) return c
     try {
       this.db.query('UPDATE clips SET hits = hits + 1 WHERE key = ?').run(c.key)
     } catch {}
-    if (this.oldStyle(c)) this.scheduleRevoice()
+    if (this.oldStyle(c) || this.wantsUpgrade(c)) this.scheduleRevoice()
     return c
   }
 
   /**
    * A clip of a short text in a carrier voice that ElevenLabs made plainly, before the carrier sentence: it may sound
-   * English. Not a local narrator's ([localNarrator]): those go to the local voice (voice-build --narrators).
+   * English. Not a Slovene narrator's ([sloveneNarrator]): those never speak with the English voice.
    */
   oldStyle(c: Clip): boolean {
-    return c.engine === 'elevenlabs' && !c.method && !this.localNarrator(c.voice) && !!this.eleven?.carrierFor(c.text, c.voice)
+    return c.engine === 'elevenlabs' && !c.method && !this.sloveneNarrator(c.voice) && !!this.eleven?.carrierFor(c.text, c.voice)
+  }
+
+  // --- the Slovene narrators in their ElevenLabs voices, as the app asks for them --------------------------------------
+
+  /**
+   * Whether [c] is a Slovene narrator's clip in the narrator's key (the local voice's, or one from before) whose clip in
+   * the narrator's Slovene ElevenLabs voice is wanted first and missing, with ElevenLabs set up: the app plays [c]
+   * meanwhile, and the bridge makes the other one soon, within the day's cap and above the reserve.
+   */
+  wantsUpgrade(c: Clip): boolean {
+    return !this.o.readonly && !!this.eleven?.configured && this.sloveneNarrator(c.voice) && this.wantsElevenLabs(c.norm, c.voice)
+  }
+
+  /** The Slovene narrators' clips waiting for their ElevenLabs one ([wantsUpgrade]), most asked for first; [asked]: only those the app asked for. */
+  upgradeQueue(asked = true): Clip[] {
+    if (!this.o.narrators || !this.eleven?.configured) return []
+    return (this.db.query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[])
+      .filter(c => (!asked || (c.hits ?? 0) > 0) && this.wantsUpgrade(c))
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /** What the lazy re-voice takes up: old-style words and the Slovene narrators' upgrades, most asked for first, then the oldest. */
+  lazyQueue(asked = true): Clip[] {
+    return [...this.revoiceQueue(asked), ...this.upgradeQueue(asked)].sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /**
+   * [c], a Slovene narrator's clip in the narrator's key, made in the narrator's Slovene ElevenLabs voice too (Nina, Luka;
+   * a lone word plainly), the clip there kept as its fallback: 'made'; 'stop' when it can't be now (the quota down to the
+   * reserve, kept for live lines; an error). A take paid for counts for the day.
+   */
+  async upgradeOne(c: Clip): Promise<Revoiced> {
+    const el = this.eleven
+    const sl = this.slVoiceOf(c.voice)
+    if (this.o.readonly || !el || !sl || this.running.has(clipKey(c.norm, sl))) return 'stop'
+    if (!(await el.ready(el.cost(c.text, sl), false))) return 'stop'
+    const before = el.remaining()
+    const job = (async (): Promise<Clip | null> => {
+      const take = await el.synth(c.text, sl)
+      return take ? await this.save(c.norm, c.text, sl, 'elevenlabs', take.bytes, c.source, take) : null
+    })()
+    this.running.set(clipKey(c.norm, sl), job.catch(() => null).finally(() => this.running.delete(clipKey(c.norm, sl))))
+    const made = await job.catch(() => null)
+    if (made || el.remaining() !== before) this.countForToday()
+    return made ? 'made' : 'stop'
   }
 
   /** The old-style clips, most asked for first, then the oldest; [asked]: only those the app has asked for. */
@@ -2054,30 +2230,35 @@ export class VoiceStore {
    * made with ElevenLabs. The new take gets a new file name, the old file goes, and the app is told (voice_updated).
    * Once a clip a day; each counts in the day's cap ([revoiceDaily], shared with the lazy re-voice, which leaves
    * [redoKept] of it for these) and never goes into the reserve for live lines. A text without a clip is voiced as a
-   * live line is (/voice/say), not counted. A narrator whose lines come from the local voice ([localNarrator]) is never
-   * re-recorded with ElevenLabs: a clip from before is made in the local voice, not counted; one in it is the one
-   * (not_needed: the local voice says a text the same way every time). Never throws.
+   * live line is (/voice/say), not counted. A Slovene narrator ([sloveneNarrator]) is re-recorded in its Slovene
+   * ElevenLabs voice (Nina, Luka) where that comes first: a re-take, or its first clip in it when only the local one is
+   * there, counted as any re-record; the local clip stays. Where the local voice comes first (or ElevenLabs isn't set up),
+   * a clip from before is made in the local voice, not counted; one in it is the one (not_needed: the local voice says a
+   * text the same way every time). Never throws.
    */
   async redo(text: string, voice: VoiceName): Promise<Redo> {
     const norm = normalizeText(text)
     if (this.o.readonly || !norm || !isVoice(voice)) return { status: 'failed', message: 'nothing to re-record' }
-    const key = clipKey(norm, voice)
+    const narrator = this.sloveneNarrator(voice)
+    // the clip re-recorded: a Slovene narrator's in its Slovene ElevenLabs voice ("female.sl") where that comes first
+    const target = narrator && this.elevenlabsFirst(voice) && this.eleven?.configured ? this.slVoiceOf(voice)! : voice
+    const key = clipKey(norm, target)
     try {
       // being made right now (the lazy re-voice, a live line): that take is the new one
       const busy = this.running.get(key)
       if (busy) {
-        const had = this.get(norm, voice)?.file
+        const had = this.get(norm, target)?.file
         const c = await busy
-        if (c && c.voice === voice && c.file !== had) return { status: 'done', clip: c }
+        if (c && c.voice === target && c.file !== had) return { status: 'done', clip: c }
       }
-      const have = this.get(norm, voice)
+      const have = narrator ? this.best(norm, voice) : this.get(norm, voice)
       if (!have) {
         const c = await this.say(text, voice)
         return c ? { status: 'done', clip: c } : { status: 'failed', message: 'no engine can voice it now' }
       }
-      // a narrator whose lines come from the local voice (a Slovene village): it says a text the same way every time, so
-      // a clip in it is the one; a clip from before (an English narrator's, the female narrator's ana) is made in it now
-      if (this.localNarrator(voice)) {
+      // a Slovene narrator in the local voice: it says a text the same way every time, so a clip in it is the one; a clip
+      // from before (an English narrator's, the female narrator's other local voice) is made in it now
+      if (narrator && target === voice) {
         if (this.inLocalVoice(have)) return { status: 'not_needed', clip: have, message: `"${have.text}" is in the local voice, which says it the same way every time` }
         const c = await this.voice(have.text, voice, have.source, { force: true })
         if (!c || c.file === have.file) return { status: 'failed', message: 'the local voice cannot make it now' }
@@ -2085,12 +2266,12 @@ export class VoiceStore {
         this.o.onUpdated?.(1)
         return { status: 'done', clip: c }
       }
-      if (this.redoneToday(key)) return { status: 'not_needed', clip: have, message: `"${have.text}" was re-recorded today already (once a clip a day)` }
+      if (this.redoneToday(key)) return { status: 'not_needed', clip: this.get(norm, target) ?? have, message: `"${have.text}" was re-recorded today already (once a clip a day)` }
       const el = this.eleven
       if (!el?.configured) return { status: 'failed', message: 'ElevenLabs is not set up on the node' }
       const today = this.revoicedToday()
       if (today >= this.revoiceDaily) return { status: 'limit', reason: 'cap', message: `no re-recordings left today (${today} of ${this.revoiceDaily})` }
-      const cost = el.cost(have.text, voice)
+      const cost = el.cost(have.text, target)
       if (!(await el.ready(cost, false))) {
         const left = el.remaining()
         return left !== undefined && left - cost < el.reserve
@@ -2099,8 +2280,8 @@ export class VoiceStore {
       }
       const before = el.remaining()
       const job = (async (): Promise<Clip | null> => {
-        const take = await el.synth(have.text, voice)
-        return take ? await this.save(norm, have.text, voice, 'elevenlabs', take.bytes, have.source, { ...take, salt: `redo ${new Date().toISOString()}` }) : null
+        const take = await el.synth(have.text, target)
+        return take ? await this.save(norm, have.text, target, 'elevenlabs', take.bytes, have.source, { ...take, salt: `redo ${new Date().toISOString()}` }) : null
       })()
       this.running.set(key, job.catch(() => null).finally(() => this.running.delete(key)))
       const c = await job
@@ -2108,7 +2289,7 @@ export class VoiceStore {
       if (c || el.remaining() !== before) this.countForToday()
       if (!c) return { status: 'failed', message: 'ElevenLabs could not make it now' }
       this.db.query('INSERT OR IGNORE INTO redos (key, day) VALUES (?, ?)').run(key, localDay())
-      this.o.log?.(`voice: "${c.text}" (${voice}) re-recorded on request, ${c.method ?? 'plainly'} (${this.revoicedToday()}/${this.revoiceDaily} today)`)
+      this.o.log?.(`voice: "${c.text}" (${target}) re-recorded on request, ${c.method ?? 'plainly'} (${this.revoicedToday()}/${this.revoiceDaily} today)`)
       this.o.onUpdated?.(1)
       return { status: 'done', clip: c }
     } catch (e) {
@@ -2117,9 +2298,12 @@ export class VoiceStore {
     }
   }
 
-  /** The old-style clips the app asked for and that wait (the cap or the reserve stopped them): re-voiced soon. */
+  /**
+   * The old-style clips and the Slovene narrators' upgrades the app asked for and that wait (the cap or the reserve
+   * stopped them): taken up soon.
+   */
   resumeRevoice() {
-    if (this.revoiceQueue().length) this.scheduleRevoice()
+    if (this.lazyQueue().length) this.scheduleRevoice()
   }
 
   private scheduleRevoice() {
@@ -2133,32 +2317,34 @@ export class VoiceStore {
   }
 
   /**
-   * Re-voices the old-style clips the app asked for, one at a time, most asked for first, up to the daily cap (less what
-   * is kept for re-records on request) and never into the reserve; then the app is told (voice_updated) and fetches the
-   * new files.
+   * Takes up what the app asked for ([lazyQueue]), one at a time, most asked for first, up to the daily cap (less what
+   * is kept for re-records on request) and never into the reserve: an old-style word again in its carrier sentence, a
+   * Slovene narrator's line in its Slovene ElevenLabs voice (its local clip kept); then the app is told (voice_updated)
+   * and fetches the new files.
    */
   private async revoiceDrain() {
     if (this.revoicing) return
     this.revoicing = true
-    let made = 0
+    let words = 0
+    let narrators = 0
     try {
       while (this.revoicedToday() < this.lazyDaily) {
         // a clip being re-recorded on request right now is not taken up again
-        const c = this.revoiceQueue().find(q => !this.running.has(q.key))
+        const c = this.lazyQueue().find(q => !this.running.has(q.key) && !this.running.has(clipKey(q.norm, this.slVoiceOf(q.voice) ?? q.voice)))
         if (!c) break
-        const r = await this.revoiceOne(c)
+        const upgrade = !this.oldStyle(c)
+        const r = upgrade ? await this.upgradeOne(c) : await this.revoiceOne(c)
         if (r === 'stop') break
-        if (r === 'made') made++
+        if (r === 'made') upgrade ? narrators++ : words++
         if (this.o.queueDelayMs !== 0) await Bun.sleep(this.o.queueDelayMs ?? 1500)
       }
     } catch (e) {
       this.o.log?.(`voice: re-voicing failed: ${(e as Error).message}`)
     } finally {
       this.revoicing = false
-      if (made) {
-        this.o.log?.(`voice: ${made} short word(s) re-voiced in their carrier sentence (${this.revoicedToday()}/${this.lazyDaily} today)`)
-        this.o.onUpdated?.(made)
-      }
+      if (words) this.o.log?.(`voice: ${words} short word(s) re-voiced in their carrier sentence (${this.revoicedToday()}/${this.lazyDaily} today)`)
+      if (narrators) this.o.log?.(`voice: ${narrators} narrator line(s) made in their Slovene ElevenLabs voice, the local clips kept (${this.revoicedToday()}/${this.lazyDaily} today)`)
+      if (words + narrators) this.o.onUpdated?.(words + narrators)
     }
   }
 
@@ -2266,6 +2452,8 @@ export class VoiceStore {
       // the local voice's pace, when one is set: what the clip is sped up by now (the factor, or what is left of it after another one)
       const pace = lv && c.engine === 'gepard' && factor && c.tempo !== factor.tempo ? { tempo: Math.round((factor.tempo / (c.tempo ?? 1)) * 10_000) / 10_000, pause: factor.pause } : undefined
       const edges = !!lv && c.edges == null
+      // a single word asked for as it is ends at its first long pause (EDGES.wordGap)
+      const word = edges && c.method !== 'carrier' && isOneWord(c.text)
       const toLevel = !!lv && (c.level !== lv.target || !!pace || edges)
       // at the level already, only its edges due: it keeps its loudness, and its file unless it is trimmed
       const levelledAlready = !!lv && c.level === lv.target && !pace && !preset
@@ -2274,7 +2462,7 @@ export class VoiceStore {
       let levelled: Levelled | null = null
       if (toLevel && (!preset || this.o.denoise === undefined)) {
         // ffmpeg's own filter, the pace, the edges and the level: one encode
-        levelled = await lv!.level(bytes, { denoise: preset, pace, edges, levelled: levelledAlready })
+        levelled = await lv!.level(bytes, { denoise: preset, pace, edges, word, levelled: levelledAlready })
         if (!levelled) {
           r.failed++
           return line('✗ failed')
@@ -2288,7 +2476,7 @@ export class VoiceStore {
           return line('✗ failed')
         }
         out = d
-        levelled = toLevel ? await lv!.level(d, { pace, edges, levelled: levelledAlready }) : null
+        levelled = toLevel ? await lv!.level(d, { pace, edges, word, levelled: levelledAlready }) : null
         if ((pace || edges) && !levelled) {
           r.failed++
           return line('✗ failed')
@@ -2538,14 +2726,16 @@ export class VoiceStore {
   // --- the narrators in the local voice: the clips from before -------------------------------------------------------
 
   /**
-   * The narrators' clips not in their local voice ([inLocalVoice]: ElevenLabs' English narrators, the female narrator's ana),
-   * where the narrators speak through it ([localNarrator]); most asked for first, then the oldest. [slovene] tells the clips
-   * in the village's Slovene (by the corpus or source they came from) from the others, which are left as they are.
+   * The Slovene narrators' clips in the narrator's key not in their local voice ([inLocalVoice]: ElevenLabs' English
+   * narrators; the female narrator's lone words in nina or sentences in ana), where the narrators speak Slovene
+   * ([sloveneNarrator]); most asked for first, then the oldest. [slovene] tells the clips in the village's Slovene (by the
+   * corpus or source they came from) from the others, which are left as they are. The clips in the narrators' Slovene
+   * ElevenLabs voices ("female.sl") are rows of their own, never in it.
    */
   narratorQueue(slovene: (c: Clip) => boolean): { todo: Clip[]; skipped: Clip[] } {
-    if (!this.o.localNarrators) return { todo: [], skipped: [] }
+    if (!this.o.narrators) return { todo: [], skipped: [] }
     const rows = (this.db.query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[])
-      .filter(c => this.localNarrator(c.voice) && !this.inLocalVoice(c))
+      .filter(c => this.sloveneNarrator(c.voice) && !this.inLocalVoice(c))
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
     return { todo: rows.filter(slovene), skipped: rows.filter(c => !slovene(c)) }
   }
@@ -2601,16 +2791,36 @@ export class VoiceStore {
     return r
   }
 
-  /** The narrators here: whether their lines come from the local voice, its voices, and their clips in it and not. */
+  /**
+   * The narrators here: how they speak in Slovene (the setting: 'elevenlabs' or 'gepard'; null: as the cast has them), each
+   * one's Slovene ElevenLabs voice and local voices (for a lone word, for a sentence), their clips in the Slovene
+   * ElevenLabs voices, their clips in the narrators' keys in the local voice and not, and the local clips whose ElevenLabs
+   * one is still wanted (of them, asked for by the app: the lazy upgrade takes those up).
+   */
   narratorStats() {
-    const local = !!this.o.localNarrators
-    const out: { local: boolean; voices: Record<string, string | undefined>; in_local_voice: number; other: number } = { local, voices: {}, in_local_voice: 0, other: 0 }
+    const local = !!this.o.narrators
+    const out: {
+      local: boolean; mode: NarratorVoices | null
+      voices: Record<string, string | undefined>; elevenlabs_voices: Record<string, string | undefined>; word_voices: Record<string, string | undefined>
+      elevenlabs: number; in_local_voice: number; other: number; waiting: number; asked: number
+    } = { local, mode: this.o.narrators ?? null, voices: {}, elevenlabs_voices: {}, word_voices: {}, elevenlabs: 0, in_local_voice: 0, other: 0, waiting: 0, asked: 0 }
     if (!local) return out
-    for (const v of GENDERS) out.voices[v] = this.localVoiceOf(v)
+    for (const v of GENDERS) {
+      out.voices[v] = this.localVoiceOf(v, 'Dober dan, kako ste?')
+      out.word_voices[v] = this.localVoiceOf(v, 'kosilo')
+      const sl = this.slVoiceOf(v)
+      out.elevenlabs_voices[v] = sl ? (languageVoiceName(sl) ?? elevenlabsOf(sl)) : undefined
+    }
     try {
+      const sl = GENDERS.map(v => this.slVoiceOf(v)).filter((v): v is string => !!v)
+      if (sl.length) out.elevenlabs = (this.db.query(`SELECT COUNT(*) AS n FROM clips WHERE voice IN (${sl.map(() => '?').join(', ')})`).get(...sl) as { n: number }).n
       for (const c of this.db.query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[]) {
         if (this.inLocalVoice(c)) out.in_local_voice++
         else out.other++
+        if (this.elevenlabsFirst(c.voice) && this.wantsElevenLabs(c.norm, c.voice)) {
+          out.waiting++
+          if ((c.hits ?? 0) > 0) out.asked++
+        }
       }
     } catch {}
     return out
@@ -2670,8 +2880,9 @@ export class VoiceStore {
     this.watching.unref?.()
   }
 
+  /** The texts of [items] without a clip the app would get ([best]: a Slovene narrator's in either voice). */
   missing(items: CorpusItem[]): CorpusItem[] {
-    return items.filter(i => !this.get(normalizeText(i.text), i.voice))
+    return items.filter(i => !this.best(normalizeText(i.text), i.voice))
   }
 
   /** How much of [items] is voiced, and by which engine. */
@@ -2683,7 +2894,7 @@ export class VoiceStore {
       const b = (by[kind] ??= { texts: 0, chars: 0, cached: 0, missing: 0, missing_chars: 0 })
       b.texts++
       b.chars += i.text.length
-      const c = this.get(normalizeText(i.text), i.voice)
+      const c = this.best(normalizeText(i.text), i.voice)
       if (c) {
         b.cached++
         engines[c.engine] = (engines[c.engine] ?? 0) + 1
@@ -2794,6 +3005,8 @@ shows the clips still waiting (level), which companion/bin/voice-build --level l
 Every clip's silence at its edges is trimmed when it is stored (0.05 s kept before the sound, 0.1 s after it), so a word
 starts at once; voice_status shows the clips still waiting (edges), which companion/bin/voice-build --edges trims. The
 local Gepard voice keeps its own pace.
-In the Slovene village the narrators (female, male) speak with the local Gepard voice (nina, marko), never with the
-English library voices; the villagers keep their ElevenLabs voices (voice_status: narrators).
+In the Slovene village the narrators (female, male) speak with their native Slovene ElevenLabs voices (Nina, Luka), the
+local Gepard voice as their fallback (ana for a lone word, nina for a sentence; marko), never with the English library
+voices; a narrator's local clip stays when the ElevenLabs one is made, and the ElevenLabs ones are made as the app asks
+for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices.
 `.trim()

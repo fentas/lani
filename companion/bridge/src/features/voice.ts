@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { fail, ok } from '../channel'
 import type { Ctx, FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
-import { cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
+import { baseVoice, cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
 import { cultureKeepers, keeperTellings } from '../cultures'
 import { cultureStepFiles, stepTellings } from '../project-steps'
 import { normalizeText } from '../family'
@@ -27,7 +27,8 @@ type Prepared = { text: string; voice: string; url: string | null; engine?: stri
 /**
  * A re-record's answer: 200 with the new clip ("done"), or the clip re-recorded earlier today ("not_needed"); 429
  * "limit" with the reason ("cap": the day's re-records are spent; "reserve": the characters left are for live lines);
- * 503 "failed". The day's count and cap come along.
+ * 503 "failed". The day's count and cap come along. The clip's voice is the one the app knows (a Slovene narrator's
+ * clip in its Slovene ElevenLabs voice, "female.sl", is the narrator's: female).
  */
 function redoAnswer(r: Redo, voice: VoiceStore): Response {
   const day = { today: voice.revoicedToday(), daily: voice.revoiceDaily }
@@ -35,7 +36,7 @@ function redoAnswer(r: Redo, voice: VoiceStore): Response {
     case 'done':
     case 'not_needed': {
       const c = r.clip
-      const clip = { url: fileUrl(c.file), file: c.file, key: c.key, norm: c.norm, voice: c.voice, method: c.method ?? null }
+      const clip = { url: fileUrl(c.file), file: c.file, key: c.key, norm: c.norm, voice: baseVoice(c.voice), method: c.method ?? null }
       return json({ status: r.status, ...clip, ...(r.status === 'not_needed' ? { message: r.message } : {}), ...day })
     }
     case 'limit':
@@ -95,7 +96,8 @@ export const voice: FeatureFactory = ctx => {
         clips.push({ text, voice: v, url: null })
         continue
       }
-      const had = voice.get(normalizeText(text), v)
+      // the clip the app would get (a Slovene narrator's in its Slovene ElevenLabs voice or the local one)
+      const had = voice.best(normalizeText(text), v)
       // not live: ElevenLabs only above the reserve, then the local worker; nothing new over the day's cap
       const c = had ?? (roadToday() + voice.cost(text, v) <= roadDaily ? await voice.voice(text, v, 'road') : null)
       if (c && !had && c.source === 'road') road.chars = roadToday() + c.chars
@@ -142,7 +144,8 @@ export const voice: FeatureFactory = ctx => {
           if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
           if (!isVoice(r.data.voice)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
           const c = await voice.say(r.data.text, r.data.voice)
-          return c ? json({ url: fileUrl(c.file), voice: c.voice, engine: c.engine }) : new Response(null, { status: 204 })
+          // the voice the app knows the clip by (a Slovene narrator's in its ElevenLabs voice: the narrator's)
+          return c ? json({ url: fileUrl(c.file), voice: baseVoice(c.voice), engine: c.engine }) : new Response(null, { status: 204 })
         },
       },
       // Jan's re-record of a clip they hear wrong (a long press on 🔊): made again now, once a clip a day, within the day's cap.

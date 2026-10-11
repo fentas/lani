@@ -12,9 +12,13 @@
 // ElevenLabs down to the reserve, then the local worker (not for a villager line whose narrator clip
 // exists: the app plays that one until ElevenLabs makes theirs).
 //
-// In a Slovene village the narrators (female, male) speak with the local Gepard voice (nina, marko), never the English
-// library voices (README, "Voice"); elsewhere a narrator says a short text (1–3 words) inside a carrier sentence, which is
-// cut out, and the plan shows how many narrator words are still old-style (said plainly) and what re-voicing them costs.
+// In a Slovene village the narrators (female, male) speak with their native Slovene ElevenLabs voices (Nina, Luka: the
+// cast's "languages" "sl"), the local Gepard voice as their fallback (female: ana for a lone word, nina for a sentence;
+// male: marko), never the English library voices (README, "Voice"; LANI_VOICE_NARRATOR_SL=gepard: the local voice first).
+// --run makes a narrator line's clip in its Slovene ElevenLabs voice in the priority order, within the budget, also where
+// its local clip is there (which stays, as the fallback). Elsewhere an English narrator says a short text (1–3 words)
+// inside a carrier sentence, which is cut out, and the plan shows how many narrator words are still old-style (said
+// plainly) and what re-voicing them costs.
 //
 // Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]
 //        companion/bin/voice-build --revoice-words [--max N] [--max-chars N] [--run] [--json] [--data DIR]
@@ -58,12 +62,14 @@
 //                    and files/; read only, its database from a copy). The dry run lists what it would restore and what
 //                    it can't; --run copies each file back (checked byte for byte), points the row at it with the
 //                    snapshot's level and gain, and removes the paced file once the row is moved. Then --edges trims them.
-//   --narrators      in a Slovene village: the narrators' clips (female, male) not in their local voice yet (nina,
-//                    marko: ElevenLabs' English narrators, the female narrator's ana) made again by the local worker,
-//                    most asked for first, at most --max N, one at a time (about a second each). Only Slovene texts: a
-//                    clip of this village's corpus, of a source the corpus has (a pack, a scene, …), or a line the app
-//                    spoke here (live, road); the dry run lists the others, which stay as they are. The edges trimmed
-//                    and levelled as every new clip; a worker that is down stops the run, and the next run goes on.
+//   --narrators      in a Slovene village: the narrators' local clips (female, male) not in their local voice yet
+//                    (female: ana for a lone word, nina for a sentence; male: marko; ElevenLabs' English narrators from
+//                    before) made again by the local worker, most asked for first, at most --max N, one at a time
+//                    (about a second each). Only Slovene texts: a clip of this village's corpus, of a source the corpus
+//                    has (a pack, a scene, …), or a line the app spoke here (live, road); the dry run lists the others,
+//                    which stay as they are. The edges trimmed and levelled as every new clip; a worker that is down
+//                    stops the run, and the next run goes on. The narrators' clips in their Slovene ElevenLabs voices
+//                    are left as they are (rows of their own); no ElevenLabs.
 //   --data DIR       the learner data directory, as LANI_DATA_DIR (a copy; another learner's profiles/<id>/data with
 //                    their LANI_CULTURE)
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
@@ -84,7 +90,7 @@ import { ScenarioStore } from '../bridge/src/scenarios'
 import { SceneStore, scenesDirs } from '../bridge/src/scenes'
 import { StoryStore, storiesDirs } from '../bridge/src/stories'
 import { VillagerStore } from '../bridge/src/villagers'
-import { cardTexts, charsPerSecond, clipKey, corpus, EDGES, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, localNarrators, paceChain, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
+import { cardTexts, charsPerSecond, clipKey, corpus, EDGES, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, paceChain, sloveneNarrators, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
 import { normalizeText } from '../bridge/src/family'
 import { keysFile } from '../bridge/src/env'
@@ -164,8 +170,9 @@ const appDir = join(p.stdout.toString().trim(), 'app')
 // the clips: the voice cache ($LANI_VOICE_CACHE, lani.env's for the default learner), else <data>/app/voice
 
 const log = (...a: unknown[]) => console.error('[voice-build]', ...a)
-// the store as the bridge has it: the narrators of a Slovene village in the local voice (LANI_VOICE_NARRATOR_SL)
-const villageVoices = { language, localNarrators: localNarrators(language, process.env, log) }
+// the store as the bridge has it: the narrators of a Slovene village in their Slovene ElevenLabs voices, the local voice as
+// their fallback (LANI_VOICE_NARRATOR_SL)
+const villageVoices = { language, narrators: sloveneNarrators(language, process.env, log) }
 
 if (denoise) {
   // the clips of the voices that hiss, through their filter: ffmpeg only, the corpus and the engines aren't needed
@@ -530,8 +537,8 @@ const items = corpus({
 
 if (narrators) {
   // the narrators' Slovene clips in their local voice: the corpus tells which are Slovene, no ElevenLabs
-  if (!villageVoices.localNarrators) {
-    console.log(language !== 'sl' ? `The narrators of this village (${language}) speak as its voice cast has them: nothing to do.` : 'LANI_VOICE_NARRATOR_SL=elevenlabs: the narrators speak with their ElevenLabs voices: nothing to do.')
+  if (!villageVoices.narrators) {
+    console.log(`The narrators of this village (${language}) speak as its voice cast has them: nothing to do.`)
     process.exit(0)
   }
   // Slovene: a clip of this village's corpus, of a source the corpus has, or a line the app spoke here
@@ -540,23 +547,26 @@ if (narrators) {
   const spoken = new Set(['live', 'road'])
   const slovene = (c: Clip) => keys.has(c.key) || sources.has(c.source) || spoken.has(c.source)
   const { todo, skipped } = store.narratorQueue(slovene)
+  // each clip's voice now, and the local voice it is made in (female: ana for a lone word, nina for a sentence)
   const count = (xs: Clip[]) => {
     const by: Record<string, number> = {}
     for (const c of xs) {
-      const k = `${c.voice} ${c.engine}${c.method === 'carrier' ? ' carrier' : ''}${c.engine === 'gepard' ? ` (${c.engine_voice ?? 'ana'})` : ''}`
+      const k = `${c.voice} ${c.engine}${c.method === 'carrier' ? ' carrier' : ''}${c.engine === 'gepard' ? ` (${c.engine_voice ?? (c.voice === 'female' ? 'ana' : '—')})` : ''} → ${store.localVoiceOf(c.voice, c.text)}`
       by[k] = (by[k] ?? 0) + 1
     }
     return by
   }
   const up = await gepard.up()
-  const voices = { female: store.localVoiceOf('female'), male: store.localVoiceOf('male') }
+  const voices = { female: store.localVoiceOf('female', 'Dober dan, Jan.'), male: store.localVoiceOf('male', 'Dober dan, Jan.') }
+  const words = { female: store.localVoiceOf('female', 'kosilo'), male: store.localVoiceOf('male', 'kosilo') }
+  const named = (g: 'female' | 'male') => `${g} ${voices[g]}${words[g] !== voices[g] ? ` (a lone word: ${words[g]})` : ''}`
   if (!flag('--run')) {
     if (flag('--json')) {
-      console.log(JSON.stringify({ voices, todo: todo.length, chars: todo.reduce((n, c) => n + c.text.length, 0), by: count(todo), skipped: skipped.map(c => ({ key: c.key, source: c.source, engine: c.engine, text: c.text })), gepard_up: up, dir: store.dir }, null, 2))
+      console.log(JSON.stringify({ voices, words, todo: todo.length, chars: todo.reduce((n, c) => n + c.text.length, 0), by: count(todo), skipped: skipped.map(c => ({ key: c.key, source: c.source, engine: c.engine, text: c.text })), gepard_up: up, dir: store.dir }, null, 2))
       process.exit(0)
     }
-    console.log(`The narrators' local voices: female ${voices.female}, male ${voices.male}. Their clips in ${store.dir} not in them yet: ${todo.length + skipped.length}`)
-    for (const [k, n] of Object.entries(count(todo)).sort((a, b) => b[1] - a[1])) console.log(`  ${k.padEnd(32)} ${String(n).padStart(5)}`)
+    console.log(`The narrators' local voices: ${named('female')}, ${named('male')}. Their local clips in ${store.dir} not in them yet: ${todo.length + skipped.length}`)
+    for (const [k, n] of Object.entries(count(todo)).sort((a, b) => b[1] - a[1])) console.log(`  ${k.padEnd(40)} ${String(n).padStart(5)}`)
     console.log(`Slovene, to make again: ${todo.length} (${todo.reduce((n, c) => n + c.text.length, 0)} characters; about ${Math.ceil(todo.length / 60)} minutes at a second a clip)${max !== undefined && max < todo.length ? `; this run: ${max}` : ''}`)
     if (skipped.length) {
       console.log(`Left as they are, not known to be Slovene (not in this village's corpus, its sources, or spoken here): ${skipped.length}`)
@@ -564,7 +574,8 @@ if (narrators) {
     }
     console.log(`Local Gepard worker: ${up ? 'up' : 'down (the run needs it)'}`)
     console.log(`\nDry run: nothing changed. Each is made again by the local worker, its edges trimmed and levelled, under a new file name, the old`)
-    console.log('file removed once the new one is recorded. No ElevenLabs. The run can stop any time: the next one goes on where it stopped.')
+    console.log('file removed once the new one is recorded. No ElevenLabs; the clips in the narrators\' Slovene ElevenLabs voices stay as they are.')
+    console.log('The run can stop any time: the next one goes on where it stopped.')
     console.log(`Re-voice with: companion/bin/voice-build --narrators --run${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`)
     process.exit(0)
   }
@@ -572,7 +583,7 @@ if (narrators) {
     console.error('voice-build --narrators: the local Gepard worker is down (LANI_GEPARD_URL)')
     process.exit(1)
   }
-  console.log(`Re-voicing ${max !== undefined ? Math.min(max, todo.length) : todo.length} of ${todo.length} narrator clip(s) in the local voice (female ${voices.female}, male ${voices.male}) …`)
+  console.log(`Re-voicing ${max !== undefined ? Math.min(max, todo.length) : todo.length} of ${todo.length} narrator clip(s) in the local voice (${named('female')}, ${named('male')}) …`)
   const r = await store.revoiceNarrators(slovene, { max, out: line => console.log(line) })
   console.log(`\nMade ${r.made} again in the local voice${r.skipped ? `; ${r.skipped} changed meanwhile` : ''}${r.failed ? `; ${r.failed} failed` : ''}; ${r.left} left${r.stopped ? ` (stopped: ${r.stopped})` : ''}.`)
   if (r.made) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')

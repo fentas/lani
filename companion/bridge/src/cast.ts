@@ -7,6 +7,9 @@
 // nothing, so the app speaks with the phone's text-to-speech (castVoiced).
 // The cast's `denoise` names the voices whose ElevenLabs clips go through a filter before they are stored (a designed
 // voice that hisses: Stari Janez's own); voice.ts DENOISE has the filters.
+// A speaker's `languages` are the voices it speaks a language with that its own voice doesn't speak natively: the
+// narrators' Slovene voices (Nina, Luka) beside their English ones (Matilda, Daniel). Their clips are those of the voice
+// "female.sl" (languageVoice), next to the narrator's local Gepard clips (voice.ts, "The narrators in Slovene").
 import { readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
@@ -15,18 +18,32 @@ export type Gender = 'female' | 'male'
 export const GENDERS: Gender[] = ['female', 'male']
 /** A speaker name: "grandma", "young-man". */
 export const SPEAKER_ID = /^[a-z][a-z0-9-]{0,31}$/
+/** A speaker's voice in a language (its `languages`): "female.sl", the female narrator's Slovene voice. */
+export const LANGUAGE_VOICE = /^([a-z][a-z0-9-]{0,31})\.([a-z]{2})$/
 
+const ELEVENLABS_ID = /^[A-Za-z0-9]{10,40}$/
+const languageSpec = z.object({
+  // the ElevenLabs voice it speaks the language with: a library voice native in it (no voice slot)
+  elevenlabs: z.string().regex(ELEVENLABS_ID, 'an ElevenLabs voice id'),
+  name: z.string().max(80).optional(),
+  // says a lone word inside the language's carrier sentence (voice.ts, CARRIERS); a native voice says it plainly
+  carrier: z.boolean().optional(),
+  // the library voice's owner, to add it to another account (the first request with its id adds it to this one)
+  library_owner: z.string().max(80).optional(),
+})
 const speakerSpec = z.object({
   gender: z.enum(['female', 'male']),
   // an ElevenLabs voice id; "" while the speaker has none yet (a culture pack's cast still to choose)
   elevenlabs: z.string().regex(/^([A-Za-z0-9]{10,40})?$/, 'an ElevenLabs voice id, or "" for none yet'),
   gepard: z.string().regex(/^[a-z0-9-]{1,32}$/).optional(),
+  // the local voice for a lone word (a word, up to three: voice.ts isShortText), when it isn't [gepard] (the female
+  // narrator: ana for words, nina for sentences)
+  gepard_words: z.string().regex(/^[a-z0-9-]{1,32}$/).optional(),
   // says a lone word inside a carrier sentence, which is cut out (voice.ts, CARRIERS): an English library voice says a
   // lone Slovene word the English way
   carrier: z.boolean().optional(),
-  // the languages its ElevenLabs voice speaks natively ("en" for the English library narrators): a Slovene narrator line
-  // that the local voice can't make goes to a cast voice native in Slovene of the narrator's gender (nativeSpeaker)
-  native: z.array(z.string().regex(/^[a-z]{2}$/)).optional(),
+  // the voices it speaks a language with that its own voice doesn't speak natively (the narrators' Slovene: Nina, Luka)
+  languages: z.record(z.string().regex(/^[a-z]{2}$/), languageSpec).optional(),
   name: z.string().max(80).optional(),
   role: z.string().max(200).optional(),
 })
@@ -37,10 +54,19 @@ const castSpec = z
 export type Speaker = z.infer<typeof speakerSpec>
 export type Cast = Record<string, Speaker>
 
-/** The narrators alone, when there's no cast file: Matilda and Daniel (English), the worker's nina and marko. */
+/**
+ * The narrators alone, when there's no cast file: Matilda and Daniel (English), in Slovene Nina and Luka (native library
+ * voices); the worker's nina (ana for lone words) and marko.
+ */
 export const NARRATORS: Cast = {
-  female: { gender: 'female', elevenlabs: 'XrExE9yKIg1WjnnlVkGX', gepard: 'nina', name: 'Matilda', carrier: true, native: ['en'] },
-  male: { gender: 'male', elevenlabs: 'onwK4e9ZLuTAKqWW03F9', gepard: 'marko', name: 'Daniel', carrier: true, native: ['en'] },
+  female: {
+    gender: 'female', elevenlabs: 'XrExE9yKIg1WjnnlVkGX', gepard: 'nina', gepard_words: 'ana', name: 'Matilda', carrier: true,
+    languages: { sl: { elevenlabs: '0IwLFuWc6siAnpd77hRG', name: 'Nina' } },
+  },
+  male: {
+    gender: 'male', elevenlabs: 'onwK4e9ZLuTAKqWW03F9', gepard: 'marko', name: 'Daniel', carrier: true,
+    languages: { sl: { elevenlabs: 'SmCUS1ekZnVjC5lqnRQG', name: 'Luka' } },
+  },
 }
 
 export const CAST_FILE = join(import.meta.dir, '../../voice-cast.json')
@@ -106,7 +132,7 @@ function denoiseSpec(raw: unknown, speakers: Cast, path: string): Record<string,
     if (voice.startsWith('_') || v === false) continue
     const preset = v === true ? DENOISE_PRESETS[0] : v
     if (!(DENOISE_PRESETS as readonly unknown[]).includes(preset)) console.error(`[voice] ${path}: denoise "${voice}": no preset ${JSON.stringify(v)} (${DENOISE_PRESETS.join(', ')}); not filtered`)
-    else if (!PERSON_VOICE.test(voice) && !Object.hasOwn(speakers, voice)) console.error(`[voice] ${path}: denoise "${voice}": not a speaker of the cast, nor someone's own voice ("@id"); not filtered`)
+    else if (!PERSON_VOICE.test(voice) && !Object.hasOwn(speakers, voice) && !languageOf(voice, speakers)) console.error(`[voice] ${path}: denoise "${voice}": not a speaker of the cast, nor one's voice in a language ("female.sl"), nor someone's own voice ("@id"); not filtered`)
     else out[voice] = preset as DenoisePreset
   }
   return out
@@ -142,26 +168,37 @@ export function personVoice(name: string): PersonVoice | undefined {
 /** A voice clips can be made in: a speaker of the cast, or someone with a voice of their own. */
 export const isVoice = (name: string | undefined): name is string => isSpeaker(name) || (!!name && !!personVoice(name))
 
-/** The cast speaker a voice stands in for: itself, or a person's archetype ("@micka" → grandma). */
-export const archetypeOf = (name: string): string => personVoice(name)?.archetype ?? name
+/** [name] as one's voice in a language ("female.sl"): the speaker, the language and the cast's entry for it, if it has one. */
+function languageOf(name: string, speakers: Cast = cast()): { speaker: string; language: string; spec: NonNullable<Speaker['languages']>[string] } | undefined {
+  const m = LANGUAGE_VOICE.exec(name)
+  const spec = m && Object.hasOwn(speakers, m[1]) ? speakers[m[1]].languages?.[m[2]] : undefined
+  return m && spec ? { speaker: m[1], language: m[2], spec } : undefined
+}
 
-/** The ElevenLabs voice id of a voice: a person's own, else the cast speaker's (none while it's ""). */
-export const elevenlabsOf = (name: string): string | undefined => personVoice(name)?.elevenlabs ?? (cast()[name]?.elevenlabs || undefined)
+/**
+ * The voice [speaker] speaks [language] with when the cast gives it one there (its `languages`): "female.sl", the female
+ * narrator's Slovene voice (Nina); undefined when it speaks the language with its own voice, or not at all.
+ */
+export const languageVoice = (speaker: string, language: string): string | undefined =>
+  isSpeaker(speaker) && cast()[speaker].languages?.[language]?.elevenlabs ? `${speaker}.${language}` : undefined
+
+/** The name the cast gives a voice in a language ("female.sl" → Nina), if any. */
+export const languageVoiceName = (name: string): string | undefined => languageOf(name)?.spec.name
+
+/** The voice the app knows a voice by: one's voice in a language is the speaker's ("female.sl" → female); else itself. */
+export const baseVoice = (name: string): string => LANGUAGE_VOICE.exec(name)?.[1] ?? name
+
+/** The cast speaker a voice stands in for: itself, a person's archetype ("@micka" → grandma), a language voice's speaker ("female.sl" → female). */
+export const archetypeOf = (name: string): string => personVoice(name)?.archetype ?? baseVoice(name)
+
+/** The ElevenLabs voice id of a voice: a person's own, one's voice in a language, else the cast speaker's (none while it's ""). */
+export const elevenlabsOf = (name: string): string | undefined => personVoice(name)?.elevenlabs ?? languageOf(name)?.spec.elevenlabs ?? (cast()[name]?.elevenlabs || undefined)
 
 /**
  * Whether [name] says a lone word inside a carrier sentence: a cast speaker marked `carrier` (the narrators, English
- * library voices). A person's own voice is designed from Slovene and never needs it.
+ * library voices), or one's voice in a language marked so. A person's own voice is designed from Slovene and never needs it.
  */
-export const carrierVoice = (name: string): boolean => isSpeaker(name) && cast()[name].carrier === true
-
-/**
- * A speaker of the cast whose ElevenLabs voice speaks [language] natively (its `native`), of [gender]: where a Slovene
- * narrator line goes when the local voice can't make it (voice.ts). Undefined when the cast has none: the library has one
- * Slovenian voice, and the cast doesn't use it.
- */
-export function nativeSpeaker(gender: Gender, language: string): string | undefined {
-  return Object.entries(cast()).find(([, s]) => s.gender === gender && !!s.elevenlabs && !!s.native?.includes(language))?.[0]
-}
+export const carrierVoice = (name: string): boolean => (isSpeaker(name) && cast()[name].carrier === true) || languageOf(name)?.spec.carrier === true
 
 /** Whether anyone in the cast has a voice (an ElevenLabs id or a local Gepard voice): a culture's cast may have none yet. */
 export const castVoiced = (): boolean => Object.values(cast()).some(s => !!s.elevenlabs || !!s.gepard)
@@ -196,7 +233,10 @@ export function newcomerSpeaker(gender: Gender, young: boolean): string {
   return isSpeaker(s) ? s : gender
 }
 
-/** The speakers as the tutor and the status see them. */
+/** The speakers as the tutor and the status see them (a speaker's voices in other languages: {sl: "Nina"}). */
 export function castInfo() {
-  return Object.entries(cast()).map(([id, s]) => ({ id, gender: s.gender, name: s.name, role: s.role }))
+  return Object.entries(cast()).map(([id, s]) => ({
+    id, gender: s.gender, name: s.name, role: s.role,
+    ...(s.languages ? { languages: Object.fromEntries(Object.entries(s.languages).map(([l, v]) => [l, v.name ?? v.elevenlabs])) } : {}),
+  }))
 }

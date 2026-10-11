@@ -64,7 +64,7 @@ import { StoryStore, storiesDirs } from './stories'
 import { ModuleStore } from './store'
 import { VillagerStore } from './villagers'
 import { VisitTalks } from './visits'
-import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, localNarrators, VoiceStore } from './voice'
+import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, sloveneNarrators, VoiceStore } from './voice'
 import { Profiles } from './profiles'
 import { resultsDirOf, voiceDir } from './paths'
 
@@ -167,8 +167,9 @@ export async function startBridge(o: BridgeOptions) {
       revoiceDaily: env.LANI_VOICE_REVOICE_DAILY ? Number(env.LANI_VOICE_REVOICE_DAILY) : undefined,
       // the local voice's pace: its own unless LANI_VOICE_GEPARD_TEMPO or LANI_VOICE_GEPARD_PAUSES says
       pace: gepardPace(env, log),
-      // the narrators of a Slovene village speak with the local voice, never the English library voices (LANI_VOICE_NARRATOR_SL)
-      localNarrators: localNarrators(language, env, log),
+      // the narrators of a Slovene village speak with their Slovene ElevenLabs voices (Nina, Luka), the local voice as their
+      // fallback, never the English library voices (LANI_VOICE_NARRATOR_SL: elevenlabs, or gepard for the local voice first)
+      narrators: sloveneNarrators(language, env, log),
       language,
       onUpdated: made => ctx.events.emit({ type: 'voice_updated', clips: made }),
     }),

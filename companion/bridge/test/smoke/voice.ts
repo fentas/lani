@@ -6,9 +6,9 @@ import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
-import { CAST_FILE, carrierVoice, cast, fallbacks, newcomerSpeaker, speakerFor } from '../../src/cast'
+import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isShortText, LEVEL, levelGain, localNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, redoKept, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, redoKept, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -170,7 +170,9 @@ export default async function voice() {
     const vbCultures = mkdtempSync(join(tmpdir(), 'lani-vb-cultures-'))
     mkdirSync(join(vbCultures, 'primorska'))
     cpSync(join(culturesDir, 'primorska/culture.json'), join(vbCultures, 'primorska/culture.json'))
-    const vbEnv = { ...process.env, LANI_CULTURES_DIR: vbCultures, LANI_DATA_DIR: vbData, LANI_PACKS_DIR: vbPacks, LANI_MODULES_DIR: vbModules, LANI_SCENARIOS_DIR: vbScenarios, LANI_SCENES_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-scenes-')), LANI_DRILLS_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-drills-')), LANI_GRAMMAR_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-grammar-')), LANI_VILLAGERS_DIR: vbVillagers, LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fe.url, LANI_GEPARD_URL: fg.url, LANI_VOICE_NARRATOR_SL: 'elevenlabs' } as Record<string, string>
+    // the narrators speak Slovene with the local voice first here (LANI_VOICE_NARRATOR_SL=gepard, as from 10 October 2026);
+    // with their Slovene ElevenLabs voices first (the default) further below
+    const vbEnv = { ...process.env, LANI_CULTURES_DIR: vbCultures, LANI_DATA_DIR: vbData, LANI_PACKS_DIR: vbPacks, LANI_MODULES_DIR: vbModules, LANI_SCENARIOS_DIR: vbScenarios, LANI_SCENES_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-scenes-')), LANI_DRILLS_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-drills-')), LANI_GRAMMAR_DIR: mkdtempSync(join(tmpdir(), 'lani-vb-grammar-')), LANI_VILLAGERS_DIR: vbVillagers, LANI_KEYS_FILE: '/nonexistent', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fe.url, LANI_GEPARD_URL: fg.url, LANI_VOICE_NARRATOR_SL: 'gepard' } as Record<string, string>
     // Async: the fake engines run in this process and must keep answering.
     const voiceBuildIn = async (env: Record<string, string>, ...args: string[]) => {
       const p = Bun.spawn(['bun', resolve(import.meta.dir, '../../../bin/voice-build'), ...args], { env, stdout: 'pipe', stderr: 'pipe' })
@@ -223,44 +225,65 @@ export default async function voice() {
     const itNone = JSON.parse((await voiceBuildIn(itEnv, '--json')).stdout || '{}')
     check('voice-build for a village whose voice cast has no voices plans nothing: the phone speaks', itNone.would?.elevenlabs.texts === 0 && itNone.would.gepard.texts === 0 && itNone.would.later.texts === itNone.missing, itNone.would)
 
-    // A store from before the carrier sentence: the narrator words said plainly by ElevenLabs (no ffmpeg then).
+    // A store from before the carrier sentence, in a village whose narrators speak with their English voices (a German
+    // village here, in the same voice store: the cast's Matilda, the carrier sentence "Das Wort ist: …"; in a Slovene
+    // village no narrator speaks with an English voice): the narrator words said plainly by ElevenLabs (no ffmpeg then).
+    const deCultures = mkdtempSync(join(tmpdir(), 'lani-vb-de-'))
+    mkdirSync(join(deCultures, 'primorska'))
+    writeFileSync(join(deCultures, 'primorska/culture.json'), JSON.stringify({ ...JSON.parse(readFileSync(join(culturesDir, 'primorska/culture.json'), 'utf8')), language: 'de' }))
+    for (const [dir, f] of [[vbPacks, 'vb-pack.json'], [vbModules, 'vb-mod.json'], [vbScenarios, 'vb-scene.json']] as const) {
+      mkdirSync(join(dir, 'de'), { recursive: true })
+      cpSync(join(dir, f), join(dir, 'de', f))
+    }
+    const deEnv = { ...vbEnv, LANI_CULTURES_DIR: deCultures }
+    const deBuild = (...args: string[]) => voiceBuildIn(deEnv, ...args)
     if (ffmpeg) {
-      const plainly = await voiceBuildIn({ ...vbEnv, LANI_FFMPEG: 'off' }, '--run', '--upgrade')
+      const plainly = await voiceBuildIn({ ...deEnv, LANI_FFMPEG: 'off' }, '--run', '--upgrade')
       const words = ['kruh', 'mleko', 'sir', 'jajce', 'juha', 'vilice', 'nož', 'Dobro jutro', 'hvala', 'sem', 'si', 'Dober dan', 'Živjo', 'Oj']
-      const wordChars = words.reduce((n, w) => n + `Beseda je: ${w}.`.length, 0)
+      const wordChars = words.reduce((n, w) => n + `Das Wort ist: ${w}.`.length, 0)
       const tsBefore = fe.st.tts.length
-      const oldPlan = JSON.parse((await voiceBuild('--json', '--revoice-words', '--max', '3')).stdout || '{}')
-      check('voice-build: the plan counts the old-style narrator words (said plainly) and what re-voicing them all costs', plainly.exitCode === 0 && oldPlan.carrier?.old === words.length && oldPlan.carrier.old_chars === wordChars && oldPlan.carrier.carrier === 0 && oldPlan.carrier.daily === 40 && oldPlan.carrier.cut === true, [plainly.stderr.slice(-400), oldPlan.carrier])
+      const oldPlan = JSON.parse((await deBuild('--json', '--revoice-words', '--max', '3')).stdout || '{}')
+      check('voice-build: the plan counts the old-style narrator words (said plainly) and what re-voicing them all costs (a German village: its carrier sentence)', plainly.exitCode === 0 && oldPlan.carrier?.old === words.length && oldPlan.carrier.old_chars === wordChars && oldPlan.carrier.carrier === 0 && oldPlan.carrier.daily === 40 && oldPlan.carrier.cut === true, [plainly.stderr.slice(-400), oldPlan.carrier])
       check('voice-build --revoice-words --max 3: the dry run plans three, the rest later, and voices nothing', oldPlan.revoice_words?.texts === 3 && oldPlan.revoice_words.later.texts === words.length - 3 && fe.st.tts.length === tsBefore, oldPlan.revoice_words)
-      const shown = await voiceBuild('--revoice-words')
+      const shown = await deBuild('--revoice-words')
       check('voice-build prints the old-style words, what re-voicing them costs, and how to', shown.exitCode === 0 && shown.stdout.includes(`${words.length} old-style`) && shown.stdout.includes('re-voicing all old-style') && shown.stdout.includes('voice-build --revoice-words --run'), shown.stdout)
       check('voice-build --max needs --revoice-words', (await voiceBuild('--max', '3')).exitCode === 2)
-      const rw = await voiceBuild('--revoice-words', '--max', '3', '--run')
-      const after2 = JSON.parse((await voiceBuild('--json')).stdout || '{}')
-      check('voice-build --revoice-words --max 3 --run: three words again in their carrier sentence, counted for the day', rw.exitCode === 0 && fe.st.tts.length - tsBefore === 3 && fe.st.tts.slice(tsBefore).every(c => c.timestamps && c.body.text.startsWith('Beseda je: ')) && after2.carrier?.old === words.length - 3 && after2.carrier.carrier === 3 && after2.carrier.today === 3, [rw.stdout + rw.stderr, after2.carrier])
+      const rw = await deBuild('--revoice-words', '--max', '3', '--run')
+      const after2 = JSON.parse((await deBuild('--json')).stdout || '{}')
+      check('voice-build --revoice-words --max 3 --run: three words again in their carrier sentence, counted for the day', rw.exitCode === 0 && fe.st.tts.length - tsBefore === 3 && fe.st.tts.slice(tsBefore).every(c => c.timestamps && c.body.text.startsWith('Das Wort ist: ') && c.body.language_code === 'de') && after2.carrier?.old === words.length - 3 && after2.carrier.carrier === 3 && after2.carrier.today === 3, [rw.stdout + rw.stderr, after2.carrier])
     }
 
-    // The narrators in the local voice (the default for a Slovene village): voice-build --narrators on this store, whose
-    // narrator clips are ElevenLabs' now (the English narrators, said plainly or in their carrier sentence)
+    // The narrators' local clips in their local voice (female: ana for a lone word, nina for a sentence; male: marko):
+    // voice-build --narrators on this store, whose narrator clips are ElevenLabs' English ones now (said plainly or in
+    // their carrier sentence, above), with one female lone word in nina (made before Jan wanted ana for words)
     {
-      const vbLocal = { ...vbEnv, LANI_VOICE_NARRATOR_SL: 'gepard' }
+      const vbLocal = vbEnv
       const nb = (...args: string[]) => voiceBuildIn(vbLocal, ...args)
       const vdb = () => new Database(join(vbData, 'app/voice/voice.db'))
       // one more: a narrator clip from another source than this village's corpus (another village's pack): left as it is
       const foreign = `${createHash('sha1').update('smoke|foreign').digest('hex')}.mp3`
       writeFileSync(join(vbData, 'app/voice/files', foreign), mp3('el:foreign'))
+      const ninaWord = `${createHash('sha1').update('smoke|nina|word').digest('hex')}.mp3`
+      writeFileSync(join(vbData, 'app/voice/files', ninaWord), mp3('gp:nina:žlica'))
+      const ninaLine = `${createHash('sha1').update('smoke|nina|line').digest('hex')}.mp3`
+      writeFileSync(join(vbData, 'app/voice/files', ninaLine), mp3('gp:nina:Juha je vroča.'))
       const d0 = vdb()
-      d0.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:buongiorno', 'buongiorno', 'Buongiorno', 'female', 'elevenlabs', foreign, 10, '2026-09-01T10:00:00.000Z', 'pack:it-saluti')
+      const insert = d0.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, engine_voice, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      insert.run('female:buongiorno', 'buongiorno', 'Buongiorno', 'female', 'elevenlabs', foreign, 10, '2026-09-01T10:00:00.000Z', 'pack:it-saluti', null, 0)
+      insert.run('female:žlica', 'žlica', 'žlica', 'female', 'gepard', ninaWord, 5, '2026-10-10T10:00:00.000Z', 'pack:vb-pack', 'nina', 2)
+      insert.run('female:juha je vroča', 'juha je vroča', 'Juha je vroča.', 'female', 'gepard', ninaLine, 14, '2026-10-10T10:00:00.000Z', 'pack:vb-pack', 'nina', 0)
       const narratorRows = () => (vdb().query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[])
       const before = narratorRows()
       d0.close()
+      // the local voice a narrator's clip is made in: female ana for a lone word, nina for a sentence; male marko
+      const want = (c: Clip) => (c.voice === 'female' ? (isShortText(c.text) ? 'ana' : 'nina') : 'marko')
       const english = before.filter(c => c.engine === 'elevenlabs' && c.key !== 'female:buongiorno')
-      const ana = before.filter(c => c.engine === 'gepard' && c.voice === 'female' && c.engine_voice !== 'nina')
+      const local = before.filter(c => c.engine === 'gepard' && (c.engine_voice ?? (c.voice === 'female' ? 'ana' : 'marko')) !== want(c))
       const ndry = JSON.parse((await nb('--narrators', '--json')).stdout || '{}')
       const nhuman = await nb('--narrators')
-      check('voice-build --narrators (dry run): the narrators\' clips not in their local voice (ElevenLabs\' English narrators, the female narrator\'s ana), the Slovene ones to make again, the one from another village\'s pack left out and listed; nothing changed',
-        english.length > 5 && ndry.voices?.female === 'nina' && ndry.voices.male === 'marko' && ndry.todo === english.length + ana.length && ndry.skipped?.map((c: any) => c.key).join() === 'female:buongiorno' && ndry.gepard_up === true &&
-          nhuman.stdout.includes('Left as they are, not known to be Slovene') && nhuman.stdout.includes('pack:it-saluti') && nhuman.stdout.includes('--narrators --run') && JSON.stringify(narratorRows()) === JSON.stringify(before),
+      check('voice-build --narrators (dry run): the narrators\' clips not in their local voice (ElevenLabs\' English narrators; a female lone word in nina, for ana), the Slovene ones to make again, the one from another village\'s pack left out and listed; nothing changed',
+        english.length > 5 && local.map(c => c.key).join() === 'female:žlica' && ndry.voices?.female === 'nina' && ndry.words?.female === 'ana' && ndry.voices.male === 'marko' && ndry.words.male === 'marko' && ndry.todo === english.length + local.length && ndry.skipped?.map((c: any) => c.key).join() === 'female:buongiorno' && ndry.gepard_up === true &&
+          nhuman.stdout.includes('(a lone word: ana)') && nhuman.stdout.includes('female gepard (nina) → ana') && nhuman.stdout.includes('Left as they are, not known to be Slovene') && nhuman.stdout.includes('pack:it-saluti') && nhuman.stdout.includes('--narrators --run') && JSON.stringify(narratorRows()) === JSON.stringify(before),
         [ndry, nhuman.stdout])
       const fgBefore = fg.st.calls.length
       const ttsBefore2 = fe.st.tts.length
@@ -269,10 +292,11 @@ export default async function voice() {
       const n2 = await nb('--narrators', '--run')
       const nafter = narratorRows()
       const nby = Object.fromEntries(nafter.map(c => [c.key, c]))
-      check('voice-build --narrators --run (--max 2, then the rest): each Slovene narrator clip made again by the local worker (nina, marko), never ElevenLabs, under a new name, the old file gone; the foreign one as it was',
+      check('voice-build --narrators --run (--max 2, then the rest): each Slovene narrator clip made again by the local worker (a female lone word ana, a sentence nina; marko), never ElevenLabs, under a new name, the old file gone; the foreign one and the sentence in nina as they were',
         n1.exitCode === 0 && n1.stdout.includes('Made 2 again') && left1 === ndry.todo - 2 && n2.exitCode === 0 && n2.stdout.includes(`Made ${ndry.todo - 2} again`) && fe.st.tts.length === ttsBefore2 && fg.st.calls.length - fgBefore === ndry.todo &&
-          fg.st.calls.slice(fgBefore).every((c: any) => c.speaker === 'nina' || c.speaker === 'marko') &&
-          [...english, ...ana].every(c => nby[c.key]?.engine === 'gepard' && nby[c.key].engine_voice === (c.voice === 'female' ? 'nina' : 'marko') && nby[c.key].file !== c.file && nby[c.key].hits === c.hits && nby[c.key].source === c.source && !existsSync(join(vbData, 'app/voice/files', c.file))) &&
+          fg.st.calls.slice(fgBefore).every((c: any) => ['ana', 'nina', 'marko'].includes(c.speaker)) && fg.st.calls.slice(fgBefore).some((c: any) => c.speaker === 'ana') &&
+          [...english, ...local].every(c => nby[c.key]?.engine === 'gepard' && nby[c.key].engine_voice === want(c) && nby[c.key].file !== c.file && nby[c.key].hits === c.hits && nby[c.key].source === c.source && !existsSync(join(vbData, 'app/voice/files', c.file))) &&
+          nby['female:žlica']?.engine_voice === 'ana' && nby['female:juha je vroča']?.file === ninaLine &&
           nby['female:buongiorno']?.engine === 'elevenlabs' && nby['female:buongiorno'].file === foreign && JSON.parse((await nb('--narrators', '--json')).stdout || '{}').todo === 0,
         [n1.stdout + n1.stderr, n2.stdout.slice(-400), nafter.filter(c => c.engine !== 'gepard')])
       fg.st.up = false
@@ -280,8 +304,51 @@ export default async function voice() {
       fg.st.up = true
       check('voice-build --narrators --run with the worker down: stops, says so (the next run goes on)', ndown.exitCode === 1 && ndown.stderr.includes('worker is down'), ndown.stderr)
       const plain = JSON.parse((await nb('--json')).stdout || '{}')
-      check('voice-build\'s plan in a Slovene village: the narrators\' texts go to the local worker, never the ElevenLabs budget', plain.would?.elevenlabs.texts === 0 && plain.missing === 0, plain.would)
-      check('voice-build --narrators where the narrators keep ElevenLabs (LANI_VOICE_NARRATOR_SL=elevenlabs): nothing to do', (await voiceBuild('--narrators')).stdout.includes('nothing to do'))
+      check('voice-build\'s plan in a Slovene village with the local voice first (gepard): the narrators\' texts go to the local worker, never the ElevenLabs budget', plain.would?.elevenlabs.texts === 0 && plain.missing === 0, plain.would)
+      check('voice-build --narrators in a village in another language: its narrators speak as its cast has them, nothing to do', (await deBuild('--narrators')).stdout.includes('nothing to do'))
+
+      // Their Slovene ElevenLabs voices first (the default: no LANI_VOICE_NARRATOR_SL): each narrator line is to do again in
+      // Nina's or Luka's voice, next to its local clip, which stays (the app plays the local one until then)
+      const { LANI_VOICE_NARRATOR_SL: _n, ...vbDefault } = vbEnv
+      const eb = (...args: string[]) => voiceBuildIn(vbDefault, ...args)
+      const NINA = cast().female.languages!.sl.elevenlabs
+      const LUKA = cast().male.languages!.sl.elevenlabs
+      const slRows = () => (vdb().query("SELECT * FROM clips WHERE voice IN ('female.sl', 'male.sl')").all() as Clip[])
+      fe.st.used = fe.st.limit - 5_000 - 60 // 60 characters above the reserve
+      const localBefore = narratorRows()
+      const eplan = JSON.parse((await eb('--json')).stdout || '{}')
+      const ehuman = await eb()
+      const narratorTexts = (eplan.by_voice?.female?.texts ?? 0) + (eplan.by_voice?.male?.texts ?? 0)
+      check('voice-build in a Slovene village (the default): the narrators\' lines to do in their Slovene ElevenLabs voices (Nina, Luka) within the budget, each next to its local clip; the rest later (they have a clip); nothing missing, the worker not needed',
+        eplan.missing === 0 && eplan.narrator_voices?.female === 'Nina' && eplan.narrator_voices.male === 'Luka' && eplan.would?.elevenlabs.narrators.texts > 0 && eplan.would.elevenlabs.narrators.chars <= 60 &&
+          eplan.would.elevenlabs.over_local === eplan.would.elevenlabs.narrators.texts && eplan.would.elevenlabs.texts === eplan.would.elevenlabs.narrators.texts && eplan.would.gepard.texts === 0 &&
+          eplan.would.elevenlabs.texts + eplan.would.later.texts === narratorTexts && eplan.by_voice.female.elevenlabs === 0 && eplan.by_voice.female.local === eplan.by_voice.female.texts &&
+          ehuman.stdout.includes('Narrators in their Slovene ElevenLabs voices') && ehuman.stdout.includes('female (Nina) 0/') && ehuman.stdout.includes('next to a local clip, which stays'),
+        [eplan.would, eplan.by_voice, eplan.narrator_voices, ehuman.stdout.slice(-900)])
+      const t0 = fe.st.tts.length
+      const g0 = fg.st.calls.length
+      const erun = await eb('--run')
+      const made = slRows()
+      check('voice-build --run (the default): the narrators\' lines in their Slovene ElevenLabs voices in the priority order, plainly (no carrier sentence), as many as the budget allows, never into the reserve; their local clips stay as they were; the worker not asked',
+        erun.exitCode === 0 && fe.st.tts.length - t0 === eplan.would.elevenlabs.texts && made.length === eplan.would.elevenlabs.texts && fe.st.tts[t0]?.body.text === 'Kako ste?' && fe.st.tts[t0]?.voice === NINA &&
+          fe.st.tts.slice(t0).every(c => (c.voice === NINA || c.voice === LUKA) && !c.timestamps && c.body.language_code === 'sl') && made.every(c => c.engine === 'elevenlabs' && c.engine_voice === (c.voice === 'female.sl' ? NINA : LUKA)) &&
+          fe.st.used <= fe.st.limit - 5_000 && fg.st.calls.length === g0 && JSON.stringify(narratorRows()) === JSON.stringify(localBefore),
+        [erun.stdout.slice(-600), erun.stderr.slice(-300), made.map(c => c.key)])
+      // what the app gets: the ElevenLabs clip where there is one, else the local one; with the local voice first, the local ones
+      const seen = (narrators: 'elevenlabs' | 'gepard') => {
+        const vs2 = new VoiceStore({ appDir: join(vbData, 'app'), engines: [], readonly: true, narrators, language: 'sl' })
+        const idx = vs2.index()
+        vs2.close()
+        return idx
+      }
+      const elIdx = seen('elevenlabs')
+      const gpIdx = seen('gepard')
+      const madeKeys = new Set(made.map(c => `${c.voice === 'female.sl' ? 'female' : 'male'}:${c.norm}`))
+      check('the index: a narrator line\'s ElevenLabs clip where it is made, else its local clip (the default); with the local voice first, every local clip, kept; never the voice "female.sl" itself',
+        localBefore.every(c => elIdx[c.norm]?.[c.voice] === (madeKeys.has(c.key) ? `/voice/file/${made.find(m => m.norm === c.norm && m.voice === `${c.voice}.sl`)!.file}` : `/voice/file/${c.file}`)) &&
+          localBefore.every(c => gpIdx[c.norm]?.[c.voice] === `/voice/file/${c.file}`) && !Object.values(elIdx).some(v => 'female.sl' in v || 'male.sl' in v),
+        [...madeKeys])
+      check('voice-build --narrators (the default): the clips in the Slovene ElevenLabs voices are left alone', JSON.parse((await eb('--narrators', '--json')).stdout || '{}').todo === 0)
     }
   }
 
@@ -292,59 +359,140 @@ export default async function voice() {
     check('a village in Italian, German or English: each clip asks ElevenLabs for its language_code', JSON.stringify(fe.st.tts.map(c => c.body.language_code)) === '["it","de","en"]', fe.st.tts.map(c => c.body))
   }
 
-  // --- the narrators of a Slovene village: the local voice, never the English library voices (in-process) ----------
+  // --- the narrators of a Slovene village: their Slovene ElevenLabs voices, the local voice as their fallback, never the
+  // English library voices (in-process) ---------------------------------------------------------------------------------
   {
     const fe = fakeEleven()
     const fg = fakeGepard()
+    const NINA = '0IwLFuWc6siAnpd77hRG'
+    const LUKA = 'SmCUS1ekZnVjC5lqnRQG'
+    const english = [cast().female.elevenlabs, cast().male.elevenlabs]
     const el = new ElevenLabs({ key: 'test-key', base: fe.url })
-    const ns = new VoiceStore({ appDir: tempDir('lani-narrators-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null, localNarrators: true, language: 'sl' })
+    const gp = new Gepard({ url: fg.url })
+    const updated: number[] = []
+    const dir = tempDir('lani-narrators-')
+    // a day's cap of 4: 3 for the lazy re-voice, 1 kept for a re-record
+    const ns = new VoiceStore({ appDir: dir, engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'elevenlabs', language: 'sl', revoiceDaily: 4, onUpdated: n => void updated.push(n) })
     const w = await ns.voice('kruh', 'female', 'pack:hrana')
-    check('a Slovene narrator line: the local voice first (female: nina), never Matilda, the quota there or not', w?.engine === 'gepard' && w.engine_voice === 'nina' && fg.st.calls.at(-1)?.speaker === 'nina' && fe.st.tts.length === 0 && ns.localNarrator('female') && !ns.localNarrator('grandma'), w)
+    const call = fe.st.tts.at(-1)
+    check('a Slovene narrator\'s line (the default): its Slovene ElevenLabs voice first (female: Nina), a lone word plainly (no carrier sentence), a clip of the voice "female.sl"; the app gets it as the narrator\'s',
+      w?.engine === 'elevenlabs' && w.voice === 'female.sl' && w.key === 'female.sl:kruh' && w.engine_voice === NINA && call?.voice === NINA && call.body.text === 'kruh' && !call.timestamps && call.body.language_code === 'sl' && fg.st.calls.length === 0 &&
+        ns.index().kruh?.female === `/voice/file/${w.file}` && !ns.index().kruh?.['female.sl'] && ns.best('kruh', 'female')?.file === w.file && !ns.get('kruh', 'female') && ns.cost('kruh', 'female') === 4 && ns.sloveneNarrator('female') && !ns.sloveneNarrator('grandma'), [w, call])
     const m = await ns.say('Dober dan, Jan.', 'male')
-    check('…a live line too (male: marko); a villager keeps ElevenLabs first', m?.engine === 'gepard' && fg.st.calls.at(-1)?.speaker === 'marko' && fe.st.tts.length === 0 && (await ns.voice('Kje je mlin?', 'grandpa', 'villager:janez'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().grandpa.elevenlabs, m)
+    check('…the male narrator Luka, a live line too; a villager keeps their own voice', m?.voice === 'male.sl' && fe.st.tts.at(-1)?.voice === LUKA && (await ns.voice('Kje je mlin?', 'grandpa', 'villager:janez'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().grandpa.elevenlabs, m)
+    // the quota down to the reserve: a line voiced ahead comes from the local voice
+    fe.st.used = fe.st.limit - 5_000
+    await el.subscription(true)
+    const lw = await ns.voice('mleko', 'female', 'pack:hrana')
+    const ls = await ns.voice('Mleko je hladno.', 'female', 'pack:hrana')
+    const lm = await ns.voice('mleko', 'male', 'pack:hrana')
+    check('…ElevenLabs can\'t (the quota at the reserve): the local voice in the narrator\'s key, female ana for a lone word and nina for a sentence, male marko; the index on them',
+      lw?.engine === 'gepard' && lw.key === 'female:mleko' && lw.engine_voice === 'ana' && ls?.engine_voice === 'nina' && lm?.engine_voice === 'marko' && fg.st.calls.map(c => c.speaker).join() === 'ana,nina,marko' &&
+        ns.index().mleko?.female === `/voice/file/${lw.file}` && ns.index().mleko?.male === `/voice/file/${lm.file}`, [lw, ls, lm, fg.st.calls])
     fg.st.busy = true
     const none = await ns.voice('Lahko noč.', 'female', 'test')
-    check('…the worker can\'t: no clip (the phone speaks), never an English narrator', none === null && fe.st.tts.every(c => c.voice !== cast().female.elevenlabs && c.voice !== cast().male.elevenlabs), [none, fe.st.tts.map(c => c.voice)])
-    // a voice native in Slovene in the cast, male: the male narrator's fallback, not the female's
-    const castDir = tempDir('lani-narrators-cast-')
-    const withNative = JSON.parse(readFileSync(CAST_FILE, 'utf8'))
-    withNative.speakers.uros = { gender: 'male', elevenlabs: 'UrosNativeVoice001', native: ['sl'], name: 'Uros' }
-    writeFileSync(join(castDir, 'voice-cast.json'), JSON.stringify(withNative))
-    process.env.LANI_VOICE_CAST = join(castDir, 'voice-cast.json')
-    const um = await ns.voice('Lahko noč.', 'male', 'test')
-    const uf = await ns.voice('Lahko noč.', 'female', 'test')
-    check('…with a voice native in Slovene in the cast of the narrator\'s gender: that one, plainly (no carrier sentence), as the narrator\'s clip; not for the other gender',
-      um?.engine === 'elevenlabs' && um.voice === 'male' && um.engine_voice === 'UrosNativeVoice001' && fe.st.tts.at(-1)?.voice === 'UrosNativeVoice001' && fe.st.tts.at(-1)?.body.text === 'Lahko noč.' && !fe.st.tts.at(-1)?.timestamps && uf === null, [um, uf])
-    delete process.env.LANI_VOICE_CAST
+    check('…neither can: no clip (the phone speaks), never an English narrator', none === null && fe.st.tts.every(c => !english.includes(c.voice)), [none, fe.st.tts.map(c => c.voice)])
     fg.st.busy = false
-    // a clip from before, in an English narrator's voice: not re-voiced by ElevenLabs lazily, re-recorded in the local voice
+    // the app asks for a local clip whose ElevenLabs one is wanted: it gets it at once; the ElevenLabs one is made soon,
+    // within the day's cap and never into the reserve, and the local clip stays as its fallback
+    check('the local clips whose ElevenLabs one is wanted: three, none asked for yet; the status counts them',
+      ns.upgradeQueue().length === 0 && ns.upgradeQueue(false).length === 3 && ns.wantsUpgrade(lw!) && !ns.wantsUpgrade(w!) && ns.narratorStats().waiting === 3 && ns.narratorStats().asked === 0 && ns.narratorStats().elevenlabs === 2 &&
+        ns.narratorStats().mode === 'elevenlabs' && ns.narratorStats().elevenlabs_voices.female === 'Nina' && ns.narratorStats().elevenlabs_voices.male === 'Luka' && ns.narratorStats().word_voices.female === 'ana' && ns.narratorStats().voices.female === 'nina', ns.narratorStats())
+    const t0 = fe.st.tts.length
+    ns.requested(lw!.file)
+    await Bun.sleep(60)
+    check('…asked for while the quota is at the reserve: the local clip plays, nothing is sent, nothing counted', !ns.get('mleko', 'female.sl') && fe.st.tts.length === t0 && ns.revoicedToday() === 0 && ns.upgradeQueue().length === 1)
+    fe.st.used = 0
+    await el.subscription(true)
+    ns.requested(ls!.file)
+    ns.requested(lm!.file)
+    for (let i = 0; i < 40 && ns.upgradeQueue().length; i++) await Bun.sleep(25)
+    const up = ns.get('mleko', 'female.sl')
+    check('…the quota back: the ElevenLabs ones made soon, most asked for first (Nina, Luka; a lone word plainly), each as its voice\'s clip; the local clips kept, their files there; the index on the ElevenLabs ones; the app told; counted for the day',
+      !!up && up.engine_voice === NINA && !!ns.get('mleko je hladno', 'female.sl') && ns.get('mleko', 'male.sl')?.engine_voice === LUKA && fe.st.tts.length - t0 === 3 && fe.st.tts.slice(t0).every(c => !c.timestamps) && fe.st.tts[t0]?.body.text === 'mleko' &&
+        ns.get('mleko', 'female')?.file === lw!.file && existsSync(join(ns.filesDir, lw!.file)) && existsSync(join(ns.filesDir, ls!.file)) && ns.index().mleko?.female === `/voice/file/${up!.file}` && ns.index().mleko?.male === `/voice/file/${ns.get('mleko', 'male.sl')!.file}` &&
+        ns.revoicedToday() === 3 && updated.length > 0 && ns.upgradeQueue(false).length === 0, [up, fe.st.tts.slice(t0).map(c => c.body.text), ns.revoicedToday()])
+    // the day's cap: the lazy re-voice has used its 3; one more asked for waits, a long press still goes (in Nina's voice)
+    fe.st.used = fe.st.limit - 5_000
+    await el.subscription(true)
+    const lj = await ns.voice('juha', 'female', 'pack:hrana')
+    fe.st.used = 0
+    await el.subscription(true)
+    ns.requested(lj!.file)
+    await Bun.sleep(60)
+    const capped = !ns.get('juha', 'female.sl')
+    const rj = await ns.redo('juha', 'female')
+    check('…the day\'s cap: a fourth asked for waits (3 of 4 used); a long press makes it in Nina\'s voice now, counted (4 of 4), the local clip kept',
+      lj?.engine_voice === 'ana' && capped && rj.status === 'done' && rj.clip.voice === 'female.sl' && rj.clip.engine_voice === NINA && ns.revoicedToday() === 4 && ns.get('juha', 'female')?.file === lj!.file && existsSync(join(ns.filesDir, lj!.file)), [capped, rj])
+    const rj2 = await ns.redo('juha', 'female')
+    const rk = await ns.redo('kruh', 'female')
+    check('…again: once a clip a day (not_needed, that take); another one: the cap is spent', rj2.status === 'not_needed' && rj2.clip.file === (rj as any).clip.file && rk.status === 'limit' && (rk as any).reason === 'cap', [rj2, rk])
+    // an English narrator's clip from before in the narrator's key: not re-voiced in its carrier sentence, made in Nina's voice instead
     const old = `${createHash('sha1').update('smoke|narrator|old').digest('hex')}.mp3`
-    writeFileSync(join(ns.filesDir, old), mp3('el:old:mleko'))
-    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:mleko', 'mleko', 'mleko', 'female', 'elevenlabs', old, 6, '2026-09-01T10:00:00.000Z', 'pack:hrana', 4)
-    const oldRow = ns.get('mleko', 'female')!
-    check('an English narrator\'s word from before: not old-style (no lazy ElevenLabs re-voice), not in the local voice', !ns.oldStyle(oldRow) && ns.revoiceQueue(false).length === 0 && !ns.inLocalVoice(oldRow) && ns.inLocalVoice(w!), oldRow)
-    const ttsBefore = fe.st.tts.length
-    const r1 = await ns.redo('mleko', 'female')
-    const r2 = await ns.redo('mleko', 'female')
-    check('…a re-record (long press) makes it in the local voice now, not counted, the old file gone; again: the local voice says it the same way (not_needed)',
-      r1.status === 'done' && r1.clip.engine === 'gepard' && r1.clip.engine_voice === 'nina' && r1.clip.hits === 4 && !existsSync(join(ns.filesDir, old)) && fe.st.tts.length === ttsBefore && ns.revoicedToday() === 0 &&
-        r2.status === 'not_needed' && r2.clip.file === r1.clip.file, [r1, r2])
-    // the female narrator's clips made with ana (before nina; no engine voice recorded) wait for the local voice too
-    const anaFile = `${createHash('sha1').update('smoke|narrator|ana').digest('hex')}.mp3`
-    writeFileSync(join(ns.filesDir, anaFile), mp3('gp:ana:sir'))
-    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:sir', 'sir', 'sir', 'female', 'gepard', anaFile, 3, '2026-09-02T10:00:00.000Z', 'pack:hrana')
-    const markoFile = `${createHash('sha1').update('smoke|narrator|marko').digest('hex')}.mp3`
-    writeFileSync(join(ns.filesDir, markoFile), mp3('gp:marko:jajce'))
-    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run('male:jajce', 'jajce', 'jajce', 'male', 'gepard', markoFile, 5, '2026-09-02T10:00:00.000Z', 'pack:hrana')
-    const q = ns.narratorQueue(c => c.source.startsWith('pack:'))
-    check('the narrator queue: the female narrator\'s ana clip waits, the male\'s marko (the same voice) doesn\'t; a clip not known to be Slovene (the native voice\'s, from a test) is apart',
-      q.todo.map(c => c.key).join() === 'female:sir' && q.skipped.length === 1 && q.skipped[0].voice === 'male' && q.skipped[0].engine === 'elevenlabs' && ns.narratorStats().local && ns.narratorStats().voices.female === 'nina' && ns.narratorStats().other === 2, [q, ns.narratorStats()])
-    const rn = await ns.revoiceNarrators(c => c.source.startsWith('pack:'), { waitMs: 0 })
-    check('…made again by the worker in nina, the old file gone; nothing waits then', rn.made === 1 && rn.left === 0 && ns.get('sir', 'female')?.engine_voice === 'nina' && !existsSync(join(ns.filesDir, anaFile)) && ns.narratorQueue(c => c.source.startsWith('pack:')).todo.length === 0, rn)
+    writeFileSync(join(ns.filesDir, old), mp3('el:old:sir'))
+    ns.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, hits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run('female:sir', 'sir', 'sir', 'female', 'elevenlabs', old, 3, '2026-09-01T10:00:00.000Z', 'pack:hrana', 4)
+    const oldRow = ns.get('sir', 'female')!
+    check('an English narrator\'s word from before: not old-style (no carrier re-voice), not in the local voice, its Slovene ElevenLabs clip wanted', !ns.oldStyle(oldRow) && ns.revoiceQueue(false).length === 0 && !ns.inLocalVoice(oldRow) && ns.wantsUpgrade(oldRow) && ns.lazyQueue()[0]?.key === 'female:sir', oldRow)
     ns.close()
-    // where the narrators keep ElevenLabs (LANI_VOICE_NARRATOR_SL=elevenlabs, another village): as before
-    const en = new VoiceStore({ appDir: tempDir('lani-narrators-en-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null })
-    check('…a store whose narrators keep ElevenLabs: Matilda first, as before', (await en.voice('Dober večer, Jan.', 'female', 'test'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().female.elevenlabs && en.narratorQueue(() => true).todo.length === 0)
+
+    // the local voice first (LANI_VOICE_NARRATOR_SL=gepard), on the same clips: the local ones again, each kept
+    const gs = new VoiceStore({ appDir: dir, engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'gepard', language: 'sl' })
+    const gi = gs.index()
+    check('the local voice first, on the same store: the app gets the local clips again (kept), an ElevenLabs one where there is no local one; nothing waits for ElevenLabs',
+      gi.mleko?.female === `/voice/file/${lw!.file}` && gi.mleko?.male === `/voice/file/${lm!.file}` && gi.kruh?.female === `/voice/file/${w!.file}` && gs.upgradeQueue(false).length === 0 && gs.narratorStats().waiting === 0 && gs.narratorStats().mode === 'gepard', gi.mleko)
+    const g1 = await gs.voice('Dobro jutro.', 'female', 'test')
+    fg.st.busy = true
+    const g2 = await gs.voice('Dober večer.', 'female', 'test')
+    fg.st.busy = false
+    check('…a new line: the local voice (nina); the worker can\'t: the narrator\'s Slovene ElevenLabs voice (Nina), never Matilda',
+      g1?.engine === 'gepard' && g1.engine_voice === 'nina' && g2?.engine === 'elevenlabs' && g2.voice === 'female.sl' && fe.st.tts.at(-1)?.voice === NINA && fe.st.tts.every(c => !english.includes(c.voice)), [g1, g2])
+    const tts1 = fe.st.tts.length
+    const r1 = await gs.redo('sir', 'female')
+    const r2 = await gs.redo('sir', 'female')
+    check('…a re-record (long press) of the English clip from before: made in the local voice now (ana: a lone word), not counted, the old file gone; again: not_needed (the local voice says it the same way)',
+      r1.status === 'done' && r1.clip.engine === 'gepard' && r1.clip.engine_voice === 'ana' && r1.clip.hits === 4 && !existsSync(join(gs.filesDir, old)) && fe.st.tts.length === tts1 && gs.revoicedToday() === 4 &&
+        r2.status === 'not_needed' && r2.clip.file === r1.clip.file, [r1, r2])
+    // the female narrator's local clips: a lone word wants ana, a sentence nina (one from before without its voice was ana's)
+    const put = (text: string, voice: string, ev: string | null) => {
+      const key = `${voice}:${normalizeText(text)}`
+      const f = `${createHash('sha1').update(`smoke|narrator|${key}`).digest('hex')}.mp3`
+      writeFileSync(join(gs.filesDir, f), mp3(`gp:${key}`))
+      gs.database.query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, engine_voice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run(key, normalizeText(text), text, voice, 'gepard', f, text.length, '2026-10-02T10:00:00.000Z', 'pack:hrana', ev)
+      return f
+    }
+    const fZlica = put('žlica', 'female', 'nina')
+    put('vilice', 'female', null)
+    const fLine = put('Sir je mehak.', 'female', null)
+    put('Juha je vroča.', 'female', 'nina')
+    put('jajce', 'male', null)
+    const q = gs.narratorQueue(c => c.source.startsWith('pack:'))
+    check('the narrator queue: a female lone word in nina waits (for ana), a sentence in ana waits (for nina); the lone word in ana, the sentence in nina, the male\'s marko don\'t; the clips in Nina\'s voice are no part of it',
+      q.todo.map(c => c.key).sort().join() === 'female:sir je mehak,female:žlica' && !q.todo.some(c => c.voice.endsWith('.sl')) && !q.skipped.length, q.todo.map(c => c.key))
+    const g0 = fg.st.calls.length
+    const rn = await gs.revoiceNarrators(c => c.source.startsWith('pack:'), { waitMs: 0 })
+    check('…made again by the worker: the lone word in ana, the sentence in nina, the old files gone; nothing waits then; the clips in Nina\'s voice as they were',
+      rn.made === 2 && rn.left === 0 && gs.get('žlica', 'female')?.engine_voice === 'ana' && gs.get('sir je mehak', 'female')?.engine_voice === 'nina' && fg.st.calls.slice(g0).map(c => c.speaker).sort().join() === 'ana,nina' &&
+        !existsSync(join(gs.filesDir, fZlica)) && !existsSync(join(gs.filesDir, fLine)) && gs.get('mleko', 'female.sl')?.file === up!.file, [rn, fg.st.calls.slice(g0)])
+    gs.close()
+
+    // a cast whose narrators have no Slovene voice: the local voice, else none, never the English ones
+    const castDir = tempDir('lani-narrators-cast-')
+    const bare = JSON.parse(readFileSync(CAST_FILE, 'utf8'))
+    for (const n of ['female', 'male']) delete bare.speakers[n].languages
+    writeFileSync(join(castDir, 'voice-cast.json'), JSON.stringify(bare))
+    process.env.LANI_VOICE_CAST = join(castDir, 'voice-cast.json')
+    const bs = new VoiceStore({ appDir: tempDir('lani-narrators-bare-'), engines: [el, gp], queueDelayMs: 0, level: null, narrators: 'elevenlabs', language: 'sl' })
+    const tts2 = fe.st.tts.length
+    const b1 = await bs.voice('Lahko noč.', 'female', 'test')
+    fg.st.busy = true
+    const b2 = await bs.voice('Dobro jutro, Jan.', 'male', 'test')
+    fg.st.busy = false
+    delete process.env.LANI_VOICE_CAST
+    check('…a cast whose narrators have no Slovene voice: the local voice; the worker can\'t: none (the phone speaks); never Matilda or Daniel', b1?.engine === 'gepard' && b1.voice === 'female' && b2 === null && fe.st.tts.length === tts2, [b1, b2])
+    bs.close()
+    // a village in another language (no Slovene narrators): the narrators speak as the cast has them, Matilda first
+    const en = new VoiceStore({ appDir: tempDir('lani-narrators-en-'), engines: [el, gp], queueDelayMs: 0, level: null })
+    check('…a store whose narrators speak as the cast has them (another village): Matilda first, as before', (await en.voice('Dober večer, Jan.', 'female', 'test'))?.engine === 'elevenlabs' && fe.st.tts.at(-1)?.voice === cast().female.elevenlabs && en.narratorQueue(() => true).todo.length === 0 && !en.narrators)
     en.close()
   }
 
@@ -720,14 +868,33 @@ export default async function voice() {
         // measured as loud as the gain will make it: −52 + 10 dB is over −45
         Math.abs(edgesOf(tone32([[0.5, -120], [0.2, -64], [0.6, -20], [0.3, -120]]), 32_000, 10).lead - 0.5) < 0.021 && edgesOf(tone32([[1, -120]]), 32_000).lead === 1,
       [soft, hard])
+    // a single word from ElevenLabs with a breath 0.4 s after it (Nina's "kosilo" in October 2026), and one with a stop's closure
+    const breath: [number, number][] = [[0.05, -120], [0.6, -20], [0.06, -50], [0.4, -75], [0.15, -30], [0.3, -120]]
+    const asIs = edgesOf(tone32(breath), 32_000)
+    const asWord = edgesOf(tone32(breath), 32_000, 0, EDGES, true)
+    const closure = edgesOf(tone32([[0.05, -120], [0.3, -20], [0.12, -75], [0.3, -20], [0.3, -120]]), 32_000, 0, EDGES, true)
+    check('…a single word ends at its first pause of 0.25 s or more: the breath after it is cut off (its fading vowel kept); a stop\'s closure inside it (0.12 s) is no such pause; anything else keeps what follows',
+      Math.abs(asIs.tail - 0.3) < 0.021 && Math.abs(asWord.tail - (0.4 + 0.15 + 0.3)) < 0.021 && Math.abs(asWord.lead - 0.05) < 0.021 && Math.abs(closure.tail - 0.3) < 0.021 && EDGES.wordGap === 0.25 &&
+        isOneWord('kosilo') && isOneWord(' Kosilo ') && !isOneWord('dober dan') && !isOneWord('Kosilo.') && !isOneWord(''),
+      [asIs, asWord, closure])
     check('…the trim: 0.05 s kept before the sound, 0.1 s after it, with a short fade where it cuts; a clip encoded anyway trimmed to that, else only over 0.1 s before or 0.2 s after',
       trimChain({ secs: 1.44, lead: 0.5, tail: 0.3 }) === 'atrim=start=0.450:end=1.240,asetpts=PTS-STARTPTS,afade=t=in:d=0.005,afade=t=out:st=0.780:d=0.01' &&
         trimChain({ secs: 1, lead: 0.02, tail: 0.3 }) === 'atrim=end=0.800,asetpts=PTS-STARTPTS,afade=t=out:st=0.790:d=0.01' && trimChain({ secs: 1, lead: 0.04, tail: 0.05 }) === '' && trimChain({ secs: 1, lead: 1, tail: 0 }) === '' &&
         trimmable({ secs: 1, lead: 0.08, tail: 0 }) && !trimmable({ secs: 1, lead: 0.08, tail: 0 }, true) && trimmable({ secs: 1, lead: 0.12, tail: 0 }, true) && !trimmable({ secs: 1, lead: 0.02, tail: 0.18 }, true) && trimmable({ secs: 1, lead: 0.02, tail: 0.25 }, true) && !trimmable({ secs: 1, lead: 1, tail: 0 }) && !ffmpegEdges('off'),
       [trimChain({ secs: 1.44, lead: 0.5, tail: 0.3 }), trimChain({ secs: 1, lead: 0.02, tail: 0.3 })])
-    check('the narrators of a Slovene village speak with the local voice (LANI_VOICE_NARRATOR_SL=elevenlabs: as before); another village\'s as its cast has them',
-      localNarrators('sl', {}) && localNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'gepard' }) && !localNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'elevenlabs' }) && !localNarrators('en', {}) && !localNarrators('it', { LANI_VOICE_NARRATOR_SL: 'gepard' }) &&
-        cast().female.gepard === 'nina' && cast().male.gepard === 'marko' && cast().female.native?.join() === 'en')
+    const narratorLog: string[] = []
+    check('the narrators of a Slovene village: their Slovene ElevenLabs voices first (LANI_VOICE_NARRATOR_SL=elevenlabs, the default), or the local voice first (gepard); a wrong value is logged and the default taken; another village\'s as its cast has them',
+      sloveneNarrators('sl', {}) === 'elevenlabs' && sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'gepard' }) === 'gepard' && sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'elevenlabs' }) === 'elevenlabs' &&
+        sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'matilda' }, (...a) => void narratorLog.push(a.join(' '))) === 'elevenlabs' && narratorLog.some(l => l.includes('matilda')) &&
+        !sloveneNarrators('en', {}) && !sloveneNarrators('it', { LANI_VOICE_NARRATOR_SL: 'gepard' }), narratorLog)
+    check('the cast: the narrators\' Slovene voices (Nina, Luka: "female.sl", "male.sl", plainly, no carrier), their local voices (female nina, a lone word ana; male marko); the English voices kept for elsewhere',
+      cast().female.gepard === 'nina' && cast().female.gepard_words === 'ana' && cast().male.gepard === 'marko' && !cast().male.gepard_words &&
+        cast().female.languages?.sl?.elevenlabs === '0IwLFuWc6siAnpd77hRG' && cast().male.languages?.sl?.elevenlabs === 'SmCUS1ekZnVjC5lqnRQG' && cast().female.elevenlabs === 'XrExE9yKIg1WjnnlVkGX' &&
+        languageVoice('female', 'sl') === 'female.sl' && languageVoice('male', 'sl') === 'male.sl' && !languageVoice('grandma', 'sl') && !languageVoice('female', 'it') &&
+        elevenlabsOf('female.sl') === '0IwLFuWc6siAnpd77hRG' && elevenlabsOf('male.sl') === 'SmCUS1ekZnVjC5lqnRQG' && !carrierVoice('female.sl') && carrierVoice('female') && baseVoice('female.sl') === 'female' && baseVoice('grandma') === 'grandma' &&
+        genderOf('male.sl') === 'male' && !isVoice('female.sl') &&
+        new Gepard().speakerOf('female', 'kosilo') === 'ana' && new Gepard().speakerOf('female', 'dober dan') === 'ana' && new Gepard().speakerOf('female', 'Kosilo je na mizi.') === 'nina' && new Gepard().speakerOf('male', 'kosilo') === 'marko' &&
+        new Gepard().speakerOf('grandma', 'kosilo') === 'nina' && new Gepard({ speakers: { female: 'ana' } }).speakerOf('female', 'Kosilo je na mizi.') === 'ana')
   }
   if (ffmpeg) {
     // speech-like test clips: a vowel-like tone (180 Hz, its level moving 4 times a second) after [lead] s of silence
@@ -1104,19 +1271,22 @@ export default async function voice() {
 
     const say = (text: string, voice?: string, headers: Record<string, string> = auth) =>
       fetch(`${base}/voice/say`, { method: 'POST', headers, body: JSON.stringify(voice ? { text, voice } : { text }) })
-    // the Slovene village's narrators speak with the local voice (LANI_VOICE_NARRATOR_SL: gepard by default)
+    // the Slovene village's narrators speak with their Slovene ElevenLabs voices (LANI_VOICE_NARRATOR_SL: elevenlabs by default)
+    const NINA = cast().female.languages!.sl.elevenlabs
+    const LUKA = cast().male.languages!.sl.elevenlabs
     const calls = bridgeEleven.st.tts.length
     const gcalls = bridgeGepard.st.calls.length
     const s1 = await say('Dobro jutro, Micka!')
     const s1Body = await s1.json()
-    check('POST /voice/say: a narrator\'s line in the Slovene village from the local voice (female: nina), never ElevenLabs\' Matilda', s1.ok && s1Body.engine === 'gepard' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(s1Body.url) && bridgeEleven.st.tts.length === calls && bridgeGepard.st.calls.length === gcalls + 1 && bridgeGepard.st.calls.at(-1)?.speaker === 'nina', s1Body)
+    check('POST /voice/say: a narrator\'s line in the Slovene village in its Slovene ElevenLabs voice (female: Nina), the voice the app knows (female); never Matilda, the worker not asked',
+      s1.ok && s1Body.engine === 'elevenlabs' && s1Body.voice === 'female' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(s1Body.url) && bridgeEleven.st.tts.length === calls + 1 && bridgeEleven.st.tts.at(-1)?.voice === NINA && bridgeEleven.st.tts.at(-1)?.body.language_code === 'sl' && bridgeGepard.st.calls.length === gcalls, s1Body)
     const s2 = await (await say('dobro jutro micka')).json()
-    check('POST /voice/say serves the cached clip', s2.url === s1Body.url && bridgeGepard.st.calls.length === gcalls + 1 && bridgeEleven.st.tts.length === calls)
+    check('POST /voice/say serves the cached clip', s2.url === s1Body.url && s2.voice === 'female' && bridgeGepard.st.calls.length === gcalls && bridgeEleven.st.tts.length === calls + 1)
     const s3 = await (await say('Dobro jutro, Micka!', 'male')).json()
-    check('male voice is its own clip (marko)', s3.url !== s1Body.url && s3.voice === 'male' && s3.engine === 'gepard' && bridgeGepard.st.calls.at(-1)?.speaker === 'marko' && bridgeEleven.st.tts.length === calls, s3)
+    check('male voice is its own clip (Luka)', s3.url !== s1Body.url && s3.voice === 'male' && s3.engine === 'elevenlabs' && bridgeEleven.st.tts.at(-1)?.voice === LUKA && bridgeGepard.st.calls.length === gcalls, s3)
     const file = await fetch(`${base}${s1Body.url}`, { headers: auth })
     const bytes = new TextDecoder().decode((await file.arrayBuffer()).slice(6))
-    check('GET /voice/file serves audio/mpeg', file.ok && file.headers.get('content-type') === 'audio/mpeg' && bytes === 'gp:Dobro jutro, Micka!', bytes)
+    check('GET /voice/file serves audio/mpeg', file.ok && file.headers.get('content-type') === 'audio/mpeg' && bytes === `el:${NINA}:Dobro jutro, Micka!`, bytes)
     check('GET /voice/file rejects odd names', (await fetch(`${base}/voice/file/..%2Fvoice.db`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/file/${'0'.repeat(40)}.mp3`, { headers: auth })).status === 404)
     const idx2 = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
     check('GET /voice/index has both voices', idx2['dobro jutro micka']?.female === s1Body.url && idx2['dobro jutro micka']?.male === s3.url, idx2['dobro jutro micka'])
@@ -1141,13 +1311,14 @@ export default async function voice() {
     check('GET /voice/status: the short narrator words (carrier sentence, old-style, the daily cap)', st.carrier?.daily === 40 && typeof st.carrier.old === 'number' && st.carrier.cut === !!ffmpeg, st.carrier)
     check('GET /voice/status: the voices the cast filters (denoise: Stari Janez\'s own voice), and whether the node can (ffmpeg)', st.denoise?.voices?.['@janez']?.preset === 'hiss' && st.denoise.ffmpeg === !!ffmpeg, st.denoise)
     check('GET /voice/status: the level (its target and peak, the clips at it and waiting, ffmpeg)', st.level?.target === LEVEL.target && st.level.peak === LEVEL.peak && typeof st.level.levelled === 'number' && typeof st.level.waiting === 'number' && st.level.ffmpeg === !!ffmpeg, st.level)
-    check('GET /voice/status: the edges (what is kept, the clips done and waiting), the narrators in the local voice (nina, marko), no pace set',
-      st.edges?.lead === EDGES.lead && st.edges.tail === EDGES.tail && typeof st.edges.done === 'number' && typeof st.edges.waiting === 'number' && st.narrators?.local === true && st.narrators.voices?.female === 'nina' && st.narrators.voices.male === 'marko' &&
-        st.tempo?.tempo === null && st.tempo.pause === null, [st.edges, st.narrators, st.tempo])
+    check('GET /voice/status: the edges (what is kept, the clips done and waiting), the narrators (their Slovene ElevenLabs voices first: Nina, Luka; the local ones nina and ana for a lone word, marko), no pace set',
+      st.edges?.lead === EDGES.lead && st.edges.tail === EDGES.tail && typeof st.edges.done === 'number' && typeof st.edges.waiting === 'number' && st.narrators?.local === true && st.narrators.mode === 'elevenlabs' &&
+        st.narrators.elevenlabs_voices?.female === 'Nina' && st.narrators.elevenlabs_voices.male === 'Luka' && st.narrators.voices?.female === 'nina' && st.narrators.word_voices?.female === 'ana' && st.narrators.voices.male === 'marko' && st.narrators.elevenlabs >= 2 &&
+        st.cast?.find((c: any) => c.id === 'female')?.languages?.sl === 'Nina' && st.tempo?.tempo === null && st.tempo.pause === null, [st.edges, st.narrators, st.tempo])
 
-    // A narrator word from before the carrier sentence in the bridge's store: the app downloads it and gets it as it is.
-    // In the Slovene village it is not voiced again by ElevenLabs (the narrators speak with the local voice; voice-build
-    // --narrators makes it again there); a long press makes it in the local voice.
+    // A narrator word from before the carrier sentence in the bridge's store (an English narrator's): the app downloads it
+    // and gets it as it is. In the Slovene village it is never re-voiced in its carrier sentence: the narrator's Slovene
+    // ElevenLabs voice makes it soon (Nina, plainly), the clip from before kept in the narrator's key.
     if (ffmpeg) {
       const voiceDir = join(dataDir, 'app/voice')
       const oldFile = `${createHash('sha1').update('smoke|old|kolovrat').digest('hex')}.mp3`
@@ -1161,12 +1332,15 @@ export default async function voice() {
       check('GET /voice/file of an old-style narrator word: the old clip, at once', got.ok && new TextDecoder().decode((await got.arrayBuffer()).slice(6)) === 'el:old:kolovrat')
       await Bun.sleep(300)
       const url = (await (await fetch(`${base}/voice/index`, { headers: auth })).json()).kolovrat?.female
-      check('…and no ElevenLabs re-voice in its carrier sentence (an English narrator)', url === `/voice/file/${oldFile}` && !bridgeEleven.st.tts.some(c => c.body.text === 'Beseda je: kolovrat.'), url)
+      const kolo = bridgeEleven.st.tts.filter(c => c.body.text.includes('kolovrat'))
+      check('…no re-voice in its carrier sentence (an English narrator): the narrator\'s Slovene ElevenLabs voice makes it soon (Nina, plainly), the index on it, the app told, counted for the day; the clip from before kept',
+        url !== `/voice/file/${oldFile}` && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(url ?? '') && kolo.length === 1 && kolo[0].voice === NINA && kolo[0].body.text === 'kolovrat' && !kolo[0].timestamps &&
+          (await updates()) > u0 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok, [url, kolo])
       const rk = await fetch(`${base}/voice/redo`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'kolovrat', voice: 'female', client_id: 'redo-smoke-kolovrat' }) })
       const rkb = await rk.json()
-      check('…a long press makes it in the local voice (nina), under a new name, the old one gone, the app told; not counted in the day\'s cap',
-        rk.ok && rkb.status === 'done' && rkb.url !== url && bridgeGepard.st.calls.at(-1)?.text === 'kolovrat' && bridgeGepard.st.calls.at(-1)?.speaker === 'nina' && !bridgeEleven.st.tts.some(c => c.body.text.includes('kolovrat')) &&
-          (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).status === 404 && (await updates()) > u0 && rkb.today === 0, rkb)
+      check('…a long press: a new take in Nina\'s voice, under a new name, the take before gone, the answer in the voice the app knows (female); counted in the day\'s cap',
+        rk.ok && rkb.status === 'done' && rkb.voice === 'female' && rkb.url !== url && bridgeEleven.st.tts.at(-1)?.body.text === 'kolovrat' && bridgeEleven.st.tts.at(-1)?.voice === NINA &&
+          (await fetch(`${base}${url}`, { headers: auth })).status === 404 && (await fetch(`${base}/voice/file/${oldFile}`, { headers: auth })).ok && rkb.today >= 2, rkb)
     }
 
     // Jan's re-record (a long press on 🔊): POST /voice/redo makes the clip again now, under a new name.
@@ -1188,9 +1362,11 @@ export default async function voice() {
       const ab = await again.json()
       check('POST /voice/redo: once a clip a day, then "not_needed" with the take from before', again.ok && ab.status === 'not_needed' && ab.url === rb.url && !!ab.message && bridgeEleven.st.tts.length === n0 + 1, ab)
       const nr = await (await redo({ text: 'Dobro jutro, Micka!', voice: 'female' })).json()
-      check('POST /voice/redo of a narrator\'s clip in the local voice: "not_needed" (it says a text the same way every time), no ElevenLabs', nr.status === 'not_needed' && nr.url === s1Body.url && bridgeEleven.st.tts.length === n0 + 1, nr)
+      const nr2 = await (await redo({ text: 'Dobro jutro, Micka!', voice: 'female' })).json()
+      check('POST /voice/redo of a narrator\'s clip: a re-take in its Slovene ElevenLabs voice (Nina), the answer in the voice the app knows (female); again: once a clip a day',
+        nr.status === 'done' && nr.voice === 'female' && nr.url !== s1Body.url && bridgeEleven.st.tts.length === n0 + 2 && bridgeEleven.st.tts.at(-1)?.voice === NINA && nr2.status === 'not_needed' && nr2.url === nr.url, [nr, nr2])
       const st = await (await fetch(`${base}/voice/status`, { headers: auth })).json()
-      check('GET /voice/status counts the re-records of the day, and the part of the cap kept for them', st.carrier?.redos === 1 && st.carrier.kept === 10, st.carrier)
+      check('GET /voice/status counts the re-records of the day, and the part of the cap kept for them', st.carrier?.redos === (ffmpeg ? 3 : 2) && st.carrier.kept === 10, st.carrier)
       check('POST /voice/redo: a voice not in the cast is a 400, no text a 400', (await redo({ text: 'Živjo', voice: 'soprano' })).status === 400 && (await redo({ text: ' ', voice: 'female' })).status === 400)
       check('POST /voice/redo: the family token may not, nor no token', (await redo({ text: 'Živjo', voice: 'female' }, { ...fam, 'content-type': 'application/json' })).status === 403 && (await redo({ text: 'Živjo', voice: 'female' }, { 'content-type': 'application/json' })).status === 401)
     }
@@ -1209,13 +1385,13 @@ export default async function voice() {
       const body = { texts: [{ text: 'Dobro jutro, Micka!' }, { text: fresh, voice: 'male' }, { text: 'Ena.', voice: 'nobody' }] }
       const r = await prepare(body)
       const p = await r.json()
-      check('POST /voice/prepare: a clip the store has as it is, a new one voiced (the male narrator: marko), a voice not in the cast none; the day\'s count and cap',
+      check('POST /voice/prepare: a clip the store has as it is, a new one voiced (the male narrator: Luka), a voice not in the cast none; the day\'s count and cap',
         r.ok && p.clips?.length === 3 && !!have && p.clips[0].url === have && p.clips[0].voice === 'female' &&
-          p.clips[1].text === fresh && p.clips[1].voice === 'male' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(p.clips[1].url) && p.clips[1].engine === 'gepard' &&
+          p.clips[1].text === fresh && p.clips[1].voice === 'male' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(p.clips[1].url) && p.clips[1].engine === 'elevenlabs' &&
           p.clips[2].voice === 'nobody' && p.clips[2].url === null && p.daily === 6_000 && p.today === fresh.length &&
-          bridgeEleven.st.tts.length === n0 && bridgeGepard.st.calls.length === g0 + 1 && bridgeGepard.st.calls.at(-1)?.text === fresh && bridgeGepard.st.calls.at(-1)?.speaker === 'marko', p)
+          bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === fresh && bridgeEleven.st.tts.at(-1)?.voice === LUKA && bridgeGepard.st.calls.length === g0, p)
       const again = await (await prepare(body)).json()
-      check('POST /voice/prepare again: the same clips, nothing voiced, the day\'s count as it was', JSON.stringify(again.clips) === JSON.stringify(p.clips) && again.today === p.today && bridgeEleven.st.tts.length === n0 && bridgeGepard.st.calls.length === g0 + 1, again)
+      check('POST /voice/prepare again: the same clips, nothing voiced, the day\'s count as it was', JSON.stringify(again.clips) === JSON.stringify(p.clips) && again.today === p.today && bridgeEleven.st.tts.length === n0 + 1 && bridgeGepard.st.calls.length === g0, again)
     }
 
     bridgeEleven.st.fail = 500
