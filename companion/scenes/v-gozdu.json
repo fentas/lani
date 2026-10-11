@@ -295,7 +295,7 @@
     {
       "id": "mrak",
       "lines": [
-        { "who": "joze", "sl": "Dober večer, {learner}. Mrači se. Zdaj pridejo srne na travnik.", "en": "Good evening, {learner}. It is getting dark. Now the deer come out onto the meadow.", "de": "Guten Abend, {learner}. Es dämmert. Jetzt kommen die Rehe auf die Wiese.", "it": "Buonasera, {learner}. Si fa buio. Adesso i caprioli escono sul prato." },
+        { "who": "joze", "sl": "Dober večer, {learner}. Mrači se. Zdaj pridejo srne na travnik.", "en": "Good evening, {learner}. It is getting dark. Now the deer come out onto the meadow.", "de": "Guten Abend, {learner}. Es dämmert. Jetzt kommen die Rehe auf die Wiese.", "it": "Buonasera, {learner}. Si fa buio. Adesso i caprioli escono sul prato.", "fx": { "herd": 1 } },
         { "choices": [
           { "sl": "Dober večer, Jože. Koliko srn je danes?", "en": "Good evening, Jože. How many deer are there today?", "de": "Guten Abend, Jože. Wie viele Rehe sind es heute?", "it": "Buonasera, Jože. Quanti caprioli ci sono oggi?", "ok": true,
             "reply": { "sl": "Počakaj … ena, dve, tri, štiri, pet. Pet srn.", "en": "Wait … one, two, three, four, five. Five deer.", "de": "Warte … eins, zwei, drei, vier, fünf. Fünf Rehe.", "it": "Aspetta … uno, due, tre, quattro, cinque. Cinque caprioli." } },
@@ -625,7 +625,7 @@
       "id": "mrak-tiho",
       "memory": { "sl": "večer, ko sva tiho gledala lisico", "en": "the evening we quietly watched the fox", "de": "den Abend, an dem wir leise den Fuchs beobachtet haben", "it": "la sera in cui abbiamo guardato la volpe in silenzio" },
       "lines": [
-        { "who": "joze", "sl": "Dober večer, {learner}. Pst! Srne so blizu. Ne govori glasno.", "en": "Good evening, {learner}. Shh! The deer are close. Don't talk loudly.", "de": "Guten Abend, {learner}. Pst! Die Rehe sind nah. Sprich nicht laut.", "it": "Buonasera, {learner}. Sst! I caprioli sono vicini. Non parlare forte." },
+        { "who": "joze", "sl": "Dober večer, {learner}. Pst! Srne so blizu. Ne govori glasno.", "en": "Good evening, {learner}. Shh! The deer are close. Don't talk loudly.", "de": "Guten Abend, {learner}. Pst! Die Rehe sind nah. Sprich nicht laut.", "it": "Buonasera, {learner}. Sst! I caprioli sono vicini. Non parlare forte.", "fx": { "herd": 1 } },
         { "choices": [
           { "sl": "Prav. Moram sem tiho.", "en": "All right. I must I-am quiet.", "de": "Gut. Ich muss bin leise.", "it": "Va bene. Devo sono {m:zitto|f:zitta}.",
             "grammar": "modalni-glagoli", "why": { "en": "After moram (I must) comes the infinitive: moram biti.", "de": "Nach moram (ich muss) steht der Infinitiv: moram biti.", "it": "Dopo moram (devo) viene l'infinito: moram biti." },
@@ -644,7 +644,7 @@
           { "sl": "Smem vzeti daljnogled?", "en": "May I take the binoculars?", "de": "Darf ich das Fernglas nehmen?", "it": "Posso prendere il binocolo?", "ok": true,
             "reply": { "sl": "Seveda. Izvoli. Vidiš njen rep?", "en": "Of course. Here you are. Can you see her tail?", "de": "Natürlich. Bitte. Siehst du seinen Schwanz?", "it": "Certo. Ecco. Vedi la sua coda?" } }
         ] },
-        { "who": "joze", "sl": "Lisica je odšla. Tema je. Lovski blagor, {learner}!", "en": "The fox has gone. It's dark. Lovski blagor, {learner}!", "de": "Der Fuchs ist weg. Es ist dunkel. Lovski blagor, {learner}!", "it": "La volpe se n'è andata. È buio. Lovski blagor, {learner}!" }
+        { "who": "joze", "sl": "Lisica je odšla. Tema je. Lovski blagor, {learner}!", "en": "The fox has gone. It's dark. Lovski blagor, {learner}!", "de": "Der Fuchs ist weg. Es ist dunkel. Lovski blagor, {learner}!", "it": "La volpe se n'è andata. È buio. Lovski blagor, {learner}!", "fx": { "fox": 0 } }
       ]
     }
   ]

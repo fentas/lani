@@ -146,11 +146,11 @@ class ScenesContentTest {
         assertTrue(storm.first().gloom > 0f && storm.first().rain == 0f && storm.any { it.lightning } && storm.last().rain >= 0.6f)
         val kept = files.map { parseScene(it.readText()) }.flatMap { s -> s.dialogs.filter { it.skyKept }.map { "${s.id}/${it.id}" } }
         // the variants of the same happenings keep theirs too (the hay, the storm, the tent in the rain, Luka staying in
-        // it while it pours), and the rain that ends the children's football and the burja at night
+        // it while it pours), and the rain that ends the children's football and the burja at night (Nejc's three)
         assertEquals(
             listOf(
                 "na-njivi/seno", "na-njivi/seno-grom", "na-stolpu/nevihta", "na-stolpu/nevihta-sekunde", "na-stolpu/nevihta-seno", "na-vasi/nogomet-dez",
-                "ob-potoku/perilo", "v-podstresju/burja-zgodba", "v-podstresju/burja-okno", "v-sotoru/dez", "v-sotoru/dez-cakava", "v-sotoru/dez-svetilka",
+                "ob-potoku/perilo", "v-podstresju/burja", "v-podstresju/burja-zgodba", "v-podstresju/burja-okno", "v-sotoru/dez", "v-sotoru/dez-cakava", "v-sotoru/dez-svetilka",
             ),
             kept,
         )

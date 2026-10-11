@@ -99,7 +99,7 @@
             "grammar": "modalni-glagoli", "why": { "en": "After lahko the verb takes a personal form: lahko poskusim. The infinitive poskusiti goes after moram, hočem, želim.", "de": "Nach lahko steht das Verb in einer Personalform: lahko poskusim. Der Infinitiv poskusiti steht nach moram, hočem, želim.", "it": "Dopo lahko il verbo va in una forma personale: lahko poskusim. L'infinito poskusiti va dopo moram, hočem, želim." },
             "reply": { "sl": "Poskusiti? Kaj? Glasneje, meh piha!", "en": "Poskusiti? What? Louder, the bellows are blowing!", "de": "Poskusiti? Was? Lauter, der Blasebalg pustet!", "it": "Poskusiti? Cosa? Più forte, il mantice soffia!" } }
         ] },
-        { "who": "nejc", "sl": "Počasi! Če greš prehitro, letijo iskre. Au! Vidiš?", "en": "Slowly! If you go too fast, sparks fly. Ow! See?", "de": "Langsam! Wenn du zu schnell machst, fliegen Funken. Au! Siehst du?", "it": "Piano! Se vai troppo veloce, volano scintille. Ahi! Vedi?" },
+        { "who": "nejc", "sl": "Počasi! Če greš prehitro, letijo iskre. Au! Vidiš?", "en": "Slowly! If you go too fast, sparks fly. Ow! See?", "de": "Langsam! Wenn du zu schnell machst, fliegen Funken. Au! Siehst du?", "it": "Piano! Se vai troppo veloce, volano scintille. Ahi! Vedi?", "fx": { "sparks": 1 } },
         { "choices": [
           { "sl": "Vidim. Iskre so vroče!", "en": "I see. The sparks are hot!", "de": "Ich sehe es. Die Funken sind heiß!", "it": "Vedo. Le scintille scottano!", "ok": true,
             "reply": { "sl": "Ja! Tone pravi: iskre so kot čebele.", "en": "Yes! Tone says: sparks are like bees.", "de": "Ja! Tone sagt: Funken sind wie Bienen.", "it": "Sì! Tone dice: le scintille sono come le api." } },
@@ -111,7 +111,7 @@
             "reply": { "sl": "Iskre je? Au! Spet ena iskra!", "en": "Iskre je? Ow! Another spark!", "de": "Iskre je? Au! Schon wieder ein Funke!", "it": "Iskre je? Ahi! Un'altra scintilla!", "fx": { "sparks": 1 } } }
         ] },
         { "who": "nejc", "sl": "Tone pravi, da je dovolj. Greva ven? Na ribnik?", "en": "Tone says that is enough. Shall we two go out? To the pond?", "de": "Tone sagt, das reicht. Gehen wir zwei raus? Zum Teich?", "it": "Tone dice che basta. Usciamo, noi due? Allo stagno?",
-          "fx": { "forge": 0 } },
+          "fx": { "forge": 0, "sparks": 0 } },
         { "choices": [
           { "sl": "Greva! Na ribnik. Adijo, Tone!", "en": "Let us go (the two of us)! To the pond. Bye, Tone!", "de": "Gehen wir (wir zwei)! Zum Teich. Tschüss, Tone!", "it": "Andiamo (noi due)! Allo stagno. Ciao, Tone!", "ok": true,
             "reply": { "sl": "Adijo! Tone, adijo!", "en": "Bye! Tone, bye!", "de": "Tschüss! Tone, tschüss!", "it": "Ciao! Tone, ciao!" } },

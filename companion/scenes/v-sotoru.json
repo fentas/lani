@@ -128,7 +128,7 @@
     {
       "id": "odeja",
       "lines": [
-        { "who": "babica", "sl": "{learner}? Spiš? Odejo sem ti prinesla. Ponoči je mraz.", "en": "{learner}? Are you asleep? I have brought you a blanket. It is cold at night.", "de": "{learner}? Schläfst du? Ich habe dir eine Decke gebracht. Nachts ist es kalt.", "it": "{learner}? Dormi? Ti ho portato una coperta. Di notte fa freddo." },
+        { "who": "babica", "sl": "{learner}? Spiš? Odejo sem ti prinesla. Ponoči je mraz.", "en": "{learner}? Are you asleep? I have brought you a blanket. It is cold at night.", "de": "{learner}? Schläfst du? Ich habe dir eine Decke gebracht. Nachts ist es kalt.", "it": "{learner}? Dormi? Ti ho portato una coperta. Di notte fa freddo.", "act": { "babica": { "to": "left" } } },
         { "choices": [
           { "sl": "O, babica, hvala vam! Res me zebe.", "en": "Oh, grandma, thank you! I really am cold.", "de": "Oh, Oma, ich danke Ihnen! Mir ist wirklich kalt.", "it": "Oh, nonna, grazie a Lei! Ho proprio freddo.", "ok": true,
             "reply": { "sl": "Sem vedela. Na, pokrij se.", "en": "I knew it. Here, cover yourself.", "de": "Hab ich's mir doch gedacht. Da, deck dich zu.", "it": "Lo sapevo. Tieni, copriti." } },
@@ -187,7 +187,7 @@
             "grammar": "kje-mestnik-orodnik", "why": { "en": "Where it lies is a place: na + locative, na blazini. Na blazino is a direction (onto the pillow).", "de": "Wo sie liegt, ist ein Ort: na + Lokativ, na blazini. Na blazino ist eine Richtung (aufs Kissen).", "it": "Dove si trova è un luogo: na + locativo, na blazini. Na blazino è una direzione (sul cuscino, con movimento)." },
             "reply": { "sl": "Na blazino? Ne, na glavo! Ha ha!", "en": "Na blazino (onto the pillow)? No, onto my head! Ha ha!", "de": "Na blazino (aufs Kissen)? Nein, auf den Kopf! Haha!", "it": "Na blazino (da mettere sul cuscino)? No, in testa! Ah ah!" } }
         ] },
-        { "who": "nejc", "sl": "Ti si detektiv! Grem, mama kliče. Čav!", "en": "You are a detective! I am off, mum is calling. Bye! (čav: Primorska for bye)", "de": "Du bist ein Detektiv! Ich geh, Mama ruft. Tschüss! (čav: in Primorska „tschüss“)", "it": "Sei un detective! Vado, la mamma mi chiama. Ciao! (čav: il ciao della Primorska)" },
+        { "who": "nejc", "sl": "Ti si detektiv! Grem, mama kliče. Čav!", "en": "You are a detective! I am off, mum is calling. Bye! (čav: Primorska for bye)", "de": "Du bist ein Detektiv! Ich geh, Mama ruft. Tschüss! (čav: in Primorska „tschüss“)", "it": "Sei un detective! Vado, la mamma mi chiama. Ciao! (čav: il ciao della Primorska)", "act": { "nejc": { "to": "door" } } },
         { "choices": [
           { "sl": "Čav, Nejc! Pazi na kapo!", "en": "Bye, Nejc! Look after the hat!", "de": "Tschüss, Nejc! Pass auf die Mütze auf!", "it": "Ciao, Nejc! Attento al berretto!", "ok": true,
             "reply": { "sl": "Bom! Ha ha!", "en": "I will! Ha ha!", "de": "Mach ich! Haha!", "it": "Sì, sì! Ah ah!" } },
@@ -337,7 +337,7 @@
       "id": "odeja-caj",
       "memory": { "sl": "odejo in čaj z medom, ki sem ti ju prinesla", "en": "the blanket and the tea with honey I brought you", "de": "die Decke und den Tee mit Honig, die ich dir gebracht habe", "it": "la coperta e il tè col miele che ti ho portato" },
       "lines": [
-        { "who": "babica", "sl": "{learner}? Še {m:buden|f:budna}? Prinesla sem odejo. In vroč čaj!", "en": "{learner}? Still awake? I have brought a blanket. And hot tea!", "de": "{learner}? Noch wach? Ich habe eine Decke gebracht. Und heißen Tee!", "it": "{learner}? Ancora {m:sveglio|f:sveglia}? Ti ho portato una coperta. E il tè caldo!" },
+        { "who": "babica", "sl": "{learner}? Še {m:buden|f:budna}? Prinesla sem odejo. In vroč čaj!", "en": "{learner}? Still awake? I have brought a blanket. And hot tea!", "de": "{learner}? Noch wach? Ich habe eine Decke gebracht. Und heißen Tee!", "it": "{learner}? Ancora {m:sveglio|f:sveglia}? Ti ho portato una coperta. E il tè caldo!", "act": { "babica": { "to": "left" } } },
         { "choices": [
           { "sl": "Še ne spim. Hvala, babica! Je čaj z med?", "en": "I'm not asleep yet. Thank you, grandma! Is the tea with honey (wrong case)?", "de": "Ich schlafe noch nicht. Danke, Oma! Ist der Tee mit Honig (falscher Fall)?", "it": "Non dormo ancora. Grazie, nonna! Il tè è con miele (caso sbagliato)?",
             "grammar": "orodnik", "why": { "en": "Z (with) takes the instrumental: z medom.", "de": "Z (mit) verlangt den Instrumental: z medom.", "it": "Z (con) vuole lo strumentale: z medom." },
@@ -388,7 +388,7 @@
           { "sl": "Iščiva jo skupaj!", "en": "Let's look for it together, the two of us!", "de": "Suchen wir zwei sie zusammen!", "it": "Cerchiamolo insieme, noi due!", "ok": true,
             "reply": { "sl": "Ja! Ti tukaj, jaz tam!", "en": "Yes! You here, me there!", "de": "Ja! Du hier, ich dort!", "it": "Sì! Tu qui, io là!" } }
         ] },
-        { "who": "nejc", "sl": "Našel sem jo! V nahrbtniku je bila. Čav, {learner}!", "en": "I found it! It was in the backpack. Bye, {learner}!", "de": "Ich hab sie gefunden! Sie war im Rucksack. Tschüss, {learner}!", "it": "L'ho trovato! Era nello zaino. Ciao, {learner}!" }
+        { "who": "nejc", "sl": "Našel sem jo! V nahrbtniku je bila. Čav, {learner}!", "en": "I found it! It was in the backpack. Bye, {learner}!", "de": "Ich hab sie gefunden! Sie war im Rucksack. Tschüss, {learner}!", "it": "L'ho trovato! Era nello zaino. Ciao, {learner}!", "act": { "nejc": { "to": "door" } } }
       ]
     },
     {

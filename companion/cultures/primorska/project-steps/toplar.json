@@ -246,6 +246,7 @@
     {
       "scene": "na-njivi",
       "words": ["deska", "streha"],
+      "sky_stays": false,
       "levels": {
         "A1": { "lines": [
           { "who": "france", "sl": "Ko dežuje, seno ne sme biti mokro.", "en": "When it rains, the hay mustn't get wet.", "de": "Wenn es regnet, darf das Heu nicht nass werden.", "it": "Quando piove, il fieno non deve bagnarsi." },
@@ -297,7 +298,7 @@
               "why": { "en": "Klobase are sausages. The roof needs planks: desk.", "de": "Klobase sind Würste. Das Dach braucht Bretter: desk.", "it": "Klobase sono le salsicce. Al tetto servono assi: desk." },
               "reply": { "sl": "Klobas? Za malico že, za streho pa ne.", "en": "Sausages? For a snack, sure, but not for the roof.", "de": "Würste? Für die Brotzeit schon, fürs Dach nicht.", "it": "Salsicce? Per merenda sì, per il tetto no." } }
           ] },
-          { "who": "france", "sl": "Glejte, oblaki! … Naj kar dežuje, toplar ima streho.", "en": "Look, clouds! … Let it rain, the toplar has a roof.", "de": "Schaut, Wolken! … Soll es ruhig regnen, der Toplar hat ein Dach.", "it": "Guardate, nuvole! … Che piova pure, il toplar ha il tetto." }
+          { "who": "france", "sl": "Glejte, oblaki! … Naj kar dežuje, toplar ima streho.", "en": "Look, clouds! … Let it rain, the toplar has a roof.", "de": "Schaut, Wolken! … Soll es ruhig regnen, der Toplar hat ein Dach.", "it": "Guardate, nuvole! … Che piova pure, il toplar ha il tetto.", "sky": { "gloom": 0.5, "wind": 0.3 } }
         ] }
       }
     },
