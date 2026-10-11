@@ -87,7 +87,7 @@ published by the tutor with `publish_scene`.
 | `pack` | the word pack the objects teach. Every object's `word` is a word id in that pack (or in the object's own `pack`), so learning a scene's words is learning pack words: they count, get reviewed and pay the village like any pack word. |
 | `objects[]` | `slot` (one of the art's slots, each at most once) and `word`; `needs`: what the village must have built for the thing to be there (see [What the village has built](#what-the-village-has-built)). The bridge serves them resolved: `sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en` copied from the pack. |
 | `people[]` | `id`, `name`, `emoji`, `art` (a sprite), `slot` (one of the art's person spots), `always` (there all day, without a happening), `villager` (their id in the cast, [VILLAGERS.md](VILLAGERS.md): the friendship grows here too). |
-| `happenings[]` | `who` (a person here), `when` (`morning` 5–11, `afternoon` 11–17, `evening` 17–22, `night` 22–5, `dawn`: the morning's first two or three hours round the month's sunrise, see [What's on today](#whats-on-today); empty = all day), `weekdays` (1 = Monday … 7), `months` (1 = January … 12, the months it is on in: the hay `[6, 7, 8, 9]`; empty = all year, see [Seasons](#seasons-in-their-months)), `chance` (per day), `dialog`, `dialogs` (its variants, see [Variants](#variants-not-the-same-dialog-every-time)), `reward` (`food`, `wood`, `stone`, `wisdom`; paid once a day when the dialog is done), `marker` (emoji for the village bubble), `needs` (the earliest age, `"vas"`, or what the village must have built, as an object's), `memory` (`{sl, en}`: what the person remembers afterwards, fitting "Še vedno mislim na …"), `guests` (`true`: only a visitor from a linked town meets it, see [Dialogs for guests](#dialogs-for-guests)), `stories` (`true`: the person tells tonight's story instead of a `dialog`, see [Stories](#stories-the-evening-story)). |
+| `happenings[]` | `who` (a person here), `when` (`morning` 5–11, `afternoon` 11–17, `evening` 17–22, `night` 22–5, `dawn`: the morning's first two or three hours round the month's sunrise, see [What's on today](#whats-on-today); empty = all day), `weekdays` (1 = Monday … 7), `months` (1 = January … 12, the months it is on in: the hay `[6, 7, 8, 9]`; empty = all year, see [Seasons](#seasons-in-their-months)), `chance` (per day), `dialog`, `dialogs` (its variants, see [Variants](#variants-not-the-same-dialog-every-time)), `reward` (`food`, `wood`, `stone`, `wisdom`; paid once a day when the dialog is done), `marker` (emoji for the village bubble), `needs` (the earliest age, `"vas"`, or what the village must have built, as an object's), `memory` (`{sl, en}`: what the person remembers afterwards, fitting "Še vedno mislim na …"), `guests` (`true`: only a visitor from a linked town meets it, see [Dialogs for guests](#dialogs-for-guests)), `stories` (`true`: the person tells tonight's story instead of a `dialog`, see [Stories](#stories-the-evening-story)), `act` (in an art with a stage: where its people wait for the learner, as a line's stage directions say it, and its dialogs start from there: Nejc in his bed, see [Stage directions](#stage-directions-people-move-on-cue)). |
 | `dialogs[]` | `lines`: someone's line (`who`, `sl`, `en`) or the learner's turn (`choices`: 2–3, one `ok` or two where people would accept either, and at least one wrong; a right one may carry the other person's `reply`; a wrong one says `why` and carries their reaction as its `reply`, see [Reactions and more than one right answer](#reactions-and-more-than-one-right-answer); a why that is a rule names its grammar book page, `grammar`, see [A why that is a rule of the grammar book](#a-why-that-is-a-rule-of-the-grammar-book); the turn may carry a `puzzled` reaction for a wrong answer without its own, see [Adaptive turns](#adaptive-turns) and [Own traps](#own-traps)). 3–8 lines. `talk`: an optional role-play scenario to go on with the tutor. A line and a reply may carry a `sky` cue and an `fx` cue, and the dialog `sky_stays` and `fx_stays` (see [Sky cues](#sky-cues-the-weather-in-a-dialog) and [Effects](#effects-the-place-joins-in)); in an art with a stage, an `act` cue and `act_stays` (see [Stage directions](#stage-directions-people-move-on-cue)), and a turn's choices may each stand for a place in the picture, `tap` (see [Tap turns](#tap-turns-answer-by-tapping-the-scene)). `guests` (`true`): the dialog is for a guest, and so is every happening that plays it. Who can be named: anyone of the cast, but a happening whose texts name someone is on only while they're in the village and met ([What's on today](#whats-on-today)): name whom the scene is about and whom they'd be with (Micka at the market with Marko at his stall), not someone the place doesn't bring. A dialog may also say `count` (a number from the village, see [Numbers](#numbers-counting-what-the-village-has)), `memory` (what the person remembers of this variant, instead of the happening's), `months` (the months it plays in, within its happening's: a variant about the snow in winter, see [Seasons](#seasons-in-their-months)), `words` (the learner's words a tutor's variant weaves in, each the tested element of a turn, see [Your words in the dialogs](#your-words-in-the-dialogs)) and, a tutor's, `source: "tutor"`. |
 | `variants[]` | more dialogs, the same as `dialogs[]`: the happenings' other variants. The curated scenes keep them here, because an older bridge reads at most 12 `dialogs` (and skips a scene with more) and leaves `variants` out; the bridge serves them to the app in `dialogs`. At most 36. |
 
@@ -775,7 +775,9 @@ speakers), whoever speaks drawn talking and the one the learner answers reacting
 wheel as the water comes, the bell when the clock first strikes) play there. Without its scene (the square in a Zaselek,
 the chapel's road, which has no scene), it is played over the village (`ui/scene/ProjectStepScene.kt`), as an arrival is:
 its people side by side on a backdrop of where it happens (the forest, the square, the field …, else the leader's place),
-the leader first and big, the dialog below; a tap turn is chosen there.
+the leader first and big, the dialog below; a tap turn is chosen there. Of its cues only a `bell` plays there: the line that
+rings it ("Cin, cin, cin!" as the chapel's little bell is hung) rings a little bell over the village, high and quick
+(`Sfx.VILLAGE`), and a bell swings in the backdrop's top corner, its rings going out, while its peal lasts.
 
 **Who says what** (`Projects.cast`): the leader their own lines; a helper theirs when they are in the village and met,
 else another of the project's helpers who is (a child for a child), else anyone else of the village of their age, else the
@@ -805,7 +807,7 @@ so a project is also where new words come from; the packs screen lists the proje
 | `steps[]` | one per step of the project, in order; `null` (or a file shorter than the project): that step is the practice it always was |
 | `steps[].scene` | the scene id it is played in (one of the village's language or the pack's own); none: over the village |
 | `steps[].words` | 1–3 word ids of the pack its turns test, at every level |
-| `steps[].levels` | `"A1"`, `"A2"` (at least): `{"lines": […]}`, 4–7 of a scene dialog's lines, 1–3 turns, said by the leader (at least once) and the helpers; a reaction and a why to every wrong choice; a tap turn and `sky`/`fx` cues only with a scene (its art's places and effects, never a thing that comes and goes: an animal, a well or a mill not built yet); no `act` (its people are who is here today) |
+| `steps[].levels` | `"A1"`, `"A2"` (at least): `{"lines": […]}`, 4–7 of a scene dialog's lines, 1–3 turns, said by the leader (at least once) and the helpers; a reaction and a why to every wrong choice; a tap turn and `sky`/`fx` cues only with a scene (its art's places and effects, never a thing that comes and goes: an animal, a well or a mill not built yet), over the village (no scene) only `fx: {"bell": …}` (the bridge's `OVER_VILLAGE_FX`); no `act` (its people are who is here today) |
 | `steps[].sky_stays`, `fx_stays` | as a scene dialog's |
 
 The app bundles them with the pack (`app/build.gradle.kts`, `CulturePacks`) and reads them leniently (`Cultures.projectSteps`:
@@ -927,9 +929,10 @@ home in the shafts), for the market's `hen` how far she has got from her coop on
 
 Some effects sound as they come on ([GAME.md](GAME.md#background-sounds)): a `bell` rings a peal, the `cowbells` clank, the
 `sheepbells` clink (one close by in the forest, the flock's far off from the fire),
-the `oven`, the `stove`, the `forge` and the campfire's `flare` catch with a whoosh, and the smithy's `sparks` bring the
-smith's blows on the anvil. They don't duck under the voice saying the line that brings them, as the other background
-sounds do: the peal rings with Tine's "Vlečem! Bim, bam!" at the background's own level, not 10 dB under it.
+the `oven`, the `stove`, the `forge` and the campfire's `flare` catch with a whoosh, the smithy's `sparks` bring the
+smith's blows on the anvil, and the workshop's `hammer` a knock each time it comes down on the nail. They don't duck under
+the voice saying the line that brings them, as the other background sounds do: the peal rings with Tine's "Vlečem! Bim,
+bam!" at the background's own level, not 10 dB under it.
 
 The effects go with the dialog when it closes, unless it says `"fx_stays": true`: then the ones it ended with
 stay in its scene until midnight (`GameState.sceneFx`, by scene), like the lantern Luka lit. A reaction's effect
@@ -950,7 +953,9 @@ speak they are drawn talking.
 
 In an art with a stage, a dialog can move its people: Jan asks Luka into the tent out of the rain and Luka comes in and sits
 down by the lantern; Zala says "Ti mižiš, jaz se skrijem!" and when Jan has counted to ten she is gone, hidden behind the
-door with a braid showing past it. A line or a reply carries an `act` cue: for each person it names, where they go (`to`: a
+door with a braid showing past it; Nejc lies in his bed mumbling "Še pet minut …", sits up on its edge with "Dobro,
+vstajam" and goes to the chest for his trousers; Tine is lifted up to the bell's rope and rides up and down with it. A line
+or a reply carries an `act` cue: for each person it names, where they go (`to`: a
 spot of the art's stage) and how (`pose`). `to` alone: they take the spot's first pose there (they stand; on the logs by
 the fire and by the tent's lantern they sit); `pose` alone: they take it where they are. The app (`Stage.arrive`,
 `Stage.firstPose`) and the bridge's check (`stageErrors`) follow the one rule, and everyone starts on their spot in its
@@ -965,14 +970,24 @@ first pose.
 |---|---|
 | `act.<person>` | a person of the scene (their `id`); a cue names at least one |
 | `act.<person>.to` | a spot of the art's stage (the table below); every person spot of an art with a stage is one of its spots, and its first pose is how people are there by themselves (on the campfire's logs they sit) |
-| `act.<person>.pose` | `stand`, `sit`, `crouch` (squatting), `hide` (only a clue shows), `peek` (half out of the hiding place), `lie`: one the spot has |
+| `act.<person>.pose` | `stand`, `sit`, `crouch` (squatting), `hide` (only a clue shows), `peek` (half out of the hiding place), `lie` (lying awake: in a bed under its cover, else on the floor on a pillow under a blanket), `sleep` (the same asleep: the eyes shut, the Zzz rising): one the spot has |
 | `act_stays` (dialog) | `true`: where it leaves people stays until midnight; by default they go back to their spots when it closes. Only with an `act` cue on a line or a reply to a right choice |
+| `act` (happening) | where its people wait for the learner, a cue as a line's (`{"nejc": {"to": "in-bed"}}`): the scene shows them there while it is on, its marker over them, and each of its dialogs starts from there; done, they are back on their spots |
 
 The timing is the sky's and the effects': a line's cue plays when the line is said (a learner's turn: when it comes up), a
 right choice's reply's when the reply follows, and a reaction's passes with the learner's next pick (Zala peeks out of her
 hiding place at a wrong guess, "Tu me ni! Hi hi!", and is gone again at the next one). A cue is followed from where the person
-is (their spot in the scene, or where an earlier cue or today put them): `DialogRun.act` and `Dialog.actAt` in
-`game/scene/Stage.kt`, pure.
+is (their spot in the scene, where its happening has them wait, or where an earlier cue or today put them): `DialogRun.act`
+and `Dialog.actAt` in `game/scene/Stage.kt`, pure.
+
+**Waiting somewhere** (a happening's `act`, `Stage.base`): a happening may have its people somewhere other than their spot
+while it is on, as a line's cue would put them. Nejc's waking-up (`v-podstresju/vstani`) has him lying in his bed until Jan
+comes (`{"nejc": {"to": "in-bed"}}`, the spot's first pose: `lie`), its ⏰ over him there, and every variant starts from it:
+"Mmm … še pet minut …" in bed, "Dobro, vstajam" sitting up on its edge (`{"pose": "sit"}`), then by the bed, at the chest for
+his trousers or off down the stairs. At night in the burja he is in bed too, sits up when the window bangs open and falls
+asleep once Jan has said good night (`sleep`); Zala, in the tent for a story, lies tucked in on the rug (`{"pose": "lie"}`)
+and drops off before its end. The happening done (its dialog heard), they are back where their day has them (in their bed
+at night: [Asleep at night](#asleep-at-night)).
 
 **How they get there** (`DioramaPainter.cast`, drawn from the time since they set off, so the scene's canvas and its closer
 look agree): a walk from spot to spot, 0.7–1.9 s by how far, with the sprites' walking look and turned the way they go, round
@@ -992,21 +1007,29 @@ midnight, and they stay in the scene, their happening done or not, while they ar
 by the lantern while the rain goes on. At night whoever sleeps in the scene goes to bed as always.
 
 The bridge checks the cues (`stageErrors` in `bridge/src/scenes.ts`): the people are the scene's, each spot the art's
-stage's and each pose the spot's, followed line by line through the dialog; an art without a stage has no cues, and nor has
-a story by the fire, an introduction or a keeper's talk (no picture). An older app reads past `act` and `act_stays` (its
-people stay where they stand), and a bridge from before stage directions strips them and serves the scene as before.
+stage's and each pose the spot's, followed line by line through the dialog from where the happening that plays it has them
+wait (and that, as a first line's cue); an art without a stage has no cues, and nor has a story by the fire, an
+introduction or a keeper's talk (no picture). An older app reads past `act` and `act_stays` (its people stay where they
+stand) and a happening's `act` (they wait on their spots), and a bridge from before stage directions strips them and serves
+the scene as before; a bridge from before a stage (the attic's, the smithy's, the church's) or a pose (`sleep`) refuses the
+scene that uses it, so the content goes out after the bridge.
 
 | Art | Spots (poses) | Hiding places: what hides them, what shows of someone there |
 |---|---|---|
 | `livingroom` | `stove`, `table`, `door` (stand: the person spots); `bench` (sit: on the zapeček along the stove); `under-table`, `behind-door` (stand, hide, peek) | `under-table`: crouched under the corner table, its top and cloth over them, their shoes and a bit of their clothes under it; peeking, crouched at its front corner, the head out under the cloth; standing, beside the table (the `table` hides it: a tap on the table is a tap there). `behind-door`: the door stands open, its leaf at right angles to the wall and a hand off the floor, and they stand pressed to the wall behind it, a braid or a sleeve past its sides and the shoes under it; peeking, half out past its edge; standing, in front of the open door (the `door`). Muri hides there too, as an effect, not a person: `dog-hides` ([Arts](#arts)) |
 | `campfire` | `left`, `right` (sit: the person spots, on the logs by the fire); `back` (stand: the person spot, between the fire and the tent, where the children play); `behind-stump`, `behind-logs` (stand, hide, peek) | `behind-stump`: crouched behind the stump in front, toward the fire, the hair and an ear over its cut; peeking, crouched at its left, in full view; standing, at its left (the `stump` hides it). `behind-logs`: standing between the woodpile and the trees, the top of the head over the top logs; peeking, crouched at the pile's near end; standing, in front of the pile (the `logs`) |
-| `tent` | `left`, `right`, `door` (stand: the person spots); `lantern` (sit, stand: on the bedroll behind the table, under the lantern and the roof) | none. Walking in from `door` (the meadow) to the `lantern`, they come through the open front; the weather keeps off them inside as off the tent's inside ([Sky cues](#sky-cues-the-weather-in-a-dialog)) |
+| `tent` | `left` (stand; lie, sleep: on the rug, on a pillow of their own under a red wool blanket), `right`, `door` (stand: the person spots); `lantern` (sit, stand: on the bedroll behind the table, under the lantern and the roof) | none. Walking in from `door` (the meadow) to the `lantern`, they come through the open front; the weather keeps off them inside as off the tent's inside ([Sky cues](#sky-cues-the-weather-in-a-dialog)) |
+| `attic` | `bed` (stand: by Nejc's bed, in front of the rug), `chest`, `stairs` (stand: the person spots); `in-bed` (lie: on their back in Nejc's bed under his patchwork quilt, the head on its pillow, awake; sit: on its edge, the feet down, getting up; sleep: asleep in it as at night) | none |
+| `smithy` | `anvil`, `forge`, `door` (stand: the person spots; in the doorway Tone has his coffee while Nejc minds the bellows); a walk goes round the anvil | none |
+| `church` | `altar`, `aisle`, `door` (stand: the person spots); `rope` (stand: held up to the bell's rope by the door, a hand on it up by the head, the feet off the floor, riding up and down with it while the bell swings; the rope ends in their hand); a walk goes round the pews | none |
 
-`StageTest` and `DialogTapTest` check where everyone is after each step, what a reaction and a day keep, and the moves;
-`StageRenderTest` that every spot and pose draws at every detail as the whole picture does, the hits in place, the hidden
-untappable, a clue showing, a peek showing more, no rain on Luka by the lantern or on his way in, Muri's tail to tap behind
-the door, and renders the living room's, the tent's and the hide-and-seek by the fire and with Muri for review
-(`build/scene-snapshots/stage`).
+`StageTest` and `DialogTapTest` check where everyone is after each step, what a reaction, a day and a waiting happening
+keep, and the moves; `StageRenderTest` that every spot and pose draws at every detail as the whole picture does, the hits in
+place, the hidden untappable, a clue showing, a peek showing more, no rain on Luka by the lantern or on his way in, Muri's tail
+to tap behind the door, and renders the living room's, the tent's and the hide-and-seek by the fire and with Muri for review
+(`build/scene-snapshots/stage`), and the cues of the attic, the tent, the smithy and the church: Nejc in his bed, sitting up
+and getting up, the burja's window, Zala tucked in and asleep, Tone in the doorway and back, Tine on the rope, the church door
+open (`stage/cues`).
 
 ### Tap turns: answer by tapping the scene
 
@@ -1191,9 +1214,9 @@ night after midnight is still the evening's), so they stay all through it, diffe
 village to another, the rare ones rarely; where each is (`Wildlife.spot`) changes too. An animal that is a word of its
 scene (an object slot, in the scene's objects with its word from the map's animals' pack `zivali-v-gozdu`, or `na-prezi`, the
 hunter's (the stag, the dormouse, the butterfly, the high seat), or its own pack's: the chamois
-and the ibex are `v-gorah`'s) is there to tap and to find only while it is out; a dialog's cue (`herd`, `fox`, `bats`)
-brings it as scenery the day hasn't (the field's `hare` brings one of its own, startled out of the grass by the fence;
-the day's hare in the potatoes stays a word). The painters take the village and the date from `SceneFrame.village` and `day`; a
+and the ibex are `v-gorah`'s) is there to tap and to find only while it is out; a dialog's cue (`herd`, `fox`, `bats`, the
+mountains' `ibex`) brings it as scenery the day hasn't (the field's `hare` brings one of its own, startled out of the grass
+by the fence; the day's hare in the potatoes stays a word). The painters take the village and the date from `SceneFrame.village` and `day`; a
 test or a tool names the animals out with `SceneFrame.wild` (all of them: `Wildlife.all`). `WildlifeRenderTest` renders
 the forest at dawn, by day, at dusk and at night (the day's mix, four days side by side, and every animal at once, with the
 hunter on his high seat) and the other outdoor scenes with all their animals (`build/scene-snapshots/wild`).
@@ -1231,7 +1254,7 @@ hasn't built yet.
 | ko je luna na nebu · when the moon is up | 🌕 | the campfire's moon: the real one, up and not new |
 | razen pozimi · except in winter; spomladi, poleti, jeseni, pozimi | 🌿; 🌸 🌻 🍂 ❄️ | the animals asleep in winter (an animal's months) |
 | včasih · sometimes | 🎲 | the day's dice: a wild animal isn't out every day |
-| spet jutri · again tomorrow | 🔄 | what a dialog's effect sent away for the day: the market's pigeons flown off, the bats a cue has none of |
+| spet jutri · again tomorrow | 🔄 | what a dialog's effect sent away for the day: the market's pigeons flown off, the forest's owl flown off her branch, the bats a cue has none of |
 | zgradi: Kozolec · build: Hayrack | 🏗️🪜 | a thing whose building doesn't stand yet ([What the village has built](#what-the-village-has-built)); at a level: "Kovačnica, stopnja 2" |
 | nadgradi na stopnjo 3 · upgrade to level 3 | ⬆️3 | a room's thing of a higher level (the kitchen's clock) |
 | dokončaj: Mlin na potoku · finish: The mill on the stream | 🏗️ and the project's emoji | a project's fixture (France's mill by the stream) |
@@ -1241,8 +1264,9 @@ hasn't built yet.
 Where the "when" comes from: one pure function per thing, `SceneSights.visibleNow(art, object, frame)` (there in the
 scene's world, `SceneFixtures`, and shown by the frame) and `SceneSights.whenShown(art, object, world, fx)` (the hints). The
 painters draw by the same conditions: the campfire's stars (`starsOut`) and moon (`moonUp`), the square's sun (`sunUp`),
-the market's pigeons flown off (`flownAway`), the bats a cue brings (`Wildlife.bats`), the wild animals out
-(`Wildlife.out`), what is built (`SceneFixtures`). So the chips never disagree with the picture: `SceneSightsRenderTest`
+the market's pigeons and the forest's owl flown off (`flownAway`), the bats a cue brings (`Wildlife.bats`), the wild
+animals out (`Wildlife.out`), what is built (`SceneFixtures`). So the chips never disagree with the picture:
+`SceneSightsRenderTest`
 renders every art over whole days in the four seasons, at the moon's phases, under the real sky, in every weather, with the
 day's wild animals of a few villages, every effect low and high and each world (nothing built, a room at each level,
 everything), and checks every thing's chip against the painter's hits. Nothing else comes and goes as a word: the rain,
@@ -1771,30 +1795,30 @@ and the barrel that became the Wörthersee; the cuckoo over the wall, the Lady o
 ## Arts
 
 Nominal canvas 240×160, landscape; wider or taller views get more floor, wall or sky. Each art draws
-all of its object slots (a slot without content is scenery, not tappable) and returns hit areas. The living room and the
-tent have a stage besides: spots a dialog can send its people to, to stand, sit or hide (see [Stage
-directions](#stage-directions-people-move-on-cue), with their spots and poses).
+all of its object slots (a slot without content is scenery, not tappable) and returns hit areas. The living room, the
+campfire, the tent, the attic, the smithy and the church have a stage besides: spots a dialog can send its people to, to
+stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on-cue), with their spots and poses).
 
 | Art | Object slots | Person spots | Effects (`fx`) |
 |---|---|---|---|
-| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?") |
+| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `embers` (the fire burns down: the flames lower and fewer, no sparks, a thread of smoke and a smaller light; 1: only the embers glowing red in the ash; Rosa's and Resi's "the fire is small now"), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?") |
 | `kitchen` | stove, pot, bowl, table, chair, bread, plate, glass, cup, spoon, fork, knife, window, door, cupboard, clock, milk, eggs, water, salt, potatoes, hearth, bench, bed, shelf, curtains, corner (by the level: see [What the village has built](#what-the-village-has-built)) | stove, table, door | `oven` (the stove fired up, smoke from the chimney; at level 1 the hearth's fire burns higher), `steam` (off the cup and the bowl) |
-| `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many), `sheepbells` (the brass bell under the lost sheep's chin swings and rings, its clinks going out, each at an end of its swing: `Sfx.SHEEP_BELL_SWING`; Luka's "Slišiš? Zvonec!") |
+| `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many), `sheepbells` (the brass bell under the lost sheep's chin swings and rings, its clinks going out, each at an end of its swing: `Sfx.SHEEP_BELL_SWING`; Luka's "Slišiš? Zvonec!"), `owl-flies` (the owl spreads her wings and flies off her branch, up and away across the clearing into the far trees, how far she has flown; at 1 she is gone, the branch bare, and her word with her, as the market's pigeons: [The words panel](#the-words-panel-here-now-seen-before-still-hidden); "Huu … odletela je") |
 | `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings) |
 | `tent` | lantern, sleepingbag, blanket, pillow, backpack, map, boots, coat, hat, book, cup, rope | left, right, door | `lantern` (0 dark, 1 lit) |
 | `field` | wheat, corn, potatoes, cabbage, kozolec, hay, scythe, rake, basket, cart, scarecrow, fence, path, horse; the wild: deer, hare, butterfly, fox, boar, bat | field, kozolec, path | `crows` (crows come to the scarecrow), `bell` (the church bell on the hill, its rings coming over the fields; not set: the ave, a few minutes round sunset), `bats`, `hare` (a clump of tall grass by the fence stirs, up to 0.4; then a hare leaps out over the track and bounds off over the meadow: how far, 1 gone; one cue to 1 on France's "Tiho … nekaj se premika v travi" has the grass stir for two seconds and the hare out and away in the next two), `horse` (Sivko: 0 away beyond the picture's left edge, the cart's shafts down on the grass; rising, he walks back over the meadow in front of the kozolec, scenery until about halfway, when he is in the picture of every width, then the horse to tap; 1 home in the shafts, as not set), `hat` (the scarecrow's straw hat: 0 gone, straw sticking out of the sack; above 0 the learner's big felt hat drops onto its head, and toward 1 slips down onto its nose; not set: the straw hat), `scarf` (a red wool scarf round its neck, its ends blowing) |
 | `livingroom` | stove, bench, table, chest, window, door, dog, chair, curtains, rug, lamp, clock, corner, photo, glasses, book (by the level) | stove, table, door | `stove` (fired up: its tiles warm, a glow on the bench), `dog` (Muri awake, sitting up and wagging; at night he sleeps whatever), `dog-hides` (Muri plays hide-and-seek: off the bench and behind the open door, only his bushy tail wagging past the leaf's edge, the `dog` to tap; while Janez sleeps on the bench, Muri stays curled up by him) |
-| `workshop` | workbench, hammer, nails, boards, axe, broom, window, door, saw, tools, ladder, rake, wheelbarrow, horse, lantern (by the level) | bench, floor, door | `dust` (sawdust flying off the vice as a board is sawn) |
+| `workshop` | workbench, hammer, nails, boards, axe, broom, window, door, saw, tools, ladder, rake, wheelbarrow, horse, lantern (by the level) | bench, floor, door | `dust` (sawdust flying off the vice as a board is sawn), `hammer` (a board laid across the bench by the vice, a nail in it, and the hammer up in the hand of whoever stands at the bench, coming down on it every 0.75 s, a puff of sawdust and a knock each time: France's "Ena, dva … bum!") |
 | `cellar` | barrel, press, stairs, door, window, candle, jug, glass, crate, shelf, bottle, grapes, wine, ham, cheese (by the level) | barrel, press, stairs | `tap` (wine running from the barrel's tap into the jug, filling it), `candle` (0 out; lit, its flame flaring up the higher, as just lit; not set: lit, calm) |
-| `attic` | bed, pillow, blanket, cradle, chest, roof, window, stairs, wardrobe, rug, lamp, ball, mirror, toy (by the level) | bed, chest, stairs | `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (the cradle rocks: how far) |
-| `smithy` | forge, fire, anvil, hammer, tongs, bellows, horseshoe, nails, bucket, chain, axe, wheel, window, door | anvil, forge, door | `forge` (the forge roars), `sparks` (sparks off the anvil at every blow) |
+| `attic` | bed, pillow, blanket, cradle, chest, roof, window, stairs, wardrobe, rug, lamp, ball, mirror, toy (by the level) | bed, chest, stairs (a stage, with Nejc's bed) | `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (the cradle rocks: how far), `window` (the gable window blown open by the burja: the night in the empty frame, the casement swung into the room, swinging in the gusts and banging back now and then, a draught of pale streaks, flakes in winter, blowing in; 0: shut) |
+| `smithy` | forge, fire, anvil, hammer, tongs, bellows, horseshoe, nails, bucket, chain, axe, wheel, window, door | anvil, forge, door (a stage) | `forge` (the forge roars), `sparks` (sparks off the anvil at every blow) |
 | `school` | blackboard, chalk, sponge, desk, chair, book, notebook, pencil, bag, map, globe, clock, window, door | teacher, desk1, desk2, door | none yet |
 | `hills` | vineyard, vine, grapes, hill, church, belltower, farmhouse, cypress, persimmon, wall, mountains, sea, road, crate | vines, wall, road | `bell` (the bell swings in the tower, its rings go out), `tractor` (a tractor with six crates comes down the track: how far it has come), `starlings` (a flock rises off the vines and wheels away) |
 | `sea` | sea, lagoon, casone, boat, posts, gull, wave, beach, pier, shell, fish, net, horizon, crab | beach, pier, boat | `waves` (the sea rises, breakers burst white, spray), `gulls` (the gulls off the bricole, one by one), `sail` (the batela's ochre sail with its sun goes up) |
-| `alps` | mountain, peak, lake, church, bridge, pasture, hut, cow, cowbell, larch, spruce, waterfall, stream, stone, wall, path; the wild: chamois, ibex | path, wall, stream | `cowbells` (the cows' bells swing and ring: how loud), `bell` (the church bell by the lake swings, its rings go out), `fish` (a fish jumps out of the lake again and again, rings on the water), `birds` (alpine choughs off the crags and away: how far they have flown), `glow` (the alpenglow: how pink the peaks; not set: at sunrise and sunset) |
+| `alps` | mountain, peak, lake, church, bridge, pasture, hut, cow, cowbell, larch, spruce, waterfall, stream, stone, wall, path; the wild: chamois, ibex | path, wall, stream | `cowbells` (the cows' bells swing and ring: how loud), `bell` (the church bell by the lake swings, its rings go out), `fish` (a fish jumps out of the lake again and again, rings on the water), `birds` (alpine choughs off the crags and away: how far they have flown), `glow` (the alpenglow: how pink the peaks; not set: at sunrise and sunset), `ibex` (the ibex climbs onto a crag at the pasture's brow, right of the stream against the lake, from behind it, his horns first, how far up; 1: on top. Whatever the day has out, as scenery then, not the word to tap: Janez's "Poglej gor, na skalo") |
 | `stream` | stream, stones, bridge, willow, trout, dragonfly, cress, mill, laundry, sheep; the wild: fox, hedgehog, butterfly, bat | bank, ford, mill | `trout` (a trout leaps out of the current again and again, rings where it falls back), `wheel` (the mill wheel's water, once the mill grinds: 0 the flume dry and the wheel still, 1 a full gush; not set: an easy turn), `bats`, `bell` (the village's bell, its rings coming down to the water; not set: the ave), `lamb` (a lamb in front of the drinking ewe: below 0.4 turned from the water, its head up; then it turns and its head goes down; from 0.9 it drinks, rings on the water), `hose` (the fire brigade's red hand pump on the right bank, its suction hose in the stream: 0 still; above it pumped, the beam see-sawing, a jet arcing from the nozzle over the water; from 0.6 the hose loose, rearing like a snake, the jet whipping round and spray coming down on everyone), `cart` (a horse and cart over the new bridge, once its deck is laid: how far, 0 waiting on the road at its near end, the horse grazing; up onto the deck, over the stream, down onto the far bank and up the road behind the willow, 1 gone) |
 | `pond` | pond, lilies, reeds, frog, ducks, jetty, boat, fish, heron, dragonfly; the wild: deer, fox, butterfly, bat | shore, reeds, jetty | `ducks` (wild ducks fly up out of the reeds and away), `frog` (the frog jumps off its lily pad; 1: in the water, just its eyes out), `fish` (a fish jumps again and again, rings on the water), `bats` (bats hunting low over the water), `dog` (Muri with Janez at the pond, on the grass at the jetty's foot while Janez fishes at its end: below 0.25 curled up asleep, then sitting up and wagging, from 0.75 barking at the fish, the rings of his barks going out over the water; not set: at home), `tadpoles` (tadpoles wriggling and darting in the shallows by the reeds: how many; none while the pond is frozen) |
-| `church` | altar, candles, cross, painting, pews, flowers, window, organ, font, bell, rope, door | altar, aisle, door | `candles` (1: all four on the altar lit, one by one as it rises; 0: out; not set: the middle two burn), `bell` (the bell swings in the gable over the door and rings, the rope going up and down), `organ` (notes rise from the pipes) |
+| `church` | altar, candles, cross, painting, pews, flowers, window, organ, font, bell, rope, door | altar, aisle, door (a stage, with the bell's rope) | `candles` (1: all four on the altar lit, one by one as it rises; 0: out; not set: the middle two burn), `bell` (the bell swings in the gable over the door and rings, the rope going up and down), `organ` (notes rise from the pipes), `door` (the door blown open, how far: its two leaves swung into the nave and stirring in the wind, the churchyard's day or night in the doorway, the candles' flames leaning in the draught; Babica's "Joj, veter!") |
 | `apiary` | beehouse, hive, panel, bee, honey, comb, flowers, tree, smoker, extractor, wax, bench | hives, table, bench | `swarm` (a cloud of bees rises off the hives and circles up by the linden: how many, how far), `smoke` (the smoker puffs, the smoke drifting to the hives; not set: a thin thread), `honey` (honey runs from the extractor's tap into the jar, the crank turning, the jar filling) |
 | `market` | stall, scale, weights, eggs, bread, cheese, honey, apples, vegetables, basket, crate, hen, cart, wine, pigeon, bell | stall, buyer, cart | `bustle` (a busy market day: shoppers crowd the lane and the square, how busy), `bell` (the market bell on its post swings and rings), `pigeons` (the pigeons fly up off the cobbles and wheel away: how far they have flown), `hen` (Micka's hen out of her wicker coop, which stays the `hen` to tap: on her way she flutters up over the lane, and at 1 she stands pecking on Marko's cart between the bottles and the barrel, drawn with the cart, so a tap on her there is a tap on the `cart`; falling, she flies back; 0: in her coop) |
 | `watchtower` | tower, railing, torch, horn, spyglass, flag, crow, roofs, palisade, gate, road, forest, river, valley, mountains, horizon | watch, rail, hatch | `torch` (the watch's torch: 0 out, 1 lit; not set: lit from dusk), `horn` (the horn blown, its call going out over the land: how loud), `birds` (a flock rises off the forest and wheels away: how far), `wolves` (eyes shining in the dark forest at night, grey wolves slinking over the fields by day: how many), `pedlar` (the krošnjar coming down the road from where it passes the forest's edge to the gate: how far, 1 in at the gate; a little man in a black hat and a white shirt under his krošnja, its frame higher than his hat with a sieve on top, bigger than his size so the eye finds him from up there) |

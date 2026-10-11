@@ -277,17 +277,26 @@ internal abstract class ArtPainter : ScenePainter {
 
     /**
      * Draws [p] with their feet at ([bx], [by]) in their pose (talking alone is [si.lanisce.lani.game.scene.Pose.TALK]) and registers them.
-     * Asleep ([Pose.SLEEP]) away from a bed, they lie there on a pillow of their own (see [sleeper]).
+     * Asleep ([Pose.SLEEP]) away from a bed, they lie there on a pillow of their own (see [sleeper]). [reach]: their hands at
+     * those points of the sprite's own px round ([bx], [by]) (the near one, then the far one: [PeoplePainter.draw]), holding on.
      */
-    protected fun person(p: PersonInScene, bx: Int, by: Int, flip: Boolean, walking: Boolean = false, seated: Boolean = false, crouch: Boolean = false) {
-        if (p.pose == Pose.SLEEP) {
-            val (hx, hy, dx) = people.flat(0, 0, flip)
-            sleeper(p, bx + hx * detail, by + hy * detail, bx + (hx + dx) * detail, by + hy * detail, pillow = true)
-            return
-        }
+    protected fun person(
+        p: PersonInScene, bx: Int, by: Int, flip: Boolean, walking: Boolean = false, seated: Boolean = false, crouch: Boolean = false,
+        reach: IntArray? = null,
+    ) {
+        if (p.pose == Pose.SLEEP) { lyingHere(p, bx, by, flip, awake = false); return }
         val id0 = begin(Pal.OUTLINE)
-        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch) }
+        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach) }
         end(SceneTarget.Person(p.id), id0, true, 1)
+    }
+
+    /**
+     * [p] lying on a pillow of their own where they'd stand with the feet at ([bx], [by]), facing left when [flip], under a
+     * blanket: asleep ([sleeper]), or [awake] (on the stage's `lie`: the eyes open, talking when they talk, no Zzz).
+     */
+    protected fun lyingHere(p: PersonInScene, bx: Int, by: Int, flip: Boolean, awake: Boolean) {
+        val (hx, hy, dx) = people.flat(0, 0, flip)
+        sleeper(p, bx + hx * detail, by + hy * detail, bx + (hx + dx) * detail, by + hy * detail, pillow = true, awake = awake)
     }
 
     /** Whether a frame has been drawn (the painter's last frame is there to hit-test). */
@@ -297,10 +306,18 @@ internal abstract class ArtPainter : ScenePainter {
      * Draws [p] asleep in a bed ([Pose.SLEEP], see [PeoplePainter.lying]): the head on the pillow, its middle and chin at
      * ([hx], [hy]) (the picture's px), the body under [cover] (its light, middle and dark; null for a wool blanket) along the
      * bed to the feet at ([fx], [fy]), and registers them; their Zzz rise over them in the effects pass. Tapped, they turn
-     * over; again soon after, they grumble ([Sleep.poke], played from [SceneFrame.pokes]).
+     * over; again soon after, they grumble ([Sleep.poke], played from [SceneFrame.pokes]). [awake]: lying there awake (the
+     * stage's `lie`: Nejc in his bed before he gets up), the eyes open, their mood and their talking on the face, no Zzz.
      */
-    protected fun sleeper(p: PersonInScene, hx: Int, hy: Int, fx: Int, fy: Int, cover: IntArray? = null, pillow: Boolean = false) {
+    protected fun sleeper(p: PersonInScene, hx: Int, hy: Int, fx: Int, fy: Int, cover: IntArray? = null, pillow: Boolean = false, awake: Boolean = false) {
         val seed = Noise.hash(p.id.hashCode(), 7) ushr 1
+        if (awake) {
+            val id0 = begin(Pal.OUTLINE)
+            val mood = if (p.pose == Pose.SLEEP) Pose.IDLE else p.pose
+            sprite(hx, hy) { people.lying(c, p.art, hx, hy, (fx - hx) / detail, (fy - hy) / detail, t, seed, cover, pillow, pose = mood, talking = p.talking) }
+            end(SceneTarget.Person(p.id), id0, true, 1)
+            return
+        }
         val pk = poked(Sleep.pokeId(p.id)); val a = pk?.age(t) ?: 0f
         val turn = if (pk?.step == 0) (a / Sleep.TURN_S.toFloat()).coerceIn(0f, 1f) else 0f
         val m = Sleep.MUMBLE_S.toFloat()

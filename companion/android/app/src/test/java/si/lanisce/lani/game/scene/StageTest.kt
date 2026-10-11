@@ -129,6 +129,36 @@ class StageTest {
         assertEquals(emptyMap<String, Placement>(), Stage.base(scene.copy(art = "forest"), emptyMap())) // no stage there
     }
 
+    @Test fun `a happening has its people wait where its act puts them, and its dialog starts from there`() {
+        val wake = Happening("vstani", "Vstani", "nejc", dialog = "vstani", act = mapOf("nejc" to ActCue(to = "in-bed")))
+        val attic = SceneSpec(
+            id = "v-podstresju", title = "V podstrešju", art = "attic", from = listOf("house"),
+            people = listOf(ScenePerson("nejc", "Nejc", art = "child1", slot = "bed"), ScenePerson("vida", "Vida", art = "innkeeper", slot = "chest")),
+            happenings = listOf(wake),
+        )
+        assertEquals(mapOf("nejc" to Placement("bed"), "vida" to Placement("chest")), Stage.base(attic, emptyMap()))
+        // in his bed, lying (the spot's first pose) while it waits; nobody else moved
+        val waiting = Stage.base(attic, emptyMap(), listOf(wake))
+        assertEquals(mapOf("nejc" to Placement("in-bed", "lie"), "vida" to Placement("chest")), waiting)
+        // he sits up on its edge, then goes to the chest for his trousers
+        val up = Dialog("vstani", listOf(
+            DialogLine(who = "nejc", sl = "Mmm … še pet minut.", en = "Mmm … five more minutes."),
+            DialogLine(who = "nejc", sl = "Dobro, vstajam.", en = "OK, I'm getting up.", act = mapOf("nejc" to ActCue(pose = "sit"))),
+            DialogLine(who = "nejc", sl = "Kje so moje hlače?", en = "Where are my trousers?", act = mapOf("nejc" to ActCue(to = "chest"))),
+        ))
+        assertEquals(emptyMap<String, Placement>(), up.actAt("attic", 1, emptyList(), waiting))
+        assertEquals(mapOf("nejc" to Placement("in-bed", "sit")), up.actAt("attic", 2, emptyList(), waiting))
+        assertEquals(mapOf("nejc" to Placement("chest", "stand")), up.actAt("attic", 3, emptyList(), waiting))
+        // a place its stage lacks is let go; asleep is a pose of the bed (the burja quietening down at last)
+        assertEquals(Stage.base(attic, emptyMap()), Stage.base(attic, emptyMap(), listOf(wake.copy(act = mapOf("nejc" to ActCue(to = "loft"))))))
+        assertEquals(Placement("in-bed", "sleep"), Stage.arrive("attic", Placement("in-bed", "lie"), ActCue(pose = "sleep")))
+        assertEquals(Stance.SLEEP, Placement("in-bed", "sleep").stance)
+        // the format reads it, and a file without it as before
+        val read = json.decodeFromString(Happening.serializer(), """{"id": "vstani", "title": "Vstani", "who": "nejc", "act": {"nejc": {"to": "in-bed"}}}""")
+        assertEquals(mapOf("nejc" to ActCue(to = "in-bed")), read.act)
+        assertEquals(emptyMap<String, ActCue>(), json.decodeFromString(Happening.serializer(), """{"id": "x", "title": "X", "who": "nejc"}""").act)
+    }
+
     @Test fun `on screen a new placement starts a move from where they were headed, over within MOVE_S`() {
         val people = listOf(PersonInScene("zala", "child2", "stove"), PersonInScene("janez", "grandpa", "table"))
         val e0 = StageEase.still(base)

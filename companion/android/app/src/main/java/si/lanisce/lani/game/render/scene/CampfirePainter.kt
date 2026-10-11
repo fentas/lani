@@ -1149,7 +1149,9 @@ internal class CampfirePainter : DioramaPainter() {
 
     /**
      * The fire: ashes and crossed logs, flames licking up round the kettle's belly, embers winking, sparks and smoke
-     * rising, and its light; flaring up (a dialog's "flare"), taller and wider, more sparks, a wider light.
+     * rising, and its light; flaring up (a dialog's "flare"), taller and wider, more sparks, a wider light; burning down
+     * (a dialog's "embers": how far), the flames lower and fewer, the sparks gone, a thread of smoke and a smaller light,
+     * at 1 only the embers glowing red in the ash.
      */
     private fun blaze() {
         logs(fireX, fireY, fireR)
@@ -1162,35 +1164,48 @@ internal class CampfirePainter : DioramaPainter() {
         val d = if (pk?.step == 1) 2.4f else 1.6f
         val leap = if (pk == null) 0f else (if (pk.step == 1) 1f else 0.7f) * PokeArt.ease(a, 0f, 0.12f) * (1f - PokeArt.ease(a, d * 0.35f, d))
         val flare = max(fxOn("flare"), leap)
+        // burning down: the flames shrink away to nothing over the embers
+        val low = (fxOn("embers") * (1f - flare)).coerceIn(0f, 1f)
+        val tall = 1f - 0.92f * low
         glow {
             val base = cy - 2f * K
-            val hgt = (10.5f + flick * 1.6f) * K * (1f + 0.6f * flare)
-            val wide = 1f + 0.3f * flare
-            for (tongue in 0..4) {
+            val hgt = (10.5f + flick * 1.6f) * K * (1f + 0.6f * flare) * tall
+            val wide = (1f + 0.3f * flare) * (1f - 0.35f * low)
+            if (low < 0.97f) for (tongue in 0..4) {
                 val off = (tongue - 2) * 1.9f * K * wide
                 val th = hgt * (1f - abs(tongue - 2) * 0.16f) * (0.78f + 0.22f * sin(t * (9 + tongue) + tongue * 1.7).toFloat())
                 val sway = sin(t * 6 + tongue).toFloat() * 0.8f * K
                 c.fillEllipse(cx + off + sway * 0.5f, base - th * 0.42f, 1.9f * K * wide, th * 0.5f, Pal.FLAME[3])
                 c.fillEllipse(cx + off * 0.8f + sway * 0.6f, base - th * 0.34f, 1.25f * K * wide, th * 0.36f, Pal.FLAME[2])
             }
-            c.fillEllipse(cx, base - hgt * 0.2f, 2f * K, hgt * 0.24f, Pal.FLAME[1])
-            c.fillEllipse(cx, base - hgt * 0.08f, 1.3f * K, hgt * 0.11f, Pal.FLAME[0])
-            if (detail >= 2) licks(cx, base, hgt)
+            if (low < 0.97f) {
+                c.fillEllipse(cx, base - hgt * 0.2f, 2f * K * wide, hgt * 0.24f, Pal.FLAME[1])
+                c.fillEllipse(cx, base - hgt * 0.08f, 1.3f * K * wide, hgt * 0.11f, Pal.FLAME[0])
+                if (detail >= 2) licks(cx, base, hgt)
+            }
             for (e in 0 until 7) {
                 val ex = (cx + (Noise.rnd(e, 35) - 0.5f) * fireR * 5f * K).toInt(); val ey = (cy - Noise.rnd(e, 36) * K * 1.5f).toInt()
                 if (sin(t * 3 + e) > -0.3) dot(ex, ey, Pal.FLAME[if (e % 2 == 0) 2 else 3])
             }
+            // burnt down: the embers along the logs glow and dim in turn
+            if (low > 0.3f) for (e in 0 until 9) {
+                val ex = (cx + (Noise.rnd(e, 37) - 0.5f) * fireR * 3.6f * K).toInt(); val ey = (cy - K - Noise.rnd(e, 38) * K * 2.2f).toInt()
+                val glowNow = sin(t * (1.3 + Noise.rnd(e, 39)) + e * 1.7) * 0.5 + 0.5
+                if (glowNow > 0.25) dot(ex, ey, if (glowNow > 0.75) Pal.FLAME[2] else Pal.FLAME[3])
+            }
         }
         val q = detail
-        s.sparks(cx - 5f * q, cy - 16f * q, 3, 1)
-        s.sparks(cx + 8f * q, cy - 18f * q, 2, 2)
+        if (low < 0.6f) {
+            s.sparks(cx - 5f * q, cy - 16f * q, 3, 1)
+            s.sparks(cx + 8f * q, cy - 18f * q, 2, 2)
+        }
         if (flare > 0.05f) s.sparks(cx + 1f * q, cy - 22f * q, (3 + 7 * flare).toInt(), 4)
         if (pk != null) s.fx {
             val big = pk.step == 1
             PokeArt.sparks(c, cx, cy - 5f * K, a / (d * 0.8f), if (big) 30 else 16, 17 + pk.step, if (big) 34f * K else 24f * K, if (big) 40f * K else 28f * K, detail + 1, fall = 1.1f)
         }
-        s.smoke(cx + 2f * q, cy - 48f * q, 1.1f, 3)
-        s.light(cx, cy - 7f * K, 44f + 26f * flare, 0.92f + flick * 0.06f + 0.3f * flare)
+        s.smoke(cx + 2f * q, cy - 48f * q * tall, 1.1f * (1f - 0.6f * low), 3)
+        s.light(cx, cy - 7f * K * tall, (44f + 26f * flare) * (1f - 0.55f * low), (0.92f + flick * 0.06f + 0.3f * flare) * (1f - 0.5f * low))
     }
 
     /** Closer up, the embers in the ash bed under the logs: coals glowing and dimming in turn, grey ash between. */

@@ -106,10 +106,11 @@ internal abstract class DioramaPainter : ArtPainter() {
 
     /**
      * A person of the frame asleep in a bed ([ArtPainter.sleeper]): the head's middle and chin at world ([hx], [hy], [hz]) on
-     * the pillow, the feet at ([fx], [fy], [fz]) along the bed, under [cover] (null: a wool blanket).
+     * the pillow, the feet at ([fx], [fy], [fz]) along the bed, under [cover] (null: a wool blanket); [awake]: lying there
+     * awake (the stage's `lie`).
      */
-    protected fun sleeperAt(p: PersonInScene, hx: Float, hy: Float, hz: Float, fx: Float, fy: Float, fz: Float, cover: IntArray? = null, pillow: Boolean = false) {
-        sleeper(p, sx(hx, hy), sy(hx, hy, hz), sx(fx, fy), sy(fx, fy, fz), cover, pillow)
+    protected fun sleeperAt(p: PersonInScene, hx: Float, hy: Float, hz: Float, fx: Float, fy: Float, fz: Float, cover: IntArray? = null, pillow: Boolean = false, awake: Boolean = false) {
+        sleeper(p, sx(hx, hy), sy(hx, hy, hz), sx(fx, fy), sy(fx, fy, fz), cover, pillow, awake)
     }
 
     // ------------------------------------------------------------------ beds for the night (companion/SCENES.md, "Asleep at night")
@@ -285,12 +286,11 @@ internal abstract class DioramaPainter : ArtPainter() {
      * ([PersonInScene.from]): out of hiding first with a hop and a puff where they hid ([POP_S]), then a walk from spot to
      * spot ([walkS], round what is [around], the walking look, turned the way they go; drawn at the first spot's layer for the first half, the
      * second's after), or a dash into hiding (a puff where they stood, [SLIP_S]: nobody sees where they went), the hiding
-     * place showing its clue once they are gone. Someone asleep is the painter's (in a bed); someone at a spot the stage
-     * lacks is not drawn here.
+     * place showing its clue once they are gone. Someone asleep in a bed is the painter's (a bed is no spot of the stage), and
+     * so is anyone at a spot the stage lacks: not drawn here.
      */
     protected fun cast(layer: String) {
         for (p in frame.people) {
-            if (p.pose == Pose.SLEEP) continue
             val to = marks[p.slot] ?: continue
             val a = p.from
             val from = a?.let { marks[it] }
@@ -352,7 +352,8 @@ internal abstract class DioramaPainter : ArtPainter() {
 
     /**
      * [p] at [spot] ([m]) in [stance], [lift] sprite px up (a hop): standing, sitting on the seat there, crouching,
-     * lying on the floor, or hiding ([hiding]: the painter's own for its hiding places).
+     * lying on the floor on a pillow and under a blanket (awake, or asleep with the Zzz rising), or hiding ([hiding]: the
+     * painter's own for its hiding places). A painter with a bed on its stage lies them in it (the attic's).
      */
     protected open fun settle(p: PersonInScene, spot: String, m: Mark, stance: Stance, lift: Int = 0) {
         val q = if (p.stance == stance) p else p.copy(stance = stance)
@@ -361,7 +362,8 @@ internal abstract class DioramaPainter : ArtPainter() {
             Stance.STAND -> { footprint(m.x, m.y); person(q, bx, by, m.flip) }
             Stance.SIT -> person(q, bx, by, m.flip, seated = true)
             Stance.CROUCH -> { footprint(m.x, m.y); person(q, bx, by, m.flip, crouch = true) }
-            Stance.LIE -> person(q.copy(pose = Pose.SLEEP), bx, by, m.flip)
+            Stance.LIE -> lyingHere(q, bx, by, m.flip, awake = true)
+            Stance.SLEEP -> lyingHere(q.copy(pose = Pose.SLEEP), bx, by, m.flip, awake = false)
             Stance.HIDE, Stance.PEEK -> hiding(q, spot, m, stance == Stance.PEEK)
         }
     }

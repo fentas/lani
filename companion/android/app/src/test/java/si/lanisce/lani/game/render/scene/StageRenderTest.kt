@@ -262,6 +262,47 @@ class StageRenderTest {
         assertTrue("the picture changes", on.pixels.indices.count { on.pixels[it] != off.pixels[it] } > 60)
     }
 
+    @Test fun `Nejc in his bed and getting up, Zala dropping off in the tent, Tone back from his coffee, Tine on the rope`() {
+        val out = File(dir, "cues").apply { mkdirs() }
+        fun shoot(art: String, name: String, people: List<PersonInScene>, box: IntArray, f: (SceneFrame) -> SceneFrame = { it }) {
+            val frame = f(frame(art, people, hour = 7f))
+            val (c, _) = render(art, frame)
+            write(c, "cues/$name", 3)
+            val k = 3
+            val w = PixelCanvas(box[2] * k, box[3] * k)
+            ScenePainters.create(art).render(w, frame, Lens(k, box[0] * k, box[1] * k, bw, bh))
+            write(w, "cues/$name-closer", 2)
+        }
+        val nejc = PersonInScene("nejc", "child1", "in-bed", stance = Stance.LIE)
+        val vida = PersonInScene("vida", "innkeeper", "chest")
+        val attic = intArrayOf(60, 80, 150, 100)
+        shoot("attic", "attic-1-in-bed", listOf(nejc.copy(talking = true), vida), attic)
+        shoot("attic", "attic-2-sitting-up", listOf(nejc.copy(stance = Stance.SIT), vida), attic)
+        shoot("attic", "attic-3-getting-up", listOf(nejc.copy(slot = "bed", stance = Stance.STAND, from = "in-bed", fromStance = Stance.SIT, moveAge = 0.5f), vida), attic)
+        shoot("attic", "attic-4-up", listOf(nejc.copy(slot = "bed", stance = Stance.STAND, pose = si.lanisce.lani.game.scene.Pose.HAPPY), vida), attic)
+        shoot("attic", "attic-5-asleep", listOf(nejc.copy(stance = Stance.SLEEP)), attic, { it.copy(hour = 22.5f) })
+        shoot("attic", "attic-6-burja-window", listOf(nejc.copy(slot = "bed", stance = Stance.STAND, talking = true)), attic, {
+            it.copy(hour = 22.5f, fx = mapOf("window" to 1f, "lamp" to 1f), sky = Sky(wind = 0.9f, gloom = 0.3f))
+        })
+        val zala = PersonInScene("zala", "child2", "left", stance = Stance.LIE)
+        val tent = intArrayOf(55, 85, 130, 100)
+        shoot("tent", "tent-1-zala-tucked-in", listOf(zala.copy(talking = true)), tent, { it.copy(hour = 21f, fx = mapOf("lantern" to 1f)) })
+        shoot("tent", "tent-2-zala-asleep", listOf(zala.copy(stance = Stance.SLEEP)), tent, { it.copy(hour = 21f, fx = mapOf("lantern" to 1f)) })
+        val tone = PersonInScene("tone", "smith", "anvil")
+        val nejcAtForge = PersonInScene("nejc", "child1", "forge")
+        val smithy = intArrayOf(60, 70, 150, 110)
+        shoot("smithy", "smithy-1-tone-at-the-door", listOf(tone.copy(slot = "door"), nejcAtForge.copy(talking = true)), smithy, { it.copy(hour = 15f, fx = mapOf("forge" to 1f)) })
+        shoot("smithy", "smithy-2-tone-coming-back", listOf(tone.copy(from = "door", moveAge = 0.7f), nejcAtForge), smithy, { it.copy(hour = 15f) })
+        val tine = PersonInScene("tine", "child3", "door")
+        val church = intArrayOf(10, 90, 130, 110)
+        shoot("church", "church-1-tine-by-the-door", listOf(tine.copy(talking = true)), church, { it.copy(hour = 12f) })
+        shoot("church", "church-2-tine-on-the-rope", listOf(tine.copy(slot = "rope", pose = si.lanisce.lani.game.scene.Pose.HAPPY)), church, { it.copy(hour = 12f) })
+        shoot("church", "church-3-ringing", listOf(tine.copy(slot = "rope", talking = true)), church, { it.copy(hour = 12f, time = 3.25, fx = mapOf("bell" to 1f)) })
+        val babica = PersonInScene("babica", "grandma", "aisle")
+        shoot("church", "church-4-door-open", listOf(babica.copy(talking = true)), church, { it.copy(hour = 19.5f, fx = mapOf("door" to 1f, "candles" to 0f)) })
+        shoot("church", "church-5-door-open-by-day", listOf(babica), church, { it.copy(hour = 15f, fx = mapOf("door" to 0.6f)) })
+    }
+
     @Test fun `snapshots of the living room's stage`() {
         val art = "livingroom"
         val views = listOf(

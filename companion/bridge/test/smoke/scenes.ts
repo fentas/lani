@@ -238,7 +238,7 @@ export default async function scenes() {
     // the culture packs' landscapes have effects of their own: the hills' bell, tractor and starlings, the sea's waves, gulls and sail
     ['the oven on the hills', { ...kitchen, art: 'hills', objects: [], people: [{ ...kitchen.people[0], slot: 'wall' }], dialogs: [{ ...kitchen.dialogs[0], lines: [{ ...l1, fx: { tractor: 1, oven: 1 } }, l2, l3] }] }, 'the art "hills" has no effect "oven" (effects: bell, tractor, starlings)'],
     ['the bell at the sea', { ...kitchen, art: 'sea', objects: [], people: [{ ...kitchen.people[0], slot: 'pier' }], dialogs: [{ ...kitchen.dialogs[0], lines: [{ ...l1, fx: { waves: 1, bell: true } }, l2, l3] }] }, 'the art "sea" has no effect "bell" (effects: waves, gulls, sail)'],
-    ['the tractor in the mountains', { ...kitchen, art: 'alps', objects: [], people: [{ ...kitchen.people[0], slot: 'wall' }], dialogs: [{ ...kitchen.dialogs[0], lines: [{ ...l1, fx: { cowbells: 1, tractor: 1 } }, l2, l3] }] }, 'the art "alps" has no effect "tractor" (effects: cowbells, bell, fish, birds, glow)'],
+    ['the tractor in the mountains', { ...kitchen, art: 'alps', objects: [], people: [{ ...kitchen.people[0], slot: 'wall' }], dialogs: [{ ...kitchen.dialogs[0], lines: [{ ...l1, fx: { cowbells: 1, tractor: 1 } }, l2, l3] }] }, 'the art "alps" has no effect "tractor" (effects: cowbells, bell, fish, birds, glow, ibex)'],
     // a project's landmark as the place: one of the culture's projects
     ['a landmark of a project the culture does not have', { ...kitchen, from: ['project:grad'] }, 'from[0]: no project "grad"'],
     ['a place that is no project id', { ...kitchen, from: ['project:Grad Vas'] }, 'from'],
@@ -528,6 +528,32 @@ async function stage(kitchen: any, curated: LoadedScene[], refs: Parameters<type
       JSON.stringify(arrive('campfire', { spot: 'back', pose: 'stand' }, { to: 'right' })) === '{"spot":"right","pose":"sit"}' &&
       JSON.stringify(arrive('campfire', { spot: 'right', pose: 'sit' }, { to: 'behind-stump', pose: 'hide' })) === '{"spot":"behind-stump","pose":"hide"}' &&
       JSON.stringify(arrive('campfire', { spot: 'behind-stump', pose: 'hide' }, { pose: 'peek' })) === '{"spot":"behind-stump","pose":"peek"}')
+
+  // a happening may have its people wait somewhere (Nejc in his bed until Jan wakes him): its dialogs start from there
+  const attic = {
+    ...room, id: 'smoke-podstresje', title: 'V podstrešju · In the attic', art: 'attic', from: ['house'],
+    people: [{ id: 'nejc', name: 'Nejc', emoji: '🧒', art: 'child1', slot: 'bed' }],
+    happenings: [{ id: 'vstani', title: 'Vstani · Get up', who: 'nejc', dialog: 'vstani', reward: { food: 15 }, act: { nejc: { to: 'in-bed' } } }],
+    dialogs: [{
+      id: 'vstani',
+      lines: [
+        { who: 'nejc', sl: 'Mmm … še pet minut.', en: 'Mmm … five more minutes.' },
+        { choices: [
+          { sl: 'Vstani, Nejc!', en: 'Get up, Nejc!', ok: true, reply: { sl: 'Dobro, vstajam.', en: "OK, I'm getting up.", act: { nejc: { pose: 'sit' } } } },
+          { sl: 'Vstanite, Nejc!', en: 'Get up (vi), Nejc!', why: 'One child: vstani.', reply: { sl: 'Vstanite? Hi hi!', en: 'Vstanite? Hee hee!' } },
+        ] },
+        { who: 'nejc', sl: 'Kje so moje hlače?', en: 'Where are my trousers?', act: { nejc: { to: 'chest' } } },
+      ],
+    }],
+  }
+  const waits = validateScene(attic, refs)
+  check('a happening has Nejc wait in his bed: its dialog starts there, so he sits up on its edge, then goes to the chest', waits.ok, waits)
+  const fromSpot = validateScene({ ...attic, happenings: [{ ...attic.happenings[0], act: undefined }] }, refs)
+  check('… without it he stands by the bed, where sitting up is no pose', !fromSpot.ok && fromSpot.errors.includes('the spot "bed" has no pose "sit"'), fromSpot)
+  const nowhere = validateScene({ ...attic, happenings: [{ ...attic.happenings[0], act: { nejc: { to: 'loft' } } }] }, refs)
+  check('… and where it has them wait is a spot of the art\'s stage', !nowhere.ok && nowhere.errors.includes('happenings[0] (vstani).act.nejc: the art "attic" has no spot "loft"'), nowhere)
+  const servedWait = (validateScene(attic, refs) as { ok: true; scene: { happenings: { act?: unknown }[] } }).scene?.happenings[0].act
+  check('… and is kept as written', JSON.stringify(servedWait) === '{"nejc":{"to":"in-bed"}}', servedWait)
 
   const told = offStage({ lines: [{ act: { luka: { to: 'lantern' } }, choices: [] }, { choices: [{ tap: 'door' }, { tap: 'table' }] }] }, 'levels.A1', 'a story')
   check('a story, an introduction or a keeper has no stage: no act, no tap', told.length === 2 && told[0].includes('no act cue') && told[1].includes('no tap'), told)

@@ -23,7 +23,8 @@ import kotlin.math.sin
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 the workbench, the hammer and nails, the
  * boards, the axe in its block and the broom on a beaten earth floor; at level 2 a plank floor with shavings, the tool
  * board, the saw, the ladder and the rake; at level 3 the wheelbarrow, the wooden horse France carves for Tine on the
- * bench, and the lantern. Its effect: `dust` (sawdust flying off the vice as a board is sawn).
+ * bench, and the lantern. Its effects: `dust` (sawdust flying off the vice as a board is sawn), `hammer` (a board laid on
+ * the bench and a nail hammered into it, whoever stands at the bench swinging the hammer, a knock at each blow).
  *
  * At night ([beds]) France sleeps on a straw mattress on the floor before the bench ("mattress"), under a grey horse
  * blanket with a red stripe; Tine on his apprentice's cot by the door ("cot", a child's: a low frame on legs, a headboard,
@@ -120,11 +121,23 @@ internal class WorkshopPainter : RoomPainter() {
         // the workbench and what is on it, the lantern over it
         thing("workbench") { workbench() }
         thing("nails", slop = 2) { nails(1.95f, 1.45f, wz) }
-        thing("hammer", slop = 2) { hammer(2.65f, 1.65f, wz) }
+        // hammering ("hammer"): a board across the bench, the hammer up in the hand of whoever stands there, coming down on a nail
+        val knock = fxOn("hammer")
+        val hammering = knock > 0.02f
+        if (hammering) prop { plank() }
+        val grip = if (hammering) swingHammer() else null
+        if (!hammering) thing("hammer", slop = 2) { hammer(2.65f, 1.65f, wz) }
         if (there("horse")) thing("horse", slop = 2) { horse(3.95f, 1.5f, wz) }
         dust(fxOn("dust"))
+        if (hammering) chips(knock)
         if (there("lantern")) thing("lantern", slop = 1) { lantern(lit, low) }
-        for (p in peopleAt("bench")) { footShadow(4.65f, 2.95f); personAt(p, 4.65f, 2.95f, fl) }
+        for (p in peopleAt("bench")) {
+            footShadow(4.65f, 2.95f)
+            val bx = sx(4.65f, 2.95f); val by = sy(4.65f, 2.95f, fl) + detail
+            // the hammer in the near hand, at its grip
+            val reach = grip?.let { intArrayOf(bx + Math.floorDiv(it[0] - bx, detail), by + Math.floorDiv(it[1] - by, detail)) }
+            person(p, bx, by, false, reach = reach)
+        }
         // France on his straw mattress on the floor before the bench, under a grey horse blanket
         peopleAt(MATTRESS).firstOrNull()?.let { p ->
             prop { mattress(MAT_A, MAT_C, MAT_B, MAT_D, alongY = false) }
@@ -175,6 +188,9 @@ internal class WorkshopPainter : RoomPainter() {
 
         /** France's horse blanket: grey wool, a red stripe. */
         val GREY_WOOL = intArrayOf(Col.hex(0x9A968A), Col.hex(0x767268), Col.hex(0x4A4640), Col.hex(0xB0503C))
+
+        /** A blow of the hammer every this many seconds ([si.lanisce.lani.game.ambient.Sfx.HAMMER_BLOW]: the knocks with them). */
+        const val BLOW_S = si.lanisce.lani.game.ambient.Sfx.HAMMER_BLOW
     }
 
     // ------------------------------------------------------------------ the bench and what is on it
@@ -221,6 +237,52 @@ internal class WorkshopPainter : RoomPainter() {
         rod(x, y + 0.35f, z + 0.3f, x + 0.9f, y - 0.05f, z + 0.3f, Pal.WOOD_M, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         iso.box(x + 0.75f, y - 0.25f, z, 0.22f, 0.5f, 0.8f, ironL, iron, ironD)
         iso.px(x + 0.86f, y + 0.24f, z + 0.8f, Col.hex(0x9C98A2))
+    }
+
+    /** Where the hammer comes down: the nail in the board on the bench, by the vice, at the right hand of whoever stands there. */
+    private val nailX = 5.0f; private val nailY = 1.7f
+
+    /**
+     * How high the hammer's head is over the nail now (0 on it, 1 at the top of its swing): it rises slowly and comes down
+     * fast, a blow every [BLOW_S] (Sfx.HAMMER_BLOW, the knock heard as it lands).
+     */
+    private fun lift(): Float {
+        val ph = ((t / BLOW_S) % 1.0).toFloat()
+        return if (ph < 0.72f) sin(ph / 0.72f * PI.toFloat() / 2f) else 1f - (ph - 0.72f) / 0.28f
+    }
+
+    /** A board laid across the bench to be nailed, a nail standing in it. */
+    private fun plank() {
+        iso.box(nailX - 0.85f, nailY - 0.32f, wz, 1.7f, 0.62f, 0.5f, Col.hex(0xE0B880), Col.hex(0xC09060), Col.hex(0x9A6E44))
+        iso.line(nailX - 0.85f, nailY + 0.3f, wz + 0.5f, nailX + 0.85f, nailY + 0.3f, wz + 0.5f, Col.hex(0xF0D0A0))
+        iso.post(nailX, nailY, wz + 0.5f, wz + 0.5f + 0.7f * (1f - 0.2f * ((t / BLOW_S) % 3.0 / 3.0).toFloat()), ironL)
+    }
+
+    /**
+     * The hammer swung over the nail ([lift]): its head up in the air or down on the nail, its handle back toward whoever
+     * holds it; returns the grip, where their hand is (the picture's px).
+     */
+    private fun swingHammer(): IntArray {
+        val up = lift()
+        val hz = wz + 1.3f + up * 4.2f
+        // the handle from the head back to the grip, tilting up as it is raised
+        val gx = nailX + 0.25f; val gy = nailY + 0.75f; val gz = wz + 1.5f + up * 2.6f
+        thing("hammer", slop = 2) {
+            rod(nailX + 0.05f, nailY + 0.1f, hz, gx, gy, gz, Pal.WOOD_M, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+            iso.box(nailX - 0.12f, nailY - 0.22f, hz - 0.4f, 0.24f, 0.45f, 0.8f, ironL, iron, ironD)
+        }
+        return intArrayOf(iso.ix(gx, gy), iso.iy(gx, gy, gz))
+    }
+
+    /** The blow landing: a few chips and a puff of sawdust off the board, and the ring of it (how hard: [level]). */
+    private fun chips(level: Float) {
+        val ph = ((t / BLOW_S) % 1.0).toFloat()
+        if (ph > 0.25f) return
+        val x = iso.sx(nailX, nailY); val y = iso.sy(nailX, nailY, wz + 0.8f)
+        s.fx {
+            PokeArt.puff(c, x, y, ph / 0.25f, 3f * K, 5, Col.hex(0xF0DCA8), 23, 0.75f * level)
+            PokeArt.rings(c, x, y - 2f * K, ph / 0.25f, 7f * K, Col.hex(0xFFF4D8), max(1, detail / 2), 0.5f * level, n = 1)
+        }
     }
 
     /** The little wooden horse France carves for Tine (level 3): on the bench, a round body, a curved neck, a painted red saddle. */

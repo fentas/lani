@@ -116,7 +116,8 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
         talk?.person?.takeIf { p -> base.none { it.id == p.id } }?.let { base + PersonInScene(it.id, it.art, it.slot) } ?: base
     }
     val anchors = rememberSceneAnchors(scene.id)
-    val cues = rememberSceneCues(state, scene, talk?.run, LocalDate.now())
+    val waiting = remember(active, talk?.happening) { (active.map { it.happening } + listOfNotNull(talk?.happening)).filter { it.act.isNotEmpty() }.distinctBy { it.id } }
+    val cues = rememberSceneCues(state, scene, talk?.run, LocalDate.now(), waiting)
     val sceneClock = si.lanisce.lani.game.render.rememberTownClock()
     si.lanisce.lani.ui.AmbientSound(vm.ambience, si.lanisce.lani.game.ambient.Place.Scene(scene.art, cues.fx.target), cues.sky.target, sceneClock)
     fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { v.villager(it) })

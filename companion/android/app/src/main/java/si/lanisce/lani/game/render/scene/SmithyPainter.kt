@@ -44,6 +44,9 @@ import kotlin.math.sqrt
  * stripe; the cot is there only while he is on it. He banked the fire before he lay down (his ritual at 21:45): the
  * bellows rest, the coals glow low under their ash, no flames and no sparks, a thin thread of smoke, and the forge's light
  * is small (a dialog that fires the forge up has it roar as ever).
+ *
+ * Its stage ([marks]; companion/SCENES.md, "Stage directions"): at the anvil, by the forge and in the doorway, where a
+ * dialog can send Tone for his coffee and back.
  */
 internal class SmithyPainter : DioramaPainter() {
     override val art = "smithy"
@@ -51,6 +54,7 @@ internal class SmithyPainter : DioramaPainter() {
 
     /** At night Tone sleeps on his cot by the forge. */
     override val beds = listOf(COT)
+
     override val plotW = 12f
     override val plotD = 12f
     override val rise = 26.5f
@@ -80,6 +84,20 @@ internal class SmithyPainter : DioramaPainter() {
     private val ax = 5.35f; private val ay = 6.35f; private val stumpH = 3.4f; private val anvilTop = fl + stumpH + 3.9f
 
     private var floorId = 0
+
+    /**
+     * The stage (companion/SCENES.md, "Stage directions"): at the anvil, by the forge, in the doorway (where Tone has his
+     * coffee while Nejc minds the bellows); a walk goes round the anvil.
+     */
+    override val marks = mapOf(
+        "forge" to Mark(2.2f, 4.6f, fl),
+        "door" to Mark(7.2f, 1.95f, fl, flip = true),
+        "anvil" to Mark(6.6f, 5.6f, fl, flip = true),
+    )
+    override val around = listOf(floatArrayOf(5.35f, 6.35f, 0.9f))
+
+    /** Someone standing on the stage casts their shadow on the flagstones. */
+    override fun footprint(x: Float, y: Float) = footShadow(x, y)
 
     private val stoneHi = Col.hex(0x9C9286); private val stoneL = Col.hex(0x847A6E); private val stoneM = Col.hex(0x6C645A)
     private val stoneD = Col.hex(0x544D46); private val mortar = Col.hex(0x3A342F); private val sootC = Col.hex(0x1E1A18)
@@ -144,8 +162,8 @@ internal class SmithyPainter : DioramaPainter() {
         if (there("chain")) thing("chain", slop = 1) { chain() }
         if (there("wheel")) thing("wheel") { wheel() }
 
-        for (p in peopleAt("forge")) { footShadow(2.2f, 4.6f); personAt(p, 2.2f, 4.6f, fl) }
-        for (p in peopleAt("door")) { footShadow(7.2f, 1.95f); personAt(p, 7.2f, 1.95f, fl, flip = true) }
+        cast("forge")
+        cast("door")
         // the third level's second anvil, a smaller one for the finer work, in front of the wheel
         if (there("wheel")) prop { smallAnvil() }
         thing("nails", slop = 1) { nails() }
@@ -154,7 +172,7 @@ internal class SmithyPainter : DioramaPainter() {
         anvilRing()
         thing("hammer", slop = 2) { hammer() }
         thing("tongs", slop = 2) { tongs() }
-        for (p in peopleAt("anvil")) { footShadow(6.6f, 5.6f); personAt(p, 6.6f, 5.6f, fl, flip = true) }
+        cast("anvil")
         thing("bucket", slop = 1) { bucket() }
 
         // the yard

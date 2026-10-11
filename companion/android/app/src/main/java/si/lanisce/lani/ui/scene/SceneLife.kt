@@ -14,6 +14,7 @@ import si.lanisce.lani.game.scene.DayAct
 import si.lanisce.lani.game.scene.DayFx
 import si.lanisce.lani.game.scene.DaySky
 import si.lanisce.lani.game.scene.FxEase
+import si.lanisce.lani.game.scene.Happening
 import si.lanisce.lani.game.scene.Placement
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.SceneSpec
@@ -37,17 +38,18 @@ data class SceneCues(val sky: SkyEase = SkyEase.CLEAR, val fx: FxEase = FxEase.N
 
 /**
  * The sky, the effects and the stage of [scene] now: the day's (what finished dialogs left, [DaySky], [DayFx] and
- * [DayAct]), changed by the dialog [run] played there as its lines go, each change easing in over a few seconds (a person
- * walks, dashes into hiding or pops out of it). A dialog closed before its end takes what it brought with it: the scene
- * eases back to the day's, its people back to their spots.
+ * [DayAct]; where the happenings [waiting] have their people, [Happening.act]), changed by the dialog [run] played there
+ * as its lines go, each change easing in over a few seconds (a person walks, dashes into hiding or pops out of it). A
+ * dialog closed before its end takes what it brought with it: the scene eases back to the day's, its people back to
+ * their spots.
  */
 @Composable
-fun rememberSceneCues(state: GameState?, scene: SceneSpec, run: DialogRun?, today: LocalDate): SceneCues {
+fun rememberSceneCues(state: GameState?, scene: SceneSpec, run: DialogRun?, today: LocalDate, waiting: List<Happening> = emptyList()): SceneCues {
     val daySky = DaySky.of(state, today, scene.id)
     val dayFx = DayFx.of(state, today, scene.id)
     val sky = run?.sky(daySky) ?: daySky
     val fx = run?.fx(dayFx) ?: dayFx
-    val base = remember(scene, state, today) { Stage.base(scene, DayAct.of(state, today, scene.id)) }
+    val base = remember(scene, state, today, waiting) { Stage.base(scene, DayAct.of(state, today, scene.id), waiting) }
     val placed: Map<String, Placement> = run?.let { base + Stage.shown(scene.art, it.act(scene.art, base)) } ?: base
     var cues by remember(scene.id) { mutableStateOf(SceneCues(SkyEase.still(sky), FxEase.still(fx), StageEase.still(placed))) }
     LaunchedEffect(sky, fx, placed) {

@@ -728,11 +728,14 @@ internal class PeoplePainter {
      * sheet turned down under the chin, a hand over the cover, the chest rising and falling with a slow breath. Tapped
      * ([si.lanisce.lani.game.scene.Sleep]): [turn] 0..1 rolls them onto their far side and back, the back of their head
      * to us and the shoulder's hump under the cover; [stir] 0..1 half wakes them, one eye open under a frown, the mouth
-     * mumbling, a hand out from under the cover shooing the tapper off.
+     * mumbling, a hand out from under the cover shooing the tapper off. A [pose] other than [Pose.SLEEP] has them lie there
+     * awake (in bed before getting up, tucked in for a story): the eyes open and that mood on the face, the mouth moving
+     * when [talking].
      */
     fun lying(
         canvas: PixelCanvas, art: String, bx: Int, by0: Int, dx: Int, dy: Int, time: Double, seed: Int,
         cover: IntArray? = null, pillow: Boolean = false, turn: Float = 0f, stir: Float = 0f,
+        pose: Pose = Pose.SLEEP, talking: Boolean = false,
     ) {
         c = canvas
         val d = if (dx < 0) -1 else 1
@@ -770,7 +773,7 @@ internal class PeoplePainter {
         if (away) backOfHead(L, bx, hw, hTop, hBot, eyeRow)
         else {
             head(L, bx, hw, hTop, hBot, eyeRow, d)
-            face(L, Pose.SLEEP, bx, hw, hTop, hBot, eyeRow, time, seed, false)
+            face(L, if (pose == Pose.IDLE && talking) Pose.TALK else pose, bx, hw, hTop, hBot, eyeRow, time, seed, talking)
             if (L.hat == Looks.HAT_SCARF) hat(L, art, bx, hw, hTop, hBot, eyeRow, d)
             if (awake) grumble(L, bx, eyeRow, time, d)
         }

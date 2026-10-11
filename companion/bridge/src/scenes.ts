@@ -96,9 +96,17 @@ export const SCENE_ART = {
   people: ['grandma', 'grandpa', 'child1', 'child2', 'child3', 'shepherd', 'smith', 'teacher', 'farmer', 'beekeeper', 'innkeeper', 'winemaker', 'aunt', 'pedlar', 'pilgrim', 'woman', 'man', 'baby', 'hunter', 'burner'],
   /** What each art's painter shows when a dialog line's `fx` sets it (companion/SCENES.md, "Effects"). */
   effects: {
-    campfire: ['flare', 'steam', 'bell', 'sheepbells'],
+    campfire: [
+      'flare', 'steam', 'bell', 'sheepbells',
+      // the fire burning down to its embers
+      'embers',
+    ],
     kitchen: ['oven', 'steam'],
-    forest: ['birds', 'herd', 'fox', 'hoot', 'bats', 'sheepbells'],
+    forest: [
+      'birds', 'herd', 'fox', 'hoot', 'bats', 'sheepbells',
+      // the owl flying off her branch and away (1: gone)
+      'owl-flies',
+    ],
     square: ['bell'],
     tent: ['lantern'],
     field: ['crows', 'bell', 'bats', 'hare', 'horse', 'hat', 'scarf'],
@@ -106,17 +114,33 @@ export const SCENE_ART = {
     school: [],
     hills: ['bell', 'tractor', 'starlings'],
     sea: ['waves', 'gulls', 'sail'],
-    alps: ['cowbells', 'bell', 'fish', 'birds', 'glow'],
+    alps: [
+      'cowbells', 'bell', 'fish', 'birds', 'glow',
+      // the ibex climbing onto his crag (1: on top)
+      'ibex',
+    ],
     stream: ['trout', 'wheel', 'bats', 'bell', 'lamb', 'hose', 'cart'],
     pond: ['ducks', 'frog', 'fish', 'bats', 'dog', 'tadpoles'],
-    church: ['candles', 'bell', 'organ'],
+    church: [
+      'candles', 'bell', 'organ',
+      // the door blown open (1: wide)
+      'door',
+    ],
     apiary: ['swarm', 'smoke', 'honey'],
     market: ['bustle', 'bell', 'pigeons', 'hen'],
     watchtower: ['torch', 'horn', 'birds', 'wolves', 'pedlar'],
     livingroom: ['stove', 'dog', 'dog-hides'],
-    workshop: ['dust'],
+    workshop: [
+      'dust',
+      // a nail hammered into a board on the bench (how hard)
+      'hammer',
+    ],
     cellar: ['tap', 'candle'],
-    attic: ['lamp', 'cradle'],
+    attic: [
+      'lamp', 'cradle',
+      // the gable window blown open by the burja (0: shut)
+      'window',
+    ],
   } as Record<string, string[]>,
   buildings: ['tent', 'field', 'well', 'hut', 'kozolec', 'beehive', 'palisade', 'watchtower', 'smithy', 'lipa', 'house', 'church', 'school', 'market'],
   ages: ['ogenj', 'tabor', 'zaselek', 'vas', 'trg', 'mesto'],
@@ -126,9 +150,13 @@ export const ARTS = Object.keys(SCENE_ART.objects)
 
 /**
  * The poses someone can take on a spot of a stage (Stance in Stage.kt): standing, sitting, squatting, hidden (only a
- * clue shows), peeking out, lying.
+ * clue shows), peeking out, lying (awake), asleep.
  */
-export const POSES = ['stand', 'sit', 'crouch', 'hide', 'peek', 'lie'] as const
+export const POSES = [
+  'stand', 'sit', 'crouch', 'hide', 'peek', 'lie',
+  // asleep: lying, the eyes shut, the Zzz rising
+  'sleep',
+] as const
 /**
  * The arts' stages, mirrored from SceneArt.kt (`stage`; the smoke test compares): the spots a dialog's `act` can send someone
  * to, each with its poses and the object slot that hides someone there (a tap on it is a tap on the spot in a tap turn).
@@ -151,10 +179,27 @@ export const SCENE_STAGE: Record<string, Record<string, { poses: string[]; cover
     'behind-logs': { poses: ['stand', 'hide', 'peek'], cover: 'logs' },
   },
   tent: {
-    left: { poses: ['stand'] },
+    left: { poses: ['stand', 'lie', 'sleep'] },
     right: { poses: ['stand'] },
     door: { poses: ['stand'] },
     lantern: { poses: ['sit', 'stand'] },
+  },
+  attic: {
+    bed: { poses: ['stand'] },
+    chest: { poses: ['stand'] },
+    stairs: { poses: ['stand'] },
+    'in-bed': { poses: ['lie', 'sit', 'sleep'] },
+  },
+  smithy: {
+    anvil: { poses: ['stand'] },
+    forge: { poses: ['stand'] },
+    door: { poses: ['stand'] },
+  },
+  church: {
+    altar: { poses: ['stand'] },
+    aisle: { poses: ['stand'] },
+    door: { poses: ['stand'] },
+    rope: { poses: ['stand'] },
   },
 }
 
@@ -428,6 +473,12 @@ const happening = z.object({
    * hasn't heard, at the learner's level. Their person needs a villager: the stories' teller.
    */
   stories: z.boolean().optional(),
+  /**
+   * Where its people are while it waits for the learner, as a line's stage directions say it (an art with a stage only):
+   * Nejc lying in his bed until Jan wakes him, {"nejc": {"to": "in-bed"}}. The app shows them there, and its dialogs start
+   * from there (stageErrors follows them from it). An older bridge strips it (they wait on their spots).
+   */
+  act: actCue.optional(),
 })
 
 export const sceneSpec = z.object({
@@ -587,6 +638,8 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
     }
     titled(h.title, `${at}.title`)
     inLang(h.memory, `${at}.memory`)
+    // where it has its people wait: the scene's people, the art's spots, each pose its spot's (checked as a first line's cue)
+    if (h.act) errs.push(...stageErrors({ id: h.id, lines: [{ act: h.act, choices: [] }] } as unknown as Dialog, s, at).map(e => e.replace(`${at}.lines[0].act`, `${at}.act`)))
   })
   all.forEach(d => dupes((d.months ?? []).map(String), `month in dialog "${d.id}"`))
   // a scene is never empty: something is on in it in every month, if anything is (what only a guest meets aside)
@@ -628,7 +681,9 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
       }
     })
     if (d.lines[0]?.choices.length) errs.push(`${at}: the first line must be someone's line, not the learner's choices`)
-    errs.push(...stageErrors(d, s, at))
+    // a dialog starts where the happening that plays it has its people waiting (Nejc in his bed)
+    const start = s.happenings.find(h => h.act && variantsOf(h).includes(d.id))?.act
+    errs.push(...stageErrors(d, s, at, start))
     errs.push(...staysErrors(d, at))
     inLang(d.memory, `${at}.memory`)
     errs.push(...countErrors(d, lang, at, SCENE_LANGUAGES))
@@ -661,13 +716,20 @@ type Act = z.infer<typeof actCue>
  * names a person of the scene, a spot of the art's stage and a pose that spot has. A tap turn's choices each stand for their
  * own spot of the stage, slot of the art or person of the scene; a turn of 4 choices is a tap turn.
  */
-export function stageErrors(d: Dialog, s: Pick<Scene, 'art' | 'people'>, at: string): string[] {
+export function stageErrors(d: Dialog, s: Pick<Scene, 'art' | 'people'>, at: string, start?: Act): string[] {
   const errs: string[] = []
   const stage = SCENE_STAGE[s.art]
   const slots = SCENE_ART.objects[s.art] ?? []
   const people = new Set(s.people.map(p => p.id))
-  // everyone starts on their spot in its first pose, as the app has them (Stage.base): sitting on the logs by the fire
+  // everyone starts on their spot in its first pose, as the app has them (Stage.base): sitting on the logs by the fire; or
+  // where the happening playing it has them wait ([start], a happening's act: Nejc in his bed)
   const where = new Map(s.people.map(p => [p.id, { spot: p.slot, pose: firstPose(s.art, p.slot) }]))
+  for (const [who, cue] of Object.entries(start ?? {})) {
+    const was = where.get(who)
+    if (!was) continue
+    const to = arrive(s.art, was, cue)
+    if (stage?.[to.spot]?.poses.includes(to.pose)) where.set(who, to)
+  }
   const follow = (act: Act | undefined, here: string, move: boolean) => {
     if (!act) return
     if (!stage) return void errs.push(`${here}.act: the art "${s.art}" has no stage for stage directions yet (arts with one: ${Object.keys(SCENE_STAGE).join(', ')})`)

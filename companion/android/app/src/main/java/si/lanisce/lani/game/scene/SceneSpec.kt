@@ -157,6 +157,12 @@ data class Happening(
      * ([Stories.tonight]); there is no happening without a story to tell.
      */
     val stories: Boolean = false,
+    /**
+     * Where its people are while it waits for the learner, as a line's stage directions say it (in an art with a stage,
+     * companion/SCENES.md "Stage directions"): Nejc lying in his bed until Jan wakes him, `{"nejc": {"to": "in-bed"}}`. The
+     * scene shows them there (its marker over them), and its dialog starts from there ([Stage.base]). Empty: on their spots.
+     */
+    val act: Map<String, ActCue> = emptyMap(),
 )
 
 @Serializable

@@ -29,7 +29,8 @@ import kotlin.math.sqrt
  * edges, the larches bare; spring leaves snow in the gullies and crocuses on the pasture, summer gentians and alpine
  * roses; the larches turn gold in October. The peaks glow pink at sunrise and sunset (alpenglow); at night the hut's
  * window and the church are lit and the moon lies on the lake. A dialog can ring the cows' bells ("cowbells"), the
- * church bell ("bell"), make a fish jump in the lake ("fish") and send the alpine choughs off the crags ("birds"). Fog
+ * church bell ("bell"), make a fish jump in the lake ("fish"), send the alpine choughs off the crags ("birds") and bring
+ * the ibex up onto a crag at the brow ("ibex"). Fog
  * lies in the valley over the lake; rain veils the peaks first. Taps: the cow lifts its head and lows, then shakes its
  * head so its bell clangs; the marmot stands up and whistles, then dives into its burrow and peeks out again.
  *
@@ -162,7 +163,8 @@ internal class AlpsPainter : WildPainter() {
 
     /**
      * The mountains' wild animals of the frame ([out]): chamois, a mother and her kid, grazing up at the pasture's edge by
-     * the forest; an ibex on a crag at the brow, against the lake.
+     * the forest; an ibex on a crag at the brow, against the lake. A dialog's "ibex" brings him there whatever the day has
+     * out (scenery then, not the word to tap), climbing up from behind the crag, his horns first, onto its top (1).
      */
     private fun wildlife() {
         if (out("chamois")) {
@@ -171,13 +173,21 @@ internal class AlpsPainter : WildPainter() {
             items.add(d to { groundShadow(x, d, 0.5f); creature("chamois") { chamois(gx(x, d), gy(d), 34f / d, left = u > 0.5f, look = sin(t * 0.4 + u * 7) > 0.4) } })
             items.add(d + 0.8f to { prop { chamois(gx(x + (if (u > 0.5f) -1.6f else 1.6f), d + 0.8f), gy(d + 0.8f), 22f / (d + 0.8f), left = u > 0.5f) } })
         }
-        if (out("ibex")) {
+        val cue = fx("ibex")
+        if (out("ibex") || (cue ?: 0f) > 0.02f) {
             val u = spot("ibex")
-            val x = 11.8f + u * 1.4f; val d = 25.6f
+            // the day's crag at the brow; the one a cue brings him onto, nearer and in the open, where one is shown him
+            val x = if (cue != null) IBEX_X else 11.8f + u * 1.4f
+            val d = if (cue != null) IBEX_D else 25.6f
             val rock = 1.5f
+            // how far up he has come: on top (1), or climbing from behind the crag as a cue brings him
+            val v = (cue ?: 1f).coerceIn(0f, 1f)
+            val up = v >= 0.95f
+            val climb = if (up) 0f else (1f - v / 0.95f) * 2.4f
             items.add(d to {
+                if (!up) creature("ibex") { ibex(gx(x + 0.15f, d - 0.2f), hy(d - 0.2f, rock * 0.94f - climb), 40f / d, left = u > 0.4f) }
                 prop { crag(x, d, rock) }
-                creature("ibex") { ibex(gx(x, d - 0.2f), hy(d - 0.2f, rock * 0.94f), 40f / d, left = u > 0.4f) }
+                if (up) creature("ibex") { ibex(gx(x, d - 0.2f), hy(d - 0.2f, rock * 0.94f), 40f / d, left = u > 0.4f) }
             })
         }
     }
@@ -1334,6 +1344,10 @@ internal class AlpsPainter : WildPainter() {
     }
 
     companion object {
+        /** Where a dialog's "ibex" brings him: a crag up at the pasture's brow between the stream and the larch, in the open. */
+        const val IBEX_X = 9.9f
+        const val IBEX_D = 23f
+
         private const val SKY_STEPS = 48
         private const val FAR = 1
         private const val MASS = 2

@@ -96,6 +96,15 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
         if (on) player.play(Sfx.poke(art, id, poked.step, poked.start), origin)
     }
 
+    /**
+     * A dialog played over the village (a project's step without its scene) set its effects from [before] to [after]: what
+     * they sound like as they come on ([Sfx.fx] of [art]: the chapel's little bell, [Sfx.VILLAGE]), where the learner is,
+     * not ducked (it is the line that rings the bell).
+     */
+    fun effects(art: String, before: Map<String, Float>, after: Map<String, Float>) {
+        if (before != after) cue(clock, duck = false) { now -> Sfx.fx(art, before, after, now) }
+    }
+
     /** [owner] left the screen: its sounds fade out, unless another screen has said where the learner is since. */
     fun leave(owner: Any) {
         if (this.owner !== owner) return

@@ -1406,7 +1406,10 @@ agree.
   hills, the lake in the mountains, the field, the stream, beyond the woods at the campfire). The picture may go on
   swinging; the sound stops. The mountains' `cowbells`: the herd's bells clank for 2.5 s. The kitchen's `oven`, the
   living room's `stove` and the smithy's `forge` catch with a whoosh, and so does the campfire when it `flare`s up by
-  0.3 or more. The smithy's `sparks`: the smith's blows on the anvil for 3 s (every 0.62 s, as the sparks fly).
+  0.3 or more. The smithy's `sparks`: the smith's blows on the anvil for 3 s (every 0.62 s, as the sparks fly). The
+  workshop's `hammer`: a short bright knock each time the hammer comes down on the nail (every 0.75 s) for 3 s, the
+  anvil's ring played quick and high. A project's step played over the village rings its `bell` there: a little bell,
+  the chapel's, high and quick (`Sfx.VILLAGE`).
 - **Left out**: the cow's lowing, the dog's bark and the other animals' calls (the hen, the crow, the sparrow), the
   watchtower's horn and the church's organ. Made from simple tones, they would not sound right. The evening bell at
   sunset by itself (the ave over the field and the stream, with no cue) has no sound yet.

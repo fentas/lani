@@ -112,7 +112,7 @@ object Sfx {
             if (level < 0.05f || level - was < RISE) continue
             val l = level.coerceIn(0f, 1f)
             when (name) {
-                "bell" -> BELLS[art]?.let { b -> out += peal(b, now, l) }
+                "bell" -> (BELLS[art] ?: VILLAGE_BELL.takeIf { art == VILLAGE })?.let { b -> out += peal(b, now, l) }
                 "cowbells" -> if (art == "alps") out += herd(now, l)
                 "sheepbells" -> when (art) {
                     "campfire" -> out += sheepBells(now, l, bells = 3, gain = 0.32f)
@@ -121,6 +121,8 @@ object Sfx {
                 "oven", "stove", "forge" -> out += Cue(Sound.WHOOSH, now, 0.45f + 0.4f * l)
                 "flare" -> if (art == "campfire") out += Cue(Sound.WHOOSH, now, (0.3f + 0.6f * (level - was)).coerceAtMost(0.85f))
                 "sparks" -> if (art == "smithy") out += blows(now, l)
+                // the workshop's hammer on a nail
+                "hammer" -> if (art == "workshop") out += knocks(now, l)
             }
         }
         return out
@@ -139,6 +141,7 @@ object Sfx {
                 "campfire" -> { out += Sound.WHOOSH; out += Sound.COWBELL }
                 "forest" -> out += Sound.COWBELL
                 "smithy" -> { out += Sound.WHOOSH; out += Sound.ANVIL }
+                "workshop" -> out += Sound.ANVIL
             }
         }
         return out
@@ -173,6 +176,12 @@ object Sfx {
         // a bell far beyond the woods (CampfirePainter.distantBell: its rings go out three to each 1.25 s: a strike each)
         "campfire" to Bell(Sound.BELL_FAR, every = 1.25, gain = 0.8f),
     )
+
+    /**
+     * The bell rung over the village ([VILLAGE]: a project's step without its scene, ProjectStepScene): the one it hangs, the
+     * chapel's little bell, small and bright, swinging quickly.
+     */
+    internal val VILLAGE_BELL = Bell(Sound.BELL, swing = 7.5, gain = 0.6f, rate = 1.9f)
 
     /** The sounds of each art's pokes ([poke]). */
     private val POKE_SOUNDS: Map<String, Set<Sound>> = mapOf(
@@ -215,6 +224,17 @@ object Sfx {
             Cue(Sound.COWBELL, t, g, (1.6f + 0.09f * k) * (if (i % 2 == 0) 1f else 1.04f))
         }
     }.filter { it.gain >= MIN_GAIN }.sortedBy { it.at }
+
+    /**
+     * The hammer driving a nail in the workshop (WorkshopPainter.lift: a blow every [HAMMER_BLOW], landing at its whole
+     * multiples): a short bright knock each, the anvil's ring played quick and high, for 3 s.
+     */
+    private fun knocks(now: Double, level: Float): List<Cue> {
+        val first = ceil(now / HAMMER_BLOW)
+        return generateSequence(first) { it + 1.0 }.map { it * HAMMER_BLOW }.takeWhile { it < now + 3.1 }
+            .map { t -> Cue(Sound.ANVIL, t, 0.45f * level * (1f - ease(t - now, 1.8, 3.1)), 2f) }
+            .filter { it.gain >= MIN_GAIN }.toList()
+    }
 
     /** The smith's blows on the anvil with the sparks (SmithyPainter.anvilSparks: a blow every 0.62 s), for 3 s. */
     private fun blows(now: Double, level: Float): List<Cue> {
@@ -262,4 +282,10 @@ object Sfx {
 
     /** A blow on the anvil every 0.62 s while the sparks fly (SmithyPainter.anvilSparks). */
     private const val SMITH_BLOW = 0.62
+
+    /** A blow of the workshop's hammer every this many seconds (WorkshopPainter's swing keeps to it). */
+    const val HAMMER_BLOW = 0.75
+
+    /** The "art" of the bell a step over the village rings ([BELLS]): no scene's, the village's own little bell. */
+    const val VILLAGE = "village"
 }

@@ -207,6 +207,9 @@ export default async function cultures() {
   delete a1[3].choices[1].reply
   a1[3].choices[0].tap = 'spruce'
   a1[3].choices[1].tap = 'tree'
+  // over the village a step may ring a bell (the chapel's little one), nothing else
+  a1[0].fx = { bell: 1 }
+  a1[2].fx = { flare: 1 }
   delete ts.steps[0].levels.A2
   ts.steps.push(...[null, null, null, null, null])
   writeFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), JSON.stringify(ts))
@@ -219,9 +222,11 @@ export default async function cultures() {
     'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3].choices[1].why: no "de" why',
     'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3].choices[1]: a wrong choice needs a reaction',
     'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[3]: a tap turn needs the step\'s scene (its picture to tap in)',
+    'tinyland/project-steps/mlaj.json: steps[0].levels.A1.lines[2]: a sky or fx cue needs the step\'s scene (over the village only a bell rings: fx bell)',
     'tinyland/project-steps/nowhere.json:',
   ]
-  check("… a step: more steps than its project, a level missing, a line someone else says, a why or a reaction missing, a tap with no scene, a file of no project", !bst.ok && stepWrong.every(e => bst.errors.includes(e)), !bst.ok && bst.errors)
+  check("… a step: more steps than its project, a level missing, a line someone else says, a why or a reaction missing, a tap with no scene, an effect with no scene but a bell, a file of no project",
+    !bst.ok && stepWrong.every(e => bst.errors.includes(e)) && !bst.errors.includes('steps[0].levels.A1.lines[0]: a sky or fx'), !bst.ok && bst.errors)
   writeFileSync(join(stepped, 'tinyland/project-steps/mlaj.json'), JSON.stringify({ ...JSON.parse(readFileSync(resolve(android, '../../../../../../test/resources/cultures-test/tinyland/project-steps/mlaj.json'), 'utf8')), when: 'today' }))
   writeFileSync(join(stepped, 'tinyland/project-steps/nowhere.json'), '{}')
   const looseSteps = cultureProjectSteps(stepped, 'tinyland', 'it', [{ id: 'mlaj', leader: 'nino', helpers: ['pina'], steps: 5 }])

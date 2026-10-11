@@ -5,7 +5,9 @@ import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
+import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.Poke
+import si.lanisce.lani.game.scene.Stance
 import java.time.temporal.ChronoUnit
 import kotlin.math.PI
 import kotlin.math.abs
@@ -34,6 +36,12 @@ import kotlin.math.sqrt
  * Tapped ([pokes]): the candles flicker in a draught, then one goes out and lights again; the rope sways and the bell
  * rings, twice the second time; the sparrow on the window sill hops and chirps, flutters up, then flies a round of the
  * nave and comes back.
+ *
+ * Its effects: `candles`, `bell`, `organ`, and `door`: the door blown open (how far), its two leaves swung into the nave
+ * and stirring in the wind, the churchyard's day or night in the doorway, the candles' flames leaning in the draught.
+ * Its stage (companion/SCENES.md, "Stage directions"): by the altar, in the aisle, by the door, and at the bell's rope by
+ * the door ("rope"): a child lifted up to it holds it up by the head, the feet off the floor, and rides up and down with
+ * it while the bell swings.
  */
 internal class ChurchPainter : DioramaPainter() {
     override val art = "church"
@@ -83,10 +91,42 @@ internal class ChurchPainter : DioramaPainter() {
     // the people
     private val altarPX = 2.95f; private val altarPY = 3.7f
     private val aisleX = 5.35f; private val aisleY = 9.9f
-    private val doorPX = 2.6f; private val doorPY = 8.9f
+    private val doorPX = 2.85f; private val doorPY = 8.6f
 
     // outside
     private val cypX = 10.9f; private val cypY = 2.3f
+
+    /**
+     * The stage: by the altar, in the aisle and by the door, standing; at the rope, held up to it, a hand on it up by their
+     * head ([settle]: the rope then ends in their hand, [rope]). Drawn before the rope, with those by the door: on the
+     * way there the rope hangs in front of them. A walk goes round the pews.
+     */
+    override val marks = mapOf(
+        "altar" to Mark(altarPX, altarPY, fl),
+        "door" to Mark(doorPX, doorPY, fl),
+        "aisle" to Mark(aisleX, aisleY, fl),
+        // just right of the rope, so that a hand at their side is on it
+        "rope" to Mark(ropeX + 0.65f, ropeY - 0.35f, fl, layer = "door"),
+    )
+    override val around = listOf(floatArrayOf(3.7f, 6.9f, 1.6f), floatArrayOf(7.4f, 7.4f, 1.9f))
+
+    /** Someone standing on the stage casts their shadow on the floor. */
+    override fun footprint(x: Float, y: Float) = footShadow(x, y)
+
+    /**
+     * At the rope: held up to it (the learner lifting them, unseen), a hand on it up by the head, the feet off the floor,
+     * riding up and down with the rope as the bell swings; anywhere else as on any stage.
+     */
+    override fun settle(p: PersonInScene, spot: String, m: Mark, stance: Stance, lift: Int) {
+        if (spot != "rope") return super.settle(p, spot, m, stance, lift)
+        val body = people.body(p.art)
+        // the near hand on the rope at ROPE_HOLD, beside the head; the feet hanging under it
+        val z = m.z + max(0.6f, ROPE_HOLD - (-body.hTop + 3) / 2f) + ropePull(bellLevel())
+        // just right of it (the mark), clear of the wall, facing it: the near hand on it, at their left
+        val bx = sx(m.x, m.y); val by = sy(m.x, m.y, z) + detail - lift * detail
+        val rx = bx + Math.floorDiv(iso.ix(ropeX, ropeY) - bx, detail)
+        person(p.copy(stance = Stance.STAND), bx, by, flip = true, reach = intArrayOf(rx, by + body.hTop - 3))
+    }
 
     private var floorId = 0
     private var pewId = -1
@@ -143,6 +183,9 @@ internal class ChurchPainter : DioramaPainter() {
         return max(fxOn("bell"), tolled)
     }
 
+    /** How far the rope's end is pulled up now (nominal px) as the bell swings at [level]: the rope ([rope]) and whoever holds it. */
+    private fun ropePull(level: Float): Float = max(0f, sin(t * 4.2 - 0.6).toFloat()) * 2.4f * level
+
     /** The bell's swing angle now (radians), from [level]. */
     private fun swing(level: Float): Float = sin(t * 4.2).toFloat() * 0.5f * level
 
@@ -174,7 +217,8 @@ internal class ChurchPainter : DioramaPainter() {
         sparrow()
         thing("cross", slop = 1) { crucifix() }
         thing("font", slop = 1) { font() }
-        thing("door") { door() }
+        val open = fxOn("door")
+        thing("door") { door(open) }
         prop { retable() }
         thing("painting") { painting() }
         prop { steps() }
@@ -184,15 +228,15 @@ internal class ChurchPainter : DioramaPainter() {
         if (nativity) prop { jaslice() } else prop { statue() }
         prop(outline = 0) { lamp() }
         if (easter) prop { baskets() }
-        for (p in peopleAt("altar")) { footShadow(altarPX, altarPY); personAt(p, altarPX, altarPY, fl, flip = false) }
+        cast("altar")
 
         thing("pews") { pewId = c.penId; pews() }
-        for (p in peopleAt("door")) { footShadow(doorPX, doorPY); personAt(p, doorPX, doorPY, fl) }
+        cast("door")
         thing("rope", outline = 0, slop = 2) { rope() }
         prop { loftFloor() }
         thing("organ") { organ() }
         prop { balustrade() }
-        for (p in peopleAt("aisle")) { footShadow(aisleX, aisleY); personAt(p, aisleX, aisleY, fl) }
+        cast("aisle")
 
         // the churchyard
         prop { cypress() }
@@ -836,17 +880,24 @@ internal class ChurchPainter : DioramaPainter() {
         c.fillRect(floor(cx).toInt() - detail, floor(base).toInt(), 2 * detail, K, stoneD)
     }
 
-    /** The door under the loft: two leaves of walnut boards with iron studs in an arched frame of Karst stone, a ring. */
-    private fun door() {
+    /**
+     * The door under the loft: two leaves of walnut boards with iron studs in an arched frame of Karst stone, a ring. Blown
+     * open ([open], how far: the `door` effect), the churchyard's day or night in the doorway and the leaves swung into the
+     * nave, stirring in the wind ([leaves]).
+     */
+    private fun door(open: Float = 0f) {
         val xp = x0 + 0.02f
         val mid = (da + db) / 2f
         val r = (db - da) / 2f * 4.47f
         val spring = dTop - r
+        val ajar = open > 0.02f
         onLeft(xp, da - 0.22f, db + 0.22f, fl, dTop + 1f) { y, z ->
+            c.penEmissive = false
             val dy = (y - mid) * 4.47f
             val inside = abs(y - mid) <= (db - da) / 2f && (z <= spring || hyp(dy, z - spring) <= r)
             val frame = abs(y - mid) <= (db - da) / 2f + 0.22f && (z <= spring || hyp(dy, z - spring) <= r + 0.95f)
             when {
+                inside && ajar -> outside(y, z, dTop)
                 inside -> {
                     val leaf = if (y < mid) 0 else 1
                     val bu = (y - da) / 0.23f; val board = floor(bu).toInt(); val fb = bu - board
@@ -863,6 +914,46 @@ internal class ChurchPainter : DioramaPainter() {
                 frame -> if ((z > spring && hyp(dy, z - spring) > r + 0.6f) || abs(y - mid) > (db - da) / 2f + 0.16f) stoneHi else stoneL
                 else -> 0
             }
+        }
+        c.penEmissive = false
+        if (ajar) leaves(open, mid, spring)
+    }
+
+    /**
+     * What the open doorway shows at ([y], [z]) of the wall: the churchyard's gravel and grass low down, over it the sky of
+     * the hour up to the arch's [top] (the light of the day glowing in, the night dark).
+     */
+    private fun outside(y: Float, z: Float, top: Float): Int {
+        val ground = fl + 3.2f + sin(y * 5f) * 0.3f
+        c.penEmissive = env.sun > 0f
+        return when {
+            z < fl + 1.2f -> env.lit(if (winter) Pal.SNOW_M else Col.hex(0xC8BCA4))
+            z < ground -> env.lit(if (winter) Pal.SNOW_L else env.grass[1])
+            else -> skyCol((1f - (z - ground) / (top - ground)).coerceIn(0f, 1f))
+        }
+    }
+
+    /**
+     * The door's two leaves blown open ([open]: how far, 1 about square to the wall), each on its hinges at the doorway's
+     * side, swung into the nave and stirring in the gusts: the boards, a darker edge and a stud or two, up to the arch's
+     * [spring].
+     */
+    private fun leaves(open: Float, mid: Float, spring: Float) {
+        val w = (db - da) / 2f
+        val gust = sin(t * 1.9).toFloat() * 0.12f + sin(t * 4.3 + 0.7).toFloat() * 0.05f
+        for ((k, hinge) in listOf(da, db).withIndex()) {
+            val side = if (k == 0) 1f else -1f
+            val a = open * (1.2f + gust * (if (k == 0) 1f else -0.8f))
+            val ex = x0 + 0.04f + w * sin(a); val ey = hinge + side * w * cos(a)
+            val top = spring + w * 2.2f
+            iso.quad(x0 + 0.04f, hinge, fl, ex, ey, fl, ex, ey, top, x0 + 0.04f, hinge, top, if (k == 0) woodM else Col.mix(woodM, woodD, 0.35f))
+            iso.line(ex, ey, fl, ex, ey, top, woodD)
+            iso.line(x0 + 0.04f, hinge, top, ex, ey, top, woodL)
+            for (q in 1..3) {
+                val f = q / 4f
+                iso.line(x0 + 0.04f + (ex - x0 - 0.04f) * f, hinge + (ey - hinge) * f, fl + 0.4f, x0 + 0.04f + (ex - x0 - 0.04f) * f, hinge + (ey - hinge) * f, top - 0.4f, woodX)
+            }
+            for (zz in floatArrayOf(fl + 4f, fl + 8f)) iso.px(x0 + 0.04f + (ex - x0 - 0.04f) * 0.5f, hinge + (ey - hinge) * 0.5f, zz, iron)
         }
     }
 
@@ -1021,7 +1112,9 @@ internal class ChurchPainter : DioramaPainter() {
         val xs = floatArrayOf(4.62f, 4.98f, 5.82f, 6.18f)
         val y = 1.75f
         val pk = poked("candles")
-        val draught = if (pk != null && pk.step == 0) PokeArt.ease(pk.age(t), 0f, 0.2f) * (1f - PokeArt.ease(pk.age(t), 1.1f, 1.4f)) else 0f
+        val tapped = if (pk != null && pk.step == 0) PokeArt.ease(pk.age(t), 0f, 0.2f) * (1f - PokeArt.ease(pk.age(t), 1.1f, 1.4f)) else 0f
+        // the door open: the draught from it, in gusts
+        val draught = max(tapped, fxOn("door") * (0.65f + 0.35f * sin(t * 1.7).toFloat()))
         for ((i, x) in xs.withIndex()) {
             val tall = if (i == 0 || i == 3) 4.6f else 5.4f
             val bx = iso.ix(x, y); val by = iso.iy(x, y, mTop)
@@ -1345,11 +1438,13 @@ internal class ChurchPainter : DioramaPainter() {
      */
     private fun rope() {
         val lv = bellLevel()
-        val pull = max(0f, sin(t * 4.2 - 0.6).toFloat()) * 2.4f * lv
+        val pull = ropePull(lv)
         val pk = poked("rope")
         val sway = if (pk == null) 0f else sin(pk.age(t) * 5.5f) * 2.2f * (1f - PokeArt.ease(pk.age(t), 0f, if (pk.step == 0) 2.6f else 3.6f)) * K
         val topX = iso.sx(ropeX, ropeY); val topY = iso.sy(ropeX, ropeY, zl - 1.2f)
-        val bottom = fl + 4.2f + pull
+        // held up there by someone at it ([settle]), it ends in their hands: the rest of it hangs behind them
+        val held = frame.people.any { it.slot == "rope" && it.from == null && it.pose != si.lanisce.lani.game.scene.Pose.SLEEP }
+        val bottom = if (held) fl + ROPE_HOLD - 0.5f + pull else fl + 4.2f + pull
         val botY = iso.sy(ropeX, ropeY, bottom)
         val span = botY - topY
         val th = detail
@@ -1366,7 +1461,7 @@ internal class ChurchPainter : DioramaPainter() {
         }
         // the tassel
         val tx = floor(topX + sway).toInt(); val ty = floor(botY).toInt()
-        c.fillRect(tx - detail / 2, ty, 2 * detail, 2 * detail, Col.hex(0xC42A30))
+        if (!held) c.fillRect(tx - detail / 2, ty, 2 * detail, 2 * detail, Col.hex(0xC42A30))
     }
 
     // ------------------------------------------------------------------ effects and light
@@ -1422,5 +1517,8 @@ internal class ChurchPainter : DioramaPainter() {
     companion object {
         /** The sparrow on the window's sill: no word, a poke of its own. */
         const val SPARROW = "sparrow"
+
+        /** How high over the floor (nominal px) the hands of someone held up to the rope are: on its plain length, over the grip. */
+        const val ROPE_HOLD = 13f
     }
 }

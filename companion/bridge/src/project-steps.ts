@@ -214,12 +214,18 @@ export function speakerGendered(text: string): boolean {
 }
 
 /**
+ * The effects a step without a scene may have (companion/SCENES.md, "Project steps"): played over the village, its bell rings
+ * (the chapel's little bell as it is hung, "Cin, cin, cin!"), a bell swinging over the backdrop with its rings going out.
+ */
+export const OVER_VILLAGE_FX = ['bell']
+
+/**
  * The problems of one project's steps [f] (in [r.lang], the pack's): the project of the pack, as many steps as it has,
  * each level's lines as a dialog of the pack (every text in the languages it serves, a why and a reaction to every wrong
  * choice, 1-3 turns), said by the project's leader and helpers (the leader at least once), a helper's lines that anyone
  * could say; its scene one of the village (its art's effects, a tap turn's places there, never a thing that comes and
- * goes), none: no sky, fx or tap; its words in the project's pack, each tested by a turn at every level; the grammar
- * pages its turns name.
+ * goes), none: no sky, no tap, no fx but a bell ([OVER_VILLAGE_FX]); its words in the project's pack, each tested by a turn
+ * at every level; the grammar pages its turns name.
  */
 export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
   const errs: string[] = [...learnerErrorsIn(f)]
@@ -255,9 +261,11 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
           const said = render(String((l as Record<string, unknown>).sl ?? ''), MAN)
           if (speakerGendered(said)) errs.push(`${ln}: a helper's line says the speaker's gender ("${said}"): another may say it when they're away; say it in the plural or the present`)
         }
-        // cues and taps need the scene's picture
-        const cued = l.sky || l.fx || l.choices.some(c => c.reply?.sky || c.reply?.fx)
-        if (cued && !s.scene) errs.push(`${ln}: a sky or fx cue needs the step's scene`)
+        // cues and taps need the scene's picture; over the village only a bell rings (OVER_VILLAGE_FX: the chapel's little bell)
+        const sky = l.sky || l.choices.some(c => c.reply?.sky)
+        const named = [l.fx, ...l.choices.map(c => c.reply?.fx)].flatMap(x => Object.keys(x ?? {}))
+        if (!s.scene && (sky || named.some(e => !OVER_VILLAGE_FX.includes(e))))
+          errs.push(`${ln}: a sky or fx cue needs the step's scene (over the village only a bell rings: fx ${OVER_VILLAGE_FX.join(', ')})`)
         const taps = l.choices.map(c => c.tap)
         if (taps.some(x => x !== undefined)) {
           if (!s.scene) errs.push(`${ln}: a tap turn needs the step's scene (its picture to tap in)`)

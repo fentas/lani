@@ -98,7 +98,11 @@ object SceneSights {
     fun moonUp(env: Env): Boolean = env.moonShows
 
     /** What flies off with an effect a dialog sets (its level how far): art → object slot → the effect. */
-    val flies: Map<String, Map<String, String>> = mapOf("market" to mapOf("pigeon" to "pigeons"))
+    val flies: Map<String, Map<String, String>> = mapOf(
+        "market" to mapOf("pigeon" to "pigeons"),
+        // the forest's owl off her branch and away over the trees
+        "forest" to mapOf("owl" to "owl-flies"),
+    )
 
     /** Flown so far ([flies]' effect at [level]) that it's gone from the picture. */
     fun flownAway(level: Float): Boolean = level >= 0.995f

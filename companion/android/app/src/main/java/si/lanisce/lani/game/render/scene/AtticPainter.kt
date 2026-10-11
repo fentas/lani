@@ -4,8 +4,12 @@ import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
+import si.lanisce.lani.game.scene.PersonInScene
+import si.lanisce.lani.game.scene.Pose
+import si.lanisce.lani.game.scene.Stance
 import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.hypot
 import kotlin.math.max
@@ -23,7 +27,11 @@ import kotlin.math.sin
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 the bed with its pillow and blanket, the
  * cradle, a plain chest, the roof, the window and the stairs, rough boards and rough plaster; at level 2 the wardrobe, a
  * rug, the lamp, Nejc's ball, the roof lined with boards, the chest painted, whitewash; at level 3 the mirror and a teddy
- * bear on the chest. Its effects: `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (rocking, how far).
+ * bear on the chest. Its effects: `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (rocking, how far), `window` (the
+ * gable window blown open by the burja, its casement swinging and banging in the wind, the draught coming in; 0: shut).
+ *
+ * Its stage (companion/SCENES.md, "Stage directions"): by the bed, by the chest and at the top of the stairs, standing; and in
+ * Nejc's bed ("in-bed"), lying awake under his quilt, sitting up on its edge with his feet down (getting up), or asleep.
  *
  * At night ([beds]) Nejc sleeps in his own bed ("cot", a child's), his head on its pillow, under the patchwork quilt; Vida
  * on a straw mattress rolled out under the slope past the cradle ("mattress"), her head toward him, under a blue wool
@@ -79,6 +87,25 @@ internal class AtticPainter : RoomPainter() {
     override val beds = listOf(MATTRESS, COT)
     override val childBeds = setOf(COT)
 
+    /**
+     * The stage: where people stand by the bed, by the chest and at the top of the stairs; in the bed, sitting on its edge
+     * (the mark), lying in it under the quilt ([settle]: awake, or asleep as at night).
+     */
+    override val marks = mapOf(
+        "bed" to Mark(4.6f, 4.5f, fl),
+        "chest" to Mark(2.75f, 6.9f, fl, flip = true),
+        "stairs" to Mark(7.35f, 5.6f, fl, flip = true),
+        IN_BED to Mark(3.6f, 2.75f, fl + 1.2f),
+    )
+
+    /** In the bed: lying under the quilt, the head on its pillow (awake, or asleep); sitting on its edge as anywhere. */
+    override fun settle(p: PersonInScene, spot: String, m: Mark, stance: Stance, lift: Int) {
+        if (spot != IN_BED || (stance != Stance.LIE && stance != Stance.SLEEP)) return super.settle(p, spot, m, stance, lift)
+        val my = (bedC + bedD) / 2f
+        val q = if (stance == Stance.SLEEP) p.copy(stance = stance, pose = Pose.SLEEP) else p.copy(stance = stance)
+        sleeperAt(q, bedA + 0.43f, my, nbZ + 1.1f + HEAD_Z, NEJC_FEET, my, nbZ + 2f, PATCHWORK, awake = stance == Stance.LIE)
+    }
+
     override fun paint() {
         fit()
         vignette()
@@ -103,7 +130,9 @@ internal class AtticPainter : RoomPainter() {
         kneeWall()
         thing("roof") { roof() }
         gable()
-        thing("window") { gableWindow() }
+        // the window as the burja has it: shut, or blown open, its casement swinging into the room
+        val open = fxOn("window")
+        thing("window") { if (open > 0.02f) openWindow(open) else gableWindow() }
         prop { ridge() }
         if (there("wardrobe")) thing("wardrobe") { wardrobe() }
         if (there("mirror")) thing("mirror", slop = 1) { mirror() }
@@ -112,26 +141,28 @@ internal class AtticPainter : RoomPainter() {
         thing("bed") { bed() }
         thing("pillow", slop = 1) { pillow() }
         thing("blanket") { quilt() }
-        // Nejc asleep in his bed, the head on its pillow, under the patchwork quilt
+        // Nejc asleep in his bed, the head on its pillow, under the patchwork quilt; or in it, or on its edge, as a dialog has him
         peopleAt(COT).firstOrNull()?.let { p ->
             val my = (bedC + bedD) / 2f
             sleeperAt(p, bedA + 0.43f, my, nbZ + 1.1f + HEAD_Z, NEJC_FEET, my, nbZ + 2f, PATCHWORK)
         }
+        cast(IN_BED)
         thing("cradle") { cradle(fxOn("cradle")) }
         // Vida on her straw mattress under the slope past the cradle, her head toward Nejc, under the blue wool blanket
         peopleAt(MATTRESS).firstOrNull()?.let { p ->
             prop { mattress(MAT_A, MAT_C, MAT_B, MAT_D, alongY = false) }
             sleeperOn(p, MAT_A, MAT_C, MAT_B, MAT_D, fl + MAT_H, alongY = false, BLUE_WOOL)
         }
-        for (p in peopleAt("bed")) { footShadow(4.0f, 4.4f); personAt(p, 4.0f, 4.4f, fl) }
+        cast("bed")
         // by the gable: the chest, the toy on it
         thing("chest") { paintedChest(5.9f, 7.25f, painted = lv >= 2) }
         if (there("toy")) thing("toy", slop = 1) { teddy(x0 + 0.5f, 6.55f, fl + 4.9f) }
         if (there("ball")) thing("ball", slop = 2) { ball(4.9f, 5.9f) }
-        for (p in peopleAt("chest")) { footShadow(2.75f, 6.9f); personAt(p, 2.75f, 6.9f, fl, flip = true) }
+        cast("chest")
         if (there("lamp")) thing("lamp", slop = 1) { hangingLamp(lit) }
         thing("stairs") { railing() }
-        for (p in peopleAt("stairs")) { footShadow(7.35f, 5.6f); personAt(p, 7.35f, 5.6f, fl, flip = true) }
+        cast("stairs")
+        if (open > 0.02f) draught(open)
 
         stubs()
         prop { gardenBench() }
@@ -392,7 +423,74 @@ internal class AtticPainter : RoomPainter() {
         c.set(iso.ix(sa, sc), iso.iy(sa, sc, rz), Col.mix(Pal.WOOD_L, Col.hex(0xFFFFFF), 0.3f))
     }
 
+    /**
+     * The gable window blown open ([open]: how far, 1 wide): the night (or the day) in the opening, the casement on its
+     * hinges at the window's back edge swung into the room, swinging in the wind and banging back now and then.
+     */
+    private fun openWindow(open: Float) {
+        val ya = 4.35f; val yb = 5.65f; val za = fl + 13.5f; val zb = fl + 19.5f
+        // the reveal and the view through the empty opening
+        onX(x0 + 0.02f, ya - 0.12f, yb + 0.12f, za - 0.5f, zb + 0.4f) { y, z, px, py ->
+            val u = (y - ya) / (yb - ya); val v = (z - za) / (zb - za)
+            if (u < 0f || u > 1f || v < 0f || v > 1f) { c.penEmissive = false; Pal.WOOD_D }
+            else if (u < 0.07f || u > 0.93f || v < 0.08f || v > 0.92f) { c.penEmissive = false; Pal.WOOD_M }
+            else { c.penEmissive = true; view(1f - u, v, px, py) }
+        }
+        c.penEmissive = false
+        iso.box(x0, ya - 0.15f, za - 0.9f, 0.4f, yb - ya + 0.3f, 0.5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        // the casement on its hinges at ya, swung into the room by a: wide open and swinging in the gusts, banging back
+        val a = casement(open)
+        val w = yb - ya
+        val hx = x0 + 0.04f
+        // a point of the leaf: [u] of the way from the hinge to its free edge, [v] of its height
+        fun lx(u: Float) = hx + w * u * sin(a)
+        fun ly(u: Float) = ya + w * u * cos(a)
+        fun lz(v: Float) = za + (zb - za) * v
+        fun pane(u0: Float, u1: Float, v0: Float, v1: Float, col: Int) =
+            iso.quad(lx(u0), ly(u0), lz(v0), lx(u1), ly(u1), lz(v0), lx(u1), ly(u1), lz(v1), lx(u0), ly(u0), lz(v1), col)
+        // the frame, then its four panes of glass catching the light (dark at night, the room's lamp in them)
+        pane(0f, 1f, 0f, 1f, Pal.WOOD_D)
+        val night = env.dark > 0.5f
+        val glass = if (night) Col.hex(0x4E6A86) else Col.hex(0xA8C4D8); val lit = if (night) Col.hex(0xC8A868) else Col.hex(0xD8E8F2)
+        for ((u0, u1) in listOf(0.1f to 0.46f, 0.54f to 0.9f)) for ((v0, v1) in listOf(0.08f to 0.46f, 0.54f to 0.92f))
+            pane(u0, u1, v0, v1, if (u0 < 0.5f && v0 > 0.5f) lit else glass)
+        iso.line(lx(1f), ly(1f), lz(0f), lx(1f), ly(1f), lz(1f), Pal.WOOD_L)
+        iso.line(lx(0f), ly(0f), lz(1f), lx(1f), ly(1f), lz(1f), Pal.WOOD_L)
+    }
+
+    /**
+     * How far the casement stands open now (radians, from shut against the wall): [open] of the way, past square to the
+     * wall (so we see its face), swinging in the gusts and banging most of the way back now and then.
+     */
+    private fun casement(open: Float): Float {
+        val gust = sin(t * 2.3).toFloat() * 0.5f + sin(t * 5.1 + 1.3).toFloat() * 0.25f
+        // now and then a gust slams it most of the way back, and it swings out again
+        val bang = max(0f, sin(t * 0.9 + 0.4).toFloat() - 0.7f) / 0.3f
+        return open * (1.85f + 0.3f * gust) * (1f - 0.55f * bang * bang)
+    }
+
+    /** The draught in through the open window ([open]): pale streaks blowing over the room, flakes with them in the snow. */
+    private fun draught(open: Float) {
+        val d = detail
+        val col = if (winter) Col.hex(0xFFFFFF) else Col.hex(0xDDE8F0)
+        s.fx {
+            for (k in 0 until 6) {
+                val ph = ((t * 0.55 + k / 6.0 + Noise.rnd(k, 41) * 0.2) % 1.0).toFloat()
+                val y = 4.5f + Noise.rnd(k, 42) * 1.1f + ph * 0.6f
+                val z = fl + 14f + Noise.rnd(k, 43) * 5f - ph * 4f
+                val x = x0 + 0.3f + ph * 5.5f
+                val px = iso.sx(x, y); val py = iso.sy(x, y, z)
+                val a = open * (if (ph < 0.15f) ph / 0.15f else 1f - (ph - 0.15f) / 0.85f) * 0.55f
+                if (winter) c.blend(floor(px).toInt(), floor(py).toInt(), col, a * 1.6f)
+                else for (q in 0 until 5 * d) c.blend(floor(px + q).toInt(), floor(py + q * 0.5f + sin(q * 0.4f + k) * d).toInt(), col, a * (1f - q / (5f * d)))
+            }
+        }
+    }
+
     private companion object {
+        /** The stage's spot in Nejc's bed. */
+        const val IN_BED = "in-bed"
+
         /** Where Nejc's feet are in his bed; Vida's straw mattress on the floor under the slope, past the cradle, along x. */
         const val NEJC_FEET = 4.5f
         const val MAT_A = 5.75f; const val MAT_B = 8.45f; const val MAT_C = 3.05f; const val MAT_D = 4.05f

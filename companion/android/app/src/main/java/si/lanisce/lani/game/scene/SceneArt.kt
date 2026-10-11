@@ -141,7 +141,11 @@ object SceneArt {
         // the fire burning higher, sparks flying; the kettle steaming; a distant bell (a story's), its rings going out over
         // the dark woods from somewhere beyond them; the sheep's bells up on the pasture, out of sight, their clinks going out
         // over the trees on the right
-        "campfire" to listOf("flare", "steam", "bell", "sheepbells"),
+        "campfire" to listOf(
+            "flare", "steam", "bell", "sheepbells",
+            // the fire burning down to its embers, the flames lower and lower (1: only the embers glowing, a thread of smoke)
+            "embers",
+        ),
         // the stove fired up, smoke from the chimney; steam off the cup and the bowl on the table
         "kitchen" to listOf("oven", "steam"),
         // a flock flying up out of the trees and away (the level is how far they have flown); deer stepping out of the trees
@@ -149,7 +153,11 @@ object SceneArt {
         // (how far it has come); the owl turning its head and hooting, its calls going out; bats flitting over the
         // clearing (how many); the lost sheep's bell ringing, its clinks going out. Not set, the animals out are the day's
         // (Wildlife); the fox, the stag and the bats set by a cue that the day hasn't brought are scenery, not words to tap.
-        "forest" to listOf("birds", "herd", "fox", "hoot", "bats", "sheepbells"),
+        "forest" to listOf(
+            "birds", "herd", "fox", "hoot", "bats", "sheepbells",
+            // the owl flying off her branch and away over the trees (how far she has flown; 1: gone, the branch bare)
+            "owl-flies",
+        ),
         // the bell swinging in the tower, its ringing
         "square" to listOf("bell"),
         // the lantern: 0 dark, 1 lit (not set: lit from dusk)
@@ -173,7 +181,12 @@ object SceneArt {
         // the cows' bells ringing as they graze (how loud); the church bell by the lake swinging and ringing; a fish jumping
         // out of the lake again and again, rings on the water; a flock of alpine choughs off the crags and away (how far);
         // the alpenglow, the peaks flushing pink (how pink; not set: at sunrise and sunset)
-        "alps" to listOf("cowbells", "bell", "fish", "birds", "glow"),
+        "alps" to listOf(
+            "cowbells", "bell", "fish", "birds", "glow",
+            // the ibex climbing onto his crag at the brow, against the lake (how far up; 1: on top), whether or not the day
+            // has him out
+            "ibex",
+        ),
         // a trout leaping out of the current again and again, rings where it falls back; the mill wheel's water:
         // 0 the flume dry and the wheel still, 1 a full gush and the wheel turning fast (not set: an easy turn); bats over the
         // water (how many); the church bell from the village, its rings coming down to the water (not set: at the ave);
@@ -188,7 +201,11 @@ object SceneArt {
         "pond" to listOf("ducks", "frog", "fish", "bats", "dog", "tadpoles"),
         // the candles on the altar: 1 all of them lit, 0 all out (not set: two burn); the bell in the gable swinging and
         // ringing, the rope going up and down; the organ playing, notes rising from its pipes
-        "church" to listOf("candles", "bell", "organ"),
+        "church" to listOf(
+            "candles", "bell", "organ",
+            // the door blown open (how far: 1 wide), the day or the night in it, the draught leaning the candles' flames
+            "door",
+        ),
         // a swarm rising off the hives and circling over the garden (how many, how far); the smoker puffing smoke; honey
         // running from the extractor's tap into a jar, the crank turning (how fast)
         "apiary" to listOf("swarm", "smoke", "honey"),
@@ -204,11 +221,19 @@ object SceneArt {
         // Muri hidden behind the door (it stands open), his tail wagging past its leaf (0: back on his bench)
         "livingroom" to listOf("stove", "dog", "dog-hides"),
         // sawdust flying off the workbench as a board is sawn (how much)
-        "workshop" to listOf("dust"),
+        "workshop" to listOf(
+            "dust",
+            // a nail hammered into a board on the bench, the hammer rising and coming down, a knock each time (how hard)
+            "hammer",
+        ),
         // wine running from the barrel's tap into the jug; the candle: 0 out, 1 lit (not set: lit, the cellar is dark)
         "cellar" to listOf("tap", "candle"),
         // the lamp: 0 dark, 1 lit (not set: lit from dusk); the cradle rocking (how far)
-        "attic" to listOf("lamp", "cradle"),
+        "attic" to listOf(
+            "lamp", "cradle",
+            // the gable window blown open by the burja, its casement banging in the wind (how far open; 0: shut)
+            "window",
+        ),
     )
 
     val arts: Set<String> get() = objects.keys
@@ -248,11 +273,27 @@ object SceneArt {
             Spot("behind-stump", "stand", "hide", "peek", cover = "stump"),
             Spot("behind-logs", "stand", "hide", "peek", cover = "logs"),
         ),
-        // V šotoru: inside on the rug, by the front outside, out on the meadow; by the lantern under the roof, on the
-        // bedroll behind the table (out of the rain)
+        // V šotoru: inside on the rug (lying there too, tucked in under a blanket, awake or asleep), by the front outside,
+        // out on the meadow; by the lantern under the roof, on the bedroll behind the table (out of the rain)
         "tent" to listOf(
-            Spot("left", "stand"), Spot("right", "stand"), Spot("door", "stand"),
+            Spot("left", "stand", "lie", "sleep"), Spot("right", "stand"), Spot("door", "stand"),
             Spot("lantern", "sit", "stand"),
+        ),
+        // V podstrešju: by Nejc's bed, by the chest, at the top of the stairs; in the bed under the patchwork quilt, lying
+        // awake, sitting up on its edge (getting up) or asleep
+        "attic" to listOf(
+            Spot("bed", "stand"), Spot("chest", "stand"), Spot("stairs", "stand"),
+            Spot("in-bed", "lie", "sit", "sleep"),
+        ),
+        // V kovačnici: at the anvil, by the forge, in the doorway (Tone out there with his coffee)
+        "smithy" to listOf(
+            Spot("anvil", "stand"), Spot("forge", "stand"), Spot("door", "stand"),
+        ),
+        // V cerkvi: by the altar, in the aisle, by the door; at the bell's rope by the door, holding it (a child lifted up to
+        // it, riding up and down with it while the bell swings)
+        "church" to listOf(
+            Spot("altar", "stand"), Spot("aisle", "stand"), Spot("door", "stand"),
+            Spot("rope", "stand"),
         ),
     )
 }

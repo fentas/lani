@@ -46,6 +46,9 @@ class CultureScenesTest {
     private val jan = LangPair(Lang.SL, Lang.EN)
     private val second = LangPair(Lang.IT, Lang.SL)
 
+    /** Art → its effects that bring one of its wild animals: a culture's scene of the art may leave them to the day. */
+    private val SEEN = mapOf("alps" to setOf("ibex"), "hills" to emptySet(), "sea" to emptySet())
+
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
         for ((culture, id, art, from) in listOf(
             listOf("primorska", "v-gorah", "alps", "spot:${TownSpots.HORIZON}"),
@@ -60,7 +63,10 @@ class CultureScenesTest {
             assertTrue("$id: every slot of the art, once", s.objects.map { it.slot }.sorted() == SceneArt.objects.getValue(art).sorted())
             assertTrue("$id: spots", s.people.all { it.slot in SceneArt.personSlots.getValue(art) && it.art in SceneArt.people && it.villager != null })
             val used = s.dialogs.flatMap { d -> d.lines.flatMap { l -> l.fx.keys + l.choices.flatMap { it.reply?.fx.orEmpty().keys } } }.toSet()
-            assertEquals("$id: every effect of the art is used", SceneArt.effects.getValue(art).toSet(), used)
+            // an effect that brings one of the wild animals is used where a line has someone see it (the ibex on his crag in
+            // v-gorah); in the other scenes of the art the day brings it
+            val brings = SEEN.getValue(art)
+            assertEquals("$id: every effect of the art is used", SceneArt.effects.getValue(art).toSet() - brings, used - brings)
             for (h in s.happenings) assertTrue("$id/${h.id}", h.who in s.people.map { it.id } && s.dialogs.any { it.id == h.dialog } && h.memory != null)
         }
     }

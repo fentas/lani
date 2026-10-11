@@ -7,6 +7,8 @@ import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
 import si.lanisce.lani.game.scene.Poke
+import si.lanisce.lani.game.scene.SceneSights
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.floor
@@ -35,7 +37,8 @@ private const val RAIL_H = 3.9f
  * the flowers' petals, the berries, the leaves.
  *
  * Tapped ([pokes]), the squirrel scurries up the trunk, peeks back down and comes down again, and the next time
- * ducks into its hollow and peeks out of it; the owl opens its eyes wide (or blinks, at night), then spreads its wings.
+ * ducks into its hollow and peeks out of it; the owl opens its eyes wide (or blinks, at night), then spreads its wings. A
+ * dialog's "owl-flies" sends her off her branch and away over the trees.
  */
 internal class ForestPainter : WildPainter() {
     override val art = "forest"
@@ -86,7 +89,11 @@ internal class ForestPainter : WildPainter() {
         items.add(22f to { thing("deer") { deer(gx(4.4f, 22f).toInt(), gy(22f).toInt()) } })
         items.add(spruceD to {
             thing("spruce", outline = Pal.OUTLINE_TREE) { bigSpruce(spruceX, spruceD) }
-            thing("owl", slop = 2) { owl(gx(spruceX - 0.55f, spruceD).toInt(), (gy(spruceD) - 5.6f * pm(spruceD)).toInt()) }
+            // the owl on her branch; a dialog's "owl-flies" sends her off it and away over the trees (gone: the branch bare)
+            val ob = gx(spruceX - 0.55f, spruceD).toInt(); val oy = (gy(spruceD) - 5.6f * pm(spruceD)).toInt()
+            val flown = fxOn("owl-flies")
+            if (flown > 0.02f) prop { owlBranch(ob, oy) }
+            if (!SceneSights.flownAway(flown)) thing("owl", slop = 2) { owl(ob, oy, flown) }
         })
         items.add(beechD to {
             thing("tree", outline = Pal.OUTLINE_TREE) { beech(beechX, beechD) }
@@ -1343,11 +1350,17 @@ internal class ForestPainter : WildPainter() {
      * The owl on its branch in the spruce: eyes shining at night, shut by day. Tapped ([pokes]) it opens them wide by day,
      * blinking (at night it blinks slowly); the next time it spreads its wings and folds them again; the third it turns its
      * head and hoots, huu-huu, the calls going out. A dialog's "hoot" has it hoot again and again, its head turned; by
-     * itself it hoots now and then in the night.
+     * itself it hoots now and then in the night. A dialog's "owl-flies" ([flown], how far) has it fly off its branch, its
+     * wings beating, up and away across the clearing into the far trees (the branch is drawn on its own then, [owlBranch]).
      */
-    private fun owl(bx: Int, by: Int) {
+    private fun owl(bx0: Int, by0: Int, flown: Float = 0f) {
         val brown = Col.hex(0x8A6A48); val belly = Col.hex(0xC8A878); val dark = Col.hex(0x5A4430)
-        val bob = if (sin(t * 0.8) > 0.6) 1 else 0
+        val flying = flown > 0.02f
+        // on the wing: up off the branch and away across the clearing toward the far trees (clear of the top bar's pills in
+        // the corners), into which she is gone at the end
+        val bx = if (flying) bx0 - (flown * 95f * z).toInt() else bx0
+        val by = if (flying) by0 - ((sin(flown * PI.toFloat()) * 18f - flown * 22f) * z).toInt() else by0
+        val bob = if (flying) (if (sin(t * 18) > 0) -1 else 0) else if (sin(t * 0.8) > 0.6) 1 else 0
         val pk = poked("owl"); val a = pk?.age(t) ?: 0f
         val open = when {
             pk == null || pk.step == 2 -> env.dark > 0.3f || pk?.step == 2 || fxOn("hoot") > 0.05f
@@ -1355,7 +1368,7 @@ internal class ForestPainter : WildPainter() {
             env.dark > 0.3f -> !(a in 0.25f..0.6f || a in 0.9f..1.05f)
             else -> a in 0.15f..1.6f && !(a in 0.55f..0.68f || a in 0.95f..1.08f)
         }
-        val spread = if (pk?.step == 1) PokeArt.ease(a, 0.1f, 0.45f) * (1f - PokeArt.ease(a, 1.6f, 2.2f)) else 0f
+        val spread = if (flying) 0.55f + 0.45f * abs(sin(t * 9).toFloat()) else if (pk?.step == 1) PokeArt.ease(a, 0.1f, 0.45f) * (1f - PokeArt.ease(a, 1.6f, 2.2f)) else 0f
         // the head turned (0..1) and the hoot's calls going out (0..1 through a call, or none)
         val cue = fxOn("hoot")
         val turn: Float
@@ -1372,7 +1385,7 @@ internal class ForestPainter : WildPainter() {
             s.fx { PokeArt.rings(c, bxf, byf, call, 16f * z, Col.hex(0xF4ECD8), z, 0.55f, n = 3) }
         }
         if (spread > 0.05f) owlWings(bx, by + bob * z, spread, brown, dark)
-        if (z > 1) { owlCloser(bx, by + bob * z, brown, belly, dark, open, turn); return }
+        if (z > 1) { owlCloser(bx, by + bob * z, brown, belly, dark, open, turn, branch = !flying); return }
         val y = by + bob
         val f = (turn * 2f + 0.3f).toInt() // the face turned aside, px
         // a plump egg of a body, ear tufts, a pale face disc and a speckled belly
@@ -1387,19 +1400,30 @@ internal class ForestPainter : WildPainter() {
         else { c.hline(bx - 3 + f, bx - 2 + f, y - 9, dark); c.hline(bx + 2 + f, bx + 3 + f, y - 9, dark) }
         c.set(bx + f, y - 8, Pal.GOLD); c.set(bx + f, y - 7, if (call in 0f..1f) Pal.OUTLINE else Col.hex(0xC08A20)) // beak, open as it calls
         c.set(bx - 2, y, Pal.GOLD); c.set(bx + 2, y, Pal.GOLD) // feet
-        c.hline(bx - 7, bx + 7, y + 1, Col.hex(0x5E4A30)) // the branch
+        if (!flying) c.hline(bx - 7, bx + 7, y + 1, Col.hex(0x5E4A30)) // the branch
+    }
+
+    /** The owl's branch in the spruce without her, its feet at ([bx], [by]): bare while she is off on the wing. */
+    private fun owlBranch(bx: Int, by: Int) {
+        if (z > 1) {
+            ax = bx; ay = by
+            fr(-7f, 1f, 15f, 1f, Col.hex(0x5E4A30)); fl(-7f, 1f + 0.5f / z, 7.9f, 1f + 0.5f / z, 0.1f, Col.hex(0x7A6242))
+            fl(5.5f, 1.5f, 7.6f, 0.2f, 0.35f, Col.hex(0x5E4A30))
+        } else c.hline(bx - 7, bx + 7, by + 1, Col.hex(0x5E4A30))
     }
 
     /**
      * The owl closer up: folded wings with pale spots, rimmed face discs, round eyes, a hooked beak, a barred belly, talons;
      * its face turned aside by [turn] (0..1).
      */
-    private fun owlCloser(bx: Int, y: Int, brown: Int, belly: Int, dark: Int, open: Boolean, turn: Float = 0f) {
+    private fun owlCloser(bx: Int, y: Int, brown: Int, belly: Int, dark: Int, open: Boolean, turn: Float = 0f, branch: Boolean = true) {
         ax = bx; ay = y
         val brownD = Col.hex(0x6E5238); val disc = Col.hex(0xD8B890); val discD = Col.hex(0xA88A62)
-        // the branch it sits on
-        fr(-7f, 1f, 15f, 1f, Col.hex(0x5E4A30)); fl(-7f, 1f + 0.5f / z, 7.9f, 1f + 0.5f / z, 0.1f, Col.hex(0x7A6242))
-        fl(5.5f, 1.5f, 7.6f, 0.2f, 0.35f, Col.hex(0x5E4A30))
+        // the branch it sits on (on the wing, none: [owlBranch] stays behind)
+        if (branch) {
+            fr(-7f, 1f, 15f, 1f, Col.hex(0x5E4A30)); fl(-7f, 1f + 0.5f / z, 7.9f, 1f + 0.5f / z, 0.1f, Col.hex(0x7A6242))
+            fl(5.5f, 1.5f, 7.6f, 0.2f, 0.35f, Col.hex(0x5E4A30))
+        }
         // a plump egg of a body, its wings folded down the sides
         fe(0.5f, -5.5f, 5f, 6f, brown)
         fe(0.5f, -8f, 4.6f, 3.2f, brown)
@@ -1427,8 +1451,8 @@ internal class ForestPainter : WildPainter() {
         }
         fp(Pal.GOLD, 0.05f, -8.3f, 0.95f, -8.3f, 0.5f, -6.4f); fd(0.55f, -6.8f, Col.hex(0xC08A20))
         ax = bx
-        // talons on the branch
-        for (tx in floatArrayOf(-1.5f, 2.5f)) { fe(tx, 0.45f, 0.85f, 0.5f, Pal.GOLD); fd(tx - 0.6f, 0.8f, dark); fd(tx + 0.5f, 0.8f, dark) }
+        // talons on the branch (tucked up on the wing)
+        for (tx in floatArrayOf(-1.5f, 2.5f)) { fe(tx, if (branch) 0.45f else -0.4f, 0.85f, 0.5f, Pal.GOLD); if (branch) { fd(tx - 0.6f, 0.8f, dark); fd(tx + 0.5f, 0.8f, dark) } }
     }
 
     /** The owl's wings spread out from its sides, [w] of the way (0 folded, 1 wide), the owl's feet at ([bx], [y]); drawn before its body. */

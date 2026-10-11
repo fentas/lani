@@ -312,7 +312,10 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     }
     // The scene takes part in the dialog: the weather and effects its lines bring, how the person reacts (SceneLife.kt).
     var micOn by remember { mutableStateOf(false) }
-    val cues = rememberSceneCues(state, scene, talk?.run, now.toLocalDate())
+    // where the happenings on here have their people while they wait (Nejc in his bed), and the one being played until its
+    // dialog closes, done or not (Happening.act)
+    val waiting = remember(here, talk?.happening) { (here.map { it.happening } + listOfNotNull(talk?.happening)).filter { it.act.isNotEmpty() }.distinctBy { it.id } }
+    val cues = rememberSceneCues(state, scene, talk?.run, now.toLocalDate(), waiting)
     // The words by what the picture shows now (SceneSights, as the painters draw it), what was seen before and what is
     // still hidden: every word of the scene, also what the village hasn't built yet.
     val sights = remember(now, world, state?.seed, cues.fx.target) {

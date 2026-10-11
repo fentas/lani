@@ -9,9 +9,13 @@ import java.time.LocalDate
 // Like the sky and the effects, a cue starts with its line and a reaction's passes with the learner's next pick; where
 // the dialog leaves them goes back when it closes, unless it says "act_stays" (then until midnight: GameState.sceneAct).
 
-/** How someone is on their spot: standing, sitting, crouching, hidden (only a clue shows), peeking out, lying. */
+/**
+ * How someone is on their spot: standing, sitting, crouching, hidden (only a clue shows), peeking out, lying (awake: Nejc in
+ * his bed before he gets up), asleep (lying, the eyes shut, the Zzz rising: Zala dropping off in the middle of her story).
+ */
 enum class Stance(val id: String) {
-    STAND("stand"), SIT("sit"), CROUCH("crouch"), HIDE("hide"), PEEK("peek"), LIE("lie");
+    STAND("stand"), SIT("sit"), CROUCH("crouch"), HIDE("hide"), PEEK("peek"), LIE("lie"),
+    SLEEP("sleep");
 
     companion object {
         /** The stance of a pose's name; null for one this app doesn't know (a later app's): the cue is let go. */
@@ -163,13 +167,17 @@ object Stage {
 
     /**
      * Where everyone of [scene] is before a dialog moves them: their spot ([ScenePerson.slot]) in its [firstPose], over it
-     * what today keeps ([kept], [DayAct]), as far as the art's stage has the spot and the pose.
+     * what today keeps ([kept], [DayAct]), then where the happenings [waiting] for the learner have their people
+     * ([Happening.act]: Nejc in his bed until Jan wakes him; its dialog starts from there), as far as the art's stage has
+     * the spot and the pose.
      */
-    fun base(scene: SceneSpec, kept: Map<String, Placement>): Map<String, Placement> {
+    fun base(scene: SceneSpec, kept: Map<String, Placement>, waiting: Collection<Happening> = emptyList()): Map<String, Placement> {
         val spots = spots(scene.art)
         if (spots.isEmpty()) return emptyMap()
         val home = scene.people.filter { it.slot in spots }.associate { it.id to Placement(it.slot, spots.getValue(it.slot).poses.first()) }
-        return home + kept.filter { (id, p) -> id in home && fits(spots, p) }
+        val out = LinkedHashMap(home + kept.filter { (id, p) -> id in home && fits(spots, p) })
+        for (h in waiting) for ((who, cue) in h.act) out[who]?.let { from -> arrive(scene.art, from, cue).takeIf { fits(spots, it) }?.let { out[who] = it } }
+        return out
     }
 
     /**

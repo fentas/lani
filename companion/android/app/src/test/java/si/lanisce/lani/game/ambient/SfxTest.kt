@@ -139,7 +139,14 @@ class SfxTest {
             assertTrue(c.gain in 0f..1f && c.rate in 0.5f..2f && c.at >= 3.0)
         }
         // every effect with a sound is one an art has
-        for (name in listOf("cowbells", "oven", "stove", "forge", "flare", "sparks")) assertTrue(name, effects.any { it.second == name })
+        for (name in listOf("cowbells", "oven", "stove", "forge", "flare", "sparks", "hammer")) assertTrue(name, effects.any { it.second == name })
+        // the bell a project's step rings over the village (ProjectStepScene): the chapel's little one, high and quick
+        val village = Sfx.fx(Sfx.VILLAGE, emptyMap(), mapOf("bell" to 1f), 3.0)
+        assertTrue("$village", village.size >= 6 && village.all { it.sound == Sound.BELL && it.rate in 1.5f..2f && it.gain in 0f..1f && it.at >= 3.0 })
+        assertTrue("no other effect over the village", Sfx.fx(Sfx.VILLAGE, emptyMap(), mapOf("flare" to 1f, "sparks" to 1f), 3.0).isEmpty())
+        // the workshop's hammer knocks as its painter brings it down
+        val knocks = Sfx.fx("workshop", emptyMap(), mapOf("hammer" to 1f), 3.0)
+        assertTrue("$knocks", knocks.size >= 3 && knocks.all { it.sound == Sound.ANVIL && abs(it.at / Sfx.HAMMER_BLOW - Math.round(it.at / Sfx.HAMMER_BLOW)) < 1e-9 })
         // the thunder is ready where it flashes
         assertTrue(Sound.THUNDER_2 in Sfx.sounds(Place.Village(storm = true), Sky.CLEAR))
         assertTrue(Sound.THUNDER_1 !in Sfx.sounds(Place.Scene("field"), Sky.CLEAR))
