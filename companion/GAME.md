@@ -29,13 +29,73 @@ Every source pays through `GameEngine.earn`, one entry per answer. Typical amoun
 | Talk scene (role-play) | 1 per line, 8–10 lines | 40–50📜. A corrected line pays like an almost. |
 | Family challenge answer | 3 | 18📜 |
 | Gathering run in the village | 7 | 35 of the chosen resource |
+| Trade (⇄ Zamenjaj, see "Trading") | 6 | the answers (half of each skill), and the trade itself: up to half a store for 0.50–0.80 as much of another, once a day for each resource given |
 | Local quest | 5–6 | the answers, plus 30 × (1 + 0.3 × age index) of its skill and 10 × (…) of the village's scarcest other resource |
 | Village project step | 5 | the answers; the step itself costs (see "Village projects") |
 | Festival | 6 | the answers, plus 20 × (…) 🌾 and 10 × (…) of the scarcest other resource |
 | The day's surprise | 2–3 | the answers, plus 12 × (…) of the scarcest resource |
 | «Vidim, vidim» with a child in a scene (SCENES.md, "I spy") | 1–3 | the answers: 🌾, a quick find a right one, a later one an almost, a thing shown a wrong one |
 
-Most practice is vocabulary, so 🌾 and 🪵 are the bulk resources. Grammar modules and gathering bring 🪨. Talk is by far the biggest 📜 source; a learner who never talks still gets 📜 from quests, the linden (gathering) and the modules.
+Most practice is vocabulary, so 🌾 and 🪵 are the bulk resources. Grammar modules and gathering bring 🪨. Talk is by far the biggest 📜 source; a learner who never talks still gets 📜 from quests, the linden (gathering) and the modules. A store that piles up can be traded for one that runs short ("Trading").
+
+### Trading
+
+"⇄ Zamenjaj · Trade" (`game/Trade.kt`, the sheet in `ui/game/TradeSheet.kt`; Jan, 2026-10-11: "it would be nice if I
+could trade resources from one to another (food -> wood), maybe with a short test mix of both categories in
+question"). Vocabulary is the bulk of practice, so 🌾 piles up while 🪵 and 🪨 run short: a trade turns some of one
+resource into another, after a short run that tests both skills. Its numbers are in `Catalog` (`TRADE_*`).
+
+- **Where.** A resource's sheet (the HUD's chip) has "⇄ Zamenjaj · Trade" under "Nabiraj · Gather". The trade's sheet:
+  what to give (that resource first) and what to get (the store the village is shortest of, by its share of the cap,
+  that has room), any two of the four, each with its stock; how much (a slider with −/+ steps, starting at the most);
+  what it brings ("−194 🌾 → +97 … 155 🪵": after a run under half right, and after a run all right); how the run sets
+  the rate, the market's and the better trades' part, the most; the run's mix ("6 vaj · 6 exercises: besede in
+  poslušanje, izmenično · vocabulary and listening, in turn"); one trade a day for each resource given. A resource that
+  can't be given or got says why (traded away today, too little to give, the store full); TalkBack reads each choice
+  with its stock and its reason, the amount with its resource, and what goes out and may come in, in words. Back from
+  the trade's sheet leads to the resource's.
+- **The run.** 6 untimed exercises, the giving resource's skill and the getting one's in turn, the giving first (food →
+  wood: vocabulary, listening, vocabulary …). They come from the gathering run's sources (`Content.pick`) with the
+  learner's own cards first, the weakest first (the modules add one in three), the second half from cards the first
+  didn't ask, so no word comes twice. Listening only when the phone can speak (as the storm): without a voice the
+  listening half is vocabulary, what gathering wood reads then ("🔇" on the sheet and the intro), so food → wood is six
+  vocabulary exercises and stone → wood grammar and vocabulary in turn. 📜's half is what gathering under the linden
+  asks: the modules' conversation and writing exercises, else the learner's cards translated into the target language.
+  Each answer pays what it practises (`GameEngine.earn`, the fresh-mind rule applies), so the practice is never wasted.
+  On the stage: who works where the resource to get comes from (Luka in the forest for 🪵), asking "Zamenjava? Najprej
+  malo vaje, potem se zmeniva. · A trade? A little practice first, then we'll strike the deal."
+- **The rate** (what one given brings, `Trade.rate`): 0.50; from half the run fully right (3 of 6) +0.05 for each right
+  answer (0.30 for the whole run, shared among its answers: a shorter run, from few cards, can reach 0.80 too); a run
+  under half right trades at 0.50 all the same: no wall, a worse deal. The market (Tržnica, from Trg, while it stands, as
+  it buys goods) +0.10; then times the better trades, as the merchant's (Vida's scales +25 %, more forged and the brass
+  ones; the lookout tower's guests +10 %); never above 1.00, one for one. Rounded down to hundredths; what comes in is
+  what is given times the rate, rounded down, at least 1.
+
+  | Fully right of 6 | 0–2 | 3 | 4 | 5 | 6 |
+  |---|---|---|---|---|---|
+  | Rate | 0.50 | 0.65 | 0.70 | 0.75 | 0.80 |
+  | With Vida's scales (+25 %) | 0.62 | 0.81 | 0.87 | 0.93 | 1.00 |
+  | At the market (from Trg) | 0.60 | 0.75 | 0.80 | 0.85 | 0.90 |
+  | The market and the scales | 0.75 | 0.93 | 1.00 | 1.00 | 1.00 |
+
+- **Limits.** At most half of what is in store, rounded down, and no more than the getting store can take at the best
+  rate the run can reach (a run all right never brings more than fits). One trade a day for each resource given
+  (`GameState.trades`: the day and the resources given, gone the next day; an older save has none, and an older bridge
+  keeps it as it is), so it helps a stuck village without standing in for practice. The merchant's deal stays the
+  better one: 2× (the market's 2.5×, more with the scales) of the largest stock for the scarcest, against one for one
+  at most here.
+- **Settling** (`Trade.settle`), after the run's answers were paid. A run left before its end trades nothing and takes
+  nothing: the answers given are paid, and the day's trade of that resource is still free. Else the amount chosen goes
+  out, but no more than half of what is in store now and no more than the getting store can still take at the run's
+  rate (the run's own answers may have filled some of it); a store full by then trades nothing.
+- **The result card**: "🤝 Zamenjano! · Traded!", "Oddano · Given −194 🌾 → Prejeto · Received +126 🪵" (the chips, as
+  other runs show theirs), the rate and why: "3/6 pravilno · 3/6 right: 0,65", "osnova 0,50 · base 0.50", "+0,15 za
+  odgovore · +0.15 for the answers" (under half right "manj kot 3/6 pravilnih: le osnova · under 3/6 right: the base
+  only"), the market's, the better trades', the most; then the answers' pay, "Za tvojo vas · For your village". Left
+  early, or the store full by then: "🙂 Brez zamenjave · No trade" and why. The chronicle says "⇄ Zamenjava: 194 🌾 za
+  126 🪵 (tečaj 0,65) · Trade: 194 🌾 for 126 🪵 (rate 0.65)". TalkBack hears the trade in words ("Oddano: Hrana 194;
+  prejeto: Les 126 · Given: Food 194; received: Wood 126"). The node's log of recent answers has them as a village
+  challenge's; a chat about one of them names the run `trade:food-wood`.
 
 ## Buildings
 
@@ -312,6 +372,7 @@ The test asserts these properties for all three profiles and for six other seeds
 - After each 10-day gap, the village is repaired, fed and warm again within 2 active days.
 - Talk brings at least twice as much 📜 as any other source. Without talk, 📜 from quests, the linden and the modules still reaches Vas on time.
 - The 170-day run: the Vas village has something to build until day 130 or later, every project of Zaselek and Vas is done in Vas, and eight friends come within the 170 days.
+- With trading (`trading keeps the pacing`: every profile, this village and the six others): the player trades in place of a village run, once a session, when a store is (nearly) full while what it saves for lacks another resource (the fullest store's surplus for the largest shortfall, about what a run of 4 of 6 needs to cover it, at least 10; never what it keeps of that store unless the store is full anyway; the run's answers on their own dice). Every property above holds, a store sits at its cap while another is nearly empty no longer than without trading, trades bring at most 15 % of any resource that came in, and talk stays the best 📜 source for the committed learner. Measured: the committed learner and the one who never talks trade 6 to 11 times in 60 days, mostly 🌾 for 🪵 and 🪵 for 🌾, a little 🪨, none into 📜; their days with a store capped go from 11–16 to 2–9, and those with one capped while another is nearly empty from up to 2 to none for every profile; the ages still come with their words (they are the gate); trades bring at most 11 % of a resource (🪵, for the learner who never talks); the casual and the binge learner trade 0 to 2 times.
 
 What changed in the properties, and why: "complete" now counts the project steps (they are something to buy), and so does "buys something"; the two new properties (something new every session, never all stores full for a week) and the 170-day ones check what the projects, the calendar and the day's surprise are for. The sim now also tells the engine who lives here (`GameState.residents`), so project leaders, surprises and the friends an age counts follow the cast, and a feast or a festival brings everyone who lives here closer (before, the sim's village had no named residents). Since the palisade stands round the clearing on no plot, the sim player builds a hayrack on the plot it gave back in Tabor. Since the tent moves to the pond in Zaselek (see "The tent moves to the pond"), the sim player plays Luka's request the day he asks, besides the day's runs and on its own dice (like polishing), and builds the next building of its plan on the plot the tent gives back. With rusty words the sim's reviews fail, the player polishes when rust alone holds an age back, and it plans its saving with the rusty words counted (they are a minute away). Its project step is now the one that spends most from the fullest stores, not the first it can afford: in the 170-day run, late Vas spends 🌾 on the food-heavy steps while 🪨 sits at its cap, and with the first step that streak ran 3 to 14 days depending on the dice (this seed had 4 by luck, and rust's few extra answers made it 9 to 14); with the fuller-store step it is 4 to 9 across eight seeds, and 3 here. The 60-day runs keep it at 5 or less for every seed.
 

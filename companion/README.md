@@ -2480,6 +2480,7 @@ python3 -m unittest discover -s tests            # update-db.py, card.py, the la
 companion/bin/qa                                 # end to end, on the lani-qa emulator
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
+companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2504,6 +2505,15 @@ as ever. It seeks to exact positions with the player paused: `untilPosition` ove
 The quiz's pure parts have their own tests: `RoadQuizTest` (a question's sounds and parts, each button at each moment,
 every kind of question, the session's order, the fixed phrases), `RoadQuizCountTest` (what the answers count),
 `RoadMenuTest` (the tabs, the old ids, the custom actions, "📖 Zgodba") and `RoadWorkTest` (the spoken texts got ready).
+
+**QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
+goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
+upper one is wood to give), its most is given, and the step reads what goes out from the preview ("−194 🌾 → +97 … 155
+🪵"). The run is answered to its end whatever the exercises are; the result must show what went out and came in and
+the rate's line ("3/6 pravilno · 3/6 right: 0,65"). Back in the village the HUD's chips (their TalkBack labels, "Hrana
+· Food: <stock> / <cap>") must say less food and more wood, and the dev bridge's village (`GET /game`) must keep today's
+trade, food given. On Jan's data (October 2026) it gives 194 🌾 of 389 for 97 to 155 🪵. A village that can't trade
+food for wood now (the wood store full, food traded away today) skips the step and says why.
 
 **QA of the car** (`--steps road`, the last step). On a fresh install, it opens the 🚗 sheet and asks the debug build
 for a small library (`road:mini`): two items of each kind from the dev bridge (cards, words, dialogs, stories,
