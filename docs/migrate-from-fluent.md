@@ -52,9 +52,13 @@ $OLD/companion/bin/fluent-backup --profile <id> run    # each other learner
 git clone https://github.com/fentas/lani.git $NEW
 cd $NEW/companion/bridge && bun install
 cp $OLD/companion/android/local.properties $NEW/companion/android/    # the Android SDK path, to build the app
-cp $OLD/.claude/settings.local.json $NEW/.claude/                     # optional: your local Claude Code permissions
-sed -i 's/mcp__fluent/mcp__lani/g; s/"fluent"/"lani"/g' $NEW/.claude/settings.local.json   # the MCP server's new name: its tools (mcp__fluent__…) and the rule for all of them ("mcp__fluent")
+cp $OLD/.claude/settings.local.json $NEW/.claude/                     # your local Claude Code permissions (else the tutor asks for every tool)
+sed -i 's/mcp__fluent/mcp__lani/g; s/"fluent"/"lani"/g; s/fluent-\(backup\|session\|bridge\|pair\|profile\)/lani-\1/g' $NEW/.claude/settings.local.json   # the new names
 ```
+
+The `sed` renames a rule for the whole MCP server (`"mcp__fluent"`, which allows every one of its tools) as well as a
+rule for one tool (`"mcp__fluent__get_village"`). Without it, or without the file, the tutor asks before each of its
+own tools.
 
 ### 3. Stop the old tutor and bridges
 
