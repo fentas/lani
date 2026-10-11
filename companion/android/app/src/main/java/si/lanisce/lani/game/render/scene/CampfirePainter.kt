@@ -75,13 +75,15 @@ internal class CampfirePainter : DioramaPainter() {
      * The stage: the seats on the logs, the place between the fire and the tent, and the two hiding places, each where one
      * stands when out of it (behind the stump: at its left; behind the woodpile: in front of it). Who hides behind the stump
      * is drawn before it, standing there too; behind the woodpile before it, standing in front of it after the children's.
+     * Who peeks out from behind the woodpile is drawn after it, at its near end: in full view, and a tap on them is on
+     * them, not on the logs; behind the stump, before it, its left edge over their shoulder (their middle still theirs).
      */
     override val marks = mapOf(
         "left" to Mark(leftX, leftY),
         "right" to Mark(rightX, rightY, flip = true),
         "back" to Mark(backX, backY, flip = true),
         "behind-stump" to Mark(STUMP_OUT_X, STUMP_OUT_Y, flip = true, layer = "stump"),
-        "behind-logs" to Mark(LOGS_OUT_X, LOGS_OUT_Y, layer = "logs-front", hidden = "logs"),
+        "behind-logs" to Mark(LOGS_OUT_X, LOGS_OUT_Y, layer = "logs-front", hidden = "logs", peek = "logs-front"),
     )
 
     /** A shadow at the feet of whoever stands on the grass. */
@@ -250,20 +252,20 @@ internal class CampfirePainter : DioramaPainter() {
 
     /**
      * The sheep's bells up on the pasture beyond the woods ("sheepbells": Luka's "Slišiš zvonce?"), out of sight: only their
-     * clinks going out over the trees on the right, small rings here and there, each coming and going on its own.
+     * clinks going out among the crowns of the trees at the back on the right, small rings here and there, each coming
+     * and going on its own. Down among the crowns, not over them: the sky above is under the scene's top bar (its 🔍).
      */
     private fun sheepBells() {
         val on = fxOn("sheepbells")
         if (on <= 0.02f) return
         val q = detail
-        val x0 = iso.ox + 46f * q
-        val y0 = max(20f * q, (iso.oy - rise * K) / 2f + 34f * q)
         s.fx {
             for (j in 0 until 5) {
                 val period = 1.2 + Noise.rnd(j, 611) * 0.9
                 val u = (((t + Noise.rnd(j, 612) * 7.0) / period) % 1.0).toFloat()
-                val x = x0 + (Noise.rnd(j, 613) - 0.5f) * 84f * q
-                val y = y0 + (Noise.rnd(j, 614) - 0.5f) * 26f * q
+                // along the back edge between the spruces at 5.4 and 9.9, 8 to 15 px up their trunks
+                val wx = 5.6f + Noise.rnd(j, 613) * 3.4f
+                val x = iso.sx(wx, 0.4f); val y = iso.sy(wx, 0.4f, 8f + Noise.rnd(j, 614) * 7f)
                 PokeArt.rings(c, x, y, u, 7f * q, Col.hex(0xF4E2A8), q, 0.7f * on, n = 2)
             }
         }

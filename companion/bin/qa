@@ -14,7 +14,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "🚗 Za pot" (a small library got ready, played, next, paused; "❓ Kviz": a pick by next, a
                        question again by previous; browsed as Android Auto does: two tabs, each session played);
                        "scene-building" a building's scene (the hut's kitchen, a house's room …) with the building in
-                       its top bar, its card opened from there; "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
+                       its top bar, its card opened from there, its words' run and back to the card in the scene;
+                       "fire-peek" hide-and-seek by the fire: the children hidden behind the stump, peeking out at a
+                       wrong guess, found (QA's hook "happening:ob-ognju/lovljenje"); "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
@@ -696,6 +698,39 @@ def scene_building():
     assert tap("‹ Vas · Village", 3), "back from the scene"
     plain_village()  # past the village's first-time intro and its news, when this step runs alone
     assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+    time.sleep(2)
+    assert not building_card(), "no building card left over in the village"
+
+
+def fire_peek():
+    """Hide-and-seek by the fire (ob-ognju, lovljenje-skrivalnice), on the stage: Jan counts and the children are gone
+    behind the stump (a clue of them over it); a wrong guess ("Vidim ga!") and they peek out at its left; the right guess
+    and they pop out. Through QA's hook: the happening counted as on (whichever of its variants the day plays: another
+    than hide-and-seek is skipped). The screenshots show each; that a peek is drawn over what hid them and is theirs to
+    tap is StageRenderTest's."""
+    try:
+        qa_hook("happening:ob-ognju/lovljenje", "scene:ob-ognju@ob-ognju/lovljenje")
+        if wait_for("‹ Vas · Village", 10) is None:
+            return "skipped: the fire's scene didn't open"
+        if wait_for("Zapri · Close", 8) is None:
+            return "skipped: the children's tag didn't open (no QA hook in this build?)"
+        if wait_for("skrivalnice", 6) is None:
+            tap("Zapri · Close", 3)
+            return "skipped: today's variant of the children's game isn't hide-and-seek (heard lately)"
+        for name, said in (("fire-hidden", "Velja! Skrijte se, jaz štejem."), ("fire-peek", "Vidim ga! Za štorom si!"),
+                           ("fire-found", "Vidim te! Za štorom si!")):
+            for _ in range(4):
+                if answer_right({said}):
+                    break
+                tap("Naprej · Next", 2)
+            else:
+                raise AssertionError(f"the choice {said!r}")
+            time.sleep(3.5)  # the dash, the peek, the pop out: every move is over within 2.6 s
+            shot(name)
+        tap("Zapri · Close", 3)
+    finally:
+        qa_hook("happening:")
+    return None
 
 
 WORD_CARD = ("Vprašaj učitelja", "Dodaj med moje besede", "Med tvojimi besedami", "Poskusi znova", "Iščem")
@@ -2697,6 +2732,7 @@ def plan():
         ("place-card", place_card, v, True, ""),
         ("scene", scene, v, False, ""),
         ("scene-building", scene_building, v, False, ""),
+        ("fire-peek", fire_peek, v, False, ""),
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("ispy", ispy, v, False, ""),

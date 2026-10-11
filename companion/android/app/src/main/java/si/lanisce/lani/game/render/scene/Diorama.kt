@@ -212,10 +212,14 @@ internal abstract class DioramaPainter : ArtPainter() {
      * Where someone is at a spot of this art's stage ([si.lanisce.lani.game.scene.SceneArt.stage]): standing at world
      * ([x], [y]) on a floor [z] nominal px high (sitting: the seat), facing left when [flip]. At a hiding place it is where
      * they stand when they come out (where they hide is the painter's, [hiding]). [layer] is when in the painting order
-     * they are drawn ([cast]), the spot's name unless it shares another's; [hidden] when they are drawn hiding or peeking
-     * there (before what hides them), the same unless it says.
+     * they are drawn ([cast]), the spot's name unless it shares another's; [hidden] when they are drawn hiding there
+     * (before what hides them), the same unless it says; [peek] when they are drawn peeking out (where they peek is in
+     * front of what hides them: after it, so the cover doesn't hide them or take the tap on them), as hiding unless it says.
      */
-    internal class Mark(val x: Float, val y: Float, val z: Float = 0f, val flip: Boolean = false, val layer: String? = null, val hidden: String? = null)
+    internal class Mark(
+        val x: Float, val y: Float, val z: Float = 0f, val flip: Boolean = false, val layer: String? = null, val hidden: String? = null,
+        val peek: String? = null,
+    )
 
     /** The spots of the stage, by name: where people are at each. None: the art has no stage, people stand at their person spots. */
     protected open val marks: Map<String, Mark> = emptyMap()
@@ -224,7 +228,11 @@ internal abstract class DioramaPainter : ArtPainter() {
     private fun layerOf(spot: String, stance: Stance): String {
         val m = marks[spot] ?: return spot
         val own = m.layer ?: spot
-        return if (stance == Stance.HIDE || stance == Stance.PEEK) m.hidden ?: own else own
+        return when (stance) {
+            Stance.HIDE -> m.hidden ?: own
+            Stance.PEEK -> m.peek ?: m.hidden ?: own
+            else -> own
+        }
     }
 
     /** Whether the people at [spot] in any of [stances] are drawn somewhere in the painting order now: the art shows it. */
@@ -257,6 +265,18 @@ internal abstract class DioramaPainter : ArtPainter() {
         }
         past.sortBy { it[2] }
         return listOf(floatArrayOf(a.x, a.y)) + past + listOf(floatArrayOf(b.x, b.y))
+    }
+
+    /** A walk's [way] from spot to spot: its points, the length of each leg and of the whole, in cells. */
+    private class Walk(val pts: List<FloatArray>, val legs: FloatArray, val total: Float)
+
+    /** The walks between the stage's spots, made once each (the marks and what is [around] stay as they are). */
+    private val walks = HashMap<Mark, HashMap<Mark, Walk>>()
+
+    private fun walk(a: Mark, b: Mark): Walk = walks.getOrPut(a) { HashMap() }.getOrPut(b) {
+        val pts = way(a, b)
+        val legs = FloatArray(pts.size - 1) { hypot(pts[it + 1][0] - pts[it][0], pts[it + 1][1] - pts[it][1]) }
+        Walk(pts, legs, legs.sum())
     }
 
     /**
@@ -298,9 +318,8 @@ internal abstract class DioramaPainter : ArtPainter() {
         }
         if (a == b) { if (layerOf(b, p.stance) == layer) settle(p, b, mb, p.stance); return }
         // a walk from spot to spot (round what is in the way), standing up first, into the pose there at the end
-        val pts = way(ma, mb)
-        val legs = FloatArray(pts.size - 1) { hypot(pts[it + 1][0] - pts[it][0], pts[it + 1][1] - pts[it][1]) }
-        val total = legs.sum()
+        val w = walk(ma, mb)
+        val pts = w.pts; val legs = w.legs; val total = w.total
         val u = age / walkS(total)
         if (u >= 1f) { if (layerOf(b, p.stance) == layer) settle(p, b, mb, p.stance); return }
         if (layerOf(if (u < 0.5f) a else b, Stance.STAND) != layer) return

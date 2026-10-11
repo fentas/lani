@@ -63,6 +63,31 @@ class StageRenderTest {
         }
     }
 
+    @Test fun `peeking out by the fire, the woodpile and the stump don't cover them, and a tap on them is on them`() {
+        // (in the living room Zala peeks half out past the door's edge, and under the table's cloth: by design)
+        val failed = ArrayList<String>()
+        val art = "campfire"
+        for (s in SceneArt.stage.getValue(art)) {
+            val cover = s.cover ?: continue
+            if ("peek" !in s.poses) continue
+            val p = ScenePainters.create(art)
+            val c = PixelCanvas(bw, bh)
+            val h = p.render(c, frame(art, listOf(zala.copy(slot = s.name, stance = Stance.PEEK)))).first { it.target == SceneTarget.Person("zala") }
+            // down the middle of them, from the head to the waist: theirs (a pixel of the cover through a gap at most)
+            val cx = (h.left + h.right) / 2
+            var mine = 0; var covered = 0
+            for (y in h.top until h.top + (h.bottom - h.top) * 6 / 10) for (x in cx - 1..cx + 1) {
+                when (p.targetAt(c, x, y, 0)) {
+                    SceneTarget.Person("zala") -> mine++
+                    SceneTarget.Thing(cover) -> covered++
+                    else -> Unit
+                }
+            }
+            if (covered * 10 > mine || mine < 6) failed.add("$art/${s.name}: $mine px of hers down her middle, $covered of the $cover's")
+        }
+        assertTrue(failed.joinToString("\n", prefix = "\n"), failed.isEmpty())
+    }
+
     @Test fun `a hiding place looks different with someone in it, and a peek differs from the hidden`() {
         for (art in SceneArt.stage.keys) for (s in SceneArt.stage.getValue(art)) {
             if ("hide" !in s.poses) continue
