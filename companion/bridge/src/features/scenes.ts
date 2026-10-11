@@ -55,8 +55,10 @@ Every text you write for the app (a scene, a story, a villager, an arrival, a re
 grammar page) speaks to whoever learns: never write the learner's name or their gender out. Their name is {learner} (its
 cases {learner:gen}, {learner:dat}, {learner:acc}, {learner:loc}, {learner:ins}; {learner:poss}a hiša: "Markova hiša", "Anina hiša"),
 and every form that agrees with them is a pair, the man's first: "Si {m:lačen|f:lačna}?", "{m:Rad|f:Rada} bi kavo.",
-"{m:fant|f:dekle}", "Sei {m:stanco|f:stanca}?", "{m:lad|f:lass}", in the translations too; a turn's choices still differ
-for a woman. The app and the bridge say it to the learner of the profile (companion/SCENES.md "The learner in the
+"{m:Priden fant|f:Pridno dekle}!", "Sei {m:stanco|f:stanca}?", in the translations too; a turn's choices still differ
+for a woman. Call the learner by name or not at all, never with a bare singular "fant" or "dekle" (English "lad" in
+Slovene words: "Lahko noč!", "Poslušaj, {learner}."); an old villager may say "sinko" to a young man now and then, when
+moved ("Hvala, {m:sinko|f:{learner}}."); praise stays. The app and the bridge say it to the learner of the profile (companion/SCENES.md "The learner in the
 content"); publish_* refuses a malformed one.
 `.trim()
 

@@ -1407,18 +1407,29 @@ its ending written after it: `{learner:poss}a hiša` is "Markova hiša", "Anina 
 psa". "Marko je {learner:dat} napisal pismo." "Brez {learner:gen} ni nič." "Pri {learner:loc} je, z {learner:ins}."
 
 **What agrees with the learner** is a gender pair, the man's form after `m:`, the woman's after `f:` (either order):
-`Si {m:lačen|f:lačna}?`, `{m:Rad|f:Rada} bi kavo.`, `Lahko noč, {m:fant|f:dekle}.`, `Sei {m:stanco|f:stanca}?`,
-`{m:mein Junge|f:mein Mädchen}`, `Good night, {m:lad|f:lass}.` A branch may hold `{learner}` (`{f:Draga {learner}|m:Dragi
+`Si {m:lačen|f:lačna}?`, `{m:Rad|f:Rada} bi kavo.`, `{m:Priden fant|f:Pridno dekle}!`, `Sei {m:stanco|f:stanca}?`,
+`{m:mein Lieber|f:meine Liebe}`, `What a polite {m:boy|f:girl}!` A branch may hold `{learner}` (`{f:Draga {learner}|m:Dragi
 {learner}}!`) and an ICU select (a newcomer's template: `{m:spoznala|f:{g, select, f {spoznali} other {spoznala}}}`, the
 two of you are women only when both are), nothing else in braces and no `|`. Pair the smallest natural unit, mostly one
-word; a few words when the change spans them (`{m:moj fant|f:moje dekle}`: *dekle* is neuter, so what agrees with the
+word; a few words when the change spans them (`{m:priden fant|f:pridno dekle}`: *dekle* is neuter, so what agrees with the
 noun is neuter, while what is said of the learner is feminine, `ti si {m:priden|f:pridna}`).
+
+**Calling the learner**: by name (`{learner}`; Slovene calls with the nominative, "Poslušaj, {learner}.") where a call
+fits, to get their attention, at the start of a talk or in a warm moment, else not at all ("Lahko noč!", "Bravo!").
+Never a bare singular *fant* or *dekle* as an address ("Lahko noč, fant."): that is English "lad"/"lass" in Slovene
+words, and Slovene calls *fantje* only in the plural ("Dajmo, fantje!"). An old villager (Micka, Janez, Tone, Ančka)
+may say *sinko* to a young man now and then, when moved or tender, never twice in one talk or story, and a woman gets
+her name or nothing (no *punca*, no *dekle*): `Hvala, {m:sinko|f:{learner}}.`, translated `{m:son|f:{learner}}`,
+`{m:mein Junge|f:{learner}}`, `{m:figliolo|f:{learner}}`. Praise and descriptions stay ("{m:Priden fant|f:Pridno
+dekle}!", "Ti si pa {m:pameten fant|f:pametno dekle}.", "tisti fant"). The translations follow the Slovene ("Good
+night!", not "Good night, lad!"); a village of another language keeps its own idiom (a Cumbrian "lad", a Carinthian
+"Bub"), and its Slovene translation leaves the address out. The personalities say so too ("calls {learner} by name").
 
 What to pair, in every language of a text (the translations too):
 
 - **Said to the learner**: the Slovene second person with an l-participle or an adjective (`Si {m:videl|f:videla} Belo?`,
   `Boš {m:šel|f:šla} z mano?`, `Bodi {m:priden|f:pridna}!`, `Imaš {m:rad|f:rada} …?`, `Si {m:sam|f:sama}?`); the words of
-  address (fant → dekle, dragi → draga, pozdravljen → pozdravljena, dobrodošel → dobrodošla, sosed → soseda, gospod →
+  address (priden fant → pridno dekle, dragi → draga, pozdravljen → pozdravljena, dobrodošel → dobrodošla, sosed → soseda, gospod →
   gospa; ragazzo → ragazza, bravo → brava, benvenuto → benvenuta, Junge → Mädchen, mein Lieber → meine Liebe, lad → lass,
   boy → girl, he/him about the learner → she/her); Italian adjectives and participles with essere (`sei {m:arrivato|f:arrivata}`;
   avere doesn't agree).
@@ -1552,7 +1563,7 @@ there is a story to tell tonight.
 | `review` | for writers: who wrote what and whether a native speaker checked it ("notes: machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker") |
 
 A telling is a scene dialog told by the teller: his lines have no `who` (the happening's person says them), the first is
-his, and it has at least one turn for the learner: a question he asks ("Povej, fant: kaj je naredil lovec?") that the
+his, and it has at least one turn for the learner: a question he asks ("Povej: kaj je naredil lovec?") that the
 choices answer, or a reaction ("O, ne! Ubogi Zlatorog!"); every wrong choice has its `why` and the teller's reaction as
 its `reply`, as in a scene ([Reactions](#reactions-and-more-than-one-right-answer)): "Dobro jutro? Ob tej uri?" to a
 morning greeting by the fire (the curated stories all have theirs, `DialogReactionsTest`). The cues are the campfire's:
@@ -1639,7 +1650,7 @@ notebook", at that story's page). The row shows how many stories and sketches it
   level (A1 very short sentences, A2 more detail, B1 the telling's clauses). A story without notes (the tutor's, or one
   an older bridge served: it leaves them out) is written down from its telling (`Notebook.prose`): the teller's lines
   between the learner's turns (the replies aren't written), without the asides: a question, a greeting, the listener
-  named or called ("fant", "piccolo", "lad"), told to sit, listen or say, tonight's story talked of; "Veš, …" taken off
+  named or called ("fant", "sinko", "piccolo", "lad"), told to sit, listen or say, tonight's story talked of; "Veš, …" taken off
   the front; what is said in quotes is the story's. A story heard at two levels offers both ("Slišano na ravni"), opening
   at the learner's level, else the highest; an evening heard only at another level is written at that one.
 - **The page** (`NotebookSheet`, `NotebookLook`): a school exercise book's paper, faint blue rules a line of handwriting
