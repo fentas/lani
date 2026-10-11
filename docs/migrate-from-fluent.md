@@ -53,7 +53,7 @@ git clone https://github.com/fentas/lani.git $NEW
 cd $NEW/companion/bridge && bun install
 cp $OLD/companion/android/local.properties $NEW/companion/android/    # the Android SDK path, to build the app
 cp $OLD/.claude/settings.local.json $NEW/.claude/                     # optional: your local Claude Code permissions
-sed -i 's/mcp__fluent__/mcp__lani__/g; s/"fluent"/"lani"/g' $NEW/.claude/settings.local.json   # the MCP server's new name
+sed -i 's/mcp__fluent/mcp__lani/g; s/"fluent"/"lani"/g' $NEW/.claude/settings.local.json   # the MCP server's new name: its tools (mcp__fluent__…) and the rule for all of them ("mcp__fluent")
 ```
 
 ### 3. Stop the old tutor and bridges
