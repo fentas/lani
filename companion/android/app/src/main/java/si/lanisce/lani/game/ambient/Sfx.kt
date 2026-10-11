@@ -113,6 +113,10 @@ object Sfx {
             when (name) {
                 "bell" -> BELLS[art]?.let { b -> out += peal(b, now, l) }
                 "cowbells" -> if (art == "alps") out += herd(now, l)
+                "sheepbells" -> when (art) {
+                    "campfire" -> out += sheepBells(now, l, bells = 3, gain = 0.32f)
+                    "forest" -> out += sheepBells(now, l, bells = 1, gain = 0.55f)
+                }
                 "oven", "stove", "forge" -> out += Cue(Sound.WHOOSH, now, 0.45f + 0.4f * l)
                 "flare" -> if (art == "campfire") out += Cue(Sound.WHOOSH, now, (0.3f + 0.6f * (level - was)).coerceAtMost(0.85f))
                 "sparks" -> if (art == "smithy") out += blows(now, l)
@@ -130,7 +134,9 @@ object Sfx {
             BELLS[place.art]?.let { out += it.sound }
             when (place.art) {
                 "alps" -> out += Sound.COWBELL
-                "kitchen", "livingroom", "campfire" -> out += Sound.WHOOSH
+                "kitchen", "livingroom" -> out += Sound.WHOOSH
+                "campfire" -> { out += Sound.WHOOSH; out += Sound.COWBELL }
+                "forest" -> out += Sound.COWBELL
                 "smithy" -> { out += Sound.WHOOSH; out += Sound.ANVIL }
             }
         }
@@ -194,6 +200,17 @@ object Sfx {
         strikes(7.0, now + 0.05 + 0.13 * k, now + 2.5, phase = 2.1 * k).mapIndexed { i, t ->
             val gain = level * (0.55f - 0.1f * k) * (1f - ease(t - now, 1.5, 2.5))
             Cue(Sound.COWBELL, t, gain, (0.92f + 0.07f * k) * (if (i % 2 == 0) 1f else 1.03f))
+        }
+    }.filter { it.gain >= MIN_GAIN }.sortedBy { it.at }
+
+    /**
+     * Sheep's bells ringing ([level]): [bells] small ones (a cow's bell played faster and higher) clinking as the sheep move,
+     * each its own way, for 3 s, at [gain]: one close by in the forest, the flock's far off on the pasture.
+     */
+    private fun sheepBells(now: Double, level: Float, bells: Int, gain: Float): List<Cue> = (0 until bells).flatMap { k ->
+        strikes(9.5 + 1.3 * k, now + 0.1 + 0.23 * k, now + 3.0, phase = 1.7 * k).mapIndexed { i, t ->
+            val g = level * gain * (1f - 0.15f * k) * (1f - ease(t - now, 2.0, 3.0))
+            Cue(Sound.COWBELL, t, g, (1.6f + 0.09f * k) * (if (i % 2 == 0) 1f else 1.04f))
         }
     }.filter { it.gain >= MIN_GAIN }.sortedBy { it.at }
 

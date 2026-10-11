@@ -93,7 +93,7 @@ internal class ForestPainter : WildPainter() {
         })
         items.add(beechD - 1.5f to { thing("leaves") { fallenLeaves(gx(beechX + 1.4f, beechD - 1.5f).toInt(), gy(beechD - 1.5f).toInt()) } })
         items.add(15.6f to { thing("stone") { boulder(gx(-2.9f, 15.6f).toInt(), gy(15.6f).toInt()) } })
-        items.add(13f to { groundShadow(2.6f, 13f, 0.7f); thing("sheep", slop = 1) { sheep(gx(2.6f, 13f).toInt(), gy(13f).toInt()) } })
+        items.add(13f to { groundShadow(2.6f, 13f, 0.7f); thing("sheep", slop = 1) { sheep(gx(2.6f, 13f).toInt(), gy(13f).toInt()) }; sheepBell(gx(2.6f, 13f), gy(13f)) })
         items.add(11.2f to { thing("berries", slop = 1) { blueberries(gx(-4.6f, 11.2f).toInt(), gy(11.2f).toInt()) } })
         items.add(10.8f to { thing("flowers", slop = 2) { flowers(gx(5.4f, 10.8f).toInt(), gy(10.8f).toInt()) } })
         items.add(10.4f to { thing("mushroom", slop = 2) { mushrooms(gx(-2.4f, 10.4f).toInt(), gy(10.4f).toInt()) } })
@@ -1555,6 +1555,25 @@ internal class ForestPainter : WildPainter() {
         fe(x, y, 0.64f, 0.64f, Col.hex(0x3A4A9A))
         fd(x + 0.4f, y + 0.4f, Col.hex(0x222E66)); fd(x - 0.1f, y + 0.4f, Col.hex(0x2A3A7A))
         fd(x - 0.3f, y - 0.3f, Col.hex(0x8A98D4))
+    }
+
+    /**
+     * The bell round the lost sheep's neck ringing ("sheepbells": Luka's "Slišiš? Zvonec!"): its clinks going out from under
+     * its head, again and again while the cue is on.
+     */
+    private fun sheepBell(cx: Float, by: Float) {
+        val on = fxOn("sheepbells")
+        val z = z
+        // the bell under its chin, brass, swinging while it rings
+        val swing = if (on > 0.05f) (sin(t * 9.0) * 0.9).toFloat() * z else 0f
+        val bs = max(1, z) * 2
+        prop(outline = 0) {
+            c.fillRect(floor(cx + 7.6f * z + swing).toInt(), floor(by - 6.2f * z).toInt(), bs, bs, Col.hex(0xC8962E))
+            c.set(floor(cx + 7.6f * z + swing).toInt(), floor(by - 6.2f * z).toInt(), Col.hex(0xF0CC6A))
+        }
+        if (on <= 0.05f) return
+        val call = ((t * 0.9) % 1.0).toFloat()
+        s.fx { PokeArt.rings(c, cx + 8.5f * z, by - 5.5f * z, call, 13f * z, Col.hex(0xFFF2C8), z, 0.95f * on, n = 3) }
     }
 
     private fun sheep(cx: Int, by: Int) {

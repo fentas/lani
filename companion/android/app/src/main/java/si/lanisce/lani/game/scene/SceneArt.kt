@@ -139,16 +139,17 @@ object SceneArt {
     /** art id → the effects its painter shows when a dialog's cue sets them (a line's `fx`, levels 0..1). */
     val effects: Map<String, List<String>> = mapOf(
         // the fire burning higher, sparks flying; the kettle steaming; a distant bell (a story's), its rings going out over
-        // the dark woods from somewhere beyond them
-        "campfire" to listOf("flare", "steam", "bell"),
+        // the dark woods from somewhere beyond them; the sheep's bells up on the pasture, out of sight, their clinks going out
+        // over the trees on the right
+        "campfire" to listOf("flare", "steam", "bell", "sheepbells"),
         // the stove fired up, smoke from the chimney; steam off the cup and the bowl on the table
         "kitchen" to listOf("oven", "steam"),
         // a flock flying up out of the trees and away (the level is how far they have flown); deer stepping out of the trees
         // at the far edge, a stag and two hinds (how far out: 0 back in the trees); the fox trotting out along the edge
         // (how far it has come); the owl turning its head and hooting, its calls going out; bats flitting over the
-        // clearing (how many). Not set, the animals out are the day's (Wildlife); the fox, the stag and the bats set by a
-        // cue that the day hasn't brought are scenery, not words to tap.
-        "forest" to listOf("birds", "herd", "fox", "hoot", "bats"),
+        // clearing (how many); the lost sheep's bell ringing, its clinks going out. Not set, the animals out are the day's
+        // (Wildlife); the fox, the stag and the bats set by a cue that the day hasn't brought are scenery, not words to tap.
+        "forest" to listOf("birds", "herd", "fox", "hoot", "bats", "sheepbells"),
         // the bell swinging in the tower, its ringing
         "square" to listOf("bell"),
         // the lantern: 0 dark, 1 lit (not set: lit from dusk)

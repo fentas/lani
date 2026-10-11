@@ -126,6 +126,7 @@ internal class CampfirePainter : DioramaPainter() {
         val lit = env.windows > 0.35f
         nightSky()
         distantBell()
+        sheepBells()
         // the smoke and the sparks over the fire: whatever is drawn in front of them answers first
         val cx = iso.ix(fireX, fireY); val cy = iso.iy(fireX, fireY, 0f)
         val q = detail
@@ -244,6 +245,27 @@ internal class CampfirePainter : DioramaPainter() {
                 }
             }
             c.penEmissive = false
+        }
+    }
+
+    /**
+     * The sheep's bells up on the pasture beyond the woods ("sheepbells": Luka's "Slišiš zvonce?"), out of sight: only their
+     * clinks going out over the trees on the right, small rings here and there, each coming and going on its own.
+     */
+    private fun sheepBells() {
+        val on = fxOn("sheepbells")
+        if (on <= 0.02f) return
+        val q = detail
+        val x0 = iso.ox + 46f * q
+        val y0 = max(20f * q, (iso.oy - rise * K) / 2f + 34f * q)
+        s.fx {
+            for (j in 0 until 5) {
+                val period = 1.2 + Noise.rnd(j, 611) * 0.9
+                val u = (((t + Noise.rnd(j, 612) * 7.0) / period) % 1.0).toFloat()
+                val x = x0 + (Noise.rnd(j, 613) - 0.5f) * 84f * q
+                val y = y0 + (Noise.rnd(j, 614) - 0.5f) * 26f * q
+                PokeArt.rings(c, x, y, u, 7f * q, Col.hex(0xF4E2A8), q, 0.7f * on, n = 2)
+            }
         }
     }
 

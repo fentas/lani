@@ -96,9 +96,9 @@ export const SCENE_ART = {
   people: ['grandma', 'grandpa', 'child1', 'child2', 'child3', 'shepherd', 'smith', 'teacher', 'farmer', 'beekeeper', 'innkeeper', 'winemaker', 'aunt', 'pedlar', 'pilgrim', 'woman', 'man', 'baby', 'hunter', 'burner'],
   /** What each art's painter shows when a dialog line's `fx` sets it (companion/SCENES.md, "Effects"). */
   effects: {
-    campfire: ['flare', 'steam', 'bell'],
+    campfire: ['flare', 'steam', 'bell', 'sheepbells'],
     kitchen: ['oven', 'steam'],
-    forest: ['birds', 'herd', 'fox', 'hoot', 'bats'],
+    forest: ['birds', 'herd', 'fox', 'hoot', 'bats', 'sheepbells'],
     square: ['bell'],
     tent: ['lantern'],
     field: ['crows', 'bell', 'bats'],

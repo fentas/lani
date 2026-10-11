@@ -861,7 +861,8 @@ it is up.
 { "who": "babica", "sl": "O, Jan! Pridi, pridi. Pečem potico.", "en": "Oh, Jan! Come in. I am baking potica.", "fx": { "oven": 1 } }
 ```
 
-Some effects sound as they come on ([GAME.md](GAME.md#background-sounds)): a `bell` rings a peal, the `cowbells` clank,
+Some effects sound as they come on ([GAME.md](GAME.md#background-sounds)): a `bell` rings a peal, the `cowbells` clank, the
+`sheepbells` clink (one close by in the forest, the flock's far off from the fire),
 the `oven`, the `stove`, the `forge` and the campfire's `flare` catch with a whoosh, and the smithy's `sparks` bring the
 smith's blows on the anvil. They don't duck under the voice saying the line that brings them, as the other background
 sounds do: the peal rings with Tine's "Vlečem! Bim, bam!" at the background's own level, not 10 dB under it.
@@ -1689,9 +1690,9 @@ directions](#stage-directions-people-move-on-cue), with their spots and poses).
 
 | Art | Object slots | Person spots | Effects (`fx`) |
 |---|---|---|---|
-| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon) |
+| `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there over the trees on the right, and their sound: Luka's "Slišiš zvonce?") |
 | `kitchen` | stove, pot, bowl, table, chair, bread, plate, glass, cup, spoon, fork, knife, window, door, cupboard, clock, milk, eggs, water, salt, potatoes, hearth, bench, bed, shelf, curtains, corner (by the level: see [What the village has built](#what-the-village-has-built)) | stove, table, door | `oven` (the stove fired up, smoke from the chimney; at level 1 the hearth's fire burns higher), `steam` (off the cup and the bowl) |
-| `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many) |
+| `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many), `sheepbells` (the brass bell under the lost sheep's chin swings and rings, its clinks going out: Luka's "Slišiš? Zvonec!") |
 | `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings) |
 | `tent` | lantern, sleepingbag, blanket, pillow, backpack, map, boots, coat, hat, book, cup, rope | left, right, door | `lantern` (0 dark, 1 lit) |
 | `field` | wheat, corn, potatoes, cabbage, kozolec, hay, scythe, rake, basket, cart, scarecrow, fence, path, horse; the wild: deer, hare, butterfly, fox, boar, bat | field, kozolec, path | `crows` (crows come to the scarecrow), `bell` (the church bell on the hill, its rings coming over the fields; not set: the ave, a few minutes round sunset), `bats` |
