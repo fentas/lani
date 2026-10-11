@@ -3,9 +3,11 @@
 // as wrong later, in a plain chat message (no exercise attached), the tutor can see what was typed and why it was marked
 // so (the tool recent_answers, the lani-fix skill). A rolling log: the last ANSWERS_KEPT.days days, at most
 // ANSWERS_KEPT.max answers, the oldest dropped as new ones come. Nothing else reads it, the learner's databases don't
-// change with it, and the data repository leaves it out (.gitignore: runtime state).
-import { readFileSync, renameSync, writeFileSync } from 'node:fs'
+// change with it, and a data repository never commits it (.claude/hooks/lani_data_repo.py PRIVATE: it stays on the
+// machine, docs/privacy.md).
+import { readFileSync } from 'node:fs'
 import { z } from 'zod'
+import { writeAtomic } from './pairing'
 
 /** How much the log keeps: answers of the last [days] days, at most [max] of them. */
 export const ANSWERS_KEPT = { days: 7, max: 500 }
@@ -13,22 +15,45 @@ export const ANSWERS_KEPT = { days: 7, max: 500 }
 /** Where an answer was given: a review card's exercise, a form of a card's word a review asked, a dialog's word turn. */
 export type AnswerKind = 'review' | 'form' | 'dialog'
 
+/**
+ * Where in the app a review came from (POST /reviews `from`), as the tutor reads it, and whether the learner types or
+ * picks an answer there (the car's ratings and I spy's taps have nothing typed). An app from before sends none.
+ */
+export const REVIEW_FROM: Record<string, { label: string; typed: boolean }> = {
+  review: { label: 'the review', typed: true },
+  grammar: { label: "the grammar book's card practice", typed: true },
+  upgrade: { label: "a building's words run", typed: true },
+  challenge: { label: 'a village challenge', typed: true },
+  ispy: { label: 'I spy (the thing tapped in the picture)', typed: false },
+  car: { label: "the car (✓ knew / ✗ didn't pressed)", typed: false },
+  'car-quiz': { label: "the car's quiz", typed: true },
+  dialog: { label: "a scene's dialog", typed: true },
+}
+
+/** How [from] reads for the tutor ("the car (…)"); one the bridge doesn't know, as it came. */
+export const fromLabel = (from: string): string => REVIEW_FROM[from]?.label ?? from
+
+/** Where a review came from ([REVIEW_FROM]) as the app sends it; undefined when it sent none or one that isn't a name. */
+export const fromOf = (raw: unknown): string | undefined => (typeof raw === 'string' && /^[a-z][a-z0-9-]{0,23}$/.test(raw) ? raw : undefined)
+
 export type Answer = {
-  /** When it reached the node (ISO). */
+  /** When it was answered (ISO): the app's time (the answer's, else the review's), else when it reached the node. */
   at: string
   kind: AnswerKind
   /** The review card (spaced-repetition.json). */
   item_id: string
+  /** Where in the app ([REVIEW_FROM]); absent: an app from before said nothing. */
+  from?: string
   /** The session it was persisted as, if it was. */
   session_id?: string
   /** Another language's deck ("it"); absent: the home language's. */
   language?: string
-  /** How the card was asked (type, tiles, listen, …); a form's slot ("pres.1sg"). */
+  /** How the card was asked (type, tiles, listen, …); a dialog's word: meaning or form. */
   variant?: string
   /** The exercise (translate, choice, cloze, …). */
   type?: string
   prompt?: string
-  /** What was typed or said ("": nothing). */
+  /** What was typed or said ("": nothing). Absent: nothing typed, or no answer sent. */
   answer?: string
   expected?: string
   verdict?: 'correct' | 'almost' | 'wrong'
@@ -38,17 +63,31 @@ export type Answer = {
   spoken?: boolean
   /** 💡 hints used. */
   hints_used?: number
-  /** The quality the review gave the card (0-5). */
+  /** The quality the review gave the card (0-5); absent: the bridge didn't count it as a review. */
   quality?: number
-  /** A form's grammar page; a dialog's who and where. */
+  /** A form of the word asked: its slot ("pres.1sg") and its grammar page. */
+  form?: string
+  page?: string
+  /** A dialog's who and where. */
   where?: string
+}
+
+/** An answer to add: its time is the app's when it sent one ([at]), else the arrival's. */
+export type NewAnswer = Omit<Answer, 'at'> & { at?: string }
+
+/** A time the app sent (ISO), if it reads as one; else undefined (the arrival's time is used then). */
+export function timeOf(raw: unknown): string | undefined {
+  if (typeof raw !== 'string' || raw.length > 40) return undefined
+  const t = Date.parse(raw)
+  return Number.isNaN(t) ? undefined : new Date(t).toISOString()
 }
 
 const text = (max: number) => z.string().max(max).transform(s => s.trim().slice(0, 200))
 
 /**
  * One answer of a review as the app sends it (`answers` of POST /reviews), each field optional but the card: what was
- * asked and how, what was typed or said, what was expected, the verdict, the hint.
+ * asked and how, what was typed or said, what was expected, the verdict, the hint, when it was answered (`at`, ISO; one
+ * that doesn't read as a time is left out, never the answer).
  */
 export const reviewAnswer = z.object({
   item_id: z.string().trim().min(1).max(128),
@@ -61,13 +100,17 @@ export const reviewAnswer = z.object({
   hint: z.string().trim().max(24).optional(),
   spoken: z.boolean().optional(),
   hints_used: z.number().int().min(0).max(20).optional(),
+  at: z.unknown().optional().transform(timeOf),
 })
 export type ReviewAnswer = z.infer<typeof reviewAnswer>
 
-/** The answers of a review body that are well formed (at most 100); a bad one is left out, never the review. */
+/** The most answers of one review the log takes; the rest are left out (never the review). */
+export const ANSWERS_PER_REVIEW = 100
+
+/** The answers of a review body that are well formed (at most ANSWERS_PER_REVIEW); a bad one is left out, never the review. */
 export function reviewAnswers(raw: unknown): ReviewAnswer[] {
   if (!Array.isArray(raw)) return []
-  return raw.slice(0, 100).flatMap(x => {
+  return raw.slice(0, ANSWERS_PER_REVIEW).flatMap(x => {
     const r = reviewAnswer.safeParse(x)
     return r.success ? [r.data] : []
   })
@@ -76,7 +119,18 @@ export function reviewAnswers(raw: unknown): ReviewAnswer[] {
 /** What to look for in the log: a card, a word in what was asked, typed or expected, only the wrong ones, a language. */
 export type AnswerQuery = { item_id?: string; text?: string; wrong?: boolean; language?: string; limit?: number }
 
-const low = (s: string | undefined) => (s ?? '').normalize('NFC').toLocaleLowerCase('sl')
+/**
+ * [s] for a search: lower case, without diacritics (č→c, š→s, ž→z, ć→c, đ→d; ä→a, ö→o, ü→u, ß→ss; à→a, è→e, …), on
+ * both sides, so "zivjo" finds "živjo" and "ŽIVJO" finds "zivjo".
+ */
+export const fold = (s: string | undefined): string =>
+  (s ?? '').normalize('NFD').replace(/\p{M}+/gu, '').toLocaleLowerCase('sl').replace(/đ/g, 'd').replace(/ß/g, 'ss').replace(/ł/g, 'l').replace(/ø/g, 'o')
+
+/** Whether [a] was marked wrong (or almost): its verdict; one without a verdict (an app from before sent none) by its quality. */
+export const markedWrong = (a: Answer): boolean =>
+  a.verdict !== undefined ? a.verdict === 'wrong' || a.verdict === 'almost' : a.quality !== undefined && a.quality < 3
+
+const time = (a: Answer) => Date.parse(a.at)
 
 export class AnswerLog {
   constructor(
@@ -89,46 +143,73 @@ export class AnswerLog {
   all(): Answer[] {
     try {
       const raw = JSON.parse(readFileSync(this.file, 'utf8'))
-      return Array.isArray(raw?.answers) ? (raw.answers as Answer[]).filter(a => a && typeof a.item_id === 'string' && typeof a.at === 'string') : []
+      return Array.isArray(raw?.answers) ? (raw.answers as Answer[]).filter(a => a && typeof a.item_id === 'string' && typeof a.at === 'string' && !Number.isNaN(time(a))) : []
     } catch {
       return []
     }
   }
 
-  /** Adds [answers] (stamped now), dropping what is older than the days kept and the oldest beyond the most kept. Never throws. */
-  add(answers: Omit<Answer, 'at'>[]): void {
+  /**
+   * Adds [answers], each at the time it was answered ([NewAnswer.at]; never later than now: a phone's clock may run
+   * ahead), else now; keeps the answers of the days kept, at most the newest [kept].max, in the order they were
+   * answered. Written atomically, readable by this user only. Never throws.
+   */
+  add(answers: NewAnswer[]): void {
     if (!answers.length) return
     try {
       const now = this.now()
       const since = now.getTime() - this.kept.days * 86_400_000
-      const at = now.toISOString()
-      const kept = [...this.all().filter(a => Date.parse(a.at) >= since), ...answers.map(a => ({ at, ...a }))].slice(-this.kept.max)
-      writeFileSync(`${this.file}.tmp`, JSON.stringify({ schema: 'lani.answers/v0', kept: this.kept, answers: kept }, null, 1))
-      renameSync(`${this.file}.tmp`, this.file)
+      const stamp = (at: string | undefined) => {
+        const t = at === undefined ? Number.NaN : Date.parse(at)
+        return (Number.isNaN(t) || t > now.getTime() ? now : new Date(t)).toISOString()
+      }
+      const added: Answer[] = answers.map(a => ({ ...a, at: stamp(a.at) }))
+      const kept = [...this.all(), ...added].filter(a => time(a) >= since).sort((a, b) => time(a) - time(b)).slice(-this.kept.max)
+      writeAtomic(this.file, JSON.stringify({ schema: 'lani.answers/v0', kept: this.kept, answers: kept }, null, 1) + '\n')
     } catch {}
   }
 
   /** The answers that match [q], newest first, at most [q].limit (20; 100 at most). */
   find(q: AnswerQuery = {}): Answer[] {
-    const t = low(q.text?.trim())
+    const t = fold(q.text?.trim())
     const out = this.all()
       .filter(a => !q.item_id || a.item_id === q.item_id)
-      .filter(a => !q.wrong || a.verdict === 'wrong' || a.verdict === 'almost' || (a.quality !== undefined && a.quality < 3))
+      .filter(a => !q.wrong || markedWrong(a))
       .filter(a => q.language === undefined || (a.language ?? '') === q.language)
-      .filter(a => !t || [a.prompt, a.answer, a.expected, a.item_id].some(s => low(s).includes(t)))
+      .filter(a => !t || [a.prompt, a.answer, a.expected, a.item_id, a.where].some(s => fold(s).includes(t)))
       .reverse()
     return out.slice(0, Math.max(1, Math.min(100, q.limit ?? 20)))
   }
 }
 
-/** An answer as one line for the tutor: `2026-10-11 09:14 review vocab_kurim (type, translate) "kurim" for "kurim ogenj": wrong, ending; quality 1; asked "to make a fire"`. */
+/**
+ * An answer as one line for the tutor: `2026-10-11 09:14 review vocab_kurim (type, translate) "kurim" for "kurim ogenj":
+ * wrong, ending; quality 1; asked "to make a fire"; in the review`. One with nothing typed says so, and why: there is
+ * nothing to type where it came from, or an app from before sent no answer.
+ */
 export function answerLine(a: Answer): string {
   const when = a.at.slice(0, 16).replace('T', ' ')
   const how = [a.variant, a.type].filter(Boolean).join(', ')
   const said = a.answer === undefined ? '' : a.answer === '' ? ' (no answer)' : ` "${a.answer}"${a.spoken ? ' (heard)' : ''}`
   const want = a.expected ? ` for "${a.expected}"` : ''
   const verdict = [a.verdict, a.hint && a.hint !== 'none' ? a.hint : undefined].filter(Boolean).join(', ')
-  const tail = [verdict, a.quality !== undefined ? `quality ${a.quality}` : '', a.hints_used ? `${a.hints_used} hint(s)` : '', a.prompt ? `asked "${a.prompt}"` : '', a.where ?? '', a.language ? `language ${a.language}` : '', a.session_id ? `session ${a.session_id}` : '']
+  const nothing = a.answer !== undefined || a.kind !== 'review' ? ''
+    : !a.from ? 'no answer sent (an app from before sends only the quality)'
+    : a.type === 'flashcard' ? 'nothing typed (a flashcard, self-rated)'
+    : REVIEW_FROM[a.from]?.typed === false ? 'nothing typed there'
+    : 'no answer sent'
+  const tail = [
+    verdict,
+    a.quality !== undefined ? `quality ${a.quality}` : '',
+    a.hints_used ? `${a.hints_used} hint(s)` : '',
+    a.prompt ? `asked "${a.prompt}"` : '',
+    a.form ? `form ${a.form}${a.page ? ` (${a.page})` : ''}` : '',
+    nothing,
+    a.where ?? '',
+    a.from ? `in ${fromLabel(a.from)}` : '',
+    a.language ? `language ${a.language}` : '',
+    a.session_id ? `session ${a.session_id}` : '',
+  ]
     .filter(Boolean)
     .join('; ')
   return `${when} ${a.kind} ${a.item_id}${how ? ` (${how})` : ''}${said}${want}${tail ? `: ${tail}` : ''}`

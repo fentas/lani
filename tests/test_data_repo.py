@@ -113,6 +113,58 @@ class DataRepoTest(unittest.TestCase):
         self.assertEqual(head, git(self.data, "rev-parse", "HEAD"))
         self.assertEqual(mine, (self.data / ".gitignore").read_text())
 
+    def test_a_repository_from_before_keeps_the_recent_answers_out_from_its_next_commit(self):
+        # a data repository whose .gitignore was written before the answers' line (its runtime lines, nothing more)
+        self.init()
+        old = "".join(line + "\n" for line in (self.data / ".gitignore").read_text().splitlines()
+                      if "answers" not in line and "Private" not in line and "commit adds this line" not in line)
+        self.assertNotIn("answers", old)
+        self.assertIn("/app/channel-queue.json", old)
+        (self.data / ".gitignore").write_text(old)
+        git(self.data, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "the .gitignore from before")
+        app = self.data / "app"
+        (app / "answers.json").write_text('{"answers": [{"answer": "kurim"}]}')
+        (app / "answers.json.tmp-123-abcdef").write_text("{}")  # a write cut off before its rename
+        out = self.run_hook("update-db.py", self.report())
+        self.assertEqual(0, out.returncode, out.stderr)
+        files = set(git(self.data, "ls-files").splitlines())
+        self.assertNotIn("app/answers.json", files)
+        self.assertNotIn("app/answers.json.tmp-123-abcdef", files)
+        gitignore = (self.data / ".gitignore").read_text()
+        self.assertTrue(gitignore.startswith(old))  # the learner's own lines kept as they were
+        self.assertEqual(1, gitignore.count("/app/answers.json*"))
+        self.assertIn(".gitignore", git(self.data, "show", "--name-only", "--format=", "HEAD").splitlines())
+        # again: nothing added twice, nothing more to commit
+        self.run_hook("session-end.py", "{}")
+        self.assertEqual(1, (self.data / ".gitignore").read_text().count("/app/answers.json*"))
+        self.assertEqual("", git(self.data, "status", "--porcelain"))
+
+    def test_recent_answers_committed_before_are_no_longer_tracked_and_stay_on_disk(self):
+        self.init()
+        (self.data / ".gitignore").write_text("/app/bridge-token\n")  # the learner's own, without the line
+        (self.data / "app" / "answers.json").write_text("{}")
+        git(self.data, "add", "-A")
+        git(self.data, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "answers by mistake")
+        self.assertIn("app/answers.json", git(self.data, "ls-files").splitlines())
+        out = self.run_hook("session-end.py", "{}")
+        self.assertEqual(0, out.returncode, out.stderr)
+        self.assertNotIn("app/answers.json", git(self.data, "ls-files").splitlines())
+        self.assertTrue((self.data / "app" / "answers.json").exists())
+        self.assertTrue((self.data / ".gitignore").read_text().startswith("/app/bridge-token\n"))
+
+    def test_a_learners_own_line_that_keeps_the_answers_out_is_enough(self):
+        sys.path.insert(0, str(HOOKS))
+        import lani_data_repo as r
+        self.init()
+        (self.data / ".gitignore").write_text("/app/*.json*\n")
+        self.assertEqual([], r.keep_private_out(self.data))
+        self.assertEqual("/app/*.json*\n", (self.data / ".gitignore").read_text())
+        # a line that lets them in again is outdone by the one added after it
+        (self.data / ".gitignore").write_text("/app/*.json*\n!/app/answers.json\n")
+        self.assertEqual(["/app/answers.json*"], r.keep_private_out(self.data))
+        self.assertTrue(r.ignored(self.data, "app/answers.json"))
+        self.assertEqual([], r.keep_private_out(self.data))
+
     def test_a_session_is_committed_with_a_short_message(self):
         self.init()
         out = self.run_hook("update-db.py", self.report())

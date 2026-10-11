@@ -134,6 +134,22 @@ async function words(kept: Record<string, string>) {
   check('once a day: a card reviewed today and one lowered today change nothing more',
     r2.skipped?.includes('vocab_smoke-kitchen_zlica') && r2.skipped?.includes('vocab_smoke-kitchen_miza') && !r2.lowered?.length &&
       JSON.stringify(again['vocab_smoke-kitchen_zlica']) === JSON.stringify(after['vocab_smoke-kitchen_zlica']) && JSON.stringify(again['vocab_smoke-kitchen_miza']) === JSON.stringify(m), r2)
+  const unsaved = (JSON.parse(readFileSync(join(dataDir, 'app/answers.json'), 'utf8')).answers as any[]).filter(x => x.kind === 'dialog' && !x.session_id)
+  check('… in the answer log without a quality: the bridge counted nothing (the quality 5 the app sent was not given)',
+    unsaved.length === 2 && unsaved.find(x => x.item_id === 'vocab_smoke-kitchen_zlica')?.verdict === 'correct' && unsaved.every(x => x.quality === undefined), unsaved)
+  // the car's quiz: a form asked is in its forms and in the dialog's words; the log and the note have it once
+  const quizAt = new Date(Date.now() - 600_000).toISOString()
+  const rq = await post({
+    results: [], duration_minutes: 1, from: 'car-quiz', answered_at: quizAt,
+    dialog: { scene: 'road', happening: 'quiz', title: '🚗 Kviz · Quiz', words: [w('vocab_smoke-kitchen_jajce', 'jajc', false, 'form', { said: 'Deset jajce.', expected: 'Deset jajc.' })] },
+    forms: [{ item_id: 'vocab_smoke-kitchen_jajce', key: 'gen.pl', page: 'rodilnik', right: false, answer: 'Deset jajce.', expected: 'Deset jajc.' }],
+  })
+  await Bun.sleep(100)
+  const quizLog = (JSON.parse(readFileSync(join(dataDir, 'app/answers.json'), 'utf8')).answers as any[]).filter(x => x.where?.includes('road/quiz'))
+  const quizNote = channelEvents.filter(n => n.params?.meta?.kind === 'dialog_words').at(-1)?.params?.content ?? ''
+  check('the car\'s quiz: its form slip logged once (the word\'s turn with the form\'s slot and page, when it was answered), named once in the note',
+    rq.ok && quizLog.length === 1 && quizLog[0].kind === 'dialog' && quizLog[0].form === 'gen.pl' && quizLog[0].page === 'rodilnik' && quizLog[0].from === 'car-quiz' && quizLog[0].at === quizAt &&
+      quizNote.includes('a form slip: "Deset jajce." for "Deset jajc."') && !quizNote.includes('Forms of words asked'), [quizLog, quizNote])
   // only a slip, no review: taken
   const r3 = await post({ results: [], duration_minutes: 1, dialog: { ...where, words: [w('vocab_smoke-kitchen_jajce', 'jajc', false, 'meaning')] } })
   const b3 = await r3.json()

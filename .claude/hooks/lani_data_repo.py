@@ -61,7 +61,10 @@ keys.env
 /app/devices-seen.json
 /app/events.json
 /app/channel-queue.json
-/app/answers.json
+
+# Private: what the learner typed or said lately (the bridge's log of recent answers). It stays on this machine: each
+# commit adds this line back if it is missing.
+/app/answers.json*
 
 # Backups (snapshots already) and temporary files
 /.backups/
@@ -74,6 +77,14 @@ keys.env
 .DS_Store
 __pycache__/
 """
+
+# What never goes into a data repository, whatever its .gitignore says (the learner's own, or one written before a line
+# was added to GITIGNORE): what the learner typed or said lately (the bridge's answers.json, companion/README.md "Recent
+# answers"; docs/privacy.md says it stays on the machine), with its temporary files. Each line, with paths it must
+# keep out (to check with git).
+PRIVATE = (
+    ("/app/answers.json*", ("app/answers.json", "app/answers.json.tmp-0-000000")),
+)
 
 GIT_TIMEOUT = 30
 LOCK_WAIT = 10.0
@@ -145,14 +156,39 @@ def write_gitignore(data: Path) -> bool:
     return True
 
 
+def ignored(data: Path, rel: str) -> bool:
+    """Whether git ignores [rel] in the repository [data] (its .gitignore, .git/info/exclude, the user's own excludes),
+    tracked or not."""
+    return git(data, "check-ignore", "-q", "--no-index", "--", rel, check=False).returncode == 0
+
+
+def keep_private_out(data: Path) -> list:
+    """Makes sure no PRIVATE file goes into the repository [data], idempotently: each line whose paths git doesn't ignore
+    yet is added to the .gitignore (kept otherwise as the learner has it), and such a file committed before is no longer
+    tracked (it stays on disk). Returns the lines added."""
+    data = Path(data)
+    missing = [line for line, paths in PRIVATE if not all(ignored(data, rel) for rel in paths)]
+    if missing:
+        p = data / ".gitignore"
+        old = p.read_text(encoding="utf-8") if p.exists() else ""
+        sep = "\n" if old and not old.endswith("\n") else ""
+        p.write_text(old + sep + "\n# Private: stays on this machine (added by Lani, lani_data_repo.py PRIVATE).\n"
+                     + "".join(f"{line}\n" for line in missing), encoding="utf-8")
+        log(f"data repository: .gitignore now keeps out {', '.join(missing)}")
+    for line, _ in PRIVATE:
+        git(data, "rm", "-r", "-q", "--cached", "--ignore-unmatch", "--", line.lstrip("/"), check=False)
+    return missing
+
+
 def commit(data: Path, message: str) -> str | None:
-    """Commits everything that changed in [data] (the .gitignore decides what counts). Returns the new commit's short
-    hash, or None when nothing changed or the repository is busy."""
+    """Commits everything that changed in [data] (the .gitignore decides what counts; never a PRIVATE file). Returns the
+    new commit's short hash, or None when nothing changed or the repository is busy."""
     data = Path(data)
     with locked(data) as got:
         if not got:
             log(f"data repository busy: not committed now ({message}); the next commit takes it along")
             return None
+        keep_private_out(data)
         git(data, "add", "-A")
         if git(data, "diff", "--cached", "--quiet", check=False).returncode == 0:
             return None
