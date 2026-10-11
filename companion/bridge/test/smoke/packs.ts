@@ -84,7 +84,7 @@ async function festivals(learn: (id: string, results: object[]) => Promise<Respo
   const repo = resolve(import.meta.dir, '../../..')
   const calendar = JSON.parse(readFileSync(join(repo, 'cultures/primorska/festivals.json'), 'utf8')).festivals as { id: string; words: string }[]
   const ids = calendar.map(f => f.id)
-  check('the culture pack has 11 festivals, each naming its word pack', ids.length === 11 && calendar.every(f => f.words === `praznik-${f.id.replaceAll('_', '-')}`), calendar)
+  check('the culture pack has 15 festivals, each naming its word pack', ids.length === 15 && calendar.every(f => f.words === `praznik-${f.id.replaceAll('_', '-')}`), calendar)
   const files = readdirSync(join(repo, 'packs')).filter(f => f.endsWith('.json'))
   const invalid = files.filter(f => !validatePack(JSON.parse(readFileSync(join(repo, 'packs', f), 'utf8'))).ok)
   check('every curated pack in companion/packs validates', invalid.length === 0, invalid)

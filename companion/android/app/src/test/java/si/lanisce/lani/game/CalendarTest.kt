@@ -41,6 +41,10 @@ class CalendarTest {
         assertEquals(d("2027-05-01"), f("prvi_maj").rule.date(2027))
         assertEquals(d("2027-05-20"), f("dan_cebel").rule.date(2027))
         assertEquals(d("2027-06-23"), f("kres").rule.date(2027))
+        assertEquals(d("2027-06-25"), f("dan_drzavnosti").rule.date(2027))
+        assertEquals(d("2027-08-15"), f("veliki_smaren").rule.date(2027))
+        assertEquals(d("2026-09-15"), f("dan_vrnitve").rule.date(2026))
+        assertEquals(d("2026-11-01"), f("dan_spomina").rule.date(2026))
         assertEquals(d("2026-09-26"), f("trgatev").rule.date(2026))
         assertEquals(d("2027-09-25"), f("trgatev").rule.date(2027))
     }
@@ -159,6 +163,11 @@ class CalendarTest {
         "prvi_maj" to listOf("mlaj", "kres", "godba", "delo", "praznik", "smreka"),
         "dan_cebel" to listOf("čebela", "med", "panj", "cvet", "čebelar", "satje"),
         "kres" to listOf("kres", "noč", "kresnica", "poletje", "zvezda", "ogenj"),
+        // the days that came later have their packs' words
+        "dan_drzavnosti" to listOf("država", "zastava", "domovina", "proslava", "rojstni dan", "praznovati"),
+        "veliki_smaren" to listOf("šagra", "maša", "procesija", "romar", "harmonika", "plesati"),
+        "dan_vrnitve" to listOf("pokrajina", "morje", "meja", "zgodovina", "vrniti se", "dom"),
+        "dan_spomina" to listOf("sveča", "grob", "pokopališče", "krizantema", "spomin", "prižgati"),
         "trgatev" to listOf("grozdje", "trta", "vinograd", "škarje", "košara", "mošt"),
         "martinovo" to listOf("mlado vino", "gos", "mlinci", "sod", "klet", "Na zdravje!"),
         "miklavz" to listOf("Miklavž", "angel", "parkelj", "darilo", "okno", "priden"),
@@ -232,6 +241,26 @@ class CalendarTest {
         assertNull(Calendar.soon(village(Age.OGENJ), d("2026-11-11")))
         val done = Calendar.celebrate(village(), "martinovo", 6, 6, d("2026-11-11"), noon(d("2026-11-11"))).first
         assertNull(Calendar.soon(done, d("2026-11-12")))
+    }
+
+    @Test fun `Dan spomina na mrtve is the quiet day, remembered with Janez`() {
+        val spomin = f("dan_spomina")
+        assertTrue(spomin.quiet)
+        assertNull(spomin.good)
+        assertEquals(listOf("dan_spomina"), Calendar.festivals.filter { it.quiet }.map { it.id })
+        assertEquals("Spomni se · Remember", Calendar.action(spomin))
+        val s = village()
+        val day = d("2026-11-01")
+        val (n, r) = Calendar.celebrate(s, "dan_spomina", 6, 6, day, noon(day))
+        assertTrue(r.won)
+        assertEquals(s.morale, n.morale)
+        assertEquals(s.resources, n.resources)
+        assertEquals("Na pokopališču so gorele sveče: vsaka družina je prižgala svečo za svoje drage. · Candles burned in the graveyard: every family lit one for its loved ones.", n.log.last().text)
+        assertEquals(Calendar.LEADER_POINTS, n.bonds["janez"]?.points)
+    }
+
+    @Test fun `on Kresna noč's last grace day, Dan državnosti comes first`() {
+        assertEquals(listOf("dan_drzavnosti", "kres"), Calendar.on(village(), d("2026-06-25")).map { it.festival.id })
     }
 
     @Test fun `the tick tells the day in the chronicle`() {

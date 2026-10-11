@@ -950,7 +950,7 @@ Zala's spoon of honey); the well opens the square as the linden does.
 
 ## The calendar
 
-"Koledar · The calendar" (`Calendar.kt`; the festivals, their dates, leaders, words and texts are the culture pack's, `festivals.json`): real Slovene days in Primorska, by the phone's date, from Tabor. Every date is a pure function of the year: Easter by the Gregorian computus, pust 47 days before it, the grape harvest on the last Saturday of September.
+"Koledar · The calendar" (`Calendar.kt`; the festivals, their dates, leaders, words and texts are the culture pack's, `festivals.json`): real Slovene days in Primorska, by the phone's date, from Tabor: the feasts, the state's days (Dan državnosti, Dan vrnitve Primorske) and one quiet day, Dan spomina na mrtve. Every date is a pure function of the year: Easter by the Gregorian computus, pust 47 days before it, the grape harvest on the last Saturday of September.
 
 - **Before**: from 5 days ahead, a countdown ("Čez 3 dni: Martinovo · St Martin's Day in 3 days", "Čez 2 dneva …", "Jutri: …") in the village's "Jutri" line, the scroll and Home.
 - **On the day**: the chronicle tells it in the morning, and its leader (the first of its people who is here; if none is, the whole village) asks Jan to celebrate: a run of 6 of the festival's words (A1–A2), as choices, half from Slovene and half into it, the pack's other words as the wrong options; after each answer, the word and its example sentence. Half right celebrates it.
@@ -970,7 +970,11 @@ Zala's spoon of honey); the well opens the square as the linden does.
 | 🌿 Prvi maj · May Day | 1 May | Luka, Marko, France | mlaj, kres, godba, delo, praznik, smreka, budnica, izlet | 🌭 kranjska klobasa |
 | 🐝 Svetovni dan čebel · World Bee Day | 20 May | Anton, Micka | čebela, med, panj, cvet, čebelar, satje, čebelnjak, pičiti | 🍯 med ×2 |
 | 🔥 Kresna noč · Midsummer night | 23 June | Janez, Zala, Luka | kres, noč, kresnica, poletje, zvezda, ogenj, hrib, venček | 🌼 šentjanževka |
+| 🇸🇮 Dan državnosti · Statehood Day | 25 June | Mojca, Vida, Marko | država, zastava, domovina, proslava, samostojen, rojstni dan, glavno mesto, praznovati | 🇸🇮 slovenska zastavica |
+| 🪗 Veliki šmaren · Assumption Day (the village's šagra) | 15 August | Vida, Micka, Marko | šagra, maša, procesija, romar, šopek, harmonika, plesati, vročina | 🥓 kraški pršut |
+| 🕊️ Dan vrnitve Primorske · Return of Primorska Day | 15 September | Janez, Marko, Mojca | pokrajina, morje, meja, zgodovina, vrniti se, mir, jezik, dom | 🍾 rebula ×2 |
 | 🍇 Trgatev · The grape harvest | the last Saturday of September | Marko, Vida, France | grozdje, trta, vinograd, škarje, košara, mošt, trgati, zrel | 🍇 grozdje |
+| 🕯️ Dan spomina na mrtve · Remembrance Day (quiet) | 1 November | Janez, Micka | sveča, grob, pokopališče, krizantema, spomin, prižgati, tišina, pogrešati | none: a quiet day |
 | 🍷 Martinovo · St Martin's Day | 11 November | Marko, Vida, Janez | mlado vino, gos, mlinci, sod, klet, Na zdravje!, krst, vinar | 🍷 mlado vino |
 | 🎅 Miklavž · St Nicholas | 6 December | Janez, Micka | Miklavž, angel, parkelj, darilo, okno, priden, poreden, šiba | 🍪 medenjaki |
 | 🎄 Božič · Christmas | 25 December | Micka, Ančka, Janez | božič, jaslice, sveča, sneg, smrečica, Vesel božič!, poprtnik, okrasek | 🍞 poprtnik |

@@ -173,6 +173,6 @@ class CultureSwitchTest {
         back()
         assertEquals("Vas · Village", "${Age.VAS.sl} · ${Age.VAS.en}")
         assertEquals("Ob ognju se je zbrala družina · A family gathered around the fire", GameEngine.newGame(1, t0).log.single().text)
-        assertEquals(11, Calendar.festivals.size)
+        assertEquals(15, Calendar.festivals.size)
     }
 }
