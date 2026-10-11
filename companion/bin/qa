@@ -24,7 +24,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
                        then one over the village (the chapel's first, else the maypole's third); "maypole-season"
                        the maypole on the map and on the square on 10 May (up) and 30 October (down; QA's hook
-                       "season:<day>"); "offline-audio" the
+                       "season:<day>"); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
+                       the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
+                       "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
@@ -1592,6 +1594,73 @@ def intro_stage():
     time.sleep(1)
 
 
+def hud_stock(label: str):
+    """What the HUD's chip of resource [label] ("Hrana · Food") says is in store: its TalkBack label reads "Hrana · Food:
+    389 / 700"; None when it isn't on screen."""
+    for t, _ in nodes():
+        if t.startswith(label + ": ") and " / " in t:
+            return int(re.search(r": (\d+)", t).group(1))
+    return None
+
+
+def trade():
+    """"⇄ Zamenjaj · Trade" (GAME.md "Trading"): food's sheet leads to the trade sheet, food for wood (how much, what may
+    come in, how the run sets the rate); its run (words and listening in turn) answered to its end; the result (what went
+    out and came in, the rate and why); back in the village the HUD's food went down and its wood up, and the dev bridge's
+    village keeps today's trade (food given)."""
+    plain_village()  # also on its own (--steps trade): into the village from Home
+    food0, wood0 = hud_stock("Hrana · Food"), hud_stock("Les · Wood")
+    assert food0 is not None and wood0 is not None, "the HUD's food and wood"
+    assert tap("Hrana · Food"), "food chip"
+    assert tap("Zamenjaj · Trade", 5), "the food sheet's ⇄ Zamenjaj · Trade"
+    assert wait_for("Zamenjava · Trade", 6), "the trade sheet"
+    # wood to get: the sheet's lower chip ("Les · Wood: 21": the upper is wood to give; the HUD's reads "21 / 500")
+    c = max((c for t, c in nodes() if t.startswith("Les · Wood: ") and " / " not in t), key=lambda c: c[1], default=None)
+    assert c is not None, "the sheet's wood to get"
+    tap_at(c)
+    if (why := next((t for t, _ in nodes() if t.startswith("🔒")), None)) is not None:
+        shot("trade-sheet")
+        return f"food can't be traded for wood now: {why}"
+    assert find("Koliko · How much"), "how much to give"
+    preview = next((t for t, _ in nodes() if t.startswith("−") and "→" in t), None)  # "−194 🌾  →  +97 … 155 🪵"
+    assert preview, "what goes out and may come in"
+    given = int(re.search(r"−(\d+)", preview).group(1))
+    time.sleep(1)
+    shot("trade-sheet")
+    assert tap("⇄ Zamenjaj · Trade", 5), "the sheet's trade button"
+    assert wait_for("Pozneje · Later", 10), "the trade's intro"
+    time.sleep(1)
+    shot("trade-intro")
+    assert tap("Začni", 3), "start the run"
+    for _ in range(14):  # six exercises, whatever they are, to the end
+        if find("V vas · To the village"):
+            break
+        answer_any()
+        tap("Naprej · Next", 4)
+    assert wait_for("V vas · To the village", 10), "the trade's result"
+    assert wait_for("Oddano: ", 5), "what went out and came in"
+    assert find("pravilno · "), "the rate and why (\"4/6 pravilno · 4/6 right: 0,70\")"
+    time.sleep(2)  # the chips count up
+    shot("trade-result")
+    assert tap("V vas", 5), "back to the village"
+    assert wait_for("Hrana · Food", 8), "the village's HUD"
+    time.sleep(2)
+    food1, wood1 = hud_stock("Hrana · Food"), hud_stock("Les · Wood")
+    print(f"    traded {given} 🌾: food {food0} → {food1}, wood {wood0} → {wood1}")
+    assert food1 is not None and food1 < food0, f"food went down ({food0} → {food1})"
+    assert wood1 is not None and wood1 > wood0, f"wood went up ({wood0} → {wood1})"
+    end, kept = time.time() + 20 * slow(), None
+    while time.time() < end:  # the app pushes the village to the node
+        try:
+            kept = (api("/game").get("state") or {}).get("trades")
+        except (OSError, RuntimeError, ValueError):
+            kept = None
+        if kept and "FOOD" in kept.get("gave", []):
+            break
+        time.sleep(2)
+    assert kept and "FOOD" in kept.get("gave", []), f"the dev bridge's village keeps today's trade ({kept})"
+
+
 def chest():
     """The HUD's chest chip opens the chest: help for a moba, the villagers' tools and goods, the feast."""
     assert tap("Skrinja · The chest", 5), "chest chip"
@@ -2797,6 +2866,7 @@ def plan():
         ("back-to-village", back_to_village, v, False, ""),
         ("intro-stage", intro_stage, v, True, ""),
         ("back-to-village-2", back_to_village, v, False, ""),
+        ("trade", trade, v, False, ""),
         ("chest", chest, v, False, ""),
         ("maypole-season", maypole_season, v, False, ""),
         ("projects", projects, v, False, ""),
