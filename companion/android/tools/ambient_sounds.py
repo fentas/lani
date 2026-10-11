@@ -3,7 +3,7 @@
 # requires-python = ">=3.9"
 # dependencies = ["numpy>=1.25"]
 # ///
-"""Background ambience for the village scenes: nine quiet loops and twelve one-shots, synthesized from code (no
+"""Background ambience for the village scenes: nine quiet loops and seventeen one-shots, synthesized from code (no
 recordings, no samples).
 
   uv run companion/android/tools/ambient_sounds.py [OUT_DIR] [--preview DIR] [--only NAME ...]
@@ -11,8 +11,9 @@ recordings, no samples).
 
 OUT_DIR defaults to app/src/main/assets/ambient next to this script. It gets one Ogg Vorbis file per loop (mono,
 24 kHz): birds, crickets, owl, rain, stream, fire, wind, sea and frogs; and one per one-shot: thunder-1, thunder-2,
-thunder-3, bell, bell-far, anvil, cowbell, hoot, whistle, lid, purr and whoosh. ffmpeg with libvorbis must be on the
-PATH: it encodes the files and measures their loudness. The WAVs it encodes go to a temporary directory.
+thunder-3, bell, bell-far, anvil, cowbell, hoot, whistle, lid, purr, whoosh, meow, bark, hooves, polka and gush.
+ffmpeg with libvorbis must be on the PATH: it encodes the files and measures their loudness. The WAVs it encodes go to
+a temporary directory.
 
 A plain run makes the loops and the one-shots. --only makes only the loops given (no one-shots); --shots makes only the
 one-shots, --only-shots only the one-shots given (no loops).
@@ -1078,6 +1079,339 @@ def whoosh(rng):
     return fade(x, 0.15)
 
 
+# voices, hooves, a band and water: the village square
+
+def harmonic(f0, gain, phase=0.0, top=8500.0):
+    """A harmonic tone along f0 (Hz, one value per sample): its k-th harmonic at k × f0 with the level gain(k, k × f0)
+    (one value per sample), so its spectrum can move as it plays (a vowel's formants, a brass note's brightness). A
+    harmonic fades out on its way up to top, so nothing folds back from above half the sample rate."""
+    ph = TAU * np.cumsum(f0) / SR + phase
+    out = np.zeros(len(f0))
+    k = 1
+    while k * np.min(f0) < top:
+        fk = k * f0
+        out += gain(k, fk) * np.clip((top - fk) / 1000, 0, 1) * np.sin(k * ph)
+        k += 1
+    return out
+
+
+def wobble(rng, m, rate):
+    """m samples of a smooth random wobble round 0 (unit RMS) that changes about rate times a second."""
+    x = ofilt(rng.standard_normal(m), lambda f: lowpass(f, rate, 2), pad=min(6000, 4 * m))
+    return x / (rms(x) + 1e-12)
+
+
+def formants(fk, parts):
+    """The level of a voice's harmonic at fk (Hz): the sum of its formants, each (centre in Hz, q, level), the centres
+    one value per sample."""
+    return sum(level * resonance(fk, fc, q) for fc, q, level in parts)
+
+
+def mew(rng, d, pitch, level):
+    """One mew of a cat, 'mi-aaow', d s: a harmonic voice along pitch ((fraction of the mew, Hz) points) with a slow
+    vibrato, its vowel moving i → a → u (three formants gliding), dark where the mouth is shut (the 'm' at the start,
+    closing at the end), and a little breath."""
+    m = int(d * SR)
+    t = np.arange(m) / SR
+    f0 = curve([(u * d, f) for u, f in pitch], m, log=True)
+    f0 = f0 * (1 + 0.012 * np.sin(TAU * rng.uniform(5.0, 6.5) * t + rng.uniform(0, TAU)) * np.clip(t / 0.2, 0, 1))
+    f0 = f0 * (1 + 0.004 * wobble(rng, m, 12))
+    v = curve([(0, 0), (0.08 * d, 0.15), (0.3 * d, 1.0), (0.55 * d, 1.4), (d, 2.0)], m)  # i at 0, a at 1, u at 2
+    parts = ((np.interp(v, (0, 1, 2), (800, 1350, 750)), 3.5, 1.0),
+             (np.interp(v, (0, 1, 2), (2700, 2000, 1150)), 5.0, 0.6),
+             (np.interp(v, (0, 1, 2), (4100, 3600, 3000)), 6.0, 0.25))
+    shut = curve([(0, 1), (0.1 * d, 0), (0.7 * d, 0), (d, 0.6)], m)
+    amp = envelope(m, 0.04, 0.14) * curve([(0, 0.45), (0.12 * d, 0.8), (0.35 * d, 1.0), (0.7 * d, 0.85), (d, 0.45)], m)
+    voice = harmonic(f0, lambda k, fk: k ** -0.7 * (formants(fk, parts) + 0.04) * (fk / 500) ** (-1.6 * shut),
+                     rng.uniform(0, TAU))
+    breath = ofilt(rng.standard_normal(m), lambda f: band(f, 1200, 5000, 2))
+    return level * amp * (voice / np.max(np.abs(voice)) + db(-26) * breath / rms(breath))
+
+
+def meow(rng):
+    """A cat stuck up the linden tree, mewing plaintively: 'mi-aaow … mi-aow' (f0 about 550 → 800 → 500 Hz), the
+    second shorter and a little lower, a little distant (low-passed at 4.5 kHz) in a short outdoor reverb; 1.75 s."""
+    x = np.zeros(int(1.75 * SR))
+    put(x, mew(rng, 0.82, [(0, 560), (0.3, 800), (0.55, 770), (1, 500)], 1.0), 0)
+    put(x, mew(rng, 0.58, [(0, 540), (0.32, 760), (1, 480)], 0.8), 1.0 * SR)
+    x = ofilt(x, lambda f: lowpass(f, 4500, 2))
+    x += 0.3 * oreverb(rng, x, 0.6, 3500)[:len(x)]
+    return fade(x, 0.12)
+
+
+def woof(rng, d, f, level):
+    """One bark of a small dog, 'hov!', d s: a rough harmonic burst (f0 about f, rising a little and falling by a
+    third), its vowel opening and closing again, with a huff of noise at the start."""
+    m = int(d * SR)
+    t = np.arange(m) / SR
+    f0 = curve([(0, f * 0.95), (0.18 * d, f * 1.06), (d, f * 0.72)], m, log=True) * (1 + 0.025 * wobble(rng, m, 70))
+    parts = ((curve([(0, 800), (0.3 * d, 1150), (d, 650)], m, log=True), 2.5, 1.0),
+             (curve([(0, 1900), (0.3 * d, 1800), (d, 1100)], m, log=True), 4.0, 0.6),
+             (np.full(m, 3200.0), 5.0, 0.2))
+    voice = harmonic(f0, lambda k, fk: k ** -0.6 * (formants(fk, parts) + 0.05), rng.uniform(0, TAU))
+    # rough: every other pulse of the voice weaker (a subharmonic) and a fast flutter
+    voice *= 1 + 0.3 * np.sin(TAU * np.cumsum(f0 / 2) / SR) + 0.15 * wobble(rng, m, 150)
+    amp = curve([(0, 0), (0.007, 1.0), (0.35 * d, 0.8), (0.75 * d, 0.35), (d, 0)], m)
+    huff = ofilt(rng.standard_normal(m), lambda f: resonance(f, 1300, 1.2) + 0.5 * resonance(f, 2600, 2))
+    huff *= 0.35 + 0.9 * np.exp(-t / 0.02)
+    return level * amp * (voice / np.max(np.abs(voice)) + 0.35 * huff / np.max(np.abs(huff)))
+
+
+def bark(rng):
+    """A small dog barking twice, 'hov! hov!': the second 0.28 s after the first, a little lower and softer; a short
+    outdoor reverb; 0.75 s."""
+    x = np.zeros(int(0.75 * SR))
+    put(x, woof(rng, 0.13, 560, 1.0), 0)
+    put(x, woof(rng, 0.12, 520, 0.8), 0.28 * SR)
+    x = ofilt(x, lambda f: band(f, 200, 6000, 2))
+    x += 0.22 * oreverb(rng, x, 0.45, 4000)[:len(x)]
+    return fade(x, 0.1)
+
+
+def clop(rng, tone, level):
+    """One iron-shod hoof on a cobble: a hollow, woody knock (three short rings at 0.6–1.6 kHz, times tone, and a
+    knock of band noise), the dull thud of the hoof under it and a faint tick of the shoe."""
+    d = 0.12
+    m = int(d * SR)
+    parts = [(rng.uniform(620, 720) * tone, 1.0, rng.uniform(0.012, 0.018)),
+             (rng.uniform(980, 1150) * tone, 0.7, rng.uniform(0.008, 0.012)),
+             (rng.uniform(1400, 1650) * tone, 0.4, rng.uniform(0.005, 0.008))]
+    ring = onset(struck(rng, d, parts, beat=(5.0, 15.0), second=0.3), 0.0008)
+    knock = burst(rng, d, 500, 2500, 0.004, 0.0008)
+    thud = np.sin(TAU * np.cumsum(curve([(0, 170), (0.04, 110)], m, log=True)) / SR) * decay(m, 0.0015, 0.018)
+    shoe = burst(rng, d, 2500, 6000, 0.0008, 0.0003)
+    return level * (ring / np.max(np.abs(ring)) + 0.5 * knock / np.max(np.abs(knock)) + 0.6 * thud
+                    + 0.12 * shoe / np.max(np.abs(shoe)))
+
+
+def snort(rng, d=0.4):
+    """A horse's soft snort: a puff of breath through the nostrils (band noise, 200 Hz – 2.5 kHz), fluttering about 30
+    times a second and slowing, rising in 25 ms and dying away."""
+    m = int(d * SR)
+    breath = ofilt(rng.standard_normal(m), lambda f: band(f, 200, 2500, 2) * (1 + 1.5 * resonance(f, 420, 3)))
+    flutter = 0.55 + 0.45 * np.sin(TAU * np.cumsum(curve([(0, 32), (d, 18)], m)) / SR) ** 2
+    return breath / rms(breath) * flutter * decay(m, 0.025, d / 3.5)
+
+
+def hooves(rng):
+    """A cart horse walking up the cobbled square with a wooden cart on iron tyres, coming nearer and stopping: the
+    hoof clops in pairs, about 1.9 pairs a second and a little uneven, over the wheels (a low rumble, and many small
+    knocks as the tyres roll over the cobbles); from far (15 dB lower, low-passed at 1.4 kHz) to near over 3.3 s,
+    slowing over its last second, then the cart's knock as it stops and a soft snort; a short reverb off the houses
+    round the square; 4.4 s."""
+    d = 4.4
+    n = int(d * SR)
+    cart = np.zeros(n)
+    tones = (1.0, 0.93, 1.05, 0.96)  # the four hooves
+    starts, t = [], 0.03
+    for every in (0.52, 0.53, 0.51, 0.53, 0.56, 0.63):  # s from one pair to the next: walking, then slowing
+        starts.append(t)
+        t += every * rng.uniform(0.97, 1.03)
+    starts.append(t)
+    k = 0
+    for i, a in enumerate(starts):
+        later = 0.16 * (1 + 0.25 * max(0.0, a - 2.4))  # the second clop of the pair, later as the horse slows
+        for after, level in ((0.0, 1.0), (later, 0.78 if i < len(starts) - 1 else 0.47)):
+            put(cart, db(rng.normal(0, 1.2)) * clop(rng, tones[k % 4], level), (a + after + rng.normal(0, 0.008)) * SR)
+            k += 1
+    last = starts[-1] + 0.2
+    speed = curve([(0, 1), (2.4, 1), (last - 0.3, 0.55), (last + 0.12, 0), (d, 0)], n)
+    # the wheels: iron tyres knocking over the cobbles' edges, about 40 times a second at a walk, and a low rumble
+    knocks = np.zeros(n)
+    u = 0.0
+    while u < d:
+        s = speed[min(int(u * SR), n - 1)]
+        if s > 0.02:
+            put(knocks, s * db(rng.uniform(-10, 0)) * burst(rng, 0.05, 90, 700, rng.uniform(0.005, 0.012)), u * SR)
+            u += rng.exponential(1 / (40 * s))
+        else:
+            u += 0.01
+    rumble = ofilt(rng.standard_normal(n), lambda f: band(f, 70, 350, 2)) * speed * (1 + 0.4 * wobble(rng, n, 30))
+    grit = ofilt(rng.standard_normal(n), lambda f: band(f, 1500, 4000, 2)) * speed * np.abs(wobble(rng, n, 60))
+    cart += 0.2 * knocks / np.max(np.abs(knocks)) + 0.04 * rumble / rms(rumble) + 0.006 * grit / rms(grit)
+    put(cart, 0.3 * burst(rng, 0.15, 150, 900, 0.03, 0.003), (last + 0.1) * SR)  # the cart stops
+    put(cart, 0.13 * snort(rng), (last + 0.3) * SR)
+    # coming nearer: louder and brighter
+    gain = db(curve([(0, -15), (1.0, -10.5), (2.0, -5), (2.9, -1.2), (3.3, 0), (d, 0)], n))
+    cuts = np.geomspace(1400, 6000, 7)
+    pos = np.log(curve([(0, 1400), (2.0, 3000), (3.2, 6000), (d, 6000)], n, log=True) / cuts[0]) / np.log(
+        cuts[-1] / cuts[0]) * (len(cuts) - 1)
+    pad = np.zeros(6000)  # silence round it: the filters work round a circle
+    near = moving(np.concatenate([pad, cart, pad]), cuts, np.concatenate([pad, pos, pad + pos[-1]]),
+                  lambda f, c: lowpass(f, c, 2), norm=False)[len(pad):len(pad) + n]
+    x = gain * near + 0.3 * oreverb(rng, np.sqrt(gain) * near, 0.5, 3500)[:n]
+    return fade(onset(x, 0.05), 0.15)
+
+
+def midi(k):
+    """The frequency (Hz) of MIDI note k (A4 = 69 = 440 Hz)."""
+    return 440.0 * 2 ** ((k - 69) / 12)
+
+
+def brass(rng, f, d, bright, slope=0.7, body=(500, 0.0), attack=0.02, release=0.06, scoop=0.015, vib=0.0, even=1.0):
+    """One note of a brass instrument (a clarinet with even < 1: weaker even harmonics), d s and a release: a
+    harmonic tone (the k-th harmonic at k ** −slope, raised round body: (Hz, gain)) through a low-pass whose corner
+    opens with the attack (to about bright Hz) and settles lower as the note goes on, so the note is brightest as it
+    speaks. Its pitch starts a little flat (scoop) and lips up into the note; vib: a vibrato on a long note."""
+    m = int((d + release) * SR)
+    t = np.arange(m) / SR
+    f0 = f * (1 - scoop * np.exp(-t / 0.02))
+    if vib:
+        f0 = f0 * (1 + vib * np.sin(TAU * 5.5 * t + rng.uniform(0, TAU)) * np.clip((t - 0.12) / 0.15, 0, 1))
+    amp = curve([(0, 0), (attack, 1.0), (attack + 0.07, 0.8), (max(d, attack + 0.08), 0.68), (d + release, 0)], m)
+    fc = bright * (0.3 + 0.7 * amp) * (1 + 0.4 * np.exp(-t / 0.04))
+    tone = harmonic(f0, lambda k, fk: (1 if k % 2 else even) * k ** -slope * lowpass(fk, fc, 2)
+                    * (1 + body[1] * resonance(fk, body[0], 1.2)), rng.uniform(0, TAU))
+    return amp * tone
+
+
+def kick(rng, level):
+    """A bass drum struck softly with a felt beater: a low thump falling 95 → 55 Hz and a little soft noise."""
+    m = int(0.35 * SR)
+    body = np.sin(TAU * np.cumsum(curve([(0, 95), (0.06, 58), (0.35, 55)], m, log=True)) / SR) * decay(m, 0.002, 0.08)
+    felt = burst(rng, 0.35, 80, 500, 0.012, 0.002)
+    return level * (body + 0.35 * felt / np.max(np.abs(felt)))
+
+
+def tick(rng, level, tau=0.035):
+    """A light tick of a snare and a cymbal: band noise (the snare's rattle at 1.5–4 kHz, the cymbal's shimmer at
+    4–8 kHz) dying away fast (the cymbal with the time constant tau)."""
+    m = int((0.01 + 6 * tau) * SR)
+    rattle = burst(rng, m / SR, 1500, 4000, 0.012, 0.001)
+    shimmer = burst(rng, m / SR, 4000, 8000, tau, 0.001)
+    return level * (0.6 * rattle + shimmer) / np.max(np.abs(rattle + shimmer))
+
+
+POLKA_BPM = 128
+# a village godba's polka in B-flat major, 2/4: a pick-up of two eighths, then eight bars. The tune (MIDI note, length
+# in eighths), one bar a line, and each bar's chord: its bass on beat one and beat two (root, fifth) and the horns'
+# chord on the offbeats
+POLKA_TUNE = ((65, 1), (69, 1),
+              (70, 1), (74, 1), (77, 2),
+              (77, 1), (79, 1), (77, 1), (74, 1),
+              (72, 1), (75, 1), (69, 1), (72, 1),
+              (65, 2), (69, 1), (72, 1),
+              (75, 1), (74, 1), (72, 1), (69, 1),
+              (70, 1), (74, 1), (77, 1), (74, 1),
+              (77, 1), (75, 1), (72, 1), (69, 1),
+              (70, 4))
+POLKA_BARS = ("Bb", "Bb", "F7", "F7", "F7", "Bb", "F7", "Bb")
+POLKA_CHORDS = {"Bb": ((46, 41), (53, 58, 62)), "F7": ((41, 48), (53, 57, 63))}
+B_FLAT = (10, 0, 2, 3, 5, 7, 9)  # the pitch classes of B-flat major
+
+
+def third_below(k):
+    """The note a third below MIDI note k in B-flat major: the second voice of a folk tune."""
+    i = B_FLAT.index(k % 12)
+    return k - (B_FLAT[i] - B_FLAT[(i - 2) % 7]) % 12
+
+
+def polka(rng):
+    """A village brass band (godba) playing the end of a cheerful polka in B-flat, 2/4 at 128 beats a minute: a
+    pick-up and eight bars, the last the tonic chord all together. The helicon's 'oom' on the beats (root and fifth),
+    the horns' 'pah' chords on the offbeats, the tune on a trumpet with a clarinet a third below it (as Slovene tunes
+    go), a soft bass drum on the beats and a light snare-and-cymbal tick on the offbeats. Each note a little early or
+    late and a few cents off; a short outdoor reverb; 7.9 s."""
+    beat = 60 / POLKA_BPM
+    eighth = beat / 2
+    n = int(7.9 * SR)
+    tuba, horns, tune, second, drums = (np.zeros(n) for _ in range(5))
+
+    def at(seconds):
+        return max(0.0, seconds + float(np.clip(rng.normal(0, 0.006), -0.015, 0.015))) * SR
+
+    def pitch(k):
+        return midi(k) * 2 ** (rng.normal(0, 4) / 1200)
+
+    t = 0.0
+    for i, (k, length) in enumerate(POLKA_TUNE):
+        end = i == len(POLKA_TUNE) - 1
+        dur = 0.45 if end else (0.72 if length == 1 else 0.88) * length * eighth  # the eighths a little short
+        rel = 0.2 if end else 0.07
+        level = db(rng.normal(0, 0.8)) * (0.9 if length == 1 else 1.0)
+        put(tune, level * brass(rng, pitch(k), dur, 2800, 0.6, (1300, 1.0), attack=0.015, release=rel,
+                                vib=0.006 if length > 1 else 0.0), at(t))
+        put(second, level * brass(rng, pitch(65 if end else third_below(k)), dur, 2200, 0.8, (900, 0.5),
+                                  attack=0.022, release=rel, scoop=0.008, even=0.3), at(t))
+        t += length * eighth
+    for b, name in enumerate(POLKA_BARS):
+        (root, fifth), chord = POLKA_CHORDS[name]
+        bar = beat + 2 * beat * b
+        if b == len(POLKA_BARS) - 1:  # the end: the tonic all together, held, with a soft cymbal
+            put(tuba, brass(rng, pitch(root), 0.45, 900, 0.7, (350, 1.0), release=0.2, scoop=0.02), at(bar))
+            for k in chord:
+                put(horns, brass(rng, pitch(k), 0.45, 1600, 0.8, (700, 0.8), attack=0.015, release=0.2), at(bar))
+            put(drums, kick(rng, 1.0), bar * SR)
+            put(drums, tick(rng, 0.6, tau=0.35), bar * SR)
+            break
+        for j, k in enumerate((root, fifth)):
+            on = bar + j * beat
+            put(tuba, db(rng.normal(0, 1)) * brass(rng, pitch(k), 0.26, 900, 0.7, (350, 1.0), scoop=0.02), at(on))
+            for c in chord:
+                put(horns, db(rng.normal(0, 1)) * brass(rng, pitch(c), 0.12, 1600, 0.8, (700, 0.8), attack=0.012,
+                                                        release=0.05), at(on + eighth))
+            put(drums, kick(rng, 0.8 if j == 0 else 0.45), at(on))
+            put(drums, tick(rng, 1.0), at(on + eighth))
+    # the tune on top: about 8 dB over the horns, the helicon and the second voice each
+    x = sum(g * bus / np.max(np.abs(bus)) for g, bus in ((1.3, tune), (0.32, second), (1.1, horns), (1.0, tuba),
+                                                          (0.6, drums)))
+    x = ofilt(x, lambda f: highpass(f, 50, 2) * lowpass(f, 6000, 2))
+    x += 0.25 * oreverb(rng, x, 0.7, 3500)[:n]
+    return fade(x, 0.2)
+
+
+def droplets(rng, n, rate, level):
+    """n samples of small water sounds, about rate a second where level (one value per sample, 0 … 1) is 1 and fewer
+    where it is lower: most a short sine that glides up as a bubble rings (0.6–4 kHz, 4–20 ms), some a tiny tick of
+    noise; most quiet, a few loud."""
+    out = np.zeros(n)
+    u = rng.exponential(1 / rate)
+    while u < n / SR:
+        if rng.random() < level[int(u * SR)]:
+            if rng.random() < 0.7:
+                f0 = np.exp(rng.uniform(np.log(600), np.log(4000)))
+                dd = rng.uniform(0.004, 0.02)
+                m = int(dd * SR)
+                fr = f0 * (1 + rng.uniform(0.1, 0.7) * (np.arange(m) / m) ** 1.3)
+                ev = sine(fr, rng.uniform(0, TAU)) * decay(m, 0.001, dd / rng.uniform(2.5, 4.5)) * (1200 / f0) ** 0.3
+            else:
+                m = int(0.006 * SR)
+                ev = 0.6 * rng.standard_normal(m) * decay(m, 0.0005, 0.0012)
+            put(out, db(-24 + 24 * rng.random() ** 2.5) * ev, u * SR)
+        u += rng.exponential(1 / rate)
+    return out
+
+
+def gush(rng):
+    """Water starting to run from a fountain's four iron pipes into a stone trough: the pipes cough out their air (two
+    soft sputters), a first spurt splashes (a burst of noise and a low slosh), then four streams, one after the other
+    0.1 s apart, splash steadily (bright band noise that flutters as the jets break up, and many small drops and
+    bubbles), easing out over the last 0.8 s; a short reverb off the stone; 3 s."""
+    d = 3.0
+    n = int(d * SR)
+    x = np.zeros(n)
+    for at, level in ((0.0, 0.5), (0.09, 0.35)):  # the air in the pipes
+        put(x, level * burst(rng, 0.08, 200, 1500, 0.015, 0.004), at * SR)
+    first = 0.16
+    splash = burst(rng, 0.6, 300, 7000, 0.12, 0.006)
+    slosh = burst(rng, 0.6, 150, 900, 0.15, 0.01)
+    put(x, 0.9 * splash / np.max(np.abs(splash)) + 0.5 * slosh / np.max(np.abs(slosh)), first * SR)
+    streams = np.zeros(n)
+    for i in range(4):
+        start = first + 0.1 * i + rng.uniform(-0.02, 0.02)
+        ring = rng.uniform(1500, 2500)
+        jet = noise(rng, n, -0.25, lambda f: band(f, 500, 7000, 2) * (1 + 0.8 * resonance(f, ring, 1.5)))
+        jet *= np.clip(1 + 0.45 * wobble(rng, n, 25), 0.1, None)
+        streams += db(rng.uniform(-2, 0)) * curve([(0, 0), (start, 0), (start + 0.05, 1.0), (d, 1.0)], n) * jet
+    ease = curve([(0, 1), (2.2, 1), (d, 0)], n)
+    drops = droplets(rng, n, 450, ease * curve([(0, 0), (first, 0), (first + 0.02, 1), (first + 0.4, 0.75),
+                                                (d, 0.75)], n))
+    x += (0.28 * streams / np.max(np.abs(streams)) + 0.7 * drops / np.max(np.abs(drops))) * ease
+    x = ofilt(x, lambda f: band(f, 120, 7500, 2))
+    x += 0.25 * oreverb(rng, x, 0.45, 4500)[:n]
+    return fade(x, 0.05)
+
+
 # name: (seed, builder, the loudest momentary loudness in LUFS)
 SHOTS = {
     "thunder-1": (2101, thunder_1, THUNDER_M),
@@ -1092,6 +1426,11 @@ SHOTS = {
     "lid": (2117, lid, SHOT_M),
     "purr": (2118, purr, SHOT_M),
     "whoosh": (2119, whoosh, SHOT_M),
+    "meow": (2120, meow, SHOT_M),
+    "bark": (2121, bark, SHOT_M),
+    "hooves": (2122, hooves, SHOT_M),
+    "polka": (2123, polka, SHOT_M),
+    "gush": (2124, gush, SHOT_M),
 }
 
 

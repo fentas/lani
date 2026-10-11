@@ -71,8 +71,9 @@ data class SceneHint(
  * has what it needs ([SceneFixtures], [SceneObject.needs]) and the frame shows it: the campfire's stars after dusk and its
  * moon while it is up, the square's sun by day ([sky]; the painters ask [starsOut], [sunUp] and [moonUp]), a wild animal
  * while it is out ([Wildlife.out]), and not what a dialog's effect sent away for the day ([byEffect]: the market's pigeons
- * flown off, no bats over the water). Nothing else in a picture comes and goes as a word: the rain, the snow, the seasons
- * and who is there change how things look, not which are there (SceneSightsRenderTest keeps it so, art by art).
+ * flown off, no bats over the water, Muri away from the square, its ball lost under the bench). Nothing else in a picture
+ * comes and goes as a word: the rain, the snow, the seasons and who is there change how things look, not which are there
+ * (SceneSightsRenderTest keeps it so, art by art).
  *
  * Pure: the words panel groups a scene's words by it ([group]), and its chips agree with the picture because the painters
  * draw by the same conditions.
@@ -120,13 +121,26 @@ object SceneSights {
     const val BACK = 0.58f
 
     /**
+     * What an effect a dialog sets keeps out of the picture while it is at 0 (art → object slot → the effect): Muri away from
+     * the square ("dog"), its ball lost under the bench ("ball": the bench's to tap then, not a word of its own). Unlike
+     * [comesBack]'s, their way back is in the picture from its start: Muri gets up behind the flower bed, the ball rolls out.
+     */
+    val lost: Map<String, Map<String, String>> = mapOf("square" to mapOf("dog" to "dog", "ball" to "ball"))
+
+    /** A [lost] effect under this keeps its thing out of the picture: Muri not back yet, the ball still lost ([lostAt]). */
+    const val LOST = 0.04f
+
+    fun lostAt(level: Float): Boolean = level < LOST
+
+    /**
      * Whether [slot] of [art] is sent away by the effects [fx] a dialog set (and left for the day): the pigeons flown off,
-     * Sivko not back yet, the bats a cue has none of ([Wildlife.bats]).
+     * Sivko not back yet, the bats a cue has none of ([Wildlife.bats]), Muri away and the ball lost ([lost]).
      */
     fun byEffect(art: String, slot: String, fx: Map<String, Float>): Boolean {
         if (fx.isEmpty()) return false
         flies[art]?.get(slot)?.let { e -> fx[e]?.let { if (flownAway(it)) return true } }
         comesBack[art]?.get(slot)?.let { e -> fx[e]?.let { if (away(it)) return true } }
+        lost[art]?.get(slot)?.let { e -> fx[e]?.let { if (lostAt(it)) return true } }
         if (slot == BAT && slot in Wildlife.slots(art) && "bats" in SceneArt.effects[art].orEmpty()) fx["bats"]?.let { return Wildlife.bats(it) == 0 }
         return false
     }

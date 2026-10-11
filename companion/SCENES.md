@@ -721,7 +721,7 @@ know. A thing that goes as the room grows (the straw bed) has its sticker cut fr
 | `smithy` | by its level: the `bellows` and the `chain` from 2; the `wheel` and the `axe` from 3 | a second, smaller anvil on its stump in front of the wheel from 3 |
 | `school` | by its level: the `map` and the `globe` from 2; the `clock` from 3 | |
 | `field` | `kozolec` and `hay`: the hayrack and the hay on it (KOZOLEC); without it the rake leans on the fence | the double hayrack beyond the wheat (`toplar`): oak logs, stone feet, eight posts, the poles, the plank roof, the first hay |
-| `square` | `well` (WELL); `tower`: the church with its bell tower (CHURCH) | the maypole before the church (`mlaj`): a peg with a ribbon, the spruce on trestles, peeled, the wreath and ribbons ready, raised; taken down for the season (after May, until the village raises it again on the eve of May Day: GAME.md "Village projects") nothing of it, not even the peg; the tower's clock (`mestna_ura`): a slit window, the round window made for it, the face lifted in (stopped at twelve), then going and lit at night |
+| `square` | `well` (WELL); `tower`: the church with its bell tower (CHURCH) | the maypole before the church (`mlaj`): a peg with a ribbon, the spruce on trestles, peeled, the wreath and ribbons ready, raised; taken down for the season (after May, until the village raises it again on the eve of May Day: GAME.md "Village projects") nothing of it, not even the peg; the tower's clock (`mestna_ura`): a slit window, the round window made for it, the face lifted in (stopped at twelve), then going and lit at night; the fountain in the middle of the square (`vodnjak_na_trgu`): pegs and a string where it will stand, the block of white stone on its beams, carved into a round trough with a pillar in the middle (stone chips round it), finished with the ditch dug from the spring through the garden across the square, the four iron pipes fitted to the pillar with the ditch covered over (in place as its last step begins), then the water running from them into the trough |
 | `stream` | `mill`: France's mill, once it grinds (`mlin`) | the mill as it's built (`mlin`): pegs and a string, the stone footing with the timber waiting, the walls under bare rafters, the roof, the wheel and the flume still and dry, then the water on the wheel and the window lit; the cart bridge upstream (`most`): pegs and a line over the water, heaps of stones, the two stone piers, the logs, the plank deck, the railings and the cart road over it into the woods |
 
 The plank footbridge (`bridge`, brv) is always there: a simple crossing, the cart bridge comes in addition. Happenings
@@ -735,8 +735,8 @@ and the school grow with their building's level (above). The watchtower's view d
 is, and then the wolves' eyes shine in the forest below at night (off by default, so tools and tests see the plain view).
 The vineyard waits whole: it opens only once its terraces
 are finished (`from: ["project:vinograd"]`, see [Scenes of a culture pack](#scenes-of-a-culture-pack)). The other projects
-have no picture in a scene yet (the bocce court, the chapel, the bee meadow, the fire station, the playground, the fountain,
-the lookout tower): they stand on the village map (GAME.md, "Village projects"). Their steps are played in the scenes all
+have no picture in a scene yet (the bocce court, the chapel, the bee meadow, the fire station, the playground, the lookout
+tower): they stand on the village map (GAME.md, "Village projects"). Their steps are played in the scenes all
 the same, where they happen ([Project steps](#project-steps-a-village-projects-step-as-a-short-scene)).
 
 Happenings that need a level: Micka's potica and the Sunday lunch want the kitchen's stove and table (`{"level": 2}`),
@@ -930,12 +930,21 @@ home in the shafts), for the market's `hen` how far she has got from her coop on
 Some effects sound as they come on ([GAME.md](GAME.md#background-sounds)): a `bell` rings a peal, the `cowbells` clank, the
 `sheepbells` clink (one close by in the forest, the flock's far off from the fire),
 the `oven`, the `stove`, the `forge` and the campfire's `flare` catch with a whoosh, the smithy's `sparks` bring the
-smith's blows on the anvil, and the workshop's `hammer` a knock each time it comes down on the nail. They don't duck under
-the voice saying the line that brings them, as the other background sounds do: the peal rings with Tine's "Vlečem! Bim,
-bam!" at the background's own level, not 10 dB under it.
+smith's blows on the anvil, and the workshop's `hammer` a knock each time it comes down on the nail. On the square the cat
+set up the linden mews (`cat` 0, as her rings go out), Muri barks as he comes back (`dog`) and as he wags (`wag`), a cart's
+horse comes clopping up the cobbles (`cart-pump`, `cart-stone`), the `band` plays a polka and the `fountain`'s water
+gushes. They don't duck under the voice saying the line that brings them, as the other background sounds do: the peal
+rings with Tine's "Vlečem! Bim, bam!" at the background's own level, not 10 dB under it.
 
 The effects go with the dialog when it closes, unless it says `"fx_stays": true`: then the ones it ended with
-stay in its scene until midnight (`GameState.sceneFx`, by scene), like the lantern Luka lit. A reaction's effect
+stay in its scene until midnight (`GameState.sceneFx`, by scene), like the lantern Luka lit.
+
+A new effect eases in from 0, so an effect whose 0 is a state of its own shows it at once when a dialog's first line sets
+it: the square's cat is up the linden as the children call for help (`cat` 0), Muri is away as Janez asks after him
+(`dog` 0), the ball is lost as they look for it (`ball` 0). Its 1 is the place as it is by itself (the cat asleep on the
+bench, Muri at his place, the ball in play), and the dialog ends there and keeps it (`fx_stays`), so nothing eases back
+to 0 when it closes. One that plays out over the level and ends where it began does too: a `goal` kicked back into play,
+a cart stopped on the square, the maypole up. A reaction's effect
 passes sooner, with the learner's next pick ([Reactions](#reactions-and-more-than-one-right-answer)), and never stays.
 An effect let go eases back to 0 as every level does: the flock flies back, the fox trots back the way she came. So a
 dialog whose cue takes something somewhere for good ends it at 1 and keeps it: the hare gone over the meadow, Sivko home,
@@ -1054,6 +1063,10 @@ picks "Tam je, na vozu!" as a tap on the cart does; her empty coop is still the 
 ] }
 ```
 
+A thing lost somewhere is found the same way: on the square the ball lies under the bench (`ball` 0, the children's "Kje
+je žoga?"), and while it is lost it is the bench's to tap, as a hidden person is their cover's: "Tam je, pod klopjo!"
+stands for the `bench`, the linden and the flowers for the wrong places.
+
 **On the screen** the turn says "👆 Poišči v prizoru · Find it in the scene" over the picture, and its choices wait behind
 "✋ Izberi raje · Let me choose" (`TurnMode.TAP`, `DialogRun.tapModes`: only where the scene's picture shows, not in a keeper's
 talk over the village nor on a visit, where it is chosen as ever); the 🎤 still takes a choice said. TalkBack always gets the
@@ -1118,7 +1131,8 @@ leaves the hits alone, and renders them for review (`build/scene-snapshots/pokes
 
 Where a poke shows a sound, it makes one, timed as the painter draws it ([GAME.md](GAME.md#background-sounds)): the square's
 bell and the church's rope ring at each end of the bell's swing, the anvil rings, the cow's bell clanks as she shakes her
-head, the marmot whistles, the owl hoots, the pot's lid rattles, the cat purrs and the campfire whooshes up. The scene view
+head, the marmot whistles, the owl hoots, the pot's lid rattles, the cat purrs, the campfire whooshes up and the square's
+dog barks as he jumps up. The scene view
 hands each reaction to `Ambience.poke` with its start on the picture's clock; `game/ambient/Sfx.kt` says what it sounds
 like. A new poke with a sound gets its line there.
 
@@ -1254,7 +1268,7 @@ hasn't built yet.
 | ko je luna na nebu · when the moon is up | 🌕 | the campfire's moon: the real one, up and not new |
 | razen pozimi · except in winter; spomladi, poleti, jeseni, pozimi | 🌿; 🌸 🌻 🍂 ❄️ | the animals asleep in winter (an animal's months) |
 | včasih · sometimes | 🎲 | the day's dice: a wild animal isn't out every day |
-| spet jutri · again tomorrow | 🔄 | what a dialog's effect sent away for the day: the market's pigeons flown off, the forest's owl flown off her branch, the bats a cue has none of |
+| spet jutri · again tomorrow | 🔄 | what a dialog's effect sent away for the day: the market's pigeons flown off, the forest's owl flown off her branch, the bats a cue has none of, Muri away from the square, its ball lost under the bench |
 | zgradi: Kozolec · build: Hayrack | 🏗️🪜 | a thing whose building doesn't stand yet ([What the village has built](#what-the-village-has-built)); at a level: "Kovačnica, stopnja 2" |
 | nadgradi na stopnjo 3 · upgrade to level 3 | ⬆️3 | a room's thing of a higher level (the kitchen's clock) |
 | dokončaj: Mlin na potoku · finish: The mill on the stream | 🏗️ and the project's emoji | a project's fixture (France's mill by the stream) |
@@ -1264,10 +1278,9 @@ hasn't built yet.
 Where the "when" comes from: one pure function per thing, `SceneSights.visibleNow(art, object, frame)` (there in the
 scene's world, `SceneFixtures`, and shown by the frame) and `SceneSights.whenShown(art, object, world, fx)` (the hints). The
 painters draw by the same conditions: the campfire's stars (`starsOut`) and moon (`moonUp`), the square's sun (`sunUp`),
-the market's pigeons and the forest's owl flown off (`flownAway`), the bats a cue brings (`Wildlife.bats`), the wild
-animals out (`Wildlife.out`), what is built (`SceneFixtures`). So the chips never disagree with the picture:
-`SceneSightsRenderTest`
-renders every art over whole days in the four seasons, at the moon's phases, under the real sky, in every weather, with the
+the market's pigeons and the forest's owl flown off (`flownAway`), Muri away and the ball lost on the square (`lostAt`),
+the bats a cue brings (`Wildlife.bats`), the wild animals out (`Wildlife.out`), what is built (`SceneFixtures`). So the
+chips never disagree with the picture: `SceneSightsRenderTest` renders every art over whole days in the four seasons, at the moon's phases, under the real sky, in every weather, with the
 day's wild animals of a few villages, every effect low and high and each world (nothing built, a room at each level,
 everything), and checks every thing's chip against the painter's hits. Nothing else comes and goes as a word: the rain,
 the snow, the blossom, the swallows, the lantern lit at dusk and who is there change how the picture looks, not which of
@@ -1804,7 +1817,7 @@ stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on
 | `campfire` | fire, logs, kettle, stones, smoke, sparks, moon, stars, tent, axe, bucket, stump | left, right, back (a stage: [Stage directions](#stage-directions-people-move-on-cue)) | `flare` (the fire burns higher, sparks fly), `embers` (the fire burns down: the flames lower and fewer, no sparks, a thread of smoke and a smaller light; 1: only the embers glowing red in the ash; Rosa's and Resi's "the fire is small now"), `steam` (the kettle steams), `bell` (a distant bell: its rings go out in the sky over the woods, opposite the moon), `sheepbells` (the sheep's bells up on the pasture, out of sight: small clinks going out here and there among the crowns of the trees at the back on the right, below the top bar's 🔍, and their sound: Luka's "Slišiš zvonce?") |
 | `kitchen` | stove, pot, bowl, table, chair, bread, plate, glass, cup, spoon, fork, knife, window, door, cupboard, clock, milk, eggs, water, salt, potatoes, hearth, bench, bed, shelf, curtains, corner (by the level: see [What the village has built](#what-the-village-has-built)) | stove, table, door | `oven` (the stove fired up, smoke from the chimney; at level 1 the hearth's fire burns higher), `steam` (off the cup and the bowl) |
 | `forest` | tree, spruce, mushroom, berries, stream, stone, path, bird, deer, squirrel, owl, leaves, sheep, highseat (the hunter's preža), flowers; the wild: hare, butterfly, fox, stag, hedgehog, boar, badger, dormouse, bat | path, clearing, highseat (sitting up in it) | `birds` (a flock flies up out of the trees and away), `herd` (a stag and two hinds step out of the trees at the far edge: how far out), `fox` (the fox trots along the edge to her place: how far she has come), `hoot` (the owl turns its head and hoots again and again), `bats` (bats over the clearing: how many), `sheepbells` (the brass bell under the lost sheep's chin swings and rings, its clinks going out, each at an end of its swing: `Sfx.SHEEP_BELL_SWING`; Luka's "Slišiš? Zvonec!"), `owl-flies` (the owl spreads her wings and flies off her branch, up and away across the clearing into the far trees, how far she has flown; at 1 she is gone, the branch bare, and her word with her, as the market's pigeons: [The words panel](#the-words-panel-here-now-seen-before-still-hidden); "Huu … odletela je") |
-| `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings) |
+| `square` | linden, bench, ball, well, dog, cat, house, tower, bicycle, flowers, sun, fence | bench, well, play1, play2, play3 | `bell` (the tower's bell swings and rings), `cat` (the cat up the linden: 0 stuck on its lowest limb just out from the fork, mewing; down the limb, down the trunk tail first and a hop onto the bench; 1 curled up there again, as by herself: how far down she has come), `dog` (Muri, Janez's dog: 0 away, nothing of him on the square; up from behind the flower bed, out to its end, 0.5 sniffing at the flowers there; running back to his place, 1 as by himself), `wag` (Muri wagging hard, his tongue out, hopping for joy: how hard), `ball` (0 lost under the bench, its red and white showing in the shade between the legs: the `bench`'s to tap, not a word of its own while it's lost; rolling out to the game; 1 in play), `goal` (a shot in a high arc between two satchels at the back of the game, the children jumping for joy, then the ball kicked back into play: how far it has gone; 1 the game as ever), `cart-pump` and `cart-stone` (a horse and cart coming toward us out of the lane by the church, trotting, and stopping in the middle of the square: how far it has come; on it the fire pump from Gorica, red with its brass cylinders and long handles, or blocks of white stone glinting in the sun, unloaded once the fountain's stone lies on the square), `band` (the village band under the linden in blue coats and caps, a helicon, two trumpets and the big drum, bobbing to the beat, notes going up: how loud), `dance` (couples dancing a polka on the square, turning hand in hand, her skirt flying out: how many, up to four), `maypole` (the maypole raised: its top hauled up on two ropes while its foot slides from its trestles into its hole, the wreath and the ribbons on it: how far up; only where it lies ready, its wreath woven, or stands, never out of its season), `fountain` (the fountain's water: down the open ditch from the garden while the ditch is dug and until the pipes are in, how far it has come; from its four pipes into the trough once they are fitted, how much; not set: dry until it is finished, then running) |
 | `tent` | lantern, sleepingbag, blanket, pillow, backpack, map, boots, coat, hat, book, cup, rope | left, right, door | `lantern` (0 dark, 1 lit) |
 | `field` | wheat, corn, potatoes, cabbage, kozolec, hay, scythe, rake, basket, cart, scarecrow, fence, path, horse; the wild: deer, hare, butterfly, fox, boar, bat | field, kozolec, path | `crows` (crows come to the scarecrow), `bell` (the church bell on the hill, its rings coming over the fields; not set: the ave, a few minutes round sunset), `bats`, `hare` (a clump of tall grass by the fence stirs, up to 0.4; then a hare leaps out over the track and bounds off over the meadow: how far, 1 gone; one cue to 1 on France's "Tiho … nekaj se premika v travi" has the grass stir for two seconds and the hare out and away in the next two), `horse` (Sivko: 0 away beyond the picture's left edge, the cart's shafts down on the grass; rising, he walks back over the meadow in front of the kozolec, scenery until about halfway, when he is in the picture of every width, then the horse to tap; 1 home in the shafts, as not set), `hat` (the scarecrow's straw hat: 0 gone, straw sticking out of the sack; above 0 the learner's big felt hat drops onto its head, and toward 1 slips down onto its nose; not set: the straw hat), `scarf` (a red wool scarf round its neck, its ends blowing) |
 | `livingroom` | stove, bench, table, chest, window, door, dog, chair, curtains, rug, lamp, clock, corner, photo, glasses, book (by the level) | stove, table, door | `stove` (fired up: its tiles warm, a glow on the bench), `dog` (Muri awake, sitting up and wagging; at night he sleeps whatever), `dog-hides` (Muri plays hide-and-seek: off the bench and behind the open door, only his bushy tail wagging past the leaf's edge, the `dog` to tap; while Janez sleeps on the bench, Muri stays curled up by him) |

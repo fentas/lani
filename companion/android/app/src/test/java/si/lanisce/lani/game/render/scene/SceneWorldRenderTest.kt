@@ -57,7 +57,8 @@ class SceneWorldRenderTest {
             (1..6).map { s -> "toplar $s/6" to world(projects = mapOf("toplar" to s)) },
         "square" to listOf("no well, church" to world(bare), "well, church" to world()) +
             (1..5).map { s -> "mlaj $s/5" to world(projects = mapOf("mlaj" to s)) } +
-            listOf(2, 6, 7).map { s -> "ura $s/7" to world(projects = mapOf("mlaj" to 5, "mestna_ura" to s)) },
+            listOf(2, 6, 7).map { s -> "ura $s/7" to world(projects = mapOf("mlaj" to 5, "mestna_ura" to s)) } +
+            (1..6).map { s -> "vodnjak $s/6" to world(projects = mapOf("mlaj" to 5, "mestna_ura" to 7, "vodnjak_na_trgu" to s)) },
         "campfire" to listOf("no tent" to world(noTent), "tent" to world()),
         // the rooms by their building's level: the kitchen of a hut (bare, then the stove and the table, then the clock and
         // the holy corner), the smithy (the bellows, then the wheel and the second anvil), the school (the map and the

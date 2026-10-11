@@ -47,9 +47,34 @@ class SfxTest {
         assertTrue("dying down", shake.last().gain < shake.first().gain)
         // the two sides of the bell
         assertTrue(shake[0].rate != shake[1].rate)
-        for ((art, id) in listOf("square" to "dog", "field" to "scarecrow", "market" to "hen", "watchtower" to "horn", "kitchen" to "nothing")) {
+        for ((art, id) in listOf("field" to "scarecrow", "market" to "hen", "watchtower" to "horn", "kitchen" to "nothing")) {
             for (step in 0..2) assertEquals("$art/$id", emptyList<Cue>(), poke(art, id, step))
         }
+        // the square's dog barks as he jumps up (his second reaction), not as he wags
+        assertEquals(emptyList<Cue>(), poke("square", "dog", 0))
+        assertEquals(listOf(Sound.BARK), poke("square", "dog", 1).map { it.sound })
+    }
+
+    @Test fun `the square's dialogs sound as they come on - the cat mews, Muri barks, the cart's hooves, the band, the fountain`() {
+        val now = 30.0
+        // set up the linden (her 0), the cat mews twice as the painter's rings go out; coming down she doesn't
+        val mews = Sfx.fx("square", emptyMap(), mapOf("cat" to 0f), now)
+        assertEquals(listOf(Sound.MEOW, Sound.MEOW), mews.map { it.sound })
+        for (c in mews) assertEquals("at ${c.at}", 0.0, ((c.at + 0.4) % 2.2).let { if (it > 1.1) it - 2.2 else it }, 1e-9)
+        assertTrue(mews.first().at > now)
+        assertEquals(emptyList<Cue>(), Sfx.fx("square", mapOf("cat" to 0f), mapOf("cat" to 1f), now))
+        // Muri away is silent, barks coming to the flowers and running home; once when he comes home wagging
+        assertEquals(emptyList<Cue>(), Sfx.fx("square", emptyMap(), mapOf("dog" to 0f), now))
+        assertEquals(listOf(Sound.BARK), Sfx.fx("square", mapOf("dog" to 0f), mapOf("dog" to 0.5f), now).map { it.sound })
+        assertEquals(listOf(Sound.BARK), Sfx.fx("square", mapOf("dog" to 0.5f), mapOf("dog" to 1f, "wag" to 1f), now).map { it.sound })
+        assertEquals(listOf(Sound.HOOVES), Sfx.fx("square", emptyMap(), mapOf("cart-pump" to 1f), now).map { it.sound })
+        assertEquals(listOf(Sound.HOOVES), Sfx.fx("square", emptyMap(), mapOf("cart-stone" to 1f), now).map { it.sound })
+        assertEquals(listOf(Sound.POLKA, Sound.POLKA), Sfx.fx("square", emptyMap(), mapOf("band" to 1f), now).map { it.sound })
+        assertEquals(listOf(Sound.GUSH), Sfx.fx("square", emptyMap(), mapOf("fountain" to 1f), now).map { it.sound })
+        // the dancing, the goal, the ball and the maypole have no sound of their own (the band plays for the dance)
+        for (name in listOf("dance", "goal", "ball", "maypole")) assertEquals(name, emptyList<Cue>(), Sfx.fx("square", emptyMap(), mapOf(name to 1f), now))
+        // the same names elsewhere sound nothing: the living room's Muri is its own
+        assertEquals(emptyList<Cue>(), Sfx.fx("livingroom", emptyMap(), mapOf("dog" to 1f), now))
     }
 
     @Test fun `the marmot whistles, the owl hoots at the third tap, the pot rattles, the cat purrs at the second`() {
@@ -122,7 +147,7 @@ class SfxTest {
 
     @Test fun `every sound is of a poke or an effect its art has, never above its gain, and ready before it's wanted`() {
         val pokes = mapOf(
-            "square" to listOf("tower"), "church" to listOf("rope"), "smithy" to listOf("anvil"), "alps" to listOf("cow", "marmot"),
+            "square" to listOf("tower", "dog"), "church" to listOf("rope"), "smithy" to listOf("anvil"), "alps" to listOf("cow", "marmot"),
             "forest" to listOf("owl"), "kitchen" to listOf("pot", "cat"), "campfire" to listOf("fire"),
         )
         for ((art, ids) in pokes) for (id in ids) {

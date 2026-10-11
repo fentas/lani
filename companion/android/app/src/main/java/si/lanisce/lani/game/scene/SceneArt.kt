@@ -158,8 +158,28 @@ object SceneArt {
             // the owl flying off her branch and away over the trees (how far she has flown; 1: gone, the branch bare)
             "owl-flies",
         ),
-        // the bell swinging in the tower, its ringing
-        "square" to listOf("bell"),
+        // the bell swinging in the tower, its ringing; the cat up the linden, coming down (0 stuck on its lowest limb,
+        // mewing, 1 asleep on the bench again: how far down); Muri the dog coming back (0 away, 0.5 sniffing at the flower
+        // bed, 1 back at his place) and wagging hard (how hard); the ball lost under the bench (0) and back in play (1); a
+        // goal between the satchels and the ball kicked back into play (how far it has gone); a horse and cart coming up
+        // the square with the fire pump, or with the white stone for the fountain (how far they have come: 1 stopped);
+        // the village band playing under the linden (how many play); couples dancing a polka (how many); the maypole
+        // raised (how far up: only where it lies ready or stands); the fountain's water (along the ditch, then from its
+        // four pipes: how much)
+        "square" to listOf(
+            "bell",
+            "cat",
+            "dog",
+            "wag",
+            "ball",
+            "goal",
+            "cart-pump",
+            "cart-stone",
+            "band",
+            "dance",
+            "maypole",
+            "fountain",
+        ),
         // the lantern: 0 dark, 1 lit (not set: lit from dusk)
         "tent" to listOf("lantern"),
         // crows coming to the scarecrow, no longer afraid (the level is how far they have come); the church bell from the

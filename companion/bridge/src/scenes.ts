@@ -107,7 +107,12 @@ export const SCENE_ART = {
       // the owl flying off her branch and away (1: gone)
       'owl-flies',
     ],
-    square: ['bell'],
+    square: [
+      'bell',
+      'cat', 'dog', 'wag', 'ball', 'goal',
+      'cart-pump', 'cart-stone',
+      'band', 'dance', 'maypole', 'fountain',
+    ],
     tent: ['lantern'],
     field: ['crows', 'bell', 'bats', 'hare', 'horse', 'hat', 'scarf'],
     smithy: ['forge', 'sparks'],

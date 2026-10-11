@@ -11,6 +11,7 @@ import si.lanisce.lani.game.scene.SceneSights
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.asin
+import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.max
@@ -34,6 +35,12 @@ import kotlin.math.sqrt
  *
  * Tapped ([pokes]), the pigeons scatter up and away and come back to land a few seconds later; the bell swings and
  * rings in the tower; the dog wags hard with its tongue out, and the next time jumps up and barks.
+ *
+ * What the village has built stands here as far as it has come: the church and the well, the maypole ([maypole]), the
+ * tower's clock and the fountain ([fountain]). A dialog's effects (companion/SCENES.md, "Arts"): the bell; the cat up the
+ * linden and coming down ([catInTree]); Muri away and coming back, wagging ([muri]); the ball lost under the bench and a
+ * goal ([ballNow]); a cart up the square with the fire pump or the fountain's stone ([cart]); the band, the dancing; the
+ * maypole raised ([mlajRising]); the fountain's water.
  */
 internal class SquarePainter : VistaPainter() {
     override val art = "square"
@@ -56,9 +63,56 @@ internal class SquarePainter : VistaPainter() {
     private val lindenX = -4.3f; private val lindenD = 12.6f
 
     private companion object {
-        /** The village projects the square shows as they're built: the town clock in the tower, the maypole. */
+        /** The village projects the square shows as they're built: the town clock in the tower, the maypole, the fountain. */
         const val CLOCK = "mestna_ura"
         const val MAYPOLE = "mlaj"
+        const val FOUNTAIN = "vodnjak_na_trgu"
+
+        /**
+         * The cat's way down the linden ("cat": how far down she has come): on the perch until [CAT_LIMB], down the limb to
+         * the fork by [CAT_FORK], down the trunk to just over the bench by [CAT_FOOT], a hop onto the bench by [CAT_ON_BENCH],
+         * curled up asleep from [CAT_CURLED] (as she is by herself).
+         */
+        const val CAT_LIMB = 0.12f
+        const val CAT_FORK = 0.3f
+        const val CAT_FOOT = 0.72f
+        const val CAT_ON_BENCH = 0.86f
+        const val CAT_CURLED = 0.97f
+
+        /** Muri's way back ("dog"): away while it is low ([SceneSights.lostAt]), at the flower bed by [DOG_FLOWERS], home at 1. */
+        const val DOG_FLOWERS = 0.5f
+
+        /** A goal ("goal": how far it has gone): the shot until [GOAL_IN], in the goal until [GOAL_BACK], then kicked back. */
+        const val GOAL_IN = 0.3f
+        const val GOAL_BACK = 0.85f
+
+        /** The goal's two satchels (side, m) and how far away they lie. */
+        const val GOAL_L = -0.6f
+        const val GOAL_R = 1.2f
+        const val GOAL_D = 19.5f
+
+        /** The cart's way: out of the lane by the church ([CART_X0], [CART_D0]) to the middle of the square, where it stops. */
+        const val CART_X0 = -5.6f
+        const val CART_D0 = 56.5f
+        const val CART_X1 = -0.3f
+        const val CART_D1 = 16.6f
+
+        /** What a cart brings. */
+        const val PUMP = 1
+        const val STONE = 2
+
+        /** The fountain in the middle of the square: its side and depth (m), the trough's radius and the height of its wall. */
+        const val FOUNT_X = 2.8f
+        const val FOUNT_D = 22.5f
+        const val FOUNT_R = 1.3f
+        const val FOUNT_WALL = 0.7f
+
+        /** The band under the linden: where each stands (side, m), how far away. */
+        val BAND_X = floatArrayOf(-4.1f, -3.2f, -2.3f, -1.4f)
+        const val BAND_D = 16.5f
+
+        /** Where the couples dance (side, depth: m), the first ones first. */
+        val COUPLES = arrayOf(floatArrayOf(2.3f, 16.8f), floatArrayOf(-1.0f, 20.8f), floatArrayOf(1.2f, 24.2f), floatArrayOf(-3.6f, 23.6f))
     }
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
@@ -81,9 +135,15 @@ internal class SquarePainter : VistaPainter() {
         groundShadow(lindenX + 0.8f, lindenD + 0.6f, 3.4f, 0.8f)
 
         items.clear()
-        // what the village has built stands here only once it's there (the church, the well), the maypole as far as it's come
+        // what the village has built stands here only once it's there (the church, the well), the maypole and the fountain as
+        // far as they've come
         if (there("tower")) items.add(churchD to { thing("tower") { church() } })
         maypole()
+        fountain()
+        // what a dialog brings: a cart up the square, the band under the linden, couples dancing
+        cart()
+        band(fxOn("band"))
+        dancers(fxOn("dance"))
         items.add(40f to { prop { cottage(-13.5f, 40f) } })
         for ((i, tr) in listOf(Triple(-11f, 30f, 5f), Triple(-15f, 26f, 5.5f), Triple(-10f, 21f, 4.5f)).withIndex())
             items.add(tr.second to { prop(Pal.OUTLINE_TREE) { leafyTree(tr.first, tr.second, tr.third, 31 + i * 5, blossom = true, fruit = Col.hex(0xE8C040)) } })
@@ -97,23 +157,31 @@ internal class SquarePainter : VistaPainter() {
         if (there("well")) items.add(12.9f to { groundShadow(4.2f, 12.9f, 1.2f); thing("well") { well(gx(4.2f, 12.9f).toInt(), gy(12.9f).toInt()) } })
         items.add(12.3f to { lampPost(gx(6.5f, 12.3f).toInt(), gy(12.3f).toInt(), lit) })
         items.add(lindenD to { thing("linden", outline = Pal.OUTLINE_TREE) { lindenTrunk() } })
-        // the bench under the linden with the cat, whoever sits on it
+        // the bench under the linden with the cat, whoever sits on it; the cat up the linden is drawn after its crown
         val bx = gx(-4.8f, 11.8f).toInt(); val bby = gy(11.8f).toInt() - 7 * k
+        val catDown = fx("cat")
+        // the ball lost under the bench ("ball" 0) is the bench's: a tap on it is a tap there, where a tap turn looks for it
+        val ballAt = ballNow(ballPosition(frame.people.filter { it.slot.startsWith("play") }, playSpots()), bx, bby)
+        val lost = ballAt[6] > 0.5f
         items.add(11.8f to {
-            thing("bench") { bench(bx, bby) }
+            thing("bench") {
+                if (lost) ball(ballAt[0].toInt(), ballAt[1].toInt(), 0, light = ballAt[5])
+                bench(bx, bby)
+            }
             for (p in peopleAt("bench")) person(p, bx - 8 * k, bby + 12 * k, flip = false, seated = true)
-            thing("cat", slop = 2) { cat(bx + 15 * k, bby - 2 * k) }
+            when {
+                catDown == null || catDown >= CAT_CURLED -> thing("cat", slop = 2) { cat(bx + 15 * k, bby - 2 * k) }
+                // back on the bench, turning round before she curls up
+                catDown >= CAT_ON_BENCH -> thing("cat", slop = 2) { sprite(bx + 15 * k, bby - 3 * k) { catStand(bx + 15 * k, bby - 3 * k, -1, step = 0) } }
+            }
         })
-        items.add(11.3f to { thing("dog", slop = 1) { dog(gx(1.9f, 11.3f).toInt(), gy(11.3f).toInt()) } })
+        muri()
         for (p in peopleAt("well")) items.add(11.9f to { groundShadow(5.4f, 11.9f, 0.5f); person(p, gx(5.4f, 11.9f).toInt(), gy(11.9f).toInt(), flip = true) })
-        // the children and the ball, by their feet
+        // the children and the ball, by their feet; they jump for joy at a goal ("goal")
         val playing = frame.people.filter { it.slot.startsWith("play") }
-        val spots = mapOf(
-            "play1" to (gx(-2.2f, 10.9f).toInt() to gy(10.9f).toInt()),
-            "play2" to (gx(0.6f, 12.4f).toInt() to gy(12.4f).toInt()),
-            "play3" to (gx(3.0f, 10.6f).toInt() to gy(10.6f).toInt()),
-        )
-        val ballAt = ballPosition(playing, spots)
+        val spots = playSpots()
+        val goal = fx("goal")
+        val cheer = goal != null && goal in GOAL_IN..GOAL_BACK
         for (p in playing) {
             val (sx, sy) = spots[p.slot] ?: continue
             val n = p.slot.last() - '0'
@@ -121,17 +189,30 @@ internal class SquarePainter : VistaPainter() {
             val dx = (sin(ph) * 14 * k).toInt(); val dy = (sin(ph * 2) * 2 * k).toInt()
             val moving = abs(cos(ph)) > 0.25
             val flip = cos(ph) < 0
-            items.add(depthAt(sy + dy) to { shadow((sx + dx).toFloat(), (sy + dy).toFloat(), 6f * k, 2f * k); person(p, sx + dx, sy + dy, flip = flip, walking = moving) })
+            val hop = if (cheer) (abs(sin(t * 7.0 + n * 1.3)) * 6 * k).toInt() else 0
+            items.add(depthAt(sy + dy) to { shadow((sx + dx).toFloat(), (sy + dy).toFloat(), 6f * k, 2f * k); person(p, sx + dx, sy + dy - hop, flip = flip, walking = moving) })
         }
-        // the ball in front of the players, so it never hides behind whoever is kicking it
-        items.add(depthAt(ballAt[1]) - 0.6f to { thing("ball", slop = 2) { ball(ballAt[0], ballAt[1], ballAt[2]) } })
+        // the goal: two satchels on the cobbles behind the game, while the children are out (or a dialog shoots at it)
+        if (playing.isNotEmpty() || goal != null) for ((j, sx) in floatArrayOf(GOAL_L, GOAL_R).withIndex()) items.add(GOAL_D to { prop { satchel(sx, GOAL_D, j) } })
+        // the ball in front of the players, so it never hides behind whoever is kicking it; lost under the bench, back in
+        // play, shot into the goal ("ball", "goal")
+        if (!lost) items.add(ballAt[3] to { thing("ball", slop = 2) { ball(ballAt[0].toInt(), ballAt[1].toInt(), ballAt[2].toInt(), ballAt[4], ballAt[5]) } })
         items.sortByDescending { it.first }
         for ((_, draw) in items) draw()
 
         thing("linden", outline = Pal.OUTLINE_TREE) { lindenCrown() }
+        // the cat up in the linden or on her way down it, over its crown ("cat")
+        if (catDown != null && catDown < CAT_ON_BENCH) thing("cat", slop = 2) { catInTree(catDown, bx + 15 * k, bby - 3 * k) }
         fireflies(0, hz + 10 * k, w, h, 10, 23)
         s.fx { s.effects.leaves(env.season, env.month) }
     }
+
+    /** Where the children play: their feet, in the picture. */
+    private fun playSpots() = mapOf(
+        "play1" to (gx(-2.2f, 10.9f).toInt() to gy(10.9f).toInt()),
+        "play2" to (gx(0.6f, 12.4f).toInt() to gy(12.4f).toInt()),
+        "play3" to (gx(3.0f, 10.6f).toInt() to gy(10.6f).toInt()),
+    )
 
     /** Where the ball is: kicked between the players in a low arc, or lying by the first play spot. [x, y, height]. */
     private fun ballPosition(playing: List<PersonInScene>, spots: Map<String, Pair<Int, Int>>): IntArray {
@@ -660,8 +741,100 @@ internal class SquarePainter : VistaPainter() {
         val st = stage(MAYPOLE)
         if (st <= 0 || frame.world.isDown(MAYPOLE)) return
         val done = st >= stages(MAYPOLE)
-        if (done) items.add(poleD to { prop { mlajStanding() } })
-        else items.add(poleD - 2f to { prop { mlajLying(st) } })
+        // raised by a dialog ("maypole": how far up), once the wreath is woven: the step that raises it, or the pole standing
+        val raise = fx("maypole")?.takeIf { st >= stages(MAYPOLE) - 1 }
+        when {
+            raise != null && raise >= 0.999f -> items.add(poleD to { prop { mlajStanding() } })
+            raise != null && raise > 0.001f -> items.add(poleD - 2f + 2f * raise to { prop { mlajRising(raise) } })
+            raise != null -> items.add(poleD - 2f to { prop { mlajLying(stages(MAYPOLE) - 1) } })
+            done -> items.add(poleD to { prop { mlajStanding() } })
+            else -> items.add(poleD - 2f to { prop { mlajLying(st) } })
+        }
+    }
+
+    /**
+     * The maypole being raised ([r] how far up, the "maypole" effect): its top hauled up on two ropes while its foot slides
+     * from where it lay on its trestles to its hole, the wreath and the ribbons on it; at 1 it stands as [mlajStanding]
+     * draws it. The pole turns in the plane of its foot, so its top never reaches the houses.
+     */
+    private fun mlajRising(r: Float) {
+        val k = detail
+        val fd = poleD - 2f + 2f * r
+        val p = pm(fd)
+        val fx0 = -6.2f + (poleX + 6.2f) * r; val fh = 0.7f * (1f - r)
+        val th = r * PI.toFloat() / 2f
+        val len = 10.5f
+        fun at(s: Float) = floatArrayOf(gx(fx0 + s * cos(th), fd), hy(fd, fh + s * sin(th)))
+        val foot = at(0f); val tip = at(len)
+        var ax = tip[0] - foot[0]; var ay = tip[1] - foot[1]
+        val al = max(1f, sqrt(ax * ax + ay * ay)); ax /= al; ay /= al
+        val nx = -ay; val ny = ax // across the pole
+        // the trestles it lay on, until it has left them
+        if (r < 0.3f) {
+            val d = poleD - 2f; val lp = pm(d); val ly = gy(d) - 0.7f * lp
+            for (tx in floatArrayOf(-4.6f, 1.6f)) {
+                val tpx = gx(tx, d)
+                c.line((tpx - 0.35f * lp).toInt(), gy(d).toInt(), (tpx + 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_D)
+                c.line((tpx + 0.35f * lp).toInt(), gy(d).toInt(), (tpx - 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_M)
+            }
+        }
+        // the ropes, taut, from under the wreath down to the lads hauling on both sides
+        if (r < 0.98f) {
+            val rp = at(len - 4f)
+            for (gxm in floatArrayOf(-6.6f, 4.4f)) c.line(rp[0].toInt(), rp[1].toInt(), gx(gxm, fd - 3.5f).toInt(), gy(fd - 3.5f).toInt(), Pal.CANVAS_D)
+        }
+        // a ring of stones round its hole, once it is nearly in
+        if (r > 0.6f) for (j in 0 until 6) c.fillEllipse(foot[0] - 0.6f * p + j * 0.24f * p, foot[1] - 0.05f * p, max(1f, 0.13f * p), max(1f, 0.08f * p), if (j % 2 == 0) Pal.STONE_L else Pal.STONE_M)
+        // the peeled pole, thinner toward the top, lit on its left
+        val half = max(1f, 0.13f * p)
+        val crown = 2.3f * p
+        val steps = (al * 2f).toInt().coerceAtLeast(2)
+        for (i in 0..steps) {
+            val f = i / steps.toFloat()
+            if (f * al > al - crown * 0.6f) break
+            val hw = half * (1f - 0.45f * f)
+            val cx = foot[0] + ax * al * f; val cy = foot[1] + ay * al * f
+            var q = -hw
+            while (q <= hw) {
+                // across it, -q is its upper left side (nx + ny > 0 while it turns up): lit
+                c.set((cx + nx * q).toInt(), (cy + ny * q).toInt(), if (q < -hw * 0.2f) stripped else strippedD)
+                q += 0.5f
+            }
+        }
+        // the green crown: tiers of branches narrowing to the tip, across the pole
+        val pine = env.pine
+        val cs = (crown * 2f).toInt().coerceAtLeast(2)
+        for (i in 0..cs) {
+            val u = i / cs.toFloat() // 0 at the tip
+            val tier = (u * 4f) - floor(u * 4f)
+            val hw = (0.5f + u * 0.5f) * crown * 0.38f * (0.55f + 0.45f * tier)
+            val cx = tip[0] - ax * crown * u; val cy = tip[1] - ay * crown * u
+            var q = -hw
+            while (q <= hw) {
+                val lit = q < -hw * 0.3f
+                c.set((cx + nx * q).toInt(), (cy + ny * q).toInt(), if (env.snow && tier < 0.3f) Pal.SNOW_L else if (lit) pine[3] else if (tier > 0.8f) pine[0] else pine[1])
+                q += 0.5f
+            }
+        }
+        // the wreath round it below the crown, and the ribbons hanging from it
+        val wc = at(len - 2.6f); val wr = 0.6f * p
+        for (a in 0 until 24) {
+            val ang = a * PI.toFloat() / 12f
+            val px = wc[0] + nx * cos(ang) * wr + ax * sin(ang) * wr * 0.35f; val py = wc[1] + ny * cos(ang) * wr + ay * sin(ang) * wr * 0.35f
+            c.fillCircle(px, py, max(0.8f, wr * 0.2f), if (!env.snow && a % 6 == 0) Pal.PAINTED[(a / 6) % 6] else Pal.LEAF)
+        }
+        val cols = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD)
+        for (j in 0 until 4) {
+            val o = -0.8f + j * 0.53f
+            val sx = wc[0] + nx * o * wr; val sy = wc[1] + ny * o * wr
+            val rl = (1.6f + 0.3f * (j % 2)) * p
+            val n = max(3, rl.toInt())
+            for (q in 0..n) {
+                val f = q / n.toFloat()
+                val sway = sin(t * 2.2 + j * 1.3 + f * 3.0).toFloat() * f * 0.35f * p * gust
+                c.fillRect((sx + sway).toInt(), (sy + f * rl).toInt(), max(1, k), max(1, k), cols[j])
+            }
+        }
     }
 
     private val poleX = -1.2f; private val poleD = 26f
@@ -765,6 +938,481 @@ internal class SquarePainter : VistaPainter() {
         if (!env.snow) for (j in 0 until 5) c.fillRect((wx - 0.5f * wp + j * 0.25f * wp).toInt(), (wy - 0.1f * wp).toInt(), max(1, k), max(1, k), Pal.PAINTED[j % 6])
         val cols = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD)
         for (j in 0 until 4) c.fillRect((wx + 0.8f * wp).toInt(), (wy - (0.05f + j * 0.06f) * wp).toInt(), max(2, (0.7f * wp).toInt()), max(1, k), cols[j])
+    }
+
+    // ------------------------------------------------------------------ the fountain
+
+    /**
+     * The fountain in the middle of the square (vodnjak na trgu, the project "vodnjak_na_trgu"), as far as the village has
+     * come, a stage for each step done: pegs and a string where it will stand (the plan drawn), the block of white stone on
+     * its beams (brought from the quarry), carved into a trough with a pillar in the middle (stone chips round it), finished,
+     * with the ditch dug from the spring through the garden across the square, the four iron pipes fitted to the pillar and
+     * the ditch covered over (they're in place as the last step begins), and once it is finished the water running from the
+     * pipes. Its water ("fountain"): down the open ditch (how far it has come; while the ditch's step plays, the ditch dug
+     * with it), or from the pipes (how much; not set: running once it is finished). Scenery: no word of its own here.
+     */
+    private fun fountain() {
+        val st = stage(FOUNTAIN)
+        if (st <= 0) return
+        val water = fx("fountain")
+        // the ditch: dug while its step plays (shown with its water), open until the pipes are in, then covered over
+        val open = st == 4 || (st == 3 && water != null)
+        if (open || st == stages(FOUNTAIN) - 1) items.add(FOUNT_D + 0.5f to { ditch(open, if (open) water ?: 0f else 0f) })
+        if (st == 1) { items.add(FOUNT_D to { prop { pegs() } }); return }
+        if (st == 2) { items.add(FOUNT_D to { prop { stoneBlock() } }); return }
+        val running = when {
+            st < stages(FOUNTAIN) - 1 -> 0f
+            water != null -> water
+            st >= stages(FOUNTAIN) -> 0.8f
+            else -> 0f
+        }
+        // the pool at the bottom while the ditch's water reaches it
+        val pool = if (open && water != null) ((water - 0.85f) / 0.15f).coerceIn(0f, 1f) * 0.25f else 0f
+        items.add(FOUNT_D to { prop { trough(st, running, max(running, pool)) } })
+    }
+
+    /**
+     * The trench from the spring, which comes down through the garden on the left, across the square to the trough: open
+     * (dark earth, the lifted cobbles and earth heaped along both sides, a spade stuck in a heap, its [water] coming down it
+     * from the garden: how far), or covered over with fresh earth.
+     */
+    private fun ditch(open: Boolean, water: Float) {
+        val k = detail
+        // from the trough's left side (f 0) to the garden fence (f 1)
+        val x0 = FOUNT_X - FOUNT_R + 0.1f; val d0 = FOUNT_D - 0.2f; val x1 = -7.4f; val d1 = 17.2f
+        val run = sqrt((x1 - x0) * (x1 - x0) + (d1 - d0) * (d1 - d0))
+        val across = run / abs(d1 - d0) // a row cuts the slanting trench this many times its width
+        val half = 0.35f * across; val heap = if (open) 0.3f * across else 0f
+        for (py in max(gy(d0).toInt(), c.top)..min(gy(d1).toInt(), c.bottom - 1)) {
+            val d = depthAt(py)
+            val f = ((d - d0) / (d1 - d0)).coerceIn(0f, 1f)
+            val mx = x0 + (x1 - x0) * f
+            val l = gx(mx - half, d); val r = gx(mx + half, d)
+            val hl = gx(mx - half - heap, d); val hr = gx(mx + half + heap, d)
+            for (px in max(hl.toInt(), c.left)..min(hr.toInt(), c.right - 1)) {
+                val inside = px >= l && px <= r
+                val col = when {
+                    !open -> if (Noise.rnd(px, py, 141) < 0.25f) Pal.DIRT_L else Col.mix(Pal.DIRT_M, Pal.COBBLE_M, 0.3f)
+                    // the lifted cobbles and the earth heaped along both sides, lumpy at their edges
+                    !inside -> {
+                        val edge = min(px - hl, hr - px) / max(1f, (hr - hl - (r - l)) / 2f)
+                        if (edge < 0.35f && Noise.rnd(px / 2, py, 144) < 0.5f) continue
+                        if (Noise.rnd(px / 2, py, 142) < 0.45f) Pal.COBBLE_L else if (Noise.rnd(px, py, 145) < 0.5f) Pal.DIRT_L else Pal.DIRT_M
+                    }
+                    // the water from the spring, as far as it has come down, glinting as it runs
+                    1f - f <= water * 1.02f && water > 0.01f -> if (Noise.rnd(px + (t * 8).toInt(), py, 143) < 0.2f) Pal.WATER_L else Pal.WATER_M
+                    px < l + (r - l) * 0.3f -> Col.mix(Pal.DIRT_D, Pal.WOOD_X, 0.5f)
+                    else -> Pal.DIRT_D
+                }
+                c.set(px, py, if (env.snow && !inside) Pal.SNOW_M else col)
+            }
+        }
+        if (open) {
+            // a spade stuck in the near heap halfway along
+            val f = 0.45f
+            val sd = d0 + (d1 - d0) * f; val sx = gx(x0 + (x1 - x0) * f + half + heap * 0.6f, sd); val sy = gy(sd); val sp = pm(sd)
+            c.line(sx.toInt(), sy.toInt(), (sx + 0.12f * sp).toInt(), (sy - 1.0f * sp).toInt(), Pal.WOOD_L)
+            c.hline((sx + 0.04f * sp).toInt(), (sx + 0.22f * sp).toInt(), (sy - 1.0f * sp).toInt(), Pal.WOOD_D)
+            c.fillRect((sx - 0.08f * sp).toInt(), sy.toInt() - max(1, k), max(2, (0.2f * sp).toInt()), max(1, k), Pal.STONE_X)
+        }
+    }
+
+    /** Where the fountain will stand, once its plan is drawn: a ring of pegs with a string round them, a red rag on one. */
+    private fun pegs() {
+        val k = detail
+        var prev: FloatArray? = null
+        for (j in 0..6) {
+            val a = (j % 6) * PI.toFloat() / 3f + 0.3f
+            val x = FOUNT_X + cos(a) * FOUNT_R; val d = FOUNT_D + sin(a) * FOUNT_R
+            val p = pm(d); val px = gx(x, d); val py = gy(d)
+            val top = py - 0.45f * p
+            if (j < 6) {
+                c.fillRect(px.toInt(), top.toInt(), max(1, (0.06f * p).toInt()), (0.45f * p).toInt() + 1, Pal.WOOD_L)
+                if (j == 0) c.fillRect(px.toInt() + max(1, (0.06f * p).toInt()), top.toInt(), max(1, (0.18f * p).toInt()), max(1, k), Pal.FLAG_RED)
+            }
+            prev?.let { q -> c.line(q[0].toInt(), q[1].toInt(), px.toInt(), (top + 0.08f * p).toInt(), Pal.CANVAS_L) }
+            prev = floatArrayOf(px, top + 0.08f * p)
+        }
+    }
+
+    /** White limestone, lit, mid, in shade, and its joints. */
+    private val lime = intArrayOf(Col.hex(0xF6F3EA), Col.hex(0xE4DED0), Col.hex(0xC8C0AE), Col.hex(0xA49A86))
+
+    /** The block of white stone the cart brought, on two beams where the fountain will stand; it shines in the sun. */
+    private fun stoneBlock() {
+        val k = detail
+        val x0 = FOUNT_X - 0.8f; val x1 = FOUNT_X + 0.8f; val d0 = FOUNT_D - 0.45f; val d1 = FOUNT_D + 0.45f
+        val lo = 0.15f; val hi = 1.05f
+        // the beams under it
+        for (bx in floatArrayOf(x0 + 0.25f, x1 - 0.35f)) c.fillRect(gx(bx, d0).toInt(), hy(d0, lo).toInt(), max(2, (0.12f * pm(d0)).toInt()), max(1, (lo * pm(d0)).toInt()) + 1, Pal.WOOD_D)
+        // its left side (it lies right of us), its top, its front
+        c.polyBegin(); c.polyAdd(gx(x0, d0), hy(d0, lo)); c.polyAdd(gx(x0, d1), hy(d1, lo)); c.polyAdd(gx(x0, d1), hy(d1, hi)); c.polyAdd(gx(x0, d0), hy(d0, hi)); c.polyFill(lime[2])
+        c.polyBegin(); c.polyAdd(gx(x0, d0), hy(d0, hi)); c.polyAdd(gx(x1, d0), hy(d0, hi)); c.polyAdd(gx(x1, d1), hy(d1, hi)); c.polyAdd(gx(x0, d1), hy(d1, hi)); c.polyFill(lime[0])
+        c.polyBegin(); c.polyAdd(gx(x0, d0), hy(d0, lo)); c.polyAdd(gx(x1, d0), hy(d0, lo)); c.polyAdd(gx(x1, d0), hy(d0, hi)); c.polyAdd(gx(x0, d0), hy(d0, hi))
+        c.polyFill { px, py -> if (k > 1 && Noise.rnd(px, py, 144) < 0.08f) lime[2] else lime[1] }
+        c.line(gx(x0, d0).toInt(), hy(d0, hi).toInt(), gx(x1, d0).toInt(), hy(d0, hi).toInt(), Col.hex(0xFFFFFF))
+        glints(gx(FOUNT_X, d0), hy(d0, 0.6f), 0.7f * pm(d0), 0.4f * pm(d0), 145)
+    }
+
+    /** The sun glinting on white stone: little stars coming and going over ±[rx], ±[ry] round ([x], [y]), by day. */
+    private fun glints(x: Float, y: Float, rx: Float, ry: Float, seed: Int) {
+        if (env.dark > 0.45f || frame.sky.gloom > 0.5f) return
+        val k = detail
+        s.fx {
+            c.penEmissive = true
+            for (j in 0 until 4) {
+                val ph = ((t * 0.9 + Noise.rnd(j, seed) * 3.0) % 1.6).toFloat()
+                if (ph > 0.35f) continue
+                val a = sin(ph / 0.35f * PI.toFloat())
+                val gxp = (x + (Noise.rnd(j, seed + 1) - 0.5f) * 2f * rx).toInt(); val gyp = (y + (Noise.rnd(j, seed + 2) - 0.5f) * 2f * ry).toInt()
+                val arm = max(1, (2f * a * k).toInt())
+                for (o in -arm..arm) { c.blend(gxp + o, gyp, Col.hex(0xFFFFFF), a); c.blend(gxp, gyp + o, Col.hex(0xFFFFFF), a) }
+            }
+            c.penEmissive = false
+        }
+    }
+
+    /**
+     * The trough at stage [st] (carved, 3; finished from 4): its round wall of white stone, the pillar in the middle with its
+     * knob, the four pipes once fitted (5), stone chips round it while it is carved; the water [running] from the pipes
+     * (0..1) and the water in it up to [level].
+     */
+    private fun trough(st: Int, running: Float, level: Float) {
+        val k = detail
+        val d = FOUNT_D; val p = pm(d); val cx = gx(FOUNT_X, d)
+        val r = FOUNT_R
+        fun ry(h: Float, rr: Float = r) = rr * F * (EYE - h) / (d * d)
+        val gY = hy(d, 0f); val rimY = hy(d, FOUNT_WALL)
+        val rough = st == 3
+        // chips of stone round it while it is carved
+        if (rough) for (j in 0 until 14) {
+            val a = Noise.rnd(j, 151) * 2 * PI.toFloat(); val rr = r + 0.2f + Noise.rnd(j, 152) * 0.9f
+            c.fillRect(gx(FOUNT_X + cos(a) * rr, d + sin(a) * rr).toInt(), gy(d + sin(a) * rr).toInt() - k, max(1, k), max(1, k), lime[if (j % 3 == 0) 2 else 0])
+        }
+        // the wall: its front from the rim down to the ground, lit on the left; its stones' joints closer up
+        c.fillEllipse(cx, gY, r * p, ry(0f), lime[2])
+        c.fillRect((cx - r * p).toInt(), rimY.toInt(), (2 * r * p).toInt() + 1, (gY - rimY).toInt() + 1, lime[1])
+        for (x in max((cx - r * p).toInt(), c.left)..min((cx + r * p).toInt(), c.right - 1)) {
+            val u = (x + 0.5f - cx) / (r * p)
+            val bot = gY + ry(0f) * sqrt(max(0f, 1f - u * u))
+            val col = if (u < -0.55f) lime[0] else if (u > 0.5f) lime[2] else lime[1]
+            for (y in max(rimY.toInt(), c.top)..min(bot.toInt(), c.bottom - 1)) c.set(x, y, if (rough && Noise.rnd(x, y, 153) < 0.12f) lime[3] else col)
+            // eight faces: a joint at each corner
+            if (k > 1 && abs(((asin(u.coerceIn(-1f, 1f)) / (PI.toFloat() / 8f)) % 1f)) < 0.08f) for (y in rimY.toInt()..bot.toInt()) c.set(x, y, lime[3])
+        }
+        // the rim and the inside: dry stone, or the water in it
+        c.fillEllipse(cx, rimY, r * p, ry(FOUNT_WALL), if (env.snow) Pal.SNOW_L else lime[0])
+        val inR = r - 0.18f
+        val inset = max(0.5f, 0.06f * p) // the water's face a little under the rim
+        c.fillEllipse(cx, rimY + inset, inR * p, ry(FOUNT_WALL, inR), if (level > 0.02f) Pal.WATER_D else lime[3])
+        if (level > 0.02f) {
+            c.fillEllipse(cx, rimY + inset, inR * p * (0.4f + 0.6f * level), ry(FOUNT_WALL, inR) * (0.4f + 0.6f * level), if (env.snow) Pal.ICE_M else Pal.WATER_M)
+            // ripples where the water falls
+            if (running > 0.05f) for (j in 0 until 3) {
+                val u = ((t * 1.4 + j / 3.0) % 1.0).toFloat()
+                val rr = (0.2f + u * 0.7f) * inR * p
+                for (a in 0 until 16) { val ang = a * PI.toFloat() / 8f; c.blend((cx + cos(ang) * rr).toInt(), (rimY + inset + sin(ang) * rr * ry(FOUNT_WALL) / (r * p)).toInt(), Pal.WATER_L, (1f - u) * 0.8f) }
+            }
+        }
+        // the pillar in the middle, a knob on top
+        val pw = max(1f, 0.22f * p)
+        val pTop = hy(d, 1.9f); val pBot = rimY + inset
+        c.fillRect((cx - pw).toInt(), pTop.toInt(), max(2, (2 * pw).toInt()), (pBot - pTop).toInt() + 1, lime[1])
+        c.vline((cx - pw).toInt(), pTop.toInt(), pBot.toInt(), lime[0]); c.vline((cx + pw).toInt() - 1, pTop.toInt(), pBot.toInt(), lime[2])
+        c.fillRect((cx - pw * 1.4f).toInt(), (pTop - 0.08f * p).toInt(), max(3, (2.8f * pw).toInt()), max(1, (0.12f * p).toInt()), lime[0])
+        c.fillCircle(cx, pTop - 0.2f * p, max(1f, 0.16f * p), if (env.snow) Pal.SNOW_L else lime[0])
+        // the pipes, fitted to the pillar
+        val iron = Col.hex(0x3A3A44); val ironL = Col.hex(0x6A6A78)
+        val pipeY = hy(d, 1.3f)
+        val pl = 0.38f * p
+        if (st >= stages(FOUNTAIN) - 1) {
+            for (side in intArrayOf(-1, 1)) {
+                val x0 = cx + side * pw; val x1 = x0 + side * pl
+                thick(x0, pipeY, x1, pipeY + 0.04f * p, max(1, k - 1), iron)
+                c.set(x1.toInt(), pipeY.toInt() - 1, ironL)
+            }
+            c.fillCircle(cx, pipeY + 0.05f * p, max(1f, 0.08f * p), iron) // the one toward us, its mouth
+            c.set(cx.toInt(), (pipeY + 0.05f * p).toInt(), Col.hex(0x14141A))
+        }
+        // the water falling from the pipes in arcs, glinting as it goes, splashing where it lands
+        if (running > 0.03f && st >= stages(FOUNTAIN) - 1) s.fx { jets(cx, pw, pl, pipeY, rimY + inset, p, running) }
+    }
+
+    /** The four jets ([much] 0..1) from the pipes at row [pipeY], [pl] px long out of a pillar [pw] px thick, down to [waterY]. */
+    private fun jets(cx: Float, pw: Float, pl: Float, pipeY: Float, waterY: Float, p: Float, much: Float) {
+        val k = detail
+        val fall = waterY - pipeY
+        val reach = (0.25f + 0.55f * much) * p // how far out the water comes before it lands
+        val th = if (much > 0.5f) max(1, k) else max(1, k - 1)
+        val water = if (env.snow) Pal.ICE_L else Pal.WATER_L
+        c.penEmissive = false
+        for (side in intArrayOf(-1, 1, 0)) {
+            val x0 = if (side == 0) cx else cx + side * (pw + pl)
+            val y0 = if (side == 0) pipeY + 0.05f * p else pipeY
+            val n = max(6, (fall + reach).toInt())
+            for (i in 0..n) {
+                val u = i / n.toFloat()
+                // out and down: the one toward us comes down in front of the pillar, a little toward us
+                val x = if (side == 0) x0 else x0 + side * reach * u
+                val y = y0 + fall * u * u + (if (side == 0) reach * 0.25f * u else 0f)
+                val glint = ((u * 6f - (t * 5.0).toFloat()) % 1f + 1f) % 1f < 0.18f
+                for (o in 0 until th) c.blend(x.toInt() + (if (side == 0) o else 0), y.toInt() + (if (side == 0) 0 else o), if (glint) Col.hex(0xFFFFFF) else water, 0.85f)
+            }
+            // the splash
+            val sx = if (side == 0) x0 else x0 + side * reach
+            val sy = y0 + fall + (if (side == 0) reach * 0.25f else 0f)
+            for (j in 0 until 3) {
+                val ph = ((t * 3.3 + j * 0.37 + side) % 1.0).toFloat()
+                c.blend((sx + (j - 1) * 1.2f * k * ph).toInt(), (sy - 2f * k * sin(ph * PI.toFloat())).toInt(), Col.hex(0xFFFFFF), 0.7f * (1f - ph))
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------ a cart, the band, the dancers
+
+    /**
+     * A horse and cart up the square, set by a dialog: "cart-pump" brings the fire pump from Gorica, "cart-stone" the white
+     * stone for the fountain (unloaded once it lies on the square). From the lane by the church to the middle of the square,
+     * the level how far they have come; at 1 the cart stands there and the horse rests.
+     */
+    private fun cart() {
+        for ((name, load) in listOf("cart-pump" to PUMP, "cart-stone" to STONE)) {
+            val u = fx(name) ?: continue
+            if (u <= 0.01f) continue
+            val x = CART_X0 + (CART_X1 - CART_X0) * u; val d = CART_D0 + (CART_D1 - CART_D0) * u
+            val cargo = if (load == STONE && stage(FOUNTAIN) >= 2) 0 else load
+            items.add(d to { groundShadow(x, d, 1.1f); prop { horseAndCart(x, d, u < 0.995f, cargo) } })
+        }
+    }
+
+    /** The horse coming toward us with the cart behind it, [d] m away at side [x]: trotting while [moving]; [cargo] on the cart. */
+    private fun horseAndCart(x: Float, d: Float, moving: Boolean, cargo: Int) {
+        val k = detail
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        fun xs(m: Float) = bx + m * p
+        fun ys(hm: Float) = by - hm * p
+        // the cart behind the horse: its wheels, edge on, at its sides
+        for (side in intArrayOf(-1, 1)) {
+            val wx = xs(side * 0.95f)
+            c.fillEllipse(wx, ys(0.55f), max(1f, 0.08f * p), 0.55f * p, Pal.WOOD_X)
+            c.fillEllipse(wx - side * 0.02f * p, ys(0.55f), max(0.6f, 0.04f * p), 0.47f * p, Pal.WOOD_D)
+            if (k > 1) c.vline(wx.toInt(), ys(1.05f).toInt(), ys(0.05f).toInt(), Col.hex(0x5A5A62)) // the iron tyre's edge
+        }
+        when (cargo) {
+            PUMP -> firePump(::xs, ::ys, p)
+            STONE -> {
+                c.fillRect(xs(-0.78f).toInt(), ys(1.8f).toInt(), (0.72f * p).toInt(), (0.65f * p).toInt(), lime[1])
+                c.fillRect(xs(0.06f).toInt(), ys(1.75f).toInt(), (0.72f * p).toInt(), (0.6f * p).toInt(), lime[2])
+                c.fillRect(xs(-0.4f).toInt(), ys(2.25f).toInt(), (0.75f * p).toInt(), (0.47f * p).toInt(), lime[0])
+                c.hline(xs(-0.4f).toInt(), xs(0.35f).toInt(), ys(2.25f).toInt(), Col.hex(0xFFFFFF))
+                c.hline(xs(-0.78f).toInt(), xs(-0.06f).toInt(), ys(1.8f).toInt(), lime[0])
+                glints(xs(0f), ys(1.85f), 0.6f * p, 0.3f * p, 146)
+            }
+        }
+        // the cart's front board, lit along its top
+        c.fillRect(xs(-0.85f).toInt(), ys(1.17f).toInt(), (1.7f * p).toInt() + 1, max(2, (0.32f * p).toInt()), Pal.WOOD_M)
+        c.hline(xs(-0.85f).toInt(), xs(0.85f).toInt(), ys(1.17f).toInt(), Pal.WOOD_L)
+        if (k > 1) c.hline(xs(-0.85f).toInt(), xs(0.85f).toInt(), ys(1.0f).toInt(), Pal.WOOD_D)
+        // the shafts from the cart to the horse's collar
+        for (side in intArrayOf(-1, 1)) thick(xs(side * 0.55f), ys(0.95f), xs(side * 0.24f), ys(1.45f), max(1, k - 1), Pal.WOOD_D)
+        horseFront(bx, by, p, moving)
+    }
+
+    /** The fire pump on the cart: the red tank, two brass cylinders and the air vessel over them, the pump's long handles, the hose. */
+    private fun firePump(xs: (Float) -> Float, ys: (Float) -> Float, p: Float) {
+        val k = detail
+        val red = Col.hex(0xB8241C); val redL = Col.hex(0xDC4434); val redD = Col.hex(0x7E1812)
+        c.fillRect(xs(-0.62f).toInt(), ys(1.8f).toInt(), (1.24f * p).toInt() + 1, (0.68f * p).toInt(), red)
+        c.vline(xs(-0.62f).toInt(), ys(1.8f).toInt(), ys(1.12f).toInt(), redL); c.vline(xs(0.62f).toInt(), ys(1.8f).toInt(), ys(1.12f).toInt(), redD)
+        c.hline(xs(-0.62f).toInt(), xs(0.62f).toInt(), ys(1.8f).toInt(), redL)
+        c.hline(xs(-0.62f).toInt(), xs(0.62f).toInt(), ys(1.45f).toInt(), Pal.GOLD)
+        // the cylinders, and the air vessel in the middle, its dome over the horse's ears
+        for ((cxm, top, rr) in listOf(Triple(-0.38f, 2.2f, 0.09f), Triple(0.38f, 2.2f, 0.09f), Triple(0f, 2.55f, 0.13f))) {
+            val x0 = xs(cxm - rr); val x1 = xs(cxm + rr)
+            c.fillRect(x0.toInt(), ys(top).toInt(), max(2, (x1 - x0).toInt()), (ys(1.8f) - ys(top)).toInt() + 1, Pal.GOLD)
+            c.vline(x0.toInt(), ys(top).toInt(), ys(1.8f).toInt(), Pal.GOLD_L)
+            c.fillCircle(xs(cxm), ys(top), max(1f, rr * p), Pal.GOLD)
+            c.set(xs(cxm - rr * 0.4f).toInt(), ys(top + rr * 0.4f).toInt(), Pal.GOLD_L)
+        }
+        // the handles across the top, a crossbar at each end
+        thick(xs(-1.05f), ys(2.3f), xs(1.05f), ys(2.3f), max(1, k - 1), Pal.WOOD_X)
+        for (side in intArrayOf(-1, 1)) c.vline(xs(side * 1.05f).toInt(), ys(2.42f).toInt(), ys(2.18f).toInt(), Pal.WOOD_D)
+        // the hose coiled on its side
+        c.fillCircle(xs(0.78f), ys(1.45f), max(1.5f, 0.2f * p), Col.hex(0x5A4A3A))
+        c.fillCircle(xs(0.78f), ys(1.45f), max(0.6f, 0.09f * p), Col.hex(0x2E241C))
+    }
+
+    /** A brown horse facing us, its hooves at row [by] under column [bx] ([p] px a metre): trotting, or resting with a nod now and then. */
+    private fun horseFront(bx: Float, by: Float, p: Float, trotting: Boolean) {
+        val k = detail
+        val coat = Col.hex(0x7A4A2A); val coatL = Col.hex(0x9A6640); val coatD = Col.hex(0x54321C); val mane = Col.hex(0x2E2018)
+        fun xs(m: Float) = bx + m * p
+        fun ys(hm: Float) = by - hm * p
+        val beat = ((t * 4.2) % 1.0).toFloat()
+        val lift = if (trotting) 0.13f * sin(beat * PI.toFloat()) else 0f
+        // the hind legs behind, darker; the forelegs, one lifted at a time
+        for (side in intArrayOf(-1, 1)) c.fillRect(xs(side * 0.2f - 0.045f).toInt(), ys(0.85f).toInt(), max(1, (0.09f * p).toInt()), (0.85f * p).toInt(), coatD)
+        for ((i, side) in intArrayOf(-1, 1).withIndex()) {
+            val up = if ((beat < 0.5f) == (i == 0)) lift else 0f
+            val lx = xs(side * 0.14f - 0.05f)
+            c.fillRect(lx.toInt(), ys(0.98f).toInt(), max(1, (0.1f * p).toInt()), ((0.98f - up) * p).toInt(), coat)
+            c.fillRect(lx.toInt(), ys(0.08f + up).toInt(), max(1, (0.1f * p).toInt()), max(1, (0.08f * p).toInt()), mane)
+        }
+        // the chest, lit on the left
+        c.fillEllipse(xs(0f), ys(1.22f), 0.31f * p, 0.37f * p, coat)
+        c.fillEllipse(xs(-0.1f), ys(1.3f), 0.14f * p, 0.22f * p, coatL)
+        // the collar with its brass hames
+        val leather = Col.hex(0x3A2418)
+        c.fillEllipse(xs(0f), ys(1.52f), 0.28f * p, 0.17f * p, leather)
+        c.fillEllipse(xs(0f), ys(1.5f), 0.15f * p, 0.08f * p, coat)
+        for (side in intArrayOf(-1, 1)) { c.vline(xs(side * 0.25f).toInt(), ys(1.72f).toInt(), ys(1.42f).toInt(), Pal.GOLD); c.set(xs(side * 0.25f).toInt(), ys(1.76f).toInt(), Pal.GOLD_L) }
+        // the head toward us, the mane down the sides of its neck, a nod when it rests
+        val nod = if (!trotting && sin(t * 0.7) > 0.85) 0.06f else 0f
+        val hy0 = 1.78f - nod
+        for (side in intArrayOf(-1, 1)) c.fillRect(xs(side * 0.16f - 0.03f).toInt(), ys(1.75f).toInt(), max(1, (0.06f * p).toInt()), (0.25f * p).toInt(), mane)
+        c.fillEllipse(xs(0f), ys(hy0), 0.13f * p, 0.33f * p, coat)
+        c.fillEllipse(xs(0f), ys(hy0 - 0.24f), 0.11f * p, 0.1f * p, coatD)
+        c.vline(xs(0f).toInt(), ys(hy0 + 0.2f).toInt(), ys(hy0 - 0.14f).toInt(), Col.hex(0xF4EEE4)) // the blaze
+        for (side in intArrayOf(-1, 1)) {
+            c.set(xs(side * 0.12f).toInt(), ys(hy0 + 0.08f).toInt(), Pal.OUTLINE) // the eyes, at the sides of its head
+            c.fillRect(xs(side * 0.1f - 0.025f).toInt(), ys(hy0 + 0.44f).toInt(), max(1, (0.05f * p).toInt()), max(1, (0.13f * p).toInt()), coatD) // the ears
+            if (k > 1) c.set(xs(side * 0.04f).toInt(), ys(hy0 - 0.28f).toInt(), Pal.OUTLINE) // the nostrils
+        }
+        c.fillRect(xs(-0.05f).toInt(), ys(hy0 + 0.36f).toInt(), max(1, (0.1f * p).toInt()), max(1, (0.1f * p).toInt()), mane) // the forelock
+        c.hline(xs(-0.12f).toInt(), xs(0.12f).toInt(), ys(hy0 - 0.12f).toInt(), leather) // the bridle over its nose
+    }
+
+    /**
+     * The village band under the linden ("band": how loud): a helicon, two trumpets and the big drum, in their blue coats and
+     * caps, bobbing to the beat, the notes going up over them.
+     */
+    private fun band(level: Float) {
+        if (level <= 0.02f) return
+        for ((j, x) in BAND_X.withIndex()) items.add(BAND_D + j * 0.01f to { prop { musician(x, BAND_D, j) } })
+        val k = detail
+        s.fx {
+            c.penEmissive = true
+            val n = 2 + (level * 6f).toInt()
+            for (j in 0 until n) {
+                val ph = ((t * 0.55 + Noise.rnd(j, 161)) % 1.0).toFloat()
+                val sx = gx(BAND_X[j % 4] + 0.3f, BAND_D) + sin(ph * 6f + j).toFloat() * 3f * k
+                val sy = gy(BAND_D) - (1.9f + ph * 2.2f) * pm(BAND_D)
+                note(sx.toInt(), sy.toInt(), if (j % 2 == 0) Pal.GOLD_L else Col.hex(0xFFFFFF), (1f - ph) * (0.4f + 0.5f * level))
+            }
+            c.penEmissive = false
+        }
+    }
+
+    /** A note ♪ at ([x], [y]), blended at [a]. */
+    private fun note(x: Int, y: Int, col: Int, a: Float) {
+        val k = detail
+        for (dy in 0 until 2 * k) for (dx in 0 until 2 * k) c.blend(x + dx, y + 4 * k + dy, col, a)
+        for (dy in 0 until 5 * k) for (dx in 0 until max(1, k / 2 + 1)) c.blend(x + 2 * k - 1 + dx, y + dy, col, a)
+        for (dx in 0 until k) c.blend(x + 2 * k + dx, y + dx / 2 + 1, col, a)
+    }
+
+    /** One of the band, [j]: the helicon, a trumpet, the other trumpet, the big drum; bobbing to the beat. */
+    private fun musician(x: Float, d: Float, j: Int) {
+        val p = pm(d)
+        val bob = if (((t * 2.13 + j * 0.5) % 1.0) < 0.5) 0f else 0.04f
+        val (bx, by) = folk(x, d, top = Col.hex(0x24345A), legs = Col.hex(0x1E2230), hair = Pal.HAIR[j % Pal.HAIR.size], hat = Col.hex(0x1C2844), lift = bob)
+        val hgt = 1.6f * p
+        val k = detail
+        val mouthX = bx + hgt * 0.12f; val mouthY = by - hgt * 0.66f
+        when (j) {
+            0 -> {
+                // the helicon round the body, its bell over the shoulder
+                for (a in 0 until 20) { val ang = a * PI.toFloat() / 10f; c.set((bx + cos(ang) * hgt * 0.22f).toInt(), (by - hgt * 0.4f + sin(ang) * hgt * 0.12f).toInt(), Pal.GOLD) }
+                c.fillCircle(bx - hgt * 0.18f, by - hgt * 0.95f, max(1.5f, hgt * 0.13f), Pal.GOLD)
+                c.fillCircle(bx - hgt * 0.18f, by - hgt * 0.97f, max(0.8f, hgt * 0.07f), Col.hex(0x7A5A10))
+            }
+            1, 2 -> {
+                // a trumpet held out to the side, up and down with the tune
+                val up = (sin(t * 4.3 + j) * 0.04f * hgt).toFloat() + (if (j == 2) -0.08f * hgt else 0f)
+                val ex = mouthX + hgt * 0.36f
+                c.line(mouthX.toInt(), mouthY.toInt(), ex.toInt(), (mouthY - up).toInt(), Pal.GOLD)
+                if (k > 1) c.line(mouthX.toInt(), mouthY.toInt() + 1, ex.toInt(), (mouthY - up).toInt() + 1, Col.scale(Pal.GOLD, 0.75f))
+                c.fillCircle(ex, mouthY - up, max(1f, hgt * 0.06f), Pal.GOLD_L)
+                c.set((mouthX + hgt * 0.14f).toInt(), (mouthY - up * 0.4f).toInt() + 1, Pal.SKIN)
+            }
+            else -> {
+                // the big drum on the chest, struck on the beat
+                c.fillCircle(bx, by - hgt * 0.38f, max(2f, hgt * 0.2f), Col.hex(0xC8303A))
+                c.fillCircle(bx, by - hgt * 0.38f, max(1.5f, hgt * 0.16f), Col.hex(0xF4EEE0))
+                val hit = ((t * 2.13) % 1.0) < 0.15
+                c.line((bx + hgt * 0.2f).toInt(), (by - hgt * 0.5f).toInt(), (bx + (if (hit) 0.05f else 0.16f) * hgt).toInt(), (by - hgt * (if (hit) 0.4f else 0.62f)).toInt(), Pal.WOOD_D)
+            }
+        }
+    }
+
+    /**
+     * Someone small and far off on the square, as the market's shoppers: a chibi figure scaled to its distance [d], its feet at
+     * side [x], [lift] m off the ground; [top] its coat or dress, [legs] its trousers or stockings, [hat] its cap or hat (0: its
+     * [hair] shows), a [skirt] flaring out by [flare]. Returns where its feet are in the picture.
+     */
+    private fun folk(x: Float, d: Float, top: Int, legs: Int, hair: Int, hat: Int, skirt: Boolean = false, flare: Float = 0f, lift: Float = 0f, step: Int = 0): Pair<Float, Float> {
+        val p = pm(d)
+        val bx = gx(x, d); val by = gy(d) - lift * p
+        val hgt = 1.6f * p
+        val lw = max(1f, 0.1f * p)
+        c.fillRect((bx - lw * 1.5f).toInt(), (by - hgt * 0.2f).toInt() - step, max(1, lw.toInt()), max(1, (hgt * 0.2f).toInt()), legs)
+        c.fillRect((bx + lw * 0.5f).toInt(), (by - hgt * 0.2f).toInt() - (1 - step), max(1, lw.toInt()), max(1, (hgt * 0.2f).toInt()), legs)
+        if (skirt) {
+            val sw = hgt * (0.2f + 0.12f * flare)
+            for (y in (by - hgt * 0.42f).toInt()..(by - hgt * 0.16f).toInt()) {
+                val u = (y - (by - hgt * 0.42f)) / (hgt * 0.26f)
+                c.hline((bx - sw * (0.5f + 0.5f * u)).toInt(), (bx + sw * (0.5f + 0.5f * u)).toInt(), y, if (u > 0.85f) Col.scale(top, 0.75f) else top)
+            }
+            c.fillRect((bx - hgt * 0.07f).toInt(), (by - hgt * 0.38f).toInt(), max(1, (hgt * 0.14f).toInt()), max(1, (hgt * 0.18f).toInt()), Col.hex(0xF4F0E6)) // the apron
+        }
+        c.fillRect((bx - hgt * 0.17f).toInt(), (by - hgt * 0.55f).toInt(), max(2, (hgt * 0.34f).toInt()), max(2, (hgt * (if (skirt) 0.16f else 0.36f)).toInt()), top)
+        val hr = hgt * 0.22f
+        c.fillEllipse(bx, by - hgt * 0.72f, max(1f, hr), max(1f, hr), Pal.SKIN)
+        if (hat != 0) {
+            c.fillEllipse(bx, by - hgt * 0.84f, max(1f, hr * 1.05f), max(1f, hr * 0.5f), hat)
+            c.hline((bx - hr * 1.25f).toInt(), (bx + hr * 1.25f).toInt(), (by - hgt * 0.8f).toInt(), hat)
+        } else c.fillEllipse(bx, by - hgt * 0.8f, max(1f, hr * 1.05f), max(1f, hr * 0.62f), hair)
+        if (detail > 1) { c.set((bx - hr * 0.35f).toInt(), (by - hgt * 0.72f).toInt(), Pal.OUTLINE); c.set((bx + hr * 0.35f).toInt(), (by - hgt * 0.72f).toInt(), Pal.OUTLINE) }
+        return bx to by
+    }
+
+    /**
+     * Couples dancing a polka on the square ("dance": how many, up to four): a lad in a white shirt and a black waistcoat and
+     * a girl in a red or a blue dress, hand in hand, turning round each other and hopping to the beat, her skirt flying out.
+     */
+    private fun dancers(level: Float) {
+        if (level <= 0.02f) return
+        val n = ceil(level * COUPLES.size - 0.01f).toInt().coerceIn(1, COUPLES.size)
+        for (i in 0 until n) {
+            val (cx, cd) = COUPLES[i].let { it[0] to it[1] }
+            val th = t * 2.6 + i * 1.7
+            val ox = (cos(th) * 0.32).toFloat(); val od = (sin(th) * 0.22).toFloat()
+            val hop = (abs(sin(t * PI * 2.13 + i)) * 0.06).toFloat()
+            val dress = if (i % 2 == 0) Col.hex(0xC0283A) else Col.hex(0x2E5AA8)
+            for ((who, sx, sd) in listOf(Triple(0, cx + ox, cd + od), Triple(1, cx - ox, cd - od))) items.add(sd to {
+                prop {
+                    if (who == 0) folk(sx, sd, top = Col.hex(0x2A2226), legs = Col.hex(0x3A3042), hair = Pal.HAIR[i % Pal.HAIR.size], hat = Col.hex(0x1A1416), lift = hop, step = ((t * 4.26).toInt() + i) and 1)
+                    else folk(sx, sd, top = dress, legs = Col.hex(0xF4F0E6), hair = Pal.HAIR[(i + 2) % Pal.HAIR.size], hat = 0, skirt = true, flare = 0.6f + 0.4f * abs(sin(th).toFloat()), lift = hop)
+                    // their hands joined between them, at the waist
+                    if (who == 1) {
+                        val a = floatArrayOf(gx(cx + ox, cd + od), gy(cd + od) - (0.45f + hop) * pm(cd + od))
+                        val b = floatArrayOf(gx(cx - ox, cd - od), gy(cd - od) - (0.45f + hop) * pm(cd - od))
+                        c.line(a[0].toInt(), a[1].toInt(), b[0].toInt(), b[1].toInt(), Pal.SKIN)
+                    }
+                }
+            })
+        }
+    }
+
+    /** A satchel on the cobbles, a goalpost: [j] 0 the brown one, 1 the red one. */
+    private fun satchel(x: Float, d: Float, j: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val col = if (j == 0) Col.hex(0x8A5A30) else Col.hex(0xA8302A)
+        val w0 = max(2f, 0.36f * p); val h0 = max(2f, 0.3f * p)
+        c.fillRect((bx - w0 / 2).toInt(), (by - h0).toInt(), w0.toInt(), h0.toInt(), col)
+        c.hline((bx - w0 / 2).toInt(), (bx + w0 / 2).toInt() - 1, (by - h0).toInt(), Col.mix(col, Col.hex(0xFFFFFF), 0.3f))
+        c.fillRect((bx - w0 / 2).toInt(), (by - h0).toInt(), w0.toInt(), max(1, (h0 * 0.4f).toInt()), Col.scale(col, 0.8f)) // the flap
+        if (detail > 1) c.set(bx.toInt(), (by - h0 * 0.55f).toInt(), Pal.GOLD) // its buckle
     }
 
     /** A cottage behind the garden, its gable toward us. */
@@ -1004,6 +1652,154 @@ internal class SquarePainter : VistaPainter() {
         c.set(cx + 4, by - 6, Pal.OUTLINE); c.set(cx + 6, by - 6, Pal.OUTLINE); c.set(cx + 5, by - 5, Col.hex(0xE0A0A0))
         c.hline(cx - 6, cx - 1, by - 1, furD); c.set(cx - 7, by - 2, furD)
         c.fillRect(cx - 1, by - 2, 3, 2, white)
+    }
+
+    private val catFur = Col.hex(0xE0A050); private val catFurD = Col.hex(0xB07830); private val catWhite = Col.hex(0xF8F4EC)
+
+    /** A sprite pixel rectangle facing [f] (1 right, −1 left) from [x]: [dx] … [dx] + [w] − 1 to the front, rows [y] … [y] + [h] − 1. */
+    private fun mrect(x: Int, f: Int, dx: Int, y: Int, w: Int, h: Int, col: Int) = c.fillRect(if (f > 0) x + dx else x - dx - w + 1, y, w, h, col)
+
+    private fun mset(x: Int, f: Int, dx: Int, y: Int, col: Int) = c.set(x + dx * f, y, col)
+
+    /**
+     * The cat up the linden or on her way down it ([down]: how far down she has come, the "cat" effect): sitting on its lowest
+     * limb just out from the fork, mewing; back along the limb to the fork, down the trunk tail first, a hop down onto the bench by
+     * ([bcx], [bcy]), where she lies down again ([cat]).
+     */
+    private fun catInTree(down: Float, bcx: Int, bcy: Int) {
+        val k = detail
+        val p = pm(lindenD); val tx = gx(lindenX, lindenD); val top = gy(lindenD) - 4.4f * p
+        val ex = tx + sin(0.35f) * 2.4f * p; val ey = top - cos(0.35f) * 2.4f * p
+        val th = max(2f, 0.35f * p)
+        val forkX = tx + 0.15f * p; val forkY = top + 2f * k - th / 2f
+        // a little way out along the limb from the fork: low enough to show under the scene's top bar on a phone
+        val perchX = tx + (ex - tx) * 0.28f; val perchY = top + 2f * k + (ey - top - 2f * k) * 0.28f - th / 2f
+        val lowY = (bcy - 13 * k).toFloat()
+        when {
+            down < CAT_LIMB -> {
+                val ax = perchX.toInt(); val ay = perchY.toInt()
+                // mewing now and then, the sound going out
+                val mew = ((t + 0.4) % 2.2) < 0.9
+                sprite(ax, ay) { catSit(ax, ay, -1, mew) }
+                if (mew) s.fx { PokeArt.rings(c, ax - 5f * k, ay - 10f * k, (((t + 0.4) % 2.2) / 0.9).toFloat(), 7f * k, Col.hex(0xFFFFFF), max(1, k / 2), 0.7f) }
+            }
+            down < CAT_FORK -> {
+                val u = (down - CAT_LIMB) / (CAT_FORK - CAT_LIMB)
+                val ax = (perchX + (forkX - perchX) * u).toInt(); val ay = (perchY + (forkY - perchY) * u).toInt()
+                sprite(ax, ay) { catStand(ax, ay, -1, step = ((t * 6).toInt() and 1)) }
+            }
+            down < CAT_FOOT -> {
+                // down the trunk tail first, paw over paw
+                val u = (down - CAT_FORK) / (CAT_FOOT - CAT_FORK)
+                val ax = (tx + 0.1f * p).toInt(); val ay = (forkY + 10f * k + (lowY - forkY - 10f * k) * u).toInt()
+                sprite(ax, ay) { catClimb(ax, ay, step = ((t * 5).toInt() and 1)) }
+            }
+            else -> {
+                // the hop from the trunk down onto the bench
+                val u = (down - CAT_FOOT) / (CAT_ON_BENCH - CAT_FOOT)
+                val ax = (tx + 0.1f * p + (bcx - tx - 0.1f * p) * u).toInt()
+                val ay = (lowY + (bcy - lowY) * u - sin(u * PI.toFloat()) * 6f * k).toInt()
+                sprite(ax, ay) { catStand(ax, ay, 1, step = 1) }
+            }
+        }
+    }
+
+    /** The cat sitting up, facing [f], her tail hanging down behind her (off a branch); her mouth open when she [mew]s. */
+    private fun catSit(cx: Int, by: Int, f: Int, mew: Boolean) {
+        mrect(cx, f, -3, by - 4, 6, 4, catFur)
+        mrect(cx, f, -1, by - 8, 4, 5, catFur)
+        mrect(cx, f, 1, by - 7, 2, 3, catWhite)
+        mrect(cx, f, -1, by - 12, 5, 4, catFur)
+        mset(cx, f, -1, by - 13, catFur); mset(cx, f, 3, by - 13, catFur)
+        mset(cx, f, 0, by - 12, catFurD); mset(cx, f, 2, by - 12, catFurD)
+        mset(cx, f, 1, by - 11, Pal.OUTLINE); mset(cx, f, 3, by - 11, Pal.OUTLINE)
+        mset(cx, f, 4, by - 10, Col.hex(0xE0A0A0))
+        if (mew) { mset(cx, f, 2, by - 9, Pal.OUTLINE); mset(cx, f, 3, by - 9, Col.hex(0xC85A6A)) }
+        mrect(cx, f, 1, by - 3, 1, 3, catFurD); mrect(cx, f, 3, by - 3, 1, 3, catFur)
+        mset(cx, f, -2, by - 6, catFurD); mset(cx, f, -2, by - 4, catFurD)
+        // the tail hanging down, swaying
+        val sw = if (sin(t * 1.3) > 0.3) 1 else 0
+        for (y in by..by + 4) mset(cx, f, -3 - (if (y > by + 2) sw else 0), y, if (y == by + 4) catFurD else catFur)
+    }
+
+    /** The cat standing on all fours, facing [f] ([step] her legs' gait), her tail up. */
+    private fun catStand(cx: Int, by: Int, f: Int, step: Int) {
+        mrect(cx, f, -4, by - 6, 9, 3, catFur)
+        mrect(cx, f, -1, by - 4, 4, 1, catWhite)
+        for ((i, lx) in intArrayOf(-4, -2, 2, 4).withIndex()) mrect(cx, f, lx, by - 3 + (if ((i + step) % 2 == 0) 0 else 1), 1, 3 - (if ((i + step) % 2 == 0) 0 else 1), if (i % 2 == 0) catFurD else catFur)
+        mrect(cx, f, 4, by - 9, 4, 4, catFur)
+        mset(cx, f, 4, by - 10, catFur); mset(cx, f, 7, by - 10, catFur)
+        mset(cx, f, 6, by - 8, Pal.OUTLINE); mset(cx, f, 8, by - 7, Col.hex(0xE0A0A0))
+        for (dx in intArrayOf(-2, 0, 2)) mset(cx, f, dx, by - 6, catFurD)
+        mset(cx, f, -5, by - 7, catFur); mset(cx, f, -6, by - 8, catFur); mset(cx, f, -6, by - 9, catFur); mset(cx, f, -5, by - 10, catFurD)
+    }
+
+    /** The cat on the trunk, head up, her claws in the bark ([step]: which paws hold), her tail hanging below her. */
+    private fun catClimb(cx: Int, by: Int, step: Int) {
+        c.fillRect(cx - 2, by - 9, 4, 8, catFur)
+        c.hline(cx - 2, cx + 1, by - 7, catFurD); c.hline(cx - 2, cx + 1, by - 4, catFurD)
+        c.fillRect(cx - 2, by - 13, 5, 4, catFur)
+        c.set(cx - 2, by - 14, catFur); c.set(cx + 2, by - 14, catFur)
+        c.set(cx + 1, by - 12, Pal.OUTLINE)
+        c.set(cx - 3, by - 11 + step, catFurD); c.set(cx + 2, by - 10 - step, catFurD)
+        c.fillRect(cx - 3, by - 2 + step, 2, 2, catFurD); c.fillRect(cx + 1, by - 1 - step, 2, 2, catFurD)
+        for (y in by..by + 4) c.set(cx + (if (y > by + 2 && sin(t * 2.0) > 0) 1 else 0), y, if (y == by + 4) catFurD else catFur)
+    }
+
+    /**
+     * Muri, Janez's dog: sitting at his place by himself ([dog]); away ("dog" 0), up from behind the flower bed and
+     * sniffing at its end (0.5), running back to his place (1); wagging hard ("wag").
+     */
+    private fun muri() {
+        val wag = fxOn("wag")
+        val level = fx("dog")
+        if (level == null || level >= 0.999f) {
+            items.add(11.3f to { thing("dog", slop = 1) { dog(gx(1.9f, 11.3f).toInt(), gy(11.3f).toInt(), wag) } })
+            return
+        }
+        if (SceneSights.lostAt(level)) return // away: nothing of him on the square
+        val k = detail
+        if (level <= DOG_FLOWERS) {
+            // up from behind the flower bed, where he was nosing about, out to its end, and sniffing at the flowers there
+            val u = (level - SceneSights.LOST) / (DOG_FLOWERS - SceneSights.LOST)
+            val e = PokeArt.ease(u, 0f, 0.9f)
+            val x = -1.6f + (0.9f - -1.6f) * e; val d = 15.6f + (14.6f - 15.6f) * e
+            val sniff = u > 0.9f
+            items.add(d to { thing("dog", slop = 1) { val ax = gx(x, d).toInt(); val ay = gy(d).toInt(); sprite(ax, ay) { dogSide(ax, ay, if (sniff) -1 else 1, if (sniff) 2 else 0, wag) } } })
+        } else {
+            // running back to his place, to the right and toward us
+            val u = PokeArt.ease(level, DOG_FLOWERS, 1f)
+            val x = 0.9f + (1.9f - 0.9f) * u; val d = 14.6f + (11.3f - 14.6f) * u
+            val bound = (abs(sin(t * 9.0)) * 2.5 * k).toInt()
+            items.add(d to { thing("dog", slop = 1) { val ax = gx(x, d).toInt(); val ay = gy(d).toInt() - bound; sprite(ax, ay) { dogSide(ax, ay, 1, 1, wag) } } })
+        }
+    }
+
+    /**
+     * The dog on all fours from the side, facing [f] (1 right): trotting ([gait] 0), running (1) or sniffing at the ground
+     * (2), his tail wagging (the faster the more [wag]).
+     */
+    private fun dogSide(bx: Int, by: Int, f: Int, gait: Int, wag: Float) {
+        val coat = Col.hex(0xA87444); val coatL = Col.hex(0xD4A878); val dark = Col.hex(0x3A2418); val ear = Col.hex(0x7A5230)
+        val legT = ((t * (if (gait == 1) 12 else 7)).toInt() and 1)
+        val tail = ((t * (if (gait == 2) 3 + 9 * wag else 5 + 9 * wag)).toInt() and 1)
+        // the far legs, darker, then the body and the near legs
+        for ((i, lx) in intArrayOf(-5, 3).withIndex()) mrect(bx, f, lx + (if (gait == 1 && legT == i) 1 else 0), by - 6, 2, 6 - (if (legT == i && gait != 2) 1 else 0), ear)
+        mrect(bx, f, -6, by - 11, 12, 6, coat)
+        mrect(bx, f, -4, by - 7, 8, 2, coatL)
+        for ((i, lx) in intArrayOf(-3, 5).withIndex()) mrect(bx, f, lx - (if (gait == 1 && legT != i) 1 else 0), by - 6, 2, 6 - (if (legT != i && gait != 2) 1 else 0), coat)
+        mrect(bx, f, 3, by - 11, 2, 3, Pal.FLAG_RED) // the collar
+        if (gait == 2) {
+            // nose down in the flowers
+            mrect(bx, f, 5, by - 9, 5, 5, coat); mrect(bx, f, 9, by - 6, 3, 3, coat); mset(bx, f, 11, by - 4, dark)
+            mrect(bx, f, 5, by - 9, 2, 5, ear); mset(bx, f, 8, by - 8, Pal.OUTLINE)
+        } else {
+            mrect(bx, f, 5, by - 16, 6, 6, coat); mrect(bx, f, 10, by - 13, 3, 3, coat); mset(bx, f, 12, by - 13, dark)
+            mrect(bx, f, 5, by - 16, 2, 6, ear); mset(bx, f, 8, by - 15, Pal.OUTLINE)
+            if (gait == 1 || wag > 0.3f) { mset(bx, f, 11, by - 10, Col.hex(0xE87A8A)); mset(bx, f, 11, by - 9, Col.hex(0xC85A6A)) } // the tongue out
+        }
+        // the tail up behind, wagging
+        mset(bx, f, -7, by - 12, coat); mset(bx, f, -8, by - 13 - tail, coat); mset(bx, f, -9, by - 14 - tail * 2, coatL)
     }
 
     private fun well(cx: Int, by: Int) {
@@ -1288,22 +2084,25 @@ internal class SquarePainter : VistaPainter() {
      * The dog sitting on the square: a sprite, like the people. Tapped ([pokes]) it wags hard with its tongue out; the
      * next time it jumps up twice and barks.
      */
-    private fun dog(bx: Int, ground: Int) {
+    private fun dog(bx: Int, ground: Int, glad: Float = 0f) {
         val pk = poked("dog"); val a = pk?.age(t) ?: 0f
         val jumps = pk?.step == 1 && a < 1.3f
-        val hop = if (jumps) (abs(sin(a * PI.toFloat() / 0.65f)) * 5f).toInt() else 0
+        // wagging hard ("wag"), he hops for joy now and then
+        val joy = ((t * 1.1 + 0.3) % 1.0).toFloat()
+        val hop = if (jumps) (abs(sin(a * PI.toFloat() / 0.65f)) * 5f).toInt()
+            else if (glad > 0.6f && joy < 0.28f) (sin(joy / 0.28f * PI.toFloat()) * 4f).toInt() else 0
         val by = ground - hop * detail
         if (jumps && ((a * 1.6f).toInt() and 1) == 0) s.fx {
             // the bark
             val u = ((a * 1.6f) % 1f) * 1.6f
             PokeArt.rings(c, bx - 13f * detail, by - 15f * detail, u.coerceAtMost(0.99f), 7f * detail, Col.hex(0xFFFFFF), detail, 0.8f, n = 2)
         }
-        dogSprite(bx, by, excited = pk != null && a < (if (pk.step == 1) 2f else 1.6f))
+        dogSprite(bx, by, excited = (pk != null && a < (if (pk.step == 1) 2f else 1.6f)) || glad > 0.3f, rate = 4f + 12f * glad)
     }
 
-    private fun dogSprite(bx: Int, by: Int, excited: Boolean) = sprite(bx, by) {
+    private fun dogSprite(bx: Int, by: Int, excited: Boolean, rate: Float = 4f) = sprite(bx, by) {
         val coat = Col.hex(0xA87444); val coatL = Col.hex(0xD4A878); val dark = Col.hex(0x3A2418)
-        val wag = ((t * (if (excited) 12 else 4)).toInt() and 1)
+        val wag = ((t * (if (excited) max(12f, rate) else rate)).toInt() and 1)
         // sitting, facing left: haunches, chest, head with floppy ears, a wagging tail
         c.fillRect(bx - 2, by - 10, 9, 10, coat); c.fillEllipse(bx + 3.5f, by - 5f, 4.5f, 5f, coat)
         c.fillRect(bx - 5, by - 12, 6, 12, coat); c.fillRect(bx - 4, by - 8, 3, 7, coatL)
@@ -1316,32 +2115,75 @@ internal class SquarePainter : VistaPainter() {
         if (excited) { c.set(bx - 11, by - 12, Col.hex(0xE87A8A)); c.set(bx - 11, by - 11, Col.hex(0xC85A6A)) } // the tongue out
     }
 
-    private fun ball(cx: Int, by: Int, hgt: Int) {
+    /**
+     * Where the ball is now, from where it is in play ([inPlay]: x, y, height): lost under the bench ([fx] "ball" 0: under its
+     * seat between its legs, in its shade), rolling back out to the game, or shot between the satchels and kicked back
+     * ("goal"). [x, y, height, depth to draw it at, size, light, lost] (light 1: in the sun; less in the bench's shade; lost
+     * 1: under the bench, where it is drawn as the bench's).
+     */
+    private fun ballNow(inPlay: IntArray, bx: Int, bby: Int): FloatArray {
+        val k = detail
+        var x = inPlay[0].toFloat(); var y = inPlay[1].toFloat(); var hgt = inPlay[2].toFloat()
+        var depth = depthAt(inPlay[1]) - 0.6f; var light = 1f
+        val lost = fx("ball")?.let { SceneSights.lostAt(it) } ?: false
+        fx("ball")?.let { b ->
+            // under the bench's seat on its right, behind its front legs; out of its shade as it rolls back
+            val ux = (bx + 7 * k).toFloat(); val uy = (bby + 8 * k - 1).toFloat()
+            if (b < 0.999f) {
+                val e = PokeArt.ease(b, SceneSights.LOST, 1f)
+                x = ux + (x - ux) * e; y = uy + (y - uy) * e
+                hgt = sin(e * PI.toFloat()) * 3f * k
+                light = 0.55f + 0.45f * PokeArt.ease(e, 0f, 0.3f)
+                depth = if (e < 0.25f) 11.85f else depthAt(y.toInt()) - 0.6f
+            }
+        }
+        fx("goal")?.takeIf { it < 0.999f && !lost }?.let { g ->
+            val gxp = gx((GOAL_L + GOAL_R) / 2f, GOAL_D + 0.8f); val gyp = gy(GOAL_D + 0.8f)
+            val (u, back) = when {
+                g < GOAL_IN -> g / GOAL_IN to false
+                g < GOAL_BACK -> 1f to false
+                else -> 1f - (g - GOAL_BACK) / (1f - GOAL_BACK) to true
+            }
+            // in a high arc from the kicker to behind the satchels, and back the same way
+            val e = if (back) PokeArt.ease(u) else u
+            x += (gxp - x) * e; y += (gyp - y) * e
+            hgt = sin(e * PI.toFloat()) * 22f * k * (if (back) 0.7f else 1f)
+            depth = depthAt(y.toInt()) - 0.6f
+            light = 1f
+        }
+        // farther off the ball is smaller (it is a sprite, like the people, near by)
+        val size = (12.4f / max(12.4f, depth + 0.6f)).coerceIn(0.55f, 1f)
+        return floatArrayOf(x, y, hgt, depth, size, light, if (lost) 1f else 0f)
+    }
+
+    private fun ball(cx: Int, by: Int, hgt: Int, size: Float = 1f, light: Float = 1f) {
         val m = detail
         val y = by - hgt
-        if (m == 1) {
+        // in shade (under the bench) it is darker
+        fun lit(col: Int) = if (light >= 0.999f) col else Col.scale(col, light)
+        if (m == 1 && size >= 0.99f) {
             if (hgt > 0) shadow(cx.toFloat(), by.toFloat(), 3.5f, 1.5f)
-            c.fillCircle(cx + 0.5f, y - 3.5f, 4f, Col.hex(0xF4EEDD))
+            c.fillCircle(cx + 0.5f, y - 3.5f, 4f, lit(Col.hex(0xF4EEDD)))
             val spin = ((t * 6).toInt() % 4)
-            for (k in -3..3) c.set(cx + k, y - 4 + (if ((k + spin) % 3 == 0) 1 else 0), Pal.FLAG_RED)
-            c.set(cx - 2, y - 6, Col.hex(0xFFFFFF)); c.set(cx + 2, y - 1, Col.hex(0xD8D0BC))
+            for (k in -3..3) c.set(cx + k, y - 4 + (if ((k + spin) % 3 == 0) 1 else 0), lit(Pal.FLAG_RED))
+            c.set(cx - 2, y - 6, lit(Col.hex(0xFFFFFF))); c.set(cx + 2, y - 1, lit(Col.hex(0xD8D0BC)))
             return
         }
-        // closer up: a round ball lit from above, its red band turning as it rolls, a glint
-        if (hgt > 0) shadow(cx.toFloat(), by.toFloat(), 3.5f * m, 1.5f * m)
-        val bcx = cx + 0.5f * m; val bcy = y - 3.5f * m; val rr = 4f * m
+        // closer up (or farther off, smaller): a round ball lit from above, its red band turning as it rolls, a glint
+        if (hgt > 0) shadow(cx.toFloat(), by.toFloat(), 3.5f * m * size, 1.5f * m * size)
+        val bcx = cx + 0.5f * m; val bcy = y - 3.5f * m * size; val rr = max(1.2f, 4f * m * size)
         val spin = (t * 6).toFloat()
         for (yy in max((bcy - rr).toInt(), c.top)..min((bcy + rr).toInt(), c.bottom - 1)) for (xx in max((bcx - rr).toInt(), c.left)..min((bcx + rr).toInt(), c.right - 1)) {
             val nx = (xx + 0.5f - bcx) / rr; val ny = (yy + 0.5f - bcy) / rr
             if (nx * nx + ny * ny > 1f) continue
-            val lit = -nx * 0.55f - ny * 0.75f
+            val lt = -nx * 0.55f - ny * 0.75f
             val band = abs(ny + 0.05f - 0.3f * sin(nx * 2.4f + spin)) < 0.17f
-            c.set(xx, yy, when {
-                band -> if (lit < -0.3f) Pal.GERANIUM_D else Pal.FLAG_RED
-                lit > 0.62f -> Col.hex(0xFFFFFF)
-                lit < -0.4f -> Col.hex(0xD8D0BC)
+            c.set(xx, yy, lit(when {
+                band -> if (lt < -0.3f) Pal.GERANIUM_D else Pal.FLAG_RED
+                lt > 0.62f -> Col.hex(0xFFFFFF)
+                lt < -0.4f -> Col.hex(0xD8D0BC)
                 else -> Col.hex(0xF4EEDD)
-            })
+            }))
         }
     }
 

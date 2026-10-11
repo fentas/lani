@@ -6,7 +6,8 @@ import kotlin.math.ceil
 
 // Short sounds where the picture already shows one (companion/GAME.md, "Background sounds"): the thunder after a flash
 // (Thunder.kt), a bell swinging and ringing, the anvil struck, the cow shaking its bell, the owl's hoot, the marmot's
-// whistle, the pot's lid, the cat's purr, a fire catching. Pure: which sound, when (on the picture's clock, as the painter
+// whistle, the pot's lid, the cat's purr, a fire catching; the square's cat mewing up the linden, its dog's bark, a cart's
+// hooves, the band's polka, the fountain's water. Pure: which sound, when (on the picture's clock, as the painter
 // draws it) and how loud; the player (data/AmbientPlayer.kt) plays them.
 
 /**
@@ -41,6 +42,21 @@ enum class Sound(val file: String) {
 
     /** A fire catching or flaring up. */
     WHOOSH("whoosh"),
+
+    /** The cat stuck up the square's linden, mewing twice. */
+    MEOW("meow"),
+
+    /** The square's dog barking twice: "hov, hov!". */
+    BARK("bark"),
+
+    /** A horse pulling a cart over the cobbles, coming nearer and stopping. */
+    HOOVES("hooves"),
+
+    /** The village band playing a few bars of a polka. */
+    POLKA("polka"),
+
+    /** The water starting to run from the fountain's pipes into its trough. */
+    GUSH("gush"),
     ;
 
     companion object {
@@ -62,7 +78,8 @@ object Sfx {
      * painter draws it: the square's bell and the church's rope ring as long as the bell swings, a strike at each end of its
      * swing; the anvil rings, then twice; the cow's bell clanks as she shakes her head (her lowing has no sound); the
      * marmot whistles; the owl hoots (its third reaction); the pot's lid rattles, and after its hop when it boils over; the
-     * cat purrs (its second reaction); the campfire flares up. Nothing for the rest.
+     * cat purrs (its second reaction); the campfire flares up; the square's dog barks as he jumps up (his second). Nothing
+     * for the rest.
      */
     fun poke(art: String, id: String, step: Int, start: Double): List<Cue> = when ("$art/$id") {
         // SquarePainter: the swing sin(5.5 t) × up in 0.25 s, down from 2 to 3.2 s
@@ -92,6 +109,8 @@ object Sfx {
         "kitchen/cat" -> if (step == 1) listOf(Cue(Sound.PURR, start + 0.15, 0.9f)) else emptyList()
         // CampfirePainter: the fire leaps up in a burst of sparks, higher the second time
         "campfire/fire" -> listOf(Cue(Sound.WHOOSH, start, if (step == 0) 0.6f else 0.85f))
+        // SquarePainter.dog: the second tap, he jumps up and barks, the bark's rings going out at once
+        "square/dog" -> if (step == 1) listOf(Cue(Sound.BARK, start + 0.05, 0.7f)) else emptyList()
         else -> emptyList()
     }.filter { it.gain >= MIN_GAIN }
 
@@ -100,14 +119,17 @@ object Sfx {
      * least [RISE] since [before] (the same scene's, the cue before), at [now]. A bell rings a peal of a few seconds, a
      * strike at each end of its swing as the painter swings it (far off over the field, the stream, the hills, the lake and
      * the woods); the cows' bells clank; the oven, the stove and the forge catch with a whoosh, the campfire as it flares
-     * up; the smith strikes the anvil a few times with the sparks. Only the cue's first seconds: the picture may go on
-     * swinging, the sound doesn't. They don't duck under the voice (si.lanisce.lani.data.Ambience queues them so): it is
-     * saying the line that rings the bell, and ducked the peal went unheard ("did not ring a bell"); at the background's own
-     * level it is still well under it.
+     * up; the smith strikes the anvil a few times with the sparks; on the square the cat up the linden mews, Muri barks as he
+     * comes back and as he wags, a cart's horse clops up the cobbles, the band plays its polka and the fountain's water
+     * gushes. Only the cue's first seconds: the picture may go on swinging, the sound doesn't. They don't duck under the
+     * voice (si.lanisce.lani.data.Ambience queues them so): it is saying the line that rings the bell, and ducked the peal
+     * went unheard ("did not ring a bell"); at the background's own level it is still well under it.
      */
     fun fx(art: String, before: Map<String, Float>, after: Map<String, Float>, now: Double): List<Cue> {
         val out = ArrayList<Cue>()
         for ((name, level) in after) {
+            // the square's cat, set up the linden (her 0 is up there), mews as the painter's rings go out: twice
+            if (art == "square" && name == "cat" && name !in before && level <= 0.1f) { out += mews(now); continue }
             val was = before[name] ?: 0f
             if (level < 0.05f || level - was < RISE) continue
             val l = level.coerceIn(0f, 1f)
@@ -123,9 +145,23 @@ object Sfx {
                 "sparks" -> if (art == "smithy") out += blows(now, l)
                 // the workshop's hammer on a nail
                 "hammer" -> if (art == "workshop") out += knocks(now, l)
+                // the square: Muri barks as he comes back and as he wags; the cart's horse comes clopping up the cobbles
+                // (the cart's way takes as long as its sound); the band strikes up, two rounds of its polka; the fountain's
+                // water gushes as it comes
+                "dog", "wag" -> if (art == "square") out += Cue(Sound.BARK, now + 0.25, 0.7f * l)
+                "cart-pump", "cart-stone" -> if (art == "square") out += Cue(Sound.HOOVES, now, 0.9f)
+                "band" -> if (art == "square") { out += Cue(Sound.POLKA, now + 0.1, 0.8f * l); out += Cue(Sound.POLKA, now + 0.1 + POLKA_S, 0.65f * l) }
+                "fountain" -> if (art == "square") out += Cue(Sound.GUSH, now + 0.2, 0.75f * l)
             }
         }
-        return out
+        // Muri coming back and wagging at once barks once
+        return out.distinctBy { it.sound to it.at }
+    }
+
+    /** The cat's two mews from [now], when the painter's rings go out: a mew starts each time (t + 0.4) mod 2.2 is 0. */
+    private fun mews(now: Double): List<Cue> {
+        val first = MEW_EVERY * ceil((now + 0.4 + 0.1) / MEW_EVERY) - 0.4
+        return listOf(Cue(Sound.MEOW, first, 0.8f), Cue(Sound.MEOW, first + MEW_EVERY, 0.65f, 1.04f))
     }
 
     /** The sounds [place] under [sky] may play, to have them ready before they're wanted (a tap is heard at once). */
@@ -142,6 +178,7 @@ object Sfx {
                 "forest" -> out += Sound.COWBELL
                 "smithy" -> { out += Sound.WHOOSH; out += Sound.ANVIL }
                 "workshop" -> out += Sound.ANVIL
+                "square" -> out += SQUARE_SOUNDS
             }
         }
         return out
@@ -185,7 +222,7 @@ object Sfx {
 
     /** The sounds of each art's pokes ([poke]). */
     private val POKE_SOUNDS: Map<String, Set<Sound>> = mapOf(
-        "square" to setOf(Sound.BELL),
+        "square" to setOf(Sound.BELL, Sound.BARK),
         "church" to setOf(Sound.BELL),
         "smithy" to setOf(Sound.ANVIL),
         "alps" to setOf(Sound.COWBELL, Sound.WHISTLE),
@@ -288,4 +325,13 @@ object Sfx {
 
     /** The "art" of the bell a step over the village rings ([BELLS]): no scene's, the village's own little bell. */
     const val VILLAGE = "village"
+
+    /** The sounds the square's dialogs bring (its effects: the cat, Muri, a cart, the band, the fountain). */
+    private val SQUARE_SOUNDS = setOf(Sound.MEOW, Sound.BARK, Sound.HOOVES, Sound.POLKA, Sound.GUSH)
+
+    /** The cat up the linden mews every 2.2 s (SquarePainter.catInTree's rings). */
+    private const val MEW_EVERY = 2.2
+
+    /** How long the band's polka plays (polka.ogg, its last chord died away). */
+    private const val POLKA_S = 7.7
 }

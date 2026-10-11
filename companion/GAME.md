@@ -1399,6 +1399,7 @@ agree.
   | `kitchen` | `pot` | the lid rattles on its rim (a clink every 0.125 s) with a puff of steam; boiling over, after its hop |
   | `kitchen` | the cat | the second tap: it purrs |
   | `campfire` | `fire` | a whoosh as it leaps up, louder the second time |
+  | `square` | `dog` | the second tap: "hov, hov!" as he jumps up |
 
 - **A dialog's effect coming on** ([SCENES.md](SCENES.md#effects-the-place-joins-in)): a rise of 0.25 or more in the same
   scene. A `bell` rings a peal of 5 s, its last half fading. Its strikes fall at the ends of the painter's swing (the
@@ -1409,9 +1410,12 @@ agree.
   0.3 or more. The smithy's `sparks`: the smith's blows on the anvil for 3 s (every 0.62 s, as the sparks fly). The
   workshop's `hammer`: a short bright knock each time the hammer comes down on the nail (every 0.75 s) for 3 s, the
   anvil's ring played quick and high. A project's step played over the village rings its `bell` there: a little bell,
-  the chapel's, high and quick (`Sfx.VILLAGE`).
-- **Left out**: the cow's lowing, the dog's bark and the other animals' calls (the hen, the crow, the sparrow), the
-  watchtower's horn and the church's organ. Made from simple tones, they would not sound right. The evening bell at
+  the chapel's, high and quick (`Sfx.VILLAGE`). On the square: the `cat` set up the linden (her 0) mews twice, as her
+  rings go out (every 2.2 s); Muri barks as he comes back (`dog`) and as he wags (`wag`), once when both come on together;
+  a cart (`cart-pump`, `cart-stone`) clops up the cobbles and stops, its sound (4.4 s) as long as its way; the `band`
+  plays its polka twice (16 s); the `fountain`'s water gushes as it comes.
+- **Left out**: the cow's lowing and the other animals' calls (the hen, the crow, the sparrow), the watchtower's horn and
+  the church's organ. Made from simple tones, they would not sound right. The evening bell at
   sunset by itself (the ave over the field and the stream, with no cue) has no sound yet.
 
 **Quiet, in the background** (`game/ambient/AmbientBus.kt`). The loops are made at −26 LUFS, and the voices are at −18
@@ -1451,11 +1455,12 @@ decodes a loop once, the first time it is wanted, and cuts one period out of the
 one `AudioTrack` on a thread of its own (`AmbientMixer`, pure). With nothing to play, the track pauses and the thread
 sleeps.
 
-Twelve short sounds, made the same way: `thunder-1`, `thunder-2`, `thunder-3` (4 to 6.5 s), `bell`, `bell-far`, `anvil`,
-`cowbell`, `hoot`, `whistle`, `lid`, `purr` and `whoosh` (0.6 to 3 s), 122 KB together, no pads (each starts after 8 ms
-of silence). The player decodes a short sound once, when a place that can play it is shown, so a tap is heard at once
-(`Sfx.sounds`). It mixes each into the same track from the sample where its time falls, sped up or slowed down for its
-rate (`AmbientMixer.play`; at most 16 at a time).
+Seventeen short sounds, made the same way: `thunder-1`, `thunder-2`, `thunder-3` (4 to 6.5 s), `bell`, `bell-far`,
+`anvil`, `cowbell`, `hoot`, `whistle`, `lid`, `purr`, `whoosh`, `meow` and `bark` (0.6 to 3 s), `hooves` (4.4 s), `polka`
+(7.9 s) and `gush` (3 s), 206 KB together, no pads (each starts after 8 ms of silence). The player decodes a short
+sound once, when a place that can play it is shown, so a tap is heard at once (`Sfx.sounds`). It mixes each into the same
+track from the sample where its time falls, sped up or slowed down for its rate (`AmbientMixer.play`; at most 16 at a
+time).
 
 To make them again: `uv run companion/android/tools/ambient_sounds.py` (`--shots` for the short sounds only;
 `--preview-shots DIR` for 60-second MP3s of the thunder in a storm and of the short sounds in their scenes). A new loop:
