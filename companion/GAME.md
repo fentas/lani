@@ -163,6 +163,10 @@ Every building can be upgraded one level at a time. Each age raises the top leve
 
 Damaged buildings must be repaired before an upgrade. Warning hours (the watchtower) don't scale.
 
+The building's card opens from the village (a tap on it) and from inside its scene: the top bar there shows the building
+the scene is in ("🛖 3", ⬆️ when the upgrade can be done now), and upgraded from there the room redraws at its new level
+([SCENES.md](SCENES.md), "What the village has built").
+
 ### Znanje gradi · Knowledge builds
 
 An upgrade asks for the building's words besides the resources (`game/BuildingWords.kt`): the words of what is in it. Jan

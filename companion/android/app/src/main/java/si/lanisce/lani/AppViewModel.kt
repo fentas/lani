@@ -649,6 +649,17 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** The building card to open as the village shows (once), see [practiseUpgrade]. */
     fun takeBuildingCard(): String? = buildingCard.also { buildingCard = null }
 
+    /** Whether the village opens the ages' sheet as it shows (once): asked for from a building's card in a scene. */
+    private var agesCard = false
+
+    fun takeAgesCard(): Boolean = agesCard.also { agesCard = false }
+
+    /** To the village, its ages' sheet open: the way to the age a building's next level waits for (its card in a scene). */
+    fun openVillageAges() {
+        agesCard = true
+        openVillage()
+    }
+
     /**
      * "🎯 Vadi jih zdaj · Practise them now" on building [id]'s card: a short run of exactly the words its upgrade still
      * asks for ([si.lanisce.lani.game.BuildingWords.run]: new ones learned, met and rusty ones reviewed); afterwards

@@ -94,6 +94,7 @@ import si.lanisce.lani.game.sky.SkyCards
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.Confetti
 import si.lanisce.lani.ui.game.EmojiBadge
+import si.lanisce.lani.ui.game.label
 import si.lanisce.lani.ui.game.RecenterButton
 import si.lanisce.lani.ui.game.TownCameraState
 import si.lanisce.lani.ui.theme.AlpineGreen
@@ -179,6 +180,17 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     var greeted by remember { mutableStateOf<String?>(null) } // someone without a dialog, saying hello
     var skyCard by remember { mutableStateOf<si.lanisce.lani.game.sky.SkyTap?>(null) } // the moon, a star … tapped in the sky
     var skyList by remember { mutableStateOf<List<si.lanisce.lani.game.sky.SkyTap>?>(null) } // TalkBack's "Tonight's sky"
+    // the building this scene is in (the house of a room, the smithy …; none for the fire): its card from the top bar, the
+    // upgrade a tap away without going back to the village; upgraded, the room redraws at its new level
+    val home = remember(state, world) { world.here?.let { h -> state?.buildings?.firstOrNull { it.id == h.id } } }
+    var homeOpen by remember { mutableStateOf(false) }
+    var upgradedTo by remember { mutableStateOf<Int?>(null) }
+    LaunchedEffect(home?.id) { home?.let { vm.loadBuildingWords(it.id) } }
+    val homeReady = remember(state, home, vm.scenes.packs, vm.content.dashboard) {
+        val s = state
+        if (s == null || home == null || home.damaged) false
+        else si.lanisce.lani.game.GameEngine.upgradeOption(s, home.id, vm.upgradeWords(s, home.id))?.available == true
+    }
     var allFound by remember { mutableIntStateOf(0) }
     val found = scenes.foundIn(scene)
     val anchors = rememberSceneAnchors(scene.id)
@@ -528,9 +540,37 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             }
         }
         if (!lifted) Recenter(anchors.camera, Modifier.fillMaxWidth().height(sceneHeight).padding(10.dp))
-        TopBar(scene, found.size, onBack = vm::openVillage, shown = !lifted)
+        TopBar(scene, found.size, onBack = vm::openVillage, shown = !lifted, home = home, homeReady = homeReady, onHome = { homeOpen = true })
         if (allFound > 0) Confetti(key = "found-${scene.id}-$allFound")
         if (talk?.settled == true) Confetti(key = "talk-${talk.key}")
+        upgradedTo?.let { Confetti(key = "upgraded-${home?.id}-$it") }
+    }
+    val s = state
+    if (homeOpen && home != null && s != null) {
+        val haptic = androidx.compose.ui.platform.LocalHapticFeedback.current
+        val option = remember(s, vm.villagers.all) {
+            si.lanisce.lani.game.GameEngine.buildOptions(s, vm.villagers.all) { id -> vm.upgradeWords(s, id) }.firstOrNull { it.type == home.type }
+        }
+        val check = remember(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty) {
+            si.lanisce.lani.game.GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty)
+        }
+        si.lanisce.lani.ui.game.BuildingSheet(
+            s, home, option, check,
+            onRepair = { moba -> if (vm.game.repair(home.id, moba)) haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress) },
+            onUpgrade = { moba ->
+                // done here: the card closes and the room shows its new level; the village shows it going up on the way back
+                if (vm.game.upgrade(home.id, moba)) {
+                    haptic.performHapticFeedback(androidx.compose.ui.hapticfeedback.HapticFeedbackType.LongPress)
+                    homeOpen = false
+                    upgradedTo = home.level + 1
+                    vm.notices.banner = "⬆️ ${home.type.emoji} ${home.type.label()} · ${bi("common.level")} ${home.level + 1}"
+                }
+            },
+            onAges = { homeOpen = false; vm.openVillageAges() },
+            onDismiss = { homeOpen = false },
+            words = vm.upgradeWords(s, home.id),
+            onPractise = { homeOpen = false; vm.practiseUpgrade(home.id) },
+        )
     }
     skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
     skyCard?.let { t -> si.lanisce.lani.ui.sky.SkySheet(vm, t, onDismiss = { skyCard = null }) }
@@ -569,17 +609,39 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
 }
 
 @Composable
-private fun TopBar(scene: SceneSpec, found: Int, onBack: () -> Unit, shown: Boolean = true) {
+private fun TopBar(
+    scene: SceneSpec, found: Int, onBack: () -> Unit, shown: Boolean = true,
+    home: si.lanisce.lani.game.Building? = null, homeReady: Boolean = false, onHome: () -> Unit = {},
+) {
     LightStatusIcons()
     // out of the way while a dialog's panel has risen over the picture (the keyboard up): it would lie on the panel's header
-    AnimatedVisibility(shown, enter = fadeIn(), exit = fadeOut()) { TopBarRow(scene, found, onBack) }
+    AnimatedVisibility(shown, enter = fadeIn(), exit = fadeOut()) { TopBarRow(scene, found, onBack, home, homeReady, onHome) }
 }
 
+/**
+ * Back to the village; the building the scene is in ([home]: its emoji and level, ⬆️ when its upgrade can be done now
+ * ([homeReady]), ⚠️ while it is damaged), whose card [onHome] opens; what's found of the scene's words.
+ */
 @Composable
-private fun TopBarRow(scene: SceneSpec, found: Int, onBack: () -> Unit) {
+private fun TopBarRow(scene: SceneSpec, found: Int, onBack: () -> Unit, home: si.lanisce.lani.game.Building?, homeReady: Boolean, onHome: () -> Unit) {
     Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         OverlayPill {
             TextButton(onClick = onBack) { Text("‹ ${bi("common.village")}", color = Color.White, style = MaterialTheme.typography.labelLarge) }
+        }
+        home?.let { b ->
+            Spacer(Modifier.width(6.dp))
+            val mark = if (b.damaged) " ⚠️" else if (homeReady) " ⬆️" else ""
+            val said = bi("sceneScreen.buildingCard", "building" to b.type.label(), "level" to b.level) +
+                (if (b.damaged) ", ${bi("villageSheets.damaged")}" else if (homeReady) ", ${bi("sceneScreen.canUpgrade")}" else "")
+            OverlayPill {
+                // TalkBack reads what it is and that it opens, not the emoji
+                TextButton(onClick = onHome, modifier = Modifier.semantics { contentDescription = said }) {
+                    Text(
+                        "${b.type.emoji} ${b.level}$mark", color = if (homeReady) XpGold else Color.White, style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.clearAndSetSemantics { },
+                    )
+                }
+            }
         }
         Spacer(Modifier.weight(1f))
         val total = scene.objects.size

@@ -609,6 +609,15 @@ a room of a house: the house it is in, see [Houses and their rooms](#houses-and-
 level counts, not the highest in the village: the kitchen of the old hut at level 1 is bare while the new hut's, at
 level 3, has everything. A happening is seen in its scene's building too (`Happenings.active`), so Micka bakes potica
 only in a kitchen with a stove.
+**Its card from inside** (`SceneScreen`'s top bar): beside "‹ Vas · Village" the building the scene is seen in, its emoji
+and level ("🛖 3"), with ⬆️ in gold when its next level can be built now and ⚠️ while it is damaged (TalkBack: "Koča ·
+Hut, stopnja 3: kartica in nadgradnja", and that it can be upgraded or is damaged). A tap opens the village's card for it
+(`BuildingSheet`): the repair, the next level's cost and the words it asks for. Upgraded there, the learner stays: the card
+closes and the room redraws at its new level, with confetti and a banner ("⬆️ 🛖 Koča · Hut · Stopnja 4"), its new things
+to find; back in the village the building goes up as after an upgrade there. "🎯 Vadi jih zdaj · Practise them now" runs
+the words and comes back to the village with the card open, as from the village; the next age's row opens the village's
+ages (`AppViewModel.openVillageAges`). A scene of no building (the fire, a spot of the land) has none. QA's
+`scene-building` opens the first building's scene the village has and its card from there.
 
 An object or a happening says what it needs with `needs`:
 

@@ -13,7 +13,8 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
   --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
                        "🚗 Za pot" (a small library got ready, played, next, paused; "❓ Kviz": a pick by next, a
                        question again by previous; browsed as Android Auto does: two tabs, each session played);
-                       "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
+                       "scene-building" a building's scene (the hut's kitchen, a house's room …) with the building in
+                       its top bar, its card opened from there; "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
@@ -622,6 +623,47 @@ def scene():
     assert tap("Na sredino · Recenter", 3), "recenter in the scene"
     time.sleep(1.5)
     assert tap("‹ Vas · Village", 3), "back from the scene"
+    assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
+
+
+def building_scenes() -> list:
+    """The scenes that open from a building (a house's room, the hut's kitchen, the smithy …), not from the fire or a spot of
+    the land: those the dev bridge serves, else the repo's."""
+    try:
+        scenes = api("/scenes")
+    except (OSError, RuntimeError, ValueError):
+        scenes = [json.loads(p.read_text()) for p in sorted((ROOT / "companion/scenes").glob("*.json"))]
+    open_air = {"fire", "forest", "field", "stream", "pond", "meadow", "alps", "hills", "lake", "sea", "spot"}
+    return [s["id"] for s in scenes if isinstance(s, dict) and any(f not in open_air and not f.startswith("spot:") for f in s.get("from", []))]
+
+
+def scene_building():
+    """A building's scene (a room of a house, the hut's kitchen, the smithy …) shows the building in its top bar, its emoji
+    and level (⬆️ when its upgrade can be done now): a tap opens its card, the upgrade a tap away without going back to
+    the village; back closes the card, and back again leads to the village."""
+    card = "kartica in nadgradnja"
+    for sid in building_scenes()[:8]:
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"scene:{sid}")
+        if not wait_for("‹ Vas · Village", 8):
+            continue
+        if wait_for(card, 3):
+            break
+        tap("‹ Vas · Village", 3)
+    else:
+        return "skipped: no scene of a building the village has"
+    time.sleep(1.5)
+    pill = next((t for t, _ in nodes() if card in t), "")
+    print(f"    {pill}")
+    shot("scene-building")
+    assert tap(card, 3), "the building in the scene's top bar"
+    assert wait_for("V dobrem stanju", 8) or find("Popravi") or find("Najvišja stopnja"), "its card"
+    time.sleep(1)
+    shot("scene-building-card")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.2)
+    assert find(card) is not None, "back in the scene, the card closed"
+    assert tap("‹ Vas · Village", 3), "back from the scene"
+    plain_village()  # past the village's first-time intro and its news, when this step runs alone
     assert wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3), "back in the village"
 
 
@@ -2623,6 +2665,7 @@ def plan():
         ("villagers", villagers, v, False, ""),
         ("place-card", place_card, v, True, ""),
         ("scene", scene, v, False, ""),
+        ("scene-building", scene_building, v, False, ""),
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("ispy", ispy, v, False, ""),

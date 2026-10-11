@@ -178,8 +178,8 @@ fun VillageScreen(vm: AppViewModel) {
         (goal as? NextGoal.Build)?.let { si.lanisce.lani.game.Placement.plotFor(s, it.option.type) }
             ?: (0 until PLOTS_PER_AGE[s.age.ordinal]).firstOrNull { p -> s.buildings.none { it.type.onPlot && it.plot == p } }
     }
-    // back from a building's words run: its card again, the upgrade one tap away
-    var sheet by remember { mutableStateOf<VillageSheet?>(vm.takeBuildingCard()?.let { VillageSheet.Building(it) }) }
+    // back from a building's words run: its card again, the upgrade one tap away; from a building's card in a scene, the ages
+    var sheet by remember { mutableStateOf<VillageSheet?>(vm.takeBuildingCard()?.let { VillageSheet.Building(it) } ?: VillageSheet.Ages.takeIf { vm.takeAgesCard() }) }
     /** The plot chooser over the map: a building to put on a plot, or one to move (see [PlotBar]). */
     var choosing by remember { mutableStateOf<Choosing?>(null) }
     var ceremony by remember { mutableStateOf<Age?>(null) }
