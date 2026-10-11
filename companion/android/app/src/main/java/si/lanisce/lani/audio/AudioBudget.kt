@@ -89,6 +89,12 @@ class Room(private var left: Long?) {
         return true
     }
 
+    /** [bytes] counted before came free (a re-voiced line's earlier clip went once its new one came). */
+    @Synchronized
+    fun give(bytes: Long) {
+        left = left?.plus(bytes)
+    }
+
     /** What is left (null: no limit). */
     val remaining: Long? @Synchronized get() = left
 }

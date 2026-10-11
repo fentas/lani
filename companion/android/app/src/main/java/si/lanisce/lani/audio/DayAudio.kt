@@ -143,9 +143,12 @@ object DayAudio {
     /** How a line stands on the phone: in its wanted voice, in another of its voices, or not at all. */
     enum class Stand { WANTED, OTHER, MISSING }
 
-    /** [w] on the phone: its clips in the store's voice ([resolve]) all there ([has]). */
-    fun stand(index: ClipIndex, w: DayWant, has: (String) -> Boolean): Stand {
-        val v = w.voices.firstOrNull { voice -> Clips.resolve(index, w.text, voice)?.all { has(fileOf(it)) } == true } ?: return Stand.MISSING
+    /**
+     * [w] on the phone: its clips in the store's voice ([resolve]) all there ([has]); a re-voiced phrase's earlier clip
+     * ([previous], [PreviousClips]) counts while its new one isn't here, as it plays then.
+     */
+    fun stand(index: ClipIndex, w: DayWant, previous: ClipIndex = emptyMap(), has: (String) -> Boolean): Stand {
+        val v = w.voices.firstOrNull { voice -> PreviousClips.pick(index, previous, w.text, voice, has) != null } ?: return Stand.MISSING
         return if (v == w.voices.first()) Stand.WANTED else Stand.OTHER
     }
 

@@ -44,6 +44,11 @@ data class PrefetchStatus(
  * 4. they're got ([ClipFiles]: linked from the car's library when it has them, else downloaded [atOnce] at a time), today's
  *    first, then tomorrow's, while [room] lets them in ([AudioBudget.room]); the clips played longest ago make room
  *    ([AudioFiles.trim]).
+ *
+ * A line the node re-voiced since the phone's index ([before], its copy on disk) keeps its earlier clip on the phone until
+ * the new one is here ([PreviousClips]): the day keeps it too and the line counts as on the phone with it, each line's
+ * audio counted once; the run still downloads the new one, and the earlier one goes as it comes (its bytes back in the
+ * room), unless the app still plays it ([referenced]: its index, when it is open).
  */
 class PrefetchRun(
     private val files: AudioFiles,
@@ -53,6 +58,8 @@ class PrefetchRun(
     private val download: suspend (url: String, to: File) -> Unit,
     private val clock: () -> Long = System::currentTimeMillis,
     private val atOnce: Int = 4,
+    private val before: ClipIndex? = null,
+    private val referenced: () -> Set<String> = PreviousClips::appFiles,
 ) {
     /** The store's index with what the node voiced during the run. */
     var updated: ClipIndex = index
@@ -60,6 +67,8 @@ class PrefetchRun(
 
     suspend fun run(days: List<DayList>): PrefetchStatus {
         val today = days.firstOrNull() ?: return PrefetchStatus(at = clock(), problem = "no day")
+        // 0. the lines re-voiced since the phone's index: their earlier clips play until the new ones are here
+        before?.let { b -> runCatching { PreviousClips.swapIn(files, listOf(b), index, referenced()) } }
         var idx = index
         var voiced = 0
         // 1. the node voices what it lacks, today's first
@@ -92,12 +101,14 @@ class PrefetchRun(
         // 2. each line's clips, 3. kept
         val perDay = days.map { d -> d.wants.mapNotNull { DayAudio.resolve(idx, it)?.second }.flatten().distinct() }
         val urlOf = perDay.flatten().associateBy(DayAudio::fileOf)
-        files.writeKeep(urlOf.keys)
+        // with the earlier clips standing in for lines whose new ones aren't here yet
+        val standIns = standIns(days, idx)
+        files.writeKeep(urlOf.keys + standIns)
         // 4. today's files, then tomorrow's, while they fit
         val limit = AudioBudget.limit(cap)
         val road = if (limit == null || AudioBudget.cacheOnly(cap)) emptyList() else files.roadFiles(maxAgeMs = 0)
         val cache = files.cacheFiles(ids = road.isNotEmpty())
-        val room = Room(limit?.let { AudioBudget.room(cache, road, it, urlOf.keys) })
+        val room = Room(limit?.let { AudioBudget.room(cache, road, it, urlOf.keys + standIns) })
         val roadNames = road.mapTo(HashSet()) { it.name }
         var downloaded = 0
         var bytes = 0L
@@ -107,6 +118,7 @@ class PrefetchRun(
         for ((i, urls) in perDay.withIndex()) {
             val todo = urls.map(DayAudio::fileOf).distinct().filter { !File(files.clips, it).isFile }
             for (batch in todo.chunked(atOnce)) {
+                if (standIns.isNotEmpty() && room.remaining?.let { it <= 0 } == true) settle(idx, room, standIns, roadNames)
                 if (room.remaining?.let { it <= 0 } == true) break
                 val got = coroutineScope {
                     batch.map { name ->
@@ -126,6 +138,8 @@ class PrefetchRun(
                 }
                 for ((name, ok, size) in got) {
                     if (!ok) { failed++; continue }
+                    // short of room: the earlier clips whose new ones came make some first
+                    if (standIns.isNotEmpty() && room.remaining?.let { it < size } == true) settle(idx, room, standIns, roadNames)
                     if (!room.take(size)) {
                         File(files.clips, name).delete()
                         continue
@@ -134,20 +148,45 @@ class PrefetchRun(
                     bytes += size
                 }
                 if (room.full) break
-                if (downloaded > 0 && downloaded % TRIM_EVERY < atOnce) files.trim(cap)
+                if (downloaded > 0 && downloaded % TRIM_EVERY < atOnce) {
+                    settle(idx, room, standIns, roadNames)
+                    files.trim(cap)
+                }
             }
             if (room.full && i == 0) tomorrow = false
             if (room.full) break
         }
+        settle(idx, room, standIns, roadNames)
+        // the day keeps the earlier clips only of the lines whose new ones didn't come
+        if (standIns.isNotEmpty()) files.writeKeep(urlOf.keys + standIns(days, idx))
         files.trim(cap)
         // how today's lines stand on the phone now
-        val stands = today.wants.map { DayAudio.stand(idx, it) { name -> File(files.clips, name).isFile } }
+        val here = PreviousClips.onPhone(files)
+        val previous = PreviousClips.read(files.clips)
+        val stands = today.wants.map { DayAudio.stand(idx, it, previous, here) }
         return PrefetchStatus(
             at = clock(), day = today.day, wants = today.wants.size,
             wanted = stands.count { it == DayAudio.Stand.WANTED }, other = stands.count { it == DayAudio.Stand.OTHER },
             missing = stands.count { it == DayAudio.Stand.MISSING }, downloaded = downloaded, bytes = bytes, voiced = voiced,
             tomorrow = tomorrow && !room.full, full = room.full, failed = failed,
         )
+    }
+
+    /** The earlier clips standing in for the lines of [days] on the phone now ([PreviousClips.standIns]). */
+    private fun standIns(days: List<DayList>, idx: ClipIndex): Set<String> {
+        val previous = PreviousClips.read(files.clips)
+        if (previous.isEmpty()) return emptySet()
+        val here = PreviousClips.onPhone(files)
+        return days.flatMap { d -> d.wants.flatMap { PreviousClips.standIns(idx, previous, it, here) } }.toSet()
+    }
+
+    /**
+     * The earlier clips whose new ones came go ([PreviousClips.settleIn]); those the room counted ([counted], not the car's
+     * library's too) give their bytes back.
+     */
+    private fun settle(idx: ClipIndex, room: Room, counted: Set<String>, roadNames: Set<String>) {
+        val freed = runCatching { PreviousClips.settleIn(files, idx, referenced()) }.getOrDefault(emptyMap())
+        room.give(freed.filterKeys { it in counted && it !in roadNames }.values.sum())
     }
 
     companion object {

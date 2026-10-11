@@ -753,7 +753,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /**
      * What QA asks of the offline audio in a debug build (app/QaHooks, "audio:<what>"): "prefetch" the day's plan made and its
-     * clips got now, "voice" the offline voice downloaded, "say:<text>" / "slow:<text>" a text said as a 🔊 says it.
+     * clips got now, "voice" the offline voice downloaded, "say:<text>" / "slow:<text>" a text said as a 🔊 says it,
+     * "revoice:<text>|<url>" its narrator clip re-voiced on the phone's side to <url> (else one the node hasn't got), as the
+     * node's re-voice swaps it ([Clips.qaRevoice]), "refresh" the node's index again.
      */
     fun qaAudio(what: String) {
         when {
@@ -761,6 +763,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             what == "voice" -> offlineAudio.downloadVoice()
             what.startsWith("say:") -> speaker.say(what.removePrefix("say:"))
             what.startsWith("slow:") -> speaker.say(what.removePrefix("slow:"), slow = true)
+            what.startsWith("revoice:") -> what.removePrefix("revoice:").split('|', limit = 2).let { clips.qaRevoice(it[0], it.getOrNull(1)?.takeIf(String::isNotBlank)) }
+            what == "refresh" -> clips.refresh()
         }
     }
 

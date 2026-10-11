@@ -34,7 +34,9 @@ import si.lanisce.lani.audio.AudioFiles
 import si.lanisce.lani.audio.AudioSettings
 import si.lanisce.lani.audio.ClipFiles
 import si.lanisce.lani.audio.Piper
+import si.lanisce.lani.audio.PreviousClips
 import si.lanisce.lani.audio.Room
+import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.ClipsApi
 import si.lanisce.lani.data.Prefs
 import si.lanisce.lani.l10n.Lang
@@ -155,6 +157,12 @@ class RoadPrepService : Service() {
                 store.clearPlan()
                 // the library grew: the clip cache makes room under the cap (the least recently played clips go)
                 files.forgetRoad()
+                // a re-voiced line's new clip the library got: the cache's earlier one goes (each line's audio once)
+                runCatching {
+                    val index = PreviousClips.appIndex?.invoke()?.takeIf { it.isNotEmpty() }
+                        ?: Clips.parseIndex(File(files.clips, Clips.INDEX).readText())
+                    PreviousClips.settleIn(files, index)
+                }
                 runCatching { files.trim(AudioSettings(this@RoadPrepService).cap) }
             }
             RoadPrepState.library = result.library

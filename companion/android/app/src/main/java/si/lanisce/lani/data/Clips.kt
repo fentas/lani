@@ -1,6 +1,7 @@
 package si.lanisce.lani.data
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
@@ -22,6 +24,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import si.lanisce.lani.audio.AudioFiles
 import si.lanisce.lani.audio.AudioSettings
 import si.lanisce.lani.audio.ClipFiles
+import si.lanisce.lani.audio.PreviousClips
 import java.io.File
 import java.io.IOException
 import java.util.UUID
@@ -123,7 +126,8 @@ class ClipsApi(private val config: BridgeConfig) {
  * (voice-clips/, which Android doesn't clear behind the learner's back): the clips played and the day's clips got ready on
  * Wi-Fi ([si.lanisce.lani.audio.Prefetch]), the least recently used dropped beyond the learner's cap
  * ([si.lanisce.lani.audio.AudioCap]; with it off, beyond [MAX_BYTES] as before). [Speaker.say] plays them when there is no
- * family recording.
+ * family recording. A line the node re-voiced keeps playing its earlier clip on the phone until the new one is here
+ * ([PreviousClips]).
  */
 class Clips(context: Context, private val scope: CoroutineScope) {
     private val files = AudioFiles(context.filesDir)
@@ -146,9 +150,13 @@ class Clips(context: Context, private val scope: CoroutineScope) {
     private var fresh = false
 
     init {
+        val me = java.lang.ref.WeakReference(this)
+        PreviousClips.appIndex = { me.get()?.index.orEmpty() }
         scope.launch {
-            val cached = withContext(Dispatchers.IO) { loadIndex() }
+            val cached = withContext(Dispatchers.IO) { loadIndex().also { PreviousClips.read(dir) } }
             if (!fresh) index = cached + index // phrases voiced meanwhile stay
+            // a line's new clip that came meanwhile (the car's library got it): its earlier one goes
+            withContext(Dispatchers.IO) { settle() }
         }
     }
 
@@ -191,10 +199,17 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         scope.launch {
             // A bad index must not crash the app: parse inside the catch, write the file off the main thread.
             val (raw, parsed) = withContext(Dispatchers.IO) { runCatching { a.index().let { it to parseIndex(it) } }.getOrNull() } ?: return@launch
+            val before = index
+            withContext(Dispatchers.IO) {
+                val disk = loadIndex()
+                runCatching { File(dir, INDEX).writeText(raw) }
+                // the lines re-voiced since: their earlier clips on the phone play until the new ones are here
+                runCatching { PreviousClips.swapIn(files, listOf(disk, before), parsed, referenced = emptySet()) }
+            }
             index = parsed
             fresh = true
             misses.clear()
-            withContext(Dispatchers.IO) { runCatching { File(dir, INDEX).writeText(raw) } }
+            renewFailed.clear()
         }
     }
 
@@ -202,14 +217,70 @@ class Clips(context: Context, private val scope: CoroutineScope) {
 
     fun file(url: String) = File(dir, url.substringAfterLast('/'))
 
+    /** A clip [name] on the phone: in the clip cache, or in the car's library (then linked into the cache: one file). */
+    private fun here(name: String): Boolean = File(dir, name).isFile || File(files.roadClips, name).isFile
+
+    /** [name] in the clip cache, linked from the car's library when only it has it; null when neither has it. */
+    private fun local(name: String): File? {
+        val f = File(dir, name)
+        if (f.isFile) return f
+        val road = File(files.roadClips, name)
+        return if (road.isFile && AudioFiles.link(road, f)) f else null
+    }
+
     /**
      * The clips for [text] in the first of [voices] that has them (see [chain]), when all are on the
-     * phone already (marked as used, for the LRU).
+     * phone already (marked as used, for the LRU). A line re-voiced on the node whose new clip isn't here yet plays its
+     * earlier clip, when that is here ([PreviousClips]); online the new one is fetched meanwhile, for the next time.
      */
     fun onDevice(text: String, voices: List<String>): List<File>? {
-        val files = resolveFirst(index, text, voices)?.second?.map { file(it) }?.takeIf { fs -> fs.all { it.exists() } } ?: return null
-        files.forEach { it.setLastModified(System.currentTimeMillis()) }
-        return files
+        val (got, stale) = local(text, voices) ?: return null
+        stale?.let(::renew)
+        return got
+    }
+
+    /** [onDevice]'s files, and the voice whose new clip is worth getting when an earlier clip stands in. */
+    private fun local(text: String, voices: List<String>): Pair<List<File>, Pair<String, String>?>? {
+        val idx = index
+        val voice = resolveFirst(idx, text, voices)?.first ?: return null
+        val pick = PreviousClips.pick(idx, PreviousClips.known(dir), text, voice, ::here) ?: return null
+        val got = pick.urls.map { local(PreviousClips.fileOf(it)) ?: return null }
+        val now = System.currentTimeMillis()
+        got.forEach { it.setLastModified(now) }
+        if (pick.stale) Log.i(TAG, "earlier clip stands in: ${Voice.normalize(text)} ($voice): ${pick.old.joinToString { PreviousClips.fileOf(it) }}")
+        return got to (text to voice).takeIf { pick.stale }
+    }
+
+    /**
+     * QA (a debug build, app/QaHooks "audio:revoice:<text>|<url>"): [text]'s clip in the female narrator's voice gets a new
+     * URL, [url] or one the node doesn't have, as a re-voice on the node would, through the same swap as [refresh].
+     */
+    fun qaRevoice(text: String, url: String? = null) {
+        val idx = index
+        val keys = keys(idx, text, FEMALE) ?: return Unit.also { Log.w(TAG, "qa revoice: no clip of $text") }
+        val new = idx + keys.associateWith { k ->
+            idx.getValue(k) + (FEMALE to (url ?: "/voice/file/${UUID.nameUUIDFromBytes("qa|$k".toByteArray()).toString().replace("-", "")}qa00000000.mp3"))
+        }
+        scope.launch {
+            withContext(Dispatchers.IO) { runCatching { PreviousClips.swapIn(files, listOf(idx), new, referenced = emptySet()) } }
+            index = new
+            misses.clear()
+            renewFailed.clear()
+            Log.i(TAG, "qa revoice: ${keys.joinToString()} → ${keys.map { new.getValue(it).getValue(FEMALE) }}; earlier: ${PreviousClips.known(dir).filterKeys { it in keys }}")
+        }
+    }
+
+    /** Lines whose new clip couldn't be fetched in the background lately (normalized text|voice → when): not asked again soon. */
+    private val renewFailed = ConcurrentHashMap<String, Long>()
+
+    /** [line] (text, voice) played an earlier clip: its new one comes in the background (online), so the next play has it. */
+    private fun renew(line: Pair<String, String>) {
+        val (text, voice) = line
+        val key = missKey(text, voice)
+        val now = System.currentTimeMillis()
+        if (!online || missedRecently(text, listOf(voice)) || renewFailed[key]?.let { now - it < MISS_MS } == true) return
+        val work = fetchOnce(text, listOf(voice))
+        scope.launch { if (work.await() == null) renewFailed[key] = System.currentTimeMillis() }
     }
 
     fun missedRecently(text: String, voices: List<String>): Boolean {
@@ -220,12 +291,13 @@ class Clips(context: Context, private val scope: CoroutineScope) {
     /**
      * Gets the clips for [text] in the first of [voices] (downloading them, or asking the node to voice the
      * phrases it hasn't got in it; another of [voices] only when the node can't, see [pick]) and hands them to
-     * [then] within [waitMs], or null so the caller speaks otherwise now. The work goes on in the background
-     * either way, so the clip is there next time.
+     * [then] within [waitMs]; when they don't come in time (or can't be had), a re-voiced line's earlier clip on the phone
+     * ([onDevice]), else null so the caller speaks otherwise now. The work goes on in the background either way, so the
+     * clip is there next time.
      */
     fun prepare(text: String, voices: List<String>, waitMs: Long = WAIT_MS, then: (List<File>?) -> Unit) {
         val work = fetchOnce(text, voices)
-        scope.launch { then(withTimeoutOrNull(waitMs) { work.await() }) }
+        scope.launch { then(withTimeoutOrNull(waitMs) { work.await() } ?: local(text, voices.take(1))?.first) }
     }
 
     /**
@@ -260,6 +332,10 @@ class Clips(context: Context, private val scope: CoroutineScope) {
                     return null
                 }
                 val key = Voice.normalize(p)
+                // the node answered in another voice with a newer clip than the index's: the earlier one stands in meanwhile
+                index[key]?.get(r.second)?.takeIf { it != r.first }?.let { old ->
+                    runCatching { PreviousClips.replacedIn(files, key, r.second, old, r.first) }
+                }
                 withContext(Dispatchers.Main) { index = index + (key to (index[key].orEmpty() + (r.second to r.first))) }
                 got += r.first
             }
@@ -273,7 +349,19 @@ class Clips(context: Context, private val scope: CoroutineScope) {
             f
         }
         trim()
+        // a re-voiced line's new clip is here: its earlier one goes, once it isn't playing (it just played, often: again then)
+        val keys = (listOf(text) + parts(text)).mapTo(HashSet()) { Voice.normalize(it) }
+        settle(only = keys)
+        if (PreviousClips.known(dir).keys.any { it in keys }) scope.launch(Dispatchers.IO) {
+            delay(PreviousClips.BUSY_MS + 1_000)
+            settle(only = keys)
+        }
         return got
+    }
+
+    /** A pass over the earlier clips against the index ([PreviousClips.settleIn]): those whose new clip is here go. */
+    private fun settle(only: Set<String>? = null) {
+        runCatching { PreviousClips.settleIn(files, index, referenced = emptySet(), only = only) }
     }
 
     /**
@@ -299,6 +387,9 @@ class Clips(context: Context, private val scope: CoroutineScope) {
 
         override fun put(key: String, voice: String, url: String) {
             this@Clips.index = this@Clips.index + (key to (this@Clips.index[key].orEmpty() + (voice to url)))
+            // asked for anew: no earlier clip stands in for it any more (the old take is dropped on purpose)
+            val idx = this@Clips.index
+            scope.launch(Dispatchers.IO) { runCatching { PreviousClips.forgetIn(dir, key, voice, idx) } }
         }
 
         override suspend fun drop(url: String) {
@@ -349,6 +440,7 @@ class Clips(context: Context, private val scope: CoroutineScope) {
     companion object {
         const val FEMALE = "female"
         const val MALE = "male"
+        private const val TAG = "Clips"
 
         /**
          * The clips were in the app's cache (cache/voice-clips) before the cap: moved once into the files (one rename on the
@@ -419,11 +511,16 @@ class Clips(context: Context, private val scope: CoroutineScope) {
             voices.firstNotNullOfOrNull { v -> resolve(index, text, v)?.let { v to it } }
 
         /** Clip URLs for [text] in [voice]: one for the whole text, or one per phrase when all have one. */
-        fun resolve(index: ClipIndex, text: String, voice: String): List<String>? {
-            index[Voice.normalize(text)]?.get(voice)?.let { return listOf(it) }
+        fun resolve(index: ClipIndex, text: String, voice: String): List<String>? =
+            keys(index, text, voice)?.map { index.getValue(it).getValue(voice) }
+
+        /** The phrase keys (normalized) whose clips in [voice] say [text] ([resolve]): the whole text's, or each phrase's. */
+        fun keys(index: ClipIndex, text: String, voice: String): List<String>? {
+            val whole = Voice.normalize(text)
+            if (index[whole]?.get(voice) != null) return listOf(whole)
             val ps = Voice.phrases(text)
             if (ps.size < 2) return null
-            return ps.map { index[Voice.normalize(it)]?.get(voice) ?: return null }
+            return ps.map { p -> Voice.normalize(p).takeIf { index[it]?.get(voice) != null } ?: return null }
         }
 
         /**

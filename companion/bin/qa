@@ -23,7 +23,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
-                       pulled into the run's folder; airplane mode off again after)
+                       pulled into the run's folder; airplane mode off again after); "previous-clip" a line's clip
+                       re-voiced (QA's hook "audio:revoice:…"): its old clip plays offline and until the new one came,
+                       then goes
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -2250,6 +2252,87 @@ def offline_voice():
         time.sleep(3)
 
 
+def previous_clip():
+    """A re-voiced line keeps its old clip until the new one is here (companion/README.md, "Offline on the phone"): a line
+    with both narrators' clips on the dev bridge is said once (its female clip downloaded), then re-voiced on the phone's
+    side to a URL the bridge hasn't got (QA's "audio:revoice:…", the swap the app's refresh does): previous.json keeps
+    the old clip, and with airplane mode on the line plays it (the log's "earlier clip stands in"), not the phone's voice;
+    online too, as the new one can't be had. Then re-voiced to the male clip of the same line, which the bridge has: said
+    online the old clip plays, the new one downloads for the next play, and a minute later the old file is gone.
+    "audio:refresh" takes the bridge's index again."""
+    go_home()
+    on_phone = lambda: set(run_as("ls", "files/voice-clips").split())  # noqa: E731
+    name = lambda url: url.rsplit("/", 1)[-1]  # noqa: E731
+
+    def serves(url: str) -> bool:
+        req = urllib.request.Request(f"http://127.0.0.1:{PORT}{url}", headers={"authorization": f"Bearer {TOKEN}"})
+        try:
+            with urllib.request.urlopen(req, timeout=10) as r:
+                return r.status == 200 and len(r.read()) > 0
+        except Exception:
+            return False
+
+    have = on_phone()
+    line = next((k for k, v in sorted(api("/voice/index").items(), key=lambda kv: len(kv[0]))
+                 if re.fullmatch(r"[a-zčšž ]{4,24}", k) and "female" in v and "male" in v and name(v["female"]) not in have
+                 and name(v["male"]) not in have and v["female"] != v["male"] and serves(v["female"]) and serves(v["male"])), None)
+    if line is None:
+        return "no line with both narrators' clips on the dev bridge that the phone hasn't got"
+    clips = api("/voice/index")[line]
+    old, new = name(clips["female"]), clips["male"]
+    print(f"    the line «{line}»: {old}, re-voiced to a URL the bridge hasn't got, then to {name(new)}")
+
+    def earlier() -> dict:
+        raw = run_as("cat", "files/voice-clips/previous.json")
+        return json.loads(raw).get(line, {}) if raw.strip().startswith("{") else {}
+
+    def said(times=1) -> list:
+        adb("logcat", "-c")
+        for _ in range(times):
+            qa_hook(f"'audio:say:{line}'")
+            time.sleep(3 * slow())
+        return [l.split(": ", 1)[-1] for l in adb("logcat", "-d", "-s", "Clips:*", check=False).splitlines() if "earlier clip stands in" in l]
+
+    qa_hook(f"'audio:say:{line}'")
+    end = time.time() + 30 * slow()
+    while time.time() < end and old not in on_phone():
+        time.sleep(1)
+    assert old in on_phone(), f"the line's clip {old} wasn't downloaded"
+    qa_hook(f"'audio:revoice:{line}'")
+    time.sleep(2 * slow())
+    assert name(earlier().get("female", "")) == old, f"previous.json doesn't keep {old}: {earlier()}"
+    adb("shell", "cmd", "connectivity", "airplane-mode", "enable")
+    try:
+        time.sleep(3)
+        stood = said()
+        assert any(line in l and old in l for l in stood), f"offline the old clip didn't play: {stood}"
+        print(f"    offline: {stood[-1]}")
+    finally:
+        adb("shell", "cmd", "connectivity", "airplane-mode", "disable")
+        time.sleep(6)
+    stood = said()
+    assert any(old in l for l in stood), f"online, the new clip not to be had, the old one didn't play: {stood}"
+    assert old in on_phone() and name(earlier().get("female", "")) == old, "the old clip went before a new one came"
+    # a new take the bridge has: the old one plays once more, the new one comes for the next play, then the old one goes
+    qa_hook(f"'audio:revoice:{line}|{new}'")
+    time.sleep(2 * slow())
+    assert name(earlier().get("female", "")) == old, f"the chain lost the old clip: {earlier()}"
+    stood = said()
+    assert any(old in l for l in stood), f"the old clip didn't play while the new one came: {stood}"
+    end = time.time() + 30 * slow()
+    while time.time() < end and name(new) not in on_phone():
+        time.sleep(1)
+    assert name(new) in on_phone(), "the new clip wasn't downloaded in the background"
+    stood = said()
+    assert not stood, f"the new clip is here, yet the old one played: {stood}"
+    end = time.time() + 90 * slow()
+    while time.time() < end and (old in on_phone() or earlier()):
+        time.sleep(3)
+    assert old not in on_phone() and not earlier(), f"the old clip stayed after the new one came: {earlier()}"
+    print(f"    the new clip came and played; the old one went {round(90 * slow() - (end - time.time()))} s later")
+    qa_hook("audio:refresh")
+
+
 def road():
     """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind and eight quiz questions from the dev
     bridge, the files got in the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says
@@ -2578,6 +2661,7 @@ def plan():
         ("offline-audio", offline_audio, go_home, False, ""),
         ("prefetch", prefetch, go_home, False, ""),
         ("offline-voice", offline_voice, go_home, False, ""),
+        ("previous-clip", previous_clip, go_home, False, ""),
     ]
 
 

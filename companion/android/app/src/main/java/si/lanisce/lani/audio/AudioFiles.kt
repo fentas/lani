@@ -10,7 +10,7 @@ import java.nio.file.attribute.BasicFileAttributes
  * Lani's audio files on the phone (all in the app's files, not its cache, so Android never clears them behind the learner's
  * back) and how they're kept under the cap ([AudioBudget]):
  * - voice-clips/: the clip cache ([si.lanisce.lani.data.Clips]): the clips played, and the day's clips got ready ahead
- *   ([Prefetch]);
+ *   ([Prefetch]); the re-voiced lines' earlier clips that play until their new ones are here ([PreviousClips]);
  * - road/clips, road/prompts, road/spoken: the car's library ([si.lanisce.lani.road.RoadStore]);
  * - audio/: the day's plan ([DayPlan]), the clips it keeps (keep.txt) and what the last prefetch did (status.json).
  * A clip in both the cache and the car's library is one file with two names (a hard link), counted once.
@@ -53,7 +53,8 @@ class AudioFiles(val filesDir: File) {
 
     /**
      * Drops the clip cache's least recently used clips until everything fits under [cap] ([AudioBudget.evict]): with the cap
-     * off, the cache alone to its old 50 MB; unlimited, nothing. Returns how many went.
+     * off, the cache alone to its old 50 MB; unlimited, nothing. Returns how many went. A re-voiced line's earlier clip that
+     * went no longer stands in for it ([PreviousClips]).
      */
     fun trim(cap: AudioCap): Int {
         val limit = AudioBudget.limit(cap) ?: return 0
@@ -61,6 +62,7 @@ class AudioFiles(val filesDir: File) {
         val cache = cacheFiles(ids = others.isNotEmpty())
         val drop = AudioBudget.evict(cache, others, limit, keep())
         drop.forEach { File(clips, it).delete() }
+        runCatching { PreviousClips.droppedIn(clips, drop) }
         return drop.size
     }
 
