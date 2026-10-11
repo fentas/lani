@@ -1527,6 +1527,12 @@ export type VoiceOptions = {
 /** Carrier re-voices a day, by default (about 360 subscription characters: eleven_v3 counts about half of 720 sent). */
 export const DEFAULT_REVOICE_DAILY = 40
 
+/** The day's re-voice cap the node set (LANI_VOICE_REVOICE_DAILY, a whole number, 0: none), else undefined: the default. */
+export function revoiceDaily(env: Record<string, string | undefined> = process.env): number | undefined {
+  const v = Number(env.LANI_VOICE_REVOICE_DAILY?.trim() || NaN)
+  return Number.isInteger(v) && v >= 0 ? v : undefined
+}
+
 /**
  * Of the day's cap, what the lazy re-voice leaves for Jan's re-records on request (the app's long press on 🔊): a
  * quarter, at most 10. So a re-record goes first even on a day the lazy re-voice has much to do.

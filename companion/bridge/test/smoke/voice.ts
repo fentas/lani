@@ -8,7 +8,7 @@ import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, redoKept, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, redoKept, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -882,6 +882,9 @@ export default async function voice() {
         trimChain({ secs: 1, lead: 0.02, tail: 0.3 }) === 'atrim=end=0.800,asetpts=PTS-STARTPTS,afade=t=out:st=0.790:d=0.01' && trimChain({ secs: 1, lead: 0.04, tail: 0.05 }) === '' && trimChain({ secs: 1, lead: 1, tail: 0 }) === '' &&
         trimmable({ secs: 1, lead: 0.08, tail: 0 }) && !trimmable({ secs: 1, lead: 0.08, tail: 0 }, true) && trimmable({ secs: 1, lead: 0.12, tail: 0 }, true) && !trimmable({ secs: 1, lead: 0.02, tail: 0.18 }, true) && trimmable({ secs: 1, lead: 0.02, tail: 0.25 }, true) && !trimmable({ secs: 1, lead: 1, tail: 0 }) && !ffmpegEdges('off'),
       [trimChain({ secs: 1.44, lead: 0.5, tail: 0.3 }), trimChain({ secs: 1, lead: 0.02, tail: 0.3 })])
+    check('the day\'s re-voice cap as the node set it (LANI_VOICE_REVOICE_DAILY; the bridge and voice-build read it alike): a whole number, 0 for none; nothing or a wrong value: the default',
+      revoiceDaily({ LANI_VOICE_REVOICE_DAILY: '100' }) === 100 && revoiceDaily({ LANI_VOICE_REVOICE_DAILY: ' 0 ' }) === 0 && revoiceDaily({}) === undefined &&
+        revoiceDaily({ LANI_VOICE_REVOICE_DAILY: '' }) === undefined && revoiceDaily({ LANI_VOICE_REVOICE_DAILY: 'lots' }) === undefined && revoiceDaily({ LANI_VOICE_REVOICE_DAILY: '-3' }) === undefined && revoiceDaily({ LANI_VOICE_REVOICE_DAILY: '2.5' }) === undefined)
     const narratorLog: string[] = []
     check('the narrators of a Slovene village: their Slovene ElevenLabs voices first (LANI_VOICE_NARRATOR_SL=elevenlabs, the default), or the local voice first (gepard); a wrong value is logged and the default taken; another village\'s as its cast has them',
       sloveneNarrators('sl', {}) === 'elevenlabs' && sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'gepard' }) === 'gepard' && sloveneNarrators('sl', { LANI_VOICE_NARRATOR_SL: 'elevenlabs' }) === 'elevenlabs' &&
