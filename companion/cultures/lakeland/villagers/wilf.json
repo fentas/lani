@@ -22,15 +22,15 @@
   ],
   "lines": {
     "greet": [
-      { "en": "Hello there, {m:son|f:lass}.", "sl": "{m:Pozdravljen|f:Pozdravljena}, {m:sinko|f:hčerka}.", "it": "Salve, {m:figliolo|f:figliola}.", "de": "Grüß dich, {m:mein Junge|f:mein Mädchen}.", "level": 0 },
+      { "en": "Hello there, {m:son|f:lass}.", "sl": "{m:Pozdravljen|f:Pozdravljena}!", "it": "Salve, {m:figliolo|f:figliola}.", "de": "Grüß dich, {m:mein Junge|f:mein Mädchen}.", "level": 0 },
       { "en": "Hello. Sit here, by the fire.", "sl": "Živjo. Sedi sem, k ognju.", "it": "Ciao. Siediti qui, vicino al fuoco.", "de": "Hallo. Setz dich hierher, ans Feuer.", "level": 0 },
       { "en": "Ah, there you are. Sit down, sit down.", "sl": "A, tu si. Sedi, sedi.", "it": "Ah, eccoti. Siediti, siediti.", "de": "Ah, da bist du ja. Setz dich, setz dich.", "level": 1 },
-      { "en": "There you are, {m:son|f:lass}. I've got a new story today.", "sl": "Tu si, {m:sinko|f:hčerka}. Danes imam novo zgodbo.", "it": "Eccoti, {m:figliolo|f:figliola}. Oggi ho una storia nuova.", "de": "Da bist du ja, {m:mein Junge|f:mein Mädchen}. Heute habe ich eine neue Geschichte.", "level": 2 },
+      { "en": "There you are, {m:son|f:lass}. I've got a new story today.", "sl": "Tu si. Danes imam novo zgodbo.", "it": "Eccoti, {m:figliolo|f:figliola}. Oggi ho una storia nuova.", "de": "Da bist du ja, {m:mein Junge|f:mein Mädchen}. Heute habe ich eine neue Geschichte.", "level": 2 },
       { "en": "My friend! Bess was waiting for you. And so was I.", "sl": "{m:Moj prijatelj|f:Moja prijateljica}! Bess te je čakala. In jaz tudi.", "it": "{m:Amico mio|f:Amica mia}! Bess ti aspettava. E anch'io.", "de": "{m:Mein Freund|f:Meine Freundin}! Bess hat auf dich gewartet. Und ich auch.", "level": 3 },
       { "en": "Ah, it's you. You're like {m:a grandson|f:a granddaughter} to me. Sit by me.", "sl": "A, ti si. Zame si kot {m:vnuk|f:vnukinja}. Sedi k meni.", "it": "Ah, sei tu. Per me sei come {m:un nipote|f:una nipote}. Siediti vicino a me.", "de": "Ah, du bist es. Du bist wie {m:ein Enkel|f:eine Enkelin} für mich. Setz dich zu mir.", "level": 4 }
     ],
     "thanks": [
-      { "en": "Thank you, {m:son|f:lass}. Help is worth more than gold.", "sl": "Hvala, {m:sinko|f:hčerka}. Pomoč je več vredna kot zlato.", "it": "Grazie, {m:figliolo|f:figliola}. Un aiuto vale più dell'oro.", "de": "Danke, {m:mein Junge|f:mein Mädchen}. Hilfe ist mehr wert als Gold." },
+      { "en": "Thank you, {m:son|f:lass}. Help is worth more than gold.", "sl": "Hvala. Pomoč je več vredna kot zlato.", "it": "Grazie, {m:figliolo|f:figliola}. Un aiuto vale più dell'oro.", "de": "Danke, {m:mein Junge|f:mein Mädchen}. Hilfe ist mehr wert als Gold." },
       { "en": "Thank you. You're a good {m:lad|f:lass}.", "sl": "Hvala. {m:Dober fant|f:Dobro dekle} si.", "it": "Grazie. Sei {m:un bravo ragazzo|f:una brava ragazza}.", "de": "Danke. Du bist {m:ein guter Junge|f:ein gutes Mädchen}." },
       { "en": "Thank you from the bottom of my heart.", "sl": "Iz srca hvala.", "it": "Grazie di cuore.", "de": "Ich danke dir von Herzen." }
     ],
@@ -43,7 +43,7 @@
       { "en": "Slow and steady wins the race.", "sl": "Počasi se daleč pride.", "it": "Chi va piano va sano e va lontano.", "de": "Langsam, aber sicher kommt man ans Ziel." },
       { "en": "Bess is asleep under the oak. So am I, a little.", "sl": "Bess spi pod hrastom. Jaz tudi, malo.", "it": "Bess dorme sotto la quercia. Anch'io, un po'.", "de": "Bess schläft unter der Eiche. Ich auch, ein bisschen." },
       { "en": "Aye, I've climbed Scafell Pike twenty times.", "sl": "Ja, na Scafell Pike sem se povzpel dvajsetkrat.", "it": "Sì, sono salito sullo Scafell Pike venti volte.", "de": "Ja, ich war zwanzigmal oben auf dem Scafell Pike." },
-      { "en": "'I wandered lonely as a cloud …' That's Wordsworth, {m:son|f:lass}.", "sl": "»Samoten sem taval kot oblak …« To je Wordsworth, {m:sinko|f:hčerka}.", "it": "«Vagavo solitario come una nuvola …» È Wordsworth, {m:figliolo|f:figliola}.", "de": "„Ich wanderte einsam wie eine Wolke …“ Das ist Wordsworth, {m:mein Junge|f:mein Mädchen}." }
+      { "en": "'I wandered lonely as a cloud …' That's Wordsworth, {m:son|f:lass}.", "sl": "»Samoten sem taval kot oblak …« To je Wordsworth.", "it": "«Vagavo solitario come una nuvola …» È Wordsworth, {m:figliolo|f:figliola}.", "de": "„Ich wanderte einsam wie eine Wolke …“ Das ist Wordsworth, {m:mein Junge|f:mein Mädchen}." }
     ],
     "cheer": [
       { "en": "Well done.", "sl": "Bravo.", "it": "{m:Bravo|f:Brava}.", "de": "Gut gemacht." },
@@ -56,28 +56,28 @@
       { "en": "I make mistakes too, you know. Once more.", "sl": "Tudi jaz se motim, veš. Še enkrat.", "it": "Anch'io sbaglio, sai. Ancora una volta.", "de": "Ich mache auch Fehler, weißt du. Noch einmal." }
     ],
     "listen": [
-      { "en": "Listen, {m:son|f:lass} …", "sl": "Poslušaj, {m:sinko|f:hčerka} …", "it": "Ascolta, {m:figliolo|f:figliola} …", "de": "Hör zu, {m:mein Junge|f:mein Mädchen} …" },
+      { "en": "Listen, {m:son|f:lass} …", "sl": "Poslušaj …", "it": "Ascolta, {m:figliolo|f:figliola} …", "de": "Hör zu, {m:mein Junge|f:mein Mädchen} …" },
       { "en": "Can you hear the wind on the fell? Listen.", "sl": "Slišiš veter na hribu? Poslušaj.", "it": "Senti il vento sul monte? Ascolta.", "de": "Hörst du den Wind auf dem Berg? Hör zu." },
       { "en": "Listen carefully, then answer.", "sl": "Dobro poslušaj, potem odgovori.", "it": "Ascolta bene, poi rispondi.", "de": "Hör gut zu, dann antworte." }
     ],
     "bye": [
-      { "en": "Bye, {m:son|f:lass}.", "sl": "Adijo, {m:sinko|f:hčerka}.", "it": "Ciao, {m:figliolo|f:figliola}.", "de": "Tschüss, {m:mein Junge|f:mein Mädchen}." },
+      { "en": "Bye, {m:son|f:lass}.", "sl": "Adijo.", "it": "Ciao, {m:figliolo|f:figliola}.", "de": "Tschüss, {m:mein Junge|f:mein Mädchen}." },
       { "en": "Good night. Tomorrow there's another story by the fire.", "sl": "Lahko noč. Jutri bo ob ognju nova zgodba.", "it": "Buonanotte. Domani c'è un'altra storia accanto al fuoco.", "de": "Gute Nacht. Morgen gibt es am Feuer eine neue Geschichte.", "when": ["evening", "night"] },
-      { "en": "Have a good day, {m:son|f:lass}. Tonight there's another story by the fire.", "sl": "Lep dan, {m:sinko|f:hčerka}. Nocoj bo ob ognju nova zgodba.", "it": "Buona giornata, {m:figliolo|f:figliola}. Stasera c'è un'altra storia accanto al fuoco.", "de": "Einen schönen Tag, {m:mein Junge|f:mein Mädchen}. Heute Abend gibt es am Feuer eine neue Geschichte.", "when": ["morning", "afternoon"] },
+      { "en": "Have a good day, {m:son|f:lass}. Tonight there's another story by the fire.", "sl": "Lep dan. Nocoj bo ob ognju nova zgodba.", "it": "Buona giornata, {m:figliolo|f:figliola}. Stasera c'è un'altra storia accanto al fuoco.", "de": "Einen schönen Tag, {m:mein Junge|f:mein Mädchen}. Heute Abend gibt es am Feuer eine neue Geschichte.", "when": ["morning", "afternoon"] },
       { "en": "Off you go. And say hello to Granny Maggie.", "sl": "Pojdi, pojdi. In pozdravi babico Maggie.", "it": "Vai, vai. E saluta nonna Maggie.", "de": "Geh nur. Und grüß Oma Maggie." }
     ],
     "gift": {
       "liked": [
-        { "en": "Oh, {m:son|f:lass}. How did you know? I like it a lot.", "sl": "O, {m:sinko|f:hčerka}. Kako si {m:vedel|f:vedela}? Zelo mi je všeč.", "it": "Oh, {m:figliolo|f:figliola}. Come lo sapevi? Mi piace tanto.", "de": "Oh, {m:mein Junge|f:mein Mädchen}. Woher wusstest du das? Das mag ich sehr." },
+        { "en": "Oh, {m:son|f:lass}. How did you know? I like it a lot.", "sl": "O! Kako si {m:vedel|f:vedela}? Zelo mi je všeč.", "it": "Oh, {m:figliolo|f:figliola}. Come lo sapevi? Mi piace tanto.", "de": "Oh, {m:mein Junge|f:mein Mädchen}. Woher wusstest du das? Das mag ich sehr." },
         { "en": "A small gift, a big heart. Thank you.", "sl": "Majhno darilo, veliko srce. Hvala.", "it": "Piccolo regalo, grande cuore. Grazie.", "de": "Kleines Geschenk, großes Herz. Danke." },
         { "en": "Well, well. Bess, look what {m:he's|f:she's} brought me!", "sl": "No, no. Bess, poglej, kaj mi je {m:prinesel|f:prinesla}!", "it": "Bene, bene. Bess, guarda cosa mi ha portato!", "de": "Na so was. Bess, schau mal, was {m:er|f:sie} mir gebracht hat!" }
       ],
       "ordinary": [
-        { "en": "Thank you, {m:son|f:lass}. Sit here, next to me.", "sl": "Hvala, {m:sinko|f:hčerka}. Sedi sem, k meni.", "it": "Grazie, {m:figliolo|f:figliola}. Siediti qui, vicino a me.", "de": "Danke, {m:mein Junge|f:mein Mädchen}. Setz dich hierher, zu mir." },
+        { "en": "Thank you, {m:son|f:lass}. Sit here, next to me.", "sl": "Hvala, {m:sinko|f:{learner}}. Sedi sem, k meni.", "it": "Grazie, {m:figliolo|f:figliola}. Siediti qui, vicino a me.", "de": "Danke, {m:mein Junge|f:mein Mädchen}. Setz dich hierher, zu mir." },
         { "en": "Thank you. It's the thought that counts.", "sl": "Hvala. Šteje misel.", "it": "Grazie. È il pensiero che conta.", "de": "Danke. Der Gedanke zählt." }
       ],
       "rare": [
-        { "en": "Oh, {m:son|f:lass} … Nobody has given me anything like this for years. Thank you.", "sl": "O, {m:sinko|f:hčerka} … Kaj takega nisem dobil že veliko let. Hvala.", "it": "Oh, {m:figliolo|f:figliola} … Una cosa così non la ricevo da tanti anni. Grazie.", "de": "Ach, {m:mein Junge|f:mein Mädchen} … So etwas hat mir seit Jahren keiner geschenkt. Danke." }
+        { "en": "Oh, {m:son|f:lass} … Nobody has given me anything like this for years. Thank you.", "sl": "O, {m:sinko|f:{learner}} … Kaj takega nisem dobil že veliko let. Hvala.", "it": "Oh, {m:figliolo|f:figliola} … Una cosa così non la ricevo da tanti anni. Grazie.", "de": "Ach, {m:mein Junge|f:mein Mädchen} … So etwas hat mir seit Jahren keiner geschenkt. Danke." }
       ]
     }
   }
