@@ -130,6 +130,8 @@ class SimulationTest {
         const val NEW_MODULE_EVERY = 5
         /** Saving for the next age starts this many words before its milestone (about one pack). */
         const val NEAR_WORDS = 6
+        /** What trades may bring of a resource at most, as a share of all of it that came in (GAME.md, "Trading"). */
+        const val MAX_TRADED_SHARE = 0.15f
     }
 
     /** Cards for village runs plus drills from the curated modules (cloze, reorder, multi, speak). */
@@ -176,8 +178,12 @@ class SimulationTest {
         val starved get() = Res.entries.any { r -> res.getValue(r) < caps.getValue(r) * 0.25 }
     }
 
-    private inner class Sim(val profile: Profile, val days: Int = DAYS, seed: Long = 7, gameSeed: Long = 42) {
+    private inner class Sim(val profile: Profile, val days: Int = DAYS, seed: Long = 7, gameSeed: Long = 42, val trading: Boolean = false) {
         val learner = Learner(seed)
+        /** The answers in a trade's run ([trade]), on their own dice: the rest of the day plays as it would. */
+        private val trader = Learner(seed + 3)
+        /** Trades done ([trading]), and what came in by them. */
+        var trades = 0
         /** The answers when polishing rusty words, on their own dice: the rest of the day plays as it would. */
         private val polisher = Learner(seed + 1)
         /** The answers to Luka's request to move the tent (TentMove), on their own dice too. */
@@ -494,6 +500,7 @@ class SimulationTest {
                 bonus("events", before)
                 return
             }
+            if (trading && trade()) return
             val need = need()
             val open = s.quests.filter { it.source == QuestSource.LOCAL && !it.done && it.id != TentMove.ID }
             // a request paying what's needed; while friends are missing for the next age, the friend-to-be's first
@@ -513,6 +520,35 @@ class SimulationTest {
             }
             train(WORKERS[need]?.takeIf { id -> present().any { it.id == id } } ?: companion())
             play("gathering", GameEngine.gatherChallenge(s, need, pool()))
+        }
+
+        /**
+         * A trade's run instead of a village run (game/Trade, GAME.md "Trading"), once a session: when a store is (nearly)
+         * full while what the player saves for lacks another resource, the fullest store's surplus for the largest
+         * shortfall, about as much as a run of 4 of 6 needs to cover it (at least 10), never what the player keeps of it
+         * unless that store is full anyway. True when its run was played (in place of the village run).
+         */
+        private fun trade(): Boolean {
+            if (s.trades?.on == today.toString()) return false
+            val caps = GameEngine.attributes(s).caps
+            val give = Res.entries.filter { s.res(it) >= caps.getValue(it) * 0.9 }.maxByOrNull { s.res(it).toFloat() / caps.getValue(it) } ?: return false
+            val (get, short) = goal().mapValues { (r, n) -> n - s.res(r) }.filter { (r, n) -> r != give && n > 0 }.maxByOrNull { it.value } ?: return false
+            val l = Trade.limit(s, give, get, today)
+            if (!l.available) return false
+            val full = s.res(give) >= caps.getValue(give) * 0.95
+            val spare = if (full) l.max else (s.res(give) - (reserve()[give] ?: 0)).coerceAtLeast(0)
+            val amount = minOf(l.max, spare, (short * 100 + 64) / 65)
+            if (amount < 10) return false
+            val c = Trade.challenge(s, give, get, amount, pool(), today) ?: return false
+            train(WORKERS[get]?.takeIf { id -> present().any { it.id == id } } ?: companion())
+            val results = c.skills.map { it to trader.verdict(0.75, 0.10) }
+            credit("trade runs", results)
+            val before = s
+            val (after, d) = Trade.settle(s, give, get, amount, results.count { it.second == Verdict.CORRECT }, results.size, results.size, today, now)
+            s = after
+            bonus("trades", before)
+            if (d.traded) trades++
+            return true // the run took the session's slot, traded or not
         }
 
         // --- the player's choices ------------------------------------------------------------
@@ -817,7 +853,8 @@ class SimulationTest {
             " | surprises $surprises, festivals $festivals, bought $bought" +
             " | rusty ${rows.maxOfOrNull { it.rusty } ?: 0} at most, $polished polished in $polishes sessions" +
             " | events ${s.stats.eventsWon}/${s.stats.eventsLost} | ${s.buildings.size} buildings, levels ${s.buildings.sumOf { it.level }}" +
-            " | 🤝 ${s.stats.helpEarned} earned, ${s.stats.mobas} mobas | tools ${s.chest.tools.size}, forged ${s.chest.tools.values.sumOf { it.forged }} | friends ${Bonds.friends(s)}"
+            " | 🤝 ${s.stats.helpEarned} earned, ${s.stats.mobas} mobas | tools ${s.chest.tools.size}, forged ${s.chest.tools.values.sumOf { it.forged }} | friends ${Bonds.friends(s)}" +
+            (if (trading) " | trades $trades: " + (income["trades"] ?: emptyMap<Res, Int>()).entries.joinToString(" ") { (r, n) -> "${r.emoji}$n" } else "")
     }
 
     private fun sim(p: Profile, days: Int = DAYS) = Sim(p, days).run().also { it.print() }
@@ -888,6 +925,34 @@ class SimulationTest {
             if (System.getenv("SIM_TRACE") == "${p.name}:$seed") sim.print()
             assertPacing(sim)
             if (p === binge) assertTrue("recovers within two active days: ${sim.recovery()}", sim.recovery().all { it <= 2 })
+        }
+    }
+
+    /**
+     * The same learners (every profile, seven villages and lucks) trading (game/Trade, GAME.md "Trading"): a trade's run
+     * instead of a village run when a store overflows while what the player saves for lacks another resource. The pacing
+     * holds (the ages still wait for their words), a store sits at its cap while another is nearly empty no longer than
+     * without trading, and trading doesn't stand in for practice: what came in by trades stays a small share of each
+     * resource ([MAX_TRADED_SHARE]).
+     */
+    @Test fun `trading keeps the pacing`() {
+        for (seed in 0L..6L) for (p in listOf(casual, committed, binge, noTalk)) {
+            val plain = if (seed == 0L) Sim(p).run() else Sim(p, seed = seed * 31, gameSeed = seed).run()
+            val sim = if (seed == 0L) Sim(p, trading = true).run() else Sim(p, seed = seed * 31, gameSeed = seed, trading = true).run()
+            println("seed $seed ${sim.summary()}\n        without trading: capped days ${plain.active.count { it.capped }}, while starved ${plain.capped}, full ${plain.fullStores}")
+            if (System.getenv("SIM_TRACE") == "trading:${p.name}:$seed") sim.print()
+            assertPacing(sim)
+            // a store stuck at its cap while another is nearly empty: never longer than without trading
+            assertTrue("seed $seed ${p.name}: capped while starved ${sim.capped}, without trading ${plain.capped}", sim.capped <= plain.capped)
+            // what came in by trades is a small share of each resource: practice still brings the village
+            val traded = sim.income["trades"].orEmpty()
+            val share = Res.entries.associateWith { r -> (traded[r] ?: 0).toFloat() / sim.income.values.sumOf { it[r] ?: 0 }.coerceAtLeast(1) }
+            println("        traded share " + share.entries.joinToString(" ") { (r, f) -> "${r.emoji}${(f * 100).toInt()}%" })
+            assertTrue("seed $seed ${p.name}: traded share $share", share.values.all { it <= MAX_TRADED_SHARE })
+            if (p === committed) {
+                val wisdom = sim.income.mapValues { it.value[Res.WISDOM] ?: 0 }
+                assertTrue("talk is still the best 📜 source: $wisdom", wisdom.getValue("talk") >= 2 * wisdom.filterKeys { it != "talk" }.values.max())
+            }
         }
     }
 

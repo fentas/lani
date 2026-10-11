@@ -93,6 +93,8 @@ sealed interface ChallengeOrigin {
     data object Surprise : ChallengeOrigin
     /** A station of the treasure hunt ([station]: its id, see game/Treasure). */
     data class Treasure(val station: String) : ChallengeOrigin
+    /** "⇄ Zamenjaj · Trade": [amount] of [give] for [get], after a short run of both skills (see game/Trade). */
+    data class Trade(val give: Res, val get: Res, val amount: Int) : ChallengeOrigin
 }
 
 enum class Link { CONNECTING, ONLINE, OFFLINE }

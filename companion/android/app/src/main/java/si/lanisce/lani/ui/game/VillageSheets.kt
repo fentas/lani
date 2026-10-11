@@ -286,8 +286,12 @@ fun BuildingSheet(
     }
 }
 
+/**
+ * A resource's sheet (the HUD's chip): what's in store, what the village uses, "Nabiraj · Gather" it, and [onTrade]: "⇄
+ * Zamenjaj · Trade" it for another ([TradeSheet], companion/GAME.md "Trading").
+ */
 @Composable
-fun ResourceSheet(s: GameState, attrs: Attributes, res: Res, onGather: () -> Unit, onDismiss: () -> Unit) {
+fun ResourceSheet(s: GameState, attrs: Attributes, res: Res, onGather: () -> Unit, onDismiss: () -> Unit, onTrade: (() -> Unit)? = null) {
     val cap = attrs.caps[res]
     val prod = attrs.production[res] ?: 1f
     Sheet(onDismiss) {
@@ -306,6 +310,11 @@ fun ResourceSheet(s: GameState, attrs: Attributes, res: Res, onGather: () -> Uni
         }
         Text(bi("villageSheets.everyCorrectSkillAnswer", "skillSlAt" to res.skillAt(), "resEmoji" to res.emoji, "skill" to res.skillName()), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         BigButton(bi("villageScreen.gather", "resEmoji" to res.emoji), onClick = onGather, color = AlpineGreen)
+        onTrade?.let { trade ->
+            androidx.compose.material3.OutlinedButton(onClick = trade, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                Text("⇄ ${bi("trade.open")}")
+            }
+        }
     }
 }
 

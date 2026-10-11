@@ -129,6 +129,8 @@ sealed interface VillageSheet {
     /** "🏗️ Skupni projekti · Village projects", at [focus] (a project id) or the first. */
     data class Projects(val focus: String? = null) : VillageSheet
     data class Resource(val res: Res) : VillageSheet
+    /** "⇄ Zamenjaj · Trade", from resource [from]'s sheet: one resource for another after a short run (game/Trade). */
+    data class Trade(val from: Res) : VillageSheet
     data class Building(val id: String) : VillageSheet
 }
 
@@ -631,7 +633,15 @@ fun VillageScreen(vm: AppViewModel) {
             onDismiss = { sheet = VillageSheet.Chest },
             onReadAloud = { sheet = null; vm.openReadAloud(sh.readable.reading.id, fromVillage = true, fromCorner = false) },
         )
-        is VillageSheet.Resource -> ResourceSheet(s, attrs, sh.res, onGather = { sheet = null; vm.startGather(sh.res) }, onDismiss = { sheet = null })
+        is VillageSheet.Resource -> ResourceSheet(
+            s, attrs, sh.res, onGather = { sheet = null; vm.startGather(sh.res) }, onDismiss = { sheet = null },
+            onTrade = { sheet = VillageSheet.Trade(sh.res) },
+        )
+        is VillageSheet.Trade -> TradeSheet(
+            s, sh.from, canSpeak = vm.speaker.canSay,
+            onStart = { give, get, amount -> sheet = null; vm.startTrade(give, get, amount) },
+            onDismiss = { sheet = VillageSheet.Resource(sh.from) },
+        )
         is VillageSheet.Projects -> {
             // the projects' words: their packs as the node has them (loaded for the sheet: which are learned), else as the
             // app bundles them; and where today's step is played, when the village has its scene open

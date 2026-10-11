@@ -1371,6 +1371,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /** A gathering run; [again] (once more, from its result) skips the intro. */
     fun startGather(res: Res, again: Boolean = false) = startChallenge(ChallengeOrigin.Gather(res), again)
+
+    /** "⇄ Zamenjaj · Trade": [amount] of [give] for [get], after a short run of both skills (companion/GAME.md, "Trading"). */
+    fun startTrade(give: Res, get: Res, amount: Int) = startChallenge(ChallengeOrigin.Trade(give, get, amount))
     fun startEvent() = startChallenge(ChallengeOrigin.Event)
 
     /**

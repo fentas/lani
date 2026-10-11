@@ -211,6 +211,21 @@ internal object Catalog {
     const val PEDLAR_OFFERS = 2
     const val PEDLAR_STOCK = 2
     const val RARE_STOCK = 1
+    // --- trading one resource for another (see Trade) ---------------------------------------------------
+
+    /** A trade's run: this many untimed exercises, the giving resource's skill and the getting one's in turn. */
+    const val TRADE_EXERCISES = 6
+    /** What one given brings, in hundredths: the base rate, also after a run under half right (no wall, a worse deal) … */
+    const val TRADE_BASE = 50
+    /** … plus this much for the whole run right, shared among its answers (0.05 a right answer of six), from half right … */
+    const val TRADE_RUN_BONUS = 30
+    /** … plus the market's (Tržnica, from Trg, as it buys goods) … */
+    const val TRADE_MARKET = 10
+    /** … times the better trades (Vida's scales, as the merchant's), never more than one for one: the merchant's 2× stays the better deal. */
+    const val TRADE_MAX = 100
+    /** At most this share of a store goes in one trade (once a day for each resource given). */
+    const val TRADE_MAX_SHARE = 0.5f
+
     /** A rare good (a festival's, the pedlar's) given to someone who likes it: twice a good's ♥. */
     const val RARE_GIFT_POINTS = 10
     /** The rare goods the pedlar brings (one a visit): the culture's (surprises.json, pedlar.goods). */

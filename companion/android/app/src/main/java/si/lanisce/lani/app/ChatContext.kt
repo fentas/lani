@@ -73,7 +73,7 @@ object ExerciseSource {
         }
     }
 
-    /** "event", "gather:food", "quest:<id>", "project:<id>", "festival:<id>", "surprise". */
+    /** "event", "gather:food", "quest:<id>", "project:<id>", "festival:<id>", "surprise", "treasure:<station>", "trade:food-wood". */
     fun originName(o: ChallengeOrigin): String = when (o) {
         ChallengeOrigin.Event -> "event"
         is ChallengeOrigin.Gather -> "gather:${o.res.name.lowercase()}"
@@ -82,6 +82,7 @@ object ExerciseSource {
         is ChallengeOrigin.Festival -> "festival:${o.id}"
         ChallengeOrigin.Surprise -> "surprise"
         is ChallengeOrigin.Treasure -> "treasure:${o.station}"
+        is ChallengeOrigin.Trade -> "trade:${o.give.name.lowercase()}-${o.get.name.lowercase()}"
     }
 
     fun visitRequest(town: String, requestId: String, index: Int): JsonObject = buildJsonObject {

@@ -384,6 +384,11 @@ data class GameState(
      * card a day, whatever the game); gone the next day.
      */
     val playReviews: PlayReviewDay? = null,
+    /**
+     * The resources traded away today (see [Trade]: one trade a day for each resource given); gone the next day. An older
+     * save has none, and an older bridge keeps it as it is.
+     */
+    val trades: TradeDay? = null,
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

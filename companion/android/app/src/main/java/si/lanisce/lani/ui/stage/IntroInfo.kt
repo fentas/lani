@@ -22,6 +22,8 @@ import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.Localized
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
+import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.game.progressText
 import si.lanisce.lani.ui.game.whyText
 import kotlin.math.ceil
@@ -187,6 +189,26 @@ object Intros {
             emoji = c.emoji,
             title = c.title.removePrefix("${c.emoji} "),
             request = request(who, run),
+            story = notes(c.intro),
+            practice = practice(c.exercises, c.skills),
+            pays = Pays(answers = answers(c.exercises, c.skills), bond = bond),
+        )
+    }
+
+    /**
+     * A trade's run ("⇄ Zamenjaj · Trade", companion/GAME.md "Trading"): who works where [get] comes from asks for a little
+     * practice first; the story says what goes out, what may come in and how the answers set the rate. [bond]: friendship
+     * points a session on the stage still brings today.
+     */
+    fun trade(get: Res, c: Challenge, who: StagePerson, bond: Int): IntroInfo {
+        val run = Run.Gather(get)
+        return IntroInfo(
+            kind = IntroKind.GATHER,
+            who = who,
+            place = StagePlace.of(run, who),
+            emoji = c.emoji,
+            title = c.title.removePrefix("${c.emoji} "),
+            request = Said(inTarget("trade.ask"), inBase("trade.ask")),
             story = notes(c.intro),
             practice = practice(c.exercises, c.skills),
             pays = Pays(answers = answers(c.exercises, c.skills), bond = bond),

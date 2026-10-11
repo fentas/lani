@@ -42,6 +42,8 @@ data class Reward(
     /** How often the run's text (the day's letter) was brought back while a question was open, and the percent it took off. */
     val looks: Int = 0,
     val lookCost: Int = 0,
+    /** A trade's run ("⇄ Zamenjaj · Trade"): what went out and came in, and the rate its answers set (game/Trade). */
+    val trade: si.lanisce.lani.game.TradeDeal? = null,
 ) {
     /** All the 🤝 this run brought. */
     val helpEarned: Int get() = help + (result?.takeIf { it.won }?.help ?: 0)

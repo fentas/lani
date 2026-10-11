@@ -58,10 +58,10 @@ class ChatContextTest {
 
     @Test fun `every challenge origin has a name`() {
         assertEquals(
-            listOf("event", "gather:wood", "quest:q1", "project:most", "festival:kres", "surprise"),
+            listOf("event", "gather:wood", "quest:q1", "project:most", "festival:kres", "surprise", "trade:food-wood"),
             listOf(
                 ChallengeOrigin.Event, ChallengeOrigin.Gather(Res.WOOD), ChallengeOrigin.Quest("q1"), ChallengeOrigin.Project("most"),
-                ChallengeOrigin.Festival("kres"), ChallengeOrigin.Surprise,
+                ChallengeOrigin.Festival("kres"), ChallengeOrigin.Surprise, ChallengeOrigin.Trade(Res.FOOD, Res.WOOD, 100),
             ).map(ExerciseSource::originName),
         )
     }

@@ -175,12 +175,15 @@ private class ChallengeRun(
     val run: Run, val quest: Quest?, private val event: EventKind?,
     /** Why the request waits in "Later", when it does (its intro says so). */
     private val why: QuestQueue.Why? = null,
+    /** A trade's run: who works where its resource comes from asks (game/Trade). */
+    private val trade: ChallengeOrigin.Trade? = null,
     private val task: ((Challenge, StagePerson) -> IntroInfo)? = null,
 ) {
     fun info(c: Challenge, who: StagePerson, bond: Int): IntroInfo = when {
         task != null -> task.invoke(c, who)
         quest != null -> Intros.quest(quest, c, who, why)
         event != null -> Intros.event(event, c, who, bond)
+        trade != null -> Intros.trade(trade.get, c, who, bond)
         else -> Intros.gather((run as? Run.Gather)?.res ?: c.skills.firstOrNull() ?: Res.FOOD, c, who, bond)
     }
 
@@ -196,6 +199,8 @@ private class ChallengeRun(
                     ?: ChallengeRun(Run.Review, null, null)
                 ChallengeOrigin.Event -> s?.event?.kind?.let { ChallengeRun(Run.Event(it), null, it) } ?: ChallengeRun(Run.Review, null, null)
                 is ChallengeOrigin.Gather -> ChallengeRun(Run.Gather(origin.res), null, null)
+                // on the stage: who works where the resource to get comes from (the forest's shepherd for wood)
+                is ChallengeOrigin.Trade -> ChallengeRun(Run.Gather(origin.get), null, null, trade = origin)
                 is ChallengeOrigin.Project -> {
                     val spec = Projects.spec(origin.id)
                     val o = if (s != null && spec != null) Projects.option(s, spec, today) else null
@@ -250,7 +255,10 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
     val treasure = origin is ChallengeOrigin.Treasure
     val back: () -> Unit = if (treasure) ({ vm.openTreasure(vm.treasure.fromVillage) }) else vm::village
     BackHandler(onBack = back)
+    val trade = r.trade.takeIf { origin is ChallengeOrigin.Trade }
     val (emoji, title) = when {
+        trade != null && won -> "🤝" to bi("trade.traded")
+        trade != null -> "🙂" to bi("trade.notTraded")
         treasure && won -> "🗺️" to bi("treasure.stationDone")
         treasure -> "🧭" to bi("treasure.stationBlocked")
         origin is ChallengeOrigin.Gather -> (if (r.earned.isNotEmpty()) "🧺" else "🍂") to (if (r.earned.isNotEmpty()) bi("challengeScreen.gathered") else bi("challengeScreen.emptyHanded"))
@@ -265,7 +273,8 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
         won -> "🏆" to bi("challengeScreen.victory")
         else -> "💔" to bi("challengeScreen.defeat")
     }
-    val gained = addRes(r.earned, if (won) result?.rewards.orEmpty() else emptyMap())
+    // a trade shows what went out and came in on its own card (TradeCard); the answers' pay below it, as any run's
+    val gained = addRes(r.earned, if (won && trade == null) result?.rewards.orEmpty() else emptyMap())
     val damaged = result?.damaged.orEmpty().mapNotNull { id -> vm.game.state?.buildings?.firstOrNull { it.id == id } }
     Box(Modifier.fillMaxSize().background(backdrop(origin, won = if (origin is ChallengeOrigin.Gather) null else won))) {
         Column(
@@ -284,7 +293,9 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             if (origin == ChallengeOrigin.Event && r.answered < r.total) {
                 Text("🏃 ${bi("challengeScreen.leftFight")}", color = Color.White.copy(alpha = 0.8f), style = MaterialTheme.typography.bodyMedium)
             }
-            result?.message?.let { Text(it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center) }
+            // traded: the chips and the rate say it all; else why nothing was traded
+            if (trade != null) TradeCard(trade, result?.message?.takeIf { !trade.traded })
+            else result?.message?.let { Text(it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center) }
             // a request, a project's step or a feast not passed: say so plainly, and what it takes (it stays open)
             val open = !won && (origin is ChallengeOrigin.Quest || origin is ChallengeOrigin.Project || origin is ChallengeOrigin.Festival || treasure)
             if (open && c.passMark > 0) Text(
@@ -307,7 +318,7 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             }
             // the thank-you good, the festival's, a friend's gift: presents to open, after the chips
             GiftReveals(remember(r) { GiftLogic.of(r) }, giftWords(vm), startDelayMs = giftDelayMs(gained.count { it.value > 0 }, 400))
-            val losses = result?.losses.orEmpty()
+            val losses = result?.losses.orEmpty().takeIf { trade == null }.orEmpty()
             if (losses.values.any { it > 0 }) {
                 Text(bi("challengeScreen.losses"), color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.labelLarge)
                 Surface(color = Color.White.copy(alpha = 0.92f), shape = MaterialTheme.shapes.large) {

@@ -648,6 +648,15 @@ class GameController(
             is ChallengeOrigin.Festival -> GameEngine.festivalChallenge(s, origin.id, LocalDate.now())
             ChallengeOrigin.Surprise -> GameEngine.surpriseChallenge(s, p, LocalDate.now()) { id -> cast().firstOrNull { it.id == id }?.name?.substringAfterLast(' ') ?: Chest.nameOf(s, id) }
             is ChallengeOrigin.Treasure -> treasureRun(origin.station)
+            is ChallengeOrigin.Trade -> {
+                // can't be traded now (traded away today, a full store): why, not "nothing to practise"
+                val l = si.lanisce.lani.game.Trade.limit(s, origin.give, origin.get, LocalDate.now())
+                if (!l.available) {
+                    notices.banner = "⇄ ${l.reason ?: bi("trade.tooLittle", "res" to origin.give.names)}"
+                    return null
+                }
+                si.lanisce.lani.game.Trade.challenge(s, origin.give, origin.get, origin.amount, p, LocalDate.now())
+            }
         }
         if (c == null || c.exercises.isEmpty()) {
             notices.banner = bi("gameController.nothingPractiseYet")
@@ -862,7 +871,14 @@ class GameController(
                 else -> null
             }
         }
+        // a trade: what went out and came in, at the rate its answers set (its answers are paid above, as any)
+        var deal: si.lanisce.lani.game.TradeDeal? = null
         val result = when (origin) {
+            is ChallengeOrigin.Trade -> state?.let { s ->
+                val (n, d) = si.lanisce.lani.game.Trade.settle(s, origin.give, origin.get, origin.amount, correct, total, verdicts.size, today, now)
+                deal = d
+                n to si.lanisce.lani.game.Trade.result(d)
+            }
             ChallengeOrigin.Event -> state?.let { GameEngine.resolveEvent(it, correct, total, now) }
             is ChallengeOrigin.Quest -> state?.let {
                 // the pages of the rules it missed (the request's own when its questions name none)
@@ -905,7 +921,7 @@ class GameController(
         }
         Reward(
             earned, result, correct, total, answered = verdicts.size, almost = verdicts.count { it == Verdict.ALMOST }, tired = tired, friend = friend, from = from,
-            looks = if (c.text != null) looks else 0, lookCost = cost,
+            looks = if (c.text != null) looks else 0, lookCost = cost, trade = deal,
         ).also { lastReward = it }
     }
 }
