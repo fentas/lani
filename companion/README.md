@@ -2482,6 +2482,7 @@ companion/bin/qa --steps visit                   # only the visit of the second 
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
+companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2519,6 +2520,22 @@ still bounces three seconds later, a `LaniSheet` springs once and rests where it
 `ModalBottomSheet` out of the app's code elsewhere. On the emulator, `companion/bin/qa --steps sheets-settle` flings
 Home, the tutor chat's sheet and the challenges' sheet into their ends (a monkey script's moves 8 ms apart: `input
 swipe` leaves a busy emulator's app no speed) and checks three screenshots half a second apart are the same.
+
+**The village's HUD** (GAME.md, "The village's HUD"). `ui/game/VillageHudLogicTest` checks what it shows and when (the
+row, the panel, the pill; the plot chooser minimizing it until its pill is tapped; the status chip's age, steps,
+festival and quiet day; the badges; what TalkBack reads). `ui/game/VillageHudTest` puts the HUD on a phone's screen
+under Robolectric with Compose's test rule (`ui-test-junit4`, test only; `ui-test-manifest`'s empty activity in debug
+builds): the row alone at first, under 60 dp, nothing of the panel; the chevron opening the panel and each of its chips,
+the goal's action and the news leading on and closing it; "Skrij vrstico" minimizing it, kept in `HudPrefs` for the
+next village screen, and the pill bringing the row back; a long press and TalkBack's action minimizing it too; the plot
+chooser minimizing it and giving it back, the learner's choice untouched; the badges in the status chip's and the
+pill's labels; and a tap outside the open panel closing it without reaching the map, a drag closing it and panning on.
+On the emulator, `companion/bin/qa --steps village-hud` (also after `ages` in a whole run) checks the row (its bottom
+under 400 px, where the old HUD's rows reached about 830 on the 1080 × 2400 emulator), opens the panel, taps the map
+below it (the panel closes, no card opens), minimizes the HUD, goes home and into the village again (still the pill),
+brings the row back, then opens the plot chooser through QA's hook `build:field` and checks the HUD is a pill and the
+★ lies between it and the chooser's bar, and that the row is back once the chooser is left. Screenshots:
+`hud-collapsed`, `hud-expanded`, `hud-minimized`, `hud-plot-chooser`.
 
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
@@ -2614,3 +2631,7 @@ happening hook: France's hare in the field at dawn (a burst of shots from the di
 hare leaps out and is off within four seconds), the pedlar on the road below the tower in the morning and walking in at
 the gate, Micka's hen flying onto Marko's cart and the tap turn that finds her there, Muri barking by the jetty and
 asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and said.
+
+`build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
+age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
+with its ★ (`village-hud` looks at the HUD minimized over it, then goes back: nothing is built). `build:` lets it go.
