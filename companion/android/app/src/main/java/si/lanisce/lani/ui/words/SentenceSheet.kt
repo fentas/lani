@@ -14,13 +14,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +34,7 @@ import si.lanisce.lani.game.SentenceGrammar
 import si.lanisce.lani.game.WordRow
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.Markdown
 import si.lanisce.lani.ui.SpeakButton
 
@@ -46,11 +44,10 @@ import si.lanisce.lani.ui.SpeakButton
  * where a rule knows ("after «v»: Kam? → 4. tožilnik"), and its page (📖, on a sheet over this one); the tutor's
  * explanation kept from an earlier question, and "💬 Vprašaj učitelja · Ask your tutor".
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SentenceSheet(vm: AppViewModel, card: SentenceCard) {
     val q = card.query
-    ModalBottomSheet(onDismissRequest = vm.sentences::close, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = vm.sentences::close) {
         Column(
             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(start = 20.dp, end = 20.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),

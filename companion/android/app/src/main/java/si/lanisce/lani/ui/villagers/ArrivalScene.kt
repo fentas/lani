@@ -12,11 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -38,6 +35,7 @@ import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.Confetti
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.scene.DialogMood
 import si.lanisce.lani.ui.scene.DialogPanel
 import si.lanisce.lani.ui.scene.DialogRun
@@ -56,7 +54,6 @@ import si.lanisce.lani.ui.stage.StagePlace
  * a word's card on a tap, the learner's turns with shuffled choices, a reaction to a wrong one); at its end the friendship
  * that starts, and a talk with them to go on with.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
     val talk = m.talk
@@ -83,8 +80,8 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
     // who the learner answers now: whoever spoke last (the newcomer at first)
     val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: id
     val pose = rememberPartnerPose(talk.run, talking != null && talking == facing, micOn)
-    ModalBottomSheet(onDismissRequest = vm.villagers::closeMeeting, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-        Box(Modifier.fillMaxWidth().fillMaxHeight(0.94f)) {
+    LaniSheet(onDismissRequest = vm.villagers::closeMeeting) {
+        Box(Modifier.fillMaxWidth().fillMaxHeight()) {
             Column(Modifier.matchParentSize()) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
                 DialogStage { Stage(people, id, talk.person.art, facing, pose, talking) }

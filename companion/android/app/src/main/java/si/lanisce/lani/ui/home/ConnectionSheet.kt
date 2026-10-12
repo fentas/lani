@@ -8,18 +8,16 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.ui.AmbienceSettings
 import si.lanisce.lani.ui.BigButton
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
@@ -29,12 +27,11 @@ import si.lanisce.lani.l10n.bi
  * to, and pairing again by QR code (a new code after the phone was unpaired, or instead of a typed token); and this
  * phone's settings: the languages, the background sounds, the offline audio.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit) {
     val p = vm.paired
     val learner = p?.learner?.takeIf { it.isNotBlank() } ?: vm.content.dashboard?.name
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = onDismiss) {
         Column(
             Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding(),
             verticalArrangement = Arrangement.spacedBy(10.dp),

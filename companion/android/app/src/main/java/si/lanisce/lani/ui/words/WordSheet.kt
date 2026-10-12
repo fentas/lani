@@ -12,15 +12,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +38,7 @@ import si.lanisce.lani.game.scene.StickerSpot
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inBase
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.theme.AlpineGreen
 
@@ -53,11 +51,10 @@ fun lookUpIn(vm: AppViewModel, line: String, en: String?, from: String): (WordTo
  * gender, part of speech and what this form is, the English, an example) with "➕ Add to my words", and where the
  * meanings come from. Not in the dictionary, or the node too old for lookups: the tutor is asked instead.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WordSheet(vm: AppViewModel, card: WordCard) {
     val q = card.query
-    ModalBottomSheet(onDismissRequest = vm.words::close, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = vm.words::close) {
         Column(
             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(start = 20.dp, end = 20.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),

@@ -7,11 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,6 +29,7 @@ import si.lanisce.lani.game.scene.Keepers
 import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.Confetti
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.stage.Backdrop
 import si.lanisce.lani.ui.stage.StagePlace
 import si.lanisce.lani.ui.villagers.VillagerPortrait
@@ -42,7 +40,6 @@ import si.lanisce.lani.ui.villagers.VillagerPortrait
  * played (DialogPanel: his lines typed in and voiced, a word's card on a tap, the choices shuffled, his reaction to a wrong
  * one, the 🎤), then what it paid. He is no villager: no friendship, and no talk with the tutor to go on with.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
     val talk = k.talk
@@ -61,8 +58,8 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
         talking = false
     }
     val pose = rememberPartnerPose(talk.run, talking, micOn)
-    ModalBottomSheet(onDismissRequest = vm.scenes::closeKeeper, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-        Box(Modifier.fillMaxWidth().fillMaxHeight(0.94f)) {
+    LaniSheet(onDismissRequest = vm.scenes::closeKeeper) {
+        Box(Modifier.fillMaxWidth().fillMaxHeight()) {
             Column(Modifier.matchParentSize()) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
                 DialogStage {

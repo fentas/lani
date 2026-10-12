@@ -22,17 +22,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -78,11 +75,9 @@ import java.time.ZoneId
  * messages: [ChatArchive]); a long press on a message bookmarks it, notes why, or replies to it; "🔖" lists the
  * bookmarks, and a tap on one (or on a reply's quote) goes to the message, opening the archive to it.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatSheet(vm: AppViewModel) {
     val chat = vm.chat
-    val sheet = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var input by remember { mutableStateOf(TextFieldValue("")) }
     val zone = remember { ZoneId.systemDefault() }
     // the app's day: past midnight, today's conversation starts afresh, also while the chat is open
@@ -136,8 +131,8 @@ fun ChatSheet(vm: AppViewModel) {
         }
     }
 
-    ModalBottomSheet(onDismissRequest = { chat.close() }, sheetState = sheet) {
-        Column(Modifier.fillMaxWidth().fillMaxHeight(0.85f).imePadding().padding(horizontal = 16.dp)) {
+    LaniSheet(onDismissRequest = { chat.close() }) {
+        Column(Modifier.fillMaxWidth().fillMaxHeight(0.9f).imePadding().padding(horizontal = 16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("💬 ${bi("common.yourTutor")}", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
                 TextButton(onClick = { showBookmarks = !showBookmarks }) {

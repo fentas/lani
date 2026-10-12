@@ -17,12 +17,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +47,7 @@ import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.villagers.Villager
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.BigButton
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.game.GiftLogic
 import si.lanisce.lani.ui.game.GiftReveals
@@ -76,7 +74,6 @@ private const val HAND_MS = 650
  * 🎤 as in a scene's dialog), the good goes over, and they answer in their voice (a good they like: a cheer and hearts,
  * a rare one: special joy, an ordinary one: warm thanks); then the hearts it brought, and a level's gift of theirs.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GiftScene(vm: AppViewModel, m: GiftMoment) {
     val v = vm.villagers.byId(m.villager) ?: return
@@ -100,7 +97,7 @@ fun GiftScene(vm: AppViewModel, m: GiftMoment) {
         delay((900L + 70L * r.sl.length).coerceAtMost(5_500L))
         talking = false
     }
-    ModalBottomSheet(onDismissRequest = vm.villagers::closeGift, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = vm.villagers::closeGift) {
         Column(
             Modifier.fillMaxWidth().heightIn(max = 720.dp).verticalScroll(rememberScrollState()).padding(start = 20.dp, end = 20.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),

@@ -23,13 +23,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +45,7 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.FamilyChallenge
 import si.lanisce.lani.data.Recording
 import si.lanisce.lani.data.Voice
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.l10n.bi
 
@@ -55,7 +53,6 @@ import si.lanisce.lani.l10n.bi
  * Home's "Družina · Family" tile opens this: the questions waiting for an answer, the latest answered ones
  * with the tutor's feedback, and the way into recording mode.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FamilySheet(vm: AppViewModel, onDismiss: () -> Unit) {
     val f = vm.family
@@ -65,7 +62,7 @@ fun FamilySheet(vm: AppViewModel, onDismiss: () -> Unit) {
         onDismiss()
         vm.openFamily(id)
     }
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = onDismiss) {
         Column(
             Modifier.navigationBarsPadding().verticalScroll(rememberScrollState()).padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),

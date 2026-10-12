@@ -20,12 +20,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +48,7 @@ import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.inRun
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.Markdown
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.words.WordText
@@ -333,14 +331,13 @@ private fun RuleTable(head: List<GrammarCell>, rows: List<List<GrammarCell>>, pa
  * A grammar page over whatever is on screen (opened from a "why", a challenge's intro, the scroll): the page on paper in
  * a sheet; related pages open in it.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GrammarSheet(vm: AppViewModel, id: String) {
     val view = vm.grammar.view(id) ?: return
     val pal = paper()
     val shelf = GrammarShelf(vm, vm.grammar.chapter(vm.game.state), vm.grammar::view, open = vm.grammar::show)
-    ModalBottomSheet(onDismissRequest = vm.grammar::close, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true), containerColor = pal.paper) {
-        Column(Modifier.fillMaxWidth().fillMaxHeight(0.9f).parchment(pal)) {
+    LaniSheet(onDismissRequest = vm.grammar::close, containerColor = pal.paper) {
+        Column(Modifier.fillMaxWidth().fillMaxHeight(0.95f).parchment(pal)) {
             Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 10.dp, top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.weight(1f)) { RuleTitle(view, pal, onBack = null) }
                 CloseSeal(pal, vm.grammar::close)

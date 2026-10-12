@@ -26,14 +26,11 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -102,6 +99,7 @@ import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.EmojiLabel
 import si.lanisce.lani.ui.Labels
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.villagers.VillagerLogic
 import si.lanisce.lani.ui.words.WordText
@@ -123,7 +121,6 @@ val Hand = FontFamily(Font(R.font.kalam_regular, FontWeight.Normal), Font(R.font
  * or clipped in with a caption by hand, the evenings to come "🔒 Naslednji večer · Next evening"; at its end "🎯 Preveri
  * se · Test yourself" ([BookQuizSheet]). A story heard at two levels offers both. [at]: where it opens.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotebookSheet(vm: AppViewModel, at: NotebookAt) {
     val look = if (isSystemInDarkTheme()) NotebookLook.NIGHT else NotebookLook.DAY
@@ -136,12 +133,8 @@ fun NotebookSheet(vm: AppViewModel, at: NotebookAt) {
     val scope = rememberCoroutineScope()
     val r = rememberRules()
     var quiz by remember { mutableStateOf<Pair<NotebookEntry, String>?>(null) }
-    ModalBottomSheet(
-        onDismissRequest = vm::closeNotebook,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = ink.paper,
-    ) {
-        Column(Modifier.fillMaxWidth().fillMaxHeight(0.94f)) {
+    LaniSheet(onDismissRequest = vm::closeNotebook, containerColor = ink.paper) {
+        Column(Modifier.fillMaxWidth().fillMaxHeight()) {
             Header(vm, ink)
             HorizontalPager(pager, Modifier.weight(1f).fillMaxWidth(), key = { if (it == 0) "contents" else entries[it - 1].id }) { page ->
                 if (page == 0) ContentsPage(entries, ink, r) { i -> scope.launch { pager.animateScrollToPage(i + 1) } }

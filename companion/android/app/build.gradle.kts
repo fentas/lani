@@ -272,6 +272,8 @@ android {
     // The unit tests read the curated content said to the learner it was written for before its placeholders (a man named
     // Jan): every text reads as it always did (l10n/Learner.kt; a test of another learner sets its own).
     testOptions {
+        // Robolectric with the app's and its libraries' resources: Material's sheet reads its strings (LaniSheetTest)
+        unitTests.isIncludeAndroidResources = true
         unitTests.all {
             it.systemProperty("lani.learner", "Jan")
             // the renderers' time budgets, scaled on a slow runner (FrameBudget in the tests; CI sets LANI_PERF_SCALE)

@@ -2506,6 +2506,17 @@ The quiz's pure parts have their own tests: `RoadQuizTest` (a question's sounds 
 every kind of question, the session's order, the fixed phrases), `RoadQuizCountTest` (what the answers count),
 `RoadMenuTest` (the tabs, the old ids, the custom actions, "📖 Zgodba") and `RoadWorkTest` (the spoken texts got ready).
 
+**Sheets that settle.** Every sheet of the app is a `LaniSheet` (`ui/LaniSheet.kt`): Material's `ModalBottomSheet`,
+always fully open, whose room ends at the status bar, its content padded only at the bottom. Material (1.4) pads a
+sheet's content by the part of the status bar it covers, so a sheet in reach of the status bar changed its height as it
+moved; its anchor moved with it, and the anchored-drag animation starts again with the fling's first speed whenever the
+anchors change. A fling into the end of a sheet's list hands its leftover speed to the sheet, which then bounced until
+the next touch (Jan saw it in 0.2.107, in the tutor chat). `ui/LaniSheetTest` runs a sheet under Robolectric (the
+app's and the libraries' resources included: `unitTests.isIncludeAndroidResources`) in a phone's window with a status
+bar, hands it a fast fling's leftover speed as a list at its end does, and draws every 16 ms frame: Material's own sheet
+still bounces three seconds later, a `LaniSheet` springs once and rests where it was. It also keeps
+`ModalBottomSheet` out of the app's code elsewhere.
+
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
 upper one is wood to give), its most is given, and the step reads what goes out from the preview ("−194 🌾 → +97 … 155

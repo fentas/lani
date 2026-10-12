@@ -9,14 +9,11 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -35,6 +32,7 @@ import si.lanisce.lani.road.RoadProgress
 import si.lanisce.lani.road.RoadRemote
 import si.lanisce.lani.road.RoadService
 import si.lanisce.lani.ui.BigButton
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.theme.TriglavRed
 import java.time.LocalDate
 
@@ -44,7 +42,6 @@ import java.time.LocalDate
  * there), and a plain player for Bluetooth without Android Auto (the car's menu, ⏮ ⏯ ⏭, ✓ and ✗). No exercises:
  * while driving, the steering wheel or Android Auto does it all.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoadSheet(vm: AppViewModel, onDismiss: () -> Unit) {
     val prep = vm.road
@@ -53,7 +50,7 @@ fun RoadSheet(vm: AppViewModel, onDismiss: () -> Unit) {
         remote.connect()
         onDispose { remote.release() }
     }
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = onDismiss) {
         Column(
             Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp).navigationBarsPadding(),
             verticalArrangement = Arrangement.spacedBy(10.dp),

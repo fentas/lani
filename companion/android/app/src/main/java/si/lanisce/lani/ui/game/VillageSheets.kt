@@ -30,13 +30,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -71,6 +68,7 @@ import si.lanisce.lani.game.PLOTS_PER_AGE
 import si.lanisce.lani.game.Res
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.Confetti
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.FlameOrange
 import si.lanisce.lani.ui.theme.TriglavRed
@@ -82,10 +80,9 @@ import kotlin.math.roundToInt
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun Sheet(onDismiss: () -> Unit, content: @Composable () -> Unit) {
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = onDismiss) {
         Column(Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             content()
         }

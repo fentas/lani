@@ -11,11 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -43,6 +40,7 @@ import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.game.scene.ScenePerson
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.Confetti
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.stage.Backdrop
 import si.lanisce.lani.ui.stage.StagePlace
 import si.lanisce.lani.ui.stage.rememberReducedMotion
@@ -58,7 +56,6 @@ import si.lanisce.lani.ui.villagers.VillagerPortrait
  * in); at its end, the step done. A line's `bell` rings over the village (the chapel's little bell as it is hung: its peal,
  * and a bell swinging in the backdrop's corner with its rings going out); the step's other cues are its scene's.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
     val step = talk.step ?: return
@@ -98,8 +95,8 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
         if (now - was >= Sfx.RISE) rungAt = System.currentTimeMillis()
         fxBefore = fx
     }
-    ModalBottomSheet(onDismissRequest = vm.scenes::closeTalk, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
-        Box(Modifier.fillMaxWidth().fillMaxHeight(0.94f)) {
+    LaniSheet(onDismissRequest = vm.scenes::closeTalk) {
+        Box(Modifier.fillMaxWidth().fillMaxHeight()) {
             Column(Modifier.matchParentSize()) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
                 DialogStage { Stage(people, step.cast, place, facing, pose, talking, rungAt) }

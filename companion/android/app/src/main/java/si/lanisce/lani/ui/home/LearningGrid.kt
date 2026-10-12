@@ -22,14 +22,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.data.ModuleInfo
+import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.l10n.bi
@@ -153,11 +151,10 @@ private fun RoadCard(r: Road, onClick: () -> Unit) {
 }
 
 /** "Izzivi · Challenges": the tutor's modules, new ones first; tapping one plays it. */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChallengesSheet(modules: List<ModuleInfo>, new: Set<String>, onOpen: (String) -> Unit, onDismiss: () -> Unit) {
     val sorted = modules.sortedByDescending { it.id in new }
-    ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+    LaniSheet(onDismissRequest = onDismiss) {
         LazyColumn(Modifier.navigationBarsPadding().padding(bottom = 16.dp)) {
             item {
                 Row(Modifier.padding(horizontal = 20.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
