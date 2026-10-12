@@ -175,6 +175,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val readings = ReadingsController(app, viewModelScope, node, sync, game, notices, words::sourceFor)
     /** What the scene dialogs remember on this phone. */
     val dialogPrefs = DialogPrefs(app)
+    /** What the village's HUD remembers on this phone: minimized or not, the news its panel showed. */
+    val hudPrefs = si.lanisce.lani.data.HudPrefs(app)
     val talk = TalkModel(
         viewModelScope,
         send = { kind, conv, text, data -> (bridge ?: throw java.io.IOException("not connected")).message(kind, conv, text, data) },
@@ -783,6 +785,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      */
     fun qaStep(project: String, n: Int) {
         game.apply { si.lanisce.lani.app.QaHooks.readyStep(it, project, n, java.time.LocalDate.now()) }
+        openVillage()
+    }
+
+    /**
+     * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
+     * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
+     */
+    fun qaBuild() {
+        game.apply { si.lanisce.lani.app.QaHooks.readyBuild(it, si.lanisce.lani.game.GameEngine.attributes(it).caps) }
         openVillage()
     }
 

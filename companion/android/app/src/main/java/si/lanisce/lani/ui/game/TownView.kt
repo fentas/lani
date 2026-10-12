@@ -89,6 +89,8 @@ private sealed interface Tapped {
  * over its places and people, and taps mapped back through the camera to what's there.
  *
  * @param topInset screen pixels the HUD covers at the top; [bottomInset] the bottom bar's
+ * @param bubbleInset screen pixels the bubbles keep below: [topInset], or more while something hangs under the HUD (its
+ *   recenter button), which the camera's home view doesn't make room for
  * @param anchors bubble anchors (canvas px) for [state] on this view's canvas; see [townAnchors]
  * @param people the villagers who live here, drawn around their homes
  * @param onPlace a tap on the fire, the forest, a building or a spot; null for a tap on nothing (the meadow, the sky)
@@ -147,6 +149,7 @@ fun TownView(
     onPlot: (Int) -> Unit = {},
     plotLabel: (Int) -> String = { "$it" },
     day: si.lanisce.lani.game.villagers.Routine.Day = si.lanisce.lani.game.villagers.Routine.Day(),
+    bubbleInset: Int = topInset,
 ) {
     val density = LocalDensity.current
     val renderer = remember { VillageRenderer() }
@@ -274,7 +277,7 @@ fun TownView(
             val fireArea = remember(state.fire, state.age, fit) { TownAnchors.fireArea(state, fit.width, fit.height) }
             val fireBody = remember(state.fire, state.age, fit) { TownAnchors.fireBody(state, fit.width, fit.height) }
             TownBubbles(
-                markers, anchors, { cam.camera }, threat, badge, onMarker, topInset = topInset,
+                markers, anchors, { cam.camera }, threat, badge, onMarker, topInset = bubbleInset,
                 followId = followId, anchorOf = { id -> renderer.villagerAnchors[id] }, tick = { clock.tick }, face = face,
                 fireArea = fireArea, fireBody = fireBody,
             )

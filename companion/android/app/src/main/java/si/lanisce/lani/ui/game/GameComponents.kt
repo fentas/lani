@@ -112,10 +112,10 @@ fun ResourceChip(res: Res, amount: Int, cap: Int?, onClick: () -> Unit, modifier
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).hudSemantics(described, onClick),
         ) {
-            Column(Modifier.padding(horizontal = 8.dp, vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.padding(horizontal = 5.dp, vertical = 6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(res.emoji, Modifier.scale(bump.value))
-                    Spacer(Modifier.width(4.dp))
+                    Spacer(Modifier.width(3.dp))
                     // shrinks rather than cuts digits off when the chip is narrow (large fonts): 300 must never read 30
                     BasicText(
                         "$shown",

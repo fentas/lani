@@ -32,6 +32,7 @@ class QaHooksTest {
         QaHooks.handle("step:")
         QaHooks.handle("season:")
         QaHooks.handle("hour:")
+        QaHooks.handle("build:")
     }
 
     @Test fun `a scene seen at QA's hour of today, kept in range, until let go`() {
@@ -85,6 +86,27 @@ class QaHooksTest {
         val spec = si.lanisce.lani.game.Projects.spec("mlaj")!!
         for ((res, n) in si.lanisce.lani.game.Catalog.stepCost(spec.age, spec.steps[1].kind)) assertTrue("$res", r.res(res) >= n)
         assertTrue(r.help >= si.lanisce.lani.game.Catalog.stepHelp(spec.age)) // the second step brings the neighbours
+    }
+
+    @Test fun `a building to choose a plot for, the village ready for it, until the village takes it`() {
+        var readied = 0
+        QaHooks.handle("build:field", ready = { readied++ })
+        assertEquals(si.lanisce.lani.game.BuildingType.FIELD, QaHooks.build)
+        assertEquals(1, readied)
+        QaHooks.tookBuild()
+        assertNull(QaHooks.build)
+        QaHooks.handle("build:palisade", ready = { readied++ }) // it takes no plot: nothing to choose
+        assertNull(QaHooks.build)
+        assertEquals(1, readied)
+        // the stores full; a free plot: the age's, else the next age's
+        val caps = si.lanisce.lani.game.Res.entries.associateWith { 500 }
+        val age = si.lanisce.lani.game.Age.TABOR
+        val full = (0 until si.lanisce.lani.game.PLOTS_PER_AGE[age.ordinal]).map { si.lanisce.lani.game.Building("b$it", si.lanisce.lani.game.BuildingType.TENT, it) }
+        val s = si.lanisce.lani.game.GameState(age = age, buildings = full)
+        val r = QaHooks.readyBuild(s, caps)
+        assertEquals(si.lanisce.lani.game.Age.ZASELEK, r.age)
+        assertTrue(si.lanisce.lani.game.Res.entries.all { r.res(it) == 500 })
+        assertEquals("a free plot left: the age stays", age, QaHooks.readyBuild(s.copy(buildings = full.drop(1)), caps).age)
     }
 
     @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {

@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
 
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
-        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason)
+        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason, ready = vm::qaBuild)
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)

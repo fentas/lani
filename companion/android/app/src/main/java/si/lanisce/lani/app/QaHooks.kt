@@ -48,6 +48,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "hour:<h>": a scene is seen at that hour of today (0 to 24, "hour:7.5"; [sceneNow]): its picture's light, sky and wild
  *   animals, who is there and who sleeps, without the real night sky; so a dawn's or a morning's cue looks as it does then,
  *   whatever the hour QA runs at. "hour:" goes by the clock again.
+ * - "build:<type>": the village (the dev bridge's copy) gets ready to build a building of that type ([readyBuild]: its
+ *   stores full, a free plot, the next age's when its own are all taken) and the plot chooser opens for it over the map
+ *   ([build], taken by the village: [tookBuild]), with its ★; QA looks at the HUD minimized over it and goes back,
+ *   nothing built. "build:" lets it go.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -87,10 +91,17 @@ object QaHooks {
     var bubbles by mutableStateOf<Int?>(null)
         private set
 
+    /** The building QA asked the plot chooser for ("build:<type>"), until the village opens it ([tookBuild]); null: none. */
+    var build by mutableStateOf<si.lanisce.lani.game.BuildingType?>(null)
+        private set
+
+    /** The village opened the plot chooser QA asked for. */
+    fun tookBuild() { build = null }
+
     /** Does what [command] asks; [road] gets what is asked of the road ("mini", "car"); [forms] starts the forms' review. */
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
-        season: () -> Unit = {},
+        season: () -> Unit = {}, ready: () -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -118,7 +129,24 @@ object QaHooks {
                 project = arg.substringBefore('/').takeIf { it.isNotBlank() && n != null }
                 project?.let { step(it, n!!) }
             }
+            command.startsWith("build:") -> {
+                val name = command.removePrefix("build:").trim().uppercase()
+                build = si.lanisce.lani.game.BuildingType.entries.firstOrNull { it.name == name && it.onPlot }
+                if (build != null) ready()
+            }
         }
+    }
+
+    /**
+     * [s] ready to build a building QA chooses a plot for ("build:<type>"): the stores full ([caps]), and a free plot: when
+     * the age's plots are all taken, the next age (its new plots). A debug build's, on the dev bridge's copy.
+     */
+    fun readyBuild(s: si.lanisce.lani.game.GameState, caps: Map<si.lanisce.lani.game.Res, Int>): si.lanisce.lani.game.GameState {
+        val full = s.copy(resources = s.resources + caps.mapValues { (r, cap) -> maxOf(s.res(r), cap) })
+        val plots = si.lanisce.lani.game.PLOTS_PER_AGE[s.age.ordinal]
+        val free = (0 until plots).any { p -> s.buildings.none { it.type.onPlot && it.plot == p } }
+        val next = si.lanisce.lani.game.Age.entries.getOrNull(s.age.ordinal + 1)
+        return if (free || next == null) full else full.copy(age = next)
     }
 
     /** [now], or today at the hour QA asks the scenes to be seen at ("hour:<h>"). */

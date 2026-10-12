@@ -9,8 +9,6 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Canvas
@@ -19,8 +17,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +29,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -64,6 +59,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.boundsInParent
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -80,7 +77,6 @@ import kotlinx.coroutines.flow.first
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.game.AdvanceCheck
 import si.lanisce.lani.game.Age
-import si.lanisce.lani.game.Attributes
 import si.lanisce.lani.game.BuildOption
 import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.GameEngine
@@ -101,7 +97,6 @@ import si.lanisce.lani.game.villagers.Residents
 import si.lanisce.lani.game.scene.TownPlace
 import si.lanisce.lani.game.scene.TownSpots
 import si.lanisce.lani.ui.BigButton
-import si.lanisce.lani.ui.EmojiLabel
 import si.lanisce.lani.ui.Labels
 import si.lanisce.lani.ui.NewWordsCard
 import si.lanisce.lani.ui.theme.AlpineGreen
@@ -109,10 +104,10 @@ import si.lanisce.lani.ui.theme.FlameOrange
 import si.lanisce.lani.ui.theme.SloBlueDeep
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
+import si.lanisce.lani.ui.stage.rememberReducedMotion
 import si.lanisce.lani.ui.villagers.VillagerCard
 import si.lanisce.lani.l10n.bi
 import java.time.LocalDateTime
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.ui.draw.alpha
 import kotlin.math.roundToInt
 
@@ -234,9 +229,24 @@ fun VillageScreen(vm: AppViewModel) {
     // Zoomed out, places are close together: one bubble each; closer in, they fan out.
     val zoomedOut by remember { derivedStateOf { cam.rig?.let { cam.camera.scale < it.minScale * 1.5f } ?: false } }
     val shown = remember(markers, zoomedOut) { if (zoomedOut) clusterBubbles(markers) else foldBubbles(markers) }
-    var hudH by remember { mutableIntStateOf(0) }
-    /** The goal pill's row under the HUD: bubbles and the home view keep out from under it too. */
+    // The HUD (companion/GAME.md, "The village's HUD"): its slim row, the panel under it, or its pill; minimized is the
+    // learner's choice on this phone, and the plot chooser minimizes it by itself
+    val hudPrefs = vm.hudPrefs
+    val hudState = remember { HudState(hudPrefs) }
+    /** Counts the plot chooser's openings: the HUD's pill tapped while it is on shows the row for that one only. */
+    var chooserRun by remember { mutableIntStateOf(0) }
+    /** What the HUD's row covers at the top (the status bar's included), and its pill when minimized. */
+    var rowH by remember { mutableIntStateOf(0) }
     var pillH by remember { mutableIntStateOf(0) }
+    fun hudMode() = hudState.mode(chooserRun.takeIf { choosing != null })
+    /** What the HUD covers at the top as it shows now (its row, or its pill): 0 until that is measured. */
+    fun hudCover() = if (hudMode() == HudMode.MINIMIZED) pillH else rowH
+    /**
+     * What the HUD covers at the top at rest, for the camera's home view and framing and the bubbles: its row (the panel lies
+     * over the map only while it is open), or its pill; the row's until the pill is measured, so the home view doesn't fly
+     * to the screen's top and back.
+     */
+    fun hudInset() = hudCover().takeIf { it > 0 } ?: rowH
     var barH by remember { mutableIntStateOf(0) }
     var cardH by remember { mutableIntStateOf(0) }
     var plotBarH by remember { mutableIntStateOf(0) }
@@ -244,8 +254,19 @@ fun VillageScreen(vm: AppViewModel) {
     /** Opens the plot chooser over the map (the sheets and cards close; [Choosing.cancel] and [Choosing.done] lead back). */
     val choose: (Choosing) -> Unit = { c ->
         if (c.choice.open(s)) {
-            sheet = null; card = null; villager = null; scrollOpen = false
+            sheet = null; card = null; villager = null; scrollOpen = false; hudState.open = false
+            chooserRun++
             choosing = c
+        }
+    }
+    // QA's "build:<type>" (a debug build, app/QaHooks): the plot chooser for it, once the village is ready for one
+    val qaBuild = si.lanisce.lani.app.QaHooks.build
+    LaunchedEffect(qaBuild, s) {
+        val type = qaBuild ?: return@LaunchedEffect
+        val c = Choosing(PlotChoice.build(s, type))
+        if (c.choice.open(s)) {
+            si.lanisce.lani.app.QaHooks.tookBuild()
+            choose(c)
         }
     }
     /**
@@ -287,7 +308,7 @@ fun VillageScreen(vm: AppViewModel) {
         val anchors = townAnchors(s, fit)
         val away = remember(s, standing, fit) { TownPeople.awayIds(s, standing, fit.width, fit.height) }
         val margin = with(density) { 12.dp.toPx() }
-        fun area(extra: Int = 0) = freeArea(w.toFloat(), h.toFloat(), (hudH + pillH).toFloat(), (barH + extra).toFloat(), margin)
+        fun area(extra: Int = 0) = freeArea(w.toFloat(), h.toFloat(), hudInset().toFloat(), (barH + extra).toFloat(), margin)
         fun anchorOf(p: TownPlace) = anchors[p] ?: anchors.getValue(TownPlace.Fire)
 
         /** A tap on a place: its card, or (no scenes there) straight to the building's or the fire's sheet, as before. */
@@ -354,18 +375,26 @@ fun VillageScreen(vm: AppViewModel) {
         val choice = choosing?.choice
         val drawn = remember(s, choice) { choice?.preview(s) ?: s }
         val plotMarks = remember(s, choice) { choice?.marks(s) }
-        // it frames the plots to choose from (closer where they're few), above its bar, once it opens
+        // it frames the plots to choose from (closer where they're few), between the HUD's pill (it minimized itself) and the
+        // chooser's bar, once both are there
         LaunchedEffect(choice?.let { it.moving ?: it.type.name }) {
             val c = choice ?: return@LaunchedEffect
-            val bar = snapshotFlow { plotBarH }.first { it > 0 }
+            val (bar, top) = snapshotFlow { plotBarH to hudCover() }.first { (b, t) -> b > 0 && t > 0 }
             val rig = cam.rig ?: return@LaunchedEffect
             val plots = c.marks(s).all + listOfNotNull(c.building(s)?.plot)
             val rect = TownAnchors.plotsRect(s, fit.width, fit.height, plots, pad = 26f) ?: return@LaunchedEffect
-            cam.flyTo(rig.frame(rect, freeArea(w.toFloat(), h.toFloat(), (hudH + pillH).toFloat(), bar.toFloat(), margin), maxFrame = rig.minScale * 2))
+            cam.flyTo(rig.frame(rect, freeArea(w.toFloat(), h.toFloat(), top.toFloat(), bar.toFloat(), margin), maxFrame = rig.minScale * 2))
         }
 
-        // The village layer; hidden from TalkBack while the scroll lies over it.
-        Box(Modifier.fillMaxSize().then(if (scrollOpen) Modifier.clearAndSetSemantics { } else Modifier)) {
+        // The village layer; hidden from TalkBack while the scroll lies over it. While the HUD's panel is open, a tap outside
+        // it closes it (and does nothing else), a drag closes it and pans the map.
+        var hudBounds by remember { mutableStateOf<androidx.compose.ui.geometry.Rect?>(null) }
+        val hudExpanded = latest(hudMode() == HudMode.EXPANDED)
+        Box(
+            Modifier.fillMaxSize()
+                .outsideCloses(active = hudExpanded, inside = { hudBounds }, onOutside = { hudState.open = false })
+                .then(if (scrollOpen) Modifier.clearAndSetSemantics { } else Modifier),
+        ) {
             TownView(
                 state = drawn, cam = cam, fit = fit, anchors = anchors, visitors = visitors, clock = townClock,
                 // QA's "bubbles:<n>" (a debug build's hook): only the n nearest the fire
@@ -374,7 +403,9 @@ fun VillageScreen(vm: AppViewModel) {
                     val f = anchorOf(TownPlace.Fire)
                     kotlin.math.hypot(p.x - f.x, p.y - f.y)
                 },
-                topInset = hudH + pillH, bottomInset = barH,
+                topInset = hudInset(), bottomInset = barH,
+                // the recenter button hangs under the HUD's row while the camera is away: the bubbles keep below it too
+                bubbleInset = hudInset() + if (cam.moved && hudMode() != HudMode.MINIMIZED) with(density) { 56.dp.roundToPx() } else 0,
                 threat = s.event?.kind?.threat() == true,
                 badge = { m -> countBadge(m, markers) ?: badges[m.id] },
                 onPlace = { tapPlace(it) },
@@ -434,44 +465,57 @@ fun VillageScreen(vm: AppViewModel) {
             }
 
             // Keeps the HUD readable over a bright sky, and the bar over the forest.
-            Box(Modifier.fillMaxWidth().height(150.dp).background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))))
+            Box(Modifier.fillMaxWidth().height(with(density) { hudInset().toDp() } + 40.dp).background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))))
             Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(170.dp).background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.55f)))))
 
-            TownHud(
-                s, attrs, check,
+            // the HUD: what it shows (the festival that is on, what's coming: always something to come back for) and does;
+            // each of its actions closes its panel
+            val v = overview.village
+            val news = remember(v.teasers) { v.teasers.map { it.line } }
+            val hud = HudView(
+                s, attrs, check, goal,
+                goalAction = goal.action(
+                    onGather = { r -> vm.startGather(r) }, onAdvance = advance, onBuild = { build(it, false) },
+                    onPacks = { vm.openPacks(fromVillage = true) }, onVillagers = vm::openVillagers, onPolish = { vm.startPolish() },
+                ),
                 chestNew = vm.game.chestNews.shows(s.chest),
-                onBack = vm::home,
-                onAge = { sheet = VillageSheet.Ages },
-                onRes = { sheet = VillageSheet.Resource(it) },
-                onInfo = { sheet = VillageSheet.Info },
-                onFire = { sheet = VillageSheet.Fire },
-                onChest = { sheet = VillageSheet.Chest },
-                onProjects = { sheet = VillageSheet.Projects() },
-                onProgress = { vm.openProgress(fromVillage = true) },
-                modifier = Modifier.onSizeChanged { hudH = it.height },
+                stepToday = v.projects.any { it.available },
+                festival = v.festival?.takeIf { !it.done },
+                teasers = v.teasers,
+                newsSeen = hudPrefs.newsSeen,
             )
-            Column(
-                Modifier.fillMaxWidth().offset { IntOffset(0, hudH) }.padding(horizontal = 10.dp).onSizeChanged { pillH = it.height },
-                verticalArrangement = Arrangement.spacedBy(6.dp),
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    GoalPill(goal, Modifier.weight(1f, fill = false)) { openScroll(ScrollSection.GOAL) }
-                    Spacer(Modifier.weight(0.01f).widthIn(min = 8.dp))
-                    AnimatedVisibility(cam.moved, enter = fadeIn() + scaleIn(), exit = fadeOut() + scaleOut()) {
-                        RecenterButton(cam::recenter)
-                    }
-                }
-                // the festival that is on, else what's coming ("Jutri · Tomorrow"): always something to come back for
-                val v = overview.village
-                val festival = v.festival?.takeIf { !it.done }
-                if (festival != null) {
-                    // a feast's pill is gold; a quiet day's (Dan spomina na mrtve) plain
-                    TeaserPill(festival.festival.emoji, si.lanisce.lani.game.Calendar.todayText(festival).replace(" ${festival.festival.emoji}", ""), gold = !festival.festival.quiet) {
-                        vm.startFestival(festival.festival.id)
-                    }
-                } else v.teasers.firstOrNull()?.let { t -> TeaserPill(t.emoji, t.text) { openScroll(ScrollSection.TODAY) } }
-            }
-            ChronicleToast(s.log.lastOrNull(), Modifier.align(Alignment.TopCenter).offset { IntOffset(0, hudH + pillH + with(density) { 8.dp.roundToPx() }) })
+            val mode = hudMode()
+            // the panel shows today's news: seen, the row's 📣 goes until there's something new
+            LaunchedEffect(mode == HudMode.EXPANDED, news) { if (mode == HudMode.EXPANDED) hudPrefs.sawNews(news) }
+            // an open panel closes first on back
+            BackHandler(enabled = mode == HudMode.EXPANDED) { hudState.open = false }
+            VillageHud(
+                hud, mode,
+                // each closes the panel itself as it leads on
+                HudActions(
+                    back = vm::home,
+                    resource = { r -> sheet = VillageSheet.Resource(r) },
+                    age = { sheet = VillageSheet.Ages },
+                    info = { sheet = VillageSheet.Info },
+                    fire = { sheet = VillageSheet.Fire },
+                    chest = { sheet = VillageSheet.Chest },
+                    projects = { sheet = VillageSheet.Projects() },
+                    progress = { vm.openProgress(fromVillage = true) },
+                    goal = { openScroll(ScrollSection.GOAL) },
+                    festival = { id -> vm.startFestival(id) },
+                    news = { openScroll(ScrollSection.TODAY) },
+                    expand = { open -> hudState.open = open },
+                    // the pill tapped while choosing a plot: the row for now; the learner's choice stays
+                    minimize = { on -> hudState.minimize(on, chooserRun.takeIf { choosing != null }) },
+                ),
+                moved = cam.moved, onRecenter = cam::recenter, reduced = rememberReducedMotion(),
+                modifier = Modifier.onGloballyPositioned { hudBounds = it.boundsInParent() },
+                onRow = { rowH = it }, onPill = { pillH = it },
+            )
+            ChronicleToast(
+                s.log.lastOrNull(),
+                Modifier.align(Alignment.TopCenter).offset { IntOffset(0, hudInset() + (if (cam.moved) 56.dp else 8.dp).roundToPx()) },
+            )
 
             val plotting = choosing
             if (plotting != null) Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth()) {
@@ -689,152 +733,6 @@ private fun VillageLoading(onBack: () -> Unit) {
     }
 }
 
-/** A round emoji button over the scene: 48 dp to touch, [description] for TalkBack. */
-@Composable
-private fun HudButton(label: String, description: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    Surface(onClick = onClick, color = HudPlate, shape = CircleShape, modifier = modifier.size(48.dp)) {
-        Box(contentAlignment = Alignment.Center) { EmojiLabel(label, description, color = Color.White, style = MaterialTheme.typography.titleMedium) }
-    }
-}
-
-/**
- * The floating HUD: back and the four resources, then the age, the village's vital signs and the chest (🤝; a dot when
- * something came into it since it was opened, [chestNew]).
- */
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-private fun TownHud(
-    s: GameState, attrs: Attributes, check: AdvanceCheck, chestNew: Boolean, onBack: () -> Unit, onAge: () -> Unit, onRes: (Res) -> Unit, onInfo: () -> Unit, onFire: () -> Unit,
-    onChest: () -> Unit, onProjects: () -> Unit, onProgress: () -> Unit, modifier: Modifier = Modifier,
-) {
-    Column(modifier.statusBarsPadding().padding(horizontal = 10.dp, vertical = 6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            HudButton("←", Labels.BACK, onBack)
-            for (r in Res.entries) ResourceChip(r, s.res(r), attrs.caps[r], onClick = { onRes(r) }, modifier = Modifier.weight(1f))
-        }
-        // wraps onto a second line with large fonts instead of squeezing the age's name away
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp), itemVerticalAlignment = Alignment.CenterVertically) {
-            AgeChip(s, check, onAge)
-            StatChip("👥", "${s.villagers}/${attrs.populationCap}", "${bi("villageScreen.villagers")}: ${s.villagers} / ${attrs.populationCap}", onClick = onInfo)
-            StatChip(moraleEmoji(s.morale), "${s.morale}", "${bi("villageScreen.morale")}: ${s.morale}", onClick = onInfo)
-            StatChip("🔥", "${s.fire}", "${bi("villageScreen.fire")}: ${s.fire}" + if (s.fire < 25) ", ${bi("villageScreen.dying")}" else "", warn = s.fire < 25, onClick = onFire)
-            StatChip(
-                "🧰", "🤝 ${s.help}",
-                "${bi("villageScreen.chest")}. ${bi("common.help")}: ${s.help}" + if (chestNew) ", ${bi("villageScreen.somethingNew")}" else "",
-                dot = chestNew, onClick = onChest,
-            )
-            if (s.age >= Age.ZASELEK) {
-                val open = si.lanisce.lani.game.Projects.open(s)
-                val done = open.count { si.lanisce.lani.game.Projects.finished(s, it) }
-                StatChip("🏗️", "$done/${open.size}", "${bi("villageScreen.villageProjects")}: ${bi("villageScreen.finished", "done" to done, "total" to open.size)}", onClick = onProjects)
-            }
-            Surface(onClick = onProgress, color = HudPlate, shape = CircleShape, modifier = Modifier.size(40.dp)) {
-                Box(contentAlignment = Alignment.Center) { EmojiLabel("📊", Labels.PROGRESS, style = MaterialTheme.typography.titleSmall) }
-            }
-        }
-    }
-}
-
-fun moraleEmoji(m: Int) = when {
-    m >= 70 -> "😄"
-    m >= 40 -> "🙂"
-    else -> "😟"
-}
-
-/**
- * A HUD stat; TalkBack reads [description] ("Ogenj · Fire: 40") instead of the emoji and the bare number. [dot]: a red
- * dot on it, something new there.
- */
-@Composable
-private fun StatChip(emoji: String, value: String, description: String, warn: Boolean = false, dot: Boolean = false, onClick: () -> Unit) {
-    val pulse = if (warn) {
-        rememberInfiniteTransition(label = "warn").animateFloat(0.6f, 1f, infiniteRepeatable(tween(600), RepeatMode.Reverse), label = "a").value
-    } else 1f
-    Box {
-        Surface(
-            onClick = onClick,
-            color = if (warn) TriglavRed.copy(alpha = 0.8f * pulse) else HudPlate,
-            shape = RoundedCornerShape(50),
-            modifier = Modifier.heightIn(min = 40.dp).hudSemantics(description, onClick),
-        ) {
-            Row(Modifier.padding(horizontal = 10.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text(emoji, style = MaterialTheme.typography.labelLarge)
-                Spacer(Modifier.width(4.dp))
-                Text(value, color = Color.White, style = MaterialTheme.typography.labelLarge)
-            }
-        }
-        if (dot) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = (-2).dp))
-    }
-}
-
-/**
- * The age in the HUD with the way to the next one: a small bar filling up and the next age's emoji; it glows
- * gold when the village can advance. Opens the ages sheet with every step.
- */
-@Composable
-private fun AgeChip(s: GameState, check: AdvanceCheck, onClick: () -> Unit) {
-    val next = check.next
-    val pulse = if (check.ok) {
-        rememberInfiniteTransition(label = "ready").animateFloat(0.55f, 1f, infiniteRepeatable(tween(700), RepeatMode.Reverse), label = "a").value
-    } else 1f
-    val percent = (check.progress * 100).roundToInt()
-    val description = "${bi("villageScreen.age")}: ${s.age.label()}" + when {
-        next == null -> ""
-        check.ok -> ". ${bi("villageScreen.readyAdvance", "nextSl" to next.names)}"
-        else -> ". ${bi("villageScreen.towardsAge", "nextSl" to next.names, "lowercase" to next.names.map { it.lowercase() }, "percent" to percent)}"
-    }
-    Surface(
-        onClick = onClick,
-        color = if (check.ok) XpGold.copy(alpha = 0.9f * pulse) else HudPlate,
-        shape = RoundedCornerShape(50),
-        modifier = Modifier.heightIn(min = 40.dp).hudSemantics(description, onClick),
-    ) {
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(s.age.emoji)
-            Spacer(Modifier.width(6.dp))
-            Text(s.age.sl, color = Color.White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            if (next != null) {
-                Spacer(Modifier.width(8.dp))
-                if (check.ok) Text("✨ ${next.emoji}", color = Color.White, fontWeight = FontWeight.Bold)
-                else {
-                    Box(Modifier.width(38.dp).height(6.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.22f))) {
-                        Box(Modifier.fillMaxHeight().fillMaxWidth(check.progress.coerceIn(0.06f, 1f)).clip(CircleShape).background(XpGold))
-                    }
-                    Spacer(Modifier.width(6.dp))
-                    Text(next.emoji, modifier = Modifier.alpha(0.8f))
-                }
-            }
-        }
-    }
-}
-
-/** A line under the goal: the festival that is on ([gold]), or what's coming ("Jutri · Tomorrow"). */
-@Composable
-private fun TeaserPill(emoji: String, text: String, gold: Boolean = false, onClick: () -> Unit) {
-    Surface(onClick = onClick, color = if (gold) XpGold.copy(alpha = 0.92f) else HudPlate, shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 40.dp)) {
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(emoji, style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.width(6.dp))
-            Text(
-                text, color = if (gold) Color(0xFF2B2118) else Color.White, style = MaterialTheme.typography.labelMedium,
-                maxLines = 1, overflow = TextOverflow.Ellipsis,
-            )
-        }
-    }
-}
-
-/** The next goal in one line under the HUD; opens the scroll at "Naslednji cilj". */
-@Composable
-private fun GoalPill(goal: NextGoal, modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Surface(onClick = onClick, color = HudPlate, shape = RoundedCornerShape(50), modifier = modifier.heightIn(min = 40.dp)) {
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text("🎯", style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.width(6.dp))
-            Text("${goal.short()} ›", color = Color.White, style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis)
-        }
-    }
-}
-
 /** Back to the home view: a crosshair over the village (and over a zoomed scene). */
 @Composable
 internal fun RecenterButton(onClick: () -> Unit) {
@@ -970,12 +868,31 @@ fun EventKind.headline(): String = when (this) {
 /** Threats in red, visitors in warm gold. */
 fun EventKind.threat() = this == EventKind.WOLVES || this == EventKind.BEAR || this == EventKind.STORM
 
+/** The goal's one-tap action: its card's first button, the HUD panel's ([label], its [color], what it does: [run]). */
+data class GoalAction(val label: String, val color: Color, val run: () -> Unit)
+
+/** What [NextGoal]'s card's first button says and does (the scroll's goal card, the HUD's panel). */
+fun NextGoal.action(
+    onGather: (Res) -> Unit, onAdvance: () -> Unit, onBuild: (BuildOption) -> Unit, onPacks: () -> Unit, onVillagers: () -> Unit,
+    onPolish: () -> Unit,
+): GoalAction = when (this) {
+    NextGoal.FeedFire -> GoalAction("🎧 ${bi("common.gatherWood")}", FlameOrange) { onGather(Res.WOOD) }
+    is NextGoal.Advance -> GoalAction("✨ ${bi("villageScreen.advanceTo", "toSl" to to.names)}", XpGold, onAdvance)
+    is NextGoal.Build -> GoalAction("🔨 ${bi("villageScreen.buildNow")}", FlameOrange) { onBuild(option) }
+    is NextGoal.Grow -> GoalAction(bi("villageScreen.gatherFor", "gatherEmoji" to gather.emoji, "lowercase" to gather.names.map { it.lowercase() }), AlpineGreen) { onGather(gather) }
+    is NextGoal.Learn -> GoalAction("📚 ${bi("villageScreen.learnNewWords")}", AlpineGreen, onPacks)
+    is NextGoal.Friends -> GoalAction("👥 ${bi("common.villagers")}", AlpineGreen, onVillagers)
+    is NextGoal.Polish -> GoalAction("🔩 ${bi("reviewScreen.polishNow", "n" to rusty)}", AlpineGreen, onPolish)
+    is NextGoal.Gather -> GoalAction(bi("villageScreen.gather", "resEmoji" to res.emoji), AlpineGreen) { onGather(res) }
+}
+
 @Composable
 private fun GoalCard(
     s: GameState, goal: NextGoal, check: AdvanceCheck, words: Int, due: Int, rusty: Int, onReview: () -> Unit, onPolish: () -> Unit,
     onPacks: () -> Unit, onBuild: (BuildOption) -> Unit, onAdvance: () -> Unit, onGather: (Res) -> Unit, onAges: () -> Unit,
     onVillagers: () -> Unit,
 ) {
+    val action = goal.action(onGather, onAdvance, onBuild, onPacks, onVillagers, onPolish)
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         shape = MaterialTheme.shapes.large,
@@ -983,26 +900,16 @@ private fun GoalCard(
     ) {
         Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             when (goal) {
-                NextGoal.FeedFire -> {
-                    GoalTitle("🔥", bi("common.fireDying"), bi("villageScreen.listeningPracticeBringsWood"))
-                    BigButton("🎧 ${bi("common.gatherWood")}", onClick = { onGather(Res.WOOD) }, color = FlameOrange)
-                }
-                is NextGoal.Advance -> {
-                    GoalTitle(goal.to.emoji, bi("villageScreen.readyGrow"), bi("villageScreen.canBecome", "toLabel" to (goal.to.label()), "toEn" to goal.to.names))
-                    BigButton("✨ ${bi("villageScreen.advanceTo", "toSl" to goal.to.names)}", onClick = onAdvance, color = XpGold)
-                }
+                NextGoal.FeedFire -> GoalTitle("🔥", bi("common.fireDying"), bi("villageScreen.listeningPracticeBringsWood"))
+                is NextGoal.Advance -> GoalTitle(goal.to.emoji, bi("villageScreen.readyGrow"), bi("villageScreen.canBecome", "toLabel" to (goal.to.label()), "toEn" to goal.to.names))
                 is NextGoal.Build -> {
                     GoalTitle(goal.option.type.emoji, "${bi("townLogic.build")}: ${goal.option.type.label()}", goal.option.effect)
                     CostChips(goal.option.cost) { s.res(it) }
-                    BigButton("🔨 ${bi("villageScreen.buildNow")}", onClick = { onBuild(goal.option) }, color = FlameOrange)
                 }
                 is NextGoal.Grow -> {
                     GoalTitle(goal.to.emoji, "${bi("villageScreen.nextAge")}: ${goal.to.label()}", "${(check.progress * 100).roundToInt()} % · ${stepsLeft(goal.missing.size)}")
                     FillBar(check.progress, XpGold)
                     Checklist(goal.missing)
-                    BigButton(bi("villageScreen.gatherFor", "gatherEmoji" to goal.gather.emoji, "lowercase" to goal.gather.names.map { it.lowercase() }), onClick = { onGather(goal.gather) }, color = AlpineGreen)
-                    // rusty words hold the age back too: a minute's review, whenever
-                    if (rusty > 0) BigButton("🔩 ${bi("reviewScreen.polishNow", "n" to rusty)}", onClick = onPolish)
                 }
                 is NextGoal.Learn -> {
                     GoalTitle(
@@ -1010,8 +917,6 @@ private fun GoalCard(
                         bi("villageScreen.everyPlotBuilt", "toEmoji" to goal.to.emoji, "toSl" to goal.to.names, "words" to words, "toEn" to goal.to.names),
                     )
                     Checklist(goal.missing)
-                    BigButton("📚 ${bi("villageScreen.learnNewWords")}", onClick = onPacks, color = AlpineGreen)
-                    if (due > 0) BigButton("🔄 ${bi("villageScreen.reviewDue", "due" to due)}", onClick = onReview)
                 }
                 is NextGoal.Friends -> {
                     GoalTitle(
@@ -1019,18 +924,17 @@ private fun GoalCard(
                         bi("villageScreen.ageNeedsFriends", "toEmoji" to goal.to.emoji, "toSl" to goal.to.names, "lowercase" to goal.to.names.map { it.lowercase() }),
                     )
                     Checklist(goal.missing)
-                    BigButton("👥 ${bi("common.villagers")}", onClick = onVillagers, color = AlpineGreen)
                 }
                 is NextGoal.Polish -> {
                     GoalTitle("🔩", bi("villageScreen.polishRusty", "n" to goal.rusty), bi("villageScreen.rustyCountAgain", "n" to goal.rusty))
                     Checklist(goal.missing)
-                    BigButton("🔩 ${bi("reviewScreen.polishNow", "n" to goal.rusty)}", onClick = onPolish, color = AlpineGreen)
                 }
-                is NextGoal.Gather -> {
-                    GoalTitle(goal.res.emoji, bi("villageScreen.gatherRes", "resLabel" to (goal.res.label())), bi("villageScreen.practiseSkill", "skillSl" to goal.res.skillName(), "skill" to goal.res.skillName()))
-                    BigButton(bi("villageScreen.gather", "resEmoji" to goal.res.emoji), onClick = { onGather(goal.res) }, color = AlpineGreen)
-                }
+                is NextGoal.Gather -> GoalTitle(goal.res.emoji, bi("villageScreen.gatherRes", "resLabel" to (goal.res.label())), bi("villageScreen.practiseSkill", "skillSl" to goal.res.skillName(), "skill" to goal.res.skillName()))
             }
+            BigButton(action.label, onClick = action.run, color = action.color)
+            // rusty words hold the age back too: a minute's review, whenever
+            if (goal is NextGoal.Grow && rusty > 0) BigButton("🔩 ${bi("reviewScreen.polishNow", "n" to rusty)}", onClick = onPolish)
+            if (goal is NextGoal.Learn && due > 0) BigButton("🔄 ${bi("villageScreen.reviewDue", "due" to due)}", onClick = onReview)
             if (goal !is NextGoal.Grow && goal !is NextGoal.Learn && goal !is NextGoal.Friends && goal !is NextGoal.Polish && goal !is NextGoal.Advance && check.next != null) {
                 NextAgeRow(check, onAges)
             }
