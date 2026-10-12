@@ -19,7 +19,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        wrong guess, found (QA's hook "happening:ob-ognju/lovljenje/lovljenje-skrivalnice"); "field-cues"
                        the cues of the field, the tower, the market and the pond: the hare startled out of the grass,
                        the pedlar on the road, the hen on the cart (a tap turn), Muri barking by the jetty, each dialog
-                       opened through the hook and played to its cue; "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
+                       opened through the hook and played to its cue; "sheets-settle" flings into the end of Home, the
+                       tutor chat's sheet and the challenges' sheet, each still a second later (no endless bounce);
+                       "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
@@ -407,6 +409,37 @@ def tap_at(c):
     time.sleep(1.2)
 
 
+def fling(x: int, y0: int, y1: int, ms=64, moves=8):
+    """A quick vertical fling from ([x], [y0]) to [y1], let go at speed: a monkey script, its moves [ms]/[moves] ms apart
+    and the finger lifted right after the last one. `input swipe` waits for the app to take each move, so a busy
+    emulator gets a few, the last one long before the finger lifts, and the app sees no speed (a drag, not a fling); the
+    emulator's console ("event mouse") touches as a stylus, and Gboard then stays in its stylus mode."""
+    point = "DispatchPointer(0,0,{a},{x},{y},1.0,0.1,0,1.0,1.0,0,0)".format
+    steps = [point(a=0, x=x, y=y0)]
+    for i in range(1, moves + 1):
+        steps += [f"UserWait({max(1, ms // moves)})", point(a=2, x=x, y=y0 + (y1 - y0) * i // moves)]
+    steps.append(point(a=1, x=x, y=y1))
+    script = OUT / "fling.monkey"
+    script.write_text("type= raw events\ncount= 1\nspeed= 1.0\nstart data >>\n" + "\n".join(steps) + "\n")
+    adb("push", str(script), "/data/local/tmp/lani-qa-fling.monkey")
+    adb("shell", "monkey", "-f", "/data/local/tmp/lani-qa-fling.monkey", "1")
+
+
+def moving(name: str, n=3, gap=0.5, top=150) -> int:
+    """Screenshots [name]-still-1 … -[n], [gap] s apart; how many pixels the later ones differ from the first by, at
+    most, below [top] (the status bar, whose clock may turn): 0 when nothing on screen moves."""
+    for k in range(n):
+        if k:
+            time.sleep(gap)
+        shot(f"{name}-still-{k + 1}")
+    first, *later = shots[-n:]
+    return max(
+        int(sh("magick", str(first), str(b), "-crop", f"+0+{top}", "+repage", "-compose", "difference", "-composite",
+               "-colorspace", "gray", "-threshold", "2%", "-format", "%[fx:round(mean*w*h)]", "info:").strip())
+        for b in later
+    )
+
+
 def qa_hook(command: str, link=None):
     """Asks the debug build [command] (app/QaHooks.kt): "zoom" zooms the camera on screen in, as its "Približaj · Zoom
     in" action does; "happening:<scene>/<happening>" counts that happening as on ("happening:" lets it go); for recordings,
@@ -466,6 +499,49 @@ def challenges():
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
     assert find("✨ Izzivi · Challenges") is None, "sheet still open"
+    to_top()
+
+
+def sheets_settle():
+    """A fling into the end comes to rest (Jan, 0.2.107: "if it reaches the end, it does an endless bouncing movement
+    until I tap and move again"): Home flung to its end; the tutor chat's sheet flung up at the end of its conversation,
+    twice (the sheet takes what is left of the speed and springs past its place: Material's own bounced on under the
+    status bar); the challenges' sheet flung to its end and back to its top. Each still once it settled: three
+    screenshots half a second apart the same."""
+    go_home()
+    for _ in range(4):
+        fling(540, 1900, 400)
+        time.sleep(0.8)
+    time.sleep(1.5 * slow())
+    assert find("Napredek · Progress"), "Home's end (its progress line)"
+    assert not (px := moving("home-end")), f"Home still moves after a fling into its end ({px} px change)"
+
+    assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
+    assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+    time.sleep(1)
+    for k in (1, 2):  # the conversation opens at its end (QA's fresh install has none: all of it goes to the sheet)
+        fling(540, 1700, 300)
+        time.sleep(1.5 * slow())
+        assert not (px := moving(f"chat-end-{k}")), f"the chat's sheet still moves after a fling into its end ({px} px change)"
+    assert find("💬 Tvoj učitelj"), "the chat stays open"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+
+    to_top()
+    tile = scroll_to("Izzivi")
+    assert tile, "challenges tile"
+    tap_at(tile)
+    assert wait_for("✨ Izzivi · Challenges", 6), "challenges sheet"
+    time.sleep(1)
+    fling(540, 1900, 400)
+    time.sleep(1.5 * slow())
+    assert not (px := moving("challenges-end")), f"the challenges' sheet still moves after a fling into its end ({px} px change)"
+    fling(540, 700, 2000)
+    time.sleep(1.5 * slow())
+    if find("✨ Izzivi · Challenges"):  # a fling down to its top may close it, as a sheet flung down does
+        assert not (px := moving("challenges-top")), f"the challenges' sheet still moves after a fling to its top ({px} px change)"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
     to_top()
 
 
@@ -2950,6 +3026,7 @@ def plan():
         ("setup", setup, None, False, ""),
         ("home", home, None, False, ""),
         ("challenges", challenges, None, False, ""),
+        ("sheets-settle", sheets_settle, go_home, False, ""),
         ("village", village, v, False, ""),
         ("scroll", scroll, v, False, ""),
         ("villagers", villagers, v, False, ""),

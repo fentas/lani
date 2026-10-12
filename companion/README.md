@@ -2481,6 +2481,7 @@ companion/bin/qa                                 # end to end, on the lani-qa em
 companion/bin/qa --steps visit                   # only the visit of the second town (and setup)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
+companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2515,7 +2516,9 @@ the next touch (Jan saw it in 0.2.107, in the tutor chat). `ui/LaniSheetTest` ru
 app's and the libraries' resources included: `unitTests.isIncludeAndroidResources`) in a phone's window with a status
 bar, hands it a fast fling's leftover speed as a list at its end does, and draws every 16 ms frame: Material's own sheet
 still bounces three seconds later, a `LaniSheet` springs once and rests where it was. It also keeps
-`ModalBottomSheet` out of the app's code elsewhere.
+`ModalBottomSheet` out of the app's code elsewhere. On the emulator, `companion/bin/qa --steps sheets-settle` flings
+Home, the tutor chat's sheet and the challenges' sheet into their ends (a monkey script's moves 8 ms apart: `input
+swipe` leaves a busy emulator's app no speed) and checks three screenshots half a second apart are the same.
 
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
