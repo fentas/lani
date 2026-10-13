@@ -35,14 +35,17 @@ class QaHooksTest {
         QaHooks.handle("build:")
     }
 
-    @Test fun `a scene seen at QA's hour of today, kept in range, until let go`() {
+    @Test fun `a scene and the map seen at QA's hour of today, to the second, kept in range, until let go`() {
         val now = java.time.LocalDateTime.of(2026, 10, 11, 23, 5)
         QaHooks.handle("hour:7.5")
         assertEquals(java.time.LocalDateTime.of(2026, 10, 11, 7, 30), QaHooks.sceneNow(now))
         QaHooks.handle("hour:25")
         assertEquals("out of range: the clock's", now, QaHooks.sceneNow(now))
         QaHooks.handle("hour:24")
-        assertEquals("the day's last minute", java.time.LocalDateTime.of(2026, 10, 11, 23, 59), QaHooks.sceneNow(now))
+        assertEquals("the day's last second", java.time.LocalDateTime.of(2026, 10, 11, 23, 59, 59), QaHooks.sceneNow(now))
+        // to the second: the village's map stands at that moment (someone halfway along their walk)
+        QaHooks.handle("hour:12.036111")
+        assertEquals(java.time.LocalDateTime.of(2026, 10, 11, 12, 2, 10), QaHooks.sceneNow(now))
         QaHooks.handle("hour:")
         assertEquals(now, QaHooks.sceneNow(now))
         QaHooks.handle("hour:9")

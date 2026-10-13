@@ -194,10 +194,12 @@ fun VillageScreen(vm: AppViewModel) {
 
     // What's on changes with the time of day: look again every minute.
     val minute = rememberNow(30_000) / 60_000
+    // QA's "hour:<h>" (a debug build's hook): the village as at that hour of today, what's on and who is where
+    val qaHour = si.lanisce.lani.app.QaHooks.sceneHour
     val scenes = vm.scenes.all
-    val active = remember(s, scenes, minute) { vm.scenes.active(s) }
+    val active = remember(s, scenes, minute, qaHour) { vm.scenes.active(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
     // who is at a spot of the landscape now without living here (the charcoal burner by his kopa some evenings)
-    val keepers = remember(s, minute) { Keepers.here(s, LocalDateTime.now()) }
+    val keepers = remember(s, minute, qaHour) { Keepers.here(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
     val cast = vm.villagers.all
     val markers = remember(s, active, cast, keepers) { TownMarkers.of(s, active, cast, keepers = keepers) }
     /**
@@ -432,6 +434,7 @@ fun VillageScreen(vm: AppViewModel) {
                 horizon = remember(s, scenes) { vm.scenes.at("spot:${TownSpots.HORIZON}", s).isNotEmpty() },
                 standing = standing,
                 day = routineDay,
+                at = si.lanisce.lani.app.QaHooks::mapNow,
                 face = { m -> markerFace(m, active, people, away) },
                 // a wild animal at the forest's edge: its word's card (🔊, "Add to my words"), looked up without a line
                 onAnimal = { word -> card = null; villager = null; vm.words.open(si.lanisce.lani.app.WordQuery(word, "", null, si.lanisce.lani.data.Words.SCENE)) },

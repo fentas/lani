@@ -45,9 +45,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "season:<day>": the landmarks with a season (the maypole, game/ProjectSeasons) stand or not as on that day
  *   ("2027-05-10", or "05-10": the next 10 May from today; [seasonDay]), on the map and in the scenes, without a line in
  *   the chronicle; the rest of the game keeps today. "season:" goes by today again.
- * - "hour:<h>": a scene is seen at that hour of today (0 to 24, "hour:7.5"; [sceneNow]): its picture's light, sky and wild
+ * - "hour:<h>": a scene is seen at that hour of today (0 to 24, "hour:7.5", to the second; [sceneNow]): its picture's light, sky and wild
  *   animals, who is there and who sleeps, without the real night sky; so a dawn's or a morning's cue looks as it does then,
- *   whatever the hour QA runs at. "hour:" goes by the clock again.
+ *   whatever the hour QA runs at. The village's map too ([mapNow]): its light, who is where and doing what (their day,
+ *   what's on), the clock standing at that minute. "hour:" goes by the clock again.
  * - "build:<type>": the village (the dev bridge's copy) gets ready to build a building of that type ([readyBuild]: its
  *   stores full, a free plot, the next age's when its own are all taken) and the plot chooser opens for it over the map
  *   ([build], taken by the village: [tookBuild]), with its ★; QA looks at the HUD minimized over it and goes back,
@@ -88,8 +89,8 @@ object QaHooks {
     var project by mutableStateOf<String?>(null)
         private set
 
-    /** The hour of today QA asks the scenes to be seen at ("hour:<h>"), or null: the clock's. */
-    var sceneHour: Float? = null
+    /** The hour of today QA asks the scenes and the village's map to be seen at ("hour:<h>"), or null: the clock's. */
+    var sceneHour by mutableStateOf<Float?>(null)
         private set
 
     /** How many bubbles the village shows while QA asks for fewer ("bubbles:<n>"), or null: all of them. */
@@ -183,11 +184,14 @@ object QaHooks {
         return r.copy(buildings = r.buildings.map { if (it.type == si.lanisce.lani.game.BuildingType.LIPA) it.copy(damaged = false) else it })
     }
 
+    /** Today at the hour QA asks the village's map to be seen at ("hour:<h>"), or null: the clock's (and the real sky). */
+    fun mapNow(): java.time.LocalDateTime? = if (enabled && sceneHour != null) sceneNow(java.time.LocalDateTime.now()) else null
+
     /** [now], or today at the hour QA asks the scenes to be seen at ("hour:<h>"). */
     fun sceneNow(now: java.time.LocalDateTime): java.time.LocalDateTime {
         val h = sceneHour?.takeIf { enabled } ?: return now
-        val m = (h * 60).toInt().coerceIn(0, 24 * 60 - 1)
-        return now.toLocalDate().atTime(m / 60, m % 60)
+        val s = (h * 3600 + 0.5f).toInt().coerceIn(0, 24 * 3600 - 1)
+        return now.toLocalDate().atTime(s / 3600, s / 60 % 60, s % 60)
     }
 
     /** The mastery a dialog's turns are asked by: [own] (the learner's), or secure for every rule while QA asks for typed turns. */

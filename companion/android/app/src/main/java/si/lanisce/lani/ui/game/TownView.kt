@@ -150,6 +150,7 @@ fun TownView(
     plotLabel: (Int) -> String = { "$it" },
     day: si.lanisce.lani.game.villagers.Routine.Day = si.lanisce.lani.game.villagers.Routine.Day(),
     bubbleInset: Int = topInset,
+    at: () -> java.time.LocalDateTime? = { null },
 ) {
     val density = LocalDensity.current
     val renderer = remember { VillageRenderer() }
@@ -263,6 +264,7 @@ fun TownView(
                 skyMark = skyMark,
                 plots = plots,
                 day = day,
+                at = at,
             )
             if (plots != null) PlotTargets(state, fit, plots, plotLabel, { cam.camera }) { tapPlot(it) }
             else {

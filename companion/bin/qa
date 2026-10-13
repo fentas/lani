@@ -34,6 +34,11 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        the maypole on the map and on the square on 10 May (up) and 30 October (down; QA's hook
                        "season:<day>"); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
                        the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
+                       "village-life" the village's day on the map (QA's hook "hour:<h>", which the map follows too):
+                       zoomed in at 8, 11, 15 and 19 o'clock (the people at their chores and work about the village,
+                       a few at a place, a couple at the fire by day, a handful in the evening), and the field beside
+                       the fire at the moments someone walks by it ($LANI_QA_FIELD_WALK, "h:mm[:ss],…"; "9:25,11:02,12:30"
+                       when unset);
                        "village-hud" the village's HUD: its slim row, its panel (a tap outside closes it, opening
                        nothing), minimized to a pill and still so in the village opened again, and the plot chooser
                        (QA's hook "build:field") with the HUD a pill by itself and the ★ below it;
@@ -458,7 +463,7 @@ def qa_hook(command: str, link=None):
     """Asks the debug build [command] (app/QaHooks.kt): "zoom" zooms the camera on screen in, as its "Približaj · Zoom
     in" action does; "happening:<scene>/<happening>" counts that happening as on ("happening:" lets it go); for recordings,
     "bubbles:<n>" shows only the n bubbles nearest the fire and "clock:<f>" slows the towns' time ("bubbles:", "clock:"
-    undo them); "hour:<h>" shows the scenes at that hour of today ("hour:" by the clock again); "build:<type>" readies the
+    undo them); "hour:<h>" shows the scenes and the village's map at that hour of today ("hour:" by the clock again); "build:<type>" readies the
     dev village's copy for one (its stores full, a free plot) and opens the plot chooser for it. Then opens
     [link] ("scene:<id>@<focus>"), if given. One intent to the running app (singleTop: nothing else changes)."""
     adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", QA_HOOK, command, *(("--es", OPEN, link) if link else ()))
@@ -2071,6 +2076,44 @@ def maypole_season():
     return None
 
 
+def village_life():
+    """The village's day on the map (VILLAGERS.md "A day in the village"; QA's hook "hour:<h>": the map at that hour of
+    today, its clock standing at that minute): zoomed in at 8, 11, 15 and 19 o'clock, the people at their chores and their
+    work about the village, a few at each place, the fire's handful only in the evening; then at the moments someone walks
+    by the field beside the fire ($LANI_QA_FIELD_WALK, "h:mm[:ss],…"), zoomed in twice: over its soil, along its edge. No
+    bubbles over the people ("bubbles:0"). By the clock again after ("hour:", "bubbles:")."""
+    def at(h: int, m: int = 0, sec: int = 0):
+        qa_hook(f"hour:{h + m / 60 + sec / 3600:.6f}")
+    try:
+        qa_hook("bubbles:0")  # the people, not their bubbles over them
+        for h in (8, 11, 15, 19):
+            at(h)
+            plain_village()
+            time.sleep(2)
+            qa_hook("zoom")
+            time.sleep(3)
+            shot(f"village-life-{h:02d}00")
+            plain_village()
+        for hm in os.environ.get("LANI_QA_FIELD_WALK", "9:25,11:02,12:30").split(","):
+            h, m, sec = ([int(x) for x in hm.strip().split(":")] + [0])[:3]
+            at(h, m, sec)
+            plain_village()
+            time.sleep(2)
+            qa_hook("zoom")
+            time.sleep(2)
+            # the fire and the field beside it down to the middle of the screen (a slow drag on the woods at the right), closer again
+            adb("shell", "input", "swipe", "980", "900", "980", "1450", "900")
+            time.sleep(1.5)
+            qa_hook("zoom")
+            time.sleep(3)
+            shot(f"village-life-field-{h:02d}{m:02d}{sec:02d}")
+            plain_village()
+    finally:
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+    return None
+
+
 def project_step():
     """A village project's step as its short scene (companion/SCENES.md "Project steps"): QA's hook readies the maypole's
     first step in the dev village's copy ("step:mlaj/1": the steps before it, the stores and the day for it) and the
@@ -3556,6 +3599,7 @@ def plan():
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
         ("school", school, go_home, False, ""),
+        ("village-life", village_life, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),

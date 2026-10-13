@@ -88,7 +88,8 @@ fun rememberTownClock(): TownClock {
  * pan between frames never shows a hole; a detail switch crossfades over the picture that showed before.
  *
  * Moving the camera just redraws the bitmaps, so pinching stays smooth. The caller owns [renderer] to hit-test
- * taps (in the last frame's pixels, through its [VillageRenderer.lens]) and to anchor bubbles on the people.
+ * taps (in the last frame's pixels, through its [VillageRenderer.lens]) and to anchor bubbles on the people. [at]: the
+ * time to show instead of the clock's (QA's "hour:<h>"), or null.
  */
 @Composable
 fun TownScene(
@@ -108,6 +109,7 @@ fun TownScene(
     skyMark: String? = null,
     plots: PlotMarks? = null,
     day: si.lanisce.lani.game.villagers.Routine.Day = si.lanisce.lani.game.villagers.Routine.Day(),
+    at: () -> LocalDateTime? = { null },
 ) {
     val anim = remember { AnimMarks(celebrateSeen = celebrate) }
     val iw = fit.width; val ih = fit.height
@@ -128,8 +130,10 @@ fun TownScene(
             if (switch.shownK > 0) prev.copyFrom(if (switch.shownK > 1) fine else base)
             switch.wantK = k
         }
-        val now = LocalDateTime.now()
-        val today = LocalDate.now().toString()
+        // the clock's time, or the time QA asks the map to be seen at (its "hour:<h>", app/QaHooks), without the real sky
+        val forced = at()
+        val now = forced ?: LocalDateTime.now()
+        val today = now.toLocalDate().toString()
         if (justBuilt != anim.builtId) { anim.builtId = justBuilt; anim.builtAt = t }
         if (celebrate != anim.celebrateSeen) { anim.celebrateSeen = celebrate; anim.celebrateAt = t }
         val celebrateP = if (anim.celebrateAt < 0) -1f else ((t - anim.celebrateAt) / CELEBRATE_SECONDS).toFloat()
@@ -148,7 +152,7 @@ fun TownScene(
             moon = Moon.now(),
             sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
             // the real sky over the village this minute, the shooting stars by the clock
-            skyNow = si.lanisce.lani.game.sky.SkyCards.now(),
+            skyNow = if (forced != null) null else si.lanisce.lani.game.sky.SkyCards.now(),
             wall = System.currentTimeMillis(),
             skyMark = skyMark,
             plots = plots,
