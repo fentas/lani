@@ -137,6 +137,45 @@ pages are met (`CheatSheetController.met`), their cards unlocked.
 - The learner's place is kept (`intro` in the progress): leaving in the middle resumes there. "⏭ Poznam to · I know
   this" skips to the worksheets. The intro can be opened again any time (the unit's "📖 Uvod · Introduction").
 
+### Read aloud
+
+Jan, 2026-10-13: "Can we have the introduction also read (in school lessons)?" Each step is read aloud as it appears,
+in the teacher's voice (Mojca's: her voice of the cast, `@mojca` once she has her own), with what is read marked as it
+goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
+
+1. **The explanation** (`say` in the learner's base). Its text without the Markdown marks, the Slovene forms left inside
+   as they are ("Biti (to be) has a short form … jaz sem (I am), ti si (you are) …"), is one clip of the voice store:
+   the node voices it in one go with ElevenLabs (eleven_v3 says both languages as they are; `POST /voice/say` with
+   `lang`, keyed `en|<the text>` apart from the Slovene lines, shared by every learner of that base: README "Voice").
+   On the phone it plays at once, the bubble outlined. When it isn't there yet (offline, no ElevenLabs, the quota at
+   its reserve, not made yet) the step is read in its runs at once, and the node makes the clip for next time:
+   - the base-language parts by the phone's own voice of that language (Android text-to-speech, its locale; rendered
+     to files as the car's prompts are), a translation in brackets right after a form ("(I am)") among them;
+   - the Slovene parts in Mojca's voice, at their place: a span in **bold**, *italics* or „quotes" that the app's
+     check says is Slovene (as the chat's Markdown taps it), or whose words the intro itself shows (its examples, its
+     table, its questions, the unit's title: "**Biti**");
+   - each run marked in the bubble as it is read, a short pause between them.
+   The phone without a voice for the base language: only the Slovene is read, and a small note says why, once.
+2. **The examples**, one after the other in Mojca's voice (their translations not read), each card marked.
+3. **The quick question**, as far as it gives nothing away: a gap read as a pause ("Luka … na pašniku."), a choice's
+   options never, a translation in brackets at its end left out. Once answered, the sentence with the answer is read
+   (as an exercise's feedback), and Mojca reacts (a cheer, a smile, a shrug).
+
+The Slovene of the reading comes as a line's 🔊 does: her clip on the phone, else the node voices it now, else another
+of her voices' clip on the phone, else the phone's offline voice (Piper), else the phone's voice for Slovene. 🔊 on the
+step reads it again (⏹ while it reads), 🐢 slower; a tap on the text stops it, so does leaving the step, any other 🔊 or
+the 🎤 (one voice at a time). Mojca's portrait breathes and blinks, talks while her voice plays (also a 🔊 of hers on
+the school's screens) and holds still with the system's animations off.
+
+"🔊 Beri razlago · Read the explanations" (on by default; in the school and in the settings' sound section): off,
+nothing plays by itself, the step's 🔊 still reads. Nothing plays by itself while TalkBack is on (it reads the text).
+The day's audio (README "Offline on the phone") gets the next units' introductions ready on Wi-Fi: the unit under way
+or next and the one after it, their explanations' clips and their Slovene in Mojca's voice, so a unit plays offline.
+A homework's introduction (`publish_worksheet` with an `intro`) reads the same way.
+
+Writing a step for it: put every Slovene form in bold, italics or „quotes" (it is read in Mojca's voice; English in
+bold stays English), give a form's meaning in brackets right after it, and keep emoji out of `say` (they aren't read).
+
 ## Worksheets and the test
 
 ```json

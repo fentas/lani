@@ -1545,6 +1545,22 @@ ahead of the lazy re-voice:
 `voice_status` shows today's re-records and their cap (`carrier.redos`, `carrier.redo_daily`), and the lazy re-voice's
 (`carrier.today`, `carrier.daily`).
 
+**The school's introductions, read aloud** ([COURSE.md](COURSE.md#read-aloud)). Each step of a unit's guided
+introduction is read as it appears, in the teacher's voice (`data/IntroVoice.kt`). Its explanation, in the learner's
+own language with the Slovene forms left inside, is one clip, asked for with `lang` on `POST /voice/say` (an
+explanation of up to 1,500 characters; a line stays at 300) or on `/voice/prepare`. ElevenLabs makes it in one go
+(eleven_v3, with no `language_code`, so it says both languages as they are; no carrier sentence, even for one word),
+never the local worker. It is no live line: it never uses the reserve, and counts in the live lines' rate window. Its
+clips have their own key space (`en|<normalized text>` in `/voice/index`; a Slovene line of the same words stays
+another clip), are shared by every learner of that language, are counted apart in `voice_status` (`explanations:
+{clips, chars, by_lang}`; not in `clips` nor in the coverage), and are left alone by the re-voice and narrator passes.
+A clip the node hasn't made yet is made when a step asks for it, for next time; meanwhile, and offline, without
+ElevenLabs or with the quota at its reserve, the app reads the step in its runs: the base-language parts by the
+phone's own text-to-speech in that language (rendered to files as the car's prompts are), the Slovene parts in the
+teacher's voice as any line, the run read marked in the bubble. The app asks only a bridge whose `GET /state` lists
+`explanations` in its `features` (an older one would voice the English as a Slovene line): the bridge must be restarted
+after updating for it.
+
 **Costs.** The quota guard reads the subscription at most every 10 minutes. Prebuilds and background jobs stop
 when fewer than 5,000 characters would be left (`LANI_VOICE_RESERVE`); that reserve is for live lines (the tutor's
 role-play lines, voiced as they come). Every line of a new learner's village, voiced once (October 2026): Primorska
@@ -1629,7 +1645,10 @@ plays it in (a villager's own voice first, then their archetype's, their gender'
 5. I spy's clues (those a round would give, of the rules introduced) in the scenes with a happening that day or a child
    of their own, not played out yet, in the voice of the child who plays there (the scene's own, else the one the day's
    dice sends by);
-6. the grammar book's examples of the pages the learner practises (met, not secure yet).
+6. the grammar book's examples of the pages the learner practises (met, not secure yet);
+7. the school's next units' introductions (the unit under way or next and the one after it in its level, while their
+   intro isn't through): each step's explanation as its one clip in the learner's base (`lang` on `/voice/prepare`,
+   [The school's introductions, read aloud](#voice)), its Slovene forms and its examples, in the teacher's voice.
 
 A line with a placeholder (`{name}`) is said live, not got ahead. Each text is in the list once per voice, at most
 3,000 a day.
@@ -2651,7 +2670,7 @@ companion/bin/qa --steps village-hud             # the village's HUD: its row, i
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
-companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro, sheets and test
+companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2830,13 +2849,23 @@ a planned unit, a unit the outline lacks, the intro's steps and growing table, h
 school and A1's units; B1 and B2 for the school's levels, whose upgrades wait for the course: `GameEngine.upgradeOption`
 with the gate; a level once open staying open), the unit suggested next and the free order, a unit's steps, the best
 try kept, the test passed (the unit done once, its bonus) and tested out, and the progress through a save (and a save
-from before). `SimulationTest` plays the school (GAME.md, "Pacing" and "The school"). The bridge's side is
-`test/smoke/course.ts`. On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
+from before). `SimulationTest` plays the school (GAME.md, "Pacing" and "The school"). The intro read aloud
+(COURSE.md, "Read aloud"): `data/IntroSpeechTest` splits a step's `say` into its runs (biti's first step: "Biti", "(to
+be) has …", "jaz sem", "(I am),", … in order, each with its language and where it is shown; quotes and italics, English in
+bold, a sentence without Slovene, a list, a table and emoji left out), the explanation's text and key as the node voices
+it (apart from a line's), the quick question's gap read as a pause and a choice's options not read, a step's script and
+the intro's own words that make "**Biti**" Slovene; `IntroMarkTest` the run read marked in the line's text;
+`IntroVoiceSettingTest` the setting (on by default, kept); `audio/DayAudioIntroTest` and `PrefetchRunTest` an
+explanation in the day's audio (asked for with its language, kept under its own key, never cut into phrases). The
+bridge's side is `test/smoke/course.ts` and `test/smoke/voice.ts` (an explanation's clip). On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
 (the dev village's copy a hamlet with its linden: the class begins with it), checks that there's nothing to set up,
 goes back Home and opens the school from its tile, opens the unit biti, plays its intro step by step (a tap, a gap, a tap, a gap; the summary
-card), fills its tables with the cheat sheet (📋) opened over the first (biti's card in it), checks it, answers its gap text with one mistake
+card; its first step read aloud as it appears: a shot as each piece begins, what is read marked and Mojca talking, its pieces
+in order from the log (tag `IntroVoice`: the explanation's clip, else its English by the phone's voice and its Slovene in
+Mojca's, then the examples and the question) kept in `intro-voice.txt`, read again by 🔊 and stopped by a tap on the
+text), fills its tables with the cheat sheet (📋) opened over the first (biti's card in it), checks it, answers its gap text with one mistake
 and looks a word of it up (its card), checks the corrections, then takes the test straight away ("⏩ Znam že") and
 passes it (the third line typed without its č: almost, half an item): the unit done, and the dev bridge's village
-(`GET /game`) keeps it. Screenshots: `school-levels`, `school-home`, `school-unit`, `school-intro-1`, `school-intro-4`, `school-intro-summary`, `school-table`,
+(`GET /game`) keeps it. Screenshots: `school-levels`, `school-home`, `school-unit`, `school-intro-reading-<n>` (as piece n begins), `school-intro-replay`, `school-intro-1`, `school-intro-4`, `school-intro-summary`, `school-table`,
 `school-help`, `school-table-checked`, `school-sheet-done`, `school-word`, `school-gaptext`, `school-gaptext-checked`,
 `school-test-passed`.
