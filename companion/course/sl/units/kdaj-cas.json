@@ -1,0 +1,227 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "kdaj-cas",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "📅",
+  "title": { "sl": "Kdaj? Ob petih, v sredo, pozimi", "en": "When? At five, on Wednesday, in winter", "de": "Wann? Um fünf, am Mittwoch, im Winter", "it": "Quando? Alle cinque, mercoledì, d'inverno" },
+  "goal": {
+    "en": "You can tell the time, and say when: ob petih, ob pol šestih, v sredo, ob nedeljah, zvečer, pozimi, čez eno uro.",
+    "de": "Du sagst die Uhrzeit und wann: ob petih, ob pol šestih, v sredo, ob nedeljah, zvečer, pozimi, čez eno uro.",
+    "it": "Sai dire l'ora e quando: ob petih, ob pol šestih, v sredo, ob nedeljah, zvečer, pozimi, čez eno uro."
+  },
+  "grammar": ["kdaj-cas"],
+  "words": ["ura", "ob", "pol", "ponedeljek", "torek", "sreda", "četrtek", "petek", "sobota", "nedelja", "teden", "zjutraj", "dopoldne", "opoldne", "popoldne", "zvečer", "ponoči", "spomladi", "poleti", "jeseni", "pozimi", "čez", "ves dan", "vso noč", "kosilo", "vstati", "tržnica", "mrzlo"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdaj?", "en": "when?", "de": "wann?", "it": "quando?" },
+        { "sl": "kako", "en": "how to say it", "de": "so sagt man es", "it": "come si dice" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Koliko je ura?** (What time is it?) The answer is **Ura je** + the plain number: **Ura je pet. Ura je dve.** Not *peta* (the fifth), and the verb stays **je**, whatever the number.",
+          "de": "**Koliko je ura?** (Wie spät ist es?) Die Antwort ist **Ura je** + die Grundzahl: **Ura je pet. Ura je dve.** Nicht *peta* (die fünfte), und das Verb bleibt **je**, wie auch immer die Zahl lautet.",
+          "it": "**Koliko je ura?** (Che ore sono?) La risposta è **Ura je** + il numero semplice: **Ura je pet. Ura je dve.** Non *peta* (la quinta), e il verbo resta **je**, qualunque sia il numero."
+        },
+        "examples": [
+          { "sl": "Koliko je ura? Ura je pet.", "en": "What time is it? It's five o'clock.", "de": "Wie spät ist es? Es ist fünf Uhr.", "it": "Che ore sono? Sono le cinque." },
+          { "sl": "Ura je dvanajst.", "en": "It's twelve o'clock.", "de": "Es ist zwölf Uhr.", "it": "Sono le dodici." }
+        ],
+        "rows": [[{ "sl": "ura", "en": "the time", "de": "die Uhrzeit", "it": "l'ora" }, { "en": "ura je + the number", "de": "ura je + Grundzahl", "it": "ura je + il numero" }, "Ura je pet."]],
+        "ask": {
+          "type": "choice", "grammar": "kdaj-cas", "instruction": "Koliko je ura? · What time is it?", "prompt": "3:00", "options": ["Ura je tri.", "Ura je tretja.", "Ura so tri."], "answer": 0, "say_options": true,
+          "explain": "**the time** → ura je + the plain number: **Ura je tri.**"
+        }
+      },
+      {
+        "say": {
+          "en": "At what time: **ob** + the number in the locative, mostly **-ih**: **ob enih, ob štirih, ob petih, ob osmih**; two and three are **ob dveh, ob treh**. Half past counts towards the next hour: **ob pol šestih** is at 5:30.",
+          "de": "Um wie viel Uhr: **ob** + die Zahl im Lokativ, meist **-ih**: **ob enih, ob štirih, ob petih, ob osmih**; zwei und drei sind **ob dveh, ob treh**. Halb zählt wie im Deutschen zur nächsten Stunde: **ob pol šestih** ist um halb sechs.",
+          "it": "A che ora: **ob** + il numero al locativo, quasi sempre **-ih**: **ob enih, ob štirih, ob petih, ob osmih**; due e tre sono **ob dveh, ob treh**. La mezza si conta verso l'ora successiva: **ob pol šestih** è alle cinque e mezza."
+        },
+        "examples": [
+          { "sl": "Babica vstane ob šestih.", "en": "Granny gets up at six.", "de": "Oma steht um sechs auf.", "it": "La nonna si alza alle sei." },
+          { "sl": "Kosilo je ob pol enih.", "en": "Lunch is at half past twelve.", "de": "Das Mittagessen ist um halb eins.", "it": "Il pranzo è alle dodici e mezza." }
+        ],
+        "rows": [
+          [{ "sl": "ob kateri uri", "en": "at an hour", "de": "um … Uhr", "it": "a un'ora" }, { "en": "ob + -ih (dveh, treh)", "de": "ob + -ih (dveh, treh)", "it": "ob + -ih (dveh, treh)" }, "ob petih, ob osmih"],
+          [{ "sl": "ob pol", "en": "at half past", "de": "um halb", "it": "alla mezza" }, { "en": "ob pol + the next hour", "de": "ob pol + nächste Stunde", "it": "ob pol + l'ora successiva" }, "ob pol šestih (5:30)"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "kdaj-cas", "text": "Kosilo je ob ___. (12:00)", "accept": ["dvanajstih"], "hint": "ob + -ih",
+          "explain": "**at an hour** → ob + -ih: **ob dvanajstih**"
+        }
+      },
+      {
+        "say": {
+          "en": "A day takes **v** + the object form: **v ponedeljek, v torek, v sredo, v četrtek, v petek, v soboto, v nedeljo**. Every week on that day: **ob** + **-ih** for a masculine day, **-ah** for a feminine one: **ob torkih, ob petkih; ob sredah, ob sobotah, ob nedeljah**.",
+          "de": "Ein Tag steht mit **v** + Objektform: **v ponedeljek, v torek, v sredo, v četrtek, v petek, v soboto, v nedeljo**. Jede Woche an dem Tag: **ob** + **-ih** bei einem männlichen Tag, **-ah** bei einem weiblichen: **ob torkih, ob petkih; ob sredah, ob sobotah, ob nedeljah**.",
+          "it": "Un giorno vuole **v** + la forma dell'oggetto: **v ponedeljek, v torek, v sredo, v četrtek, v petek, v soboto, v nedeljo**. Ogni settimana quel giorno: **ob** + **-ih** per un giorno maschile, **-ah** per uno femminile: **ob torkih, ob petkih; ob sredah, ob sobotah, ob nedeljah**."
+        },
+        "examples": [
+          { "sl": "V soboto gremo na tržnico.", "en": "On Saturday we're going to the market.", "de": "Am Samstag gehen wir auf den Markt.", "it": "Sabato andiamo al mercato." },
+          { "sl": "Ob nedeljah babica peče potico.", "en": "On Sundays Granny bakes potica.", "de": "Sonntags bäckt Oma Potica.", "it": "La domenica la nonna fa la potica." }
+        ],
+        "rows": [
+          [{ "sl": "dan", "en": "on a day", "de": "an einem Tag", "it": "in un giorno" }, { "en": "v + the object form", "de": "v + Objektform", "it": "v + forma dell'oggetto" }, "v sredo, v nedeljo"],
+          [{ "sl": "vsak teden", "en": "every week", "de": "jede Woche", "it": "ogni settimana" }, { "en": "ob + -ih, -ah", "de": "ob + -ih, -ah", "it": "ob + -ih, -ah" }, "ob torkih, ob sobotah"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "kdaj-cas", "prompt": "___ gremo v Gorico. (on Friday)", "options": ["V petek", "V petku", "Ob petek"], "answer": 0, "say_options": true,
+          "explain": "**one day** → v + the object form: **v petek**\n- every Friday · ob petkih"
+        }
+      },
+      {
+        "say": {
+          "en": "The parts of the day and the seasons are one word each: **zjutraj** (in the morning), **dopoldne**, **opoldne**, **popoldne**, **zvečer**, **ponoči**; **spomladi**, **poleti**, **jeseni**, **pozimi**. The nouns are different: **jutro, večer, noč; pomlad, poletje, jesen, zima**.",
+          "de": "Tageszeiten und Jahreszeiten sind je ein Wort: **zjutraj** (morgens), **dopoldne**, **opoldne**, **popoldne**, **zvečer**, **ponoči**; **spomladi**, **poleti**, **jeseni**, **pozimi**. Die Nomen sind andere: **jutro, večer, noč; pomlad, poletje, jesen, zima**.",
+          "it": "Le parti del giorno e le stagioni sono una parola sola: **zjutraj** (di mattina), **dopoldne**, **opoldne**, **popoldne**, **zvečer**, **ponoči**; **spomladi**, **poleti**, **jeseni**, **pozimi**. I nomi sono diversi: **jutro, večer, noč; pomlad, poletje, jesen, zima**."
+        },
+        "examples": [
+          { "sl": "Zjutraj pijem kavo, zvečer čaj.", "en": "In the morning I drink coffee, in the evening tea.", "de": "Morgens trinke ich Kaffee, abends Tee.", "it": "La mattina bevo il caffè, la sera il tè." },
+          { "sl": "Pozimi pade veliko snega.", "en": "A lot of snow falls in winter.", "de": "Im Winter fällt viel Schnee.", "it": "D'inverno cade molta neve." }
+        ],
+        "rows": [
+          [{ "sl": "del dneva", "en": "part of the day", "de": "Tageszeit", "it": "parte del giorno" }, { "en": "one word", "de": "ein Wort", "it": "una parola" }, "zjutraj, zvečer, ponoči"],
+          [{ "sl": "letni čas", "en": "season", "de": "Jahreszeit", "it": "stagione" }, { "en": "one word", "de": "ein Wort", "it": "una parola" }, "spomladi, poleti, jeseni, pozimi"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "kdaj-cas", "prompt": "___ je mrzlo.", "options": ["Zima", "Pozimi", "V zimo"], "answer": 1, "say_options": true,
+          "explain": "**in winter** → one word: **pozimi**. Zima is the noun: zima je mrzla."
+        }
+      },
+      {
+        "say": {
+          "en": "**Čez** + the object form is *in* (later): **čez eno uro**, **čez pet minut**. How long something lasts is the object form, with no little word: **ves dan, vso noč, eno uro**. An hour ago is **pred eno uro**.",
+          "de": "**Čez** + Objektform heißt *in* (später): **čez eno uro**, **čez pet minut**. Wie lange etwas dauert, steht in der Objektform, ohne kleines Wort: **ves dan, vso noč, eno uro**. Vor einer Stunde heißt **pred eno uro**.",
+          "it": "**Čez** + la forma dell'oggetto vuol dire *fra* (più tardi): **čez eno uro**, **čez pet minut**. Quanto dura qualcosa è la forma dell'oggetto, senza parolina: **ves dan, vso noč, eno uro**. Un'ora fa è **pred eno uro**."
+        },
+        "examples": [
+          { "sl": "Kosilo je čez eno uro.", "en": "Lunch is in an hour.", "de": "Das Mittagessen ist in einer Stunde.", "it": "Il pranzo è fra un'ora." },
+          { "sl": "Luka je ves dan na pašniku.", "en": "Luka is on the pasture all day.", "de": "Luka ist den ganzen Tag auf der Weide.", "it": "Luka è al pascolo tutto il giorno." }
+        ],
+        "rows": [
+          [{ "sl": "pozneje", "en": "in (later)", "de": "in (später)", "it": "fra (più tardi)" }, { "en": "čez + the object form", "de": "čez + Objektform", "it": "čez + forma dell'oggetto" }, "čez eno uro"],
+          [{ "sl": "kako dolgo", "en": "how long", "de": "wie lange", "it": "per quanto tempo" }, { "en": "the object form", "de": "Objektform", "it": "forma dell'oggetto" }, "ves dan, vso noč"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "kdaj-cas", "text": "Kosilo je čez ___ uro.", "accept": ["eno"], "hint": "ena ura → the object form",
+          "explain": "**čez** + the object form: ena ura → **čez eno uro**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "kdaj-cas-1",
+      "title": { "sl": "Ura in dnevi", "en": "Hours and days", "de": "Uhrzeit und Tage", "it": "Ore e giorni" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "kdaj-cas", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "Koliko je ura? Ob kateri uri?",
+          "columns": ["Ura je … · It's …", "ob … · at …"],
+          "rows": [
+            { "label": "1:00", "cells": ["ena", { "accept": ["enih"], "hint": "-ih" }] },
+            { "label": "2:00", "cells": [{ "accept": ["dve"], "hint": "the plain number" }, { "accept": ["dveh"], "hint": "not -ih" }] },
+            { "label": "3:00", "cells": ["tri", { "accept": ["treh"], "hint": "as dveh" }] },
+            { "label": "5:00", "cells": [{ "accept": ["pet"] }, "petih"] },
+            { "label": "8:00", "cells": ["osem", { "accept": ["osmih"], "hint": "the e drops" }] },
+            { "label": "12:00", "cells": ["dvanajst", { "accept": ["dvanajstih"] }] }
+          ],
+          "explain": "**Ura je** + the number · **ob** + -ih (dveh, treh)\n- ob enih, ob petih, ob osmih\n- 6:30 · ob pol sedmih"
+        },
+        {
+          "type": "sort", "grammar": "kdaj-cas", "instruction": "Razvrsti · Sort",
+          "columns": [
+            { "label": "del dneva · part of the day", "words": ["zjutraj", "zvečer", "ponoči"] },
+            { "label": "letni čas · season", "words": ["spomladi", "poleti", "pozimi"] },
+            { "label": "dan · day", "words": ["v ponedeljek", "v sredo", "v petek"] }
+          ],
+          "explain": "zjutraj, zvečer, ponoči · spomladi, poleti, jeseni, pozimi · v ponedeljek, v torek, v sredo …"
+        }
+      ]
+    },
+    {
+      "id": "kdaj-cas-2",
+      "title": { "sl": "Babičin teden", "en": "Granny's week", "de": "Omas Woche", "it": "La settimana della nonna" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "kdaj-cas", "instruction": "Dopolni · Fill in", "title": "Babičin teden",
+          "text": "Babica Micka vstane ob ___ (6:00). ___ (jutro) pije kavo. Kosilo je ob ___ (12:00). V ___ (sobota) gre na tržnico. Ob ___ (nedelje, every week) peče potico. ___ (večer) posluša radio.",
+          "gaps": [
+            { "accept": ["šestih"], "hint": "ob + -ih" },
+            { "accept": ["Zjutraj"], "hint": "in the morning: one word" },
+            { "accept": ["dvanajstih"] },
+            { "accept": ["soboto"], "hint": "v + the object form", "explain": "One day: v + the object form, **v soboto**." },
+            { "accept": ["nedeljah"], "hint": "every week: ob + -ah (feminine)", "explain": "Every Sunday: ob + -ah, **ob nedeljah**." },
+            { "accept": ["Zvečer"], "hint": "in the evening: one word" }
+          ],
+          "bank": true, "distractors": ["šest", "sobota", "nedeljo"],
+          "translation": "Granny Micka gets up at six. In the morning she drinks coffee. Lunch is at twelve. On Saturday she goes to the market. On Sundays she bakes potica. In the evening she listens to the radio."
+        }
+      ]
+    },
+    {
+      "id": "kdaj-cas-3",
+      "title": { "sl": "Kdaj?", "en": "When?", "de": "Wann?", "it": "Quando?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "kdaj-cas", "instruction": "Povej, kdaj · Say when", "cue": "kdaj?",
+          "items": [
+            { "from": "sreda (on one day)", "accept": ["v sredo"] },
+            { "from": "petek (every week)", "accept": ["ob petkih"], "hint": "ob + -ih (masculine)" },
+            { "from": "7:00 (at)", "accept": ["ob sedmih"], "hint": "the e drops" },
+            { "from": "zima", "accept": ["pozimi"] },
+            { "from": "večer", "accept": ["zvečer"] },
+            { "from": "poletje", "accept": ["poleti"] },
+            { "from": "ena ura (later)", "accept": ["čez eno uro"], "hint": "čez + the object form" },
+            { "from": "4:30 (at)", "accept": ["ob pol petih"], "hint": "half towards the next hour" }
+          ],
+          "explain": "**kdaj?**\n- v sredo · ob petkih\n- ob sedmih · ob pol petih\n- pozimi · zvečer · poleti\n- čez eno uro"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "kdaj-cas", "instruction": "Dopolni · Fill in", "prompt": "Koliko je ura? Ob kateri uri?",
+        "columns": ["Ura je … · It's …", "ob … · at …"],
+        "rows": [
+          { "label": "4:00", "cells": ["štiri", { "accept": ["štirih"] }] },
+          { "label": "9:00", "cells": [{ "accept": ["devet"] }, "devetih"] },
+          { "label": "10:00", "cells": ["deset", { "accept": ["desetih"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "kdaj-cas", "instruction": "Dopolni · Fill in",
+        "text": "Zala vstane ob ___ (7:00). ___ (jutro) gre v šolo. ___ (poletje) je vroče. V ___ (petek) pride Marko.",
+        "gaps": [
+          { "accept": ["sedmih"] },
+          { "accept": ["Zjutraj"] },
+          { "accept": ["Poleti"] },
+          { "accept": ["petek"] }
+        ],
+        "translation": "Zala gets up at seven. In the morning she goes to school. In summer it's hot. On Friday Marko is coming."
+      },
+      {
+        "type": "transform", "grammar": "kdaj-cas", "instruction": "Povej, kdaj · Say when", "cue": "kdaj?",
+        "items": [
+          { "from": "sobota (every week)", "accept": ["ob sobotah"] },
+          { "from": "jesen", "accept": ["jeseni"] },
+          { "from": "noč", "accept": ["ponoči"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "kdaj-cas", "instruction": "Koliko je ura? · What time is it?", "prompt": "1:00", "options": ["Ura je ena.", "Ura je prva.", "Ura je ob enih."], "answer": 0, "say_options": true,
+        "explain": "**the time** → ura je + the plain number: **Ura je ena.** Ob enih is *at* one."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Ura je dve, ob enih/ob dveh, ob pol enih (12:30), ob nedeljah/ob petkih, Babičin teden, čez pet minut"
+}

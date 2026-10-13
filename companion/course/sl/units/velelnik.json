@@ -1,0 +1,215 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "velelnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "📣",
+  "title": { "sl": "Pridi! Dajte! Pojdiva!", "en": "Come! Give! Let's go!", "de": "Komm! Gebt! Gehen wir!", "it": "Vieni! Date! Andiamo!" },
+  "goal": {
+    "en": "You can tell one person, several or someone you say vi to what to do (pridi, pridite), suggest doing it together (pojdiva, pojdimo), and say don't (ne teci).",
+    "de": "Du sagst einer Person, mehreren oder jemandem, den du siezt, was zu tun ist (pridi, pridite), schlägst vor, es zusammen zu tun (pojdiva, pojdimo), und verbietest es (ne teci).",
+    "it": "Sai dire a una persona, a più persone o a chi dai del vi che cosa fare (pridi, pridite), proporre di farlo insieme (pojdiva, pojdimo) e vietarlo (ne teci)."
+  },
+  "grammar": ["velelnik", "ti-vi"],
+  "words": ["počakati", "poslušati", "govoriti", "pisati", "brati", "priti", "piti", "jesti", "dati", "iti", "paziti", "sesti", "teči", "pojdi", "jej", "pij", "daj", "izvolite", "prosim", "počasi", "tja", "pismo", "trava"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "jaz (sedanjik)", "en": "I (present)", "de": "ich (Präsens)", "it": "io (presente)" },
+        { "sl": "ti!", "en": "to one (ti)", "de": "zu einer Person (ti)", "it": "a una persona (ti)" },
+        { "sl": "vi!", "en": "to several, polite (vi)", "de": "zu mehreren, höflich (vi)", "it": "a più persone, cortese (vi)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The imperative (*velelnik*) tells someone to do something. From the jaz form, **-am** becomes **-aj**: delam → **delaj!**, poslušam → **poslušaj!** That's for one person you say ti to. For several people, or politely with vi, add **-te**: **delajte! poslušajte!**",
+          "de": "Der Imperativ (*velelnik*) sagt jemandem, was er tun soll. Aus der jaz-Form wird **-am** zu **-aj**: delam → **delaj!**, poslušam → **poslušaj!** Das ist für eine Person, die man mit ti anspricht. Für mehrere, oder höflich mit vi, kommt **-te** dazu: **delajte! poslušajte!**",
+          "it": "L'imperativo (*velelnik*) dice a qualcuno che cosa fare. Dalla forma con jaz, **-am** diventa **-aj**: delam → **delaj!**, poslušam → **poslušaj!** Questo è per una persona a cui dai del ti. Per più persone, o per cortesia con vi, si aggiunge **-te**: **delajte! poslušajte!**"
+        },
+        "examples": [
+          { "sl": "Počakaj, Nejc!", "en": "Wait, Nejc!", "de": "Warte, Nejc!", "it": "Aspetta, Nejc!" },
+          { "sl": "Otroci, poslušajte!", "en": "Children, listen!", "de": "Kinder, hört zu!", "it": "Bambini, ascoltate!" }
+        ],
+        "rows": [["delam", "delaj", "delajte"], ["poslušam", "poslušaj", "poslušajte"]],
+        "ask": {
+          "type": "choice", "grammar": "velelnik", "prompt": "»Otroci, ___!« (poslušati)", "options": ["poslušaj", "poslušajte", "poslušamo"], "answer": 1, "say_options": true,
+          "explain": "**otroci** → several → **-te**: poslušajte\n- poslušaj · to one\n- poslušamo · we listen (not an order)"
+        }
+      },
+      {
+        "say": {
+          "en": "**-im** and **-em** become **-i**: govorim → **govori!**, pišem → **piši!**, berem → **beri!**, pridem → **pridi!** With vi: **govorite, pišite, berite, pridite**.",
+          "de": "**-im** und **-em** werden zu **-i**: govorim → **govori!**, pišem → **piši!**, berem → **beri!**, pridem → **pridi!** Mit vi: **govorite, pišite, berite, pridite**.",
+          "it": "**-im** e **-em** diventano **-i**: govorim → **govori!**, pišem → **piši!**, berem → **beri!**, pridem → **pridi!** Con vi: **govorite, pišite, berite, pridite**."
+        },
+        "examples": [
+          { "sl": "Govori počasi, prosim.", "en": "Speak slowly, please.", "de": "Sprich bitte langsam.", "it": "Parla piano, per favore." },
+          { "sl": "Pridite jutri!", "en": "Come tomorrow! (to several, or polite)", "de": "Kommt morgen! / Kommen Sie morgen!", "it": "Venite domani! / Venga domani!" }
+        ],
+        "rows": [["govorim", "govori", "govorite"], ["pišem", "piši", "pišite"], ["pridem", "pridi", "pridite"]],
+        "ask": {
+          "type": "cloze", "grammar": "velelnik", "text": "»Zala, ___ pismo!« (pisati)", "accept": ["piši"], "hint": "pišem → ?",
+          "explain": "**pišem** → -em → **-i**: piši\n- govorim → govori\n- berem → beri"
+        }
+      },
+      {
+        "say": {
+          "en": "A few you learn as they are: piti → **pij!**, jesti → **jej!**, dati → **daj!**, and iti → **pojdi!**, with a stem of its own. Babica Micka says them all day: **Jej, jej!**",
+          "de": "Ein paar lernt man so, wie sie sind: piti → **pij!**, jesti → **jej!**, dati → **daj!**, und iti → **pojdi!**, mit eigenem Stamm. Oma Micka sagt sie den ganzen Tag: **Jej, jej!**",
+          "it": "Alcuni si imparano così come sono: piti → **pij!**, jesti → **jej!**, dati → **daj!**, e iti → **pojdi!**, con una radice tutta sua. Nonna Micka li dice tutto il giorno: **Jej, jej!**"
+        },
+        "examples": [
+          { "sl": "Jej, jej!", "en": "Eat, eat!", "de": "Iss, iss!", "it": "Mangia, mangia!" },
+          { "sl": "Pojdi domov, Tine.", "en": "Go home, Tine.", "de": "Geh nach Hause, Tine.", "it": "Va' a casa, Tine." }
+        ],
+        "rows": [["pijem", "pij", "pijte"], ["jem", "jej", "jejte"], ["grem", "pojdi", "pojdite"]],
+        "ask": {
+          "type": "choice", "grammar": "velelnik", "prompt": "»Nejc, ___ domov!« (iti)", "options": ["greš", "pojdi", "grem"], "answer": 1, "say_options": true,
+          "explain": "**iti** → its own imperative: **pojdi!** (greš only says you're going)"
+        }
+      },
+      {
+        "say": {
+          "en": "Doing it together: **-mo** for all of us (**pojdimo! delajmo!**), **-va** for you and me (**pojdiva! iščiva!**), **-ta** for you two (**pridita! poslušajta!**).",
+          "de": "Gemeinsam: **-mo** für uns alle (**pojdimo! delajmo!**), **-va** für dich und mich (**pojdiva! iščiva!**), **-ta** für euch zwei (**pridita! poslušajta!**).",
+          "it": "Insieme: **-mo** per tutti noi (**pojdimo! delajmo!**), **-va** per te e me (**pojdiva! iščiva!**), **-ta** per voi due (**pridita! poslušajta!**)."
+        },
+        "examples": [
+          { "sl": "Pojdimo domov!", "en": "Let's go home!", "de": "Gehen wir nach Hause!", "it": "Andiamo a casa!" },
+          { "sl": "Zala in Tine, pridita!", "en": "Zala and Tine, come!", "de": "Zala und Tine, kommt!", "it": "Zala e Tine, venite!" }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "velelnik", "text": "»Nejc, ___ na travnik!« (iti: you and I)", "accept": ["pojdiva", "greva"], "hint": "you and I: -va",
+          "explain": "**you and I** → **-va**: pojdiva\n- greva (spoken) works too; the imperative is pojdiva\n- pojdimo · all of us · pojdita · you two"
+        }
+      },
+      {
+        "say": {
+          "en": "Don't: **ne** + the imperative: **ne hodi tja! ne tecite!** Don't mix it up with the present: **pazim** is *I'm careful*, **pazi!** is *be careful!*; **ne tečete** only says they aren't running, **ne tecite!** tells them not to.",
+          "de": "Verbieten: **ne** + Imperativ: **ne hodi tja! ne tecite!** Nicht mit dem Präsens verwechseln: **pazim** heißt *ich passe auf*, **pazi!** *pass auf!*; **ne tečete** sagt nur, dass sie nicht laufen, **ne tecite!** verbietet es.",
+          "it": "Vietare: **ne** + imperativo: **ne hodi tja! ne tecite!** Non confonderlo con il presente: **pazim** vuol dire *sto attento*, **pazi!** *attento!*; **ne tečete** dice solo che non corrono, **ne tecite!** lo vieta."
+        },
+        "examples": [
+          { "sl": "Pazi, Nejc! Ogenj je vroč.", "en": "Careful, Nejc! The fire is hot.", "de": "Pass auf, Nejc! Das Feuer ist heiß.", "it": "Attento, Nejc! Il fuoco scotta." },
+          { "sl": "Otroci, ne tecite po travi!", "en": "Children, don't run on the grass!", "de": "Kinder, lauft nicht über das Gras!", "it": "Bambini, non correte sull'erba!" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "velelnik", "prompt": "»Otroci, ne ___ po kuhinji!« (teči)", "options": ["tečete", "tecite", "teci"], "answer": 1, "say_options": true,
+          "explain": "**ne** + the imperative, several → **ne tecite!**\n- ne tečete · you aren't running\n- ne teci · to one"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "velelnik-1",
+      "title": { "sl": "Ti in vi", "en": "Ti and vi", "de": "Ti und vi", "it": "Ti e vi" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "velelnik", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "ti! · vi!",
+          "columns": ["ti! · to one", "vi! · to several, polite"],
+          "rows": [
+            { "label": "počakati", "cells": ["počakaj", { "accept": ["počakajte"], "hint": "+ -te" }] },
+            { "label": "poslušati", "cells": [{ "accept": ["poslušaj"], "hint": "-am → -aj" }, "poslušajte"] },
+            { "label": "govoriti", "cells": [{ "accept": ["govori"], "hint": "-im → -i" }, "govorite"] },
+            { "label": "pisati", "cells": [{ "accept": ["piši"], "hint": "pišem → ?" }, "pišite"] },
+            { "label": "brati", "cells": ["beri", { "accept": ["berite"] }] },
+            { "label": "piti", "cells": [{ "accept": ["pij"], "hint": "a short one" }, "pijte"] },
+            { "label": "jesti", "cells": [{ "accept": ["jej"], "hint": "Micka: … , …!" }, "jejte"] },
+            { "label": "iti", "cells": [{ "accept": ["pojdi"], "hint": "a new stem" }, "pojdite"] }
+          ],
+          "explain": "**-am → -aj**, **-im, -em → -i**, vi adds **-te**\n- počakaj · govori · piši · beri\n- to learn: pij, jej, pojdi"
+        },
+        {
+          "type": "sort", "grammar": "velelnik", "instruction": "Ukaz ali sedanjik? · An order, or the present?",
+          "columns": [
+            { "label": "velelnik · an order", "words": ["piši", "poslušaj", "pridite", "beri"] },
+            { "label": "sedanjik · the present", "words": ["pišem", "poslušam", "pridete", "berem"] }
+          ],
+          "explain": "**an order** ends in -j or -i (vi: -jte, -ite)\n- piši! · pišem, I write\n- pridite! · pridete, you come"
+        }
+      ]
+    },
+    {
+      "id": "velelnik-2",
+      "title": { "sl": "Pri babici", "en": "At Granny's", "de": "Bei der Oma", "it": "Dalla nonna" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "velelnik", "instruction": "Dopolni z velelnikom · Fill in the imperative", "title": "Pri babici",
+          "text": "»Dober dan, babica!« »Pridi, pridi, {learner}! ___ (sesti) tukaj. ___ (jesti) juho!« »Hvala. ___ (sesti) tudi vi, babica!« »Nejc in Tine, ___ (priti) v hišo! Tine, ne ___ (teči)!« »Otroci, ___ (poslušati) babico!«",
+          "gaps": [
+            { "accept": ["Sedi"], "hint": "sesti: jaz sedem → ? (Micka says ti to you)", "explain": "sesti → sedem → **sedi!** (to one, ti)" },
+            { "accept": ["Jej"], "hint": "jesti: a short one" },
+            { "accept": ["Sedite"], "hint": "you say vi to Micka", "grammar": "ti-vi", "explain": "To Micka you say vi: **sedite!**" },
+            { "accept": ["pridita"], "hint": "two boys: -ta", "grammar": "dvojina", "explain": "Nejc and Tine are two: **pridita!**" },
+            { "accept": ["teci"], "hint": "ne + the imperative; č → c", "explain": "teči → **ne teci!** (to one)" },
+            { "accept": ["poslušajte"], "hint": "several: -te" }
+          ],
+          "bank": true, "distractors": ["Sedim", "Ješ", "pridite"],
+          "translation": "\"Good day, Granny!\" \"Come in, come in, {learner}! Sit here. Eat some soup!\" \"Thank you. You sit down too, Granny!\" \"Nejc and Tine, come into the house! Tine, don't run!\" \"Children, listen to Granny!\""
+        }
+      ]
+    },
+    {
+      "id": "velelnik-3",
+      "title": { "sl": "Ukaži!", "en": "Give the order!", "de": "Befiehl!", "it": "Ordina!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "velelnik", "instruction": "Naredi ukaz za isto osebo · Make it an order to the same person", "cue": "!",
+          "items": [
+            { "from": "Pišeš pismo.", "accept": ["Piši pismo!"], "lemma": "pisati", "form": "imp.2sg" },
+            { "from": "Pijete vodo.", "accept": ["Pijte vodo!"], "lemma": "piti", "form": "imp.2pl" },
+            { "from": "Greš domov.", "accept": ["Pojdi domov!"], "hint": "iti: a new stem", "lemma": "iti", "form": "imp.2sg" },
+            { "from": "Ješ kruh.", "accept": ["Jej kruh!"], "lemma": "jesti", "form": "imp.2sg" },
+            { "from": "Poslušate učiteljico.", "accept": ["Poslušajte učiteljico!"], "lemma": "poslušati", "form": "imp.2pl" },
+            { "from": "Govoriš počasi.", "accept": ["Govori počasi!"], "lemma": "govoriti", "form": "imp.2sg" },
+            { "from": "Bereta knjigo.", "accept": ["Berita knjigo!"], "hint": "you two: -ta", "grammar": "dvojina", "lemma": "brati", "form": "imp.2du" },
+            { "from": "Ne tečete po travi.", "accept": ["Ne tecite po travi!"], "hint": "č → c", "lemma": "teči", "form": "imp.2pl" }
+          ],
+          "explain": "**the same person**, now an order\n- pišeš → piši! · ješ → jej! · greš → pojdi!\n- pijete → pijte! · bereta → berita!"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "velelnik", "instruction": "Dopolni · Fill in", "prompt": "ti! · vi!",
+        "columns": ["ti! · to one", "vi! · to several, polite"],
+        "rows": [
+          { "label": "delati", "cells": [{ "accept": ["delaj"] }, "delajte"] },
+          { "label": "priti", "cells": ["pridi", { "accept": ["pridite"] }] },
+          { "label": "dati", "cells": [{ "accept": ["daj"] }, "dajte"] },
+          { "label": "iti", "cells": ["pojdi", { "accept": ["pojdite"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "velelnik", "instruction": "Dopolni z velelnikom · Fill in the imperative",
+        "text": "»Otroci, ___ (sesti)!« reče Mojca. »Nejc, ___ (brati)! Zala in Tine, ___ (poslušati)! {learner}, ___ (priti) jutri ob osmih.«",
+        "gaps": [
+          { "accept": ["sedite"] },
+          { "accept": ["beri"] },
+          { "accept": ["poslušajta"], "grammar": "dvojina" },
+          { "accept": ["pridite"], "grammar": "ti-vi" }
+        ],
+        "translation": "\"Children, sit down!\" says Mojca. \"Nejc, read! Zala and Tine, listen! {learner}, come tomorrow at eight.\""
+      },
+      {
+        "type": "transform", "grammar": "velelnik", "instruction": "Naredi ukaz za isto osebo · Make it an order to the same person", "cue": "!",
+        "items": [
+          { "from": "Pijete čaj.", "accept": ["Pijte čaj!"], "lemma": "piti", "form": "imp.2pl" },
+          { "from": "Ješ juho.", "accept": ["Jej juho!"], "lemma": "jesti", "form": "imp.2sg" },
+          { "from": "Greva domov.", "accept": ["Pojdiva domov!"], "grammar": "dvojina", "lemma": "iti", "form": "imp.1du" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "ti-vi", "prompt": "»France, ___ kruh, prosim!« (dati)", "options": ["daj", "dajte", "dajta"], "answer": 1, "say_options": true,
+        "explain": "**France** → you say vi → **dajte**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: iti (pojdi), jesti (jej). Native check: Pri babici (Sedi tukaj / Usedi se), greva as let's go, pridite for two people"
+}

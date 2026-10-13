@@ -1,0 +1,237 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "mestnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🏡",
+  "title": { "sl": "Kje? V hiši, na vrtu, pri babici", "en": "Where? In the house, in the garden, at Granny's", "de": "Wo? Im Haus, im Garten, bei der Oma", "it": "Dove? In casa, in giardino, dalla nonna" },
+  "goal": {
+    "en": "You can say where anyone or anything is (v hiši, na vrtu, pri babici, ob ribniku), and what people talk about (o medvedu).",
+    "de": "Du sagst, wo jemand oder etwas ist (v hiši, na vrtu, pri babici, ob ribniku), und worüber man spricht (o medvedu).",
+    "it": "Sai dire dove si trova qualcuno o qualcosa (v hiši, na vrtu, pri babici, ob ribniku) e di che cosa si parla (o medvedu)."
+  },
+  "grammar": ["kje-mestnik-orodnik", "mestnik"],
+  "words": ["v", "na", "pri", "ob", "o", "po", "šola", "njiva", "hiša", "kuhinja", "gozd", "travnik", "vrt", "okno", "morje", "vas", "peč", "lipa", "ribnik", "potok", "pošta", "tržnica", "pašnik", "kosilo", "medved", "ogenj", "gostilna", "Nova Gorica", "Novo mesto", "velik", "nov"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "kind of noun", "de": "Art des Nomens", "it": "tipo di nome" },
+        { "sl": "kaj?", "en": "base form", "de": "Grundform", "it": "forma base" },
+        { "sl": "kje?", "en": "where (kje?)", "de": "wo (kje?)", "it": "dove (kje?)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "To say where something is (**Kje?**), **v** (in) and **na** (on, at) change the noun's ending: the locative (*mestnik*). You've used it since the first unit: **v kuhinji, na vrtu**. A feminine noun in -a ends in **-i**: šola → **v šoli**, njiva → **na njivi**.",
+          "de": "Wenn man sagt, wo etwas ist (**Kje?**), ändern **v** (in) und **na** (auf, an) die Endung des Nomens: der Lokativ (*mestnik*). Du benutzt ihn seit der ersten Einheit: **v kuhinji, na vrtu**. Ein weibliches Nomen auf -a endet auf **-i**: šola → **v šoli**, njiva → **na njivi**.",
+          "it": "Per dire dove si trova qualcosa (**Kje?**), **v** (in) e **na** (su, a) cambiano la desinenza del nome: il locativo (*mestnik*). Lo usi dalla prima unità: **v kuhinji, na vrtu**. Un nome femminile in -a finisce in **-i**: šola → **v šoli**, njiva → **na njivi**."
+        },
+        "examples": [
+          { "sl": "Babica je v kuhinji.", "en": "Granny is in the kitchen.", "de": "Oma ist in der Küche.", "it": "La nonna è in cucina." },
+          { "sl": "Luka je na njivi.", "en": "Luka is in the field.", "de": "Luka ist auf dem Feld.", "it": "Luka è nel campo." }
+        ],
+        "rows": [[{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "šola, njiva", "v šoli, na njivi"]],
+        "ask": {
+          "type": "cloze", "grammar": "mestnik", "text": "Zala je v ___. (hiša)", "accept": ["hiši"], "hint": "-a → -i",
+          "explain": "**kje?** + a feminine noun → **-i**: v hiši"
+        }
+      },
+      {
+        "say": {
+          "en": "Masculine and neuter nouns take **-u**: gozd → **v gozdu**, travnik → **na travniku**, vrt → **na vrtu**; okno → **na oknu**, morje → **na morju**.",
+          "de": "Männliche und sächliche Nomen bekommen **-u**: gozd → **v gozdu**, travnik → **na travniku**, vrt → **na vrtu**; okno → **na oknu**, morje → **na morju**.",
+          "it": "I nomi maschili e neutri prendono **-u**: gozd → **v gozdu**, travnik → **na travniku**, vrt → **na vrtu**; okno → **na oknu**, morje → **na morju**."
+        },
+        "examples": [
+          { "sl": "Ovce so v gozdu.", "en": "The sheep are in the woods.", "de": "Die Schafe sind im Wald.", "it": "Le pecore sono nel bosco." },
+          { "sl": "Mačka spi na oknu.", "en": "The cat is sleeping on the windowsill.", "de": "Die Katze schläft auf dem Fensterbrett.", "it": "Il gatto dorme sul davanzale." }
+        ],
+        "rows": [
+          [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "gozd, travnik", "v gozdu, na travniku"],
+          [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "okno, morje", "na oknu, na morju"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "mestnik", "prompt": "Konji so na ___. (travnik)", "options": ["travnik", "travniku", "travnika"], "answer": 1, "say_options": true,
+          "explain": "**kje?** + a masculine noun → **-u**: na travniku"
+        }
+      },
+      {
+        "say": {
+          "en": "**V** is inside something: **v hiši, v gozdu, v šoli, v vasi**. **Na** is on it, or out in the open: **na mizi, na njivi, na travniku**, and with a few places you learn as they are: **na pošti, na tržnici**. Learn the little word with the place.",
+          "de": "**V** ist in etwas drin: **v hiši, v gozdu, v šoli, v vasi**. **Na** ist darauf oder draußen im Freien: **na mizi, na njivi, na travniku**, und bei ein paar Orten, die man so lernt: **na pošti, na tržnici**. Lerne das kleine Wort mit dem Ort.",
+          "it": "**V** è dentro qualcosa: **v hiši, v gozdu, v šoli, v vasi**. **Na** è sopra o all'aperto: **na mizi, na njivi, na travniku**, e con alcuni luoghi che si imparano così: **na pošti, na tržnici**. Impara la parolina con il luogo."
+        },
+        "examples": [
+          { "sl": "Kruh je na mizi.", "en": "The bread is on the table.", "de": "Das Brot ist auf dem Tisch.", "it": "Il pane è sul tavolo." },
+          { "sl": "Micka je na tržnici.", "en": "Micka is at the market.", "de": "Micka ist auf dem Markt.", "it": "Micka è al mercato." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "kje-mestnik-orodnik", "prompt": "Luka je ___ pašniku.", "options": ["v", "na", "o"], "answer": 1, "say_options": true,
+          "explain": "**pašnik** is open ground → **na**: na pašniku\n- v gozdu · inside the wood"
+        }
+      },
+      {
+        "say": {
+          "en": "**Pri** is at someone's place, or by something: **pri babici, pri lipi**. **Ob** is by the side of, often water: **ob ribniku, ob potoku**. Feminine nouns without -a take **-i** too: vas → **v vasi**, peč → **pri peči**.",
+          "de": "**Pri** heißt bei jemandem oder bei etwas: **pri babici, pri lipi**. **Ob** heißt an, neben, oft am Wasser: **ob ribniku, ob potoku**. Weibliche Nomen ohne -a bekommen auch **-i**: vas → **v vasi**, peč → **pri peči**.",
+          "it": "**Pri** vuol dire da qualcuno o vicino a qualcosa: **pri babici, pri lipi**. **Ob** vuol dire lungo, accanto, spesso all'acqua: **ob ribniku, ob potoku**. Anche i nomi femminili senza -a prendono **-i**: vas → **v vasi**, peč → **pri peči**."
+        },
+        "examples": [
+          { "sl": "Zala je pri babici.", "en": "Zala is at Granny's.", "de": "Zala ist bei der Oma.", "it": "Zala è dalla nonna." },
+          { "sl": "Mačka spi pri peči.", "en": "The cat is sleeping by the stove.", "de": "Die Katze schläft beim Ofen.", "it": "Il gatto dorme vicino alla stufa." }
+        ],
+        "rows": [[{ "sl": "ženski, brez -a", "en": "feminine, no -a", "de": "weiblich, ohne -a", "it": "femminile, senza -a" }, "vas, peč", "v vasi, pri peči"]],
+        "ask": {
+          "type": "cloze", "grammar": "kje-mestnik-orodnik", "text": "Ovce so ob ___. (ribnik)", "accept": ["ribniku"], "hint": "masculine: -u",
+          "explain": "**ob** + the locative → ribnik → **ob ribniku**"
+        }
+      },
+      {
+        "say": {
+          "en": "The locative also follows **o** (about) and **po** (after; all around): **o medvedu, o babici; po kosilu, po vasi**. Mind kam: **Po kosilu gremo na njivo** (where to: the object form).",
+          "de": "Der Lokativ steht auch nach **o** (über) und **po** (nach; überall in): **o medvedu, o babici; po kosilu, po vasi**. Achtung auf kam: **Po kosilu gremo na njivo** (wohin: die Objektform).",
+          "it": "Il locativo segue anche **o** (di, su) e **po** (dopo; in giro per): **o medvedu, o babici; po kosilu, po vasi**. Attenzione a kam: **Po kosilu gremo na njivo** (verso dove: la forma dell'oggetto)."
+        },
+        "examples": [
+          { "sl": "Janez govori o medvedu.", "en": "Janez is talking about a bear.", "de": "Janez erzählt von einem Bären.", "it": "Janez parla di un orso." },
+          { "sl": "Po kosilu gremo na njivo.", "en": "After lunch we go to the field.", "de": "Nach dem Mittagessen gehen wir aufs Feld.", "it": "Dopo pranzo andiamo al campo." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "mestnik", "prompt": "Po ___ gremo na njivo.", "options": ["kosilo", "kosilu", "kosila"], "answer": 1, "say_options": true,
+          "explain": "**po** (after) + the locative → kosilo → **po kosilu**"
+        }
+      },
+      {
+        "say": {
+          "en": "An adjective goes with its noun: **-i** with a feminine noun (velika hiša → **v veliki hiši**, Nova Gorica → **v Novi Gorici**), **-em** with a masculine or neuter one (velik gozd → **v velikem gozdu**, Novo mesto → **v Novem mestu**).",
+          "de": "Ein Adjektiv geht mit seinem Nomen: **-i** bei einem weiblichen (velika hiša → **v veliki hiši**, Nova Gorica → **v Novi Gorici**), **-em** bei einem männlichen oder sächlichen (velik gozd → **v velikem gozdu**, Novo mesto → **v Novem mestu**).",
+          "it": "L'aggettivo va con il suo nome: **-i** con un nome femminile (velika hiša → **v veliki hiši**, Nova Gorica → **v Novi Gorici**), **-em** con uno maschile o neutro (velik gozd → **v velikem gozdu**, Novo mesto → **v Novem mestu**)."
+        },
+        "examples": [
+          { "sl": "Marko dela v Novi Gorici.", "en": "Marko works in Nova Gorica.", "de": "Marko arbeitet in Nova Gorica.", "it": "Marko lavora a Nova Gorica." },
+          { "sl": "Medved živi v velikem gozdu.", "en": "The bear lives in a big forest.", "de": "Der Bär lebt in einem großen Wald.", "it": "L'orso vive in un grande bosco." }
+        ],
+        "rows": [[{ "sl": "s pridevnikom", "en": "with an adjective", "de": "mit Adjektiv", "it": "con aggettivo" }, "velika hiša, velik gozd", "v veliki hiši, v velikem gozdu"]],
+        "ask": {
+          "type": "cloze", "grammar": "kje-mestnik-orodnik", "text": "Vida dela v ___ gostilni. (nov)", "accept": ["novi"], "hint": "gostilni: feminine",
+          "explain": "**gostilni** → feminine → the adjective **-i**: v novi gostilni"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "mestnik-1",
+      "title": { "sl": "V hiši, na vrtu", "en": "In the house, in the garden", "de": "Im Haus, im Garten", "it": "In casa, in giardino" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "mestnik", "instruction": "Dopolni mestnik · Fill in the locative", "prompt": "kaj? → kje?",
+          "columns": ["kaj? · base", "kje? · after the little word"],
+          "rows": [
+            { "label": "v …", "cells": ["hiša", { "accept": ["hiši"], "hint": "-a → -i" }] },
+            { "label": "na …", "cells": ["travnik", { "accept": ["travniku"] }] },
+            { "label": "v …", "cells": ["gozd", { "accept": ["gozdu"] }] },
+            { "label": "na …", "cells": ["morje", { "accept": ["morju"], "hint": "neuter: as masculine" }] },
+            { "label": "pri …", "cells": ["babica", { "accept": ["babici"] }] },
+            { "label": "ob …", "cells": ["ribnik", { "accept": ["ribniku"] }] },
+            { "label": "v …", "cells": ["vas", { "accept": ["vasi"], "hint": "feminine, no -a" }] },
+            { "label": "o …", "cells": ["medved", { "accept": ["medvedu"] }] }
+          ],
+          "explain": "**the locative** → feminine **-i**, masculine and neuter **-u**\n- v hiši, pri babici, v vasi\n- na travniku, v gozdu, na morju, o medvedu"
+        },
+        {
+          "type": "sort", "grammar": "kje-mestnik-orodnik", "instruction": "V ali na? · V or na?",
+          "columns": [
+            { "label": "v …", "words": ["hiša", "gozd", "šola", "kuhinja"] },
+            { "label": "na …", "words": ["njiva", "travnik", "pošta", "pašnik"] }
+          ],
+          "explain": "**v** inside: v hiši, v gozdu, v šoli, v kuhinji · **na** on, in the open, and a few to learn: na njivi, na travniku, na pošti, na pašniku"
+        }
+      ]
+    },
+    {
+      "id": "mestnik-2",
+      "title": { "sl": "Kje so vsi?", "en": "Where is everyone?", "de": "Wo sind alle?", "it": "Dove sono tutti?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "mestnik", "instruction": "Dopolni z mestnikom · Fill in the locative", "title": "Kje so vsi?",
+          "text": "Kje so vsi? Babica Micka je v ___ (kuhinja). Luka je na ___ (pašnik). Ovce so ob ___ (potok). Zala je pri ___ (babica). Stari Janez sedi ob ___ (ogenj) in govori o ___ (medved).",
+          "gaps": [
+            { "accept": ["kuhinji"], "hint": "-a → -i" },
+            { "accept": ["pašniku"], "hint": "masculine: -u" },
+            { "accept": ["potoku"], "hint": "masculine: -u" },
+            { "accept": ["babici"] },
+            { "accept": ["ognju"], "hint": "-u, and the e drops", "explain": "ogenj loses its e: **ob ognju**, as pes → psa." },
+            { "accept": ["medvedu"], "hint": "o + -u" }
+          ],
+          "bank": true, "distractors": ["kuhinjo", "pašnik", "ogenju"],
+          "translation": "Where is everyone? Granny Micka is in the kitchen. Luka is on the pasture. The sheep are by the stream. Zala is at Granny's. Old Janez sits by the fire and talks about a bear."
+        },
+        {
+          "type": "choice", "grammar": "kje-mestnik-orodnik", "instruction": "Izberi · Choose", "prompt": "Luka je ___ njivi.", "options": ["v", "na", "o"], "answer": 1, "say_options": true,
+          "explain": "**njiva** is an open field → **na njivi**"
+        }
+      ]
+    },
+    {
+      "id": "mestnik-3",
+      "title": { "sl": "Kam? Kje?", "en": "Where to? Where?", "de": "Wohin? Wo?", "it": "Verso dove? Dove?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "mestnik", "instruction": "Povej, kje si · Say where you are", "cue": "Sem …",
+          "items": [
+            { "from": "Grem v šolo.", "accept": ["Sem v šoli."], "hint": "-o → -i" },
+            { "from": "Grem na vrt.", "accept": ["Sem na vrtu."] },
+            { "from": "Grem v gozd.", "accept": ["Sem v gozdu."] },
+            { "from": "Grem na pošto.", "accept": ["Sem na pošti."] },
+            { "from": "Grem domov.", "accept": ["Sem doma."], "hint": "at home" },
+            { "from": "Grem v vas.", "accept": ["Sem v vasi."] },
+            { "from": "Grem v Novo Gorico.", "accept": ["Sem v Novi Gorici."], "hint": "both words -i", "grammar": "kje-mestnik-orodnik" },
+            { "from": "Grem na morje.", "accept": ["Sem na morju."] }
+          ],
+          "explain": "**kam?** the object form → **kje?** the locative\n- v šolo → v šoli · na vrt → na vrtu\n- domov → doma · v Novo Gorico → v Novi Gorici"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "mestnik", "instruction": "Dopolni mestnik · Fill in the locative", "prompt": "kaj? → kje?",
+        "columns": ["kaj? · base", "kje? · after the little word"],
+        "rows": [
+          { "label": "v …", "cells": ["kuhinja", { "accept": ["kuhinji"] }] },
+          { "label": "na …", "cells": ["vrt", { "accept": ["vrtu"] }] },
+          { "label": "pri …", "cells": ["lipa", { "accept": ["lipi"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "mestnik", "instruction": "Dopolni z mestnikom · Fill in the locative",
+        "text": "Nejc je v ___ (šola). Anton je pri ___ (čebelnjak). Tine teka po ___ (vas). Po ___ (zajtrk) gre Luka na pašnik.",
+        "gaps": [
+          { "accept": ["šoli"] },
+          { "accept": ["čebelnjaku"] },
+          { "accept": ["vasi"] },
+          { "accept": ["zajtrku"] }
+        ],
+        "translation": "Nejc is at school. Anton is by the beehouse. Tine runs all around the village. After breakfast Luka goes to the pasture."
+      },
+      {
+        "type": "transform", "grammar": "mestnik", "instruction": "Povej, kje si · Say where you are", "cue": "Sem …",
+        "items": [
+          { "from": "Grem v kuhinjo.", "accept": ["Sem v kuhinji."] },
+          { "from": "Grem na travnik.", "accept": ["Sem na travniku."] },
+          { "from": "Grem v Ljubljano.", "accept": ["Sem v Ljubljani."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "kje-mestnik-orodnik", "prompt": "Ovce so ___ travniku.", "options": ["v", "na", "o"], "answer": 1, "say_options": true,
+        "explain": "**travnik** is open ground → **na travniku**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: vas (v vasi, also na vasi), Trnovo. Native check: Kje so vsi? (ob ognju, ob potoku), na oknu for a windowsill, the v/na sort"
+}

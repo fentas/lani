@@ -1,0 +1,218 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "nikalnica-rodilnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🚫",
+  "title": { "sl": "Nimam časa: ne in rodilnik", "en": "Nimam časa: no and the genitive", "de": "Nimam časa: Verneinung und Genitiv", "it": "Nimam časa: la negazione e il genitivo" },
+  "goal": {
+    "en": "You can say no to anything: what you don't do, don't have and don't see (nimam časa, ne pijem kave), and say no twice (ne vidim nič).",
+    "de": "Du verneinst alles: was du nicht tust, nicht hast und nicht siehst (nimam časa, ne pijem kave), und verneinst doppelt (ne vidim nič).",
+    "it": "Sai negare tutto: ciò che non fai, non hai e non vedi (nimam časa, ne pijem kave), e negare due volte (ne vidim nič)."
+  },
+  "grammar": ["zanikanje", "rodilnik-nikalnica"],
+  "words": ["ne", "nič", "nihče", "nikoli", "nikjer", "nekaj", "nekdo", "vedno", "vedeti", "čas", "kava", "mleko", "kruh", "moka", "riž", "voda", "juha", "trgovina", "prazen", "sonce", "vino", "kapa"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "pritrdilno", "en": "yes", "de": "bejaht", "it": "affermativo" },
+        { "sl": "nikalno", "en": "no", "de": "verneint", "it": "negativo" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "To say no, put **ne** right before the verb: **Ne vem. Ne delam. Ne grem domov.** Biti and imeti melt with it into one word, as you know: **nisem, nimam**.",
+          "de": "Verneint wird mit **ne** direkt vor dem Verb: **Ne vem. Ne delam. Ne grem domov.** Biti und imeti verschmelzen damit zu einem Wort, wie du weißt: **nisem, nimam**.",
+          "it": "Per dire no si mette **ne** subito prima del verbo: **Ne vem. Ne delam. Ne grem domov.** Biti e imeti si fondono con ne in una parola, come sai: **nisem, nimam**."
+        },
+        "examples": [
+          { "sl": "Ne vem.", "en": "I don't know.", "de": "Ich weiß nicht.", "it": "Non lo so." },
+          { "sl": "Danes ne delam.", "en": "I'm not working today.", "de": "Heute arbeite ich nicht.", "it": "Oggi non lavoro." }
+        ],
+        "rows": [["Delam.", "Ne delam."], ["Sem doma.", "Nisem doma."]],
+        "ask": {
+          "type": "choice", "grammar": "zanikanje", "prompt": "»Kje je Luka?« »___.«", "options": ["Ne vem", "Vem ne", "Nevem"], "answer": 0, "say_options": true,
+          "explain": "**ne** → right before the verb, a word of its own: **Ne vem.**"
+        }
+      },
+      {
+        "say": {
+          "en": "When the verb is negated, its object moves into the genitive (*rodilnik*). A feminine noun in -a ends in **-e**: Pijem kavo. → **Ne pijem kave.**",
+          "de": "Wird das Verb verneint, wandert sein Objekt in den Genitiv (*rodilnik*). Ein weibliches Nomen auf -a endet auf **-e**: Pijem kavo. → **Ne pijem kave.**",
+          "it": "Quando il verbo è negato, il suo oggetto passa al genitivo (*rodilnik*). Un nome femminile in -a finisce in **-e**: Pijem kavo. → **Ne pijem kave.**"
+        },
+        "examples": [
+          { "sl": "Luka ne pije kave.", "en": "Luka doesn't drink coffee.", "de": "Luka trinkt keinen Kaffee.", "it": "Luka non beve caffè." },
+          { "sl": "Ne vidim ovce.", "en": "I can't see the sheep.", "de": "Ich sehe das Schaf nicht.", "it": "Non vedo la pecora." }
+        ],
+        "rows": [["Pijem kavo.", "Ne pijem kave."]],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik-nikalnica", "text": "Babica danes ne kuha ___. (juha)", "accept": ["juhe"], "hint": "-a → -e",
+          "explain": "**ne** + a feminine object → **-e**: ne kuha juhe\n- kuha juho · ne kuha juhe"
+        }
+      },
+      {
+        "say": {
+          "en": "Masculine and neuter nouns take **-a**: Imam čas. → **Nimam časa.** Pijem mleko. → **Ne pijem mleka.** A living masculine noun had -a already: Vidim psa. → **Ne vidim psa.**",
+          "de": "Männliche und sächliche Nomen bekommen **-a**: Imam čas. → **Nimam časa.** Pijem mleko. → **Ne pijem mleka.** Ein lebendiges männliches Nomen hatte schon -a: Vidim psa. → **Ne vidim psa.**",
+          "it": "I nomi maschili e neutri prendono **-a**: Imam čas. → **Nimam časa.** Pijem mleko. → **Ne pijem mleka.** Un nome maschile di essere vivente aveva già -a: Vidim psa. → **Ne vidim psa.**"
+        },
+        "examples": [
+          { "sl": "Danes nimam časa.", "en": "I don't have time today.", "de": "Heute habe ich keine Zeit.", "it": "Oggi non ho tempo." },
+          { "sl": "Babica nima mleka.", "en": "Granny has no milk.", "de": "Oma hat keine Milch.", "it": "La nonna non ha latte." }
+        ],
+        "rows": [["Imam čas.", "Nimam časa."], ["Pijem mleko.", "Ne pijem mleka."]],
+        "ask": {
+          "type": "cloze", "grammar": "rodilnik-nikalnica", "text": "Tine nima ___. (kruh)", "accept": ["kruha"], "hint": "masculine: + -a",
+          "explain": "**nima** + a masculine object → **-a**: nima kruha\n- ima kruh · nima kruha"
+        }
+      },
+      {
+        "say": {
+          "en": "*There is no …* is **ni** + the genitive: **Ni kruha. V trgovini ni mleka.** Only an object or the missing thing changes; a subject stays as it is: **Kava ni topla.**",
+          "de": "*Es gibt kein …* heißt **ni** + Genitiv: **Ni kruha. V trgovini ni mleka.** Nur ein Objekt oder das, was fehlt, ändert sich; ein Subjekt bleibt, wie es ist: **Kava ni topla.**",
+          "it": "*Non c'è …* si dice **ni** + genitivo: **Ni kruha. V trgovini ni mleka.** Cambia solo l'oggetto o ciò che manca; un soggetto resta com'è: **Kava ni topla.**"
+        },
+        "examples": [
+          { "sl": "V trgovini ni kruha.", "en": "There's no bread in the shop.", "de": "Im Laden gibt es kein Brot.", "it": "Nel negozio non c'è pane." },
+          { "sl": "Kava ni topla.", "en": "The coffee isn't warm.", "de": "Der Kaffee ist nicht warm.", "it": "Il caffè non è caldo." }
+        ],
+        "rows": [["V trgovini je kruh.", "V trgovini ni kruha."]],
+        "ask": {
+          "type": "choice", "grammar": "rodilnik-nikalnica", "prompt": "V kuhinji ni ___.", "options": ["juha", "juho", "juhe"], "answer": 2, "say_options": true,
+          "explain": "**ni** (there is no) + the genitive → juha → **juhe**"
+        }
+      },
+      {
+        "say": {
+          "en": "Slovene says no twice. With **nič** (nothing), **nihče** (nobody), **nikoli** (never) and **nikjer** (nowhere) the verb keeps its no: **Ne vidim nič. Nihče ni doma. Luka nikoli ne spi.** *Vidim nič* is wrong.",
+          "de": "Das Slowenische verneint doppelt. Mit **nič** (nichts), **nihče** (niemand), **nikoli** (nie) und **nikjer** (nirgends) behält das Verb sein Nein: **Ne vidim nič. Nihče ni doma. Luka nikoli ne spi.** *Vidim nič* ist falsch.",
+          "it": "Lo sloveno nega due volte, come l'italiano. Con **nič** (niente), **nihče** (nessuno), **nikoli** (mai) e **nikjer** (da nessuna parte) il verbo tiene il suo no: **Ne vidim nič. Nihče ni doma. Luka nikoli ne spi.** *Vidim nič* è sbagliato."
+        },
+        "examples": [
+          { "sl": "Ne vidim nič.", "en": "I can't see anything.", "de": "Ich sehe nichts.", "it": "Non vedo niente." },
+          { "sl": "Nihče ne ve, kje je Bela.", "en": "Nobody knows where Bela is.", "de": "Niemand weiß, wo Bela ist.", "it": "Nessuno sa dov'è Bela." }
+        ],
+        "rows": [["Vidim nekaj.", "Ne vidim nič."], ["Nekdo je doma.", "Nihče ni doma."], ["Vedno je tukaj.", "Nikoli ni tukaj."]],
+        "ask": {
+          "type": "cloze", "grammar": "zanikanje", "text": "Luka nikoli ___ doma.", "accept": ["ni"], "hint": "nikoli + the verb's no",
+          "explain": "**nikoli** keeps the verb's no: Luka nikoli **ni** doma.\n- je → ni"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "nikalnica-rodilnik-1",
+      "title": { "sl": "Imam, nimam", "en": "I have, I don't", "de": "Ich habe, ich habe nicht", "it": "Ho, non ho" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "rodilnik-nikalnica", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "Imam … → Nimam …",
+          "columns": ["Imam … · I have", "Nimam … · I don't have"],
+          "rows": [
+            { "label": "ženski · feminine", "cells": ["kavo", { "accept": ["kave"], "hint": "-a → -e" }] },
+            { "label": "ženski · feminine", "cells": ["vodo", { "accept": ["vode"] }] },
+            { "label": "moški, stvar · masculine, thing", "cells": ["kruh", { "accept": ["kruha"], "hint": "+ -a" }] },
+            { "label": "moški, stvar · masculine, thing", "cells": ["čas", { "accept": ["časa"] }] },
+            { "label": "srednji · neuter", "cells": ["mleko", { "accept": ["mleka"], "hint": "-o → -a" }] },
+            { "label": "srednji · neuter", "cells": ["jajce", { "accept": ["jajca"] }] },
+            { "label": "moški, živ · masculine, alive", "cells": ["psa", { "accept": ["psa"], "hint": "already -a" }] }
+          ],
+          "explain": "**ne** + the object → the genitive\n- feminine: kavo → kave\n- masculine, neuter: kruh → kruha, mleko → mleka\n- alive: psa → psa"
+        },
+        {
+          "type": "sort", "grammar": "zanikanje", "instruction": "Kako zanikaš? · How do you say no?",
+          "columns": [
+            { "label": "ena beseda: nisem, nimam · one word", "words": ["biti", "imeti"] },
+            { "label": "ne + glagol · ne + the verb", "words": ["iti", "piti", "vedeti", "delati"] }
+          ],
+          "explain": "**biti, imeti** melt: nisem, nimam\n- the others: ne grem, ne pijem, ne vem, ne delam"
+        }
+      ]
+    },
+    {
+      "id": "nikalnica-rodilnik-2",
+      "title": { "sl": "Prazna kuhinja", "en": "An empty kitchen", "de": "Eine leere Küche", "it": "Una cucina vuota" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "rodilnik-nikalnica", "instruction": "Dopolni · Fill in", "title": "Prazna kuhinja",
+          "text": "Danes je kuhinja prazna. Babica Micka nima ___ (moka) in ___ (riž). V kuhinji ni ___ (kruh) in ni ___ (mleko). Tine ne pije ___ (kava), pije ___ (voda).",
+          "gaps": [
+            { "accept": ["moke"], "hint": "nima + feminine" },
+            { "accept": ["riža"], "hint": "masculine: + -a" },
+            { "accept": ["kruha"], "hint": "ni: there is no …" },
+            { "accept": ["mleka"], "hint": "neuter: -o → -a" },
+            { "accept": ["kave"], "hint": "ne pije + feminine" },
+            { "accept": ["vodo"], "hint": "pije: no ne here!", "grammar": "tozilnik", "explain": "pije has no ne: the plain object form, **vodo**." }
+          ],
+          "bank": true, "distractors": ["moko", "kruh", "vode"],
+          "translation": "Today the kitchen is empty. Granny Micka has no flour and no rice. There's no bread and no milk in the kitchen. Tine doesn't drink coffee, he drinks water."
+        },
+        {
+          "type": "choice", "grammar": "zanikanje", "instruction": "Izberi · Choose", "prompt": "Tema je. ___ vidim nič.", "options": ["Ne", "Ni", "Nič"], "answer": 0, "say_options": true,
+          "explain": "**nič** keeps the verb's no: **Ne vidim nič.** (It's dark. I can't see anything.)"
+        }
+      ]
+    },
+    {
+      "id": "nikalnica-rodilnik-3",
+      "title": { "sl": "Ne, ni res!", "en": "No, it isn't true!", "de": "Nein, stimmt nicht!", "it": "No, non è vero!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "rodilnik-nikalnica", "instruction": "Zanikaj · Say it with no", "cue": "ne",
+          "items": [
+            { "from": "Imam čas.", "accept": ["Nimam časa."], "lemma": "čas", "form": "gen.sg" },
+            { "from": "Pijem kavo.", "accept": ["Ne pijem kave."], "lemma": "kava", "form": "gen.sg" },
+            { "from": "Luka ima psa.", "accept": ["Luka nima psa."], "hint": "imeti melts with ne", "lemma": "pes", "form": "gen.sg" },
+            { "from": "V trgovini je kruh.", "accept": ["V trgovini ni kruha."], "hint": "je → ni + …", "lemma": "kruh", "form": "gen.sg" },
+            { "from": "Nejc pije mleko.", "accept": ["Nejc ne pije mleka."], "lemma": "mleko", "form": "gen.sg" },
+            { "from": "Vidim ovco.", "accept": ["Ne vidim ovce."], "lemma": "ovca", "form": "gen.sg" },
+            { "from": "Vidim nekaj.", "accept": ["Ne vidim nič.", "Ne vidim ničesar."], "hint": "nekaj → nič, and keep the ne", "grammar": "zanikanje" },
+            { "from": "Babica je vedno doma.", "accept": ["Babica ni nikoli doma.", "Babica nikoli ni doma."], "hint": "vedno → nikoli, and keep the no", "grammar": "zanikanje" }
+          ],
+          "explain": "**ne** + the object in the genitive; nič, nikoli keep the no\n- Nimam časa. · Ne pijem kave.\n- Ne vidim nič. · Babica ni nikoli doma."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "rodilnik-nikalnica", "instruction": "Dopolni · Fill in", "prompt": "Imam … → Nimam …",
+        "columns": ["Imam … · I have", "Nimam … · I don't have"],
+        "rows": [
+          { "label": "1.", "cells": ["juho", { "accept": ["juhe"] }] },
+          { "label": "2.", "cells": ["sir", { "accept": ["sira"] }] },
+          { "label": "3.", "cells": ["jabolko", { "accept": ["jabolka"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "rodilnik-nikalnica", "instruction": "Dopolni · Fill in",
+        "text": "Danes ni ___ (sonce). Luka nima ___ (kapa). Nihče ___ (biti) doma. Tine ne pije ___ (vino).",
+        "gaps": [
+          { "accept": ["sonca"] },
+          { "accept": ["kape"] },
+          { "accept": ["ni"], "grammar": "zanikanje" },
+          { "accept": ["vina"] }
+        ],
+        "translation": "There's no sun today. Luka has no cap. Nobody is at home. Tine doesn't drink wine."
+      },
+      {
+        "type": "transform", "grammar": "rodilnik-nikalnica", "instruction": "Zanikaj · Say it with no", "cue": "ne",
+        "items": [
+          { "from": "Imam sestro.", "accept": ["Nimam sestre."], "lemma": "sestra", "form": "gen.sg" },
+          { "from": "Vidim Janeza.", "accept": ["Ne vidim Janeza."] },
+          { "from": "Nekdo je tukaj.", "accept": ["Nihče ni tukaj.", "Tukaj ni nikogar.", "Nikogar ni tukaj."], "grammar": "zanikanje" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "rodilnik-nikalnica", "prompt": "V trgovini ni ___.", "options": ["kruh", "kruha", "kruhu"], "answer": 1, "say_options": true,
+        "explain": "**ni** (there is no) + the genitive → kruh → **kruha**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: sladkor (-orja: so riž here), nič/ničesar, nikogar. Native check: Prazna kuhinja, Babica ni nikoli doma, V trgovini je kruh"
+}

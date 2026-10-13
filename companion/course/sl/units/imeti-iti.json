@@ -1,0 +1,229 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imeti-iti",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🎒",
+  "title": { "sl": "Imeti in iti: imam, grem", "en": "Imeti and iti: to have, to go", "de": "Imeti und iti: haben, gehen", "it": "Imeti e iti: avere, andare" },
+  "goal": {
+    "en": "You can say what people have and like, where they go (v šolo, na njivo, domov), and that you aren't going.",
+    "de": "Du sagst, was Leute haben und mögen, wohin sie gehen (v šolo, na njivo, domov) und dass du nicht gehst.",
+    "it": "Sai dire che cosa hanno e che cosa piace alle persone, dove vanno (v šolo, na njivo, domov) e che non ci vai."
+  },
+  "grammar": ["imeti-iti", "kam-tozilnik"],
+  "words": ["imeti", "iti", "nimam", "rad", "domov", "doma", "šola", "njiva", "pošta", "gozd", "travnik", "kuhinja", "Gorica", "pašnik", "traktor", "konj", "čas", "vsi"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "imeti", "en": "imeti (have)", "de": "imeti (haben)", "it": "imeti (avere)" },
+        { "sl": "iti", "en": "iti (go)", "de": "iti (gehen)", "it": "iti (andare)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Two verbs you need every day. **Imeti** (to have) is regular, like delati: **imam, imaš, ima**. **Iti** (to go) is irregular: its stem is **gre-**: **grem, greš, gre**.",
+          "de": "Zwei Verben, die du jeden Tag brauchst. **Imeti** (haben) ist regelmäßig, wie delati: **imam, imaš, ima**. **Iti** (gehen) ist unregelmäßig, sein Stamm ist **gre-**: **grem, greš, gre**.",
+          "it": "Due verbi che servono ogni giorno. **Imeti** (avere) è regolare, come delati: **imam, imaš, ima**. **Iti** (andare) è irregolare, la sua radice è **gre-**: **grem, greš, gre**."
+        },
+        "examples": [
+          { "sl": "Zala ima mačko.", "en": "Zala has a cat.", "de": "Zala hat eine Katze.", "it": "Zala ha un gatto." },
+          { "sl": "Grem na pašnik.", "en": "I'm going to the pasture.", "de": "Ich gehe auf die Weide.", "it": "Vado al pascolo." }
+        ],
+        "rows": [["jaz", "imam", "grem"], ["ti", "imaš", "greš"], ["on, ona", "ima", "gre"]],
+        "ask": {
+          "type": "choice", "grammar": "imeti-iti", "prompt": "Luka ___ na pašnik. (iti)", "options": ["grem", "greš", "gre"], "answer": 2, "say_options": true,
+          "explain": "**Luka** → on → **gre**\n- grem · I go\n- greš · you go\n- gre · he goes"
+        }
+      },
+      {
+        "say": {
+          "en": "Two and more: **imava, imata**; **imamo, imate, imajo**. Iti keeps its gre-: **greva, gresta**; **gremo, greste, gredo** (also **grejo**, which you hear more).",
+          "de": "Zwei und mehr: **imava, imata**; **imamo, imate, imajo**. Iti behält sein gre-: **greva, gresta**; **gremo, greste, gredo** (auch **grejo**, das man öfter hört).",
+          "it": "Due e più: **imava, imata**; **imamo, imate, imajo**. Iti tiene il suo gre-: **greva, gresta**; **gremo, greste, gredo** (anche **grejo**, che si sente di più)."
+        },
+        "examples": [
+          { "sl": "Imamo nov šotor.", "en": "We have a new tent.", "de": "Wir haben ein neues Zelt.", "it": "Abbiamo una tenda nuova." },
+          { "sl": "Otroci gredo v šolo.", "en": "The children are going to school.", "de": "Die Kinder gehen in die Schule.", "it": "I bambini vanno a scuola." }
+        ],
+        "rows": [["midva", "imava", "greva"], ["vidva, onadva", "imata", "gresta"], ["mi", "imamo", "gremo"], ["vi", "imate", "greste"], ["oni", "imajo", "gredo"]],
+        "ask": {
+          "type": "cloze", "grammar": "imeti-iti", "text": "Nejc in Tine ___ na travnik. (iti)", "accept": ["gresta"], "hint": "two boys",
+          "explain": "**two** → **-ta**: gresta\n- greva · we two\n- gredo · three or more"
+        }
+      },
+      {
+        "say": {
+          "en": "No: **imeti** melts with ne, as biti does: **nimam, nimaš, nima** … **Iti** keeps it apart: **ne grem, ne greš, ne gre**. What you don't have goes into another case (the next unit): **Nimam časa.**",
+          "de": "Nein: **imeti** verschmilzt mit ne, wie biti: **nimam, nimaš, nima** … **Iti** hält es getrennt: **ne grem, ne greš, ne gre**. Was man nicht hat, steht in einem anderen Fall (die nächste Einheit): **Nimam časa.**",
+          "it": "No: **imeti** si fonde con ne, come biti: **nimam, nimaš, nima** … **Iti** lo tiene separato: **ne grem, ne greš, ne gre**. Ciò che non si ha va in un altro caso (la prossima unità): **Nimam časa.**"
+        },
+        "examples": [
+          { "sl": "Danes ne grem v šolo.", "en": "I'm not going to school today.", "de": "Heute gehe ich nicht in die Schule.", "it": "Oggi non vado a scuola." },
+          { "sl": "Nimam časa.", "en": "I don't have time.", "de": "Ich habe keine Zeit.", "it": "Non ho tempo." }
+        ],
+        "rows": [[{ "sl": "ne (jaz)", "en": "not (I)", "de": "nicht (ich)", "it": "non (io)" }, "nimam", "ne grem"]],
+        "ask": {
+          "type": "choice", "grammar": "imeti-iti", "prompt": "Danes ___ v šolo.", "options": ["nimam", "ne grem", "negrem"], "answer": 1, "say_options": true,
+          "explain": "**iti** + no → **ne grem**, two words\n- imeti → nimam, one word"
+        }
+      },
+      {
+        "say": {
+          "en": "Where to (**kam?**) takes **v** or **na** with the object form you know: **grem v šolo, na njivo, v gozd**. Where (**kje?**) is different: **sem v šoli, na njivi**. Home is **domov** (going) and **doma** (being there).",
+          "de": "Wohin (**kam?**) nimmt **v** oder **na** mit der Objektform, die du kennst: **grem v šolo, na njivo, v gozd**. Wo (**kje?**) ist anders: **sem v šoli, na njivi**. Nach Hause heißt **domov**, zu Hause **doma**.",
+          "it": "Verso dove (**kam?**) vuole **v** o **na** con la forma dell'oggetto che conosci: **grem v šolo, na njivo, v gozd**. Dove (**kje?**) è diverso: **sem v šoli, na njivi**. A casa è **domov** (andarci) e **doma** (esserci)."
+        },
+        "examples": [
+          { "sl": "Grem v šolo. Sem v šoli.", "en": "I'm going to school. I'm at school.", "de": "Ich gehe in die Schule. Ich bin in der Schule.", "it": "Vado a scuola. Sono a scuola." },
+          { "sl": "Zvečer gremo domov.", "en": "In the evening we go home.", "de": "Am Abend gehen wir nach Hause.", "it": "La sera andiamo a casa." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "kam-tozilnik", "text": "Nejc gre v ___. (šola)", "accept": ["šolo"], "hint": "kam? the object form",
+          "explain": "**kam?** → v + the object form: šola → **v šolo**\n- kje? · v šoli"
+        }
+      },
+      {
+        "say": {
+          "en": "**Rad imam** is how you say you like something: **Rad imam kavo.** Rad agrees with the one who likes: **rad** (a man), **rada** (a woman), **radi** (several). {m:You say **rad imam**, Zala says **rada imam**.|f:You say **rada imam**, Luka says **rad imam**.}",
+          "de": "Mit **rad imam** sagt man, dass man etwas mag: **Rad imam kavo.** Rad richtet sich nach dem, der mag: **rad** (ein Mann), **rada** (eine Frau), **radi** (mehrere). {m:Du sagst **rad imam**, Zala sagt **rada imam**.|f:Du sagst **rada imam**, Luka sagt **rad imam**.}",
+          "it": "Con **rad imam** si dice che una cosa piace: **Rad imam kavo.** Rad concorda con chi la ama: **rad** (un uomo), **rada** (una donna), **radi** (più persone). {m:Tu dici **rad imam**, Zala dice **rada imam**.|f:Tu dici **rada imam**, Luka dice **rad imam**.}"
+        },
+        "examples": [
+          { "sl": "{m:Rad|f:Rada} imam potico.", "en": "I like potica.", "de": "Ich mag Potica.", "it": "Mi piace la potica." },
+          { "sl": "Tine ima rad konje.", "en": "Tine likes horses.", "de": "Tine mag Pferde.", "it": "A Tine piacciono i cavalli." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "imeti-iti", "prompt": "Zala ima ___ mleko.", "options": ["rad", "rada", "radi"], "answer": 1, "say_options": true,
+          "explain": "**Zala** → a girl → **rada**\n- Tine ima rad …\n- otroci imajo radi …"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imeti-iti-1",
+      "title": { "sl": "Imam, grem", "en": "Imam, grem", "de": "Imam, grem", "it": "Imam, grem" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "imeti-iti", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "imeti · to have", "lemma": "imeti",
+          "columns": ["imeti"],
+          "rows": [
+            { "label": "jaz", "cells": ["imam"] },
+            { "label": "ti", "cells": [{ "accept": ["imaš"], "form": "pres.2sg" }] },
+            { "label": "on, ona", "cells": [{ "accept": ["ima"], "form": "pres.3sg" }] },
+            { "label": "midva", "cells": [{ "accept": ["imava"], "form": "pres.1du", "grammar": "dvojina" }] },
+            { "label": "mi", "cells": ["imamo"] },
+            { "label": "vi", "cells": [{ "accept": ["imate"], "form": "pres.2pl" }] },
+            { "label": "oni", "cells": [{ "accept": ["imajo"], "form": "pres.3pl" }] }
+          ],
+          "explain": "**imeti** is regular, like delati: imam, imaš, ima · imava, imata · imamo, imate, imajo"
+        },
+        {
+          "type": "table", "grammar": "imeti-iti", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "iti · to go", "lemma": "iti",
+          "columns": ["iti"],
+          "rows": [
+            { "label": "jaz", "cells": ["grem"] },
+            { "label": "ti", "cells": [{ "accept": ["greš"], "form": "pres.2sg" }] },
+            { "label": "on, ona", "cells": [{ "accept": ["gre"], "form": "pres.3sg" }] },
+            { "label": "midva", "cells": [{ "accept": ["greva"], "form": "pres.1du", "grammar": "dvojina" }] },
+            { "label": "vidva, onadva", "cells": [{ "accept": ["gresta"], "form": "pres.2du", "grammar": "dvojina" }] },
+            { "label": "mi", "cells": ["gremo"] },
+            { "label": "vi", "cells": [{ "accept": ["greste"], "form": "pres.2pl" }] },
+            { "label": "oni", "cells": [{ "accept": ["gredo", "grejo"], "hint": "gre- + -do (or -jo)", "form": "pres.3pl" }] }
+          ],
+          "explain": "**iti** → the stem gre-: grem, greš, gre · greva, gresta · gremo, greste, gredo (grejo)"
+        }
+      ]
+    },
+    {
+      "id": "imeti-iti-2",
+      "title": { "sl": "Kam greš?", "en": "Where are you going?", "de": "Wohin gehst du?", "it": "Dove vai?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "imeti-iti", "instruction": "Dopolni · Fill in", "title": "Kam greš?",
+          "text": "»Kam ___ (iti), Nejc?« »V ___ (šola). Pa ti?« »Na ___ (njiva). France ___ (imeti) nov traktor.« »Zala pa ima ___ (rad) konje.« »Zvečer pa ___ (iti, mi) domov.«",
+          "gaps": [
+            { "accept": ["greš"], "hint": "to Nejc: ti" },
+            { "accept": ["šolo"], "hint": "kam? the object form", "grammar": "kam-tozilnik", "explain": "Where to: v + the object form, **v šolo**. V šoli is where you are." },
+            { "accept": ["njivo"], "hint": "kam? the object form", "grammar": "kam-tozilnik" },
+            { "accept": ["ima"], "hint": "France = on" },
+            { "accept": ["rada"], "hint": "Zala: a girl", "explain": "Rad agrees with Zala: **rada**." },
+            { "accept": ["gremo"], "hint": "mi …" }
+          ],
+          "bank": true, "distractors": ["šoli", "njivi", "rad"],
+          "translation": "\"Where are you going, Nejc?\" \"To school. And you?\" \"To the field. France has a new tractor.\" \"And Zala likes horses.\" \"And in the evening we go home.\""
+        },
+        {
+          "type": "choice", "grammar": "imeti-iti", "instruction": "Izberi · Choose", "prompt": "Danes ___ v šolo, ker sem {m:bolan|f:bolna}.", "options": ["nimam", "ne grem", "nisem"], "answer": 1, "say_options": true,
+          "explain": "**iti** + no → **ne grem**\n- nimam · I don't have\n- nisem · I'm not"
+        }
+      ]
+    },
+    {
+      "id": "imeti-iti-3",
+      "title": { "sl": "Kje ali kam?", "en": "Where or where to?", "de": "Wo oder wohin?", "it": "Dove o verso dove?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "kam-tozilnik", "instruction": "Povej, kam greš · Say where you're going", "cue": "Grem …",
+          "items": [
+            { "from": "Sem v šoli.", "accept": ["Grem v šolo."], "hint": "-i → -o" },
+            { "from": "Sem na njivi.", "accept": ["Grem na njivo."] },
+            { "from": "Sem doma.", "accept": ["Grem domov."], "hint": "home, going" },
+            { "from": "Sem na pošti.", "accept": ["Grem na pošto."] },
+            { "from": "Sem v gozdu.", "accept": ["Grem v gozd."], "hint": "gozd: a masculine thing" },
+            { "from": "Sem v kuhinji.", "accept": ["Grem v kuhinjo."] },
+            { "from": "Sem na travniku.", "accept": ["Grem na travnik."], "hint": "travnik: a masculine thing" },
+            { "from": "Sem v Gorici.", "accept": ["Grem v Gorico."] }
+          ],
+          "explain": "**kam?** → v, na + the object form\n- v šoli → v šolo · na njivi → na njivo\n- v gozdu → v gozd · doma → domov"
+        },
+        {
+          "type": "choice", "grammar": "imeti-iti", "instruction": "Izberi · Choose", "prompt": "Vida ima ___ goste.", "options": ["rad", "rada", "radi"], "answer": 1, "say_options": true,
+          "explain": "**Vida** → a woman → **rada**: Vida ima rada goste."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "imeti-iti", "instruction": "Dopolni · Fill in", "prompt": "imeti, iti",
+        "columns": ["imeti", "iti"],
+        "rows": [
+          { "label": "ti", "cells": [{ "accept": ["imaš"] }, "greš"] },
+          { "label": "midva", "cells": ["imava", { "accept": ["greva"], "grammar": "dvojina" }] },
+          { "label": "vi", "cells": [{ "accept": ["imate"] }, "greste"] },
+          { "label": "oni", "cells": ["imajo", { "accept": ["gredo", "grejo"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "imeti-iti", "instruction": "Dopolni · Fill in",
+        "text": "Luka ___ (iti) na pašnik. Micka in Ančka ___ (imeti) mačko. Danes ___ (ne + iti, jaz) v šolo. Mojca ima ___ (rad) knjige.",
+        "gaps": [
+          { "accept": ["gre"] },
+          { "accept": ["imata"], "grammar": "dvojina" },
+          { "accept": ["ne grem"] },
+          { "accept": ["rada"] }
+        ],
+        "translation": "Luka is going to the pasture. Micka and Ančka have a cat. I'm not going to school today. Mojca likes books."
+      },
+      {
+        "type": "transform", "grammar": "kam-tozilnik", "instruction": "Povej, kam greš · Say where you're going", "cue": "Grem …",
+        "items": [
+          { "from": "Sem na vrtu.", "accept": ["Grem na vrt."] },
+          { "from": "Sem v hiši.", "accept": ["Grem v hišo."] },
+          { "from": "Sem v vasi.", "accept": ["Grem v vas."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "kam-tozilnik", "prompt": "Zvečer gremo ___.", "options": ["doma", "domov", "dom"], "answer": 1, "say_options": true,
+        "explain": "**going home** → **domov**; being at home → doma"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: iti (gredo, also grejo, both standard), vas. Native check: Kam greš?, Vida ima rada goste, Grem v vas, rad imam"
+}
