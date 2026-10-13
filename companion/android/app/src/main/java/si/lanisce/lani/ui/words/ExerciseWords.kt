@@ -309,6 +309,27 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
     /** The feedback's whole sentence in the language learned. */
     fun sentence(text: String): List<WordToken> = Taps(How.TAP).words(text, reads)
 
+    /**
+     * A line of the feedback's explanation (after the answer): prose of both languages, so part by part (a quote, a bold
+     * word, the halves of "sl · en") and word by word: every word of a part with no word of the base in it and half its
+     * words or more in the language learned ("Grem v šolo.", "**dela**"; not "dela: no -m and no -š …", which has "and",
+     * nor "genitive: koga? česa?"), and on its own a word of three letters or more that reads so (its letters, one of the
+     * learner's: "delaš", "česa", not "so"); never an ending ("-m").
+     */
+    fun explanation(text: String, emphasized: List<IntRange> = emptyList()): List<WordToken> {
+        val tokens = WordTokens.of(text)
+        if (tokens.isEmpty()) return emptyList()
+        val whole = BooleanArray(text.length)
+        for (c in TextParts.chunks(text, emphasized)) for (p in c.pieces) {
+            val each = WordTokens.of(p.of(text)).map { reads(it.text) }
+            if (each.isNotEmpty() && Reads.BASE !in each && each.count { it == Reads.TARGET } * 2 >= each.size) for (i in p.start until p.end) whole[i] = true
+        }
+        return tokens.filter { t ->
+            val ending = t.start > 0 && text[t.start - 1] == '-' && (t.start < 2 || !text[t.start - 2].isLetter())
+            !ending && (whole[t.start] || (t.text.length >= 3 && reads(t.text) == Reads.TARGET))
+        }
+    }
+
     private val answersInTarget: Boolean
         get() = when (val ex = exercise) {
             is Exercise.Choice, is Exercise.Multi -> options == Reads.TARGET

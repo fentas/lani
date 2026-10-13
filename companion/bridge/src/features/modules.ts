@@ -29,7 +29,7 @@ export const modules: FeatureFactory = ({ modules: store, events, voice, grammar
     {
       name: 'publish_module',
       description:
-        'Validate a lani.module/v0 spec and publish it to the app as a new version. Returns validation errors instead of publishing if the spec is invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
+        'Validate a lani.module/v0 spec and publish it to the app as a new version. Returns validation errors instead of publishing if the spec is invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). The explain of an exercise is markdown, shown after the answer: one bold rule line ("**dela** → no **-m**, no **-š** → *on/ona*"), then the examples as a list ("- delam · I work") or a mini table, endings in bold, at most ~3 lines (module-spec.md, "Explanations").',
       inputSchema: {
         type: 'object',
         properties: {

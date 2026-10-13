@@ -36,7 +36,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        (QA's hook "build:field") with the HUD a pill by itself and the ★ below it;
                        "exercise-words" a review's words looked up (QA's hook "forms"): a tap on a word of the
                        sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
-                       nothing and picks nothing, once answered the form in the feedback opens its card; "offline-audio" the
+                       nothing and picks nothing, once answered the form in the feedback opens its card;
+                       "exercise-explain" the module kdo-govori's third explanation in shape (its rule a line, its
+                       pairs a small table), «delam» in it looked up; "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
@@ -2642,6 +2644,44 @@ def exercise_words():
         go_home()
 
 
+EXPLAIN_MODULE = "kdo-govori"  # the learner's module whose third choice explains "dela: no -m and no -š, … I work = delam, …"
+
+
+def exercise_explain():
+    """An exercise's explanation in shape (ui/ExplainFormat.kt): the learner's module "Kdo govori?" (in the dev bridge's
+    copy) opened by its link, its first two choices answered, the third's feedback: "dela: no -m and no -š, so he or
+    she." on its line with dela and the endings in bold, "I work = delam, you work = delaš" a small table whose Slovene
+    can be looked up; a tap on «delam» opens its card. The run is left with what it answered."""
+    go_home()
+    if not any(m.get("id") == EXPLAIN_MODULE for m in api("/modules")):
+        return f"no module {EXPLAIN_MODULE} in the dev bridge's copy"
+    adb("logcat", "-c")
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"module:{EXPLAIN_MODULE}")
+    try:
+        assert tap("Začni", 15), "start the module from its intro"
+        for n in range(3):
+            assert wait_for("on, ona · he, she", 15), f"choice {n + 1}"
+            time.sleep(1)
+            tap("on, ona · he, she", 3)  # the third's right answer; any answer shows the explanation
+            assert wait_for("Naprej · Next", 8), f"the feedback of choice {n + 1}"
+            if n < 2:
+                tap("Naprej · Next", 3)
+        time.sleep(1.5)
+        shot("exercise-explain")
+        lines = [t for t in ex_words() if t[0] == "explain"]
+        texts = [t[2] for t in lines]
+        assert any(t.startswith("dela: no -m and no -š") for t in texts), f"the rule on its own line: {texts}"
+        assert "I work" in texts and "delam" in texts, f"the pairs as a table, a cell each: {texts}"
+        delam = next(w for t in lines if t[2] == "delam" for w in t[3] if w[3])
+        tap_at(delam[1])
+        assert ex_card(), "the card of «delam» in the explanation"
+        shot("exercise-explain-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert card_gone(), "the card is still open"
+    finally:
+        go_home()
+
+
 def packs():
     """The Nove besede tile opens the packs; an unfinished pack starts its words."""
     go_home()
@@ -3294,6 +3334,7 @@ def plan():
         ("packs", packs, None, False, ""),
         ("word-forms", word_forms, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
+        ("exercise-explain", exercise_explain, go_home, False, ""),
         ("progress", optional_screen("Napredek · Progress", "📊 Napredek · Progress"), None, False, ""),
         ("talk", optional_screen("Pogovor", "Učitelj igra drugo osebo", exact=True), None, False, ""),
         ("road", road, go_home, False, ""),

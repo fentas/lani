@@ -24,6 +24,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -82,59 +83,71 @@ private val tableSeparator = Regex("""^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?
 private fun cells(row: String): List<String> =
     row.trim().removePrefix("|").removeSuffix("|").split("|").map { it.trim() }
 
+/**
+ * How a block of [Markdown] draws its text, instead of a plain Text with tap-to-hear Slovene: [styled] (its inline
+ * markdown), in [style] (the block's colour and weight in it), with [modifier]. An exercise's explanation: its words to
+ * look up.
+ */
+typealias BlockText = @Composable (styled: AnnotatedString, style: TextStyle, modifier: Modifier) -> Unit
+
 @Composable
-fun Markdown(text: String, modifier: Modifier = Modifier, color: Color = Color.Unspecified) {
+fun Markdown(text: String, modifier: Modifier = Modifier, color: Color = Color.Unspecified, block: BlockText? = null) {
     val speaker = LocalSpeaker.current
     val speak = speaker?.takeIf { it.canSay }?.let { s -> SpeakSpans(s::isSlovene) { t -> s.say(t) } }
     val lines = text.trim().lines()
+    /** A block's text: [block]'s, else a Text whose Slovene in bold, italics or quotes is heard when tapped. */
+    val line: @Composable (String, TextStyle, FontWeight?, Modifier) -> Unit = { s, style, weight, m ->
+        if (block != null) block(inlineMarkdown(s), style.merge(TextStyle(color = color, fontWeight = weight)), m)
+        else Text(inlineMarkdown(s, speak), m, color = color, style = style, fontWeight = weight)
+    }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
         var i = 0
         while (i < lines.size) {
             val t = lines[i].trimEnd()
             // A table: a block of lines starting with "|", optionally with a --- separator after the header.
             if (t.trimStart().startsWith("|")) {
-                val block = lines.drop(i).takeWhile { it.trimStart().startsWith("|") }
-                i += block.size
-                val header = block.getOrNull(1)?.let { tableSeparator.matches(it.trim()) } == true
-                val rows = block.filterIndexed { n, _ -> !(header && n == 1) }.map(::cells)
-                MarkdownTable(rows, header, color, speak)
+                val table = lines.drop(i).takeWhile { it.trimStart().startsWith("|") }
+                i += table.size
+                val header = table.getOrNull(1)?.let { tableSeparator.matches(it.trim()) } == true
+                val rows = table.filterIndexed { n, _ -> !(header && n == 1) }.map(::cells)
+                MarkdownTable(rows, header, line)
                 continue
             }
             i++
             when {
                 t.isBlank() -> Unit
                 t.trim().matches(Regex("""^(-{3,}|\*{3,}|_{3,})$""")) -> HorizontalDivider(Modifier.padding(vertical = 4.dp))
-                t.startsWith("#") -> Text(
-                    inlineMarkdown(t.trimStart('#', ' '), speak),
-                    color = color,
-                    style = if (t.startsWith("# ")) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
+                t.startsWith("#") -> line(
+                    t.trimStart('#', ' '),
+                    if (t.startsWith("# ")) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleSmall,
+                    FontWeight.Bold,
+                    Modifier,
                 )
                 t.startsWith(">") -> {
                     val bar = MaterialTheme.colorScheme.primary
-                    Text(
-                        inlineMarkdown(t.removePrefix(">").trim(), speak),
+                    line(
+                        t.removePrefix(">").trim(),
+                        MaterialTheme.typography.bodyMedium,
+                        null,
                         Modifier
                             .fillMaxWidth()
                             .background(bar.copy(alpha = 0.08f), MaterialTheme.shapes.small)
                             .drawBehind { drawRect(bar, size = Size(4.dp.toPx(), size.height)) }
                             .padding(start = 14.dp, top = 8.dp, end = 10.dp, bottom = 8.dp),
-                        color = color,
-                        style = MaterialTheme.typography.bodyMedium,
                     )
                 }
                 t.startsWith("- ") || t.startsWith("• ") || t.startsWith("* ") -> Row {
                     Text("•  ", color = MaterialTheme.colorScheme.primary)
-                    Text(inlineMarkdown(t.drop(2), speak), color = color, style = MaterialTheme.typography.bodyMedium)
+                    line(t.drop(2), MaterialTheme.typography.bodyMedium, null, Modifier)
                 }
                 numbered.matches(t) -> {
                     val (n, rest) = numbered.find(t)!!.destructured
                     Row {
                         Text("$n.  ", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
-                        Text(inlineMarkdown(rest, speak), color = color, style = MaterialTheme.typography.bodyMedium)
+                        line(rest, MaterialTheme.typography.bodyMedium, null, Modifier)
                     }
                 }
-                else -> Text(inlineMarkdown(t, speak), color = color, style = MaterialTheme.typography.bodyMedium)
+                else -> line(t, MaterialTheme.typography.bodyMedium, null, Modifier)
             }
         }
     }
@@ -142,7 +155,7 @@ fun Markdown(text: String, modifier: Modifier = Modifier, color: Color = Color.U
 
 /** A bordered grid; scrolls sideways when wider than the bubble instead of squeezing the cells. */
 @Composable
-private fun MarkdownTable(rows: List<List<String>>, header: Boolean, color: Color, speak: SpeakSpans?) {
+private fun MarkdownTable(rows: List<List<String>>, header: Boolean, text: @Composable (String, TextStyle, FontWeight?, Modifier) -> Unit) {
     val columns = rows.maxOfOrNull { it.size } ?: return
     // One width per column (from its longest cell), so the columns line up across rows.
     val widths = (0 until columns).map { c ->
@@ -163,15 +176,14 @@ private fun MarkdownTable(rows: List<List<String>>, header: Boolean, color: Colo
             ) {
                 for (c in 0 until columns) {
                     val cell = row.getOrElse(c) { "" }
-                    Text(
-                        inlineMarkdown(cell, speak),
+                    text(
+                        cell,
+                        MaterialTheme.typography.bodySmall,
+                        if (head) FontWeight.Bold else null,
                         Modifier
                             .width(widths[c])
                             .then(if (c > 0) Modifier.drawBehind { drawRect(line, size = Size(1.dp.toPx(), size.height)) } else Modifier)
                             .padding(horizontal = 10.dp, vertical = 6.dp),
-                        color = color,
-                        style = MaterialTheme.typography.bodySmall,
-                        fontWeight = if (head) FontWeight.Bold else null,
                     )
                 }
             }

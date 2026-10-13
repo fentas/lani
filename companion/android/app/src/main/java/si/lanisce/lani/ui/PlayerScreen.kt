@@ -67,6 +67,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.AnnotatedString
@@ -1031,39 +1032,48 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
     ) {
         Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(label, style = MaterialTheme.typography.titleLarge, color = color)
-            if (o.hints > 0 && o.verdict != Verdict.WRONG) {
-                Text("💡 ${bi("playerScreen.hint")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            hintText(o.hint)?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
-            // after the answer every word can be looked up, the one it tested too
+            // after the answer every word can be looked up, the one it tested too; the explanation's in lines, a long one
+            // scrolls in the card (its buttons stay)
             val look = LocalLook.current
-            if (o.verdict != Verdict.CORRECT && o.correct != null) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    ExText(
-                        highlighted(o.correct, o.marks, color), remember(o, look) { look?.taps?.correct(o.correct).orEmpty() },
-                        style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f), tag = "correct",
-                    )
-                    SpeakButton(vm.speaker, o.correct)
-                }
-                if (o.marks.isNotEmpty()) {
-                    Text(if (o.spoken) "${bi("talkInput.iHeard")}: ${o.answer}" else "${bi("playerScreen.wrote")}: ${o.answer}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
+            val explained: BlockText = { styled, style, m ->
+                ExText(styled, remember(styled, look) { look?.taps?.explanation(styled.text, styled.emphasized()).orEmpty() }, m, style = style, tag = "explain")
             }
-            // Always something to hear, also after a right answer: the whole Slovene sentence (a cloze with
-            // its gap filled), unless the corrected answer above already is exactly that.
-            val shownAbove = o.verdict != Verdict.CORRECT && o.correct != null
-            slovene?.takeIf { !shownAbove || Grading.normalize(it) != Grading.normalize(o.correct) }?.let { s ->
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    ExText(
-                        AnnotatedString(s), remember(s, look) { look?.taps?.sentence(s).orEmpty() },
-                        style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f), tag = "sentence",
-                    )
-                    SpeakButton(vm.speaker, s)
+            Column(
+                Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp * 0.45f).dp).verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                if (o.hints > 0 && o.verdict != Verdict.WRONG) {
+                    Text("💡 ${bi("playerScreen.hint")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+                hintText(o.hint)?.let { Markdown(ExplainFormat.format(it), block = explained) }
+                if (o.verdict != Verdict.CORRECT && o.correct != null) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        ExText(
+                            highlighted(o.correct, o.marks, color), remember(o, look) { look?.taps?.correct(o.correct).orEmpty() },
+                            style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f), tag = "correct",
+                        )
+                        SpeakButton(vm.speaker, o.correct)
+                    }
+                    if (o.marks.isNotEmpty()) {
+                        Text(if (o.spoken) "${bi("talkInput.iHeard")}: ${o.answer}" else "${bi("playerScreen.wrote")}: ${o.answer}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                // Always something to hear, also after a right answer: the whole Slovene sentence (a cloze with
+                // its gap filled), unless the corrected answer above already is exactly that.
+                val shownAbove = o.verdict != Verdict.CORRECT && o.correct != null
+                slovene?.takeIf { !shownAbove || Grading.normalize(it) != Grading.normalize(o.correct) }?.let { s ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        ExText(
+                            AnnotatedString(s), remember(s, look) { look?.taps?.sentence(s).orEmpty() },
+                            style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f), tag = "sentence",
+                        )
+                        SpeakButton(vm.speaker, s)
+                    }
+                }
+                o.tutor?.let { Markdown(it) }
+                o.explain?.let { Markdown(ExplainFormat.format(it), block = explained) }
+                book()
             }
-            o.tutor?.let { Markdown(it) }
-            o.explain?.let { Markdown(it) }
-            book()
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                 OutlinedButton(onClick = onAsk, modifier = Modifier.heightIn(min = 56.dp), shape = MaterialTheme.shapes.medium) {
                     Text("💬 ${bi("playerScreen.ask")}")
