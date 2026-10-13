@@ -97,5 +97,58 @@
   "tags": ["plural", "noun_plural", "plural_noun", "singular_plural", "mnozina"],
   "see": ["dvojina", "stevila-samostalniki", "spol-samostalnikov", "pridevniki-ujemanje", "imenovalnik", "tozilnik"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Množina · konji, ovce, okna",
+      "en": "The plural · -i, -e, -a",
+      "de": "Der Plural · -i, -e, -a",
+      "it": "Il plurale · -i, -e, -a"
+    },
+    "rule": {
+      "en": "From three on, a noun is plural, its ending by gender: masculine **-i** (konj → **konji**), feminine **-e** (ovca → **ovce**), neuter **-a** (okno → **okna**). As the object, masculine takes **-e**: **vidim konje**.",
+      "de": "Ab drei steht das Nomen im Plural, die Endung nach dem Geschlecht: männlich **-i** (konj → **konji**), weiblich **-e** (ovca → **ovce**), sächlich **-a** (okno → **okna**). Als Objekt nimmt das Maskulinum **-e**: **vidim konje**.",
+      "it": "Da tre in su il nome va al plurale, con la desinenza del suo genere: maschile **-i** (konj → **konji**), femminile **-e** (ovca → **ovce**), neutro **-a** (okno → **okna**). Come oggetto il maschile prende **-e**: **vidim konje**."
+    },
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+        { "sl": "ednina", "en": "one", "de": "eins", "it": "uno" },
+        { "sl": "množina", "en": "three or more", "de": "drei und mehr", "it": "tre e più" },
+        { "sl": "tožilnik množine", "en": "plural object", "de": "Plural-Objekt", "it": "oggetto plurale" }
+      ],
+      "rows": [
+        [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "konj", "konji", "konje"],
+        [{ "sl": "moški, -ov-", "en": "masculine, -ov-", "de": "männlich, -ov-", "it": "maschile, -ov-" }, "grad", "gradovi", "gradove"],
+        [{ "sl": "ženski, -a", "en": "feminine, -a", "de": "weiblich, -a", "it": "femminile, -a" }, "ovca", "ovce", "ovce"],
+        [{ "sl": "ženski, brez -a", "en": "feminine, no -a", "de": "weiblich, ohne -a", "it": "femminile, senza -a" }, "stvar", "stvari", "stvari"],
+        [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "okno", "okna", "okna"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Na travniku so ovce in konji.",
+        "en": "There are sheep and horses in the meadow.",
+        "de": "Auf der Wiese sind Schafe und Pferde.",
+        "it": "Sul prato ci sono pecore e cavalli."
+      },
+      {
+        "sl": "Luka ima tri konje.",
+        "en": "Luka has three horses.",
+        "de": "Luka hat drei Pferde.",
+        "it": "Luka ha tre cavalli."
+      },
+      {
+        "sl": "Okna so odprta.",
+        "en": "The windows are open.",
+        "de": "Die Fenster sind offen.",
+        "it": "Le finestre sono aperte."
+      }
+    ],
+    "tip": {
+      "en": "💡 A few are irregular: človek → **ljudje**, otrok → **otroci**, brat → **bratje**, dan → **dnevi**. Exactly two take the dual: **dva konja, dve ovci**.",
+      "de": "💡 Einige sind unregelmäßig: človek → **ljudje**, otrok → **otroci**, brat → **bratje**, dan → **dnevi**. Genau zwei nehmen den Dual: **dva konja, dve ovci**.",
+      "it": "💡 Alcuni sono irregolari: človek → **ljudje**, otrok → **otroci**, brat → **bratje**, dan → **dnevi**. Per due esatti si usa il duale: **dva konja, dve ovci**."
+    }
+  }
 }

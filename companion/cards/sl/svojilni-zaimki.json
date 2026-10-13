@@ -1,0 +1,65 @@
+{
+  "schema": "lani.card/v0",
+  "id": "svojilni-zaimki",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🏷️",
+  "title": {
+    "sl": "Svojilni zaimki · moj, tvoj, svoj",
+    "en": "Possessives · my, your, own",
+    "de": "Possessivpronomen · mein, dein, eigen",
+    "it": "Possessivi · mio, tuo, proprio"
+  },
+  "rule": {
+    "en": "A possessive agrees with the **thing owned**, like an adjective: **moj brat, moja sestra, moje vino**. When the owner is the subject, say **svoj** (one's own): **Vzamem svoj kovček.**",
+    "de": "Ein Possessiv richtet sich wie ein Adjektiv nach dem **Besitz**: **moj brat, moja sestra, moje vino**. Ist der Besitzer das Subjekt, sagt man **svoj** (eigen): **Vzamem svoj kovček.**",
+    "it": "Il possessivo concorda come un aggettivo con la **cosa posseduta**: **moj brat, moja sestra, moje vino**. Se il possessore è il soggetto, si dice **svoj** (proprio): **Vzamem svoj kovček.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "čigav?", "en": "whose?", "de": "wessen?", "it": "di chi?" },
+      { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+      { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+      { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+    ],
+    "rows": [
+      ["jaz", "moj", "moja", "moje"],
+      ["ti", "tvoj", "tvoja", "tvoje"],
+      ["on", "njegov", "njegova", "njegovo"],
+      ["ona", "njen", "njena", "njeno"],
+      ["mi", "naš", "naša", "naše"],
+      ["vi", "vaš", "vaša", "vaše"],
+      ["oni", "njihov", "njihova", "njihovo"],
+      [{ "sl": "osebek", "en": "the subject's own", "de": "das eigene des Subjekts", "it": "del soggetto stesso" }, "svoj", "svoja", "svoje"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "To je naša hiša.",
+      "en": "This is our house.",
+      "de": "Das ist unser Haus.",
+      "it": "Questa è la nostra casa."
+    },
+    {
+      "sl": "Moj brat živi v Berlinu.",
+      "en": "My brother lives in Berlin.",
+      "de": "Mein Bruder lebt in Berlin.",
+      "it": "Mio fratello vive a Berlino."
+    },
+    {
+      "sl": "Vzamem svoj kovček.",
+      "en": "I'll take my suitcase.",
+      "de": "Ich nehme meinen Koffer.",
+      "it": "Prendo la mia valigia."
+    }
+  ],
+  "tip": {
+    "en": "💡 With he, she or they, **svoj** changes the meaning: **Luka išče svoje jagnje** (his own), **Luka išče njegovo jagnje** (another man's). In speech you also hear *moj* with jaz; the standard is svoj.",
+    "de": "💡 Bei er, sie und sie (Plural) ändert **svoj** den Sinn: **Luka išče svoje jagnje** (sein eigenes), **Luka išče njegovo jagnje** (das eines anderen). Gesprochen hört man bei jaz auch *moj*; Standard ist svoj.",
+    "it": "💡 Con lui, lei o loro **svoj** cambia il senso: **Luka išče svoje jagnje** (il suo), **Luka išče njegovo jagnje** (di un altro). Nel parlato si sente anche *moj* con jaz; lo standard è svoj."
+  },
+  "grammar": ["svoj", "pridevniki-ujemanje"],
+  "start": false,
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

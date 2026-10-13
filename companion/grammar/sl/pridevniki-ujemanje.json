@@ -74,5 +74,56 @@
   "tags": ["adjective", "agreement", "possessive", "grammar_gender"],
   "see": ["spol-samostalnikov", "tozilnik", "kje-mestnik-orodnik", "primernik", "prislovi", "svoj"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Pridevniki · nov, nova, novo",
+      "en": "Adjectives · nov, nova, novo",
+      "de": "Adjektive · nov, nova, novo",
+      "it": "Aggettivi · nov, nova, novo"
+    },
+    "rule": {
+      "en": "An adjective takes its noun's gender: masculine has no ending (**nov šotor**), feminine **-a** (**nova hiša**), neuter **-o** (**novo mesto**). That's why it's **dobro jutro**: jutro is neuter.",
+      "de": "Ein Adjektiv übernimmt das Geschlecht seines Nomens: männlich ohne Endung (**nov šotor**), weiblich **-a** (**nova hiša**), sächlich **-o** (**novo mesto**). Darum heißt es **dobro jutro**: jutro ist sächlich.",
+      "it": "L'aggettivo prende il genere del suo nome: il maschile non ha desinenza (**nov šotor**), il femminile **-a** (**nova hiša**), il neutro **-o** (**novo mesto**). Per questo si dice **dobro jutro**: jutro è neutro."
+    },
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+        { "sl": "nov", "en": "nov (new)", "de": "nov (neu)", "it": "nov (nuovo)" },
+        { "sl": "dober", "en": "dober (good)", "de": "dober (gut)", "it": "dober (buono)" },
+        { "sl": "moj", "en": "moj (my)", "de": "moj (mein)", "it": "moj (mio)" }
+      ],
+      "rows": [
+        [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "nov šotor", "dober dan", "moj brat"],
+        [{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "nova hiša", "dobra kava", "moja sestra"],
+        [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "novo mesto", "dobro jutro", "moje vino"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "To je dobra kava.",
+        "en": "This is good coffee.",
+        "de": "Das ist guter Kaffee.",
+        "it": "Questo è un buon caffè."
+      },
+      {
+        "sl": "Moje vino je dobro.",
+        "en": "My wine is good.",
+        "de": "Mein Wein ist gut.",
+        "it": "Il mio vino è buono."
+      },
+      {
+        "sl": "Stanujem v Novi Gorici.",
+        "en": "I live in Nova Gorica.",
+        "de": "Ich wohne in Nova Gorica.",
+        "it": "Abito a Nova Gorica."
+      }
+    ],
+    "tip": {
+      "en": "💡 After **c, č, j, š, ž** the neuter ends in **-e**: **moje vino**, **sveže mleko**. When the noun changes case, so does the adjective: Nova Gorica → **v Novi Gorici**.",
+      "de": "💡 Nach **c, č, j, š, ž** endet das Neutrum auf **-e**: **moje vino**, **sveže mleko**. Ändert das Nomen den Fall, ändert sich das Adjektiv mit: Nova Gorica → **v Novi Gorici**.",
+      "it": "💡 Dopo **c, č, j, š, ž** il neutro finisce in **-e**: **moje vino**, **sveže mleko**. Quando il nome cambia caso, cambia anche l'aggettivo: Nova Gorica → **v Novi Gorici**."
+    }
+  }
 }

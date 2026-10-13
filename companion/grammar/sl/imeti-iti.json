@@ -73,5 +73,61 @@
   "tags": ["imeti", "iti"],
   "see": ["biti", "kam-tozilnik", "rodilnik-nikalnica", "glagoli-sedanjik", "modalni-glagoli", "zanikanje"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Imeti, iti · imam, grem",
+      "en": "Imeti, iti · to have, to go",
+      "de": "Imeti, iti · haben, gehen",
+      "it": "Imeti, iti · avere, andare"
+    },
+    "rule": {
+      "en": "**Imeti** (to have) is regular: **imam, imaš, ima** …; not having is one word: **nimam**. **Iti** (to go) is irregular: **grem, greš, gre** … **gredo** (in speech also *grejo*), and its no stays apart: **ne grem**.",
+      "de": "**Imeti** (haben) ist regelmäßig: **imam, imaš, ima** …; verneint ist es ein Wort: **nimam**. **Iti** (gehen) ist unregelmäßig: **grem, greš, gre** … **gredo** (gesprochen auch *grejo*), und sein ne bleibt getrennt: **ne grem**.",
+      "it": "**Imeti** (avere) è regolare: **imam, imaš, ima** …; al negativo è una parola sola: **nimam**. **Iti** (andare) è irregolare: **grem, greš, gre** … **gredo** (nel parlato anche *grejo*), e il suo ne resta separato: **ne grem**."
+    },
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "imeti", "en": "imeti (have)", "de": "imeti (haben)", "it": "imeti (avere)" },
+        { "sl": "iti", "en": "iti (go)", "de": "iti (gehen)", "it": "iti (andare)" }
+      ],
+      "rows": [
+        ["jaz", "imam", "grem"],
+        ["ti", "imaš", "greš"],
+        ["on, ona, ono", "ima", "gre"],
+        ["midva / medve", "imava", "greva"],
+        ["vidva, onadva", "imata", "gresta"],
+        ["mi / me", "imamo", "gremo"],
+        ["vi / ve", "imate", "greste"],
+        ["oni / one", "imajo", "gredo"],
+        [{ "sl": "nikalno", "en": "not (I)", "de": "nicht (ich)", "it": "non (io)" }, "nimam", "ne grem"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Vida ima psa.",
+        "en": "Vida has a dog.",
+        "de": "Vida hat einen Hund.",
+        "it": "Vida ha un cane."
+      },
+      {
+        "sl": "Vida in Nejc imata psa.",
+        "en": "Vida and Nejc have a dog.",
+        "de": "Vida und Nejc haben einen Hund.",
+        "it": "Vida e Nejc hanno un cane."
+      },
+      {
+        "sl": "Vsi gredo domov.",
+        "en": "Everyone is going home.",
+        "de": "Alle gehen nach Hause.",
+        "it": "Vanno tutti a casa."
+      }
+    ],
+    "tip": {
+      "en": "💡 The two-person endings are the same everywhere: **-va** (me + one more), **-ta** (two others): **imava, greva**; **imata, gresta**.",
+      "de": "💡 Die Endungen für zwei sind überall gleich: **-va** (ich + noch jemand), **-ta** (zwei andere): **imava, greva**; **imata, gresta**.",
+      "it": "💡 Le desinenze per due sono uguali dappertutto: **-va** (io + un altro), **-ta** (altri due): **imava, greva**; **imata, gresta**."
+    }
+  }
 }

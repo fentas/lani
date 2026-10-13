@@ -78,5 +78,61 @@
   "tags": ["verb_person", "verb_ending", "present_tense", "conjugation"],
   "see": ["biti", "imeti-iti", "dvojina", "ti-vi", "velelnik", "modalni-glagoli", "povratni-glagoli", "prihodnjik"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Sedanjik · delam, govorim, pijem",
+      "en": "Present tense · the endings",
+      "de": "Präsens · die Endungen",
+      "it": "Presente · le desinenze"
+    },
+    "rule": {
+      "en": "Nearly every verb takes the same endings: **-m** (I), **-š** (you), none (he, she); **-va, -ta** (two); **-mo, -te, -jo** (we, you, they). Before them sits **a**, **i** or **e**: learn it with the verb.",
+      "de": "Fast jedes Verb hat dieselben Endungen: **-m** (ich), **-š** (du), keine (er, sie); **-va, -ta** (zwei); **-mo, -te, -jo** (wir, ihr, sie). Davor steht **a**, **i** oder **e**: Man lernt es mit dem Verb.",
+      "it": "Quasi tutti i verbi hanno le stesse desinenze: **-m** (io), **-š** (tu), nessuna (lui, lei); **-va, -ta** (due); **-mo, -te, -jo** (noi, voi, loro). Prima c'è **a**, **i** o **e**: si impara con il verbo."
+    },
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "-am: delati", "en": "-am: delati (work)", "de": "-am: delati (arbeiten)", "it": "-am: delati (lavorare)" },
+        { "sl": "-im: govoriti", "en": "-im: govoriti (speak)", "de": "-im: govoriti (sprechen)", "it": "-im: govoriti (parlare)" },
+        { "sl": "-em: piti", "en": "-em: piti (drink)", "de": "-em: piti (trinken)", "it": "-em: piti (bere)" }
+      ],
+      "rows": [
+        ["jaz", "delam", "govorim", "pijem"],
+        ["ti", "delaš", "govoriš", "piješ"],
+        ["on, ona", "dela", "govori", "pije"],
+        ["midva", "delava", "govoriva", "pijeva"],
+        ["vidva, onadva", "delata", "govorita", "pijeta"],
+        ["mi", "delamo", "govorimo", "pijemo"],
+        ["vi", "delate", "govorite", "pijete"],
+        ["oni", "delajo", "govorijo", "pijejo"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Delam v Novi Gorici.",
+        "en": "I work in Nova Gorica.",
+        "de": "Ich arbeite in Nova Gorica.",
+        "it": "Lavoro a Nova Gorica."
+      },
+      {
+        "sl": "Govoriš slovensko?",
+        "en": "Do you speak Slovene?",
+        "de": "Sprichst du Slowenisch?",
+        "it": "Parli sloveno?"
+      },
+      {
+        "sl": "Zvečer pijemo čaj.",
+        "en": "In the evening we drink tea.",
+        "de": "Am Abend trinken wir Tee.",
+        "it": "La sera beviamo il tè."
+      }
+    ],
+    "tip": {
+      "en": "💡 The ending already says who, so the pronoun drops: **Delam doma.** Mind the person: **Moja partnerka se imenuje Maja** (she), not *imenujem* (that's I).",
+      "de": "💡 Die Endung sagt schon, wer, darum fällt das Pronomen weg: **Delam doma.** Achte auf die Person: **Moja partnerka se imenuje Maja** (sie), nicht *imenujem* (das ist ich).",
+      "it": "💡 La desinenza dice già chi, quindi il pronome cade: **Delam doma.** Attenzione alla persona: **Moja partnerka se imenuje Maja** (lei), non *imenujem* (che è io)."
+    }
+  }
 }

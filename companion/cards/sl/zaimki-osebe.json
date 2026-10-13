@@ -1,0 +1,62 @@
+{
+  "schema": "lani.card/v0",
+  "id": "zaimki-osebe",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "👥",
+  "title": {
+    "sl": "Osebni zaimki · jaz, midva, mi",
+    "en": "Personal pronouns · one, two, three+",
+    "de": "Personalpronomen · eins, zwei, drei+",
+    "it": "Pronomi personali · uno, due, tre+"
+  },
+  "rule": {
+    "en": "Slovene counts **one**, **two** (the dual) and **three or more**: **jaz**, **midva**, **mi**. The verb counts along: **sem, sva, smo**.",
+    "de": "Das Slowenische zählt **eins**, **zwei** (der Dual) und **drei und mehr**: **jaz**, **midva**, **mi**. Das Verb zählt mit: **sem, sva, smo**.",
+    "it": "Lo sloveno conta **uno**, **due** (il duale) e **tre o più**: **jaz**, **midva**, **mi**. Il verbo conta con lui: **sem, sva, smo**."
+  },
+  "table": {
+    "head": [
+      { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "ednina", "en": "one", "de": "eins", "it": "uno" },
+      { "sl": "dvojina", "en": "two", "de": "zwei", "it": "due" },
+      { "sl": "množina", "en": "three or more", "de": "drei und mehr", "it": "tre o più" }
+    ],
+    "rows": [
+      [{ "en": "I · we", "de": "ich · wir", "it": "io · noi" }, "jaz", "midva / medve", "mi / me"],
+      [{ "en": "you · you all", "de": "du · ihr", "it": "tu · voi" }, "ti", "vidva / vedve", "vi / ve"],
+      [{ "en": "he · they", "de": "er · sie", "it": "lui · loro" }, "on", "onadva", "oni"],
+      [{ "en": "she · they", "de": "sie · sie", "it": "lei · loro" }, "ona", "onidve", "one"],
+      [{ "en": "it · they", "de": "es · sie", "it": "esso · loro" }, "ono", "onidve", "ona"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Midva sva doma.",
+      "en": "The two of us are at home.",
+      "de": "Wir zwei sind zu Hause.",
+      "it": "Noi due siamo a casa."
+    },
+    {
+      "sl": "Vidva gresta jutri v Gorico?",
+      "en": "Are you two going to Gorizia tomorrow?",
+      "de": "Fahrt ihr zwei morgen nach Gorizia?",
+      "it": "Voi due andate a Gorizia domani?"
+    },
+    {
+      "sl": "Kako ste, gospa Novak?",
+      "en": "How are you, Mrs Novak?",
+      "de": "Wie geht es Ihnen, Frau Novak?",
+      "it": "Come sta, signora Novak?"
+    }
+  ],
+  "tip": {
+    "en": "💡 **Vi** is also the polite *you* to one person. **Me, ve, one** (**medve, vedve, onidve**) are all-female; a mixed group is **mi, midva**. Usually the pronoun drops (**Imam čas.**); say it for contrast: **Jaz grem, ti ostaneš.**",
+    "de": "💡 **Vi** ist auch das höfliche Sie für eine Person. **Me, ve, one** (**medve, vedve, onidve**) sind nur weiblich; eine gemischte Gruppe ist **mi, midva**. Meist fällt das Pronomen weg (**Imam čas.**); für den Kontrast sagt man es: **Jaz grem, ti ostaneš.**",
+    "it": "💡 **Vi** è anche il Lei di cortesia per una persona. **Me, ve, one** (**medve, vedve, onidve**) sono solo femminili; un gruppo misto è **mi, midva**. Di solito il pronome cade (**Imam čas.**); lo si dice per contrasto: **Jaz grem, ti ostaneš.**"
+  },
+  "grammar": ["osebni-zaimki", "dvojina", "ti-vi"],
+  "start": true,
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

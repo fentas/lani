@@ -95,5 +95,61 @@
   "tags": ["future", "future_tense", "prihodnjik"],
   "see": ["pretekli-cas", "biti", "pogojnik", "dvojina", "naslonke", "glagolski-vid"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Prihodnjik · bom, boš, bo",
+      "en": "Future · bom + l-form",
+      "de": "Futur · bom + l-Form",
+      "it": "Futuro · bom + forma in -l"
+    },
+    "rule": {
+      "en": "The future is **bom, boš, bo**; **bova, bosta, bosta**; **bomo, boste, bodo** + the l-form, as in the past: **bom delal**, **bova šla**. Biti alone is just **bom**: **Jutri bom doma.**",
+      "de": "Das Futur ist **bom, boš, bo**; **bova, bosta, bosta**; **bomo, boste, bodo** + die l-Form wie in der Vergangenheit: **bom delal**, **bova šla**. Biti allein ist nur **bom**: **Jutri bom doma.**",
+      "it": "Il futuro è **bom, boš, bo**; **bova, bosta, bosta**; **bomo, boste, bodo** + la forma in -l, come nel passato: **bom delal**, **bova šla**. Biti da solo è solo **bom**: **Jutri bom doma.**"
+    },
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "prihodnjik biti", "en": "will (biti)", "de": "werden (biti)", "it": "futuro di biti" },
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }
+      ],
+      "rows": [
+        ["jaz", "bom", "delal", "delala"],
+        ["ti", "boš", "delal", "delala"],
+        ["on / ona", "bo", "delal", "delala"],
+        ["midva / medve", "bova", "delala", "delali"],
+        ["vidva / vedve", "bosta", "delala", "delali"],
+        ["mi / me", "bomo", "delali", "delale"],
+        ["vi / ve", "boste", "delali", "delale"],
+        ["oni / one", "bodo", "delali", "delale"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Jutri bo deževalo.",
+        "en": "It will rain tomorrow.",
+        "de": "Morgen wird es regnen.",
+        "it": "Domani pioverà."
+      },
+      {
+        "sl": "Kaj bova naredila najprej?",
+        "en": "What will the two of us do first?",
+        "de": "Was machen wir zwei zuerst?",
+        "it": "Che cosa facciamo prima, noi due?"
+      },
+      {
+        "sl": "Ovce bodo prišle zvečer.",
+        "en": "The sheep will come in the evening.",
+        "de": "Die Schafe werden am Abend kommen.",
+        "it": "Le pecore arriveranno la sera."
+      }
+    ],
+    "tip": {
+      "en": "💡 The negative puts **ne** before it: **ne bom**, **ne bo**. For a plan the present works too: **Jutri grem v Gorico.**",
+      "de": "💡 Verneint steht **ne** davor: **ne bom**, **ne bo**. Für einen Plan geht auch das Präsens: **Jutri grem v Gorico.**",
+      "it": "💡 Al negativo si mette **ne** davanti: **ne bom**, **ne bo**. Per un programma va bene anche il presente: **Jutri grem v Gorico.**"
+    }
+  }
 }

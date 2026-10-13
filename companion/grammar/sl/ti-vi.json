@@ -72,5 +72,58 @@
   "tags": ["register", "formal", "informal", "tikanje", "vikanje"],
   "see": ["glagoli-sedanjik", "naslonke", "osebni-zaimki", "velelnik"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Ti ali vi · Kako si? Kako ste?",
+      "en": "Ti or vi · informal or polite",
+      "de": "Ti oder vi · du oder Sie",
+      "it": "Ti o vi · tu o Lei"
+    },
+    "rule": {
+      "en": "**Ti** is for family, friends and children; **vi** is polite (strangers, older people, shops, offices) and also *you all*. With vi the verb is plural: **Kako ste?**",
+      "de": "**Ti** ist du: Familie, Freunde, Kinder. **Vi** ist Sie (Fremde, Ältere, im Geschäft, im Amt) und auch *ihr*. Mit vi steht das Verb im Plural: **Kako ste?**",
+      "it": "**Ti** è il tu: famiglia, amici, bambini. **Vi** è il Lei (sconosciuti, persone anziane, negozi, uffici) e anche *voi*. Con vi il verbo va al plurale: **Kako ste?**"
+    },
+    "table": {
+      "head": [
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "ti", "en": "ti (informal)", "de": "ti (du)", "it": "ti (tu)" },
+        { "sl": "vi", "en": "vi (polite)", "de": "vi (Sie)", "it": "vi (Lei)" }
+      ],
+      "rows": [
+        [{ "en": "How are you?", "de": "Wie geht's? / Wie geht es Ihnen?", "it": "Come stai? / Come sta?" }, "Kako si?", "Kako ste?"],
+        [{ "en": "Hello!", "de": "Hallo! / Guten Tag!", "it": "Ciao! / Buongiorno!" }, "Živjo!", "Dober dan!"],
+        [{ "en": "Goodbye!", "de": "Tschüss! / Auf Wiedersehen!", "it": "Ciao! / Arrivederci!" }, "Adijo!", "Na svidenje!"],
+        [{ "en": "Excuse me!", "de": "Entschuldige! / Entschuldigen Sie!", "it": "Scusa! / Mi scusi!" }, "Oprosti!", "Oprostite!"],
+        [{ "en": "Where are you from?", "de": "Woher kommst du / kommen Sie?", "it": "Di dove sei / è?" }, "Od kod si?", "Od kod ste?"],
+        [{ "en": "Do you have …?", "de": "Hast du / Haben Sie …?", "it": "Hai / Ha …?" }, "Imaš …?", "Imate …?"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Dober dan, kako ste?",
+        "en": "Good day, how are you?",
+        "de": "Guten Tag, wie geht es Ihnen?",
+        "it": "Buongiorno, come sta?"
+      },
+      {
+        "sl": "Živjo, Maja! Kako si?",
+        "en": "Hi, Maja! How are you?",
+        "de": "Hallo, Maja! Wie geht's dir?",
+        "it": "Ciao, Maja! Come stai?"
+      },
+      {
+        "sl": "Oprostite, ste vi gospa Novak?",
+        "en": "Excuse me, are you Mrs Novak?",
+        "de": "Entschuldigung, sind Sie Frau Novak?",
+        "it": "Mi scusi, è Lei la signora Novak?"
+      }
+    ],
+    "tip": {
+      "en": "💡 When in doubt, start with **vi** and wait until the other person offers ti: **Lahko se tikava?** (Shall we say ti?)",
+      "de": "💡 Im Zweifel mit **vi** beginnen und warten, bis der andere ti anbietet: **Lahko se tikava?** (Wollen wir uns duzen?)",
+      "it": "💡 Nel dubbio si comincia con **vi** e si aspetta che l'altro offra il ti: **Lahko se tikava?** (Possiamo darci del tu?)"
+    }
+  }
 }

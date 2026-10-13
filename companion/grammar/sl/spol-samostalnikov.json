@@ -75,5 +75,56 @@
   "tags": ["noun_gender", "gender_noun", "spol"],
   "see": ["pridevniki-ujemanje", "pretekli-cas", "stevila-samostalniki", "imenovalnik", "sklanjatev-moski", "sklanjatev-zenski", "sklanjatev-srednji", "mnozina"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Spol · brat, sestra, mleko",
+      "en": "Noun gender · by the ending",
+      "de": "Das Geschlecht · an der Endung",
+      "it": "Il genere · dalla desinenza"
+    },
+    "rule": {
+      "en": "The end of the base form usually tells the gender: a **consonant** → masculine (**brat**), **-a** → feminine (**sestra**), **-o / -e** → neuter (**mleko, morje**).",
+      "de": "Das Ende der Grundform verrät meist das Geschlecht: **Konsonant** → männlich (**brat**), **-a** → weiblich (**sestra**), **-o / -e** → sächlich (**mleko, morje**).",
+      "it": "La fine della forma base di solito dice il genere: **consonante** → maschile (**brat**), **-a** → femminile (**sestra**), **-o / -e** → neutro (**mleko, morje**)."
+    },
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+        { "sl": "končnica", "en": "ends in", "de": "endet auf", "it": "finisce in" },
+        { "sl": "primeri", "en": "examples", "de": "Beispiele", "it": "esempi" },
+        { "sl": "s pridevnikom", "en": "with an adjective", "de": "mit Adjektiv", "it": "con un aggettivo" }
+      ],
+      "rows": [
+        [{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, { "en": "a consonant", "de": "Konsonant", "it": "consonante" }, "brat, kruh, šotor", "dober kruh"],
+        [{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "-a", "sestra, kava, hiša", "dobra kava"],
+        [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "-o, -e", "mleko, jajce, morje", "dobro mleko"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "To je moj brat.",
+        "en": "This is my brother.",
+        "de": "Das ist mein Bruder.",
+        "it": "Questo è mio fratello."
+      },
+      {
+        "sl": "Mleko je sveže.",
+        "en": "The milk is fresh.",
+        "de": "Die Milch ist frisch.",
+        "it": "Il latte è fresco."
+      },
+      {
+        "sl": "Noč je bila mirna.",
+        "en": "The night was quiet.",
+        "de": "Die Nacht war ruhig.",
+        "it": "La notte era tranquilla."
+      }
+    ],
+    "tip": {
+      "en": "💡 Exceptions: a few feminine nouns end in a consonant (**noč, vas, stvar**), a few masculine ones in a vowel (**oče**, and men's names like **Luka**). Learn them with an adjective: **dolga noč**, **dober oče**.",
+      "de": "💡 Ausnahmen: einige weibliche Nomen enden auf einen Konsonanten (**noč, vas, stvar**), einige männliche auf einen Vokal (**oče** und Männernamen wie **Luka**). Lern sie mit einem Adjektiv: **dolga noč**, **dober oče**.",
+      "it": "💡 Eccezioni: alcuni nomi femminili finiscono in consonante (**noč, vas, stvar**), alcuni maschili in vocale (**oče** e i nomi di uomo come **Luka**). Imparali con un aggettivo: **dolga noč**, **dober oče**."
+    }
+  }
 }

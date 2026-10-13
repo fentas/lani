@@ -1,0 +1,60 @@
+{
+  "schema": "lani.card/v0",
+  "id": "kje-kam",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🧭",
+  "title": {
+    "sl": "Kje? Kam? Od kod?",
+    "en": "Where? Where to? Where from?",
+    "de": "Wo? Wohin? Woher?",
+    "it": "Dove? Verso dove? Da dove?"
+  },
+  "rule": {
+    "en": "**Kje?** (where): **v / na** + locative, *v šoli, na morju*. **Kam?** (where to): **v / na** + accusative, *v šolo, na morje*. **Od kod?** (where from): **iz / z** + genitive, *iz šole, z morja*.",
+    "de": "**Kje?** (wo): **v / na** + Lokativ, *v šoli, na morju*. **Kam?** (wohin): **v / na** + Akkusativ, *v šolo, na morje*. **Od kod?** (woher): **iz / z** + Genitiv, *iz šole, z morja*.",
+    "it": "**Kje?** (dove): **v / na** + locativo, *v šoli, na morju*. **Kam?** (verso dove): **v / na** + accusativo, *v šolo, na morje*. **Od kod?** (da dove): **iz / z** + genitivo, *iz šole, z morja*."
+  },
+  "table": {
+    "head": [
+      { "sl": "vprašanje", "en": "question", "de": "Frage", "it": "domanda" },
+      { "sl": "v · iz", "en": "in: v · iz", "de": "in: v · iz", "it": "in: v · iz" },
+      { "sl": "na · z, s", "en": "on, at: na · z, s", "de": "auf, an: na · z, s", "it": "su, a: na · z, s" },
+      { "sl": "pri · k · od", "en": "at someone's: pri · k · od", "de": "bei jemandem: pri · k · od", "it": "da qualcuno: pri · k · od" }
+    ],
+    "rows": [
+      ["kje?", "v šoli", "na morju", "pri babici"],
+      ["kam?", "v šolo", "na morje", "k babici"],
+      ["od kod?", "iz šole", "z morja", "od babice"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Kam greš? Na pošto.",
+      "en": "Where are you going? To the post office.",
+      "de": "Wohin gehst du? Zur Post.",
+      "it": "Dove vai? Alla posta."
+    },
+    {
+      "sl": "Kje si? Na pošti.",
+      "en": "Where are you? At the post office.",
+      "de": "Wo bist du? Auf der Post.",
+      "it": "Dove sei? Alla posta."
+    },
+    {
+      "sl": "Od kod prihajaš? S pošte.",
+      "en": "Where are you coming from? From the post office.",
+      "de": "Woher kommst du? Von der Post.",
+      "it": "Da dove arrivi? Dalla posta."
+    }
+  ],
+  "tip": {
+    "en": "💡 For where from, **v** becomes **iz** and **na** becomes **z / s** (s before p, t, k …): v šoli → iz šole, na pošti → s pošte. Home: **doma** (at home), **domov** (going home).",
+    "de": "💡 Beim Woher wird **v** zu **iz** und **na** zu **z / s** (s vor p, t, k …): v šoli → iz šole, na pošti → s pošte. Zu Hause: **doma**, nach Hause: **domov**.",
+    "it": "💡 Per il da dove, **v** diventa **iz** e **na** diventa **z / s** (s davanti a p, t, k …): v šoli → iz šole, na pošti → s pošte. Casa: **doma** (a casa, stato), **domov** (a casa, moto)."
+  },
+  "grammar": ["kje-mestnik-orodnik", "kam-tozilnik", "mestnik", "tozilnik", "rodilnik-predlogi"],
+  "start": false,
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

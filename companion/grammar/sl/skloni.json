@@ -125,5 +125,59 @@
   "tags": ["skloni", "which_case", "case_question"],
   "see": ["imenovalnik", "tozilnik", "mestnik", "rodilnik", "dajalnik", "orodnik", "sklanjatev-moski", "sklanjatev-zenski"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Šest sklonov",
+      "en": "The six cases at a glance",
+      "de": "Die sechs Fälle auf einen Blick",
+      "it": "I sei casi in breve"
+    },
+    "rule": {
+      "en": "To find the case, **ask its question**: *Koga vidiš?* → Vidim **Mojco** (accusative). A preposition decides too: **iz** + genitive, **k** + dative, **v / na** + accusative (where to) or locative (where), **z / s** + instrumental.",
+      "de": "Den Fall findet man mit **seiner Frage**: *Koga vidiš?* → Vidim **Mojco** (Akkusativ). Auch die Präposition entscheidet: **iz** + Genitiv, **k** + Dativ, **v / na** + Akkusativ (wohin) oder Lokativ (wo), **z / s** + Instrumental.",
+      "it": "Il caso si trova **con la sua domanda**: *Koga vidiš?* → Vidim **Mojco** (accusativo). Decide anche la preposizione: **iz** + genitivo, **k** + dativo, **v / na** + accusativo (moto a luogo) o locativo (stato in luogo), **z / s** + strumentale."
+    },
+    "table": {
+      "head": [
+        { "sl": "sklon", "en": "case", "de": "Fall", "it": "caso" },
+        { "sl": "vprašanje", "en": "question", "de": "Frage", "it": "domanda" },
+        { "sl": "končnice m · ž · s", "en": "endings m · f · n", "de": "Endungen m · f · n", "it": "desinenze m · f · n" },
+        { "sl": "predlogi", "en": "prepositions", "de": "Präpositionen", "it": "preposizioni" }
+      ],
+      "rows": [
+        [{ "sl": "1. imenovalnik", "en": "1. nominative", "de": "1. Nominativ", "it": "1. nominativo" }, "kdo? kaj?", "– · -a · -o / -e", { "sl": "brez predloga", "en": "none", "de": "keine", "it": "nessuna" }],
+        [{ "sl": "2. rodilnik", "en": "2. genitive", "de": "2. Genitiv", "it": "2. genitivo" }, "koga? česa?", "-a · -e · -a", "iz, od, do, brez"],
+        [{ "sl": "3. dajalnik", "en": "3. dative", "de": "3. Dativ", "it": "3. dativo" }, "komu? čemu?", "-u · -i · -u", "k / h, proti"],
+        [{ "sl": "4. tožilnik", "en": "4. accusative", "de": "4. Akkusativ", "it": "4. accusativo" }, "koga? kaj?", "– / -a · -o · -o / -e", "v, na (kam?), čez"],
+        [{ "sl": "5. mestnik", "en": "5. locative", "de": "5. Lokativ", "it": "5. locativo" }, "pri kom? o čem?", "-u · -i · -u", "v, na (kje?), pri, o"],
+        [{ "sl": "6. orodnik", "en": "6. instrumental", "de": "6. Instrumental", "it": "6. strumentale" }, "s kom? s čim?", "-om · -o · -om", "z / s, pod, nad, pred"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Sem iz Gorice.",
+        "en": "I'm from Gorizia.",
+        "de": "Ich bin aus Gorizia.",
+        "it": "Sono di Gorizia."
+      },
+      {
+        "sl": "Grem na pošto. Maja je že na pošti.",
+        "en": "I'm going to the post office. Maja is already at the post office.",
+        "de": "Ich gehe zur Post. Maja ist schon auf der Post.",
+        "it": "Vado alla posta. Maja è già alla posta."
+      },
+      {
+        "sl": "Pridem z bratom.",
+        "en": "I'll come with my brother.",
+        "de": "Ich komme mit meinem Bruder.",
+        "it": "Vengo con mio fratello."
+      }
+    ],
+    "tip": {
+      "en": "💡 Masculine accusative: things keep the base form (**vidim gozd**), living beings take -a (**vidim psa**). After c, č, j, š, ž the -om becomes -em: **z Nejcem**.",
+      "de": "💡 Maskuliner Akkusativ: Dinge bleiben in der Grundform (**vidim gozd**), Lebewesen nehmen -a (**vidim psa**). Nach c, č, j, š, ž wird -om zu -em: **z Nejcem**.",
+      "it": "💡 Accusativo maschile: le cose restano nella forma base (**vidim gozd**), gli esseri viventi prendono -a (**vidim psa**). Dopo c, č, j, š, ž -om diventa -em: **z Nejcem**."
+    }
+  }
 }

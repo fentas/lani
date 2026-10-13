@@ -79,5 +79,62 @@
   "tags": ["biti", "copula", "grammar_biti"],
   "see": ["imeti-iti", "dvojina", "pretekli-cas", "naslonke", "prihodnjik", "zanikanje"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Biti · sem, si, je",
+      "en": "Biti · to be",
+      "de": "Biti · sein",
+      "it": "Biti · essere"
+    },
+    "rule": {
+      "en": "**Biti** (to be) is never left out: **sem, si, je**; for two **sva, sta, sta**; **smo, ste, so**. Its negative is one word: **nisem, nisi, ni** …",
+      "de": "**Biti** (sein) fällt nie weg: **sem, si, je**; für zwei **sva, sta, sta**; **smo, ste, so**. Verneint ist es ein Wort: **nisem, nisi, ni** …",
+      "it": "**Biti** (essere) non si omette mai: **sem, si, je**; per due **sva, sta, sta**; **smo, ste, so**. Il negativo è una sola parola: **nisem, nisi, ni** …"
+    },
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "pritrdilno", "en": "is, are", "de": "ist, sind", "it": "è, sono" },
+        { "sl": "nikalno", "en": "isn't, aren't", "de": "ist nicht, sind nicht", "it": "non è, non sono" }
+      ],
+      "rows": [
+        ["jaz", "sem", "nisem"],
+        ["ti", "si", "nisi"],
+        ["on, ona, ono", "je", "ni"],
+        ["midva / medve", "sva", "nisva"],
+        ["vidva / vedve", "sta", "nista"],
+        ["onadva / onidve", "sta", "nista"],
+        ["mi / me", "smo", "nismo"],
+        ["vi / ve", "ste", "niste"],
+        ["oni / one", "so", "niso"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Moja partnerka je iz Gorice.",
+        "en": "My partner is from Gorizia.",
+        "de": "Meine Partnerin ist aus Gorizia.",
+        "it": "La mia compagna è di Gorizia."
+      },
+      {
+        "sl": "Nisem doma, sem v službi.",
+        "en": "I'm not at home, I'm at work.",
+        "de": "Ich bin nicht zu Hause, ich bin bei der Arbeit.",
+        "it": "Non sono a casa, sono al lavoro."
+      },
+      {
+        "sl": "Otroci so na vrtu.",
+        "en": "The children are in the garden.",
+        "de": "Die Kinder sind im Garten.",
+        "it": "I bambini sono in giardino."
+      }
+    ],
+    "tip": {
+      "en": "💡 Two people take the dual: **Maja in Luka sta doma.** From three on it's **so**: **Vsi so doma.**",
+      "de": "💡 Zwei Personen nehmen den Dual: **Maja in Luka sta doma.** Ab drei heißt es **so**: **Vsi so doma.**",
+      "it": "💡 Due persone vogliono il duale: **Maja in Luka sta doma.** Da tre in su è **so**: **Vsi so doma.**"
+    },
+    "start": true
+  }
 }

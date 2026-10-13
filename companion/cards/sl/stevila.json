@@ -1,0 +1,66 @@
+{
+  "schema": "lani.card/v0",
+  "id": "stevila",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🔢",
+  "title": {
+    "sl": "Števila · ena, dva, tri",
+    "en": "Numbers · 1–20 and the tens",
+    "de": "Zahlen · 1–20 und die Zehner",
+    "it": "Numeri · 1–20 e le decine"
+  },
+  "rule": {
+    "en": "Learn **1–10**; **-najst** makes 11–19 (**enajst, dvanajst**) and **-deset** the tens (**trideset, štirideset**); 20 is **dvajset**. With a noun, 1 and 2 agree: **en brat, ena sestra; dva brata, dve sestri**.",
+    "de": "Lern **1–10**; **-najst** bildet 11–19 (**enajst, dvanajst**) und **-deset** die Zehner (**trideset, štirideset**); 20 ist **dvajset**. Mit einem Nomen richten sich 1 und 2 nach ihm: **en brat, ena sestra; dva brata, dve sestri**.",
+    "it": "Impara **1–10**; **-najst** forma 11–19 (**enajst, dvanajst**) e **-deset** le decine (**trideset, štirideset**); 20 è **dvajset**. Con un nome 1 e 2 concordano: **en brat, ena sestra; dva brata, dve sestri**."
+  },
+  "table": {
+    "head": [
+      { "sl": "1–10", "en": "1–10", "de": "1–10", "it": "1–10" },
+      { "sl": "11–20", "en": "11–20", "de": "11–20", "it": "11–20" },
+      { "sl": "desetice", "en": "tens and more", "de": "Zehner und mehr", "it": "decine e oltre" }
+    ],
+    "rows": [
+      ["1 ena", "11 enajst", "30 trideset"],
+      ["2 dva", "12 dvanajst", "40 štirideset"],
+      ["3 tri", "13 trinajst", "50 petdeset"],
+      ["4 štiri", "14 štirinajst", "60 šestdeset"],
+      ["5 pet", "15 petnajst", "70 sedemdeset"],
+      ["6 šest", "16 šestnajst", "80 osemdeset"],
+      ["7 sedem", "17 sedemnajst", "90 devetdeset"],
+      ["8 osem", "18 osemnajst", "100 sto"],
+      ["9 devet", "19 devetnajst", "200 dvesto"],
+      ["10 deset", "20 dvajset", "1000 tisoč"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "En kruh in dve kavi, prosim.",
+      "en": "One loaf of bread and two coffees, please.",
+      "de": "Ein Brot und zwei Kaffee, bitte.",
+      "it": "Un pane e due caffè, per favore."
+    },
+    {
+      "sl": "Kruh stane tri evre.",
+      "en": "The bread costs three euros.",
+      "de": "Das Brot kostet drei Euro.",
+      "it": "Il pane costa tre euro."
+    },
+    {
+      "sl": "Luka ima petinštirideset ovc.",
+      "en": "Luka has forty-five sheep.",
+      "de": "Luka hat fünfundvierzig Schafe.",
+      "it": "Luka ha quarantacinque pecore."
+    }
+  ],
+  "tip": {
+    "en": "💡 From 21 on, the ones come first, joined by **in** (and) into one word: **enaindvajset** (21, \"one-and-twenty\"), **petinštirideset** (45).",
+    "de": "💡 Ab 21 kommen die Einer zuerst, mit **in** (und) in einem Wort, wie im Deutschen: **enaindvajset** (einundzwanzig), **petinštirideset** (fünfundvierzig).",
+    "it": "💡 Da 21 in poi le unità vengono prima, unite da **in** (e) in una sola parola: **enaindvajset** (21, «uno e venti»), **petinštirideset** (45)."
+  },
+  "grammar": ["stevila-samostalniki", "datumi"],
+  "start": true,
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+}

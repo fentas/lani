@@ -73,5 +73,61 @@
   "tags": ["past", "past_tense", "l_participle", "preteklik"],
   "see": ["biti", "naslonke", "spol-samostalnikov", "prihodnjik", "pogojnik", "glagolski-vid"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Preteklik · bil sem, bila sem",
+      "en": "Past tense · biti + l-form",
+      "de": "Vergangenheit · biti + l-Form",
+      "it": "Passato · biti + forma in -l"
+    },
+    "rule": {
+      "en": "The past is **sem, si, je** … + the **l-form**, which agrees with who did it: **delal** (he), **delala** (she), **delalo** (it); **delali** (they, men or mixed), **delale** (women).",
+      "de": "Die Vergangenheit ist **sem, si, je** … + die **l-Form**, die sich nach dem Handelnden richtet: **delal** (er), **delala** (sie), **delalo** (es); **delali** (sie, Männer oder gemischt), **delale** (Frauen).",
+      "it": "Il passato è **sem, si, je** … + la **forma in -l**, che concorda con chi agisce: **delal** (lui), **delala** (lei), **delalo** (esso); **delali** (loro, uomini o misti), **delale** (donne)."
+    },
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "sedanjik biti", "en": "biti (present)", "de": "biti (Präsens)", "it": "biti (presente)" },
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }
+      ],
+      "rows": [
+        ["jaz", "sem", "delal", "delala"],
+        ["ti", "si", "delal", "delala"],
+        ["on / ona", "je", "delal", "delala"],
+        ["midva / medve", "sva", "delala", "delali"],
+        ["vidva / vedve", "sta", "delala", "delali"],
+        ["mi / me", "smo", "delali", "delale"],
+        ["vi / ve", "ste", "delali", "delale"],
+        ["oni / one", "so", "delali", "delale"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Včeraj sem {m:delal|f:delala} doma.",
+        "en": "Yesterday I worked at home.",
+        "de": "Gestern habe ich zu Hause gearbeitet.",
+        "it": "Ieri ho lavorato a casa."
+      },
+      {
+        "sl": "Maja je bila v Gorici.",
+        "en": "Maja was in Gorizia.",
+        "de": "Maja war in Gorizia.",
+        "it": "Maja era a Gorizia."
+      },
+      {
+        "sl": "Kaj sta včeraj delala?",
+        "en": "What did you two do yesterday?",
+        "de": "Was habt ihr zwei gestern gemacht?",
+        "it": "Che cosa avete fatto ieri, voi due?"
+      }
+    ],
+    "tip": {
+      "en": "💡 The negative is **nisem, nisi, ni** … + l-form: **Luka ni bil doma.** **Iti** is irregular: **šel, šla, šlo; šli, šle**.",
+      "de": "💡 Verneint: **nisem, nisi, ni** … + l-Form: **Luka ni bil doma.** **Iti** ist unregelmäßig: **šel, šla, šlo; šli, šle**.",
+      "it": "💡 Al negativo: **nisem, nisi, ni** … + forma in -l: **Luka ni bil doma.** **Iti** è irregolare: **šel, šla, šlo; šli, šle**."
+    }
+  }
 }

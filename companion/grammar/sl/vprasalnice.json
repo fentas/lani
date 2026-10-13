@@ -122,5 +122,63 @@
   "tags": ["question", "questions", "question_words", "vprasalnice"],
   "see": ["kje-mestnik-orodnik", "kam-tozilnik", "rodilnik-predlogi", "skloni", "kdaj-cas", "rodilnik-kolicina", "odvisni-govor"],
   "machine_written": true,
-  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Vprašalnice · kdo, kaj, kje",
+      "en": "Question words · who, what, where",
+      "de": "Fragewörter · wer, was, wo",
+      "it": "Parole interrogative · chi, che cosa, dove"
+    },
+    "rule": {
+      "en": "The question word comes first, the rest stays as in a statement: **Kje je Luka?** There are three for *where*: **kje** (where), **kam** (where to), **od kod** (where from).",
+      "de": "Das Fragewort steht vorn, der Rest bleibt wie im Aussagesatz: **Kje je Luka?** Für *wo* gibt es drei: **kje** (wo), **kam** (wohin), **od kod** (woher).",
+      "it": "La parola interrogativa va all'inizio, il resto resta come nella frase affermativa: **Kje je Luka?** Per *dove* ce ne sono tre: **kje** (dove), **kam** (verso dove), **od kod** (da dove)."
+    },
+    "table": {
+      "head": [
+        { "sl": "vprašalnica", "en": "question word", "de": "Fragewort", "it": "parola interrogativa" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "odgovor", "en": "answer", "de": "Antwort", "it": "risposta" }
+      ],
+      "rows": [
+        ["kdo?", { "en": "who", "de": "wer", "it": "chi" }, "Luka"],
+        ["kaj?", { "en": "what", "de": "was", "it": "che cosa" }, "kruh"],
+        ["kje?", { "en": "where", "de": "wo", "it": "dove (stato)" }, "v šoli"],
+        ["kam?", { "en": "where to", "de": "wohin", "it": "verso dove" }, "v šolo"],
+        ["od kod?", { "en": "where from", "de": "woher", "it": "da dove" }, "iz Berlina"],
+        ["kdaj?", { "en": "when", "de": "wann", "it": "quando" }, "jutri"],
+        ["kako?", { "en": "how", "de": "wie", "it": "come" }, "dobro"],
+        ["zakaj?", { "en": "why", "de": "warum", "it": "perché" }, "ker dežuje"],
+        ["koliko?", { "en": "how much, how many", "de": "wie viel, wie viele", "it": "quanto, quanti" }, "pet ovc"],
+        ["čigav?", { "en": "whose", "de": "wessen", "it": "di chi" }, "moj, Lukov"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Kje je Luka? Ob ribniku.",
+        "en": "Where is Luka? By the pond.",
+        "de": "Wo ist Luka? Am Teich.",
+        "it": "Dov'è Luka? In riva allo stagno."
+      },
+      {
+        "sl": "Kam greš? Na tržnico.",
+        "en": "Where are you going? To the market.",
+        "de": "Wohin gehst du? Auf den Markt.",
+        "it": "Dove vai? Al mercato."
+      },
+      {
+        "sl": "Koliko stane kruh?",
+        "en": "How much is the bread?",
+        "de": "Wie viel kostet das Brot?",
+        "it": "Quanto costa il pane?"
+      }
+    ],
+    "tip": {
+      "en": "💡 A yes/no question needs no question word: let your voice rise (**Si lačen?**) or start with **ali** (standard) or **a** (in speech): **Ali greš z mano?**",
+      "de": "💡 Eine Ja/Nein-Frage braucht kein Fragewort: Die Stimme steigt (**Si lačen?**), oder man beginnt mit **ali** (Standard) bzw. **a** (gesprochen): **Ali greš z mano?**",
+      "it": "💡 Una domanda sì/no non ha bisogno di parola interrogativa: la voce sale (**Si lačen?**), oppure si comincia con **ali** (standard) o **a** (nel parlato): **Ali greš z mano?**"
+    },
+    "start": true
+  }
 }
