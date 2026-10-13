@@ -8,7 +8,7 @@ import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -357,6 +357,60 @@ export default async function voice() {
     const fe = fakeEleven()
     for (const language of ['it', 'de', 'en']) await new ElevenLabs({ key: 'test-key', base: fe.url, language }).synth('Ciao!', 'female')
     check('a village in Italian, German or English: each clip asks ElevenLabs for its language_code', JSON.stringify(fe.st.tts.map(c => c.body.language_code)) === '["it","de","en"]', fe.st.tts.map(c => c.body))
+  }
+
+  // --- an explanation in the learner's own language: a school intro's step as one clip (in-process against the fakes) ---
+  {
+    const fe = fakeEleven()
+    const fg = fakeGepard()
+    const el = new ElevenLabs({ key: 'test-key', base: fe.url })
+    const vs = new VoiceStore({ appDir: tempDir('lani-explain-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null })
+    const text = 'Biti (to be) has a short form for each person, and Slovene never leaves it out. One person first: jaz sem (I am), ti si (you are), on, ona, ono je (he, she, it is).'
+    const norm = `en|${normalizeText(text)}`
+    const ex = await vs.say(text, 'teacher', 'en')
+    const call = fe.st.tts.at(-1)
+    check('an explanation in English (a school intro\'s step): ElevenLabs in the teacher\'s voice (Milena), plainly, no language_code, under its own key ("en|…"); the worker not asked',
+      ex?.engine === 'elevenlabs' && ex.norm === norm && ex.key === `teacher:${norm}` && ex.text === text && ex.chars === text.length && call?.voice === cast().teacher.elevenlabs && call.body.text === text && call.body.model_id === 'eleven_v3' &&
+        !call.timestamps && !('language_code' in call.body) && fg.st.calls.length === 0 && vs.index()[norm]?.teacher === `/voice/file/${ex.file}` && vs.cost(text, 'teacher', 'en') === text.length, [ex, call])
+    const short = await vs.say('Two', 'female', 'en')
+    const shortCall = fe.st.tts.at(-1)
+    check('…a short one in a carrier voice (the narrator): said plainly too, never in a carrier sentence, nor ever old-style',
+      short?.norm === 'en|two' && short.key === 'female:en|two' && shortCall?.body.text === 'Two' && !shortCall.timestamps && !('language_code' in shortCall.body) && !vs.oldStyle(short) && vs.cost('Two', 'female', 'en') === 3, [short, shortCall])
+    const line = await vs.say('jaz sem', 'female')
+    const n0 = fe.st.tts.length
+    const again = await vs.say(text, 'teacher', 'en')
+    check('…a Slovene line with the same words is a clip of its own (asked for in Slovene); the explanation asked for again: the clip there, nothing sent',
+      line?.key === 'female:jaz sem' && line.file !== short?.file && fe.st.tts.at(-1)?.body.language_code === 'sl' && again?.file === ex?.file && fe.st.tts.length === n0 && fg.st.calls.length === 0, [line, fe.st.tts.length])
+    const sl = await vs.say('Dober dan.', 'female', 'sl')
+    check('…lang the village\'s own: a line as ever', sl?.key === 'female:dober dan' && fe.st.tts.at(-1)?.body.language_code === 'sl', sl)
+    check('…never re-voiced as Slovene: not in the carrier re-voice\'s queue, however often the app asked for it', (await vs.say('Two', 'female', 'en'))?.file === short?.file && !vs.revoiceQueue(false).some(c => explanationLang(c.norm)) && explanationLang(short!.norm) === 'en' && explanationLang('dober dan') === undefined)
+    const st = await vs.status()
+    check('status: the explanations counted apart (clips, characters, by language), not among the lines',
+      st.explanations.clips === 2 && st.explanations.chars === text.length + 3 && st.explanations.by_lang.en === 2 && st.clips.total === 2 && !st.clips.by.some(b => b.voice === 'teacher'), [st.explanations, st.clips])
+    // the quota down to the reserve: an explanation isn't a live line and waits; a live line still may
+    fe.st.used = fe.st.limit - 4_000
+    await el.subscription(true)
+    const t0 = fe.st.tts.length
+    const kept = await vs.say('Three or more: mi smo (we are), vi ste (you are), oni so (they are).', 'teacher', 'en')
+    const live = await vs.say('Dober večer, Jan.', 'teacher')
+    check('…the quota at the reserve: no explanation (the app reads it with the phone\'s voice and the Slovene clips), nobody else\'s voice for it, the worker not asked; a live line still voiced',
+      kept === null && live?.engine === 'elevenlabs' && fe.st.tts.length === t0 + 1 && fe.st.tts.at(-1)?.body.text === 'Dober večer, Jan.' && fg.st.calls.length === 0, [kept, live])
+    fe.st.used = 0
+    await el.subscription(true)
+    fe.st.fail = 500
+    check('…ElevenLabs failing: no explanation, the worker never asked (it speaks only Slovene)', (await vs.say('Three or more: mi smo.', 'teacher', 'en')) === null && fg.st.calls.length === 0)
+    fe.st.fail = 0
+    vs.close()
+
+    // a Slovene village's narrator: the explanation in the narrator's Slovene ElevenLabs voice (Nina), as their lines
+    const fe2 = fakeEleven()
+    const el2 = new ElevenLabs({ key: 'test-key', base: fe2.url })
+    const ns = new VoiceStore({ appDir: tempDir('lani-explain-sl-'), engines: [el2, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null, narrators: 'gepard', language: 'sl' })
+    const nx = await ns.say(text, 'female', 'de')
+    check('a Slovene village\'s narrator (the local voice first): an explanation in German by her Slovene ElevenLabs voice (Nina), the voice "female.sl", the app gets it as the narrator\'s; the worker not asked',
+      nx?.voice === 'female.sl' && nx.norm === `de|${normalizeText(text)}` && fe2.st.tts.at(-1)?.voice === cast().female.languages!.sl.elevenlabs && !('language_code' in (fe2.st.tts.at(-1)?.body ?? {})) && fg.st.calls.length === 0 &&
+        ns.index()[`de|${normalizeText(text)}`]?.female === `/voice/file/${nx.file}` && !ns.wantsUpgrade(nx) && !ns.upgradeQueue(false).some(c => explanationLang(c.norm)) && !ns.narratorQueue(() => true).todo.some(c => explanationLang(c.norm)), [nx, fe2.st.tts.at(-1)])
+    ns.close()
   }
 
   // --- the narrators of a Slovene village: their Slovene ElevenLabs voices, the local voice as their fallback, never the
@@ -1408,6 +1462,44 @@ export default async function voice() {
           bridgeEleven.st.tts.length === n0 + 1 && bridgeEleven.st.tts.at(-1)?.body.text === fresh && bridgeEleven.st.tts.at(-1)?.voice === LUKA && bridgeGepard.st.calls.length === g0, p)
       const again = await (await prepare(body)).json()
       check('POST /voice/prepare again: the same clips, nothing voiced, the day\'s count as it was', JSON.stringify(again.clips) === JSON.stringify(p.clips) && again.today === p.today && bridgeEleven.st.tts.length === n0 + 1 && bridgeGepard.st.calls.length === g0, again)
+    }
+
+    // A school intro's step read out as one clip: its explanation in the learner's own language (lang), the Slovene in it.
+    {
+      const ask = (body: unknown) => fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify(body) })
+      const prepare = async (texts: unknown[]) => (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts }) })).json()
+      const n0 = bridgeEleven.st.tts.length
+      const g0 = bridgeGepard.st.calls.length
+      const text = 'Three or more: mi smo (we are), vi ste (you are: several of you, or one person you say vi to), oni so (they are).'
+      const r = await ask({ text, voice: 'teacher', lang: 'en' })
+      const rb = await r.json()
+      const idx = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
+      const call = bridgeEleven.st.tts.at(-1)
+      check('POST /voice/say with lang: an explanation in English in the teacher\'s voice, plainly, no language_code, the worker not asked; the index has it under "en|…", not as a line',
+        r.ok && rb.voice === 'teacher' && rb.engine === 'elevenlabs' && /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(rb.url) && bridgeEleven.st.tts.length === n0 + 1 && call?.voice === cast().teacher.elevenlabs && call.body.text === text &&
+          !call.timestamps && !('language_code' in call.body) && bridgeGepard.st.calls.length === g0 && idx[`en|${normalizeText(text)}`]?.teacher === rb.url && !idx[normalizeText(text)], [rb, call])
+      const nr = await (await ask({ text: 'Two', voice: 'female', lang: 'en' })).json()
+      const ncall = bridgeEleven.st.tts.at(-1)
+      check('…a narrator\'s in the Slovene village, a short one: by Nina, plainly (no carrier sentence), the answer in the voice the app knows (female)',
+        nr.voice === 'female' && ncall?.voice === NINA && ncall.body.text === 'Two' && !ncall.timestamps && !('language_code' in ncall.body) && bridgeGepard.st.calls.length === g0, [nr, ncall])
+      const long = `${text} `.repeat(4).trim()
+      check('…over 300 characters: an explanation (with lang) may, a line may not (without lang, or in the village\'s), nor anything over 1,500; a lang is two small letters',
+        long.length > 300 && (await ask({ text: long, voice: 'teacher', lang: 'de' })).ok && (await ask({ text: long, voice: 'teacher' })).status === 400 && (await ask({ text: long, voice: 'teacher', lang: 'sl' })).status === 400 &&
+          (await ask({ text: 'x'.repeat(1_501), voice: 'teacher', lang: 'en' })).status === 400 && (await ask({ text: 'Two', voice: 'teacher', lang: 'EN' })).status === 400 && (await ask({ text: 'Two', voice: 'soprano', lang: 'en' })).status === 400)
+      const st = await (await fetch(`${base}/voice/status`, { headers: auth })).json()
+      check('GET /voice/status: the explanations counted apart (by language), not among the lines',
+        st.explanations?.clips === 3 && st.explanations.by_lang?.en === 2 && st.explanations.by_lang.de === 1 && st.explanations.chars === text.length + 3 + long.length && !st.clips.by.some((b: any) => b.voice === 'teacher'), [st.explanations, st.clips.by])
+      const before = (await prepare([{ text, voice: 'teacher', lang: 'en' }])).today
+      const next = 'Slovene has a form for exactly two, the dual (dvojina): midva sva (we two are).'
+      const n1 = bridgeEleven.st.tts.length
+      const pr = await prepare([{ text: next, voice: 'teacher', lang: 'en' }, { text, voice: 'teacher', lang: 'en' }])
+      const idx2 = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
+      const pcall = bridgeEleven.st.tts.at(-1)
+      check('POST /voice/prepare with lang: the next unit\'s explanation made ahead (plainly, no language_code), one there as it is, counted in the day\'s characters; the index has it',
+        /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(pr.clips?.[0]?.url) && pr.clips[0].engine === 'elevenlabs' && pr.clips[1].url === rb.url && pr.today === before + next.length && bridgeEleven.st.tts.length === n1 + 1 &&
+          pcall?.body.text === next && !('language_code' in pcall.body) && idx2[`en|${normalizeText(next)}`]?.teacher === pr.clips[0].url && bridgeGepard.st.calls.length === g0, [pr, pcall])
+      const bad = await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: long, voice: 'teacher' }] }) })
+      check('POST /voice/prepare: a line over 300 characters is a 400 as ever', bad.status === 400)
     }
 
     bridgeEleven.st.fail = 500

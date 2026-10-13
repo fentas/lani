@@ -81,6 +81,25 @@ const localDay = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() +
 export const clipKey = (norm: string, voice: VoiceName) => `${voice}:${norm}`
 export const fileUrl = (file: string) => `/voice/file/${file}`
 
+// --- an explanation in the learner's own language -----------------------------------------------
+//
+// A step of a school unit's guided introduction is read out as one clip (companion/COURSE.md, "The introduction"): the
+// teacher's lines in the learner's base language (en, de, it), the Slovene forms left inside as they are ("Biti (to be)
+// has a short form for each person … jaz sem (I am) …"), said by ElevenLabs in the teacher's voice in one go (eleven_v3
+// copes with the mixed text). Its clips have a key space of their own, the language before the text: normalizeText takes
+// any "|" out of a text, so an explanation never meets a line of the village's language with the same words.
+
+/** The longest explanation the node voices (a line of the village's language: [LINE_CHARS]). */
+export const EXPLANATION_CHARS = 1_500
+/** The longest line the node voices. */
+export const LINE_CHARS = 300
+
+/** An explanation's norm: its language, then its text normalized ("en|biti to be has a short form …"). */
+export const explanationNorm = (lang: string, text: string) => `${lang}|${normalizeText(text)}`
+
+/** The language of an explanation's clip ([explanationNorm]); undefined for a line of the village's language. */
+export const explanationLang = (norm: string): string | undefined => /^([a-z]{2})\|/.exec(norm)?.[1]
+
 /** MP3 from the first bytes: an ID3 tag or an MPEG frame sync. */
 export function isMp3(b: Uint8Array): boolean {
   if (b.length < 4) return false
@@ -748,10 +767,16 @@ export interface Engine {
   readonly name: EngineName
   /** Whether a request of [chars] may go to this engine now (configured, up, within quota). */
   ready(chars: number, live: boolean): Promise<boolean>
-  /** The characters a request for [text] in [voice] costs (ElevenLabs: a short word's carrier sentence); else its length. */
-  cost?(text: string, voice: VoiceName): number
-  /** The clip, or null when the engine can't make it now. Never throws. [live]: a live line, which may use the reserve. */
-  synth(text: string, voice: VoiceName, o?: { live?: boolean }): Promise<Take | null>
+  /**
+   * The characters a request for [text] in [voice] costs (ElevenLabs: a short word's carrier sentence); else its length.
+   * [lang]: an explanation in that language, said plainly.
+   */
+  cost?(text: string, voice: VoiceName, lang?: string): number
+  /**
+   * The clip, or null when the engine can't make it now. Never throws. [live]: a live line, which may use the reserve;
+   * [lang]: the language of the text when it isn't the village's (an explanation in the learner's own language).
+   */
+  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string }): Promise<Take | null>
   status(): Promise<Record<string, unknown>>
 }
 
@@ -873,9 +898,17 @@ export class ElevenLabs implements Engine {
     return template.replace('{w}', text.trim())
   }
 
-  /** Whether [text] in [voice] is said in its carrier sentence now: it applies, and the node can cut (ffmpeg). */
-  usesCarrier(text: string, voice: VoiceName): boolean {
-    if (!this.carrierFor(text, voice)) return false
+  /** Whether [lang] is another language than the clips' (the village's): an explanation in the learner's own. */
+  private explains(lang?: string): boolean {
+    return !!lang && lang !== (this.o.language ?? 'sl')
+  }
+
+  /**
+   * Whether [text] in [voice] is said in its carrier sentence now: it applies, and the node can cut (ffmpeg). Never an
+   * explanation in another language ([lang]): it is said plainly, however short.
+   */
+  usesCarrier(text: string, voice: VoiceName, lang?: string): boolean {
+    if (this.explains(lang) || !this.carrierFor(text, voice)) return false
     if (this.cut) return true
     if (!this.noCutterLogged) {
       this.noCutterLogged = true
@@ -885,8 +918,8 @@ export class ElevenLabs implements Engine {
   }
 
   /** The characters a request for [text] in [voice] costs: its carrier sentence when it is said in one, else the text. */
-  cost(text: string, voice: VoiceName): number {
-    return this.usesCarrier(text, voice) ? this.carrierFor(text, voice)!.length : text.trim().length
+  cost(text: string, voice: VoiceName, lang?: string): number {
+    return this.usesCarrier(text, voice, lang) ? this.carrierFor(text, voice)!.length : text.trim().length
   }
 
   private voiceId(voice: VoiceName): string | undefined {
@@ -908,14 +941,16 @@ export class ElevenLabs implements Engine {
 
   /**
    * [text] in [voice]: a short text of a carrier voice inside its carrier sentence, cut out; when the word can't be cut
-   * out of it, or the request fails (not for the quota, auth or a rate limit), asked for plainly, and logged.
+   * out of it, or the request fails (not for the quota, auth or a rate limit), asked for plainly, and logged. An
+   * explanation in another language than the village's ([lang]) is asked for plainly and without a language_code, so
+   * eleven_v3 says the learner's language as it is and the Slovene forms inside it as Slovene.
    */
-  async synth(text: string, voice: VoiceName, o: { live?: boolean } = {}): Promise<Take | null> {
+  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string } = {}): Promise<Take | null> {
     if (!this.o.key) return null
-    const said = this.usesCarrier(text, voice) ? this.carrierFor(text, voice) : undefined
+    const said = this.usesCarrier(text, voice, o.lang) ? this.carrierFor(text, voice) : undefined
     const id = this.o.voices?.[voice] ?? elevenlabsOf(voice)
     if (!said) {
-      const bytes = await this.plain(text, voice)
+      const bytes = await this.plain(text, voice, this.explains(o.lang))
       return bytes ? { bytes, voice: id } : null
     }
     const r = await this.carrierTake(text, voice)
@@ -929,15 +964,15 @@ export class ElevenLabs implements Engine {
     return bytes ? { bytes, method: r && !r.retry ? 'plain' : undefined, chars: (r ? said.length : 0) + text.trim().length, voice: id } : null
   }
 
-  /** [text] asked for as it is. */
-  private async plain(text: string, voice: VoiceName): Promise<Uint8Array | null> {
+  /** [text] asked for as it is; [mixed]: an explanation, its language left to the model (no language_code). */
+  private async plain(text: string, voice: VoiceName, mixed = false): Promise<Uint8Array | null> {
     const id = this.voiceId(voice)
     if (!id) return null
     try {
       const r = await fetch(`${this.base}/v1/text-to-speech/${id}?output_format=mp3_44100_128`, {
         method: 'POST',
         headers: { ...this.headers(), accept: 'audio/mpeg' },
-        body: JSON.stringify({ text, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' }),
+        body: JSON.stringify(mixed ? { text, model_id: 'eleven_v3' } : { text, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' }),
         signal: AbortSignal.timeout(60_000),
       })
       if (!r.ok) {
@@ -1522,6 +1557,11 @@ export type VoiceOptions = {
   replace?: boolean
   /** Replace an existing clip whatever made it (a speaker's voice was swapped: voice-build --revoice). */
   force?: boolean
+  /**
+   * The text's language when it isn't the village's: an explanation in the learner's own (en, de, it), under its own
+   * key ([explanationNorm]), made by ElevenLabs only (the local worker speaks only Slovene), plainly.
+   */
+  lang?: string
 }
 
 /** Carrier re-voices a day, by default (about 360 subscription characters: eleven_v3 counts about half of 720 sent). */
@@ -1739,6 +1779,16 @@ export class VoiceStore {
   /** The village's language, the clips'. */
   get language(): string { return this.o.language ?? 'sl' }
 
+  /** Whether a text in [lang] is an explanation: a language given, and not the village's (an absent one is the village's). */
+  explains(lang?: string): lang is string {
+    return !!lang && lang !== this.language
+  }
+
+  /** The norm a text in [lang] is kept under: an explanation's ([explanationNorm]), else the text normalized. */
+  normOf(text: string, lang?: string): string {
+    return this.explains(lang) ? explanationNorm(lang, text) : normalizeText(text)
+  }
+
   // --- the narrators in Slovene ------------------------------------------------------------------------------------
   //
   // A Slovene narrator's line has two clips, each a row of its own: in the narrator's Slovene ElevenLabs voice (Nina,
@@ -1804,9 +1854,11 @@ export class VoiceStore {
 
   /**
    * The characters ElevenLabs would be sent for [text] in [voice] (a short word's carrier sentence); a Slovene narrator's:
-   * in its Slovene ElevenLabs voice where that comes first (Nina, Luka say a word plainly), else the text.
+   * in its Slovene ElevenLabs voice where that comes first (Nina, Luka say a word plainly), else the text. An explanation
+   * in another language ([lang]): its text, said plainly.
    */
-  cost(text: string, voice: VoiceName): number {
+  cost(text: string, voice: VoiceName, lang?: string): number {
+    if (this.explains(lang)) return text.trim().length
     if (this.sloveneNarrator(voice)) return (this.elevenlabsFirst(voice) && this.eleven?.cost(text, this.slVoiceOf(voice)!)) || text.trim().length
     return this.eleven?.cost(text, voice) || text.trim().length
   }
@@ -1938,9 +1990,9 @@ export class VoiceStore {
   ): Promise<Clip> {
     const key = clipKey(norm, voice)
     // a voice that hisses (the cast's `denoise`): filtered; a local clip: paced when a pace is set; every clip: its edges
-    // trimmed (a single word asked for as it is: up to its first long pause; a carrier cut is the word already) and
-    // brought to the level
-    const f = await this.processed(bytes, voice, engine, text, take.method !== 'carrier' && isOneWord(text))
+    // trimmed (a single word asked for as it is: up to its first long pause; a carrier cut is the word already; never an
+    // explanation, which may well be one word) and brought to the level
+    const f = await this.processed(bytes, voice, engine, text, take.method !== 'carrier' && !explanationLang(norm) && isOneWord(text))
     // A clip's name carries the engine's voice (the ElevenLabs voice id, the Gepard voice), so a swapped voice's clips get
     // new names (the app caches by name); a carrier cut is a new take of the same text, so it gets a new name too and the
     // app downloads it; so does a re-record, and so does a filtered, paced, trimmed or levelled clip.
@@ -1988,11 +2040,15 @@ export class VoiceStore {
    * The clip for [text] in [voice] (a cast speaker): an existing one, else ElevenLabs if the quota
    * allows, else the local worker if it is up (not for a character whose gender clip exists, see
    * [waitsForElevenLabs]). A Slovene narrator ([sloveneNarrator]) never speaks with its English voice: see
-   * [narratorVoice]. Null when no engine can make it now, or for a speaker not in the cast; never throws.
+   * [narratorVoice]. Null when no engine can make it now, or for a speaker not in the cast; never throws. An explanation
+   * in another language ([opt].lang) is kept under its own key ([explanationNorm]) and made by ElevenLabs only, plainly.
    */
   async voice(text: string, voice: VoiceName, source: string, opt: VoiceOptions = {}): Promise<Clip | null> {
-    const norm = normalizeText(text)
-    if (!norm || !isVoice(voice)) return null
+    const lang = this.explains(opt.lang) ? opt.lang : undefined
+    if (!normalizeText(text) || !isVoice(voice)) return null
+    const norm = this.normOf(text, lang)
+    // the local worker speaks only Slovene
+    if (lang) opt = { ...opt, lang, engines: (opt.engines ?? ['elevenlabs']).filter(e => e === 'elevenlabs') }
     if (this.sloveneNarrator(voice)) return this.narratorVoice(norm, text, voice, source, opt)
     const have = this.get(norm, voice)
     if (have && !opt.force && !(opt.replace && opt.engines && !opt.engines.includes(have.engine))) return have
@@ -2007,8 +2063,8 @@ export class VoiceStore {
         if (waits && e.name !== 'elevenlabs') continue
         try {
           // a short narrator word costs its carrier sentence
-          if (!(await e.ready(e.cost?.(t, voice) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, voice, { live: !!opt.live })
+          if (!(await e.ready(e.cost?.(t, voice, lang) ?? t.length, !!opt.live))) continue
+          const take = await e.synth(t, voice, { live: !!opt.live, lang })
           if (take) return await this.save(norm, t, voice, e.name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${e.name} failed: ${(err as Error).message}`)
@@ -2053,8 +2109,8 @@ export class VoiceStore {
         const v = as(name)!
         try {
           // Nina and Luka say a lone word plainly (no carrier sentence): its characters
-          if (!(await e.ready(e.cost?.(t, v) ?? t.length, !!opt.live))) continue
-          const take = await e.synth(t, v, { live: !!opt.live })
+          if (!(await e.ready(e.cost?.(t, v, opt.lang) ?? t.length, !!opt.live))) continue
+          const take = await e.synth(t, v, { live: !!opt.live, lang: opt.lang })
           if (take) return await this.save(norm, t, v, name, take.bytes, source, take)
         } catch (err) {
           this.o.log?.(`voice: ${name} failed: ${(err as Error).message}`)
@@ -2068,13 +2124,17 @@ export class VoiceStore {
 
   /**
    * A live line from the app: rate-limited, may use the reserve; the speaker's gender clip, then the
-   * other narrator's, beats nothing.
+   * other narrator's, beats nothing. An explanation in the learner's own language ([lang]: a school intro's step) is
+   * rate-limited the same but is no live line: it never goes into the reserve, and nobody else's voice stands in for the
+   * teacher's (the app reads it with the phone's voice and the Slovene clips meanwhile).
    */
-  async say(text: string, voice: VoiceName): Promise<Clip | null> {
-    const norm = normalizeText(text)
+  async say(text: string, voice: VoiceName, lang?: string): Promise<Clip | null> {
+    const explanation = this.explains(lang)
+    const norm = this.normOf(text, lang)
     const have = this.best(norm, voice)
     if (have) return this.served(have)
     const other = () => {
+      if (explanation) return null
       const c = fallbacks(voice).map(v => this.best(norm, v)).find(Boolean)
       return c ? this.served(c) : null
     }
@@ -2085,6 +2145,7 @@ export class VoiceStore {
       if (this.liveCalls.length >= lim.max) return other()
       this.liveCalls.push(now)
     }
+    if (explanation) return this.voice(text, voice, 'explanation', { lang })
     return (await this.voice(text, voice, 'live', { live: true })) ?? other()
   }
 
@@ -2113,10 +2174,11 @@ export class VoiceStore {
 
   /**
    * A clip of a short text in a carrier voice that ElevenLabs made plainly, before the carrier sentence: it may sound
-   * English. Not a Slovene narrator's ([sloveneNarrator]): those never speak with the English voice.
+   * English. Not a Slovene narrator's ([sloveneNarrator]): those never speak with the English voice. Never an explanation
+   * in the learner's own language ([explanationLang]), however short: it was said plainly on purpose.
    */
   oldStyle(c: Clip): boolean {
-    return c.engine === 'elevenlabs' && !c.method && !this.sloveneNarrator(c.voice) && !!this.eleven?.carrierFor(c.text, c.voice)
+    return c.engine === 'elevenlabs' && !c.method && !explanationLang(c.norm) && !this.sloveneNarrator(c.voice) && !!this.eleven?.carrierFor(c.text, c.voice)
   }
 
   // --- the Slovene narrators in their ElevenLabs voices, as the app asks for them --------------------------------------
@@ -2124,10 +2186,11 @@ export class VoiceStore {
   /**
    * Whether [c] is a Slovene narrator's clip in the narrator's key (the local voice's, or one from before) whose clip in
    * the narrator's Slovene ElevenLabs voice is wanted first and missing, with ElevenLabs set up: the app plays [c]
-   * meanwhile, and the bridge makes the other one soon, within the day's cap and above the reserve.
+   * meanwhile, and the bridge makes the other one soon, within the day's cap and above the reserve. Never an explanation
+   * ([explanationLang]): its text isn't Slovene, and it is only ever ElevenLabs'.
    */
   wantsUpgrade(c: Clip): boolean {
-    return !this.o.readonly && !!this.eleven?.configured && this.sloveneNarrator(c.voice) && this.wantsElevenLabs(c.norm, c.voice)
+    return !this.o.readonly && !!this.eleven?.configured && !explanationLang(c.norm) && this.sloveneNarrator(c.voice) && this.wantsElevenLabs(c.norm, c.voice)
   }
 
   /** The Slovene narrators' clips waiting for their ElevenLabs one ([wantsUpgrade]), most asked for first; [asked]: only those the app asked for. */
@@ -2474,7 +2537,7 @@ export class VoiceStore {
       const pace = lv && c.engine === 'gepard' && factor && c.tempo !== factor.tempo ? { tempo: Math.round((factor.tempo / (c.tempo ?? 1)) * 10_000) / 10_000, pause: factor.pause } : undefined
       const edges = !!lv && c.edges == null
       // a single word asked for as it is ends at its first long pause (EDGES.wordGap)
-      const word = edges && c.method !== 'carrier' && isOneWord(c.text)
+      const word = edges && c.method !== 'carrier' && !explanationLang(c.norm) && isOneWord(c.text)
       const toLevel = !!lv && (c.level !== lv.target || !!pace || edges)
       // at the level already, only its edges due: it keeps its loudness, and its file unless it is trimmed
       const levelledAlready = !!lv && c.level === lv.target && !pace && !preset
@@ -2751,12 +2814,13 @@ export class VoiceStore {
    * narrators; the female narrator's lone words in nina or sentences in ana), where the narrators speak Slovene
    * ([sloveneNarrator]); most asked for first, then the oldest. [slovene] tells the clips in the village's Slovene (by the
    * corpus or source they came from) from the others, which are left as they are. The clips in the narrators' Slovene
-   * ElevenLabs voices ("female.sl") are rows of their own, never in it.
+   * ElevenLabs voices ("female.sl") are rows of their own, never in it; so are the explanations in the learner's own
+   * language ([explanationLang]), which the local voice can't say.
    */
   narratorQueue(slovene: (c: Clip) => boolean): { todo: Clip[]; skipped: Clip[] } {
     if (!this.o.narrators) return { todo: [], skipped: [] }
     const rows = (this.db.query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[])
-      .filter(c => this.sloveneNarrator(c.voice) && !this.inLocalVoice(c))
+      .filter(c => !explanationLang(c.norm) && this.sloveneNarrator(c.voice) && !this.inLocalVoice(c))
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
     return { todo: rows.filter(slovene), skipped: rows.filter(c => !slovene(c)) }
   }
@@ -2834,8 +2898,9 @@ export class VoiceStore {
     }
     try {
       const sl = GENDERS.map(v => this.slVoiceOf(v)).filter((v): v is string => !!v)
-      if (sl.length) out.elevenlabs = (this.db.query(`SELECT COUNT(*) AS n FROM clips WHERE voice IN (${sl.map(() => '?').join(', ')})`).get(...sl) as { n: number }).n
+      if (sl.length) out.elevenlabs = (this.db.query(`SELECT COUNT(*) AS n FROM clips WHERE voice IN (${sl.map(() => '?').join(', ')}) AND instr(norm, '|') = 0`).get(...sl) as { n: number }).n
       for (const c of this.db.query("SELECT * FROM clips WHERE voice IN ('female', 'male')").all() as Clip[]) {
+        if (explanationLang(c.norm)) continue // the explanations: counted apart (status: explanations)
         if (this.inLocalVoice(c)) out.in_local_voice++
         else out.other++
         if (this.elevenlabsFirst(c.voice) && this.wantsElevenLabs(c.norm, c.voice)) {
@@ -2970,8 +3035,22 @@ export class VoiceStore {
     }
   }
 
+  /**
+   * The explanations in the learner's own language ([explanationNorm]: a school intro's steps), apart from the lines: how
+   * many clips, the characters they cost, and how many in each language.
+   */
+  explanationStats() {
+    const rows = this.db.query("SELECT substr(norm, 1, 2) AS lang, COUNT(*) AS n, SUM(chars) AS chars FROM clips WHERE instr(norm, '|') = 3 GROUP BY lang").all() as { lang: string; n: number; chars: number }[]
+    return {
+      clips: rows.reduce((n, r) => n + r.n, 0),
+      chars: rows.reduce((n, r) => n + (r.chars ?? 0), 0),
+      by_lang: Object.fromEntries(rows.map(r => [r.lang, r.n])),
+    }
+  }
+
   async status(items?: CorpusItem[]) {
-    const clips = this.db.query('SELECT voice, engine, COUNT(*) AS n, SUM(chars) AS chars FROM clips GROUP BY voice, engine').all() as {
+    // the lines in the village's language; the explanations in the learner's own are counted apart ([explanationStats])
+    const clips = this.db.query("SELECT voice, engine, COUNT(*) AS n, SUM(chars) AS chars FROM clips WHERE instr(norm, '|') = 0 GROUP BY voice, engine").all() as {
       voice: string
       engine: string
       n: number
@@ -2985,6 +3064,7 @@ export class VoiceStore {
         chars: clips.reduce((n, c) => n + (c.chars ?? 0), 0),
         by: clips.map(c => ({ voice: c.voice, engine: c.engine, clips: c.n, chars: c.chars })),
       },
+      explanations: this.explanationStats(),
       engines,
       cast: castInfo(),
       queued: this.queue.length,
@@ -3030,4 +3110,7 @@ In the Slovene village the narrators (female, male) speak with their native Slov
 local Gepard voice as their fallback (ana for a lone word, nina for a sentence; marko), never with the English library
 voices; a narrator's local clip stays when the ElevenLabs one is made, and the ElevenLabs ones are made as the app asks
 for them, within the day's re-voice cap and above the reserve (voice_status: narrators). The villagers keep their voices.
+The school's guided introductions are read out too: each step's explanation in the learner's own language, the Slovene forms
+in it, one clip in the teacher's voice made by ElevenLabs as the app first asks for it (never from the reserve; the app
+reads the step with the phone's voice and the Slovene clips meanwhile); voice_status counts them apart (explanations).
 `.trim()

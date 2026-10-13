@@ -9,18 +9,25 @@ import { cardExamples } from '../cards'
 import { baseVoice, cast, isVoice, PERSON_VOICE, personVoice, SPEAKER_ID } from '../cast'
 import { cultureKeepers, keeperTellings } from '../cultures'
 import { cultureStepFiles, stepTellings } from '../project-steps'
-import { normalizeText } from '../family'
 import { readISpy } from '../ispy'
 import { localDate } from '../rhythm'
-import { corpus, fileUrl, voiceInstructions, type CorpusItem, type Redo, type VoiceStore } from '../voice'
+import { corpus, EXPLANATION_CHARS, fileUrl, LINE_CHARS, voiceInstructions, type CorpusItem, type Redo, type VoiceStore } from '../voice'
 
 // voice: a speaker of the cast (female, male, grandma, …) or someone's own voice ("@micka"); an unknown one is a
 // 400, so the app tries its fallback.
-const sayIn = z.object({ text: z.string().trim().min(1).max(300), voice: z.union([z.string().regex(SPEAKER_ID), z.string().regex(PERSON_VOICE)]).default('female') })
+const lineIn = z.object({ text: z.string().trim().min(1).max(LINE_CHARS), voice: z.union([z.string().regex(SPEAKER_ID), z.string().regex(PERSON_VOICE)]).default('female') })
+// lang: the text's language when it isn't the village's: an explanation in the learner's own (a school intro's step,
+// the Slovene forms inside it), up to EXPLANATION_CHARS; without it (or in the village's language) a line, up to LINE_CHARS
+const sayIn = lineIn.extend({ text: z.string().trim().min(1).max(EXPLANATION_CHARS), lang: z.string().regex(/^[a-z]{2}$/).optional() })
 // a re-record (the app's long press on 🔊): the text and the voice the app plays it in; client_id makes a retry harmless
-const redoIn = sayIn.extend({ client_id: z.string().optional() })
-// the car's getting ready: up to 20 texts, each in the voice the app plays it in
+const redoIn = lineIn.extend({ client_id: z.string().optional() })
+// the car's getting ready, and the day's audio (the next unit's explanations among them): up to 20 texts, each in the
+// voice the app plays it in
 const prepareIn = z.object({ texts: z.array(sayIn).min(1).max(20) })
+
+/** Why [t] is too long for the node: a line over LINE_CHARS (an explanation, with its lang, may have EXPLANATION_CHARS); else undefined. */
+const tooLong = (voice: VoiceStore, t: { text: string; lang?: string }) =>
+  t.text.length > LINE_CHARS && !voice.explains(t.lang) ? `a line is at most ${LINE_CHARS} characters (an explanation in another language than the village's, with its lang, ${EXPLANATION_CHARS})` : undefined
 /** The characters /voice/prepare may have voiced new a day (the node's local day), unless LANI_VOICE_ROAD_DAILY says. */
 const ROAD_DAILY = 6_000
 type Prepared = { text: string; voice: string; url: string | null; engine?: string }
@@ -90,17 +97,21 @@ export const voice: FeatureFactory = ctx => {
   const handlePrepare = async (req: Request) => {
     const r = prepareIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+    const long = r.data.texts.map(t => tooLong(voice, t)).find(Boolean)
+    if (long) return json({ error: long }, 400)
     const clips: Prepared[] = []
-    for (const { text, voice: v } of r.data.texts) {
+    for (const { text, voice: v, lang } of r.data.texts) {
       // a voice not in the cast: none for this text only (the app asks in the voice it wants, no other voice's clip)
       if (!isVoice(v)) {
         clips.push({ text, voice: v, url: null })
         continue
       }
-      // the clip the app would get (a Slovene narrator's in its Slovene ElevenLabs voice or the local one)
-      const had = voice.best(normalizeText(text), v)
-      // not live: ElevenLabs only above the reserve, then the local worker; nothing new over the day's cap
-      const c = had ?? (roadToday() + voice.cost(text, v) <= roadDaily ? await voice.voice(text, v, 'road') : null)
+      // the clip the app would get (a Slovene narrator's in its Slovene ElevenLabs voice or the local one; an explanation's
+      // under its own key)
+      const had = voice.best(voice.normOf(text, lang), v)
+      // not live: ElevenLabs only above the reserve, then the local worker (never for an explanation); nothing new over
+      // the day's cap
+      const c = had ?? (roadToday() + voice.cost(text, v, lang) <= roadDaily ? await voice.voice(text, v, 'road', { lang }) : null)
       if (c && !had && c.source === 'road') road.chars = roadToday() + c.chars
       clips.push(c ? { text, voice: v, url: fileUrl(c.file), engine: c.engine } : { text, voice: v, url: null })
     }
@@ -143,8 +154,11 @@ export const voice: FeatureFactory = ctx => {
         handle: async ({ req }) => {
           const r = sayIn.safeParse(await readJson(req))
           if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+          const long = tooLong(voice, r.data)
+          if (long) return json({ error: long }, 400)
           if (!isVoice(r.data.voice)) return json({ error: `unknown voice "${r.data.voice}"; the cast has ${Object.keys(cast()).join(', ')}` }, 400)
-          const c = await voice.say(r.data.text, r.data.voice)
+          // with lang: an explanation in the learner's own language (not a live line: never the reserve)
+          const c = await voice.say(r.data.text, r.data.voice, r.data.lang)
           // the voice the app knows the clip by (a Slovene narrator's in its ElevenLabs voice: the narrator's)
           return c ? json({ url: fileUrl(c.file), voice: baseVoice(c.voice), engine: c.engine }) : new Response(null, { status: 204 })
         },
@@ -154,7 +168,8 @@ export const voice: FeatureFactory = ctx => {
       // The car's quiz getting ready ("🚗 Za pot", in the background): clips for the options the store lacks (a turn's
       // wrong answers, a sentence's wrong forms, "Prav!"), up to 20 at a time, each in the voice asked for (url null when
       // it can't be had). Not a live line: never the reserve, no rate limit; at most LANI_VOICE_ROAD_DAILY characters
-      // (6,000) voiced new a day, the clips there come all the same. A clip made once is reused: a retry is harmless.
+      // (6,000) voiced new a day, the clips there come all the same. A clip made once is reused: a retry is harmless. The
+      // day's audio on Wi-Fi asks here too, the next school unit's explanations among it (each with its lang).
       { method: 'POST', path: '/voice/prepare', handle: ({ req }) => handlePrepare(req) },
       { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
