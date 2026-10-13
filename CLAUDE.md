@@ -100,6 +100,15 @@ See `docs/DB_SCRIPTS.md` for the full input schema and examples.
 
 **IMPORTANT:** Use these scripts instead of manual Edit calls for database updates.
 
+## Checking Slovene: fran.si
+
+The tutor may read <https://www.fran.si/> (WebFetch, allowed in `.claude/settings.json`): the Slovene dictionaries of the
+ZRC SAZU institute: SSKJ² (meanings, register: *ekspr.*, *pog.*, *nar.*, *zastar.*), Slovenski pravopis (spelling, gender,
+the forms), the synonym dictionary, eSSKJ. Look a word or phrase up there before you correct the learner on a point you
+aren't sure of, before writing content that hinges on a usage, and when a reported item may be wrong: search with
+`https://www.fran.si/iskanje?View=1&Query=<word>` and quote what it says, with the link. A spoken or regional form the
+dictionary labels (*pog.*, *nar.*) is not a mistake: say it's spoken.
+
 ## Critical Rules
 
 ❗ **ALWAYS** present questions ONE AT A TIME (user explicitly requested this)

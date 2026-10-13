@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:fran.si)",
+      "WebFetch(domain:www.fran.si)"
+    ]
+  },
   "hooks": {
     "PostToolUse": [
       {
