@@ -25,6 +25,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
 | `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and the verb pairs (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
 | `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 44 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`. |
+| `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
 | `modules/`, `packs/`, `scenarios/`, `scenes/` | Curated grammar modules (`lani.module/v0`, with villager quests), word packs (`lani.pack/v0`: Slovene in `packs/` itself, another target language in `packs/<language>/`, e.g. `packs/it/`, `packs/de/`, `packs/en/`), role-play scenarios (`lani.scenario/v0`) and village scenes (`lani.scene/v0`, see [SCENES.md](SCENES.md)). |
 | `cultures/` | Culture packs (`lani.culture/v0`, see [GAME.md](GAME.md#culture-packs)): the village's people, stories, feasts, goods and names, in its language. `primorska/` is the default village, with the cast in `primorska/villagers/` (`lani.villager/v0`, see [VILLAGERS.md](VILLAGERS.md)); `friuli/` is the second learner's Italian town in the Collio near Gorizia, with its cast, its festivals' word packs (`friuli/packs/`) and its voice cast (`friuli/voice-cast.json`, Italian voices); `kaernten/` is a German village in Carinthia (the Gailtal near Villach) for learners of German, the same parts in German with Slovene, English and Italian; `lakeland/` is the English village in a dale of the Lake District, for learners of English from Slovene, Italian or German (its starter packs in `packs/en/`), each with its voice cast. `villagers` is a link to `cultures/primorska/villagers`, the cast's old place, for a bridge started before the move; remove it once every bridge has restarted. |
@@ -702,6 +703,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `GET` | `/packs` | word packs (curated: the village's language's, `companion/packs/` for Slovene or `companion/packs/<language>/`, then the culture pack's `packs/`; + tutor `<data>/app/packs/`) with `source`, `total`, `learned`, `language` (and `festival` for a festival's pack, `praznik-*`, `festa-*`; `project` for a village project's, `projekt-*`) |
 | `GET` | `/packs/:id` | a pack with its words and the ids of words already learned |
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
+| `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
 | `GET` | `/grammar/:id` | one page |
 | `GET` | `/drills` | the car's audio drills of the village's language (`companion/drills/<language>/`, `LANI_DRILLS_DIR` for another root), each with `source: "curated"` (see [The drills](#the-drills)); an older bridge answers 404 and the app plays its own copy |
 | `GET` | `/drills/:id` | one drill |
@@ -988,6 +990,80 @@ Brücke: the articles; two kilometres, two miles: the plural), a letter's questi
 requests about a rule (the smiths' orders, the teachers' lessons, the storytellers' past, the innkeepers' guests), and
 the scenes' wrong choices whose why is a rule (ho freddo, mir ist kalt, I'm cold; la luna, der Mond; there are a lot of
 stars). The app's labels for the chapter are in all four string tables.
+
+## Cheat sheet
+
+"📋 Plonk listek · Cheat sheet" (*plonk listek* is the school slang for the slip of paper with the basics on it):
+compact reference cards of the basics, in the style of a good chat answer: a title, one bold rule line, a small table,
+two or three examples, a 💡 tip at most; one phone screen. It opens from Home (the tile "📋 Plonk listek", "✨ 3 nove ·
+3 new" while some are new), from the chat's header (📋) and from any exercise (📋 in its top bar, by 💬). Opening it is
+free: help, not a hint (the reward stays, and nothing counts against the answer). The logic is `game/CheatSheet.kt`, the
+controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the rules in
+[GAME.md](GAME.md#the-cheat-sheet).
+
+**Where the cards come from.**
+- **The grammar book.** Every page gives a card: its `card` when it has one (`lani.grammar/v0`, a hand-written
+  `{title?, rule, table?, examples?, tip?, start?}`: the rule line per base, a compact table, two or three examples, the
+  page's title, table and first two examples where it leaves them out), else the page's table, its rule's first sentence
+  (cut at a word past 240 characters, never inside bold) and its first two examples. The curated deck of the basics is
+  such cards (machine-written, not reviewed by a native speaker): biti, imeti and iti, the present's endings, the past,
+  the future, the six cases at a glance, noun gender by ending, the plural, adjective agreement, the question words and
+  ti or vi.
+- **Curated cards no page fits** (`companion/cards/<language>/<id>.json`, `lani.card/v0`, `bridge/src/cards.ts`): the
+  same face, a title per language, and the pages they belong to (`grammar`): the pronouns 1 · 2 · 3+ (jaz, midva, mi;
+  me, ve, one; vi polite), kje or kam (v, na + locative or accusative), the numbers 1–20 and the tens, the possessives
+  (moj … njihov, svoj). The app bundles them (`app/build.gradle.kts`, resources `cards/<language>/`) and takes the
+  bridge's list (`GET /cards`) over them.
+- **The tutor.** `publish_card {title, markdown, grammar?, level?, emoji?, id?, note?}` puts a card of the tutor's on
+  the sheet (`<data>/app/cards/<id>.json`, the id from the title when missing, a curated card's id refused, the same id
+  replaced): its Markdown as the tutor writes in chat, the grammar pages it is about (pages the book lacks refused), the
+  learner's level by default; `card_published` tells the app (a notice, the card new on the sheet). `list_cards` lists
+  the pages' cards (hand-written ones marked), the curated and the tutor's, what the learner pinned and the cards they
+  open most; `remove_card` takes one of the tutor's back (`card_removed`). The channel guide says when: a basic the tutor
+  just explained with a table or a list worth keeping.
+- **Pinned.** Under a tutor message with a table or a list (two rows or two items), "📌 Na plonk listek · Pin to cheat
+  sheet" keeps it as a card: its title its heading, else its first line when short, else its first bold words (✏️
+  renamed on the card), its pages guessed from the book (the forms it stresses in bold against each page's tables: the
+  best page with three or more, and a second nearly as good), the learner's level. Pinning counts as opening it once
+  (the learner chose it: not new, among the most opened for a while). Pinned, the chip says "📋 Na plonk listku · On
+  the cheat sheet" and opens the sheet at that card, first and open. At most 50; ✕ takes one off.
+
+The card's Markdown is the app's renderer (`ui/Markdown.kt`); on a card a tap on a Slovene word in bold or italics looks
+it up (the word's card, `ui/words/WordSheet.kt`), as do the words of a table's cells and the examples (🔊 beside each).
+TalkBack reads a card's head as a heading that expands and collapses, and a table row by row (the head, then each row:
+its first cell and each other with its column's name, "ti, imeti: imaš"; the chat's Markdown tables read row by row too).
+
+**Unlocked as you go.** A page's card unlocks the day the learner meets its page (the grammar book's "met",
+`GameState.grammar`: an exercise or a module naming it, a page shown from a why, a school unit's introduction), a curated
+card with the first of its pages, an A1 basic marked `start` from the start (the pronouns, biti, the question words, the
+numbers), a pinned or the tutor's at once. What unlocks a page is one call: `vm.cheat.met(pageIds)` (the same as
+`vm.grammar.meet(pageIds, announce = true)`: the book's pages and their cards; the school's units call it with their
+pages). Locked cards aren't listed (no spoilers); the sheet ends with "🔒 Še 23 kartic · 23 more cards as you go". A card
+never opened is "✨ Novo · New" (a pinned one isn't: pinning it opened it).
+
+**In order of relevance** when it opens: (1) from an exercise, the cards of its pages (the exercise's own `grammar`, or
+its review card's page, first; then the run's other exercises' and the module's pages: those that list it), the page's
+own card before a curated one, a pinned one, the tutor's, the first of them open at once; (2) the most opened lately (an
+open counts one, halving every 14 days: `GameState.sheet.opens`), most first; (3) the new ones; (4) the rest in the
+book's order (a curated card beside its first page). A card whose pages the learner all has secure or mastered (the
+grammar book's masteries) drifts to the bottom, unless it's the exercise's. The order stays while the sheet is open
+(opening a card doesn't move it). A filter by level (Vse · All, A1, A2 …) when there are several.
+
+**An open exercise.** A card's table may hold the very form the exercise asks for (the exercise on imeti, the card with
+imam, imaš …): that's fine, it is the rule's table as a school's cheat sheet would have it, the same the grammar book
+shows from the why. The sheet shows rules, never the exercise's answer: not its sentence, not its gap filled; finding the
+form in the table and putting it in the gap is the practice. It doesn't count as a hint (a hint fills in letters of the
+answer itself).
+
+**Kept** in the village state (`GameState.sheet`, synced with the node like the rest of it; an older save has none, an
+older bridge keeps it as it is): the pinned cards (`pinned`: id, language, title, Markdown, pages, level, the day, the
+chat message) and the open counts (`opens`, "<language>/<card key>": the count and its day, at most 300). The card keys:
+`page:<page id>`, `deck:<card id>`, `tutor:<card id>`, `pin:<id>`.
+
+Tests: `CheatSheetTest` (a page's card, its own card, the rule line; unlocking; the order; the decay; pinning, the title
+and the pages guessed; saved and loaded, an old save; the events), `CardsTest` (the formats, the bundled deck in every
+base, the merge); the smoke's `cards` section (the curated cards and the pages' own in every base, the formats,
+`GET /cards`, `publish_card`, `list_cards`, `remove_card`, the guide).
 
 ## Voice
 
@@ -2538,6 +2614,7 @@ companion/bin/qa --steps visit                   # only the visit of the second 
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
+companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up

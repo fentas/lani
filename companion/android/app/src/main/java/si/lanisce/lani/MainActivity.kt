@@ -79,7 +79,8 @@ class MainActivity : ComponentActivity() {
 
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
-        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason, ready = vm::qaBuild)
+        si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason, ready = vm::qaBuild,
+            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
@@ -178,6 +179,8 @@ private fun App(vm: AppViewModel) {
     // a grammar page over any screen (a "why", a run's intro, the scroll), under a word's card opened from it
     vm.grammar.open?.let { GrammarSheet(vm, it) }
     if (vm.chat.isOpen) ChatSheet(vm)
+    // the cheat sheet over any screen (Home, the chat, an exercise), under a grammar page and a word's card opened from it
+    vm.cheat.open?.let { si.lanisce.lani.ui.CheatSheetSheet(vm, it) }
     // giving a good (from the chest, a villager's page): the gift moment, under a word's card opened from it
     vm.villagers.gift?.let { GiftScene(vm, it) }
     // meeting someone who joined the village (a bubble at their home, the scroll, their card): their introduction

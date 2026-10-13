@@ -71,6 +71,15 @@ class Bridge(private val config: BridgeConfig) {
             else -> throw IOException("HTTP $code: ${body.take(200)}")
         }
     }
+    /** The cheat sheet's cards no grammar page fits (GET /cards, lani.card/v0: the curated ones, then the tutor's); null from an older bridge (404). */
+    suspend fun cards(): List<DeckCard>? {
+        val (code, body) = content(request("/cards").build())
+        return when (code) {
+            200 -> Cards.parseList(body)
+            404 -> null
+            else -> throw IOException("HTTP $code: ${body.take(200)}")
+        }
+    }
     /** The car's audio drills (GET /drills, lani.drill/v0); null from an older bridge without them (404): the app's own then. */
     suspend fun drills(): List<Drill>? {
         val (code, body) = content(request("/drills").build())

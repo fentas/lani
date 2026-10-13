@@ -389,6 +389,11 @@ data class GameState(
      * save has none, and an older bridge keeps it as it is.
      */
     val trades: TradeDay? = null,
+    /**
+     * The cheat sheet's (see [CheatSheet]): the tutor messages the learner pinned, and how often they open each card. An
+     * older save has none; an older bridge keeps it as it is, and the tutor's list_cards reads it.
+     */
+    val sheet: SheetState = SheetState(),
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

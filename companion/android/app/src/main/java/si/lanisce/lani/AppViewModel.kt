@@ -160,6 +160,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         // a session's report tells the tutor which rules are ripe to introduce (companion/GAME.md, "Rules not yet")
         chat.sessionExtras = g::sessionExtras
     }
+    /**
+     * "📋 Plonk listek · Cheat sheet": the basics as compact cards (the grammar book's pages', curated ones, the tutor's,
+     * the tutor messages pinned), unlocked as the pages are met, opened from Home, the chat and any exercise (app/CheatSheetController).
+     */
+    val cheat = si.lanisce.lani.app.CheatSheetController(game, grammar, notices)
     /** A word tapped in a line: its card, adding it to the learner's words, asking the tutor about it. */
     val words = WordsController(viewModelScope, node, sync, chat, notices)
     /** A word's forms: the form questions of the reviews, the table on a word's card (companion/GAME.md, "A word's forms"). */
@@ -390,6 +395,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         content.reload(b)
         reloadCulture(b)
         grammar.reload(b)
+        cheat.reload(b)
         content.dashboard?.let { forms.reload(b, it.pool) }
         readings.reload(b)
         packs.reload(b)
@@ -472,6 +478,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 grammar.announced(ev.id)
                 notices.banner = ev.note?.let { "📖 $it" }
                     ?: if (met || !ev.extended) grammar.newPage(ev.id) else "📖 ${bi("grammar.tutorAdded")}: ${grammar.page(ev.id)?.target ?: ev.title ?: ev.id}"
+            }
+            // the tutor put a card on the cheat sheet (or took one back): the sheet has it at once, marked new
+            is BridgeEvent.CardPublished -> launchSafely {
+                bridge?.let { cheat.reload(it) }
+                if (!ev.removed) cheat.published(ev.title, ev.note)
             }
             is BridgeEvent.PartnerChallenge -> {
                 family.refresh()

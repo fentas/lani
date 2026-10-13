@@ -314,6 +314,12 @@ object HomeLogic {
         else TileStatus(bi("homeLogic.leftLearn", "left" to left))
     }
 
+    /** "Plonk listek": how many cards are new (unlocked, never opened), else how many are on it. */
+    fun cheatSheet(cards: Int, fresh: Int): TileStatus = when {
+        fresh > 0 -> TileStatus("✨ ${bi("cheatSheet.fresh", "n" to fresh)}", attention = true)
+        else -> TileStatus(bi("cheatSheet.cards", "n" to cards))
+    }
+
     /** "Izzivi": how many modules are new, else how many there are. */
     fun challenges(modules: List<ModuleInfo>, newModules: Set<String>): TileStatus {
         val fresh = modules.count { it.id in newModules }

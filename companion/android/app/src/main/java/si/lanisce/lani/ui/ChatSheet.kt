@@ -18,12 +18,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SuggestionChip
@@ -58,6 +62,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.ChatArchive
@@ -73,7 +78,8 @@ import java.time.ZoneId
 /**
  * The tutor chat: today's conversation up front, the days before folded into "📦 Arhiv · Archive" (weeks, days, their
  * messages: [ChatArchive]); a long press on a message bookmarks it, notes why, or replies to it; "🔖" lists the
- * bookmarks, and a tap on one (or on a reply's quote) goes to the message, opening the archive to it.
+ * bookmarks, and a tap on one (or on a reply's quote) goes to the message, opening the archive to it. "📋" opens the cheat
+ * sheet; a tutor message with a table or a list can be pinned to it ("📌 Na plonk listek", [PinChip]).
  */
 @Composable
 fun ChatSheet(vm: AppViewModel) {
@@ -134,11 +140,19 @@ fun ChatSheet(vm: AppViewModel) {
     LaniSheet(onDismissRequest = { chat.close() }) {
         Column(Modifier.fillMaxWidth().fillMaxHeight(0.9f).imePadding().padding(horizontal = 16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("💬 ${bi("common.yourTutor")}", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+                // two lines at most: it shrinks a little rather than wrap a third time beside the header's buttons
+                BasicText(
+                    "💬 ${bi("common.yourTutor")}",
+                    style = MaterialTheme.typography.titleLarge.copy(color = LocalContentColor.current),
+                    maxLines = 2,
+                    autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = MaterialTheme.typography.titleLarge.fontSize),
+                    modifier = Modifier.weight(1f),
+                )
                 TextButton(onClick = { showBookmarks = !showBookmarks }) {
                     EmojiLabel("🔖", bi("chatSheet.bookmarks"))
                     if (marked.isNotEmpty()) Text(" ${marked.size}")
                 }
+                IconButton(onClick = { vm.cheat.show(chatCheatContext(vm)) }) { EmojiLabel("📋", bi("cheatSheet.title")) }
                 TextButton(onClick = vm::openTalk) { Text("🗣️ ${bi("common.talk")}") }
             }
             if (showBookmarks) {
@@ -171,7 +185,7 @@ fun ChatSheet(vm: AppViewModel) {
                             inTarget("chatSheet.askAnything") + "\n" + inBase("chatSheet.askAnything"),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
-                        is ChatArchive.MessageRow -> {
+                        is ChatArchive.MessageRow -> Column {
                             val m = row.message
                             ChatBubble(
                                 m.text, m.fromMe, m.about,
@@ -188,6 +202,8 @@ fun ChatSheet(vm: AppViewModel) {
                                     BubbleAction("↩️ ${bi("chatSheet.reply")}") { reply(m) },
                                 ),
                             )
+                            // a table or a list of the tutor's can go on the cheat sheet
+                            if (vm.cheat.pinnable(m)) PinChip(vm, m)
                         }
                     }
                 }

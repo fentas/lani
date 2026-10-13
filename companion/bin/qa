@@ -21,6 +21,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        the pedlar on the road, the hen on the cart (a tap turn), Muri barking by the jetty, each dialog
                        opened through the hook and played to its cue; "sheets-settle" flings into the end of Home, the
                        tutor chat's sheet and the challenges' sheet, each still a second later (no endless bounce);
+                       "cheat-sheet" the cheat sheet ("📋 Plonk listek") from Home, from an exercise
+                       of imeti-in-iti (its card first) and a tutor message with a list pinned in the chat (QA's
+                       hook "chat:table"), the dev bridge's village keeping it;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -551,6 +554,73 @@ def sheets_settle():
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
     to_top()
+
+
+CHEAT = "📋 Plonk listek · Cheat sheet"  # the cheat sheet's title (l10n cheatSheet.title)
+CHEAT_BUTTON = "Plonk listek · Cheat sheet"  # its 📋 in an exercise's top bar and the chat's header (TalkBack's label)
+CHEAT_PIN = "📌 Na plonk listek · Pin to cheat sheet"  # under a tutor message with a table or a list
+CHEAT_PINNED = "📋 Na plonk listku · On the cheat sheet"  # the same once pinned: it opens the sheet
+CHEAT_FIRST = "Najprej, kar velja za to vajo"  # the sheet opened from an exercise (l10n cheatSheet.forExercise)
+
+
+def cheat_sheet():
+    """The cheat sheet (companion/README.md "Cheat sheet"): from Home's tile ("📋 Plonk listek"), biti's card (an A1
+    basic, there from the start) opened; from an exercise of imeti-in-iti (📋 in its top bar, free), imeti's card first
+    and open; a tutor message with a list (QA's hook "chat:table", on the phone only) pinned in the chat ("📌 Na plonk
+    listek"), its chip then "📋 Na plonk listku", which opens the sheet with it, and the dev bridge's village keeping it
+    (GameState.sheet)."""
+    go_home()
+    tile = scroll_to("Plonk listek", 8) or scroll_to("Plonk listek", 2)  # a busy emulator's dump can come mid-swipe
+    assert tile, "the cheat sheet's tile on Home"
+    shot("cheat-tile")
+    tap_at(tile)
+    assert wait_for(CHEAT, 6), "the cheat sheet from Home"
+    time.sleep(1)
+    shot("cheat-home")
+    assert tap("Biti · sem, si, je", 4), "biti's card (an A1 basic)"
+    time.sleep(1)
+    shot("cheat-biti")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert find(CHEAT) is None, "the sheet still open"
+
+    # from an exercise: its topic's card first, open
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "module:imeti-in-iti")
+    assert tap("Začni", 15), "imeti-in-iti's intro"
+    assert tap(CHEAT_BUTTON, 10), "📋 in the exercise's top bar"
+    assert wait_for(CHEAT_FIRST, 6), "the sheet opened from the exercise"
+    time.sleep(1)
+    cards = [(t, c) for t, c in nodes() if "imam, grem" in t or "sem, si, je" in t]
+    imeti = next((c for t, c in cards if "imam, grem" in t), None)
+    assert imeti is not None, "imeti's card"
+    assert all(imeti[1] <= c[1] for _, c in cards), "imeti's card first"
+    shot("cheat-exercise")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert find(CHEAT) is None and find("Začni") is None, "back in the exercise"
+    go_home()
+
+    # a tutor message with a list, pinned
+    qa_hook("chat:table")
+    assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
+    assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+    assert tap(CHEAT_PIN, 6), "📌 under the tutor's list"
+    assert wait_for(CHEAT_PINNED, 6), "the message pinned"
+    shot("cheat-pinned")
+    end, pinned = time.time() + 20, []
+    while time.time() < end and not pinned:  # the village goes to the dev bridge in a moment
+        pinned = ((api("/game").get("state") or {}).get("sheet") or {}).get("pinned") or []
+        time.sleep(1)
+    assert any(p.get("title") == "Imeti – the whole verb" for p in pinned), f"the dev bridge's village keeps the pinned card: {pinned}"
+    assert tap(CHEAT_PINNED, 3), "the chip opens the sheet"
+    assert wait_for(CHEAT, 6), "the sheet from the chat"
+    time.sleep(1)
+    ns = list(nodes())
+    card = next((c for t, c in ns if t == "Imeti – the whole verb"), None)
+    assert card is not None, "the pinned card, first"
+    assert any("imam" in t and c[1] > card[1] for t, c in ns), "the pinned card open (its list)"
+    shot("cheat-pinned-card")
+    go_home()
 
 
 def village():
@@ -3290,6 +3360,7 @@ def plan():
         ("home", home, None, False, ""),
         ("challenges", challenges, None, False, ""),
         ("sheets-settle", sheets_settle, go_home, False, ""),
+        ("cheat-sheet", cheat_sheet, go_home, False, ""),
         ("village", village, v, False, ""),
         ("scroll", scroll, v, False, ""),
         ("villagers", villagers, v, False, ""),

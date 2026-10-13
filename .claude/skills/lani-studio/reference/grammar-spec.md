@@ -30,6 +30,7 @@ pages, or extend a curated one, with `publish_grammar`; `list_grammar` shows the
 | `see` | string[] | related pages ("Glej tudi · See also") |
 | `machine_written` | boolean | true for yours and the curated ones (default true) |
 | `review` | string? | who wrote which languages and who checked them: `"machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker"` |
+| `card` | object? | the page's own card on the cheat sheet ("📋 Plonk listek", below); without it the app makes one from the page |
 
 A **text** is `{"<language>": "…"}` with at least `en`. A **cell** is the learned language's words as they are (`"ob ribniku"`, a plain
 string), or a text per base (`{"en": "locative (mestnik)", "de": "Lokativ (mestnik)", "it": "locativo (mestnik)"}`: the app
@@ -58,6 +59,16 @@ match, and practises those cards when no module is linked. Pick tags that name t
   "modules": ["predlogi-kraja"], "tags": ["kje", "locative", "instrumental"], "see": ["kam-tozilnik"]
 }
 ```
+
+## The page's card on the cheat sheet
+
+The app's cheat sheet ("📋 Plonk listek · Cheat sheet", companion/README.md "Cheat sheet") has a card for every page: its
+table, its rule's first sentence and two examples. A page can carry a hand-written one instead, in the style of a good
+chat answer: `card` is `{"title"?: text, "rule": text, "table"?: table, "examples"?: Example[1-3], "tip"?: text, "start"?:
+boolean}` (strict). `rule` is one line per base with the key forms in **bold** (≤300 characters); `table` a compact one
+(the page's when left out: give a smaller one); `examples` two or three short ones (the page's first two when left out);
+`tip` at most one, "💡 …"; `start`: an A1 basic, on the sheet from the start instead of from the day the page is met. One
+phone screen at most. Your own cards (Markdown, as you write in chat) go with `publish_card`, not here.
 
 ## Linking practice to a page
 

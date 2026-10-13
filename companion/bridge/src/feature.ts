@@ -2,6 +2,7 @@
 // channel instructions, and optional background work. Features get the shared context.
 import type { Addressee } from './addressee'
 import type { ArrivalStore } from './arrivals'
+import type { CardStore } from './cards'
 import type { Profiles } from './profiles'
 import type { Channel, Tool } from './channel'
 import type { Config, Log } from './config'
@@ -59,6 +60,8 @@ export type Ctx = {
   packs: PackStore
   /** The grammar book of the village's language (grammar.ts): the curated pages and the tutor's. */
   grammar: GrammarStore
+  /** The cheat sheet's cards of the village's language that aren't a grammar page's (cards.ts): the curated ones and the tutor's. */
+  cards: CardStore
   /** The car's audio drills of the village's language (drills.ts): the curated ones. */
   drills: DrillStore
   scenarios: ScenarioStore

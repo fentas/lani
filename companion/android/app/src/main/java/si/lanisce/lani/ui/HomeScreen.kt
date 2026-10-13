@@ -139,6 +139,8 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                             if (vm.family.challenges.isEmpty()) vm.openFamily() else sheet = Sheet.FAMILY
                         },
                         Tile("📖", inTarget("readings.title"), inBase("readings.title"), readingStatus(vm, d.level)) { vm.openReadings() },
+                        // the basics at a glance, unlocked as the rules are met (companion/README.md "Cheat sheet")
+                        Tile("📋", inTarget("cheatSheet.title"), inBase("cheatSheet.title"), HomeLogic.cheatSheet(vm.cheat.unlockedCount(), vm.cheat.newCount())) { vm.cheat.show() },
                         // audio for the car: got ready here, played in Android Auto or over Bluetooth (companion/README.md, "Im Auto · In the car")
                         Tile("🚗", inTarget("road.title"), inBase("road.title"), vm.road.time?.let { si.lanisce.lani.ui.home.TileStatus(bi("road.tile", "time" to it)) } ?: si.lanisce.lani.ui.home.TileStatus(bi("road.prepare"))) { sheet = Sheet.ROAD },
                     ),

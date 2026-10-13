@@ -32,6 +32,8 @@ data class GrammarPage(
     val review: String? = null,
     val source: String = Grammar.CURATED,
     val extended: Boolean = false,
+    /** Its own card on the cheat sheet, hand-written (game/CheatSheet.kt); null: the sheet makes one from the page. */
+    val card: PageCard? = null,
 ) {
     /** The tutor's own page. */
     val byTutor: Boolean get() = source == Grammar.TUTOR
@@ -54,6 +56,20 @@ data class GrammarPage(
     /** The tutor's addition in [base], else in English; null when there is none. */
     fun moreIn(base: String): String? = more?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() }
 }
+
+/**
+ * A page's own card on the cheat sheet (its `card`, companion/README.md "Cheat sheet"): a [title] per language (the page's
+ * when null), one bold [rule] line per base, a compact [table], two or three [examples] (the page's when null), a 💡
+ * [tip]; [start]: an A1 basic, on the sheet from the start.
+ */
+data class PageCard(
+    val title: Map<String, String>? = null,
+    val rule: Map<String, String>,
+    val table: GrammarTable? = null,
+    val examples: List<GrammarExample>? = null,
+    val tip: Map<String, String>? = null,
+    val start: Boolean = false,
+)
 
 /** A table: its [head] and [rows], each row as long as the head. */
 data class GrammarTable(val head: List<GrammarCell>, val rows: List<List<GrammarCell>>)
@@ -100,16 +116,6 @@ object Grammar {
         val id = o["id"].str() ?: return null
         val title = o["title"].texts() ?: return null
         val rule = o["rule"].texts() ?: return null
-        val table = (o["table"] as? JsonObject)?.let { t ->
-            val head = (t["head"] as? JsonArray).orEmpty().mapNotNull(::cell)
-            val rows = (t["rows"] as? JsonArray).orEmpty().mapNotNull { r -> (r as? JsonArray)?.mapNotNull(::cell)?.takeIf { it.size == head.size } }
-            GrammarTable(head, rows).takeIf { head.size >= 2 && rows.isNotEmpty() }
-        }
-        val examples = (o["examples"] as? JsonArray).orEmpty().mapNotNull { e ->
-            val x = e as? JsonObject ?: return@mapNotNull null
-            val texts = x.filterKeys { it != "note" && it != "by" }.mapNotNull { (k, v) -> v.str()?.let { k to it } }.toMap()
-            GrammarExample(texts, x["note"].texts(), byTutor = x["by"].str() == TUTOR).takeIf { texts.isNotEmpty() }
-        }
         return GrammarPage(
             id = id,
             language = o["language"].str() ?: "sl",
@@ -118,8 +124,8 @@ object Grammar {
             title = title,
             rule = rule,
             more = o["more"].texts(),
-            table = table,
-            examples = examples,
+            table = table(o["table"]),
+            examples = examples(o["examples"]),
             modules = o["modules"].strings(),
             tags = o["tags"].strings(),
             see = o["see"].strings(),
@@ -127,8 +133,42 @@ object Grammar {
             review = o["review"].str(),
             source = o["source"].str() ?: CURATED,
             extended = (o["extended"] as? JsonPrimitive)?.booleanOrNull == true,
+            card = (o["card"] as? JsonObject)?.let(::pageCard),
         )
     }
+
+    /** A table as a page or a card has it; null when it isn't one (fewer than two columns, no row as long as the head). */
+    fun table(e: JsonElement?): GrammarTable? = (e as? JsonObject)?.let { t ->
+        val head = (t["head"] as? JsonArray).orEmpty().mapNotNull(::cell)
+        val rows = (t["rows"] as? JsonArray).orEmpty().mapNotNull { r -> (r as? JsonArray)?.mapNotNull(::cell)?.takeIf { it.size == head.size } }
+        GrammarTable(head, rows).takeIf { head.size >= 2 && rows.isNotEmpty() }
+    }
+
+    /** Examples as a page or a card has them: each sentence in its languages, a note, whether the tutor added it. */
+    fun examples(e: JsonElement?): List<GrammarExample> = (e as? JsonArray).orEmpty().mapNotNull { x ->
+        val o = x as? JsonObject ?: return@mapNotNull null
+        val texts = o.filterKeys { it != "note" && it != "by" }.mapNotNull { (k, v) -> v.str()?.let { k to it } }.toMap()
+        GrammarExample(texts, o["note"].texts(), byTutor = o["by"].str() == TUTOR).takeIf { texts.isNotEmpty() }
+    }
+
+    /** A page's own card; null without its rule line (a card can't do without it). */
+    private fun pageCard(o: JsonObject): PageCard? = PageCard(
+        title = o["title"].texts(),
+        rule = o["rule"].texts() ?: return null,
+        table = table(o["table"]),
+        examples = (o["examples"] as? JsonArray)?.let(::examples)?.takeIf { it.isNotEmpty() },
+        tip = o["tip"].texts(),
+        start = (o["start"] as? JsonPrimitive)?.booleanOrNull == true,
+    )
+
+    /** A text per language as content has it ({"en": "…", "de": "…"}); null for none. */
+    fun textsOf(e: JsonElement?): Map<String, String>? = e.texts()
+
+    /** A string as content has it, trimmed; null for none or blank. */
+    fun strOf(e: JsonElement?): String? = e.str()
+
+    /** A list of strings as content has it. */
+    fun stringsOf(e: JsonElement?): List<String> = e.strings()
 
     /** GET /grammar: the pages in the bridge's order. */
     fun parseList(raw: String): List<GrammarPage> =

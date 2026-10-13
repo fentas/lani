@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -41,7 +42,11 @@ private val inline = Regex("""\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`|„(.+?)[“”]""
 /** Plays a Slovene span when tapped; null where nothing can speak. */
 class SpeakSpans(val isSlovene: (String) -> Boolean, val say: (String) -> Unit)
 
-fun inlineMarkdown(s: String, speak: SpeakSpans? = null): AnnotatedString = buildAnnotatedString {
+/**
+ * [s]'s inline Markdown. [speak]: a Slovene span plays when tapped; [look]: instead, each word of a Slovene span (one
+ * without more Markdown in it) is looked up when tapped (the word, and the span it is in).
+ */
+fun inlineMarkdown(s: String, speak: SpeakSpans? = null, look: ((String, String) -> Unit)? = null): AnnotatedString = buildAnnotatedString {
     var i = 0
     for (m in inline.findAll(s)) {
         append(s.substring(i, m.range.first))
@@ -61,6 +66,25 @@ fun inlineMarkdown(s: String, speak: SpeakSpans? = null): AnnotatedString = buil
         }
         when {
             code.isNotEmpty() -> withStyle(style) { append(code) }
+            look != null && speak != null && speak.isSlovene(body) && !body.any { it in "*`„" } -> {
+                // each word a link of its own: a tap looks it up (a cheat sheet's card)
+                if (quoted.isNotEmpty()) append("„")
+                withStyle(style) {
+                    var j = 0
+                    for (w in WORD.findAll(body)) {
+                        append(body.substring(j, w.range.first))
+                        val link = LinkAnnotation.Clickable(
+                            tag = "word",
+                            styles = TextLinkStyles(SpanStyle(textDecoration = TextDecoration.Underline)),
+                            linkInteractionListener = { look(w.value, body) },
+                        )
+                        withLink(link) { append(w.value) }
+                        j = w.range.last + 1
+                    }
+                    append(body.substring(j))
+                }
+                if (quoted.isNotEmpty()) append("“")
+            }
             speak != null && speak.isSlovene(body) -> {
                 // Tap to hear the Slovene: underlined, with a small speaker.
                 val link = LinkAnnotation.Clickable(
@@ -70,7 +94,7 @@ fun inlineMarkdown(s: String, speak: SpeakSpans? = null): AnnotatedString = buil
                 )
                 withLink(link) { append(content(null)); append(" 🔈") }
             }
-            else -> withStyle(style) { append(content(speak)) }
+            else -> withStyle(style) { append(if (look != null) buildAnnotatedString { if (quoted.isNotEmpty()) append("„"); append(inlineMarkdown(body, speak, look)); if (quoted.isNotEmpty()) append("“") } else content(speak)) }
         }
         i = m.range.last + 1
     }
@@ -78,6 +102,9 @@ fun inlineMarkdown(s: String, speak: SpeakSpans? = null): AnnotatedString = buil
 }
 
 private val numbered = Regex("""^(\d+)[.)]\s+(.*)""")
+
+/** A word of a span, for its own link. */
+private val WORD = Regex("""[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*""")
 private val tableSeparator = Regex("""^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?$""")
 
 private fun cells(row: String): List<String> =
@@ -91,14 +118,26 @@ private fun cells(row: String): List<String> =
 typealias BlockText = @Composable (styled: AnnotatedString, style: TextStyle, modifier: Modifier) -> Unit
 
 @Composable
-fun Markdown(text: String, modifier: Modifier = Modifier, color: Color = Color.Unspecified, block: BlockText? = null) {
+fun Markdown(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    block: BlockText? = null,
+    onWord: ((String, String) -> Unit)? = null,
+) {
     val speaker = LocalSpeaker.current
-    val speak = speaker?.takeIf { it.canSay }?.let { s -> SpeakSpans(s::isSlovene) { t -> s.say(t) } }
+    // a lookup ([onWord]: a cheat sheet's card) needs to know what's Slovene, not a voice to say it
+    val speak = if (onWord != null) speaker?.let { s -> SpeakSpans(s::isSlovene) { t -> if (s.canSay) s.say(t) } }
+    else speaker?.takeIf { it.canSay }?.let { s -> SpeakSpans(s::isSlovene) { t -> s.say(t) } }
+    val look = onWord
     val lines = text.trim().lines()
-    /** A block's text: [block]'s, else a Text whose Slovene in bold, italics or quotes is heard when tapped. */
+    /**
+     * A block's text: [block]'s, else a Text whose Slovene in bold, italics or quotes is heard when tapped (or, with
+     * [onWord], whose words are looked up).
+     */
     val line: @Composable (String, TextStyle, FontWeight?, Modifier) -> Unit = { s, style, weight, m ->
         if (block != null) block(inlineMarkdown(s), style.merge(TextStyle(color = color, fontWeight = weight)), m)
-        else Text(inlineMarkdown(s, speak), m, color = color, style = style, fontWeight = weight)
+        else Text(inlineMarkdown(s, speak, look), m, color = color, style = style, fontWeight = weight)
     }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
         var i = 0
@@ -172,6 +211,8 @@ private fun MarkdownTable(rows: List<List<String>>, header: Boolean, text: @Comp
             Row(
                 Modifier
                     .height(IntrinsicSize.Min)
+                    // TalkBack reads a table row by row, its cells in one go
+                    .semantics(mergeDescendants = true) { }
                     .then(if (head) Modifier.background(MaterialTheme.colorScheme.primary.copy(alpha = 0.10f)) else Modifier),
             ) {
                 for (c in 0 until columns) {

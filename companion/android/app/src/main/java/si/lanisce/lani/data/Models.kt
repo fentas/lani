@@ -587,6 +587,8 @@ sealed interface BridgeEvent {
     data class PackPublished(val id: String, val title: String?, val note: String?) : BridgeEvent
     /** The tutor wrote something to read for the reading corner (at [level]), or ([removed]) took it back. */
     data class ReadingPublished(val id: String, val title: String?, val level: String?, val note: String?, val removed: Boolean = false) : BridgeEvent
+    /** The tutor put a card on the cheat sheet (publish_card), or ([removed]) took one back. */
+    data class CardPublished(val id: String, val title: String?, val note: String?, val removed: Boolean = false) : BridgeEvent
     /** The tutor wrote a page of the grammar book, or added to one ([extended]). */
     data class GrammarPublished(val id: String, val title: String?, val note: String?, val extended: Boolean = false) : BridgeEvent
     /** A family member sent Jan a challenge from the family page. */
@@ -647,6 +649,8 @@ sealed interface BridgeEvent {
                 "pack_published" -> PackPublished(s("id") ?: return null, s("title"), s("note"))
                 "reading_published" -> ReadingPublished(s("id") ?: return null, s("title"), s("level"), s("note"))
                 "reading_removed" -> ReadingPublished(s("id") ?: return null, null, null, null, removed = true)
+                "card_published" -> CardPublished(s("id") ?: return null, s("title"), s("note"))
+                "card_removed" -> CardPublished(s("id") ?: return null, null, null, removed = true)
                 "grammar_published" -> GrammarPublished(s("id") ?: return null, s("title"), s("note"), o["extended"]?.jsonPrimitive?.booleanOrNull == true)
                 "partner_challenge" -> PartnerChallenge(s("id") ?: return null, s("from") ?: "", s("from_sl"), s("emoji") ?: "💌", s("text") ?: "")
                 "voice_updated" -> VoiceUpdated

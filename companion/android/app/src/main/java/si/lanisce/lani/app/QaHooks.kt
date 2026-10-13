@@ -52,6 +52,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   stores full, a free plot, the next age's when its own are all taken) and the plot chooser opens for it over the map
  *   ([build], taken by the village: [tookBuild]), with its ★; QA looks at the HUD minimized over it and goes back,
  *   nothing built. "build:" lets it go.
+ * - "chat:<text>": a tutor message comes into the chat on the phone (as a reply would, not sent anywhere; "\n" in [text]
+ *   a new line), "chat:table" the tutor's imeti with its list ([TUTOR_TABLE]): QA pins it to the cheat sheet.
+ * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -95,13 +98,21 @@ object QaHooks {
     var build by mutableStateOf<si.lanisce.lani.game.BuildingType?>(null)
         private set
 
+    /** A tutor message with a list, as the tutor explains imeti ("chat:table"): QA pins it to the cheat sheet. */
+    const val TUTOR_TABLE = "**Imeti** – the whole verb:\n" +
+        "- jaz **imam** · ti **imaš** · on/ona **ima**\n" +
+        "- midva **imava** · vidva/onadva **imata**\n" +
+        "- mi **imamo** · vi **imate** · oni **imajo**\n\n" +
+        "*Vida ima gostilno.* (one) · *Vida in Nejc imata konja.* (two) · *Vsi imajo čas.* (three+)\n\n" +
+        "The two-person endings are the same everywhere: **-va** (me + one more), **-ta** (two others), like *sva / sta* with biti."
+
     /** The village opened the plot chooser QA asked for. */
     fun tookBuild() { build = null }
 
     /** Does what [command] asks; [road] gets what is asked of the road ("mini", "car"); [forms] starts the forms' review. */
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
-        season: () -> Unit = {}, ready: () -> Unit = {},
+        season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -129,6 +140,10 @@ object QaHooks {
                 project = arg.substringBefore('/').takeIf { it.isNotBlank() && n != null }
                 project?.let { step(it, n!!) }
             }
+            command == "chat:table" -> chat(TUTOR_TABLE)
+            command.startsWith("chat:") -> command.removePrefix("chat:").replace("\\n", "\n").takeIf { it.isNotBlank() }?.let(chat)
+            command == "cheat" -> cheat(emptyList())
+            command.startsWith("cheat:") -> cheat(command.removePrefix("cheat:").split(',').map { it.trim() }.filter { it.isNotEmpty() })
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()
                 build = si.lanisce.lani.game.BuildingType.entries.firstOrNull { it.name == name && it.onPlot }

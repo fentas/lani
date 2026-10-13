@@ -85,7 +85,9 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
             is BridgeEvent.PartnerChallenge -> post(ev.id.hashCode(), "${ev.emoji} ${Family.fromLabel(ev.from, ev.fromSl)}", ev.text, link)
             is BridgeEvent.AppUpdate -> post(2, "⬆️ ${bi("backgroundCheck.updateVersion", "versionName" to ev.versionName)}", ev.notes ?: inBase("backgroundCheck.openToInstall"), link)
             // a newcomer's introduction: the bubble in the village says it (the arrival itself was news enough)
-            is BridgeEvent.VoiceUpdated, is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained, is BridgeEvent.ArrivalPublished -> Unit
+            // a card on the cheat sheet: marked new there, no notification of its own
+            is BridgeEvent.VoiceUpdated, is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained, is BridgeEvent.ArrivalPublished,
+            is BridgeEvent.CardPublished -> Unit
             is BridgeEvent.TownGuest -> post(("guest" + ev.kind + ev.from).hashCode(), "🧳 ${TownGuests.title(ev)}", ev.from, link)
             is BridgeEvent.TownQuestion -> post(("question" + ev.kind + ev.key).hashCode(), TownQuestions.title(ev), ev.text, link)
             is BridgeEvent.ScenePublished -> when {

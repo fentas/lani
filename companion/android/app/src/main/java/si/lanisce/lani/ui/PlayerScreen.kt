@@ -320,6 +320,8 @@ fun ExerciseRun(
                 modifier = Modifier.weight(1f).height(10.dp).clip(CircleShape),
                 color = XpGold,
             )
+            // the cheat sheet, this exercise's cards first: free, help and not a hint
+            CheatButton(vm) { cheatContext(vm, ruleAt(index), exercises, rules, moduleId) }
             ChatButton(vm)
         }
         if (timeLimitSeconds != null) Countdown(remaining, timeLimitSeconds, waiting = waiting && clock == Clock.RUNNING)

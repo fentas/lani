@@ -1,7 +1,7 @@
 ---
 name: lani-studio
 description: Create, adjust, fix, or retire practice modules and word packs in the Lani Android app — new drills, challenges, and exercise sets built from the learner's mistake patterns — and publish them live through the lani channel. Use when the learner asks for a new drill/challenge/module ("make me exercises for X", "this exercise is broken", "harder clitic practice") or for new words on a topic ("teach me words for the doctor"), when a session_end or mistakes-db shows a recurring weak pattern without a matching module, or when an app exercise needs correcting.
-allowed-tools: Read, Bash, mcp__lani__publish_module, mcp__lani__list_modules, mcp__lani__get_module, mcp__lani__rollback_module, mcp__lani__publish_pack, mcp__lani__list_packs, mcp__lani__publish_grammar, mcp__lani__list_grammar, mcp__lani__get_grammar, mcp__lani__publish_scenario, mcp__lani__list_scenes, mcp__lani__get_scene, mcp__lani__publish_scene, mcp__lani__remove_scene, mcp__lani__publish_dialog_variant, mcp__lani__remove_dialog_variant, mcp__lani__list_stories, mcp__lani__get_story, mcp__lani__publish_story, mcp__lani__remove_story, mcp__lani__list_readings, mcp__lani__get_reading, mcp__lani__publish_reading, mcp__lani__remove_reading, mcp__lani__list_villagers, mcp__lani__get_villager, mcp__lani__publish_villager, mcp__lani__remove_villager, mcp__lani__reply
+allowed-tools: Read, Bash, mcp__lani__publish_module, mcp__lani__list_modules, mcp__lani__get_module, mcp__lani__rollback_module, mcp__lani__publish_pack, mcp__lani__list_packs, mcp__lani__publish_grammar, mcp__lani__list_grammar, mcp__lani__get_grammar, mcp__lani__publish_card, mcp__lani__list_cards, mcp__lani__remove_card, mcp__lani__publish_scenario, mcp__lani__list_scenes, mcp__lani__get_scene, mcp__lani__publish_scene, mcp__lani__remove_scene, mcp__lani__publish_dialog_variant, mcp__lani__remove_dialog_variant, mcp__lani__list_stories, mcp__lani__get_story, mcp__lani__publish_story, mcp__lani__remove_story, mcp__lani__list_readings, mcp__lani__get_reading, mcp__lani__publish_reading, mcp__lani__remove_reading, mcp__lani__list_villagers, mcp__lani__get_villager, mcp__lani__publish_villager, mcp__lani__remove_villager, mcp__lani__reply
 ---
 
 # Lani Studio — building the app from the inside
@@ -107,6 +107,10 @@ learner meets its rule in an exercise that names it (`"grammar": "<id>"`).
 2. Tag the exercises of every grammar module you write with `"grammar": "<page id>"`, and a new module in the page's `modules`.
 3. A chat with `data.grammar_drill` asks for a short drill on that page: write the module (tagged), then extend the page's
    `modules` with it.
+4. A basic you explained with a table or a list worth keeping (a whole verb, the pronouns, endings, a case at a glance):
+   `publish_card {title, markdown, grammar, level?}` puts it on the app's cheat sheet ("📋 Plonk listek"), short (one bold
+   rule line, the table, two or three examples, at most one 💡 tip), the grammar pages it is about named (it comes first in
+   their exercises). `list_cards` first: the pages' cards, the curated ones, yours, what the learner pinned and opens most.
 
 **How the app adapts** (companion/GAME.md, "Mastery and adaptive turns"). Each page has a mastery the app computes from
 the learner's answers on its rule (the run of right answers in a row), their grammar cards and their mistakes-db patterns

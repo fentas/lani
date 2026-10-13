@@ -21,12 +21,12 @@ const text = z.string().trim().min(1)
 export const grammarRef = z.string().regex(GRAMMAR_ID, 'a grammar page id (kebab-case, 2-63 chars)')
 
 /** A text per language that has its English: {"en": "…", "de": "…", "it": "…"}. English is the fallback of every base. */
-const withEn = (max: number) => langText(max).refine(t => typeof t.en === 'string', 'the English ("en") is missing')
+export const withEn = (max: number) => langText(max).refine(t => typeof t.en === 'string', 'the English ("en") is missing')
 
 /** A table cell: words of the language learned as they are ("ob ribniku"), or a text per language ({"sl": "mestnik", "en": "locative"}). */
 const cell = z.union([text.max(80), langText(80)])
 
-const table = z
+export const table = z
   .strictObject({ head: z.array(cell).min(2).max(4), rows: z.array(z.array(cell)).min(1).max(12) })
   .superRefine((t, ctx) => {
     t.rows.forEach((r, i) => {
@@ -39,7 +39,7 @@ const table = z
  * "en": "The tent stands by the pond.", "de": …, "it": …}), an optional [note] per base, and [by] "tutor" on what the
  * tutor added to a curated page (the bridge sets it).
  */
-const example = z
+export const example = z
   .object({ note: withEn(300).optional(), by: z.literal('tutor').optional() })
   .catchall(text.max(240))
   .superRefine((e, ctx) => {
@@ -48,6 +48,23 @@ const example = z
     }
     if (typeof e.en !== 'string') ctx.addIssue({ code: 'custom', path: ['en'], message: 'the English translation ("en") is missing' })
   })
+
+/**
+ * A page's own card on the cheat sheet ("📋 Plonk listek · Cheat sheet", cards.ts; companion/README.md "Cheat sheet"),
+ * hand-written instead of the one the app makes from the page (its table, its rule's first sentence, two examples): a
+ * [title] (the page's when left out), one bold [rule] line per base, a compact [table] (the page's when left out), two or
+ * three short [examples] (the page's first two when left out) and a 💡 [tip] at most. [start]: an A1 basic, on the sheet
+ * from the start instead of from the day the page is met.
+ */
+export const pageCard = z.strictObject({
+  title: withEn(80).optional(),
+  rule: withEn(300),
+  table: table.optional(),
+  examples: z.array(example).min(1).max(3).optional(),
+  tip: withEn(300).optional(),
+  start: z.boolean().optional(),
+})
+export type PageCard = z.infer<typeof pageCard>
 
 export const grammarSpec = z
   .strictObject({
@@ -75,12 +92,18 @@ export const grammarSpec = z
     machine_written: z.boolean().default(true),
     /** Who wrote which languages and who checked them: "machine-written, not reviewed by a native speaker". */
     review: text.max(200).optional(),
+    /** Its card on the cheat sheet, hand-written ([pageCard]); without it the app makes one from the page. */
+    card: pageCard.optional(),
   })
   .superRefine((p, ctx) => {
     if (typeof p.title[p.language] !== 'string') ctx.addIssue({ code: 'custom', path: ['title', p.language], message: `the title in the page's language ("${p.language}") is missing` })
     p.examples.forEach((e, i) => {
       if (typeof e[p.language] !== 'string') ctx.addIssue({ code: 'custom', path: ['examples', i, p.language], message: `the example in the page's language ("${p.language}") is missing` })
     })
+    p.card?.examples?.forEach((e, i) => {
+      if (typeof e[p.language] !== 'string') ctx.addIssue({ code: 'custom', path: ['card', 'examples', i, p.language], message: `the card's example in the page's language ("${p.language}") is missing` })
+    })
+    if (p.card?.title && typeof p.card.title[p.language] !== 'string') ctx.addIssue({ code: 'custom', path: ['card', 'title', p.language], message: `the card's title in the page's language ("${p.language}") is missing` })
     const dupes = p.examples.map(e => norm(String(e[p.language] ?? ''))).filter((s, i, all) => s && all.indexOf(s) !== i)
     if (dupes.length) ctx.addIssue({ code: 'custom', path: ['examples'], message: `the same example twice: ${dupes.join(', ')}` })
     if (p.see.includes(p.id)) ctx.addIssue({ code: 'custom', path: ['see'], message: 'a page doesn\'t see itself' })
@@ -134,6 +157,8 @@ export function extend(curated: GrammarPage, tutor: GrammarPage): GrammarPage {
   return {
     ...curated,
     ...(tutor.more ? { more: tutor.more } : {}),
+    // the curated page's card stays; the tutor's is the page's card where it has none
+    ...(!curated.card && tutor.card ? { card: tutor.card } : {}),
     examples: [...curated.examples, ...added].slice(0, 24),
     modules: union(curated.modules, tutor.modules).slice(0, 10),
     tags: union(curated.tags, tutor.tags).slice(0, 20),

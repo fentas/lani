@@ -114,6 +114,43 @@ val grammarPages = tasks.register<GrammarPages>("grammarPages") {
 }
 
 /**
+ * The cheat sheet's curated cards no grammar page fits (companion/cards/<language>/<id>.json, lani.card/v0), bundled as
+ * Java resources under cards/<language>/, with cards/index.json listing each language's card ids: the sheet has them
+ * without the bridge (data/Cards.kt), which serves them with the tutor's (GET /cards). No directory yet: none.
+ */
+abstract class CardFiles : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val cards: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val root: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val dir = out.get().asFile.resolve("cards")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        val root = root.get().asFile
+        val langs = root.listFiles { f -> f.isDirectory }.orEmpty().map { it.name }.sorted()
+        val index = langs.map { lang ->
+            val files = root.resolve(lang).listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty().sortedBy { it.name }
+            val to = dir.resolve(lang).apply { mkdirs() }
+            files.forEach { it.copyTo(to.resolve(it.name)) }
+            "\"$lang\": " + files.joinToString(", ", "[", "]") { "\"${it.nameWithoutExtension}\"" }
+        }
+        dir.resolve("index.json").writeText(index.joinToString(",\n  ", "{\n  ", "\n}\n"))
+    }
+}
+
+val cardFiles = tasks.register<CardFiles>("cardFiles") {
+    root.set(layout.projectDirectory.dir("../../cards"))
+    cards.from(fileTree("../../cards") { include("**/*.json") })
+}
+
+/**
  * The car's audio drills (companion/drills/<language>/<id>.json, lani.drill/v0), bundled as Java resources under
  * drills/<language>/, with drills/index.json listing each language's drill ids: the road has them without the bridge
  * (data/Drills.kt), which serves them too (GET /drills).
@@ -179,6 +216,7 @@ androidComponents {
         variant.sources.resources?.addGeneratedSourceDirectory(festivalPacks, FestivalPacks::out)
         variant.sources.resources?.addGeneratedSourceDirectory(culturePacks, CulturePacks::out)
         variant.sources.resources?.addGeneratedSourceDirectory(grammarPages, GrammarPages::out)
+        variant.sources.resources?.addGeneratedSourceDirectory(cardFiles, CardFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(drillFiles, DrillFiles::out)
     }
 }
