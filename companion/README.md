@@ -1887,6 +1887,62 @@ interjections are left out. It is machine-written and not reviewed by a native s
 villagers' names 98.4 %. When new content comes, `--coverage` lists the words none of them knows, and the words
 known only as a form of another word, to check for the ones that are words of their own.
 
+### Words in an exercise
+
+Every exercise (a review, a module, a challenge, a pack's run, the grammar book's practice, a visit's run: all
+`ExerciseRun`) lets Jan look up its Slovene words as the dialogs do (`ui/ExerciseLook.kt`, the rule in
+`ui/words/ExerciseWords.kt`): a tap on a word of the prompt or of the sentence with the gap opens its card; in the
+answers (a choice's options, a reorder's tiles, a multi's options) a long press, since a tap chooses. Only the words in
+the language learned: the English half of "Kam gre Luka? · Where is Luka going?", a translation in brackets and an
+English meaning have none. Looking up is free: no hint, no lower grade. A word added from the card ("➕") becomes a
+review card as from a dialog (`from: scene`), its sentence with the gap filled as its example.
+
+**Never the answer.** While the exercise is open, nothing it tests can be looked up (`ExerciseTaps`, per type, tested in
+`ExerciseWordsTest`):
+
+| Exercise | Can be looked up before the answer | Can't |
+|---|---|---|
+| flashcard | its word once turned over | its word before |
+| choice, multi: a sentence with a gap | the sentence's words | the lemma or hint in brackets ("(sesti)"), the options (the forms that fill it) |
+| choice, multi: options in English (meanings) | nothing | the Slovene asked about: the prompt is what's tested |
+| choice, multi: options in Slovene | the prompt's Slovene ("Kam gre Luka?", "Kako rečeš …?"); the options by a long press when the prompt asks in Slovene, every option has two words or more and nothing is quoted: a reply, a place | what the prompt quotes ("«good day»": the meaning asked for), single-word options, the words the options differ in (`ChoiceDiff`: "en / eno / ena čaj") |
+| cloze | the sentence round the gap | what brackets add; the gap has nothing |
+| reorder | the tiles, by a long press, for their meaning (the card shows no line, so not their order); the prompt's Slovene | – |
+| translate | the source's Slovene words while the answer is Slovene | a Slovene source to say in English (or an answer that reads as either: "pes" → "dog") |
+| speak | the prompt's Slovene (a sentence with a gap: round it), the model sentence once shown | – |
+| scenario | the line and the scene while the answer is a reply (options in Slovene, or typed) | the line while the options are its meanings |
+| dictation | nothing is shown | – |
+
+A long press on a word of an answer that can't be looked up does nothing (a soft buzz): no card, and the option isn't
+chosen. While the exercise is open, a word the learner has shows no table of its forms on its card (`WordQuery.forms`):
+one of them may be the answer. After the answer everything can be looked up, the tested word too, by a tap also in the
+options; the feedback's right answer, its whole sentence and its explanation too, and the card shows the forms again.
+
+Which text is in which language: by its parts (apart by " · " and line breaks; quotes, `*emphasis*` and brackets apart),
+each read as Slovene by its letters (č, š, ž) or frequent words (`Spoken`), by a clip of it in the voice store, or by
+all its words being the learner's own; a part that reads as either goes by the exercise (a sentence with a gap is
+Slovene, a meaning to translate isn't). Where it can't tell, nothing is looked up.
+
+**New words dotted.** A word the learner hasn't met has a faint dotted underline in the text's own colour (both themes;
+`WordText`'s `unknown`); the words they have look plain. Met: a word of any of their cards (the deck's `pool`: a
+phrase's words each, a pack's words once learned, a word added from a dialog), and every form of the lemmas among them
+that the phone has from `GET /forms` ("mizo" is "miza"'s; `KnownWords`, tested in `KnownWordsTest`). A name inside a
+sentence (capitalized after a word) isn't marked. Another language's deck (a review of it at home, a visit's run) goes by
+its own cards, and its words are looked up in its language (`WordQuery.language`).
+
+**The tip.** The first time an exercise has words to look up, "👆 Tapni besedo in poglej, kaj pomeni (pikice: nova
+zate); v odgovorih jo pridrži · Tap a word to see what it means (dots: new to you); in the answers, press and hold it"
+shows under its prompt, until closed, a word looked up or the next exercise; once (`DialogPrefs.exerciseWordHintSeen`).
+TalkBack offers each word that can be looked up as an action ("Poišči «gozdu» · Look up «gozdu»"), as in a dialog.
+
+**Explanations in shape.** An exercise's `explain` (and the grading hint) shows as markdown in the feedback, a long one
+scrolling in the card while its buttons stay. One written in markdown shows as written; a plain one is put in shape
+without rewording (`ui/ExplainFormat.kt`, tested in `ExplainFormatTest`): one sentence a line, a sentence of
+"X = Y" pairs ("I work = delam, you work = delaš") a small table of two columns, a line's leading "word:" in bold,
+endings written with their dash ("-m", "(-a)") in bold. Its Slovene words can be looked up word by word (a part with an
+English word in it isn't Slovene as a whole: "dela: no -m and …"; the endings never). How to write them:
+`.claude/skills/lani-studio/reference/module-spec.md`, "Explanations" (and `publish_module`'s description).
+
 ### Word forms
 
 A word Jan has (a review card whose front is a word: "sesti", "hiša") has its forms, and the app's review asks them once
@@ -2483,6 +2539,8 @@ companion/bin/qa --steps road                    # only the car's "🚗 Za pot" 
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
+companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
+companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2576,6 +2634,17 @@ the end). Then it:
 Android Auto's own screen (the grid's look, its pictures) isn't checked: the Desktop Head Unit isn't installed here.
 The step takes about 2 minutes (with setup and without the build, about 3 minutes). With 0.1.543's player it fails
 at step 1: the app closes as the session starts ("Periods other than last need a duration" in the crash check).
+
+**QA of an exercise's words** (`--steps exercise-words,exercise-explain`; [Words in an exercise](#words-in-an-exercise)).
+A debug build logs each text of the exercise on screen (tag `ExWords`): what it is (`prompt`, `option`, `tile`,
+`correct`, `sentence`, `explain` …), how its words are looked up (`tap`, `hold`, `none`) and where each word is on the
+screen, "!" after one that can't be looked up and "*" after one dotted as new. `exercise-words` starts a review of form
+questions (QA's hook `forms`): the tip shows under the sentence with the gap; a tap on its first word opens the word's
+card (Back closes it, the review stays); every option (a form: what's tested) logs `none`, and a long press on one's word
+opens nothing and picks nothing; answered, the options log `tap`, and a tap on the form in the feedback opens its card,
+with the table of its forms. `exercise-explain` opens Jan's module `kdo-govori` (in the dev bridge's copy; skipped
+without it) by its link, answers its first three choices and checks the third's explanation in shape: "dela: no -m and
+no -š, so he or she." a line of its own, "I work", "delam" … the cells of a table; a tap on «delam» opens its card.
 
 **QA with two towns.** `companion/bin/qa` runs the dev bridge (`127.0.0.1:8791`, on a copy of `data/` without its
 town links, so QA never asks a learner's town) and a second dev town: `companion/bridge/test/dev-town.ts` on

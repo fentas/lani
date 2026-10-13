@@ -22,6 +22,24 @@ Don't set `version`. The bridge assigns it on publish.
 
 Every text field must be non-empty. `explain` (optional) appears after the answer.
 
+**Explanations** (`explain`, and `note`): the app shows them as markdown, in the answer's card (a long one scrolls
+there), and every Slovene word in them can be tapped and looked up. Write them short and in shape, not as one line of
+prose:
+- one **bold rule line** first: the form, what decides it, the answer (`→` between the steps);
+- then the examples as a list (`- delam · I work`) or a mini table (`| delam | I work |`);
+- endings in bold (`**-m**`, `**-š**`), Slovene words as they stand, the meaning after `·`;
+- at most about three lines.
+
+The model (the choice "Jaz, ti ali on/ona?" for *dela*):
+```
+**dela** → no **-m**, no **-š** → *on/ona*
+- delam · I work
+- delaš · you work
+- dela · he/she works
+```
+A plain explanation still shows in shape (one sentence a line, `X = Y, Z = W` as a small table, a leading `word:` and
+endings like `-m` in bold), but write the markdown: it reads better.
+
 **Layout fields** (optional, on `choice`, `cloze`, `reorder`, `translate`, `multi`, `dictation`, `speak`):
 - `instruction`: what to do, shown small above the prompt, e.g. `"Kaj pomeni? · What does it mean?"`. With it, keep `prompt` to the bare subject (`"dober dan"`), which is shown large. Without it, `prompt` is a full question.
 - `say` (not on `cloze`, `multi`, `dictation`; required on `speak`, see there): Slovene text behind a 🔊 button next to the prompt. Use it when the prompt is Slovene.
