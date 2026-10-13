@@ -108,6 +108,14 @@ object WordForms {
     fun answered(record: FormsRecord?, key: String, right: Boolean, repetitions: Int, day: String): FormsRecord =
         FormsRecord(repetitions, ((record?.asked ?: emptyList()) + FormAsked(key, right, day)).takeLast(KEEP))
 
+    /**
+     * [record] after form [key] was practised elsewhere ([right] or not, on [day]): a school's table or transform list
+     * (companion/COURSE.md). Kept as asked, so a wrong one comes first, but the card's place in its [EVERY] reviews ([at])
+     * stays as it was: the review still asks its forms when they are due.
+     */
+    fun practised(record: FormsRecord?, key: String, right: Boolean, day: String): FormsRecord =
+        FormsRecord(record?.at ?: 0, ((record?.asked ?: emptyList()) + FormAsked(key, right, day)).takeLast(KEEP))
+
     // --- which form ----------------------------------------------------------------------------------------------
 
     /** Forms never asked: the dictionary form itself. */

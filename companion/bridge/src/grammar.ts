@@ -24,7 +24,7 @@ export const grammarRef = z.string().regex(GRAMMAR_ID, 'a grammar page id (kebab
 export const withEn = (max: number) => langText(max).refine(t => typeof t.en === 'string', 'the English ("en") is missing')
 
 /** A table cell: words of the language learned as they are ("ob ribniku"), or a text per language ({"sl": "mestnik", "en": "locative"}). */
-const cell = z.union([text.max(80), langText(80)])
+export const cell = z.union([text.max(80), langText(80)])
 
 export const table = z
   .strictObject({ head: z.array(cell).min(2).max(4), rows: z.array(z.array(cell)).min(1).max(12) })

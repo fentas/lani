@@ -57,6 +57,14 @@ class HomeLogicTest {
         assertEquals(12, t.due)
     }
 
+    @Test fun `the school's unit next is an idea of today, after a module, before a pack`() {
+        val biti = HomeAction.Lesson("biti", "Biti: sem, si, je", "🟰", "A1", started = false)
+        val t = HomeLogic.today(dash(due = 12), emptyList(), emptySet(), listOf(kitchen), emptySet(), lesson = biti)
+        assertEquals(listOf("school", "pack:v-kuhinji"), t.more.map { it.key })
+        // without a class (before the hamlet, or all done) nothing of the school
+        assertTrue(HomeLogic.today(dash(due = 12), emptyList(), emptySet(), listOf(kitchen), emptySet()).more.none { it is HomeAction.Lesson })
+    }
+
     @Test fun `without reviews a module for a weak spot leads, new ones before seen ones`() {
         val weakNew = clitic.copy(id = "clitic2")
         val t = HomeLogic.today(dash(weak = listOf("clitic_placement_se")), listOf(clitic, weakNew, biti), setOf("clitic2", "biti"), listOf(kitchen), emptySet())

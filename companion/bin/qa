@@ -41,7 +41,11 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
                        nothing and picks nothing, once answered the form in the feedback opens its card;
                        "exercise-explain" the module kdo-govori's third explanation in shape (its rule a line, its
-                       pairs a small table), «delam» in it looked up; "offline-audio" the
+                       pairs a small table), «delam» in it looked up;
+                       "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
+                       tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
+                       mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
+                       "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
@@ -2299,6 +2303,163 @@ def village_hud():
 
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
 
+def fill(label: str, text: str) -> bool:
+    """Types [text] into the field TalkBack calls [label] (a worksheet's gap, cell or line: "Vrzel 2 · Gap 2"); False when
+    there is none on screen (scrolled to first)."""
+    c = scroll_to(label, 3)
+    if c is None:
+        return False
+    tap_at(c)
+    type_text(text)
+    return True
+
+
+def school():
+    """"📚 Šola · School" (GAME.md "The school", companion/COURSE.md; QA's hook "school": the dev village's copy a hamlet
+    with its linden, the class begun with it): the levels (A1 open, ★ the unit next), Home's tile (the first of the
+    learning tiles) opening the school directly, the unit biti: its intro
+    step by step (a quick question each, the table growing, the summary card), its tables with the cheat sheet opened
+    mid-sheet (the unit's cards first), the gap text answered with one mistake (its corrections) and a word of it looked up, then its test
+    straight away ("⏩ Znam že"), passed: the unit done."""
+    if not (ROOT / "companion/course/sl/units/biti.json").exists():
+        return "no course here (companion/course/sl/units/biti.json)"
+    go_home()
+    qa_hook("school")
+    assert wait_for("Pouk pod lipo", 10) or wait_for("Šola · School", 3), "the school"
+    assert wait_for("Raven A1", 10), "the course's levels: the class begun with the hamlet, nothing to build"
+    assert find("Postavi") is None, "no classroom to set up"
+    time.sleep(1)
+    shot("school-levels")
+    # a place of its own: Home's tile opens it directly
+    go_home()
+    tile = scroll_to("Šola", 8, exact=True)
+    assert tile, "the school's tile on Home"
+    shot("school-home")
+    tap_at(tile)
+    assert wait_for("Raven A1", 8), "the school from Home's tile"
+    assert tap("Biti: sem, si, je", 5), "the unit biti"
+    assert wait_for("Delovni listi", 8), "the unit"
+    shot("school-unit")
+    # the intro, step by step: a quick question each, the table growing
+    assert tap("Naprej: Uvod", 4) or tap("Uvod · Introduction", 3), "the intro"
+    assert wait_for("Korak 1/4", 8), "the intro's first step"
+    for i, (kind, answer) in enumerate([("tap", "je"), ("otroci = oni", "so"), ("tap", "sta"), ("je → ?", "ni")], 1):
+        assert wait_for(f"Korak {i}/4", 6), f"step {i}"
+        if kind == "tap":
+            # the question under the lines and the table: scrolled to, the option the last of its word on screen (the
+            # table above may show it too), clear of the bottom bar's "Naprej"
+            adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
+            time.sleep(1)
+            c = ([c for t, c in nodes() if t == answer and c[1] < 2100] or [None])[-1]
+            assert c is not None, f"step {i}'s option {answer}"
+            tap_at(c)
+        else:
+            c = scroll_to(kind, 3)  # the field, its hint as the placeholder
+            assert c is not None, f"step {i}'s gap"
+            tap_at(c)
+            type_text(answer)
+            assert tap("Preveri · Check", 4), f"step {i}'s check"
+        assert wait_for("Pravilno", 6), f"step {i} answered right"
+        if i in (1, 4):
+            shot(f"school-intro-{i}")
+        assert tap("Naprej · Next", 4), f"step {i}'s next"
+    assert wait_for("Povzetek", 8), "the intro's summary card"
+    shot("school-intro-summary")
+    assert tap("Na delovne liste", 5), "on to the worksheets"
+    # the first worksheet: the tables; the help panel opened mid-sheet
+    assert tap("Naprej: Tabela: biti", 6), "the first worksheet"
+    assert wait_for("Dopolni tabelo", 10), "the table"
+    shot("school-table")
+    for label, answer in [("jaz · midva · mi, dvojina · two", "sva"), ("jaz · midva · mi, množina · more", "smo"), ("ti · vidva · vi, ednina · one", "si")]:
+        assert fill(label, answer), f"the cell {label}"
+    # help over the sheet: the cheat sheet (📋), the unit's cards first (biti's page met by its intro)
+    assert tap(CHEAT_BUTTON, 4), "📋 over the sheet"
+    assert wait_for(CHEAT_FIRST, 6), "the cheat sheet opened from the sheet"
+    time.sleep(1)
+    assert any("sem, si, je" in t for t, _ in nodes()), "biti's card"
+    shot("school-help")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+    assert find("Dopolni tabelo"), "back on the sheet, its cells kept"
+    for label, answer in [("ti · vidva · vi, množina · more", "ste"), ("on · onadva · oni, ednina · one", "je"), ("on · onadva · oni, dvojina · two", "sta")]:
+        assert fill(label, answer), f"the cell {label}"
+    assert tap("Preveri · Check", 4), "check the table"
+    assert wait_for("Pravilno", 6), "the table right"
+    shot("school-table-checked")
+    assert tap("Naprej · Next", 4), "on"
+    for label, answer in [("ti, ne · no", "nisi"), ("on, ona, ono, ne · no", "ni"), ("mi, ne · no", "nismo"), ("vi, ne · no", "niste"), ("oni, ne · no", "niso")]:
+        assert fill(label, answer), f"the cell {label}"
+    assert tap("Preveri · Check", 4), "check the second table"
+    assert tap("Naprej · Next", 6), "on"
+    for answer in ("sta", "smo"):  # two choices
+        c = ([c for t, c in nodes() if t == answer] or [None])[-1]
+        assert c is not None, f"the option {answer}"
+        tap_at(c)
+        assert tap("Naprej · Next", 6), "on"
+    assert wait_for("Naprej · Continue", 10), "the worksheet's end"
+    shot("school-sheet-done")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    # the second worksheet: the gap text, one mistake (Tine, ste lačen?), a word looked up
+    assert tap("Naprej: Nedelja v vasi", 8), "the second worksheet"
+    assert wait_for("Pri babici Micki", 10), "the gap text"
+    for i, answer in enumerate(["je", "je", "sta", "so", "sem", "ste"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"gap {i}"
+    c = find("kuhinji.")
+    assert c is not None, "a word of the text"
+    tap_at(c)
+    assert any(any(w in t for w in WORD_CARD) for t, _ in nodes()) or wait_for("Iščem", 3) or wait_for("Dodaj", 6), "its word card"
+    time.sleep(2)
+    shot("school-word")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+    shot("school-gaptext")
+    assert tap("Preveri · Check", 4), "check the gap text"
+    assert wait_for("Popravki", 6), "its corrections"
+    time.sleep(1)
+    shot("school-gaptext-checked")
+    assert tap("Naprej · Next", 4), "on"
+    for i, answer in enumerate(["je", "je", "sta", "smo", "ste", "sem"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"the second text's gap {i}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    assert tap("Naprej · Continue", 10), "back to the unit"
+    # the test straight away: passed, the unit done
+    assert tap("Znam že: kar na test", 8), "⏩ the test"
+    assert wait_for("Dopolni", 10), "the test's first sheet"
+    for label, answer in [("jaz, biti", "sem"), ("vidva, biti", "sta"), ("oni, biti", "so"), ("ti (ne), biti", "nisi")]:
+        assert fill(label, answer), f"the test's cell {label}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    for i, answer in enumerate(["je", "sta", "smo", "sem"], 1):
+        assert fill(f"Vrzel {i} · Gap {i}", answer), f"the test's gap {i}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    # adb types no č: "lacna" is almost right (a missing č), half an item; the test still passes (11½ of 12)
+    for i, answer in enumerate(["Mojca ni doma.", "Mi nismo v gozdu.", "Midva nisva lacna."], 1):
+        assert fill(f"Vrstica {i} · Line {i}", answer), f"the test's line {i}"
+    assert tap("Preveri · Check", 4), "check"
+    assert tap("Naprej · Next", 6), "on"
+    c = ([c for t, c in nodes() if t == "Ste"] or [None])[-1]
+    assert c is not None, "the test's choice"
+    tap_at(c)
+    assert tap("Naprej · Next", 6), "on"
+    assert wait_for("Enota opravljena", 10), "the test passed: the unit done"
+    time.sleep(2)
+    shot("school-test-passed")
+    assert tap("Naprej · Continue", 4), "back to the unit"
+    assert wait_for("Enota je opravljena", 8), "the unit done"
+    end, unit = time.time() + 20 * slow(), None
+    while time.time() < end:  # the app pushes the village to the node
+        try:
+            unit = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get("sl/biti")
+        except (OSError, RuntimeError, ValueError):
+            unit = None
+        if unit and unit.get("done"):
+            break
+        time.sleep(2)
+    assert unit and unit.get("done"), f"the dev bridge's village keeps the unit done ({unit})"
+
+
 def centre(b):
     return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
 
@@ -3394,6 +3555,7 @@ def plan():
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
+        ("school", school, go_home, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
         ("visit-villager", visit_villager, h, True, "visit"),

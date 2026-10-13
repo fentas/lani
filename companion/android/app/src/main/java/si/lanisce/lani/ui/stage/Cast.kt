@@ -70,6 +70,11 @@ sealed interface Run {
     data class Talk(val scenario: Scenario) : Run
     /** The day's surprise with a stranger from the road ([kind]: the pilgrim), who is on the stage himself. */
     data class Stranger(val kind: String) : Run
+    /**
+     * A sheet of the school (companion/GAME.md, "The school"): its [teacher] on the stage, in the school once it stands
+     * ([indoors]), else under the linden, where she comes over from the next village to teach.
+     */
+    data class Lesson(val teacher: String?, val emoji: String? = null, val indoors: Boolean = false) : Run
 }
 
 object Cast {
@@ -104,6 +109,9 @@ object Cast {
             is Run.Pack -> here(run.giver)?.let { person(it, run.emoji, cast, state) } ?: companion()
             is Run.Talk -> talker(run.scenario, cast, state)
             is Run.Stranger -> Surprises.strangers[run.kind]?.let(::stranger) ?: companion()
+            // the teacher also while she only comes over to teach: no friendship grows with her until she lives here
+            // (VILLAGERS.md, "Arrivals"), as with a stranger
+            is Run.Lesson -> run.teacher?.let { t -> find(t, cast)?.let { v -> of(v, state).let { p -> if (here(t) != null) p else p.copy(id = null) } } } ?: companion()
         }
     }
 

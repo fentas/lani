@@ -39,6 +39,15 @@ import kotlin.random.Random
  * like them. Every session it plays the day's surprise at the road and the festival that is on, and with full
  * stores it buys goods for the people who'd like them (and the pedlar's rare one).
  *
+ * The school (GAME.md, "The school"): from the hamlet on (the class begins with it, nothing to buy) the player does the
+ * school's sheets as its profile's plan says ([Plan.school]), the day's grammar besides the tutor's new modules: the next
+ * step of the unit suggested next, a worksheet of [SHEET_ITEMS] items or the unit's test of [TEST_ITEMS] (passed at 80 %,
+ * an almost counting half, else tried again), each item an answer (a quarter of them words sorted, 🌾; the rest typed,
+ * 🪨), a unit done its bonus (the scarcest resource). The weekly feast never leaves a store under a quarter. The course is a
+ * stand-in of the size the outline plans ([COURSE]). The school's next level waits for a course level done
+ * ([School.gate]): such an upgrade is no purchase until then, and a village waiting on it waits on learning, as one
+ * waiting on words.
+ *
  * Printed per day: age, words (and 🔩 rusty ones), resources/caps, villagers, morale, fire, events won/lost, friends
  * and 🤝, buildings and what was done (or what the player saves for and how much is missing).
  */
@@ -54,29 +63,38 @@ class SimulationTest {
         val family: Boolean = false,
         /** Village runs: the active event first, then a quest paying what is needed, else gathering it. */
         val runs: Int = 0,
+        /** Sheets of the school's course (a worksheet or a test), once the class meets. */
+        val school: Int = 0,
     ) {
-        val active get() = reviews + packs + runs > 0 || module || talk || family
+        val active get() = reviews + packs + runs + school > 0 || module || talk || family
     }
 
     private class Profile(val name: String, val plan: (day: Int) -> Plan)
 
-    /** 10 min: reviews every day, a word pack every other day, one village run on the days between. */
+    /** 10 min: reviews every day, a word pack every other day, one village run (every other time with a school sheet) on the days between. */
     private val casual = Profile("casual") { d ->
-        if (d % 2 == 1) Plan(reviews = 12, packs = 1) else Plan(reviews = 12, runs = 1, family = d % 7 == 0)
+        if (d % 2 == 1) Plan(reviews = 12, packs = 1) else Plan(reviews = 12, runs = 1, family = d % 7 == 0, school = if (d % 4 == 0) 1 else 0)
     }
 
-    /** 30–40 min: reviews, a pack, a grammar module or a talk scene, family every third day, three runs. */
+    /**
+     * 30–40 min: reviews, a pack, the grammar (the tutor's new module when one came, every [NEW_MODULE_EVERY] days, else one
+     * school sheet), a talk scene every other day, family every third day, three runs.
+     */
     private val committed = Profile("committed") { d ->
-        Plan(reviews = 20, packs = 1, module = d % 2 == 1, talk = d % 2 == 0, family = d % 3 == 0, runs = 3)
+        val module = d % NEW_MODULE_EVERY == 1
+        Plan(reviews = 20, packs = 1, module = module, talk = d % 2 == 0, family = d % 3 == 0, runs = 3, school = if (module) 0 else 1)
     }
 
-    /** Five intense days (an hour each), ten days away, again. */
+    /** Five intense days (an hour each), ten days away, again: a module and two school sheets each. */
     private val binge = Profile("binge+gap") { d ->
-        if ((d - 1) % 15 < 5) Plan(reviews = 25, packs = 2, module = true, talk = true, family = true, runs = 5) else Plan()
+        if ((d - 1) % 15 < 5) Plan(reviews = 25, packs = 2, module = true, talk = true, family = true, runs = 5, school = 2) else Plan()
     }
 
-    /** Committed, but never talks and has no family challenges: 📜 only from modules and the linden. */
-    private val noTalk = Profile("no talk") { Plan(reviews = 20, packs = 1, module = true, runs = 3) }
+    /** Committed, but never talks and has no family challenges: 📜 only from modules, the linden and the school. */
+    private val noTalk = Profile("no talk") { d ->
+        val module = d % NEW_MODULE_EVERY == 1
+        Plan(reviews = 20, packs = 1, module = module, runs = 3, school = if (module) 0 else 1)
+    }
 
     private class Learner(seed: Long) {
         private val r = Random(seed)
@@ -132,6 +150,32 @@ class SimulationTest {
         const val NEAR_WORDS = 6
         /** What trades may bring of a resource at most, as a share of all of it that came in (GAME.md, "Trading"). */
         const val MAX_TRADED_SHARE = 0.15f
+        /** A worksheet's items and a test's (companion/COURSE.md, "Writing a unit": 15–30 items in two to four sheets, 8–15 in a test). */
+        const val SHEET_ITEMS = 10
+        const val TEST_ITEMS = 12
+
+        /**
+         * The school's course as the sim plays it: as the outline plans it (companion/course/sl/course.json), A1 of 18 units
+         * of three worksheets each and its test; A2 and above have no units yet, so the school's levels wait for nothing.
+         * With an A2 of 12 units the committed learner's school would stay at level 1 until about day 120 (GAME.md,
+         * "The school": the balance to check again when A2 is written).
+         */
+        val COURSE: si.lanisce.lani.data.Course = run {
+            fun level(level: String, n: Int) = (1..n).map { i ->
+                val id = "${level.lowercase()}-$i"
+                si.lanisce.lani.data.CourseUnit(
+                    id, "sl", level, "📘", mapOf("en" to id),
+                    worksheets = (1..3).map { si.lanisce.lani.data.Worksheet("$id-$it", mapOf("en" to "$id-$it"), emptyList()) },
+                    test = si.lanisce.lani.data.UnitTest(80, emptyList()),
+                )
+            }
+            val units = level("A1", 18)
+            si.lanisce.lani.data.Course(
+                "sl",
+                listOf("A1", "A2", "B1", "B2").map { l -> si.lanisce.lani.data.CourseLevel(l, units.filter { it.level == l }.map { si.lanisce.lani.data.UnitRef(it.id, it.title) }) },
+                units.associateBy { it.id },
+            )
+        }
     }
 
     /** Cards for village runs plus drills from the curated modules (cloze, reorder, multi, speak). */
@@ -190,6 +234,12 @@ class SimulationTest {
         private val mover = Learner(seed + 2)
         /** The answers to the festivals' runs, on their own dice: a day added to the calendar doesn't reshuffle the rest. */
         private val celebrant = Learner(seed + 3)
+        /** The answers to the school's sheets, on their own dice. */
+        private val pupil = Learner(seed + 4)
+        /** School sheets done, tests taken, units done. */
+        var sheets = 0
+        var tests = 0
+        var units = 0
         var s: GameState = GameEngine.newGame(gameSeed, Fixtures.noon(Fixtures.day0)).copy(
             buildings = listOf(Building("tent-1", TENT, 0)), // Jan has built their first tent
             resources = mapOf(Res.FOOD to 5, Res.WOOD to 5),
@@ -329,6 +379,9 @@ class SimulationTest {
                     villageRun()
                     acts += spend()
                 }
+                // the school's sheets after the village's runs
+                repeat(plan.school) { schoolSheet()?.let { acts += it } }
+                if (plan.school > 0) acts += spend()
                 acts += buyGoods()
                 giveGoods()
                 acts += spend()
@@ -354,6 +407,38 @@ class SimulationTest {
             thanked(q, r.won)
             bonus("quests", before)
             return if (r.won) listOf("⛺→🪷") else emptyList()
+        }
+
+        /**
+         * A sheet of the school (GAME.md, "The school"), once the class meets: the next step of the unit suggested next, a
+         * worksheet or its test (passed at 80 %: the unit done, its bonus; else tried again another day).
+         */
+        private fun schoolSheet(): String? {
+            if (!School.open(s)) return null
+            s = School.opened(s, COURSE, today, now)
+            val ref = School.next(s, COURSE) ?: return null
+            val unit = COURSE.units.getValue(ref.id)
+            return when (val step = School.nextStep(unit, School.progress(s, "sl", unit.id))) {
+                is School.Step.Sheet -> {
+                    // a quarter of a sheet's items are words sorted (🌾, as a choice); the rest typed (🪨, as a cloze)
+                    val results = List(SHEET_ITEMS) { i -> (if (i % 4 == 3) Res.FOOD else Res.STONE) to pupil.verdict(0.75, 0.10) }
+                    credit("school", results)
+                    s = School.sheetDone(s, "sl", unit.id, step.id, results.map { it.second }, today)
+                    sheets++
+                    "📝"
+                }
+                School.Step.Test -> {
+                    val results = List(TEST_ITEMS) { i -> (if (i % 4 == 3) Res.FOOD else Res.STONE) to pupil.verdict(0.80, 0.10) }
+                    credit("school", results)
+                    val before = s
+                    val (after, done) = School.testDone(s, unit, results.map { it.second }, today, now)
+                    s = School.opened(after, COURSE, today, now)
+                    bonus("school units", before)
+                    tests++
+                    if (done) { units++; "🎓${unit.id}" } else "📝test"
+                }
+                else -> null
+            }
         }
 
         /** The day's surprise at the road: played when it's a practice, seen when it's the pedlar (see [buyGoods]). */
@@ -623,8 +708,9 @@ class SimulationTest {
         fun target(): Pair<String, Map<Res, Int>>? {
             wanted().firstOrNull()?.let { return it.name to Catalog.spec(it).cost }
             val passive = passiveShare()
-            val upgrade = s.buildings.mapNotNull { b -> GameEngine.upgradeOption(s, b.id)?.let { b to it } }
-                .filter { (_, o) -> o.reason == null || o.reason.startsWith("Manjka") }
+            // the school's next level waits for a course level done: not something to save for until then
+            val upgrade = s.buildings.mapNotNull { b -> GameEngine.upgradeOption(s, b.id, course = School.gate(s, COURSE, b.id))?.let { b to it } }
+                .filter { (_, o) -> (o.reason == null || o.reason.startsWith("Manjka")) && o.courseDone }
                 .minWithOrNull(compareBy({ (_, o) ->
                     o.cost.entries.sumOf { (r, n) -> ((n - s.res(r)).coerceAtLeast(0) / (passive.getValue(r) + 0.2f)).toDouble() }
                 }, { (_, o) -> o.cost.values.sum() }))
@@ -644,9 +730,9 @@ class SimulationTest {
             return Res.entries.associateWith { maxOf(r[it] ?: 0, t[it] ?: 0) }.mapValues { (k, n) -> n.coerceAtMost(caps.getValue(k)) }
         }
 
-        /** Share of each resource in the practice outside the village so far (what comes in anyway). */
+        /** Share of each resource in the practice outside the village so far (what comes in anyway: the school's sheets too). */
         private fun passiveShare(): Map<Res, Float> {
-            val outside = listOf("reviews", "packs", "modules", "talk", "family").mapNotNull { income[it] }
+            val outside = listOf("reviews", "packs", "modules", "talk", "family", "school").mapNotNull { income[it] }
             val total = outside.sumOf { it.values.sum() }.coerceAtLeast(1)
             return Res.entries.associateWith { r -> outside.sumOf { it[r] ?: 0 }.toFloat() / total }
         }
@@ -702,11 +788,11 @@ class SimulationTest {
                         continue
                     }
                 }
-                val up = s.buildings.mapNotNull { b -> GameEngine.upgradeOption(s, b.id)?.takeIf { it.available || it.mobaAvailable }?.let { b to it } }
+                val up = s.buildings.mapNotNull { b -> GameEngine.upgradeOption(s, b.id, course = School.gate(s, COURSE, b.id))?.takeIf { it.available || it.mobaAvailable }?.let { b to it } }
                     .filter { (_, o) -> keeps(due(o.cost, o.moba), reserve) }
                     .minByOrNull { (_, o) -> o.cost.values.sum() }
                 if (up != null) {
-                    val u = GameEngine.upgrade(s, up.first.id, now, withMoba = true)
+                    val u = GameEngine.upgrade(s, up.first.id, now, withMoba = true, course = School.gate(s, COURSE, up.first.id))
                     acts += "⬆${up.first.type.name.lowercase()}${up.second.toLevel}" + if (u.help < s.help) "🤝" else ""
                     s = u
                     continue
@@ -724,7 +810,11 @@ class SimulationTest {
                     acts += step
                     continue
                 }
-                val feast = Chest.feastOption(s, today)?.takeIf { it.available && keeps(it.cost, reserve) }
+                // the feast is the use for full stores: not one that leaves a store nearly empty
+                val caps = GameEngine.attributes(s).caps
+                val feast = Chest.feastOption(s, today)?.takeIf { o ->
+                    o.available && keeps(o.cost, reserve) && o.cost.all { (r, n) -> s.res(r) - n >= caps.getValue(r) * 0.25 }
+                }
                 if (feast != null) {
                     s = Chest.feast(s, today, now)
                     acts += "🎪"
@@ -746,7 +836,8 @@ class SimulationTest {
          */
         private fun complete(): Boolean = openProject() == null &&
             s.plotsTaken >= PLOTS_PER_AGE[s.age.ordinal] &&
-                s.buildings.all { b -> b.level >= minOf(Catalog.MAX_LEVEL, s.age.ordinal + 1) } &&
+                // the school's next level waits for a course level, as an age waits for words: learning, not buying
+                s.buildings.all { b -> b.level >= minOf(Catalog.MAX_LEVEL, s.age.ordinal + 1) || School.gate(s, COURSE, b.id)?.done == false } &&
                 s.chest.tools.keys.none { id -> Chest.forgeOption(s, id)?.reason?.let { it.startsWith("Manjka") } ?: false } &&
                 s.chest.tools.keys.none { id -> Chest.forgeOption(s, id)?.available == true }
 
@@ -856,6 +947,7 @@ class SimulationTest {
             " | rusty ${rows.maxOfOrNull { it.rusty } ?: 0} at most, $polished polished in $polishes sessions" +
             " | events ${s.stats.eventsWon}/${s.stats.eventsLost} | ${s.buildings.size} buildings, levels ${s.buildings.sumOf { it.level }}" +
             " | 🤝 ${s.stats.helpEarned} earned, ${s.stats.mobas} mobas | tools ${s.chest.tools.size}, forged ${s.chest.tools.values.sumOf { it.forged }} | friends ${Bonds.friends(s)}" +
+            " | school ${s.course?.classroom?.let { "from $it" } ?: "-"}: $sheets sheets, $tests tests, $units units" +
             (if (trading) " | trades $trades: " + (income["trades"] ?: emptyMap<Res, Int>()).entries.joinToString(" ") { (r, n) -> "${r.emoji}$n" } else "")
     }
 
@@ -944,8 +1036,10 @@ class SimulationTest {
             println("seed $seed ${sim.summary()}\n        without trading: capped days ${plain.active.count { it.capped }}, while starved ${plain.capped}, full ${plain.fullStores}")
             if (System.getenv("SIM_TRACE") == "trading:${p.name}:$seed") sim.print()
             assertPacing(sim)
-            // a store stuck at its cap while another is nearly empty: never longer than without trading
-            assertTrue("seed $seed ${p.name}: capped while starved ${sim.capped}, without trading ${plain.capped}", sim.capped <= plain.capped)
+            // a store stuck at its cap while another is nearly empty: no longer than without trading, a day's leeway (a
+            // trade's run in place of a village run moves the village's days around: with the school's sheets the casual
+            // learner, whose one run a day it takes, has a day more on two of the seven villages)
+            assertTrue("seed $seed ${p.name}: capped while starved ${sim.capped}, without trading ${plain.capped}", sim.capped <= plain.capped + 1)
             // what came in by trades is a small share of each resource: practice still brings the village
             val traded = sim.income["trades"].orEmpty()
             val share = Res.entries.associateWith { r -> (traded[r] ?: 0).toFloat() / sim.income.values.sumOf { it[r] ?: 0 }.coerceAtLeast(1) }

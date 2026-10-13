@@ -58,6 +58,11 @@ sealed interface HomeAction {
     data class Family(val challenge: FamilyChallenge) : HomeAction {
         override val key get() = "family:${challenge.id}"
     }
+
+    /** The school's unit suggested next (companion/GAME.md, "The school"): [unit]'s [title] of [level]; [started] once begun. */
+    data class Lesson(val unit: String, val title: String, val emoji: String, val level: String, val started: Boolean) : HomeAction {
+        override val key get() = "school"
+    }
 }
 
 /** "Danes · Today": the one thing to do, at most [MAX_MORE] other ideas, and today's progress. */
@@ -169,6 +174,8 @@ object HomeLogic {
         family: List<FamilyChallenge> = emptyList(),
         /** The festival that's on or coming (a calendar id, see game/Calendar.soon): its word pack may be suggested. */
         festival: String? = null,
+        /** The school's unit suggested next, once the class meets: an idea after the modules, before a pack. */
+        lesson: HomeAction.Lesson? = null,
     ): Today {
         val due = d.dueCards.size
         val weak = modules.filter { m -> m.targets.any { it in d.weakPatterns } }.sortedByDescending { it.id in newModules }
@@ -185,7 +192,7 @@ object HomeLogic {
             pack,
             HomeAction.Talk(talking),
         ).first()
-        val ideas = listOfNotNull(talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, pack, HomeAction.Talk(null))
+        val ideas = listOfNotNull(talking?.let { HomeAction.Talk(it) }, answer, weak, fresh, lesson, pack, HomeAction.Talk(null))
         val more = ArrayList<HomeAction>()
         for (a in ideas) {
             if (more.size >= Today.MAX_MORE) break

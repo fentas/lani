@@ -170,6 +170,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** A word's forms: the form questions of the reviews, the table on a word's card (companion/GAME.md, "A word's forms"). */
     val forms = si.lanisce.lani.app.FormsController(app, viewModelScope, node, grammar)
     /**
+     * "📚 Šola · School" (companion/GAME.md, "The school"; companion/COURSE.md): the course, the classroom under the linden,
+     * the units and their sheets, what they pay and leave in the progress.
+     */
+    val school = si.lanisce.lani.app.SchoolController(node, game, content, grammar, cheat, chat, forms, cast = { villagers.all })
+    /**
      * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
      * a day (companion/SCENES.md, "Your words in the dialogs").
      */
@@ -321,6 +326,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         game.upgradeWords = ::upgradeWords
         // a drill of the tutor's is found for the task it shares a grammar page with (companion/GAME.md "Quests")
         game.modulePages = ::modulePages
+        // the school's next level waits for a course level's units; a school built or upgraded opens one (companion/GAME.md "The school")
+        game.courseGate = school::gate
+        game.onBuilt = school::touch
     }
 
     /** The grammar pages module [id] practises: the book's pages that list it, and those its cached exercises name. */
@@ -396,11 +404,14 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         reloadCulture(b)
         grammar.reload(b)
         cheat.reload(b)
+        school.reload(b)
         content.dashboard?.let { forms.reload(b, it.pool) }
         readings.reload(b)
         packs.reload(b)
         scenes.reload(b)
         villagers.reload(b)
+        // a village already a hamlet when the school came (an older app): its class begins now, its teacher named
+        school.touch()
         clips.syncProfiles(villagers.voicePeople(game.state))
         // the node has the new level now, or the learner is ready for the next: the storyteller offers the map
         treasure.check()
@@ -470,6 +481,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             is BridgeEvent.ReadingPublished -> {
                 if (!ev.removed) notices.banner = "📖 ${ev.note ?: "${bi("readings.newReading")}: ${ev.title ?: ev.id}"}"
                 launchSafely { bridge?.let { readings.reload(it) } }
+            }
+            // the tutor gave homework for a unit of the school (or took it back): the unit has it
+            is BridgeEvent.WorksheetPublished -> launchSafely {
+                bridge?.let { school.reload(it) }
+                if (!ev.removed) notices.banner = "📝 ${ev.note ?: "${bi("school.newHomework")}: ${ev.title ?: ev.id}"}"
             }
             // the tutor kept a rule it explained: the learner met it (in the chat), so its page is in the book now
             is BridgeEvent.GrammarPublished -> launchSafely {
@@ -593,6 +609,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
                 openFamily(link.challengeId)
             }
             is DeepLink.Question -> openQuestion(link.key, link.asked)
+            is DeepLink.School -> link.unit?.takeIf { school.unit(it) != null }?.let { openUnit(it) } ?: openSchool(fromVillage = false)
         }
     }
 
@@ -803,6 +820,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
      */
+    /** QA's "school" (app/QaHooks): the dev village ready for the classroom under the linden, and the school open. */
+    fun qaSchool() {
+        game.apply { si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis()) }
+        openSchool(fromVillage = false)
+    }
+
     fun qaBuild() {
         game.apply { si.lanisce.lani.app.QaHooks.readyBuild(it, si.lanisce.lani.game.GameEngine.attributes(it).caps) }
         openVillage()
@@ -966,8 +989,49 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             Screen.Villagers -> openVillagers()
             is Screen.Visit, is Screen.VisitScene -> if (visits.visit != null) openVisit() else home()
             is Screen.Treasure -> openTreasure(from.fromVillage)
+            is Screen.School -> openSchool(from.fromVillage)
+            is Screen.CourseUnit -> openUnit(from.id, from.fromVillage)
+            is Screen.UnitIntro -> openUnit(from.id, from.fromVillage)
             else -> home()
         }
+    }
+
+    // --- the school (companion/GAME.md, "The school") ---------------------------------------------------------------
+
+    /** "📚 Šola · School": the course's levels and units; the levels opened since are kept first. */
+    fun openSchool(fromVillage: Boolean = screen is Screen.Village || screen is Screen.Scene) {
+        school.touch()
+        screen = Screen.School(fromVillage)
+    }
+
+    /** Back from the school: to the village or home, wherever it was opened. */
+    fun leaveSchool(fromVillage: Boolean) = if (fromVillage) village() else home()
+
+    /** Unit [id] of the course: its intro, its worksheets, its test. */
+    fun openUnit(id: String, fromVillage: Boolean = false) {
+        if (school.unit(id) == null) return
+        screen = Screen.CourseUnit(id, fromVillage)
+    }
+
+    /** Unit [id]'s guided introduction, where the learner left it. */
+    fun startIntro(id: String, fromVillage: Boolean = false) {
+        if (school.unit(id)?.intro == null) return
+        screen = Screen.UnitIntro(id, fromVillage)
+    }
+
+    /** Each sheet's run is a screen of its own ([Screen.Sheet.run]). */
+    private var sheetRuns = 0
+
+    /** Sheet [sheet] of unit [unit] ([kind]: a worksheet, the test, homework): its run, back to the unit after. */
+    fun startSheet(unit: String, kind: si.lanisce.lani.app.SheetKind, sheet: String, fromVillage: Boolean = false) {
+        if (screen.inRun) return
+        startRun(Screen.Sheet(unit, kind, sheet, fromVillage, ++sheetRuns))
+    }
+
+    /** The village with building [id]'s card open (the school's level a course level waits for: its upgrade). */
+    fun openBuildingCard(id: String) {
+        buildingCard = id
+        screen = Screen.Village
     }
 
     fun home() {

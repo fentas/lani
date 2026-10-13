@@ -204,6 +204,8 @@ internal class SceneCtx(val canvas: PixelCanvas) {
     var clear = 1f
     /** The buildings whose windows are dark tonight, everyone in them asleep ([TownPeople.darkWindows]). */
     var darkWindows: Set<String> = emptySet()
+    /** The class meets under the linden (GAME.md, "The school"): its blackboard and the pupils' bench by the tree. */
+    var classroom = false
     val trees = TreePainter(this)
     val effects = Effects(this)
     val woods = WoodsPainter(this)
@@ -386,6 +388,8 @@ class VillageRenderer {
         val recentFelled = state.world.felled.count { Regrowth.days(it, today) < Regrowth.GROWN_DAYS }
         val recentQuarried = state.world.quarried.count { Regrowth.days(it, today) < Regrowth.GROWN_DAYS }
         s.harvested = today.isNotEmpty() && state.world.picked.lastOrNull() == today
+        // the class under the linden (from the hamlet on, while there is no school): its blackboard by the tree
+        s.classroom = si.lanisce.lani.game.School.open(state) && si.lanisce.lani.game.School.place(state) == si.lanisce.lani.game.School.Place.LINDEN
 
         // ---- backdrop
         val backdrop = Backdrop(s)

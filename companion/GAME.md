@@ -35,6 +35,7 @@ Every source pays through `GameEngine.earn`, one entry per answer. Typical amoun
 | Festival | 6 | the answers, plus 20 × (…) 🌾 and 10 × (…) of the scarcest other resource |
 | The day's surprise | 2–3 | the answers, plus 12 × (…) of the scarcest resource |
 | «Vidim, vidim» with a child in a scene (SCENES.md, "I spy") | 1–3 | the answers: 🌾, a quick find a right one, a later one an almost, a thing shown a wrong one |
+| A sheet of the school (a worksheet, a unit's test; "The school") | 10–15 items | each item an answer: a gap, a cell or a line 🪨, a word sorted 🌾; a unit done 20 × (1 + 0.3 × age index) of the scarcest resource, once |
 
 Most practice is vocabulary, so 🌾 and 🪵 are the bulk resources. Grammar modules and gathering bring 🪨. Talk is by far the biggest 📜 source; a learner who never talks still gets 📜 from quests, the linden (gathering) and the modules. A store that piles up can be traded for one that runs short ("Trading").
 
@@ -156,6 +157,10 @@ A damaged building has no effect and does not count for the next age. A repair c
 | Tržnica · Market | 160🌾 150🪵 100🪨 80📜 | Vas | 1 | +200 cap on all resources, better merchant trades (2.5×) |
 
 The base population cap is 2.
+
+The linden carries the school's class under it once it stands (from Zaselek the class meets by the fire, then under the
+linden: a blackboard and a bench, no plot of their own), and the school's upgrades wait for the school's course besides
+their words: see "The school".
 
 A workplace brings its person (the bee house its beekeeper, the smithy its smith, the market its winemaker, the school its
 teacher: VILLAGERS.md, "A building brings its person"), who needs a bed: while every bed is taken it can't be built, and its
@@ -386,13 +391,13 @@ An age once reached is never taken back: a village already past a milestone that
 
 `SimulationTest` plays 60 days of three learner profiles against the engine, for Jan's target, B2. Jan starts with 23 learned words and their first tent. A word-pack session adds 6 learned words. A review answered wrong (15 % of them) leaves its word rusty: it doesn't count, the rusty words come back first in the next day's review (right or almost right 85 % of the time), and when they are all that holds the next age back, the sim player polishes them at once. There are at most 4 to 8 rusty words at a time; polishing comes up in 2 to 4 sessions of a run, and no age comes later for it.
 
-The people are modelled on the app: the cast moves in by its order once its age and home are there (Tone with the smithy, Mojca with the school), only who lives here asks for help (a tutor's quest waits for its giver), leads a project or is in a surprise, and friendship grows as in VILLAGERS.md. The sim player talks with the villager closest to becoming a friend, prefers that villager's request while the next age lacks friends, gives goods to who likes them, calls a moba whenever it helps, has the smith forge tools after the upgrades, does the day's project step with what the stores can spare, holds the weekly feast, plays the day's surprise and the festival that is on, and with full stores buys goods for the people who'd like them (and the pedlar's rare one).
+The people are modelled on the app: the cast moves in by its order once its age and home are there (Tone with the smithy, Mojca with the school), only who lives here asks for help (a tutor's quest waits for its giver), leads a project or is in a surprise, and friendship grows as in VILLAGERS.md. The sim player talks with the villager closest to becoming a friend, prefers that villager's request while the next age lacks friends, gives goods to who likes them, calls a moba whenever it helps, has the smith forge tools after the upgrades, does the day's project step with what the stores can spare, holds the weekly feast when the stores can spare it (not one that would leave a store under a quarter: the feast is the use for full stores), plays the day's surprise and the festival that is on, and with full stores buys goods for the people who'd like them (and the pedlar's rare one). From the hamlet on it does the school's sheets as its plan says, after the day's village runs ("The school"), and it counts what they pay as what comes in anyway (as reviews and packs) when it chooses what its runs gather.
 
 | Profile | Practice | Words a day | Tabor | Zaselek | Vas | Trg |
 |---|---|---|---|---|---|---|
-| Casual | 10 min: reviews daily, a word pack every other day, one village run on the other days | 3 | day 1 | day 13 (words: 13, a friend: 6) | about day 93 (3 friends: day 18) | about day 327 (5 friends: day 38) |
-| Committed | 30–40 min: reviews, a word pack, a grammar module or a talk scene, family every third day, three village runs | 6 | day 1 | day 7 (words: 7, a friend: 2) | day 47 (words: 47, 3 friends: 8) | day 163 (words: 163, 5 friends: 14) |
-| Binge and gap | 5 days of an hour each, then 10 days away, again | 12 on active days | day 1 | day 4 (words: 4) | about day 64 (3 friends: 16) | – |
+| Casual | 10 min: reviews daily, a word pack every other day, one village run on the other days (every other time with a school sheet) | 3 | day 1 | day 13 (words: 13, a friend: 6) | about day 93 (3 friends: day 18) | about day 327 (5 friends: day 38) |
+| Committed | 30–40 min: reviews, a word pack, the grammar (the tutor's new module every five days, else one of the school's sheets), a talk scene every other day, family every third day, three village runs | 6 | day 1 | day 7 (words: 7, a friend: 2) | day 47 (words: 47, 3 friends: 8) | day 163 (words: 163, 5 friends: 14) |
+| Binge and gap | 5 days of an hour each (a module and two school sheets in each), then 10 days away, again | 12 on active days | day 1 | day 4 (words: 4) | about day 64 (3 friends: 16) | – |
 
 Friends come well before the words for every profile, also at 1 / 3 / 5 / 8 friends: Mesto's eight by day 17 for the committed learner and day 33 for the binge learner; the casual learner has eight by day 58. For a low target (A2: Vas at 45 words) the friends are the slower gate. In 60 days the committed learner earns about 310 🤝 (about 45 mobas) and has tools from 12 villagers; the casual learner about 90 🤝 and 6–9 tools.
 
@@ -409,9 +414,9 @@ The test asserts these properties for all three profiles and for six other seeds
 - After each 10-day gap, the village is repaired, fed and warm again within 2 active days.
 - Talk brings at least twice as much 📜 as any other source. Without talk, 📜 from quests, the linden and the modules still reaches Vas on time.
 - The 170-day run: the Vas village has something to build until day 130 or later, every project of Zaselek and Vas is done in Vas, and eight friends come within the 170 days.
-- With trading (`trading keeps the pacing`: every profile, this village and the six others): the player trades in place of a village run, once a session, when a store is (nearly) full while what it saves for lacks another resource (the fullest store's surplus for the largest shortfall, about what a run of 4 of 6 needs to cover it, at least 10; never what it keeps of that store unless the store is full anyway; the run's answers on their own dice). Every property above holds, a store sits at its cap while another is nearly empty no longer than without trading, trades bring at most 15 % of any resource that came in, and talk stays the best 📜 source for the committed learner. Measured: the committed learner and the one who never talks trade 6 to 11 times in 60 days, mostly 🌾 for 🪵 and 🪵 for 🌾, a little 🪨, none into 📜; their days with a store capped go from 11–16 to 2–9, and those with one capped while another is nearly empty from up to 2 to none for every profile; the ages still come with their words (they are the gate); trades bring at most 11 % of a resource (🪵, for the learner who never talks); the casual and the binge learner trade 0 to 2 times.
+- With trading (`trading keeps the pacing`: every profile, this village and the six others): the player trades in place of a village run, once a session, when a store is (nearly) full while what it saves for lacks another resource (the fullest store's surplus for the largest shortfall, about what a run of 4 of 6 needs to cover it, at least 10; never what it keeps of that store unless the store is full anyway; the run's answers on their own dice). Every property above holds, a store sits at its cap while another is nearly empty no longer than without trading (a day's leeway, see below), trades bring at most 15 % of any resource that came in, and talk stays the best 📜 source for the committed learner. Measured: the committed learner and the one who never talks trade 6 to 11 times in 60 days, mostly 🌾 for 🪵 and 🪵 for 🌾, a little 🪨, none into 📜; their days with a store capped go from 11–16 to 2–9, and those with one capped while another is nearly empty from up to 2 to none for every profile; the ages still come with their words (they are the gate); trades bring at most 11 % of a resource (🪵, for the learner who never talks); the casual and the binge learner trade 0 to 2 times.
 
-What changed in the properties, and why: "complete" now counts the project steps (they are something to buy), and so does "buys something"; the two new properties (something new every session, never all stores full for a week) and the 170-day ones check what the projects, the calendar and the day's surprise are for. The sim now also tells the engine who lives here (`GameState.residents`), so project leaders, surprises and the friends an age counts follow the cast, and a feast or a festival brings everyone who lives here closer (before, the sim's village had no named residents). Since the palisade stands round the clearing on no plot, the sim player builds a hayrack on the plot it gave back in Tabor. Since the tent moves to the pond in Zaselek (see "The tent moves to the pond"), the sim player plays Luka's request the day he asks, besides the day's runs and on its own dice (like polishing), and builds the next building of its plan on the plot the tent gives back. With rusty words the sim's reviews fail, the player polishes when rust alone holds an age back, and it plans its saving with the rusty words counted (they are a minute away). Its project step is now the one that spends most from the fullest stores, not the first it can afford: in the 170-day run, late Vas spends 🌾 on the food-heavy steps while 🪨 sits at its cap, and with the first step that streak ran 3 to 14 days depending on the dice (this seed had 4 by luck, and rust's few extra answers made it 9 to 14); with the fuller-store step it is 4 to 9 across eight seeds, and 3 here. The 60-day runs keep it at 5 or less for every seed.
+What changed in the properties, and why: "complete" now counts the project steps (they are something to buy), and so does "buys something"; the two new properties (something new every session, never all stores full for a week) and the 170-day ones check what the projects, the calendar and the day's surprise are for. The sim now also tells the engine who lives here (`GameState.residents`), so project leaders, surprises and the friends an age counts follow the cast, and a feast or a festival brings everyone who lives here closer (before, the sim's village had no named residents). Since the palisade stands round the clearing on no plot, the sim player builds a hayrack on the plot it gave back in Tabor. Since the tent moves to the pond in Zaselek (see "The tent moves to the pond"), the sim player plays Luka's request the day he asks, besides the day's runs and on its own dice (like polishing), and builds the next building of its plan on the plot the tent gives back. With rusty words the sim's reviews fail, the player polishes when rust alone holds an age back, and it plans its saving with the rusty words counted (they are a minute away). Its project step is now the one that spends most from the fullest stores, not the first it can afford: in the 170-day run, late Vas spends 🌾 on the food-heavy steps while 🪨 sits at its cap, and with the first step that streak ran 3 to 14 days depending on the dice (this seed had 4 by luck, and rust's few extra answers made it 9 to 14); with the fuller-store step it is 4 to 9 across eight seeds, and 3 here. The 60-day runs keep it at 5 or less for every seed. With the school (see "The school", "Pacing") the committed learner's grammar is one of the school's sheets a day and the tutor's new module every five days (before: a module every other day; the learner who never talks: a module every day), the casual learner does a sheet every other run day and the binge learner two a day; the sim player counts the school's pay as what comes in anyway, and its weekly feast never leaves a store under a quarter (before, a feast could take a store under a quarter while another sat at its cap). The 170-day run's days of a store capped while another is nearly empty are 3 (3 to 10 across nine seeds, 1 to 4 before the school), the 60-day runs' 2 or less. With trading the comparison has a day's leeway: a trade's run in place of a village run moves the days around, and with the school's sheets the casual learner (whose one run a day it takes) has a day more than without trading on two of the seven villages (2 for 1, 1 for 0); every other profile and village 0 with trading.
 
 ## Upkeep (daily tick)
 
@@ -683,6 +688,122 @@ the grammar book's choice exercise. Its answers count as the dialogs' do (`road/
 - **When**: the reviews go to the outbox when the session is paused or ends (one `POST /reviews` with the quiz's words,
   `dialog.scene` "road"), and to the node when it can be reached. What the village state keeps (the rules answered, the
   forms each card asked, the cards play changed today) waits in `files/road/quiz-app.json` until the app opens.
+
+## Šola · The school
+
+Jan, 2026-10-13: "We are missing basic progression, as most language schools do: the basics and then onwards … a text
+to fill out, a list of words to conjugate and so on, with help around all the time." The school teaches the language
+learned level by level, A1 to B2, each level an ordered list of units (a guided introduction, two to four worksheets, a
+test). The course and its format are [COURSE.md](COURSE.md); the rules are `game/School.kt` (pure), the course
+`data/Course.kt`, the sheets' grading `data/Sheets.kt`, the screens `ui/school/`, the rest `app/SchoolController.kt`.
+A village whose language has no course (`companion/course/<language>/`) has no school's course: nothing below shows.
+
+**The class begins with the hamlet.** Jan, 2026-10-13: "the school should not only be available from the village; Hamlet
+is good, once after the fire." The class begins the day the village becomes a hamlet (Zaselek, right after the camp):
+nothing to build, nothing to pay, no words to reach (`School.open`: the age, or a school standing). It meets **by the
+fire** first ("Pouk ob ognju · Class by the fire"), **under the linden** once the linden stands ("Pouk pod lipo · Class
+under the linden": a blackboard on its easel and a pupils' bench by the tree, on the map and in the village's picture),
+and **in the school** once that stands ("Šola · School"). The day it begins is kept (`CourseProgress.classroom`), A1
+opens, and the chronicle says who comes ("📚 Pouk se začne: Učiteljica Mojca prihaja poučevat iz sosednje vasi"; the app
+keeps it whenever the village may have changed: the age, a building, the school opened, the app's start, so a village
+that was a hamlet before the school came begins its class as the new app opens).
+
+**A place of its own, not only a building.** The school's screen opens directly from Home's "🏫 Šola · School" tile, the
+first of the learning tiles (the unit suggested next; before the hamlet "🔒 Pouk se začne z dobo Zaselek"), from "Danes ·
+Today" (the unit suggested next among the ideas, after the tutor's modules, before a word pack: one tap into the unit),
+from the village book's grammar chapter ("🏫 Šola", the same line before the hamlet), from the linden's card while the
+class meets under it, the school's card and the school's scene. Before the hamlet the screen says what begins the class
+and leads there: the next age's progress, one tap to the village's ages sheet (what Zaselek still needs); a level's gate
+says the same ("🛖 dosežeš dobo Zaselek ›").
+
+**Who teaches.** The school's person (VILLAGERS.md, "A building brings its person": Učiteljica Mojca in Primorska,
+Maestra Elena, Lehrerin Eva, Mrs Hartley) teaches from the start: by the fire and under the linden she comes over from
+the next village to teach (she doesn't live here: her arrival stays the school's, as before, and she may come by for a
+day as the next age's people do); once the school stands and she has moved in, she teaches there. Her portrait and her
+lines in the target language (with 🔊 in her voice and their meaning) lead the school's screens and the intros; on a
+sheet she stands on the training stage.
+
+**The school opens the next levels.** The school (Vas) moves the class indoors and opens **A2** once A1's units are all
+done. **Each further level of the school needs the course level before the one it opens all done**: the school's upgrade
+to level 2 needs A2's units done and opens **B1**, level 3 needs B1's and opens **B2**, levels 4 and 5 need B2's
+(`School.upgradeNeeds`, `School.gate`: like an upgrade's words, it holds the upgrade and its moba back, "📚 Za stopnjo 2:
+tečaj A2 · še 3 enote" on the school's card). Only units written count: a planned unit holds nothing back, and a level
+without units is done at once (so today, with A2 not written yet, the school's levels wait for nothing). A level once
+open stays open (`CourseProgress.opened`), also when units are added to the one before. The school's screen says what a
+closed level waits for, each with its way on ("🏫 zgradiš šolo ›" to the village, "⬆️ nadgradiš šolo na stopnjo 2 ›" to
+the school's card, "📚 še 3 enote ravni A2").
+
+**The course's order: recommended, free.** The unit suggested next (★: the first not done of the open levels, in the
+course's order) leads the school's screen and Home's tile; any unit of an open level can be opened, in any order. A unit
+is done when its **test** is passed (80 % of its items by default, an almost counting half). "⏩ Znam že: kar na test ·
+I know it: straight to the test" tests out of a unit at once (passed, it is done, `testedOut`; not passed, nothing is
+lost). Inside a unit: "📖 Uvod · Introduction" (resumable: its place kept; "⏭ Poznam to · I know this" skips it), the
+worksheets in order (the next one ★), the test, the tutor's homework; the main button is the next step.
+
+**The introduction** (COURSE.md, "The introduction"): the new material in small steps as a teacher brings it: Mojca's
+few lines (in the learner's base, Markdown), an example or two (🔊, every word tappable), the table growing (this step's
+rows marked), then a quick question (a tap choice or a one-word gap) whose answer shows with its why. Graded lightly: a
+miss says "Nič hudega · No matter", shows the answer, costs nothing, pays nothing and doesn't count on the rule. At the
+end the unit's first grammar page is the summary card (its rule and its whole table, "📖 V knjigo"), and "✓ Na delovne
+liste · On to the worksheets". Through it (or skipped) the unit's pages are met: in the book, and their cards on the
+cheat sheet (`CheatSheetController.met`); a sheet of the unit opened first meets them too.
+
+**The worksheets and the test** play as a run (`ExerciseRun`): one exercise at a time, its feedback, the teacher on the
+stage. The school's four types (COURSE.md): a **gap text** (the text with a field in each gap, a word bank to tap in, all
+checked at once, each gap marked right / almost / wrong with its correction and why under the text, the translation
+after), a **table** (cells to fill by person and number, or by case), a **transform list** (each line written whole),
+a **sort** (a word, then its column). Help is always there: **📋** in the run's top bar opens the cheat sheet ("The
+cheat sheet") over the sheet, without leaving it, the exercise's own card first, then the unit's (its pages are met by
+the intro, or when a sheet of it opens), and a table's "📖 Tabela v knjigi" opens its page in the book; the sheet's
+words are looked up as any exercise's (README "Words in an exercise": a tap on the text around the gaps, a table's
+labels and given cells, a list's lines; never what it tests while it's open: what brackets add only once checked, a
+sort's words only once checked, their card would say the gender; the new ones dotted); each item's why in shape
+(`ExplainFormat`, as the feedback's); **💡** per gap, cell or line: its hint (the rule, never the answer),
+else the answer's shape (opened, a right answer pays like an almost); č š ž chips; **💬** the tutor (the top bar's, and
+"Vprašaj" under each answer with the exercise, its items and their marks attached: `about_exercise.source` kind
+`course`).
+
+**What a sheet pays and counts** (`SchoolController.finish`, `GameEngine.earn`):
+
+- Every item is an answer, paid as answers are (6, 3, 1; the fresh-mind rule applies): a gap, a cell or a line typed as
+  a cloze is (🪨, grammar), a word sorted as a plain choice is (🌾); the module types in a sheet as in a module.
+- A unit done (its test passed the first time) brings once **20 × (1 + 0.3 × age index)** of the village's scarcest
+  resource (`Catalog.UNIT_DONE_BONUS`, as a request's side reward), and a line in the chronicle ("🟰 Enota opravljena:
+  Biti: sem, si, je"). Done again pays its answers only.
+- **On the rules** (the grammar book): a sheet exercise is **one answer on each rule its items name** (an item's own
+  page, else the exercise's, else the unit's first): right when all its items were, wrong when one was (its first slip
+  kept with both sentences, "Babica so v kuhinji." for "Babica je v kuhinji."), so a whole table right lengthens the
+  rule's run by one, as one exercise would (Mastery and adaptive turns), and its sentences go to "Tvoji stavki".
+- **The forms come back in reviews**: a table's cells and a transform list's lines that name a form (`lemma`, `form`:
+  "biti", "neg.3sg") are kept on the learner's card of that word (`FormsController.practised`, files/forms-asked.json,
+  the card's place in its reviews unchanged), so a form got wrong comes first the next time the card asks one ("A word's
+  forms").
+- **The progress** (`GameState.course`, versioned `v`; an older save has none, and an older bridge keeps it as it is:
+  `PUT /game` keeps the course an older app leaves out): the day the class began, the levels opened, each unit's intro
+  steps, each worksheet's best try and tries, the test's, the day done, tested out. A worksheet or a test left early
+  pays its answers but leaves no progress.
+- **The tutor** hears every sheet as a `session_end` whose data has `course` (`{language, unit, level, sheet, kind,
+  right, almost, of, passed?, unit_done?, tested_out?}` and each exercise's items), persists it, and when `unit_done`
+  congratulates and may give homework (`publish_worksheet` into the unit: it shows under "🧑‍🏫 Domača naloga · Homework",
+  pays like a worksheet and holds nothing back). `get_course` and `get_village`'s `course` show where the learner is.
+
+**On the map and in the school's scene**: the school's scene (`v-soli`) has "📚 Šola" in its top bar; the school's card
+has "📚 Šola · School" (and its course gate under the upgrade); the linden's card "📚 Pouk pod lipo" while the class meets
+under it.
+
+**Pacing** (`SimulationTest`, "Pacing"): the sim player does the school's sheets from the hamlet on, as its profile's
+plan says, the course as the outline plans it (A1's 18 units, three worksheets each; A2 and above none yet). The
+committed learner's daily grammar is the tutor's new module when one came (every five days), else one of the school's
+sheets: the class meets from day 7 and A1 is done about day 100 (54 worksheets, 18 tests passed, a few tried twice; day
+99 to 110 across nine villages and lucks); the learner who never talks the same; the casual learner does a sheet every
+other run day (about 9 in 60 days, 3 units), the binge learner two a day (about 24, 7 units). The sheets pay 🪨 mostly (a
+sort 🌾), and a unit's bonus goes to the scarcest store; the sim player counts the school's pay as what comes in anyway
+(as reviews and packs), so its runs gather what the school doesn't bring. The long run's days of a store full beside one
+nearly empty (the property allows 5) are 3 in the asserted run (1 before the school); across nine villages and lucks 3
+to 10 (1 to 4 before): the school's 🪨 widens the spread of late Vas, where a learner trades it away ("Trading": with
+trading the 60-day runs have 0 to 2). Measured besides: the grammar every other day only (a module or a sheet; A1 not
+done in 170 days) gives 2 to 7. Check the balance again when A2 is written: with an A2 of 12 units the school's next
+level would wait for the committed learner until well into Vas.
 
 ## Zemljevid zaklada · The treasure map
 
@@ -1527,7 +1648,7 @@ The cast of "Moja vas" lives in its culture pack, `companion/cultures/primorska/
 | Pastir Luka | 🐑 | 🪵 listening | Young shepherd on the Trnovo plateau, shouts across valleys, says ti at once. | Animal words, calls and commands, directions, fog and bells, weather in the mountains |
 | Teta Ančka | 📻 | 🪵 listening | Village gossip with a crackling radio (Radio Koper), hard of hearing. Micka's sister. | News, times and dates, numbers, names of places, dictation |
 | Kovač Tone | ⚒️ | 🪨 grammar | Gruff and kind smith, few words, no tolerance for a loose ending. Takes orders from Gorizia. | Word order, cases after prepositions, exact sentences, tools and materials |
-| Učiteljica Mojca | 👩‍🏫 | 🪨 grammar | Kind but precise teacher, loves the dual and explains why a rule exists. Comes with the school. | Endings and agreement, the dual (dvojina), verb forms, fixing sentences with mistakes |
+| Učiteljica Mojca | 👩‍🏫 | 🪨 grammar | Kind but precise teacher, loves the dual and explains why a rule exists. Comes with the school; before it, comes over from the next village to teach under the linden ("The school"). | Endings and agreement, the dual (dvojina), verb forms, fixing sentences with mistakes |
 | Stari Janez | 👴 | 📜 conversation, writing | Old storyteller under the linden, slow and proverbial; five times up Triglav. Every evening a story by the fire (SCENES.md, "Stories"). | Finishing stories, talking about the past, Triglav and the mountains, the linden as the village meeting place |
 | Vinar Marko | 🍇 | 📜 conversation, writing | Easygoing winemaker from Brda, sells rebula across the border; Gorizia and Nova Gorica are one town to him. | Small talk over a glass of wine, the grape harvest (trgatev), short letters and messages, Primorska places |
 | Gostilničarka Vida | 🍷 | 📜 conversation, writing | Innkeeper in Trnovo, busy and warm, German guests every summer. Nejc's mother. | Ordering food and drink, translating for guests, polite phrases, prices |

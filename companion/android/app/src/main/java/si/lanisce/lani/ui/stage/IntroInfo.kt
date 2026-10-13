@@ -339,6 +339,10 @@ object Intros {
         is Exercise.Scenario -> bi("introInfo.scene")
         is Exercise.Speak -> bi("introInfo.speaking")
         is Exercise.Unsupported -> null
+        is Exercise.GapText -> bi("introInfo.gapText")
+        is Exercise.Table -> bi("introInfo.table")
+        is Exercise.Transform -> bi("introInfo.transform")
+        is Exercise.Sort -> bi("introInfo.sort")
     }
 
     /** About how long one exercise takes, in seconds. */

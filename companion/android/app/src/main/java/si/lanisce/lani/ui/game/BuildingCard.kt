@@ -59,5 +59,7 @@ fun BuildingCard(
         onMove = onMove,
         words = vm.upgradeWords(s, b.id),
         onPractise = { onPractise(); vm.practiseUpgrade(b.id) },
+        course = vm.school.gate(s, b.id),
+        extra = { si.lanisce.lani.ui.school.SchoolOnCard(vm, s, b, onOpen = onDismiss) },
     )
 }

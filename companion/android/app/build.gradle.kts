@@ -151,6 +151,46 @@ val cardFiles = tasks.register<CardFiles>("cardFiles") {
 }
 
 /**
+ * The school's course (companion/course/<language>/course.json and units/<id>.json, lani.course/v0 and lani.unit/v0;
+ * companion/COURSE.md), bundled as Java resources under course/<language>/, with course/index.json listing each language's
+ * units: the school has them without the bridge (data/Course.kt), which serves them with the tutor's homework (GET
+ * /course). A repository without a course bundles none (the school isn't offered).
+ */
+abstract class CourseFiles : DefaultTask() {
+    @get:InputFiles @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val sources: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val root: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val dir = out.get().asFile.resolve("course")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        val root = root.get().asFile
+        val langs = root.listFiles { f -> f.isDirectory && f.resolve("course.json").isFile }.orEmpty().map { it.name }.sorted()
+        val index = langs.map { lang ->
+            val to = dir.resolve(lang).apply { mkdirs() }
+            root.resolve("$lang/course.json").copyTo(to.resolve("course.json"))
+            val units = root.resolve("$lang/units").listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty().sortedBy { it.name }
+            val unitsTo = to.resolve("units").apply { mkdirs() }
+            units.forEach { it.copyTo(unitsTo.resolve(it.name)) }
+            "\"$lang\": " + units.joinToString(", ", "[", "]") { "\"${it.nameWithoutExtension}\"" }
+        }
+        dir.resolve("index.json").writeText(if (index.isEmpty()) "{}\n" else index.joinToString(",\n  ", "{\n  ", "\n}\n"))
+    }
+}
+
+val courseFiles = tasks.register<CourseFiles>("courseFiles") {
+    root.set(layout.projectDirectory.dir("../../course"))
+    sources.from(fileTree("../../course"))
+}
+
+/**
  * The car's audio drills (companion/drills/<language>/<id>.json, lani.drill/v0), bundled as Java resources under
  * drills/<language>/, with drills/index.json listing each language's drill ids: the road has them without the bridge
  * (data/Drills.kt), which serves them too (GET /drills).
@@ -218,6 +258,7 @@ androidComponents {
         variant.sources.resources?.addGeneratedSourceDirectory(grammarPages, GrammarPages::out)
         variant.sources.resources?.addGeneratedSourceDirectory(cardFiles, CardFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(drillFiles, DrillFiles::out)
+        variant.sources.resources?.addGeneratedSourceDirectory(courseFiles, CourseFiles::out)
     }
 }
 

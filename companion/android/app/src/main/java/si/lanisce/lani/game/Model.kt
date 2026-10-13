@@ -394,6 +394,11 @@ data class GameState(
      * older save has none; an older bridge keeps it as it is, and the tutor's list_cards reads it.
      */
     val sheet: SheetState = SheetState(),
+    /**
+     * The learner's way through the school's course (see [School], companion/COURSE.md): the classroom under the linden,
+     * the levels opened, each unit's progress. Null before the first; an older bridge keeps it as it is (PUT /game).
+     */
+    val course: CourseProgress? = null,
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

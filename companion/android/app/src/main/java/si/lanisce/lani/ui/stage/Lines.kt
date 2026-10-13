@@ -153,12 +153,17 @@ object Lines {
         is Exercise.Scenario -> listOf(G("Kaj bi {m:rekel|f:rekla}?", "Kaj bi rekli?", "What would you say?", it = "Che cosa diresti?", de = "Was würdest du sagen?"))
         is Exercise.Multi -> listOf(G("Poišči vse prave.", "Poiščite vse prave.", "Find all the right ones.", it = "Trova tutte quelle giuste.", de = "Finde alle richtigen."))
         is Exercise.Unsupported -> listOf(G("Tole je nekaj novega.", "This is something new.", it = "Questa è una cosa nuova.", de = "Das ist etwas Neues."))
+        is Exercise.GapText -> listOf(G("Dopolni besedilo.", "Dopolnite besedilo.", "Fill in the text.", it = "Completa il testo.", de = "Ergänze den Text."))
+        is Exercise.Table -> listOf(G("Dopolni tabelo.", "Dopolnite tabelo.", "Fill in the table.", it = "Completa la tabella.", de = "Ergänze die Tabelle."))
+        is Exercise.Transform -> listOf(G("Spremeni vsak stavek.", "Spremenite vsak stavek.", "Change each one.", it = "Trasforma ogni frase.", de = "Verändere jeden Satz."))
+        is Exercise.Sort -> listOf(G("Razvrsti besede.", "Razvrstite besede.", "Sort the words.", it = "Metti in ordine le parole.", de = "Sortiere die Wörter."))
     }.of(register)
 
     /** An intro's request, by what the run is (the villager's own greeting may come first). */
     fun ask(run: Run, register: String): VillagerLine = when (run) {
         is Run.Quest -> HELP
         is Run.Module -> if (run.giver != null) HELP else G("Gremo vadit!", "Let's go and practise!", it = "Andiamo a esercitarci!", de = "Komm, wir üben!")
+        is Run.Lesson -> G("Pa začnimo!", "Let's begin!", it = "Cominciamo!", de = "Fangen wir an!")
         is Run.Pack -> G("Naučim te nekaj novih besed.", "Naučim vas nekaj novih besed.", "Let me teach you some new words.", it = "Ti insegno qualche parola nuova.", de = "Ich bringe dir ein paar neue Wörter bei.")
         is Run.Gather -> when (run.res) {
             Res.FOOD -> G("Greva na njivo?", "Shall we go to the field?", it = "Andiamo nel campo?", de = "Gehen wir auf den Acker?")

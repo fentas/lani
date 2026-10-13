@@ -120,12 +120,17 @@ data class UpgradeOption(
     val moba: Moba? = null,
     /** The building's words it asks for ("Knowledge builds", see [BuildingWords]); null: none asked. */
     val words: UpgradeWords? = null,
+    /** What the school's upgrade asks of the course ([School.gate]): a level's units all done; null: nothing asked. */
+    val course: CourseGate? = null,
 ) {
     /** The words hold nothing back. */
     val wordsDone: Boolean get() = words?.done != false
 
-    /** It can be done with the neighbours' help: they bring timber and stone, never the words. */
-    val mobaAvailable: Boolean get() = moba?.affordable == true && wordsDone
+    /** The course holds nothing back. */
+    val courseDone: Boolean get() = course?.done != false
+
+    /** It can be done with the neighbours' help: they bring timber and stone, never the words, nor the course's units. */
+    val mobaAvailable: Boolean get() = moba?.affordable == true && wordsDone && courseDone
 }
 
 /**
@@ -284,6 +289,10 @@ object GameEngine {
         is Exercise.Translate -> if (exercise.grade == "claude") Res.WISDOM else Res.FOOD
         is Exercise.Speak -> Res.WISDOM // conversation
         is Exercise.Unsupported -> Res.FOOD
+        // the school's worksheets, each item an answer ([si.lanisce.lani.data.Sheets]): typed into a gap, a cell or a line
+        // as a cloze is (grammar); a word sorted is a tap among the columns, as a plain choice is (vocabulary)
+        is Exercise.GapText, is Exercise.Table, is Exercise.Transform -> Res.STONE
+        is Exercise.Sort -> Res.FOOD
     }
 
     /**
@@ -462,9 +471,10 @@ object GameEngine {
     /**
      * Null when the building doesn't exist or is already at the top level. [words]: what the upgrade asks for of the
      * building's words ([BuildingWords.forUpgrade]; one for another building or level is left out); null asks for none.
-     * Until they are known it can't be done, with the neighbours' help neither.
+     * Until they are known it can't be done, with the neighbours' help neither. [course]: what the school's upgrade asks
+     * of the course ([School.gate]: a level's units all done); one for another building or level is left out.
      */
-    fun upgradeOption(state: GameState, buildingId: String, words: UpgradeWords? = null): UpgradeOption? {
+    fun upgradeOption(state: GameState, buildingId: String, words: UpgradeWords? = null, course: CourseGate? = null): UpgradeOption? {
         val b = state.buildings.firstOrNull { it.id == buildingId } ?: return null
         val to = b.level + 1
         if (to > Catalog.MAX_LEVEL) return null
@@ -479,8 +489,11 @@ object GameEngine {
         val reason = blocked ?: if (short.isNotEmpty()) "${bi("engine.need")} ${costText(short)}" else null
         val moba = if (blocked == null) Help.moba(state, cost) else null
         val asked = words?.takeIf { it.building == buildingId && it.toLevel == to }
+        // the school's next level waits for a course level's units (School.gate)
+        val gate = course?.takeIf { it.building == buildingId && it.toLevel == to }
         return UpgradeOption(
-            to, cost, reason == null && asked?.done != false, reason, Catalog.effectText(Catalog.spec(b.type).effect.at(to)), moba, asked,
+            to, cost, reason == null && asked?.done != false && gate?.done != false, reason, Catalog.effectText(Catalog.spec(b.type).effect.at(to)), moba, asked,
+            gate,
         )
     }
 
@@ -488,8 +501,10 @@ object GameEngine {
      * Upgrades one level; [withMoba]: with the neighbours' help when there is a moba to call. [words]: what it asks for of
      * the building's words (see [upgradeOption]): not known yet, nothing changes.
      */
-    fun upgrade(state: GameState, buildingId: String, now: Long, withMoba: Boolean = false, words: UpgradeWords? = null): GameState {
-        val o = upgradeOption(state, buildingId, words) ?: return state
+    fun upgrade(
+        state: GameState, buildingId: String, now: Long, withMoba: Boolean = false, words: UpgradeWords? = null, course: CourseGate? = null,
+    ): GameState {
+        val o = upgradeOption(state, buildingId, words, course) ?: return state
         val moba = withMoba && o.mobaAvailable
         if (!moba && !o.available) return state
         val (paid, used) = Help.pay(state, o.cost, moba) ?: return state

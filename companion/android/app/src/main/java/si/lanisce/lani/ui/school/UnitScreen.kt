@@ -1,0 +1,179 @@
+package si.lanisce.lani.ui.school
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.app.SheetKind
+import si.lanisce.lani.data.CourseUnit
+import si.lanisce.lani.data.Grammar
+import si.lanisce.lani.data.Worksheet
+import si.lanisce.lani.game.School
+import si.lanisce.lani.game.SheetBest
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.BigButton
+import si.lanisce.lani.ui.GradientHeader
+import si.lanisce.lani.ui.theme.AlpineGreen
+import si.lanisce.lani.ui.theme.XpGold
+
+/** "8/10" of a sheet's best try (an almost counting half). */
+internal fun bestText(b: SheetBest): String {
+    val s = b.score
+    val whole = s.toInt()
+    return (if (s - whole >= 0.5) "$whole½" else "$whole") + "/${b.of}"
+}
+
+/**
+ * A unit of the course: what it teaches and where the learner is in it: its intro, its worksheets, its test (and "⏩ I
+ * know it: straight to the test"), the tutor's homework; the next step one tap away; its pages in the book and the
+ * tutor, one tap away too.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
+    BackHandler { vm.openSchool(fromVillage) }
+    val unit = vm.school.unit(id) ?: run {
+        // gone (the course changed): back to the school
+        androidx.compose.runtime.LaunchedEffect(id) { vm.openSchool(fromVillage) }
+        return
+    }
+    val s = vm.game.state
+    val p = s?.let { School.progress(it, unit.language, unit.id) }
+    val step = School.nextStep(unit, p)
+    val base = L10n.pair.base.code
+    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 32.dp)) {
+        item {
+            GradientHeader(
+                "${unit.emoji} ${unit.titleShown(L10n.pair)}",
+                listOfNotNull(unit.level, unit.goal?.let { Grammar.text(it, base) }).joinToString(" · "),
+                "← ${schoolTitle(s)}",
+                onBack = { vm.openSchool(fromVillage) },
+            )
+        }
+        item {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                TeacherSays(vm, vm.school.teacher(), if (p?.done != null) "school.unitDoneSays" else "school.today", "unit" to si.lanisce.lani.l10n.Localized { l -> Grammar.text(unit.title, l.code) })
+                when (step) {
+                    School.Step.Intro -> BigButton("▶️ ${bi("school.continueStep", "step" to bi("school.intro"))}", color = XpGold, onClick = { vm.startIntro(unit.id, fromVillage) })
+                    is School.Step.Sheet -> unit.sheet(step.id)?.let { ws ->
+                        BigButton("▶️ ${bi("school.continueStep", "step" to ws.titleShown(L10n.pair))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.WORKSHEET, ws.id, fromVillage) })
+                    }
+                    School.Step.Test -> BigButton("🎓 ${bi("school.continueStep", "step" to bi("school.test"))}", color = XpGold, onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test", fromVillage) })
+                    School.Step.Done -> Text("✅ ${bi("school.unitIsDone")}", style = MaterialTheme.typography.titleMedium, color = AlpineGreen)
+                }
+                // knows it already: the test straight away; passed, the unit is done (tested out)
+                if (step != School.Step.Done && step != School.Step.Test) OutlinedButton(
+                    onClick = { vm.startSheet(unit.id, SheetKind.TEST, "test", fromVillage) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                ) { Text("⏩ ${bi("school.testOut")}") }
+            }
+        }
+        unit.intro?.let { intro ->
+            item { SectionTitle("📖 ${bi("school.intro")}") }
+            item {
+                StepCard(
+                    "📖", bi("school.intro"),
+                    when {
+                        p?.introDone == true -> "✅ ${bi("school.done")}"
+                        (p?.intro ?: 0) > 0 -> bi("school.introSteps", "done" to (p?.intro ?: 0), "of" to intro.steps.size)
+                        else -> bi("school.introAbout", "n" to intro.steps.size)
+                    },
+                    done = p?.introDone == true,
+                ) { vm.startIntro(unit.id, fromVillage) }
+            }
+        }
+        item { SectionTitle("📝 ${bi("school.worksheets")}") }
+        for ((i, ws) in unit.worksheets.withIndex()) item("ws-${ws.id}") {
+            SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.WORKSHEET, fromVillage)
+        }
+        item { SectionTitle("🎓 ${bi("school.test")}") }
+        item {
+            val t = p?.test
+            StepCard(
+                "🎓", bi("school.test"),
+                listOfNotNull(
+                    bi("school.testPass", "pass" to unit.test.pass),
+                    t?.let { bi("school.best", "score" to bestText(it)) },
+                    t?.let { bi("school.tries", "n" to it.tries) },
+                ).joinToString(" · "),
+                done = p?.done != null,
+            ) { vm.startSheet(unit.id, SheetKind.TEST, "test", fromVillage) }
+        }
+        if (unit.homework.isNotEmpty()) {
+            item { SectionTitle("🧑‍🏫 ${bi("school.homework")}") }
+            for ((i, ws) in unit.homework.withIndex()) item("hw-${ws.id}") {
+                SheetCard(vm, unit, ws, i + 1, p?.sheets?.get(ws.id), SheetKind.HOMEWORK, fromVillage)
+            }
+        }
+        item {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (unit.grammar.isNotEmpty()) {
+                    Text("📖 ${bi("school.inTheBook")}", style = MaterialTheme.typography.labelLarge)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (g in unit.grammar) vm.grammar.page(g)?.let { page ->
+                            AssistChip(onClick = { vm.grammar.show(g) }, label = { Text("${page.emoji} ${page.target}") })
+                        }
+                    }
+                }
+                OutlinedButton(onClick = { vm.school.ask(unit) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("💬 ${bi("common.askTutor")}") }
+                if (unit.machineWritten) Text("🤖 ${bi("school.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SectionTitle(text: String) {
+    Text(text, style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 4.dp).semantics { heading() })
+}
+
+/** One step of a unit: its picture, name, where it stands; ✓ once done. */
+@Composable
+private fun StepCard(emoji: String, title: String, line: String, done: Boolean, onClick: () -> Unit) {
+    Card(onClick = onClick, colors = CardDefaults.cardColors(containerColor = if (done) AlpineGreen.copy(alpha = 0.10f) else MaterialTheme.colorScheme.surface), modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
+        Row(Modifier.padding(horizontal = 14.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(emoji, style = MaterialTheme.typography.titleLarge)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(title, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                Text(line, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Text(if (done) "✅" else "›", style = MaterialTheme.typography.titleMedium)
+        }
+    }
+}
+
+/** A worksheet (or homework) of the unit: its number and title, its best try. */
+@Composable
+private fun SheetCard(vm: AppViewModel, unit: CourseUnit, ws: Worksheet, n: Int, best: SheetBest?, kind: SheetKind, fromVillage: Boolean) {
+    StepCard(
+        if (kind == SheetKind.HOMEWORK) "🧑‍🏫" else "📝",
+        "$n. ${ws.titleShown(L10n.pair)}",
+        best?.let { bi("school.best", "score" to bestText(it)) } ?: bi("school.exercises", "n" to ws.exercises.size),
+        done = best != null,
+    ) { vm.startSheet(unit.id, kind, ws.id, fromVillage) }
+}

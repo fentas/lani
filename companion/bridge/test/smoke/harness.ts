@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { sha256 } from '../../src/lexicon-download'
 import { CARRIERS, ffmpegCutter } from '../../src/voice'
+import { writeCourse } from './course-fixture'
 
 // Every temp dir goes away when the run ends, pass or fail.
 const temps: string[] = []
@@ -58,6 +59,10 @@ writeFileSync(join(modulesDir, 'curated-demo.json'), JSON.stringify({
     { type: 'cloze', text: 'Jaz ___ Jan.', accept: ['sem'] },
   ],
 }))
+// The school's course: a small Slovene one (course-fixture.ts) in a temp root, so the repo's companion/course doesn't
+// affect the checks (test/smoke/course.ts validates the repo's files on their own).
+export const courseRoot = tempDir('lani-smoke-course-')
+writeCourse(courseRoot)
 // The culture packs are the repo's (companion/cultures): the bridge serves the default one's cast (primorska/villagers).
 export const culturesDir = resolve(import.meta.dir, '../../../cultures')
 // The phone's offline voice (offline-voice.ts): a fake Hugging Face as a local directory, the cache and the catalog,
@@ -275,7 +280,7 @@ await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_BRIDGE_TOKEN: token, LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_RHYTHM: 'off', LANI_SCENARIOS_DIR: resolve(import.meta.dir, '../../../scenarios'), LANI_GRAMMAR_DIR: resolve(import.meta.dir, '../../../grammar'), LANI_DRILLS_DIR: resolve(import.meta.dir, '../../../drills'), LANI_SCENES_DIR: scenesDir, LANI_CULTURES_DIR: culturesDir, LANI_FAMILY_TOKEN: familyToken, ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: bridgeEleven.url, LANI_GEPARD_URL: bridgeGepard.url, LANI_VOICE_QUEUE_DELAY_MS: '0', LANI_STT_URL: bridgeWhisper.url, LANI_STT_TIMEOUT_MS: '800', LANI_WORDS_NOTE_MS: '1000', LANI_GLOSS_GAP_MS: '300', LANI_TOWN_FRIEND_CACHE_MS: '0', LANI_PIPER_URL: piper.source, LANI_PIPER_CACHE: piper.cache, LANI_PIPER_CATALOG: piper.catalog } as Record<string, string>,
+    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_BRIDGE_PORT: String(port), LANI_BRIDGE_TOKEN: token, LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_RHYTHM: 'off', LANI_SCENARIOS_DIR: resolve(import.meta.dir, '../../../scenarios'), LANI_GRAMMAR_DIR: resolve(import.meta.dir, '../../../grammar'), LANI_COURSE_DIR: courseRoot, LANI_DRILLS_DIR: resolve(import.meta.dir, '../../../drills'), LANI_SCENES_DIR: scenesDir, LANI_CULTURES_DIR: culturesDir, LANI_FAMILY_TOKEN: familyToken, ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: bridgeEleven.url, LANI_GEPARD_URL: bridgeGepard.url, LANI_VOICE_QUEUE_DELAY_MS: '0', LANI_STT_URL: bridgeWhisper.url, LANI_STT_TIMEOUT_MS: '800', LANI_WORDS_NOTE_MS: '1000', LANI_GLOSS_GAP_MS: '300', LANI_TOWN_FRIEND_CACHE_MS: '0', LANI_PIPER_URL: piper.source, LANI_PIPER_CACHE: piper.cache, LANI_PIPER_CATALOG: piper.catalog } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

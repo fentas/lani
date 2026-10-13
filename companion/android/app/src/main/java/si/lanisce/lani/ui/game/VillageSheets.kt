@@ -222,6 +222,8 @@ fun BuildingSheet(
     onRepair: (withMoba: Boolean) -> Unit, onUpgrade: (withMoba: Boolean) -> Unit, onAges: () -> Unit, onDismiss: () -> Unit,
     onMove: (() -> Unit)? = null,
     words: si.lanisce.lani.game.UpgradeWords? = null, onPractise: () -> Unit = {},
+    course: si.lanisce.lani.game.CourseGate? = null,
+    extra: @Composable () -> Unit = {},
 ) {
     val cost = if (b.damaged) GameEngine.repairCost(s, b.id) else emptyMap()
     val canPay = cost.all { (r, n) -> s.res(r) >= n }
@@ -229,6 +231,8 @@ fun BuildingSheet(
     Sheet(onDismiss) {
         SheetHeader(b.type.emoji, b.type.label(), "${bi("common.level")} ${b.level}" +(if (b.builtAt > 0) " · ${date(b.builtAt)}" else ""))
         option?.let { Text("✨ ${it.effect}", style = MaterialTheme.typography.titleMedium, color = if (b.damaged) MaterialTheme.colorScheme.onSurfaceVariant else AlpineGreen) }
+        // the classroom under the linden, the school's course (ui/school)
+        extra()
         if (b.damaged) {
             Surface(color = TriglavRed.copy(alpha = 0.12f), shape = MaterialTheme.shapes.medium) {
                 Column(Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -245,7 +249,7 @@ fun BuildingSheet(
         } else {
             Text("✅ ${bi("villageSheets.goodShape")}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        val up = GameEngine.upgradeOption(s, b.id, words)
+        val up = GameEngine.upgradeOption(s, b.id, words, course)
         if (up == null) {
             if (!b.damaged) Text("⭐ ${bi("villageSheets.topLevel")}", style = MaterialTheme.typography.bodyMedium, color = XpGold)
         } else if (!b.damaged) {
@@ -259,6 +263,8 @@ fun BuildingSheet(
             }
             // knowledge builds: the building's words it asks for, and the run of the missing ones, one tap
             up.words?.let { UpgradeWordsCard(it, onPractise) }
+            // the school's next level waits for a course level's units (companion/GAME.md, "The school")
+            up.course?.let { si.lanisce.lani.ui.school.CourseGateCard(it) }
             // locked by the age: show the way there, one tap from its steps
             val needs = Catalog.upgradeAge(up.toLevel)
             if (s.age < needs) {

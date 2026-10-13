@@ -14,6 +14,8 @@ sealed interface DeepLink {
     data class Family(val challengeId: String) : DeepLink
     /** A question between towns ([key]): one the learner [asked] another town, or a guest's to them (data/TownQuestions.kt). */
     data class Question(val key: String, val asked: Boolean) : DeepLink
+    /** "🏫 Šola · School": a unit of the course ([unit]: the tutor's homework is in it), or the school. */
+    data class School(val unit: String? = null) : DeepLink
 
     companion object {
         const val EXTRA = "si.lanisce.lani.open"
@@ -28,6 +30,7 @@ sealed interface DeepLink {
             is Scene -> "scene:${link.id}" + (link.focus?.let { "@$it" } ?: "")
             is Family -> "family:${link.challengeId}"
             is Question -> "question:${if (link.asked) "a" else "r"}:${link.key}"
+            is School -> "school" + (link.unit?.let { ":$it" } ?: "")
         }
 
         fun parse(s: String?): DeepLink? {
@@ -39,6 +42,7 @@ sealed interface DeepLink {
                 "village" -> Village
                 "packs" -> Packs
                 "readings" -> Readings
+                "school" -> School(arg)
                 "module" -> arg?.let(::Module)
                 "scene" -> arg?.let { Scene(it.substringBefore('@'), it.substringAfter('@', "").ifBlank { null }) }
                 "family" -> arg?.let(::Family)
@@ -72,6 +76,8 @@ sealed interface DeepLink {
             is BridgeEvent.TownGuest -> Village
             // a guest's question to answer, or the answer to the learner's
             is BridgeEvent.TownQuestion -> Question(ev.key, asked = ev.kind == TownQuestions.ANSWER)
+            // the tutor's homework: in its unit
+            is BridgeEvent.WorksheetPublished -> if (ev.removed) null else School(ev.unit)
         }
     }
 }

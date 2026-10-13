@@ -27,6 +27,23 @@ function openQuest(q: any) {
   }
 }
 
+/**
+ * Where the learner is in the school's course (the village state's course: companion/COURSE.md, "The learner's
+ * progress"): the day the class began (the village a hamlet), the units done and those started, by id (get_course has the rest).
+ */
+function courseOf(c: any) {
+  if (!c || typeof c !== 'object') return undefined
+  const units = Object.entries(c.units && typeof c.units === 'object' ? c.units : {}) as [string, any][]
+  const id = (key: string) => key.slice(key.indexOf('/') + 1)
+  const done = units.filter(([, u]) => typeof u?.done === 'string').map(([k]) => id(k))
+  const begun = (u: any) => !!u && (u.started || u.introDone || (Number.isInteger(u.intro) && u.intro > 0) || (u.sheets && Object.keys(u.sheets).length) || u.test)
+  return {
+    classroom: typeof c.classroom === 'string' ? c.classroom : null,
+    done,
+    in_progress: units.filter(([, u]) => typeof u?.done !== 'string' && begun(u)).map(([k]) => id(k)),
+  }
+}
+
 export class GameStore {
   private listeners: ((doc: GameDoc) => void)[] = []
 
@@ -103,6 +120,8 @@ export class GameStore {
         festivals: s.festivals ?? {},
         calendar: calendar?.(s.festivals && typeof s.festivals === 'object' ? s.festivals : {}),
         surprise: s.surprise ?? undefined,
+        // the school's course (companion/COURSE.md): the day the class began, the units done and started
+        course: courseOf(s.course),
         stats: s.stats,
         chronicle: (s.log ?? []).slice(-10),
       },

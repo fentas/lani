@@ -73,12 +73,23 @@ sealed interface Screen {
      * storyteller's offer, the path and its stations, the treasure; back leads to the village when opened from there.
      */
     data class Treasure(val fromVillage: Boolean = false) : Screen
+    /**
+     * "📚 Šola · School" (ui/school, companion/GAME.md "The school"): the course's levels and units, the classroom under the
+     * linden; back leads to the village when opened from there.
+     */
+    data class School(val fromVillage: Boolean = false) : Screen
+    /** Unit [id] of the school's course (ui/school/UnitScreen): its intro, worksheets, test and homework. */
+    data class CourseUnit(val id: String, val fromVillage: Boolean = false) : Screen
+    /** Unit [id]'s guided introduction (ui/school/IntroScreen): steps with a quick question each, resumable. */
+    data class UnitIntro(val id: String, val fromVillage: Boolean = false) : Screen
+    /** A sheet of unit [unit]: a worksheet, its test or homework ([kind], [sheet]); [run] tells one run from the next. */
+    data class Sheet(val unit: String, val kind: si.lanisce.lani.app.SheetKind, val sheet: String, val fromVillage: Boolean = false, val run: Int = 0) : Screen
 }
 
 /** An exercise run: leaving it now would lose the answers so far. */
 val Screen.inRun: Boolean
     get() = this is Screen.Review || this is Screen.Player || this is Screen.Challenge || this is Screen.PackLearn || this is Screen.VisitRequest ||
-        this is Screen.GrammarPractice || this is Screen.UpgradeWords
+        this is Screen.GrammarPractice || this is Screen.UpgradeWords || this is Screen.Sheet
 
 /** What a village challenge answers to. */
 sealed interface ChallengeOrigin {

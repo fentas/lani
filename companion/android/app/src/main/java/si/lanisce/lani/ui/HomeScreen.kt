@@ -96,7 +96,7 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         val modules = vm.content.modules.map { vm.villagers.shown(it, state) }
         val packs = vm.packs.list.map { vm.villagers.shown(it, state) }
         val festival = si.lanisce.lani.game.Calendar.soon(state, java.time.LocalDate.now())?.id
-        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival)
+        val today = HomeLogic.today(d, modules, vm.content.newModules, packs, vm.packs.newIds, talking, vm.family.challenges, festival, si.lanisce.lani.ui.school.lessonIdea(vm))
         val offered = (listOf(today.primary) + today.more).filterIsInstance<HomeAction.Module>().map { it.info.id }.toSet()
         val needs = vm.game.state?.let { HomeLogic.needs(it, vm.scenes.active(it), vm.villagers.people(it), vm.scenes.all, offered) }.orEmpty()
 
@@ -131,7 +131,10 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
         item("learning") {
             Column(Modifier.padding(top = 24.dp)) {
                 LearningSection(
-                    tiles = listOf(
+                    tiles = listOfNotNull(
+                        // the school's course first (companion/GAME.md, "The school"), where the village's language has one: its
+                        // screen at once, also before the class begins (it says what begins it)
+                        si.lanisce.lani.ui.school.schoolTile(vm)?.let { st -> Tile("🏫", inTarget("school.title"), inBase("school.title"), st) { vm.openSchool(fromVillage = false) } },
                         Tile("📚", inTarget("homeScreen.newWords"), inBase("homeScreen.newWords"), HomeLogic.words(vm.packs.list, vm.packs.newIds)) { vm.openPacks() },
                         Tile("✨", inTarget("homeScreen.challenges"), inBase("homeScreen.challenges"), HomeLogic.challenges(vm.content.modules, vm.content.newModules)) { sheet = Sheet.CHALLENGES },
                         Tile("🗣️", inTarget("homeScreen.talk"), inBase("homeScreen.talk"), HomeLogic.talk(talking)) { vm.openTalk() },
@@ -187,6 +190,7 @@ private fun act(vm: AppViewModel, a: HomeAction) {
         is HomeAction.Pack -> vm.startPack(a.info.id)
         is HomeAction.Talk -> vm.openTalk()
         is HomeAction.Family -> vm.openFamily(a.challenge.id)
+        is HomeAction.Lesson -> vm.openUnit(a.unit)
     }
 }
 

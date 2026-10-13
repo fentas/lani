@@ -260,7 +260,14 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
         }
         is Exercise.Speak -> open(if (GAP.containsMatchIn(text)) Reads.TARGET else Reads.BASE)
         is Exercise.Flashcard, is Exercise.Dictation, is Exercise.Unsupported -> Taps.NONE
+        // the school's sheets: the text around the gaps, a table's labels and given cells, a list's lines given are what
+        // the items stand in (what brackets add, a lemma or a cue, once checked); a sort's prompt as well (its words:
+        // [sorted])
+        is Exercise.GapText, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> open(Reads.TARGET)
     }
+
+    /** A sort's word (one of the school's sheets): what it tests (its card says its gender), so only once checked. */
+    fun sorted(text: String): List<WordToken> = (if (answered) Taps(How.TAP) else Taps.NONE).words(text, reads)
 
     /** The words of a context: what brackets add once answered. */
     private fun open(usual: Reads) = Taps(How.TAP, usual = usual, brackets = answered)
@@ -337,6 +344,7 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
             is Exercise.Translate -> intoTarget
             is Exercise.Flashcard, is Exercise.Free, is Exercise.Unsupported -> false
             is Exercise.Cloze, is Exercise.Reorder, is Exercise.Dictation, is Exercise.Speak -> true
+            is Exercise.GapText, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> true
         }
 
     /** Whether anything of the exercise as it shows can be looked up now (the first time, a tip says so). */
@@ -353,6 +361,10 @@ class ExerciseTaps(val exercise: Exercise, val answered: Boolean, private val re
                 ex.options.orEmpty().let { o -> o.indices.any { option(it, o[it]).isNotEmpty() } }
             is Exercise.Flashcard -> front(ex.front, revealed = false).isNotEmpty()
             is Exercise.Dictation, is Exercise.Unsupported -> false
+            is Exercise.GapText -> prompt(ex.text).isNotEmpty()
+            is Exercise.Table -> ex.rows.any { r -> prompt(r.label).isNotEmpty() || r.cells.any { c -> c.given?.let { prompt(it).isNotEmpty() } == true } }
+            is Exercise.Transform -> ex.items.any { prompt(it.from).isNotEmpty() }
+            is Exercise.Sort -> ex.prompt?.let { prompt(it).isNotEmpty() } == true
         }
 
     companion object {

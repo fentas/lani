@@ -24,6 +24,11 @@ internal object RunTime {
         is Exercise.Speak -> 40
         is Exercise.Free -> 120
         is Exercise.Unsupported -> 5
+        // a page of work: about a cloze's time an item, a sorted word a choice's
+        is Exercise.GapText -> 20 * ex.gaps.size
+        is Exercise.Table -> 15 * ex.rows.sumOf { r -> r.cells.count { it.toFill } }
+        is Exercise.Transform -> 25 * ex.items.size
+        is Exercise.Sort -> 6 * ex.columns.sumOf { it.words.size }
     }
 
     /** The old flat time: 50 s and 4 s a question. */

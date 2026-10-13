@@ -220,7 +220,7 @@ private fun UpgradeWordsFinish(vm: AppViewModel, buildingId: String, outs: List<
     val s = vm.game.state
     // after the save: the answers count at once (the dashboard's words), so this is the card's new count
     val words = s?.let { vm.upgradeWords(it, buildingId) }
-    val up = s?.let { GameEngine.upgradeOption(it, buildingId, words) }
+    val up = s?.let { GameEngine.upgradeOption(it, buildingId, words, vm.school.gate(it, buildingId)) }
     val correct = outs.count { it.verdict == Verdict.CORRECT }
     val almost = outs.count { it.verdict == Verdict.ALMOST }
     Finish(

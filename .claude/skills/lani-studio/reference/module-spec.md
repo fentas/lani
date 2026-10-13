@@ -128,6 +128,107 @@ The learner reads `prompt`, can play `say` as a model (TTS, normal and 🐢 slow
 ```
 Keep `say` short (one sentence, what a person says in one breath). Recognizers write numbers as digits and drop punctuation, so avoid numbers in `say`. If the phone has no Slovene recognizer, the learner says it anyway and rates it themselves, so the exercise never blocks. Pronunciation isn't scored: a recognized sentence counts as correct.
 
+## The school's exercise types (worksheets)
+
+Four types for a page of work at once: `gaptext`, `table`, `transform` and `sort`. **They are worksheet types for now**:
+they go in the school's units, tests and homework (`lani.unit/v0`, `lani.worksheet/v0`, `publish_worksheet`;
+`companion/COURSE.md`), next to every module type above. Modules will accept them once every phone has an app that plays
+them; until then `publish_module` refuses them. Source of truth: `companion/bridge/src/course.ts`. They are strict: a key
+the type doesn't have is refused.
+
+Each names its rule like any exercise (`grammar`, a page id); an item may name its own (`grammar` on a gap, a cell, a
+line). The app grades **each item on its own** (a gap, a cell, a line, a word sorted) with its usual rules: a forgotten
+č, š or ž is almost right, a slip in the stem is forgiven, the ending never is. Once the sheet is checked each item shows
+right, almost or wrong with its correction. In a test an almost-right item counts half. `hint` (the 💡 of an item) and
+`explain` are English, short: the rule, never the answer.
+
+### `gaptext` — a text with gaps
+```json
+{
+  "type": "gaptext",
+  "grammar": "biti",
+  "instruction": "Dopolni z glagolom biti · Fill in with biti",
+  "title": "Pri babici Micki",
+  "text": "Danes ___ pri babici Micki. Babica ___ v kuhinji, otroci ___ na vrtu.",
+  "gaps": [
+    { "accept": ["sem"], "hint": "jaz → ?" },
+    { "accept": ["je"], "hint": "ona → ?" },
+    { "accept": ["so"], "hint": "oni → ?", "explain": "otroci = oni (three or more): so." }
+  ],
+  "bank": true,
+  "distractors": ["si"],
+  "translation": "Today I'm at Granny Micka's. Granny is in the kitchen, the children are in the garden."
+}
+```
+- `text`: a few sentences, at most 600 characters; each gap is `___` (three underscores or more); 2-12 gaps.
+- `gaps`: one per `___`, in order: `accept` (the right answers, the first shown as the correction), `hint`, `explain`,
+  `grammar`. As many gaps as `___`, or it is refused.
+- `bank` (default `false`): a word bank under the text (each gap's first answer, shuffled) plus `distractors` (0-6, only
+  with a bank; never a gap's answer, any case). A word of the bank is tapped into the gap being filled; typing works too.
+- `translation` (optional): the text's meaning in English, shown after checking. Also `instruction`, `title`, `explain`.
+- Checked all at once ("Preveri · Check").
+
+### `table` — conjugate or decline
+```json
+{
+  "type": "table",
+  "grammar": "biti",
+  "instruction": "Dopolni tabelo · Fill in the table",
+  "prompt": "biti (sedanjik) · to be (present)",
+  "lemma": "biti",
+  "columns": ["ednina · singular", "dvojina · dual", "množina · plural"],
+  "rows": [
+    { "label": "1. oseba", "cells": ["sem", { "accept": ["sva"], "form": "pres.1du" }, { "accept": ["smo"], "form": "pres.1pl" }] },
+    { "label": "2. oseba", "cells": [{ "accept": ["si"], "form": "pres.2sg", "hint": "ti …" }, "sta", { "accept": ["ste"], "form": "pres.2pl" }] }
+  ]
+}
+```
+- `columns`: 1-4 headings; `rows`: 1-12, each a `label` (at most 80 characters: jaz, ti …; or a case with its question,
+  "1. kdo? kaj?") and exactly one cell per column.
+- A cell is given (a string of at most 80 characters, shown as it is; "—" for none) or to fill (`{"accept": [...],
+  "hint", "explain", "grammar", "form"}`). At least one cell to fill.
+- `lemma` and a cell's `form` (the forms book's key: `pres.1sg`, `neg.3pl`, `past.f.sg`, `loc.sg`, `adj.f.sg` …:
+  lowercase, two or three parts): the form practised is the learner's word's too, and a wrong one comes back first in its
+  review.
+- Graded cell by cell; the grammar page's table is one tap away (📖). Also `instruction`, `prompt`, `explain`.
+
+### `transform` — a list to change
+```json
+{
+  "type": "transform",
+  "grammar": "zanikanje",
+  "instruction": "Zanikaj · Say it with no",
+  "cue": "ne",
+  "items": [
+    { "from": "Sem doma.", "accept": ["Nisem doma."], "hint": "sem → nisem" },
+    { "from": "Babica je v kuhinji.", "accept": ["Babica ni v kuhinji."], "lemma": "biti", "form": "neg.3sg" }
+  ]
+}
+```
+- `instruction` (required): the one instruction for the whole list ("Postavi v preteklik · Put it in the past", "V
+  množino · Into the plural"); `cue` (optional): shown between each line and its answer ("(preteklik)").
+- `items`: 2-12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `hint`, `explain`,
+  `grammar`, and `lemma`/`form` as in a table.
+- Each line typed whole, graded on its own.
+
+### `sort` — words into columns
+```json
+{
+  "type": "sort",
+  "grammar": "spol-samostalnikov",
+  "instruction": "Razvrsti po spolu · Sort by gender",
+  "columns": [
+    { "label": "moški · masculine", "words": ["kruh", "stol", "brat"] },
+    { "label": "ženski · feminine", "words": ["miza", "hiša", "sestra"] },
+    { "label": "srednji · neuter", "words": ["okno", "mleko", "jajce"] }
+  ],
+  "explain": "Most masculine nouns end in a consonant, feminine in -a, neuter in -o or -e."
+}
+```
+- `columns`: 2-4, each a `label` and the `words` that belong there (1-12); 4-16 words in all, none twice (any case).
+- Played by tap: a word, then its column (a word placed can be taken back); "Preveri · Check" marks each word. Also
+  `instruction`, `prompt`, `explain`.
+
 ## Village sidequests (`quest`)
 
 With a `quest` block, the module appears in the game *Moja vas* as a villager's request, and playing it pays the reward into the village.

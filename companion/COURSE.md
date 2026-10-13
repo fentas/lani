@@ -1,0 +1,359 @@
+# Šola · The school: the course
+
+Jan, 2026-10-13: "We are missing basic progression, as most language schools do: the basics and then onwards: biti in
+all its forms, male/female, …, tenses. Maybe after the start and some words one could build a school, and do these
+special exercises there. Not only dialogs and single questions; rather how it is at school: a text to fill out, a list
+of words to conjugate and so on, with help around all the time."
+
+The course is the school's: the language learned level by level (A1, A2, B1, B2), each level an ordered list of units,
+each unit a guided introduction, two to four worksheets and a test. It lives in `companion/course/<language>/` (Slovene:
+`companion/course/sl/`), beside the grammar book whose pages it teaches (`companion/grammar/<language>/`). The bridge
+validates and serves it (`GET /course`, `src/course.ts`); the app bundles it too (offline), plays it from the hamlet on
+(the class by the fire, under the linden, then in the school), and keeps the learner's progress in the village state.
+How it fits the game (the class, the gates, the pay) is in [GAME.md](GAME.md#the-school); this file is the format and
+how to write units.
+
+- [The files](#the-files)
+- [The course outline (lani.course/v0)](#the-course-outline-lanicoursev0)
+- [A unit (lani.unit/v0)](#a-unit-laniunitv0)
+- [The introduction](#the-introduction)
+- [Worksheets and the test](#worksheets-and-the-test)
+- [The school's exercise types](#the-schools-exercise-types)
+- [Homework (lani.worksheet/v0)](#homework-laniworksheetv0)
+- [The learner's progress](#the-learners-progress)
+- [Writing a unit](#writing-a-unit)
+
+## The files
+
+```
+companion/course/sl/
+  course.json          the outline: the levels and their units in order (lani.course/v0)
+  units/biti.json      a unit (lani.unit/v0), one file per unit, named by its id
+  units/spol.json
+<data>/app/course/<unit>/<id>.json   the tutor's homework for a unit (lani.worksheet/v0, publish_worksheet)
+```
+
+The bridge reads them per request (like the grammar book): a file that doesn't validate is skipped and logged, the rest
+is served. `companion/bridge/test/smoke/course.ts` validates every file of the repository.
+
+## The course outline (lani.course/v0)
+
+```json
+{
+  "schema": "lani.course/v0",
+  "language": "sl",
+  "levels": [
+    {
+      "level": "A1",
+      "units": [
+        { "id": "biti", "title": { "sl": "Biti: sem, si, je", "en": "To be: sem, si, je", "de": "Sein: sem, si, je", "it": "Essere: sem, si, je" } },
+        { "id": "spol", "title": { "sl": "Moški, ženski, srednji spol", "en": "Masculine, feminine, neuter", "de": "…", "it": "…" } },
+        { "id": "osebni-zaimki", "title": { "sl": "Jaz, ti, on, ona", "en": "I, you, he, she", "de": "…", "it": "…" }, "grammar": ["ti-vi"], "planned": true }
+      ]
+    },
+    { "level": "A2", "units": [] },
+    { "level": "B1", "units": [] },
+    { "level": "B2", "units": [] }
+  ],
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
+```
+
+- `language`: the language learned (`sl`, `it`, `de`, `en`).
+- `levels`: CEFR levels in order (A1, A2, B1, B2, C1, C2; each at most once). The school opens A1 to B2 (GAME.md).
+- `units`: in the recommended order. Each has its `id` (kebab-case, 2–63 characters, unique in the course) and `title`
+  (`{"sl", "en", "de", "it"}`: the language learned and every base; English always).
+- `planned: true`: a unit written later. It shows greyed in the school ("📝 Kmalu · Coming"), can't be opened, and doesn't
+  count for its level. `grammar` (optional) names the grammar pages it is to teach, for whoever writes it.
+- A unit that isn't planned has its file, `units/<id>.json`, of the same id and level. A unit file the outline doesn't
+  list comes after its level's units.
+
+## A unit (lani.unit/v0)
+
+```json
+{
+  "schema": "lani.unit/v0",
+  "id": "biti",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🟰",
+  "title": { "sl": "Biti: sem, si, je", "en": "To be: sem, si, je", "de": "Sein: sem, si, je", "it": "Essere: sem, si, je" },
+  "goal": { "en": "You can say who and where people are, and who isn't.", "de": "…", "it": "…" },
+  "grammar": ["biti", "zanikanje"],
+  "words": ["doma", "kuhinja", "šola", "utrujen", "učiteljica"],
+  "intro": { "table": { "head": ["…"] }, "steps": ["…"] },
+  "worksheets": ["…"],
+  "test": { "pass": 80, "exercises": ["…"] },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
+```
+
+| Field | What |
+|---|---|
+| `id`, `level`, `language` | as in the outline |
+| `emoji` | its picture in the school (default 📘) |
+| `title` | per language, English always; the language learned too |
+| `goal` | what the learner can do after it, per base (English always), one sentence |
+| `grammar` | 1–4 grammar-book pages it teaches, each once (`companion/grammar/<language>/<id>.json`): the cheat sheet puts their cards first during the unit's sheets, the summary card at the end of the intro is the first one. Never copy a page's explanation into the unit: name the page. |
+| `words` | 0–40 words it uses (lemmas or short phrases), for the tutor and the word lookup |
+| `intro` | the guided introduction (below) |
+| `worksheets` | 2–4 worksheets, in order |
+| `test` | the unit's test |
+| `machine_written`, `review` | as the grammar pages: who wrote it and who checked it |
+
+## The introduction
+
+Not a page to read first: the new material in small steps, as a teacher brings it, with a quick question after each
+step. Each step shows a few lines, an example or two, and a bit more of the table; then a question about what was just
+shown; the answer is revealed with a short why; then the next step. At the end the whole rule is a summary card (the
+unit's first grammar page), which stays the reference on the cheat sheet: the intro through (or skipped), the unit's
+pages are met (`CheatSheetController.met`), their cards unlocked.
+
+```json
+"intro": {
+  "table": { "head": [{ "sl": "oseba", "en": "who", "de": "wer", "it": "chi" }, { "sl": "biti", "en": "to be", "de": "sein", "it": "essere" }] },
+  "steps": [
+    {
+      "say": { "en": "**Biti** (to be) has a short form for each person. Start with one person: I, you, he or she.", "de": "…", "it": "…" },
+      "examples": [{ "sl": "Jaz sem {learner}.", "en": "I am {learner}.", "de": "…", "it": "…" }],
+      "rows": [["jaz", "sem"], ["ti", "si"], ["on, ona, ono", "je"]],
+      "ask": { "type": "choice", "prompt": "Babica ___ v kuhinji.", "options": ["sem", "si", "je"], "answer": 2, "explain": "Babica is one person (ona): je." }
+    }
+  ]
+}
+```
+
+- `table` (optional): the head of the table the steps build (2–4 cells, each words of the language or `{"sl", "en", …}`,
+  as a grammar page's table).
+- `steps`: 1–10 (a unit's: 3–6 is right). Each step:
+  - `say`: the teacher's few lines, per base (English always; Markdown, at most 600 characters each).
+  - `examples` (0–4): sentences of the language with their translation per base (`{"sl": …, "en": …, "de": …, "it": …}`,
+    the grammar book's examples); heard with 🔊, every word tappable.
+  - `rows` (0–8): rows added to the table under the head (as long as the head); the table grows as the steps go.
+  - `ask` (optional): one quick question about the step, a `choice` (tap) or a `cloze` (a one-word gap). Graded
+    lightly: a miss shows the answer and why, costs nothing and doesn't count on the rule.
+- The learner's place is kept (`intro` in the progress): leaving in the middle resumes there. "⏭ Poznam to · I know
+  this" skips to the worksheets. The intro can be opened again any time (the unit's "📖 Uvod · Introduction").
+
+## Worksheets and the test
+
+```json
+"worksheets": [
+  { "id": "biti-1", "title": { "sl": "Pri babici Micki", "en": "At Granny Micka's", "de": "…", "it": "…" }, "exercises": ["…"] }
+],
+"test": { "pass": 80, "exercises": ["…"] }
+```
+
+- A worksheet: `id` (kebab-case, unique in the unit; never `test`), `title` (per language: the language learned and
+  English at least), `exercises` (1–8): every exercise type of
+  a module (`flashcard`, `choice`, `cloze`, `reorder`, `translate`, `free`, `multi`, `scenario`, `dictation`, `speak`:
+  `.claude/skills/lani-studio/reference/module-spec.md`) and the school's own four (below). An optional `intro` (as the
+  unit's) comes before its exercises.
+- The test: `pass` (50–100, default 80): the share of its items to get right; `exercises` (2–12), the same types. An item
+  is one gap, one cell, one line of a transform list, one word sorted, or one other exercise; an almost-right item (a
+  missing č, š, ž) counts half.
+- Help is always there: the cheat sheet one tap away (📋 over the sheet, the unit's cards first), the sheet's words
+  looked up as an exercise's (never what it tests while it's open: a sort's words, what brackets add, only once
+  checked), a 💡 hint per gap, cell and line, and 💬 the tutor with the sheet attached. An item's `explain` shows in
+  shape as an exercise's (module-spec.md, "Explanations": one bold rule line, the examples as a list).
+
+## The school's exercise types
+
+Four types for a page of work at once. Each names its rule like any exercise (`grammar`, a page id); an item may name its
+own (`grammar` on a gap, a cell, a line). Graded on the phone with the app's rules (`Grading`: č, š, ž forgotten is
+almost; a slip in the stem forgiven; never the ending), each item marked right, almost or wrong with its correction
+once the sheet is checked. They are worksheet exercises (in a unit, a test, homework); modules will take them once every
+phone has an app that plays them.
+
+### gaptext: a text with gaps
+
+```json
+{
+  "type": "gaptext",
+  "grammar": "biti",
+  "instruction": "Dopolni z glagolom biti · Fill in with biti",
+  "title": "Pri babici Micki",
+  "text": "Danes ___ pri babici Micki. Babica ___ v kuhinji, otroci ___ na vrtu.",
+  "gaps": [
+    { "accept": ["sem"], "hint": "jaz → ?" },
+    { "accept": ["je"], "hint": "ona → ?" },
+    { "accept": ["so"], "hint": "oni → ?", "explain": "otroci = oni (three or more): so." }
+  ],
+  "bank": true,
+  "distractors": ["si"],
+  "translation": "Today I'm at Granny Micka's. Granny is in the kitchen, the children are in the garden."
+}
+```
+
+- `text`: a few sentences (at most 600 characters), each gap `___` (three underscores or more); 2–12 gaps.
+- `gaps`: one per `___`, in order: `accept` (the right answers, the first shown as the correction), `hint`, `explain`,
+  `grammar`.
+- `bank` (default false): a word bank under the text, each gap's first answer, shuffled, plus `distractors` (0–6, only
+  with a bank). A word of the bank is tapped into the gap being filled; typing works too.
+- `translation` (optional): the text's meaning in English, shown after checking.
+- Checked all at once ("Preveri · Check"): each gap right, almost or wrong, its correction under it.
+
+### table: conjugate or decline
+
+```json
+{
+  "type": "table",
+  "grammar": "biti",
+  "instruction": "Dopolni tabelo · Fill in the table",
+  "prompt": "biti (sedanjik) · to be (present)",
+  "lemma": "biti",
+  "columns": ["ednina · singular", "dvojina · dual", "množina · plural"],
+  "rows": [
+    { "label": "1. oseba", "cells": ["sem", { "accept": ["sva"], "form": "pres.1du" }, { "accept": ["smo"], "form": "pres.1pl" }] },
+    { "label": "2. oseba", "cells": [{ "accept": ["si"], "form": "pres.2sg", "hint": "ti …" }, "sta", { "accept": ["ste"], "form": "pres.2pl" }] }
+  ]
+}
+```
+
+- `columns`: 1–4 headings; `rows`: 1–12, each a `label` (jaz, ti …; or a case with its question, "1. kdo? kaj?") and one
+  cell per column.
+- A cell is given (a string, shown as it is; "—" for none) or to fill (`{"accept": [...], "hint", "explain", "grammar",
+  "form"}`); at least one to fill.
+- `lemma` and a cell's `form` (the forms book's key: `pres.1sg`, `neg.3pl`, `past.f.sg`, `loc.sg` …): the form practised
+  is the learner's word's too, and a wrong one comes back first in its review (GAME.md, "A word's forms").
+- Graded cell by cell; the grammar page's table is one tap away (📖).
+
+### transform: a list to change
+
+```json
+{
+  "type": "transform",
+  "grammar": "zanikanje",
+  "instruction": "Zanikaj · Say it with no",
+  "cue": "ne",
+  "items": [
+    { "from": "Sem doma.", "accept": ["Nisem doma."], "hint": "sem → nisem" },
+    { "from": "Babica je v kuhinji.", "accept": ["Babica ni v kuhinji."], "lemma": "biti", "form": "neg.3sg" }
+  ]
+}
+```
+
+- `instruction`: the one instruction for the whole list ("Postavi v preteklik · Put it in the past", "V množino · Into the
+  plural"); `cue` (optional): shown between each line and its answer ("(preteklik)").
+- `items`: 2–12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `hint`, `explain`,
+  `grammar`, and `lemma`/`form` as in a table.
+- Each line typed whole, graded on its own.
+
+### sort: words into columns
+
+```json
+{
+  "type": "sort",
+  "grammar": "spol-samostalnikov",
+  "instruction": "Razvrsti po spolu · Sort by gender",
+  "columns": [
+    { "label": "moški · masculine", "words": ["kruh", "stol", "brat"] },
+    { "label": "ženski · feminine", "words": ["miza", "hiša", "sestra"] },
+    { "label": "srednji · neuter", "words": ["okno", "mleko", "jajce"] }
+  ],
+  "explain": "Most masculine nouns end in a consonant, feminine in -a, neuter in -o or -e."
+}
+```
+
+- `columns`: 2–4, each a `label` and the `words` that belong there (1–12); 4–16 words in all, none twice.
+- Played by tap: a word, then its column (a word placed can be taken back); "Preveri · Check" marks each word.
+
+## Homework (lani.worksheet/v0)
+
+The tutor adds worksheets to a unit (`publish_worksheet`): homework after a unit, an extra sheet on what the learner
+keeps getting wrong. They show in the unit under "🧑‍🏫 Domača naloga · Homework", the newest first, and pay like the
+unit's sheets; they don't hold the unit's test or the level back.
+
+```json
+{
+  "schema": "lani.worksheet/v0",
+  "unit": "biti",
+  "id": "biti-domaca-1",
+  "title": { "sl": "Domača naloga: biti", "en": "Homework: biti", "de": "…", "it": "…" },
+  "intro": { "steps": ["…"] },
+  "exercises": ["…"]
+}
+```
+
+`unit` names a unit of the course that isn't planned; `id` is unique in it and isn't one of the unit's own worksheets'
+(nor `test`; publishing the same id again replaces it); `language` (optional: the village's); `intro` (optional) and
+`exercises` (1–8) as a unit's worksheet. The bridge marks it the tutor's (`source: "tutor"`,
+`machine_written: true`) and tells the app (`worksheet_published`).
+
+## The learner's progress
+
+The village state keeps it (`GameState.course`, versioned; GAME.md "The school"): when the class began, each
+unit's place in its intro, each worksheet's best result, the test's tries and best, the day the unit was done (or tested
+out), the course levels opened. The bridge reads it for the tutor (`get_course`, `get_village`'s `course`). As the app
+saves it (a field left out is its default: null, 0, false, empty):
+
+```json
+"course": {
+  "v": 1,
+  "classroom": "2026-10-13",
+  "opened": { "sl/A1": "2026-10-13", "sl/A2": "2026-12-02" },
+  "units": {
+    "sl/biti": {
+      "started": "2026-10-13",
+      "intro": 4,
+      "introDone": true,
+      "sheets": { "biti-1": { "right": 11, "almost": 1, "of": 12, "day": "2026-10-13", "tries": 1 } },
+      "test": { "right": 9, "almost": 0, "of": 10, "day": "2026-10-14", "tries": 2 },
+      "done": "2026-10-14",
+      "testedOut": false
+    }
+  }
+}
+```
+
+- `classroom`: the day the class began (the village a hamlet; null: not yet, or a village whose school stood before the
+  school's course came, where the class is indoors from the start).
+- `opened`: the course levels opened, by `"<language>/<level>"`, the day each opened; a level once open stays open.
+- `units`, by `"<language>/<unit id>"`: `intro` the intro's steps done, `introDone` finished or skipped; `sheets` each
+  worksheet's (and homework's) best try, by its id (`right`, `almost`, `of` items, its `day`, `tries`); `test` the best
+  try of the test and its `tries`; `done` the day the test was passed; `testedOut` passed straight away, without the
+  worksheets.
+
+## Writing a unit
+
+- **Natural Slovene at the level**: short sentences of everyday words the learner meets in the village (the kitchen, the
+  field, the school, the people: Micka, Luka, France, Mojca …); `{learner}` for the learner, `{m:…|f:…}` for what agrees
+  with them (SCENES.md, "The learner in the content").
+- **One thing at a time**: the unit's rule, with what came before. Use only grammar of earlier units in the sentences
+  around a gap (the outline's order).
+- **The intro**: 3–6 steps, each one idea (the singular, then the plural, then the dual, then the negative), one quick
+  question each.
+- **The worksheets**: two to four, from easy to harder: a sort or a table first (the forms), then a gap text (the forms in
+  sentences), then a transform list (making the forms). 15–30 items in all.
+- **The test**: 8–15 items of every kind of the worksheets, new sentences, pass 80.
+- **Hints and whys** in English, as a module's (the app shows them as written), short: the rule, never the answer.
+- **Flag it**: `machine_written: true`, `review: "machine-written, not reviewed by a native speaker"`, until a native
+  speaker checked it.
+- **Validate**: `cd companion/bridge && bun test/smoke.ts` (the course section validates every unit, its pages and its
+  outline).
+
+### Craft notes (from biti and spol)
+
+- **One gap a sentence** where it can be: the corrections show each gap in its sentence ("Babica ___ v kuhinji."), and a
+  slip is kept with that sentence on the rule's page.
+- **A cue in brackets after the gap** when the word to change is given: `"To je ___ (moj) hiša."`; a transform list's
+  noun to put in: `"To je moj brat. (sestra)"`.
+- **A table's labels short** (`"jaz · midva · mi"`, `"1. kdo? kaj?"`) and its columns two-language (`"ednina · one"`):
+  TalkBack reads a cell as its row's label and its column's.
+- **Name the form** of a table's cells and a transform's lines (`lemma` + `form`) when the word is one the learner may
+  have as a card (biti, imeti, a noun of the packs): a wrong one then comes back first in the card's review. The keys are
+  the forms book's: `pres.1sg` … `pres.3du`, `neg.*`, `fut.*`, `past.m.sg` … `past.f.du`, `imp.2sg` …, the cases
+  `nom|gen|dat|acc|loc|ins` `.sg|.pl|.du`, `adj.m.sg` ….
+- **Several right answers**: list every one in `accept` (with and without the pronoun: `"Nisi lačen."`, `"Ti nisi
+  lačen."`); case and the final full stop don't matter, č/š/ž forgotten is almost.
+- **The word bank** for the first gap text of a unit (easier), none for the second and the test.
+- **The intro's table** is the rule's table built row by row: give the head once (`intro.table.head`) and each step's
+  new rows; a step without rows (an agreement step) only talks and asks. The last step is the exception or the twist.
+- **The test** mixes the worksheets' types with new sentences: about 10–13 items, `pass` 80.
+- **The outline** (`course.json`): when a unit is written, remove its `"planned": true` and its `grammar` hint stays a
+  hint; the A1 units planned are, in order: osebni-zaimki, sedanjik, mnozina, tozilnik, vprasalnice, stevila,
+  imeti-iti, nikalnica-rodilnik, mestnik, kdaj-cas, velelnik, modalni-glagoli, povratni-glagoli, pretekli-cas,
+  prihodnjik, dvojina (each with the grammar pages it is to teach). A unit may only use the grammar of the units before
+  it around its gaps: biti and spol first, then the pronouns and the present, so the cases come after sedanjik.

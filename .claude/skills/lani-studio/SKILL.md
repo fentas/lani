@@ -1,7 +1,7 @@
 ---
 name: lani-studio
 description: Create, adjust, fix, or retire practice modules and word packs in the Lani Android app — new drills, challenges, and exercise sets built from the learner's mistake patterns — and publish them live through the lani channel. Use when the learner asks for a new drill/challenge/module ("make me exercises for X", "this exercise is broken", "harder clitic practice") or for new words on a topic ("teach me words for the doctor"), when a session_end or mistakes-db shows a recurring weak pattern without a matching module, or when an app exercise needs correcting.
-allowed-tools: Read, Bash, mcp__lani__publish_module, mcp__lani__list_modules, mcp__lani__get_module, mcp__lani__rollback_module, mcp__lani__publish_pack, mcp__lani__list_packs, mcp__lani__publish_grammar, mcp__lani__list_grammar, mcp__lani__get_grammar, mcp__lani__publish_card, mcp__lani__list_cards, mcp__lani__remove_card, mcp__lani__publish_scenario, mcp__lani__list_scenes, mcp__lani__get_scene, mcp__lani__publish_scene, mcp__lani__remove_scene, mcp__lani__publish_dialog_variant, mcp__lani__remove_dialog_variant, mcp__lani__list_stories, mcp__lani__get_story, mcp__lani__publish_story, mcp__lani__remove_story, mcp__lani__list_readings, mcp__lani__get_reading, mcp__lani__publish_reading, mcp__lani__remove_reading, mcp__lani__list_villagers, mcp__lani__get_villager, mcp__lani__publish_villager, mcp__lani__remove_villager, mcp__lani__reply
+allowed-tools: Read, Bash, mcp__lani__publish_module, mcp__lani__list_modules, mcp__lani__get_module, mcp__lani__rollback_module, mcp__lani__publish_pack, mcp__lani__list_packs, mcp__lani__publish_grammar, mcp__lani__list_grammar, mcp__lani__get_grammar, mcp__lani__publish_card, mcp__lani__list_cards, mcp__lani__remove_card, mcp__lani__publish_scenario, mcp__lani__list_scenes, mcp__lani__get_scene, mcp__lani__publish_scene, mcp__lani__remove_scene, mcp__lani__publish_dialog_variant, mcp__lani__remove_dialog_variant, mcp__lani__list_stories, mcp__lani__get_story, mcp__lani__publish_story, mcp__lani__remove_story, mcp__lani__list_readings, mcp__lani__get_reading, mcp__lani__publish_reading, mcp__lani__remove_reading, mcp__lani__list_villagers, mcp__lani__get_villager, mcp__lani__publish_villager, mcp__lani__remove_villager, mcp__lani__reply, mcp__lani__publish_worksheet, mcp__lani__remove_worksheet, mcp__lani__get_course
 ---
 
 # Lani Studio — building the app from the inside
@@ -134,6 +134,26 @@ pages. When `list_grammar`'s `ripe`, the morning snapshot's or a session_end's `
 the next level up), introduce it when the learner is ready: a short module whose exercises name it, or its page extended
 for them (`publish_grammar` under its id). The app opens the page itself after 6 meetings on 2 days.
 
+### Homework for the school
+
+The school (`companion/COURSE.md`) teaches the language unit by unit: each unit a guided intro, 2-4 worksheets and a
+test, in its level's order. You add **homework** to a unit (`lani.worksheet/v0`): an extra worksheet, shown in the unit
+under "🧑‍🏫 Domača naloga · Homework", the newest first. It pays like the unit's sheets and never holds the test or the
+level back.
+
+When: a `session_end` with `data.course.unit_done` (the unit just done: homework on what went wrong in its results), or
+a weak pattern (`mistakes-db`) that a unit the learner has done teaches.
+
+1. `get_course`: the units, which are done and which are planned (no homework there), each unit's sheets and best tries,
+   and your homework already there (don't repeat an id unless you mean to replace it).
+2. Write the sheet (`{"schema": "lani.worksheet/v0", "unit": "<unit id>", "id": "<unit>-domaca-1", "title": {"sl": …,
+   "en": …, "de": …, "it": …}, "intro"?, "exercises": [...]}`): 1-8 exercises, any module type and the school's four,
+   `gaptext`, `table`, `transform`, `sort` (reference, "The school's exercise types"). Short: 10-20 items, natural A1-A2
+   Slovene of the unit's level and the units before it, the village's people and places, `{learner}` and gender pairs.
+   Every exercise (or item) names its rule (`grammar`); hints and whys in English, the rule, never the answer.
+3. `publish_worksheet` with a one-line `note`. It is flagged machine-written; a refusal (an unknown or planned unit, one
+   of the unit's own worksheet ids, a typo in a key) is real: fix the sheet. `remove_worksheet` takes one back.
+
 ### Role-play scenarios (conversations)
 
 The app's "Pogovor · Talk" screen plays **scenarios** (`lani.scenario/v0`): you act a character (the mother-in-law at Sunday lunch, the baker, the doctor), Jan answers by voice. Six curated ones ship in `companion/scenarios/`. Write a new one when the learner asks to practise a situation ("let's practise at the post office", "I have to call the plumber") or when their real life brings one up.
@@ -220,7 +240,7 @@ Publish modules that use a new type only after that release is out.
 
 ## Critical Rules
 
-- **Only change the app through the bridge tools.** Never write files under `<data>/app/modules/`, `<data>/app/packs/`, `<data>/app/scenarios/` or `<data>/app/scenes/` directly.
+- **Only change the app through the bridge tools.** Never write files under `<data>/app/modules/`, `<data>/app/packs/`, `<data>/app/scenarios/`, `<data>/app/scenes/` or `<data>/app/course/` directly.
 - **Validator errors are real errors.** Fix the spec, never loosen it.
 - **Linguistic correctness beats creativity.** If you're unsure a sentence is natural Slovene, use a simpler one.
 - **No English address in Slovene words.** Never a bare singular *fant* or *dekle* as an address ("Lahko noč, fant.", "Hvala, dekle."): it is English "lad"/"lass"; Slovene calls *fantje* only in the plural. Call the learner by name, `{learner}`, where a call fits (attention, the start of a talk, a warm moment), else not at all ("Lahko noč!"); an old villager may say *sinko* to a young man now and then, when moved (`Hvala, {m:sinko|f:{learner}}.`), never twice in a talk. Praise and descriptions stay ("{m:Priden fant|f:Pridno dekle}!", "tisti fant"). Reference, "The learner in the content".

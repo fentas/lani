@@ -158,6 +158,8 @@ data class Outcome(
     val spoken: Boolean = false,
     /** 💡 hint levels (or hinted reorder tiles) used; the verdict stays, the reward shrinks. */
     val hints: Int = 0,
+    /** A worksheet exercise's items checked (a gap, a cell, a line, a word sorted): each pays and counts on its own. */
+    val sheet: List<si.lanisce.lani.data.ItemMark> = emptyList(),
 ) {
     /** The verdict the village pays: a correct answer with hints counts as almost. */
     val paid: Verdict get() = Hints.paid(verdict, hints)
@@ -188,6 +190,8 @@ private fun typed(answer: String, accept: List<String>, explain: String?): Outco
  *   while the question is still open (companion/GAME.md, "Read first, then answer")
  * @param language the language of the exercises when it isn't the world's (another language's review at home): their
  *   words are looked up in it, and marked new against its deck
+ * @param pages the grammar pages the run is about besides its exercises' (a school unit's): its cheat sheet (📋 in the top
+ *   bar) has their cards right after the exercise's own
  *
  * The words of an exercise can be looked up (companion/README.md, "Exercises"): a tap in the prompt and the sentence with
  * the gap, a long press in the answers; never what the exercise tests while it's open ([ExerciseTaps]), everything once
@@ -210,6 +214,7 @@ fun ExerciseRun(
     text: ReadFirst? = null,
     onLook: () -> Unit = {},
     language: String? = null,
+    pages: List<String> = emptyList(),
     onComplete: (List<Outcome>) -> Unit,
 ) {
     var index by remember { mutableIntStateOf(0) }
@@ -259,9 +264,16 @@ fun ExerciseRun(
     }
     /** An answer: shown, and counted on its rule (whose page it may unlock). */
     val answered: (Outcome) -> Unit = { o ->
-        ruleAt(index)?.let { r ->
+        val ex = exercises[index]
+        if (o.sheet.isNotEmpty()) {
+            // a worksheet's items: one answer on each rule they name, as one exercise would (companion/GAME.md, "The school")
+            val items = si.lanisce.lani.data.Sheets.items(ex).map { if (it.grammar == null) it.copy(grammar = ruleAt(index)) else it }
+            for (r in si.lanisce.lani.data.Sheets.ruleAnswers(items, o.sheet, si.lanisce.lani.data.Sheets.sentences(ex))) {
+                vm.grammar.answered(r.rule, r.verdict, r.said, r.answer, r.correct)
+            }
+        } else ruleAt(index)?.let { r ->
             val slip = slips(index, o)
-            vm.grammar.answered(r, o.verdict, saidOf(exercises[index], vm.speaker::isSlovene), slip?.first ?: o.answer, slip?.second ?: o.correct)
+            vm.grammar.answered(r, o.verdict, saidOf(ex, vm.speaker::isSlovene), slip?.first ?: o.answer, slip?.second ?: o.correct)
         }
         // a timed run's right answer flashes by without a feedback box: its news waits for the run's end
         if (!(fast && o.verdict == Verdict.CORRECT)) noted = vm.grammar.fresh.toList()
@@ -320,8 +332,9 @@ fun ExerciseRun(
                 modifier = Modifier.weight(1f).height(10.dp).clip(CircleShape),
                 color = XpGold,
             )
-            // the cheat sheet, this exercise's cards first: free, help and not a hint
-            CheatButton(vm) { cheatContext(vm, ruleAt(index), exercises, rules, moduleId) }
+            // the cheat sheet, this exercise's cards first (then the pages the run is about: a school unit's): free, help and
+            // not a hint
+            CheatButton(vm) { (listOfNotNull(ruleAt(index)) + pages + cheatContext(vm, ruleAt(index), exercises, rules, moduleId)).distinct() }
             ChatButton(vm)
         }
         if (timeLimitSeconds != null) Countdown(remaining, timeLimitSeconds, waiting = waiting && clock == Clock.RUNNING)
@@ -554,6 +567,11 @@ private fun ExerciseView(vm: AppViewModel, moduleId: String?, index: Int, ex: Ex
         is Exercise.Scenario -> ScenarioEx(vm, ex, locked, done)
         is Exercise.Speak -> SpeakEx(vm, ex, locked, done)
         is Exercise.Unsupported -> UnsupportedEx(ex, done)
+        // the school's worksheet types (ui/school/SheetExercises.kt)
+        is Exercise.GapText -> si.lanisce.lani.ui.school.GapTextEx(vm, ex, locked, done)
+        is Exercise.Table -> si.lanisce.lani.ui.school.TableEx(vm, ex, locked, done)
+        is Exercise.Transform -> si.lanisce.lani.ui.school.TransformEx(vm, ex, locked, done)
+        is Exercise.Sort -> si.lanisce.lani.ui.school.SortEx(vm, ex, locked, done)
     }
 }
 
@@ -563,7 +581,7 @@ private fun ExerciseView(vm: AppViewModel, moduleId: String?, index: Int, ex: Ex
  * it's open: [ExerciseLook]), and the first time the tip about it shows under it ([WordTip]).
  */
 @Composable
-private fun Prompt(main: String, instruction: String? = null, say: String? = null) {
+internal fun Prompt(main: String, instruction: String? = null, say: String? = null) {
     val look = LocalLook.current
     if (instruction != null) {
         Text(instruction, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -1114,6 +1132,9 @@ internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = 
     is Exercise.Dictation -> ex.audio
     is Exercise.Speak -> ex.say
     is Exercise.Multi, is Exercise.Free, is Exercise.Unsupported -> null
+    // a gap text heard whole, its gaps filled; the others are lists of their own
+    is Exercise.GapText -> si.lanisce.lani.data.Sheets.filled(ex, ex.gaps.map { it.accept.firstOrNull() })
+    is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
 }
 
 /**
@@ -1149,6 +1170,20 @@ internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: Js
         put("prompt", prompt)
         if (ex is Exercise.Choice) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
         if (ex is Exercise.Multi) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
+        // a worksheet's items: each answer, what was right, where it stands
+        if (o.sheet.isNotEmpty()) {
+            val items = si.lanisce.lani.data.Sheets.items(ex)
+            put("items", buildJsonArray {
+                o.sheet.forEachIndexed { i, m ->
+                    add(buildJsonObject {
+                        items.getOrNull(i)?.let { put("in", it.frame) }
+                        put("answer", m.answer)
+                        put("expected", m.expected)
+                        put("verdict", m.verdict.name.lowercase())
+                    })
+                }
+            })
+        }
         put("learner_answer", o.answer)
         o.correct?.let { put("expected", it) }
         put("verdict", o.verdict.name.lowercase())
@@ -1175,6 +1210,10 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
     is Exercise.Dictation -> "dictation" to "🎧 ${ex.audio}"
     is Exercise.Speak -> "speak" to "🎤 ${ex.prompt} → ${ex.say}"
     is Exercise.Unsupported -> ex.kind to ex.kind
+    is Exercise.GapText -> "gaptext" to listOfNotNull(ex.instruction, ex.text).joinToString(" · ")
+    is Exercise.Table -> "table" to listOfNotNull(ex.instruction, ex.prompt ?: ex.lemma).joinToString(" · ")
+    is Exercise.Transform -> "transform" to listOfNotNull(ex.instruction, ex.cue).joinToString(" · ")
+    is Exercise.Sort -> "sort" to listOfNotNull(ex.instruction, ex.prompt, ex.columns.joinToString(" | ") { it.label }).joinToString(" · ")
 }
 
 /**

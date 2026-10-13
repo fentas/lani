@@ -144,6 +144,8 @@ class ScrollActions(
     val onKeeper: (si.lanisce.lani.game.scene.ActiveKeeper) -> Unit = {},
     /** "📖 Branje · Reading": the reading corner (ui/reading), from the grammar chapter. */
     val onReading: (() -> Unit)? = null,
+    /** "🏫 Šola · School": the school's course (ui/school), from the grammar chapter; null without a course. */
+    val onSchool: (() -> Unit)? = null,
 )
 
 /** Paper, ink and bindings; a warm night version for the dark theme. */
@@ -549,6 +551,11 @@ private fun section(k: Counted, s: ScrollSection, c: Contents, pal: Paper, goal:
             // the reading corner, next to the rules: what there is to read at the learner's level
             c.actions.onReading?.let { open ->
                 k.item("reading") { PaperRow(emoji = "📖", title = bi("readings.title"), sub = bi("readings.inBook"), pal = pal, onClick = open, onShow = null) }
+            }
+            // the school's course, unit by unit (companion/GAME.md, "The school")
+            c.actions.onSchool?.let { open ->
+                val begun = si.lanisce.lani.game.School.open(c.state)
+                k.item("school") { PaperRow(emoji = "🏫", title = bi("school.title"), sub = if (begun) bi("school.about") else "🔒 ${si.lanisce.lani.ui.school.beginsIn()}", pal = pal, onClick = open, onShow = null) }
             }
             grammarChapter(k, c.grammar, pal, onRule)
         }

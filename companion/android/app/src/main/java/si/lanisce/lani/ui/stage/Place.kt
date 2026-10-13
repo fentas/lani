@@ -40,6 +40,8 @@ enum class StagePlace(val art: String?, val top: Long, val bottom: Long, private
                 Res.STONE -> QUARRY
                 Res.WISDOM -> SQUARE
             }
+            // under the linden on the square until the school stands
+            is Run.Lesson -> if (run.indoors) home(who.art) else SQUARE
             else -> home(who.art)
         }
 

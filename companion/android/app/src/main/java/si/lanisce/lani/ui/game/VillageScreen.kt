@@ -589,6 +589,7 @@ fun VillageScreen(vm: AppViewModel) {
                     onVillagers = { scrollOpen = false; vm.openVillagers() },
                     onFriends = { scrollOpen = false; vm.openFriends() },
                     onReading = { scrollOpen = false; vm.openReadings(fromVillage = true) },
+                    onSchool = if (vm.school.course != null) { { scrollOpen = false; vm.openSchool(fromVillage = true) } } else null,
                     onFestival = { id -> scrollOpen = false; vm.startFestival(id) },
                     onSurprise = {
                         scrollOpen = false

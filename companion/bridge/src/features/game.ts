@@ -53,9 +53,11 @@ export const game: FeatureFactory = ({ game, villagers, culture }) => ({
         const current = game.read()
         if ((current?.rev ?? 0) !== r.data.rev) return json(current ?? { rev: 0, state: null }, 409)
         // an app from before generated land doesn't know the village's land and would drop it (its next tick would then
-        // mark it classic): the land stays as it was founded (GAME.md, "The land")
-        const land = (current?.state as Record<string, unknown> | null | undefined)?.land
-        const state = land !== undefined && r.data.state.land === undefined ? { ...r.data.state, land } : r.data.state
+        // mark it classic): the land stays as it was founded (GAME.md, "The land"); an app from before the school drops
+        // the learner's course (companion/COURSE.md) the same way: it stays as the newer app left it
+        const was = (current?.state ?? undefined) as Record<string, unknown> | null | undefined
+        const kept = Object.fromEntries((['land', 'course'] as const).flatMap(k => (was?.[k] !== undefined && r.data.state[k] === undefined ? [[k, was[k]]] : [])))
+        const state = Object.keys(kept).length ? { ...r.data.state, ...kept } : r.data.state
         const next = { rev: r.data.rev + 1, state }
         game.write(next)
         return json({ rev: next.rev })
@@ -66,7 +68,7 @@ export const game: FeatureFactory = ({ game, villagers, culture }) => ({
     {
       name: 'get_village',
       description:
-        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), recent chronicle.",
+        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), the school's course (the day the class began, the units done and in progress: get_course has the rest), recent chronicle.",
       inputSchema: { type: 'object', properties: {} },
       // the calendar as the app has it today: the days on, the next, which are quiet (towns.ts calendarOn)
       handle: () => ok(game.summary(id => villagers.get(id)?.name, kept => calendarOn(cultureFestivals(culture.dir, culture.id), localDate(new Date()), kept))),

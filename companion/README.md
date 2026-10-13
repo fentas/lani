@@ -22,10 +22,11 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 
 | Path | What |
 |---|---|
-| `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
+| `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
 | `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and the verb pairs (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
 | `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 44 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
+| `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
 | `modules/`, `packs/`, `scenarios/`, `scenes/` | Curated grammar modules (`lani.module/v0`, with villager quests), word packs (`lani.pack/v0`: Slovene in `packs/` itself, another target language in `packs/<language>/`, e.g. `packs/it/`, `packs/de/`, `packs/en/`), role-play scenarios (`lani.scenario/v0`) and village scenes (`lani.scene/v0`, see [SCENES.md](SCENES.md)). |
 | `cultures/` | Culture packs (`lani.culture/v0`, see [GAME.md](GAME.md#culture-packs)): the village's people, stories, feasts, goods and names, in its language. `primorska/` is the default village, with the cast in `primorska/villagers/` (`lani.villager/v0`, see [VILLAGERS.md](VILLAGERS.md)); `friuli/` is the second learner's Italian town in the Collio near Gorizia, with its cast, its festivals' word packs (`friuli/packs/`) and its voice cast (`friuli/voice-cast.json`, Italian voices); `kaernten/` is a German village in Carinthia (the Gailtal near Villach) for learners of German, the same parts in German with Slovene, English and Italian; `lakeland/` is the English village in a dale of the Lake District, for learners of English from Slovene, Italian or German (its starter packs in `packs/en/`), each with its voice cast. `villagers` is a link to `cultures/primorska/villagers`, the cast's old place, for a bridge started before the move; remove it once every bridge has restarted. |
@@ -682,17 +683,17 @@ offered or a feast to share shows once as a notice. Help and moves also come as 
 ## App API
 
 The answers that carry content (scenes, stories, villagers, arrivals, readings, modules, packs, role-plays, the
-grammar book, drills, the family's words, a town's villagers, scenes, requests and market) are said to the learner of
+grammar book, the course, drills, the family's words, a town's villagers, scenes, requests and market) are said to the learner of
 the profile: `{learner}` and `{m:…|f:…}` rendered for them (`Route.addressed`, `bridge/src/addressee.ts`; the tutor's
 tools keep the placeholders, [SCENES.md](SCENES.md#the-learner-in-the-content)).
 
-All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land").
+All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)).
 
 | Method | Path | Purpose |
 |---|---|---|
 | `POST` | `/pair` | `{code, device}` (no token) → `{v, token, device: {id, name}, profile, learner: {name, target, base, child}, fingerprint, public_key, signature}`; `403` wrong or spent code, `410` expired, `429` too many wrong codes (see [Pair a phone](#pair-a-phone)) |
 | `POST` | `/message` | `{kind: chat\|answer\|session_end\|roleplay\|roleplay_end\|villager_arrived, conversation_id, text, data?}` → into the session (`fam_…` conversation ids are the bridge's); a chat's `data.reply_to` quotes an earlier message of the chat (see [Tutor chat](#tutor-chat)) |
-| `GET` | `/events` | SSE stream: `reply`, `module_published`, `pack_published`, `grammar_published` (`{id, title, emoji, extended, note}`), `scenario_published`, `scene_published`, `scene_removed`, `variant_published` and `variant_removed` (a happening's dialog the tutor wrote or took back, `{scene, happening, id, title, emoji, note}`: the app reloads the scene, news only with a note), `villager_published`, `villager_removed`, `permission_request`, `app_update`, `partner_challenge`, `voice_updated`, `words_added`, `lexicon_updated`, `reading_published` (`{id, title, level, note}`) and `reading_removed` (`{id}`), `town_guest` (a guest from a linked town brought help, a gift, a trade or help against trouble, or a move changed: `{key, kind, from, learner}`, kind `help`, `gift`, `trade`, `aid`, `move`), `town_question` and `town_answer` (a guest's question to the learner, the answer to the learner's: `{key, from, learner, text}`). Resume with `Last-Event-ID`. |
+| `GET` | `/events` | SSE stream: `reply`, `module_published`, `pack_published`, `grammar_published` (`{id, title, emoji, extended, note}`), `scenario_published`, `scene_published`, `scene_removed`, `variant_published` and `variant_removed` (a happening's dialog the tutor wrote or took back, `{scene, happening, id, title, emoji, note}`: the app reloads the scene, news only with a note), `villager_published`, `villager_removed`, `permission_request`, `app_update`, `partner_challenge`, `voice_updated`, `words_added`, `lexicon_updated`, `reading_published` (`{id, title, level, note}`) and `reading_removed` (`{id}`), `worksheet_published` (the tutor's homework for a unit of the course, `{unit, id, title, note}`, the title as "target · base") and `worksheet_removed` (`{unit, id}`), `town_guest` (a guest from a linked town brought help, a gift, a trade or help against trouble, or a move changed: `{key, kind, from, learner}`, kind `help`, `gift`, `trade`, `aid`, `move`), `town_question` and `town_answer` (a guest's question to the learner, the answer to the learner's: `{key, from, learner, text}`). Resume with `Last-Event-ID`. |
 | `POST` | `/permission` | `{request_id, behavior: allow\|deny}` → answers a tool approval prompt |
 | `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
 | `POST` | `/level` | `{from, to, stations: [{id, skill, right, total, minutes?}], duration_minutes?, language?, client_id}`: the treasure found (the level test at the end of `from` passed, [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map)) → the new level `to` (the one after `from`, else `400`) persisted via `update-db.py` (the report's `level` sets `current_level` and `level_since`; a session `/lani-app-treasure`, the stations' answers by skill), Claude gets a `level_up` summary with the new level's grammar pages; `{already: true, level}` and nothing written when the level is there already. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
@@ -705,6 +706,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `GET` | `/grammar` | the grammar book of the village's language: the curated pages (`companion/grammar/<language>/`, `LANI_GRAMMAR_DIR` for another root) with what the tutor added to them (`extended`), then the tutor's own pages (`<data>/app/grammar/`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's (see [Grammar book](#grammar-book)) |
 | `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
 | `GET` | `/grammar/:id` | one page |
+| `GET` | `/course` | the school's course of the village's language (see [The school's course](#the-schools-course)): `{schema: "lani.course/v0", language, levels: [{level, units: [{id, title, planned, grammar}]}], units: [<lani.unit/v0> + homework: [<lani.worksheet/v0> + source: "tutor", published_at]], machine_written, review?}`; `404` `{error: "no course"}` when the language has none |
 | `GET` | `/drills` | the car's audio drills of the village's language (`companion/drills/<language>/`, `LANI_DRILLS_DIR` for another root), each with `source: "curated"` (see [The drills](#the-drills)); an older bridge answers 404 and the app plays its own copy |
 | `GET` | `/drills/:id` | one drill |
 | `POST` | `/packs/:id/learn` | `{results: [{word_id, quality 0-5}], duration_minutes, language?}` → new vocabulary SR items via `update-db.py` (known words skipped), in the home language's data or `language`'s, Claude gets a `words_learned` summary. A pack session and a festival's run in the village both post here |
@@ -1064,6 +1066,34 @@ Tests: `CheatSheetTest` (a page's card, its own card, the rule line; unlocking; 
 and the pages guessed; saved and loaded, an old save; the events), `CardsTest` (the formats, the bundled deck in every
 base, the merge); the smoke's `cards` section (the curated cards and the pages' own in every base, the formats,
 `GET /cards`, `publish_card`, `list_cards`, `remove_card`, the guide).
+
+## The school's course
+
+The school teaches the language level by level (A1, A2, B1, B2): each level an ordered list of units, each unit a guided
+introduction with a quick question after each step, two to four worksheets and a test. The format, the school's own
+exercise types (`gaptext`, `table`, `transform`, `sort`) and how to write a unit are in [COURSE.md](COURSE.md); how it
+fits the game (the class from the hamlet on, the school, the gates) in [GAME.md](GAME.md#the-school).
+
+**Served** (`bridge/src/course.ts`, `GET /course`): the outline `companion/course/<language>/course.json` and its units
+`companion/course/<language>/units/<id>.json` (`LANI_COURSE_DIR` for another root), read per request like the grammar
+book: a file that doesn't validate is skipped and logged once, a unit file of another level than the outline's too. A
+unit is served `planned` when it has no file; a unit file the outline lacks comes after its level's units. Each unit
+carries the tutor's homework for it (`<data>/app/course/<unit>/<id>.json`), the newest first. The app bundles the course
+too, for offline.
+
+**The tutor's tools.** `publish_worksheet {worksheet, note?}` validates homework (`lani.worksheet/v0`, the `language`
+taken from the village when missing) and publishes it into its unit: refused for a unit the course lacks or that is
+planned, an id of the unit's own worksheets, or another language; publishing an id again replaces it.
+`worksheet_published` tells the app, the intro's examples and the module types' lines are voiced, and the answer names a
+`grammar` page the book lacks. `remove_worksheet {unit, id}` takes it back (`worksheet_removed`). `get_course` shows the
+course and where the learner is (the village state's `course`, [COURSE.md](COURSE.md#the-learners-progress)): the
+day the class began, the school's level, each level open or not and its units done, each unit's intro, sheets (the best try of
+each), test (best try, tries) and homework, and the next unit; `get_village` has a short `course` block (the day the class began,
+the units done and in progress). A sheet played reaches the tutor as a `session_end` whose `data.course` is
+`{language, unit, level, sheet: <worksheet id> | "test" | <homework id>, kind: worksheet | test | homework, right, almost,
+of, passed?, unit_done?, tested_out?}`: persisted as any session end; a unit done is congratulated, and homework on what
+went wrong may follow. `test/smoke/course.ts` validates every course file of the repository (its outline, its units,
+the grammar pages they name).
 
 ## Voice
 
@@ -1988,6 +2018,8 @@ review card as from a dialog (`from: scene`), its sentence with the gap filled a
 | speak | the prompt's Slovene (a sentence with a gap: round it), the model sentence once shown | – |
 | scenario | the line and the scene while the answer is a reply (options in Slovene, or typed) | the line while the options are its meanings |
 | dictation | nothing is shown | – |
+| the school's gap text, table, transform list ([COURSE.md](COURSE.md)) | the text round the gaps (in its sentence), a table's row labels and given cells, a list's lines given | what brackets add (a lemma, a cue); the gaps, the cells and the lines to write have nothing |
+| the school's sort | its prompt | the words to sort: their card says their gender (once checked, by a tap) |
 
 A long press on a word of an answer that can't be looked up does nothing (a soft buzz): no card, and the option isn't
 chosen. While the exercise is open, a word the learner has shows no table of its forms on its card (`WordQuery.forms`):
@@ -2618,6 +2650,7 @@ companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, fr
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
+companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro, sheets and test
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2781,3 +2814,24 @@ asleep. A scene the village hasn't opened yet (no market, no tower) is skipped a
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
 with its ★ (`village-hud` looks at the HUD minimized over it, then goes back: nothing is built). `build:` lets it go.
+
+**The school** (GAME.md, "The school"; [COURSE.md](COURSE.md)). `data/SheetsTest` checks the four worksheet types'
+items (a gap in its own sentence, a table's cells with their forms, a transform's lines, a sorted word), their grading
+(a missing č is almost, a wrong ending wrong, an empty gap wrong), partial credit (an almost counts half; a sheet's
+verdict; the test's pass mark), a hint's pay, and what a sheet counts on the grammar book's rules (one answer a rule, its
+first slip, a sentence said right). `data/CourseTest` reads a served course (`data/CourseFixture`: the outline in order,
+a planned unit, a unit the outline lacks, the intro's steps and growing table, homework, a type of a newer app skipped).
+`game/SchoolTest` checks the class (begun with the hamlet: no words, no price, no linden; where it meets, by the fire, under the linden, in the school; its day kept once, the teacher named), the levels (A2 waiting for the
+school and A1's units; B1 and B2 for the school's levels, whose upgrades wait for the course: `GameEngine.upgradeOption`
+with the gate; a level once open staying open), the unit suggested next and the free order, a unit's steps, the best
+try kept, the test passed (the unit done once, its bonus) and tested out, and the progress through a save (and a save
+from before). `SimulationTest` plays the school (GAME.md, "Pacing" and "The school"). The bridge's side is
+`test/smoke/course.ts`. On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
+(the dev village's copy a hamlet with its linden: the class begins with it), checks that there's nothing to set up,
+goes back Home and opens the school from its tile, opens the unit biti, plays its intro step by step (a tap, a gap, a tap, a gap; the summary
+card), fills its tables with the cheat sheet (📋) opened over the first (biti's card in it), checks it, answers its gap text with one mistake
+and looks a word of it up (its card), checks the corrections, then takes the test straight away ("⏩ Znam že") and
+passes it (the third line typed without its č: almost, half an item): the unit done, and the dev bridge's village
+(`GET /game`) keeps it. Screenshots: `school-levels`, `school-home`, `school-unit`, `school-intro-1`, `school-intro-4`, `school-intro-summary`, `school-table`,
+`school-help`, `school-table-checked`, `school-sheet-done`, `school-word`, `school-gaptext`, `school-gaptext-checked`,
+`school-test-passed`.

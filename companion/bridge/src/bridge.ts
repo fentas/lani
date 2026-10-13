@@ -15,6 +15,7 @@ import { runService } from './bridge-service'
 import { castVoiced, useCastFile } from './cast'
 import { Channel, ok, type ChannelOptions } from './channel'
 import { loadConfig, log } from './config'
+import { courseDir, CourseStore } from './course'
 import { cultureDir, cultureProjects, resolveCulture, tutorOf, validateCulture } from './cultures'
 import { Events } from './events'
 import { Family } from './family'
@@ -22,6 +23,7 @@ import type { Ctx, Feature, FeatureFactory } from './feature'
 import { arrivals } from './features/arrivals'
 import { cards as cardsFeature } from './features/cards'
 import { chat } from './features/chat'
+import { course as courseFeature } from './features/course'
 import { culture as cultureFeature } from './features/culture'
 import { events } from './features/events'
 import { family, familyWords } from './features/family'
@@ -133,6 +135,9 @@ export async function startBridge(o: BridgeOptions) {
     grammar: new GrammarStore(grammarDir(env.LANI_GRAMMAR_DIR ?? join(projectDir, 'companion/grammar'), language), language, join(appDir, 'grammar'), log),
     // The cheat sheet's cards no grammar page fits (companion/cards/<language>), then the tutor's (publish_card).
     cards: new CardStore(cardsDir(env.LANI_CARDS_DIR ?? join(projectDir, 'companion/cards'), language), language, join(appDir, 'cards'), log),
+    // The school's course of the village's language (companion/course/<language>: sl, it, de, en), then the tutor's
+    // homework for its units (<data>/app/course).
+    course: new CourseStore(courseDir(env.LANI_COURSE_DIR ?? join(projectDir, 'companion/course'), language), language, join(appDir, 'course'), log),
     // The car's audio drills of the village's language (companion/drills/<language>): what they name checked against the
     // grammar book, the packs and the cast (read lazily: the context is being built here).
     drills: new DrillStore(drillsDir(env.LANI_DRILLS_DIR ?? join(projectDir, 'companion/drills'), language), language, () => ({ grammar: new Set(ctx.grammar.all().map(p => p.id)), packs: ctx.packs.all(), villagers: ctx.villagers.all() }), log),
@@ -210,7 +215,7 @@ export async function startBridge(o: BridgeOptions) {
 
   // The channel instructions are the features' paragraphs in this order, and so is the tool list.
   // A new feature: a module exporting `(ctx: Ctx) => Feature`, added to this list.
-  const features: Feature[] = [chat, modules, grammarFeature, cardsFeature, drillsFeature, rhythm, game, packs, lexicon, sentences, scenarios, scenes, stories, readings, villagers, arrivals, cultureFeature, family, voice, offlineVoice, stt, reviews, level, events, releases, pairing, towns, friendship, townQuestions, ...(o.extraFeatures ?? [])].map(f => f(ctx))
+  const features: Feature[] = [chat, modules, grammarFeature, cardsFeature, courseFeature, drillsFeature, rhythm, game, packs, lexicon, sentences, scenarios, scenes, stories, readings, villagers, arrivals, cultureFeature, family, voice, offlineVoice, stt, reviews, level, events, releases, pairing, towns, friendship, townQuestions, ...(o.extraFeatures ?? [])].map(f => f(ctx))
 
   // The default learner set up by lani-setup, their data a repository of its own: the instructions name them from their
   // profile and say where their data and session results are.

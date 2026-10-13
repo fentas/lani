@@ -564,6 +564,24 @@ internal class BuildingPainter(private val s: SceneCtx) {
         i.panelY(x + 0.8f, y + 2.45f, 2f, 1.4f, 1.5f, Pal.WOOD_M)
         if (fine) i.line(x + 0.8f, y + 2.45f, 2.75f, x + 2.2f, y + 2.45f, 2.75f, Pal.WOOD_D) // the backrest's slats
         if (b.level >= 2 && !env.snow) flowers(x + 0.5f, y + 1.5f, b.plot * 5)
+        if (s.classroom) classroom(x, y)
+    }
+
+    /**
+     * The class under the linden (GAME.md, "The school"): a blackboard on its easel at the tree's right, a word chalked on
+     * it, and a low bench for the pupils beside the old one.
+     */
+    private fun classroom(x: Float, y: Float) {
+        val board = Col.hex(0x2F4A3A)
+        val chalk = Col.hex(0xE6E6DA)
+        val bx = x + 2.75f; val by = y + 1.6f
+        i.post(bx + 0.05f, by + 0.1f, 0f, 5.5f, Pal.WOOD_D); i.post(bx + 0.05f, by + 0.85f, 0f, 5.5f, Pal.WOOD_D)
+        i.panelX(bx, by, 2f, 0.95f, 3.2f, board)
+        i.line(bx, by, 5.2f, bx, by + 0.95f, 5.2f, Pal.WOOD_M) // its frame's top
+        i.line(bx, by + 0.2f, 4.3f, bx, by + 0.65f, 4.3f, chalk)
+        if (fine) i.line(bx, by + 0.2f, 3.5f, bx, by + 0.45f, 3.5f, chalk)
+        i.box(x + 0.15f, y + 1.85f, 1.1f, 0.9f, 0.35f, 0.4f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        i.post(x + 0.25f, y + 2.2f, 0f, 1.1f, Pal.WOOD_X); i.post(x + 0.95f, y + 2.2f, 0f, 1.1f, Pal.WOOD_X)
     }
 
     private fun house(b: Building, x: Float, y: Float) {

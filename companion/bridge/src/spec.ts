@@ -24,7 +24,7 @@ const flashcard = z.object({
   speak: z.boolean().default(true), // app reads `front` aloud with sl-SI TTS
 })
 
-const choice = z
+export const choice = z
   .object({
     type: z.literal('choice'),
     grammar,
@@ -39,7 +39,7 @@ const choice = z
   })
   .refine(e => e.answer < e.options.length, { message: 'answer index out of range', path: ['answer'] })
 
-const cloze = z.object({
+export const cloze = z.object({
   type: z.literal('cloze'),
   grammar,
   text: text.refine(s => s.includes('___'), 'text must contain a ___ gap'),

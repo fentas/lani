@@ -55,6 +55,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "chat:<text>": a tutor message comes into the chat on the phone (as a reply would, not sent anywhere; "\n" in [text]
  *   a new line), "chat:table" the tutor's imeti with its list ([TUTOR_TABLE]): QA pins it to the cheat sheet.
  * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
+ * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
+ *   the linden standing), and the school opens, its class begun (companion/GAME.md, "The school").
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -112,7 +114,7 @@ object QaHooks {
     /** Does what [command] asks; [road] gets what is asked of the road ("mini", "car"); [forms] starts the forms' review. */
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
-        season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {},
+        season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -144,6 +146,7 @@ object QaHooks {
             command.startsWith("chat:") -> command.removePrefix("chat:").replace("\\n", "\n").takeIf { it.isNotBlank() }?.let(chat)
             command == "cheat" -> cheat(emptyList())
             command.startsWith("cheat:") -> cheat(command.removePrefix("cheat:").split(',').map { it.trim() }.filter { it.isNotEmpty() })
+            command == "school" -> school()
             command.startsWith("build:") -> {
                 val name = command.removePrefix("build:").trim().uppercase()
                 build = si.lanisce.lani.game.BuildingType.entries.firstOrNull { it.name == name && it.onPlot }
@@ -162,6 +165,22 @@ object QaHooks {
         val free = (0 until plots).any { p -> s.buildings.none { it.type.onPlot && it.plot == p } }
         val next = si.lanisce.lani.game.Age.entries.getOrNull(s.age.ordinal + 1)
         return if (free || next == null) full else full.copy(age = next)
+    }
+
+    /**
+     * [s] ready for the class under the linden ("school"): a hamlet at least (the class begins with it), the linden standing
+     * (on a free plot of the age; none when they're all taken: the class then meets by the fire). A debug build's, on the
+     * dev bridge's copy.
+     */
+    fun readySchool(s: si.lanisce.lani.game.GameState, now: Long): si.lanisce.lani.game.GameState {
+        var r = if (s.age < si.lanisce.lani.game.Age.ZASELEK) s.copy(age = si.lanisce.lani.game.Age.ZASELEK) else s
+        if (r.buildings.none { it.type == si.lanisce.lani.game.BuildingType.LIPA }) {
+            val plots = si.lanisce.lani.game.PLOTS_PER_AGE[r.age.ordinal]
+            val free = (0 until plots).firstOrNull { p -> r.buildings.none { it.type.onPlot && it.plot == p } }
+            r = if (free != null) r.copy(buildings = r.buildings + si.lanisce.lani.game.Building("lipa-qa", si.lanisce.lani.game.BuildingType.LIPA, free, builtAt = now))
+            else r
+        }
+        return r.copy(buildings = r.buildings.map { if (it.type == si.lanisce.lani.game.BuildingType.LIPA) it.copy(damaged = false) else it })
     }
 
     /** [now], or today at the hour QA asks the scenes to be seen at ("hour:<h>"). */

@@ -6,6 +6,7 @@ import type { CardStore } from './cards'
 import type { Profiles } from './profiles'
 import type { Channel, Tool } from './channel'
 import type { Config, Log } from './config'
+import type { CourseStore } from './course'
 import type { DrillStore } from './drills'
 import type { Manifest } from './cultures'
 import type { Events } from './events'
@@ -62,6 +63,8 @@ export type Ctx = {
   grammar: GrammarStore
   /** The cheat sheet's cards of the village's language that aren't a grammar page's (cards.ts): the curated ones and the tutor's. */
   cards: CardStore
+  /** The school's course of the village's language (course.ts): the curated outline and units, the tutor's homework. */
+  course: CourseStore
   /** The car's audio drills of the village's language (drills.ts): the curated ones. */
   drills: DrillStore
   scenarios: ScenarioStore

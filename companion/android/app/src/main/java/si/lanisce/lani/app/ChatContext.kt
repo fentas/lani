@@ -22,7 +22,9 @@ data class ChatContext(val label: String, val data: JsonObject, val key: String 
  * - `pack`: a word pack's practice (`pack_id`, `word_id`, `card_id`: the review card the word becomes, `variant`);
  * - `challenge`: a village challenge (`origin`, `title`, `exercise_index`) and what the exercise was made of: a review
  *   card (`card_id`), a module's exercise (`module_id`) or a festival pack's word (`pack_id`, `word_id`);
- * - `visit_request`: a request of a visited town (`town`, `request_id`, `exercise_index`), made of the host's words.
+ * - `visit_request`: a request of a visited town (`town`, `request_id`, `exercise_index`), made of the host's words;
+ * - `course`: a sheet of the school's course (companion/COURSE.md): the `language`, the `unit`, the `sheet` (a worksheet's
+ *   id, `test`, a homework's id, or `intro` for an intro's question) and the `exercise_index` in it.
  */
 object ExerciseSource {
     /** A review card's exercise; [form]: the word's form it asked ("form": the slot, "lemma", "page": its rule). */
@@ -37,6 +39,15 @@ object ExerciseSource {
             put("page", it.page)
             it.line?.from?.let { from -> put("line_from", from) }
         }
+    }
+
+    /** An exercise of the school's course: unit [unit]'s sheet [sheet] ("test", "intro", a worksheet's or homework's id). */
+    fun course(language: String, unit: String, sheet: String, index: Int): JsonObject = buildJsonObject {
+        put("kind", "course")
+        put("language", language)
+        put("unit", unit)
+        put("sheet", sheet)
+        put("exercise_index", index)
     }
 
     fun module(id: String, version: Int, index: Int): JsonObject = buildJsonObject {

@@ -414,6 +414,14 @@ internal object Catalog {
 
     const val MAX_LEVEL = 5
 
+    // --- the school (see School, GAME.md "The school") ----------------------------------------------------------------
+
+    /**
+     * What a unit done brings once (its test passed), × (1 + 0.3 × age index) as a request's reward: of the village's scarcest
+     * resource, as a request's side reward (the teacher's thanks go where the village needs them).
+     */
+    const val UNIT_DONE_BONUS = 20
+
     /** Upgrade price as a multiple of the build cost, by the level reached (index = level). */
     val upgradeFactor = listOf(0f, 1f, 2f, 3f, 5f, 7f)
 

@@ -193,7 +193,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     val homeReady = remember(state, home, vm.scenes.packs, vm.scenes.all, vm.content.dashboard) {
         val s = state
         if (s == null || home == null || home.damaged) false
-        else si.lanisce.lani.game.GameEngine.upgradeOption(s, home.id, vm.upgradeWords(s, home.id))?.available == true
+        else si.lanisce.lani.game.GameEngine.upgradeOption(s, home.id, vm.upgradeWords(s, home.id), vm.school.gate(s, home.id))?.available == true
     }
     var allFound by remember { mutableIntStateOf(0) }
     val found = scenes.foundIn(scene)
@@ -550,7 +550,11 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             }
         }
         if (!lifted) Recenter(anchors.camera, Modifier.fillMaxWidth().height(sceneHeight).padding(10.dp))
-        TopBar(scene, found.size, onBack = vm::openVillage, shown = !lifted, home = home, homeReady = homeReady, onHome = { homeOpen = true }, pills = pills)
+        TopBar(
+            scene, found.size, onBack = vm::openVillage, shown = !lifted, home = home, homeReady = homeReady, onHome = { homeOpen = true }, pills = pills,
+            // in the school: "📚" to its course (companion/GAME.md, "The school")
+            onSchool = if (home?.type == si.lanisce.lani.game.BuildingType.SCHOOL && vm.school.course != null) { { vm.openSchool(fromVillage = true) } } else null,
+        )
         if (allFound > 0) Confetti(key = "found-${scene.id}-$allFound")
         if (talk?.settled == true) Confetti(key = "talk-${talk.key}")
         upgradedTo?.let { Confetti(key = "upgraded-${home?.id}-$it") }
@@ -610,11 +614,11 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
 private fun TopBar(
     scene: SceneSpec, found: Int, onBack: () -> Unit, shown: Boolean = true,
     home: si.lanisce.lani.game.Building? = null, homeReady: Boolean = false, onHome: () -> Unit = {},
-    pills: MutableMap<String, IntRect> = HashMap(),
+    pills: MutableMap<String, IntRect> = HashMap(), onSchool: (() -> Unit)? = null,
 ) {
     LightStatusIcons()
     // out of the way while a dialog's panel has risen over the picture (the keyboard up): it would lie on the panel's header
-    AnimatedVisibility(shown, enter = fadeIn(), exit = fadeOut()) { TopBarRow(scene, found, onBack, home, homeReady, onHome, pills) }
+    AnimatedVisibility(shown, enter = fadeIn(), exit = fadeOut()) { TopBarRow(scene, found, onBack, home, homeReady, onHome, pills, onSchool) }
 }
 
 /** Where this pill is on the screen, in [pills] under [key] while it shows: what the bubbles over the picture keep off. */
@@ -636,7 +640,7 @@ private fun Modifier.pill(pills: MutableMap<String, IntRect>, key: String): Modi
 @Composable
 private fun TopBarRow(
     scene: SceneSpec, found: Int, onBack: () -> Unit, home: si.lanisce.lani.game.Building?, homeReady: Boolean, onHome: () -> Unit,
-    pills: MutableMap<String, IntRect>,
+    pills: MutableMap<String, IntRect>, onSchool: (() -> Unit)? = null,
 ) {
     Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         OverlayPill(Modifier.pill(pills, "back")) {
@@ -656,6 +660,12 @@ private fun TopBarRow(
                         modifier = Modifier.clearAndSetSemantics { },
                     )
                 }
+            }
+        }
+        onSchool?.let { open ->
+            Spacer(Modifier.width(6.dp))
+            OverlayPill(Modifier.pill(pills, "school")) {
+                TextButton(onClick = open) { Text("📚 ${si.lanisce.lani.l10n.inTarget("school.title")}", color = Color.White, style = MaterialTheme.typography.labelLarge) }
             }
         }
         Spacer(Modifier.weight(1f))

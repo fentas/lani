@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
         si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason, ready = vm::qaBuild,
-            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) })
+            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) }, school = vm::qaSchool)
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
@@ -168,6 +168,10 @@ private fun App(vm: AppViewModel) {
                 is Screen.VisitRequest -> key(screen) { VisitRequestScreen(vm, screen.request) }
                 is Screen.TownQuestion -> key(screen) { TownQuestionScreen(vm, screen.key, screen.asked) }
                 is Screen.Treasure -> si.lanisce.lani.ui.game.TreasureScreen(vm)
+                is Screen.School -> si.lanisce.lani.ui.school.SchoolScreen(vm, screen.fromVillage)
+                is Screen.CourseUnit -> key(screen) { si.lanisce.lani.ui.school.UnitScreen(vm, screen.id, screen.fromVillage) }
+                is Screen.UnitIntro -> key(screen) { si.lanisce.lani.ui.school.IntroScreen(vm, screen.id, screen.fromVillage) }
+                is Screen.Sheet -> key(screen) { si.lanisce.lani.ui.school.SheetScreen(vm, screen.unit, screen.kind, screen.sheet, screen.fromVillage) }
             }
             VoiceBadge(vm.family.voice, Modifier.align(Alignment.TopCenter))
         }

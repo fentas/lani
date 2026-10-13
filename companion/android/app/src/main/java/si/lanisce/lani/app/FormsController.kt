@@ -189,6 +189,30 @@ class FormsController(
     }
 
     /**
+     * Forms a school's worksheet practised ([practised]: the lemma, the form's key, right or not; companion/COURSE.md
+     * "table"): the learner's card of that word ([cards], one whose word is the lemma) gets each as asked, its repetitions
+     * left as they are, so a form got wrong comes first the next time the card asks one ([WordForms.pick]). Returns how
+     * many were kept (a word the learner has no card of keeps nothing).
+     */
+    fun practised(practised: List<Triple<String, String, Boolean>>, cards: List<ReviewCard>): Int {
+        if (practised.isEmpty()) return 0
+        val byLemma = cards.filter { it.kind == "vocabulary" }.mapNotNull { c -> WordFormsWire.lemmaOf(c)?.let { WordFormsWire.key(it) to c } }.toMap()
+        val day = LocalDate.now().toString()
+        var kept = 0
+        for ((lemma, key, right) in practised) {
+            val card = byLemma[WordFormsWire.key(lemma)] ?: continue
+            val k = WordForms.recordKey(language, card.id)
+            asked = asked + (k to WordForms.practised(asked[k], key, right, day))
+            kept++
+        }
+        if (kept > 0) {
+            val all = asked
+            scope.launch { withContext(io) { runCatching { write(askedFile, json.encodeToString(RECORDS, all)) } } }
+        }
+        return kept
+    }
+
+    /**
      * A review's form answers ([tasks] with their [verdicts] and what was [answers]ed): each card's record gets the form
      * asked and whether it was right (a slip in the stem counts right: the ending is what's asked), for the next to
      * choose; the answers as POST /reviews' `forms`, for the tutor's note (null when none was a form).

@@ -82,6 +82,7 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
             is BridgeEvent.PackPublished -> post(ev.id.hashCode(), "📚 ${bi("homeScreen.newWords")}", ev.note ?: ev.title ?: ev.id, link)
             is BridgeEvent.ReadingPublished -> if (!ev.removed) post("reading:${ev.id}".hashCode(), "📖 ${bi("readings.newReading")}", ev.note ?: ev.title ?: ev.id, link)
             is BridgeEvent.GrammarPublished -> post("grammar:${ev.id}".hashCode(), "📖 ${bi("grammar.newPage")}", ev.note ?: ev.title ?: ev.id, link)
+            is BridgeEvent.WorksheetPublished -> if (!ev.removed) post("worksheet:${ev.unit}/${ev.id}".hashCode(), "📝 ${bi("school.newHomework")}", ev.note ?: ev.title ?: ev.id, link)
             is BridgeEvent.PartnerChallenge -> post(ev.id.hashCode(), "${ev.emoji} ${Family.fromLabel(ev.from, ev.fromSl)}", ev.text, link)
             is BridgeEvent.AppUpdate -> post(2, "⬆️ ${bi("backgroundCheck.updateVersion", "versionName" to ev.versionName)}", ev.notes ?: inBase("backgroundCheck.openToInstall"), link)
             // a newcomer's introduction: the bubble in the village says it (the arrival itself was news enough)

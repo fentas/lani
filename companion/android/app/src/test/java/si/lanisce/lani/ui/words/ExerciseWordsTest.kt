@@ -205,4 +205,30 @@ class ExerciseWordsTest {
             kinds,
         )
     }
+    // --- the school's sheets (companion/COURSE.md) -------------------------------------------------------------------
+
+    @Test fun `a gap text's words round its gaps, what brackets add only once checked`() {
+        val ex = Exercise.GapText("Mama ___ (sedeti) na klopi. Midva ___ lačna.", listOf(si.lanisce.lani.data.Gap(listOf("sedi")), si.lanisce.lani.data.Gap(listOf("sva"))))
+        assertEquals(listOf("na", "klopi"), before(ex).prompt("(sedeti) na klopi.").texts())
+        assertEquals(listOf("sedeti", "na", "klopi"), after(ex).prompt("(sedeti) na klopi.").texts())
+        assertTrue(before(ex).any)
+    }
+
+    @Test fun `a table's labels and given cells, a list's lines given`() {
+        val table = Exercise.Table(
+            listOf("ednina · one"),
+            listOf(si.lanisce.lani.data.TableRow("jaz", listOf(si.lanisce.lani.data.TableCell("sem"))), si.lanisce.lani.data.TableRow("ti", listOf(si.lanisce.lani.data.TableCell(accept = listOf("si"))))),
+        )
+        assertEquals(listOf("sem"), before(table).prompt("sem").texts())
+        assertTrue(before(table).any)
+        val list = Exercise.Transform("Say it with no.", listOf(si.lanisce.lani.data.TransformLine("Miza je v kuhinji.", listOf("Miza ni v kuhinji."))), cue = "ne")
+        assertEquals(listOf("Miza", "je", "v", "kuhinji"), before(list).prompt("Miza je v kuhinji.").texts())
+    }
+
+    @Test fun `a sort's words only once checked (their card says the gender)`() {
+        val ex = Exercise.Sort(listOf(si.lanisce.lani.data.SortColumn("ženski · feminine", listOf("miza")), si.lanisce.lani.data.SortColumn("moški · masculine", listOf("stol"))))
+        assertEquals(emptyList<String>(), before(ex).sorted("miza").texts())
+        assertEquals(listOf("miza"), after(ex).sorted("miza").texts())
+        assertFalse(before(ex).any)
+    }
 }

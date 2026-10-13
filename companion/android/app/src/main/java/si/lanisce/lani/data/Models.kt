@@ -212,7 +212,127 @@ sealed interface Exercise {
     /** A type newer than this app. Rendered as a skip card with an update hint. */
     @Serializable @SerialName("__unsupported")
     data class Unsupported(val kind: String) : Exercise
+
+    // --- the school's worksheet types (companion/COURSE.md, "The school's exercise types"): a page of work at once ---
+
+    /**
+     * A short text with several gaps (`___`), one [Gap] each in order, checked all at once; [bank]: the gaps' first
+     * answers and the [distractors] to tap in, shuffled; [translation]: the text's meaning, shown once checked.
+     */
+    @Serializable @SerialName("gaptext")
+    data class GapText(
+        val text: String,
+        val gaps: List<Gap>,
+        val bank: Boolean = false,
+        val distractors: List<String> = emptyList(),
+        val instruction: String? = null,
+        val title: String? = null,
+        val translation: String? = null,
+        val explain: String? = null,
+        override val grammar: String? = null,
+    ) : Exercise
+
+    /** Forms to fill in: [rows] by [columns], some cells given, the rest typed; [lemma]: the word whose forms they are. */
+    @Serializable @SerialName("table")
+    data class Table(
+        val columns: List<String>,
+        val rows: List<TableRow>,
+        val prompt: String? = null,
+        val instruction: String? = null,
+        val lemma: String? = null,
+        val explain: String? = null,
+        override val grammar: String? = null,
+    ) : Exercise
+
+    /** A list to change ("sem → nisem"), one [instruction] for all, each line typed whole. */
+    @Serializable @SerialName("transform")
+    data class Transform(
+        val instruction: String,
+        val items: List<TransformLine>,
+        val cue: String? = null,
+        val explain: String? = null,
+        override val grammar: String? = null,
+    ) : Exercise
+
+    /** Words into 2–4 [columns] (moški, ženski, srednji spol), by tap: a word, then its column. */
+    @Serializable @SerialName("sort")
+    data class Sort(
+        val columns: List<SortColumn>,
+        val instruction: String? = null,
+        val prompt: String? = null,
+        val explain: String? = null,
+        override val grammar: String? = null,
+    ) : Exercise
 }
+
+/** A gap of a [Exercise.GapText]: what's right (the first shown as the correction), its hint, why, and its own rule. */
+@Serializable
+data class Gap(val accept: List<String>, val hint: String? = null, val explain: String? = null, val grammar: String? = null)
+
+/** A row of a [Exercise.Table]: its [label] (jaz, ti …; "1. kdo? kaj?") and a cell per column. */
+@Serializable
+data class TableRow(val label: String, val cells: List<TableCell>)
+
+/**
+ * A cell of a [Exercise.Table]: [given] (shown as it is; "—" for none) or to fill: [accept], its [hint], why, its rule, and
+ * the forms book's key of the form it is ([form], "pres.1sg": a wrong one comes back in the word's review).
+ * In the JSON a given cell is a plain string.
+ */
+@Serializable(with = TableCellSerializer::class)
+data class TableCell(
+    val given: String? = null,
+    val accept: List<String> = emptyList(),
+    val hint: String? = null,
+    val explain: String? = null,
+    val grammar: String? = null,
+    val form: String? = null,
+) {
+    val toFill: Boolean get() = given == null
+}
+
+/** A cell is a string (given) or an object (to fill). */
+object TableCellSerializer : kotlinx.serialization.KSerializer<TableCell> {
+    override val descriptor = kotlinx.serialization.descriptors.buildClassSerialDescriptor("TableCell")
+
+    override fun deserialize(decoder: kotlinx.serialization.encoding.Decoder): TableCell {
+        val e = (decoder as kotlinx.serialization.json.JsonDecoder).decodeJsonElement()
+        if (e is JsonPrimitive) return TableCell(given = e.content)
+        val o = e.jsonObject
+        fun s(k: String) = (o[k] as? JsonPrimitive)?.takeIf { it.isString }?.content
+        return TableCell(
+            accept = (o["accept"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull },
+            hint = s("hint"), explain = s("explain"), grammar = s("grammar"), form = s("form"),
+        )
+    }
+
+    override fun serialize(encoder: kotlinx.serialization.encoding.Encoder, value: TableCell) {
+        val out = encoder as kotlinx.serialization.json.JsonEncoder
+        if (value.given != null) return out.encodeJsonElement(JsonPrimitive(value.given))
+        out.encodeJsonElement(kotlinx.serialization.json.buildJsonObject {
+            put("accept", JsonArray(value.accept.map(::JsonPrimitive)))
+            value.hint?.let { put("hint", JsonPrimitive(it)) }
+            value.explain?.let { put("explain", JsonPrimitive(it)) }
+            value.grammar?.let { put("grammar", JsonPrimitive(it)) }
+            value.form?.let { put("form", JsonPrimitive(it)) }
+        })
+    }
+}
+
+/** A line of a [Exercise.Transform]: what's given ([from]), the whole answer ([accept]), and as a table's cell. */
+@Serializable
+data class TransformLine(
+    val from: String,
+    val accept: List<String>,
+    val hint: String? = null,
+    val explain: String? = null,
+    val grammar: String? = null,
+    val lemma: String? = null,
+    val form: String? = null,
+)
+
+/** A column of a [Exercise.Sort]: its [label] and the [words] that belong there. */
+@Serializable
+data class SortColumn(val label: String, val words: List<String>)
 
 // --- learner state (GET /state → read-db.py output) --------------------------------
 
@@ -589,6 +709,8 @@ sealed interface BridgeEvent {
     data class ReadingPublished(val id: String, val title: String?, val level: String?, val note: String?, val removed: Boolean = false) : BridgeEvent
     /** The tutor put a card on the cheat sheet (publish_card), or ([removed]) took one back. */
     data class CardPublished(val id: String, val title: String?, val note: String?, val removed: Boolean = false) : BridgeEvent
+    /** The tutor published homework [id] for the school's unit [unit] (companion/COURSE.md), or ([removed]) took it back. */
+    data class WorksheetPublished(val unit: String, val id: String, val title: String?, val note: String?, val removed: Boolean = false) : BridgeEvent
     /** The tutor wrote a page of the grammar book, or added to one ([extended]). */
     data class GrammarPublished(val id: String, val title: String?, val note: String?, val extended: Boolean = false) : BridgeEvent
     /** A family member sent Jan a challenge from the family page. */
@@ -651,6 +773,8 @@ sealed interface BridgeEvent {
                 "reading_removed" -> ReadingPublished(s("id") ?: return null, null, null, null, removed = true)
                 "card_published" -> CardPublished(s("id") ?: return null, s("title"), s("note"))
                 "card_removed" -> CardPublished(s("id") ?: return null, null, null, removed = true)
+                "worksheet_published" -> WorksheetPublished(s("unit") ?: return null, s("id") ?: return null, s("title"), s("note"))
+                "worksheet_removed" -> WorksheetPublished(s("unit") ?: return null, s("id") ?: return null, null, null, removed = true)
                 "grammar_published" -> GrammarPublished(s("id") ?: return null, s("title"), s("note"), o["extended"]?.jsonPrimitive?.booleanOrNull == true)
                 "partner_challenge" -> PartnerChallenge(s("id") ?: return null, s("from") ?: "", s("from_sl"), s("emoji") ?: "💌", s("text") ?: "")
                 "voice_updated" -> VoiceUpdated

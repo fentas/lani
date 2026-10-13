@@ -415,6 +415,7 @@ class GameController(
         justBuilt = id
         // a workplace brings its person (the beehive its beekeeper): they move in now, and wait to be met
         settleResidents()
+        onBuilt()
         return id
     }
 
@@ -432,6 +433,7 @@ class GameController(
         justBuilt = id // a new building goes up; a moved one goes up again at its new place
         // a workplace brings its person (the beehive its beekeeper): they move in now, and wait to be met
         if (choice.moving == null) settleResidents()
+        onBuilt()
         return id
     }
 
@@ -441,12 +443,25 @@ class GameController(
      */
     var upgradeWords: (GameState, String) -> si.lanisce.lani.game.UpgradeWords? = { _, _ -> null }
 
-    /** Upgrades [buildingId] one level ([withMoba]: the neighbours help); not until its words are known ([upgradeWords]). */
+    /** What the upgrade of a building asks of the school's course (the school's next level: a course level done; set by the view model). */
+    var courseGate: (GameState, String) -> si.lanisce.lani.game.CourseGate? = { _, _ -> null }
+
+    /**
+     * Something was built or upgraded, or the village reached its next age (the hamlet begins the school's class, a school
+     * standing or at its next level opens a course level: set by the view model).
+     */
+    var onBuilt: () -> Unit = {}
+
+    /**
+     * Upgrades [buildingId] one level ([withMoba]: the neighbours help); not until its words are known ([upgradeWords]), nor,
+     * for the school, the course level its next level asks for ([courseGate]).
+     */
     fun upgrade(buildingId: String, withMoba: Boolean = false): Boolean {
         val s = state ?: return false
-        val n = GameEngine.upgrade(s, buildingId, System.currentTimeMillis(), withMoba, upgradeWords(s, buildingId))
+        val n = GameEngine.upgrade(s, buildingId, System.currentTimeMillis(), withMoba, upgradeWords(s, buildingId), courseGate(s, buildingId))
         if (n == s) return false
         commit(n)
+        onBuilt()
         justBuilt = buildingId // replays the construction animation on the upgraded building
         return true
     }
@@ -632,6 +647,7 @@ class GameController(
         if (n.age == s.age) return null
         commit(n)
         celebrate++
+        onBuilt()
         return n.age
     }
 
@@ -709,6 +725,29 @@ class GameController(
             earned, result, correctCount(verdicts), module.exercises.size, answered = verdicts.size, almost = verdicts.count { it == Verdict.ALMOST },
             tired = tired, friend = friend, from = quest?.let { GiftFrom(it.emoji, it.giver) },
         )
+    }
+
+    /**
+     * A sheet of the school is done (companion/GAME.md, "The school"): each of its items pays as an answer ([pairs]),
+     * [record] keeps its progress and says whether the unit was done now (its test passed the first time: the unit's
+     * bonus, [message] on the result). Null when the village isn't loaded.
+     */
+    fun finishSheet(
+        pairs: List<Pair<Res, Verdict>>, correct: Int, almost: Int, record: (GameState) -> Pair<GameState, Boolean>, message: String,
+    ): Pair<Reward, Boolean>? = notices.village {
+        val earned = earn(pairs)
+        val s = state ?: return@village null
+        val (n, done) = record(s)
+        if (n != s) commit(n)
+        if (done) celebrate++
+        val bonus = Res.entries.associateWith { n.res(it) - s.res(it) }.filterValues { it > 0 }
+        val result = if (done) ChallengeResult(true, bonus, emptyMap(), emptyList(), message) else null
+        Reward(earned, result, correct, pairs.size, answered = pairs.size, almost = almost, tired = tired).also { lastReward = it } to done
+    }
+
+    /** Something worth a cheer happened outside the engine's runs (the classroom under the linden set up). */
+    fun cheer() {
+        celebrate++
     }
 
     /** Conversation feeds wisdom: one entry per line Jan said. */
