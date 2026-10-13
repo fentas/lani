@@ -23,14 +23,18 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -53,7 +57,6 @@ import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.GradientHeader
-import si.lanisce.lani.ui.Portrait
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.backLabel
 import si.lanisce.lani.ui.game.NextAgeRow
@@ -78,8 +81,9 @@ internal fun schoolTitle(s: GameState?): String = when {
 internal fun TeacherSays(vm: AppViewModel, teacher: Villager?, key: String, vararg args: Pair<String, Any?>) {
     val said = inTarget(key, *args)
     val meant = inBase(key, *args)
+    val talking by rememberTalking(vm)
     Row(verticalAlignment = Alignment.Top) {
-        if (teacher != null) Portrait(teacher.art, modifier = Modifier.size(56.dp), px = 56, seed = teacher.id.hashCode())
+        if (teacher != null) TeacherPortrait(teacher, if (talking) si.lanisce.lani.game.scene.Pose.TALK else si.lanisce.lani.game.scene.Pose.IDLE, 56.dp)
         else Text("👩‍🏫", style = MaterialTheme.typography.displaySmall)
         Spacer(Modifier.width(10.dp))
         Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f)) {
@@ -143,9 +147,30 @@ fun SchoolScreen(vm: AppViewModel, fromVillage: Boolean) {
         for (level in School.levels(s, course)) {
             item("level-${level.level}") { LevelSection(vm, s, course, level, fromVillage) }
         }
+        item { ReadSetting(vm, Modifier.padding(horizontal = 20.dp, vertical = 8.dp)) }
         if (course.machineWritten) item {
             Text("🤖 ${bi("school.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(20.dp))
         }
+    }
+}
+
+/**
+ * "🔊 Beri razlago · Read the explanations" ([si.lanisce.lani.data.IntroVoice.auto]): each step of a unit's introduction read
+ * aloud as it appears (on by default); off, nothing plays by itself, a step's 🔊 still reads it. Here and in the app's
+ * sound settings.
+ */
+@Composable
+fun ReadSetting(vm: AppViewModel, modifier: Modifier = Modifier) {
+    val voice = vm.introVoice
+    Column(modifier) {
+        Row(
+            Modifier.fillMaxWidth().toggleable(value = voice.auto, role = Role.Switch, onValueChange = voice::readAuto).padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("🔊 ${bi("school.readSetting")}", Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium)
+            Switch(checked = voice.auto, onCheckedChange = null)
+        }
+        Text(bi("school.readSettingHint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

@@ -2357,11 +2357,59 @@ def fill(label: str, text: str) -> bool:
     return True
 
 
+def intro_log() -> list:
+    """The pieces the intro's reading played (data/IntroVoice, tag IntroVoice): "<step>: <n>/<of> <lang> <source> "<text>"",
+    since the log was last cleared."""
+    out = []
+    for line in adb("logcat", "-d", "-s", "IntroVoice:I", check=False).splitlines():
+        m = re.search(r"IntroVoice\s*:\s*(\S+): (\d+)/(\d+) (\w+) (\S+) \"(.*)\"$", line)
+        if m:
+            at = re.search(r"\d\d:\d\d:\d\d\.\d+", line)
+            out.append({"step": m.group(1), "n": int(m.group(2)), "of": int(m.group(3)), "lang": m.group(4), "source": m.group(5), "text": m.group(6),
+                        "at": at.group(0) if at else ""})
+    return out
+
+
+def intro_reading(first_text: str):
+    """The intro's step read aloud as it appears (COURSE.md "Read aloud"): a shot as each piece begins (what is read
+    marked, Mojca talking), its pieces in order from the log (the explanation's clip, else its English by the phone's voice and
+    its Slovene in Mojca's, then the examples and the question), kept in intro-voice.txt; then 🔊 reads it again and a tap
+    on the text ([first_text]: the bubble's) stops it."""
+    # until its last piece plays, or nothing new for a while (a piece none could say is left out); a shot as each piece
+    # begins (a short one may be over before it): what is read marked, Mojca talking
+    end, got, changed = time.time() + 45 * slow(), [], time.time()
+    while time.time() < end:
+        now = intro_log()
+        if len(now) != len(got):
+            got, changed = now, time.time()
+            shot(f"school-intro-reading-{got[-1]['n']}")
+        if got and (got[-1]["n"] == got[-1]["of"] or time.time() - changed > 12 * slow()):
+            break
+        time.sleep(0.3)
+    (OUT / "intro-voice.txt").write_text("\n".join(f'{p["at"]} {p["n"]}/{p["of"]} {p["lang"]} {p["source"]} "{p["text"]}"' for p in got) + "\n")
+    assert got, "the step read aloud (no IntroVoice pieces in the log)"
+    assert [p["n"] for p in got] == sorted(p["n"] for p in got), "its pieces in order"
+    langs = {p["lang"] for p in got}
+    assert "sl" in langs, "its Slovene in Mojca's voice"
+    assert any(p["source"].startswith(("tts:", "explanation:")) for p in got if p["lang"] != "sl"), "its explanation: the clip, or the phone's voice"
+    # read again with 🔊, stopped by a tap on the text
+    assert tap("Preberi na glas · Read aloud", 4), "🔊 on the step"
+    assert wait_for("Ustavi · Stop", 8), "reading again (⏹)"
+    time.sleep(1.5)
+    shot("school-intro-replay")
+    c = next((c for t, c in nodes() if t.startswith(first_text)), None)
+    assert c is not None, "the explanation's text"
+    tap_at(c)
+    time.sleep(1.5)
+    assert find("Ustavi · Stop") is None and find("Preberi na glas · Read aloud") is not None, "a tap on the text stopped it"
+
+
 def school():
     """"📚 Šola · School" (GAME.md "The school", companion/COURSE.md; QA's hook "school": the dev village's copy a hamlet
     with its linden, the class begun with it): the levels (A1 open, ★ the unit next), Home's tile (the first of the
     learning tiles) opening the school directly, the unit biti: its intro
-    step by step (a quick question each, the table growing, the summary card), its tables with the cheat sheet opened
+    step by step (a quick question each, the table growing, the summary card; its first step read aloud as it appears,
+    what is read marked, Mojca talking, read again by 🔊 and stopped by a tap: intro-voice.txt), its tables with the cheat sheet opened
     mid-sheet (the unit's cards first), the gap text answered with one mistake (its corrections) and a word of it looked up, then its test
     straight away ("⏩ Znam že"), passed: the unit done."""
     if not (ROOT / "companion/course/sl/units/biti.json").exists():
@@ -2383,9 +2431,11 @@ def school():
     assert tap("Biti: sem, si, je", 5), "the unit biti"
     assert wait_for("Delovni listi", 8), "the unit"
     shot("school-unit")
-    # the intro, step by step: a quick question each, the table growing
+    # the intro, step by step: a quick question each, the table growing; the first step read aloud as it appears
+    adb("logcat", "-c")
     assert tap("Naprej: Uvod", 4) or tap("Uvod · Introduction", 3), "the intro"
     assert wait_for("Korak 1/4", 8), "the intro's first step"
+    intro_reading("Biti")
     for i, (kind, answer) in enumerate([("tap", "je"), ("otroci = oni", "so"), ("tap", "sta"), ("je → ?", "ni")], 1):
         assert wait_for(f"Korak {i}/4", 6), f"step {i}"
         if kind == "tap":

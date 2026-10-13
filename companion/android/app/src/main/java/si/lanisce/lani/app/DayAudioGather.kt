@@ -7,7 +7,10 @@ import si.lanisce.lani.audio.DayList
 import si.lanisce.lani.audio.DayPlan
 import si.lanisce.lani.audio.DayWant
 import si.lanisce.lani.data.Clips
+import si.lanisce.lani.data.Course
+import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.GrammarPage
+import si.lanisce.lani.data.IntroSpeech
 import si.lanisce.lani.data.Pack
 import si.lanisce.lani.data.PackInfo
 import si.lanisce.lani.data.PackSession
@@ -16,6 +19,7 @@ import si.lanisce.lani.data.Speaker
 import si.lanisce.lani.data.VoiceProfile
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.Mastery
+import si.lanisce.lani.game.School
 import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.DialogVariants
 import si.lanisce.lani.game.scene.Happenings
@@ -35,7 +39,7 @@ import java.time.LocalDateTime
 
 /**
  * What the app knows of the days ahead, for their audio ([DayAudio]): gathered from the controllers when the app is open
- * (the village, the cards, the packs, the grammar book), so the background job ([si.lanisce.lani.audio.Prefetch]) needn't
+ * (the village, the cards, the packs, the grammar book, the school), so the background job ([si.lanisce.lani.audio.Prefetch]) needn't
  * know the game. Each part is a list of lines in the voices the app plays them in ([Speaker.voices]).
  */
 class DayAudioGather(
@@ -58,6 +62,15 @@ class DayAudioGather(
     /** "Dobro jutro!", "Dober dan!", "Dober večer!": what someone just there says ([si.lanisce.lani.ui.greeting]). */
     private val greetings: List<String>,
     private val target: String,
+    /** The school's course (the units' introductions) and who teaches ([si.lanisce.lani.app.SchoolController.teacher]). */
+    private val course: Course? = null,
+    private val teacher: Villager? = null,
+    /** The learner's base language: the introductions' explanations are in it. */
+    private val base: String = "en",
+    /** What reads as the language learned ([Speaker.isSlovene]): the Slovene of an explanation, read in the teacher's voice. */
+    private val isSlovene: (String) -> Boolean = { false },
+    /** The node voices an explanation as one clip ([si.lanisce.lani.data.IntroVoice.FEATURE]): only then are they asked for. */
+    private val explains: Boolean = false,
 ) {
     /** Today's list and tomorrow's ([now]: what of today is already past isn't asked for). */
     suspend fun plan(now: LocalDateTime = LocalDateTime.now()): DayPlan {
@@ -77,6 +90,7 @@ class DayAudioGather(
             villagers(d),
             ispy(d, on.map { it.scene.id }.toSet()),
             grammarExamples(),
+            schoolIntros(),
         )
         return DayAudio.list(d, parts, companion)
     }
@@ -186,6 +200,31 @@ class DayAudioGather(
     private fun grammarExamples(): List<DayWant> =
         grammar.filter { it.language == target && mastery(it.id).let { m -> m == Mastery.NEW || m == Mastery.LEARNING } }
             .flatMap { p -> DayAudio.texts(p.examples.map { it.target(target) }, Clips.chain(), "grammar:${p.id}") }
+
+    /**
+     * The introductions of the school's next units ([School.next]: the unit under way or next, and the one after it in its
+     * level), as their steps are read ([IntroSpeech.step]): each explanation's one clip in the learner's base language, its
+     * Slovene forms and the examples, all in the teacher's voices; an introduction gone through already is left out.
+     */
+    private fun schoolIntros(): List<DayWant> {
+        val s = state ?: return emptyList()
+        val c = course?.takeIf { it.language == target } ?: return emptyList()
+        val next = School.next(s, c) ?: return emptyList()
+        val after = c.playable(c.levelOf(next.id) ?: return emptyList()).map { it.id }.dropWhile { it != next.id }.take(2)
+        val t = teacher
+        val voices = Speaker.voices(t?.speakerVoice ?: Clips.FEMALE, t?.voice, t?.id?.let(profiles::get)).all
+        return after.mapNotNull { c.units[it] }.filter { School.progress(s, c.language, it.id)?.introDone != true }.flatMap { u ->
+            val intro = u.intro ?: return@flatMap emptyList()
+            // as the step reads it (ui/school/IntroScreen): the app's check and the words the intro shows
+            val known = IntroSpeech.vocabulary(intro, u.language, u.title[u.language], isSlovene)
+            intro.steps.flatMapIndexed { i, step ->
+                val say = Grammar.text(step.say, base)
+                val script = IntroSpeech.step("${u.id}/$i", say, base, step.examples.map { it.target(u.language) }, step.ask) { t -> isSlovene(t) || IntroSpeech.within(t, known) }
+                val slovene = (script.stitched + script.lines).filter { it.slovene }.map { it.text }
+                DayAudio.intro(listOfNotNull(script.explanation?.plain?.takeIf { explains }), slovene, base, voices, "school:${u.id}")
+            }
+        }
+    }
 
     companion object {
         /** At most this many packs under way have their next words got ready. */

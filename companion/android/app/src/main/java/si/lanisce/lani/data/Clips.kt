@@ -51,6 +51,12 @@ data class VoiceProfile(val speaker: String, val archetype: String, val pitch: F
 /** Someone the app tells the node about, so they get a voice profile: a villager of the cast or a resident. */
 data class PersonVoice(val id: String, val name: String, val gender: String, val speaker: String, val stage: String? = null, val cast: Boolean = false, val order: Int? = null)
 
+/**
+ * A text the app asks the node to voice ahead ([ClipsApi.prepare]): in [voice]; with [lang], an explanation in that
+ * language (a unit's intro step: [IntroSpeech.key]), else a line in the language learned.
+ */
+data class ClipAsk(val text: String, val voice: String, val lang: String? = null)
+
 /** The node doesn't know this voice (HTTP 400: e.g. a character voice on an older bridge). */
 class VoiceRefused(voice: String) : IOException("voice $voice refused")
 
@@ -60,9 +66,13 @@ class ClipsApi(private val config: BridgeConfig) {
 
     suspend fun index(): String = http.text(config.request("/voice/index").build())
 
-    /** Asks the node to voice [text] now: the clip URL and its voice, or null when no engine is available (204). */
-    suspend fun say(text: String, voice: String): Pair<String, String>? {
-        val body = buildJsonObject { put("text", text); put("voice", voice) }.toString().toRequestBody(Http.jsonType)
+    /**
+     * Asks the node to voice [text] now: the clip URL and its voice, or null when no engine is available (204). With
+     * [lang], an explanation in the learner's base language (the intro's, voiced in one go; never the reserve kept for
+     * live lines): the store keys it apart ([IntroSpeech.key]).
+     */
+    suspend fun say(text: String, voice: String, lang: String? = null): Pair<String, String>? {
+        val body = buildJsonObject { put("text", text); put("voice", voice); lang?.let { put("lang", it) } }.toString().toRequestBody(Http.jsonType)
         val (code, raw) = http.exchange(config.request("/voice/say").post(body).build())
         if (code == 204) return null
         if (code == 400) throw VoiceRefused(voice)
@@ -88,10 +98,13 @@ class ClipsApi(private val config: BridgeConfig) {
      * live lines; companion/bridge/src/features/voice.ts). Each URL in their order, null where none could be had; null for
      * all from a bridge without it (404).
      */
-    suspend fun prepare(texts: List<Pair<String, String>>): List<String?>? {
+    suspend fun prepare(texts: List<Pair<String, String>>): List<String?>? = prepareAll(texts.map { (t, v) -> ClipAsk(t, v) })
+
+    /** [prepare] for [texts] that may be explanations in the learner's base language too ([ClipAsk.lang]). */
+    suspend fun prepareAll(texts: List<ClipAsk>): List<String?>? {
         val body = buildJsonObject {
             put("texts", kotlinx.serialization.json.buildJsonArray {
-                for ((t, v) in texts) add(buildJsonObject { put("text", t); put("voice", v) })
+                for (t in texts) add(buildJsonObject { put("text", t.text); put("voice", t.voice); t.lang?.let { put("lang", it) } })
             })
         }.toString().toRequestBody(Http.jsonType)
         val (code, raw) = http.exchange(config.request("/voice/prepare").post(body).build())
@@ -237,6 +250,79 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         val (got, stale) = local(text, voices) ?: return null
         stale?.let(::renew)
         return got
+    }
+
+    /**
+     * The clip of an explanation in [lang] ([text]: [IntroSpeech.plain]) in the first of [voices] that has one, when it is
+     * on the phone already (marked as used, for the LRU). A re-voiced one's earlier clip stands in as for a line.
+     */
+    fun explanationOnDevice(text: String, lang: String, voices: List<String>): List<File>? {
+        val idx = index
+        val voice = voices.firstOrNull { resolve(idx, text, it, lang) != null } ?: return null
+        val pick = PreviousClips.pick(idx, PreviousClips.known(dir), text, voice, ::here, lang) ?: return null
+        val got = pick.urls.map { local(PreviousClips.fileOf(it)) ?: return null }
+        val now = System.currentTimeMillis()
+        got.forEach { it.setLastModified(now) }
+        return got
+    }
+
+    /** The node has the clip of an explanation in [lang] in one of [voices] (it may not be on the phone yet). */
+    fun hasExplanation(text: String, lang: String, voices: List<String>): Boolean = voices.any { resolve(index, text, it, lang) != null }
+
+    /**
+     * Gets the clip of an explanation in [lang] ([text]) onto the phone: the node's in the first of [voices], else it has
+     * the node voice it now (in the first of [voices], as /voice/say does a line, but never with the reserve kept for live
+     * lines), else one the node has in another of them. Null when it can't be had now (offline, no engine, the quota at
+     * its reserve: not asked again for a while). The work goes on in the background, so a caller that can't wait has it
+     * next time.
+     */
+    fun explanation(text: String, lang: String, voices: List<String>): Deferred<List<File>?> {
+        val key = explainKey(text, lang, voices)
+        return synchronized(fetching) {
+            fetching[key]?.takeIf { it.isActive } ?: scope.async(Dispatchers.IO) { runCatching { fetchExplanation(text, lang, voices) }.getOrNull() }.also { d ->
+                fetching[key] = d
+                d.invokeOnCompletion { synchronized(fetching) { if (fetching[key] === d) fetching.remove(key) } }
+            }
+        }
+    }
+
+    /** The node can't voice this explanation lately ([explanation] gave none): it isn't asked again soon. */
+    fun explanationMissed(text: String, lang: String, voices: List<String>): Boolean =
+        misses[explainKey(text, lang, voices)]?.let { System.currentTimeMillis() - it < MISS_MS } == true
+
+    /** An explanation's key among the [misses] and the clips [fetching]: apart from the lines'. */
+    private fun explainKey(text: String, lang: String, voices: List<String>) = "x|${IntroSpeech.key(lang, text)}|${voices.firstOrNull()}"
+
+    private suspend fun fetchExplanation(text: String, lang: String, voices: List<String>): List<File>? {
+        val a = api ?: return null
+        val key = IntroSpeech.key(lang, text)
+        val first = voices.firstOrNull() ?: return null
+        val url = index[key]?.get(first) ?: run {
+            var asked: Pair<String, String>? = null
+            // a voice the node refuses (an older bridge) tries the next; one it can't voice now (204), or an error, stops
+            if (!explanationMissed(text, lang, voices)) for (v in voices) {
+                try {
+                    asked = a.say(text, v, lang)
+                    break
+                } catch (_: VoiceRefused) {
+                    continue
+                } catch (_: Exception) {
+                    break
+                }
+            }
+            if (asked == null) {
+                misses[explainKey(text, lang, voices)] = System.currentTimeMillis()
+                // the node can't now: another of their voices' clip it has
+                return@run voices.drop(1).firstNotNullOfOrNull { v -> index[key]?.get(v) }
+            }
+            withContext(Dispatchers.Main) { index = index + (key to (index[key].orEmpty() + (asked.second to asked.first))) }
+            asked.first
+        } ?: return null
+        val f = file(url)
+        if (!ClipFiles.get(f, listOf(File(files.roadClips, f.name))) { to -> a.download(url, to) }) throw IOException("no clip")
+        f.setLastModified(System.currentTimeMillis())
+        trim()
+        return listOf(f)
     }
 
     /** [onDevice]'s files, and the voice whose new clip is worth getting when an earlier clip stands in. */
@@ -507,15 +593,22 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         }
 
         /** The first of [voices] with clips for [text], and those clip URLs. */
-        fun resolveFirst(index: ClipIndex, text: String, voices: List<String>): Pair<String, List<String>>? =
-            voices.firstNotNullOfOrNull { v -> resolve(index, text, v)?.let { v to it } }
+        fun resolveFirst(index: ClipIndex, text: String, voices: List<String>, lang: String? = null): Pair<String, List<String>>? =
+            voices.firstNotNullOfOrNull { v -> resolve(index, text, v, lang)?.let { v to it } }
 
-        /** Clip URLs for [text] in [voice]: one for the whole text, or one per phrase when all have one. */
-        fun resolve(index: ClipIndex, text: String, voice: String): List<String>? =
-            keys(index, text, voice)?.map { index.getValue(it).getValue(voice) }
+        /**
+         * Clip URLs for [text] in [voice]: one for the whole text, or one per phrase when all have one. With [lang], an
+         * explanation in that language ([IntroSpeech.key]): its one clip.
+         */
+        fun resolve(index: ClipIndex, text: String, voice: String, lang: String? = null): List<String>? =
+            keys(index, text, voice, lang)?.map { index.getValue(it).getValue(voice) }
 
-        /** The phrase keys (normalized) whose clips in [voice] say [text] ([resolve]): the whole text's, or each phrase's. */
-        fun keys(index: ClipIndex, text: String, voice: String): List<String>? {
+        /**
+         * The phrase keys (normalized) whose clips in [voice] say [text] ([resolve]): the whole text's, or each phrase's;
+         * with [lang], the explanation's own key ([IntroSpeech.key]), never cut into phrases.
+         */
+        fun keys(index: ClipIndex, text: String, voice: String, lang: String? = null): List<String>? {
+            if (lang != null) return IntroSpeech.key(lang, text).takeIf { index[it]?.get(voice) != null }?.let(::listOf)
             val whole = Voice.normalize(text)
             if (index[whole]?.get(voice) != null) return listOf(whole)
             val ps = Voice.phrases(text)

@@ -5,6 +5,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -22,9 +23,11 @@ class PrefetchRunTest {
     private class Node(val size: Int = 1000, val voices: Map<String, String> = emptyMap()) {
         val downloads = mutableListOf<String>()
         val asked = mutableListOf<List<Pair<String, String>>>()
-        suspend fun prepare(texts: List<Pair<String, String>>): List<String?> {
-            asked += texts
-            return texts.map { voices[it.first] }
+        val langs = mutableListOf<String?>()
+        suspend fun prepare(texts: List<si.lanisce.lani.data.ClipAsk>): List<String?> {
+            asked += texts.map { it.text to it.voice }
+            langs += texts.map { it.lang }
+            return texts.map { voices[it.text] }
         }
         suspend fun download(url: String, to: File) {
             synchronized(downloads) { downloads += url }
@@ -63,6 +66,20 @@ class PrefetchRunTest {
         val (_, again) = run(files, AudioCap.MB250, r.updated, node, days)
         assertEquals(0, again.downloaded)
         assertEquals(3, node.downloads.size)
+    }
+
+    @Test fun `an intro's explanation is asked for with its language, kept under its own key and got`() {
+        val files = AudioFiles(tmp.newFolder("files"))
+        val plain = "Biti (to be) has a short form for each person."
+        val node = Node(voices = mapOf(plain to "/voice/file/expl.mp3", "jaz sem" to "/voice/file/js.mp3"))
+        val days = listOf(list("2026-10-10", DayWant(plain, listOf("teacher", "female"), "school:biti", "en"), want("jaz sem", "teacher", "female")))
+        val (r, s) = run(files, AudioCap.MB250, emptyMap(), node, days)
+        assertEquals(listOf(plain to "teacher", "jaz sem" to "teacher"), node.asked.single())
+        assertEquals(listOf("en", null), node.langs)
+        assertEquals("/voice/file/expl.mp3", r.updated[si.lanisce.lani.data.IntroSpeech.key("en", plain)]?.get("teacher"))
+        assertNull("not as a line", r.updated[si.lanisce.lani.data.Voice.normalize(plain)])
+        assertEquals(listOf("/voice/file/expl.mp3", "/voice/file/js.mp3"), node.downloads)
+        assertEquals(2, s.wanted)
     }
 
     @Test fun `the node voicing nothing isn't asked again this run`() {

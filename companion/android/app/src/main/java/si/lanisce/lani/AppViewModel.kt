@@ -121,6 +121,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val clips = Clips(app, viewModelScope).also { speaker.clips = it }
     /** The hint's 🔊 in a dialog: its TL;DR in the learner's base with the Slovene in the app's voice; stopped by [speaker]. */
     val hintVoice = si.lanisce.lani.data.HintVoice(app, viewModelScope, speaker).also { speaker.hint = it }
+    /** A unit's introduction read aloud in the teacher's voice (data/IntroVoice.kt); stopped by [speaker], as the hint's. */
+    val introVoice = si.lanisce.lani.data.IntroVoice(app, viewModelScope, speaker).also { speaker.intro = it }.also { v ->
+        v.explains = { content.dashboard?.features?.contains(si.lanisce.lani.data.IntroVoice.FEATURE) == true }
+    }
     /**
      * "🔊 Zvok brez povezave · Offline audio": the day's clips got ready on Wi-Fi within the cap, and the phone's offline voice
      * (Piper), which [speaker] speaks with when no clip can be had (app/OfflineAudioController).
@@ -431,6 +435,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             state = game.state, scenes = scenes.all, cast = villagers.all, profiles = clips.profiles, level = ::levelIn,
             grammar = if (grammar.language == target) grammar.pages else emptyList(), mastery = grammar::mastery, ispy = ispy::book,
             greetings = listOf(6, 12, 20).map { si.lanisce.lani.ui.greeting(it) }, target = target,
+            course = school.course, teacher = school.teacher(), base = L10n.ownPair.base.code, isSlovene = speaker::isSlovene,
+            explains = d.features.contains(si.lanisce.lani.data.IntroVoice.FEATURE),
         )
     }
 
@@ -1609,6 +1615,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     override fun onCleared() {
         hintVoice.release()
+        introVoice.release()
         speaker.shutdown()
         ambience.release()
     }

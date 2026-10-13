@@ -67,8 +67,11 @@ class Speaker(private val context: Context) {
      */
     var hint: HintVoice? = null
 
-    /** A voice is speaking now: a recording, a clip, the phone's voice or the hint's. The background sounds duck under it. */
-    val talking: Boolean get() = voice?.sounding == true || ttsTalking || hint?.sounding == true
+    /** A unit's introduction read aloud ([IntroVoice]): one voice at a time with it too, as with the hint's. */
+    var intro: IntroVoice? = null
+
+    /** A voice is speaking now: a recording, a clip, the phone's voice, the hint's or the intro's. The background sounds duck under it. */
+    val talking: Boolean get() = voice?.sounding == true || ttsTalking || hint?.sounding == true || intro?.sounding == true
 
     /** The line said last is still on its way from the node (voiced on demand), not playing yet. */
     @Volatile
@@ -178,6 +181,7 @@ class Speaker(private val context: Context) {
         val t = ++turn
         loading = false
         hint?.stop()
+        intro?.stop()
         val v = voice
         val c = clips
         val (voices, shared, own) = voicesFor(voiceName, fallback, person)
@@ -270,6 +274,7 @@ class Speaker(private val context: Context) {
         if (c == null || v == null) return then(ReRecord.Offline)
         val t = ++turn
         hint?.stop()
+        intro?.stop()
         v.stop()
         if (ready) tts.stop()
         val (pitch, rate) = pitchRate(person)
@@ -315,6 +320,7 @@ class Speaker(private val context: Context) {
         turn++
         loading = false
         hint?.stop()
+        intro?.stop()
         voice?.stop()
         if (ready) tts.stop()
         ttsTalking = false

@@ -137,3 +137,26 @@ class DayPlanTest {
         assertFalse(a.sameAs(a.copy(language = "it")))
     }
 }
+
+/** A unit's introduction in the day's audio: its explanations with their language, the Slovene as lines. */
+class DayAudioIntroTest {
+    private val mojca = listOf("teacher", "female")
+    private val plain = "Biti (to be) has a short form for each person: jaz sem (I am)."
+
+    @Test fun `an explanation is wanted with its language, keyed apart, never cut into phrases`() {
+        val wants = DayAudio.intro(listOf(plain, "x".repeat(DayAudio.MAX_EXPLANATION_CHARS + 1)), listOf("jaz sem", "Jaz sem {learner}."), "en", mojca, "school:biti")
+        assertEquals(listOf(DayWant(plain, mojca, "school:biti", "en"), DayWant("jaz sem", mojca, "school:biti")), wants)
+        val key = si.lanisce.lani.data.IntroSpeech.key("en", plain)
+        assertEquals("$key|teacher", DayAudio.key(wants[0]))
+        assertEquals(listOf(plain), DayAudio.missing(emptyMap(), wants[0]))
+        val index = mapOf(key to mapOf("teacher" to "/voice/file/e.mp3"), "jaz sem" to mapOf("female" to "/voice/file/j.mp3"))
+        assertEquals("teacher" to listOf("/voice/file/e.mp3"), DayAudio.resolve(index, wants[0]))
+        assertEquals(emptyList<String>(), DayAudio.missing(index, wants[0]))
+        assertEquals("female" to listOf("/voice/file/j.mp3"), DayAudio.resolve(index, wants[1]))
+        assertEquals(DayAudio.Stand.WANTED, DayAudio.stand(index, wants[0]) { true })
+        // an explanation with a "/" or "→" in it stays one clip: a line of the same words is another
+        val arrow = DayWant("delati → delal (a man)", mojca, "school:pretekli-cas", "en")
+        assertEquals(listOf("delati → delal (a man)"), DayAudio.missing(mapOf("delati" to mapOf("teacher" to "/d.mp3")), arrow))
+        assertNull(DayAudio.resolve(mapOf("delati delal a man" to mapOf("teacher" to "/l.mp3")), arrow))
+    }
+}

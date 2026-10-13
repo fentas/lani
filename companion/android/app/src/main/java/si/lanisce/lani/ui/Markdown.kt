@@ -37,19 +37,39 @@ import androidx.compose.ui.unit.dp
 
 // Markdown for tutor texts: paragraphs, # headings, > quotes, - bullets, 1. lists, --- rules, | tables |,
 // **bold**, *italic*, `code`, and „quotes". Slovene in bold, italics or quotes can be tapped to hear it.
-private val inline = Regex("""\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`|„(.+?)[“”]""")
+// The spans as a step of a unit's introduction reads them (IntroSpeech.segments): one regex for both.
+private val inline = si.lanisce.lani.data.IntroSpeech.INLINE
 
 /** Plays a Slovene span when tapped; null where nothing can speak. */
 class SpeakSpans(val isSlovene: (String) -> Boolean, val say: (String) -> Unit)
 
 /**
  * [s]'s inline Markdown. [speak]: a Slovene span plays when tapped; [look]: instead, each word of a Slovene span (one
- * without more Markdown in it) is looked up when tapped (the word, and the span it is in).
+ * without more Markdown in it) is looked up when tapped (the word, and the span it is in). [mark]: the segments being
+ * read aloud (their indices in [si.lanisce.lani.data.IntroSpeech.segments]: the plain text and the spans, in order) are
+ * drawn in [markStyle].
  */
-fun inlineMarkdown(s: String, speak: SpeakSpans? = null, look: ((String, String) -> Unit)? = null): AnnotatedString = buildAnnotatedString {
+fun inlineMarkdown(
+    s: String,
+    speak: SpeakSpans? = null,
+    look: ((String, String) -> Unit)? = null,
+    mark: IntRange? = null,
+    markStyle: SpanStyle = MARK,
+): AnnotatedString = buildAnnotatedString {
     var i = 0
+    var k = 0
+    /** The segment appended since [from] is the next one: marked when it's read now. */
+    fun segment(from: Int) {
+        if (mark != null && k in mark && length > from) addStyle(markStyle, from, length)
+        k++
+    }
     for (m in inline.findAll(s)) {
-        append(s.substring(i, m.range.first))
+        if (m.range.first > i) {
+            val from = length
+            append(s.substring(i, m.range.first))
+            segment(from)
+        }
+        val from = length
         val (bold, italic, code, quoted) = m.destructured
         val body = bold.ifEmpty { italic }.ifEmpty { quoted }
         val style = when {
@@ -96,10 +116,18 @@ fun inlineMarkdown(s: String, speak: SpeakSpans? = null, look: ((String, String)
             }
             else -> withStyle(style) { append(if (look != null) buildAnnotatedString { if (quoted.isNotEmpty()) append("„"); append(inlineMarkdown(body, speak, look)); if (quoted.isNotEmpty()) append("“") } else content(speak)) }
         }
+        segment(from)
         i = m.range.last + 1
     }
-    append(s.substring(i))
+    if (i < s.length) {
+        val from = length
+        append(s.substring(i))
+        segment(from)
+    }
 }
+
+/** How the words being read aloud are marked: a soft gold behind them. */
+val MARK = SpanStyle(background = Color(0x66F2C14E))
 
 private val numbered = Regex("""^(\d+)[.)]\s+(.*)""")
 
@@ -117,6 +145,10 @@ private fun cells(row: String): List<String> =
  */
 typealias BlockText = @Composable (styled: AnnotatedString, style: TextStyle, modifier: Modifier) -> Unit
 
+/**
+ * [text]'s Markdown. [marked]: what is being read aloud now, by the line of [text] it is on (its index in
+ * `text.trim().lines()`): those segments of the line ([si.lanisce.lani.data.IntroSpeech.Run.segments]) drawn marked.
+ */
 @Composable
 fun Markdown(
     text: String,
@@ -124,6 +156,7 @@ fun Markdown(
     color: Color = Color.Unspecified,
     block: BlockText? = null,
     onWord: ((String, String) -> Unit)? = null,
+    marked: ((line: Int) -> IntRange?)? = null,
 ) {
     val speaker = LocalSpeaker.current
     // a lookup ([onWord]: a cheat sheet's card) needs to know what's Slovene, not a voice to say it
@@ -131,13 +164,16 @@ fun Markdown(
     else speaker?.takeIf { it.canSay }?.let { s -> SpeakSpans(s::isSlovene) { t -> s.say(t) } }
     val look = onWord
     val lines = text.trim().lines()
+    /** The source line drawn now (-1: a table's cell), for what is marked. */
+    var at = -1
     /**
      * A block's text: [block]'s, else a Text whose Slovene in bold, italics or quotes is heard when tapped (or, with
      * [onWord], whose words are looked up).
      */
     val line: @Composable (String, TextStyle, FontWeight?, Modifier) -> Unit = { s, style, weight, m ->
-        if (block != null) block(inlineMarkdown(s), style.merge(TextStyle(color = color, fontWeight = weight)), m)
-        else Text(inlineMarkdown(s, speak, look), m, color = color, style = style, fontWeight = weight)
+        val mark = if (at >= 0) marked?.invoke(at) else null
+        if (block != null) block(inlineMarkdown(s, mark = mark), style.merge(TextStyle(color = color, fontWeight = weight)), m)
+        else Text(inlineMarkdown(s, speak, look, mark = mark), m, color = color, style = style, fontWeight = weight)
     }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
         var i = 0
@@ -149,9 +185,11 @@ fun Markdown(
                 i += table.size
                 val header = table.getOrNull(1)?.let { tableSeparator.matches(it.trim()) } == true
                 val rows = table.filterIndexed { n, _ -> !(header && n == 1) }.map(::cells)
+                at = -1
                 MarkdownTable(rows, header, line)
                 continue
             }
+            at = i
             i++
             when {
                 t.isBlank() -> Unit

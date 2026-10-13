@@ -193,7 +193,7 @@ class PrefetchWorker(context: Context, params: WorkerParameters) : CoroutineWork
         val index = Clips.parseIndex(raw)
         // the phone's index before this one: the lines re-voiced since keep their earlier clips until the new ones are here
         val before = runCatching { Clips.parseIndex(File(files.clips, Clips.INDEX).readText()) }.getOrNull()
-        val run = PrefetchRun(files, cap, index, prepare = { api.prepare(it) }, download = { url, to -> api.download(url, to) }, before = before)
+        val run = PrefetchRun(files, cap, index, prepare = { api.prepareAll(it) }, download = { url, to -> api.download(url, to) }, before = before)
         val status = run.run(days)
         // the app's index (the clip cache's copy) with what the node voiced meanwhile: those play offline too
         runCatching { File(files.clips, Clips.INDEX).writeText(if (run.updated === index) raw else encodeIndex(run.updated)) }

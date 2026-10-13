@@ -5,7 +5,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.Serializable
+import si.lanisce.lani.data.ClipAsk
 import si.lanisce.lani.data.ClipIndex
+import si.lanisce.lani.data.IntroSpeech
 import si.lanisce.lani.data.Voice
 import java.io.File
 
@@ -37,8 +39,8 @@ data class PrefetchStatus(
  * Android, so the tests run it with fakes ([Prefetch] runs it in the background):
  *
  * 1. what the store lacks in a line's wanted voice is asked of the node ([prepare]: POST /voice/prepare, 20 at a time, within
- *    its own limits: not as a live line, a daily budget), today's first; once the node voices none of a batch it isn't asked
- *    again this run;
+ *    its own limits: not as a live line, a daily budget), today's first, an intro's explanations with their language
+ *    ([ClipAsk.lang]); once the node voices none of a batch it isn't asked again this run;
  * 2. each line's clips are the store's in the first of its voices that has them all ([DayAudio.resolve]);
  * 3. those files are the day's (audio/keep.txt): the cache never drops them to make room;
  * 4. they're got ([ClipFiles]: linked from the car's library when it has them, else downloaded [atOnce] at a time), today's
@@ -54,7 +56,7 @@ class PrefetchRun(
     private val files: AudioFiles,
     private val cap: AudioCap,
     private val index: ClipIndex,
-    private val prepare: suspend (List<Pair<String, String>>) -> List<String?>?,
+    private val prepare: suspend (List<ClipAsk>) -> List<String?>?,
     private val download: suspend (url: String, to: File) -> Unit,
     private val clock: () -> Long = System::currentTimeMillis,
     private val atOnce: Int = 4,
@@ -75,8 +77,11 @@ class PrefetchRun(
         var asking = true
         for (d in days) {
             if (!asking) break
-            val todo = LinkedHashMap<String, Pair<String, String>>()
-            for (w in d.wants) for (p in DayAudio.missing(idx, w)) todo.putIfAbsent("${Voice.normalize(p)}|${w.voices.first()}", p to w.voices.first())
+            val todo = LinkedHashMap<String, ClipAsk>()
+            for (w in d.wants) for (p in DayAudio.missing(idx, w)) {
+                val key = w.lang?.let { IntroSpeech.key(it, p) } ?: Voice.normalize(p)
+                todo.putIfAbsent("$key|${w.voices.first()}", ClipAsk(p, w.voices.first(), w.lang))
+            }
             for (batch in todo.values.chunked(PREPARE_AT_ONCE)) {
                 val urls = try {
                     prepare(batch)
@@ -89,10 +94,10 @@ class PrefetchRun(
                     asking = false
                     break
                 }
-                batch.zip(urls).forEach { (tv, url) ->
+                batch.zip(urls).forEach { (ask, url) ->
                     if (url == null) return@forEach
-                    val key = Voice.normalize(tv.first)
-                    idx = idx + (key to (idx[key].orEmpty() + (tv.second to url)))
+                    val key = ask.lang?.let { IntroSpeech.key(it, ask.text) } ?: Voice.normalize(ask.text)
+                    idx = idx + (key to (idx[key].orEmpty() + (ask.voice to url)))
                     voiced++
                 }
             }

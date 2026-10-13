@@ -14,10 +14,12 @@ import java.time.LocalDate
 /**
  * A line the learner will likely hear on a day: its [text] (in the target language) and the voices [si.lanisce.lani.data.Speaker.say]
  * plays it in, best first (the wanted one, then the ones it falls back to on the phone: [si.lanisce.lani.data.Speaker.voices]);
- * [why] says where it comes from ("card", "pack:v-kuhinji", "dialog:ogenj/juha"), for the status and the tests.
+ * [why] says where it comes from ("card", "pack:v-kuhinji", "dialog:ogenj/juha"), for the status and the tests. With
+ * [lang], an explanation in the learner's base language instead (a unit's intro step, voiced in one go:
+ * [si.lanisce.lani.data.IntroSpeech.key]).
  */
 @Serializable
-data class DayWant(val text: String, val voices: List<String>, val why: String)
+data class DayWant(val text: String, val voices: List<String>, val why: String, val lang: String? = null)
 
 /**
  * What the learner will likely hear on [day] ([DayAudio]): the [wants] in the order they're got ready (what is surest first);
@@ -57,6 +59,9 @@ object DayAudio {
 
     /** The node voices a text of at most this many characters (its /voice/say and /voice/prepare). */
     const val MAX_CHARS = 300
+
+    /** An explanation in the learner's base language may be this long (an intro step's, voiced in one go). */
+    const val MAX_EXPLANATION_CHARS = 1_500
 
     /** A line worth getting: a text the node can voice (no placeholder left, not too long), in [voices]. */
     fun want(text: String?, voices: List<String>, why: String): DayWant? {
@@ -116,6 +121,17 @@ object DayAudio {
     fun texts(texts: List<String>, voices: List<String>, why: String): List<DayWant> = texts.mapNotNull { want(it, voices, why) }
 
     /**
+     * A unit's guided introduction as its steps are read ([si.lanisce.lani.data.IntroSpeech]): each step's explanation in
+     * the learner's base language [base] ([explanations]: its text as the node voices it), in the teacher's voices; then
+     * the Slovene of each step ([slovene]: its forms in the explanation, its examples), in the same voices.
+     */
+    fun intro(explanations: List<String>, slovene: List<String>, base: String, voices: List<String>, why: String): List<DayWant> =
+        explanations.mapNotNull { t ->
+            t.trim().takeIf { it.isNotEmpty() && '{' !in it && it.length <= MAX_EXPLANATION_CHARS && Voice.normalize(it).isNotEmpty() }
+                ?.let { DayWant(it, voices.ifEmpty { listOf(Clips.FEMALE) }.distinct(), why, base) }
+        } + texts(slovene, voices, why)
+
+    /**
      * The day's list from its parts, in their order: each text once in its wanted voice (the first part that has it says
      * why), at most [MAX_WANTS].
      */
@@ -125,8 +141,11 @@ object DayAudio {
         return DayList(day.toString(), wants, companion)
     }
 
-    /** One line: its text as the voice store keys it, in its wanted voice. */
-    fun key(w: DayWant): String = "${Voice.normalize(w.text)}|${w.voices.first()}"
+    /** One line: its text as the voice store keys it (an explanation: with its language), in its wanted voice. */
+    fun key(w: DayWant): String = "${storeKey(w)}|${w.voices.first()}"
+
+    /** [w]'s key in the voice store's index: its text normalized, an explanation's with its language. */
+    fun storeKey(w: DayWant): String = w.lang?.let { si.lanisce.lani.data.IntroSpeech.key(it, w.text) } ?: Voice.normalize(w.text)
 
     // --- against the voice store ------------------------------------------------------------------------------------
 
@@ -134,11 +153,15 @@ object DayAudio {
      * The voice [w] plays in from the phone and its clip URLs: the first of its voices whose clips the store has for the whole
      * text (one clip, or one a phrase), as [si.lanisce.lani.data.Speaker.say] finds it offline. Null: none yet.
      */
-    fun resolve(index: ClipIndex, w: DayWant): Pair<String, List<String>>? = Clips.resolveFirst(index, w.text, w.voices)
+    fun resolve(index: ClipIndex, w: DayWant): Pair<String, List<String>>? = Clips.resolveFirst(index, w.text, w.voices, w.lang)
 
-    /** [w]'s phrases the store has no clip of in its wanted voice (the node may voice them: POST /voice/prepare). */
+    /**
+     * [w]'s phrases the store has no clip of in its wanted voice (the node may voice them: POST /voice/prepare); an
+     * explanation is one, never cut into phrases.
+     */
     fun missing(index: ClipIndex, w: DayWant): List<String> =
-        Clips.parts(w.text).filter { index[Voice.normalize(it)]?.get(w.voices.first()) == null }
+        if (w.lang != null) listOf(w.text).filter { index[storeKey(w)]?.get(w.voices.first()) == null }
+        else Clips.parts(w.text).filter { index[Voice.normalize(it)]?.get(w.voices.first()) == null }
 
     /** How a line stands on the phone: in its wanted voice, in another of its voices, or not at all. */
     enum class Stand { WANTED, OTHER, MISSING }
@@ -148,7 +171,7 @@ object DayAudio {
      * ([previous], [PreviousClips]) counts while its new one isn't here, as it plays then.
      */
     fun stand(index: ClipIndex, w: DayWant, previous: ClipIndex = emptyMap(), has: (String) -> Boolean): Stand {
-        val v = w.voices.firstOrNull { voice -> PreviousClips.pick(index, previous, w.text, voice, has) != null } ?: return Stand.MISSING
+        val v = w.voices.firstOrNull { voice -> PreviousClips.pick(index, previous, w.text, voice, has, w.lang) != null } ?: return Stand.MISSING
         return if (v == w.voices.first()) Stand.WANTED else Stand.OTHER
     }
 

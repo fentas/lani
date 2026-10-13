@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -74,7 +75,8 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
         done != null -> SheetFinish(vm, unit, kind, done, title)
         intro != null && introStep in intro.steps.indices -> Column(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
             Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-            IntroStepView(vm, unit, intro, introStep, Modifier.weight(1f)) { introStep++ }
+            // a step of its own each (its question, its reading)
+            key(introStep) { IntroStepView(vm, unit, intro, introStep, Modifier.weight(1f)) { introStep++ } }
         }
         else -> ExerciseRun(
             vm, title, exercises, moduleId = null, onExit = { vm.leaveRun() }, stage = stage,

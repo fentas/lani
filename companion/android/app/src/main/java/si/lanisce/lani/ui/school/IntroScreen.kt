@@ -28,8 +28,19 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.PointerInputChange
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import kotlinx.coroutines.delay
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
@@ -49,6 +60,9 @@ import si.lanisce.lani.data.Grading
 import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.GrammarCell
 import si.lanisce.lani.data.Intro
+import si.lanisce.lani.data.IntroSpeech
+import si.lanisce.lani.data.IntroVoice
+import si.lanisce.lani.game.scene.Pose
 import si.lanisce.lani.data.Sheets
 import si.lanisce.lani.game.School
 import si.lanisce.lani.l10n.L10n
@@ -64,6 +78,8 @@ import si.lanisce.lani.ui.NoSuggestions
 import si.lanisce.lani.ui.Portrait
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.inlineMarkdown
+import si.lanisce.lani.ui.stage.portraitPx
+import si.lanisce.lani.ui.stage.rememberReducedMotion
 import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
@@ -114,36 +130,179 @@ fun IntroScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
     }
 }
 
-/** One step: the teacher's lines, the examples, the table so far (this step's rows marked new), its question, "Naprej". */
+/**
+ * One step: the teacher's lines, the examples, the table so far (this step's rows marked new), its question, "Naprej". Read
+ * aloud as it appears ([IntroVoice]: the setting "🔊 Beri razlago", not while TalkBack reads), what is read marked; 🔊 and
+ * 🐢 read it again, a tap on the text stops it, leaving the step too. The teacher talks while her voice plays.
+ */
 @Composable
 internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: Int, modifier: Modifier, next: () -> Unit) {
     val s = intro.steps[i]
     val base = L10n.pair.base.code
     var answered by remember { mutableStateOf(s.ask == null) }
+    val voice = vm.introVoice
+    val t = vm.school.teacher()
+    val reader = IntroVoice.Reader(t?.speakerVoice ?: si.lanisce.lani.data.Clips.FEMALE, t?.voice, t?.id)
+    val say = Grammar.text(s.say, base)
+    val examples = s.examples.map { it.target(unit.language) }
+    val script = remember(unit.id, i, say) {
+        // Slovene: what the app's check says is, and the words the intro itself shows ("**Biti**")
+        val known = IntroSpeech.vocabulary(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
+        IntroSpeech.step("${unit.id}/$i/${say.hashCode()}", say, base, examples, s.ask) { t -> vm.speaker.isSlovene(t) || IntroSpeech.within(t, known) }
+    }
+    val answerId = "${script.id}/answer"
+    val now = voice.now?.takeIf { it.id == script.id || it.id == answerId }?.mark
+    val reading = voice.reading == script.id || voice.reading == answerId
+    // read as it appears; stopped as it's left
+    LaunchedEffect(script.id) {
+        if (voice.auto && !voice.screenReader) {
+            delay(READ_AFTER_MS)
+            voice.play(script, reader)
+        }
+    }
+    DisposableEffect(script.id) {
+        onDispose {
+            voice.stop(script.id)
+            voice.stop(answerId)
+        }
+    }
+    var reaction by remember { mutableStateOf<Grading.Verdict?>(null) }
+    LaunchedEffect(reaction) { if (reaction != null) { delay(REACT_MS); reaction = null } }
+    val talking by rememberTalking(vm)
+    val pose = when {
+        reaction == Grading.Verdict.CORRECT -> Pose.CHEER
+        reaction == Grading.Verdict.ALMOST -> Pose.HAPPY
+        reaction == Grading.Verdict.WRONG -> Pose.SAD
+        talking -> Pose.TALK
+        else -> Pose.IDLE
+    }
     Column(modifier.fillMaxWidth()) {
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(bi("school.stepOf", "n" to i + 1, "of" to intro.steps.size), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Row(verticalAlignment = Alignment.Top) {
-                val t = vm.school.teacher()
-                if (t != null) Portrait(t.art, modifier = Modifier.size(48.dp), px = 48, seed = t.id.hashCode()) else Text("👩‍🏫", style = MaterialTheme.typography.headlineMedium)
-                Spacer(Modifier.width(10.dp))
-                Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f)) {
-                    Markdown(Grammar.text(s.say, base), Modifier.padding(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(bi("school.stepOf", "n" to i + 1, "of" to intro.steps.size), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+                ReadButtons(reading, onRead = { slow -> if (reading && !slow) voice.stop() else voice.play(script, reader, slow) })
+            }
+            // a tap on what is read stops it (and does nothing else then)
+            Column(Modifier.tapToStop(reading) { voice.stop() }, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(verticalAlignment = Alignment.Top) {
+                    TeacherPortrait(t, pose, 56.dp)
+                    Spacer(Modifier.width(10.dp))
+                    val whole = now == IntroSpeech.Mark.Whole
+                    Surface(
+                        color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(14.dp), modifier = Modifier.weight(1f),
+                        border = if (whole) androidx.compose.foundation.BorderStroke(2.dp, XpGold) else null,
+                    ) {
+                        Markdown(say, Modifier.padding(12.dp), marked = { line -> (now as? IntroSpeech.Mark.Part)?.takeIf { it.line == line }?.segments })
+                    }
+                }
+                // the phone can't say the learner's own language: said once, in the step where it first happened
+                var note by remember { mutableStateOf(false) }
+                LaunchedEffect(voice.noBaseVoice, reading) {
+                    if (voice.noBaseVoice && reading && !voice.noBaseVoiceNoted) {
+                        voice.notedNoBaseVoice()
+                        note = true
+                    }
+                }
+                if (note) Text("🔇 ${bi("school.noBaseVoice", "lang" to L10n.pair.base.ownName)}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                s.examples.forEachIndexed { k, e -> ExampleRow(vm, e.target(unit.language), e.meaning(base), e.noteIn(base), marked = now == IntroSpeech.Mark.Example(k)) }
+                val rows = intro.steps.take(i + 1).flatMap { it.rows }
+                if (intro.head.isNotEmpty() && rows.isNotEmpty()) GrowingTable(vm, intro.head, rows, fresh = s.rows.size)
+            }
+            s.ask?.let { ask ->
+                IntroAsk(vm, ask, reader, asked = now == IntroSpeech.Mark.Question, said = now == IntroSpeech.Mark.Answer) { v, sentence ->
+                    answered = true
+                    reaction = v
+                    // the sentence of the answer in her voice, as an exercise's feedback says it
+                    if (sentence != null && voice.auto && !voice.screenReader) voice.play(IntroSpeech.Script(answerId, null, listOf(IntroSpeech.Line(sentence, true, IntroSpeech.Mark.Answer))), reader)
+                    else voice.stop()
                 }
             }
-            for (e in s.examples) ExampleRow(vm, e.target(unit.language), e.meaning(base), e.noteIn(base))
-            val rows = intro.steps.take(i + 1).flatMap { it.rows }
-            if (intro.head.isNotEmpty() && rows.isNotEmpty()) GrowingTable(vm, intro.head, rows, fresh = s.rows.size)
-            s.ask?.let { ask -> IntroAsk(vm, ask) { answered = true } }
         }
         BigButton(bi("common.next"), enabled = answered, onClick = next, color = if (answered) AlpineGreen else MaterialTheme.colorScheme.primary)
     }
 }
 
-/** An example of the language: its words tappable, 🔊, what it means and its note. */
+/** How long after a step appears it is read (it has drawn, the eye found the teacher). */
+private const val READ_AFTER_MS = 450L
+
+/** How long the teacher's reaction to an answer shows (a cheer, a smile, a shrug). */
+private const val REACT_MS = 2_400L
+
+/** 🔊 (⏹ while it reads) and 🐢: the step read again, normally or slowly; ⏹ stops it. */
 @Composable
-internal fun ExampleRow(vm: AppViewModel, said: String, meant: String, note: String? = null) {
-    Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow), modifier = Modifier.fillMaxWidth()) {
+private fun ReadButtons(reading: Boolean, onRead: (slow: Boolean) -> Unit) {
+    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        FilledTonalIconButton(onClick = { onRead(false) }) { if (reading) EmojiLabel("⏹", Labels.STOP) else EmojiLabel("🔊", bi("school.readAloud")) }
+        FilledTonalIconButton(onClick = { onRead(true) }) { EmojiLabel("🐢", Labels.SLOW) }
+    }
+}
+
+/**
+ * The teacher's portrait, alive as the stage's: breathing and blinking (unless the system's animations are off), in [pose]
+ * (talking while her voice plays, her reaction to an answer); 👩‍🏫 without a teacher in the cast.
+ */
+@Composable
+internal fun TeacherPortrait(t: si.lanisce.lani.game.villagers.Villager?, pose: Pose, size: androidx.compose.ui.unit.Dp) {
+    if (t == null) {
+        Text("👩‍🏫", style = MaterialTheme.typography.headlineMedium)
+        return
+    }
+    val reduced = rememberReducedMotion()
+    Portrait(
+        t.art, pose, animate = !reduced, px = portraitPx(size), seed = t.id.hashCode(),
+        modifier = Modifier.size(size).clip(RoundedCornerShape(14.dp)).semantics { contentDescription = t.name },
+    )
+}
+
+/**
+ * A voice of the app speaks now ([Speaker.talking]: a 🔊, the intro read aloud): the teacher is drawn talking. Looked at a
+ * few times a second while the screen shows ([Speaker.talking] isn't Compose state: its players call back on their own).
+ */
+@Composable
+internal fun rememberTalking(vm: AppViewModel): androidx.compose.runtime.State<Boolean> = produceState(false, vm) {
+    while (true) {
+        value = vm.introVoice.speaking || vm.speaker.talking
+        delay(TALK_POLL_MS)
+    }
+}
+
+private const val TALK_POLL_MS = 120L
+
+/**
+ * Taps on what this modifies stop the reading while [active]: the tap is taken (a link or a 🔊 under it doesn't fire), a
+ * drag still scrolls.
+ */
+private fun Modifier.tapToStop(active: Boolean, stop: () -> Unit): Modifier = pointerInput(active) {
+    if (!active) return@pointerInput
+    awaitEachGesture {
+        val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+        val up = withTimeoutOrNull(viewConfiguration.longPressTimeoutMillis) {
+            var tap: PointerInputChange? = null
+            while (true) {
+                val c = awaitPointerEvent(PointerEventPass.Initial).changes.firstOrNull { it.id == down.id } ?: break
+                if ((c.position - down.position).getDistance() > viewConfiguration.touchSlop) break
+                if (!c.pressed) {
+                    tap = c
+                    break
+                }
+            }
+            tap
+        }
+        if (up != null) {
+            up.consume()
+            stop()
+        }
+    }
+}
+
+/** An example of the language: its words tappable, 🔊, what it means and its note; [marked] while it is read aloud. */
+@Composable
+internal fun ExampleRow(vm: AppViewModel, said: String, meant: String, note: String? = null, marked: Boolean = false) {
+    Card(
+        colors = CardDefaults.cardColors(containerColor = if (marked) XpGold.copy(alpha = 0.22f) else MaterialTheme.colorScheme.surfaceContainerLow),
+        border = if (marked) androidx.compose.foundation.BorderStroke(2.dp, XpGold) else null,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
         Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 WordText(said, onWord = si.lanisce.lani.ui.words.lookUpIn(vm, said, meant, si.lanisce.lani.data.Words.READING), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
@@ -184,10 +343,13 @@ internal fun GrowingTable(vm: AppViewModel, head: List<GrammarCell>, rows: List<
  * nothing (nothing pays, nothing counts on the rule). [onAnswered] lets the step go on.
  */
 @Composable
-private fun IntroAsk(vm: AppViewModel, ask: Exercise, onAnswered: () -> Unit) {
+private fun IntroAsk(vm: AppViewModel, ask: Exercise, reader: IntroVoice.Reader, asked: Boolean, said: Boolean, onAnswered: (Grading.Verdict, String?) -> Unit) {
     var verdict by remember { mutableStateOf<Grading.Verdict?>(null) }
     var picked by remember { mutableStateOf<Int?>(null) }
-    Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth(),
+        border = if (asked) androidx.compose.foundation.BorderStroke(2.dp, XpGold) else null,
+    ) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("❓ ${bi("school.quickQuestion")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             when (ask) {
@@ -205,14 +367,15 @@ private fun IntroAsk(vm: AppViewModel, ask: Exercise, onAnswered: () -> Unit) {
                             onClick = {
                                 if (verdict == null) {
                                     picked = o
-                                    verdict = if (o == ask.answer) Grading.Verdict.CORRECT else Grading.Verdict.WRONG
-                                    onAnswered()
+                                    val v = if (o == ask.answer) Grading.Verdict.CORRECT else Grading.Verdict.WRONG
+                                    verdict = v
+                                    onAnswered(v, gapFilled(ask.prompt, ask.options.getOrNull(ask.answer)))
                                 }
                             },
                             colors = color, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                         ) { Text(opt, Modifier.padding(14.dp), style = MaterialTheme.typography.titleMedium) }
                     }
-                    verdict?.let { v -> AskResult(vm, v, ask.options.getOrNull(ask.answer).orEmpty(), ask.explain, gapFilled(ask.prompt, ask.options.getOrNull(ask.answer))) }
+                    verdict?.let { v -> AskResult(vm, v, ask.options.getOrNull(ask.answer).orEmpty(), ask.explain, gapFilled(ask.prompt, ask.options.getOrNull(ask.answer)), reader, said) }
                 }
                 is Exercise.Cloze -> {
                     var value by remember { mutableStateOf(TextFieldValue("")) }
@@ -228,11 +391,12 @@ private fun IntroAsk(vm: AppViewModel, ask: Exercise, onAnswered: () -> Unit) {
                     if (verdict == null) {
                         DiacriticChips(value, { value = it })
                         BigButton(bi("playerScreen.check"), enabled = value.text.isNotBlank(), onClick = {
-                            verdict = Grading.check(value.text, ask.accept).verdict
-                            onAnswered()
+                            val v = Grading.check(value.text, ask.accept).verdict
+                            verdict = v
+                            onAnswered(v, gapFilled(ask.text, ask.accept.firstOrNull()))
                         })
                     }
-                    verdict?.let { v -> AskResult(vm, v, ask.accept.firstOrNull().orEmpty(), ask.explain, gapFilled(ask.text, ask.accept.firstOrNull())) }
+                    verdict?.let { v -> AskResult(vm, v, ask.accept.firstOrNull().orEmpty(), ask.explain, gapFilled(ask.text, ask.accept.firstOrNull()), reader, said) }
                 }
                 else -> Unit
             }
@@ -247,7 +411,7 @@ private fun gapFilled(text: String, answer: String?): String? {
 }
 
 @Composable
-private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?) {
+private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?, reader: IntroVoice.Reader, said: Boolean) {
     val (label, color) = when (v) {
         Grading.Verdict.CORRECT -> "${inTarget("playerScreen.correct")} ✅" to AlpineGreen
         Grading.Verdict.ALMOST -> "${inTarget("playerScreen.almost")} 🟡" to si.lanisce.lani.ui.theme.FlameOrange
@@ -257,8 +421,8 @@ private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, expla
     if (v != Grading.Verdict.CORRECT) Text("→ $right", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
     sentence?.let { s ->
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(s, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-            SpeakButton(vm.speaker, s)
+            Text(s, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f).background(if (said) XpGold.copy(alpha = 0.3f) else androidx.compose.ui.graphics.Color.Transparent, MaterialTheme.shapes.small))
+            SpeakButton(vm.speaker, s, voiceName = reader.voiceName, fallback = reader.fallback, person = reader.person)
         }
     }
     explain?.let { Markdown(it) }

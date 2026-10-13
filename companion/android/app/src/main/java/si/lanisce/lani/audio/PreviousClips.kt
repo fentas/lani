@@ -45,8 +45,8 @@ object PreviousClips {
      * [index] when its file is here, else its earlier one in [previous] when that one is; null when a phrase has neither,
      * or [index] has no clips of [text] in [voice] ([Clips.resolve]).
      */
-    fun pick(index: ClipIndex, previous: ClipIndex, text: String, voice: String, has: (String) -> Boolean): Pick? {
-        val keys = Clips.keys(index, text, voice) ?: return null
+    fun pick(index: ClipIndex, previous: ClipIndex, text: String, voice: String, has: (String) -> Boolean, lang: String? = null): Pick? {
+        val keys = Clips.keys(index, text, voice, lang) ?: return null
         val old = mutableListOf<String>()
         val urls = keys.map { k ->
             val now = index.getValue(k).getValue(voice)
@@ -153,7 +153,7 @@ object PreviousClips {
     fun standIns(index: ClipIndex, previous: ClipIndex, w: DayWant, has: (String) -> Boolean): List<String> {
         if (previous.isEmpty()) return emptyList()
         val (voice, _) = DayAudio.resolve(index, w) ?: return emptyList()
-        return pick(index, previous, w.text, voice, has)?.old?.map(::fileOf).orEmpty()
+        return pick(index, previous, w.text, voice, has, w.lang)?.old?.map(::fileOf).orEmpty()
     }
 
     // --- the store: previous.json in the clip cache ------------------------------------------------------------------
