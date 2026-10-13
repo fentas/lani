@@ -62,7 +62,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
             BuildingType.SCHOOL -> school(b, x, y)
             BuildingType.MARKET -> market(b, x, y)
         }
-        if (b.level >= 3) banner(b.level, x, y)
+        if (b.level >= 3 && b.type != BuildingType.FIELD) banner(b.level, x, y) // a field's is one of its parts
     }
 
     /**
@@ -280,7 +280,17 @@ internal class BuildingPainter(private val s: SceneCtx) {
         if (b.level >= 2) { i.px(cx, y0 + d, rise + 3, Pal.FLAG_RED); i.px(cx + 0.25f, y0 + d - 0.25f, rise + 3, Pal.FLAG_RED) }
     }
 
+    /** The whole field at once (being built, its reveal clipped as it goes up): its ground, then its raised parts back to front. */
     private fun field(b: Building, x: Float, y: Float) {
+        fieldGround(b, x, y)
+        for (part in fieldParts(b, x, y).sortedBy { it.first }) part.second()
+    }
+
+    /**
+     * A field's flat ground: the soil (snow in winter) and its furrows, drawn under everyone and everything standing on or by
+     * it (VillageRenderer: before all the objects), so whoever walks along its back edge or works in it is over it.
+     */
+    fun fieldGround(b: Building, x: Float, y: Float) {
         val x0 = x + 0.25f; val y0 = y + 0.25f
         val snow = env.snow
         i.top(x0, y0, 0f, 2.5f, 2.5f, if (snow) Pal.SNOW_M else Pal.SOIL_M)
@@ -289,34 +299,90 @@ internal class BuildingPainter(private val s: SceneCtx) {
             i.line(x0 + 0.1f, yy, 0f, x0 + 2.4f, yy, 0f, if (snow) Pal.SNOW_D else Pal.SOIL_D)
             i.line(x0 + 0.1f, yy + 0.25f, 0f, x0 + 2.4f, yy + 0.25f, 0f, if (snow) Pal.SNOW_L else Pal.SOIL_L)
         }
-        if (b.level >= 2) fence(x0, y0)
+    }
+
+    /**
+     * What stands up on a field, each with its depth (iso x + y, as the renderer orders things): the crops of its rows in
+     * bands across it (someone working among them is behind the crops in front of them and over those behind), the fence
+     * post by post along its front edges with the rails between, the scarecrow in its back corner, the sheaves, the
+     * pennant of a high level. Drawn with the field's ground's id (VillageRenderer), so the field stays one thing to tap.
+     */
+    fun fieldParts(b: Building, x: Float, y: Float): List<Pair<Float, () -> Unit>> {
+        val out = ArrayList<Pair<Float, () -> Unit>>()
+        val x0 = x + 0.25f; val y0 = y + 0.25f
+        val snow = env.snow
+        if (b.level >= 2) {
+            // the fence along its two front edges, a post at a time, each rail with the post it reaches (the nearer one): along
+            // the +y edge to the corner, along the +x edge up to it; the corner's post has both rails that end there
+            for (j in 0..5) {
+                val px = x0 + j * 0.5f; val py = y0 + 2.5f
+                out += (px + py) to {
+                    i.post(px, py, 0f, 3f, Pal.WOOD_D)
+                    if (j > 0) fenceRail(px - 0.5f, py, px, py, alongX = true)
+                    if (j == 5) fenceRail(px, py - 0.5f, px, py, alongX = false)
+                }
+            }
+            for (j in 0..4) {
+                val px = x0 + 2.5f; val py = y0 + j * 0.5f
+                out += (px + py) to {
+                    i.post(px, py, 0f, 3f, Pal.WOOD_D)
+                    if (j > 0) fenceRail(px, py - 0.5f, px, py, alongX = false)
+                }
+            }
+        }
         // scarecrow in the back corner
-        scarecrow(x0 + 2.1f, y0 + 0.35f)
+        out += (x0 + 2.1f + y0 + 0.35f) to { scarecrow(x0 + 2.1f, y0 + 0.35f) }
         val m = env.month
         // the rows are harvested (cut to stubble, the crop in sheaves) after a food run today
         val cut = s.harvested && !snow && m in 5..10
+        // the crops in bands of depth across the rows: a few plants each, back to front
+        val bands = HashMap<Int, MutableList<FloatArray>>()
         for (j in 0..4) {
             val yy = y0 + 0.4f + j * 0.5f
             var xx = x0 + 0.2f
             var n = 0
             while (xx < x0 + 2.4f) {
-                val r = Noise.rnd(b.plot, j, n)
-                when {
-                    snow -> if (r < 0.15f) i.px(xx, yy, 1f, Pal.SOIL_D)
-                    cut -> if (n % 2 == 0) i.px(xx, yy, 1f, if (r < 0.5f) Pal.HAY_D else Pal.HAY_M)
-                    m in 3..4 -> if (n % 2 == 0) i.px(xx, yy, 1f, if (r < 0.5f) Pal.LEAF else Col.hex(0x6DBF4A))
-                    m in 5..6 -> { i.post(xx, yy, 1f, 3f, Pal.LEAF); i.px(xx, yy, 3f, Col.hex(0x8FD05A)) }
-                    m in 7..8 -> { i.post(xx, yy, 1f, 3f, Pal.HAY_M); i.px(xx, yy, 4f, Pal.HAY_L) }
-                    m == 9 -> if (xx < x0 + 1.3f) { i.post(xx, yy, 1f, 3f, Pal.HAY_M); i.px(xx, yy, 4f, if (r < 0.3f) Pal.GOLD_L else Pal.HAY_L) }
-                    else if (r < 0.5f) i.px(xx, yy, 1f, Pal.HAY_D)
-                    m == 10 -> { if (r < 0.5f) i.px(xx, yy, 1f, Pal.HAY_D); if (r > 0.93f) pumpkin(xx, yy) }
-                    else -> if (r < 0.2f) i.px(xx, yy, 1f, Pal.HAY_D)
-                }
+                bands.getOrPut(((xx + yy) * 2f).toInt()) { ArrayList() } += floatArrayOf(xx, yy, j.toFloat(), n.toFloat())
                 xx += 0.25f; n++
             }
         }
-        if (cut) { sheaf(x0 + 0.7f, y0 + 0.9f); sheaf(x0 + 1.7f, y0 + 1.3f); sheaf(x0 + 1.1f, y0 + 2.0f) }
-        else if (m in 8..10) { sheaf(x0 + 1.7f, y0 + 1.3f); sheaf(x0 + 2.1f, y0 + 2.0f) }
+        for ((band, plants) in bands) out += (band / 2f + 0.25f) to {
+            for (p in plants) crop(b, p[0], p[1], p[2].toInt(), p[3].toInt(), x0, snow, cut, m)
+        }
+        val sheaves = when {
+            cut -> listOf(x0 + 0.7f to y0 + 0.9f, x0 + 1.7f to y0 + 1.3f, x0 + 1.1f to y0 + 2.0f)
+            m in 8..10 -> listOf(x0 + 1.7f to y0 + 1.3f, x0 + 2.1f to y0 + 2.0f)
+            else -> emptyList()
+        }
+        for ((sx, sy) in sheaves) out += (sx + sy) to { sheaf(sx, sy) }
+        if (b.level >= 3) out += (x + 0.3f + y + 2.7f) to { banner(b.level, x, y) }
+        return out
+    }
+
+    /** One plant of a field's row [j], the [n]th along it at ([xx], [yy]), as the month has it (see [fieldParts]). */
+    private fun crop(b: Building, xx: Float, yy: Float, j: Int, n: Int, x0: Float, snow: Boolean, cut: Boolean, m: Int) {
+        val r = Noise.rnd(b.plot, j, n)
+        when {
+            snow -> if (r < 0.15f) i.px(xx, yy, 1f, Pal.SOIL_D)
+            cut -> if (n % 2 == 0) i.px(xx, yy, 1f, if (r < 0.5f) Pal.HAY_D else Pal.HAY_M)
+            m in 3..4 -> if (n % 2 == 0) i.px(xx, yy, 1f, if (r < 0.5f) Pal.LEAF else Col.hex(0x6DBF4A))
+            m in 5..6 -> { i.post(xx, yy, 1f, 3f, Pal.LEAF); i.px(xx, yy, 3f, Col.hex(0x8FD05A)) }
+            m in 7..8 -> { i.post(xx, yy, 1f, 3f, Pal.HAY_M); i.px(xx, yy, 4f, Pal.HAY_L) }
+            m == 9 -> if (xx < x0 + 1.3f) { i.post(xx, yy, 1f, 3f, Pal.HAY_M); i.px(xx, yy, 4f, if (r < 0.3f) Pal.GOLD_L else Pal.HAY_L) }
+            else if (r < 0.5f) i.px(xx, yy, 1f, Pal.HAY_D)
+            m == 10 -> { if (r < 0.5f) i.px(xx, yy, 1f, Pal.HAY_D); if (r > 0.93f) pumpkin(xx, yy) }
+            else -> if (r < 0.2f) i.px(xx, yy, 1f, Pal.HAY_D)
+        }
+    }
+
+    /** The fence's rails from one post to the next ([alongX]: along the field's front +y edge, else its +x edge), slats between at a closer look. */
+    private fun fenceRail(ax: Float, ay: Float, bx: Float, by: Float, alongX: Boolean) {
+        i.line(ax, ay, 2f, bx, by, 2f, if (alongX) Pal.WOOD_L else Pal.WOOD_M)
+        if (fine) {
+            val mx = (ax + bx) / 2f; val my = (ay + by) / 2f
+            i.line(mx, my, 0.4f, mx, my, 2.6f, if (alongX) Pal.WOOD_M else Pal.WOOD_D)
+            i.line(ax, ay, 0.8f, bx, by, 0.8f, if (alongX) Pal.WOOD_L else Pal.WOOD_M)
+        }
     }
 
     private fun pumpkin(x: Float, y: Float) {
@@ -343,19 +409,6 @@ internal class BuildingPainter(private val s: SceneCtx) {
             c.hline(sx - 2, sx + 1, sy - 11, Pal.WOOD_X); c.hline(sx - 1, sx, sy - 12, Pal.WOOD_X)
         }
         if (finest) { c.set(sx - 1, sy - 10 * k + 1, Col.hex(0x2A1D1A)); c.set(sx + 1, sy - 10 * k + 1, Col.hex(0x2A1D1A)) } // button eyes
-    }
-
-    private fun fence(x0: Float, y0: Float) {
-        for (j in 0..5) i.post(x0 + j * 0.5f, y0 + 2.5f, 0f, 3f, Pal.WOOD_D)
-        for (j in 0..5) i.post(x0 + 2.5f, y0 + j * 0.5f, 0f, 3f, Pal.WOOD_D)
-        i.line(x0, y0 + 2.5f, 2f, x0 + 2.5f, y0 + 2.5f, 2f, Pal.WOOD_L)
-        i.line(x0 + 2.5f, y0, 2f, x0 + 2.5f, y0 + 2.5f, 2f, Pal.WOOD_M)
-        if (fine) {
-            // slats between the posts, and a lower rail
-            for (j in 0 until 5) { i.line(x0 + j * 0.5f + 0.25f, y0 + 2.5f, 0.4f, x0 + j * 0.5f + 0.25f, y0 + 2.5f, 2.6f, Pal.WOOD_M); i.line(x0 + 2.5f, y0 + j * 0.5f + 0.25f, 0.4f, x0 + 2.5f, y0 + j * 0.5f + 0.25f, 2.6f, Pal.WOOD_D) }
-            i.line(x0, y0 + 2.5f, 0.8f, x0 + 2.5f, y0 + 2.5f, 0.8f, Pal.WOOD_L)
-            i.line(x0 + 2.5f, y0, 0.8f, x0 + 2.5f, y0 + 2.5f, 0.8f, Pal.WOOD_M)
-        }
     }
 
     private fun well(b: Building, x: Float, y: Float) {

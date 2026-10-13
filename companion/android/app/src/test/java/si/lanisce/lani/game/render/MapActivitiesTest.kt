@@ -16,7 +16,9 @@ import javax.imageio.ImageIO
 /**
  * The people on the village map at their day's work, drawn at every level of detail: the hoe, the anvil, carrying hay,
  * wood, water and a basket, tending, washing at the bank, children at play, a chat, someone waving to the learner, and
- * the lantern at night with its warm light. Each is tappable, moves, and a lantern lights the ground round it. PNG
+ * the lantern at night with its warm light; the chores of a household (sweeping, the washing line, a rug beaten, the hens
+ * fed, mending), picking at the forest's edge, the children's games (running, hiding, counting, the ball). Each is
+ * tappable, moves (but who hides or counts), and a lantern lights the ground round it. PNG
  * snapshots in build/village-snapshots for review: 70-activities-{day,night} (all of them at k = 1, 2, 3 side by side),
  * 71-activities-sheet… (each person over ten moments).
  */
@@ -33,22 +35,25 @@ class MapActivitiesTest {
         buildings = listOf(BuildingType.FIELD, BuildingType.HUT, BuildingType.WELL).mapIndexed { i, t -> Building("b$i", t, i) },
     )
 
-    private class Who(val id: String, val art: String, val activity: Activity, val load: Load = Load.NONE, val lantern: Boolean = false, val flip: Boolean = false)
+    private class Who(val id: String, val art: String, val activity: Activity, val load: Load = Load.NONE, val lantern: Boolean = false, val flip: Boolean = false, val ball: Boolean = false)
 
     /** Five to a row: each activity, the loads, the lantern in the hand and set down, and one standing as they always have. */
     private val cast = listOf(
         Who("hoe", "farmer", Activity.HOE), Who("hammer", "smith", Activity.HAMMER), Who("tend", "beekeeper", Activity.TEND), Who("wash", "woman", Activity.WASH), Who("stand", "shepherd", Activity.STAND),
         Who("hay", "man", Activity.CARRY, Load.HAY), Who("wood", "grandpa", Activity.CARRY, Load.WOOD), Who("water", "aunt", Activity.CARRY, Load.WATER), Who("basket", "woman", Activity.CARRY, Load.BASKET, flip = true), Who("play1", "child1", Activity.PLAY),
-        Who("play2", "child2", Activity.PLAY, flip = true), Who("chat1", "grandma", Activity.CHAT), Who("chat2", "man", Activity.CHAT, flip = true), Who("wave", "innkeeper", Activity.WAVE), Who("walk-lantern", "man", Activity.WALK, lantern = true),
+        Who("play2", "child2", Activity.PLAY, flip = true, ball = true), Who("chat1", "grandma", Activity.CHAT), Who("chat2", "man", Activity.CHAT, flip = true), Who("wave", "innkeeper", Activity.WAVE), Who("walk-lantern", "man", Activity.WALK, lantern = true),
+        // the chores of a household, and the children's games
+        Who("sweep", "innkeeper", Activity.SWEEP), Who("hang", "aunt", Activity.HANG), Who("beat", "woman", Activity.BEAT, flip = true), Who("feed", "grandma", Activity.FEED), Who("mend", "grandpa", Activity.MEND),
+        Who("gather", "woman", Activity.GATHER), Who("run", "child3", Activity.RUN), Who("hide", "child1", Activity.HIDE, flip = true), Who("count", "child2", Activity.COUNT), Who("feed-flip", "man", Activity.FEED, flip = true),
         Who("stand-lantern", "woman", Activity.STAND, lantern = true, flip = true), Who("chat-lantern", "grandpa", Activity.CHAT, lantern = true), Who("wave-lantern", "teacher", Activity.WAVE, lantern = true, flip = true), Who("carry-lantern", "aunt", Activity.CARRY, Load.WATER, lantern = true), Who("sit-lantern", "shepherd", Activity.SIT, lantern = true, flip = true),
     )
 
     private val cols = 5
     private val rows get() = (cast.size + cols - 1) / cols
-    private val dx = 20f; private val dy = 16f
+    private val dx = 18f; private val dy = 12f
 
     /** The middle of the cast in nominal screen px from the fire: the open grass east of it. */
-    private val ox = 54f; private val oy = 0f
+    private val ox = 60f; private val oy = -4f
 
     /** Where [i] of the cast stands: nominal screen px from the fire, turned into the world's cells. */
     private fun at(i: Int): FloatArray {
@@ -58,7 +63,8 @@ class MapActivitiesTest {
 
     private fun placed(lanterns: Boolean = true) = cast.mapIndexed { i, w ->
         val p = at(i)
-        Placed(Villager(id = w.id, name = w.id, art = w.art), p[0], p[1], w.activity, w.flip, TownPlace.Fire, lantern = w.lantern && lanterns, load = w.load)
+        Placed(Villager(id = w.id, name = w.id, art = w.art), p[0], p[1], w.activity, w.flip, TownPlace.Fire, lantern = w.lantern && lanterns, load = w.load,
+            ball = if (w.ball) floatArrayOf(p[0] + 0.4f, p[1] + 0.4f, 7f) else null)
     }
 
     /** The feet of [i] on the nominal canvas. */
@@ -124,7 +130,7 @@ class MapActivitiesTest {
                     seen.getOrPut(w.id) { HashSet() } += pixels(c, id, box).mapValues { 0 }
                 }
             }
-            for (w in cast) if (w.activity != Activity.STAND && w.activity != Activity.SIT) {
+            for (w in cast) if (w.activity != Activity.STAND && w.activity != Activity.SIT && w.activity != Activity.HIDE && w.activity != Activity.COUNT) {
                 assertTrue("${w.id} (${w.activity}) moves at k=$k: ${seen[w.id]?.size} shapes", (seen[w.id]?.size ?: 0) >= 2)
             }
         }

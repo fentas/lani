@@ -45,7 +45,8 @@ object Whereabouts {
     /**
      * The day of [state]'s village for [people] (who live here): where each sleeps ([Sleep.homes]), the storytellers of
      * [scenes], when tonight's story was heard ([storyAt]), who waits for the learner ([calls], of [cast] on [today]) and
-     * who has a happening on ([active]: [TownMarkers.standing]).
+     * who has a happening on ([active]: [TownMarkers.standing]); the village's day shared out among those of [people] who
+     * live here and today's visitor ([village]).
      */
     fun day(
         scenes: List<SceneSpec>, state: GameState, cast: List<Villager>, people: List<Villager>, today: LocalDate,
@@ -56,7 +57,17 @@ object Whereabouts {
         storyAt = storyAt,
         calls = calls(state, cast, today),
         busy = TownMarkers.standing(state, active),
+        people = village(state, people, today),
     )
+
+    /**
+     * Of [people], whose day the village shares out ([Routine.Day.people]): who lives here and today's visitor, not the babies
+     * (they're carried) nor the strangers at the road. Everyone when nobody lives here yet (an older bridge without the cast).
+     */
+    fun village(state: GameState, people: List<Villager>, today: LocalDate): List<Villager> {
+        val here = si.lanisce.lani.game.villagers.Residents.living(state, today)
+        return people.filter { (here == null || it.id in here) && it.art != "baby" && it.art != "pedlar" && it.art != "pilgrim" }.distinctBy { it.id }
+    }
 
     /**
      * The people of [scene] who are at its place now by their day ([Routine.now] at [at]): out there, arrived (not still on

@@ -8,9 +8,10 @@ import kotlin.math.min
 
 /**
  * Where people walk on the map (companion/VILLAGERS.md, "A day in the village"): never through the fire, a building or a
- * landmark. Each of those is a [Block]: its [Block.core], where nobody walks (the fire's: wherever someone standing would be
- * in its flames, [TownPeople.inFire]; a building's: its plot's footprint, a field's excepted, which is walked in), and the
- * corners just outside it that a way round it goes by. A walk is straight when nothing is in the way, else the shortest way
+ * landmark, nor across a field's crops. Each of those is a [Block]: its [Block.core], where nobody walks (the fire's: wherever
+ * someone standing would be in its flames, [TownPeople.inFire]; a building's: its plot's footprint; a field's: its soil and
+ * crops, which only its own workers walk into, from their way's end or start there), and the corners just outside it that a
+ * way round it goes by. A walk is straight when nothing is in the way, else the shortest way
  * round what is ([around]): past the fire on its nearer side, round the plaza's ring; round the corner of a house. Pure,
  * the ways worked out once per village and walk ([Ways]).
  */
@@ -131,15 +132,16 @@ object Walkways {
     }
 
     /**
-     * What a walk in [state]'s village on a [w] × [h] canvas goes round: the fire, every building on a plot but a field, the
-     * projects' landmarks, the campsite's fire and tent at the pond.
+     * What a walk in [state]'s village on a [w] × [h] canvas goes round: the fire, every building on a plot, a field's crops
+     * (along its edge: its workers walk in from where they set off in it or to where they work in it, a block they are in being
+     * none for them), the projects' landmarks, the campsite's fire and tent at the pond.
      */
     fun blocks(state: GameState, w: Int, h: Int): List<Block> {
         val land = VillageLayout.of(state)
         val out = ArrayList<Block>()
         out += fire(TownAnchors.FIRE_SCALE[state.age.ordinal])
-        for (b in state.buildings) if (b.type.onPlot && b.type != BuildingType.FIELD && b.plot in 0 until VillageLayout.MAX_PLOTS) {
-            val c = land.centers[b.plot]; out += plot(c[0], c[1])
+        for (b in state.buildings) if (b.type.onPlot && b.plot in 0 until VillageLayout.MAX_PLOTS) {
+            val c = land.centers[b.plot]; out += if (b.type == BuildingType.FIELD) plot(c[0], c[1], TownPeople.CROPS) else plot(c[0], c[1])
         }
         for (m in LandmarkLayout.of(state, w, h)) out += rect(m.x, m.y, m.x + m.w, m.y + m.d)
         Campsite.of(state, w, h)?.let { camp ->

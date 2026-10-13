@@ -139,6 +139,8 @@ fun VisitScreen(vm: AppViewModel) {
                 si.lanisce.lani.game.villagers.Routine.Day(
                     homes = si.lanisce.lani.game.scene.Sleep.homes(v.scenes, s, people),
                     tellers = si.lanisce.lani.game.scene.Whereabouts.tellers(v.scenes),
+                    // their days shared out as the host's map has them: a few at a place, a handful by the fire
+                    people = si.lanisce.lani.game.scene.Whereabouts.village(s, people, java.time.LocalDate.now()),
                 )
             },
         )

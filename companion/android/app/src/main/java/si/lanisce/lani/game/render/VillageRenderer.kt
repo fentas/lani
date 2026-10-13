@@ -510,6 +510,24 @@ class VillageRenderer {
             val building = frame.justBuilt != null && frame.justBuilt == b.id && frame.justBuiltProgress < 1f
             // the building the plot chooser shows on the chosen plot: outlined in gold
             val outline = if (frame.plots != null && b.id == frame.plots.shown) Pal.GOLD_L else Pal.OUTLINE
+            if (b.type == BuildingType.FIELD && !building) {
+                // A field is flat ground with things standing on it: its soil and furrows first, under everyone and everything
+                // standing (someone along its back edge or at work in it is over it), then the crops in bands, the fence post by
+                // post, the scarecrow and the sheaves each at its own depth, like everything else; all one thing to tap.
+                val ground = IntArray(1)
+                objs.add(Obj(FLAT) {
+                    val id = s.newObject(outline)
+                    owner[id] = hits.size + 1
+                    ground[0] = id
+                    painter.fieldGround(b, x, y)
+                    if (b.damaged) painter.damage(b, x, y)
+                    val baseY = s.iso.sy(x + 3f, y + 3f, 0f); val topY = s.iso.sy(x, y, hgt)
+                    val lx = s.iso.sx(x, y + 3f).toInt(); val rx = s.iso.sx(x + 3f, y).toInt()
+                    hits.add(VillageHit.OnBuilding(b) to intArrayOf(lx, topY.toInt() - 2 * k, rx, baseY.toInt()))
+                })
+                for ((depth, draw) in painter.fieldParts(b, x, y)) objs.add(Obj(depth) { canvas.penId = ground[0]; draw() })
+                continue
+            }
             objs.add(Obj(x + y + 3f) {
                 if (b.type != BuildingType.FIELD) shadowDiamond(s, x, y)
                 owner[s.newObject(outline)] = hits.size + 1
@@ -1735,6 +1753,13 @@ class VillageRenderer {
                 val hh = s.effects.person(bx, by, p.villager.art, look, seed, p.activity, p.flip, lantern = p.lantern, load = p.load)
                 hits.add(VillageHit.OnVillager(p.id) to intArrayOf(bx - 5 * k, by - hh, bx + 5 * k, by + k))
             })
+            // the children's ball, where it flies between them (in front of whoever it passes)
+            p.ball?.let { b ->
+                objs.add(Obj(b[0] + b[1] + 0.02f) {
+                    s.newObject(0)
+                    s.effects.ball(s.iso.ix(b[0], b[1]), s.iso.iy(b[0], b[1], 0f), (b[2] * k).roundToInt())
+                })
+            }
         }
     }
 
@@ -1923,6 +1948,9 @@ class VillageRenderer {
     private companion object {
         /** Slides the Alps so Triglav (u ≈ 0.71) stands at ≈ 0.84 of the width, clear of the village centre. */
         const val COMPACT_SHIFT = 0.13f
+
+        /** The depth of what lies flat on the ground among the objects (a field's soil): before anything that stands. */
+        const val FLAT = -1e6f
 
         /** Trees within this many nominal pixels of the woodpile can be felled. */
         const val CHOP_REACH = 110f

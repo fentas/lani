@@ -88,7 +88,8 @@ class WalksTest {
     private val december = LocalDate.of(2026, 12, 9)
 
     private fun people(s: GameState) = cast.filter { c -> s.residents.any { it.id == c.id } }
-    private fun day(s: GameState) = Routine.Day(homes = Sleep.homes(scenes, s, people(s)), tellers = Whereabouts.tellers(scenes))
+    /** The village's day as the app has it: where each sleeps, the storyteller, everyone's day shared out among them. */
+    private fun day(s: GameState) = Routine.Day(homes = Sleep.homes(scenes, s, people(s)), tellers = Whereabouts.tellers(scenes), people = people(s))
 
     /** The buildings' footprints nobody walks or stands in (a field's excepted). */
     private fun footprints(s: GameState): List<FloatArray> {
@@ -193,8 +194,9 @@ class WalksTest {
                 val frames = watch(s, date, minute / 60, minute % 60, seconds = 40)
                 for (v in people(s)) {
                     val now = Routine.now(v, s, date, minute - 0.1, date.monthValue, d)
-                    val settled = now.where == Where.OUT && now.errand == null && (now.from == null || now.since > 60) &&
-                        Routine.now(v, s, date, minute + 41 / 60.0, date.monthValue, d).let { it.place == now.place && it.errand == null }
+                    // (the children at play run about in their game on purpose: TownPeople's games)
+                    val settled = now.where == Where.OUT && now.errand == null && (now.from == null || now.since > 60) && now.doing != Doing.PLAY &&
+                        Routine.now(v, s, date, minute + 41 / 60.0, date.monthValue, d).let { it.place == now.place && it.errand == null && it.doing == now.doing }
                     if (!settled) continue
                     val seen = frames.mapNotNull { f -> f.firstOrNull { it.id == v.id } }
                     if (seen.isEmpty()) continue

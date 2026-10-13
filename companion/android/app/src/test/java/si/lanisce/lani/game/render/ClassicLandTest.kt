@@ -73,14 +73,17 @@ class ClassicLandTest {
 
     /** The digests of the fixed layout's renders (see the class's note). */
     private val golden = mapOf(
+        // the field's soil under whoever walks by it, its crops in bands, its fence post by post; the people at the chores
+        // of a household, the fire's handful (2026-10-13)
         "jan-like" to mapOf(
-            "side-day" to "55ec8cebd23a88", "tall-day" to "b31cbb085ff759e1", "tall-dusk-k2" to "46079da81b31ca50",
-            "tall-night-k3" to "9d73e8aee5151931", "compact" to "1934de8ad4b0682b", "widget" to "f8330619ecea4a4b",
+            "side-day" to "792c1f56b4f2d82f", "tall-day" to "7b9901d0babd48c5", "tall-dusk-k2" to "c9bec5abba8ddc62",
+            "tall-night-k3" to "9d73e8aee5151931", "compact" to "7823ec5342731b21", "widget" to "7765f8d3f398ca48",
         ),
-        // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side)
+        // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
+        // drawn as the hamlet's, its people at their chores (2026-10-13)
         "town" to mapOf(
-            "side-day" to "c77e866fd1705c48", "tall-day" to "b267acaa37cf7bff", "tall-dusk-k2" to "562ca2f056af1228",
-            "tall-night-k3" to "6b23b2190844438d", "compact" to "58c828c850a62194", "widget" to "6ad598e98c8e0a02",
+            "side-day" to "6b05b9b57d1cb662", "tall-day" to "303a8aa63db82bca", "tall-dusk-k2" to "30721d10c3679128",
+            "tall-night-k3" to "6b23b2190844438d", "compact" to "ddc24145b89657c0", "widget" to "b278966cd43be707",
         ),
     )
 

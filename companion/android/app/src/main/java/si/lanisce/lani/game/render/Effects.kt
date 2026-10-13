@@ -136,6 +136,8 @@ internal class Effects(private val s: SceneCtx) {
         bx: Int, by: Int, art: String?, look: Look, seed: Int, activity: Activity, flip: Boolean, bob: Int = 0,
         lantern: Boolean = false, load: Load = Load.NONE,
     ): Int {
+        // a child running at play: walking's legs, quicker, with a little hop
+        if (activity == Activity.RUN) return person(bx, by, art, look, seed, Activity.WALK, flip, bob + ((((t * 8).toInt() + seed) and 1)), lantern, load)
         val h = when (k) {
             1 -> small(bx, by, look, seed, activity, flip, bob, lantern, load)
             2 -> middle(bx, by, look, seed, activity, flip, bob, lantern, load)
@@ -185,6 +187,31 @@ internal class Effects(private val s: SceneCtx) {
     /** The hand at the work going to and fro (tending). */
     private fun tendOut(seed: Int): Boolean = cyc(seed, 0.8) < 0.5f
 
+    /** The broom out (a stroke away) or back. */
+    private fun sweepOut(seed: Int): Boolean = cyc(seed, 1.1, 0.27) < 0.5f
+
+    /** Up at the line (pegging the washing) or down at the basket for the next piece. */
+    private fun reachUp(seed: Int): Boolean = cyc(seed, 2.6, 0.13) < 0.55f
+
+    /** The carpet beater: where its swing is (0 until 1: up until 0.5, down on the rug from 0.5, the dust from it). */
+    private fun beat(seed: Int): Float = cyc(seed, 1.0, 0.31)
+
+    /** The grain thrown: the hand out for a moment of every throw. */
+    private fun throwing(seed: Int): Boolean = cyc(seed, 1.8, 0.4) < 0.3f
+
+    /** A hen's head down, pecking. */
+    private fun pecking(seed: Int, j: Int): Boolean = cyc(seed + j * 977, 0.9 + j * 0.37, j * 0.29) < 0.35f
+
+    /** The needle (the twig) drawn up out of the work in the lap, or in it. */
+    private fun stitchUp(seed: Int): Boolean = cyc(seed, 0.75, 0.6) < 0.45f
+
+    /** What's in a picker's basket by the month: wild strawberries in June, bilberries in summer, mushrooms in autumn. */
+    private fun picked(): Int = when (s.env.month) {
+        6 -> Pal.GERANIUM
+        7, 8 -> BILBERRY
+        else -> MUSHROOM
+    }
+
     /** The lantern's flame, 0..1, flickering a little. */
     private fun flicker(seed: Int): Float = Noise.v1((t * 7).toFloat(), seed and 0xFFF)
 
@@ -200,10 +227,24 @@ internal class Effects(private val s: SceneCtx) {
             if (lantern) lamp1(bx - 3 * d, by0 - 3, seed, ground = true)
             return 5
         }
-        if (a == Activity.TEND || a == Activity.WASH) {
-            // crouched (tending) or kneeling at the bank (washing), bent over the work, a hand going
+        if (a == Activity.MEND) {
+            // sitting with the work in the lap (a basket half woven, a net), the hand going in and out of it
+            seatedTiny(bx, by0, L, flip)
+            c.set(bx + d, by0 - 3, Pal.WOOD_L); c.set(bx, by0 - 3, Pal.WOOD_M)
+            c.set(bx + 2 * d, by0 - (if (stitchUp(seed)) 4 else 3), L.skin)
+            if (lantern) lamp1(bx - 3 * d, by0 - 3, seed, ground = true)
+            return 5
+        }
+        if (a == Activity.HIDE) {
+            // crouched in the hiding place, keeping still
             lowTiny(bx, by0, L, flip)
-            if (a == Activity.TEND) {
+            return 5
+        }
+        if (a == Activity.TEND || a == Activity.WASH || a == Activity.GATHER) {
+            // crouched (tending, picking) or kneeling at the bank (washing), bent over the work, a hand going
+            lowTiny(bx, by0, L, flip)
+            if (a == Activity.GATHER) { c.set(bx - 3 * d, by0 - 1, Pal.WOOD_M); c.set(bx - 3 * d, by0 - 2, picked()) } // the basket
+            if (a == Activity.TEND || a == Activity.GATHER) {
                 if (tendOut(seed)) c.set(bx + 3 * d, by0 - 1, L.skin) else c.set(bx + 2 * d, by0 - 2, L.skin)
             } else {
                 val out = scrubOut(seed)
@@ -232,6 +273,49 @@ internal class Effects(private val s: SceneCtx) {
                     c.set(bx + 5 * d, by - 1, Pal.SLATE_M); c.set(bx + 4 * d, by - 1, Pal.SLATE_L)
                     c.set(bx + 2 * d, by - 4, L.skin)
                 }
+            }
+            Activity.SWEEP -> {
+                // the broom slanting down in front, its head going to and fro on the ground, a puff of dust
+                tiny(bx, by, L, false, flip, seed, hand = false)
+                val out = sweepOut(seed)
+                val ex = bx + (if (out) 5 else 3) * d
+                c.line(bx + 2 * d, by - 4, ex, by - 2, Pal.WOOD_M)
+                c.set(bx + 2 * d, by - 4, L.skin)
+                c.set(ex, by - 1, Pal.HAY_M); c.set(ex + d, by - 1, Pal.HAY_D)
+                if (out) c.set(ex + 2 * d, by - 2, DUST)
+            }
+            Activity.HANG -> {
+                // at the washing line beside them: up to peg the washing, down to the basket at their feet for the next
+                line1(bx, by, d, rug = false)
+                tiny(bx, by, L, false, flip, seed, hand = false)
+                if (reachUp(seed)) { c.set(bx + 2 * d, by - 5, L.shirt); c.set(bx + 2 * d, by - 6, L.skin); c.set(bx + 3 * d, by - 6, CLOTH) }
+                else c.set(bx + 2 * d, by - 3, L.skin)
+                c.set(bx - 2 * d, by - 1, Pal.WOOD_M); c.set(bx - 2 * d, by - 2, CLOTH)
+            }
+            Activity.BEAT -> {
+                // the rug over the line in front, the beater up and down on it, the dust flying off
+                line1(bx, by, d, rug = true)
+                tiny(bx, by, L, false, flip, seed, hand = false)
+                val u = beat(seed)
+                if (u < 0.5f) { c.set(bx + 2 * d, by - 5, L.skin); c.line(bx + 2 * d, by - 6, bx + d, by - 8, Pal.WOOD_M) }
+                else {
+                    c.set(bx + 2 * d, by - 4, L.skin); c.line(bx + 3 * d, by - 4, bx + 3 * d, by - 5, Pal.WOOD_M)
+                    if (u < 0.85f) { c.set(bx + 5 * d, by - 7 - (if (u > 0.68f) 1 else 0), DUST); c.set(bx + 7 * d, by - 6 - (if (u > 0.68f) 1 else 0), DUST) }
+                }
+            }
+            Activity.FEED -> {
+                // a handful of grain thrown to the hens pecking about, the bowl on the far arm
+                tiny(bx, by, L, false, flip, seed, hand = false)
+                if (throwing(seed)) { c.set(bx + 3 * d, by - 4, L.skin); c.set(bx + 5 * d, by - 3, Pal.GOLD); c.set(bx + 6 * d, by - 1, Pal.GOLD) }
+                else c.set(bx + 2 * d, by - 3, L.skin)
+                c.set(bx - 2 * d, by - 3, Pal.WOOD_L)
+                hen1(bx + 5 * d, by + 1, -d, pecking(seed, 0), white = true)
+                hen1(bx + 3 * d, by + 2, d, pecking(seed, 1), white = (seed ushr 9) % 2 == 0)
+            }
+            Activity.COUNT -> {
+                // counting with a hand over the eyes
+                tiny(bx, by, L, false, flip, seed, hand = false)
+                c.set(bx + d, by - (if (L.small) 4 else 5), L.skin)
             }
             Activity.HAMMER -> {
                 tiny(bx, by, L, false, flip, seed, hand = false)
@@ -378,12 +462,80 @@ internal class Effects(private val s: SceneCtx) {
                 if (lantern) lamp2(bx - 5 * d, by0 - 4, seed, ground = true)
                 return 11
             }
-            Activity.TEND -> {
-                // crouched, bent over the work, the hand going to and fro (what they hold in it too: the smoker's puff)
+            Activity.TEND, Activity.GATHER -> {
+                // crouched, bent over the work, the hand going to and fro (what they hold in it too: the smoker's puff); picking
+                // berries or mushrooms, the basket on the ground behind
                 val out = tendOut(seed)
-                figure(bx, by0, L, false, flip, true, seed, reach = intArrayOf(bx + (if (out) 5 else 4) * d, by0 - (if (out) 2 else 3)), lean = 1)
+                if (a == Activity.GATHER) basketOnGround2(bx - 6 * d, by0, d)
+                figure(bx, by0, L, false, flip, true, seed, reach = intArrayOf(bx + (if (out) 5 else 4) * d, by0 - (if (out) 2 else 3)), held = a == Activity.TEND, lean = 1)
+                if (a == Activity.GATHER && out) c.set(bx + 5 * d, by0 - 1, picked())
                 if (lantern) lamp2(bx - 5 * d, by0 - 4, seed, ground = true)
                 return 11
+            }
+            Activity.MEND -> {
+                // sitting, the work in the lap (a basket half woven), the near hand drawing the twig through it and back
+                figure(bx, by, L, false, flip, true, seed, reach = intArrayOf(bx + 3 * d, by - (if (stitchUp(seed)) 6 else 4)), held = false)
+                c.hline(bx - 1, bx + 2, by - 3, Pal.WOOD_L); c.hline(bx - 1, bx + 2, by - 4, Pal.WOOD_M); c.set(bx, by - 4, Pal.WOOD_L)
+                if (lantern) lamp2(bx - 5 * d, by0 - 4, seed, ground = true)
+                return 11
+            }
+            Activity.HIDE -> {
+                // crouched in the hiding place, still
+                figure(bx, by0, L, false, flip, true, seed, lean = 1)
+                return 11
+            }
+            Activity.SWEEP -> {
+                // both hands on the broom slanting down in front, its head going to and fro on the ground, a puff of dust
+                val tTop = tTopAt(by)
+                val out = sweepOut(seed)
+                val ex = bx + (if (out) 11 else 8) * d; val ey = by - 2
+                val mx = bx + 5 * d; val my = tTop + 3
+                c.line(bx + 3 * d, tTop, ex, ey, Pal.WOOD_M)
+                figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(mx, my, bx + 3 * d, tTop + 1), held = false)
+                c.hline(ex - d, ex + 2 * d, by - 1, Pal.HAY_D); c.hline(ex, ex + d, by - 2, Pal.HAY_M); c.set(ex + 2 * d, by - 2, Pal.HAY_L)
+                if (out) { c.set(ex + 3 * d, by - 2, DUST); c.set(ex + 4 * d, by - 3, DUST) }
+            }
+            Activity.HANG -> {
+                // at the washing line beside them: up to peg a cloth, down to the basket at their feet for the next
+                line2(bx, by, d, rug = false)
+                val up = reachUp(seed)
+                val hTop = tTopAt(by) - 5
+                figure(bx, by, L, false, flip, false, seed, reach = if (up) intArrayOf(bx + 4 * d, hTop - 1) else intArrayOf(bx + 4 * d, tTopAt(by) + 4), held = false)
+                if (up) { c.fillRect(if (d > 0) bx + 4 else bx - 6, hTop, 3, 3, CLOTH); c.set(bx + 5 * d, hTop + 2, CLOTH_D) }
+                basketOnGround2(bx - 5 * d, by, d, CLOTH)
+            }
+            Activity.BEAT -> {
+                // the rug over the line in front, the beater up over the shoulder and down on it, the dust flying off
+                line2(bx, by, d, rug = true)
+                val u = beat(seed)
+                val tTop = tTopAt(by); val hTop = tTop - 5
+                if (u < 0.5f) {
+                    figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(bx + 3 * d, hTop + 1), held = false)
+                    c.line(bx + 3 * d, hTop, bx + d, hTop - 5, Pal.WOOD_M); c.fillRect(if (d > 0) bx - 1 else bx, hTop - 7, 2, 2, Pal.WOOD_L)
+                } else {
+                    figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(bx + 5 * d, tTop + 1), held = false)
+                    c.line(bx + 5 * d, tTop, bx + 8 * d, tTop - 2, Pal.WOOD_M); c.fillRect(if (d > 0) bx + 8 else bx - 9, tTop - 4, 2, 2, Pal.WOOD_L)
+                    if (u < 0.9f) {
+                        val p = (u - 0.5f) / 0.4f
+                        for (j in 0..3) c.set(bx + (9 + j * 2 + (p * 3).toInt()) * d, tTop - 3 - (p * 4).toInt() + j % 2, DUST)
+                    }
+                }
+            }
+            Activity.FEED -> {
+                // a handful of grain thrown out to the hens pecking about, the bowl in the far hand
+                val tTop = tTopAt(by)
+                val out = throwing(seed)
+                figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(bx + (if (out) 6 else 4) * d, tTop + (if (out) 1 else 4), bx - 3 * d, tTop + 4), held = false)
+                c.hline(bx - 5 * d, bx - 3 * d, tTop + 5, Pal.WOOD_L); c.set(bx - 4 * d, tTop + 4, Pal.GOLD)
+                if (out) for (j in 0..3) c.set(bx + (8 + j * 2) * d, tTop + 2 + j * 2, Pal.GOLD)
+                hen2(bx + 9 * d, by + 2, -d, pecking(seed, 0), white = true)
+                hen2(bx + 5 * d, by + 4, d, pecking(seed, 1), white = (seed ushr 9) % 2 == 0)
+                hen2(bx + 12 * d, by + 5, -d, pecking(seed, 2), white = (seed ushr 10) % 2 == 0)
+            }
+            Activity.COUNT -> {
+                // counting, both hands over the eyes
+                val hTop = tTopAt(by) - 5
+                figure(bx, by, L, false, flip, false, seed, reach = intArrayOf(bx + 2 * d, hTop + 3, bx - d, hTop + 3), held = false)
             }
             Activity.WASH -> {
                 // kneeling at the bank, both hands scrubbing the cloth to and fro on the stones, a splash now and then
@@ -578,9 +730,92 @@ internal class Effects(private val s: SceneCtx) {
                 if (lantern) lamp3(bx - d * (B.tw + 6), by0 - 6, seed)
                 return H - 6
             }
-            Activity.TEND, Activity.WASH -> {
+            Activity.MEND -> {
+                // sitting, the work in the lap (a basket half woven), the near hand drawing the twig through it and back
+                P.draw(c, ar, bx, by, t, seed, false, flip, false, true, reach = intArrayOf(bx + d * (B.tw + 1), by - (if (stitchUp(seed)) 12 else 8)), holding = true)
+                for (yy in by - 8..by - 6) for (xx in bx - 4..bx + 4) c.set(xx, yy, if ((xx + yy) % 2 == 0) Pal.WOOD_L else Pal.WOOD_M)
+                c.hline(bx - 4, bx + 4, by - 9, Pal.WOOD_D)
+                if (stitchUp(seed)) c.line(bx + d * (B.tw + 1), by - 12, bx + d * 2, by - 8, Pal.WOOD_L)
+                if (lantern) lamp3(bx - d * (B.tw + 6), by0 - 6, seed)
+                return H - 6
+            }
+            Activity.HIDE -> {
+                // crouched in the hiding place, still
+                P.draw(c, ar, bx, by0, t, seed, false, flip, false, false, crouch = true)
+                return P.crouchHeight(ar, seed)
+            }
+            Activity.SWEEP -> {
+                // both hands on the broom slanting down in front, its head going to and fro on the ground, a puff of dust
+                val out = sweepOut(seed)
+                val ex = bx + d * (B.tw + (if (out) 18 else 12)); val ey = by - 4
+                val sx = bx + d * (B.tw + 1); val sy = by + B.armTop
+                c.line(sx, sy, ex, ey, Pal.WOOD_M); c.line(sx + d, sy, ex + d, ey, Pal.WOOD_D)
+                P.draw(c, ar, bx, by, t, seed, false, flip, false, false,
+                    reach = intArrayOf(bx + d * (B.tw + 6), sy + (ey - sy) * 5 / (abs(ex - sx).coerceAtLeast(1)), sx + d, sy + 1), holding = true)
+                // the broom's head: a bundle of birch twigs bound to the handle
+                c.fillRect(if (d > 0) ex - 2 else ex - 4, by - 4, 7, 3, Pal.HAY_M); c.hline(if (d > 0) ex - 2 else ex - 4, if (d > 0) ex + 4 else ex + 2, by - 1, Pal.HAY_D)
+                c.set(ex, by - 5, Pal.WOOD_D); c.set(ex + d, by - 5, Pal.WOOD_D)
+                for (j in 0..2) c.set(ex + d * (j * 2 - 2), by - 2, Pal.HAY_L)
+                if (out) for (j in 0..2) c.ditherCircle((ex + d * (7 + j * 3)).toFloat(), by - 3f - j, 1.5f + j * 0.5f, DUST, 0.6f - j * 0.15f)
+            }
+            Activity.HANG -> {
+                // at the washing line beside them: up to peg a cloth, down to the basket at their feet for the next
+                val lineY = by + B.hTop - 3
+                line3(bx, by, d, lineY, rug = false)
+                val up = reachUp(seed)
+                if (up) {
+                    P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(bx + d * (B.tw + 4), lineY + 1, bx + d * (B.tw + 9), lineY + 2), holding = true)
+                    c.fillRect(if (d > 0) bx + B.tw + 4 else bx - B.tw - 9, lineY + 1, 6, 7, CLOTH); c.vline(bx + d * (B.tw + 6), lineY + 3, lineY + 7, CLOTH_D)
+                } else P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(bx - d * (B.tw + 3), by + B.hand + 1), holding = true)
+                basket3(bx - d * (B.tw + 6), by - 5, d, CLOTH)
+            }
+            Activity.BEAT -> {
+                // the rug over the line in front, the beater up over the shoulder and down on it, the dust flying off
+                val lineY = by + B.hTop - 3
+                line3(bx, by, d, lineY, rug = true)
+                val u = beat(seed)
+                if (u < 0.5f) {
+                    val hx = bx + d * (B.hw + 1); val hy = by + B.hTop + 4
+                    P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(hx, hy), holding = true)
+                    c.line(hx, hy, hx - d * 4, hy - 9, Pal.WOOD_M)
+                    beater3(hx - d * 4, hy - 12)
+                } else {
+                    val hx = bx + d * (B.tw + 5); val hy = by + B.armTop + 2
+                    P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(hx, hy), holding = true)
+                    c.line(hx, hy, hx + d * 8, hy - 3, Pal.WOOD_M)
+                    beater3(hx + d * 10, hy - 4)
+                    if (u < 0.9f) {
+                        val p = (u - 0.5f) / 0.4f
+                        for (j in 0..3) c.ditherCircle((hx + d * (12 + j * 4 + p * 6)).toFloat(), hy - 6f - p * 8f + j * 2, 1.5f + p * 2f, DUST, 0.7f - p * 0.5f)
+                    }
+                }
+            }
+            Activity.FEED -> {
+                // a handful of grain thrown out to the hens pecking about, the bowl in the far hand
+                val out = throwing(seed)
+                P.draw(c, ar, bx, by, t, seed, false, flip, false, false,
+                    reach = intArrayOf(bx + d * (B.tw + (if (out) 9 else 4)), by + B.armTop + (if (out) 1 else 5), bx - d * (B.tw + 2), by + B.hand - 2), holding = true)
+                val bwx = bx - d * (B.tw + 3); val bwy = by + B.hand - 1
+                c.fillRect(bwx - 3, bwy, 7, 2, Pal.WOOD_L); c.hline(bwx - 2, bwx + 2, bwy + 2, Pal.WOOD_D); c.hline(bwx - 2, bwx + 2, bwy - 1, Pal.GOLD)
+                if (out) for (j in 0..5) c.set(bx + d * (B.tw + 12 + j * 3), by + B.armTop + 2 + j * 3 + (j % 2), Pal.GOLD)
+                hen3(bx + d * (B.tw + 24), by + 5, -d, pecking(seed, 0), white = true)
+                hen3(bx + d * (B.tw + 12), by + 11, d, pecking(seed, 1), white = (seed ushr 9) % 2 == 0)
+                hen3(bx + d * (B.tw + 33), by + 14, -d, pecking(seed, 2), white = (seed ushr 10) % 2 == 0)
+            }
+            Activity.COUNT -> {
+                // counting, both hands over the eyes
+                P.draw(c, ar, bx, by, t, seed, false, flip, false, false, reach = intArrayOf(bx + d * 2, by + B.eyeRow, bx - d * 2, by + B.eyeRow), holding = true)
+            }
+            Activity.TEND, Activity.WASH, Activity.GATHER -> {
                 val C = P.body(ar, seed, crouch = true)
-                if (a == Activity.TEND) {
+                if (a == Activity.GATHER) {
+                    // picking: the hand going to the ground and back, the basket behind
+                    basket3(bx - d * (C.tw + 7), by0 - 5, d, picked())
+                    val out = tendOut(seed)
+                    P.draw(c, ar, bx, by0, t, seed, false, flip, false, false, crouch = true,
+                        reach = intArrayOf(bx + d * (C.tw + (if (out) 5 else 3)), by0 - (if (out) 2 else 5)), holding = true)
+                    if (out) { c.set(bx + d * (C.tw + 6), by0 - 2, picked()); c.set(bx + d * (C.tw + 7), by0 - 2, picked()) }
+                } else if (a == Activity.TEND) {
                     // squatting at the work, the hand going to and fro (with what it holds: the smoker puffing)
                     val out = tendOut(seed)
                     P.draw(c, ar, bx, by0, t, seed, false, flip, false, false, crouch = true,
@@ -762,13 +997,145 @@ internal class Effects(private val s: SceneCtx) {
         c.hline(x - 2, x + 2, y + 7, Pal.SLATE_D)
     }
 
-    /** A basket at the finest detail on the forearm ([x] its middle, [y] its rim's row): woven, apples, a loaf and greens in it, the handle over the arm. */
-    private fun basket3(x: Int, y: Int, d: Int) {
+    /**
+     * A basket at the finest detail on the forearm or the ground ([x] its middle, [y] its rim's row): woven, the handle over
+     * it; apples, a loaf and greens in it, or [fill] heaped in it (the washing, berries, mushrooms).
+     */
+    private fun basket3(x: Int, y: Int, d: Int, fill: Int? = null) {
         c.line(x - 3, y, x - d, y - 4, Pal.WOOD_D); c.line(x + 3, y, x + d, y - 4, Pal.WOOD_D)
-        c.fillRect(x - 2, y - 2, 2, 2, Pal.GERANIUM); c.set(x - 2, y - 2, Col.hex(0xF07060))
-        c.fillRect(x, y - 1, 3, 1, GOURD); c.set(x + 1, y - 2, GOURD); c.set(x + 3 * d, y - 2, Pal.LEAF)
+        if (fill != null) {
+            c.hline(x - 2, x + 2, y - 1, fill); c.set(x - 1, y - 2, fill); c.set(x + 1, y - 2, fill)
+            if (fill == MUSHROOM) { c.set(x - 1, y - 1, MUSHROOM_STEM); c.set(x + 2, y - 1, MUSHROOM_STEM) }
+        } else {
+            c.fillRect(x - 2, y - 2, 2, 2, Pal.GERANIUM); c.set(x - 2, y - 2, Col.hex(0xF07060))
+            c.fillRect(x, y - 1, 3, 1, GOURD); c.set(x + 1, y - 2, GOURD); c.set(x + 3 * d, y - 2, Pal.LEAF)
+        }
         for (yy in y + 1..y + 4) for (xx in x - 3 + (if (yy == y + 4) 1 else 0)..x + 3 - (if (yy == y + 4) 1 else 0)) c.set(xx, yy, if ((xx + yy) % 2 == 0) Pal.WOOD_L else Pal.WOOD_M)
         c.hline(x - 3, x + 3, y, Pal.WOOD_D)
+    }
+
+    /**
+     * The washing line beside someone at the nominal detail (their feet at [bx], [by], the line going on toward [d]): a post
+     * behind them and one at its far end, the line above their head, the washing hanging from it (a sheet, a shirt, a towel);
+     * with [rug], a rug over it in front of them instead, its fringe hanging.
+     */
+    private fun line1(bx: Int, by: Int, d: Int, rug: Boolean) {
+        val x0 = bx - d; val x1 = bx + 9 * d; val ly = by - 8
+        c.vline(x0, ly, by - 1, Pal.WOOD_D); c.vline(x1, ly, by - 1, Pal.WOOD_D)
+        c.line(x0, ly, x1, ly, LINE)
+        if (rug) {
+            for (x in 3..7) for (y in 1..5) c.set(bx + x * d, ly + y, if (y == 3) RUG_L else if (x == 3 || x == 7) RUG_D else RUG)
+            c.set(bx + 4 * d, ly + 6, RUG_L); c.set(bx + 6 * d, ly + 6, RUG_L)
+        } else {
+            for (x in 3..4) for (y in 1..3) c.set(bx + x * d, ly + y, CLOTH)
+            for (x in 6..7) for (y in 1..2) c.set(bx + x * d, ly + y, Pal.FLAG_BLUE)
+            c.set(bx + 8 * d, ly + 1, CLOTH); c.set(bx + 8 * d, ly + 2, CLOTH_D)
+        }
+    }
+
+    /** [line1] at the middle detail: taller posts, the line just over their head, the washing or the rug bigger. */
+    private fun line2(bx: Int, by: Int, d: Int, rug: Boolean) {
+        val x0 = bx - 2 * d; val x1 = bx + 19 * d; val ly = by - 15
+        c.vline(x0, ly - 1, by - 1, Pal.WOOD_D); c.vline(x1, ly - 1, by - 1, Pal.WOOD_D)
+        c.line(x0, ly, x1, ly, LINE)
+        if (rug) {
+            for (x in 6..17) for (y in 1..10) c.set(bx + x * d, ly + y, when {
+                y == 1 -> RUG_D
+                y == 5 || y == 6 -> if ((x + y) % 2 == 0) RUG_L else RUG
+                x == 6 || x == 17 -> RUG_D
+                else -> RUG
+            })
+            for (x in 6..17 step 2) c.set(bx + x * d, ly + 11, RUG_L)
+        } else {
+            for (x in 6..10) for (y in 1..6) c.set(bx + x * d, ly + y, if (x == 10 || y == 6) CLOTH_D else CLOTH)
+            for (x in 12..14) for (y in 1..4) c.set(bx + x * d, ly + y, if (y == 4) Col.scale(Pal.FLAG_BLUE, 0.8f) else Pal.FLAG_BLUE)
+            for (x in 15..18) for (y in 1..7) c.set(bx + x * d, ly + y, if (y == 7 || x == 18) CLOTH_D else if (y == 2) Pal.GERANIUM else CLOTH)
+        }
+    }
+
+    /** [line1] at the finest detail, the line at [ly]: posts with a crossbar, pegs on the line, the washing or the rug. */
+    private fun line3(bx: Int, by: Int, d: Int, ly: Int, rug: Boolean) {
+        val x0 = bx - 6 * d; val x1 = bx + 32 * d
+        for (x in intArrayOf(x0, x1)) { c.vline(x, ly - 2, by - 1, Pal.WOOD_D); c.vline(x + d, ly - 2, by - 1, Pal.WOOD_M); c.hline(x - 2, x + 2, ly - 2, Pal.WOOD_D) }
+        c.line(x0, ly, x1, ly, LINE)
+        if (rug) {
+            for (x in 10..30) for (y in 1..22) c.set(bx + x * d, ly + y, when {
+                y <= 2 -> RUG_D
+                x == 10 || x == 30 || y == 22 -> RUG_D
+                (y in 9..14) && (x + y) % 4 < 2 -> RUG_L
+                (y == 6 || y == 17) -> RUG_L
+                else -> RUG
+            })
+            for (x in 10..30 step 2) { c.set(bx + x * d, ly + 23, RUG_L); c.set(bx + x * d, ly + 24, RUG_L) }
+        } else {
+            fun cloth(from: Int, to: Int, deep: Int, col: Int, shade: Int) {
+                for (x in from..to) for (y in 1..deep) c.set(bx + x * d, ly + y, if (x == to || y == deep) shade else col)
+                c.set(bx + from * d, ly, Pal.WOOD_L); c.set(bx + to * d, ly, Pal.WOOD_L) // the pegs
+            }
+            cloth(10, 17, 16, CLOTH, CLOTH_D)
+            cloth(20, 24, 10, Pal.FLAG_BLUE, Col.scale(Pal.FLAG_BLUE, 0.75f))
+            cloth(26, 30, 14, CLOTH, CLOTH_D)
+            for (x in 26..30) c.set(bx + x * d, ly + 4, Pal.GERANIUM)
+        }
+    }
+
+    /** A carpet beater's head at the finest detail ([x], [y] its middle): a trefoil of bent cane. */
+    private fun beater3(x: Int, y: Int) {
+        c.hline(x - 2, x + 2, y - 2, Pal.WOOD_L); c.hline(x - 2, x + 2, y + 2, Pal.WOOD_L)
+        c.vline(x - 2, y - 2, y + 2, Pal.WOOD_L); c.vline(x + 2, y - 2, y + 2, Pal.WOOD_L); c.set(x, y, Pal.WOOD_M)
+    }
+
+    /** A basket set down at the middle detail, its foot on [by] at [x]: woven, [fill] heaped in it (picked berries, the washing). */
+    private fun basketOnGround2(x: Int, by: Int, d: Int, fill: Int = picked()) {
+        c.hline(x - 2, x + 2, by - 1, Pal.WOOD_D); c.hline(x - 2, x + 2, by - 2, Pal.WOOD_M); c.set(x - 1, by - 2, Pal.WOOD_L); c.set(x + 1, by - 2, Pal.WOOD_L)
+        c.hline(x - 2, x + 2, by - 3, Pal.WOOD_D)
+        c.hline(x - 1, x + 1, by - 4, fill); c.set(x + d, by - 5, fill)
+    }
+
+    /** A hen at the nominal detail, its feet at ([x], [y]) facing [d]: a white or brown body, the comb; its head down pecking. */
+    private fun hen1(x: Int, y: Int, d: Int, peck: Boolean, white: Boolean) {
+        val body = if (white) CLOTH else HEN_BROWN
+        c.set(x, y - 1, body); c.set(x - d, y - 1, body); c.set(x - d, y - 2, Col.scale(body, 0.8f))
+        if (peck) { c.set(x + d, y - 1, body); c.set(x + 2 * d, y, Pal.GOLD) } else { c.set(x + d, y - 2, body); c.set(x + d, y - 3, Pal.FLAG_RED) }
+    }
+
+    /** A hen at the middle detail: [hen1] bigger, its tail up, its legs, the comb and the beak. */
+    private fun hen2(x: Int, y: Int, d: Int, peck: Boolean, white: Boolean) {
+        val body = if (white) CLOTH else HEN_BROWN
+        val shade = Col.scale(body, 0.8f)
+        c.hline(x - 2 * d, x + d, y - 2, body); c.hline(x - d, x + d, y - 3, body); c.set(x - 2 * d, y - 3, shade); c.set(x - 3 * d, y - 4, shade)
+        c.set(x, y - 1, Pal.GOLD); c.set(x - d, y - 1, Pal.GOLD)
+        if (peck) { c.set(x + 2 * d, y - 2, body); c.set(x + 3 * d, y - 1, Pal.GOLD); c.set(x + 2 * d, y - 3, Pal.FLAG_RED) }
+        else { c.set(x + 2 * d, y - 4, body); c.set(x + 2 * d, y - 5, Pal.FLAG_RED); c.set(x + 3 * d, y - 4, Pal.GOLD); c.set(x + d, y - 4, body) }
+    }
+
+    /** A hen at the finest detail: a round body with a wing, its tail feathers up, yellow legs, the red comb and wattle. */
+    private fun hen3(x: Int, y: Int, d: Int, peck: Boolean, white: Boolean) {
+        val body = if (white) CLOTH else HEN_BROWN
+        val shade = Col.scale(body, 0.78f)
+        for (r in 0..3) c.hline(x - 3 * d + (if (r == 0) d else 0), x + 2 * d, y - 3 - r, body)
+        c.hline(x - 2 * d, x + d, y - 2, shade) // the belly
+        c.hline(x - d, x + d, y - 5, shade); c.set(x, y - 4, shade) // the wing
+        c.set(x - 4 * d, y - 6, shade); c.set(x - 4 * d, y - 7, body); c.set(x - 3 * d, y - 7, shade) // the tail
+        c.vline(x - d, y - 1, y - 1, Pal.GOLD); c.vline(x + d, y - 1, y - 1, Pal.GOLD)
+        if (peck) {
+            c.fillRect(if (d > 0) x + 3 else x - 4, y - 3, 2, 2, body); c.set(x + 5 * d, y - 1, Pal.GOLD); c.set(x + 3 * d, y - 4, Pal.FLAG_RED)
+        } else {
+            c.fillRect(if (d > 0) x + 2 else x - 3, y - 8, 2, 3, body); c.set(x + 2 * d, y - 9, Pal.FLAG_RED); c.set(x + 3 * d, y - 9, Pal.FLAG_RED)
+            c.set(x + 4 * d, y - 7, Pal.GOLD); c.set(x + 3 * d, y - 6, Pal.FLAG_RED); c.set(x + 3 * d, y - 7, Col.hex(0x1E1618))
+        }
+    }
+
+    /**
+     * The children's ball ([Placed.ball]) at ([bx], [by]) on the ground, [z] canvas px up in the air: its shadow on the
+     * ground, the ball red with a white band, bigger at a closer look.
+     */
+    fun ball(bx: Int, by: Int, z: Int) {
+        val r = when (k) { 1 -> 1; 2 -> 1; else -> 2 }
+        c.hline(bx - r, bx + r, by, Col.hex(0x2E2A24))
+        val y = by - z - r - 1
+        if (k == 1) { c.set(bx, y, Pal.FLAG_RED); c.set(bx + 1, y, Pal.FLAG_WHITE); c.set(bx, y + 1, Col.scale(Pal.FLAG_RED, 0.75f)); c.set(bx + 1, y + 1, Pal.FLAG_RED); return }
+        for (dy in -r..r) for (dx in -r..r) if (dx * dx + dy * dy <= r * r + 1) c.set(bx + dx, y + dy, if (dy == 0) Pal.FLAG_WHITE else if (dy > 0) Col.scale(Pal.FLAG_RED, 0.75f) else Pal.FLAG_RED)
     }
 
     /** The washing on the stones at the finest detail ([x] its near edge toward [d], its bottom on [by]): white, wet and grey underneath. */
@@ -1285,6 +1652,20 @@ internal class Effects(private val s: SceneCtx) {
         /** The washing: white linen, grey where it's wet. */
         private val CLOTH = Col.hex(0xF4EEDD)
         private val CLOTH_D = Col.hex(0xB4BECA)
+        /** The washing line's cord. */
+        private val LINE = Col.hex(0xD8D2C4)
+        /** A rug to beat: red, its border dark, its pattern gold. */
+        private val RUG = Col.hex(0xA8323A)
+        private val RUG_D = Col.hex(0x6E1E26)
+        private val RUG_L = Col.hex(0xD8A040)
+        /** Dust swept up, beaten out of a rug. */
+        private val DUST = Col.hex(0xC8B89A)
+        /** What the pickers find at the forest's edge: bilberries, mushrooms' brown caps and pale stems. */
+        private val BILBERRY = Col.hex(0x34407A)
+        private val MUSHROOM = Col.hex(0xA86A3C)
+        private val MUSHROOM_STEM = Col.hex(0xEADFC8)
+        /** A brown hen (the others are white). */
+        private val HEN_BROWN = Col.hex(0xA0602E)
         /** A mouth open, talking. */
         private val MOUTH_OPEN = Col.hex(0x6A2226)
 
