@@ -1,0 +1,219 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "sedanjik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "⏳",
+  "title": { "sl": "Sedanjik: delam, govorim, pijem", "en": "The present: delam, govorim, pijem", "de": "Präsens: delam, govorim, pijem", "it": "Il presente: delam, govorim, pijem" },
+  "goal": {
+    "en": "You can say what you, the others and the two of you do now: delam, govoriš, pije, kuhamo, čakata.",
+    "de": "Du sagst, was du tust, was die anderen tun und was ihr zwei tut: delam, govoriš, pije, kuhamo, čakata.",
+    "it": "Sai dire che cosa fai tu, che cosa fanno gli altri e che cosa fate voi due: delam, govoriš, pije, kuhamo, čakata."
+  },
+  "grammar": ["glagoli-sedanjik", "dvojina"],
+  "words": ["delati", "govoriti", "piti", "kuhati", "čakati", "gledati", "brati", "pisati", "peči", "spati", "jesti", "kosilo", "pismo", "čaj", "mleko", "kruh", "slovensko", "zjutraj", "zvečer", "ogenj"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "končnica", "en": "ending", "de": "Endung", "it": "desinenza" },
+        { "sl": "delati", "en": "delati (work)", "de": "delati (arbeiten)", "it": "delati (lavorare)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A verb's ending says who does it, so the pronoun can drop. In the dictionary a verb ends in **-ti** (a few in -či: peči): delati (to work). For one person: **-m** (I), **-š** (you), no ending (he, she, it): **delam, delaš, dela**.",
+          "de": "Die Endung des Verbs sagt, wer etwas tut, darum kann das Pronomen wegfallen. Im Wörterbuch endet ein Verb auf **-ti** (ein paar auf -či: peči): delati (arbeiten). Für eine Person: **-m** (ich), **-š** (du), keine Endung (er, sie, es): **delam, delaš, dela**.",
+          "it": "La desinenza del verbo dice chi fa l'azione, perciò il pronome può cadere. Nel dizionario un verbo finisce in **-ti** (alcuni in -či: peči): delati (lavorare). Per una persona: **-m** (io), **-š** (tu), nessuna desinenza (lui, lei, esso): **delam, delaš, dela**."
+        },
+        "examples": [
+          { "sl": "Delam na vrtu.", "en": "I'm working in the garden.", "de": "Ich arbeite im Garten.", "it": "Lavoro in giardino." },
+          { "sl": "Babica kuha kosilo.", "en": "Granny is cooking lunch.", "de": "Oma kocht das Mittagessen.", "it": "La nonna cucina il pranzo." }
+        ],
+        "rows": [["jaz", "-m", "delam"], ["ti", "-š", "delaš"], ["on, ona, ono", "—", "dela"]],
+        "ask": {
+          "type": "choice", "grammar": "glagoli-sedanjik", "prompt": "Luka ___ na pašniku. (delati)", "options": ["delam", "delaš", "dela"], "answer": 2, "say_options": true,
+          "explain": "**Luka** → on → no ending → **dela**\n- delam · I work\n- delaš · you work\n- dela · he works"
+        }
+      },
+      {
+        "say": {
+          "en": "Three or more: **-mo** (we), **-te** (you, several of you), **-jo** (they): **delamo, delate, delajo**. The polite vi takes -te too: **Kaj delate, France?**",
+          "de": "Drei oder mehr: **-mo** (wir), **-te** (ihr), **-jo** (sie): **delamo, delate, delajo**. Auch das höfliche vi (Sie) nimmt -te: **Kaj delate, France?**",
+          "it": "Tre o più: **-mo** (noi), **-te** (voi), **-jo** (loro): **delamo, delate, delajo**. Anche il vi di cortesia (Lei) prende -te: **Kaj delate, France?**"
+        },
+        "examples": [
+          { "sl": "Kaj delate, France?", "en": "What are you doing, France? (polite)", "de": "Was machen Sie, France?", "it": "Che cosa fa, France?" },
+          { "sl": "Otroci čakajo pri lipi.", "en": "The children are waiting at the linden.", "de": "Die Kinder warten bei der Linde.", "it": "I bambini aspettano al tiglio." }
+        ],
+        "rows": [["mi", "-mo", "delamo"], ["vi", "-te", "delate"], ["oni", "-jo", "delajo"]],
+        "ask": {
+          "type": "cloze", "grammar": "glagoli-sedanjik", "text": "Luka, France in Anton ___ na njivi. (delati)", "accept": ["delajo"], "hint": "oni …",
+          "explain": "**three men** → oni → **-jo**\n- delamo · we work\n- delajo · they work"
+        }
+      },
+      {
+        "say": {
+          "en": "Before the ending sits a vowel: **a**, **i** or **e**. Delati has a (dela**m**), govoriti has i (govori**m**), piti has e (pije**m**). The endings are the same for all three: **delajo, govorijo, pijejo**. Learn the vowel with the verb.",
+          "de": "Vor der Endung steht ein Vokal: **a**, **i** oder **e**. Delati hat a (dela**m**), govoriti hat i (govori**m**), piti hat e (pije**m**). Die Endungen sind bei allen drei gleich: **delajo, govorijo, pijejo**. Lerne den Vokal mit dem Verb.",
+          "it": "Prima della desinenza c'è una vocale: **a**, **i** o **e**. Delati ha a (dela**m**), govoriti ha i (govori**m**), piti ha e (pije**m**). Le desinenze sono le stesse per tutti e tre: **delajo, govorijo, pijejo**. Impara la vocale con il verbo."
+        },
+        "examples": [
+          { "sl": "Govoriš slovensko?", "en": "Do you speak Slovene?", "de": "Sprichst du Slowenisch?", "it": "Parli sloveno?" },
+          { "sl": "Tine pije mleko.", "en": "Tine is drinking milk.", "de": "Tine trinkt Milch.", "it": "Tine beve il latte." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "glagoli-sedanjik", "prompt": "Tine ___ mleko. (piti)", "options": ["pijem", "pije", "pijejo"], "answer": 1, "say_options": true,
+          "explain": "**Tine** → on → no ending, the e stays → **pije**\n- pijem · I drink\n- pije · he drinks\n- pijejo · they drink"
+        }
+      },
+      {
+        "say": {
+          "en": "For exactly two: **-va** (we two) and **-ta** (you two, the two of them): **delava, delata**; **govoriva, pijeta**. Two people named with *in* take it too: **Nejc in Tine čakata.**",
+          "de": "Für genau zwei: **-va** (wir zwei) und **-ta** (ihr zwei, die zwei): **delava, delata**; **govoriva, pijeta**. Auch zwei mit *in* genannte Personen bekommen ihn: **Nejc in Tine čakata.**",
+          "it": "Per esattamente due: **-va** (noi due) e **-ta** (voi due, loro due): **delava, delata**; **govoriva, pijeta**. Anche due persone nominate con *in* lo prendono: **Nejc in Tine čakata.**"
+        },
+        "examples": [
+          { "sl": "Midva delava na vrtu.", "en": "The two of us are working in the garden.", "de": "Wir zwei arbeiten im Garten.", "it": "Noi due lavoriamo in giardino." },
+          { "sl": "Micka in Vida kuhata.", "en": "Micka and Vida are cooking.", "de": "Micka und Vida kochen.", "it": "Micka e Vida cucinano." }
+        ],
+        "rows": [["midva", "-va", "delava"], ["vidva, onadva", "-ta", "delata"]],
+        "ask": {
+          "type": "cloze", "grammar": "dvojina", "text": "Nejc in Tine ___ pri ribniku. (čakati)", "accept": ["čakata"], "hint": "two boys",
+          "explain": "**two** → **-ta**\n- čakava · we two wait\n- čakata · you two, they two wait"
+        }
+      },
+      {
+        "say": {
+          "en": "Learn the **jaz** form with each verb: it shows the stem, and the other forms follow it. **pisati → pišem**, **brati → berem**, **peči → pečem**, **spati → spim**. A few are irregular, like **jesti**: **jem, ješ, je; jeva, jesta; jemo, jeste, jedo**.",
+          "de": "Lerne zu jedem Verb die **jaz**-Form: Sie zeigt den Stamm, die anderen Formen folgen ihr. **pisati → pišem**, **brati → berem**, **peči → pečem**, **spati → spim**. Ein paar sind unregelmäßig, wie **jesti**: **jem, ješ, je; jeva, jesta; jemo, jeste, jedo**.",
+          "it": "Di ogni verbo impara la forma con **jaz**: mostra la radice, e le altre forme la seguono. **pisati → pišem**, **brati → berem**, **peči → pečem**, **spati → spim**. Alcuni sono irregolari, come **jesti**: **jem, ješ, je; jeva, jesta; jemo, jeste, jedo**."
+        },
+        "examples": [
+          { "sl": "Babica peče kruh.", "en": "Granny is baking bread.", "de": "Oma bäckt Brot.", "it": "La nonna fa il pane." },
+          { "sl": "Zvečer berem.", "en": "In the evening I read.", "de": "Am Abend lese ich.", "it": "La sera leggo." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "glagoli-sedanjik", "text": "Zala ___ pismo. (pisati)", "accept": ["piše"], "hint": "pišem → she …",
+          "explain": "**pisati** → jaz pišem → ona **piše**\n- pišem · I write\n- piše · she writes"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "sedanjik-1",
+      "title": { "sl": "Delam, govorim, pijem", "en": "Delam, govorim, pijem", "de": "Delam, govorim, pijem", "it": "Delam, govorim, pijem" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "glagoli-sedanjik", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "delati, govoriti, piti",
+          "columns": ["delati · work", "govoriti · speak", "piti · drink"],
+          "rows": [
+            { "label": "jaz", "cells": ["delam", { "accept": ["govorim"], "hint": "i + -m" }, { "accept": ["pijem"], "hint": "e + -m" }] },
+            { "label": "ti", "cells": [{ "accept": ["delaš"], "hint": "a + -š" }, "govoriš", { "accept": ["piješ"] }] },
+            { "label": "on, ona", "cells": [{ "accept": ["dela"], "hint": "no ending" }, "govori", "pije"] },
+            { "label": "mi", "cells": ["delamo", "govorimo", "pijemo"] },
+            { "label": "vi", "cells": ["delate", "govorite", { "accept": ["pijete"] }] },
+            { "label": "oni", "cells": ["delajo", { "accept": ["govorijo"], "hint": "i + -jo" }, { "accept": ["pijejo"] }] }
+          ],
+          "explain": "**-m, -š, —, -mo, -te, -jo** after a, i or e\n- delam, govorim, pijem\n- delajo, govorijo, pijejo"
+        },
+        {
+          "type": "sort", "grammar": "glagoli-sedanjik", "instruction": "Kdo? Razvrsti po končnici · Who? Sort by the ending",
+          "columns": [
+            { "label": "jaz", "words": ["delam", "pišem"] },
+            { "label": "ti", "words": ["kuhaš", "piješ"] },
+            { "label": "on, ona", "words": ["bere", "čaka"] },
+            { "label": "oni", "words": ["delajo", "govorijo"] }
+          ],
+          "explain": "**the ending** → who\n- -m · jaz\n- -š · ti\n- no ending · on, ona\n- -jo · oni"
+        }
+      ]
+    },
+    {
+      "id": "sedanjik-2",
+      "title": { "sl": "Dan v vasi", "en": "A day in the village", "de": "Ein Tag im Dorf", "it": "Una giornata in paese" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "glagoli-sedanjik", "instruction": "Dopolni s pravo obliko · Fill in the right form", "title": "Dan v vasi",
+          "text": "Zjutraj babica Micka ___ (peči) kruh. Luka ___ (piti) mleko. Nejc in Tine ___ (čakati) pri ribniku. Mi ___ (delati) na njivi. »Kaj ___ (delati), Zala?« »___ (brati)!«",
+          "gaps": [
+            { "accept": ["peče"], "hint": "pečem → she …", "explain": "peči → pečem → babica **peče**." },
+            { "accept": ["pije"], "hint": "Luka = on" },
+            { "accept": ["čakata"], "hint": "two boys", "grammar": "dvojina", "explain": "Nejc and Tine are two: **-ta**, čakata." },
+            { "accept": ["delamo"], "hint": "mi …" },
+            { "accept": ["delaš"], "hint": "to Zala: ti", "explain": "You ask Zala, ti: **delaš**." },
+            { "accept": ["Berem"], "hint": "brati → jaz …", "explain": "brati → **berem** (I'm reading)." }
+          ],
+          "bank": true, "distractors": ["pijem", "čakajo"],
+          "translation": "In the morning Granny Micka bakes bread. Luka drinks milk. Nejc and Tine are waiting by the pond. We're working in the field. \"What are you doing, Zala?\" \"I'm reading!\""
+        },
+        {
+          "type": "choice", "grammar": "glagoli-sedanjik", "instruction": "Izberi · Choose", "prompt": "»Kaj ___, France?« (delati, polite)", "options": ["delaš", "delate", "delajo"], "answer": 1, "say_options": true,
+          "explain": "**France** → polite vi → **-te**: delate\n- delaš · to a friend\n- delate · polite, or to several"
+        }
+      ]
+    },
+    {
+      "id": "sedanjik-3",
+      "title": { "sl": "Kdo kaj dela?", "en": "Who does what?", "de": "Wer macht was?", "it": "Chi fa che cosa?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "glagoli-sedanjik", "instruction": "Povej za osebo v oklepaju · Say it for the person in brackets",
+          "items": [
+            { "from": "Delam doma. (on)", "accept": ["Dela doma.", "On dela doma."], "lemma": "delati", "form": "pres.3sg" },
+            { "from": "Govorim slovensko. (mi)", "accept": ["Govorimo slovensko.", "Mi govorimo slovensko."], "lemma": "govoriti", "form": "pres.1pl" },
+            { "from": "Pijem čaj. (oni)", "accept": ["Pijejo čaj.", "Oni pijejo čaj."], "hint": "e + -jo", "lemma": "piti", "form": "pres.3pl" },
+            { "from": "Kuham kosilo. (vi)", "accept": ["Kuhate kosilo.", "Vi kuhate kosilo."], "lemma": "kuhati", "form": "pres.2pl" },
+            { "from": "Gledam ogenj. (ti)", "accept": ["Gledaš ogenj.", "Ti gledaš ogenj."], "lemma": "gledati", "form": "pres.2sg" },
+            { "from": "Berem pismo. (midva)", "accept": ["Bereva pismo.", "Midva bereva pismo."], "hint": "we two: -va", "grammar": "dvojina", "lemma": "brati", "form": "pres.1du" },
+            { "from": "Spim v šotoru. (Luka in Tine)", "accept": ["Luka in Tine spita v šotoru."], "hint": "two: -ta", "grammar": "dvojina", "lemma": "spati", "form": "pres.3du" },
+            { "from": "Pečem kruh. (babica)", "accept": ["Babica peče kruh."], "hint": "pečem → she …", "lemma": "peči", "form": "pres.3sg" }
+          ],
+          "explain": "**the person** → the ending, the stem stays\n- delam → dela · pijem → pijejo\n- berem → bereva · spim → spita"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "glagoli-sedanjik", "instruction": "Dopolni · Fill in", "prompt": "govoriti · speak", "lemma": "govoriti",
+        "columns": ["govoriti"],
+        "rows": [
+          { "label": "jaz", "cells": [{ "accept": ["govorim"], "form": "pres.1sg" }] },
+          { "label": "ti", "cells": [{ "accept": ["govoriš"], "form": "pres.2sg" }] },
+          { "label": "midva", "cells": [{ "accept": ["govoriva"], "form": "pres.1du", "grammar": "dvojina" }] },
+          { "label": "oni", "cells": [{ "accept": ["govorijo"], "form": "pres.3pl" }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "glagoli-sedanjik", "instruction": "Dopolni s pravo obliko · Fill in the right form",
+        "text": "Kovač Tone ___ (delati) v kovačnici. Otroci ___ (piti) mleko. Midva ___ (jesti) kruh. »Kaj ___ (kuhati, polite), babica?«",
+        "gaps": [
+          { "accept": ["dela"] },
+          { "accept": ["pijejo"] },
+          { "accept": ["jeva"], "grammar": "dvojina" },
+          { "accept": ["kuhate"], "grammar": "ti-vi" }
+        ],
+        "translation": "Tone the smith is working in the smithy. The children are drinking milk. The two of us are eating bread. \"What are you cooking, Granny?\""
+      },
+      {
+        "type": "transform", "grammar": "glagoli-sedanjik", "instruction": "Povej za osebo v oklepaju · Say it for the person in brackets",
+        "items": [
+          { "from": "Delam na vrtu. (ona)", "accept": ["Dela na vrtu.", "Ona dela na vrtu."], "lemma": "delati", "form": "pres.3sg" },
+          { "from": "Pijem vino. (vi)", "accept": ["Pijete vino.", "Vi pijete vino."], "lemma": "piti", "form": "pres.2pl" },
+          { "from": "Pišem pismo. (oni)", "accept": ["Pišejo pismo.", "Oni pišejo pismo."], "lemma": "pisati", "form": "pres.3pl" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "dvojina", "prompt": "Mojca in Vida ___ slovensko.", "options": ["govorijo", "govorita", "govorite"], "answer": 1, "say_options": true,
+        "explain": "**two women** → **-ta**: govorita\n- govorijo · three or more"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: jesti (jeva, jesta, jedo/jejo), peči, brati. Native check: Dan v vasi; may two women take the plural (govorijo)?"
+}

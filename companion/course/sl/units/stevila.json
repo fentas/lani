@@ -1,0 +1,234 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "stevila",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": { "sl": "Ena ovca, dve ovci, pet ovc", "en": "Numbers: one sheep, two sheep, five sheep", "de": "Zahlen: ein Schaf, zwei Schafe, fünf Schafe", "it": "I numeri: una pecora, due pecore, cinque pecore" },
+  "goal": {
+    "en": "You can count, say how many with the noun's right form (ena ovca, dve ovci, tri ovce, pet ovc), and say the date.",
+    "de": "Du zählst, sagst, wie viele, mit der richtigen Form des Nomens (ena ovca, dve ovci, tri ovce, pet ovc), und nennst das Datum.",
+    "it": "Sai contare, dire quanti con la forma giusta del nome (ena ovca, dve ovci, tri ovce, pet ovc) e dire la data."
+  },
+  "grammar": ["stevila-samostalniki", "datumi", "dvojina"],
+  "words": ["ena", "dva", "tri", "štiri", "pet", "šest", "sedem", "osem", "devet", "deset", "enajst", "dvanajst", "dvajset", "trideset", "prvi", "drugi", "tretji", "četrti", "peti", "šteti", "krava", "ovca", "konj", "brat", "jajce", "jabolko", "stol", "hlev", "košara", "maj", "junij", "veliko"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+        { "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" },
+        { "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" },
+        { "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Count first: **ena, dva, tri, štiri, pet, šest, sedem, osem, devet, deset**. From 11 to 19 add **-najst**: **enajst, dvanajst, trinajst** …; 20 is **dvajset**, and the tens add **-deset**: **trideset, štirideset**. From 21 the ones come first, with **in**: **enaindvajset** (21), **petindvajset** (25).",
+          "de": "Zuerst zählen: **ena, dva, tri, štiri, pet, šest, sedem, osem, devet, deset**. Von 11 bis 19 kommt **-najst** dazu: **enajst, dvanajst, trinajst** …; 20 ist **dvajset**, und die Zehner bekommen **-deset**: **trideset, štirideset**. Ab 21 kommen die Einer zuerst, mit **in**, wie im Deutschen: **enaindvajset** (einundzwanzig), **petindvajset** (25).",
+          "it": "Prima si conta: **ena, dva, tri, štiri, pet, šest, sedem, osem, devet, deset**. Da 11 a 19 si aggiunge **-najst**: **enajst, dvanajst, trinajst** …; 20 è **dvajset**, e le decine prendono **-deset**: **trideset, štirideset**. Da 21 le unità vengono prima, con **in**: **enaindvajset** (21, «uno e venti»), **petindvajset** (25)."
+        },
+        "examples": [
+          { "sl": "Ena, dva, tri … deset!", "en": "One, two, three … ten!", "de": "Eins, zwei, drei … zehn!", "it": "Uno, due, tre … dieci!" },
+          { "sl": "Tine šteje do dvajset.", "en": "Tine counts to twenty.", "de": "Tine zählt bis zwanzig.", "it": "Tine conta fino a venti." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "stevila-samostalniki", "instruction": "Kako se reče? · How do you say it?", "prompt": "12", "options": ["dvanajst", "dvajset", "trinajst"], "answer": 0, "say_options": true,
+          "explain": "**12** → 2 + **-najst**: dvanajst\n- 13 · trinajst\n- 20 · dvajset"
+        }
+      },
+      {
+        "say": {
+          "en": "With a noun, **1** agrees like an adjective: **en** brat, **ena** sestra, **eno** jajce. The verb is singular: **Na mizi je eno jabolko.**",
+          "de": "Mit einem Nomen richtet sich **1** wie ein Adjektiv nach ihm: **en** brat, **ena** sestra, **eno** jajce. Das Verb steht im Singular: **Na mizi je eno jabolko.**",
+          "it": "Con un nome, **1** concorda come un aggettivo: **en** brat, **ena** sestra, **eno** jajce. Il verbo è al singolare: **Na mizi je eno jabolko.**"
+        },
+        "examples": [
+          { "sl": "Imam en šotor.", "en": "I have one tent.", "de": "Ich habe ein Zelt.", "it": "Ho una tenda." },
+          { "sl": "Na travniku je ena krava.", "en": "There's one cow in the meadow.", "de": "Auf der Wiese ist eine Kuh.", "it": "Sul prato c'è una mucca." }
+        ],
+        "rows": [["1", "ena ovca", "en brat", "eno jajce"]],
+        "ask": {
+          "type": "cloze", "grammar": "stevila-samostalniki", "text": "Na mizi je ___ jabolko. (1)", "accept": ["eno"], "hint": "jabolko: neuter",
+          "explain": "**jabolko** → neuter → **eno**\n- en kruh · ena kava · eno jabolko"
+        }
+      },
+      {
+        "say": {
+          "en": "**2** takes the dual: **dva** with a masculine noun, which ends in **-a** (dva brata, dva konja); **dve** with a feminine or neuter noun, which ends in **-i** (dve ovci, dve jajci). The verb is **sta**.",
+          "de": "**2** verlangt den Dual: **dva** mit einem männlichen Nomen, das auf **-a** endet (dva brata, dva konja); **dve** mit einem weiblichen oder sächlichen, das auf **-i** endet (dve ovci, dve jajci). Das Verb ist **sta**.",
+          "it": "**2** vuole il duale: **dva** con un nome maschile, che finisce in **-a** (dva brata, dva konja); **dve** con un nome femminile o neutro, che finisce in **-i** (dve ovci, dve jajci). Il verbo è **sta**."
+        },
+        "examples": [
+          { "sl": "Na pašniku sta dve ovci.", "en": "There are two sheep on the pasture.", "de": "Auf der Weide sind zwei Schafe.", "it": "Al pascolo ci sono due pecore." },
+          { "sl": "Imam dva brata.", "en": "I have two brothers.", "de": "Ich habe zwei Brüder.", "it": "Ho due fratelli." }
+        ],
+        "rows": [["2", "dve ovci", "dva brata", "dve jajci"]],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "Pri hlevu sta ___.", "options": ["dva konja", "dve konji", "dva konji"], "answer": 0, "say_options": true,
+          "explain": "**konj** → masculine → **dva** … **-a**: dva konja\n- dve ovci · dve jajci"
+        }
+      },
+      {
+        "say": {
+          "en": "**3** and **4** take the plural you know: **tri ovce, tri jajca**. With a masculine noun they are **trije** and **štirje**: **trije bratje, štirje konji**. The verb is **so**.",
+          "de": "**3** und **4** nehmen den Plural, den du kennst: **tri ovce, tri jajca**. Mit einem männlichen Nomen heißen sie **trije** und **štirje**: **trije bratje, štirje konji**. Das Verb ist **so**.",
+          "it": "**3** e **4** vogliono il plurale che conosci: **tri ovce, tri jajca**. Con un nome maschile sono **trije** e **štirje**: **trije bratje, štirje konji**. Il verbo è **so**."
+        },
+        "examples": [
+          { "sl": "V hlevu so tri krave.", "en": "There are three cows in the barn.", "de": "Im Stall sind drei Kühe.", "it": "Nella stalla ci sono tre mucche." },
+          { "sl": "Trije konji so na travniku.", "en": "Three horses are in the meadow.", "de": "Drei Pferde sind auf der Wiese.", "it": "Tre cavalli sono sul prato." }
+        ],
+        "rows": [["3, 4", "tri ovce", "trije bratje", "tri jajca"]],
+        "ask": {
+          "type": "choice", "grammar": "stevila-samostalniki", "prompt": "Na travniku so ___ konji.", "options": ["tri", "trije", "štiri"], "answer": 1, "say_options": true,
+          "explain": "**konji** → masculine → **trije** (or štirje)\n- tri ovce · tri jajca"
+        }
+      },
+      {
+        "say": {
+          "en": "From **5** on, the noun takes the genitive plural (*rodilnik množine*): a feminine or neuter noun drops its ending (ovca → **pet ovc**, jajce → **pet jajc**), a masculine one adds **-ov** (brat → **pet bratov**). Mind **pet konj** (also konjev), and an e that slips in: **pet sester, pet oken**. The verb is singular: **Pet ovc je na pašniku.**",
+          "de": "Ab **5** steht das Nomen im Genitiv Plural (*rodilnik množine*): Ein weibliches oder sächliches Nomen verliert seine Endung (ovca → **pet ovc**, jajce → **pet jajc**), ein männliches bekommt **-ov** (brat → **pet bratov**). Achtung: **pet konj** (auch konjev), und manchmal schiebt sich ein e ein: **pet sester, pet oken**. Das Verb steht im Singular: **Pet ovc je na pašniku.**",
+          "it": "Da **5** in su il nome va al genitivo plurale (*rodilnik množine*): un nome femminile o neutro perde la desinenza (ovca → **pet ovc**, jajce → **pet jajc**), uno maschile aggiunge **-ov** (brat → **pet bratov**). Attenzione: **pet konj** (anche konjev), e a volte si inserisce una e: **pet sester, pet oken**. Il verbo è al singolare: **Pet ovc je na pašniku.**"
+        },
+        "examples": [
+          { "sl": "V košari je deset jajc.", "en": "There are ten eggs in the basket.", "de": "Im Korb sind zehn Eier.", "it": "Nel cesto ci sono dieci uova." },
+          { "sl": "Na pašniku je dvajset ovc.", "en": "There are twenty sheep on the pasture.", "de": "Auf der Weide sind zwanzig Schafe.", "it": "Al pascolo ci sono venti pecore." }
+        ],
+        "rows": [["5 +", "pet ovc", "pet bratov", "pet jajc"]],
+        "ask": {
+          "type": "cloze", "grammar": "stevila-samostalniki", "text": "V hlevu je šest ___. (krava)", "accept": ["krav"], "hint": "feminine: drop the ending",
+          "explain": "**6** → the genitive plural; krava drops -a: šest **krav**"
+        }
+      },
+      {
+        "say": {
+          "en": "Which one in a row: **prvi, drugi, tretji, četrti, peti**, then mostly the number + **-i**: šesti, deseti, dvajseti. They agree like adjectives: **prvi dan, prva ura**. A date is the ordinal and the month: **Danes je peti maj.** In writing a dot follows the figure: **5. maj**.",
+          "de": "Der Wievielte: **prvi, drugi, tretji, četrti, peti**, dann meist die Zahl + **-i**: šesti, deseti, dvajseti. Sie richten sich wie Adjektive nach dem Nomen: **prvi dan, prva ura**. Ein Datum ist die Ordnungszahl und der Monat: **Danes je peti maj.** Geschrieben folgt der Ziffer ein Punkt, wie im Deutschen: **5. maj**.",
+          "it": "Il posto in una fila: **prvi, drugi, tretji, četrti, peti**, poi quasi sempre il numero + **-i**: šesti, deseti, dvajseti. Concordano come aggettivi: **prvi dan, prva ura**. Una data è l'ordinale e il mese: **Danes je peti maj.** Per iscritto la cifra è seguita da un punto: **5. maj**."
+        },
+        "examples": [
+          { "sl": "Tine je prvi, Nejc je drugi.", "en": "Tine is first, Nejc is second.", "de": "Tine ist Erster, Nejc ist Zweiter.", "it": "Tine è primo, Nejc è secondo." },
+          { "sl": "Danes je peti maj.", "en": "Today is the fifth of May.", "de": "Heute ist der fünfte Mai.", "it": "Oggi è il cinque maggio." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "datumi", "prompt": "Danes je ___ junij. (1.)", "options": ["ena", "prvi", "prva"], "answer": 1, "say_options": true,
+          "explain": "**1.** with junij (masculine) → **prvi**: Danes je prvi junij."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "stevila-1",
+      "title": { "sl": "Štejemo", "en": "Counting", "de": "Wir zählen", "it": "Contiamo" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "stevila-samostalniki", "instruction": "Napiši z besedo · Write it as a word", "prompt": "številke · figures",
+          "columns": ["beseda · the word"],
+          "rows": [
+            { "label": "7", "cells": [{ "accept": ["sedem"] }] },
+            { "label": "11", "cells": [{ "accept": ["enajst"], "hint": "1 + -najst" }] },
+            { "label": "14", "cells": [{ "accept": ["štirinajst"], "hint": "4 + -najst" }] },
+            { "label": "20", "cells": [{ "accept": ["dvajset"] }] },
+            { "label": "30", "cells": [{ "accept": ["trideset"], "hint": "3 + -deset" }] },
+            { "label": "25", "cells": [{ "accept": ["petindvajset"], "hint": "5 + in + 20" }] }
+          ],
+          "explain": "**-najst** for 11–19, **-deset** for the tens, the ones first from 21\n- štirinajst · trideset · petindvajset"
+        },
+        {
+          "type": "sort", "grammar": "stevila-samostalniki", "instruction": "S katerim številom? · With which number?",
+          "columns": [
+            { "label": "2 (dva, dve)", "words": ["ovci", "brata", "jajci"] },
+            { "label": "3, 4", "words": ["ovce", "bratje", "jajca"] },
+            { "label": "5 +", "words": ["ovc", "bratov", "jajc"] }
+          ],
+          "explain": "**2** the dual: -a, -i · **3, 4** the plural · **5 +** the genitive plural\n- dve ovci · tri ovce · pet ovc\n- dva brata · trije bratje · pet bratov"
+        },
+        {
+          "type": "choice", "grammar": "datumi", "instruction": "Izberi · Choose", "prompt": "Danes je ___ maj. (1.)", "options": ["ena", "prvi", "prvo"], "answer": 1, "say_options": true,
+          "explain": "**1.** with maj (masculine) → **prvi**: Danes je prvi maj."
+        }
+      ]
+    },
+    {
+      "id": "stevila-2",
+      "title": { "sl": "France šteje", "en": "France counts", "de": "France zählt", "it": "France conta" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "stevila-samostalniki", "instruction": "Dopolni · Fill in", "title": "France šteje",
+          "text": "Mlinar France vse šteje. Na travniku je ena ___ (krava). Pri hlevu ___ dva konja. V hlevu so tri ___ (ovca). V košari je osem ___ (jajce). Tine ima pet ___ (jabolko). V kuhinji so ___ (4) stoli.",
+          "gaps": [
+            { "accept": ["krava"], "hint": "1: the singular" },
+            { "accept": ["sta"], "hint": "2: the verb for two", "grammar": "dvojina", "explain": "dva konja are two: **sta**." },
+            { "accept": ["ovce"], "hint": "3: the plural", "explain": "3 takes the plural: tri **ovce**." },
+            { "accept": ["jajc"], "hint": "8: drop the ending", "explain": "8 takes the genitive plural: osem **jajc**." },
+            { "accept": ["jabolk"], "hint": "5: drop the ending", "explain": "5 takes the genitive plural: pet **jabolk**." },
+            { "accept": ["štirje"], "hint": "stoli: masculine", "explain": "With a masculine noun 4 is **štirje**: štirje stoli." }
+          ],
+          "bank": true, "distractors": ["so", "jajca", "štiri"],
+          "translation": "Miller France counts everything. There's one cow in the meadow. By the barn there are two horses. In the barn there are three sheep. There are eight eggs in the basket. Tine has five apples. In the kitchen there are four chairs."
+        }
+      ]
+    },
+    {
+      "id": "stevila-3",
+      "title": { "sl": "Koliko jih je?", "en": "How many are there?", "de": "Wie viele sind es?", "it": "Quanti sono?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "stevila-samostalniki", "instruction": "Povej s številom v oklepaju · Say it with the number in brackets",
+          "items": [
+            { "from": "Na pašniku je ena ovca. (2)", "accept": ["Na pašniku sta dve ovci."], "hint": "the noun and the verb", "grammar": "dvojina", "lemma": "ovca", "form": "nom.du" },
+            { "from": "V hlevu je en konj. (3)", "accept": ["V hlevu so trije konji."], "hint": "masculine 3", "lemma": "konj", "form": "nom.pl" },
+            { "from": "Na mizi je eno jajce. (6)", "accept": ["Na mizi je šest jajc."], "hint": "5 +: the verb stays", "lemma": "jajce", "form": "gen.pl" },
+            { "from": "Imam en šotor. (2)", "accept": ["Imam dva šotora."], "grammar": "dvojina", "lemma": "šotor", "form": "acc.du" },
+            { "from": "V vasi je ena hiša. (10)", "accept": ["V vasi je deset hiš."], "lemma": "hiša", "form": "gen.pl" },
+            { "from": "Na travniku je ena krava. (4)", "accept": ["Na travniku so štiri krave."], "lemma": "krava", "form": "nom.pl" },
+            { "from": "V kuhinji je en stol. (5)", "accept": ["V kuhinji je pet stolov."], "hint": "masculine: + -ov", "lemma": "stol", "form": "gen.pl" },
+            { "from": "Zala ima eno mačko. (2)", "accept": ["Zala ima dve mački."], "grammar": "dvojina", "lemma": "mačka", "form": "acc.du" }
+          ],
+          "explain": "**1** je · **2** sta, -a/-i · **3, 4** so, the plural · **5 +** je, the genitive plural\n- dve ovci sta · trije konji so · šest jajc je"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "stevila-samostalniki", "instruction": "Napiši z besedo · Write it as a word", "prompt": "številke · figures",
+        "columns": ["beseda · the word"],
+        "rows": [
+          { "label": "9", "cells": [{ "accept": ["devet"] }] },
+          { "label": "13", "cells": [{ "accept": ["trinajst"] }] },
+          { "label": "50", "cells": [{ "accept": ["petdeset"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "stevila-samostalniki", "instruction": "Dopolni · Fill in",
+        "text": "Na ribniku sta dve ___ (raca). V hlevu je sedem ___ (krava). Na travniku ___ trije konji. Danes je ___ (1.) junij.",
+        "gaps": [
+          { "accept": ["raci"], "grammar": "dvojina" },
+          { "accept": ["krav"] },
+          { "accept": ["so"] },
+          { "accept": ["prvi"], "grammar": "datumi" }
+        ],
+        "translation": "There are two ducks on the pond. There are seven cows in the barn. Three horses are in the meadow. Today is the first of June."
+      },
+      {
+        "type": "transform", "grammar": "stevila-samostalniki", "instruction": "Povej s številom v oklepaju · Say it with the number in brackets",
+        "items": [
+          { "from": "Na mizi je en krožnik. (2)", "accept": ["Na mizi sta dva krožnika."], "grammar": "dvojina", "lemma": "krožnik", "form": "nom.du" },
+          { "from": "Imam eno sestro. (2)", "accept": ["Imam dve sestri."], "grammar": "dvojina", "lemma": "sestra", "form": "acc.du" },
+          { "from": "V gostilni je ena miza. (5)", "accept": ["V gostilni je pet miz."], "lemma": "miza", "form": "gen.pl" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "stevila-samostalniki", "prompt": "Tine ima ___ ovc.", "options": ["dve", "štiri", "sedem"], "answer": 2, "say_options": true,
+        "explain": "**ovc** is the genitive plural: only from **5** on. dve ovci · štiri ovce · sedem ovc"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: konj (pet konj, also konjev), ovca (ovc, also ovac). Native check: France šteje, Imam dva šotora, the dates"
+}

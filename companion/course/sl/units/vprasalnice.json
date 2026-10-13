@@ -1,0 +1,221 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "vprasalnice",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "❓",
+  "title": { "sl": "Kdo? Kaj? Kje? Kam?", "en": "Who? What? Where? Where to?", "de": "Wer? Was? Wo? Wohin?", "it": "Chi? Cosa? Dove? Verso dove?" },
+  "goal": {
+    "en": "You can ask who, what, where, where to, where from, when, how, why and whose, and ask a yes-or-no question.",
+    "de": "Du fragst, wer, was, wo, wohin, woher, wann, wie, warum und wessen, und stellst eine Ja-Nein-Frage.",
+    "it": "Sai chiedere chi, che cosa, dove, verso dove, da dove, quando, come, perché e di chi, e fare una domanda sì o no."
+  },
+  "grammar": ["vprasalnice"],
+  "words": ["kdo", "kaj", "koga", "kje", "kam", "od kod", "kdaj", "kako", "zakaj", "ker", "koliko", "kakšen", "čigav", "kateri", "ali", "a", "da", "ne", "doma", "domov", "danes", "jutri", "zvečer", "vreme", "stane", "bolan", "kapa", "torba"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "vprašalnica", "en": "question word", "de": "Fragewort", "it": "parola interrogativa" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "odgovor", "en": "answer", "de": "Antwort", "it": "risposta" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A question word opens the question, and **je, si, sem** … come right after it: **Kdo je to?** (who) **Kaj je to?** (what) **Kje je babica?** For a person as the object, kdo becomes **koga**, as brat becomes brata: **Koga čakaš? Janeza.**",
+          "de": "Ein Fragewort eröffnet die Frage, und **je, si, sem** … folgen direkt danach: **Kdo je to?** (wer) **Kaj je to?** (was) **Kje je babica?** Für eine Person als Objekt wird kdo zu **koga**, wie brat zu brata: **Koga čakaš? Janeza.** (Auf wen wartest du? Auf Janez.)",
+          "it": "La parola interrogativa apre la domanda, e **je, si, sem** … vengono subito dopo: **Kdo je to?** (chi) **Kaj je to?** (che cosa) **Kje je babica?** Per una persona come oggetto kdo diventa **koga**, come brat diventa brata: **Koga čakaš? Janeza.** (Chi aspetti? Janez.)"
+        },
+        "examples": [
+          { "sl": "Kdo je to? To je Luka.", "en": "Who is that? That's Luka.", "de": "Wer ist das? Das ist Luka.", "it": "Chi è? È Luka." },
+          { "sl": "Kaj je to? To je kozolec.", "en": "What's that? It's a hayrack.", "de": "Was ist das? Das ist eine Harpfe.", "it": "Che cos'è? È un essiccatoio per il fieno." }
+        ],
+        "rows": [
+          ["kdo?", { "en": "who", "de": "wer", "it": "chi" }, "Luka"],
+          ["kaj?", { "en": "what", "de": "was", "it": "che cosa" }, "kozolec"],
+          ["koga?", { "en": "whom (the object)", "de": "wen (das Objekt)", "it": "chi (l'oggetto)" }, "Janeza"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vprasalnice", "prompt": "___ je to? To je babica Micka.", "options": ["Kdo", "Kaj", "Kje"], "answer": 0, "say_options": true,
+          "explain": "**a person** → **kdo**\n- kdo · who\n- kaj · what\n- kje · where"
+        }
+      },
+      {
+        "say": {
+          "en": "Slovene has three words for *where*: **kje** (where something is: *Kje si?* **Doma.**), **kam** (where to: *Kam greš?* **Domov. V šolo.**) and **od kod** (where from: *Od kod si?* **Iz Nemčije.**).",
+          "de": "Wie das Deutsche hat das Slowenische drei Wörter: **kje** (wo: *Kje si?* **Doma.**), **kam** (wohin: *Kam greš?* **Domov. V šolo.**) und **od kod** (woher: *Od kod si?* **Iz Nemčije.**).",
+          "it": "Lo sloveno ha tre parole per *dove*: **kje** (dove si trova: *Kje si?* **Doma.**), **kam** (verso dove: *Kam greš?* **Domov. V šolo.**) e **od kod** (da dove: *Od kod si?* **Iz Nemčije.**)."
+        },
+        "examples": [
+          { "sl": "Kje je Luka? Na pašniku.", "en": "Where is Luka? On the pasture.", "de": "Wo ist Luka? Auf der Weide.", "it": "Dov'è Luka? Al pascolo." },
+          { "sl": "Kam greš? Domov.", "en": "Where are you going? Home.", "de": "Wohin gehst du? Nach Hause.", "it": "Dove vai? A casa." }
+        ],
+        "rows": [
+          ["kje?", { "en": "where", "de": "wo", "it": "dove (stato)" }, "doma, v šoli"],
+          ["kam?", { "en": "where to", "de": "wohin", "it": "verso dove" }, "domov, v šolo"],
+          ["od kod?", { "en": "where from", "de": "woher", "it": "da dove" }, "iz Nemčije"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vprasalnice", "prompt": "___ greš? V šolo.", "options": ["Kje", "Kam", "Od kod"], "answer": 1, "say_options": true,
+          "explain": "**going somewhere** → **kam**\n- Kje si? · V šoli.\n- Kam greš? · V šolo."
+        }
+      },
+      {
+        "say": {
+          "en": "**Kdaj?** is when: **danes, jutri, zvečer**. **Kako?** is how: **Kako si? Dobro.** **Zakaj?** is why, and the answer starts with **ker** (because): **Zakaj je Tine doma? Ker je bolan.**",
+          "de": "**Kdaj?** heißt wann: **danes, jutri, zvečer**. **Kako?** heißt wie: **Kako si? Dobro.** **Zakaj?** heißt warum, und die Antwort beginnt mit **ker** (weil): **Zakaj je Tine doma? Ker je bolan.**",
+          "it": "**Kdaj?** vuol dire quando: **danes, jutri, zvečer**. **Kako?** vuol dire come: **Kako si? Dobro.** **Zakaj?** vuol dire perché, e la risposta comincia con **ker** (perché): **Zakaj je Tine doma? Ker je bolan.**"
+        },
+        "examples": [
+          { "sl": "Kdaj si doma? Zvečer.", "en": "When are you at home? In the evening.", "de": "Wann bist du zu Hause? Am Abend.", "it": "Quando sei a casa? La sera." },
+          { "sl": "Zakaj je Tine doma? Ker je bolan.", "en": "Why is Tine at home? Because he's ill.", "de": "Warum ist Tine zu Hause? Weil er krank ist.", "it": "Perché Tine è a casa? Perché è malato." }
+        ],
+        "rows": [
+          ["kdaj?", { "en": "when", "de": "wann", "it": "quando" }, "danes, jutri"],
+          ["kako?", { "en": "how", "de": "wie", "it": "come" }, "dobro"],
+          ["zakaj?", { "en": "why", "de": "warum", "it": "perché" }, "ker …"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "vprasalnice", "text": "___ si? Dobro, hvala.", "accept": ["Kako"], "hint": "how?",
+          "explain": "**how are you?** → **Kako si?**\n- Kako ste? · polite"
+        }
+      },
+      {
+        "say": {
+          "en": "**Koliko?** is how much, how many: **Koliko stane kruh?** Three agree with their noun, like an adjective: **kakšen, kakšna, kakšno** (what kind, what is it like), **čigav, čigava, čigavo** (whose), **kateri, katera, katero** (which): **Kakšna je juha? Čigav je ta pes?**",
+          "de": "**Koliko?** heißt wie viel, wie viele: **Koliko stane kruh?** Drei richten sich wie ein Adjektiv nach ihrem Nomen: **kakšen, kakšna, kakšno** (was für ein, wie ist es), **čigav, čigava, čigavo** (wessen), **kateri, katera, katero** (welcher): **Kakšna je juha? Čigav je ta pes?**",
+          "it": "**Koliko?** vuol dire quanto, quanti: **Koliko stane kruh?** Tre concordano con il nome, come un aggettivo: **kakšen, kakšna, kakšno** (che tipo, com'è), **čigav, čigava, čigavo** (di chi), **kateri, katera, katero** (quale): **Kakšna je juha? Čigav je ta pes?**"
+        },
+        "examples": [
+          { "sl": "Kakšna je juha? Topla.", "en": "What's the soup like? Warm.", "de": "Wie ist die Suppe? Warm.", "it": "Com'è la minestra? Calda." },
+          { "sl": "Čigav je ta pes? Moj.", "en": "Whose dog is this? Mine.", "de": "Wessen Hund ist das? Meiner.", "it": "Di chi è questo cane? Mio." }
+        ],
+        "rows": [
+          ["koliko?", { "en": "how much, how many", "de": "wie viel, wie viele", "it": "quanto, quanti" }, "veliko"],
+          ["kakšen? kakšna? kakšno?", { "en": "what kind, what is it like", "de": "was für ein, wie ist es", "it": "che tipo, com'è" }, "topel, topla, toplo"],
+          ["čigav? čigava? čigavo?", { "en": "whose", "de": "wessen", "it": "di chi" }, "moj, moja, moje"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vprasalnice", "prompt": "___ je juha? Topla.", "options": ["Kakšen", "Kakšna", "Kakšno"], "answer": 1, "say_options": true,
+          "explain": "**juha** → feminine → **kakšna**\n- kakšen kruh · kakšna juha · kakšno mleko"
+        }
+      },
+      {
+        "say": {
+          "en": "A yes-or-no question needs no question word: say the statement and let your voice rise, **Si lačen?** Or start with **ali** (standard, in writing too) or **a** (in speech): **Ali si lačen? A si lačen?** The answer: **da** (in speech often **ja**) or **ne**.",
+          "de": "Eine Ja-Nein-Frage braucht kein Fragewort: Man sagt den Aussagesatz und lässt die Stimme steigen, **Si lačen?** Oder man beginnt mit **ali** (Standard, auch geschrieben) oder **a** (gesprochen): **Ali si lačen? A si lačen?** Die Antwort: **da** (gesprochen oft **ja**) oder **ne**.",
+          "it": "Una domanda sì o no non ha bisogno di parola interrogativa: si dice la frase affermativa e la voce sale, **Si lačen?** Oppure si comincia con **ali** (standard, anche per iscritto) o **a** (nel parlato): **Ali si lačen? A si lačen?** La risposta: **da** (nel parlato spesso **ja**) o **ne**."
+        },
+        "examples": [
+          { "sl": "Ali ste iz Gorice?", "en": "Are you from Gorizia? (polite)", "de": "Sind Sie aus Gorizia?", "it": "Lei è di Gorizia?" },
+          { "sl": "Nejc, a si lačen?", "en": "Nejc, are you hungry?", "de": "Nejc, hast du Hunger?", "it": "Nejc, hai fame?" }
+        ],
+        "rows": [["ali? a?", { "en": "yes or no? (a in speech)", "de": "ja oder nein? (a gesprochen)", "it": "sì o no? (a nel parlato)" }, "Da. Ne."]],
+        "ask": {
+          "type": "cloze", "grammar": "vprasalnice", "text": "___ ste iz Avstrije?", "accept": ["Ali", "A"], "hint": "yes or no? the standard word",
+          "explain": "**yes or no** → **ali** (in speech **a**), the rest as in a statement: Ali ste iz Avstrije?"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "vprasalnice-1",
+      "title": { "sl": "Kje, kam, od kod?", "en": "Where, where to, where from?", "de": "Wo, wohin, woher?", "it": "Dove, verso dove, da dove?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "vprasalnice", "instruction": "Na katero vprašanje odgovori? · Which question does it answer?",
+          "columns": [
+            { "label": "Kje? · where", "words": ["doma", "v šoli", "na vrtu"] },
+            { "label": "Kam? · where to", "words": ["domov", "v šolo", "na vrt"] },
+            { "label": "Od kod? · where from", "words": ["iz Gorice", "iz Nemčije", "iz Avstrije"] },
+            { "label": "Kdaj? · when", "words": ["danes", "jutri", "zvečer"] }
+          ],
+          "explain": "**the answer shows the question**\n- kje: doma, v šoli\n- kam: domov, v šolo (as the object: šolo)\n- od kod: iz …"
+        },
+        {
+          "type": "choice", "grammar": "vprasalnice", "instruction": "Izberi · Choose", "prompt": "»___ je ta kapa?« »Moja.«", "options": ["Čigav", "Čigava", "Čigavo"], "answer": 1, "say_options": true,
+          "explain": "**kapa** → feminine → **čigava**, and the answer **moja**"
+        }
+      ]
+    },
+    {
+      "id": "vprasalnice-2",
+      "title": { "sl": "Zala sprašuje", "en": "Zala asks", "de": "Zala fragt", "it": "Zala chiede" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "vprasalnice", "instruction": "Dopolni z vprašalnico · Fill in the question word", "title": "Zala sprašuje",
+          "text": "»Živjo! ___ si?« »Jaz sem {learner}.« »___ si?« »Iz Nemčije.« »___ si tukaj?« »Ker je vas lepa.« »___ je ta pes?« »Moj.« »___ je?« »Star in prijazen.« »___ greš zdaj?« »Domov.«",
+          "gaps": [
+            { "accept": ["Kdo"], "hint": "a person" },
+            { "accept": ["Od kod"], "hint": "iz … → ?" },
+            { "accept": ["Zakaj"], "hint": "ker … → ?", "explain": "The answer starts with ker (because): the question is **zakaj**." },
+            { "accept": ["Čigav"], "hint": "pes: masculine; whose?", "explain": "pes is masculine: **čigav** (whose)." },
+            { "accept": ["Kakšen"], "hint": "what is he like?", "explain": "What is he like? **kakšen**, masculine for pes." },
+            { "accept": ["Kam"], "hint": "domov → ?", "explain": "domov is where to: **kam**." }
+          ],
+          "bank": true, "distractors": ["Kje", "Kaj"],
+          "translation": "\"Hi! Who are you?\" \"I'm {learner}.\" \"Where are you from?\" \"From Germany.\" \"Why are you here?\" \"Because the village is beautiful.\" \"Whose is this dog?\" \"Mine.\" \"What's he like?\" \"Old and friendly.\" \"Where are you going now?\" \"Home.\""
+        }
+      ]
+    },
+    {
+      "id": "vprasalnice-3",
+      "title": { "sl": "Vprašaj!", "en": "Ask!", "de": "Frag!", "it": "Chiedi!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "vprasalnice", "instruction": "Vprašaj po tem, kar je v oklepaju · Ask about what's in brackets", "cue": "?",
+          "items": [
+            { "from": "Babica je v kuhinji. (where?)", "accept": ["Kje je babica?"], "hint": "kje …" },
+            { "from": "Zala pije vodo. (what?)", "accept": ["Kaj pije Zala?", "Kaj Zala pije?"] },
+            { "from": "Luka čaka Janeza. (whom?)", "accept": ["Koga čaka Luka?", "Koga Luka čaka?"], "hint": "kdo → ? (the object)" },
+            { "from": "France je iz Trnovega. (where from?)", "accept": ["Od kod je France?"] },
+            { "from": "Juha je topla. (what is it like?)", "accept": ["Kakšna je juha?"], "hint": "juha: feminine" },
+            { "from": "Tine je lačen. (yes or no?)", "accept": ["Ali je Tine lačen?", "A je Tine lačen?", "Je Tine lačen?", "Tine je lačen?"], "hint": "no question word, or ali" },
+            { "from": "Nejc teče hitro. (how?)", "accept": ["Kako teče Nejc?", "Kako Nejc teče?"] },
+            { "from": "Tine je doma, ker je bolan. (why?)", "accept": ["Zakaj je Tine doma?"], "hint": "ker → ?" }
+          ],
+          "explain": "**the question word first**, je, si … right after it\n- Kje je babica?\n- Koga čaka Luka?\n- Ali je Tine lačen?"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "vprasalnice", "instruction": "Dopolni z vprašalnico · Fill in the question word",
+        "text": "»___ je to?« »To je Stari Janez.« »___ je?« »Pri lipi.« »___ je Muri?« »Majhen in rjav.« »___ ste, Janez?« »Dobro, hvala.«",
+        "gaps": [
+          { "accept": ["Kdo"] },
+          { "accept": ["Kje"] },
+          { "accept": ["Kakšen"] },
+          { "accept": ["Kako"] }
+        ],
+        "translation": "\"Who is that?\" \"That's Old Janez.\" \"Where is he?\" \"At the linden.\" \"What's Muri like?\" \"Small and brown.\" \"How are you, Janez?\" \"Fine, thank you.\""
+      },
+      {
+        "type": "transform", "grammar": "vprasalnice", "instruction": "Vprašaj po tem, kar je v oklepaju · Ask about what's in brackets", "cue": "?",
+        "items": [
+          { "from": "Mojca je v šoli. (where?)", "accept": ["Kje je Mojca?"] },
+          { "from": "Marko pije vino. (what?)", "accept": ["Kaj pije Marko?", "Kaj Marko pije?"] },
+          { "from": "Vida je iz Gorice. (yes or no?)", "accept": ["Ali je Vida iz Gorice?", "A je Vida iz Gorice?", "Je Vida iz Gorice?", "Vida je iz Gorice?"] }
+        ]
+      },
+      {
+        "type": "sort", "grammar": "vprasalnice", "instruction": "Na katero vprašanje odgovori? · Which question does it answer?",
+        "columns": [
+          { "label": "Kje? · where", "words": ["doma", "na njivi"] },
+          { "label": "Kam? · where to", "words": ["domov", "na njivo"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "vprasalnice", "prompt": "___ je vreme? Lepo.", "options": ["Kakšen", "Kakšna", "Kakšno"], "answer": 2, "say_options": true,
+        "explain": "**vreme** → neuter → **kakšno**: Kakšno je vreme? Lepo."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: od kod, Trnovo (iz Trnovega). Native check: Zala sprašuje, the orders accepted (Kaj pije Zala? / Kaj Zala pije?), a/ali, ja/da"
+}

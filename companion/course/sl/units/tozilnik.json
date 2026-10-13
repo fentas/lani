@@ -1,0 +1,217 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "tozilnik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🎯",
+  "title": { "sl": "Tožilnik: pijem kavo", "en": "The accusative: pijem kavo", "de": "Der Akkusativ: pijem kavo", "it": "L'accusativo: pijem kavo" },
+  "goal": {
+    "en": "You can say what or whom you see, eat, drink or look for: pijem kavo, vidim brata, iščem ovce.",
+    "de": "Du sagst, was oder wen du siehst, isst, trinkst oder suchst: pijem kavo, vidim brata, iščem ovce.",
+    "it": "Sai dire che cosa o chi vedi, mangi, bevi o cerchi: pijem kavo, vidim brata, iščem ovce."
+  },
+  "grammar": ["tozilnik", "pridevniki-ujemanje", "mnozina"],
+  "words": ["kava", "juha", "voda", "potica", "mačka", "sestra", "babica", "kruh", "sir", "šotor", "mleko", "jajce", "jabolko", "okno", "brat", "konj", "pes", "ovca", "krava", "videti", "iskati", "klicati", "imeti", "poznati", "kuhati", "peči", "nesti", "topel", "moj", "bel", "star", "mlad", "vino", "stol", "koza"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "kind of noun", "de": "Art des Nomens", "it": "tipo di nome" },
+        { "sl": "kdo? kaj?", "en": "base form (kdo? kaj?)", "de": "Grundform (kdo? kaj?)", "it": "forma base (kdo? kaj?)" },
+        { "sl": "koga? kaj?", "en": "object (koga? kaj?)", "de": "Objekt (koga? kaj?)", "it": "oggetto (koga? kaj?)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Whom or what you see, eat or drink is the object (**koga? kaj?**), and Slovene marks it: the accusative (*tožilnik*). A feminine noun in **-a** changes it to **-o**: kava → **Pijem kavo.** juha → **Babica kuha juho.**",
+          "de": "Wen oder was man sieht, isst oder trinkt, ist das Objekt (**koga? kaj?**), und das Slowenische markiert es: der Akkusativ (*tožilnik*). Ein weibliches Nomen auf **-a** tauscht es gegen **-o**: kava → **Pijem kavo.** juha → **Babica kuha juho.**",
+          "it": "Chi o che cosa si vede, si mangia o si beve è il complemento oggetto (**koga? kaj?**), e lo sloveno lo segna: l'accusativo (*tožilnik*). Un nome femminile in **-a** la cambia in **-o**: kava → **Pijem kavo.** juha → **Babica kuha juho.**"
+        },
+        "examples": [
+          { "sl": "Pijem kavo.", "en": "I'm drinking coffee.", "de": "Ich trinke Kaffee.", "it": "Bevo il caffè." },
+          { "sl": "Babica kuha juho.", "en": "Granny is cooking soup.", "de": "Oma kocht Suppe.", "it": "La nonna cucina la minestra." }
+        ],
+        "rows": [[{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "kava, juha", "kavo, juho"]],
+        "ask": {
+          "type": "choice", "grammar": "tozilnik", "prompt": "Zala pije ___. (voda)", "options": ["voda", "vodo", "vode"], "answer": 1, "say_options": true,
+          "explain": "**voda** → feminine in -a → **-o**: Zala pije vodo."
+        }
+      },
+      {
+        "say": {
+          "en": "A masculine thing and every neuter noun don't change: **Jem kruh. Vidim šotor. Pijem mleko.**",
+          "de": "Ein männliches Ding und jedes sächliche Nomen ändern sich nicht: **Jem kruh. Vidim šotor. Pijem mleko.**",
+          "it": "Una cosa maschile e ogni nome neutro non cambiano: **Jem kruh. Vidim šotor. Pijem mleko.**"
+        },
+        "examples": [
+          { "sl": "Jem kruh in sir.", "en": "I'm eating bread and cheese.", "de": "Ich esse Brot und Käse.", "it": "Mangio pane e formaggio." },
+          { "sl": "Tine pije mleko.", "en": "Tine is drinking milk.", "de": "Tine trinkt Milch.", "it": "Tine beve il latte." }
+        ],
+        "rows": [
+          [{ "sl": "moški, stvar", "en": "masculine, thing", "de": "männlich, Ding", "it": "maschile, cosa" }, "kruh, šotor", "kruh, šotor"],
+          [{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "mleko, jajce", "mleko, jajce"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "tozilnik", "prompt": "Babica peče ___. (kruh)", "options": ["kruh", "kruha", "kruho"], "answer": 0, "say_options": true,
+          "explain": "**kruh** → a masculine thing → no change: Babica peče kruh."
+        }
+      },
+      {
+        "say": {
+          "en": "A masculine noun for something alive, a person or an animal, adds **-a**: brat → **brata**, konj → **konja**, Janez → **Janeza**. In pes the e drops: **psa**.",
+          "de": "Ein männliches Nomen für etwas Lebendiges, einen Menschen oder ein Tier, bekommt **-a**: brat → **brata**, konj → **konja**, Janez → **Janeza**. Bei pes fällt das e weg: **psa**.",
+          "it": "Un nome maschile di un essere vivente, una persona o un animale, aggiunge **-a**: brat → **brata**, konj → **konja**, Janez → **Janeza**. In pes la e cade: **psa**."
+        },
+        "examples": [
+          { "sl": "Imam brata.", "en": "I have a brother.", "de": "Ich habe einen Bruder.", "it": "Ho un fratello." },
+          { "sl": "Nejc kliče psa.", "en": "Nejc is calling the dog.", "de": "Nejc ruft den Hund.", "it": "Nejc chiama il cane." }
+        ],
+        "rows": [[{ "sl": "moški, živ", "en": "masculine, living", "de": "männlich, Lebewesen", "it": "maschile, essere vivente" }, "brat, konj, pes", "brata, konja, psa"]],
+        "ask": {
+          "type": "cloze", "grammar": "tozilnik", "text": "Na pašniku vidim ___. (konj)", "accept": ["konja"], "hint": "a horse is alive",
+          "explain": "**konj** → masculine, alive → **-a**: vidim konja"
+        }
+      },
+      {
+        "say": {
+          "en": "The words with the noun follow it. With a feminine noun they take **-o** too: ena topla juha → **eno toplo juho**, moja sestra → **mojo sestro**. With a living masculine noun they take **-ega**: moj brat → **mojega brata**. With things nothing changes: **velik šotor**.",
+          "de": "Die Wörter beim Nomen gehen mit. Bei einem weiblichen Nomen bekommen auch sie **-o**: ena topla juha → **eno toplo juho**, moja sestra → **mojo sestro**. Bei einem lebendigen männlichen Nomen **-ega**: moj brat → **mojega brata**. Bei Dingen ändert sich nichts: **velik šotor**.",
+          "it": "Le parole che accompagnano il nome lo seguono. Con un nome femminile prendono anche loro **-o**: ena topla juha → **eno toplo juho**, moja sestra → **mojo sestro**. Con un nome maschile di essere vivente prendono **-ega**: moj brat → **mojega brata**. Con le cose non cambia niente: **velik šotor**."
+        },
+        "examples": [
+          { "sl": "Eno kavo, prosim.", "en": "A coffee, please.", "de": "Einen Kaffee, bitte.", "it": "Un caffè, per favore." },
+          { "sl": "Poznaš mojega brata?", "en": "Do you know my brother?", "de": "Kennst du meinen Bruder?", "it": "Conosci mio fratello?" }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pridevniki-ujemanje", "text": "Jem ___ juho. (topel)", "accept": ["toplo"], "hint": "juho: -o",
+          "explain": "**juho** → a feminine object → **-o**: toplo juho"
+        }
+      },
+      {
+        "say": {
+          "en": "Several objects: masculine plurals end in **-e** (konji → **Vidim konje.**); feminine and neuter plurals stay as they are: **Luka išče ovce. Vidim okna.** Mind ljudje → **ljudi**, otroci → **otroke**.",
+          "de": "Mehrere Objekte: Männliche Plurale enden auf **-e** (konji → **Vidim konje.**); weibliche und sächliche Plurale bleiben, wie sie sind: **Luka išče ovce. Vidim okna.** Achtung: ljudje → **ljudi**, otroci → **otroke**.",
+          "it": "Più oggetti: i plurali maschili finiscono in **-e** (konji → **Vidim konje.**); i plurali femminili e neutri restano come sono: **Luka išče ovce. Vidim okna.** Attenzione: ljudje → **ljudi**, otroci → **otroke**."
+        },
+        "examples": [
+          { "sl": "Luka išče ovce.", "en": "Luka is looking for the sheep.", "de": "Luka sucht die Schafe.", "it": "Luka cerca le pecore." },
+          { "sl": "Tine gleda konje.", "en": "Tine is watching the horses.", "de": "Tine schaut die Pferde an.", "it": "Tine guarda i cavalli." }
+        ],
+        "rows": [[{ "sl": "množina", "en": "plural", "de": "Plural", "it": "plurale" }, "konji, ovce, okna", "konje, ovce, okna"]],
+        "ask": {
+          "type": "choice", "grammar": "mnozina", "prompt": "Na travniku vidim ___. (konji)", "options": ["konji", "konje", "konja"], "answer": 1, "say_options": true,
+          "explain": "**konji** → a masculine plural object → **-e**: konje\n- ovce, okna stay"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "tozilnik-1",
+      "title": { "sl": "Koga? Kaj?", "en": "Whom? What?", "de": "Wen? Was?", "it": "Chi? Che cosa?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "tozilnik", "instruction": "Kaj se zgodi v tožilniku? · What happens in the accusative?",
+          "columns": [
+            { "label": "-a → -o", "words": ["kava", "juha", "ovca"] },
+            { "label": "+ -a (živo · alive)", "words": ["brat", "konj", "pes"] },
+            { "label": "ostane · stays", "words": ["kruh", "šotor", "mleko"] }
+          ],
+          "explain": "**the kind of noun** → the object\n- feminine -a → -o: kavo\n- masculine, alive → + -a: brata, psa\n- masculine thing, neuter → stays: kruh, mleko"
+        },
+        {
+          "type": "table", "grammar": "tozilnik", "instruction": "Dopolni tožilnik · Fill in the object form", "prompt": "kdo? kaj? → koga? kaj?",
+          "columns": ["kdo? kaj? · base", "koga? kaj? · object"],
+          "rows": [
+            { "label": "ženski · feminine", "cells": ["babica", { "accept": ["babico"] }] },
+            { "label": "ženski · feminine", "cells": ["mačka", { "accept": ["mačko"] }] },
+            { "label": "moški, živ · masculine, alive", "cells": ["Janez", { "accept": ["Janeza"] }] },
+            { "label": "moški, živ · masculine, alive", "cells": ["pes", { "accept": ["psa"], "hint": "the e drops" }] },
+            { "label": "moški, stvar · masculine, thing", "cells": ["sir", { "accept": ["sir"], "hint": "a thing" }] },
+            { "label": "srednji · neuter", "cells": ["jabolko", { "accept": ["jabolko"] }] }
+          ],
+          "explain": "babica → babico · Janez → Janeza · pes → psa · sir → sir · jabolko → jabolko"
+        }
+      ]
+    },
+    {
+      "id": "tozilnik-2",
+      "title": { "sl": "Pri babici Micki", "en": "At Granny Micka's", "de": "Bei Oma Micka", "it": "Da nonna Micka" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "tozilnik", "instruction": "Dopolni s tožilnikom · Fill in the object form", "title": "Pri babici Micki",
+          "text": "Babica Micka kuha ___ (juha). Zala pije ___ (voda), Tine pa ___ (mleko). Luka išče ___ (ovca). Nejc kliče ___ (pes). Jaz jem ___ (topel) potico.",
+          "gaps": [
+            { "accept": ["juho"], "hint": "-a → ?" },
+            { "accept": ["vodo"], "hint": "-a → ?" },
+            { "accept": ["mleko"], "hint": "neuter", "explain": "mleko is neuter: it stays." },
+            { "accept": ["ovco"], "hint": "feminine" },
+            { "accept": ["psa"], "hint": "alive; the e drops", "explain": "pes is masculine and alive: + -a, and the e drops: **psa**." },
+            { "accept": ["toplo"], "hint": "potico: -o", "grammar": "pridevniki-ujemanje", "explain": "potica → potico, and the adjective too: **toplo** potico." }
+          ],
+          "bank": true, "distractors": ["voda", "pes", "topla"],
+          "translation": "Granny Micka is cooking soup. Zala drinks water, and Tine milk. Luka is looking for a sheep. Nejc is calling the dog. I'm eating warm potica."
+        }
+      ]
+    },
+    {
+      "id": "tozilnik-3",
+      "title": { "sl": "Kaj vidiš?", "en": "What do you see?", "de": "Was siehst du?", "it": "Che cosa vedi?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "tozilnik", "instruction": "Povej z »Vidim …« · Say it with Vidim … (I see …)", "cue": "Vidim …",
+          "items": [
+            { "from": "To je krava.", "accept": ["Vidim kravo."], "hint": "-a → ?", "lemma": "krava", "form": "acc.sg" },
+            { "from": "To je Janez.", "accept": ["Vidim Janeza."], "hint": "a man: + -a" },
+            { "from": "To je velik šotor.", "accept": ["Vidim velik šotor."], "hint": "a thing", "lemma": "šotor", "form": "acc.sg" },
+            { "from": "To je moja sestra.", "accept": ["Vidim mojo sestro."], "hint": "both words -o", "grammar": "pridevniki-ujemanje", "lemma": "sestra", "form": "acc.sg" },
+            { "from": "To je mlad konj.", "accept": ["Vidim mladega konja."], "hint": "alive: -ega, -a", "grammar": "pridevniki-ujemanje", "lemma": "konj", "form": "acc.sg" },
+            { "from": "To so konji.", "accept": ["Vidim konje."], "hint": "masculine plural: -e", "grammar": "mnozina", "lemma": "konj", "form": "acc.pl" },
+            { "from": "To so ovce.", "accept": ["Vidim ovce."], "hint": "feminine plural", "grammar": "mnozina", "lemma": "ovca", "form": "acc.pl" },
+            { "from": "To je novo okno.", "accept": ["Vidim novo okno."], "hint": "neuter", "lemma": "okno", "form": "acc.sg" }
+          ],
+          "explain": "**the object** → koga? kaj?\n- kravo, mojo sestro · feminine -o\n- Janeza, mladega konja · masculine, alive\n- velik šotor, novo okno · no change\n- konje · masculine plural -e"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "tozilnik", "instruction": "Dopolni tožilnik · Fill in the object form", "prompt": "kdo? kaj? → koga? kaj?",
+        "columns": ["kdo? kaj? · base", "koga? kaj? · object"],
+        "rows": [
+          { "label": "Pijem …", "cells": ["voda", { "accept": ["vodo"] }] },
+          { "label": "Imam …", "cells": ["brat", { "accept": ["brata"] }] },
+          { "label": "Jem …", "cells": ["kruh", { "accept": ["kruh"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "tozilnik", "instruction": "Dopolni s tožilnikom · Fill in the object form",
+        "text": "Vida kuha ___ (kava). Marko nese ___ (vino). Luka kliče ___ (Nejc). Zala ima ___ (bel) mačko.",
+        "gaps": [
+          { "accept": ["kavo"] },
+          { "accept": ["vino"] },
+          { "accept": ["Nejca"] },
+          { "accept": ["belo"], "grammar": "pridevniki-ujemanje" }
+        ],
+        "translation": "Vida is making coffee. Marko is carrying the wine. Luka is calling Nejc. Zala has a white cat."
+      },
+      {
+        "type": "transform", "grammar": "tozilnik", "instruction": "Povej z »Vidim …« · Say it with Vidim … (I see …)", "cue": "Vidim …",
+        "items": [
+          { "from": "To je koza.", "accept": ["Vidim kozo."], "lemma": "koza", "form": "acc.sg" },
+          { "from": "To so stoli.", "accept": ["Vidim stole."], "grammar": "mnozina", "lemma": "stol", "form": "acc.pl" },
+          { "from": "To je star pes.", "accept": ["Vidim starega psa."], "grammar": "pridevniki-ujemanje", "lemma": "pes", "form": "acc.sg" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "tozilnik", "prompt": "Zala išče ___. (ena mačka)", "options": ["mačka", "mačko", "mačke"], "answer": 1, "say_options": true,
+        "explain": "**mačka** → feminine object → **-o**: Zala išče mačko."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: otrok (otroke), pes (psa). Native check: Pri babici Micki (Jaz jem toplo potico), Vidim mladega konja, Marko nese vino"
+}

@@ -1,0 +1,239 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "osebni-zaimki",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "👥",
+  "title": { "sl": "Jaz, ti, on, ona: ti ali vi", "en": "I, you, he, she: ti or vi", "de": "Ich, du, er, sie: ti oder vi", "it": "Io, tu, lui, lei: ti o vi" },
+  "goal": {
+    "en": "You can use jaz, ti, on, ona, midva, mi and the rest, and say ti to a friend and vi to Mojca.",
+    "de": "Du benutzt jaz, ti, on, ona, midva, mi und die anderen und sagst ti zu einem Freund und vi zu Mojca.",
+    "it": "Sai usare jaz, ti, on, ona, midva, mi e gli altri, e dai del ti a un amico e del vi a Mojca."
+  },
+  "grammar": ["ti-vi", "biti", "dvojina"],
+  "words": ["jaz", "ti", "on", "ona", "ono", "mi", "me", "vi", "oni", "one", "midva", "medve", "vidva", "vedve", "onadva", "onidve", "pa", "živjo", "dober dan", "adijo", "na svidenje", "oprosti", "oprostite", "kako", "od kod", "kajne", "hvala", "pastir", "učiteljica", "ribnik", "gostilna", "vodnjak"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "zaimek", "en": "pronoun", "de": "Pronomen", "it": "pronome" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "biti", "en": "biti (be)", "de": "biti (sein)", "it": "biti (essere)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Slovene has a word for each person, as English does. One person first: **jaz** (I), **ti** (you, to a friend), **on** (he), **ona** (she), **ono** (it). Each has its form of biti: **jaz sem, ti si, on je**. Things are on, ona or ono too, by their gender: kruh → on, hiša → ona, okno → ono.",
+          "de": "Das Slowenische hat für jede Person ein Wort, wie das Deutsche. Zuerst eine Person: **jaz** (ich), **ti** (du), **on** (er), **ona** (sie), **ono** (es). Jede hat ihre Form von biti: **jaz sem, ti si, on je**. Auch Dinge sind on, ona oder ono, nach ihrem Geschlecht: kruh → on, hiša → ona, okno → ono.",
+          "it": "Lo sloveno ha una parola per ogni persona, come l'italiano. Prima una persona: **jaz** (io), **ti** (tu), **on** (lui), **ona** (lei), **ono** (esso). Ognuna ha la sua forma di biti: **jaz sem, ti si, on je**. Anche le cose sono on, ona o ono, secondo il genere: kruh → on, hiša → ona, okno → ono."
+        },
+        "examples": [
+          { "sl": "Jaz sem {learner}, ti si Luka.", "en": "I'm {learner}, you're Luka.", "de": "Ich bin {learner}, du bist Luka.", "it": "Io sono {learner}, tu sei Luka." },
+          { "sl": "On je pastir, ona je učiteljica.", "en": "He's a shepherd, she's a teacher.", "de": "Er ist Hirte, sie ist Lehrerin.", "it": "Lui è pastore, lei è maestra." }
+        ],
+        "rows": [
+          ["jaz", { "en": "I", "de": "ich", "it": "io" }, "sem"],
+          ["ti", { "en": "you (one, ti)", "de": "du", "it": "tu" }, "si"],
+          ["on, ona, ono", { "en": "he, she, it", "de": "er, sie, es", "it": "lui, lei, esso" }, "je"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "biti", "prompt": "To je Zala. ___ je na vrtu.", "options": ["On", "Ona", "Ono"], "answer": 1, "say_options": true,
+          "explain": "**Zala** → a girl → **ona**\n- Luka → on\n- Zala → ona\n- okno → ono"
+        }
+      },
+      {
+        "say": {
+          "en": "Three or more: **mi** (we), **vi** (you, several of you), **oni** (they). Women only are **me** (we), **ve** (you) and **one** (they); a mixed group is mi, vi, oni. Things are plural too: okna → **ona**. The verb: **mi smo, vi ste, oni so**.",
+          "de": "Drei oder mehr: **mi** (wir), **vi** (ihr), **oni** (sie). Nur Frauen sind **me** (wir), **ve** (ihr) und **one** (sie); eine gemischte Gruppe ist mi, vi, oni. Auch Dinge gehen in den Plural: okna → **ona**. Das Verb: **mi smo, vi ste, oni so**.",
+          "it": "Tre o più: **mi** (noi), **vi** (voi), **oni** (loro). Le donne da sole sono **me** (noi), **ve** (voi) e **one** (loro); un gruppo misto è mi, vi, oni. Anche le cose vanno al plurale: okna → **ona**. Il verbo: **mi smo, vi ste, oni so**."
+        },
+        "examples": [
+          { "sl": "Mi smo v šoli, oni so na njivi.", "en": "We're at school, they're in the field.", "de": "Wir sind in der Schule, sie sind auf dem Feld.", "it": "Noi siamo a scuola, loro sono nel campo." },
+          { "sl": "Zala, Vida in Micka? One so v kuhinji.", "en": "Zala, Vida and Micka? They're in the kitchen.", "de": "Zala, Vida und Micka? Sie sind in der Küche.", "it": "Zala, Vida e Micka? Sono in cucina." }
+        ],
+        "rows": [
+          ["mi / me", { "en": "we", "de": "wir", "it": "noi" }, "smo"],
+          ["vi / ve", { "en": "you (several; polite)", "de": "ihr (Sie)", "it": "voi (Lei)" }, "ste"],
+          ["oni / one", { "en": "they", "de": "sie", "it": "loro" }, "so"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "biti", "text": "Luka, France in Anton? ___ so na njivi.", "accept": ["Oni"], "hint": "three men",
+          "explain": "**three men** → **oni**\n- men, or men and women · oni\n- women only · one"
+        }
+      },
+      {
+        "say": {
+          "en": "Exactly two have words of their own, the dual: **midva** (we two), **vidva** (you two), **onadva** (the two of them), with **sva, sta, sta**. Two women are **medve, vedve, onidve** (also midve, vidve); a man and a woman are midva, onadva.",
+          "de": "Genau zwei haben eigene Wörter, den Dual: **midva** (wir zwei), **vidva** (ihr zwei), **onadva** (die zwei), mit **sva, sta, sta**. Zwei Frauen sind **medve, vedve, onidve** (auch midve, vidve); ein Mann und eine Frau sind midva, onadva.",
+          "it": "Esattamente due hanno parole proprie, il duale: **midva** (noi due), **vidva** (voi due), **onadva** (loro due), con **sva, sta, sta**. Due donne sono **medve, vedve, onidve** (anche midve, vidve); un uomo e una donna sono midva, onadva."
+        },
+        "examples": [
+          { "sl": "Midva sva prijatelja.", "en": "The two of us are friends.", "de": "Wir zwei sind Freunde.", "it": "Noi due siamo amici." },
+          { "sl": "Micka in Vida? Onidve sta v kuhinji.", "en": "Micka and Vida? The two of them are in the kitchen.", "de": "Micka und Vida? Die beiden sind in der Küche.", "it": "Micka e Vida? Loro due sono in cucina." }
+        ],
+        "rows": [
+          ["midva / medve", { "en": "we two", "de": "wir zwei", "it": "noi due" }, "sva"],
+          ["vidva / vedve", { "en": "you two", "de": "ihr zwei", "it": "voi due" }, "sta"],
+          ["onadva / onidve", { "en": "the two of them", "de": "die zwei", "it": "loro due" }, "sta"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "Zala in Tine? ___ sta pri lipi.", "options": ["Onadva", "Onidve", "Oni"], "answer": 0, "say_options": true,
+          "explain": "**a girl and a boy** → **onadva**\n- two women or girls · onidve\n- three or more · oni"
+        }
+      },
+      {
+        "say": {
+          "en": "**Ti** is for one friend, a child, your family: Luka, Zala, Nejc. **Vi** is polite: for an older person, someone you don't know well, or the teacher (Mojca, France, Vida), and for several people. With vi the verb is **ste**: **Kako si, Luka?** but **Kako ste, France?**",
+          "de": "**Ti** ist du: für einen Freund, ein Kind, die Familie: Luka, Zala, Nejc. **Vi** ist Sie: höflich, für Ältere, für Leute, die man nicht gut kennt, für die Lehrerin (Mojca, France, Vida), und ihr für mehrere. Mit vi heißt das Verb **ste**: **Kako si, Luka?**, aber **Kako ste, France?**",
+          "it": "**Ti** è il tu: per un amico, un bambino, la famiglia: Luka, Zala, Nejc. **Vi** è il Lei: per chi è più grande di te, chi non conosci bene o la maestra (Mojca, France, Vida), e il voi per più persone. Con vi il verbo è **ste**: **Kako si, Luka?**, ma **Kako ste, France?**"
+        },
+        "examples": [
+          { "sl": "Živjo, Luka! Kako si?", "en": "Hi, Luka! How are you?", "de": "Hallo, Luka! Wie geht's dir?", "it": "Ciao, Luka! Come stai?" },
+          { "sl": "Dober dan, France! Kako ste?", "en": "Good day, France! How are you? (polite)", "de": "Guten Tag, France! Wie geht es Ihnen?", "it": "Buongiorno, France! Come sta?" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "ti-vi", "prompt": "»Dober dan, Vida! Kako ___?«", "options": ["si", "ste", "sta"], "answer": 1, "say_options": true,
+          "explain": "**Vida** → polite → **vi** → **ste**\n- Kako si? · to a friend\n- Kako ste? · polite, or to several"
+        }
+      },
+      {
+        "say": {
+          "en": "The verb already says who, so the pronoun usually drops: **Sem doma.** **Ste iz Gorice?** Say it when you set two people side by side, often with **pa** (and, but): **Jaz sem doma, ti pa si v šoli.**",
+          "de": "Das Verb sagt schon, wer, darum fällt das Pronomen meist weg: **Sem doma.** **Ste iz Gorice?** Man sagt es, wenn man zwei Personen gegenüberstellt, oft mit **pa** (und, aber): **Jaz sem doma, ti pa si v šoli.**",
+          "it": "Il verbo dice già chi, quindi il pronome di solito cade: **Sem doma.** **Ste iz Gorice?** Lo si dice quando si mettono a confronto due persone, spesso con **pa** (e, invece): **Jaz sem doma, ti pa si v šoli.**"
+        },
+        "examples": [
+          { "sl": "Sem doma.", "en": "I'm at home.", "de": "Ich bin zu Hause.", "it": "Sono a casa." },
+          { "sl": "Jaz sem doma, ti pa si v šoli.", "en": "I'm at home, and you're at school.", "de": "Ich bin zu Hause, du dagegen bist in der Schule.", "it": "Io sono a casa, tu invece sei a scuola." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "biti", "text": "Luka je na pašniku, ___ pa sem doma.", "accept": ["jaz"], "hint": "I, set beside Luka",
+          "explain": "**two people side by side** → say the pronoun\n- Luka je na pašniku · Luka is on the pasture\n- jaz pa sem doma · and I'm at home"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "osebni-zaimki-1",
+      "title": { "sl": "Kdo je kdo?", "en": "Who is who?", "de": "Wer ist wer?", "it": "Chi è chi?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "biti", "instruction": "Ena oseba, dve ali več? · One person, two or more?",
+          "columns": [
+            { "label": "ena · one", "words": ["jaz", "ti", "on"] },
+            { "label": "dva · two", "words": ["midva", "vidva", "onidve"] },
+            { "label": "tri ali več · three or more", "words": ["mi", "oni", "one"] }
+          ],
+          "explain": "**how many?** → the pronoun\n- one: jaz, ti, on, ona, ono\n- two: midva, vidva, onadva (women: medve, vedve, onidve)\n- three or more: mi, vi, oni (women: me, ve, one)"
+        },
+        {
+          "type": "table", "grammar": "dvojina", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "moški ali samo ženske · men or women only",
+          "columns": ["moški, mešano · men, mixed", "samo ženske · women only"],
+          "rows": [
+            { "label": "he · she", "cells": ["on", { "accept": ["ona"], "hint": "one woman", "grammar": "biti" }] },
+            { "label": "we two", "cells": ["midva", { "accept": ["medve", "midve"], "hint": "me + …" }] },
+            { "label": "you two", "cells": [{ "accept": ["vidva"], "hint": "vi + …" }, "vedve"] },
+            { "label": "the two of them", "cells": ["onadva", { "accept": ["onidve"], "hint": "oni + …" }] },
+            { "label": "we (three or more)", "cells": ["mi", { "accept": ["me"], "hint": "women only: -i → -e", "grammar": "biti" }] },
+            { "label": "they (three or more)", "cells": ["oni", { "accept": ["one"], "hint": "women only: -i → -e", "grammar": "biti" }] }
+          ],
+          "explain": "**women only** → **ona**, then **-e** and **-dve**\n- on → ona · mi → me · oni → one\n- midva → medve · onadva → onidve"
+        }
+      ]
+    },
+    {
+      "id": "osebni-zaimki-2",
+      "title": { "sl": "Ti ali vi?", "en": "Ti or vi?", "de": "Ti oder vi?", "it": "Ti o vi?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "ti-vi", "instruction": "Dopolni · Fill in", "title": "Na vasi",
+          "text": "»Živjo, Zala! Kako ___?« »Dobro! In ___?« »Tudi dobro.« »Dober dan, učiteljica! Kako ___?« »Dobro, hvala. ___ ste {learner}, kajne?« »Da.« »Nejc in Tine, kje ___?« »___ sva pri ribniku, Zala pa je doma!«",
+          "gaps": [
+            { "accept": ["si"], "hint": "Zala: ti", "explain": "To a friend, ti: **Kako si?**" },
+            { "accept": ["ti"], "hint": "and you? (Zala to you)", "explain": "Zala says ti to you: **In ti?** (And you?)" },
+            { "accept": ["ste"], "hint": "the teacher: vi", "explain": "To the teacher, vi: **Kako ste?**" },
+            { "accept": ["Vi"], "hint": "Mojca says vi to you" },
+            { "accept": ["sta"], "hint": "two boys", "grammar": "dvojina", "explain": "Nejc and Tine are two: vidva **sta**." },
+            { "accept": ["Midva"], "hint": "we two", "grammar": "dvojina", "explain": "sva goes with **midva**; mi takes smo." }
+          ],
+          "bank": true, "distractors": ["smo", "Mi"],
+          "translation": "\"Hi, Zala! How are you?\" \"Fine! And you?\" \"Fine too.\" \"Good day, teacher! How are you?\" \"Fine, thank you. You're {learner}, aren't you?\" \"Yes.\" \"Nejc and Tine, where are you?\" \"We're at the pond, and Zala is at home!\""
+        },
+        {
+          "type": "transform", "grammar": "ti-vi", "instruction": "Vikaj · Say it with vi (polite)", "cue": "vi",
+          "items": [
+            { "from": "Kako si?", "accept": ["Kako ste?"], "hint": "si → ?", "lemma": "biti", "form": "pres.2pl" },
+            { "from": "Od kod si?", "accept": ["Od kod ste?"], "lemma": "biti", "form": "pres.2pl" },
+            { "from": "Adijo!", "accept": ["Na svidenje!"], "hint": "a polite goodbye" },
+            { "from": "Oprosti!", "accept": ["Oprostite!"], "hint": "add -te" },
+            { "from": "Živjo!", "accept": ["Dober dan!", "Dobro jutro!", "Dober večer!", "Pozdravljeni!"], "hint": "a polite greeting", "explain": "**živjo** is for ti → polite: **dober dan** (dobro jutro, dober večer)" },
+            { "from": "Ti si učiteljica?", "accept": ["Vi ste učiteljica?", "Ste učiteljica?"], "hint": "ti si → ?", "explain": "**vi ste**, and the noun stays one person\n- Ti si učiteljica? · to a friend\n- Vi ste učiteljica? · polite" }
+          ],
+          "explain": "**vi** → the verb **ste**\n- Kako si? → Kako ste?\n- Oprosti! → Oprostite!\n- Živjo! → Dober dan! · Adijo! → Na svidenje!"
+        }
+      ]
+    },
+    {
+      "id": "osebni-zaimki-3",
+      "title": { "sl": "Onadva ali onidve?", "en": "Onadva or onidve?", "de": "Onadva oder onidve?", "it": "Onadva o onidve?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "dvojina", "instruction": "Namesto imen povej zaimek · Say a pronoun for the names",
+          "items": [
+            { "from": "Nejc in Tine sta pri ribniku.", "accept": ["Onadva sta pri ribniku."], "hint": "two boys" },
+            { "from": "Micka in Vida sta v kuhinji.", "accept": ["Onidve sta v kuhinji."], "hint": "two women" },
+            { "from": "Luka, France in Anton so na njivi.", "accept": ["Oni so na njivi."], "hint": "three men", "grammar": "biti" },
+            { "from": "Zala, Vida in Mojca so v šoli.", "accept": ["One so v šoli."], "hint": "three women", "grammar": "biti" },
+            { "from": "Luka in jaz sva na pašniku.", "accept": ["Midva sva na pašniku."], "hint": "Luka and I" },
+            { "from": "Ti in Zala sta pri lipi.", "accept": ["Vidva sta pri lipi.", "Vedve sta pri lipi.", "Vidve sta pri lipi."], "hint": "you and Zala", "explain": "**you and Zala** → **vidva**; two women or girls → vedve" }
+          ],
+          "explain": "**who?** → the pronoun\n- two: onadva, onidve · three or more: oni, one\n- with jaz: midva · with ti: vidva"
+        },
+        {
+          "type": "reorder", "grammar": "biti", "instruction": "Sestavi stavek · Build the sentence", "prompt": "I'm at home, and you're at school.",
+          "tokens": ["Jaz", "sem", "doma,", "ti", "pa", "si", "v", "šoli."], "solutions": [["Jaz", "sem", "doma,", "ti", "pa", "si", "v", "šoli."], ["Jaz", "sem", "doma,", "ti", "si", "pa", "v", "šoli."]],
+          "explain": "**two people side by side** → both pronouns, **pa** after the second\n- Jaz sem doma, ti pa si v šoli."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "biti", "instruction": "Dopolni · Fill in",
+        "text": "»Dober dan, France! Kako ___?« »Dobro, hvala. Kje sta Nejc in Tine? Pa Zala in Vida?« »___ sta pri ribniku, ___ pa sta v gostilni.« Luka je na pašniku, ___ pa sem pri lipi.",
+        "gaps": [
+          { "accept": ["ste"], "grammar": "ti-vi" },
+          { "accept": ["Onadva"], "grammar": "dvojina" },
+          { "accept": ["Onidve"], "grammar": "dvojina" },
+          { "accept": ["jaz"] }
+        ],
+        "translation": "\"Good day, France! How are you?\" \"Fine, thank you. Where are Nejc and Tine? And Zala and Vida?\" \"The boys are at the pond, and the two of them are at the inn.\" Luka is on the pasture, and I'm at the linden."
+      },
+      {
+        "type": "transform", "grammar": "ti-vi", "instruction": "Vikaj · Say it with vi (polite)", "cue": "vi",
+        "items": [
+          { "from": "Si iz Ljubljane?", "accept": ["Ste iz Ljubljane?"], "lemma": "biti", "form": "pres.2pl" },
+          { "from": "Oprosti, si ti Anton?", "accept": ["Oprostite, ste vi Anton?", "Oprostite, ste Anton?"] },
+          { "from": "Kje si?", "accept": ["Kje ste?"], "lemma": "biti", "form": "pres.2pl" }
+        ]
+      },
+      {
+        "type": "transform", "grammar": "dvojina", "instruction": "Namesto imen povej zaimek · Say a pronoun for the names",
+        "items": [
+          { "from": "Vida in Zala sta pri vodnjaku.", "accept": ["Onidve sta pri vodnjaku."] },
+          { "from": "Micka, Zala in Ančka so doma.", "accept": ["One so doma."], "grammar": "biti" },
+          { "from": "Anton in jaz sva pri lipi.", "accept": ["Midva sva pri lipi."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "ti-vi", "prompt": "»Dober večer, Janez! Kako ___?«", "options": ["si", "ste", "so"], "answer": 1, "say_options": true,
+        "explain": "**Stari Janez** → older → **vi** → **ste**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: medve/midve, vedve/vidve, onidve, ve, kajne, od kod. Native check: ti pa si / ti si pa, me for women, vi with a first name"
+}

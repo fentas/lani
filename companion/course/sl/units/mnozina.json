@@ -1,0 +1,220 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "mnozina",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🐴",
+  "title": { "sl": "Množina: konji, ovce, okna", "en": "The plural: konji, ovce, okna", "de": "Der Plural: konji, ovce, okna", "it": "Il plurale: konji, ovce, okna" },
+  "goal": {
+    "en": "You can talk about three or more: konji, ovce, okna, ljudje, and say what they are like: Ovce so bele.",
+    "de": "Du sprichst über drei und mehr: konji, ovce, okna, ljudje, und sagst, wie sie sind: Ovce so bele.",
+    "it": "Sai parlare di tre o più: konji, ovce, okna, ljudje, e dire come sono: Ovce so bele."
+  },
+  "grammar": ["mnozina", "pridevniki-ujemanje"],
+  "words": ["konj", "stol", "šotor", "ovca", "krava", "hiša", "miza", "vas", "noč", "kokoš", "okno", "jajce", "jabolko", "sin", "most", "človek", "ljudje", "otrok", "otroci", "brat", "bratje", "dan", "vrata", "drva", "raca", "riba", "žaba", "lačen", "bel", "odprt", "star", "nov", "velik", "lep", "prijazen", "košara", "dvorišče"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+        { "sl": "ednina", "en": "one", "de": "eins", "it": "uno" },
+        { "sl": "množina", "en": "three or more", "de": "drei und mehr", "it": "tre e più" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "From three on, a noun is plural (*množina*); exactly two take the dual, which comes at the end of A1. The ending follows the gender. A masculine noun adds **-i**: konj → **konji**, stol → **stoli**, šotor → **šotori**.",
+          "de": "Ab drei steht ein Nomen im Plural (*množina*); genau zwei nehmen den Dual, der am Ende von A1 kommt. Die Endung folgt dem Geschlecht. Ein männliches Nomen bekommt **-i**: konj → **konji**, stol → **stoli**, šotor → **šotori**.",
+          "it": "Da tre in su il nome va al plurale (*množina*); esattamente due vogliono il duale, che arriva alla fine dell'A1. La desinenza segue il genere. Un nome maschile prende **-i**: konj → **konji**, stol → **stoli**, šotor → **šotori**."
+        },
+        "examples": [
+          { "sl": "Na travniku so konji.", "en": "There are horses in the meadow.", "de": "Auf der Wiese sind Pferde.", "it": "Sul prato ci sono dei cavalli." },
+          { "sl": "Stoli so v kuhinji.", "en": "The chairs are in the kitchen.", "de": "Die Stühle sind in der Küche.", "it": "Le sedie sono in cucina." }
+        ],
+        "rows": [[{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, "konj, stol", "konji, stoli"]],
+        "ask": {
+          "type": "choice", "grammar": "mnozina", "prompt": "Na pašniku so ___. (konj)", "options": ["konj", "konji", "konja"], "answer": 1, "say_options": true,
+          "explain": "**konj** → masculine → **-i**: konji\n- konj · one horse\n- konji · three or more"
+        }
+      },
+      {
+        "say": {
+          "en": "A feminine noun in **-a** changes it to **-e**: ovca → **ovce**, hiša → **hiše**. The few feminine nouns that end in a consonant take **-i**: vas → **vasi**, noč → **noči**, kokoš → **kokoši**.",
+          "de": "Ein weibliches Nomen auf **-a** tauscht es gegen **-e**: ovca → **ovce**, hiša → **hiše**. Die wenigen weiblichen Nomen, die auf einen Konsonanten enden, bekommen **-i**: vas → **vasi**, noč → **noči**, kokoš → **kokoši**.",
+          "it": "Un nome femminile in **-a** la cambia in **-e**: ovca → **ovce**, hiša → **hiše**. I pochi nomi femminili che finiscono in consonante prendono **-i**: vas → **vasi**, noč → **noči**, kokoš → **kokoši**."
+        },
+        "examples": [
+          { "sl": "Ovce so na pašniku.", "en": "The sheep are on the pasture.", "de": "Die Schafe sind auf der Weide.", "it": "Le pecore sono al pascolo." },
+          { "sl": "Kokoši so na dvorišču.", "en": "The hens are in the yard.", "de": "Die Hühner sind im Hof.", "it": "Le galline sono nel cortile." }
+        ],
+        "rows": [
+          [{ "sl": "ženski, -a", "en": "feminine, -a", "de": "weiblich, -a", "it": "femminile, -a" }, "ovca, hiša", "ovce, hiše"],
+          [{ "sl": "ženski, brez -a", "en": "feminine, no -a", "de": "weiblich, ohne -a", "it": "femminile, senza -a" }, "vas, noč", "vasi, noči"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "mnozina", "text": "Na travniku so ___. (krava)", "accept": ["krave"], "hint": "-a → ?",
+          "explain": "**krava** → feminine in -a → **-e**: krave"
+        }
+      },
+      {
+        "say": {
+          "en": "A neuter noun ends in **-a**: okno → **okna**, jajce → **jajca**, jabolko → **jabolka**.",
+          "de": "Ein sächliches Nomen endet auf **-a**: okno → **okna**, jajce → **jajca**, jabolko → **jabolka**.",
+          "it": "Un nome neutro finisce in **-a**: okno → **okna**, jajce → **jajca**, jabolko → **jabolka**."
+        },
+        "examples": [
+          { "sl": "V košari so jajca.", "en": "There are eggs in the basket.", "de": "Im Korb sind Eier.", "it": "Nel cesto ci sono delle uova." },
+          { "sl": "Na drevesu so jabolka.", "en": "There are apples on the tree.", "de": "Am Baum sind Äpfel.", "it": "Sull'albero ci sono delle mele." }
+        ],
+        "rows": [[{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "okno, jajce", "okna, jajca"]],
+        "ask": {
+          "type": "choice", "grammar": "mnozina", "prompt": "Na mizi so ___. (jabolko)", "options": ["jabolko", "jabolki", "jabolka"], "answer": 2, "say_options": true,
+          "explain": "**jabolko** → neuter → **-a**: jabolka\n- jabolki · exactly two (the dual)"
+        }
+      },
+      {
+        "say": {
+          "en": "The words around the noun go plural too. The verb is **so**, and an adjective takes **-i** (masculine), **-e** (feminine), **-a** (neuter): **Konji so lačni. Ovce so bele. Okna so odprta.** Moj and ta follow: **moji konji, te ovce, ta okna**. After č, š, ž the neuter singular has -e (**sveže mleko**), but the plural keeps -a: **sveža jajca**.",
+          "de": "Die Wörter um das Nomen gehen mit in den Plural. Das Verb ist **so**, und ein Adjektiv bekommt **-i** (männlich), **-e** (weiblich), **-a** (sächlich): **Konji so lačni. Ovce so bele. Okna so odprta.** Moj und ta folgen: **moji konji, te ovce, ta okna**. Nach č, š, ž hat das Sächliche im Singular -e (**sveže mleko**), der Plural behält -a: **sveža jajca**.",
+          "it": "Anche le parole intorno al nome vanno al plurale. Il verbo è **so**, e l'aggettivo prende **-i** (maschile), **-e** (femminile), **-a** (neutro): **Konji so lačni. Ovce so bele. Okna so odprta.** Moj e ta seguono: **moji konji, te ovce, ta okna**. Dopo č, š, ž il neutro singolare ha -e (**sveže mleko**), ma il plurale tiene -a: **sveža jajca**."
+        },
+        "examples": [
+          { "sl": "Konji so lačni.", "en": "The horses are hungry.", "de": "Die Pferde sind hungrig.", "it": "I cavalli hanno fame." },
+          { "sl": "Te ovce so bele.", "en": "These sheep are white.", "de": "Diese Schafe sind weiß.", "it": "Queste pecore sono bianche." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pridevniki-ujemanje", "text": "Krave so ___. (velik)", "accept": ["velike"], "hint": "krave: feminine plural",
+          "explain": "**krave** → feminine plural → **-e**: velike\n- konji so veliki\n- okna so velika"
+        }
+      },
+      {
+        "say": {
+          "en": "A few are different. Many short masculine nouns add **-ov-**: sin → **sinovi**, most → **mostovi**. Some change more: človek → **ljudje**, otrok → **otroci**, brat → **bratje**, dan → **dnevi**. And some are plural only, even for one thing: **vrata** (door), **drva** (firewood): **Vrata so odprta.**",
+          "de": "Ein paar sind anders. Viele kurze männliche Nomen fügen **-ov-** ein: sin → **sinovi**, most → **mostovi**. Manche ändern sich mehr: človek → **ljudje**, otrok → **otroci**, brat → **bratje**, dan → **dnevi**. Und manche gibt es nur im Plural, auch für ein Ding: **vrata** (Tür), **drva** (Brennholz): **Vrata so odprta.**",
+          "it": "Alcuni sono diversi. Molti nomi maschili brevi aggiungono **-ov-**: sin → **sinovi**, most → **mostovi**. Altri cambiano di più: človek → **ljudje**, otrok → **otroci**, brat → **bratje**, dan → **dnevi**. E alcuni esistono solo al plurale, anche per una cosa sola: **vrata** (porta), **drva** (legna): **Vrata so odprta.**"
+        },
+        "examples": [
+          { "sl": "Otroci so v šoli.", "en": "The children are at school.", "de": "Die Kinder sind in der Schule.", "it": "I bambini sono a scuola." },
+          { "sl": "Ljudje v vasi so prijazni.", "en": "The people in the village are friendly.", "de": "Die Leute im Dorf sind freundlich.", "it": "La gente del paese è gentile." }
+        ],
+        "rows": [
+          [{ "sl": "moški, -ov-", "en": "masculine, -ov-", "de": "männlich, -ov-", "it": "maschile, -ov-" }, "sin, most", "sinovi, mostovi"],
+          [{ "sl": "nepravilno", "en": "irregular", "de": "unregelmäßig", "it": "irregolare" }, "človek, otrok, brat", "ljudje, otroci, bratje"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "mnozina", "prompt": "V šoli so ___. (otrok)", "options": ["otroki", "otroci", "otroke"], "answer": 1, "say_options": true,
+          "explain": "**otrok** → irregular → **otroci**\n- človek → ljudje\n- brat → bratje"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "mnozina-1",
+      "title": { "sl": "Ena ali več?", "en": "One or more?", "de": "Eins oder mehr?", "it": "Uno o più?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "mnozina", "instruction": "Kakšna je množina? Razvrsti po končnici · Which plural ending? Sort",
+          "columns": [
+            { "label": "-i", "words": ["konj", "šotor", "vas"] },
+            { "label": "-e", "words": ["ovca", "hiša", "krava"] },
+            { "label": "-a", "words": ["okno", "jajce", "jabolko"] }
+          ],
+          "explain": "**the gender** → the plural ending\n- masculine, and feminine without -a: **-i** (konji, vasi)\n- feminine in -a: **-e** (ovce)\n- neuter: **-a** (okna)"
+        },
+        {
+          "type": "table", "grammar": "mnozina", "instruction": "Dopolni množino · Fill in the plural", "prompt": "ena → več · one → more",
+          "columns": ["ednina · one", "množina · three or more"],
+          "rows": [
+            { "label": "moški · masculine", "cells": ["stol", { "accept": ["stoli"] }] },
+            { "label": "ženski, -a · feminine", "cells": ["miza", { "accept": ["mize"] }] },
+            { "label": "ženski, brez -a · feminine, no -a", "cells": ["kokoš", { "accept": ["kokoši"], "hint": "as vas → vasi" }] },
+            { "label": "srednji · neuter", "cells": ["okno", { "accept": ["okna"] }] },
+            { "label": "moški, -ov- · masculine", "cells": ["sin", { "accept": ["sinovi"], "hint": "-ov- + …" }] },
+            { "label": "nepravilno · irregular", "cells": ["otrok", { "accept": ["otroci"], "hint": "k → c" }] },
+            { "label": "nepravilno · irregular", "cells": ["človek", { "accept": ["ljudje"], "hint": "a new word" }] }
+          ],
+          "explain": "stol → stoli · miza → mize · kokoš → kokoši · okno → okna · sin → sinovi · otrok → otroci · človek → ljudje"
+        }
+      ]
+    },
+    {
+      "id": "mnozina-2",
+      "title": { "sl": "Pri Francetu", "en": "At France's", "de": "Bei France", "it": "Da France" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "mnozina", "instruction": "Dopolni z množino · Fill in the plural", "title": "Pri Francetu",
+          "text": "Pri Francetu je lepo. Na travniku so ___ (krava) in ___ (konj). Konji so ___ (lačen). Na dvorišču so ___ (kokoš). Hiša ima velika ___ (okno). ___ (otrok) so na vrtu.",
+          "gaps": [
+            { "accept": ["krave"], "hint": "-a → ?" },
+            { "accept": ["konji"], "hint": "masculine" },
+            { "accept": ["lačni"], "hint": "konji: masculine plural", "grammar": "pridevniki-ujemanje", "explain": "konji → masculine plural → **-i**: lačni (lačen → lačni: the e drops, as dober → dobra)." },
+            { "accept": ["kokoši"], "hint": "feminine, no -a", "explain": "kokoš is feminine without -a, as vas: **kokoši**." },
+            { "accept": ["okna"], "hint": "neuter" },
+            { "accept": ["Otroci"], "hint": "irregular", "explain": "otrok → **otroci** (k → c)." }
+          ],
+          "bank": true, "distractors": ["konje", "lačne", "otroki"],
+          "translation": "It's nice at France's. There are cows and horses in the meadow. The horses are hungry. There are hens in the yard. The house has big windows. The children are in the garden."
+        }
+      ]
+    },
+    {
+      "id": "mnozina-3",
+      "title": { "sl": "V množino", "en": "Into the plural", "de": "In den Plural", "it": "Al plurale" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "mnozina", "instruction": "Postavi v množino · Put it in the plural", "cue": "→ več · more",
+          "items": [
+            { "from": "Konj je lačen.", "accept": ["Konji so lačni."], "hint": "-i, so, -i; lačen drops its e", "lemma": "konj", "form": "nom.pl" },
+            { "from": "Jajce je rdeče.", "accept": ["Jajca so rdeča."], "hint": "the plural keeps -a", "lemma": "jajce", "form": "nom.pl" },
+            { "from": "Ovca je bela.", "accept": ["Ovce so bele."], "lemma": "ovca", "form": "nom.pl" },
+            { "from": "Okno je odprto.", "accept": ["Okna so odprta."], "hint": "neuter: -a, -a", "lemma": "okno", "form": "nom.pl" },
+            { "from": "Ta hiša je stara.", "accept": ["Te hiše so stare."], "hint": "ta → ?", "lemma": "hiša", "form": "nom.pl", "grammar": "pridevniki-ujemanje" },
+            { "from": "Moj brat je doma.", "accept": ["Moji bratje so doma.", "Moji brati so doma."], "hint": "brat is irregular", "lemma": "brat", "form": "nom.pl" },
+            { "from": "Otrok je v šoli.", "accept": ["Otroci so v šoli."], "lemma": "otrok", "form": "nom.pl" },
+            { "from": "Most je star.", "accept": ["Mostovi so stari."], "hint": "-ov-", "lemma": "most", "form": "nom.pl" },
+            { "from": "Vas je lepa.", "accept": ["Vasi so lepe."], "hint": "vas: feminine", "lemma": "vas", "form": "nom.pl" }
+          ],
+          "explain": "**plural** → so, and every word around goes plural\n- -i: konji so lačni · mostovi so stari\n- -e: ovce so bele · te hiše so stare\n- -a: okna so odprta"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort", "grammar": "mnozina", "instruction": "Kakšna je množina? Razvrsti po končnici · Which plural ending? Sort",
+        "columns": [
+          { "label": "-i", "words": ["stol", "noč"] },
+          { "label": "-e", "words": ["smreka", "žaba"] },
+          { "label": "-a", "words": ["jabolko", "morje"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "mnozina", "instruction": "Dopolni z množino · Fill in the plural",
+        "text": "Na ribniku so ___ (raca). V vodi so ___ (riba). Na mostu so ___ (človek). Žabe so ___ (zelen).",
+        "gaps": [
+          { "accept": ["race"] },
+          { "accept": ["ribe"] },
+          { "accept": ["ljudje"] },
+          { "accept": ["zelene"], "grammar": "pridevniki-ujemanje" }
+        ],
+        "translation": "There are ducks on the pond. There are fish in the water. There are people on the bridge. The frogs are green."
+      },
+      {
+        "type": "transform", "grammar": "mnozina", "instruction": "Postavi v množino · Put it in the plural", "cue": "→ več · more",
+        "items": [
+          { "from": "Stol je nov.", "accept": ["Stoli so novi."], "lemma": "stol", "form": "nom.pl" },
+          { "from": "Jajce je sveže.", "accept": ["Jajca so sveža."], "lemma": "jajce", "form": "nom.pl" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "mnozina", "prompt": "Moji ___ so na njivi. (brat)", "options": ["brata", "bratje", "brate"], "answer": 1, "say_options": true,
+        "explain": "**brat** → irregular → **bratje**: moji bratje so na njivi."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: kokoš, brat (bratje, also brati), otrok. Native check: Pri Francetu, Hiša ima velika okna, Jajca so rdeča/sveža"
+}
