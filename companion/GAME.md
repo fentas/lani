@@ -153,14 +153,17 @@ A damaged building has no effect and does not count for the next age. A repair c
 | Lipa · Linden tree | 120🌾 40📜 | Zaselek | 1 | +10 morale |
 | Hiša · House | 60🌾 70🪵 50🪨 | Zaselek | – | +4 population cap |
 | Cerkev · Church | 140🌾 120🪵 90🪨 70📜 | Zaselek | 1 | +20 % 📜, +5 morale |
-| Šola · School | 100🌾 120🪵 100🪨 100📜 | Vas | 1 | +25 % 📜 |
+| Šola · School | 100🌾 100🪵 100🪨 100📜 | Zaselek | 1 | +25 % 📜 |
 | Tržnica · Market | 160🌾 150🪵 100🪨 80📜 | Vas | 1 | +200 cap on all resources, better merchant trades (2.5×) |
 
 The base population cap is 2.
 
 The linden carries the school's class under it once it stands (from Zaselek the class meets by the fire, then under the
-linden: a blackboard and a bench, no plot of their own), and the school's upgrades wait for the school's course besides
-their words: see "The school".
+linden: a blackboard and a bench, no plot of their own). The school is a hamlet's building too: it brings the class indoors
+and opens A2, and its upgrades wait for the school's course besides their words: see "The school". While none stands, the
+Build sheet says so under the school's card: "🏫 Pouk že poteka pod lipo; šola ga preseli pod streho in po A1 odpre A2 ·
+Class is already on under the linden; the school brings it indoors and, after A1, opens A2" ("ob ognju · by the fire"
+before the linden; "and opens A2" once A1 is done; `School.buildNote`).
 
 A workplace brings its person (the bee house its beekeeper, the smithy its smith, the market its winemaker, the school its
 teacher: VILLAGERS.md, "A building brings its person"), who needs a bed: while every bed is taken it can't be built, and its
@@ -191,7 +194,7 @@ the classic valley, the fixed layout every village had: the stream down the clea
 clearing's edge, the plots and their order, the trees, the rocks and the woodpile, the woods below all where they always
 were. Its next tick marks it (`"land": {"kind": "classic"}`), and that mark is the only change: it renders pixel for pixel
 as before (`ClassicLandTest`: digests of the fixed layout's renders of a Primorska village and a town, on every canvas
-and two zoomed-in lenses, and a real Primorska village save compared before and after). An app from before generated land doesn't know
+and two zoomed-in lenses, and a real Primorska village save compared before and after). What the game changes on purpose changes those digests too: the hamlet's tenth plot (2026-10-13, the school's) widens a hamlet's clearing and its palisade a little, on the classic land as on any other. An app from before generated land doesn't know
 a village's land and would leave it out of the state it saves: the node keeps it (`PUT /game`), so a generated village
 isn't marked classic by mistake.
 
@@ -204,7 +207,9 @@ seed always gives the same land; another seed another. What the seed decides:
 - **The road:** straight through the plaza and past the first plots, then bending gently away on each side; the plots'
   rows bend with it, and the buildings' paths, the merchant's cart, the walkers' lanes, the palisade's gates and the road's
   spot follow it.
-- **The clearing:** the ragged rim's noise and a broad bulge to one side (still 30 px past the age's farthest plot).
+- **The clearing:** the ragged rim's noise and a broad bulge to one side (still 30 px past the age's farthest plot, and
+  where the rim dips at least 21 px past every plot of the age: the palisade and the trees keep off the plots, as the
+  hamlet's tenth plot needed on a few lands, 2026-10-13).
 - **The plots:** the rows shifted along the road, their own jitter and order (the nearest the fire first, as always).
 - **The woods:** how many trees the forest's first rows leave out, where glades open deep in the woods, where spruce
   takes over from beech, the trees' and bushes' own noise.
@@ -354,7 +359,7 @@ The ages are milestones on the way to the learner's target level (`Dashboard.tar
 |---|---|---|---|---|---|
 | 🔥 Ogenj · Campfire | 2 | (start) | – | – | – |
 | ⛺ Tabor · Camp | 5 | a tent | 20🌾 10🪵 | 10 | – |
-| 🛖 Zaselek · Hamlet | 9 | palisade, field | 170🌾 80🪵 60🪨 | 3 % of the target, at least 40 | 1 |
+| 🛖 Zaselek · Hamlet | 10 | palisade, field | 170🌾 80🪵 60🪨 | 3 % of the target, at least 40 | 1 |
 | 🏘️ Vas · Village | 14 | church, linden, 2 huts or houses | 500🌾 320🪵 130🪨 110📜 | 15 % | 3 |
 | 🏛️ Trg · Market town | 20 | market, school, well | 800🌾 750🪵 700🪨 650📜 | 50 % | 5 |
 | 🏰 Mesto · Town | 28 | watchtower, smithy, 5 houses, 2 hayracks | 1200🌾 1100🪵 800🪨 700📜 | 100 % | 8 |
@@ -368,6 +373,10 @@ Words learned per age for each target:
 | **B2** (Jan) | 10 | 60 | 300 | 1000 | 2000 |
 | C1 | 10 | 105 | 525 | 1750 | 3500 |
 | C2 | 10 | 150 | 750 | 2500 | 5000 |
+
+Zaselek's tenth plot came with the school (2026-10-13: a hamlet's building since, see "The school"), taken from the plots
+Vas brings (it still has 14): a hamlet whose nine plots were full, as Jan's, has the plot for the school, and the hamlet's
+clearing and palisade reach that plot.
 
 The last free plots of an age are kept for the buildings the next age needs: with no more free plots than
 required buildings still missing, only those can be built, so a village can't block its own way on. The palisade
@@ -383,7 +392,7 @@ needs no plot, so none is kept for it, and it can go up when every plot is built
 
 An age once reached is never taken back by rust.
 
-"Friends" are villagers who live here at friendship level 2 ("Prijatelj · Friend", 30 points) or more (`Bonds.friends`; a friend who moved away doesn't count). They are a step of the age like the words, with a "💬 Pomagaj · Help" button to the register. Zaselek needs 1, Vas 3, Trg 5 and Mesto 8: the ages are long (they follow the target level), and the people carry them. The cast gives enough people for each age: Micka, Luka, Janez, France and the children from the start, Ančka and Anton from Tabor, Tone, Marko, Vida and Nejc from Zaselek, Mojca from Vas (13 in all), and the people who move in. Requests, talks, gifts, the village projects, the festivals and the day's surprise all grow the friendships; `SimulationTest` checks that the friends never hold an age back for B2 and that eight are within reach long before Mesto's words (see "Pacing").
+"Friends" are villagers who live here at friendship level 2 ("Prijatelj · Friend", 30 points) or more (`Bonds.friends`; a friend who moved away doesn't count). They are a step of the age like the words, with a "💬 Pomagaj · Help" button to the register. Zaselek needs 1, Vas 3, Trg 5 and Mesto 8: the ages are long (they follow the target level), and the people carry them. The cast gives enough people for each age: Micka, Luka, Janez, France and the children from the start, Ančka and Anton from Tabor, Tone, Marko, Vida and Nejc from Zaselek, Mojca from Zaselek too, with the school (13 in all), and the people who move in. Requests, talks, gifts, the village projects, the festivals and the day's surprise all grow the friendships; `SimulationTest` checks that the friends never hold an age back for B2 and that eight are within reach long before Mesto's words (see "Pacing").
 
 An age once reached is never taken back: a village already past a milestone that the target raised keeps its age, and only the next age waits for the new number.
 
@@ -401,7 +410,7 @@ The people are modelled on the app: the cast moves in by its order once its age 
 
 Friends come well before the words for every profile, also at 1 / 3 / 5 / 8 friends: Mesto's eight by day 17 for the committed learner and day 33 for the binge learner; the casual learner has eight by day 58. For a low target (A2: Vas at 45 words) the friends are the slower gate. In 60 days the committed learner earns about 310 🤝 (about 45 mobas) and has tools from 12 villagers; the casual learner about 90 🤝 and 6–9 tools.
 
-**The long ages.** For B2, Vas runs from 300 to 1000 words: for the committed learner from day 47 to day 163. In the 170-day run its six projects (35 steps, a step every day or two) and the three of Zaselek are all done in Vas, and the village has something to build until day 145. Before the projects it was complete by about day 106 and waited for Trg with full stores, with the weekly feast as the only use for them. In the last weeks of Vas the feast, the pedlar's goods and the festivals are the uses for the stores, and every session still has the day's surprise; the stores are never all full for more than 2 sessions in a row. The run has 141 surprises and 7 festivals (the grape harvest to pust). Zaselek (60 to 300 words) has its three projects (the mill came in addition to the maypole and the bridge) and is complete from about day 40 of 47.
+**The long ages.** For B2, Vas runs from 300 to 1000 words: for the committed learner from day 47 to day 163. In the 170-day run its six projects (35 steps, a step every day or two) and the three of Zaselek are all done in Vas, and the village has something to build until day 136 (144 while the school was Vas's: its build is the hamlet's now, and its upgrades come after A1, about day 100). Before the projects it was complete by about day 106 and waited for Trg with full stores, with the weekly feast as the only use for them. In the last weeks of Vas the feast, the pedlar's goods and the festivals are the uses for the stores, and every session still has the day's surprise; the stores are never all full for more than 2 sessions in a row. The run has 141 surprises and 7 festivals (the grape harvest to pust). Zaselek (60 to 300 words) has its three projects (the mill came in addition to the maypole and the bridge) and the school, and is complete from about day 35 of 47.
 
 The test asserts these properties for all three profiles and for six other seeds, plus a committed learner who never talks, and runs the committed learner 170 days, to Trg:
 
@@ -416,7 +425,7 @@ The test asserts these properties for all three profiles and for six other seeds
 - The 170-day run: the Vas village has something to build until day 130 or later, every project of Zaselek and Vas is done in Vas, and eight friends come within the 170 days.
 - With trading (`trading keeps the pacing`: every profile, this village and the six others): the player trades in place of a village run, once a session, when a store is (nearly) full while what it saves for lacks another resource (the fullest store's surplus for the largest shortfall, about what a run of 4 of 6 needs to cover it, at least 10; never what it keeps of that store unless the store is full anyway; the run's answers on their own dice). Every property above holds, a store sits at its cap while another is nearly empty no longer than without trading (a day's leeway, see below), trades bring at most 15 % of any resource that came in, and talk stays the best 📜 source for the committed learner. Measured: the committed learner and the one who never talks trade 6 to 11 times in 60 days, mostly 🌾 for 🪵 and 🪵 for 🌾, a little 🪨, none into 📜; their days with a store capped go from 11–16 to 2–9, and those with one capped while another is nearly empty from up to 2 to none for every profile; the ages still come with their words (they are the gate); trades bring at most 11 % of a resource (🪵, for the learner who never talks); the casual and the binge learner trade 0 to 2 times.
 
-What changed in the properties, and why: "complete" now counts the project steps (they are something to buy), and so does "buys something"; the two new properties (something new every session, never all stores full for a week) and the 170-day ones check what the projects, the calendar and the day's surprise are for. The sim now also tells the engine who lives here (`GameState.residents`), so project leaders, surprises and the friends an age counts follow the cast, and a feast or a festival brings everyone who lives here closer (before, the sim's village had no named residents). Since the palisade stands round the clearing on no plot, the sim player builds a hayrack on the plot it gave back in Tabor. Since the tent moves to the pond in Zaselek (see "The tent moves to the pond"), the sim player plays Luka's request the day he asks, besides the day's runs and on its own dice (like polishing), and builds the next building of its plan on the plot the tent gives back. With rusty words the sim's reviews fail, the player polishes when rust alone holds an age back, and it plans its saving with the rusty words counted (they are a minute away). Its project step is now the one that spends most from the fullest stores, not the first it can afford: in the 170-day run, late Vas spends 🌾 on the food-heavy steps while 🪨 sits at its cap, and with the first step that streak ran 3 to 14 days depending on the dice (this seed had 4 by luck, and rust's few extra answers made it 9 to 14); with the fuller-store step it is 4 to 9 across eight seeds, and 3 here. The 60-day runs keep it at 5 or less for every seed. With the school (see "The school", "Pacing") the committed learner's grammar is one of the school's sheets a day and the tutor's new module every five days (before: a module every other day; the learner who never talks: a module every day), the casual learner does a sheet every other run day and the binge learner two a day; the sim player counts the school's pay as what comes in anyway, and its weekly feast never leaves a store under a quarter (before, a feast could take a store under a quarter while another sat at its cap). The 170-day run's days of a store capped while another is nearly empty are 3 (3 to 10 across nine seeds, 1 to 4 before the school), the 60-day runs' 2 or less. With trading the comparison has a day's leeway: a trade's run in place of a village run moves the days around, and with the school's sheets the casual learner (whose one run a day it takes) has a day more than without trading on two of the seven villages (2 for 1, 1 for 0); every other profile and village 0 with trading.
+What changed in the properties, and why: "complete" now counts the project steps (they are something to buy), and so does "buys something"; the two new properties (something new every session, never all stores full for a week) and the 170-day ones check what the projects, the calendar and the day's surprise are for. The sim now also tells the engine who lives here (`GameState.residents`), so project leaders, surprises and the friends an age counts follow the cast, and a feast or a festival brings everyone who lives here closer (before, the sim's village had no named residents). Since the palisade stands round the clearing on no plot, the sim player builds a hayrack on the plot it gave back in Tabor. Since the tent moves to the pond in Zaselek (see "The tent moves to the pond"), the sim player plays Luka's request the day he asks, besides the day's runs and on its own dice (like polishing), and builds the next building of its plan on the plot the tent gives back. With rusty words the sim's reviews fail, the player polishes when rust alone holds an age back, and it plans its saving with the rusty words counted (they are a minute away). Its project step is now the one that spends most from the fullest stores, not the first it can afford: in the 170-day run, late Vas spends 🌾 on the food-heavy steps while 🪨 sits at its cap, and with the first step that streak ran 3 to 14 days depending on the dice (this seed had 4 by luck, and rust's few extra answers made it 9 to 14); with the fuller-store step it is 4 to 9 across eight seeds, and 3 here. The 60-day runs keep it at 5 or less for every seed. With the school (see "The school", "Pacing") the committed learner's grammar is one of the school's sheets a day and the tutor's new module every five days (before: a module every other day; the learner who never talks: a module every day), the casual learner does a sheet every other run day and the binge learner two a day; the sim player counts the school's pay as what comes in anyway, and its weekly feast never leaves a store under a quarter (before, a feast could take a store under a quarter while another sat at its cap). The 170-day run's days of a store capped while another is nearly empty are 3 (3 to 10 across nine seeds, 1 to 4 before the school), the 60-day runs' 2 or less. With trading the comparison has a day's leeway: a trade's run in place of a village run moves the days around, and with the school's sheets the casual learner (whose one run a day it takes) has a day more than without trading on two of the seven villages (2 for 1, 1 for 0); every other profile and village 0 with trading. With the school the hamlet's (2026-10-13; "The school") the sim player's plan has it in Zaselek, on the hamlet's tenth plot, and Mojca comes from Zaselek with it; Vas's plan is one building shorter. The 170-day run's figure is 3 (2 to 8 across nine seeds), the 60-day runs' 2 or less; with trading the casual learner has a day more than without on one of the seven villages (3 for 2), the learner who never talks on one (1 for 0), every other profile and village 0 with trading.
 
 ## Upkeep (daily tick)
 
@@ -718,18 +727,34 @@ says the same ("🛖 dosežeš dobo Zaselek ›").
 
 **Who teaches.** The school's person (VILLAGERS.md, "A building brings its person": Učiteljica Mojca in Primorska,
 Maestra Elena, Lehrerin Eva, Mrs Hartley) teaches from the start: by the fire and under the linden she comes over from
-the next village to teach (she doesn't live here: her arrival stays the school's, as before, and she may come by for a
-day as the next age's people do); once the school stands and she has moved in, she teaches there. Her portrait and her
+the next village to teach (she doesn't live here: her arrival stays the school's, and she may come by for a day as the
+next age's people do); the school brings her (her `since` is the hamlet's, as the school is), and once it stands and she
+has moved in, she teaches there. Like every workplace's person she needs a bed: while every bed is taken, the school's
+build card says so and offers the way on, a dwelling to build or upgrade (VILLAGERS.md, "A bed first"). Her portrait and her
 lines in the target language (with 🔊 in her voice and their meaning) lead the school's screens and the intros; on a
 sheet she stands on the training stage.
 
-**The school opens the next levels.** The school (Vas) moves the class indoors and opens **A2** once A1's units are all
+**The school: the hamlet's building.** Jan, 2026-10-13: "I go to Build and Šola is still with 'needs Village'." The
+school is built from the hamlet on (Zaselek, 100🌾 100🪵 100🪨 100📜, +25 % 📜; before, it was a building of Vas at
+120🪵: the hamlet is short of timber), on the tenth plot the hamlet has since then for it ("Ages"). Its upgrades wait for
+the course (below): today, for A1. While none stands, the Build sheet says, across the sheet under the
+school's card, that the class is on already and what the school brings: "🏫 Pouk že poteka ob ognju; šola ga preseli pod
+streho in po A1 odpre A2 · Class is already on by the fire; the school brings it indoors and, after A1, opens A2" (under
+the linden once it stands; "in odpre A2 · and opens A2" once A1 is done; `School.buildNote`). A village whose language has
+no course doesn't show it.
+
+**The school opens the next levels.** The school moves the class indoors and opens **A2** once A1's units are all
 done. **Each further level of the school needs the course level before the one it opens all done**: the school's upgrade
 to level 2 needs A2's units done and opens **B1**, level 3 needs B1's and opens **B2**, levels 4 and 5 need B2's
 (`School.upgradeNeeds`, `School.gate`: like an upgrade's words, it holds the upgrade and its moba back, "📚 Za stopnjo 2:
 tečaj A2 · še 3 enote" on the school's card). Only units written count: a planned unit holds nothing back, and a level
-without units is done at once (so today, with A2 not written yet, the school's levels wait for nothing). A level once
-open stays open (`CourseProgress.opened`), also when units are added to the one before. The school's screen says what a
+without units is done as soon as the course reaches it. **A level the course hasn't reached isn't done**, however few
+units it has: what holds the upgrade back then is the first level before it with units to go, and the school's card says
+so ("📚 Za stopnjo 2: tečaj A1 · še 17 enot"). So today, with A2 not written yet, the school's level 2 waits for A1 (A2
+is reached only after it), and its levels 3 to 5 then for nothing. Since the school is the hamlet's (2026-10-13) this
+matters: without the rule a school built in the hamlet went up to level 3 there at once (B1 and B2 "open" before A1 was
+done), and the village came to Vas with its 📜 at the cap and nothing of the school left to spend it on ("Pacing"). A
+level once open stays open (`CourseProgress.opened`), also when units are added to the one before. The school's screen says what a
 closed level waits for, each with its way on ("🏫 zgradiš šolo ›" to the village, "⬆️ nadgradiš šolo na stopnjo 2 ›" to
 the school's card, "📚 še 3 enote ravni A2").
 
@@ -799,9 +824,15 @@ sheets: the class meets from day 7 and A1 is done about day 100 (54 worksheets, 
 other run day (about 9 in 60 days, 3 units), the binge learner two a day (about 24, 7 units). The sheets pay 🪨 mostly (a
 sort 🌾), and a unit's bonus goes to the scarcest store; the sim player counts the school's pay as what comes in anyway
 (as reviews and packs), so its runs gather what the school doesn't bring. The long run's days of a store full beside one
-nearly empty (the property allows 5) are 3 in the asserted run (1 before the school); across nine villages and lucks 3
-to 10 (1 to 4 before): the school's 🪨 widens the spread of late Vas, where a learner trades it away ("Trading": with
-trading the 60-day runs have 0 to 2). Measured besides: the grammar every other day only (a module or a sheet; A1 not
+nearly empty (the property allows 5) are 3 in the asserted run (1 before the school); across nine villages and lucks 2
+to 8 (3 to 10 while the school was Vas's, 1 to 4 before the school): the school's 🪨 widens the spread of late Vas, where
+a learner trades it away ("Trading": with trading the 60-day runs have 0 to 3). The school is the hamlet's since
+2026-10-13: the sim player builds it in Zaselek after the smithy (the committed learner on day 8, Mojca moving in with
+it; the casual learner on day 17), and its next levels come when A1 is done (days 99 to 111: the course gate, "The
+school opens the next levels"), the three of them within about a week. Measured while deciding: with the school upgraded in the hamlet as soon as it could
+(level 3 by day 30) the asserted run had 7 and the nine 4 to 13: the 📜 came to its cap early in Vas while 🌾 ran short,
+with nothing of the school left to buy there; +20 % or +15 % 📜 for its effect, or 150📜 for its price, changed only the
+dice. Measured besides: the grammar every other day only (a module or a sheet; A1 not
 done in 170 days) gives 2 to 7. Check the balance again when A2 is written: with an A2 of 12 units the school's next
 level would wait for the committed learner until well into Vas.
 

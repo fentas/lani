@@ -239,8 +239,9 @@ nobody, nor does the linden. Every culture pack's cast has the same homes:
 The innkeeper and her son (Vida and Nejc), who live at the market too, come in their order after the winemaker.
 
 The teacher teaches before the school: from the hamlet on (Zaselek: by the fire, then under the linden; GAME.md, "The
-school") she comes over from the next village to teach. That changes nothing of her arrival: she moves in with the school as above, and until
-then she isn't one of the residents (she may come by for a day, as the next age's people do).
+school") she comes over from the next village to teach. The school is a hamlet's building too, and her `since` is the
+hamlet's (`"zaselek"`, every culture pack's teacher): she moves in with the school as above, a bed first, and until then she
+isn't one of the residents (she may come by for a day, as the next age's people do).
 
 **A bed first.** Whom a building brings needs somewhere to live: a free bed, the population (`GameState.villagers`, and the
 residents) below the beds (`Attributes.populationCap`: the camp's 2 and the dwellings', a tent 2, a hut 3, a house 4, more

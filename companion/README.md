@@ -2671,6 +2671,7 @@ companion/bin/qa --steps village-life            # the village's day on the map 
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
+companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2845,7 +2846,7 @@ items (a gap in its own sentence, a table's cells with their forms, a transform'
 verdict; the test's pass mark), a hint's pay, and what a sheet counts on the grammar book's rules (one answer a rule, its
 first slip, a sentence said right). `data/CourseTest` reads a served course (`data/CourseFixture`: the outline in order,
 a planned unit, a unit the outline lacks, the intro's steps and growing table, homework, a type of a newer app skipped).
-`game/SchoolTest` checks the class (begun with the hamlet: no words, no price, no linden; where it meets, by the fire, under the linden, in the school; its day kept once, the teacher named), the levels (A2 waiting for the
+`game/SchoolTest` checks the class (begun with the hamlet: no words, no price, no linden; where it meets, by the fire, under the linden, in the school; its day kept once, the teacher named), the school building the hamlet's (built from Zaselek on the tenth plot a full hamlet has for it, priced within its store; it brings the teacher, a bed first; built there, the class indoors, A2 after A1, its level 2 waiting for A1 before A2's units, also with A2 empty: a level not reached isn't done), the Build sheet's line on it while none stands (`School.buildNote`: by the fire, under the linden, A1 done; nothing without a course or once it stands), the levels (A2 waiting for the
 school and A1's units; B1 and B2 for the school's levels, whose upgrades wait for the course: `GameEngine.upgradeOption`
 with the gate; a level once open staying open), the unit suggested next and the free order, a unit's steps, the best
 try kept, the test passed (the unit done once, its bonus) and tested out, and the progress through a save (and a save
@@ -2868,4 +2869,9 @@ and looks a word of it up (its card), checks the corrections, then takes the tes
 passes it (the third line typed without its č: almost, half an item): the unit done, and the dev bridge's village
 (`GET /game`) keeps it. Screenshots: `school-levels`, `school-home`, `school-unit`, `school-intro-reading-<n>` (as piece n begins), `school-intro-replay`, `school-intro-1`, `school-intro-4`, `school-intro-summary`, `school-table`,
 `school-help`, `school-table-checked`, `school-sheet-done`, `school-word`, `school-gaptext`, `school-gaptext-checked`,
-`school-test-passed`.
+`school-test-passed`. `companion/bin/qa --steps school-build` takes the dev village's copy as it is (Jan's hamlet, its nine plots built): the
+Build sheet has the hamlet's tenth plot ("Parcele · Plots: 9 / 10") and the Šola on it, nothing of Vas on its card, and
+the line under its row ("🏫 Pouk že poteka pod lipo …"); every bed taken, its card's way on upgrades a dwelling for
+Mojca's bed; what the stores then lack the moba brings; built on the plot chooser, the dev bridge's village keeps it,
+and the school's screen has the class indoors ("Šola · School", Mojca teaching in it). Screenshots: `school-build-sheet`,
+`school-build-card`, `school-build-bed`, `school-build-moba`, `school-build-plot`, `school-built`, `school-indoors`.
