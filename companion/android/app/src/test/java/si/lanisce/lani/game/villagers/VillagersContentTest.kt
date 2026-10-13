@@ -72,7 +72,8 @@ class VillagersContentTest {
             assertEquals(v.speaker, v.speakerVoice)
         }
         assertEquals("the cast has the speakers the app gives people who move in or are born here", emptyList<String>(), listOf("young-woman", "young-man", "girl", "boy").filter { it !in speakers })
-        assertEquals("vas", cast.first { it.id == "mojca" }.since)
+        // she comes with the school, the hamlet's (GAME.md "The school")
+        assertEquals("zaselek", cast.first { it.id == "mojca" }.since)
         assertEquals("the smith waits for the smithy", listOf("smithy"), cast.first { it.id == "tone" }.home)
     }
 
