@@ -638,20 +638,59 @@ the village doesn't go dark at one stroke.
 | farmer | 5:00 | 21:00 | anyone else | 6:00 | 21:50–22:30 |
 
 **By day** (`Routine.stints`): a string of stretches, each tens of minutes long (the day's dice: `roll(seed, date, …)`),
-each somewhere doing something: their work (the farmer hoeing the field, the hay on the kozolec's racks, the mill on the
-stream once the village has built it; the smith at his anvil, the beekeeper at the hives, the shepherd with the sheep in the
-meadow, the grandmother in her garden and washing at the stream, the innkeeper and the winemaker at the market, the hunter
-on his high seat), a rest (under the linden, on the fallen log, on the bench by the house), a chat at the well, the
-children playing in the meadow, at the well and the pond; their own workplace (the first of their homes that isn't a
-dwelling) weighs in too, and a stretch of the same work may follow another. Fixed hours: the first minutes at their door,
-lunch at home (12:30–13:10; not the shepherd and the hunter), school on a weekday for the children and the teacher
-(8:00–12:30, where a school stands; not in July and August), Sunday mass for the older ones (9–10, where a church stands),
-the market on Saturday (three times as likely). Winter has no hoeing, fishing or washing, and more wood to chop. With
-nothing else to do they sit on the bench by the house.
+each somewhere doing something the village has: their work (the farmer hoeing the field, the hay on the kozolec's racks,
+the mill on the stream once the village has built it; the smith at his anvil, the beekeeper at the hives, the shepherd
+with the sheep in the meadow and feeding them, the innkeeper and the winemaker at the market, the hunter on his high
+seat); the chores of a household, for whoever has no workplace and between the stretches of those who do (the garden
+hoed, the washing hung on the line and a rug beaten, the broom in front of the door in the morning, the hens fed, water
+fetched and wood, a basket taken to a neighbour, a word at a neighbour's door, mending on the bench by the house);
+berries and mushrooms picked at the forest's edge in their season (wild strawberries in June, bilberries in summer,
+mushrooms into October); a rest (under the linden, on the fallen log, in the sun on the bench by their house: the old
+most of all); a chat at the well; the children playing in the meadow, at the well, the pond and under the linden, feeding
+the hens, picking berries. Their own workplace (the first of their homes that isn't a dwelling) weighs in too, and a
+stretch of the same work may follow another. Fixed hours: the first minutes at their door, lunch in the house
+(12:30–13:10: at the table, in their home's scene and not on the map, `Doing.INSIDE`; a few eat by the fire by the day's
+dice, and so does whoever has no roof yet; not the shepherd and the hunter), school on a weekday for the children and
+the teacher (8:00–12:30, where a school stands; not in July and August), Sunday mass for the older ones (9–10, where a
+church stands), the market on Saturday (three times as likely). Winter has no hoeing, fishing, washing at the stream or
+on the line, nor picking (the soil frozen, snow on the field), and more wood to chop. With nothing else to do they sit on the
+bench by the house.
+
+**Shared out** (`Routine.village`): the map and the scenes share one day for the whole village (`Routine.Day.people`:
+who lives here and today's visitor, `Whereabouts.day`), so no place gets crowded. Each wants their own day (above); then,
+first come first served (by when the stretch begins, and their own workplace's stretches before all: France in his field,
+Tone at his anvil, Luka with the sheep), whoever would make a place too full does a chore at home instead (by their kind
+and the season: the garden, the washing, the broom, the hens, the mending), or, with no more room there either, is in
+the house. A place holds a few at once (`Routine.CROWD`, 3, and that many at each of a type's buildings, the fields, the
+huts; the meadow and the market 4; the road, the path, the high seat and the rocks 2); the school's hours and mass as many
+as come. The fire holds a couple by day (`Routine.DAY_FIRE`), three at lunch, and from half past five its evening (below).
+Who waits for the learner (`Routine.Day.calls`) is at their place all day and counts there: with Micka, Ančka and Vida
+waiting at the house nobody else comes to it. Each day and each person their own, by the day's dice; the same village and
+day, the same day. Jan's hamlet on 13 October 2026 (sixteen people in the tent, the hut and the house, the house and the
+hut beside the fire): before, five stood at the house at lunch and four to eight about the plaza by the fire all day,
+eight round the fire at seven in the evening; now three at the house, each at a chore of their own, two to five about the
+plaza, two at the fire at lunch, four round it in the evening.
+
+**About the house** (`TownPeople.Nook`): at a household's building (a hut, a house, the tent in the village) each is at
+the nook of what they do there: at the door (the broom, a word with a neighbour, waiting, going in), on the bench by the
+house (sitting, mending), in the garden in front of its other side (the hoe), at the washing line at that side's far end
+(the washing pegged, a rug beaten, the line off to their left, away from the house), in the yard before its front corner
+(grain thrown to the hens pecking about). Three at one house are three at their own work about it, not a group at its
+door.
+
+**The children's games** (`TownPeople.games`): two or more children playing at one place play its game of the day
+(`TownPeople.gameOf`, the day's dice): tag, running round a small ring after each other, a breather now and then; the
+ball, thrown from one to the next round a ring of them (a child alone throws it up and catches it); or hide-and-seek, one
+counting at the place, hands over the eyes, the others off to hiding places a step or two away, crouched there, found one
+by one and back to the base. Each child has their own place in it by their id, so whoever comes or goes doesn't move the
+others; they ease into it over a few seconds as they come and out of it before they go (`Now.left`), so nobody jumps;
+all of it within reach of the place, never in a building, a field's crops or the fire. On the map; the scenes have their
+own games.
 
 **Errands.** A load to fetch is an errand of a stretch of work, not a stretch of its own (`Stint.errands`): the farmer
-takes the field's hay to the kozolec, the grandmother fetches water from the well for her garden and wood from the woodpile
-for the stove, the innkeeper water for the inn, a child an armful of wood for home. One errand in a stretch, two in a long
+takes the field's hay to the kozolec, the grandmother fetches water for her garden (from the well, from the stream while
+there is none) and wood from the woodpile for the stove, and takes a basket to a neighbour, the innkeeper water for the
+inn, a child an armful of wood for home. One errand in a stretch, two in a long
 one (the day's dice), each at a moment of its own share of the stretch, after the walk there and a while at the work.
 An errand takes `Routine.ERRAND` (3) minutes (`Now.errand`): on the map they walk from the work to where the load is
 (unless it's there: the field's hay), load it, carry it over (`Load`: hay, water, wood), unload and walk back; the time to
@@ -662,10 +701,16 @@ it ends. Away on an errand they are in no scene; their spot at the work waits fo
 one side of the road to the other out to the road, along it and in again; on one side of it, between the houses, straight;
 into the woods by the path. Nobody walks through the fire or a building: the fire's reach (wherever someone would be in its
 flames, `TownPeople.inFire`: its stones and a little more to either side, from the top of its tallest flames to its front
-stones) and each building's footprint (not a field's, which is walked in), the landmarks' and the campsite's fire and tent
+stones) and each building's footprint (a field's but for its workers, below), the landmarks' and the campsite's fire and tent
 are blocks a way goes round, by their corners, the shortest way: past the fire on its nearer side round the plaza, round
-the corner of a house. A long walk goes at a brisker step, so it takes at most `Routine.WALK_S` (45 s); the scenes have
-them there from then on. Nobody of the village potters about: at their place they stay put, first come first served (whoever
+the corner of a house. Nor across a field's crops: its soil is a block too (`Walkways.blocks`, `TownPeople.CROPS`), so a
+way goes along its edge; only its workers walk into it and out of it (a block they set off in or go to is none for them),
+and nobody else stands in it. On the map a field is flat ground with things standing on it (`BuildingPainter.fieldGround`,
+`fieldParts`): its soil and furrows drawn under everyone and everything that stands, the crops in bands across it, the
+fence post by post, the scarecrow and the sheaves each at its own depth, so whoever walks along its back edge is over
+its soil, and whoever works in it stands among its crops, those in front of them over their legs. A long walk goes at a
+brisker step, so it takes at most `Routine.WALK_S` (45 s); the scenes have them there from then on. Nobody of the village
+but the children at play (their games, above) potters about: at their place they stay put, first come first served (whoever
 waits there for the learner first, then each by their day keeping their spot until they leave, worked out for the whole
 day: nobody moves over when someone comes or goes, and away on an errand their spot waits for them), a walk goes from their
 spot where they were to their spot where they go (Luka from the sheep to the fallen log and back: a few steps over), and
@@ -677,7 +722,9 @@ ways, a while at each.
 waves now and then; so is, by daylight, whoever the village's bubbles want the learner for (`Whereabouts.calls`: a request's
 giver at its place, someone to meet at their home, today's visitor on the road). At a place with work to do they do it by
 daylight between the waves (the field's hoe, the anvil, the hives): "France žanje pšenico" has France in his field
-harvesting, a wave now and then; Tone with a request hammers at his anvil.
+harvesting, a wave now and then; Tone with a request hammers at his anvil. At a household's building a request's giver
+does a chore of the house, at its nook: Micka in her garden (sweeping in winter), Ančka at the washing line (a rug in
+winter), Vida with her broom, a child with the hens.
 
 **Round the fire.** Whoever is at the fire (a happening's person, someone waiting for the learner there, the evening's
 sitters, the village's unnamed people, a visitor) stands or sits beside it and faces it (`TownPeople.aroundFire`): never in
@@ -711,10 +758,11 @@ the stack under the HUD, and comes down from a squeeze only with room to spare, 
 from one frame to the next as the camera moves.
 
 **The evening.** When it gets dark (the map's night: from about 21:15 in June, 16:50 in December) some sit by the fire
-until their bedtime (the storyteller always, the others some evenings by the day's dice, the children more often), the
-rest go home: not on the map, their windows lit. At bedtime they walk home from the fire with a lantern and go to bed; the
-lamp burns a little while (`Routine.LIGHTS_OUT`, 20 minutes), then the house is dark (`TownPeople.darkWindows`: a building
-nobody sleeps in is dark from 22:00). In the dark morning those up are at home, lit, until it's light.
+until their bedtime (the storyteller always, the others some evenings by the day's dice, the children more often): a
+handful (`Routine.eveningFire`: four besides the storyteller, seven on a Saturday evening, the village's evening), at a
+festival everyone who is up. The rest go home: not on the map, their windows lit. At bedtime they walk home from the
+fire with a lantern and go to bed; the lamp burns a little while (`Routine.LIGHTS_OUT`, 20 minutes), then the house is
+dark (`TownPeople.darkWindows`: a building nobody sleeps in is dark from 22:00). In the dark morning those up are at home, lit, until it's light.
 
 **Stari Janez stays up last.** He sits by the fire until the learner has heard tonight's story; then he goes home to bed:
 at his bedtime (22:45, after everyone else) when it was heard earlier, five minutes after it when it was heard later (the
@@ -768,33 +816,44 @@ they sleep (`sleeps`), each in a bed of a scene:
 The living room and the cellar get one sleeper more each (two beds), not the workshop or the kitchen, which have two and
 three already. While no house has the room (Marko or Janez hasn't moved in), the lodger sleeps in a house we don't see into;
 with no house at all, their home decides (Anton the bee house, Jože the hut). Friuli, Kärnten and Lakeland have no rooms of
-houses yet, nor a smithy or school scene: their smith, teacher and beekeeper sleep in the smithy, the school and a house, seen
+houses yet, nor a smithy or school scene: their smith, teacher and beekeeper sleep in the smithy, the school and a
+house, seen
 only by the windows. They have no hunter.
 
 **Each in their own bed** (`Sleep.sleepers`): the household first, then who lodges with them, each in their arrival order, a
 child in a child's bed. A bed waits for whoever is still up tonight (`Routine.toBed`: by the fire, on a ritual or a happening
-before their bedtime, on the way home): Jože, asleep at half past nine, never takes Janez's place while Janez tells his story.
-A bed whose sleeper is up for the day, or out for the night after their bedtime, is free: Ančka moves onto the warm bench when
+before their bedtime, on the way home): Jože, asleep at half past nine, never takes Janez's place while Janez tells his
+story.
+A bed whose sleeper is up for the day, or out for the night after their bedtime, is free: Ančka moves onto the warm
+bench when
 Micka gets up to light the stove.
 
 **A visit** shows the host's people by the host's day (their files' routines, the host's scenes' storyteller and rooms), at
 the phone's clock.
 
 **Where it lives.** The format: `RoutineSpec` and `sleeps` in `Villager.kt`'s file, `villagers.ts` (`routineErrors`: a ritual
-at night, 10 to 60 minutes, over before they get up, each id once; a bedtime in the evening or just after midnight; `sleeps` a
+at night, 10 to 60 minutes, over before they get up, each id once; a bedtime in the evening or just after midnight;
+`sleeps` a
 roof of `SLEEP_ROOFS`, Sleep.kt's, or `<roof>:<art>` of an art the app draws); `validateCulture` wants each ritual's title in
 the pack's language. An older bridge (before the key) leaves `routine` and `sleeps` out and serves the file as before (it
 drops a key it doesn't know: be658872 loads the files with `sleeps`); an older app ignores them; an app without `routine`
 gives everyone their kind's hours and no rituals, one without `sleeps` (or with a bridge that left it out) has Tone and Mojca
 in their buildings' beds all the same (their homes are the smithy and the school), Anton in the bee house and Jože in the
 hut, unseen. Tests: `RoutineTest` (the four casts' hours and rituals, a day at work, the dark, a winter night hour by hour,
-Janez and the story, a happening winning), `SleepTest` (who sleeps in which bed when, the four's beds and where `sleeps`
-falls back to, nobody changing beds in a night, the bed that waits), `HomeBedsRenderTest` (the beds drawn only with their
-sleeper), `TownDayRenderTest` (the map through a day and a night, the windows), `WalksTest` (no way through the fire or a
-building, round the fire on its nearer side, in the Primorska village, a generated valley and a town; through a day nobody in the
-fire or a building on the map; nobody pottering, nobody hopping from one spot to another, second by second into the
-evening; France at his field, the hay taken to the kozolec once or twice a stretch, in his field with his happening), and
-the bridge's smoke.
+Janez and the story, a happening winning), `VillageLifeTest` (Jan's hamlet of 13 October: a few at a place and no group
+on the map by day, the fire's couple by day, three at lunch, a handful of an evening, more on Saturday, everyone at a
+festival; the chores of a household, none of the summer's in the snow, picking in season; each day and person their own;
+lunch in the house, in its kitchen's scene and not on the map; the children's games about their place, never in a
+building, never a hop; ways round a field's crops; a field's soil under whoever walks on it, its crops in front of them
+over them), `MapActivitiesTest` (the chores and the games drawn at every detail), `SleepTest` (who sleeps in which bed
+when, the four's beds and where `sleeps` falls back to, nobody changing beds in a night, the bed that waits),
+`HomeBedsRenderTest` (the beds drawn only with their sleeper), `TownDayRenderTest` (the map through a day and a night, the
+windows), `WalksTest` (no way through the fire or a building, round the fire on its nearer side, in the Primorska village,
+a generated valley and a town; through a day, its day shared out, nobody in the fire or a building on the map; nobody
+pottering but the children at play, nobody hopping from one spot to another, second by second into the evening; France at
+his field, the hay taken to the kozolec once or twice a stretch, in his field with his happening), `ClassicLandTest` (its
+digests taken again on 13 October for the field and the people), and the bridge's smoke. QA's `village-life` (README,
+"Test"): the village zoomed in at 8, 11, 15 and 19 o'clock, and the field beside the fire as someone walks by it.
 
 ## Talking to a villager
 

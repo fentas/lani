@@ -2648,6 +2648,7 @@ companion/bin/qa --steps trade                   # only a trade of food for wood
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
 companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
+companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro, sheets and test
@@ -2803,13 +2804,17 @@ and in the scenes, without a line in the chronicle: `season:2027-05-10`, or `sea
 today; the rest of the game keeps today, and `season:` goes by today again (screenshots of the maypole up in May and
 down in autumn).
 
-`hour:<h>` shows a scene at that hour of today (`hour:7.5`; 0 to 24): its light, sky and wild animals, who is there and
-who sleeps, without the real night sky; `hour:` goes by the clock again. With it, `field-cues` (companion/SCENES.md,
-"Effects") sees each scene at its hour whatever the hour of the run, and plays a dialog of each to its cue through the
-happening hook: France's hare in the field at dawn (a burst of shots from the dialog's opening: the grass stirs, the
-hare leaps out and is off within four seconds), the pedlar on the road below the tower in the morning and walking in at
-the gate, Micka's hen flying onto Marko's cart and the tap turn that finds her there, Muri barking by the jetty and
-asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and said.
+`hour:<h>` shows a scene at that hour of today (`hour:7.5`; 0 to 24, to the second): its light, sky and wild animals,
+who is there and who sleeps, without the real night sky; the village's map too, its clock standing at that moment (its
+light, who is where and doing what, what's on); `hour:` goes by the clock again. With it, `village-life` (VILLAGERS.md,
+"A day in the village") looks at the village's day zoomed in at 8, 11, 15 and 19 o'clock without the bubbles
+(`bubbles:0`), and at the field beside the fire at the moments someone walks by it (`LANI_QA_FIELD_WALK`, "h:mm[:ss],…");
+and `field-cues` (companion/SCENES.md, "Effects") sees each scene at its hour whatever the hour of the run, and plays a
+dialog of each to its cue through the happening hook: France's hare in the field at dawn (a burst of shots from the
+dialog's opening: the grass stirs, the hare leaps out and is off within four seconds), the pedlar on the road below the
+tower in the morning and walking in at the gate, Micka's hen flying onto Marko's cart and the tap turn that finds her
+there, Muri barking by the jetty and asleep. A scene the village hasn't opened yet (no market, no tower) is skipped and
+said.
 
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
