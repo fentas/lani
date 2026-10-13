@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 /**
  * What the scene dialogs remember on this phone: whether the lines and choices show their translations
  * ([translations]: "👁 Prevod · Translation" in a dialog's header; on by default), and whether the hint about tapping
- * words was shown.
+ * words was shown, in a dialog and in an exercise ([exerciseWordHintSeen]).
  */
 class DialogPrefs(context: Context) {
     private val prefs = context.getSharedPreferences("dialog", Context.MODE_PRIVATE)
@@ -17,6 +17,10 @@ class DialogPrefs(context: Context) {
         private set
 
     var wordHintSeen by mutableStateOf(prefs.getBoolean(KEY_WORD_HINT, false))
+        private set
+
+    /** The exercises' tip about their words (under the first prompt with words to look up) was shown. */
+    var exerciseWordHintSeen by mutableStateOf(prefs.getBoolean(KEY_EXERCISE_WORD_HINT, false))
         private set
 
     fun showTranslations(on: Boolean) {
@@ -30,8 +34,15 @@ class DialogPrefs(context: Context) {
         prefs.edit().putBoolean(KEY_WORD_HINT, true).apply()
     }
 
+    fun sawExerciseWordHint() {
+        if (exerciseWordHintSeen) return
+        exerciseWordHintSeen = true
+        prefs.edit().putBoolean(KEY_EXERCISE_WORD_HINT, true).apply()
+    }
+
     private companion object {
         const val KEY_TRANSLATIONS = "show_translations"
         const val KEY_WORD_HINT = "word_hint_seen"
+        const val KEY_EXERCISE_WORD_HINT = "exercise_word_hint_seen"
     }
 }

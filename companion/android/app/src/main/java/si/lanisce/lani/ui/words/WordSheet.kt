@@ -95,8 +95,9 @@ fun WordSheet(vm: AppViewModel, card: WordCard) {
                             e, card.added[e.key], e.itemId?.let { vm.scenes.stickers.ofItem(it, e.emoji) }, onAdd = { vm.words.add(e) },
                             partner = partner, partnerAdding = partner?.let { card.added[it.key] }, onAddPartner = { partner?.let(vm.words::add) },
                         ) {
-                            // home words only: a visit's words have no forms here
-                            if (si.lanisce.lani.data.VisitWorld.language == null && (e.known || card.added[e.key] != null) && e.pos != "name") {
+                            // home words only: a visit's words have no forms here; nor a word of an exercise still open
+                            // (one of its forms may be the answer)
+                            if (q.forms && q.lang == null && (e.known || card.added[e.key] != null) && e.pos != "name") {
                                 WordFormsTable(vm, e.lemma, e.pos, e.glossEn.ifEmpty { e.gloss })
                             }
                         }

@@ -334,7 +334,11 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
         Text(it, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Spacer(Modifier.height(8.dp))
     }
-    Text(inlineMarkdown(ex.prompt), style = MaterialTheme.typography.headlineSmall)
+    // its words in the language learned can be looked up (a sentence with a gap: round the gap), the model's once shown
+    val look = LocalLook.current
+    val shown = remember(ex.prompt) { inlineMarkdown(ex.prompt) }
+    ExText(shown, remember(shown, look) { look?.taps?.prompt(shown.text, shown.emphasized()).orEmpty() }, style = MaterialTheme.typography.headlineSmall, tag = "prompt")
+    look?.let { WordTip(it) }
     Spacer(Modifier.height(16.dp))
     if (ex.show || st.revealed || locked) Model(vm, ex.say, autoplay = !ex.show) {
         // After a miss, saying it again right under the model: optional, the feedback's "Naprej" moves on.
@@ -396,9 +400,10 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
 private fun Model(vm: AppViewModel, say: String, autoplay: Boolean, below: @Composable () -> Unit = {}) {
     val speaker = vm.speaker
     if (autoplay) LaunchedEffect(say) { speaker.say(say) }
+    val look = LocalLook.current
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp)) {
-            Text(say, style = MaterialTheme.typography.headlineSmall)
+            ExText(AnnotatedString(say), remember(say, look) { look?.taps?.model(say).orEmpty() }, style = MaterialTheme.typography.headlineSmall, tag = "model")
             if (speaker.available) Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 SayButton(speaker, say, Modifier.weight(1f)) { Text("🔊 ${bi("common.listen")}") }
                 SayButton(speaker, say, slow = true, tonal = false) { EmojiLabel("🐢", Labels.SLOW) }

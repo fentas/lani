@@ -18,8 +18,24 @@ import si.lanisce.lani.l10n.L10n
 /**
  * A word tapped in a line: the form as written ([word]), the line it's in and its translation ([en], when there is
  * one), and where it was tapped ([from]: [Words.SCENE], [Words.ROLEPLAY] …).
+ *
+ * An exercise's word: [example], the line a word added from the card keeps when it isn't [line] (a sentence's gap filled,
+ * which the card doesn't show while the exercise is open); [forms] false while it is open (a word the learner has shows
+ * no table of its forms: one of them may be the answer); [language], the language of the exercise's words when it isn't
+ * the world's (another language's review at home; null: the visited town's, else the home language).
  */
-data class WordQuery(val word: String, val line: String, val en: String?, val from: String)
+data class WordQuery(
+    val word: String,
+    val line: String,
+    val en: String?,
+    val from: String,
+    val example: String? = null,
+    val forms: Boolean = true,
+    val language: String? = null,
+) {
+    /** The language the word is in: [language], else the visited town's (null at home). */
+    val lang: String? get() = language ?: VisitWorld.language
+}
 
 /** How looking a word up went. */
 sealed interface WordState {
@@ -100,7 +116,7 @@ class WordsController(
                 val b = bridge() ?: throw java.io.IOException("not connected")
                 // on a visit: the town's language, explained in the visit's base; at home, in the pair's base
                 val pair = L10n.pair
-                when (val l = b.lookup(q.word, q.line, q.en, language = VisitWorld.language, meaningIn = pair.base.code.takeIf { pair.base != pair.target })) {
+                when (val l = b.lookup(q.word, q.line, q.en, language = q.lang, meaningIn = pair.base.code.takeIf { pair.base != pair.target })) {
                     null -> WordState.Unavailable
                     else -> if (l.entries.isEmpty()) WordState.NotFound(l) else WordState.Found(l)
                 }
@@ -119,8 +135,8 @@ class WordsController(
         val c = card ?: return
         if (e.known || e.key in c.added) return
         val q = c.query
-        // on a visit: the host town's language (its own profile, plan 2, §3.4)
-        val language = VisitWorld.language
+        // on a visit: the host town's language (its own profile, plan 2, §3.4); another deck's review: its language
+        val language = q.lang
         card = c.copy(added = c.added + (e.key to Adding.SENDING))
         scope.launchSafely(notices::fail) {
             val write = Writes.addWord(
@@ -128,7 +144,7 @@ class WordsController(
                 en = Words.meaning(e),
                 pos = e.pos,
                 itemId = e.itemId,
-                example = Words.example(q.line, q.en, e),
+                example = Words.example(q.example ?: q.line, q.en.takeIf { q.example == null }, e),
                 from = sourceFor(q.from),
                 language = language,
             )
@@ -141,7 +157,7 @@ class WordsController(
     fun ask() {
         val q = card?.query ?: return
         close()
-        chat.ask(Words.askText(q.word, q.line), Words.askData(q.word, q.line, q.en, VisitWorld.language))
+        chat.ask(Words.askText(q.word, q.line), Words.askData(q.word, q.line, q.en, q.lang))
     }
 
     /** The tutor taught the node more about [word]: an open card about it looks again. */

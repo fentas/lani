@@ -86,6 +86,8 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             rules = if (home) remember(tasks, vm.grammar.pages) { tasks.map { Grammar.forCard(it.card, vm.grammar.pages)?.id } } else null,
             // a wrong form counts on its rule with the sentences: "Jaz sedi na klop." for "Jaz sedem na klop."
             slips = { i, o -> tasks.getOrNull(i)?.form?.let { f -> f.said(o.answer) to f.gap.sentence } },
+            // another language's deck: its words are looked up in it, new against its cards
+            language = language,
         ) { outcomes ->
             val q = tasks.zip(outcomes) { t, o -> Hints.penalize(ReviewPlanner.quality(t.variant, o.verdict), o.hints) }
             qualities = q

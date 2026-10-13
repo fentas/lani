@@ -34,7 +34,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "village-hud" the village's HUD: its slim row, its panel (a tap outside closes it, opening
                        nothing), minimized to a pill and still so in the village opened again, and the plot chooser
                        (QA's hook "build:field") with the HUD a pill by itself and the ★ below it;
-                       "offline-audio" the
+                       "exercise-words" a review's words looked up (QA's hook "forms"): a tap on a word of the
+                       sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
+                       nothing and picks nothing, once answered the form in the feedback opens its card; "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
@@ -2522,6 +2524,124 @@ def word_forms():
         go_home()
 
 
+EX_WORDS = re.compile(r"ExWords\s*:\s*(\S+) (none|tap|hold) «(.*)»(?: (.*))?$")
+EX_TIP = "Tapni besedo in poglej, kaj pomeni (pikice"  # the exercises' tip about their words (l10n words.tapInExercise)
+
+
+def ex_words(timeout=8.0) -> list:
+    """The exercise's texts as the debug build logged them (tag ExWords, ui/ExerciseLook.kt), the latest of each: [(what:
+    "prompt", "option", "tile", "sentence" …, how: "none" | "tap" | "hold", text, [(word, (x, y), new, can)])], each word's
+    centre on the screen, whether it's dotted as new to the learner and whether it can be looked up."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        latest = {}
+        for l in adb("logcat", "-d", "-s", "ExWords:D", check=False).splitlines():
+            m = EX_WORDS.search(l)
+            if not m:
+                continue
+            words = []
+            for w in (m[4] or "").split():
+                word, _, xy = w.partition("@")
+                x, _, y = xy.rstrip("*!").partition(",")
+                if x.lstrip("-").isdigit() and y.lstrip("-").isdigit():
+                    words.append((word, (int(x), int(y)), "*" in xy, "!" not in xy))
+            latest[(m[1], m[3])] = (m[1], m[2], m[3], words)
+        if latest:
+            return list(latest.values())
+        time.sleep(1)
+    return []
+
+
+# The word card's own labels: not "Vprašaj učitelja", which an exercise's 💬 says too (Labels.ASK).
+EX_CARD = ("Dodaj med moje besede", "Med tvojimi besedami", "Poskusi znova", "Iščem", "Te besede ni v slovarju",
+           "Za iskanje besed potrebuješ", "Učitelj zdaj ni dosegljiv")
+
+
+def ex_card(timeout=10.0) -> bool:
+    """A word card over an exercise, within [timeout] s."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        if any(w in t for t, _ in nodes() for w in EX_CARD):
+            return True
+        time.sleep(0.8)
+    return False
+
+
+def card_gone(timeout=6.0) -> bool:
+    """The word card over an exercise closed (its sheet slides away), within [timeout] s."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        if not any(w in t for t, _ in nodes() for w in EX_CARD):
+            return True
+        time.sleep(0.8)
+    return False
+
+
+def long_press(c, ms=900):
+    adb("shell", "input", "swipe", str(c[0]), str(c[1]), str(c[0]), str(c[1]), str(ms))
+    time.sleep(1.2)
+
+
+def exercise_words():
+    """An exercise's words looked up (companion/README.md, "Exercises"): QA's "forms" hook starts a review whose cards ask
+    a form in a sentence with a gap. A tap on a word of the sentence opens its card (the first time a tip says so under
+    the prompt); the forms to choose are what's tested: none can be looked up before the answer, and a long press on one
+    opens nothing and picks nothing; once answered, every word can (the options' too), and a tap on the form in the
+    feedback opens its card."""
+    go_home()
+    if not deck_lemmas():
+        return "no one-word cards in the deck"
+    adb("logcat", "-c")
+    qa_hook("forms")
+    try:
+        if wait_for(FILL_FORM, 25) is None:
+            return "no form question (no word of the deck has a form reached)"
+        time.sleep(1.5)
+        if find(EX_TIP) is None:
+            print("    (no tip about the words: seen before?)")
+        shot("exercise-words")
+        texts = ex_words()
+        prompt = next((t for t in texts if t[0] == "prompt" and t[1] == "tap"), None)
+        assert prompt is not None, f"the sentence with the gap has words to tap ({texts})"
+        word, at, new, _ = next(w for w in prompt[3] if w[3])
+        print(f"    tap «{word}» in «{prompt[2]}»{' (dotted: new)' if new else ''}; new: {[w[0] for w in prompt[3] if w[2]]}; "
+              f"not to look up: {[w[0] for w in prompt[3] if not w[3]]}")
+        tap_at(at)
+        assert ex_card(), f"the card of «{word}»"
+        shot("exercise-word-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # closes the card
+        assert card_gone(), "the card is still open"
+        assert find(FILL_FORM), "back closed the review too"
+        options = [t for t in texts if t[0] == "option"]
+        if not options:  # typed: the gap's word is typed, there are no options to hold
+            return "a typed form: its sentence's word looked up, no options"
+        assert all(t[1] == "none" and not any(w[3] for w in t[3]) for t in options), f"a form to choose (what's tested) can be looked up before the answer: {options}"
+        held = options[0][3][0]  # the option's word itself, where a long press looks one up
+        long_press(held[1])
+        assert not ex_card(3), f"a long press on «{held[0]}» (what's tested) opened its card"
+        assert find("Naprej · Next") is None, "the long press picked the option"
+        shot("exercise-option-held")
+        tap_at(held[1])  # the answer
+        assert wait_for("Naprej · Next", 8), "the answer's feedback"
+        time.sleep(1.5)
+        texts = ex_words()
+        answered = [t for t in texts if t[0] == "option"]
+        assert answered and all(t[1] == "tap" and all(w[3] for w in t[3]) for t in answered), f"once answered, the options' words can be looked up: {answered}"
+        # the feedback over the options: its right answer, or the sentence with the gap filled, has the tested word
+        before = {w[0] for w in prompt[3]}
+        shown = [w for t in texts if t[0] in ("correct", "sentence") for w in t[3] if w[3]]
+        word, at, _, _ = next((w for w in shown if w[0] not in before), None) or shown[0]
+        shot("exercise-answered")
+        tap_at(at)
+        assert ex_card(), f"the card of «{word}», the word the question tested, once answered"
+        shot("exercise-answer-card")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert card_gone(), "the answer's card is still open"
+    finally:
+        qa_hook("forms:off")
+        go_home()
+
+
 def packs():
     """The Nove besede tile opens the packs; an unfinished pack starts its words."""
     go_home()
@@ -3173,6 +3293,7 @@ def plan():
         ("visit-home", visit_home, h, False, "visit"),
         ("packs", packs, None, False, ""),
         ("word-forms", word_forms, go_home, False, ""),
+        ("exercise-words", exercise_words, go_home, False, ""),
         ("progress", optional_screen("Napredek · Progress", "📊 Napredek · Progress"), None, False, ""),
         ("talk", optional_screen("Pogovor", "Učitelj igra drugo osebo", exact=True), None, False, ""),
         ("road", road, go_home, False, ""),

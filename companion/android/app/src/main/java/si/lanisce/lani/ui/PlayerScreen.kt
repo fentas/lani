@@ -136,6 +136,11 @@ import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.FlameOrange
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
+import si.lanisce.lani.ui.words.ExerciseTaps
+import si.lanisce.lani.ui.words.KnownWords
+import si.lanisce.lani.ui.words.TextParts
+import si.lanisce.lani.ui.words.WordText
+import si.lanisce.lani.ui.words.WordToken
 import si.lanisce.lani.ui.words.lookUpIn
 
 /** The outcome of one exercise, as shown in feedback and reported afterwards. */
@@ -180,6 +185,12 @@ private fun typed(answer: String, accept: List<String>, explain: String?): Outco
  * @param text the text the questions are about, read before the run and hidden now (the day's letter): "👁 Pokaži
  *   besedilo · Show the text" brings it back over the question and hides it again; [onLook] counts each time it's shown
  *   while the question is still open (companion/GAME.md, "Read first, then answer")
+ * @param language the language of the exercises when it isn't the world's (another language's review at home): their
+ *   words are looked up in it, and marked new against its deck
+ *
+ * The words of an exercise can be looked up (companion/README.md, "Exercises"): a tap in the prompt and the sentence with
+ * the gap, a long press in the answers; never what the exercise tests while it's open ([ExerciseTaps]), everything once
+ * answered. Free: no hint, no lower grade. Words new to the learner ([KnownWords]) are dotted.
  */
 @Composable
 fun ExerciseRun(
@@ -197,6 +208,7 @@ fun ExerciseRun(
     slips: (Int, Outcome) -> Pair<String, String>? = { _, _ -> null },
     text: ReadFirst? = null,
     onLook: () -> Unit = {},
+    language: String? = null,
     onComplete: (List<Outcome>) -> Unit,
 ) {
     var index by remember { mutableIntStateOf(0) }
@@ -294,9 +306,11 @@ fun ExerciseRun(
             advance()
         }
     }
+    val known = rememberKnownWords(vm, language)
+    val look = rememberLook(vm, exercises.getOrNull(index), index, answered = outcome != null, known, language)
     if (index >= exercises.size || stopped) return
 
-    CompositionLocalProvider(LocalSpeaker provides vm.speaker, LocalVocabulary provides rememberVocabulary(vm), LocalStage provides stage) {
+    CompositionLocalProvider(LocalSpeaker provides vm.speaker, LocalVocabulary provides rememberVocabulary(vm), LocalStage provides stage, LocalLook provides look) {
     Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 20.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(onClick = stop) { if (outcomes.isEmpty()) EmojiLabel("✕", Labels.CLOSE) else Text(bi("playerScreen.done")) }
@@ -542,20 +556,25 @@ private fun ExerciseView(vm: AppViewModel, moduleId: String?, index: Int, ex: Ex
 
 /**
  * What to do (small, muted) above what it's about (large). [say] adds a read-aloud button
- * for Slovene main text.
+ * for Slovene main text. Its words in the language learned can be looked up with a tap (not what the exercise tests while
+ * it's open: [ExerciseLook]), and the first time the tip about it shows under it ([WordTip]).
  */
 @Composable
 private fun Prompt(main: String, instruction: String? = null, say: String? = null) {
+    val look = LocalLook.current
     if (instruction != null) {
         Text(instruction, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
         Spacer(Modifier.height(8.dp))
     }
     if (main.isNotBlank()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                inlineMarkdown(main),
+            val shown = remember(main) { inlineMarkdown(main) }
+            ExText(
+                shown,
+                remember(shown, look) { look?.taps?.prompt(shown.text, shown.emphasized()).orEmpty() },
                 style = if (instruction != null) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.weight(1f),
+                tag = "prompt",
             )
             val speaker = LocalSpeaker.current
             // Not a sentence with a gap ("Midva ______ iz Trnovega."): the feedback plays it whole.
@@ -563,6 +582,7 @@ private fun Prompt(main: String, instruction: String? = null, say: String? = nul
             if (spoken != null && speaker != null) SpeakButton(speaker, spoken, Modifier.padding(start = 8.dp))
         }
     }
+    look?.let { WordTip(it) }
     Spacer(Modifier.height(20.dp))
 }
 
@@ -608,14 +628,16 @@ private fun FlashcardEx(vm: AppViewModel, ex: Exercise.Flashcard, locked: Boolea
     var shown by remember { mutableStateOf(false) }
     val voice = LocalStage.current?.voice ?: Clips.FEMALE
     LaunchedEffect(Unit) { if (ex.speak) vm.speaker.say(ex.front, voiceName = voice) }
+    val look = LocalLook.current
     ElevatedCard(onClick = { shown = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 200.dp)) {
         Column(Modifier.padding(24.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(ex.front, style = MaterialTheme.typography.displaySmall)
+            // its word once turned over (before, it's what the card asks)
+            ExText(AnnotatedString(ex.front), look?.taps?.front(ex.front, shown).orEmpty(), style = MaterialTheme.typography.displaySmall, tag = "front")
             if (ex.speak) SpeakButton(vm.speaker, ex.front)
             if (shown) {
                 Spacer(Modifier.height(12.dp))
-                Text(ex.back, style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary)
-                ex.note?.let { Text(it, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 8.dp)) }
+                ExText(AnnotatedString(ex.back), look?.taps?.back(ex.back).orEmpty(), style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.primary, tag = "back")
+                ex.note?.let { ExText(AnnotatedString(it), look?.taps?.back(it).orEmpty(), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(top = 8.dp), tag = "note") }
             }
         }
     }
@@ -671,6 +693,7 @@ private fun ChoiceEx(
 ) {
     var picked by remember { mutableStateOf<Int?>(null) }
     val speakable = speakableOptions(options, sayOptions)
+    val look = LocalLook.current
     Prompt(prompt, instruction, say)
     options.forEachIndexed { i, opt ->
         val color = when {
@@ -691,7 +714,8 @@ private fun ChoiceEx(
                 modifier = Modifier.fillMaxWidth(),
                 shape = MaterialTheme.shapes.medium,
             ) {
-                Text(opt, Modifier.fillMaxWidth().padding(18.dp), style = MaterialTheme.typography.titleMedium)
+                // a long press on a word looks it up (a tap picks the option), where the option isn't what's tested
+                OptionText(look, i, opt, Modifier.fillMaxWidth().padding(18.dp))
             }
         }
     }
@@ -747,11 +771,21 @@ private fun OptionRow(text: String, speakable: List<Boolean>?, index: Int, modif
     }
 }
 
+/** Option [i] ([text]) of the exercise on screen: its words by a long press before the answer (a tap picks it), a tap after. */
+@Composable
+private fun OptionText(look: ExerciseLook?, i: Int, text: String, modifier: Modifier) {
+    ExText(
+        AnnotatedString(text), remember(look, i, text) { look?.taps?.option(i, text).orEmpty() }, modifier,
+        style = MaterialTheme.typography.titleMedium, hold = look?.taps?.answered == false, line = { unpictured(text) }, tag = "option",
+    )
+}
+
 @Composable
 private fun MultiEx(ex: Exercise.Multi, locked: Boolean, done: (Outcome) -> Unit) {
     val selected = remember { mutableStateListOf<Int>() }
     var checked by remember { mutableStateOf(false) }
     val speakable = speakableOptions(ex.options, ex.sayOptions)
+    val look = LocalLook.current
     Prompt(ex.prompt, ex.instruction ?: bi("playerScreen.selectAllApply"))
     ex.options.forEachIndexed { i, opt ->
         val right = i in ex.answers
@@ -770,7 +804,7 @@ private fun MultiEx(ex: Exercise.Multi, locked: Boolean, done: (Outcome) -> Unit
             ) {
                 Row(Modifier.padding(horizontal = 8.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(checked = i in selected, onCheckedChange = null)
-                    Text(opt, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f).padding(start = 4.dp))
+                    OptionText(look, i, opt, Modifier.weight(1f).padding(start = 4.dp))
                 }
             }
         }
@@ -792,16 +826,18 @@ private fun MultiEx(ex: Exercise.Multi, locked: Boolean, done: (Outcome) -> Unit
 @Composable
 private fun ScenarioEx(vm: AppViewModel, ex: Exercise.Scenario, locked: Boolean, done: (Outcome) -> Unit) {
     LaunchedEffect(Unit) { ex.line?.let(vm.speaker::say) }
+    val look = LocalLook.current
     Surface(color = MaterialTheme.colorScheme.tertiaryContainer, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(18.dp)) {
-            Text(ex.scene, style = MaterialTheme.typography.titleMedium)
+            ExText(AnnotatedString(ex.scene), look?.taps?.scene(ex.scene).orEmpty(), style = MaterialTheme.typography.titleMedium, tag = "scene")
             if (ex.line != null) {
                 Spacer(Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Surface(color = MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium, modifier = Modifier.weight(1f)) {
                         Column(Modifier.padding(12.dp)) {
                             ex.speaker?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary) }
-                            Text("„${ex.line}“", style = MaterialTheme.typography.titleLarge)
+                            val said = "„${ex.line}“"
+                            ExText(AnnotatedString(said), look?.taps?.line(said).orEmpty(), style = MaterialTheme.typography.titleLarge, line = { ex.line }, tag = "line")
                         }
                     }
                     SpeakButton(vm.speaker, ex.line, Modifier.padding(start = 8.dp))
@@ -890,18 +926,24 @@ private fun ReorderEx(ex: Exercise.Reorder, locked: Boolean, done: (Outcome) -> 
     val placed = remember { mutableStateListOf<Int>() }
     var hints by remember { mutableIntStateOf(0) }
     val stage = LocalStage.current
+    val look = LocalLook.current
+    // a tile's word for its meaning (a long press: a tap lays it); its card shows no line, so not the order, till answered
+    val solution = remember { ex.solutions.firstOrNull()?.joinToString(" ").orEmpty() }
+    val tile: @Composable (Int) -> Unit = { i ->
+        ExText(AnnotatedString(labels[i]), look?.taps?.tile(labels[i]).orEmpty(), hold = !locked, line = { if (locked) solution else "" }, tag = "tile")
+    }
     Prompt(ex.prompt, ex.instruction ?: bi("playerScreen.putWordsOrder"), ex.say)
     // word chips by ear: the sentence heard, its words tapped in order
     ex.audio?.let { AudioPrompt(it) }
     ElevatedCard(Modifier.fillMaxWidth().heightIn(min = 72.dp)) {
         FlowRow(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            for (i in placed.toList()) InputChip(selected = true, onClick = { if (!locked) placed.remove(i) }, label = { Text(labels[i]) })
+            for (i in placed.toList()) InputChip(selected = true, onClick = { if (!locked) placed.remove(i) }, label = { tile(i) })
             if (ending.isNotEmpty()) Text(ending, style = MaterialTheme.typography.titleMedium, modifier = Modifier.align(Alignment.CenterVertically))
         }
     }
     Spacer(Modifier.height(20.dp))
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (i in pool) if (i !in placed) FilterChip(selected = false, onClick = { if (!locked) placed += i }, label = { Text(labels[i]) })
+        for (i in pool) if (i !in placed) FilterChip(selected = false, onClick = { if (!locked) placed += i }, label = { tile(i) })
     }
     Spacer(Modifier.height(20.dp))
     if (!locked) Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -993,9 +1035,14 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
                 Text("💡 ${bi("playerScreen.hint")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             hintText(o.hint)?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+            // after the answer every word can be looked up, the one it tested too
+            val look = LocalLook.current
             if (o.verdict != Verdict.CORRECT && o.correct != null) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(highlighted(o.correct, o.marks, color), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                    ExText(
+                        highlighted(o.correct, o.marks, color), remember(o, look) { look?.taps?.correct(o.correct).orEmpty() },
+                        style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f), tag = "correct",
+                    )
                     SpeakButton(vm.speaker, o.correct)
                 }
                 if (o.marks.isNotEmpty()) {
@@ -1007,7 +1054,10 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
             val shownAbove = o.verdict != Verdict.CORRECT && o.correct != null
             slovene?.takeIf { !shownAbove || Grading.normalize(it) != Grading.normalize(o.correct) }?.let { s ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(inlineMarkdown("**$s**"), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                    ExText(
+                        AnnotatedString(s), remember(s, look) { look?.taps?.sentence(s).orEmpty() },
+                        style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f), tag = "sentence",
+                    )
                     SpeakButton(vm.speaker, s)
                 }
             }
