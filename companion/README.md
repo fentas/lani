@@ -2856,12 +2856,18 @@ be) has …", "jaz sem", "(I am),", … in order, each with its language and whe
 bold, a sentence without Slovene, a list, a table and emoji left out), the explanation's text and key as the node voices
 it (apart from a line's), the quick question's gap read as a pause and a choice's options not read, a step's script and
 the intro's own words that make "**Biti**" Slovene; `IntroMarkTest` the run read marked in the line's text;
-`IntroVoiceSettingTest` the setting (on by default, kept); `audio/DayAudioIntroTest` and `PrefetchRunTest` an
+`IntroVoiceSettingTest` the setting (on by default, kept); `ui/school/IntroPointerTest` what Mojca points at as biti's
+first step is read (its forms at their rows, a translation where its form was, the rest at its words, the examples, the
+question), the forms alone at their rows, the tip on what shows of the target (none off screen), no pointer with the
+animations off, the keyboard up or while she asks, and her reach (turned to the target's side, the hand where the
+pointer starts, shifted on her walk-in); `audio/DayAudioIntroTest` and `PrefetchRunTest` an
 explanation in the day's audio (asked for with its language, kept under its own key, never cut into phrases). The
 bridge's side is `test/smoke/course.ts` and `test/smoke/voice.ts` (an explanation's clip). On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
 (the dev village's copy a hamlet with its linden: the class begins with it), checks that there's nothing to set up,
 goes back Home and opens the school from its tile, opens the unit biti, plays its intro step by step (a tap, a gap, a tap, a gap; the summary
-card; its first step read aloud as it appears: a shot as each piece begins, what is read marked and Mojca talking, its pieces
+card; the lesson begins with Mojca walking in, the screen recorded through it (`school-walk-in-<n>`, frames from
+`school-walk-in.mp4`); its first step read aloud as it appears: a shot as each piece begins, what is read marked, Mojca
+talking and pointing (`school-pointer-row` at the row jaz · sem, `school-pointer-example` at the first example), its pieces
 in order from the log (tag `IntroVoice`: the explanation's clip, else its English by the phone's voice and its Slovene in
 Mojca's, then the examples and the question) kept in `intro-voice.txt`, read again by 🔊 and stopped by a tap on the
 text), fills its tables with the cheat sheet (📋) opened over the first (biti's card in it), checks it, answers its gap text with one mistake
@@ -2869,7 +2875,7 @@ and looks a word of it up (its card), checks the corrections, then takes the tes
 passes it (the third line typed without its č: almost, half an item): the unit done, and the dev bridge's village
 (`GET /game`) keeps it. Screenshots: `school-levels`, `school-home`, `school-unit`, `school-intro-reading-<n>` (as piece n begins), `school-intro-replay`, `school-intro-1`, `school-intro-4`, `school-intro-summary`, `school-table`,
 `school-help`, `school-table-checked`, `school-sheet-done`, `school-word`, `school-gaptext`, `school-gaptext-checked`,
-`school-test-passed`. `companion/bin/qa --steps school-build` takes the dev village's copy as it is (Jan's hamlet, its nine plots built): the
+`school-test-cheer-<n>` (Mojca cheering, frames of `school-test-cheer.mp4`), `school-test-passed`. `companion/bin/qa --steps school-build` takes the dev village's copy as it is (Jan's hamlet, its nine plots built): the
 Build sheet has the hamlet's tenth plot ("Parcele · Plots: 9 / 10") and the Šola on it, nothing of Vas on its card, and
 the line under its row ("🏫 Pouk že poteka pod lipo …"); every bed taken, its card's way on upgrades a dwelling for
 Mojca's bed; what the stores then lack the moba brings; built on the plot chooser, the dev bridge's village keeps it,

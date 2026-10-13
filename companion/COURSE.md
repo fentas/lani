@@ -148,25 +148,45 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
    as they are ("Biti (to be) has a short form … jaz sem (I am), ti si (you are) …"), is one clip of the voice store:
    the node voices it in one go with ElevenLabs (eleven_v3 says both languages as they are; `POST /voice/say` with
    `lang`, keyed `en|<the text>` apart from the Slovene lines, shared by every learner of that base: README "Voice").
-   On the phone it plays at once, the bubble outlined. When it isn't there yet (offline, no ElevenLabs, the quota at
+   On the phone it plays at once, the explanation outlined. When it isn't there yet (offline, no ElevenLabs, the quota at
    its reserve, not made yet) the step is read in its runs at once, and the node makes the clip for next time:
    - the base-language parts by the phone's own voice of that language (Android text-to-speech, its locale; rendered
      to files as the car's prompts are), a translation in brackets right after a form ("(I am)") among them;
    - the Slovene parts in Mojca's voice, at their place: a span in **bold**, *italics* or „quotes" that the app's
      check says is Slovene (as the chat's Markdown taps it), or whose words the intro itself shows (its examples, its
      table, its questions, the unit's title: "**Biti**");
-   - each run marked in the bubble as it is read, a short pause between them.
+   - each run marked in the explanation as it is read, a short pause between them.
    The phone without a voice for the base language: only the Slovene is read, and a small note says why, once.
 2. **The examples**, one after the other in Mojca's voice (their translations not read), each card marked.
 3. **The quick question**, as far as it gives nothing away: a gap read as a pause ("Luka … na pašniku."), a choice's
    options never, a translation in brackets at its end left out. Once answered, the sentence with the answer is read
-   (as an exercise's feedback), and Mojca reacts (a cheer, a smile, a shrug).
+   (as an exercise's feedback), and Mojca reacts (a smile, a shrug).
 
 The Slovene of the reading comes as a line's 🔊 does: her clip on the phone, else the node voices it now, else another
 of her voices' clip on the phone, else the phone's offline voice (Piper), else the phone's voice for Slovene. 🔊 on the
 step reads it again (⏹ while it reads), 🐢 slower; a tap on the text stops it, so does leaving the step, any other 🔊 or
-the 🎤 (one voice at a time). Mojca's portrait breathes and blinks, talks while her voice plays (also a 🔊 of hers on
-the school's screens) and holds still with the system's animations off.
+the 🎤 (one voice at a time).
+
+**The stage.** Jan: Mojca "seems not animated, looks like just a picture"; she "points at what she explains, not a walk
+across the screen". Each step is her stage: Mojca at the top as big as the dialogs' stage portraits (small on a short
+screen, with a large font, or with the keyboard up), beside her a bubble with what she says now, the step and its 🔊 🐢;
+the explanation below her like a board, then the examples, the table and the quick question, scrolling under the stage.
+She breathes and blinks, talks while her voice plays (also a 🔊 of hers on the school's screens), and points with her
+kazalka (a wooden pointer, chalk at its tip) at what is read, in step with what is marked (`ui/school/IntroPointer.kt`):
+
+- a Slovene form of the explanation at the table's row that says it ("jaz sem": the row jaz · sem, marked too; "smo,
+  ste, so": the three rows of those forms), the translation in brackets after it ("(I am)") still there; a form no row
+  has ("Biti") and the rest of the explanation at its words; the explanation's one clip at the explanation;
+- an example at its card; the quick question at its card for a moment as she starts asking it, then she turns back to
+  the learner (the pointer down, the book back in hand) and asks; the answer's sentence at it.
+
+She turns toward what she points at, her arm held out that way (toward the content while she explains); the pointer
+moves to the next target in a quarter of a second and follows the content as it scrolls, fading when its target is
+scrolled out of sight. Two fun moments, not constant motion: the lesson begins with her walking in from the side into
+her place (about a second, the reading after it), and she cheers when the learner passes the unit's test (the test's
+end, arms up and a jump, then a smile). Nothing moves while the learner types (the keyboard up: the stage small, she
+holds still, no pointer) or answers. With the system's "remove animations" on: no walk-in, no pointer, she holds still;
+what is read stays marked.
 
 "🔊 Beri razlago · Read the explanations" (on by default; in the school and in the settings' sound section): off,
 nothing plays by itself, the step's 🔊 still reads. Nothing plays by itself while TalkBack is on (it reads the text).
