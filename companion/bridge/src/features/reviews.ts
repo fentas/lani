@@ -28,8 +28,12 @@ import { json, readJson } from '../http'
 import { languageParam } from '../learner'
 import { LANGUAGES } from '../learners'
 
-/** What GET /state says this bridge takes beyond the first API: an app sends a dialog's words only to one that says so. */
-export const STATE_FEATURES = ['dialog-words'] as const
+/**
+ * What GET /state says this bridge takes beyond the first API: an app sends a dialog's words only to one that says so
+ * ("dialog-words"), and asks for a school intro's explanation as one clip (`lang` on /voice/say and /voice/prepare) only
+ * from one that voices it so ("explanations"; an older bridge would voice the English as a Slovene line).
+ */
+export const STATE_FEATURES = ['dialog-words', 'explanations'] as const
 
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({

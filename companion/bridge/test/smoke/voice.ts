@@ -1466,6 +1466,8 @@ export default async function voice() {
 
     // A school intro's step read out as one clip: its explanation in the learner's own language (lang), the Slovene in it.
     {
+      const features = (await (await fetch(`${base}/state`, { headers: auth })).json()).features
+      check('GET /state lists "explanations" in its features: the app asks this bridge for an explanation\'s clip', Array.isArray(features) && features.includes('explanations'), features)
       const ask = (body: unknown) => fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify(body) })
       const prepare = async (texts: unknown[]) => (await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts }) })).json()
       const n0 = bridgeEleven.st.tts.length
