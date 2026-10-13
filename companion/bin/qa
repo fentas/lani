@@ -50,6 +50,10 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
+                       "school-build" the school, the hamlet's: the dev village's copy as it is (Jan's hamlet), the
+                       Build sheet's tenth plot and the Šola on it (nothing of Vas), the line under it ("Pouk že
+                       poteka …"), the teacher's bed when every bed is taken (the card's way on), built on the plot
+                       chooser, the dev bridge's village keeping it, the class indoors;
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -2553,6 +2557,123 @@ def school():
     assert unit and unit.get("done"), f"the dev bridge's village keeps the unit done ({unit})"
 
 
+def dev_school() -> dict | None:
+    """The school in the dev bridge's village (its copy), or None."""
+    try:
+        state = api("/game").get("state") or {}
+    except (OSError, RuntimeError, ValueError):
+        return None
+    return next((b for b in state.get("buildings") or [] if b.get("type") == "SCHOOL"), None)
+
+
+def school_card():
+    """The school's card in the Build sheet just opened (its grid at the top), scrolled to: its name in the upper half, so
+    all of the card is on screen. Its labels (those beside its name, down to the next row's) and the centre of its name,
+    or (None, None). The grid scrolls under the sheet's head; a swipe back only once past it (never at the grid's top,
+    where it would pull the sheet down)."""
+    for _ in range(20):
+        bs = list(boxes())
+        name = next((b for t, b in bs if t == "Šola"), None)
+        if name is not None and 1050 < centre(name)[1] < 1450:
+            x0, x1 = (0, 540) if centre(name)[0] < 540 else (540, 1080)
+            texts = [t for t, b in bs if x0 <= centre(b)[0] < x1 and name[1] - 120 <= centre(b)[1] <= name[3] + 800]
+            return texts, centre(name)
+        if name is not None and centre(name)[1] <= 1050:
+            adb("shell", "input", "swipe", "540", "1300", "540", "1600", "400")
+        else:
+            adb("shell", "input", "swipe", "540", "1900", "540", "1300", "400")
+        time.sleep(1)
+    return None, None
+
+
+def reopen_build_sheet():
+    """The Build sheet closed and opened again: its grid at the top (and the moba's switch off)."""
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+    plain_village()
+    build_sheet()
+
+
+def moba_on():
+    """The Build sheet's "🤝 Moba" switch turned on (its row's right end)."""
+    bs = list(boxes())
+    title = next((b for t, b in bs if t.startswith("🤝 Moba")), None)
+    assert title is not None, "the moba's switch"
+    rows = [b for t, b in bs if title[1] - 20 <= b[1] and b[3] <= title[3] + 200 and b[0] < 900]
+    tap_at((950, (title[1] + max(b[3] for b in rows)) // 2))
+
+
+def school_build():
+    """The school, the hamlet's (GAME.md "The school"; Jan, 2026-10-13: "I go to Build and Šola is still with 'needs
+    Village'"): the dev village's copy as it is (Jan's hamlet, its nine plots built), the Build sheet with the hamlet's
+    tenth plot free and the Šola on it, nothing of Vas on its card, its line under the school's row ("🏫 Pouk že poteka
+    pod lipo …"); built on the plot chooser (while every bed is taken, its card's way on first: a dwelling upgraded; what
+    the stores then lack, with the neighbours' moba); then the school's screen: the class indoors, the dev bridge's
+    village keeping the school."""
+    if not (ROOT / "companion/course/sl/course.json").exists():
+        return "no course here (companion/course/sl/course.json)"
+    if dev_school() is not None:
+        return "the dev village's copy has its school already"
+    plain_village()
+    build_sheet()
+    assert wait_for("/ 10", 4), "the hamlet's ten plots (Parcele n / 10)"
+    shot("school-build-sheet")
+    texts, at = school_card()
+    assert at is not None, "the school's card"
+    joined = " | ".join(texts)
+    print(f"    the school's card: {joined}")
+    assert "Potrebuje Vas" not in joined, f"the school is the hamlet's: {joined}"
+    assert any(t.startswith("🏫 Pouk že poteka") for t in texts), "the line under the school's row: the class is on already"
+    shot("school-build-card")
+    if "potrebuje prostor" in joined:
+        # every bed taken: the teacher's bed first, the card's way on (a dwelling upgraded in one tap)
+        way = next((t for t in texts if t.startswith("⬆️ ") and t.endswith("›")), None)
+        assert way is not None, f"a dwelling to upgrade for her bed ({joined})"
+        assert tap(way, 4), "the way on: a bed"
+        time.sleep(2)
+        reopen_build_sheet()
+        texts, at = school_card()
+        assert at is not None, "the school's card, a bed made"
+        joined = " | ".join(texts)
+        print(f"    with a bed: {joined}")
+        shot("school-build-bed")
+        assert "potrebuje prostor" not in joined, f"a bed free for her ({joined})"
+    if any(t.startswith("🔒 ") for t in texts):
+        # what the stores lack now: the neighbours bring part of the timber and stone (the switch first, in the sheet's
+        # head: the cards it makes possible move up)
+        reopen_build_sheet()
+        moba_on()
+        time.sleep(1)
+        texts, at = school_card()
+        assert at is not None, "the school's card, the moba on"
+        joined = " | ".join(texts)
+        print(f"    with the moba: {joined}")
+        shot("school-build-moba")
+    tap_at(at)
+    assert wait_for("Tukaj · Here", 10), "the plot chooser"
+    time.sleep(2)
+    shot("school-build-plot")
+    assert tap("Tukaj · Here", 4), "built here"
+    end, school = time.time() + 20 * slow(), None
+    while time.time() < end and school is None:  # the app pushes the village to the node
+        school = dev_school()
+        time.sleep(2)
+    assert school is not None, "the dev bridge's village keeps the school"
+    print(f"    the school on plot {school.get('plot')}")
+    plain_village()
+    time.sleep(2)
+    shot("school-built")
+    # the class indoors: the school's screen from Home's tile
+    go_home()
+    tile = scroll_to("Šola", 8, exact=True)
+    assert tile, "the school's tile on Home"
+    tap_at(tile)
+    assert wait_for("Raven A1", 8), "the school"
+    assert wait_for("Šola · School", 4), "the class in the school"
+    time.sleep(1)
+    shot("school-indoors")
+
+
 def centre(b):
     return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
 
@@ -3649,6 +3770,7 @@ def plan():
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
         ("school", school, go_home, False, ""),
+        ("school-build", school_build, go_home, False, ""),
         ("village-life", village_life, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),

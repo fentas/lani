@@ -130,7 +130,7 @@ class SimulationTest {
             Person("tine", "Tine", Age.OGENJ, listOf(FIELD, KOZOLEC)), Person("ancka", "Teta Ančka", Age.TABOR),
             Person("anton", "Čebelar Anton", Age.TABOR), Person("tone", "Kovač Tone", Age.ZASELEK, listOf(SMITHY)),
             Person("marko", "Vinar Marko", Age.ZASELEK), Person("vida", "Gostilničarka Vida", Age.ZASELEK, listOf(MARKET, HOUSE)),
-            Person("nejc", "Nejc", Age.ZASELEK, listOf(MARKET, HOUSE)), Person("mojca", "Učiteljica Mojca", Age.VAS, listOf(SCHOOL)),
+            Person("nejc", "Nejc", Age.ZASELEK, listOf(MARKET, HOUSE)), Person("mojca", "Učiteljica Mojca", Age.ZASELEK, listOf(SCHOOL)),
         )
         /** Who works where a gathering run goes (the training stage). */
         val WORKERS = mapOf(Res.FOOD to "france", Res.WOOD to "luka", Res.STONE to "tone", Res.WISDOM to "janez")
@@ -156,7 +156,8 @@ class SimulationTest {
 
         /**
          * The school's course as the sim plays it: as the outline plans it (companion/course/sl/course.json), A1 of 18 units
-         * of three worksheets each and its test; A2 and above have no units yet, so the school's levels wait for nothing.
+         * of three worksheets each and its test; A2 and above have no units yet, so the school's level 2 waits for A1 (A2 is
+         * reached only after it: [School.gate]) and its next levels for nothing.
          * With an A2 of 12 units the committed learner's school would stay at level 1 until about day 120 (GAME.md,
          * "The school": the balance to check again when A2 is written).
          */
@@ -648,8 +649,8 @@ class SimulationTest {
         fun wanted(): List<BuildingType> {
             val plan = listOf(TENT, TENT) + // Ogenj
                 listOf(FIELD, PALISADE, HUT, KOZOLEC) + // Tabor
-                listOf(LIPA, HUT, CHURCH, SMITHY) + // Zaselek: the smithy brings Tone (his requests, forging)
-                listOf(WELL, SCHOOL, MARKET, HOUSE, KOZOLEC) + // Vas
+                listOf(LIPA, HUT, CHURCH, SMITHY, SCHOOL) + // Zaselek: the smithy brings Tone (his requests, forging), the school Mojca
+                listOf(WELL, MARKET, HOUSE, KOZOLEC) + // Vas
                 listOf(WATCHTOWER, HOUSE, HOUSE, HOUSE, HOUSE, KOZOLEC) // Trg
             val n = PLOTS_PER_AGE[s.age.ordinal]
             var plots = 0

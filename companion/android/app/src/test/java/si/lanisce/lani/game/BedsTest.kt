@@ -108,9 +108,10 @@ class BedsTest {
             seed = 3, age = Age.ZASELEK, villagers = 11, resources = plenty(), residents = residents("micka", "luka", "zala", "janez"),
             buildings = listOf(
                 BuildingType.TENT, BuildingType.HUT, BuildingType.HOUSE, BuildingType.CHURCH, BuildingType.LIPA, BuildingType.FIELD, BuildingType.FIELD, BuildingType.KOZOLEC,
+                BuildingType.WELL,
             ).mapIndexed { i, t -> Building("b$i", t, i) },
         )
-        assertEquals(listOf(8), Placement.freePlots(crowded))
+        assertEquals(listOf(9), Placement.freePlots(crowded))
         assertEquals(11, GameEngine.attributes(crowded).populationCap)
         val up = option(crowded, BuildingType.BEEHIVE).room!!
         assertEquals(RoomWay(BuildingType.HUT, upgrade = "b1"), up)
@@ -124,6 +125,7 @@ class BedsTest {
         val dwellings = listOf(BuildingType.TENT, BuildingType.HUT, BuildingType.HOUSE)
         val buildings = listOf(
             BuildingType.TENT, BuildingType.HUT, BuildingType.HOUSE, BuildingType.CHURCH, BuildingType.LIPA, BuildingType.FIELD, BuildingType.FIELD, BuildingType.KOZOLEC,
+            BuildingType.WELL,
         ).mapIndexed { i, t -> Building("b$i", t, i, level = if (t in dwellings) 3 else 1) }
         val beds = GameEngine.attributes(GameState(buildings = buildings)).populationCap
         val neighbours = (1..beds - 4).map { Resident("n-sosed-$it", day.toString(), name = "Sosed$it Novak", voice = "male", family = "Novak$it") }

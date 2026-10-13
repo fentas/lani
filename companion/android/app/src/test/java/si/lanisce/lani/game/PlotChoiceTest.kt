@@ -50,11 +50,11 @@ class PlotChoiceTest {
     @Test fun `a new building chooses among the free plots of the age`() {
         val s = village(Age.ZASELEK, TENT to 0, FIELD to 1, HUT to 3, PALISADE to NO_PLOT)
         val c = PlotChoice.build(s, FIELD)
-        assertEquals(listOf(2, 4, 5, 6, 7, 8), c.free(s))
+        assertEquals(listOf(2, 4, 5, 6, 7, 8, 9), c.free(s))
         assertEquals(emptyList<Int>(), c.swaps(s))
         assertTrue(c.open(s))
         // a taken plot, one of the next age and none change nothing
-        for (p in listOf(0, 1, 3, 9, 27, -1, null)) assertEquals("$p", c, c.pick(s, p))
+        for (p in listOf(0, 1, 3, 10, 27, -1, null)) assertEquals("$p", c, c.pick(s, p))
         // a free one is chosen
         assertEquals(5, c.pick(s, 5).chosen)
         // the tent at the pond takes none: its plot is free
@@ -151,7 +151,7 @@ class PlotChoiceTest {
         assertNull(c.confirm(s.copy(resources = emptyMap()), t0))
         // the engine refuses a taken plot, one beyond the age, and a plot for the palisade
         assertSame(s, GameEngine.build(s, FIELD, t0, plot = 3))
-        assertSame(s, GameEngine.build(s, FIELD, t0, plot = 9))
+        assertSame(s, GameEngine.build(s, FIELD, t0, plot = 10))
         assertSame(s, GameEngine.build(s, PALISADE, t0, plot = 6))
         // the palisade still goes up on none
         assertEquals(NO_PLOT, GameEngine.build(s, PALISADE, t0).buildings.last().plot)
@@ -171,7 +171,7 @@ class PlotChoiceTest {
         val s = village(Age.ZASELEK, TENT to 0, FIELD to 1, HUT to 3, KOZOLEC to 5)
         val hut = s.buildings.single { it.type == HUT }
         val c = PlotChoice.move(s, hut).pick(s, 7)
-        assertEquals(listOf(2, 4, 6, 7, 8), c.free(s))
+        assertEquals(listOf(2, 4, 6, 7, 8, 9), c.free(s))
         assertEquals(listOf(0, 1, 5), c.swaps(s))
         val after = c.confirm(s, t0)!!
         assertEquals(hut.copy(plot = 7), after.buildings.single { it.id == hut.id })
@@ -226,7 +226,7 @@ class PlotChoiceTest {
         }
         // nor onto its own plot, or one beyond the age
         assertSame(s, GameEngine.move(s, "b1", 1, t0))
-        assertSame(s, GameEngine.move(s, "b1", 9, t0))
+        assertSame(s, GameEngine.move(s, "b1", 10, t0))
         assertSame(s, GameEngine.move(s, "nobody", 4, t0))
     }
 

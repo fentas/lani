@@ -44,8 +44,12 @@ enum class Age(val emoji: String) {
     val en: String get() = names.base
 }
 
-/** Building plots available per age (index = Age.ordinal). The renderer places plot i on the map. */
-val PLOTS_PER_AGE = listOf(2, 5, 9, 14, 20, 28)
+/**
+ * Building plots available per age (index = Age.ordinal). The renderer places plot i on the map. Zaselek's tenth came with
+ * the school (2026-10-13: a hamlet's building since then, its plot taken from Vas's), so a hamlet whose plots were full
+ * has room for it.
+ */
+val PLOTS_PER_AGE = listOf(2, 5, 10, 14, 20, 28)
 
 /** The plot of a building that stands on none: the palisade rings the clearing (see [onPlot]); the tent at the pond ([TentMove]). */
 const val NO_PLOT = -1

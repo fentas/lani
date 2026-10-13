@@ -163,11 +163,11 @@ class VillagerLogicTest {
     }
 
     @Test fun `why someone doesn't live here yet`() {
-        val mojca = Villager(id = "mojca", name = "Učiteljica Mojca", art = "teacher", home = listOf("school"), since = "vas")
-        val vas = GameState(age = Age.VAS, villagers = 2)
-        assertEquals("Pride, ko zgradiš 🏫 šolo · Comes when you build the 🏫 school", VillagerLogic.whyNotHere(mojca, vas).text)
-        assertEquals("Pride v dobi 🏘️ Vas · Comes in the Village age", VillagerLogic.whyNotHere(mojca, vas.copy(age = Age.TABOR)).text)
-        assertTrue(VillagerLogic.whyNotHere(mojca, vas.copy(age = Age.TABOR)).later)
+        val mojca = Villager(id = "mojca", name = "Učiteljica Mojca", art = "teacher", home = listOf("school"), since = "zaselek")
+        val hamlet = GameState(age = Age.ZASELEK, villagers = 2)
+        assertEquals("Pride, ko zgradiš 🏫 šolo · Comes when you build the 🏫 school", VillagerLogic.whyNotHere(mojca, hamlet).text)
+        assertEquals("Pride v dobi 🛖 Zaselek · Comes in the Hamlet age", VillagerLogic.whyNotHere(mojca, hamlet.copy(age = Age.TABOR)).text)
+        assertTrue(VillagerLogic.whyNotHere(mojca, hamlet.copy(age = Age.TABOR)).later)
         assertTrue(VillagerLogic.whyNotHere(luka, GameState(villagers = 2)).text.startsWith("🏠 Čaka na prostor")) // two live by the fire, and there's no tent
         assertTrue(VillagerLogic.whyNotHere(luka, GameState(villagers = 1)).text.startsWith("🌾 Kmalu pride"))
         assertEquals("Pride, ko posadiš 🌳 lipo · Comes when you plant the 🌳 linden tree", VillagerLogic.whenBuilt(BuildingType.LIPA))

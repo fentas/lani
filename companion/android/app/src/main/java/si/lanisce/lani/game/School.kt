@@ -56,7 +56,8 @@ data class SheetBest(val right: Int = 0, val almost: Int = 0, val of: Int = 0, v
 
 /**
  * What the school's upgrade to [toLevel] asks of the course (GAME.md, "The school"): every unit of course level [level]
- * done; [left] still to go. Like an upgrade's words, it holds the upgrade back until it's done, the neighbours' help too.
+ * done (the level it needs, or one before it while that isn't reached: [School.gate]); [left] still to go. Like an
+ * upgrade's words, it holds the upgrade back until it's done, the neighbours' help too.
  */
 data class CourseGate(val building: String, val toLevel: Int, val level: String, val left: Int) {
     val done: Boolean get() = left <= 0
@@ -94,6 +95,18 @@ object School {
         indoors(s) -> Place.SCHOOL
         s.buildings.any { it.type == BuildingType.LIPA && !it.damaged } -> Place.LINDEN
         else -> Place.FIRE
+    }
+
+    /**
+     * What the Build sheet says on the school's card while none stands (GAME.md "The school"): "Pouk že poteka pod lipo;
+     * šola ga preseli pod streho in po A1 odpre A2 · Class is already on under the linden; the school brings it indoors
+     * and, after A1, opens A2" (by the fire before the linden, and "opens A2" once A1 is done). Null without a [course],
+     * before the class begins, or with a school standing.
+     */
+    fun buildNote(s: GameState, course: Course?): String? {
+        if (course == null || !open(s) || schoolBuilding(s) != null) return null
+        val at = if (place(s) == Place.LINDEN) "linden" else "fire"
+        return bi("school.buildNote", "place" to at, "a1" to if (levelDone(s, course, LEVELS.first())) "done" else "todo")
     }
 
     // --- the levels -------------------------------------------------------------------------------------------------
@@ -283,7 +296,10 @@ object School {
 
     /**
      * What upgrading [buildingId] asks of the course: for the school, every written unit of the level its next level
-     * needs ([upgradeNeeds]); null for any other building, one at the top, or without a course.
+     * needs ([upgradeNeeds]), a level the course has reached ([isOpen]): one not reached yet isn't done, however few units
+     * it has, and what holds the upgrade back is the first level before it with units to go (A2 not written yet: the
+     * school's level 2 waits for A1, also a school built in the hamlet). Null for any other building, one at the top, or
+     * without a course.
      */
     fun gate(s: GameState, course: Course?, buildingId: String): CourseGate? {
         course ?: return null
@@ -291,6 +307,7 @@ object School {
         val to = b.level + 1
         if (to > Catalog.MAX_LEVEL) return null
         val level = upgradeNeeds(to) ?: return null
-        return CourseGate(b.id, to, level, unitsLeft(s, course, level))
+        val back = if (isOpen(s, course, level)) level else LEVELS.takeWhile { it != level }.firstOrNull { unitsLeft(s, course, it) > 0 } ?: level
+        return CourseGate(b.id, to, back, unitsLeft(s, course, back))
     }
 }

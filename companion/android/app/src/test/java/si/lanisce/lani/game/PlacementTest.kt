@@ -101,12 +101,13 @@ class PlacementTest {
         // no field yet: the kozolec takes the next free plot
         val none = village(Age.ZASELEK, TENT to 0, TENT to 1, HUT to 2)
         assertEquals(3, built(none, KOZOLEC).plot)
-        // the field's neighbours are all built (plot 2's: 0, and 9 is Vas's): the next free plot
-        val walled = village(Age.ZASELEK, TENT to 0, TENT to 1, FIELD to 2, HUT to 3)
+        // the field's neighbours are all built (plot 2's: 0, and 9 is the hamlet's): the next free plot
+        val walled = village(Age.TABOR, TENT to 0, TENT to 1, FIELD to 2, HUT to 3)
         assertTrue(Placement.freePlots(walled).none { distance(it, 2) <= NEIGHBOUR })
         assertEquals(4, built(walled, KOZOLEC).plot)
-        // a building without partners ignores them: a hut takes the next free plot, a field beside it or not
-        val hut = village(Age.ZASELEK, TENT to 0, TENT to 1, HUT to 2, FIELD to 4)
+        // a building without partners ignores them: a hut takes the next free plot, a field beside it or not (the hut's own
+        // neighbour, the hamlet's tenth plot, taken)
+        val hut = village(Age.ZASELEK, TENT to 0, TENT to 1, HUT to 2, FIELD to 4, WELL to 9)
         assertEquals(3, built(hut, HUT).plot)
         assertEquals(3, built(hut, SMITHY).plot)
         // the palisade still takes none
@@ -155,17 +156,17 @@ class PlacementTest {
     }
 
     @Test fun `a lone kozolec with no free plot beside a field waits for one`() {
-        // Zaselek full: the field on plot 2 has no free neighbour, the kozolec on plot 4 stays for now
-        val full = village(Age.ZASELEK, TENT to 0, TENT to 1, FIELD to 2, HUT to 3, KOZOLEC to 4, LIPA to 5, HUT to 6, CHURCH to 7, SMITHY to 8)
+        // the camp full: the field on plot 2 has no free neighbour, the kozolec on plot 4 stays for now
+        val full = village(Age.TABOR, TENT to 0, TENT to 1, FIELD to 2, HUT to 3, KOZOLEC to 4)
         val waiting = Placement.hayracksByFields(full)
         assertSame(full, waiting)
         assertFalse(Placement.HAYRACKS_BY_FIELDS in waiting.migrated)
-        // Vas brings plot 9, beside the field: the kozolec moves there
-        val vas = Placement.hayracksByFields(waiting.copy(age = Age.VAS))
-        val k = vas.buildings.single { it.type == KOZOLEC }
+        // Zaselek brings plot 9, beside the field: the kozolec moves there
+        val hamlet = Placement.hayracksByFields(waiting.copy(age = Age.ZASELEK))
+        val k = hamlet.buildings.single { it.type == KOZOLEC }
         assertEquals(9, k.plot)
         assertTrue(distance(9, 2) <= NEIGHBOUR)
-        assertTrue(Placement.HAYRACKS_BY_FIELDS in vas.migrated)
+        assertTrue(Placement.HAYRACKS_BY_FIELDS in hamlet.migrated)
     }
 
     @Test fun `the move runs once`() {

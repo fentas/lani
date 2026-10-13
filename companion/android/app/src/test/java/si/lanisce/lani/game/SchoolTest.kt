@@ -50,7 +50,7 @@ class SchoolTest {
         // under the linden once it stands (a damaged one doesn't count), in the school once that stands
         assertEquals(School.Place.LINDEN, School.place(village(linden)))
         assertEquals(School.Place.FIRE, School.place(village(linden.copy(damaged = true))))
-        assertEquals(School.Place.SCHOOL, School.place(village(linden, school, age = Age.VAS)))
+        assertEquals(School.Place.SCHOOL, School.place(village(linden, school)))
     }
 
     @Test fun `the class's beginning is kept once, the teacher named in the chronicle, nothing paid`() {
@@ -65,9 +65,107 @@ class SchoolTest {
         // once: again it stays as it is, also days later
         assertSame(n, School.opened(n, course, day0.plusDays(3), t0))
         // a village whose school stands has its class indoors: no beginning to keep, A1 open all the same
-        val vas = School.opened(village(school, age = Age.VAS), course, day0, t0)
-        assertNull(vas.course!!.classroom)
-        assertTrue("sl/A1" in vas.course!!.opened)
+        val indoors = School.opened(village(school), course, day0, t0)
+        assertNull(indoors.course!!.classroom)
+        assertTrue("sl/A1" in indoors.course!!.opened)
+    }
+
+    // --- the school building: the hamlet's ---------------------------------------------------------------------------
+
+    /**
+     * A hamlet like Jan's (2026-10-13): its first nine plots built (the linden and the church among them), the tent at the
+     * pond, the palisade round it, the stores well filled; [villagers] living here (11 beds).
+     */
+    private fun fullHamlet(villagers: Int = 5): GameState {
+        val types = listOf(BuildingType.HOUSE, BuildingType.FIELD, BuildingType.HUT, BuildingType.WELL, BuildingType.SMITHY, BuildingType.BEEHIVE,
+            BuildingType.CHURCH, BuildingType.LIPA, BuildingType.KOZOLEC)
+        return GameState(
+            seed = 1, age = Age.ZASELEK, villagers = villagers,
+            resources = mapOf(Res.FOOD to 600, Res.WOOD to 400, Res.STONE to 200, Res.WISDOM to 250),
+            buildings = types.mapIndexed { i, t -> Building("b$i", t, i) } +
+                Building("tent", BuildingType.TENT, NO_PLOT) + Building("pal", BuildingType.PALISADE, NO_PLOT),
+        )
+    }
+
+    @Test fun `the school is the hamlet's - buildable from Zaselek, on its tenth plot, priced within its stores`() {
+        val spec = Catalog.spec(BuildingType.SCHOOL)
+        assertEquals(Age.ZASELEK, spec.minAge)
+        assertEquals(mapOf(Res.WISDOM to 0.25f), spec.effect.production)
+        spec.cost.forEach { (r, n) -> assertTrue("$n ${r.emoji} in the hamlet's store", n <= Catalog.baseCap[Age.ZASELEK.ordinal]) }
+        // the camp: not yet, the hamlet named
+        val camp = GameEngine.buildOptions(village(age = Age.TABOR, food = 500, wood = 500)).first { it.type == BuildingType.SCHOOL }
+        assertFalse(camp.available)
+        assertTrue(camp.reason, camp.reason!!.startsWith("Potrebuje Zaselek"))
+        // a hamlet whose first nine plots are built has its tenth for it, and the school goes up there
+        assertEquals(10, PLOTS_PER_AGE[Age.ZASELEK.ordinal])
+        val s = fullHamlet()
+        val o = GameEngine.buildOptions(s).first { it.type == BuildingType.SCHOOL }
+        assertTrue(o.reason, o.available)
+        val built = GameEngine.build(s, BuildingType.SCHOOL, t0)
+        assertEquals(9, School.schoolBuilding(built)!!.plot)
+        assertEquals(s.res(Res.WISDOM) - 100, built.res(Res.WISDOM))
+        // the plot isn't kept for Vas: its church, linden and two dwellings stand already
+        assertTrue(GameEngine.buildOptions(s).first { it.type == BuildingType.HOUSE }.available)
+    }
+
+    @Test fun `the school brings the teacher to the hamlet - a bed first`() {
+        val mojca = si.lanisce.lani.game.villagers.Villager("mojca", "Učiteljica Mojca", "👩‍🏫", "teacher", home = listOf("school"), since = "zaselek", order = 13)
+        val micka = si.lanisce.lani.game.villagers.Villager("micka", "Babica Micka", "👵", "grandma", home = listOf("house", "hut"), order = 1)
+        val cast = listOf(micka, mojca)
+        // every bed taken (11 of 11): the school waits for her bed, its card offering the way on (a dwelling upgraded)
+        val o = GameEngine.buildOptions(fullHamlet(villagers = 11), cast).first { it.type == BuildingType.SCHOOL }
+        assertFalse(o.available)
+        assertTrue(o.reason, o.reason!!.startsWith("🛏️ Učiteljica Mojca potrebuje prostor"))
+        assertNotNull(o.room)
+        // a bed free: the school goes up and brings her; until then she only comes over to teach
+        val free = fullHamlet(villagers = 10)
+        assertFalse(si.lanisce.lani.game.villagers.Residents.reconcile(free, cast, day0).first.residents.any { it.id == "mojca" })
+        val built = GameEngine.build(free, BuildingType.SCHOOL, t0, cast = cast)
+        assertTrue(School.indoors(built))
+        assertTrue(si.lanisce.lani.game.villagers.Residents.reconcile(built, cast, day0).first.residents.any { it.id == "mojca" })
+    }
+
+    @Test fun `built in the hamlet - the class indoors, A2 after A1, its upgrades waiting for the course`() {
+        var s = School.opened(GameEngine.build(fullHamlet(), BuildingType.SCHOOL, t0), course, day0, t0)
+        assertEquals(School.Place.SCHOOL, School.place(s))
+        assertEquals(listOf<School.Need>(School.Need.Units("A1", 3)), School.level(s, course, "A2").needs)
+        // its level 2 needs A2 done, and A2 isn't reached before A1 is: the upgrade waits for A1's units (also with no
+        // units in A2: the hamlet's school isn't upgraded past the class it holds)
+        val id = School.schoolBuilding(s)!!.id
+        assertEquals(CourseGate(id, 2, "A1", 3), School.gate(s, course, id))
+        val noA2 = course.copy(levels = course.levels.map { if (it.level == "A2") it.copy(units = emptyList()) else it })
+        assertEquals(CourseGate(id, 2, "A1", 3), School.gate(s, noA2, id))
+        assertFalse(GameEngine.upgradeOption(s.copy(resources = Res.entries.associateWith { 500 }), id, course = School.gate(s, noA2, id))!!.available)
+        s = School.opened(done(s, "biti", "spol", "extra"), course, day0, t0)
+        assertTrue(School.isOpen(s, course, "A2"))
+        assertTrue("sl/A2" in s.course!!.opened)
+        assertTrue(School.gate(s, noA2, id)!!.done)
+        // then A2's units, in the hamlet as in the village
+        val gate = School.gate(s, course, id)!!
+        assertEquals(CourseGate(id, 2, "A2", 1), gate)
+        assertFalse(GameEngine.upgradeOption(s.copy(resources = Res.entries.associateWith { 500 }), id, course = gate)!!.available)
+        assertTrue(School.gate(done(s, "dajalnik"), course, id)!!.done)
+    }
+
+    @Test fun `the Build sheet says the class is on already, and what the school brings`() {
+        assertEquals(
+            "Pouk že poteka ob ognju; šola ga preseli pod streho in po A1 odpre A2. · Class is already on by the fire; the school brings it indoors and, after A1, opens A2.",
+            School.buildNote(village(), course),
+        )
+        assertEquals(
+            "Pouk že poteka pod lipo; šola ga preseli pod streho in po A1 odpre A2. · Class is already on under the linden; the school brings it indoors and, after A1, opens A2.",
+            School.buildNote(village(linden), course),
+        )
+        // A1 done: the school opens A2 at once
+        assertEquals(
+            "Pouk že poteka pod lipo; šola ga preseli pod streho in odpre A2. · Class is already on under the linden; the school brings it indoors and opens A2.",
+            School.buildNote(done(classroom(), "biti", "spol", "extra"), course),
+        )
+        // nothing to say before the class begins, once a school stands (a damaged one too: it's built), without a course
+        assertNull(School.buildNote(village(age = Age.TABOR), course))
+        assertNull(School.buildNote(village(linden, school), course))
+        assertNull(School.buildNote(village(linden, school.copy(damaged = true)), course))
+        assertNull(School.buildNote(village(linden), null))
     }
 
     @Test fun `the school opens the class too, without a classroom`() {

@@ -637,6 +637,7 @@ fun VillageScreen(vm: AppViewModel) {
                     else -> choose(Choosing(PlotChoice.build(s, w.type), cancel = VillageSheet.Build, done = VillageSheet.Build))
                 }
             },
+            course = vm.school.course,
         )
         VillageSheet.Info -> InfoSheet(s, attrs, onDismiss = { sheet = null })
         VillageSheet.Fire -> FireSheet(s, attrs, onGather = { sheet = null; card = null; vm.startGather(Res.WOOD) }, onDismiss = { sheet = null })

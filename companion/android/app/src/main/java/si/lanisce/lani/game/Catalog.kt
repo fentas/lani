@@ -84,7 +84,10 @@ internal object Catalog {
         Spec(HOUSE, mapOf(FOOD to 60, WOOD to 70, STONE to 50), Age.ZASELEK, null, Effect(pop = 4)),
         Spec(CHURCH, mapOf(FOOD to 140, WOOD to 120, STONE to 90, WISDOM to 70), Age.ZASELEK, 1,
             Effect(morale = 5, production = mapOf(WISDOM to 0.20f))),
-        Spec(SCHOOL, mapOf(FOOD to 100, WOOD to 120, STONE to 100, WISDOM to 100), Age.VAS, 1,
+        // the hamlet's, as its class (Jan, 2026-10-13: "Hamlet is good, once after the fire"): it brings the class indoors
+        // and opens A2 (School); Zaselek has a plot more for it (PLOTS_PER_AGE). 100 of each, the hamlet's second dearest
+        // after the church (it was 120 🪵 as Vas's: the hamlet is short of timber)
+        Spec(SCHOOL, mapOf(FOOD to 100, WOOD to 100, STONE to 100, WISDOM to 100), Age.ZASELEK, 1,
             Effect(production = mapOf(WISDOM to 0.25f))),
         Spec(MARKET, mapOf(FOOD to 160, WOOD to 150, STONE to 100, WISDOM to 80), Age.VAS, 1,
             Effect(caps = Res.entries.associateWith { 200 })),

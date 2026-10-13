@@ -180,7 +180,7 @@ class TentMoveTest {
         assertEquals(s.res(Res.WOOD) + s.quests.first { it.id == TentMove.ID }.reward.getValue(Res.WOOD), after.res(Res.WOOD))
         // the plot is free: a village with every other plot built builds on it
         assertEquals(s.plotsTaken - 1, after.plotsTaken)
-        val full = hamlet(TENT, HUT, FIELD, KOZOLEC, FIELD, BuildingType.BEEHIVE, BuildingType.WELL, KOZOLEC, FIELD).copy(resources = Res.entries.associateWith { 900 })
+        val full = hamlet(TENT, HUT, FIELD, KOZOLEC, FIELD, BuildingType.BEEHIVE, BuildingType.WELL, KOZOLEC, FIELD, BuildingType.WELL).copy(resources = Res.entries.associateWith { 900 })
         assertFalse(GameEngine.buildOptions(full).first { it.type == HUT }.available)
         val built = GameEngine.build(TentMove.move(full, t0), HUT, t0)
         assertEquals(0, built.buildings.last().plot)

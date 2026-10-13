@@ -130,7 +130,10 @@ class Terrain private constructor(val land: Land) {
     /** The forest's edge (screen metric from the fire, see [VillageLayout.screenMetric]) at angle [ang]: the clearing with a ragged, noisy rim. */
     fun forestEdge(age: Age, ang: Float): Float =
         if (classic) clearing(age) + (Noise.v1(ang * 3f + 10f, 2) - 0.5f) * 18f
-        else clearing(age) + (Noise.v1(ang * 3f + eOff, eSeed) - 0.5f) * eAmp + eLobe * cos(ang - eLobeAt) + bank(ang)
+        else clearing(age) + rim(ang)
+
+    /** A generated land's rim at angle [ang], off the clearing's radius: its noise, its bulge and the stream bank's bump. */
+    private fun rim(ang: Float): Float = (Noise.v1(ang * 3f + eOff, eSeed) - 0.5f) * eAmp + eLobe * cos(ang - eLobeAt) + bank(ang)
 
     /**
      * How far the clearing reaches out towards the stream's bank where it would leave the bank's spot in the woods (a smooth
@@ -144,7 +147,10 @@ class Terrain private constructor(val land: Land) {
         return if (t >= 1f) 0f else bankBump * (1f - t * t) * (1f - t * t)
     }
 
-    /** Radius (screen metric) of the forest clearing for an age: 30 px beyond the farthest plot of the age. */
+    /**
+     * Radius (screen metric) of the forest clearing for an age: 30 px beyond the farthest plot of the age; on a generated
+     * land, and where its rim dips, at least [RIM_ROOM] beyond every plot of the age in its direction.
+     */
     fun clearing(age: Age): Float = clearings[age.ordinal]
 
     // ------------------------------------------------------------------ the woods below
@@ -251,7 +257,15 @@ class Terrain private constructor(val land: Land) {
         val n = PLOTS_PER_AGE[a].coerceIn(1, VillageLayout.MAX_PLOTS)
         var m = 0f
         for (k in 0 until n) m = max(m, centers[k][2])
-        m + 30f
+        var c = m + 30f
+        // a generated rim dips (its noise, its bulge) and may come close to a plot that isn't the farthest: never closer
+        // than [RIM_ROOM], so the palisade and the trees keep off it (the hamlet's tenth plot, 2026-10-13, lies where a few
+        // lands' rims dip). The stream bank's bump isn't known yet here (0): it only ever takes the rim further out.
+        if (!classic) for (k in 0 until n) {
+            val p = centers[k]
+            c = max(c, p[2] + RIM_ROOM - rim(VillageLayout.angle((p[0] - p[1]) * 4f, (p[0] + p[1]) * 2f)))
+        }
+        c
     }
 
     /** The stream bank's spot's angle, and how far the first age's clearing must reach out to take it in (see [bank]). */
@@ -452,6 +466,12 @@ class Terrain private constructor(val land: Land) {
 
         /** How far out (the clearing's metric) the last plot of a land with water may lie; the classic land's is at 125. */
         private const val FARTHEST_PLOT = 132f
+
+        /**
+         * How far a generated land's rim keeps beyond every plot of the age, at least (the clearing's metric, px): the
+         * palisade, [Palisade.INSET] inside it, then stands about two cells off the plot's middle.
+         */
+        private const val RIM_ROOM = 21f
 
         /** The sea's beach (px wide), and the room a plot keeps from the water (px). */
         const val BEACH = 7f

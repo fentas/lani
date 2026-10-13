@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
@@ -60,12 +61,14 @@ import si.lanisce.lani.game.Attributes
 import si.lanisce.lani.game.BuildOption
 import si.lanisce.lani.game.Catalog
 import si.lanisce.lani.game.Building
+import si.lanisce.lani.game.BuildingType
 import si.lanisce.lani.game.GameEngine
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.LogEntry
 import si.lanisce.lani.game.Moba
 import si.lanisce.lani.game.PLOTS_PER_AGE
 import si.lanisce.lani.game.Res
+import si.lanisce.lani.game.School
 import si.lanisce.lani.ui.BigButton
 import si.lanisce.lani.ui.Confetti
 import si.lanisce.lani.ui.LaniSheet
@@ -103,12 +106,14 @@ internal fun SheetHeader(emoji: String, title: String, sub: String? = null) {
 
 /**
  * What can be built. [onRoom]: the way on of a card whose person has nowhere to live ([BuildOption.room]: build or upgrade a
- * dwelling, or gather for it), one tap.
+ * dwelling, or gather for it), one tap. [course]: the school's course of the village's language; while no school stands,
+ * a line under the school's card says where the class meets already and what the school brings ([School.buildNote]).
  */
 @Composable
 fun BuildSheet(
     s: GameState, options: List<BuildOption>, check: AdvanceCheck, onBuild: (BuildOption, Boolean) -> Unit, onAges: () -> Unit, onDismiss: () -> Unit,
     onRoom: (si.lanisce.lani.game.RoomWay) -> Unit = {},
+    course: si.lanisce.lani.data.Course? = null,
 ) {
     val plots = PLOTS_PER_AGE[s.age.ordinal]
     // the neighbours' help, once the learner has 🤝 and a building could use it
@@ -126,6 +131,10 @@ fun BuildSheet(
         if (next != null) NextAgeRow(check, onAges)
         MobaSwitch(s, on = moba && canMoba, enabled = canMoba) { moba = it }
         val sorted = options.sortedWith(compareBy({ !(it.available || (moba && it.mobaAvailable)) }, { it.cost.values.sum() }))
+        // the class meets already (by the fire, under the linden): said across the sheet under the school's row
+        val note = School.buildNote(s, course)
+        val at = sorted.indexOfFirst { it.type == BuildingType.SCHOOL }
+        val split = if (note == null || at < 0) sorted.size else minOf(sorted.size, at - at % 2 + 2)
         LazyVerticalGrid(
             GridCells.Fixed(2),
             Modifier.fillMaxWidth().heightIn(max = 560.dp),
@@ -133,7 +142,16 @@ fun BuildSheet(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             contentPadding = PaddingValues(bottom = 8.dp),
         ) {
-            items(sorted, key = { it.type }) { o -> BuildCard(s, o, moba && canMoba, onRoom) { onBuild(o, moba && o.mobaAvailable) } }
+            items(sorted.take(split), key = { it.type }) { o -> BuildCard(s, o, moba && canMoba, onRoom) { onBuild(o, moba && o.mobaAvailable) } }
+            if (note != null && at >= 0) item(key = "school-note", span = { GridItemSpan(maxLineSpan) }) {
+                Surface(color = AlpineGreen.copy(alpha = 0.12f), shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        "${BuildingType.SCHOOL.emoji} $note", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                    )
+                }
+            }
+            items(sorted.drop(split), key = { it.type }) { o -> BuildCard(s, o, moba && canMoba, onRoom) { onBuild(o, moba && o.mobaAvailable) } }
         }
     }
 }

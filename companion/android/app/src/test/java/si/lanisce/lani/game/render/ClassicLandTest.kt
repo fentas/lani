@@ -74,10 +74,11 @@ class ClassicLandTest {
     /** The digests of the fixed layout's renders (see the class's note). */
     private val golden = mapOf(
         // the field's soil under whoever walks by it, its crops in bands, its fence post by post; the people at the chores
-        // of a household, the fire's handful (2026-10-13)
+        // of a household, the fire's handful (2026-10-13); the hamlet's tenth plot, the school's (2026-10-13): its clearing
+        // and palisade a little wider, the meadow's flowers and stones off the new plot
         "jan-like" to mapOf(
-            "side-day" to "792c1f56b4f2d82f", "tall-day" to "7b9901d0babd48c5", "tall-dusk-k2" to "c9bec5abba8ddc62",
-            "tall-night-k3" to "9d73e8aee5151931", "compact" to "7823ec5342731b21", "widget" to "7765f8d3f398ca48",
+            "side-day" to "3fcecd13f47cdc40", "tall-day" to "5a12cd69b96fc9ac", "tall-dusk-k2" to "8796d20cb41334c7",
+            "tall-night-k3" to "e4d64f77d5b8b223", "compact" to "116f5b44cfb1b189", "widget" to "d8e279ca092979f6",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
         // drawn as the hamlet's, its people at their chores (2026-10-13)
@@ -143,9 +144,10 @@ class ClassicLandTest {
 
     @Test fun `the classic land is the fixed layout, number for number`() {
         val t = Terrain.CLASSIC
-        // the first plots and the clearing of every age, as the fixed layout had them
+        // the first plots and the clearing of every age, as the fixed layout had them; the hamlet's reaches its tenth plot
+        // since the school came to it (2026-10-13: 100.73032 with nine)
         assertEquals(listOf(33.40898f, 42.00762f, 54.692684f, 54.798775f), t.centers.take(4).map { it[2] })
-        assertEquals(listOf(72.00762f, 91.46109f, 100.73032f, 120.36757f, 138.06f, 154.82741f), Age.entries.map { t.clearing(it) })
+        assertEquals(listOf(72.00762f, 91.46109f, 104.726166f, 120.36757f, 138.06f, 154.82741f), Age.entries.map { t.clearing(it) })
         assertEquals(-13f, t.streamX(0f))
         assertEquals(listOf(-9.298864f, 3f), t.riverbank.toList())
         assertEquals(listOf(-13f, 0f), t.bridge.toList())
