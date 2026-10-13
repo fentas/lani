@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.boundsInRoot
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
@@ -157,6 +159,7 @@ fun Markdown(
     block: BlockText? = null,
     onWord: ((String, String) -> Unit)? = null,
     marked: ((line: Int) -> IntRange?)? = null,
+    onMarked: ((androidx.compose.ui.geometry.Rect) -> Unit)? = null,
 ) {
     val speaker = LocalSpeaker.current
     // a lookup ([onWord]: a cheat sheet's card) needs to know what's Slovene, not a voice to say it
@@ -173,6 +176,7 @@ fun Markdown(
     val line: @Composable (String, TextStyle, FontWeight?, Modifier) -> Unit = { s, style, weight, m ->
         val mark = if (at >= 0) marked?.invoke(at) else null
         if (block != null) block(inlineMarkdown(s, mark = mark), style.merge(TextStyle(color = color, fontWeight = weight)), m)
+        else if (mark != null && onMarked != null) MarkedText(inlineMarkdown(s, speak, look, mark = mark), m, color, style, weight, onMarked)
         else Text(inlineMarkdown(s, speak, look, mark = mark), m, color = color, style = style, fontWeight = weight)
     }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -228,6 +232,28 @@ fun Markdown(
             }
         }
     }
+}
+
+/**
+ * A line with a part marked ([MARK]): where that part is on the screen goes to [onMarked] (root px, as much of it as
+ * shows), for the teacher's pointer on the school's stage.
+ */
+@Composable
+private fun MarkedText(styled: AnnotatedString, modifier: Modifier, color: Color, style: TextStyle, weight: FontWeight?, onMarked: (androidx.compose.ui.geometry.Rect) -> Unit) {
+    val laid = androidx.compose.runtime.remember { arrayOfNulls<androidx.compose.ui.text.TextLayoutResult>(1) }
+    Text(
+        styled,
+        modifier.onGloballyPositioned { c ->
+            val l = laid[0] ?: return@onGloballyPositioned
+            val spans = styled.spanStyles.filter { it.item == MARK }
+            if (spans.isEmpty()) return@onGloballyPositioned
+            val r = l.getPathForRange(spans.minOf { it.start }, spans.maxOf { it.end }.coerceAtMost(styled.length)).getBounds()
+            val seen = c.boundsInRoot()
+            val at = androidx.compose.ui.geometry.Rect(c.localToRoot(r.topLeft), c.localToRoot(r.bottomRight))
+            onMarked(if (at.overlaps(seen)) at.intersect(seen) else androidx.compose.ui.geometry.Rect.Zero)
+        },
+        color = color, style = style, fontWeight = weight, onTextLayout = { laid[0] = it },
+    )
 }
 
 /** A bordered grid; scrolls sideways when wider than the bubble instead of squeezing the cells. */

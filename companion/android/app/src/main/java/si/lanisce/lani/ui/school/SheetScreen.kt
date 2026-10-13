@@ -108,8 +108,12 @@ private fun SheetFinish(vm: AppViewModel, unit: CourseUnit, kind: SheetKind, don
     val s = vm.game.state
     val course = vm.school.course
     val next = if (s != null && course != null) School.next(s, course) else null
+    // the test passed: the teacher cheers, claps, then smiles (still with the system's animations off)
+    val teacher = remember { vm.school.teacher() }
+    val cheers = kind == SheetKind.TEST && done.passed && teacher != null
     Finish(
         title = heading,
+        hero = if (cheers) ({ TeacherCheer(teacher!!) }) else null,
         lines = listOfNotNull(
             title,
             "✅ $right   🟡 $almost   ❌ ${done.items.size - right - almost}",
@@ -129,3 +133,18 @@ private fun SheetFinish(vm: AppViewModel, unit: CourseUnit, kind: SheetKind, don
         }
     }
 }
+
+/** The teacher cheering a passed test: arms up and a jump, [CHEER_MS] long, then a smile; held still with the animations off. */
+@Composable
+private fun TeacherCheer(t: si.lanisce.lani.game.villagers.Villager) {
+    val reduced = si.lanisce.lani.ui.stage.rememberReducedMotion()
+    var cheering by remember { mutableStateOf(!reduced) }
+    LaunchedEffect(Unit) {
+        kotlinx.coroutines.delay(CHEER_MS)
+        cheering = false
+    }
+    TeacherPortrait(t, if (cheering) si.lanisce.lani.game.scene.Pose.CHEER else si.lanisce.lani.game.scene.Pose.HAPPY, 118.dp)
+}
+
+/** How long the teacher cheers a passed test. */
+private const val CHEER_MS = 2_600L

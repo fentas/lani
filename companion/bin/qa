@@ -2374,6 +2374,26 @@ def intro_log() -> list:
     return out
 
 
+def record_frames(name: str, start, seconds=3, fps=5, keep=(0.2, 0.45, 0.7, 1.0, 1.6)):
+    """[start] (a tap) with the screen recorded for [seconds]; the frames at the times [keep] (s) from then kept as shots
+    ([name]-1 …): a moment shorter than a screenshot takes (the teacher's walk-in, about a second)."""
+    remote = "/sdcard/qa-moment.mp4"
+    rec = subprocess.Popen(["adb", *(("-s", SERIAL) if SERIAL else ()), "shell", "screenrecord", "--time-limit", str(seconds), remote])
+    time.sleep(0.6)  # the recorder up before the moment
+    start()
+    rec.wait(timeout=seconds + 10)
+    local = OUT / f"{name}.mp4"
+    adb("pull", remote, str(local), check=False)
+    adb("shell", "rm", "-f", remote, check=False)
+    if not local.exists():
+        return
+    for k, t in enumerate(keep, 1):
+        path = OUT / f"{len(shots) + 1:02d}-{name}-{k}.png"
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", f"{0.6 + t:.2f}", "-i", str(local), "-frames:v", "1", str(path)], check=False)
+        if path.exists():
+            shots.append(path)
+
+
 def intro_reading(first_text: str):
     """The intro's step read aloud as it appears (COURSE.md "Read aloud"): a shot as each piece begins (what is read
     marked, Mojca talking), its pieces in order from the log (the explanation's clip, else its English by the phone's voice and
@@ -2386,7 +2406,13 @@ def intro_reading(first_text: str):
         now = intro_log()
         if len(now) != len(got):
             got, changed = now, time.time()
+            time.sleep(0.35)  # the pointer at its new target
             shot(f"school-intro-reading-{got[-1]['n']}")
+            # Mojca's pointer on the table's row of the form read, then on the example read
+            if got[-1]["text"] == "jaz sem":
+                shot("school-pointer-row")
+            if got[-1]["text"].startswith("Jaz sem "):
+                shot("school-pointer-example")
         if got and (got[-1]["n"] == got[-1]["of"] or time.time() - changed > 12 * slow()):
             break
         time.sleep(0.3)
@@ -2435,9 +2461,12 @@ def school():
     assert tap("Biti: sem, si, je", 5), "the unit biti"
     assert wait_for("Delovni listi", 8), "the unit"
     shot("school-unit")
-    # the intro, step by step: a quick question each, the table growing; the first step read aloud as it appears
+    # the intro, step by step: a quick question each, the table growing; the lesson begins with Mojca walking in (the
+    # screen recorded through it), then the first step read aloud as it appears
     adb("logcat", "-c")
-    assert tap("Naprej: Uvod", 4) or tap("Uvod · Introduction", 3), "the intro"
+    c = find("Naprej: Uvod") or find("Uvod · Introduction")
+    assert c is not None, "the intro"
+    record_frames("school-walk-in", lambda: tap_at(c))
     assert wait_for("Korak 1/4", 8), "the intro's first step"
     intro_reading("Biti")
     for i, (kind, answer) in enumerate([("tap", "je"), ("otroci = oni", "so"), ("tap", "sta"), ("je → ?", "ni")], 1):
@@ -2539,9 +2568,11 @@ def school():
     c = ([c for t, c in nodes() if t == "Ste"] or [None])[-1]
     assert c is not None, "the test's choice"
     tap_at(c)
-    assert tap("Naprej · Next", 6), "on"
+    # the test's end: Mojca cheers for a moment (the screen recorded through it)
+    assert wait_for("Naprej · Next", 6), "on"
+    nxt = find("Naprej · Next")
+    record_frames("school-test-cheer", lambda: tap_at(nxt), seconds=5, keep=(0.6, 1.2, 1.8, 2.4, 3.6))
     assert wait_for("Enota opravljena", 10), "the test passed: the unit done"
-    time.sleep(2)
     shot("school-test-passed")
     assert tap("Naprej · Continue", 4), "back to the unit"
     assert wait_for("Enota je opravljena", 8), "the unit done"

@@ -106,7 +106,26 @@ enum class Pose {
 interface PortraitPainter {
     /** [seed] varies a sprite per person (hair, clothes) for the village's own people: their id's hash. */
     fun render(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float = 12f, seed: Int = 0)
+
+    /**
+     * As [render], on the school's stage ([StagePose]): turned and reaching toward a point, walking in from the side.
+     * Where the near hand is on the canvas (where a pointer it holds starts), or null without one (a stand-in painter).
+     */
+    fun renderStage(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose): StageHand? {
+        render(canvas, art, pose, time, hour, seed)
+        return null
+    }
 }
+
+/**
+ * How someone stands on the school's stage (the teacher of a unit's introduction): [aim] the canvas point they point at
+ * (it may lie outside the canvas: the content below the stage), null pointing at nothing (facing the learner, the book in
+ * hand); [shift] canvas pixels from their place (a walk-in from the side), [walking] while they come.
+ */
+data class StagePose(val aim: Pair<Float, Float>? = null, val shift: Int = 0, val walking: Boolean = false)
+
+/** The near hand on the canvas, its pixel's centre ([x], [y]), and whether they face left ([flip]). */
+data class StageHand(val x: Float, val y: Float, val flip: Boolean)
 
 /** The portrait painter: the art's (see game/render/scene/Portraits.kt); replaceable for tests. */
 object Portraits {

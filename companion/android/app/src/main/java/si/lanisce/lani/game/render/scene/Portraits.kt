@@ -7,6 +7,8 @@ import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.PixelCanvas
 import si.lanisce.lani.game.scene.PortraitPainter
 import si.lanisce.lani.game.scene.Pose
+import si.lanisce.lani.game.scene.StageHand
+import si.lanisce.lani.game.scene.StagePose
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -27,22 +29,24 @@ internal class PortraitsPainter : PortraitPainter {
     private val edge = BooleanArray(SPRITE_W * SPRITE_H)
 
     override fun render(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int) {
+        paint(canvas, art, pose, time, hour, seed, null)
+    }
+
+    /**
+     * The school's stage ([StagePose]): turned toward [StagePose.aim], the near arm reaching that way (the hand free: the
+     * pointer is the caller's, drawn from the hand returned), the book back in hand without one; shifted and walking in.
+     */
+    override fun renderStage(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose): StageHand =
+        paint(canvas, art, pose, time, hour, seed, stage)
+
+    private fun paint(canvas: PixelCanvas, art: String, pose: Pose, time: Double, hour: Float, seed: Int, stage: StagePose?): StageHand {
         val w = canvas.width; val h = canvas.height
         canvas.reset(0)
         backdrop(canvas, Env(hour, 6, false))
 
-        // the sprite at its own size, then its outline
-        val sp = sprite
-        sp.reset(0)
-        sp.penId = 1
-        val bx = SPRITE_W / 2; val by = SPRITE_H - 2
-        // a bust: asleep, they doze where they stand
-        people.draw(sp, art, bx, by, time, seed, talking = false, flip = false, walking = false, seated = false, pose = pose, upright = true)
-        sp.penId = 0
-        outline(sp)
-
         // framing: the waist at the bottom edge (a baby: its basket), but never the hat cut off
         val L = Looks.of(art, seed)
+        val bx = SPRITE_W / 2; val by = SPRITE_H - 2
         // a whole number of times bigger; a canvas nearly big enough for the next step takes it (the waist may go)
         val s = max(1, (min(w, h) + 8) / 30)
         val cut = if (art == "baby") by + 1 else by - L.legH + 1
@@ -51,8 +55,26 @@ internal class PortraitsPainter : PortraitPainter {
             L.hat == Looks.HAT_FELT -> 5; L.hat == Looks.HAT_STRAW || L.hat == Looks.HAT_VEIL -> 4
             else -> if (L.hairStyle == Looks.HAIR_BUN) 5 else 2
         }
-        val dx = w / 2 - bx * s - s / 2
+        val dx = w / 2 - bx * s - s / 2 + (stage?.shift ?: 0)
         val dy = max(h - cut * s, 1 - headTop * s)
+
+        // on the stage: turned toward what they point at, the near hand reaching that way from the shoulder
+        val aim = stage?.aim?.let { (ax, ay) -> (ax - dx) / s to (ay - dy) / s } // in the sprite's pixels
+        val reach = aim?.let { (ax, ay) -> StageReach.of(bx, by, L.torsoW, L.legH, L.torsoH, ax, ay) }
+
+        // the sprite at its own size, then its outline
+        val sp = sprite
+        sp.reset(0)
+        sp.penId = 1
+        // a bust: asleep, they doze where they stand
+        people.draw(
+            sp, art, bx, by, time, seed, talking = false, flip = reach?.flip ?: false, walking = stage?.walking == true, seated = false,
+            pose = pose, upright = true, reach = reach?.let { intArrayOf(it.x, it.y) }, holding = reach != null,
+        )
+        val hx = people.heldX; val hy = people.heldY
+        sp.penId = 0
+        outline(sp)
+
         val ids = sp.ids; val px = sp.pixels
         for (y in 0 until SPRITE_H) {
             val cy = y * s + dy
@@ -63,6 +85,9 @@ internal class PortraitsPainter : PortraitPainter {
                 canvas.block(x * s + dx, cy, s, px[i])
             }
         }
+        // the hand: its 2×2 pixels' middle (to the left of its column when it faces left)
+        val flip = reach?.flip ?: false
+        return StageHand(((if (flip) hx else hx + 1) * s + dx).toFloat(), ((hy + 1) * s + dy).toFloat(), flip)
     }
 
     /** A 1-px dark outline round the sprite, in the sprite's own pixels (so it scales with it). */
@@ -106,5 +131,38 @@ internal class PortraitsPainter : PortraitPainter {
     private companion object {
         const val SPRITE_W = 48
         const val SPRITE_H = 60
+    }
+}
+
+/**
+ * Where a person standing at ([bx], [by]) (their feet's middle, in the sprite's pixels) reaches to point at ([ax], [ay]):
+ * the near hand [ARM] pixels from the shoulder toward it ([x], [y]), on the side it lies ([flip]: to the left), held out
+ * to the side and never much below the shoulder (a bust shows no more than the waist; the pointer goes on from the hand).
+ * Pure.
+ */
+internal data class StageReach(val x: Int, val y: Int, val flip: Boolean) {
+    companion object {
+        /** How far the hand gets from the shoulder, in the sprite's pixels: an arm stretched out. */
+        const val ARM = 8
+
+        /** The hand at least this far out to the side of the shoulder. */
+        private const val OUT = 6f
+
+        /** The hand at most this far below the shoulder. */
+        private const val LOW = 4
+
+        fun of(bx: Int, by: Int, torsoW: Int, legH: Int, torsoH: Int, ax: Float, ay: Float): StageReach {
+            val flip = ax < bx
+            val d = if (flip) -1 else 1
+            val sx = bx + d * (torsoW / 2 + 1)
+            val sy = by - legH - torsoH + 1
+            val vx = ax - sx; val vy = ay - sy
+            val len = kotlin.math.sqrt(vx * vx + vy * vy).takeIf { it > 0.01f } ?: return StageReach(sx + d * ARM, sy, flip)
+            // out to the side at least (the arm held out, not hanging), whatever the angle
+            val x = sx + (vx / len * ARM).let { if (d > 0) it.coerceAtLeast(OUT) else it.coerceAtMost(-OUT) }
+            // held out, never lower than the middle of the body (the bust ends at the waist: the hand stays in sight)
+            val y = (sy + vy / len * ARM).coerceIn((sy - ARM).toFloat(), (sy + LOW).toFloat())
+            return StageReach(kotlin.math.round(x).toInt(), kotlin.math.round(y).toInt(), flip)
+        }
     }
 }

@@ -161,9 +161,12 @@ private fun DeckSwitch(vm: AppViewModel, current: String?) {
     }
 }
 
-/** Shared end-of-run screen with confetti; with a [stage], the companion waves goodbye at the top. */
+/**
+ * Shared end-of-run screen with confetti; with a [stage], the companion waves goodbye at the top; [hero] instead of the
+ * 🏆 (the teacher cheering a unit's test passed).
+ */
 @Composable
-fun Finish(title: String, lines: List<String>, onDone: () -> Unit, stage: StageState? = null, extra: @Composable () -> Unit = {}) {
+fun Finish(title: String, lines: List<String>, onDone: () -> Unit, stage: StageState? = null, hero: (@Composable () -> Unit)? = null, extra: @Composable () -> Unit = {}) {
     Box(Modifier.fillMaxSize()) {
         // Centred, and scrollable when a small screen or a large font doesn't fit it.
         BoxWithConstraints(Modifier.fillMaxSize().safeDrawingPadding()) {
@@ -173,6 +176,7 @@ fun Finish(title: String, lines: List<String>, onDone: () -> Unit, stage: StageS
             verticalArrangement = Arrangement.Center,
         ) {
             if (stage?.finale != null) StageFinale(stage)
+            else if (hero != null) hero()
             else Text("🏆", style = MaterialTheme.typography.displayLarge)
             Spacer(Modifier.height(12.dp))
             Text(title, style = MaterialTheme.typography.headlineMedium)
