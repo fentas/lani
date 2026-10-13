@@ -1,0 +1,208 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "spol",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "⚖️",
+  "title": { "sl": "Moški, ženski, srednji spol", "en": "Masculine, feminine, neuter", "de": "Männlich, weiblich, sächlich", "it": "Maschile, femminile, neutro" },
+  "goal": {
+    "en": "You can tell a noun's gender from its end, and say dober, dobra, dobro and moj, moja, moje to go with it.",
+    "de": "Du erkennst das Geschlecht eines Nomens an seinem Ende und sagst dazu dober, dobra, dobro und moj, moja, moje.",
+    "it": "Riconosci il genere di un nome dalla sua fine e ci metti dober, dobra, dobro e moj, moja, moje."
+  },
+  "grammar": ["spol-samostalnikov", "pridevniki-ujemanje"],
+  "words": ["kruh", "stol", "šotor", "kozolec", "miza", "hiša", "kava", "ovca", "mleko", "okno", "jajce", "jabolko", "oče", "vas", "noč", "morje", "dober", "svež", "velik", "nov", "star", "rdeč", "moj", "ta"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "spol", "en": "gender", "de": "Geschlecht", "it": "genere" },
+        { "sl": "končnica", "en": "ends in", "de": "endet auf", "it": "finisce in" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Every Slovene noun is **masculine**, **feminine** or **neuter** (spol). You can hear it at the end of the word. Words in **-a** are feminine: **miza** (table), **hiša** (house), **kava** (coffee).",
+          "de": "Jedes slowenische Nomen ist **männlich**, **weiblich** oder **sächlich** (spol). Man hört es am Ende des Wortes. Wörter auf **-a** sind weiblich: **miza** (Tisch), **hiša** (Haus), **kava** (Kaffee).",
+          "it": "Ogni nome sloveno è **maschile**, **femminile** o **neutro** (spol). Lo senti alla fine della parola. Le parole in **-a** sono femminili: **miza** (tavolo), **hiša** (casa), **kava** (caffè)."
+        },
+        "examples": [
+          { "sl": "To je moja hiša.", "en": "This is my house.", "de": "Das ist mein Haus.", "it": "Questa è la mia casa." }
+        ],
+        "rows": [[{ "sl": "ženski", "en": "feminine", "de": "weiblich", "it": "femminile" }, "-a", "miza, hiša, kava"]],
+        "ask": {
+          "type": "choice", "grammar": "spol-samostalnikov", "prompt": "»smreka« (a spruce)", "instruction": "Kakšnega spola? · Which gender?",
+          "options": ["moški · masculine", "ženski · feminine", "srednji · neuter"], "answer": 1,
+          "explain": "smreka ends in **-a**: feminine (ženski spol)."
+        }
+      },
+      {
+        "say": {
+          "en": "Words that end in a **consonant** are masculine: **kruh** (bread), **stol** (chair), **šotor** (tent).",
+          "de": "Wörter, die auf einen **Konsonanten** enden, sind männlich: **kruh** (Brot), **stol** (Stuhl), **šotor** (Zelt).",
+          "it": "Le parole che finiscono in **consonante** sono maschili: **kruh** (pane), **stol** (sedia), **šotor** (tenda)."
+        },
+        "examples": [
+          { "sl": "Kruh je svež.", "en": "The bread is fresh.", "de": "Das Brot ist frisch.", "it": "Il pane è fresco." }
+        ],
+        "rows": [[{ "sl": "moški", "en": "masculine", "de": "männlich", "it": "maschile" }, { "en": "a consonant", "de": "Konsonant", "it": "consonante" }, "kruh, stol, šotor"]],
+        "ask": {
+          "type": "choice", "grammar": "spol-samostalnikov", "prompt": "»kozolec« (a hayrack)", "instruction": "Kakšnega spola? · Which gender?",
+          "options": ["moški · masculine", "ženski · feminine", "srednji · neuter"], "answer": 0,
+          "explain": "kozolec ends in a consonant (c): masculine (moški spol)."
+        }
+      },
+      {
+        "say": {
+          "en": "Words in **-o** or **-e** are neuter: **mleko** (milk), **okno** (window), **jajce** (egg), **morje** (sea).",
+          "de": "Wörter auf **-o** oder **-e** sind sächlich: **mleko** (Milch), **okno** (Fenster), **jajce** (Ei), **morje** (Meer).",
+          "it": "Le parole in **-o** o **-e** sono neutre: **mleko** (latte), **okno** (finestra), **jajce** (uovo), **morje** (mare)."
+        },
+        "examples": [
+          { "sl": "Mleko je sveže.", "en": "The milk is fresh.", "de": "Die Milch ist frisch.", "it": "Il latte è fresco." }
+        ],
+        "rows": [[{ "sl": "srednji", "en": "neuter", "de": "sächlich", "it": "neutro" }, "-o, -e", "mleko, okno, jajce"]],
+        "ask": {
+          "type": "choice", "grammar": "spol-samostalnikov", "prompt": "»jabolko« (an apple)", "instruction": "Kakšnega spola? · Which gender?",
+          "options": ["moški · masculine", "ženski · feminine", "srednji · neuter"], "answer": 2,
+          "explain": "jabolko ends in **-o**: neuter (srednji spol)."
+        }
+      },
+      {
+        "say": {
+          "en": "The gender changes the words around the noun. A masculine noun takes **dober, moj, ta**, a feminine one **dobra, moja, ta**, a neuter one **dobro, moje, to**: **dober kruh, dobra kava, dobro mleko**. After č, š, ž, c and j the neuter has **-e**: **sveže mleko**.",
+          "de": "Das Geschlecht ändert die Wörter um das Nomen. Ein männliches Nomen nimmt **dober, moj, ta**, ein weibliches **dobra, moja, ta**, ein sächliches **dobro, moje, to**: **dober kruh, dobra kava, dobro mleko**. Nach č, š, ž, c und j hat das Sächliche **-e**: **sveže mleko**.",
+          "it": "Il genere cambia le parole intorno al nome. Un nome maschile prende **dober, moj, ta**, uno femminile **dobra, moja, ta**, uno neutro **dobro, moje, to**: **dober kruh, dobra kava, dobro mleko**. Dopo č, š, ž, c e j il neutro ha **-e**: **sveže mleko**."
+        },
+        "examples": [
+          { "sl": "Dobro jutro!", "en": "Good morning! (jutro is neuter)", "de": "Guten Morgen! (jutro ist sächlich)", "it": "Buongiorno! (jutro è neutro)" },
+          { "sl": "To je dobra kava.", "en": "This is good coffee.", "de": "Das ist guter Kaffee.", "it": "Questo è un buon caffè." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pridevniki-ujemanje", "text": "To je ___ kava. (dober)", "accept": ["dobra"], "hint": "kava: -a",
+          "explain": "kava is feminine: **dobra** kava."
+        }
+      },
+      {
+        "say": {
+          "en": "A few words don't follow their end. **Oče** (father) and men's names like **Luka** are masculine: they're men. A few feminine words end in a consonant: **vas** (village), **noč** (night), **peč** (stove). Learn them with an adjective: **dober oče, lepa vas**.",
+          "de": "Ein paar Wörter folgen ihrem Ende nicht. **Oče** (Vater) und Männernamen wie **Luka** sind männlich: Es sind Männer. Ein paar weibliche Wörter enden auf einen Konsonanten: **vas** (Dorf), **noč** (Nacht), **peč** (Ofen). Lerne sie mit einem Adjektiv: **dober oče, lepa vas**.",
+          "it": "Alcune parole non seguono la loro fine. **Oče** (padre) e i nomi di uomo come **Luka** sono maschili: sono uomini. Alcune parole femminili finiscono in consonante: **vas** (paese), **noč** (notte), **peč** (stufa). Imparale con un aggettivo: **dober oče, lepa vas**."
+        },
+        "examples": [
+          { "sl": "Luka je dober pastir.", "en": "Luka is a good shepherd.", "de": "Luka ist ein guter Hirte.", "it": "Luka è un bravo pastore." },
+          { "sl": "Naša vas je lepa.", "en": "Our village is beautiful.", "de": "Unser Dorf ist schön.", "it": "Il nostro paese è bello." }
+        ],
+        "rows": [[{ "sl": "ženski", "en": "feminine (a few)", "de": "weiblich (einige)", "it": "femminile (alcuni)" }, { "en": "a consonant", "de": "Konsonant", "it": "consonante" }, "vas, noč, peč"]],
+        "ask": {
+          "type": "choice", "grammar": "spol-samostalnikov", "prompt": "»oče« (a father)", "instruction": "Kakšnega spola? · Which gender?",
+          "options": ["moški · masculine", "ženski · feminine", "srednji · neuter"], "answer": 0,
+          "explain": "A father is a man: **oče** is masculine, though it ends in -e. Dober oče."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "spol-1",
+      "title": { "sl": "Razvrsti po spolu", "en": "Sort by gender", "de": "Nach Geschlecht sortieren", "it": "Ordina per genere" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "spol-samostalnikov", "instruction": "Razvrsti po spolu · Sort by gender",
+          "columns": [
+            { "label": "moški · masculine", "words": ["kruh", "stol", "šotor", "kozolec"] },
+            { "label": "ženski · feminine", "words": ["miza", "hiša", "kava", "ovca"] },
+            { "label": "srednji · neuter", "words": ["mleko", "okno", "jajce", "jabolko"] }
+          ],
+          "explain": "A consonant: masculine. -a: feminine. -o, -e: neuter."
+        },
+        {
+          "type": "sort", "grammar": "spol-samostalnikov", "instruction": "Pazi na izjeme · Mind the exceptions",
+          "columns": [
+            { "label": "moški · masculine", "words": ["oče", "dan", "sir"] },
+            { "label": "ženski · feminine", "words": ["vas", "noč", "sestra"] },
+            { "label": "srednji · neuter", "words": ["morje", "polje", "vino"] }
+          ],
+          "explain": "oče is masculine (a man) though it ends in -e; vas and noč are feminine though they end in a consonant."
+        }
+      ]
+    },
+    {
+      "id": "spol-2",
+      "title": { "sl": "Dober, dobra, dobro", "en": "Dober, dobra, dobro", "de": "Dober, dobra, dobro", "it": "Dober, dobra, dobro" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "pridevniki-ujemanje", "instruction": "Dopolni s pravo obliko · Fill in the right form", "title": "V babičini kuhinji",
+          "text": "To je ___ (moj) hiša. V kuhinji je ___ (velik) miza. Na mizi sta ___ (svež) kruh in ___ (svež) mleko. Tam je tudi ___ (rdeč) jabolko. »___ (dober) jutro, babica!«",
+          "gaps": [
+            { "accept": ["moja"], "hint": "hiša: -a", "explain": "hiša is feminine: moja hiša." },
+            { "accept": ["velika"], "hint": "miza: -a", "explain": "miza is feminine: velika miza." },
+            { "accept": ["svež"], "hint": "kruh: a consonant", "explain": "kruh is masculine: svež kruh, no ending." },
+            { "accept": ["sveže"], "hint": "mleko: -o; after ž …", "explain": "mleko is neuter, and after ž the neuter takes -e: sveže mleko." },
+            { "accept": ["rdeče"], "hint": "jabolko: -o; after č …", "explain": "jabolko is neuter, and after č the neuter takes -e: rdeče jabolko." },
+            { "accept": ["Dobro"], "hint": "jutro: -o", "explain": "jutro is neuter: dobro jutro." }
+          ],
+          "bank": true, "distractors": ["moj", "velik", "dobra"],
+          "translation": "This is my house. In the kitchen there's a big table. On the table there are fresh bread and fresh milk. There's a red apple too. \"Good morning, Granny!\""
+        }
+      ]
+    },
+    {
+      "id": "spol-3",
+      "title": { "sl": "Ta, ta, to", "en": "Ta, ta, to", "de": "Ta, ta, to", "it": "Ta, ta, to" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "pridevniki-ujemanje", "instruction": "Zamenjaj samostalnik v oklepaju · Put in the noun in brackets",
+          "items": [
+            { "from": "To je moj brat. (sestra)", "accept": ["To je moja sestra."], "hint": "sestra: -a" },
+            { "from": "Kruh je svež. (mleko)", "accept": ["Mleko je sveže."], "hint": "mleko: -o, after ž" },
+            { "from": "Ta stol je velik. (miza)", "accept": ["Ta miza je velika."], "hint": "miza: -a" },
+            { "from": "To okno je staro. (šotor)", "accept": ["Ta šotor je star."], "hint": "šotor: a consonant" },
+            { "from": "Moja hiša je nova. (kozolec)", "accept": ["Moj kozolec je nov."], "hint": "kozolec: a consonant" },
+            { "from": "Dober dan! (jutro)", "accept": ["Dobro jutro!"], "hint": "jutro: -o" }
+          ],
+          "explain": "ta stol, ta miza, to okno · dober, dobra, dobro · moj, moja, moje."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort", "grammar": "spol-samostalnikov", "instruction": "Razvrsti po spolu · Sort by gender",
+        "columns": [
+          { "label": "moški · masculine", "words": ["sir", "šotor"] },
+          { "label": "ženski · feminine", "words": ["kava", "noč"] },
+          { "label": "srednji · neuter", "words": ["vino", "morje"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "pridevniki-ujemanje", "instruction": "Dopolni s pravo obliko · Fill in the right form",
+        "text": "To je ___ (moj) brat. ___ (moj) sestra je doma. Kava je ___ (dober). Mleko je ___ (svež).",
+        "gaps": [
+          { "accept": ["moj"] },
+          { "accept": ["Moja"] },
+          { "accept": ["dobra"] },
+          { "accept": ["sveže"] }
+        ],
+        "translation": "This is my brother. My sister is at home. The coffee is good. The milk is fresh."
+      },
+      {
+        "type": "transform", "grammar": "pridevniki-ujemanje", "instruction": "Zamenjaj samostalnik v oklepaju · Put in the noun in brackets",
+        "items": [
+          { "from": "Ta miza je nova. (stol)", "accept": ["Ta stol je nov."] },
+          { "from": "Moj kruh je svež. (jajce)", "accept": ["Moje jajce je sveže."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "spol-samostalnikov", "prompt": "»vas« (a village)", "instruction": "Kakšnega spola? · Which gender?",
+        "options": ["moški · masculine", "ženski · feminine", "srednji · neuter"], "answer": 1,
+        "explain": "vas is one of the few feminine words that end in a consonant: lepa vas."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}

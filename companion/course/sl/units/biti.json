@@ -1,0 +1,226 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "biti",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🟰",
+  "title": { "sl": "Biti: sem, si, je", "en": "To be: sem, si, je", "de": "Sein: sem, si, je", "it": "Essere: sem, si, je" },
+  "goal": {
+    "en": "You can say who you are, where people are, and that they aren't.",
+    "de": "Du kannst sagen, wer du bist, wo Leute sind und dass sie es nicht sind.",
+    "it": "Sai dire chi sei, dove sono le persone e che non ci sono."
+  },
+  "grammar": ["biti", "zanikanje", "dvojina"],
+  "words": ["doma", "kuhinja", "vrt", "njiva", "šola", "pašnik", "kovačnica", "lipa", "prijatelj", "lačen", "utrujen", "svež", "nedelja", "tukaj"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "biti", "en": "to be", "de": "sein", "it": "essere" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Biti** (to be) has a short form for each person, and Slovene never leaves it out. One person first: **jaz sem** (I am), **ti si** (you are), **on, ona, ono je** (he, she, it is). The pronoun is usually dropped: the form already says who.",
+          "de": "**Biti** (sein) hat für jede Person eine kurze Form, und das Slowenische lässt es nie weg. Zuerst eine Person: **jaz sem** (ich bin), **ti si** (du bist), **on, ona, ono je** (er, sie, es ist). Das Pronomen fällt meist weg: Die Form sagt schon, wer.",
+          "it": "**Biti** (essere) ha una forma breve per ogni persona, e lo sloveno non lo omette mai. Prima una persona: **jaz sem** (io sono), **ti si** (tu sei), **on, ona, ono je** (lui, lei, esso è). Il pronome di solito cade: la forma dice già chi."
+        },
+        "examples": [
+          { "sl": "Jaz sem {learner}.", "en": "I am {learner}.", "de": "Ich bin {learner}.", "it": "Io sono {learner}." },
+          { "sl": "Babica Micka je v kuhinji.", "en": "Granny Micka is in the kitchen.", "de": "Oma Micka ist in der Küche.", "it": "Nonna Micka è in cucina." }
+        ],
+        "rows": [["jaz", "sem"], ["ti", "si"], ["on, ona, ono", "je"]],
+        "ask": {
+          "type": "choice", "grammar": "biti", "prompt": "Luka ___ na pašniku.", "options": ["sem", "si", "je"], "answer": 2, "say_options": true,
+          "explain": "Luka is one person, on (he): **je**. Luka je na pašniku: Luka is on the pasture."
+        }
+      },
+      {
+        "say": {
+          "en": "Three or more: **mi smo** (we are), **vi ste** (you are: several of you, or one person you say vi to), **oni so** (they are). Three words to learn: **smo, ste, so**.",
+          "de": "Drei oder mehr: **mi smo** (wir sind), **vi ste** (ihr seid, oder eine Person, die man siezt), **oni so** (sie sind). Drei Wörter zum Lernen: **smo, ste, so**.",
+          "it": "Tre o più: **mi smo** (noi siamo), **vi ste** (voi siete, o una persona a cui si dà del Lei), **oni so** (loro sono). Tre parole da imparare: **smo, ste, so**."
+        },
+        "examples": [
+          { "sl": "Otroci so na vrtu.", "en": "The children are in the garden.", "de": "Die Kinder sind im Garten.", "it": "I bambini sono in giardino." },
+          { "sl": "Ste iz Ljubljane?", "en": "Are you from Ljubljana? (polite)", "de": "Sind Sie aus Ljubljana?", "it": "Lei è di Lubiana?" }
+        ],
+        "rows": [["mi", "smo"], ["vi", "ste"], ["oni, one, ona", "so"]],
+        "ask": {
+          "type": "cloze", "grammar": "biti", "text": "Otroci ___ v šoli.", "accept": ["so"], "hint": "otroci = oni",
+          "explain": "Otroci (the children) are three or more, oni: **so**."
+        }
+      },
+      {
+        "say": {
+          "en": "Slovene has a form for exactly **two**, the dual (dvojina): **midva sva** (we two are), **vidva sta** (you two are), **onadva sta** (the two of them are). Two people with *in* (and) take it too: **Luka in Tine sta …**",
+          "de": "Das Slowenische hat eine Form für genau **zwei**, den Dual (dvojina): **midva sva** (wir zwei sind), **vidva sta** (ihr zwei seid), **onadva sta** (die zwei sind). Zwei Personen mit *in* (und) nehmen sie auch: **Luka in Tine sta …**",
+          "it": "Lo sloveno ha una forma per esattamente **due**, il duale (dvojina): **midva sva** (noi due siamo), **vidva sta** (voi due siete), **onadva sta** (loro due sono). Anche due persone con *in* (e) la prendono: **Luka in Tine sta …**"
+        },
+        "examples": [
+          { "sl": "Midva sva doma.", "en": "We two are at home.", "de": "Wir zwei sind zu Hause.", "it": "Noi due siamo a casa." },
+          { "sl": "Luka in Tine sta pri ribniku.", "en": "Luka and Tine are by the pond.", "de": "Luka und Tine sind am Teich.", "it": "Luka e Tine sono allo stagno." }
+        ],
+        "rows": [["midva", "sva"], ["vidva", "sta"], ["onadva", "sta"]],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "Micka in France ___ na njivi.", "options": ["so", "sta", "sva"], "answer": 1, "say_options": true,
+          "explain": "Micka and France are two: **sta**. Three or more would be *so*."
+        }
+      },
+      {
+        "say": {
+          "en": "To say **no**, *ne* and the form melt into one word: **nisem, nisi, ni**; **nismo, niste, niso**; for two **nisva, nista**. Never *ne sem*.",
+          "de": "Für **nein** verschmelzen *ne* und die Form zu einem Wort: **nisem, nisi, ni**; **nismo, niste, niso**; für zwei **nisva, nista**. Nie *ne sem*.",
+          "it": "Per dire **no**, *ne* e la forma si fondono in una parola: **nisem, nisi, ni**; **nismo, niste, niso**; per due **nisva, nista**. Mai *ne sem*."
+        },
+        "examples": [
+          { "sl": "Nisem {m:utrujen|f:utrujena}.", "en": "I'm not tired.", "de": "Ich bin nicht müde.", "it": "Non sono {m:stanco|f:stanca}." },
+          { "sl": "Kruh ni svež.", "en": "The bread isn't fresh.", "de": "Das Brot ist nicht frisch.", "it": "Il pane non è fresco." }
+        ],
+        "rows": [["jaz", "nisem"], ["ti", "nisi"], ["on, ona, ono", "ni"], ["mi", "nismo"], ["vi", "niste"], ["oni, one, ona", "niso"]],
+        "ask": {
+          "type": "cloze", "grammar": "zanikanje", "text": "Babica ___ doma, je na vrtu.", "accept": ["ni"], "hint": "je → ?",
+          "explain": "je → **ni**: Babica ni doma, je na vrtu (Granny isn't at home, she's in the garden)."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "biti-1",
+      "title": { "sl": "Tabela: biti", "en": "The table: biti", "de": "Die Tabelle: biti", "it": "La tabella: biti" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "biti", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "biti · to be", "lemma": "biti",
+          "columns": ["ednina · one", "dvojina · two", "množina · more"],
+          "rows": [
+            { "label": "jaz · midva · mi", "cells": ["sem", { "accept": ["sva"], "form": "pres.1du", "hint": "midva" }, { "accept": ["smo"], "form": "pres.1pl", "hint": "mi" }] },
+            { "label": "ti · vidva · vi", "cells": [{ "accept": ["si"], "form": "pres.2sg", "hint": "ti" }, "sta", { "accept": ["ste"], "form": "pres.2pl", "hint": "vi" }] },
+            { "label": "on · onadva · oni", "cells": [{ "accept": ["je"], "form": "pres.3sg", "hint": "on, ona, ono" }, { "accept": ["sta"], "form": "pres.3du", "hint": "onadva: as vidva" }, "so"] }
+          ],
+          "explain": "sem, si, je · sva, sta, sta · smo, ste, so."
+        },
+        {
+          "type": "table", "grammar": "zanikanje", "instruction": "Dopolni: ne · Fill in: no", "prompt": "nisem, nisi …", "lemma": "biti",
+          "columns": ["ne · no"],
+          "rows": [
+            { "label": "jaz", "cells": ["nisem"] },
+            { "label": "ti", "cells": [{ "accept": ["nisi"], "form": "neg.2sg", "hint": "si → ?" }] },
+            { "label": "on, ona, ono", "cells": [{ "accept": ["ni"], "form": "neg.3sg", "hint": "je → ?" }] },
+            { "label": "mi", "cells": [{ "accept": ["nismo"], "form": "neg.1pl", "hint": "smo → ?" }] },
+            { "label": "vi", "cells": [{ "accept": ["niste"], "form": "neg.2pl", "hint": "ste → ?" }] },
+            { "label": "oni", "cells": [{ "accept": ["niso"], "form": "neg.3pl", "hint": "so → ?" }] }
+          ],
+          "explain": "ni + the ending: nisem, nisi, ni, nismo, niste, niso. Je has the shortest: ni."
+        },
+        {
+          "type": "choice", "grammar": "dvojina", "instruction": "Izberi · Choose", "prompt": "Vidva ___ prijatelja.", "options": ["ste", "sta", "sva"], "answer": 1, "say_options": true,
+          "explain": "vidva (you two): **sta**. Prijatelja is two friends."
+        },
+        {
+          "type": "choice", "grammar": "biti", "instruction": "Izberi · Choose", "prompt": "Mi ___ pri lipi.", "options": ["smo", "so", "sva"], "answer": 0, "say_options": true,
+          "explain": "mi (we, three or more): **smo**."
+        }
+      ]
+    },
+    {
+      "id": "biti-2",
+      "title": { "sl": "Nedelja v vasi", "en": "Sunday in the village", "de": "Sonntag im Dorf", "it": "Domenica in paese" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "biti", "instruction": "Dopolni z glagolom biti · Fill in with biti", "title": "Pri babici Micki",
+          "text": "Danes ___ nedelja. Babica Micka ___ v kuhinji. Zala in Tine ___ na vrtu. Nejc, Zala in Tine ___ prijatelji. Jaz ___ tudi tukaj. Tine, ___ lačen?",
+          "gaps": [
+            { "accept": ["je"], "hint": "nedelja: one thing" },
+            { "accept": ["je"], "hint": "babica = ona" },
+            { "accept": ["sta"], "hint": "two people", "grammar": "dvojina", "explain": "Zala and Tine are two: sta." },
+            { "accept": ["so"], "hint": "three people", "explain": "Nejc, Zala and Tine are three: so." },
+            { "accept": ["sem"], "hint": "jaz" },
+            { "accept": ["si"], "hint": "Tine, you …", "explain": "You speak to Tine: ti si. Tine, si lačen? (are you hungry?)" }
+          ],
+          "bank": true, "distractors": ["sva", "ste"],
+          "translation": "Today is Sunday. Granny Micka is in the kitchen. Zala and Tine are in the garden. Nejc, Zala and Tine are friends. I'm here too. Tine, are you hungry?"
+        },
+        {
+          "type": "gaptext", "grammar": "biti", "instruction": "Dopolni · Fill in", "title": "Kje so vsi?",
+          "text": "Luka ___ na pašniku. Kovač Tone ___ v kovačnici. France in Anton ___ na njivi. Mi ___ pri lipi. »Vi ___ iz Avstrije?« »Ne, ___ iz Nemčije.«",
+          "gaps": [
+            { "accept": ["je"], "hint": "Luka = on" },
+            { "accept": ["je"], "hint": "Tone = on" },
+            { "accept": ["sta"], "hint": "two people", "grammar": "dvojina" },
+            { "accept": ["smo"], "hint": "mi" },
+            { "accept": ["ste"], "hint": "vi", "explain": "vi: ste. One person you say vi to takes it too." },
+            { "accept": ["sem"], "hint": "jaz (dropped)", "explain": "The answer leaves jaz out: (jaz) sem iz Nemčije." }
+          ],
+          "translation": "Luka is on the pasture. Tone the smith is in the smithy. France and Anton are in the field. We are at the linden. \"Are you from Austria?\" \"No, I'm from Germany.\""
+        }
+      ]
+    },
+    {
+      "id": "biti-3",
+      "title": { "sl": "Ne, ni res!", "en": "No, it isn't true!", "de": "Nein, stimmt nicht!", "it": "No, non è vero!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "zanikanje", "instruction": "Zanikaj · Say it with no", "cue": "ne",
+          "items": [
+            { "from": "Sem doma.", "accept": ["Nisem doma."], "hint": "sem → ?", "lemma": "biti", "form": "neg.1sg" },
+            { "from": "Babica je v kuhinji.", "accept": ["Babica ni v kuhinji."], "hint": "je → ?", "lemma": "biti", "form": "neg.3sg" },
+            { "from": "Otroci so v šoli.", "accept": ["Otroci niso v šoli."], "hint": "so → ?", "lemma": "biti", "form": "neg.3pl" },
+            { "from": "Ti si lačen.", "accept": ["Ti nisi lačen.", "Nisi lačen."], "hint": "si → ?", "lemma": "biti", "form": "neg.2sg" },
+            { "from": "Kruh je svež.", "accept": ["Kruh ni svež."], "lemma": "biti", "form": "neg.3sg" },
+            { "from": "Mi smo na vrtu.", "accept": ["Mi nismo na vrtu.", "Nismo na vrtu."], "hint": "smo → ?", "lemma": "biti", "form": "neg.1pl" },
+            { "from": "Midva sva iz Trnovega.", "accept": ["Midva nisva iz Trnovega.", "Nisva iz Trnovega."], "hint": "sva → ?", "grammar": "dvojina", "lemma": "biti", "form": "neg.1du" },
+            { "from": "Zala in Tine sta na vrtu.", "accept": ["Zala in Tine nista na vrtu."], "hint": "sta → ?", "grammar": "dvojina", "lemma": "biti", "form": "neg.3du" }
+          ],
+          "explain": "ne melts into biti: nisem, nisi, ni · nisva, nista · nismo, niste, niso."
+        },
+        {
+          "type": "reorder", "grammar": "zanikanje", "instruction": "Sestavi stavek · Build the sentence", "prompt": "Luka isn't at home, he's on the pasture.",
+          "tokens": ["Luka", "ni", "doma,", "je", "na", "pašniku."], "solutions": [["Luka", "ni", "doma,", "je", "na", "pašniku."]],
+          "explain": "Luka ni doma, je na pašniku."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "biti", "instruction": "Dopolni · Fill in", "prompt": "biti", "lemma": "biti",
+        "columns": ["biti"],
+        "rows": [
+          { "label": "jaz", "cells": [{ "accept": ["sem"], "form": "pres.1sg" }] },
+          { "label": "vidva", "cells": [{ "accept": ["sta"], "form": "pres.2du" }] },
+          { "label": "oni", "cells": [{ "accept": ["so"], "form": "pres.3pl" }] },
+          { "label": "ti (ne)", "cells": [{ "accept": ["nisi"], "form": "neg.2sg" }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "biti", "instruction": "Dopolni · Fill in",
+        "text": "Nejc ___ v šoli. Zala in Tine ___ doma. Mi ___ na vrtu. Jaz ___ pri lipi.",
+        "gaps": [
+          { "accept": ["je"] },
+          { "accept": ["sta"], "grammar": "dvojina" },
+          { "accept": ["smo"] },
+          { "accept": ["sem"] }
+        ],
+        "translation": "Nejc is at school. Zala and Tine are at home. We're in the garden. I'm at the linden."
+      },
+      {
+        "type": "transform", "grammar": "zanikanje", "instruction": "Zanikaj · Say it with no", "cue": "ne",
+        "items": [
+          { "from": "Mojca je doma.", "accept": ["Mojca ni doma."], "lemma": "biti", "form": "neg.3sg" },
+          { "from": "Mi smo v gozdu.", "accept": ["Mi nismo v gozdu.", "Nismo v gozdu."], "lemma": "biti", "form": "neg.1pl" },
+          { "from": "Midva sva lačna.", "accept": ["Midva nisva lačna.", "Nisva lačna."], "grammar": "dvojina", "lemma": "biti", "form": "neg.1du" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "biti", "prompt": "»___ iz Ljubljane?« (are you, polite)", "options": ["Si", "Ste", "So"], "answer": 1,
+        "explain": "To someone you say vi to: **ste**. Ste iz Ljubljane?"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker"
+}
