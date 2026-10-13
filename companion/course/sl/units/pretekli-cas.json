@@ -1,0 +1,208 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pretekli-cas",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🕰️",
+  "title": { "sl": "Preteklik: bil sem, šla sva", "en": "The past: bil sem, šla sva", "de": "Die Vergangenheit: bil sem, šla sva", "it": "Il passato: bil sem, šla sva" },
+  "goal": {
+    "en": "You can say what you and the others did and where you were (bil sem, šla je, jedli smo), and that you weren't (nisem bil).",
+    "de": "Du sagst, was du und die anderen getan habt und wo ihr wart (bil sem, šla je, jedli smo), und wo du nicht warst (nisem bil).",
+    "it": "Sai dire che cosa avete fatto tu e gli altri e dove eravate (bil sem, šla je, jedli smo), e che non c'eri (nisem bil)."
+  },
+  "grammar": ["pretekli-cas", "naslonke"],
+  "words": ["včeraj", "bil", "delal", "pil", "govoril", "imel", "bral", "pisal", "šel", "jedel", "prišel", "pekel", "speči", "spati", "sedeti", "iskati", "nedelja", "knjiga"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "moški", "en": "men, masculine", "de": "Männer, männlich", "it": "uomini, maschile" },
+        { "sl": "ženski", "en": "women, feminine", "de": "Frauen, weiblich", "it": "donne, femminile" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The past (*preteklik*) is biti (**sem, si, je** …) + the l-form of the verb: delati → **delal**. The l-form shows who did it: **delal** (a man), **delala** (a woman). {m:You say **bil sem, delal sem**; Zala says **bila sem**.|f:You say **bila sem, delala sem**; Luka says **bil sem**.}",
+          "de": "Die Vergangenheit (*preteklik*) ist biti (**sem, si, je** …) + die l-Form des Verbs: delati → **delal**. Die l-Form zeigt, wer es tat: **delal** (ein Mann), **delala** (eine Frau). {m:Du sagst **bil sem, delal sem**; Zala sagt **bila sem**.|f:Du sagst **bila sem, delala sem**; Luka sagt **bil sem**.}",
+          "it": "Il passato (*preteklik*) è biti (**sem, si, je** …) + la forma in -l del verbo: delati → **delal**. La forma in -l dice chi l'ha fatto: **delal** (un uomo), **delala** (una donna). {m:Tu dici **bil sem, delal sem**; Zala dice **bila sem**.|f:Tu dici **bila sem, delala sem**; Luka dice **bil sem**.}"
+        },
+        "examples": [
+          { "sl": "Včeraj sem {m:delal|f:delala} na vrtu.", "en": "Yesterday I worked in the garden.", "de": "Gestern habe ich im Garten gearbeitet.", "it": "Ieri ho lavorato in giardino." },
+          { "sl": "Zala je bila v šoli.", "en": "Zala was at school.", "de": "Zala war in der Schule.", "it": "Zala era a scuola." }
+        ],
+        "rows": [["jaz", "delal sem", "delala sem"], ["ti", "delal si", "delala si"], ["on / ona", "delal je", "delala je"]],
+        "ask": {
+          "type": "choice", "grammar": "pretekli-cas", "prompt": "Zala je včeraj ___ v šoli.", "options": ["bil", "bila", "bilo"], "answer": 1, "say_options": true,
+          "explain": "**Zala** → a girl → **-a**: je bila\n- Luka je bil\n- Zala je bila"
+        }
+      },
+      {
+        "say": {
+          "en": "More people: **-li** (men, or men and women) and **-le** (women only), with **smo, ste, so**: **delali smo, delale so**. With polite vi to one person it's **-li** too: **Kje ste bili, babica?**",
+          "de": "Mehrere: **-li** (Männer, oder Männer und Frauen) und **-le** (nur Frauen), mit **smo, ste, so**: **delali smo, delale so**. Mit dem höflichen vi zu einer Person auch **-li**: **Kje ste bili, babica?**",
+          "it": "Più persone: **-li** (uomini, o uomini e donne) e **-le** (solo donne), con **smo, ste, so**: **delali smo, delale so**. Con il vi di cortesia a una persona anche qui **-li**: **Kje ste bili, babica?**"
+        },
+        "examples": [
+          { "sl": "Otroci so bili na travniku.", "en": "The children were in the meadow.", "de": "Die Kinder waren auf der Wiese.", "it": "I bambini erano sul prato." },
+          { "sl": "Kje ste bili, babica?", "en": "Where were you, Granny? (polite)", "de": "Wo waren Sie, Oma?", "it": "Dov'era, nonna?" }
+        ],
+        "rows": [["mi / me", "delali smo", "delale smo"], ["vi / ve", "delali ste", "delale ste"], ["oni / one", "delali so", "delale so"]],
+        "ask": {
+          "type": "cloze", "grammar": "pretekli-cas", "text": "Otroci so ___ na travniku. (biti)", "accept": ["bili"], "hint": "several, boys and girls",
+          "explain": "**otroci** → several, mixed → **-li**: so bili\n- women only → so bile"
+        }
+      },
+      {
+        "say": {
+          "en": "Two people: **-la** (two men, or a man and a woman) and **-li** (two women), with **sva, sta**: **Nejc in Tine sta delala. Micka in Vida sta delali.** Yes, the dual's -la looks like a woman's.",
+          "de": "Zwei Personen: **-la** (zwei Männer, oder ein Mann und eine Frau) und **-li** (zwei Frauen), mit **sva, sta**: **Nejc in Tine sta delala. Micka in Vida sta delali.** Ja, das -la des Duals sieht aus wie das einer Frau.",
+          "it": "Due persone: **-la** (due uomini, o un uomo e una donna) e **-li** (due donne), con **sva, sta**: **Nejc in Tine sta delala. Micka in Vida sta delali.** Sì, il -la del duale sembra quello di una donna."
+        },
+        "examples": [
+          { "sl": "Midva sva bila doma.", "en": "The two of us were at home.", "de": "Wir zwei waren zu Hause.", "it": "Noi due eravamo a casa." },
+          { "sl": "Micka in Vida sta kuhali.", "en": "Micka and Vida were cooking.", "de": "Micka und Vida haben gekocht.", "it": "Micka e Vida hanno cucinato." }
+        ],
+        "rows": [["midva / medve", "delala sva", "delali sva"], ["vidva, onadva / vedve, onidve", "delala sta", "delali sta"]],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "Nejc in Tine sta ___ pri ribniku.", "options": ["bila", "bili", "bil"], "answer": 0, "say_options": true,
+          "explain": "**two boys** → the dual **-la**: sta bila\n- two women · sta bili"
+        }
+      },
+      {
+        "say": {
+          "en": "Most l-forms come from the infinitive, **-ti → -l**: delati → **delal**, piti → **pil**, govoriti → **govoril**, imeti → **imel**, brati → **bral**. A few you learn: iti → **šel, šla**; jesti → **jedel, jedla**; priti → **prišel, prišla**; peči → **pekel, pekla**.",
+          "de": "Die meisten l-Formen kommen vom Infinitiv, **-ti → -l**: delati → **delal**, piti → **pil**, govoriti → **govoril**, imeti → **imel**, brati → **bral**. Ein paar lernt man: iti → **šel, šla**; jesti → **jedel, jedla**; priti → **prišel, prišla**; peči → **pekel, pekla**.",
+          "it": "Quasi tutte le forme in -l vengono dall'infinito, **-ti → -l**: delati → **delal**, piti → **pil**, govoriti → **govoril**, imeti → **imel**, brati → **bral**. Alcune si imparano: iti → **šel, šla**; jesti → **jedel, jedla**; priti → **prišel, prišla**; peči → **pekel, pekla**."
+        },
+        "examples": [
+          { "sl": "Luka je šel na pašnik.", "en": "Luka went to the pasture.", "de": "Luka ist auf die Weide gegangen.", "it": "Luka è andato al pascolo." },
+          { "sl": "Babica je pekla kruh.", "en": "Granny was baking bread.", "de": "Oma hat Brot gebacken.", "it": "La nonna faceva il pane." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pretekli-cas", "text": "Včeraj je Tine ___ potico. (jesti)", "accept": ["jedel"], "hint": "jesti: one to learn",
+          "explain": "**jesti** → **jedel** (he), jedla (she): Tine je jedel potico."
+        }
+      },
+      {
+        "say": {
+          "en": "**Sem, si, je** … are clitics, in second place after the first word or phrase: **Včeraj sem bil doma.** Se comes after sem, si, smo, ste, so, but before je: **Otroci so se igrali. Zala se je zbudila.** The no is **nisem, nisi, ni** … + the l-form: **Luka ni bil doma.**",
+          "de": "**Sem, si, je** … sind Klitika, an zweiter Stelle nach dem ersten Wort oder der ersten Wortgruppe: **Včeraj sem bil doma.** Se steht nach sem, si, smo, ste, so, aber vor je: **Otroci so se igrali. Zala se je zbudila.** Verneint: **nisem, nisi, ni** … + l-Form: **Luka ni bil doma.**",
+          "it": "**Sem, si, je** … sono clitici, al secondo posto dopo la prima parola o il primo gruppo: **Včeraj sem bil doma.** Se va dopo sem, si, smo, ste, so, ma prima di je: **Otroci so se igrali. Zala se je zbudila.** Al negativo: **nisem, nisi, ni** … + la forma in -l: **Luka ni bil doma.**"
+        },
+        "examples": [
+          { "sl": "Včeraj sem {m:bil|f:bila} doma.", "en": "Yesterday I was at home.", "de": "Gestern war ich zu Hause.", "it": "Ieri ero a casa." },
+          { "sl": "Zala se je zbudila ob sedmih.", "en": "Zala woke up at seven.", "de": "Zala ist um sieben aufgewacht.", "it": "Zala si è svegliata alle sette." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Yesterday I was at home.", "options": ["Včeraj {m:bil|f:bila} sem doma.", "Včeraj sem {m:bil|f:bila} doma.", "Včeraj {m:bil|f:bila} doma sem."], "answer": 1, "say_options": true,
+          "explain": "**sem** → second place, right after včeraj: Včeraj **sem** {m:bil|f:bila} doma."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pretekli-cas-1",
+      "title": { "sl": "Bil, bila, bili", "en": "Bil, bila, bili", "de": "Bil, bila, bili", "it": "Bil, bila, bili" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "pretekli-cas", "instruction": "Dopolni deležnik na -l · Fill in the l-form", "prompt": "on · ona · oni",
+          "columns": ["on · he", "ona · she", "oni · they"],
+          "rows": [
+            { "label": "biti", "cells": ["bil", { "accept": ["bila"] }, "bili"] },
+            { "label": "delati", "cells": [{ "accept": ["delal"], "hint": "-ti → -l" }, "delala", "delali"] },
+            { "label": "piti", "cells": ["pil", { "accept": ["pila"] }, "pili"] },
+            { "label": "imeti", "cells": [{ "accept": ["imel"] }, "imela", "imeli"] },
+            { "label": "iti", "cells": ["šel", { "accept": ["šla"], "hint": "šel → no e" }, { "accept": ["šli"] }] },
+            { "label": "jesti", "cells": [{ "accept": ["jedel"], "hint": "one to learn" }, { "accept": ["jedla"], "hint": "jedel → no e" }, "jedli"] }
+          ],
+          "explain": "**-l** (he), **-la** (she), **-li** (they)\n- delal, delala, delali\n- šel, šla, šli · jedel, jedla, jedli"
+        },
+        {
+          "type": "choice", "grammar": "pretekli-cas", "instruction": "Izberi · Choose", "prompt": "»Kje ste ___, babica?«", "options": ["bila", "bili", "bile"], "answer": 1, "say_options": true,
+          "explain": "**vi** to one person, polite → **-li**: Kje ste bili, babica?"
+        }
+      ]
+    },
+    {
+      "id": "pretekli-cas-2",
+      "title": { "sl": "Včeraj v vasi", "en": "Yesterday in the village", "de": "Gestern im Dorf", "it": "Ieri in paese" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "pretekli-cas", "instruction": "Dopolni s preteklikom · Fill in the past", "title": "Včeraj v vasi",
+          "text": "Včeraj je ___ (biti) nedelja. Babica Micka je ___ (speči) potico. Nejc in Tine sta ___ (iti) na travnik. Zala je ___ (brati) knjigo. Zvečer smo vsi ___ (sedeti) pri ognju. Tudi jaz ___ {m:bil|f:bila} tam.",
+          "gaps": [
+            { "accept": ["bila"], "hint": "nedelja: feminine", "explain": "The subject is nedelja, feminine: je **bila**." },
+            { "accept": ["spekla"], "hint": "speči: as peči → pekla" },
+            { "accept": ["šla"], "hint": "two boys: the dual -la", "grammar": "dvojina", "explain": "Two boys take the dual: sta **šla**." },
+            { "accept": ["brala"], "hint": "Zala: -la" },
+            { "accept": ["sedeli"], "hint": "vsi: mixed, -li" },
+            { "accept": ["sem"], "hint": "jaz …", "explain": "The past needs biti: jaz **sem** {m:bil|f:bila}." }
+          ],
+          "bank": true, "distractors": ["bil", "spekel", "šli"],
+          "translation": "Yesterday was Sunday. Granny Micka baked a potica. Nejc and Tine went to the meadow. Zala read a book. In the evening we all sat by the fire. I was there too."
+        }
+      ]
+    },
+    {
+      "id": "pretekli-cas-3",
+      "title": { "sl": "V preteklik", "en": "Into the past", "de": "In die Vergangenheit", "it": "Al passato" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "pretekli-cas", "instruction": "Postavi v preteklik · Put it in the past", "cue": "preteklik · past",
+          "items": [
+            { "from": "Sem doma.", "accept": ["{m:Bil|f:Bila} sem doma.", "{m:Bila|f:Bil} sem doma.", "Sem {m:bil|f:bila} doma.", "Sem {m:bila|f:bil} doma.", "Jaz sem {m:bil|f:bila} doma.", "Jaz sem {m:bila|f:bil} doma."], "hint": "add the l-form of biti" },
+            { "from": "Luka pije mleko.", "accept": ["Luka je pil mleko."], "lemma": "piti", "form": "past.m.sg" },
+            { "from": "Zala gre v šolo.", "accept": ["Zala je šla v šolo."], "lemma": "iti", "form": "past.f.sg" },
+            { "from": "Otroci se igrajo.", "accept": ["Otroci so se igrali."], "hint": "so, then se", "grammar": "naslonke" },
+            { "from": "Babica peče kruh.", "accept": ["Babica je pekla kruh."], "lemma": "peči", "form": "past.f.sg" },
+            { "from": "Ne delamo.", "accept": ["Nismo delali.", "Nismo delale.", "Mi nismo delali.", "Me nismo delale."], "hint": "ne → nismo", "lemma": "delati", "form": "past.m.pl" },
+            { "from": "Nejc in Tine jesta.", "accept": ["Nejc in Tine sta jedla."], "hint": "two boys: -la", "grammar": "dvojina", "lemma": "jesti", "form": "past.m.du" },
+            { "from": "Kje ste, babica?", "accept": ["Kje ste bili, babica?"], "hint": "polite vi: -li", "grammar": "ti-vi" }
+          ],
+          "explain": "**biti + the l-form**\n- je pil, je šla, je pekla\n- so se igrali · nismo delali · sta jedla"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "pretekli-cas", "instruction": "Dopolni deležnik na -l · Fill in the l-form", "prompt": "oblika · the form",
+        "columns": ["oblika · the form"],
+        "rows": [
+          { "label": "biti · ona", "cells": [{ "accept": ["bila"] }] },
+          { "label": "iti · on", "cells": [{ "accept": ["šel"] }] },
+          { "label": "imeti · oni", "cells": [{ "accept": ["imeli"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "pretekli-cas", "instruction": "Dopolni s preteklikom · Fill in the past",
+        "text": "Luka je ___ (iskati) Belo. Mojca in Vida sta ___ (biti) v gostilni. Tine ni ___ (jesti) juhe. Otroci so ___ (spati) v šotoru.",
+        "gaps": [
+          { "accept": ["iskal"] },
+          { "accept": ["bili"], "grammar": "dvojina" },
+          { "accept": ["jedel"] },
+          { "accept": ["spali"] }
+        ],
+        "translation": "Luka was looking for Bela. Mojca and Vida were at the inn. Tine didn't eat the soup. The children slept in the tent."
+      },
+      {
+        "type": "transform", "grammar": "pretekli-cas", "instruction": "Postavi v preteklik · Put it in the past", "cue": "preteklik · past",
+        "items": [
+          { "from": "Pišem pismo.", "accept": ["{m:Pisal|f:Pisala} sem pismo.", "{m:Pisala|f:Pisal} sem pismo.", "Sem {m:pisal|f:pisala} pismo.", "Sem {m:pisala|f:pisal} pismo.", "Jaz sem {m:pisal|f:pisala} pismo.", "Jaz sem {m:pisala|f:pisal} pismo."] },
+          { "from": "Zala se uči.", "accept": ["Zala se je učila."], "grammar": "naslonke" },
+          { "from": "Vida nima časa.", "accept": ["Vida ni imela časa."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "pretekli-cas", "prompt": "»Kaj ste ___ včeraj, France?«", "options": ["delal", "delali", "delala"], "answer": 1, "say_options": true,
+        "explain": "**vi** to one person, polite → **-li**: Kaj ste delali?"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: speči (spekel, spekla), peči, jesti (jedel, jesta), iti (šel, šla). Native check: Včeraj v vasi, vi + -li to Micka, clitic-first Sem bil doma"
+}

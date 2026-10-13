@@ -1,0 +1,224 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "modalni-glagoli",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "💪",
+  "title": { "sl": "Moram, smem, lahko", "en": "Must, may, can", "de": "Müssen, dürfen, können", "it": "Devo, ho il permesso, posso" },
+  "goal": {
+    "en": "You can say what you must, may, want and know how to do (moram delati, smem vzeti, hočem iti, znam plavati), offer help (lahko pomagam?) and say no need (ni treba).",
+    "de": "Du sagst, was du musst, darfst, willst und kannst (moram delati, smem vzeti, hočem iti, znam plavati), bietest Hilfe an (lahko pomagam?) und sagst, dass es nicht nötig ist (ni treba).",
+    "it": "Sai dire che cosa devi, puoi, vuoi e sai fare (moram delati, smem vzeti, hočem iti, znam plavati), offrire aiuto (lahko pomagam?) e dire che non serve (ni treba)."
+  },
+  "grammar": ["modalni-glagoli"],
+  "words": ["morati", "smeti", "hoteti", "nočem", "znati", "lahko", "ne morem", "ni treba", "vedeti", "plavati", "voziti", "traktor", "kuriti", "pomagati", "vzeti", "prinesti", "speči", "palačinke", "počivati", "nogomet", "majhen"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Some verbs take a second verb in the infinitive, the dictionary form in **-ti** or **-či**: **Moram delati.** (I have to work.) Only the first verb changes with the person: **moram, moraš, mora; moramo, morate, morajo**; for two **morava, morata**.",
+          "de": "Manche Verben nehmen ein zweites Verb im Infinitiv, der Wörterbuchform auf **-ti** oder **-či**: **Moram delati.** (Ich muss arbeiten.) Nur das erste Verb ändert sich mit der Person: **moram, moraš, mora; moramo, morate, morajo**; für zwei **morava, morata**.",
+          "it": "Alcuni verbi vogliono un secondo verbo all'infinito, la forma del dizionario in **-ti** o **-či**: **Moram delati.** (Devo lavorare.) Cambia con la persona solo il primo verbo: **moram, moraš, mora; moramo, morate, morajo**; per due **morava, morata**."
+        },
+        "examples": [
+          { "sl": "Danes moram delati.", "en": "Today I have to work.", "de": "Heute muss ich arbeiten.", "it": "Oggi devo lavorare." },
+          { "sl": "Otroci morajo iti v šolo.", "en": "The children have to go to school.", "de": "Die Kinder müssen in die Schule gehen.", "it": "I bambini devono andare a scuola." }
+        ],
+        "rows": [["moram", { "en": "I must, I have to", "de": "ich muss", "it": "devo" }, "moram delati"]],
+        "ask": {
+          "type": "choice", "grammar": "modalni-glagoli", "prompt": "Luka ___ iskati ovco.", "options": ["moram", "mora", "morati"], "answer": 1, "say_options": true,
+          "explain": "**Luka** → on → **mora**, and the second verb stays in -ti: mora iskati"
+        }
+      },
+      {
+        "say": {
+          "en": "**Smem** is *I may, I'm allowed to*: **smem, smeš, sme; smemo, smete, smejo**. With ne it's *mustn't*: **Otroci ne smejo voziti traktorja.**",
+          "de": "**Smem** heißt *ich darf*: **smem, smeš, sme; smemo, smete, smejo**. Mit ne heißt es *darf nicht*: **Otroci ne smejo voziti traktorja.**",
+          "it": "**Smem** vuol dire *ho il permesso, posso*: **smem, smeš, sme; smemo, smete, smejo**. Con ne vuol dire *non devo, è vietato*: **Otroci ne smejo voziti traktorja.**"
+        },
+        "examples": [
+          { "sl": "Smem vzeti jabolko?", "en": "May I take an apple?", "de": "Darf ich einen Apfel nehmen?", "it": "Posso prendere una mela?" },
+          { "sl": "Otroci ne smejo voziti traktorja.", "en": "Children mustn't drive the tractor.", "de": "Kinder dürfen den Traktor nicht fahren.", "it": "I bambini non devono guidare il trattore." }
+        ],
+        "rows": [
+          ["smem", { "en": "I may, I'm allowed to", "de": "ich darf", "it": "posso, ho il permesso" }, "smem vzeti"],
+          ["ne smem", { "en": "I mustn't", "de": "ich darf nicht", "it": "non devo, è vietato" }, "ne smem kuriti"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "modalni-glagoli", "text": "Tine ne ___ kuriti. (smeti)", "accept": ["sme"], "hint": "Tine = on",
+          "explain": "**Tine** → on → **sme**: Tine ne sme kuriti (he isn't allowed to light the fire)"
+        }
+      },
+      {
+        "say": {
+          "en": "**Hočem** is *I want* (**hočem, hočeš, hoče** … **hočejo**), and its no is one word: **nočem**. **Znam** is *I know how to*, a skill: **znam plavati**. Not **vem**: that's knowing a fact (**Ne vem, kje je Bela.**).",
+          "de": "**Hočem** heißt *ich will* (**hočem, hočeš, hoče** … **hočejo**), und sein Nein ist ein Wort: **nočem**. **Znam** heißt *ich kann*, weil ich es gelernt habe: **znam plavati**. Nicht **vem**: das ist eine Tatsache wissen (**Ne vem, kje je Bela.**).",
+          "it": "**Hočem** vuol dire *voglio* (**hočem, hočeš, hoče** … **hočejo**), e il suo no è una parola sola: **nočem**. **Znam** vuol dire *so fare*: **znam plavati**. Non **vem**: quello è sapere un fatto (**Ne vem, kje je Bela.**)."
+        },
+        "examples": [
+          { "sl": "Nejc hoče igrati nogomet.", "en": "Nejc wants to play football.", "de": "Nejc will Fußball spielen.", "it": "Nejc vuole giocare a calcio." },
+          { "sl": "Tine ne zna plavati.", "en": "Tine can't swim.", "de": "Tine kann nicht schwimmen.", "it": "Tine non sa nuotare." }
+        ],
+        "rows": [
+          ["hočem, nočem", { "en": "I want to, I don't want to", "de": "ich will, ich will nicht", "it": "voglio, non voglio" }, "hočem iti domov"],
+          ["znam", { "en": "I know how to", "de": "ich kann (gelernt)", "it": "so (fare)" }, "znam plavati"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "modalni-glagoli", "prompt": "Zala ___ brati, Tine pa še ne.", "options": ["zna", "ve", "pozna"], "answer": 0, "say_options": true,
+          "explain": "**a skill** → **znati**: Zala zna brati\n- vedeti · a fact (ne vem)\n- poznati · a person or place (poznam Janeza)"
+        }
+      },
+      {
+        "say": {
+          "en": "**Lahko** (can, may) never changes, and the verb after it keeps its person: **lahko pomagam, lahko greš, lahko pridemo**. Its no is **ne morem** + the infinitive: **Danes ne morem priti.**",
+          "de": "**Lahko** (kann, darf) ändert sich nie, und das Verb danach behält seine Person: **lahko pomagam, lahko greš, lahko pridemo**. Sein Nein ist **ne morem** + Infinitiv: **Danes ne morem priti.**",
+          "it": "**Lahko** (posso, si può) non cambia mai, e il verbo dopo tiene la sua persona: **lahko pomagam, lahko greš, lahko pridemo**. Il suo no è **ne morem** + infinito: **Danes ne morem priti.**"
+        },
+        "examples": [
+          { "sl": "Lahko pomagam, babica?", "en": "Can I help, Granny?", "de": "Kann ich helfen, Oma?", "it": "Posso aiutare, nonna?" },
+          { "sl": "Danes ne morem priti.", "en": "I can't come today.", "de": "Heute kann ich nicht kommen.", "it": "Oggi non posso venire." }
+        ],
+        "rows": [
+          ["lahko", { "en": "can, may: the next verb keeps its person", "de": "kann, darf: das Verb danach behält seine Person", "it": "posso, si può: il verbo dopo tiene la persona" }, "lahko pomagam"],
+          ["ne morem", { "en": "I can't", "de": "ich kann nicht", "it": "non posso" }, "ne morem priti"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "modalni-glagoli", "text": "Lahko ___, babica? (pomagati)", "accept": ["pomagam"], "hint": "I: the verb keeps its person",
+          "explain": "**lahko** never changes; the verb keeps its person: lahko **pomagam** (not lahko pomagati)"
+        }
+      },
+      {
+        "say": {
+          "en": "*Not have to* is **ni treba** + the infinitive: **Danes ni treba delati.** (There's no need to work today.) Don't take **ne smem** for it: that's *I mustn't*.",
+          "de": "*Nicht müssen* heißt **ni treba** + Infinitiv: **Danes ni treba delati.** (Heute muss man nicht arbeiten.) Nicht mit **ne smem** verwechseln: das heißt *ich darf nicht*.",
+          "it": "*Non dovere, non servire* è **ni treba** + infinito: **Danes ni treba delati.** (Oggi non serve lavorare.) Non confonderlo con **ne smem**: quello vuol dire *non devo, è vietato*."
+        },
+        "examples": [
+          { "sl": "Jutri ni treba iti v šolo.", "en": "There's no need to go to school tomorrow.", "de": "Morgen muss man nicht in die Schule gehen.", "it": "Domani non c'è bisogno di andare a scuola." },
+          { "sl": "Ni treba, hvala.", "en": "No need, thank you.", "de": "Nicht nötig, danke.", "it": "Non serve, grazie." }
+        ],
+        "rows": [["ni treba", { "en": "no need, you needn't", "de": "nicht nötig", "it": "non serve" }, "ni treba delati"]],
+        "ask": {
+          "type": "cloze", "grammar": "modalni-glagoli", "text": "Danes ni ___ delati. (no need)", "accept": ["treba"], "hint": "ni …",
+          "explain": "**no need** → **ni treba** + the infinitive: Danes ni treba delati."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "modalni-glagoli-1",
+      "title": { "sl": "Moram, smem, hočem", "en": "Moram, smem, hočem", "de": "Moram, smem, hočem", "it": "Moram, smem, hočem" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "modalni-glagoli", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "morati, smeti, hoteti",
+          "columns": ["morati · must", "smeti · may", "hoteti · want"],
+          "rows": [
+            { "label": "jaz", "cells": ["moram", "smem", "hočem"] },
+            { "label": "ti", "cells": [{ "accept": ["moraš"] }, "smeš", { "accept": ["hočeš"] }] },
+            { "label": "on, ona", "cells": ["mora", { "accept": ["sme"], "hint": "no ending" }, { "accept": ["hoče"] }] },
+            { "label": "mi", "cells": [{ "accept": ["moramo"] }, "smemo", "hočemo"] },
+            { "label": "vi", "cells": ["morate", { "accept": ["smete"] }, "hočete"] },
+            { "label": "oni", "cells": [{ "accept": ["morajo"] }, { "accept": ["smejo"], "hint": "sme + -jo" }, "hočejo"] }
+          ],
+          "explain": "**the endings you know**: -m, -š, —, -mo, -te, -jo\n- moram, moraš, mora … morajo\n- smem, smeš, sme … smejo\n- hočem, hočeš, hoče … hočejo"
+        },
+        {
+          "type": "choice", "grammar": "modalni-glagoli", "instruction": "Izberi · Choose", "prompt": "»Kje je Bela?« »Ne ___.«", "options": ["vem", "znam", "morem"], "answer": 0, "say_options": true,
+          "explain": "**a fact** → **vedeti**: Ne vem. (I don't know.)\n- znam · I know how to"
+        },
+        {
+          "type": "choice", "grammar": "modalni-glagoli", "instruction": "Izberi · Choose", "prompt": "Nejc ___ igrati nogomet. (wants)", "options": ["hoče", "hočem", "hoteti"], "answer": 0, "say_options": true,
+          "explain": "**Nejc** → on → **hoče**, and the second verb in -ti: hoče igrati"
+        }
+      ]
+    },
+    {
+      "id": "modalni-glagoli-2",
+      "title": { "sl": "Babica peče kruh", "en": "Granny bakes bread", "de": "Oma bäckt Brot", "it": "La nonna fa il pane" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "modalni-glagoli", "instruction": "Dopolni · Fill in", "title": "Babica peče kruh",
+          "text": "»Danes ___ (morati) speči kruh,« reče babica. »Lahko ___ (pomagati)?« vprašam. »Seveda! Nejc in Tine ___ (morati) prinesti drva. Tine ne ___ (smeti) kuriti, ker je majhen. Zala pa ___ (znati) peči palačinke.« »Jutri ___ (hoteti) počivati!« reče babica.",
+          "gaps": [
+            { "accept": ["moram"], "hint": "babica speaks: jaz" },
+            { "accept": ["pomagam"], "hint": "lahko + I …", "explain": "After lahko the verb keeps its person: lahko **pomagam**." },
+            { "accept": ["morata"], "hint": "two boys: -ta", "grammar": "dvojina" },
+            { "accept": ["sme"], "hint": "Tine = on" },
+            { "accept": ["zna"], "hint": "a skill" },
+            { "accept": ["hočem"], "hint": "babica: jaz" }
+          ],
+          "bank": true, "distractors": ["pomagati", "morajo", "ve"],
+          "translation": "\"Today I have to bake bread,\" says Granny. \"Can I help?\" I ask. \"Of course! Nejc and Tine have to bring firewood. Tine isn't allowed to light the fire, because he's little. And Zala knows how to make pancakes.\" \"Tomorrow I want to rest!\" says Granny."
+        }
+      ]
+    },
+    {
+      "id": "modalni-glagoli-3",
+      "title": { "sl": "Moram ali lahko?", "en": "Must or can?", "de": "Muss oder kann?", "it": "Devo o posso?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "modalni-glagoli", "instruction": "Dodaj glagol iz oklepaja · Add the verb in brackets",
+          "items": [
+            { "from": "Delam na njivi. (morati)", "accept": ["Moram delati na njivi.", "Na njivi moram delati."], "hint": "moram + -ti" },
+            { "from": "Pomagam. (lahko)", "accept": ["Lahko pomagam."], "hint": "lahko: the verb stays as it is" },
+            { "from": "Tine plava. (znati)", "accept": ["Tine zna plavati."] },
+            { "from": "Otroci vozijo traktor. (ne smeti)", "accept": ["Otroci ne smejo voziti traktorja."], "hint": "ne → the genitive", "explain": "**ne smejo** + the infinitive, and after ne the object goes into the genitive: traktor → **traktorja**." },
+            { "from": "Gremo domov. (hoteti)", "accept": ["Hočemo iti domov.", "Domov hočemo iti."], "hint": "gremo → iti" },
+            { "from": "Prideš jutri? (lahko)", "accept": ["Lahko prideš jutri?", "Lahko jutri prideš?", "Jutri lahko prideš?", "Ali lahko prideš jutri?", "A lahko prideš jutri?"], "hint": "lahko: the verb stays as it is" },
+            { "from": "Pišem domačo nalogo. (morati)", "accept": ["Moram pisati domačo nalogo."] },
+            { "from": "Zala bere. (ne moči: can't)", "accept": ["Zala ne more brati."], "hint": "ne more + -ti" }
+          ],
+          "explain": "**moram, smem, hočem, znam, ne morem** + the infinitive · **lahko** + the verb with its person\n- Moram delati. · Lahko pomagam."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "modalni-glagoli", "instruction": "Dopolni · Fill in", "prompt": "oblika · the form",
+        "columns": ["oblika · the form"],
+        "rows": [
+          { "label": "ti · morati", "cells": [{ "accept": ["moraš"] }] },
+          { "label": "oni · smeti", "cells": [{ "accept": ["smejo"] }] },
+          { "label": "on · hoteti", "cells": [{ "accept": ["hoče"] }] },
+          { "label": "mi · znati", "cells": [{ "accept": ["znamo"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "modalni-glagoli", "instruction": "Dopolni · Fill in",
+        "text": "Luka ___ (morati) iskati Belo. Lahko ___ (pomagati, jaz)? Zala ___ (hoteti) jesti palačinke. Luka dobro ___ (znati) plavati.",
+        "gaps": [
+          { "accept": ["mora"] },
+          { "accept": ["pomagam"] },
+          { "accept": ["hoče"] },
+          { "accept": ["zna"] }
+        ],
+        "translation": "Luka has to look for Bela. Can I help? Zala wants to eat pancakes. Luka swims well."
+      },
+      {
+        "type": "transform", "grammar": "modalni-glagoli", "instruction": "Dodaj glagol iz oklepaja · Add the verb in brackets",
+        "items": [
+          { "from": "Grem v šolo. (morati)", "accept": ["Moram iti v šolo.", "V šolo moram iti."] },
+          { "from": "Pomagaš? (lahko)", "accept": ["Lahko pomagaš?", "Ali lahko pomagaš?", "A lahko pomagaš?"] },
+          { "from": "Tine pije kavo. (ne smeti)", "accept": ["Tine ne sme piti kave."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "modalni-glagoli", "prompt": "»Ali ___, kje je Muri?« »Ne.«", "options": ["poznaš", "veš", "moreš"], "answer": 1, "say_options": true,
+        "explain": "**a fact** → **vedeti**: Ali veš, kje je Muri? Poznati is a person or a place."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: morati (no example of ne moram). Native check: Babica peče kruh, ni treba vs ne moram, Jutri hočem počivati"
+}

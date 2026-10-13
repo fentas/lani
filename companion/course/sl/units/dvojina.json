@@ -1,0 +1,210 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "dvojina",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "✌️",
+  "title": { "sl": "Dvojina: midva, dva brata", "en": "The dual: exactly two", "de": "Der Dual: genau zwei", "it": "Il duale: esattamente due" },
+  "goal": {
+    "en": "You can speak of exactly two in every tense, women or men (sva, sta delali, bova šla), and of two things with their adjectives (dva velika konja, dve beli ovci, oba).",
+    "de": "Du sprichst in jeder Zeitform von genau zwei, Frauen oder Männern (sva, sta delali, bova šla), und von zwei Dingen mit ihren Adjektiven (dva velika konja, dve beli ovci, oba).",
+    "it": "Sai parlare di esattamente due in ogni tempo, donne o uomini (sva, sta delali, bova šla), e di due cose con i loro aggettivi (dva velika konja, dve beli ovci, oba)."
+  },
+  "grammar": ["dvojina", "stevila-samostalniki"],
+  "words": ["midva", "medve", "vidva", "vedve", "onadva", "onidve", "dva", "dve", "oba", "obe", "brat", "sestra", "konj", "krava", "ovca", "okno", "jajce", "jabolko", "velik", "lačen", "bel", "odprt", "skupaj"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "sedanjik", "en": "present", "de": "Präsens", "it": "presente" },
+        { "sl": "preteklik", "en": "past", "de": "Vergangenheit", "it": "passato" },
+        { "sl": "prihodnjik", "en": "future", "de": "Futur", "it": "futuro" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You've met the dual (*dvojina*) in every unit: for exactly two, the verb ends in **-va** (we two) or **-ta** (you two, the two of them), in every tense: **sva, delava, sva delala, bova delala**; **sta, delata, sta delala, bosta delala**. Here it all comes together.",
+          "de": "Der Dual (*dvojina*) ist dir in jeder Einheit begegnet: Für genau zwei endet das Verb auf **-va** (wir zwei) oder **-ta** (ihr zwei, die zwei), in jeder Zeitform: **sva, delava, sva delala, bova delala**; **sta, delata, sta delala, bosta delala**. Hier kommt alles zusammen.",
+          "it": "Il duale (*dvojina*) l'hai incontrato in ogni unità: per esattamente due, il verbo finisce in **-va** (noi due) o **-ta** (voi due, loro due), in ogni tempo: **sva, delava, sva delala, bova delala**; **sta, delata, sta delala, bosta delala**. Qui tutto si mette insieme."
+        },
+        "examples": [
+          { "sl": "Luka in jaz sva na pašniku.", "en": "Luka and I are on the pasture.", "de": "Luka und ich sind auf der Weide.", "it": "Luka e io siamo al pascolo." },
+          { "sl": "Nejc in Tine bosta jutri doma.", "en": "Nejc and Tine will be at home tomorrow.", "de": "Nejc und Tine werden morgen zu Hause sein.", "it": "Nejc e Tine domani saranno a casa." }
+        ],
+        "rows": [["midva", "delava", "sva delala", "bova delala"], ["vidva, onadva", "delata", "sta delala", "bosta delala"]],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "Tine in jaz ___ pri ribniku.", "options": ["smo", "sva", "sta"], "answer": 1, "say_options": true,
+          "explain": "**Tine and I** → we two → **sva**\n- sta · you two, the two of them\n- smo · three or more"
+        }
+      },
+      {
+        "say": {
+          "en": "Two women have their own words, **medve, vedve, onidve**, and the l-form takes **-i**: **Micka in Vida sta kuhali. Medve bova šli.** A man and a woman count as men: **Zala in Tine sta šla.**",
+          "de": "Zwei Frauen haben eigene Wörter, **medve, vedve, onidve**, und die l-Form bekommt **-i**: **Micka in Vida sta kuhali. Medve bova šli.** Ein Mann und eine Frau zählen als Männer: **Zala in Tine sta šla.**",
+          "it": "Due donne hanno parole proprie, **medve, vedve, onidve**, e la forma in -l prende **-i**: **Micka in Vida sta kuhali. Medve bova šli.** Un uomo e una donna contano come uomini: **Zala in Tine sta šla.**"
+        },
+        "examples": [
+          { "sl": "Micka in Vida sta kuhali.", "en": "Micka and Vida were cooking.", "de": "Micka und Vida haben gekocht.", "it": "Micka e Vida hanno cucinato." },
+          { "sl": "Zala in Tine sta šla domov.", "en": "Zala and Tine went home.", "de": "Zala und Tine sind nach Hause gegangen.", "it": "Zala e Tine sono andati a casa." }
+        ],
+        "rows": [["medve", "delava", "sva delali", "bova delali"], ["vedve, onidve", "delata", "sta delali", "bosta delali"]],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "Zala in Vida sta ___ v gostilni.", "options": ["bila", "bili", "bile"], "answer": 1, "say_options": true,
+          "explain": "**two women** → the dual **-i**: sta bili\n- a man and a woman · sta bila\n- three women · so bile"
+        }
+      },
+      {
+        "say": {
+          "en": "Nouns have a dual too. After **dva** a masculine noun ends in **-a** (dva brata, dva konja); after **dve** a feminine or neuter one ends in **-i** (dve ovci, dve okni, dve jajci). As the object it stays the same: **Vidim dva konja.**",
+          "de": "Auch Nomen haben einen Dual. Nach **dva** endet ein männliches Nomen auf **-a** (dva brata, dva konja); nach **dve** ein weibliches oder sächliches auf **-i** (dve ovci, dve okni, dve jajci). Als Objekt bleibt es gleich: **Vidim dva konja.**",
+          "it": "Anche i nomi hanno il duale. Dopo **dva** un nome maschile finisce in **-a** (dva brata, dva konja); dopo **dve** uno femminile o neutro finisce in **-i** (dve ovci, dve okni, dve jajci). Come oggetto resta uguale: **Vidim dva konja.**"
+        },
+        "examples": [
+          { "sl": "Imam dva brata in dve sestri.", "en": "I have two brothers and two sisters.", "de": "Ich habe zwei Brüder und zwei Schwestern.", "it": "Ho due fratelli e due sorelle." },
+          { "sl": "Na mizi sta dve jajci.", "en": "There are two eggs on the table.", "de": "Auf dem Tisch sind zwei Eier.", "it": "Sul tavolo ci sono due uova." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "stevila-samostalniki", "text": "Na mizi sta dve ___. (jabolko)", "accept": ["jabolki"], "hint": "neuter: dve + -i",
+          "explain": "**dve** + a neuter noun → **-i**: dve jabolki\n- three · tri jabolka"
+        }
+      },
+      {
+        "say": {
+          "en": "The adjective goes along: **-a** with a masculine noun (dva velika konja; **Konja sta lačna.**), **-i** with a feminine or neuter one (dve beli ovci; **Okni sta odprti.**).",
+          "de": "Das Adjektiv passt sich an: **-a** bei einem männlichen Nomen (dva velika konja; **Konja sta lačna.**), **-i** bei einem weiblichen oder sächlichen (dve beli ovci; **Okni sta odprti.**).",
+          "it": "L'aggettivo segue: **-a** con un nome maschile (dva velika konja; **Konja sta lačna.**), **-i** con uno femminile o neutro (dve beli ovci; **Okni sta odprti.**)."
+        },
+        "examples": [
+          { "sl": "Konja sta lačna.", "en": "The two horses are hungry.", "de": "Die beiden Pferde sind hungrig.", "it": "I due cavalli hanno fame." },
+          { "sl": "Dve beli ovci sta na pašniku.", "en": "Two white sheep are on the pasture.", "de": "Zwei weiße Schafe sind auf der Weide.", "it": "Due pecore bianche sono al pascolo." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "dvojina", "text": "Ovci sta ___. (bel)", "accept": ["beli"], "hint": "two, feminine: -i",
+          "explain": "**two sheep** → feminine dual → **-i**: ovci sta beli\n- konja sta bela"
+        }
+      },
+      {
+        "say": {
+          "en": "**Both** is **oba** (masculine) and **obe** (feminine, neuter), with the dual: **oba brata, obe sestri, obe okni**. **Oba sta doma.** (Both are at home.)",
+          "de": "**Beide** heißt **oba** (männlich) und **obe** (weiblich, sächlich), mit dem Dual: **oba brata, obe sestri, obe okni**. **Oba sta doma.** (Beide sind zu Hause.)",
+          "it": "**Entrambi** è **oba** (maschile) e **obe** (femminile, neutro), con il duale: **oba brata, obe sestri, obe okni**. **Oba sta doma.** (Sono a casa tutti e due.)"
+        },
+        "examples": [
+          { "sl": "Oba konja sta lačna.", "en": "Both horses are hungry.", "de": "Beide Pferde sind hungrig.", "it": "Entrambi i cavalli hanno fame." },
+          { "sl": "Obe sestri sta v šoli.", "en": "Both sisters are at school.", "de": "Beide Schwestern sind in der Schule.", "it": "Entrambe le sorelle sono a scuola." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "dvojina", "prompt": "___ sestri sta doma.", "options": ["Oba", "Obe", "Dva"], "answer": 1, "say_options": true,
+          "explain": "**sestri** → feminine → **obe**\n- oba brata · obe sestri"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "dvojina-1",
+      "title": { "sl": "Midva, onidve", "en": "Midva, onidve", "de": "Midva, onidve", "it": "Midva, onidve" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "dvojina", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "delati v dvojini · delati for two", "lemma": "delati",
+          "columns": ["sedanjik · present", "preteklik · past", "prihodnjik · future"],
+          "rows": [
+            { "label": "midva", "cells": ["delava", { "accept": ["sva delala", "delala sva"], "hint": "sva + -la" }, { "accept": ["bova delala", "delala bova"] }] },
+            { "label": "onadva", "cells": [{ "accept": ["delata"], "form": "pres.3du" }, "sta delala", { "accept": ["bosta delala", "delala bosta"] }] },
+            { "label": "medve", "cells": [{ "accept": ["delava"], "form": "pres.1du" }, { "accept": ["sva delali", "delali sva"], "hint": "two women: -li" }, "bova delali"] },
+            { "label": "onidve", "cells": ["delata", { "accept": ["sta delali", "delali sta"] }, { "accept": ["bosta delali", "delali bosta"] }] }
+          ],
+          "explain": "**-va, -ta** in the present; **sva, sta / bova, bosta** + **-la** (men, mixed) or **-li** (two women)"
+        },
+        {
+          "type": "sort", "grammar": "stevila-samostalniki", "instruction": "Dva ali dve? · Dva or dve?",
+          "columns": [
+            { "label": "dva …", "words": ["brata", "konja", "stola"] },
+            { "label": "dve …", "words": ["ovci", "sestri", "okni"] }
+          ],
+          "explain": "**dva** + masculine -a: dva brata · **dve** + feminine or neuter -i: dve ovci, dve okni"
+        }
+      ]
+    },
+    {
+      "id": "dvojina-2",
+      "title": { "sl": "Dva konja, dve kravi", "en": "Two horses, two cows", "de": "Zwei Pferde, zwei Kühe", "it": "Due cavalli, due mucche" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "dvojina", "instruction": "Dopolni z dvojino · Fill in the dual", "title": "Dva konja, dve kravi",
+          "text": "Mlinar France ima dva ___ (konj) in dve ___ (krava). Konja sta ___ (velik), kravi sta ___ (lačen). Zala in Tine ___ (iti) na travnik. »___ (iti: you and I) skupaj!« reče Zala.",
+          "gaps": [
+            { "accept": ["konja"], "hint": "dva + -a", "grammar": "stevila-samostalniki" },
+            { "accept": ["kravi"], "hint": "dve + -i", "grammar": "stevila-samostalniki" },
+            { "accept": ["velika"], "hint": "konja: masculine dual" },
+            { "accept": ["lačni"], "hint": "kravi: feminine dual", "explain": "Two cows, feminine: **lačni** (as beli)." },
+            { "accept": ["gresta"], "hint": "two: -ta" },
+            { "accept": ["Pojdiva"], "hint": "you and I: -va", "grammar": "velelnik" }
+          ],
+          "bank": true, "distractors": ["konji", "krave", "Pojdimo"],
+          "translation": "Miller France has two horses and two cows. The horses are big, the cows are hungry. Zala and Tine are going to the meadow. \"Let's go together!\" says Zala."
+        }
+      ]
+    },
+    {
+      "id": "dvojina-3",
+      "title": { "sl": "Dva, ne trije", "en": "Two, not three", "de": "Zwei, nicht drei", "it": "Due, non tre" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "dvojina", "instruction": "Povej za dva · Say it for two",
+          "items": [
+            { "from": "Trije konji so na travniku. (2)", "accept": ["Dva konja sta na travniku."], "hint": "dva, -a, sta", "lemma": "konj", "form": "nom.du" },
+            { "from": "Tri ovce so bele. (2)", "accept": ["Dve ovci sta beli."], "hint": "dve, -i, sta, -i", "lemma": "ovca", "form": "nom.du" },
+            { "from": "Otroci so šli domov. (Zala in Tine)", "accept": ["Zala in Tine sta šla domov."], "hint": "a girl and a boy: -la" },
+            { "from": "Mi gremo v šolo. (midva)", "accept": ["Midva greva v šolo.", "Greva v šolo."] },
+            { "from": "One so kuhale. (onidve)", "accept": ["Onidve sta kuhali."], "hint": "two women: -li" },
+            { "from": "Tri jajca so sveža. (2)", "accept": ["Dve jajci sta sveži."], "hint": "neuter: dve, -i", "lemma": "jajce", "form": "nom.du" },
+            { "from": "Bomo doma. (midva)", "accept": ["Bova doma.", "Midva bova doma."] },
+            { "from": "Pojdimo! (you and I)", "accept": ["Pojdiva!"], "grammar": "velelnik", "lemma": "iti", "form": "imp.1du" }
+          ],
+          "explain": "**two** → the dual everywhere\n- dva konja sta · dve ovci sta beli\n- sta šla (mixed) · sta kuhali (women)\n- greva · bova · pojdiva"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "dvojina", "instruction": "Dopolni · Fill in", "prompt": "oblika · the form",
+        "columns": ["oblika · the form"],
+        "rows": [
+          { "label": "onadva · delati (present)", "cells": [{ "accept": ["delata"] }] },
+          { "label": "medve · biti (past)", "cells": [{ "accept": ["sva bili", "bili sva"] }] },
+          { "label": "vidva · iti (future)", "cells": [{ "accept": ["bosta šla", "šla bosta"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "dvojina", "instruction": "Dopolni z dvojino · Fill in the dual",
+        "text": "Na ribniku sta dve ___ (raca). Luka in Marko sta včeraj ___ (biti) v Gorici. Vida in Mojca ___ (biti, future) jutri doma. Midva ___ (imeti) dva psa.",
+        "gaps": [
+          { "accept": ["raci"], "grammar": "stevila-samostalniki" },
+          { "accept": ["bila"] },
+          { "accept": ["bosta"] },
+          { "accept": ["imava"] }
+        ],
+        "translation": "There are two ducks on the pond. Luka and Marko were in Gorizia yesterday. Vida and Mojca will be at home tomorrow. The two of us have two dogs."
+      },
+      {
+        "type": "transform", "grammar": "dvojina", "instruction": "Povej za dva · Say it for two",
+        "items": [
+          { "from": "Trije bratje so doma. (2)", "accept": ["Dva brata sta doma."], "lemma": "brat", "form": "nom.du" },
+          { "from": "One so v kuhinji. (onidve)", "accept": ["Onidve sta v kuhinji."] },
+          { "from": "Pridite! (vidva)", "accept": ["Pridita!"], "grammar": "velelnik", "lemma": "priti", "form": "imp.2du" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "stevila-samostalniki", "prompt": "V košari sta dve ___.", "options": ["jajca", "jajci", "jajc"], "answer": 1, "say_options": true,
+        "explain": "**dve** + a neuter noun → **-i**: dve jajci\n- tri jajca · pet jajc"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: oba/obe (obe okni), onadva/onidve. Native check: the dual adjectives (okni sta odprti, kravi sta lačni), sta kuhali, sva bili"
+}

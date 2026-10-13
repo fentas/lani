@@ -1,0 +1,224 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "prihodnjik",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🔮",
+  "title": { "sl": "Prihodnjik: bom, boš, bo", "en": "The future: bom, boš, bo", "de": "Das Futur: bom, boš, bo", "it": "Il futuro: bom, boš, bo" },
+  "goal": {
+    "en": "You can say what you and the others will do and where you'll be (bom delal, bodo prišli, jutri bom doma), and what won't be (ne bo dežja).",
+    "de": "Du sagst, was du und die anderen tun werden und wo ihr sein werdet (bom delal, bodo prišli, jutri bom doma), und was es nicht geben wird (ne bo dežja).",
+    "it": "Sai dire che cosa farete tu e gli altri e dove sarete (bom delal, bodo prišli, jutri bom doma), e che cosa non ci sarà (ne bo dežja)."
+  },
+  "grammar": ["prihodnjik", "naslonke"],
+  "words": ["bom", "boš", "bo", "bova", "bosta", "bomo", "boste", "bodo", "jutri", "praznik", "dež", "sneg", "potica", "pesem", "peti", "prinesti", "drva", "naprej"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oseba", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "moški", "en": "men, masculine", "de": "Männer, männlich", "it": "uomini, maschile" },
+        { "sl": "ženski", "en": "women, feminine", "de": "Frauen, weiblich", "it": "donne, femminile" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The future (*prihodnjik*) is **bom, boš, bo** … + the l-form you know from the past: **bom delal**. {m:You say **bom delal, bom šel**; Zala says **bom šla**.|f:You say **bom delala, bom šla**; Luka says **bom šel**.}",
+          "de": "Das Futur (*prihodnjik*) ist **bom, boš, bo** … + die l-Form, die du von der Vergangenheit kennst: **bom delal**. {m:Du sagst **bom delal, bom šel**; Zala sagt **bom šla**.|f:Du sagst **bom delala, bom šla**; Luka sagt **bom šel**.}",
+          "it": "Il futuro (*prihodnjik*) è **bom, boš, bo** … + la forma in -l che conosci dal passato: **bom delal**. {m:Tu dici **bom delal, bom šel**; Zala dice **bom šla**.|f:Tu dici **bom delala, bom šla**; Luka dice **bom šel**.}"
+        },
+        "examples": [
+          { "sl": "Jutri bom {m:delal|f:delala} na vrtu.", "en": "Tomorrow I'll work in the garden.", "de": "Morgen werde ich im Garten arbeiten.", "it": "Domani lavorerò in giardino." },
+          { "sl": "Luka bo šel na pašnik.", "en": "Luka will go to the pasture.", "de": "Luka wird auf die Weide gehen.", "it": "Luka andrà al pascolo." }
+        ],
+        "rows": [["jaz", "bom delal", "bom delala"], ["ti", "boš delal", "boš delala"], ["on / ona", "bo delal", "bo delala"]],
+        "ask": {
+          "type": "choice", "grammar": "prihodnjik", "prompt": "Jutri ___ {m:delal|f:delala} na njivi. (jaz)", "options": ["bom", "bo", "sem"], "answer": 0, "say_options": true,
+          "explain": "**jaz**, tomorrow → **bom** + the l-form\n- sem {m:delal|f:delala} · the past\n- bo · he or she"
+        }
+      },
+      {
+        "say": {
+          "en": "More people: **bomo, boste, bodo**; for two **bova, bosta**. The l-form agrees with the number, as in the past: **bomo delali, bosta šla, bodo prišli**.",
+          "de": "Mehrere: **bomo, boste, bodo**; für zwei **bova, bosta**. Die l-Form richtet sich nach der Zahl, wie in der Vergangenheit: **bomo delali, bosta šla, bodo prišli**.",
+          "it": "Più persone: **bomo, boste, bodo**; per due **bova, bosta**. La forma in -l concorda, come nel passato: **bomo delali, bosta šla, bodo prišli**."
+        },
+        "examples": [
+          { "sl": "Ovce bodo prišle zvečer.", "en": "The sheep will come in the evening.", "de": "Die Schafe werden am Abend kommen.", "it": "Le pecore arriveranno la sera." },
+          { "sl": "Kaj bova naredila najprej?", "en": "What will the two of us do first?", "de": "Was machen wir zwei zuerst?", "it": "Che cosa facciamo prima, noi due?" }
+        ],
+        "rows": [
+          ["midva / medve", "bova delala", "bova delali"],
+          ["vidva, onadva / vedve, onidve", "bosta delala", "bosta delali"],
+          ["mi / me", "bomo delali", "bomo delale"],
+          ["vi / ve", "boste delali", "boste delale"],
+          ["oni / one", "bodo delali", "bodo delale"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "prihodnjik", "text": "Otroci ___ prišli jutri zvečer.", "accept": ["bodo"], "hint": "oni …",
+          "explain": "**otroci** → oni → **bodo** prišli"
+        }
+      },
+      {
+        "say": {
+          "en": "Biti alone has its own future, with no l-form: **Jutri bom doma.** (I'll be at home tomorrow.) **Kje boste jutri?**",
+          "de": "Biti allein hat sein eigenes Futur, ohne l-Form: **Jutri bom doma.** (Morgen bin ich zu Hause.) **Kje boste jutri?**",
+          "it": "Biti da solo ha il suo futuro, senza forma in -l: **Jutri bom doma.** (Domani sarò a casa.) **Kje boste jutri?**"
+        },
+        "examples": [
+          { "sl": "Jutri bom doma.", "en": "I'll be at home tomorrow.", "de": "Morgen bin ich zu Hause.", "it": "Domani sarò a casa." },
+          { "sl": "Kje boste jutri, France?", "en": "Where will you be tomorrow, France?", "de": "Wo werden Sie morgen sein, France?", "it": "Dove sarà domani, France?" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "prihodnjik", "prompt": "Jutri ___ v šoli.", "options": ["bom", "bom bil", "bil bom"], "answer": 0, "say_options": true,
+          "explain": "**biti** alone → just **bom**: Jutri bom v šoli."
+        }
+      },
+      {
+        "say": {
+          "en": "No is **ne** before it: **ne bom, ne bo**. *There won't be any …* is **ne bo** + the genitive, as with ni: **Jutri ne bo dežja.**",
+          "de": "Verneint steht **ne** davor: **ne bom, ne bo**. *Es wird kein … geben* heißt **ne bo** + Genitiv, wie bei ni: **Jutri ne bo dežja.**",
+          "it": "Al negativo si mette **ne** davanti: **ne bom, ne bo**. *Non ci sarà …* è **ne bo** + genitivo, come con ni: **Jutri ne bo dežja.**"
+        },
+        "examples": [
+          { "sl": "Jutri ne bom {m:delal|f:delala}.", "en": "Tomorrow I won't work.", "de": "Morgen werde ich nicht arbeiten.", "it": "Domani non lavorerò." },
+          { "sl": "Jutri ne bo dežja.", "en": "There won't be any rain tomorrow.", "de": "Morgen wird es keinen Regen geben.", "it": "Domani non pioverà." }
+        ],
+        "rows": [[{ "sl": "nikalno (jaz)", "en": "no (I)", "de": "nicht (ich)", "it": "non (io)" }, "ne bom delal", "ne bom delala"]],
+        "ask": {
+          "type": "cloze", "grammar": "prihodnjik", "text": "Jutri ne ___ snega.", "accept": ["bo"], "hint": "there won't be …",
+          "explain": "**there won't be** → **ne bo** + the genitive: ne bo snega"
+        }
+      },
+      {
+        "say": {
+          "en": "**Bom** is a clitic too: second place (**Jutri bom šel v Gorico.**), and last among the little words, after se: **Jutri se bom učil.** For a plan the present works too: **Jutri grem v Gorico.**",
+          "de": "Auch **bom** ist ein Klitikon: an zweiter Stelle (**Jutri bom šel v Gorico.**) und zuletzt unter den kleinen Wörtern, nach se: **Jutri se bom učil.** Für einen Plan geht auch das Präsens: **Jutri grem v Gorico.**",
+          "it": "Anche **bom** è un clitico: al secondo posto (**Jutri bom šel v Gorico.**) e per ultimo tra le paroline, dopo se: **Jutri se bom učil.** Per un programma va bene anche il presente: **Jutri grem v Gorico.**"
+        },
+        "examples": [
+          { "sl": "Jutri se bom {m:učil|f:učila}.", "en": "Tomorrow I'll study.", "de": "Morgen werde ich lernen.", "it": "Domani studierò." },
+          { "sl": "Jutri grem v Gorico.", "en": "Tomorrow I'm going to Gorizia.", "de": "Morgen fahre ich nach Gorizia.", "it": "Domani vado a Gorizia." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Tomorrow I'll study.", "options": ["Jutri bom se {m:učil|f:učila}.", "Jutri se bom {m:učil|f:učila}.", "Jutri se {m:učil|f:učila} bom."], "answer": 1, "say_options": true,
+          "explain": "**se** before **bom**, both in second place: Jutri **se bom** {m:učil|f:učila}."
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "prihodnjik-1",
+      "title": { "sl": "Bom, boš, bo", "en": "Bom, boš, bo", "de": "Bom, boš, bo", "it": "Bom, boš, bo" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "prihodnjik", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "biti v prihodnjiku · will (be)", "lemma": "biti",
+          "columns": ["prihodnjik · future"],
+          "rows": [
+            { "label": "jaz", "cells": ["bom"] },
+            { "label": "ti", "cells": [{ "accept": ["boš"], "form": "fut.2sg" }] },
+            { "label": "on, ona", "cells": [{ "accept": ["bo"], "form": "fut.3sg" }] },
+            { "label": "midva", "cells": [{ "accept": ["bova"], "form": "fut.1du", "grammar": "dvojina" }] },
+            { "label": "vidva, onadva", "cells": [{ "accept": ["bosta"], "form": "fut.2du", "grammar": "dvojina" }] },
+            { "label": "mi", "cells": ["bomo"] },
+            { "label": "vi", "cells": [{ "accept": ["boste"], "form": "fut.2pl" }] },
+            { "label": "oni", "cells": [{ "accept": ["bodo"], "form": "fut.3pl" }] }
+          ],
+          "explain": "bom, boš, bo · bova, bosta, bosta · bomo, boste, bodo"
+        },
+        {
+          "type": "sort", "grammar": "prihodnjik", "instruction": "Preteklik ali prihodnjik? · Past or future?",
+          "columns": [
+            { "label": "preteklik · past", "words": ["sem bil", "je šla", "smo jedli"] },
+            { "label": "prihodnjik · future", "words": ["bom delal", "bo šla", "bomo jedli"] }
+          ],
+          "explain": "**sem, je, smo** + the l-form: the past · **bom, bo, bomo** + the l-form: the future"
+        },
+        {
+          "type": "choice", "grammar": "prihodnjik", "instruction": "Izberi · Choose", "prompt": "Jutri ___ deževalo.", "options": ["bo", "bodo", "je"], "answer": 0, "say_options": true,
+          "explain": "**it will rain** → **bo** deževalo (je deževalo is the past)"
+        }
+      ]
+    },
+    {
+      "id": "prihodnjik-2",
+      "title": { "sl": "Jutri bo praznik", "en": "Tomorrow is a holiday", "de": "Morgen ist ein Feiertag", "it": "Domani è festa" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "prihodnjik", "instruction": "Dopolni s prihodnjikom · Fill in the future", "title": "Jutri bo praznik",
+          "text": "Jutri ___ (biti) praznik. Babica Micka bo ___ (speči) potico. Luka in Marko bosta ___ (prinesti) drva. Otroci ___ (peti) pesmi. Zvečer ___ (biti, mi) vsi pri ognju. Dežja ne ___!",
+          "gaps": [
+            { "accept": ["bo"], "hint": "biti alone: one word" },
+            { "accept": ["spekla"], "hint": "Micka: -la", "explain": "speči → spekel, **spekla** (she)." },
+            { "accept": ["prinesla"], "hint": "two men: the dual -la", "grammar": "dvojina", "explain": "Two men take the dual: bosta **prinesla**." },
+            { "accept": ["bodo peli"], "hint": "oni: will + the l-form", "explain": "oni → **bodo peli** (peti → pel, peli)." },
+            { "accept": ["bomo"], "hint": "biti alone, mi" },
+            { "accept": ["bo"], "hint": "there won't be …" }
+          ],
+          "bank": true, "distractors": ["bom", "spekel", "prinesli"],
+          "translation": "Tomorrow is a holiday. Granny Micka will bake a potica. Luka and Marko will bring the firewood. The children will sing songs. In the evening we'll all be by the fire. There won't be any rain!"
+        }
+      ]
+    },
+    {
+      "id": "prihodnjik-3",
+      "title": { "sl": "Jutri", "en": "Tomorrow", "de": "Morgen", "it": "Domani" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "prihodnjik", "instruction": "Postavi v prihodnjik · Put it in the future", "cue": "prihodnjik · future",
+          "items": [
+            { "from": "Luka dela na njivi.", "accept": ["Luka bo delal na njivi."], "lemma": "delati", "form": "past.m.sg" },
+            { "from": "Zala bere knjigo.", "accept": ["Zala bo brala knjigo."], "lemma": "brati", "form": "past.f.sg" },
+            { "from": "Otroci se igrajo.", "accept": ["Otroci se bodo igrali."], "hint": "se, then bodo", "grammar": "naslonke" },
+            { "from": "Smo doma.", "accept": ["Bomo doma.", "Mi bomo doma."], "hint": "biti alone" },
+            { "from": "Nejc in Tine gresta v šolo.", "accept": ["Nejc in Tine bosta šla v šolo.", "Nejc in Tine pojdeta v šolo."], "hint": "two boys: -la", "grammar": "dvojina" },
+            { "from": "Babica nima časa.", "accept": ["Babica ne bo imela časa."], "hint": "ne bo + the l-form" },
+            { "from": "Ni kruha.", "accept": ["Ne bo kruha.", "Kruha ne bo."], "hint": "there won't be …" },
+            { "from": "Kje ste, babica?", "accept": ["Kje boste, babica?"], "hint": "biti alone, vi", "grammar": "ti-vi" }
+          ],
+          "explain": "**bom, boš, bo** … + the l-form; biti alone just bom\n- bo delal · se bodo igrali · bosta šla\n- Bomo doma. · Ne bo kruha."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "prihodnjik", "instruction": "Dopolni · Fill in", "prompt": "biti v prihodnjiku · will (be)", "lemma": "biti",
+        "columns": ["prihodnjik · future"],
+        "rows": [
+          { "label": "ti", "cells": [{ "accept": ["boš"], "form": "fut.2sg" }] },
+          { "label": "oni", "cells": [{ "accept": ["bodo"], "form": "fut.3pl" }] },
+          { "label": "midva", "cells": [{ "accept": ["bova"], "form": "fut.1du", "grammar": "dvojina" }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "prihodnjik", "instruction": "Dopolni s prihodnjikom · Fill in the future",
+        "text": "Jutri ___ (biti, jaz) doma. Vida bo ___ (kuhati) juho. Luka in Tine ___ jutri šla na pašnik. Jutri ne bo ___ (sonce).",
+        "gaps": [
+          { "accept": ["bom"] },
+          { "accept": ["kuhala"] },
+          { "accept": ["bosta"], "grammar": "dvojina" },
+          { "accept": ["sonca"] }
+        ],
+        "translation": "Tomorrow I'll be at home. Vida will cook soup. Luka and Tine will go to the pasture. There won't be any sun tomorrow."
+      },
+      {
+        "type": "transform", "grammar": "prihodnjik", "instruction": "Postavi v prihodnjik · Put it in the future", "cue": "prihodnjik · future",
+        "items": [
+          { "from": "Marko pije vino.", "accept": ["Marko bo pil vino."], "lemma": "piti", "form": "past.m.sg" },
+          { "from": "Ste doma?", "accept": ["Boste doma?"] },
+          { "from": "Mojca in Vida kuhata.", "accept": ["Mojca in Vida bosta kuhali."], "grammar": "dvojina" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "prihodnjik", "prompt": "Jutri ___ doma.", "options": ["bom", "bom bil", "sem bil"], "answer": 0, "say_options": true,
+        "explain": "**biti** alone in the future → just **bom**: Jutri bom doma."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: prinesti (prinesla), peti (peli), bom bil non-standard (svetovalnica). Native check: Jutri bo praznik, Dežja ne bo!, ne bo snega"
+}

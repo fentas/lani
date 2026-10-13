@@ -1,0 +1,225 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "povratni-glagoli",
+  "language": "sl",
+  "level": "A1",
+  "emoji": "🔁",
+  "title": { "sl": "Učim se: se in kratke besede", "en": "Učim se: se and the little words", "de": "Učim se: se und die kleinen Wörter", "it": "Učim se: se e le paroline" },
+  "goal": {
+    "en": "You can use verbs with se (imenujem se, učim se, bojim se psa), put se in second place, and wash your hands (umijem si roke).",
+    "de": "Du benutzt Verben mit se (imenujem se, učim se, bojim se psa), stellst se an die zweite Stelle und wäschst dir die Hände (umijem si roke).",
+    "it": "Sai usare i verbi con se (imenujem se, učim se, bojim se psa), mettere se al secondo posto e lavarti le mani (umijem si roke)."
+  },
+  "grammar": ["povratni-glagoli", "naslonke"],
+  "words": ["imenovati se", "učiti se", "učiti", "igrati se", "zbuditi se", "umiti se", "bati se", "veseliti se", "ime", "roke", "nevihta", "nedelja", "zgodaj", "najprej", "potem", "se vidimo", "kako se reče"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "nedoločnik", "en": "infinitive", "de": "Infinitiv", "it": "infinito" },
+        { "sl": "jaz", "en": "I (jaz)", "de": "ich (jaz)", "it": "io (jaz)" },
+        { "sl": "on, ona", "en": "he, she", "de": "er, sie", "it": "lui, lei" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Many verbs come with the little word **se** (*povratni glagoli*): **imenovati se** (to be called), **učiti se** (to learn), **igrati se** (to play). Learn se with the verb: **Imenujem se {learner}. Zala se uči.** Without se a verb may mean something else: **Mojca uči** (teaches), **Zala se uči** (learns).",
+          "de": "Viele Verben kommen mit dem kleinen Wort **se** (*povratni glagoli*): **imenovati se** (heißen), **učiti se** (lernen), **igrati se** (spielen). Lerne se mit dem Verb: **Imenujem se {learner}. Zala se uči.** Ohne se kann ein Verb etwas anderes heißen: **Mojca uči** (unterrichtet), **Zala se uči** (lernt).",
+          "it": "Molti verbi hanno la parolina **se** (*povratni glagoli*): **imenovati se** (chiamarsi), **učiti se** (imparare), **igrati se** (giocare). Impara se con il verbo: **Imenujem se {learner}. Zala se uči.** Senza se un verbo può voler dire altro: **Mojca uči** (insegna), **Zala se uči** (impara)."
+        },
+        "examples": [
+          { "sl": "Imenujem se {learner}.", "en": "My name is {learner}.", "de": "Ich heiße {learner}.", "it": "Mi chiamo {learner}." },
+          { "sl": "Otroci se igrajo na travniku.", "en": "The children are playing in the meadow.", "de": "Die Kinder spielen auf der Wiese.", "it": "I bambini giocano sul prato." }
+        ],
+        "rows": [
+          ["imenovati se", "imenujem se", "imenuje se", { "en": "to be called", "de": "heißen", "it": "chiamarsi" }],
+          ["učiti se", "učim se", "uči se", { "en": "to learn", "de": "lernen", "it": "imparare" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "povratni-glagoli", "prompt": "Zala ___ brati. (Zala is learning to read.)", "options": ["se uči", "uči", "se učim"], "answer": 0, "say_options": true,
+          "explain": "**učiti se** (to learn) → Zala **se uči** brati\n- Mojca uči · she teaches\n- se učim · I learn"
+        }
+      },
+      {
+        "say": {
+          "en": "Only the verb changes with the person; **se** stays the same for everyone (unlike German mich, dich, sich): **zbudim se, zbudiš se, zbudi se; zbudimo se** … Mind the ending: **se zbudim** is I, **se zbudi** is he or she.",
+          "de": "Nur das Verb ändert sich mit der Person; **se** bleibt für alle gleich (anders als mich, dich, sich): **zbudim se, zbudiš se, zbudi se; zbudimo se** … Achte auf die Endung: **se zbudim** ist ich, **se zbudi** ist er oder sie.",
+          "it": "Cambia con la persona solo il verbo; **se** resta uguale per tutti (a differenza di mi, ti, si): **zbudim se, zbudiš se, zbudi se; zbudimo se** … Attenzione alla desinenza: **se zbudim** è io, **se zbudi** è lui o lei."
+        },
+        "examples": [
+          { "sl": "Zbudim se ob šestih.", "en": "I wake up at six.", "de": "Ich wache um sechs auf.", "it": "Mi sveglio alle sei." },
+          { "sl": "Babica se zbudi ob petih.", "en": "Granny wakes up at five.", "de": "Oma wacht um fünf auf.", "it": "La nonna si sveglia alle cinque." }
+        ],
+        "rows": [
+          ["zbuditi se", "zbudim se", "zbudi se", { "en": "to wake up", "de": "aufwachen", "it": "svegliarsi" }],
+          ["umiti se", "umijem se", "umije se", { "en": "to wash (yourself)", "de": "sich waschen", "it": "lavarsi" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "povratni-glagoli", "text": "Zjutraj se ___ ob šestih. (zbuditi se, jaz)", "accept": ["zbudim"], "hint": "I: -m",
+          "explain": "**se** stays, the verb takes the person: jaz → se **zbudim**"
+        }
+      },
+      {
+        "say": {
+          "en": "**Se** is a clitic: it leans on what comes first and stands in **second place**: **Zjutraj se zbudim. Moj brat se imenuje Tine.** (moj brat is one phrase.) When the verb comes first, se follows it: **Imenujem se {learner}.** It may also start a sentence: **Se vidimo!** Other little words do the same: **Ime mi je {learner}.**",
+          "de": "**Se** ist ein Klitikon: Es lehnt sich an das Erste an und steht an **zweiter Stelle**: **Zjutraj se zbudim. Moj brat se imenuje Tine.** (moj brat ist eine Wortgruppe.) Steht das Verb vorn, folgt se ihm: **Imenujem se {learner}.** Es darf auch den Satz beginnen: **Se vidimo!** Andere kleine Wörter tun dasselbe: **Ime mi je {learner}.**",
+          "it": "**Se** è un clitico: si appoggia a ciò che viene prima e sta al **secondo posto**: **Zjutraj se zbudim. Moj brat se imenuje Tine.** (moj brat è un gruppo solo.) Se il verbo viene per primo, se lo segue: **Imenujem se {learner}.** Può anche aprire la frase: **Se vidimo!** Altre paroline fanno lo stesso: **Ime mi je {learner}.**"
+        },
+        "examples": [
+          { "sl": "Moj brat se imenuje Tine.", "en": "My brother's name is Tine.", "de": "Mein Bruder heißt Tine.", "it": "Mio fratello si chiama Tine." },
+          { "sl": "Ime mi je {learner}.", "en": "My name is {learner}.", "de": "Mein Name ist {learner}.", "it": "Il mio nome è {learner}." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "naslonke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Granny wakes up early.", "options": ["Babica zgodaj se zbudi.", "Babica se zgodaj zbudi.", "Babica zgodaj zbudi se."], "answer": 1, "say_options": true,
+          "explain": "**se** → second place, right after the first word or phrase: Babica **se** zgodaj zbudi."
+        }
+      },
+      {
+        "say": {
+          "en": "Some of these verbs take the genitive: **bati se** (to be afraid of: **Bojim se psa.**) and **veseliti se** (to look forward to: **Veselim se nedelje.**). Bati se has its own stem: **bojim se, bojiš se, boji se**.",
+          "de": "Manche dieser Verben verlangen den Genitiv: **bati se** (Angst haben vor: **Bojim se psa.**) und **veseliti se** (sich freuen auf: **Veselim se nedelje.**). Bati se hat einen eigenen Stamm: **bojim se, bojiš se, boji se**.",
+          "it": "Alcuni di questi verbi vogliono il genitivo: **bati se** (avere paura di: **Bojim se psa.**) e **veseliti se** (non vedere l'ora di: **Veselim se nedelje.**). Bati se ha una radice tutta sua: **bojim se, bojiš se, boji se**."
+        },
+        "examples": [
+          { "sl": "Muri se boji nevihte.", "en": "Muri is afraid of the storm.", "de": "Muri hat Angst vor dem Gewitter.", "it": "Muri ha paura del temporale." },
+          { "sl": "Veselim se nedelje.", "en": "I'm looking forward to Sunday.", "de": "Ich freue mich auf den Sonntag.", "it": "Non vedo l'ora che sia domenica." }
+        ],
+        "rows": [
+          ["bati se", "bojim se", "boji se", { "en": "to be afraid of (genitive)", "de": "Angst haben vor (Genitiv)", "it": "avere paura di (genitivo)" }],
+          ["veseliti se", "veselim se", "veseli se", { "en": "to look forward to (genitive)", "de": "sich freuen auf (Genitiv)", "it": "non vedere l'ora di (genitivo)" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "povratni-glagoli", "text": "Tine se boji ___. (pes)", "accept": ["psa"], "hint": "bati se + the genitive",
+          "explain": "**bati se** takes the genitive: pes → se boji **psa**"
+        }
+      },
+      {
+        "say": {
+          "en": "**Si** is the same little word for *to* or *for yourself*: **Umijem si roke.** (I wash my hands.) In an order or after moram, se and si go along: **Umij si roke! Moram se učiti. Ne boj se!**",
+          "de": "**Si** ist dasselbe kleine Wort im Dativ, *mir, dir, sich*: **Umijem si roke.** (Ich wasche mir die Hände.) In einem Befehl oder nach moram gehen se und si mit: **Umij si roke! Moram se učiti. Ne boj se!**",
+          "it": "**Si** è la stessa parolina per *a sé, per sé*: **Umijem si roke.** (Mi lavo le mani.) In un ordine o dopo moram, se e si vanno con il verbo: **Umij si roke! Moram se učiti. Ne boj se!**"
+        },
+        "examples": [
+          { "sl": "Umij si roke, Nejc!", "en": "Wash your hands, Nejc!", "de": "Wasch dir die Hände, Nejc!", "it": "Lavati le mani, Nejc!" },
+          { "sl": "Moram se učiti.", "en": "I have to study.", "de": "Ich muss lernen.", "it": "Devo studiare." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "povratni-glagoli", "prompt": "»Nejc, ___ roke!«", "options": ["umij si", "umij se", "umiješ si"], "answer": 0, "say_options": true,
+          "explain": "**your own hands** → **si**: umij si roke\n- umij se · wash (yourself)\n- umiješ · you wash (not an order)"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "povratni-glagoli-1",
+      "title": { "sl": "Učim se, učiš se", "en": "Učim se, učiš se", "de": "Učim se, učiš se", "it": "Učim se, učiš se" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "povratni-glagoli", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "»se« ostane · se stays",
+          "columns": ["jaz", "on, ona", "mi"],
+          "rows": [
+            { "label": "imenovati se", "cells": ["imenujem se", { "accept": ["imenuje se", "se imenuje"] }, "imenujemo se"] },
+            { "label": "učiti se", "cells": [{ "accept": ["učim se", "se učim"] }, "uči se", { "accept": ["učimo se", "se učimo"] }] },
+            { "label": "umiti se", "cells": ["umijem se", { "accept": ["umije se", "se umije"] }, "umijemo se"] },
+            { "label": "bati se", "cells": [{ "accept": ["bojim se", "se bojim"], "hint": "a stem of its own: boj-" }, { "accept": ["boji se", "se boji"] }, "bojimo se"] },
+            { "label": "zbuditi se", "cells": ["zbudim se", { "accept": ["zbudi se", "se zbudi"] }, { "accept": ["zbudimo se", "se zbudimo"] }] }
+          ],
+          "explain": "**the verb** takes the person, **se** stays\n- imenujem se, imenuje se\n- bojim se, boji se, bojimo se"
+        },
+        {
+          "type": "choice", "grammar": "povratni-glagoli", "instruction": "Izberi · Choose", "prompt": "Mojca ___ otroke.", "options": ["uči", "se uči", "se učijo"], "answer": 0, "say_options": true,
+          "explain": "**učiti** (no se) is to teach: Mojca **uči** otroke. Učiti se is to learn."
+        },
+        {
+          "type": "choice", "grammar": "povratni-glagoli", "instruction": "Izberi · Choose", "prompt": "Babica ___ velikega psa.", "options": ["se boji", "boji", "se bojim"], "answer": 0, "say_options": true,
+          "explain": "**bati se** always with se: babica **se boji** velikega psa"
+        }
+      ]
+    },
+    {
+      "id": "povratni-glagoli-2",
+      "title": { "sl": "Zalino jutro", "en": "Zala's morning", "de": "Zalas Morgen", "it": "La mattina di Zala" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "povratni-glagoli", "instruction": "Dopolni · Fill in", "title": "Zalino jutro",
+          "text": "Zala ___ zbudi ob sedmih. Najprej se ___ (umiti), potem gre v šolo. V šoli se ___ (učiti) brati. Popoldne se otroci ___ (igrati) na travniku. Zala se ___ (bati) velikega psa. »Ne boj ___, Zala!« reče Luka.",
+          "gaps": [
+            { "accept": ["se"], "hint": "the verb's little word" },
+            { "accept": ["umije"], "hint": "umijem → she …" },
+            { "accept": ["uči"], "hint": "Zala = ona" },
+            { "accept": ["igrajo"], "hint": "otroci = oni" },
+            { "accept": ["boji"], "hint": "bojim → she …" },
+            { "accept": ["se"], "hint": "an order: the little word after the verb", "explain": "Don't be afraid: **ne boj se!** se follows the verb in an order." }
+          ],
+          "bank": true, "distractors": ["si", "umijem", "bojim"],
+          "translation": "Zala wakes up at seven. First she washes, then she goes to school. At school she's learning to read. In the afternoon the children play in the meadow. Zala is afraid of the big dog. \"Don't be afraid, Zala!\" says Luka."
+        }
+      ]
+    },
+    {
+      "id": "povratni-glagoli-3",
+      "title": { "sl": "Kdo se kaj uči?", "en": "Who learns what?", "de": "Wer lernt was?", "it": "Chi impara che cosa?" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "povratni-glagoli", "instruction": "Povej za osebo v oklepaju · Say it for the person in brackets",
+          "items": [
+            { "from": "Učim se brati. (Tine)", "accept": ["Tine se uči brati."], "hint": "se after Tine" },
+            { "from": "Zbudim se ob šestih. (mi)", "accept": ["Zbudimo se ob šestih.", "Mi se zbudimo ob šestih."] },
+            { "from": "Bojim se nevihte. (Muri)", "accept": ["Muri se boji nevihte."] },
+            { "from": "Igram se na vrtu. (otroci)", "accept": ["Otroci se igrajo na vrtu."] },
+            { "from": "Veselim se nedelje. (midva)", "accept": ["Veseliva se nedelje.", "Midva se veseliva nedelje."], "hint": "we two: -va", "grammar": "dvojina" },
+            { "from": "Umijem se. (ti)", "accept": ["Umiješ se.", "Ti se umiješ."] },
+            { "from": "Zjutraj se umijem. (Nejc)", "accept": ["Nejc se zjutraj umije.", "Zjutraj se Nejc umije.", "Nejc se umije zjutraj."], "hint": "se in second place", "grammar": "naslonke" },
+            { "from": "Imenujem se Tine. (moj brat)", "accept": ["Moj brat se imenuje Tine."], "hint": "se after the whole first phrase", "grammar": "naslonke" }
+          ],
+          "explain": "**the verb** takes the person, **se** stays in second place\n- Tine se uči brati.\n- Moj brat se imenuje Tine."
+        },
+        {
+          "type": "choice", "grammar": "povratni-glagoli", "instruction": "Izberi · Choose", "prompt": "»Tine, ___ roke!«", "options": ["umij si", "umij se", "umiješ se"], "answer": 0, "say_options": true,
+          "explain": "**your own hands** → **si**: umij si roke"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "povratni-glagoli", "instruction": "Dopolni · Fill in", "prompt": "»se« ostane · se stays",
+        "columns": ["oblika · the form"],
+        "rows": [
+          { "label": "učiti se · on", "cells": [{ "accept": ["uči se", "se uči"] }] },
+          { "label": "bati se · jaz", "cells": [{ "accept": ["bojim se", "se bojim"] }] },
+          { "label": "igrati se · oni", "cells": [{ "accept": ["igrajo se", "se igrajo"] }] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "povratni-glagoli", "instruction": "Dopolni · Fill in",
+        "text": "Konjiček ___ imenuje Sivko. Otroci se ___ (veseliti) nedelje. Muri se ___ (bati) nevihte. Jutri ___ zbudim ob osmih.",
+        "gaps": [
+          { "accept": ["se"] },
+          { "accept": ["veselijo"] },
+          { "accept": ["boji"] },
+          { "accept": ["se"], "grammar": "naslonke" }
+        ],
+        "translation": "The little horse is called Sivko. The children are looking forward to Sunday. Muri is afraid of the storm. Tomorrow I'll wake up at eight."
+      },
+      {
+        "type": "transform", "grammar": "povratni-glagoli", "instruction": "Povej za osebo v oklepaju · Say it for the person in brackets",
+        "items": [
+          { "from": "Učim se. (Nejc in Tine)", "accept": ["Nejc in Tine se učita."], "grammar": "dvojina" },
+          { "from": "Umijem se. (vi)", "accept": ["Umijete se.", "Vi se umijete."] },
+          { "from": "Imenujem se Zala. (moja sestra)", "accept": ["Moja sestra se imenuje Zala."], "grammar": "naslonke" }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "povratni-glagoli", "prompt": "Mojca ___ otroke brati.", "options": ["uči", "se uči", "uči se"], "answer": 0, "say_options": true,
+        "explain": "**učiti** (no se) is to teach: Mojca uči otroke brati."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Fran: bati se (boj se), veseliti se + gen., umiti si roke, učiti koga brati. Native check: Zalino jutro (umije/umiva), orders accepted"
+}
