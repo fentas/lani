@@ -433,7 +433,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     // a tap turn's places on the screen: a debug build logs them (tag TapTurn), for QA to tap them in the picture
     LaunchedEffect(talk?.key, talk?.run?.at, talk?.run?.mode, anchors.hits.isNotEmpty(), viewAt) {
         val run = talk?.run ?: return@LaunchedEffect
-        if (!si.lanisce.lani.BuildConfig.DEBUG || run.mode != si.lanisce.lani.game.TurnMode.TAP) return@LaunchedEffect
+        if (!si.lanisce.lani.BuildConfig.QA || run.mode != si.lanisce.lani.game.TurnMode.TAP) return@LaunchedEffect
         val at = run.taps.mapNotNull { t ->
             (anchors.bounds(SceneTarget.Thing(t)) ?: anchors.bounds(SceneTarget.Person(t)))?.let { b -> "$t@${(viewAt.x + b.center.x).toInt()},${(viewAt.y + b.center.y).toInt()}" }
         }
@@ -444,7 +444,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     // (tag SceneAt) once the camera has come to rest, for QA to tap them in the picture (the blackboard, the teacher) where
     // nothing lies over them
     LaunchedEffect(scene.id, anchors.hits.size, viewAt, people.map { it.id }, anchors.camera.camera) {
-        if (!si.lanisce.lani.BuildConfig.DEBUG || anchors.hits.isEmpty()) return@LaunchedEffect
+        if (!si.lanisce.lani.BuildConfig.QA || anchors.hits.isEmpty()) return@LaunchedEffect
         delay(400)
         fun at(t: SceneTarget, id: String) = anchors.bounds(t)?.translate(viewAt.x.toInt(), viewAt.y.toInt())?.let { b -> "$id@${b.left},${b.top},${b.right},${b.bottom}" }
         val things = scene.objects.mapNotNull { at(SceneTarget.Thing(it.slot), it.slot) }

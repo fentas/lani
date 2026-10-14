@@ -461,7 +461,7 @@ class SceneController(
 
     /** Debug builds only: scenes to try the screen with while the node has none (app/src/debug/assets). */
     private suspend fun fixture(): List<SceneSpec> {
-        if (!BuildConfig.DEBUG) return emptyList()
+        if (!BuildConfig.QA) return emptyList()
         return withContext(Dispatchers.IO) {
             runCatching { app.assets.open(FIXTURE).bufferedReader().use { parseScenes(si.lanisce.lani.l10n.Learner.current.renderJson(it.readText())) } }.getOrDefault(emptyList())
         }

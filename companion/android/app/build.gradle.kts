@@ -322,7 +322,14 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            // R8: the code shrunk, optimized and its names shortened, the resources no code uses left out (the dex went
+            // from 18.3 to 5.7 MiB). proguard-rules.pro keeps what is found by name (its comments say what reads it);
+            // the mapping (build/outputs/mapping/release/mapping.txt) turns a crash's stack trace back into the
+            // source's names and lines: release-app keeps it next to the APK (companion/README.md, "Crash reports").
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("boolean", "QA", "false")
             // sideloaded: the release key when one is set (releaseKey), else the debug key
             signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
             // The offline voice's runtime (sherpa-onnx, about 24 MB a processor type) only for the phones' 64-bit ARM: the
@@ -330,9 +337,26 @@ android {
             ndk { abiFilters += listOf("arm64-v8a") }
         }
         getByName("debug") {
+            // QA's hooks, fixtures and logs (app/QaHooks.kt; BuildConfig.QA)
+            buildConfigField("boolean", "QA", "true")
             // and for the x86_64 emulator QA runs on
             ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
         }
+        // The release build as QA drives it (companion/bin/qa --minified): R8 with the same rules and optimizations (not
+        // debuggable: a debuggable build gets R8's debug mode, which optimizes less), with QA's hooks, fixtures and logs
+        // (BuildConfig.QA), the debug build's manifest and files (the dev bridge over plain HTTP on 10.0.2.2), the
+        // emulator's x86_64 and the debug key. Never released.
+        create("qa") {
+            initWith(getByName("release"))
+            buildConfigField("boolean", "QA", "true")
+            signingConfig = signingConfigs.getByName("debug")
+            ndk { abiFilters += listOf("x86_64") }
+        }
+    }
+    sourceSets.getByName("qa") {
+        manifest.srcFile("src/debug/AndroidManifest.xml")
+        res.directories += "src/debug/res"
+        assets.directories += "src/debug/assets"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

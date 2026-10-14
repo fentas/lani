@@ -300,7 +300,7 @@ fun SceneView(
         if (ps.drawnBase.stale(if (k == 1) tick else tick / BASE_EVERY_NANOS, cast, highlight, objects)) {
             val t0 = System.nanoTime()
             val hits = painter.render(ps.base.canvas, frame)
-            if (BuildConfig.DEBUG) ps.timedBase(scene.art, System.nanoTime() - t0)
+            if (BuildConfig.QA) ps.timedBase(scene.art, System.nanoTime() - t0)
             // Overlays follow the things; only a change (a person moving, a new size) updates them.
             if (hits != anchors.hits) anchors.hits = hits
             if (painter.showsSky != skyShown) skyShown = painter.showsSky
@@ -319,7 +319,7 @@ fun SceneView(
                 val took = System.nanoTime() - t0
                 ps.fineCost = if (ps.fineCost == 0L) took else (ps.fineCost * 3 + took) / 4
                 ps.fineAt = tick
-                if (BuildConfig.DEBUG) ps.timed(scene.art, k, took)
+                if (BuildConfig.QA) ps.timed(scene.art, k, took)
                 ps.fine.lens = lens
                 ps.fine.upload()
             } catch (e: RuntimeException) {

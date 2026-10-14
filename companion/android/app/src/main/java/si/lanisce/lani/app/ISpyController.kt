@@ -229,7 +229,7 @@ class ISpyController(
      * pixels) and the thing spied ([target], its [word]): QA taps them, or its word's chip.
      */
     fun log(round: Int, target: String, word: String, at: Map<String, Pair<Int, Int>>) {
-        if (!BuildConfig.DEBUG) return
+        if (!BuildConfig.QA) return
         Log.d("ISpy", "round $round target $target things " + at.entries.joinToString(" ") { (s, c) -> "$s@${c.first},${c.second}" } + " word $word")
     }
 

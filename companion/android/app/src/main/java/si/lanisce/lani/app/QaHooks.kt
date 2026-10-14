@@ -11,8 +11,9 @@ import si.lanisce.lani.game.scene.ActiveHappening
 import si.lanisce.lani.game.scene.SceneSpec
 
 /**
- * What the end-to-end QA (companion/bin/qa) asks of a debug build through the launch intent's [EXTRA]; a release build
- * ignores it ([enabled] is [BuildConfig.DEBUG]). QA runs the app against its dev bridge, on a copy of the learner data.
+ * What the end-to-end QA (companion/bin/qa) asks of a debug build (or of the qa build: the release build's R8 with the
+ * hooks, qa --minified) through the launch intent's [EXTRA]; a release build ignores it ([enabled] is [BuildConfig.QA]).
+ * QA runs the app against its dev bridge, on a copy of the learner data.
  *
  * - "zoom": the camera on screen (the village's, a scene's) zooms in, as its "Približaj · Zoom in" action does: a double
  *   tap sent through adb comes too slow on a busy machine, and adb can't reach a TalkBack action.
@@ -63,8 +64,8 @@ import si.lanisce.lani.game.scene.SceneSpec
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
 
-    /** Whether the hooks answer: in a debug build only. */
-    var enabled = BuildConfig.DEBUG
+    /** Whether the hooks answer: in a debug or qa build only. */
+    var enabled = BuildConfig.QA
 
     /** How many zooms QA asked for: a camera on screen zooms in once for each one asked while it shows. */
     var zooms by mutableIntStateOf(0)

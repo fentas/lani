@@ -398,7 +398,7 @@ class VillagerController(
                 throw e
             } catch (e: Exception) {
                 val v = byId(id)
-                if (!BuildConfig.DEBUG || v == null) throw e
+                if (!BuildConfig.QA || v == null) throw e
                 VillagerLogic.localScenario(v, bond(game.state, id), LocalDate.now())
             }
         } finally {
@@ -416,7 +416,7 @@ class VillagerController(
 
     /** Debug builds only: a cast to try the screens with while the node has none (app/src/debug/assets). */
     private suspend fun fixture(): List<Villager> {
-        if (!BuildConfig.DEBUG) return emptyList()
+        if (!BuildConfig.QA) return emptyList()
         return withContext(Dispatchers.IO) {
             runCatching { app.assets.open(FIXTURE).bufferedReader().use { parseVillagers(si.lanisce.lani.l10n.Learner.current.renderJson(it.readText())) } }.getOrDefault(emptyList())
         }

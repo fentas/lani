@@ -33,7 +33,7 @@ class LangSetting(context: Context) {
 
     /** Shows every label in [pair] from now on (and logs missing keys in debug builds); returns it. */
     fun apply(): LangPair {
-        if (BuildConfig.DEBUG && L10n.onMissing == null) L10n.onMissing = { lang, key -> Log.w("L10n", "${lang.code}.json has no $key") }
+        if (BuildConfig.QA && L10n.onMissing == null) L10n.onMissing = { lang, key -> Log.w("L10n", "${lang.code}.json has no $key") }
         return pair.also { L10n.pair = it }
     }
 

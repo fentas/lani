@@ -27,7 +27,7 @@ class CultureSetting(context: Context) {
 
     /** The village is in the learner's culture from now on (a pack that can't be used leaves the default); its id. */
     fun apply(): String {
-        if (Cultures.onProblem == null) Cultures.onProblem = { e -> if (BuildConfig.DEBUG) Log.w("Cultures", e.message ?: e.id) }
+        if (Cultures.onProblem == null) Cultures.onProblem = { e -> if (BuildConfig.QA) Log.w("Cultures", e.message ?: e.id) }
         return Cultures.use(profile).id
     }
 

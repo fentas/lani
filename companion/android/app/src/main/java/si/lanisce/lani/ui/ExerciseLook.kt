@@ -137,7 +137,7 @@ internal fun ExText(
     val unknown = remember(text, words, look.known) { look.known?.unknown(text.text, words).orEmpty() }
     var laid by remember { mutableStateOf<TextLayoutResult?>(null) }
     var at by remember { mutableStateOf<Offset?>(null) }
-    val logs = BuildConfig.DEBUG
+    val logs = BuildConfig.QA
     WordText(
         text,
         // an answer that can't be looked up yet still takes the long press: nothing opens, nothing is chosen
