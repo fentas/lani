@@ -44,6 +44,9 @@ temp/
 # Lani companion: app modules/tokens are personal data; bridge deps
 /data/app/
 companion/bridge/node_modules/
+# The validators' bundle and their conformance corpus, both built (companion/bridge/validators, test/conformance)
+companion/bridge/validators/dist/
+companion/bridge/test/conformance/out/
 # Other learners on this machine (companion/bin/lani-profile): their registry, data and results
 /profiles/
 
