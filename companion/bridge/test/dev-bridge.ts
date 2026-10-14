@@ -80,7 +80,7 @@ client.fallbackNotificationHandler = async n => {
   else if (kind === 'partner_answer') await reply(conversation_id, '**Lepo!** 🟢 (dev tutor) Nice answer.', { score: 8, partner_note: '(dev tutor) Jan answered well.' })
 }
 
-// LANI_DEV_FAKE_ELEVENLABS=1: the bridge talks to a fake ElevenLabs here (test/fakes/eleven.ts: tones about as long as the
+// LANI_DEV_FAKE_ELEVENLABS=1: the bridge talks to a fake ElevenLabs here (test/fakes/eleven.ts: tones, longer for a longer
 // text, a quota of its own), so the whole path of a clip made on demand runs without the real API; as the real service it
 // takes LANI_DEV_FAKE_ELEVENLABS_MS a take plus LANI_DEV_FAKE_ELEVENLABS_MS_PER_CHAR a character (default 600 and 15) and
 // refuses what goes over LANI_DEV_FAKE_ELEVENLABS_CONCURRENCY at once (default 5, a Creator plan's; 0: no limit).

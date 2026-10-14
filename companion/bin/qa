@@ -80,7 +80,8 @@ Env: ANDROID_SERIAL picks the device when several run; LANI_DEV_PORT the dev bri
 LANI_PIPER_CACHE the dev bridge's offline voices (default ~/.cache/lani-qa/piper, kept between runs: the voice is fetched
 from Hugging Face once), LANI_PIPER_URL where it fetches them (default Hugging Face; a local mirror of its layout);
 LANI_DEV_TOWN_PORT the second town's (default 8797); LANI_DEV_DATA the data the dev bridge copies (default: the default
-learner's, LANI_DATA_DIR in lani.env, else data/).
+learner's, LANI_DATA_DIR in lani.env, else data/); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs for the dev bridge (clips
+made on demand end to end: test/dev-bridge.ts).
 """
 import atexit
 import html

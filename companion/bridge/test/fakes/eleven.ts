@@ -27,7 +27,7 @@ export function tone(secs: number): Uint8Array {
 }
 
 /**
- * The fake. [o.tones]: a plain take is a real MP3 (a tone about as long as the text would be said), so a phone plays it
+ * The fake. [o.tones]: a plain take is a real MP3 (a tone, longer for a longer text, at most 6 s), so a phone plays it
  * (the dev bridge); else a tagged one ([mp3]: "el:<voice id>:<text>"), which the smoke checks read back. [o.port]: its
  * port (0: any free one).
  */
@@ -131,8 +131,8 @@ export function fakeEleven(o: { tones?: boolean; port?: number } = {}) {
           st.inFlight--
         }
         st.used += body.text.length
-        // about 14 characters a second, as a voice says them
-        const audio = o.tones ? tone(Math.min(90, 0.4 + body.text.length / 14)) : mp3(`el:${m[1]}:${body.text}`)
+        // a tone of about a second for a line, at most six for an explanation (shorter than said: QA waits for what's next)
+        const audio = o.tones ? tone(Math.min(6, 0.4 + body.text.length / 30)) : mp3(`el:${m[1]}:${body.text}`)
         return new Response(audio, { headers: { 'content-type': 'audio/mpeg' } })
       }
       return new Response('not found', { status: 404 })
