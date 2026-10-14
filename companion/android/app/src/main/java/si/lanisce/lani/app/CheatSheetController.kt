@@ -9,9 +9,12 @@ import si.lanisce.lani.data.Cards
 import si.lanisce.lani.data.DeckCard
 import si.lanisce.lani.game.CheatSheet
 import si.lanisce.lani.game.GrammarBook
+import si.lanisce.lani.game.LookUp
 import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.game.PinnedCard
 import si.lanisce.lani.game.SheetCard
+import si.lanisce.lani.game.SheetLookups
+import si.lanisce.lani.game.SheetWatch
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import java.time.LocalDate
@@ -26,7 +29,8 @@ data class CheatOpen(val context: List<String> = emptyList(), val focus: String?
 /**
  * "📋 Plonk listek · Cheat sheet" (companion/README.md "Cheat sheet"; game/CheatSheet.kt): its cards (the grammar book's
  * pages', the curated ones no page fits, the tutor's, the pinned), the sheet open over any screen ([open]), opening a card,
- * pinning a tutor message. Opening it is free: help, not a hint.
+ * pinning a tutor message. Opening it is help, not a hint: opened during an exercise ([watch]), a right answer pays in
+ * full but is right with help (its review quality at most 4), and what was looked up goes with the answer to the tutor.
  */
 class CheatSheetController(
     private val game: GameController,
@@ -81,7 +85,47 @@ class CheatSheetController(
      */
     fun show(context: List<String> = emptyList(), focus: String? = null) {
         open = CheatOpen(context.distinct().filter { grammar.page(it) != null }, focus)
+        // over an exercise not answered yet: it is looked up (a worksheet's items as they are now kept)
+        lookups.sheetOpened()
     }
+
+    // --- looked up during an exercise (companion/README.md "Cheat sheet") ------------------------------------------------
+
+    /** Which exercise the sheet's opens count on now: the one on screen, not answered yet. */
+    private val lookups = SheetLookups()
+
+    /**
+     * An exercise appeared (ui/PlayerScreen's ExerciseRun): until its answer ([answered]) or the run left ([unwatch]), the
+     * sheet opened (by the exercise's 📋, or the chat's over it) and the cards opened in it count on it. Opened before
+     * (from Home, the chat), the sheet counts for nothing.
+     */
+    fun watch(): SheetWatch = lookups.exercise()
+
+    /** Exercise [w] is gone unanswered (the run left, its clock ran out). */
+    fun unwatch(w: SheetWatch) = lookups.gone(w)
+
+    /**
+     * Exercise [w] was answered: what was looked up during it (null: the sheet stayed closed), its pages counted as looked
+     * up today ([CheatSheet.lookedUp]: the tutor's get_village and get_course show the most looked up).
+     */
+    fun answered(w: SheetWatch): LookUp? {
+        val l = lookups.answered(w) ?: return null
+        if (l.pages.isNotEmpty()) game.record { CheatSheet.lookedUp(it, language, l.pages, LocalDate.now()) to Unit }
+        return l
+    }
+
+    /** A worksheet came on screen: [now] gives its items' answers as they are (the sheet's first open over it keeps them). */
+    fun itemsOnScreen(now: () -> List<String>) {
+        lookups.items = now
+    }
+
+    /** The worksheet of [now] went off screen. */
+    fun itemsGone(now: () -> List<String>) {
+        if (lookups.items === now) lookups.items = null
+    }
+
+    /** For a worksheet's items as they are now ([now]), checked: which were answered after the sheet was opened over it. */
+    fun itemsAfter(now: List<String>): List<Boolean> = lookups.itemsAfter(now)
 
     fun close() {
         open = null
@@ -116,9 +160,10 @@ class CheatSheetController(
         return all().count { CheatSheet.unlocked(it, met) }
     }
 
-    /** The learner opened card [key]: counted (it is new no more). */
+    /** The learner opened card [key]: counted (it is new no more); over an exercise, looked up for it ([watch]). */
     fun opened(key: String) {
         game.record { CheatSheet.opened(it, language, key, LocalDate.now()) to Unit }
+        lookups.cardOpened(key) { all().firstOrNull { it.key == key }?.pages.orEmpty() }
     }
 
     /**

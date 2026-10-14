@@ -297,11 +297,12 @@ object BuildingWords {
     }
 
     /**
-     * The qualities the answers ([verdicts], with the [hints] used, one each for the first tasks of [tasks]: a run left
-     * early has fewer) leave: a new word its weakest answer's ([PackSession.quality]), a reviewed card its answer's
-     * ([ReviewPlanner.quality]), each lowered by the hints ([Hints.penalize]). Words without an answer aren't in them.
+     * The qualities the answers ([verdicts], with the [hints] used and whether the cheat sheet was opened during each
+     * ([lookedUp]), one each for the first tasks of [tasks]: a run left early has fewer) leave: a new word its weakest
+     * answer's ([PackSession.quality]), a reviewed card its answer's ([ReviewPlanner.quality]), each lowered by the hints, a
+     * right one looked up at most 4 ([Hints.quality]). Words without an answer aren't in them.
      */
-    fun results(run: UpgradeRun, tasks: List<ReviewPlanner.Task>, verdicts: List<Verdict>, hints: List<Int> = emptyList()): RunResults {
+    fun results(run: UpgradeRun, tasks: List<ReviewPlanner.Task>, verdicts: List<Verdict>, hints: List<Int> = emptyList(), lookedUp: List<Boolean> = emptyList()): RunResults {
         val fresh = run.learn.associateBy { PackSession.itemId(it.pack, it.id) }
         val reviewed = run.review.mapNotNull { it.card?.id }.toSet()
         val learned = LinkedHashMap<String, MutableMap<String, Int>>()
@@ -309,13 +310,14 @@ object BuildingWords {
         for ((i, v) in verdicts.withIndex()) {
             val t = tasks.getOrNull(i) ?: break
             val h = hints.getOrElse(i) { 0 }
+            val looked = lookedUp.getOrElse(i) { false }
             val w = fresh[t.card.id]
             if (w != null) {
-                val q = Hints.penalize(PackSession.quality(v), h)
+                val q = Hints.quality(PackSession.quality(v), h, looked)
                 val m = learned.getOrPut(w.pack) { LinkedHashMap() }
                 m[w.id] = minOf(m[w.id] ?: q, q)
             } else if (t.card.id in reviewed) {
-                val q = Hints.penalize(ReviewPlanner.quality(t.variant, v), h)
+                val q = Hints.quality(ReviewPlanner.quality(t.variant, v), h, looked)
                 cards[t.card.id] = minOf(cards[t.card.id] ?: q, q)
             }
         }

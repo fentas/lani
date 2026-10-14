@@ -113,6 +113,23 @@ class HintsTest {
     @Test fun `review quality with hints`() =
         assertEquals(4, Hints.penalize(ReviewPlanner.quality(ReviewPlanner.Variant.TYPE, Verdict.CORRECT), 1))
 
+    @Test fun `a right answer with the cheat sheet open is right with help, at most 4, a hint's rule when there was one too`() {
+        val typed = ReviewPlanner.quality(ReviewPlanner.Variant.TYPE, Verdict.CORRECT)
+        assertEquals(5, typed)
+        // no sheet: as it was; the sheet opened: right with effort, 4
+        assertEquals(5, Hints.quality(typed, 0, lookedUp = false))
+        assertEquals(4, Hints.quality(typed, 0, lookedUp = true))
+        // the sheet and a hint: the hint's rule (one hint 4, two 3)
+        assertEquals(Hints.penalize(typed, 1), Hints.quality(typed, 1, lookedUp = true))
+        assertEquals(3, Hints.quality(typed, 2, lookedUp = true))
+        // what is below the cap stays: an easier variant's right, an almost, a wrong one (a word's form too)
+        assertEquals(3, Hints.quality(ReviewPlanner.quality(ReviewPlanner.Variant.RECOGNIZE, Verdict.CORRECT), 0, lookedUp = true))
+        assertEquals(4, Hints.quality(ReviewPlanner.quality(ReviewPlanner.Variant.TILES, Verdict.CORRECT), 0, lookedUp = true))
+        assertEquals(3, Hints.quality(ReviewPlanner.quality(ReviewPlanner.Variant.TYPE, Verdict.ALMOST), 0, lookedUp = true))
+        assertEquals(1, Hints.quality(ReviewPlanner.quality(ReviewPlanner.Variant.TYPE, Verdict.WRONG), 0, lookedUp = true))
+        assertEquals(3, Hints.quality(ReviewPlanner.quality(ReviewPlanner.Variant.FORM_TYPE, Verdict.WRONG), 0, lookedUp = true))
+    }
+
     // --- speak: until it can be read aloud ------------------------------------------------
 
     @Test fun `speak hints reveal the shape, then the words in reading order, then all of it`() {

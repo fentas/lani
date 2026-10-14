@@ -30,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -110,6 +111,21 @@ private fun verdictMark(v: Verdict): String = when (v) {
     Verdict.ALMOST -> "≈"
     Verdict.WRONG -> "✗"
 }
+
+/**
+ * While a sheet is on screen, the cheat sheet's first open over it keeps what its items hold ([now]: each item's answer
+ * as it is), so the items answered after it can be told at the check ([lookedUp]).
+ */
+@Composable
+private fun ItemsForCheatSheet(vm: AppViewModel, now: () -> List<String>) {
+    DisposableEffect(now) {
+        vm.cheat.itemsOnScreen(now)
+        onDispose { vm.cheat.itemsGone(now) }
+    }
+}
+
+/** For each item as it is now ([now]), at the check: answered after the cheat sheet was opened over the sheet (right with help). */
+private fun lookedUp(vm: AppViewModel, now: List<String>): List<Boolean> = vm.cheat.itemsAfter(now)
 
 /** The sheet's outcome for the run: its items' marks, the verdict over them, what it explains. */
 private fun outcomeOf(marks: List<ItemMark>, explain: String?): Outcome {
@@ -261,6 +277,8 @@ internal fun GapTextEx(vm: AppViewModel, ex: Exercise.GapText, locked: Boolean, 
             ws
         }
     }
+    val now = remember(ex) { { values.map { it.text } } }
+    ItemsForCheatSheet(vm, now)
 
     Prompt("", ex.instruction ?: bi("school.fillText"))
     ex.title?.let { Text(it, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp)) }
@@ -319,7 +337,8 @@ internal fun GapTextEx(vm: AppViewModel, ex: Exercise.GapText, locked: Boolean, 
     if (!locked) BigButton(
         bi("playerScreen.check"), enabled = values.any { it.text.isNotBlank() },
         onClick = {
-            val checked = items.mapIndexed { i, it -> Sheets.check(it, values[i].text).copy(hinted = hinted[i] == true) }
+            val after = lookedUp(vm, now())
+            val checked = items.mapIndexed { i, it -> Sheets.check(it, values[i].text).copy(hinted = hinted[i] == true, lookedUp = after.getOrElse(i) { false }) }
             marks = checked
             done(outcomeOf(checked, listOfNotNull(ex.explain).joinToString("\n\n").ifBlank { null }))
         },
@@ -346,6 +365,8 @@ internal fun TableEx(vm: AppViewModel, ex: Exercise.Table, locked: Boolean, done
     var active by remember(ex) { mutableIntStateOf(0) }
     var marks by remember(ex) { mutableStateOf<List<ItemMark>?>(null) }
     val stage = LocalStage.current
+    val now = remember(ex) { { values.map { it.text } } }
+    ItemsForCheatSheet(vm, now)
 
     Prompt(ex.prompt ?: "", ex.instruction ?: bi("school.fillTable"))
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow), modifier = Modifier.fillMaxWidth()) {
@@ -387,7 +408,8 @@ internal fun TableEx(vm: AppViewModel, ex: Exercise.Table, locked: Boolean, done
     if (!locked) BigButton(
         bi("playerScreen.check"), enabled = values.any { it.text.isNotBlank() },
         onClick = {
-            val checked = items.mapIndexed { i, it -> Sheets.check(it, values[i].text).copy(hinted = hinted[i] == true) }
+            val after = lookedUp(vm, now())
+            val checked = items.mapIndexed { i, it -> Sheets.check(it, values[i].text).copy(hinted = hinted[i] == true, lookedUp = after.getOrElse(i) { false }) }
             marks = checked
             done(outcomeOf(checked, ex.explain))
         },
@@ -405,6 +427,8 @@ internal fun TransformEx(vm: AppViewModel, ex: Exercise.Transform, locked: Boole
     var active by remember(ex) { mutableIntStateOf(0) }
     var marks by remember(ex) { mutableStateOf<List<ItemMark>?>(null) }
     val stage = LocalStage.current
+    val now = remember(ex) { { values.map { it.text } } }
+    ItemsForCheatSheet(vm, now)
 
     Prompt("", ex.instruction)
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -438,7 +462,8 @@ internal fun TransformEx(vm: AppViewModel, ex: Exercise.Transform, locked: Boole
     if (!locked) BigButton(
         bi("playerScreen.check"), enabled = values.any { it.text.isNotBlank() },
         onClick = {
-            val checked = items.mapIndexed { i, it -> Sheets.check(it, values[i].text).copy(hinted = hinted[i] == true) }
+            val after = lookedUp(vm, now())
+            val checked = items.mapIndexed { i, it -> Sheets.check(it, values[i].text).copy(hinted = hinted[i] == true, lookedUp = after.getOrElse(i) { false }) }
             marks = checked
             done(outcomeOf(checked, ex.explain))
         },
@@ -459,6 +484,11 @@ internal fun SortEx(vm: AppViewModel, ex: Exercise.Sort, locked: Boolean, done: 
     val placed = remember(ex) { mutableStateMapOf<Int, Int>() }
     var picked by remember(ex) { mutableStateOf<Int?>(null) }
     var marks by remember(ex) { mutableStateOf<Map<Int, ItemMark>?>(null) }
+    // its items in the exercise's order (its columns' words), as it is marked: each word's column so far
+    val order = remember(ex) { ex.columns.flatMap { it.words } }
+    val byWord = remember(ex) { words.indices.associateBy { words[it] } }
+    val now = remember(ex) { { order.map { word -> placed[byWord.getValue(word)]?.toString().orEmpty() } } }
+    ItemsForCheatSheet(vm, now)
 
     Prompt(ex.prompt ?: "", ex.instruction ?: bi("school.sortWords"))
     // the words not placed yet
@@ -524,9 +554,8 @@ internal fun SortEx(vm: AppViewModel, ex: Exercise.Sort, locked: Boolean, done: 
         bi("playerScreen.check"), enabled = placed.size == words.size,
         onClick = {
             // marked in the exercise's order (its columns' words), as its items are
-            val order = ex.columns.flatMap { it.words }
-            val byWord = words.indices.associateBy { words[it] }
-            val checked = order.map { word -> val w = byWord.getValue(word); Sheets.sorted(ex, word, placed[w]) }
+            val after = lookedUp(vm, now())
+            val checked = order.mapIndexed { i, word -> val w = byWord.getValue(word); Sheets.sorted(ex, word, placed[w]).copy(lookedUp = after.getOrElse(i) { false }) }
             marks = order.mapIndexed { i, word -> byWord.getValue(word) to checked[i] }.toMap()
             done(outcomeOf(checked, ex.explain))
         },

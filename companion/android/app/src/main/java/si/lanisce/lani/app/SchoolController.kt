@@ -35,8 +35,14 @@ import java.time.LocalDate
 /** What a sheet of the school is: one of the unit's worksheets, its test, or the tutor's homework. */
 enum class SheetKind { WORKSHEET, TEST, HOMEWORK }
 
-/** One exercise of a sheet answered, as the run reports it: its verdict, what was answered, and each item's mark. */
-data class SheetAnswer(val verdict: Verdict, val paid: Verdict, val answer: String, val expected: String?, val items: List<ItemMark> = emptyList())
+/**
+ * One exercise of a sheet answered, as the run reports it: its verdict, what was answered, each item's mark, and what was
+ * looked up on the cheat sheet during it ([lookedUp]; each item says whether it was answered after: [ItemMark.lookedUp]).
+ */
+data class SheetAnswer(
+    val verdict: Verdict, val paid: Verdict, val answer: String, val expected: String?, val items: List<ItemMark> = emptyList(),
+    val lookedUp: si.lanisce.lani.game.LookUp? = null,
+)
 
 /** A sheet finished: what it paid ([reward]), its items ([items], paid verdicts), and whether the unit was done now. */
 data class SheetDone(val reward: Reward?, val items: List<Verdict>, val unitDone: Boolean, val passed: Boolean)
@@ -214,6 +220,7 @@ class SchoolController(
                     put("verdict", a.verdict.name.lowercase())
                     put("answer", a.answer.take(300))
                     a.expected?.let { put("expected", it.take(300)) }
+                    a.lookedUp?.let { put("looked_up", it.json) }
                     if (a.items.isNotEmpty()) put("items", buildJsonArray {
                         val its = exercises.getOrNull(i)?.let(Sheets::items).orEmpty()
                         a.items.forEachIndexed { j, m ->
@@ -223,6 +230,7 @@ class SchoolController(
                                 put("expected", m.expected.take(120))
                                 its.getOrNull(j)?.let { put("in", it.frame.take(160)) }
                                 if (m.hinted) put("hinted", true)
+                                if (m.lookedUp) put("looked_up", true)
                             })
                         }
                     })

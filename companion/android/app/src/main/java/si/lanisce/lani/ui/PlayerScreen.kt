@@ -52,6 +52,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -106,7 +107,9 @@ import si.lanisce.lani.data.ScreenClock
 import si.lanisce.lani.data.Spoken
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.AdaptedChoice
+import si.lanisce.lani.game.LookUp
 import si.lanisce.lani.game.QuestQueue
+import si.lanisce.lani.game.SheetWatch
 import si.lanisce.lani.game.QuestSource
 import si.lanisce.lani.game.villagers.Residents
 import si.lanisce.lani.ui.game.practiseHardLabel
@@ -160,9 +163,17 @@ data class Outcome(
     val hints: Int = 0,
     /** A worksheet exercise's items checked (a gap, a cell, a line, a word sorted): each pays and counts on its own. */
     val sheet: List<si.lanisce.lani.data.ItemMark> = emptyList(),
+    /**
+     * The cheat sheet opened between the exercise appearing and its answer: the cards opened then and their pages (null:
+     * it stayed closed). Help, not a hint: the verdict and its pay stay, a right answer's review quality is at most 4.
+     */
+    val lookedUp: LookUp? = null,
 ) {
-    /** The verdict the village pays: a correct answer with hints counts as almost. */
+    /** The verdict the village pays: a correct answer with hints counts as almost (one looked up on the cheat sheet pays in full). */
     val paid: Verdict get() = Hints.paid(verdict, hints)
+
+    /** The SM-2 quality of this answer, from its own ([base]: the verdict's): lowered by its hints, a right one looked up at most 4 ([Hints.quality]). */
+    fun quality(base: Int): Int = Hints.quality(base, hints, lookedUp != null)
 }
 
 /** Grades a typed answer: forgives diacritics and stem typos, never endings (see [Grading]). */
@@ -262,8 +273,15 @@ fun ExerciseRun(
         (exercises.getOrNull(index) as? Exercise.Choice)?.takeIf { !fast && timeLimitSeconds == null }
             ?.let { vm.grammar.adapt(it, ruleAt(index), vm.canListen()) }
     }
-    /** An answer: shown, and counted on its rule (whose page it may unlock). */
-    val answered: (Outcome) -> Unit = { o ->
+    /**
+     * The cheat sheet over the exercise on screen, from its appearing (the clock running) to its answer: what the learner
+     * looks up then goes with the answer ([Outcome.lookedUp]; companion/README.md "Cheat sheet").
+     */
+    var watch by remember { mutableStateOf<SheetWatch?>(null) }
+    /** An answer: shown, and counted on its rule (whose page it may unlock); what was looked up on the cheat sheet with it. */
+    val answered: (Outcome) -> Unit = { given ->
+        val o = given.copy(lookedUp = watch?.let(vm.cheat::answered))
+        watch = null
         val ex = exercises[index]
         if (o.sheet.isNotEmpty()) {
             // a worksheet's items: one answer on each rule they name, as one exercise would (companion/GAME.md, "The school")
@@ -279,6 +297,12 @@ fun ExerciseRun(
         if (!(fast && o.verdict == Verdict.CORRECT)) noted = vm.grammar.fresh.toList()
         outcome = o
     }
+    // an exercise on screen and not answered: the cheat sheet opened now counts on it (not before the clock runs: 3, 2, 1)
+    LaunchedEffect(index, outcome == null, clock == Clock.RUNNING, stopped) {
+        watch?.let(vm.cheat::unwatch)
+        watch = if (outcome == null && index < exercises.size && clock == Clock.RUNNING && !stopped) vm.cheat.watch() else null
+    }
+    DisposableEffect(Unit) { onDispose { watch?.let(vm.cheat::unwatch) } }
     BackHandler(onBack = stop)
     // back hides the text shown again first
     BackHandler(enabled = peeking) { peeking = false }
@@ -332,8 +356,8 @@ fun ExerciseRun(
                 modifier = Modifier.weight(1f).height(10.dp).clip(CircleShape),
                 color = XpGold,
             )
-            // the cheat sheet, this exercise's cards first (then the pages the run is about: a school unit's): free, help and
-            // not a hint
+            // the cheat sheet, this exercise's cards first (then the pages the run is about: a school unit's): help, not a
+            // hint (a right answer after it pays in full, its review quality at most 4: [watch])
             CheatButton(vm) { (listOfNotNull(ruleAt(index)) + pages + cheatContext(vm, ruleAt(index), exercises, rules, moduleId)).distinct() }
             ChatButton(vm)
         }
@@ -1180,6 +1204,7 @@ internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: Js
                         put("answer", m.answer)
                         put("expected", m.expected)
                         put("verdict", m.verdict.name.lowercase())
+                        if (m.lookedUp) put("looked_up", true)
                     })
                 }
             })
@@ -1189,6 +1214,7 @@ internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: Js
         put("verdict", o.verdict.name.lowercase())
         if (o.hint != Grading.Hint.NONE) put("hint", o.hint.name.lowercase())
         if (o.hints > 0) put("hints_used", o.hints)
+        o.lookedUp?.let { put("looked_up", it.json) }
         o.explain?.let { put("explain", it) }
         moduleId?.let { put("module_id", it) }
         source?.let { put("source", it) }
@@ -1220,8 +1246,9 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
  * What a review card's exercise was answered with, for the node's log of recent answers (POST /reviews `answers`,
  * companion/bridge/src/answers.ts): the card, how it was asked ([variant]; null where no planner chose it, as a
  * challenge's exercise), the exercise and what it asked, what was typed or heard against what was expected, the verdict
- * and the grading hint. A flashcard is self-rated: no answer to keep. So when Jan reports a card later without "Ask", the
- * tutor can see what was typed.
+ * and the grading hint, what was looked up on the cheat sheet during it (`looked_up`: the cards opened, their pages; an
+ * older bridge leaves it out). A flashcard is self-rated: no answer to keep. So when Jan reports a card later without
+ * "Ask", the tutor can see what was typed.
  */
 internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: ReviewPlanner.Variant?): JsonObject {
     val (type, prompt) = typeAndPrompt(ex)
@@ -1238,6 +1265,7 @@ internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: Rev
         if (o.hint != Grading.Hint.NONE) put("hint", o.hint.name.lowercase())
         if (o.spoken) put("spoken", true)
         if (o.hints > 0) put("hints_used", o.hints)
+        o.lookedUp?.let { put("looked_up", it.json) }
     }
 }
 
@@ -1281,6 +1309,7 @@ private fun sessionData(m: Module, outcomes: List<Outcome>, started: Long): Json
                 put("answer", o.answer)
                 o.correct?.let { put("expected", it) }
                 if (o.hints > 0) put("hints_used", o.hints)
+                o.lookedUp?.let { put("looked_up", it.json) }
             })
         }
     })

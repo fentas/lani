@@ -155,7 +155,7 @@ fun UpgradeWordsScreen(vm: AppViewModel, buildingId: String, toLevel: Int, run: 
             },
         ) { o ->
             outs = o
-            val results = BuildingWords.results(run, tasks, o.map { it.verdict }, o.map { it.hints })
+            val results = BuildingWords.results(run, tasks, o.map { it.verdict }, o.map { it.hints }, o.map { it.lookedUp != null })
             vm.finishUpgradeWords(results, run, tasks.take(o.size).map { it.exercise }, o.map { it.paid }, minutesSince(started), upgradeAnswers(results, tasks, o))
         }
     }

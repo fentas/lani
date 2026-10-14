@@ -24,7 +24,8 @@ data class SheetItem(
 
 /**
  * An item checked: its [verdict], what was given ([answer]) and what is right ([expected]), the grading's hint and marks;
- * [hinted]: its 💡 was opened (a right answer then pays like an almost, [Hints.paid]).
+ * [hinted]: its 💡 was opened (a right answer then pays like an almost, [Hints.paid]); [lookedUp]: it was answered after
+ * the cheat sheet was opened over the sheet (right with help: it pays in full, the tutor hears of it).
  */
 data class ItemMark(
     val verdict: Verdict,
@@ -33,6 +34,7 @@ data class ItemMark(
     val hint: Grading.Hint = Grading.Hint.NONE,
     val marks: List<IntRange> = emptyList(),
     val hinted: Boolean = false,
+    val lookedUp: Boolean = false,
 ) {
     /** What it pays as: a right one after its hint as an almost. */
     val paid: Verdict get() = Hints.paid(verdict, if (hinted) 1 else 0)

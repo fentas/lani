@@ -71,8 +71,10 @@ import si.lanisce.lani.ui.words.lookUpIn
  * "📋 Plonk listek · Cheat sheet" over any screen (companion/README.md "Cheat sheet"): the unlocked cards in order of
  * relevance for what it was opened from ([at]: an exercise's pages first, its own card open at once), a filter by level,
  * each card's head with its rule line (a tap opens the whole card and counts it), "✨ Novo" on a card never opened, and
- * how many more cards come as the learner goes. Opening it is free: help, not a hint. A card's table may hold the form an
- * open exercise asks for: it's the rule's table, as a school's cheat sheet would have it (README "Cheat sheet").
+ * how many more cards come as the learner goes. Opening it is help, not a hint: over an exercise not answered yet, a right
+ * answer pays in full but is right with help (app/CheatSheetController.watch), and the cards opened go to the tutor with
+ * it. A card's table may hold the form an open exercise asks for: it's the rule's table, as a school's cheat sheet would
+ * have it (README "Cheat sheet").
  */
 @Composable
 fun CheatSheetSheet(vm: AppViewModel, at: CheatOpen) {
@@ -287,7 +289,10 @@ private fun RenameDialog(initial: String, onDismiss: () -> Unit, onSave: (String
     )
 }
 
-/** "📋" in an exercise's top bar, by the tutor's 💬: the cheat sheet, the exercise's cards first ([context]). Free: not a hint. */
+/**
+ * "📋" in an exercise's top bar, by the tutor's 💬: the cheat sheet, the exercise's cards first ([context]). Help, not a
+ * hint: a right answer after it pays in full, its review quality at most 4 (the exercise's run watches: ExerciseRun).
+ */
 @Composable
 fun CheatButton(vm: AppViewModel, context: () -> List<String>) {
     IconButton(onClick = { vm.cheat.show(context()) }) { EmojiLabel("📋", bi("cheatSheet.title")) }

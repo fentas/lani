@@ -1,10 +1,13 @@
 package si.lanisce.lani.ui
 
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import si.lanisce.lani.game.LookUp
 import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading
@@ -62,6 +65,28 @@ class AskAboutTest {
         val a = reviewAnswer(Exercise.Translate("to make a fire", listOf("kuriti ogenj")), Outcome(Verdict.WRONG, "kurim", "kuriti ogenj", null), "vocab_kurim", null)
         assertFalse("variant" in a)
         assertEquals("kurim", a["answer"]!!.jsonPrimitive.content)
+    }
+
+    @Test fun `what was looked up on the cheat sheet goes with the answer, to the review's log and to Ask`() {
+        val ex = Exercise.Cloze("Pijem ___.", listOf("kavo"), grammar = "tozilnik")
+        val looked = LookUp(listOf("page:tozilnik", "pin:m-1"), listOf("tozilnik"))
+        val o = Outcome(Verdict.CORRECT, "kavo", "kavo", null, lookedUp = looked)
+        val a = reviewAnswer(ex, o, "vocab_kava", Variant.TYPE)
+        val sent = a["looked_up"]!!.jsonObject
+        assertEquals(listOf("page:tozilnik", "pin:m-1"), sent["cards"]!!.jsonArray.map { it.jsonPrimitive.content })
+        assertEquals(listOf("tozilnik"), sent["pages"]!!.jsonArray.map { it.jsonPrimitive.content })
+        assertEquals(sent, chatContext(ex, o, null).data["looked_up"])
+        // opened, no card: the sheet still counts, with no cards
+        val bare = reviewAnswer(ex, o.copy(lookedUp = LookUp()), "vocab_kava", Variant.TYPE)["looked_up"]!!.jsonObject
+        assertTrue(bare["cards"]!!.jsonArray.isEmpty() && bare["pages"]!!.jsonArray.isEmpty())
+        // the sheet stayed closed: nothing said
+        assertFalse("looked_up" in reviewAnswer(ex, o.copy(lookedUp = null), "vocab_kava", Variant.TYPE))
+        // right with help: it pays in full ("Pravilno"), its quality at most 4; a hint's rule when there was one too
+        assertEquals(Verdict.CORRECT, o.paid)
+        assertEquals(4, o.quality(5))
+        assertEquals(5, o.copy(lookedUp = null).quality(5))
+        assertEquals(Verdict.ALMOST, o.copy(hints = 2).paid)
+        assertEquals(3, o.copy(hints = 2).quality(5))
     }
 
     @Test fun `without a source nothing is made up`() {

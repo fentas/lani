@@ -183,6 +183,21 @@ object Hints {
     fun penalize(quality: Int, hints: Int): Int =
         if (hints <= 0) quality else minOf(quality, maxOf(QUALITY_FLOOR, quality - hints))
 
+    /** A right answer given with the cheat sheet open (looked up oneself: help, not a hint) reaches at most this quality. */
+    const val LOOKED_UP_QUALITY = 4
+
+    /**
+     * The SM-2 quality of an answer of [quality] given with [hints] hints ([penalize]) and the cheat sheet opened during it
+     * or not ([lookedUp]; companion/README.md "Cheat sheet"): right with help, at most [LOOKED_UP_QUALITY] ("right with
+     * effort": the card comes back a little sooner), while it pays in full ([paid] doesn't change). With a hint too, the
+     * hint's rule. A wrong or almost answer stays as it was (its quality is below the cap already).
+     */
+    fun quality(quality: Int, hints: Int, lookedUp: Boolean): Int = when {
+        hints > 0 -> penalize(quality, hints)
+        lookedUp -> minOf(quality, LOOKED_UP_QUALITY)
+        else -> quality
+    }
+
     /** What the village pays for an answer: a correct one reached with hints counts as almost. */
     fun paid(verdict: Verdict, hints: Int): Verdict =
         if (verdict == Verdict.CORRECT && hints > 0) Verdict.ALMOST else verdict

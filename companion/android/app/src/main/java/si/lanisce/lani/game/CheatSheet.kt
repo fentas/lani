@@ -1,6 +1,11 @@
 package si.lanisce.lani.game
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import si.lanisce.lani.data.DeckCard
 import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.GrammarExample
@@ -12,14 +17,108 @@ import kotlin.math.pow
 
 /**
  * What the village keeps of the cheat sheet ([GameState.sheet]; companion/README.md "Cheat sheet"): the tutor messages the
- * learner [pinned] (oldest first), and how often they open each card ([opens], by "<language>/<card key>": a count that
- * halves every [CheatSheet.HALF_LIFE_DAYS] days). A card never opened is new. The bridge reads it too (the tutor's list_cards).
+ * learner [pinned] (oldest first), how often they open each card ([opens], by "<language>/<card key>": a count that
+ * halves every [CheatSheet.HALF_LIFE_DAYS] days) and what they looked up during exercises ([lookups], by "<language>/<page
+ * id>": each day's answers given with one of the page's cards opened, ISO day → count, the last
+ * [CheatSheet.LOOKUP_DAYS] days). A card never opened is new. The bridge reads it too (the tutor's list_cards, get_village
+ * and get_course); an older app drops [lookups] when it writes the village.
  */
 @Serializable
 data class SheetState(
     val pinned: List<PinnedCard> = emptyList(),
     val opens: Map<String, CardUse> = emptyMap(),
+    val lookups: Map<String, Map<String, Int>> = emptyMap(),
 )
+
+/**
+ * What the learner looked up on the sheet during one exercise, between its appearing and its answer ([SheetWatch]): the
+ * [cards] they opened then (keys: "page:biti", "deck:zaimki-osebe"; none: the sheet opened, no card) and their grammar
+ * [pages]. A right answer given so is right with help: it pays in full, its review quality is at most
+ * [si.lanisce.lani.data.Hints.LOOKED_UP_QUALITY]; the tutor hears of it (`looked_up` with the answer).
+ */
+data class LookUp(val cards: List<String> = emptyList(), val pages: List<String> = emptyList()) {
+    /** `{"cards": […], "pages": […]}`: an answer's `looked_up` for the bridge (POST /reviews answers, a session_end's results). */
+    val json: JsonObject
+        get() = buildJsonObject {
+            put("cards", buildJsonArray { cards.forEach { add(JsonPrimitive(it)) } })
+            put("pages", buildJsonArray { pages.forEach { add(JsonPrimitive(it)) } })
+        }
+}
+
+/**
+ * The cheat sheet during one exercise, from its appearing to its answer (app/CheatSheetController.watch): whether the
+ * learner opened the sheet then ([open]), the cards they opened in it ([card]), and for a worksheet what its items held
+ * when the sheet first opened, so the items answered after it can be told ([after]). Opened before the exercise appeared
+ * (from Home, the chat), it counts for nothing. Pure.
+ */
+class SheetWatch {
+    /** Whether the sheet was opened during the exercise. */
+    var opened: Boolean = false
+        private set
+    private val cards = LinkedHashMap<String, List<String>>()
+    private var before: List<String>? = null
+
+    /** The sheet opened over the exercise; [items]: a worksheet's items as they are now (null: not a worksheet). The first open keeps them. */
+    fun open(items: List<String>?) {
+        if (opened) return
+        opened = true
+        before = items
+    }
+
+    /** Card [key] (of the grammar [pages]) opened in the sheet: counted once the sheet was opened during the exercise. */
+    fun card(key: String, pages: List<String>) {
+        if (opened && key !in cards) cards[key] = pages
+    }
+
+    /** What was looked up: the cards opened and their pages, in the order opened; null when the sheet stayed closed. */
+    fun lookUp(): LookUp? = if (!opened) null else LookUp(cards.keys.toList(), cards.values.flatten().distinct())
+
+    /**
+     * For each of a worksheet's items as they are now ([now]): whether it was answered after the sheet opened, its answer
+     * other than when the sheet first opened (one filled before and left as it was isn't). All false while it stayed closed.
+     */
+    fun after(now: List<String>): List<Boolean> = now.mapIndexed { i, v -> opened && (before?.getOrNull(i) ?: "") != v }
+}
+
+/**
+ * Which exercise the sheet's opens count on (app/CheatSheetController): the one on screen and not answered yet
+ * ([exercise], until [answered] or [gone]), none between exercises: the sheet opened from Home or the chat before an
+ * exercise appeared counts for nothing, nor one opened over its feedback. [items]: the worksheet on screen, its items'
+ * answers as they are now. Pure.
+ */
+class SheetLookups {
+    private var watching: SheetWatch? = null
+
+    /** The worksheet on screen: its items' answers as they are now; null when none is. */
+    var items: (() -> List<String>)? = null
+
+    /** An exercise appeared: what is looked up from now until its answer counts on it. */
+    fun exercise(): SheetWatch = SheetWatch().also { watching = it }
+
+    /** Exercise [w] is gone unanswered (the run left, its clock ran out). */
+    fun gone(w: SheetWatch) {
+        if (watching === w) watching = null
+    }
+
+    /** The sheet opened: over an exercise not answered yet, it is looked up (a worksheet's items as they are now kept). */
+    fun sheetOpened() {
+        watching?.open(runCatching { items?.invoke() }.getOrNull())
+    }
+
+    /** Card [key] (of the grammar [pages]) opened in the sheet. */
+    fun cardOpened(key: String, pages: () -> List<String>) {
+        watching?.takeIf { it.opened }?.card(key, pages())
+    }
+
+    /** Exercise [w] was answered: what was looked up during it, null when the sheet stayed closed. */
+    fun answered(w: SheetWatch): LookUp? {
+        gone(w)
+        return w.lookUp()
+    }
+
+    /** For a worksheet's items as they are now ([now]), at its check: which were answered after the sheet opened over it. */
+    fun itemsAfter(now: List<String>): List<Boolean> = watching?.after(now) ?: now.map { false }
+}
 
 /**
  * A tutor message the learner pinned ("📌 Na plonk listek · Pin to cheat sheet"): its [id] (the card's key is "pin:<id>"),
@@ -200,6 +299,28 @@ object CheatSheet {
     /** The counts kept: at most [MAX_OPENS], the least used dropped first. */
     private fun trim(opens: Map<String, CardUse>, today: LocalDate): Map<String, CardUse> =
         if (opens.size <= MAX_OPENS) opens else opens.entries.sortedByDescending { weight(it.value, today) }.take(MAX_OPENS).associate { it.key to it.value }
+
+    /** The lookups during exercises are kept by day for this many days (today among them): the tutor sees the last two weeks'. */
+    const val LOOKUP_DAYS = 14L
+
+    /**
+     * The learner answered an exercise [today] with cards of the grammar [pages] (of [language]) opened on the sheet
+     * ([LookUp.pages]): one more lookup of each today; the days before the last [LOOKUP_DAYS] are dropped.
+     */
+    fun lookedUp(s: GameState, language: String, pages: Collection<String>, today: LocalDate): GameState {
+        if (pages.isEmpty()) return s
+        val day = today.toString()
+        val since = today.minusDays(LOOKUP_DAYS - 1)
+        val kept = s.sheet.lookups
+            .mapValues { (_, days) -> days.filter { (d, n) -> n > 0 && runCatching { LocalDate.parse(d) }.getOrNull()?.let { !it.isBefore(since) && !it.isAfter(today) } == true } }
+            .filterValues { it.isNotEmpty() }.toMutableMap()
+        for (p in pages.distinct()) {
+            val k = useKey(language, p)
+            val days = kept[k].orEmpty()
+            kept[k] = days + (day to (days[day] ?: 0) + 1)
+        }
+        return s.copy(sheet = s.sheet.copy(lookups = kept))
+    }
 
     // --- the order ---------------------------------------------------------------------------------------------------
 

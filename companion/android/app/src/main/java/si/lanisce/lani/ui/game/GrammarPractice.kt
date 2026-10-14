@@ -20,7 +20,6 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.Grammar
-import si.lanisce.lani.data.Hints
 import si.lanisce.lani.data.ReviewPlanner
 import si.lanisce.lani.data.ScreenClock
 import si.lanisce.lani.l10n.bi
@@ -66,7 +65,7 @@ fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Pr
             vm.game.rewardPractice(exercises, outs.map { it.paid })
             val minutes = minutesSince(started)
             if (tasks != null) vm.finishReview(
-                tasks.zip(outs) { t, o -> t.card.id to Hints.penalize(ReviewPlanner.quality(t.variant, o.verdict), o.hints) }, minutes,
+                tasks.zip(outs) { t, o -> t.card.id to o.quality(ReviewPlanner.quality(t.variant, o.verdict)) }, minutes,
                 answers = JsonArray(tasks.zip(outs) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) }), from = si.lanisce.lani.data.ReviewFrom.GRAMMAR,
             )
             else if (outs.isNotEmpty()) vm.chat.sessionEnd(summary(pageId, page?.titleIn("en"), outs), sessionData(pageId, exercises, outs, minutes))
@@ -112,6 +111,7 @@ private fun sessionData(id: String, exercises: List<Exercise>, outs: List<Outcom
                 put("answer", o.answer)
                 o.correct?.let { put("expected", it) }
                 if (o.hints > 0) put("hints_used", o.hints)
+                o.lookedUp?.let { put("looked_up", it.json) }
             })
         }
     })

@@ -33,7 +33,6 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grammar
-import si.lanisce.lani.data.Hints
 import si.lanisce.lani.data.ReviewCard
 import si.lanisce.lani.data.ReviewPlanner
 import si.lanisce.lani.data.ScreenClock
@@ -89,7 +88,8 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             // another language's deck: its words are looked up in it, new against its cards
             language = language,
         ) { outcomes ->
-            val q = tasks.zip(outcomes) { t, o -> Hints.penalize(ReviewPlanner.quality(t.variant, o.verdict), o.hints) }
+            // lowered by the hints; a right answer looked up on the cheat sheet is right with help, at most 4
+            val q = tasks.zip(outcomes) { t, o -> o.quality(ReviewPlanner.quality(t.variant, o.verdict)) }
             qualities = q
             vm.game.rewardPractice(tasks.map { it.exercise }, outcomes.map { it.paid })
             // the forms asked: what the next asks of each word, and the tutor's note

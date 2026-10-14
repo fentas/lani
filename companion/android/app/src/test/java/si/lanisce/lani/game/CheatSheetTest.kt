@@ -275,6 +275,93 @@ class CheatSheetTest {
         assertEquals(s1.sheet, GameSync.decode(newer)?.state?.sheet)
     }
 
+    // --- looked up during an exercise -----------------------------------------------------------------------------------
+
+    @Test fun `the sheet counts on the exercise on screen, from its appearing to its answer, never one opened before`() {
+        val l = SheetLookups()
+        // from Home, the chat: no exercise on screen
+        l.sheetOpened()
+        l.cardOpened("page:biti") { listOf("biti") }
+        val first = l.exercise()
+        // the sheet opened before it appeared and still about: its cards count for nothing
+        l.cardOpened("page:biti") { listOf("biti") }
+        assertNull(l.answered(first))
+        // the next exercise: the sheet opened over it, its cards opened (one twice, one without a page)
+        val second = l.exercise()
+        l.sheetOpened()
+        l.cardOpened("page:tozilnik") { listOf("tozilnik") }
+        l.cardOpened("deck:zaimki") { listOf("osebni-zaimki", "tozilnik") }
+        l.cardOpened("pin:m-1") { emptyList() }
+        l.cardOpened("page:tozilnik") { listOf("tozilnik") }
+        l.sheetOpened()
+        val looked = LookUp(listOf("page:tozilnik", "deck:zaimki", "pin:m-1"), listOf("tozilnik", "osebni-zaimki"))
+        assertEquals(looked, l.answered(second))
+        // over its feedback (answered), the sheet is free: nothing more counts on it
+        l.sheetOpened()
+        l.cardOpened("page:biti") { listOf("biti") }
+        assertEquals(looked, second.lookUp())
+        // opened and no card opened: it still counts (a right answer is right with help), no cards
+        val third = l.exercise()
+        l.sheetOpened()
+        assertEquals(LookUp(), l.answered(third))
+        // a run left: the exercise gone counts nothing more; a stale goodbye doesn't stop the next
+        val left = l.exercise()
+        l.gone(left)
+        l.sheetOpened()
+        assertFalse(left.opened)
+        val next = l.exercise()
+        l.gone(left)
+        l.sheetOpened()
+        assertTrue(next.opened)
+    }
+
+    @Test fun `a worksheet's items answered after the sheet opened over it, until it is checked`() {
+        val l = SheetLookups()
+        val values = mutableListOf("sem", "", "")
+        l.items = { values.toList() }
+        l.exercise()
+        // the sheet not opened: no item looked up
+        values[1] = "si"
+        assertEquals(listOf(false, false, false), l.itemsAfter(values))
+        // opened: what the items hold then is kept; the ones answered after (filled, changed) are looked up
+        l.sheetOpened()
+        values[2] = "je"
+        assertEquals(listOf(false, false, true), l.itemsAfter(values))
+        // opened again: still the first open's
+        l.sheetOpened()
+        values[0] = "smo"
+        assertEquals(listOf(true, false, true), l.itemsAfter(values))
+        // no exercise on screen: nothing
+        assertEquals(listOf(false, false, false), SheetLookups().itemsAfter(values))
+    }
+
+    @Test fun `what was looked up counts on its pages by day, the last two weeks kept, and is saved with the village`() {
+        val d = day.toString()
+        var s = CheatSheet.lookedUp(s0, "sl", listOf("tozilnik", "biti", "tozilnik"), day)
+        assertEquals(mapOf("sl/tozilnik" to mapOf(d to 1), "sl/biti" to mapOf(d to 1)), s.sheet.lookups)
+        s = CheatSheet.lookedUp(s, "sl", listOf("tozilnik"), day)
+        assertEquals(mapOf(d to 2), s.sheet.lookups["sl/tozilnik"])
+        // no pages (a pinned card of none, no card opened): nothing
+        assertEquals(s, CheatSheet.lookedUp(s, "sl", emptyList(), day))
+        // thirteen days later the first day is still among the last two weeks; a day after, it's gone
+        val late = day.plusDays(CheatSheet.LOOKUP_DAYS - 1)
+        s = CheatSheet.lookedUp(s, "sl", listOf("biti"), late)
+        assertEquals(mapOf(d to 2), s.sheet.lookups["sl/tozilnik"])
+        val later = late.plusDays(1)
+        s = CheatSheet.lookedUp(s, "sl", listOf("biti"), later)
+        assertNull(s.sheet.lookups["sl/tozilnik"])
+        assertEquals(mapOf(late.toString() to 1, later.toString() to 1), s.sheet.lookups["sl/biti"])
+        // kept with the village; a save from before has none
+        val back = GameSync.decode(GameSync.encode(GameCache(3, s)))
+        assertEquals(s.sheet.lookups, back?.state?.sheet?.lookups)
+        assertEquals(emptyMap<String, Map<String, Int>>(), GameSync.decode(GameSync.encode(GameCache(3, s0)))?.state?.sheet?.lookups)
+    }
+
+    @Test fun `what was looked up, as the bridge gets it with the answer`() {
+        assertEquals("""{"cards":["page:biti","pin:m-1"],"pages":["biti"]}""", LookUp(listOf("page:biti", "pin:m-1"), listOf("biti")).json.toString())
+        assertEquals("""{"cards":[],"pages":[]}""", LookUp().json.toString())
+    }
+
     @Test fun `the tutor's card_published and card_removed events`() {
         assertEquals(BridgeEvent.CardPublished("imeti", "Imeti", "The whole verb"), BridgeEvent.parse("""{"type":"card_published","id":"imeti","title":"Imeti","note":"The whole verb"}"""))
         assertEquals(BridgeEvent.CardPublished("imeti", null, null, removed = true), BridgeEvent.parse("""{"type":"card_removed","id":"imeti"}"""))

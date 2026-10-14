@@ -86,7 +86,7 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
             // its cheat sheet (📋) has the unit's cards right after the exercise's own
             pages = unit.grammar,
         ) { outs ->
-            val answers = outs.map { o -> SheetAnswer(o.verdict, o.paid, o.answer, o.correct, o.sheet) }
+            val answers = outs.map { o -> SheetAnswer(o.verdict, o.paid, o.answer, o.correct, o.sheet, o.lookedUp) }
             result = vm.school.finish(unit, kind, sheetId, exercises, answers, minutesSince(started))
                 ?: SheetDone(null, answers.flatMap { a -> if (a.items.isNotEmpty()) a.items.map { it.paid } else listOf(a.paid) }, unitDone = false, passed = false)
         }
