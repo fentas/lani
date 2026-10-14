@@ -1934,6 +1934,57 @@ def camera():
     assert find("Na sredino · Recenter") is None, "still away from home after recentring"
 
 
+# a bubble's TalkBack label: "<what>, prošnja · request" (or "prošnja od učitelja", "dogaja se", "dogodek", "odpri kraj")
+BUBBLE = re.compile(r", (prošnja|prošnja od učitelja|dogaja se|dogodek|odpri kraj) · ")
+
+
+def bubble_boxes():
+    """The village's bubbles on screen: [(label, box)]."""
+    return [(t, b) for t, b in boxes() if BUBBLE.search(t)]
+
+
+def bubbles_follow():
+    """The bubbles stay with their people and places: at the home view, dragged so some of the villagers are off screen,
+    and zoomed in (QA's hook "zoom") and dragged again. A bubble whose person or place is off screen goes off with it
+    (no line of bubbles along the screen's edge, their pointers stretched back); one whose person is at the edge is
+    nudged in by half its width at most; crowded ones keep near their people, stacked as cards. While bubbles are off the
+    screen's side a small chip there counts them ("‹ 🐑 2"), and a tap on it pans to the first of them: its bubble is on
+    screen then. Each shot's bubbles on screen are printed (QA's hook "hour:11": by daylight, the people out)."""
+    def look(name: str):
+        time.sleep(2.5)  # the flight settles, the bubbles glide to their spots
+        shot(name)
+        print(f"    {name}: {len(bubble_boxes())} bubbles on screen")
+    qa_hook("hour:11")
+    try:
+        plain_village()
+        look("bubbles-home")
+        adb("shell", "input", "swipe", "300", "1300", "900", "1300", "600")  # the camera looks left: the right side's people off screen
+        look("bubbles-dragged-right")
+        adb("shell", "input", "swipe", "900", "1300", "100", "1000", "600")  # and back past home, to the right and down
+        look("bubbles-dragged-left")
+        plain_village()
+        qa_hook("zoom")
+        look("bubbles-zoomed")
+        adb("shell", "input", "swipe", "250", "1100", "850", "1500", "600")
+        look("bubbles-zoomed-dragged")
+        # the chip at the screen's side for the bubbles off it there ("‹ 🐑 2"): a tap pans to the first of them
+        chip = next(((t, c) for t, c in nodes() if CHIP.search(t)), None)
+        if chip is None:
+            print("    no edge chip: no bubble off the screen's sides")
+        else:
+            what = CHIP.search(chip[0]).group(2)
+            tap_at(chip[1])
+            look("bubbles-chip-tapped")
+            assert any(t.startswith(what) for t, _ in bubble_boxes()), f"the chip {chip[0]!r} brought no bubble of {what!r} on screen"
+            print(f"    the chip {chip[0]!r} brought {what!r} on screen")
+    finally:
+        qa_hook("hour:")
+
+
+# the edge chip's TalkBack label, its English half: "2 more to the left: <the first bubble's label>"
+CHIP = re.compile(r"\d+ more to the (left|right): (.+)$")
+
+
 NOT_OPTIONS = ("Poslušaj · Listen", "Počasi · Slowly", "Predvajaj", "Namig", "Vprašaj", "Končaj", "Zapri")
 
 
@@ -4329,6 +4380,7 @@ def plan():
         ("villager", villager, v, False, ""),
         ("bubble", bubble, v, False, ""),
         ("camera", camera, v, False, ""),
+        ("bubbles-follow", bubbles_follow, v, False, ""),
         ("gather", gather, v, True, ""),
         ("back-to-village", back_to_village, v, False, ""),
         ("intro-stage", intro_stage, v, True, ""),

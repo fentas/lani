@@ -279,9 +279,11 @@ fun TownView(
             val fireArea = remember(state.fire, state.age, fit) { TownAnchors.fireArea(state, fit.width, fit.height) }
             val fireBody = remember(state.fire, state.age, fit) { TownAnchors.fireBody(state, fit.width, fit.height) }
             TownBubbles(
-                markers, anchors, { cam.camera }, threat, badge, onMarker, topInset = bubbleInset,
+                markers, anchors, { cam.camera }, threat, badge, onMarker, topInset = bubbleInset, hudInset = topInset,
                 followId = followId, anchorOf = { id -> renderer.villagerAnchors[id] }, tick = { clock.tick }, face = face,
-                fireArea = fireArea, fireBody = fireBody,
+                fireArea = fireArea, fireBody = fireBody, bottomInset = bottomInset,
+                // the edge chip's tap: the camera pans to the bubble's place, into the part of the screen the HUD and the bar leave
+                onReveal = { p -> cam.reveal(p, freeArea(w.toFloat(), h.toFloat(), bubbleInset.toFloat(), bottomInset.toFloat(), margin)) },
             )
         }
     }

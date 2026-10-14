@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.game
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.Spring
@@ -8,23 +9,32 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.GenericShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
@@ -37,6 +47,7 @@ import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -46,8 +57,11 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import si.lanisce.lani.game.render.Camera
 import si.lanisce.lani.game.render.CanvasPoint
 import si.lanisce.lani.game.scene.TownMarker
@@ -59,6 +73,7 @@ import si.lanisce.lani.ui.theme.XpGold
 import si.lanisce.lani.l10n.bi
 import kotlinx.coroutines.launch
 import kotlin.math.PI
+import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
@@ -89,6 +104,10 @@ private val SPACING = 54f
 private const val APART = 52f
 /** Half a bubble and a little air from the screen's edge (dp). */
 private const val EDGE = 30f
+/** How far a bubble over someone at the screen's edge shifts in at most (dp): half its width, so it shows whole. */
+const val BUBBLE_NUDGE = 22f
+/** How far the bubbles push each other from where they'd be at most (dp): a bubble and a half, so the pointers stay short. */
+const val BUBBLE_REACH = 1.5f * APART
 
 /** How a marker's bubble looks. */
 private fun TownMarker.fill(threat: Boolean): Color = when {
@@ -109,13 +128,17 @@ private sealed interface AnchorKey {
 /**
  * The bubbles over the village: one per marker, pointing at its place (or at the villager it belongs to, wherever
  * they've wandered), gently bobbing; several at one place fan out, and the places' fans keep out of each other's
- * way (see [layoutBubbles]); one whose spot changes glides there ([BubbleGlide]), its tap target with it. Positions
- * follow [camera] and the clock's [tick] in the layout and draw phases, so panning, zooming and the villagers' steps
- * never recompose them.
+ * way (see [layoutBubbles]); one whose spot changes glides there ([BubbleGlide]), its tap target with it. Each stays
+ * with its place: off the screen with it (at the edge nudged in by half its width at most, [BUBBLE_NUDGE]), fading out
+ * as it goes under the HUD, pushed by the others a bubble and a half at most ([BUBBLE_REACH]: with no room that near,
+ * stacked as cards, the nearer person's on top); while some are off the screen's sides a small chip there leads to them
+ * ([EdgeChip]). Positions follow [camera] and the clock's [tick] in the layout and draw phases, so panning, zooming and
+ * the villagers' steps never recompose them.
  *
  * @param threat the village's event is a threat (wolves, a bear, a storm): its bubble is red and pulses
  * @param badge a small second emoji for a marker (what a happening is about, e.g. 🍲), or null
- * @param topInset screen pixels the HUD covers: bubbles stay below it
+ * @param topInset screen pixels the bubbles stay below: the HUD's, and what hangs under it (the recenter button)
+ * @param hudInset screen pixels the HUD itself covers: a bubble fades out as its place goes under it
  * @param followId the villager a marker belongs to, when they're drawn on the map
  * @param anchorOf where that villager is right now (nominal canvas px, above their head), or null when they aren't out
  * @param tick the renderer's clock, read in the layout and draw phases so the bubbles keep up with the people
@@ -125,6 +148,9 @@ private sealed interface AnchorKey {
  *   bubbles keep off it and off the fire's screen reader target (see [layoutBubbles]), so a tap on the fire is the
  *   fire's, whoever stands beside it with a bubble
  * @param fireBody the middle of the fire's body, where its screen reader's target is centred
+ * @param bottomInset screen pixels the bottom bar covers: the edge chips keep above it
+ * @param onReveal brings a canvas point (a bubble's place, nominal px) onto the screen: with it, a small chip at the
+ *   screen's side while bubbles are off it there ([EdgeChip]) leads to them
  */
 @Composable
 fun TownBubbles(
@@ -136,12 +162,15 @@ fun TownBubbles(
     onTap: (TownMarker) -> Unit,
     modifier: Modifier = Modifier,
     topInset: Int = 0,
+    hudInset: Int = topInset,
     followId: (TownMarker) -> String? = { null },
     anchorOf: (String) -> CanvasPoint? = { null },
     tick: () -> Long = { 0L },
     face: (TownMarker) -> Villager? = { null },
     fireArea: FloatArray? = null,
     fireBody: CanvasPoint? = null,
+    bottomInset: Int = 0,
+    onReveal: ((CanvasPoint) -> Unit)? = null,
 ) {
     if (markers.isEmpty()) return
     val keys = markers.map { followId(it) }
@@ -158,8 +187,9 @@ fun TownBubbles(
     val density = LocalDensity.current
     BoxWithConstraints(modifier.fillMaxSize()) {
         val viewW = constraints.maxWidth.toFloat()
-        val layout = remember(groups, anchors, density, viewW, topInset, fireArea, fireBody) {
-            BubbleLayout(groups, anchors, anchorOf, density.density, viewW, topInset.toFloat(), fireArea, fireBody, glide)
+        val viewH = constraints.maxHeight.toFloat()
+        val laid = remember(groups, anchors, density, viewW, viewH, topInset, hudInset, bottomInset, fireArea, fireBody) {
+            BubbleLayout(groups, anchors, anchorOf, density.density, viewW, viewH, topInset.toFloat(), hudInset.toFloat(), bottomInset.toFloat(), fireArea, fireBody, glide)
         }
 
         // pointers first, so the bubbles cover their roots
@@ -168,11 +198,11 @@ fun TownBubbles(
             val cam = camera()
             val stroke = Stroke(width = 2.dp.toPx(), join = StrokeJoin.Round)
             for ((g, group) in groups.withIndex()) {
-                val a = layout.anchor(g, cam) ?: continue
-                val presence = layout.presence(g, cam)
+                val a = laid.anchor(g, cam) ?: continue
+                val presence = laid.presence(g, cam)
                 if (presence <= 0f) continue
                 for (i in group.second.indices) {
-                    val c = layout.center(g, i, cam, clock, now())
+                    val c = laid.center(g, i, cam, clock, now())
                     val half = 5.dp.toPx()
                     val tip = Offset(a.x, a.y - 3.dp.toPx())
                     val root = Offset(c.x, c.y + BUBBLE.toPx() / 2f - 4.dp.toPx())
@@ -193,16 +223,84 @@ fun TownBubbles(
             for ((i, m) in group.second.withIndex()) key(m.id) {
                 Bubble(
                     m, badge(m), threat, face(m),
-                    onTap = { if (layout.presence(g, camera()) >= 0.5f) onTap(m) },
-                    presence = { layout.presence(g, camera()) },
-                    // where it's drawn, gliding or not: a tap hits what's seen
-                    modifier = Modifier.offset {
-                        tick()
-                        val c = layout.center(g, i, camera(), clock, now())
-                        IntOffset((c.x - TOUCH.toPx() / 2f).roundToInt(), (c.y - TOUCH.toPx() / 2f).roundToInt())
+                    onTap = { if (laid.presence(g, camera()) >= 0.5f) onTap(m) },
+                    presence = { laid.presence(g, camera()) },
+                    // where it's drawn, gliding or not: a tap hits what's seen; stacked with others where there's no room
+                    // near, the nearer person's (lower on screen) over the farther one's, as the village is drawn
+                    modifier = Modifier.layout { measurable, c ->
+                        val p = measurable.measure(c)
+                        layout(p.width, p.height) {
+                            tick()
+                            val cam = camera()
+                            val at = laid.center(g, i, cam, clock, now())
+                            val depth = BUBBLES_Z + (laid.anchor(g, cam)?.y ?: 0f) + i * 0.01f
+                            p.place((at.x - TOUCH.toPx() / 2f).roundToInt(), (at.y - TOUCH.toPx() / 2f).roundToInt(), zIndex = depth)
+                        }
                     },
                 )
             }
+        }
+        // a small chip at the screen's side while bubbles are off it there: how many, the first one's emoji; a tap brings it in
+        if (onReveal != null) {
+            val off by remember(laid) { derivedStateOf { tick(); laid.offScreen(camera()) } }
+            for (left in listOf(true, false)) {
+                val side = if (left) off.first else off.second
+                // where it was last, for its fade out
+                val shownAt = remember(left) { intArrayOf(0) }
+                EdgeChip(
+                    side?.let { groups[it.group].second.getOrNull(it.bubble) }, side?.n ?: 0, left,
+                    top = {
+                        val y = side?.let { laid.anchor(it.group, camera())?.y } ?: return@EdgeChip shownAt[0]
+                        val chip = EDGE_CHIP.toPx()
+                        val lo = topInset + 8.dp.toPx(); val hi = viewH - bottomInset - 8.dp.toPx() - chip
+                        (y - chip / 2f).coerceIn(lo, max(lo, hi)).roundToInt().also { shownAt[0] = it }
+                    },
+                    onTap = { side?.let { s -> laid.place(s.group)?.let(onReveal) } },
+                    // over the bubbles, one cut by the edge beside it too
+                    modifier = Modifier.align(if (left) Alignment.TopStart else Alignment.TopEnd).zIndex(CHIPS_Z),
+                )
+            }
+        }
+    }
+}
+
+/** The edge chip's height. */
+private val EDGE_CHIP = 30.dp
+
+/** Drawing order: the bubbles over their pointers, by their places' height on screen (px) above this; the edge chips over all. */
+private const val BUBBLES_Z = 10_000f
+private const val CHIPS_Z = 100_000f
+
+/**
+ * The chip at the screen's [left] or right edge while [n] bubbles are off it there ([offScreen]), [first] the one that
+ * comes first: "‹ 🐺 2", "2 🐺 ›", small and dark like the map's other buttons, at [top] (px, read when placing: beside
+ * that bubble's place, between the HUD and the bottom bar). A tap brings [first] onto the screen ([onTap]); it fades in
+ * and out as bubbles leave the screen there or all come back.
+ */
+@Composable
+private fun EdgeChip(first: TownMarker?, n: Int, left: Boolean, top: Density.() -> Int, onTap: () -> Unit, modifier: Modifier) {
+    // the last chip shown, for its fade out
+    val last = remember { mutableStateOf<Pair<TownMarker, Int>?>(null) }
+    if (first != null) last.value = first to n
+    AnimatedVisibility(first != null, modifier.offset { IntOffset(0, top()) }, enter = fadeIn(), exit = fadeOut()) {
+        val (m, count) = last.value ?: return@AnimatedVisibility
+        val shape = if (left) RoundedCornerShape(topEnd = 15.dp, bottomEnd = 15.dp) else RoundedCornerShape(topStart = 15.dp, bottomStart = 15.dp)
+        val what = bi(if (left) "townBubbles.offLeft" else "townBubbles.offRight", "n" to count, "what" to m.label)
+        Row(
+            Modifier
+                .height(EDGE_CHIP)
+                .background(Color.Black.copy(alpha = 0.5f), shape)
+                .clickable(onClick = onTap)
+                .clearAndSetSemantics {
+                    role = Role.Button
+                    contentDescription = what
+                    onClick { onTap(); true }
+                }
+                .padding(horizontal = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            val style = TextStyle(color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Text(if (left) "‹ ${m.emoji} $count" else "$count ${m.emoji} ›", style = style)
         }
     }
 }
@@ -220,7 +318,10 @@ private class BubbleLayout(
     private val anchorOf: (String) -> CanvasPoint?,
     private val density: Float,
     private val viewW: Float,
+    private val viewH: Float,
     private val topInset: Float,
+    private val hudInset: Float,
+    private val bottomInset: Float,
     private val fireArea: FloatArray?,
     private val fireBody: CanvasPoint?,
     private val glide: BubbleGlide,
@@ -240,6 +341,8 @@ private class BubbleLayout(
     private val maxX get() = viewW / density - EDGE
 
     /** The group's anchor in nominal canvas px: the villager when they're out, else their place. */
+    fun place(g: Int): CanvasPoint? = if (g in groups.indices) nominal(g) else null
+
     private fun nominal(g: Int): CanvasPoint? {
         val key = groups[g].first
         if (key is AnchorKey.Person) anchorOf(key.id)?.let { return it }
@@ -247,14 +350,15 @@ private class BubbleLayout(
     }
 
     fun anchor(g: Int, cam: Camera): Offset? {
+        if (g !in groups.indices) return null
         val p = nominal(g) ?: return null
         return Offset(cam.toScreenX(p.x), cam.toScreenY(p.y))
     }
 
-    /** How much the group's bubbles show (they fade as their place scrolls far past the top). */
+    /** How much the group's bubbles show (they fade as their place goes under the HUD). */
     fun presence(g: Int, cam: Camera): Float {
         val a = anchor(g, cam) ?: return 0f
-        return bubblePresence(a.y / density, minY, APART)
+        return bubblePresence(a.y / density, hudInset / density + BUBBLE.value / 2f, APART)
     }
 
     /** Each bubble's spot for [cam] (dp), laid out again when the camera or a followed villager moved. */
@@ -268,7 +372,7 @@ private class BubbleLayout(
         val keepOff = if (fireArea != null && fireBody != null) fireKeepOff(fireArea, fireBody, cam, density) else null
         laid = layoutBubbles(
             gs, size = APART, spacing = SPACING, lift = LIFT.value, minX = EDGE, maxX = maxX, minY = minY, keepOff = keepOff,
-            was = { g, i -> glide.offset(ids[g][i]) },
+            was = { g, i -> glide.offset(ids[g][i]) }, nudge = BUBBLE_NUDGE, reach = BUBBLE_REACH,
         )
         places = laid.indices.flatMap { g -> List(laid[g].size) { BubbleOffset(gs[g].x, gs[g].y) } }
         laidIds = laid.indices.flatMap { g -> ids[g].take(laid[g].size) }
@@ -289,6 +393,20 @@ private class BubbleLayout(
         return shown
     }
 
+    /**
+     * The bubbles wholly off the screen to the left and to the right ([offScreen]) whose places are beside it, between the
+     * HUD and the bottom bar: the event first (a threat before all), then someone there now, then a request.
+     */
+    fun offScreen(cam: Camera): Pair<OffScreen?, OffScreen?> {
+        val spots = positions(cam)
+        val at = groups.indices.map { g -> anchor(g, cam)?.let { BubbleOffset(it.x / density, it.y / density) } }
+        fun rank(g: Int, i: Int): Int {
+            val m = groups[g].second.getOrNull(i) ?: return 9
+            return when (m.kind) { TownMarker.Kind.EVENT -> 0; TownMarker.Kind.HAPPENING -> 1; TownMarker.Kind.QUEST -> 2 }
+        }
+        return offScreen(spots, at, ::rank, half = BUBBLE.value / 2f, width = viewW / density, top = hudInset / density, bottom = (viewH - bottomInset) / density)
+    }
+
     fun center(g: Int, i: Int, cam: Camera, clock: State<Float>, nanos: Long): Offset {
         val p = shown(cam, nanos)[g].getOrNull(i) ?: return Offset(-1000f, -1000f)
         val bob = sin(2 * PI * (clock.value + i * 0.17f + g * 0.31f)).toFloat() * 3f
@@ -297,7 +415,7 @@ private class BubbleLayout(
 }
 
 /**
- * One bubble; [presence] (0..1, read in the draw phase) fades it out as its place scrolls far past the top. A new one pops
+ * One bubble; [presence] (0..1, read in the draw phase) fades it out as its place goes under the HUD. A new one pops
  * up and fades in where it is ([BubbleGlide] starts it at its spot).
  */
 @Composable

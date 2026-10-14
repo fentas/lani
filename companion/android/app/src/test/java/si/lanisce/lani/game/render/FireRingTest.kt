@@ -205,7 +205,7 @@ class FireRingTest {
             val cam = Camera(zoom, 540f - body.x * zoom, 1200f - body.y * zoom)
             fun dp(x: Float, y: Float) = cam.toScreenX(x) / density to cam.toScreenY(y) / density
             val groups = heads.map { val (x, y) = dp(it.x, it.y); BubbleGroup(x, y, 1) }
-            fun lay(keep: Boolean) = layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 1080f / density - 30f, minY = 60f, keepOff = if (keep) fireKeepOff(area, body, cam, density) else null).flatten()
+            fun lay(keep: Boolean) = layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 1080f / density - 30f, minY = 60f, keepOff = if (keep) fireKeepOff(area, body, cam, density) else null, nudge = si.lanisce.lani.ui.game.BUBBLE_NUDGE, reach = si.lanisce.lani.ui.game.BUBBLE_REACH).flatten()
             // the flames, stones and smoke the renderer hits, and the screen reader's target, on screen (dp)
             val (fl, ft) = dp(rect[0].toFloat(), rect[1].toFloat()); val (fr, fb) = dp(rect[2] + 1f, rect[3] + 1f)
             val target = TownTargets.place(cam.toScreenX(body.x), cam.toScreenY(body.y), (TownTargets.FIRE_DP * density).roundToInt()).map { it / density }
@@ -217,7 +217,9 @@ class FireRingTest {
             for ((i, b) in laid.withIndex()) assertFalse("zoom $zoom: bubble $i at $b on the fire", onFire(b.x, b.y, 29f))
             // and off each other, their boxes (the bubble and its air) too
             for (i in laid.indices) for (j in i + 1 until laid.size) {
-                assertTrue("zoom $zoom: ${laid[i]} on ${laid[j]}", abs(laid[i].x - laid[j].x) >= 52f - 0.01f || abs(laid[i].y - laid[j].y) >= 52f - 0.01f)
+                // (zoomed out, with no room for them all within a bubble and a half: stacked as cards, two fifths showing)
+                val apart = if (zoom >= 6f) 52f else 52f * 0.4f
+                assertTrue("zoom $zoom: ${laid[i]} on ${laid[j]}", abs(laid[i].x - laid[j].x) >= apart - 0.01f || abs(laid[i].y - laid[j].y) >= apart - 0.01f)
             }
             // still over their heads
             for ((i, b) in laid.withIndex()) assertTrue("zoom $zoom: bubble $i at $b over ${groups[i]}", b.y < groups[i].y && abs(b.x - groups[i].x) < 120f)

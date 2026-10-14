@@ -30,6 +30,15 @@ class BubblePlaceTest {
         assertEquals(w - margin - 200, BubblePlace.of(IntRect(1060, 600, 1080, 600), 200, 100, w, h, gap, margin, 0).x)
     }
 
+    @Test fun `over someone at the view's edge it stays beside them, nudged in by half its width at most`() {
+        // only the part of them in view counts (SceneAnchors.shown; none of them in view: no marker): a sliver at either edge
+        for (r in listOf(IntRect(0, 600, 4, 600), IntRect(0, 600, 60, 600), IntRect(1070, 600, 1080, 600))) {
+            val p = BubblePlace.of(r, 200, 100, w, h, gap, margin, topLimit = 0)
+            val cx = (r.left + r.right) / 2
+            assertTrue("$r: $p", kotlin.math.abs(p.x + 100 - cx) <= 100 + margin && p.above)
+        }
+    }
+
     @Test fun `a marker over someone high in the kitchen moves aside off the building's pill, still over them`() {
         // Micka's 🍲💬 over her head, just right of the 🛖 pill (QA: it covered part of it)
         val head = IntRect(560, 340, 680, 340)

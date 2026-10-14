@@ -89,12 +89,16 @@ class TownLogicTest {
     /** Their boxes ([size], the bubble and its air) don't overlap at all, corners included. */
     private fun clear(a: BubbleOffset, b: BubbleOffset, size: Float) = abs(a.x - b.x) >= size - 0.01f || abs(a.y - b.y) >= size - 0.01f
 
+    /** Stacked at most, as cards: one covers no more of the other than leaves a strip of two fifths of its box showing. */
+    private fun shows(a: BubbleOffset, b: BubbleOffset, size: Float) = abs(a.x - b.x) >= size * 0.4f - 0.01f || abs(a.y - b.y) >= size * 0.4f - 0.01f
+
     @Test fun `places far apart keep their own fans`() {
         val laid = layoutBubbles(listOf(BubbleGroup(100f, 300f, 1), BubbleGroup(300f, 320f, 3)), size = 50f, spacing = 54f, lift = 40f)
         assertEquals(listOf(BubbleOffset(100f, 260f)), laid[0])
         assertEquals(fanOut(3, spacing = 54f).map { BubbleOffset(300f + it.x, 280f + it.y) }, laid[1])
     }
 
+    /** The layout itself, with no nudge or reach given: as far as it takes. */
     @Test fun `bubbles of neighbouring places never cover each other`() {
         val size = 50f
         val cases = listOf(
@@ -114,15 +118,108 @@ class TownLogicTest {
         }
     }
 
-    @Test fun `bubbles stay below the HUD, and fade as their place scrolls far past the top`() {
+    @Test fun `bubbles stay below the HUD, and fade as their place goes under it`() {
         val near = layoutBubbles(listOf(BubbleGroup(100f, 80f, 1)), size = 50f, spacing = 54f, lift = 40f, minY = 120f)
         assertEquals(BubbleOffset(100f, 120f), near[0][0]) // would be at 40, under the HUD
-        val far = layoutBubbles(listOf(BubbleGroup(100f, -100f, 1)), size = 50f, spacing = 54f, lift = 40f, minY = 120f)
-        assertEquals(BubbleOffset(100f, 120f), far[0][0]) // still there, pointing up at it
-        assertEquals(1f, bubblePresence(80f, minY = 120f, size = 50f), 0.001f) // just under the HUD: shown
-        assertEquals(1f, bubblePresence(-80f, minY = 120f, size = 50f), 0.001f) // a bubble's height or two past it: still shown
-        assertEquals(0.5f, bubblePresence(-130f, minY = 120f, size = 50f), 0.001f)
-        assertEquals(0f, bubblePresence(-180f, minY = 120f, size = 50f), 0.001f) // far off: gone
+        // the HUD's bottom 25 dp above minY (half a 50 dp bubble): its place just below it, shown fully
+        assertEquals(1f, bubblePresence(200f, minY = 120f, size = 50f), 0.001f)
+        assertEquals(1f, bubblePresence(96f, minY = 120f, size = 50f), 0.001f)
+        // going under it: fading out over a bubble's height, gone a bubble's height in (no bubble waits there for it)
+        assertEquals(0.5f, bubblePresence(70f, minY = 120f, size = 50f), 0.001f)
+        assertEquals(0f, bubblePresence(45f, minY = 120f, size = 50f), 0.001f)
+        assertEquals(0f, bubblePresence(-100f, minY = 120f, size = 50f), 0.001f)
+    }
+
+    // --- bubbles staying with their places ------------------------------------------------------------------------
+
+    /** As TownBubbles lays them out on a 411 dp wide phone: 30 dp in from the edges, nudged in at most, pushed at most. */
+    private fun follow(groups: List<BubbleGroup>, minY: Float = 60f, keepOff: BubbleBox? = null, was: ((Int, Int) -> BubbleOffset?)? = null) =
+        layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 381f, minY = minY, keepOff = keepOff, was = was, nudge = BUBBLE_NUDGE, reach = BUBBLE_REACH)
+
+    @Test fun `a bubble whose place is off the screen goes off with it`() {
+        // off to the left, off to the right, below the view: over it as on screen (nudged in by its 22 dp), not waiting at the edge
+        val laid = follow(listOf(BubbleGroup(-100f, 300f, 1), BubbleGroup(560f, 320f, 1), BubbleGroup(200f, 1100f, 1), BubbleGroup(-400f, 500f, 3)))
+        assertEquals(BubbleOffset(-78f, 260f), laid[0].single())
+        assertEquals(BubbleOffset(538f, 280f), laid[1].single())
+        assertEquals(BubbleOffset(200f, 1060f), laid[2].single())
+        assertEquals(fanOut(3, spacing = 54f).map { BubbleOffset(-378f + it.x, 460f + it.y) }, laid[3])
+        // before: every one of them was pulled in to the edge, its pointer stretched back
+        val pulled = layoutBubbles(listOf(BubbleGroup(-100f, 300f, 1), BubbleGroup(560f, 320f, 1)), size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 381f)
+        assertEquals(listOf(30f, 381f), pulled.map { it.single().x })
+    }
+
+    @Test fun `one at the screen's edge is nudged in by half its width at most`() {
+        assertEquals(BubbleOffset(30f, 260f), follow(listOf(BubbleGroup(10f, 300f, 1))).single().single()) // whole, at the usual 30 dp
+        assertEquals(22f, follow(listOf(BubbleGroup(0f, 300f, 1))).single().single().x, 0.001f) // its place at the edge: 22 in
+        assertEquals(-8f, follow(listOf(BubbleGroup(-30f, 300f, 1))).single().single().x, 0.001f) // its place just off: part of it shows
+        assertEquals(389f, follow(listOf(BubbleGroup(411f, 300f, 1))).single().single().x, 0.001f) // the right edge alike
+        // a fan of three over someone near the edge: in by 22 dp, not the 64 that would show it whole
+        val fan = follow(listOf(BubbleGroup(20f, 300f, 3))).single()
+        assertEquals(20f - 54f + 22f, fan.minOf { it.x }, 0.001f)
+        // a place sliding off the left: its bubble slides along, never further from it than the nudge, never jumping
+        var prev: Float? = null
+        for (k in 0..400) {
+            val x = 100f - k * 0.5f
+            val b = follow(listOf(BubbleGroup(x, 300f, 1))).single().single()
+            assertTrue("$x: $b", b.x - x in -0.001f..22.001f && b.y == 260f)
+            prev?.let { p -> assertTrue("$x: $p -> ${b.x}", b.x <= p + 0.001f && p - b.x <= 0.5f + 0.001f) }
+            prev = b.x
+        }
+    }
+
+    @Test fun `crowded bubbles are pushed a bubble and a half at most, near their places`() {
+        // eight people in a huddle, a bubble each: no room for them all that near, so they stack, each a strip at least showing
+        val huddle = (0 until 8).map { BubbleGroup(200f + (it % 3) * 9f - 9f, 400f - (it / 3) * 6f, 1) }
+        val laid = follow(huddle).map { it.single() }
+        val free = layoutBubbles(huddle, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 381f, minY = 60f).map { it.single() }
+        assertTrue("without the cap they'd go further", free.indices.any { kotlin.math.hypot(free[it].x - huddle[it].x, free[it].y - huddle[it].y + 40f) > BUBBLE_REACH + 1f })
+        for ((i, b) in laid.withIndex()) {
+            val start = BubbleOffset(huddle[i].x, huddle[i].y - 40f)
+            assertTrue("$i: $b from $start", kotlin.math.hypot(b.x - start.x, b.y - start.y) <= BUBBLE_REACH + 0.01f)
+            assertTrue("$i: $b below where it starts", b.y <= start.y + 0.01f)
+        }
+        for (i in laid.indices) for (j in i + 1 until laid.size) assertTrue("${laid[i]} on ${laid[j]}", shows(laid[i], laid[j], 52f))
+        // with room near, the cap changes nothing
+        val two = listOf(BubbleGroup(100f, 300f, 1), BubbleGroup(101f, 285f, 1), BubbleGroup(135f, 299f, 2))
+        assertEquals(layoutBubbles(two, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 381f, minY = 60f), follow(two))
+    }
+
+    @Test fun `bubbles slide along as their places leave the screen`() {
+        // the camera panning right: three places, two of them close, pass off the left edge; each bubble moves with its place
+        // (its offset against it changes by a hair from one step to the next), held as TownBubbles holds it (was)
+        var prev: List<List<BubbleOffset>>? = null
+        var prevAt: List<BubbleGroup>? = null
+        for (k in 0..800) {
+            val pan = k * 0.5f
+            val at = listOf(BubbleGroup(150f - pan, 420f, 1), BubbleGroup(170f - pan, 405f, 2), BubbleGroup(300f - pan, 380f, 1))
+            val p = prev; val pa = prevAt
+            val laid = follow(at, was = if (p != null && pa != null) { g, i -> p[g].getOrNull(i)?.let { BubbleOffset(it.x - pa[g].x, it.y - pa[g].y) } } else null)
+            if (p != null && pa != null) for (g in at.indices) for (i in laid[g].indices) {
+                val dx = (laid[g][i].x - at[g].x) - (p[g][i].x - pa[g].x); val dy = (laid[g][i].y - at[g].y) - (p[g][i].y - pa[g].y)
+                assertTrue("pan $pan, group $g: ${p[g][i]} -> ${laid[g][i]}", abs(dx) + abs(dy) < 2f)
+            }
+            // gone off the left with its place
+            if (at[0].x < -100f) assertTrue(laid[0].single().x < -26f)
+            prev = laid; prevAt = at
+        }
+    }
+
+    @Test fun `the edge chips count the bubbles off each side, the event first`() {
+        // off the left: three (one of them the event's), one just in, one whose place is up under the HUD; one off the right
+        val laid = listOf(
+            listOf(BubbleOffset(-40f, 300f)), listOf(BubbleOffset(-100f, 320f), BubbleOffset(-46f, 320f)), listOf(BubbleOffset(10f, 300f)),
+            listOf(BubbleOffset(450f, 300f)), listOf(BubbleOffset(-60f, 120f)),
+        )
+        val places = listOf(BubbleOffset(-40f, 340f), BubbleOffset(-100f, 360f), BubbleOffset(10f, 340f), BubbleOffset(450f, 340f), BubbleOffset(-60f, 90f))
+        val event = { g: Int, i: Int -> if (g == 1 && i == 0) 0 else 2 }
+        val (left, right) = offScreen(laid, places, event, half = 22f, width = 411f, top = 100f, bottom = 700f)
+        assertEquals(OffScreen(3, 1, 0), left)
+        assertEquals(OffScreen(1, 3, 0), right)
+        // none off: no chip
+        assertEquals(null to null, offScreen(listOf(listOf(BubbleOffset(200f, 300f))), listOf(BubbleOffset(200f, 340f)), { _, _ -> 2 }, 22f, 411f, 100f, 700f))
+        // alike: the nearest the edge first
+        val near = offScreen(listOf(listOf(BubbleOffset(-100f, 300f)), listOf(BubbleOffset(-30f, 300f))), listOf(BubbleOffset(-100f, 340f), BubbleOffset(-30f, 340f)), { _, _ -> 2 }, 22f, 411f, 100f, 700f)
+        assertEquals(OffScreen(2, 1, 0), near.first)
     }
 
     @Test fun `pushed up under the HUD, a bubble goes aside instead of back down onto the one below`() {
@@ -190,7 +287,7 @@ class TownLogicTest {
         val cam = fireCam(zoom)
         val groups = heads.mapIndexed { i, (x, y) -> BubbleGroup(cam.toScreenX(x) / phone, cam.toScreenY(y) / phone, n(i)) }
         val keepOff = if (keep) fireKeepOff(fireArea, fireBody, cam, phone) else null
-        return layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 1080f / phone - 30f, minY = minY, keepOff = keepOff)
+        return layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 1080f / phone - 30f, minY = minY, keepOff = keepOff, nudge = BUBBLE_NUDGE, reach = BUBBLE_REACH)
     }
 
     @Test fun `the fire's tap area has its flames, stones and target`() {
@@ -239,7 +336,8 @@ class TownLogicTest {
             for ((g, b) in all) assertTrue("zoom $zoom, group $g: $b on the fire $box", !box.meets(b.x, b.y, 52f, air = 3f))
             for (i in all.indices) for (j in i + 1 until all.size) {
                 if (all[i].first == all[j].first) continue
-                assertTrue("zoom $zoom: ${all[i]} covers ${all[j]}", clear(all[i].second, all[j].second, 52f))
+                // with no room for them all within a bubble and a half of their places: stacked as cards
+                assertTrue("zoom $zoom: ${all[i]} covers ${all[j]}", shows(all[i].second, all[j].second, 52f))
             }
         }
     }
@@ -277,7 +375,8 @@ class TownLogicTest {
             for (i in all.indices) for (j in i + 1 until all.size) {
                 // with the stack clear of the HUD not even their air; pushed down under it at most their air (the bubbles
                 // themselves don't touch)
-                assertTrue("$at: ${all[i]} covers ${all[j]}", if (!touched) clear(all[i].second, all[j].second, 52f) else apart(all[i].second, all[j].second, 52f))
+                // no room for them all within a bubble and a half of their places (nine of them, two rows' worth): stacked as cards
+                assertTrue("$at: ${all[i]} covers ${all[j]}", shows(all[i].second, all[j].second, 52f))
             }
         }
         assertTrue("the crowd's stack reaches the HUD ($reached)", reached >= 10)
@@ -292,9 +391,10 @@ class TownLogicTest {
         ).map { (x, y) -> BubbleGroup(x, y, 1) }
         val fire = BubbleBox(181.71f, 359.62f, 229.71f, 407.92f)
         val minY = 344.29f
-        val laid = layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 381.43f, minY = minY, keepOff = fire).flatten()
+        val laid = layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 381.43f, minY = minY, keepOff = fire, nudge = BUBBLE_NUDGE, reach = BUBBLE_REACH).flatten()
         for (b in laid) assertTrue("$b under the HUD or on the fire", b.y >= minY - 0.01f && !fire.meets(b.x, b.y, 52f, air = 3f) && b.x in 30f..381.43f)
-        for (i in laid.indices) for (j in i + 1 until laid.size) assertTrue("${laid[i]} covers ${laid[j]}", apart(laid[i], laid[j], 52f))
+        // the one in the row under the HUD with no room beside the others stays near its place, on the edge of the one below
+        for (i in laid.indices) for (j in i + 1 until laid.size) assertTrue("${laid[i]} covers ${laid[j]}", shows(laid[i], laid[j], 52f))
     }
 
     @Test fun `with the HUD far off, the crowd round the fire lays out as before`() {
@@ -321,12 +421,13 @@ class TownLogicTest {
     // --- bubbles holding their spots, and gliding ------------------------------------------------------------------
 
     /**
-     * The crowd round the fire as the camera zooms in from 3 to 12 screen px a nominal one (a hundredth at a time), with the
-     * HUD far off and from 380 down to 100 dp over the fire, each frame given where the bubbles were a frame ago against their
-     * places ([hold]: layoutBubbles' was) or not: the jumps of a bubble from one frame to the next over 40 dp, the flips
-     * among them back to where it was within the last 20 frames, and the overlaps of two boxes where the HUD is clear of the
-     * stack by a bubble. Every frame keeps the rules: none under the HUD, on the fire or off screen, none sharing more than
-     * their air.
+     * The crowd round the fire as the camera zooms in from 4.5 to 12 screen px a nominal one (a hundredth at a time; further
+     * out the app shows one bubble per place, see [clusterBubbles]), as TownBubbles lays it out, with the HUD far off and from
+     * 380 down to 100 dp over the fire, each frame given where the bubbles were a frame ago against their places ([hold]:
+     * layoutBubbles' was) or not: the jumps of a bubble from one frame to the next over 40 dp, the flips among them back to
+     * where it was within the last 20 frames, and the overlaps of two boxes where the HUD is clear of the stack by a bubble.
+     * Every frame keeps the rules: none under the HUD, on the fire or off screen, none covering more of another than a card
+     * in a stack does (no room for them all within a bubble and a half of their places).
      */
     private fun zoomSweep(hold: Boolean): IntArray {
         var jumps = 0; var flips = 0; var overlaps = 0
@@ -338,14 +439,14 @@ class TownLogicTest {
             var prev: List<List<BubbleOffset>>? = null
             var prevAt: List<BubbleGroup>? = null
             val seen = ArrayList<List<BubbleOffset>>()
-            for (k in 0..900) {
+            for (k in 150..900) {
                 val zoom = 3f + k * 0.01f
                 val cam = fireCam(zoom)
                 val groups = crowd.mapIndexed { i, (x, y) -> BubbleGroup(cam.toScreenX(x) / phone, cam.toScreenY(y) / phone, crowdN(i)) }
                 val box = fireKeepOff(fireArea, fireBody, cam, phone)
                 val p = prev; val pa = prevAt
                 val was = if (hold && p != null && pa != null) { g: Int, i: Int -> p[g].getOrNull(i)?.let { BubbleOffset(it.x - pa[g].x, it.y - pa[g].y) } } else null
-                val laid = layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 1080f / phone - 30f, minY = minY, keepOff = box, was = was)
+                val laid = layoutBubbles(groups, size = 52f, spacing = 54f, lift = 40f, minX = 30f, maxX = 1080f / phone - 30f, minY = minY, keepOff = box, was = was, nudge = BUBBLE_NUDGE, reach = BUBBLE_REACH)
                 val all = laid.flatten()
                 val group = laid.flatMapIndexed { g, l -> l.map { g } }
                 // with the HUD far off the stack's top is a bubble below where it is now: nothing pushed down under it
@@ -355,7 +456,7 @@ class TownLogicTest {
                 for (b in all) assertTrue("$at: $b under the HUD, on the fire or off screen", b.y >= minY - 0.01f && !box.meets(b.x, b.y, 52f, air = 3f) && b.x in 29.99f..1080f / phone - 29.99f)
                 for (i in all.indices) for (j in i + 1 until all.size) {
                     if (group[i] == group[j]) continue
-                    assertTrue("$at: ${all[i]} covers ${all[j]}", apart(all[i], all[j], 52f))
+                    assertTrue("$at: ${all[i]} covers ${all[j]}", shows(all[i], all[j], 52f))
                     if (free && !clear(all[i], all[j], 52f)) overlaps++
                 }
                 seen.lastOrNull()?.let { last ->
@@ -374,11 +475,9 @@ class TownLogicTest {
     @Test fun `zooming on the crowd round the fire, the bubbles hold their spots instead of flipping between two`() {
         val free = zoomSweep(hold = false)
         val held = zoomSweep(hold = true)
-        // clear of the HUD, no two boxes overlap, corners included (the corner the pushes left at zoom 9.3 to 9.5 too)
-        assertEquals("overlaps", 0, free[2])
-        assertEquals("overlaps", 0, held[2])
-        // held from one frame to the next: far fewer jumps, hardly a flip back (395 and 11; free 713 and 127; the layout
-        // before the boxes were kept fully apart: 564 and 56). The jumps left are steps: the stack meeting the HUD, a squeeze
+        // held from one frame to the next: far fewer jumps, hardly a flip back (362 and 11; free 675 and 145; from 3 with the
+        // stack as tall as it took, held 395 and 11). The jumps left are steps: the stack meeting the HUD, a squeeze, a fan
+        // taking a spot within reach
         assertTrue("held ${held.toList()}, free ${free.toList()}", held[0] * 10 <= free[0] * 6 && held[1] * 8 <= free[1] && held[1] <= 15)
     }
 

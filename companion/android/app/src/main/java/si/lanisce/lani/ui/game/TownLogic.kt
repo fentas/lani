@@ -36,6 +36,7 @@ import si.lanisce.lani.l10n.bi
 import java.time.LocalDateTime
 import kotlin.math.abs
 import kotlin.math.ceil
+import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
 
@@ -155,8 +156,9 @@ data class BubbleOffset(val x: Float, val y: Float)
 
 /**
  * Where [n] bubbles that share one place sit around it: side by side in a gentle arc (the middle ones a little
- * higher), at most [perRow] in a row, further rows stacked above. The whole fan shifts sideways so every bubble
- * stays within [minX]..[maxX] (dp from the place; the screen edges), while their pointers still meet at the place.
+ * higher), at most [perRow] in a row, further rows stacked above. The whole fan shifts sideways towards [minX]..[maxX]
+ * (dp from the place; the screen edges), at most [nudge] dp, while their pointers still meet at the place: a place at
+ * the edge has its bubbles nudged in, one beyond it has them beyond it too.
  */
 fun fanOut(
     n: Int,
@@ -166,6 +168,7 @@ fun fanOut(
     perRow: Int = 4,
     minX: Float = Float.NEGATIVE_INFINITY,
     maxX: Float = Float.POSITIVE_INFINITY,
+    nudge: Float = Float.POSITIVE_INFINITY,
 ): List<BubbleOffset> {
     if (n <= 0) return emptyList()
     val rows = ceil(n / perRow.toFloat()).toInt()
@@ -185,7 +188,7 @@ fun fanOut(
         lo < minX -> minX - lo
         hi > maxX -> maxX - hi
         else -> 0f
-    }
+    }.coerceIn(-nudge, nudge)
     return if (shift == 0f) out else out.map { it.copy(x = it.x + shift) }
 }
 
@@ -225,8 +228,16 @@ fun fireKeepOff(area: FloatArray, body: CanvasPoint, cam: Camera, density: Float
  * sideways when the two would sit beside each other anyway, up when one would sit on the other (its pointer just
  * gets longer). Bubbles are [size] dp squares, air included. Every push fades in with the overlap and is applied
  * once, from where the fans start, so panning and zooming mostly slide the bubbles; the hair of shared air that leaves
- * now and then is cleared below. The fans stay within [minX]..[maxX] and below [minY] (under the HUD nothing can be
- * tapped).
+ * now and then is cleared below. The fans stay below [minY] (under the HUD nothing can be tapped).
+ *
+ * A bubble stays with its place: a fan that would be cut by the screen's edge ([minX]..[maxX]: its bubbles' centres)
+ * shifts in by at most [nudge], so one over someone at the edge shows whole, and one whose place is off the screen is
+ * off it too, never pulled in to wait at the edge. What lies beyond the edge is then that fan's own room: the pushes
+ * don't take it further out, nor (sideways) off the screen when it's on it. And no push takes a fan further than [reach]
+ * from where it starts (off the fire, see below): its pointers stay short. Pushed further (a crowd round the fire), it
+ * takes the free spot that near nearest where the pushes would take it, or a nearer one where it covers the others a
+ * little, at most so much that a strip of each shows: a stack of cards ([nearSpot]); only the fire and the HUD may take
+ * it further. Such a spot it holds as the others do theirs (below), while it's no worse than the new one.
  *
  * The fire stays the easiest place to tap: a fan that would come within [air] of [keepOff] (its tap area, see
  * [fireKeepOff]) starts off it, away from the fire, sideways and up as it was beside it or over it ([offBox]; its
@@ -240,9 +251,9 @@ fun fireKeepOff(area: FloatArray, body: CanvasPoint, cam: Camera, density: Float
  *
  * Pushed up under the HUD, a fan comes back down to just under it; a bubble of it that lands there on one already placed
  * (the stack round the fire grown that tall) or on the fire goes aside on its own instead, left or right of what's in its
- * way, its pointer still at its place ([asideUnderHud]): no two bubbles cover each other, none is under the HUD or on the
- * fire. That's a step, not a slide, as the stack reaches the HUD or leaves it (on screen the bubble glides there:
- * [BubbleGlide]).
+ * way, within [reach] of where it started, its pointer still at its place ([asideUnderHud]): none is under the HUD or on
+ * the fire, and with room none covers another. That's a step, not a slide, as the stack reaches the HUD or leaves it (on
+ * screen the bubble glides there: [BubbleGlide]).
  *
  * Given where each bubble was a frame ago against its place ([was]: by group and bubble, dp), the layout holds on to it: a
  * fan stays there, carried along with its place, while that spot is still free and the new one isn't clearly better
@@ -260,6 +271,8 @@ fun layoutBubbles(
     keepOff: BubbleBox? = null,
     air: Float = FIRE_AIR,
     was: ((group: Int, bubble: Int) -> BubbleOffset?)? = null,
+    nudge: Float = Float.POSITIVE_INFINITY,
+    reach: Float = Float.POSITIVE_INFINITY,
 ): List<List<BubbleOffset>> {
     val out = arrayOfNulls<List<BubbleOffset>>(groups.size)
     val placed = ArrayList<BubbleOffset>()
@@ -270,19 +283,22 @@ fun layoutBubbles(
     /** How far one over the other: 0 barely, 1 fully lined up. */
     fun stacked(ox: Float) = r01((ox / size - 0.2f) / 0.35f)
     fun soft(ox: Float, oy: Float) = min(1f, ox / ramp) * min(1f, oy / ramp)
-    /** How far a fan of [fan] at ([x], [y]) (its place's offsets, [lift] above it) moves off the fire, or null. */
-    fun offFire(fan: List<BubbleOffset>, x: Float, y: Float): BubbleOffset? {
+    /** How far a fan of [fan] at ([x], [y]) (its place's offsets, [lift] above it) moves off the fire, or null; within [loX]..[hiX]. */
+    fun offFire(fan: List<BubbleOffset>, x: Float, y: Float, loX: Float, hiX: Float): BubbleOffset? {
         if (keepOff == null) return null
         val x0 = x + fan.minOf { it.x }; val y0 = y - lift + fan.minOf { it.y }
-        return offBox(keepOff, x0, y0, x + fan.maxOf { it.x }, y - lift + fan.maxOf { it.y }, size / 2f + air, minX, maxX, minY)
+        return offBox(keepOff, x0, y0, x + fan.maxOf { it.x }, y - lift + fan.maxOf { it.y }, size / 2f + air, loX, hiX, minY)
     }
     for (g in groups.indices.sortedByDescending { groups[it].y }) {
         val at = groups[g]
         if (at.n <= 0) { out[g] = emptyList(); continue }
+        // its fan over it, nudged in a little at the screen's edge; past the edge, as far as the fan is, is its own room
+        val over = fanOut(at.n, spacing = spacing, minX = minX - at.x, maxX = maxX - at.x, nudge = nudge)
+        val loX = min(minX, at.x + over.minOf { it.x }); val hiX = max(maxX, at.x + over.maxOf { it.x })
         // off the fire first: the fan starts from there, as if its place were (its pointers still go to the place), so
         // the pushes below keep it off the bubbles already placed as they always do
-        val grp = offFire(fanOut(at.n, spacing = spacing, minX = minX - at.x, maxX = maxX - at.x), at.x, at.y)?.let { at.copy(x = at.x + it.x, y = at.y + it.y) } ?: at
-        val fan = fanOut(grp.n, spacing = spacing, minX = minX - grp.x, maxX = maxX - grp.x)
+        val grp = offFire(over, at.x, at.y, loX, hiX)?.let { at.copy(x = at.x + it.x, y = at.y + it.y) } ?: at
+        val fan = fanOut(grp.n, spacing = spacing, minX = loX - grp.x, maxX = hiX - grp.x, nudge = nudge)
         val lo = fan.minOf { it.x }; val hi = fan.maxOf { it.x }
         // the pairs that overlap where the fan starts: [dx, dy, ox, oy]
         val pairs = ArrayList<FloatArray>()
@@ -300,7 +316,7 @@ fun layoutBubbles(
             val side = q[2] * beside * r01((0.95f - q[2] / size) / 0.2f) * soft(q[2], q[3])
             if (q[0] >= 0f) right = max(right, side) else left = max(left, side)
         }
-        val roomLo = minX - grp.x - lo; val roomHi = maxX - grp.x - hi
+        val roomLo = loX - grp.x - lo; val roomHi = hiX - grp.x - hi
         var sx = if (roomLo > roomHi) (roomLo + roomHi) / 2f else (right - left).coerceIn(roomLo, roomHi)
         // lined up: move above the other, as far as the sideways move didn't settle it. Over one that's already
         // above (lifted earlier) it's all the way or nothing: half way would land right on it.
@@ -334,7 +350,7 @@ fun layoutBubbles(
             placed.indices.any { i -> placedByFire[i] && abs(grp.x + f.x + sx - placed[i].x) < size && abs(grp.y + f.y - lift + sy - placed[i].y) < size }
         }
         for (pass in 0 until 3) {
-            val m = offFire(fan, grp.x + sx, grp.y + sy)
+            val m = offFire(fan, grp.x + sx, grp.y + sy, loX, hiX)
             if (m != null) { sx += m.x; sy += m.y; byFire = true }
             else if (pass > 0) break
             if (!byFire && !onFireMoved()) break
@@ -351,25 +367,57 @@ fun layoutBubbles(
             }
         }
         // what's left of the overlap (a corner on a corner, where the pushes fade in): cleared the shortest way
-        val clear = clearOf(fan.map { BubbleOffset(grp.x + it.x + sx, grp.y + it.y - lift + sy) }, placed, size, keepOff, air, minX, maxX)
+        val clear = clearOf(fan.map { BubbleOffset(grp.x + it.x + sx, grp.y + it.y - lift + sy) }, placed, size, keepOff, air, loX, hiX)
         sx += clear.x; sy += clear.y
-        // kept below the HUD (see [bubblePresence] for a place scrolled far past the top); pushed back down under it, a
+        // no further than [reach] from where it started, its pointers short: pushed further, it takes the nearest free spot
+        // that near instead, or one nearer where it covers the others a little, a stack of cards ([nearSpot]); with the
+        // fire in the way of all of them, as near as the fire lets it, the fire's tap coming first
+        val first = fan.map { BubbleOffset(grp.x + it.x, grp.y + it.y - lift) }
+        /** Whether it was pushed too far and took a spot near instead ([nearSpot]), and where the pushes would take it that near. */
+        var capped = false
+        var aim = BubbleOffset(0f, 0f)
+        val pushed = hypot(sx, sy)
+        if (pushed > reach) {
+            aim = BubbleOffset(sx * reach / pushed, sy * reach / pushed)
+            val near = nearSpot(first, aim, placed, size, reach, keepOff, air, loX, hiX, minY)
+            if (near != null) { sx = near.x; sy = near.y; capped = true }
+            else {
+                sx *= reach / pushed; sy *= reach / pushed
+                offFire(fan, grp.x + sx, grp.y + sy, loX, hiX)?.let { sx += it.x; sy += it.y }
+            }
+        }
+        // kept below the HUD (see [bubblePresence] for a place scrolled past the top); pushed back down under it, a
         // bubble that lands on one it was pushed up off (or on the fire) goes aside instead ([asideUnderHud])
         val top = fan.minOf { it.y } - lift + grp.y + sy
         if (top < minY) sy += minY - top
         // where each was a frame ago, carried along with its place
         val before = was?.let { w -> fan.indices.map { i -> w(g, i)?.let { BubbleOffset(at.x + it.x, at.y + it.y) } } }
+        // where each starts, below the HUD: what [reach] goes by there
+        val start = fan.map { BubbleOffset(grp.x + it.x, max(grp.y + it.y - lift, minY)) }
         var list = fan.map { BubbleOffset(grp.x + it.x + sx, grp.y + it.y - lift + sy) }
-        if (top < minY) list = asideUnderHud(list, fan.map { grp.y + it.y - lift }, placed, size, keepOff, air, minX, maxX, before)
+        if (top < minY) list = asideUnderHud(list, fan.map { grp.y + it.y - lift }, placed, size, keepOff, air, loX, hiX, before, start, reach)
         // the layout chose another spot than a frame ago: it stays where it was while that's still free and the new one
         // isn't clearly better ([stays])
         if (before != null && before.all { it != null }) {
-            val home = fanOut(at.n, spacing = spacing, minX = minX - at.x, maxX = maxX - at.x).map { BubbleOffset(at.x + it.x, at.y + it.y - lift) }
-            // kept on the screen and below the HUD, and nudged off what came a hair too near as everything moved
-            var kept = before.map { BubbleOffset(it!!.x.coerceIn(minX, maxX), max(it.y, minY)) }
-            val nudge = clearOf(kept, placed, size, keepOff, air, minX, maxX)
-            if (abs(nudge.x) + abs(nudge.y) <= SLOT) kept = kept.map { BubbleOffset(it.x + nudge.x, max(it.y + nudge.y, minY)) }
-            if (stays(kept, list, home, placed, size, keepOff, air, minX, maxX, minY)) list = kept
+            val home = over.map { BubbleOffset(at.x + it.x, at.y + it.y - lift) }
+            // kept within its room and below the HUD
+            var kept = before.map { BubbleOffset(it!!.x.coerceIn(loX, hiX), max(it.y, minY)) }
+            val near = kept.indices.all { hypot(kept[it].x - start[it].x, kept[it].y - start[it].y) <= reach + 0.01f }
+            if (capped) {
+                // with no room near: it stays where it was while that's still near, off the fire and covering none of the
+                // others more than a card in a stack may, and the new spot isn't clearly better (nearer, covering less: what
+                // [nearSpot] weighs), so the stack doesn't reshuffle as the camera moves
+                fun cost(f: List<BubbleOffset>) = f.indices.sumOf { hypot(f[it].x - first[it].x - aim.x, f[it].y - first[it].y - aim.y).toDouble() }.toFloat() / f.size +
+                    COVER * covering(f, placed, size)
+                val moved = kept.indices.any { abs(kept[it].x - list[it].x) + abs(kept[it].y - list[it].y) > JUMP }
+                val ok = kept.none { keepOff?.meets(it.x, it.y, size, air) == true } && covering(kept, placed, size) <= size * (1f - SHRINK.last())
+                if (moved && near && ok && cost(kept) <= cost(list) + STICK) list = kept
+            } else {
+                // nudged off what came a hair too near as everything moved
+                val step = clearOf(kept, placed, size, keepOff, air, loX, hiX)
+                if (abs(step.x) + abs(step.y) <= SLOT) kept = kept.map { BubbleOffset(it.x + step.x, max(it.y + step.y, minY)) }
+                if (near && stays(kept, list, home, placed, size, keepOff, air, loX, hiX, minY)) list = kept
+            }
         }
         out[g] = list
         placed += list
@@ -455,6 +503,78 @@ private fun clearOf(fan: List<BubbleOffset>, placed: List<BubbleOffset>, size: F
     return BubbleOffset(mx, my)
 }
 
+/**
+ * Where a fan the pushes took further than [reach] goes instead ([layoutBubbles]): a spot within [reach] of where it starts
+ * ([start]: its bubbles' centres there, dp), level with it or higher and below the HUD ([minY]), within [loX]..[hiX], and
+ * keeping [air] off [keepOff] (the fire): the nearest to where the pushes would take it, as far as [reach] goes ([toward],
+ * a move from [start]: so a fan just reaching that far moves on as it was) where it covers none of the bubbles already
+ * [placed], or a nearer one where it covers them a little (each dp of a box it covers counts [COVER] dp further), at most
+ * so much that a strip of each shows, two fifths of its box ([SHRINK]): a stack of cards. Its move from [start]; null when
+ * the fire is in the way of every such spot.
+ */
+private fun nearSpot(
+    start: List<BubbleOffset>, toward: BubbleOffset, placed: List<BubbleOffset>, size: Float, reach: Float,
+    keepOff: BubbleBox?, air: Float, loX: Float, hiX: Float, minY: Float,
+): BubbleOffset? {
+    val top = start.minOf { it.y }
+    // level or up, but not up under the HUD (from under it: down to just below it)
+    val dyLo = max(-reach, minY - top); val dyHi = max(0f, minY - top)
+    val dxLo = loX - start.minOf { it.x }; val dxHi = hiX - start.maxOf { it.x }
+    val halo = size / 2f + air
+    var chosen: BubbleOffset? = null
+    var chosenCost = Float.POSITIVE_INFINITY
+    for (k in SHRINK) {
+        // covering at least a little more than the boxes shrunk before: worth it only if that much nearer
+        if (COVER * size * (1f - k) * 0.5f >= chosenCost) break
+        val sz = size * k
+        // the heights worth trying: where the pushes would take it, where it starts, the highest it may go, and each just
+        // over or under a bubble or the fire
+        val levels = arrayListOf(toward.y, dyLo, dyHi, 0f)
+        for (s in start) {
+            for (p in placed) { levels += p.y - s.y - sz; levels += p.y - s.y + sz }
+            if (keepOff != null) levels += keepOff.top - halo - s.y
+        }
+        var best: BubbleOffset? = null
+        var cost = Float.POSITIVE_INFINITY
+        for (dy in levels) {
+            if (dy < dyLo - 0.01f || dy > dyHi + 0.01f || abs(dy - toward.y) >= cost) continue
+            // how far aside it may go at that height, within [reach]
+            val w = kotlin.math.sqrt(max(0f, reach * reach - dy * dy))
+            val lo = max(dxLo, -w); val hi = min(dxHi, w)
+            if (lo > hi) continue
+            // where it can't be at that height (open ranges of its move): on a bubble, or on the fire
+            val blocked = ArrayList<FloatArray>()
+            for (s in start) {
+                val y = s.y + dy
+                for (p in placed) if (abs(y - p.y) < sz - 0.01f) blocked += floatArrayOf(p.x - s.x - sz, p.x - s.x + sz)
+                if (keepOff != null && y + halo > keepOff.top && y - halo < keepOff.bottom) blocked += floatArrayOf(keepOff.left - halo - s.x, keepOff.right + halo - s.x)
+            }
+            for (gap in freeRoom(blocked, lo, hi)) {
+                val dx = toward.x.coerceIn(gap[0], gap[1])
+                val c = hypot(dx - toward.x, dy - toward.y)
+                if (c < cost) { cost = c; best = BubbleOffset(dx, dy) }
+            }
+        }
+        val b = best ?: continue
+        val c = cost + COVER * covering(start.map { BubbleOffset(it.x + b.x, it.y + b.y) }, placed, size)
+        if (c < chosenCost) { chosenCost = c; chosen = b }
+    }
+    return chosen
+}
+
+/**
+ * How much of a bubble's box the others may cover at most, in turn, for a fan with no room near its place ([nearSpot]):
+ * none of it, then a fifth, two fifths, three fifths of it (across or down: a strip of the rest shows).
+ */
+private val SHRINK = listOf(1f, 0.8f, 0.6f, 0.4f)
+
+/** How much worse a dp of a bubble's box covered by another is than a dp further from its place ([nearSpot]). */
+private const val COVER = 4f
+
+/** How deep [fan]'s boxes ([size]) reach into those of [placed] at most (dp): 0 when they cover none. */
+private fun covering(fan: List<BubbleOffset>, placed: List<BubbleOffset>, size: Float): Float =
+    fan.maxOf { b -> placed.maxOfOrNull { p -> min(size - abs(b.x - p.x), size - abs(b.y - p.y)) } ?: 0f }.coerceAtLeast(0f)
+
 /** An overlap of bubbles' boxes small enough to be none (dp): rounding. */
 private const val CLEAR = 0.01f
 
@@ -514,6 +634,10 @@ private fun stays(
  * fire stays as it is, so a stack just reaching the HUD doesn't send it across. A new spot has a little room to spare
  * ([SLOT]: not a slot just opening between two).
  *
+ * Each goes no further than [far] from where it started ([start], by its index in the fan: its pointer stays short).
+ * With no room that near it stays where it is, partly on what's there; only on the fire does it go further, to the
+ * nearest spot off it as above.
+ *
  * Where each was a frame ago ([was], by its index in the fan) holds it: one that went aside stays aside until it would share
  * nothing back on the stack, and keeps to its side and its spot (the stretch of free room it's in, as near the stack as
  * that goes) unless another is cheaper by [STICK], so it doesn't flip from one side of the stack to the other and back as
@@ -522,6 +646,7 @@ private fun stays(
 private fun asideUnderHud(
     fan: List<BubbleOffset>, lowest: List<Float>, placed: List<BubbleOffset>, size: Float,
     keepOff: BubbleBox?, air: Float, minX: Float, maxX: Float, was: List<BubbleOffset?>? = null,
+    start: List<BubbleOffset>? = null, far: Float = Float.POSITIVE_INFINITY,
 ): List<BubbleOffset> {
     val out = fan.toMutableList()
     val reach = size / 2f + air
@@ -530,38 +655,58 @@ private fun asideUnderHud(
         val before = was?.getOrNull(i)?.takeIf { abs(it.x - b.x) + abs(it.y - b.y) > size / 4f }
         val others = placed + out.filterIndexed { j, _ -> j != i }
         val depth = others.maxOfOrNull { min(size - abs(b.x - it.x), size - abs(b.y - it.y)) } ?: 0f
-        if (depth <= (if (before != null) CLEAR else size * 0.15f) && keepOff?.meets(b.x, b.y, size, air) != true) continue
-        val start = max(b.y, lowest[i])
+        val onFire = keepOff?.meets(b.x, b.y, size, air) == true
+        if (depth <= (if (before != null) CLEAR else size * 0.15f) && !onFire) continue
+        val low = max(b.y, lowest[i])
         val from = min(minX, b.x); val to = max(maxX, b.x)
-        // down to where it started, its spacing shrunk a little if it must; else further down (its pointer going up)
-        for ((sz, bottom) in listOf(size to start, size * 0.92f to start, size * 0.85f to start, size to Float.POSITIVE_INFINITY)) {
-            // its height under the HUD, and each just under a bubble or the fire
-            val under = others.map { it.y + sz } + listOfNotNull(keepOff?.let { it.bottom + reach })
-            val levels = (listOf(b.y) + under.filter { it > b.y && it <= bottom }).sorted()
-            var best: BubbleOffset? = null
-            var cost = Float.POSITIVE_INFINITY
-            // the spot in the stretch of room nearest where it was, and what it costs
-            var kept: BubbleOffset? = null
-            var keptCost = Float.POSITIVE_INFINITY
-            var keptOff = size
-            for (y in levels) {
-                if ((y - b.y) * 2f >= cost + (if (before != null) STICK else 0f)) break
-                // where it can't be at this height (open ranges of x): on a bubble, or on the fire
-                val blocked = others.filter { abs(y - it.y) < sz - 0.01f }.mapTo(ArrayList()) { floatArrayOf(it.x - sz, it.x + sz) }
-                if (keepOff != null && y + reach > keepOff.top && y - reach < keepOff.bottom) blocked += floatArrayOf(keepOff.left - reach, keepOff.right + reach)
-                for (gap in freeRoom(blocked, from, to)) {
-                    // the spot in it nearest the stack (where its place is), and what that costs
-                    val x = b.x.coerceIn(gap[0], gap[1])
-                    val c = abs(x - b.x) + (y - b.y) * 2f
-                    if (c < cost && (gap[1] - gap[0] >= SLOT || x == b.x)) { cost = c; best = BubbleOffset(x, y) }
-                    if (before == null) continue
-                    val off = max(0f, max(gap[0] - before.x, before.x - gap[1])) + abs(y - before.y)
-                    if (off < keptOff) { keptOff = off; kept = BubbleOffset(x, y); keptCost = c }
+        val s = start?.getOrNull(i)
+        /** The spot for it, [far] from its start at most when [near]; null: none. */
+        fun spot(near: Boolean): BubbleOffset? {
+            // down to where it started, its spacing shrunk a little if it must; else further down (its pointer going up);
+            // near its start with no room even so, partly on the others, as cards ([SHRINK])
+            val tries = listOf(size to low, size * 0.92f to low, size * 0.85f to low, size to Float.POSITIVE_INFINITY) +
+                if (near && far.isFinite()) SHRINK.drop(1).map { size * it to Float.POSITIVE_INFINITY } else emptyList()
+            for ((sz, bottom) in tries) {
+                // its height under the HUD, and each just under a bubble or the fire
+                val under = others.map { it.y + sz } + listOfNotNull(keepOff?.let { it.bottom + reach })
+                val levels = (listOf(b.y) + under.filter { it > b.y && it <= bottom }).sorted()
+                var best: BubbleOffset? = null
+                var cost = Float.POSITIVE_INFINITY
+                // the spot in the stretch of room nearest where it was, and what it costs
+                var kept: BubbleOffset? = null
+                var keptCost = Float.POSITIVE_INFINITY
+                var keptOff = size
+                for (y in levels) {
+                    if ((y - b.y) * 2f >= cost + (if (before != null) STICK else 0f)) break
+                    // how far aside it may go at this height, near its start
+                    var lo = Float.NEGATIVE_INFINITY; var hi = Float.POSITIVE_INFINITY
+                    if (near && s != null && far.isFinite()) {
+                        val dy = abs(y - s.y)
+                        if (dy > far) continue
+                        val w = kotlin.math.sqrt(far * far - dy * dy)
+                        lo = s.x - w; hi = s.x + w
+                    }
+                    // where it can't be at this height (open ranges of x): on a bubble, or on the fire
+                    val blocked = others.filter { abs(y - it.y) < sz - 0.01f }.mapTo(ArrayList()) { floatArrayOf(it.x - sz, it.x + sz) }
+                    if (keepOff != null && y + reach > keepOff.top && y - reach < keepOff.bottom) blocked += floatArrayOf(keepOff.left - reach, keepOff.right + reach)
+                    for (gap in freeRoom(blocked, from, to)) {
+                        val g0 = max(gap[0], lo); val g1 = min(gap[1], hi)
+                        if (g0 > g1) continue
+                        // the spot in it nearest the stack (where its place is), and what that costs
+                        val x = b.x.coerceIn(g0, g1)
+                        val c = abs(x - b.x) + (y - b.y) * 2f
+                        if (c < cost && (gap[1] - gap[0] >= SLOT || x == b.x)) { cost = c; best = BubbleOffset(x, y) }
+                        if (before == null) continue
+                        val off = max(0f, max(g0 - before.x, before.x - g1)) + abs(y - before.y)
+                        if (off < keptOff) { keptOff = off; kept = BubbleOffset(x, y); keptCost = c }
+                    }
                 }
+                if (kept != null && keptCost <= cost + STICK) best = kept
+                if (best != null) return best
             }
-            if (kept != null && keptCost <= cost + STICK) best = kept
-            if (best != null) { out[i] = best; break }
+            return null
         }
+        (spot(near = true) ?: if (onFire) spot(near = false) else null)?.let { out[i] = it }
     }
     return out
 }
@@ -583,12 +728,47 @@ private fun freeRoom(blocked: List<FloatArray>, from: Float, to: Float): List<Fl
 }
 
 /**
- * How much a place's bubbles show, 0..1: fully while the place is on screen or under the HUD (its bubbles hang
- * below the HUD, pointing up at it; the HUD is about four bubbles tall), fading out over the next two bubble
- * heights as it scrolls past the top ([minY] is the HUD's bottom plus half a bubble, dp). Faded bubbles don't
- * take taps.
+ * How much a place's bubbles show, 0..1: fully while the place is on screen below the HUD (its bubbles kept below the
+ * HUD, pointing at it), fading out over the next bubble height ([size]) as the place goes under the HUD ([minY] is the
+ * HUD's bottom plus half a bubble, dp): a bubble stays with its place, not waiting under the HUD for one scrolled past
+ * the top, as it goes off the screen's sides with it. Faded bubbles don't take taps.
  */
-fun bubblePresence(anchorY: Float, minY: Float, size: Float): Float = ((anchorY - (minY - 6f * size)) / (2f * size)).coerceIn(0f, 1f)
+fun bubblePresence(anchorY: Float, minY: Float, size: Float): Float = ((anchorY - (minY - 1.5f * size)) / size).coerceIn(0f, 1f)
+
+/** The bubbles off the screen to one side ([offScreen]): how many, and which comes first (its group and its place in it). */
+data class OffScreen(val n: Int, val group: Int, val bubble: Int)
+
+/**
+ * The bubbles wholly off the screen to its left and to its right, for the small chips at its edges that lead to them: of
+ * [laid] (their spots, dp) those [half] a bubble or more past the edge (0 and [width]) whose places ([anchors], dp; null:
+ * none) lie beside the screen, between [top] (the HUD) and [bottom] (the bottom bar), not above or below it. How many on
+ * each side, and the one that comes first: the lowest [rank] (the event, someone there now, a request), then the nearest
+ * the edge. Null for a side with none.
+ */
+fun offScreen(
+    laid: List<List<BubbleOffset>>, anchors: List<BubbleOffset?>, rank: (group: Int, bubble: Int) -> Int,
+    half: Float, width: Float, top: Float, bottom: Float,
+): Pair<OffScreen?, OffScreen?> {
+    var left = 0; var right = 0
+    var firstLeft: Triple<Int, Int, Float>? = null; var firstRight: Triple<Int, Int, Float>? = null
+    fun better(r: Int, d: Float, than: Triple<Int, Int, Float>?, rankOf: (Triple<Int, Int, Float>) -> Int) =
+        than == null || r < rankOf(than) || (r == rankOf(than) && d < than.third)
+    for ((g, l) in laid.withIndex()) {
+        val a = anchors.getOrNull(g) ?: continue
+        if (a.y < top || a.y > bottom) continue
+        for ((i, b) in l.withIndex()) {
+            val r = rank(g, i)
+            if (b.x + half <= 0f) {
+                left++
+                if (better(r, -b.x, firstLeft) { rank(it.first, it.second) }) firstLeft = Triple(g, i, -b.x)
+            } else if (b.x - half >= width) {
+                right++
+                if (better(r, b.x - width, firstRight) { rank(it.first, it.second) }) firstRight = Triple(g, i, b.x - width)
+            }
+        }
+    }
+    return firstLeft?.let { OffScreen(left, it.first, it.second) } to firstRight?.let { OffScreen(right, it.first, it.second) }
+}
 
 /** How quickly a bubble glides to a new spot (1/s): a critically damped spring, 95 % of the way there in 0.2 s. */
 const val GLIDE_RATE = 24f
