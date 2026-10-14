@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.Course
+import si.lanisce.lani.data.Prints
 import si.lanisce.lani.data.UnitRef
 import si.lanisce.lani.game.Age
 import si.lanisce.lani.game.Building
@@ -237,6 +238,8 @@ private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, level: 
         )
         if (!level.open) GateCard(vm, s, level)
         for (ref in course.refs(level.level)) UnitRow(vm, s, course, ref, School.status(s, course, ref, next), fromVillage)
+        // the level's sheets on paper, a booklet (companion/COURSE.md, "Printed sheets"); a row's 🖨️ says here what went wrong
+        PrintButton(vm, Prints.booklet(course, level.level), bi("school.printAll"), troubleOf = { it.level == level.level })
     }
 }
 
@@ -287,6 +290,8 @@ private fun UnitRow(vm: AppViewModel, s: GameState, course: Course, ref: UnitRef
                 Text(ref.titleShown(L10n.pair), style = MaterialTheme.typography.titleSmall, fontWeight = if (status == School.Status.NEXT) FontWeight.Bold else FontWeight.Medium, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 Text(line, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
+            // its sheet on paper, a written unit's (a locked one's too: to learn from on the way)
+            if (unit != null) Prints.sheet(course, ref.id)?.let { PrintIcon(vm, it) }
             Text(mark, style = MaterialTheme.typography.titleMedium, color = if (status == School.Status.DONE) AlpineGreen else Color.Unspecified)
         }
     }

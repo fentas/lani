@@ -92,6 +92,19 @@ class Bridge(private val config: BridgeConfig) {
             else -> throw IOException("HTTP $code: ${body.take(200)}")
         }
     }
+    /**
+     * A printed sheet or booklet of the course as a page to print ([Prints.path]: GET /course/sheet/<unit>, GET
+     * /course/booklet/<level>, companion/COURSE.md "Printed sheets"): self-contained HTML, its fonts and fit.js inlined.
+     * [PrintMissing] when the bridge has none (an older bridge, a unit it doesn't have).
+     */
+    suspend fun printPage(path: String): String {
+        val (code, body) = exchange(request(path).header("Accept", "text/html").build())
+        return when (code) {
+            200 -> body
+            404 -> throw PrintMissing()
+            else -> throw IOException("HTTP $code: ${body.take(200)}")
+        }
+    }
     /** The car's audio drills (GET /drills, lani.drill/v0); null from an older bridge without them (404): the app's own then. */
     suspend fun drills(): List<Drill>? {
         val (code, body) = content(request("/drills").build())

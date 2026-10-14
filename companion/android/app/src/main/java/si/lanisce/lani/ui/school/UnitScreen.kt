@@ -31,6 +31,7 @@ import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.SheetKind
 import si.lanisce.lani.data.CourseUnit
 import si.lanisce.lani.data.Grammar
+import si.lanisce.lani.data.Prints
 import si.lanisce.lani.data.Worksheet
 import si.lanisce.lani.game.School
 import si.lanisce.lani.game.SheetBest
@@ -140,6 +141,8 @@ fun UnitScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
                     }
                 }
                 OutlinedButton(onClick = { vm.school.ask(unit) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) { Text("💬 ${bi("common.askTutor")}") }
+                // its sheet on paper (companion/COURSE.md, "Printed sheets")
+                PrintButton(vm, vm.school.course?.let { Prints.sheet(it, unit.id) }, bi("school.printSheet"))
                 if (unit.machineWritten) Text("🤖 ${bi("school.machineWritten")}", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }

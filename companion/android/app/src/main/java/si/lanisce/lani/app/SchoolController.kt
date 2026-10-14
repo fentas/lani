@@ -241,6 +241,16 @@ class SchoolController(
         else -> e::class.simpleName?.lowercase() ?: "?"
     }
 
+    // --- printing (companion/COURSE.md, "Printed sheets") -------------------------------------------------------------
+
+    /** The sheet or booklet being got ready for the print dialog (one at a time), and the last that couldn't be, with why. */
+    var printing by mutableStateOf<si.lanisce.lani.data.PrintJob?>(null)
+    var printTrouble by mutableStateOf<Pair<si.lanisce.lani.data.PrintJob, String>?>(null)
+
+    /** [job]'s page from the bridge, in the learner's base language (ui/school/SchoolPrint prints it). */
+    suspend fun printPage(job: si.lanisce.lani.data.PrintJob): String =
+        (bridge() ?: throw java.io.IOException("not connected")).printPage(si.lanisce.lani.data.Prints.path(job, L10n.pair.base.code))
+
     // --- asking the tutor -------------------------------------------------------------------------------------------
 
     /** "💬 Vprašaj · Ask the tutor" about [unit] (the sheet [sheet] when on one): the chat opens with it attached. */
