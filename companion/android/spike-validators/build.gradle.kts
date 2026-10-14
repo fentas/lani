@@ -58,9 +58,15 @@ android {
         jniLibs.useLegacyPackaging = true
     }
     sourceSets {
+        // the corpus's harness and the QuickJS engine: the phone's test and the host's (QuickJS on the JVM) share them
         getByName("androidTest") {
+            kotlin.srcDir("src/shared/kotlin")
             assets.srcDirs("../../bridge/validators/dist", "../../bridge/test/conformance/out")
         }
+        getByName("test") { kotlin.srcDir("src/shared/kotlin") }
+    }
+    testOptions {
+        unitTests.all { it.maxHeapSize = "2g" }
     }
     dependenciesInfo {
         includeInApk = false
@@ -80,4 +86,9 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
     androidTestImplementation(libs.junit)
+
+    // QuickJS on the host: quickjs-kt's JVM build (with its Linux, macOS and Windows libraries)
+    testImplementation("io.github.dokar3:quickjs-kt-jvm:1.0.15")
+    testImplementation(libs.kotlinx.serialization.json)
+    testImplementation(libs.junit)
 }
