@@ -23,7 +23,11 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        tutor chat's sheet and the challenges' sheet, each still a second later (no endless bounce);
                        "cheat-sheet" the cheat sheet ("📋 Plonk listek") from Home, from an exercise
                        of imeti-in-iti (its card first) and a tutor message with a list pinned in the chat (QA's
-                       hook "chat:table"), the dev bridge's village keeping it;
+                       hook "chat:table"), the dev bridge's village keeping it; "chat-swipe" a tutor message
+                       (QA's hook "chat:<text>") swiped in the chat: its tip shown once, to the right the reply card,
+                       to the left bookmarked (its 🔖, the snackbar), again to the left taken away and undone, a drag
+                       down on a message scrolling the list (the sheet stays); its long press's "📄 Kopiraj" and
+                       "↗️ Deli" (the share sheet);
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -634,6 +638,126 @@ def cheat_sheet():
     assert any("imam" in t and c[1] > card[1] for t, c in ns), "the pinned card open (its list)"
     shot("cheat-pinned-card")
     go_home()
+
+
+SWIPE_TIP = "Povleci sporočilo"  # the swipe's tip under the tutor's latest message (l10n chatSheet.swipeHint)
+SWIPE_ME = "Swipe me"  # the message QA swipes
+CHAT_TITLE = "💬 Tvoj učitelj"
+REPLY_CARD = "↩️ Učitelj · Tutor"  # above the input: the message the next one answers
+SAVED = "🔖 Shranjeno · Saved"  # the snackbar after a swipe to the left (l10n chatSheet.saved)
+UNSAVED = "🔖 Zaznamek odstranjen · Bookmark removed"  # after a second one (chatSheet.unbookmarked)
+UNDO = "Razveljavi · Undo"  # the snackbar's action
+MARK = "Zaznamek · Bookmark"  # the 🔖 beside a bookmarked message (TalkBack's label)
+COPY = "📄 Kopiraj · Copy"  # in a message's long-press menu (chatSheet.copy)
+SHARE = "↗️ Deli · Share"  # in it too: Android's share sheet (chatSheet.share)
+
+
+def swipe_px(x0: int, y: int, x1: int, ms=350, rest=1.2):
+    """A finger dragged from ([x0], [y]) to ([x1], [y]) over [ms] ms (`input swipe`: a drag, its speed doesn't count),
+    then [rest] s."""
+    adb("shell", "input", "swipe", str(x0), str(y), str(x1), str(y), str(ms))
+    time.sleep(rest)
+
+
+def chat_swipe():
+    """A tutor message swiped in the chat as in messengers (README "Tutor chat"): two tutor messages (QA's hook
+    "chat:<text>", on the phone only), a long one to scroll and a short one starting with a bold Slovene greeting (a
+    link where the phone can say it) to swipe; the tip "Povleci sporočilo: ← zaznamek · odgovor →" under the latest; a
+    swipe to the right from its greeting: the reply card above the input, the tip gone; a swipe to the left: its 🔖 and
+    "🔖 Shranjeno · Saved"; again: "Zaznamek odstranjen", whose "Razveljavi · Undo" brings the 🔖 back; a slow drag down
+    on the long message scrolls the list, nothing bookmarked or replied, and the sheet stays open; then a long press on
+    it: its menu with "📄 Kopiraj · Copy" (copied) and "↗️ Deli · Share" (Android's share sheet, back to the chat)."""
+    go_home()
+    lines = "\\n".join(f"- Vrstica {i} · line {i}" for i in range(1, 31))
+    qa_hook(f"'chat:Dolgo sporočilo · A long message:\\n{lines}'")
+    qa_hook(f"'chat:**Dober dan!** {SWIPE_ME}: to the right a reply, to the left a bookmark.'")
+    assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
+    assert wait_for(CHAT_TITLE, 6), "the tutor chat"
+    time.sleep(1.5)
+    assert wait_for(SWIPE_TIP, 4), "the swipe's tip under the tutor's latest message"
+    shot("chat-swipe-tip")
+
+    msg = next((b for t, b in boxes() if SWIPE_ME in t), None)
+    assert msg is not None, "the message to swipe"
+    x0, y0, x1, y1 = msg
+    cy = (y0 + y1) // 2
+    swipe_px(x0 + 20, cy, x0 + 20 + 450)  # from its greeting, to the right
+    assert wait_for(REPLY_CARD, 4), "a swipe to the right: the reply card"
+    assert find(SWIPE_TIP) is None, "the tip gone once a swipe was done"
+    assert find(MARK) is None, "a reply bookmarks nothing"
+    shot("chat-swipe-reply")
+    if ime_top() is not None:  # the input took the focus, as from the menu: the keyboard down again
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    assert find(CHAT_TITLE), "the chat still open"
+    assert tap("Odstrani · Remove", 3), "the reply card's ✕"
+    assert find(REPLY_CARD) is None, "the reply card gone"
+
+    msg = next((b for t, b in boxes() if SWIPE_ME in t), None)
+    assert msg is not None, "the message, after the reply card"
+    x0, y0, x1, y1 = msg
+    cy = (y0 + y1) // 2
+    # the snackbar stays 4 s, a uiautomator dump takes a second or two: one look at the screen, then at once what's next
+    swipe_px(x1 - 20, cy, x1 - 20 - 450, rest=0.5)
+    shot("chat-swipe-bookmarked")
+    bs = list(boxes())
+    assert any(SAVED in t for t, _ in bs), "a swipe to the left: the snackbar"
+    assert any(t == MARK for t, _ in bs), "its 🔖 beside it"
+
+    for attempt in (1, 2):  # a busy emulator's dump can outlast the snackbar: then once more
+        swipe_px(x1 - 20, cy, x1 - 20 - 450, rest=0.3)
+        bs = list(boxes())
+        assert not any(t == MARK for t, _ in bs), "a second swipe to the left: its 🔖 gone"
+        undo = next((b for t, b in bs if t == UNDO), None)
+        if undo is not None:
+            assert any(UNSAVED in t for t, _ in bs), "the snackbar: the bookmark taken away"
+            tap_at(((undo[0] + undo[2]) // 2, (undo[1] + undo[3]) // 2))
+            if wait_for(MARK, 3):
+                break
+        assert attempt == 1, "the snackbar's undo brings its 🔖 back"
+        swipe_px(x1 - 20, cy, x1 - 20 - 450)  # bookmarked again, for the second try
+        assert wait_for(MARK, 3), "bookmarked again"
+    shot("chat-swipe-undo")
+    swipe_px(x1 - 20, cy, x1 - 20 - 450, rest=0.3)  # taken away again, its snackbar in the picture
+    shot("chat-swipe-removed")
+    assert wait_for(MARK, 1) is None, "a swipe to the left on a bookmarked message takes the bookmark away"
+    time.sleep(4)  # the snackbar goes
+
+    # a slow drag down on the long message: the list's scroll, not a swipe nor the sheet's drag
+    bs = list(boxes())
+    me = next(b for t, b in bs if SWIPE_ME in t)
+    rows = [b for t, b in bs if t.startswith("Vrstica ") and b[3] < me[1] and b[1] > 300]
+    assert rows, "the long message's lines on screen"
+    start = rows[len(rows) // 2]
+    x, y = (start[0] + start[2]) // 2, (start[1] + start[3]) // 2
+    adb("shell", "input", "swipe", str(x), str(y), str(x + 40), str(y + 700), "900")
+    time.sleep(1.5)
+    after = next((b for t, b in boxes() if SWIPE_ME in t), None)
+    assert after is None or after[1] > me[1] + 300, f"the list scrolled: the message from y {me[1]} to {after and after[1]}"
+    assert find(CHAT_TITLE), "the sheet stays open"
+    assert find(REPLY_CARD) is None, "no reply"
+    shot("chat-swipe-scrolled")
+
+    # the long press keeps its menu, with "📄 Kopiraj" and "↗️ Deli" (Android's share sheet, then back to the chat)
+    line = next(((t, b) for t, b in boxes() if t.startswith("Vrstica ") and b[1] > 300), None)
+    assert line is not None, "a line of the long message"
+    long_press(((line[1][0] + line[1][2]) // 2, (line[1][1] + line[1][3]) // 2))
+    assert wait_for(COPY, 4) and find(SHARE), "the long press's menu: copy and share"
+    shot("chat-menu")
+    assert tap(COPY, 2), "copy"
+    time.sleep(1)
+    shot("chat-copied")  # Android 13+ confirms it itself
+    long_press(((line[1][0] + line[1][2]) // 2, (line[1][1] + line[1][3]) // 2))
+    assert tap(SHARE, 4), "share"
+    time.sleep(2 * slow())
+    assert find(CHAT_TITLE) is None, "the share sheet over the chat"
+    shot("chat-share")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+    assert wait_for(CHAT_TITLE, 4), "back in the chat after the share sheet"
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+    assert find(CHAT_TITLE) is None, "the chat closed"
 
 
 def village():
@@ -3767,6 +3891,7 @@ def plan():
         ("challenges", challenges, None, False, ""),
         ("sheets-settle", sheets_settle, go_home, False, ""),
         ("cheat-sheet", cheat_sheet, go_home, False, ""),
+        ("chat-swipe", chat_swipe, go_home, False, ""),
         ("village", village, v, False, ""),
         ("scroll", scroll, v, False, ""),
         ("villagers", villagers, v, False, ""),
