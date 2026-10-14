@@ -72,7 +72,7 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
 
     val done = result
     when {
-        done != null -> SheetFinish(vm, unit, kind, done, title)
+        done != null -> SheetFinish(vm, unit, kind, sheetId, done, title)
         intro != null && introStep in intro.steps.indices -> Column(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
             Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
             // a step of its own each (its question, its reading)
@@ -95,7 +95,7 @@ fun SheetScreen(vm: AppViewModel, unitId: String, kind: SheetKind, sheetId: Stri
 
 /** What a sheet brought: how it went, the test passed or not (and the unit done), the village's pay, the next step. */
 @Composable
-private fun SheetFinish(vm: AppViewModel, unit: CourseUnit, kind: SheetKind, done: SheetDone, title: String) {
+private fun SheetFinish(vm: AppViewModel, unit: CourseUnit, kind: SheetKind, sheetId: String, done: SheetDone, title: String) {
     val right = done.items.count { it == Verdict.CORRECT }
     val almost = done.items.count { it == Verdict.ALMOST }
     val heading = when {
@@ -128,7 +128,8 @@ private fun SheetFinish(vm: AppViewModel, unit: CourseUnit, kind: SheetKind, don
             if (done.unitDone && next != null && next.id != unit.id) BigButton("★ ${bi("school.nextUnit", "unit" to next.titleShown(L10n.pair))}", color = XpGold, onClick = {
                 vm.openUnit(next.id)
             })
-            OutlinedButton(onClick = { vm.school.ask(unit) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("💬 ${bi("common.askTutor")}") }
+            // the sheet just done goes with it
+            OutlinedButton(onClick = { vm.school.ask(unit, if (kind == SheetKind.TEST) "test" else sheetId) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("💬 ${bi("common.askTutor")}") }
             Text(bi("playerScreen.tutorLookingAtResults"), style = MaterialTheme.typography.bodySmall)
         }
     }

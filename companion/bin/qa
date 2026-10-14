@@ -36,7 +36,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        down on a message scrolling the list (the sheet stays); its long press's "📄 Kopiraj" and
                        "↗️ Deli" (the share sheet); "chat-links" a tutor message's links (QA's hook "chat:<text>"):
                        example.com's asks first ("🔗 Odpreti example.com?", Cancel), an http one too ("⚠️ Povezava ni
-                       varna"), fran.si's opens at once (the browser in front, then the app again);
+                       varna"), fran.si's opens at once (the browser in front, then the app again); "chat-attach" 💬 in
+                       an exercise's top bar (imeti-in-iti): the exercise attached above the input before the answer, its
+                       ✕, the answer with it after; "chat-attach-pack" 💬 by a pack's word: "📎 <word> = <meaning>";
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -870,6 +872,92 @@ def chat_links():
         return "no browser on the device: fran.si asked nothing, the app stayed (its toast)"
     assert wait_for(CHAT_TITLE, 6) or wait_for("Danes · Today", 3), "back in the app"
 
+
+ASK_BUTTON = "Vprašaj učitelja · Ask your tutor"  # 💬 in an exercise's top bar (TalkBack's label, Labels.ASK)
+REMOVE = "Odstrani · Remove"  # the attachment's ✕ above the chat's input (Labels.REMOVE)
+
+
+def attach_chip():
+    """The attachment's chip above the chat's input, "📎 …" beside its ✕ ("Odstrani · Remove"): its text, or None."""
+    bs = list(boxes())
+    x = next((b for t, b in bs if t == REMOVE), None)
+    if x is None:
+        return None
+    cy = (x[1] + x[3]) // 2
+    return next((t for t, b in bs if t.startswith("📎 ") and b[1] <= cy <= b[3]), None)
+
+
+def chat_attach():
+    """💬 in an exercise's top bar (README "Tutor chat", "The exercise on screen"): imeti-in-iti opened by its link; before
+    the answer the chat opens with the exercise attached ("📎 …" above the input, no arrow to an answer) and nothing
+    sent; its ✕ takes it away; closed, the exercise is there as it was; answered (whatever it is), 💬 again: the chip with
+    "→" and the answer."""
+    go_home()
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "module:imeti-in-iti")
+    try:
+        assert tap("Začni", 15), "imeti-in-iti's intro"
+        time.sleep(1.5)
+        assert tap(ASK_BUTTON, 8), "💬 in the exercise's top bar"
+        assert wait_for(CHAT_TITLE, 6), "the chat over the exercise"
+        time.sleep(1)
+        chip = attach_chip()
+        assert chip is not None, "the exercise attached above the input"
+        assert "→" not in chip, f"before the answer, no answer in it: {chip}"
+        assert not any(t == "…" for t, _ in nodes()), "nothing sent (no typing bubble)"
+        print(f"    attached: {chip}")
+        shot("chat-attach-open")
+        assert tap(REMOVE, 3), "the chip's ✕"
+        time.sleep(1)
+        assert attach_chip() is None, "the attachment taken away"
+        shot("chat-attach-removed")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+        assert find(CHAT_TITLE) is None, "the chat closed, the exercise again"
+
+        answer_any()
+        assert wait_for("Naprej · Next", 10), "the answer's feedback"
+        assert tap(ASK_BUTTON, 5), "💬 in the top bar, answered"
+        assert wait_for(CHAT_TITLE, 6), "the chat over the answered exercise"
+        time.sleep(1)
+        chip = attach_chip()
+        assert chip is not None and "→" in chip, f"answered: the exercise with the answer attached ({chip})"
+        print(f"    attached: {chip}")
+        shot("chat-attach-answered")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    finally:
+        go_home()
+
+
+def chat_attach_pack():
+    """💬 on a pack's word ("Nove besede"): an unfinished pack's intro, its first word, and the chat with "📎 <word> =
+    <meaning>" attached; left without practising (nothing saved)."""
+    go_home()
+    tile = scroll_to("Nove besede")
+    assert tile, "new words tile"
+    tap_at(tile)
+    assert wait_for("Znaš ", 8), "packs screen"
+    time.sleep(1)
+    ring = next((c for t, c in nodes() if (m := re.fullmatch(r"(\d+)/(\d+)", t)) and m[1] != m[2]), None)
+    if ring is None:
+        return "no learnable pack"
+    tap_at(ring)
+    try:
+        assert wait_for("Pozneje · Later", 8), "the pack's intro"
+        assert tap("Začni", 3), "start from the intro"
+        assert wait_for("Naprej · Next", 8), "the first word's card"
+        time.sleep(1)
+        assert tap(ASK_BUTTON, 5), "💬 by the word"
+        assert wait_for(CHAT_TITLE, 6), "the chat over the word"
+        time.sleep(1)
+        chip = attach_chip()
+        assert chip is not None and " = " in chip, f"the word on screen attached ({chip})"
+        print(f"    attached: {chip}")
+        shot("chat-attach-pack")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    finally:
+        go_home()
 
 def village():
     to_top()
@@ -4475,6 +4563,8 @@ def plan():
         ("cheat-sheet", cheat_sheet, go_home, False, ""),
         ("chat-swipe", chat_swipe, go_home, False, ""),
         ("chat-links", chat_links, go_home, False, ""),
+        ("chat-attach", chat_attach, go_home, False, ""),
+        ("chat-attach-pack", chat_attach_pack, go_home, False, ""),
         ("village", village, v, False, ""),
         ("scroll", scroll, v, False, ""),
         ("villagers", villagers, v, False, ""),

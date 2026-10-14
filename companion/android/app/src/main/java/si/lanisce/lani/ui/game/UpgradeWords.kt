@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.app.ChatAbout
 import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.data.PackSession
@@ -188,7 +189,8 @@ private fun NewWord(vm: AppViewModel, words: List<NeedWord>, step: Int, voice: S
                         )
                     }
                 }
-                ChatButton(vm)
+                // the word on screen goes with it
+                ChatButton(vm) { w.learn?.let { ChatAbout.word(w.pack, it) } }
             }
             Text(
                 "$title · ${step + 1}/${words.size}", style = MaterialTheme.typography.labelLarge,

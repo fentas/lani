@@ -359,7 +359,10 @@ fun ExerciseRun(
             // the cheat sheet, this exercise's cards first (then the pages the run is about: a school unit's): help, not a
             // hint (a right answer after it pays in full, its review quality at most 4: [watch])
             CheatButton(vm) { (listOfNotNull(ruleAt(index)) + pages + cheatContext(vm, ruleAt(index), exercises, rules, moduleId)).distinct() }
-            ChatButton(vm)
+            // the exercise on screen goes with it (its answer too, once answered); none yet while a timed run counts down
+            ChatButton(vm) {
+                exercises.getOrNull(index)?.takeIf { clock == Clock.RUNNING && !stopped }?.let { chatContext(it, outcome, moduleId, source(index)) }
+            }
         }
         if (timeLimitSeconds != null) Countdown(remaining, timeLimitSeconds, waiting = waiting && clock == Clock.RUNNING)
         stage?.let { StageBand(it, Modifier.padding(top = 8.dp)) }
@@ -485,12 +488,16 @@ private fun CorrectFlash() {
     }
 }
 
-/** 💬 in the exercise top bar, with a dot for unread tutor messages. Keeps the bottom free for answers. */
+/**
+ * 💬 in the exercise top bar, with a dot for unread tutor messages. Keeps the bottom free for answers. The chat opens
+ * with [about] attached, what is on screen now (the exercise, with its answer once answered; the word met; the text to
+ * read), shown as the chip above the input that ✕ takes away: nothing is sent until the learner writes. Null: plain.
+ */
 @Composable
-fun ChatButton(vm: AppViewModel) {
+fun ChatButton(vm: AppViewModel, about: () -> ChatContext? = { null }) {
     Box {
         val unread = if (vm.chat.unread > 0) " · ${bi("playerScreen.unreadNew", "n" to vm.chat.unread)}" else ""
-        IconButton(onClick = { vm.chat.open() }) { EmojiLabel("💬", Labels.ASK + unread) }
+        IconButton(onClick = { vm.chat.openFrom(runCatching(about).getOrNull()) }) { EmojiLabel("💬", Labels.ASK + unread) }
         if (vm.chat.unread > 0) {
             Box(Modifier.align(Alignment.TopEnd).offset((-6).dp, 6.dp).size(10.dp).clip(CircleShape).background(TriglavRed))
         }
@@ -1185,15 +1192,24 @@ internal fun saidOf(ex: Exercise, isSlovene: (String) -> Boolean): String? {
 
 /**
  * One-line label plus the full exercise and outcome, for questions to the tutor; [source] ([ExerciseSource]) says which
- * item it was, so a wrong or confusing one can be found and fixed.
+ * item it was, so a wrong or confusing one can be found and fixed. Without an outcome ([o] null: the exercise's 💬 in the
+ * top bar before it was answered) the exercise alone, `answered: false`, with what it expects (`expected`, for the tutor:
+ * help without giving it away) and a label that gives nothing away either (no sound's text, no card's back).
  */
-internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: JsonObject? = null): ChatContext {
+internal fun chatContext(ex: Exercise, o: Outcome?, moduleId: String?, source: JsonObject? = null): ChatContext {
     val (type, prompt) = typeAndPrompt(ex)
     val data = buildJsonObject {
         put("type", type)
         put("prompt", prompt)
         if (ex is Exercise.Choice) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
         if (ex is Exercise.Multi) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
+        if (o == null) {
+            put("answered", false)
+            expectedOf(ex)?.let { put("expected", it) }
+            moduleId?.let { put("module_id", it) }
+            source?.let { put("source", it) }
+            return@buildJsonObject
+        }
         // a worksheet's items: each answer, what was right, where it stands
         if (o.sheet.isNotEmpty()) {
             val items = si.lanisce.lani.data.Sheets.items(ex)
@@ -1219,9 +1235,38 @@ internal fun chatContext(ex: Exercise, o: Outcome, moduleId: String?, source: Js
         moduleId?.let { put("module_id", it) }
         source?.let { put("source", it) }
     }
-    val label = "${prompt.take(50)} → ${o.answer.take(30)}"
+    val label = if (o == null) shownPrompt(ex).take(80) else "${prompt.take(50)} → ${o.answer.take(30)}"
     return ChatContext(label, data)
 }
+
+/** What [ex] expects as its answer, for the tutor ([chatContext] before an answer); null where it isn't one text. */
+private fun expectedOf(ex: Exercise): String? = when (ex) {
+    is Exercise.Flashcard -> ex.back
+    is Exercise.Choice -> ex.options.getOrNull(ex.answer)
+    is Exercise.Cloze -> ex.accept.firstOrNull()
+    is Exercise.Reorder -> ex.solutions.firstOrNull()?.joinToString(" ")
+    is Exercise.Translate -> ex.accept.firstOrNull()
+    is Exercise.Scenario -> ex.accept?.firstOrNull() ?: ex.answer?.let { ex.options?.getOrNull(it) }
+    is Exercise.Dictation -> ex.accept.firstOrNull() ?: ex.audio
+    is Exercise.Speak -> ex.say
+    is Exercise.Multi -> ex.answers.mapNotNull { ex.options.getOrNull(it) }.joinToString(" · ").ifEmpty { null }
+    is Exercise.GapText -> si.lanisce.lani.data.Sheets.filled(ex, ex.gaps.map { it.accept.firstOrNull() })
+    is Exercise.Free, is Exercise.Unsupported, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
+}
+
+/**
+ * What [ex] shows before it's answered, in one line, for the chat's label of it: as [typeAndPrompt] says it, but a sound
+ * only as 🎧 (its text is what's heard, often the answer) and a card's front only.
+ */
+private fun shownPrompt(ex: Exercise): String = when (ex) {
+    is Exercise.Flashcard -> ex.front
+    is Exercise.Choice -> listOfNotNull(ex.audio?.let { "🎧" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
+    is Exercise.Cloze -> listOfNotNull(ex.audio?.let { "🎧" }, ex.text).joinToString(" · ")
+    is Exercise.Reorder -> listOfNotNull(ex.audio?.let { "🎧" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
+    is Exercise.Dictation -> "🎧"
+    is Exercise.Speak -> "🎤 ${ex.prompt}"
+    else -> typeAndPrompt(ex).second
+}.ifBlank { typeAndPrompt(ex).first }
 
 /** An exercise's type ("translate") and what it asked, in one line, as the tutor sees it. */
 private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {

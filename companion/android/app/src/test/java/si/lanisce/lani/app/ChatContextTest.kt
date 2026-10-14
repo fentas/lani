@@ -70,4 +70,31 @@ class ChatContextTest {
         val v = ExerciseSource.visitRequest("friuli-town", "r1", 5)
         assertEquals(listOf("visit_request", "friuli-town", "r1"), listOf(v.str("kind"), v.str("town"), v.str("request_id")))
     }
+
+    @Test fun `a pack's word met before its practice names the pack, the word and its card, not how it's asked`() {
+        val w = si.lanisce.lani.data.PackWord(
+            "kruh", sl = "kruh", en = "bread", gender = "m", exampleSl = "Kupim kruh.", exampleEn = "I buy bread.", lang = "sl",
+        )
+        val ctx = ChatAbout.word("hrana", w)
+        assertEquals("about_exercise", ctx.key)
+        assertEquals("kruh = bread", ctx.label)
+        val d = ctx.data
+        assertEquals(listOf("word", "kruh", "bread", "m", "Kupim kruh."), listOf(d.str("type"), d.str("word"), d.str("meaning"), d.str("gender"), d.str("example")))
+        val source = d["source"] as JsonObject
+        assertEquals(listOf("pack", "hrana", "kruh", "vocab_hrana_kruh"), listOf(source.str("kind"), source.str("pack_id"), source.str("word_id"), source.str("card_id")))
+        assertFalse("variant" in source)
+    }
+
+    @Test fun `a challenge's text read first is attached with it, before its questions`() {
+        val letter = si.lanisce.lani.game.ReadFirst("✉️ Preberi pismo · Read the letter", listOf(listOf("Dragi Marko!"), listOf("V petek pridem.")))
+        val ex = listOf<Exercise>(Exercise.Translate("yes", listOf("da")))
+        val c = Challenge("✉️ Pismo", "", "✉️", ex, ex.map { Res.FOOD }, cardIds = listOf("vocab_da"), text = letter)
+        val source = ExerciseSource.challenge(ChallengeOrigin.Surprise, c, null)
+        assertEquals(listOf("challenge", "surprise", "✉️ Pismo"), listOf(source.str("kind"), source.str("origin"), source.str("title")))
+        for (k in listOf("exercise_index", "card_id", "module_id")) assertFalse(k, k in source)
+        val ctx = ChatAbout.reading(letter, 1, source)
+        assertEquals("✉️ Preberi pismo · Read the letter", ctx.label)
+        assertEquals(listOf("reading", "Dragi Marko!\nV petek pridem.", "1", "false"), listOf(ctx.data.str("type"), ctx.data.str("text"), ctx.data.str("questions"), ctx.data.str("answered")))
+        assertEquals(source, ctx.data["source"])
+    }
 }

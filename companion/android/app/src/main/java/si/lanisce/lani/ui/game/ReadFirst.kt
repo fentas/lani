@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.app.ChatContext
 import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.ReadFirst
@@ -110,16 +111,20 @@ fun StartReadingButton(onStart: () -> Unit) = BigButton("▶️ ${bi("reading.st
 /**
  * A run's text read first, on the stage (the day's letter, companion/GAME.md "The day's surprise"): the run's [title],
  * the text with its voice and words to look up, for as long as the learner likes; "▶️ Začni · Start" hides it and the
- * questions come ([onStart]). ✕ and back: [onExit]. [rule]: how looking back counts, at the learner's level.
+ * questions come ([onStart]). ✕ and back: [onExit]. [rule]: how looking back counts, at the learner's level. [about]:
+ * what the top bar's 💬 attaches (the text).
  */
 @Composable
-fun ReadFirstRun(vm: AppViewModel, title: String, text: ReadFirst, stage: StageState?, rule: String, onStart: () -> Unit, onExit: () -> Unit) {
+fun ReadFirstRun(
+    vm: AppViewModel, title: String, text: ReadFirst, stage: StageState?, rule: String, onStart: () -> Unit, onExit: () -> Unit,
+    about: () -> ChatContext? = { null },
+) {
     BackHandler(onBack = onExit)
     Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 20.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(onClick = onExit) { EmojiLabel("✕", Labels.CLOSE) }
             Spacer(Modifier.weight(1f))
-            ChatButton(vm)
+            ChatButton(vm, about)
         }
         stage?.let { StageBand(it, Modifier.padding(top = 8.dp)) }
         Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))

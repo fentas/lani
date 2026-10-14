@@ -200,8 +200,26 @@ class ChatController(
         unread = 0
     }
 
+    /** What a screen's 💬 attached ([openFrom]), while it is what's attached. */
+    private var fromScreen: ChatContext? = null
+
+    /**
+     * 💬 in a screen's top bar: the chat opens with [ctx] attached (what's on screen: the exercise, the word met), shown
+     * above the input as any attachment, which ✕ takes away; nothing is sent. Closed without a message, the chat lets it
+     * go again, so the chat opened from elsewhere later has nothing of a screen left. Null: the chat opens as it is.
+     */
+    fun openFrom(ctx: ChatContext?) {
+        if (ctx != null) {
+            attached = ctx
+            fromScreen = ctx
+        }
+        open()
+    }
+
     fun close() {
         isOpen = false
+        if (fromScreen != null && attached === fromScreen) attached = null
+        fromScreen = null
     }
 
     /**
@@ -237,6 +255,7 @@ class ChatController(
     /** Opens the chat with an exercise attached; the next message carries it as context. */
     fun askAbout(ctx: ChatContext) {
         attached = ctx
+        fromScreen = null
         open()
     }
 

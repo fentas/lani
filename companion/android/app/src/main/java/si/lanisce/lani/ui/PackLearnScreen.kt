@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 import kotlinx.coroutines.delay
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.app.ChatAbout
 import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.Pack
 import si.lanisce.lani.data.PackSession
@@ -138,7 +139,8 @@ private fun Intro(vm: AppViewModel, pack: Pack, words: List<PackWord>, step: Int
                         )
                     }
                 }
-                ChatButton(vm)
+                // the word on screen goes with it
+                ChatButton(vm) { words.getOrNull(step)?.let { ChatAbout.word(pack.id, it) } }
             }
             Text(
                 "${pack.emoji} ${pack.title} · ${step + 1}/${words.size}",

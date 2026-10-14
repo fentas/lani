@@ -89,6 +89,40 @@ class AskAboutTest {
         assertEquals(3, o.copy(hints = 2).quality(5))
     }
 
+    @Test fun `the top bar's 💬 before an answer attaches the exercise alone, its answer for the tutor only`() {
+        val ex = Exercise.Choice("Kje je ___? (the station)", listOf("postaja", "postaji", "postajo"), 1, audio = "Kje je postaja?")
+        val ctx = chatContext(ex, null, "kje-je", ExerciseSource.module("kje-je", 2, 3))
+        assertEquals("about_exercise", ctx.key)
+        val d = ctx.data
+        assertEquals("choice", d["type"]!!.jsonPrimitive.content)
+        assertEquals("false", d["answered"]!!.jsonPrimitive.content)
+        assertEquals("postaji", d["expected"]!!.jsonPrimitive.content)
+        assertEquals(listOf("postaja", "postaji", "postajo"), d["options"]!!.jsonArray.map { it.jsonPrimitive.content })
+        for (k in listOf("learner_answer", "verdict", "hint", "hints_used", "looked_up")) assertFalse(k, k in d)
+        assertEquals("kje-je", d["module_id"]!!.jsonPrimitive.content)
+        assertEquals("3", d["source"]!!.jsonObject["exercise_index"]!!.jsonPrimitive.content)
+        // the label (the chip, the message's 📎) gives nothing away: a sound as 🎧 only, no arrow to an answer
+        assertEquals("🎧 · Kje je ___? (the station)", ctx.label)
+        assertFalse("Kje je postaja" in ctx.label)
+        // once answered, as "Ask" on the feedback: the answer, the verdict
+        val after = chatContext(ex, Outcome(Verdict.WRONG, "postajo", "postaji", null), "kje-je", ExerciseSource.module("kje-je", 2, 3))
+        assertFalse("answered" in after.data)
+        assertEquals("postajo", after.data["learner_answer"]!!.jsonPrimitive.content)
+        assertTrue(after.label.endsWith("→ postajo"))
+    }
+
+    @Test fun `an open dictation or card shows no answer in its label`() {
+        val heard = chatContext(Exercise.Dictation("Dober dan", listOf("Dober dan")), null, null)
+        assertEquals("🎧", heard.label)
+        assertEquals("Dober dan", heard.data["expected"]!!.jsonPrimitive.content)
+        val card = chatContext(Exercise.Flashcard("hvala", "thanks"), null, null, ExerciseSource.review("vocab_hvala", Variant.FLIP))
+        assertEquals("hvala", card.label)
+        assertEquals("thanks", card.data["expected"]!!.jsonPrimitive.content)
+        assertEquals("vocab_hvala", card.data["source"]!!.jsonObject["card_id"]!!.jsonPrimitive.content)
+        assertEquals("🎤 Say thanks", chatContext(Exercise.Speak("hvala", "Say thanks"), null, null).label)
+        assertFalse("expected" in chatContext(Exercise.Free("Describe your day", ""), null, null).data)
+    }
+
     @Test fun `without a source nothing is made up`() {
         val ctx = chatContext(Exercise.Flashcard("a", "b"), Outcome(Verdict.CORRECT, "", null, null), null)
         assertFalse("source" in ctx.data)

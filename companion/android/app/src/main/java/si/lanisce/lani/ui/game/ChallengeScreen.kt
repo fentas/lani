@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import java.time.LocalDate
 import si.lanisce.lani.AppViewModel
+import si.lanisce.lani.app.ChatAbout
 import si.lanisce.lani.app.ExerciseSource
 import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.ChallengeOrigin
@@ -132,6 +133,7 @@ fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
         }
         text != null && !asking -> ReadFirstRun(
             vm, c.title, text, stage, rule = peekRuleText(level, pays = true), onStart = { asking = true }, onExit = { playing = false },
+            about = { ChatAbout.reading(text, c.exercises.size, ExerciseSource.challenge(origin, c, null)) },
         )
         else -> ExerciseRun(
             // The title already starts with its emoji. An event warns that leaving ends the fight.

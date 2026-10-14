@@ -918,6 +918,25 @@ the gate back there, `GateLinks`):
 It opens in the phone's browser (a browsable view: an app verified for the site may take it); without a browser, "🔗 Ni
 brskalnika … · No browser to open the link.", and nothing else happens.
 
+**The exercise on screen.** 💬 in the top bar of an exercise, a pack's word, a building's new word or a text read first
+opens the chat with what is on screen attached, as "Ask" on an answer's feedback does: the chip "📎 …" above the input,
+which ✕ takes away, so a general question still works. Nothing is sent until the learner writes (or taps one of the
+chip's quick questions). The next message carries it as `about_exercise` (`ui/PlayerScreen.kt` `chatContext`,
+`app/ChatContext.kt` `ChatAbout`), with its `source` where it has one (the item the tutor's lani-fix skill finds):
+
+- an exercise before its answer: its type, prompt and options, `answered: false` and `expected` (for the tutor, which
+  helps without giving it away); the chip's label gives nothing away either (a sound as 🎧, a card's front only). Once
+  answered, the exercise with the answer, the verdict and the hint, as "Ask" sends it. A timed run attaches nothing
+  while it counts down.
+- a word met before its practice (a pack's, a building's): `type: word`, the word, its meaning, gender, plural,
+  example and note; `source` the pack and the word's card, no `variant`.
+- a challenge's text read before its questions (the day's letter): `type: reading`, its title, text and how many
+  questions follow; `source` the challenge, no `exercise_index`.
+
+Closed without a message, the chat lets the screen's attachment go, so the chat opened from Home later has none
+(`ChatController.openFrom`); "Ask"'s stays as before. A sheet's "💬 Vprašaj učitelja" at a school sheet's end attaches
+the unit with that sheet (`about_course`).
+
 **Where it is kept.** Only on the phone, in the app's private files. `files/chat/<yyyy-MM>.json` holds a month (by
 the messages' time in UTC): each message with its time, its bookmark and note, the message it quotes and the data it was
 sent with. A change rewrites only its message's month. `files/chat.json` is the conversation kept before the archive
@@ -3003,6 +3022,18 @@ whose text names fran.si asks for where it goes; http asks with "⚠️ Povezava
 chat-links` puts a tutor message with three links into the chat (QA's hook `chat:<text>`) and taps them: example.com's
 dialog and its Cancel, the http one's warning, fran.si's opening the browser at once (the browser in front, then the app
 again and the browser stopped). Screenshots: `chat-links`, `chat-link-asks`, `chat-link-http`, `chat-link-fran`.
+
+**The exercise on screen in the chat** ("Tutor chat", "The exercise on screen"). `ui/AskAboutTest` checks
+`chatContext` before an answer (`answered: false`, `expected`, the options and the source, no answer, verdict or hint;
+a label with a sound as 🎧, a card's front, no arrow) and after it (the answer, "→" in the label); `app/ChatContextTest`
+`ChatAbout`'s word (the pack, the word and its card, no `variant`) and reading (the text, the questions, the challenge
+without `exercise_index`); `app/ChatAttachTest` `ChatController.openFrom`: the chat open with it attached and nothing
+sent, the next message carrying it, ✕ sending a plain question, the chat closed unsent letting it go (and opened again
+with none), "Ask"'s kept. On the emulator, `companion/bin/qa --steps chat-attach` opens imeti-in-iti by its link and
+taps 💬 in its top bar: the chip "📎 …" above the input before the answer (no "→", nothing sent), its ✕, the exercise
+again; answered, 💬 again: the chip with "→" and the answer. `--steps chat-attach-pack` opens an unfinished pack's
+first word and checks "📎 <word> = <meaning>". Screenshots: `chat-attach-open`, `chat-attach-removed`,
+`chat-attach-answered`, `chat-attach-pack`.
 
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
