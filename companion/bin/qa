@@ -2857,16 +2857,41 @@ def scene_at(timeout=10.0) -> dict | None:
     return None
 
 
+def targets() -> list:
+    """The bounds of every node on screen that has a label or takes a tap: (x0, y0, x1, y1) each."""
+    adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)
+    xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
+    out = []
+    for n in re.findall(r"<node [^>]*?>", xml):
+        if not (re.search(r' (text|content-desc)="[^"]+"', n) or 'clickable="true"' in n):
+            continue
+        b = list(map(int, re.findall(r"\d+", (re.search(r'bounds="([^"]*)"', n) or [None, ""])[1])))
+        if len(b) == 4:
+            out.append(tuple(b))
+    return out
+
+
 def clear_point(area):
-    """A point of [area] (x0, y0, x1, y1) that no small labelled target covers (the top bar's pills, a marker, a bubble),
-    nearest its centre; None when none is clear."""
+    """A point of [area] (x0, y0, x1, y1) that no small target covers (the top bar's pills, a marker, a bubble), nearest
+    its centre; None when less than a fifth of it is clear."""
     x0, y0, x1, y1 = area
     cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
-    others = [b for _, b in boxes() if (b[2] - b[0]) * (b[3] - b[1]) < 500 * 300]
+    # the screen's targets: every labelled or clickable node (a pill's button reaches past its label); a dump taken while
+    # the markers bob can come back empty ("could not get idle state"): again
+    bs = []
+    for _ in range(6):
+        if bs := targets():
+            break
+        time.sleep(1)
+    assert bs, "the screen's targets (uiautomator dump)"
+    others = [b for b in bs if (b[2] - b[0]) * (b[3] - b[1]) < 500 * 300]
     pad = 14  # a marker bobs: keep off its edge
-    pts = [(x, y) for x in range(x0 + 4, x1 - 3, 6) for y in range(y0 + 4, y1 - 3, 6)
-           if all(not (b[0] - pad <= x <= b[2] + pad and b[1] - pad <= y <= b[3] + pad) for b in others)]
-    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if pts else None
+    grid = [(x, y) for x in range(x0 + 4, x1 - 3, 6) for y in range(y0 + 4, y1 - 3, 6)]
+    pts = [(x, y) for x, y in grid if all(not (b[0] - pad <= x <= b[2] + pad and b[1] - pad <= y <= b[3] + pad) for b in others)]
+    # a sliver left at its edge (the frame round it, the wall beside it) isn't it: a fifth of it clear at least
+    if len(pts) < 0.2 * len(grid):
+        return None
+    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2)
 
 
 def tap_in_scene(kind: str, name: str) -> bool:
@@ -2877,6 +2902,7 @@ def tap_in_scene(kind: str, name: str) -> bool:
         at = scene_at()
         area = (at or {}).get(kind, {}).get(name)
         point = clear_point(area) if area else None
+        print(f"    {name}: its area {area}, tapped at {point}" if point else f"    {name}: its area {area}, all of it covered")
         if point is not None:
             tap_at(point)
             return True
@@ -2984,7 +3010,8 @@ def school_scene():
         # the blackboard tapped in the picture: its word, and the class's lesson and units
         time.sleep(2)
         assert tap_in_scene("things", "blackboard"), f"the blackboard in the picture (SceneAt: {scene_at(3)})"
-        assert wait_for("Vse enote · All units", 6), "the blackboard's word with the class's units"
+        if not wait_for("Vse enote · All units", 6):
+            raise AssertionError(f"the blackboard's word with the class's units (on screen: {[t for t, _ in nodes()][:12]})")
         time.sleep(1)
         shot("school-scene-blackboard")
         assert tap("Vse enote · All units", 3), "🏫 Vse enote"
