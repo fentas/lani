@@ -168,25 +168,28 @@ step reads it again (⏹ while it reads), 🐢 slower; a tap on the text stops i
 the 🎤 (one voice at a time).
 
 **The stage.** Jan: Mojca "seems not animated, looks like just a picture"; she "points at what she explains, not a walk
-across the screen". Each step is her stage: Mojca at the top as big as the dialogs' stage portraits (small on a short
-screen, with a large font, or with the keyboard up), beside her a bubble with what she says now, the step and its 🔊 🐢;
-the explanation below her like a board, then the examples, the table and the quick question, scrolling under the stage.
-She breathes and blinks, talks while her voice plays (also a 🔊 of hers on the school's screens), and points with her
-kazalka (a wooden pointer, chalk at its tip) at what is read, in step with what is marked (`ui/school/IntroPointer.kt`):
+across the screen", and he chose a small hand at the target over a long pointer (a kazalka). Each step is her stage:
+Mojca at the top as big as the dialogs' stage portraits (small on a short screen, with a large font, or with the keyboard up), beside her
+a bubble with what she says now, the step and its 🔊 🐢; the explanation below her like a board, then the examples, the
+table and the quick question, scrolling under the stage. She breathes and blinks, talks while her voice plays (also a 🔊
+of hers on the school's screens), and a small pointing hand (pixel-drawn as she is, her sleeve's cuff on it) shows what
+is read, in step with what is marked (`ui/school/IntroPointer.kt`), right beside it: at its right end, astride the edge,
+the fingertip pointing in, never over its text, no line across the content:
 
-- a Slovene form of the explanation at the table's row that says it ("jaz sem": the row jaz · sem, marked too; "smo,
+- a Slovene form of the explanation beside the table's row that says it ("jaz sem": the row jaz · sem, marked too; "smo,
   ste, so": the three rows of those forms), the translation in brackets after it ("(I am)") still there; a form no row
-  has ("Biti") and the rest of the explanation at its words; the explanation's one clip at the explanation;
-- an example at its card; the quick question at its card for a moment as she starts asking it, then she turns back to
-  the learner (the pointer down, the book back in hand) and asks; the answer's sentence at it.
+  has ("Biti") and the rest of the explanation beside the explanation, level with the words read; the explanation's one
+  clip beside the explanation;
+- an example beside its card; the quick question beside its card, level with its prompt; the answer's sentence beside
+  the question's card, level with it.
 
-She turns toward what she points at, her arm held out that way (toward the content while she explains); the pointer
-moves to the next target in a quarter of a second and follows the content as it scrolls, fading when its target is
-scrolled out of sight. Two fun moments, not constant motion: the lesson begins with her walking in from the side into
-her place (about a second, the reading after it), and she cheers when the learner passes the unit's test (the test's
-end, arms up and a jump, then a smile). Nothing moves while the learner types (the keyboard up: the stage small, she
-holds still, no pointer) or answers. With the system's "remove animations" on: no walk-in, no pointer, she holds still;
-what is read stays marked.
+She turns toward what she explains, her arm held out that way, and back to the learner (the book back in hand) a moment
+after she starts asking the question. The hand hops to the next target in a quarter of a second, follows the content as
+it scrolls, and fades when its target is scrolled out of sight. Two fun moments, not constant motion: the lesson begins
+with her walking in from the side into her place (about a second, the reading after it), and she cheers when the
+learner passes the unit's test (the test's end, arms up and a jump, then a smile); a right quick answer gets a smile.
+Nothing moves while the learner types (the keyboard up: the stage small, she holds still, no hand) or answers. With the
+system's "remove animations" on: no walk-in, no hand, she holds still; what is read stays marked.
 
 "🔊 Beri razlago · Read the explanations" (on by default; in the school and in the settings' sound section): off,
 nothing plays by itself, the step's 🔊 still reads. Nothing plays by itself while TalkBack is on (it reads the text).

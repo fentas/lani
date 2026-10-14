@@ -2858,16 +2858,17 @@ it (apart from a line's), the quick question's gap read as a pause and a choice'
 the intro's own words that make "**Biti**" Slovene; `IntroMarkTest` the run read marked in the line's text;
 `IntroVoiceSettingTest` the setting (on by default, kept); `ui/school/IntroPointerTest` what Mojca points at as biti's
 first step is read (its forms at their rows, a translation where its form was, the rest at its words, the examples, the
-question), the forms alone at their rows, the tip on what shows of the target (none off screen), no pointer with the
-animations off, the keyboard up or while she asks, and her reach (turned to the target's side, the hand where the
-pointer starts, shifted on her walk-in); `audio/DayAudioIntroTest` and `PrefetchRunTest` an
+question), the forms alone at their rows, her hand at the right end of what is read (the words' at the explanation's,
+the question level with its prompt; none off screen), its hop, no hand with the animations off or the keyboard up (the
+rows still marked), and her turn toward what she explains (shifted on her walk-in); `audio/DayAudioIntroTest` and `PrefetchRunTest` an
 explanation in the day's audio (asked for with its language, kept under its own key, never cut into phrases). The
 bridge's side is `test/smoke/course.ts` and `test/smoke/voice.ts` (an explanation's clip). On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
 (the dev village's copy a hamlet with its linden: the class begins with it), checks that there's nothing to set up,
 goes back Home and opens the school from its tile, opens the unit biti, plays its intro step by step (a tap, a gap, a tap, a gap; the summary
 card; the lesson begins with Mojca walking in, the screen recorded through it (`school-walk-in-<n>`, frames from
 `school-walk-in.mp4`); its first step read aloud as it appears: a shot as each piece begins, what is read marked, Mojca
-talking and pointing (`school-pointer-row` at the row jaz · sem, `school-pointer-example` at the first example), its pieces
+talking, her small hand beside what is read (`school-hand-row` at the row jaz · sem, `school-hand-example` at the first
+example), its pieces
 in order from the log (tag `IntroVoice`: the explanation's clip, else its English by the phone's voice and its Slovene in
 Mojca's, then the examples and the question) kept in `intro-voice.txt`, read again by 🔊 and stopped by a tap on the
 text), fills its tables with the cheat sheet (📋) opened over the first (biti's card in it), checks it, answers its gap text with one mistake
