@@ -253,8 +253,8 @@ object ChatArchive {
         else -> if (d >= today) bi("common.today") else dayTitle(d, today)
     }
 
-    /** Markdown's marks taken out, for a line about a tutor's message. */
-    fun plain(md: String): String = md
+    /** Markdown's marks taken out (a link: its text), for a line about a tutor's message. */
+    fun plain(md: String): String = si.lanisce.lani.data.Links.unlinked(md)
         .replace(Regex("""(?m)^\s*(#+|>|[-*•]|\d+\.)\s+"""), "")
         .replace(Regex("""\*\*|__|[*_`|]"""), "")
 

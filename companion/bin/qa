@@ -34,7 +34,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        (QA's hook "chat:<text>") swiped in the chat: its tip shown once, to the right the reply card,
                        to the left bookmarked (its 🔖, the snackbar), again to the left taken away and undone, a drag
                        down on a message scrolling the list (the sheet stays); its long press's "📄 Kopiraj" and
-                       "↗️ Deli" (the share sheet);
+                       "↗️ Deli" (the share sheet); "chat-links" a tutor message's links (QA's hook "chat:<text>"):
+                       example.com's asks first ("🔗 Odpreti example.com?", Cancel), an http one too ("⚠️ Povezava ni
+                       varna"), fran.si's opens at once (the browser in front, then the app again);
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -782,6 +784,91 @@ def chat_swipe():
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
     assert find(CHAT_TITLE) is None, "the chat closed"
+
+
+LINK_FRAN = "Fran QA"  # a tutor message's links (QA's hook "chat:<text>"): to fran.si, opened at once
+LINK_OTHER = "Example QA"  # to example.com, which asks first
+LINK_HTTP = "Plain QA"  # http, which asks and says it isn't secure
+LINK_CANCEL = "Prekliči · Cancel"  # the link dialog's (l10n links.cancel)
+
+
+def resumed_package() -> str:
+    """The package of the resumed activity ("" when the dump says none)."""
+    dump = adb("shell", "dumpsys", "activity", "activities", check=False)
+    m = re.search(r"ResumedActivity[^\n]*? u0 ([\w.]+)/", dump)
+    return m[1] if m else ""
+
+
+def left_for() -> str:
+    """The app that came in front instead of Lani (a link opened in the browser), stopped again, so the emulator stays
+    as it was; "" while Lani is in front."""
+    other = resumed_package()
+    if not other or other == PKG:
+        return ""
+    adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")  # the app again (singleTop: as it was)
+    time.sleep(2)
+    adb("shell", "am", "force-stop", other)
+    return other
+
+
+def chat_links():
+    """Links in a tutor message (README "Tutor chat", "Links"): three (QA's hook "chat:<text>", on the phone only), each
+    a line of its own; "Example QA" (example.com) asks first, "🔗 Odpreti example.com? · Open example.com?", and Cancel
+    stays in the chat; "Plain QA" (http) asks with "⚠️ Povezava ni varna"; "Fran QA" (fran.si) opens at once, no
+    dialog: the phone's browser in front (then the app again, the browser stopped), or, on an emulator without one, the
+    app in front still. A link that left the app when it should have asked fails the step, its browser stopped."""
+    go_home()
+    lines = "\\n".join((
+        "Povezave · Links:",
+        f"[{LINK_FRAN}](https://fran.si/iskanje?View=1&Query=pes)",
+        f"[{LINK_OTHER}](https://example.com/qa)",
+        f"[{LINK_HTTP}](http://example.org/qa)",
+    ))
+    qa_hook(f"'chat:{lines}'")
+    assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
+    assert wait_for(CHAT_TITLE, 6), "the tutor chat"
+    assert wait_for(LINK_FRAN, 6) and find(LINK_OTHER) and find(LINK_HTTP), "the message's links"
+    time.sleep(1)
+    shot("chat-links")
+
+    assert tap(LINK_OTHER, 3), "the link to example.com"
+    asked = wait_for("Odpreti example.com? · Open example.com?", 5)
+    if (other := left_for()):
+        raise AssertionError(f"example.com opened in {other} without asking")
+    assert asked, "another site's link asks first, its domain shown"
+    assert find("https://example.com/qa"), "its address in full"
+    assert find("Povezava ni varna") is None, "https: nothing about it not being secure"
+    shot("chat-link-asks")
+    assert tap(LINK_CANCEL, 3), "Cancel"
+    time.sleep(1)
+    assert find("Odpreti example.com?") is None and in_front(), "cancelled: the dialog gone, still in the app"
+    assert find(CHAT_TITLE), "the chat still open"
+
+    assert tap(LINK_HTTP, 3), "the http link"
+    asked = wait_for("Odpreti example.org? · Open example.org?", 5)
+    if (other := left_for()):
+        raise AssertionError(f"the http link opened in {other} without asking")
+    assert asked, "an http link asks too"
+    assert find("Povezava ni varna"), "and says it isn't secure"
+    shot("chat-link-http")
+    assert tap(LINK_CANCEL, 3), "Cancel"
+    time.sleep(1)
+
+    assert tap(LINK_FRAN, 3), "the link to fran.si"
+    end, other = time.time() + 10 * slow(), ""
+    while time.time() < end and not other:
+        if find("Odpreti fran.si"):
+            raise AssertionError("fran.si asked first")
+        p = resumed_package()
+        other = p if p and p != PKG else ""
+        time.sleep(1)
+    shot("chat-link-fran")
+    if left_for():
+        print(f"    fran.si opened in {other}")
+    else:
+        assert find("Odpreti fran.si") is None, "fran.si asked first"
+        return "no browser on the device: fran.si asked nothing, the app stayed (its toast)"
+    assert wait_for(CHAT_TITLE, 6) or wait_for("Danes · Today", 3), "back in the app"
 
 
 def village():
@@ -4387,6 +4474,7 @@ def plan():
         ("sheets-settle", sheets_settle, go_home, False, ""),
         ("cheat-sheet", cheat_sheet, go_home, False, ""),
         ("chat-swipe", chat_swipe, go_home, False, ""),
+        ("chat-links", chat_links, go_home, False, ""),
         ("village", village, v, False, ""),
         ("scroll", scroll, v, False, ""),
         ("villagers", villagers, v, False, ""),

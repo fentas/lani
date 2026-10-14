@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import si.lanisce.lani.data.DeepLink
 import si.lanisce.lani.data.ScreenClock
+import si.lanisce.lani.ui.LinkGate
 import si.lanisce.lani.ui.LocalSpeaker
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -68,8 +69,9 @@ class MainActivity : ComponentActivity() {
         // A tapped notification's link; not again when the activity is recreated from saved state.
         if (savedInstanceState == null) openLink(intent)
         // The speaker everywhere (not only in exercises), so tutor texts can speak their Slovene. The labels read the
-        // learner's language pair when they're built: another pair builds the screens anew.
-        setContent { LaniTheme { CompositionLocalProvider(LocalSpeaker provides vm.speaker) { key(vm.langPair, vm.culture, vm.learner) { App(vm) } } } }
+        // learner's language pair when they're built: another pair builds the screens anew. Every link tapped goes
+        // through the gate (fran.si at once, any other after asking: ui/Links.kt).
+        setContent { LaniTheme { LinkGate { CompositionLocalProvider(LocalSpeaker provides vm.speaker) { key(vm.langPair, vm.culture, vm.learner) { App(vm) } } } } }
     }
 
     override fun onNewIntent(intent: Intent) {

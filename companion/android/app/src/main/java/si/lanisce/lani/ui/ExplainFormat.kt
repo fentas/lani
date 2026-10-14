@@ -59,5 +59,9 @@ object ExplainFormat {
         return parts.map { p -> PAIR.matchEntire(p)?.let { it.groupValues[1].trim() to it.groupValues[2].trim() } ?: return null }
     }
 
-    private fun endings(s: String): String = ENDING.replace(s) { "**${it.value}**" }
+    /** [s]'s endings in bold; never inside a link ("https://fran.si/-ka"), which the bold would cut. */
+    private fun endings(s: String): String {
+        val links = si.lanisce.lani.data.Links.find(s).map { it.range }
+        return ENDING.replace(s) { m -> if (links.any { m.range.first in it }) m.value else "**${m.value}**" }
+    }
 }

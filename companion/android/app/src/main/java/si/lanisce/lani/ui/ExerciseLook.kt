@@ -134,6 +134,11 @@ internal fun ExText(
         Text(text, modifier, style = style, color = color, fontWeight = fontWeight, fontStyle = fontStyle)
         return
     }
+    // a link's words (an explanation's "[SSKJ](https://fran.si/…)") are its link's: a tap opens it, never a word's card
+    val words = remember(text, words) {
+        if (!text.hasLinkAnnotations(0, text.length)) words
+        else words.filter { w -> text.getLinkAnnotations(w.start, w.end).none { it.item is androidx.compose.ui.text.LinkAnnotation.Url } }
+    }
     val unknown = remember(text, words, look.known) { look.known?.unknown(text.text, words).orEmpty() }
     var laid by remember { mutableStateOf<TextLayoutResult?>(null) }
     var at by remember { mutableStateOf<Offset?>(null) }

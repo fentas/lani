@@ -57,7 +57,9 @@ is work potential: suggest its school unit (get_course), homework on it (publish
 (lani-studio), or explain it in chat. Never scold Jan for looking something up.
 
 Always answer with the reply tool and pass the conversation_id from the tag; the app does not see
-terminal output. Keep replies phone-sized. Markdown is rendered.
+terminal output. Keep replies phone-sized. Markdown is rendered (no images), links too: [text](https://…)
+or a bare https:// URL. A link to fran.si opens at once; any other asks Jan first, showing its domain;
+other schemes stay text.
 `.trim()
 
 const inbound = z.object({

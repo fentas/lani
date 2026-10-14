@@ -37,6 +37,9 @@ fun LaniSheet(onDismissRequest: () -> Unit, containerColor: Color = BottomSheetD
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         containerColor = containerColor,
         contentWindowInsets = { WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom) },
-        content = content,
-    )
+    ) {
+        // the sheet's window has a link handler of its own: the app's gate again (ui/Links.kt)
+        val column = this
+        GateLinks { column.content() }
+    }
 }

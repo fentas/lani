@@ -846,7 +846,8 @@ the same as actions):
 - "↩️ Odgovori · Reply" (see below).
 - "📄 Kopiraj · Copy": the message on the clipboard as plain text. A tutor message is copied as it reads: bold, italics
   and code marks out, a list item a line ("• …", "1. …"), a table a line a row with its cells between " · " (its rule
-  and empty cells left out), headings and quotes without their marks. The learner's own message is copied as typed.
+  and empty cells left out), headings and quotes without their marks, a link as its text and its address ("SSKJ
+  (https://fran.si/…)"). The learner's own message is copied as typed.
   Android 13 and later confirm the copy themselves; an older Android shows "📄 Kopirano · Copied".
 - "↗️ Deli · Share": Android's share sheet with the same text (copy, messengers, notes …), the text's preview titled
   "Deli sporočilo · Share message".
@@ -888,6 +889,34 @@ goes to the tutor with `data.reply_to`, next to what is attached now (`about_exe
 `about_exercise` or `about_grammar`). The bridge gives the tutor a message's data as a JSON block, as it always has,
 so an older bridge passes `reply_to` on unchanged; the chat feature's guide says what it is. In the chat, the reply shows
 its quote, and a tap on the quote goes to the message it answers while the phone keeps it.
+
+**Links.** A link in what the tutor writes is a link: in a chat message, an exercise's explanation, a card pinned on
+the cheat sheet (`ui/Markdown.kt`, found by `data/Links.kt`). Markdown's `[text](https://…)` shows its text, a bare
+`https://…` itself; a URL keeps the parentheses it opens itself (`…/Kranj_(mesto)`), and leaves out what ends the
+sentence after it (`.`, `,`, `)`, `*` …); `<https://…>` shows without its brackets. Only `https://` and `http://` are
+links: `javascript:`, `intent:`, `file:`, `content:`, an app's own scheme stay text as written, and so does a URL with a
+user name before its host (`https://fran.si@other.example`), a backslash, an invisible character or an IPv6 address. A
+link inside `code` stays code. The words around a link keep their taps (a Slovene word to hear, 🔈; a cheat sheet's
+word to look up), a link's own words are the link's; the text stays copyable as before. Nothing is ever loaded to show
+a message: no images, no previews.
+
+A tap goes through the app's link gate (`ui/Links.kt`, the app's `UriHandler`, so every link in the app does; a sheet's
+or a dialog's window gets the platform's own handler, which opens any link at once, so `LaniSheet` and `Markdown` put
+the gate back there, `GateLinks`):
+
+- **Opened at once:** https links to `fran.si` and its subdomains (the Slovene dictionaries: SSKJ, Pravopis, the
+  etymological dictionary …, the tutor's links for a word), and to Lani's own repository, `github.com/fentas/lani/…`
+  (its docs, issues and discussions, where the tutor points to a report or a wish; not the rest of GitHub, not
+  `../` out of it). The one list is `Links.ALLOWED`; the tutor's guide (`bridge/src/features/chat.ts`) says the same.
+- **Asked first:** any other https link: "🔗 Odpreti example.com? · Open example.com?", the address in full under it,
+  "Odpri · Open" or "Prekliči · Cancel". The domain is the one the browser reaches: what follows `https://` up to the
+  first `/`, `?` or `#`, an international name in its ASCII form (`xn--…`), so a look-alike shows as what it is, and a
+  Markdown link whose text names fran.si but goes elsewhere asks for where it goes. A reply could carry a link put
+  there by a prompt injection: the learner always sees where a link goes before leaving the app.
+- **http:** asks as well, also fran.si's, with "⚠️ Povezava ni varna (http) · Not a secure link (http)".
+
+It opens in the phone's browser (a browsable view: an app verified for the site may take it); without a browser, "🔗 Ni
+brskalnika … · No browser to open the link.", and nothing else happens.
 
 **Where it is kept.** Only on the phone, in the app's private files. `files/chat/<yyyy-MM>.json` holds a month (by
 the messages' time in UTC): each message with its time, its bookmark and note, the message it quotes and the data it was
@@ -2956,6 +2985,24 @@ open; and a long press on it: the menu with "📄 Kopiraj · Copy" (Android's ow
 `chat-swipe-scrolled`, `chat-menu`, `chat-copied`, `chat-share`. `ui/MarkdownPlainTest` checks what Copy and Share
 give: the tutor's imeti list and the 1 · 2 · 3+ table of pronouns as plain text, headings, quotes, numbers and rules as
 they read, the learner's own message as typed.
+
+**Links in the chat** ("Tutor chat", "Links"). `data/LinksTest` checks what is a link and where it ends: a Markdown
+link's text and URL (with a title, in `<…>`, with parentheses inside), a bare URL without the full stop, comma, `)`,
+`*` or quote after it, an autolink's brackets; fran.si, its subdomains and Lani's repository opening at once, and
+nothing else (not `fran.si.example.com`, not `github.com/fentas/lani-other` nor `/fentas/lani/../../`, not
+`gist.github.com`, not http); `javascript:`, `intent:`, `file:`, `content:`, `mailto:`, an app's scheme and a scheme-less
+`www.` staying text; a user name before the host, a backslash, an invisible character, an IPv6 address, an encoded
+host refused; a look-alike name as `xn--…`. `ui/MarkdownLinksTest` checks the drawing: the link's annotation over its
+text, a `*` in a bare URL no italics, a link's own bold, a link in `code` code, the 🔈 and the words to look up beside a
+link but never around it, a link inside the segment a step's reading marks, the copy's "text (URL)", an explanation's
+endings never bold inside a URL. `ui/LinkGateTest` taps them under Robolectric with Compose's test rule: fran.si opens
+the browser at once (a browsable view, no dialog); example.com asks first ("🔗 Odpreti example.com? · Open
+example.com?"), opens nothing on Cancel and the browser on Open, also in a sheet's window (`LaniSheet`, and the
+Markdown in another sheet: the platform's handler there opened it at once on the emulator before `GateLinks`); a link
+whose text names fran.si asks for where it goes; http asks with "⚠️ Povezava ni varna"; without a browser, the toast. On the emulator, `companion/bin/qa --steps
+chat-links` puts a tutor message with three links into the chat (QA's hook `chat:<text>`) and taps them: example.com's
+dialog and its Cancel, the http one's warning, fran.si's opening the browser at once (the browser in front, then the app
+again and the browser stopped). Screenshots: `chat-links`, `chat-link-asks`, `chat-link-http`, `chat-link-fran`.
 
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
