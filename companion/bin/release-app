@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Build a release APK and publish it to the Lani app (self-update).
 # The bridge notices the new latest.json and sends the app an app_update event.
-# The APKs go to $LANI_RELEASE_DIR (lani.env; ~/.local/share/lani/releases after lani-setup), else <data>/app/release.
+# The APKs go to $LANI_RELEASE_DIR (lani.env; ~/.local/share/lani/releases after lani-setup), else <data>/app/release,
+# each with its R8 mapping (lani-<versionCode>-mapping.txt.gz), which turns a crash's stack trace back into the source's
+# names and lines (companion/README.md, "Crash reports").
 # Usage: companion/bin/release-app [--docker] ["short release notes"]
 #        companion/bin/release-app --github [<tag>] ["short release notes"]
 #
@@ -41,10 +43,11 @@ with open(tmp, "w") as f:
     json.dump({"versionCode": int(code), "versionName": name, "file": f"lani-{code}.apk", "notes": notes}, f)
 os.replace(tmp, os.path.join(rel, "latest.json"))
 PY
-  # Keep the last 5 builds (the app's from before the rename were fluent-<code>.apk).
+  # Keep the last 5 builds (the app's from before the rename were fluent-<code>.apk), and the mappings of those.
   shopt -s nullglob
-  local apks=("$rel"/lani-*.apk "$rel"/fluent-*.apk)
+  local apks=("$rel"/lani-*.apk "$rel"/fluent-*.apk) m
   if ((${#apks[@]} > 5)); then ls -1t -- "${apks[@]}" | tail -n +6 | xargs -r -d '\n' rm --; fi
+  for m in "$rel"/lani-*-mapping.txt.gz; do [ -f "${m%-mapping.txt.gz}.apk" ] || rm -f -- "$m"; done
   echo "released $2 ($1)"
 }
 
@@ -55,9 +58,11 @@ if ((github)); then
     repo="$(sed -En 's#^.*github\.com[:/]([^/]+/[^/]+)$#\1#p' <<< "${url%.git}")"
     repo="${repo:-fentas/lani}"
   fi
-  # The release workflow (.github/workflows/android-release.yml) attaches lani-<versionName>.apk, its .sha256 and
-  # lani-<versionName>.json (versionCode, versionName, file, sha256). Public: no token needed. Prints
-  # "<versionCode> <versionName> <release name>", or nothing when the bridge has that version or a later one.
+  # The release workflow (.github/workflows/android-release.yml) attaches lani-<versionName>.apk, its .sha256,
+  # lani-<versionName>.json (versionCode, versionName, file, sha256; mapping and mapping_sha256 since R8) and the
+  # mapping (lani-<versionName>-mapping.txt.gz, kept here as lani-<versionCode>-mapping.txt.gz). Public: no token
+  # needed. Prints "<versionCode> <versionName> <release name>", or nothing when the bridge has that version or a later
+  # one.
   got="$(python3 - "$repo" "$tag" "$rel" "${LANI_GITHUB_API:-https://api.github.com}" << 'PY'
 import hashlib, json, os, sys, urllib.error, urllib.request
 repo, tag, rel, api = sys.argv[1:]
@@ -98,6 +103,19 @@ if digest.hexdigest() != sha:
     os.remove(tmp)
     sys.exit(f"{file}: SHA-256 {digest.hexdigest()}, the release says {sha}")
 os.replace(tmp, os.path.join(rel, f"lani-{code}.apk"))
+# the R8 mapping, when the release has one (built before R8: none)
+mapping = info.get("mapping")
+if mapping in assets:
+    tmp = os.path.join(rel, f"lani-{code}-mapping.txt.gz.tmp")
+    digest = hashlib.sha256()
+    with get(assets[mapping]) as r, open(tmp, "wb") as f:
+        while chunk := r.read(1 << 20):
+            digest.update(chunk)
+            f.write(chunk)
+    if digest.hexdigest() != info.get("mapping_sha256", "").lower():
+        os.remove(tmp)
+        sys.exit(f"{mapping}: SHA-256 {digest.hexdigest()}, the release says {info.get('mapping_sha256')}")
+    os.replace(tmp, os.path.join(rel, f"lani-{code}-mapping.txt.gz"))
 print(code, name, (release.get("name") or release.get("tag_name") or "").replace("\n", " "))
 PY
   )"
@@ -133,4 +151,8 @@ fi
 # what the build made of it (AGP's output-metadata.json), so this script and the app can't disagree
 read -r code name < <(python3 -c 'import json,sys; e=json.load(open(sys.argv[1]))["elements"][0]; print(e["versionCode"], e["versionName"])' app/build/outputs/apk/release/output-metadata.json)
 cp app/build/outputs/apk/release/app-release.apk "$rel/lani-$code.apk"
+# R8's mapping of this build (about 150 MB, a tenth of it compressed), never in the APK: retrace turns a stack trace
+# from the phone back into the source's names and lines with it
+gzip -9 -n -c app/build/outputs/mapping/release/mapping.txt > "$rel/lani-$code-mapping.txt.gz.tmp"
+mv -f "$rel/lani-$code-mapping.txt.gz.tmp" "$rel/lani-$code-mapping.txt.gz"
 publish "$code" "$name" "$notes"

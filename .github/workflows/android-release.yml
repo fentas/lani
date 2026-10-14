@@ -2,8 +2,11 @@
 #
 # On a tag v* (and on "Run workflow" from a tag) it builds the release APK in the build image, as
 # companion/bin/lani-build-app does on any machine, signs it with the release key from the repository's secrets and
-# attaches lani-<versionName>.apk, its SHA-256 (.sha256) and lani-<versionName>.json (versionCode, versionName, file,
-# sha256: what companion/bin/release-app --github reads) to the release, which it creates if needed.
+# attaches lani-<versionName>.apk, its SHA-256 (.sha256), lani-<versionName>.json (versionCode, versionName, file,
+# sha256, mapping, mapping_sha256: what companion/bin/release-app --github reads) and R8's mapping
+# (lani-<versionName>-mapping.txt.gz) to the release, which it creates if needed. The mapping is public with the APK:
+# it maps the APK's short names back to the names of this public repository's source, so a crash's stack trace can be
+# read for as long as the release is there (a workflow artifact goes after 30 days).
 #
 # Secrets (companion/bin/lani-keystore makes the key and prints the commands): LANI_KEYSTORE_B64 (the keystore in
 # base64), LANI_KEYSTORE_PASSWORD, LANI_KEY_ALIAS, LANI_KEY_PASSWORD. Without them, and on a run from a branch, the APK
@@ -91,10 +94,12 @@ jobs:
           version="$(jq -r '.elements[0].versionName' "$meta")"
           cd "$RUNNER_TEMP/out"
           apk="lani-$version.apk"
+          mapping="lani-$version-mapping.txt.gz" # lani-build-app --out puts it beside the APK
           sha256sum "$apk" > "$apk.sha256"
           jq -n --arg file "$apk" --arg name "$version" --argjson code "$code" \
             --arg sha256 "$(cut -d' ' -f1 "$apk.sha256")" --arg commit "$GITHUB_SHA" \
-            '{applicationId: "si.lanisce.lani", versionCode: $code, versionName: $name, file: $file, sha256: $sha256, commit: $commit}' \
+            --arg mapping "$mapping" --arg mapping_sha256 "$(sha256sum "$mapping" | cut -d' ' -f1)" \
+            '{applicationId: "si.lanisce.lani", versionCode: $code, versionName: $name, file: $file, sha256: $sha256, commit: $commit, mapping: $mapping, mapping_sha256: $mapping_sha256}' \
             > "lani-$version.json"
           cat "lani-$version.json"
           echo "version=$version" >> "$GITHUB_OUTPUT"
@@ -137,6 +142,8 @@ jobs:
             the next one; an app built with another key (a debug build) has to be uninstalled first.
           - SHA-256: \`$sha\` (lani-$VERSION.apk.sha256). The same commit built with
             \`companion/bin/lani-build-app --release\` and the same key gives the same bytes.
+          - **lani-$VERSION-mapping.txt.gz**: R8's mapping, for a crash's stack trace (\`retrace\`, companion/README.md
+            "Crash reports"); not needed to install.
           - A bridge offers it to its app's self-update with \`companion/bin/release-app --github $TAG\`.
           EOF
           if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then

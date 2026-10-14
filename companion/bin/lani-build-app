@@ -16,7 +16,8 @@
 #               LANI_KEYSTORE, LANI_KEYSTORE_PASSWORD, LANI_KEY_ALIAS, LANI_KEY_PASSWORD, or the signing.properties in
 #               ~/.config/lani (LANI_CONFIG_DIR) that companion/bin/lani-keystore writes
 #   --test      run the unit tests first (:app:testDebugUnitTest)
-#   --out       copy the APK there; into a directory as lani-<versionName>.apk (lani-<versionName>-debug.apk)
+#   --out       copy the APK there; into a directory as lani-<versionName>.apk (lani-<versionName>-debug.apk); a
+#               release's R8 mapping beside it, compressed (lani-<versionName>-mapping.txt.gz: <file>-mapping.txt.gz)
 #
 # Environment: LANI_CONTAINER (docker or podman; docker when both are there), LANI_BUILD_IMAGE (an image to use
 # instead of building one), LANI_BUILD_CACHE (the build's home; ~/.cache/lani/android-build), LANI_BUILD_MEMORY (the
@@ -162,6 +163,10 @@ if [ -n "$out" ]; then
   fi
   cp "$apk" "$dest"
   apk="$dest"
+  # R8's mapping (companion/README.md, "Crash reports"), gzip without a name or a time: the same bytes on every build
+  if [ "$type" = release ]; then
+    gzip -9 -n -c "$android/app/build/outputs/mapping/release/mapping.txt" > "${dest%.apk}-mapping.txt.gz"
+  fi
 fi
 echo "lani-build-app: $type $version ($code): $apk" >&2
 echo "$apk"
