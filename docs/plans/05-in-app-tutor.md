@@ -74,8 +74,9 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
 - **File tools, checked on every write,** next to the typed tools. See [File tools](#file-tools).
 - **An optional git push** from the phone: tap, sign in, pick a repo. See [Git (optional)](#git-optional).
 - **Audio stays in the SaaS:** the clips are made there (the ElevenLabs key, the credits, one shared cache) and cached
-  on the phone, with the app's offline Piper voice as the fallback. Lines with the learner's name are split at the
-  name, so every learner shares them and only the name is voiced per learner ([plan 3](03-voice-service.md#proposed-lines-with-the-learners-name-split-at-the-name-2026-10-14)).
+  on the phone, with the app's offline Piper voice as the fallback. Lines with the learner's name are voiced once
+  with a filler name, which is cut out: every learner shares them, and only the name is voiced per learner
+  ([plan 3](03-voice-service.md#proposed-lines-with-the-learners-name-a-filler-name-cut-out-2026-10-14)).
 - **The self-hosted tutor keeps its rights in the app repository.** `lani-session` starts it at the repository's root
   in `acceptEdits`, with `Write` and `Edit` allowed. In its 45 sessions (2026-08-25 to 2026-10-14) it never edited
   the app's or the bridge's code and never built, installed or restarted anything. It wrote the learner's data, its
