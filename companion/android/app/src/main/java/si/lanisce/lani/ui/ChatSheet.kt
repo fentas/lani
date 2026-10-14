@@ -185,34 +185,35 @@ fun ChatSheet(vm: AppViewModel) {
     DisposableEffect(Unit) { onDispose { if (tipFor != null) prefs.sawSwipeHint() } }
 
     LaniSheet(onDismissRequest = { chat.close() }) {
-        Column(Modifier.fillMaxWidth().fillMaxHeight(0.9f).imePadding().padding(horizontal = 16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                // two lines at most: it shrinks a little rather than wrap a third time beside the header's buttons
-                BasicText(
-                    "💬 ${bi("common.yourTutor")}",
-                    style = MaterialTheme.typography.titleLarge.copy(color = LocalContentColor.current),
-                    maxLines = 2,
-                    autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = MaterialTheme.typography.titleLarge.fontSize),
-                    modifier = Modifier.weight(1f),
-                )
-                TextButton(onClick = { showBookmarks = !showBookmarks }) {
-                    EmojiLabel("🔖", bi("chatSheet.bookmarks"))
-                    if (marked.isNotEmpty()) Text(" ${marked.size}")
+        // the snackbar over the input, not over the messages: the one just swiped is often the newest, at the bottom
+        Box(Modifier.fillMaxWidth().fillMaxHeight(0.9f).imePadding()) {
+            Column(Modifier.fillMaxSize().padding(horizontal = 16.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // two lines at most: it shrinks a little rather than wrap a third time beside the header's buttons
+                    BasicText(
+                        "💬 ${bi("common.yourTutor")}",
+                        style = MaterialTheme.typography.titleLarge.copy(color = LocalContentColor.current),
+                        maxLines = 2,
+                        autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = MaterialTheme.typography.titleLarge.fontSize),
+                        modifier = Modifier.weight(1f),
+                    )
+                    TextButton(onClick = { showBookmarks = !showBookmarks }) {
+                        EmojiLabel("🔖", bi("chatSheet.bookmarks"))
+                        if (marked.isNotEmpty()) Text(" ${marked.size}")
+                    }
+                    IconButton(onClick = { vm.cheat.show(chatCheatContext(vm)) }) { EmojiLabel("📋", bi("cheatSheet.title")) }
+                    TextButton(onClick = vm::openTalk) { Text("🗣️ ${bi("common.talk")}") }
                 }
-                IconButton(onClick = { vm.cheat.show(chatCheatContext(vm)) }) { EmojiLabel("📋", bi("cheatSheet.title")) }
-                TextButton(onClick = vm::openTalk) { Text("🗣️ ${bi("common.talk")}") }
-            }
-            if (showBookmarks) {
-                Bookmarks(
-                    marked, today, zone, Modifier.weight(1f).padding(vertical = 12.dp),
-                    onBack = { showBookmarks = false },
-                    onOpen = { jumpTo(it.id) },
-                    onReply = ::reply,
-                    onRemove = { chat.bookmark(it.id, on = false) },
-                )
-            } else Box(Modifier.weight(1f)) {
-                LazyColumn(
-                    Modifier.fillMaxSize().padding(vertical = 12.dp),
+                if (showBookmarks) {
+                    Bookmarks(
+                        marked, today, zone, Modifier.weight(1f).padding(vertical = 12.dp),
+                        onBack = { showBookmarks = false },
+                        onOpen = { jumpTo(it.id) },
+                        onReply = ::reply,
+                        onRemove = { chat.bookmark(it.id, on = false) },
+                    )
+                } else LazyColumn(
+                    Modifier.weight(1f).padding(vertical = 12.dp),
                     state = list,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
@@ -261,34 +262,34 @@ fun ChatSheet(vm: AppViewModel) {
                     }
                     if (chat.typing) item(key = "typing") { ChatBubble("…", fromMe = false) }
                 }
-                // over the list's end, above the input: what a swipe did, with its undo
-                SnackbarHost(snack, Modifier.align(Alignment.BottomCenter))
-            }
-            chat.attached?.let { ctx ->
-                ContextCard(ctx.label, onClear = { chat.attached = null })
-                Row(Modifier.padding(top = 6.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    for (q in quickQuestions) {
-                        SuggestionChip(onClick = { chat.send(q) }, label = { Text(q, style = MaterialTheme.typography.labelMedium) })
+                chat.attached?.let { ctx ->
+                    ContextCard(ctx.label, onClear = { chat.attached = null })
+                    Row(Modifier.padding(top = 6.dp).horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        for (q in quickQuestions) {
+                            SuggestionChip(onClick = { chat.send(q) }, label = { Text(q, style = MaterialTheme.typography.labelMedium) })
+                        }
                     }
                 }
+                chat.replyTo?.let { m -> ReplyCard(whoAndWhen(m.fromMe, m.at, today, zone), ChatArchive.quote(m).text, onClear = { chat.replyTo = null }) }
+                DiacriticChips(input, { input = it })
+                Row(Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    OutlinedTextField(
+                        value = input,
+                        onValueChange = { input = it },
+                        modifier = Modifier.weight(1f).focusRequester(focus),
+                        placeholder = { Text(bi("chatSheet.write")) },
+                        shape = RoundedCornerShape(24.dp),
+                        maxLines = 4,
+                    )
+                    FilledIconButton(
+                        onClick = { chat.send(input.text.trim()); input = TextFieldValue("") },
+                        enabled = input.text.isNotBlank(),
+                        modifier = Modifier.padding(start = 8.dp),
+                    ) { EmojiLabel("➤", Labels.SEND) }
+                }
             }
-            chat.replyTo?.let { m -> ReplyCard(whoAndWhen(m.fromMe, m.at, today, zone), ChatArchive.quote(m).text, onClear = { chat.replyTo = null }) }
-            DiacriticChips(input, { input = it })
-            Row(Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(
-                    value = input,
-                    onValueChange = { input = it },
-                    modifier = Modifier.weight(1f).focusRequester(focus),
-                    placeholder = { Text(bi("chatSheet.write")) },
-                    shape = RoundedCornerShape(24.dp),
-                    maxLines = 4,
-                )
-                FilledIconButton(
-                    onClick = { chat.send(input.text.trim()); input = TextFieldValue("") },
-                    enabled = input.text.isNotBlank(),
-                    modifier = Modifier.padding(start = 8.dp),
-                ) { EmojiLabel("➤", Labels.SEND) }
-            }
+            // what a swipe did, with its undo
+            SnackbarHost(snack, Modifier.align(Alignment.BottomCenter).padding(horizontal = 16.dp))
         }
     }
     noteFor?.let { m ->
