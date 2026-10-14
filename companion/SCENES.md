@@ -1446,6 +1446,20 @@ merchant at the market, the festival under the linden tree), who joined the vill
 (Babica Micka at a house or hut, Pastir Luka in the forest, Kovač Tone at the smithy, … else by the
 fire), and each happening at its scene's place.
 
+A bubble stays with its person or place (`ui/game/TownBubbles.kt`, `layoutBubbles`): over them, its pointer short.
+Panned or zoomed so they're off the screen, it's off the screen with them, not lined up at its edge with its pointer
+stretched back; over someone at the edge it's nudged in by half its width at most (`BUBBLE_NUDGE`), so it shows whole
+while they're on the screen and leaves with them. A place going up under the HUD has its bubble kept below the HUD,
+fading out over a bubble's height as the place goes further (`bubblePresence`). The bubbles keep apart and off the fire,
+but none goes further than a bubble and a half from where it would be (`BUBBLE_REACH`); with no room that near (a crowd,
+zoomed out a little) they stack as cards over their people, a strip of each showing, the nearer person's on top
+(VILLAGERS.md, "Round the fire"). While bubbles are off the screen's left or right, a small dark chip at that edge says
+how many and shows the first one's emoji (the event first, then someone there now, then a request: "‹ 🐑 2", "3 👨‍🌾 ›"),
+beside its place's height, between the HUD and the bottom bar; a tap pans the camera to that bubble's place, keeping the
+zoom where it can (`EdgeChip`; TalkBack: "Še 2 na levi: … · 2 more to the left: …"). Zoomed out (below 1.5 × the
+fitted zoom) each place shows one bubble for all of its own (`clusterBubbles`). A scene's markers (`BubblePlace`) go by
+the part of their person in view: none while they're out of it, nudged in at the edge by half the marker's width.
+
 Everyone is on the map at most once, where their day has them now (VILLAGERS.md, "A day in the village"): at their work, a
 rest, the well, the children at play, walking from one place to the next (round the fire and the buildings, never through
 them), away on an errand of their work now and then; by the fire in the dark evening or at home, their windows lit; in bed

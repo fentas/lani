@@ -43,6 +43,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        a few at a place, a couple at the fire by day, a handful in the evening), and the field beside
                        the fire at the moments someone walks by it ($LANI_QA_FIELD_WALK, "h:mm[:ss],…"; "9:25,11:02,12:30"
                        when unset);
+                       "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
+                       so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
+                       screen then;
                        "village-hud" the village's HUD: its slim row, its panel (a tap outside closes it, opening
                        nothing), minimized to a pill and still so in the village opened again, and the plot chooser
                        (QA's hook "build:field") with the HUD a pill by itself and the ★ below it;

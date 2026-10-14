@@ -2804,6 +2804,7 @@ companion/bin/qa --steps sheets-settle           # flings into the ends of Home 
 companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned
 companion/bin/qa --steps chat-swipe              # a tutor message swiped: the reply card, bookmarked, taken away and undone; the list still scrolls; copy, share
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
+companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
@@ -2865,6 +2866,22 @@ below it (the panel closes, no card opens), minimizes the HUD, goes home and int
 brings the row back, then opens the plot chooser through QA's hook `build:field` and checks the HUD is a pill and the
 ★ lies between it and the chooser's bar, and that the row is back once the chooser is left. Screenshots:
 `hud-collapsed`, `hud-expanded`, `hud-minimized`, `hud-plot-chooser`.
+
+**The village's bubbles** (SCENES.md, "Bubbles in the village"; VILLAGERS.md, "Round the fire"). `ui/game/TownLogicTest`
+checks the layout: a bubble whose place is off the screen's left, right or bottom is off it too, over its place; one at
+the edge is nudged in by 22 dp at most (whole while its place is on the screen) and slides off with it, never jumping; a
+huddle of eight is pushed a bubble and a half at most, below none of their starts, stacked so two fifths of each shows,
+and where there's room the reach changes nothing; three places panned off the left keep their bubbles' offsets within a
+hair from step to step; the crowd round the fire (nine bubbles over six people) keeps off the fire and below the HUD,
+stacked as cards, and held from frame to frame it jumps about half as often as without and hardly flips back (362
+jumps and 11 flips against 675 and 145, zooming from 4.5 to 12, where the app shows the people's bubbles one by one);
+the edge chips count the bubbles off each side, the event's first,
+else the nearest. `game/render/FireRingTest` checks the same over the renderer's fire ring, `ui/scene/BubblePlaceTest`
+a scene's marker over someone at the view's edge. On the emulator, `companion/bin/qa --steps bubbles-follow` (also
+after `camera` in a whole run, QA's hook `hour:11`: the people out) shoots the village at home, dragged both ways,
+zoomed in and dragged, prints the bubbles on screen in each, then taps the edge chip and checks its first bubble is on
+screen then. Screenshots: `bubbles-home`, `bubbles-dragged-right`, `bubbles-dragged-left`, `bubbles-zoomed`,
+`bubbles-zoomed-dragged`, `bubbles-chip-tapped`.
 
 **Swipes in the chat** ("Tutor chat", "Swipes"). `ui/ChatSwipeTest` checks the swipe's decisions (sideways past the
 touch slop and within 30°, the list's past it any other way, too short to tell; the resistance; the threshold both

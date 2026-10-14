@@ -129,7 +129,8 @@ minimized to a pill (Jan, October 2026: "it's hard to see the ★ constructions,
   the bubbles go by what the HUD covers at rest: the row, or the pill (`hudInset`); the open panel lies over the map
   for a moment and moves nothing. Minimized, the home view frames the village in the screen's whole height. The
   recenter button hangs under the row's end (in the pill's line, minimized) while the camera is away, and the bubbles
-  keep below it then too.
+  keep below it then too. A bubble whose person or place goes up under the HUD fades out (a bubble's height in), as one
+  whose person is off the screen's side is off it with them (SCENES.md, "Bubbles in the village").
 - **TalkBack** reads the row in order: "Nazaj · Back", each resource ("Hrana · Food: 368 / 700"), the status ("Doba ·
   Age: Zaselek · Hamlet. Do Vas · To the village: 83 %, še 4 koraki · 4 steps to go; Skrinja · The chest: nekaj novega
   · something new") and the chevron ("Pokaži več · Show more", "Pokaži manj · Show less" open). With the system's

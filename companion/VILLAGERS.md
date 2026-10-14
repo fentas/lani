@@ -743,20 +743,25 @@ Their bubbles keep off it too: a bubble over someone beside the fire (France wor
 warming his hands) that would cover its flames, stones, smoke or target moves away from the fire, out sideways and a
 little up as its person stands beside it, up over it, its pointer still at its person (`layoutBubbles`, `fireKeepOff`:
 the fire's tap area at the current zoom, with air for the bob); the bubbles it then lands on push it further up, so none
-cover each other, and one following someone past the fire slides round it. When the stack over the fire grows up to the
-HUD (a crowd round it, the fire near the top of the screen), the bubble at the top goes aside instead, just under the HUD
-left or right of the one below it, else lower down beside the stack, its pointer slanting back to its person or place;
-with no room left it shares a little of the bubbles' air (the bubbles themselves still don't touch), and with the fire
-just under the HUD (its card open) and the row there full, it hangs lower still, its pointer going up: none under the
-HUD, none on the fire, none on each other (`asideUnderHud`). Away from the HUD not even their air touches: what the
-pushes leave, a corner on a corner, is cleared the shortest way, round the corner partly both ways (`clearOf`), and a
-bubble squeezed in between two side by side goes up off them. Going aside or up is a step, not a slide, but on screen no
-bubble jumps: it glides to its new spot in about a fifth of a second (`BubbleGlide`), its pointer at its person or
-place all the way and its tap target where it's drawn, while a pan, a zoom or its person walking moves it along at once;
-a new bubble fades in at its spot. And each bubble holds on to its spot (`layoutBubbles`' `was`): it stays there,
-carried along with its person or place, while that's still free and no other is clearly nearer, keeps to its side of
-the stack under the HUD, and comes down from a squeeze only with room to spare, so it doesn't flip between two spots
-from one frame to the next as the camera moves.
+cover each other, and one following someone past the fire slides round it. No push takes a bubble further than a bubble
+and a half from where it starts (`BUBBLE_REACH`, 78 dp; the fire's own move apart), so its pointer stays short: a crowd
+round the fire with no room for all its bubbles that near (zoomed out a little, nine bubbles over six people) doesn't
+grow a tower up to the HUD; each bubble pushed further takes the free spot within reach nearest where the pushes would
+take it, or a nearer one where it covers the others a little, at most so much that two fifths of each still shows
+(`nearSpot`): a stack of cards over their people, the nearer person's bubble on top, held as the camera moves while it's
+no worse than the new spot. When the stack over the fire reaches the HUD (the fire near the top of the screen), the
+bubble at the top goes aside instead, just under the HUD left or right of the one below it, else lower down beside the
+stack, its pointer slanting back to its person or place, within reach of where it started; with no room there it shares
+a little of the bubbles' air, then stacks as a card, and with the fire just under the HUD (its card open) and the row
+there full, it hangs lower still, its pointer going up: none under the HUD, none on the fire (`asideUnderHud`). With room
+not even their air touches: what the pushes leave, a corner on a corner, is cleared the shortest way, round the corner
+partly both ways (`clearOf`), and a bubble squeezed in between two side by side goes up off them. Going aside or up is a
+step, not a slide, but on screen no bubble jumps: it glides to its new spot in about a fifth of a second
+(`BubbleGlide`), its pointer at its person or place all the way and its tap target where it's drawn, while a pan, a
+zoom or its person walking moves it along at once; a new bubble fades in at its spot. And each bubble holds on to its
+spot (`layoutBubbles`' `was`): it stays there, carried along with its person or place, while that's still free and no
+other is clearly nearer, keeps to its side of the stack under the HUD, and comes down from a squeeze only with room to
+spare, so it doesn't flip between two spots from one frame to the next as the camera moves.
 
 **The evening.** When it gets dark (the map's night: from about 21:15 in June, 16:50 in December) some sit by the fire
 until their bedtime (the storyteller always, the others some evenings by the day's dice, the children more often): a
