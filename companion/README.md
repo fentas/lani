@@ -982,6 +982,118 @@ tutor could only guess why. Now the node keeps what Jan typed or said lately:
   line); a bridge from before drops it from the answers (the schema isn't strict) and a `session_end`'s `looked_up`
   reaches its tutor only in the JSON block.
 
+## The in-app tutor in shadow mode (developer setting)
+
+The prototype of plan 5's in-app tutor ([docs/plans/05-in-app-tutor.md](../docs/plans/05-in-app-tutor.md), phase 0,
+check 6 in [05-phase-0.md](../docs/plans/05-phase-0.md)). It runs in the app on the learner's own Claude API key, on
+the learner's real events, next to the real tutor. **It watches; it never acts:** the real tutor still answers
+everything, and the shadow's answers show only in its debug panel.
+
+**The developer setting.** Off by default, in the release app too. Open "🔗 Povezava · Connection" (the tutor's status
+dot on Home) and tap the version line at the bottom ("Lani 0.2.…") seven times: "🛠️ Razvijalec · Developer" appears
+with "🕵️ Učitelj v senci · Shadow tutor", its switch, its status and "🔍 Odpri pregled · Open the panel". Turning it on
+without a key opens the panel, which asks for one.
+
+**The key.** Pasted in the panel and checked with `GET /v1/models` (not a model call). Make it in the Console in a
+workspace of its own ("Lani") with a monthly spend limit (the Default workspace can't have one), expiry "Never". The
+app keeps it encrypted: an AES-GCM key in the Android Keystore (never exportable) seals it, the ciphertext is in a
+DataStore of its own (`tutor_secrets`); it is decrypted in memory for a call only, and goes only to
+`https://api.anthropic.com` in its `x-api-key` header (a debug build: also to the mock below). Never in a log line
+(`tutor/KeyVault` `Redact`), the export, a prompt or a tool's result. "Remove" deletes it and its Keystore key; a 401
+pauses the shadow until a new key or "Check again" (the events stay queued).
+
+**What it sees.** Every write the outbox delivered to the node (`SyncController.onDelivered`): `POST /message` (chat,
+answer, session_end, villager_arrived), `/reviews` (review_done, or dialog_words), `/words` (words_added),
+`/packs/<id>/learn` (words_learned), `/readings/done` (reading_done), `/level` (level_up); the role-play's turns
+(recorded, not run: phase B); and the real tutor's replies (the SSE `reply`), matched to the event of their
+conversation (an answer's `ex…`; for "main" the latest chat or session end).
+
+**Events to turns** (plan 5, "Events to turns"):
+- at once: a chat, an answer; with "React at once" also reviews and session ends;
+- into the day's digest: reviews, words, readings, session ends, level-ups. The digest runs when the app comes back
+  after two hours or more, in the evening (from 19:00, once), when the learner opens the chat, or by "Run the digest
+  now". A digest with nothing worth saying (no answer wrong, no session end or level-up) makes no call: it's logged as
+  skipped;
+- recorded only: role-play (phase B), an arrival (phase C).
+
+The turns wait in a persisted queue (a chat ahead of the rest), one at a time.
+
+**The loop** (`tutor/Loop.kt`): a manual tool loop over `TutorTransport` (`AnthropicTransport`: OkHttp, okhttp-sse and
+kotlinx.serialization against `POST /v1/messages`, streamed; no SDK). Each step is saved (the assistant's message,
+then the tools' results), so a turn Android stopped resumes where it was. At most 8 calls a turn; parallel tool calls
+answer in one message; `tool_choice: auto`; adaptive thinking with the task's effort set explicitly (the day's thread:
+always "medium", since a change clears its cache); thinking blocks go back unchanged, empty ones too; the beta
+`thinking-binding-controls-2026-08-01` is sent and a response's `input_transformations` logged per call. Errors by the
+plan's table: a 401 pauses (nothing lost); the low credit balance and the spend limits (the workspace's 400, the
+tier's 429 `enforced_spend_limit_reached`) pause routine work and fail a chat with the reason; a 429 waits for its
+`retry-after` (a long one sends the turn back to the queue), 529/5xx/timeouts back off; `max_tokens` is retried once
+with twice the room; a `refusal` is noted, never retried.
+
+**The model per task** by the preset (Economy, Balanced, Best), each task's model changeable in the panel: Balanced is
+Haiku 5.5 for routine work and grading, Sonnet 5.5 for chat, Opus 5.5 for content. The ids come from the key's
+`GET /v1/models`: the plan's when listed, else the family's newest, else the family above's; never a legacy model
+(Haiku 4.5) by default.
+
+**The prefix** (`tutor/Prompt.kt`): the tools in phase A's fixed order, then the core prompt
+(`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief), its end a 1-hour cache
+breakpoint; automatic caching (5 minutes) on the last block. Nothing about the learner, nothing time-dependent.
+
+**The tools, from one spec.** `companion/bridge/src/cli/tutor-export.ts` builds the bridge (`buildBridge`: nothing
+started) in an environment of its own and writes `companion/tutor/tools/<name>.json` (every MCP tool: name,
+description, `input_schema`) and the guide, split into topics (`companion/tutor/guide/<id>.md` and `index.json`: the
+channel guide's paragraphs per feature, exactly as `channel_guide` gives them, and the skills the plan names: feedback,
+fix, progress, analysis, session-end, studio), with `tools/guide.json` (`guide(topic)`). `--check` compares them with
+the bridge (the smoke section `tutor` runs it): regenerate with `cd companion/bridge && bun src/cli/tutor-export.ts`
+after changing a tool, a feature's paragraph or the curated content the guide names. The app's new tools are
+hand-written in `companion/tutor/app-tools/`. The Gradle task `tutorFiles` bundles `companion/tutor` as resources
+under `tutor/`. Phase A's 17 tools in shadow mode (`tutor/ShadowTools.kt`):
+- `reply`: into the panel, never the chat, never a notification;
+- reads, through the paired bridge's GET routes only (`tutor/Reads.kt` `ShadowBridge`, the app's bearer token, its
+  client refusing anything else, `GetOnly`): `learner_state` (`/state`, summed up), `get_village` (`/game`),
+  `list_packs` (`/packs`), `list_grammar` and `get_grammar` (`/grammar`), `dictionary_lookup` (`/lookup`, the node's
+  dictionary as marked untrusted data; fran.si comes later), `card` find, show and overlaps (`/state`'s deck);
+  `recent_answers` from the reviews the shadow saw;
+- writes, dry runs (validated against their schema, recorded with their input, never sent): `publish_gloss`,
+  `publish_sentence_note`, `set_rhythm`, `record_session`, `report_problem`, `card` edit, merge, split, regrade and
+  forgive;
+- its own: `guide`, `notebook_note`, `notebook_write`.
+
+**The notebook and the day's thread** (`files/shadow-tutor`): one thread per local day from 04:00, on the chat's model,
+only ever appended to; its first user message the notebook and yesterday in brief. A turn on another model (Balanced:
+the routine Haiku turns) is a stateless call (the prefix, the notebook, today's lines, the event): its reply becomes a
+line in the thread's next message. Past the thread's limit (a setting; the preset's: 20k, 30k, 60k tokens) a closing
+call has the tutor rewrite the notebook (`notebook_write`), and a fresh thread starts with the notebook, the day so far
+and the last exchanges as plain text. The first event of a new day closes yesterday's thread the same way. An app update
+that changes the tools or the prompt restarts the thread as text (no closing call: its history can't be sent under
+another prefix). The notebook's older versions are kept; the panel can edit it.
+
+**Metering** (`tutor/ShadowStore.kt` `DayStats`): per call the model, the event kind, input, the cache writes (5-minute
+and 1-hour, from `usage.cache_creation`), cache reads, output (thinking included), the time to the first token and in
+all, the price (`companion/tutor/prices.json`); per day the calls, turns, cold starts (gaps over 5 and 60 minutes on a
+model), the thread's size at each restart, the notebook's size, the spend by model and by event kind, the guide's
+topics fetched. The day's budget (default $3) pauses the shadow until the next day.
+
+**The panel** ("🕵️ Shadow tutor"): Events (each event with the shadow's turns: model, status, reply, tool calls with
+their inputs and results, dry runs marked; the real tutor's reply below; "Also run on…" another model: its own
+stateless call, metered, so Haiku and Sonnet can be compared on the same events; "Queue again" for a failed turn);
+Numbers (the day's, each call's, "⬆️ Export everything"); Notebook (the notebook, the thread, the queue); Settings (on,
+the key, a debug build's base URL, the preset and the model per task, the budget, the thread's limit, "React at
+once"). Older days are a tap away.
+
+**The export:** one JSON file (`lani.shadow-export/v0`: the settings, the notebook and its versions, the thread, the
+queue, and each day's events, turns, replies, tool calls, calls and numbers) through the share sheet (a FileProvider
+on the cache's `shared/`). No key and no token: neither is kept with them, and the text is cleaned of anything shaped
+like a key.
+
+**Without a key: the mock.** `bun companion/bridge/test/tutor-mock.ts` serves a canned Messages API on
+127.0.0.1:8771 (the emulator: `http://10.0.2.2:8771`): `GET /v1/models` and streamed `POST /v1/messages` in the real
+wire format (thinking, text, parallel tool calls with their input in pieces, usage that looks like caching), markers in
+a chat for the errors (`[mock:429]`, `[mock:529]`, `[mock:500]`, `[mock:refusal]`, `[mock:max_tokens]`,
+`[mock:stream-error]`, `[mock:credit]`), `GET /mock/requests` (the last 50, never the key) and `POST /mock/reset`;
+`bun companion/bridge/test/tutor-mock-check.ts` checks it. A debug build's panel takes its base URL ("The mock
+(10.0.2.2:8771)"); QA's hook `shadow:http://10.0.2.2:8771` sets it and opens the panel (`app/QaHooks.kt`); a release
+build always calls the API.
+
 ## Grammar book
 
 The village book (the scroll before Vas) has a chapter "📖 Slovnica · Grammar": one page per rule of the language
