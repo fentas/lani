@@ -62,13 +62,17 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
 
 - **The models and the thread's length are settings.** Three presets (Economy, Balanced, Best), the model per task
   for those who want it, and the thread's limit. See [Presets](#presets).
-- **Signing in with the Claude subscription:** Jan wants it. It's allowed only with Anthropic's approval, so we ask
-  (phase 0). Not by signing in as Claude Code (see [Why not another way](#why-not-another-way-checked-2026-10-11)).
+- **Signing in with the Claude subscription:** Jan wants it. The Agent SDK overview allows it only "if previously
+  approved"; the Claude Code legal page (2026-10-05) doesn't permit it at all, and the Usage Policy in force from
+  2026-11-12 names it. No approval route is published: we ask through "contact sales" (phase 0), and expect a no.
+  Never by signing in as Claude Code (see [Why not another way](#why-not-another-way-checked-2026-10-11)).
   Until then, a Max plan's monthly API credits are the subscription's way in ([Which Claude plan works
   where](#which-claude-plan-works-where)).
-- **The API key first.** A subscription's token reaches the same Messages API, so if Anthropic approves (or we
-  decide), it's one more kind of auth on the same transport (`TutorTransport`): the loop, the tools and the requests
-  stay. What changes then is the spend shown: the plan's usage limits instead of dollars.
+- **The API key first.** A subscription's token reaches the same Messages API, so if Anthropic approves, it's one
+  more kind of auth on the same transport (`TutorTransport`): the loop, the tools and the requests stay. The sign-in
+  would then "complete through Anthropic's own flow", and the app may not "collect, store, or intermediate Claude.ai
+  credentials or session tokens" (the legal page): the approval would say how. What changes then is the spend shown:
+  the plan's usage limits instead of dollars.
 - **Every gap should close in the end:** with the validators, a small resumable agent loop and a few tools. See
   [After all phases](#after-all-phases).
 - **File tools, checked on every write,** next to the typed tools. See [File tools](#file-tools).
@@ -88,7 +92,7 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
 
 | Way | Why not |
 |---|---|
-| Sign in with the learner's Claude subscription | The [Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview): *"Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products…"*. Plan 1's option 2c. **Jan wants it (2026-10-14): we ask Anthropic for approval** (phase 0). The API endpoints are the same, but the subscription's token comes from Claude Code's own sign-in: the app would have to sign in as Claude Code and pass for it. That's against the terms, tools that did it have been blocked, and the learner's own account carries the risk. Not that way. |
+| Sign in with the learner's Claude subscription | The [Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview): *"Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products…"*. Plan 1's option 2c. **Jan wants it (2026-10-14): we ask Anthropic** (phase 0), through "contact sales": no approval route is published. The [legal and compliance page](https://code.claude.com/docs/en/legal-and-compliance) (2026-10-05) says *"Anthropic does not permit third-party developers to offer Claude.ai login into their own applications, or to route requests through Free, Pro, or Max plan credentials on behalf of their users"*, and the [Usage Policy](https://www.anthropic.com/legal/aup) from 2026-11-12 bans *"services that route requests through consumer subscriptions"*: expect a no. The API endpoints are the same, but the subscription's token comes from Claude Code's own sign-in: the app would have to sign in as Claude Code and pass for it. That's against the terms, tools that did it have been blocked, and the learner's own account carries the risk. Not that way. |
 | Bundle Claude Code with the app | It's proprietary, and a Node CLI: it doesn't run on Android. The Agent SDK is Claude Code as a library, so the same applies. |
 | A remote MCP connector in the Claude apps | It works on every plan ([support article](https://support.claude.com/en/articles/11175166)). But the tutor can't be pinged: no reaction to a review or a session's end, no chat from inside Lani. **Rejected by Jan:** reactions and chat are a major feature. |
 | Claude Code routines with an API trigger ([docs](https://code.claude.com/docs/en/routines.md)) | Pro/Max, `POST …/routines/<id>/fire`, a fresh cloud session per fire, 30 fires an hour per routine, a research preview, *"not part of the Claude Platform API surface"*. It would keep the pings on the subscription, but it's a workaround around the API key. **Rejected.** |
@@ -109,7 +113,10 @@ plans](https://support.claude.com/en/articles/17154008-monthly-api-credits-for-m
 
 So a Max learner's key, made in the linked organization, is in effect paid by the plan. $100 a month covers even
 the most expensive slim setup below many times over. *Still open: whether the article's terms say anything about
-using the credits through a third-party app (it says nothing either way; the key is the learner's own).*
+using the credits through a third-party app (it says nothing either way; the key is the learner's own).* The
+[credit terms](https://www.anthropic.com/legal/credit-terms): *"Credits may only be used by the holder of the
+Anthropic account to which the Credits are associated."* So BYOK on the learner's own key fits, and the covered
+variant never draws on a learner's credits. Max-linked organizations start at the Start rate-limit tier or higher.
 
 ### Which Claude plan works where
 
@@ -277,7 +284,7 @@ Claude Code does these today with Python, files and the shell:
 | `card` (find, show, overlaps, edit, merge, split, regrade, forgive) | `card.py` (`lani-fix`) | A |
 | `notebook_note`, `notebook_write` | New: the notebook (below) | A |
 | `report_problem` | New: a curated item that's wrong, or a wish, as a GitHub discussion: looked up first, upvoted if it's there, created if not (see [Reports](#reports-github-discussions)). Today it's an entry in the learner's `app/wishlist.md`. | A |
-| `dictionary_lookup` | New: fran.si (and the language's other dictionaries), the page's text as marked untrusted data. Self-hosted, Claude Code does it with `WebFetch(domain:fran.si)`. Maybe no tool of ours at all: the API's own web fetch tool runs on Anthropic's side and takes `allowed_domains` *(to verify: its availability on the models and its price)*; its web search tool likewise, for research beyond the dictionaries. | A |
+| `dictionary_lookup` | New: fran.si (and the language's other dictionaries), the page's text as marked untrusted data. Self-hosted, Claude Code does it with `WebFetch(domain:fran.si)`. **App-side, ours:** the phone fetches the page and returns its text as marked data, so the injection design holds (nothing leaves but the request to Anthropic). Not the API's web fetch tool (checked 2026-10-14): it can't fetch a URL the model builds itself (only URLs that appeared in a user message or a tool result), it stops at `robots.txt` and pages rendered by JavaScript, Anthropic warns of data exfiltration with untrusted input, and turning it on or off clears the caches. The API's web search ($10 per 1,000 searches, citations shown to the learner) only if research beyond the dictionaries is wanted, then on for the whole day. | A |
 | `request_content` | New: hands a brief to the studio task (content writing) | C |
 | The file tools (`view`, `create`, `str_replace`, `insert`; `search`) | New: see [File tools](#file-tools) | C |
 
@@ -288,8 +295,10 @@ So phase A's tutor has 17 tools: 10 ported, 7 new (with `card` as one tool).
 What Claude Code does with Read, Edit and Write, over the learner's data folder only:
 
 - **The API's own tool:** Anthropic's text editor tool (`view`, `create`, `str_replace`, `insert`) is a client tool:
-  the model is trained on it, the app carries it out. A `search` tool beside it. The notebook could use the API's
-  memory tool the same way *(to try in the prototype)*.
+  the model is trained on it, the app carries it out. A `search` tool beside it (`text_editor_20250728`,
+  `str_replace_based_edit_tool`, ~1k tokens of definition). Not the API's memory tool for the notebook: it injects
+  *"ALWAYS VIEW YOUR MEMORY DIRECTORY BEFORE DOING ANYTHING ELSE"*, a tool call on every task. The notebook keeps
+  `notebook_note` and `notebook_write`.
 - **Scope:** Android's sandbox already keeps every app out of the others' storage. Inside the app's own storage a path
   rule (a prefix check, no `..`, no links) keeps the tutor in the learner's data folder: off the settings, the spend
   ledger and its budget, the git setup and the voice cache.
@@ -439,16 +448,20 @@ Decide in the prototype, for the validators first.
   work item, while charging and on Wi-Fi (overnight). Android stopping the app only pauses it. What waits for nobody
   goes through Batches.
 - **Stop reasons** are handled: `end_turn`, `tool_use`, `max_tokens` (continue once), `refusal` (a neutral message, no
-  retry).
+  retry), and `pause_turn` should a server tool ever be on.
 - **`tool_choice: auto` only.** Forced tool use returns a 400 on Opus 5.5 (and may on others), so the prompt names
   the tool instead. `strict: true` where a tool's schema allows it.
-- **Thinking:** adaptive, with effort set per task (low for reactions, medium for chat). The thread passes thinking
-  blocks back unchanged.
+- **Thinking:** adaptive (on Sonnet and Haiku 5.5 the only kind that binds), with effort set per task (low for
+  reactions, medium for chat; Sonnet 5.5's default is high, so it's always set). The thread passes thinking blocks
+  back unchanged, empty ones too: the `thinking` field is empty by default, and a serializer that skips empty blocks
+  breaks the thread. The effort stays fixed within a thread: changing it clears the message cache.
+- **Haiku 5.5:** no `temperature`, `top_p` or `top_k`; thinking counts toward `max_tokens`.
 
 ### The client: the Java SDK or plain HTTP (to verify)
 
 - **The official Java SDK** is written in Kotlin and runs on OkHttp; its README says *"Java 8+"* and nothing about
-  Android. A spike checks:
+  Android. Its core jar is 39 MB before R8, with Jackson, kotlin-reflect and a JSON-schema generator; its bundled R8
+  rules are tested on the JVM only (checked 2026-10-14, v2.72.0). That favours the plain client. A spike checks:
   - that it builds with R8 (Jackson's reflection may need keep rules);
   - what it adds to the APK;
   - that streaming works on Android 8+ (the app's `minSdk` is 26).
@@ -485,21 +498,27 @@ Decide in the prototype, for the validators first.
   notification.
 - **Reactions wait for the app to be open.** Digests run when the app opens, not in the background; only the rhythm
   does.
-- **No long foreground services.** Android 14 and later limit them (types; time limits for `dataSync`). *To verify on
-  Android 16.*
+- **No long foreground services.** Android 14 requires a service type; Android 15 limits `dataSync` to 6 hours a day;
+  `shortService` lasts about 3 minutes; no type fits a model call.
+- **Android 16's job quota:** a job started while the app is visible counts against it once the app is hidden; an
+  Active app gets about 30 minutes of expedited work a day (no limit while charging, or while the app is in the
+  foreground). So: each step well under 10 minutes, the long jobs while charging, and on Android 8–11 expedited work
+  needs `getForegroundInfo`.
 
 ### The API key
 
-- **Entered at setup:** pasted from the Console, and checked with `GET /v1/models`, which uses no tokens.
+- **Entered at setup:** pasted from the Console, and checked with `GET /v1/models` (not a model call).
 - **Stored encrypted:** an AES-GCM key in the Android Keystore (not exportable) encrypts it, and the ciphertext goes in
   DataStore.
   - It's decrypted in memory for a call only.
   - It's never in logs, prompts, tool results or the export.
   - The app's `allowBackup` is already `false`.
-  - Jetpack Security's `EncryptedSharedPreferences` is deprecated *(to verify)*, so the plan uses the Keystore directly.
+  - Jetpack Security's `EncryptedSharedPreferences` is deprecated (1.1.0, 2025-07-30: *"in favour of existing platform
+    APIs and direct use of Android Keystore"*), so the plan uses the Keystore directly (AES/GCM/NoPadding).
     Today's bridge token sits in DataStore unencrypted: it should move to the same scheme.
-- **Setup suggests a Console workspace for Lani,** with its own key and a monthly spend limit, so Anthropic enforces a
-  cap as well as the app. *To verify: the Console's workspace limits.*
+- **Setup has the learner make a Console workspace for Lani,** with its own key and a monthly spend limit (Settings →
+  Workspaces → Spend limits), so Anthropic enforces a cap as well as the app. The Default Workspace can't have a
+  limit. The key's expiry: "Never" (a key can expire after 3 hours to 30 days, then a 401).
 - **Settings can replace or remove the key.** On a 401, the app asks for a new one.
 
 ### Errors, rate limits, offline
@@ -507,15 +526,17 @@ Decide in the prototype, for the validators first.
 | What | The app |
 |---|---|
 | 401 authentication | Asks for a new key. Nothing is lost: the events stay queued. |
-| 400, the credit balance too low *(check the exact error)* | Says so (Console billing; a Max plan's credits come back next month). Routine work waits; a chat says why it can't answer. |
+| The credit balance too low: *"Your credit balance is too low to access the Anthropic API…"* (the status isn't documented: matched by the message on a 400 or 402) | Says so (Console billing; a Max plan's credits come back next month). Routine work waits; a chat says why it can't answer. |
+| 400 `invalid_request_error`, *"You have reached your specified workspace API usage limits"* | The workspace's own cap: says so, waits for next month or a raised limit. |
+| 429 `rate_limit_error` with `error_code: enforced_spend_limit_reached` (no `retry-after`) | The tier's spend cap: no retry; says so. |
 | 429 rate limit | Waits for `retry-after`, then tries again. Routine work backs off longer. |
 | 529 overloaded, 5xx, timeouts | Retries with backoff. A routine reaction may fall back to the other model. |
 | `refusal` | A neutral message, no automatic retry. |
 | No network | The event stays queued. |
 
-- **Rate limits:** a new Console organization starts at the lowest usage tier, with low per-minute limits. That is
-  enough for one learner: cache reads don't count toward the input-token rate limit on most models. *To verify: the
-  tier-1 limits for Sonnet 5.5 and Haiku 5.5.*
+- **Rate limits:** a new organization may start in the Evaluation tier (limits below the standard ones, not
+  published), then Start: 1,000 requests, 2M input and 400k output tokens a minute per model. Plenty for one learner:
+  cache reads don't count toward the input-token limit.
 - **Offline:**
   - Events queue in the app, persisted, like the outbox. The tutor answers later, and the turn carries `queued_at`, as
     plan 4's queue does.
@@ -564,7 +585,7 @@ Decide in the prototype, for the validators first.
   - BYOK caches it per learner (caches are per workspace).
   - Covered: one cache entry per model and app version serves every learner (see
     [The covered variant](#the-covered-variant)).
-- **The minimum cacheable length** is 512 tokens on the 5.5 models (1,024 on Haiku 4.5): not a concern.
+- **The minimum cacheable length** is 512 tokens on the 5.5 models (4,096 on Haiku 4.5): not a concern.
 
 ### The guide on demand
 
@@ -604,6 +625,14 @@ How it's kept:
 - **Routine reactions on Haiku don't use the thread.** They're a stateless call: the prefix, the notebook, the event
   and today's digest. Their reply is added to the day's thread as a line, so the main tutor knows what was said.
   - Why: caches are per model. A Haiku call on the Sonnet thread would write the whole thread again for Haiku.
+  - And Haiku 5.5 reads no thinking blocks from Sonnet or Opus 5.5: a thread never changes its model (no fallback
+    to Haiku inside a Sonnet thread).
+- **The thread's rules** ([preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking)):
+  - never edit or re-render an earlier message; the notebook in the first message is fixed for the thread, and
+    `notebook_note` goes into the newest turn;
+  - restart the thread when an app update changes the tools;
+  - thinking blocks are bound to the account: a new key, or a move between BYOK and covered, restarts the thread;
+  - phase 0 sends `thinking-binding-controls-2026-08-01` and logs `input_transformations`, to catch any edit.
 
 ### Compaction: our own
 
@@ -687,7 +716,8 @@ How it's kept:
   1M context and adaptive thinking, at a tenth of Haiku 4.5's price. It makes routine reactions almost free.
   - Whether its Slovene is good enough for grading, and maybe for chat, is the question that matters most for the
     price.
-  - Haiku 4.5 is the fallback.
+  - Haiku 4.5 isn't much of a fallback: it's legacy, retiring "not sooner than October 15, 2026", with manual
+    thinking only and no effort. If Haiku 5.5's Slovene falls short, the routine tasks go to Sonnet 5.5.
 - **Caches are per model,** so each model in use writes its own prefix. That's small next to the thread.
 
 ### Presets
@@ -835,6 +865,8 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 - **Anthropic's [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) and Usage Policy.**
   - In covered mode we are the API customer offering an end-user product: the Usage Policy covers what our users do.
   - Branding: "Lani, powered by Claude".
+  - The Usage Policy: *"All consumer-facing chatbots or AI agents … must disclose to users that they are interacting
+    with AI"* (as the AI Act's Article 50; see open question 7).
   - **Minors:** products that serve minors have extra requirements *(to verify in Anthropic's current guidance)*. A
     child learner (plan 2) on covered falls under them.
   - A child can't have a Console account of their own (the Console is for adults), so a child's hosted tutor runs on a
@@ -993,7 +1025,7 @@ With every phase done, the hosted mode matches the self-hosted one for a learner
 |---|---|---|
 | New scenes and villagers | The validators: scenes in an existing art with a stage, villagers with glas's voices. New art stays culture-pack content. | C |
 | Fixing curated content: a report instead of a fix | A local override: the fix applies on the phone at once, and the report goes out. The override retires when the upstream fix arrives. Cards already get fixed at once (`card`). | A (cards), C (the rest) |
-| No web (fran.si, research) | `dictionary_lookup`, or the API's web fetch and web search tools limited to allowed domains | A |
+| No web (fran.si, research) | `dictionary_lookup`, fetched by the app; the API's web search for research beyond the dictionaries if wanted (its citations shown) | A |
 | Large writing jobs (a unit of the course, a set of stories) | The long jobs: steps saved, sub-tasks with their own threads, overnight while charging, Batches. The self-hosted tutor never runs the app's QA either (that's for code): in both modes the validators check its content. | C |
 | Reactions to reviews come in the digest | The "react at once" setting | A |
 | Several devices | The git lease lets a phone and a tablet take turns. Using both at once needs a sync. | B (turns), later (a sync) |
@@ -1109,8 +1141,9 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 
 1. **The Max credits and API keys.** Mostly answered (above). Still open: whether the credits' terms allow use through
    a third-party app such as Lani (the article says nothing either way), and how setup shows a learner which
-   organization their key belongs to. And the approval for signing in with the subscription (Jan wants it): the
-   request to Anthropic, in phase 0.
+   organization their key belongs to. The credit terms: only the account's holder uses the credits (BYOK fits).
+   And signing in with the subscription (Jan wants it): no route is published and the legal page doesn't permit it;
+   the request goes through "contact sales" in phase 0 (the draft: [phase 0](05-phase-0.md), check 11).
 2. **The Java SDK on Android** (R8, APK size, streaming), or our own small client.
 3. **The cost per learner in practice:** the prototype. Above all, the cold starts a day and the thread's size.
 4. **Haiku 5.5's Slovene:** grading, feedback, role-play, against Sonnet 5.5. Jan's wife checks a sample.
