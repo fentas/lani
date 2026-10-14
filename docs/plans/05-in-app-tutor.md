@@ -66,12 +66,16 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
   (phase 0). Not by signing in as Claude Code (see [Why not another way](#why-not-another-way-checked-2026-10-11)).
   Until then, a Max plan's monthly API credits are the subscription's way in ([Which Claude plan works
   where](#which-claude-plan-works-where)).
+- **The API key first.** A subscription's token reaches the same Messages API, so if Anthropic approves (or we
+  decide), it's one more kind of auth on the same transport (`TutorTransport`): the loop, the tools and the requests
+  stay. What changes then is the spend shown: the plan's usage limits instead of dollars.
 - **Every gap should close in the end:** with the validators, a small resumable agent loop and a few tools. See
   [After all phases](#after-all-phases).
 - **File tools, checked on every write,** next to the typed tools. See [File tools](#file-tools).
 - **An optional git push** from the phone: tap, sign in, pick a repo. See [Git (optional)](#git-optional).
 - **Audio stays in the SaaS:** the clips are made there (the ElevenLabs key, the credits, one shared cache) and cached
-  on the phone, with the app's offline Piper voice as the fallback.
+  on the phone, with the app's offline Piper voice as the fallback. Lines with the learner's name are split at the
+  name, so every learner shares them and only the name is voiced per learner ([plan 3](03-voice-service.md#proposed-lines-with-the-learners-name-split-at-the-name-2026-10-14)).
 - **The self-hosted tutor keeps its rights in the app repository.** `lani-session` starts it at the repository's root
   in `acceptEdits`, with `Write` and `Edit` allowed. In its 45 sessions (2026-08-25 to 2026-10-14) it never edited
   the app's or the bridge's code and never built, installed or restarted anything. It wrote the learner's data, its
@@ -272,7 +276,7 @@ Claude Code does these today with Python, files and the shell:
 | `card` (find, show, overlaps, edit, merge, split, regrade, forgive) | `card.py` (`lani-fix`) | A |
 | `notebook_note`, `notebook_write` | New: the notebook (below) | A |
 | `report_problem` | New: a curated item that's wrong, or a wish, as a GitHub discussion: looked up first, upvoted if it's there, created if not (see [Reports](#reports-github-discussions)). Today it's an entry in the learner's `app/wishlist.md`. | A |
-| `dictionary_lookup` | New: fran.si (and the language's other dictionaries), fetched by the app, the page's text returned as marked untrusted data. Self-hosted, Claude Code does it with `WebFetch(domain:fran.si)`. | A |
+| `dictionary_lookup` | New: fran.si (and the language's other dictionaries), the page's text as marked untrusted data. Self-hosted, Claude Code does it with `WebFetch(domain:fran.si)`. Maybe no tool of ours at all: the API's own web fetch tool runs on Anthropic's side and takes `allowed_domains` *(to verify: its availability on the models and its price)*; its web search tool likewise, for research beyond the dictionaries. | A |
 | `request_content` | New: hands a brief to the studio task (content writing) | C |
 | The file tools (`view`, `create`, `str_replace`, `insert`; `search`) | New: see [File tools](#file-tools) | C |
 
@@ -988,8 +992,8 @@ With every phase done, the hosted mode matches the self-hosted one for a learner
 |---|---|---|
 | New scenes and villagers | The validators: scenes in an existing art with a stage, villagers with glas's voices. New art stays culture-pack content. | C |
 | Fixing curated content: a report instead of a fix | A local override: the fix applies on the phone at once, and the report goes out. The override retires when the upstream fix arrives. Cards already get fixed at once (`card`). | A (cards), C (the rest) |
-| No web (fran.si) | `dictionary_lookup` | A |
-| Large writing jobs (a unit of the course, a set of stories) | The long jobs: steps saved, sub-tasks with their own threads, overnight while charging, Batches. Still Claude Code's alone: running the app's QA on the result and research across the web. The validators and a preview in the app cover most of it. | C |
+| No web (fran.si, research) | `dictionary_lookup`, or the API's web fetch and web search tools limited to allowed domains | A |
+| Large writing jobs (a unit of the course, a set of stories) | The long jobs: steps saved, sub-tasks with their own threads, overnight while charging, Batches. The self-hosted tutor never runs the app's QA either (that's for code): in both modes the validators check its content. | C |
 | Reactions to reviews come in the digest | The "react at once" setting | A |
 | Several devices | The git lease lets a phone and a tablet take turns. Using both at once needs a sync. | B (turns), later (a sync) |
 | New voices are a request to us; live lines have a quota | By design: the voices are shared, and audio stays in the SaaS | |
@@ -1130,6 +1134,14 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 9. **Preserved thinking:** check that restarting the thread with re-sent text passes the history check on a new
    account.
 10. **Shared validators:** a Kotlin port with a conformance corpus, or the bridge's TypeScript in a JS engine in the app.
+    - **Kotlin is faster,** but speed doesn't decide here: a validator checks a few kilobytes of JSON, milliseconds
+      even in an interpreter.
+    - **One code base does.** The validators change with every feature (`validateScene` alone grows with each
+      scene mechanic); two implementations drift, and their error messages, which the tutor reads, would differ.
+    - **The engines:** QuickJS (~1–2 MB in the APK, an interpreter) or Jetpack's JavaScriptEngine (the WebView's V8
+      in a sandboxed process: fast, nothing added to the APK, asynchronous, needs a recent WebView).
+    - **Leaning:** the bridge's validators, bundled with bun, in a JS engine; Kotlin for what runs all the time (SM-2,
+      the word lookups). A spike in phase 0 times the bundle and a run per module.
 11. **The notebook in the self-hosted mode too?** Yes, if switching modes goes through git (see [Switching modes
     through git](#switching-modes-through-git)): then both sides start where the other stopped.
 12. **Can a hosted town and a self-hosted town visit each other?** Answered (2026-10-14): yes, when a self-hosted

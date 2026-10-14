@@ -248,6 +248,41 @@ Nothing levelled the clips: ElevenLabs' voices differ by 10 dB.
 **For glas:** a clip's settings include its loudness target (the `clips` key in the data model), and QA could
 check a new voice's loudness and peak-to-loudness ratio before it is saved.
 
+### Proposed: lines with the learner's name, split at the name (2026-10-14)
+
+Jan's question: a line with `{learner}` ("Lahko noč, {learner}!") is voiced as the app renders it, with the name in
+it, so every learner needs their own clip of it. In Jan's store on 2026-10-14:
+
+- **917 of the 7,338 ElevenLabs clips** (12.5 %) hold the name: 41,659 characters, about 21,000 credits on v4 Turbo.
+  A second learner would need all of them again, and the share grows with the content.
+- **935 of the 937 names stand at a break:** a comma, `!` or `.` beside them. Calling ("Jan! Dežuje!"), closing
+  ("Lahko noč, Jan!"), thanking ("Hvala, Jan."). Only the nominative form so far: a Slovene vocative is the
+  nominative. The two others are the learner's own introduction ("Imenujem se {learner} in …") and a false hit.
+
+**The proposal:** cut the line at the name, voice the parts once for everyone and the name once per learner and voice.
+
+- **The parts:** "O, {learner}! Dober dan." is `O,` + the name + `Dober dan.` The parts are the line's own, so they
+  go into the shared library (keyed by the line with its placeholder), made once for every learner.
+- **The name:** a short clip per learner, voice and kind, its punctuation carrying the intonation: a call (`Jan!`),
+  a statement (`Jan.`), a question (`Jan?`), mid-sentence (`Jan,`), and the cases `{learner:…}` when a line uses one.
+  About 4 clips × ~20 voices × ~5 characters: some 400 characters per learner instead of 42,000, in the private
+  namespace.
+- **Playing:** the phone plays the pieces in a row without gaps (Media3's playlist) with a short pause at the
+  break: as the punctuation would give, 80–150 ms *(to tune by ear)*. Or the voice store joins them into one file
+  per learner with ffmpeg, which costs no credits. Either way the pieces are levelled and filtered as every clip, so
+  they match.
+- **What stays whole:** a name inside a phrase, as in the learner's own introduction, is voiced whole, per learner.
+  It's rare.
+- **Gender pairs** (`{m:…|f:…}`) aren't split: there are two forms, and each is shared by every learner of that
+  gender, as now.
+- **To verify:**
+  - how the joins sound with v4 Turbo, on a sample (calls, closings, thanks), listened to by Jan and the native check;
+  - whether ElevenLabs' request stitching (`previous_text`, `next_text`) works on v4 and helps the name sound like
+    part of its line;
+  - that a name alone is said right (a foreign name out of context). The learner can redo their name's clips, as
+    any clip.
+- **Self-hosted too:** a second profile on one node (`lani-profile`) shares the parts the same way.
+
 ## Where the proof of concept runs
 
 - `lani.page` itself is the site (GitHub Pages); its subdomains for the dev setup resolve to a LAN address, the local
@@ -269,7 +304,7 @@ check a new voice's loudness and peak-to-loudness ratio before it is saved.
 | Kind of text | Where it goes |
 |---|---|
 | Curated and published content: packs, modules, scenes, villager lines, festival words | The **shared** library: made once, cached for everyone, and part of the corpus. |
-| Personal lines: the tutor's role-play replies, lines with names, anything from a chat | A **private** namespace per node or tenant: cached for that node, never in the shared corpus, and deleted with the tenant. |
+| Personal lines: the tutor's role-play replies, the learner's name (its short clips, [split at the name](#proposed-lines-with-the-learners-name-split-at-the-name-2026-10-14); the line's other parts are shared), anything from a chat | A **private** namespace per node or tenant: cached for that node, never in the shared corpus, and deleted with the tenant. |
 
 The node marks each request as `shared` or `private`; glas defaults to private. GDPR applies to the private
 namespace (export and deletion).
