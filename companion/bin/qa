@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """End-to-end QA of the Lani app on an Android emulator.
 
-Starts the emulator (AVD "lani-qa", or "fluent-qa" made before the rename; $LANI_QA_AVD) if needed, builds and installs a fresh debug APK, runs the
+Starts the emulator (AVD "lani-qa", or "fluent-qa" made before the rename; $LANI_QA_AVD) if needed, builds and installs a fresh debug APK (--minified: the qa build, R8 as in a release), runs the
 dev bridge on a COPY of the learner data, drives the main flows by visible text, takes a screenshot
 per step and fails on crashes. Real learner data is never touched.
 
@@ -9,7 +9,14 @@ A second town to visit: a fixture Italian town (companion/bridge/test/fixtures/d
 culture pack) on its own dev bridge (test/dev-town.ts, a temp data dir), linked with the dev bridge's town;
 the visit steps go to it from Friends and back home.
 
-Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
+Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge] [--no-town] [--steps <names>] [--happening <scene>/<id>] [--dry] [--bridges-only]
+  --minified           the qa build instead of the debug build (:app:assembleQa, app-qa.apk): the release build's R8, with
+                       its rules and optimizations, and QA's hooks, the debug build's manifest (the dev bridge over plain
+                       HTTP), x86_64 and the debug key (app/build.gradle.kts); a crash or a screen that loads nothing
+                       there is a keep rule missing (app/proguard-rules.pro). Not debuggable: QA reads the app's
+                       files with the emulator's su instead of run-as
+  --apk <file>         install that APK, built nothing (a debug or qa build: a release build has neither QA's hooks
+                       nor plain HTTP to the dev bridge)
   --steps visit,packs  only these steps (and setup); "visit" is Friends and every visit step; "road" the car's
                        "🚗 Za pot" (a small library got ready, played, next, paused; "❓ Kviz": a pick by next, a
                        question again by previous; browsed as Android Auto does: two tabs, each session played);
@@ -98,6 +105,7 @@ import json
 import os
 import re
 import resource
+import shlex
 import shutil
 import subprocess
 import sys
@@ -122,7 +130,9 @@ for _k, _v in list(os.environ.items()):
 ANDROID = ROOT / "companion/android"
 BRIDGE = ROOT / "companion/bridge"
 SDK = Path.home() / "Android/Sdk"
-APK = ANDROID / "app/build/outputs/apk/debug/app-debug.apk"
+MINIFIED = "--minified" in sys.argv  # the qa build: R8 as in a release (app/build.gradle.kts)
+APK = ANDROID / ("app/build/outputs/apk/qa/app-qa.apk" if MINIFIED else "app/build/outputs/apk/debug/app-debug.apk")
+BUILD_TASK = ":app:assembleQa" if MINIFIED else ":app:assembleDebug"
 PKG = "si.lanisce.lani"
 OUT = ROOT / "companion/qa-shots" / time.strftime("%Y%m%d-%H%M%S")
 PORT = os.environ.get("LANI_DEV_PORT", "8791")
@@ -3853,14 +3863,29 @@ def road_car_log() -> list[str]:
 
 # --- the offline audio (companion/README.md, "Offline on the phone") -----------------------------------------------
 
+_debuggable: dict[str, bool] = {}
+
+
+def in_app(*args, quote=True) -> list[str]:
+    """[args] as a command in the app's own folder: run-as in a debuggable build (debug), else (the qa build, not
+    debuggable: --minified) the emulator's su, a command at a time (adb stays as it is, not restarted as root). [quote]:
+    for adb shell, which joins its arguments as they are for the device's shell; adb exec-out quotes each one itself."""
+    if "app" not in _debuggable:
+        _debuggable["app"] = "DEBUGGABLE" in adb("shell", "dumpsys", "package", PKG, check=False).partition("pkgFlags=")[2].split("\n")[0]
+    if _debuggable["app"]:
+        return ["run-as", PKG, *args]
+    command = f"cd /data/data/{PKG} && " + " ".join(map(shlex.quote, args))
+    return ["su", "0", "sh", "-c", shlex.quote(command) if quote else command]
+
+
 def run_as(*args) -> str:
-    """A shell command in the app's own folder (a debug build: run-as)."""
-    return adb("shell", "run-as", PKG, *args, check=False)
+    """A shell command in the app's own folder (in_app)."""
+    return adb("shell", *in_app(*args), check=False)
 
 
 def pull(path: str, to: Path) -> bool:
     """The app's file [path] (relative to its folder) copied to [to]."""
-    out = subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", "run-as", PKG, "cat", path], capture_output=True).stdout
+    out = subprocess.run(["adb", *(("-s", SERIAL) if SERIAL else ()), "exec-out", *in_app("cat", path, quote=False)], capture_output=True).stdout
     if not out:
         return False
     to.write_bytes(out)
@@ -4435,13 +4460,24 @@ def selected(steps):
     return [s for s in steps if s[0] == "setup" or s[0] in names or s[4] in names]
 
 
+def app_apk() -> Path:
+    """The APK QA installs: --apk's, else the build's (debug, or qa with --minified)."""
+    return Path(arg("--apk")).resolve() if arg("--apk") else APK
+
+
+def building() -> bool:
+    """Whether QA builds the APK first: not with --no-build or --apk."""
+    return "--no-build" not in sys.argv and not arg("--apk")
+
+
 def dry(steps, visiting: bool):
     """--dry: what a run would do, with the ports as they are now; nothing is built, started or tapped."""
     def port(p):
         pids = listeners(p)
         return "free" if not pids else f"in use now (pid {', '.join(pids)})"
     print("QA plan (--dry: nothing is built, started or tapped)\n")
-    print(f"app          {'' if '--no-build' in sys.argv else 'build, '}install and start {PKG} on {SERIAL or f'the emulator (AVD {avd()})'}")
+    built = "" if not building() else f"build ({BUILD_TASK}), "
+    print(f"app          {built}install {app_apk()} and start {PKG} on {SERIAL or f'the emulator (AVD {avd()})'}")
     print(f"dev bridge   127.0.0.1:{PORT} (the app: {BRIDGE_URL}, token {TOKEN}): test/dev-bridge.ts on a copy of "
           f"{os.environ.get('LANI_DEV_DATA') or dev_data()}, its town links left out; port {port(PORT)} (stopped first)")
     why = "--no-town" if "--no-town" in sys.argv else FACTS.get("error") or (None if visiting else "no visit step chosen")
@@ -4488,9 +4524,9 @@ def main():
         sys.exit(bridges_only())
     OUT.mkdir(parents=True, exist_ok=True)
     env = {**os.environ, "JAVA_HOME": sh("mise", "where", "java").strip()}
-    if "--no-build" not in sys.argv:
-        print("building …")
-        subprocess.run(["./gradlew", "-q", ":app:assembleDebug"], cwd=ANDROID, env=env, check=True)
+    if building():
+        print(f"building ({BUILD_TASK}) …")
+        subprocess.run(["./gradlew", "-q", BUILD_TASK], cwd=ANDROID, env=env, check=True)
     ensure_emulator()
 
     bridge = start_bridge()
@@ -4498,7 +4534,7 @@ def main():
     time.sleep(4)
 
     adb("uninstall", PKG, check=False)
-    adb("install", "-r", str(APK))
+    adb("install", "-r", str(app_apk()))
     adb("logcat", "-c")
     adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
 
