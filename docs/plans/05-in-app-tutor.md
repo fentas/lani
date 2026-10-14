@@ -907,11 +907,35 @@ same repository, switching is a handover, not an export:
   side starts where the other stopped.
 - **Versions:** the manifest's schema versions decide. The newer side migrates; an older one says "update first".
 - **What doesn't move through git:**
-  - **The town's key:** a secret, encrypted with the recovery code or kept in the backup, not in the repository.
-    The town stays reachable through the relay in both modes (phase D).
+  - **The secrets:** the town's key, the family token, open town invites. They move by QR code at the handover
+    (below).
   - **Voices:** the node's store and glas are separate. Curated clips come from glas either way; the tutor's personal
     lines are voiced again when they're played.
 - **Without git,** export and import (above) still work.
+
+### The secrets at the handover: a QR code
+
+What the data repository's `.gitignore` keeps out: `app/bridge-key.pem` (the town's key: its fingerprint is the
+town's id among its friends, `town: bridgeKey.fingerprint`), `app/family-token` (the family page's link),
+`app/town-invites/`. The bridge token belongs to one pairing and doesn't move. Jan's idea (2026-10-14): a QR code, as
+pairing has, so the handover is a scan.
+
+The pairing's connection is already authenticated: its QR code carries the node's key fingerprint (`f`), and the
+phone checks it. So the secrets travel over it, and the QR code carries only a one-time code:
+
+- **Self-hosted → hosted:** the phone is still paired. "Move to Lani cloud" in the app; `lani handover` on the node
+  shows a QR code (a one-time code, valid 5 minutes) and asks "Send the town to <the phone's name>? [y/N]". The phone
+  scans and fetches the bundle over the paired connection; the secrets go into the Keystore.
+- **Hosted → self-hosted:** `lani setup` shows the pairing QR code, as today. The phone scans, pairs, asks "Move your
+  town to this node?", and sends the bundle over the new connection. The node writes the files (mode 0600).
+- **Not the key in the QR code itself:** it would fit (a P-256 key is ~200 characters), but it would stand on a
+  screen, in the terminal's scrollback, in a photo or a screen share. A one-time code is the same scan.
+- **No relay needed for the key:** the phone is on the tailnet for the handover either way. The relay helps with
+  the address: friends find the town by its fingerprint at the relay in both modes (phase D), so a move doesn't
+  show to them. Before phase D, a hosted town is away for its friends.
+- **The town's key apart from the node's:** today one key is both the node's pairing identity and the town's id. A
+  node taking over a hosted town would have to change its own identity. So the town gets its own key
+  (`app/town-key.pem`); a node without one reads `bridge-key.pem` as before, and friends keep knowing the town.
 - **Backup through the SaaS:**
   - encrypted on the phone: a key in the Keystore and a recovery code the learner keeps (or a passphrase);
   - daily, and after a session ends; several versions kept;
@@ -1030,7 +1054,7 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 |---|---|---|
 | 0 | **Prototype and measure.** The loop in a debug build on Jan's own key, in **shadow mode** on Jan's real events: the self-hosted tutor still answers; the in-app tutor's answers go to a debug panel. Both models side by side. The Java SDK spike. Ask Anthropic for approval of the subscription sign-in. 2 weeks. | Numbers per event kind (see [The estimate](#the-estimate)). Quality compared. The estimate confirmed or replaced. |
 | A | **Hosted BYOK alpha.** Key setup and caps; chat (streamed); reactions to session ends and reviews; grading answers; "Why?" on exercises; card fixes; words (glosses, sentence notes); the rhythm; the notebook and the day's threads; the spend shown; the presets and "react at once"; `dictionary_lookup`; reports as discussions; export and import with a node. Curated content as a download, clips from glas, the phone's STT. | Jan (a second profile) and 2–3 testers use it daily for 2 weeks. The cost per learner-day is measured. Export and import lose nothing. |
-| B | **Role-play** (scenarios, villager talks, live lines from glas), the grammar book (`publish_grammar`), `level_up`, the encrypted backup. **Git (optional)** and switching modes through it (the lease). | A role-play turn answers in under ~3 s. A restore on a second phone works. Jan switches from the node to the phone and back, through the data repository, and loses nothing. |
+| B | **Role-play** (scenarios, villager talks, live lines from glas), the grammar book (`publish_grammar`), `level_up`, the encrypted backup. **Git (optional)** and switching modes through it (the lease, the secrets by QR code at the handover, the town's own key). | A role-play turn answers in under ~3 s. A restore on a second phone works. Jan switches from the node to the phone and back, through the data repository, and loses nothing. |
 | C | **Content writing:** the studio task (modules, packs, stories, readings, dialog variants, arrivals, scenes in existing arts, villagers), the long jobs, Batches for what can wait, fixes to content and the local overrides. The file tools, checked on write. The validators ported or shared. | The conformance corpus is green in the bridge and the app. A tester's tutor-made module plays. A broken file is refused with the validator's message. |
 | D | **Towns and family through the SaaS relay.** Self-hosted bridges publish their towns to the relay too. | Two hosted towns visit each other and trade, and a hosted and a self-hosted town. The family page works without a node. |
 | Later | **Several devices at once:** a sync. | |
