@@ -148,9 +148,10 @@ internal class WorkshopPainter : RoomPainter() {
             val top = cot()
             sleeperOn(p, COT_A, COT_C, COT_B, COT_D, top, alongY = true, COARSE)
         }
-        // the floor: the wheelbarrow, the chopping block with the axe, the broom in the front corner
-        if (there("wheelbarrow")) thing("wheelbarrow") { wheelbarrow() }
+        // the floor: whoever stands there behind the wheelbarrow (it hides their feet, they don't stand in it), the
+        // wheelbarrow, the chopping block with the axe, the broom in the front corner
         for (p in peopleAt("floor")) { footShadow(5.6f, 5.3f); personAt(p, 5.6f, 5.3f, fl, flip = true) }
+        if (there("wheelbarrow")) thing("wheelbarrow") { wheelbarrow() }
         thing("axe", slop = 1) { block(); axe() }
         thing("broom", slop = 1) { broom() }
 

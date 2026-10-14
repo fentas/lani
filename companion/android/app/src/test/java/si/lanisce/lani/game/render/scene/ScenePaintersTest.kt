@@ -215,7 +215,9 @@ class ScenePaintersTest {
                 assertEquals("$art/$spot/$sprite", 1, hs.size)
                 val hit = hs.first()
                 val hh = hit.bottom - hit.top; val ww = hit.right - hit.left
-                assertTrue("$art/$spot/$sprite is person-sized: $hit", hh in 20..46 && ww in 8..30)
+                // (what stands in front of someone hides their feet: a pupil sits behind the desk, the head and the
+                // shoulders over it; a child at the workshop's floor stands behind the wheelbarrow)
+                assertTrue("$art/$spot/$sprite is person-sized: $hit", hh in 16..46 && ww in 8..30)
             }
         }
     }

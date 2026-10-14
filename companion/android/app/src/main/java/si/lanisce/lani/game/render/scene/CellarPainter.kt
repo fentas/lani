@@ -164,8 +164,9 @@ internal class CellarPainter : RoomPainter() {
             val top = trestleBed()
             sleeperOn(p, TR_A, TR_C, TR_B, TR_D, top, alongY = true, HONEY_WOOL)
         }
-        if (there("wine")) thing("wine", slop = 1) { demijohn(8.1f, 6.4f) }
+        // whoever is at the press stands behind the demijohn: it is drawn over their feet
         for (p in peopleAt("press")) { footShadow(7.55f, 5.35f); personAt(p, 7.55f, 5.35f, fl, flip = true) }
+        if (there("wine")) thing("wine", slop = 1) { demijohn(8.1f, 6.4f) }
         thing("crate") { crate(6.0f, 7.2f) }
         if (there("grapes")) thing("grapes", slop = 1) { grapes(6.0f, 7.2f) }
         // the small table with the glass, the candle and the cheese
