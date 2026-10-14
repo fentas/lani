@@ -290,6 +290,33 @@ voice each line once, whole, with a filler name, cut the filler out, and put the
   - names much longer or shorter than the filler.
 - **Self-hosted too:** a second profile on one node (`lani-profile`) shares the pieces the same way.
 
+**The first sample (2026-10-14, plan 5's phase 0, check 5):** 13 lines in `@micka`, `@janez` and `@luka` (calls,
+closings, thanks, two mid-phrase, two with "Maximilian"), each as today's whole take (A), stitched (B) and a whole v4
+Turbo take (C), on Jan's phone for listening. What it showed:
+
+- **v4 Turbo does `/with-timestamps` and request stitching** (`previous_text`, `next_text`: HTTP 200; the context
+  isn't billed).
+- **The timestamps alone don't cut mid-line.** At a comma the voice runs through, the alignment still gives the comma
+  ~0.24 s and puts the next letters up to 280 ms late: cut by the timestamps alone, five lines kept "Ma" of "Marko".
+  The carrier cut works because its word ends the sentence. So glas cuts with the timestamps as a first guess, a
+  real pause where there is one, Whisper's word times to bracket the boundary, and inside the bracket the consonant's
+  onset (the filler's "M", the name's "J") or the quietest point. Whisper then hears every stitched line whole.
+- **"Jan." alone is read as the month "januar",** with or without context. "Jan" with the "." in `next_text` comes out
+  right. A name's carrier sentence always has words after it.
+- **Pitch and length:** calls, thanks and closings land within ~1.3 semitones and 2 dB of the filler; mid-phrase names
+  come out 2.6–3.3 semitones low, and "Maximilian" in a goodnight 4.5 high, so the pitch match matters there. A shift
+  next to a consonant can blur it (one line heard as "bo vas Janom"). Names from carriers are 10–45 % longer than in a
+  whole take.
+- **The name voiced alone with the line as unspoken context** fits mid-phrase but comes out like a new exclamation
+  after a comma: carriers stay the way.
+- **Pauses:** the voices run through commas, so 100 ms at a comma before the name; after "Jan!" or "Jan." the line's
+  own pause (118–238 ms); a 10 ms crossfade mid-phrase. Pause ladders on the phone to tune by ear.
+- **Billing:** v4 Turbo cost about 0.2 credits a character (the `character-cost` headers and the history agree), not
+  the 0.5 `MODEL_CREDITS` in `voice.ts` assumes. The quota guard reads the real usage from the subscription, so only
+  the estimates (`voice-build`'s dry runs) are high.
+- **Waiting for:** Jan's and the native check's ears (A against B, C against B), and the Slovene of the two
+  mid-phrase lines and the carriers.
+
 ## Where the proof of concept runs
 
 - `lani.page` itself is the site (GitHub Pages); its subdomains for the dev setup resolve to a LAN address, the local

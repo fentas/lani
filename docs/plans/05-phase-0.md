@@ -24,9 +24,9 @@ the estimate confirmed or replaced; the validators' engine chosen; the SDK or th
 |---|---|---|---|---|
 | 1 | **The API, from the docs:** the web fetch and web search tools (`allowed_domains`, which models, the price); compaction on demand; preserved thinking on a restarted thread; the tier-1 rate limits; the low-credit error; the Console's workspace limits; the model ids and prices the plan uses | — | Claude | done |
 | 2 | **Android, from the docs:** Jetpack's JavaScriptEngine (requirements, WebView versions); `EncryptedSharedPreferences`; foreground-service limits on Android 16; the Java SDK on Android (Jackson, R8, size) | — | Claude | done |
-| 3 | **ElevenLabs:** `/with-timestamps` and request stitching (`previous_text`, `next_text`) on v4 Turbo | a few characters | Claude | docs done (not stated); the test call runs with 5 |
+| 3 | **ElevenLabs:** `/with-timestamps` and request stitching (`previous_text`, `next_text`) on v4 Turbo | a few characters | Claude | done: both work |
 | 4 | **The validators in a JS engine:** the bridge's validators bundled; QuickJS and JavaScriptEngine in the app; the size, the start, a run per file; the same verdicts and messages as the bridge on the conformance corpus (every curated file and broken variants) | the emulator | Claude | done: QuickJS |
-| 5 | **The filler-name voice sample:** lines with the name (calls, closings, thanks, mid-phrase) in three voices, voiced with a filler and the name put in, next to today's whole takes | ~2,000 ElevenLabs characters | Claude makes it; Jan and the native check listen | running |
+| 5 | **The filler-name voice sample:** lines with the name (calls, closings, thanks, mid-phrase) in three voices, voiced with a filler and the name put in, next to today's whole takes | ~2,000 ElevenLabs characters | Claude makes it; Jan and the native check listen | on Jan's phone: to listen |
 | 6 | **The prototype:** the loop in the app behind a developer setting, in shadow mode on Jan's real events (reads through the paired bridge, writes dry-run, replies in a debug panel next to the real tutor's); usage, cost and latency per call, exported | — to build; the key to run | Claude | running |
 | 7 | **Two weeks of shadow mode:** Balanced, and Haiku against Sonnet on the same events | 6, the key | Jan uses the app | waits |
 | 8 | **Quality:** grading agreement with the app's verdicts and Jan's corrections; the Slovene feedback on a sample | 7 | Claude measures; the native check reads | waits |
@@ -146,3 +146,18 @@ difference is the JSON parser's own wording for invalid JSON, compared on the ve
 v4 Turbo on `/with-timestamps` and request stitching on v4 or v4 Turbo: not stated in the docs (stitching is
 documented as unavailable on v3). The alignment format: `characters`, `character_start_times_seconds`,
 `character_end_times_seconds`. The test call runs with check 5.
+
+### Checks 3 and 5: the test calls and the name sample (2026-10-14)
+
+- **v4 Turbo:** `/with-timestamps` and request stitching both answer HTTP 200; the stitching context isn't billed;
+  about 0.2 credits a character (not 0.5).
+- **The sample is on Jan's phone:** 13 lines, A (today's whole take) and B (stitched) side by side, C (a whole v4
+  Turbo take, so B against C is the seam alone), plus pause ladders (D), the name voiced alone with context (E) and a
+  pitch match (F). `README.txt` lists every file.
+- **For the native check:** "Muri, poglej, naš Jan je spet tu." (Janez to his dog), "Danes bova z Janom spekla
+  potico." (the dual), and the carriers "Jan! Pridi sem.", "Dober dan, Jan! Kako si?", "Dobro, Jan. Zdaj vem.",
+  "Danes je Jan doma.", "Grem z Janom domov."
+- **What it changed:** [plan 3](03-voice-service.md#proposed-lines-with-the-learners-name-a-filler-name-cut-out-2026-10-14):
+  the cut needs Whisper's word times, not the timestamps alone; a name's carrier never ends on "Jan." (read as
+  "januar"); the pitch match matters mid-phrase and for long names.
+- **Spent:** 207 credits; 24,270 characters left until the reset on 2026-10-24.
