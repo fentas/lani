@@ -707,6 +707,8 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `GET` | `/cards` | the cheat sheet's cards no grammar page fits: the curated ones (`companion/cards/<language>/`, `LANI_CARDS_DIR` for another root), then the tutor's (`<data>/app/cards/`, `publish_card`), each with `source` (`curated`, `tutor`) and `published_at` for the tutor's; `GET /cards/<id>` one (see [Cheat sheet](#cheat-sheet)) |
 | `GET` | `/grammar/:id` | one page |
 | `GET` | `/course` | the school's course of the village's language (see [The school's course](#the-schools-course)): `{schema: "lani.course/v0", language, levels: [{level, units: [{id, title, planned, grammar}]}], units: [<lani.unit/v0> + homework: [<lani.worksheet/v0> + source: "tutor", published_at]], machine_written, review?}`; `404` `{error: "no course"}` when the language has none |
+| `GET` | `/course/sheet/:unit` | a unit's printed sheet, a page to print ([COURSE.md](COURSE.md#in-the-app)): `text/html`, the generator's own (`companion/prints/build.ts`) with its CSS, fonts and `fit.js` inlined, for the learner's base language, name and gender (`?base=en\|de\|it`, `?learner=`, `?gender=m\|f\|both` say otherwise; `400` for another); headers `x-lani-print-name` (`01-biti`) and `x-lani-print-units`; `404` for a planned or unknown unit. Kept until the course, the grammar book, the packs, the dictionary or the print's own files change |
+| `GET` | `/course/booklet/:level` | the level's booklet the same way: the cover, the contents with page numbers, every unit (`lani-sl-A1-en`); `404` for a level without units |
 | `GET` | `/drills` | the car's audio drills of the village's language (`companion/drills/<language>/`, `LANI_DRILLS_DIR` for another root), each with `source: "curated"` (see [The drills](#the-drills)); an older bridge answers 404 and the app plays its own copy |
 | `GET` | `/drills/:id` | one drill |
 | `POST` | `/packs/:id/learn` | `{results: [{word_id, quality 0-5}], duration_minutes, language?}` → new vocabulary SR items via `update-db.py` (known words skipped), in the home language's data or `language`'s, Claude gets a `words_learned` summary. A pack session and a festival's run in the village both post here |
@@ -1126,6 +1128,12 @@ the units done and in progress). A sheet played reaches the tutor as a `session_
 of, passed?, unit_done?, tested_out?}`: persisted as any session end; a unit done is congratulated, and homework on what
 went wrong may follow. `test/smoke/course.ts` validates every course file of the repository (its outline, its units,
 the grammar pages they name).
+
+**Printed.** Each unit's sheet and each level's booklet print from the app: "🖨️ Natisni list · Print sheet" on the unit
+and its row, "🖨️ Vsi listi · All sheets" on the level. The bridge serves the page `companion/bin/school-prints` makes
+(`GET /course/sheet/<unit>`, `GET /course/booklet/<level>`: one source, `companion/prints/build.ts`), the app fits it in
+a WebView off screen and opens Android's print dialog (a printer, "Save as PDF", sharing). See
+[COURSE.md](COURSE.md#printed-sheets), "Printed sheets" and "In the app".
 
 ## Voice
 
@@ -2759,6 +2767,7 @@ companion/bin/qa --steps school                  # the school: from Home's tile,
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
+companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -3019,3 +3028,19 @@ blackboard's lesson (the unit worked on last, its forms, every letter of the cou
 the chalk at every detail); `companion/bin/qa --steps school-seats` opens the dev village's copy's school at 10 o'clock
 and zooms in on the desks, again with the class's happening on, and on the blackboard. Screenshots: `school-seats`,
 `school-seats-closer`, `school-seats-class`, `school-seats-class-closer`, `school-board`.
+
+**The printed sheets** ([COURSE.md](COURSE.md#printed-sheets), "In the app"). `data/PrintsTest` checks what the app asks
+for: a unit's sheet numbered among its level's written units as the generator numbers its files (a planned one left
+out, none for it), a level's booklet only with a written unit, the bridge's path (`?base=` only for a base the sheets
+explain in), and the job's name ("Lani – A1 – 01 biti", "Lani – A1 – vsi listi"). The bridge's side is
+`test/smoke/prints.ts`: both routes as HTML (the unit's title, its table, its words said to the learner, the answers;
+the CSS, the fonts with their latin-ext faces and fit.js inlined, nothing fetched), byte for byte the generator's page of
+the same content, `?learner`, `?gender` and `?base` saying otherwise, the 404s (a planned unit, an unknown one, a level
+without units) and 400s (a base or a gender it doesn't know), the token, and a unit changed printing as it is now.
+`companion/bin/school-prints` still writes the PDFs and checks their pages. On the emulator, `companion/bin/qa --steps
+school-print` opens the unit biti (QA's hook `school`), taps "🖨️ Natisni list", waits for Android's print dialog,
+compares what fit.js chose in the app's WebView (the log, tag `LaniPrint`) with what headless Chromium chooses for the
+same page from the dev bridge, saves the PDF through the dialog ("Save to PDF", the picker's Save: `school-print-biti.pdf`,
+A4, its pages as fit.js chose), then does the same for A1's "🖨️ Vsi listi" up to its dialog; both choices side by side in
+`school-print-fit.txt`. Screenshots: `school-print-button`, `school-print-preview`, `school-print-save`,
+`school-print-pdf` (the PDF's first page), `school-print-all`, `school-print-booklet`.

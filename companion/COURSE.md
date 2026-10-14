@@ -476,3 +476,49 @@ The layout (`companion/prints/html.ts`, `sheet.css`): A4 with 12 mm margins, Nun
 tint, a mistake struck through with ✗, the right form bold with ✓). Each unit is written as one page and as two;
 `fit.js` keeps, in the page before it prints, the first that fits: as it is, with the table beside the rule, tighter,
 without the optional table and the sixth example, tightest; the room left becomes ruled lines for notes.
+
+### In the app
+
+Jan, 2026-10-14: "Can we have it in the app: for each lesson the relevant pages to print if wanted?"
+
+Each unit has **🖨️ Natisni list · Print sheet**: on its screen under "💬 Vprašaj · Ask the tutor", and as 🖨️ on its
+row in the school's levels (a locked unit's too: a sheet to learn from on the way). Each level with written units has
+**🖨️ Vsi listi · All sheets** under its units: the booklet. The bridge makes the page with the generator's own code
+(`companion/prints/build.ts`, which `school-prints` uses too: the same HTML, its CSS, fonts and `fit.js` inlined):
+
+| Route | What |
+|---|---|
+| `GET /course/sheet/<unit>` | the unit's sheet (header `x-lani-print-name: 01-biti`) |
+| `GET /course/booklet/<level>` | the level's booklet: the cover, the contents, every unit (`lani-sl-A1-en`) |
+
+for the bridge's learner: in their base language (`en`, `de` or `it`; English for another), with their name for
+`{learner}` and their gender's forms for `{m:…|f:…}` ("utrujen" for Jan, where the generator's default prints
+"utrujen/utrujena"); `?base=`, `?learner=` and `?gender=m|f|both` say otherwise. The app token, as the other routes. A
+planned or unknown unit, or a level without units, is a `404`; a base or a gender it doesn't know a `400`. The bridge
+reads the course, the grammar book, the packs and the dictionary from where it serves them (`LANI_COURSE_DIR` …), makes
+a document at its first request (a sheet in about 60 ms, A1's booklet in about 160 ms) and keeps it until a file of the
+course, the grammar book (its pages' cards too), the word packs or the dictionary changes, or the print's own
+`sheet.css`, `fit.js` or fonts (`contentStamp`: each file's name, size and time); a change to `sheet.ts` or `html.ts` is
+code, and needs the bridge restarted.
+
+The app (`ui/school/SchoolPrint.kt`) asks for the page in the learner's base, loads it into a WebView of its own that is
+never on screen (JavaScript on for `fit.js`, the text zoom at 100 % whatever the phone's font size, no network: the page
+stands alone), waits until `fit.js` has fitted every unit (`data-fitted="yes"` on `<html>`, as the generator waits for
+in Chromium; 30 s at most), writes what it chose to the log (tag `LaniPrint`), and opens Android's print dialog with the
+WebView's print adapter (`PrintManager.print`, A4 portrait, no margins of its own: the page's `@page` sets its 12 mm):
+the preview, a printer, "Save as PDF", sharing. The job, and the PDF saved, is named "Lani – A1 – 01 biti" (the booklet
+"Lani – A1 – vsi listi"). Without the tutor (none paired, or out of reach) the buttons are off and say why ("📶 Za
+tiskanje mora biti mentor dosegljiv."); an older bridge without the routes: "the tutor doesn't have this sheet yet".
+
+The WebView is Chromium too, and lays the page out as the generator's Chromium does: the same fonts (č, š, ž in their
+latin-ext faces), the same millimetres, the same page breaks and margins (its PDF of biti is the generator's, row for
+row). What differs is the screen: borders and lines snap to whole device pixels, and a phone has 2.625 or 3 of them to a
+CSS pixel where the generator has one, so on the phone's screen the sheet came out a few pixels shorter (a hairline
+0.4 px instead of 1 px, a table row 0.6 px shorter) while the WebView prints as the generator measures. `fit.js` then
+chose otherwise on 1 of A1's 18 units (osebni-zaimki: its table under the rule, a layout that fits only on the screen)
+and its "too long by" was 2 to 3 mm less. So `fit.js` measures as it prints: the root zoomed by `1 / devicePixelRatio`
+while it measures (one device pixel to a CSS pixel), sizes read off a page's known width, the zoom gone before the print.
+Every unit of A1 then fits alike in Chromium at 1, 2, 2.625, 2.75, 3 and 3.5 device pixels to a CSS pixel and in the
+emulator's WebView (QA's `school-print` compares them); what is left is the phone's text, a fraction of a millimetre
+(kdaj-cas's one page 15 mm too long there, 16 mm in Chromium, rounded). The WebView's minimum font sizes are 1 px, as
+Chromium's (it raises text under 8 px; the sheet's smallest is 6.4 pt, 8.5 px).
