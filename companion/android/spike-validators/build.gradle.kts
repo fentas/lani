@@ -68,7 +68,12 @@ android {
         getByName("test") { kotlin.srcDir("src/shared/kotlin") }
     }
     testOptions {
-        unitTests.all { it.maxHeapSize = "2g" }
+        unitTests.all {
+            it.maxHeapSize = "2g"
+            // the bundle and the corpus it reads (a new corpus runs it again)
+            it.inputs.dir("../../bridge/validators/dist")
+            it.inputs.dir("../../bridge/test/conformance/out")
+        }
     }
     dependenciesInfo {
         includeInApk = false
