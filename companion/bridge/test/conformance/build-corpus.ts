@@ -26,6 +26,7 @@ import { ScenarioStore } from '../../src/scenarios'
 import { resolveScene, validateScene, type Scene } from '../../src/scenes'
 import { VillagerStore } from '../../src/villagers'
 import { check, setRefs, type Verdict } from '../../src/validate-entry-lexicon'
+import { gaptext, outline, sort, table, transform, unit } from '../smoke/course-fixture'
 
 const companion = resolve(import.meta.dir, '../../..')
 const repo = resolve(companion, '..')
@@ -144,6 +145,14 @@ for (const doc of ['.claude/skills/lani-studio/reference/module-spec.md', '.clau
     examples.push({ kind, source: `${doc}[${i}]`, text: m[1], refs })
   })
 }
+// the smoke tests' course (test/smoke/course-fixture.ts): an outline, a unit with all four sheet types, and the tutor's
+// homework as publish_worksheet checks it (the village's language put in): the course has no curated worksheet
+const homework = {
+  language: 'sl', schema: 'lani.worksheet/v0', unit: 'biti', id: 'biti-domaca-1', title: { sl: 'Domača naloga: biti', en: 'Homework: biti' },
+  intro: { steps: [{ say: { en: 'Once more: **je** for one person, **so** for three or more.' }, examples: [{ sl: 'Luka je na vrtu.', en: 'Luka is in the garden.' }] }] },
+  exercises: [gaptext, sort, table, transform, { type: 'cloze', grammar: 'biti', text: '{learner} ___ v šoli.', accept: ['je'] }],
+}
+for (const [kind, v] of [['course', outline], ['unit', unit], ['worksheet', homework]] as const) examples.push({ kind, source: `companion/bridge/test/smoke/course-fixture.ts (${kind})`, text: JSON.stringify(v, null, 2), refs: null })
 for (const e of examples) add({ kind: e.kind, source: e.source, refs: e.refs, input: e.text })
 
 // every culture pack, checked whole as the bridge checks its village's at start
