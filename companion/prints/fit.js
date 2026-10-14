@@ -1,6 +1,5 @@
-// Fits each unit of a printed sheet (companion/COURSE.md, "Printed sheets") to the page before it prints (in headless
-// Chromium for the generator, in the app's WebView for the app's print dialog: both Chromium, the same CSS millimetres,
-// so the same decisions): its one-page
+// Fits each unit of a printed sheet (companion/COURSE.md, "Printed sheets") to the page before it prints, in headless
+// Chromium for the generator and in the app's WebView for Android's print dialog, the same in both: its one-page
 // layout if that fits (as it is, with the table beside the rule, then tighter, without the optional parts, tightest), else
 // its two-page one the same way. A unit that fits on neither gets a third page saying so, which the generator's page
 // count catches. Then the pages get their numbers and the contents its page numbers. What was chosen is written into
@@ -14,11 +13,23 @@
     if (document.fonts.ready) await document.fonts.ready
   }
   const MM = 96 / 25.4
-  const booklet = document.documentElement.dataset.mode === 'booklet'
+  const root = document.documentElement
+  const booklet = root.dataset.mode === 'booklet'
+  // Measured as it prints: one device pixel to a CSS pixel. Borders and lines snap to whole device pixels, so on a phone's
+  // screen (2.625 of them to a CSS pixel) the sheet lays out a few pixels shorter than on paper, where the WebView prints
+  // as the generator's Chromium measures (a hairline a pixel); fit.js would choose otherwise there (a layout that only
+  // fits on the screen). The root zoomed by 1 / devicePixelRatio while measuring undoes that; the zoom goes before it prints.
+  const zoom = window.devicePixelRatio > 0 && window.devicePixelRatio !== 1 ? 1 / window.devicePixelRatio : 1
+  if (zoom !== 1) root.style.zoom = String(zoom)
+  // what a millimetre measures under that zoom: getBoundingClientRect() reports zoomed sizes, clientHeight and
+  // scrollHeight the element's own (as Chromium does now; read off a page's known width either way)
+  const first = document.querySelector('.sheet')
+  const rectMM = first ? first.getBoundingClientRect().width / 186 : MM
+  const boxMM = first && first.clientWidth ? first.clientWidth / 186 : MM
   // a page's content past its bottom or right edge; a millimetre of slack for rounding (the answers turned upside down
   // round their box up a pixel or two), the footer's margin keeps it off the footer
   const overflows = layout =>
-    [...layout.querySelectorAll('.sheet > .body')].some(b => b.scrollHeight > b.clientHeight + MM || b.scrollWidth > b.clientWidth + MM)
+    [...layout.querySelectorAll('.sheet > .body')].some(b => b.scrollHeight > b.clientHeight + boxMM || b.scrollWidth > b.clientWidth + boxMM)
   const report = []
 
   for (const unit of document.querySelectorAll('.unit')) {
@@ -58,7 +69,7 @@
             break
           }
           if (name === 'one' && d === 3) {
-            const mm = Math.max(...[...layout.querySelectorAll('.sheet > .body')].map(b => b.scrollHeight - b.clientHeight)) / MM
+            const mm = Math.max(...[...layout.querySelectorAll('.sheet > .body')].map(b => b.scrollHeight - b.clientHeight)) / boxMM
             over = over ? Math.min(over, mm) : mm
           }
         }
@@ -77,7 +88,7 @@
       two.appendChild(sheet)
     }
     // the room left becomes ruled lines to write in, where there is enough of it
-    for (const n of unit.querySelectorAll('.notes')) if (n.getBoundingClientRect().height < 13 * MM) n.classList.add('empty')
+    for (const n of unit.querySelectorAll('.notes')) if (n.getBoundingClientRect().height < 13 * rectMM) n.classList.add('empty')
     const sheets = unit.querySelectorAll('.sheet')
     if (!booklet && sheets.length > 1) sheets.forEach((s, i) => {
       const pn = s.querySelector('.pn')
@@ -97,6 +108,7 @@
       if (first) p.textContent = String(all.indexOf(first) + 1)
     }
   }
+  if (zoom !== 1) root.style.zoom = ''
   document.getElementById('fit-report').textContent = JSON.stringify(report)
-  document.documentElement.dataset.fitted = 'yes'
+  root.dataset.fitted = 'yes'
 })()
