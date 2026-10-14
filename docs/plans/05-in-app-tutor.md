@@ -1,9 +1,11 @@
 # Plan 5: the tutor in the app
 
-*Status: draft, 2026-10-11. Jan's decisions of 2026-10-11 (below) change the hosted variant of
+*Status: draft, 2026-10-11, updated 2026-10-14. Jan's decisions of 2026-10-11 (below) change the hosted variant of
 [plan 1](01-public-availability.md): no Claude runs on our servers. The self-hosted mode stays as it is. Builds on
 [plan 3](03-voice-service.md) (glas, the voice service) and [plan 4](04-bridge-service.md) (the bridge as a service).
-The cost figures are estimates from Jan's tutor logs; a prototype measures them first (see [Phases](#phases)).*
+The cost figures are estimates from Jan's tutor logs; a prototype measures them first (see [Phases](#phases)). The
+second round (2026-10-14) adds the model presets, the file tools, the optional git push, the reports as GitHub
+discussions, and what's left after all phases ([After all phases](#after-all-phases)).*
 
 Today the tutor is Claude Code in a terminal on Jan's machine. The app reaches it over Tailscale through the bridge (an
 MCP server and channel). That needs an always-on machine, a Claude subscription, Tailscale and a setup most learners
@@ -56,11 +58,32 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
   - The voice SaaS has no LLM.
 - **"We manage our own session/compaction."** See [Context and compaction](#context-and-compaction).
 
+## Jan's decisions (2026-10-14)
+
+- **The models and the thread's length are settings.** Three presets (Economy, Balanced, Best), the model per task
+  for those who want it, and the thread's limit. See [Presets](#presets).
+- **Signing in with the Claude subscription:** Jan wants it. It's allowed only with Anthropic's approval, so we ask
+  (phase 0). Not by signing in as Claude Code (see [Why not another way](#why-not-another-way-checked-2026-10-11)).
+  Until then, a Max plan's monthly API credits are the subscription's way in ([Which Claude plan works
+  where](#which-claude-plan-works-where)).
+- **Every gap should close in the end:** with the validators, a small resumable agent loop and a few tools. See
+  [After all phases](#after-all-phases).
+- **File tools, checked on every write,** next to the typed tools. See [File tools](#file-tools).
+- **An optional git push** from the phone: tap, sign in, pick a repo. See [Git (optional)](#git-optional).
+- **Audio stays in the SaaS:** the clips are made there (the ElevenLabs key, the credits, one shared cache) and cached
+  on the phone, with the app's offline Piper voice as the fallback.
+- **The self-hosted tutor keeps its rights in the app repository.** `lani-session` starts it at the repository's root
+  in `acceptEdits`, with `Write` and `Edit` allowed. In its 45 sessions (2026-08-25 to 2026-10-14) it never edited
+  the app's or the bridge's code and never built, installed or restarted anything. It wrote the learner's data, its
+  memory notes and the wishlist.
+- **Reports and wishes become GitHub discussions:** looked up first, upvoted if they're there, created if not. See
+  [Reports](#reports-github-discussions).
+
 ## Why not another way (checked 2026-10-11)
 
 | Way | Why not |
 |---|---|
-| Sign in with the learner's Claude subscription | The [Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview): *"Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products…"*. Parked, as plan 1's option 2c. |
+| Sign in with the learner's Claude subscription | The [Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview): *"Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products…"*. Plan 1's option 2c. **Jan wants it (2026-10-14): we ask Anthropic for approval** (phase 0). The API endpoints are the same, but the subscription's token comes from Claude Code's own sign-in: the app would have to sign in as Claude Code and pass for it. That's against the terms, tools that did it have been blocked, and the learner's own account carries the risk. Not that way. |
 | Bundle Claude Code with the app | It's proprietary, and a Node CLI: it doesn't run on Android. The Agent SDK is Claude Code as a library, so the same applies. |
 | A remote MCP connector in the Claude apps | It works on every plan ([support article](https://support.claude.com/en/articles/11175166)). But the tutor can't be pinged: no reaction to a review or a session's end, no chat from inside Lani. **Rejected by Jan:** reactions and chat are a major feature. |
 | Claude Code routines with an API trigger ([docs](https://code.claude.com/docs/en/routines.md)) | Pro/Max, `POST …/routines/<id>/fire`, a fresh cloud session per fire, 30 fires an hour per routine, a research preview, *"not part of the Claude Platform API surface"*. It would keep the pings on the subscription, but it's a workaround around the API key. **Rejected.** |
@@ -83,20 +106,36 @@ So a Max learner's key, made in the linked organization, is in effect paid by th
 the most expensive slim setup below many times over. *Still open: whether the article's terms say anything about
 using the credits through a third-party app (it says nothing either way; the key is the learner's own).*
 
+### Which Claude plan works where
+
+A subscription (Free, Pro, Max) and an API key are separate products. The hosted mode needs a key from the Console:
+pay per use, from prepaid credits.
+
+| The learner has | Hosted (a Console key) | Self-hosted (Claude Code) |
+|---|---|---|
+| Free | Doesn't help: they buy API credits | Doesn't include Claude Code |
+| Pro | Doesn't help: no API credits | Works, within Pro's usage limits |
+| Max | $100 or $200 of API credits a month, drawn by a key in the linked organization | Works |
+
+- **On Max, the model barely matters:** the slim tutor on Opus for everything is about $2.40 a day (~$72 a month), in
+  Max 5x's $100. Setup can ask "Do you have Max?" and suggest the Best preset and a key in the linked organization.
+- **On a pay-per-use key it does:** all Opus ~$2.40 a day, the mix ~$0.85, all Haiku ~$0.07.
+- **If Haiku's Slovene holds,** ~$2 a month makes a cheap covered plan possible.
+
 ## The modes side by side
 
 | | Self-hosted | Hosted, BYOK | Hosted, covered |
 |---|---|---|---|
 | **Claude access** | Claude Code with the learner's subscription (Pro/Max), or a Console key | The learner's own Console API key, kept on the phone | Our key, held by the SaaS proxy; never in the app |
 | **Where the tutor runs** | A Claude Code session on the learner's machine (tmux), the bridge as MCP server and channel | In the app: our agent loop, the tools over local data | In the app; the proxy adds the prompt and the tools and meters |
-| **Model** | Whatever the session runs (Jan: Opus 5.5) | Per task, chosen by the app (the learner can change it) | Per task and plan, chosen by the proxy |
+| **Model** | Whatever the session runs (Jan: Opus 5.5) | Per task, by [preset](#presets) (Economy, Balanced, Best) or set per task | Per task and plan, chosen by the proxy |
 | **Voice** | Own ElevenLabs key, local Gepard, or glas with a node key | glas: shared clips, live lines with a quota; the phone's TTS as the fallback | The same |
 | **Speech recognition** | Local Whisper or the phone | The phone's recognizer; Whisper in the SaaS later | The same |
-| **The learner's data** | The node's data repository (git), the source of truth | The phone, the source of truth; an encrypted backup in the SaaS | The same |
+| **The learner's data** | The node's data repository (git), the source of truth | The phone, the source of truth; an encrypted backup in the SaaS; optionally pushed to a git repository | The same |
 | **Network** | Phone ↔ node over Tailscale | Phone → Anthropic, phone → SaaS (HTTPS) | Phone → SaaS only |
 | **Who pays** | The learner: their subscription (or API use), optionally ElevenLabs. Nothing to us | The learner pays Anthropic per token (Max and Team: from the plan's credits). Voices: free tier or a small fee (open) | The learner pays us a subscription; we pay Anthropic and the voices |
 | **Setup** | `lani setup` on an always-on machine, Tailscale, the pairing QR code | Install the app, paste a key, sign in to the SaaS (voices, backup) | Install the app, sign in, subscribe |
-| **The tutor's reach** | Everything Claude Code can do: content authoring, edits to the repository, the shell (with permission prompts) | The app's typed tools only | The same |
+| **The tutor's reach** | Everything Claude Code can do: content authoring, edits to the repository, the shell (with permission prompts) | The app's typed tools, and [file tools](#file-tools) over the learner's data folder, checked on every write | The same |
 | **Content writing** | Full (`lani-studio`) | Later (phase C), narrower | Later, by plan |
 | **Towns and family** | Bridge to bridge over Tailscale | Through the SaaS relay (phase D) | The same |
 
@@ -117,7 +156,8 @@ using the credits through a third-party app (it says nothing either way; the key
   - Hosted: our loop, with typed tools only and our own compaction.
 - **Memory:** the long session (self-hosted) against the notebook and the day's threads (hosted).
 - **The tutor's edits to the repository** (CLAUDE.md, fixes to curated content, code) exist only when self-hosted.
-  In the hosted mode, a wrong curated item becomes a report to us.
+  In the hosted mode, a wrong curated item becomes a local fix and a report to us. Developing the app is the app
+  repository's work, in either mode.
 - **Where the data lives**, and how family and towns connect.
 
 ---
@@ -208,17 +248,18 @@ hosted mode each tool is one of:
 | scenarios | `publish_scenario` | later | C | Playing role-plays needs no tool: the brief rides with the event. |
 | scenes | `list_scenes`, `get_scene` | later | C | |
 | | `publish_dialog_variant`, `remove_dialog_variant` | later | C | `dialog_variants_heard`, the morning's `words_to_weave`. |
-| | `publish_scene`, `remove_scene` | drop | | Scenes are culture-pack content with their art (plan 2, layer 1). |
+| | `publish_scene`, `remove_scene` | later | C | In an existing art with a stage, as the tutor's scenes are today; `validateScene` checks the art's spots and slots. New art stays culture-pack content (plan 2, layer 1). Was "drop" until 2026-10-14. |
 | stories | `list_stories`, `get_story`, `publish_story`, `remove_story` | later | C | `stories_low`: through Batches, at half price. |
 | readings | `list_readings`, `get_reading`, `publish_reading`, `remove_reading` | later | C | |
 | villagers | `list_villagers`, `get_villager` | later | C | For content that names people. A villager talk gets the persona with the event. |
-| | `publish_villager`, `remove_villager` | drop | | The cast comes from the culture pack (plan 2). |
+| | `publish_villager`, `remove_villager` | later | C | `validateVillager`; the voice from glas's characters. The culture pack's cast stays the base (plan 2). Was "drop" until 2026-10-14. |
 | arrivals | `get_arrival`, `publish_arrival`, `remove_arrival` | later | C | Until then the culture pack's template plays, as it does when no tutor answers. |
 | voice | `voice_profiles` | SaaS | A | glas's characters (`GET /v1/characters`): who speaks with which voice. |
 | | `voice_redesign` | SaaS | B | A request to glas. Voices are shared, so a redesign is ours, made for everyone. |
 | | `voice_status` | drop | | An operator's view: glas's `/v1/usage` and metrics. |
 
-**Counts: port 11** (10 in phase A, 1 in B), **later 22** (phase C), **SaaS 2**, **drop 6**.
+**Counts: port 11** (10 in phase A, 1 in B), **later 26** (phase C), **SaaS 2**, **drop 2** (`rollback_module`,
+`voice_status`).
 
 ### New tools the hosted tutor needs
 
@@ -230,10 +271,47 @@ Claude Code does these today with Python, files and the shell:
 | `record_session` | `update-db.py`'s report ([docs/DB_SCRIPTS.md](../DB_SCRIPTS.md)), today written through the `lani-db-updater` skill | A |
 | `card` (find, show, overlaps, edit, merge, split, regrade, forgive) | `card.py` (`lani-fix`) | A |
 | `notebook_note`, `notebook_write` | New: the notebook (below) | A |
-| `report_problem` | New: a curated item that's wrong, sent to us through the SaaS. Today it's "a note for the developer" in the repository. | A |
+| `report_problem` | New: a curated item that's wrong, or a wish, as a GitHub discussion: looked up first, upvoted if it's there, created if not (see [Reports](#reports-github-discussions)). Today it's an entry in the learner's `app/wishlist.md`. | A |
+| `dictionary_lookup` | New: fran.si (and the language's other dictionaries), fetched by the app, the page's text returned as marked untrusted data. Self-hosted, Claude Code does it with `WebFetch(domain:fran.si)`. | A |
 | `request_content` | New: hands a brief to the studio task (content writing) | C |
+| The file tools (`view`, `create`, `str_replace`, `insert`; `search`) | New: see [File tools](#file-tools) | C |
 
-So phase A's tutor has 16 tools: 10 ported, 6 new (with `card` as one tool).
+So phase A's tutor has 17 tools: 10 ported, 7 new (with `card` as one tool).
+
+### File tools
+
+What Claude Code does with Read, Edit and Write, over the learner's data folder only:
+
+- **The API's own tool:** Anthropic's text editor tool (`view`, `create`, `str_replace`, `insert`) is a client tool:
+  the model is trained on it, the app carries it out. A `search` tool beside it. The notebook could use the API's
+  memory tool the same way *(to try in the prototype)*.
+- **Scope:** Android's sandbox already keeps every app out of the others' storage. Inside the app's own storage a path
+  rule (a prefix check, no `..`, no links) keeps the tutor in the learner's data folder: off the settings, the spend
+  ledger and its budget, the git setup and the voice cache.
+- **Checked on every write:** a write to a known kind of file (a module, a pack, a story, a scene, a villager, …) runs
+  that kind's validator. A broken file isn't written: the tool returns `is_error` with the validator's message, and
+  the model fixes it, as the publish tools do today.
+- **The six databases are read-only** to the file tools. Writes go through `record_session` and `card`: the SM-2
+  arithmetic belongs in code, not in a model editing numbers (the same rule as CLAUDE.md's "scripts, not manual
+  edits").
+- **Size:** `view` takes line ranges, `search` finds what's in a big file; a cap per result. The dictionary alone is
+  1.4 MB.
+- **The typed tools stay** for what's frequent and cheap: answers, reviews, glosses, cards.
+- **The layout is the data repository's,** so the guide's topics for writing can stay close to the self-hosted
+  skills' text.
+
+**How the self-hosted mode validates today,** with the same validators (`validateModule`, `validatePack`,
+`validateScene`, `validateStory`, `validateVillager`, `validateArrival`, `validateGrammar`, `validateDrill`,
+`validateWorksheet`, …, in `companion/bridge/src`):
+
+1. **At publish:** each publish tool runs its validator (the schema, and the references to packs, villagers, arts and
+   the dictionary). It rejects with the errors, and the tutor fixes them and tries again.
+2. **At load:** the bridge checks every content file it reads, curated and the tutor's, and skips a broken one with a
+   log line (`skipping curated module …`), so a bad file disappears instead of breaking the app.
+
+A file Claude Code edits directly with its Edit tool passes only the second check. The hosted file tools, checked on
+write, are stricter. Both need the validators in the app: ported, or the bridge's own code in QuickJS (see [One source
+of truth](#one-source-of-truth)).
 
 ### The channel's events
 
@@ -341,6 +419,8 @@ Decide in the prototype, for the validators first.
 
   A digest with nothing worth saying (no answers typed wrong, no milestone) ends without a call.
 - **At once:** a chat, an `answer` (the learner waits for the grade) and a role-play turn.
+- **A setting, "react at once":** reviews and session ends get their reaction right away, as the self-hosted tutor's
+  do, instead of in the digest. Off by default on a pay-per-use key; suggested with Max or the Best preset.
 
 ### The tool loop
 
@@ -348,6 +428,11 @@ Decide in the prototype, for the validators first.
 - **Parallel tool calls** run together, and their results go back in one message.
 - **A failed or invalid call** returns `is_error` with the validator's message, as the bridge's `fail()` does today.
 - **Limits:** at most 8 calls per turn, a `max_tokens` per task, and the budget checked before every call.
+- **Long jobs (the studio, phase C):** the same loop with more steps. A large piece (a unit of the course, a set of
+  stories) is a job: a plan, then steps, each step saved. A part of the job can run as a sub-task with its own short
+  thread, as Claude Code's subagents do. The job runs while the app is open, or as WorkManager work, one step per
+  work item, while charging and on Wi-Fi (overnight). Android stopping the app only pauses it. What waits for nobody
+  goes through Batches.
 - **Stop reasons** are handled: `end_turn`, `tool_use`, `max_tokens` (continue once), `refusal` (a neutral message, no
   retry).
 - **`tool_choice: auto` only.** Forced tool use returns a 400 on Opus 5.5 (and may on others), so the prompt names
@@ -520,8 +605,8 @@ How it's kept:
 - **At the day's end** (the evening event, or the first event of a new day): a closing call on the same model and
   prefix. The model reads the thread and calls `notebook_write`. The model's thread is then dropped; the learner's
   chat history is the chat archive, as now.
-- **During the day,** when the thread passes a limit (~25–30k tokens; after each call: input + cache reads + cache
-  writes):
+- **During the day,** when the thread passes a limit (~25–30k tokens by default, a setting: see
+  [Presets](#presets); after each call: input + cache reads + cache writes):
   1. `notebook_write`, as at the day's end;
   2. a new thread: the notebook, a few lines on the day so far, and the last 2–3 exchanges re-sent as plain text in
      its first user message (not as assistant turns).
@@ -599,6 +684,21 @@ How it's kept:
     price.
   - Haiku 4.5 is the fallback.
 - **Caches are per model,** so each model in use writes its own prefix. That's small next to the thread.
+
+### Presets
+
+The models and the thread's length are the learner's settings (BYOK; covered sets them per plan):
+
+| Preset | Models | The thread's limit | A day at Jan's level |
+|---|---|---|---|
+| Economy | Haiku 5.5 for everything | ~20k | ~$0.07 |
+| **Balanced** (the default) | The table above: Haiku 5.5 for routine, Sonnet 5.5 for chat and role-play, Opus 5.5 for large writing | ~30k | ~$0.85 |
+| Best | Opus 5.5 for everything | ~60k | ~$2.40 and more (a longer thread costs more after each pause) |
+
+- **"Custom"** sets the model per task (the table's rows) and the limit.
+- **A longer thread** keeps more of the day; it only costs more when a pause makes the cache write it again. On Max's
+  credits that doesn't matter.
+- **The spend shown** and the budgets apply to every preset.
 
 ### The estimate
 
@@ -768,6 +868,50 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
   (Claude Code's memory is the session), so the first hosted day writes one from `learner_state` and the mistakes
   database, in one turn.
 - **One mode at a time:** switching modes moves the data. There is no live two-way sync between a node and a phone.
+  With git (below), the move is a handover in one repository.
+
+### Git (optional)
+
+**Setup in the app:** tap "Connect git" → sign in with GitHub → pick a repository or create a private one.
+
+- **Sign-in:** a GitHub App, with the device flow or a redirect back into the app. The App gets only the repositories
+  the learner picks on GitHub's own install screen (that screen is the repository picker), with write access to their
+  contents. The token is kept in the Keystore, as the API key is. Other hosts (Gitea, Forgejo, GitLab) later, with a
+  URL and a token.
+- **Pushing:** after each session's end and daily, with JGit (pure Java, ~2–3 MB, R8 rules) or GitHub's Git Data API
+  (no library, GitHub only).
+- **What's in it:** the data repository's layout: the six databases, the answers log, the tutor's content, the game
+  state, the chat archive and the notebook. Not the settings, the spend ledger, the API key, the git token or the
+  voice clips.
+- **A public repository gets a warning:** it holds the chats, the mistakes and the family's names. The app checks the
+  repository's `private` flag.
+- **History for free:** the data folder is a working copy, so each change the tutor makes is a commit. The learner
+  gets a history and "undo the tutor's change".
+- **Restore:** a new phone clones. Unlike the encrypted backup, GitHub holds the data in the clear: both are offered.
+
+### Switching modes through git
+
+The self-hosted data repository is already a git repository (Jan's: `fentas/lani-jan`, private). If both modes use the
+same repository, switching is a handover, not an export:
+
+1. **Hand over:** the active side commits and pushes its last state and releases the lease.
+2. **Take over:** the other side pulls, checks the data (the port of `validate-data.py`, the schema versions) and takes
+   the lease.
+
+- **The lease:** a file in the repository (`.lani/active.json`: the side, the device, the time). Only the side that
+  holds it writes the databases. The other side reads, or asks "Take over here?". Taking over without a handover (the
+  old phone is lost) is allowed; the old side sees it at its next pull and stops writing.
+- **So there are no merges of the databases.** Later, the side without the lease could still write files only it
+  writes (a node writing stories overnight for a hosted learner): different files merge cleanly in git.
+- **The notebook comes along:** with git, the self-hosted mode keeps the notebook too (open question 11), so each
+  side starts where the other stopped.
+- **Versions:** the manifest's schema versions decide. The newer side migrates; an older one says "update first".
+- **What doesn't move through git:**
+  - **The town's key:** a secret, encrypted with the recovery code or kept in the backup, not in the repository.
+    The town stays reachable through the relay in both modes (phase D).
+  - **Voices:** the node's store and glas are separate. Curated clips come from glas either way; the tutor's personal
+    lines are voiced again when they're played.
+- **Without git,** export and import (above) still work.
 - **Backup through the SaaS:**
   - encrypted on the phone: a key in the Keystore and a recovery code the learner keeps (or a passphrase);
   - daily, and after a session ends; several versions kept;
@@ -809,15 +953,87 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 
 ---
 
+## After all phases
+
+With every phase done, the hosted mode matches the self-hosted one for a learner, apart from what follows. Jan
+(2026-10-14): every gap should close in the end, with the validators, a small agent loop and a few tools.
+
+### What's left, and how it closes
+
+| Gap | How it closes | Phase |
+|---|---|---|
+| New scenes and villagers | The validators: scenes in an existing art with a stage, villagers with glas's voices. New art stays culture-pack content. | C |
+| Fixing curated content: a report instead of a fix | A local override: the fix applies on the phone at once, and the report goes out. The override retires when the upstream fix arrives. Cards already get fixed at once (`card`). | A (cards), C (the rest) |
+| No web (fran.si) | `dictionary_lookup` | A |
+| Large writing jobs (a unit of the course, a set of stories) | The long jobs: steps saved, sub-tasks with their own threads, overnight while charging, Batches. Still Claude Code's alone: running the app's QA on the result and research across the web. The validators and a preview in the app cover most of it. | C |
+| Reactions to reviews come in the digest | The "react at once" setting | A |
+| Several devices | The git lease lets a phone and a tablet take turns. Using both at once needs a sync. | B (turns), later (a sync) |
+| New voices are a request to us; live lines have a quota | By design: the voices are shared, and audio stays in the SaaS | |
+| Visits between a hosted and a self-hosted town | Self-hosted towns sit in a private tailnet, a hosted town only in the relay: neither reaches the other. A self-hosted bridge also publishes its town to the relay and checks its mailbox there (outgoing HTTPS only, like the phone). Requests are signed with the town's key either way, and bridge to bridge stays for neighbours on one tailnet. | D |
+| Edits to code and CLAUDE.md | Self-hosted only. Developing the app is the app repository's work in either mode. | |
+
+### Quality after all phases
+
+- **The model is a choice, not a limit.** Best is Opus for everything, as today. Balanced depends on Haiku's Slovene,
+  which phase 0 measures on Jan's real events.
+- **The prompt:** Claude Code carries a large prompt for coding; ours is made for tutoring. For tutoring, expect equal
+  or better.
+- **Memory is the main risk.** Today's session holds days of detail until it compacts. The hosted tutor keeps the
+  day's thread and the notebook: what isn't in the notebook is gone the next day. A longer thread (Best) narrows the
+  gap. Phase 0's shadow mode compares the two side by side.
+- **Better than self-hosted:**
+  - nothing to keep running: no machine, no tmux, no Tailscale, so no "the app can't connect";
+  - faster replies (~35k tokens of context instead of ~107k), streamed as they're written;
+  - prompt injection contained: no shell;
+  - cheaper off Max, with the spend shown and capped;
+  - the memory visible: the learner reads and corrects the notebook;
+  - easy to hand to others: install, paste a key;
+  - fixes to curated content reach every learner.
+
+---
+
+## Reports: GitHub discussions
+
+Today a wrong curated item or a wish goes into the learner's `app/wishlist.md` (the `lani-fix` and `lani-studio`
+skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the developer sees it. Instead, in both modes:
+
+1. **Look it up first:** search the discussions of `fentas/lani`. The title names the item (`Fix: pack
+   praznik-trgatev, word škarje`), so the search is exact for fixes. `gh` has no discussion commands: it's GraphQL
+   (`gh api graphql`, `search(type: DISCUSSION, query: "repo:fentas/lani …")`).
+2. **Found:** upvote it (`addUpvote`). A comment only if it adds something new: another example, another language.
+3. **Not found:** create it in its category, from the category's form: the item's source (`about_exercise.source`)
+   and id, what's wrong, the suggested fix, and "native check" when it's Slovene a machine wrote.
+
+- **Categories:** "Content fixes" (a wrong item) and "Ideas" (a wish, a mechanic, a screen), both with votes.
+- **Nothing personal:** the repository is public. No chat quotes, no family names, no learner's mistakes: the item,
+  what's wrong, the fix.
+- **The learner confirms** before anything is posted ("Send to Lani's discussions?").
+  - **Self-hosted:** the tutor posts as the learner's own GitHub account, with `gh` signed in on the node. `gh` isn't
+    among the tutor's allowed commands, so Claude Code's permission prompt, relayed to the app, is the confirmation.
+    Without `gh` signed in, the wishlist stays.
+  - **Hosted:** `report_problem` goes to the SaaS, which posts as Lani's GitHub App. Its upvotes all come from one
+    account, so they would count once: the SaaS keeps its own count in the post ("reported by 7 learners"), or a
+    learner signed in with GitHub (the git connection) votes as themselves *(open)*.
+- **From discussion to work:** when the developer picks one up, GitHub's "Create issue from discussion"; commits say
+  `fixes #N`, and the discussion is closed as resolved when the fix ships.
+- **The learner hears back:** their reports' links are kept in their data (`app/reports.json`). When one is resolved,
+  the tutor says so ("the fix you reported is in").
+- **Can start now,** before the hosted mode: turn on Discussions on `fentas/lani` with the two categories, then change
+  `lani-fix` and `lani-studio` from the wishlist to this flow. Jan's 7 wishlist entries move by hand, after a check for
+  personal details, or stay where they are.
+
+---
+
 ## Phases
 
 | Phase | What | Exit criterion |
 |---|---|---|
-| 0 | **Prototype and measure.** The loop in a debug build on Jan's own key, in **shadow mode** on Jan's real events: the self-hosted tutor still answers; the in-app tutor's answers go to a debug panel. Both models side by side. The Java SDK spike. 2 weeks. | Numbers per event kind (see [The estimate](#the-estimate)). Quality compared. The estimate confirmed or replaced. |
-| A | **Hosted BYOK alpha.** Key setup and caps; chat (streamed); reactions to session ends and reviews; grading answers; "Why?" on exercises; card fixes; words (glosses, sentence notes); the rhythm; the notebook and the day's threads; the spend shown; export and import with a node. Curated content as a download, clips from glas, the phone's STT. | Jan (a second profile) and 2–3 testers use it daily for 2 weeks. The cost per learner-day is measured. Export and import lose nothing. |
-| B | **Role-play** (scenarios, villager talks, live lines from glas), the grammar book (`publish_grammar`), `level_up`, the encrypted backup. | A role-play turn answers in under ~3 s. A restore on a second phone works. |
-| C | **Content writing:** the studio task (modules, packs, stories, readings, dialog variants, arrivals), Batches for what can wait, fixes to content. The validators ported or shared. | The conformance corpus is green in the bridge and the app. A tester's tutor-made module plays. |
-| D | **Towns and family through the SaaS relay.** | Two hosted towns visit each other and trade. The family page works without a node. |
+| 0 | **Prototype and measure.** The loop in a debug build on Jan's own key, in **shadow mode** on Jan's real events: the self-hosted tutor still answers; the in-app tutor's answers go to a debug panel. Both models side by side. The Java SDK spike. Ask Anthropic for approval of the subscription sign-in. 2 weeks. | Numbers per event kind (see [The estimate](#the-estimate)). Quality compared. The estimate confirmed or replaced. |
+| A | **Hosted BYOK alpha.** Key setup and caps; chat (streamed); reactions to session ends and reviews; grading answers; "Why?" on exercises; card fixes; words (glosses, sentence notes); the rhythm; the notebook and the day's threads; the spend shown; the presets and "react at once"; `dictionary_lookup`; reports as discussions; export and import with a node. Curated content as a download, clips from glas, the phone's STT. | Jan (a second profile) and 2–3 testers use it daily for 2 weeks. The cost per learner-day is measured. Export and import lose nothing. |
+| B | **Role-play** (scenarios, villager talks, live lines from glas), the grammar book (`publish_grammar`), `level_up`, the encrypted backup. **Git (optional)** and switching modes through it (the lease). | A role-play turn answers in under ~3 s. A restore on a second phone works. Jan switches from the node to the phone and back, through the data repository, and loses nothing. |
+| C | **Content writing:** the studio task (modules, packs, stories, readings, dialog variants, arrivals, scenes in existing arts, villagers), the long jobs, Batches for what can wait, fixes to content and the local overrides. The file tools, checked on write. The validators ported or shared. | The conformance corpus is green in the bridge and the app. A tester's tutor-made module plays. A broken file is refused with the validator's message. |
+| D | **Towns and family through the SaaS relay.** Self-hosted bridges publish their towns to the relay too. | Two hosted towns visit each other and trade, and a hosted and a self-hosted town. The family page works without a node. |
+| Later | **Several devices at once:** a sync. | |
 | Covered | **After phase A's numbers:** the proxy, the plans, billing. | A closed beta with the measured cost per learner under the plan's price. |
 
 ---
@@ -833,7 +1049,8 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
   - 2a (our key) becomes the **covered** variant, still with the loop in the app.
   - 2b (the learner's key, encrypted on our servers) becomes **BYOK**, but the key stays on the phone: no key custody
     for us.
-  - 2c (signing in with the subscription) stays parked.
+  - 2c (signing in with the subscription): Jan wants it (2026-10-14). Only with Anthropic's approval: we ask in
+    phase 0.
 - **Its cost table** (Sonnet-4-class prices) is replaced by this plan's.
 - **Variant 1.5** (we host the heavy parts, the learner runs Claude Code at home) is dropped.
   - Its point, no GPU and no ElevenLabs account, is met for self-hosters by glas with a node key (plan 3).
@@ -863,7 +1080,8 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 
 1. **The Max credits and API keys.** Mostly answered (above). Still open: whether the credits' terms allow use through
    a third-party app such as Lani (the article says nothing either way), and how setup shows a learner which
-   organization their key belongs to.
+   organization their key belongs to. And the approval for signing in with the subscription (Jan wants it): the
+   request to Anthropic, in phase 0.
 2. **The Java SDK on Android** (R8, APK size, streaming), or our own small client.
 3. **The cost per learner in practice:** the prototype. Above all, the cold starts a day and the thread's size.
 4. **Haiku 5.5's Slovene:** grading, feedback, role-play, against Sonnet 5.5. Jan's wife checks a sample.
@@ -888,6 +1106,12 @@ A plan's cap falls back softly (to a cheaper model, digests once a day) instead 
 9. **Preserved thinking:** check that restarting the thread with re-sent text passes the history check on a new
    account.
 10. **Shared validators:** a Kotlin port with a conformance corpus, or the bridge's TypeScript in a JS engine in the app.
-11. **The notebook in the self-hosted mode too?**
-12. **Can a hosted town and a self-hosted town visit each other** (the relay and the bridges federating)?
+11. **The notebook in the self-hosted mode too?** Yes, if switching modes goes through git (see [Switching modes
+    through git](#switching-modes-through-git)): then both sides start where the other stopped.
+12. **Can a hosted town and a self-hosted town visit each other?** Answered (2026-10-14): yes, when a self-hosted
+    bridge publishes its town to the relay too (see [After all phases](#after-all-phases)). Phase D.
+13. **Hosted learners' votes on discussions:** posted by Lani's GitHub App, they count once. The SaaS's own count, or
+    the learner's own GitHub account (see [Reports](#reports-github-discussions))?
+14. **Several devices at once:** what the sync is. The answers log only grows, so it merges; the databases and the
+    game state need rules, or to be rebuilt from the log.
 13. **The covered plans' prices,** from the prototype's numbers.
