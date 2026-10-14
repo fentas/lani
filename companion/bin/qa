@@ -601,9 +601,13 @@ def sheets_settle():
     to_top()
 
 
+# The swipe's tip shows once, under the tutor's latest message, the first time the chat opens with one (README "Tutor
+# chat", "Swipes"): the steps that open it so tell chat-swipe whether it was shown already.
+CHAT = {"tip_seen": False}
+
 CHEAT = "📋 Plonk listek · Cheat sheet"  # the cheat sheet's title (l10n cheatSheet.title)
 CHEAT_BUTTON = "Plonk listek · Cheat sheet"  # its 📋 in an exercise's top bar and the chat's header (TalkBack's label)
-CHEAT_PIN = "📌 Na plonk listek · Pin to cheat sheet"  # under a tutor message with a table or a list
+CHEAT_PIN = "📌 Na plonk listek · Pin to cheat sheet"  # in the long-press menu of a tutor message with a table or a list
 CHEAT_PINNED = "📋 Na plonk listku · On the cheat sheet"  # the same once pinned: it opens the sheet
 CHEAT_FIRST = "Najprej, kar velja za to vajo"  # the sheet opened from an exercise (l10n cheatSheet.forExercise)
 
@@ -611,9 +615,9 @@ CHEAT_FIRST = "Najprej, kar velja za to vajo"  # the sheet opened from an exerci
 def cheat_sheet():
     """The cheat sheet (companion/README.md "Cheat sheet"): from Home's tile ("📋 Plonk listek"), biti's card (an A1
     basic, there from the start) opened; from an exercise of imeti-in-iti (📋 in its top bar, free), imeti's card first
-    and open; a tutor message with a list (QA's hook "chat:table", on the phone only) pinned in the chat ("📌 Na plonk
-    listek"), its chip then "📋 Na plonk listku", which opens the sheet with it, and the dev bridge's village keeping it
-    (GameState.sheet)."""
+    and open; a tutor message with a list (QA's hook "chat:table", on the phone only) pinned in the chat from its long
+    press's menu ("📌 Na plonk listek", as a bookmark), the menu then offering "📋 Na plonk listku", which opens the sheet
+    with it, and the dev bridge's village keeping it (GameState.sheet)."""
     go_home()
     tile = scroll_to("Plonk listek", 8) or scroll_to("Plonk listek", 2)  # a busy emulator's dump can come mid-swipe
     assert tile, "the cheat sheet's tile on Home"
@@ -645,19 +649,30 @@ def cheat_sheet():
     assert find(CHEAT) is None and find("Začni") is None, "back in the exercise"
     go_home()
 
-    # a tutor message with a list, pinned
+    # a tutor message with a list, pinned from its long press's menu
     qa_hook("chat:table")
     assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
     assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
-    assert tap(CHEAT_PIN, 6), "📌 under the tutor's list"
-    assert wait_for(CHEAT_PINNED, 6), "the message pinned"
+    CHAT["tip_seen"] = True
+    time.sleep(1)
+    # its last line, plain text (no Slovene to hear, no link): a long press there is the bubble's
+    line = next((b for t, b in boxes() if "two-person endings" in t), None)
+    assert line is not None, "the tutor's list in the chat"
+    at = (line[0] + 40, (line[1] + line[3]) // 2)
+    long_press(at)
+    assert wait_for(CHEAT_PIN, 4), "📌 in the tutor message's long press"
+    shot("cheat-pin-menu")
+    assert tap(CHEAT_PIN, 2), "pin it"
+    time.sleep(1)
+    long_press(at)
+    assert wait_for(CHEAT_PINNED, 4) and find(CHEAT_PIN) is None, "the message pinned: its menu offers the sheet instead"
     shot("cheat-pinned")
     end, pinned = time.time() + 20, []
     while time.time() < end and not pinned:  # the village goes to the dev bridge in a moment
         pinned = ((api("/game").get("state") or {}).get("sheet") or {}).get("pinned") or []
         time.sleep(1)
     assert any(p.get("title") == "Imeti – the whole verb" for p in pinned), f"the dev bridge's village keeps the pinned card: {pinned}"
-    assert tap(CHEAT_PINNED, 3), "the chip opens the sheet"
+    assert tap(CHEAT_PINNED, 3), "the menu's 📋 opens the sheet"
     assert wait_for(CHEAT, 6), "the sheet from the chat"
     time.sleep(1)
     ns = list(nodes())
@@ -702,7 +717,11 @@ def chat_swipe():
     assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
     assert wait_for(CHAT_TITLE, 6), "the tutor chat"
     time.sleep(1.5)
-    assert wait_for(SWIPE_TIP, 4), "the swipe's tip under the tutor's latest message"
+    if CHAT["tip_seen"]:  # an earlier step's chat showed it (--steps cheat-sheet,… in another order): once is once
+        assert find(SWIPE_TIP) is None, "the swipe's tip again, though an earlier step's chat showed it"
+    else:
+        assert wait_for(SWIPE_TIP, 4), "the swipe's tip under the tutor's latest message"
+    CHAT["tip_seen"] = True
     shot("chat-swipe-tip")
 
     msg = next((b for t, b in boxes() if SWIPE_ME in t), None)
@@ -829,6 +848,7 @@ def chat_links():
     qa_hook(f"'chat:{lines}'")
     assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
     assert wait_for(CHAT_TITLE, 6), "the tutor chat"
+    CHAT["tip_seen"] = True
     assert wait_for(LINK_FRAN, 6) and find(LINK_OTHER) and find(LINK_HTTP), "the message's links"
     time.sleep(1)
     shot("chat-links")
@@ -4560,8 +4580,9 @@ def plan():
         ("home", home, None, False, ""),
         ("challenges", challenges, None, False, ""),
         ("sheets-settle", sheets_settle, go_home, False, ""),
-        ("cheat-sheet", cheat_sheet, go_home, False, ""),
+        # chat-swipe first: the first chat with a tutor message in it, where the swipe's tip shows once
         ("chat-swipe", chat_swipe, go_home, False, ""),
+        ("cheat-sheet", cheat_sheet, go_home, False, ""),
         ("chat-links", chat_links, go_home, False, ""),
         ("chat-attach", chat_attach, go_home, False, ""),
         ("chat-attach-pack", chat_attach_pack, go_home, False, ""),

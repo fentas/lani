@@ -2885,8 +2885,10 @@ companion/bin/qa --steps visit                   # only the visit of the second 
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
-companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned
+companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned from its long press
 companion/bin/qa --steps chat-swipe              # a tutor message swiped: the reply card, bookmarked, taken away and undone; the list still scrolls; copy, share
+companion/bin/qa --steps chat-links              # a tutor message's links: example.com and http ask first, fran.si opens the browser at once
+companion/bin/qa --steps chat-attach             # 💬 in an exercise's top bar: the exercise attached, ✕, the answer with it; chat-attach-pack: a pack's word
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
@@ -2993,7 +2995,8 @@ and the list stays where it was; a table that fits is the bubble's to swipe (bef
 though it had nowhere to go), a wider one scrolls; with "Remove animations" the bubble is at rest a frame after it was
 let go, with animations still on its way back; the typing bubble doesn't move. On the emulator, `companion/bin/qa
 --steps chat-swipe` puts two tutor messages into the chat through QA's hook `chat:<text>` (a long one, and a short one
-starting with a bold Slovene greeting, a link to hear it) and swipes with `input swipe`: the tip under the latest; the
+starting with a bold Slovene greeting, a link to hear it) and swipes with `input swipe`: the tip under the latest (it
+runs before the other chat steps, whose chat would show the tip first; after one of them, it checks the tip is gone); the
 reply card after a swipe to the right from the greeting (the tip gone); the 🔖 and "🔖 Shranjeno · Saved" after one to
 the left; after a second the 🔖 gone, and "Razveljavi · Undo" bringing it back (tapped right after one look at the
 screen: the snackbar stays four seconds, a uiautomator dump takes one or two); "Zaznamek odstranjen" after a third; a
