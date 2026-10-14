@@ -264,8 +264,10 @@ anyone else.
    The model is `eleven_v4_turbo` by default (`LANI_ELEVENLABS_MODEL` in `lani.env` or `keys.env`; v3 and v4 speak
    Slovene), which costs half a credit per character (`eleven_v4` and `eleven_v3` a whole one; the credits above are at
    half). Each clip records its model; after a change, `companion/bin/voice-build --upgrade-model` shows the clips of an
-   older one and what making them again costs (`--run --max-chars N` does it, most played first). Plans and their monthly
-   credits are on [ElevenLabs' pricing page](https://elevenlabs.io/pricing).
+   older one and what making them again costs (`--run --max-chars N` does it, most played first). Without it the
+   bridge makes an older model's clips again as the app asks for them, within the day's re-voice cap
+   (`LANI_VOICE_REVOICE_DAILY`; `LANI_VOICE_UPGRADE_MODEL_LAZY=off` stops that), and a swapped voice's the same way,
+   first. Plans and their monthly credits are on [ElevenLabs' pricing page](https://elevenlabs.io/pricing).
 4. **All at once, or as you go.** You needn't voice everything up front. The bridge voices what you meet, in order of
    need (villagers' lines, your review words, examples, modules, stories at your level first), and keeps the last
    5,000 characters of your quota for the tutor's live role-play lines (`LANI_VOICE_RESERVE`). A line without a clip yet is spoken

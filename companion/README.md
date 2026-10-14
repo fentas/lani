@@ -1227,10 +1227,11 @@ new description), deleting the old voice and its clips.
    voice with its library owner id for the API. A library voice takes no voice slot (only designed
    voices do, 10 on Starter), and the first request with its id adds it to the account (checked
    2026-09-27): "Add to my voices" is not needed.
-2. Put its id in the speaker's `elevenlabs` line in `voice-cast.json`. The bridge reads the file
-   again when it changes; no restart.
-3. Make that speaker's clips again: `companion/bin/voice-build --run --revoice grandma` (dry run
-   first without `--run`). The new clips get new file names, so the app downloads them.
+2. Put its id in the speaker's `elevenlabs` line in `voice-cast.json`, and the day in its `since`
+   (`"since": "2026-10-14"`). The bridge reads the file again when it changes; no restart.
+3. Its clips are made again as the app asks for them (below, "Stale clips"), or all at once:
+   `companion/bin/voice-build --run --revoice grandma` (dry run first without `--run`). The new clips get new file
+   names, so the app downloads them.
 
 A narrator's Slovene voice is its `languages` `sl` entry (below, "The narrators in Slovene"): put the new id in its
 `elevenlabs`, then `companion/bin/voice-build --run --revoice female`. The local clips stay as they are.
@@ -1552,6 +1553,33 @@ The phone keeps the clips it has (within the learner's cap) and doesn't ask for 
 mostly words the phone doesn't have yet. For the rest: Jan's long press on 🔊 (below), or
 `voice-build --revoice-words`: its plan shows how many words are old-style and what re-voicing them all
 costs. `voice_status` shows the same (`carrier`).
+
+**Stale clips, made again as the app asks for them** (Jan, 2026-10-14: "we can regenerate on demand"). A clip is
+stale when it isn't in its speaker's ElevenLabs voice now, or (`LANI_VOICE_UPGRADE_MODEL_LAZY`, on by default; `off`
+turns it off) when an older model than `LANI_ELEVENLABS_MODEL` made it:
+
+- **A swapped voice:** an ElevenLabs clip whose recorded voice (`engine_voice` in `voice.db`) isn't the speaker's
+  ElevenLabs voice in the cast now (one's voice in a language, `female.sl`, and someone's own voice, `@micka`, too). A
+  clip from before the voice was recorded (October 11, 2026) is stale when it was made before the day the speaker's
+  voice took effect, the cast's `since` (Zala's girl: Piku since 2026-10-14). A new voice of one's own drops the old
+  one's clips anyway.
+- **An older model:** an ElevenLabs clip of another model than new clips are made with (one from before the model
+  was recorded: `eleven_v3`).
+- **When:** the app asks for it (a download, `/voice/say`): it gets the old clip at once, and the bridge records the
+  ask and makes it again soon, in the lazy re-voice above: one at a time, most asked for first, within the day's cap
+  (`LANI_VOICE_REVOICE_DAILY`, shared with the carrier words and the narrators' Slovene voices), never into the reserve.
+  A swapped voice's clips come with the words and the narrators', also one played before without a new ask (the phone
+  keeps the clips it has and doesn't ask again: the line would stay in two voices); an older model's after them, only
+  once the app asks for it again (a better take, not a wrong one).
+- **How:** in the speaker's voice and the model now (a short word in its carrier sentence, an explanation plainly in
+  its language), stored as every new clip: the cast's filter for that voice now (the girl, off the denoise list with
+  Piku, isn't filtered), its edges, the level, under a new file name, its hits kept, the old file removed; the app is
+  told (`voice_updated`). Never a local (Gepard) clip, a Slovene narrator's English-voice clip from before, or a family
+  recording.
+- **What it costs:** `voice_status` (`stale`) and voice-build's plan show the stale clips (a swapped voice: n clips /
+  asked m; an older model: n / asked m) and what making them all again costs: the characters sent and the credits with
+  the model now (`eleven_v4_turbo` half a credit a character). `voice-build --upgrade-model` makes an older model's all
+  at once.
 
 **Re-record: a long press on 🔊.** When Jan hears a word or a line wrong (English sounds, a bad take), a
 long press on its 🔊 has the node record it again at once (`POST /voice/redo {text, voice, client_id}`),
