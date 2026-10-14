@@ -146,10 +146,15 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
 
 1. **The explanation** (`say` in the learner's base). Its text without the Markdown marks, the Slovene forms left inside
    as they are ("Biti (to be) has a short form … jaz sem (I am), ti si (you are) …"), is one clip of the voice store:
-   the node voices it in one go with ElevenLabs (eleven_v3 says both languages as they are; `POST /voice/say` with
+   the node voices it in one go with ElevenLabs (its model says both languages as they are; `POST /voice/say` with
    `lang`, keyed `en|<the text>` apart from the Slovene lines, shared by every learner of that base: README "Voice").
-   On the phone it plays at once, the explanation outlined. When it isn't there yet (offline, no ElevenLabs, the quota at
-   its reserve, not made yet) the step is read in its runs at once, and the node makes the clip for next time:
+   On the phone it plays at once, the explanation outlined. As the intro opens (reading by itself on), the app asks for
+   its steps' clips ahead, one after the other, the first while Mojca walks in: each step finds its clip as it is read,
+   and a step whose clip the node is still making waits for it a moment (up to 6 s). Jan, 2026-10-14: "why is the English
+   part not spoken by the same character?" A step is mostly read once, and the clip used to be asked for only as it was
+   read and made "for next time"; and the node, asked for the explanation and the step's Slovene at once, went over
+   ElevenLabs' concurrency and left the explanation unmade (README "Voice": at once). When it can't be had (offline, no
+   ElevenLabs, the quota at its reserve, not in time) the step is read in its runs, and the clip is there next time:
    - the base-language parts by the phone's own voice of that language (Android text-to-speech, its locale; rendered
      to files as the car's prompts are), a translation in brackets right after a form ("(I am)") among them;
    - the Slovene parts in Mojca's voice, at their place: a span in **bold**, *italics* or „quotes" that the app's
@@ -169,17 +174,22 @@ the 🎤 (one voice at a time).
 
 **The stage.** Jan: Mojca "seems not animated, looks like just a picture"; she "points at what she explains, not a walk
 across the screen", and he chose a small hand at the target over a long pointer (a kazalka). Each step is her stage:
-Mojca at the top as big as the dialogs' stage portraits (small on a short screen, with a large font, or with the keyboard up), beside her
-a bubble with what she says now, the step and its 🔊 🐢; the explanation below her like a board, then the examples, the
-table and the quick question, scrolling under the stage. She breathes and blinks, talks while her voice plays (also a 🔊
+Mojca at the top as big as the dialogs' stage portraits, beside her the step and its 🔊 🐢 and her speech bubble with the
+step's explanation (its tail toward her; Jan, 2026-10-14: the room at her right was "a bit wasted", the explanation
+shown twice, in a small bubble and on a board below): what is read marked in it, the bubble outlined while its one clip
+plays; a long explanation scrolls within the bubble (at most about a third of the screen), kept at what is read. Below
+the stage the examples, the table and the quick question, scrolling under it. On a short screen or with a large font
+the compact stage: Mojca small, a line of what she says now beside her, the explanation on a board below; with the
+keyboard up she is small and her bubble a few lines (the content under the stage stays put). A quick question's answer
+(right or not, the sentence, the why) scrolls into view as it appears. She breathes and blinks, talks while her voice plays (also a 🔊
 of hers on the school's screens), and a small pointing hand (pixel-drawn as she is, her sleeve's cuff on it) shows what
 is read, in step with what is marked (`ui/school/IntroPointer.kt`), right beside it: at its right end, astride the edge,
 the fingertip pointing in, never over its text, no line across the content:
 
 - a Slovene form of the explanation beside the table's row that says it ("jaz sem": the row jaz · sem, marked too; "smo,
   ste, so": the three rows of those forms), the translation in brackets after it ("(I am)") still there; a form no row
-  has ("Biti") and the rest of the explanation beside the explanation, level with the words read; the explanation's one
-  clip beside the explanation;
+  has ("Biti") and the rest of the explanation at her bubble's right edge, level with the words read (on the board, at
+  its right edge); the explanation's one clip beside her bubble;
 - an example beside its card; the quick question beside its card, level with its prompt; the answer's sentence beside
   the question's card, level with it.
 

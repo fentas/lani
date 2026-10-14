@@ -1429,6 +1429,13 @@ picked one for each narrator. They come first now, and the local Gepard voice is
 - **When ElevenLabs can't:** the quota is down to the reserve (5,000 characters, `LANI_VOICE_RESERVE`; a live line may
   use the reserve), there is no key, it fails or is down. Then the local voice makes the clip. When it can't either (down,
   busy), there is no clip, and the phone speaks. A cast whose narrators have no `sl` voice has the local voice only.
+- **At once:** the bridge has at most `LANI_ELEVENLABS_CONCURRENCY` text-to-speech requests at ElevenLabs at once (3 by
+  default; the plans allow 3 on Starter, 5 on Creator), the rest wait their turn. Over the plan's limit ElevenLabs
+  refuses a request (HTTP 429 `too_many_concurrent_requests`), and the bridge used to pause ElevenLabs for a minute then:
+  a school intro's step, which asks for its explanation and its Slovene at once, had a form said by the local voice and
+  its explanation not made (Jan's node, 14 October 2026). One still refused as too many at once or busy (voice-build's
+  requests beside the bridge's) is asked again after 1 s, then 2 s, without the pause; any other 429 pauses it as
+  before. `voice_status` shows `elevenlabs.concurrency` (`limit`, `running`, `waiting`, `busy_again`).
 - **Not for:** the villagers (their speakers and their voices of their own): ElevenLabs first, then Gepard, as before.
   Nor a village in another language: its cast's narrators speak (the Lakeland village's Alice and Daniel speak English,
   the car's English prompts come from the phone).
@@ -1499,7 +1506,7 @@ is set (`tempo`).
 
 | Engine | What | Setup |
 |---|---|---|
-| ElevenLabs | `eleven_v3` (the only model with Slovenian), `language_code: sl`, the speaker's voice from the cast (a Slovene narrator's: its `languages` `sl`). | `ELEVENLABS_API_KEY=…` in `~/.config/lani/keys.env` (mode 600). `bin/lani-session` exports it into the session, so the bridge inherits it. |
+| ElevenLabs | The model `LANI_ELEVENLABS_MODEL` (`eleven_v4_turbo` by default; v3 and v4 speak Slovenian), `language_code: sl`, the speaker's voice from the cast (a Slovene narrator's: its `languages` `sl`). Each clip records its model (`model` in `voice.db`; null: `eleven_v3`, every clip until October 2026). | `ELEVENLABS_API_KEY=…` in `~/.config/lani/keys.env` (mode 600). `bin/lani-session` exports it into the session, so the bridge inherits it. |
 | Gepard (local) | Slovenian TTS model as a worker on `127.0.0.1:8795` (`GET /health`, `POST /synth`), the speaker's `gepard` voice (`nina`, `marko`, `ana`), sent by name. | Runs separately. When it is down, it is skipped. |
 
 If neither can make a clip, the app uses phone TTS; an engine that is down never fails a request.
@@ -1508,20 +1515,20 @@ key): the app plays the narrator clip until then.
 
 **Lone words: a carrier sentence.** Where an English library voice narrates with ElevenLabs (a village in another
 language whose cast marks a narrator `carrier`: the Kärnten village's Daniel; in a Slovene village the narrators speak
-with native voices since October 2026, which say a lone word plainly, above): `eleven_v3` takes
+with native voices since October 2026, which say a lone word plainly, above): `eleven_v3` (and v4) take
 `language_code: sl` only as a hint: a lone Slovene word (*kosilo*) comes out with English sounds, a
 sentence doesn't (`previous_text`/`next_text` are not supported for `eleven_v3`). So a speaker marked
 `"carrier": true` in the cast (the narrators; villagers' voices are Slovene enough) says a short text inside
 a carrier sentence:
 
 - **Short text:** one to three words without sentence punctuation (`kosilo`, `dober dan`; not `Kako si?`).
-- **The request:** `Beseda je: kosilo.` to `POST /v1/text-to-speech/{voice}/with-timestamps` (`eleven_v3`,
-  `sl`, MP3). The carrier sentences are per language (`CARRIERS` in `bridge/src/voice.ts`: `Beseda je: …`, `La parola
+- **The request:** `Beseda je: kosilo.` to `POST /v1/text-to-speech/{voice}/with-timestamps` (the model,
+  `sl`, MP3; both v4 models give the timestamps). The carrier sentences are per language (`CARRIERS` in `bridge/src/voice.ts`: `Beseda je: …`, `La parola
   è: …`, `Das Wort ist: …`, `The word is: …`), in the village's language.
 - **The cut:** the word's span from the characters' timestamps, from 0.06 s before to 0.12 s after, with
   ffmpeg (`atrim`, fade in 0.02 s, fade out 0.05 s). The clip is the cut; its `method` is `carrier`.
-- **Costs:** the guard counts the whole carrier sentence (`Beseda je: kosilo.` is 18 characters, about 9 on
-  the subscription).
+- **Costs:** the guard counts the whole carrier sentence (`Beseda je: kosilo.` is 18 characters, 9 credits with
+  `eleven_v4_turbo`).
 - **Fallback, logged:** without ffmpeg (`LANI_FFMPEG` names another, `off` turns it off) a short text is
   asked for plainly, as before. If the word isn't in the timestamps, it is asked for plainly too (both takes
   are paid for), and the clip is marked `plain`, so it isn't tried again.
@@ -1552,7 +1559,7 @@ ahead of the lazy re-voice:
 
 - **What is made:** the clip in the voice a tap plays (the first voice of the speaker's chain that the phone
   has a clip in). A short text in a carrier voice is said in its carrier sentence and cut, as above. Anything
-  else (a sentence, a villager's voice, someone's own voice) is a plain re-take: `eleven_v3` never says a text
+  else (a sentence, a villager's voice, someone's own voice) is a plain re-take: ElevenLabs never says a text
   the same way twice. A clip that the local worker made is made again with ElevenLabs. A text without a clip is
   voiced as `/voice/say` voices a live line, and is not counted. A Slovene narrator's clip is made in its Slovene
   voice (Nina, Luka): a new take, or the first one where only the local clip is there, which stays. With the local voice
@@ -1581,25 +1588,40 @@ ahead of the lazy re-voice:
 introduction is read as it appears, in the teacher's voice (`data/IntroVoice.kt`). Its explanation, in the learner's
 own language with the Slovene forms left inside, is one clip, asked for with `lang` on `POST /voice/say` (an
 explanation of up to 1,500 characters; a line stays at 300) or on `/voice/prepare`. ElevenLabs makes it in one go
-(eleven_v3, with no `language_code`, so it says both languages as they are; no carrier sentence, even for one word),
+(the model, with no `language_code`, so it says both languages as they are; no carrier sentence, even for one word),
 never the local worker. It is no live line: it never uses the reserve, and counts in the live lines' rate window. Its
 clips have their own key space (`en|<normalized text>` in `/voice/index`; a Slovene line of the same words stays
 another clip), are shared by every learner of that language, are counted apart in `voice_status` (`explanations:
 {clips, chars, by_lang}`; not in `clips` nor in the coverage), and are left alone by the re-voice and narrator passes.
-A clip the node hasn't made yet is made when a step asks for it, for next time; meanwhile, and offline, without
+As the intro opens the app asks for its steps' explanations ahead, one after the other (`IntroVoice.ahead`: the first
+while Mojca walks in), so each step finds its clip as it is read; a step whose clip the node is making waits for it up
+to 6 s (a clip on the node but not on the phone: 3 s, a download), and one that doesn't come in time is there next time
+(a step is mostly read once: a clip made only "for next time" was never heard). Meanwhile, and offline, without
 ElevenLabs or with the quota at its reserve, the app reads the step in its runs: the base-language parts by the
 phone's own text-to-speech in that language (rendered to files as the car's prompts are), the Slovene parts in the
-teacher's voice as any line, the run read marked in the bubble. The app asks only a bridge whose `GET /state` lists
-`explanations` in its `features` (an older one would voice the English as a Slovene line): the bridge must be restarted
-after updating for it.
+teacher's voice as any line (asked for while the clip is waited for), the run read marked in her bubble. An explanation
+the node couldn't make just now (a 204) is asked again after a minute, not ten as a line. The app asks only a bridge
+whose `GET /state` lists `explanations` in its `features` (an older one would voice the English as a Slovene line): the
+bridge must be restarted after updating for it.
 
 **Costs.** The quota guard reads the subscription at most every 10 minutes. Prebuilds and background jobs stop
 when fewer than 5,000 characters would be left (`LANI_VOICE_RESERVE`); that reserve is for live lines (the tutor's
 role-play lines, voiced as they come). Every line of a new learner's village, voiced once (October 2026): Primorska
 252,000 characters in 8,129 lines, Friuli 58,000, Kärnten 66,000, Lakeland 69,000 (`voice-build`'s dry run on an
-empty voice cache; docs/setup.md, "Your own ElevenLabs"). The subscription counted about half a character per
-character of `eleven_v3` text (September 2026: 34,100 characters voiced for about 17,000); the guard counts every
-character between subscription reads, so it stops early rather than late. New content and a month that runs short go
+empty voice cache; docs/setup.md, "Your own ElevenLabs"). A character costs what its model's
+`character_cost_multiplier` says (the account's `/v1/models`, October 2026): `eleven_v4_turbo` half a credit,
+`eleven_v4` and `eleven_v3` one (`MODEL_CREDITS` in `bridge/src/voice.ts`; in September 2026 `eleven_v3` counted about
+half, 34,100 characters for about 17,000, its price while it was new). The model is `LANI_ELEVENLABS_MODEL`
+(`eleven_v4_turbo` by default: Jan, comparing samples in October 2026, heard v4 better than v3 and no difference between
+v4 and v4 Turbo, which costs half); Voice Design keeps `eleven_ttv_v3`, and the denoise filter still applies (Janez's and
+Micka's designed voices hiss in v4 too). Each ElevenLabs clip records its model (`model` in `voice.db`, a take of
+another model gets a new file name; null: `eleven_v3`); `voice_status` shows them (`models`: `now`, and `by` model with
+their clips and characters), as does voice-build's plan. `voice-build --upgrade-model` makes the clips of an older model
+again in the current one, most played first (`hits`), within the quota above the reserve (`--max-chars`, `--max`): each
+in its voice (a short word in its carrier sentence, an explanation plainly), filtered, trimmed and levelled as every new
+clip, its hits kept, under a new file name, the old file removed; a running bridge tells the app (`voice_updated`).
+Never a local clip, nor the family's recordings. Not run on its own: Jan decides when (the quota resets on the 24th). The guard counts every character sent between subscription reads, so it stops
+early rather than late. New content and a month that runs short go
 in the order below, and the next month goes on where one stopped.
 
 **Prebuild**, in priority order: villager lines in their speakers' voices, review cards and pack
@@ -1619,6 +1641,8 @@ line when it is played), so the A1 tellings and drills (Jan's level) come before
 companion/bin/voice-build                  # dry run: texts, characters, cached, missing, quota left
 companion/bin/voice-build --run            # generate the missing clips (and the Slovene narrators' clips in Nina's and Luka's voices)
 companion/bin/voice-build --run --upgrade  # also replace local clips while the quota lasts
+companion/bin/voice-build --upgrade-model  # dry run: the ElevenLabs clips by model, those of an older one, what --run would make and its credits
+companion/bin/voice-build --upgrade-model --run --max-chars 20000   # the most played of them again in the current model
 companion/bin/voice-build --run --revoice grandma   # a swapped voice: its clips again
 companion/bin/voice-build --run --max-chars 2000
 companion/bin/voice-build --revoice-words --max 100        # dry run: old-style narrator words, the cost
@@ -2844,7 +2868,11 @@ Visiting": the labels in Italian), to a villager's card, the sea at the horizon 
 market (opened, not played: no tutor needed), the gift's message field with the keyboard up (it and "🎁 Invia · Send"
 above the keyboard; nothing sent), and back with "⌂ Casa · Home". Both bridges stop with QA, and on their own
 when QA is gone; a program other than a second town on 8797 is left alone (the visit steps skip). `--no-town` leaves
-the second town out.
+the second town out. `LANI_DEV_FAKE_ELEVENLABS=1` gives the dev bridge a fake ElevenLabs (`test/fakes/eleven.ts`, the
+smoke's: tones for clips, a take's time, a plan's concurrency, no voice slots; `LANI_DEV_FAKE_ELEVENLABS_MS`,
+`…_MS_PER_CHAR`, `…_CONCURRENCY`), so a clip made on demand runs end to end without the real one: with it, `--steps
+school` plays biti's first explanation as its clip (`intro-voice.txt`: `explanation:en`), and the dev bridge's log lists
+what the fake was asked, refused and the most at once.
 
 **QA's hooks in a debug build** (`app/QaHooks.kt`; a release build ignores them). QA asks them through the launch
 intent's `si.lanisce.lani.qa` extra: `happening:<scene>/<happening>` counts that happening as on, so
@@ -2913,13 +2941,17 @@ be) has …", "jaz sem", "(I am),", … in order, each with its language and whe
 bold, a sentence without Slovene, a list, a table and emoji left out), the explanation's text and key as the node voices
 it (apart from a line's), the quick question's gap read as a pause and a choice's options not read, a step's script and
 the intro's own words that make "**Biti**" Slovene; `IntroMarkTest` the run read marked in the line's text;
-`IntroVoiceSettingTest` the setting (on by default, kept); `ui/school/IntroPointerTest` what Mojca points at as biti's
+`IntroVoiceSettingTest` the setting (on by default, kept); `data/IntroVoiceRequestTest` the explanation as the app asks
+for it (`POST /voice/say` with its text, the teacher's voice, `lang` and the app token, to a node of its own; a 204 no
+clip) and looks it up (biti's steps keyed as Jan's node and the smoke keep them, found in her voice in the index, as the
+day's audio finds it); `ui/school/IntroPointerTest` what Mojca points at as biti's
 first step is read (its forms at their rows, a translation where its form was, the rest at its words, the examples, the
 question), the forms alone at their rows, her hand at the right end of what is read (the words' at the explanation's,
 the question level with its prompt; none off screen), its hop, no hand with the animations off or the keyboard up (the
 rows still marked), and her turn toward what she explains (shifted on her walk-in); `audio/DayAudioIntroTest` and `PrefetchRunTest` an
 explanation in the day's audio (asked for with its language, kept under its own key, never cut into phrases). The
-bridge's side is `test/smoke/course.ts` and `test/smoke/voice.ts` (an explanation's clip). On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
+bridge's side is `test/smoke/course.ts` and `test/smoke/voice.ts` (an explanation's clip; a step's burst against a plan
+of three at once, nothing refused; the app's own requests over HTTP, the key and the file). On the emulator, `companion/bin/qa --steps school` asks the debug build for QA's hook `school`
 (the dev village's copy a hamlet with its linden: the class begins with it), checks that there's nothing to set up,
 goes back Home and opens the school from its tile, opens the unit biti, plays its intro step by step (a tap, a gap, a tap, a gap; the summary
 card; the lesson begins with Mojca walking in, the screen recorded through it (`school-walk-in-<n>`, frames from

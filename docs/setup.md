@@ -261,13 +261,18 @@ anyone else.
    | Kärnten (German) | 1,765 | 66,000 | 33,000 |
    | Lakeland (English) | 1,824 | 69,000 | 34,000 |
 
-   The model is `eleven_v3` (the only one with Slovene), which counted about half a credit per character. Plans and
-   their monthly credits are on [ElevenLabs' pricing page](https://elevenlabs.io/pricing).
+   The model is `eleven_v4_turbo` by default (`LANI_ELEVENLABS_MODEL` in `lani.env` or `keys.env`; v3 and v4 speak
+   Slovene), which costs half a credit per character (`eleven_v4` and `eleven_v3` a whole one; the credits above are at
+   half). Each clip records its model; after a change, `companion/bin/voice-build --upgrade-model` shows the clips of an
+   older one and what making them again costs (`--run --max-chars N` does it, most played first). Plans and their monthly
+   credits are on [ElevenLabs' pricing page](https://elevenlabs.io/pricing).
 4. **All at once, or as you go.** You needn't voice everything up front. The bridge voices what you meet, in order of
    need (villagers' lines, your review words, examples, modules, stories at your level first), and keeps the last
    5,000 characters of your quota for the tutor's live role-play lines (`LANI_VOICE_RESERVE`). A line without a clip yet is spoken
    by the local Gepard voice (Slovene, if installed) or by the phone. So a small plan fills in over a few months; a
-   larger month voices it all at once:
+   larger month voices it all at once. The bridge sends ElevenLabs at most 3 requests at once (`LANI_ELEVENLABS_CONCURRENCY`;
+   the plans allow 3 on Starter, 5 on Creator): the rest wait their turn rather than being refused. Raise it on a larger
+   plan only if voice-build doesn't run beside the bridge:
 
    ```bash
    companion/bin/voice-build                      # dry run: lines, characters, what's missing, the quota left
