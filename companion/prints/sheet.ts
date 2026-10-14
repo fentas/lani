@@ -57,7 +57,7 @@ export function norm(s: string): string {
 }
 
 export const plain = (md: string) => md.replace(/\*\*|\*|⟦|⟧/g, '').replace(/\s+/g, ' ').trim()
-const wordsOf = (s: string) => s.match(/[\p{L}\p{M}]+/gu) ?? []
+const wordsOf = (s: string): string[] => s.match(/[\p{L}\p{M}]+/gu) ?? []
 
 /** The text in the base, else English, else Slovene. */
 export function tr(t: Text | undefined, base: string): string {
@@ -186,17 +186,34 @@ export function fillLearner(s: string, o: Options): string {
 // --- the content -----------------------------------------------------------------------------------------------
 
 export type Content = {
-  root: string
   language: string
+  /** Where it was read from. */
+  dirs: ContentDirs
   course: Json
   units: Map<string, Json>
   pages: Map<string, Json>
   dictionary: Dictionary
 }
 
-export function loadContent(root: string, language: string): Content {
+/**
+ * Where the content is: the language's course (its course.json and units/), its grammar book, the word packs and the
+ * dictionary (companion/lexicon). The repository's by default; the bridge passes its own (LANI_COURSE_DIR …).
+ */
+export type ContentDirs = { course: string; grammar: string; packs: string; lexicon: string }
+
+export function contentDirs(root: string, language: string, over: Partial<ContentDirs> = {}): ContentDirs {
+  return {
+    course: over.course ?? join(root, 'companion/course', language),
+    grammar: over.grammar ?? join(root, 'companion/grammar', language),
+    packs: over.packs ?? join(root, 'companion/packs'),
+    lexicon: over.lexicon ?? join(root, 'companion/lexicon'),
+  }
+}
+
+export function loadContent(root: string, language: string, over: Partial<ContentDirs> = {}): Content {
   const read = (p: string) => JSON.parse(readFileSync(p, 'utf8'))
-  const courseDir = join(root, 'companion/course', language)
+  const dirs = contentDirs(root, language, over)
+  const courseDir = dirs.course
   const course = read(join(courseDir, 'course.json'))
   const units = new Map<string, Json>()
   const unitsDir = join(courseDir, 'units')
@@ -206,13 +223,13 @@ export function loadContent(root: string, language: string): Content {
     if (u?.id) units.set(u.id, u)
   }
   const pages = new Map<string, Json>()
-  const grammarDir = join(root, 'companion/grammar', language)
+  const grammarDir = dirs.grammar
   for (const f of existsSync(grammarDir) ? readdirSync(grammarDir) : []) {
     if (!f.endsWith('.json')) continue
     const p = read(join(grammarDir, f))
     if (p?.id) pages.set(p.id, p)
   }
-  return { root, language, course, units, pages, dictionary: new Dictionary(root, language) }
+  return { language, dirs, course, units, pages, dictionary: new Dictionary(dirs, language) }
 }
 
 /** The units of a level in the outline's order (planned ones left out), then the level's unit files it doesn't list. */
@@ -248,14 +265,14 @@ export class Dictionary {
   private loaded = false
 
   constructor(
-    private readonly root: string,
+    private readonly dirs: Pick<ContentDirs, 'packs' | 'lexicon'>,
     private readonly language: string,
   ) {}
 
   private load() {
     if (this.loaded) return
     this.loaded = true
-    const packsDir = join(this.root, 'companion/packs')
+    const packsDir = this.dirs.packs
     for (const f of existsSync(packsDir) ? readdirSync(packsDir) : []) {
       if (!f.endsWith('.json')) continue
       try {
@@ -268,7 +285,7 @@ export class Dictionary {
         // a pack that doesn't parse is the bridge's to report
       }
     }
-    const dir = join(this.root, 'companion/lexicon')
+    const dir = this.dirs.lexicon
     try {
       const x = JSON.parse(readFileSync(join(dir, `${this.language}.extra.json`), 'utf8'))
       for (const e of x.entries ?? []) {

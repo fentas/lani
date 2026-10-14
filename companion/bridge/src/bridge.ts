@@ -62,6 +62,7 @@ import { Outbox } from './outbox'
 import { PackStore, packsDirs } from './packs'
 import { Devices, loadBridgeKey } from './pairing'
 import { ReadingStore } from './readings'
+import { Prints } from './prints'
 import { ScenarioStore } from './scenarios'
 import { SceneStore, scenesDirs } from './scenes'
 import { StoryStore, storiesDirs } from './stories'
@@ -138,6 +139,15 @@ export async function startBridge(o: BridgeOptions) {
     // The school's course of the village's language (companion/course/<language>: sl, it, de, en), then the tutor's
     // homework for its units (<data>/app/course).
     course: new CourseStore(courseDir(env.LANI_COURSE_DIR ?? join(projectDir, 'companion/course'), language), language, join(appDir, 'course'), log),
+    // Its printed sheets (companion/prints, the generator's own code): from the same course, grammar book, packs and
+    // dictionary the bridge serves.
+    prints: new Prints(language, {
+      root: projectDir,
+      course: courseDir(env.LANI_COURSE_DIR ?? join(projectDir, 'companion/course'), language),
+      grammar: grammarDir(env.LANI_GRAMMAR_DIR ?? join(projectDir, 'companion/grammar'), language),
+      packs: env.LANI_PACKS_DIR ?? join(projectDir, 'companion/packs'),
+      lexicon: lexiconDir,
+    }, log),
     // The car's audio drills of the village's language (companion/drills/<language>): what they name checked against the
     // grammar book, the packs and the cast (read lazily: the context is being built here).
     drills: new DrillStore(drillsDir(env.LANI_DRILLS_DIR ?? join(projectDir, 'companion/drills'), language), language, () => ({ grammar: new Set(ctx.grammar.all().map(p => p.id)), packs: ctx.packs.all(), villagers: ctx.villagers.all() }), log),

@@ -96,7 +96,7 @@ const IT: Base = {
 }
 export const BASES: Record<string, Base> = { en: EN, de: DE, it: IT }
 
-const LANGUAGE_NAMES: Record<string, string> = { sl: 'Slovenščina', it: 'Italiano', de: 'Deutsch', en: 'English' }
+export const LANGUAGE_NAMES: Record<string, string> = { sl: 'Slovenščina', it: 'Italiano', de: 'Deutsch', en: 'English' }
 
 // --- text --------------------------------------------------------------------------------------------------------
 
@@ -279,38 +279,45 @@ export function contentsHtml(sheets: Sheet[], base: string, level: string, langu
 
 // --- the document --------------------------------------------------------------------------------------------------
 
+/** The print's own files next to this one (sheet.css, fit.js), and the fonts the site ships (site/fonts). */
+const HERE = import.meta.dir
+const FONTS = join(HERE, '../../site/fonts')
+
 /** The fonts the site ships (site/fonts: Nunito, Pixelify Sans, Kalam; SIL OFL), inlined so the file stands alone. */
-function fontFaces(root: string): string {
-  const dir = join(root, 'site/fonts')
+const FACES: [family: string, style: string, weight: string, file: string, ext: boolean][] = [
+  ['Nunito', 'normal', '400 800', 'nunito-normal-400-800-latin-ext.woff2', true],
+  ['Nunito', 'normal', '400 800', 'nunito-normal-400-800-latin.woff2', false],
+  ['Nunito', 'italic', '400 600', 'nunito-italic-400-600-latin-ext.woff2', true],
+  ['Nunito', 'italic', '400 600', 'nunito-italic-400-600-latin.woff2', false],
+  ['Pixelify Sans', 'normal', '400 700', 'pixelify-sans-normal-400-700-latin-ext.woff2', true],
+  ['Pixelify Sans', 'normal', '400 700', 'pixelify-sans-normal-400-700-latin.woff2', false],
+  ['Kalam', 'normal', '400', 'kalam-normal-400-latin-ext.woff2', true],
+  ['Kalam', 'normal', '400', 'kalam-normal-400-latin.woff2', false],
+]
+
+/** Every file a document inlines besides the content: the CSS, fit.js and the fonts (build.ts stamps them). */
+export const ASSETS = () => [join(HERE, 'sheet.css'), join(HERE, 'fit.js'), ...FACES.map(f => join(FONTS, f[3]))]
+
+function fontFaces(): string {
   const ext = 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF'
   const lat = 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD'
-  const face = (family: string, style: string, weight: string, file: string, range: string) => {
-    const data = readFileSync(join(dir, file)).toString('base64')
-    return `@font-face{font-family:'${family}';font-style:${style};font-weight:${weight};src:url(data:font/woff2;base64,${data}) format('woff2');unicode-range:${range}}`
-  }
-  return [
-    face('Nunito', 'normal', '400 800', 'nunito-normal-400-800-latin-ext.woff2', ext),
-    face('Nunito', 'normal', '400 800', 'nunito-normal-400-800-latin.woff2', lat),
-    face('Nunito', 'italic', '400 600', 'nunito-italic-400-600-latin-ext.woff2', ext),
-    face('Nunito', 'italic', '400 600', 'nunito-italic-400-600-latin.woff2', lat),
-    face('Pixelify Sans', 'normal', '400 700', 'pixelify-sans-normal-400-700-latin-ext.woff2', ext),
-    face('Pixelify Sans', 'normal', '400 700', 'pixelify-sans-normal-400-700-latin.woff2', lat),
-    face('Kalam', 'normal', '400', 'kalam-normal-400-latin-ext.woff2', ext),
-    face('Kalam', 'normal', '400', 'kalam-normal-400-latin.woff2', lat),
-  ].join('\n')
+  return FACES.map(([family, style, weight, file, isExt]) => {
+    const data = readFileSync(join(FONTS, file)).toString('base64')
+    return `@font-face{font-family:'${family}';font-style:${style};font-weight:${weight};src:url(data:font/woff2;base64,${data}) format('woff2');unicode-range:${isExt ? ext : lat}}`
+  }).join('\n')
 }
 
-export function documentHtml(o: { root: string; title: string; lang: string; mode: 'unit' | 'booklet'; body: string }): string {
-  const here = join(o.root, 'companion/prints')
-  const css = readFileSync(join(here, 'sheet.css'), 'utf8')
-  const js = readFileSync(join(here, 'fit.js'), 'utf8')
+/** A whole page: the CSS, the fonts and fit.js inlined, so it prints as it is from a file, Chromium's or a WebView's. */
+export function documentHtml(o: { title: string; lang: string; mode: 'unit' | 'booklet'; body: string }): string {
+  const css = readFileSync(join(HERE, 'sheet.css'), 'utf8')
+  const js = readFileSync(join(HERE, 'fit.js'), 'utf8')
   return `<!doctype html>
 <html lang="${esc(o.lang)}" data-mode="${o.mode}">
 <head>
 <meta charset="utf-8">
 <title>${esc(o.title)}</title>
 <style>
-${fontFaces(o.root)}
+${fontFaces()}
 ${css}
 </style>
 </head>

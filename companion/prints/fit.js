@@ -1,10 +1,18 @@
-// Fits each unit of a printed sheet (companion/COURSE.md, "Printed sheets") to the page before it prints: its one-page
+// Fits each unit of a printed sheet (companion/COURSE.md, "Printed sheets") to the page before it prints (in headless
+// Chromium for the generator, in the app's WebView for the app's print dialog: both Chromium, the same CSS millimetres,
+// so the same decisions): its one-page
 // layout if that fits (as it is, with the table beside the rule, then tighter, without the optional parts, tightest), else
 // its two-page one the same way. A unit that fits on neither gets a third page saying so, which the generator's page
 // count catches. Then the pages get their numbers and the contents its page numbers. What was chosen is written into
-// #fit-report (the generator reads it with --dump-dom).
+// #fit-report (the generator reads it with --dump-dom; the app waits for data-fitted before it prints).
 ;(async function () {
-  if (document.fonts && document.fonts.ready) await document.fonts.ready
+  if (document.fonts) {
+    // every face loaded before anything is measured: document.fonts.ready alone waits only for the fonts a layout asked
+    // for, and a page nobody draws (the app's WebView off screen, which prints it) may not have laid out yet; a face that
+    // doesn't load leaves its fallback, as in a browser
+    await Promise.all([...document.fonts].map(f => f.load().catch(() => null)))
+    if (document.fonts.ready) await document.fonts.ready
+  }
   const MM = 96 / 25.4
   const booklet = document.documentElement.dataset.mode === 'booklet'
   // a page's content past its bottom or right edge; a millimetre of slack for rounding (the answers turned upside down

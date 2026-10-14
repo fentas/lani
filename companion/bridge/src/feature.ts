@@ -22,6 +22,7 @@ import type { Outbox } from './outbox'
 import type { PackStore } from './packs'
 import type { BridgeKey, Devices } from './pairing'
 import type { ReadingStore } from './readings'
+import type { Prints } from './prints'
 import type { ScenarioStore } from './scenarios'
 import type { SceneStore } from './scenes'
 import type { StoryStore } from './stories'
@@ -65,6 +66,8 @@ export type Ctx = {
   cards: CardStore
   /** The school's course of the village's language (course.ts): the curated outline and units, the tutor's homework. */
   course: CourseStore
+  /** The course's printed sheets (prints.ts, companion/prints): a unit's sheet and a level's booklet as HTML to print. */
+  prints: Prints
   /** The car's audio drills of the village's language (drills.ts): the curated ones. */
   drills: DrillStore
   scenarios: ScenarioStore

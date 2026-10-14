@@ -4,9 +4,10 @@ import { badNote, fail, noteIn, ok } from '../channel'
 import { grammarNamed, LEVELS, validateWorksheet, type Homework, type ServedCourse, type Unit } from '../course'
 import type { FeatureFactory } from '../feature'
 import { titleFor, type GrammarExample, type GrammarPage } from '../grammar'
-import { json } from '../http'
+import { HttpError, json, type Route } from '../http'
 import { textIn } from '../langs'
 import { learnerLangs } from '../learners'
+import { isPrintBase, type PrintGender, type PrintWhat } from '../prints'
 import type { ModuleSpec } from '../spec'
 import { corpus } from '../voice'
 
@@ -47,9 +48,41 @@ function voiced(ws: Homework): { modules: ModuleSpec[]; grammar: Pick<GrammarPag
   }
 }
 
-export const course: FeatureFactory = ({ course: store, grammar, game, events, voice, cfg, culture, addressee }) => {
+export const course: FeatureFactory = ({ course: store, prints, grammar, game, events, voice, cfg, culture, addressee }) => {
   const langs = () => learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
   const own = store.language
+
+  /**
+   * A printed sheet or booklet (companion/COURSE.md, "Printed sheets") for this bridge's learner: in their base language
+   * (English where the sheets have none), with their name and their gender's forms; ?base=en|de|it, ?learner=<name> and
+   * ?gender=m|f|both say otherwise (both: "utrujen/utrujena", as the generator's default).
+   */
+  function printed(what: PrintWhat, url: URL): Response {
+    const q = url.searchParams
+    const who = addressee()
+    const asked = q.get('base')
+    if (asked !== null && !isPrintBase(asked)) throw new HttpError(400, 'base: en, de or it')
+    const theirs = langs().base
+    const base = asked ?? (isPrintBase(theirs) ? theirs : 'en')
+    const gender = (q.get('gender') ?? (who.gender === 'female' ? 'f' : 'm')) as PrintGender
+    if (!['m', 'f', 'both'].includes(gender)) throw new HttpError(400, 'gender: m, f or both')
+    const learner = (q.get('learner') ?? who.name).trim().slice(0, 40) || who.name
+    const doc = prints.doc(what, { base, learner, gender })
+    if (!doc) return json({ error: what.kind === 'sheet' ? `no unit "${what.unit}" of the course to print` : `no units of level ${what.level} to print` }, 404)
+    return new Response(doc.html, {
+      headers: {
+        'content-type': 'text/html; charset=utf-8',
+        'cache-control': 'no-store',
+        // what the app names the print job after, and how many units it holds
+        'x-lani-print-name': doc.name,
+        'x-lani-print-units': String(doc.sheets.length),
+      },
+    })
+  }
+  const printRoutes: Route[] = [
+    { method: 'GET', path: /^\/course\/sheet\/([a-z0-9][a-z0-9-]{0,63})$/, handle: ({ url, params }) => printed({ kind: 'sheet', unit: params[0] }, url) },
+    { method: 'GET', path: /^\/course\/booklet\/([A-C][12])$/, handle: ({ url, params }) => printed({ kind: 'booklet', level: params[0] }, url) },
+  ]
 
   /** Where the learner is in the course: the served course and the village state's course. */
   function whereNow(c: ServedCourse | undefined) {
@@ -105,6 +138,7 @@ export const course: FeatureFactory = ({ course: store, grammar, game, events, v
           return c ? json(c) : json({ error: 'no course' }, 404)
         },
       },
+      ...printRoutes,
     ],
     tools: [
       {

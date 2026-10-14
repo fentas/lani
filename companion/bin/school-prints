@@ -21,8 +21,9 @@
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { homedir, tmpdir } from 'node:os'
 import { join, relative, resolve } from 'node:path'
-import { coverHtml, contentsHtml, documentHtml, unitHtml } from '../prints/html'
-import { buildSheet, levelsOf, loadContent, plain, tr, unitsOf, type Sheet } from '../prints/sheet'
+import { bookletDoc, sheetsOf, unitDoc } from '../prints/build'
+import { LANGUAGE_NAMES } from '../prints/html'
+import { levelsOf, loadContent, plain, unitsOf } from '../prints/sheet'
 
 const root = resolve(import.meta.dir, '../..')
 const args = process.argv.slice(2)
@@ -117,8 +118,6 @@ async function pool<T>(items: T[], n: number, f: (x: T) => Promise<void>) {
 }
 
 const today = new Date().toISOString().slice(0, 10)
-const titles = new Map<string, { sl: string; tr: string }>()
-for (const [id, p] of content.pages) titles.set(id, { sl: tr(p.title, language), tr: tr(p.title, base) })
 const browser = flag('--html-only') ? '' : chromiumPath()
 const dataHome = process.env.XDG_DATA_HOME || join(homedir(), '.local/share')
 let failed = false
@@ -135,19 +134,17 @@ for (const level of levels) {
   const htmlDir = join(out, 'html')
   mkdirSync(htmlDir, { recursive: true })
 
-  const all = unitsOf(content, level)
-  const sheets: Sheet[] = units.map(u => buildSheet(content, u, all.indexOf(u) + 1, all.length, { base, learner, gender }))
-  const pad = (n: number) => String(n).padStart(2, '0')
-  const files = sheets.map(s => ({ s, name: `${pad(s.n)}-${s.id}` }))
-
-  for (const { s, name } of files) {
-    const body = unitHtml(s, base, level, language, titles)
-    writeFileSync(join(htmlDir, `${name}.html`), documentHtml({ root, title: `${s.n}. ${plain(s.title.sl)} · Lani ${level}`, lang: base, mode: 'unit', body }))
-  }
-  const bookletName = `lani-${language}-${level}-${base}`
-  const name = { sl: 'Slovenščina', it: 'Italiano', de: 'Deutsch', en: 'English' }[language] ?? language
-  const bookletBody = coverHtml(sheets, base, level, language, today) + contentsHtml(sheets, base, level, language) + sheets.map(s => unitHtml(s, base, level, language, titles)).join('\n')
-  writeFileSync(join(htmlDir, `${bookletName}.html`), documentHtml({ root, title: `${name} ${level} · Lani`, lang: base, mode: 'booklet', body: bookletBody }))
+  // the same documents the bridge serves the app (companion/prints/build.ts)
+  const sheets = sheetsOf(content, level, { base, learner, gender }, only)
+  const files = sheets.map(s => {
+    const doc = unitDoc(content, s, base)
+    writeFileSync(join(htmlDir, `${doc.name}.html`), doc.html)
+    return { s, name: doc.name }
+  })
+  const booklet = bookletDoc(content, level, sheets, base, today)
+  const bookletName = booklet.name
+  const name = LANGUAGE_NAMES[language] ?? language
+  writeFileSync(join(htmlDir, `${bookletName}.html`), booklet.html)
 
   if (flag('--explain')) {
     for (const s of sheets) {
