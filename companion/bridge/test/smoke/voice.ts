@@ -8,7 +8,7 @@ import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, denoisedFile, EDGES, edgesOf, ElevenLabs, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, DEFAULT_ELEVENLABS_CONCURRENCY, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -411,6 +411,48 @@ export default async function voice() {
       nx?.voice === 'female.sl' && nx.norm === `de|${normalizeText(text)}` && fe2.st.tts.at(-1)?.voice === cast().female.languages!.sl.elevenlabs && !('language_code' in (fe2.st.tts.at(-1)?.body ?? {})) && fg.st.calls.length === 0 &&
         ns.index()[`de|${normalizeText(text)}`]?.female === `/voice/file/${nx.file}` && !ns.wantsUpgrade(nx) && !ns.upgradeQueue(false).some(c => explanationLang(c.norm)) && !ns.narratorQueue(() => true).todo.some(c => explanationLang(c.norm)), [nx, fe2.st.tts.at(-1)])
     ns.close()
+  }
+
+  // --- a school intro step read aloud asks for its explanation and its Slovene at once: within ElevenLabs' concurrency
+  // (in-process against the fakes) ------------------------------------------------------------------------------------
+  {
+    const fe = fakeEleven()
+    // a plan of three at once, each take a while (as the real one: a Creator plan allows five, voice-build may use some)
+    Object.assign(fe.st, { concurrency: 3, delayMs: 120 })
+    const fg = fakeGepard()
+    const el = new ElevenLabs({ key: 'test-key', base: fe.url })
+    const vs = new VoiceStore({ appDir: tempDir('lani-burst-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null })
+    // biti's step 4 (the one whose explanation Jan's node never made, 2026-10-14): its explanation as the app sends it,
+    // the Slovene forms read in its runs, its examples and question
+    const explanation = 'To say no, ne and the form melt into one word: nisem, nisi, ni; nismo, niste, niso; for two nisva, nista. Never ne sem.'
+    const lines = ['ne', 'nisem, nisi, ni', 'nismo, niste, niso', 'nisva, nista', 'ne sem', 'Nisem utrujen.', 'Kruh ni svež.', 'Babica ni doma, je na vrtu.']
+    const [ex, ...said] = await Promise.all([vs.say(explanation, 'teacher', 'en'), ...lines.map(l => vs.say(l, 'teacher'))])
+    check('a school intro step read aloud (its explanation and its Slovene, nine asked at once) against a plan of three at once: never more at ElevenLabs than that (none refused), every one made by ElevenLabs in the teacher\'s voice, the explanation too; the worker not asked',
+      fe.st.refused === 0 && fe.st.maxInFlight === 3 && ex?.engine === 'elevenlabs' && ex.norm === 'en|to say no ne and the form melt into one word nisem nisi ni nismo niste niso for two nisva nista never ne sem' &&
+        said.every(c => c?.engine === 'elevenlabs' && c.voice === 'teacher') && fg.st.calls.length === 0, [fe.st.refused, fe.st.maxInFlight, ex, said.map(c => c?.engine)])
+    vs.close()
+    // more at once than the plan allows (here: a bridge set to eight; on the node: voice-build's requests besides): what
+    // ElevenLabs refuses as busy is asked again a moment later, and ElevenLabs isn't paused for it
+    const fe2 = fakeEleven()
+    Object.assign(fe2.st, { concurrency: 3, delayMs: 30 })
+    const el2 = new ElevenLabs({ key: 'test-key', base: fe2.url, concurrency: 8, busyWaitMs: 60 })
+    const vs2 = new VoiceStore({ appDir: tempDir('lani-busy-'), engines: [el2, new Gepard({ url: fg.url })], queueDelayMs: 0, level: null })
+    const many = await Promise.all(lines.map(l => vs2.say(l, 'teacher')))
+    const after = await vs2.say(explanation, 'teacher', 'en')
+    const est = await el2.status()
+    check('…more asked at once than the plan allows: what ElevenLabs refuses as too many at once is asked again a moment later and made (not by the worker), ElevenLabs not paused (an explanation right after made at once); the status counts them',
+      fe2.st.refused > 0 && many.every(c => c?.engine === 'elevenlabs') && after?.engine === 'elevenlabs' && fg.st.calls.length === 0 && est.up === true &&
+        est.concurrency.limit === 8 && est.concurrency.busy_again === fe2.st.refused && est.concurrency.running === 0 && est.concurrency.waiting === 0, [fe2.st.refused, many.map(c => c?.engine), after, est.concurrency])
+    vs2.close()
+    // another 429 (a rate limit, not the concurrency): the engine pauses as before, the worker takes the line
+    const fe3 = fakeEleven()
+    fe3.st.fail = 429
+    const el3 = new ElevenLabs({ key: 'test-key', base: fe3.url, busyWaitMs: 10 })
+    check('…a 429 that isn\'t about the concurrency (a rate limit): not asked again, ElevenLabs paused a while as before', (await el3.synth('Dober dan.', 'teacher')) === null && fe3.st.tts.length === 1 && !(await el3.ready(10, true)))
+    check('LANI_ELEVENLABS_CONCURRENCY sets the requests at once (a whole number above 0; else the default, three)',
+      (await enginesFromEnv({ LANI_ELEVENLABS_CONCURRENCY: '5' }).eleven.status()).concurrency.limit === 5 &&
+        (await enginesFromEnv({ LANI_ELEVENLABS_CONCURRENCY: '0' }).eleven.status()).concurrency.limit === DEFAULT_ELEVENLABS_CONCURRENCY &&
+        (await enginesFromEnv({ LANI_ELEVENLABS_CONCURRENCY: 'many' }).eleven.status()).concurrency.limit === 3)
   }
 
   // --- the narrators of a Slovene village: their Slovene ElevenLabs voices, the local voice as their fallback, never the
@@ -1500,6 +1542,26 @@ export default async function voice() {
       check('POST /voice/prepare with lang: the next unit\'s explanation made ahead (plainly, no language_code), one there as it is, counted in the day\'s characters; the index has it',
         /^\/voice\/file\/[a-f0-9]{40}\.mp3$/.test(pr.clips?.[0]?.url) && pr.clips[0].engine === 'elevenlabs' && pr.clips[1].url === rb.url && pr.today === before + next.length && bridgeEleven.st.tts.length === n1 + 1 &&
           pcall?.body.text === next && !('language_code' in pcall.body) && idx2[`en|${normalizeText(next)}`]?.teacher === pr.clips[0].url && bridgeGepard.st.calls.length === g0, [pr, pcall])
+      // the app's own requests as a step is read (data/IntroVoice.kt through ClipsApi.say): the explanation first, then the
+      // step's Slovene, all at once, against a plan of three at once that takes its time; then the key the app looks the
+      // clip up by (IntroSpeech.key; the app's IntroSpeechTest has the same) and the file it downloads
+      Object.assign(bridgeEleven.st, { concurrency: 3, delayMs: 80, refused: 0, maxInFlight: 0 })
+      const said = 'To say no, ne and the form melt into one word: nisem, nisi, ni; nismo, niste, niso; for two nisva, nista. Never ne sem.'
+      const key = 'en|to say no ne and the form melt into one word nisem nisi ni nismo niste niso for two nisva nista never ne sem'
+      const forms = ['ne', 'nisem, nisi, ni', 'nismo, niste, niso', 'nisva, nista', 'ne sem']
+      const g1 = bridgeGepard.st.calls.length
+      const [xr, ...fr] = await Promise.all([ask({ text: said, voice: 'teacher', lang: 'en' }), ...forms.map(text => ask({ text, voice: 'teacher' }))])
+      const xb = xr.status === 200 ? await xr.json() : null
+      const fb = await Promise.all(fr.map(r => (r.status === 200 ? r.json() : null)))
+      const idx3 = await (await fetch(`${base}/voice/index`, { headers: auth })).json()
+      const file = xb?.url ? await fetch(`${base}${xb.url}`, { headers: auth }) : null
+      check('the app\'s requests as a step is read (POST /voice/say: its explanation with lang "en" in the teacher\'s voice and its Slovene forms, six at once) against a plan of three at once: none refused, all by ElevenLabs, the worker not asked; the index has the explanation under the key the app looks it up by ("en|to say no ne and …"), its file downloads',
+        bridgeEleven.st.refused === 0 && bridgeEleven.st.maxInFlight <= 3 && xb?.engine === 'elevenlabs' && xb.voice === 'teacher' && fb.every(b => b?.engine === 'elevenlabs') && bridgeGepard.st.calls.length === g1 &&
+          key === `en|${normalizeText(said)}` && idx3[key]?.teacher === xb.url && file?.status === 200 && file.headers.get('content-type') === 'audio/mpeg', [xb, fb, bridgeEleven.st.refused, bridgeEleven.st.maxInFlight])
+      const n2 = bridgeEleven.st.tts.length
+      const second = await (await ask({ text: said, voice: 'teacher', lang: 'en' })).json()
+      check('…the step read again: the same clip at once, nothing voiced', second.url === xb?.url && bridgeEleven.st.tts.length === n2, second)
+      Object.assign(bridgeEleven.st, { concurrency: 0, delayMs: 0 })
       const bad = await fetch(`${base}/voice/prepare`, { method: 'POST', headers: auth, body: JSON.stringify({ texts: [{ text: long, voice: 'teacher' }] }) })
       check('POST /voice/prepare: a line over 300 characters is a 400 as ever', bad.status === 400)
     }

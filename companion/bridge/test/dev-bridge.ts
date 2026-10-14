@@ -3,7 +3,7 @@
 // Env: LANI_DEV_PORT its port; LANI_DEV_DATA the data to copy (default: the default learner's, LANI_DATA_DIR in lani.env,
 // else the repo's data/), with its voice clips (the voice cache, paths.ts voiceDir); LANI_DEV_KEEP_TOWNS=1
 // keeps the copy's town links (by default QA's town knows only the towns QA links, e.g. test/dev-town.ts, and never
-// asks a real learner's town).
+// asks a real learner's town); LANI_DEV_FAKE_ELEVENLABS=1 a fake ElevenLabs (below).
 import '../src/env' // first: LANI_* from the FLUENT_* names of a node set up before the rename
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
@@ -12,6 +12,7 @@ import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { setting } from '../src/env'
 import { voiceDir } from '../src/paths'
+import { fakeEleven } from './fakes/eleven'
 
 const port = process.env.LANI_DEV_PORT ?? '8791'
 const dataDir = mkdtempSync(join(tmpdir(), 'lani-dev-'))
@@ -79,13 +80,41 @@ client.fallbackNotificationHandler = async n => {
   else if (kind === 'partner_answer') await reply(conversation_id, '**Lepo!** 🟢 (dev tutor) Nice answer.', { score: 8, partner_note: '(dev tutor) Jan answered well.' })
 }
 
+// LANI_DEV_FAKE_ELEVENLABS=1: the bridge talks to a fake ElevenLabs here (test/fakes/eleven.ts: tones about as long as the
+// text, a quota of its own), so the whole path of a clip made on demand runs without the real API; as the real service it
+// takes LANI_DEV_FAKE_ELEVENLABS_MS a take plus LANI_DEV_FAKE_ELEVENLABS_MS_PER_CHAR a character (default 600 and 15) and
+// refuses what goes over LANI_DEV_FAKE_ELEVENLABS_CONCURRENCY at once (default 5, a Creator plan's; 0: no limit).
+const fake = process.env.LANI_DEV_FAKE_ELEVENLABS === '1' ? fakeEleven({ tones: true }) : undefined
+if (fake) {
+  const num = (name: string, d: number) => (process.env[name] ? Number(process.env[name]) : d)
+  Object.assign(fake.st, {
+    delayMs: num('LANI_DEV_FAKE_ELEVENLABS_MS', 600), msPerChar: num('LANI_DEV_FAKE_ELEVENLABS_MS_PER_CHAR', 15),
+    concurrency: num('LANI_DEV_FAKE_ELEVENLABS_CONCURRENCY', 5), limit: 180_000,
+    // no voice slot free: nobody gets a voice of their own designed on the fake, everyone keeps the voice the copy gives them
+    voiceLimit: 0,
+  })
+  console.log(`fake ElevenLabs on ${fake.url} (concurrency ${fake.st.concurrency}, ${fake.st.delayMs} ms + ${fake.st.msPerChar} ms a character)`)
+  // what it was asked, as it goes: QA's log shows the takes, what went over the concurrency and the most at once
+  let told = 0
+  let refused = 0
+  setInterval(() => {
+    if (fake.st.tts.length === told && fake.st.refused === refused) return
+    for (const t of fake.st.tts.slice(told)) console.log(`fake ElevenLabs: ${t.voice} ${t.body.language_code ?? '(no language_code)'} ${String(t.body.text).length} chars "${String(t.body.text).slice(0, 60)}"`)
+    told = fake.st.tts.length
+    refused = fake.st.refused
+    console.log(`fake ElevenLabs: ${told} takes asked, ${refused} refused (over the concurrency), at most ${fake.st.maxInFlight} at once`)
+  }, 1_000)
+}
+const eleven = fake
+  ? { ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: fake.url, LANI_VOICE_DESIGN: 'off' }
+  : // QA must not spend the ElevenLabs quota; LANI_DEV_ELEVENLABS=1 allows it. Cached clips still play.
+    { ELEVENLABS_API_KEY: process.env.LANI_DEV_ELEVENLABS === '1' ? (process.env.ELEVENLABS_API_KEY ?? '') : '' }
+
 await client.connect(
   new StdioClientTransport({
     command: 'bun',
     args: [resolve(import.meta.dir, '../src/index.ts')],
-    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off',
-      // QA must not spend the ElevenLabs quota; LANI_DEV_ELEVENLABS=1 allows it. Cached clips still play.
-      ELEVENLABS_API_KEY: process.env.LANI_DEV_ELEVENLABS === '1' ? (process.env.ELEVENLABS_API_KEY ?? '') : '' } as Record<string, string>,
+    env: { ...process.env, LANI_DATA_DIR: dataDir, LANI_VOICE_CACHE: join(dataDir, 'app', 'voice'), LANI_BRIDGE_PORT: port, LANI_BRIDGE_TOKEN: 'dev-token', LANI_FAMILY_TOKEN: 'dev-family', LANI_RHYTHM: 'off', ...eleven } as Record<string, string>,
     stderr: 'inherit',
   }),
 )

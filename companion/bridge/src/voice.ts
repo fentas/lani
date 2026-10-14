@@ -800,10 +800,55 @@ export type DesignTake = { id: string; audio: Uint8Array }
 export const DEFAULT_RESERVE = 5_000
 
 /**
+ * The text-to-speech requests this bridge has at ElevenLabs at once, by default (LANI_ELEVENLABS_CONCURRENCY): below
+ * the plans' own limits (Starter 3, Creator 5 at once), so a burst (a school intro's step asks for its explanation and its
+ * Slovene forms together) waits its turn instead of being refused over the limit (HTTP 429), which paused ElevenLabs for
+ * a minute and left the explanation unmade; one or two left for voice-build.
+ */
+export const DEFAULT_ELEVENLABS_CONCURRENCY = 3
+
+/** ElevenLabs' answer when too much is at work at once (the plan's concurrency, or its system busy): asked again soon. */
+const BUSY = /too_many_concurrent_requests|concurren|system_busy/i
+
+/** How often a request ElevenLabs refused as busy ([BUSY]) is asked again, and the wait before each (times its try). */
+const BUSY_RETRIES = 2
+const BUSY_WAIT_MS = 1_000
+
+/** At most [size] at a time ([run]); the rest wait their turn, first come first served. */
+export class Gate {
+  private busy = 0
+  private readonly waiting: (() => void)[] = []
+  constructor(readonly size: number) {}
+
+  /** At work now. */
+  get running(): number { return this.busy }
+
+  /** Waiting their turn. */
+  get queued(): number { return this.waiting.length }
+
+  async run<T>(f: () => Promise<T>): Promise<T> {
+    if (this.busy < this.size) this.busy++
+    // the one done before hands its place over
+    else await new Promise<void>(r => this.waiting.push(r))
+    try {
+      return await f()
+    } finally {
+      const next = this.waiting.shift()
+      if (next) next()
+      else this.busy--
+    }
+  }
+}
+
+/** A request's answer read within its turn: the value, or the error's status and text. */
+type Answer<T> = { ok: true; value: T } | { ok: false; status: number; text: string }
+
+/**
  * ElevenLabs eleven_v3 with a quota guard. The subscription is read at most every 10 minutes and
  * counted forward locally in between. Prebuilds stop at [reserve] characters left; live dialogue
  * lines may use the reserve. Each speaker's voice id comes from the cast ([voices] overrides it).
  * A carrier voice says a short text inside its language's carrier sentence, cut out with [cut].
+ * At most [concurrency] text-to-speech requests at once ([Gate]), the rest in turn; one refused as busy is asked again.
  */
 export class ElevenLabs implements Engine {
   readonly name = 'elevenlabs' as const
@@ -813,6 +858,9 @@ export class ElevenLabs implements Engine {
   private lastError?: string
   private cutter?: Cutter | null
   private noCutterLogged = false
+  private readonly gate: Gate
+  /** Requests ElevenLabs refused as busy and that were asked again, since the start. */
+  private busyAgain = 0
 
   constructor(
     private readonly o: {
@@ -827,9 +875,15 @@ export class ElevenLabs implements Engine {
       cut?: Cutter | null
       /** The carrier sentences by language (CARRIERS). */
       carriers?: Record<string, string>
+      /** Text-to-speech requests at once (DEFAULT_ELEVENLABS_CONCURRENCY); the rest wait their turn. */
+      concurrency?: number
+      /** The wait before a request refused as busy is asked again (BUSY_WAIT_MS, times its try). */
+      busyWaitMs?: number
       log?: Log
     } = {},
-  ) {}
+  ) {
+    this.gate = new Gate(Math.max(1, Math.floor(o.concurrency ?? DEFAULT_ELEVENLABS_CONCURRENCY)))
+  }
 
   private get base() { return (this.o.base ?? 'https://api.elevenlabs.io').replace(/\/$/, '') }
   get reserve() { return this.o.reserve ?? DEFAULT_RESERVE }
@@ -929,13 +983,38 @@ export class ElevenLabs implements Engine {
   }
 
   /** A failed request: logged without the key; quota, auth, a rate limit or a server error pause asking for a while. */
-  private async failed(r: Response, what: string) {
-    this.lastError = `${what}: HTTP ${r.status} ${this.redact(await r.text()).slice(0, 160)}`
+  private failed(status: number, text: string, what: string) {
+    this.lastError = `${what}: HTTP ${status} ${this.redact(text).slice(0, 160)}`
     this.o.log?.(`elevenlabs: ${this.lastError}`)
     // Quota, auth or rate limit: stop asking for a while and re-read the subscription then.
-    if ([401, 402, 429].includes(r.status) || r.status >= 500) {
-      this.pausedUntil = Date.now() + (r.status === 429 ? 60_000 : 600_000)
+    if ([401, 402, 429].includes(status) || status >= 500) {
+      this.pausedUntil = Date.now() + (status === 429 ? 60_000 : 600_000)
       if (this.quota) this.quota.checked_at = 0
+    }
+  }
+
+  /**
+   * A text-to-speech POST of [body] to [url] in its turn ([gate]: at most [concurrency] at once from here), its answer read
+   * within it ([read]: the request is at work until its audio is in). ElevenLabs refusing it as too much at once ([BUSY]:
+   * another process's requests, voice-build's) asks it again a moment later, up to BUSY_RETRIES times, without pausing
+   * the engine; any other error is the caller's. Throws as fetch does (the network, the timeout).
+   */
+  private async tts<T>(url: string, body: unknown, accept: string | undefined, read: (r: Response) => Promise<T>): Promise<Answer<T>> {
+    for (let attempt = 0; ; attempt++) {
+      const a: Answer<T> = await this.gate.run(async () => {
+        const r = await fetch(url, {
+          method: 'POST',
+          headers: { ...this.headers(), ...(accept ? { accept } : {}) },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(60_000),
+        })
+        return r.ok ? { ok: true as const, value: await read(r) } : { ok: false as const, status: r.status, text: await r.text() }
+      })
+      if (a.ok || a.status !== 429 || !BUSY.test(a.text) || attempt >= BUSY_RETRIES) return a
+      const wait = (this.o.busyWaitMs ?? BUSY_WAIT_MS) * (attempt + 1)
+      this.busyAgain++
+      this.o.log?.(`elevenlabs: busy (HTTP 429 ${this.redact(a.text).slice(0, 80)}): asked again in ${wait} ms`)
+      await Bun.sleep(wait)
     }
   }
 
@@ -969,17 +1048,17 @@ export class ElevenLabs implements Engine {
     const id = this.voiceId(voice)
     if (!id) return null
     try {
-      const r = await fetch(`${this.base}/v1/text-to-speech/${id}?output_format=mp3_44100_128`, {
-        method: 'POST',
-        headers: { ...this.headers(), accept: 'audio/mpeg' },
-        body: JSON.stringify(mixed ? { text, model_id: 'eleven_v3' } : { text, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' }),
-        signal: AbortSignal.timeout(60_000),
-      })
+      const r = await this.tts(
+        `${this.base}/v1/text-to-speech/${id}?output_format=mp3_44100_128`,
+        mixed ? { text, model_id: 'eleven_v3' } : { text, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' },
+        'audio/mpeg',
+        async r => new Uint8Array(await r.arrayBuffer()),
+      )
       if (!r.ok) {
-        await this.failed(r, 'tts')
+        this.failed(r.status, r.text, 'tts')
         return null
       }
-      const bytes = new Uint8Array(await r.arrayBuffer())
+      const bytes = r.value
       if (!isMp3(bytes)) {
         this.lastError = 'tts: response is not MP3'
         return null
@@ -1007,17 +1086,17 @@ export class ElevenLabs implements Engine {
     if (!id) return null
     let d: { audio_base64?: string; alignment?: Alignment; normalized_alignment?: Alignment }
     try {
-      const r = await fetch(`${this.base}/v1/text-to-speech/${id}/with-timestamps?output_format=mp3_44100_128`, {
-        method: 'POST',
-        headers: this.headers(),
-        body: JSON.stringify({ text: said, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' }),
-        signal: AbortSignal.timeout(60_000),
-      })
+      const r = await this.tts(
+        `${this.base}/v1/text-to-speech/${id}/with-timestamps?output_format=mp3_44100_128`,
+        { text: said, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' },
+        undefined,
+        async r => (await r.json()) as typeof d,
+      )
       if (!r.ok) {
-        await this.failed(r, 'tts (carrier)')
+        this.failed(r.status, r.text, 'tts (carrier)')
         return null
       }
-      d = (await r.json()) as typeof d
+      d = r.value
     } catch (e) {
       this.lastError = this.redact(`tts (carrier): ${(e as Error).message}`)
       this.o.log?.(`elevenlabs: ${this.lastError}`)
@@ -1141,6 +1220,8 @@ export class ElevenLabs implements Engine {
       model: 'eleven_v3',
       quota: q ? { used: q.used, limit: q.limit, remaining: this.remaining(), reserve: this.reserve, resets_at: q.resets_at } : null,
       voices: q && q.voice_limit !== undefined ? { slots: q.voice_limit, used: q.voice_slots_used, edits: q.voice_edits, edits_max: q.voice_edits_max } : null,
+      // the requests at once from here, at work and waiting their turn; those refused as busy and asked again
+      concurrency: { limit: this.gate.size, running: this.gate.running, waiting: this.gate.queued, busy_again: this.busyAgain },
       ...(this.lastError ? { last_error: this.lastError } : {}),
     }
   }
@@ -1213,8 +1294,9 @@ export class Gepard implements Engine {
 }
 
 /**
- * Engines from the environment: ELEVENLABS_API_KEY (+ ELEVENLABS_BASE_URL), LANI_GEPARD_URL, LANI_FFMPEG (the carrier
- * cut's ffmpeg, "off" for none; else the one on the PATH); clips in [language].
+ * Engines from the environment: ELEVENLABS_API_KEY (+ ELEVENLABS_BASE_URL, LANI_ELEVENLABS_CONCURRENCY: its requests at
+ * once, DEFAULT_ELEVENLABS_CONCURRENCY), LANI_GEPARD_URL, LANI_FFMPEG (the carrier cut's ffmpeg, "off" for none; else the
+ * one on the PATH); clips in [language].
  */
 export function enginesFromEnv(env: Record<string, string | undefined>, log?: Log, language = 'sl'): { eleven: ElevenLabs; gepard: Gepard } {
   // The worker's voices (companion/voice-local/voices.json) come from the cast; these override the narrators'.
@@ -1229,6 +1311,7 @@ export function enginesFromEnv(env: Record<string, string | undefined>, log?: Lo
       reserve: env.LANI_VOICE_RESERVE ? Number(env.LANI_VOICE_RESERVE) : undefined,
       language,
       cut: env.LANI_FFMPEG ? (ffmpegCutter(env.LANI_FFMPEG) ?? null) : undefined,
+      concurrency: dailySetting(env, 'LANI_ELEVENLABS_CONCURRENCY') || undefined,
       log,
     }),
     gepard: new Gepard({ url: env.LANI_GEPARD_URL, speakers, log }),
