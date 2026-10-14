@@ -836,16 +836,48 @@ Every fold is closed when the chat opens. The list is lazy: a closed week or day
 are drawn. At midnight, with the chat open, the day's conversation moves into the archive within half a minute. A
 message dated after today (the phone's clock was set back) counts as today's.
 
-**Bookmarks.** A long press on a message, the tutor's or the learner's, opens its menu (TalkBack offers the same as
-actions):
+**Bookmarks, copy, share.** A long press on a message, the tutor's or the learner's, opens its menu (TalkBack offers
+the same as actions):
 
 - "🔖 Zaznamek · Bookmark", or "Odstrani zaznamek · Remove bookmark": a bookmarked message shows a 🔖 beside it.
 - "✏️ Opomba · Note": why it was kept ("Zakaj? · Why?", up to 200 characters). A note bookmarks the message too.
 - "↩️ Odgovori · Reply" (see below).
+- "📄 Kopiraj · Copy": the message on the clipboard as plain text. A tutor message is copied as it reads: bold, italics
+  and code marks out, a list item a line ("• …", "1. …"), a table a line a row with its cells between " · " (its rule
+  and empty cells left out), headings and quotes without their marks. The learner's own message is copied as typed.
+  Android 13 and later confirm the copy themselves; an older Android shows "📄 Kopirano · Copied".
+- "↗️ Deli · Share": Android's share sheet with the same text (copy, messengers, notes …), the text's preview titled
+  "Deli sporočilo · Share message".
 
 "🔖" at the top of the chat (with their number) lists the bookmarks, newest first, each with its day, who wrote it and
 its note. A tap goes to the message: the archive opens to its week and day, and the message is framed for two seconds.
 ↩️ replies to it, ✕ takes the bookmark away.
+
+**Swipes.** As in messengers, a sideways swipe on a message is a shortcut for two of these: to the right "↩️" replies
+to it, to the left "🔖" bookmarks it (a bookmarked one: takes the bookmark away, its note too). The bubble follows the
+finger with resistance (half as far at 160 dp); the action's icon fades in on the side the bubble uncovers and grows
+toward the threshold, 64 dp past the touch slop, with a light tick there. Let go past it and the action runs, and the
+bubble springs back:
+
+- A reply shows the reply card above the input, as from the menu.
+- A bookmark shows its 🔖 beside the bubble and "🔖 Shranjeno · Saved", or "🔖 Zaznamek odstranjen · Bookmark removed".
+  The snackbar's "Razveljavi · Undo" puts the bookmark back as it was, with its time and note. The snackbar shows for
+  four seconds over the input at the bottom of the sheet, not over the messages: the one just swiped is often the
+  newest, at the bottom of the list.
+
+Let go before the threshold and the bubble only springs back. With the system's "Remove animations" on, the action
+still runs and the bubble is back at once.
+
+- Only a clearly sideways drag is a swipe: past the touch slop, at most 30° off the horizontal. A drag up or down, or a
+  steeper one, is the list's scroll or the sheet's drag down, as before. A long press is the menu's, and a drag after it
+  is no swipe.
+- A swipe that starts on a word, a link or a reply's quote in the bubble is a swipe all the same, and taps nothing. A
+  table wider than the bubble keeps its own sideways scroll; one that fits doesn't scroll, so a swipe on it is the
+  bubble's.
+- The typing bubble ("…"), the reply card and the context card above the input, and the bookmarks' list don't swipe.
+  TalkBack has the same through the message's actions (the long press's menu).
+- Once, under the tutor's latest message: "Povleci sporočilo: ← zaznamek · odgovor →" (✕ closes it). It also goes with
+  the first swipe, or when the chat closes after it showed. The phone keeps that it was shown (`ChatPrefs`).
 
 **Replies.** "↩️ Odgovori · Reply" quotes the message above the input, as messengers do (✕ lets it go). The next message
 goes to the tutor with `data.reply_to`, next to what is attached now (`about_exercise`, …): `from` (`learner` or
@@ -2666,6 +2698,7 @@ companion/bin/qa --steps road                    # only the car's "🚗 Za pot" 
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
 companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned
+companion/bin/qa --steps chat-swipe              # a tutor message swiped: the reply card, bookmarked, taken away and undone; the list still scrolls; copy, share
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
@@ -2725,6 +2758,29 @@ below it (the panel closes, no card opens), minimizes the HUD, goes home and int
 brings the row back, then opens the plot chooser through QA's hook `build:field` and checks the HUD is a pill and the
 ★ lies between it and the chooser's bar, and that the row is back once the chooser is left. Screenshots:
 `hud-collapsed`, `hud-expanded`, `hud-minimized`, `hud-plot-chooser`.
+
+**Swipes in the chat** ("Tutor chat", "Swipes"). `ui/ChatSwipeTest` checks the swipe's decisions (sideways past the
+touch slop and within 30°, the list's past it any other way, too short to tell; the resistance; the threshold both
+ways) and `ChatController`'s toggle and undo (the bookmark back with its note). It puts bubbles on a phone's screen
+under Robolectric with Compose's test rule: a swipe to the right past the threshold replies, the bubble following the
+finger and back at rest after; one short of it does nothing; one to the left bookmarks (its 🔖), a second takes the
+bookmark away; a long press still opens the menu, TalkBack keeps its actions, and a drag after a long press is no
+swipe; in a list of 30 bubbles a drag up and a steep one scroll the list, a sideways one with a wobble is the bubble's
+and the list stays where it was; a table that fits is the bubble's to swipe (before, its sideways scroll took the drag
+though it had nowhere to go), a wider one scrolls; with "Remove animations" the bubble is at rest a frame after it was
+let go, with animations still on its way back; the typing bubble doesn't move. On the emulator, `companion/bin/qa
+--steps chat-swipe` puts two tutor messages into the chat through QA's hook `chat:<text>` (a long one, and a short one
+starting with a bold Slovene greeting, a link to hear it) and swipes with `input swipe`: the tip under the latest; the
+reply card after a swipe to the right from the greeting (the tip gone); the 🔖 and "🔖 Shranjeno · Saved" after one to
+the left; after a second the 🔖 gone, and "Razveljavi · Undo" bringing it back (tapped right after one look at the
+screen: the snackbar stays four seconds, a uiautomator dump takes one or two); "Zaznamek odstranjen" after a third; a
+slow drag down on the long message scrolling the list (the short one 300 px lower or out of sight) with the sheet still
+open; and a long press on it: the menu with "📄 Kopiraj · Copy" (Android's own confirmation) and "↗️ Deli · Share"
+(the share sheet, its preview titled "Deli sporočilo · Share message"; Back returns to the chat). Screenshots:
+`chat-swipe-tip`, `chat-swipe-reply`, `chat-swipe-bookmarked`, `chat-swipe-undo`, `chat-swipe-removed`,
+`chat-swipe-scrolled`, `chat-menu`, `chat-copied`, `chat-share`. `ui/MarkdownPlainTest` checks what Copy and Share
+give: the tutor's imeti list and the 1 · 2 · 3+ table of pronouns as plain text, headings, quotes, numbers and rules as
+they read, the learner's own message as typed.
 
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the
