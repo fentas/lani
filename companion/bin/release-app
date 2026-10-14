@@ -102,20 +102,21 @@ with get(assets[file]) as r, open(tmp, "wb") as f:
 if digest.hexdigest() != sha:
     os.remove(tmp)
     sys.exit(f"{file}: SHA-256 {digest.hexdigest()}, the release says {sha}")
-os.replace(tmp, os.path.join(rel, f"lani-{code}.apk"))
-# the R8 mapping, when the release has one (built before R8: none)
+# the R8 mapping, when the release has one (built before R8: none), checked before either file goes in
 mapping = info.get("mapping")
 if mapping in assets:
-    tmp = os.path.join(rel, f"lani-{code}-mapping.txt.gz.tmp")
+    mtmp = os.path.join(rel, f"lani-{code}-mapping.txt.gz.tmp")
     digest = hashlib.sha256()
-    with get(assets[mapping]) as r, open(tmp, "wb") as f:
+    with get(assets[mapping]) as r, open(mtmp, "wb") as f:
         while chunk := r.read(1 << 20):
             digest.update(chunk)
             f.write(chunk)
     if digest.hexdigest() != info.get("mapping_sha256", "").lower():
+        os.remove(mtmp)
         os.remove(tmp)
         sys.exit(f"{mapping}: SHA-256 {digest.hexdigest()}, the release says {info.get('mapping_sha256')}")
-    os.replace(tmp, os.path.join(rel, f"lani-{code}-mapping.txt.gz"))
+    os.replace(mtmp, os.path.join(rel, f"lani-{code}-mapping.txt.gz"))
+os.replace(tmp, os.path.join(rel, f"lani-{code}.apk"))
 print(code, name, (release.get("name") or release.get("tag_name") or "").replace("\n", " "))
 PY
   )"
