@@ -721,9 +721,24 @@ that was a hamlet before the school came begins its class as the new app opens).
 first of the learning tiles (the unit suggested next; before the hamlet "🔒 Pouk se začne z dobo Zaselek"), from "Danes ·
 Today" (the unit suggested next among the ideas, after the tutor's modules, before a word pack: one tap into the unit),
 from the village book's grammar chapter ("🏫 Šola", the same line before the hamlet), from the linden's card while the
-class meets under it, the school's card and the school's scene. Before the hamlet the screen says what begins the class
-and leads there: the next age's progress, one tap to the village's ages sheet (what Zaselek still needs); a level's gate
-says the same ("🛖 dosežeš dobo Zaselek ›").
+class meets under it, the school's card, and the scene where the class meets (below). Before the hamlet the screen says
+what begins the class and leads there: the next age's progress, one tap to the village's ages sheet (what Zaselek still
+needs); a level's gate says the same ("🛖 dosežeš dobo Zaselek ›").
+
+**The lesson where the class meets.** Jan, 2026-10-14: "I should be able to go to the school lesson in the school too,
+not only from the main menu." In the scene where the class meets (the school's, V šoli, once it stands; the square under
+the linden, Na vasi, before; the fire's before that: `SceneOffers.classHere`) the class's lesson is there: a unit begun
+and not done (of an open level, the first in the course's order) goes on, else the unit suggested next (★) begins
+(`School.lesson`). A tap on the teacher, or her marker (📚 while a unit waits), brings up what she has (SCENES.md, "What
+someone has here"): first "📚 Pouk · Lesson" with the unit's title and its button, for a unit begun its next step as the
+unit's main button has it ("▶️ Naprej: Uvod · Next: Introduction", a worksheet's title, the test: `School.lessonStep`,
+straight in), for a unit not begun "▶️ Uči se · Learn" (its page); then "🏫 Vse enote · All units" (the school's screen);
+then her dialog and her requests. Under "Danes tukaj · Here today" her card leads with the same, also while she isn't in
+the picture (by the fire she comes over to teach; out on an errand). The blackboard there (the school's `blackboard`)
+tapped shows its word with the lesson and "Vse enote" under it, and the top bar's "📚 Šola" opens the school's screen
+wherever the class meets. Entered from the scene, the school leads back to it: its header's back reads "← V šoli · At
+school" (`AppViewModel.schoolScene`; a unit's and an intro's back go up to the school as ever), and a worksheet or the
+test started from the scene comes back to the scene. Before the hamlet, or without a course, none of it shows.
 
 **Who teaches.** The school's person (VILLAGERS.md, "A building brings its person": Učiteljica Mojca in Primorska,
 Maestra Elena, Lehrerin Eva, Mrs Hartley) teaches from the start: by the fire and under the linden she comes over from

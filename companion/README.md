@@ -2705,6 +2705,7 @@ companion/bin/qa --steps exercise-words          # a review's words looked up: t
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
+companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2938,3 +2939,15 @@ the line under its row ("🏫 Pouk že poteka pod lipo …"); every bed taken, i
 Mojca's bed; what the stores then lack the moba brings; built on the plot chooser, the dev bridge's village keeps it,
 and the school's screen has the class indoors ("Šola · School", Mojca teaching in it). Screenshots: `school-build-sheet`,
 `school-build-card`, `school-build-bed`, `school-build-moba`, `school-build-plot`, `school-built`, `school-indoors`.
+The lesson where the class meets (GAME.md "The school", SCENES.md "What someone has here"): `game/scene/SceneOffersTest`
+checks the map's bubble over Mojca and her requests in the school agree (Jan's: her two up, the same, as many), the
+order of what someone has (the class's lesson, a dialog, the requests), the marker and a tap straight in or the choice,
+where the class meets (by the fire, under the linden, in the school; nowhere before the hamlet or without a course), the
+blackboard, and the lesson (`School.lesson`, `School.lessonStep`: a unit begun goes on at its intro, its next worksheet,
+its test; else the next one begins). `companion/bin/qa --steps school-scene` takes the dev village's copy as it is (Jan's
+hamlet, its school standing) at 10 o'clock (QA's hook `hour:10`): Mojca's bubble on the map and her requests in the
+school's scene, as many and the same; her marker (📚, her requests) and "📚 Pouk · Lesson" under "Danes tukaj"; a tap on
+her in the picture (where, from the log: tag `SceneAt`) brings up the choice, the lesson first, which goes into the unit,
+and back through the school ("← V šoli") to the scene; the blackboard tapped in the picture shows its word with "🏫 Vse
+enote", which opens the school's screen, back to the scene. Screenshots: `school-scene-map`, `school-scene`,
+`school-scene-choice`, `school-scene-lesson`, `school-scene-back`, `school-scene-blackboard`, `school-scene-units`.

@@ -1501,6 +1501,36 @@ with a small fire in front of its door, a stump, the firewood behind it. It is s
 the tent's card with "Vstopi · Go in" to V šotoru, the tent's bubbles point at it, and who waits at the tent waits by its
 fire. A tap on the water beside it is still the pond's.
 
+### What someone has here
+
+Jan, 2026-10-14: "Outside, the teacher has 2 exercises, but if I go into the school she has none." Her bubble on the map
+was her two requests up (the tutor's "Dvojina: dva brata, dve sestri" and "Tožilnik: vidim brata, pijem kavo", at most
+`QuestQueue.UP` of a villager's up at once; the third, "Imeti in iti", waits in "Kasneje · Later"), and a scene knew only
+happenings: she stood in the school (by daylight a request's giver waits at its place, above), without a marker, nothing
+of hers under "Danes tukaj", a tap on her only a hello. Now a scene shows by each of its people what the village's bubbles
+over them promise, from the same sources (`game/scene/SceneOffers`):
+
+- **their requests up**, from the map's own queue (`Residents.queue(…).up`, `SceneOffers.requestsBy`): the same ones, as
+  many as the bubble over them counts, in its order;
+- **their happenings here** that open something (a dialog, the storyteller's story tonight), as before;
+- **the class's lesson** by the teacher, where the class meets (GAME.md, "The school": the school's scene once it stands,
+  the square under the linden before, the fire before that; `SceneOffers.classHere`; nothing before the hamlet or without
+  a course).
+
+One marker over each who is here and awake with something (`SceneOffers.marker`): 📚 while the class's lesson waits,
+else their first happening's emoji, else 📋; their requests marked as the map marks them, a "!" and how many when more
+than one ("📚 💬 ! 2" over Mojca). A marker keeps off the top bar's pills and the markers before it (the teacher beside her
+pupils, a child offering «Vidim, vidim»). A tap on someone or on their marker takes their one thing straight away (a
+dialog, a request: `SceneOffers.direct`), as before; with several, or the lesson, the choice of them comes up in a sheet:
+the lesson first with "🏫 Vse enote · All units", their dialogs ("💬 Pogovori se", "📖 Poslušaj"), then "🙋 Prosi te
+za pomoč" and a row per request ("📋 <title>", how close the learner is or what it pays), each one tap into it. Under
+"Danes tukaj · Here today" each has one card: the lesson, their happenings with their buttons, their requests' rows; the
+requests of someone asleep there too (no marker over a sleeper: a tap still turns them over). Someone with nothing is
+greeted as before. `SceneOffersTest` checks the map's bubble over Mojca and her requests in the school agree (the same
+two, its first first, as many), each villager's requests theirs alone, the order (the lesson, a dialog, the requests),
+the marker, a tap straight in or the choice, and where the class meets. A debug build logs where the scene's things and
+people are on the screen (tag `SceneAt`: their areas), for QA to tap them in the picture.
+
 ## The learner in the content
 
 The content is written to whoever learns, not to one learner: a text never writes out the learner's name or their
@@ -1614,7 +1644,8 @@ no `dialog`): the bridge serves that scene with its teller's stories in the scen
 rotation's order: the curated ones by their `order`, then the tutor's, oldest first), and the app picks tonight's.
 The evening opens from the village's bubble, and in the scene as a dialog does: the marker over the teller, a tap on
 him, and "📖 Poslušaj · Listen" by him under "Danes tukaj · Here today" (a dialog's "💬 Pogovori se · Talk"), while
-there is a story to tell tonight.
+there is a story to tell tonight. With his requests up besides, a tap on him or his marker shows the choice of what he
+has, the story first ([What someone has here](#what-someone-has-here)).
 
 ```json
 {
