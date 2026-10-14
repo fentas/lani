@@ -179,6 +179,16 @@ class ChatController(
     /** Bookmarks message [id] ([on]), or takes its bookmark (and note) away. */
     fun bookmark(id: String, on: Boolean) = update(id) { ChatArchive.bookmarked(it, on, clock()) }
 
+    /** A swipe left on message [id]: bookmarks it, or takes its bookmark (and note) away; what it had, for an undo. */
+    fun toggleBookmark(id: String): ChatBookmark? {
+        val before = find(id)?.bookmark
+        bookmark(id, on = before == null)
+        return before
+    }
+
+    /** Message [id]'s bookmark as it was before a swipe ([bookmark], its time and note; null: none): the swipe's undo. */
+    fun restoreBookmark(id: String, bookmark: ChatBookmark?) = update(id) { it.copy(bookmark = bookmark) }
+
     /** The bookmark's note on message [id] ("zakaj · why"), bookmarking it if it wasn't; blank takes the note away. */
     fun note(id: String, note: String) = update(id) { ChatArchive.noted(it, note, clock()) }
 

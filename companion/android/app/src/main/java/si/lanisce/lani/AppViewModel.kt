@@ -189,6 +189,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val readings = ReadingsController(app, viewModelScope, node, sync, game, notices, words::sourceFor)
     /** What the scene dialogs remember on this phone. */
     val dialogPrefs = DialogPrefs(app)
+    /** What the tutor chat remembers on this phone (its tip about swiping a message). */
+    val chatPrefs = si.lanisce.lani.data.ChatPrefs(app)
     /** What the village's HUD remembers on this phone: minimized or not, the news its panel showed. */
     val hudPrefs = si.lanisce.lani.data.HudPrefs(app)
     val talk = TalkModel(

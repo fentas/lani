@@ -1,5 +1,11 @@
 package si.lanisce.lani.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,6 +16,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -30,17 +37,23 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,6 +63,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -64,6 +78,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.ChatArchive
 import si.lanisce.lani.app.ChatMessage
@@ -77,9 +92,12 @@ import java.time.ZoneId
 
 /**
  * The tutor chat: today's conversation up front, the days before folded into "📦 Arhiv · Archive" (weeks, days, their
- * messages: [ChatArchive]); a long press on a message bookmarks it, notes why, or replies to it; "🔖" lists the
- * bookmarks, and a tap on one (or on a reply's quote) goes to the message, opening the archive to it. "📋" opens the cheat
- * sheet; a long press on a tutor message with a table or a list pins it there ("📌 Na plonk listek", [pinAction]).
+ * messages: [ChatArchive]); a long press on a message bookmarks it, notes why, or replies to it; a swipe to the right
+ * replies, to the left bookmarks it (or takes the bookmark away, "Razveljavi · Undo" in the snackbar), as messengers do
+ * ([SwipeRow]; a tip under the tutor's latest message says so, once). "🔖" lists the bookmarks, and a tap on one (or on a
+ * reply's quote) goes to the message, opening the archive to it. "📋" opens the cheat sheet; a long press on a tutor
+ * message with a table or a list pins it there ("📌 Na plonk listek", [pinAction]). A long press also copies a message
+ * ("📄 Kopiraj · Copy") or shares it ("↗️ Deli · Share"), as plain text ([plainOf]).
  */
 @Composable
 fun ChatSheet(vm: AppViewModel) {
@@ -103,6 +121,16 @@ fun ChatSheet(vm: AppViewModel) {
     var highlight by remember { mutableStateOf<String?>(null) }
     var noteFor by remember { mutableStateOf<ChatMessage?>(null) }
     val focus = remember { FocusRequester() }
+    val snack = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val prefs = vm.chatPrefs
+    // the swipe's tip: under the tutor's latest message, until it was shown
+    val tipFor by remember {
+        derivedStateOf {
+            if (prefs.swipeHintSeen) null else rows.filterIsInstance<ChatArchive.MessageRow>().lastOrNull { !it.message.fromMe }?.message?.id
+        }
+    }
 
     fun jumpTo(id: String) {
         showBookmarks = false
@@ -114,6 +142,23 @@ fun ChatSheet(vm: AppViewModel) {
         chat.replyTo = m
         showBookmarks = false
         runCatching { focus.requestFocus() }
+    }
+
+    fun swiped() = prefs.sawSwipeHint()
+
+    // a swipe to the left: the bookmark on or off, and the snackbar's undo puts it back as it was (its note too)
+    fun swipeBookmark(m: ChatMessage) {
+        swiped()
+        val before = chat.toggleBookmark(m.id)
+        scope.launch {
+            snack.currentSnackbarData?.dismiss()
+            val said = snack.showSnackbar(
+                "🔖 ${bi(if (before == null) "chatSheet.saved" else "chatSheet.unbookmarked")}",
+                actionLabel = bi("chatSheet.undo"),
+                duration = SnackbarDuration.Short,
+            )
+            if (said == SnackbarResult.ActionPerformed) chat.restoreBookmark(m.id, before)
+        }
     }
 
     LaunchedEffect(chat.messages.size, chat.typing) {
@@ -136,6 +181,8 @@ fun ChatSheet(vm: AppViewModel) {
             highlight = null
         }
     }
+    // the tip shows once: once it showed, the chat closing counts as its ✕ and a swipe do
+    DisposableEffect(Unit) { onDispose { if (tipFor != null) prefs.sawSwipeHint() } }
 
     LaniSheet(onDismissRequest = { chat.close() }) {
         Column(Modifier.fillMaxWidth().fillMaxHeight(0.9f).imePadding().padding(horizontal = 16.dp)) {
@@ -163,51 +210,59 @@ fun ChatSheet(vm: AppViewModel) {
                     onReply = ::reply,
                     onRemove = { chat.bookmark(it.id, on = false) },
                 )
-            } else LazyColumn(
-                Modifier.weight(1f).padding(vertical = 12.dp),
-                state = list,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(rows, key = { it.key }, contentType = { it::class }) { row ->
-                    when (row) {
-                        is ChatArchive.ArchiveRow -> FoldRow("📦 ${bi("chatSheet.archive")}", row.open, row.count, depth = 0) { open = open.toggleArchive() }
-                        is ChatArchive.UndatedRow ->
-                            FoldRow("🕰️ ${bi("chatSheet.undated")}", row.open, row.count, depth = 1, hint = row.hint) { open = open.toggleUndated() }
-                        is ChatArchive.WeekRow ->
-                            FoldRow(ChatArchive.weekTitle(row.week, today), row.open, row.week.size, depth = 1) { open = open.toggleWeek(row.week.start) }
-                        is ChatArchive.DayRow ->
-                            FoldRow(ChatArchive.dayTitle(row.day.date, today), row.open, row.day.messages.size, depth = 2, hint = row.hint) {
-                                open = open.toggleDay(row.day.date)
-                            }
-                        ChatArchive.TodayRow -> DayDivider(bi("common.today"))
-                        is ChatArchive.SinceRow -> DayDivider(ChatArchive.sinceTitle(row.date, today))
-                        ChatArchive.EmptyRow -> Text(
-                            inTarget("chatSheet.askAnything") + "\n" + inBase("chatSheet.askAnything"),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                        is ChatArchive.MessageRow -> Column {
-                            val m = row.message
-                            ChatBubble(
-                                m.text, m.fromMe, m.about,
-                                bookmarked = m.bookmark != null,
-                                quote = m.replyTo?.let { q ->
-                                    BubbleQuote(whoAndWhen(q.fromMe, q.at, today, zone), q.text, onClick = chat.find(q.id)?.let { { jumpTo(q.id) } })
-                                },
-                                highlighted = highlight == m.id,
-                                actions = listOfNotNull(
-                                    BubbleAction("🔖 ${bi(if (m.bookmark == null) "chatSheet.bookmark" else "chatSheet.unbookmark")}") {
-                                        chat.bookmark(m.id, on = m.bookmark == null)
-                                    },
-                                    // a table or a list of the tutor's can go on the cheat sheet, as a bookmark does
-                                    pinAction(vm, m),
-                                    BubbleAction("✏️ ${bi("chatSheet.note")}") { noteFor = m },
-                                    BubbleAction("↩️ ${bi("chatSheet.reply")}") { reply(m) },
-                                ),
+            } else Box(Modifier.weight(1f)) {
+                LazyColumn(
+                    Modifier.fillMaxSize().padding(vertical = 12.dp),
+                    state = list,
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(rows, key = { it.key }, contentType = { it::class }) { row ->
+                        when (row) {
+                            is ChatArchive.ArchiveRow -> FoldRow("📦 ${bi("chatSheet.archive")}", row.open, row.count, depth = 0) { open = open.toggleArchive() }
+                            is ChatArchive.UndatedRow ->
+                                FoldRow("🕰️ ${bi("chatSheet.undated")}", row.open, row.count, depth = 1, hint = row.hint) { open = open.toggleUndated() }
+                            is ChatArchive.WeekRow ->
+                                FoldRow(ChatArchive.weekTitle(row.week, today), row.open, row.week.size, depth = 1) { open = open.toggleWeek(row.week.start) }
+                            is ChatArchive.DayRow ->
+                                FoldRow(ChatArchive.dayTitle(row.day.date, today), row.open, row.day.messages.size, depth = 2, hint = row.hint) {
+                                    open = open.toggleDay(row.day.date)
+                                }
+                            ChatArchive.TodayRow -> DayDivider(bi("common.today"))
+                            is ChatArchive.SinceRow -> DayDivider(ChatArchive.sinceTitle(row.date, today))
+                            ChatArchive.EmptyRow -> Text(
+                                inTarget("chatSheet.askAnything") + "\n" + inBase("chatSheet.askAnything"),
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
+                            is ChatArchive.MessageRow -> Column {
+                                val m = row.message
+                                ChatBubble(
+                                    m.text, m.fromMe, m.about,
+                                    bookmarked = m.bookmark != null,
+                                    quote = m.replyTo?.let { q ->
+                                        BubbleQuote(whoAndWhen(q.fromMe, q.at, today, zone), q.text, onClick = chat.find(q.id)?.let { { jumpTo(q.id) } })
+                                    },
+                                    highlighted = highlight == m.id,
+                                    actions = listOfNotNull(
+                                        BubbleAction("🔖 ${bi(if (m.bookmark == null) "chatSheet.bookmark" else "chatSheet.unbookmark")}") {
+                                            chat.bookmark(m.id, on = m.bookmark == null)
+                                        },
+                                        // a table or a list of the tutor's can go on the cheat sheet, as a bookmark does
+                                        pinAction(vm, m),
+                                        BubbleAction("✏️ ${bi("chatSheet.note")}") { noteFor = m },
+                                        BubbleAction("↩️ ${bi("chatSheet.reply")}") { reply(m) },
+                                        copyAction(context, m),
+                                        shareAction(context, m),
+                                    ),
+                                    swipe = BubbleSwipes(reply = { swiped(); reply(m) }, bookmark = { swipeBookmark(m) }),
+                                )
+                                if (tipFor == m.id) SwipeHint(onClose = prefs::sawSwipeHint)
+                            }
                         }
                     }
+                    if (chat.typing) item(key = "typing") { ChatBubble("…", fromMe = false) }
                 }
-                if (chat.typing) item(key = "typing") { ChatBubble("…", fromMe = false) }
+                // over the list's end, above the input: what a swipe did, with its undo
+                SnackbarHost(snack, Modifier.align(Alignment.BottomCenter))
             }
             chat.attached?.let { ctx ->
                 ContextCard(ctx.label, onClear = { chat.attached = null })
@@ -259,6 +314,22 @@ private fun ContextCard(label: String, onClear: () -> Unit) {
         Row(Modifier.padding(start = 12.dp), verticalAlignment = Alignment.CenterVertically) {
             Text("📎 $label", style = MaterialTheme.typography.bodySmall, maxLines = 2, modifier = Modifier.weight(1f))
             TextButton(onClick = onClear) { EmojiLabel("✕", Labels.REMOVE) }
+        }
+    }
+}
+
+/** The swipe's tip, once, under the tutor's latest message: "Povleci sporočilo: ← zaznamek · odgovor →"; ✕ closes it. */
+@Composable
+private fun SwipeHint(onClose: () -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth().padding(top = 6.dp)) {
+        Row(Modifier.padding(start = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                inTarget("chatSheet.swipeHint") + "\n" + inBase("chatSheet.swipeHint"),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier.weight(1f).padding(vertical = 6.dp),
+            )
+            TextButton(onClick = onClose) { EmojiLabel("✕", Labels.CLOSE) }
         }
     }
 }
@@ -373,6 +444,30 @@ private fun NoteDialog(initial: String, onDismiss: () -> Unit, onSave: (String) 
     )
 }
 
+/** What copying or sharing [m] gives: the tutor's Markdown as its bubble reads ([markdownPlain]), the learner's text as typed. */
+internal fun plainOf(m: ChatMessage): String = if (m.fromMe) m.text else markdownPlain(m.text)
+
+/** "📄 Kopiraj · Copy": [m] to the clipboard as plain text; Android 13+ confirms it itself, an older one with a toast. */
+private fun copyAction(context: Context, m: ChatMessage) = BubbleAction("📄 ${bi("chatSheet.copy")}") {
+    context.getSystemService(ClipboardManager::class.java)?.setPrimaryClip(ClipData.newPlainText(bi("common.yourTutor"), plainOf(m)))
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) Toast.makeText(context, "📄 ${bi("chatSheet.copied")}", Toast.LENGTH_SHORT).show()
+}
+
+/**
+ * "↗️ Deli · Share": Android's share sheet with [m] as plain text (it offers copying too, messengers, notes …), titled
+ * "Deli sporočilo · Share message": since Android 9 the sheet shows a text's title over its preview (the send's
+ * EXTRA_TITLE), and leaves out the chooser's own, which Android 8 shows.
+ */
+private fun shareAction(context: Context, m: ChatMessage) = BubbleAction("↗️ ${bi("chatSheet.share")}") {
+    val title = bi("chatSheet.shareTitle")
+    val send = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, plainOf(m))
+        putExtra(Intent.EXTRA_TITLE, title)
+    }
+    runCatching { context.startActivity(Intent.createChooser(send, title)) }
+}
+
 /** A long press's choice on a message ("🔖 Zaznamek · Bookmark"); TalkBack offers the same as actions. */
 internal class BubbleAction(val label: String, val run: () -> Unit)
 
@@ -381,7 +476,8 @@ internal class BubbleQuote(val label: String, val text: String, val onClick: (()
 
 /**
  * A message: Jan's on the right, the tutor's (Markdown) on the left. Also the thread under a role-play's debrief.
- * [actions] come with a long press; [bookmarked] shows a 🔖 beside it, [highlighted] a frame (a jump arrived there).
+ * [actions] come with a long press, [swipe] with a sideways swipe ([SwipeRow]); [bookmarked] shows a 🔖 beside it,
+ * [highlighted] a frame (a jump arrived there).
  */
 @Composable
 internal fun ChatBubble(
@@ -392,11 +488,12 @@ internal fun ChatBubble(
     quote: BubbleQuote? = null,
     highlighted: Boolean = false,
     actions: List<BubbleAction> = emptyList(),
+    swipe: BubbleSwipes? = null,
 ) {
     var menu by remember { mutableStateOf(false) }
     val haptic = LocalHapticFeedback.current
     Box(Modifier.fillMaxWidth(), contentAlignment = if (fromMe) Alignment.CenterEnd else Alignment.CenterStart) {
-        Row(verticalAlignment = Alignment.Top) {
+        SwipeRow(swipe, bookmarked) {
             if (fromMe && bookmarked) BookmarkMark()
             Box(Modifier.weight(1f, fill = false)) {
                 Surface(

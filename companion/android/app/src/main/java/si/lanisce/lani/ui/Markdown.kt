@@ -132,6 +132,7 @@ fun inlineMarkdown(
 val MARK = SpanStyle(background = Color(0x66F2C14E))
 
 private val numbered = Regex("""^(\d+)[.)]\s+(.*)""")
+private val RULE = Regex("""^(-{3,}|\*{3,}|_{3,})$""")
 
 /** A word of a span, for its own link. */
 private val WORD = Regex("""[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*""")
@@ -139,6 +140,41 @@ private val tableSeparator = Regex("""^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?
 
 private fun cells(row: String): List<String> =
     row.trim().removePrefix("|").removeSuffix("|").split("|").map { it.trim() }
+
+/**
+ * [text] as plain text, as its bubble reads ([Markdown]'s blocks): what "📄 Kopiraj · Copy" and "↗️ Deli · Share" give
+ * of a tutor message. Each line's inline marks out (bold, italics, code; „quotes“ kept, [inlineMarkdown]); a list item
+ * "• …" or "1. …"; a table's rows a line each, their cells between " · " (empty ones and the header's rule left out); a
+ * heading's # and a quote's > out; a --- rule a blank line; paragraphs a blank line apart, never more.
+ */
+fun markdownPlain(text: String): String {
+    val lines = text.trim().lines()
+    val out = mutableListOf<String>()
+    fun flat(s: String) = inlineMarkdown(s).text
+    var i = 0
+    while (i < lines.size) {
+        val t = lines[i].trimEnd()
+        if (t.trimStart().startsWith("|")) {
+            val table = lines.drop(i).takeWhile { it.trimStart().startsWith("|") }
+            i += table.size
+            val header = table.getOrNull(1)?.let { tableSeparator.matches(it.trim()) } == true
+            table.filterIndexed { n, _ -> !(header && n == 1) }.forEach { row ->
+                out += cells(row).map(::flat).filter { it.isNotBlank() }.joinToString(" · ")
+            }
+            continue
+        }
+        i++
+        out += when {
+            t.isBlank() || t.trim().matches(RULE) -> ""
+            t.startsWith("#") -> flat(t.trimStart('#', ' '))
+            t.startsWith(">") -> flat(t.removePrefix(">").trim())
+            t.startsWith("- ") || t.startsWith("• ") || t.startsWith("* ") -> "• " + flat(t.drop(2))
+            numbered.matches(t) -> numbered.find(t)!!.destructured.let { (n, rest) -> "$n. ${flat(rest)}" }
+            else -> flat(t)
+        }
+    }
+    return out.joinToString("\n").replace(Regex("""\n{3,}"""), "\n\n").trim()
+}
 
 /**
  * How a block of [Markdown] draws its text, instead of a plain Text with tap-to-hear Slovene: [styled] (its inline
@@ -197,7 +233,7 @@ fun Markdown(
             i++
             when {
                 t.isBlank() -> Unit
-                t.trim().matches(Regex("""^(-{3,}|\*{3,}|_{3,})$""")) -> HorizontalDivider(Modifier.padding(vertical = 4.dp))
+                t.trim().matches(RULE) -> HorizontalDivider(Modifier.padding(vertical = 4.dp))
                 t.startsWith("#") -> line(
                     t.trimStart('#', ' '),
                     if (t.startsWith("# ")) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleSmall,
@@ -256,7 +292,10 @@ private fun MarkedText(styled: AnnotatedString, modifier: Modifier, color: Color
     )
 }
 
-/** A bordered grid; scrolls sideways when wider than the bubble instead of squeezing the cells. */
+/**
+ * A bordered grid; scrolls sideways when wider than the bubble instead of squeezing the cells. One that fits takes no
+ * sideways drag, so a swipe on it is the chat bubble's ([SwipeRow]).
+ */
 @Composable
 private fun MarkdownTable(rows: List<List<String>>, header: Boolean, text: @Composable (String, TextStyle, FontWeight?, Modifier) -> Unit) {
     val columns = rows.maxOfOrNull { it.size } ?: return
@@ -265,9 +304,10 @@ private fun MarkdownTable(rows: List<List<String>>, header: Boolean, text: @Comp
         (rows.maxOf { it.getOrElse(c) { "" }.length } * 7.5f + 20f).coerceIn(64f, 200f).dp
     }
     val line = MaterialTheme.colorScheme.outlineVariant
+    val scroll = rememberScrollState()
     Column(
         Modifier
-            .horizontalScroll(rememberScrollState())
+            .horizontalScroll(scroll, enabled = scroll.maxValue > 0)
             .border(1.dp, line, MaterialTheme.shapes.small),
     ) {
         rows.forEachIndexed { r, row ->
