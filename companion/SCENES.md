@@ -45,7 +45,7 @@ published by the tutor with `publish_scene`.
   "objects": [
     { "slot": "fire", "word": "ogenj" },
     { "slot": "logs", "word": "drva" },
-    { "slot": "kettle", "word": "kotel" }
+    { "slot": "kettle", "word": "kotlicek" }
   ],
   "people": [
     { "id": "babica", "name": "Babica Micka", "emoji": "👵", "art": "grandma", "slot": "left" },

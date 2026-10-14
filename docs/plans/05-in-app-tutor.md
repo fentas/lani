@@ -309,7 +309,7 @@ What Claude Code does with Read, Edit and Write, over the learner's data folder 
   arithmetic belongs in code, not in a model editing numbers (the same rule as CLAUDE.md's "scripts, not manual
   edits").
 - **Size:** `view` takes line ranges, `search` finds what's in a big file; a cap per result. The dictionary alone is
-  1.4 MB.
+  1.8 MB.
 - **The typed tools stay** for what's frequent and cheap: answers, reviews, glosses, cards.
 - **The layout is the data repository's,** so the guide's topics for writing can stay close to the self-hosted
   skills' text.
@@ -377,7 +377,7 @@ SaaS, or nowhere:
 |---|---|---|
 | The learner's data and reviews | `/state`, `/reviews`, `/readings/done`, `/packs/:id/learn`, `/level`, `/words` | The app (the Kotlin port of `update-db.py`) |
 | Content | `/modules`, `/packs`, `/grammar`, `/drills`, `/scenarios`, `/scenes`, `/villagers`, `/arrivals`, `/stories`, `/readings`, `/culture`, `/cultures` | The app. Curated content becomes a versioned download (plan 1, Phase 0, item 6: about 10 MB of JSON today). The tutor's content stays on the phone. |
-| Words | `/lookup`, `/forms`, `/sentence`, `/lexicon/status` | The app: the dictionary download (Slovene, 1.4 MB built) and the lookup code (`lexicon.ts`, `forms.ts`, `lexicon-meanings.ts`: about 1,900 lines) |
+| Words | `/lookup`, `/forms`, `/sentence`, `/lexicon/status` | The app: the dictionary download (Slovene, 1.8 MB built: `sl.json`) and the lookup code (`lexicon.ts`, `forms.ts`, `lexicon-meanings.ts`: about 1,900 lines) |
 | The game | `/game` | The app, which holds the state already. The sync goes away; the backup takes its place. |
 | Chat and events | `/message`, `/permission`, `/events`, `/events/backlog` | The app's loop |
 | Voice and STT | `/voice/*` (8), `/voice/offline/*` (4), `/stt` (3) | The SaaS (glas) and the phone |
@@ -1174,8 +1174,9 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
       scene mechanic); two implementations drift, and their error messages, which the tutor reads, would differ.
     - **The engines:** QuickJS (~1–2 MB in the APK, an interpreter) or Jetpack's JavaScriptEngine (the WebView's V8
       in a sandboxed process: fast, nothing added to the APK, asynchronous, needs a recent WebView).
-    - **Leaning:** the bridge's validators, bundled with bun, in a JS engine; Kotlin for what runs all the time (SM-2,
-      the word lookups). A spike in phase 0 times the bundle and a run per module.
+    - **Decided in phase 0 (check 4):** the bridge's validators, bundled with bun, in **QuickJS** (quickjs-kt):
+      1,702 of 1,702 corpus cases match the bridge, a file in milliseconds, ~450 KB of APK. Kotlin for what runs all
+      the time (SM-2, the word lookups). See [phase 0](05-phase-0.md#check-4-the-validators-in-a-js-engine-2026-10-14).
 11. **The notebook in the self-hosted mode too?** Yes, if switching modes goes through git (see [Switching modes
     through git](#switching-modes-through-git)): then both sides start where the other stopped.
 12. **Can a hosted town and a self-hosted town visit each other?** Answered (2026-10-14): yes, when a self-hosted

@@ -25,7 +25,7 @@ the estimate confirmed or replaced; the validators' engine chosen; the SDK or th
 | 1 | **The API, from the docs:** the web fetch and web search tools (`allowed_domains`, which models, the price); compaction on demand; preserved thinking on a restarted thread; the tier-1 rate limits; the low-credit error; the Console's workspace limits; the model ids and prices the plan uses | — | Claude | done |
 | 2 | **Android, from the docs:** Jetpack's JavaScriptEngine (requirements, WebView versions); `EncryptedSharedPreferences`; foreground-service limits on Android 16; the Java SDK on Android (Jackson, R8, size) | — | Claude | done |
 | 3 | **ElevenLabs:** `/with-timestamps` and request stitching (`previous_text`, `next_text`) on v4 Turbo | a few characters | Claude | docs done (not stated); the test call runs with 5 |
-| 4 | **The validators in a JS engine:** the bridge's validators bundled; QuickJS and JavaScriptEngine in the app; the size, the start, a run per file; the same verdicts and messages as the bridge on the conformance corpus (every curated file and broken variants) | the emulator | Claude | running |
+| 4 | **The validators in a JS engine:** the bridge's validators bundled; QuickJS and JavaScriptEngine in the app; the size, the start, a run per file; the same verdicts and messages as the bridge on the conformance corpus (every curated file and broken variants) | the emulator | Claude | done: QuickJS |
 | 5 | **The filler-name voice sample:** lines with the name (calls, closings, thanks, mid-phrase) in three voices, voiced with a filler and the name put in, next to today's whole takes | ~2,000 ElevenLabs characters | Claude makes it; Jan and the native check listen | running |
 | 6 | **The prototype:** the loop in the app behind a developer setting, in shadow mode on Jan's real events (reads through the paired bridge, writes dry-run, replies in a debug panel next to the real tutor's); usage, cost and latency per call, exported | — to build; the key to run | Claude | running |
 | 7 | **Two weeks of shadow mode:** Balanced, and Haiku against Sonnet on the same events | 6, the key | Jan uses the app | waits |
@@ -58,6 +58,46 @@ differ ([plan 5](05-in-app-tutor.md)). In short:
     `provideNamedData`, Guava ~2.9 MB before R8, WebView 104+);
   - the Java SDK's core jar is 39 MB (Jackson, kotlin-reflect): the plain client is favoured;
   - the Usage Policy's AI disclosure for consumer chatbots.
+
+### Check 4: the validators in a JS engine (2026-10-14)
+
+**The bridge's validators run unchanged in both engines and give the bridge's verdicts and messages on all 1,702
+cases** of the conformance corpus (every curated file, the docs' examples, and broken variants per kind: fields
+dropped, wrong types, unknown references, bad `{learner}` and `{m:…|f:…}` placeholders, invalid JSON). The only
+difference is the JSON parser's own wording for invalid JSON, compared on the verdict only.
+
+- **The bundle:** 315 KB minified (95 KB gzipped), 329 KB with the woven-words dictionary check. Nothing in the
+  validators changed: the build swaps in an in-memory `node:fs` the app fills, a small `node:path`, and zod's
+  English messages only. The dictionary (`sl.json`, 1.8 MB) is handed in at run time.
+- **The numbers** (the x86_64 emulator on a desktop CPU; an arm64 phone is likely 2–4× slower for QuickJS, an
+  estimate):
+
+| | QuickJS (quickjs-kt 1.0.15) | JavaScriptEngine 1.1.1 |
+|---|---|---|
+| Matches the bridge | 1,702 / 1,702 | 1,702 / 1,702 |
+| Start; loading the bundle | 6 ms; 73–88 ms | 76 ms per app, 3–16 ms per isolate; 93–105 ms |
+| Per file (416 curated) | median 1.9 ms, p95 13.6, max 39 | median 2.1 ms, p95 8.4, max 21.5 |
+| The biggest scene (100 KB) | 19.9 ms | 7.6 ms |
+| A whole culture pack | median 333 ms | median 68 ms |
+| Memory, one village | 7 MB, 42 MB with the dictionary | a second process: 42 MB, 84 MB after a pack check |
+| A release APK with R8, arm64 | +448 KB | +53 KB |
+
+- **Chosen: QuickJS through quickjs-kt.** In the app's process, no WebView (so a build without Google's WebView
+  works), the same engine in the JVM unit tests (the corpus runs there too), big texts handed over by a function
+  call, memory limits and interrupts, ~450 KB. Fast enough: the slowest file takes tens of milliseconds against a
+  tool call's seconds. JavaScriptEngine is faster on heavy files and smaller, but depends on the WebView's version,
+  costs a second process of 40–80 MB, allows one sandbox per app, is asynchronous and can't run in JVM tests.
+  Fallback binding: Cash App's Zipline (2.4 MB per processor type).
+- **How the app calls it:** one runtime on its own thread, made on first use; the file tools call `check(kind,
+  text)` on each write of a known kind and turn a failure into `is_error`; the village's references set once and
+  again when content changes; the culture files and the dictionary handed over only when a check needs them.
+- **A catch:** the culture pack check reads whole directories, and the dictionary and the curated scenes from outside
+  the pack, skipping them quietly when they're missing. The app must hand it all three, or its verdicts differ
+  without an error.
+- **On main:** `companion/bridge/src/validate-entry.ts` (and `-lexicon`), `companion/bridge/validators/` (the build,
+  the shims), `companion/bridge/test/conformance/` (the corpus: `build-corpus.ts`, `run-bundle.ts`; the output is
+  generated), and the standalone spike `companion/android/spike-validators/` with its raw results. The corpus found
+  one real mistake: SCENES.md's example scene named a word its pack doesn't have (fixed).
 
 ### Check 11: signing in with the subscription
 
