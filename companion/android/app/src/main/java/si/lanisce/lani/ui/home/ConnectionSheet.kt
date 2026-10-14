@@ -105,7 +105,7 @@ private fun Developer(vm: AppViewModel) {
         }
     }
     Text(
-        bi("developer.version", "version" to si.lanisce.lani.BuildConfig.VERSION_NAME),
+        "Lani ${si.lanisce.lani.BuildConfig.VERSION_NAME}", // a name and a number: the same in every language
         style = MaterialTheme.typography.bodySmall,
         color = muted,
         modifier = Modifier.padding(top = 16.dp).clickable {

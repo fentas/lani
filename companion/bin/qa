@@ -88,7 +88,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
                        pulled into the run's folder; airplane mode off again after); "previous-clip" a line's clip
                        re-voiced (QA's hook "audio:revoice:…"): its old clip plays offline and until the new one came,
-                       then goes
+                       then goes; "shadow-tutor" the in-app tutor in shadow mode against QA's mock of the Messages API
+                       (test/tutor-mock.ts on LANI_TUTOR_MOCK_PORT, default 8771, started by the step): the developer
+                       section by seven taps on the version, a fake key, a chat and a review, the panel's events (the
+                       shadow's reply beside the real one), numbers and export (shadow-export.json, no key in it), the
+                       mock's requests (shadow-mock-requests.json), and the real chat without the shadow's reply
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -4567,6 +4571,206 @@ def link_town(town, timeout=90) -> str:
     return "ok"
 
 
+SHADOW_MOCK_PORT = os.environ.get("LANI_TUTOR_MOCK_PORT", "8771")
+SHADOW_KEY = "sk-ant-qa-fake-0000000000000000"  # QA's mock takes any key; never a real one (none exists yet)
+SHADOW_MOCK = f"http://10.0.2.2:{SHADOW_MOCK_PORT}"
+DEVELOPER = "🛠️ Razvijalec · Developer"  # the connection sheet's developer section (l10n developer.title)
+SHADOW = "🕵️ Učitelj v senci · Shadow tutor"  # its row (developer.shadowTutor)
+OPEN_PANEL = "🔍 Odpri pregled · Open the panel"  # (developer.openPanel)
+MOCK_TUTOR = "Mock tutor"  # in each of the mock's replies: only ever in the shadow's panel
+DEV_TUTOR = "(dev tutor) Prejel sem"  # the dev bridge's canned tutor's reply to a chat: the real tutor here
+
+
+def mock_api(path: str, method="GET"):
+    """QA's mock of the Messages API (companion/bridge/test/tutor-mock.ts): its own routes, no key."""
+    req = urllib.request.Request(f"http://127.0.0.1:{SHADOW_MOCK_PORT}{path}", method=method)
+    with urllib.request.urlopen(req, timeout=5) as r:
+        return json.loads(r.read() or b"null")
+
+
+def answer_form_card() -> bool:
+    """Answers the review card on screen as word-forms does (a form typed wrong, "x"; else the first form offered; a
+    flashcard known), then goes on ("Naprej · Next"); False when there is no card to answer."""
+    if find("Preveri · Check"):
+        field = find("Napiši odgovor") or find("Type your answer")
+        if field:
+            tap_at(field)
+            type_text("x")
+        tap("Preveri · Check", 3)
+    elif find("Pokaži · Show"):
+        tap("Pokaži · Show", 3)
+        return tap("Vedel sem", 3)
+    else:
+        gap = next((c for t, c in nodes() if "____" in t), None)
+        if gap is None:
+            return False
+        # a form to choose: a short label (not the tip about tapping words, which can sit between)
+        options = [(t, c) for t, c in nodes() if t and c[1] > gap[1] + 30 and "____" not in t and FILL_FORM not in t
+                   and not any(n in t for n in NOT_OPTIONS) and len(t) <= 40 and "Tapni" not in t]
+        if not options:
+            return False
+        tap_at(options[0][1])
+    return tap("Naprej · Next", 8)
+
+
+def shadow_tutor():
+    """The in-app tutor in shadow mode (companion/README.md "The in-app tutor in shadow mode"), against QA's mock of the
+    Messages API on 127.0.0.1:8771 (started here): the developer section shown by tapping the connection sheet's version
+    line seven times, the shadow tutor turned on, which opens its panel for a key; the mock's base URL (a QA build's), a
+    fake key checked (GET /v1/models) and kept; a chat sent from the tutor chat (the real tutor, the dev bridge's canned
+    one, answers it there; the shadow's reply only in the panel), a review finished (its digest runs when the chat
+    opens); the panel's events, its numbers, the export through the share sheet (no key in it); the mock's log: the key
+    only in x-api-key, the 1-hour breakpoint, the tool order; the chat never shows the shadow's reply."""
+    for pid in listeners(SHADOW_MOCK_PORT):
+        subprocess.run(["kill", pid])
+    mock = subprocess.Popen(["bun", "test/tutor-mock.ts"], cwd=BRIDGE, stdout=open(OUT / "tutor-mock.log", "w"), stderr=subprocess.STDOUT,
+                            env={**os.environ, "LANI_TUTOR_MOCK_PORT": SHADOW_MOCK_PORT})
+    atexit.register(mock.terminate)
+    try:
+        end = time.time() + 15
+        while time.time() < end:
+            try:
+                mock_api("/mock/reset", "POST")
+                break
+            except Exception:
+                time.sleep(0.5)
+        else:
+            raise AssertionError("the mock didn't start (tutor-mock.log)")
+
+        # the developer section: hidden until the version line is tapped seven times
+        open_connection_sheet()
+        for _ in range(12):  # to the sheet's end: the version line is its last (below scroll_to's band)
+            adb("shell", "input", "swipe", "540", "1600", "540", "900", "300")
+        time.sleep(1)
+        version = find("Lani 0.")
+        assert version, "the version line at the bottom of the connection sheet"
+        assert find(DEVELOPER) is None or find(SHADOW), "the developer section shown before the taps"
+        if find(SHADOW) is None:
+            for _ in range(7):
+                adb("shell", "input", "tap", str(version[0]), str(version[1]))
+                time.sleep(0.25)
+            time.sleep(1.5)
+        assert scroll_to(SHADOW, 3), "the developer section after seven taps"
+        shot("shadow-developer")
+        assert tap(OPEN_PANEL, 4), "the panel's button"
+        assert wait_for("Shadow mode", 8), "the panel's settings"
+
+        # the mock's address (a QA build's setting), the key, shadow mode on
+        assert scroll_to("The mock (10.0.2.2:8771)", 4) and tap("The mock (10.0.2.2:8771)", 3), "the mock's base URL"
+        to_top()
+        field = find("sk-ant-…")
+        assert field, "the key's field"
+        tap_at(field)
+        time.sleep(slow())
+        adb("shell", "input", "text", SHADOW_KEY)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        assert tap("Check (GET /v1/models) and keep", 4), "the key's check"
+        assert wait_for("the key works", 10 * slow()), "the mock took the key"
+        shot("shadow-key")
+        if find("Shadow mode: off"):
+            assert tap("Shadow mode: off", 3), "the switch"
+        assert wait_for("Shadow mode: on", 6), "shadow mode on"
+        assert wait_for("idle", 6) or find("waiting"), "the shadow's status"
+        shot("shadow-on")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+        if find("Povezava · Connection"):
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the connection sheet under it
+            time.sleep(1)
+        go_home()
+
+        # a chat: the real tutor (the dev bridge's) answers it in the chat; the shadow's answer is the panel's
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Kako%sse%srece%sstove")  # adb types ASCII only
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        assert wait_for(DEV_TUTOR, 20), "the real tutor's reply in the chat"
+        time.sleep(4 * slow())  # the shadow's turn: three calls to the mock
+        assert not any(MOCK_TUTOR in t for t, _ in nodes()), "the shadow's reply in the real chat"
+        shot("shadow-chat")
+        go_home()
+
+        # a review (today's, else the forms' review QA's hook starts): its review_done waits for the digest, which the
+        # chat opened runs; "hvala" typed where a form is asked makes an answer wrong, so the digest has something to say
+        qa_hook("forms")  # a short review (five word cards with a form reached), as word-forms has it
+        started = wait_for(FILL_FORM, 25) is not None
+        if started:
+            for _ in range(12):
+                if find("recalled") or find("priklicanih") or not answer_form_card():
+                    break
+            assert wait_for("recalled", 6) or find("priklicanih"), "the review's end"
+            shot("shadow-review")
+            qa_hook("forms:off")
+            go_home()
+            assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+            time.sleep(8 * slow())  # the digest's turn: Haiku, stateless
+            assert not any(MOCK_TUTOR in t for t, _ in nodes()), "the shadow's reply in the real chat"
+            go_home()
+        else:
+            print("    no review to finish: the digest isn't shown")
+
+        # the panel: the events with the shadow's replies and tool calls, the real tutor's; the numbers; the export
+        qa_hook("shadow")
+        assert wait_for("Events", 8), "the panel"
+        assert tap("Events", 3), "the events tab"
+        assert wait_for(MOCK_TUTOR, 10), "the shadow's reply in the panel"
+        assert wait_for(DEV_TUTOR, 4), "the real tutor's reply beside it"
+        shot("shadow-events")
+        # the newest event on Haiku too: its own stateless call, metered, beside the first
+        assert tap("Also run on", 3), "also run on"
+        assert tap("claude-haiku-5-5", 3), "Haiku in the menu"
+        assert wait_for("also · ", 15) and any("also · " in t and "claude-haiku-5-5" in t for t, _ in nodes()), "the event's turn on Haiku"
+        time.sleep(2 * slow())
+        shot("shadow-also-haiku")
+        assert tap("tool call(s)", 3), "a turn's tool calls"
+        time.sleep(1)
+        shot("shadow-tools")
+        assert tap("Numbers", 3), "the numbers tab"
+        assert wait_for("calls ", 4), "the day's numbers"
+        shot("shadow-numbers")
+        for _ in range(8):  # to the list's end: the export is its last
+            adb("shell", "input", "swipe", "540", "1600", "540", "700", "300")
+        time.sleep(1)
+        assert tap("Export everything", 3), "the export"
+        time.sleep(3 * slow())
+        shot("shadow-share")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the share sheet
+        time.sleep(1)
+        listed = run_as("ls", "cache/shared").split()
+        export = next((f for f in listed if f.startswith("lani-shadow-")), None)
+        assert export, f"the export in cache/shared: {listed}"
+        assert pull(f"cache/shared/{export}", OUT / "shadow-export.json"), "the export pulled"
+        text = (OUT / "shadow-export.json").read_text()
+        assert "lani.shadow-export/v0" in text and MOCK_TUTOR in text, "the export's content"
+        assert SHADOW_KEY not in text and "qa-fake" not in text, "the key in the export"
+        assert tap("Notebook", 3), "the notebook tab"
+        time.sleep(1)
+        shot("shadow-notebook")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+
+        # the mock saw the requests: the key only in x-api-key (never in a body), the prefix's 1-hour breakpoint, the tools
+        reqs = [r for r in mock_api("/mock/requests") if r.get("path") == "/v1/messages"]
+        assert reqs, "no request reached the mock"
+        assert all(r.get("has_key") for r in reqs), "a request without the key"
+        assert all(SHADOW_KEY not in json.dumps(r.get("body")) for r in reqs), "the key in a request's body"
+        first = reqs[0]["body"]
+        assert first["system"][-1].get("cache_control", {}).get("ttl") == "1h", "the 1-hour breakpoint at the prefix's end"
+        assert [t["name"] for t in first["tools"]][:3] == ["reply", "guide", "learner_state"], "phase A's tool order"
+        assert first.get("tool_choice", {}).get("type") == "auto", "tool_choice auto"
+        (OUT / "shadow-mock-requests.json").write_text(json.dumps(reqs, indent=1, ensure_ascii=False))
+        log = adb("logcat", "-d", "-s", "ShadowTutor:*", check=False)
+        (OUT / "shadow-logcat.txt").write_text(log)
+        assert SHADOW_KEY not in log and "qa-fake" not in log, "the key in a log line"
+        print(f"    {len(reqs)} calls to the mock; the export {export}, {len(text) // 1024} KB")
+    finally:
+        mock.terminate()
+
+
 # --- main -----------------------------------------------------------------------------------
 
 def plan():
@@ -4645,6 +4849,7 @@ def plan():
         ("prefetch", prefetch, go_home, False, ""),
         ("offline-voice", offline_voice, go_home, False, ""),
         ("previous-clip", previous_clip, go_home, False, ""),
+        ("shadow-tutor", shadow_tutor, go_home, False, ""),
     ]
 
 

@@ -998,7 +998,7 @@ without a key opens the panel, which asks for one.
 workspace of its own ("Lani") with a monthly spend limit (the Default workspace can't have one), expiry "Never". The
 app keeps it encrypted: an AES-GCM key in the Android Keystore (never exportable) seals it, the ciphertext is in a
 DataStore of its own (`tutor_secrets`); it is decrypted in memory for a call only, and goes only to
-`https://api.anthropic.com` in its `x-api-key` header (a debug build: also to the mock below). Never in a log line
+`https://api.anthropic.com` in its `x-api-key` header (a debug or qa build, `BuildConfig.QA`: also to the mock below). Never in a log line
 (`tutor/KeyVault` `Redact`), the export, a prompt or a tool's result. "Remove" deletes it and its Keystore key; a 401
 pauses the shadow until a new key or "Check again" (the events stay queued).
 
@@ -1077,7 +1077,7 @@ topics fetched. The day's budget (default $3) pauses the shadow until the next d
 their inputs and results, dry runs marked; the real tutor's reply below; "Also run on…" another model: its own
 stateless call, metered, so Haiku and Sonnet can be compared on the same events; "Queue again" for a failed turn);
 Numbers (the day's, each call's, "⬆️ Export everything"); Notebook (the notebook, the thread, the queue); Settings (on,
-the key, a debug build's base URL, the preset and the model per task, the budget, the thread's limit, "React at
+the key, a debug or qa build's base URL, the preset and the model per task, the budget, the thread's limit, "React at
 once"). Older days are a tap away.
 
 **The export:** one JSON file (`lani.shadow-export/v0`: the settings, the notebook and its versions, the thread, the
@@ -1090,7 +1090,7 @@ like a key.
 wire format (thinking, text, parallel tool calls with their input in pieces, usage that looks like caching), markers in
 a chat for the errors (`[mock:429]`, `[mock:529]`, `[mock:500]`, `[mock:refusal]`, `[mock:max_tokens]`,
 `[mock:stream-error]`, `[mock:credit]`), `GET /mock/requests` (the last 50, never the key) and `POST /mock/reset`;
-`bun companion/bridge/test/tutor-mock-check.ts` checks it. A debug build's panel takes its base URL ("The mock
+`bun companion/bridge/test/tutor-mock-check.ts` checks it. A debug or qa build's panel takes its base URL ("The mock
 (10.0.2.2:8771)"); QA's hook `shadow:http://10.0.2.2:8771` sets it and opens the panel (`app/QaHooks.kt`); a release
 build always calls the API.
 
@@ -3011,6 +3011,7 @@ companion/bin/qa --steps school-build            # the school built in the hamle
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
+companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export
 companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks
 companion/bin/qa --apk <file>                    # an APK built before (a debug or qa build), nothing built
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps

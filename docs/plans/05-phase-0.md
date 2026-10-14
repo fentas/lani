@@ -27,7 +27,7 @@ the estimate confirmed or replaced; the validators' engine chosen; the SDK or th
 | 3 | **ElevenLabs:** `/with-timestamps` and request stitching (`previous_text`, `next_text`) on v4 Turbo | a few characters | Claude | done: both work |
 | 4 | **The validators in a JS engine:** the bridge's validators bundled; QuickJS and JavaScriptEngine in the app; the size, the start, a run per file; the same verdicts and messages as the bridge on the conformance corpus (every curated file and broken variants) | the emulator | Claude | done: QuickJS |
 | 5 | **The filler-name voice sample:** lines with the name (calls, closings, thanks, mid-phrase) in three voices, voiced with a filler and the name put in, next to today's whole takes | ~2,000 ElevenLabs characters | Claude makes it; Jan and the native check listen | on Jan's phone: to listen |
-| 6 | **The prototype:** the loop in the app behind a developer setting, in shadow mode on Jan's real events (reads through the paired bridge, writes dry-run, replies in a debug panel next to the real tutor's); usage, cost and latency per call, exported | — to build; the key to run | Claude | running |
+| 6 | **The prototype:** the loop in the app behind a developer setting, in shadow mode on Jan's real events (reads through the paired bridge, writes dry-run, replies in a debug panel next to the real tutor's); usage, cost and latency per call, exported | — to build; the key to run | Claude | built: waits for the key |
 | 7 | **Two weeks of shadow mode:** Balanced, and Haiku against Sonnet on the same events | 6, the key | Jan uses the app | waits |
 | 8 | **Quality:** grading agreement with the app's verdicts and Jan's corrections; the Slovene feedback on a sample | 7 | Claude measures; the native check reads | waits |
 | 9 | **Memory:** the notebook and the day's thread against today's long session, the same days side by side | 7 | Claude; Jan judges | waits |
@@ -98,6 +98,64 @@ difference is the JSON parser's own wording for invalid JSON, compared on the ve
   the shims), `companion/bridge/test/conformance/` (the corpus: `build-corpus.ts`, `run-bundle.ts`; the output is
   generated), and the standalone spike `companion/android/spike-validators/` with its raw results. The corpus found
   one real mistake: SCENES.md's example scene named a word its pack doesn't have (fixed).
+
+### Check 6: the prototype, built (2026-10-14)
+
+**Built, in shadow mode: it watches, it never acts.** A developer setting, off by default, in the release app too:
+the connection sheet's version line tapped seven times shows "🛠️ Razvijalec · Developer" with "🕵️ Učitelj v senci ·
+Shadow tutor". How it works and how to use it: [companion/README.md, "The in-app tutor in shadow mode"](../../companion/README.md#the-in-app-tutor-in-shadow-mode-developer-setting).
+
+- **What it sees:** every write the outbox delivered to the node (chat, answer, session_end, review_done, words_added,
+  words_learned, reading_done, dialog_words, level_up; role-play recorded only) and the real tutor's replies, matched
+  to the event of their conversation.
+- **What it does with them:** plan 5's loop in the app (`companion/android/.../tutor/`): a chat and an answer at once,
+  the rest in the day's digest (after 2 h away, the evening, the chat opened; no call when nothing is worth saying), a
+  persisted queue, the manual tool loop (each step saved, at most 8 calls, parallel calls, `tool_choice: auto`,
+  adaptive thinking with the effort set and fixed per thread, thinking blocks back unchanged), the Balanced preset per
+  task with each model changeable, the prefix (phase A's 17 tools in a fixed order and the core prompt, a 1-hour
+  breakpoint, automatic caching after it), the guide on demand, the notebook and the day's thread with our compaction.
+- **Where nothing goes:** reads only through the paired bridge's GET routes (its client refuses anything else); writes
+  as dry runs (validated against their schema, recorded with their input, never sent); `reply` only into the panel; no
+  chat message, no notification, nothing in the learner's data (the shadow's own files are in `files/shadow-tutor`).
+- **The client: plain** (OkHttp, okhttp-sse, kotlinx.serialization; check 2: the Java SDK's 39 MB core jar), the
+  errors by the plan's table and check 1's (the low credit balance, the workspace's and the tier's spend limits, 429
+  after `retry-after`, 529 and 5xx with backoff, `max_tokens` once more, `refusal` never); the beta
+  `thinking-binding-controls-2026-08-01` sent and `input_transformations` logged per call (an append-only thread should
+  have none).
+- **The key:** checked with `GET /v1/models`, sealed with an AES-GCM key in the Android Keystore, only ever in
+  `x-api-key` to the Messages API; never in a log, the export, a prompt or a tool's result.
+- **Measured per call and per day,** as the plan's "What the prototype measures": the tokens by kind with both cache
+  lifetimes, latency to the first token and in all, the price, cold starts over 5 and 60 minutes, the thread's size at
+  each restart, the notebook's size, spend by model and event kind, the guide topics fetched; a daily budget ($3)
+  pauses it.
+- **Compared:** the panel shows each event with the shadow's reply and tool calls next to the real tutor's; "Also run
+  on…" runs the same event on another model (its own stateless call, metered), so Haiku and Sonnet meet the same
+  events.
+- **Exported:** one JSON file (`lani.shadow-export/v0`) through the share sheet: the events, turns, replies, tool
+  calls, calls and numbers of every day, the notebook and its versions, the thread; no key, no token.
+- **One source:** the bridge's 47 tool definitions and its channel guide (28 topics) exported by
+  `companion/bridge/src/cli/tutor-export.ts` into `companion/tutor/`, `--check` in the smoke test; the app's seven new
+  tools hand-written beside them.
+- **Tests** (JVM): the stream's parsing (text, thinking and its signature, tool input in pieces, usage), the loop with a
+  fake transport (tool calls, the call limit, errors and retries, `max_tokens`, refusal, the budget, resuming), the
+  dry runs, the guards (the bridge client refuses anything but GET; the key only in `x-api-key` to the API, never in a
+  log line or the export), the queue's resume after the app is killed mid-turn, the thread's restart and the day's
+  end, an app update's restart, pricing and the presets, the events' mapping; end to end over the real client against
+  a scripted API.
+
+**Run it without a key:** `bun companion/bridge/test/tutor-mock.ts` (a canned Messages API on 127.0.0.1:8771); a debug
+or qa build's panel takes its address ("The mock (10.0.2.2:8771)"); `companion/bin/qa --steps shadow-tutor` does all of
+it on the emulator. **QA, 2026-10-14, on the qa build (R8, `--minified`), Jan's data copied by the dev bridge:** the
+developer section by seven taps, a fake key checked and kept, shadow mode on; a chat answered by the real (dev) tutor in
+the chat and by the shadow only in the panel (Sonnet, 3 calls: the prefix written for an hour, then read); a review of
+five form cards (all right: its digest made no call); "Also run on" Haiku for it (3 calls); the numbers ($0.048 at the
+mock's token counts), the export through the share sheet (44 KB, no key), the notebook and the thread; the mock saw the
+key only in `x-api-key`, the 1-hour breakpoint and phase A's tool order; no log line with the key; no crash.
+
+**When the key arrives (check 7):** paste it in the panel (a "Lani" workspace with a spend limit, expiry "Never"),
+leave Balanced, use the app as usual; export after a few days and after two weeks. What to look at first: the cold
+starts and the thread's size at restarts (the estimate's levers), whether `input_transformations` ever shows, the
+first token's latency for a chat, and "Also run on" Haiku for the chats and answers Sonnet had.
 
 ### Check 11: signing in with the subscription
 

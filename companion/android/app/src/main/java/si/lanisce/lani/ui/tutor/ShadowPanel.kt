@@ -79,9 +79,10 @@ import java.time.format.DateTimeFormatter
  */
 @Composable
 fun ShadowPanel(shadow: ShadowTutor, onDismiss: () -> Unit) {
-    Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Surface(Modifier.fillMaxSize().safeDrawingPadding().testTag("shadow-panel"), color = MaterialTheme.colorScheme.background) {
-            Column(Modifier.fillMaxSize()) {
+    // edge to edge (the app is): the panel paints under the system bars, its content kept clear of them
+    Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
+        Surface(Modifier.fillMaxSize().testTag("shadow-panel"), color = MaterialTheme.colorScheme.background) {
+            Column(Modifier.fillMaxSize().safeDrawingPadding()) {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Column(Modifier.weight(1f)) {
                         Text("🕵️ Shadow tutor", style = MaterialTheme.typography.titleLarge)
