@@ -577,11 +577,11 @@ The village scroll, and from Vas the book, has a chapter "📖 Slovnica · Gramm
 
 "📋 Plonk listek · Cheat sheet" (`game/CheatSheet.kt`; the formats and the curated deck in [README.md](README.md#cheat-sheet)): the basics as compact cards, a bold rule line, a small table, two or three examples, a 💡 tip. Home's tile, the chat's header and every exercise's top bar (📋, by 💬) open it over the screen.
 
-- **Free.** Opening it is help, not a hint: nothing is paid less and the answer counts as it is. A card's table may hold the form an open exercise asks for: it is the rule's table, as the grammar book's page shows it from the why and a school's cheat sheet would; the sheet never shows the exercise's own sentence or answer, and putting the form in its place is the practice.
+- **Help, not a hint.** Jan looks it up themselves, so it doesn't count as a full hint: opened during an exercise (from its appearing to its answer), a right answer stays right and pays in full ("Pravilno"), but it is right with help: its review quality is at most 4, "right with effort", so the card comes back a little sooner; with a 💡 hint too, the hint's rule; a wrong answer is graded as ever. On a worksheet, the items answered after it opened. Opened before an exercise appears (Home, the chat), it counts for nothing. What Jan looked up goes with the answer to the tutor, and a topic looked up often is work potential for them (a unit, homework, a module, an explanation), never a reproach ([README.md](README.md#cheat-sheet), "Looked up during an exercise"). A card's table may hold the form an open exercise asks for: it is the rule's table, as the grammar book's page shows it from the why and a school's cheat sheet would; the sheet never shows the exercise's own sentence or answer, and putting the form in its place is the practice.
 - **Its cards.** One for each page of the book (the page's own `card`, else its table, its rule's first sentence and two examples), the curated cards no page fits (the pronouns 1 · 2 · 3+, kje or kam, the numbers, the possessives), the tutor's (`publish_card`), and the tutor messages Jan pinned ("📌 Na plonk listek" under a message with a table or a list).
 - **Unlocked as Jan goes.** A page's card the day Jan meets the page (whatever meets it in "Unlocking" above, and a school unit's introduction: `CheatSheetController.met`), a curated card with the first of its pages, the A1 basics (`start`: the pronouns, biti, the question words, the numbers) from the start, a pinned or the tutor's card at once. Locked ones aren't shown, only counted ("🔒 Še 23 kartic · 23 more cards as you go"). A card never opened is "✨ Novo"; Home's tile counts them.
 - **The order** (`CheatSheet.order`): from an exercise its pages' cards first (its own rule's, then the run's and the module's; the first opens at once), then the cards opened most lately (each open counts one and halves every two weeks), then the new ones, then the rest in the book's order; a card whose pages Jan has all secure or mastered drifts to the bottom. A filter by level.
-- **Kept** in the village (`GameState.sheet`: the pinned cards, the open counts), so another phone has them and the tutor's `list_cards` sees what Jan pins and looks up most.
+- **Kept** in the village (`GameState.sheet`: the pinned cards, the open counts, the lookups during exercises by page and day for two weeks), so another phone has them, the tutor's `list_cards` sees what Jan pins and opens most, and `get_village` and `get_course` what Jan looked up most during exercises lately.
 
 ### Mastery and adaptive turns
 
@@ -794,7 +794,8 @@ checked at once, each gap marked right / almost / wrong with its correction and 
 after), a **table** (cells to fill by person and number, or by case), a **transform list** (each line written whole),
 a **sort** (a word, then its column). Help is always there: **📋** in the run's top bar opens the cheat sheet ("The
 cheat sheet") over the sheet, without leaving it, the exercise's own card first, then the unit's (its pages are met by
-the intro, or when a sheet of it opens), and a table's "📖 Tabela v knjigi" opens its page in the book; the sheet's
+the intro, or when a sheet of it opens; the items answered after it opened are right with help: full pay, the tutor
+told), and a table's "📖 Tabela v knjigi" opens its page in the book; the sheet's
 words are looked up as any exercise's (README "Words in an exercise": a tap on the text around the gaps, a table's
 labels and given cells, a list's lines; never what it tests while it's open: what brackets add only once checked, a
 sort's words only once checked, their card would say the gender; the new ones dotted); each item's why in shape

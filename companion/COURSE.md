@@ -227,7 +227,8 @@ bold stays English), give a form's meaning in brackets right after it, and keep 
 - The test: `pass` (50–100, default 80): the share of its items to get right; `exercises` (2–12), the same types. An item
   is one gap, one cell, one line of a transform list, one word sorted, or one other exercise; an almost-right item (a
   missing č, š, ž) counts half.
-- Help is always there: the cheat sheet one tap away (📋 over the sheet, the unit's cards first), the sheet's words
+- Help is always there: the cheat sheet one tap away (📋 over the sheet, the unit's cards first; the items answered
+  after it opened pay in full and are right with help, `looked_up` per item in the session_end), the sheet's words
   looked up as an exercise's (never what it tests while it's open: a sort's words, what brackets add, only once
   checked), a 💡 hint per gap, cell and line, and 💬 the tutor with the sheet attached. An item's `explain` shows in
   shape as an exercise's (module-spec.md, "Explanations": one bold rule line, the examples as a list).

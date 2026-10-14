@@ -904,8 +904,9 @@ tutor could only guess why. Now the node keeps what Jan typed or said lately:
 - **What:** every card a review counts, one entry each, wherever in the app it was answered (`from`: the review screen,
   the grammar book's card practice, a building's words run, a village challenge, I spy, the car's ✓/✗): the card, how it
   was asked (`variant`: type, tiles, listen, …), the exercise and what it asked, what was typed or heard, what was
-  expected, the verdict, the grading hint (typo, ending, diacritics, …) and the hints used. The app sends them with the
-  review (`POST /reviews` `answers`, `ui/PlayerScreen.kt` `reviewAnswer`). Where nothing is typed the entry says so: a
+  expected, the verdict, the grading hint (typo, ending, diacritics, …), the hints used and what was looked up on the
+  cheat sheet during it (`looked_up`: the cards opened, their grammar pages; see [Cheat sheet](#cheat-sheet)). The app
+  sends them with the review (`POST /reviews` `answers`, `ui/PlayerScreen.kt` `reviewAnswer`). Where nothing is typed the entry says so: a
   self-rated flashcard, the car's ratings (knew or didn't), I spy's taps (the clues heard and the thing found). A form a
   review asked joins its card's answer (its slot and grammar page); a dialog's word turns go in too, a form the car's
   quiz asked once, with its word's turn.
@@ -918,14 +919,20 @@ tutor could only guess why. Now the node keeps what Jan typed or said lately:
   repository never commits it: each commit makes sure its `.gitignore` keeps `/app/answers.json*` out, also in a
   repository set up before the line (`.claude/hooks/lani_data_repo.py` `PRIVATE`).
 - **The tutor:** the `review_done` note names the answers typed wrong ("Answered wrong: vocab_hvala "hvla" for
-  "hvala""), a form slip only with the forms. The tool `recent_answers` lists them, newest first, for a card
+  "hvala""), a form slip only with the forms, and what was looked up on the cheat sheet ("📋 Looked up on the cheat
+  sheet: biti ×2, osebni-zaimki (during 3 answers).": each answer once for each page its cards name, a card without a
+  page by its key; `answers.ts` `lookedUpNote`, a `session_end`'s too, there "during N exercises" and the worksheet
+  items answered after it opened). The tool `recent_answers` lists them, newest first, for a card
   (`card_id`), a word in what was asked, typed or expected (`text`, any case, diacritics optional: "zivjo" finds
   "živjo"), only the wrong ones (`wrong_only`: by the verdict, so a right answer whose hints lowered its quality isn't
-  one) or a deck (`language`). With none it says what the log holds since when. The lani-fix skill asks it when Jan
+  one), only those given with the cheat sheet open (`looked_up`; each line says "📋 looked up biti, …") or a deck
+  (`language`). With none it says what the log holds since when. The lani-fix skill asks it when Jan
   reports a card without "Ask", so the card can be fixed and its review taken back in one go.
 - **An older app or bridge:** an app from before sends only the qualities: each card is logged with its quality and "no
   answer sent (an app from before)", and the tutor asks Jan; an older bridge ignores the answers, and its tutor has no
-  `recent_answers` until the bridge restarts.
+  `recent_answers` until the bridge restarts. An app from before the cheat sheet's lookups sends no `looked_up` (no 📋
+  line); a bridge from before drops it from the answers (the schema isn't strict) and a `session_end`'s `looked_up`
+  reaches its tutor only in the JSON block.
 
 ## Grammar book
 
@@ -1033,7 +1040,8 @@ stars). The app's labels for the chapter are in all four string tables.
 compact reference cards of the basics, in the style of a good chat answer: a title, one bold rule line, a small table,
 two or three examples, a 💡 tip at most; one phone screen. It opens from Home (the tile "📋 Plonk listek", "✨ 3 nove ·
 3 new" while some are new), from the chat's header (📋) and from any exercise (📋 in its top bar, by 💬). Opening it is
-free: help, not a hint (the reward stays, and nothing counts against the answer). The logic is `game/CheatSheet.kt`, the
+help, not a hint: during an exercise a right answer stays right and pays in full, but it is right with help (its review
+quality at most 4), and the tutor hears what was looked up (see "Looked up during an exercise" below). The logic is `game/CheatSheet.kt`, the
 controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the rules in
 [GAME.md](GAME.md#the-cheat-sheet).
 
@@ -1088,18 +1096,54 @@ grammar book's masteries) drifts to the bottom, unless it's the exercise's. The 
 **An open exercise.** A card's table may hold the very form the exercise asks for (the exercise on imeti, the card with
 imam, imaš …): that's fine, it is the rule's table as a school's cheat sheet would have it, the same the grammar book
 shows from the why. The sheet shows rules, never the exercise's answer: not its sentence, not its gap filled; finding the
-form in the table and putting it in the gap is the practice. It doesn't count as a hint (a hint fills in letters of the
-answer itself).
+form in the table and putting it in the gap is the practice. It doesn't count as a full hint (a hint fills in letters of
+the answer itself): the learner looks it up themselves.
+
+**Looked up during an exercise.** The sheet opened between an exercise appearing (in a timed run, once the clock runs)
+and its answer counts on that exercise: in the exercise player, the reviews, a challenge, a building's words run, the
+grammar book's practice, a pack, a visit's request and the school's sheets (`ExerciseRun`, which watches each exercise:
+`CheatSheetController.watch`, pure in `game/CheatSheet.kt` `SheetLookups`, `SheetWatch`), by its 📋 or the chat's over
+it. Opened before an exercise appears (from Home, the chat) or over its feedback, it counts for nothing.
+- **The grade.** A right answer stays right: it pays in full and the feedback says "Pravilno". Its review quality is
+  capped at 4, "right with effort" instead of 5, so SM-2 brings the card back a little sooner (`Hints.quality`,
+  `Hints.LOOKED_UP_QUALITY`: the reviews, the grammar book's card practice, a building's words run; a challenge's and a
+  pack's right answers are 4 already). A 💡 hint as well: the hint's rule (one less each, never below 3; it pays as
+  almost). A wrong or almost answer is graded as ever. A rule's run in the grammar book counts as ever (the player's
+  hints don't touch it either).
+- **A worksheet** (many items, checked at once): the items answered after the sheet first opened over it count, until it
+  is checked: each item's answer at the check against what it held when the sheet opened (one filled before and left
+  as it was doesn't; `ItemMark.lookedUp`).
+- **What's recorded.** Each answered exercise keeps the cards opened during it (their keys, in the order opened; none
+  when the sheet was opened and no card) and their grammar pages (`Outcome.lookedUp`, `LookUp`). It goes with the answer:
+  `looked_up: {cards, pages}` in `POST /reviews` `answers` (an older bridge drops it), in a `session_end`'s `results`
+  (a module, the grammar book's practice, the school's sheets: there per item `looked_up: true` for the items answered
+  after it) and in "Ask" (`about_exercise`). The bridge says it in one line on the tutor's `review_done` ("📋 Looked up
+  on the cheat sheet: biti ×3, tozilnik ×2 (during 4 answers).") and `session_end` ("… (during 1 exercise, 6 worksheet
+  items answered after it opened).": `bridge/src/answers.ts` `lookedUpNote`), the recent-answers log keeps it
+  (`recent_answers {looked_up: true}`), and the channel guide says what to do with it: give a right answer looked up at
+  most quality 4 when persisting a `session_end`; a topic looked up often is work potential (its school unit, homework
+  with `publish_worksheet`, a module, an explanation in chat), never a reason to scold.
+- **Counted by page.** Each answer adds one lookup to each of its pages for the day (`GameState.sheet.lookups`,
+  "<language>/<page id>" → day → count, the last 14 days kept: `CheatSheet.lookedUp`); the tutor's `get_village`,
+  `get_course` (with the units that teach each) and `list_cards` show the most looked up of the last 14 days
+  (`looked_up: [{page, title, n, last}]`, `bridge/src/cards.ts` `sheetLookups`).
 
 **Kept** in the village state (`GameState.sheet`, synced with the node like the rest of it; an older save has none, an
 older bridge keeps it as it is): the pinned cards (`pinned`: id, language, title, Markdown, pages, level, the day, the
-chat message) and the open counts (`opens`, "<language>/<card key>": the count and its day, at most 300). The card keys:
-`page:<page id>`, `deck:<card id>`, `tutor:<card id>`, `pin:<id>`.
+chat message), the open counts (`opens`, "<language>/<card key>": the count and its day, at most 300) and the lookups
+during exercises (`lookups`, "<language>/<page id>": each day's count, the last 14 days; an older app drops them when it
+writes the village). The card keys: `page:<page id>`, `deck:<card id>`, `tutor:<card id>`, `pin:<id>`.
 
 Tests: `CheatSheetTest` (a page's card, its own card, the rule line; unlocking; the order; the decay; pinning, the title
-and the pages guessed; saved and loaded, an old save; the events), `CardsTest` (the formats, the bundled deck in every
-base, the merge); the smoke's `cards` section (the curated cards and the pages' own in every base, the formats,
-`GET /cards`, `publish_card`, `list_cards`, `remove_card`, the guide).
+and the pages guessed; saved and loaded, an old save; the events; what counts as looked up during an exercise, a
+worksheet's items after the sheet opened, the lookups by page and day), `HintsTest` (the quality capped at 4, a hint's
+rule with both), `AskAboutTest` (`looked_up` with the answer, the pay and the quality), `BuildingWordsTest` (a building's
+words run looked up), `CardsTest` (the formats, the bundled deck in every base, the merge); the smoke's `cards` section
+(the curated cards and the pages' own in every base, the formats, `GET /cards`, `publish_card`, `list_cards`,
+`remove_card`, the guide, `list_cards`' lookups), `reviews` (`looked_up` with a review's answers, logged, a malformed
+one left out, the note's 📋 line, `recent_answers {looked_up}`, an app from before), `chat` (a `session_end`'s 📋 line,
+a worksheet's items, none without, the guide) and `course` (the last 14 days' lookups, `get_village` and `get_course`
+showing the most looked up, none without).
 
 ## The school's course
 
