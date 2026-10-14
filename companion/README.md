@@ -2692,6 +2692,20 @@ Maven repository has it) and checks its SHA-256 (`gradle/verification-metadata.x
 there). Measured in October 2026: the release APK went from 22.2 to 31.0 MB with it (the library is 24.2 MB, 9.0 MB
 compressed), the debug APK from 30.5 to 51.3 MB (both processor types).
 
+**R8.** The release build is shrunk by R8 (`isMinifyEnabled`, `isShrinkResources`, `proguard-android-optimize.txt`):
+the code no path reaches and the resources no code uses are left out, the rest is optimized and its names shortened.
+Measured in October 2026, in MiB: the release APK went from 30.7 to 17.5, its dex from 18.3 to 5.7 and its Android
+resources from 1.2 to 0.6 (517 files to 359); the native libraries (8.6) and the bundled content (the Java resources
+and assets, 2.5) stay as they were. The libraries bring their own rules (kotlinx.serialization's serializers, WorkManager's
+workers, Media3, OkHttp, CameraX, DataStore, Compose), and AAPT's keep the manifest's activity, services and receivers.
+`app/proguard-rules.pro` keeps what only the app finds by name, each rule with what reads it: sherpa-onnx's package
+(its native library finds its classes and fields by name), the exercise classes' names (an exercise's type in the
+results is its class's simple name) and the source lines for [crash reports](#crash-reports). The workers keep their
+names, so work that an app from before R8 scheduled finds its worker after the update; an R8 build installs over one
+from before as any update does (the same key, a higher versionCode). A crash or a screen that loads nothing in a
+release build only is a rule missing: `companion/bin/qa --minified` runs QA on the qa build, the release build's R8
+with QA's hooks ([Test](#test)).
+
 To the phone without a cable: `companion/bin/lani-send-app` sends the newest APK of the release directory (where
 `release-app` and `release-app --github` put it; another with `--file`) over Tailscale (Taildrop), to the only device
 Taildrop can reach or to the one named (`lani-send-app <device>`). On the phone it waits in Files → Downloads.
@@ -2700,7 +2714,7 @@ Taildrop can reach or to the one named (`lani-send-app <device>`). On the phone 
 
 ```bash
 companion/bin/lani-build-app                          # the debug APK, app/build/outputs/apk/debug/app-debug.apk
-companion/bin/lani-build-app --release --out ~/apk/   # the release APK, as ~/apk/lani-<versionName>.apk
+companion/bin/lani-build-app --release --out ~/apk/   # the release APK, as ~/apk/lani-<versionName>.apk (and its mapping)
 companion/bin/lani-build-app --test                   # the unit tests first, then the debug APK
 companion/bin/lani-build-app -- :app:testDebugUnitTest --tests '*RoadPlayerTest'   # any Gradle arguments
 companion/bin/release-app --docker "notes"            # build in Docker and publish to the app's self-update
@@ -2725,7 +2739,7 @@ only builds the image and prints its name.
 
 The same commit and the same key give the same APK, byte for byte, in Docker and with a local Gradle: the release
 build leaves out the dependency report that AGP puts in the signing block for Google Play, which differs on every
-build.
+build, and R8 gives the same code and the same mapping for the same input and rules.
 
 ### Signing
 
@@ -2740,6 +2754,28 @@ key when one is set, else with the debug key, as the sideloaded app always was:
 `companion/bin/lani-keystore` creates both files there and shows how to give GitHub the same key. A phone takes an
 update only with the key its app was installed with: changing keys means installing the app again once. See
 [docs/releasing.md](../docs/releasing.md) for the key, the GitHub secrets and the tags.
+
+### Crash reports
+
+A release build's stack trace (`adb logcat`, Android's crash dialog, a bug report) names R8's short classes and
+methods and no file, with R8's numbers for the lines (`at gx.p(Unknown Source:129)`). The mapping of that very build
+turns it back into the source's classes, methods, files and lines (`at
+androidx.camera.core.impl.CameraValidatorImpl.validateOnFirstInit(CameraValidatorImpl.java:136)`). It is never in the
+APK, and each build has its own:
+
+- `release-app` keeps it next to each APK in the release directory, as `lani-<versionCode>-mapping.txt.gz` (about
+  10 MB, 150 MB unpacked), and drops it with its APK;
+- `release-app --github` gets it from the GitHub release (`lani-<versionName>-mapping.txt.gz`, its SHA-256 in
+  `lani-<versionName>.json`); the workflow attaches it to every release, public as the source it maps to;
+- `lani-build-app --release --out <dir>` puts it beside the APK, and a Gradle build leaves it in
+  `app/build/outputs/mapping/release/mapping.txt`.
+
+```bash
+gunzip -k ~/.local/share/lani/releases/lani-1180-mapping.txt.gz
+~/Android/Sdk/cmdline-tools/latest/bin/retrace ~/.local/share/lani/releases/lani-1180-mapping.txt crash.txt
+```
+
+`retrace` comes with the SDK's command-line tools (in the build image too: `lani-build-app --exec retrace …`).
 
 ### Install and pair
 
@@ -2813,9 +2849,24 @@ companion/bin/qa --steps school-build            # the school built in the hamle
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
+companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks
+companion/bin/qa --apk <file>                    # an APK built before (a debug or qa build), nothing built
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
+
+**QA on the release build's R8** (`--minified`). The qa build type (`app/build.gradle.kts`) is the release build as
+R8 makes it, with the same rules and optimizations, plus QA's hooks, fixtures and logs (`BuildConfig.QA`), the debug
+manifest's plain HTTP to the dev bridge, `x86_64` and the debug key. It isn't debuggable (a debuggable build gets R8's
+debug mode, which optimizes less), so QA reads the app's files with the emulator's `su` where a debug build has
+`run-as` (a Google APIs image has it, a Play Store image doesn't). A crash, or a screen that loads nothing, there and
+not in the debug build is a keep rule missing (`app/proguard-rules.pro`). In October 2026 every step but the visit's
+ran there as on the debug build, with no crash: pairing, Home, the village and its HUD, scenes and dialogs with tap
+and typed turns, I spy, reviews, packs and runs of every exercise type, the school (its intro read aloud, its four
+sheet types, the test, a sheet printed through fit.js), the cheat sheet, the chat, trade, the car, the offline audio
+and Piper's voice (sherpa-onnx through JNI), and the QR scanner (CameraX) by hand. `cheat-sheet` and `chat-swipe`
+failed on both builds alike, at QA's checks of the pin under the tutor's list (a choice of the message's long press
+now) and of the swipe's tip.
 
 **CI.** `.github/workflows/ci.yml` runs on every push and pull request: the bridge's typecheck
 (`bunx tsc --noEmit -p .`) and the whole smoke, which needs no local workers, network or tmux (it starts its bridges
@@ -2973,7 +3024,8 @@ smoke's: tones for clips, a take's time, a plan's concurrency, no voice slots; `
 school` plays biti's first explanation as its clip (`intro-voice.txt`: `explanation:en`), and the dev bridge's log lists
 what the fake was asked, refused and the most at once.
 
-**QA's hooks in a debug build** (`app/QaHooks.kt`; a release build ignores them). QA asks them through the launch
+**QA's hooks in a debug build** (`app/QaHooks.kt`, `BuildConfig.QA`; a release build ignores them, the qa build of
+`--minified` has them). QA asks them through the launch
 intent's `si.lanisce.lani.qa` extra: `happening:<scene>/<happening>` counts that happening as on, so
 `dialog-words` opens its dialog through its deep link (`scene:<scene>@<scene>/<happening>`) whatever the hour, the
 day's dice or who has been met, then lets it go (`happening:`), and `happening:<scene>/<happening>/<dialog>` with that

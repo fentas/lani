@@ -57,16 +57,18 @@ The workflow then:
 2. builds the release APK in the build image (`companion/android/docker/Dockerfile`), with
    `companion/bin/lani-build-app --release`, as on any machine;
 3. checks the signature with `apksigner` (and fails if the secrets are there but the APK has a debug key);
-4. writes `lani-<version>.apk.sha256` and `lani-<version>.json` (versionCode, versionName, file, sha256, commit), and
-   warns if the tag isn't `v<versionName>`;
-5. keeps the three files as a workflow artifact, then creates the release "Lani <version>" (if it doesn't exist) and
-   attaches them. A second run replaces the files.
+4. writes `lani-<version>.apk.sha256` and `lani-<version>.json` (versionCode, versionName, file, sha256, commit,
+   mapping, mapping_sha256), and warns if the tag isn't `v<versionName>`;
+5. keeps them and R8's mapping (`lani-<version>-mapping.txt.gz`, for crash reports: companion/README.md, "Crash
+   reports") as a workflow artifact, then creates the release "Lani <version>" (if it doesn't exist) and attaches the
+   four files. A second run replaces them. The mapping is public as the source is: it maps the APK's short names back
+   to this repository's, and stays with the release for as long as anyone may send a stack trace of it.
 
 Then:
 
 ```bash
 gh release view "v$version"                       # the release and its files
-companion/bin/release-app --github "v$version"    # the bridge offers it to the app ("--github" alone: the latest)
+companion/bin/release-app --github "v$version"    # the bridge offers it to the app ("--github" alone: the latest), its mapping beside it
 ```
 
 "Run workflow" (Actions, "Android release") from a tag does the same as the tag's push. From a branch it only builds
@@ -84,4 +86,5 @@ sha256sum /tmp/lani-$version.apk                  # the SHA-256 of the release
 ```
 
 Without the key, the entries of the APK are still the same; only the signature differs (`unzip -lv` lists each
-entry's CRC).
+entry's CRC). R8 is deterministic as well: the same commit gives the same `classes.dex` and the same mapping
+(`lani-<version>-mapping.txt.gz`, compressed without a name or a time), with any key.
