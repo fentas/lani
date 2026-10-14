@@ -2730,6 +2730,7 @@ companion/bin/qa --steps exercise-explain        # the module kdo-govori's expla
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
+companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps
 companion/bin/qa --bridges-only                  # no app: both dev bridges, linked, and what a visit asks
 ```
@@ -2983,3 +2984,10 @@ her in the picture (where, from the log: tag `SceneAt`) brings up the choice, th
 and back through the school ("← V šoli") to the scene; the blackboard tapped in the picture shows its word with "🏫 Vse
 enote", which opens the school's screen, back to the scene. Screenshots: `school-scene-map`, `school-scene`,
 `school-scene-choice`, `school-scene-lesson`, `school-scene-back`, `school-scene-blackboard`, `school-scene-units`.
+In the school's scene (SCENES.md, "Arts" and "The school's blackboard") `SchoolSeatsRenderTest` checks the pupils sitting
+on their chairs behind their desks (what shows of them the seated sprite but its shins and shoes, the desk under them,
+the head over it, the hands on the lid; each child, a grown-up, every pose, every detail) and `SchoolBoardTest` the
+blackboard's lesson (the unit worked on last, its forms, every letter of the course written and every lesson fitting,
+the chalk at every detail); `companion/bin/qa --steps school-seats` opens the dev village's copy's school at 10 o'clock
+and zooms in on the desks, again with the class's happening on, and on the blackboard. Screenshots: `school-seats`,
+`school-seats-closer`, `school-seats-class`, `school-seats-class-closer`, `school-board`.

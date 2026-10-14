@@ -61,7 +61,10 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "school-scene" the teacher in the school's scene (the dev village's copy as it is, 10 o'clock):
                        her bubble on the map and her requests in the scene, as many; "📚 Pouk · Lesson" by her; a tap on
                        her in the picture (the choice, the lesson first) into the unit and back through the school to the
-                       scene; the blackboard tapped: the class's units;
+                       scene; the blackboard tapped: the class's units; "school-seats" the
+                       school's scene at 10 o'clock (QA's hook "hour:10"), zoomed in on the desks: the pupils on their
+                       chairs behind them, the hands on the lids; again with the class's happening on; zoomed in on the
+                       blackboard: the learner's lesson in chalk;
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -2721,6 +2724,70 @@ def school():
     assert unit and unit.get("done"), f"the dev bridge's village keeps the unit done ({unit})"
 
 
+def school_point(pic, x: float, y: float, z: float) -> tuple[int, int]:
+    """Where world point ([x], [y], [z]) of the school's diorama (SchoolPainter: its plot 13 × 11 cells, 26 px high, 7 deep)
+    lies on screen in the scene's picture [pic] (its bounds), the camera fitted: the scene's canvas as SceneFit lays it
+    over the view, the diorama centred in it as DioramaPainter.fit does."""
+    vw, vh = pic[2] - pic[0], pic[3] - pic[1]
+    s = max(1, min(vw // 240, vh // 160))
+    while -(-vw // s) > 360 or -(-vh // s) > 320:
+        s += 1
+    w, h = -(-vw // s), -(-vh // s)
+    left = (w - (13 + 11) * 4 * 2) / 2
+    spare = h - ((13 + 11) * 2 + 26 + 7) * 2
+    top = spare * 0.45 if spare >= 0 else spare * 0.25
+    ox, oy = int(left + 11 * 4 * 2), int(top + 26 * 2)
+    cx, cy = ox + (x - y) * 4 * 2, oy + (x + y) * 2 * 2 - z * 2
+    return int(pic[0] + (vw - w * s) // 2 + cx * s), int(pic[1] + (vh - h * s) // 2 + cy * s)
+
+
+def school_seats():
+    """The pupils at their desks in the school's scene (SCENES.md "Arts"; Jan, 2026-10-14: "The boy in the school is not
+    really sitting at his desk. He is awkwardly standing in the chair below the table."), and the blackboard with the
+    learner's lesson (SCENES.md "The school's blackboard"; Jan: "maybe it could show what we're currently / last learned
+    in school"): the dev village's copy as it is (Jan's hamlet, its school standing, biti under way) at 10 o'clock (QA's
+    hook "hour:10"): the scene, then zoomed in on the desks (a double tap between them): each pupil on the chair behind
+    their desk, the head and the shoulders over its lid, the hands on it; again with the class's happening on (the
+    blackboard's "tabla", its marker); then zoomed in on the blackboard (the same zoom, the picture dragged till the board
+    is in its middle: a tap on the board opens the school): the unit's title and its forms in chalk."""
+    if dev_school() is None:
+        return "the dev village's copy has no school"
+    qa_hook("hour:10")
+    try:
+        for happening in ("", "v-soli/tabla", "board"):
+            tag = {"": "", "v-soli/tabla": "-class", "board": "-board"}[happening]
+            if happening == "v-soli/tabla":
+                qa_hook(f"happening:{happening}", f"scene:v-soli@{happening}")
+            else:
+                adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "scene:v-soli")
+            assert wait_for("‹ Vas · Village", 10), "the school's scene"
+            time.sleep(2.5)
+            if happening != "board":
+                shot(f"school-seats{tag}")
+            pic = next((b for t, b in boxes() if t.startswith("Prizor · Scene")), None)
+            assert pic is not None, "the scene's picture"
+            # between the two desks' lids (twice as close, that point staying where it is)
+            x, y = school_point(pic, 6.85, 6.25, 9.0)
+            assert double_tap_zoom(x, y), "zoomed in"
+            if happening == "board":
+                # the blackboard (a tap on it opens the school; the top bar lies over the picture's top) dragged down to the
+                # picture's middle: where its middle is now, twice as far from the point tapped
+                bx, by = school_point(pic, 4.7, 0.6, 16.8)
+                bx, by = x + 2 * (bx - x), y + 2 * (by - y)
+                cx, cy = (pic[0] + pic[2]) // 2, pic[1] + (pic[3] - pic[1]) * 3 // 5
+                sx, sy = cx - 150, pic[1] + (pic[3] - pic[1]) // 3
+                adb("shell", "input", "swipe", str(sx), str(sy), str(sx + cx - bx), str(sy + cy - by), "900")
+            time.sleep(2)  # the closer look renders and fades in
+            shot("school-board" if happening == "board" else f"school-seats{tag}-closer")
+            assert tap("‹ Vas · Village", 3), "back from the scene"
+            time.sleep(2)
+            if happening:
+                qa_hook("happening:")
+    finally:
+        qa_hook("happening:")
+        qa_hook("hour:")
+
+
 def dev_school() -> dict | None:
     """The school in the dev bridge's village (its copy), or None."""
     try:
@@ -4126,6 +4193,7 @@ def plan():
         ("school", school, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
+        ("school-seats", school_seats, v, False, ""),
         ("village-life", village_life, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),
