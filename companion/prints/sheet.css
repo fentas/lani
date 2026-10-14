@@ -1,0 +1,1105 @@
+/* The school's printed sheets (companion/COURSE.md, "Printed sheets"). A4 portrait, 12 mm margins; every page is a
+   .sheet of the page's size, laid out the same on screen and on paper, so fit.js measures what will print. Black and
+   white safe: tints only behind text that is also bold, framed or marked (✗ ✓, struck through, underlined). */
+
+:root {
+  --ink: #1f1a14;
+  --muted: #5d5548;
+  --faint: #8c8374;
+  --line: #d8ccb6;
+  --hair: #e9e1d2;
+  --cream: #fbf5e8;
+  --cream2: #f6eddb;
+  --red: #b83a26;
+  --red-tint: #fbe7e1;
+  --green: #4d7c2a;
+  --green-tint: #eaf2e1;
+  --brown: #7b4a26;
+  --sun: #ffe6a0;
+  --sun-ink: #8a5a00;
+  --gap: 3.6mm;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: 'Nunito', 'Noto Sans', 'DejaVu Sans', sans-serif;
+  font-size: 9.6pt;
+  line-height: 1.32;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  font-variant-ligatures: common-ligatures;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media screen {
+  body {
+    background: #8b8478;
+    padding: 8mm 0;
+  }
+  .sheet {
+    margin: 0 auto 8mm;
+    outline: 12mm solid #fff;
+    box-shadow: 0 0 0 12mm #fff, 0 2mm 14mm 12mm rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* the page: 210 × 297 mm less the margins; a hair under 273 mm so rounding never spills onto a new page */
+.sheet {
+  width: 186mm;
+  height: 272.4mm;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  break-after: page;
+  page-break-after: always;
+  position: relative;
+}
+.sheet:last-child {
+  break-after: auto;
+}
+.body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  overflow: hidden;
+}
+.body > * {
+  flex-shrink: 0;
+}
+
+/* --- the header ------------------------------------------------------------------------------------------------ */
+
+.head {
+  display: flex;
+  align-items: stretch;
+  gap: 4mm;
+  padding-bottom: 2.6mm;
+  border-bottom: 1.4pt solid var(--ink);
+  box-shadow: 0 1.2mm 0 -0.9mm var(--ink);
+  margin-bottom: 0.6mm;
+}
+.head .num {
+  flex: 0 0 auto;
+  width: 17mm;
+  min-height: 17mm;
+  border: 1.6pt solid var(--ink);
+  border-radius: 3mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 25pt;
+  line-height: 1;
+  background: var(--cream);
+}
+.head .num small {
+  font-size: 6.4pt;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6mm;
+}
+.head .titles {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.head h1 {
+  margin: 0;
+  font-size: 19pt;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.head h1 .emoji {
+  font-size: 15pt;
+  margin-right: 2.2mm;
+  vertical-align: 0.12em;
+}
+.head .sub {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 0.6mm;
+}
+.head .goal {
+  font-size: 8.6pt;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 1mm;
+  max-width: 128mm;
+}
+.head .mark {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 1.8mm;
+  align-content: start;
+  align-items: center;
+  justify-items: start;
+  text-align: left;
+}
+.head .mark .house {
+  width: 8.5mm;
+  height: 8.5mm;
+  grid-row: 1;
+}
+.head .mark > div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+.mark .lani {
+  font-family: 'Pixelify Sans', 'Nunito', sans-serif;
+  font-size: 13pt;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.mark .school {
+  font-size: 6.6pt;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.mark .level {
+  grid-column: 1 / span 2;
+  justify-self: end;
+  margin-top: 2mm;
+  font-weight: 800;
+  font-size: 10pt;
+  padding: 0.4mm 2.4mm;
+  border: 1.2pt solid var(--ink);
+  border-radius: 99px;
+}
+.head.mini .num {
+  width: 11mm;
+  min-height: 11mm;
+  font-size: 15pt;
+  border-radius: 2.2mm;
+}
+.head.mini h1 {
+  font-size: 13pt;
+}
+.head.mini .sub {
+  font-size: 8.6pt;
+  font-weight: 600;
+  font-style: italic;
+}
+.head.mini .mark .level {
+  margin-top: 0.8mm;
+}
+
+/* --- section headings ------------------------------------------------------------------------------------------ */
+
+h2 {
+  margin: 0 0 1.6mm;
+  display: flex;
+  align-items: baseline;
+  gap: 1.6mm;
+  font-size: 8.4pt;
+  line-height: 1.1;
+}
+h2 .dot {
+  flex: 0 0 auto;
+  width: 2.6mm;
+  height: 2.6mm;
+  background: var(--c, var(--ink));
+  align-self: center;
+  box-shadow: 0.9mm 0.9mm 0 0 var(--ink);
+}
+h2 .sl {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+h2 .tr {
+  font-weight: 600;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+h2 .tr::before {
+  content: '·';
+  font-style: normal;
+  margin-right: 1.4mm;
+  color: var(--faint);
+}
+h2::after {
+  content: '';
+  flex: 1 1 auto;
+  border-bottom: 0.6pt solid var(--line);
+  margin-left: 1mm;
+  align-self: center;
+}
+.h-rule {
+  --c: var(--red);
+}
+.h-table {
+  --c: var(--brown);
+}
+.h-examples {
+  --c: var(--green);
+}
+.h-watch {
+  --c: #e2a72e;
+}
+.h-words {
+  --c: #6d8fb3;
+}
+.h-check {
+  --c: #8a6bb0;
+}
+
+b,
+strong {
+  font-weight: 800;
+}
+
+/* --- the rule -------------------------------------------------------------------------------------------------- */
+
+.rule ol {
+  margin: 0;
+  padding: 2.2mm 3mm 2.2mm 3mm;
+  list-style: none;
+  counter-reset: step;
+  background: var(--cream);
+  border-left: 1.8pt solid var(--red);
+  border-radius: 0 2mm 2mm 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1mm;
+  font-size: 9.8pt;
+  line-height: 1.34;
+}
+.rule li {
+  counter-increment: step;
+  padding-left: 6mm;
+  position: relative;
+}
+.rule li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.35mm;
+  width: 4mm;
+  height: 4mm;
+  border-radius: 50%;
+  border: 0.9pt solid var(--red);
+  color: var(--red);
+  font-size: 6.6pt;
+  font-weight: 800;
+  line-height: 3.6mm;
+  text-align: center;
+  background: #fff;
+}
+.rule i {
+  font-style: italic;
+}
+
+/* --- the tables ------------------------------------------------------------------------------------------------ */
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+.top.side {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 5mm;
+}
+.top.side .tbls {
+  flex-direction: column;
+}
+.tbls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 3mm 6mm;
+}
+.tbl {
+  max-width: 100%;
+}
+table.forms {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 11.5pt;
+  line-height: 1.22;
+  border: 1pt solid var(--ink);
+  border-radius: 2mm;
+  overflow: hidden;
+}
+table.forms caption {
+  caption-side: bottom;
+  text-align: left;
+  font-size: 7.2pt;
+  color: var(--muted);
+  padding-top: 1mm;
+  font-weight: 700;
+}
+table.forms caption span {
+  font-weight: 400;
+  font-style: italic;
+}
+table.forms thead th {
+  background: var(--cream2);
+  border-bottom: 1.1pt solid var(--ink);
+  padding: 1.3mm 3mm 1.1mm;
+  text-align: left;
+  vertical-align: bottom;
+  font-weight: 800;
+}
+table.forms th,
+table.forms td {
+  padding: 1.05mm 3mm;
+  text-align: left;
+  vertical-align: middle;
+}
+table.forms tbody tr + tr > * {
+  border-top: 0.5pt solid var(--hair);
+}
+table.forms tbody tr:nth-child(even) > * {
+  background: #fdfaf3;
+}
+table.forms tbody th {
+  font-weight: 800;
+  background: var(--cream);
+  border-right: 0.6pt solid var(--line);
+  white-space: nowrap;
+}
+table.forms tbody tr:nth-child(even) th {
+  background: var(--cream2);
+}
+.h-sl {
+  display: block;
+  font-size: 9.2pt;
+  font-weight: 800;
+}
+.h-tr {
+  display: block;
+  font-size: 7.6pt;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--muted);
+}
+table.forms .f {
+  display: block;
+  font-weight: 650;
+}
+table.forms tbody th .f {
+  font-weight: 800;
+}
+table.forms .g {
+  display: block;
+  font-size: 7.8pt;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.15;
+}
+table.forms .g.only {
+  font-size: 9pt;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink);
+}
+table.forms td.gc {
+  max-width: 52mm;
+}
+/* an ending: bold, underlined and on a light tint (the underline carries it in black and white) */
+b.end {
+  font-weight: 850;
+  background: var(--sun);
+  border-bottom: 1.1pt solid var(--sun-ink);
+  border-radius: 0.6mm;
+  padding: 0 0.25mm;
+  margin: 0 0.1mm;
+}
+
+/* --- the two columns below ------------------------------------------------------------------------------------- */
+
+.duo {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+  column-gap: 6mm;
+  align-items: stretch;
+}
+.duo .col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-width: 0;
+}
+.duo .col > * {
+  flex-shrink: 0;
+}
+
+/* --- examples -------------------------------------------------------------------------------------------------- */
+
+ul.ex {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5mm;
+}
+ul.ex.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.8mm 6mm;
+}
+ul.ex li {
+  padding-left: 3.4mm;
+  position: relative;
+}
+ul.ex li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.7mm;
+  width: 1.5mm;
+  height: 1.5mm;
+  background: var(--green);
+}
+.ex-sl {
+  display: block;
+  font-size: 10.4pt;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.ex-sl b {
+  font-weight: 850;
+  text-decoration: underline;
+  text-decoration-color: var(--green);
+  text-decoration-thickness: 0.9pt;
+  text-underline-offset: 0.6mm;
+}
+.ex-tr {
+  display: block;
+  font-size: 8.4pt;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+/* --- watch out ------------------------------------------------------------------------------------------------- */
+
+ul.wo {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+}
+ul.wo.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2mm 4mm;
+}
+ul.wo li {
+  border: 0.8pt solid var(--line);
+  border-radius: 2mm;
+  padding: 1.4mm 2.2mm 1.5mm;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4mm;
+  break-inside: avoid;
+}
+.wo .wrong,
+.wo .right {
+  display: flex;
+  gap: 1.6mm;
+  align-items: baseline;
+  font-size: 9.8pt;
+  line-height: 1.22;
+}
+.wo .sym {
+  flex: 0 0 auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.8mm;
+  height: 3.8mm;
+  border-radius: 50%;
+  font-size: 7pt;
+  line-height: 1;
+  color: #fff;
+  position: relative;
+  top: 0.5mm;
+}
+.wo .wrong .sym {
+  background: var(--red);
+}
+.wo .right .sym {
+  background: var(--green);
+}
+.wo .wrong s {
+  color: var(--muted);
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 1.1pt;
+}
+.wo .right {
+  font-weight: 750;
+}
+.wo .why {
+  font-size: 7.8pt;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.2;
+  padding-left: 5.4mm;
+}
+
+/* --- words ----------------------------------------------------------------------------------------------------- */
+
+ul.wl {
+  list-style: none;
+  margin: 0;
+  padding: 1.6mm 2.4mm;
+  columns: 2;
+  column-gap: 4mm;
+  column-rule: 0.5pt solid var(--hair);
+  font-size: 8.8pt;
+  line-height: 1.24;
+  background: var(--cream);
+  border-radius: 2mm;
+}
+ul.wl.wide {
+  columns: 4;
+}
+ul.wl li {
+  break-inside: avoid;
+  padding: 0.25mm 0;
+  text-indent: -2.4mm;
+  padding-left: 2.4mm;
+}
+ul.wl b {
+  font-weight: 800;
+}
+.wl .gen {
+  display: inline-block;
+  margin-left: 0.9mm;
+  font-size: 6.6pt;
+  font-weight: 800;
+  color: var(--muted);
+  border: 0.6pt solid var(--faint);
+  border-radius: 0.8mm;
+  padding: 0 0.6mm;
+  line-height: 1.25;
+  text-indent: 0;
+  vertical-align: 0.1em;
+}
+.wl .lem {
+  margin-left: 0.8mm;
+  font-size: 7.8pt;
+  color: var(--muted);
+}
+.wl .gl {
+  color: var(--muted);
+  font-style: italic;
+}
+.words .legend {
+  font-size: 6.8pt;
+  color: var(--faint);
+  margin-top: 0.8mm;
+  text-align: right;
+}
+
+/* --- check yourself -------------------------------------------------------------------------------------------- */
+
+ol.ck {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: q;
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+}
+ol.ck li {
+  counter-increment: q;
+  position: relative;
+  padding-left: 6.6mm;
+  font-size: 10pt;
+  line-height: 1.3;
+}
+ol.ck li::before {
+  content: counter(q);
+  position: absolute;
+  left: 0;
+  top: 0.2mm;
+  width: 4.6mm;
+  height: 4.6mm;
+  border: 1pt solid var(--ink);
+  border-radius: 1mm;
+  font-size: 7.6pt;
+  font-weight: 800;
+  text-align: center;
+  line-height: 4.3mm;
+}
+ol.ck li.tk {
+  counter-increment: none;
+  padding-left: 0;
+  margin-bottom: -1mm;
+  font-size: 7.2pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  line-height: 1.1;
+}
+ol.ck li.tk::before {
+  display: none;
+}
+ol.ck li.tk:not(:first-child) {
+  margin-top: 0.8mm;
+}
+.ck .q {
+  font-weight: 600;
+}
+.ck .hint {
+  font-size: 7.8pt;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--muted);
+}
+.gap {
+  display: inline-block;
+  width: 17mm;
+  border-bottom: 0.9pt solid var(--ink);
+  margin: 0 0.6mm;
+  height: 1em;
+  vertical-align: -0.15em;
+}
+.ck .line {
+  display: inline-block;
+  min-width: 40mm;
+  width: 46%;
+  border-bottom: 0.9pt solid var(--ink);
+  height: 1em;
+  vertical-align: -0.15em;
+}
+.ck .arrow {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* --- notes: the room left, ruled to write in ------------------------------------------------------------------- */
+
+.notes {
+  flex: 1 1 0;
+  min-height: 0;
+  position: relative;
+  border-radius: 2mm;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 6.6mm, var(--line) 6.6mm, var(--line) calc(6.6mm + 0.5pt));
+  background-position: 0 4.2mm;
+  border-top: 0.5pt dashed var(--line);
+}
+.notes .n-t {
+  position: absolute;
+  top: 0.8mm;
+  left: 0;
+  font-family: 'Kalam', 'Nunito', cursive;
+  font-size: 9pt;
+  color: var(--faint);
+  background: #fff;
+  padding-right: 1.4mm;
+  line-height: 1.1;
+}
+.notes.empty {
+  background: none;
+  border: 0;
+}
+.notes.empty .n-t {
+  display: none;
+}
+
+/* --- the answers, upside down at the foot ---------------------------------------------------------------------- */
+
+.answers {
+  transform: rotate(180deg);
+  font-family: 'Kalam', 'Nunito', cursive;
+  font-size: 8.6pt;
+  line-height: 1.25;
+  color: var(--muted);
+  border-bottom: 0.6pt dashed var(--line);
+  padding-bottom: 0.8mm;
+  text-align: left;
+}
+.answers .a-t {
+  font-weight: 400;
+  margin-right: 1mm;
+}
+.answers .a {
+  white-space: nowrap;
+  margin-right: 2.6mm;
+}
+.answers .a b {
+  font-family: 'Nunito', sans-serif;
+  font-size: 7pt;
+  font-weight: 800;
+  margin-right: 0.6mm;
+}
+
+/* --- the footer ------------------------------------------------------------------------------------------------ */
+
+.foot {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 4mm;
+  margin-top: 2.2mm;
+  padding-top: 1.4mm;
+  border-top: 0.6pt solid var(--line);
+  font-size: 6.6pt;
+  line-height: 1.25;
+  color: var(--faint);
+}
+.foot .f-l {
+  white-space: nowrap;
+}
+.foot .f-m {
+  text-align: center;
+  font-style: italic;
+}
+.foot .pn {
+  text-align: right;
+  font-weight: 800;
+  font-size: 8.4pt;
+  color: var(--ink);
+}
+
+/* --- density: tighter, then without the optional parts (fit.js) ------------------------------------------------ */
+
+.d1 {
+  --gap: 2.6mm;
+}
+.d1 .rule ol {
+  font-size: 9.4pt;
+  gap: 0.8mm;
+  padding: 1.8mm 2.6mm;
+}
+.d1 table.forms th,
+.d1 table.forms td {
+  padding: 0.8mm 2.6mm;
+}
+.d1 table.forms {
+  font-size: 11pt;
+}
+.d1 .ex-sl {
+  font-size: 10pt;
+}
+.d1 ul.ex {
+  gap: 1.1mm;
+}
+.d1 ol.ck {
+  gap: 1.4mm;
+}
+.d1 .head {
+  padding-bottom: 2mm;
+}
+.d2 .opt {
+  display: none !important;
+}
+.when-no-opt,
+.d2 .when-opt {
+  display: none;
+}
+.d2 .when-no-opt {
+  display: block;
+}
+.d2 ul.wl {
+  font-size: 8.4pt;
+}
+.d2 .head .goal {
+  display: none;
+}
+
+.d3 {
+  --gap: 2.1mm;
+}
+.d3 .rule ol {
+  font-size: 9.1pt;
+  line-height: 1.27;
+  gap: 0.6mm;
+  padding: 1.5mm 2.4mm;
+}
+.d3 .head .num {
+  width: 14mm;
+  min-height: 14mm;
+  font-size: 21pt;
+}
+.d3 .head h1 {
+  font-size: 17pt;
+}
+.d3 .head {
+  padding-bottom: 1.6mm;
+}
+.d3 h2 {
+  margin-bottom: 1.1mm;
+}
+.d3 ul.ex {
+  gap: 0.8mm;
+}
+.d3 .ex-sl {
+  font-size: 9.8pt;
+}
+.d3 .ex-tr {
+  font-size: 8pt;
+}
+.d3 ol.ck {
+  gap: 1mm;
+}
+.d3 ol.ck li:not(.tk) {
+  font-size: 9.4pt;
+}
+.d3 ul.wl {
+  font-size: 8pt;
+  line-height: 1.18;
+}
+.d3 ul.wo {
+  gap: 1.1mm;
+}
+.d3 ul.wo li {
+  padding: 1mm 2mm 1.1mm;
+}
+.d3 .wo .wrong,
+.d3 .wo .right {
+  font-size: 9.2pt;
+}
+.d3 .wo .why {
+  font-size: 7.4pt;
+}
+.d3 .foot {
+  margin-top: 1.6mm;
+}
+
+/* --- the cover ------------------------------------------------------------------------------------------------- */
+
+.cover .body {
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  gap: 0;
+  position: relative;
+}
+.c-top {
+  margin-top: 26mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.c-top .house {
+  width: 62mm;
+  height: 62mm;
+}
+.c-lani {
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 46pt;
+  font-weight: 600;
+  line-height: 1;
+  margin-top: 5mm;
+  letter-spacing: 0.02em;
+}
+.c-school {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 1.5mm;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.c-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.c-level {
+  font-weight: 800;
+  font-size: 13pt;
+  border: 1.6pt solid var(--ink);
+  border-radius: 99px;
+  padding: 0.6mm 5mm;
+  margin-bottom: 4mm;
+}
+.c-title {
+  margin: 0;
+  font-size: 40pt;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+.c-sub {
+  font-size: 15pt;
+  font-weight: 700;
+  margin-top: 3mm;
+}
+.c-count {
+  font-size: 11pt;
+  color: var(--muted);
+  margin-top: 1.6mm;
+}
+.c-emoji {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.4mm 3.6mm;
+  max-width: 130mm;
+  font-size: 15pt;
+}
+.c-foot {
+  margin-bottom: 22mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2mm;
+}
+.c-machine {
+  font-size: 8.6pt;
+  font-style: italic;
+  color: var(--muted);
+  border: 0.8pt solid var(--line);
+  border-radius: 2mm;
+  padding: 1.6mm 4mm;
+  background: var(--cream);
+}
+.c-machine span {
+  font-size: 8pt;
+}
+.c-date {
+  font-size: 8pt;
+  color: var(--faint);
+}
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 9mm;
+  background:
+    linear-gradient(to bottom, #6fa046 0, #6fa046 3mm, #5f8f3a 3mm, #5f8f3a 9mm);
+  -webkit-mask: linear-gradient(#000, #000);
+}
+.ground::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -3mm;
+  height: 3mm;
+  background: repeating-linear-gradient(to right, transparent 0, transparent 9mm, #6fa046 9mm, #6fa046 12mm, transparent 12mm, transparent 21mm);
+}
+
+/* --- the contents ---------------------------------------------------------------------------------------------- */
+
+.toc-head h1 {
+  font-size: 22pt;
+}
+ol.toc {
+  list-style: none;
+  margin: 2mm 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+ol.toc li {
+  display: grid;
+  grid-template-columns: 9mm 8mm auto 1fr 10mm;
+  align-items: baseline;
+  column-gap: 1.6mm;
+  padding: 1.25mm 0;
+  border-bottom: 0.5pt solid var(--hair);
+}
+.toc .t-n {
+  font-weight: 800;
+  font-size: 11pt;
+  text-align: right;
+  color: var(--muted);
+}
+.toc .t-e {
+  font-size: 11pt;
+  text-align: center;
+}
+.toc .t-t b {
+  font-size: 11pt;
+  font-weight: 800;
+}
+.toc .t-t span {
+  font-size: 8.8pt;
+  color: var(--muted);
+  font-style: italic;
+  margin-left: 2mm;
+}
+.toc .t-d {
+  border-bottom: 1pt dotted var(--faint);
+  margin: 0 1mm;
+  transform: translateY(-0.8mm);
+}
+.toc .t-p {
+  font-weight: 800;
+  font-size: 11pt;
+  text-align: right;
+}
+.how {
+  margin-top: auto;
+  background: var(--cream);
+  border-radius: 2mm;
+  padding: 3mm 4mm;
+}
+.how p {
+  margin: 0 0 2mm;
+  font-size: 9.4pt;
+}
+.how ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1mm 5mm;
+}
+.how ul h2 {
+  margin: 0;
+}
+.how ul h2::after {
+  display: none;
+}
+
+/* --- a unit that does not fit: a page of its own saying so (the generator fails on its page count) -------------- */
+
+.overflow .body {
+  justify-content: center;
+  align-items: center;
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--red);
+  text-align: center;
+}

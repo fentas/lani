@@ -22,6 +22,7 @@ how to write units.
 - [Homework (lani.worksheet/v0)](#homework-laniworksheetv0)
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
+- [Printed sheets](#printed-sheets)
 
 ## The files
 
@@ -396,3 +397,49 @@ saves it (a field left out is its default: null, 0, false, empty):
   imeti-iti, nikalnica-rodilnik, mestnik, kdaj-cas, velelnik, modalni-glagoli, povratni-glagoli, pretekli-cas,
   prihodnjik, dvojina (each with the grammar pages it is to teach). A unit may only use the grammar of the units before
   it around its gaps: biti and spol first, then the pronouns and the present, so the cases come after sedanjik.
+
+## Printed sheets
+
+Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
+and/or learn them on the way."
+
+`companion/bin/school-prints` prints a level of the course: an A4 portrait sheet per unit (one page; two at most) and
+a booklet of all of them (a cover, the contents with page numbers, the sheets in the course's order, page numbers in
+the footer). The sheets are made from the content as it is, nothing written for them, so a unit a native speaker fixed,
+or a new one (A2 …), prints as it is the next time:
+
+```
+companion/bin/school-prints                      # A1, English: ~/.local/share/lani/prints/sl-A1-en/
+companion/bin/school-prints --base de --png      # explained in German, with PNG previews of every page
+companion/bin/school-prints --level all --out /tmp/prints
+companion/bin/school-prints --units biti,spol --explain   # only these, and what each sheet took from where
+```
+
+Options: `--level` (A1 by default; `all`: every level that has units), `--base` (`en`, `de`, `it`: the language the
+sheets explain in; the exercises' hints and the mistakes' whys are English only and stay off another base's sheet),
+`--out` (by default `${XDG_DATA_HOME:-~/.local/share}/lani/prints/<language>-<level>-<base>/`; never inside the
+repository), `--units`, `--learner` (the name for `{learner}`, Jan by default), `--gender` (`m`, `f`, or `both`, the
+default: "utrujen/utrujena", and a sentence that needs one or the other left out), `--png` (previews with `pdftoppm`),
+`--html-only`, `--chromium` (else `$LANI_CHROMIUM`, `chromium` on the PATH, or Playwright's in `~/.cache/ms-playwright`).
+It writes `<out>/html/` (print-ready HTML, the fonts inside), a PDF per unit (`<out>/01-biti.pdf` …) and the booklet
+(`<out>/lani-sl-A1-en.pdf`), renders them with headless Chromium (`--print-to-pdf`, no header or footer of its own) and
+checks every PDF's page count against the layout chosen; a unit that doesn't fit on two pages fails the run.
+
+What a sheet has, and where it comes from (`companion/prints/sheet.ts`):
+
+| Part | From |
+|---|---|
+| The header | the unit's number in its level, its emoji, its title in Slovene and the base, its goal, the level; the Lani house |
+| **Pravilo · The rule** | each step of the intro in a line or two: its first sentence and the next ones that carry forms (bold, an arrow, a colon) |
+| **Tabela · The table** | the intro's table as its steps build it, or the first grammar page's when that shows the same forms in fewer rows (biti); one more of the unit's pages when it adds forms the unit uses (spol: the adjectives), the first thing left out to fit. Endings marked: by a column of endings, down a column of one word's forms, or against the form the cell is made from (kava → kav**o**, sem → **ni**sem); rows of a later level left out |
+| **Primeri · Examples** | the intro's examples, the first of each step first, at most six; the table's forms in them bold |
+| **Pazi · Watch out** | three wrong ✗ / right ✓ pairs: what a text says is wrong ("**Kje je Luka?** (never *Kje Luka je?*)", "Never *ne sem*", "*Vidim nič* is wrong"), a quick question's or a worksheet choice's wrong option in its sentence, a gap whose word in brackets left unchanged is the mistake ("To je ___ (moj) hiša.") |
+| **Besede · Words** | the unit's `words`, with gender and meaning: a pack's word, the dictionary's supplement, Wiktionary (the meaning the unit's own text points to: peti is "fifth" in the numbers); not the ones the table shows, nor names. A word nothing knows is left out (the run lists them) |
+| **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices, grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
+| The footer | "Strojno napisano, preveri z naravnim govorcem · machine-written, to be checked by a native speaker" while the unit's `review` says it's unreviewed; the Wiktionary attribution when a meaning comes from it |
+
+The layout (`companion/prints/html.ts`, `sheet.css`): A4 with 12 mm margins, Nunito with the Lani mark in Pixelify Sans
+(the site's fonts, inlined), tables at 11 pt or more, black-and-white safe (an ending is bold and underlined on its
+tint, a mistake struck through with ✗, the right form bold with ✓). Each unit is written as one page and as two;
+`fit.js` keeps, in the page before it prints, the first that fits: as it is, with the table beside the rule, tighter,
+without the optional table and the sixth example, tightest; the room left becomes ruled lines for notes.

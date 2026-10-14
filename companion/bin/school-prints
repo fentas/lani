@@ -1,0 +1,219 @@
+#!/usr/bin/env bun
+// The school's printed sheets (companion/COURSE.md, "Printed sheets"): an A4 page per unit of the course (two at most),
+// to keep as a reference or to learn from on the way, and a booklet of a level's units with a cover, the contents and
+// page numbers. Made from the content as it is (the course, its units, their grammar pages, the word packs and the
+// dictionary), so a unit fixed or added prints as it is. Writes print-ready HTML, renders it to PDF with headless
+// Chromium, and fails when a unit doesn't fit on two pages or a PDF's page count isn't what the layout chose.
+//
+// Usage: companion/bin/school-prints [--level A1|all] [--base en|de|it] [--out <dir>] [--units <id,id>]
+//                                    [--learner <name>] [--gender m|f|both] [--png] [--html-only] [--explain]
+//   --level     the course level (default A1); "all": every level that has units
+//   --base      the language the sheets explain in (default en; de, it from the content, English where it has none)
+//   --out       where the PDFs go (default ${XDG_DATA_HOME:-~/.local/share}/lani/prints/<language>-<level>-<base>);
+//               never inside the repository
+//   --units     only these units (the booklet then has only them)
+//   --learner   the name for {learner} in the content (default Jan); --gender: the learner's forms for {m:…|f:…}
+//               (default both: "utrujen/utrujena", a sentence that needs one or the other left out)
+//   --png       also PNG previews of every page (pdftoppm) in <out>/previews
+//   --html-only the HTML only, no PDFs; --explain: what each sheet took from where
+//   --chromium  the browser (default $LANI_CHROMIUM, chromium on the PATH, or Playwright's in ~/.cache/ms-playwright)
+//   --language  the course's language (default sl: companion/course/sl)
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
+import { homedir, tmpdir } from 'node:os'
+import { join, relative, resolve } from 'node:path'
+import { coverHtml, contentsHtml, documentHtml, unitHtml } from '../prints/html'
+import { buildSheet, levelsOf, loadContent, plain, tr, unitsOf, type Sheet } from '../prints/sheet'
+
+const root = resolve(import.meta.dir, '../..')
+const args = process.argv.slice(2)
+const opt = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined)
+const flag = (name: string) => args.includes(name)
+const help = `Usage: companion/bin/school-prints [--level A1|all] [--base en|de|it] [--out <dir>] [--units <id,id>]
+                                   [--learner <name>] [--gender m|f|both] [--png] [--html-only] [--explain]
+See companion/COURSE.md, "Printed sheets".`
+if (flag('--help') || flag('-h')) {
+  console.log(help)
+  process.exit(0)
+}
+const language = opt('--language') ?? 'sl'
+const base = opt('--base') ?? 'en'
+const learner = opt('--learner') ?? 'Jan'
+const gender = (opt('--gender') ?? 'both') as 'm' | 'f' | 'both'
+const levelArg = opt('--level') ?? 'A1'
+const only = opt('--units')?.split(',').map(s => s.trim()).filter(Boolean)
+if (!['en', 'de', 'it'].includes(base) || !['m', 'f', 'both'].includes(gender)) {
+  console.error(help)
+  process.exit(2)
+}
+
+function fail(msg: string): never {
+  console.error(`school-prints: ${msg}`)
+  process.exit(1)
+}
+
+const content = loadContent(root, language)
+const levels = levelArg === 'all' ? levelsOf(content).filter(l => unitsOf(content, l).length) : [levelArg]
+if (!levels.length) fail('no level has units')
+
+function chromiumPath(): string {
+  const given = opt('--chromium') ?? process.env.LANI_CHROMIUM
+  if (given) return given
+  for (const name of ['chromium', 'chromium-browser', 'google-chrome', 'google-chrome-stable']) {
+    const p = Bun.which(name)
+    if (p) return p
+  }
+  const pw = join(homedir(), '.cache/ms-playwright')
+  if (existsSync(pw)) {
+    const dirs = readdirSync(pw).filter(d => /^chromium-\d+$/.test(d)).sort((a, b) => Number(b.split('-')[1]) - Number(a.split('-')[1]))
+    for (const d of dirs) for (const sub of ['chrome-linux/chrome', 'chrome-linux64/chrome']) if (existsSync(join(pw, d, sub))) return join(pw, d, sub)
+  }
+  return fail('no Chromium found: install chromium, or give --chromium <path> (or $LANI_CHROMIUM)')
+}
+
+type Fit = { unit: string; pages: number; fits: boolean; layout?: string; density?: number; side?: boolean; over?: number }
+
+/** Runs headless Chromium once on a file: the PDF printed, or the DOM after fit.js (its report). */
+async function chromium(browser: string, html: string, what: { pdf: string } | { dom: true }): Promise<string> {
+  const profile = mkdtempSync(join(tmpdir(), 'lani-prints-'))
+  try {
+    const action = 'pdf' in what ? [`--print-to-pdf=${what.pdf}`, '--no-pdf-header-footer'] : ['--dump-dom']
+    const p = Bun.spawn(
+      [browser, '--headless', '--no-sandbox', '--disable-gpu', `--user-data-dir=${profile}`, '--virtual-time-budget=15000', '--run-all-compositor-stages-before-draw', ...action, `file://${html}`],
+      { stdout: 'pipe', stderr: 'pipe' },
+    )
+    const [out, err, code] = await Promise.all([new Response(p.stdout).text(), new Response(p.stderr).text(), p.exited])
+    if (code !== 0) fail(`chromium failed on ${html} (${code}):\n${err.split('\n').slice(-6).join('\n')}`)
+    return out
+  } finally {
+    rmSync(profile, { recursive: true, force: true })
+  }
+}
+
+async function fitReport(browser: string, html: string): Promise<Fit[]> {
+  const dom = await chromium(browser, html, { dom: true })
+  const m = dom.match(/<script id="fit-report" type="application\/json">([^<]*)<\/script>/)
+  if (!m || m[1] === 'null') fail(`fit.js didn't run in ${html}`)
+  return JSON.parse(m[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&'))
+}
+
+/** A PDF's page count: pdfinfo's, else counted in the file (Chromium writes each page as a /Type /Page object). */
+async function pagesOf(pdf: string): Promise<number> {
+  if (Bun.which('pdfinfo')) {
+    const p = Bun.spawn(['pdfinfo', pdf], { stdout: 'pipe', stderr: 'pipe' })
+    const out = await new Response(p.stdout).text()
+    await p.exited
+    const m = out.match(/^Pages:\s+(\d+)/m)
+    if (m) return Number(m[1])
+  }
+  const bytes = await Bun.file(pdf).text()
+  return (bytes.match(/\/Type\s*\/Page(?![s\w])/g) ?? []).length
+}
+
+async function pool<T>(items: T[], n: number, f: (x: T) => Promise<void>) {
+  const queue = [...items]
+  await Promise.all(Array.from({ length: Math.min(n, items.length) }, async () => {
+    for (let x = queue.shift(); x !== undefined; x = queue.shift()) await f(x)
+  }))
+}
+
+const today = new Date().toISOString().slice(0, 10)
+const titles = new Map<string, { sl: string; tr: string }>()
+for (const [id, p] of content.pages) titles.set(id, { sl: tr(p.title, language), tr: tr(p.title, base) })
+const browser = flag('--html-only') ? '' : chromiumPath()
+const dataHome = process.env.XDG_DATA_HOME || join(homedir(), '.local/share')
+let failed = false
+
+for (const level of levels) {
+  const units = unitsOf(content, level).filter(u => !only || only.includes(u.id))
+  if (only) for (const id of only) if (!units.some(u => u.id === id)) fail(`no unit "${id}" at ${level}`)
+  if (!units.length) {
+    console.log(`${level}: no units`)
+    continue
+  }
+  const out = resolve(opt('--out') ?? join(dataHome, 'lani/prints', `${language}-${level}-${base}`), levels.length > 1 && opt('--out') ? level : '')
+  if (!relative(root, out).startsWith('..') && !flag('--html-only')) fail(`--out ${out} is inside the repository: the PDFs go elsewhere`)
+  const htmlDir = join(out, 'html')
+  mkdirSync(htmlDir, { recursive: true })
+
+  const all = unitsOf(content, level)
+  const sheets: Sheet[] = units.map(u => buildSheet(content, u, all.indexOf(u) + 1, all.length, { base, learner, gender }))
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const files = sheets.map(s => ({ s, name: `${pad(s.n)}-${s.id}` }))
+
+  for (const { s, name } of files) {
+    const body = unitHtml(s, base, level, language, titles)
+    writeFileSync(join(htmlDir, `${name}.html`), documentHtml({ root, title: `${s.n}. ${plain(s.title.sl)} · Lani ${level}`, lang: base, mode: 'unit', body }))
+  }
+  const bookletName = `lani-${language}-${level}-${base}`
+  const name = { sl: 'Slovenščina', it: 'Italiano', de: 'Deutsch', en: 'English' }[language] ?? language
+  const bookletBody = coverHtml(sheets, base, level, language, today) + contentsHtml(sheets, base, level, language) + sheets.map(s => unitHtml(s, base, level, language, titles)).join('\n')
+  writeFileSync(join(htmlDir, `${bookletName}.html`), documentHtml({ root, title: `${name} ${level} · Lani`, lang: base, mode: 'booklet', body: bookletBody }))
+
+  if (flag('--explain')) {
+    for (const s of sheets) {
+      console.log(`\n${s.n}. ${s.id}: ${s.rule.length} rule lines, tables ${s.tables.map(t => t.from + (t.optional ? '?' : '')).join(' + ') || '-'}, ${s.examples.length} examples`)
+      for (const w of s.watch) console.log(`   ✗ ${plain(w.wrong)} → ✓ ${plain(w.right)}  [${w.from}]`)
+      for (const c of s.check) console.log(`   ? ${plain(c.q)} → ${c.a}  [${c.from}]`)
+      console.log(`   ${s.words.length} words${s.notes.length ? `; ${s.notes.join('; ')}` : ''}`)
+    }
+  }
+  if (flag('--html-only')) {
+    console.log(`${level}: ${files.length} sheets and the booklet as HTML in ${htmlDir}`)
+    continue
+  }
+
+  // the PDFs: each unit, then the booklet; every page count checked against what fit.js chose
+  const problems: string[] = []
+  const fits = new Map<string, Fit>()
+  await pool(files, 4, async ({ s, name }) => {
+    const html = join(htmlDir, `${name}.html`)
+    const pdf = join(out, `${name}.pdf`)
+    const [report] = await Promise.all([fitReport(browser, html), chromium(browser, html, { pdf })])
+    const fit = report[0]
+    fits.set(s.id, fit)
+    const pages = await pagesOf(pdf)
+    if (!fit?.fits) problems.push(`${name}: doesn't fit on two pages`)
+    else if (pages !== fit.pages) problems.push(`${name}: the PDF has ${pages} pages, the layout ${fit.pages}`)
+    else if (pages > 2) problems.push(`${name}: ${pages} pages`)
+  })
+  const bookletHtml = join(htmlDir, `${bookletName}.html`)
+  const bookletPdf = join(out, `${bookletName}.pdf`)
+  const [bookletFit] = await Promise.all([fitReport(browser, bookletHtml), chromium(browser, bookletHtml, { pdf: bookletPdf })])
+  const expected = 2 + bookletFit.reduce((n, f) => n + f.pages, 0)
+  const bookletPages = await pagesOf(bookletPdf)
+  if (bookletPages !== expected) problems.push(`${bookletName}: the PDF has ${bookletPages} pages, the layout ${expected}`)
+  for (const f of bookletFit) {
+    const alone = fits.get(f.unit)
+    if (alone && (alone.pages !== f.pages || alone.layout !== f.layout || alone.density !== f.density)) problems.push(`${f.unit}: fits differently in the booklet (${f.layout}/${f.density}) than alone (${alone.layout}/${alone.density})`)
+  }
+
+  console.log(`\n${name} ${level} (${base}): ${out}`)
+  for (const { s, name: file } of files) {
+    const f = fits.get(s.id)
+    const how = f?.fits
+      ? `${f.pages} page${f.pages > 1 ? 's' : ''}${f.density ? `, tighter (${f.density})` : ''}${f.side ? ', table beside the rule' : ''}${f.over ? ` (one page: ${f.over} mm too long)` : ''}`
+      : 'DOES NOT FIT'
+    console.log(`  ${file.padEnd(24)} ${how}${s.notes.length ? `  · ${s.notes.length} word${s.notes.length > 1 ? 's' : ''} without a meaning` : ''}`)
+  }
+  console.log(`  ${`${bookletName}.pdf`.padEnd(24)} ${bookletPages} pages (cover, contents, ${files.length} units)`)
+
+  if (flag('--png')) {
+    if (!Bun.which('pdftoppm')) problems.push('--png: pdftoppm not found')
+    else {
+      const previews = join(out, 'previews')
+      mkdirSync(previews, { recursive: true })
+      await pool([...files.map(f => f.name), bookletName], 4, async n => {
+        // a page that is no more (a unit down to one page) leaves no preview behind
+        for (const f of readdirSync(previews)) if (f.startsWith(`${n}-`) && /^-\d+\.png$/.test(f.slice(n.length))) rmSync(join(previews, f))
+        const p = Bun.spawn(['pdftoppm', '-png', '-r', '80', join(out, `${n}.pdf`), join(previews, n)], { stdout: 'ignore', stderr: 'pipe' })
+        if ((await p.exited) !== 0) problems.push(`pdftoppm failed on ${n}.pdf`)
+      })
+      console.log(`  previews: ${previews}`)
+    }
+  }
+  if (problems.length) {
+    failed = true
+    console.error(`\nschool-prints: ${level}:\n  ${problems.join('\n  ')}`)
+  }
+}
+process.exit(failed ? 1 : 0)
