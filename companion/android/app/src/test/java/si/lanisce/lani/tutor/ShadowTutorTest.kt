@@ -279,6 +279,18 @@ class ShadowTutorTest {
         assertFalse(sent.toString().contains("old-sig"))
     }
 
+    @Test fun `another key restarts the thread as text (its thinking was made under the old one)`() = runBlocking {
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Prvi")).join()
+        t.awaitIdle()
+        assertEquals(null, t.setKey("sk-ant-api03-ANOTHERKEY0000000000"))
+        t.onDelivered("c2", "/message", chat("c2", "Drugi")).join()
+        t.awaitIdle()
+        val first = t.thread!!.messages.first().toString()
+        assertTrue(first, first.contains("The key changed") && first.contains("Drugi"))
+        assertEquals(1, t.today.restarts.size)
+    }
+
     @Test fun `the day's budget pauses the shadow`() = runBlocking {
         val t = ready()
         t.update { it.copy(budgetPerDay = 0.01) }.join()

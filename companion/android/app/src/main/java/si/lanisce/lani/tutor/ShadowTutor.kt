@@ -39,7 +39,7 @@ class ShadowTutor(
     val store: ShadowStore,
     private val vault: KeyVault,
     private val bridgeConfig: suspend () -> BridgeConfig?,
-    /** A debug build: the Messages API's base URL may be set (QA's mock). */
+    /** A debug or qa build (BuildConfig.QA): the Messages API's base URL may be set (QA's mock). */
     val debug: Boolean,
     private val transportFor: (String, suspend () -> String?) -> TutorTransport = { base, key -> AnthropicTransport(base, key) },
     private val bridgeFor: (BridgeConfig) -> ShadowBridge = { ShadowBridge(it) },
@@ -50,7 +50,7 @@ class ShadowTutor(
     private val learner: () -> String? = { null },
     /** Where the learner is in the app now (the screen), for the turn's message. */
     private val where: () -> String? = { null },
-    /** A log line (debug builds: logcat); never the key ([Redact]). */
+    /** A log line (debug and qa builds: logcat); never the key ([Redact]). */
     private val logLine: (String) -> Unit = {},
     private val sleep: suspend (Long) -> Unit = { delay(it) },
     private val io: CoroutineDispatcher = Dispatchers.IO.limitedParallelism(1),
@@ -151,7 +151,7 @@ class ShadowTutor(
 
     private fun catalog() = ModelCatalog(s.listed)
 
-    /** The base URL calls go to: the API, or (a debug build) the mock QA set. */
+    /** The base URL calls go to: the API, or (a debug or qa build) the mock QA set. */
     fun baseUrl(): String = KeyGuard.baseUrl(debug, s.debugBaseUrl)
 
     // --- the panel's settings -----------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ class ShadowTutor(
     }
 
     /**
-     * Checks [key] with GET /v1/models (no tokens) and keeps it (encrypted) when the API takes it; the models it lists
+     * Checks [key] with GET /v1/models (not a model call) and keeps it (encrypted) when the API takes it; the models it lists
      * choose the presets' ids. Null when kept, else what went wrong.
      */
     suspend fun setKey(key: String): String? = withContext(io) {
@@ -184,6 +184,10 @@ class ShadowTutor(
             line("key check failed: ${e.kind}")
             return@withContext if (e is ApiError.Auth) "the key was refused (401)" else Redact.of(e.message ?: e.kind, k)
         }
+        // another key (another account or workspace): the thread's thinking and cache were made under the old one, so it
+        // restarts as text at its next turn
+        val before = vault.load()
+        if (before != null && before != k) store.thread()?.let { store.saveThread(it.copy(prefix = "another-key")); thread = store.thread() }
         vault.save(k)
         hasKey = true
         saveSettings { it.copy(listed = models, listedAt = now(), keyRefused = false, lowCredit = false) }
@@ -401,7 +405,9 @@ class ShadowTutor(
             val ready = q.filter { it.notBefore <= at && (it.kind != TurnKind.DAY || dayTurnStarted == null || it.id == dayTurnStarted.id) }
             val next = ready.sortedWith(compareBy<TurnRecord>({ priority(it) }, { it.queuedAt })).firstOrNull()
             if (next == null) {
-                val wait = q.minOfOrNull { it.notBefore }?.minus(at) ?: return
+                // the day's turns wait behind the one begun (its backoff), the rest by their own time
+                val wait = q.minOfOrNull { if (it.kind == TurnKind.DAY && dayTurnStarted != null) maxOf(it.notBefore, dayTurnStarted.notBefore) else it.notBefore }
+                    ?.minus(at) ?: return
                 withTimeoutOrNull(wait.coerceIn(500, 60_000)) { wake.receive() }
                 continue
             }
@@ -487,7 +493,8 @@ class ShadowTutor(
             // a thread made under another prefix (an app update changed a tool or the prompt) restarts, as text
             var appendEvent = !resumed || cur.messages.isEmpty()
             if (cur.prefix != prefix.hash && cur.messages.isNotEmpty()) {
-                cur = restarted(cur, "The app was updated (its tools or prompt changed), so the thread restarted")
+                val why = if (cur.prefix == "another-key") "The key changed" else "The app was updated (its tools or prompt changed)"
+                cur = restarted(cur, "$why, so the thread restarted")
                 val l = log(dayNow())
                 saveLog(l.copy(restarts = l.restarts + cur.restarts.last()))
                 appendEvent = true
@@ -681,8 +688,8 @@ class ShadowTutor(
 
     // --- the panel's numbers and the export -----------------------------------------------------------------------
 
-    /** Day [day]'s numbers. */
-    fun stats(day: String = dayNow()): DayStats = DayStats.of(log(day), nb.text.length)
+    /** Day [day]'s numbers (on the shadow's thread). */
+    suspend fun stats(day: String = dayNow()): DayStats = withContext(io) { DayStats.of(log(day), nb.text.length) }
 
     /** The days with a log. */
     fun days(): List<String> = (store.days() + dayNow()).distinct().sorted()

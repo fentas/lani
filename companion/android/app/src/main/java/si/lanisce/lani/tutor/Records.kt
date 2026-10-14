@@ -144,7 +144,7 @@ data class ShadowSettings(
     val budgetPerDay: Double = 3.0,
     /** Reviews and session ends get their reaction right away instead of in the digest (plan 5, "react at once"). */
     val reactAtOnce: Boolean = false,
-    /** Debug builds only: the Messages API's base URL (QA's mock); ignored by a release build. */
+    /** Debug and qa builds only (BuildConfig.QA): the Messages API's base URL (QA's mock); ignored by a release build. */
     val debugBaseUrl: String? = null,
     /** The models the key listed at its check (GET /v1/models), and when. */
     val listed: List<ModelInfo> = emptyList(),

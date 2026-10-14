@@ -43,6 +43,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -71,7 +73,7 @@ import java.time.format.DateTimeFormatter
 
 /**
  * The shadow tutor's debug panel (docs/plans/05-phase-0.md, check 6): its settings (on/off, the key, the models per
- * task, the budget, the thread's limit, "react at once", a debug build's base URL), the day's numbers, each event with
+ * task, the budget, the thread's limit, "react at once", a QA build's base URL), the day's numbers, each event with
  * the shadow's reply and tool calls next to the real tutor's, "also run on" another model, the notebook, the thread, and
  * the export through the share sheet. A developer tool, in English.
  */
@@ -255,7 +257,7 @@ private fun AlsoRun(shadow: ShadowTutor, e: ShadowEvent) {
 
 @Composable
 private fun Numbers(shadow: ShadowTutor, log: DayLog) {
-    val s: DayStats = remember(log, shadow.notebook) { shadow.stats(log.day) }
+    val s: DayStats = remember(log, shadow.notebook) { DayStats.of(log, shadow.notebook.text.length) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     var exported by remember { mutableStateOf<String?>(null) }
@@ -373,7 +375,7 @@ private fun Settings(shadow: ShadowTutor) {
                         Small("Shadow mode", bold = true)
                         Small("Watches your real events; reads through the paired node (GET only); writes are dry runs; replies only here.")
                     }
-                    Switch(checked = s.enabled, onCheckedChange = { shadow.setEnabled(it) }, modifier = Modifier.testTag("shadow-enabled"))
+                    Switch(checked = s.enabled, onCheckedChange = { shadow.setEnabled(it) }, modifier = Modifier.testTag("shadow-enabled").semantics { contentDescription = if (s.enabled) "Shadow mode: on" else "Shadow mode: off" })
                 }
             }
         }
@@ -413,7 +415,7 @@ private fun Settings(shadow: ShadowTutor) {
         }
         if (shadow.debug) item {
             Card {
-                Small("🧪 Debug build: the Messages API's base URL", bold = true)
+                Small("🧪 QA build (debug or qa): the Messages API's base URL", bold = true)
                 var url by remember(s.debugBaseUrl) { mutableStateOf(s.debugBaseUrl.orEmpty()) }
                 OutlinedTextField(url, { url = it.trim() }, Modifier.fillMaxWidth().testTag("shadow-base"), singleLine = true, label = { Text("empty: https://api.anthropic.com") })
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {

@@ -52,13 +52,13 @@ interface TutorTransport {
 }
 
 /**
- * Where the key may go: only to the Messages API itself ([API]), or, in a debug build, to the mock base URL QA set
+ * Where the key may go: only to the Messages API itself ([API]), or, in a debug or qa build (BuildConfig.QA), to the mock base URL QA set
  * (the shadow's debug-only setting): never to the bridge, glas or anywhere else.
  */
 object KeyGuard {
     const val API = "https://api.anthropic.com"
 
-    /** The base URL a build calls: the API, or in a debug build ([debug]) a mock's address set in the panel. */
+    /** The base URL a build calls: the API, or in a debug or qa build ([debug]: BuildConfig.QA) a mock's address set in the panel. */
     fun baseUrl(debug: Boolean, override: String?): String =
         override?.takeIf { debug && it.isNotBlank() }?.trim()?.trimEnd('/')?.takeIf { it.toHttpUrlOrNull() != null } ?: API
 

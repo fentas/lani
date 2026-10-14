@@ -169,10 +169,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         si.lanisce.lani.tutor.ShadowStore(File(app.filesDir, "shadow-tutor")),
         si.lanisce.lani.tutor.KeyVault(si.lanisce.lani.tutor.KeystoreCipher(), si.lanisce.lani.tutor.DataStoreSecretStore(app)),
         bridgeConfig = { prefs.config() },
-        debug = si.lanisce.lani.BuildConfig.DEBUG,
+        debug = si.lanisce.lani.BuildConfig.QA, // a debug or qa build: the base URL may be QA's mock
         learner = { content.dashboard?.name },
-        where = { screen::class.simpleName },
-        logLine = { if (si.lanisce.lani.BuildConfig.DEBUG) android.util.Log.i("ShadowTutor", it) },
+        where = ::whereNow,
+        logLine = { if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("ShadowTutor", it) },
     ).also { s -> sync.onDelivered = { e -> s.onDelivered(e.clientId, e.path, e.body) } }
     /** The village book's grammar chapter: its pages, the one open over any screen, the pages met (app/GrammarController). */
     val grammar = GrammarController(node, game, content, chat, notices).also { g ->
@@ -564,6 +564,26 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
     }
+
+    /**
+     * Where the learner is, for the shadow tutor's turns ("where the learner is", plan 5): named here, as R8 shortens the
+     * screens' class names in a release build.
+     */
+    private fun whereNow(): String = when (val s = screen) {
+        Screen.Home -> "Home"
+        Screen.Village -> "the village"
+        is Screen.Review -> if (s.polish) "polishing rusty words" else "a review"
+        is Screen.Player -> "an exercise (module ${s.module.id})"
+        is Screen.GrammarPractice -> "the grammar book's practice (${s.page})"
+        is Screen.Scene -> "a scene (${s.id})"
+        is Screen.Challenge -> "a village challenge"
+        is Screen.Packs, is Screen.PackLearn -> "the word packs"
+        is Screen.Readings, is Screen.ReadAloud -> "the reading corner"
+        Screen.Talk -> "a role-play"
+        is Screen.Visit, is Screen.VisitScene, is Screen.VisitRequest -> "a visit to another town"
+        is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> "the school"
+        else -> "the app"
+    } + if (chat.isOpen) ", the tutor chat open" else ""
 
     /** Shows the app in [p] from now on (the connection sheet); null follows the learner profile again. */
     fun chooseLangPair(p: LangPair?) {
