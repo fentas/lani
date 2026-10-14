@@ -18,6 +18,8 @@ plugins {
 val quickjsKt = "io.github.dokar3:quickjs-kt:1.0.15"
 val javascriptEngine = "androidx.javascriptengine:javascriptengine:1.1.1"
 val abis = (findProperty("abis") as String?)?.split(',')?.map { it.trim() } ?: listOf("arm64-v8a")
+/** -Pminify=false: a release build without R8, as the app's is until its R8 work lands. */
+val minify = (findProperty("minify") as String?) != "false"
 
 android {
     namespace = "si.lanisce.lani.spike.validators"
@@ -41,7 +43,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = minify
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("debug")
             ndk { abiFilters += abis }
