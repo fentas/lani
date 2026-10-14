@@ -58,6 +58,10 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        Build sheet's tenth plot and the Šola on it (nothing of Vas), the line under it ("Pouk že
                        poteka …"), the teacher's bed when every bed is taken (the card's way on), built on the plot
                        chooser, the dev bridge's village keeping it, the class indoors;
+                       "school-scene" the teacher in the school's scene (the dev village's copy as it is, 10 o'clock):
+                       her bubble on the map and her requests in the scene, as many; "📚 Pouk · Lesson" by her; a tap on
+                       her in the picture (the choice, the lesson first) into the unit and back through the school to the
+                       scene; the blackboard tapped: the class's units;
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
                        hook "audio:prefetch"; the day's size in prefetch.json); "offline-voice" the Piper voice downloaded
@@ -1217,7 +1221,7 @@ def story_in_scene():
     """The storyteller's evening story opens from inside the fire's scene too, not only through the village's bubble
     (Stari Janez's had no dialog, so the scene offered nothing): with his evening on (QA's hook), the scene opened without
     a focus has "📖 Poslušaj · Listen" by him under "Here today", which opens the story, and so does his marker over the
-    picture."""
+    picture (with his requests up besides, through the choice of what he has: SCENES.md "What someone has here")."""
     try:
         qa_hook("happening:ob-ognju/zgodba", "scene:ob-ognju")
         if wait_for("‹ Vas · Village", 10) is None:
@@ -1232,10 +1236,14 @@ def story_in_scene():
         shot("story-from-list")
         assert tap("Zapri · Close", 3), "close the story"
         time.sleep(1.5)
-        # his marker over the picture ("Stari Janez: <tonight's story>. Pogovori se · Talk")
+        # his marker over the picture ("Stari Janez: <tonight's story>. Pogovori se · Talk"); with his requests up besides
+        # (SCENES.md "What someone has here"), the choice of them first, the story in it
         marker = next((c for t, c in nodes() if t.startswith("Stari Janez:")), None)
         assert marker is not None, "Stari Janez's marker over the fire's scene"
         tap_at(marker)
+        if wait_for("Zapri · Close", 4) is None and wait_for("Prosi te za pomoč", 3):
+            shot("story-choice")
+            assert tap("📖 Poslušaj · Listen", 3), "the story in the choice of what he has"
         assert wait_for("Zapri · Close", 8), "the story from his marker"
         shot("story-from-marker")
         tap("Zapri · Close", 3)
@@ -2829,6 +2837,168 @@ def school_build():
     shot("school-indoors")
 
 
+def scene_at(timeout=10.0) -> dict | None:
+    """Where the open scene's things and people are on the screen, as the debug build logged it last (tag SceneAt): their
+    areas, {"scene": id, "things": {slot: (x0, y0, x1, y1)}, "people": {id: (x0, y0, x1, y1)}}, or None when nothing came."""
+    def parse(part: str) -> dict:
+        out = {}
+        for item in part.split():
+            name, _, xy = item.partition("@")
+            nums = xy.split(",")
+            if len(nums) == 4 and all(n.lstrip("-").isdigit() for n in nums):
+                out[name] = tuple(int(n) for n in nums)
+        return out
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        lines = [l for l in adb("logcat", "-d", "-s", "SceneAt:D", check=False).splitlines() if " things " in l]
+        if lines and (m := re.search(r"scene (\S+) things (.*?) people(.*)$", lines[-1])):
+            return {"scene": m.group(1), "things": parse(m.group(2)), "people": parse(m.group(3))}
+        time.sleep(1)
+    return None
+
+
+def clear_point(area):
+    """A point of [area] (x0, y0, x1, y1) that no small labelled target covers (the top bar's pills, a marker, a bubble),
+    nearest its centre; None when none is clear."""
+    x0, y0, x1, y1 = area
+    cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
+    others = [b for _, b in boxes() if (b[2] - b[0]) * (b[3] - b[1]) < 500 * 300]
+    pad = 14  # a marker bobs: keep off its edge
+    pts = [(x, y) for x in range(x0 + 4, x1 - 3, 6) for y in range(y0 + 4, y1 - 3, 6)
+           if all(not (b[0] - pad <= x <= b[2] + pad and b[1] - pad <= y <= b[3] + pad) for b in others)]
+    return min(pts, key=lambda p: (p[0] - cx) ** 2 + (p[1] - cy) ** 2) if pts else None
+
+
+def tap_in_scene(kind: str, name: str) -> bool:
+    """Taps [name] ("things" or "people" as [kind]) in the open scene's picture where nothing lies over it (SceneAt's
+    areas, the targets on screen); when the top bar or the markers cover all of it (the blackboard behind the teacher,
+    under the "📚 Šola" pill), closer (QA's hook "zoom") and the picture dragged down first. False when it can't."""
+    for attempt in range(3):
+        at = scene_at()
+        area = (at or {}).get(kind, {}).get(name)
+        point = clear_point(area) if area else None
+        if point is not None:
+            tap_at(point)
+            return True
+        adb("logcat", "-c")  # where it is once the camera rests again
+        if attempt == 0:
+            qa_hook("zoom")
+            time.sleep(2)
+        adb("shell", "input", "swipe", "540", "420", "540", "820", "500")
+        time.sleep(2)
+    return False
+
+
+def panel_texts(swipes=4) -> set:
+    """Every label of a scene's panel below the picture, scrolled through to its end (swiped on the panel, not on the
+    picture, which a swipe would pan), then back at its top."""
+    seen = set()
+    for i in range(swipes + 1):
+        seen |= {t for t, _ in nodes()}
+        if i < swipes:
+            adb("shell", "input", "swipe", "540", "2000", "540", "1450", "400")
+            time.sleep(1)
+    for _ in range(swipes + 1):
+        adb("shell", "input", "swipe", "540", "1450", "540", "2150", "200")
+    time.sleep(1)
+    return seen
+
+
+def school_scene():
+    """The teacher in the school's scene (GAME.md "The school", SCENES.md "What someone has here"; Jan, 2026-10-14:
+    "Outside, the teacher has 2 exercises, but if I go into the school she has none" and "I should be able to go to the
+    school lesson in the school too, not only from the main menu"): the dev village's copy as it is (Jan's hamlet, its
+    school standing, Mojca's requests up), at 10 o'clock (QA's hook "hour:10"): her bubble on the map (her requests up,
+    counted), and in the school's scene her marker (📚 the class's lesson, her requests), her card under "Danes tukaj" with
+    "📚 Pouk · Lesson" and the same requests, as many; a tap on her in the picture: the choice, the lesson first, which goes
+    into the unit (a unit begun: its next step), back through the school ("← V šoli") to the scene; the blackboard tapped
+    in the picture: its word with the lesson and "🏫 Vse enote", which opens the school's screen, back to the scene."""
+    if not (ROOT / "companion/course/sl/course.json").exists():
+        return "no course here (companion/course/sl/course.json)"
+    if dev_school() is None:
+        return "the dev village's copy has no school"
+    state = api("/game").get("state") or {}
+    hers = [q["title"] for q in state.get("quests") or [] if q.get("giver") == "Učiteljica Mojca" and not q.get("done")]
+    qa_hook("hour:10")
+    try:
+        # the map: Mojca's bubble (one for all her requests up, their titles in its label), or her place's when zoomed out
+        plain_village()
+        time.sleep(2)
+        label = next((t for t, _ in nodes() if "Učiteljica Mojca:" in t), None)
+        if label is None:
+            qa_hook("zoom")
+            time.sleep(2)
+            label = next((t for t, _ in nodes() if "Učiteljica Mojca:" in t), None)
+        shot("school-scene-map")
+        on_map = [t for t in hers if t.split(" · ")[0] in (label or "")]
+        print(f"    the map: {label!r}: {len(on_map)} of her {len(hers)} open requests")
+        assert label is not None or not hers, "Mojca's bubble on the map (her requests)"
+        # the school's scene, as the village opens it
+        adb("logcat", "-c")
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "scene:v-soli")
+        assert wait_for("‹ Vas · Village", 10), "the school's scene"
+        time.sleep(2.5)
+        shot("school-scene")
+        marker = next((t for t, _ in nodes() if t.startswith("Učiteljica Mojca:")), None)
+        print(f"    her marker: {marker!r}")
+        assert marker is not None, "Mojca's marker over her in the school"
+        assert "Pouk · Lesson" in marker, f"the class's lesson on her marker: {marker}"
+        texts = panel_texts()
+        assert any(t == "📚 Pouk · Lesson" for t in texts), "📚 Pouk · Lesson under Danes tukaj"
+        rows = sorted({t[2:].strip() for t in texts if t.startswith("📋 ")} & set(hers))
+        print(f"    in the school: {len(rows)} of her requests: {rows}")
+        assert len(rows) == len(on_map), f"the same requests in the school ({rows}) as on the map ({on_map})"
+        assert sorted(t for t in on_map) == rows, f"the map's {on_map}, the school's {rows}"
+        # a tap on her in the picture: the choice, the lesson first
+        assert tap_in_scene("people", "mojca"), f"Mojca in the picture (SceneAt: {scene_at(3)})"
+        assert wait_for("Vse enote · All units", 6), "the choice of what she has (the lesson, the units)"
+        time.sleep(1)
+        shot("school-scene-choice")
+        go = next((t for t, _ in nodes() if t.startswith("▶️ ")), None)
+        assert go is not None and tap(go, 3), "the lesson's button"
+        end, where = time.time() + 10 * slow(), None
+        while time.time() < end and where is None:
+            labels = [t for t, _ in nodes()]
+            where = next((w for w, k in (("intro", "Korak "), ("unit", "Delovni listi"), ("sheet", "Zapri · Close"), ("sheet", "Začni"))
+                          if any(k in t for t in labels)), None)
+            time.sleep(1)
+        print(f"    {go!r} → {where}")
+        assert where is not None, "the lesson opened"
+        time.sleep(1.5)
+        shot("school-scene-lesson")
+        # back through the school ("← V šoli · At school") to the scene
+        saw_school = False
+        for _ in range(4):
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(2)
+            if find("← V šoli") is not None:
+                saw_school = True
+                shot("school-scene-back")
+            if find("‹ Vas · Village") is not None and find("Prizor · Scene") is not None:
+                break
+            if find("Zapri · Close") is not None and find("Končaj") is not None:  # a sheet's run asks before it is left
+                tap("Končaj", 3)
+        # a unit begun at a worksheet or its test goes straight into its run, and back from it to the scene
+        assert saw_school or where == "sheet", "the school's screen on the way back, its back to the scene (← V šoli)"
+        assert wait_for("‹ Vas · Village", 6), "back in the school's scene"
+        # the blackboard tapped in the picture: its word, and the class's lesson and units
+        time.sleep(2)
+        assert tap_in_scene("things", "blackboard"), f"the blackboard in the picture (SceneAt: {scene_at(3)})"
+        assert wait_for("Vse enote · All units", 6), "the blackboard's word with the class's units"
+        time.sleep(1)
+        shot("school-scene-blackboard")
+        assert tap("Vse enote · All units", 3), "🏫 Vse enote"
+        assert wait_for("Raven A1", 8), "the school's screen from the blackboard"
+        assert find("← V šoli") is not None, "its back to the scene"
+        time.sleep(1)
+        shot("school-scene-units")
+        assert tap("← V šoli", 3), "back to the scene"
+        assert wait_for("‹ Vas · Village", 8), "back in the school's scene"
+        assert tap("‹ Vas · Village", 3), "back to the village"
+    finally:
+        qa_hook("hour:")
+
+
 def centre(b):
     return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
 
@@ -3927,6 +4097,7 @@ def plan():
         ("village-hud", village_hud, v, False, ""),
         ("school", school, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
+        ("school-scene", school_scene, v, False, ""),
         ("village-life", village_life, v, False, ""),
         ("friends", friends, h, True, "visit"),
         ("visit", visit_town, h, True, "visit"),

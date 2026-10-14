@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
@@ -80,6 +81,9 @@ import si.lanisce.lani.game.scene.Happenings
 import si.lanisce.lani.game.scene.ISpy
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.ScenePerson
+import si.lanisce.lani.game.scene.Offer
+import si.lanisce.lani.game.scene.SceneOffers
+import si.lanisce.lani.game.School
 import si.lanisce.lani.game.scene.SceneObject
 import si.lanisce.lani.game.scene.SceneSights
 import si.lanisce.lani.game.scene.SceneSpec
@@ -222,6 +226,43 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         if (!scenes.startTalk(a)) greeted = a.person?.id
     }
 
+    // What each of the scene's people has for the learner (SceneOffers; companion/SCENES.md "What someone has here"): the
+    // class's lesson by the teacher where the class meets, their happenings here that open something, and their requests
+    // up, as many as the map's bubble over them counts (the same queue).
+    val villagers = vm.villagers.all
+    val course = vm.school.course
+    val requests = remember(state, villagers, now.toLocalDate()) {
+        state?.let { s -> SceneOffers.requestsBy(Residents.queue(s, villagers, now.toLocalDate()).up, villagers) }.orEmpty()
+    }
+    val classHere = remember(state, scene, course) { state != null && SceneOffers.classHere(scene, state, course) }
+    val lesson = remember(state, scene, course) { state?.let { SceneOffers.lesson(scene, it, course) } }
+    val teacher = remember(villagers) { vm.school.teacher() }
+    fun offersOf(p: ScenePerson): List<Offer> = SceneOffers.of(p, here, ::opens, requests, lesson, teacher?.id)
+    /** Someone with several things tapped (in the picture, their marker): the choice of them, over the scene. */
+    var choosing by remember { mutableStateOf<String?>(null) }
+
+    fun take(o: Offer) {
+        choosing = null
+        selected = null
+        greeted = null
+        when (o) {
+            is Offer.Lesson -> vm.startLesson(o.lesson)
+            is Offer.Talk -> talkTo(o.happening)
+            is Offer.Request -> vm.startQuest(o.quest.id)
+        }
+    }
+
+    /** [p] tapped: the one thing they have straight away (a dialog, a request), the choice of several (the lesson's too), else a hello. */
+    fun approach(p: ScenePerson) {
+        val offers = offersOf(p)
+        val one = SceneOffers.direct(offers)
+        when {
+            one != null -> take(one)
+            offers.isNotEmpty() -> { selected = null; greeted = null; choosing = p.id }
+            else -> { selected = null; greeted = p.id }
+        }
+    }
+
     // a wrong guess near the thing spied is warm: their areas in the picture within a few pixels
     fun near(a: String, b: String?): Boolean {
         val ha = anchors.hits.lastOrNull { it.target == SceneTarget.Thing(a) } ?: return false
@@ -252,8 +293,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             is SceneTarget.Person -> {
                 // asleep: they only turn over and mumble (the scene view's poke), nothing to say
                 if (sleepers.any { it.id == t.id }) { selected = null; greeted = null; return }
-                val a = here.firstOrNull { it.person?.id == t.id }
-                if (a != null && opens(a)) talkTo(a) else { selected = null; greeted = t.id }
+                scene.people.firstOrNull { it.id == t.id }?.let(::approach) ?: run { selected = null; greeted = t.id }
             }
             null -> { selected = null; greeted = null }
         }
@@ -332,6 +372,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         when {
             scenes.talk != null -> scenes.closeTalk()
             vm.ispy.play?.sceneId == scene.id -> { vm.ispy.close(scene); selected = null }
+            choosing != null -> choosing = null
             selected != null || greeted != null -> { selected = null; greeted = null }
             else -> vm.openVillage()
         }
@@ -399,11 +440,24 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         val right = run.dialog.lines.getOrNull(run.at)?.choices?.firstOrNull { it.ok }?.tap
         android.util.Log.d("TapTurn", "turn ${run.at} right $right places ${at.joinToString(" ")}")
     }
+    // where the scene's things and people are on the screen (their areas: left, top, right, bottom): a debug build logs them
+    // (tag SceneAt) once the camera has come to rest, for QA to tap them in the picture (the blackboard, the teacher) where
+    // nothing lies over them
+    LaunchedEffect(scene.id, anchors.hits.size, viewAt, people.map { it.id }, anchors.camera.camera) {
+        if (!si.lanisce.lani.BuildConfig.DEBUG || anchors.hits.isEmpty()) return@LaunchedEffect
+        delay(400)
+        fun at(t: SceneTarget, id: String) = anchors.bounds(t)?.translate(viewAt.x.toInt(), viewAt.y.toInt())?.let { b -> "$id@${b.left},${b.top},${b.right},${b.bottom}" }
+        val things = scene.objects.mapNotNull { at(SceneTarget.Thing(it.slot), it.slot) }
+        val who = people.mapNotNull { at(SceneTarget.Person(it.id), it.id) }
+        android.util.Log.d("SceneAt", "scene ${scene.id} things ${things.joinToString(" ")} people ${who.joinToString(" ")}")
+    }
     val bubbleColor = MaterialTheme.colorScheme.surface
     val density = LocalDensity.current
     val topLimit = WindowInsets.statusBars.getTop(density) + with(density) { 56.dp.roundToPx() }
     // the top bar's pills on the screen (TopBarRow): the markers and bubbles over the picture keep off them
     val pills = remember { mutableStateMapOf<String, IntRect>() }
+    // the markers over the picture on the screen, by who they're over: a later one keeps off them
+    val markerRects = remember { mutableStateMapOf<String, IntRect>() }
     val keepOff = { pills.values.map { it.translate(-viewAt.x.toInt(), -viewAt.y.toInt()) } }
 
     BoxWithConstraints(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
@@ -495,9 +549,24 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                         scene.people.firstOrNull { it.id == s.id }
                             ?: everyone.firstOrNull { it.id == s.id }?.let { v -> ScenePerson(v.id, v.name, v.emoji, v.art, s.slot, villager = v.id) }
                     }
+                    // "Danes tukaj": a card for each who is here (in the picture, asleep, or with a happening on) with something,
+                    // and the class's lesson by the teacher while the class meets here, also while she isn't in the picture
+                    val cards = buildList {
+                        for (p in scene.people) {
+                            val ons = here.filter { it.person?.id == p.id }
+                            if (ons.isEmpty() && people.none { it.id == p.id } && sleepers.none { it.id == p.id }) continue
+                            val offers = offersOf(p)
+                            if (ons.isEmpty() && offers.isEmpty()) continue
+                            add(HereCard(p.id, p.emoji, p.name, ons, offers, school = classHere && p.villager != null && p.villager == teacher?.id))
+                        }
+                        if (lesson != null && none { c -> c.offers.any { it is Offer.Lesson } }) add(
+                            HereCard(teacher?.id ?: "teacher", teacher?.emoji ?: "👩‍🏫", teacher?.name ?: si.lanisce.lani.l10n.inTarget("school.teacher"), emptyList(), listOf(Offer.Lesson(lesson)), school = true),
+                        )
+                    }.sortedByDescending { c -> c.offers.any { it is Offer.Lesson } }
                     WordsPanel(
                         vm, scene, groups, here, later, doneToday, found, selected, asleep, onWord = ::select, onTalk = ::talkTo, onLearn = { vm.learnScene(scene.id) }, opens = ::opens,
                         ispy = { ISpyOfferCard(offer, offer == null && vm.ispy.doneToday(scene, state, now.toLocalDate()), vm.dialogPrefs.translations) { offer?.let(::startISpy) } },
+                        cards = cards, onTake = ::take, onSchool = { vm.openSchool(fromVillage = true) },
                     )
                 }
             }
@@ -506,21 +575,31 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         // Over the picture: markers over people with something to say, the word or greeting bubble, the top bar.
         // They follow the camera (read when placing) and wait, unplaced, while their thing is out of view.
         if (talk == null) {
-            if (ispy == null) for (a in here) {
-                val p = a.person ?: continue
-                if (!opens(a)) continue
+            // one marker over each who is here (awake) with something for the learner: 📚 the class's lesson, a happening's
+            // emoji, 📋 requests, their requests counted as on the map ("!", "2"); each keeps off the markers before it (two
+            // people side by side: the teacher by her pupils), as off the top bar's pills
+            val markers = ArrayList<String>()
+            fun markerKeepOff(before: List<String>): () -> List<IntRect> = {
+                keepOff() + before.mapNotNull { k -> markerRects[k]?.translate(-viewAt.x.toInt(), -viewAt.y.toInt()) }
+            }
+            if (ispy == null) for (p in scene.people) {
+                if (people.none { it.id == p.id } || sleepers.any { it.id == p.id }) continue
+                val offers = offersOf(p)
+                val emoji = SceneOffers.marker(offers) ?: continue
                 val target = SceneTarget.Person(p.id)
                 if (!anchors.drawn(target)) continue
-                Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold, keepOff = keepOff) {
-                    SpeechMarker(a.happening.marker, bi("sceneScreen.talk", "pName" to p.name, "happeningTitle" to a.happening.title), XpGold) { talkTo(a) }
+                val key = "person:${p.id}"
+                Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold, keepOff = markerKeepOff(markers.toList())) {
+                    SpeechMarker(emoji, markerSays(vm, p, offers), XpGold, requests = SceneOffers.requests(offers), modifier = Modifier.pill(markerRects, key)) { approach(p) }
                 }
+                markers += key
             }
-            // the child who offers «Vidim, vidim» (unless a happening of theirs has its own marker over them)
-            if (ispy == null && offer != null && here.none { it.person?.id == offer.host.person.id && opens(it) }) {
+            // the child who offers «Vidim, vidim» (unless they have their own marker over them)
+            if (ispy == null && offer != null && scene.people.firstOrNull { it.id == offer.host.person.id }?.let(::offersOf).isNullOrEmpty()) {
                 val target = SceneTarget.Person(offer.host.person.id)
                 if (anchors.drawn(target)) {
-                    Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold, keepOff = keepOff) {
-                        SpeechMarker("🔍", "${offer.host.person.name}: ${bi("ispy.title")}. ${bi("ispy.play")}", XpGold) { startISpy(offer) }
+                    Anchored({ anchors.shown(target)?.let { IntRect(it.left, it.top, it.right, it.top) } }, topLimit = 0, color = XpGold, keepOff = markerKeepOff(markers.toList())) {
+                        SpeechMarker("🔍", "${offer.host.person.name}: ${bi("ispy.title")}. ${bi("ispy.play")}", XpGold, modifier = Modifier.pill(markerRects, "ispy")) { startISpy(offer) }
                     }
                 }
             }
@@ -529,10 +608,13 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             val selTarget = sel?.let { SceneTarget.Thing(it.slot) }
             if (sel != null && selTarget != null && (anchors.drawn(selTarget) || WordChips.opens(sel, groups))) {
                 val sticker = SceneWords.packOf(scene, sel)?.let { scenes.stickers.picture(it, sel.word, sel.emoji) }?.let { StickerSpot(scene.art, sel.slot) }
+                // the blackboard where the class meets: its word, and the class's lesson and units a tap away
+                val school = SceneOffers.opensSchool(sel.slot, classHere)
                 val bubble = @Composable {
                     WordBubble(
                         sel, SceneWords.learned(scene, sel, scenes.packs), fresh = fresh == sel.slot, speaker = speaker, color = bubbleColor,
                         sticker = sticker, note = WordChips.noteOf(sel.slot, groups),
+                        action = if (school) { { SchoolEntries(vm, lesson, onLesson = { take(Offer.Lesson(it)) }, onSchool = { selected = null; vm.openSchool(fromVillage = true) }) } } else null,
                     )
                 }
                 if (anchors.drawn(selTarget)) Anchored({ anchors.shown(selTarget) }, topLimit, bubbleColor, keepOff = keepOff) { bubble() }
@@ -552,8 +634,9 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         if (!lifted) Recenter(anchors.camera, Modifier.fillMaxWidth().height(sceneHeight).padding(10.dp))
         TopBar(
             scene, found.size, onBack = vm::openVillage, shown = !lifted, home = home, homeReady = homeReady, onHome = { homeOpen = true }, pills = pills,
-            // in the school: "📚" to its course (companion/GAME.md, "The school")
-            onSchool = if (home?.type == si.lanisce.lani.game.BuildingType.SCHOOL && vm.school.course != null) { { vm.openSchool(fromVillage = true) } } else null,
+            // in the school, and wherever the class meets (by the fire, under the linden): "📚" to its course (companion/GAME.md,
+            // "The school")
+            onSchool = if ((home?.type == si.lanisce.lani.game.BuildingType.SCHOOL || classHere) && course != null) { { vm.openSchool(fromVillage = true) } } else null,
         )
         if (allFound > 0) Confetti(key = "found-${scene.id}-$allFound")
         if (talk?.settled == true) Confetti(key = "talk-${talk.key}")
@@ -572,6 +655,17 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             onPractise = { homeOpen = false },
             onAges = { homeOpen = false; vm.openVillageAges() },
             onDismiss = { homeOpen = false },
+        )
+    }
+    // someone with several things tapped: the choice of them (the class's lesson first, the class's units, their dialogs,
+    // their requests)
+    choosing?.let { id -> scene.people.firstOrNull { it.id == id } }?.let { p ->
+        val offers = offersOf(p)
+        // nothing left meanwhile (done, the hour moved on): no choice
+        LaunchedEffect(offers.isEmpty()) { if (offers.isEmpty()) choosing = null }
+        if (offers.isNotEmpty()) OffersSheet(
+            vm, p, offers, school = classHere && p.villager != null && p.villager == teacher?.id, opens = ::opens, onTake = ::take,
+            onSchool = { choosing = null; vm.openSchool(fromVillage = true) }, onDismiss = { choosing = null },
         )
     }
     skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
@@ -705,6 +799,11 @@ private fun WordsPanel(
     opens: (ActiveHappening) -> Boolean = { it.talks },
     /** «Vidim, vidim» offered here (its card, [ISpyOfferCard]), before who is here today. */
     ispy: @Composable () -> Unit = {},
+    /** Who is here with something ([HereCard]): the class's lesson, their happenings, their requests. */
+    cards: List<HereCard> = emptyList(),
+    onTake: (Offer) -> Unit = {},
+    /** The class's units (the school's screen), by the teacher where the class meets. */
+    onSchool: () -> Unit = {},
 ) {
     val packs = vm.scenes.packs
     val present = vm.game.state?.let { Residents.present(it, LocalDate.now()) }
@@ -745,33 +844,49 @@ private fun WordsPanel(
             }
         }
         ispy()
-        People(scene, here, later, doneToday, present, asleep, onTalk, opens)
+        People(vm, scene, here, later, doneToday, present, asleep, onTalk, opens, cards, onTake, onSchool)
     }
 }
+
+/**
+ * Someone under "Danes tukaj" ([People]): [id] (a scene person's, or the teacher's villager id while she isn't in the
+ * picture), their happenings here on now, what they have ([offers]: [SceneOffers.of]); [school]: the teacher where the class
+ * meets, with the class's units besides.
+ */
+internal class HereCard(
+    val id: String, val emoji: String, val name: String, val happenings: List<ActiveHappening>, val offers: List<Offer>, val school: Boolean,
+)
 
 /** "Danes tukaj · Here today": who is here with something to say, who sleeps here, and what's done today. */
 @Composable
 private fun People(
-    scene: SceneSpec, here: List<ActiveHappening>, later: List<Pair<TimeOfDay, ActiveHappening>>, doneToday: List<String>, present: Set<String>?,
+    vm: AppViewModel, scene: SceneSpec, here: List<ActiveHappening>, later: List<Pair<TimeOfDay, ActiveHappening>>, doneToday: List<String>, present: Set<String>?,
     asleep: List<ScenePerson>, onTalk: (ActiveHappening) -> Unit, opens: (ActiveHappening) -> Boolean = { it.talks },
+    cards: List<HereCard> = emptyList(), onTake: (Offer) -> Unit = {}, onSchool: () -> Unit = {},
 ) {
-    val always = Happenings.always(scene, present).filter { p -> here.none { a -> a.person?.id == p.id } && asleep.none { it.id == p.id } }
-    if (here.isEmpty() && later.isEmpty() && doneToday.isEmpty() && always.isEmpty() && asleep.isEmpty() && scene.happenings.isEmpty()) return
+    val always = Happenings.always(scene, present).filter { p -> cards.none { it.id == p.id } && here.none { a -> a.person?.id == p.id } && asleep.none { it.id == p.id } }
+    if (cards.isEmpty() && here.isEmpty() && later.isEmpty() && doneToday.isEmpty() && always.isEmpty() && asleep.isEmpty() && scene.happenings.isEmpty()) return
     Text(bi("sceneScreen.hereToday"), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 4.dp).semantics { heading() })
-    for (a in here) {
-        val p = a.person ?: continue
+    for (c in cards) {
         Surface(color = MaterialTheme.colorScheme.tertiaryContainer, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
             Row(Modifier.padding(12.dp), verticalAlignment = Alignment.Top) {
-                EmojiBadge(p.emoji, MaterialTheme.colorScheme.surface, size = 44)
+                EmojiBadge(c.emoji, MaterialTheme.colorScheme.surface, size = 44)
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Text(p.name, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
-                    Text("${a.happening.marker} ${a.happening.title}", style = MaterialTheme.typography.bodySmall)
-                    if (opens(a)) {
-                        // the storyteller's story is listened to; a dialog is talked
-                        val label = if (a.talks) "💬 ${bi("common.talkVerb")}" else "📖 ${bi("common.listen")}"
-                        OutlinedButton(onClick = { onTalk(a) }, modifier = Modifier.padding(top = 6.dp)) { Text(label) }
+                    Text(c.name, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                    // the class's lesson first, by the teacher: one tap into it, the class's units beside
+                    val lesson = c.offers.firstNotNullOfOrNull { (it as? Offer.Lesson)?.lesson }
+                    if (lesson != null || c.school) SchoolEntries(vm, lesson, onLesson = { onTake(Offer.Lesson(it)) }, onSchool = onSchool, modifier = Modifier.padding(bottom = 4.dp))
+                    for (a in c.happenings) {
+                        Text("${a.happening.marker} ${a.happening.title}", style = MaterialTheme.typography.bodySmall)
+                        if (opens(a)) {
+                            // the storyteller's story is listened to; a dialog is talked
+                            val label = if (a.talks) "💬 ${bi("common.talkVerb")}" else "📖 ${bi("common.listen")}"
+                            OutlinedButton(onClick = { onTalk(a) }, modifier = Modifier.padding(top = 6.dp)) { Text(label) }
+                        }
                     }
+                    // their requests up, as the map's bubble over them counts them: one tap into each
+                    for (o in c.offers) if (o is Offer.Request) RequestRow(o.quest, Modifier.padding(top = 6.dp)) { onTake(o) }
                 }
             }
         }
@@ -792,7 +907,7 @@ private fun People(
             val who = list.mapNotNull { it.person }.distinctBy { it.id }.joinToString(", ") { "${it.emoji} ${it.name}" }
             Text("🕰️ ${partLabel(part)}: $who", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-    } else if (here.isEmpty() && doneToday.isEmpty()) {
+    } else if (here.isEmpty() && doneToday.isEmpty() && cards.isEmpty()) {
         Text(
             "🌙 ${bi("sceneScreen.quietHereNow")}. ${bi("sceneScreen.comeBackTomorrow")}.",
             style = MaterialTheme.typography.bodyMedium,
@@ -807,4 +922,127 @@ private fun partLabel(part: TimeOfDay): String = when (part) {
     TimeOfDay.AFTERNOON -> bi("sceneScreen.afternoon")
     TimeOfDay.EVENING -> bi("sceneScreen.evening")
     TimeOfDay.NIGHT -> bi("sceneScreen.atNight")
+}
+
+// --- what someone has here (companion/SCENES.md "What someone has here"; GAME.md "The school") --------------------------
+
+/** The class's lesson's unit, its title as shown ("Biti: sem, si, je · To be …"). */
+private fun lessonUnit(vm: AppViewModel, l: School.Lesson) = vm.school.unit(l.unit)
+
+/**
+ * What the lesson's button says: the unit begun goes on at its next step ("▶️ Naprej: Uvod · Next: Introduction", a
+ * worksheet's title, the test), the unit suggested next begins ("▶️ Uči se · Learn").
+ */
+private fun lessonGo(vm: AppViewModel, l: School.Lesson): String {
+    val unit = lessonUnit(vm, l) ?: return "▶️ ${bi("common.learn")}"
+    val p = vm.game.state?.let { School.progress(it, unit.language, unit.id) }
+    val step: si.lanisce.lani.l10n.Localized = when (val st = School.lessonStep(l, unit, p)) {
+        School.Step.Intro -> si.lanisce.lani.l10n.Localized { si.lanisce.lani.l10n.L10n.text(it, "school.intro") }
+        is School.Step.Sheet -> unit.sheet(st.id)?.let { ws -> si.lanisce.lani.l10n.Localized { lang -> si.lanisce.lani.data.Grammar.text(ws.title, lang.code) } }
+            ?: return "▶️ ${bi("common.learn")}"
+        School.Step.Test -> si.lanisce.lani.l10n.Localized { si.lanisce.lani.l10n.L10n.text(it, "school.test") }
+        School.Step.Done, null -> return "▶️ ${bi("common.learn")}"
+    }
+    return "▶️ ${bi("school.continueStep", "step" to step)}"
+}
+
+/** "Učiteljica Mojca: Pouk · Lesson: Biti …, 2 prošnji · 2 requests": what the marker over [p] stands for, for TalkBack. */
+private fun markerSays(vm: AppViewModel, p: ScenePerson, offers: List<Offer>): String {
+    val first = when (val o = offers.first()) {
+        is Offer.Talk -> bi("sceneScreen.talk", "pName" to p.name, "happeningTitle" to o.happening.happening.title)
+        is Offer.Lesson -> "${p.name}: ${bi("school.lesson")}: ${lessonUnit(vm, o.lesson)?.titleShown(si.lanisce.lani.l10n.L10n.pair) ?: o.lesson.unit}"
+        is Offer.Request -> "${p.name}: ${o.quest.title}"
+    }
+    val n = SceneOffers.requests(offers)
+    return if (n == 0 || offers.first() is Offer.Request && n == 1) first else "$first, ${bi("sceneScreen.requests", "n" to n)}"
+}
+
+/**
+ * The class's entries by the teacher where the class meets, and on the blackboard's word: "📚 Pouk · Lesson" with the unit
+ * it goes on with, one tap into it ([onLesson], [lesson]: none with every unit open done), and "🏫 Vse enote · All units"
+ * (the school's screen: [onSchool]).
+ */
+@Composable
+internal fun SchoolEntries(vm: AppViewModel, lesson: School.Lesson?, onLesson: (School.Lesson) -> Unit, onSchool: () -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        if (lesson != null) {
+            val unit = lessonUnit(vm, lesson)
+            Text("📚 ${bi("school.lesson")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+            Text(
+                "${unit?.emoji ?: "★"} ${unit?.titleShown(si.lanisce.lani.l10n.L10n.pair) ?: lesson.unit}",
+                style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold,
+            )
+            androidx.compose.material3.Button(
+                onClick = { onLesson(lesson) },
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = XpGold, contentColor = Color(0xFF2B2118)),
+                modifier = Modifier.padding(top = 2.dp).heightIn(min = 48.dp),
+            ) { Text(lessonGo(vm, lesson)) }
+        }
+        TextButton(onClick = onSchool, modifier = Modifier.heightIn(min = 48.dp)) { Text("🏫 ${bi("school.allUnits")} ›") }
+    }
+}
+
+/** One of someone's requests up: "📋 <title>", how close the learner is or what it pays; a tap opens it. */
+@Composable
+private fun RequestRow(q: si.lanisce.lani.game.Quest, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    Surface(onClick = onClick, color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f), shape = MaterialTheme.shapes.small, modifier = modifier.fillMaxWidth()) {
+        Row(Modifier.heightIn(min = 48.dp).padding(horizontal = 10.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text("📋 ${q.title}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                Text(
+                    si.lanisce.lani.ui.game.progressText(q) ?: si.lanisce.lani.ui.game.formatRes(q.reward),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Text("›", style = MaterialTheme.typography.headlineSmall)
+        }
+    }
+}
+
+/**
+ * The choice of what [p] has ([offers]), when a tap on them (or their marker) finds more than one, or the class's lesson:
+ * the lesson first with the class's units ([school]), their dialogs, their requests.
+ */
+@Composable
+private fun OffersSheet(
+    vm: AppViewModel, p: ScenePerson, offers: List<Offer>, school: Boolean, opens: (ActiveHappening) -> Boolean,
+    onTake: (Offer) -> Unit, onSchool: () -> Unit, onDismiss: () -> Unit,
+) {
+    si.lanisce.lani.ui.LaniSheet(onDismissRequest = onDismiss) {
+        Column(
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                val v = p.villager?.let { vm.villagers.byId(it) }
+                if (v != null) si.lanisce.lani.ui.villagers.VillagerPortrait(v, 56.dp)
+                else EmojiBadge(p.emoji, MaterialTheme.colorScheme.surfaceVariant, size = 56)
+                Spacer(Modifier.width(12.dp))
+                Text("${p.emoji} ${p.name}", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, modifier = Modifier.semantics { heading() })
+            }
+            val lesson = offers.firstNotNullOfOrNull { (it as? Offer.Lesson)?.lesson }
+            if (lesson != null || school) SchoolEntries(vm, lesson, onLesson = { onTake(Offer.Lesson(it)) }, onSchool = onSchool)
+            for (o in offers) if (o is Offer.Talk) {
+                val a = o.happening
+                Surface(
+                    onClick = { onTake(o) }, color = MaterialTheme.colorScheme.tertiaryContainer, shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Row(Modifier.heightIn(min = 56.dp).padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("${a.happening.marker} ${a.happening.title}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+                            Text(if (a.talks) "💬 ${bi("common.talkVerb")}" else "📖 ${bi("common.listen")}", style = MaterialTheme.typography.bodySmall)
+                        }
+                        Text("›", style = MaterialTheme.typography.headlineSmall)
+                    }
+                }
+            }
+            val asks = offers.filterIsInstance<Offer.Request>()
+            if (asks.isNotEmpty()) Text(
+                "🙋 ${bi("villagerScreens.asksForHelp", "QUEST" to si.lanisce.lani.game.villagers.Bonds.QUEST, "HEART" to si.lanisce.lani.ui.villagers.HEART)}",
+                style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            for (o in asks) RequestRow(o.quest) { onTake(o) }
+            Spacer(Modifier.height(8.dp))
+        }
+    }
 }

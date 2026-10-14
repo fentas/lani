@@ -143,9 +143,13 @@ fun Modifier.popIn(key: Any?, from: Float = 0.6f, origin: TransformOrigin = Tran
  * A thing's word, over the thing: the picture (the thing's [sticker] when no emoji shows it), the Slovene with its
  * gender (said on arrival), the English, and on tap the example sentence. [fresh] when it was just found for the first time.
  * [note]: when the thing is in the picture, for a word seen before that isn't there now ("🌙 ponoči · at night").
+ * [action]: what the thing leads to, at the bubble's foot (the blackboard where the class meets: its lesson, its units).
  */
 @Composable
-fun WordBubble(o: SceneObject, learned: Boolean, fresh: Boolean, speaker: Speaker, color: Color, sticker: StickerSpot? = null, note: String? = null) {
+fun WordBubble(
+    o: SceneObject, learned: Boolean, fresh: Boolean, speaker: Speaker, color: Color, sticker: StickerSpot? = null, note: String? = null,
+    action: (@Composable () -> Unit)? = null,
+) {
     var example by remember(o.slot) { mutableStateOf(false) }
     val hasExample = !o.exampleSl.isNullOrBlank()
     Surface(
@@ -204,6 +208,7 @@ fun WordBubble(o: SceneObject, learned: Boolean, fresh: Boolean, speaker: Speake
                     Text("👆 ${bi("sceneBubbles.example")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
+            action?.invoke()
         }
     }
 }
@@ -227,9 +232,13 @@ fun PersonBubble(emoji: String, name: String, line: String?, hour: Int, speaker:
     }
 }
 
-/** Over someone with something to say: their happening's emoji, bobbing; a tap starts the dialog. */
+/**
+ * Over someone with something for the learner: what it is (📚 the class's lesson, their happening's emoji, 📋 their
+ * requests), bobbing; their [requests] up marked as the map's bubble marks them (a "!", and how many when more than one).
+ * A tap opens it, or the choice of what they have. [modifier] goes outside the bob (where it rests: others keep off it).
+ */
 @Composable
-fun SpeechMarker(emoji: String, description: String, color: Color, onClick: () -> Unit) {
+fun SpeechMarker(emoji: String, description: String, color: Color, requests: Int = 0, modifier: Modifier = Modifier, onClick: () -> Unit) {
     val bob by rememberInfiniteTransition(label = "bob").animateFloat(
         0f, -6f, infiniteRepeatable(tween(700), RepeatMode.Reverse), label = "bob",
     )
@@ -237,7 +246,8 @@ fun SpeechMarker(emoji: String, description: String, color: Color, onClick: () -
         onClick = onClick,
         color = color,
         shape = RoundedCornerShape(50),
-        modifier = Modifier
+        // [modifier] outside the bob: where it lies is where it rests, not each frame of its bobbing
+        modifier = modifier
             .graphicsLayer { translationY = bob * density }
             .popIn(emoji)
             .semantics { contentDescription = description },
@@ -249,9 +259,25 @@ fun SpeechMarker(emoji: String, description: String, color: Color, onClick: () -
             Text(emoji, fontSize = 22.sp)
             Spacer(Modifier.width(4.dp))
             Text("💬", fontSize = 16.sp)
+            if (requests > 0) {
+                // as the map's bubble: a "!" for requests (white on the gold marker), and how many on a dark one
+                Spacer(Modifier.width(4.dp))
+                Box(Modifier.size(18.dp).background(Color.White, CircleShape), contentAlignment = Alignment.Center) {
+                    Text("!", color = MarkerInk, fontWeight = FontWeight.Black, fontSize = 12.sp)
+                }
+                if (requests > 1) {
+                    Spacer(Modifier.width(2.dp))
+                    Box(Modifier.size(18.dp).background(MarkerInk, CircleShape), contentAlignment = Alignment.Center) {
+                        Text("$requests", color = Color.White, fontWeight = FontWeight.Black, fontSize = 11.sp)
+                    }
+                }
+            }
         }
     }
 }
+
+/** The ink of a marker's request badges, the map's bubbles' ink. */
+private val MarkerInk = Color(0xFF2B2118)
 
 /** A round dark button over the pixel art, readable on any scene. */
 @Composable

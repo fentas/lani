@@ -1008,22 +1008,49 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     /** "📚 Šola · School": the course's levels and units; the levels opened since are kept first. */
     fun openSchool(fromVillage: Boolean = screen is Screen.Village || screen is Screen.Scene) {
+        enterSchool()
         school.touch()
         screen = Screen.School(fromVillage)
     }
 
-    /** Back from the school: to the village or home, wherever it was opened. */
-    fun leaveSchool(fromVillage: Boolean) = if (fromVillage) village() else home()
+    /**
+     * The scene the school was entered from (the class's place: a tap on the teacher, the blackboard, "📚" in its top bar),
+     * where leaving the school goes back to; null when it was entered from anywhere else.
+     */
+    var schoolScene by mutableStateOf<Screen.Scene?>(null)
+        private set
+
+    /** The school is entered from the screen on now: a scene is kept to go back to, a school's screen keeps the one kept. */
+    private fun enterSchool() {
+        when (val s = screen) {
+            is Screen.Scene -> schoolScene = s.copy(focus = null)
+            is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> Unit
+            else -> schoolScene = null
+        }
+    }
+
+    /** Back from the school: to the scene it was entered from, else to the village or home, wherever it was opened. */
+    fun leaveSchool(fromVillage: Boolean) {
+        val back = schoolScene
+        schoolScene = null
+        when {
+            back != null -> openScene(back.id, null, back.building)
+            fromVillage -> village()
+            else -> home()
+        }
+    }
 
     /** Unit [id] of the course: its intro, its worksheets, its test. */
     fun openUnit(id: String, fromVillage: Boolean = false) {
         if (school.unit(id) == null) return
+        enterSchool()
         screen = Screen.CourseUnit(id, fromVillage)
     }
 
     /** Unit [id]'s guided introduction, where the learner left it. */
     fun startIntro(id: String, fromVillage: Boolean = false) {
         if (school.unit(id)?.intro == null) return
+        enterSchool()
         screen = Screen.UnitIntro(id, fromVillage)
     }
 
@@ -1033,7 +1060,25 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** Sheet [sheet] of unit [unit] ([kind]: a worksheet, the test, homework): its run, back to the unit after. */
     fun startSheet(unit: String, kind: si.lanisce.lani.app.SheetKind, sheet: String, fromVillage: Boolean = false) {
         if (screen.inRun) return
+        enterSchool()
         startRun(Screen.Sheet(unit, kind, sheet, fromVillage, ++sheetRuns))
+    }
+
+    /**
+     * "📚 Pouk · Lesson" in the class's scene (companion/GAME.md "The school"; [si.lanisce.lani.game.scene.SceneOffers]): a
+     * unit begun goes on at its next step, as its main button does (its intro where it was left, the next worksheet, the
+     * test: [School.lessonStep]); the unit suggested next opens at its page. Leaving the school comes back to the scene.
+     */
+    fun startLesson(lesson: si.lanisce.lani.game.School.Lesson) {
+        val unit = school.unit(lesson.unit) ?: return
+        school.touch()
+        val p = game.state?.let { si.lanisce.lani.game.School.progress(it, unit.language, unit.id) }
+        when (val step = si.lanisce.lani.game.School.lessonStep(lesson, unit, p)) {
+            si.lanisce.lani.game.School.Step.Intro -> startIntro(unit.id, fromVillage = true)
+            is si.lanisce.lani.game.School.Step.Sheet -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.WORKSHEET, step.id, fromVillage = true)
+            si.lanisce.lani.game.School.Step.Test -> startSheet(unit.id, si.lanisce.lani.app.SheetKind.TEST, "test", fromVillage = true)
+            si.lanisce.lani.game.School.Step.Done, null -> openUnit(unit.id, fromVillage = true)
+        }
     }
 
     /** The village with building [id]'s card open (the school's level a course level waits for: its upgrade). */

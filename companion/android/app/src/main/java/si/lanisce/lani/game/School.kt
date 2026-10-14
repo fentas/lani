@@ -234,6 +234,32 @@ object School {
         else -> unit.worksheets.firstOrNull { it.id !in p?.sheets.orEmpty() }?.let { Step.Sheet(it.id) } ?: Step.Test
     }
 
+    /**
+     * The lesson the class goes on with (GAME.md "The school", "The lesson in the class's place"): unit [unit], [resume]d
+     * when it was begun (its next step), else begun (its page).
+     */
+    data class Lesson(val unit: String, val resume: Boolean)
+
+    /**
+     * The class's lesson now: a unit begun and not done, of an open level (the first in the course's order), goes on; else
+     * the unit suggested next ([next], ★) begins. Null before the class begins, or with every unit of the open levels done.
+     */
+    fun lesson(s: GameState, course: Course): Lesson? {
+        if (!open(s)) return null
+        val begun = LEVELS.filter { isOpen(s, course, it) }.firstNotNullOfOrNull { l ->
+            course.playable(l).firstOrNull { progress(s, course.language, it.id)?.let { p -> p.done == null } == true }
+        }
+        if (begun != null) return Lesson(begun.id, resume = true)
+        return next(s, course)?.let { Lesson(it.id, resume = false) }
+    }
+
+    /**
+     * Where [lesson] of [unit] ([p]: its progress) goes: a unit begun to its next step (its intro where it was left, the next
+     * worksheet, the test, as the unit's main button), null for its page (a unit not begun yet, or done meanwhile).
+     */
+    fun lessonStep(lesson: Lesson, unit: CourseUnit, p: UnitProgress?): Step? =
+        if (!lesson.resume) null else nextStep(unit, p).takeIf { it != Step.Done }
+
     private fun GameState.unit(language: String, id: String, today: LocalDate, f: (UnitProgress) -> UnitProgress): GameState {
         val c = course ?: CourseProgress()
         val k = key(language, id)
