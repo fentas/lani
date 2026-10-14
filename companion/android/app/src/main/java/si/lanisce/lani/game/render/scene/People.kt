@@ -262,17 +262,19 @@ internal class PeoplePainter {
      * At work (the village map's people): [reach] puts the near hand at canvas point (reach[0], reach[1]) (its inner
      * column and top row, as [heldX], [heldY]), the arm going there from the shoulder, and with four values the far hand at
      * (reach[2], reach[3]); [holding] leaves their prop out of the near hand (it holds what the caller draws); [wink] shuts
-     * the near eye in a wink.
+     * the near eye in a wink. Sitting at a desk or a table: [rest] is where the hands lie on its top (near x, y, far x, y,
+     * as [reach]), each hand that the pose doesn't need ([resting]); the caller draws the desk over the sprite, then the
+     * resting arms again over the desk ([restingArms]).
      */
     fun draw(
         canvas: PixelCanvas, art: String, bx: Int, by0: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean,
         walking: Boolean, seated: Boolean, pose: Pose = Pose.IDLE, upright: Boolean = false, crouch: Boolean = false,
-        reach: IntArray? = null, holding: Boolean = false, wink: Boolean = false,
+        reach: IntArray? = null, holding: Boolean = false, wink: Boolean = false, rest: IntArray? = null,
     ) {
         if (crouch && art != "baby" && pose != Pose.SLEEP) {
             // squatting: sat low on the heels, the torso a little shorter; drawn as sitting, with short shins
             crouching = true
-            draw(canvas, art, bx, by0, time, seed, talking, flip, walking = false, seated = true, pose = pose, upright = upright, reach = reach, holding = holding, wink = wink)
+            draw(canvas, art, bx, by0, time, seed, talking, flip, walking = false, seated = true, pose = pose, upright = upright, reach = reach, holding = holding, wink = wink, rest = rest)
             crouching = false
             return
         }
@@ -430,9 +432,9 @@ internal class PeoplePainter {
                 busy = true
             }
             else -> {
-                val far = reach?.takeIf { it.size >= 4 }
+                val far = reach?.takeIf { it.size >= 4 } ?: rest?.takeIf { reach == null }
                 if (far != null) {
-                    // the far hand reaching too (across the body: the sleeve on the shirt, the hand showing)
+                    // the far hand reaching too (across the body: the sleeve on the shirt, the hand showing), or lying on the desk
                     limb(bx - d * (tw + 1), armTop, far[2], far[3], -d, sleeveD)
                     hand(far[2], far[3], -d, L.skin)
                 } else arm(-d, if (swing != 0) swing else 0)
@@ -469,6 +471,13 @@ internal class PeoplePainter {
                         handX = bx + d * (tw + 3); handY = armTop - 1
                         hand(handX, handY, d, L.skin)
                     }
+                    rest != null -> {
+                        // at a desk: the near hand lies on it beside the far one, nothing in it
+                        limb(bx + d * (tw + 1), armTop, rest[0], rest[1], d, sleeve)
+                        handX = rest[0]; handY = rest[1]
+                        hand(handX, handY, d, L.skin)
+                        busy = true
+                    }
                     else -> { arm(d, -swing); handY = armBot - 1 - swing }
                 }
             }
@@ -478,6 +487,34 @@ internal class PeoplePainter {
         if (L.satchel != 0) satchel(L.satchel, bx - d * (tw + 1), tBot, d)
         if (!busy && !holding) prop(L, bx, tw, handX, handY, by, d, gesture, time)
         heldX = handX; heldY = handY
+    }
+
+    /**
+     * Sitting at a desk drawn over them ([draw] seated, with [rest]): the arms whose hands lie on it, drawn again over the
+     * desk, from the shoulder down onto its top, the hands at [rest] (near x, y, far x, y). The same arguments as [draw];
+     * a hand the pose needs (a wave, a gesture while talking, a cheer) isn't on the desk, nor drawn here.
+     */
+    fun restingArms(canvas: PixelCanvas, art: String, bx: Int, by: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean, pose: Pose, rest: IntArray) {
+        if (art == "baby" || pose == Pose.SLEEP) return
+        c = canvas
+        val L = Looks.of(art, seed)
+        val d = if (flip) -1 else 1
+        val (far, near) = resting(pose, talking, time)
+        val tw = L.torsoW / 2
+        val armTop = by - 4 - L.torsoH + 1
+        if (far) { limb(bx - d * (tw + 1), armTop, rest[2], rest[3], -d, Col.scale(L.top, 0.78f)); hand(rest[2], rest[3], -d, L.skin) }
+        if (near) { limb(bx + d * (tw + 1), armTop, rest[0], rest[1], d, L.top); hand(rest[0], rest[1], d, L.skin) }
+    }
+
+    /**
+     * Which hands of someone at a desk lie on it in [pose] (talking: [talking]), far and near: both, unless the pose
+     * needs them (both arms up in a cheer, a shrug; the near hand at the chin, at the ear, waving, out while talking).
+     */
+    fun resting(pose: Pose, talking: Boolean, time: Double): Pair<Boolean, Boolean> {
+        val p = if (pose == Pose.IDLE && talking) Pose.TALK else pose
+        if (p == Pose.CHEER || p == Pose.SAD || p == Pose.SLEEP) return false to false
+        val gesture = p == Pose.TALK && ((time * 2).toInt() and 1) == 0
+        return true to !(p == Pose.THINK || p == Pose.LISTEN || p == Pose.WAVE || gesture)
     }
 
     // ------------------------------------------------------------------ the head

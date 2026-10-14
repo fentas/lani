@@ -5,6 +5,7 @@ import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.Poke
 import kotlin.math.PI
 import kotlin.math.abs
@@ -28,7 +29,8 @@ import kotlin.math.sqrt
  * bookcase, a lamp on a bracket, the map of Slovenia under the clock, a scarf on a peg and the door. The teacher
  * stands at the board; her desk is by the right window with the globe (turning), a stack of books and an oil lamp,
  * her chair pulled out beside it. Two pupils' desks with a notebook, a pencil and a book on them, their chairs, a
- * satchel on the floor against the first. The lamps are lit from dusk; by day the sun lays the left window's panes
+ * satchel on the floor against the first; a pupil sits on the chair behind their desk, the desk hiding their lap and legs,
+ * the head and the shoulders over its lid, the hands lying on it ([pupils], [armsOnDesk]). The lamps are lit from dusk; by day the sun lays the left window's panes
  * on the floor. Outside the cut-away front a bit of schoolyard: a linden with a bench, a hopscotch chalked on the
  * ground (a snowman on it in winter), a bed of flowers (a sled in winter), a bicycle and the flag.
  *
@@ -80,8 +82,9 @@ internal class SchoolPainter : DioramaPainter() {
 
     // the teacher's desk, the pupils' desks (they face +x, their chairs behind them)
     private val tx0 = 7.4f; private val tx1 = 9.8f; private val ty0 = 2.1f; private val ty1 = 3.2f
-    private val d1x = 3.9f; private val d1y0 = 5.0f; private val d1y1 = 6.9f; private val p1y = 6.45f
-    private val d2x = 8.6f; private val d2y0 = 5.6f; private val d2y1 = 7.5f; private val p2y = 7.05f
+    // (the pupils sit in the middle of what lies on their desk: the exercise book, the reading book)
+    private val d1x = 3.9f; private val d1y0 = 5.0f; private val d1y1 = 6.9f; private val p1y = 5.55f
+    private val d2x = 8.6f; private val d2y0 = 5.6f; private val d2y1 = 7.5f; private val p2y = 6.17f
     private val deskD = 1.2f
 
     // the people
@@ -188,18 +191,22 @@ internal class SchoolPainter : DioramaPainter() {
         if (there("globe")) thing("globe", slop = 1) { globe(9.35f, 2.65f) }
         for (p in peopleAt("teacher")) { footShadow(teacherX, teacherY); personAt(p, teacherX, teacherY, fl, flip = true) }
 
-        // the pupils' desks: the first one with the notebook and the pencil, a satchel against it
-        prop { chair(d1x - 0.75f, p1y, facingX = true) }
-        for (p in peopleAt("desk1")) personAt(p, d1x - 0.3f, p1y, fl, seated = true)
+        // the pupils' desks, each pupil on the chair behind theirs: the chair, the pupil, then the desk in front of them (it
+        // hides the lap and the legs) and what lies on it, then their arms on the lid; the first one with the notebook and
+        // the pencil, a satchel against it
+        prop { chair(d1x - CHAIR_BACK, p1y + CHAIR_SIDE, facingX = true) }
+        val at1 = pupils("desk1", d1x, p1y)
         thing("desk") { pupilDesk(d1x, d1y0, d1y1, heart = true) }
         thing("notebook", slop = 1) { notebook(d1x + 0.18f, 5.2f) }
         thing("pencil", slop = 2) { pencil(d1x + 0.3f, 5.95f) }
+        armsOnDesk(at1)
         shade(iso.sx(d1x + deskD + 0.2f, 5.85f), iso.sy(d1x + deskD + 0.2f, 5.85f, fl), 4f * K, 1.3f * K, 0.75f, floorId)
         thing("bag") { bag(d1x + deskD, 5.35f) }
-        prop { chair(d2x - 0.75f, p2y, facingX = true) }
-        for (p in peopleAt("desk2")) personAt(p, d2x - 0.3f, p2y, fl, seated = true)
+        prop { chair(d2x - CHAIR_BACK, p2y + CHAIR_SIDE, facingX = true) }
+        val at2 = pupils("desk2", d2x, p2y)
         prop { pupilDesk(d2x, d2y0, d2y1, heart = false) }
         prop { readingBook(d2x + 0.2f, d2y0 + 0.15f) }
+        armsOnDesk(at2)
 
         // the schoolyard
         yard()
@@ -1483,10 +1490,13 @@ internal class SchoolPainter : DioramaPainter() {
 
     // ------------------------------------------------------------------ the pupils' corner
 
+    /** The top of a chair's seat. */
+    private val chairSeat: Float get() = fl + 4.5f
+
     /** A chair; its back is toward -x ([facingX]) or -y. */
     private fun chair(cx: Float, cy: Float, facingX: Boolean) {
         val s2 = 0.36f
-        val seat = fl + 3.8f; val back = seat + 5.2f
+        val seat = chairSeat - 0.7f; val back = seat + 5.2f
         val l = oakL; val m = oakM; val d = oakD
         // the back: two uprights and two rails
         if (facingX) {
@@ -1507,6 +1517,42 @@ internal class SchoolPainter : DioramaPainter() {
         if (facingX) iso.post(cx + s2 - 0.08f, cy - s2 + 0.08f, fl, seat, Col.scale(d, 0.85f))
         else iso.post(cx - s2 + 0.08f, cy + s2 - 0.08f, fl, seat, Col.scale(d, 0.85f))
         iso.box(cx - s2, cy - s2, seat, 2 * s2, 2 * s2, 0.7f, l, m, d)
+    }
+
+    /** Someone sitting at a pupil's desk ([pupils]): who, the feet's point in the picture, and where the hands lie on the lid. */
+    private class Seated(val p: PersonInScene, val bx: Int, val by: Int, val rest: IntArray)
+
+    /**
+     * The people at [spot], each sitting on the chair behind the desk at [xa] (its back at x = [xa], [CHAIR_BACK] in front
+     * of the chair's middle), at [y] along it, facing the board's way (the sprites face us, turned right): the lap on the
+     * seat, the feet hanging, the hands reaching to the lid. Draw the desk over them next, then [armsOnDesk].
+     */
+    private fun pupils(spot: String, xa: Float, y: Float): List<Seated> = peopleAt(spot).map { p ->
+        val x = xa - CHAIR_BACK + SIT_FORWARD
+        // the seated sprite's belt is 5 sprite px (2.5 nominal) over its soles: at the chair's seat
+        val bx = sx(x, y); val by = sy(x, y, chairSeat - 2.5f) + detail
+        val rest = handsOn(bx, by, xa - 0.06f, y)
+        person(p, bx, by, false, seated = true, rest = rest)
+        Seated(p, bx, by, rest)
+    }
+
+    /** The arms of [seated] lying on the desk drawn over them since. */
+    private fun armsOnDesk(seated: List<Seated>) { for (s in seated) restingArms(s.p, s.bx, s.by, false, s.rest) }
+
+    /**
+     * Where the hands of someone sitting with the feet at picture ([bx], [by]) lie on a pupil's desk whose lid's near edge
+     * runs along x = [xe] (at [y] in front of them): [HAND_NEAR] and [HAND_FAR] sprite columns from their middle, each in
+     * the first sprite row wholly on the lid, past its edge (which runs down to the left), as [PeoplePainter.draw]'s rest.
+     */
+    private fun handsOn(bx: Int, by: Int, xe: Float, y: Float): IntArray {
+        val z = fl + 7.0f
+        val ex = iso.sx(xe, y); val ey = iso.sy(xe, y, z)
+        fun row(col: Int): Int {
+            val cx = bx + (col + 1) * detail // the middle of a hand two sprite px wide
+            val edge = ey - (cx - ex) * 0.5f
+            return by + ceil((edge - by) / detail).toInt()
+        }
+        return intArrayOf(bx + HAND_NEAR, row(HAND_NEAR), bx + HAND_FAR, row(HAND_FAR - 1))
     }
 
     /** A pupil's desk facing +x: a lid with a pencil groove and an inkwell, the shelf under it, a front board, legs. */
@@ -1980,6 +2026,19 @@ internal class SchoolPainter : DioramaPainter() {
 
         /** Mojca's bed in the school, a curtained alcove along the left wall ("alcove"). */
         private const val ALCOVE = "alcove"
+
+        /**
+         * A pupil's chair stands this far behind the desk (its middle from the desk's back, cells), and the pupil sits this
+         * far in front of its middle, toward the desk: on the front of the seat, at the desk.
+         */
+        private const val CHAIR_BACK = 0.75f
+        private const val SIT_FORWARD = 0.12f
+
+        /** The chair stands this much to our left of the pupil (+y, cells): its back shows past their head. */
+        private const val CHAIR_SIDE = 0.2f
+
+        /** Where a seated pupil's hands lie on the lid: sprite columns from their middle (the near hand's, the far one's). */
+        private const val HAND_NEAR = 2; private const val HAND_FAR = -2
 
         /** Her bed along the left wall under the map, along y, its head by the bookcase; the curtain's rod along its outer side. */
         private const val MB_A = 0.68f; private const val MB_B = 1.78f; private const val MB_C = 3.42f; private const val MB_D = 6.12f

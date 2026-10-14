@@ -279,14 +279,26 @@ internal abstract class ArtPainter : ScenePainter {
      * Draws [p] with their feet at ([bx], [by]) in their pose (talking alone is [si.lanisce.lani.game.scene.Pose.TALK]) and registers them.
      * Asleep ([Pose.SLEEP]) away from a bed, they lie there on a pillow of their own (see [sleeper]). [reach]: their hands at
      * those points of the sprite's own px round ([bx], [by]) (the near one, then the far one: [PeoplePainter.draw]), holding on.
+     * Sitting at a desk: [rest], where the hands lie on it (as [reach]); draw the desk over them, then [restingArms].
      */
     protected fun person(
         p: PersonInScene, bx: Int, by: Int, flip: Boolean, walking: Boolean = false, seated: Boolean = false, crouch: Boolean = false,
-        reach: IntArray? = null,
+        reach: IntArray? = null, rest: IntArray? = null,
     ) {
         if (p.pose == Pose.SLEEP) { lyingHere(p, bx, by, flip, awake = false); return }
         val id0 = begin(Pal.OUTLINE)
-        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach) }
+        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach, rest = rest) }
+        end(SceneTarget.Person(p.id), id0, true, 1)
+    }
+
+    /**
+     * [p] sitting at a desk ([person] with [rest], the desk drawn over them since): their arms lying on it, drawn again over
+     * it from the shoulders, the hands on its top ([PeoplePainter.restingArms]). Theirs: a tap there is on them.
+     */
+    protected fun restingArms(p: PersonInScene, bx: Int, by: Int, flip: Boolean, rest: IntArray) {
+        if (p.pose == Pose.SLEEP) return
+        val id0 = begin(Pal.OUTLINE)
+        sprite(bx, by) { people.restingArms(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, p.pose, rest) }
         end(SceneTarget.Person(p.id), id0, true, 1)
     }
 
