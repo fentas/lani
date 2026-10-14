@@ -4,7 +4,7 @@
 // when its local clip is there (which stays, as the fallback).
 import { isNarrator, languageVoiceName } from './cast'
 import { normalizeText } from './family'
-import { PRIORITY_LABELS, type CorpusItem, type ElevenLabs, type EngineName, type Gepard, type VoiceStore } from './voice'
+import { creditsFor, PRIORITY_LABELS, type CorpusItem, type ElevenLabs, type EngineName, type Gepard, type VoiceStore } from './voice'
 
 export { PRIORITY_LABELS }
 
@@ -39,6 +39,11 @@ export type BuildPlan = {
   carrier: ReturnType<VoiceStore['carrierStats']>
   /** --revoice-words: the old-style ones it would re-voice now within the budget (and --max), and those left for later. */
   revoice_words?: { texts: number; chars: number; later: Count }
+  /**
+   * The ElevenLabs model new clips are made with (LANI_ELEVENLABS_MODEL), and the store's ElevenLabs clips by the model
+   * that made them (one from before it was recorded: eleven_v3); voice-build --upgrade-model makes the older ones again.
+   */
+  models: { now: string; by: Record<string, { clips: number; chars: number }> }
 }
 
 export type BuildOptions = {
@@ -172,7 +177,7 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
   }
   return {
     texts: sum('texts'), chars: sum('chars'), cached: sum('cached'), by_engine, missing: sum('missing'), missing_chars: sum('missing_chars'), rows, by_voice, narrator_voices, quota, local: worker, gepard_up, would,
-    carrier: store.carrierStats(), ...(revoice_words ? { revoice_words } : {}),
+    carrier: store.carrierStats(), ...(revoice_words ? { revoice_words } : {}), models: { now: eleven.model, by: store.modelStats() },
   }
 }
 
@@ -206,12 +211,22 @@ export function formatPlan(p: BuildPlan, dir: string): string {
       (p.would.elevenlabs.narrators.texts ? `; the narrators in Slovene ${n(p.would.elevenlabs.narrators.texts)}, ${n(p.would.elevenlabs.narrators.chars)} chars, ${n(p.would.elevenlabs.over_local)} of them next to a local clip, which stays` : '') +
       `), Gepard ${n(p.would.gepard.texts)} (${n(p.would.gepard.chars)} chars), later ${n(p.would.later.texts)} (${n(p.would.later.chars)} chars)`,
     ...formatCarrier(p),
+    ...formatModels(p),
   ]
   return lines.join('\n')
 }
 
-/** The subscription counts about half a character per character of eleven_v3 text (README, "Costs"). */
-const credits = (chars: number) => Math.round(chars / 2)
+/** The credits [chars] characters cost on the subscription with the model new clips are made with (MODEL_CREDITS; README, "Costs"). */
+const credits = (chars: number, p: BuildPlan) => creditsFor(chars, p.models.now)
+
+/** The store's ElevenLabs clips by model, and the model new ones are made with. */
+function formatModels(p: BuildPlan): string[] {
+  const older = Object.entries(p.models.by).filter(([m]) => m !== p.models.now)
+  return [
+    `ElevenLabs model: ${p.models.now} (LANI_ELEVENLABS_MODEL); the clips by model: ${Object.entries(p.models.by).map(([m, x]) => `${m} ${n(x.clips)}`).join(', ') || 'none yet'}` +
+      (older.length ? ` (voice-build --upgrade-model makes the ${n(older.reduce((k, [, x]) => k + x.clips, 0))} of an older one again)` : ''),
+  ]
+}
 
 /** The short narrator words: said in their carrier sentence, and the old-style ones and what re-voicing them costs. */
 function formatCarrier(p: BuildPlan): string[] {
@@ -219,14 +234,14 @@ function formatCarrier(p: BuildPlan): string[] {
   const out = [
     `Short narrator words (1–3 words): ${n(c.carrier)} in their carrier sentence, ${n(c.old)} old-style (said plainly: they may sound English; ` +
       `${n(c.asked)} asked for by the app)${c.plain ? `, ${n(c.plain)} kept plain (the word could not be cut out)` : ''}`,
-    `  re-voicing all old-style: ${n(c.old_chars)} characters sent (≈ ${n(credits(c.old_chars))} on the subscription); ` +
+    `  re-voicing all old-style: ${n(c.old_chars)} characters sent (≈ ${n(credits(c.old_chars, p))} credits); ` +
       `the bridge re-voices those the app asks for, ${n(c.daily)} a day (${n(c.today)} today), and Jan's re-records (a long press on 🔊), ` +
       `${n(c.redo_daily)} a day on their own (${n(c.redos)} today)` + (c.cut ? '' : '; no ffmpeg here: no carrier sentence'),
   ]
   const w = p.revoice_words
   if (w) {
     out.push(
-      `--revoice-words --run would re-voice ${n(w.texts)} (${n(w.chars)} characters, ≈ ${n(credits(w.chars))} on the subscription), ` +
+      `--revoice-words --run would re-voice ${n(w.texts)} (${n(w.chars)} characters, ≈ ${n(credits(w.chars, p))} credits), ` +
         `later ${n(w.later.texts)} (${n(w.later.chars)} characters)`,
     )
   }

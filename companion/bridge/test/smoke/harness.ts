@@ -153,7 +153,7 @@ export const check = (name: string, cond: unknown, detail?: unknown) => {
 
 /**
  * A culture village's voices, as its bridge speaks them (the pack's voice-cast.json, the fake ElevenLabs): a line in
- * the grandmother's voice goes to eleven_v3 in the pack's voice with the village's language_code, and a narrator's lone
+ * the grandmother's voice goes to the ElevenLabs model (eleven_v4_turbo) in the pack's voice with the village's language_code, and a narrator's lone
  * word inside the language's carrier sentence when the cast marks that narrator `carrier` (with ffmpeg for the cut),
  * else plainly. A cast without voices yet sends nothing and makes no clip (204): the phone's text-to-speech speaks.
  * [since]: the fake's requests before the village's bridge started; [role]: whom the grandmother voices.
@@ -171,7 +171,7 @@ export async function checkCultureVoices(o: { culture: string; base: string; hea
     return
   }
   const asked = sent(o.line)
-  check(`${o.culture}: the grandmother speaks in the pack's voice: a clip from eleven_v3 with language_code ${language}`, line.ok && asked.length === 1 && asked[0].voice === speakers.grandma.elevenlabs && asked[0].body.model_id === 'eleven_v3' && asked[0].body.language_code === language && theirs, { status: line.status, asked })
+  check(`${o.culture}: the grandmother speaks in the pack's voice: a clip from eleven_v4_turbo with language_code ${language}`, line.ok && asked.length === 1 && asked[0].voice === speakers.grandma.elevenlabs && asked[0].body.model_id === 'eleven_v4_turbo' && asked[0].body.language_code === language && theirs, { status: line.status, asked })
   const narrator = ['female', 'male'].find(n => speakers[n].carrier) ?? 'female'
   const carrier = !!speakers[narrator].carrier && !!ffmpegCutter()
   const word = await say(o.word, narrator)

@@ -1,5 +1,5 @@
 // Voice store: natural Slovene audio for the app, made once on the node and cached.
-// Engines: ElevenLabs (eleven_v3, the only model with Slovenian; quota-guarded) and the local
+// Engines: ElevenLabs (LANI_ELEVENLABS_MODEL, eleven_v4_turbo by default: v3 and v4 speak Slovenian; quota-guarded) and the local
 // Gepard worker on 127.0.0.1:8795. Clips live in the voice cache, {voice.db,files/<sha1>.mp3}: $LANI_VOICE_CACHE
 // (~/.cache/lani/voice after lani-setup), else <data>/app/voice (paths.ts voiceDir).
 // A clip is keyed by its speaker from the voice cast (cast.ts): the narrators female/male or a
@@ -70,7 +70,15 @@ export type Clip = {
    * was recorded (an ElevenLabs clip's file name has its voice id; a female narrator's Gepard clip was ana's).
    */
   engine_voice?: string | null
+  /**
+   * The ElevenLabs model that made it ("eleven_v4_turbo"); null or absent: from before it was recorded (eleven_v3: every
+   * ElevenLabs clip until October 2026), or another engine's.
+   */
+  model?: string | null
 }
+
+/** The model of an ElevenLabs clip ([Clip.model]; one from before it was recorded: eleven_v3); undefined for another engine's. */
+export const modelOf = (c: Pick<Clip, 'engine' | 'model'>): string | undefined => (c.engine === 'elevenlabs' ? (c.model ?? OLD_MODEL) : undefined)
 
 /** A text to voice ahead of time; lower [priority] goes first. */
 export type CorpusItem = { text: string; voice: VoiceName; source: string; priority: number }
@@ -85,7 +93,7 @@ export const fileUrl = (file: string) => `/voice/file/${file}`
 //
 // A step of a school unit's guided introduction is read out as one clip (companion/COURSE.md, "The introduction"): the
 // teacher's lines in the learner's base language (en, de, it), the Slovene forms left inside as they are ("Biti (to be)
-// has a short form for each person … jaz sem (I am) …"), said by ElevenLabs in the teacher's voice in one go (eleven_v3
+// has a short form for each person … jaz sem (I am) …"), said by ElevenLabs in the teacher's voice in one go (its model
 // copes with the mixed text). Its clips have a key space of their own, the language before the text: normalizeText takes
 // any "|" out of a text, so an explanation never meets a line of the village's language with the same words.
 
@@ -111,8 +119,8 @@ type Log = (...a: unknown[]) => void
 
 // --- a lone word in a carrier sentence -------------------------------------------------------
 //
-// An English library voice (the narrators) says a lone Slovene word the English way: eleven_v3 takes language_code
-// only as a hint, and previous_text/next_text are not supported for it. Inside a Slovene sentence the word comes out
+// An English library voice (the narrators) says a lone Slovene word the English way: eleven_v3 (and v4) take language_code
+// only as a hint, and previous_text/next_text are not supported for eleven_v3. Inside a Slovene sentence the word comes out
 // Slovene, so a short text is asked for inside its language's carrier sentence through /with-timestamps and cut out
 // by the timestamps of its characters (docs/plans/03-voice-service.md).
 
@@ -761,7 +769,7 @@ export function ffmpegRecordingLeveller(bin?: string, spec: LevelSpec = LEVEL): 
  * What an engine made: the MP3, how (a carrier cut), the characters it cost, and the engine's own voice that said it (the
  * ElevenLabs voice id, the Gepard voice: "nina").
  */
-export type Take = { bytes: Uint8Array; method?: ClipMethod; chars?: number; voice?: string }
+export type Take = { bytes: Uint8Array; method?: ClipMethod; chars?: number; voice?: string; model?: string }
 
 export interface Engine {
   readonly name: EngineName
@@ -798,6 +806,26 @@ export type DesignTake = { id: string; audio: Uint8Array }
 
 /** Characters kept for live lines (the tutor's role-play lines, voiced as they come). */
 export const DEFAULT_RESERVE = 5_000
+
+/**
+ * The ElevenLabs model the clips are made with, by default (LANI_ELEVENLABS_MODEL): Jan, comparing samples in October
+ * 2026, heard v4 better than v3 and no difference between v4 and v4 Turbo, which costs half. Every text-to-speech request
+ * (a line, a carrier sentence with its timestamps, an explanation) asks for it; Voice Design keeps its own (eleven_ttv_v3).
+ */
+export const DEFAULT_ELEVENLABS_MODEL = 'eleven_v4_turbo'
+
+/** The model of the clips made before the model was recorded ([Clip.model] null). */
+export const OLD_MODEL = 'eleven_v3'
+
+/**
+ * The credits a character costs on the subscription, by model (the account's /v1/models, character_cost_multiplier,
+ * October 2026); another model: 1. In September 2026 eleven_v3 was seen to count about half (34,100 characters for about
+ * 17,000), its price while it was new. The quota guard counts characters (it stops early rather than late).
+ */
+export const MODEL_CREDITS: Record<string, number> = { eleven_v3: 1, eleven_v4: 1, eleven_v4_turbo: 0.5 }
+
+/** The credits [chars] characters of [model] cost on the subscription, about ([MODEL_CREDITS]). */
+export const creditsFor = (chars: number, model: string) => Math.round(chars * (MODEL_CREDITS[model] ?? 1))
 
 /**
  * The text-to-speech requests this bridge has at ElevenLabs at once, by default (LANI_ELEVENLABS_CONCURRENCY): below
@@ -844,7 +872,7 @@ export class Gate {
 type Answer<T> = { ok: true; value: T } | { ok: false; status: number; text: string }
 
 /**
- * ElevenLabs eleven_v3 with a quota guard. The subscription is read at most every 10 minutes and
+ * ElevenLabs ([model]: eleven_v4_turbo by default) with a quota guard. The subscription is read at most every 10 minutes and
  * counted forward locally in between. Prebuilds stop at [reserve] characters left; live dialogue
  * lines may use the reserve. Each speaker's voice id comes from the cast ([voices] overrides it).
  * A carrier voice says a short text inside its language's carrier sentence, cut out with [cut].
@@ -877,6 +905,8 @@ export class ElevenLabs implements Engine {
       carriers?: Record<string, string>
       /** Text-to-speech requests at once (DEFAULT_ELEVENLABS_CONCURRENCY); the rest wait their turn. */
       concurrency?: number
+      /** The model every text-to-speech request asks for (DEFAULT_ELEVENLABS_MODEL). */
+      model?: string
       /** The wait before a request refused as busy is asked again (BUSY_WAIT_MS, times its try). */
       busyWaitMs?: number
       log?: Log
@@ -887,6 +917,8 @@ export class ElevenLabs implements Engine {
 
   private get base() { return (this.o.base ?? 'https://api.elevenlabs.io').replace(/\/$/, '') }
   get reserve() { return this.o.reserve ?? DEFAULT_RESERVE }
+  /** The model the clips are made with ([DEFAULT_ELEVENLABS_MODEL]; LANI_ELEVENLABS_MODEL). */
+  get model() { return this.o.model || DEFAULT_ELEVENLABS_MODEL }
   get configured() { return !!this.o.key }
 
   private headers() { return { 'xi-api-key': this.o.key!, 'content-type': 'application/json' } }
@@ -1022,7 +1054,7 @@ export class ElevenLabs implements Engine {
    * [text] in [voice]: a short text of a carrier voice inside its carrier sentence, cut out; when the word can't be cut
    * out of it, or the request fails (not for the quota, auth or a rate limit), asked for plainly, and logged. An
    * explanation in another language than the village's ([lang]) is asked for plainly and without a language_code, so
-   * eleven_v3 says the learner's language as it is and the Slovene forms inside it as Slovene.
+   * the model says the learner's language as it is and the Slovene forms inside it as Slovene.
    */
   async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string } = {}): Promise<Take | null> {
     if (!this.o.key) return null
@@ -1030,17 +1062,17 @@ export class ElevenLabs implements Engine {
     const id = this.o.voices?.[voice] ?? elevenlabsOf(voice)
     if (!said) {
       const bytes = await this.plain(text, voice, this.explains(o.lang))
-      return bytes ? { bytes, voice: id } : null
+      return bytes ? { bytes, voice: id, model: this.model } : null
     }
     const r = await this.carrierTake(text, voice)
-    if (r instanceof Uint8Array) return { bytes: r, method: 'carrier', chars: said.length, voice: id }
+    if (r instanceof Uint8Array) return { bytes: r, method: 'carrier', chars: said.length, voice: id, model: this.model }
     if (!r && Date.now() < this.pausedUntil) return null
     this.o.log?.(`elevenlabs: "${text}" (${voice}) without its carrier sentence: ${r ? r.miss : this.lastError}; asked for plainly`)
     // the plain take on top of a paid carrier take: the guard is asked again
     if (!(await this.ready(text.trim().length, !!o.live))) return null
     const bytes = await this.plain(text, voice)
     // a take the word couldn't be cut out of: 'plain', not tried again; a failed request or cut: tried again when re-voicing
-    return bytes ? { bytes, method: r && !r.retry ? 'plain' : undefined, chars: (r ? said.length : 0) + text.trim().length, voice: id } : null
+    return bytes ? { bytes, method: r && !r.retry ? 'plain' : undefined, chars: (r ? said.length : 0) + text.trim().length, voice: id, model: this.model } : null
   }
 
   /** [text] asked for as it is; [mixed]: an explanation, its language left to the model (no language_code). */
@@ -1050,7 +1082,7 @@ export class ElevenLabs implements Engine {
     try {
       const r = await this.tts(
         `${this.base}/v1/text-to-speech/${id}?output_format=mp3_44100_128`,
-        mixed ? { text, model_id: 'eleven_v3' } : { text, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' },
+        mixed ? { text, model_id: this.model } : { text, model_id: this.model, language_code: this.o.language ?? 'sl' },
         'audio/mpeg',
         async r => new Uint8Array(await r.arrayBuffer()),
       )
@@ -1088,7 +1120,7 @@ export class ElevenLabs implements Engine {
     try {
       const r = await this.tts(
         `${this.base}/v1/text-to-speech/${id}/with-timestamps?output_format=mp3_44100_128`,
-        { text: said, model_id: 'eleven_v3', language_code: this.o.language ?? 'sl' },
+        { text: said, model_id: this.model, language_code: this.o.language ?? 'sl' },
         undefined,
         async r => (await r.json()) as typeof d,
       )
@@ -1217,7 +1249,7 @@ export class ElevenLabs implements Engine {
     return {
       configured: this.configured,
       up: this.configured && !!q && Date.now() >= this.pausedUntil,
-      model: 'eleven_v3',
+      model: this.model,
       quota: q ? { used: q.used, limit: q.limit, remaining: this.remaining(), reserve: this.reserve, resets_at: q.resets_at } : null,
       voices: q && q.voice_limit !== undefined ? { slots: q.voice_limit, used: q.voice_slots_used, edits: q.voice_edits, edits_max: q.voice_edits_max } : null,
       // the requests at once from here, at work and waiting their turn; those refused as busy and asked again
@@ -1295,7 +1327,7 @@ export class Gepard implements Engine {
 
 /**
  * Engines from the environment: ELEVENLABS_API_KEY (+ ELEVENLABS_BASE_URL, LANI_ELEVENLABS_CONCURRENCY: its requests at
- * once, DEFAULT_ELEVENLABS_CONCURRENCY), LANI_GEPARD_URL, LANI_FFMPEG (the carrier cut's ffmpeg, "off" for none; else the
+ * once, DEFAULT_ELEVENLABS_CONCURRENCY; LANI_ELEVENLABS_MODEL: its model, DEFAULT_ELEVENLABS_MODEL), LANI_GEPARD_URL, LANI_FFMPEG (the carrier cut's ffmpeg, "off" for none; else the
  * one on the PATH); clips in [language].
  */
 export function enginesFromEnv(env: Record<string, string | undefined>, log?: Log, language = 'sl'): { eleven: ElevenLabs; gepard: Gepard } {
@@ -1312,6 +1344,7 @@ export function enginesFromEnv(env: Record<string, string | undefined>, log?: Lo
       language,
       cut: env.LANI_FFMPEG ? (ffmpegCutter(env.LANI_FFMPEG) ?? null) : undefined,
       concurrency: dailySetting(env, 'LANI_ELEVENLABS_CONCURRENCY') || undefined,
+      model: env.LANI_ELEVENLABS_MODEL?.trim() || undefined,
       log,
     }),
     gepard: new Gepard({ url: env.LANI_GEPARD_URL, speakers, log }),
@@ -1647,7 +1680,7 @@ export type VoiceOptions = {
   lang?: string
 }
 
-/** Carrier re-voices a day, by default (about 360 subscription characters: eleven_v3 counts about half of 720 sent). */
+/** Carrier re-voices a day, by default (about 720 characters sent: about 360 credits with eleven_v4_turbo, MODEL_CREDITS). */
 export const DEFAULT_REVOICE_DAILY = 40
 
 /** Re-records on request a day (the app's long press on 🔊), by default: on their own count, not the lazy re-voice's. */
@@ -1826,14 +1859,15 @@ export class VoiceStore {
         gain REAL,
         tempo REAL,
         edges INTEGER,
-        engine_voice TEXT
+        engine_voice TEXT,
+        model TEXT
       )`)
       // a store from before the carrier sentence: how a clip was made, and how often the app asked for it; from before
       // the denoise filter: the filter it went through; from before the level: the loudness it is at, and the gain; from
       // before the local voice's pace: the factor a local clip was sped up by; from before the edges: whether they were
-      // trimmed, and the engine's own voice
+      // trimmed, and the engine's own voice; from before the model was recorded: the ElevenLabs model (null: eleven_v3)
       const cols = new Set((this.db.query('PRAGMA table_info(clips)').all() as { name: string }[]).map(c => c.name))
-      for (const [col, spec] of [['method', 'TEXT'], ['hits', 'INTEGER NOT NULL DEFAULT 0'], ['denoise', 'TEXT'], ['level', 'REAL'], ['gain', 'REAL'], ['tempo', 'REAL'], ['edges', 'INTEGER'], ['engine_voice', 'TEXT']]) {
+      for (const [col, spec] of [['method', 'TEXT'], ['hits', 'INTEGER NOT NULL DEFAULT 0'], ['denoise', 'TEXT'], ['level', 'REAL'], ['gain', 'REAL'], ['tempo', 'REAL'], ['edges', 'INTEGER'], ['engine_voice', 'TEXT'], ['model', 'TEXT']]) {
         try {
           if (!cols.has(col)) this.db.exec(`ALTER TABLE clips ADD COLUMN ${col} ${spec}`)
         } catch {} // another process (voice-build) added it meanwhile
@@ -2078,8 +2112,10 @@ export class VoiceStore {
     const f = await this.processed(bytes, voice, engine, text, take.method !== 'carrier' && !explanationLang(norm) && isOneWord(text))
     // A clip's name carries the engine's voice (the ElevenLabs voice id, the Gepard voice), so a swapped voice's clips get
     // new names (the app caches by name); a carrier cut is a new take of the same text, so it gets a new name too and the
-    // app downloads it; so does a re-record, and so does a filtered, paced, trimmed or levelled clip.
+    // app downloads it; so does a re-record, and so does a filtered, paced, trimmed or levelled clip; and a take by another
+    // ElevenLabs model (one from before the model was recorded keeps its name).
     const own = take.voice ?? (engine === 'elevenlabs' ? (elevenlabsOf(voice) ?? '') : undefined)
+    const model = engine === 'elevenlabs' ? (take.model ?? null) : null
     const tag = own !== undefined ? `|${own}` : ''
     const how = take.method === 'carrier' ? '|carrier' : ''
     const salt = take.salt ? `|${take.salt}` : ''
@@ -2087,7 +2123,8 @@ export class VoiceStore {
     const level = f.level !== null ? `|level:${f.level}` : ''
     const pace = f.tempo !== null ? `|tempo:${f.tempo}` : ''
     const edges = f.edges ? '|edges' : ''
-    const file = `${createHash('sha1').update(`${key}|${engine}${tag}${how}${salt}${filter}${level}${pace}${edges}`).digest('hex')}.mp3`
+    const by = model ? `|model:${model}` : ''
+    const file = `${createHash('sha1').update(`${key}|${engine}${tag}${how}${salt}${filter}${level}${pace}${edges}${by}`).digest('hex')}.mp3`
     const p = join(this.filesDir, file)
     writeFileSync(`${p}.tmp`, f.bytes)
     renameSync(`${p}.tmp`, p)
@@ -2095,11 +2132,11 @@ export class VoiceStore {
     const clip: Clip = {
       key, norm, text, voice, engine, file, chars: take.chars ?? text.length, created_at: new Date().toISOString(), source,
       method: take.method ?? null, hits: old?.hits ?? 0, denoise: f.denoise, level: f.level, gain: f.gain, tempo: f.tempo,
-      edges: f.edges, engine_voice: own || null,
+      edges: f.edges, engine_voice: own || null, model,
     }
     this.db
-      .query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits, denoise, level, gain, tempo, edges, engine_voice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
-      .run(key, norm, text, voice, engine, file, clip.chars, clip.created_at, source, clip.method ?? null, clip.hits ?? 0, clip.denoise ?? null, clip.level ?? null, clip.gain ?? null, clip.tempo ?? null, clip.edges ?? null, clip.engine_voice ?? null)
+      .query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits, denoise, level, gain, tempo, edges, engine_voice, model) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      .run(key, norm, text, voice, engine, file, clip.chars, clip.created_at, source, clip.method ?? null, clip.hits ?? 0, clip.denoise ?? null, clip.level ?? null, clip.gain ?? null, clip.tempo ?? null, clip.edges ?? null, clip.engine_voice ?? null, model)
     this.seen?.files.set(key, file) // the bridge's own clip: not another process's change
     if (old && old.file !== file) {
       try {
@@ -2344,7 +2381,7 @@ export class VoiceStore {
     // [paid]: the take counts for the day whatever came of it
     const job = (async (): Promise<[Revoiced, Clip | null, boolean]> => {
       const r = await el.carrierTake(c.text, c.voice)
-      if (r instanceof Uint8Array) return ['made', await this.save(c.norm, c.text, c.voice, 'elevenlabs', r, c.source, { method: 'carrier', chars: cost }), true]
+      if (r instanceof Uint8Array) return ['made', await this.save(c.norm, c.text, c.voice, 'elevenlabs', r, c.source, { method: 'carrier', chars: cost, model: el.model }), true]
       if (r?.retry) return ['stop', c, true] // ffmpeg failed, not the word: it stays old-style
       if (r) {
         this.o.log?.(`voice: "${c.text}" (${c.voice}) keeps its plain clip: ${r.miss}`)
@@ -2393,7 +2430,7 @@ export class VoiceStore {
   /**
    * Jan's re-record of [text] in [voice] (the app's long press on 🔊, POST /voice/redo): made again now with ElevenLabs,
    * ahead of the lazy re-voice. A short text in a carrier voice is said in its carrier sentence (like the lazy re-voice),
-   * anything else is a plain re-take (eleven_v3 never says a text the same way twice); a clip the local worker made is
+   * anything else is a plain re-take (ElevenLabs never says a text the same way twice); a clip the local worker made is
    * made with ElevenLabs. The new take gets a new file name, the old file goes, and the app is told (voice_updated).
    * Once a clip a day; each counts in the day's re-records ([redoDaily], their own: the lazy re-voice doesn't spend
    * them) and never goes into the reserve for live lines. A text without a clip is voiced as a
@@ -2537,6 +2574,92 @@ export class VoiceStore {
       o.out?.(`  ${r === 'made' ? '✓ carrier' : '· plain  '} ${c.voice.padEnd(7)} ${c.text}`)
     }
     return { made, plain, chars, left: list.length - made - plain }
+  }
+
+  // --- a newer ElevenLabs model: the clips made with an older one, again in the current one (voice-build) ---------------
+
+  /** The ElevenLabs model new clips are made with ([ElevenLabs.model]: LANI_ELEVENLABS_MODEL), when the store has ElevenLabs. */
+  get model(): string | undefined {
+    return this.eleven?.model
+  }
+
+  /** Whether the store's clips have column [name] (a store from before it, only read, hasn't). */
+  private hasColumn(name: string): boolean {
+    return (this.db.query('PRAGMA table_info(clips)').all() as { name: string }[]).some(c => c.name === name)
+  }
+
+  /** The ElevenLabs clips by the model that made them ([modelOf]: one from before it was recorded, eleven_v3), with their characters. */
+  modelStats(): Record<string, { clips: number; chars: number }> {
+    const m = this.hasColumn('model') ? `COALESCE(model, '${OLD_MODEL}')` : `'${OLD_MODEL}'`
+    const rows = this.db.query(`SELECT ${m} AS model, COUNT(*) AS n, SUM(chars) AS chars FROM clips WHERE engine = 'elevenlabs' GROUP BY 1`).all() as { model: string; n: number; chars: number }[]
+    return Object.fromEntries(rows.map(r => [r.model, { clips: r.n, chars: r.chars ?? 0 }]))
+  }
+
+  /**
+   * The ElevenLabs clips made with another model than the one new clips are made with ([model]; one from before it was
+   * recorded: eleven_v3), most played first (hits), then the oldest: what voice-build --upgrade-model makes again. Never a
+   * local (Gepard) clip, nor a Slovene narrator's from before in its English library voice (never asked for again); the
+   * family's recordings aren't clips of the store.
+   */
+  modelQueue(): Clip[] {
+    const now = this.model
+    if (!now) return []
+    return (this.db.query("SELECT * FROM clips WHERE engine = 'elevenlabs'").all() as Clip[])
+      .filter(c => modelOf(c) !== now && !this.sloveneNarrator(c.voice))
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /**
+   * [c] made again by the current model, in its voice (a short word in its carrier sentence, an explanation plainly in
+   * its language, as it was made), stored as every new clip is (its voice's filter, the edges, the level) under a new file
+   * name, its hits kept, the old file removed: 'made'; 'skip' for a voice ElevenLabs no longer has (not in the cast now);
+   * 'stop' when it can't now (the quota down to the reserve, kept for live lines; an error; a read-only store).
+   */
+  async upgradeModelOne(c: Clip): Promise<'made' | 'skip' | 'stop'> {
+    const el = this.eleven
+    if (this.o.readonly || !el || this.running.has(c.key)) return 'stop'
+    if (!elevenlabsOf(c.voice)) return 'skip'
+    const lang = explanationLang(c.norm)
+    if (!(await el.ready(el.cost(c.text, c.voice, lang), false))) return 'stop'
+    const job = (async () => {
+      const take = await el.synth(c.text, c.voice, { lang })
+      return take ? await this.save(c.norm, c.text, c.voice, 'elevenlabs', take.bytes, c.source, take) : null
+    })()
+    this.running.set(c.key, job.finally(() => this.running.delete(c.key)))
+    return (await job) ? 'made' : 'stop'
+  }
+
+  /**
+   * voice-build --upgrade-model --run: the clips of [modelQueue] made again by the current model, most played first, at
+   * most [max] clips and [maxChars] characters, within the reserve; stops when ElevenLabs can't now. A running bridge
+   * tells the app (voice_updated), as for the other re-voices.
+   */
+  async upgradeModel(o: { max?: number; maxChars?: number; out?: (line: string) => void } = {}) {
+    let made = 0
+    let chars = 0
+    let skipped = 0
+    let stopped: string | undefined
+    const list = this.modelQueue()
+    for (const c of list) {
+      if (o.max !== undefined && made >= o.max) break
+      const cost = this.eleven?.cost(c.text, c.voice, explanationLang(c.norm)) ?? c.text.length
+      if (o.maxChars !== undefined && chars + cost > o.maxChars) continue // a shorter one may still fit
+      const from = modelOf(c)
+      const r = await this.upgradeModelOne(c)
+      if (r === 'skip') {
+        skipped++
+        o.out?.(`  · skipped  ${c.voice.padEnd(11)} ${c.text} (no ElevenLabs voice for it now)`)
+        continue
+      }
+      if (r === 'stop') {
+        stopped = 'ElevenLabs can\'t now (the quota at its reserve, or an error)'
+        break
+      }
+      made++
+      chars += cost
+      o.out?.(`  ✓ ${from} → ${this.model} ${c.voice.padEnd(11)} ${c.text}`)
+    }
+    return { made, chars, skipped, left: list.length - made - skipped, ...(stopped ? { stopped } : {}) }
   }
 
   /**
@@ -3148,6 +3271,8 @@ export class VoiceStore {
         by: clips.map(c => ({ voice: c.voice, engine: c.engine, clips: c.n, chars: c.chars })),
       },
       explanations: this.explanationStats(),
+      // the ElevenLabs clips by the model that made them, and the model new ones are made with (voice-build --upgrade-model)
+      models: { now: this.model ?? null, by: this.modelStats() },
       engines,
       cast: castInfo(),
       queued: this.queue.length,

@@ -8,7 +8,7 @@ import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, DEFAULT_ELEVENLABS_CONCURRENCY, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, creditsFor, DEFAULT_ELEVENLABS_CONCURRENCY, DEFAULT_ELEVENLABS_MODEL, modelOf, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -47,7 +47,7 @@ export default async function voice() {
     const a = await vs.voice('Dober dan!', 'female', 'test')
     const call = fe.st.tts[0]
     check('ElevenLabs first while the quota allows', a?.engine === 'elevenlabs' && fg.st.calls.length === 0, a)
-    check('ElevenLabs request: eleven_v3, Slovenian, Matilda, mp3', call?.voice === 'XrExE9yKIg1WjnnlVkGX' && call.body.model_id === 'eleven_v3' && call.body.language_code === 'sl' && call.body.text === 'Dober dan!' && call.query === '?output_format=mp3_44100_128', call)
+    check('ElevenLabs request: eleven_v4_turbo (the default model), Slovenian, Matilda, mp3; the clip records its model', call?.voice === 'XrExE9yKIg1WjnnlVkGX' && call.body.model_id === 'eleven_v4_turbo' && a?.model === 'eleven_v4_turbo' && el.model === DEFAULT_ELEVENLABS_MODEL && call.body.language_code === 'sl' && call.body.text === 'Dober dan!' && call.query === '?output_format=mp3_44100_128', call)
     check('clip stored as <sha1>.mp3 with its row', !!a && /^[a-f0-9]{40}\.mp3$/.test(a.file) && !!vs.path(a.file) && a.chars === 10 && a.source === 'test' && a.key === 'female:dober dan', a)
     const again = await vs.voice('  dober DAN ', 'female', 'test')
     check('an existing clip is reused (no engine call)', again?.file === a?.file && fe.st.tts.length === 1)
@@ -200,6 +200,21 @@ export default async function voice() {
     fe.st.used = fe.st.limit - 5_000 - 1_000
     const rev = JSON.parse((await voiceBuild('--json', '--revoice', 'grandpa')).stdout || '{}')
     check('voice-build --revoice plans every clip of that speaker again with ElevenLabs', rev.would?.elevenlabs.texts === 14 && rev.would.elevenlabs.replace === 14 && rev.would.gepard.texts === 0, rev.would)
+    check('voice-build\'s plan: the model new clips are made with, and the clips by model', after.models?.now === 'eleven_v4_turbo' && after.models.by?.eleven_v4_turbo?.clips === plan.would.elevenlabs.texts && Object.keys(after.models.by).length === 1, after.models)
+    // the node set to eleven_v4: the dry run of --upgrade-model lists them, nothing sent; --run makes the most played again
+    const v4Env = { ...vbEnv, LANI_ELEVENLABS_MODEL: 'eleven_v4' }
+    const n0 = fe.st.tts.length
+    const upDry = await voiceBuildIn(v4Env, '--upgrade-model', '--json')
+    const up = JSON.parse(upDry.stdout || '{}')
+    const upHuman = await voiceBuildIn(v4Env, '--upgrade-model')
+    check('voice-build --upgrade-model (dry run): the clips of an older model, by model, what --run would make within the budget and its credits; nothing sent, nothing written',
+      upDry.exitCode === 0 && up.model === 'eleven_v4' && up.older === plan.would.elevenlabs.texts && up.from?.eleven_v4_turbo?.clips === up.older && up.would?.clips > 0 && up.would.chars <= 1_000 && up.would.credits === up.would.chars &&
+        upHuman.stdout.includes('Dry run') && upHuman.stdout.includes('--upgrade-model --run') && fe.st.tts.length === n0, [up, upHuman.stdout.slice(0, 600)])
+    const upRun = await voiceBuildIn(v4Env, '--upgrade-model', '--run', '--max', '1')
+    const upAfter = JSON.parse((await voiceBuildIn(v4Env, '--json')).stdout || '{}')
+    check('voice-build --upgrade-model --run --max 1: one made again by eleven_v4 (in the request and the store), the rest wait; the key never printed',
+      upRun.exitCode === 0 && fe.st.tts.length === n0 + 1 && fe.st.tts.at(-1)?.body.model_id === 'eleven_v4' && upAfter.models?.by?.eleven_v4?.clips === 1 && upAfter.models.by.eleven_v4_turbo?.clips === plan.would.elevenlabs.texts - 1 && !(upRun.stdout + upRun.stderr).includes('test-key'),
+      [upRun.stdout.slice(-400), upRun.stderr.slice(-400), upAfter.models])
 
     // A village in another language (a copy of friuli): the local worker speaks only Slovene, so what the ElevenLabs
     // budget (1,000 here) doesn't cover waits for later; a voice cast without voices plans nothing (the phone speaks).
@@ -370,7 +385,7 @@ export default async function voice() {
     const ex = await vs.say(text, 'teacher', 'en')
     const call = fe.st.tts.at(-1)
     check('an explanation in English (a school intro\'s step): ElevenLabs in the teacher\'s voice (Milena), plainly, no language_code, under its own key ("en|…"); the worker not asked',
-      ex?.engine === 'elevenlabs' && ex.norm === norm && ex.key === `teacher:${norm}` && ex.text === text && ex.chars === text.length && call?.voice === cast().teacher.elevenlabs && call.body.text === text && call.body.model_id === 'eleven_v3' &&
+      ex?.engine === 'elevenlabs' && ex.norm === norm && ex.key === `teacher:${norm}` && ex.text === text && ex.chars === text.length && call?.voice === cast().teacher.elevenlabs && call.body.text === text && call.body.model_id === 'eleven_v4_turbo' && ex.model === 'eleven_v4_turbo' &&
         !call.timestamps && !('language_code' in call.body) && fg.st.calls.length === 0 && vs.index()[norm]?.teacher === `/voice/file/${ex.file}` && vs.cost(text, 'teacher', 'en') === text.length, [ex, call])
     const short = await vs.say('Two', 'female', 'en')
     const shortCall = fe.st.tts.at(-1)
@@ -453,6 +468,74 @@ export default async function voice() {
       (await enginesFromEnv({ LANI_ELEVENLABS_CONCURRENCY: '5' }).eleven.status()).concurrency.limit === 5 &&
         (await enginesFromEnv({ LANI_ELEVENLABS_CONCURRENCY: '0' }).eleven.status()).concurrency.limit === DEFAULT_ELEVENLABS_CONCURRENCY &&
         (await enginesFromEnv({ LANI_ELEVENLABS_CONCURRENCY: 'many' }).eleven.status()).concurrency.limit === 3)
+  }
+
+  // --- the ElevenLabs model: a setting, recorded with every clip; an older model's clips made again in it (voice-build
+  // --upgrade-model; in-process against the fakes) ---------------------------------------------------------------------
+  {
+    check('LANI_ELEVENLABS_MODEL picks the model (eleven_v4_turbo by default: v4 as good as v3 to Jan\'s ear, Turbo half the credits)',
+      enginesFromEnv({}).eleven.model === 'eleven_v4_turbo' && DEFAULT_ELEVENLABS_MODEL === 'eleven_v4_turbo' && enginesFromEnv({ LANI_ELEVENLABS_MODEL: ' eleven_v4 ' }).eleven.model === 'eleven_v4' &&
+        (await enginesFromEnv({ LANI_ELEVENLABS_MODEL: 'eleven_v3' }).eleven.status()).model === 'eleven_v3' && creditsFor(1_000, 'eleven_v4_turbo') === 500 && creditsFor(1_000, 'eleven_v4') === 1_000 && creditsFor(10, 'something-else') === 10)
+    // a store from before the model was recorded: its clips table without the column, a row of eleven_v3's in it
+    const dir = tempDir('lani-model-')
+    mkdirSync(join(dir, 'voice', 'files'), { recursive: true })
+    const old = new Database(join(dir, 'voice', 'voice.db'))
+    old.exec('CREATE TABLE clips (key TEXT PRIMARY KEY, norm TEXT NOT NULL, text TEXT NOT NULL, voice TEXT NOT NULL, engine TEXT NOT NULL, file TEXT NOT NULL, chars INTEGER NOT NULL, created_at TEXT NOT NULL, source TEXT NOT NULL, method TEXT, hits INTEGER NOT NULL DEFAULT 0, denoise TEXT, level REAL, gain REAL, tempo REAL, edges INTEGER, engine_voice TEXT)')
+    const oldFile = `${'a'.repeat(40)}.mp3`
+    writeFileSync(join(dir, 'voice', 'files', oldFile), mp3('el:old'))
+    old.query("INSERT INTO clips VALUES ('girl:kje je pošta', 'kje je pošta', 'Kje je pošta?', 'girl', 'elevenlabs', ?, 13, '2026-09-01T10:00:00.000Z', 'scene:x', NULL, 5, 'hiss', -18, -2, NULL, 1, 'BIfP5lYZQ2a3Dy7NOdwP')").run(oldFile)
+    old.close()
+    const fe = fakeEleven()
+    const fg = fakeGepard()
+    // the processing as the node's ffmpeg does it, by stand-ins that mark the bytes: the voice's filter, the level, the edges
+    const MARK = (b: Uint8Array, tag: string) => new Uint8Array([...b, ...new TextEncoder().encode(tag)])
+    const denoise: Denoiser = async b => MARK(b, '|denoised')
+    const level: Leveller = { target: -18, level: async b => ({ bytes: MARK(b, '|levelled'), gain: -3, limited: false, before: { lufs: -15 } as any, edges: { lead: 0.05, tail: 0.1 } as any, trimmed: true }) }
+    const v3 = new ElevenLabs({ key: 'test-key', base: fe.url, model: 'eleven_v3' })
+    const vs3 = new VoiceStore({ appDir: dir, engines: [v3, new Gepard({ url: fg.url })], queueDelayMs: 0, denoise, level })
+    const was = vs3.get('kje je pošta', 'girl')
+    check('a store from before the model: the column added, its ElevenLabs clips counted as eleven_v3\'s, the setting\'s model in the status',
+      was?.model === null && modelOf(was!) === 'eleven_v3' && JSON.stringify(vs3.modelStats()) === JSON.stringify({ eleven_v3: { clips: 1, chars: 13 } }) && (await vs3.status()).models.now === 'eleven_v3', [was, vs3.modelStats()])
+    // clips by eleven_v3 (the setting), a local one, an explanation; how often each was played
+    const a = await vs3.voice('Dober dan, Micka.', 'grandma', 'test')
+    const x = await vs3.say('Three or more: mi smo (we are).', 'teacher', 'en')
+    const w = await vs3.voice('kruh', 'girl', 'test')
+    const g = await vs3.voice('Lahko noč.', 'grandpa', 'test', { engines: ['gepard'] })
+    check('every new ElevenLabs clip records its model (the setting\'s, in the request too), a local one none',
+      a?.model === 'eleven_v3' && x?.model === 'eleven_v3' && w?.model === 'eleven_v3' && fe.st.tts.every(t => t.body.model_id === 'eleven_v3') && g?.engine === 'gepard' && g.model === null && modelOf(g) === undefined, [a, x, g])
+    vs3.database.query("UPDATE clips SET hits = 3 WHERE key = ?").run(x!.key)
+    vs3.database.query("UPDATE clips SET hits = 9 WHERE key = ?").run(g!.key)
+    vs3.close()
+    // the node set to eleven_v4_turbo: the older clips wait for it, most played first, never the local one
+    const v4 = new ElevenLabs({ key: 'test-key', base: fe.url })
+    const updated: number[] = []
+    const vs = new VoiceStore({ appDir: dir, engines: [v4, new Gepard({ url: fg.url })], queueDelayMs: 0, denoise, level, onUpdated: n => void updated.push(n) })
+    const queue = vs.modelQueue()
+    check('the upgrade\'s queue: the ElevenLabs clips of an older model (one from before it was recorded too), most played first, then the oldest; never a local clip',
+      JSON.stringify(queue.map(c => c.key)) === JSON.stringify(['girl:kje je pošta', `teacher:${x!.norm}`, 'grandma:dober dan micka', 'girl:kruh']) && !queue.some(c => c.engine === 'gepard'), queue.map(c => [c.key, c.hits]))
+    const n0 = fe.st.tts.length
+    const r = await vs.upgradeModel({ max: 2, out: () => {} })
+    const up = vs.get('kje je pošta', 'girl')
+    const ux = vs.get(x!.norm, 'teacher')
+    const bytes = (c: Clip | undefined) => (c ? new TextDecoder().decode(readFileSync(join(vs.filesDir, c.file))) : '')
+    const sent = fe.st.tts.slice(n0)
+    check('voice-build --upgrade-model --max 2: the two most played made again by eleven_v4_turbo in their voices (the explanation plainly, no language_code), their filter, level and edges as every new clip, under new names, their hits kept, the old files gone',
+      r.made === 2 && r.left === 2 && sent.length === 2 && sent.every(t => t.body.model_id === 'eleven_v4_turbo') && sent[0].voice === cast().girl.elevenlabs && sent[1].body.text === x!.text && !('language_code' in sent[1].body) &&
+        up?.model === 'eleven_v4_turbo' && up.denoise === 'hiss' && up.level === -18 && up.gain === -3 && up.edges === 1 && up.hits === 5 && up.file !== oldFile && !existsSync(join(vs.filesDir, oldFile)) && bytes(up).endsWith('|denoised|levelled') &&
+        ux?.model === 'eleven_v4_turbo' && ux.file !== x!.file && ux.hits === 3 && !ux.denoise && ux.level === -18 && ux.edges === 1 && !existsSync(join(vs.filesDir, x!.file)) && vs.get(g!.norm, 'grandpa')?.file === g!.file,
+      [r, sent.map(t => [t.voice, t.body]), up, ux])
+    check('…the rest wait; the status counts the clips by model', vs.modelQueue().length === 2 && JSON.stringify(vs.modelStats()) === JSON.stringify({ eleven_v3: { clips: 2, chars: a!.chars + w!.chars }, eleven_v4_turbo: { clips: 2, chars: 13 + x!.chars } }), vs.modelStats())
+    // the quota down to the reserve: it stops, nothing more sent
+    fe.st.used = fe.st.limit - 5_000
+    await v4.subscription(true)
+    const n1 = fe.st.tts.length
+    const r2 = await vs.upgradeModel({ out: () => {} })
+    check('…the quota at the reserve: it stops, nothing sent, the clips as they were', r2.made === 0 && !!r2.stopped && fe.st.tts.length === n1 && vs.modelQueue().length === 2, r2)
+    fe.st.used = 0
+    await v4.subscription(true)
+    const r3 = await vs.upgradeModel({ maxChars: 5, out: () => {} })
+    check('…--max-chars: only what fits (the short word), the longer one left', r3.made === 1 && vs.get('kruh', 'girl')?.model === 'eleven_v4_turbo' && vs.get('dober dan micka', 'grandma')?.model === 'eleven_v3', r3)
+    vs.close()
   }
 
   // --- the narrators of a Slovene village: their Slovene ElevenLabs voices, the local voice as their fallback, never the
@@ -613,7 +696,7 @@ export default async function voice() {
     const left0 = el.remaining()!
     const k = await vs.voice('kosilo', 'female', 'test')
     const call = fe.st.tts.at(-1)
-    check('a lone word in a narrator voice: its carrier sentence through /with-timestamps (eleven_v3, Slovenian, Matilda, mp3)', !!call?.timestamps && call.body.text === 'Beseda je: kosilo.' && call.body.model_id === 'eleven_v3' && call.body.language_code === 'sl' && call.query === '?output_format=mp3_44100_128' && call.voice === 'XrExE9yKIg1WjnnlVkGX' && fe.st.tts.length === 1, call)
+    check('a lone word in a narrator voice: its carrier sentence through /with-timestamps (eleven_v4_turbo, Slovenian, Matilda, mp3)', !!call?.timestamps && call.body.text === 'Beseda je: kosilo.' && call.body.model_id === 'eleven_v4_turbo' && call.body.language_code === 'sl' && call.query === '?output_format=mp3_44100_128' && call.voice === 'XrExE9yKIg1WjnnlVkGX' && fe.st.tts.length === 1, call)
     // "kosilo" is characters 11–16 of its carrier sentence: from 0.2 + 11 × 0.07 s to 0.2 + 17 × 0.07 s
     check('the cut: the word\'s timestamps, from 0.06 s before to 0.12 s after', cuts.length === 1 && Math.abs(cuts[0][0] - 0.91) < 1e-6 && Math.abs(cuts[0][1] - 1.51) < 1e-6, cuts)
     const kept = k && vs.path(k.file) ? new Uint8Array(readFileSync(vs.path(k.file)!)) : new Uint8Array()
