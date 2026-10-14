@@ -4,6 +4,7 @@ import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from
 import { join, resolve } from 'node:path'
 import { cardExamples, cardIdOf, CardStore, decayed, sheetUse, validateCard } from '../../src/cards'
 import { validateGrammar } from '../../src/grammar'
+import { localDate } from '../../src/rhythm'
 import { auth, base, check, client, dataDir, guideOf, tempDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../..')
@@ -107,7 +108,7 @@ export default async function cards() {
   const gamePath = join(dataDir, 'app/game.json')
   const existed = existsSync(gamePath)
   const doc = existed ? JSON.parse(readFileSync(gamePath, 'utf8')) : { rev: 0, state: {} }
-  const today = new Date().toISOString().slice(0, 10)
+  const today = localDate(new Date()) // the app's and the bridge's day, not UTC's (yesterday's after midnight)
   const sheet = {
     pinned: [{ id: 'pin-m1', language: 'sl', title: 'mi / vi / oni', markdown: '| | 1 | 2 | 3+ |', pages: ['osebni-zaimki'], level: 'A1', on: today }, { id: 'pin-it', language: 'it', title: 'io', markdown: '- io' }],
     opens: { 'sl/page:biti': { n: 4, on: today }, 'sl/deck:smoke': { n: 1, on: today }, 'it/page:essere': { n: 9, on: today } },

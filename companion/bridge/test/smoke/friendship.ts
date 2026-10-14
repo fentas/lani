@@ -30,7 +30,12 @@ import type { Town } from './visits'
 const ledgerOf = (t: Town) => join(t.data, 'app/town-friends.json')
 const readLedger = (t: Town) => JSON.parse(readFileSync(ledgerOf(t), 'utf8'))
 const writeLedger = (t: Town, d: unknown) => writeFileSync(ledgerOf(t), JSON.stringify(d))
-const day = (offset: number) => localDate(Date.now() + offset * 86_400_000)
+// calendar days in the node's time (as the bridge counts them), not 24-hour steps: those miss a day across a DST change
+const day = (offset: number) => {
+  const d = new Date()
+  d.setDate(d.getDate() + offset)
+  return localDate(d.getTime())
+}
 
 /** Both towns' shared history, as if it had happened: [n] more visit days each way, in both towns' records. */
 function history(a: Town, b: Town, n: number) {
