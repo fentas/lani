@@ -18,7 +18,7 @@ import si.lanisce.lani.game.scene.StagePose
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.ui.school.IntroPointer.Target
 
-/** What the teacher points at while a step is read, and where the pointer's tip goes. */
+/** What the teacher points at while a step is read, and where her small pointing hand goes. */
 class IntroPointerTest {
     /** biti's table after its first two steps: who · to be. */
     private val rows = listOf(listOf("jaz", "sem"), listOf("ti", "si"), listOf("on, ona, ono", "je"), listOf("mi", "smo"), listOf("vi", "ste"), listOf("oni, one, ona", "so"))
@@ -67,34 +67,53 @@ class IntroPointerTest {
         assertFalse(IntroPointer.translation("(he, she, it is). The pronoun is usually dropped."))
     }
 
-    @Test fun `no pointer with the animations off, the keyboard up, nothing read, or while she asks the learner`() {
-        assertTrue(IntroPointer.points(reading = true, reduced = false, keyboard = false, asking = false))
-        assertFalse(IntroPointer.points(reading = true, reduced = true, keyboard = false, asking = false))
-        assertFalse(IntroPointer.points(reading = true, reduced = false, keyboard = true, asking = false))
-        assertFalse(IntroPointer.points(reading = false, reduced = false, keyboard = false, asking = false))
-        assertFalse(IntroPointer.points(reading = true, reduced = false, keyboard = false, asking = true))
+    @Test fun `no hand with the animations off, the keyboard up, or nothing read, the highlight is the reading's own`() {
+        assertTrue(IntroPointer.shows(reading = true, reduced = false, keyboard = false))
+        assertFalse(IntroPointer.shows(reading = true, reduced = true, keyboard = false))
+        assertFalse(IntroPointer.shows(reading = true, reduced = false, keyboard = true))
+        assertFalse(IntroPointer.shows(reading = false, reduced = false, keyboard = false))
+        // the rows marked as read don't depend on the hand: the target is the same with the animations off
+        val m = Mark.Part(0, 2..2)
+        assertEquals(Target.Rows(setOf(0)), IntroPointer.target(m, Line("jaz sem", true, m), rows, null))
     }
 
-    @Test fun `the tip on what shows of the target, a row near its start, the words in their middle, nothing off screen`() {
+    @Test fun `the hand at the right end of what is read, astride its edge, never over its text, none off screen`() {
+        // a row, an example: at its right end, mid-height
         val row = Rect(40f, 900f, 1040f, 980f)
-        assertEquals(Offset(150f, 940f), IntroPointer.tip(Target.Rows(setOf(0)), row, minSeen = 40f, inset = 110f))
-        // never further in than a quarter of it
-        assertEquals(Offset(290f, 940f), IntroPointer.tip(Target.Rows(setOf(0)), row, minSeen = 40f, inset = 400f))
-        assertEquals(Offset(300f, 515f), IntroPointer.tip(Target.Run(0, 2..2), Rect(200f, 500f, 400f, 530f), 16f, 110f))
-        // scrolled away: a sliver or nothing shows, the pointer fades
-        assertNull(IntroPointer.tip(Target.Example(0), Rect(40f, 1800f, 1040f, 1810f), minSeen = 40f, inset = 110f))
-        assertNull(IntroPointer.tip(Target.Example(0), null, 40f, 110f))
-        assertNull(IntroPointer.tip(Target.Example(0), Rect.Zero, 40f, 110f))
+        assertEquals(Offset(1040f, 940f), IntroPointer.handAt(Target.Rows(setOf(0)), row, null, minSeen = 40f, line = 60f))
+        assertEquals(Offset(1040f, 1050f), IntroPointer.handAt(Target.Example(0), Rect(40f, 1000f, 1040f, 1100f), null, 40f, 60f))
+        // the words of the explanation: at the explanation's right end, level with their first line
+        val card = Rect(40f, 300f, 1040f, 700f)
+        assertEquals(Target.Explanation, IntroPointer.holder(Target.Run(0, 2..2)))
+        assertEquals(Offset(1040f, 430f), IntroPointer.handAt(Target.Run(0, 2..2), Rect(500f, 400f, 900f, 520f), card, 16f, 60f))
+        // the answer's sentence: at the question's card's right end
+        assertEquals(Target.Question, IntroPointer.holder(Target.Answer))
+        assertEquals(Offset(1040f, 1530f), IntroPointer.handAt(Target.Answer, Rect(80f, 1500f, 800f, 1560f), Rect(40f, 1200f, 1040f, 1700f), 16f, 60f))
+        // the quick question: level with its prompt, not the middle of its options
+        assertEquals(Offset(1040f, 1320f), IntroPointer.handAt(Target.Question, Rect(40f, 1200f, 1040f, 1900f), null, 16f, 60f))
+        assertNull(IntroPointer.holder(Target.Example(0)))
+        // scrolled away: a sliver or nothing shows, the hand fades
+        assertNull(IntroPointer.handAt(Target.Example(0), Rect(40f, 1800f, 1040f, 1810f), null, minSeen = 40f, line = 60f))
+        assertNull(IntroPointer.handAt(Target.Example(0), null, null, 40f, 60f))
+        assertNull(IntroPointer.handAt(Target.Example(0), Rect.Zero, null, 40f, 60f))
         // several rows: together
         val b = mapOf<Any, Rect>(IntroPointer.Row(3) to Rect(40f, 1000f, 1040f, 1080f), IntroPointer.Row(5) to Rect(40f, 1160f, 1040f, 1240f))
         assertEquals(Rect(40f, 1000f, 1040f, 1240f), IntroPointer.bounds(Target.Rows(setOf(3, 4, 5)), b::get))
         assertNull(IntroPointer.bounds(Target.Question, b::get))
-        // the tip moves to the next target, eased by the caller
-        assertEquals(Offset(50f, 100f), IntroPointer.between(Offset(0f, 0f), Offset(100f, 200f), 0.5f))
-        assertEquals(Offset(100f, 200f), IntroPointer.between(null, Offset(100f, 200f), 0.1f))
     }
 
-    @Test fun `she reaches toward the target, turned to its side, the hand where the pointer starts`() {
+    @Test fun `the hand hops to the next target, lifted in the middle, appearing at once`() {
+        val from = Offset(1040f, 900f)
+        val to = Offset(1040f, 1100f)
+        assertEquals(from, IntroPointer.hop(from, to, 0f, 20f))
+        val mid = IntroPointer.hop(from, to, 0.5f, 20f)
+        assertEquals(1040f, mid.x, 0.01f)
+        assertEquals(1000f - 20f, mid.y, 0.01f)
+        assertEquals(to, IntroPointer.hop(from, to, 1f, 20f))
+        assertEquals(to, IntroPointer.hop(null, to, 0.1f, 20f))
+    }
+
+    @Test fun `she turns toward what she explains, the arm held out that way, shifted on her walk-in`() {
         val p = PortraitsPainter()
         val c = PixelCanvas(30, 30)
         // the target below and to the right of her: turned right, the hand right of her middle and low

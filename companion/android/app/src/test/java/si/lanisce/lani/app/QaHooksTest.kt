@@ -112,6 +112,22 @@ class QaHooksTest {
         assertEquals("a free plot left: the age stays", age, QaHooks.readyBuild(s.copy(buildings = full.drop(1)), caps).age)
     }
 
+    @Test fun `the school readied, the unit biti as never begun, the other units' progress kept`() {
+        val s = si.lanisce.lani.game.GameState(
+            age = si.lanisce.lani.game.Age.ZASELEK,
+            course = si.lanisce.lani.game.CourseProgress(
+                units = mapOf(
+                    si.lanisce.lani.game.School.key("sl", "biti") to si.lanisce.lani.game.UnitProgress(started = "2026-10-13", intro = 1),
+                    si.lanisce.lani.game.School.key("sl", "spol") to si.lanisce.lani.game.UnitProgress(started = "2026-10-12", introDone = true),
+                ),
+            ),
+        )
+        val r = QaHooks.readySchool(s, 0L)
+        assertNull(si.lanisce.lani.game.School.progress(r, "sl", "biti"))
+        assertEquals(true, si.lanisce.lani.game.School.progress(r, "sl", "spol")?.introDone)
+        assertTrue(r.buildings.any { it.type == si.lanisce.lani.game.BuildingType.LIPA })
+    }
+
     @Test fun `a slower clock asked, the towns' time runs at that rate, kept in range, until let go`() {
         assertEquals(1f, TownClock.rate)
         QaHooks.handle("clock:0.4")

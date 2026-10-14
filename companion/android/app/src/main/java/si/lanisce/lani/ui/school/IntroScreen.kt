@@ -150,9 +150,9 @@ fun IntroScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
 /**
  * One step on the school's stage: the teacher big beside what she says now, the explanation on the board below her, the
  * examples, the table so far (this step's rows marked new), its question, "Naprej". Read aloud as it appears ([IntroVoice]:
- * the setting "🔊 Beri razlago", not while TalkBack reads), what is read marked, and she points at it with her pointer
- * ([IntroPointer]: the table's row of a form, the example, the question, the words read), turned toward it, back to the
- * learner when she asks; 🔊 and 🐢 read it again, a tap on the text stops it, leaving the step too. [walkIn]: the lesson
+ * the setting "🔊 Beri razlago", not while TalkBack reads), what is read marked, her small hand beside it ([IntroPointer]:
+ * the table's row of a form, the example, the question, the words read), she turned toward it, back to the learner when
+ * she asks; 🔊 and 🐢 read it again, a tap on the text stops it, leaving the step too. [walkIn]: the lesson
  * begins with this step, and she walks in first. Nothing moves with the system's animations off or the keyboard up.
  */
 @OptIn(ExperimentalLayoutApi::class)
@@ -206,7 +206,7 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
     val line = (now as? IntroSpeech.Mark.Part)?.let { m -> script.stitched.firstOrNull { it.mark == m } }
     val before = remember { arrayOfNulls<IntroPointer.Target>(1) }
     val target = remember(now) { IntroPointer.target(now, line, rowWords, before[0]).also { before[0] = it } }
-    // asking the question: she points at it, then turns to the learner
+    // asking the question: she turns to it, then to the learner
     var asking by remember { mutableStateOf(false) }
     LaunchedEffect(now) {
         asking = false
@@ -215,33 +215,33 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
             asking = true
         }
     }
-    val points = IntroPointer.points(reading && target != null, reduced, keyboard, asking)
+    val shows = IntroPointer.shows(reading && target != null, reduced, keyboard)
     val bounds = remember { mutableStateMapOf<Any, Rect>() }
     var runAt by remember { mutableStateOf<Rect?>(null) }
     var viewport by remember { mutableStateOf<Rect?>(null) }
     var origin by remember { mutableStateOf(Offset.Zero) }
-    var hand by remember { mutableStateOf<Hand?>(null) }
     val density = LocalDensity.current
-    val tip = target?.takeIf { points }?.let { tg ->
-        val seen = IntroPointer.bounds(tg) { k -> if (k is IntroPointer.Target.Run) runAt else bounds[k] }
-            ?.let { r -> viewport?.let { v -> if (r.overlaps(v)) r.intersect(v) else null } ?: r }
-        // a card's or a row's tip in from its start, to her right: she turns toward the content to point at it
-        with(density) { IntroPointer.tip(tg, seen, minSeen = 16.dp.toPx(), inset = TIP_INSET_DP.dp.toPx()) }
+    fun seen(r: Rect?): Rect? = r?.let { viewport?.let { v -> if (it.overlaps(v)) it.intersect(v) else null } ?: it }
+    val at = target?.takeIf { shows }?.let { tg ->
+        val own = seen(IntroPointer.bounds(tg) { k -> if (k is IntroPointer.Target.Run) runAt else bounds[k] })
+        val holder = IntroPointer.holder(tg)?.let { h -> bounds[h] }
+        with(density) { IntroPointer.handAt(tg, own, holder, minSeen = 16.dp.toPx(), line = 22.dp.toPx()) }
     }
-    // the tip moves to a new target from where it was, then follows it (a scroll)
+    // the hand hops to a new target from where it was, then follows it (a scroll)
     val move = remember { Animatable(1f) }
-    val kept = remember { arrayOfNulls<Any>(3) } // the target last seen, where the tip was shown last, where it moves from
+    val kept = remember { arrayOfNulls<Any>(3) } // the target last seen, where the hand was shown last, where it hops from
     val changed = target != kept[0]
     if (changed) {
         kept[0] = target
         kept[2] = kept[1]
     }
-    LaunchedEffect(target) { moveTip(move) }
-    val shown = tip?.let { IntroPointer.between(kept[2] as Offset?, it, if (changed) 0f else move.value) }?.also { kept[1] = it }
-    // turned toward what she points at; else, while she explains, toward the content
+    LaunchedEffect(target) { hopHand(move) }
+    val handPixel = with(density) { HAND_PIXEL_DP.dp.toPx() }
+    val shown = at?.let { IntroPointer.hop(kept[2] as Offset?, it, if (changed) 0f else move.value, HOP_PIXELS * handPixel) }?.also { kept[1] = it }
+    // turned toward what she explains (where her hand points), back to the learner as she asks
     val aim = when {
         reduced || keyboard || !reading || asking -> null
-        shown != null -> shown
+        at != null -> at
         else -> viewport?.center
     }
 
@@ -256,7 +256,6 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
                         t.art, t.id.hashCode(), portraitPx(stage), pose, aim, walkIn = walkIn, animate = !reduced && !keyboard,
                         modifier = Modifier.size(stage).clip(RoundedCornerShape(18.dp)).border(2.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(18.dp))
                             .semantics { contentDescription = t.name },
-                        onHand = { hand = it },
                     )
                 } else Text("👩‍🏫", style = MaterialTheme.typography.headlineMedium)
                 Spacer(Modifier.width(10.dp))
@@ -321,8 +320,8 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
             }
             BigButton(bi("common.next"), enabled = answered, onClick = next, color = if (answered) AlpineGreen else MaterialTheme.colorScheme.primary)
         }
-        // her pointer, over the stage and the board
-        PointerStick(hand, shown, visible = points && shown != null, origin = origin, modifier = Modifier.matchParentSize())
+        // her small hand at what is read, astride its right edge
+        PointingHand(shown, visible = shows && shown != null, origin = origin, pixel = handPixel, modifier = Modifier.matchParentSize())
     }
 }
 
@@ -351,8 +350,8 @@ private fun Saying(text: String, lines: Int) {
 private const val STAGE_DP = 118
 private const val STAGE_SMALL_DP = 56
 
-/** How far in from a card's start (at most a quarter of it) her pointer's tip goes. */
-private const val TIP_INSET_DP = 96
+/** A pixel of her pointing hand (it stays within the screen's margin beside what it points at). */
+private const val HAND_PIXEL_DP = 1.75f
 
 /** How long after a step appears it is read (it has drawn, the eye found the teacher). */
 private const val READ_AFTER_MS = 450L

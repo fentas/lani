@@ -57,7 +57,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   a new line), "chat:table" the tutor's imeti with its list ([TUTOR_TABLE]): QA pins it to the cheat sheet.
  * - "cheat" opens the cheat sheet; "cheat:<page>,<page>" as an exercise of those grammar pages would (their cards first).
  * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
- *   the linden standing), and the school opens, its class begun (companion/GAME.md, "The school").
+ *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
+ *   school").
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -181,7 +182,9 @@ object QaHooks {
             r = if (free != null) r.copy(buildings = r.buildings + si.lanisce.lani.game.Building("lipa-qa", si.lanisce.lani.game.BuildingType.LIPA, free, builtAt = now))
             else r
         }
-        return r.copy(buildings = r.buildings.map { if (it.type == si.lanisce.lani.game.BuildingType.LIPA) it.copy(damaged = false) else it })
+        // the unit biti as never begun, whatever the copy's learner did with it: QA plays its intro from its first step
+        val course = r.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key("sl", "biti")) }
+        return r.copy(buildings = r.buildings.map { if (it.type == si.lanisce.lani.game.BuildingType.LIPA) it.copy(damaged = false) else it }, course = course)
     }
 
     /** Today at the hour QA asks the village's map to be seen at ("hour:<h>"), or null: the clock's (and the real sky). */

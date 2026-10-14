@@ -2396,7 +2396,7 @@ def record_frames(name: str, start, seconds=3, fps=5, keep=(0.2, 0.45, 0.7, 1.0,
 
 def intro_reading(first_text: str):
     """The intro's step read aloud as it appears (COURSE.md "Read aloud"): a shot as each piece begins (what is read
-    marked, Mojca talking), its pieces in order from the log (the explanation's clip, else its English by the phone's voice and
+    marked, Mojca's small hand beside it, Mojca talking), its pieces in order from the log (the explanation's clip, else its English by the phone's voice and
     its Slovene in Mojca's, then the examples and the question), kept in intro-voice.txt; then 🔊 reads it again and a tap
     on the text ([first_text]: the bubble's) stops it."""
     # until its last piece plays, or nothing new for a while (a piece none could say is left out); a shot as each piece
@@ -2406,13 +2406,13 @@ def intro_reading(first_text: str):
         now = intro_log()
         if len(now) != len(got):
             got, changed = now, time.time()
-            time.sleep(0.35)  # the pointer at its new target
+            time.sleep(0.35)  # the hand hopped to its new target
             shot(f"school-intro-reading-{got[-1]['n']}")
-            # Mojca's pointer on the table's row of the form read, then on the example read
+            # Mojca's small hand beside the table's row of the form read, then beside the example read
             if got[-1]["text"] == "jaz sem":
-                shot("school-pointer-row")
+                shot("school-hand-row")
             if got[-1]["text"].startswith("Jaz sem "):
-                shot("school-pointer-example")
+                shot("school-hand-example")
         if got and (got[-1]["n"] == got[-1]["of"] or time.time() - changed > 12 * slow()):
             break
         time.sleep(0.3)
