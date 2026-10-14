@@ -1918,3 +1918,37 @@ full moon").
 The market scene trades nothing itself: a visit's market is the town bar's "⚖️ Tržnica · Market" (companion/README.md,
 "Things to do on a visit"). Its stall has a seller at `stall` and a buyer at `buyer`, so that haggle could one day open
 from here, with the host's villager behind the counter.
+
+### The school's blackboard
+
+Jan, 2026-10-14: "I like the chalkboard; maybe it could show what we're currently / last learned in school." The school's
+blackboard (`v-soli`, art `school`) has the learner's lesson on it in chalk (`game/scene/Blackboard.kt`, pure; the
+painter's `SchoolPainter.chalkLesson` in the hand of `BoardFont`): the unit worked on last ([GAME.md](GAME.md) "The
+school", [COURSE.md](COURSE.md)), of the units with progress the one with the latest day in it (begun, an intro step, a
+sheet, the test, done; on the same day one under way before one done), its title in the course's language and up to four
+of its forms from the intro's table, each row's words in that language, each cell's first form ("on, ona, ono" → "on"):
+
+```
+Biti
+jaz sem · ti si
+on je · mi smo
+```
+
+The board holds three lines of about twelve letters (49 columns of the scene's canvas), so a title too long for the first
+line is its head before ": " ("Biti: sem, si, je" → "Biti"), else over two lines at its commas ("Moški, ženski," /
+"srednji spol"), else its head before the first "?" ("Kje? V hiši, na vrtu, pri babici" → "Kje?"); the forms follow, " · "
+between two on a line, a form too long its last cell ("imenovati se imenujem se" → "imenujem se"); a row of three or more
+keeps its first two cells without the endings ("jaz -m delam" → "jaz delam"), a sentence and its change the change ("Ne
+delam."). Before the first unit: "Dobrodošli!" and the day ("14. 10. 2026"). Without a course, on a visit, in the tools
+and the tests (no board in the frame's world: `SceneWorld.board`, set by `AppViewModel.sceneWorld` for the school) it is
+the school's own greeting, "Dober dan! / Kako si? / Dobro." and the chalk sun.
+
+The hand: letters 3 px wide (m, w, a few capitals 4 or 5), the small ones 4 rows high, capitals and tall letters 6, a row
+below for g, j, p, y; č, š, ž and the other Latin letters with a mark are their letter and the mark over it. On the
+board's slant each letter's right part is a row lower (the s drawn slanted already), each letter a little up or down and
+the lines wavering, the chalk worn here and there, the title underlined, and the board hazy with the lessons wiped off
+it. Closer up the same letters stand in the same places, a chalk line a picture pixel thin from each of their pixels to
+the next. `SchoolBoardTest` checks which unit it shows, that every letter of the course is written and every unit's
+lesson fits, and the board's chalk at every detail (nothing else of the picture changes), and renders the board for
+review (`build/scene-snapshots/school/board-*`). The class under the linden's easel on the village's map stays a word's
+scribble: at the map's closest it is a dozen pixels across.

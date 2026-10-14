@@ -1497,9 +1497,15 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     /** The scene last opened from a building, and that building's id (see [openScene]). */
     private var sceneBuilding: Pair<String, String>? = null
 
-    /** [state]'s village as scene [scene] sees it: in the building it was opened from, else its place's ([Homes.world]). */
+    /**
+     * [state]'s village as scene [scene] sees it: in the building it was opened from, else its place's ([Homes.world]);
+     * the school's blackboard with the learner's lesson ([si.lanisce.lani.game.scene.Blackboard.of]).
+     */
     fun sceneWorld(scene: si.lanisce.lani.game.scene.SceneSpec, building: String? = (screen as? Screen.Scene)?.building): SceneWorld =
-        game.state?.let { si.lanisce.lani.game.scene.Homes.world(scene, it, building, scenes.all) } ?: SceneWorld.ALL
+        game.state?.let { s ->
+            val world = si.lanisce.lani.game.scene.Homes.world(scene, s, building, scenes.all)
+            if (scene.art == "school") world.copy(board = si.lanisce.lani.game.scene.Blackboard.of(s, school.course)) else world
+        } ?: SceneWorld.ALL
 
     /** Back to the village from a run or a sheet; the construction animation doesn't replay. */
     fun village() {

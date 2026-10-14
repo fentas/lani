@@ -51,6 +51,11 @@ data class SceneWorld(
      * there, in no stage of it.
      */
     val down: Set<String> = emptySet(),
+    /**
+     * What the school's blackboard says ([Blackboard.of]: the learner's lesson, or a welcome before the first); null when
+     * that isn't known (tools, tests, a visit): the school's own greeting.
+     */
+    val board: Blackboard? = null,
 ) {
     /** Whether a building of [type] stands. */
     fun has(type: BuildingType): Boolean = buildings?.containsKey(type) ?: true

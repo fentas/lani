@@ -5,6 +5,7 @@ import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import si.lanisce.lani.game.scene.Blackboard
 import si.lanisce.lani.game.scene.PersonInScene
 import si.lanisce.lani.game.scene.Poke
 import kotlin.math.PI
@@ -907,12 +908,16 @@ internal class SchoolPainter : DioramaPainter() {
             }
         }
         val ia = ba + 0.2f; val ib = bb - 0.2f; val iz0 = bz0 + 0.8f; val iz1 = bz1 - 0.8f
+        // the school's own board writes the learner's lesson over the haze of the ones wiped off before it
+        val board = frame.world.board
         quadFill(ia, yb, iz0, ib, yb, iz0, ib, yb, iz1, ia, yb, iz1) { px, py ->
             val x = wallYx(px, yb); val z = wallYz(px, py, yb)
             val smudge = Noise.v2(x * 1.6f, z * 0.35f, 29)
+            val wiped = if (board == null) 0f else Noise.v2(x * 0.9f + 3f, z * 0.22f, 43)
             when {
                 Noise.rnd(px, py, 7) < 0.08f -> slateL
                 smudge > 0.72f && Dither.at(px, py) < (smudge - 0.72f) * 4f -> Col.mix(slate, chalkD, 0.22f)
+                wiped > 0.62f && Dither.at(px, py) < (wiped - 0.62f) * 2.5f -> Col.mix(slate, chalkD, 0.13f)
                 z < iz0 + 0.5f -> slateD
                 // closer up, the chalk dust settled along the bottom of the slate
                 detail > 1 && z < iz0 + 1.8f && Noise.rnd(px, py, 19) < (iz0 + 1.8f - z) / 1.3f * 0.35f -> Col.mix(slate, chalkD, 0.2f)
@@ -923,7 +928,8 @@ internal class SchoolPainter : DioramaPainter() {
         val sx0 = iso.sx(ia, yb); val sy0 = iso.sy(ia, yb, iz1)
         val ax = ceil(sx0 - 0.5f).toInt()
         val cols = ((ib - ia) * 4f * K).toInt()
-        if (detail == 1) {
+        if (board != null) chalkLesson(board, sx0, sy0, ax, cols, ((ib - ia) * 4f * BASE_K).toInt())
+        else if (detail == 1) {
             fun top(col: Int): Int = ceil(sy0 + (ax + col + 0.5f - sx0) * 0.5f - 0.5f).toInt()
             fun dot(col: Int, y: Int, ink: Int) {
                 if (col < 0 || col >= cols) return
@@ -1021,6 +1027,95 @@ internal class SchoolPainter : DioramaPainter() {
             }
         }
     }
+
+    /**
+     * The learner's lesson on the board ([Blackboard], companion/SCENES.md "The school's blackboard"): what of it fits
+     * ([BoardFont.lines]) in [BoardFont]'s hand, line under line, the title underlined, each letter a little up or down
+     * and the lines wavering, on the board's slant ([sx0], [sy0] its top left; [ax] its first column, [cols] its columns
+     * in the picture, [cols1] on the scene's canvas). On the scene's canvas a pixel of chalk for each of the letters';
+     * closer up the same letters in the same places, a chalk line a picture pixel thin from each of their pixels to the
+     * next.
+     */
+    private fun chalkLesson(board: Blackboard, sx0: Float, sy0: Float, ax: Int, cols: Int, cols1: Int) {
+        val d = detail
+        val mid = (d - 1) / 2f
+        val date = frame.date?.let { "${it.dayOfMonth}. ${it.monthValue}. ${it.year}" }
+        val lines = BoardFont.lines(board, cols1 - 2 * BOARD_MARGIN, date = date)
+        fun edge(x: Float): Float = sy0 + (x + 0.5f - sx0) * 0.5f
+        fun chalk(x: Int, y: Int, ink: Int) {
+            if (x < ax || x >= ax + cols) return
+            val worn = Noise.rnd(x, y, 71)
+            c.set(x, y, if (d == 1 && worn < 0.06f) Col.mix(ink, chalkD, 0.5f) else if (d > 1 && worn < 0.16f) Col.mix(ink, slate, 0.5f) else ink)
+        }
+        for ((li, line) in lines.withIndex()) {
+            val row0 = BOARD_TOP + li * BoardFont.PITCH
+            // each letter a little up or down, the line wavering (in rows of the scene's canvas)
+            fun lift(i: Int, col: Int): Float = (Noise.rnd(i, li, 37) - 0.5f) * 1.1f + sin(col * 0.11f + li * 1.7f) * 0.35f
+            fun ink(i: Int): Int = if (line.text[i] == '·') chalkD else chalkW
+            if (d == 1) {
+                fun top(col: Int): Int = ceil(sy0 + (ax + col + 0.5f - sx0) * 0.5f - 0.5f).toInt()
+                // each letter slants on its own from the board's edge at its left, a row down every second column
+                BoardFont.write(line.text) { i, x0, k, row, _ ->
+                    val left = BOARD_MARGIN + x0
+                    chalk(ax + left + k, top(left) + row0 + row + BoardFont.slant(line.text[i], k) + lift(i, left).roundToInt(), ink(i))
+                }
+            } else {
+                // the letters' pixels, each letter's and each mark's to its own: a line from each to the next one across,
+                // down and (where no corner joins them) diagonally; two pieces of a letter still apart a knight's step from
+                // each other (the s's middle) joined too; a pixel alone a dot
+                val letters = HashMap<Int, HashSet<Long>>()
+                val at = HashMap<Int, Int>()
+                BoardFont.write(line.text) { i, x0, k, row, mark -> letters.getOrPut(if (mark) -1 - i else i) { HashSet() }.add(key(k, row)); at[i] = x0 }
+                for ((part, px) in letters) {
+                    val i = if (part < 0) -1 - part else part
+                    val left = BOARD_MARGIN + at.getValue(i)
+                    val up = lift(i, left)
+                    // slanting with the board, unless drawn slanted already
+                    val upright = BoardFont.upright(line.text[i])
+                    fun x(k: Int): Float = ax + (left + k) * d + mid
+                    fun y(k: Int, row: Int): Float = edge(x(if (upright) 0 else k)) + (row0 + row + up) * d + mid
+                    fun stroke(k: Int, row: Int, k2: Int, row2: Int) =
+                        seg(floor(x(k) + 0.5f).toInt(), floor(y(k, row) + 0.5f).toInt(), floor(x(k2) + 0.5f).toInt(), floor(y(k2, row2) + 0.5f).toInt()) { a, b -> chalk(a, b, ink(i)) }
+                    val piece = HashMap<Long, Long>()
+                    fun root(p: Long): Long { var r = p; while (piece[r] != r) r = piece.getValue(r); return r }
+                    for (p in px) piece[p] = p
+                    fun join(a: Long, b: Long) { piece[root(a)] = root(b) }
+                    for (p in px) {
+                        val k = (p shr 32).toInt(); val row = p.toInt()
+                        fun has(dk: Int, dr: Int) = key(k + dk, row + dr) in px
+                        fun to(dk: Int, dr: Int) { stroke(k, row, k + dk, row + dr); join(p, key(k + dk, row + dr)) }
+                        if (has(1, 0)) to(1, 0)
+                        if (has(0, 1)) to(0, 1)
+                        if (has(1, 1) && !has(1, 0) && !has(0, 1)) to(1, 1)
+                        if (has(-1, 1) && !has(-1, 0) && !has(0, 1)) to(-1, 1)
+                        if (has(1, 1) || has(-1, 1)) for (q in listOf(key(k + 1, row + 1), key(k - 1, row + 1))) if (q in px) join(p, q)
+                    }
+                    for (p in px) {
+                        val k = (p shr 32).toInt(); val row = p.toInt()
+                        for (dk in intArrayOf(2, -2)) {
+                            val q = key(k + dk, row + 1)
+                            if (q in px && root(p) != root(q)) { stroke(k, row, k + dk, row + 1); join(p, q) }
+                        }
+                        if ((-1..1).all { dk -> (-1..1).all { dr -> (dk == 0 && dr == 0) || key(k + dk, row + dr) !in px } }) {
+                            val cx = floor(x(k) + 0.5f).toInt(); val cy = floor(y(k, row) + 0.5f).toInt()
+                            chalk(cx, cy, ink(i)); if (d > 2) { chalk(cx + 1, cy, ink(i)); chalk(cx, cy + 1, ink(i)); chalk(cx + 1, cy + 1, ink(i)) }
+                        }
+                    }
+                }
+            }
+            // the title underlined with a wavering stroke, broken here and there (under its last line)
+            if (line.title && lines.getOrNull(li + 1)?.title != true) {
+                val w = BoardFont.width(line.text)
+                for (x in ax + BOARD_MARGIN * d until ax + (BOARD_MARGIN + w) * d) {
+                    if (Noise.rnd(x / (2 * d), li, 3) >= 0.86f) continue
+                    val y = edge(x.toFloat()) + (row0 + 7) * d + mid + sin(x * 0.55f / d) * 0.4f * d
+                    chalk(x, floor(y + 0.5f).toInt(), chalkD)
+                }
+            }
+        }
+    }
+
+    private fun key(k: Int, row: Int): Long = (k.toLong() shl 32) or (row.toLong() and 0xFFFFFFFFL)
 
     /** The teacher's pointer leaning against the board's end. */
     private fun pointer() {
@@ -2036,6 +2131,10 @@ internal class SchoolPainter : DioramaPainter() {
 
         /** The chair stands this much to our left of the pupil (+y, cells): its back shows past their head. */
         private const val CHAIR_SIDE = 0.2f
+
+        /** The lesson on the board ([chalkLesson]): its first line's capitals' top row, and the columns left free each side (the scene canvas's). */
+        private const val BOARD_TOP = 2
+        private const val BOARD_MARGIN = 1
 
         /** Where a seated pupil's hands lie on the lid: sprite columns from their middle (the near hand's, the far one's). */
         private const val HAND_NEAR = 2; private const val HAND_FAR = -2
