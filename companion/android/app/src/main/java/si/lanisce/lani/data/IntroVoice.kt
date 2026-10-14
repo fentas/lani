@@ -11,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -39,9 +41,11 @@ import kotlin.coroutines.resume
  *
  * 1. the explanation as one clip of the voice store, voiced in one go by the node in the learner's base language with the
  *    Slovene inside it ([Clips.explanation]): on the phone it plays at once; the node having it, it's waited for a moment
- *    ([EXPLAIN_WAIT_MS]); else it's read in its runs at once ([Script.stitched]: the base-language parts by the phone's own
- *    voice of that language, rendered to files as the car's prompts are, [RoadPrompts]; the Slovene parts in the
- *    teacher's voice) and the node makes the clip for next time;
+ *    ([EXPLAIN_WAIT_MS]: a download); the node making it now, a little longer ([EXPLAIN_MAKE_MS], as a line's 🔊 waits
+ *    for its clip; the intro asks for its steps' explanations as it opens, [ahead], so the first step's is mostly on its
+ *    way already and the next ones' here); else it's read in its runs ([Script.stitched]: the base-language parts by the
+ *    phone's own voice of that language, rendered to files as the car's prompts are, [RoadPrompts]; the Slovene parts in
+ *    the teacher's voice, got ready while the clip is waited for) and the clip is there next time;
  * 2. then the examples, the quick question as far as it gives nothing away, each in the teacher's voice: her clip on the
  *    phone, else the node voices it now (as a line's 🔊), else another of her voices' on the phone, else the phone's
  *    offline voice (Piper), else the phone's voice for the language learned; else that line is left out.
@@ -117,12 +121,43 @@ class IntroVoice(context: Context, private val scope: CoroutineScope, private va
     private var job: Job? = null
     private var player: MediaPlayer? = null
 
+    /** The explanations asked for ahead ([ahead]), one after the other. */
+    private var aheadJob: Job? = null
+
     /** The phone's voices by language, each opened once (the base's, and the fallback for the language learned). */
     private val voices = HashMap<Lang, Deferred<RoadPrompts?>>()
     private val opened = mutableListOf<RoadPrompts>()
 
     /** The renders under way, by file name: a second ask for the same text waits for the first. */
     private val rendering = HashMap<String, Deferred<File?>>()
+
+    /**
+     * Gets the explanations' clips of [scripts] (an intro's steps, from the one shown on) onto the phone ahead, in their
+     * order and one at a time (the node voices each in a few seconds; never a burst), so a step finds its clip as it's
+     * read: asked for as the intro opens, while the teacher walks in. Only from a node that voices them ([explains]); an
+     * explanation on the phone, or the node couldn't just now, is passed over. What was asked ahead before stops.
+     */
+    fun ahead(scripts: List<Script>, who: Reader) {
+        aheadJob?.cancel()
+        val c = speaker.clips ?: return
+        if (!c.online || !explains()) return
+        aheadJob = scope.launch {
+            val v = voicesOf(who)
+            for (e in scripts.mapNotNull { it.explanation }) {
+                if (c.explanationOnDevice(e.plain, e.lang, v.voices.take(1)) != null || c.explanationMissed(e.plain, e.lang, v.voices)) continue
+                if (c.explanation(e.plain, e.lang, v.voices).await() == null) Log.i(TAG, "ahead: no clip now for ${e.lang} \"${e.plain.take(40)}\"")
+            }
+        }
+    }
+
+    /** No more explanations asked for ahead (the intro left); the one on its way still comes. */
+    fun stopAhead() {
+        aheadJob?.cancel()
+        aheadJob = null
+    }
+
+    /** [who]'s voices, as their lines are played ([Speaker.voices]: their profile's speaker, their archetype, the chain). */
+    private fun voicesOf(who: Reader): Speaker.Voices = Speaker.voices(who.voiceName, who.fallback, speaker.clips?.profile(who.person))
 
     /** Reads [script] in [who]'s voice ([slow]: 🐢), from its start; what was read before stops. */
     fun play(script: Script, who: Reader, slow: Boolean = false) {
@@ -173,6 +208,7 @@ class IntroVoice(context: Context, private val scope: CoroutineScope, private va
 
     /** The app is gone: the phone's voices let go. */
     fun release() {
+        aheadJob?.cancel()
         stop()
         voices.clear()
         opened.forEach { it.close() }
@@ -191,14 +227,22 @@ class IntroVoice(context: Context, private val scope: CoroutineScope, private va
         val v = Speaker.voices(who.voiceName, who.fallback, profile)
         val pitch = if (profile != null && !profile.own) profile.pitch else 1f
         val rate = if (profile != null && !profile.own) profile.rate else 1f
-        // the lines after the explanation are got ready meanwhile
-        val after = script.lines.map { l -> Piece(l, async { sound(l, v, slow) }) }
         val e = script.explanation
-        val whole = e?.let { explanationClip(it, v) }
+        // the explanation's clip asked for first (the node voices what it's asked in turn), then the lines after it got
+        // ready meanwhile; while the clip is waited for, its runs' Slovene too, in case it doesn't come in time (their
+        // base-language parts by the phone's voice only then)
+        val onPhone = e?.let { c?.explanationOnDevice(it.plain, it.lang, v.voices.take(1)) }
+        val whole = if (e != null && onPhone == null) async { explanationClip(e, v) } else null
+        val after = script.lines.map { l -> Piece(l, async { sound(l, v, slow) }) }
+        val runs = if (whole != null) script.stitched.map { l -> Piece(l, async(start = if (l.slovene) CoroutineStart.DEFAULT else CoroutineStart.LAZY) { sound(l, v, slow) }) } else emptyList()
+        val clip = onPhone ?: whole?.await()
         val first = when {
             e == null -> emptyList()
-            whole != null -> listOf(Piece(Line(e.plain, false, Mark.Whole), async { Sound(whole, "explanation:${e.lang}") }))
-            else -> script.stitched.map { l -> Piece(l, async { sound(l, v, slow) }) }
+            clip != null -> {
+                runs.forEach { it.sound.cancel() } // the clips they asked the node for still come, for the 🔊 of a form
+                listOf(Piece(Line(e.plain, false, Mark.Whole), CompletableDeferred(Sound(clip, "explanation:${e.lang}"))))
+            }
+            else -> runs.onEach { it.sound.start() }
         }
         val pieces = first + after
         for ((i, p) in pieces.withIndex()) {
@@ -230,17 +274,19 @@ class IntroVoice(context: Context, private val scope: CoroutineScope, private va
     }
 
     /**
-     * The explanation's one clip: on the phone in her wanted voice, else (the node reachable) the node's, waited for a
-     * moment when the node has it; asked to be made for next time when it hasn't (not waited for: the runs are read now).
+     * The explanation's one clip: on the phone in her wanted voice, else (the node reachable, and it voices them) the
+     * node's: waited for a moment when the node has it ([EXPLAIN_WAIT_MS]: a download), a little longer when the node
+     * makes it now or is making it (asked ahead, [EXPLAIN_MAKE_MS]); what doesn't come in time comes for next time.
      * Offline, a clip in another of her voices on the phone. Null: it's read in its runs.
      */
     private suspend fun explanationClip(e: IntroSpeech.Explanation, v: Speaker.Voices): List<File>? {
         val c = speaker.clips ?: return null
         c.explanationOnDevice(e.plain, e.lang, v.voices.take(1))?.let { return it }
         if (c.online && explains() && !c.explanationMissed(e.plain, e.lang, v.voices)) {
+            val wait = if (c.hasExplanation(e.plain, e.lang, v.voices)) EXPLAIN_WAIT_MS else EXPLAIN_MAKE_MS
             val work = c.explanation(e.plain, e.lang, v.voices)
-            if (c.hasExplanation(e.plain, e.lang, v.voices)) withTimeoutOrNull(EXPLAIN_WAIT_MS) { work.await() }?.let { return it }
-            else Log.i(TAG, "explanation clip asked for, for next time: ${e.lang} \"${e.plain.take(40)}\"")
+            withTimeoutOrNull(wait) { work.await() }?.let { return it }
+            Log.i(TAG, "explanation clip not here in ${wait} ms, for next time: ${e.lang} \"${e.plain.take(40)}\"")
         }
         return c.explanationOnDevice(e.plain, e.lang, v.all)
     }
@@ -360,6 +406,12 @@ class IntroVoice(context: Context, private val scope: CoroutineScope, private va
 
         /** How long the node's explanation clip is waited for (a download) before its runs are read instead. */
         private const val EXPLAIN_WAIT_MS = 3_000L
+
+        /**
+         * How long an explanation the node makes now is waited for (ElevenLabs takes about two to five seconds for a step's
+         * few lines; a line's 🔊 waits [Clips.WAIT_MS]) before its runs are read instead; the clip comes for next time.
+         */
+        private const val EXPLAIN_MAKE_MS = 6_000L
 
         /** The phone's voice in the learner's own language at its own pace; the Slovene a little slower, as [Speaker]'s. */
         private const val BASE_RATE = 1f

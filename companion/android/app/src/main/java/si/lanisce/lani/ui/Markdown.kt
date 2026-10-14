@@ -271,8 +271,8 @@ fun Markdown(
 }
 
 /**
- * A line with a part marked ([MARK]): where that part is on the screen goes to [onMarked] (root px, as much of it as
- * shows), for the teacher's pointer on the school's stage.
+ * A line with a part marked ([MARK]): where that part is goes to [onMarked] (root px, whether it shows or is scrolled out
+ * of view: the caller clips it to what it shows), for the teacher's pointer on the school's stage and her bubble's scroll.
  */
 @Composable
 private fun MarkedText(styled: AnnotatedString, modifier: Modifier, color: Color, style: TextStyle, weight: FontWeight?, onMarked: (androidx.compose.ui.geometry.Rect) -> Unit) {
@@ -284,9 +284,8 @@ private fun MarkedText(styled: AnnotatedString, modifier: Modifier, color: Color
             val spans = styled.spanStyles.filter { it.item == MARK }
             if (spans.isEmpty()) return@onGloballyPositioned
             val r = l.getPathForRange(spans.minOf { it.start }, spans.maxOf { it.end }.coerceAtMost(styled.length)).getBounds()
-            val seen = c.boundsInRoot()
-            val at = androidx.compose.ui.geometry.Rect(c.localToRoot(r.topLeft), c.localToRoot(r.bottomRight))
-            onMarked(if (at.overlaps(seen)) at.intersect(seen) else androidx.compose.ui.geometry.Rect.Zero)
+            // where it is, also when scrolled out of what shows (the caller clips it to its view: a bubble scrolls to it)
+            onMarked(androidx.compose.ui.geometry.Rect(c.localToRoot(r.topLeft), c.localToRoot(r.bottomRight)))
         },
         color = color, style = style, fontWeight = weight, onTextLayout = { laid[0] = it },
     )

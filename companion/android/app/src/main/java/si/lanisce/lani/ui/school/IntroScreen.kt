@@ -2,6 +2,9 @@ package si.lanisce.lani.ui.school
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.isImeVisible
@@ -122,6 +125,13 @@ fun IntroScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
     LaunchedEffect(Unit) { if (step == 0) vm.school.introProgress(unit, 0, done = false) }
     // the lesson begins: she walks in once, at the first step shown
     val walkIn = remember { step }
+    // the steps' explanations asked for ahead as the lesson begins (the node voices one at a time, the first while she
+    // walks in), from the step shown on: each step finds its clip as it's read; no more asked once the intro is left
+    val voice = vm.introVoice
+    DisposableEffect(unit.id) {
+        if (voice.auto && !voice.screenReader) voice.ahead((step until intro.steps.size).map { introScript(vm, unit, intro, it) }, introReader(vm))
+        onDispose { voice.stopAhead() }
+    }
     Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(onClick = back) { EmojiLabel("✕", Labels.CLOSE) }
@@ -148,12 +158,15 @@ fun IntroScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
 }
 
 /**
- * One step on the school's stage: the teacher big beside what she says now, the explanation on the board below her, the
- * examples, the table so far (this step's rows marked new), its question, "Naprej". Read aloud as it appears ([IntroVoice]:
- * the setting "🔊 Beri razlago", not while TalkBack reads), what is read marked, her small hand beside it ([IntroPointer]:
- * the table's row of a form, the example, the question, the words read), she turned toward it, back to the learner when
- * she asks; 🔊 and 🐢 read it again, a tap on the text stops it, leaving the step too. [walkIn]: the lesson
- * begins with this step, and she walks in first. Nothing moves with the system's animations off or the keyboard up.
+ * One step on the school's stage: the teacher big, the step's explanation in her speech bubble beside her (it scrolls
+ * within when long, kept at what is read), below them the examples, the table so far (this step's rows marked new), its
+ * question, "Naprej". On a short screen or with a large font the compact stage: she small, a line of what she says now
+ * beside her, the explanation on a board below; with the keyboard up she is small and her bubble a few lines. Read aloud
+ * as it appears ([IntroVoice]: the setting "🔊 Beri razlago", not while TalkBack reads), what is read marked, her small
+ * hand beside it ([IntroPointer]: the table's row of a form, the example, the question, the words read in her bubble),
+ * she turned toward it, back to the learner when she asks; 🔊 and 🐢 read it again, a tap on the text stops it, leaving
+ * the step too. [walkIn]: the lesson begins with this step, and she walks in first. Nothing moves with the system's
+ * animations off or the keyboard up.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -163,14 +176,10 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
     var answered by remember { mutableStateOf(s.ask == null) }
     val voice = vm.introVoice
     val t = vm.school.teacher()
-    val reader = IntroVoice.Reader(t?.speakerVoice ?: si.lanisce.lani.data.Clips.FEMALE, t?.voice, t?.id)
+    val reader = introReader(vm)
     val say = Grammar.text(s.say, base)
     val examples = s.examples.map { it.target(unit.language) }
-    val script = remember(unit.id, i, say) {
-        // Slovene: what the app's check says is, and the words the intro itself shows ("**Biti**")
-        val known = IntroSpeech.vocabulary(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
-        IntroSpeech.step("${unit.id}/$i/${say.hashCode()}", say, base, examples, s.ask) { t -> vm.speaker.isSlovene(t) || IntroSpeech.within(t, known) }
-    }
+    val script = remember(unit.id, i, say) { introScript(vm, unit, intro, i) }
     val answerId = "${script.id}/answer"
     val now = voice.now?.takeIf { it.id == script.id || it.id == answerId }?.mark
     val reading = voice.reading == script.id || voice.reading == answerId
@@ -219,11 +228,19 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
     val bounds = remember { mutableStateMapOf<Any, Rect>() }
     var runAt by remember { mutableStateOf<Rect?>(null) }
     var viewport by remember { mutableStateOf<Rect?>(null) }
+    var bubbleView by remember { mutableStateOf<Rect?>(null) }
     var origin by remember { mutableStateOf(Offset.Zero) }
     val density = LocalDensity.current
-    fun seen(r: Rect?): Rect? = r?.let { viewport?.let { v -> if (it.overlaps(v)) it.intersect(v) else null } ?: it }
+    val config = LocalConfiguration.current
+    // the explanation in her bubble beside her, but on a short screen or with a large font on the board below (the
+    // keyboard only makes her small and her bubble short: the content under the stage stays where it is)
+    val board = StageLayout.compact(config.screenHeightDp, density.fontScale, keyboard = false)
+    val small = board || keyboard
+    /** [r] as much as shows of it: in her bubble ([inBubble]) or in the content scrolling under the stage. */
+    fun seen(r: Rect?, inBubble: Boolean): Rect? = r?.let { (if (inBubble) bubbleView else viewport)?.let { v -> if (it.overlaps(v)) it.intersect(v) else null } ?: it }
     val at = target?.takeIf { shows }?.let { tg ->
-        val own = seen(IntroPointer.bounds(tg) { k -> if (k is IntroPointer.Target.Run) runAt else bounds[k] })
+        val inBubble = !board && (tg is IntroPointer.Target.Run || tg == IntroPointer.Target.Explanation)
+        val own = seen(IntroPointer.bounds(tg) { k -> if (k is IntroPointer.Target.Run) runAt else bounds[k] }, inBubble)
         val holder = IntroPointer.holder(tg)?.let { h -> bounds[h] }
         with(density) { IntroPointer.handAt(tg, own, holder, minSeen = 16.dp.toPx(), line = 22.dp.toPx()) }
     }
@@ -245,11 +262,24 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
         else -> viewport?.center
     }
 
-    val compact = StageLayout.compact(LocalConfiguration.current.screenHeightDp, density.fontScale, keyboard)
-    val stage = if (compact) STAGE_SMALL_DP.dp else STAGE_DP.dp
+    val stage = if (small) STAGE_SMALL_DP.dp else STAGE_DP.dp
+    val whole = now == IntroSpeech.Mark.Whole
+    val marked: (Int) -> IntRange? = { l -> (now as? IntroSpeech.Mark.Part)?.takeIf { it.line == l }?.segments }
+    // her bubble kept at what is read: a run scrolled out of it is brought in
+    val bubbleScroll = rememberScrollState()
+    val margin = with(density) { 6.dp.toPx() }
+    LaunchedEffect(runAt, bubbleView) {
+        val r = runAt?.takeIf { !board && !it.isEmpty } ?: return@LaunchedEffect
+        val v = bubbleView ?: return@LaunchedEffect
+        when {
+            r.bottom > v.bottom -> bubbleScroll.animateScrollBy(minOf(r.bottom - v.bottom + margin, r.top - v.top - margin))
+            r.top < v.top -> bubbleScroll.animateScrollBy(r.top - v.top - margin)
+        }
+    }
     Box(modifier.fillMaxWidth().onGloballyPositioned { origin = it.positionInRoot() }) {
         Column(Modifier.fillMaxSize()) {
-            // the stage: the teacher, what she says now, the step and its 🔊 🐢
+            // the stage: the teacher, what she says (her bubble: the explanation; compact: a line of what she says now),
+            // the step and its 🔊 🐢
             Row(Modifier.fillMaxWidth().padding(top = 6.dp, bottom = 6.dp), verticalAlignment = Alignment.Top) {
                 if (t != null) {
                     TeacherStage(
@@ -258,30 +288,35 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
                             .semantics { contentDescription = t.name },
                     )
                 } else Text("👩‍🏫", style = MaterialTheme.typography.headlineMedium)
-                Spacer(Modifier.width(10.dp))
+                Spacer(Modifier.width(if (board) 10.dp else 4.dp))
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(bi("school.stepOf", "n" to i + 1, "of" to intro.steps.size), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+                        Text(bi("school.stepOf", "n" to i + 1, "of" to intro.steps.size), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f).padding(start = if (board) 0.dp else BUBBLE_TAIL_DP.dp))
                         ReadButtons(reading, onRead = { slow -> if (reading && !slow) voice.stop() else voice.play(script, reader, slow) })
                     }
-                    Saying(saying(now, line, script, examples, s.ask) ?: t?.name.orEmpty(), lines = if (compact) 1 else 2)
+                    if (board) Saying(saying(now, line, script, examples, s.ask) ?: t?.name.orEmpty(), lines = 1)
+                    else {
+                        val most = if (keyboard) BUBBLE_KEYBOARD_DP.dp else (config.screenHeightDp * BUBBLE_SCREEN).dp.coerceIn(BUBBLE_MIN_DP.dp, BUBBLE_MAX_DP.dp)
+                        SpeechBubble(
+                            whole, Modifier.fillMaxWidth().tapToStop(reading) { voice.stop() }.onGloballyPositioned { bounds[IntroPointer.Target.Explanation] = it.boundsInRoot() },
+                        ) {
+                            Box(Modifier.heightIn(max = most).onGloballyPositioned { bubbleView = it.boundsInRoot() }.verticalScroll(bubbleScroll)) {
+                                Markdown(say, Modifier.padding(start = BUBBLE_TAIL_DP.dp + 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp), marked = marked, onMarked = { runAt = it })
+                            }
+                        }
+                    }
                 }
             }
             Column(Modifier.weight(1f).onGloballyPositioned { viewport = it.boundsInRoot() }.verticalScroll(rememberScrollState()).padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 // a tap on what is read stops it (and does nothing else then)
                 Column(Modifier.tapToStop(reading) { voice.stop() }, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    // the board: the explanation
-                    val whole = now == IntroSpeech.Mark.Whole
-                    Surface(
+                    // the compact stage's board: the explanation
+                    if (board) Surface(
                         color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(14.dp),
                         modifier = Modifier.fillMaxWidth().onGloballyPositioned { bounds[IntroPointer.Target.Explanation] = it.boundsInRoot() },
                         border = if (whole) androidx.compose.foundation.BorderStroke(2.dp, XpGold) else null,
                     ) {
-                        Markdown(
-                            say, Modifier.padding(12.dp),
-                            marked = { l -> (now as? IntroSpeech.Mark.Part)?.takeIf { it.line == l }?.segments },
-                            onMarked = { runAt = it },
-                        )
+                        Markdown(say, Modifier.padding(12.dp), marked = marked, onMarked = { runAt = it })
                     }
                     // the phone can't say the learner's own language: said once, in the step where it first happened
                     var note by remember { mutableStateOf(false) }
@@ -325,6 +360,24 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
     }
 }
 
+/** Who reads the intro: the teacher's voice of the cast, her gender's narrator, as herself ([IntroVoice.Reader]). */
+internal fun introReader(vm: AppViewModel): IntroVoice.Reader {
+    val t = vm.school.teacher()
+    return IntroVoice.Reader(t?.speakerVoice ?: si.lanisce.lani.data.Clips.FEMALE, t?.voice, t?.id)
+}
+
+/**
+ * What step [i] of [intro] reads ([IntroSpeech.step]): its explanation in the learner's base, its examples, its quick
+ * question; Slovene what the app's check says is, and the words the intro itself shows ("**Biti**").
+ */
+internal fun introScript(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: Int): IntroSpeech.Script {
+    val s = intro.steps[i]
+    val base = L10n.pair.base.code
+    val say = Grammar.text(s.say, base)
+    val known = IntroSpeech.vocabulary(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
+    return IntroSpeech.step("${unit.id}/$i/${say.hashCode()}", say, base, s.examples.map { it.target(unit.language) }, s.ask) { t -> vm.speaker.isSlovene(t) || IntroSpeech.within(t, known) }
+}
+
 /** What she says now, for the stage's bubble: the run, the example, the question, the answer; null between. */
 private fun saying(now: IntroSpeech.Mark?, line: IntroSpeech.Line?, script: IntroSpeech.Script, examples: List<String>, ask: Exercise?): String? = when (now) {
     null -> null
@@ -335,7 +388,51 @@ private fun saying(now: IntroSpeech.Mark?, line: IntroSpeech.Line?, script: Intr
     IntroSpeech.Mark.Answer -> script.lines.lastOrNull { it.mark == IntroSpeech.Mark.Answer }?.text
 }
 
-/** The stage's speech bubble: what she says now (her name between). */
+/**
+ * Her speech bubble on the stage beside her: [content] in it (the step's explanation), its tail at the left toward her,
+ * outlined while the explanation's one clip plays ([whole]).
+ */
+@Composable
+private fun SpeechBubble(whole: Boolean, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    val shape = with(LocalDensity.current) { BubbleShape(BUBBLE_TAIL_DP.dp.toPx(), BUBBLE_TAIL_AT_DP.dp.toPx(), 14.dp.toPx()) }
+    Surface(
+        color = MaterialTheme.colorScheme.secondaryContainer, shape = shape, modifier = modifier,
+        border = if (whole) androidx.compose.foundation.BorderStroke(2.dp, XpGold) else null,
+        content = content,
+    )
+}
+
+/**
+ * A speech bubble's outline: a rounded box [tail] px in from the left, [corner] px its corners, and a tail out of its left
+ * edge [tailAt] px down, its tip at the left edge: one path, so a border goes round the tail too.
+ */
+internal class BubbleShape(private val tail: Float, private val tailAt: Float, private val corner: Float) : androidx.compose.ui.graphics.Shape {
+    override fun createOutline(size: androidx.compose.ui.geometry.Size, layoutDirection: androidx.compose.ui.unit.LayoutDirection, density: androidx.compose.ui.unit.Density): androidx.compose.ui.graphics.Outline {
+        val w = size.width
+        val h = size.height
+        val r = minOf(corner, (w - tail) / 2, h / 2)
+        val high = tail * 1.2f // the tail's height where it leaves the edge
+        val top = tailAt.coerceIn(r, maxOf(r, h - r - high))
+        val p = androidx.compose.ui.graphics.Path().apply {
+            moveTo(tail + r, 0f)
+            lineTo(w - r, 0f)
+            arcTo(Rect(w - 2 * r, 0f, w, 2 * r), -90f, 90f, false)
+            lineTo(w, h - r)
+            arcTo(Rect(w - 2 * r, h - 2 * r, w, h), 0f, 90f, false)
+            lineTo(tail + r, h)
+            arcTo(Rect(tail, h - 2 * r, tail + 2 * r, h), 90f, 90f, false)
+            lineTo(tail, minOf(top + high, h - r))
+            lineTo(0f, top + high * 0.25f)
+            lineTo(tail, top)
+            lineTo(tail, r)
+            arcTo(Rect(tail, 0f, tail + 2 * r, 2 * r), 180f, 90f, false)
+            close()
+        }
+        return androidx.compose.ui.graphics.Outline.Generic(p)
+    }
+}
+
+/** The compact stage's speech bubble: what she says now (her name between). */
 @Composable
 private fun Saying(text: String, lines: Int) {
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(topStart = 4.dp, topEnd = 14.dp, bottomEnd = 14.dp, bottomStart = 14.dp), modifier = Modifier.fillMaxWidth()) {
@@ -349,6 +446,19 @@ private fun Saying(text: String, lines: Int) {
 /** The teacher's size on the stage: as the dialogs' stage portraits; small on a short screen, a large font, the keyboard up. */
 private const val STAGE_DP = 118
 private const val STAGE_SMALL_DP = 56
+
+/**
+ * Her speech bubble's height at most (it scrolls within beyond): a share of the screen's, at least and at most so many dp;
+ * with the keyboard up a few lines.
+ */
+private const val BUBBLE_SCREEN = 0.34f
+private const val BUBBLE_MIN_DP = 150
+private const val BUBBLE_MAX_DP = 300
+private const val BUBBLE_KEYBOARD_DP = 64
+
+/** Her bubble's tail toward her: how far it reaches out of the bubble's left edge, and how far down it is. */
+private const val BUBBLE_TAIL_DP = 8
+private const val BUBBLE_TAIL_AT_DP = 14
 
 /** A pixel of her pointing hand (it stays within the screen's margin beside what it points at). */
 private const val HAND_PIXEL_DP = 1.75f
@@ -553,6 +663,11 @@ private fun gapFilled(text: String, answer: String?): String? {
     return text.replace(Sheets.GAP, answer).replace(Regex("""\s*\([^()]*\)\s*$"""), "").trim()
 }
 
+/**
+ * A quick question's answer: right or not, the right one, the sentence with it (🔊) and its why; scrolled into view as it
+ * appears (under the options, the stage above taking its room, it would be out of sight).
+ */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?, reader: IntroVoice.Reader, said: Boolean, onSaid: (Rect) -> Unit) {
     val (label, color) = when (v) {
@@ -560,16 +675,26 @@ private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, expla
         Grading.Verdict.ALMOST -> "${inTarget("playerScreen.almost")} 🟡" to si.lanisce.lani.ui.theme.FlameOrange
         Grading.Verdict.WRONG -> "${bi("school.missNoMatter")} 🙂" to TriglavRed
     }
-    Text(label, style = MaterialTheme.typography.titleMedium, color = color)
-    if (v != Grading.Verdict.CORRECT) Text("→ $right", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-    sentence?.let { s ->
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(s, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f).onGloballyPositioned { onSaid(it.boundsInRoot()) }.background(if (said) XpGold.copy(alpha = 0.3f) else androidx.compose.ui.graphics.Color.Transparent, MaterialTheme.shapes.small))
-            SpeakButton(vm.speaker, s, voiceName = reader.voiceName, fallback = reader.fallback, person = reader.person)
-        }
+    val seen = remember { BringIntoViewRequester() }
+    LaunchedEffect(Unit) {
+        delay(RESULT_SCROLL_MS) // laid out first
+        seen.bringIntoView()
     }
-    explain?.let { Markdown(it) }
+    Column(Modifier.bringIntoViewRequester(seen), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(label, style = MaterialTheme.typography.titleMedium, color = color)
+        if (v != Grading.Verdict.CORRECT) Text("→ $right", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        sentence?.let { s ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(s, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f).onGloballyPositioned { onSaid(it.boundsInRoot()) }.background(if (said) XpGold.copy(alpha = 0.3f) else androidx.compose.ui.graphics.Color.Transparent, MaterialTheme.shapes.small))
+                SpeakButton(vm.speaker, s, voiceName = reader.voiceName, fallback = reader.fallback, person = reader.person)
+            }
+        }
+        explain?.let { Markdown(it) }
+    }
 }
+
+/** How long after an answer its result is scrolled into view (it has been laid out). */
+private const val RESULT_SCROLL_MS = 120L
 
 /** The end: the rule's page as a summary card (its rule and its whole table), the book one tap away, then the worksheets. */
 @Composable

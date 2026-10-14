@@ -72,7 +72,7 @@ class ClipsApi(private val config: BridgeConfig) {
      * live lines): the store keys it apart ([IntroSpeech.key]).
      */
     suspend fun say(text: String, voice: String, lang: String? = null): Pair<String, String>? {
-        val body = buildJsonObject { put("text", text); put("voice", voice); lang?.let { put("lang", it) } }.toString().toRequestBody(Http.jsonType)
+        val body = sayBody(text, voice, lang).toString().toRequestBody(Http.jsonType)
         val (code, raw) = http.exchange(config.request("/voice/say").post(body).build())
         if (code == 204) return null
         if (code == 400) throw VoiceRefused(voice)
@@ -115,6 +115,12 @@ class ClipsApi(private val config: BridgeConfig) {
     }
 
     suspend fun download(url: String, to: File) = http.downloadTo(config.request(url).build(), to)
+
+    companion object {
+        /** POST /voice/say's body: {text, voice}, with [lang] an explanation's ({text, voice, lang}: the bridge's sayIn). */
+        fun sayBody(text: String, voice: String, lang: String? = null): JsonObject =
+            buildJsonObject { put("text", text); put("voice", voice); lang?.let { put("lang", it) } }
+    }
 
     /** Everyone's voice profile; null from an older bridge without them. */
     suspend fun profiles(people: List<PersonVoice>? = null): String? {
@@ -286,9 +292,16 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         }
     }
 
-    /** The node can't voice this explanation lately ([explanation] gave none): it isn't asked again soon. */
+    /**
+     * The node couldn't voice this explanation just now ([explanation] gave none): it isn't asked again for a minute
+     * ([EXPLAIN_MISS_MS]; mostly ElevenLabs was busy for a moment), the step is read in its runs meanwhile.
+     */
     fun explanationMissed(text: String, lang: String, voices: List<String>): Boolean =
-        misses[explainKey(text, lang, voices)]?.let { System.currentTimeMillis() - it < MISS_MS } == true
+        misses[explainKey(text, lang, voices)]?.let { System.currentTimeMillis() - it < EXPLAIN_MISS_MS } == true
+
+    /** The clip of this explanation is on its way ([explanation]: being voiced by the node, or downloading). */
+    fun explaining(text: String, lang: String, voices: List<String>): Boolean =
+        synchronized(fetching) { fetching[explainKey(text, lang, voices)]?.isActive == true }
 
     /** An explanation's key among the [misses] and the clips [fetching]: apart from the lines'. */
     private fun explainKey(text: String, lang: String, voices: List<String>) = "x|${IntroSpeech.key(lang, text)}|${voices.firstOrNull()}"
@@ -544,6 +557,11 @@ class Clips(context: Context, private val scope: CoroutineScope) {
         const val WAIT_MS = 8_000L
         const val MAX_BYTES = 50L * 1024 * 1024
         private const val MISS_MS = 10 * 60_000L
+        /**
+         * An explanation the node couldn't voice isn't asked for again within a minute (a line's: [MISS_MS]): the node
+         * answers so mostly while ElevenLabs is busy for a moment, and the step is read once, so a long wait is a lost clip.
+         */
+        const val EXPLAIN_MISS_MS = 60_000L
         /** The index's copy on the phone (the prefetch writes it too, with what the node voiced for it). */
         const val INDEX = "index.json"
 
