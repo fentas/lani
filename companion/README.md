@@ -1159,7 +1159,7 @@ library, picked by audition (Slovene test sentences, word error rate with the lo
 | `woman` | Mila (Croatian) | Gostilničarka Vida |
 | `teacher` | Milena (Serbian) | Učiteljica Mojca |
 | `young-woman` | Ana (Croatian) | women who move in |
-| `girl` | Torri Miles (Ukrainian) | Zala, girls born in the village |
+| `girl` | Piku (since 2026-10-14; Torri Miles before) | Zala, girls born in the village |
 | `boy` | Kavya | Nejc, Tine, boys born in the village |
 
 The app plays a line in the speaker's voice; without that clip, in the villager's gender voice,
@@ -1243,8 +1243,8 @@ its pauses are at about −35 dBFS, where the other voices are at −45 to −80
   cast (`grandpa`) or someone's own voice (`@janez`); `true` means `hiss`. Only their ElevenLabs clips are
   filtered: the hiss is in the ElevenLabs voice, and the local worker's clips are clean. A wrong entry is
   logged and left out; the rest of the cast stays. A culture pack's cast has its own `denoise`. Since
-  2026-09-28 the list also has the girl (Torri Miles, in every village's cast), the young man, gruff, and
-  France's and Micka's own voices. Their pauses measured −38 to −55 dB (Jan heard the girl as loud and
+  2026-09-28 the list also has the girl (Torri Miles, in the other villages' casts; Primorska's girl is Piku since
+  2026-10-14, a clean voice: no filter), the young man, gruff, and France's and Micka's own voices. Their pauses measured −38 to −55 dB (Jan heard the girl as loud and
   noisy); `hiss` takes them to −74 to −96 dB, and their loudness changes by under 1 dB.
 - **The filter** (ffmpeg, `DENOISE` in `bridge/src/voice.ts`):
   - a high-pass at 60 Hz, for the rumble;

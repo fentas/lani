@@ -1,9 +1,8 @@
 {
   "_comment": "Who speaks Lani's Slovene (companion/README.md, Voice). A speaker: an ElevenLabs voice (eleven_v3), a local Gepard voice for when ElevenLabs can't, and a gender (the app's fallback voice and grammar). 'female' and 'male' are the narrators of every generic text; a villager speaks with their 'speaker' (companion/cultures/<culture>/villagers/*.json). To swap a voice, change its 'elevenlabs' id (the voice must be in the ElevenLabs account), then re-voice its clips: companion/bin/voice-build --run --revoice <speaker>. 'carrier': the speaker says a lone word inside a carrier sentence that is then cut out (the narrators, English library voices, say a lone Slovene word the English way; companion/README.md, Voice). 'alternatives' are the audition runners-up (library voices: add one to the account first). 'denoise': the voices whose ElevenLabs clips are filtered before they are stored (a voice that hisses). 'languages': the voices a speaker speaks a language with that its own voice doesn't speak natively. The narrators are English voices (Matilda, Daniel), so in a Slovene village they speak with their 'languages' 'sl' voices, native Slovene library voices that take no voice slot (female: Nina, male: Luka; chosen by audition in October 2026; the first request with an id adds the voice to the account); their clips are the voice 'female.sl' or 'male.sl' in voice.db. When ElevenLabs can't (the quota, the reserve, no key), the local Gepard voice speaks for them, as it does for the clips made before (female: ana for a lone word, 'gepard_words', nina for a sentence; male: marko), else the phone; never Matilda or Daniel. A narrator's local clip stays next to the ElevenLabs one, as its fallback. LANI_VOICE_NARRATOR_SL=gepard puts the local voice first. To swap a narrator's Slovene voice, change its 'languages' 'sl' 'elevenlabs' id, then companion/bin/voice-build --run --revoice female (companion/README.md, Voice).",
   "denoise": {
-    "_comment": "A voice that hisses → the filter its ElevenLabs clips go through before they are stored (companion/README.md, Voice): 'hiss' (true means this one), or 'hiss-strong' if 'hiss' leaves some. The key is a speaker below, or someone's own designed voice ('@janez': Stari Janez's, ElevenLabs GSjfM5vjA9qucp51dZnc, which hisses). The bridge filters new clips; the clips from before: companion/bin/voice-build --denoise --run. After a redesign, check whether the new voice still hisses. Since 2026-09-28 also the girl (Torri Miles), the young man, gruff, France's and Micka's own voices: their pauses at −38 to −55 dB, the others' −58 to −88; 'hiss' takes them to −74 to −96 dB.",
+    "_comment": "A voice that hisses → the filter its ElevenLabs clips go through before they are stored (companion/README.md, Voice): 'hiss' (true means this one), or 'hiss-strong' if 'hiss' leaves some. The key is a speaker below, or someone's own designed voice ('@janez': Stari Janez's, ElevenLabs GSjfM5vjA9qucp51dZnc, which hisses). The bridge filters new clips; the clips from before: companion/bin/voice-build --denoise --run. After a redesign, check whether the new voice still hisses. Since 2026-09-28 also the young man, gruff, France's and Micka's own voices (the girl's Torri Miles too until 2026-10-14; her new voice, Piku, is clean: pauses down to −97 dB): their pauses at −38 to −55 dB, the others' −58 to −88; 'hiss' takes them to −74 to −96 dB.",
     "@janez": "hiss",
-    "girl": "hiss",
     "young-man": "hiss",
     "gruff": "hiss",
     "@france": "hiss",
@@ -89,11 +88,15 @@
     },
     "girl": {
       "gender": "female",
-      "elevenlabs": "a30ekmfK56EKHR341YaO",
-      "name": "Torri Miles",
+      "elevenlabs": "EeQEodFZVtBkjtgK3HBc",
+      "name": "Piku",
+      "library_owner": "7398804d9eaf2f463899a907587c33a390591775784f87857b6d0e1e4e3e66f6",
       "gepard": "nina",
-      "role": "Girl: Zala; girls born in the village",
-      "alternatives": [{ "name": "Lunya", "elevenlabs": "rSfuQoQ3FY8SVKeraMAp", "library_owner": "bfd67a1faea7631b99a7e1ab471651428008376848d80fc0edba1cf95e697773" }]
+      "role": "Girl: Zala; girls born in the village (Piku since 2026-10-14, Jan's pick of four in eleven_v4_turbo: the clearest)",
+      "alternatives": [
+        { "name": "Torri Miles", "elevenlabs": "a30ekmfK56EKHR341YaO" },
+        { "name": "Lunya", "elevenlabs": "rSfuQoQ3FY8SVKeraMAp", "library_owner": "bfd67a1faea7631b99a7e1ab471651428008376848d80fc0edba1cf95e697773" }
+      ]
     },
     "boy": {
       "gender": "male",

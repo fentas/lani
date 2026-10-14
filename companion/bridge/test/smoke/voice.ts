@@ -738,8 +738,8 @@ export default async function voice() {
   // --- a voice that hisses: the cast's `denoise` (in-process; voice-build --denoise on a copy) ------------------------
   {
     check(
-      'the cast filters the voices that hiss (Stari Janez\'s and Micka\'s own, the girl, the young man, gruff, France\'s own), and nobody else\'s',
-      ['@janez', '@micka', '@france', 'girl', 'young-man', 'gruff'].every(v => denoiseOf(v) === 'hiss') && !denoiseOf('grandpa') && !denoiseOf('female') && !denoiseOf('@luka'),
+      'the cast filters the voices that hiss (Stari Janez\'s and Micka\'s own, the young man, gruff, France\'s own), and nobody else\'s (the girl\'s Piku is clean)',
+      ['@janez', '@micka', '@france', 'young-man', 'gruff'].every(v => denoiseOf(v) === 'hiss') && !denoiseOf('girl') && !denoiseOf('grandpa') && !denoiseOf('female') && !denoiseOf('@luka'),
       denoiseVoices(),
     )
     // a cast of its own: grandma and the female narrator filtered (true: the first preset), wrong entries left out
