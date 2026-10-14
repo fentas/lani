@@ -111,6 +111,7 @@ export default async function cards() {
   const sheet = {
     pinned: [{ id: 'pin-m1', language: 'sl', title: 'mi / vi / oni', markdown: '| | 1 | 2 | 3+ |', pages: ['osebni-zaimki'], level: 'A1', on: today }, { id: 'pin-it', language: 'it', title: 'io', markdown: '- io' }],
     opens: { 'sl/page:biti': { n: 4, on: today }, 'sl/deck:smoke': { n: 1, on: today }, 'it/page:essere': { n: 9, on: today } },
+    lookups: { 'sl/biti': { [today]: 2 }, 'sl/dvojina': { [today]: 3 }, 'it/essere': { [today]: 5 } },
   }
   writeFileSync(gamePath, JSON.stringify({ ...doc, state: { ...doc.state, sheet } }))
   const listed = JSON.parse(text(await client.callTool({ name: 'list_cards', arguments: {} })))
@@ -121,6 +122,7 @@ export default async function cards() {
       JSON.stringify(listed.pinned.map((p: any) => p.id)) === '["pin-m1"]' && JSON.stringify(listed.opened.map((o: any) => [o.card, o.opens])) === '[["page:biti",4],["deck:smoke",1]]',
     listed,
   )
+  check("list_cards shows the pages Jan looked up during exercises (this language's), most first", JSON.stringify(listed.looked_up) === JSON.stringify([{ page: 'dvojina', n: 3, last: today }, { page: 'biti', n: 2, last: today }]), listed.looked_up)
   check('sheetUse reads a village from before the sheet', JSON.stringify(sheetUse(undefined, 'sl', today)) === '{"pinned":[],"opened":[]}')
   if (existed) writeFileSync(gamePath, JSON.stringify(doc))
   else unlinkSync(gamePath)
@@ -136,4 +138,6 @@ export default async function cards() {
   // the guide
   const guide = await guideOf()
   check('the channel guide says when to publish a card', guide.includes('publish_card') && guide.includes('Plonk listek') && guide.includes('list_cards'))
+  check('… and that opening the sheet during an exercise is help, not a hint, what was looked up shown by list_cards, get_village and get_course',
+    guide.includes('(help, not a hint: a right') && guide.includes('the last two weeks; get_village and get_course show it too'))
 }

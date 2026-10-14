@@ -1,7 +1,7 @@
 // The cheat sheet (lani.card/v0, cards.ts; companion/README.md "Cheat sheet"): its cards that aren't a grammar page's, for
 // the app (the curated ones and the tutor's), and the tutor's tools to add one, list them, take one back.
 import { badNote, fail, noteIn, ok } from '../channel'
-import { cardIdOf, cardTitleEn, CARD_ID, sheetUse, validateCard, type LoadedCard } from '../cards'
+import { cardIdOf, cardTitleEn, CARD_ID, sheetLookups, sheetUse, validateCard, type LoadedCard } from '../cards'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { learnerLangs } from '../learners'
@@ -10,7 +10,8 @@ import { learnerLevel } from '../villagers'
 
 const instructions = `
 Cheat sheet ("📋 Plonk listek · Cheat sheet"): compact reference cards of the basics in the app (a bold rule line, a small
-table, two or three examples, a 💡 tip), opened from Home, the chat's header and any exercise (free: help, not a hint).
+table, two or three examples, a 💡 tip), opened from Home, the chat's header and any exercise (help, not a hint: a right
+answer stays right, quality at most 4).
 Every grammar page gives a card (its "card", else made from the page), unlocked the day Jan meets the page; a few A1
 basics are there from the start (the pronouns 1 · 2 · 3+, biti, the question words, the numbers). Jan can pin a message of
 yours with a table or a list ("📌 Na plonk listek"). When you explain a basic in chat with a table or a list worth keeping
@@ -18,7 +19,9 @@ yours with a table or a list ("📌 Na plonk listek"). When you explain a basic 
 list as the card's markdown, short (one bold rule line, the table, two or three examples, at most one 💡 tip: one phone
 screen), in Jan's base language with the Slovene in bold, and the grammar pages it is about (list_grammar's ids), so it
 comes first in their exercises. Don't publish what a card already says (list_cards; publish under the same id to improve
-yours). list_cards also shows what Jan pinned and which cards they open most: what they look up often is what to practise.
+yours). list_cards also shows what Jan pinned, which cards they open most and the pages they looked up during exercises
+(looked_up, the last two weeks; get_village and get_course show it too, a session_end's or review's "📋 Looked up" line
+names a run's): what they look up often is what to practise.
 `.trim()
 
 export const cards: FeatureFactory = ({ cards: store, grammar: book, game, events, cfg, culture }) => {
@@ -89,13 +92,15 @@ export const cards: FeatureFactory = ({ cards: store, grammar: book, game, event
       {
         name: 'list_cards',
         description:
-          "List the cheat sheet: the grammar pages' cards (one per page: hand-written ones marked), the curated cards no page fits and yours (id, title, level, grammar pages), the tutor messages Jan pinned, and the cards Jan opens most (a count that halves every two weeks).",
+          "List the cheat sheet: the grammar pages' cards (one per page: hand-written ones marked), the curated cards no page fits and yours (id, title, level, grammar pages), the tutor messages Jan pinned, the cards Jan opens most (a count that halves every two weeks), and looked_up: the grammar pages Jan looked up during exercises in the last two weeks (n: the answers given with one of its cards open; last: the latest day), most first.",
         inputSchema: { type: 'object', properties: {} },
         handle: () => {
           const { base } = langs()
           const pages = book.all().map(p => ({ id: `page:${p.id}`, title: p.title[base] ?? p.title.en, level: p.level, ...(p.card ? { hand_written: true } : {}), ...(p.card?.start ? { start: true } : {}) }))
-          const use = sheetUse(sheet(), own, localDate(new Date()))
-          return ok(JSON.stringify({ language: own, pages, cards: store.all().map(brief), pinned: use.pinned, opened: use.opened.slice(0, 15) }, null, 2))
+          const today = localDate(new Date())
+          const use = sheetUse(sheet(), own, today)
+          const looked = sheetLookups(sheet(), own, today).slice(0, 15)
+          return ok(JSON.stringify({ language: own, pages, cards: store.all().map(brief), pinned: use.pinned, opened: use.opened.slice(0, 15), ...(looked.length ? { looked_up: looked } : {}) }, null, 2))
         },
       },
       {

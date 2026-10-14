@@ -1,5 +1,6 @@
 // The school's course (course.ts, companion/COURSE.md): the course for the app, the tutor's homework for its units, and
-// where the learner is in it (the village state's course).
+// where the learner is in it (the village state's course), with the pages they looked up on the cheat sheet of late.
+import { topicsLookedUp } from '../cards'
 import { badNote, fail, noteIn, ok } from '../channel'
 import { grammarNamed, LEVELS, validateWorksheet, type Homework, type ServedCourse, type Unit } from '../course'
 import type { FeatureFactory } from '../feature'
@@ -8,6 +9,7 @@ import { HttpError, json, type Route } from '../http'
 import { textIn } from '../langs'
 import { learnerLangs } from '../learners'
 import { isPrintBase, type PrintGender, type PrintWhat } from '../prints'
+import { localDate } from '../rhythm'
 import type { ModuleSpec } from '../spec'
 import { corpus } from '../voice'
 
@@ -84,7 +86,10 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     { method: 'GET', path: /^\/course\/booklet\/([A-C][12])$/, handle: ({ url, params }) => printed({ kind: 'booklet', level: params[0] }, url) },
   ]
 
-  /** Where the learner is in the course: the served course and the village state's course. */
+  /**
+   * Where the learner is in the course: the served course and the village state's course; the topics looked up on the
+   * cheat sheet during exercises of late (cards.ts topicsLookedUp), each with the course's units that teach it.
+   */
   function whereNow(c: ServedCourse | undefined) {
     const state = obj<Record<string, unknown>>(game.read()?.state) ?? {}
     const p = obj<CourseProgress>(state.course) ?? {}
@@ -92,7 +97,9 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
     const units = obj<Record<string, UnitProgress>>(p.units) ?? {}
     const school = (Array.isArray(state.buildings) ? state.buildings : []).find((b: any) => b?.type === 'SCHOOL') as { level?: number } | undefined
     const head = { language: own, classroom: typeof p.classroom === 'string' ? p.classroom : null, school: school ? count(school.level) || 1 : null }
-    if (!c) return { ...head, course: null, note: `no course in this village's language yet (companion/course/${own}/course.json)` }
+    const topics = topicsLookedUp(state.sheet, own, localDate(new Date()), grammar.all())
+    const looked = topics.length ? { looked_up: topics.map(t => ({ ...t, ...(c ? { units: c.units.filter(u => u.grammar.includes(t.page)).map(u => u.id) } : {}) })) } : {}
+    if (!c) return { ...head, course: null, note: `no course in this village's language yet (companion/course/${own}/course.json)`, ...looked }
     const files = new Map<string, Unit & { homework: Homework[] }>(c.units.map(u => [u.id, u]))
     let next: { level: string; id: string; title: string } | null = null
     const levels = c.levels.map(l => {
@@ -123,7 +130,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
       const written = rows.filter(r => !('planned' in r))
       return { level: l.level, open: !!openOn, ...(openOn ? { opened: openOn } : {}), units_done: `${written.filter(r => 'done' in r && r.done).length}/${written.length}`, units: rows }
     })
-    return { ...head, levels, next }
+    return { ...head, levels, next, ...looked }
   }
 
   return {
@@ -192,7 +199,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
       {
         name: 'get_course',
         description:
-          `The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (${LEVELS.slice(0, 4).join(', ')} …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets) and your homework ids; next: the first unit to do. Planned units are listed, not playable yet.`,
+          `The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (${LEVELS.slice(0, 4).join(', ')} …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets) and your homework ids; next: the first unit to do. Planned units are listed, not playable yet. looked_up (left out when none): the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first (page, title, n answers given with one of its cards open, the last day, units: the course's units that teach it): work potential, suggest the unit or homework on it.`,
         inputSchema: { type: 'object', properties: {} },
         handle: () => ok(JSON.stringify(whereNow(store.served()), null, 2)),
       },

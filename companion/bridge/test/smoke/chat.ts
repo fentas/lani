@@ -1,4 +1,4 @@
-// Smoke checks: a message from the app reaches the session.
+// Smoke checks: a message from the app reaches the session; a session_end's exercises answered with the cheat sheet open.
 import { auth, base, channelEvents, check, guideOf, sendChunked } from './harness'
 
 export default async function chat() {
@@ -43,6 +43,38 @@ export default async function chat() {
   const replyBlock = String(replied?.params?.content).match(/```json\n([\s\S]*?)\n```/)?.[1]
   check('it reaches the session with the quoted message', JSON.stringify(JSON.parse(replyBlock ?? '{}').reply_to) === JSON.stringify(replyTo), replied?.params)
   check('the guide says what data.reply_to is', guide.includes('data.reply_to'))
+
+  // a run's exercises answered with the cheat sheet open (looked_up): a line after the text names the topics looked up
+  const ended = async (text: string, data: object) => {
+    const r = await message({ kind: 'session_end', text, data })
+    await Bun.sleep(100)
+    return { ok: r.ok, content: String(channelEvents.findLast(n => n.params?.meta?.kind === 'session_end' && String(n.params?.content).startsWith(text))?.params?.content ?? '') }
+  }
+  const lookedRun = await ended('Finished module "Biti" in the app: 3/3 correct.', {
+    module_id: 'smoke-biti',
+    results: [
+      { index: 0, type: 'cloze', verdict: 'correct', answer: 'sem', looked_up: { cards: ['page:biti'], pages: ['biti'] } },
+      { index: 1, type: 'choice', verdict: 'correct', answer: 'je', looked_up: { cards: ['deck:zaimki-osebe', 'page:biti'], pages: ['osebni-zaimki', 'biti'] } },
+      { index: 2, type: 'cloze', verdict: 'correct', answer: 'so', looked_up: 'not an object' },
+    ],
+  })
+  check('a session_end with exercises answered with the cheat sheet open: the 📋 line after the text, the results as sent',
+    lookedRun.ok && lookedRun.content.startsWith('Finished module "Biti" in the app: 3/3 correct. 📋 Looked up on the cheat sheet: biti ×2, osebni-zaimki (during 2 exercises).\n\n```json') &&
+      lookedRun.content.includes('"looked_up": "not an object"'), lookedRun)
+  const sheetRun = await ended('Worksheet biti-2 of the school done: 1/2.', {
+    course: { language: 'sl', unit: 'biti', level: 'A1', sheet: 'biti-2', kind: 'worksheet', right: 1, almost: 0, of: 2 },
+    results: [
+      { index: 0, type: 'gaptext', verdict: 'correct', answer: 'sem · je · so', looked_up: { cards: ['page:biti'], pages: ['biti'] }, items: [{ verdict: 'correct', looked_up: true }, { verdict: 'correct', looked_up: true }, { verdict: 'correct' }] },
+      { index: 1, type: 'transform', verdict: 'wrong', answer: 'Ne sem doma.', items: [{ verdict: 'wrong' }] },
+    ],
+  })
+  check("a school worksheet's session_end: the 📋 line says how many of its items were answered after the sheet opened",
+    sheetRun.ok && sheetRun.content.startsWith('Worksheet biti-2 of the school done: 1/2. 📋 Looked up on the cheat sheet: biti (during 1 exercise, 2 worksheet items answered after it opened).\n\n'), sheetRun)
+  const plainRun = await ended('Finished module "Hrana" in the app: 1/2 correct.', { module_id: 'smoke-hrana', results: [{ index: 0, type: 'choice', verdict: 'correct' }, { index: 1, type: 'cloze', verdict: 'wrong', hints_used: 1 }] })
+  check('a session_end without the cheat sheet opened (an app from before too): nothing appended', plainRun.ok && plainRun.content.startsWith('Finished module "Hrana" in the app: 1/2 correct.\n\n```json') && !plainRun.content.includes('📋'), plainRun)
+  check('the guide says what looked_up is: right with effort, quality at most 4, a signal (get_village, get_course), never a fault',
+    guide.includes('looked_up on an answer') && guide.includes('"📋 Looked up on the cheat') && guide.includes('quality at most 4') && guide.includes("get_village's or get_course's looked_up") && guide.includes('Never scold'),
+    guide.slice(guide.indexOf('looked_up on an answer'), guide.indexOf('looked_up on an answer') + 900))
 
   // body limits: a declared size and a chunked stream alike
   check('a /message body over 256 KB is a 413', (await fetch(`${base}/message`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'x'.repeat(300 * 1024) }) })).status === 413)

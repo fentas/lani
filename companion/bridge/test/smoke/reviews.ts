@@ -1,7 +1,8 @@
-// Smoke checks: flashcard reviews persisted via update-db.py, and the answers typed in them (answers.ts).
+// Smoke checks: flashcard reviews persisted via update-db.py, and the answers typed in them (answers.ts), the cheat sheet
+// opened during them (looked_up) too.
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
-import { answerLine, AnswerLog, fold, reviewAnswers, type Answer } from '../../src/answers'
+import { answerLine, AnswerLog, fold, lookedUpNote, resultsLookedUp, reviewAnswers, type Answer } from '../../src/answers'
 import { answersOf } from '../../src/features/reviews'
 import { auth, base, channelEvents, check, client, dataDir, tempDir } from './harness'
 
@@ -21,6 +22,7 @@ export default async function reviews() {
   check('POST /reviews persists via update-db.py', rv.ok && rvBody.correct === 1 && rvBody.total === 2, rvBody)
   await Bun.sleep(100)
   check('review_done reaches Claude', channelEvents.some(n => n.params?.meta?.kind === 'review_done'))
+  check('… an app from before (no looked_up): no cheat sheet line in the note', !lastNote().includes('📋'), lastNote())
   const before = logged()
   const old = await tool({ card_id: 'vocab_hvala' })
   check('an app from before (no answers, no from): each card logged with its quality, and the tutor told that app sent no answer',
@@ -58,9 +60,9 @@ export default async function reviews() {
     sesti.length === 1 && sesti[0].kind === 'review' && sesti[0].answer === 'sedi' && sesti[0].form === 'pres.1sg' && sesti[0].page === 'glagoli-sedanjik' && sesti[0].quality === 1, sesti)
   await Bun.sleep(100)
   const note = lastNote()
-  check('the tutor\'s note names the answers typed wrong, and a form slip once (with the forms, its page)',
+  check('the tutor\'s note names the answers typed wrong, and a form slip once (with the forms, its page); no cheat sheet opened: no 📋 line',
     note.includes('Answered wrong: vocab_hvala "hvla" for "hvala"; vocab_spoon "zlicko" for "žličko" (almost) (recent_answers') && !note.includes('"živjo" for') &&
-      !/Answered wrong:[^.]*sesti/.test(note) && note.includes('Forms of words asked: 1, 1 wrong: "Jaz sedi na klop." for "Jaz sedem na klop." (glagoli-sedanjik, pres.1sg'), note)
+      !/Answered wrong:[^.]*sesti/.test(note) && note.includes('Forms of words asked: 1, 1 wrong: "Jaz sedi na klop." for "Jaz sedem na klop." (glagoli-sedanjik, pres.1sg') && !note.includes('📋'), note)
   const byCard = await tool({ card_id: 'vocab_hvala' })
   const accented = await tool({ text: 'žličko' })
   const plain = await tool({ text: 'ZLICKO' })
@@ -92,6 +94,39 @@ export default async function reviews() {
     r3.ok && of3.length === 2 && Math.abs(Date.parse(of3.find(a => a.item_id === 'vocab_car_a')!.at) - (Date.now() - 2 * 3_600_000)) < 60_000 &&
       Date.parse(of3.find(a => a.item_id === 'vocab_car_b')!.at) <= Date.now() && car.text.includes('review vocab_car_a (rated): wrong; quality 1; nothing typed there; in the car') &&
       !car.text.includes('app from before') && lastNote().includes("App review in the car (✓ knew / ✗ didn't pressed) finished"), [of3, car.text, lastNote()])
+
+  // --- the cheat sheet opened during an answer (looked_up): logged with it, counted in the note, found by recent_answers ---
+  const r5 = await post({
+    results: [{ item_id: 'vocab_sem', quality: 4 }, { item_id: 'vocab_mene', quality: 4 }, { item_id: 'vocab_zdaj', quality: 1 }, { item_id: 'vocab_imam', quality: 4 }, { item_id: 'vocab_da', quality: 5 }],
+    duration_minutes: 2,
+    from: 'review',
+    answers: [
+      { item_id: 'vocab_sem', variant: 'type', type: 'cloze', prompt: 'Jaz ___ doma.', answer: 'sem', expected: 'sem', verdict: 'correct', looked_up: { cards: ['page:biti', 'deck:zaimki-osebe'], pages: ['biti', 'osebni-zaimki'] } },
+      // bad entries left out (a blank, too long, not a string), a key the bridge doesn't know dropped
+      { item_id: 'vocab_mene', variant: 'type', answer: 'mene', expected: 'mene', verdict: 'correct', looked_up: { cards: ['page:biti', '   ', 'x'.repeat(81)], pages: [' biti ', 7, 'y'.repeat(65)], extra: true } },
+      // the sheet opened, no card
+      { item_id: 'vocab_zdaj', variant: 'type', answer: 'zdj', expected: 'zdaj', verdict: 'wrong', looked_up: { cards: [], pages: [] } },
+      // a pinned card with no page: named by its key
+      { item_id: 'vocab_imam', variant: 'type', answer: 'imam', expected: 'imam', verdict: 'correct', looked_up: { cards: ['pin:pin-m1'] } },
+      // a malformed looked_up: the field left out, not the answer
+      { item_id: 'vocab_da', variant: 'type', answer: 'da', expected: 'da', verdict: 'correct', looked_up: 'yes' },
+    ],
+  })
+  const b5 = await r5.json()
+  const of5 = logged().filter(a => a.session_id === b5.session_id)
+  const lu = (id: string) => JSON.stringify(of5.find(a => a.item_id === id)?.looked_up)
+  check('a review whose answers carry looked_up: 200, each logged with it (bad entries left out), a malformed one drops only the field',
+    r5.ok && of5.length === 5 && lu('vocab_sem') === '{"cards":["page:biti","deck:zaimki-osebe"],"pages":["biti","osebni-zaimki"]}' && lu('vocab_mene') === '{"cards":["page:biti"],"pages":["biti"]}' &&
+      lu('vocab_zdaj') === '{"cards":[],"pages":[]}' && lu('vocab_imam') === '{"cards":["pin:pin-m1"],"pages":[]}' && lu('vocab_da') === undefined && of5.find(a => a.item_id === 'vocab_da')?.answer === 'da', [b5, of5])
+  await Bun.sleep(100)
+  check("the review_done note counts what was looked up: each page once per answer, a card without a page by its key, most first, during how many answers",
+    lastNote().includes('(recent_answers has them). 📋 Looked up on the cheat sheet: biti ×2, osebni-zaimki, pin:pin-m1 (during 4 answers).\n'), lastNote())
+  const looked = await tool({ looked_up: true })
+  const lookedWrong = await tool({ looked_up: true, wrong_only: true })
+  check('recent_answers looked_up: only the answers given with the cheat sheet open, each line with the pages looked up (else the cards, else no card)',
+    !looked.error && looked.text.startsWith('4 answer(s)') && looked.text.includes('review vocab_sem (type, cloze) "sem" for "sem": correct; quality 4; 📋 looked up biti, osebni-zaimki; asked "Jaz ___ doma."') &&
+      looked.text.includes('vocab_imam') && looked.text.includes('📋 looked up pin:pin-m1') && looked.text.includes('vocab_zdaj (type) "zdj" for "zdaj": wrong; quality 1; 📋 the cheat sheet opened, no card') &&
+      !looked.text.includes('vocab_da') && !looked.text.includes('vocab_hvala') && lookedWrong.text.startsWith('1 answer(s)') && lookedWrong.text.includes('vocab_zdaj'), [looked, lookedWrong])
 
   // --- never a review refused over its answers: too many, a bad where or time ------------------------------------------
   const many = Array.from({ length: 250 }, (_, i) => ({ item_id: 'vocab_many', answer: `a${i}`, verdict: 'correct' }))
@@ -126,6 +161,14 @@ export default async function reviews() {
     answerLine({ at: '2026-10-11T09:14:00Z', kind: 'review', item_id: 'vocab_kurim', answer: '', expected: 'kurim', verdict: 'wrong' }) === '2026-10-11 09:14 review vocab_kurim (no answer) for "kurim": wrong' &&
       answerLine({ at: '2026-10-11T09:14:00Z', kind: 'review', item_id: 'v', answer: 'kurim', spoken: true, verdict: 'almost', hint: 'ending' }).includes('"kurim" (heard): almost, ending') &&
       answerLine({ at: '2026-10-11T09:14:00Z', kind: 'review', item_id: 'vocab_miza', type: 'ispy', answer: 'miza', expected: 'miza', verdict: 'correct', quality: 4, from: 'ispy' }).endsWith('"miza" for "miza": correct; quality 4; in I spy (the thing tapped in the picture)'))
+  const pages = (...p: string[]) => ({ looked_up: { cards: [], pages: p } })
+  const crowded = lookedUpNote([pages('h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'), pages('b')])
+  const run = lookedUpNote(resultsLookedUp([{ looked_up: { cards: ['page:biti'], pages: ['biti'] }, items: [{ looked_up: true }, { looked_up: 'yes' }, {}] }, { items: [{ looked_up: true }] }, { looked_up: 'bad' }, 'x']), 'exercise')
+  check('the 📋 note: nothing without the sheet; only the sheet opened; six names, the rest counted; a run\'s worksheet items',
+    lookedUpNote([]) === '' && lookedUpNote([{}, {}]) === '' && resultsLookedUp({ looked_up: {} }).length === 0 &&
+      lookedUpNote([pages(), pages()]) === ' 📋 Looked up on the cheat sheet: the sheet, no card opened (during 2 answers).' &&
+      crowded === ' 📋 Looked up on the cheat sheet: b ×2, a, c, d, e, f and 2 more (during 2 answers).' &&
+      run === ' 📋 Looked up on the cheat sheet: biti (during 1 exercise, 2 worksheet items answered after it opened).', [crowded, run])
 
   // --- the car's quiz sends a form in its forms and in the dialog's words: logged once; nothing counted, no quality ---------
   const quiz = answersOf({

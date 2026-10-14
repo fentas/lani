@@ -73,9 +73,14 @@ export class GameStore {
   /**
    * A compact view of the village for the tutor: enough to talk about it, not the whole state. [nameOf]: a cast member's
    * name ("Čebelar Anton"), for who lives there; [calendar]: the culture's calendar now, given the festivals kept (id →
-   * day): the days on and the next (towns.ts calendarOn), a quiet one said to be quiet.
+   * day): the days on and the next (towns.ts calendarOn), a quiet one said to be quiet; [lookedUp]: the topics looked up
+   * on the cheat sheet during exercises of late, given the state's sheet (cards.ts topicsLookedUp; none: left out).
    */
-  summary(nameOf: (id: string) => string | undefined = () => undefined, calendar?: (kept: Record<string, unknown>) => unknown): string {
+  summary(
+    nameOf: (id: string) => string | undefined = () => undefined,
+    calendar?: (kept: Record<string, unknown>) => unknown,
+    lookedUp?: (sheet: unknown) => unknown[],
+  ): string {
     const g = this.read()
     if (!g) return 'No village yet: Jan has not opened the game.'
     const s = g.state as any
@@ -91,6 +96,7 @@ export class GameStore {
     const living: string[] = (Array.isArray(s.residents) ? s.residents : []).flatMap((r: any) => (typeof r?.id === 'string' ? [r.id] : []))
     const named = (id: string) => nameOf(id) ?? (s.residents ?? []).find((r: any) => r?.id === id)?.name ?? id
     const people = known ? { known: [...known].map(named), to_meet: living.filter(id => !known.has(id)).map(named) } : undefined
+    const looked = lookedUp?.(s.sheet) ?? []
     return JSON.stringify(
       {
         age: s.age,
@@ -122,6 +128,8 @@ export class GameStore {
         surprise: s.surprise ?? undefined,
         // the school's course (companion/COURSE.md): the day the class began, the units done and started
         course: courseOf(s.course),
+        // the grammar pages looked up on the cheat sheet during exercises, the last two weeks (most first): work potential
+        looked_up: looked.length ? looked : undefined,
         stats: s.stats,
         chronicle: (s.log ?? []).slice(-10),
       },

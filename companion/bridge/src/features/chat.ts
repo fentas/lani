@@ -1,6 +1,8 @@
 // Chat with the tutor: app messages into the session, the reply tool back out, and the permission
-// relay (tool approvals answered from the app).
+// relay (tool approvals answered from the app). A session_end whose results were answered with the cheat
+// sheet open (looked_up) gets a line naming the topics looked up.
 import { z } from 'zod'
+import { lookedUpNote, resultsLookedUp } from '../answers'
 import { fail, ok } from '../channel'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
@@ -43,6 +45,16 @@ else. kind is one of:
   of the last days (reviews, forms, dialog words), for when Jan reports a card later without Ask.
 - roleplay, roleplay_end: a role-play turn and its end (see Role-play); villager_arrived: someone
   moved into the village (see Villagers and Arrivals).
+
+looked_up on an answer (a session_end's results, a review's; the note's "📋 Looked up on the cheat
+sheet: …" line counts them): Jan opened the cheat sheet (📋 Plonk listek) during that exercise (cards:
+the cards opened; pages: their grammar pages; both empty: no card opened; a worksheet item's looked_up:
+true, answered after it opened). A right answer then stays right and earns in full, but counts as right
+with effort: quality at most 4 (the app caps a review's itself; when you persist a session_end, give
+such a right answer at most 4; with a 💡 hint too, the hint's rule wins). A signal, never a fault: a
+topic looked up often (here, get_village's or get_course's looked_up, recent_answers with looked_up)
+is work potential: suggest its school unit (get_course), homework on it (publish_worksheet), a module
+(lani-studio), or explain it in chat. Never scold Jan for looking something up.
 
 Always answer with the reply tool and pass the conversation_id from the tag; the app does not see
 terminal output. Keep replies phone-sized. Markdown is rendered.
@@ -119,7 +131,10 @@ export const chat: FeatureFactory = ctx => {
       // someone joined the village: what the tutor needs to write their introduction (publish_arrival, features/arrivals.ts)
       m.data = { ...m.data, arrival: arrivalBrief(m.data) }
     }
-    const content = m.data ? `${m.text}\n\n\`\`\`json\n${JSON.stringify(m.data, null, 2)}\n\`\`\`` : m.text
+    // a run's exercises answered with the cheat sheet open (answers.ts lookedUpNote): the topics looked up, in a line
+    const looked = m.kind === 'session_end' ? lookedUpNote(resultsLookedUp(m.data?.results), 'exercise') : ''
+    const said = looked ? (m.text ? `${m.text}${looked}` : looked.trim()) : m.text
+    const content = m.data ? `${said}\n\n\`\`\`json\n${JSON.stringify(m.data, null, 2)}\n\`\`\`` : said
     // queued: the bridge service has no tutor session attached now; the next one gets it (docs/plans/04-bridge-service.md)
     const queued = (await channel.notify(content, { kind: m.kind, conversation_id: m.conversation_id, msg_id })) === 'queued'
     return json({ msg_id, ...(queued ? { queued: true } : {}) })

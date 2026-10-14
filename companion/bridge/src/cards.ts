@@ -4,13 +4,14 @@
 // Here are the others: the curated ones no page fits (companion/cards/<language>/<id>.json: the pronouns 1 · 2 · 3+, kje
 // or kam, the numbers …), and the tutor's (publish_card, <data>/app/cards), written in Markdown as the tutor answers in
 // the chat. A card unlocks with the pages it names (`grammar`: the day the learner meets one), an A1 basic ([start]) and a
-// tutor's at once. The learner's pinned cards (a tutor message kept) and how often they open each are the app's, in the
-// village state (GameState.sheet), which list_cards reads.
+// tutor's at once. The learner's pinned cards (a tutor message kept), how often they open each and which pages they look
+// up during exercises (each day's answers given with a page's card open) are the app's, in the village state
+// (GameState.sheet), which list_cards, get_village and get_course read.
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
 import { learnerErrorsIn } from './addressee'
-import { example, grammarRef, table, withEn, type GrammarExample, type GrammarPage } from './grammar'
+import { example, GRAMMAR_ID, grammarRef, table, titleEn, withEn, type GrammarExample, type GrammarPage } from './grammar'
 import { langText } from './langs'
 import { WORD_LANGUAGES } from './packs'
 import { schemaField } from './schema'
@@ -202,6 +203,50 @@ export function sheetUse(sheet: unknown, language: string, today: string): { pin
     .filter(o => o.opens >= 0.1)
     .sort((a, b) => b.opens - a.opens)
   return { pinned: pinned.map(p => ({ id: p.id, title: p.title, pages: p.pages, level: p.level, on: p.on })), opened }
+}
+
+/** How many days of lookups the app keeps (GameState.sheet.lookups) and the tutor is shown. */
+export const LOOKUP_DAYS = 14
+
+/**
+ * What the learner looked up during exercises, from the village state ([sheet]: GameState.sheet.lookups, "<language>/<page
+ * id>" → ISO day → the answers given with one of that page's cards open) for [language]: per page the answers of the last
+ * [days] days up to [today] (ISO, inclusive; a day after it, one that isn't a day or a count that isn't one left out) and
+ * the latest of those days, most first (then the latest, then the id); a page with none left out.
+ */
+export function sheetLookups(sheet: unknown, language: string, today: string, days = LOOKUP_DAYS): { page: string; n: number; last: string }[] {
+  const s = sheet && typeof sheet === 'object' ? (sheet as { lookups?: unknown }) : {}
+  const lookups = s.lookups && typeof s.lookups === 'object' && !Array.isArray(s.lookups) ? (s.lookups as Record<string, unknown>) : {}
+  const prefix = `${language}/`
+  const end = Date.parse(today.slice(0, 10))
+  if (Number.isNaN(end)) return []
+  const since = end - (days - 1) * 86_400_000
+  return Object.entries(lookups)
+    .flatMap(([k, byDay]) => {
+      const page = k.slice(prefix.length)
+      if (!k.startsWith(prefix) || !GRAMMAR_ID.test(page) || !byDay || typeof byDay !== 'object' || Array.isArray(byDay)) return []
+      let n = 0
+      let last = ''
+      for (const [day, c] of Object.entries(byDay as Record<string, unknown>)) {
+        const t = /^\d{4}-\d{2}-\d{2}$/.test(day) ? Date.parse(day) : Number.NaN
+        if (Number.isNaN(t) || t < since || t > end || !Number.isInteger(c) || (c as number) <= 0) continue
+        n += c as number
+        if (day > last) last = day
+      }
+      return n ? [{ page, n, last }] : []
+    })
+    .sort((a, b) => b.n - a.n || b.last.localeCompare(a.last) || a.page.localeCompare(b.page))
+}
+
+/**
+ * The topics looked up most of late ([sheetLookups], the first [max]) with each page's title in English, from the
+ * grammar book's [pages] (a page the book lacks: its id alone), for the tutor (get_village, get_course).
+ */
+export function topicsLookedUp(sheet: unknown, language: string, today: string, pages: Pick<GrammarPage, 'id' | 'title'>[], max = 8): { page: string; title?: string; n: number; last: string }[] {
+  const titles = new Map(pages.map(p => [p.id, titleEn(p)]))
+  return sheetLookups(sheet, language, today)
+    .slice(0, max)
+    .map(l => ({ page: l.page, ...(titles.get(l.page) ? { title: titles.get(l.page) } : {}), n: l.n, last: l.last }))
 }
 
 /**

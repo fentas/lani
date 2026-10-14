@@ -16,11 +16,13 @@
 // review, I spy, the car, …) and when it was answered (answered_at, or an answer's own at); with the forms and a dialog's
 // words, which carry theirs already, it goes into a rolling log of the last days once the review is persisted, one entry
 // per card (a form asked joins its card's answer), and the tutor's note names the wrong ones. When Jan reports a card
-// later without the exercise attached, the tool recent_answers shows what was typed (the lani-fix skill). Nothing about
-// the answers is ever a reason to refuse a review: a bad one is left out, the extras too.
+// later without the exercise attached, the tool recent_answers shows what was typed (the lani-fix skill). An answer may
+// say the cheat sheet was opened during it (looked_up: the cards opened, their grammar pages): it is logged with it, the
+// note counts the topics looked up (the app gave such a right answer quality 4 at most). Nothing about the answers is
+// ever a reason to refuse a review: a bad one is left out, the extras too.
 import { join } from 'node:path'
 import { z } from 'zod'
-import { answerLine, AnswerLog, fromLabel, fromOf, reviewAnswers, timeOf, type NewAnswer, type ReviewAnswer } from '../answers'
+import { answerLine, AnswerLog, fromLabel, fromOf, lookedUpNote, reviewAnswers, timeOf, type NewAnswer, type ReviewAnswer } from '../answers'
 import { fail, ok } from '../channel'
 import { countsInDialog, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
@@ -281,13 +283,14 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
     const u = learner.update(payload)
     if (!u.ok) return json({ error: u.output }, 500)
     // what was typed or said, into the log once the review is persisted (a retry after an error isn't logged twice)
-    const answered = answersOf({ results, answers: reviewAnswers(r.data.answers), forms: r.data.forms, session_id: payload.session_id, language, ...sent })
+    const given = reviewAnswers(r.data.answers)
+    const answered = answersOf({ results, answers: given, forms: r.data.forms, session_id: payload.session_id, language, ...sent })
     log.add(answered)
     const weak = results.filter(x => x.quality < 3).map(x => x.item_id)
     const deck = language ? ` of ${LANGUAGES[language] ?? language} cards (language "${language}")` : ''
     const place = sent.from && sent.from !== 'review' ? ` in ${fromLabel(sent.from)}` : ''
     await channel.notify(
-      `App review${deck}${place} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}`,
+      `App review${deck}${place} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}${lookedUpNote(given)}`,
       { kind: 'review_done', conversation_id: 'main', msg_id: payload.session_id },
     )
     return json({ session_id: payload.session_id, correct, total: results.length, output: u.output, ...(language ? { language } : {}) })
@@ -312,13 +315,14 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
       {
         name: 'recent_answers',
         description:
-          `What the learner typed or said lately in the app (the last ${log.kept.days} days, at most ${log.kept.max} answers), newest first: each card a review counted, where in the app (the review, the grammar book, a building's words run, a challenge, I spy, the car), with its exercise (how it was asked, what was typed or heard, what was expected, the verdict, the grading hint, the quality it gave the card; nothing typed where there is nothing to type, as the car's ✓/✗), the forms of words asked (their slot and grammar page), and a dialog's word turns. Use it when Jan says a card or an answer was marked wrong but the message has no about_exercise: look the card up (card_id, its id in spaced-repetition.json) or search a word (text, in what was asked, typed or expected; diacritics optional: "zivjo" finds "živjo"). The lani-fix skill uses it.`,
+          `What the learner typed or said lately in the app (the last ${log.kept.days} days, at most ${log.kept.max} answers), newest first: each card a review counted, where in the app (the review, the grammar book, a building's words run, a challenge, I spy, the car), with its exercise (how it was asked, what was typed or heard, what was expected, the verdict, the grading hint, the quality it gave the card; nothing typed where there is nothing to type, as the car's ✓/✗), the forms of words asked (their slot and grammar page), and a dialog's word turns; "📋 looked up …": the cheat sheet was open during it (the grammar pages of the cards opened). Use it when Jan says a card or an answer was marked wrong but the message has no about_exercise: look the card up (card_id, its id in spaced-repetition.json) or search a word (text, in what was asked, typed or expected; diacritics optional: "zivjo" finds "živjo"). The lani-fix skill uses it. looked_up: true lists what Jan answered with the cheat sheet open, what they look up.`,
         inputSchema: {
           type: 'object',
           properties: {
             card_id: { type: 'string', description: 'a review card id, e.g. vocab_kurim' },
             text: { type: 'string', description: 'a word in what was asked, typed or expected, e.g. kurim' },
             wrong_only: { type: 'boolean', description: 'only answers marked wrong or almost (by the verdict: a right answer whose quality hints lowered is not wrong)' },
+            looked_up: { type: 'boolean', description: 'only answers given with the cheat sheet open (📋 Plonk listek): what Jan looked up' },
             language: { type: 'string', description: 'another language\'s deck ("it"); "" for the home language only' },
             limit: { type: 'number', description: 'at most this many (default 20, at most 100)' },
           },
@@ -326,10 +330,10 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
         handle: async (args: unknown) => {
           const r = recentIn.safeParse(args ?? {})
           if (!r.success) return fail(z.prettifyError(r.error))
-          const found = log.find({ item_id: r.data.card_id, text: r.data.text, wrong: r.data.wrong_only, language: r.data.language, limit: r.data.limit })
+          const found = log.find({ item_id: r.data.card_id, text: r.data.text, wrong: r.data.wrong_only, looked_up: r.data.looked_up, language: r.data.language, limit: r.data.limit })
           if (!found.length) {
             const all = log.all()
-            const what = `${r.data.card_id ? ` for ${r.data.card_id}` : ''}${r.data.text ? ` with "${r.data.text}"` : ''}${r.data.wrong_only ? ' marked wrong' : ''}`
+            const what = `${r.data.card_id ? ` for ${r.data.card_id}` : ''}${r.data.text ? ` with "${r.data.text}"` : ''}${r.data.wrong_only ? ' marked wrong' : ''}${r.data.looked_up ? ' given with the cheat sheet open' : ''}`
             const held = !all.length
               ? 'The log is empty: nothing was answered since the bridge began keeping answers, or in those days.'
               : `The log holds ${all.length} answer(s) since ${all[0].at.slice(0, 16).replace('T', ' ')} UTC${r.data.card_id ? `: ${r.data.card_id} wasn't reviewed, asked as a form or met in a dialog since (another id? try text)` : ''}.`
@@ -346,6 +350,7 @@ const recentIn = z.object({
   card_id: z.string().trim().min(1).max(128).optional(),
   text: z.string().trim().min(1).max(80).optional(),
   wrong_only: z.boolean().optional(),
+  looked_up: z.boolean().optional(),
   language: z.string().trim().max(8).optional(),
   limit: z.number().int().min(1).max(100).optional(),
 })

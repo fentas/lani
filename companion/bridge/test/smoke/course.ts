@@ -1,10 +1,13 @@
 // Smoke checks: the school's course (companion/COURSE.md: lani.course/v0, lani.unit/v0, lani.worksheet/v0). Every course
 // file of the repository; the format's refusals; the fixture course (course-fixture.ts) served; the tutor's homework
-// (publish_worksheet, remove_worksheet); where the learner is (get_course, get_village) from the village state; the guide.
+// (publish_worksheet, remove_worksheet); where the learner is (get_course, get_village) from the village state, what they
+// looked up on the cheat sheet (sheet.lookups); the guide.
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, utimesSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
+import { sheetLookups } from '../../src/cards'
 import { CourseStore, grammarNamed, sheetExercise, validateCourse, validateUnit, type Course } from '../../src/course'
 import { validateGrammar } from '../../src/grammar'
+import { localDate } from '../../src/rhythm'
 import { auth, base, check, client, dataDir, guideOf, tempDir } from './harness'
 import { gaptext, outline, sort, table, transform, unit } from './course-fixture'
 
@@ -212,6 +215,36 @@ export default async function course() {
   check('get_course: the unit done, its test, the level done, nothing next', after.levels[0].units_done === '1/1' && after.levels[0].units[0].done === '2026-10-03' && after.levels[0].units[0].test.best === '9/10' && after.levels[0].units[0].test.tries === 2 && after.next === null, after)
   const doneSummary = JSON.parse(text(await call('get_village'))).course
   check('get_village: the unit done', JSON.stringify(doneSummary) === '{"classroom":"2026-10-01","done":["biti"],"in_progress":[]}', doneSummary)
+  check('get_course and get_village without lookups: no looked_up', !('looked_up' in after) && !('looked_up' in JSON.parse(text(await call('get_village')))))
+
+  // what Jan looked up on the cheat sheet during exercises (the village state's sheet.lookups: per page, each day's answers
+  // given with one of its cards open; the last 14 days count): get_course names the units that teach each page
+  const today = localDate(new Date())
+  const day = (d: number) => new Date(Date.parse(today) + d * 86_400_000).toISOString().slice(0, 10)
+  const lookups = {
+    // 14 days back and a day ahead left out, a day that isn't one and a count that isn't one too
+    'sl/biti': { [day(0)]: 2, [day(-3)]: 1, [day(-13)]: 1, [day(-14)]: 9, [day(1)]: 5, yesterday: 3, [day(-1)]: -2 },
+    'sl/zanikanje': { [day(-1)]: 'x', [day(-2)]: 3, [day(-4)]: 1.5 },
+    'sl/osebni-zaimki': { [day(-5)]: 1 },
+    // only days too old: left out; another language's; a key that isn't a page; not days
+    'sl/rodilnik': { [day(-20)]: 4 },
+    'it/essere': { [day(0)]: 7 },
+    'sl/Not A Page': { [day(0)]: 4 },
+    'sl/tozilnik': 'often',
+  }
+  const want = [{ page: 'biti', n: 4, last: today }, { page: 'zanikanje', n: 3, last: day(-2) }, { page: 'osebni-zaimki', n: 1, last: day(-5) }]
+  check('sheetLookups: the last 14 days up to today, most first; older, later and malformed days and counts left out; a village from before: none',
+    JSON.stringify(sheetLookups({ lookups }, 'sl', today)) === JSON.stringify(want) && sheetLookups(undefined, 'sl', today).length === 0 && sheetLookups({ lookups: [1] }, 'sl', today).length === 0 &&
+      JSON.stringify(sheetLookups({ lookups }, 'it', today)) === JSON.stringify([{ page: 'essere', n: 7, last: today }]), sheetLookups({ lookups }, 'sl', today))
+  const looking = await put({ age: 'VAS', buildings: [school], course: doneState, sheet: { pinned: [], opens: {}, lookups } })
+  const courseLooked = JSON.parse(text(await call('get_course'))).looked_up
+  const villageLooked = JSON.parse(text(await call('get_village'))).looked_up
+  const bitiTitle = JSON.parse(readFileSync(join(repo, 'grammar/sl/biti.json'), 'utf8')).title.en
+  check("get_course: looked_up, the pages Jan looked up most first, each with its title, count, last day and the course's units that teach it",
+    looking.ok && JSON.stringify(courseLooked?.map((l: any) => [l.page, l.n, l.last, l.units])) === JSON.stringify([['biti', 4, today, ['biti']], ['zanikanje', 3, day(-2), ['biti']], ['osebni-zaimki', 1, day(-5), []]]) &&
+      courseLooked[0].title === bitiTitle && typeof courseLooked[2].title === 'string', courseLooked)
+  check('get_village: looked_up, the same pages with their titles (the units are get_course\'s)',
+    JSON.stringify(villageLooked) === JSON.stringify(courseLooked?.map(({ units, ...l }: any) => l)), villageLooked)
 
   // an app from before the school leaves the course out of its state: it stays
   const older = await put({ age: 'VAS', buildings: [school] })
