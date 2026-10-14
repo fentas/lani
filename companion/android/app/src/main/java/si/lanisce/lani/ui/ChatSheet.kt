@@ -79,7 +79,7 @@ import java.time.ZoneId
  * The tutor chat: today's conversation up front, the days before folded into "📦 Arhiv · Archive" (weeks, days, their
  * messages: [ChatArchive]); a long press on a message bookmarks it, notes why, or replies to it; "🔖" lists the
  * bookmarks, and a tap on one (or on a reply's quote) goes to the message, opening the archive to it. "📋" opens the cheat
- * sheet; a tutor message with a table or a list can be pinned to it ("📌 Na plonk listek", [PinChip]).
+ * sheet; a long press on a tutor message with a table or a list pins it there ("📌 Na plonk listek", [pinAction]).
  */
 @Composable
 fun ChatSheet(vm: AppViewModel) {
@@ -194,16 +194,16 @@ fun ChatSheet(vm: AppViewModel) {
                                     BubbleQuote(whoAndWhen(q.fromMe, q.at, today, zone), q.text, onClick = chat.find(q.id)?.let { { jumpTo(q.id) } })
                                 },
                                 highlighted = highlight == m.id,
-                                actions = listOf(
+                                actions = listOfNotNull(
                                     BubbleAction("🔖 ${bi(if (m.bookmark == null) "chatSheet.bookmark" else "chatSheet.unbookmark")}") {
                                         chat.bookmark(m.id, on = m.bookmark == null)
                                     },
+                                    // a table or a list of the tutor's can go on the cheat sheet, as a bookmark does
+                                    pinAction(vm, m),
                                     BubbleAction("✏️ ${bi("chatSheet.note")}") { noteFor = m },
                                     BubbleAction("↩️ ${bi("chatSheet.reply")}") { reply(m) },
                                 ),
                             )
-                            // a table or a list of the tutor's can go on the cheat sheet
-                            if (vm.cheat.pinnable(m)) PinChip(vm, m)
                         }
                     }
                 }

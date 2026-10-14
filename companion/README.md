@@ -1023,11 +1023,11 @@ controller `app/CheatSheetController.kt`, the sheet `ui/CheatSheetSheet.kt`; the
   the pages' cards (hand-written ones marked), the curated and the tutor's, what the learner pinned and the cards they
   open most; `remove_card` takes one of the tutor's back (`card_removed`). The channel guide says when: a basic the tutor
   just explained with a table or a list worth keeping.
-- **Pinned.** Under a tutor message with a table or a list (two rows or two items), "📌 Na plonk listek · Pin to cheat
-  sheet" keeps it as a card: its title its heading, else its first line when short, else its first bold words (✏️
+- **Pinned.** A long press on a tutor message with a table or a list (two rows or two items), beside "🔖 Zaznamek ·
+  Bookmark", offers "📌 Na plonk listek · Pin to cheat sheet", which keeps it as a card: its title its heading, else its first line when short, else its first bold words (✏️
   renamed on the card), its pages guessed from the book (the forms it stresses in bold against each page's tables: the
   best page with three or more, and a second nearly as good), the learner's level. Pinning counts as opening it once
-  (the learner chose it: not new, among the most opened for a while). Pinned, the chip says "📋 Na plonk listku · On
+  (the learner chose it: not new, among the most opened for a while). Pinned, the long press offers "📋 Na plonk listku · On
   the cheat sheet" and opens the sheet at that card, first and open. At most 50; ✕ takes one off.
 
 The card's Markdown is the app's renderer (`ui/Markdown.kt`); on a card a tap on a Slovene word in bold or italics looks

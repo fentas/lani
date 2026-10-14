@@ -312,21 +312,12 @@ fun chatCheatContext(vm: AppViewModel): List<String> {
 }
 
 /**
- * Under a tutor message with a table or a list: "📌 Na plonk listek · Pin to cheat sheet"; once pinned, "📋 Na plonk
- * listku · On the cheat sheet", which opens the sheet at its card.
+ * A long press's choice on a tutor message with a table or a list (as a bookmark): "📌 Na plonk listek · Pin to cheat
+ * sheet", or once pinned "📋 Na plonk listku · On the cheat sheet", which opens the sheet at its card. Null: nothing to pin.
  */
-@Composable
-fun PinChip(vm: AppViewModel, m: ChatMessage) {
+internal fun pinAction(vm: AppViewModel, m: ChatMessage): BubbleAction? {
+    if (!vm.cheat.pinnable(m)) return null
     val pinned = vm.cheat.pinnedFrom(m.id)
-    TextButton(
-        onClick = { if (pinned != null) vm.cheat.show(focus = CheatSheet.PIN + pinned.id) else vm.cheat.pin(m) },
-        modifier = Modifier.padding(start = 4.dp).heightIn(min = 40.dp),
-        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
-    ) {
-        Text(
-            if (pinned != null) "📋 ${bi("cheatSheet.onSheet")}" else "📌 ${bi("cheatSheet.pin")}",
-            style = MaterialTheme.typography.labelMedium,
-            color = if (pinned != null) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.primary,
-        )
-    }
+    return if (pinned != null) BubbleAction("📋 ${bi("cheatSheet.onSheet")}") { vm.cheat.show(focus = CheatSheet.PIN + pinned.id) }
+    else BubbleAction("📌 ${bi("cheatSheet.pin")}") { vm.cheat.pin(m) }
 }
