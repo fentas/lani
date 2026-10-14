@@ -54,6 +54,9 @@ Usage: companion/bin/qa [--no-build] [--keep-bridge] [--no-town] [--steps <names
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
+                       "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
+                       WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
+                       (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
                        "school-build" the school, the hamlet's: the dev village's copy as it is (Jan's hamlet), the
                        Build sheet's tenth plot and the Šola on it (nothing of Vas), the line under it ("Pouk že
                        poteka …"), the teacher's bed when every bed is taken (the card's way on), built on the plot
@@ -2834,6 +2837,154 @@ def moba_on():
     tap_at((950, (title[1] + max(b[3] for b in rows)) // 2))
 
 
+PRINT_TAG = "LaniPrint"  # what fit.js chose in the app's WebView, logged before the print dialog (ui/school/SchoolPrint.kt)
+
+
+def print_dialog(timeout=40.0) -> bool:
+    """Android's print dialog (the print spooler) in front, its options there ("Copies", "Paper size")."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        dump = adb("shell", "dumpsys", "activity", "activities", check=False)
+        if "printspooler" in re.split(r"ResumedActivity", dump, maxsplit=1)[-1][:300] and find("Copies"):
+            return True
+        time.sleep(1)
+    return False
+
+
+def webview_fit(job: str):
+    """What fit.js chose for print job [job] in the app's WebView: its report from the log (evaluateJavascript's answer,
+    a JSON string of the report), or None."""
+    for line in reversed(adb("logcat", "-d", "-s", f"{PRINT_TAG}:I", check=False).splitlines()):
+        if f"{job}: " in line:
+            raw = json.loads(line.split(f"{job}: ", 1)[1].strip())
+            return json.loads(raw) if isinstance(raw, str) else None
+    return None
+
+
+def chromium_fit(path: str, name: str):
+    """What fit.js chooses for the dev bridge's page [path] in headless Chromium, the generator's way (bin/school-prints):
+    its report, the page kept as <name>.html; None without Chromium ($LANI_CHROMIUM, chromium on the PATH)."""
+    browser = os.environ.get("LANI_CHROMIUM") or shutil.which("chromium") or shutil.which("chromium-browser") or shutil.which("google-chrome")
+    if not browser:
+        return None
+    req = urllib.request.Request(f"http://127.0.0.1:{PORT}{path}", headers={"authorization": f"Bearer {TOKEN}"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        page = OUT / f"{name}.html"
+        page.write_bytes(r.read())
+    dom = sh(browser, "--headless", "--no-sandbox", "--disable-gpu", f"--user-data-dir={OUT / 'chromium-profile'}", "--virtual-time-budget=15000",
+             "--run-all-compositor-stages-before-draw", "--dump-dom", page.as_uri(), check=False)
+    m = re.search(r'<script id="fit-report" type="application/json">([^<]*)</script>', dom)
+    return json.loads(html.unescape(m.group(1))) if m else None
+
+
+def same_fit(a, b) -> bool:
+    """Two fit reports chose alike: each unit's pages, layout, density and the table beside the rule; by how much its one
+    page was too long within a millimetre (fit.js measures as it prints, whatever the screen's density; what is left is
+    the phone's text, a fraction of a millimetre, rounded)."""
+    keys = ("unit", "pages", "fits", "layout", "density", "side")
+    return a is not None and b is not None and len(a) == len(b) and all(
+        [x.get(k) for k in keys] == [y.get(k) for k in keys] and abs((x.get("over") or 0) - (y.get("over") or 0)) <= 1 for x, y in zip(a, b))
+
+
+def save_pdf(job: str):
+    """The print dialog's "Save to PDF" (its round button), then the file picker's Save (Downloads): the PDF pulled into
+    the run's folder, or None when it wasn't saved."""
+    remote = f"/sdcard/Download/{job}.pdf"
+    adb("shell", f"find /sdcard -name '{job}*.pdf' -delete 2>/dev/null", check=False)  # an earlier run's, so none is "(1)"
+    if find("Save as PDF") is None:  # no destination chosen yet ("Select a printer"): the PDF one
+        assert tap("Select a printer", 4), "the print dialog's destinations"
+        assert tap("Save as PDF", 6), "the destination Save as PDF"
+        time.sleep(2 * slow())
+    assert tap("Save to PDF", 8), "the print dialog's Save to PDF"
+    end = time.time() + 15 * slow()
+    while time.time() < end:  # the picker's Save (its button's label as the picker writes it)
+        c = next((c for t, c in nodes() if t in ("SAVE", "Save")), None)
+        if c is not None:
+            shot("school-print-save")
+            tap_at(c)
+            break
+        time.sleep(1)
+    else:
+        return None
+    for _ in range(int(20 * slow())):  # the spooler writes it once the picker closed (Downloads, else where it was)
+        found = remote if adb("shell", f"stat -c %s '{remote}'", check=False).strip() not in ("", "0") else \
+            adb("shell", f"find /sdcard -name '{job}*.pdf' -size +0 2>/dev/null | head -1", check=False).strip()
+        if found.startswith("/"):
+            time.sleep(1)
+            local = OUT / "school-print-biti.pdf"
+            adb("pull", found, str(local), check=False)
+            return local if local.exists() else None
+        time.sleep(1)
+    return None
+
+
+def school_print():
+    """"🖨️ Natisni list · Print sheet" (companion/COURSE.md, "Printed sheets", "In the app"; QA's hook "school"): on the
+    unit biti, the dev bridge's page (GET /course/sheet/biti) fitted by fit.js in the app's WebView off screen, its choice
+    (the log, tag LaniPrint) the same as headless Chromium's for the same page; Android's print dialog with the sheet's
+    preview (Save as PDF, A4), the PDF saved through it (school-print-biti.pdf): A4, its page count fit.js's, its first
+    page a shot; then "🖨️ Vsi listi · All sheets" on the level A1: the booklet fitted alike, its dialog. What fit.js chose
+    in each, side by side: school-print-fit.txt."""
+    if not (ROOT / "companion/course/sl/units/biti.json").exists():
+        return "no course here (companion/course/sl/units/biti.json)"
+    wait_for("Danes · Today", 30)  # an app connected before still loading its village
+    go_home()
+    for _ in range(3):  # the hook again while the village isn't there yet (the school says it has no course then)
+        qa_hook("school")
+        if wait_for("Raven A1", 10):
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(3)
+    assert find("Raven A1"), "the school's levels"
+    assert tap("Biti: sem, si, je", 5), "the unit biti"
+    assert wait_for("Delovni listi", 8), "the unit"
+    adb("logcat", "-c")
+    c = scroll_to("Natisni list", 8) or find("Natisni list")  # the last thing on the unit: below the band scroll_to keeps to
+    assert c is not None, "🖨️ Natisni list · Print sheet on the unit"
+    shot("school-print-button")
+    job = "Lani – A1 – 01 biti"
+    tap_at(c)
+    assert print_dialog(), "the print dialog"
+    time.sleep(4 * slow())  # its preview drawn
+    shot("school-print-preview")
+    app, chrome = webview_fit(job), chromium_fit("/course/sheet/biti?base=en", "school-print-biti")
+    lines = [f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}"]
+    assert app is not None, "fit.js's choice in the log (LaniPrint)"
+    assert chrome is None or same_fit(app, chrome), f"fit.js chose otherwise in the WebView ({app}) than in Chromium ({chrome})"
+    pdf = save_pdf(job)
+    assert pdf is not None, "the PDF saved through the print dialog"
+    info = sh("pdfinfo", str(pdf), check=False) if shutil.which("pdfinfo") else ""
+    pages = int(m.group(1)) if (m := re.search(r"^Pages:\s+(\d+)", info, re.M)) else None
+    lines.append(f"  the PDF: {pages} page(s); {(re.search(r'^Page size:.*$', info, re.M) or [''])[0]}")
+    assert pages is None or pages == app[0]["pages"], f"the PDF has {pages} pages, fit.js chose {app[0]['pages']}"
+    assert not info or "A4" in info, "the PDF is A4"
+    if shutil.which("pdftoppm"):
+        first = OUT / f"{len(shots) + 1:02d}-school-print-pdf.png"
+        sh("pdftoppm", "-png", "-r", "60", "-f", "1", "-l", "1", "-singlefile", str(pdf), str(first.with_suffix("")), check=False)
+        if first.exists():
+            shots.append(first)
+    assert wait_for("Delovni listi", 10) or in_front(), "back on the unit"
+    # the level's booklet: every unit fitted alike, its dialog
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    assert wait_for("Raven A1", 8), "the school's levels"
+    adb("logcat", "-c")
+    c = scroll_to("Vsi listi", 12) or find("Vsi listi")
+    assert c is not None, "🖨️ Vsi listi · All sheets on A1"
+    shot("school-print-all")
+    tap_at(c)
+    assert print_dialog(60), "the booklet's print dialog"
+    time.sleep(5 * slow())
+    shot("school-print-booklet")
+    job = "Lani – A1 – vsi listi"
+    app, chrome = webview_fit(job), chromium_fit("/course/booklet/A1?base=en", "school-print-A1")
+    lines.append(f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}")
+    (OUT / "school-print-fit.txt").write_text("\n".join(lines) + "\n")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the dialog closed, nothing printed
+    time.sleep(2)
+    assert app is not None, "the booklet's fit in the log"
+    assert chrome is None or same_fit(app, chrome), "fit.js chose otherwise for the booklet in the WebView than in Chromium (school-print-fit.txt)"
+
+
 def school_build():
     """The school, the hamlet's (GAME.md "The school"; Jan, 2026-10-13: "I go to Build and Šola is still with 'needs
     Village'"): the dev village's copy as it is (Jan's hamlet, its nine plots built), the Build sheet with the hamlet's
@@ -4191,6 +4342,7 @@ def plan():
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
         ("school", school, go_home, False, ""),
+        ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
         ("school-scene", school_scene, v, False, ""),
         ("school-seats", school_seats, v, False, ""),
