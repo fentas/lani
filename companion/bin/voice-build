@@ -98,7 +98,7 @@ import { ScenarioStore } from '../bridge/src/scenarios'
 import { SceneStore, scenesDirs } from '../bridge/src/scenes'
 import { StoryStore, storiesDirs } from '../bridge/src/stories'
 import { VillagerStore } from '../bridge/src/villagers'
-import { cardTexts, charsPerSecond, clipKey, corpus, creditsFor, EDGES, explanationLang, modelOf, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, paceChain, redoDaily, revoiceDaily, sloveneNarrators, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
+import { cardTexts, charsPerSecond, clipKey, corpus, creditsFor, lazyModelUpgrade, EDGES, explanationLang, modelOf, enginesFromEnv, ffmpegDenoiser, ffmpegFileEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, FILE, LEVEL, levelGain, LIMIT_MARGIN, paceChain, redoDaily, revoiceDaily, sloveneNarrators, trimmable, VoiceStore, type Clip, type Edges, type Loudness, type Pace } from '../bridge/src/voice'
 import { formatPlan, plan, run } from '../bridge/src/prebuild'
 import { normalizeText } from '../bridge/src/family'
 import { keysFile } from '../bridge/src/env'
@@ -183,7 +183,7 @@ const log = (...a: unknown[]) => console.error('[voice-build]', ...a)
 // the store as the bridge has it: the narrators of a Slovene village in their Slovene ElevenLabs voices, the local voice as
 // their fallback (LANI_VOICE_NARRATOR_SL), the day's re-voice cap and re-records (LANI_VOICE_REVOICE_DAILY,
 // LANI_VOICE_REDO_DAILY: lani.env's or keys.env's)
-const villageVoices = { language, narrators: sloveneNarrators(language, process.env, log), revoiceDaily: revoiceDaily(process.env), redoDaily: redoDaily(process.env) }
+const villageVoices = { language, narrators: sloveneNarrators(language, process.env, log), revoiceDaily: revoiceDaily(process.env), redoDaily: redoDaily(process.env), lazyModel: lazyModelUpgrade(process.env) }
 
 if (denoise) {
   // the clips of the voices that hiss, through their filter: ffmpeg only, the corpus and the engines aren't needed

@@ -215,6 +215,11 @@ export default async function voice() {
     check('voice-build --upgrade-model --run --max 1: one made again by eleven_v4 (in the request and the store), the rest wait; the key never printed',
       upRun.exitCode === 0 && fe.st.tts.length === n0 + 1 && fe.st.tts.at(-1)?.body.model_id === 'eleven_v4' && upAfter.models?.by?.eleven_v4?.clips === 1 && upAfter.models.by.eleven_v4_turbo?.clips === plan.would.elevenlabs.texts - 1 && !(upRun.stdout + upRun.stderr).includes('test-key'),
       [upRun.stdout.slice(-400), upRun.stderr.slice(-400), upAfter.models])
+    const staleHuman = await voiceBuildIn(v4Env)
+    check('voice-build\'s plan: the stale clips (a swapped voice: none; an older model: the rest, none asked for yet) and what making them all again costs (eleven_v4: a credit a character)',
+      upAfter.stale?.voice.clips === 0 && upAfter.stale.model.clips === plan.would.elevenlabs.texts - 1 && upAfter.stale.model.asked === 0 && upAfter.stale.model.lazy === true &&
+        upAfter.stale.all.chars > 0 && upAfter.stale.all.credits === upAfter.stale.all.chars && /Stale clips[^\n]*a swapped voice 0 \/ asked 0; an older model \d+ \/ asked 0/.test(staleHuman.stdout),
+      [upAfter.stale, staleHuman.stdout.split('\n').filter(l => l.startsWith('Stale'))])
 
     // A village in another language (a copy of friuli): the local worker speaks only Slovene, so what the ElevenLabs
     // budget (1,000 here) doesn't cover waits for later; a voice cast without voices plans nothing (the phone speaks).
@@ -483,7 +488,7 @@ export default async function voice() {
     old.exec('CREATE TABLE clips (key TEXT PRIMARY KEY, norm TEXT NOT NULL, text TEXT NOT NULL, voice TEXT NOT NULL, engine TEXT NOT NULL, file TEXT NOT NULL, chars INTEGER NOT NULL, created_at TEXT NOT NULL, source TEXT NOT NULL, method TEXT, hits INTEGER NOT NULL DEFAULT 0, denoise TEXT, level REAL, gain REAL, tempo REAL, edges INTEGER, engine_voice TEXT)')
     const oldFile = `${'a'.repeat(40)}.mp3`
     writeFileSync(join(dir, 'voice', 'files', oldFile), mp3('el:old'))
-    old.query("INSERT INTO clips VALUES ('girl:kje je pošta', 'kje je pošta', 'Kje je pošta?', 'girl', 'elevenlabs', ?, 13, '2026-09-01T10:00:00.000Z', 'scene:x', NULL, 5, 'hiss', -18, -2, NULL, 1, 'BIfP5lYZQ2a3Dy7NOdwP')").run(oldFile)
+    old.query("INSERT INTO clips VALUES ('young-man:kje je pošta', 'kje je pošta', 'Kje je pošta?', 'young-man', 'elevenlabs', ?, 13, '2026-09-01T10:00:00.000Z', 'scene:x', NULL, 5, 'hiss', -18, -2, NULL, 1, ?)").run(oldFile, cast()['young-man'].elevenlabs)
     old.close()
     const fe = fakeEleven()
     const fg = fakeGepard()
@@ -493,7 +498,7 @@ export default async function voice() {
     const level: Leveller = { target: -18, level: async b => ({ bytes: MARK(b, '|levelled'), gain: -3, limited: false, before: { lufs: -15 } as any, edges: { lead: 0.05, tail: 0.1 } as any, trimmed: true }) }
     const v3 = new ElevenLabs({ key: 'test-key', base: fe.url, model: 'eleven_v3' })
     const vs3 = new VoiceStore({ appDir: dir, engines: [v3, new Gepard({ url: fg.url })], queueDelayMs: 0, denoise, level })
-    const was = vs3.get('kje je pošta', 'girl')
+    const was = vs3.get('kje je pošta', 'young-man')
     check('a store from before the model: the column added, its ElevenLabs clips counted as eleven_v3\'s, the setting\'s model in the status',
       was?.model === null && modelOf(was!) === 'eleven_v3' && JSON.stringify(vs3.modelStats()) === JSON.stringify({ eleven_v3: { clips: 1, chars: 13 } }) && (await vs3.status()).models.now === 'eleven_v3', [was, vs3.modelStats()])
     // clips by eleven_v3 (the setting), a local one, an explanation; how often each was played
@@ -512,15 +517,15 @@ export default async function voice() {
     const vs = new VoiceStore({ appDir: dir, engines: [v4, new Gepard({ url: fg.url })], queueDelayMs: 0, denoise, level, onUpdated: n => void updated.push(n) })
     const queue = vs.modelQueue()
     check('the upgrade\'s queue: the ElevenLabs clips of an older model (one from before it was recorded too), most played first, then the oldest; never a local clip',
-      JSON.stringify(queue.map(c => c.key)) === JSON.stringify(['girl:kje je pošta', `teacher:${x!.norm}`, 'grandma:dober dan micka', 'girl:kruh']) && !queue.some(c => c.engine === 'gepard'), queue.map(c => [c.key, c.hits]))
+      JSON.stringify(queue.map(c => c.key)) === JSON.stringify(['young-man:kje je pošta', `teacher:${x!.norm}`, 'grandma:dober dan micka', 'girl:kruh']) && !queue.some(c => c.engine === 'gepard'), queue.map(c => [c.key, c.hits]))
     const n0 = fe.st.tts.length
     const r = await vs.upgradeModel({ max: 2, out: () => {} })
-    const up = vs.get('kje je pošta', 'girl')
+    const up = vs.get('kje je pošta', 'young-man')
     const ux = vs.get(x!.norm, 'teacher')
     const bytes = (c: Clip | undefined) => (c ? new TextDecoder().decode(readFileSync(join(vs.filesDir, c.file))) : '')
     const sent = fe.st.tts.slice(n0)
     check('voice-build --upgrade-model --max 2: the two most played made again by eleven_v4_turbo in their voices (the explanation plainly, no language_code), their filter, level and edges as every new clip, under new names, their hits kept, the old files gone',
-      r.made === 2 && r.left === 2 && sent.length === 2 && sent.every(t => t.body.model_id === 'eleven_v4_turbo') && sent[0].voice === cast().girl.elevenlabs && sent[1].body.text === x!.text && !('language_code' in sent[1].body) &&
+      r.made === 2 && r.left === 2 && sent.length === 2 && sent.every(t => t.body.model_id === 'eleven_v4_turbo') && sent[0].voice === cast()['young-man'].elevenlabs && sent[1].body.text === x!.text && !('language_code' in sent[1].body) &&
         up?.model === 'eleven_v4_turbo' && up.denoise === 'hiss' && up.level === -18 && up.gain === -3 && up.edges === 1 && up.hits === 5 && up.file !== oldFile && !existsSync(join(vs.filesDir, oldFile)) && bytes(up).endsWith('|denoised|levelled') &&
         ux?.model === 'eleven_v4_turbo' && ux.file !== x!.file && ux.hits === 3 && !ux.denoise && ux.level === -18 && ux.edges === 1 && !existsSync(join(vs.filesDir, x!.file)) && vs.get(g!.norm, 'grandpa')?.file === g!.file,
       [r, sent.map(t => [t.voice, t.body]), up, ux])
@@ -536,6 +541,93 @@ export default async function voice() {
     const r3 = await vs.upgradeModel({ maxChars: 5, out: () => {} })
     check('…--max-chars: only what fits (the short word), the longer one left', r3.made === 1 && vs.get('kruh', 'girl')?.model === 'eleven_v4_turbo' && vs.get('dober dan micka', 'grandma')?.model === 'eleven_v3', r3)
     vs.close()
+  }
+
+  // --- stale clips made again as the app asks for them: a swapped voice, an older model (in-process against the fakes) ---
+  {
+    // two casts: the girl in voice A (filtered: she hissed), then in voice B since today (no longer on the denoise list)
+    const castDir = tempDir('lani-stale-cast-')
+    const base = JSON.parse(readFileSync(CAST_FILE, 'utf8'))
+    const A = 'GirlVoiceAaaaaaaaaaa'
+    const B = 'GirlVoiceBbbbbbbbbbb'
+    const today = new Date().toISOString().slice(0, 10)
+    const castA = join(castDir, 'a.json')
+    const castB = join(castDir, 'b.json')
+    writeFileSync(castA, JSON.stringify({ ...base, denoise: { girl: 'hiss' }, speakers: { ...base.speakers, girl: { ...base.speakers.girl, elevenlabs: A } } }))
+    writeFileSync(castB, JSON.stringify({ ...base, denoise: {}, speakers: { ...base.speakers, girl: { ...base.speakers.girl, elevenlabs: B, since: today } } }))
+    const before = process.env.LANI_VOICE_CAST
+    process.env.LANI_VOICE_CAST = castA
+    const fe = fakeEleven()
+    const fg = fakeGepard()
+    const denoise: Denoiser = async b => new Uint8Array([...b, ...new TextEncoder().encode('|denoised')])
+    const el = new ElevenLabs({ key: 'test-key', base: fe.url })
+    const updated: number[] = []
+    const vs = new VoiceStore({ appDir: tempDir('lani-stale-'), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, denoise, level: null, revoiceDaily: 10, onUpdated: n => void updated.push(n) })
+    const read = (c: Clip | null | undefined) => (c ? new TextDecoder().decode(readFileSync(join(vs.filesDir, c.file))) : '')
+    const old = await vs.voice('Kje je mama?', 'girl', 'scene:x')
+    const kept = await vs.voice('Mama je doma.', 'grandma', 'scene:x')
+    check('stale: a clip in its voice now is not stale (its voice recorded, the model now)', old?.engine_voice === A && !vs.staleVoice(old) && !vs.staleModel(old) && read(old).endsWith('|denoised'), old)
+    // the girl's voice swapped (the cast's edit): her clip is stale, the grandmother's not
+    process.env.LANI_VOICE_CAST = castB
+    check('…the girl\'s voice swapped in the cast: her clip is stale (its recorded voice another), the grandmother\'s not; nothing made yet',
+      vs.staleVoice(vs.get('kje je mama', 'girl')!) && !vs.staleVoice(kept!) && vs.staleQueue('voice').length === 0)
+    const n0 = fe.st.tts.length
+    const served = await vs.say('Kje je mama?', 'girl')
+    check('…the app asks for it: the old clip at once (nothing waited for), the re-voice queued', served?.file === old?.file && fe.st.tts.length === n0)
+    const until = async (f: () => boolean, ms = 3_000) => {
+      const end = Date.now() + ms
+      while (!f() && Date.now() < end) await Bun.sleep(20)
+      return f()
+    }
+    await until(() => vs.get('kje je mama', 'girl')?.file !== old?.file)
+    const now = vs.get('kje je mama', 'girl')
+    check('…then made again in the new voice (B), not filtered (the girl left the denoise list), under a new name, its hits kept, the old file gone, the app told',
+      now?.engine_voice === B && fe.st.tts.at(-1)?.voice === B && !now.denoise && !read(now).endsWith('|denoised') && now.file !== old?.file && !existsSync(join(vs.filesDir, old!.file)) && (now.hits ?? 0) >= 1 && updated.length === 1 && !vs.staleVoice(now),
+      [now, fe.st.tts.at(-1)?.voice, updated])
+    check('…and asked again: the new clip', (await vs.say('Kje je mama?', 'girl'))?.file === now?.file && vs.staleQueue('voice').length === 0)
+    // a clip from before the voice was recorded: stale when made before the voice's `since`, not after; a person's own voice by its id
+    const unrecorded = await vs.voice('Dober dan.', 'girl', 'scene:x')
+    vs.database.query("UPDATE clips SET engine_voice = NULL, created_at = '2026-09-30T10:00:00.000Z' WHERE key = ?").run(unrecorded!.key)
+    const wasBefore = vs.staleVoice(vs.get('dober dan', 'girl')!)
+    vs.database.query('UPDATE clips SET created_at = ? WHERE key = ?').run(new Date().toISOString(), unrecorded!.key)
+    check('…a clip whose voice isn\'t recorded (from before October 11): stale when made before the voice\'s `since`, not on or after it', wasBefore && !vs.staleVoice(vs.get('dober dan', 'girl')!))
+    // the model: an older model's clips after the swapped voices', in the same day's cap; with the setting off, not lazily
+    vs.database.query("UPDATE clips SET model = 'eleven_v3' WHERE key = ?").run(kept!.key)
+    vs.database.query('UPDATE clips SET hits = 50 WHERE key = ?').run(kept!.key)
+    const swapped = await vs.voice('Kruh, prosim.', 'girl', 'scene:x')
+    vs.database.query('UPDATE clips SET engine_voice = ?, hits = 2 WHERE key = ?').run(A, swapped!.key)
+    const off = new VoiceStore({ appDir: vs.dir.replace(/\/voice$/, ''), engines: [el], queueDelayMs: 0, level: null, revoiceDaily: 1, lazyModel: false })
+    const mama = vs.get('mama je doma', 'grandma')!
+    const kruh = vs.get('kruh prosim', 'girl')!
+    check('…an older model\'s clip is stale by its model (LANI_VOICE_UPGRADE_MODEL_LAZY off: not lazily), a swapped voice\'s either way',
+      vs.staleModel(mama) && vs.stale(mama) === 'model' && off.stale(mama) === undefined && vs.stale(kruh) === 'voice' && off.stale(kruh) === 'voice')
+    off.close()
+    vs.close()
+    // a store held to one re-voice a day: both asked, the swapped voice's goes first (though asked less), the model's waits
+    const one: number[] = []
+    const capped = new VoiceStore({ appDir: vs.dir.replace(/\/voice$/, ''), engines: [el, new Gepard({ url: fg.url })], queueDelayMs: 0, denoise, level: null, revoiceDaily: 1, onUpdated: n => void one.push(n) })
+    capped.database.query('DELETE FROM revoices').run() // today's re-voice above not counted here
+    const first = capped.lazyQueue().map(c => c.key)
+    await capped.say('Mama je doma.', 'grandma')
+    await capped.say('Kruh, prosim.', 'girl')
+    const order = capped.lazyQueue().map(c => c.key)
+    await until(() => capped.get('kruh prosim', 'girl')?.engine_voice === B)
+    await Bun.sleep(200)
+    check('the day\'s cap of one: a swapped voice\'s clip played before is queued without a new ask (the phone keeps its clips), an older model\'s only once asked for; the swapped voice\'s first though the model\'s is played more (50 to 3), made in voice B; the older model\'s waits for tomorrow (still eleven_v3)',
+      first.join() === 'girl:kruh prosim' && JSON.stringify(order) === JSON.stringify(['girl:kruh prosim', 'grandma:mama je doma']) && capped.get('kruh prosim', 'girl')?.engine_voice === B &&
+        capped.get('mama je doma', 'grandma')?.model === 'eleven_v3' && capped.lazyToday() === 1 && capped.lazyQueue().map(c => c.key).join() === 'grandma:mama je doma', [order, capped.lazyQueue().map(c => c.key)])
+    // the status: the stale clips, asked for, and what making them all again costs at Turbo's half price
+    const st = capped.staleStats()
+    check('the status counts the stale clips (a swapped voice, an older model: all and asked for) and what making them all again costs (Turbo: half a credit a character)',
+      st.voice.clips === 0 && st.model.clips === 1 && st.model.asked === 1 && st.model.lazy && st.all.chars === 'Mama je doma.'.length && st.all.credits === Math.round(st.all.chars / 2), st)
+    // tomorrow (the day's count reset): the model's clip in eleven_v4_turbo, its filter as the cast has the grandmother (none)
+    capped.database.query('DELETE FROM revoices').run()
+    capped.resumeRevoice()
+    await until(() => capped.get('mama je doma', 'grandma')?.model === 'eleven_v4_turbo')
+    check('…the next day it is made again with eleven_v4_turbo, in the grandmother\'s voice', capped.get('mama je doma', 'grandma')?.model === 'eleven_v4_turbo' && fe.st.tts.at(-1)?.body.model_id === 'eleven_v4_turbo' && fe.st.tts.at(-1)?.voice === cast().grandma.elevenlabs)
+    capped.close()
+    if (before === undefined) delete process.env.LANI_VOICE_CAST
+    else process.env.LANI_VOICE_CAST = before
   }
 
   // --- the narrators of a Slovene village: their Slovene ElevenLabs voices, the local voice as their fallback, never the
@@ -748,7 +840,8 @@ export default async function voice() {
     old.close()
     const updated: number[] = []
     const fresh = new ElevenLabs({ key: 'test-key', base: fe.url, cut, refreshMs: 0 }) // reads the subscription every time
-    const rv = new VoiceStore({ appDir: dir, engines: [fresh], queueDelayMs: 0, revoiceDaily: 2, onUpdated: n => void updated.push(n) })
+    // the carrier re-voice alone: the store's rows are from before the model too, whose lazy upgrade is checked below
+    const rv = new VoiceStore({ appDir: dir, engines: [fresh], queueDelayMs: 0, revoiceDaily: 2, lazyModel: false, onUpdated: n => void updated.push(n) })
     const s0 = rv.carrierStats()
     check('an old store: its narrator words are old-style (not a sentence, a villager\'s word, a local clip); re-voicing them costs their carrier sentences', s0.old === 4 && s0.old_chars === ['potok', 'gozd', 'hvala', 'miza'].reduce((n, w) => n + `Beseda je: ${w}.`.length, 0) && s0.asked === 0 && s0.carrier === 0 && s0.daily === 2, s0)
     fe.st.used = 0

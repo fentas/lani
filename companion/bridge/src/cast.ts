@@ -35,6 +35,9 @@ const speakerSpec = z.object({
   gender: z.enum(['female', 'male']),
   // an ElevenLabs voice id; "" while the speaker has none yet (a culture pack's cast still to choose)
   elevenlabs: z.string().regex(/^([A-Za-z0-9]{10,40})?$/, 'an ElevenLabs voice id, or "" for none yet'),
+  // the day that voice took effect ("2026-10-14"): its clips made before it whose voice isn't recorded (from before
+  // October 11, 2026) are in an earlier one, and are made again as the app asks for them (voice.ts, staleVoice)
+  since: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'a day, YYYY-MM-DD').optional(),
   gepard: z.string().regex(/^[a-z0-9-]{1,32}$/).optional(),
   // the local voice for a lone word (a word, up to three: voice.ts isShortText), when it isn't [gepard] (the female
   // narrator: ana for words, nina for sentences)
@@ -192,6 +195,12 @@ export const baseVoice = (name: string): string => LANGUAGE_VOICE.exec(name)?.[1
 export const archetypeOf = (name: string): string => personVoice(name)?.archetype ?? baseVoice(name)
 
 /** The ElevenLabs voice id of a voice: a person's own, one's voice in a language, else the cast speaker's (none while it's ""). */
+/**
+ * The day [name]'s ElevenLabs voice took effect (the cast's `since`), for a speaker of the cast; undefined for one's voice
+ * in a language, someone's own voice (a new one drops the old one's clips: profiles.ts) or a speaker without it.
+ */
+export const voiceSince = (name: string): string | undefined => (isSpeaker(name) ? cast()[name].since : undefined)
+
 export const elevenlabsOf = (name: string): string | undefined => personVoice(name)?.elevenlabs ?? languageOf(name)?.spec.elevenlabs ?? (cast()[name]?.elevenlabs || undefined)
 
 /**

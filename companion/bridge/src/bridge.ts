@@ -68,7 +68,7 @@ import { StoryStore, storiesDirs } from './stories'
 import { ModuleStore } from './store'
 import { VillagerStore } from './villagers'
 import { VisitTalks } from './visits'
-import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, redoDaily, revoiceDaily, sloveneNarrators, VoiceStore } from './voice'
+import { enginesFromEnv, ffmpegRecordingLeveller, gepardPace, lazyModelUpgrade, redoDaily, revoiceDaily, sloveneNarrators, VoiceStore } from './voice'
 import { Profiles } from './profiles'
 import { resultsDirOf, voiceDir } from './paths'
 
@@ -172,8 +172,10 @@ export async function startBridge(o: BridgeOptions) {
       engines,
       log,
       queueDelayMs: env.LANI_VOICE_QUEUE_DELAY_MS ? Number(env.LANI_VOICE_QUEUE_DELAY_MS) : undefined,
-      // short narrator words from before the carrier sentence, re-voiced a day as the app asks for them
+      // short narrator words from before the carrier sentence, the narrators' Slovene voices, a swapped voice's clips and
+      // (lazyModel) an older model's, re-voiced a day as the app asks for them
       revoiceDaily: revoiceDaily(env),
+      lazyModel: lazyModelUpgrade(env),
       // Jan's re-records on request (a long press on 🔊) a day, on their own count
       redoDaily: redoDaily(env),
       // the local voice's pace: its own unless LANI_VOICE_GEPARD_TEMPO or LANI_VOICE_GEPARD_PAUSES says

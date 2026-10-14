@@ -44,6 +44,11 @@ export type BuildPlan = {
    * that made them (one from before it was recorded: eleven_v3); voice-build --upgrade-model makes the older ones again.
    */
   models: { now: string; by: Record<string, { clips: number; chars: number }> }
+  /**
+   * The stale clips (with ElevenLabs set up): of a swapped voice and of an older model, all and those the app asked for
+   * (the lazy re-voice makes those again, the day's cap), and what making them all again would cost.
+   */
+  stale?: ReturnType<VoiceStore['staleStats']>
 }
 
 export type BuildOptions = {
@@ -178,6 +183,7 @@ export async function plan(items: CorpusItem[], store: VoiceStore, eleven: Eleve
   return {
     texts: sum('texts'), chars: sum('chars'), cached: sum('cached'), by_engine, missing: sum('missing'), missing_chars: sum('missing_chars'), rows, by_voice, narrator_voices, quota, local: worker, gepard_up, would,
     carrier: store.carrierStats(), ...(revoice_words ? { revoice_words } : {}), models: { now: eleven.model, by: store.modelStats() },
+    ...(eleven.configured ? { stale: store.staleStats() } : {}),
   }
 }
 
@@ -219,12 +225,20 @@ export function formatPlan(p: BuildPlan, dir: string): string {
 /** The credits [chars] characters cost on the subscription with the model new clips are made with (MODEL_CREDITS; README, "Costs"). */
 const credits = (chars: number, p: BuildPlan) => creditsFor(chars, p.models.now)
 
-/** The store's ElevenLabs clips by model, and the model new ones are made with. */
+/** The store's ElevenLabs clips by model, and the model new ones are made with; the stale clips and their lazy re-voice. */
 function formatModels(p: BuildPlan): string[] {
   const older = Object.entries(p.models.by).filter(([m]) => m !== p.models.now)
+  const st = p.stale
   return [
     `ElevenLabs model: ${p.models.now} (LANI_ELEVENLABS_MODEL); the clips by model: ${Object.entries(p.models.by).map(([m, x]) => `${m} ${n(x.clips)}`).join(', ') || 'none yet'}` +
       (older.length ? ` (voice-build --upgrade-model makes the ${n(older.reduce((k, [, x]) => k + x.clips, 0))} of an older one again)` : ''),
+    ...(st
+      ? [
+          `Stale clips, made again as the app asks for them (the day's cap, never the reserve): a swapped voice ${n(st.voice.clips)} / asked ${n(st.voice.asked)}; ` +
+            `an older model ${n(st.model.clips)} / asked ${n(st.model.asked)}${st.model.lazy ? '' : ' (not lazily: LANI_VOICE_UPGRADE_MODEL_LAZY=off)'}; ` +
+            `all of them again: ${n(st.all.chars)} characters, ≈ ${n(st.all.credits)} credits with ${st.model.now}`,
+        ]
+      : []),
   ]
 }
 

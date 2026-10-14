@@ -15,7 +15,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSy
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { renderDeep, type Addressee } from './addressee'
-import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, type DenoisePreset, type Gender } from './cast'
+import { archetypeOf, carrierVoice, cast, castInfo, denoiseOf, denoiseVoices, elevenlabsOf, fallbacks, genderOf, GENDERS, isNarrator, isVoice, LANGUAGE_VOICE, languageVoice, languageVoiceName, personVoice, speakerFor, voiceSince, type DenoisePreset, type Gender } from './cast'
 import { drillTexts, type Drill } from './drills'
 import { normalizeText, phrases } from './family'
 import { ispyTexts, type ISpyBook, type ISpyLines } from './ispy'
@@ -1698,6 +1698,12 @@ export const revoiceDaily = (env: Record<string, string | undefined> = process.e
 /** The day's re-records on request the node allows (LANI_VOICE_REDO_DAILY, a whole number, 0: none), else undefined: the default. */
 export const redoDaily = (env: Record<string, string | undefined> = process.env) => dailySetting(env, 'LANI_VOICE_REDO_DAILY')
 
+/**
+ * Whether a clip of an older ElevenLabs model than LANI_ELEVENLABS_MODEL is made again as the app asks for it, after the
+ * clips of a swapped voice, within the same day's cap (LANI_VOICE_UPGRADE_MODEL_LAZY: on unless "off", "0", "false" or "no").
+ */
+export const lazyModelUpgrade = (env: Record<string, string | undefined> = process.env) => !/^(off|0|false|no)$/i.test(env.LANI_VOICE_UPGRADE_MODEL_LAZY?.trim() ?? '')
+
 /** What re-voicing one clip in its carrier sentence came to. */
 export type Revoiced = 'made' | 'plain' | 'stop'
 
@@ -1829,6 +1835,11 @@ export class VoiceStore {
        * own count, so the lazy re-voice never spends them.
        */
       redoDaily?: number
+      /**
+       * A clip of an older ElevenLabs model made again in the current one as the app asks for it (lazyModelUpgrade:
+       * LANI_VOICE_UPGRADE_MODEL_LAZY, on by default), after the clips of a swapped voice, within the day's cap.
+       */
+      lazyModel?: boolean
     },
   ) {
     this.dir = o.dir ?? join(o.appDir, 'voice')
@@ -1877,6 +1888,9 @@ export class VoiceStore {
       this.db.exec('CREATE TABLE IF NOT EXISTS revoices (day TEXT PRIMARY KEY, n INTEGER NOT NULL)')
       // the clips re-recorded on request, per day: once a clip a day
       this.db.exec('CREATE TABLE IF NOT EXISTS redos (key TEXT NOT NULL, day TEXT NOT NULL, PRIMARY KEY (key, day))')
+      // the stale clips the app asked for (a swapped voice, an older model), how often and when first: the lazy re-voice
+      // makes them again (an old clip played before isn't re-voiced until the app asks for it again)
+      this.db.exec('CREATE TABLE IF NOT EXISTS stale_asks (key TEXT PRIMARY KEY, n INTEGER NOT NULL, first TEXT NOT NULL)')
     }
     this.db.exec('PRAGMA busy_timeout = 5000')
   }
@@ -2138,6 +2152,10 @@ export class VoiceStore {
       .query('INSERT OR REPLACE INTO clips (key, norm, text, voice, engine, file, chars, created_at, source, method, hits, denoise, level, gain, tempo, edges, engine_voice, model) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
       .run(key, norm, text, voice, engine, file, clip.chars, clip.created_at, source, clip.method ?? null, clip.hits ?? 0, clip.denoise ?? null, clip.level ?? null, clip.gain ?? null, clip.tempo ?? null, clip.edges ?? null, clip.engine_voice ?? null, model)
     this.seen?.files.set(key, file) // the bridge's own clip: not another process's change
+    // a new take: whatever made the old one stale, the app's asks for it are answered
+    try {
+      this.db.query('DELETE FROM stale_asks WHERE key = ?').run(key)
+    } catch {} // a store from before, only read
     if (old && old.file !== file) {
       try {
         unlinkSync(join(this.filesDir, old.file))
@@ -2288,7 +2306,13 @@ export class VoiceStore {
     try {
       this.db.query('UPDATE clips SET hits = hits + 1 WHERE key = ?').run(c.key)
     } catch {}
-    if (this.oldStyle(c) || this.wantsUpgrade(c)) this.scheduleRevoice()
+    const stale = this.stale(c)
+    if (stale) {
+      try {
+        this.db.query('INSERT INTO stale_asks (key, n, first) VALUES (?, 1, ?) ON CONFLICT (key) DO UPDATE SET n = n + 1').run(c.key, new Date().toISOString())
+      } catch {}
+    }
+    if (stale || this.oldStyle(c) || this.wantsUpgrade(c)) this.scheduleRevoice()
     return c
   }
 
@@ -2321,9 +2345,119 @@ export class VoiceStore {
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
   }
 
-  /** What the lazy re-voice takes up: old-style words and the Slovene narrators' upgrades, most asked for first, then the oldest. */
+  // --- stale clips: a swapped voice, an older model, made again as the app asks for them ---------------------------------
+  //
+  // Jan: "we can regenerate on demand". A clip of a voice that was swapped (the cast's speaker, or someone's own voice)
+  // or of an older ElevenLabs model is served as it is when the app asks for it, and made again soon in the current
+  // voice and model (the lazy re-voice: the day's cap, never the reserve; the swapped voices first), stored as every new
+  // clip is (the cast's filter for the voice now, its edges, the level) under a new file name; the app is told.
+
+  /**
+   * Whether [c] is an ElevenLabs clip not in its speaker's ElevenLabs voice now ([elevenlabsOf]: the cast's, one's voice
+   * in a language, someone's own): its recorded voice another, or, unrecorded (a clip from before October 11, 2026),
+   * made before the day the voice took effect (the cast's `since`). Not a Slovene narrator's from before in its English
+   * voice (never asked for again), nor a voice ElevenLabs has none for now.
+   */
+  staleVoice(c: Clip): boolean {
+    if (c.engine !== 'elevenlabs' || this.sloveneNarrator(c.voice)) return false
+    const now = elevenlabsOf(c.voice)
+    if (!now) return false
+    if (c.engine_voice) return c.engine_voice !== now
+    const since = voiceSince(c.voice)
+    return !!since && c.created_at.slice(0, 10) < since
+  }
+
+  /** Whether [c] is an ElevenLabs clip of an older model than new clips are made with ([modelOf], [model]), in a voice ElevenLabs has. */
+  staleModel(c: Clip): boolean {
+    const now = this.model
+    return !!now && c.engine === 'elevenlabs' && !this.sloveneNarrator(c.voice) && !!elevenlabsOf(c.voice) && modelOf(c) !== now
+  }
+
+  /** Whether the lazy re-voice makes [c] again when the app asks for it: a swapped voice, or an older model (with lazyModel). */
+  stale(c: Clip): 'voice' | 'model' | undefined {
+    if (this.o.readonly || !this.eleven?.configured) return undefined
+    if (this.staleVoice(c)) return 'voice'
+    if (this.lazyModel && this.staleModel(c)) return 'model'
+    return undefined
+  }
+
+  /** Whether an older model's clips are made again as the app asks for them (LANI_VOICE_UPGRADE_MODEL_LAZY). */
+  get lazyModel(): boolean {
+    return this.o.lazyModel ?? true
+  }
+
+  /**
+   * The stale clips the lazy re-voice makes again, most asked for first (hits), then the oldest: a swapped voice's
+   * ([kind] 'voice') the app asked for since it went stale or played before (the phone keeps the clips it has and doesn't
+   * ask for them again: a voice swapped under a line the learner has heard would stay two voices); an older model's
+   * ('model') only those the app asked for since (the asks recorded as they come: a better take, not a wrong one, so
+   * the quota isn't spent on clips nobody asks for).
+   */
+  staleQueue(kind: 'voice' | 'model'): Clip[] {
+    if (!this.eleven?.configured) return []
+    let rows: (Clip & { asked: number | null })[]
+    try {
+      rows = this.db.query("SELECT c.*, s.n AS asked FROM clips c LEFT JOIN stale_asks s ON s.key = c.key WHERE c.engine = 'elevenlabs' AND (s.n IS NOT NULL OR c.hits > 0)").all() as (Clip & { asked: number | null })[]
+    } catch {
+      return [] // a store from before, only read
+    }
+    return rows
+      .filter(c => this.stale(c) === kind && (c.asked !== null || kind === 'voice'))
+      .map(({ asked: _, ...c }) => c as Clip)
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /**
+   * The stale clips in the store: of a swapped voice and of an older model, all and those the app asked for since
+   * ([staleQueue]), and what making them all again costs (characters sent, credits with the model now: MODEL_CREDITS).
+   */
+  staleStats() {
+    const el = this.eleven
+    const all = (this.db.query("SELECT * FROM clips WHERE engine = 'elevenlabs'").all() as Clip[])
+    const voice = all.filter(c => this.staleVoice(c))
+    const model = all.filter(c => !this.staleVoice(c) && this.staleModel(c))
+    const cost = (cs: Clip[]) => cs.reduce((n, c) => n + (el?.cost(c.text, c.voice, explanationLang(c.norm)) ?? c.text.length), 0)
+    const chars = cost(voice) + cost(model)
+    const m = this.model ?? DEFAULT_ELEVENLABS_MODEL
+    return {
+      voice: { clips: voice.length, asked: this.staleQueue('voice').length, chars: cost(voice) },
+      model: { clips: model.length, asked: this.staleQueue('model').length, chars: cost(model), lazy: this.lazyModel, now: m },
+      all: { chars, credits: creditsFor(chars, m) },
+    }
+  }
+
+  /**
+   * [c] made again in its speaker's ElevenLabs voice and the model now, as voice-build --upgrade-model and the lazy
+   * re-voice do: its voice's filter (the cast's now), its edges and the level as every new clip, a new file name, its hits
+   * kept, the old file removed: 'made'; 'skip' for a voice ElevenLabs has none for now; 'stop' when it can't now (the quota
+   * down to the reserve, kept for live lines; an error; a read-only store). [count]: a take paid for counts for the day.
+   */
+  private async remake(c: Clip, count: boolean): Promise<'made' | 'skip' | 'stop'> {
+    const el = this.eleven
+    if (this.o.readonly || !el || this.running.has(c.key)) return 'stop'
+    if (!elevenlabsOf(c.voice)) return 'skip'
+    const lang = explanationLang(c.norm)
+    if (!(await el.ready(el.cost(c.text, c.voice, lang), false))) return 'stop'
+    const before = el.remaining()
+    const job = (async () => {
+      const take = await el.synth(c.text, c.voice, { lang })
+      return take ? await this.save(c.norm, c.text, c.voice, 'elevenlabs', take.bytes, c.source, take) : null
+    })()
+    this.running.set(c.key, job.catch(() => null).finally(() => this.running.delete(c.key)))
+    const made = await job.catch(() => null)
+    if (count && (made || el.remaining() !== before)) this.countForToday()
+    return made ? 'made' : 'stop'
+  }
+
+  /**
+   * What the lazy re-voice takes up: old-style words, the Slovene narrators' upgrades and the clips of a swapped voice the
+   * app asked for, most asked for first, then the oldest; after them the older model's ([lazyModel]).
+   */
   lazyQueue(asked = true): Clip[] {
-    return [...this.revoiceQueue(asked), ...this.upgradeQueue(asked)].sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+    const first = [...this.revoiceQueue(asked), ...this.upgradeQueue(asked), ...this.staleQueue('voice')]
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+    const seen = new Set(first.map(c => c.key))
+    return [...first, ...(this.lazyModel ? this.staleQueue('model').filter(c => !seen.has(c.key)) : [])]
   }
 
   /**
@@ -2531,15 +2665,26 @@ export class VoiceStore {
     this.revoicing = true
     let words = 0
     let narrators = 0
+    let voices = 0
+    let models = 0
+    const skipped = new Set<string>()
     try {
       while (this.lazyToday() < this.revoiceDaily) {
         // a clip being re-recorded on request right now is not taken up again
-        const c = this.lazyQueue().find(q => !this.running.has(q.key) && !this.running.has(clipKey(q.norm, this.slVoiceOf(q.voice) ?? q.voice)))
+        const c = this.lazyQueue().find(q => !skipped.has(q.key) && !this.running.has(q.key) && !this.running.has(clipKey(q.norm, this.slVoiceOf(q.voice) ?? q.voice)))
         if (!c) break
-        const upgrade = !this.oldStyle(c)
-        const r = upgrade ? await this.upgradeOne(c) : await this.revoiceOne(c)
+        // an old-style word in its carrier sentence (in the voice and model now); a Slovene narrator's line in its Slovene
+        // ElevenLabs voice; a swapped voice's or an older model's clip again in the voice and model now
+        const stale = this.oldStyle(c) ? undefined : this.stale(c)
+        const r = this.oldStyle(c) ? await this.revoiceOne(c) : stale ? await this.remake(c, true) : await this.upgradeOne(c)
         if (r === 'stop') break
-        if (r === 'made') upgrade ? narrators++ : words++
+        if (r === 'skip') skipped.add(c.key)
+        if (r === 'made') {
+          if (this.oldStyle(c)) words++
+          else if (stale === 'voice') voices++
+          else if (stale === 'model') models++
+          else narrators++
+        }
         if (this.o.queueDelayMs !== 0) await Bun.sleep(this.o.queueDelayMs ?? 1500)
       }
     } catch (e) {
@@ -2548,7 +2693,9 @@ export class VoiceStore {
       this.revoicing = false
       if (words) this.o.log?.(`voice: ${words} short word(s) re-voiced in their carrier sentence (${this.lazyToday()}/${this.revoiceDaily} today)`)
       if (narrators) this.o.log?.(`voice: ${narrators} narrator line(s) made in their Slovene ElevenLabs voice, the local clips kept (${this.lazyToday()}/${this.revoiceDaily} today)`)
-      if (words + narrators) this.o.onUpdated?.(words + narrators)
+      if (voices) this.o.log?.(`voice: ${voices} clip(s) of a swapped voice made again in the voice now (${this.lazyToday()}/${this.revoiceDaily} today)`)
+      if (models) this.o.log?.(`voice: ${models} clip(s) of an older model made again with ${this.model} (${this.lazyToday()}/${this.revoiceDaily} today)`)
+      if (words + narrators + voices + models) this.o.onUpdated?.(words + narrators + voices + models)
     }
   }
 
@@ -2616,17 +2763,7 @@ export class VoiceStore {
    * 'stop' when it can't now (the quota down to the reserve, kept for live lines; an error; a read-only store).
    */
   async upgradeModelOne(c: Clip): Promise<'made' | 'skip' | 'stop'> {
-    const el = this.eleven
-    if (this.o.readonly || !el || this.running.has(c.key)) return 'stop'
-    if (!elevenlabsOf(c.voice)) return 'skip'
-    const lang = explanationLang(c.norm)
-    if (!(await el.ready(el.cost(c.text, c.voice, lang), false))) return 'stop'
-    const job = (async () => {
-      const take = await el.synth(c.text, c.voice, { lang })
-      return take ? await this.save(c.norm, c.text, c.voice, 'elevenlabs', take.bytes, c.source, take) : null
-    })()
-    this.running.set(c.key, job.finally(() => this.running.delete(c.key)))
-    return (await job) ? 'made' : 'stop'
+    return this.remake(c, false)
   }
 
   /**
@@ -3273,6 +3410,8 @@ export class VoiceStore {
       explanations: this.explanationStats(),
       // the ElevenLabs clips by the model that made them, and the model new ones are made with (voice-build --upgrade-model)
       models: { now: this.model ?? null, by: this.modelStats() },
+      // the clips of a swapped voice and of an older model: all, those the app asked for (re-voiced lazily), the cost
+      ...(this.eleven?.configured ? { stale: this.staleStats() } : {}),
       engines,
       cast: castInfo(),
       queued: this.queue.length,
