@@ -60,6 +60,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
  *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
  *   school").
+ * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
+ *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
+ *   entered in the panel, as the learner would.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -118,9 +121,12 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
+        shadow: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            command == "shadow" -> shadow("")
+            command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
             command == "zoom" -> zooms++
             command.startsWith("happening:") -> happening = command.removePrefix("happening:").takeIf { '/' in it }

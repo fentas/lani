@@ -36,6 +36,12 @@ class SyncController(
     var pending by mutableIntStateOf(0)
         private set
 
+    /**
+     * Told of each write the node took (its path and body as sent): the shadow tutor's copy of the learner's events
+     * (tutor/ShadowTutor, a developer setting). It only reads them.
+     */
+    var onDelivered: ((OutboxEntry) -> Unit)? = null
+
     init {
         scope.launch { pending = withContext(Dispatchers.IO) { outbox.size } }
     }
@@ -54,6 +60,7 @@ class SyncController(
         val b = bridge() ?: return null
         val r = withContext(Dispatchers.IO) { outbox.flush(force) { b.deliver(it) } }
         pending = r.remaining
+        onDelivered?.let { tell -> r.sent.forEach { runCatching { tell(it) } } }
         r.dropped.firstOrNull()?.let { (e, why) -> notices.error = bi("syncController.notSavedWhy", "eLabel" to e.label, "why" to why) }
         // a node from before a route: it went the older way (the level change to the tutor), and the learner is told so
         r.fellBack.firstOrNull()?.let { e -> notices.banner = "📨 ${bi("syncController.olderNode", "eLabel" to e.label)}" }

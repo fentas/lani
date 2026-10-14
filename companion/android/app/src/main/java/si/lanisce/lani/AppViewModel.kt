@@ -159,6 +159,21 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     )
     // the chat by month (files/chat/2026-09.json); chat.json is what was kept before the archive (ChatStore)
     val chat = ChatController(viewModelScope, prefs, sync, notices, ChatStore(File(app.filesDir, "chat"), File(app.filesDir, "chat.json")))
+    /**
+     * The in-app tutor's prototype in shadow mode (docs/plans/05-phase-0.md, check 6): a developer setting, off by
+     * default. It sees the writes the node took (the learner's events) and the real tutor's replies, and shows what it
+     * would have said in its debug panel; nothing of it reaches the node but GETs, the chat or a notification.
+     */
+    val shadow = si.lanisce.lani.tutor.ShadowTutor(
+        viewModelScope,
+        si.lanisce.lani.tutor.ShadowStore(File(app.filesDir, "shadow-tutor")),
+        si.lanisce.lani.tutor.KeyVault(si.lanisce.lani.tutor.KeystoreCipher(), si.lanisce.lani.tutor.DataStoreSecretStore(app)),
+        bridgeConfig = { prefs.config() },
+        debug = si.lanisce.lani.BuildConfig.DEBUG,
+        learner = { content.dashboard?.name },
+        where = { screen::class.simpleName },
+        logLine = { if (si.lanisce.lani.BuildConfig.DEBUG) android.util.Log.i("ShadowTutor", it) },
+    ).also { s -> sync.onDelivered = { e -> s.onDelivered(e.clientId, e.path, e.body) } }
     /** The village book's grammar chapter: its pages, the one open over any screen, the pages met (app/GrammarController). */
     val grammar = GrammarController(node, game, content, chat, notices).also { g ->
         // a session's report tells the tutor which rules are ripe to introduce (companion/GAME.md, "Rules not yet")
@@ -195,7 +210,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val hudPrefs = si.lanisce.lani.data.HudPrefs(app)
     val talk = TalkModel(
         viewModelScope,
-        send = { kind, conv, text, data -> (bridge ?: throw java.io.IOException("not connected")).message(kind, conv, text, data) },
+        send = { kind, conv, text, data ->
+            (bridge ?: throw java.io.IOException("not connected")).message(kind, conv, text, data)
+            shadow.onRoleplay(kind, conv, text, data) // seen by the shadow tutor (phase B: not run)
+        },
         fetch = { bridge?.scenarios().orEmpty() },
         reward = game::rewardTalk,
         befriend = { id, points, memory -> villagers.talked(id, points, memory) },
@@ -323,6 +341,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         // everyone who lives in the village has a voice profile on the node (their own voice, or pitch and pace)
         viewModelScope.launch {
             snapshotFlow { villagers.voicePeople(game.state) }.distinctUntilChanged().collect { clips.syncProfiles(it) }
+        }
+        // the learner opening the chat runs the shadow tutor's digest (plan 5, "Events to turns")
+        viewModelScope.launch {
+            snapshotFlow { chat.isOpen }.distinctUntilChanged().collect { if (it) shadow.onChatOpened() }
         }
         // the day's audio is planned once the village and the cards are there (a reload may end before the village loads)
         viewModelScope.launch {
@@ -461,13 +483,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun handle(ev: BridgeEvent) {
         when (ev) {
-            is BridgeEvent.Reply ->
+            is BridgeEvent.Reply -> {
+                // the real tutor's reply, next to the shadow tutor's in its panel (it only reads it)
+                shadow.onRealReply(ev.conversationId, ev.text, ev.data)
                 if (ev.conversationId.startsWith("rp-")) talk.onReply(ev)
                 else if (ev.conversationId.startsWith("ex")) chat.onGraded(ev)
                 else if (ev.conversationId.startsWith("fam_")) {
                     family.refresh() // the tutor's feedback on a family challenge
                     notices.banner = "🧑‍🏫 ${bi("appViewModel.tutorRepliedFamilyAnswer")}"
                 } else if (!questions.onReply(ev)) chat.onReply(ev) // tq_…: a check's or a question's feedback
+            }
             is BridgeEvent.ModulePublished -> {
                 notices.banner = "🎉 ${ev.note ?: inBase("appViewModel.newDrillUnlocked", "title" to (ev.title ?: ev.id))}"
                 clips.refresh()
@@ -581,6 +606,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         foreground = true
         if (bridge != null) events.start()
         commitRoadRatings()
+        shadow.onForeground() // a digest when the app was away two hours or more
     }
 
     /**
@@ -592,6 +618,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         events.stop()
         speaker.stop()
         update.onBackground()
+        shadow.onBackground()
     }
 
     /** A notification was tapped: go where it points, once connected, without interrupting a run. */

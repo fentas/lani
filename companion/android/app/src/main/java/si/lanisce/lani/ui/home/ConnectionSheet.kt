@@ -1,17 +1,27 @@
 package si.lanisce.lani.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
@@ -25,7 +35,8 @@ import si.lanisce.lani.l10n.bi
 /**
  * "🔗 Povezava · Connection", from the tutor's status dot on Home: which tutor and learner this phone talks
  * to, and pairing again by QR code (a new code after the phone was unpaired, or instead of a typed token); and this
- * phone's settings: the languages, the background sounds, the school's explanations read aloud, the offline audio.
+ * phone's settings: the languages, the background sounds, the school's explanations read aloud, the offline audio, and
+ * (hidden until the version is tapped seven times) the developer's.
  */
 @Composable
 fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit) {
@@ -56,8 +67,57 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
             AmbienceSettings(vm.ambience, Modifier.padding(top = 12.dp))
             si.lanisce.lani.ui.school.ReadSetting(vm, Modifier.padding(top = 4.dp))
             OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
+            Developer(vm)
         }
     }
+}
+
+/**
+ * "🛠️ Razvijalec · Developer": hidden until the version line at the bottom is tapped seven times (in the release app
+ * too), then the developer's settings: the shadow tutor (tutor/ShadowTutor, docs/plans/05-phase-0.md check 6), on or off,
+ * and its debug panel. Turning it on without a key opens the panel, which asks for one.
+ */
+@Composable
+private fun Developer(vm: AppViewModel) {
+    val shadow = vm.shadow
+    val shown = shadow.settings.developer
+    var taps by remember { mutableIntStateOf(0) }
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    if (shown) {
+        Column(Modifier.padding(top = 12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("🛠️ ${bi("developer.title")}", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Column(Modifier.weight(1f)) {
+                    Text("🕵️ ${bi("developer.shadowTutor")}", style = MaterialTheme.typography.bodyLarge)
+                    Text(shadow.status, style = MaterialTheme.typography.bodySmall, color = muted)
+                }
+                Switch(
+                    checked = shadow.settings.enabled,
+                    onCheckedChange = { on ->
+                        shadow.setEnabled(on)
+                        if (on && !shadow.hasKey) shadow.panelOpen = true
+                    },
+                )
+            }
+            Text(bi("developer.shadowWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+            OutlinedButton(onClick = { shadow.panelOpen = true }) { Text("🔍 ${bi("developer.openPanel")}") }
+            TextButton(onClick = { shadow.showDeveloper(false) }) { Text(bi("developer.hide")) }
+        }
+    }
+    Text(
+        bi("developer.version", "version" to si.lanisce.lani.BuildConfig.VERSION_NAME),
+        style = MaterialTheme.typography.bodySmall,
+        color = muted,
+        modifier = Modifier.padding(top = 16.dp).clickable {
+            if (shown) return@clickable
+            taps++
+            if (taps >= 7) {
+                taps = 0
+                shadow.showDeveloper(true)
+                vm.notices.banner = "🛠️ ${bi("developer.shown")}"
+            }
+        },
+    )
 }
 
 @Composable

@@ -92,6 +92,17 @@
             android:name=".data.InstallResultReceiver"
             android:exported="false" />
 
+        <!-- Files the app hands the share sheet (the shadow tutor's export, a developer setting): its cache's shared/ only. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/shared_files" />
+        </provider>
+
         <!-- Home-screen widget: the village, the streak, today's cards and the active event. -->
         <receiver
             android:name=".widget.VillageWidget"

@@ -82,7 +82,8 @@ class MainActivity : ComponentActivity() {
     private fun openLink(intent: Intent?) {
         // what QA asks of a debug build (a release ignores it), before the link it may open
         si.lanisce.lani.app.QaHooks.handle(intent?.getStringExtra(si.lanisce.lani.app.QaHooks.EXTRA), road = vm::qaRoad, forms = vm::qaForms, step = vm::qaStep, audio = vm::qaAudio, season = vm::qaSeason, ready = vm::qaBuild,
-            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) }, school = vm::qaSchool)
+            chat = { vm.chat.onReply(si.lanisce.lani.data.BridgeEvent.Reply("main", it, null)) }, cheat = { vm.cheat.show(it) }, school = vm::qaSchool,
+            shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
@@ -196,6 +197,8 @@ private fun App(vm: AppViewModel) {
     // a village project's step played over the village (no scene of its own open today): its people and its dialog
     vm.scenes.talk?.takeIf { it.step?.over == true }?.let { si.lanisce.lani.ui.scene.ProjectStepScene(vm, it) }
     vm.words.card?.let { WordSheet(vm, it) }
+    // the shadow tutor's debug panel (a developer setting: tutor/ShadowTutor), over everything
+    if (vm.shadow.panelOpen) si.lanisce.lani.ui.tutor.ShadowPanel(vm.shadow) { vm.shadow.panelOpen = false }
     // no village yet, anywhere: the learner chooses where it will be before anything else of the game
     val founding = vm.game.placeNeeded && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
     if (founding) si.lanisce.lani.ui.game.FoundingScreen(vm)
