@@ -118,6 +118,48 @@ class Harness(
         return buildJsonObject { put("steps", JsonArray(steps)); put("woven_answers", JsonArray(answers.map { JsonPrimitive(it.take(300)) })) }
     }
 
+    /** The dictionary's main file (companion/lexicon/sl.json, from the corpus's mount): the biggest text a check needs. */
+    fun dictionary(): String = Json.parseToJsonElement(read("mounts/lexicon-sl.json")).jsonObject["files"]!!.jsonObject["sl.json"]!!.jsonPrimitive.content
+
+    /**
+     * One way of handing [text] to an engine, timed and checked: [send] puts it in the script's global `__t` (and answers
+     * its length), timed; then, untimed, `h(__t)` (its length and FNV-1a, [HASH_JS]) must be the text's own. Its error
+     * when the way fails.
+     */
+    fun inputPath(js: Js, name: String, text: String, send: () -> String): JsonObject {
+        js.eval(HASH_JS)
+        val want = "${text.length}:${fnv1a(text)}"
+        val t = now()
+        val sent = runCatching { send() }
+        val took = ms(t)
+        val got = sent.mapCatching { js.eval("h(globalThis.__t)") }
+        return buildJsonObject {
+            put("path", name); put("chars", text.length); put("ms", took)
+            got.onSuccess { put("ok", it == want); if (it != want) put("got", it.take(200)) }
+            got.onFailure { put("ok", false); put("error", it.toString().take(400)) }
+        }
+    }
+
+    companion object {
+        /** h(s): its length and FNV-1a over its UTF-16 units; utf8(bytes): a Uint8Array's text (no TextDecoder needed). */
+        const val HASH_JS = """
+globalThis.h = s => { let x = 0x811c9dc5; for (let i = 0; i < s.length; i++) { x ^= s.charCodeAt(i); x = Math.imul(x, 0x01000193) >>> 0 } return s.length + ':' + x.toString(16).padStart(8, '0') };
+globalThis.utf8 = b => { const out = []; let chunk = []; for (let i = 0; i < b.length;) { let c = b[i++];
+  if (c >= 0xf0) { c = ((c & 7) << 18) | ((b[i++] & 63) << 12) | ((b[i++] & 63) << 6) | (b[i++] & 63); c -= 0x10000; chunk.push(0xd800 + (c >> 10), 0xdc00 + (c & 1023)) }
+  else if (c >= 0xe0) chunk.push(((c & 15) << 12) | ((b[i++] & 63) << 6) | (b[i++] & 63))
+  else if (c >= 0xc0) chunk.push(((c & 31) << 6) | (b[i++] & 63))
+  else chunk.push(c)
+  if (chunk.length > 8000) { out.push(String.fromCharCode.apply(null, chunk)); chunk = [] } }
+  out.push(String.fromCharCode.apply(null, chunk)); return out.join('') };
+'ok'"""
+
+        fun fnv1a(s: String): String {
+            var h = 0x811c9dc5.toInt()
+            for (ch in s) { h = h xor ch.code; h *= 0x01000193 }
+            return Integer.toHexString(h).padStart(8, '0')
+        }
+    }
+
     private fun quantiles(xs: List<Double>): JsonObject {
         val s = xs.sorted()
         fun at(p: Double) = s[minOf(s.size - 1, (p * s.size).toInt())]

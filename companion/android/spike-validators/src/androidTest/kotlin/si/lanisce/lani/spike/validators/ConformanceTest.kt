@@ -9,9 +9,9 @@ import androidx.javascriptengine.JavaScriptSandbox
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -75,7 +75,41 @@ class ConformanceTest {
     @Test
     fun quickjs() {
         val session = harness.session({ Quick() }) { probe("session") }
-        write("quickjs", withSession(session, harness.run({ Quick() }, ::probe) { e, out -> Quick.bytecode(e as Quick, text("validators-lexicon.js"), out) }))
+        val result = harness.run({ Quick() }, ::probe) { e, out ->
+            Quick.bytecode(e as Quick, text("validators-lexicon.js"), out)
+            out["input_paths"] = Quick.inputPaths(harness)
+        }
+        write("quickjs", withSession(session, result))
+    }
+
+    /**
+     * The dictionary (1.8 MB) handed to an isolate each way the sandbox has: a script's string literal (the binder's
+     * ~1 MB unless EVALUATE_WITHOUT_TRANSACTION_LIMIT), provideNamedData (PROVIDE_CONSUME_ARRAY_BUFFER, decoded in the
+     * script), a script from a file descriptor (EVALUATE_FROM_FD); each in an isolate of its own, checked by its hash.
+     */
+    private fun inputPaths(sandbox: JavaScriptSandbox): JsonArray {
+        val text = harness.dictionary()
+        val q = { s: String -> JsonPrimitive(s).toString() }
+        val out = mutableListOf<JsonObject>()
+        out += Sandbox(sandbox).use { e -> harness.inputPath(e, "literal (evaluate)", text) { e.eval("globalThis.__t = ${q(text)}; __t.length") } }
+        if (sandbox.isFeatureSupported(JavaScriptSandbox.JS_FEATURE_PROVIDE_CONSUME_ARRAY_BUFFER) && sandbox.isFeatureSupported(JavaScriptSandbox.JS_FEATURE_PROMISE_RETURN)) {
+            out += Sandbox(sandbox).use { e ->
+                val decoder = e.eval("typeof TextDecoder")
+                harness.inputPath(e, "provideNamedData (ArrayBuffer, TextDecoder: $decoder)", text) {
+                    e.isolate.provideNamedData("lexicon", text.toByteArray(Charsets.UTF_8))
+                    e.eval("android.consumeNamedDataAsArrayBuffer('lexicon').then(b => { globalThis.__t = typeof TextDecoder === 'function' ? new TextDecoder().decode(b) : utf8(new Uint8Array(b)); return __t.length })")
+                }
+            }
+        }
+        if (sandbox.isFeatureSupported(JavaScriptSandbox.JS_FEATURE_EVALUATE_FROM_FD)) {
+            out += Sandbox(sandbox).use { e ->
+                harness.inputPath(e, "file descriptor (evaluate a script file)", text) {
+                    val f = File(target.cacheDir, "lexicon-script.js").apply { writeText("globalThis.__t = ${q(text)}; __t.length") }
+                    ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY).use { e.isolate.evaluateJavaScriptAsync(it).get() }
+                }
+            }
+        }
+        return JsonArray(out)
     }
 
     @Test
@@ -106,8 +140,9 @@ class ConformanceTest {
                 }
             }
         }
+        val paths = inputPaths(sandbox)
         sandbox.close()
-        write("jsengine", withSession(session, result))
+        write("jsengine", JsonObject(withSession(session, result) + ("input_paths" to paths)))
     }
 
     companion object {

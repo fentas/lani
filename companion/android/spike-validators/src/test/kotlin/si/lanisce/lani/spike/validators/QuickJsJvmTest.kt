@@ -25,7 +25,10 @@ class QuickJsJvmTest {
             lines = { each -> File(corpus, "cases.jsonl").bufferedReader().useLines { it.forEach(each) } },
         )
         val session = harness.session({ Quick() })
-        val result = harness.run({ Quick() }) { e, out -> Quick.bytecode(e as Quick, file("validators-lexicon.js").readText(), out) }
+        val result = harness.run({ Quick() }) { e, out ->
+            Quick.bytecode(e as Quick, file("validators-lexicon.js").readText(), out)
+            out["input_paths"] = Quick.inputPaths(harness)
+        }
         File(System.getProperty("user.dir"), "build/results-quickjs-jvm.json").writeText(kotlinx.serialization.json.JsonObject(result + ("session" to session)).toString())
         println("quickjs-jvm: ${result["cases"]} cases, ${result["mismatches"]} mismatches")
         result["mismatch_list"]?.let { println(it.toString().take(4000)) }

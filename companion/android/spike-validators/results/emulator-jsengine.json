@@ -1,0 +1,539 @@
+{
+ "start_cold_ms": 16.340768,
+ "start_warm_ms": 0.63408,
+ "load_core_ms": 105.033504,
+ "load_full_ms": 93.161651,
+ "bundle_chars": {
+  "validators.js": 322164,
+  "validators-lexicon.js": 336621
+ },
+ "kinds": "module,pack,scene,story,villager,arrival,grammar,drill,course,unit,worksheet,card,scenario,forms,extra,culture,learner,woven",
+ "sandbox_connect_ms": 75.641702,
+ "features": {
+  "JS_FEATURE_ISOLATE_TERMINATION": true,
+  "JS_FEATURE_PROMISE_RETURN": true,
+  "JS_FEATURE_PROVIDE_CONSUME_ARRAY_BUFFER": true,
+  "JS_FEATURE_WASM_COMPILATION": true,
+  "JS_FEATURE_ISOLATE_MAX_HEAP_SIZE": true,
+  "JS_FEATURE_EVALUATE_WITHOUT_TRANSACTION_LIMIT": true,
+  "JS_FEATURE_CONSOLE_MESSAGING": true,
+  "JS_FEATURE_EVALUATE_FROM_FD": true,
+  "JS_FEATURE_MESSAGE_PORTS": false
+ },
+ "webview": "133.0.6943.137",
+ "load_full_fd_ms": 65.707801,
+ "refs_ms": {
+  "friuli": 31.388834,
+  "kaernten": 34.094207,
+  "lakeland": 41.079084,
+  "primorska-woven": 77.534133,
+  "primorska": 50.437064
+ },
+ "refs_chars": {
+  "friuli": 275432,
+  "kaernten": 284342,
+  "lakeland": 356299,
+  "primorska-woven": 785308,
+  "primorska": 664219
+ },
+ "cases": 1702,
+ "mismatches": 0,
+ "mismatch_list": [],
+ "parser_messages": [
+  {
+   "id": "module:companion/modules/biti-sedanjik.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 2391 (line 35 column 14)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "pack:companion/packs/babicina-kuhinja.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 5911 (line 55 column 102)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "scene:companion/scenes/kuhinja.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 40791 (line 270 column 121)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "story:companion/cultures/friuli/stories/gli-sbilfs.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unexpected EOF"
+  },
+  {
+   "id": "villager:companion/cultures/friuli/villagers/aldo.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 4341 (line 47 column 123)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "grammar:companion/grammar/de/akkusativ.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 3213 (line 22 column 40)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "drill:companion/drills/sl/gradnja.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 28589 (line 368 column 140)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "course:companion/course/sl/course.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 2201 (line 17 column 137)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "unit:companion/course/sl/units/biti.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 7518 (line 105 column 128)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "card:companion/cards/sl/kje-kam.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unexpected EOF"
+  },
+  {
+   "id": "scenario:companion/scenarios/na-trznici.json#json:truncated",
+   "engine": "Unterminated string in JSON at position 571 (line 10 column 110)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "arrival:.claude/skills/lani-studio/reference/module-spec.md[26]#json:truncated",
+   "engine": "Unterminated string in JSON at position 511 (line 7 column 30)",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "worksheet:companion/COURSE.md[8]#json:truncated",
+   "engine": "Unterminated string in JSON at position 110 (line 5 column 33)",
+   "bun": "JSON Parse error: Unterminated string"
+  }
+ ],
+ "mount_ms": {
+  "culture-friuli": 65.06098,
+  "culture-kaernten": 69.431265,
+  "culture-lakeland": 85.606302,
+  "culture-primorska": 413.830777,
+  "culture-primorska-gone-world": 388.33993,
+  "culture-primorska-ref-festival-leader": 381.426932,
+  "culture-primorska-ref-thanks-good": 263.554855,
+  "culture-primorska-placeholder-quests": 384.585106,
+  "culture-primorska-scene-villager": 364.658045,
+  "culture-friuli-story-order": 43.042666,
+  "culture-kaernten-type-projects": 49.272093,
+  "culture-lakeland-drop-manifest-language": 52.043126,
+  "lexicon-sl": 109.283598
+ },
+ "mount_chars": {
+  "culture-friuli": 1034598,
+  "culture-kaernten": 1078667,
+  "culture-lakeland": 1217979,
+  "culture-primorska": 5590615,
+  "culture-primorska-gone-world": 0,
+  "culture-primorska-ref-festival-leader": 23805,
+  "culture-primorska-ref-thanks-good": 30100,
+  "culture-primorska-placeholder-quests": 27733,
+  "culture-primorska-scene-villager": 64377,
+  "culture-friuli-story-order": 29586,
+  "culture-kaernten-type-projects": 270,
+  "culture-lakeland-drop-manifest-language": 1507,
+  "lexicon-sl": 1928092
+ },
+ "woven_first_ms": 51.264085,
+ "woven_second_ms": 8.170678,
+ "conformance_ms": {
+  "module": {
+   "n": 56,
+   "median_ms": 3.183233,
+   "p95_ms": 14.123425,
+   "max_ms": 26.810339,
+   "total_ms": 290.146026
+  },
+  "pack": {
+   "n": 218,
+   "median_ms": 2.510953,
+   "p95_ms": 9.987301,
+   "max_ms": 18.706051,
+   "total_ms": 769.1201590000002
+  },
+  "scene": {
+   "n": 153,
+   "median_ms": 7.837408,
+   "p95_ms": 19.320451,
+   "max_ms": 44.228508,
+   "total_ms": 1429.2546279999995
+  },
+  "story": {
+   "n": 139,
+   "median_ms": 4.562985,
+   "p95_ms": 15.544356,
+   "max_ms": 20.759913,
+   "total_ms": 806.8081719999997
+  },
+  "villager": {
+   "n": 152,
+   "median_ms": 1.506352,
+   "p95_ms": 7.399158,
+   "max_ms": 9.96665,
+   "total_ms": 379.4585930000001
+  },
+  "grammar": {
+   "n": 176,
+   "median_ms": 1.943502,
+   "p95_ms": 6.885178,
+   "max_ms": 10.828591,
+   "total_ms": 441.42520699999994
+  },
+  "drill": {
+   "n": 50,
+   "median_ms": 5.486926,
+   "p95_ms": 16.820438,
+   "max_ms": 30.582993,
+   "total_ms": 355.38586599999996
+  },
+  "course": {
+   "n": 18,
+   "median_ms": 1.894991,
+   "p95_ms": 6.649787,
+   "max_ms": 6.649787,
+   "total_ms": 47.647127
+  },
+  "unit": {
+   "n": 99,
+   "median_ms": 4.072274,
+   "p95_ms": 15.477057,
+   "max_ms": 31.749074,
+   "total_ms": 561.7820260000001
+  },
+  "card": {
+   "n": 83,
+   "median_ms": 1.186011,
+   "p95_ms": 4.091104,
+   "max_ms": 18.52731,
+   "total_ms": 143.85727400000002
+  },
+  "scenario": {
+   "n": 56,
+   "median_ms": 0.42005,
+   "p95_ms": 1.332782,
+   "max_ms": 15.127566,
+   "total_ms": 43.603367
+  },
+  "forms": {
+   "n": 6,
+   "median_ms": 4.133874,
+   "p95_ms": 4.987236,
+   "max_ms": 4.987236,
+   "total_ms": 20.478333
+  },
+  "extra": {
+   "n": 6,
+   "median_ms": 16.210817,
+   "p95_ms": 19.816731,
+   "max_ms": 19.816731,
+   "total_ms": 72.854607
+  },
+  "arrival": {
+   "n": 19,
+   "median_ms": 0.472061,
+   "p95_ms": 2.843134,
+   "max_ms": 2.843134,
+   "total_ms": 12.414956
+  },
+  "worksheet": {
+   "n": 38,
+   "median_ms": 0.499961,
+   "p95_ms": 2.206173,
+   "max_ms": 3.232343,
+   "total_ms": 27.829371000000002
+  },
+  "culture": {
+   "n": 12,
+   "median_ms": 87.498405,
+   "p95_ms": 461.139468,
+   "max_ms": 461.139468,
+   "total_ms": 1802.543437
+  },
+  "learner": {
+   "n": 241,
+   "median_ms": 1.032681,
+   "p95_ms": 4.415375,
+   "max_ms": 16.285968,
+   "total_ms": 382.771708
+  },
+  "woven": {
+   "n": 180,
+   "median_ms": 11.541043,
+   "p95_ms": 33.729436,
+   "max_ms": 71.428677,
+   "total_ms": 2754.274751
+  }
+ },
+ "curated_ms": {
+  "module": {
+   "n": 7,
+   "median_ms": 1.495582,
+   "p95_ms": 2.921533,
+   "max_ms": 2.921533,
+   "total_ms": 11.404952
+  },
+  "pack": {
+   "n": 142,
+   "median_ms": 2.117682,
+   "p95_ms": 8.428289,
+   "max_ms": 21.506683,
+   "total_ms": 498.58891099999994
+  },
+  "scene": {
+   "n": 28,
+   "median_ms": 5.413935,
+   "p95_ms": 13.072474,
+   "max_ms": 14.808766,
+   "total_ms": 175.100733
+  },
+  "story": {
+   "n": 48,
+   "median_ms": 3.646064,
+   "p95_ms": 9.22593,
+   "max_ms": 9.797691,
+   "total_ms": 196.37026100000003
+  },
+  "villager": {
+   "n": 55,
+   "median_ms": 1.375691,
+   "p95_ms": 4.869805,
+   "max_ms": 5.110216,
+   "total_ms": 101.15898700000001
+  },
+  "grammar": {
+   "n": 93,
+   "median_ms": 1.633131,
+   "p95_ms": 5.445546,
+   "max_ms": 6.991698,
+   "total_ms": 193.43323000000004
+  },
+  "drill": {
+   "n": 4,
+   "median_ms": 7.095397,
+   "p95_ms": 7.154258,
+   "max_ms": 7.154258,
+   "total_ms": 22.038175
+  },
+  "course": {
+   "n": 3,
+   "median_ms": 2.580102,
+   "p95_ms": 3.986294,
+   "max_ms": 3.986294,
+   "total_ms": 7.421557
+  },
+  "unit": {
+   "n": 20,
+   "median_ms": 4.113794,
+   "p95_ms": 11.927213,
+   "max_ms": 11.927213,
+   "total_ms": 89.46805799999998
+  },
+  "card": {
+   "n": 4,
+   "median_ms": 1.438641,
+   "p95_ms": 4.797586,
+   "max_ms": 4.797586,
+   "total_ms": 8.322749
+  },
+  "scenario": {
+   "n": 7,
+   "median_ms": 0.844051,
+   "p95_ms": 1.957282,
+   "max_ms": 1.957282,
+   "total_ms": 6.791677
+  },
+  "forms": {
+   "n": 1,
+   "median_ms": 1.624512,
+   "p95_ms": 1.624512,
+   "max_ms": 1.624512,
+   "total_ms": 1.624512
+  },
+  "extra": {
+   "n": 1,
+   "median_ms": 12.097753,
+   "p95_ms": 12.097753,
+   "max_ms": 12.097753,
+   "total_ms": 12.097753
+  },
+  "arrival": {
+   "n": 1,
+   "median_ms": 1.325722,
+   "p95_ms": 1.325722,
+   "max_ms": 1.325722,
+   "total_ms": 1.325722
+  },
+  "worksheet": {
+   "n": 2,
+   "median_ms": 1.965862,
+   "p95_ms": 1.965862,
+   "max_ms": 1.965862,
+   "total_ms": 2.953623
+  },
+  "culture": {
+   "n": 4,
+   "median_ms": 67.803293,
+   "p95_ms": 217.609235,
+   "max_ms": 217.609235,
+   "total_ms": 389.458751
+  },
+  "learner": {
+   "n": 223,
+   "median_ms": 1.105761,
+   "p95_ms": 6.770097,
+   "max_ms": 23.110115,
+   "total_ms": 455.01292099999995
+  }
+ },
+ "curated_files_ms": {
+  "n": 416,
+  "median_ms": 2.141553,
+  "p95_ms": 8.428289,
+  "max_ms": 21.506683,
+  "total_ms": 1328.1009
+ },
+ "biggest_scene": {
+  "id": "scene:companion/scenes/v-gozdu.json",
+  "chars": 100561,
+  "ms": 7.559098
+ },
+ "memory_engine": {},
+ "memory_platform": {
+  "before": {
+   "native_heap_bytes": 24953568,
+   "java_heap_bytes": 7464928,
+   "pss_kb si.lanisce.lani.spike.validators (4576)": 64109,
+   "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 35158
+  },
+  "loaded": {
+   "native_heap_bytes": 5655712,
+   "java_heap_bytes": 6191120,
+   "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 44670,
+   "pss_kb si.lanisce.lani.spike.validators (4576)": 47157
+  },
+  "after_corpus": {
+   "native_heap_bytes": 5813200,
+   "java_heap_bytes": 6977504,
+   "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 147600,
+   "pss_kb si.lanisce.lani.spike.validators (4576)": 44822
+  }
+ },
+ "session": {
+  "steps": [
+   {
+    "step": "start",
+    "ms": 3.423184,
+    "native_heap_bytes": 5591728,
+    "java_heap_bytes": 3261424,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 40733,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 18396
+   },
+   {
+    "step": "load bundle (validators-lexicon.js)",
+    "ms": 239.957459,
+    "native_heap_bytes": 50518304,
+    "java_heap_bytes": 7034224,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 84954,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 41739
+   },
+   {
+    "step": "refs primorska",
+    "ms": 112.061031,
+    "native_heap_bytes": 95098672,
+    "java_heap_bytes": 26756464,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 143818,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 44403
+   },
+   {
+    "step": "mount culture-primorska",
+    "ms": 1059.894556,
+    "native_heap_bytes": 5627536,
+    "java_heap_bytes": 27272432,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 68234,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 69852
+   },
+   {
+    "step": "check culture primorska",
+    "ms": 603.410102,
+    "native_heap_bytes": 5631200,
+    "java_heap_bytes": 9762032,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 83586,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 50562
+   },
+   {
+    "step": "check 40 scenes and stories",
+    "ms": 369.50549,
+    "native_heap_bytes": 5648416,
+    "java_heap_bytes": 7354336,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 82985,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 47910
+   },
+   {
+    "step": "mount lexicon-sl",
+    "ms": 201.006667,
+    "native_heap_bytes": 5649872,
+    "java_heap_bytes": 22738912,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 81006,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 62825
+   },
+   {
+    "step": "refs primorska-woven (the learner's cards)",
+    "ms": 88.102365,
+    "native_heap_bytes": 5650784,
+    "java_heap_bytes": 17082336,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 83858,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 56361
+   },
+   {
+    "step": "woven: first (reads the dictionary)",
+    "ms": 95.033273,
+    "native_heap_bytes": 28372096,
+    "java_heap_bytes": 9541600,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 82136,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 68325
+   },
+   {
+    "step": "woven: second",
+    "ms": 26.545289,
+    "native_heap_bytes": 5651040,
+    "java_heap_bytes": 8067040,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 82128,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 48845
+   },
+   {
+    "step": "gc",
+    "ms": 0.00674,
+    "native_heap_bytes": 34855872,
+    "java_heap_bytes": 7366624,
+    "pss_kb com.google.android.webview:js_sandboxed_process0:org.chromium.android_webview.js_sandbox.service.JsSandboxService0 (4592)": 82128,
+    "pss_kb si.lanisce.lani.spike.validators (4576)": 57941
+   }
+  ],
+  "woven_answers": [
+   "{\"ok\":true,\"notes\":[\"\\nWords woven in dialogs[0] (potica): \\\"vam\\\": lines[1] tests \\\"vam\\\" (form) in \\\"Seveda vam pomagam! Kaj naj naredim?\\\" | \\\"\u010dasa\\\": lines[3] tests \\\"\u010dasa\\\" (form) in \\\"Mmm. Koliko \u010dasa se pe\u010de?\\\" | \\\"pe\u010de\\\": lines[3] tests \\\"pe\u010de\\\" (form) in \\\"Mmm. Koliko \u010dasa se pe\u010de?\\\"\\nNote:",
+   "{\"ok\":false,\"errors\":\"\u2716 dialogs[0] (potica): \\\"pridi\\\" is in no turn's test (it is only said, at lines[0]): put it where a wrong choice differs from the right one in that word (\\\"Daj mi \u017elico.\\\" / \\\"Daj mi vilico.\\\"), or tap its thing; a word only said by someone or only present in a choice counts f"
+  ]
+ },
+ "input_paths": [
+  {
+   "path": "literal (evaluate)",
+   "chars": 1821387,
+   "ms": 88.071065,
+   "ok": true
+  },
+  {
+   "path": "provideNamedData (ArrayBuffer, TextDecoder: undefined)",
+   "chars": 1821387,
+   "ms": 38.392232,
+   "ok": true
+  },
+  {
+   "path": "file descriptor (evaluate a script file)",
+   "chars": 1821387,
+   "ms": 85.564393,
+   "ok": true
+  }
+ ]
+}

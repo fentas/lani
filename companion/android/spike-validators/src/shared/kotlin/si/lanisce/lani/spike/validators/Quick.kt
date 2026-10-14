@@ -21,6 +21,9 @@ class Quick(stack: Long = 0) : Js {
 
     override fun gc() = runBlocking(dispatcher) { js.gc() }
 
+    /** A function [name] of the script's global that answers [f]: a text handed over without a script around it. */
+    fun bind(name: String, f: () -> String) = runBlocking(dispatcher) { js.defineBinding(name, com.dokar.quickjs.binding.FunctionBinding<String> { f() }) }
+
     override fun close() {
         runBlocking(dispatcher) { js.close() }
         thread.shutdown()
@@ -40,6 +43,18 @@ class Quick(stack: Long = 0) : Js {
             }
             out["version"] = kotlinx.serialization.json.JsonPrimitive(js.js.version)
             out["max_stack_size"] = kotlinx.serialization.json.JsonPrimitive(js.js.maxStackSize)
+        }
+
+        /** The dictionary (1.8 MB) handed over as a script's string literal, and through a function binding. */
+        fun inputPaths(harness: Harness): kotlinx.serialization.json.JsonArray {
+            val text = harness.dictionary()
+            val q = { s: String -> kotlinx.serialization.json.JsonPrimitive(s).toString() }
+            val literal = Quick().use { e -> harness.inputPath(e, "literal (evaluate)", text) { e.eval("globalThis.__t = ${q(text)}; __t.length") } }
+            val binding = Quick().use { e ->
+                e.bind("hostText") { text }
+                harness.inputPath(e, "function binding (hostText())", text) { e.eval("globalThis.__t = hostText(); __t.length") }
+            }
+            return kotlinx.serialization.json.JsonArray(listOf(literal, binding))
         }
     }
 }

@@ -1,0 +1,559 @@
+{
+ "start_cold_ms": 0.240191,
+ "start_warm_ms": 0.83544,
+ "load_core_ms": 85.842443,
+ "load_full_ms": 72.483978,
+ "bundle_chars": {
+  "validators.js": 322164,
+  "validators-lexicon.js": 336621
+ },
+ "kinds": "module,pack,scene,story,villager,arrival,grammar,drill,course,unit,worksheet,card,scenario,forms,extra,culture,learner,woven",
+ "compile_ms": 39.368813,
+ "bytecode_bytes": 1332018,
+ "load_bytecode_ms": 48.918393,
+ "version": "2026-06-04",
+ "max_stack_size": 262144,
+ "input_paths": [
+  {
+   "path": "literal (evaluate)",
+   "chars": 1821387,
+   "ms": 77.651875,
+   "ok": true
+  },
+  {
+   "path": "function binding (hostText())",
+   "chars": 1821387,
+   "ms": 10.686402,
+   "ok": true
+  }
+ ],
+ "refs_ms": {
+  "friuli": 14.191326,
+  "kaernten": 20.422202,
+  "lakeland": 17.56389,
+  "primorska-woven": 37.296031,
+  "primorska": 43.507017
+ },
+ "refs_chars": {
+  "friuli": 275432,
+  "kaernten": 284342,
+  "lakeland": 356299,
+  "primorska-woven": 785308,
+  "primorska": 664219
+ },
+ "cases": 1702,
+ "mismatches": 0,
+ "mismatch_list": [],
+ "parser_messages": [
+  {
+   "id": "module:companion/modules/biti-sedanjik.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "pack:companion/packs/babicina-kuhinja.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "scene:companion/scenes/kuhinja.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "story:companion/cultures/friuli/stories/gli-sbilfs.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unexpected EOF"
+  },
+  {
+   "id": "villager:companion/cultures/friuli/villagers/aldo.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "grammar:companion/grammar/de/akkusativ.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "drill:companion/drills/sl/gradnja.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "course:companion/course/sl/course.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "unit:companion/course/sl/units/biti.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "card:companion/cards/sl/kje-kam.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unexpected EOF"
+  },
+  {
+   "id": "scenario:companion/scenarios/na-trznici.json#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "arrival:.claude/skills/lani-studio/reference/module-spec.md[26]#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  },
+  {
+   "id": "worksheet:companion/COURSE.md[8]#json:truncated",
+   "engine": "Unexpected end of JSON input",
+   "bun": "JSON Parse error: Unterminated string"
+  }
+ ],
+ "mount_ms": {
+  "culture-friuli": 68.665285,
+  "culture-kaernten": 44.615308,
+  "culture-lakeland": 57.834083,
+  "culture-primorska": 243.784513,
+  "culture-primorska-gone-world": 353.617922,
+  "culture-primorska-ref-festival-leader": 223.060271,
+  "culture-primorska-ref-thanks-good": 346.578135,
+  "culture-primorska-placeholder-quests": 220.890588,
+  "culture-primorska-scene-villager": 272.055634,
+  "culture-friuli-story-order": 72.050838,
+  "culture-kaernten-type-projects": 46.94891,
+  "culture-lakeland-drop-manifest-language": 49.964864,
+  "lexicon-sl": 154.736797
+ },
+ "mount_chars": {
+  "culture-friuli": 1034598,
+  "culture-kaernten": 1078667,
+  "culture-lakeland": 1217979,
+  "culture-primorska": 5590615,
+  "culture-primorska-gone-world": 0,
+  "culture-primorska-ref-festival-leader": 23805,
+  "culture-primorska-ref-thanks-good": 30100,
+  "culture-primorska-placeholder-quests": 27733,
+  "culture-primorska-scene-villager": 64377,
+  "culture-friuli-story-order": 29586,
+  "culture-kaernten-type-projects": 270,
+  "culture-lakeland-drop-manifest-language": 1507,
+  "lexicon-sl": 1928092
+ },
+ "woven_first_ms": 145.789857,
+ "woven_second_ms": 35.079748,
+ "conformance_ms": {
+  "module": {
+   "n": 56,
+   "median_ms": 1.797052,
+   "p95_ms": 3.603415,
+   "max_ms": 8.141929,
+   "total_ms": 105.458705
+  },
+  "pack": {
+   "n": 218,
+   "median_ms": 1.893873,
+   "p95_ms": 4.303404,
+   "max_ms": 5.986987,
+   "total_ms": 464.65595300000007
+  },
+  "scene": {
+   "n": 153,
+   "median_ms": 16.644048,
+   "p95_ms": 28.844601,
+   "max_ms": 34.058487,
+   "total_ms": 2388.7960509999994
+  },
+  "story": {
+   "n": 139,
+   "median_ms": 7.000318,
+   "p95_ms": 19.937992,
+   "max_ms": 32.959135,
+   "total_ms": 1145.4140790000004
+  },
+  "villager": {
+   "n": 152,
+   "median_ms": 2.712192,
+   "p95_ms": 4.915285,
+   "max_ms": 14.827156,
+   "total_ms": 443.4395379999998
+  },
+  "grammar": {
+   "n": 176,
+   "median_ms": 2.192642,
+   "p95_ms": 4.811605,
+   "max_ms": 8.590119,
+   "total_ms": 440.8228000000003
+  },
+  "drill": {
+   "n": 50,
+   "median_ms": 11.991393,
+   "p95_ms": 20.801653,
+   "max_ms": 30.533573,
+   "total_ms": 567.50174
+  },
+  "course": {
+   "n": 18,
+   "median_ms": 1.153111,
+   "p95_ms": 3.003833,
+   "max_ms": 3.003833,
+   "total_ms": 20.211986
+  },
+  "unit": {
+   "n": 99,
+   "median_ms": 4.151025,
+   "p95_ms": 9.80964,
+   "max_ms": 17.071188,
+   "total_ms": 439.79134999999997
+  },
+  "card": {
+   "n": 83,
+   "median_ms": 0.753631,
+   "p95_ms": 1.427682,
+   "max_ms": 2.586423,
+   "total_ms": 70.90714799999999
+  },
+  "scenario": {
+   "n": 56,
+   "median_ms": 0.33698,
+   "p95_ms": 0.683811,
+   "max_ms": 1.687752,
+   "total_ms": 22.363317000000002
+  },
+  "forms": {
+   "n": 6,
+   "median_ms": 3.046794,
+   "p95_ms": 6.469537,
+   "max_ms": 6.469537,
+   "total_ms": 19.644351999999998
+  },
+  "extra": {
+   "n": 6,
+   "median_ms": 15.668477,
+   "p95_ms": 23.599736,
+   "max_ms": 23.599736,
+   "total_ms": 81.645869
+  },
+  "arrival": {
+   "n": 19,
+   "median_ms": 0.51081,
+   "p95_ms": 3.073374,
+   "max_ms": 3.073374,
+   "total_ms": 12.875756999999998
+  },
+  "worksheet": {
+   "n": 38,
+   "median_ms": 0.57279,
+   "p95_ms": 1.629852,
+   "max_ms": 1.738182,
+   "total_ms": 21.919343
+  },
+  "culture": {
+   "n": 12,
+   "median_ms": 184.107129,
+   "p95_ms": 711.733939,
+   "max_ms": 711.733939,
+   "total_ms": 3960.347699
+  },
+  "learner": {
+   "n": 241,
+   "median_ms": 0.368111,
+   "p95_ms": 1.903442,
+   "max_ms": 3.351924,
+   "total_ms": 134.49861599999997
+  },
+  "woven": {
+   "n": 180,
+   "median_ms": 28.784571,
+   "p95_ms": 59.408324,
+   "max_ms": 145.789857,
+   "total_ms": 5856.270701
+  }
+ },
+ "curated_ms": {
+  "module": {
+   "n": 7,
+   "median_ms": 1.841032,
+   "p95_ms": 2.025892,
+   "max_ms": 2.025892,
+   "total_ms": 11.57808
+  },
+  "pack": {
+   "n": 142,
+   "median_ms": 1.685102,
+   "p95_ms": 4.308994,
+   "max_ms": 16.011547,
+   "total_ms": 298.3138440000001
+  },
+  "scene": {
+   "n": 28,
+   "median_ms": 16.343908,
+   "p95_ms": 27.61835,
+   "max_ms": 39.427032,
+   "total_ms": 437.574644
+  },
+  "story": {
+   "n": 48,
+   "median_ms": 5.885736,
+   "p95_ms": 11.581982,
+   "max_ms": 14.194645,
+   "total_ms": 299.1827129999999
+  },
+  "villager": {
+   "n": 55,
+   "median_ms": 2.030102,
+   "p95_ms": 3.397604,
+   "max_ms": 3.761284,
+   "total_ms": 118.278198
+  },
+  "grammar": {
+   "n": 93,
+   "median_ms": 1.018981,
+   "p95_ms": 2.103232,
+   "max_ms": 2.932964,
+   "total_ms": 108.33968099999998
+  },
+  "drill": {
+   "n": 4,
+   "median_ms": 12.159703,
+   "p95_ms": 14.022425,
+   "max_ms": 14.022425,
+   "total_ms": 39.792052
+  },
+  "course": {
+   "n": 3,
+   "median_ms": 0.431291,
+   "p95_ms": 1.211181,
+   "max_ms": 1.211181,
+   "total_ms": 2.038493
+  },
+  "unit": {
+   "n": 20,
+   "median_ms": 2.800243,
+   "p95_ms": 4.296035,
+   "max_ms": 4.296035,
+   "total_ms": 53.827828
+  },
+  "card": {
+   "n": 4,
+   "median_ms": 0.948171,
+   "p95_ms": 1.076852,
+   "max_ms": 1.076852,
+   "total_ms": 3.696015
+  },
+  "scenario": {
+   "n": 7,
+   "median_ms": 0.382881,
+   "p95_ms": 0.694261,
+   "max_ms": 0.694261,
+   "total_ms": 2.681284
+  },
+  "forms": {
+   "n": 1,
+   "median_ms": 3.154314,
+   "p95_ms": 3.154314,
+   "max_ms": 3.154314,
+   "total_ms": 3.154314
+  },
+  "extra": {
+   "n": 1,
+   "median_ms": 14.609376,
+   "p95_ms": 14.609376,
+   "max_ms": 14.609376,
+   "total_ms": 14.609376
+  },
+  "arrival": {
+   "n": 1,
+   "median_ms": 0.6797,
+   "p95_ms": 0.6797,
+   "max_ms": 0.6797,
+   "total_ms": 0.6797
+  },
+  "worksheet": {
+   "n": 2,
+   "median_ms": 0.971971,
+   "p95_ms": 0.971971,
+   "max_ms": 0.971971,
+   "total_ms": 1.309401
+  },
+  "culture": {
+   "n": 4,
+   "median_ms": 332.657349,
+   "p95_ms": 696.264832,
+   "max_ms": 696.264832,
+   "total_ms": 1337.387575
+  },
+  "learner": {
+   "n": 223,
+   "median_ms": 0.613061,
+   "p95_ms": 4.428655,
+   "max_ms": 14.205295,
+   "total_ms": 259.36729900000006
+  }
+ },
+ "curated_files_ms": {
+  "n": 416,
+  "median_ms": 1.847622,
+  "p95_ms": 13.617175,
+  "max_ms": 39.427032,
+  "total_ms": 1395.0556230000002
+ },
+ "biggest_scene": {
+  "id": "scene:companion/scenes/v-gozdu.json",
+  "chars": 100561,
+  "ms": 19.904612
+ },
+ "memory_engine": {
+  "malloc_size": 170786886,
+  "memory_used_size": 74708052,
+  "str_size": 6296875,
+  "obj_count": 422156
+ },
+ "memory_platform": {
+  "before": {
+   "native_heap_bytes": 9851536,
+   "java_heap_bytes": 7510640,
+   "pss_kb si.lanisce.lani.spike.validators (4353)": 115230
+  },
+  "loaded": {
+   "native_heap_bytes": 17028352,
+   "java_heap_bytes": 29244112,
+   "pss_kb si.lanisce.lani.spike.validators (4353)": 98738
+  },
+  "after_corpus": {
+   "native_heap_bytes": 179468112,
+   "java_heap_bytes": 5401200,
+   "pss_kb si.lanisce.lani.spike.validators (4353)": 218351
+  }
+ },
+ "session": {
+  "steps": [
+   {
+    "step": "start",
+    "ms": 6.273597,
+    "engine_malloc_size": 151328,
+    "engine_memory_used_size": 67064,
+    "engine_str_size": 0,
+    "engine_obj_count": 164,
+    "native_heap_bytes": 5742048,
+    "java_heap_bytes": 3327040,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 42340
+   },
+   {
+    "step": "load bundle (validators-lexicon.js)",
+    "ms": 87.482235,
+    "engine_malloc_size": 11161156,
+    "engine_memory_used_size": 6209871,
+    "engine_str_size": 163308,
+    "engine_obj_count": 38348,
+    "native_heap_bytes": 61831328,
+    "java_heap_bytes": 6859312,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 101084
+   },
+   {
+    "step": "refs primorska",
+    "ms": 75.283421,
+    "engine_malloc_size": 12502438,
+    "engine_memory_used_size": 7207287,
+    "engine_str_size": 948981,
+    "engine_obj_count": 37852,
+    "native_heap_bytes": 108062688,
+    "java_heap_bytes": 25774640,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 165396
+   },
+   {
+    "step": "mount culture-primorska",
+    "ms": 481.768341,
+    "engine_malloc_size": 23722924,
+    "engine_memory_used_size": 18390253,
+    "engine_str_size": 948981,
+    "engine_obj_count": 37871,
+    "native_heap_bytes": 29995296,
+    "java_heap_bytes": 52139904,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 119632
+   },
+   {
+    "step": "check culture primorska",
+    "ms": 574.39147,
+    "engine_malloc_size": 50641376,
+    "engine_memory_used_size": 27282346,
+    "engine_str_size": 2156803,
+    "engine_obj_count": 100611,
+    "native_heap_bytes": 57294656,
+    "java_heap_bytes": 9779072,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 132310
+   },
+   {
+    "step": "check 40 scenes and stories",
+    "ms": 464.318782,
+    "engine_malloc_size": 50641376,
+    "engine_memory_used_size": 27296266,
+    "engine_str_size": 2156803,
+    "engine_obj_count": 100750,
+    "native_heap_bytes": 57294592,
+    "java_heap_bytes": 8911472,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 103854
+   },
+   {
+    "step": "mount lexicon-sl",
+    "ms": 171.512655,
+    "engine_malloc_size": 50667508,
+    "engine_memory_used_size": 27322382,
+    "engine_str_size": 2156803,
+    "engine_obj_count": 100750,
+    "native_heap_bytes": 57327008,
+    "java_heap_bytes": 43600496,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 134554
+   },
+   {
+    "step": "refs primorska-woven (the learner's cards)",
+    "ms": 60.727435,
+    "engine_malloc_size": 52532286,
+    "engine_memory_used_size": 28959226,
+    "engine_str_size": 3044495,
+    "engine_obj_count": 104096,
+    "native_heap_bytes": 59226832,
+    "java_heap_bytes": 16243312,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 115474
+   },
+   {
+    "step": "woven: first (reads the dictionary)",
+    "ms": 144.417256,
+    "engine_malloc_size": 71000632,
+    "engine_memory_used_size": 42295091,
+    "engine_str_size": 2714587,
+    "engine_obj_count": 205245,
+    "native_heap_bytes": 91406656,
+    "java_heap_bytes": 9448048,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 140566
+   },
+   {
+    "step": "woven: second",
+    "ms": 28.1358,
+    "engine_malloc_size": 71004712,
+    "engine_memory_used_size": 42295379,
+    "engine_str_size": 2714587,
+    "engine_obj_count": 205248,
+    "native_heap_bytes": 83712032,
+    "java_heap_bytes": 9419376,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 130114
+   },
+   {
+    "step": "gc",
+    "ms": 34.524798,
+    "engine_malloc_size": 70980879,
+    "engine_memory_used_size": 42245625,
+    "engine_str_size": 2714366,
+    "engine_obj_count": 204960,
+    "native_heap_bytes": 99348240,
+    "java_heap_bytes": 7608944,
+    "pss_kb si.lanisce.lani.spike.validators (4353)": 139758
+   }
+  ],
+  "woven_answers": [
+   "{\"ok\":true,\"notes\":[\"\\nWords woven in dialogs[0] (potica): \\\"vam\\\": lines[1] tests \\\"vam\\\" (form) in \\\"Seveda vam pomagam! Kaj naj naredim?\\\" | \\\"\u010dasa\\\": lines[3] tests \\\"\u010dasa\\\" (form) in \\\"Mmm. Koliko \u010dasa se pe\u010de?\\\" | \\\"pe\u010de\\\": lines[3] tests \\\"pe\u010de\\\" (form) in \\\"Mmm. Koliko \u010dasa se pe\u010de?\\\"\\nNote:",
+   "{\"ok\":false,\"errors\":\"\u2716 dialogs[0] (potica): \\\"pridi\\\" is in no turn's test (it is only said, at lines[0]): put it where a wrong choice differs from the right one in that word (\\\"Daj mi \u017elico.\\\" / \\\"Daj mi vilico.\\\"), or tap its thing; a word only said by someone or only present in a choice counts f"
+  ]
+ }
+}
