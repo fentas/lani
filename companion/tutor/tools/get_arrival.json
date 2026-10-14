@@ -1,0 +1,16 @@
+{
+  "name": "get_arrival",
+  "description": "What the app would play to introduce someone of the village (a resident's or a cast member's id): the tutor's arrival, else the culture pack's for a cast member, else the pack's template for a newcomer, a birth or a mover (with the resident's facts). Base a new one on it.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The villager or resident id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

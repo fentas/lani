@@ -1,0 +1,47 @@
+{
+  "name": "guide",
+  "description": "One topic of the tutor's guide: what to do for a kind of event or task, and which tools to use. Fetch a topic the first time a thread needs it (its text stays in the thread); \"events\" first in every thread. Topics:\n- events: Every event kind (chat, answer, session_end, review_done, …), its JSON and how to answer it. Fetch first in every thread.\n- feedback: The feedback template for every graded answer (an answer, a partner_answer, a town check): corrections, severity, score.\n- session-end: For session_end and every session to persist: the report record_session takes, and the SM-2 qualities.\n- fix: When the learner says a question, card, word, dialog choice or translation is wrong, or a right answer was marked wrong.\n- progress: When the learner asks how they are doing: stats, streak, mastery, words, achievements.\n- analysis: When planning what to practise next or answering \"what should I work on?\" from recent sessions and mistakes.\n- rhythm: For daily_morning, daily_evening and daily_weekly, or when the learner changes the times (set_rhythm).\n- village: When the village (get_village) can motivate, or for sidequests and a task the learner keeps failing.\n- grammar-book: When explaining a rule, a chat with about_grammar or grammar_drill, or introducing a rule that is ripe.\n- cheat-sheet: When a table or list in chat is worth a card (publish_card), or looked_up answers point to a topic.\n- school: For a session_end with data.course (a school sheet or test), a unit done, or homework (publish_worksheet).\n- packs: When the learner asks for words on a topic (publish_pack, list_packs), or for words_learned.\n- word-lookup: For a chat with data.lookup, gloss_gaps or words_added (publish_gloss).\n- sentence-grammar: For a chat with data.about_sentence: explain a line's grammar and keep it (publish_sentence_note).\n- role-play: For roleplay and roleplay_end (in character, hints, the debrief), or to write a scenario.\n- villagers: For a villager talk (scenario_id villager:…), villager_arrived, or writing a villager (publish_villager).\n- scenes: For dialog_variants_heard and words_to_weave, writing scenes or dialog variants, and the learner placeholders.\n- stories: For stories_low, or when the learner asks for a story (publish_story, list_stories).\n- readings: For reading_done, or to write a reading for the reading corner (publish_reading, list_readings).\n- arrivals: For villager_arrived: how the learner meets someone new (publish_arrival, get_arrival).\n- level-up: For level_up, or when the learner asks whether they are ready for the next level (the treasure map).\n- voices: When a voice or a clip sounds wrong, or the learner asks about audio (voice_profiles, voice_redesign).\n- family: For partner_challenge and partner_answer from the family page, and its untrusted content.\n- visits: For talks and sessions on a visit to a linked town (town:, market:) and town_gift.\n- friendship: When a friend town's neighbour moves in (villager_arrived, kind moved).\n- town-questions: For town_check, town_asked, town_answer, town_question and town_answered.\n- studio-modules: Before creating, changing or retiring a practice module (publish_module, list_modules, get_module).\n- studio: Before writing or fixing app content (modules, packs, scenes, stories, readings, villagers, grammar pages, homework).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "topic": {
+        "type": "string",
+        "enum": [
+          "events",
+          "feedback",
+          "session-end",
+          "fix",
+          "progress",
+          "analysis",
+          "rhythm",
+          "village",
+          "grammar-book",
+          "cheat-sheet",
+          "school",
+          "packs",
+          "word-lookup",
+          "sentence-grammar",
+          "role-play",
+          "villagers",
+          "scenes",
+          "stories",
+          "readings",
+          "arrivals",
+          "level-up",
+          "voices",
+          "family",
+          "visits",
+          "friendship",
+          "town-questions",
+          "studio-modules",
+          "studio"
+        ],
+        "description": "The topic id"
+      }
+    },
+    "required": [
+      "topic"
+    ],
+    "additionalProperties": false
+  }
+}

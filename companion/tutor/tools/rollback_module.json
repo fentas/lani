@@ -1,0 +1,19 @@
+{
+  "name": "rollback_module",
+  "description": "Point a module back to an earlier published version.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "version": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "id",
+      "version"
+    ]
+  }
+}

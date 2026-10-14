@@ -1,0 +1,200 @@
+{
+  "topics": [
+    {
+      "id": "events",
+      "title": "Inbound events",
+      "summary": "Every event kind (chat, answer, session_end, review_done, …), its JSON and how to answer it. Fetch first in every thread.",
+      "chars": 4006,
+      "source": "bridge feature chat"
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback format",
+      "summary": "The feedback template for every graded answer (an answer, a partner_answer, a town check): corrections, severity, score.",
+      "chars": 4350,
+      "source": "skill lani-feedback-formatter"
+    },
+    {
+      "id": "session-end",
+      "title": "Recording a session",
+      "summary": "For session_end and every session to persist: the report record_session takes, and the SM-2 qualities.",
+      "chars": 13204,
+      "source": "skills lani-db-updater + lani-sm2-calculator"
+    },
+    {
+      "id": "fix",
+      "title": "Fixing a wrong item",
+      "summary": "When the learner says a question, card, word, dialog choice or translation is wrong, or a right answer was marked wrong.",
+      "chars": 15336,
+      "source": "skill lani-fix"
+    },
+    {
+      "id": "progress",
+      "title": "Progress report",
+      "summary": "When the learner asks how they are doing: stats, streak, mastery, words, achievements.",
+      "chars": 6423,
+      "source": "skill lani-progress"
+    },
+    {
+      "id": "analysis",
+      "title": "Planning from past sessions",
+      "summary": "When planning what to practise next or answering \"what should I work on?\" from recent sessions and mistakes.",
+      "chars": 5318,
+      "source": "skill lani-session-analyzer"
+    },
+    {
+      "id": "rhythm",
+      "title": "Daily rhythm",
+      "summary": "For daily_morning, daily_evening and daily_weekly, or when the learner changes the times (set_rhythm).",
+      "chars": 740,
+      "source": "bridge feature rhythm"
+    },
+    {
+      "id": "village",
+      "title": "The village game",
+      "summary": "When the village (get_village) can motivate, or for sidequests and a task the learner keeps failing.",
+      "chars": 1338,
+      "source": "bridge feature game"
+    },
+    {
+      "id": "grammar-book",
+      "title": "Grammar book",
+      "summary": "When explaining a rule, a chat with about_grammar or grammar_drill, or introducing a rule that is ripe.",
+      "chars": 2800,
+      "source": "bridge feature grammar"
+    },
+    {
+      "id": "cheat-sheet",
+      "title": "Cheat sheet",
+      "summary": "When a table or list in chat is worth a card (publish_card), or looked_up answers point to a topic.",
+      "chars": 1431,
+      "source": "bridge feature cards"
+    },
+    {
+      "id": "school",
+      "title": "The school",
+      "summary": "For a session_end with data.course (a school sheet or test), a unit done, or homework (publish_worksheet).",
+      "chars": 1142,
+      "source": "bridge feature course"
+    },
+    {
+      "id": "packs",
+      "title": "Word packs",
+      "summary": "When the learner asks for words on a topic (publish_pack, list_packs), or for words_learned.",
+      "chars": 542,
+      "source": "bridge feature packs"
+    },
+    {
+      "id": "word-lookup",
+      "title": "Word lookup",
+      "summary": "For a chat with data.lookup, gloss_gaps or words_added (publish_gloss).",
+      "chars": 1462,
+      "source": "bridge feature lexicon"
+    },
+    {
+      "id": "sentence-grammar",
+      "title": "Sentence grammar",
+      "summary": "For a chat with data.about_sentence: explain a line's grammar and keep it (publish_sentence_note).",
+      "chars": 884,
+      "source": "bridge feature sentences"
+    },
+    {
+      "id": "role-play",
+      "title": "Role-play",
+      "summary": "For roleplay and roleplay_end (in character, hints, the debrief), or to write a scenario.",
+      "chars": 1087,
+      "source": "bridge feature scenarios"
+    },
+    {
+      "id": "villagers",
+      "title": "Villagers",
+      "summary": "For a villager talk (scenario_id villager:…), villager_arrived, or writing a villager (publish_villager).",
+      "chars": 2398,
+      "source": "bridge feature villagers"
+    },
+    {
+      "id": "scenes",
+      "title": "Scenes and dialogs",
+      "summary": "For dialog_variants_heard and words_to_weave, writing scenes or dialog variants, and the learner placeholders.",
+      "chars": 5310,
+      "source": "bridge feature scenes"
+    },
+    {
+      "id": "stories",
+      "title": "Evening stories",
+      "summary": "For stories_low, or when the learner asks for a story (publish_story, list_stories).",
+      "chars": 2266,
+      "source": "bridge feature stories"
+    },
+    {
+      "id": "readings",
+      "title": "Readings",
+      "summary": "For reading_done, or to write a reading for the reading corner (publish_reading, list_readings).",
+      "chars": 1714,
+      "source": "bridge feature readings"
+    },
+    {
+      "id": "arrivals",
+      "title": "Arrivals",
+      "summary": "For villager_arrived: how the learner meets someone new (publish_arrival, get_arrival).",
+      "chars": 1401,
+      "source": "bridge feature arrivals"
+    },
+    {
+      "id": "level-up",
+      "title": "Level-ups",
+      "summary": "For level_up, or when the learner asks whether they are ready for the next level (the treasure map).",
+      "chars": 826,
+      "source": "bridge feature level"
+    },
+    {
+      "id": "voices",
+      "title": "Voices",
+      "summary": "When a voice or a clip sounds wrong, or the learner asks about audio (voice_profiles, voice_redesign).",
+      "chars": 2901,
+      "source": "bridge feature voice"
+    },
+    {
+      "id": "family",
+      "title": "Family challenges",
+      "summary": "For partner_challenge and partner_answer from the family page, and its untrusted content.",
+      "chars": 1198,
+      "source": "bridge feature family"
+    },
+    {
+      "id": "visits",
+      "title": "Visits",
+      "summary": "For talks and sessions on a visit to a linked town (town:, market:) and town_gift.",
+      "chars": 1706,
+      "source": "bridge feature towns"
+    },
+    {
+      "id": "friendship",
+      "title": "Friendship between towns",
+      "summary": "When a friend town's neighbour moves in (villager_arrived, kind moved).",
+      "chars": 578,
+      "source": "bridge feature friendship"
+    },
+    {
+      "id": "town-questions",
+      "title": "Questions between towns",
+      "summary": "For town_check, town_asked, town_answer, town_question and town_answered.",
+      "chars": 1913,
+      "source": "bridge feature questions"
+    },
+    {
+      "id": "studio-modules",
+      "title": "Practice modules",
+      "summary": "Before creating, changing or retiring a practice module (publish_module, list_modules, get_module).",
+      "chars": 197,
+      "source": "bridge feature modules"
+    },
+    {
+      "id": "studio",
+      "title": "Studio: writing content",
+      "summary": "Before writing or fixing app content (modules, packs, scenes, stories, readings, villagers, grammar pages, homework).",
+      "chars": 29750,
+      "source": "skill lani-studio"
+    }
+  ]
+}

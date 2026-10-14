@@ -4,8 +4,9 @@
 // - service: it runs on its own (src/service.ts, companion/bin/lani-bridge), and the session's shim (src/shim.ts)
 //   reaches it over a unix socket, so a code change needs only `lani-bridge restart`, not a tutor restart.
 //
-// This file only wires the parts: the shared stores (the context), then the features. Each feature
-// (src/features/*.ts) brings its HTTP routes, MCP tools and a paragraph of channel instructions.
+// This file only wires the parts: the shared stores (the context), then the features (buildBridge, which starts nothing:
+// src/cli/tutor-export.ts reads the tools and the guide from it), then the channel and the app's API (startBridge). Each
+// feature (src/features/*.ts) brings its HTTP routes, MCP tools and a paragraph of channel instructions.
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { addresseeOf, renderDeep } from './addressee'
@@ -13,8 +14,8 @@ import { ArrivalStore } from './arrivals'
 import { CardStore, cardsDir } from './cards'
 import { runService } from './bridge-service'
 import { castVoiced, useCastFile } from './cast'
-import { Channel, ok, type ChannelOptions } from './channel'
-import { loadConfig, log } from './config'
+import { Channel, ok, type ChannelOptions, type Tool } from './channel'
+import { loadConfig, log, type Config } from './config'
 import { courseDir, CourseStore } from './course'
 import { cultureDir, cultureProjects, resolveCulture, tutorOf, validateCulture } from './cultures'
 import { Events } from './events'
@@ -56,7 +57,7 @@ import { grammarDir, GrammarStore } from './grammar'
 import { addressed, bearer, json, loadToken, router, serve, type Route } from './http'
 import { FormsBook } from './forms'
 import { Learner } from './learner'
-import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, learnerLangs, profileFromEnv } from './learners'
+import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, learnerLangs, profileFromEnv, type DataPlace, type Profile } from './learners'
 import { Lexicon } from './lexicon'
 import { Outbox } from './outbox'
 import { PackStore, packsDirs } from './packs'
@@ -80,11 +81,72 @@ export type BridgeOptions = {
   extraFeatures?: FeatureFactory[]
 }
 
-export async function startBridge(o: BridgeOptions) {
-  // A long-running channel: one failing background job must not take the app's connection down.
-  process.on('unhandledRejection', e => log(`unhandled rejection: ${(e as Error)?.stack ?? e}`))
-  process.on('uncaughtException', e => log(`uncaught exception: ${e.stack ?? e}`))
+/**
+ * The built-in features in their order, each with a stable name (the in-app tutor's guide topics are named after them:
+ * src/cli/tutor-export.ts). The channel instructions are the features' paragraphs in this order, and so is the tool list.
+ * A new feature: a module exporting `(ctx: Ctx) => Feature`, added to this list.
+ */
+export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
+  { name: 'chat', factory: chat },
+  { name: 'modules', factory: modules },
+  { name: 'grammar', factory: grammarFeature },
+  { name: 'cards', factory: cardsFeature },
+  { name: 'course', factory: courseFeature },
+  { name: 'drills', factory: drillsFeature },
+  { name: 'rhythm', factory: rhythm },
+  { name: 'game', factory: game },
+  { name: 'packs', factory: packs },
+  { name: 'lexicon', factory: lexicon },
+  { name: 'sentences', factory: sentences },
+  { name: 'scenarios', factory: scenarios },
+  { name: 'scenes', factory: scenes },
+  { name: 'stories', factory: stories },
+  { name: 'readings', factory: readings },
+  { name: 'villagers', factory: villagers },
+  { name: 'arrivals', factory: arrivals },
+  { name: 'culture', factory: cultureFeature },
+  { name: 'family', factory: family },
+  { name: 'voice', factory: voice },
+  { name: 'offline-voice', factory: offlineVoice },
+  { name: 'stt', factory: stt },
+  { name: 'reviews', factory: reviews },
+  { name: 'level', factory: level },
+  { name: 'events', factory: events },
+  { name: 'releases', factory: releases },
+  { name: 'pairing', factory: pairing },
+  { name: 'towns', factory: towns },
+  { name: 'friendship', factory: friendship },
+  { name: 'questions', factory: townQuestions },
+]
 
+/** What [buildBridge] makes: the context, the features, the guide, the rules and the tools, nothing started yet. */
+export type BuiltBridge = {
+  cfg: Config
+  ctx: Ctx
+  profile: Profile
+  /** Whether a request carries the bridge token (phones paired by QR code: ctx.devices). */
+  isApp: (req: Request) => boolean
+  /** The features in registration order with their names (FEATURES', then `extra-<n>` for BridgeOptions.extraFeatures). */
+  named: { name: string; feature: Feature }[]
+  features: Feature[]
+  /** The channel's whole guide (the channel_guide tool): the features' paragraphs for this learner. */
+  guide: () => string
+  /** The channel instructions that fit Claude Code's limit, read again for every session; [rules] as they were at the start. */
+  rulesNow: () => string
+  rules: string
+  guideTool: Tool
+  /** Every MCP tool in registration order: channel_guide, then the features'. */
+  tools: Tool[]
+  /** The default learner's data repository (resultsDir), when their data is one. */
+  place: DataPlace
+}
+
+/**
+ * The bridge's parts without running anything: the config (the learner's data directory, which ensure_data_dir.py
+ * resolves), the shared stores, the features, the guide and the tool list. No server, timer or background job is
+ * started (the features' `start()` is startBridge's), so a script can build the bridge to read its tools and guide.
+ */
+export function buildBridge(o: BridgeOptions): BuiltBridge {
   const env = process.env
   // The service serves the app always (its features' jobs for the app run too: scene variants, the dictionary download).
   const cfg = loadConfig(env, { service: o.mode === 'service' })
@@ -225,13 +287,13 @@ export async function startBridge(o: BridgeOptions) {
   const checked = validateCulture(culturesDir, culture.id, ctx.villagers.all(), { packs: ctx.packs.all(), scenarios: ctx.scenarios.all() }, new Set(ctx.grammar.all().map(p => p.id)))
   if (!checked.ok) log(`culture ${culture.id} has problems:\n${checked.errors}`)
 
-  // The channel instructions are the features' paragraphs in this order, and so is the tool list.
-  // A new feature: a module exporting `(ctx: Ctx) => Feature`, added to this list.
-  const features: Feature[] = [chat, modules, grammarFeature, cardsFeature, courseFeature, drillsFeature, rhythm, game, packs, lexicon, sentences, scenarios, scenes, stories, readings, villagers, arrivals, cultureFeature, family, voice, offlineVoice, stt, reviews, level, events, releases, pairing, towns, friendship, townQuestions, ...(o.extraFeatures ?? [])].map(f => f(ctx))
+  // The channel instructions are the features' paragraphs in this order (FEATURES), and so is the tool list.
+  const named = [...FEATURES, ...(o.extraFeatures ?? []).map((factory, i) => ({ name: `extra-${i + 1}`, factory }))].map(({ name, factory }) => ({ name, feature: factory(ctx) }))
+  const features: Feature[] = named.map(f => f.feature)
 
   // The default learner set up by lani-setup, their data a repository of its own: the instructions name them from their
   // profile and say where their data and session results are.
-  const place = profile.isDefault && existsSync(join(dataDir, '.git')) ? { resultsDir: resultsDirOf(dataDir) } : {}
+  const place: DataPlace = profile.isDefault && existsSync(join(dataDir, '.git')) ? { resultsDir: resultsDirOf(dataDir) } : {}
   // Another learner's bridge names them and says where their data is; the default's paragraphs are unchanged.
   const guide = () =>
     learnerInstructions(features.flatMap(f => f.instructions ?? []), profile, learnerFacts(dataDir), dataDir, {
@@ -242,16 +304,28 @@ export async function startBridge(o: BridgeOptions) {
   const rulesNow = () => channelRules(profile, learnerFacts(dataDir), dataDir, place)
   const rules = rulesNow()
   if (rules.length > INSTRUCTIONS_LIMIT) log(`the channel rules are ${rules.length} characters: Claude Code cuts them at ${INSTRUCTIONS_LIMIT}`)
-  const guideTool = {
+  const guideTool: Tool = {
     name: 'channel_guide',
     description: "This channel's full instructions: each kind of inbound message and when to use each tool. Call it once before your first reply, and again after the conversation is compacted.",
     inputSchema: { type: 'object', properties: {} },
     handle: () => ok(guide()),
   }
+  const tools = [guideTool, ...features.flatMap(f => f.tools ?? [])]
+  return { cfg, ctx, profile, isApp, named, features, guide, rulesNow, rules, guideTool, tools, place }
+}
+
+export async function startBridge(o: BridgeOptions) {
+  // A long-running channel: one failing background job must not take the app's connection down.
+  process.on('unhandledRejection', e => log(`unhandled rejection: ${(e as Error)?.stack ?? e}`))
+  process.on('uncaughtException', e => log(`uncaught exception: ${e.stack ?? e}`))
+
+  const { cfg, ctx, profile, isApp, features, rules, rulesNow, tools } = buildBridge(o)
+  const { dataDir } = cfg
+  const { devices, culture } = ctx
 
   const channel: ChannelOptions = {
     instructions: rules,
-    tools: [guideTool, ...features.flatMap(f => f.tools ?? [])],
+    tools,
     // A child doesn't approve the tutor's tool use: those prompts stay in the terminal and Remote Control.
     permissionRelay: !profile.child,
     onPermissionRequest: p => ctx.events.emit({ type: 'permission_request', ...p }),

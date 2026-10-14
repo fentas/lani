@@ -1,0 +1,47 @@
+{
+  "name": "report_problem",
+  "description": "Report a wrong curated item (kind fix: a pack word, a curated module, scene, story, reading, villager line or dictionary entry the learner's own copy can't fix) or a wish for the app (kind wish: a mechanic, a screen) to Lani's GitHub discussions. The app looks it up first (an existing report gets the learner's vote) and posts only after the learner confirms (\"Send to Lani's discussions?\"); the result says what happened. The discussions are public: nothing personal, no chat quotes, no names of the learner or their family, none of their mistakes; only the item, what is wrong and the fix. title names the item, e.g. \"Fix: pack praznik-trgatev, word škarje\" (a wish: \"Idea: …\"). item: the item's source as the app sent it (about_exercise.source: its kind and ids). native_check: Slovene a machine wrote that a native speaker should check. Fix what you can for the learner first (card, publish tools).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "kind": {
+        "type": "string",
+        "enum": [
+          "fix",
+          "wish"
+        ]
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 120,
+        "description": "Names the item: \"Fix: <kind> <id>, <what>\", or \"Idea: …\"."
+      },
+      "item": {
+        "type": "object",
+        "description": "The item's source as the app sent it (about_exercise.source): kind and ids, e.g. {\"kind\": \"pack\", \"pack_id\": \"…\", \"word_id\": \"…\"}."
+      },
+      "what_is_wrong": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "What is wrong (fix) or what is wished for and why (wish). Nothing personal."
+      },
+      "suggested_fix": {
+        "type": "string",
+        "maxLength": 2000,
+        "description": "The fix, as exact as you can (the right word, translation or choice)."
+      },
+      "native_check": {
+        "type": "boolean",
+        "description": "Slovene a machine wrote: a native speaker should check it."
+      }
+    },
+    "required": [
+      "kind",
+      "title",
+      "what_is_wrong"
+    ],
+    "additionalProperties": false
+  }
+}

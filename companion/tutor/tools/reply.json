@@ -1,0 +1,25 @@
+{
+  "name": "reply",
+  "description": "Send a message to the Lani app. Markdown text plus optional structured data.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "conversation_id": {
+        "type": "string",
+        "description": "conversation_id from the inbound <channel> tag"
+      },
+      "text": {
+        "type": "string",
+        "description": "Markdown message shown to the learner"
+      },
+      "data": {
+        "type": "object",
+        "description": "Optional structured payload, e.g. {\"score\": 8}"
+      }
+    },
+    "required": [
+      "conversation_id",
+      "text"
+    ]
+  }
+}

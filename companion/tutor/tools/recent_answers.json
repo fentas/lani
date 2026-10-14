@@ -1,0 +1,33 @@
+{
+  "name": "recent_answers",
+  "description": "What the learner typed or said lately in the app (the last 7 days, at most 500 answers), newest first: each card a review counted, where in the app (the review, the grammar book, a building's words run, a challenge, I spy, the car), with its exercise (how it was asked, what was typed or heard, what was expected, the verdict, the grading hint, the quality it gave the card; nothing typed where there is nothing to type, as the car's ✓/✗), the forms of words asked (their slot and grammar page), and a dialog's word turns; \"📋 looked up …\": the cheat sheet was open during it (the grammar pages of the cards opened). Use it when Jan says a card or an answer was marked wrong but the message has no about_exercise: look the card up (card_id, its id in spaced-repetition.json) or search a word (text, in what was asked, typed or expected; diacritics optional: \"zivjo\" finds \"živjo\"). The lani-fix skill uses it. looked_up: true lists what Jan answered with the cheat sheet open, what they look up.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "card_id": {
+        "type": "string",
+        "description": "a review card id, e.g. vocab_kurim"
+      },
+      "text": {
+        "type": "string",
+        "description": "a word in what was asked, typed or expected, e.g. kurim"
+      },
+      "wrong_only": {
+        "type": "boolean",
+        "description": "only answers marked wrong or almost (by the verdict: a right answer whose quality hints lowered is not wrong)"
+      },
+      "looked_up": {
+        "type": "boolean",
+        "description": "only answers given with the cheat sheet open (📋 Plonk listek): what Jan looked up"
+      },
+      "language": {
+        "type": "string",
+        "description": "another language's deck (\"it\"); \"\" for the home language only"
+      },
+      "limit": {
+        "type": "number",
+        "description": "at most this many (default 20, at most 100)"
+      }
+    }
+  }
+}

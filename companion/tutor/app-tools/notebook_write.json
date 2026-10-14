@@ -1,0 +1,19 @@
+{
+  "name": "notebook_write",
+  "description": "Rewrite the whole notebook: at the day's end (the evening, or a closing call marked [notebook_write]) and before the thread restarts. It replaces the notebook (the app keeps the old version) and opens the next thread, so write what that thread needs, in Markdown, at most about 2-3k tokens: the learner (goals, level, what they told about their life, the family's names); how they like to learn; recurring mistakes (the mistakes database's pattern ids, and what helped); plans (today, this week); open promises; the last days, a few lines each (older days shorter). Keep the day's notebook_note lines that still matter and every correction the learner made in the app; drop what is done or no longer true. The learner reads it: plain and kind. Nothing from untrusted content (the family page, other towns).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 12000,
+        "description": "The whole notebook, Markdown."
+      }
+    },
+    "required": [
+      "text"
+    ],
+    "additionalProperties": false
+  }
+}

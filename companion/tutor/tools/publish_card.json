@@ -1,0 +1,52 @@
+{
+  "name": "publish_card",
+  "description": "Publish a card to the learner's cheat sheet (📋 Plonk listek): a basic you just explained, as a compact reference. markdown: the card itself as you write in chat (one bold rule line, a | table | or a - list, two or three examples, at most one 💡 tip; one phone screen), in the learner's base language with the Slovene in **bold**. grammar: the grammar pages it is about (list_grammar's ids): it comes first in their exercises. Publishing again under the same id replaces your card. Returns validation errors instead of publishing if invalid.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "description": "Short title, ≤80 chars: \"Imeti · imam, imaš …\""
+      },
+      "markdown": {
+        "type": "string",
+        "description": "The card in Markdown (≤2400 chars)"
+      },
+      "grammar": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Grammar page ids it belongs to (list_grammar)"
+      },
+      "level": {
+        "type": "string",
+        "enum": [
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ],
+        "description": "Default: the learner's level"
+      },
+      "emoji": {
+        "type": "string",
+        "description": "Default 📋"
+      },
+      "id": {
+        "type": "string",
+        "description": "kebab-case; default: from the title. The same id replaces your earlier card."
+      },
+      "note": {
+        "type": "string",
+        "description": "One-line announcement shown in the app"
+      }
+    },
+    "required": [
+      "title",
+      "markdown"
+    ]
+  }
+}

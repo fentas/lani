@@ -1,0 +1,16 @@
+{
+  "name": "remove_arrival",
+  "description": "Remove a tutor-published arrival: the culture pack's (or its template) plays again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The villager or resident id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

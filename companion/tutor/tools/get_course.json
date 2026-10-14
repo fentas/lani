@@ -1,0 +1,8 @@
+{
+  "name": "get_course",
+  "description": "The school's course in this village's language and where Jan is in it: the classroom (the day the class began, with Zaselek; null: not yet, or a village whose school stood first), the school's level (null: not built), and per level (A1, A2, B1, B2 …) whether it is open and its units done; per unit its intro (steps done/of, intro_done), its worksheets done/of and the best try of each sheet (right/of, almost), the test (pass mark, best try, tries), the day it was done (tested_out: passed without the worksheets) and your homework ids; next: the first unit to do. Planned units are listed, not playable yet. looked_up (left out when none): the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first (page, title, n answers given with one of its cards open, the last day, units: the course's units that teach it): work potential, suggest the unit or homework on it.",
+  "input_schema": {
+    "type": "object",
+    "properties": {}
+  }
+}

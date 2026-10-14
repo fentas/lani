@@ -1,0 +1,24 @@
+{
+  "name": "voice_redesign",
+  "description": "Gives someone a new voice of their own (when Jan says a voice doesn't suit them): ElevenLabs Voice Design makes three takes, the clearest Slovene is kept, the old voice and its clips go. Optionally a new description in English (age, timbre, manner; always 'a native Slovene speaker'), and a voice to sound like (like: a cast speaker such as grandpa, someone's own @micka, or an ElevenLabs voice id; its sample lends the timbre, the Slovene stays native). Needs a free voice slot; takes about half a minute.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "person": {
+        "type": "string",
+        "description": "villager or resident id, e.g. micka"
+      },
+      "description": {
+        "type": "string",
+        "description": "optional: how the new voice should sound"
+      },
+      "like": {
+        "type": "string",
+        "description": "optional: a voice to sound like (grandpa, @micka, or an ElevenLabs voice id)"
+      }
+    },
+    "required": [
+      "person"
+    ]
+  }
+}

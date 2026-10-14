@@ -1,0 +1,33 @@
+{
+  "name": "set_rhythm",
+  "description": "Show or change the daily rhythm (morning plan, evening recap, weekly review). Pass only what changes; times are HH:MM local, null turns one off, weekly_day 0 = Sunday. With no arguments, returns the current settings.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "type": "boolean"
+      },
+      "morning": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "evening": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "weekly_day": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "weekly": {
+        "type": "string"
+      }
+    }
+  }
+}

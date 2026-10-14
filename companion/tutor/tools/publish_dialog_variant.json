@@ -1,0 +1,30 @@
+{
+  "name": "publish_dialog_variant",
+  "description": "Add a fresh dialog to a happening of a scene (a variant: companion/SCENES.md \"Variants\"), e.g. when dialog_variants_heard says the learner has heard all its dialogs. The same situation (the happening's title, time, months and person), other words, another point of grammar, at the learner's level; a dialog of lani.scene/v0 (3-8 lines, the person's line first, a reaction on every wrong choice, optionally a count with {n}, a memory of its own). It plays the next time the happening comes, marked as the tutor's. Validates it with the scene; a tutor variant with the same id is replaced. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "scene": {
+        "type": "string",
+        "description": "The scene id (list_scenes)"
+      },
+      "happening": {
+        "type": "string",
+        "description": "The happening id in that scene"
+      },
+      "dialog": {
+        "type": "object",
+        "description": "The dialog (lani.scene/v0: id, lines, optional count, memory, talk, sky_stays, fx_stays, months: a season of its own within the happening's)"
+      },
+      "note": {
+        "type": "string",
+        "description": "Optional one-line announcement shown in the app"
+      }
+    },
+    "required": [
+      "scene",
+      "happening",
+      "dialog"
+    ]
+  }
+}

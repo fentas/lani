@@ -1,0 +1,20 @@
+{
+  "name": "publish_arrival",
+  "description": "Validate a lani.arrival/v0 arrival (the introduction dialog of someone who joined the village) and publish it to the app: it replaces the template for that newcomer or baby (or the culture pack's for a cast member, until remove_arrival). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "arrival": {
+        "type": "object",
+        "description": "The arrival (lani.arrival/v0)"
+      },
+      "note": {
+        "type": "string",
+        "description": "One-line announcement shown in the app"
+      }
+    },
+    "required": [
+      "arrival"
+    ]
+  }
+}

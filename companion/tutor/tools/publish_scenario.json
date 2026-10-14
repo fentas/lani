@@ -1,0 +1,20 @@
+{
+  "name": "publish_scenario",
+  "description": "Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "scenario": {
+        "type": "object",
+        "description": "The scenario (lani.scenario/v0)"
+      },
+      "note": {
+        "type": "string",
+        "description": "One-line announcement shown in the app"
+      }
+    },
+    "required": [
+      "scenario"
+    ]
+  }
+}

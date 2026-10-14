@@ -1,0 +1,16 @@
+{
+  "name": "get_scene",
+  "description": "One scene as its lani.scene/v0 spec (objects, people, happenings, dialogs), to change and publish again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The scene id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

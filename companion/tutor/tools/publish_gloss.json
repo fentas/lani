@@ -1,0 +1,49 @@
+{
+  "name": "publish_gloss",
+  "description": "Explain a word for the app's word lookup: one the dictionary didn't know (Jan asked about it), or one it knew only in English (a gloss_gaps note). The form as it appears in the line, its lemma (base form), part of speech, 1-3 short glosses, the language they are in (gloss_lang, default Jan's base) and the grammar of this form. The next lookup of the form or the lemma shows it: as the meaning of the dictionary's entry of that lemma, or as an entry of its own, flagged machine-written. Replaces your earlier gloss of the same form, lemma and gloss language.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "form": {
+        "type": "string",
+        "description": "The word as it appears in the line, e.g. \"prinesel\""
+      },
+      "lemma": {
+        "type": "string",
+        "description": "Its base form, e.g. \"prinesti\""
+      },
+      "pos": {
+        "type": "string",
+        "description": "Part of speech: noun, verb, adj, adv, pron, prep, conj, particle, intj, phrase"
+      },
+      "gloss": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "1-3 short meanings, e.g. [\"to bring\"]"
+      },
+      "grammar": {
+        "type": "string",
+        "description": "What this form is, e.g. \"masculine singular l-participle\""
+      },
+      "note": {
+        "type": "string",
+        "description": "Optional usage note, one line"
+      },
+      "gloss_lang": {
+        "type": "string",
+        "description": "The language the glosses are in: \"sl\", \"de\", \"it\" or \"en\"; default Jan's base"
+      },
+      "language": {
+        "type": "string",
+        "description": "The word's language, e.g. \"it\" on a visit to an Italian town; default the village's"
+      }
+    },
+    "required": [
+      "form",
+      "lemma",
+      "gloss"
+    ]
+  }
+}

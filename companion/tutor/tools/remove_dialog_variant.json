@@ -1,0 +1,24 @@
+{
+  "name": "remove_dialog_variant",
+  "description": "Remove a dialog variant the tutor published (publish_dialog_variant) from a happening.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "scene": {
+        "type": "string"
+      },
+      "happening": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "description": "The variant's dialog id"
+      }
+    },
+    "required": [
+      "scene",
+      "happening",
+      "id"
+    ]
+  }
+}

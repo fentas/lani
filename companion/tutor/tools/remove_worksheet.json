@@ -1,0 +1,21 @@
+{
+  "name": "remove_worksheet",
+  "description": "Remove homework you published from a unit of the school's course.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "unit": {
+        "type": "string",
+        "description": "The unit id"
+      },
+      "id": {
+        "type": "string",
+        "description": "The homework id"
+      }
+    },
+    "required": [
+      "unit",
+      "id"
+    ]
+  }
+}

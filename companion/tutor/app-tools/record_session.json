@@ -1,0 +1,304 @@
+{
+  "name": "record_session",
+  "description": "Persist one practice session in the learner's six databases at once (update-db.py's report in the self-hosted mode): a session_end, a role-play's debrief, a town check sent, a writing exercise in chat. Call it once per session, at its end; the same session_id again replaces that session. Take session_id from learner_state's next_session_id (another language's: learner_state with its language, and language here). The app persists reviews, packs, readings and dialog words itself: don't record those events. review_results run SM-2 on cards already in the deck; quality 0-5 = floor(score / 2): 5 perfect, 4 right after a hesitation, 3 right with difficulty, 2 wrong but remembered when shown, 1 wrong but familiar, 0 blackout. Below 3 the card starts over. A right answer looked up on the cheat sheet is at most 4. errors: one per distinct mistake, your_answer exactly as the learner had it.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "session_id": {
+        "type": "string",
+        "description": "learner_state's next_session_id: session-NNN, or session-<code>-NNN in another language. Ignored with record_session false."
+      },
+      "date": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "The session's day, YYYY-MM-DD."
+      },
+      "language": {
+        "type": "string",
+        "description": "Another language than the home one (a code such as \"it\", or a name): the report goes to that language's databases. Omit for the home language."
+      },
+      "record_session": {
+        "type": "boolean",
+        "description": "false: only add new_vocabulary as review items, no session (no minutes, no streak day); then no practice fields."
+      },
+      "duration_minutes": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "command_used": {
+        "type": "string",
+        "description": "What the session was, e.g. \"/lani-speaking\" (default \"/lani-learn\")."
+      },
+      "skills_practiced": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "e.g. [\"vocabulary\", \"grammar\"]; default: skill_scores' keys."
+      },
+      "skill_scores": {
+        "type": "object",
+        "description": "Per skill (vocabulary, grammar, writing, speaking, reading, listening): exercises done and how many were right (a count, not a percentage).",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "exercises": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "correct": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "time_minutes": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "exercises",
+            "correct"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "errors": {
+        "type": "array",
+        "description": "One entry per distinct mistake (collapse duplicates of a pattern_id). The app builds the learner's own traps from them.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "pattern_id": {
+              "type": "string",
+              "description": "The mistake pattern's id (an existing one from learner_state when it fits)."
+            },
+            "category": {
+              "type": "string",
+              "description": "grammar, formal_informal, vocabulary, spelling, prepositions, articles, missing, …"
+            },
+            "subcategory": {
+              "type": "string",
+              "description": "e.g. verb_conjugation; \"listening\" for a hearing slip."
+            },
+            "description": {
+              "type": "string"
+            },
+            "your_answer": {
+              "type": "string",
+              "description": "Exactly as the learner had it."
+            },
+            "correct_answer": {
+              "type": "string",
+              "description": "The right sentence (parts of one example joined with \" / \", notes in brackets)."
+            },
+            "context": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string",
+              "enum": [
+                "critical",
+                "moderate",
+                "minor"
+              ]
+            },
+            "difficulty_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "pattern_id",
+            "your_answer",
+            "correct_answer"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "new_vocabulary": {
+        "type": "array",
+        "description": "Items the learner met for the first time: new review cards, due tomorrow. An item that exists is left as it is.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "item_id": {
+              "type": "string",
+              "description": "e.g. vocab_word_<lemma>"
+            },
+            "item_type": {
+              "type": "string",
+              "description": "default \"vocabulary\""
+            },
+            "content": {
+              "type": "string",
+              "description": "The front: the answer, in the target language."
+            },
+            "answer": {
+              "type": "string",
+              "description": "The back: the meaning, the prompt; (…) is a note."
+            },
+            "category": {
+              "type": "string"
+            },
+            "difficulty": {
+              "type": "string",
+              "enum": [
+                "A1",
+                "A2",
+                "B1",
+                "B2",
+                "C1",
+                "C2"
+              ]
+            },
+            "initial_quality": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "priority": {
+              "type": "string",
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "example": {
+              "type": "string",
+              "description": "The sentence it was met in."
+            },
+            "example_translation": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "description": "Where it came from, e.g. \"lookup\"."
+            }
+          },
+          "required": [
+            "item_id",
+            "content",
+            "answer"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "review_results": {
+        "type": "array",
+        "description": "Cards already in the deck that were answered: SM-2 runs on each.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "item_id": {
+              "type": "string"
+            },
+            "quality": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            },
+            "gentle": {
+              "type": "boolean",
+              "description": "A word got wrong in a dialog: lowered gently, no review (its quality is ignored)."
+            }
+          },
+          "required": [
+            "item_id",
+            "quality"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "topics_covered": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "breakthroughs": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "focus_next_session": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "focus_areas": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Replaces the profile's focus areas."
+      },
+      "session_notes": {
+        "type": "string"
+      },
+      "achievements_earned": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "milestones": {
+        "type": "array",
+        "description": "Each a string, or {milestone, date?}: a session-log milestone and an achievement.",
+        "items": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "object",
+              "properties": {
+                "milestone": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "date": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                }
+              },
+              "required": [
+                "milestone"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "level": {
+        "type": "string",
+        "enum": [
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ],
+        "description": "The report's language's new current level: only for a real placement or a correction (a level-up is the app's treasure map)."
+      }
+    },
+    "required": [
+      "session_id",
+      "date"
+    ],
+    "additionalProperties": false
+  }
+}

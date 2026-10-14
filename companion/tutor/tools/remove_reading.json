@@ -1,0 +1,16 @@
+{
+  "name": "remove_reading",
+  "description": "Remove a reading you published from the app's reading corner.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The reading id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

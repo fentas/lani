@@ -1,0 +1,29 @@
+{
+  "name": "publish_sentence_note",
+  "description": "Keep your explanation of a dialog sentence's grammar (a chat with data.about_sentence), so the app shows it the next time Jan long-presses that sentence. The sentence exactly as data.about_sentence.sentence has it (case and punctuation don't matter), the explanation (Markdown, phone-sized), the language it is in (gloss_lang, default Jan's base) and the sentence's (language, default the village's; on a visit, data.about_sentence.language). Replaces your earlier note of the same sentence in the same languages.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "sentence": {
+        "type": "string",
+        "description": "The sentence as data.about_sentence.sentence has it, e.g. \"Dvanajst krav se pase.\""
+      },
+      "text": {
+        "type": "string",
+        "description": "The explanation, Markdown, at most 4000 characters"
+      },
+      "gloss_lang": {
+        "type": "string",
+        "description": "The language the explanation is in: \"en\", \"sl\", \"de\", \"it\" …; default Jan's base"
+      },
+      "language": {
+        "type": "string",
+        "description": "The sentence's language, e.g. \"it\" on a visit to an Italian town; default the village's"
+      }
+    },
+    "required": [
+      "sentence",
+      "text"
+    ]
+  }
+}

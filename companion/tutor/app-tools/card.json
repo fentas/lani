@@ -1,0 +1,111 @@
+{
+  "name": "card",
+  "description": "Find, inspect and fix the learner's review cards and mistakes (card.py in the self-hosted mode), keeping each card's id, review history and scheduling. A card's front is its content (the answer, in the target language), its back its answer (the meaning, the prompt; its (…) is a note shown on the flashcard only). Read: find {text} (id, front or back match), show {card_id} (how the app asks and grades it, its problems and overlaps), overlaps {card_id?}. Write, with a reason, dry_run first: edit {card_id, front?, back?, note?, category?}; regrade {card_id, quality, date?} (a review graded wrong by the card's fault: SM-2 replayed); merge {card_id (kept), drop_id}; split {card_id, new_id, new_front, new_back, new_note?, front?, back?}; forgive {pattern_id, date?, answer?} (a mistake that was the item's fault). force only when a refusal says so. language: another language's cards.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "find",
+          "show",
+          "overlaps",
+          "edit",
+          "merge",
+          "split",
+          "regrade",
+          "forgive"
+        ]
+      },
+      "card_id": {
+        "type": "string",
+        "description": "The card (show, edit, regrade, split; overlaps: optional; merge: the card kept)."
+      },
+      "drop_id": {
+        "type": "string",
+        "description": "merge: the card that goes (its whole item is kept inside card_id's)."
+      },
+      "pattern_id": {
+        "type": "string",
+        "description": "forgive: the mistake pattern."
+      },
+      "text": {
+        "type": "string",
+        "description": "find: what to look for in ids, fronts and backs."
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100,
+        "description": "find: at most this many cards (default 20)."
+      },
+      "front": {
+        "type": "string",
+        "description": "edit, merge, split: the new front; alternatives joined with \" / \", optional words in (…)."
+      },
+      "back": {
+        "type": "string",
+        "description": "edit, merge, split: the new back (the prompt; (…) is a note)."
+      },
+      "note": {
+        "type": "string",
+        "description": "edit, merge, split: the back's note, replacing its (…); \"\" removes it."
+      },
+      "category": {
+        "type": "string",
+        "description": "edit: the card's category."
+      },
+      "quality": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 5,
+        "description": "regrade: the quality a right answer gets on that variant."
+      },
+      "date": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "regrade: the review's day (default the latest); forgive: the mistake's day (default its latest example's)."
+      },
+      "answer": {
+        "type": "string",
+        "description": "forgive: the learner's answer, when the day has several examples."
+      },
+      "new_id": {
+        "type": "string",
+        "description": "split: the new card's id."
+      },
+      "new_front": {
+        "type": "string",
+        "description": "split: the new card's front."
+      },
+      "new_back": {
+        "type": "string",
+        "description": "split: the new card's back."
+      },
+      "new_note": {
+        "type": "string",
+        "description": "split: the new card's note."
+      },
+      "reason": {
+        "type": "string",
+        "description": "Why (kept with the change). Give it on every write."
+      },
+      "dry_run": {
+        "type": "boolean",
+        "description": "A write: show the result, change nothing."
+      },
+      "force": {
+        "type": "boolean",
+        "description": "Do it despite a refusal that says force (a front with nothing to type, a history changed by hand)."
+      },
+      "language": {
+        "type": "string",
+        "description": "Another language's cards: a code (\"it\") or a name. Omit for the home language."
+      }
+    },
+    "required": [
+      "action"
+    ],
+    "additionalProperties": false
+  }
+}

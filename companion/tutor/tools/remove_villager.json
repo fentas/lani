@@ -1,0 +1,16 @@
+{
+  "name": "remove_villager",
+  "description": "Remove a tutor-published villager. A curated villager with the same id shows again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The villager id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

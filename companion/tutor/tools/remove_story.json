@@ -1,0 +1,16 @@
+{
+  "name": "remove_story",
+  "description": "Remove a tutor-published story. A curated story with the same id is told again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The story id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

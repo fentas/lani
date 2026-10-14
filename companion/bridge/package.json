@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "bun src/index.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "tutor-export": "bun src/cli/tutor-export.ts"
   },
   "dependencies": {
     "@clack/prompts": "^1.8.1",

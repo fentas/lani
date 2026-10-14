@@ -1,0 +1,14 @@
+{
+  "name": "learner_state",
+  "description": "The learner's state from the app's six databases, summed up (read-db.py in the self-hosted mode): today's date; the reviews due (count and the first ids); the streak, whether it is active and the days since the last session; the current and target level; each skill's mastery (0-5 stars) and accuracy; the top mistake patterns (pattern id, category, severity, frequency, the latest example); the last sessions (date, kind, minutes, accuracy, focus next); next_session_id for record_session; and languages: every language the learner has, the home one first (level, words, due). Read-only. Call it before planning, a progress report or record_session, not on every turn: the notebook already says who the learner is. language: another language's state (a code such as \"it\", or a name), e.g. for a visit; omit it for the home language.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "language": {
+        "type": "string",
+        "description": "Another language's state: a code (\"it\") or a name (\"Italian\"). Omit for the home language."
+      }
+    },
+    "additionalProperties": false
+  }
+}

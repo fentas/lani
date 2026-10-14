@@ -1,0 +1,15 @@
+{
+  "name": "remove_card",
+  "description": "Take one of your cards off the cheat sheet (publish_card, by its id). Curated cards and the grammar pages' stay.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

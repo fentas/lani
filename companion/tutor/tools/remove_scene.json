@@ -1,0 +1,16 @@
+{
+  "name": "remove_scene",
+  "description": "Remove a tutor-published scene. A curated scene with the same id shows again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The scene id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

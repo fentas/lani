@@ -1,0 +1,20 @@
+{
+  "name": "publish_worksheet",
+  "description": "Validate a lani.worksheet/v0 sheet of homework for a unit of the school's course and publish it to the app: it shows in the unit under \"📝 Domača naloga · Homework\", the newest first (companion/COURSE.md). unit: a unit of the course that isn't planned (get_course); id: kebab-case, not one of the unit's own worksheets (publishing the same id again replaces it); exercises: 1–8, the module types and the school's gaptext, table, transform, sort. Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "worksheet": {
+        "type": "object",
+        "description": "The homework (lani.worksheet/v0)"
+      },
+      "note": {
+        "type": "string",
+        "description": "One-line announcement shown in the app"
+      }
+    },
+    "required": [
+      "worksheet"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "get_story",
+  "description": "One story as its lani.story/v0 spec (its levels or chapters, lines, words, pictures), to change and publish again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The story id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

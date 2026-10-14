@@ -1,0 +1,16 @@
+{
+  "name": "get_villager",
+  "description": "One villager as their lani.villager/v0 spec (personality, story, likes, lines), to change and publish again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The villager id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

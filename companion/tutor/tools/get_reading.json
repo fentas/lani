@@ -1,0 +1,16 @@
+{
+  "name": "get_reading",
+  "description": "One reading as its JSON (the format of the culture packs' readings/), to change and publish again.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The reading id"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "get_grammar",
+  "description": "Fetch one grammar page as the app shows it (to extend it: add to it and publish_grammar it again).",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  }
+}
