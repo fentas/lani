@@ -274,9 +274,11 @@ voice each line once, whole, with a filler name, cut the filler out, and put the
   said in a sentence is said right, also a foreign one. About 5 clips × ~20 voices: a few hundred characters per
   learner (each carrier sentence counts whole) instead of 42,000, in the private namespace.
 - **The middle of a phrase works the same way,** so no line has to be voiced whole per learner.
-- **Playing:** the phone plays piece, name, piece in a row without gaps (Media3's playlist), with the pause the
-  punctuation gives at a break *(to tune by ear)*. Or the voice store joins them into one file per learner with
-  ffmpeg, which costs no credits. Either way the pieces are levelled and filtered as every clip.
+- **glas does the work** (Jan: "this could do the SaaS"): the cut, the join with the pause the punctuation gives at
+  a break *(to tune by ear)*, a pitch match on the name where the seam jumps, the level and the voice's filter. It
+  serves one finished file per learner and line, cached in their private namespace: storage, no credits. The phone
+  plays it as any clip. A self-hosted node with its own ElevenLabs key does the same in its voice store (ffmpeg is
+  there already).
 - **The fallback:** when the timestamps don't find the filler, or a join sounds wrong (the learner's redo), the line
   is voiced whole for that learner, as now.
 - **Gender pairs** (`{m:…|f:…}`) need no cut: there are two forms, each shared by every learner of that gender.
@@ -284,7 +286,7 @@ voice each line once, whole, with a filler name, cut the filler out, and put the
   the new part keeps the outside of the span instead of the inside.
 - **To verify, on a sample** (calls, closings, thanks, a name mid-phrase), listened to by Jan and the native check:
   - the seams mid-phrase, where the words beside the name were said into the filler;
-  - the pitch at the seam: the name comes from another sentence. If it jumps, a small pitch match on the name clip;
+  - the pitch at the seam: the name comes from another sentence. If it jumps, glas matches the name's pitch;
   - names much longer or shorter than the filler.
 - **Self-hosted too:** a second profile on one node (`lani-profile`) shares the pieces the same way.
 
