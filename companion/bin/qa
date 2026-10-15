@@ -65,6 +65,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        nothing and picks nothing, once answered the form in the feedback opens its card;
                        "exercise-explain" the module kdo-govori's third explanation in shape (its rule a line, its
                        pairs a small table), «delam» in it looked up;
+                       "counting" counting cards ("🔢 Štetje · Counting"): the unit stevila's intro skipped (QA's hook
+                       "counting:intro"), its note; a review of the dev bridge's counting cards (QA's hook "counting"): a
+                       card's steps, one wrong, the four lines said together, the cheat sheet, 💬 attaching it, the
+                       mistake kept by the dev bridge; then typed ("counting:type"), the keyboard up, "✋ Izberi raje";
+                       "counting-dialogs" the happenings with a counting dialog (Luka's cows) opened, no placeholder left;
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
@@ -1558,7 +1563,7 @@ def ispy():
     return None
 
 
-def counting():
+def counting_dialogs():
     """A counting dialog (companion/SCENES.md, "Numbers": Luka counts his cows on the pasture) opens with its number in
     words and no placeholder left. Through QA's hook, the happenings that have one; whichever of their variants plays
     today, none may crash the app (a pattern Android's regex engine rejects once did, and the JVM's unit tests passed)."""
@@ -3809,6 +3814,191 @@ def word_forms():
         go_home()
 
 
+COUNTING_TITLE = "🔢 Štetje · Counting"  # a counting card's label (l10n counting.title)
+COUNTING_ON = "Kartice za štetje so odslej"  # the note when the unit stevila's intro ends (l10n counting.on)
+ALL_FOUR = "Vse štiri skupaj · All four together"  # a counting card's end (l10n counting.allFour)
+COUNTING_HELP = "Štetje in spol · Counting and gender"  # its cheat sheet link (l10n counting.help)
+LET_ME_CHOOSE = "Izberi raje · Let me choose"  # a typed step's way back to the options (l10n adaptive.letMeChoose)
+DONE = "Končaj · Done"  # an exercise run's top bar once something is answered (l10n playerScreen.done)
+NUMERALS = {1: ("en", "ena", "eno"), 2: ("dva", "dve"), 3: ("trije", "tri"), 5: ("pet",)}
+
+
+def dev_counting() -> dict:
+    """The counting cards of the dev bridge's copy, by noun: their four lines (the item's counting, companion/README.md
+    "Counting cards")."""
+    items = api("/state").get("databases", {}).get("spaced_repetition", {}).get("items", {})
+    return {str(i.get("content")): i["counting"]["lines"] for i in items.values()
+            if i.get("type") == "counting" and isinstance(i.get("counting"), dict) and len(i["counting"].get("lines") or []) == 4}
+
+
+def counting_on_screen(timeout=40.0):
+    """The counting card on screen: its noun and four lines (the dev bridge's), or None within [timeout] s."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        texts = [t for t, _ in nodes()]
+        if any(COUNTING_TITLE in t for t in texts):
+            cards = dev_counting()
+            noun = next((t for t in texts if t in cards), None)
+            if noun is not None:
+                return noun, cards[noun]
+        time.sleep(1)
+    return None
+
+
+def step_options(n: int) -> list:
+    """The options of step [n] on screen (1: en / ena / eno; 2, 3, 5: a numeral of the count and a word): [(text, xy)]."""
+    if n == 1:
+        return [(t, c) for t, c in nodes() if t in NUMERALS[1]]
+    return [(t, c) for t, c in nodes() if len(t.split()) == 2 and t.split()[0] in NUMERALS[n]]
+
+
+def wait_options(n: int, timeout=8.0) -> list:
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        if opts := step_options(n):
+            return opts
+        time.sleep(0.6)
+    return []
+
+
+def ascii_of(s: str) -> str:
+    """What adb types of [s]: no č, š, ž (the app grades a forgotten one almost)."""
+    return s.translate(str.maketrans("čšžćđČŠŽĆĐ", "cszcdCSZCD"))
+
+
+def counting_said(lines: list, timeout=10.0) -> str:
+    """How the app said the card's four lines together (the debug build's log, tag Speaker: "said «…»: how"), or ""."""
+    want = " ".join(lines).lower()
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hit = [l for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if f"said «{want}»" in l]
+        if hit:
+            return hit[-1].split("»:", 1)[-1].strip()
+        time.sleep(1)
+    return ""
+
+
+def counting_cards():
+    """Counting cards ("🔢 Štetje · Counting", companion/README.md "Counting cards"): the unit stevila's intro skipped
+    ("⏭ Poznam to", QA's hook "counting:intro": the unit as never begun) turns them on, a note says so once; QA's hook
+    "counting" asks the dev bridge for the day's cards (its copy's learned nouns) and starts a review of them. A card
+    played: step 1 right (the gender's why under it), 💬 attaching the card with its steps so far, step 2 wrong (its
+    correction and "Naprej · Next"), 3 and 5 right, all four lines at the end, said by the narrator (the app's log), the
+    cheat sheet's counting and gender pages from the card; the review's end, and the dev bridge keeping the wrong step as
+    a mistake of its kind. Then typed ("counting:type"): a step typed with the keyboard up, one typed without č/š/ž,
+    "✋ Izberi raje" back to the options."""
+    go_home()
+    if "counting" not in api("/state").get("features", []):
+        return "the dev bridge makes no counting cards (an older bridge)"
+    adb("logcat", "-c")
+    try:
+        # the unit stevila's intro, skipped: its end turns counting on, said once
+        qa_hook("counting:intro")
+        assert tap("Poznam to", 15), "the unit stevila's intro (⏭ Poznam to)"
+        assert wait_for(COUNTING_ON, 15), "the note: counting cards in the reviews from now on"
+        shot("counting-note")
+
+        # a review of the counting cards the dev bridge makes now
+        qa_hook("counting")
+        got = counting_on_screen()
+        if got is None:
+            made = dev_counting()
+            return f"no counting card came ({len(made)} on the dev bridge: {', '.join(made) or 'none'})"
+        noun, lines = got
+        print(f"    {noun}: {', '.join(lines)}")
+        shot("counting-card")
+        # the cheat sheet's counting and gender pages from the card
+        assert tap(COUNTING_HELP, 4), "the card's cheat sheet link"
+        assert wait_for("Plonk listek", 6), "the cheat sheet"
+        time.sleep(1.5 * slow())
+        shot("counting-cheat")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+        # 1: right; its why stays under it
+        assert wait_options(1), "step 1's en / ena / eno"
+        assert tap(lines[0].split()[0], 3), f"step 1: {lines[0].split()[0]}"
+        assert wait_for("💡", 5), "step 1's why (the noun's end, its gender)"
+        two = wait_options(2)
+        assert two and any(t == lines[1] for t, _ in two), f"step 2's options with {lines[1]}: {two}"
+        # 💬 with the card on screen: attached, its steps so far
+        assert tap(ASK_BUTTON, 5), "💬 in the review's top bar"
+        assert wait_for(CHAT_TITLE, 6), "the chat over the card"
+        time.sleep(1)
+        chip = attach_chip()
+        assert chip is not None and noun in chip, f"the card attached ({chip})"
+        print(f"    attached: {chip}")
+        shot("counting-chat")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+        # 2: wrong; the right line and Next
+        wrong = next((t, c) for t, c in step_options(2) if t != lines[1])
+        tap_at(wrong[1])
+        assert wait_for("❌", 5) and wait_for("Naprej · Next", 4), "step 2's correction"
+        shot("counting-mistake")
+        assert tap("Naprej · Next", 3), "on from step 2"
+        for n, line in ((3, lines[2]), (5, lines[3])):
+            opts = wait_options(n)
+            hit = next((c for t, c in opts if t == line), None)
+            assert hit, f"step {n}'s options with {line}: {opts}"
+            tap_at(hit)
+        assert wait_for(ALL_FOUR, 8), "all four lines together at the end"
+        how = counting_said(lines, timeout=15.0)
+        assert how, "the four lines said together (the app's log, tag Speaker)"
+        print(f"    the four lines said: {how}")
+        shot("counting-four")
+        # the run's feedback, then the review's end (the other cards left: Done)
+        assert tap("Naprej · Next", 6), "the card's feedback"
+        if wait_for("recalled", 4) is None:
+            assert tap(DONE, 6), "the review's Done"
+        assert wait_for("recalled", 10), "the review's end"
+        shot("counting-review-end")
+        # the dev bridge keeps the wrong step as a mistake of its kind
+        end = time.time() + 20 * slow()
+        kept = []
+        while time.time() < end and not kept:
+            patterns = api("/state").get("databases", {}).get("mistakes_db", {}).get("error_patterns", {})
+            kept = [k for k, p in patterns.items() if k.startswith("counting_") and any(e.get("incorrect") == wrong[0] for e in p.get("examples", []))]
+            time.sleep(1)
+        assert kept, f"the dev bridge's mistakes: «{wrong[0]}» kept as a counting mistake"
+        print(f"    «{wrong[0]}» for «{lines[1]}» kept as {kept[0]}")
+        go_home()
+
+        # typed: as if every card were secure
+        qa_hook("counting:type")
+        qa_hook("counting")
+        got = counting_on_screen()
+        assert got, "a counting card, typed"
+        noun, lines = got
+        field = wait_for("en / ena / eno", 6)
+        assert field, "step 1's field"
+        tap_at(field)
+        top = keyboard_settled()
+        assert top is not None, "the keyboard up for the typed step"
+        time.sleep(1)  # the typed step scrolled into view with the keyboard up
+        check = find("Preveri · Check")
+        assert check and check[1] < top, f"Check above the keyboard ({check}, its top {top})"
+        shot("counting-typed")
+        type_text(lines[0].split()[0])
+        assert tap("Preveri · Check", 3), "check step 1"
+        field = wait_for("Napiši odgovor", 8) or wait_for("Type your answer", 2)
+        assert field, "step 2's field"
+        tap_at(field)
+        type_text(ascii_of(lines[1]))
+        assert tap("Preveri · Check", 3), "check step 2"
+        assert wait_for(LET_ME_CHOOSE, 8), "step 3, typed, and its way back to the options"
+        shot("counting-typed-2")
+        assert tap(LET_ME_CHOOSE, 3), "let me choose"
+        opts = wait_options(3)
+        assert any(t == lines[2] for t, _ in opts), f"step 3's options after Let me choose: {opts}"
+        shot("counting-let-me-choose")
+    except Exception:
+        shot("counting-failed")  # where it stopped, before the way home
+        raise
+    finally:
+        qa_hook("counting:off")
+        go_home()
+
+
 EX_WORDS = re.compile(r"ExWords\s*:\s*(\S+) (none|tap|hold) «(.*)»(?: (.*))?$")
 EX_TIP = "Tapni besedo in poglej, kaj pomeni (pikice"  # the exercises' tip about their words (l10n words.tapInExercise)
 
@@ -4901,7 +5091,7 @@ def plan():
         ("word-missed", word_missed, v, False, ""),
         ("story-in-scene", story_in_scene, v, False, ""),
         ("field-cues", field_cues, v, False, ""),
-        ("counting", counting, v, False, ""),
+        ("counting-dialogs", counting_dialogs, v, False, ""),
         ("forest", forest, v, False, ""),
         ("zoom", zoom, v, False, ""),
         ("spot-card", spot_card, v, False, ""),
@@ -4937,6 +5127,7 @@ def plan():
         ("visit-home", visit_home, h, False, "visit"),
         ("packs", packs, None, False, ""),
         ("word-forms", word_forms, go_home, False, ""),
+        ("counting", counting_cards, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
         ("exercise-explain", exercise_explain, go_home, False, ""),
         ("progress", optional_screen("Napredek · Progress", "📊 Napredek · Progress"), None, False, ""),
