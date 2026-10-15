@@ -192,7 +192,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * "📚 Šola · School" (companion/GAME.md, "The school"; companion/COURSE.md): the course, the classroom under the linden,
      * the units and their sheets, what they pay and leave in the progress.
      */
-    val school = si.lanisce.lani.app.SchoolController(node, game, content, grammar, cheat, chat, forms, cast = { villagers.all })
+    /**
+     * "🔢 Štetje · Counting": counting cards of the learner's learned nouns, on once the unit stevila's intro is done, made
+     * by the node from the dictionary, a few a day (app/CountingController, data/Counting.kt).
+     */
+    val counting = si.lanisce.lani.app.CountingController(viewModelScope, node, game, content, forms, notices)
+    val school = si.lanisce.lani.app.SchoolController(node, game, content, grammar, cheat, chat, forms, cast = { villagers.all }, onIntroDone = counting::introDone)
     /**
      * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
      * a day (companion/SCENES.md, "Your words in the dialogs").
@@ -434,6 +439,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         cheat.reload(b)
         school.reload(b)
         content.dashboard?.let { forms.reload(b, it.pool) }
+        // the day's new counting cards, once the forms are on the phone (it names the nouns the dictionary counts)
+        counting.reload(b)
         readings.reload(b)
         packs.reload(b)
         scenes.reload(b)
@@ -675,10 +682,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      */
     fun finishReview(
         results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: kotlinx.serialization.json.JsonArray? = null,
-        answers: kotlinx.serialization.json.JsonArray? = null, from: String,
+        answers: kotlinx.serialization.json.JsonArray? = null, from: String, counting: kotlinx.serialization.json.JsonArray? = null,
     ): Job {
         if (language == null) content.reviewed(results)
-        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers, from = from))
+        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers, from = from, counting = counting))
     }
 
     /** Sends Jan's answer to the tutor (and the family page); answering pays wisdom in the village. */
@@ -904,6 +911,28 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             what.startsWith("revoice:") -> what.removePrefix("revoice:").split('|', limit = 2).let { clips.qaRevoice(it[0], it.getOrNull(1)?.takeIf(String::isNotBlank)) }
             what == "refresh" -> clips.refresh()
         }
+    }
+
+    /**
+     * QA's "counting" hook (app/QaHooks): today's counting cards asked for now, then a review of a few of them, due or not
+     * (app/CountingController.forQa); "counting:type" before it types their steps.
+     */
+    fun qaCounting() {
+        launchSafely {
+            val b = bridge ?: return@launchSafely
+            content.dashboard?.let { forms.reload(b, it.pool) }
+            val cards = counting.forQa(b)
+            if (cards.isNotEmpty()) startRun(Screen.Review(cards, run = ++reviewRuns))
+        }
+    }
+
+    /**
+     * QA's "counting:intro" (app/QaHooks): the dev village's copy ready for the class (as "school"), the unit stevila as
+     * never begun, and its intro open, where QA skips it ("⏭ Poznam to · I know this"): its end turns counting on.
+     */
+    fun qaCountingIntro() {
+        game.apply { si.lanisce.lani.app.QaHooks.readyCounting(si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis())) }
+        startIntro(si.lanisce.lani.data.Counting.UNIT)
     }
 
     /**

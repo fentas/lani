@@ -59,10 +59,12 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
         // Another language's cards and distractors are its own; the voices and the recognizer are the village's
         // language's, so its cards are read and answered in writing. A familiar word of the home language now and then
         // asks one of its forms instead (companion/GAME.md, "A word's forms"); with QA's "forms" hook, every one does.
+        // a counting card's steps are typed once it is secure (QA's "counting:type": all of them)
         val planned = ReviewPlanner.plan(
             cards, vm.content.deck(language)?.pool.orEmpty(), home && vm.speaker.canSay, canRecognize = home && vm.recognizer.ready,
             forms = if (home) vm.forms.questions() else null,
             formCap = if (si.lanisce.lani.app.QaHooks.forms) cards.size else maxOf(1, cards.size / si.lanisce.lani.game.WordForms.EVERY),
+            typed = { c -> si.lanisce.lani.app.QaHooks.countingTyped || si.lanisce.lani.data.Counting.secure(c) },
         )
         if (home) planned else planned.map { it.copy(exercise = silent(it.exercise)) }
     }
@@ -88,15 +90,21 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             // another language's deck: its words are looked up in it, new against its cards
             language = language,
         ) { outcomes ->
-            // lowered by the hints; a right answer looked up on the cheat sheet is right with help, at most 4
-            val q = tasks.zip(outcomes) { t, o -> o.quality(ReviewPlanner.quality(t.variant, o.verdict)) }
+            // lowered by the hints; a right answer looked up on the cheat sheet is right with help, at most 4; a counting
+            // card's from its steps
+            val q = tasks.zip(outcomes) { t, o -> o.quality(baseQuality(t, o)) }
             qualities = q
             vm.game.rewardPractice(tasks.map { it.exercise }, outcomes.map { it.paid })
             // the forms asked: what the next asks of each word, and the tutor's note
             val forms = if (home) vm.forms.answered(tasks.take(outcomes.size), outcomes.map { it.verdict }, outcomes.map { it.answer }) else null
             // what each card was answered with: the node keeps the last days', for the tutor (a card reported later)
             val answers = JsonArray(tasks.zip(outcomes) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) })
-            vm.finishReview(tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms, answers, from = si.lanisce.lani.data.ReviewFrom.REVIEW)
+            // how each counting card went, step by step: the node keeps its wrong steps as mistakes by kind
+            val counting = JsonArray(tasks.zip(outcomes).mapNotNull { (t, o) -> (t.exercise as? Exercise.Counting)?.let { si.lanisce.lani.data.Counting.wire(t.card.id, it, o.sheet) } })
+            vm.finishReview(
+                tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms, answers, from = si.lanisce.lani.data.ReviewFrom.REVIEW,
+                counting = counting.takeIf { it.isNotEmpty() },
+            )
         }
         return
     }
@@ -122,6 +130,13 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             BigButton("🔩 ${bi("reviewScreen.polishNow", "n" to rusty.size)}", onClick = { vm.startPolish(rusty) })
         }
     }
+}
+
+/** An answer's SM-2 quality before its hints: a counting card's from its steps ([si.lanisce.lani.data.Counting.quality]). */
+internal fun baseQuality(t: ReviewPlanner.Task, o: Outcome): Int {
+    val ex = t.exercise
+    return if (ex is Exercise.Counting) si.lanisce.lani.data.Counting.quality(o.sheet.map { it.verdict }, si.lanisce.lani.data.Counting.typed(ex, o.sheet))
+    else ReviewPlanner.quality(t.variant, o.verdict)
 }
 
 /** Another language's card without the village language's voice: nothing read aloud. */

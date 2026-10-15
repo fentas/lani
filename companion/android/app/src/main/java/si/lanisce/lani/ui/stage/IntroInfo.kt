@@ -343,6 +343,7 @@ object Intros {
         is Exercise.Table -> bi("introInfo.table")
         is Exercise.Transform -> bi("introInfo.transform")
         is Exercise.Sort -> bi("introInfo.sort")
+        is Exercise.Counting -> bi("counting.title")
     }
 
     /** About how long one exercise takes, in seconds. */

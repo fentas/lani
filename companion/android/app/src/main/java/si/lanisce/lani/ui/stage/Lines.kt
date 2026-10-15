@@ -157,6 +157,7 @@ object Lines {
         is Exercise.Table -> listOf(G("Dopolni tabelo.", "Dopolnite tabelo.", "Fill in the table.", it = "Completa la tabella.", de = "Ergänze die Tabelle."))
         is Exercise.Transform -> listOf(G("Spremeni vsak stavek.", "Spremenite vsak stavek.", "Change each one.", it = "Trasforma ogni frase.", de = "Verändere jeden Satz."))
         is Exercise.Sort -> listOf(G("Razvrsti besede.", "Razvrstite besede.", "Sort the words.", it = "Metti in ordine le parole.", de = "Sortiere die Wörter."))
+        is Exercise.Counting -> listOf(G("Štejva!", "Let's count!", it = "Contiamo!", de = "Zählen wir!"))
     }.of(register)
 
     /** An intro's request, by what the run is (the villager's own greeting may come first). */

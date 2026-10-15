@@ -117,6 +117,14 @@ class ContentController(
         newModules = modules.filter { "${it.id}:${it.version}" !in seen }.map { it.id }.toSet()
     }
 
+    /** The home language's dashboard again, alone (new cards came: counting cards the node just made). */
+    suspend fun reloadDashboard(b: Bridge) {
+        val d = b.dashboard()
+        dashboard = d
+        VillageWidget.saveStats(context, d.streak, d.dueCards.size)
+        onDashboard()
+    }
+
     /** Fetches module [id] to play it, and marks this version seen. */
     suspend fun open(id: String): Module? {
         val m = bridge()?.module(id) ?: return null

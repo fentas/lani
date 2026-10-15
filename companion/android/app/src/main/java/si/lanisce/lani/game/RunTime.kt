@@ -29,6 +29,8 @@ internal object RunTime {
         is Exercise.Table -> 15 * ex.rows.sumOf { r -> r.cells.count { it.toFill } }
         is Exercise.Transform -> 25 * ex.items.size
         is Exercise.Sort -> 6 * ex.columns.sumOf { it.words.size }
+        // four steps, about a choice's time each
+        is Exercise.Counting -> 15 * ex.steps.size
     }
 
     /** The old flat time: 50 s and 4 s a question. */

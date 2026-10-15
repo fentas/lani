@@ -61,6 +61,10 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "school": the village (the dev bridge's copy) gets ready for the class under the linden ([readySchool]: the hamlet,
  *   the linden standing, the unit biti as never begun), and the school opens, its class begun (companion/GAME.md, "The
  *   school").
+ * - "counting": counting cards (data/Counting.kt): today's asked of the dev bridge now, then a review of a few of them, due
+ *   or not; "counting:type" types their steps from then on, as if each card were secure ([countingTyped]), "counting:off"
+ *   lets the cards' own reviews decide again; "counting:intro" readies the class (as "school") with the unit stevila as
+ *   never begun ([readyCounting]: counting off) and opens its intro, whose end ("⏭ Poznam to") turns counting on.
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
@@ -85,6 +89,10 @@ object QaHooks {
 
     /** QA asked for typed turns ("turns:type"): every rule of a dialog's form turns counts as secure. */
     var typedTurns = false
+        private set
+
+    /** QA asked for typed counting cards ("counting:type"): every counting card's steps are typed. */
+    var countingTyped = false
         private set
 
     /** «Vidim, vidim» QA offers ("scene/slot": the scene, the thing its first round spies), or null. */
@@ -122,7 +130,7 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
-        shadow: (String) -> Unit = {},
+        shadow: (String) -> Unit = {}, counting: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -138,6 +146,10 @@ object QaHooks {
             }
             command == "forms:off" -> this.forms = false
             command.startsWith("turns:") -> typedTurns = command == "turns:type"
+            command == "counting" -> counting("")
+            command == "counting:intro" -> counting("intro")
+            command == "counting:type" -> countingTyped = true
+            command == "counting:off" -> countingTyped = false
             command.startsWith("ispy:") -> ispy = command.removePrefix("ispy:").takeIf { '/' in it }
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("hour:") -> sceneHour = command.removePrefix("hour:").toFloatOrNull()?.takeIf { it in 0f..24f }
@@ -194,6 +206,13 @@ object QaHooks {
         val course = r.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key("sl", "biti")) }
         return r.copy(buildings = r.buildings.map { if (it.type == si.lanisce.lani.game.BuildingType.LIPA) it.copy(damaged = false) else it }, course = course)
     }
+
+    /**
+     * [s] with the unit stevila as never begun ("counting:intro"): its intro to do again, counting off until it ends. A
+     * debug build's, on the dev bridge's copy.
+     */
+    fun readyCounting(s: si.lanisce.lani.game.GameState): si.lanisce.lani.game.GameState =
+        s.copy(course = s.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key(si.lanisce.lani.data.Counting.LANGUAGE, si.lanisce.lani.data.Counting.UNIT)) })
 
     /** Today at the hour QA asks the village's map to be seen at ("hour:<h>"), or null: the clock's (and the real sky). */
     fun mapNow(): java.time.LocalDateTime? = if (enabled && sceneHour != null) sceneNow(java.time.LocalDateTime.now()) else null

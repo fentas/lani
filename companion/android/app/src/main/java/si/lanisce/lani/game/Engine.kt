@@ -293,6 +293,8 @@ object GameEngine {
         // as a cloze is (grammar); a word sorted is a tap among the columns, as a plain choice is (vocabulary)
         is Exercise.GapText, is Exercise.Table, is Exercise.Transform -> Res.STONE
         is Exercise.Sort -> Res.FOOD
+        // a counting card: the numerals' agreement and the noun's endings, grammar
+        is Exercise.Counting -> Res.STONE
     }
 
     /**

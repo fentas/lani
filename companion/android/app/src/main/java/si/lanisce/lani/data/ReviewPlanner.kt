@@ -4,6 +4,7 @@ import kotlin.random.Random
 import si.lanisce.lani.game.FormQuestion
 import si.lanisce.lani.game.WordForms
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
 
 /**
  * Turns due spaced-repetition cards into varied exercises, Duolingo style.
@@ -22,6 +23,8 @@ object ReviewPlanner {
         SPEAK(3),        // see meaning → say the Slovene out loud (speech recognition)
         FORM(2),         // a form of the word in a sentence with a gap → pick it among the word's other forms (game/WordForms)
         FORM_TYPE(3),    // the same, typed
+        COUNTING(2),     // a counting card: its noun counted 1, 2, 3, 5, each step chosen among three (data/Counting)
+        COUNTING_TYPE(3), // the same, typed (the card secure)
         ;
 
         /** Asks a form of the word, not its meaning: a wrong one counts on the grammar rule ([quality]). */
@@ -76,20 +79,34 @@ object ReviewPlanner {
      * @param canRecognize a speech recognizer is known to take Slovene (enables [Variant.SPEAK])
      * @param forms the form question a card asks this time, if any ([WordForms.forCard]); at most [formCap] of the cards
      *   ask one (about one in [WordForms.EVERY]), the others are asked their meaning as ever
+     * @param typed whether a counting card's steps are typed ([Counting.secure]; QA's hook types them all)
      */
     fun plan(
         cards: List<ReviewCard>, pool: List<ReviewCard>, canSpeak: Boolean, random: Random = Random.Default,
         canRecognize: Boolean = false, forms: ((ReviewCard) -> FormQuestion?)? = null,
-        formCap: Int = maxOf(1, cards.size / WordForms.EVERY),
+        formCap: Int = maxOf(1, cards.size / WordForms.EVERY), typed: (ReviewCard) -> Boolean = Counting::secure,
     ): List<Task> {
         var formsLeft = formCap
+        // a counting card's choices aren't other cards: the pool keeps the words only
+        val words = pool.filter { it.kind != Counting.KIND }
         return cards.map { card ->
+            card.counting?.takeIf { card.kind == Counting.KIND }?.let { f -> return@map countingTask(card, f, typed(card), random) }
             val q = if (forms != null && formsLeft > 0) forms(card) else null
             if (q != null) {
                 formsLeft--
                 formTask(card, q)
-            } else plainTask(card, pool, canSpeak, random, canRecognize)
+            } else plainTask(card, words, canSpeak, random, canRecognize)
         }
+    }
+
+    /**
+     * The task of counting card [card] ([f]: its forms): its four steps ([Counting.exercise]), chosen or [typed], step 1's
+     * line on the gender in the learner's base ("kava ends in -a: feminine (ženski spol) → ena kava").
+     */
+    fun countingTask(card: ReviewCard, f: CountingForms, typed: Boolean, random: Random = Random.Default): Task {
+        val (key, args) = Counting.why(f.lemma, f.gender, f.lines.first())
+        val why = runCatching { inBase(key, *args.toList().toTypedArray()) }.getOrNull()
+        return Task(card, if (typed) Variant.COUNTING_TYPE else Variant.COUNTING, Counting.exercise(f, typed, why, random))
     }
 
     /** The task of [card] asking form question [q]: chosen among the word's forms ([Variant.FORM]), or typed. */
@@ -121,6 +138,7 @@ object ReviewPlanner {
                 Variant.SPEAK -> canRecognize && card.kind == "vocabulary" && accept.isNotEmpty()
                 Variant.TILES -> card.kind == "vocabulary" && accept.isNotEmpty() && accept.first().split(' ').size >= 2
                 Variant.FORM, Variant.FORM_TYPE -> false // a form is asked only when [plan] has one for the card
+                Variant.COUNTING, Variant.COUNTING_TYPE -> false // only a counting card's ([countingTask])
             }
         }.ifEmpty { mapOf(Variant.FLIP to 1) }
         val variant = pick(allowed, random)
@@ -185,6 +203,7 @@ object ReviewPlanner {
                 instruction = bi("common.saySlovene"),
             )
             // never picked by weight (see plainTask): a flashcard, should one come here
-            Variant.FORM, Variant.FORM_TYPE -> Exercise.Flashcard(card.front, card.back, speak = card.kind == "vocabulary" && accept.isNotEmpty())
+            Variant.FORM, Variant.FORM_TYPE, Variant.COUNTING, Variant.COUNTING_TYPE ->
+                Exercise.Flashcard(card.front, card.back, speak = card.kind == "vocabulary" && accept.isNotEmpty())
         }
 }

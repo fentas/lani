@@ -17,6 +17,7 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import okhttp3.Request
@@ -183,6 +184,22 @@ class Bridge(private val config: BridgeConfig) {
             200 -> WordFormsWire.parse(body)
             400, 404 -> null
             else -> throw IOException("HTTP $code: ${body.take(200)}")
+        }
+    }
+
+    /**
+     * Counting cards of [words] (lemma, its card's id), made by the node from the dictionary's forms, a few a day (POST
+     * /counting, data/Counting.kt). Null from an older bridge without them (404) or one that won't take the request (400).
+     */
+    suspend fun counting(words: List<Pair<String, String>>): CountingAnswer? {
+        val body = buildJsonObject {
+            put("words", buildJsonArray { words.forEach { (w, id) -> add(buildJsonObject { put("word", w); put("item_id", id) }) } })
+        }
+        val (code, text) = exchange(request("/counting").post(body.toString().toRequestBody(Http.jsonType)).build())
+        return when (code) {
+            200 -> json.decodeFromString(CountingAnswer.serializer(), text)
+            400, 404 -> null
+            else -> throw IOException("HTTP $code: ${text.take(200)}")
         }
     }
 

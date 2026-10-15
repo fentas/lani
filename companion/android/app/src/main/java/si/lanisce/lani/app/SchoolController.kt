@@ -61,6 +61,8 @@ class SchoolController(
     private val chat: ChatController,
     private val forms: FormsController,
     private val cast: () -> List<Villager>,
+    /** A unit's intro ended for the first time (finished or skipped): what it turns on says so (counting cards). */
+    private val onIntroDone: (CourseUnit) -> Unit = {},
 ) {
     /** The course's language: the learner's own village's (as the grammar book's). */
     val language: String get() = grammar.language
@@ -132,7 +134,9 @@ class SchoolController(
 
     /** The intro of [unit] went as far as [steps] ([done]: finished or skipped). */
     fun introProgress(unit: CourseUnit, steps: Int, done: Boolean) {
+        val before = game.state?.let { School.progress(it, unit.language, unit.id)?.introDone } == true
         game.apply { School.introProgress(it, unit.language, unit.id, steps, done, LocalDate.now()) }
+        if (!before && game.state?.let { School.progress(it, unit.language, unit.id)?.introDone } == true) onIntroDone(unit)
         // the intro through (its summary reached, or skipped: "Poznam to"): the unit's pages are met, in the book and their
         // cards on the cheat sheet
         if (done || steps >= (unit.intro?.steps?.size ?: 0)) cheat.met(unit.grammar)

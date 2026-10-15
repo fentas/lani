@@ -263,7 +263,47 @@ sealed interface Exercise {
         val explain: String? = null,
         override val grammar: String? = null,
     ) : Exercise
+
+    /**
+     * A counting card of the review ("🔢 Štetje · Counting", data/Counting.kt): the noun [lemma] (its [emoji], what it
+     * [meaning]s) counted in four [steps], one at a time: 1 (en / ena / eno), 2, 3 and 5 (the whole phrase); chosen among
+     * the [CountStep.options], or [typed] once the card is secure. [why]: what the noun's end says of its gender (step
+     * 1's feedback); [pages]: the grammar pages its help opens (the counting rule's, the gender's). Only the review makes
+     * one (from the card's forms); a module never has it.
+     */
+    @Serializable @SerialName("counting")
+    data class Counting(
+        val lemma: String,
+        val gender: String,
+        val steps: List<CountStep>,
+        val typed: Boolean = false,
+        val emoji: String? = null,
+        val meaning: String? = null,
+        val why: String? = null,
+        val pages: List<String> = emptyList(),
+        override val grammar: String? = null,
+    ) : Exercise {
+        /** The four lines together ("ena kava, dve kavi, tri kave, pet kav"): what the narrator says at the end. */
+        val said: String get() = steps.joinToString(", ") { it.line }
+    }
 }
+
+/**
+ * A step of a [Exercise.Counting]: its number ([n]: 1, 2, 3, 5), what is asked ([answer]: the numeral for 1, the whole
+ * phrase after), the line it stands for ([line]: "ena kava"), what is right ([accept]: every form of the dictionary's),
+ * the [options] to choose from (the right one among them), the numeral that agrees ([numeral]) and the noun's [forms]
+ * right here.
+ */
+@Serializable
+data class CountStep(
+    val n: Int,
+    val answer: String,
+    val line: String,
+    val accept: List<String>,
+    val options: List<String> = emptyList(),
+    val numeral: String,
+    val forms: List<String> = emptyList(),
+)
 
 /** A gap of a [Exercise.GapText]: what's right (the first shown as the correction), its hint, why, and its own rule. */
 @Serializable
@@ -399,6 +439,10 @@ data class ReviewCard(
     val interval: Int = 1,
     /** When it was last reviewed (the item's `last_reviewed`); null when never or the node doesn't say. */
     val lastReviewed: java.time.LocalDate? = null,
+    /** When it was made (the item's `created_date`); null when the node doesn't say. */
+    val created: java.time.LocalDate? = null,
+    /** A counting card's noun and its forms (the item's `counting`, data/Counting.kt); null for any other card. */
+    val counting: CountingForms? = null,
 ) {
     /** A failed review ([quality] below 3) leaves this card rusty ([Stats.rusty]). */
     fun rustsAt(quality: Int): Boolean = quality < 3 && kind == "vocabulary" && !lookup
@@ -505,6 +549,11 @@ data class Dashboard(
      * dialog's words with their slips ([si.lanisce.lani.app.DialogWordsController]); empty from an older bridge.
      */
     val features: Set<String> = emptySet(),
+    /**
+     * The learner's counting cards (data/Counting.kt), due or not: kept out of [pool] (a counting card is no word to
+     * choose among, its back no meaning), in [dueCards] when due, a few in each review.
+     */
+    val counting: List<ReviewCard> = emptyList(),
 ) {
     /**
      * The learner's words a dialog just reviewed ([ids], [today]), before the node has them: reviewed today, so no other
@@ -573,6 +622,9 @@ data class Dashboard(
     }
 
     companion object {
+        /** The most cards a review asks at once. */
+        const val MAX_DUE = 20
+
         private fun JsonElement?.obj() = this as? JsonObject ?: JsonObject(emptyMap())
         private fun JsonObject.str(k: String) = this[k]?.jsonPrimitive?.contentOrNull
         private fun JsonObject.int(k: String) = this[k]?.jsonPrimitive?.intOrNull ?: 0
@@ -595,6 +647,8 @@ data class Dashboard(
                 if (item.str("type") == "error_pattern") return null
                 val front = item.str("content") ?: return null
                 val back = item.str("answer") ?: return null
+                // a counting card is asked from its forms: without them whole, none
+                val counting = if (item.str("type") == Counting.KIND) (Counting.parse(item["counting"]) ?: return null) else null
                 return ReviewCard(
                     id, front, back, item.str("type") ?: "vocabulary", item.int("repetitions"), item.int("last_quality"),
                     category = item.str("category")?.trim()?.takeIf { it.isNotEmpty() },
@@ -602,9 +656,14 @@ data class Dashboard(
                     due = dayOf(item.str("due_date") ?: item.str("next_review")),
                     interval = item.int("interval_days").coerceAtLeast(1),
                     lastReviewed = dayOf(item.str("last_reviewed")),
+                    created = dayOf(item.str("created_date")),
+                    counting = counting,
                 )
             }
-            val cards = due.mapNotNull(::card).take(20)
+            // the counting cards due, a few of them spread among the others (data/Counting.kt, "interleaved")
+            val dueAll = due.mapNotNull(::card)
+            val cards = Counting.interleave(dueAll.filter { it.kind != Counting.KIND }, dueAll.filter { it.kind == Counting.KIND }, MAX_DUE)
+            val all = items.keys.mapNotNull(::card)
 
             val patterns = db["mistakes_db"].obj()["error_patterns"].obj()
             val weak = patterns.entries
@@ -642,7 +701,8 @@ data class Dashboard(
                 rusty = items.filter { (_, v) -> v.obj().str("type") == "vocabulary" && Stats.rusty(v.obj()) }.keys.mapNotNull(::card),
                 dueCards = cards,
                 weakPatterns = weak,
-                pool = items.keys.mapNotNull(::card),
+                pool = all.filter { it.kind != Counting.KIND },
+                counting = all.filter { it.kind == Counting.KIND },
                 daysSinceLastSession = root["computed"].obj().int("days_since_last_session"),
                 minutesToday = todays.sumOf { s -> s["duration_minutes"]?.jsonPrimitive?.doubleOrNull?.toInt() ?: 0 },
                 practisedToday = todays.isNotEmpty(),

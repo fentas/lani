@@ -246,6 +246,8 @@ fun ExerciseRun(
     fun ruleAt(i: Int): String? = exercises.getOrNull(i)?.grammar ?: rules?.getOrNull(i)
     /** Pages newly met that the feedback on screen announces. */
     var noted by remember { mutableStateOf<List<String>>(emptyList()) }
+    /** A counting card's steps answered so far (the chat's attachment before the card's end). */
+    var steps by remember(index) { mutableStateOf<List<si.lanisce.lani.data.ItemMark>>(emptyList()) }
     // Stopping early still reports what was answered, so progress is never lost.
     val complete = { outs: List<Outcome> ->
         stage?.finish(outs.map { it.verdict }, exercises.size)
@@ -283,7 +285,10 @@ fun ExerciseRun(
         val o = given.copy(lookedUp = watch?.let(vm.cheat::answered))
         watch = null
         val ex = exercises[index]
-        if (o.sheet.isNotEmpty()) {
+        if (ex is Exercise.Counting) {
+            // a counting card's steps: the counting rule, the gender, the dual, the plural (data/Counting.kt)
+            for (r in si.lanisce.lani.data.Counting.ruleAnswers(ex, o.sheet)) vm.grammar.answered(r.rule, r.verdict, r.said, r.answer, r.correct)
+        } else if (o.sheet.isNotEmpty()) {
             // a worksheet's items: one answer on each rule they name, as one exercise would (companion/GAME.md, "The school")
             val items = si.lanisce.lani.data.Sheets.items(ex).map { if (it.grammar == null) it.copy(grammar = ruleAt(index)) else it }
             for (r in si.lanisce.lani.data.Sheets.ruleAnswers(items, o.sheet, si.lanisce.lani.data.Sheets.sentences(ex))) {
@@ -358,10 +363,13 @@ fun ExerciseRun(
             )
             // the cheat sheet, this exercise's cards first (then the pages the run is about: a school unit's): help, not a
             // hint (a right answer after it pays in full, its review quality at most 4: [watch])
-            CheatButton(vm) { (listOfNotNull(ruleAt(index)) + pages + cheatContext(vm, ruleAt(index), exercises, rules, moduleId)).distinct() }
+            CheatButton(vm) {
+                val own = (exercises.getOrNull(index) as? Exercise.Counting)?.pages.orEmpty()
+                (listOfNotNull(ruleAt(index)) + own + pages + cheatContext(vm, ruleAt(index), exercises, rules, moduleId)).distinct()
+            }
             // the exercise on screen goes with it (its answer too, once answered); none yet while a timed run counts down
             ChatButton(vm) {
-                exercises.getOrNull(index)?.takeIf { clock == Clock.RUNNING && !stopped }?.let { chatContext(it, outcome, moduleId, source(index)) }
+                exercises.getOrNull(index)?.takeIf { clock == Clock.RUNNING && !stopped }?.let { chatContext(it, outcome, moduleId, source(index), steps) }
             }
         }
         if (timeLimitSeconds != null) Countdown(remaining, timeLimitSeconds, waiting = waiting && clock == Clock.RUNNING)
@@ -385,7 +393,7 @@ fun ExerciseRun(
                     .then(if (peeking) Modifier.clearAndSetSemantics { } else Modifier),
             ) {
                 key(index) {
-                    ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted)
+                    ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted, onStep = { steps = it })
                 }
             }
             if (peeking && text != null) Surface(
@@ -572,7 +580,10 @@ fun PlayerScreen(vm: AppViewModel, module: Module) {
 }
 
 @Composable
-private fun ExerciseView(vm: AppViewModel, moduleId: String?, index: Int, ex: Exercise, locked: Boolean, done: (Outcome) -> Unit, adapted: AdaptedChoice? = null) {
+private fun ExerciseView(
+    vm: AppViewModel, moduleId: String?, index: Int, ex: Exercise, locked: Boolean, done: (Outcome) -> Unit, adapted: AdaptedChoice? = null,
+    onStep: (List<si.lanisce.lani.data.ItemMark>) -> Unit = {},
+) {
     when (ex) {
         is Exercise.Flashcard -> FlashcardEx(vm, ex, locked, done)
         is Exercise.Choice -> AdaptiveChoiceEx(vm, adapted?.takeIf { it.exercise.prompt == ex.prompt } ?: AdaptedChoice(ex, TurnMode.CHOOSE, null), locked, done)
@@ -603,6 +614,8 @@ private fun ExerciseView(vm: AppViewModel, moduleId: String?, index: Int, ex: Ex
         is Exercise.Table -> si.lanisce.lani.ui.school.TableEx(vm, ex, locked, done)
         is Exercise.Transform -> si.lanisce.lani.ui.school.TransformEx(vm, ex, locked, done)
         is Exercise.Sort -> si.lanisce.lani.ui.school.SortEx(vm, ex, locked, done)
+        // a counting card of the review (ui/CountingCard.kt)
+        is Exercise.Counting -> CountingEx(vm, ex, locked, done, onStep)
     }
 }
 
@@ -1166,6 +1179,8 @@ internal fun sloveneOf(ex: Exercise, isSlovene: (String) -> Boolean): String? = 
     // a gap text heard whole, its gaps filled; the others are lists of their own
     is Exercise.GapText -> si.lanisce.lani.data.Sheets.filled(ex, ex.gaps.map { it.accept.firstOrNull() })
     is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
+    // a counting card's four lines are on it, with their 🔊
+    is Exercise.Counting -> null
 }
 
 /**
@@ -1196,13 +1211,15 @@ internal fun saidOf(ex: Exercise, isSlovene: (String) -> Boolean): String? {
  * top bar before it was answered) the exercise alone, `answered: false`, with what it expects (`expected`, for the tutor:
  * help without giving it away) and a label that gives nothing away either (no sound's text, no card's back).
  */
-internal fun chatContext(ex: Exercise, o: Outcome?, moduleId: String?, source: JsonObject? = null): ChatContext {
+internal fun chatContext(ex: Exercise, o: Outcome?, moduleId: String?, source: JsonObject? = null, steps: List<si.lanisce.lani.data.ItemMark> = emptyList()): ChatContext {
     val (type, prompt) = typeAndPrompt(ex)
     val data = buildJsonObject {
         put("type", type)
         put("prompt", prompt)
         if (ex is Exercise.Choice) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
         if (ex is Exercise.Multi) put("options", buildJsonArray { ex.options.forEach { add(JsonPrimitive(it)) } })
+        // a counting card: its noun and gender, each step (asked, its options, typed or not) and how those answered went
+        if (ex is Exercise.Counting) put("counting", countingSteps(ex, o?.sheet ?: steps))
         if (o == null) {
             put("answered", false)
             expectedOf(ex)?.let { put("expected", it) }
@@ -1210,8 +1227,8 @@ internal fun chatContext(ex: Exercise, o: Outcome?, moduleId: String?, source: J
             source?.let { put("source", it) }
             return@buildJsonObject
         }
-        // a worksheet's items: each answer, what was right, where it stands
-        if (o.sheet.isNotEmpty()) {
+        // a worksheet's items: each answer, what was right, where it stands (a counting card's steps are in its counting)
+        if (o.sheet.isNotEmpty() && ex !is Exercise.Counting) {
             val items = si.lanisce.lani.data.Sheets.items(ex)
             put("items", buildJsonArray {
                 o.sheet.forEachIndexed { i, m ->
@@ -1239,6 +1256,27 @@ internal fun chatContext(ex: Exercise, o: Outcome?, moduleId: String?, source: J
     return ChatContext(label, data)
 }
 
+/** A counting card's steps for the tutor: the noun, its gender, each step's number, line, options, and its answer so far. */
+private fun countingSteps(ex: Exercise.Counting, marks: List<si.lanisce.lani.data.ItemMark>): JsonObject = buildJsonObject {
+    put("lemma", ex.lemma)
+    put("gender", ex.gender)
+    put("typed", ex.typed)
+    put("steps", buildJsonArray {
+        ex.steps.forEachIndexed { i, s ->
+            add(buildJsonObject {
+                put("n", s.n)
+                put("expected", s.line)
+                if (!ex.typed) put("options", buildJsonArray { s.options.forEach { add(JsonPrimitive(it)) } })
+                marks.getOrNull(i)?.let { m ->
+                    put("answer", m.answer)
+                    put("verdict", m.verdict.name.lowercase())
+                    if (m.verdict == Verdict.WRONG) put("kind", si.lanisce.lani.data.Counting.kind(s, m.answer).wire)
+                }
+            })
+        }
+    })
+}
+
 /** What [ex] expects as its answer, for the tutor ([chatContext] before an answer); null where it isn't one text. */
 private fun expectedOf(ex: Exercise): String? = when (ex) {
     is Exercise.Flashcard -> ex.back
@@ -1251,6 +1289,7 @@ private fun expectedOf(ex: Exercise): String? = when (ex) {
     is Exercise.Speak -> ex.say
     is Exercise.Multi -> ex.answers.mapNotNull { ex.options.getOrNull(it) }.joinToString(" · ").ifEmpty { null }
     is Exercise.GapText -> si.lanisce.lani.data.Sheets.filled(ex, ex.gaps.map { it.accept.firstOrNull() })
+    is Exercise.Counting -> ex.steps.joinToString(" · ") { it.line }
     is Exercise.Free, is Exercise.Unsupported, is Exercise.Table, is Exercise.Transform, is Exercise.Sort -> null
 }
 
@@ -1265,6 +1304,8 @@ private fun shownPrompt(ex: Exercise): String = when (ex) {
     is Exercise.Reorder -> listOfNotNull(ex.audio?.let { "🎧" }, ex.prompt.takeIf { it.isNotBlank() }).joinToString(" · ")
     is Exercise.Dictation -> "🎧"
     is Exercise.Speak -> "🎤 ${ex.prompt}"
+    // the noun, not its lines (they are what it asks)
+    is Exercise.Counting -> "🔢 ${ex.lemma}: 1 · 2 · 3 · 5"
     else -> typeAndPrompt(ex).second
 }.ifBlank { typeAndPrompt(ex).first }
 
@@ -1285,6 +1326,7 @@ private fun typeAndPrompt(ex: Exercise): Pair<String, String> = when (ex) {
     is Exercise.Table -> "table" to listOfNotNull(ex.instruction, ex.prompt ?: ex.lemma).joinToString(" · ")
     is Exercise.Transform -> "transform" to listOfNotNull(ex.instruction, ex.cue).joinToString(" · ")
     is Exercise.Sort -> "sort" to listOfNotNull(ex.instruction, ex.prompt, ex.columns.joinToString(" | ") { it.label }).joinToString(" · ")
+    is Exercise.Counting -> "counting" to "${ex.lemma} (${ex.gender}): 1 · 2 · 3 · 5${if (ex.typed) ", typed" else ""}"
 }
 
 /**
@@ -1304,7 +1346,7 @@ internal fun reviewAnswer(ex: Exercise, o: Outcome, cardId: String, variant: Rev
         put("prompt", prompt.take(160))
         if (ex !is Exercise.Flashcard) {
             put("answer", o.answer.take(200))
-            o.correct?.let { put("expected", it.take(200)) }
+            (if (ex is Exercise.Counting) expectedOf(ex) else o.correct)?.let { put("expected", it.take(200)) }
         }
         put("verdict", o.verdict.name.lowercase())
         if (o.hint != Grading.Hint.NONE) put("hint", o.hint.name.lowercase())
