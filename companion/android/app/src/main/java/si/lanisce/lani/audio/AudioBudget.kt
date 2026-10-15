@@ -17,7 +17,7 @@ object AudioBudget {
     /** The clip cache with the cap off, as it always was. */
     const val OFF_CACHE = si.lanisce.lani.data.Clips.MAX_BYTES
 
-    /** Whatever the car's library takes, the clips played keep at least this much. */
+    /** Whatever the car's library and the day's clips take, the clips played keep at least this much. */
     const val MIN_CACHE = 20L * MB
 
     /**
@@ -39,20 +39,22 @@ object AudioBudget {
     /**
      * The clip cache's files to drop so that everything ([cache] and [others], the car's library) fits in [limit]: the least
      * recently used first, never one [keep] names (the day's), nor one the car's library has too (dropping it frees nothing,
-     * and it costs nothing to keep). The cache keeps at least [MIN_CACHE] of its own, whatever the car's library takes.
+     * and it costs nothing to keep). The clips played (the cache's own, not the day's) keep at least [MIN_CACHE], whatever
+     * the car's library and the day's clips take: the day's alone can be over it, and a clip just got to play (the newest)
+     * must not go before it plays.
      */
     fun evict(cache: List<StoredFile>, others: List<StoredFile>, limit: Long, keep: Set<String> = emptySet()): Set<String> {
         val shared = others.mapTo(HashSet()) { it.id }
         val own = cache.filter { it.id !in shared }
         var total = unique(own) + unique(others)
-        var mine = unique(own)
+        var played = unique(own.filter { it.name !in keep })
         val out = HashSet<String>()
         for (f in own.sortedBy { it.used }) {
-            if (total <= limit || mine <= MIN_CACHE) break
+            if (total <= limit || played <= MIN_CACHE) break
             if (f.name in keep) continue
             out += f.name
             total -= f.bytes
-            mine -= f.bytes
+            played -= f.bytes
         }
         return out
     }

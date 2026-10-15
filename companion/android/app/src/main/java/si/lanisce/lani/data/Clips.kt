@@ -414,7 +414,9 @@ class Clips(context: Context, private val scope: CoroutineScope) {
 
     private fun fetchOnce(text: String, voices: List<String>): Deferred<List<File>?> = synchronized(fetching) {
         val key = missKey(text, voices.first())
-        fetching[key]?.takeIf { it.isActive } ?: scope.async(Dispatchers.IO) { runCatching { fetch(text, voices) }.getOrNull() }.also { d ->
+        fetching[key]?.takeIf { it.isActive } ?: scope.async(Dispatchers.IO) {
+            runCatching { fetch(text, voices) }.onFailure { Log.w(TAG, "no clip of a line: ${it.javaClass.name}: ${it.message}", it) }.getOrNull()
+        }.also { d ->
             fetching[key] = d
             d.invokeOnCompletion { synchronized(fetching) { if (fetching[key] === d) fetching.remove(key) } }
         }
@@ -473,7 +475,8 @@ class Clips(context: Context, private val scope: CoroutineScope) {
                 return a.say(phrase, v)
             } catch (_: VoiceRefused) {
                 continue
-            } catch (_: Exception) {
+            } catch (e: Exception) {
+                Log.w(TAG, "the node didn't voice a line in $v: ${e.javaClass.name}: ${e.message}", e)
                 return null
             }
         }

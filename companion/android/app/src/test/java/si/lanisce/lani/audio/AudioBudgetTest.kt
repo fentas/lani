@@ -51,6 +51,15 @@ class AudioBudgetTest {
         assertEquals(setOf("a"), AudioBudget.evict(cache, road, 250 * MB))
     }
 
+    @Test fun `the clips played keep a little whatever the day's clips take, the one just got to play too`() {
+        // the car's library and the day's clips (over MIN_CACHE alone) fill a 250 MB cap: the clips played go down to
+        // MIN_CACHE, not to nothing; "new" (just downloaded to play: used last) stays. Counting the day's in the floor, the
+        // cache dropped every clip played, the new one before it played (a new line fell to the phone's voice).
+        val road = listOf(f("r", 230, 0))
+        val cache = listOf(f("day", 25, 0), f("a", 10, 100), f("b", 10, 200), f("new", 10, 300))
+        assertEquals(setOf("a"), AudioBudget.evict(cache, road, 250 * MB, keep = setOf("day")))
+    }
+
     @Test fun `room is the cap less the car's library and the day's clips`() {
         val road = listOf(f("r", 100, 0), f("both", 10, 0, id = 1))
         val cache = listOf(f("today", 20, 0), f("both-cache", 10, 0, id = 1), f("old", 50, 0))

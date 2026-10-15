@@ -1982,8 +1982,10 @@ once; a re-record on request drops it on purpose, and an old clip the cap droppe
 for all of Lani's audio on the phone: the day's clips, the clips played and the car's library ("🚗 Za pot"), each file
 once. The clips played go first, the least recently played first; the day's clips never; the car's library is never
 dropped either (it was got ready on purpose), so getting the road ready takes what the cap leaves after the day's clips,
-and what doesn't fit is left out like what can't be had (the sheet says so). The clip cache keeps at least 20 MB of its own
-whatever the car's library takes. **Off**: no prefetch; the clips stream as before, the last 50 MB kept; the car's library
+and what doesn't fit is left out like what can't be had (the sheet says so). The clips played keep at least 20 MB whatever
+the car's library and the day's clips take, so a clip just downloaded to play is never dropped before it plays (until
+0.2.208 the day's clips counted in those 20 MB: with the cap full and the day's over 20 MB, every new line fell to the
+phone's voice). **Off**: no prefetch; the clips stream as before, the last 50 MB kept; the car's library
 as big as it gets; the offline voice still speaks when it's on the phone. **Unlimited**: nothing is dropped. The clips are
 in the app's files, not its cache, so Android doesn't clear them behind the learner's back (an app from before moves its
 cache's clips there once).
