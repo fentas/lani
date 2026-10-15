@@ -2,7 +2,9 @@ package si.lanisce.lani.app
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import si.lanisce.lani.data.Bridge
 import si.lanisce.lani.data.Counting
 import si.lanisce.lani.data.CourseUnit
@@ -56,7 +58,14 @@ class CountingController(
         // ends the day's asking anyway
         refused = today to (no + answer.skipped.filter { !it.why.startsWith("today's") }.map { Counting.key(it.word) })
         if (answer.added.isEmpty()) return false
-        content.reloadDashboard(b)
+        // the cards in the dashboard now; offline again, they come with the next reload (words_added asks for one too)
+        try {
+            content.reloadDashboard(b)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            // nothing more: the rest of the reload goes on
+        }
         return true
     }
 
@@ -66,8 +75,14 @@ class CountingController(
      * first cards are asked for.
      */
     fun introDone(unit: CourseUnit) {
-        if (unit.id != Counting.UNIT || unit.language != Counting.LANGUAGE) return
-        notices.banner = "🔢 ${bi("counting.on")}"
+        // only where the cards come: Slovene, and a bridge that makes them
+        if (unit.id != Counting.UNIT || unit.language != Counting.LANGUAGE || !on()) return
+        val note = "🔢 ${bi("counting.on")}"
+        scope.launch {
+            // after the news on screen (the unit's pages met: "📖 Nova stran v knjigi"), not instead of it
+            withTimeoutOrNull(NEWS_WAIT_MS) { while (notices.banner != null) delay(200) }
+            notices.banner = note
+        }
         val b = bridge() ?: return
         scope.launch { runCatching { reload(b) } }
     }
@@ -79,5 +94,10 @@ class CountingController(
     suspend fun forQa(b: Bridge): List<ReviewCard> {
         runCatching { reload(b) }
         return content.dashboard?.counting.orEmpty().sortedBy { it.due }.take(Counting.PER_REVIEW)
+    }
+
+    private companion object {
+        /** The longest the note waits for the news on screen before it. */
+        const val NEWS_WAIT_MS = 12_000L
     }
 }

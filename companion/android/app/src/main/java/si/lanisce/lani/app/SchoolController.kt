@@ -136,10 +136,11 @@ class SchoolController(
     fun introProgress(unit: CourseUnit, steps: Int, done: Boolean) {
         val before = game.state?.let { School.progress(it, unit.language, unit.id)?.introDone } == true
         game.apply { School.introProgress(it, unit.language, unit.id, steps, done, LocalDate.now()) }
-        if (!before && game.state?.let { School.progress(it, unit.language, unit.id)?.introDone } == true) onIntroDone(unit)
         // the intro through (its summary reached, or skipped: "Poznam to"): the unit's pages are met, in the book and their
         // cards on the cheat sheet
         if (done || steps >= (unit.intro?.steps?.size ?: 0)) cheat.met(unit.grammar)
+        // done for the first time: what it turns on says so (after the pages' news)
+        if (!before && game.state?.let { School.progress(it, unit.language, unit.id)?.introDone } == true) onIntroDone(unit)
     }
 
     /**

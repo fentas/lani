@@ -25,8 +25,8 @@ stevila-samostalniki and spol-samostalnikov, or the unit spol for the gender; a 
 A form on a card that looks wrong is the dictionary's: the lani-fix skill (card.py show).
 `.trim()
 
-/** How many counting cards are made a day at most (LANI_COUNTING_PER_DAY). */
-const PER_DAY = Math.max(0, Number(process.env.LANI_COUNTING_PER_DAY ?? 3))
+/** How many counting cards are made a day at most (LANI_COUNTING_PER_DAY; 3 when it isn't a number). */
+const PER_DAY = (n => (Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 3))(Number(process.env.LANI_COUNTING_PER_DAY ?? 3))
 /** At most this many words one request names. */
 const MAX_WORDS = 40
 /** How long the content's lines (the shown form's tie-break) are kept. */

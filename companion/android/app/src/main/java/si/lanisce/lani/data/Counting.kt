@@ -272,6 +272,7 @@ object Counting {
     // --- an answer -----------------------------------------------------------------------------------------------------
 
     private fun norm(s: String) = Grading.normalize(s, Lang.SL)
+    private fun fold(s: String) = Grading.fold(s, Lang.SL)
 
     /**
      * Step [s] answered [answer]: chosen (one of its options: right when it is one it accepts), or [typed] (graded as a
@@ -297,9 +298,10 @@ object Counting {
         1 -> CountKind.GENDER
         5 -> CountKind.GENITIVE_PLURAL
         else -> {
-            val w = norm(answer).split(' ')
-            val numeralRight = w.firstOrNull() == norm(s.numeral)
-            val nounRight = w.drop(1).joinToString(" ") in s.forms.map(::norm)
+            // č, š, ž forgotten aren't what the step was wrong about
+            val w = fold(answer).split(' ')
+            val numeralRight = w.firstOrNull() == fold(s.numeral)
+            val nounRight = w.drop(1).joinToString(" ") in s.forms.map(::fold)
             if (!numeralRight && nounRight) CountKind.GENDER else if (s.n == 2) CountKind.DUAL else CountKind.PLURAL
         }
     }
@@ -314,8 +316,9 @@ object Counting {
     fun verdict(marks: List<ItemMark>): Verdict = Sheets.verdict(marks.map { it.verdict })
 
     /**
-     * The card's SM-2 quality from its steps: all right 4 (typed 5); right but a č, š or ž forgotten 3 (typed 4); one
-     * wrong 3, two 2, more 1 (a review failed: due again tomorrow).
+     * The card's SM-2 quality from its steps, as its verdict goes ([Sheets.verdict]): all right 4 (typed 5); right but a
+     * č, š or ž forgotten 3 (typed 4); almost (one wrong, the rest right) 3; not quite (two wrong, or one and a č
+     * forgotten) 2, three or four wrong 1: a review failed, due again tomorrow.
      */
     fun quality(marks: List<Verdict>, typed: Boolean): Int {
         val wrong = marks.count { it == Verdict.WRONG }
@@ -324,8 +327,8 @@ object Counting {
             marks.isEmpty() -> 1
             wrong == 0 && almost == 0 -> if (typed) 5 else 4
             wrong == 0 -> if (typed) 4 else 3
-            wrong == 1 -> 3
-            wrong == 2 -> 2
+            Sheets.verdict(marks) != Verdict.WRONG -> 3
+            wrong <= 2 -> 2
             else -> 1
         }
     }

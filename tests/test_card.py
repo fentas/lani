@@ -152,6 +152,9 @@ class CardTest(unittest.TestCase):
                  "forms": {"nom.sg": ["oče"], "nom.du": ["očeta"], "nom.pl": ["očeti", "očetje"], "gen.pl": ["očetov"]}, "others": [], "table": "wiktionary"}
         sr["items"]["counting_oce"] = card("counting_oce", "oče", " · ".join(forms["lines"]), type="counting", category="counting", counting=forms)
         sr["items"]["counting_bare"] = card("counting_bare", "pes", "en pes", type="counting", category="counting")
+        # a line without its numeral: the app doesn't read it either
+        sr["items"]["counting_odd"] = card("counting_odd", "oče", "oče", type="counting", category="counting",
+                                           counting=dict(forms, lines=["oče", "dva očeta", "trije očeti", "pet očetov"]))
         (self.data / "spaced-repetition.json").write_text(json.dumps(sr))
         app = self.ok("show", "counting_oce")["app"]
         self.assertTrue(app["shown"])
@@ -160,6 +163,7 @@ class CardTest(unittest.TestCase):
         bare = self.ok("show", "counting_bare")
         self.assertFalse(bare["app"]["shown"])  # no forms kept: the app skips it
         self.assertTrue(any("without its forms" in p for p in bare["problems"]))
+        self.assertFalse(self.ok("show", "counting_odd")["app"]["shown"])
 
     def test_show_finds_this_mornings_problem(self):
         ne = self.ok("show", "vocab_ne")

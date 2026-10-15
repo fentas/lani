@@ -1,14 +1,20 @@
 package si.lanisce.lani.ui
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -26,11 +32,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -85,6 +94,8 @@ internal fun CountingEx(vm: AppViewModel, ex: Exercise.Counting, locked: Boolean
         }
     }
     LaunchedEffect(mark) {
+        // the chat's attachment has the step on screen too, once answered
+        onStep(marks.toList() + listOfNotNull(mark))
         val m = mark ?: return@LaunchedEffect
         if (m.verdict != Verdict.WRONG) {
             delay(RIGHT_MS)
@@ -95,33 +106,49 @@ internal fun CountingEx(vm: AppViewModel, ex: Exercise.Counting, locked: Boolean
     Text("🔢 ${bi("counting.title")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Spacer(Modifier.height(8.dp))
     Noun(ex)
-    Spacer(Modifier.height(12.dp))
+    // the rule's page and the gender's on the cheat sheet, one tap away (help, not a hint; the top bar's 📋 opens them too)
+    TextButton(onClick = { vm.cheat.show(ex.pages) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📋 ${bi("counting.help")}") }
+    Spacer(Modifier.height(4.dp))
     // the steps answered, each with its mark and the right line
     for (i in marks.indices) StepDone(vm, ex, i, marks[i])
     if (!over) {
         val s = ex.steps[at]
-        Spacer(Modifier.height(8.dp))
-        StepAsked(ex, s, typed && mark == null)
-        val m = mark
-        if (m == null) {
-            if (typed) {
-                TypedStep(s) { a -> mark = Counting.grade(s, a, typed = true) }
-                TextButton(onClick = { typed = false }, modifier = Modifier.heightIn(min = 48.dp).padding(top = 4.dp)) { Text("✋ ${bi("adaptive.letMeChoose")}") }
-            } else ChosenStep(s) { a -> mark = Counting.grade(s, a, typed = false).let { if (ex.typed) it.copy(hinted = true) else it } }
-        } else {
-            StepDone(vm, ex, at, m, now = true)
-            if (m.verdict == Verdict.WRONG) {
-                Spacer(Modifier.height(8.dp))
-                BigButton(bi("common.next"), onClick = next)
+        // the step on screen kept in view as the steps above it grow (the card scrolls in the run)
+        Column(Modifier.then(revealOn(at, mark != null))) {
+            Spacer(Modifier.height(8.dp))
+            StepAsked(ex, s, typed && mark == null)
+            val m = mark
+            if (m == null) {
+                if (typed) {
+                    TypedStep(s) { a -> mark = Counting.grade(s, a, typed = true) }
+                    TextButton(onClick = { typed = false }, modifier = Modifier.heightIn(min = 48.dp).padding(top = 4.dp)) { Text("✋ ${bi("adaptive.letMeChoose")}") }
+                } else ChosenStep(s) { a -> mark = Counting.grade(s, a, typed = false).let { if (ex.typed) it.copy(hinted = true) else it } }
+            } else {
+                StepDone(vm, ex, at, m, now = true)
+                if (m.verdict == Verdict.WRONG) {
+                    Spacer(Modifier.height(8.dp))
+                    BigButton(bi("common.next"), onClick = next)
+                }
             }
         }
     } else if (marks.size == ex.steps.size) {
         Spacer(Modifier.height(12.dp))
-        AllFour(vm, ex, marks)
+        // all four together, in view once the run's feedback slid in below
+        Column(Modifier.then(revealOn(ex.steps.size, true, after = 450))) { AllFour(vm, ex, marks) }
     }
     Spacer(Modifier.height(8.dp))
-    // the rule's page and the gender's on the cheat sheet, one tap away (help, not a hint)
-    TextButton(onClick = { vm.cheat.show(ex.pages) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📋 ${bi("counting.help")}") }
+}
+
+/** Scrolls what it's on into view each time [step] or [answered] change ([after] ms later: what slides in below first). */
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun revealOn(step: Int, answered: Boolean, after: Long = 80L): Modifier {
+    val bring = remember { BringIntoViewRequester() }
+    LaunchedEffect(step, answered) {
+        delay(after)
+        bring.bringIntoView()
+    }
+    return Modifier.bringIntoViewRequester(bring)
 }
 
 /** The noun: its picture, its base form big, what it means. */
@@ -171,24 +198,40 @@ private fun ChosenStep(s: CountStep, answer: (String) -> Unit) {
 }
 
 /** A step typed: the field (the language learned's keyboard, no suggestions), č š ž, "Preveri · Check". */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TypedStep(s: CountStep, answer: (String) -> Unit) {
     var value by remember(s.n) { mutableStateOf(TextFieldValue("")) }
-    NoSuggestions(lang = Lang.SL) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = { value = it },
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text(if (s.n == 1) "en / ena / eno" else bi("playerScreen.typeAnswer")) },
-            shape = MaterialTheme.shapes.medium,
-            keyboardOptions = AnswerKeyboard,
-            singleLine = true,
-        )
+    // with the keyboard up, the field, its letters and "Preveri · Check" scrolled into view together; the keyboard's ✓
+    // checks too
+    val bring = remember { BringIntoViewRequester() }
+    var focused by remember { mutableStateOf(false) }
+    // again as the keyboard comes up (the run's room shrinks with it, frame by frame): the last one once it is up
+    val keyboard = WindowInsets.ime.getBottom(LocalDensity.current)
+    LaunchedEffect(focused, keyboard) {
+        if (!focused) return@LaunchedEffect
+        delay(60)
+        bring.bringIntoView()
     }
-    Spacer(Modifier.height(8.dp))
-    DiacriticChips(value, { value = it }, lang = Lang.SL)
-    Spacer(Modifier.height(12.dp))
-    BigButton(bi("playerScreen.check"), onClick = { answer(value.text) }, enabled = value.text.isNotBlank())
+    val check = { if (value.text.isNotBlank()) answer(value.text) }
+    Column(Modifier.bringIntoViewRequester(bring)) {
+        NoSuggestions(lang = Lang.SL) {
+            OutlinedTextField(
+                value = value,
+                onValueChange = { value = it },
+                modifier = Modifier.fillMaxWidth().onFocusChanged { focused = it.isFocused },
+                placeholder = { Text(if (s.n == 1) "en / ena / eno" else bi("playerScreen.typeAnswer")) },
+                shape = MaterialTheme.shapes.medium,
+                keyboardOptions = AnswerKeyboard.copy(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(onDone = { check() }),
+                singleLine = true,
+            )
+        }
+        Spacer(Modifier.height(8.dp))
+        DiacriticChips(value, { value = it }, lang = Lang.SL)
+        Spacer(Modifier.height(12.dp))
+        BigButton(bi("playerScreen.check"), onClick = check, enabled = value.text.isNotBlank())
+    }
 }
 
 /**

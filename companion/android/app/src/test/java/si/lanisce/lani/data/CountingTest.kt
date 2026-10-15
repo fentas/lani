@@ -158,6 +158,10 @@ class CountingTest {
         assertEquals(CountKind.GENDER, Counting.kind(s[2], "trije kave"))
         assertEquals(CountKind.PLURAL, Counting.kind(s[2], "tri kavi"))
         assertEquals(CountKind.GENITIVE_PLURAL, Counting.kind(s[3], "pet kave"))
+        // a č forgotten isn't what it was wrong about: dva noci is the numeral's
+        val n = Counting.exercise(noc, typed = true, why = null, random = Random(1)).steps
+        assertEquals(CountKind.GENDER, Counting.kind(n[1], "dva noci"))
+        assertEquals(CountKind.DUAL, Counting.kind(n[1], "dve noc"))
     }
 
     @Test fun `the card's quality from its steps - all right 4 (typed 5), one wrong 3, two 2, more 1`() {
@@ -169,6 +173,9 @@ class CountingTest {
         assertEquals(3, Counting.quality(listOf(c, w, c, c), typed = false))
         assertEquals(2, Counting.quality(listOf(c, w, w, c), typed = true))
         assertEquals(1, Counting.quality(listOf(w, w, w, c), typed = false))
+        // one wrong and a č forgotten: not quite, as its verdict says
+        assertEquals(2, Counting.quality(listOf(c, w, Verdict.ALMOST, c), typed = true))
+        assertEquals(Verdict.WRONG, Counting.verdict(listOf(c, w, Verdict.ALMOST, c).map { ItemMark(it, "", "") }))
         assertEquals(Verdict.CORRECT, Counting.verdict(listOf(c, c, c, c).map { ItemMark(it, "", "") }))
         assertEquals(Verdict.ALMOST, Counting.verdict(listOf(c, w, c, c).map { ItemMark(it, "", "") }))
         assertEquals(Verdict.WRONG, Counting.verdict(listOf(c, w, w, c).map { ItemMark(it, "", "") }))

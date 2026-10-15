@@ -135,12 +135,13 @@ def counting_of(item: dict) -> dict | None:
     """A counting card's forms (the item's `counting`, the bridge's counting.ts) when they are whole: its gender, the four
     lines and each count's forms; None otherwise (the app skips such a card)."""
     c = item.get("counting")
-    if not isinstance(c, dict) or c.get("gender") not in ("m", "f", "n"):
+    if not isinstance(c, dict) or c.get("gender") not in ("m", "f", "n") or not (isinstance(c.get("lemma"), str) and c["lemma"].strip()):
         return None
     lines, forms = c.get("lines"), c.get("forms")
-    if not (isinstance(lines, list) and len(lines) == 4 and all(isinstance(x, str) and x.strip() for x in lines)):
+    # as the app reads them (data/Counting.kt CountingForms.whole): each line a numeral and a word, a form of each count
+    if not (isinstance(lines, list) and len(lines) == 4 and all(isinstance(x, str) and " " in x.strip() for x in lines)):
         return None
-    if not (isinstance(forms, dict) and all(isinstance(forms.get(k), list) and forms[k] for _, k in COUNT_SLOTS)):
+    if not (isinstance(forms, dict) and all(isinstance(forms.get(k), list) and any(isinstance(f, str) and f.strip() for f in forms[k]) for _, k in COUNT_SLOTS)):
         return None
     return c
 

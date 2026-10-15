@@ -117,8 +117,11 @@ class Director(
             else -> ex.heard != null
         }
 
-        /** The exercise plays its own audio once answered (a hidden speaking model): the reaction stays silent. */
-        fun autoAudioAtAnswer(ex: Exercise): Boolean = ex is Exercise.Speak && !ex.show
+        /**
+         * The exercise plays its own audio once answered (a hidden speaking model; a counting card's four lines, said by
+         * the narrator): the reaction stays silent.
+         */
+        fun autoAudioAtAnswer(ex: Exercise): Boolean = (ex is Exercise.Speak && !ex.show) || ex is Exercise.Counting
 
         /** The kind of exercise, for "did the kind change?". */
         fun kind(ex: Exercise): String = if (listening(ex)) "listen" else ex::class.simpleName.orEmpty()
