@@ -3014,6 +3014,7 @@ companion/bin/qa --steps school-scene            # the teacher in the school's s
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export
+LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --minified --steps voice-node-clip  # a new line a villager says plays the node's clip (not the phone's voice), also with the cap full
 companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks
 companion/bin/qa --apk <file>                    # an APK built before (a debug or qa build), nothing built
 companion/bin/qa --dry                           # the plan: bridges, ports, the fixture town, the steps

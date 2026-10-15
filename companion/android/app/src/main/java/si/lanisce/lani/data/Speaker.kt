@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,6 +15,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.audio.OfflineVoice
 import si.lanisce.lani.audio.Piper
 import si.lanisce.lani.l10n.L10n
@@ -160,6 +162,16 @@ class Speaker(private val context: Context) {
             return Voices(if (own) listOf(profile!!.speaker) else shared, shared, own)
         }
 
+        private const val TAG = "Speaker"
+
+        /**
+         * QA's signal (a debug or qa build): how [text] was said, the last line for a text being what played ("node clip
+         * (young-woman)", "clip on the phone", "offline voice", "tts"; companion/bin/qa's voice-node-clip).
+         */
+        private fun said(text: String, how: String) {
+            if (BuildConfig.QA) Log.i(TAG, "said «${Voice.normalize(text)}»: $how")
+        }
+
         private const val KEY_TIP_SEEN = "re_record_tip_seen"
         private const val KEY_FIRST_USED = "first_used"
     }
@@ -203,18 +215,30 @@ class Speaker(private val context: Context) {
          */
         fun otherwise() {
             val alt = c?.onDevice(text, if (own) shared else voices.drop(1))
-            if (alt != null && v != null) v.playClips(alt, slow, pitch, rate) { withoutClip() } else withoutClip()
+            if (alt != null && v != null) {
+                said(text, "another voice's clip")
+                v.playClips(alt, slow, pitch, rate) { withoutClip() }
+            } else withoutClip()
         }
         when (route) {
-            Route.FAMILY -> v!!.play(text, slow) { withoutClip() }
-            Route.CLIP -> v!!.playClips(local!!, slow, pitch, rate) { withoutClip() }
+            Route.FAMILY -> {
+                said(text, "family")
+                v!!.play(text, slow) { withoutClip() }
+            }
+            Route.CLIP -> {
+                said(text, "clip on the phone")
+                v!!.playClips(local!!, slow, pitch, rate) { withoutClip() }
+            }
             Route.NODE -> {
                 v!!.stop()
                 loading = true
                 c!!.prepare(text, voices) { files ->
                     if (t != turn) return@prepare
                     loading = false
-                    if (files != null) v.playClips(files, slow, pitch, rate) { withoutClip() } else otherwise()
+                    if (files != null) {
+                        said(text, "node clip (${voices.first()})")
+                        v.playClips(files, slow, pitch, rate) { withoutClip() }
+                    } else otherwise()
                 }
             }
             Route.TTS -> {
@@ -234,6 +258,7 @@ class Speaker(private val context: Context) {
         val v = voice
         val target = L10n.pair.target.code
         if (o == null || v == null || fallback(false, o.language, target, available) != Fallback.OFFLINE) return synthesize(text, slow)
+        said(text, "offline voice")
         loading = true
         scope.launch {
             val f: File? = runCatching { o.render(text, if (slow) Piper.SLOW else 1f) }.getOrNull()
@@ -310,6 +335,7 @@ class Speaker(private val context: Context) {
     }
 
     private fun synthesize(text: String, slow: Boolean) {
+        said(text, if (available) "tts" else "nothing (no tts voice)")
         if (!available) return
         tts.setSpeechRate(if (slow) 0.55f else 0.9f)
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text.hashCode().toString())

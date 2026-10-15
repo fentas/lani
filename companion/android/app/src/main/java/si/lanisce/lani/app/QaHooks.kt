@@ -34,7 +34,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   (tag ISpy), so QA taps them. "ispy:" lets it go again.
  * - "audio:<what>": the offline audio (companion/README.md, "Offline on the phone"): "audio:prefetch" makes the day's plan
  *   now and gets its clips at once; "audio:voice" downloads the offline voice; "audio:say:<text>" and "audio:slow:<text>"
- *   say a text as a 🔊 does (normal, 🐢), so QA hears the offline voice with the network off; "audio:revoice:<text>|<url>"
+ *   say a text as a 🔊 does (normal, 🐢), so QA hears the offline voice with the network off ("audio:say:<text>|<voice>|<person>"
+ *   as a villager's line: that person in that voice, the debug build logging how it was said, tag Speaker); "audio:revoice:<text>|<url>"
  *   gives the text's narrator clip a new URL (url, else one the node hasn't got) as a re-voice on the node does, so its
  *   earlier clip stands in; "audio:refresh" takes the node's index again.
  * - "clock:<f>": the towns' and scenes' time runs at f of the wall's (0.05 to 1; [TownClock.rate]), so a slow emulator

@@ -88,7 +88,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        through the dev bridge, then with airplane mode on a line without a clip said by it (its WAVs
                        pulled into the run's folder; airplane mode off again after); "previous-clip" a line's clip
                        re-voiced (QA's hook "audio:revoice:…"): its old clip plays offline and until the new one came,
-                       then goes; "shadow-tutor" the in-app tutor in shadow mode against QA's mock of the Messages API
+                       then goes; "voice-node-clip" a new line a villager says (QA's hook "audio:say:<text>|<voice>|<person>") voiced
+                       by the dev bridge, downloaded and played as its clip, not by the phone's voice (the app's log, tag
+                       Speaker), also with Lani's audio at its cap (the car's library taking it, the day's clips over the
+                       20 MB the clips played keep: the trim after the download dropped the new clip before it played);
+                       skipped without a voice engine (LANI_DEV_FAKE_ELEVENLABS=1 gives one); "shadow-tutor" the in-app tutor in shadow mode against QA's mock of the Messages API
                        (test/tutor-mock.ts on LANI_TUTOR_MOCK_PORT, default 8771, started by the step): the developer
                        section by seven taps on the version, a fake key, a chat and a review, the panel's events (the
                        shadow's reply beside the real one), numbers and export (shadow-export.json, no key in it), the
@@ -4298,6 +4302,99 @@ def previous_clip():
     qa_hook("audio:refresh")
 
 
+def voice_node_clip():
+    """A new line a villager says plays the node's clip, not the phone's voice: a line the dev bridge has no clip of, said
+    by a villager with a shared voice (QA's "audio:say:<text>|<voice>|<person>", as a 🔊 or a dialog says it), is voiced
+    by the bridge (POST /voice/say), downloaded and played: the app's last word on it (tag Speaker, a debug or qa build)
+    is "node clip", never "offline voice" or "tts", and its file is on the phone; said again, its clip on the phone plays.
+    Then with Lani's audio at its cap as on Jan's phone on 2026-10-15: the car's library taking the cap (a sparse
+    qa-car.mp3 in road/clips) and the day's clips over the 20 MB the clips played keep (a sparse qa-day.mp3 the day's
+    keep.txt names): a new line still plays its clip (the cap's trim right after the download dropped it before it
+    played: every new line fell to the phone's voice). The two files go again after. A dev bridge with no voice engine
+    (no LANI_DEV_FAKE_ELEVENLABS, the local worker down) skips it."""
+    go_home()
+    index = api("/voice/index")
+    people = api("/voice/profiles").get("people", {})
+    shared = lambda p: not str(p.get("speaker", "@")).startswith("@") and p.get("speaker") not in ("female", "male")  # noqa: E731
+    who = next((pid for pid in ("n-tjasa-mozetic", "tjasa", *sorted(people)) if pid in people and shared(people[pid])), None)
+    voice = people[who]["speaker"] if who else "young-woman"
+    lines = [f"{a} {b} je tukaj" for a in ("zelena", "modra", "rdeča", "rumena", "siva", "rjava")
+             for b in ("žaba", "torba", "ladja", "skodelica", "knjiga", "omara") if f"{a} {b} je tukaj" not in index]
+    if len(lines) < 4:
+        return "the QA lines have clips on the dev bridge already"
+    print(f"    new lines said by {who or '(no villager with a shared voice)'} in {voice}")
+    on_phone = lambda: set(run_as("ls", "files/voice-clips").split())  # noqa: E731
+
+    def app_sh(cmd: str) -> str:
+        """[cmd] by the device's shell in the app's folder (run-as in a debug build, else su: in_app)."""
+        if in_app("true")[0] == "run-as":
+            return adb("shell", f"run-as {PKG} sh -c {shlex.quote(cmd)}", check=False)
+        return adb("shell", *in_app("sh", "-c", cmd), check=False)
+
+    def restart():
+        """The app started again (it lists the car's library anew), at Home."""
+        adb("shell", "am", "force-stop", PKG)
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+        assert wait_for("Danes · Today", 30), "Home after the app started again"
+        time.sleep(3 * slow())
+
+    def say(line: str, wait: float = 30) -> tuple[list[str], list[str], dict, set]:
+        """[line] said: how the app said it (tag Speaker; the last line is what played), what Clips logged, the
+        bridge's clips of it and the files new on the phone."""
+        before = on_phone()
+        adb("logcat", "-c")
+        qa_hook(f"'audio:say:{line}|{voice}|{who or ''}'")  # quoted: the device's shell would split it
+        end, hows = time.time() + wait * slow(), []
+        while time.time() < end:
+            log = adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines()
+            hows = [l.split(f"«{line}»: ", 1)[1].strip() for l in log if f"«{line}»: " in l]
+            # the offline voice falls back to TTS when it fails: a moment more for the last word
+            if hows and (hows[-1].startswith(("node clip", "clip on the phone", "tts", "nothing")) or time.time() > end - 5):
+                break
+            time.sleep(1)
+        time.sleep(1)
+        hows = [l.split(f"«{line}»: ", 1)[1].strip() for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if f"«{line}»: " in l]
+        clips = [l.split(": ", 1)[-1] for l in adb("logcat", "-d", "-s", "Clips:*", check=False).splitlines()]
+        return hows, clips, api("/voice/index").get(line, {}), on_phone() - before
+
+    def played_node_clip(line: str, hows: list[str], clips: list[str], made: dict, new: set, when: str):
+        print(f"    {when}: «{line}» said by {' → '.join(hows) or 'nothing'}; the bridge's clip: {made}; new on the phone: {sorted(new)}")
+        assert hows, f"{when}: the app didn't say «{line}» (no Speaker line); Clips: {clips[-3:]}"
+        assert hows[-1] == f"node clip ({voice})", (
+            f"{when}: a new line the bridge voiced ({made}) was said by {hows[-1]} ({' → '.join(hows)}), not its clip; "
+            f"Clips: {clips[-3:]}; new on the phone: {sorted(new)}")
+        assert made.get(voice, "").rsplit("/", 1)[-1] in on_phone(), f"{when}: the clip {made.get(voice)} isn't on the phone: {sorted(new)}"
+
+    hows, clips, made, new = say(lines[0])
+    if hows and not made:
+        return f"the dev bridge made no clip of «{lines[0]}» (no voice engine?): the app said it by {hows[-1]}"
+    played_node_clip(lines[0], hows, clips, made, new, "on a fresh phone")
+    time.sleep(3 * slow())
+    hows, clips, _, _ = say(lines[0], 15)
+    assert hows and hows[-1] == "clip on the phone", f"said again, it wasn't its clip on the phone: {hows}; Clips: {clips[-3:]}"
+
+    # the cap full: the car's library takes it (beyond 500 MB, the largest cap but unlimited), the day's clips are over
+    # the clips played's 20 MB (AudioBudget.MIN_CACHE); both sparse files (nothing on the disk)
+    owner = "$(stat -c %u:%g files)"
+    try:
+        app_sh(f"mkdir -p files/road/clips && truncate -s 600M files/road/clips/qa-car.mp3 && truncate -s 25M files/voice-clips/qa-day.mp3 && chown -R {owner} files/road files/voice-clips/qa-day.mp3")
+        restart()
+        for line in lines[1:4]:
+            # the day's prefetch may write keep.txt anew meanwhile (started again, the plan made again): then once more
+            app_sh(f"mkdir -p files/audio && printf '\\nqa-day.mp3\\n' >> files/audio/keep.txt && chown {owner} files/audio files/audio/keep.txt")
+            hows, clips, made, new = say(line)
+            if "qa-day.mp3" not in app_sh("cat files/audio/keep.txt").split():
+                print(f"    the day's keep.txt was written anew while «{line}» was said: again")
+                continue
+            played_node_clip(line, hows, clips, made, new, "the cap full")
+            break
+        else:
+            raise AssertionError("the day's keep.txt was written anew each time a line was said")
+    finally:
+        app_sh("rm -f files/road/clips/qa-car.mp3 files/voice-clips/qa-day.mp3")
+        restart()
+
+
 def road():
     """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind and eight quiz questions from the dev
     bridge, the files got in the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says
@@ -4848,6 +4945,7 @@ def plan():
         ("offline-audio", offline_audio, go_home, False, ""),
         ("prefetch", prefetch, go_home, False, ""),
         ("offline-voice", offline_voice, go_home, False, ""),
+        ("voice-node-clip", voice_node_clip, go_home, False, ""),
         ("previous-clip", previous_clip, go_home, False, ""),
         ("shadow-tutor", shadow_tutor, go_home, False, ""),
     ]
