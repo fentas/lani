@@ -8,7 +8,7 @@ import { validateScenario } from '../../src/scenarios'
 import { validateModule } from '../../src/spec'
 import { baseVoice, CAST_FILE, carrierVoice, cast, fallbacks, genderOf, isVoice, languageVoice, newcomerSpeaker, speakerFor } from '../../src/cast'
 import { normalizeText } from '../../src/family'
-import { charsPerSecond, corpus, creditsFor, DEFAULT_ELEVENLABS_CONCURRENCY, DEFAULT_ELEVENLABS_MODEL, modelOf, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
+import { charsPerSecond, corpus, creditsFor, DEFAULT_ELEVENLABS_CONCURRENCY, DEFAULT_ELEVENLABS_MODEL, modelOf, denoisedFile, EDGES, edgesOf, ElevenLabs, enginesFromEnv, explanationLang, ffmpegCutter, ffmpegDenoiser, ffmpegEdges, ffmpegLeveller, ffmpegLoudness, ffmpegPace, ffmpegRecordingLeveller, Gepard, gepardPace, isMp3, isOneWord, isShortText, LEVEL, levelGain, sloveneNarrators, mp3Duration, mp3Kbps, paceChain, processedFile, DEFAULT_REDO_DAILY, Gate, redoDaily, revoiceDaily, trimChain, trimmable, VoiceStore, wordSpan, type Clip, type Cutter, type Denoiser, type Engine, type Leveller } from '../../src/voice'
 import { describe, Profiles, sampleOf, SPARE_SLOTS, variationOf, wordMatch } from '../../src/profiles'
 import { denoiseOf, denoiseVoices, elevenlabsOf, personVoice } from '../../src/cast'
 import { postOffice } from './fixtures'
@@ -29,6 +29,20 @@ const workerClip = () => {
 }
 
 export default async function voice() {
+  // --- the gate before ElevenLabs: someone waiting goes ahead of the background work ---------------
+  {
+    const gate = new Gate(1)
+    const order: string[] = []
+    let release!: () => void
+    const first = gate.run(() => new Promise<void>(r => (release = r)))
+    const job = (name: string, urgent = false) => gate.run(async () => void order.push(name), urgent)
+    const all = [job('re-voice a'), job('re-voice b'), job('live c', true), job('redo d', true), job('re-voice e')]
+    check('the gate queues an urgent request (a live line, a re-record) ahead of the background work waiting, urgent ones in turn', gate.running === 1 && gate.queued === 5, { running: gate.running, queued: gate.queued })
+    release()
+    await Promise.all([first, ...all])
+    check('… so they run: live c, redo d, then re-voice a, b, e; the gate empty after', order.join() === 'live c,redo d,re-voice a,re-voice b,re-voice e' && gate.running === 0 && gate.queued === 0, { order, running: gate.running, queued: gate.queued })
+  }
+
   // --- voice store: engines, quota guard, order (in-process against the fakes) -------------------
   {
     const fe = fakeEleven()

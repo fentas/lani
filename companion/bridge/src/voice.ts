@@ -782,9 +782,10 @@ export interface Engine {
   cost?(text: string, voice: VoiceName, lang?: string): number
   /**
    * The clip, or null when the engine can't make it now. Never throws. [live]: a live line, which may use the reserve;
-   * [lang]: the language of the text when it isn't the village's (an explanation in the learner's own language).
+   * [lang]: the language of the text when it isn't the village's (an explanation in the learner's own language);
+   * [urgent]: someone waits for it (a live line is): it goes ahead of the background work waiting its turn ([Gate]).
    */
-  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string }): Promise<Take | null>
+  synth(text: string, voice: VoiceName, o?: { live?: boolean; lang?: string; urgent?: boolean }): Promise<Take | null>
   status(): Promise<Record<string, unknown>>
 }
 
@@ -842,10 +843,14 @@ const BUSY = /too_many_concurrent_requests|concurren|system_busy/i
 const BUSY_RETRIES = 2
 const BUSY_WAIT_MS = 1_000
 
-/** At most [size] at a time ([run]); the rest wait their turn, first come first served. */
+/**
+ * At most [size] at a time ([run]); the rest wait their turn, first come first served, but an [urgent] one (someone in
+ * the app waits for it: a live line, a re-record) ahead of all that aren't: the lazy re-voice and the prebuilds don't
+ * keep the learner waiting past the app's few seconds (its WAIT_MS), which it would then speak with the phone's voice.
+ */
 export class Gate {
   private busy = 0
-  private readonly waiting: (() => void)[] = []
+  private readonly waiting: { go: () => void; urgent: boolean }[] = []
   constructor(readonly size: number) {}
 
   /** At work now. */
@@ -854,15 +859,20 @@ export class Gate {
   /** Waiting their turn. */
   get queued(): number { return this.waiting.length }
 
-  async run<T>(f: () => Promise<T>): Promise<T> {
+  async run<T>(f: () => Promise<T>, urgent = false): Promise<T> {
     if (this.busy < this.size) this.busy++
     // the one done before hands its place over
-    else await new Promise<void>(r => this.waiting.push(r))
+    else
+      await new Promise<void>(go => {
+        const at = urgent ? this.waiting.findIndex(w => !w.urgent) : -1
+        if (at < 0) this.waiting.push({ go, urgent })
+        else this.waiting.splice(at, 0, { go, urgent })
+      })
     try {
       return await f()
     } finally {
       const next = this.waiting.shift()
-      if (next) next()
+      if (next) next.go()
       else this.busy--
     }
   }
@@ -1031,7 +1041,7 @@ export class ElevenLabs implements Engine {
    * another process's requests, voice-build's) asks it again a moment later, up to BUSY_RETRIES times, without pausing
    * the engine; any other error is the caller's. Throws as fetch does (the network, the timeout).
    */
-  private async tts<T>(url: string, body: unknown, accept: string | undefined, read: (r: Response) => Promise<T>): Promise<Answer<T>> {
+  private async tts<T>(url: string, body: unknown, accept: string | undefined, read: (r: Response) => Promise<T>, urgent = false): Promise<Answer<T>> {
     for (let attempt = 0; ; attempt++) {
       const a: Answer<T> = await this.gate.run(async () => {
         const r = await fetch(url, {
@@ -1041,7 +1051,7 @@ export class ElevenLabs implements Engine {
           signal: AbortSignal.timeout(60_000),
         })
         return r.ok ? { ok: true as const, value: await read(r) } : { ok: false as const, status: r.status, text: await r.text() }
-      })
+      }, urgent)
       if (a.ok || a.status !== 429 || !BUSY.test(a.text) || attempt >= BUSY_RETRIES) return a
       const wait = (this.o.busyWaitMs ?? BUSY_WAIT_MS) * (attempt + 1)
       this.busyAgain++
@@ -1056,27 +1066,28 @@ export class ElevenLabs implements Engine {
    * explanation in another language than the village's ([lang]) is asked for plainly and without a language_code, so
    * the model says the learner's language as it is and the Slovene forms inside it as Slovene.
    */
-  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string } = {}): Promise<Take | null> {
+  async synth(text: string, voice: VoiceName, o: { live?: boolean; lang?: string; urgent?: boolean } = {}): Promise<Take | null> {
     if (!this.o.key) return null
+    const urgent = !!(o.live || o.urgent)
     const said = this.usesCarrier(text, voice, o.lang) ? this.carrierFor(text, voice) : undefined
     const id = this.o.voices?.[voice] ?? elevenlabsOf(voice)
     if (!said) {
-      const bytes = await this.plain(text, voice, this.explains(o.lang))
+      const bytes = await this.plain(text, voice, this.explains(o.lang), urgent)
       return bytes ? { bytes, voice: id, model: this.model } : null
     }
-    const r = await this.carrierTake(text, voice)
+    const r = await this.carrierTake(text, voice, urgent)
     if (r instanceof Uint8Array) return { bytes: r, method: 'carrier', chars: said.length, voice: id, model: this.model }
     if (!r && Date.now() < this.pausedUntil) return null
     this.o.log?.(`elevenlabs: "${text}" (${voice}) without its carrier sentence: ${r ? r.miss : this.lastError}; asked for plainly`)
     // the plain take on top of a paid carrier take: the guard is asked again
     if (!(await this.ready(text.trim().length, !!o.live))) return null
-    const bytes = await this.plain(text, voice)
+    const bytes = await this.plain(text, voice, false, urgent)
     // a take the word couldn't be cut out of: 'plain', not tried again; a failed request or cut: tried again when re-voicing
     return bytes ? { bytes, method: r && !r.retry ? 'plain' : undefined, chars: (r ? said.length : 0) + text.trim().length, voice: id, model: this.model } : null
   }
 
-  /** [text] asked for as it is; [mixed]: an explanation, its language left to the model (no language_code). */
-  private async plain(text: string, voice: VoiceName, mixed = false): Promise<Uint8Array | null> {
+  /** [text] asked for as it is; [mixed]: an explanation, its language left to the model (no language_code); [urgent]: [Gate]. */
+  private async plain(text: string, voice: VoiceName, mixed = false, urgent = false): Promise<Uint8Array | null> {
     const id = this.voiceId(voice)
     if (!id) return null
     try {
@@ -1085,6 +1096,7 @@ export class ElevenLabs implements Engine {
         mixed ? { text, model_id: this.model } : { text, model_id: this.model, language_code: this.o.language ?? 'sl' },
         'audio/mpeg',
         async r => new Uint8Array(await r.arrayBuffer()),
+        urgent,
       )
       if (!r.ok) {
         this.failed(r.status, r.text, 'tts')
@@ -1110,7 +1122,7 @@ export class ElevenLabs implements Engine {
    * word ([retry]: ffmpeg failed, not the word; the carrier sentence is then off until a restart, so no more takes
    * are paid for nothing); null when ElevenLabs can't now or the request failed (the last error says why).
    */
-  async carrierTake(text: string, voice: VoiceName): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
+  async carrierTake(text: string, voice: VoiceName, urgent = false): Promise<Uint8Array | { miss: string; retry?: boolean } | null> {
     const said = this.carrierFor(text, voice)
     const cut = this.cut
     if (!this.o.key || !said || !cut) return null
@@ -1123,6 +1135,7 @@ export class ElevenLabs implements Engine {
         { text: said, model_id: this.model, language_code: this.o.language ?? 'sl' },
         undefined,
         async r => (await r.json()) as typeof d,
+        urgent,
       )
       if (!r.ok) {
         this.failed(r.status, r.text, 'tts (carrier)')
@@ -2618,7 +2631,8 @@ export class VoiceStore {
       }
       const before = el.remaining()
       const job = (async (): Promise<Clip | null> => {
-        const take = await el.synth(have.text, target)
+        // the learner waits for it (a long press on 🔊): ahead of the background work, but not from the live reserve
+        const take = await el.synth(have.text, target, { urgent: true })
         return take ? await this.save(norm, have.text, target, 'elevenlabs', take.bytes, have.source, { ...take, salt: `redo ${new Date().toISOString()}` }) : null
       })()
       this.running.set(key, job.catch(() => null).finally(() => this.running.delete(key)))

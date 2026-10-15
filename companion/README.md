@@ -1643,7 +1643,10 @@ picked one for each narrator. They come first now, and the local Gepard voice is
   use the reserve), there is no key, it fails or is down. Then the local voice makes the clip. When it can't either (down,
   busy), there is no clip, and the phone speaks. A cast whose narrators have no `sl` voice has the local voice only.
 - **At once:** the bridge has at most `LANI_ELEVENLABS_CONCURRENCY` text-to-speech requests at ElevenLabs at once (3 by
-  default; the plans allow 3 on Starter, 5 on Creator), the rest wait their turn. Over the plan's limit ElevenLabs
+  default; the plans allow 3 on Starter, 5 on Creator), the rest wait their turn: a request someone in the app waits for
+  (a live line, a long press's re-record) ahead of the background work (the lazy re-voice, the road's and the prebuilds'
+  clips), which otherwise kept a new line past the app's 8 s wait on a morning of re-voices, and the phone said it in its
+  own voice (`Gate`, 15 October 2026). Over the plan's limit ElevenLabs
   refuses a request (HTTP 429 `too_many_concurrent_requests`), and the bridge used to pause ElevenLabs for a minute then:
   a school intro's step, which asks for its explanation and its Slovene at once, had a form said by the local voice and
   its explanation not made (Jan's node, 14 October 2026). One still refused as too many at once or busy (voice-build's
