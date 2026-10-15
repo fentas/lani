@@ -559,6 +559,15 @@ def update_spaced_repetition(sr: dict, session: dict):
             for k in ("example", "example_translation", "source"):
                 if isinstance(vocab.get(k), str) and vocab[k].strip():
                     items[item_id][k] = vocab[k].strip()
+            # A counting card's forms (the bridge's counting.ts: the noun, its gender, the dictionary's forms, the four
+            # lines), kept as they came: the app asks the card from them, offline.
+            if isinstance(vocab.get("counting"), dict):
+                items[item_id]["counting"] = copy.deepcopy(vocab["counting"])
+            # Due earlier than tomorrow: a card made of something already learned (a counting card) is asked the day
+            # it is made. Never before the report's date, never later than tomorrow.
+            due = vocab.get("due_date")
+            if isinstance(due, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", due) and today <= due < items[item_id]["due_date"]:
+                items[item_id]["due_date"] = due
 
     for error in session.get("errors", []):
         item_id = error["pattern_id"]

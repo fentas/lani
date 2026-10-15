@@ -20,10 +20,16 @@
 // say the cheat sheet was opened during it (looked_up: the cards opened, their grammar pages): it is logged with it, the
 // note counts the topics looked up (the app gave such a right answer quality 4 at most). Nothing about the answers is
 // ever a reason to refuse a review: a bad one is left out, the extras too.
+//
+// Counting cards (counting.ts): a review may say how its counting cards went (counting: each card's four steps, right or
+// not, what was answered and what was right, the kind of a wrong one), read leniently too: each wrong step is written as
+// a mistake of its kind (update-db.py `errors`: mistakes-db.json's counting_noun_gender, counting_dual, counting_plural,
+// counting_from_five), the steps count as grammar practice, and the tutor's note names them.
 import { join } from 'node:path'
 import { z } from 'zod'
 import { answerLine, AnswerLog, fromLabel, fromOf, lookedUpNote, reviewAnswers, timeOf, type NewAnswer, type ReviewAnswer } from '../answers'
 import { fail, ok } from '../channel'
+import { countingErrors, countingNote, countingRuns } from '../counting'
 import { countsInDialog, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
@@ -33,9 +39,11 @@ import { LANGUAGES } from '../learners'
 /**
  * What GET /state says this bridge takes beyond the first API: an app sends a dialog's words only to one that says so
  * ("dialog-words"), and asks for a school intro's explanation as one clip (`lang` on /voice/say and /voice/prepare) only
- * from one that voices it so ("explanations"; an older bridge would voice the English as a Slovene line).
+ * from one that voices it so ("explanations"; an older bridge would voice the English as a Slovene line); it asks for
+ * counting cards (POST /counting) and sends how they went (POST /reviews `counting`) only to one that makes them
+ * ("counting").
  */
-export const STATE_FEATURES = ['dialog-words', 'explanations'] as const
+export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting'] as const
 
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({
@@ -88,6 +96,8 @@ const reviewRun = z
     answers: z.unknown().optional(),
     from: z.unknown().optional(),
     answered_at: z.unknown().optional(),
+    // how its counting cards went (counting.ts countingRuns): read leniently, never a reason to refuse the review
+    counting: z.unknown().optional(),
   })
   .refine(r => r.dialog || r.results.length >= 1, { path: ['results'], message: 'at least one result (only a body with a dialog may have none)' })
 
@@ -269,16 +279,24 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
     if (r.data.dialog) return handleDialog(results, r.data.dialog, duration_minutes, r.data.forms, language, sent)
     const state = learner.state(language)
     const correct = results.filter(x => x.quality >= 3).length
+    // the counting cards' steps (the home language's: their numerals are Slovene's): grammar, each wrong one a mistake
+    const counted = language ? [] : countingRuns(r.data.counting)
+    const steps = counted.flatMap(c => c.steps)
+    const errors = countingErrors(counted)
     const payload = {
       session_id: state.computed.next_session_id,
       date: state.computed.today,
       ...(language ? { language } : {}),
       duration_minutes,
       command_used: '/lani-app-review',
-      skills_practiced: ['vocabulary'],
-      skill_scores: { vocabulary: { exercises: results.length, correct, time_minutes: duration_minutes } },
+      skills_practiced: steps.length ? ['vocabulary', 'grammar'] : ['vocabulary'],
+      skill_scores: {
+        vocabulary: { exercises: results.length, correct, time_minutes: duration_minutes },
+        ...(steps.length ? { grammar: { exercises: steps.length, correct: steps.filter(s => s.right).length, time_minutes: 0 } } : {}),
+      },
       review_results: results,
-      session_notes: 'Flashcard review in the Lani app (self-rated).',
+      ...(errors.length ? { errors } : {}),
+      session_notes: `Flashcard review in the Lani app (self-rated).${counted.length ? ` ${counted.length} counting card(s), ${errors.length} wrong step(s).` : ''}`,
     }
     const u = learner.update(payload)
     if (!u.ok) return json({ error: u.output }, 500)
@@ -290,7 +308,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
     const deck = language ? ` of ${LANGUAGES[language] ?? language} cards (language "${language}")` : ''
     const place = sent.from && sent.from !== 'review' ? ` in ${fromLabel(sent.from)}` : ''
     await channel.notify(
-      `App review${deck}${place} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}${lookedUpNote(given)}`,
+      `App review${deck}${place} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}${countingNote(counted)}${lookedUpNote(given)}`,
       { kind: 'review_done', conversation_id: 'main', msg_id: payload.session_id },
     )
     return json({ session_id: payload.session_id, correct, total: results.length, output: u.output, ...(language ? { language } : {}) })

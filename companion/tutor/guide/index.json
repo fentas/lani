@@ -4,7 +4,7 @@
       "id": "events",
       "title": "Inbound events",
       "summary": "Every event kind (chat, answer, session_end, review_done, …), its JSON and how to answer it. Fetch first in every thread.",
-      "chars": 4705,
+      "chars": 4807,
       "source": "bridge feature chat"
     },
     {
@@ -76,6 +76,13 @@
       "summary": "For a session_end with data.course (a school sheet or test), a unit done, or homework (publish_worksheet).",
       "chars": 1142,
       "source": "bridge feature course"
+    },
+    {
+      "id": "counting",
+      "title": "Counting cards",
+      "summary": "For a review_done with counting cards, or mistakes counting_*: their four steps, the mistake kinds, what to suggest.",
+      "chars": 1280,
+      "source": "bridge feature counting"
     },
     {
       "id": "packs",

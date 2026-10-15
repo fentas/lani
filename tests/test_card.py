@@ -146,6 +146,21 @@ class CardTest(unittest.TestCase):
         self.assertEqual((placeholder["app"]["accepted"], placeholder["app"]["variants"]), ([], ["flip"]))
         self.assertFalse(self.ok("show", "iz_genitive")["app"]["shown"])  # an error pattern is never a card
 
+    def test_show_says_how_the_app_asks_a_counting_card(self):
+        sr = json.loads((self.data / "spaced-repetition.json").read_text())
+        forms = {"v": 1, "lemma": "oče", "gender": "m", "lines": ["en oče", "dva očeta", "trije očeti", "pet očetov"],
+                 "forms": {"nom.sg": ["oče"], "nom.du": ["očeta"], "nom.pl": ["očeti", "očetje"], "gen.pl": ["očetov"]}, "others": [], "table": "wiktionary"}
+        sr["items"]["counting_oce"] = card("counting_oce", "oče", " · ".join(forms["lines"]), type="counting", category="counting", counting=forms)
+        sr["items"]["counting_bare"] = card("counting_bare", "pes", "en pes", type="counting", category="counting")
+        (self.data / "spaced-repetition.json").write_text(json.dumps(sr))
+        app = self.ok("show", "counting_oce")["app"]
+        self.assertTrue(app["shown"])
+        self.assertEqual((app["gender"], app["lines"][1], app["forms"]["3"]), ("m", "dva očeta", ["očeti", "očetje"]))
+        self.assertEqual(app["variants"], ["counting", "counting_type"])
+        bare = self.ok("show", "counting_bare")
+        self.assertFalse(bare["app"]["shown"])  # no forms kept: the app skips it
+        self.assertTrue(any("without its forms" in p for p in bare["problems"]))
+
     def test_show_finds_this_mornings_problem(self):
         ne = self.ok("show", "vocab_ne")
         self.assertEqual(ne["app"]["accepted"], ["ja", "ne"])

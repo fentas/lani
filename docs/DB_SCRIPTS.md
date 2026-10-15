@@ -201,6 +201,20 @@ kept only when the item is created. The Lani app's word card sends `"lookup"`: t
 added the word and did not answer it, so its `last_quality` (`initial_quality`) does not mean
 it was learned.
 
+A counting card (`"item_type": "counting"`, companion/README.md "Counting cards") is made by the
+bridge's POST /counting: its noun on the front (`content`), its four lines on the back
+(`answer`: "ena kava · dve kavi · tri kave · pet kav"), and two fields of its own:
+
+- `counting` (optional object): the noun's forms as the dictionary has them (`lemma`, `gender`,
+  `forms` by slot: `nom.sg`, `nom.du`, `nom.pl`, `gen.pl`; `lines`, `others`, `emoji`,
+  `meaning`), kept as it came when the item is created: the app asks the card from it, offline.
+- `due_date` (optional `YYYY-MM-DD`): due earlier than tomorrow, from the report's date on; a
+  card made of something already learned is asked the day it is made. A later or earlier date,
+  or one that isn't a date, leaves it due tomorrow.
+
+A review's wrong counting steps come as `errors` (`counting_noun_gender`, `counting_dual`,
+`counting_plural`, `counting_from_five`), as any mistake does.
+
 ### Another language: `language` and `level`
 
 - `language` (optional, a code such as `"it"` or a name such as `"Italian"`): the language

@@ -526,6 +526,24 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self.assertNotIn("source", items["vocab_dag"])  # an item that exists is left as it is
         self.assertEqual(items["vocab_word_gozd"]["last_quality"], 3)  # initial_quality as it was
 
+    def test_a_counting_card_keeps_its_forms_and_is_due_the_day_it_is_made(self):
+        forms = {"v": 1, "lemma": "kava", "gender": "f", "lines": ["ena kava", "dve kavi", "tri kave", "pet kav"],
+                 "forms": {"nom.sg": ["kava"], "nom.du": ["kavi"], "nom.pl": ["kave"], "gen.pl": ["kav"]}, "others": ["kavo"], "table": "wiktionary"}
+        card = {"item_id": "counting_kava", "item_type": "counting", "content": "kava", "answer": "ena kava · dve kavi · tri kave · pet kav",
+                "category": "counting", "difficulty": "A1", "source": "counting", "due_date": "2026-04-24", "counting": forms}
+        late = dict(card, item_id="counting_late", due_date="2026-05-30")  # never later than tomorrow
+        early = dict(card, item_id="counting_early", due_date="2026-04-01")  # nor before the report's day
+        odd = dict(card, item_id="counting_odd", due_date="soon", counting="not an object")
+        proc = self._run({"record_session": False, "date": "2026-04-24", "new_vocabulary": [card, late, early, odd]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        sr = self._load("spaced-repetition.json")
+        kava = sr["items"]["counting_kava"]
+        self.assertEqual((kava["type"], kava["due_date"], kava["source"]), ("counting", "2026-04-24", "counting"))
+        self.assertEqual(kava["counting"], forms)
+        self.assertIn("counting_kava", sr["review_queue"]["today"])
+        self.assertEqual([sr["items"][i]["due_date"] for i in ("counting_late", "counting_early", "counting_odd")], ["2026-04-25"] * 3)
+        self.assertNotIn("counting", sr["items"]["counting_odd"])
+
     def test_items_only_keeps_a_known_item(self):
         word = dict(self.WORD, item_id="vocab_dag", content="dag?", answer="changed")
         before = self._raw()

@@ -24,6 +24,7 @@ import type { Ctx, Feature, FeatureFactory } from './feature'
 import { arrivals } from './features/arrivals'
 import { cards as cardsFeature } from './features/cards'
 import { chat } from './features/chat'
+import { counting } from './features/counting'
 import { course as courseFeature } from './features/course'
 import { culture as cultureFeature } from './features/culture'
 import { events } from './features/events'
@@ -92,6 +93,7 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'grammar', factory: grammarFeature },
   { name: 'cards', factory: cardsFeature },
   { name: 'course', factory: courseFeature },
+  { name: 'counting', factory: counting },
   { name: 'drills', factory: drillsFeature },
   { name: 'rhythm', factory: rhythm },
   { name: 'game', factory: game },

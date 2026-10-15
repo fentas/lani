@@ -116,6 +116,8 @@ def variants(item: dict) -> list:
     names the app sends in about_exercise.source.variant (ReviewPlanner.Variant, lowercase)."""
     if not shown(item):
         return []
+    if item.get("type") == COUNTING:
+        return ["counting", "counting_type"] if counting_of(item) else []
     acc = accepted(item["content"])
     if item.get("type", "vocabulary") != "vocabulary" or not acc:
         return ["flip"]
@@ -125,10 +127,53 @@ def variants(item: dict) -> list:
     return out
 
 
+COUNTING = "counting"
+COUNT_SLOTS = (("1", "nom.sg"), ("2", "nom.du"), ("3", "nom.pl"), ("5+", "gen.pl"))
+
+
+def counting_of(item: dict) -> dict | None:
+    """A counting card's forms (the item's `counting`, the bridge's counting.ts) when they are whole: its gender, the four
+    lines and each count's forms; None otherwise (the app skips such a card)."""
+    c = item.get("counting")
+    if not isinstance(c, dict) or c.get("gender") not in ("m", "f", "n"):
+        return None
+    lines, forms = c.get("lines"), c.get("forms")
+    if not (isinstance(lines, list) and len(lines) == 4 and all(isinstance(x, str) and x.strip() for x in lines)):
+        return None
+    if not (isinstance(forms, dict) and all(isinstance(forms.get(k), list) and forms[k] for _, k in COUNT_SLOTS)):
+        return None
+    return c
+
+
+def counting_view(item: dict) -> dict:
+    """How the app asks a counting card ("🔢 Štetje · Counting", data/Counting.kt): four steps, each right with any of
+    the dictionary's forms of its count's slot."""
+    c = counting_of(item)
+    if c is None:
+        return {"shown": False, "why": "a counting card without its forms (counting: gender, lines, forms): the app skips it"}
+    return {
+        "shown": True,
+        "front": item["content"],
+        "back": item["answer"],
+        "how": "four steps: the numeral for 1 (en / ena / eno, by the gender), then the whole phrase for 2, 3 and 5; chosen "
+               "among three (the other numeral, another number's ending) until the card is secure (two good reviews in a "
+               "row, the last without a slip), typed after",
+        "gender": c["gender"],
+        "lines": c["lines"],
+        "forms": {n: c["forms"][k] for n, k in COUNT_SLOTS},
+        "table": c.get("table"),
+        "variants": variants(item),
+        "fix": "the forms are the dictionary's (companion/lexicon/sl.json, the forms book sl.forms.json): fix them there, "
+               "then the card again (delete it: the app asks the bridge for a new one); never edit the forms by hand here",
+    }
+
+
 def app_view(item: dict) -> dict:
     """How the app shows and grades [item]."""
     if not shown(item):
         return {"shown": False, "why": "an error pattern: its content is the learner's wrong answer; the app never shows it as a card (modules drill it)"}
+    if item.get("type") == COUNTING:
+        return counting_view(item)
     front, back = item["content"], item["answer"]
     acc = accepted(front)
     out = {
@@ -197,6 +242,8 @@ def problems(item: dict) -> list:
     """What makes a card confusing or ungradeable, in the app's terms."""
     if item.get("type") == "error_pattern":
         return ["an error pattern: the app never shows it as a card (its content is the learner's wrong answer); fix the practice that drills it instead"]
+    if item.get("type") == COUNTING:
+        return [] if counting_of(item) else ["a counting card without its forms (counting: gender, lines, forms): the app skips it"]
     front, back = item.get("content") or "", item.get("answer") or ""
     out = []
     if not front.strip() or not back.strip():
