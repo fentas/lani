@@ -695,7 +695,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `POST` | `/message` | `{kind: chat\|answer\|session_end\|roleplay\|roleplay_end\|villager_arrived, conversation_id, text, data?}` → into the session (`fam_…` conversation ids are the bridge's); a chat's `data.reply_to` quotes an earlier message of the chat (see [Tutor chat](#tutor-chat)) |
 | `GET` | `/events` | SSE stream: `reply`, `module_published`, `pack_published`, `grammar_published` (`{id, title, emoji, extended, note}`), `scenario_published`, `scene_published`, `scene_removed`, `variant_published` and `variant_removed` (a happening's dialog the tutor wrote or took back, `{scene, happening, id, title, emoji, note}`: the app reloads the scene, news only with a note), `villager_published`, `villager_removed`, `permission_request`, `app_update`, `partner_challenge`, `voice_updated`, `words_added`, `lexicon_updated`, `reading_published` (`{id, title, level, note}`) and `reading_removed` (`{id}`), `worksheet_published` (the tutor's homework for a unit of the course, `{unit, id, title, note}`, the title as "target · base") and `worksheet_removed` (`{unit, id}`), `town_guest` (a guest from a linked town brought help, a gift, a trade or help against trouble, or a move changed: `{key, kind, from, learner}`, kind `help`, `gift`, `trade`, `aid`, `move`), `town_question` and `town_answer` (a guest's question to the learner, the answer to the learner's: `{key, from, learner, text}`). Resume with `Last-Event-ID`. |
 | `POST` | `/permission` | `{request_id, behavior: allow\|deny}` → answers a tool approval prompt |
-| `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
+| `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?, counting?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `counting`: how its counting cards went, step by step: each wrong step a mistake of its kind (see [Counting cards](#counting-cards)). `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
 | `POST` | `/level` | `{from, to, stations: [{id, skill, right, total, minutes?}], duration_minutes?, language?, client_id}`: the treasure found (the level test at the end of `from` passed, [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map)) → the new level `to` (the one after `from`, else `400`) persisted via `update-db.py` (the report's `level` sets `current_level` and `level_since`; a session `/lani-app-treasure`, the stations' answers by skill), Claude gets a `level_up` summary with the new level's grammar pages; `{already: true, level}` and nothing written when the level is there already. An older bridge answers 404: the app sends it as a `session_end` with the report for the tutor to persist |
 | `GET` | `/readings`, `/readings/:id` | the reading corner's readings (see [GAME.md](GAME.md#the-reading-corner)): the village's culture pack's (`companion/cultures/<culture>/readings/`, read per request) with `source: curated` and `culture`, then the tutor's (`<data>/app/readings/`, `publish_reading`) with `source: tutor`, `machine_written` and `published_at` |
 | `POST` | `/readings/done` | `{kind: reading\|story\|aloud, id, title?, level?, exercises, correct, duration_minutes, questions?: [{type?, right}], looks?, aloud?: {words, right, misread, skipped, wpm?, recognizer: node\|phone, misses?: [{word, heard?}]}, language?, client_id}` → reading practice persisted via `update-db.py` (no LLM): `skill_scores.reading` (a reading's questions, a story's turns, a reading aloud's sentences; a story's "🎯 Preveri se" in the story notebook reports as a reading, `id` `book:<story>`, its questions the telling's turns), and `speaking` too for a reading aloud (`command_used` `/lani-app-reading`, `/lani-app-story`, `/lani-app-read-aloud`); Claude gets a `reading_done` summary, with `looks` (how often the text, hidden while its questions were asked, was shown again: [GAME.md](GAME.md#read-first-then-answer)) as "looked back at the text 3 times while answering" |
@@ -715,6 +715,7 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `GET` | `/lookup?w=…&line=…&en=…&base=…&language=…` | what a word tapped in a dialog means, in the learner's base language (or `base`); `language`: another town's, on a visit: `{word, entries: [{lemma, pos, gloss, gloss_lang, gloss_via?, gloss_en?, fallback?, grammar, gender, source, item_id, known, example, emoji, aspect?, partner?, here?}], attribution}` (see [Word lookup](#word-lookup), and [Word forms](#word-forms) for a verb's partner) |
 | `GET` | `/forms?w=…&w=…` | a word's forms (1-40 words): `{language, words: [{word, entries: [{lemma, pos, gloss, gender, aspect?, partner?, table: wiktionary\|checked, slots: [{key, forms, also?, grammar, page, needs?, lines?}]}]}], attribution}`; an older bridge answers 404 (see [Word forms](#word-forms)) |
 | `POST` | `/words` | `{sl, en, pos?, item_id?, example_sl?, example_en?, from?, language?, client_id}` → `{item_id, added}`: a vocabulary SR item, without a session, the home language's or `language`'s (see [Word lookup](#word-lookup)) |
+| `POST` | `/counting` | `{words: [{word, item_id?}], client_id?}` (1–40) → `{added, skipped, made_today, per_day}`: counting cards of the learner's learned nouns, from the dictionary's forms, at most `LANI_COUNTING_PER_DAY` (3) a day (see [Counting cards](#counting-cards)); `400` without words or in a village that isn't Slovene |
 | `GET` | `/words` | `{from: [scene, roleplay, villager, chat, reading]}`: the origins `POST /words` takes (an older bridge: 404) |
 | `GET` | `/scenarios` | role-play scenarios (curated `companion/scenarios/` + tutor `<data>/app/scenarios/`) with `source` |
 | `GET` | `/scenarios/:id` | one scenario |
@@ -2448,6 +2449,59 @@ sedeti's present and imperative), the earlier is `"here": true` when the line's 
 sedite." / "Sit down, sit down": sesti), and the app shows the other as its partner, with what tells them apart, not
 as a second entry of its own.
 
+### Counting cards
+
+"🔢 Štetje · Counting": once Jan has done the intro of the A1 unit `stevila` ("Ena ovca, dve ovci, pet ovc"; finished
+or skipped as known), the review holds a card per noun they have learned, which counts it the four ways Slovene does:
+
+| | m | f | n |
+|---|---|---|---|
+| 1 | en sin | ena kava | eno jajce |
+| 2 | dva sinova | dve kavi | dve jajci |
+| 3–4 | trije sinovi | tri kave | tri jajca |
+| 5+ | pet sinov | pet kav | pet jajc |
+
+**The card** (`app/.../data/Counting.kt`, `ui/CountingCard.kt`): the noun at the top (its pack's emoji, its base form,
+what it means), then four steps one at a time: **1** → en / ena / eno; **2**, **3** and **5** → the whole phrase (the
+numerals agree too: dva or dve, trije or tri). Each step offers three choices while the card is new: the right phrase,
+the same numeral with another number's ending, the other numeral (dve kavi · dve kave · dva kava), never one the
+dictionary accepts. Once the card is secure (two good reviews in a row, the last without a slip: quality 4 or more),
+the steps are typed, graded as a cloze is (č, š, ž forgotten is almost, a wrong ending is wrong), with
+"✋ Izberi raje · Let me choose" back to the choices. Each step is marked at once with the right line; step 1 says why
+from the noun's end, as the unit `spol` teaches it, by the noun's real gender in the dictionary (kava ends in -a:
+feminine → ena kava; oče ends in -e, but it is masculine: an exception → en oče; vas ends in a consonant, but it is
+feminine). A right step goes on by itself, a wrong one at "Naprej · Next"; the step on screen is kept in view as the
+ones above it grow (a typed one with its letters and "Preveri · Check" above the keyboard, whose ✓ checks too). At the
+end all four lines together, said by the narrator in one clip ("ena kava, dve kavi, tri kave, pet kav", made on demand like any line: nothing is voiced
+ahead, the car and the day's audio leave counting cards out). "📋 Štetje in spol · Counting and gender" under the noun
+opens the cheat sheet at the pages `stevila-samostalniki` and `spol-samostalnikov` (as the top bar's 📋 does), the 💬 attaches
+the card with its steps so far (`about_exercise.counting`: the noun, its gender, each step's line, options and answer;
+`source.variant` `counting` or `counting_type`).
+
+**Its quality and its rules.** All four right is quality 4 (typed 5), a č, š or ž forgotten 3 (typed 4), one step wrong
+and the rest right 3 (almost), two wrong (or one and a č forgotten) 2, more 1; the cheat sheet opened during it keeps it
+at 4 at most, as any answer's. The companion's reaction stays silent after the card (the narrator says the lines). The steps count on the grammar book: the counting
+rule all four, the gender step 1 (and a wrong numeral alone in 2 or 3: dva kavi), the dual step 2 and the plural step 3
+by their forms. POST /reviews' `counting` says how each card went (`[{item_id, lemma, typed, steps: [{n, right, kind?,
+answer, expected}]}]`, read leniently: never a reason to refuse the review); the bridge writes each wrong step as a
+mistake of its kind (`counting_noun_gender`, `counting_dual`, `counting_plural`, `counting_from_five`: the genitive
+plural, an id without "genitive" so it lands on no A2 page) and names them in `review_done`.
+
+**Which nouns, how many.** After each reload, while counting is on and the bridge says `counting` in GET /state's
+`features`, the app names the nouns to the bridge (**`POST /counting`** `{words: [{word, item_id?}]}`, at most 12): its
+learned one-word vocabulary cards the dictionary has as a noun with a gender and the four forms (the forms the phone
+has, GET /forms), the best known first, none that has a card or the bridge refused today. The bridge
+(`bridge/src/counting.ts`, `features/counting.ts`) makes at most `LANI_COUNTING_PER_DAY` (3) a day: a learned word of
+the learner's, a noun of the dictionary (`lexicon.ts` its gender, `forms.ts` its nominative singular, dual and plural
+and its genitive plural), each a review item of its own, `counting_<noun>`, due the day it is made, its forms kept in
+the item's `counting` (`{lemma, gender, forms, lines, others, emoji?, meaning?}`) so the app asks it offline. Every form
+of a slot is right; the line shows one that isn't the slot it is told from (dve sestri, not sestre; pet sester, not
+sestra), then the one the content says (pet ovc, not Wiktionary's ovac). The irregular ones come out as the dictionary
+has them (oče → dva očeta, dan → dva dneva, pesem → dve pesmi, človek → trije ljudje); a noun without a gender or one of
+the four forms gets no card (mleko, vrata). It answers `{added: [{item_id, lemma, lines}], skipped: [{word, why}],
+made_today, per_day}` and `words_added`. In the review a few due counting cards (at most 4) are spread among the
+others; the rest wait for the next. `card.py show` tells how the app asks one.
+
 ## Family
 
 The learner's family can take part in two ways:
@@ -3011,6 +3065,8 @@ companion/bin/qa --steps bubbles-follow          # the village's bubbles with th
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
+companion/bin/qa --steps counting                # counting cards: the unit stevila's intro skipped and its note, a card's four steps (one wrong), the lines said, the cheat sheet, 💬, typed
+companion/bin/qa --steps counting-dialogs        # the happenings with a counting dialog (Luka's cows): each opens, its number in words
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard

@@ -390,6 +390,20 @@ saves it (a field left out is its default: null, 0, false, empty):
   try of the test and its `tries`; `done` the day the test was passed; `testedOut` passed straight away, without the
   worksheets.
 
+### What a unit turns on
+
+A unit's intro done (finished, or skipped: "⏭ Poznam to · I know this") may turn on something beyond the unit, from
+then on and for good; the intro's end says so once, as a note ("Slovene · English").
+
+- **`stevila`** (A1, "Ena ovca, dve ovci, pet ovc"): **counting cards** in the reviews ("🔢 Štetje · Counting";
+  README.md "Counting cards"): a card per noun the learner has learned, a few new a day, made from the dictionary's
+  forms, that counts it 1 (en / ena / eno), 2 (the dual), 3–4 (the plural) and 5+ (the genitive plural). The note:
+  "🔢 Kartice za štetje so odslej v tvojih ponovitvah. · Counting cards are in your reviews from now on." A learner
+  who never did the unit's intro gets none (the course is a recommended order, free to jump: the intro of `stevila`
+  done out of order turns them on all the same). The cards' help opens the unit's pages `stevila-samostalniki` and
+  `spol-samostalnikov` on the cheat sheet; the tutor points to the unit's intro and worksheets for a kind of mistake
+  that keeps coming back.
+
 ## Writing a unit
 
 - **Natural Slovene at the level**: short sentences of everyday words the learner meets in the village (the kitchen, the
