@@ -157,6 +157,22 @@ leave Balanced, use the app as usual; export after a few days and after two week
 starts and the thread's size at restarts (the estimate's levers), whether `input_transformations` ever shows, the
 first token's latency for a chat, and "Also run on" Haiku for the chats and answers Sonnet had.
 
+### Checks 7–9: the first days of shadow mode (2026-10-15 to 16)
+
+- **It runs:** 54 calls by the morning of the 16th, no errors or refusals; $0.34 on the 15th (Sonnet $0.31 for chats, Haiku
+  $0.02 for digests), the day's closing (the notebook) $0.08; first token in ~2 s, a whole reply in ~2.9 s (medians).
+- **Since 0.2.220 the app sends its data to the node itself** (`app/dev/`, companion/README.md "Developer data on the
+  node"), with the raw `usage` of sampled calls.
+- **The 1-hour cache:** every cache write so far is filed as 5-minute although the system block asks `ttl: "1h"`;
+  whether the API reports the split is to be read from the first raw `usage` (open).
+- **First finding: the digest is too quiet.** On the 16th Opus answered 9 new words from a scene with the nouns lined up
+  (1 · 2 · 3 · 5: en les, dva lesa, tri lesi, pet lesov, as the dictionary has them) and a 20/20 review with praise; the
+  shadow's digest found "nothing worth saying" (no wrong answer, no milestone) both times. Jan noticed and valued Opus's
+  messages. So:
+  - **for the comparison,** "React at once" on, so the shadow reacts to the same events as Opus;
+  - **for the in-app tutor,** "worth saying" includes new nouns (a line-up: better made by the app from the dictionary,
+    as the counting card's forms are, exact and without a call) and a notable review (all right, 20 or more).
+
 ### Check 11: signing in with the subscription
 
 - The Agent SDK overview: *"Unless previously approved, Anthropic does not allow third party developers to offer
