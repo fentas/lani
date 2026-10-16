@@ -66,6 +66,10 @@ keys.env
 # commit adds this line back if it is missing.
 /app/answers.json*
 
+# The developer's data from the app (the shadow tutor's exports, the app's log: POST /dev/shadow, /dev/logs). It stays
+# on this machine: each commit adds this line back if it is missing.
+/app/dev/
+
 # Backups (snapshots already) and temporary files
 /.backups/
 *.backup-*
@@ -80,10 +84,12 @@ __pycache__/
 
 # What never goes into a data repository, whatever its .gitignore says (the learner's own, or one written before a line
 # was added to GITIGNORE): what the learner typed or said lately (the bridge's answers.json, companion/README.md "Recent
-# answers"; docs/privacy.md says it stays on the machine), with its temporary files. Each line, with paths it must
-# keep out (to check with git).
+# answers"; docs/privacy.md says it stays on the machine), with its temporary files; the developer's data from the app
+# (app/dev/: companion/README.md "Developer data on the node"). Each line, with paths it must keep out (to check with
+# git).
 PRIVATE = (
     ("/app/answers.json*", ("app/answers.json", "app/answers.json.tmp-0-000000")),
+    ("/app/dev/", ("app/dev/shadow-2026-01-01.json", "app/dev/app-log-2026-01-01.txt")),
 )
 
 GIT_TIMEOUT = 30

@@ -47,6 +47,8 @@ for (const f of readdirSync(templates).filter(f => f.endsWith('-template.json'))
   const p = JSON.parse(readFileSync(profile, 'utf8'))
   writeFileSync(profile, JSON.stringify({ ...p, learner: { ...p.learner, name: 'Jan', gender: 'male' } }, null, 2))
 }
+// A .gitignore of the learner's own, without /app/dev/: the bridge adds the line at its start (test/smoke/dev.ts).
+writeFileSync(join(dataDir, '.gitignore'), '# the smoke learner\n/app/bridge-token\n')
 // Curated packs come from a temp dir too, so the repo's companion/packs don't affect the checks.
 export const curatedDir = tempDir('lani-smoke-packs-')
 // Curated scenes too (test/smoke/scenes.ts writes them; the bridge reads them per request).

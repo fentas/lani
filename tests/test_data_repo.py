@@ -36,11 +36,11 @@ class DataRepoTest(unittest.TestCase):
         for t in TEMPLATES.glob("*-template.json"):
             (self.data / t.name.replace("-template", "")).write_text(t.read_text())
         app = self.data / "app"
-        for d in ("voice/files", "release", "pairing", "town-invites", "audio", "modules"):
+        for d in ("voice/files", "release", "pairing", "town-invites", "audio", "modules", "dev"):
             (app / d).mkdir(parents=True)
         for f in ("bridge-token", "family-token", "bridge-key.pem", "client-ids.json", "devices-seen.json", "events.json",
                   "channel-queue.json", "answers.json", "voice/voice.db", "voice/files/a.mp3", "release/lani-1001.apk",
-                  "pairing/abc", "town-invites/def"):
+                  "pairing/abc", "town-invites/def", "dev/shadow-2026-10-05.json", "dev/app-log-2026-10-05.txt"):
             (app / f).write_text("x")
         (app / "game.json").write_text("{}")
         (app / "devices.json").write_text('{"devices": []}')
@@ -98,7 +98,8 @@ class DataRepoTest(unittest.TestCase):
         for secret_or_cache in ("app/bridge-token", "app/family-token", "app/bridge-key.pem", "app/voice/voice.db",
                                 "app/voice/files/a.mp3", "app/release/lani-1001.apk", "app/pairing/abc",
                                 "app/town-invites/def", "app/client-ids.json", "app/devices-seen.json", "app/events.json",
-                                "app/channel-queue.json", "app/answers.json", ".backups/old.json", "learner-profile.json.backup-20261005-101010"):
+                                "app/channel-queue.json", "app/answers.json", "app/dev/shadow-2026-10-05.json",
+                                "app/dev/app-log-2026-10-05.txt", ".backups/old.json", "learner-profile.json.backup-20261005-101010"):
             self.assertNotIn(secret_or_cache, files)
         self.assertEqual("main", git(self.data, "branch", "--show-current"))
         self.assertEqual("lani-setup: import", git(self.data, "log", "-1", "--format=%s"))
@@ -152,15 +153,38 @@ class DataRepoTest(unittest.TestCase):
         self.assertTrue((self.data / "app" / "answers.json").exists())
         self.assertTrue((self.data / ".gitignore").read_text().startswith("/app/bridge-token\n"))
 
+    def test_the_developers_data_never_goes_in_also_when_staged_before(self):
+        # a repository whose .gitignore was written before the developer's line (the bridge's /dev/ uploads: app/dev/)
+        self.init()
+        old = "".join(line + "\n" for line in (self.data / ".gitignore").read_text().splitlines()
+                      if "/app/dev/" not in line and "developer" not in line)
+        (self.data / ".gitignore").write_text(old)
+        git(self.data, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qam", "the .gitignore from before")
+        dev = self.data / "app" / "dev"
+        (dev / "shadow-2026-10-06.json").write_text('{"schema": "lani.shadow-export/v0"}')
+        git(self.data, "add", "-A")  # staged, not committed yet
+        self.assertIn("app/dev/shadow-2026-10-06.json", git(self.data, "diff", "--cached", "--name-only").splitlines())
+        out = self.run_hook("update-db.py", self.report())
+        self.assertEqual(0, out.returncode, out.stderr)
+        files = set(git(self.data, "ls-files").splitlines())
+        self.assertFalse(any(f.startswith("app/dev/") for f in files), files)
+        self.assertNotIn("app/dev/shadow-2026-10-06.json", git(self.data, "show", "--name-only", "--format=", "HEAD").splitlines())
+        self.assertTrue((dev / "shadow-2026-10-06.json").exists())  # stays on the machine
+        self.assertEqual(1, (self.data / ".gitignore").read_text().count("/app/dev/"))
+        self.run_hook("session-end.py", "{}")
+        self.assertEqual(1, (self.data / ".gitignore").read_text().count("/app/dev/"))
+        self.assertEqual("", git(self.data, "status", "--porcelain"))
+
     def test_a_learners_own_line_that_keeps_the_answers_out_is_enough(self):
         sys.path.insert(0, str(HOOKS))
         import lani_data_repo as r
         self.init()
-        (self.data / ".gitignore").write_text("/app/*.json*\n")
+        # (and one that keeps the developer's data out: app/dev/*.json and *.txt)
+        (self.data / ".gitignore").write_text("/app/*.json*\n/app/dev/*\n")
         self.assertEqual([], r.keep_private_out(self.data))
-        self.assertEqual("/app/*.json*\n", (self.data / ".gitignore").read_text())
+        self.assertEqual("/app/*.json*\n/app/dev/*\n", (self.data / ".gitignore").read_text())
         # a line that lets them in again is outdone by the one added after it
-        (self.data / ".gitignore").write_text("/app/*.json*\n!/app/answers.json\n")
+        (self.data / ".gitignore").write_text("/app/*.json*\n/app/dev/*\n!/app/answers.json\n")
         self.assertEqual(["/app/answers.json*"], r.keep_private_out(self.data))
         self.assertTrue(r.ignored(self.data, "app/answers.json"))
         self.assertEqual([], r.keep_private_out(self.data))

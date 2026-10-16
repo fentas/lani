@@ -25,6 +25,7 @@ import { arrivals } from './features/arrivals'
 import { cards as cardsFeature } from './features/cards'
 import { chat } from './features/chat'
 import { counting } from './features/counting'
+import { dev } from './features/dev'
 import { course as courseFeature } from './features/course'
 import { culture as cultureFeature } from './features/culture'
 import { events } from './features/events'
@@ -119,6 +120,8 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'towns', factory: towns },
   { name: 'friendship', factory: friendship },
   { name: 'questions', factory: townQuestions },
+  // the developer's data from the app (app/dev/): routes only, nothing for the tutor
+  { name: 'dev', factory: dev },
 ]
 
 /** What [buildBridge] makes: the context, the features, the guide, the rules and the tools, nothing started yet. */
