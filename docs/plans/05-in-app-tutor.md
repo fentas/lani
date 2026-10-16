@@ -58,6 +58,16 @@ SaaS (see [The app's backend](#the-apps-backend-the-bridges-http-routes)).
   - The voice SaaS has no LLM.
 - **"We manage our own session/compaction."** See [Context and compaction](#context-and-compaction).
 
+## Jan's decisions (2026-10-16)
+
+- **No covered variant: we don't host the tutor.** "In the end all cost and quality is at the user": accounts, billing,
+  GDPR for the chats, security and support would be ours, for little gain. The hosted mode is the learner's own Console
+  key (BYOK) only; [The covered variant](#the-covered-variant) stays below as what was considered.
+- **We recommend, the learner sets:** the model **and the effort** per task, with presets as starting points and our
+  recommendation marked (see [Presets](#presets)). The shadow's numbers make the recommendations.
+- **Open:** the voice SaaS (glas) for hosted learners needs accounts as well (the same GDPR and login questions): to
+  decide before phase A (open question 5).
+
 ## Jan's decisions (2026-10-14)
 
 - **The models and the thread's length are settings.** Three presets (Economy, Balanced, Best), the model per task
@@ -454,7 +464,8 @@ Decide in the prototype, for the validators first.
 - **Thinking:** adaptive (on Sonnet and Haiku 5.5 the only kind that binds), with effort set per task (low for
   reactions, medium for chat; Sonnet 5.5's default is high, so it's always set). The thread passes thinking blocks
   back unchanged, empty ones too: the `thinking` field is empty by default, and a serializer that skips empty blocks
-  breaks the thread. The effort stays fixed within a thread: changing it clears the message cache.
+  breaks the thread. The top-level effort stays fixed within a thread (changing it clears the message cache); a
+  different effort for one turn goes in a per-message `output_config` (see [Presets](#presets)), which keeps it.
 - **Haiku 5.5:** no `temperature`, `top_p` or `top_k`; thinking counts toward `max_tokens`.
 
 ### The client: the Java SDK or plain HTTP (to verify)
@@ -722,7 +733,8 @@ How it's kept:
 
 ### Presets
 
-The models and the thread's length are the learner's settings (BYOK; covered sets them per plan):
+The models, their effort and the thread's length are the learner's settings (Jan, 2026-10-16: "all cost and quality is
+at the user"; we recommend):
 
 | Preset | Models | The thread's limit | A day at Jan's level |
 |---|---|---|---|
@@ -730,7 +742,19 @@ The models and the thread's length are the learner's settings (BYOK; covered set
 | **Balanced** (the default) | The table above: Haiku 5.5 for routine, Sonnet 5.5 for chat and role-play, Opus 5.5 for large writing | ~30k | ~$0.85 |
 | Best | Opus 5.5 for everything | ~60k | ~$2.40 and more (a longer thread costs more after each pause) |
 
-- **"Custom"** sets the model per task (the table's rows) and the limit.
+- **"Custom"** sets the model and the effort per task (the table's rows) and the limit.
+- **Effort** (`output_config.effort`: `low`, `medium`, `high`, `xhigh`, `max`) is how much the model thinks and writes:
+  it applies to every output token, thinking included, which is billed as output. Defaults: `medium` on Haiku 5.5 and
+  Opus 5.5, `high` on Sonnet 5.5 ([Effort](https://platform.claude.com/docs/en/build-with-claude/effort)). It costs
+  nothing when the model doesn't need to think (a simple chat on Sonnet at `medium`: no thinking) and adds output when
+  it does (a review reaction on Haiku at `low`: 515 of 887 output tokens were thinking).
+- **Not `low` for routine on Haiku:** at `low` Haiku 5.5 is "more likely to skip a search, stop early, or skip a check",
+  and Anthropic recommends `high` for strict instruction following. In the shadow's first days Haiku at `low` answered a
+  review in plain text and never called `reply`. Recommended now: routine on Haiku at `medium`; chat on Sonnet at
+  `medium`; content at `high`; grading to be measured (Haiku `medium`/`high` against Sonnet `medium`).
+- **Effort can change within a thread** without losing the cache: a per-message `output_config` (beta
+  `mid-conversation-output-config-2026-07-01`, on the 5.5 models), so one thread can answer a chat at `medium` and a
+  grading question at `high`.
 - **A longer thread** keeps more of the day; it only costs more when a pause makes the cache write it again. On Max's
   credits that doesn't matter.
 - **The spend shown** and the budgets apply to every preset.
@@ -806,6 +830,8 @@ A Max learner's $100 of monthly credits covers even the all-Sonnet case.
 ---
 
 ## The covered variant
+
+*Dropped (Jan, 2026-10-16): we don't host the tutor. Kept as what was considered.*
 
 ### How it works
 
@@ -1095,7 +1121,7 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 | C | **Content writing:** the studio task (modules, packs, stories, readings, dialog variants, arrivals, scenes in existing arts, villagers), the long jobs, Batches for what can wait, fixes to content and the local overrides. The file tools, checked on write. The validators ported or shared. | The conformance corpus is green in the bridge and the app. A tester's tutor-made module plays. A broken file is refused with the validator's message. |
 | D | **Towns and family through the SaaS relay.** Self-hosted bridges publish their towns to the relay too. | Two hosted towns visit each other and trade, and a hosted and a self-hosted town. The family page works without a node. |
 | Later | **Several devices at once:** a sync. | |
-| Covered | **After phase A's numbers:** the proxy, the plans, billing. | A closed beta with the measured cost per learner under the plan's price. |
+| ~~Covered~~ | Dropped (Jan, 2026-10-16): no proxy, plans or billing; the learner's own key only. | A closed beta with the measured cost per learner under the plan's price. |
 
 ---
 
@@ -1148,7 +1174,9 @@ skills): 7 entries in Jan's by 2026-10-14, 5 fixes and 2 wishes. Only the develo
 3. **The cost per learner in practice:** the prototype. Above all, the cold starts a day and the thread's size.
 4. **Haiku 5.5's Slovene:** grading, feedback, role-play, against Sonnet 5.5. Jan's wife checks a sample.
 5. **The SaaS's auth:** e-mail magic links, Google sign-in, Zitadel. Does BYOK need an account at all (voices,
-   backup)? Do BYOK learners get the voices free, with a quota, or for a small fee?
+   backup)? Do BYOK learners get the voices free, with a quota, or for a small fee? With the covered variant dropped
+   (2026-10-16), the same GDPR and login questions decide whether hosted learners get glas at all, or the phone's own
+   voices and their own ElevenLabs key.
 6. **Play policies:**
    - an app where the user brings their own API key (they buy nothing from us);
    - the [AI-Generated Content policy](https://support.google.com/googleplay/android-developer/answer/14094294). It
