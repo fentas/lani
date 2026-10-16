@@ -704,11 +704,11 @@ How it's kept:
 
 | Task | Model | Effort | Why |
 |---|---|---|---|
-| The review digest, words, readings, `gloss_gaps` | Haiku 5.5 | low | Routine and stateless: a fraction of a cent a call |
-| Grading `answer`, `session_end` | Haiku 5.5; Sonnet 5.5 if measured worse | low–medium | Grading Slovene is what to measure |
+| The review digest, words, readings, `gloss_gaps` | Haiku 5.5 | high (16k `max_tokens`) | Routine and stateless: a fraction of a cent a call. Not `low`: it skipped `reply` there (2026-10-16); `high` costs ~$1 a month more at Jan's level |
+| Grading `answer`, `session_end` | Haiku 5.5; Sonnet 5.5 if measured worse | high | Grading Slovene is what to measure |
 | Chat, "Why?" on an exercise, card fixes, morning and evening, the notebook, `level_up` | Sonnet 5.5 | medium | Judgement, tone, the Slovene |
-| Role-play turns | Sonnet 5.5 (Haiku 5.5 to test: the fastest) | low | Latency; the line is voiced |
-| Writing content, on request | Sonnet 5.5; Opus 5.5 for large pieces | medium–high | Quality. Through Batches when nobody waits (half price). |
+| Role-play turns | Sonnet 5.5 (Haiku 5.5 to test: the fastest) | low | Latency; the line is voiced (to measure in phase B) |
+| Writing content, on request | Opus 5.5 (Jan, 2026-10-16) | medium; high for large pieces | Quality: the learner drills it again and again (the real tutor publishes 6–15 pieces a day). Opus is 2× Sonnet, ~+$0.50–0.80 a day at Jan's level. Through Batches when nobody waits (half price). |
 
 **Prices** per million tokens (the [pricing page](https://platform.claude.com/docs/en/about-claude/pricing) and the
 [models overview](https://platform.claude.com/docs/en/about-claude/models/overview), 2026-10-11):
