@@ -3,8 +3,10 @@
 #
 # The image (companion/android/docker/Dockerfile) has the JDK and the SDK. This repository is mounted at the same path
 # (with its git directory: the version is the commit count), a cache directory is the build's home (the Gradle cache:
-# later builds are quick), and your Android user home (~/.android) holds the debug key, so a debug build is signed as
-# your local Gradle build is and the phone takes it as an update. The build runs as you: the files it writes are yours.
+# later builds are quick), and the debug key your local Gradle build signs with (debug.keystore in the Android user
+# home it uses: ANDROID_USER_HOME, else $XDG_CONFIG_HOME/.android when that is set, else ~/.android) goes in
+# read-only, so a debug build is signed as a local one is and the phone takes either as an update. The build runs as
+# you: the files it writes are yours.
 #
 # Usage: companion/bin/lani-build-app [--debug | --release] [--test] [--out <file or directory>]
 #        companion/bin/lani-build-app -- <Gradle arguments>     e.g. -- :app:testDebugUnitTest
@@ -76,16 +78,36 @@ fi
 if [ "$mode" = image ]; then echo "$image"; exit 0; fi
 
 cache="${LANI_BUILD_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/lani/android-build}"
-android_user_home="${ANDROID_USER_HOME:-$HOME/.android}"
-mkdir -p "$cache" "$android_user_home"
+mkdir -p "$cache"
 abs() { (cd "$(dirname "$1")" && printf '%s/%s\n' "$(pwd)" "$(basename "$1")"); } # a mount needs an absolute path
-cache="$(abs "$cache")" android_user_home="$(abs "$android_user_home")"
+cache="$(abs "$cache")"
+
+# The Android user home a local Gradle build signs a debug build from, found as the Android Gradle plugin finds it
+# (AGP 9, com.android.prefs.AbstractAndroidLocations): ANDROID_USER_HOME; else .android in ANDROID_PREFS_ROOT or
+# ANDROID_SDK_HOME (the older names); else .android in the first of TEST_TMPDIR, XDG_CONFIG_HOME and the home that is
+# a directory. So with XDG_CONFIG_HOME set (some desktops set it) it is $XDG_CONFIG_HOME/.android, not ~/.android.
+android_user_home() {
+  local v
+  if [ -n "${ANDROID_USER_HOME:-}" ]; then printf '%s\n' "$ANDROID_USER_HOME"; return; fi
+  for v in ANDROID_PREFS_ROOT ANDROID_SDK_HOME TEST_TMPDIR XDG_CONFIG_HOME HOME; do
+    if [ -n "${!v:-}" ] && [ -d "${!v}" ]; then printf '%s/.android\n' "${!v}"; return; fi
+  done
+}
+debug_key="$(android_user_home)/debug.keystore"
 
 name="lani-build-$$"
 run=(run --rm --init --name "$name" --user "$(id -u):$(id -g)"
   -v "$root:$root" -w "$android"
   -v "$cache:/home/lani" -e HOME=/home/lani -e GRADLE_USER_HOME=/home/lani/.gradle
-  -v "$android_user_home:/android-user-home" -e ANDROID_USER_HOME=/android-user-home)
+  --tmpfs /android-user-home:rw,mode=1777 -e ANDROID_USER_HOME=/android-user-home)
+# The build's Android user home is its own and goes with the container; only that debug key goes in, read-only, so a
+# debug build is signed as a local one is. Without one there, the build makes a throwaway key (as on CI), and nothing
+# here creates or overwrites a keystore.
+if [ -f "$debug_key" ]; then
+  run+=(-v "$(abs "$debug_key"):/android-user-home/debug.keystore:ro")
+elif [ "$mode" != exec ]; then
+  echo "lani-build-app: no debug key at $debug_key: signed with a throwaway key, not as a local build" >&2
+fi
 # the unit tests' time budgets, scaled on a slow machine (CI): app/build.gradle.kts hands it to the tests
 if [ -n "${LANI_PERF_SCALE:-}" ]; then run+=(-e "LANI_PERF_SCALE=$LANI_PERF_SCALE"); fi
 mem="${LANI_BUILD_MEMORY-8g}"

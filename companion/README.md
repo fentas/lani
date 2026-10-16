@@ -3022,8 +3022,11 @@ as `lani-android-build:local`. The build runs as you, so its files are yours, wi
 - the repository mounted at the same path, and a worktree's git directory with it (the version is the commit count);
 - `~/.cache/lani/android-build` as the build's home (`LANI_BUILD_CACHE`): the Gradle cache (about 1.5 GB after the
   first build, which takes a few minutes; later ones are quicker) and Robolectric's jars;
-- `~/.android` (`ANDROID_USER_HOME`) with the debug key, so a debug build is signed as a local Gradle build is and the
-  phone takes either as an update;
+- the debug key a local Gradle build signs with, read-only: `debug.keystore` in the Android user home the Android
+  Gradle plugin uses (`ANDROID_USER_HOME`; else `$XDG_CONFIG_HOME/.android` when `XDG_CONFIG_HOME` is set, as some
+  desktops do; else `~/.android`), so a debug build is signed as a local one is and the phone takes either as an
+  update. The build's own Android user home goes with the container: without a debug key there, it signs with a
+  throwaway key (as on CI) and says so, and it never creates or overwrites a keystore;
 - a memory limit of 8 GB (`LANI_BUILD_MEMORY`, empty for none); a build with the unit tests peaks at about 5 GB.
 
 Docker comes first; Podman (`LANI_CONTAINER=podman`, or when Docker isn't installed) runs rootless with
@@ -3037,8 +3040,9 @@ build, and R8 gives the same code and the same mapping for the same input and ru
 
 ### Signing
 
-A debug build is signed with the debug key (`~/.android/debug.keystore`). A release build is signed with the release
-key when one is set, else with the debug key, as the sideloaded app always was:
+A debug build is signed with the debug key (`debug.keystore` in the Android user home: `ANDROID_USER_HOME`, else
+`$XDG_CONFIG_HOME/.android` when `XDG_CONFIG_HOME` is set, else `~/.android`; a Docker build takes the same one). A
+release build is signed with the release key when one is set, else with the debug key, as the sideloaded app always was:
 
 - `LANI_KEYSTORE` (the keystore's path), `LANI_KEYSTORE_PASSWORD`, `LANI_KEY_ALIAS` (`lani` if unset) and
   `LANI_KEY_PASSWORD` (the keystore's if unset), as the release workflow sets them;
