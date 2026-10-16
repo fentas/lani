@@ -11,10 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.click
 import androidx.compose.ui.test.hasText
@@ -24,6 +23,7 @@ import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipe
 import androidx.compose.ui.unit.dp
@@ -44,13 +44,15 @@ import si.lanisce.lani.game.AgeStep
 import si.lanisce.lani.game.GameEngine
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.Res
-import si.lanisce.lani.game.Teaser
+import si.lanisce.lani.l10n.Lang
+import si.lanisce.lani.l10n.Localized
 import si.lanisce.lani.ui.theme.AlpineGreen
 
 /**
- * The village's HUD on a phone's screen (companion/GAME.md, "The village's HUD"): the slim row, its panel, the pill; the
- * choice remembered on the phone ([HudPrefs]); the plot chooser minimizing it ([HudState]); the badges; TalkBack's labels
- * and actions; and a tap or a drag outside the open panel ([outsideCloses]).
+ * The village's HUD on a phone's screen (companion/GAME.md, "The village's HUD"): the bar and its row of cards, the ring
+ * showing and hiding them (the choice remembered on the phone, [HudPrefs]), each card's section in the sheet and what
+ * leads on from it, the plot chooser hiding the cards ([HudState]), the dots, TalkBack's labels, and a tap or a drag
+ * outside the open sheet ([outsideCloses]).
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [35], qualifiers = "w411dp-h891dp-xxhdpi")
@@ -62,17 +64,20 @@ class VillageHudTest {
         age = Age.ZASELEK, fire = 80, morale = 77, villagers = 16, help = 65,
         resources = mapOf(Res.FOOD to 368, Res.WOOD to 17, Res.STONE to 315, Res.WISDOM to 482),
     )
-    private fun step(have: Int) = AgeStep(AgeStep.Kind.RESOURCE, "🌾", "Hrana · Food", have, 5)
-    private val check = AdvanceCheck(Age.VAS, ok = false, missing = listOf("+132 🌾"), steps = List(6) { step(5) } + List(4) { step(1) })
+    private val wood = AgeStep(AgeStep.Kind.RESOURCE, "🪵", "Les · Wood", 198, 320, res = Res.WOOD)
+    private val words = AgeStep(AgeStep.Kind.WORDS, "📚", "Besede · Words", 252, 300)
+    private fun done() = AgeStep(AgeStep.Kind.BUILDING, "🏠", "Hiša · House", 1, 1)
+    private val check = AdvanceCheck(Age.VAS, ok = false, missing = listOf("+122 🪵", "300 besed"), steps = List(7) { done() } + listOf(wood, words))
     private val did = mutableListOf<String>()
+    private val story = SoonLine("teaser:STORY", 0, true, "⛰️", Localized { if (it == Lang.SL) "Janez pove zgodbo o Zlatorogu" else "Janez tells the story of Goldhorn" }, news = true)
+    private val pedlar = SoonLine("teaser:PEDLAR", 4, false, "🎒", Localized { if (it == Lang.SL) "Krošnjar pride" else "The pedlar comes" })
+    private val feast = SoonLine("festival:martinovo", 0, false, "🍷", Localized { if (it == Lang.SL) "Martinovo" else "St Martin's Day" }, gold = true, news = true, action = SoonAction.Festival("martinovo"))
 
-    private fun view(state: GameState = s, chestNew: Boolean = false, stepToday: Boolean = false) = HudView(
-        state, GameEngine.attributes(state), check,
-        goal = NextGoal.Grow(Age.VAS, listOf("+132 🌾", "+303 🪵"), Res.WOOD),
+    private fun view(chestNew: Boolean = false, soon: List<SoonLine> = listOf(story, pedlar), soonSeen: Set<String> = emptySet(), stepsSeen: Set<String> = emptySet()) = HudView(
+        s, GameEngine.attributes(s), check,
+        goal = NextGoal.Grow(Age.VAS, check.missing, Res.WOOD),
         goalAction = GoalAction("🪵 Nabiraj · Gather wood", AlpineGreen) { did += "gather" },
-        chestNew = chestNew, stepToday = stepToday, festival = null,
-        teasers = listOf(Teaser(Teaser.Kind.STORY, "💃", "Nocoj ob ognju: Janez pove zgodbo · Tonight by the fire: Janez tells a story")),
-        newsSeen = emptySet(),
+        chestNew = chestNew, festival = null, soon = soon, soonSeen = soonSeen, stepsSeen = stepsSeen,
     )
 
     private lateinit var prefs: HudPrefs
@@ -89,12 +94,12 @@ class VillageHudTest {
     /** The HUD as the village screen wires it, its actions noted in [did]. */
     private fun show(v: HudView = view()) = compose.setContent {
         VillageHud(
-            v, hud.mode(chooser),
-            HudActions(
+            v, cards = hud.cards(chooser), section = hud.section,
+            actions = HudActions(
                 back = { did += "back" }, resource = { did += "res:$it" }, age = { did += "age" }, info = { did += "info" },
-                fire = { did += "fire" }, chest = { did += "chest" }, projects = { did += "projects" }, progress = { did += "progress" },
-                goal = { did += "goal" }, festival = { did += "festival:$it" }, news = { did += "news" },
-                expand = { hud.open = it }, minimize = { hud.minimize(it, chooser) },
+                fire = { did += "fire" }, chest = { did += "chest" }, projects = { did += "projects:$it" }, progress = { did += "progress" },
+                goal = { did += "goal" }, festival = { did += "festival:$it" }, arrival = { did += "arrival:$it" }, surprise = { did += "surprise" },
+                step = { did += "step:${it.kind}" }, cards = { hud.toggleCards(chooser) }, sheet = { hud.section = it },
             ),
             moved = false, onRecenter = {}, reduced = true,
         )
@@ -102,124 +107,126 @@ class VillageHudTest {
 
     private fun node(description: String) = compose.onNodeWithContentDescription(description, substring = true)
     private fun gone(description: String) = compose.onAllNodesWithContentDescription(description, substring = true).assertCountEquals(0)
-    private val more = "Pokaži več · Show more"
-    private val hide = "Skrij vrstico · Hide the bar"
+    private fun text(t: String) = compose.onNode(hasText(t, substring = true))
+    private val ring = "Doba · Age: ${Age.ZASELEK.sl}"
+    private val goalCard = "Naslednji cilj · Next goal: "
+    private val soonCard = "Danes in kmalu · Today and coming up: "
+    /** The row of cards swiped to card [i] (0 the goal's, 2 the settlement's: off the screen at first). */
+    private fun cardAt(i: Int) = compose.onNodeWithTag(CARDS_TAG).performScrollToIndex(i)
+    private val settlementCard = "Naselje · Settlement: "
 
-    @Test fun `collapsed it is one slim row, the resources and the status, nothing of the panel`() {
+    @Test fun `the bar and its three cards, each number with its name`() {
         show()
         node("Nazaj · Back").assertExists()
         node("Hrana · Food: 368").assertExists()
         node("Modrost · Wisdom: 482").assertExists()
-        val status = node("Doba · Age: ${Age.ZASELEK.sl}").fetchSemanticsNode()
-        val said = status.config[androidx.compose.ui.semantics.SemanticsProperties.ContentDescription].single()
-        assertTrue(said, said.contains("še 4 koraki · 4 steps to go; Novice · News"))
-        assertEquals(HudMode.COLLAPSED, hud.mode(chooser))
-        gone("Vaščani · Villagers")
-        gone("Skrinja · The chest")
-        compose.onAllNodes(hasText(hide, substring = true)).assertCountEquals(0)
-        // the row is all it covers: under 60 dp tall (no status bar here), where the old HUD took four rows
-        val bottom = node(more).fetchSemanticsNode().boundsInRoot.bottom
-        assertTrue("the row's bottom: $bottom px", bottom <= with(compose.density) { 60.dp.toPx() })
+        val said = node(ring).fetchSemanticsNode().config[SemanticsProperties.ContentDescription].single()
+        assertTrue(said, said.contains("še 2 koraka · 2 steps to go"))
+        node(goalCard).assertExists()
+        node(soonCard).assertExists()
+        cardAt(2)
+        node(settlementCard).assertExists()
+        cardAt(0)
+        // the goal card: the next step with its own action
+        text("Les · Wood  198/320").assertExists()
+        text("🪵 Nabiraj").performClick()
+        assertEquals(listOf("step:RESOURCE"), did)
+        // the bar and the cards are all it covers: under 140 dp (no status bar here)
+        val bottom = node(goalCard).fetchSemanticsNode().boundsInRoot.bottom
+        assertTrue("the cards' bottom: $bottom px", bottom <= with(compose.density) { 140.dp.toPx() })
         node("Hrana · Food: 368").performClick()
-        assertEquals(listOf("res:FOOD"), did)
+        assertEquals(listOf("step:RESOURCE", "res:FOOD"), did)
     }
 
-    @Test fun `the chevron opens the panel with everything else, each leading on and closing it`() {
+    @Test fun `the ring hides and shows the cards, and the phone remembers`() {
         show()
-        node(more).performClick()
-        assertEquals(HudMode.EXPANDED, hud.mode(chooser))
-        node("Pokaži manj · Show less").assertExists()
-        for (d in listOf("Vaščani · Villagers: 16", "Razpoloženje · Morale: 77", "Ogenj · Fire: 80", "Skrinja · The chest", "Skupni projekti · Village projects", "Napredek · Progress")) node(d).assertExists()
-        compose.onNode(hasText("Vas: še 2 koraka", substring = true)).assertExists()
-        compose.onNode(hasText("☐ +303 🪵")).assertExists()
-        node("Skrinja · The chest").performClick()
-        assertEquals(listOf("chest"), did)
-        assertEquals(HudMode.COLLAPSED, hud.mode(chooser))
-        gone("Vaščani · Villagers")
-
-        // the status chip toggles it too; its goal's action and the news lead on
-        node("Doba · Age: ${Age.ZASELEK.sl}").performClick()
-        compose.onNode(hasText("Nabiraj · Gather wood", substring = true)).performClick()
-        node(more).performClick()
-        compose.onNode(hasText("Tonight by the fire", substring = true)).performClick()
-        node(more).performClick()
-        compose.onNode(hasText("Vas: še 2 koraka", substring = true)).performClick()
-        assertEquals(listOf("chest", "gather", "news", "goal"), did)
-        assertEquals(HudMode.COLLAPSED, hud.mode(chooser))
-    }
-
-    @Test fun `minimized it is a pill, and the choice is remembered on the phone`() {
-        show()
-        node(more).performClick()
-        compose.onNode(hasText(hide, substring = true)).performClick()
-        assertEquals(HudMode.MINIMIZED, hud.mode(chooser))
-        gone("Hrana · Food")
-        node("Pokaži vrstico · Show the bar. Doba · Age").assertExists()
-        assertTrue("kept on the phone", HudPrefs(context).minimized)
-        assertEquals("a new village screen starts minimized", HudMode.MINIMIZED, HudState(HudPrefs(context)).mode(null))
-
-        node("Pokaži vrstico · Show the bar").performClick()
-        assertEquals(HudMode.COLLAPSED, hud.mode(chooser))
+        node(ring).performClick()
+        gone(goalCard)
+        assertFalse("kept on the phone", HudPrefs(context).cardsShown)
+        assertFalse("a new village screen starts without them", HudState(HudPrefs(context)).cards(null))
         node("Hrana · Food: 368").assertExists()
-        assertFalse(HudPrefs(context).minimized)
+        node(ring).performTouchInput { longClick() }
+        node(goalCard).assertExists()
+        assertTrue(HudPrefs(context).cardsShown)
     }
 
-    @Test fun `a long press on the status chip, or TalkBack's action, minimizes it`() {
+    @Test fun `the goal card opens every open step with its button, and what leads on closes the sheet`() {
         show()
-        node("Doba · Age: ${Age.ZASELEK.sl}").performTouchInput { longClick() }
-        assertEquals(HudMode.MINIMIZED, hud.mode(chooser))
-        node("Pokaži vrstico · Show the bar").performClick()
-        val chevron = node(more).fetchSemanticsNode()
-        val action = chevron.config[SemanticsActions.CustomActions].single { it.label == hide }
-        compose.runOnIdle { action.action() }
-        assertEquals(HudMode.MINIMIZED, hud.mode(chooser))
-        assertTrue(prefs.minimized)
+        node(goalCard).performClick()
+        assertEquals(HudSection.GOAL, hud.section)
+        compose.onNodeWithContentDescription("Naslednji cilj · Next goal").assertExists()
+        text("Besede").assertExists()
+        text("252/300").assertExists()
+        text("📚 Uči se").performClick()
+        assertEquals(listOf("step:WORDS"), did)
+        assertEquals(null, hud.section)
+        node(goalCard).performClick()
+        node("Zapri · Close").performClick()
+        assertEquals(null, hud.section)
     }
 
-    @Test fun `the plot chooser minimizes it by itself and gives it back, the learner's choice untouched`() {
+    @Test fun `the settlement's card opens its six tiles, each leading on`() {
+        show(view(chestNew = true))
+        cardAt(2)
+        node(settlementCard).performClick()
+        for (d in listOf("Vaščani · Villagers: 16", "Razpoloženje · Morale: 77", "Ogenj · Fire: 80", "Pomoč · Help: 65", "Skrinja · The chest: ", "Skupni projekti · Village projects: ", "Napredek · Progress")) node(d).assertExists()
+        text("Prebivalci").assertExists()
+        text("Razpoloženje").assertExists()
+        node("Skrinja · The chest: 0, nekaj novega · something new").performClick()
+        assertEquals(listOf("chest"), did)
+        assertEquals(null, hud.section)
+        node(settlementCard).performClick()
+        // the ring's label starts as the age's row does: the row is the second
+        compose.onAllNodesWithContentDescription("Doba · Age: ${Age.ZASELEK.sl} · ${Age.ZASELEK.en}. ", substring = true)[1].performClick()
+        node(settlementCard).performClick()
+        node("Napredek · Progress").performClick()
+        assertEquals(listOf("chest", "age", "progress"), did)
+    }
+
+    @Test fun `today and what's coming, a line each, today's lead on, the others show all of themselves`() {
+        show(view(soon = listOf(feast, story, pedlar)))
+        text("+2").assertExists()
+        node(soonCard).performClick()
+        text("Nocoj").assertExists()
+        text("Torek").assertExists()
+        text("Krošnjar pride").assertExists()
+        compose.onAllNodes(hasText("v torek", substring = true)).assertCountEquals(0)
+        // the card shows it first too: the sheet's line is the second
+        compose.onAllNodes(hasText("Martinovo", substring = true))[1].performClick()
+        assertEquals(listOf("festival:martinovo"), did)
+        assertEquals(null, hud.section)
+    }
+
+    @Test fun `a dot for what's new, on the ring while the cards are hidden, and TalkBack hears it`() {
+        show(view(chestNew = true))
+        val said = node(ring).fetchSemanticsNode().config[SemanticsProperties.ContentDescription].single()
+        assertTrue(said, said.endsWith("novo · new: Naslednji cilj · Next goal, Danes in kmalu · Today and coming up, Skrinja · The chest"))
+    }
+
+    @Test fun `the plot chooser hides the cards by itself and gives them back, the learner's choice untouched`() {
         show()
         chooser = 1
         compose.waitForIdle()
-        gone("Hrana · Food")
-        node("Pokaži vrstico · Show the bar").performClick()
+        gone(goalCard)
         node("Hrana · Food: 368").assertExists()
-        assertFalse("the pill tapped while choosing isn't a choice", prefs.minimized)
-        chooser = 2 // the chooser opened again: minimized again
+        node(ring).performClick()
+        node(goalCard).assertExists()
+        assertTrue("the ring tapped while choosing isn't a choice", prefs.cardsShown)
+        chooser = 2 // the chooser opened again: hidden again
         compose.waitForIdle()
-        gone("Hrana · Food")
+        gone(goalCard)
         chooser = null
         compose.waitForIdle()
-        node("Hrana · Food: 368").assertExists()
-        assertEquals(HudMode.COLLAPSED, hud.mode(chooser))
-
-        // minimized by the learner: still so after the chooser
-        hud.minimize(true, null)
-        chooser = 3
-        compose.waitForIdle()
-        chooser = null
-        compose.waitForIdle()
-        assertEquals(HudMode.MINIMIZED, hud.mode(chooser))
+        node(goalCard).assertExists()
     }
 
-    @Test fun `the badges ride on the status chip and the pill, and TalkBack reads them`() {
-        show(view(state = s.copy(fire = 20), chestNew = true, stepToday = true))
-        val status = node("Doba · Age: ${Age.ZASELEK.sl}").fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.ContentDescription].single()
-        for (b in listOf("Ogenj · Fire: 20, ugaša · dying", "Skrinja · The chest: nekaj novega · something new", "danes lahko narediš korak projekta · a project step can be taken today", "Novice · News")) {
-            assertTrue("$b in «$status»", b in status)
-        }
-        hud.minimize(true, null)
-        compose.waitForIdle()
-        node("Pokaži vrstico · Show the bar. Doba · Age").assertExists()
-        node("Skrinja · The chest: nekaj novega").assertExists()
-    }
-
-    @Test fun `a tap outside the open panel only closes it, a drag closes it and goes on to the map`() {
+    @Test fun `a tap outside the open sheet only closes it, a drag closes it and goes on to the map`() {
         var open = true
         var closed = 0
         var taps = 0
         var dragged = 0f
         compose.setContent {
-            Box(Modifier.size(300.dp).testTag("map").outsideCloses(active = { open }, inside = { Rect(0f, 0f, 100f, 100f) }, onOutside = { closed++; open = false })) {
+            Box(Modifier.size(300.dp).testTag("map").outsideCloses(active = { open }, inside = { p -> p.x < 100f && p.y < 100f }, onOutside = { closed++; open = false })) {
                 Box(
                     Modifier.fillMaxSize()
                         .pointerInput(Unit) { detectTapGestures(onTap = { taps++ }) }
@@ -244,5 +251,4 @@ class VillageHudTest {
         assertEquals("inside the HUD: not outside", 2, closed)
         assertEquals(2, taps)
     }
-
 }

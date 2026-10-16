@@ -101,40 +101,63 @@ resource into another, after a short run that tests both skills. Its numbers are
 ## The village's HUD
 
 The map's top is the village's own: the buildings and plots there, and the plot chooser's ★, must not start under a
-stack of chips. So the HUD (`ui/game/VillageHud.kt`) is one slim row, its panel opens under it on demand, and it can be
-minimized to a pill (Jan, October 2026: "it's hard to see the ★ constructions, as everything is on top").
+stack of chips (Jan, October 2026: "it's hard to see the ★ constructions, as everything is on top"), and a number
+without its name says nothing ("I can't tell what 88 or 57 mean"). So the HUD (`ui/game/VillageHud.kt`) is a slim bar,
+a row of small cards under it that can be hidden, and a sheet from the bottom with a card's section (Jan chose this of
+three designs on 2026-10-16: a sheet from the bar, a row of cards, a side panel).
 
-- **The row** (collapsed, the default): "←" home, the four resources (each "🌾 368" with a thin bar filling towards its
-  cap, the number in the resource's colour when full; a tap opens its sheet: "Nabiraj · Gather", "⇄ Zamenjaj · Trade"),
-  and the status chip with its chevron: the next age and how many of its steps are done ("🏘️ 6/10": the way to Vas), "✨"
-  and gold when the village can advance; on a festival's day its emoji and "Danes", gold (a quiet day's plain). The age's
-  name doesn't fit beside four resources on a phone: it's in the panel. What wants a look rides on the status chip as
-  small badges: 🔥 (red) while the fire dies, 🧰 with a red dot while something new is in the chest, 🏗️ while a
-  project step can be taken today, 📣 while the panel has news not seen there yet (`HudPrefs.newsSeen`).
-- **The panel** (a tap on the status chip or its chevron; again closes it): the age with its bar and steps (the ages
-  sheet), 👥 villagers and the morale (the village's sheet), 🔥 the fire (its sheet, red and pulsing while it dies), 🧰 🤝
-  the chest (help; its red dot), 🏗️ the projects (finished / open; a red dot while a step can be taken today), 📊
-  progress; the goal ("🎯 Vas: še 4 koraki ›": the scroll at "Naslednji cilj"), what it still misses and its one-tap
-  action, the same as the goal card's first button ("🪵 Nabiraj · Gather wood", "🔨 Zgradi zdaj · Build now" …,
-  `NextGoal.action`); the festival that is on ("Danes: …", gold: a tap celebrates) and the first three of "Jutri ·
-  Tomorrow" (a tap opens the scroll's today list); and "⌃ Skrij vrstico · Hide the bar". Whatever leads on from it
-  closes it. So does a tap on the map outside it (that tap opens nothing), back, or a drag on the map (which pans on).
-- **Minimized**: a pill in the top corner, "⌄" and the status chip's emoji, a red dot while a badge waits; a tap brings
-  the row back. A long press on the status chip minimizes too, and TalkBack has "Skrij vrstico · Hide the bar" among the
-  status chip's actions. The choice (row or pill) is the phone's (`HudPrefs`, not the village's): the village opens as it
-  was left.
-- **The plot chooser** minimizes the HUD by itself while it is on, the learner's choice untouched; a tap on its pill
-  brings the row back for that chooser only, and leaving the chooser brings back what the learner chose.
+- **The bar** (always): "←" home, the four resources (each "🌾 368" with a thin bar filling towards its cap, the number
+  in the resource's colour when full; a tap opens its sheet: "Nabiraj · Gather", "⇄ Zamenjaj · Trade"), and the
+  settlement's ring: the next age's emoji in a ring that fills with its steps, "7/9" under it (the one place the count
+  shows), gold and glowing when the village can advance ("✨"), gold with the festival's emoji and "Danes" on a feast's
+  day (a quiet day's plain).
+- **The ring** shows and hides the row of cards (a tap, or a long press), animated; the choice is the phone's
+  (`HudPrefs.cardsShown`, not the village's): the village opens as it was left. While the cards are hidden, a red dot
+  on the ring says one of them has something new.
+- **The cards** (one row under the bar, two lines each, swiped sideways; the next one peeks in):
+  - the goal: "🎯 🏘️ Vas: še 2 koraka" over the next open step and how far ("Les · Wood 198/320"), and that step's own
+    button ("🪵 Nabiraj · Gather"); a goal that isn't a step of the next age (the fire dying, a building to build,
+    advancing) has its one action (`NextGoal.action`, "🔨 Zgradi zdaj · Build now" …);
+  - today and what's coming: the next line of the timeline, when and what in each language, "+2" for the others;
+  - the settlement: "🛖 Zaselek → 🏘️ Vas" with its bar, and its six numbers, each with its name under it in brief
+    (👥 Prebivalci, 😄 Razpoloženje, 🔥 Ogenj, 🤝 Pomoč, 🧰 Skrinja, 🏗️ Projekti).
+- **A card's tap opens its section in the sheet**, as tall as it needs: closed by its ✕, by dragging its handle down,
+  by back, or by a tap on the map above it (that tap opens nothing; a drag closes it and pans on). Whatever leads on
+  from it closes it.
+  - "Naslednji cilj · Next goal": the goal's line (a tap: the goal's card in the scroll), then each open step of the
+    next age with its count, a bar and its own button: "🪵 Nabiraj · Gather", "📚 Uči se · Learn" (the packs), "🔩
+    Očisti · Polish" (the rusty words), "🔨 Gradi · Build" (the build sheet), "💬 Pomagaj · Help" (the villagers); a
+    building to repair says 🔧 and has no button (its own sheet repairs it).
+  - "Danes in kmalu · Today and coming up": a short timeline, a line each in the target and the base, cut with "…":
+    today's first ("Danes · Today": the festival that is on, gold, a tap celebrates; who joined the village and waits
+    to be met, a tap introduces them; the day's surprise at the road, a tap plays it or opens the pedlar's stall; a
+    project step that can be taken today, a tap opens the projects sheet at it), then tonight's story ("Nocoj ·
+    Tonight"), then what's coming (`Tomorrow.teasers`: "Jutri · Tomorrow", "Torek · Tuesday", "Čez 9 dni · In 9
+    days"), each without its own day (`Teaser.what`: "Krošnjar pride · The pedlar comes", not "… v torek"); a tap on
+    one of those shows all of it. A villager's request or a happening isn't there: their bubbles are on the map.
+  - "Naselje · Settlement": the age and the way to the next ("Zaselek → 🏘️ Vas · Hamlet → Village", its bar; a tap:
+    the ages sheet with every step), "📊 Napredek ›" (progress), and the six numbers as tiles, each its value over
+    its name in the target and the base: people and mood (the village's sheet), the fire (its sheet; red and pulsing
+    while it dies), help (🤝, the village's sheet), the chest (how many things are in it; the chest), the projects
+    (finished / open; the projects sheet).
+- **Dots only for something new**, one for each thing, never a standing count: on the goal's card while one of its
+  steps wasn't seen in its sheet (`HudPrefs.stepsSeen`), on today's card while today's lines or tonight's story weren't
+  (`HudPrefs.soonSeen`), on the settlement's card and the chest's tile while something new is in the chest
+  (`ChestNews`). The pedlar's day or tomorrow's surprise is never news.
+- **The plot chooser** hides the cards by itself while it is on, the learner's choice untouched; a tap on the ring
+  shows them for that chooser only, and leaving the chooser brings back what the learner chose.
 - **The map gets the room.** The camera's home view, its framing (the plot chooser's, a card's place kept clear) and
-  the bubbles go by what the HUD covers at rest: the row, or the pill (`hudInset`); the open panel lies over the map
-  for a moment and moves nothing. Minimized, the home view frames the village in the screen's whole height. The
-  recenter button hangs under the row's end (in the pill's line, minimized) while the camera is away, and the bubbles
-  keep below it then too. A bubble whose person or place goes up under the HUD fades out (a bubble's height in), as one
+  the bubbles go by what the HUD covers at the top: the bar, and the cards while they show (`hudInset`, at once as
+  they're shown or hidden); the sheet lies over the map and the bottom bar for a moment and moves nothing. The
+  recenter button hangs under the cards' end (under the bar, hidden) while the camera is away, and the bubbles keep
+  below it then too. A bubble whose person or place goes up under the HUD fades out (a bubble's height in), as one
   whose person is off the screen's side is off it with them (SCENES.md, "Bubbles in the village").
-- **TalkBack** reads the row in order: "Nazaj · Back", each resource ("Hrana · Food: 368 / 700"), the status ("Doba ·
-  Age: Zaselek · Hamlet. Do Vas · To the village: 83 %, še 4 koraki · 4 steps to go; Skrinja · The chest: nekaj novega
-  · something new") and the chevron ("Pokaži več · Show more", "Pokaži manj · Show less" open). With the system's
-  animations off, the panel opens and closes at once and nothing pulses.
+- **TalkBack** reads the bar in order: "Nazaj · Back", each resource ("Hrana · Food: 368 / 700"), the ring ("Doba ·
+  Age: Zaselek · Hamlet. Do Vas · To the village: 83 %, še 2 koraka · 2 steps to go; novo · new: Skrinja · The
+  chest", its actions "Skrij kartice · Hide the cards" or "Pokaži kartice · Show the cards"), then each card
+  ("Naslednji cilj · Next goal: …") and, in the sheet, its heading and each tile ("Skrinja · The chest: 20, nekaj
+  novega · something new"). With the system's animations off, the cards and the sheet come and go at once and nothing
+  pulses.
 
 ## Buildings
 
@@ -950,15 +973,15 @@ comes when its signs are there (the days at it count from the day the treasure w
 - 🌾 and 📜 are always paid in full. A moba never makes possible what the age, a limit or the plots forbid, and a damaged building is repaired before it is upgraded.
 - The build sheet has a "🤝 Moba" switch; the building sheet a "🤝 … z mobo · with a moba" button for the repair and the upgrade. Each shows what the neighbours bring and the 🤝 it costs: "−35 🪵 −25 🪨 za 8 🤝 · for 8 🤝". The chronicle says so ("Zgrajeno: Hiša · House · 🤝 moba: −35 🪵 −25 🪨").
 
-The HUD's panel shows 🤝 on the chest's chip (🧰); the stats count `helpEarned` and `mobas`.
+The HUD's settlement sheet shows 🤝 help on a tile of its own (beside the chest's 🧰); the stats count `helpEarned` and `mobas`.
 
 ## The chest
 
-"🧰 Skrinja · The chest" (the 🧰 chip in the HUD's panel) holds what the villagers give Jan: tools, kept for good, and goods, to give or to sell.
+"🧰 Skrinja · The chest" (the 🧰 tile in the HUD's settlement sheet) holds what the villagers give Jan: tools, kept for good, and goods, to give or to sell.
 
 **Between towns** (companion/README.md, "Things to do on a visit"): on a visit to a linked town, a request of its people done brings its giver's thank-you good, a good can be left there as a gift, and goods and resources traded at its market for the goods it spares; a guest's gift or trade comes into this chest the same way. A good from another culture's town becomes this village's own that looks the same (Friuli's 🍯 miele is Primorska's 🍯 med), else one of the same price and kind (`Guests.nativeGood`).
 
-**What comes in is a present.** A good or a tool that comes into the chest (a request's thank-you good, a festival's good, a friend's tool or small good at a new friendship level) is shown on the result card of the run, the module, the scene's dialog or the talk as a wrapped present, after the resource chips (`ui/game/GiftReveal.kt`, what to show in `GiftLogic`). A tap, or a moment, unwraps it: the thing big, its name to tap for its word card (it's a word to learn) and to hear, the name in the base language, who gave it ("👵 Babica Micka: V zahvalo · As thanks", "Za praznik · For the holiday: 🍷 Martinovo · St Martin's Day", "🐑 Pastir Luka: Za prijateljstvo · For your friendship") and what it's for (who likes it, a rare good pleases everyone, a tool's effect). Then it flies into the chest, and the HUD's 🧰 chip has a red dot (its row a 🧰 badge) until the chest is opened next; the chest marks what came in "✨ Novo · New" (the unseen things are kept on the phone, `ChestNews`). TalkBack hears "Darilo: Potica · A gift: Potica" as it opens; with the system's animations off, it shows open at once. Tools, goods and who likes what are the culture pack's (`chest.json`, by villager id, not in the villager files); their numbers are the game's: a good names a price class (`Catalog.GOOD_PRICES`: small 10, plain 15, good 20, fine 25, rich 30, precious 35) and a tool an effect (`Catalog.TOOL_EFFECTS`). Someone the pack doesn't know (who moved in or was born here, or a tutor's villager) gives small goods and likes potica, bread and apples. Only who lives here (or visits today) gives or gets anything.
+**What comes in is a present.** A good or a tool that comes into the chest (a request's thank-you good, a festival's good, a friend's tool or small good at a new friendship level) is shown on the result card of the run, the module, the scene's dialog or the talk as a wrapped present, after the resource chips (`ui/game/GiftReveal.kt`, what to show in `GiftLogic`). A tap, or a moment, unwraps it: the thing big, its name to tap for its word card (it's a word to learn) and to hear, the name in the base language, who gave it ("👵 Babica Micka: V zahvalo · As thanks", "Za praznik · For the holiday: 🍷 Martinovo · St Martin's Day", "🐑 Pastir Luka: Za prijateljstvo · For your friendship") and what it's for (who likes it, a rare good pleases everyone, a tool's effect). Then it flies into the chest, and the HUD's settlement card and its 🧰 tile have a red dot (the ring too, while the cards are hidden) until the chest is opened next; the chest marks what came in "✨ Novo · New" (the unseen things are kept on the phone, `ChestNews`). TalkBack hears "Darilo: Potica · A gift: Potica" as it opens; with the system's animations off, it shows open at once. Tools, goods and who likes what are the culture pack's (`chest.json`, by villager id, not in the villager files); their numbers are the game's: a good names a price class (`Catalog.GOOD_PRICES`: small 10, plain 15, good 20, fine 25, rich 30, precious 35) and a tool an effect (`Catalog.TOOL_EFFECTS`). Someone the pack doesn't know (who moved in or was born here, or a tutor's villager) gives small goods and likes potica, bread and apples. Only who lives here (or visits today) gives or gets anything.
 
 **Tools.** At friendship level 2 ("Prijatelj · Friend") a villager gives a tool of their trade; at level 4 ("Kot družina · Like family") the better one, twice as strong, in its place. A friend who jumps both levels gives the better one at once. Friends who were friends before the chest existed give theirs the next time they're in the village. The gift shows on the result card of the quest or talk, in the chronicle and as a notice: "Luka ti podari sekiro 🪓 · Luka gives you an axe: +10 % 🪵". It is a surprise (Jan): nothing announces it before it comes. The chest lists no gifts waiting, a villager's card and page show the friendship's ♥ and next level but not what it brings, and "Jutri · Tomorrow" never says a gift is one talk away.
 
@@ -1162,7 +1185,7 @@ gričih) as well as to the project. The church leads inside (V cerkvi: Ančka's 
 Micka's candle) and the beehive to Anton's bee house (Pri čebelnjaku: the painted hive fronts, a swarm on the linden,
 Zala's spoon of honey); the well opens the square as the linden does.
 
-**In the app.** A 🏗️ chip in the HUD's panel (finished / open; a red dot, and a 🏗️ badge on the row, while a step can be taken today), bubbles at the sites (at most two, the started ones first), rows in the scroll's today list, and the projects sheet: each project's leader, its steps (the story of the done ones, today's with its price and where it is played, "📍 🌲 V gozdu · In the forest", the ones to come), what it brings, its words (today's step's first, each to look up, "📚 Nauči se besed · Learn the words": the pack run of those not learned yet), and "🔨 Današnji korak · Today's step". The packs screen lists the projects' packs of the ages reached in a section of their own, "🏗️ Skupni projekti · Village projects".
+**In the app.** A 🏗️ tile in the HUD's settlement sheet (finished / open), a line in its "Danes in kmalu · Today and coming up" while a step can be taken today (a tap opens the projects sheet at it), bubbles at the sites (at most two, the started ones first), rows in the scroll's today list, and the projects sheet: each project's leader, its steps (the story of the done ones, today's with its price and where it is played, "📍 🌲 V gozdu · In the forest", the ones to come), what it brings, its words (today's step's first, each to look up, "📚 Nauči se besed · Learn the words": the pack run of those not learned yet), and "🔨 Današnji korak · Today's step". The packs screen lists the projects' packs of the ages reached in a section of their own, "🏗️ Skupni projekti · Village projects".
 
 ## The calendar
 
@@ -1174,8 +1197,8 @@ Zala's spoon of honey); the well opens the square as the linden does.
 - **Kind to a learner who missed it**: two more days to celebrate ("Martinovo še traja · St Martin's Day isn't over yet"), with morale +5 instead of +10. A try that doesn't pass lifts the spirits (+3) and pays a fifth; it can be tried again.
 - **Its words are kept.** Each festival's words are a curated word pack, `companion/packs/praznik-<festival>.json` (`lani.pack/v0` with `"festival": "<id>"`; `praznik-novo-leto` for `novo_leto`; another culture's are in its pack's `packs/`, friuli's `festa-*.json`), 8 words each with gender, plural and an A1–A2 example. The app bundles these files (`app/build.gradle.kts`, `festivalPacks`) and `Calendar.kt` reads each festival's words from its pack (`Festival.words`), so the festival and its pack always agree; the bridge serves the same files as curated packs. Every run of a festival, on its day or a grace day, passed or not, records its answers for the words it asked like a pack session: `POST /packs/<pack>/learn` (through the outbox) → `update-db.py`, one quality per word (right 4, almost 3, wrong 2; a word asked twice keeps its weakest), words Jan already knows skipped by the bridge (also a word they know from another pack: kres, košara). So the words come back in the reviews from the next day, like a pack's words.
 - **Learn them early.** The packs screen lists the festival packs in their own section, "🎉 Prazniki · Feasts and holidays", the next festival first, each with a "🎉 praznik · feast" tag and its day ("11. novembra · 11 November", "Čez 3 dni · In 3 days", "Danes · Today"). The suggested pack (Home, the village) is the festival's while it's on or in its countdown; otherwise the festival packs wait there and don't push the other packs aside, even half-learned after a celebration.
-- **A quiet day.** A festival with `"quiet": true` is kept, not celebrated (Dan spomina na mrtve: people light candles at the graves of their family and remember). Its leader asks Jan to come along and remember; everywhere the app says "Praznuj · Celebrate" it says "🕯️ Spomni se · Remember" (the scroll's card, in slate blue instead of gold, "🕯️ Spomnili smo se · We remembered" once done), the HUD's status chip and its panel's pill are plain, not gold, its grace days are "še je čas za spomin · there's still time to remember" (its pack's card: "Še je čas · There's still time"), its run's words are "Besede za spomin · Words to remember", and its pack's tag "🕯️ spominski dan · day of remembrance". The run is the same kind, its 8 words; done, it brings the leader +5 ♥, everyone who lives here +1 ♥ and the chronicle's line ("Na pokopališču so gorele sveče: vsaka družina je prižgala svečo za svoje drage."; a festival names nobody, since it can't wait for anyone), and nothing else: no morale, no good, no treat, no confetti and no cheer over the village; the result says "Spomnili smo se · We remembered" on the dusk's calm blue. A try that doesn't pass is just as gentle: "Nič hudega · Never mind", "Hvala, ker se spominjaš z nami. · Thank you for remembering with us.", nothing paid and nothing lost, and it can be tried again ("Lahko poskusiš še enkrat · You can try again"). A quiet day has no good (the app and the bridge refuse one) and is no season for a seasonal thank-you; kept, it is no feast to share with a friend's town. The tutor sees it in `get_village`'s `calendar`, marked quiet.
-- **Two at once.** Where one festival's grace day is another's day, the one whose day it is comes first (the pill, the bubbles, Home), and the scroll's card shows the one still to keep.
+- **A quiet day.** A festival with `"quiet": true` is kept, not celebrated (Dan spomina na mrtve: people light candles at the graves of their family and remember). Its leader asks Jan to come along and remember; everywhere the app says "Praznuj · Celebrate" it says "🕯️ Spomni se · Remember" (the scroll's card, in slate blue instead of gold, "🕯️ Spomnili smo se · We remembered" once done), the HUD's ring and its timeline's line are plain, not gold, its grace days are "še je čas za spomin · there's still time to remember" (its pack's card: "Še je čas · There's still time"), its run's words are "Besede za spomin · Words to remember", and its pack's tag "🕯️ spominski dan · day of remembrance". The run is the same kind, its 8 words; done, it brings the leader +5 ♥, everyone who lives here +1 ♥ and the chronicle's line ("Na pokopališču so gorele sveče: vsaka družina je prižgala svečo za svoje drage."; a festival names nobody, since it can't wait for anyone), and nothing else: no morale, no good, no treat, no confetti and no cheer over the village; the result says "Spomnili smo se · We remembered" on the dusk's calm blue. A try that doesn't pass is just as gentle: "Nič hudega · Never mind", "Hvala, ker se spominjaš z nami. · Thank you for remembering with us.", nothing paid and nothing lost, and it can be tried again ("Lahko poskusiš še enkrat · You can try again"). A quiet day has no good (the app and the bridge refuse one) and is no season for a seasonal thank-you; kept, it is no feast to share with a friend's town. The tutor sees it in `get_village`'s `calendar`, marked quiet.
+- **Two at once.** Where one festival's grace day is another's day, the one whose day it is comes first (the HUD's timeline, the bubbles, Home), and the scroll's card shows the one still to keep.
 
 | Festival | Day | Leads (the first here) | Words (`praznik-…` pack) | Good |
 |---|---|---|---|---|
@@ -1195,7 +1218,7 @@ Zala's spoon of honey); the well opens the square as the linden does.
 | 🎅 Miklavž · St Nicholas | 6 December | Janez, Micka | Miklavž, angel, parkelj, darilo, okno, priden, poreden, šiba | 🍪 medenjaki |
 | 🎄 Božič · Christmas | 25 December | Micka, Ančka, Janez | božič, jaslice, sveča, sneg, smrečica, Vesel božič!, poprtnik, okrasek | 🍞 poprtnik |
 
-Each pack's giver is the festival's first leader. State: `GameState.festivals: Map<String, String>` (festival id → the ISO date of the festival day celebrated); the run carries its pack and the word under each exercise (`Challenge.pack`, `packWords`). In the app: the HUD's status chip turns gold ("🍷 Danes") and its panel has a gold "Danes: …" pill (a tap celebrates), a bubble under the linden (else by the fire), a card at the top of the scroll's today list, a line on Home.
+Each pack's giver is the festival's first leader. State: `GameState.festivals: Map<String, String>` (festival id → the ISO date of the festival day celebrated); the run carries its pack and the word under each exercise (`Challenge.pack`, `packWords`). In the app: the HUD's ring turns gold ("🍷 Danes") and its timeline has a gold "Danes · Today" line (a tap celebrates), a bubble under the linden (else by the fire), a card at the top of the scroll's today list, a line on Home.
 
 ## The day's surprise
 
@@ -1222,7 +1245,7 @@ While their surprise is on (the pedlar all his day, the pilgrim until he's been 
 
 ## Jutri · Tomorrow
 
-`Tomorrow.teasers` (pure): what's coming, so there's always something to come back for, the most telling first: a festival's countdown (5 days ahead), tomorrow's project step (after today's), the storyteller's story by the fire (tonight's until it's heard, "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: …", then tomorrow's, "Jutri: Janez pove, kako je Krpan srečal cesarja · Tomorrow: …"; SCENES.md, "Stories"), the pedlar's next day within a week ("Krošnjar pride v soboto · The pedlar comes on Saturday"), the next feast within a week (never a friend's gift: that comes as a surprise, see "The chest"), and, from Tabor, always tomorrow's surprise at the road. The HUD's panel shows the first three, under the festival that is on (a 📣 badge on its row while one wasn't seen there yet), the scroll's today list the first three, and Home's "Danes · Today" the first, under what's on in the village today.
+`Tomorrow.teasers` (pure): what's coming, so there's always something to come back for, the most telling first: a festival's countdown (5 days ahead), tomorrow's project step (after today's), the storyteller's story by the fire (tonight's until it's heard, "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: …", then tomorrow's, "Jutri: Janez pove, kako je Krpan srečal cesarja · Tomorrow: …"; SCENES.md, "Stories"), the pedlar's next day within a week ("Krošnjar pride v soboto · The pedlar comes on Saturday"), the next feast within a week (never a friend's gift: that comes as a surprise, see "The chest"), and, from Tabor, always tomorrow's surprise at the road. The HUD's "Danes in kmalu · Today and coming up" shows them all after today's lines, each without its day (`Teaser.what`, its card the first; tonight's story dotted until its sheet showed it), the scroll's today list the first three, and Home's "Danes · Today" the first, under what's on in the village today.
 
 ## Culture packs
 

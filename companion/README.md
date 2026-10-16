@@ -3140,7 +3140,7 @@ companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, fr
 companion/bin/qa --steps chat-swipe              # a tutor message swiped: the reply card, bookmarked, taken away and undone; the list still scrolls; copy, share
 companion/bin/qa --steps chat-links              # a tutor message's links: example.com and http ask first, fran.si opens the browser at once
 companion/bin/qa --steps chat-attach             # 💬 in an exercise's top bar: the exercise attached, ✕, the answer with it; chat-attach-pack: a pack's word
-companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
+companion/bin/qa --steps village-hud             # the village's HUD: its bar and cards, the ring, each card's sheet, German, the plot chooser's ★
 companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
@@ -3212,20 +3212,25 @@ Home, the tutor chat's sheet and the challenges' sheet into their ends (a monkey
 swipe` leaves a busy emulator's app no speed) and checks three screenshots half a second apart are the same.
 
 **The village's HUD** (GAME.md, "The village's HUD"). `ui/game/VillageHudLogicTest` checks what it shows and when (the
-row, the panel, the pill; the plot chooser minimizing it until its pill is tapped; the status chip's age, steps,
-festival and quiet day; the badges; what TalkBack reads). `ui/game/VillageHudTest` puts the HUD on a phone's screen
-under Robolectric with Compose's test rule (`ui-test-junit4`, test only; `ui-test-manifest`'s empty activity in debug
-builds): the row alone at first, under 60 dp, nothing of the panel; the chevron opening the panel and each of its chips,
-the goal's action and the news leading on and closing it; "Skrij vrstico" minimizing it, kept in `HudPrefs` for the
-next village screen, and the pill bringing the row back; a long press and TalkBack's action minimizing it too; the plot
-chooser minimizing it and giving it back, the learner's choice untouched; the badges in the status chip's and the
-pill's labels; and a tap outside the open panel closing it without reaching the map, a drag closing it and panning on.
-On the emulator, `companion/bin/qa --steps village-hud` (also after `ages` in a whole run) checks the row (its bottom
-under 400 px, where the old HUD's rows reached about 830 on the 1080 × 2400 emulator), opens the panel, taps the map
-below it (the panel closes, no card opens), minimizes the HUD, goes home and into the village again (still the pill),
-brings the row back, then opens the plot chooser through QA's hook `build:field` and checks the HUD is a pill and the
-★ lies between it and the chooser's bar, and that the row is back once the chooser is left. Screenshots:
-`hud-collapsed`, `hud-expanded`, `hud-minimized`, `hud-plot-chooser`.
+cards shown or hidden, by the learner and by the plot chooser until its ring is tapped; the ring's age, steps,
+festival and quiet day; "Danes in kmalu"'s lines in their order, today's first, each without its day, today's and
+tonight's story as news and the pedlar's day not; the days' words, "Nocoj · Tonight", "Torek · Tuesday", "Čez 9 dni ·
+In 9 days"; each step's action; the dots, gone once their sheet showed what they marked; what TalkBack reads).
+`ui/game/VillageHudTest` puts the HUD on a phone's screen under Robolectric with Compose's test rule (`ui-test-junit4`,
+test only; `ui-test-manifest`'s empty activity in debug builds): the bar and the three cards (the settlement's swiped
+to), the goal's card with its next step and its button, the bar and the cards under 140 dp; the ring hiding and showing
+the cards (a tap, a long press), kept in `HudPrefs` for the next village screen; each card's section in the sheet, what
+leads on from it closing it (a step's button, a tile, the ages, progress, a festival's line), its ✕; the timeline
+without a doubled day; the dots in the ring's label; the plot chooser hiding the cards and giving them back, the
+learner's choice untouched; and a tap outside the open sheet closing it without reaching the map, a drag closing it and
+panning on. On the emulator, `companion/bin/qa --steps village-hud` (also after `ages` in a whole run; with
+`--minified` on the qa build too) checks the bar and the cards (their bottom under 600 px, where the old HUD's panel
+reached about 1550 on the 1080 × 2400 emulator), hides them by the ring, goes home and into the village again (still
+hidden), shows them, opens each card's section (a tap on the map above the goal's closes it and opens nothing), the
+settlement's in sl · de (QA's hook `pair:sl-de`), then opens the plot chooser through QA's hook `build:field` and checks
+the cards are hidden, the ★ lies between the bar and the chooser's bar, and the cards are back once the chooser is
+left. Screenshots: `hud-cards`, `hud-bar`, `hud-goal`, `hud-soon`, `hud-settlement`, `hud-settlement-de`,
+`hud-plot-chooser`.
 
 **The village's bubbles** (SCENES.md, "Bubbles in the village"; VILLAGERS.md, "Round the fire"). `ui/game/TownLogicTest`
 checks the layout: a bubble whose place is off the screen's left, right or bottom is off it too, over its place; one at
@@ -3414,7 +3419,9 @@ said.
 
 `build:<type>` gets the dev village's copy ready to build one (`build:field`): its stores full and a free plot (the next
 age's, when the age's own are all taken: Jan's Zaselek has none left), and opens the plot chooser for it over the map,
-with its ★ (`village-hud` looks at the HUD minimized over it, then goes back: nothing is built). `build:` lets it go.
+with its ★ (`village-hud` looks at the HUD over it, its cards hidden, then goes back: nothing is built). `build:` lets it go.
+`pair:<target>-<base>` shows the app in that language pair (`pair:sl-de`), as the connection sheet's languages choose
+it; `pair:` follows the learner profile again (`village-hud`'s German).
 
 **The school** (GAME.md, "The school"; [COURSE.md](COURSE.md)). `data/SheetsTest` checks the four worksheet types'
 items (a gap in its own sentence, a table's cells with their forms, a transform's lines, a sorted word), their grading

@@ -3,15 +3,8 @@ package si.lanisce.lani.ui.game
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.snap
-import androidx.compose.foundation.Canvas
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
@@ -20,30 +13,40 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -52,107 +55,136 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.onLongClick
 import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.isFinite
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import si.lanisce.lani.data.HudPrefs
 import si.lanisce.lani.game.AdvanceCheck
 import si.lanisce.lani.game.Age
+import si.lanisce.lani.game.AgeStep
 import si.lanisce.lani.game.Attributes
 import si.lanisce.lani.game.Calendar
 import si.lanisce.lani.game.FestivalDay
 import si.lanisce.lani.game.GameState
+import si.lanisce.lani.game.Projects
 import si.lanisce.lani.game.Res
+import si.lanisce.lani.game.Surprises
 import si.lanisce.lani.game.Teaser
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Localized
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
 import si.lanisce.lani.ui.EmojiLabel
 import si.lanisce.lani.ui.Labels
+import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
+import java.time.LocalDate
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 /**
- * How the village's HUD shows (companion/GAME.md, "The village's HUD"): one slim row ([COLLAPSED]), the row with its panel
- * slid down under it ([EXPANDED]), or a small pill in the corner ([MINIMIZED]), for looking at the village.
+ * The village's HUD (companion/GAME.md, "The village's HUD"): a slim bar over the map (back, the four resources, the
+ * settlement's ring), a row of small cards under it that the ring shows and hides (the goal, today and what's coming,
+ * the settlement's numbers), and a card's section in a sheet from the bottom.
  */
-enum class HudMode { COLLAPSED, EXPANDED, MINIMIZED }
+enum class HudSection { GOAL, SOON, SETTLEMENT }
 
-/** The status chip of the HUD's row: the age and the way to the next one, or the festival that is on (see [VillageHudLogic.status]). */
+
+/** The ring's status: the age and the way to the next one, or the festival that is on (see [VillageHudLogic.status]). */
 data class HudStatus(val emoji: String, val text: String, val description: String, val tone: Tone) {
     enum class Tone {
         /** The age, on its way to the next one. */
         PLAIN,
-        /** Ready to advance: it glows gold, as the age's chip always did. */
+        /** Ready to advance: it glows gold. */
         READY,
         /** A feast today: gold. */
         FESTIVAL,
-        /** A quiet day (Dan spomina na mrtve): plain, as its pill always was. */
+        /** A quiet day (Dan spomina na mrtve): plain. */
         QUIET,
     }
 }
 
-/** Something on the HUD's row that wants a look: a small badge on its status chip, said with it ([description]). */
-data class HudBadge(val kind: Kind, val emoji: String, val description: String) {
-    enum class Kind { FIRE, CHEST, PROJECT, NEWS }
+/** What a line of "Danes in kmalu" leads to, when it leads anywhere (today's: something to do now). */
+sealed interface SoonAction {
+    data class Festival(val id: String) : SoonAction
+    data class Arrival(val id: String) : SoonAction
+    data object Surprise : SoonAction
+    data class Project(val id: String) : SoonAction
 }
 
-/** What the HUD shows and when; pure, so the tests see it without a screen. */
-object VillageHudLogic {
-    /**
-     * How the HUD shows: [minimized] is the learner's choice on this phone, [expanded] the panel opened from the row; while
-     * the plot chooser is on ([choosing]) the HUD minimizes by itself (the ★ and the free plots lie in the map's top half
-     * too), unless the learner tapped its pill meanwhile ([peek]): then the row, for now.
-     */
-    fun mode(minimized: Boolean, expanded: Boolean, choosing: Boolean, peek: Boolean = false): HudMode = when {
-        if (choosing) !peek else minimized -> HudMode.MINIMIZED
-        expanded -> HudMode.EXPANDED
-        else -> HudMode.COLLAPSED
-    }
+/**
+ * A line of "Danes in kmalu · Today and coming up": [day] from today (0 today; [evening]: tonight), [what] in each
+ * language without its day (the timeline says when), [key] to know it again. [news]: today's, and tonight's story, a
+ * dot on the card until the sheet showed it; the later ones are no news.
+ */
+data class SoonLine(
+    val key: String, val day: Int, val evening: Boolean, val emoji: String, val what: Localized,
+    val gold: Boolean = false, val news: Boolean = false, val action: SoonAction? = null,
+)
 
-    /** How many of the next age's steps are done, and how many it has ("4/8"); null at the last age. */
+/** Which cards wear a dot: something new in them, never a standing count. */
+data class HudDots(val goal: Boolean, val soon: Boolean, val settlement: Boolean) {
+    val any: Boolean get() = goal || soon || settlement
+}
+
+/** What the HUD shows and when, and its texts; pure, so the tests see it without a screen. */
+object VillageHudLogic {
+    private const val SEP = " · "
+
+    /** The row of cards: the learner's choice, hidden by itself while a plot chooser is on unless the ring was tapped then ([peek]). */
+    fun cards(shown: Boolean, choosing: Boolean, peek: Boolean = false): Boolean = if (choosing) peek else shown
+
+    /** How many of the next age's steps are done, and how many it has ("7/9"); null at the last age. */
     fun steps(check: AdvanceCheck): Pair<Int, Int>? =
         if (check.next == null) null else check.steps.count { it.done } to check.steps.size
 
     /**
-     * The status chip: a festival that is on and not kept yet shows itself ("🍷 Danes", gold; a quiet day's "🕯️ Danes",
-     * plain), else the next age with its steps done ("🏘️ 4/8": the way to Vas), "✨" when the village can advance (the age
-     * itself is in the panel and on the map; four resources leave no room for its name on a phone).
-     * [description] is what TalkBack reads: the age's chip's words, and the steps still to go.
+     * The ring: a festival that is on and not kept yet shows itself ("🍷 Danes", gold; a quiet day's "🕯️ Danes", plain),
+     * else the next age with its steps done ("🏘️ 7/9"), "✨" when the village can advance. [description] is what
+     * TalkBack reads: the age's words, and the steps still to go.
      */
     fun status(s: GameState, check: AdvanceCheck, festival: FestivalDay?): HudStatus {
         if (festival != null && !festival.done) {
             val f = festival.festival
-            return HudStatus(
-                f.emoji, inTarget("common.today"), Calendar.todayText(festival),
-                if (f.quiet) HudStatus.Tone.QUIET else HudStatus.Tone.FESTIVAL,
-            )
+            return HudStatus(f.emoji, inTarget("common.today"), Calendar.todayText(festival), if (f.quiet) HudStatus.Tone.QUIET else HudStatus.Tone.FESTIVAL)
         }
         val next = check.next ?: return HudStatus(s.age.emoji, s.age.sl, "${bi("villageScreen.age")}: ${s.age.label()}", HudStatus.Tone.PLAIN)
         val (done, all) = steps(check) ?: (0 to 0)
@@ -161,7 +193,7 @@ object VillageHudLogic {
         else HudStatus(next.emoji, count, ageDescription(s, check) + if (all > 0) ", ${stepsLeft(all - done)}" else "", HudStatus.Tone.PLAIN)
     }
 
-    /** "Doba · Age: Zaselek · Hamlet. Do Vas · To the village: 83 %" (the age's chip, the status chip). */
+    /** "Doba · Age: Zaselek · Hamlet. Do Vas · To the village: 83 %". */
     fun ageDescription(s: GameState, check: AdvanceCheck): String {
         val next = check.next
         val percent = (check.progress * 100).roundToInt()
@@ -173,43 +205,136 @@ object VillageHudLogic {
     }
 
     /**
-     * The badges on the row, what wants a look: the fire dying (red, as its chip pulsed), something new in the chest (its
-     * red dot), a project step that can be taken today, and news not yet seen in the panel ([news]: today's lines, [seen]:
-     * the ones the panel showed).
+     * [text] ("Les · Wood") split at its middle " · " into the target's half and the base's: a label made by [bi] has as
+     * many in each half. One without (or with an even number): all of it the target's, no base.
      */
-    fun badges(s: GameState, chestNew: Boolean, stepToday: Boolean, news: List<String>, seen: Set<String>): List<HudBadge> = buildList {
-        if (s.fire < 25) add(HudBadge(HudBadge.Kind.FIRE, "🔥", "${bi("villageScreen.fire")}: ${s.fire}, ${bi("villageScreen.dying")}"))
-        if (chestNew) add(HudBadge(HudBadge.Kind.CHEST, "🧰", "${bi("villageScreen.chest")}: ${bi("villageScreen.somethingNew")}"))
-        if (stepToday) add(HudBadge(HudBadge.Kind.PROJECT, "🏗️", bi("villageHud.stepToday")))
-        if (unseen(news, seen)) add(HudBadge(HudBadge.Kind.NEWS, "📣", bi("villageHud.news")))
+    fun halves(text: String): Pair<String, String?> {
+        val at = buildList {
+            var i = text.indexOf(SEP)
+            while (i >= 0) { add(i); i = text.indexOf(SEP, i + SEP.length) }
+        }
+        if (at.size % 2 == 0) return text to null
+        val i = at[at.size / 2]
+        return text.substring(0, i) to text.substring(i + SEP.length)
     }
 
-    /** Whether a line of [news] wasn't shown in the panel yet ([seen]). */
-    fun unseen(news: List<String>, seen: Set<String>): Boolean = news.any { it !in seen }
+    /** A "target · base" text as one [Localized]: its target half in the target language, its base half in the others. */
+    fun localized(text: String): Localized {
+        val (a, b) = halves(text)
+        return Localized { lang -> if (lang == L10n.pair.target) a else b ?: a }
+    }
 
-    /** What the row's status chip and the pill say to TalkBack: the status, then each badge. */
-    fun description(status: HudStatus, badges: List<HudBadge>): String =
-        (listOf(status.description) + badges.map { it.description }).joinToString("; ")
+    /** [key] in the target and in the base. */
+    fun two(key: String, vararg args: Pair<String, Any?>): Pair<String, String> = inTarget(key, *args) to inBase(key, *args)
+
+    private val WEEKDAYS = listOf(
+        "townScroll.monday", "townScroll.tuesday", "townScroll.wednesday", "townScroll.thursday", "townScroll.friday",
+        "townScroll.saturday", "townScroll.sunday",
+    )
+
+    /** When a line comes: "Danes · Today", "Nocoj · Tonight", "Jutri · Tomorrow", "Torek · Tuesday", "Čez 9 dni · In 9 days". */
+    fun whenOf(day: Int, evening: Boolean, today: LocalDate): Pair<String, String> {
+        val (a, b) = when {
+            day <= 0 && evening -> two("villageHud.tonight")
+            day <= 0 -> two("common.today")
+            day == 1 -> two("tomorrow.on", "day" to "0")
+            day < 7 -> two(WEEKDAYS[today.plusDays(day.toLong()).dayOfWeek.value - 1])
+            else -> two("villageHud.inDays", "n" to day)
+        }
+        return a.replaceFirstChar { it.uppercase() } to b.replaceFirstChar { it.uppercase() }
+    }
+
+    /**
+     * "Danes in kmalu · Today and coming up", in the order they come: today's (the festival that is on, who joined the
+     * village and waits to be met, the day's surprise at the road, a project step to take), then what's coming
+     * ([Teaser]s: tonight's story, tomorrow's step, the pedlar's day …). A villager's request or a happening isn't here:
+     * their bubbles are on the map.
+     */
+    fun soon(village: VillageToday, arrivals: List<TodayItem.Arrival>, today: LocalDate): List<SoonLine> = buildList {
+        village.festival?.takeIf { !it.done }?.let { d ->
+            val f = d.festival
+            add(SoonLine("festival:${f.id}:$today", 0, false, f.emoji, f.nameText, gold = !f.quiet, news = true, action = SoonAction.Festival(f.id)))
+        }
+        for (a in arrivals) add(SoonLine("arrival:${a.id}", 0, false, a.emoji, localized(a.title), news = true, action = SoonAction.Arrival(a.id)))
+        village.surprise?.takeIf { !it.done }?.let { sp ->
+            val emoji = Surprises.emoji(sp.kind)
+            add(SoonLine("surprise:${sp.kind}:$today", 0, false, emoji, localized(Surprises.title(sp).removePrefix("$emoji ")), news = true, action = SoonAction.Surprise))
+        }
+        for (o in village.projects.filter { it.available }) {
+            add(SoonLine("project:${o.spec.id}:${o.done}", 0, false, o.spec.emoji, si.lanisce.lani.game.Tomorrow.stepOf(o.spec, o.done + 1, o.steps), news = true, action = SoonAction.Project(o.spec.id)))
+        }
+        for (t in village.teasers) add(teaser(t))
+    }.sortedBy { it.day * 2 + if (it.evening) 1 else 0 }
+
+    private fun teaser(t: Teaser): SoonLine {
+        val day = t.day ?: 1
+        val tonight = day <= 0 && t.evening
+        return SoonLine("teaser:${t.kind}:$day:${t.text}", day, t.evening, t.emoji, t.what ?: localized(t.text), news = tonight)
+    }
+
+    /** A key for each of the goal's open steps (or the goal itself), so a new one shows a dot. */
+    fun stepKeys(goal: NextGoal, check: AdvanceCheck): List<String> = when (goal) {
+        is NextGoal.Grow, is NextGoal.Learn, is NextGoal.Friends, is NextGoal.Polish ->
+            check.steps.filter { !it.done }.map { "${check.next?.name}:${it.kind}:${it.res?.name ?: it.emoji}" }
+        NextGoal.FeedFire -> listOf("fire")
+        is NextGoal.Advance -> listOf("advance:${goal.to.name}")
+        is NextGoal.Build -> listOf("build:${goal.option.type.name}")
+        is NextGoal.Gather -> listOf("gather:${goal.res.name}")
+    }
+
+    /** The goal's steps still open, when the goal is the way to the next age (else none: its one action). */
+    fun openSteps(goal: NextGoal, check: AdvanceCheck): List<AgeStep> = when (goal) {
+        is NextGoal.Grow, is NextGoal.Learn, is NextGoal.Friends, is NextGoal.Polish -> check.steps.filter { !it.done }
+        else -> emptyList()
+    }
+
+    /** What a step's action says ("🪵 Nabiraj", "Gather"), or null when it has none (done, or a repair first). */
+    fun actionOf(step: AgeStep): Pair<String, String>? = when (stepAction(step)) {
+        // the emoji once, before the target's word (German's "{stepEmoji} Sammeln" too)
+        StepAction.GATHER -> two("villageSheets.gather", "stepEmoji" to step.emoji).let { (a, b) -> a to b.removePrefix(step.emoji).trim() }
+        StepAction.BUILD -> two("common.build").let { (a, b) -> "🔨 $a" to b }
+        StepAction.LEARN -> two("common.learn").let { (a, b) -> "📚 $a" to b }
+        StepAction.POLISH -> two("villageSheets.polish").let { (a, b) -> "🔩 $a" to b }
+        StepAction.HELP -> two("villageSheets.help").let { (a, b) -> "💬 $a" to b }
+        null -> null
+    }
+
+    /** The cards' dots: a goal's step not seen before, today's news or tonight's story not seen in the sheet, the chest's news. */
+    fun dots(view: HudView): HudDots = HudDots(
+        goal = stepKeys(view.goal, view.check).any { it !in view.stepsSeen },
+        soon = view.soon.any { it.news && it.key !in view.soonSeen },
+        settlement = view.chestNew,
+    )
+
+    /** What the ring says to TalkBack: the status, then which cards have something new. */
+    fun description(status: HudStatus, dots: HudDots): String {
+        val new = buildList {
+            if (dots.goal) add(bi("villageHud.nextGoal"))
+            if (dots.soon) add(bi("villageHud.soon"))
+            if (dots.settlement) add(bi("villageScreen.chest"))
+        }
+        return status.description + if (new.isEmpty()) "" else "; ${bi("villageHud.new")}: ${new.joinToString(", ")}"
+    }
 }
 
 /**
- * The HUD's state on the village screen: the learner's choice on this phone ([prefs]: minimized or not), its panel ([open]),
- * and the pill tapped while a plot chooser is on (the row, for that chooser only).
+ * The HUD's state on the village screen: the row of cards (the learner's choice on this phone, [prefs]), the section in
+ * the sheet ([section]), and the ring tapped while a plot chooser is on (the row, for that chooser only).
  */
 @Stable
 class HudState(private val prefs: HudPrefs) {
-    /** The panel is open. */
-    var open by mutableStateOf(false)
-    /** The chooser whose pill was tapped: the row while it lasts. */
+    /** The card whose section is in the sheet, or null: none open. */
+    var section by mutableStateOf<HudSection?>(null)
+    /** The chooser whose ring was tapped: the row while it lasts. */
     private var peekAt by mutableStateOf<Int?>(null)
 
-    /** How the HUD shows now; [chooser]: the plot chooser that is on (a number for each time it opens), or null. */
-    fun mode(chooser: Int?): HudMode = VillageHudLogic.mode(prefs.minimized, open, chooser != null, chooser != null && peekAt == chooser)
+    /** Whether the row of cards shows now; [chooser]: the plot chooser that is on (a number for each time it opens), or null. */
+    fun cards(chooser: Int?): Boolean = VillageHudLogic.cards(prefs.cardsShown, chooser != null, chooser != null && peekAt == chooser)
 
-    /** The pill (true) or the row back: the learner's choice, kept on the phone; while [chooser] is on, for it only. */
-    fun minimize(on: Boolean, chooser: Int?) {
-        open = false
-        if (chooser != null) peekAt = if (on) null else chooser else prefs.minimize(on)
+    /** The ring: the row shown or hidden, the learner's choice kept on the phone; while [chooser] is on, for it only. */
+    fun toggleCards(chooser: Int?) {
+        section = null
+        if (chooser != null) peekAt = if (peekAt == chooser) null else chooser else prefs.showCards(!prefs.cardsShown)
     }
 }
 
@@ -222,322 +347,592 @@ data class HudView(
     /** The goal's one-tap action (its card's first button), or null. */
     val goalAction: GoalAction?,
     val chestNew: Boolean,
-    /** A project step can be taken today. */
-    val stepToday: Boolean,
     /** The festival that is on and not kept yet. */
     val festival: FestivalDay?,
-    /** What's coming ("Jutri · Tomorrow"), the panel's news. */
-    val teasers: List<Teaser>,
-    /** The news lines the panel showed last ([si.lanisce.lani.data.HudPrefs.newsSeen]). */
-    val newsSeen: Set<String>,
+    /** "Danes in kmalu · Today and coming up" ([VillageHudLogic.soon]). */
+    val soon: List<SoonLine>,
+    /** The keys of the lines the sheet showed last ([HudPrefs.soonSeen]). */
+    val soonSeen: Set<String> = emptySet(),
+    /** The goal's steps seen ([HudPrefs.stepsSeen]). */
+    val stepsSeen: Set<String> = emptySet(),
 ) {
     val status: HudStatus get() = VillageHudLogic.status(state, check, festival)
-    val badges: List<HudBadge> get() = VillageHudLogic.badges(state, chestNew, stepToday, teasers.map { it.line }, newsSeen)
+    val dots: HudDots get() = VillageHudLogic.dots(this)
 }
 
-/** What the HUD's chips and buttons do. */
+/** What the HUD's bar, cards and sheet do. */
 class HudActions(
     val back: () -> Unit,
     val resource: (Res) -> Unit,
+    /** The ages sheet: every step of the next age. */
     val age: () -> Unit,
     val info: () -> Unit,
     val fire: () -> Unit,
     val chest: () -> Unit,
-    val projects: () -> Unit,
+    /** The projects sheet, at one of them (its id) or all. */
+    val projects: (String?) -> Unit,
     val progress: () -> Unit,
-    /** The goal's line: the scroll at "Naslednji cilj". */
+    /** The goal's card in full: the scroll at "Naslednji cilj". */
     val goal: () -> Unit,
     val festival: (String) -> Unit,
-    /** A news line: the scroll's today list. */
-    val news: () -> Unit,
-    /** The panel opened (true) or closed. */
-    val expand: (Boolean) -> Unit,
-    /** The HUD minimized to its pill (true), or the row back. */
-    val minimize: (Boolean) -> Unit,
-    /** An open step of the next age worked on (the variants' goal: gather, build, learn, polish, help). */
-    val step: (si.lanisce.lani.game.AgeStep) -> Unit = {},
+    /** Meets someone who joined the village (their id). */
+    val arrival: (String) -> Unit,
+    /** The day's surprise at the road (the pedlar: his stall in the chest). */
+    val surprise: () -> Unit,
+    /** An open step of the next age worked on (gather, build, learn, polish, help). */
+    val step: (AgeStep) -> Unit,
+    /** The ring: the row of cards shown or hidden. */
+    val cards: () -> Unit,
+    /** A card's section in the sheet, or null: the sheet closed. */
+    val sheet: (HudSection?) -> Unit,
 )
 
 /**
- * The village's HUD over the top of the map (companion/GAME.md, "The village's HUD"), as [mode] says: the slim row (back,
- * the four resources, the status chip with its badges and the chevron), the panel under it with everything else, or the
- * pill in the corner. [onRow] and [onPill] get the height each covers (the status bar's included) for the camera and the
- * bubbles; the recenter button sits under the row (beside the pill) while the camera is [moved]. [reduced]: the system's
+ * The village's HUD over the map (companion/GAME.md, "The village's HUD"): the bar, the row of cards when [cards], and
+ * [section]'s sheet from the bottom. [onTop] gets the heights the bar (the status bar's included) and the row of cards
+ * cover at the top, for the camera and the bubbles (the row's as it is when shown, whether it shows or not); [onInside] the rects a tap may land on without closing the sheet ("top",
+ * "sheet"; null: gone). The recenter button hangs under them while the camera is [moved]. [reduced]: the system's
  * "remove animations": nothing slides or pulses.
  */
 @Composable
 fun VillageHud(
-    view: HudView, mode: HudMode, actions: HudActions, moved: Boolean, onRecenter: () -> Unit, reduced: Boolean,
-    modifier: Modifier = Modifier, onRow: (Int) -> Unit = {}, onPill: (Int) -> Unit = {},
-    variant: HudVariant? = null, onInside: (String, Rect?) -> Unit = { _, _ -> },
+    view: HudView, cards: Boolean, section: HudSection?, actions: HudActions, moved: Boolean, onRecenter: () -> Unit, reduced: Boolean,
+    modifier: Modifier = Modifier, onTop: (bar: Int, row: Int) -> Unit = { _, _ -> }, onInside: (String, Rect?) -> Unit = { _, _ -> },
 ) {
-    val status = view.status
-    val badges = view.badges
-    Box(modifier.fillMaxWidth()) {
-        // a design variant to compare (QA's hook "hud:variant:<A|B|C>", ui/game/HudVariants.kt): its bar and the rest
-        if (variant != null && mode != HudMode.MINIMIZED) {
-            VariantHud(variant, view, mode == HudMode.EXPANDED, actions, moved, onRecenter, reduced, onBar = onRow, onInside = onInside)
-            return@Box
-        }
-        if (mode == HudMode.MINIMIZED) {
-            Row(
-                Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 10.dp, vertical = 6.dp).onSizeChanged { onPill(it.height) },
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                HudPill(status, badges, onClick = { actions.minimize(false) })
-                Spacer(Modifier.weight(1f))
-                if (moved) RecenterButton(onRecenter)
-            }
-            return@Box
-        }
-        val expanded = mode == HudMode.EXPANDED
+    val dots = view.dots
+    // what leads on closes the sheet first
+    val leads = remember(actions) {
+        fun then(f: () -> Unit): () -> Unit = { actions.sheet(null); f() }
+        HudActions(
+            back = then(actions.back), resource = { r -> actions.sheet(null); actions.resource(r) }, age = then(actions.age), info = then(actions.info),
+            fire = then(actions.fire), chest = then(actions.chest), projects = { id -> actions.sheet(null); actions.projects(id) },
+            progress = then(actions.progress), goal = then(actions.goal), festival = { id -> actions.sheet(null); actions.festival(id) },
+            arrival = { id -> actions.sheet(null); actions.arrival(id) }, surprise = then(actions.surprise),
+            step = { st -> actions.sheet(null); actions.step(st) }, cards = actions.cards, sheet = actions.sheet,
+        )
+    }
+    var barPx by remember { mutableStateOf(0) }
+    var rowPx by remember { mutableStateOf(0) }
+    LaunchedEffect(barPx, rowPx) { if (barPx > 0) onTop(barPx, rowPx) }
+    Box(modifier.fillMaxSize()) {
         Column(Modifier.fillMaxWidth()) {
-            HudRow(view, status, badges, expanded, actions, reduced, Modifier.onSizeChanged { onRow(it.height) })
-            AnimatedVisibility(
-                expanded,
-                enter = if (reduced) EnterTransition.None else expandVertically(expandFrom = Alignment.Top) + fadeIn(),
-                exit = if (reduced) ExitTransition.None else shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut(),
-            ) {
-                HudPanel(view, actions, reduced)
-            }
-            if (!expanded && moved) {
-                Row(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
-                    Spacer(Modifier.weight(1f))
-                    RecenterButton(onRecenter)
+            Column(Modifier.fillMaxWidth().onGloballyPositioned { onInside("top", it.boundsInWindow()) }) {
+                Box(Modifier.onSizeChanged { barPx = it.height }) { Bar(view, leads, cards, ringDot = !cards && dots.any, dots = dots, reduced = reduced) }
+                AnimatedVisibility(
+                    cards,
+                    enter = if (reduced) EnterTransition.None else expandVertically(expandFrom = Alignment.Top) + fadeIn(),
+                    exit = if (reduced) ExitTransition.None else shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut(),
+                ) {
+                    Box(Modifier.onSizeChanged { rowPx = it.height }) { CardRow(view, dots, leads) }
                 }
+            }
+            if (moved) Row(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
+                Spacer(Modifier.weight(1f))
+                RecenterButton(onRecenter)
+            }
+        }
+        // the sheet keeps its section while it slides away
+        var shown by remember { mutableStateOf(section ?: HudSection.GOAL) }
+        if (section != null) shown = section
+        HudSheet(section != null, reduced, onClose = { actions.sheet(null) }, onBounds = { onInside("sheet", it) }) {
+            when (shown) {
+                HudSection.GOAL -> GoalSection(view, leads)
+                HudSection.SOON -> SoonSection(view, leads)
+                HudSection.SETTLEMENT -> SettlementSection(view, leads)
             }
         }
     }
 }
 
-/** The slim row: back, the four resources (each opens its sheet, with Trade), the status chip and its chevron. */
+// --- the bar ----------------------------------------------------------------------------------
+
+/** The bar: back, the four resources (their bars to the cap; a tap: its sheet, with Trade), the settlement's ring. */
 @Composable
-private fun HudRow(view: HudView, status: HudStatus, badges: List<HudBadge>, expanded: Boolean, actions: HudActions, reduced: Boolean, modifier: Modifier) {
+private fun Bar(view: HudView, actions: HudActions, cards: Boolean, ringDot: Boolean, dots: HudDots, reduced: Boolean) {
     val s = view.state
     Row(
-        modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp),
+        Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        // each closes the panel as it opens what it leads to, as the panel's own do
-        fun then(f: () -> Unit): () -> Unit = { if (expanded) actions.expand(false); f() }
-        HudButton("←", Labels.BACK, then(actions.back))
-        for (r in Res.entries) ResourceChip(r, s.res(r), view.attrs.caps[r], onClick = then { actions.resource(r) }, modifier = Modifier.weight(1f))
-        StatusChip(status, badges, expanded, reduced, onToggle = { actions.expand(!expanded) }, onMinimize = { actions.minimize(true) })
+        HudButton("←", Labels.BACK, actions.back)
+        for (r in Res.entries) ResourceChip(r, s.res(r), view.attrs.caps[r], onClick = { actions.resource(r) }, modifier = Modifier.weight(1f))
+        SettlementRing(view, cards, ringDot, dots, reduced, actions.cards)
     }
 }
 
 /**
- * The status chip: the status ([HudStatus]) and the chevron in one pill; a tap on either opens the panel (closes it, open),
- * a long press minimizes the HUD. The badges sit on its top edge; TalkBack reads them with the status, and finds "Skrij
- * vrstico · Hide the bar" among the actions.
+ * The settlement's ring: the next age's emoji in a ring that fills with its steps, "7/9" under it (the one place it
+ * shows), gold when the village can advance (glowing) or a feast is on. A tap, or a long press, shows or hides the row
+ * of cards; [dot]: the row is hidden and something in it is new.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun StatusChip(status: HudStatus, badges: List<HudBadge>, expanded: Boolean, reduced: Boolean, onToggle: () -> Unit, onMinimize: () -> Unit) {
+private fun SettlementRing(view: HudView, cards: Boolean, dot: Boolean, dots: HudDots, reduced: Boolean, onToggle: () -> Unit) {
+    val status = view.status
     val haptic = LocalHapticFeedback.current
-    val minimize = { haptic.performHapticFeedback(HapticFeedbackType.LongPress); onMinimize() }
+    val gold = status.tone == HudStatus.Tone.READY || status.tone == HudStatus.Tone.FESTIVAL
     val glow = status.tone == HudStatus.Tone.READY && !reduced
     val pulse = if (glow) rememberInfiniteTransition(label = "ready").animateFloat(0.55f, 1f, infiniteRepeatable(tween(700), RepeatMode.Reverse), label = "a").value else 1f
-    val gold = status.tone == HudStatus.Tone.READY || status.tone == HudStatus.Tone.FESTIVAL
-    val ink = if (gold) Color(0xFF2B2118) else Color.White
-    val hide = CustomAccessibilityAction(bi("villageHud.hide")) { minimize(); true }
-    val toggleLabel = bi(if (expanded) "villageHud.less" else "villageHud.more")
-    Box {
-        Surface(color = if (gold) XpGold.copy(alpha = 0.92f * pulse) else HudPlate, shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 48.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Row(
-                    Modifier.heightIn(min = 48.dp).widthIn(max = 120.dp)
-                        .combinedClickable(onClick = onToggle, onLongClick = minimize)
-                        .clearAndSetSemantics {
-                            role = Role.Button
-                            contentDescription = VillageHudLogic.description(status, badges)
-                            onClick(toggleLabel) { onToggle(); true }
-                            onLongClick(bi("villageHud.hide")) { minimize(); true }
-                            customActions = listOf(hide)
-                        }
-                        .padding(start = 10.dp, end = 2.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(status.emoji, style = MaterialTheme.typography.labelLarge, maxLines = 1)
-                    Spacer(Modifier.width(3.dp))
-                    Text(status.text, color = ink, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                }
-                Box(
-                    Modifier.size(width = 30.dp, height = 48.dp)
-                        .combinedClickable(onClick = onToggle, onLongClick = minimize)
-                        .clearAndSetSemantics {
-                            role = Role.Button
-                            contentDescription = toggleLabel
-                            onLongClick(bi("villageHud.hide")) { minimize(); true }
-                            customActions = listOf(hide)
-                        },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Chevron(up = expanded, color = ink, reduced = reduced)
-                }
-            }
-        }
-        if (badges.isNotEmpty()) {
-            Row(Modifier.align(Alignment.TopStart).offset(x = (-2).dp, y = (-7).dp), horizontalArrangement = Arrangement.spacedBy((-4).dp)) {
-                for (b in badges) BadgeDot(b)
-            }
-        }
-    }
-}
-
-/** One badge: its emoji small in a ring, red for the fire, with a red dot for the chest's news. */
-@Composable
-private fun BadgeDot(b: HudBadge) {
-    Box {
+    val toggle = bi(if (cards) "villageHud.hideCards" else "villageHud.showCards")
+    val said = VillageHudLogic.description(status, dots)
+    val long = { haptic.performHapticFeedback(HapticFeedbackType.LongPress); onToggle() }
+    Box(Modifier.size(width = 54.dp, height = 58.dp)) {
         Box(
-            Modifier.size(20.dp).clip(CircleShape).background(if (b.kind == HudBadge.Kind.FIRE) TriglavRed else Color.White)
-                .border(1.5.dp, Color(0xFF2B2118), CircleShape).clearAndSetSemantics { },
+            Modifier.align(Alignment.TopCenter).size(48.dp).clip(CircleShape).background(if (gold) XpGold.copy(alpha = 0.92f * pulse) else HudPlate)
+                .combinedClickable(onClick = onToggle, onLongClick = long)
+                .clearAndSetSemantics {
+                    role = Role.Button
+                    contentDescription = said
+                    onClick(toggle) { onToggle(); true }
+                    onLongClick(toggle) { long(); true }
+                },
             contentAlignment = Alignment.Center,
-        ) { Text(b.emoji, fontSize = 10.sp, lineHeight = 11.sp, maxLines = 1) }
-        if (b.kind == HudBadge.Kind.CHEST) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 3.dp, y = (-3).dp).size(8.dp))
+        ) {
+            val progress = view.check.progress
+            Canvas(Modifier.fillMaxSize().padding(3.dp)) {
+                val w = 3.5.dp.toPx()
+                drawArc(Color.White.copy(alpha = 0.18f), -90f, 360f, false, style = Stroke(w))
+                if (!gold) drawArc(XpGold, -90f, 360f * progress.coerceIn(0.03f, 1f), false, style = Stroke(w, cap = StrokeCap.Round))
+            }
+            Text(status.emoji, fontSize = 19.sp, lineHeight = 20.sp, modifier = Modifier.offset(y = (-2).dp))
+        }
+        Surface(color = Ink, shape = RoundedCornerShape(50), modifier = Modifier.align(Alignment.BottomCenter).clearAndSetSemantics { }) {
+            Text(
+                status.text, color = if (gold) XpGold else Color.White, fontSize = 11.sp, lineHeight = 13.sp, fontWeight = FontWeight.Bold,
+                maxLines = 1, modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp),
+            )
+        }
+        if (dot) NewDot(Modifier.align(Alignment.TopEnd).offset(x = (-1).dp, y = 1.dp))
     }
 }
 
-/** Minimized: "⌄ 🛖" in the corner (a red dot when a badge wants a look); a tap brings the row back. */
+/** Dark ink: the ring's count, text on gold. */
+private val Ink = Color(0xFF2B2118)
+
+// --- the cards --------------------------------------------------------------------------------
+
+/** The row of cards under the bar: the goal, today and what's coming, the settlement; swiped sideways, a tap opens one. */
 @Composable
-private fun HudPill(status: HudStatus, badges: List<HudBadge>, onClick: () -> Unit) {
-    val description = "${bi("villageHud.show")}. ${VillageHudLogic.description(status, badges)}"
+private fun CardRow(view: HudView, dots: HudDots, actions: HudActions) {
+    val list = rememberLazyListState()
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val w = maxWidth * 0.84f
+        LazyRow(
+            state = list, flingBehavior = rememberSnapFlingBehavior(list), contentPadding = PaddingValues(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth().padding(bottom = 6.dp).testTag(CARDS_TAG),
+        ) {
+            item { GoalCard(view, dots.goal, actions, Modifier.width(w)) }
+            item { SoonCard(view, dots.soon, actions, Modifier.width(w)) }
+            item { SettlementCard(view, dots.settlement, actions, Modifier.width(maxWidth - 16.dp)) }
+        }
+    }
+}
+
+/** The row of cards, for the tests to scroll it. */
+internal const val CARDS_TAG = "hud-cards"
+
+/** The cards' plate: the bar's, a little stronger, so two lines read over any sky. */
+private val CardPlate = Color(0xE0141B2A)
+
+@Composable
+private fun SmallCard(modifier: Modifier, description: String, dot: Boolean, onClick: () -> Unit, content: @Composable RowScope.() -> Unit) {
+    Box(modifier) {
+        Surface(
+            onClick = onClick, color = CardPlate, shape = RoundedCornerShape(16.dp),
+            modifier = Modifier.fillMaxWidth().height(60.dp).semantics { contentDescription = description },
+        ) {
+            Row(Modifier.padding(horizontal = 10.dp), verticalAlignment = Alignment.CenterVertically) { content() }
+        }
+        if (dot) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = (-2).dp))
+    }
+}
+
+/** The goal's card: the goal, the next step with how far, and that step's own action ("🪵 Nabiraj · Gather"). */
+@Composable
+private fun GoalCard(view: HudView, dot: Boolean, actions: HudActions, modifier: Modifier) {
+    val (t, b) = VillageHudLogic.halves(view.goal.short())
+    val first = VillageHudLogic.openSteps(view.goal, view.check).firstOrNull { VillageHudLogic.actionOf(it) != null }
+    val line2 = first?.let { st -> "${st.label}${if (st.kind != AgeStep.Kind.RUSTY) "  ${min(st.have, st.need)}/${st.need}" else ""}" } ?: b
+    SmallCard(modifier, "${bi("villageHud.nextGoal")}: ${view.goal.short()}", dot, onClick = { actions.sheet(HudSection.GOAL) }) {
+        Text("🎯", style = MaterialTheme.typography.titleMedium)
+        Spacer(Modifier.width(8.dp))
+        TwoLines(t, line2, Modifier.weight(1f))
+        val act = first?.let { VillageHudLogic.actionOf(it) }
+        if (first != null && act != null) {
+            Spacer(Modifier.width(6.dp))
+            ActionPill(act.first, act.second, AlpineGreen) { actions.step(first) }
+        } else view.goalAction?.let { a ->
+            Spacer(Modifier.width(6.dp))
+            val (at, ab) = VillageHudLogic.halves(a.label)
+            ActionPill(at, ab, a.color) { actions.sheet(null); a.run() }
+        }
+    }
+}
+
+/** Today and what's coming: the next line, "+n" more. */
+@Composable
+private fun SoonCard(view: HudView, dot: Boolean, actions: HudActions, modifier: Modifier) {
+    val first = view.soon.firstOrNull()
+    val pair = L10n.pair
+    SmallCard(modifier, bi("villageHud.soon") + (first?.let { ": ${it.what.of(pair.target)}" } ?: ""), dot, onClick = { actions.sheet(HudSection.SOON) }) {
+        if (first == null) {
+            Text("🗓️", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.width(8.dp))
+            TwoLines(inTarget("villageHud.soon"), inBase("villageHud.soon"), Modifier.weight(1f))
+            return@SmallCard
+        }
+        WhenColumn(VillageHudLogic.whenOf(first.day, first.evening, LocalDate.now()), Modifier.width(62.dp))
+        Text(first.emoji, style = MaterialTheme.typography.titleMedium, modifier = Modifier.width(28.dp))
+        TwoLines(first.what.of(pair.target), first.what.of(pair.base), Modifier.weight(1f), strong = false)
+        val more = view.soon.size - 1
+        if (more > 0) {
+            Spacer(Modifier.width(6.dp))
+            Surface(color = PanelChip, shape = RoundedCornerShape(50)) {
+                Text("+$more", color = Color.White, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp))
+            }
+        }
+    }
+}
+
+/** The settlement: the way to the next age, and its six numbers, each with its name under it (the target's, in brief). */
+@Composable
+private fun SettlementCard(view: HudView, dot: Boolean, actions: HudActions, modifier: Modifier) {
+    val s = view.state
+    val next = view.check.next
+    SmallCard(modifier, "${bi("villageHud.settlement")}: ${s.age.label()}", dot, onClick = { actions.sheet(HudSection.SETTLEMENT) }) {
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(1.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    if (next != null) "${s.age.emoji} ${s.age.sl} → ${next.emoji} ${next.sl}" else "${s.age.emoji} ${s.age.sl}",
+                    color = XpGold, fontSize = 11.sp, lineHeight = 13.sp, fontWeight = FontWeight.Bold, maxLines = 1,
+                )
+                if (next != null) {
+                    Spacer(Modifier.width(8.dp))
+                    Box(Modifier.weight(1f).height(4.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.18f))) {
+                        Box(Modifier.fillMaxHeight().fillMaxWidth(view.check.progress.coerceIn(0.03f, 1f)).clip(CircleShape).background(XpGold))
+                    }
+                }
+            }
+            Row {
+                for (t in tiles(view, actions)) {
+                    Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            "${t.emoji}${t.value}", color = if (t.warn) TriglavRed else Color.White, fontSize = 12.sp, lineHeight = 15.sp,
+                            fontWeight = FontWeight.Bold, maxLines = 1,
+                        )
+                        Text(t.label.first, color = Color.White.copy(alpha = 0.6f), fontSize = 9.sp, lineHeight = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// --- the sheet's sections ---------------------------------------------------------------------
+
+/** A section's header: "NASLEDNJI CILJ · Next goal", and what it may hold at its end. */
+@Composable
+private fun SectionHeader(key: String, trailing: (@Composable () -> Unit)? = null) {
+    Row(Modifier.fillMaxWidth().heightIn(min = 28.dp), verticalAlignment = Alignment.CenterVertically) {
+        // TalkBack reads the heading as the app's labels read, "Naselje · Settlement"; what's at its end is its own
+        Row(Modifier.weight(1f).clearAndSetSemantics { heading(); contentDescription = bi(key) }, verticalAlignment = Alignment.CenterVertically) {
+            Text(inTarget(key).uppercase(), color = XpGold, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold, letterSpacing = 1.sp, maxLines = 1)
+            Text(" · ${inBase(key)}", color = Color.White.copy(alpha = 0.55f), style = MaterialTheme.typography.labelMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        }
+        trailing?.invoke()
+    }
+}
+
+/** Two lines, the target's over the base's, each cut with "…" ([lines] each). */
+@Composable
+private fun TwoLines(target: String, base: String?, modifier: Modifier = Modifier, strong: Boolean = true, lines: Int = 1) {
+    Column(modifier) {
+        Text(
+            target, color = Color.White, style = if (strong) MaterialTheme.typography.labelLarge else MaterialTheme.typography.bodyMedium,
+            fontWeight = if (strong) FontWeight.SemiBold else FontWeight.Normal, maxLines = lines, overflow = TextOverflow.Ellipsis,
+        )
+        if (!base.isNullOrBlank() && base != target) Text(base, color = Color.White.copy(alpha = 0.62f), style = MaterialTheme.typography.bodySmall, maxLines = lines, overflow = TextOverflow.Ellipsis)
+    }
+}
+
+/** When a line comes: the target's word in gold over the base's. */
+@Composable
+private fun WhenColumn(at: Pair<String, String>, modifier: Modifier) {
+    Column(modifier) {
+        Text(at.first, color = XpGold, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(at.second, color = Color.White.copy(alpha = 0.55f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+    }
+}
+
+/** The next goal: its line (a tap: the goal's card in full), then each open step with its own action, or the goal's one action. */
+@Composable
+private fun GoalSection(view: HudView, actions: HudActions) {
+    val steps = VillageHudLogic.openSteps(view.goal, view.check)
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        SectionHeader("villageHud.nextGoal")
+        val (t, b) = VillageHudLogic.halves(view.goal.short())
+        Surface(onClick = actions.goal, color = Color.Transparent, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) {
+            Row(Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text("🎯", style = MaterialTheme.typography.titleMedium, modifier = Modifier.width(32.dp))
+                TwoLines(t, b, Modifier.weight(1f))
+                Text("›", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.titleMedium)
+            }
+        }
+        if (steps.isNotEmpty()) for (st in steps) StepLine(st) { actions.step(st) }
+        else view.goalAction?.let { a ->
+            val (at, ab) = VillageHudLogic.halves(a.label)
+            ActionPill(at, ab, a.color, wide = true) { actions.sheet(null); a.run() }
+        }
+    }
+}
+
+/** An open step of the next age: what, how much of how much, a thin bar, and its action ("🪵 Nabiraj · Gather"). */
+@Composable
+private fun StepLine(step: AgeStep, onAction: () -> Unit) {
+    val (t, b) = VillageHudLogic.halves(step.label)
+    Surface(color = PanelChip, shape = RoundedCornerShape(14.dp), modifier = Modifier.fillMaxWidth()) {
+        Row(Modifier.padding(start = 10.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(step.emoji, style = MaterialTheme.typography.titleMedium, modifier = Modifier.width(30.dp))
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        t + if (step.broken) " 🔧" else "", color = Color.White, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold,
+                        maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f),
+                    )
+                    if (step.kind != AgeStep.Kind.RUSTY) Text("${min(step.have, step.need)}/${step.need}", color = Color.White.copy(alpha = 0.75f), style = MaterialTheme.typography.labelMedium)
+                }
+                if (b != null) Text(b, color = Color.White.copy(alpha = 0.55f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Box(Modifier.fillMaxWidth().height(4.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.15f))) {
+                    Box(Modifier.fillMaxHeight().fillMaxWidth(step.share.coerceIn(0.03f, 1f)).clip(CircleShape).background(XpGold))
+                }
+            }
+            VillageHudLogic.actionOf(step)?.let { (at, ab) ->
+                Spacer(Modifier.width(10.dp))
+                ActionPill(at, ab, AlpineGreen, onClick = onAction)
+            }
+        }
+    }
+}
+
+/** A small action: the target's word over the base's. */
+@Composable
+private fun ActionPill(target: String, base: String?, color: Color, wide: Boolean = false, onClick: () -> Unit) {
+    val ink = if (color == XpGold) Ink else Color.White
+    Surface(
+        onClick = onClick, color = color, shape = RoundedCornerShape(50),
+        modifier = Modifier.heightIn(min = 44.dp).then(if (wide) Modifier.fillMaxWidth() else Modifier.widthIn(min = 84.dp, max = 124.dp)),
+    ) {
+        Column(Modifier.padding(horizontal = 12.dp, vertical = 5.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            Text(target, color = ink, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+            if (!base.isNullOrBlank() && base != target) Text(base, color = ink.copy(alpha = 0.8f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+        }
+    }
+}
+
+/** Today and what's coming as a short timeline: when, an emoji, a line in each language; today's lead on, the others show all of themselves on a tap. */
+@Composable
+private fun SoonSection(view: HudView, actions: HudActions) {
+    val today = LocalDate.now()
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        SectionHeader("villageHud.soon")
+        if (view.soon.isEmpty()) Text(bi("townScroll.quietDayVillageLook"), color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.bodyMedium)
+        for (line in view.soon) {
+            val open: (() -> Unit)? = when (val a = line.action) {
+                is SoonAction.Festival -> ({ actions.festival(a.id) })
+                is SoonAction.Arrival -> ({ actions.arrival(a.id) })
+                SoonAction.Surprise -> actions.surprise
+                is SoonAction.Project -> ({ actions.projects(a.id) })
+                null -> null
+            }
+            SoonRow(line, VillageHudLogic.whenOf(line.day, line.evening, today), new = line.news && line.key !in view.soonSeen, onOpen = open)
+        }
+    }
+}
+
+@Composable
+private fun SoonRow(line: SoonLine, at: Pair<String, String>, new: Boolean, onOpen: (() -> Unit)?) {
+    var full by remember(line.key) { mutableStateOf(false) }
+    val pair = L10n.pair
     Box {
         Surface(
-            onClick = onClick, color = HudPlate, shape = RoundedCornerShape(50),
-            modifier = Modifier.heightIn(min = 48.dp).hudSemantics(description, onClick),
+            onClick = { if (onOpen != null) onOpen() else full = !full },
+            color = if (line.gold) XpGold.copy(alpha = 0.25f) else PanelChip, shape = RoundedCornerShape(14.dp), modifier = Modifier.fillMaxWidth(),
         ) {
-            Row(Modifier.padding(horizontal = 14.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
-                Chevron(up = false, color = Color.White, reduced = true)
-                Spacer(Modifier.width(6.dp))
-                Text(status.emoji, style = MaterialTheme.typography.labelLarge, maxLines = 1)
+            Row(Modifier.padding(horizontal = 10.dp, vertical = 8.dp), verticalAlignment = if (full) Alignment.Top else Alignment.CenterVertically) {
+                WhenColumn(at, Modifier.width(78.dp))
+                Text(line.emoji, style = MaterialTheme.typography.titleMedium, modifier = Modifier.width(30.dp))
+                TwoLines(line.what.of(pair.target), line.what.of(pair.base), Modifier.weight(1f), strong = false, lines = if (full) 8 else 1)
+                if (onOpen != null) Text("›", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(start = 6.dp))
             }
         }
-        if (badges.isNotEmpty()) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = (-2).dp))
+        if (new) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = (-2).dp))
     }
 }
 
-/**
- * The panel under the row: the age and its way, the village's numbers (villagers, morale, the fire, the chest, the
- * projects, progress), the goal with its checklist and one-tap action, today's festival and news, and "Skrij vrstico ·
- * Hide the bar". Everything in it closes it as it opens what it leads to.
- */
-@OptIn(ExperimentalLayoutApi::class)
+/** The settlement: its age and the way to the next (a tap: the ages), and its numbers, each with its name under it. */
 @Composable
-private fun HudPanel(view: HudView, actions: HudActions, reduced: Boolean) {
+private fun SettlementSection(view: HudView, actions: HudActions) {
     val s = view.state
-    val attrs = view.attrs
-    fun then(f: () -> Unit): () -> Unit = { actions.expand(false); f() }
-    BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
-        // it scrolls rather than covering the bar at the thumb
-        val most = if (maxHeight.isFinite) (maxHeight - 96.dp).coerceAtLeast(240.dp) else 600.dp
-        Surface(color = HudPanelPlate, shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth().heightIn(max = most)) {
-            Column(Modifier.verticalScroll(rememberScrollState()).padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                AgeChip(s, view.check, reduced, then(actions.age))
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp), itemVerticalAlignment = Alignment.CenterVertically) {
-                    StatChip("👥", "${s.villagers}/${attrs.populationCap}", "${bi("villageScreen.villagers")}: ${s.villagers} / ${attrs.populationCap}", onClick = then(actions.info))
-                    StatChip(moraleEmoji(s.morale), "${s.morale}", "${bi("villageScreen.morale")}: ${s.morale}", onClick = then(actions.info))
-                    StatChip(
-                        "🔥", "${s.fire}", "${bi("villageScreen.fire")}: ${s.fire}" + if (s.fire < 25) ", ${bi("villageScreen.dying")}" else "",
-                        warn = s.fire < 25, reduced = reduced, onClick = then(actions.fire),
+    val check = view.check
+    val next = check.next
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        SectionHeader("villageHud.settlement") {
+            Surface(onClick = actions.progress, color = PanelChip, shape = RoundedCornerShape(50), modifier = Modifier.hudSemantics(Labels.PROGRESS, actions.progress)) {
+                Text("📊 ${inTarget("common.progress")} ›", color = Color.White, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
+            }
+        }
+        Surface(
+            onClick = actions.age, color = PanelChip, shape = RoundedCornerShape(16.dp),
+            modifier = Modifier.fillMaxWidth().hudSemantics(VillageHudLogic.ageDescription(s, check), actions.age),
+        ) {
+            Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(s.age.emoji, style = MaterialTheme.typography.titleLarge)
+                    Spacer(Modifier.width(10.dp))
+                    TwoLines(
+                        if (next != null) "${s.age.sl} → ${next.emoji} ${next.sl}" else s.age.sl,
+                        if (next != null) "${s.age.en} → ${next.en}" else s.age.en,
+                        Modifier.weight(1f),
                     )
-                    StatChip(
-                        "🧰", "🤝 ${s.help}",
-                        "${bi("villageScreen.chest")}. ${bi("common.help")}: ${s.help}" + if (view.chestNew) ", ${bi("villageScreen.somethingNew")}" else "",
-                        dot = view.chestNew, onClick = then(actions.chest),
-                    )
-                    if (s.age >= Age.ZASELEK) {
-                        val open = si.lanisce.lani.game.Projects.open(s)
-                        val done = open.count { si.lanisce.lani.game.Projects.finished(s, it) }
-                        StatChip(
-                            "🏗️", "$done/${open.size}",
-                            "${bi("villageScreen.villageProjects")}: ${bi("villageScreen.finished", "done" to done, "total" to open.size)}" +
-                                if (view.stepToday) ", ${bi("villageHud.stepToday")}" else "",
-                            dot = view.stepToday, onClick = then(actions.projects),
-                        )
-                    }
-                    Surface(onClick = then(actions.progress), color = PanelChip, shape = CircleShape, modifier = Modifier.size(40.dp)) {
-                        Box(contentAlignment = Alignment.Center) { EmojiLabel("📊", Labels.PROGRESS, style = MaterialTheme.typography.titleSmall) }
-                    }
+                    Text("›", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.titleMedium)
                 }
-                GoalBlock(view.goal, view.goalAction, onGoal = then(actions.goal), onAction = { a -> actions.expand(false); a.run() })
-                // the festival that is on (a tap celebrates), then what's coming (a tap opens the scroll's today)
-                view.festival?.let { f ->
-                    TeaserPill(f.festival.emoji, Calendar.todayText(f).replace(" ${f.festival.emoji}", ""), gold = !f.festival.quiet, onClick = then { actions.festival(f.festival.id) })
+                if (next != null) Box(Modifier.fillMaxWidth().height(6.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.18f))) {
+                    Box(Modifier.fillMaxHeight().fillMaxWidth(check.progress.coerceIn(0.03f, 1f)).clip(CircleShape).background(XpGold))
                 }
-                for (t in view.teasers.take(3)) TeaserPill(t.emoji, t.text, onClick = then(actions.news))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    Surface(onClick = { actions.minimize(true) }, color = PanelChip, shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 40.dp)) {
-                        Box(Modifier.padding(horizontal = 14.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                            Text("⌃  ${bi("villageHud.hide")}", color = Color.White, style = MaterialTheme.typography.labelLarge)
-                        }
-                    }
-                }
+            }
+        }
+        for (row in tiles(view, actions).chunked(3)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (t in row) StatTile(t, Modifier.weight(1f))
+                repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
             }
         }
     }
 }
 
-/**
- * The goal in the panel: its line ("🎯 Vas: še 4 koraki ›", a tap opens the scroll at "Naslednji cilj"), what is still
- * missing, and its one-tap action (the goal card's first button).
- */
+/** One of the settlement's numbers: its emoji and value, its name in each language, what TalkBack reads, where it leads. */
+private class Tile(
+    val emoji: String, val value: String, val label: Pair<String, String>, val description: String,
+    val warn: Boolean = false, val dot: Boolean = false, val onClick: () -> Unit,
+)
+
+/** The settlement's six numbers: people, mood, the fire, help, the chest, the projects (from Zaselek). */
+private fun tiles(view: HudView, actions: HudActions): List<Tile> {
+    val s = view.state
+    val open = if (s.age >= Age.ZASELEK) Projects.open(s) else emptyList()
+    val done = open.count { Projects.finished(s, it) }
+    val goods = s.chest.goods.values.sum() + s.chest.tools.size
+    return listOfNotNull(
+        Tile("👥", "${s.villagers}/${view.attrs.populationCap}", VillageHudLogic.two("villageHud.people"), "${bi("villageScreen.villagers")}: ${s.villagers} / ${view.attrs.populationCap}", onClick = actions.info),
+        Tile(moraleEmoji(s.morale), "${s.morale}", VillageHudLogic.two("villageHud.mood"), "${bi("villageScreen.morale")}: ${s.morale}", onClick = actions.info),
+        Tile(
+            "🔥", "${s.fire}", VillageHudLogic.two("villageScreen.fire"),
+            "${bi("villageScreen.fire")}: ${s.fire}" + if (s.fire < 25) ", ${bi("villageScreen.dying")}" else "", warn = s.fire < 25, onClick = actions.fire,
+        ),
+        Tile("🤝", "${s.help}", VillageHudLogic.two("common.help"), "${bi("common.help")}: ${s.help}", onClick = actions.info),
+        Tile(
+            "🧰", "$goods", VillageHudLogic.two("villageScreen.chest"),
+            bi("villageScreen.chest") + ": $goods" + if (view.chestNew) ", ${bi("villageScreen.somethingNew")}" else "", dot = view.chestNew, onClick = actions.chest,
+        ),
+        if (s.age >= Age.ZASELEK) Tile(
+            "🏗️", "$done/${open.size}", VillageHudLogic.two("villageHud.projects"),
+            "${bi("villageScreen.villageProjects")}: ${bi("villageScreen.finished", "done" to done, "total" to open.size)}", onClick = { actions.projects(null) },
+        ) else null,
+    )
+}
+
+/** A number with its name under it, in the target and the base: "86", "Razpoloženje", "Mood". */
 @Composable
-private fun GoalBlock(goal: NextGoal, action: GoalAction?, onGoal: () -> Unit, onAction: (GoalAction) -> Unit) {
-    val missing = when (goal) {
-        is NextGoal.Grow -> goal.missing
-        is NextGoal.Learn -> goal.missing
-        is NextGoal.Friends -> goal.missing
-        is NextGoal.Polish -> goal.missing
-        else -> emptyList()
-    }
-    Surface(onClick = onGoal, color = Color.White.copy(alpha = 0.07f), shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text("🎯 ${goal.short()} ›", color = Color.White, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
-            for (m in missing.take(4)) Text("☐ $m", color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.bodySmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            if (missing.size > 4) Text("+${missing.size - 4}", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.bodySmall)
-            if (action != null) {
-                Spacer(Modifier.height(2.dp))
-                Surface(onClick = { onAction(action) }, color = action.color, shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 40.dp)) {
-                    Box(Modifier.padding(horizontal = 14.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                        // dark ink on gold ("✨ Napreduj"), white on the others
-                        Text(action.label, color = if (action.color == XpGold) Color(0xFF2B2118) else Color.White, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.SemiBold, maxLines = 2)
-                    }
+private fun StatTile(t: Tile, modifier: Modifier) {
+    val pulse = if (t.warn) rememberInfiniteTransition(label = "warn").animateFloat(0.6f, 1f, infiniteRepeatable(tween(600), RepeatMode.Reverse), label = "a").value else 1f
+    Box(modifier) {
+        Surface(
+            onClick = t.onClick, color = if (t.warn) TriglavRed.copy(alpha = 0.8f * pulse) else PanelChip, shape = RoundedCornerShape(14.dp),
+            modifier = Modifier.fillMaxWidth().heightIn(min = 68.dp).hudSemantics(t.description, t.onClick),
+        ) {
+            Column(Modifier.padding(horizontal = 10.dp, vertical = 8.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(t.emoji, style = MaterialTheme.typography.titleSmall)
+                    Spacer(Modifier.width(5.dp))
+                    Text(t.value, color = Color.White, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, maxLines = 1)
                 }
+                Text(t.label.first, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.labelMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(t.label.second, color = Color.White.copy(alpha = 0.55f), style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         }
+        if (t.dot) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = (-2).dp))
     }
 }
 
-/** The panel's plate: darker than a chip over the map, so the map doesn't show through much. */
-private val HudPanelPlate = Color(0xF20F1520)
+// --- the sheet --------------------------------------------------------------------------------
 
-/** A chip on the panel: lighter than the panel, so it stands out on it. */
+/** The sheet's plate: opaque, so neither the map nor the bottom bar shows through. */
+private val SheetPlate = Color(0xFF111824)
+
+/** A chip or a tile on the sheet: lighter than the sheet, so it stands out on it. */
 internal val PanelChip = Color(0x24FFFFFF)
 
-/** The chevron of the status chip and the pill: down (more to show), up (the panel open); it turns, unless [reduced]. */
+/**
+ * A card's section in a sheet from the screen's bottom, as tall as it needs (most of the screen at most), not modal: the
+ * map above it stays to touch (a tap there closes it, a drag pans). Its handle dragged down closes it, so do its ✕ and
+ * back. Its rect goes to [onBounds] while it's out.
+ */
 @Composable
-private fun Chevron(up: Boolean, color: Color, reduced: Boolean) {
-    val turn by animateFloatAsState(if (up) 180f else 0f, if (reduced) snap() else tween(200), label = "chevron")
-    Canvas(Modifier.size(14.dp).rotate(turn).clearAndSetSemantics { }) {
-        val w = size.width; val h = size.height
-        val path = Path().apply { moveTo(w * 0.15f, h * 0.35f); lineTo(w * 0.5f, h * 0.7f); lineTo(w * 0.85f, h * 0.35f) }
-        drawPath(path, color, style = Stroke(width = 2.5.dp.toPx(), cap = StrokeCap.Round, join = StrokeJoin.Round))
+private fun HudSheet(open: Boolean, reduced: Boolean, onClose: () -> Unit, onBounds: (Rect?) -> Unit, content: @Composable () -> Unit) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        val most = maxHeight * 0.86f
+        LaunchedEffect(open) { if (!open) onBounds(null) }
+        val density = LocalDensity.current
+        val drag = remember { Animatable(0f) }
+        val scope = rememberCoroutineScope()
+        AnimatedVisibility(
+            open, Modifier.align(Alignment.BottomCenter),
+            enter = if (reduced) EnterTransition.None else slideInVertically { it } + fadeIn(),
+            exit = if (reduced) ExitTransition.None else slideOutVertically { it } + fadeOut(),
+        ) {
+            Surface(
+                color = SheetPlate, shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+                modifier = Modifier.fillMaxWidth().heightIn(max = most).offset { androidx.compose.ui.unit.IntOffset(0, drag.value.coerceAtLeast(0f).roundToInt()) }
+                    .onGloballyPositioned { onBounds(it.boundsInWindow()) },
+            ) {
+                Column {
+                    Row(
+                        Modifier.fillMaxWidth().height(40.dp).draggable(
+                            rememberDraggableState { d -> scope.launch { drag.snapTo((drag.value + d).coerceAtLeast(0f)) } }, Orientation.Vertical,
+                            onDragStopped = { v ->
+                                if (drag.value > with(density) { 80.dp.toPx() } || v > 2000f) onClose()
+                                drag.animateTo(0f)
+                            },
+                        ),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Spacer(Modifier.width(48.dp))
+                        Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                            Box(Modifier.size(width = 40.dp, height = 4.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.4f)))
+                        }
+                        Surface(onClick = onClose, color = Color.Transparent, shape = CircleShape, modifier = Modifier.size(44.dp).padding(end = 4.dp).hudSemantics(Labels.CLOSE, onClose)) {
+                            Box(contentAlignment = Alignment.Center) { Text("✕", color = Color.White.copy(alpha = 0.75f), style = MaterialTheme.typography.titleSmall) }
+                        }
+                    }
+                    Column(
+                        Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()).padding(horizontal = 14.dp).navigationBarsPadding().padding(bottom = 14.dp),
+                    ) { content() }
+                }
+            }
+        }
     }
 }
 
-/**
- * While [active] says so (the panel is open), a press outside [inside] (this layout's px; the row and the panel) closes it
- * ([onOutside]): a tap there does nothing else (its up is taken), a drag goes on to the map, which pans. Seen before the
- * children ([PointerEventPass.Initial]), so whatever is under the finger never misses a drag. The lambdas are kept from
- * the first composition and called at each touch: they read what changes (state), they aren't replaced.
- */
-fun Modifier.outsideCloses(active: () -> Boolean, inside: () -> Rect?, onOutside: () -> Unit): Modifier =
-    outsideClosesAt(active, { p -> inside()?.contains(p) == true }, onOutside)
+// --- shared -----------------------------------------------------------------------------------
 
-/** [outsideCloses] with what counts as inside said by [inside] (the HUD's variants: their bar and what's open). */
-fun Modifier.outsideClosesAt(active: () -> Boolean, inside: (androidx.compose.ui.geometry.Offset) -> Boolean, onOutside: () -> Unit): Modifier = pointerInput(Unit) {
+/**
+ * While [active] says so (the sheet is out), a press outside [inside] (this layout's px; the bar, the cards and the
+ * sheet) closes it ([onOutside]): a tap there does nothing else (its up is taken), a drag goes on to the map, which pans.
+ * Seen before the children ([PointerEventPass.Initial]), so whatever is under the finger never misses a drag. The lambdas
+ * are kept from the first composition and called at each touch: they read what changes (state), they aren't replaced.
+ */
+fun Modifier.outsideCloses(active: () -> Boolean, inside: (Offset) -> Boolean, onOutside: () -> Unit): Modifier = pointerInput(Unit) {
     awaitEachGesture {
         val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
         if (!active() || inside(down.position)) return@awaitEachGesture
@@ -563,86 +958,6 @@ fun moraleEmoji(m: Int) = when {
     m >= 70 -> "😄"
     m >= 40 -> "🙂"
     else -> "😟"
-}
-
-/**
- * A HUD stat; TalkBack reads [description] ("Ogenj · Fire: 40") instead of the emoji and the bare number. [dot]: a red
- * dot on it, something new there. [warn] pulses it red (held still when [reduced]).
- */
-@Composable
-private fun StatChip(emoji: String, value: String, description: String, warn: Boolean = false, dot: Boolean = false, reduced: Boolean = false, onClick: () -> Unit) {
-    val pulse = if (warn && !reduced) {
-        rememberInfiniteTransition(label = "warn").animateFloat(0.6f, 1f, infiniteRepeatable(tween(600), RepeatMode.Reverse), label = "a").value
-    } else 1f
-    Box {
-        Surface(
-            onClick = onClick,
-            color = if (warn) TriglavRed.copy(alpha = 0.8f * pulse) else PanelChip,
-            shape = RoundedCornerShape(50),
-            modifier = Modifier.heightIn(min = 40.dp).hudSemantics(description, onClick),
-        ) {
-            Row(Modifier.padding(horizontal = 10.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text(emoji, style = MaterialTheme.typography.labelLarge)
-                Spacer(Modifier.width(4.dp))
-                Text(value, color = Color.White, style = MaterialTheme.typography.labelLarge)
-            }
-        }
-        if (dot) NewDot(Modifier.align(Alignment.TopEnd).offset(x = 2.dp, y = (-2).dp))
-    }
-}
-
-/**
- * The age with the way to the next one: a small bar filling up and the next age's emoji; it glows gold when the village
- * can advance (held still when [reduced]). Opens the ages sheet with every step.
- */
-@Composable
-private fun AgeChip(s: GameState, check: AdvanceCheck, reduced: Boolean, onClick: () -> Unit) {
-    val next = check.next
-    val pulse = if (check.ok && !reduced) {
-        rememberInfiniteTransition(label = "ready").animateFloat(0.55f, 1f, infiniteRepeatable(tween(700), RepeatMode.Reverse), label = "a").value
-    } else 1f
-    Surface(
-        onClick = onClick,
-        color = if (check.ok) XpGold.copy(alpha = 0.9f * pulse) else PanelChip,
-        shape = RoundedCornerShape(50),
-        modifier = Modifier.heightIn(min = 40.dp).hudSemantics(VillageHudLogic.ageDescription(s, check), onClick),
-    ) {
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(s.age.emoji)
-            Spacer(Modifier.width(6.dp))
-            Text(s.age.sl, color = Color.White, fontWeight = FontWeight.Bold, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            if (next != null) {
-                Spacer(Modifier.width(8.dp))
-                if (check.ok) Text("✨ ${next.emoji}", color = Color.White, fontWeight = FontWeight.Bold)
-                else {
-                    Box(Modifier.width(38.dp).height(6.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.22f))) {
-                        Box(Modifier.fillMaxHeight().fillMaxWidth(check.progress.coerceIn(0.06f, 1f)).clip(CircleShape).background(XpGold))
-                    }
-                    Spacer(Modifier.width(6.dp))
-                    Text(next.emoji, modifier = Modifier.alpha(0.8f))
-                    VillageHudLogic.steps(check)?.takeIf { it.second > 0 }?.let { (done, all) ->
-                        Spacer(Modifier.width(6.dp))
-                        Text("$done/$all", color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelMedium)
-                    }
-                }
-            }
-        }
-    }
-}
-
-/** A line of the panel's today: the festival that is on ([gold]), or what's coming ("Jutri · Tomorrow"). */
-@Composable
-private fun TeaserPill(emoji: String, text: String, gold: Boolean = false, onClick: () -> Unit) {
-    Surface(onClick = onClick, color = if (gold) XpGold.copy(alpha = 0.92f) else PanelChip, shape = RoundedCornerShape(50), modifier = Modifier.heightIn(min = 40.dp)) {
-        Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(emoji, style = MaterialTheme.typography.labelLarge)
-            Spacer(Modifier.width(6.dp))
-            Text(
-                text, color = if (gold) Color(0xFF2B2118) else Color.White, style = MaterialTheme.typography.labelMedium,
-                maxLines = 2, overflow = TextOverflow.Ellipsis,
-            )
-        }
-    }
 }
 
 /** For [VillageHud]'s callers: the latest [value] read where it changes after composition (a gesture's handler). */

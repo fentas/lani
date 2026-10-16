@@ -232,24 +232,22 @@ fun VillageScreen(vm: AppViewModel) {
     // Zoomed out, places are close together: one bubble each; closer in, they fan out.
     val zoomedOut by remember { derivedStateOf { cam.rig?.let { cam.camera.scale < it.minScale * 1.5f } ?: false } }
     val shown = remember(markers, zoomedOut) { if (zoomedOut) clusterBubbles(markers) else foldBubbles(markers) }
-    // The HUD (companion/GAME.md, "The village's HUD"): its slim row, the panel under it, or its pill; minimized is the
-    // learner's choice on this phone, and the plot chooser minimizes it by itself
+    // The HUD (companion/GAME.md, "The village's HUD"): its bar, the row of cards under it (the learner's choice on this
+    // phone; the plot chooser hides it by itself), a card's section in a sheet
     val hudPrefs = vm.hudPrefs
     val hudState = remember { HudState(hudPrefs) }
-    /** Counts the plot chooser's openings: the HUD's pill tapped while it is on shows the row for that one only. */
+    /** Counts the plot chooser's openings: the HUD's ring tapped while it is on shows the cards for that one only. */
     var chooserRun by remember { mutableIntStateOf(0) }
-    /** What the HUD's row covers at the top (the status bar's included), and its pill when minimized. */
-    var rowH by remember { mutableIntStateOf(0) }
-    var pillH by remember { mutableIntStateOf(0) }
-    fun hudMode() = hudState.mode(chooserRun.takeIf { choosing != null })
-    /** What the HUD covers at the top as it shows now (its row, or its pill): 0 until that is measured. */
-    fun hudCover() = if (hudMode() == HudMode.MINIMIZED) pillH else rowH
+    /** What the HUD's bar covers at the top (the status bar's included), and its row of cards under it when shown. */
+    var hudBarH by remember { mutableIntStateOf(0) }
+    var hudRowH by remember { mutableIntStateOf(0) }
+    fun hudCards() = hudState.cards(chooserRun.takeIf { choosing != null })
     /**
-     * What the HUD covers at the top at rest, for the camera's home view and framing and the bubbles: its row (the panel lies
-     * over the map only while it is open), or its pill; the row's until the pill is measured, so the home view doesn't fly
-     * to the screen's top and back.
+     * What the HUD covers at the top, for the camera's home view and framing and the bubbles: its bar and, while they show,
+     * its cards (at once as they are shown or hidden: the plot chooser frames its plots below the bar alone); 0 until the
+     * bar is measured.
      */
-    fun hudInset() = hudCover().takeIf { it > 0 } ?: rowH
+    fun hudInset() = hudBarH + if (hudCards()) hudRowH else 0
     var barH by remember { mutableIntStateOf(0) }
     var cardH by remember { mutableIntStateOf(0) }
     var plotBarH by remember { mutableIntStateOf(0) }
@@ -257,7 +255,7 @@ fun VillageScreen(vm: AppViewModel) {
     /** Opens the plot chooser over the map (the sheets and cards close; [Choosing.cancel] and [Choosing.done] lead back). */
     val choose: (Choosing) -> Unit = { c ->
         if (c.choice.open(s)) {
-            sheet = null; card = null; villager = null; scrollOpen = false; hudState.open = false
+            sheet = null; card = null; villager = null; scrollOpen = false; hudState.section = null
             chooserRun++
             choosing = c
         }
@@ -378,32 +376,28 @@ fun VillageScreen(vm: AppViewModel) {
         val choice = choosing?.choice
         val drawn = remember(s, choice) { choice?.preview(s) ?: s }
         val plotMarks = remember(s, choice) { choice?.marks(s) }
-        // it frames the plots to choose from (closer where they're few), between the HUD's pill (it minimized itself) and the
-        // chooser's bar, once both are there
+        // it frames the plots to choose from (closer where they're few), between the HUD (its cards hidden by themselves) and
+        // the chooser's bar, once both are there
         LaunchedEffect(choice?.let { it.moving ?: it.type.name }) {
             val c = choice ?: return@LaunchedEffect
-            val (bar, top) = snapshotFlow { plotBarH to hudCover() }.first { (b, t) -> b > 0 && t > 0 }
+            val (bar, top) = snapshotFlow { plotBarH to hudInset() }.first { (b, t) -> b > 0 && t > 0 }
             val rig = cam.rig ?: return@LaunchedEffect
             val plots = c.marks(s).all + listOfNotNull(c.building(s)?.plot)
             val rect = TownAnchors.plotsRect(s, fit.width, fit.height, plots, pad = 26f) ?: return@LaunchedEffect
             cam.flyTo(rig.frame(rect, freeArea(w.toFloat(), h.toFloat(), top.toFloat(), bar.toFloat(), margin), maxFrame = rig.minScale * 2))
         }
 
-        // The village layer; hidden from TalkBack while the scroll lies over it. While the HUD's panel is open, a tap outside
-        // it closes it (and does nothing else), a drag closes it and pans the map.
-        var hudBounds by remember { mutableStateOf<androidx.compose.ui.geometry.Rect?>(null) }
-        val hudExpanded = latest(hudMode() == HudMode.EXPANDED)
-        // a design variant of the HUD to compare (QA's hook "hud:variant:<A|B|C>"; ui/game/HudVariants.kt): what of it a tap
-        // may land on while it's open (its bar, its sheet or detail), by name
-        val hudVariant = HudVariant.of(si.lanisce.lani.app.QaHooks.hudVariant?.takeIf { si.lanisce.lani.app.QaHooks.enabled })
-        val variantRects = remember { androidx.compose.runtime.mutableStateMapOf<String, androidx.compose.ui.geometry.Rect>() }
-        val variantOn = latest(hudVariant != null)
+        // The village layer; hidden from TalkBack while the scroll lies over it. While the HUD's sheet is out, a tap outside
+        // it (and the bar and the cards) closes it and does nothing else, a drag closes it and pans the map.
+        val hudOpen = latest(hudState.section != null)
+        /** What of the HUD a tap may land on without closing its sheet ("top": the bar and the cards, "sheet"), by name. */
+        val hudRects = remember { androidx.compose.runtime.mutableStateMapOf<String, androidx.compose.ui.geometry.Rect>() }
         Box(
             Modifier.fillMaxSize()
-                .outsideClosesAt(
-                    active = hudExpanded,
-                    inside = { p -> if (variantOn()) variantRects.values.any { it.contains(p) } else hudBounds?.contains(p) == true },
-                    onOutside = { hudState.open = false },
+                .outsideCloses(
+                    active = hudOpen,
+                    inside = { p -> hudRects.values.any { it.contains(p) } },
+                    onOutside = { hudState.section = null },
                 )
                 .then(if (scrollOpen) Modifier.clearAndSetSemantics { } else Modifier),
         ) {
@@ -416,8 +410,8 @@ fun VillageScreen(vm: AppViewModel) {
                     kotlin.math.hypot(p.x - f.x, p.y - f.y)
                 },
                 topInset = hudInset(), bottomInset = barH,
-                // the recenter button hangs under the HUD's row while the camera is away: the bubbles keep below it too
-                bubbleInset = hudInset() + if (cam.moved && hudMode() != HudMode.MINIMIZED) with(density) { 56.dp.roundToPx() } else 0,
+                // the recenter button hangs under the HUD while the camera is away: the bubbles keep below it too
+                bubbleInset = hudInset() + if (cam.moved) with(density) { 56.dp.roundToPx() } else 0,
                 threat = s.event?.kind?.threat() == true,
                 badge = { m -> countBadge(m, markers) ?: badges[m.id] },
                 onPlace = { tapPlace(it) },
@@ -481,10 +475,11 @@ fun VillageScreen(vm: AppViewModel) {
             Box(Modifier.fillMaxWidth().height(with(density) { hudInset().toDp() } + 40.dp).background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))))
             Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(170.dp).background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.55f)))))
 
-            // the HUD: what it shows (the festival that is on, what's coming: always something to come back for) and does;
-            // each of its actions closes its panel
+            // the HUD: what it shows (today in the village, what's coming: always something to come back for) and does;
+            // whatever leads on from its sheet closes it
             val v = overview.village
-            val news = remember(v.teasers) { v.teasers.map { it.line } }
+            val today = java.time.LocalDate.now()
+            val soon = remember(v, overview.today) { VillageHudLogic.soon(v, overview.today.filterIsInstance<TodayItem.Arrival>(), today) }
             val hud = HudView(
                 s, attrs, check, goal,
                 goalAction = goal.action(
@@ -492,35 +487,37 @@ fun VillageScreen(vm: AppViewModel) {
                     onPacks = { vm.openPacks(fromVillage = true) }, onVillagers = vm::openVillagers, onPolish = { vm.startPolish() },
                 ),
                 chestNew = vm.game.chestNews.shows(s.chest),
-                stepToday = v.projects.any { it.available },
                 festival = v.festival?.takeIf { !it.done },
-                teasers = v.teasers,
-                newsSeen = hudPrefs.newsSeen,
+                soon = soon,
+                soonSeen = hudPrefs.soonSeen,
+                stepsSeen = hudPrefs.stepsSeen,
             )
-            val mode = hudMode()
-            // the panel shows today's news: seen, the row's 📣 goes until there's something new
-            LaunchedEffect(mode == HudMode.EXPANDED, news) { if (mode == HudMode.EXPANDED) hudPrefs.sawNews(news) }
-            // an open panel closes first on back
-            BackHandler(enabled = mode == HudMode.EXPANDED) { hudState.open = false }
+            val section = hudState.section
+            // a section seen: its news no longer dotted (today's lines and tonight's story; the goal's steps)
+            LaunchedEffect(section, soon) { if (section == HudSection.SOON) hudPrefs.sawSoon(soon.filter { it.news }.map { it.key }) }
+            LaunchedEffect(section, goal, check) { if (section == HudSection.GOAL) hudPrefs.sawSteps(VillageHudLogic.stepKeys(goal, check)) }
+            // an open sheet closes first on back
+            BackHandler(enabled = section != null) { hudState.section = null }
             VillageHud(
-                hud, mode,
-                // each closes the panel itself as it leads on
-                HudActions(
+                hud, cards = hudCards(), section = section,
+                actions = HudActions(
                     back = vm::home,
                     resource = { r -> sheet = VillageSheet.Resource(r) },
                     age = { sheet = VillageSheet.Ages },
                     info = { sheet = VillageSheet.Info },
                     fire = { sheet = VillageSheet.Fire },
                     chest = { sheet = VillageSheet.Chest },
-                    projects = { sheet = VillageSheet.Projects() },
+                    projects = { id -> sheet = VillageSheet.Projects(id) },
                     progress = { vm.openProgress(fromVillage = true) },
                     goal = { openScroll(ScrollSection.GOAL) },
                     festival = { id -> vm.startFestival(id) },
-                    news = { openScroll(ScrollSection.TODAY) },
-                    expand = { open -> hudState.open = open },
-                    // the pill tapped while choosing a plot: the row for now; the learner's choice stays
-                    minimize = { on -> hudState.minimize(on, chooserRun.takeIf { choosing != null }) },
+                    arrival = { id -> vm.villagers.meet(id) },
+                    surprise = {
+                        if (si.lanisce.lani.game.Surprises.today(s, today)?.kind == si.lanisce.lani.game.Surprises.PEDLAR) sheet = VillageSheet.Chest
+                        else vm.startSurprise()
+                    },
                     step = { st ->
+                        hudPrefs.sawSteps(VillageHudLogic.stepKeys(goal, check))
                         when (stepAction(st)) {
                             StepAction.GATHER -> st.res?.let { vm.startGather(it) }
                             StepAction.BUILD -> sheet = VillageSheet.Build
@@ -530,13 +527,15 @@ fun VillageScreen(vm: AppViewModel) {
                             null -> {}
                         }
                     },
+                    // the ring tapped while choosing a plot: the cards for now; the learner's choice stays
+                    cards = { hudState.toggleCards(chooserRun.takeIf { choosing != null }) },
+                    sheet = { sec -> hudState.section = sec },
                 ),
                 moved = cam.moved, onRecenter = cam::recenter, reduced = rememberReducedMotion(),
-                // a variant's sheet lies over the bottom bar
-                modifier = Modifier.zIndex(if (hudVariant != null) 1f else 0f).onGloballyPositioned { hudBounds = it.boundsInParent() },
-                onRow = { rowH = it }, onPill = { pillH = it },
-                variant = hudVariant,
-                onInside = { name, r -> if (r == null) variantRects.remove(name) else variantRects[name] = r },
+                // its sheet lies over the bottom bar
+                modifier = Modifier.zIndex(1f),
+                onTop = { bar, row -> hudBarH = bar; hudRowH = row },
+                onInside = { name, r -> if (r == null) hudRects.remove(name) else hudRects[name] = r },
             )
             ChronicleToast(
                 s.log.lastOrNull(),

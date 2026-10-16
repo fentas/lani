@@ -60,12 +60,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "bubbles-follow" the village's bubbles with their people (QA's hook "hour:11"): at home, dragged
                        so some are off screen, zoomed in and dragged, the edge chip ("‹ 🐑 2") tapped and its bubble on
                        screen then;
-                       "village-hud" the village's HUD: its slim row, its panel (a tap outside closes it, opening
-                       nothing), minimized to a pill and still so in the village opened again, and the plot chooser
-                       (QA's hook "build:field") with the HUD a pill by itself and the ★ below it;
-                       "hud-variants" the HUD's three design variants to compare (QA's hook "hud:variant:<A|B|C>"):
-                       the current HUD collapsed and open, then each variant collapsed, open and one detail, and
-                       open in German (QA's hook "pair:sl-de"), also saved as hud-<variant>-<n>-<what>.png;
+                       "village-hud" the village's HUD: its slim bar and its row of cards, the ring hiding them (still
+                       hidden in the village opened again) and showing them, each card's section in the sheet (a tap
+                       on the map closes it, opening nothing), the settlement's in German (QA's hook "pair:sl-de"),
+                       and the plot chooser (QA's hook "build:field") with the cards hidden by themselves and the ★
+                       below the bar;
                        "exercise-words" a review's words looked up (QA's hook "forms"): a tap on a word of the
                        sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
                        nothing and picks nothing, once answered the form in the feedback opens its card;
@@ -1030,10 +1029,11 @@ def village():
 
 
 VILLAGE_HUD = ("Zvitek · Scroll", "Knjiga · Book")  # the bottom bar's first button: hidden under a sheet or the scroll
-# the HUD's chevron, closed and open (its panel: back closes it), its panel's "Skrij vrstico", its pill (minimized)
-HUD_MORE, HUD_LESS = "Pokaži več · Show more", "Pokaži manj · Show less"
-HUD_HIDE, HUD_SHOW = "Skrij vrstico · Hide the bar", "Pokaži vrstico · Show the bar"
-OVER_VILLAGE = ("Zapri · Close", "Close sheet", HUD_LESS)  # a card's ✕ or the scroll's, a bottom sheet's scrim, the HUD's panel
+# the HUD's ring (TalkBack reads the age's words, or a festival's "Danes"), its cards (their labels start so), the
+# settlement's card (third: swiped to), its sheet's ✕ (back closes it)
+HUD_RING = ("Doba · ", "Danes")
+HUD_GOAL, HUD_SOON, HUD_SETTLEMENT = "Naslednji cilj · Next goal: ", "Danes in kmalu · Today and coming up", "Naselje · Settlement: "
+OVER_VILLAGE = ("Zapri · Close", "Close sheet")  # a card's ✕, the scroll's or the HUD's sheet's, a bottom sheet's scrim
 MOVE_ON = ("Naprej · Continue", "V vas · To the village")  # news over the village, a run's result
 
 
@@ -1044,8 +1044,9 @@ def plain_village():
         ns = list(nodes())
         labels = [t for t, _ in ns]
         if any(t in VILLAGE_HUD for t in labels) and not any(t in OVER_VILLAGE for t in labels):
-            if (c := next((c for t, c in ns if t.startswith(HUD_SHOW)), None)) is not None:
-                tap_at(c)  # the HUD minimized: its row back, as the steps read it
+            if not any(t.startswith(HUD_GOAL) for t in labels) and (c := hud_ring(ns)) is not None:
+                tap_at(c)  # the HUD's cards hidden: back, as the steps read them (they slide in)
+                hud_cards(True)
                 continue
             if (c := next((c for t, c in ns if t == "Na sredino · Recenter"), None)) is not None:
                 tap_at(c)
@@ -2512,14 +2513,50 @@ def trade():
     assert kept and "FOOD" in kept.get("gave", []), f"the dev bridge's village keeps today's trade ({kept})"
 
 
-def hud_find(label: str, timeout=5.0):
-    """[label]'s chip in the HUD's panel (the chest, the projects …: their TalkBack labels start with it), the panel opened
-    first by its chevron (the pill's row back first); its centre, or None. Not the status chip, whose label tells the
-    chest's news too ("…; Skrinja · The chest: nekaj novega")."""
-    if (c := next((c for t, c in nodes() if t.startswith(HUD_SHOW)), None)) is not None:
+def hud_ring(ns=None):
+    """The HUD's ring (its centre), or None."""
+    return next((c for t, c in (list(nodes()) if ns is None else ns) if t.startswith(HUD_RING)), None)
+
+
+def hud_cards(shown: bool, timeout=6.0) -> bool:
+    """Waits until the HUD's cards are [shown] (or gone): they slide in and out, and a busy emulator's dump lags."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        if (box_starting(HUD_GOAL) is not None or box_starting(HUD_SOON) is not None) == shown:
+            return True
+        time.sleep(0.7)
+    return False
+
+
+def hud_card(label: str):
+    """The HUD's card whose label starts with [label], swiped to while it's off the screen (the settlement's is third);
+    its bounds, or None. The ring shows the cards first when they're hidden."""
+    if box_starting(HUD_GOAL) is None and box_starting(HUD_SOON) is None and box_starting(HUD_SETTLEMENT) is None and (c := hud_ring()) is not None:
         tap_at(c)
-    if find(HUD_LESS) is None and not tap(HUD_MORE, 5):
-        return None
+        hud_cards(True)
+    for _ in range(4):
+        b = box_starting(label)
+        if b is not None and b[0] >= 0 and b[2] <= 1080:
+            return b
+        row = b or box_starting(HUD_GOAL) or box_starting(HUD_SOON) or box_starting(HUD_SETTLEMENT)
+        if row is None:
+            return None
+        y = (row[1] + row[3]) // 2
+        x0, x1 = ("980", "160") if label == HUD_SETTLEMENT else ("160", "980")  # the settlement's is the last
+        adb("shell", "input", "swipe", x0, str(y), x1, str(y), "900")
+        time.sleep(1.5)
+    return None
+
+
+def hud_find(label: str, timeout=5.0):
+    """[label]'s tile in the HUD's settlement sheet (the chest, the projects …: their TalkBack labels start with it), the
+    sheet opened first from its card; its centre, or None. Not the ring, whose label tells the chest's news too ("…; novo
+    · new: …, Skrinja · The chest")."""
+    if next((c for t, c in nodes() if t.startswith(label)), None) is None:
+        card = hud_card(HUD_SETTLEMENT)
+        if card is None:
+            return None
+        tap_at(((card[0] + card[2]) // 2, (card[1] + card[3]) // 2))
     end = time.time() + timeout * slow()
     while time.time() < end:
         if (c := next((c for t, c in nodes() if t.startswith(label)), None)) is not None:
@@ -2529,7 +2566,7 @@ def hud_find(label: str, timeout=5.0):
 
 
 def hud_tap(label: str, timeout=5.0) -> bool:
-    """Taps [label]'s chip in the HUD's panel ([hud_find]); False when there is none."""
+    """Taps [label]'s tile in the HUD's settlement sheet ([hud_find]); False when there is none."""
     c = hud_find(label, timeout)
     if c is None:
         return False
@@ -2538,7 +2575,7 @@ def hud_tap(label: str, timeout=5.0) -> bool:
 
 
 def chest():
-    """The HUD's chest chip (in its panel) opens the chest: help for a moba, the villagers' tools and goods, the feast."""
+    """The HUD's chest tile (in its settlement sheet) opens the chest: help for a moba, the villagers' tools and goods, the feast."""
     assert hud_tap("Skrinja · The chest"), "chest chip"
     assert wait_for("Darila in dobrote", 8), "chest sheet"
     time.sleep(1)
@@ -2549,7 +2586,7 @@ def chest():
 
 
 def projects():
-    """The HUD's projects chip (in its panel, from Zaselek) opens the village projects, one step a day."""
+    """The HUD's projects tile (in its settlement sheet, from Zaselek) opens the village projects, one step a day."""
     if hud_find("Skupni projekti · Village projects") is None:
         return "no village projects yet (they come with Zaselek)"
     assert hud_tap("Skupni projekti · Village projects"), "projects chip"
@@ -2856,186 +2893,105 @@ def box_starting(label: str):
 
 
 def village_hud():
-    """The village's HUD (companion/GAME.md, "The village's HUD"): one slim row over the map (back, the four resources, the
-    status chip and its chevron), nothing more; the chevron opens its panel with the rest (the villagers, the chest, the
-    projects, the goal, today's news); a tap on the map outside closes it and opens nothing; "Skrij vrstico" minimizes it to
-    a pill, still a pill when the village is opened again, and the pill brings the row back. Then QA's hook "build:field"
-    opens the plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all
-    taken): the HUD is a pill by itself, the ★ lies below it and above the chooser's bar, and back from the chooser the row
-    is there again."""
+    """The village's HUD (companion/GAME.md, "The village's HUD"): a slim bar over the map (back, the four resources, the
+    settlement's ring) and a row of cards under it (the goal, today and what's coming, the settlement); the ring hides
+    the cards (still hidden when the village is opened again) and shows them; each card opens its section in the sheet
+    (the goal's steps with their buttons, the timeline, the settlement's labelled tiles), a tap on the map above it closes
+    it and opens nothing; the settlement's in German too (QA's hook "pair:sl-de"). Then QA's hook "build:field" opens the
+    plot chooser (the dev village's copy readied: its stores full, the next age's plots when its own are all taken): the
+    cards are hidden by themselves, the ★ lies below the bar and above the chooser's bar, and back from the chooser the
+    cards are there again."""
     plain_village()
-    row = box_starting(HUD_MORE)
-    assert row is not None, "the status chip's chevron"
-    assert box_starting("Hrana · Food: ") and box_starting("Modrost · Wisdom: "), "the resources in the row"
-    assert next((t for t, _ in nodes() if t.startswith("Doba · Age") or t.startswith("Danes")), None), "the status chip (the age, or a festival)"
-    assert box_starting("Vaščani · Villagers") is None and box_starting("Skrinja · The chest") is None, "the panel's chips while it is closed"
-    assert row[3] < 400, f"the row's bottom at {row[3]} px (the old HUD's four rows reached about 830)"
-    shot("hud-collapsed")
+    assert box_starting("Hrana · Food: ") and box_starting("Modrost · Wisdom: "), "the resources in the bar"
+    ring = hud_ring()
+    assert ring is not None, "the settlement's ring"
+    goal = box_starting(HUD_GOAL)
+    assert goal is not None and box_starting(HUD_SOON), "the goal's card and today's"
+    assert goal[3] < 600, f"the cards' bottom at {goal[3]} px (the old HUD's panel reached about 1550)"
+    assert box_starting("Skrinja · The chest") is None, "no tile while no sheet is open"
+    shot("hud-cards")
 
-    assert tap(HUD_MORE, 5), "the chevron"
-    assert wait_for("Vaščani · Villagers", 5), "the panel: the villagers"
-    assert box_starting("Skrinja · The chest") and box_starting("🎯 "), "the panel: the chest, the goal"
-    time.sleep(1)
-    shot("hud-expanded")
-    hide = box_starting("⌃  " + HUD_HIDE) or box_starting(HUD_HIDE)
-    bar = box_starting("Zvitek · Scroll") or box_starting("Knjiga · Book")
-    assert hide and bar, "the panel's end and the bottom bar"
-    y = (hide[3] + bar[1] - 130) // 2  # on the map, between the panel and the bottom bar's buttons
+    tap_at(ring)
+    assert hud_cards(False) and box_starting("Hrana · Food: "), "the ring hides the cards, the bar stays"
+    shot("hud-bar")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # to Home, and into the village again: still hidden
+    assert wait_for("Danes · Today", 8), "home"
+    village()
+    assert box_starting(HUD_GOAL) is None and box_starting(HUD_SOON) is None, "hidden still, the village opened again"
+    tap_at(hud_ring())
+    assert hud_cards(True), "the ring shows the cards again"
+
+    def section(card: str, heading: str, name: str):
+        b = hud_card(card)
+        assert b is not None, f"the card {card}"
+        tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
+        assert wait_for("Zapri · Close", 5), f"{card}'s sheet (its ✕)"
+        assert find(heading) is not None, f"its section's heading {heading}"
+        time.sleep(1)
+        shot(name)
+
+    section(HUD_GOAL, "Naslednji cilj · Next goal", "hud-goal")
+    # a tap on the map above the sheet: it closes, nothing opens
+    top = box_starting(HUD_GOAL) or box_starting(HUD_SOON)
+    close = box_starting("Zapri · Close")
+    y = (top[3] + close[1]) // 2
     adb("shell", "input", "tap", "540", str(y))
     time.sleep(1.5)
     labels = [t for t, _ in nodes()]
-    assert box_starting("Vaščani · Villagers") is None, "a tap outside closes the panel"
-    assert not any(t in OVER_VILLAGE for t in labels), f"a tap outside the panel opens nothing ({[t for t in labels if t in OVER_VILLAGE]})"
+    assert "Zapri · Close" not in labels, "a tap on the map closes the sheet"
+    assert not any(t in OVER_VILLAGE for t in labels), f"a tap outside the sheet opens nothing ({[t for t in labels if t in OVER_VILLAGE]})"
 
-    assert tap(HUD_MORE, 5), "the chevron again"
-    assert wait_for(HUD_HIDE, 5) and tap(HUD_HIDE, 3), "the panel's Skrij vrstico"
-    assert wait_for(HUD_SHOW, 5), "the pill"
-    assert box_starting("Hrana · Food: ") is None, "no resources while minimized"
+    section(HUD_SOON, "Danes in kmalu · Today and coming up", "hud-soon")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
     time.sleep(1)
-    shot("hud-minimized")
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # to Home, and into the village again: still minimized
-    assert wait_for("Danes · Today", 8), "home"
-    village()
-    assert wait_for(HUD_SHOW, 5), "minimized still, the village opened again"
-    assert tap(HUD_SHOW, 3) and wait_for("Hrana · Food: ", 5), "the pill brings the row back"
+    section(HUD_SETTLEMENT, "Naselje · Settlement", "hud-settlement")
+    assert box_starting("Skrinja · The chest: ") and box_starting("Napredek · Progress"), "the settlement's tiles"
+    assert tap("Zapri · Close", 3), "its ✕"
+    time.sleep(1)
+
+    # German: the base language's labels are the long ones
+    try:
+        qa_hook("pair:sl-de")
+        assert wait_for("Naslednji cilj · Nächstes Ziel: ", 10), "the cards in sl · de"
+        b = None
+        for _ in range(4):
+            b = box_starting("Naselje · Siedlung: ")
+            if b is not None and b[2] <= 1080:
+                break
+            row = box_starting("Naslednji cilj · Nächstes Ziel: ") or box_starting("Danes in kmalu · Heute")
+            y = (row[1] + row[3]) // 2
+            adb("shell", "input", "swipe", "980", str(y), "160", str(y), "900")
+            time.sleep(1.5)
+        assert b is not None, "the settlement's card in sl · de"
+        tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
+        assert wait_for("Zapri · Schließen", 5), "the settlement's sheet in sl · de"
+        time.sleep(1)
+        shot("hud-settlement-de")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    finally:
+        qa_hook("pair:")
+        wait_for("Zvitek · Scroll", 10) or wait_for("Knjiga · Book", 3)
 
     qa_hook("build:field")
     assert wait_for("Tukaj · Here", 10), "the plot chooser (QA's hook)"
     time.sleep(2)  # the camera frames the plots to choose from
-    pill = box_starting(HUD_SHOW)
-    assert pill is not None, "the HUD minimized itself for the chooser"
-    assert box_starting("Hrana · Food: ") is None, "no row while choosing"
+    assert hud_cards(False), "no cards while choosing"
+    bar = box_starting("Hrana · Food: ")
+    assert bar is not None, "the bar while choosing"
     star = next((b for t, b in boxes() if t.startswith("Parcela") and "★" in t), None)
     # the chooser's bar: its card ("Izberi parcelo · Choose a plot", "📍 Parcela 5 · Plot 5") and buttons
-    head = min((b for t, b in boxes() if t.startswith("Izberi") or t.startswith("📍 ") or t == "Nazaj · Back"), key=lambda b: b[1], default=None)
+    # (the lower half's: the HUD's "Nazaj · Back" is the bar's)
+    head = min((b for t, b in boxes() if (t.startswith("Izberi") or t.startswith("📍 ") or t == "Nazaj · Back") and b[1] > 1200), key=lambda b: b[1], default=None)
     assert head is not None, "the chooser's bar"
     assert star is not None, "the ★ plot (TalkBack's \"Parcela n · Plot n, ★ Predlog · Suggested\")"
     cy = (star[1] + star[3]) // 2
-    assert pill[3] < cy < head[1], f"the ★ at {cy} px, between the pill ({pill[3]}) and the chooser's bar ({head[1]})"
+    assert bar[3] < cy < head[1], f"the ★ at {cy} px, between the bar ({bar[3]}) and the chooser's bar ({head[1]})"
     shot("hud-plot-chooser")
-    assert tap("Nazaj · Back", 3), "the chooser's back"
-    assert wait_for("Hrana · Food: ", 8), "the row again, the chooser left"
-    assert find(HUD_SHOW) is None, "not minimized: the chooser's pill was its own"
-
-
-def hud_shot(variant: str, n, what: str):
-    """A shot for comparing the HUD's variants: the run's NN-hud-<variant>-<n>-<what>.png, and hud-<variant>-<n>-<what>.png
-    beside it (the name Jan gets)."""
-    name = f"hud-{variant}-{n}-{what}"
-    shot(name)
-    shutil.copy(shots[-1], OUT / f"{name}.png")
-
-
-def hud_variants():
-    """The village's HUD in its three design variants (ui/game/HudVariants.kt, QA's hook "hud:variant:<A|B|C>"), beside
-    the current one, on the dev village's copy, for Jan to compare: the current HUD collapsed and open; A (a slim bar,
-    the ring opening a bottom sheet) collapsed, open, and dragged up with tonight's line opened in full; B (a row of
-    cards under the bar) collapsed, swiped, and the goal card's detail; C (a side panel) folded into its tab, open, and
-    the goal's detail beside it; then each variant open in German (QA's hook "pair:sl-de"). The current HUD and the
-    learner's languages again at the end."""
-    def ring():
-        b = box_starting("Doba · ")  # the settlement's ring: TalkBack reads the age's chip's words
-        assert b is not None, "the settlement's ring"
-        return ((b[0] + b[2]) // 2, (b[1] + b[3]) // 2)
-
-    def back():
-        adb("shell", "input", "keyevent", "KEYCODE_BACK")
-        time.sleep(1.2)
-
-    try:
-        qa_hook("hud:variant:")
-        plain_village()
-        hud_shot("current", 1, "collapsed")
-        assert tap(HUD_MORE, 5), "the current HUD's chevron"
-        time.sleep(1.5)
-        hud_shot("current", 2, "open")
-        back()
-
-        qa_hook("hud:variant:A")
-        plain_village()
-        assert box_starting("Hrana · Food: ") and find(HUD_MORE) is None, "A's slim bar, not the current row"
-        hud_shot("A", 1, "collapsed")
-        tap_at(ring())
-        assert wait_for("Zapri · Close", 5), "A's sheet (its ✕)"
-        time.sleep(1.2)
-        hud_shot("A", 2, "open")
-        x = box_starting("Zapri · Close")
-        y = (x[1] + x[3]) // 2
-        adb("shell", "input", "swipe", "540", str(y), "540", str(max(300, y - 900)), "700")  # its handle up: most of the screen
-        time.sleep(1.5)
-        line = find("Nocoj") or find("Jutri")
-        if line is not None:
-            tap_at(line)  # tonight's line in full
-            time.sleep(0.8)
-        hud_shot("A", 3, "detail")
-        back()
-
-        qa_hook("hud:variant:B")
-        plain_village()
-        card = wait_for("🎯", 5)
-        assert card is not None, "B's goal card"
-        hud_shot("B", 1, "collapsed")
-
-        def swipe_cards(done, what, back=False):
-            """The cards swiped right to left (or [back]) until [done] (a busy emulator may drop a swipe)."""
-            for _ in range(4):
-                x0, x1 = ("300", "1000") if back else ("980", "160")
-                adb("shell", "input", "swipe", x0, str(card[1]), x1, str(card[1]), "900")
-                time.sleep(1.5)
-                if done():
-                    return
-            raise AssertionError(f"the cards didn't swipe to {what}")
-
-        def off_left(label):
-            b = box_starting(label)
-            return b is None or b[2] < 40
-
-        def on_screen(label):
-            b = box_starting(label)
-            return b is not None and b[0] >= 0 and b[2] <= 1080
-
-        swipe_cards(lambda: off_left("🎯"), "what's coming")
-        hud_shot("B", 2, "swiped")
-        swipe_cards(lambda: on_screen("Pomoč"), "the numbers")
-        hud_shot("B", "2b", "swiped")
-        swipe_cards(lambda: on_screen("🎯"), "the goal", back=True)
-        assert tap("🎯", 5), "B's goal card"
-        assert wait_for("Zapri · Close", 5), "B's goal detail (its ✕)"
-        time.sleep(1.2)
-        hud_shot("B", 3, "detail")
-        back()
-
-        qa_hook("hud:variant:C")
-        plain_village()
-        assert wait_for("Cilj · Goal", 5), "C's side panel"
-        hud_shot("C", 2, "open")
-        assert tap("Pospravi ploščo", 3), "C's fold"
-        time.sleep(1)
-        hud_shot("C", 1, "collapsed")
-        assert tap("Pokaži ploščo", 3), "C's tab"
-        time.sleep(1)
-        assert tap("Cilj · Goal", 3), "C's goal"
-        time.sleep(1.2)
-        hud_shot("C", 3, "detail")
-        back()
-
-        # German: the labels of the learner's base are the long ones
-        qa_hook("pair:sl-de")
-        time.sleep(3)
-        for v, opens in (("A", None), ("B", "🎯"), ("C", "Cilj · ")):
-            qa_hook(f"hud:variant:{v}")
-            time.sleep(2)
-            if opens is None:
-                tap_at(ring())
-            else:
-                assert tap(opens, 5), f"{v} in German: {opens}"
-            time.sleep(1.5)
-            hud_shot(v, 4, "de")
-            back()
-    finally:
-        qa_hook("pair:")
-        qa_hook("hud:variant:")
-        time.sleep(2)
+    back = max((b for t, b in boxes() if t == "Nazaj · Back"), key=lambda b: b[1], default=None)  # the chooser's, not the bar's
+    assert back is not None and back[1] > 1200, "the chooser's back"
+    tap_at(((back[0] + back[2]) // 2, (back[1] + back[3]) // 2))
+    assert hud_cards(True), "the cards again, the chooser left"
 
 
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
@@ -5634,7 +5590,6 @@ def plan():
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
-        ("hud-variants", hud_variants, v, False, ""),
         ("school", school, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),
