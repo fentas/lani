@@ -100,8 +100,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        skipped without a voice engine (LANI_DEV_FAKE_ELEVENLABS=1 gives one); "shadow-tutor" the in-app tutor in shadow mode against QA's mock of the Messages API
                        (test/tutor-mock.ts on LANI_TUTOR_MOCK_PORT, default 8771, started by the step): the developer
                        section by seven taps on the version, a fake key, a chat and a review, the panel's events (the
-                       shadow's reply beside the real one), numbers and export (shadow-export.json, no key in it), the
-                       mock's requests (shadow-mock-requests.json), and the real chat without the shadow's reply;
+                       shadow's reply beside the real one), "Also run on" Haiku at low (its reply taken from the text:
+                       no reply tool), numbers and export (shadow-export.json, no key in it); the effort: the model and
+                       effort per task with the recommendation, the chat's set to high, a second chat on the thread at
+                       high by an effort message (its beta), "Also run on" Haiku at high, the numbers by model × effort;
+                       the mock's requests (shadow-mock-requests.json), and the real chat without the shadow's reply;
                        "dev-upload" the developer's data on the node: the developer setting and the shadow on the mock, a
                        chat, the app to the background: the shadow's export and the app's log in the dev bridge's copy
                        under app/dev/ (dev-shadow.json, dev-app-log.txt: the raw usage, no key, no token), the panel's
@@ -4863,6 +4866,10 @@ def link_town(town, timeout=90) -> str:
 
 
 SHADOW_MOCK_PORT = os.environ.get("LANI_TUTOR_MOCK_PORT", "8771")
+EFFORT_BETA = "mid-conversation-output-config-2026-07-01"  # the per-message effort's (tutor/Effort.kt)
+RECOMMENDED = "⭐ priporočeno · recommended"  # our recommendation in the shadow panel's pickers (ui/tutor/ShadowPanel.kt)
+MORE_LEVELS = "more… (xhigh, max)"  # the effort picker's toggle
+FROM_TEXT = "✍️ as text, no reply tool"  # a reply the shadow took from the text of a turn that never called reply
 SHADOW_KEY = "sk-ant-qa-fake-0000000000000000"  # QA's mock takes any key; never a real one (none exists yet)
 SHADOW_MOCK = f"http://10.0.2.2:{SHADOW_MOCK_PORT}"
 DEVELOPER = "🛠️ Razvijalec · Developer"  # the connection sheet's developer section (l10n developer.title)
@@ -4910,8 +4917,14 @@ def shadow_tutor():
     line seven times, the shadow tutor turned on, which opens its panel for a key; the mock's base URL (a QA build's), a
     fake key checked (GET /v1/models) and kept; a chat sent from the tutor chat (the real tutor, the dev bridge's canned
     one, answers it there; the shadow's reply only in the panel), a review finished (its digest runs when the chat
-    opens); the panel's events, its numbers, the export through the share sheet (no key in it); the mock's log: the key
-    only in x-api-key, the 1-hour breakpoint, the tool order; the chat never shows the shadow's reply."""
+    opens: Haiku at high, the recommended routine level); the panel's events, "Also run on" Haiku at low (the mock answers
+    as text without reply, as Haiku at low did in Jan's shadow: the panel's "✍️ as text, no reply tool"), its numbers,
+    the export through the share sheet (no key in it, the replies from text and the numbers by model × effort in it);
+    the effort: the settings' model and effort per task with our recommendation (⭐), the chat's effort set to high
+    (its picker, xhigh and max behind "more"), a second chat on the day's thread at high by an effort message (its beta,
+    the thread's top-level effort and history as they were), "Also run on" Haiku at high, the numbers by model × effort,
+    the chat's effort back to the preset's; the mock's log: the key only in x-api-key, the 1-hour breakpoint, the tool
+    order, the per-message effort's beta only with an effort message; the chat never shows the shadow's reply."""
     for pid in listeners(SHADOW_MOCK_PORT):
         subprocess.run(["kill", pid])
     mock = subprocess.Popen(["bun", "test/tutor-mock.ts"], cwd=BRIDGE, stdout=open(OUT / "tutor-mock.log", "w"), stderr=subprocess.STDOUT,
@@ -5012,12 +5025,15 @@ def shadow_tutor():
         assert wait_for(MOCK_TUTOR, 10), "the shadow's reply in the panel"
         assert wait_for(DEV_TUTOR, 4), "the real tutor's reply beside it"
         shot("shadow-events")
-        # the newest event on Haiku too: its own stateless call, metered, beside the first
+        # the newest event on Haiku at low too: its own stateless call, metered, beside the first; the mock answers as
+        # Haiku at low did in Jan's shadow (text, end_turn, no reply call): the text becomes the reply, marked
         assert tap("Also run on", 3), "also run on"
-        assert tap("claude-haiku-5-5", 3), "Haiku in the menu"
-        assert wait_for("also · ", 15) and any("also · " in t and "claude-haiku-5-5" in t for t, _ in nodes()), "the event's turn on Haiku"
-        time.sleep(2 * slow())
-        shot("shadow-also-haiku")
+        assert tap("claude-haiku-5-5 · low", 3), "Haiku at low in the menu"
+        assert wait_for("also · ", 15) and any("also · " in t and "claude-haiku-5-5 · low" in t for t, _ in nodes()), "the event's turn on Haiku at low"
+        assert wait_for(FROM_TEXT, 15), "the reply taken from the text (no reply tool)"
+        assert wait_for("reply ✍️ as text", 4), "the run's line: how it replied"
+        time.sleep(slow())
+        shot("shadow-also-haiku-low")
         assert tap("tool call(s)", 3), "a turn's tool calls"
         time.sleep(1)
         shot("shadow-tools")
@@ -5039,9 +5055,68 @@ def shadow_tutor():
         text = (OUT / "shadow-export.json").read_text()
         assert "lani.shadow-export/v0" in text and MOCK_TUTOR in text, "the export's content"
         assert SHADOW_KEY not in text and "qa-fake" not in text, "the key in the export"
+        exported = json.loads(text)
+        today_stats = exported["days"][-1]["stats"]
+        assert today_stats.get("repliesFromText", 0) >= 1 and '"replyFromText":true' in text, "the reply from text in the export"
+        assert any(k.startswith("claude-haiku-5-5 · low") for k in today_stats.get("byModelEffort", {})), f"the numbers by model × effort in the export: {list(today_stats.get('byModelEffort', {}))}"
         assert tap("Notebook", 3), "the notebook tab"
         time.sleep(1)
         shot("shadow-notebook")
+
+        # the effort: the model and the effort per task, our recommendation marked; the chat's set to high
+        assert tap("Settings", 3), "the settings tab"
+        assert scroll_to("chat effort:", 6), "the effort per task"
+        assert find("routine effort: high ⭐") and find("chat effort: medium ⭐"), "the recommended efforts (routine high, chat medium)"
+        assert find("content: claude-opus-5-5 ⭐") and find("content effort: medium ⭐"), "content on Opus at medium"
+        shot("shadow-effort-settings")
+        assert tap("chat effort: medium", 3), "the chat's effort picker"
+        assert wait_for("medium " + RECOMMENDED, 4) and find(MORE_LEVELS), "the levels, the recommended one marked, more behind a toggle"
+        assert not any(t in ("xhigh", "max") for t, _ in nodes()), "xhigh and max behind more"
+        assert tap(MORE_LEVELS, 3), "more levels"
+        time.sleep(1)
+        shown = {t for t, _ in nodes()}
+        assert {"xhigh", "max"} <= shown, f"xhigh and max after more: {sorted(t for t in shown if len(t) < 40)}"
+        shot("shadow-effort-picker")
+        assert tap("high", 3), "high"
+        assert wait_for("chat effort: high ✎", 4), "the chat's effort set to high"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+
+        # a second chat on the day's thread (Sonnet), now at high: an effort message, the thread's top-level effort kept
+        before = len([r for r in mock_api("/mock/requests") if r.get("path") == "/v1/messages"])
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Kaj%sje%spec")  # adb types ASCII only
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        end = time.time() + 30 * slow()
+        while time.time() < end and len([r for r in mock_api("/mock/requests") if r.get("path") == "/v1/messages"]) < before + 3:
+            time.sleep(1)
+        time.sleep(2 * slow())
+        assert not any(MOCK_TUTOR in t for t, _ in nodes()), "the shadow's reply in the real chat"
+        go_home()
+        qa_hook("shadow")
+        assert tap("Events", 6), "the events tab"
+        assert wait_for("day · chat · claude-sonnet-5-5 · high", 10), "the second chat's turn on the thread at high"
+        shot("shadow-effort-thread")
+        # the same event on Haiku at high: a reply through the tool
+        assert tap("Also run on", 3), "also run on"
+        assert tap("claude-haiku-5-5 · high", 3), "Haiku at high in the menu"
+        assert wait_for("also · chat · claude-haiku-5-5 · high", 15), "the chat's turn on Haiku at high"
+        time.sleep(2 * slow())
+        shot("shadow-also-haiku-high")
+        assert tap("Numbers", 3), "the numbers tab"
+        assert wait_for("By model × effort", 4), "the numbers by model × effort"
+        assert find("claude-sonnet-5-5 · high:") and find("claude-haiku-5-5 · low:"), "the runs by model and effort"
+        shot("shadow-effort-numbers")
+        # the chat's effort back to the preset's
+        assert tap("Settings", 3), "the settings tab"
+        assert scroll_to("chat effort:", 6), "the effort per task"
+        assert tap("chat effort: high", 3), "the chat's effort picker"
+        assert tap("as the preset (medium)", 3), "as the preset"
+        assert wait_for("chat effort: medium ⭐", 4), "the chat's effort as the preset's"
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
         time.sleep(1)
 
@@ -5054,6 +5129,23 @@ def shadow_tutor():
         assert first["system"][-1].get("cache_control", {}).get("ttl") == "1h", "the 1-hour breakpoint at the prefix's end"
         assert [t["name"] for t in first["tools"]][:3] == ["reply", "guide", "learner_state"], "phase A's tool order"
         assert first.get("tool_choice", {}).get("type") == "auto", "tool_choice auto"
+        # the effort: the per-message effort's beta only with an effort message, the thinking-binding beta always
+        for r in reqs:
+            betas = (r.get("anthropic_beta") or "").split(",")
+            assert "thinking-binding-controls-2026-08-01" in betas, "the thinking-binding beta"
+            assert (EFFORT_BETA in betas) == bool(r.get("effort_messages")), f"the per-message effort's beta with an effort message only: {betas} {r.get('effort_messages')}"
+        digest = [r for r in reqs if r.get("model") == "claude-haiku-5-5" and "<digest" in json.dumps(r["body"]["messages"])]  # the core prompt names it too
+        assert not digest or all(r["effort"] == "high" and r["body"]["max_tokens"] == 16000 for r in digest), "the digest on Haiku at high, 16,000 tokens of room"
+        sonnet = [r for r in reqs if r.get("model") == "claude-sonnet-5-5"]
+        at_high = [r for r in sonnet if r.get("effort") == "high"]
+        assert at_high, "the second chat's calls at high"
+        assert all(r["effort_top"] == "medium" and r.get("effort_messages") for r in at_high), "the thread's top-level effort kept, the level by an effort message"
+        earlier = [r for r in sonnet if not r.get("effort_messages")]
+        msgs, prev = at_high[0]["body"]["messages"], earlier[-1]["body"]["messages"]
+        assert msgs[:len(prev)] == prev, "the thread's history before the effort message: as sent before (the cache's prefix)"
+        e = next(i for i, m in enumerate(msgs) if m.get("role") == "system")
+        assert msgs[e] == {"role": "system", "content": [], "output_config": {"effort": "high"}} and msgs[e + 1]["role"] == "user" and e >= len(prev), "the effort message after the last answer, before the chat's user message"
+        assert any(r.get("call") == "no_reply" and r.get("effort") == "low" for r in reqs), "Haiku at low answered without reply"
         (OUT / "shadow-mock-requests.json").write_text(json.dumps(reqs, indent=1, ensure_ascii=False))
         log = adb("logcat", "-d", "-s", "ShadowTutor:*", check=False)
         (OUT / "shadow-logcat.txt").write_text(log)
@@ -5159,6 +5251,8 @@ def dev_upload():
         assert raw and "cache_creation" in raw[0]["usageRaw"].get("start", {}), f"the raw usage of the thread's first call: {len(calls)} calls, {len(raw)} with it"
         breakdown = sum(d["stats"].get("cacheBreakdown", 0) for d in export["days"])
         assert breakdown >= 1, "the day's count of calls with the breakdown"
+        assert all("byModelEffort" in d["stats"] and "repliesFromText" in d["stats"] for d in export["days"]), "the numbers by model × effort and the replies from text"
+        assert any(c.get("effort") for c in calls) and any(" · " in k for d in export["days"] for k in d["stats"]["byModelEffort"]), "the calls' effort and the numbers by it"
         log = log_file.read_text(errors="replace")
         assert log.startswith("=== ") and " ShadowTutor: " in log, "the app's log: its header and the shadow's lines from logcat"
         for name, body in (("the export", text), ("the log", log)):
@@ -5177,7 +5271,10 @@ def dev_upload():
         time.sleep(2)
         qa_hook("shadow")
         assert tap("Numbers", 6), "the numbers tab"
-        for _ in range(8):  # to the list's end: the export and the button are its last
+        for _ in range(20):  # to the list's end: the export and the button are its last (a day of many calls is long)
+            c = find(SEND_TO_NODE)
+            if c is not None and c[1] < 2100:
+                break
             adb("shell", "input", "swipe", "540", "1600", "540", "700", "300")
         time.sleep(1)
         mtime = shadow_file.stat().st_mtime_ns
