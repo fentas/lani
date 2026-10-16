@@ -3422,6 +3422,12 @@ age's, when the age's own are all taken: Jan's Zaselek has none left), and opens
 with its ★ (`village-hud` looks at the HUD over it, its cards hidden, then goes back: nothing is built). `build:` lets it go.
 `pair:<target>-<base>` shows the app in that language pair (`pair:sl-de`), as the connection sheet's languages choose
 it; `pair:` follows the learner profile again (`village-hud`'s German).
+`scroll:variant:<A|B|C>` draws the village's scroll as one of its design variants to compare (`ui/game/ScrollVariants.kt`:
+A a sheet with its collections as tabs, B a sheet with a grid of collections, C a fourth card and section of the HUD;
+its count on the bottom bar only what's new: who joined and the grammar pages met this week, not seen in it yet), each
+as on a phone that never opened it; `scroll:variant:` the parchment scroll again. `companion/bin/qa --steps
+scroll-variants` takes the parchment scroll and each variant open, at its people, at a grammar page and in German
+(`scroll-<variant>-<n>-<what>.png`).
 
 **The school** (GAME.md, "The school"; [COURSE.md](COURSE.md)). `data/SheetsTest` checks the four worksheet types'
 items (a gap in its own sentence, a table's cells with their forms, a transform's lines, a sorted word), their grading

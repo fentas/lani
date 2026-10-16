@@ -301,6 +301,9 @@ fun VillageScreen(vm: AppViewModel) {
         }
     }
     val openScroll: (ScrollSection) -> Unit = { scrollAt = it; card = null; villager = null; scrollOpen = true }
+    /** A design variant's scroll sheet is open (A, B). */
+    var scrollSheet by remember { mutableStateOf(false) }
+    val scrollPrefs = rememberScrollPrefs()
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Color(0xFF16202E))) {
         val w = constraints.maxWidth
@@ -371,6 +374,28 @@ fun VillageScreen(vm: AppViewModel) {
                 else -> m.id.removePrefix("happening:").let { key -> card = null; vm.openScene(key.substringBefore('/'), key) }
             }
         }
+
+        // The scroll's design variant to compare (QA's hook "scroll:variant:<A|B|C>", ui/game/ScrollVariants.kt): what it
+        // shows and does; null: the parchment scroll
+        val scrollVariant = ScrollVariant.of(si.lanisce.lani.app.QaHooks.scrollVariant?.takeIf { si.lanisce.lani.app.QaHooks.enabled })
+        // each variant shown as on a phone that never opened it: this week's people and pages new
+        LaunchedEffect(scrollVariant) { if (scrollVariant != null) scrollPrefs.reset() }
+        val scrollData = if (scrollVariant == null) null else remember(s, overview, scrollPrefs.seen, scrollPrefs.since, cast) {
+            ScrollData.of(
+                s, overview, vm.villagers.people(s).filter { vm.villagers.livesHere(s, it.id) }, vm.grammar.chapter(s),
+                meter = { id -> vm.grammar.view(id)?.meter }, seen = scrollPrefs.seen, since = scrollPrefs.since,
+            )
+        }
+        val scrollRows = ScrollRowActions(
+            place = { p -> scrollSheet = false; hudState.section = null; cam.show(anchorOf(p), area()); tapPlace(placeTap(p), force = true) },
+            scene = { sc -> scrollSheet = false; hudState.section = null; vm.openScene(sc.id, null) },
+            person = { id -> scrollSheet = false; hudState.section = null; villagerAt = null; villager = id },
+            register = { scrollSheet = false; hudState.section = null; vm.openVillagers() },
+            rule = { id -> vm.grammar.show(id) },
+            friends = { scrollSheet = false; hudState.section = null; vm.openFriends() },
+            reading = { scrollSheet = false; hudState.section = null; vm.openReadings(fromVillage = true) },
+            school = if (vm.school.course != null) { { scrollSheet = false; hudState.section = null; vm.openSchool(fromVillage = true) } } else null,
+        )
 
         // The plot chooser: the village as it would be, the plots to choose from marked, the bubbles away meanwhile
         val choice = choosing?.choice
@@ -536,6 +561,9 @@ fun VillageScreen(vm: AppViewModel) {
                 modifier = Modifier.zIndex(1f),
                 onTop = { bar, row -> hudBarH = bar; hudRowH = row },
                 onInside = { name, r -> if (r == null) hudRects.remove(name) else hudRects[name] = r },
+                scroll = if (scrollVariant == ScrollVariant.C && scrollData != null) scrollCard(scrollData).let { (a, b) ->
+                    HudScroll(a, b, scrollData.badge > 0) { ScrollHudSection(scrollData, scrollRows, scrollPrefs) }
+                } else null,
             )
             ChronicleToast(
                 s.log.lastOrNull(),
@@ -587,10 +615,16 @@ fun VillageScreen(vm: AppViewModel) {
                 }
                 TownBar(
                     book = s.age >= Age.VAS,
-                    today = overview.todayCount,
+                    today = scrollData?.badge ?: overview.todayCount,
                     event = s.event,
                     canBuild = options.any { it.available },
-                    onScroll = { openScroll(ScrollSection.TODAY) },
+                    onScroll = {
+                        when (scrollVariant) {
+                            null -> openScroll(ScrollSection.TODAY)
+                            ScrollVariant.C -> { card = null; villager = null; hudState.section = HudSection.SCROLL }
+                            else -> { card = null; villager = null; scrollSheet = true }
+                        }
+                    },
                     onBuild = { card = null; sheet = VillageSheet.Build },
                     onEvent = vm::startEvent,
                     modifier = Modifier.onSizeChanged { barH = it.height },
@@ -598,6 +632,11 @@ fun VillageScreen(vm: AppViewModel) {
             }
         }
 
+        if (scrollSheet && scrollData != null) when (scrollVariant) {
+            ScrollVariant.A -> ScrollSheetTabs(scrollData, scrollRows, book = s.age >= Age.VAS, prefs = scrollPrefs, onClose = { scrollSheet = false })
+            ScrollVariant.B -> ScrollSheetGrid(scrollData, scrollRows, book = s.age >= Age.VAS, prefs = scrollPrefs, onClose = { scrollSheet = false })
+            else -> {}
+        }
         TownScroll(
             visible = scrollOpen,
             book = s.age >= Age.VAS,

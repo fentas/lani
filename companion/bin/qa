@@ -65,6 +65,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        on the map closes it, opening nothing), the settlement's in German (QA's hook "pair:sl-de"),
                        and the plot chooser (QA's hook "build:field") with the cards hidden by themselves and the ★
                        below the bar;
+                       "scroll-variants" the scroll's design variants to compare (QA's hook "scroll:variant:<A|B|C>"):
+                       the parchment scroll and each variant open, at its people, at a grammar page, and open in German
+                       (QA's hook "pair:sl-de"), also saved as scroll-<variant>-<n>-<what>.png;
                        "exercise-words" a review's words looked up (QA's hook "forms"): a tap on a word of the
                        sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
                        nothing and picks nothing, once answered the form in the feedback opens its card;
@@ -2994,6 +2997,117 @@ def village_hud():
     assert hud_cards(True), "the cards again, the chooser left"
 
 
+def scroll_shot(variant: str, n: int, what: str):
+    """A shot for comparing the scroll's variants: the run's NN-scroll-<variant>-<n>-<what>.png, and
+    scroll-<variant>-<n>-<what>.png beside it (the name Jan gets)."""
+    name = f"scroll-{variant}-{n}-{what}"
+    shot(name)
+    shutil.copy(shots[-1], OUT / f"{name}.png")
+
+
+def scroll_variants():
+    """The village's scroll as it is (the parchment scroll, up to Zaselek) and in its three design variants
+    (ui/game/ScrollVariants.kt, QA's hook "scroll:variant:<A|B|C>"), on the dev village's copy, for Jan to compare: each
+    open, at its people, at a grammar page (over it), and open in German (QA's hook "pair:sl-de"). The parchment scroll
+    and the learner's languages again at the end."""
+    def back(n=1):
+        for _ in range(n):
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.2)
+
+    def open_scroll():
+        assert tap("Zvitek · Scroll", 5) or tap("Knjiga · Book", 3) or tap("Zvitek · Rolle", 3), "the scroll's button"
+        time.sleep(2)
+
+    def tap_starting(label: str, timeout=5.0) -> bool:
+        end = time.time() + timeout * slow()
+        while time.time() < end:
+            if (b := box_starting(label)) is not None:
+                tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
+                return True
+            time.sleep(0.8)
+        return False
+
+    def rule(mark: str) -> bool:
+        """Taps the first grammar page that shows how well it sits ([mark]), scrolled to if needed."""
+        c = scroll_to(mark, 4)
+        if c is None:
+            return False
+        tap_at(c)
+        time.sleep(2)
+        return True
+
+    try:
+        qa_hook("scroll:variant:")
+        plain_village()
+        open_scroll()
+        assert wait_for("Danes v vasi", 8), "the parchment scroll at today"
+        scroll_shot("current", 1, "open")
+        assert tap("Prebivalci · Villagers", 5), "its people"
+        time.sleep(2)
+        scroll_shot("current", 2, "section")
+        assert tap("Slovnica · Grammar", 5), "its grammar"
+        time.sleep(2)
+        if rule("Kako dobro"):
+            scroll_shot("current", 3, "detail")
+        plain_village()
+
+        for v in ("A", "B", "C"):
+            qa_hook(f"scroll:variant:{v}")
+            plain_village()
+            if v == "A":
+                time.sleep(1)
+                scroll_shot(v, 0, "badge")  # the bottom bar's count: only what's new and worth opening
+            if v == "C":
+                # its fourth card in the HUD's row
+                hud_card(HUD_SETTLEMENT)
+                row = box_starting(HUD_SETTLEMENT)
+                y = (row[1] + row[3]) // 2
+                adb("shell", "input", "swipe", "980", str(y), "160", str(y), "900")
+                time.sleep(1.5)
+                scroll_shot(v, 4, "card")
+            open_scroll()
+            if v == "C":
+                assert wait_for("Zvitek · Scroll", 5) and wait_for("Kraji · Places: ", 5), "C: the scroll's section in the HUD's sheet"
+            elif v == "A":
+                assert wait_for("Kraji · Places: ", 8), "A: the sheet's chips"
+            else:
+                assert wait_for("Prebivalci · Villagers: ", 8), "B: the grid's cards"
+            time.sleep(1)
+            scroll_shot(v, 1, "open")
+            assert tap_starting("Prebivalci · Villagers: "), f"{v}: its people"
+            time.sleep(1.5)
+            scroll_shot(v, 2, "section")
+            if v == "B":
+                assert tap_starting("‹ Zvitek · Scroll") or tap_starting("‹ Knjiga · Book"), "B: back to the grid"
+                time.sleep(1)
+            if v == "C":
+                assert tap_starting("Prebivalci · Villagers: "), "C: its people folded"
+                time.sleep(1)
+            assert tap_starting("Slovnica · Grammar: "), f"{v}: its grammar"
+            time.sleep(1.5)
+            if rule("★"):
+                scroll_shot(v, 3, "detail")
+            plain_village()
+
+        # German, once each: the base language's labels are the long ones
+        qa_hook("pair:sl-de")
+        time.sleep(3)
+        for v in ("A", "B", "C"):
+            qa_hook(f"scroll:variant:{v}")
+            time.sleep(2)
+            back(0)
+            if not (tap("Zvitek · Rolle", 5) or tap("Knjiga · Buch", 3)):
+                continue
+            time.sleep(2.5)
+            scroll_shot(v, 5 if v == "C" else 4, "de")
+            back(1)
+    finally:
+        qa_hook("pair:")
+        qa_hook("scroll:variant:")
+        time.sleep(2)
+
+
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
 
 def fill(label: str, text: str) -> bool:
@@ -5590,6 +5704,7 @@ def plan():
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
+        ("scroll-variants", scroll_variants, v, False, ""),
         ("school", school, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),

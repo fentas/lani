@@ -68,6 +68,9 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
+ * - "scroll:variant:<A|B|C>": the village's scroll drawn as that design variant ([scrollVariant]; ui/game/ScrollVariants.kt:
+ *   A a sheet with tabs, B a sheet with a grid of collections, C a section of the HUD's sheet), so Jan can compare them
+ *   on a phone; "scroll:variant:" the parchment scroll again (the default).
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
  *   choose it; "pair:" follows the learner profile again.
  * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
@@ -115,6 +118,10 @@ object QaHooks {
     var bubbles by mutableStateOf<Int?>(null)
         private set
 
+    /** The scroll's design variant QA asked for ("scroll:variant:A"), or null: the parchment scroll. */
+    var scrollVariant by mutableStateOf<String?>(null)
+        private set
+
     /** The building QA asked the plot chooser for ("build:<type>"), until the village opens it ([tookBuild]); null: none. */
     var build by mutableStateOf<si.lanisce.lani.game.BuildingType?>(null)
         private set
@@ -140,6 +147,7 @@ object QaHooks {
         when {
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
             command.startsWith("pair:") -> pair(command.removePrefix("pair:").trim())
+            command.startsWith("scroll:variant:") -> scrollVariant = command.removePrefix("scroll:variant:").trim().uppercase().takeIf { it in setOf("A", "B", "C") }
             command == "shadow" -> shadow("")
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
