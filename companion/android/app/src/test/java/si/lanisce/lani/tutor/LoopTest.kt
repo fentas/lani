@@ -158,6 +158,38 @@ class LoopTest {
         assertEquals(1, t.bodies.size)
     }
 
+    @Test fun `a turn that ends with text and no tool call gives its text, one that ends after a tool call gives its last`() = runBlocking {
+        // Haiku 5.5 at low in Jan's shadow: the whole answer as text, end_turn, no reply
+        val plain = ScriptedTransport { _, _ -> message("end_turn", thinking(), text("Odlično, 20/20!"), text("Tako naprej.")) }
+        val r = TutorLoop(plain, Runner()).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn(), effort = "low")
+        assertEquals(LoopEnd.Done, r.end)
+        assertEquals("Odlično, 20/20!\nTako naprej.", r.endText)
+        assertEquals("low", plain.bodies[0]["output_config"]!!.jsonObject["effort"]!!.jsonPrimitive.content)
+        // a stop that isn't end_turn, or no text: none
+        val cut = ScriptedTransport { _, _ -> message("stop_sequence", text("Odlično")) }
+        assertEquals(null, TutorLoop(cut, Runner()).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn()).endText)
+        val silent = ScriptedTransport { _, _ -> message("end_turn", thinking()) }
+        assertEquals(null, TutorLoop(silent, Runner()).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn()).endText)
+    }
+
+    @Test fun `the reply fallback - only a done turn without a reply, never a closing`() {
+        val done = TutorLoop.Result(LoopEnd.Done, 1, "  Bravo!  ")
+        assertEquals(ShadowReply("main", "Bravo!", 7), ReplyFallback.of(done, TurnKind.STATELESS, replied = false, conversation = "main", at = 7))
+        assertEquals("ex-3", ReplyFallback.of(done, TurnKind.DAY, false, "ex-3", 7)!!.conversationId)
+        assertEquals(null, ReplyFallback.of(done, TurnKind.DAY, replied = true, conversation = "main", at = 7))
+        assertEquals(null, ReplyFallback.of(done, TurnKind.CLOSING, false, "main", 7))
+        assertEquals(null, ReplyFallback.of(TutorLoop.Result(LoopEnd.Limit, 8, "Bravo"), TurnKind.DAY, false, "main", 7))
+        assertEquals(null, ReplyFallback.of(TutorLoop.Result(LoopEnd.Done, 1, " "), TurnKind.DAY, false, "main", 7))
+    }
+
+    @Test fun `max_tokens by the level - room for the thinking at xhigh and max`() = runBlocking {
+        val t = ScriptedTransport { _, _ -> message("end_turn", text("ok")) }
+        TutorLoop(t, Runner()).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn(), effort = "high")
+        TutorLoop(t, Runner()).run(prefix, "claude-haiku-5-5", Task.ROUTINE, turn(), effort = "xhigh")
+        TutorLoop(t, Runner()).run(prefix, "claude-opus-5-5", Task.CONTENT, turn(), effort = "max")
+        assertEquals(listOf(16_000, 32_000, 64_000), t.bodies.map { it["max_tokens"]!!.jsonPrimitive.int })
+    }
+
     @Test fun `Haiku 4_5 gets no adaptive thinking and no effort`() = runBlocking {
         val t = ScriptedTransport { _, _ -> message("end_turn", text("ok")) }
         TutorLoop(t, Runner()).run(prefix, "claude-haiku-4-5", Task.ROUTINE, turn())

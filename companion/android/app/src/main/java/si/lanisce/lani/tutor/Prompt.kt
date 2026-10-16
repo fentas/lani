@@ -65,11 +65,12 @@ class Prefix(val tools: JsonArray, val system: String) {
 
     /**
      * A request on [model] for [task] over [messages]: streaming, `tool_choice: auto` (forced tool use is a 400 on
-     * Opus 5.5 and Sonnet 5.5), adaptive thinking with [effort] where the model takes it (set always: Sonnet 5.5's default
-     * is high; and fixed per thread, since a change clears the messages' cache), automatic caching on the last block
+     * Opus 5.5 and Sonnet 5.5), adaptive thinking with the top-level [effort] where the model takes it (set always:
+     * Sonnet 5.5's default is high; and fixed per thread, since a change clears the messages' cache: a thread's turn at
+     * another level carries an effort message in [messages] instead, [Effort]), automatic caching on the last block
      * (5 minutes, after the prefix's 1-hour breakpoint). No temperature, top_p or top_k (the 5.5 models refuse them).
      */
-    fun request(model: String, task: Task, messages: List<JsonObject>, maxTokens: Int = task.maxTokens, effort: String = task.effort): JsonObject = buildJsonObject {
+    fun request(model: String, task: Task, messages: List<JsonObject>, maxTokens: Int = task.maxTokens, effort: String? = task.effort): JsonObject = buildJsonObject {
         put("model", model)
         put("max_tokens", maxTokens)
         put("stream", true)
@@ -78,7 +79,7 @@ class Prefix(val tools: JsonArray, val system: String) {
         putJsonObject("tool_choice") { put("type", "auto") }
         if (ModelCatalog.adaptive(model)) {
             putJsonObject("thinking") { put("type", "adaptive") }
-            putJsonObject("output_config") { put("effort", effort) }
+            if (effort != null) putJsonObject("output_config") { put("effort", effort) }
         }
         putJsonObject("cache_control") { put("type", "ephemeral") }
         put("messages", JsonArray(messages))

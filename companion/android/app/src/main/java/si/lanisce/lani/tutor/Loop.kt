@@ -36,6 +36,20 @@ sealed interface LoopEnd {
     data object Paused : LoopEnd
 }
 
+/**
+ * The reply of a turn that never called `reply` (Haiku 5.5 at `low` in Jan's shadow, 2026-10-16: the whole answer as
+ * plain text, then end_turn): the text that ended the turn ([TutorLoop.Result.endText]) is the reply, to the event's
+ * [conversation]. None when the turn replied through the tool, didn't end (a limit, a failure …), is a closing (it
+ * writes the notebook and says nothing to the learner), or ended without text.
+ */
+object ReplyFallback {
+    fun of(result: TutorLoop.Result, kind: TurnKind, replied: Boolean, conversation: String, at: Long): ShadowReply? {
+        if (replied || kind == TurnKind.CLOSING || result.end != LoopEnd.Done) return null
+        val said = result.endText?.trim()?.takeIf { it.isNotEmpty() } ?: return null
+        return ShadowReply(conversation, said, at)
+    }
+}
+
 /** One call's outcome for the meter: a response, or the error of an attempt ([retried]: another attempt follows). */
 data class CallOutcome(val result: StreamResult?, val error: ApiError?, val retried: Boolean = false)
 
@@ -55,7 +69,11 @@ class TutorLoop(
     private val maxRetries: Int = 3,
     private val maxWaitMs: Long = 30_000,
 ) {
-    data class Result(val end: LoopEnd, val calls: Int)
+    /**
+     * How the turn went: [end], its [calls]; [endText] the text of the response that ended it with `end_turn` and no
+     * tool call (null otherwise, and for a resumed turn whose last answer was saved before: its stop reason isn't kept).
+     */
+    data class Result(val end: LoopEnd, val calls: Int, val endText: String? = null)
 
     /**
      * Runs the turn whose [messages] end with its user message (or, resumed, with a step already saved): [callsDone]
@@ -71,11 +89,16 @@ class TutorLoop(
         save: suspend (List<JsonObject>) -> Unit = {},
         onCall: suspend (CallOutcome) -> Unit = {},
         onTool: suspend (ToolCallRecord) -> Unit = {},
-        /** The thinking effort: the thread's, the same for all its turns (a change clears the cache), or the task's. */
-        effort: String = task.effort,
+        /**
+         * The request's top-level effort: the thread's, the same for all its turns (a change clears the cache; a turn at
+         * another level has an effort message in [messages]), or a stateless turn's own. Null: the model takes none.
+         */
+        effort: String? = task.effort,
+        /** max_tokens to start with: the task's at the level the turn runs at (more at xhigh and max). */
+        maxTokens: Int = task.maxTokensAt(effort),
     ): Result {
         var calls = callsDone
-        var maxTokens = task.maxTokens
+        var maxTokens = maxTokens
         var widened = false
         var badInput: Map<String, String> = emptyMap()
         while (true) {
@@ -129,7 +152,10 @@ class TutorLoop(
                     if (m.content.isEmpty()) return Result(LoopEnd.Done, calls)
                     messages += assistant(m.content)
                     save(messages)
-                    if (m.stopReason != "tool_use" || m.toolUses.isEmpty()) return Result(LoopEnd.Done, calls)
+                    if (m.stopReason != "tool_use" || m.toolUses.isEmpty()) {
+                        val said = m.text.takeIf { m.stopReason == "end_turn" && m.toolUses.isEmpty() && it.isNotBlank() }
+                        return Result(LoopEnd.Done, calls, said)
+                    }
                     badInput = m.badInput
                 }
             }

@@ -46,6 +46,18 @@ class ShadowTutorTest {
     /** A call answered with this (status, body, type) instead of the script's, by its number. */
     private var failOn: ((Int) -> Triple<Int, String, String>?) = { null }
     private var calls = 0
+    /** What GET /v1/models lists. */
+    private var modelsJson = """{"data":[{"id":"claude-opus-5-5","created_at":"2026-10-01"},{"id":"claude-sonnet-5-5","created_at":"2026-10-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}"""
+
+    /** A Messages API request as sent: its body and its anthropic-beta header. */
+    private data class Sent(val body: JsonObject, val beta: String?) {
+        val effort: String? get() = (body["output_config"] as? JsonObject)?.get("effort")?.jsonPrimitive?.content
+        val messages: List<JsonObject> get() = body["messages"]!!.jsonArray.map { it.jsonObject }
+    }
+
+    private fun posts(): List<Sent> = api.requests.filter { it.method == "POST" }.map { r ->
+        Sent(tutorJson.parseToJsonElement(Buffer().also { r.body!!.writeTo(it) }.readUtf8()) as JsonObject, r.header("anthropic-beta"))
+    }
 
     private val api = Answering { r -> answerApi(r) }
     private val bridgeHttp = Answering { r ->
@@ -57,7 +69,7 @@ class ShadowTutorTest {
     }
 
     private fun answerApi(r: Request): Triple<Int, String, String> {
-        if (r.url.encodedPath == "/v1/models") return Triple(200, """{"data":[{"id":"claude-opus-5-5","created_at":"2026-10-01"},{"id":"claude-sonnet-5-5","created_at":"2026-10-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}""", "application/json")
+        if (r.url.encodedPath == "/v1/models") return Triple(200, modelsJson, "application/json")
         val body = Buffer().also { r.body!!.writeTo(it) }.readUtf8()
         val o = tutorJson.parseToJsonElement(body) as JsonObject
         calls++
@@ -228,6 +240,8 @@ class ShadowTutorTest {
         assertEquals(TurnStatus.DONE, closing.status)
         assertTrue(t.notebook.text.startsWith("# Notebook"))
         assertEquals(listOf(4_100L), t.today.restarts)
+        // a closing writes the notebook and says nothing: its text is never taken as a reply
+        assertTrue(closing.replies.isEmpty() && !closing.replyFromText)
         val th = t.thread!!
         assertEquals(1, th.messages.size)
         val first = th.messages.single().toString()
@@ -420,6 +434,132 @@ class ShadowTutorTest {
         assertEquals(listOf("2026-10-15"), o["days"]!!.jsonArray.map { it.jsonObject["day"]!!.jsonPrimitive.content })
         // the share sheet's file is the same content
         assertEquals(t.exportText("test"), t.export(File(dir, "shared"), "test").readText())
+    }
+
+    @Test fun `a turn that never calls reply - its text is the reply, marked, counted by model and effort`() = runBlocking {
+        // as Haiku 5.5 at low did in Jan's shadow: the answer as text, end_turn, no reply call
+        script = { _, _ -> message("end_turn", thinking(), text("**Peč** · stove. Odlično!")) }
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitIdle()
+        val turn = t.today.turns.single()
+        assertEquals(TurnStatus.DONE, turn.status)
+        assertTrue(turn.replyFromText)
+        assertTrue(turn.toolCalls.isEmpty())
+        val reply = turn.replies.single()
+        assertEquals("main" to "**Peč** · stove. Odlično!", reply.conversationId to reply.text)
+        val stats = t.stats()
+        assertEquals(1, stats.repliesFromText)
+        assertEquals(1, stats.byModelEffort.getValue("claude-sonnet-5-5 · medium").repliesFromText)
+        assertEquals(0, stats.byModelEffort.getValue("claude-sonnet-5-5 · medium").repliesByTool)
+        // the thread's line has it, the log says so, the export carries the mark and the count
+        assertTrue(t.thread!!.lines.single().contains("Peč"))
+        assertTrue(lines.any { it.contains("no reply tool called") })
+        val text = t.exportText("test")
+        assertTrue(text.contains("\"replyFromText\":true") && text.contains("\"repliesFromText\":1") && text.contains("byModelEffort"))
+    }
+
+    @Test fun `Balanced - the routine digest on Haiku at high, with room for its thinking`() = runBlocking {
+        val t = ready()
+        t.onDelivered("r1", "/reviews", review("r1", 1)).join()
+        t.onChatOpened().join()
+        t.awaitIdle()
+        val digest = t.today.turns.single()
+        assertEquals("claude-haiku-5-5" to "high", digest.model to digest.effort)
+        val sent = posts()
+        assertTrue(sent.isNotEmpty())
+        for (r in sent) {
+            assertEquals("high", r.effort)
+            assertEquals(16_000, r.body["max_tokens"]!!.jsonPrimitive.content.toInt())
+            assertEquals("thinking-binding-controls-2026-08-01", r.beta)
+        }
+        assertTrue(t.today.calls.all { it.effort == "high" && !it.effortByMessage && it.visibleChars != null })
+    }
+
+    @Test fun `a turn at another level on the day's thread - an effort message, the beta, the history and the top-level effort as they were`() = runBlocking {
+        val t = ready()
+        // grading on the thread's model (Sonnet) at high, the chat at medium (Balanced's)
+        t.update { it.copy(models = mapOf(Task.GRADING to "claude-sonnet-5-5"), efforts = mapOf(Task.GRADING to "high")) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Živjo")).join()
+        t.awaitIdle()
+        assertEquals("medium", t.thread!!.effort)
+        val chatSent = posts()
+        assertEquals(3, chatSent.size)
+        assertTrue(chatSent.all { it.beta == "thinking-binding-controls-2026-08-01" && it.effort == "medium" && it.messages.none { m -> Effort.of(m) != null } })
+        val afterChat = t.thread!!.messages
+
+        t.onDelivered("a1", "/message", """{"kind":"answer","conversation_id":"ex-1","text":"Jaz sem Jan.","client_id":"a1"}""").join()
+        t.awaitIdle()
+        val answer = t.today.turns.single { it.eventKind == "answer" }
+        assertEquals(TurnKind.DAY, answer.kind)
+        assertEquals(TurnStatus.DONE, answer.status)
+        assertEquals("high", answer.effort)
+        assertEquals("ex-1", answer.replies.single().conversationId)
+        val answerSent = posts().drop(3)
+        assertEquals(3, answerSent.size)
+        for (r in answerSent) {
+            assertEquals("medium", r.effort) // the thread's top-level effort: unchanged, so its cache holds
+            assertEquals("thinking-binding-controls-2026-08-01,mid-conversation-output-config-2026-07-01", r.beta)
+            assertEquals(afterChat, r.messages.take(afterChat.size)) // the history before it: as sent before
+            assertEquals(Effort.message("high"), r.messages[afterChat.size])
+            assertTrue(r.messages[afterChat.size + 1].toString().contains("Jaz sem Jan."))
+        }
+        assertTrue(t.today.calls.filter { it.eventKind == "answer" }.all { it.effort == "high" && it.effortByMessage })
+
+        // the next chat: back at the chat's level, by an effort message of its own
+        t.onDelivered("c2", "/message", chat("c2", "Hvala")).join()
+        t.awaitIdle()
+        val last = posts().last()
+        assertEquals(listOf("high", "medium"), last.messages.mapNotNull(Effort::of))
+        assertEquals("medium", last.effort)
+        assertEquals(listOf("medium"), t.today.calls.takeLast(3).map { it.effort }.distinct())
+        val stats = t.stats()
+        assertEquals(setOf("claude-sonnet-5-5 · high", "claude-sonnet-5-5 · medium"), stats.byModelEffort.keys)
+        assertEquals(3, stats.byModelEffort.getValue("claude-sonnet-5-5 · high").calls)
+    }
+
+    @Test fun `on a model without per-message effort a turn on the thread runs at the thread's level`() = runBlocking {
+        modelsJson = """{"data":[{"id":"claude-sonnet-5","created_at":"2026-08-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}"""
+        val t = ready()
+        t.update { it.copy(models = mapOf(Task.CHAT to "claude-sonnet-5", Task.GRADING to "claude-sonnet-5"), efforts = mapOf(Task.GRADING to "high")) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Živjo")).join()
+        t.awaitIdle()
+        t.onDelivered("a1", "/message", """{"kind":"answer","conversation_id":"ex-1","text":"Jaz sem Jan.","client_id":"a1"}""").join()
+        t.awaitIdle()
+        val answer = t.today.turns.single { it.eventKind == "answer" }
+        assertEquals(TurnKind.DAY, answer.kind)
+        assertEquals("medium", answer.effort) // asked for high, ran at the thread's
+        assertTrue(posts().all { it.effort == "medium" && it.beta == "thinking-binding-controls-2026-08-01" && it.messages.none { m -> Effort.of(m) != null } })
+    }
+
+    @Test fun `also run on a model at an effort - its own call at that level, its numbers apart`() = runBlocking {
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Kako si?")).join()
+        t.awaitIdle()
+        val e = t.today.events.single()
+        t.alsoRun(e.id, "claude-haiku-5-5", "low").join()
+        t.awaitIdle()
+        t.alsoRun(e.id, "claude-haiku-5-5", "xhigh").join()
+        t.awaitIdle()
+        val also = t.today.turns.filter { it.kind == TurnKind.ALSO }
+        assertEquals(listOf("low", "xhigh"), also.map { it.effort })
+        assertTrue(also[0].why!!.endsWith("claude-haiku-5-5 · low"))
+        val haiku = posts().filter { it.body["model"]!!.jsonPrimitive.content == "claude-haiku-5-5" }
+        assertEquals(listOf("low", "low", "low", "xhigh", "xhigh", "xhigh"), haiku.map { it.effort })
+        assertEquals(32_000, haiku.last().body["max_tokens"]!!.jsonPrimitive.content.toInt())
+        val stats = t.stats()
+        assertEquals(setOf("claude-haiku-5-5 · low", "claude-haiku-5-5 · xhigh", "claude-sonnet-5-5 · medium"), stats.byModelEffort.keys)
+        assertEquals(1, stats.byModelEffort.getValue("claude-haiku-5-5 · low").repliesByTool)
+    }
+
+    @Test fun `the effort per task is kept with the settings`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(efforts = mapOf(Task.ROUTINE to "medium", Task.CONTENT to "max")) }.join()
+        t.awaitIdle()
+        assertEquals(mapOf(Task.ROUTINE to "medium", Task.CONTENT to "max"), ShadowStore(dir).settings().efforts)
+        val again = tutor()
+        again.awaitIdle()
+        assertEquals(mapOf(Task.ROUTINE to "medium", Task.CONTENT to "max"), again.settings.efforts)
     }
 
     /** The scripted tutor: guide + learner_state first, then a reply, then done; a closing writes the notebook. */

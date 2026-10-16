@@ -332,13 +332,18 @@ class ShadowTutor(
         enqueue(events, "digest", "$why; $worth")
     }
 
-    /** "Also run on model X" for event [eventId]: its own stateless call on [model], metered like the rest. */
-    fun alsoRun(eventId: String, model: String) = scope.launch(io) {
+    /**
+     * "Also run on model X at effort Y" for event [eventId]: its own stateless call on [model] at [effort] (null: the
+     * task's by the settings; fitted to what the model takes), metered like the rest.
+     */
+    fun alsoRun(eventId: String, model: String, effort: String? = null) = scope.launch(io) {
         val e = findEvent(eventId) ?: return@launch
+        val task = Task.of(e.kind)
+        val level = ModelCatalog.fit(effort ?: ModelCatalog.effortFor(task, s.preset, model, s.efforts), model)
         saveQueue(
             q + TurnRecord(
-                id = newId(), eventIds = listOf(e.id), kind = TurnKind.ALSO, task = Task.of(e.kind), model = model,
-                eventKind = e.kind, queuedAt = now(), why = "also run on $model",
+                id = newId(), eventIds = listOf(e.id), kind = TurnKind.ALSO, task = task, model = model,
+                eventKind = e.kind, queuedAt = now(), why = "also run on $model" + (level?.let { " · $it" } ?: ""), effort = level,
             ),
         )
         wakeUp()
@@ -372,9 +377,11 @@ class ShadowTutor(
         val task = if (eventKind == "digest") Task.ROUTINE else Task.of(eventKind)
         val cat = catalog()
         val model = cat.modelFor(task, s.preset, s.models)
+        val effort = ModelCatalog.effortFor(task, s.preset, model, s.efforts)
         val threadModel = store.thread()?.takeIf { it.day == dayNow() }?.model ?: cat.modelFor(Task.CHAT, s.preset, s.models)
+        // on the thread's model a turn joins the thread whatever its effort: a level of its own is an effort message there
         val kind = if (model == threadModel) TurnKind.DAY else TurnKind.STATELESS
-        saveQueue(q + TurnRecord(id = newId(), eventIds = events.map { it.id }, kind = kind, task = task, model = model, eventKind = eventKind, queuedAt = now(), why = why))
+        saveQueue(q + TurnRecord(id = newId(), eventIds = events.map { it.id }, kind = kind, task = task, model = model, eventKind = eventKind, queuedAt = now(), why = why, effort = effort))
         wakeUp()
     }
 
@@ -473,20 +480,27 @@ class ShadowTutor(
         val transport = transportFor(baseUrl()) { vault.load() }
         val loop = TutorLoop(transport, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.budgetPerDay }, sleep = sleep)
 
-        // the turn's messages, and where each step is saved
+        // the level the turn asks for: queued with it, or (a closing, a turn queued before efforts were settings) its task's now
+        val want = ModelCatalog.fit(t.effort ?: ModelCatalog.effortFor(t.task, s.preset, t.model, s.efforts), t.model)
+
+        // the turn's messages, where each step is saved, and the requests' top-level effort
         var th = store.thread()
         val stateless = t.kind == TurnKind.STATELESS || t.kind == TurnKind.ALSO || (t.kind == TurnKind.DAY && th != null && th.day == dayNow() && th.model != t.model)
         val messages: MutableList<JsonObject>
         val save: suspend (List<JsonObject>) -> Unit
+        val top: String?
         if (t.kind == TurnKind.CLOSING) {
             val closing = th ?: return finish(t.copy(error = "no thread to close"), TurnStatus.SKIPPED)
             // made under another prefix (an app update): it can't take another call; it restarts (or closes) as text
             if (closing.prefix != prefix.hash) return finish(t.copy(error = "the prefix changed (an app update): no closing call"), TurnStatus.SKIPPED, closing)
             val why = if (t.eventKind == "restart") "The thread is long (${closing.tokens} tokens) and restarts now" else "The day (${closing.day}) is over"
-            messages = (if (resumed) closing.messages else appendUser(closing.messages, listOf(textBlock(TurnText.closing(why))))).toMutableList()
+            top = closing.topEffort
+            messages = (if (resumed) closing.messages else Effort.append(closing.messages, listOf(textBlock(TurnText.closing(why))), top, onThread(closing, want))).toMutableList()
             save = { m -> val next = (th ?: closing).copy(messages = m); th = next; store.saveThread(next); thread = next }
             save(messages)
         } else if (stateless) {
+            // a call of its own: its level is its top-level effort
+            top = want
             messages = (store.turnMessages(t.id) ?: listOf(userText(TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)), TurnText.now(now(), zone(), where()), content(t, events)))).toMutableList()
             save = { m -> store.saveTurnMessages(t.id, m) }
             save(messages)
@@ -510,8 +524,9 @@ class ShadowTutor(
                     add(textBlock(TurnText.now(now(), zone(), where())))
                     add(textBlock(content(t, events)))
                 }
-                cur = cur.copy(messages = appendUser(cur.messages, blocks), pending = emptyList())
+                cur = cur.copy(messages = Effort.append(cur.messages, blocks, cur.topEffort, onThread(cur, want)), pending = emptyList())
             }
+            top = cur.topEffort
             th = cur
             store.saveThread(cur)
             thread = cur
@@ -525,14 +540,24 @@ class ShadowTutor(
             stateless -> "stateless"
             else -> "day"
         }
+        // the level it runs at: on a thread the one in effect after its user message (its effort message's, else the
+        // thread's top-level one), else its own
+        val level = Effort.inEffect(messages, top)
+        val byMessage = Effort.byMessage(messages)
+        if (t.effort != level) {
+            t = t.copy(effort = level)
+            replace(t)
+        }
         val before = messages.size
         val r = loop.run(
             prefix, t.model, t.task, messages, callsDone = t.callIds.size, save = save,
-            // the thread's effort is the same for all its turns (a change clears the messages' cache); a stateless call's is its task's
-            effort = if (threadKind == "day" || threadKind == "closing") THREAD_EFFORT else t.task.effort,
+            // the top-level effort: a thread's is the same for all its turns (a change clears its messages' cache); a
+            // stateless call's is its own
+            effort = top,
+            maxTokens = t.task.maxTokensAt(level),
             onCall = { c ->
                 // the thread's first call: no answer in it yet (onCall comes before the answer is added)
-                val call = callRecord(t, c, threadKind, firstOfThread = messages.none { it.role() == "assistant" })
+                val call = callRecord(t, c, threadKind, firstOfThread = messages.none { it.role() == "assistant" }, effort = level, byMessage = byMessage)
                 if (c.result != null) {
                     t = t.copy(callIds = t.callIds + call.id)
                     if (threadKind == "day" || threadKind == "closing") th = th?.copy(tokens = call.usage.prompt)?.also { store.saveThread(it); thread = it }
@@ -541,13 +566,19 @@ class ShadowTutor(
                 saveLog(l.copy(calls = l.calls + call))
                 replace(t)
                 line(
-                    "call ${call.model} ${call.eventKind}: ${call.stopReason ?: call.error} in:${call.usage.input} w:${call.usage.cacheWrite} r:${call.usage.cacheRead} out:${call.usage.output} \$${call.cost}" +
+                    "call ${call.model}${call.effort?.let { " $it" + if (call.effortByMessage) " (message)" else "" } ?: ""} ${call.eventKind}: ${call.stopReason ?: call.error} in:${call.usage.input} w:${call.usage.cacheWrite} r:${call.usage.cacheRead} out:${call.usage.output} \$${call.cost}" +
                         (call.inputTransformations?.let { " input_transformations: $it" } ?: ""),
                 )
             },
             onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + rec); replace(t) },
         )
         t = t.copy(text = messages.drop(before).filter { it.role() == "assistant" }.flatMap { it.blocks() }.filter { it.str("type") == "text" }.joinToString("\n") { it.str("text").orEmpty() }.take(2000))
+        // no reply tool called, the answer written as text: that text is the reply (marked, and counted per day)
+        val conversation = if (t.eventKind == "digest") "main" else events.firstOrNull()?.conversationId ?: "main"
+        ReplyFallback.of(r, t.kind, t.replies.isNotEmpty(), conversation, now())?.let { reply ->
+            t = t.copy(replies = listOf(reply), replyFromText = true)
+            line("turn ${t.id} ${t.eventKind} on ${t.model} (${t.effort ?: "no effort"}): no reply tool called, its text taken as the reply")
+        }
         when (val end = r.end) {
             LoopEnd.Done -> finish(t, TurnStatus.DONE, th)
             LoopEnd.Limit -> finish(t, TurnStatus.LIMIT, th)
@@ -563,24 +594,19 @@ class ShadowTutor(
         if (t.eventKind == "digest") TurnText.digest(events, t.why.orEmpty(), zone())
         else events.firstOrNull()?.let { TurnText.event(it, zone()) } ?: "(the event is gone)"
 
-    /** [blocks] after [messages]: a new user message, or added to the last one when it is a user's (a turn that stopped before its answer). */
-    private fun appendUser(messages: List<JsonObject>, blocks: List<JsonObject>): List<JsonObject> {
-        val last = messages.lastOrNull()
-        if (last?.role() == "user") {
-            val merged = buildJsonObject {
-                put("role", "user")
-                put("content", JsonArray(last.blocks() + blocks))
-            }
-            return messages.dropLast(1) + merged
-        }
-        return messages + buildJsonObject {
-            put("role", "user")
-            put("content", JsonArray(blocks))
-        }
-    }
+    /**
+     * The level a turn at [want] sets on thread [th] by an effort message, or null (the thread's level in effect holds)
+     * when its model has no per-message effort: changing the top-level effort instead would clear the thread's cache
+     * (the effort docs: it shapes the rendered prompt), so such a turn runs at the thread's level, and says so.
+     */
+    private fun onThread(th: ThreadState, want: String?): String? = want.takeIf { ModelCatalog.perMessageEffort(th.model) }
 
+    /** A new day's thread on [model]: its top-level effort the chat's now, fixed for its life. */
     private fun newThread(model: String, yesterday: List<String>): ThreadState =
-        ThreadState(day = dayNow(), model = model, startedAt = now(), yesterday = yesterday, prefix = prefix.hash)
+        ThreadState(
+            day = dayNow(), model = model, startedAt = now(), yesterday = yesterday, prefix = prefix.hash,
+            effort = ModelCatalog.effortFor(Task.CHAT, s.preset, model, s.efforts),
+        )
 
     /**
      * A fresh thread after [th] (plan 5, "Compaction: our own"): its first user message the notebook, a few lines on the
@@ -592,9 +618,12 @@ class ShadowTutor(
             textBlock("$why at ${th.tokens} tokens (the limit is ${s.limit}). " + TurnText.lines("The day so far:", th.lines.takeLast(20))),
             textBlock(TurnText.lines("The last exchanges (as text):", lastExchanges())),
         ).filter { (it["text"] as? JsonPrimitive)?.content?.isNotBlank() == true }
+        // the same top-level effort: the prefix's cache may be bound to it (the docs: model-specific), and a turn at
+        // another level sets its own by an effort message
         return ThreadState(
             day = th.day, model = th.model, messages = listOf(buildJsonObject { put("role", "user"); put("content", JsonArray(first)) }),
             restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = prefix.hash,
+            effort = th.topEffort,
         )
     }
 
@@ -602,12 +631,21 @@ class ShadowTutor(
      * The call's record; a call that answered keeps its usage as the API sent it when it is its thread's first or the
      * day's 20th, 40th … ([UsageSample]), while the developer setting is on.
      */
-    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false): CallRecord {
+    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false, effort: String? = t.effort, byMessage: Boolean = false): CallRecord {
         val r = c.result
         val usage = r?.message?.usage ?: Usage()
         val n = log(dayNow()).calls.count { it.error == null } + 1
         val raw = r?.message?.rawUsage?.takeIf { s.developer && UsageSample.keep(firstOfThread, n) }
+        // what the response showed (its text, its tool calls' input), for the thinking's estimate
+        val visible = r?.message?.content?.sumOf { b ->
+            when (b.str("type")) {
+                "text" -> b.str("text").orEmpty().length
+                "tool_use" -> b.str("name").orEmpty().length + (b["input"]?.toString()?.length ?: 0)
+                else -> 0
+            }
+        }
         return CallRecord(
+            effort = effort, effortByMessage = byMessage, visibleChars = visible,
             id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12),
             turnId = t.id, model = r?.message?.model ?: t.model, eventKind = t.eventKind, task = t.task, at = now(), usage = usage,
             firstTokenMs = r?.firstTokenMs, totalMs = r?.totalMs ?: 0, stopReason = r?.message?.stopReason,
@@ -690,7 +728,7 @@ class ShadowTutor(
             }
             TurnKind.ALSO -> Unit
         }
-        line("turn ${t.id} ${t.eventKind} on ${t.model}: $status${t.error?.let { " ($it)" } ?: ""}")
+        line("turn ${t.id} ${t.eventKind} on ${t.model}${t.effort?.let { " $it" } ?: ""}: $status${if (t.replyFromText) " (reply as text)" else ""}${t.error?.let { " ($it)" } ?: ""}")
     }
 
     /** The day's last two or three exchanges, as text (a restart's first message: plan 5, "Compaction: our own"). */
@@ -786,7 +824,5 @@ class ShadowTutor(
     private companion object {
         /** A turn that keeps failing (the network, an overloaded API) is given up after this many tries. */
         const val MAX_ATTEMPTS = 5
-        /** The day's thread's thinking effort, the same for every turn on it (the chat's). */
-        val THREAD_EFFORT = Task.CHAT.effort
     }
 }

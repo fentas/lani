@@ -111,7 +111,7 @@ class AnthropicTransport(
         val sent = JsonObject(body + ("stream" to JsonPrimitive(true)))
         val req = request("/v1/messages", apiKey())
             .header("accept", "text/event-stream")
-            .header("anthropic-beta", BETAS.joinToString(","))
+            .header("anthropic-beta", betas(body).joinToString(","))
             .post(sent.toString().toRequestBody(JSON))
             .build()
         val started = clock()
@@ -175,6 +175,13 @@ class AnthropicTransport(
          * changed the history it got (preserved thinking: the thread must be append-only; logged per call).
          */
         val BETAS = listOf("thinking-binding-controls-2026-08-01")
+
+        /**
+         * The betas of a request [body]: [BETAS], and the per-message effort's ([Effort.BETA]) when it has an effort
+         * message. Only then: the docs name what the beta enables (per-message `output_config`) and nothing else, and a
+         * request without one stays exactly as before; once a thread has one, every later request on it has it too.
+         */
+        fun betas(body: JsonObject): List<String> = if (Effort.inRequest(body)) BETAS + Effort.BETA else BETAS
         private val JSON = "application/json".toMediaType()
         /** A turn's call streams for seconds; a long thinking pause is still a stream (pings). */
         private val defaultClient: OkHttpClient by lazy {

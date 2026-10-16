@@ -117,6 +117,10 @@ data class DayStats(
      */
     val cacheBreakdown: Int = 0,
     val cacheTotalOnly: Int = 0,
+    /** Turns that never called `reply` and whose text became the reply ([TurnRecord.replyFromText]). */
+    val repliesFromText: Int = 0,
+    /** The numbers by model and effort ([Effort.key]: "claude-haiku-5-5 · high"), for the effort comparison. */
+    val byModelEffort: Map<String, RunStats> = emptyMap(),
 ) {
     companion object {
         fun of(log: DayLog, notebookChars: Int, before: Map<String, Long> = emptyMap()): DayStats {
@@ -152,7 +156,50 @@ data class DayStats(
                 repliesReal = log.real.size,
                 cacheBreakdown = ok.count { it.cacheReport == RawUsage.BREAKDOWN },
                 cacheTotalOnly = ok.count { it.cacheReport == RawUsage.TOTAL },
+                repliesFromText = log.turns.count { it.replyFromText },
+                byModelEffort = RunStats.of(ok, log.turns),
             )
+        }
+    }
+}
+
+/**
+ * One model at one effort on a day: its [calls] and [turns] (with a call), [spend], [output] tokens (thinking counted
+ * in), of them [thinking] an estimate ([CallRecord.thinkingEstimate]); how its turns ended: a reply through the tool
+ * ([repliesByTool]), the text taken as the reply ([repliesFromText]), done without either ([noReply]; a digest may say
+ * nothing). Closings don't reply by design: counted in calls, not in the replies.
+ */
+@Serializable
+data class RunStats(
+    val calls: Int = 0,
+    val turns: Int = 0,
+    val spend: Double = 0.0,
+    val output: Long = 0,
+    val thinking: Long = 0,
+    val repliesByTool: Int = 0,
+    val repliesFromText: Int = 0,
+    val noReply: Int = 0,
+) {
+    companion object {
+        /** [calls] (the day's answered ones) and [turns] by [Effort.key]. */
+        fun of(calls: List<CallRecord>, turns: List<TurnRecord>): Map<String, RunStats> {
+            val byCalls = calls.groupBy { Effort.key(it.model, it.effort) }
+            val ran = turns.filter { it.callIds.isNotEmpty() }
+            val byTurns = ran.groupBy { Effort.key(it.model, it.effort) }
+            return (byCalls.keys + byTurns.keys).sorted().associateWith { k ->
+                val cs = byCalls[k].orEmpty()
+                val ts = byTurns[k].orEmpty().filter { it.kind != TurnKind.CLOSING }
+                RunStats(
+                    calls = cs.size,
+                    turns = byTurns[k].orEmpty().size,
+                    spend = cs.sumOf { it.cost ?: 0.0 },
+                    output = cs.sumOf { it.usage.output },
+                    thinking = cs.sumOf { it.thinkingEstimate ?: 0 },
+                    repliesByTool = ts.count { it.replies.isNotEmpty() && !it.replyFromText },
+                    repliesFromText = ts.count { it.replyFromText },
+                    noReply = ts.count { it.status == TurnStatus.DONE && it.replies.isEmpty() },
+                )
+            }
         }
     }
 }

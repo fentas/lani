@@ -103,7 +103,19 @@ data class CallRecord(
     val cacheReport: String? = null,
     /** The usage objects as the API sent them (message_start's, message_delta's): kept for a few calls ([UsageSample]). */
     val usageRaw: RawUsage? = null,
-)
+    /** The effort the call ran at (null: the model takes none, or a call from before efforts were logged). */
+    val effort: String? = null,
+    /** [effort] was set by an effort message within the thread ([Effort]), not the request's top-level one. */
+    val effortByMessage: Boolean = false,
+    /** The response's visible characters: its text and its tool calls' input (not its thinking), for [thinkingEstimate]. */
+    val visibleChars: Int? = null,
+) {
+    /**
+     * About how much of [Usage.output] was thinking (output counts thinking, which the API doesn't report apart): the
+     * output less the visible part at about four characters a token. An estimate; null without [visibleChars].
+     */
+    val thinkingEstimate: Long? get() = visibleChars?.let { v -> (usage.output - (v + 3) / 4).coerceAtLeast(0) }
+}
 
 /** Where a turn ran: the day's thread, a stateless call (another model than the thread's), "also run on", closing. */
 @Serializable
@@ -128,7 +140,7 @@ data class TurnRecord(
     val replies: List<ShadowReply> = emptyList(),
     val toolCalls: List<ToolCallRecord> = emptyList(),
     val callIds: List<String> = emptyList(),
-    /** Text outside `reply` (logged for debugging, never shown as the tutor's). */
+    /** Text outside `reply` (logged for debugging; the tutor's only when the turn had no reply: [replyFromText]). */
     val text: String = "",
     val error: String? = null,
     val attempts: Int = 0,
@@ -136,6 +148,16 @@ data class TurnRecord(
     val notBefore: Long = 0,
     /** Why it runs (a digest's trigger and what's worth saying; "also run on"; a restart's size). */
     val why: String? = null,
+    /**
+     * The effort it runs at: set when it's queued (the task's by the settings, or "also run on"'s), then the level it
+     * ran at (a day's turn on a model without per-message effort runs at the thread's). Null: the model takes none.
+     */
+    val effort: String? = null,
+    /**
+     * The turn ended (end_turn) with text and no `reply` call: its last text became its reply ([replies]), to the
+     * event's conversation (Haiku 5.5 at `low` did that in Jan's shadow). Counted per day, by model and effort.
+     */
+    val replyFromText: Boolean = false,
 )
 
 /** The panel's settings for the shadow tutor (not the key: that is in the [KeyVault]). */
@@ -145,6 +167,8 @@ data class ShadowSettings(
     val preset: Preset = Preset.BALANCED,
     /** The model per task set in the panel ("Custom"); a task without one follows the preset. */
     val models: Map<Task, String> = emptyMap(),
+    /** The effort per task set in the panel ([Effort.LEVELS]); a task without one follows the preset. */
+    val efforts: Map<Task, String> = emptyMap(),
     /** The day's thread restarts past this many tokens (null: the preset's). */
     val threadLimit: Int? = null,
     /** A day's spend in dollars that pauses the shadow. */
@@ -200,4 +224,12 @@ data class ThreadState(
     val yesterday: List<String> = emptyList(),
     /** The prefix it was made under ([Prefix.hash]): another one (an app update) restarts it. */
     val prefix: String = "",
-)
+    /**
+     * Its top-level effort, fixed for its life (the chat's when it began; a change would clear its cache): a turn at
+     * another level changes it by an effort message ([Effort.append]). Null: a thread from before efforts were settings.
+     */
+    val effort: String? = null,
+) {
+    /** The top-level effort its requests send: [effort]; a thread from before ran at `medium`; none on a model without effort. */
+    val topEffort: String? get() = effort ?: Effort.MEDIUM.takeIf { ModelCatalog.adaptive(model) }
+}
