@@ -4943,6 +4943,7 @@ def shadow_tutor():
             time.sleep(1.5)
         assert scroll_to(SHADOW, 3), "the developer section after seven taps"
         shot("shadow-developer")
+        scroll_to(OPEN_PANEL, 3)  # below the section's lines; at the sheet's end it may stay low on the screen
         assert tap(OPEN_PANEL, 4), "the panel's button"
         assert wait_for("Shadow mode", 8), "the panel's settings"
 
