@@ -20,6 +20,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
@@ -382,6 +383,13 @@ class Bridge(private val config: BridgeConfig) {
             }
         }
     }
+
+    /**
+     * The developer's data for the node (app/DevUpload): POST /dev/shadow (the shadow's export, JSON) or /dev/logs (the
+     * app's log, text) with [body] as [type]; the status code.
+     */
+    suspend fun devUpload(path: String, body: String, type: String): Int =
+        exchange(request(path).post(body.toRequestBody(type.toMediaType())).build()).first
 
     suspend fun message(kind: String, conversationId: String, text: String, data: JsonObject? = null) {
         post("/message", buildJsonObject {

@@ -101,7 +101,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        (test/tutor-mock.ts on LANI_TUTOR_MOCK_PORT, default 8771, started by the step): the developer
                        section by seven taps on the version, a fake key, a chat and a review, the panel's events (the
                        shadow's reply beside the real one), numbers and export (shadow-export.json, no key in it), the
-                       mock's requests (shadow-mock-requests.json), and the real chat without the shadow's reply
+                       mock's requests (shadow-mock-requests.json), and the real chat without the shadow's reply;
+                       "dev-upload" the developer's data on the node: the developer setting and the shadow on the mock, a
+                       chat, the app to the background: the shadow's export and the app's log in the dev bridge's copy
+                       under app/dev/ (dev-shadow.json, dev-app-log.txt: the raw usage, no key, no token), the panel's
+                       "📤 Pošlji vozlišču", nothing sent with the developer setting off
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -5058,6 +5062,154 @@ def shadow_tutor():
         mock.terminate()
 
 
+def dev_copy() -> Path:
+    """The dev bridge's copy of the learner data (its log's "data copy: <dir>", test/dev-bridge.ts)."""
+    m = re.search(r"data copy: (\S+)", (OUT / "bridge.log").read_text(errors="replace"))
+    assert m, "the dev bridge's data copy (bridge.log)"
+    return Path(m.group(1))
+
+
+def dev_saved() -> int:
+    """How many uploads the dev bridge saved so far (its log's "dev: …" lines, src/features/dev.ts)."""
+    text = (OUT / "bridge.log").read_text(errors="replace")
+    return text.count("dev: the shadow's export saved") + text.count("dev: the app's log appended")
+
+
+SEND_TO_NODE = "📤 Pošlji vozlišču · Send to the node"  # the shadow panel's button (ui/tutor/ShadowPanel.kt)
+SECRET_LIKE = re.compile(r"sk-ant-(?!‹)[A-Za-z0-9_-]{6,}|Bearer (?!‹)[A-Za-z0-9._~+/=-]{6,}|token=(?!‹)[^&\s\"']+")
+
+
+def dev_upload():
+    """The developer's data on the node (companion/README.md "Developer data on the node"): the developer setting on and
+    the shadow tutor on QA's mock (QA's hook "shadow:<mock>", a fake key), a chat, the app to the background: the shadow's
+    export and the app's log land in the dev bridge's copy of the data under app/dev/ (shadow-<day>.json,
+    app-log-<day>.txt, mode 0600), the export with the thread's first call's raw usage, the log with the shadow's lines
+    from logcat, neither with the key or the device token; the copy's .gitignore keeps /app/dev/ out; the panel's "📤
+    Pošlji vozlišču" sends again; with the developer setting off ("dev:off") the background sends nothing."""
+    for pid in listeners(SHADOW_MOCK_PORT):
+        subprocess.run(["kill", pid])
+    mock = subprocess.Popen(["bun", "test/tutor-mock.ts"], cwd=BRIDGE, stdout=open(OUT / "dev-upload-mock.log", "w"), stderr=subprocess.STDOUT,
+                            env={**os.environ, "LANI_TUTOR_MOCK_PORT": SHADOW_MOCK_PORT})
+    atexit.register(mock.terminate)
+    try:
+        end = time.time() + 15
+        while time.time() < end:
+            try:
+                mock_api("/mock/reset", "POST")
+                break
+            except Exception:
+                time.sleep(0.5)
+        else:
+            raise AssertionError("the mock didn't start (dev-upload-mock.log)")
+        copy = dev_copy()
+        dev = copy / "app" / "dev"
+        day = time.strftime("%Y-%m-%d")
+        shadow_file, log_file = dev / f"shadow-{day}.json", dev / f"app-log-{day}.txt"
+
+        # the developer setting on, the shadow on the mock with a fake key (the panel opens for it)
+        qa_hook(f"shadow:{SHADOW_MOCK}")
+        assert wait_for("Shadow tutor", 8), "the shadow's panel"
+        if find("Shadow mode") is None:
+            assert tap("Settings", 3), "the panel's settings"
+        to_top()
+        if (field := find("sk-ant-…")) is not None:
+            tap_at(field)
+            time.sleep(slow())
+            adb("shell", "input", "text", SHADOW_KEY)
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+            assert tap("Check (GET /v1/models) and keep", 4), "the key's check"
+            assert wait_for("the key works", 10 * slow()), "the mock took the key"
+        if find("Shadow mode: off"):
+            assert tap("Shadow mode: off", 3), "the switch"
+        assert wait_for("Shadow mode: on", 6), "shadow mode on"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+        go_home()
+
+        # a chat: the shadow's turn on the mock (its calls, the first with its raw usage)
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Kako%sse%srece%sdev%supload")  # adb types ASCII only
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        assert wait_for(DEV_TUTOR, 20), "the real tutor's reply in the chat"
+        time.sleep(5 * slow())  # the shadow's turn: three calls to the mock
+        go_home()
+
+        # the app to the background: both land in the copy's app/dev/
+        qa_hook("dev:again")  # an earlier step may have sent within the 30 minutes
+        before = dev_saved()
+        adb("shell", "input", "keyevent", "KEYCODE_HOME")
+        end = time.time() + 30 * slow()
+        while time.time() < end and dev_saved() < before + 2:
+            time.sleep(1)
+        assert shadow_file.is_file(), f"the shadow's export in {dev}: {sorted(p.name for p in dev.glob('*')) if dev.exists() else 'no app/dev'}"
+        assert log_file.is_file(), "the app's log in app/dev"
+        assert (dev.stat().st_mode & 0o777) == 0o700 and (shadow_file.stat().st_mode & 0o777) == 0o600 and (log_file.stat().st_mode & 0o777) == 0o600, "app/dev 0700, its files 0600"
+        export = json.loads(shadow_file.read_text())
+        assert export.get("schema") == "lani.shadow-export/v0", "the export's schema"
+        text = shadow_file.read_text()
+        assert MOCK_TUTOR in text and "dev upload" in text, "the shadow's turn and the chat in the export"
+        calls = [c for d in export["days"] for c in d["log"]["calls"]]
+        raw = [c for c in calls if c.get("usageRaw")]
+        assert raw and "cache_creation" in raw[0]["usageRaw"].get("start", {}), f"the raw usage of the thread's first call: {len(calls)} calls, {len(raw)} with it"
+        breakdown = sum(d["stats"].get("cacheBreakdown", 0) for d in export["days"])
+        assert breakdown >= 1, "the day's count of calls with the breakdown"
+        log = log_file.read_text(errors="replace")
+        assert log.startswith("=== ") and " ShadowTutor: " in log, "the app's log: its header and the shadow's lines from logcat"
+        for name, body in (("the export", text), ("the log", log)):
+            assert SHADOW_KEY not in body and "qa-fake" not in body, f"the key in {name}"
+            assert TOKEN not in body, f"the device token in {name}"
+            assert not SECRET_LIKE.search(body), f"something shaped like a secret in {name}: {SECRET_LIKE.search(body).group(0)[:40]}"
+        (OUT / "dev-shadow.json").write_text(text)
+        (OUT / "dev-app-log.txt").write_text(log)
+        ignore = copy / ".gitignore"
+        if ignore.is_file():
+            assert "/app/dev/" in ignore.read_text().splitlines(), "the copy's .gitignore keeps /app/dev/ out"
+        print(f"    app/dev: the export {len(text) // 1024} KB ({len(calls)} calls, {len(raw)} with raw usage), the log {len(log.splitlines())} lines")
+
+        # the panel's button sends again
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+        time.sleep(2)
+        qa_hook("shadow")
+        assert tap("Numbers", 6), "the numbers tab"
+        for _ in range(8):  # to the list's end: the export and the button are its last
+            adb("shell", "input", "swipe", "540", "1600", "540", "700", "300")
+        time.sleep(1)
+        mtime = shadow_file.stat().st_mtime_ns
+        before = dev_saved()
+        assert tap(SEND_TO_NODE, 4), "the panel's button"
+        end = time.time() + 15 * slow()
+        while time.time() < end and dev_saved() <= before:
+            time.sleep(1)
+        for _ in range(3):  # its outcome under the button, at the list's end
+            adb("shell", "input", "swipe", "540", "1600", "540", "700", "300")
+        assert wait_for("asked in the panel", 10), "its outcome in the panel"
+        shot("dev-upload-panel")
+        assert dev_saved() > before and shadow_file.stat().st_mtime_ns != mtime, "the button's upload on the node"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+
+        # the developer setting off: the background sends nothing
+        qa_hook("dev:off")
+        qa_hook("dev:again")
+        mtime, size, before = shadow_file.stat().st_mtime_ns, log_file.stat().st_size, dev_saved()
+        adb("logcat", "-c")
+        adb("shell", "input", "keyevent", "KEYCODE_HOME")
+        time.sleep(8 * slow())
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+        time.sleep(2)
+        assert dev_saved() == before and shadow_file.stat().st_mtime_ns == mtime and log_file.stat().st_size == size, "an upload with the developer setting off"
+        said = adb("logcat", "-d", "-s", "DevUpload:*", check=False)
+        assert "developer setting is off" in said, "the background's upload didn't run (DevUpload's QA line)"
+        go_home()
+    finally:
+        mock.terminate()
+
+
 # --- main -----------------------------------------------------------------------------------
 
 def plan():
@@ -5139,6 +5291,7 @@ def plan():
         ("voice-node-clip", voice_node_clip, go_home, False, ""),
         ("previous-clip", previous_clip, go_home, False, ""),
         ("shadow-tutor", shadow_tutor, go_home, False, ""),
+        ("dev-upload", dev_upload, go_home, False, ""),
     ]
 
 

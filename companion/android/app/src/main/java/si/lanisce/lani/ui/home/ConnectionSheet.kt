@@ -75,7 +75,8 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
 /**
  * "🛠️ Razvijalec · Developer": hidden until the version line at the bottom is tapped seven times (in the release app
  * too), then the developer's settings: the shadow tutor (tutor/ShadowTutor, docs/plans/05-phase-0.md check 6), on or off,
- * and its debug panel. Turning it on without a key opens the panel, which asks for one.
+ * and its debug panel. Turning it on without a key opens the panel, which asks for one. While they are shown, the app's
+ * log and the shadow's export go to the paired node (app/DevUpload), and the section says so.
  */
 @Composable
 private fun Developer(vm: AppViewModel) {
@@ -100,6 +101,8 @@ private fun Developer(vm: AppViewModel) {
                 )
             }
             Text(bi("developer.shadowWhat"), style = MaterialTheme.typography.bodySmall, color = muted)
+            // the developer's data on the node while these are on (app/DevUpload, companion/README.md "Developer data on the node")
+            Text("📤 ${bi("developer.toNode")}", style = MaterialTheme.typography.bodySmall, color = muted)
             OutlinedButton(onClick = { shadow.panelOpen = true }) { Text("🔍 ${bi("developer.openPanel")}") }
             TextButton(onClick = { shadow.showDeveloper(false) }) { Text(bi("developer.hide")) }
         }

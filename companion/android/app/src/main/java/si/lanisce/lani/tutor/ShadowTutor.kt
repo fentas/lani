@@ -87,6 +87,8 @@ class ShadowTutor(
     var panelOpen by mutableStateOf(false)
     /** The tool definitions and the core prompt, as sent (for the panel's "prefix"). */
     val prefixChars: Int = prefix.system.length + prefix.tools.toString().length
+    /** The day's thread was closed (its closing turn ended: the notebook rewritten): the developer's data goes to the node (app/DevUpload). */
+    var onDayClosed: () -> Unit = {}
     val toolNames: List<String> = specs.map { it.name }
 
     init {
@@ -529,7 +531,8 @@ class ShadowTutor(
             // the thread's effort is the same for all its turns (a change clears the messages' cache); a stateless call's is its task's
             effort = if (threadKind == "day" || threadKind == "closing") THREAD_EFFORT else t.task.effort,
             onCall = { c ->
-                val call = callRecord(t, c, threadKind)
+                // the thread's first call: no answer in it yet (onCall comes before the answer is added)
+                val call = callRecord(t, c, threadKind, firstOfThread = messages.none { it.role() == "assistant" })
                 if (c.result != null) {
                     t = t.copy(callIds = t.callIds + call.id)
                     if (threadKind == "day" || threadKind == "closing") th = th?.copy(tokens = call.usage.prompt)?.also { store.saveThread(it); thread = it }
@@ -595,9 +598,15 @@ class ShadowTutor(
         )
     }
 
-    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String): CallRecord {
+    /**
+     * The call's record; a call that answered keeps its usage as the API sent it when it is its thread's first or the
+     * day's 20th, 40th … ([UsageSample]), while the developer setting is on.
+     */
+    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false): CallRecord {
         val r = c.result
         val usage = r?.message?.usage ?: Usage()
+        val n = log(dayNow()).calls.count { it.error == null } + 1
+        val raw = r?.message?.rawUsage?.takeIf { s.developer && UsageSample.keep(firstOfThread, n) }
         return CallRecord(
             id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12),
             turnId = t.id, model = r?.message?.model ?: t.model, eventKind = t.eventKind, task = t.task, at = now(), usage = usage,
@@ -606,6 +615,8 @@ class ShadowTutor(
             threadAfter = usage.prompt, thread = thread,
             error = c.error?.let { "${it.kind}${if (c.retried) " (retried)" else ""}: ${Redact.of(it.message.orEmpty()).take(300)}" },
             inputTransformations = r?.message?.inputTransformations?.take(2000),
+            cacheReport = r?.message?.rawUsage?.cacheReport,
+            usageRaw = raw,
         )
     }
 
@@ -652,7 +663,10 @@ class ShadowTutor(
                     saveLog(today.copy(restarts = today.restarts + th.tokens))
                     store.saveThread(fresh)
                     thread = fresh
-                } else archive(th)
+                } else {
+                    archive(th)
+                    onDayClosed()
+                }
             }
             TurnKind.DAY, TurnKind.STATELESS -> {
                 val at = Instant.ofEpochMilli(t.endedAt ?: now()).atZone(zone()).toLocalTime().withNano(0).withSecond(0)
@@ -698,39 +712,61 @@ class ShadowTutor(
     suspend fun dayLog(day: String): DayLog = withContext(io) { log(day) }
 
     /**
-     * Everything the shadow kept, as one JSON file in [dir] (the share sheet sends it): the events, turns, replies, tool
-     * calls and numbers of every day, the notebook and its versions, the thread, the queue, the settings. No key, no
-     * token: none is ever kept with them, and the text is cleaned of anything shaped like a key ([Redact]).
+     * Everything the shadow kept, as one JSON file in [dir] (the share sheet sends it): [exportText]'s.
      */
-    suspend fun export(dir: File, app: String): File = withContext(io) {
-        val days = store.days().map { log(it) }
-        val o = buildJsonObject {
-            put("schema", "lani.shadow-export/v0")
-            put("exported_at", Instant.ofEpochMilli(now()).toString())
-            put("app", app)
-            put("base_url", baseUrl())
-            put("tools", JsonArray(toolNames.map { JsonPrimitive(it) }))
-            put("prefix_chars", prefixChars)
-            put("settings", tutorJson.encodeToJsonElement(ShadowSettings.serializer(), s))
-            put("notebook", tutorJson.encodeToJsonElement(NotebookState.serializer(), nb))
-            store.thread()?.let { put("thread", tutorJson.encodeToJsonElement(ThreadState.serializer(), it)) }
-            put("queue", tutorJson.encodeToJsonElement(ListSerializer(TurnRecord.serializer()), q))
-            put(
-                "days",
-                JsonArray(days.map { d ->
-                    buildJsonObject {
-                        put("day", d.day)
-                        put("stats", tutorJson.encodeToJsonElement(DayStats.serializer(), DayStats.of(d, nb.text.length)))
-                        put("log", tutorJson.encodeToJsonElement(DayLog.serializer(), d))
-                    }
-                }),
-            )
+    suspend fun export(dir: File, app: String): File {
+        val text = exportText(app)
+        return withContext(io) {
+            dir.mkdirs()
+            File(dir, "lani-shadow-${dayNow()}.json").also { it.writeText(text) }
         }
-        val key = vault.load()
-        dir.mkdirs()
-        val f = File(dir, "lani-shadow-${dayNow()}.json")
-        f.writeText(Redact.of(o.toString(), key))
-        f
+    }
+
+    /**
+     * Everything the shadow kept, as JSON (`lani.shadow-export/v0`: the share sheet's file and the node's copy, app/DevUpload):
+     * the events, turns, replies, tool calls, calls (with the raw usage kept) and numbers of every day, the notebook and
+     * its versions, the thread, the queue, the settings. No key, no token: none is ever kept with them, and every text is
+     * cleaned of the key, the paired node's token, [secrets] and anything shaped like one ([Redact.json]). [maxBytes]:
+     * the oldest days are left out until it fits (their days in `days_left_out`).
+     */
+    suspend fun exportText(app: String, secrets: List<String> = emptyList(), maxBytes: Int? = null): String {
+        val known = listOfNotNull(vault.load(), bridgeConfig()?.token) + secrets
+        return withContext(io) {
+            var days = store.days()
+            var left = emptyList<String>()
+            fun render() = Redact.json(exportJson(app, days.map { log(it) }, left), known).toString()
+            var text = render()
+            while (maxBytes != null && days.isNotEmpty() && text.toByteArray().size > maxBytes) {
+                left = left + days.first()
+                days = days.drop(1)
+                text = render()
+            }
+            text
+        }
+    }
+
+    private fun exportJson(app: String, days: List<DayLog>, left: List<String>): JsonObject = buildJsonObject {
+        put("schema", "lani.shadow-export/v0")
+        put("exported_at", Instant.ofEpochMilli(now()).toString())
+        put("app", app)
+        put("base_url", baseUrl())
+        put("tools", JsonArray(toolNames.map { JsonPrimitive(it) }))
+        put("prefix_chars", prefixChars)
+        put("settings", tutorJson.encodeToJsonElement(ShadowSettings.serializer(), s))
+        put("notebook", tutorJson.encodeToJsonElement(NotebookState.serializer(), nb))
+        store.thread()?.let { put("thread", tutorJson.encodeToJsonElement(ThreadState.serializer(), it)) }
+        put("queue", tutorJson.encodeToJsonElement(ListSerializer(TurnRecord.serializer()), q))
+        if (left.isNotEmpty()) put("days_left_out", JsonArray(left.map { JsonPrimitive(it) }))
+        put(
+            "days",
+            JsonArray(days.map { d ->
+                buildJsonObject {
+                    put("day", d.day)
+                    put("stats", tutorJson.encodeToJsonElement(DayStats.serializer(), DayStats.of(d, nb.text.length)))
+                    put("log", tutorJson.encodeToJsonElement(DayLog.serializer(), d))
+                }
+            }),
+        )
     }
 
     /** The tests': waits until what was handed in has run and the worker stopped. */

@@ -111,6 +111,12 @@ data class DayStats(
     val totalMedianMs: Long?,
     val repliesShadow: Int,
     val repliesReal: Int,
+    /**
+     * The calls whose usage gave the cache writes by lifetime (usage.cache_creation), and those with only their total
+     * (cache_creation_input_tokens, filed as 5-minute writes): the cache question.
+     */
+    val cacheBreakdown: Int = 0,
+    val cacheTotalOnly: Int = 0,
 ) {
     companion object {
         fun of(log: DayLog, notebookChars: Int, before: Map<String, Long> = emptyMap()): DayStats {
@@ -144,6 +150,8 @@ data class DayStats(
                 totalMedianMs = median(ok.map { it.totalMs }),
                 repliesShadow = log.turns.sumOf { it.replies.size },
                 repliesReal = log.real.size,
+                cacheBreakdown = ok.count { it.cacheReport == RawUsage.BREAKDOWN },
+                cacheTotalOnly = ok.count { it.cacheReport == RawUsage.TOTAL },
             )
         }
     }

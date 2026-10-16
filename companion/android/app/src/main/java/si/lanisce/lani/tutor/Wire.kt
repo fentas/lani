@@ -70,9 +70,45 @@ data class Usage(
 }
 
 /**
+ * A response's `usage` objects as the API sent them, in `message_start` ([start]) and in `message_delta` ([delta]): for
+ * the cache question (does `cache_creation.ephemeral_1h_input_tokens` come back, or only `cache_creation_input_tokens`,
+ * which [Usage.merge] then files as 5-minute writes?). The shadow keeps them for a few calls ([UsageSample]).
+ */
+@Serializable
+data class RawUsage(val start: JsonObject? = null, val delta: JsonObject? = null) {
+    /**
+     * How the cache writes were reported: [BREAKDOWN] (usage.cache_creation by lifetime, in either event), [TOTAL] (only
+     * cache_creation_input_tokens), null (neither).
+     */
+    val cacheReport: String?
+        get() = when {
+            listOfNotNull(start, delta).any { it["cache_creation"] is JsonObject } -> BREAKDOWN
+            listOfNotNull(start, delta).any { it["cache_creation_input_tokens"] is JsonPrimitive } -> TOTAL
+            else -> null
+        }
+
+    companion object {
+        const val BREAKDOWN = "breakdown"
+        const val TOTAL = "total"
+    }
+}
+
+/**
+ * Which calls keep their [RawUsage] in the shadow's calls log: the first call of each thread (the day's, a restarted
+ * one, a stateless turn's own) and every [EVERY]th call of the day.
+ */
+object UsageSample {
+    const val EVERY = 20
+
+    /** Whether the day's [n]th call (from 1) keeps its raw usage; [firstOfThread]: its thread had no answer before it. */
+    fun keep(firstOfThread: Boolean, n: Int): Boolean = firstOfThread || (n > 0 && n % EVERY == 0)
+}
+
+/**
  * One finished response: its [content] blocks as the API sent them (thinking blocks with their signature, passed back
  * unchanged), why it stopped, its [usage]; [badInput]: the tool_use blocks whose streamed input wasn't valid JSON (by
- * id: the text as received), which the loop answers with an error instead of running them.
+ * id: the text as received), which the loop answers with an error instead of running them; [rawUsage] the usage
+ * objects as received.
  */
 data class AssistantMessage(
     val id: String?,
@@ -88,6 +124,7 @@ data class AssistantMessage(
      * logs it: an append-only thread should never have one.
      */
     val inputTransformations: String? = null,
+    val rawUsage: RawUsage = RawUsage(),
 ) {
     val toolUses: List<JsonObject> get() = content.filter { it.str("type") == "tool_use" }
     val text: String get() = content.filter { it.str("type") == "text" }.joinToString("\n") { it.str("text").orEmpty() }
@@ -190,6 +227,8 @@ class StreamAccumulator {
     private var stopReason: String? = null
     private var stopDetails: JsonObject? = null
     private var usage = Usage()
+    private var rawStart: JsonObject? = null
+    private var rawDelta: JsonObject? = null
     private var transformations: String? = null
 
     private fun transformations(o: JsonObject?) {
@@ -214,6 +253,7 @@ class StreamAccumulator {
                 id = m.str("id")
                 model = m.str("model")
                 usage = Usage.merge(usage, m["usage"] as? JsonObject)
+                (m["usage"] as? JsonObject)?.let { rawStart = it }
                 transformations(m)
                 transformations(m["usage"] as? JsonObject)
             }
@@ -245,6 +285,7 @@ class StreamAccumulator {
                 }
                 (o["stop_details"] as? JsonObject)?.let { stopDetails = it }
                 usage = Usage.merge(usage, o["usage"] as? JsonObject)
+                (o["usage"] as? JsonObject)?.let { rawDelta = it }
                 transformations(o)
                 transformations(o["delta"] as? JsonObject)
                 transformations(o["usage"] as? JsonObject)
@@ -286,7 +327,7 @@ class StreamAccumulator {
                 else -> b.start // redacted_thinking and others: as they came
             }
         }
-        return AssistantMessage(id, model, content, stopReason, stopDetails, usage, bad, transformations)
+        return AssistantMessage(id, model, content, stopReason, stopDetails, usage, bad, transformations, RawUsage(rawStart, rawDelta))
     }
 }
 

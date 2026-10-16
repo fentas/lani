@@ -1083,8 +1083,8 @@ once"). Older days are a tap away.
 
 **The export:** one JSON file (`lani.shadow-export/v0`: the settings, the notebook and its versions, the thread, the
 queue, and each day's events, turns, replies, tool calls, calls and numbers) through the share sheet (a FileProvider
-on the cache's `shared/`). No key and no token: neither is kept with them, and the text is cleaned of anything shaped
-like a key.
+on the cache's `shared/`). No key and no token: neither is kept with them, and every text is cleaned of the key, the
+node's token and anything shaped like a secret (`Redact.json`).
 
 **Without a key: the mock.** `bun companion/bridge/test/tutor-mock.ts` serves a canned Messages API on
 127.0.0.1:8771 (the emulator: `http://10.0.2.2:8771`): `GET /v1/models` and streamed `POST /v1/messages` in the real
@@ -1094,6 +1094,35 @@ a chat for the errors (`[mock:429]`, `[mock:529]`, `[mock:500]`, `[mock:refusal]
 `bun companion/bridge/test/tutor-mock-check.ts` checks it. A debug or qa build's panel takes its base URL ("The mock
 (10.0.2.2:8771)"); QA's hook `shadow:http://10.0.2.2:8771` sets it and opens the panel (`app/QaHooks.kt`); a release
 build always calls the API.
+
+**Developer data on the node.** While the developer setting is on and the app is paired, the app sends its developer
+data to the paired node by itself (`app/DevUpload.kt`), and the developer reads it there as files: nothing to export or
+share. Off, and for every other learner, nothing is read and nothing is sent; the developer section says what goes
+where while it's on. The tutor knows nothing of it (no tool, no paragraph of the channel guide).
+- **What:** the shadow's export (the share sheet's `lani.shadow-export/v0`; past 5 MB the oldest days are left out,
+  named in `days_left_out`) and the app's own log: this process's logcat lines (an app reads its own without a
+  permission, on Android 16 too), its warnings and errors and the info lines of its own tags (`AppLog.TAGS`: the
+  shadow's calls, turns and transport errors, Clips' "no clip of a line", the speaker's route lines in QA builds …),
+  at most the last 2,000 of the last 24 hours, after those sent before. Both cleaned of secrets (`tutor/KeyVault.kt`
+  `Redact.all`, `Redact.json`): the API key and the device token by their values, `sk-ant-…`, `Bearer …`, the value
+  after a secret's name (`token=…`, `x-api-key: …`, `Authorization: …`, `"api_key": "…"`), a URL's `key`, `sig` or
+  `code`; counts of tokens stay.
+- **When:** after the shadow's day closed (its notebook rewritten), when the app goes to the background (at most every
+  30 minutes) and by "📤 Pošlji vozlišču · Send to the node" in the panel's Numbers, which shows the last upload.
+- **How:** over the app's own client with its device token (`Bridge.devUpload`; not the shadow's GET-only client) to
+  `POST /dev/shadow` (JSON) and `POST /dev/logs` (text): the app's token only, 5 MB at most (413 beyond).
+- **Where:** `<data>/app/dev/` (`bridge/src/features/dev.ts`): `shadow-<YYYY-MM-DD>.json` (that day's latest export)
+  and `app-log-<YYYY-MM-DD>.txt` (that day's uploads appended, each after a `=== …` line: when, the app, the phone),
+  mode 0600 in a 0700 directory, kept 30 days (the node's day). The bridge cleans them once more (the request's own
+  token, the same patterns).
+- **Never committed:** the data repository's `.gitignore` keeps `/app/dev/` out (`lani_data_repo.py`: lani-setup writes
+  the line, each commit adds it back when it's missing and untracks anything there, staged before or not), and the bridge
+  adds the line at its start to a `.gitignore` without it.
+- **The raw usage, for the cache question:** for its thread's first call (the day's, a restarted one, a stateless
+  turn's) and every 20th call of the day, the shadow's calls log keeps `usage` as the API sent it in `message_start` and
+  in `message_delta` (`usageRaw`); every call says how its cache writes came (`cacheReport`: `breakdown` by lifetime,
+  or only the `total`, which `tutor/Wire.kt` files as 5-minute writes), and the day's numbers count both
+  (`cacheBreakdown`, `cacheTotalOnly`; the panel's Numbers too).
 
 ## Grammar book
 
@@ -3073,6 +3102,7 @@ companion/bin/qa --steps school-scene            # the teacher in the school's s
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export
+companion/bin/qa --steps dev-upload              # the developer's data on the node: a chat, the app to the background, app/dev/ in the dev bridge's copy (no key, no token), the panel's button, nothing with the setting off
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --minified --steps voice-node-clip  # a new line a villager says plays the node's clip (not the phone's voice), also with the cap full
 companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks
 companion/bin/qa --apk <file>                    # an APK built before (a debug or qa build), nothing built

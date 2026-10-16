@@ -337,6 +337,91 @@ class ShadowTutorTest {
         assertEquals(0, calls)
     }
 
+    @Test fun `with the developer setting on, the raw usage of a thread's first call and of every 20th is kept`() = runBlocking {
+        val t = ready()
+        t.showDeveloper(true).join()
+        for (i in 1..7) {
+            t.onDelivered("c$i", "/message", chat("c$i", "Vprašanje $i")).join()
+            t.awaitIdle()
+        }
+        val day = t.today.calls
+        assertEquals(21, day.size) // seven chats of three calls, all on the day's thread
+        val kept = day.withIndex().filter { it.value.usageRaw != null }.map { it.index + 1 }
+        assertEquals(listOf(1, 20), kept)
+        // as the API sent them: message_start's usage with its breakdown by lifetime, message_delta's
+        val raw = day[0].usageRaw!!
+        assertEquals("4000", raw.start!!["cache_creation"]!!.jsonObject["ephemeral_1h_input_tokens"]!!.jsonPrimitive.content)
+        assertEquals("100", raw.start!!["input_tokens"]!!.jsonPrimitive.content)
+        assertEquals("80", raw.delta!!["output_tokens"]!!.jsonPrimitive.content)
+        // every call says how its cache writes came, and the day counts them
+        assertTrue(day.all { it.cacheReport == RawUsage.BREAKDOWN })
+        val stats = t.stats()
+        assertEquals(21, stats.cacheBreakdown)
+        assertEquals(0, stats.cacheTotalOnly)
+        // the export (the share sheet's, the node's) has them
+        val text = t.exportText("test")
+        assertTrue(text.contains("usageRaw") && text.contains("ephemeral_1h_input_tokens") && text.contains("\"cacheBreakdown\":21"))
+    }
+
+    @Test fun `without the developer setting no raw usage is kept`() = runBlocking {
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Halo")).join()
+        t.awaitIdle()
+        assertEquals(3, t.today.calls.size)
+        assertTrue(t.today.calls.all { it.usageRaw == null && it.cacheReport == RawUsage.BREAKDOWN })
+    }
+
+    @Test fun `a stateless turn is a thread of its own, its first call keeps the raw usage`() = runBlocking {
+        val t = ready()
+        t.showDeveloper(true).join()
+        t.onDelivered("c1", "/message", chat("c1", "Halo")).join()
+        t.awaitIdle()
+        t.alsoRun(t.today.events.single().id, "claude-haiku-5-5").join()
+        t.awaitIdle()
+        val also = t.today.calls.filter { it.thread == "also" }
+        assertEquals(3, also.size)
+        assertTrue(also[0].usageRaw != null && also.drop(1).all { it.usageRaw == null })
+    }
+
+    @Test fun `the day's closing tells the node's upload, a restart doesn't`() = runBlocking {
+        val t = ready()
+        var closed = 0
+        t.onDayClosed = { closed++ }
+        t.onDelivered("c1", "/message", chat("c1", "Dober večer")).join()
+        t.awaitIdle()
+        assertEquals(0, closed)
+        now = LocalDateTime.of(2026, 10, 15, 9, 0).atZone(zone).toInstant().toEpochMilli()
+        t.onDelivered("c2", "/message", chat("c2", "Dobro jutro")).join()
+        t.awaitIdle()
+        assertEquals(1, closed)
+        // a thread past its limit restarts with a closing of its own: not the day's
+        t.update { it.copy(threadLimit = 2_000) }.join()
+        t.onDelivered("c3", "/message", chat("c3", "Še enkrat")).join()
+        t.awaitIdle()
+        assertTrue(t.today.turns.any { it.kind == TurnKind.CLOSING && it.eventKind == "restart" })
+        assertEquals(1, closed)
+    }
+
+    @Test fun `the export for the node has no key, no token, no secret given, the oldest days left out to fit`() = runBlocking {
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Moj žeton je NODESECRET12345 in bridge-token")).join()
+        t.awaitIdle()
+        now = LocalDateTime.of(2026, 10, 15, 18, 0).atZone(zone).toInstant().toEpochMilli()
+        t.onDelivered("c2", "/message", chat("c2", "Naslednji dan")).join()
+        t.awaitIdle()
+        val whole = t.exportText("test", listOf("NODESECRET12345"))
+        assertTrue(whole.contains("\"day\":\"2026-10-14\"") && whole.contains("\"day\":\"2026-10-15\"") && whole.contains("Naslednji dan"))
+        assertFalse(whole.contains("NODESECRET12345") || whole.contains("bridge-token") || whole.contains("SHADOWTESTKEY"))
+        assertFalse(whole.contains("days_left_out"))
+        // too large for the node: yesterday goes, today stays, and it says so
+        val fit = t.exportText("test", maxBytes = whole.toByteArray().size - 1)
+        val o = tutorJson.parseToJsonElement(fit).jsonObject
+        assertEquals(listOf("2026-10-14"), o["days_left_out"]!!.jsonArray.map { it.jsonPrimitive.content })
+        assertEquals(listOf("2026-10-15"), o["days"]!!.jsonArray.map { it.jsonObject["day"]!!.jsonPrimitive.content })
+        // the share sheet's file is the same content
+        assertEquals(t.exportText("test"), t.export(File(dir, "shared"), "test").readText())
+    }
+
     /** The scripted tutor: guide + learner_state first, then a reply, then done; a closing writes the notebook. */
     private fun tutorTurn(body: JsonObject, n: Int): AssistantMessage {
         val messages = body["messages"]!!.jsonArray.map { it.jsonObject }

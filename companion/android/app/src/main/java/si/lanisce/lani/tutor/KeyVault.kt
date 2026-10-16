@@ -7,6 +7,10 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import java.security.KeyStore
 import java.util.Base64
 import javax.crypto.Cipher
@@ -101,13 +105,45 @@ class KeyVault(private val cipher: SecretCipher, private val store: SecretStore)
     }
 }
 
-/** Takes anything shaped like an API key out of a text bound for a log line, the panel or the export. */
+/**
+ * Takes anything shaped like an API key out of a text bound for a log line, the panel or the export ([of]); and, for
+ * what goes to the node (the export, the app's log: app/DevUpload), anything that could carry a secret ([all], [json]).
+ */
 object Redact {
     private val keyLike = Regex("""sk-ant-[A-Za-z0-9_\-]{6,}""")
+    /** A name that says a secret is in its value: a token, an API key, a password (not a count of tokens: input_tokens). */
+    private const val SECRET_NAME = """[\w-]*(?:token(?!s)|api[_-]?key|secret|passw(?:or)?d|authorization|cookie)[\w-]*"""
+    /** A secret's name, then its value: token=…, "api_key": "…", Authorization: Bearer …, x-api-key: …. */
+    private val named = Regex("""\b($SECRET_NAME)(\s*["']?\s*[=:]\s*["']?\s*)(?:(?:Bearer|Basic|Token)\s+)?([^\s&#"',;<>()\[\]\{\}]+)""", RegexOption.IGNORE_CASE)
+    private val secretKey = Regex("^$SECRET_NAME$", RegexOption.IGNORE_CASE)
+    private val bearer = Regex("""\bBearer\s+[A-Za-z0-9._~+/=\-]{6,}""", RegexOption.IGNORE_CASE)
+    /** A URL's key, signature or code (a token's own name is [named]'s). */
+    private val query = Regex("""([?&](?:key|sig|signature|code|auth)=)[^&\s#"']+""", RegexOption.IGNORE_CASE)
 
     fun of(text: String, key: String? = null): String {
         var t = text
         if (!key.isNullOrBlank() && key.length >= 8) t = t.replace(key, "‹key›")
         return keyLike.replace(t, "sk-ant-‹…›")
+    }
+
+    /**
+     * [text] cleaned of what could carry a secret: the [known] values (the API key, the device token), API keys
+     * (sk-ant-…), Bearer tokens, the value after a secret's name (token=…, x-api-key: …, Authorization: …, "api_key": "…")
+     * and a URL's key, sig or code. Counts of tokens (input_tokens: 12) stay.
+     */
+    fun all(text: String, known: Collection<String?> = emptyList()): String {
+        var t = text
+        for (k in known) if (!k.isNullOrBlank() && k.length >= 8) t = t.replace(k, "‹secret›")
+        t = keyLike.replace(t, "sk-ant-‹…›")
+        t = bearer.replace(t, "Bearer ‹…›")
+        t = named.replace(t) { m -> m.groupValues[1] + m.groupValues[2] + "‹…›" }
+        return query.replace(t) { m -> m.groupValues[1] + "‹…›" }
+    }
+
+    /** [e] with every string cleaned ([all]) and the string of a key named like a secret ("token", "api_key") replaced; numbers stay. */
+    fun json(e: JsonElement, known: Collection<String?> = emptyList()): JsonElement = when (e) {
+        is JsonObject -> JsonObject(e.mapValues { (k, v) -> if (v is JsonPrimitive && v.isString && secretKey.matches(k)) JsonPrimitive("‹…›") else json(v, known) })
+        is JsonArray -> JsonArray(e.map { json(it, known) })
+        is JsonPrimitive -> if (e.isString) JsonPrimitive(all(e.content, known)) else e
     }
 }

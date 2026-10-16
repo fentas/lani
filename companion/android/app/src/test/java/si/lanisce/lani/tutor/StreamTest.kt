@@ -151,4 +151,33 @@ class StreamTest {
         assertEquals(40L, w.cacheWrite5m)
         assertNull(ApiError.retryAfterMs(null))
     }
+
+    @Test fun `the usage objects are kept as the API sent them, and say how the cache writes were reported`() = runBlocking {
+        val m = transport(200, whole).stream(body()).message
+        // message_start's whole usage, the breakdown by lifetime in it; message_delta's as it came
+        val start = m.rawUsage.start!!
+        assertEquals(3000L, start["cache_creation"]!!.jsonObject["ephemeral_1h_input_tokens"]!!.jsonPrimitive.content.toLong())
+        assertEquals(3100L, start["cache_creation_input_tokens"]!!.jsonPrimitive.content.toLong())
+        assertEquals(JsonObject(mapOf("output_tokens" to JsonPrimitive(95))), m.rawUsage.delta)
+        assertEquals(RawUsage.BREAKDOWN, m.rawUsage.cacheReport)
+
+        // only the total (no cache_creation): filed as 5-minute writes, and reported as "total"
+        val acc = StreamAccumulator()
+        acc.accept("""{"type":"message_start","message":{"id":"msg_2","model":"claude-sonnet-5-5","content":[],"usage":{"input_tokens":3,"cache_creation_input_tokens":4000,"cache_read_input_tokens":0,"output_tokens":1}}}""")
+        acc.accept("""{"type":"message_delta","delta":{"stop_reason":"end_turn"},"usage":{"output_tokens":9,"cache_creation_input_tokens":4000}}""")
+        val total = acc.message()
+        assertEquals(RawUsage.TOTAL, total.rawUsage.cacheReport)
+        assertEquals(4000L, total.usage.cacheWrite5m)
+        assertEquals(0L, total.usage.cacheWrite1h)
+        assertTrue(total.rawUsage.delta!!.containsKey("cache_creation_input_tokens"))
+        // neither: no cache fields at all
+        assertNull(RawUsage(JsonObject(mapOf("input_tokens" to JsonPrimitive(1))), null).cacheReport)
+    }
+
+    @Test fun `the raw usage is sampled, a thread's first call and every 20th of the day`() {
+        assertTrue(UsageSample.keep(firstOfThread = true, n = 3))
+        assertTrue(UsageSample.keep(firstOfThread = false, n = 20))
+        assertEquals(listOf(20, 40, 60, 80, 100), (1..100).filter { UsageSample.keep(false, it) })
+        assertTrue(!UsageSample.keep(firstOfThread = false, n = 19) && !UsageSample.keep(false, 21) && !UsageSample.keep(false, 0))
+    }
 }

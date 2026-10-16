@@ -68,6 +68,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
+ * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
+ *   minutes since the last one (app/DevUpload); "dev:off" hides the developer settings (as their "Hide these settings").
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -130,10 +132,11 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
-        shadow: (String) -> Unit = {}, counting: (String) -> Unit = {},
+        shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
             command == "shadow" -> shadow("")
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))

@@ -96,6 +96,13 @@ data class CallRecord(
     val error: String? = null,
     /** What the API reported it changed of the history (input_transformations): an append-only thread has none. */
     val inputTransformations: String? = null,
+    /**
+     * How the response reported its cache writes ([RawUsage.cacheReport]): "breakdown" (by lifetime), "total" (only
+     * cache_creation_input_tokens, filed as 5-minute writes), null (neither, or no response).
+     */
+    val cacheReport: String? = null,
+    /** The usage objects as the API sent them (message_start's, message_delta's): kept for a few calls ([UsageSample]). */
+    val usageRaw: RawUsage? = null,
 )
 
 /** Where a turn ran: the day's thread, a stateless call (another model than the thread's), "also run on", closing. */

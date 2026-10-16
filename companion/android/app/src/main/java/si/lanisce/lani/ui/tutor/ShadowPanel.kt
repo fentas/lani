@@ -56,6 +56,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.launch
 import si.lanisce.lani.BuildConfig
+import si.lanisce.lani.app.DevUpload
 import si.lanisce.lani.tutor.DayLog
 import si.lanisce.lani.tutor.DayStats
 import si.lanisce.lani.tutor.Handling
@@ -74,11 +75,12 @@ import java.time.format.DateTimeFormatter
 /**
  * The shadow tutor's debug panel (docs/plans/05-phase-0.md, check 6): its settings (on/off, the key, the models per
  * task, the budget, the thread's limit, "react at once", a QA build's base URL), the day's numbers, each event with
- * the shadow's reply and tool calls next to the real tutor's, "also run on" another model, the notebook, the thread, and
- * the export through the share sheet. A developer tool, in English.
+ * the shadow's reply and tool calls next to the real tutor's, "also run on" another model, the notebook, the thread, the
+ * export through the share sheet, and [upload]'s "📤 Pošlji vozlišču · Send to the node" (app/DevUpload). A developer
+ * tool, in English.
  */
 @Composable
-fun ShadowPanel(shadow: ShadowTutor, onDismiss: () -> Unit) {
+fun ShadowPanel(shadow: ShadowTutor, upload: DevUpload? = null, onDismiss: () -> Unit) {
     // edge to edge (the app is): the panel paints under the system bars, its content kept clear of them
     Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)) {
         Surface(Modifier.fillMaxSize().testTag("shadow-panel"), color = MaterialTheme.colorScheme.background) {
@@ -91,7 +93,7 @@ fun ShadowPanel(shadow: ShadowTutor, onDismiss: () -> Unit) {
                     TextButton(onClick = onDismiss) { Text("✕") }
                 }
                 HorizontalDivider()
-                Body(shadow)
+                Body(shadow, upload)
             }
         }
     }
@@ -100,7 +102,7 @@ fun ShadowPanel(shadow: ShadowTutor, onDismiss: () -> Unit) {
 private enum class Tab(val label: String) { EVENTS("Events"), NUMBERS("Numbers"), MEMORY("Notebook"), SETTINGS("Settings") }
 
 @Composable
-private fun Body(shadow: ShadowTutor) {
+private fun Body(shadow: ShadowTutor, upload: DevUpload?) {
     var tab by remember { mutableStateOf(if (shadow.hasKey && shadow.settings.enabled) Tab.EVENTS else Tab.SETTINGS) }
     var day by remember { mutableStateOf<String?>(null) }
     val today = shadow.today
@@ -113,7 +115,7 @@ private fun Body(shadow: ShadowTutor) {
         if (tab == Tab.EVENTS || tab == Tab.NUMBERS) DayPicker(shadow, shown.day) { day = it }
         when (tab) {
             Tab.EVENTS -> Events(shadow, shown)
-            Tab.NUMBERS -> Numbers(shadow, shown)
+            Tab.NUMBERS -> Numbers(shadow, shown, upload)
             Tab.MEMORY -> Memory(shadow)
             Tab.SETTINGS -> Settings(shadow)
         }
@@ -256,8 +258,9 @@ private fun AlsoRun(shadow: ShadowTutor, e: ShadowEvent) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun Numbers(shadow: ShadowTutor, log: DayLog) {
+private fun Numbers(shadow: ShadowTutor, log: DayLog, upload: DevUpload?) {
     val s: DayStats = remember(log, shadow.notebook) { DayStats.of(log, shadow.notebook.text.length) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -269,6 +272,7 @@ private fun Numbers(shadow: ShadowTutor, log: DayLog) {
                 Small("calls ${s.calls} · turns ${s.turns} · errors ${s.errors} · refusals ${s.refusals}")
                 Small("spend ${money(s.spend)} of \$${"%.2f".format(shadow.settings.budgetPerDay)} a day")
                 Small("tokens: input ${s.usage.input} · cache writes 5 min ${s.usage.cacheWrite5m}, 1 h ${s.usage.cacheWrite1h} · cache reads ${s.usage.cacheRead} · output ${s.usage.output}")
+                Small("cache writes reported by lifetime (usage.cache_creation) in ${s.cacheBreakdown} call(s), only as the total in ${s.cacheTotalOnly}")
                 Small("cold starts: > 5 min ${s.coldStarts5m} · > 60 min ${s.coldStarts60m}")
                 Small("latency (median): first token ${s.firstTokenMedianMs ?: "—"} ms · whole ${s.totalMedianMs ?: "—"} ms")
                 Small("the thread restarted at: ${s.restarts.joinToString { "$it" }.ifBlank { "—" }} · notebook ${s.notebookChars} characters")
@@ -291,12 +295,13 @@ private fun Numbers(shadow: ShadowTutor, log: DayLog) {
             Card {
                 Small("${at(c.at)} · ${c.model} · ${c.eventKind} · ${c.thread} · ${c.stopReason ?: "—"} · ${money(c.cost)}", bold = true)
                 Small("in ${c.usage.input} · w5m ${c.usage.cacheWrite5m} · w1h ${c.usage.cacheWrite1h} · read ${c.usage.cacheRead} · out ${c.usage.output} · prompt ${c.threadAfter}", mono = true)
-                Small("first token ${c.firstTokenMs ?: "—"} ms · ${c.totalMs} ms")
+                Small("first token ${c.firstTokenMs ?: "—"} ms · ${c.totalMs} ms" + (c.cacheReport?.let { " · cache writes: $it" } ?: ""))
+                c.usageRaw?.let { r -> Small("raw usage: start ${r.start ?: "—"} · delta ${r.delta ?: "—"}", mono = true) }
                 c.error?.let { Small("⚠️ $it") }
             }
         }
         item {
-            Row(Modifier.padding(vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+            FlowRow(Modifier.padding(vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Button(onClick = {
                     scope.launch {
                         val f = shadow.export(File(context.cacheDir, "shared"), "${BuildConfig.APPLICATION_ID} ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})")
@@ -311,9 +316,20 @@ private fun Numbers(shadow: ShadowTutor, log: DayLog) {
                         runCatching { context.startActivity(Intent.createChooser(send, f.name)) }
                     }
                 }) { Text("⬆️ Export everything") }
-                exported?.let { Small(it) }
+                if (upload != null) {
+                    var sending by remember { mutableStateOf(false) }
+                    // the developer's data to the paired node (app/DevUpload): the export and the app's log, as it goes
+                    // by itself after the day's closing and when the app goes to the background
+                    OutlinedButton(enabled = !sending, onClick = {
+                        sending = true
+                        scope.launch { upload.sendNow(); sending = false }
+                    }) { Text(if (sending) "📤 …" else "📤 Pošlji vozlišču · Send to the node") }
+                }
             }
+            exported?.let { Small(it) }
+            upload?.last?.let { Small("📤 $it") }
         }
+        item { Spacer(Modifier.padding(24.dp)) }
     }
 }
 

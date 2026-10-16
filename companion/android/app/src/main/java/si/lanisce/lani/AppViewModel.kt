@@ -172,8 +172,36 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         debug = si.lanisce.lani.BuildConfig.QA, // a debug or qa build: the base URL may be QA's mock
         learner = { content.dashboard?.name },
         where = ::whereNow,
-        logLine = { if (si.lanisce.lani.BuildConfig.QA) android.util.Log.i("ShadowTutor", it) },
+        // its calls, turns and transport errors (never the key: tutor/KeyVault Redact); it runs only when the developer
+        // turned it on, and its lines go to the node with the app's log (devUpload)
+        logLine = { android.util.Log.i("ShadowTutor", it) },
     ).also { s -> sync.onDelivered = { e -> s.onDelivered(e.clientId, e.path, e.body) } }
+    /**
+     * The developer's data on the node (companion/README.md "Developer data on the node"): the shadow's export and the
+     * app's log, cleaned of secrets, sent to the paired node by itself while the developer setting is on: after the
+     * shadow's day closed, when the app goes to the background (at most every 30 minutes), by the panel's button.
+     */
+    val devUpload = si.lanisce.lani.app.DevUpload(
+        viewModelScope,
+        File(app.filesDir, "dev-upload.json"),
+        developer = { shadow.settings.developer },
+        node = {
+            val b = bridge
+            val c = prefs.config()
+            if (b == null || c == null) null
+            else object : si.lanisce.lani.app.DevUpload.Node {
+                override val secrets = listOf(c.token)
+                override suspend fun post(path: String, body: String, type: String) = b.devUpload(path, body, type)
+            }
+        },
+        export = { secrets, max -> shadow.exportText(appName(), secrets, max) },
+        readLog = { si.lanisce.lani.app.AppLog.read(android.os.Process.myPid()) },
+        about = { "${appName()}, Android ${android.os.Build.VERSION.RELEASE} (API ${android.os.Build.VERSION.SDK_INT}), ${android.os.Build.MODEL}, pid ${android.os.Process.myPid()}" },
+        logLine = { android.util.Log.i(si.lanisce.lani.app.DevUpload.TAG, it) },
+    ).also { u -> shadow.onDayClosed = { u.onClosing() } }
+
+    /** The app as the shadow's export names it: its id, version and build. */
+    fun appName() = "${si.lanisce.lani.BuildConfig.APPLICATION_ID} ${si.lanisce.lani.BuildConfig.VERSION_NAME} (${si.lanisce.lani.BuildConfig.VERSION_CODE})"
     /** The village book's grammar chapter: its pages, the one open over any screen, the pages met (app/GrammarController). */
     val grammar = GrammarController(node, game, content, chat, notices).also { g ->
         // a session's report tells the tutor which rules are ripe to introduce (companion/GAME.md, "Rules not yet")
@@ -646,6 +674,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         speaker.stop()
         update.onBackground()
         shadow.onBackground()
+        devUpload.onBackground() // the developer's data to the node (developer setting on, at most every 30 minutes)
     }
 
     /** A notification was tapped: go where it points, once connected, without interrupting a run. */
