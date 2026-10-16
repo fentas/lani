@@ -38,7 +38,7 @@ jobs:
       - run: bun install --frozen-lockfile
       - name: Typecheck
         run: bunx tsc --noEmit -p .
-      # The whole smoke, about a minute: its bridges on 8799 and the ports after it, fake voice and speech servers,
+      # The whole smoke, about a minute: its bridges on 18800 and the ports after it, fake voice and speech servers,
       # no local workers, no network, no tmux. It needs python3 (the hooks), bash and git, which the runner has.
       - name: Smoke
         run: bun test/smoke.ts

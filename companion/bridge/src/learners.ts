@@ -17,10 +17,22 @@ export const DEFAULT_PROFILE = { id: DEFAULT_ID, port: 8790, https_port: 443, tm
 
 /**
  * The real bridge (8790), the QA dev bridge (8791) and its second town (8797, test/dev-town.ts), the voice and speech
- * workers (8795, 8796), the smoke tests (8799).
+ * workers (8795, 8796), and 8799, the smoke tests' port in a checkout from before they moved to 18800 and up.
  */
 export const RESERVED_PORTS = new Set([8790, 8791, 8795, 8796, 8797, 8799])
 const PORT_RANGE: [number, number] = [8792, 8899]
+
+/**
+ * Where pickPort looks for a new learner's port: 8792 to 8899. LANI_PROFILE_PORT_BASE (the smoke tests only) moves the
+ * start, the length kept, so a test's learner never probes or takes a real learner's port.
+ */
+export function portRange(env: Record<string, string | undefined> = process.env): [number, number] {
+  const raw = env.LANI_PROFILE_PORT_BASE?.trim()
+  if (!raw) return PORT_RANGE
+  const base = Number(raw), span = PORT_RANGE[1] - PORT_RANGE[0]
+  if (!Number.isInteger(base) || base < 1024 || base + span > 65535) throw new Error(`LANI_PROFILE_PORT_BASE must be a port from 1024 to ${65535 - span}: ${raw}`)
+  return [base, base + span]
+}
 
 export const ID = /^[a-z][a-z0-9-]{0,23}$/
 
@@ -97,11 +109,11 @@ export function portFree(port: number): boolean {
   }
 }
 
-/** The first port from 8792 up that no profile has, that isn't reserved, and that is free now. */
-export function pickPort(r: Registry, free: (port: number) => boolean = portFree): number {
+/** The first port from 8792 up (portRange) that no profile has, that isn't reserved, and that is free now. */
+export function pickPort(r: Registry, free: (port: number) => boolean = portFree, range: [number, number] = portRange()): number {
   const taken = new Set(r.profiles.map(p => p.port))
-  for (let p = PORT_RANGE[0]; p <= PORT_RANGE[1]; p++) if (!RESERVED_PORTS.has(p) && !taken.has(p) && free(p)) return p
-  throw new Error(`no free port in ${PORT_RANGE.join('-')}`)
+  for (let p = range[0]; p <= range[1]; p++) if (!RESERVED_PORTS.has(p) && !taken.has(p) && free(p)) return p
+  throw new Error(`no free port in ${range.join('-')}`)
 }
 
 /** 8443, 9443, 10443, …: the tailnet HTTPS port for the next profile (443 is the default's). */

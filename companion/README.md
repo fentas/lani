@@ -158,7 +158,7 @@ Italian from Slovene in a town of their own. A learner's **profile** has an id a
 | | The default profile (Jan) | Another profile, e.g. `luka` |
 |---|---|---|
 | Data directory | `LANI_DATA_DIR` from `lani.env` (lani-setup: `~/.local/share/lani/<id>`, results in its `results/`), else `data/` | `profiles/luka/data/` (results in `profiles/luka/results/`) |
-| Bridge | `127.0.0.1:8790` | a free port from 8792 up (never 8790, 8791 and 8797 for QA, 8795/8796 for the voice and speech workers, 8799 for the smoke tests) |
+| Bridge | `127.0.0.1:8790` | a free port from 8792 up (never 8790, 8791 and 8797 for QA, 8795/8796 for the voice and speech workers, 8799 for the smoke tests of an older checkout; today's smoke runs on 18800 and up) |
 | Tailnet URL | `https://<node>.<tailnet>.ts.net` (443) | `https://<node>.<tailnet>.ts.net:8443` (then 9443, 10443, …) |
 | tmux session | `lani` | `lani-luka` |
 | Remote Control name | `lani-tutor` | `lani-tutor-luka` |
@@ -800,14 +800,18 @@ words to weave and where they fit, the window a dialog's review counts in; [SCEN
 and `questions.ts` (questions between towns: both sides' book, the limits, the count of answered questions; its routes
 and the tutor's notes are `features/questions.ts`, which keeps the tutor's replies to its `tq_…` conversations
 through `Events.tap`).
-`bun test/smoke.ts` runs the smoke sections in `bridge/test/smoke/` against one bridge; the pairing, friuli, kaernten,
-lakeland, towns and service sections start more bridges of their own (kaernten: `LANI_SMOKE_KAERNTEN_PORT`, by default
+`bun test/smoke.ts` runs the smoke sections in `bridge/test/smoke/` against one bridge, on `LANI_SMOKE_PORT` (18800 by
+default: out of the learners' range, 8792 to 8899, and away from QA's and the workers' ports); the pairing, friuli,
+kaernten, lakeland, towns and service sections start more bridges of their own (pairing: `LANI_SMOKE_PORT` + 1; friuli,
+then pairs: `LANI_SMOKE_FRIULI_PORT`, by default `LANI_SMOKE_PORT` + 2; kaernten: `LANI_SMOKE_KAERNTEN_PORT`, by default
 `LANI_SMOKE_PORT` + 5; lakeland: `LANI_SMOKE_LAKELAND_PORT`, by default `LANI_SMOKE_PORT` + 6; towns:
-`LANI_SMOKE_TOWN_PORT` and the next port, by default `LANI_SMOKE_PORT` + 3 and + 4; service:
-`LANI_SMOKE_SERVICE_PORT` and the next two, by default `LANI_SMOKE_PORT` + 8 to + 10). The service section runs
-bridge services (`test/fixtures/service-probe.ts`, with probe tools) and their shims under a scripted Claude Code: the
-channel both ways, a restart mid-way with the reconnect and `list_changed`, a call during an outage, the queue, a child's
-service beside it, and `lani-bridge`'s loop and CLI (without tmux).
+`LANI_SMOKE_TOWN_PORT` and the next port, by default `LANI_SMOKE_PORT` + 3 and + 4; setup: `LANI_SMOKE_SETUP_PORT`, by
+default `LANI_SMOKE_PORT` + 7; service: `LANI_SMOKE_SERVICE_PORT` and the next two, by default `LANI_SMOKE_PORT` + 8
+to + 10). Where pairing lets `lani-profile add` pick a port, it looks from `LANI_SMOKE_PORT` + 11 up
+(`LANI_PROFILE_PORT_BASE`, for the tests only), so a smoke run never binds or probes a learner's port. The service
+section runs bridge services (`test/fixtures/service-probe.ts`, with probe tools) and their shims under a scripted
+Claude Code: the channel both ways, a restart mid-way with the reconnect and `list_changed`, a call during an outage,
+the queue, a child's service beside it, and `lani-bridge`'s loop and CLI (without tmux).
 
 Try it without the app:
 
@@ -3168,7 +3172,7 @@ now) and of the swipe's tip.
 
 **CI.** `.github/workflows/ci.yml` runs on every push and pull request: the bridge's typecheck
 (`bunx tsc --noEmit -p .`) and the whole smoke, which needs no local workers, network or tmux (it starts its bridges
-on 8799 and the ports after it, and fakes the voice and speech servers; ffmpeg is installed for the voice checks);
+on 18800 and the ports after it, and fakes the voice and speech servers; ffmpeg is installed for the voice checks);
 both Python suites; and the app's unit tests with the debug APK, built with `companion/bin/lani-build-app` in the
 build image, the APK kept for a week as an artifact, then the release APK with R8 (`lani-build-app --release`), so an
 R8 error shows on the push and not first on a release tag; without the release key it is signed with a throwaway

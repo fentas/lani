@@ -7,6 +7,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { loadConfig } from '../../src/config'
 import { cleanDeviceName, createPairingCode, fingerprintOf, loadBridgeKey, pairMessage } from '../../src/pairing'
+import { pickPort, portRange, type ProfileEntry } from '../../src/learners'
 import { auth, base, bridgeWhisper, check, client, culturesDir, curatedDir, dataDir, modulesDir, port, scenesDir, tempDir, token, guideOf } from './harness'
 
 const cliDir = resolve(import.meta.dir, '../../src/cli')
@@ -74,7 +75,9 @@ export default async function pairing() {
 
   // --- a second learner ---------------------------------------------------------------------------------
   const profilesDir = tempDir('lani-smoke-profiles-')
-  const pEnv = { ...defaultEnv, LANI_PROFILES_DIR: profilesDir, LANI_TAILNET_HOST: 'node.test.ts.net' }
+  // where lani-profile picks a port when none is given: next to the smoke's (harness.ts), never a real learner's
+  const pickFrom = port + 11
+  const pEnv = { ...defaultEnv, LANI_PROFILES_DIR: profilesDir, LANI_TAILNET_HOST: 'node.test.ts.net', LANI_PROFILE_PORT_BASE: String(pickFrom) }
   const port2 = port + 1
   const added = cli(['bun', join(cliDir, 'profile.ts'), 'add', 'luka', '--name', 'Luka', '--target', 'it', '--base', 'sl', '--child', '--culture', 'friuli', '--landscape', 'hills', '--port', String(port2)], pEnv)
   const reg = JSON.parse(readFileSync(join(profilesDir, 'profiles.json'), 'utf8'))
@@ -95,7 +98,15 @@ export default async function pairing() {
   check('… refuses the coast for a village without the sea, and a landscape the app has not', shore.code !== 0 && shore.err.includes('primorska has no sea') && volcano.code !== 0 && volcano.err.includes('valley, hills, lake, mountains, coast') && !readFileSync(join(profilesDir, 'profiles.json'), 'utf8').includes('"eva"'), shore.err + volcano.err)
   const auto = cli(['bun', join(cliDir, 'profile.ts'), 'add', 'ana', '--name', 'Ana', '--target', 'sl', '--base', 'de'], pEnv)
   const ana = JSON.parse(readFileSync(join(profilesDir, 'profiles.json'), 'utf8')).profiles[1]
-  check('… picks a free port and the next tailnet port for the next learner, and the default culture (the land left to the app)', auto.code === 0 && ana.port >= 8792 && ![8790, 8791, 8795, 8796, 8799, port2].includes(ana.port) && ana.https_port === 9443 && ana.culture === 'primorska' && ana.landscape === undefined, ana)
+  check('… picks a free port and the next tailnet port for the next learner, and the default culture (the land left to the app)', auto.code === 0 && ana.port >= pickFrom && ana.port < pickFrom + 108 && ana.port !== port2 && ana.https_port === 9443 && ana.culture === 'primorska' && ana.landscape === undefined, ana)
+  // the allocator itself, with a registry and a probe of its own (it binds nothing): from 8792 up, past the profiles'
+  // ports, a busy one and the reserved ones (8795 to 8797); LANI_PROFILE_PORT_BASE moves the start
+  const regOf = (...ports: number[]) => ({ schema: 'lani.profiles/v1' as const, profiles: ports.map(p => ({ port: p }) as ProfileEntry) })
+  const refused = (base: string) => { try { portRange({ LANI_PROFILE_PORT_BASE: base }); return false } catch { return true } }
+  check('… the first port from 8792 up that no profile has, that is free and not reserved; LANI_PROFILE_PORT_BASE moves the start',
+    pickPort(regOf(), () => true, portRange({})) === 8792 && pickPort(regOf(8792, 8794), p => p !== 8793, portRange({})) === 8798 &&
+    pickPort(regOf(18811), () => true, portRange({ LANI_PROFILE_PORT_BASE: '18811' })) === 18812 && portRange({ LANI_PROFILE_PORT_BASE: ' ' })[0] === 8792 &&
+    refused('80') && refused('8792x') && refused('65500'))
   check('… and shows the landscape it was given', added.out.includes('land     hills') && !auto.out.includes('land '), added.out)
 
   const listing = cli(['bash', join(binDir, 'lani-session'), '--list'], pEnv)

@@ -9,10 +9,10 @@ import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js'
 import { cpSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { channelRules, initLearnerData, languageCode, learnerInstructions, portFree } from '../../src/learners'
-import { bridgeEleven, bridgeWhisper, check, culturesDir, guideOf, tempDir } from './harness'
+import { bridgeEleven, bridgeWhisper, check, culturesDir, guideOf, port as smokePort, tempDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
-const port = Number(process.env.LANI_SMOKE_FRIULI_PORT ?? 8798)
+const port = Number(process.env.LANI_SMOKE_FRIULI_PORT ?? smokePort + 2) // friuli.ts's
 const base = `http://127.0.0.1:${port}`
 const token = 'pairs-smoke-token'
 const auth = { authorization: `Bearer ${token}`, 'content-type': 'application/json' }

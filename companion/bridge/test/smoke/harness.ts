@@ -72,7 +72,11 @@ export const culturesDir = resolve(import.meta.dir, '../../../cultures')
 // which test/smoke/offline-voice.ts writes (the bridge reads the catalog when it is asked). Never Hugging Face itself.
 const piperDir = tempDir('lani-smoke-piper-')
 export const piper = { source: join(piperDir, 'source'), cache: join(piperDir, 'cache'), catalog: join(piperDir, 'catalog.json') }
-export const port = Number(process.env.LANI_SMOKE_PORT ?? 8799)
+// The smoke's bridges: this port and the ones after it (+ 1 pairing's second learner, + 2 friuli and pairs, + 3 and + 4
+// towns, + 5 kaernten, + 6 lakeland, + 7 setup, + 8 to + 10 service, + 11 and up where pairing lets lani-profile pick
+// one). 18800 by default: away from the learners' bridges (8792 to 8899, src/learners.ts), QA's and the workers'
+// (879x), so a smoke run never binds or probes one of them.
+export const port = Number(process.env.LANI_SMOKE_PORT ?? 18800)
 export const token = 'smoke-token'
 export const familyToken = 'family-smoke-token'
 export const base = `http://127.0.0.1:${port}`

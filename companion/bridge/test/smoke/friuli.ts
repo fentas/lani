@@ -12,12 +12,13 @@ import { labelShown, meant, said } from '../../src/langs'
 import { meaningOf, titleFor, validatePack } from '../../src/packs'
 import { JAN_PLACE, allLines, bondOf, validateVillager, villagerScenario } from '../../src/villagers'
 import { corpus } from '../../src/voice'
-import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, tempDir, guideOf, languageBook } from './harness'
+import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, tempDir, guideOf, languageBook, port as smokePort } from './harness'
 import { lexiconFixture } from './lexicon-fixture'
 import { JAN } from '../learner-content'
 
 const repo = resolve(import.meta.dir, '../../../..')
-const port = Number(process.env.LANI_SMOKE_FRIULI_PORT ?? 8798)
+// its own port, next to the smoke's (pairs.ts takes it over once this bridge is gone)
+const port = Number(process.env.LANI_SMOKE_FRIULI_PORT ?? smokePort + 2)
 const base = `http://127.0.0.1:${port}`
 const token = 'friuli-smoke-token'
 const auth = { authorization: `Bearer ${token}`, 'content-type': 'application/json' }

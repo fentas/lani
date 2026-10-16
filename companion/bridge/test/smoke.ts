@@ -1,5 +1,5 @@
 // End-to-end smoke test: plays Claude Code (MCP client over stdio) and the app (HTTP).
-// Run: bun test/smoke.ts   — uses a throwaway data dir and port (LANI_SMOKE_PORT, default 8799).
+// Run: bun test/smoke.ts   — uses a throwaway data dir and port (LANI_SMOKE_PORT, default 18800, and the ports after it).
 // The sections in test/smoke/ share one bridge and run in this order (later ones use what earlier
 // ones published: the family word list needs the packs, the voice checks the published content).
 import './isolate' // first: never this machine's lani.env
