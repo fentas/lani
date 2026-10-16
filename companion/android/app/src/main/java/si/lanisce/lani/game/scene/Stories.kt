@@ -187,11 +187,11 @@ object Stories {
                 val lv = level(scene.language)
                 val now = tonight(stories, state.stories, lv) ?: continue
                 if (Happenings.done(state, a.key, today)) {
-                    return Teaser(Teaser.Kind.STORY, now.story.emoji, bi(if (now.retold) "tomorrow.storyAgain" else "tomorrow.story", "what" to what(now)))
+                    return Teaser(Teaser.Kind.STORY, now.story.emoji, bi(if (now.retold) "tomorrow.storyAgain" else "tomorrow.story", "what" to what(now)), day = 1)
                 }
                 // tonight's, when the teller is on this evening (here, on this weekday, by the day's dice)
                 if (!Happenings.on(a, state, today, h.`when`.firstOrNull() ?: TimeOfDay.EVENING)) continue
-                return Teaser(Teaser.Kind.STORY, now.story.emoji, bi(if (now.retold) "tomorrow.storyTonightAgain" else "tomorrow.storyTonight", "what" to what(now)))
+                return Teaser(Teaser.Kind.STORY, now.story.emoji, bi(if (now.retold) "tomorrow.storyTonightAgain" else "tomorrow.storyTonight", "what" to what(now)), day = 0, evening = true)
             }
         }
         return null

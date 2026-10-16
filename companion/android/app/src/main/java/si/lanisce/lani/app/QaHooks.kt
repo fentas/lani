@@ -68,6 +68,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
+ * - "hud:variant:<A|B|C>": the village's HUD drawn as that design variant ([hudVariant]; ui/game/HudVariants.kt: A a slim
+ *   bar and a bottom sheet, B a row of cards, C a side panel), so Jan can compare them on a phone; "hud:variant:" the
+ *   current HUD again (the default).
+ * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
+ *   choose it; "pair:" follows the learner profile again.
  * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
  *   minutes since the last one (app/DevUpload); "dev:off" hides the developer settings (as their "Hide these settings").
  */
@@ -113,6 +118,10 @@ object QaHooks {
     var bubbles by mutableStateOf<Int?>(null)
         private set
 
+    /** The HUD's design variant QA asked for ("hud:variant:A"), or null: the current HUD. */
+    var hudVariant by mutableStateOf<String?>(null)
+        private set
+
     /** The building QA asked the plot chooser for ("build:<type>"), until the village opens it ([tookBuild]); null: none. */
     var build by mutableStateOf<si.lanisce.lani.game.BuildingType?>(null)
         private set
@@ -132,11 +141,13 @@ object QaHooks {
     fun handle(
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
-        shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {},
+        shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
+            command.startsWith("hud:variant:") -> hudVariant = command.removePrefix("hud:variant:").trim().uppercase().takeIf { it in setOf("A", "B", "C") }
+            command.startsWith("pair:") -> pair(command.removePrefix("pair:").trim())
             command == "shadow" -> shadow("")
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))

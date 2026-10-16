@@ -6,8 +6,11 @@ import si.lanisce.lani.l10n.inBase
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
-/** Something to come back for, "Slovene · English" (see [Tomorrow]). */
-data class Teaser(val kind: Kind, val emoji: String, val text: String) {
+/**
+ * Something to come back for, "Slovene · English" (see [Tomorrow]). [day]: how many days from today it comes (0 today,
+ * 1 tomorrow), when known; [evening]: this evening (tonight's story), for the HUD's "Kmalu · Coming up".
+ */
+data class Teaser(val kind: Kind, val emoji: String, val text: String, val day: Int? = null, val evening: Boolean = false) {
     enum class Kind { FESTIVAL, PROJECT, STORY, PEDLAR, FEAST, SURPRISE }
 
     /** "🍷 Čez 3 dni: Martinovo … · …" */
@@ -27,13 +30,14 @@ object Tomorrow {
     /** [story]: the storyteller's, when someone tells stories in the village ([si.lanisce.lani.game.scene.Stories.teaser]). */
     fun teasers(s: GameState, today: LocalDate, story: Teaser? = null): List<Teaser> = buildList {
         Calendar.upcoming(today)?.let { (f, d) ->
-            add(Teaser(Teaser.Kind.FESTIVAL, f.emoji, Calendar.countdown(f, ChronoUnit.DAYS.between(today, d)).replace(" ${f.emoji}", "")))
+            val days = ChronoUnit.DAYS.between(today, d)
+            add(Teaser(Teaser.Kind.FESTIVAL, f.emoji, Calendar.countdown(f, days).replace(" ${f.emoji}", ""), day = days.toInt()))
         }
         project(s, today)?.let(::add)
         story?.let(::add)
         if (s.age >= Age.TABOR) pedlar(s, today)?.let(::add)
         feast(s, today)?.let(::add)
-        if (s.age >= Age.TABOR) add(Teaser(Teaser.Kind.SURPRISE, "🎁", bi("tomorrow.anotherSurprise")))
+        if (s.age >= Age.TABOR) add(Teaser(Teaser.Kind.SURPRISE, "🎁", bi("tomorrow.anotherSurprise"), day = 1))
     }
 
     /** The next step of a project, when the village worked on one today: "Jutri: naslednji korak · …". */
@@ -44,14 +48,14 @@ object Tomorrow {
         } ?: return null
         return Teaser(
             Teaser.Kind.PROJECT, next.spec.emoji,
-            bi("tomorrow.projectStep", "name" to next.spec.inText, "step" to next.done + 1, "steps" to next.steps),
+            bi("tomorrow.projectStep", "name" to next.spec.inText, "step" to next.done + 1, "steps" to next.steps), day = 1,
         )
     }
 
     /** "Krošnjar pride v soboto · The pedlar comes on Saturday": the next pedlar day within [DAYS]. */
     private fun pedlar(s: GameState, today: LocalDate): Teaser? {
         val day = (1..DAYS).map { today.plusDays(it) }.firstOrNull { Surprises.roll(s, it)?.kind == Surprises.PEDLAR } ?: return null
-        return Teaser(Teaser.Kind.PEDLAR, "🎒", bi("tomorrow.pedlarComes", "day" to dayOf(day, today)))
+        return Teaser(Teaser.Kind.PEDLAR, "🎒", bi("tomorrow.pedlarComes", "day" to dayOf(day, today)), day = ChronoUnit.DAYS.between(today, day).toInt())
     }
 
     /** "Veselica bo spet v soboto · The next feast is on Saturday", within [DAYS]. */
@@ -59,7 +63,7 @@ object Tomorrow {
         if (Chest.feastOption(s, today) == null || s.buildings.none { it.type == BuildingType.LIPA && !it.damaged }) return null
         val next = Chest.nextFeast(s, today) ?: return null // a feast can be held today: that's today's, not tomorrow's
         if (ChronoUnit.DAYS.between(today, next) > DAYS) return null
-        return Teaser(Teaser.Kind.FEAST, "🎪", bi("tomorrow.nextFeast", "day" to dayOf(next, today)))
+        return Teaser(Teaser.Kind.FEAST, "🎪", bi("tomorrow.nextFeast", "day" to dayOf(next, today)), day = ChronoUnit.DAYS.between(today, next).toInt())
     }
 
     /** [day] for the messages' "{day, select, …}": 0 for tomorrow, else its ISO weekday (1 Monday … 7 Sunday). */

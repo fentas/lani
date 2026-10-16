@@ -63,6 +63,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "village-hud" the village's HUD: its slim row, its panel (a tap outside closes it, opening
                        nothing), minimized to a pill and still so in the village opened again, and the plot chooser
                        (QA's hook "build:field") with the HUD a pill by itself and the ★ below it;
+                       "hud-variants" the HUD's three design variants to compare (QA's hook "hud:variant:<A|B|C>"):
+                       the current HUD collapsed and open, then each variant collapsed, open and one detail, and
+                       open in German (QA's hook "pair:sl-de"), also saved as hud-<variant>-<n>-<what>.png;
                        "exercise-words" a review's words looked up (QA's hook "forms"): a tap on a word of the
                        sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
                        nothing and picks nothing, once answered the form in the feedback opens its card;
@@ -2915,6 +2918,126 @@ def village_hud():
     assert find(HUD_SHOW) is None, "not minimized: the chooser's pill was its own"
 
 
+def hud_shot(variant: str, n, what: str):
+    """A shot for comparing the HUD's variants: the run's NN-hud-<variant>-<n>-<what>.png, and hud-<variant>-<n>-<what>.png
+    beside it (the name Jan gets)."""
+    name = f"hud-{variant}-{n}-{what}"
+    shot(name)
+    shutil.copy(shots[-1], OUT / f"{name}.png")
+
+
+def hud_variants():
+    """The village's HUD in its three design variants (ui/game/HudVariants.kt, QA's hook "hud:variant:<A|B|C>"), beside
+    the current one, on the dev village's copy, for Jan to compare: the current HUD collapsed and open; A (a slim bar,
+    the ring opening a bottom sheet) collapsed, open, and dragged up with tonight's line opened in full; B (a row of
+    cards under the bar) collapsed, swiped, and the goal card's detail; C (a side panel) folded into its tab, open, and
+    the goal's detail beside it; then each variant open in German (QA's hook "pair:sl-de"). The current HUD and the
+    learner's languages again at the end."""
+    def ring():
+        b = box_starting("Doba · ")  # the settlement's ring: TalkBack reads the age's chip's words
+        assert b is not None, "the settlement's ring"
+        return ((b[0] + b[2]) // 2, (b[1] + b[3]) // 2)
+
+    def back():
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.2)
+
+    try:
+        qa_hook("hud:variant:")
+        plain_village()
+        hud_shot("current", 1, "collapsed")
+        assert tap(HUD_MORE, 5), "the current HUD's chevron"
+        time.sleep(1.5)
+        hud_shot("current", 2, "open")
+        back()
+
+        qa_hook("hud:variant:A")
+        plain_village()
+        assert box_starting("Hrana · Food: ") and find(HUD_MORE) is None, "A's slim bar, not the current row"
+        hud_shot("A", 1, "collapsed")
+        tap_at(ring())
+        assert wait_for("Zapri · Close", 5), "A's sheet (its ✕)"
+        time.sleep(1.2)
+        hud_shot("A", 2, "open")
+        x = box_starting("Zapri · Close")
+        y = (x[1] + x[3]) // 2
+        adb("shell", "input", "swipe", "540", str(y), "540", str(max(300, y - 900)), "700")  # its handle up: most of the screen
+        time.sleep(1.5)
+        line = find("Nocoj") or find("Jutri")
+        if line is not None:
+            tap_at(line)  # tonight's line in full
+            time.sleep(0.8)
+        hud_shot("A", 3, "detail")
+        back()
+
+        qa_hook("hud:variant:B")
+        plain_village()
+        card = wait_for("🎯", 5)
+        assert card is not None, "B's goal card"
+        hud_shot("B", 1, "collapsed")
+
+        def swipe_cards(done, what, back=False):
+            """The cards swiped right to left (or [back]) until [done] (a busy emulator may drop a swipe)."""
+            for _ in range(4):
+                x0, x1 = ("300", "1000") if back else ("980", "160")
+                adb("shell", "input", "swipe", x0, str(card[1]), x1, str(card[1]), "900")
+                time.sleep(1.5)
+                if done():
+                    return
+            raise AssertionError(f"the cards didn't swipe to {what}")
+
+        def off_left(label):
+            b = box_starting(label)
+            return b is None or b[2] < 40
+
+        def on_screen(label):
+            b = box_starting(label)
+            return b is not None and b[0] >= 0 and b[2] <= 1080
+
+        swipe_cards(lambda: off_left("🎯"), "what's coming")
+        hud_shot("B", 2, "swiped")
+        swipe_cards(lambda: on_screen("Pomoč"), "the numbers")
+        hud_shot("B", "2b", "swiped")
+        swipe_cards(lambda: on_screen("🎯"), "the goal", back=True)
+        assert tap("🎯", 5), "B's goal card"
+        assert wait_for("Zapri · Close", 5), "B's goal detail (its ✕)"
+        time.sleep(1.2)
+        hud_shot("B", 3, "detail")
+        back()
+
+        qa_hook("hud:variant:C")
+        plain_village()
+        assert wait_for("Cilj · Goal", 5), "C's side panel"
+        hud_shot("C", 2, "open")
+        assert tap("Pospravi ploščo", 3), "C's fold"
+        time.sleep(1)
+        hud_shot("C", 1, "collapsed")
+        assert tap("Pokaži ploščo", 3), "C's tab"
+        time.sleep(1)
+        assert tap("Cilj · Goal", 3), "C's goal"
+        time.sleep(1.2)
+        hud_shot("C", 3, "detail")
+        back()
+
+        # German: the labels of the learner's base are the long ones
+        qa_hook("pair:sl-de")
+        time.sleep(3)
+        for v, opens in (("A", None), ("B", "🎯"), ("C", "Cilj · ")):
+            qa_hook(f"hud:variant:{v}")
+            time.sleep(2)
+            if opens is None:
+                tap_at(ring())
+            else:
+                assert tap(opens, 5), f"{v} in German: {opens}"
+            time.sleep(1.5)
+            hud_shot(v, 4, "de")
+            back()
+    finally:
+        qa_hook("pair:")
+        qa_hook("hud:variant:")
+        time.sleep(2)
+
+
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
 
 def fill(label: str, text: str) -> bool:
@@ -5511,6 +5634,7 @@ def plan():
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
+        ("hud-variants", hud_variants, v, False, ""),
         ("school", school, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),

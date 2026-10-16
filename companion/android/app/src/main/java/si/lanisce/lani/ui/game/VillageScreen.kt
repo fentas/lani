@@ -51,6 +51,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
@@ -392,9 +393,18 @@ fun VillageScreen(vm: AppViewModel) {
         // it closes it (and does nothing else), a drag closes it and pans the map.
         var hudBounds by remember { mutableStateOf<androidx.compose.ui.geometry.Rect?>(null) }
         val hudExpanded = latest(hudMode() == HudMode.EXPANDED)
+        // a design variant of the HUD to compare (QA's hook "hud:variant:<A|B|C>"; ui/game/HudVariants.kt): what of it a tap
+        // may land on while it's open (its bar, its sheet or detail), by name
+        val hudVariant = HudVariant.of(si.lanisce.lani.app.QaHooks.hudVariant?.takeIf { si.lanisce.lani.app.QaHooks.enabled })
+        val variantRects = remember { androidx.compose.runtime.mutableStateMapOf<String, androidx.compose.ui.geometry.Rect>() }
+        val variantOn = latest(hudVariant != null)
         Box(
             Modifier.fillMaxSize()
-                .outsideCloses(active = hudExpanded, inside = { hudBounds }, onOutside = { hudState.open = false })
+                .outsideClosesAt(
+                    active = hudExpanded,
+                    inside = { p -> if (variantOn()) variantRects.values.any { it.contains(p) } else hudBounds?.contains(p) == true },
+                    onOutside = { hudState.open = false },
+                )
                 .then(if (scrollOpen) Modifier.clearAndSetSemantics { } else Modifier),
         ) {
             TownView(
@@ -510,10 +520,23 @@ fun VillageScreen(vm: AppViewModel) {
                     expand = { open -> hudState.open = open },
                     // the pill tapped while choosing a plot: the row for now; the learner's choice stays
                     minimize = { on -> hudState.minimize(on, chooserRun.takeIf { choosing != null }) },
+                    step = { st ->
+                        when (stepAction(st)) {
+                            StepAction.GATHER -> st.res?.let { vm.startGather(it) }
+                            StepAction.BUILD -> sheet = VillageSheet.Build
+                            StepAction.LEARN -> vm.openPacks(fromVillage = true)
+                            StepAction.POLISH -> vm.startPolish()
+                            StepAction.HELP -> vm.openVillagers()
+                            null -> {}
+                        }
+                    },
                 ),
                 moved = cam.moved, onRecenter = cam::recenter, reduced = rememberReducedMotion(),
-                modifier = Modifier.onGloballyPositioned { hudBounds = it.boundsInParent() },
+                // a variant's sheet lies over the bottom bar
+                modifier = Modifier.zIndex(if (hudVariant != null) 1f else 0f).onGloballyPositioned { hudBounds = it.boundsInParent() },
                 onRow = { rowH = it }, onPill = { pillH = it },
+                variant = hudVariant,
+                onInside = { name, r -> if (r == null) variantRects.remove(name) else variantRects[name] = r },
             )
             ChronicleToast(
                 s.log.lastOrNull(),

@@ -254,6 +254,8 @@ class HudActions(
     val expand: (Boolean) -> Unit,
     /** The HUD minimized to its pill (true), or the row back. */
     val minimize: (Boolean) -> Unit,
+    /** An open step of the next age worked on (the variants' goal: gather, build, learn, polish, help). */
+    val step: (si.lanisce.lani.game.AgeStep) -> Unit = {},
 )
 
 /**
@@ -267,10 +269,16 @@ class HudActions(
 fun VillageHud(
     view: HudView, mode: HudMode, actions: HudActions, moved: Boolean, onRecenter: () -> Unit, reduced: Boolean,
     modifier: Modifier = Modifier, onRow: (Int) -> Unit = {}, onPill: (Int) -> Unit = {},
+    variant: HudVariant? = null, onInside: (String, Rect?) -> Unit = { _, _ -> },
 ) {
     val status = view.status
     val badges = view.badges
     Box(modifier.fillMaxWidth()) {
+        // a design variant to compare (QA's hook "hud:variant:<A|B|C>", ui/game/HudVariants.kt): its bar and the rest
+        if (variant != null && mode != HudMode.MINIMIZED) {
+            VariantHud(variant, view, mode == HudMode.EXPANDED, actions, moved, onRecenter, reduced, onBar = onRow, onInside = onInside)
+            return@Box
+        }
         if (mode == HudMode.MINIMIZED) {
             Row(
                 Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 10.dp, vertical = 6.dp).onSizeChanged { onPill(it.height) },
@@ -506,7 +514,7 @@ private fun GoalBlock(goal: NextGoal, action: GoalAction?, onGoal: () -> Unit, o
 private val HudPanelPlate = Color(0xF20F1520)
 
 /** A chip on the panel: lighter than the panel, so it stands out on it. */
-private val PanelChip = Color(0x24FFFFFF)
+internal val PanelChip = Color(0x24FFFFFF)
 
 /** The chevron of the status chip and the pill: down (more to show), up (the panel open); it turns, unless [reduced]. */
 @Composable
@@ -525,10 +533,14 @@ private fun Chevron(up: Boolean, color: Color, reduced: Boolean) {
  * children ([PointerEventPass.Initial]), so whatever is under the finger never misses a drag. The lambdas are kept from
  * the first composition and called at each touch: they read what changes (state), they aren't replaced.
  */
-fun Modifier.outsideCloses(active: () -> Boolean, inside: () -> Rect?, onOutside: () -> Unit): Modifier = pointerInput(Unit) {
+fun Modifier.outsideCloses(active: () -> Boolean, inside: () -> Rect?, onOutside: () -> Unit): Modifier =
+    outsideClosesAt(active, { p -> inside()?.contains(p) == true }, onOutside)
+
+/** [outsideCloses] with what counts as inside said by [inside] (the HUD's variants: their bar and what's open). */
+fun Modifier.outsideClosesAt(active: () -> Boolean, inside: (androidx.compose.ui.geometry.Offset) -> Boolean, onOutside: () -> Unit): Modifier = pointerInput(Unit) {
     awaitEachGesture {
         val down = awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
-        if (!active() || inside()?.contains(down.position) == true) return@awaitEachGesture
+        if (!active() || inside(down.position)) return@awaitEachGesture
         onOutside()
         val slop = viewConfiguration.touchSlop
         while (true) {
