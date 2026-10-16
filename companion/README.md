@@ -1963,6 +1963,7 @@ companion/bin/voice-build --run --upgrade  # also replace local clips while the 
 companion/bin/voice-build --upgrade-model  # dry run: the ElevenLabs clips by model, those of an older one, what --run would make and its credits
 companion/bin/voice-build --upgrade-model --run --max-chars 20000   # the most played of them again in the current model
 companion/bin/voice-build --run --revoice grandma   # a swapped voice: its clips again
+companion/bin/voice-build --elevenlabs teacher       # dry run: a speaker's local (Gepard) clips, made while ElevenLabs couldn't; --run makes them in its ElevenLabs voice (never the narrators')
 companion/bin/voice-build --run --max-chars 2000
 companion/bin/voice-build --revoice-words --max 100        # dry run: old-style narrator words, the cost
 companion/bin/voice-build --revoice-words --max 100 --run  # 100 of them again, most asked for first

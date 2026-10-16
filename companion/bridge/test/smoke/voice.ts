@@ -554,6 +554,14 @@ export default async function voice() {
     await v4.subscription(true)
     const r3 = await vs.upgradeModel({ maxChars: 5, out: () => {} })
     check('…--max-chars: only what fits (the short word), the longer one left', r3.made === 1 && vs.get('kruh', 'girl')?.model === 'eleven_v4_turbo' && vs.get('dober dan micka', 'grandma')?.model === 'eleven_v3', r3)
+    // voice-build --elevenlabs: a speaker's local clips in their ElevenLabs voice (Mojca's lines the local voice said)
+    const local = vs.localQueue(['grandpa', 'female'])
+    check('--elevenlabs\'s queue: the speaker\'s local (Gepard) clips, never a narrator\'s (theirs stay as the fallback)',
+      local.length === 1 && local[0].key === g!.key && vs.localQueue(['female', 'male']).length === 0, local.map(c => c.key))
+    const r4 = await vs.elevenlabsFor(['grandpa'], { out: () => {} })
+    const now4 = vs.get(g!.norm, 'grandpa')
+    check('…made in their ElevenLabs voice and the model now, the hits kept, a new file, the local file gone; the queue empty after',
+      r4.made === 1 && now4?.engine === 'elevenlabs' && now4.model === 'eleven_v4_turbo' && now4.hits === 9 && now4.file !== g!.file && !existsSync(join(dir, 'voice', 'files', g!.file)) && vs.localQueue(['grandpa']).length === 0, [r4, now4])
     vs.close()
   }
 

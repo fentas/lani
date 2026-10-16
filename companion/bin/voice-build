@@ -78,6 +78,12 @@
 //                    every new clip, under a new file name, the old file removed; a running bridge tells the app within a
 //                    minute (voice_updated). Never a local (Gepard) clip, nor the family's recordings. The dry run lists the
 //                    clips per model, what would be made and what it costs.
+//   --elevenlabs S   speaker S's local (Gepard) clips, made while ElevenLabs couldn't (the quota, an error), made again in
+//                    S's ElevenLabs voice, most played first, within the quota above the reserve, at most --max N clips
+//                    and --max-chars N characters; filtered, trimmed and levelled as every new clip, under a new file
+//                    name, the local file removed; a running bridge tells the app within a minute (voice_updated). Never
+//                    the narrators (female, male: their local clips stay beside their Slovene ElevenLabs ones). E.g.
+//                    --elevenlabs teacher: Učiteljica Mojca's lines the local voice said for her (Jan, 2026-10-16).
 //   --data DIR       the learner data directory, as LANI_DATA_DIR (a copy; another learner's profiles/<id>/data with
 //                    their LANI_CULTURE)
 // Without --run, a dry run. The key comes from ELEVENLABS_API_KEY, else ~/.config/lani/keys.env (LANI_KEYS_FILE).
@@ -133,6 +139,11 @@ const tempo = flag('--tempo')
 const edges = flag('--edges')
 const narrators = flag('--narrators')
 const upgradeModel = flag('--upgrade-model')
+const elAt = args.indexOf('--elevenlabs')
+const elevenSpeakers = elAt >= 0 ? (args[elAt + 1] ?? '').split(',').filter(Boolean) : []
+const elevenUnknown = elevenSpeakers.filter(s => !isSpeaker(s))
+const elevenNarrators = elevenSpeakers.filter(s => s === 'female' || s === 'male')
+const toEleven = elAt >= 0
 const restoreAt = args.indexOf('--restore-gepard')
 const snapshotArg = restoreAt >= 0 ? args[restoreAt + 1] : undefined
 // a lani-backup snapshot (its voice/), or a voice store's own directory (voice.db and files/)
@@ -145,10 +156,12 @@ const badMax = max !== undefined && !(Number.isInteger(max) && max >= 0)
 const dataAt = args.indexOf('--data')
 const data = dataAt >= 0 ? args[dataAt + 1] : undefined
 const badData = dataAt >= 0 && !(data && existsSync(data) && statSync(data).isDirectory())
-const modes = [revoiceWords, denoise, level, tempo, edges, restore, narrators, upgradeModel, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
+const modes = [revoiceWords, denoise, level, tempo, edges, restore, narrators, upgradeModel, toEleven, revAt >= 0 || flag('--upgrade')].filter(Boolean).length
 const ffmpegOnly = denoise || level || tempo || edges || restore || narrators
-if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !upgradeModel && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0)) {
+if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0)) || (revAt >= 0 && !revoice.length) || unknown.length || badMax || badData || badSnapshot || (maxAt2 >= 0 && !revoiceWords && !upgradeModel && !toEleven && !ffmpegOnly) || modes > 1 || (ffmpegOnly && maxAt >= 0) || (toEleven && (!elevenSpeakers.length || elevenUnknown.length || elevenNarrators.length))) {
   if (unknown.length) console.error(`not in the voice cast: ${unknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
+  if (elevenUnknown.length) console.error(`--elevenlabs: not in the voice cast: ${elevenUnknown.join(', ')} (the cast: ${Object.keys(cast()).join(', ')})`)
+  if (elevenNarrators.length) console.error(`--elevenlabs: not the narrators (${elevenNarrators.join(', ')}): their local clips stay beside their Slovene ElevenLabs ones (--narrators)`)
   if (badData) console.error(`--data: no directory ${data ?? ''}`)
   if (badSnapshot) console.error(`--restore-gepard: no voice store (voice.db and files/) in ${snapshotArg ?? '(none given)'} or its voice/`)
   console.log('Usage: companion/bin/voice-build [--run] [--upgrade] [--revoice speaker[,speaker]] [--max-chars N] [--json] [--data DIR]')
@@ -160,6 +173,7 @@ if (flag('--help') || flag('-h') || (maxChars !== undefined && !(maxChars >= 0))
   console.log('       companion/bin/voice-build --restore-gepard SNAPSHOT [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --narrators [--max N] [--run] [--json] [--data DIR]')
   console.log('       companion/bin/voice-build --upgrade-model [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
+  console.log('       companion/bin/voice-build --elevenlabs speaker[,speaker] [--max N] [--max-chars N] [--run] [--json] [--data DIR]')
   process.exit(flag('--help') || flag('-h') ? 0 : 2)
 }
 // the data directory the clips are in (ensure_data_dir.py reads LANI_DATA_DIR)
@@ -521,6 +535,53 @@ const store = new VoiceStore({ appDir, dir: voiceDir(appDir), engines: language 
 // in it ("@janez", as the app asks for it by the fire), and ElevenLabs makes those clips in it
 const own = ownVoicesIn(store.database)
 usePersonVoices(id => own.get(id))
+
+if (toEleven) {
+  // a speaker's local (Gepard) clips again in their ElevenLabs voice: the store and ElevenLabs, no corpus
+  const now = eleven.model
+  const queue = store.localQueue(elevenSpeakers)
+  const q = await eleven.subscription()
+  const reserve = eleven.reserve
+  const room = q ? Math.max(0, q.limit - q.used - reserve) : 0
+  const budget = maxChars !== undefined ? Math.min(room, maxChars) : room
+  const cost = (c: Clip) => eleven.cost(c.text, c.voice, explanationLang(c.norm))
+  const would: Clip[] = []
+  let spend = 0
+  for (const c of queue) {
+    if (max !== undefined && would.length >= max) break
+    if (spend + cost(c) > budget) continue
+    would.push(c)
+    spend += cost(c)
+  }
+  const all = queue.reduce((n, c) => n + cost(c), 0)
+  const n = (x: number) => x.toLocaleString('en-US')
+  const summary = {
+    speakers: elevenSpeakers, model: now, local: queue.length, local_chars: all, played: queue.filter(c => (c.hits ?? 0) > 0).length,
+    quota: q ? { limit: q.limit, used: q.used, remaining: Math.max(0, q.limit - q.used), reserve, resets_at: q.resets_at } : null,
+    would: { clips: would.length, chars: spend, credits: creditsFor(spend, now) }, dir: store.dir,
+  }
+  if (!flag('--run')) {
+    if (flag('--json')) console.log(JSON.stringify({ ...summary, clips: would.map(c => ({ key: c.key, voice: c.voice, hits: c.hits ?? 0, chars: cost(c), source: c.source, text: c.text })) }, null, 2))
+    else {
+      console.log(`Local (Gepard) clips of ${elevenSpeakers.join(', ')} in ${store.dir}: ${n(queue.length)} (${n(all)} characters; ${n(summary.played)} played at least once)`)
+      console.log(q ? `ElevenLabs: ${n(Math.max(0, q.limit - q.used))} of ${n(q.limit)} characters left, ${n(reserve)} kept for live lines${q.resets_at ? `, resets ${new Date(q.resets_at * 1000).toISOString().slice(0, 10)}` : ''}` : 'ElevenLabs: not available (no ELEVENLABS_API_KEY, or the subscription could not be read)')
+      console.log(`--run would make ${n(would.length)} in their ElevenLabs voice (${n(spend)} characters, ≈ ${n(creditsFor(spend, now))} credits with ${now}), most played first:`)
+      for (const c of would.slice(0, 15)) console.log(`  ${String(c.hits ?? 0).padStart(4)}× ${c.voice.padEnd(11)} ${(c.source ?? '').padEnd(24)} ${c.text.length > 50 ? `${c.text.slice(0, 49)}…` : c.text}`)
+      if (would.length > 15) console.log(`  … and ${n(would.length - 15)} more`)
+      console.log('\nDry run: nothing changed. Each would be made in its ElevenLabs voice, filtered, trimmed and levelled as every new clip,')
+      console.log('under a new file name, the local file removed; a running bridge tells the app.')
+      console.log(`Make them with: companion/bin/voice-build --elevenlabs ${elevenSpeakers.join(',')} --run${maxChars !== undefined ? ` --max-chars ${maxChars}` : ''}${max !== undefined ? ` --max ${max}` : ''}${data ? ` --data ${data}` : ''}`)
+    }
+    process.exit(0)
+  }
+  console.log(`Making ${n(would.length)} of ${n(queue.length)} local clip(s) in their ElevenLabs voice with ${now} (${n(spend)} characters at most) …`)
+  const r = await store.elevenlabsFor(elevenSpeakers, { max, maxChars: budget, out: line => console.log(line) })
+  console.log(`\nMade ${n(r.made)} in ElevenLabs (${n(r.chars)} characters, ≈ ${n(creditsFor(r.chars, now))} credits)${r.skipped ? `; ${r.skipped} skipped (no ElevenLabs voice for them now)` : ''}; ${n(r.left)} left${r.stopped ? ` (stopped: ${r.stopped})` : ''}.`)
+  if (r.made) console.log('A running bridge tells the app within a minute (voice_updated); the app downloads the new files as it plays them.')
+  if (flag('--json')) console.log(JSON.stringify(r))
+  store.close()
+  process.exit(r.stopped && !r.made ? 1 : 0)
+}
 
 if (upgradeModel) {
   // the ElevenLabs clips of an older model again in the current one: the store and ElevenLabs, no corpus

@@ -2814,6 +2814,52 @@ export class VoiceStore {
   }
 
   /**
+   * The local (Gepard) clips of [speakers] made while ElevenLabs couldn't (the quota, an error, the bridge's fallback),
+   * most played first, then the oldest: what voice-build --elevenlabs makes in the speaker's ElevenLabs voice. Never a
+   * narrator's (female, male): theirs stay beside their Slovene ElevenLabs clips as the fallback (--narrators); never a
+   * speaker without an ElevenLabs voice.
+   */
+  localQueue(speakers: VoiceName[]): Clip[] {
+    const names = speakers.filter(v => !isNarrator(v) && !!elevenlabsOf(v))
+    if (!names.length) return []
+    return (this.db.query(`SELECT * FROM clips WHERE engine = 'gepard' AND voice IN (${names.map(() => '?').join(', ')})`).all(...names) as Clip[])
+      .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
+  }
+
+  /**
+   * voice-build --elevenlabs S --run: the clips of [localQueue] made again in their speaker's ElevenLabs voice ([remake]:
+   * filtered, trimmed and levelled as every new clip, a new file name, the hits kept, the local file removed), most played
+   * first, at most [max] clips and [maxChars] characters, within the reserve; stops when ElevenLabs can't now. A running
+   * bridge tells the app (voice_updated), as for the other re-voices.
+   */
+  async elevenlabsFor(speakers: VoiceName[], o: { max?: number; maxChars?: number; out?: (line: string) => void } = {}) {
+    let made = 0
+    let chars = 0
+    let skipped = 0
+    let stopped: string | undefined
+    const list = this.localQueue(speakers)
+    for (const c of list) {
+      if (o.max !== undefined && made >= o.max) break
+      const cost = this.eleven?.cost(c.text, c.voice, explanationLang(c.norm)) ?? c.text.length
+      if (o.maxChars !== undefined && chars + cost > o.maxChars) continue // a shorter one may still fit
+      const r = await this.remake(c, false)
+      if (r === 'skip') {
+        skipped++
+        o.out?.(`  · skipped  ${c.voice.padEnd(11)} ${c.text} (no ElevenLabs voice for it now)`)
+        continue
+      }
+      if (r === 'stop') {
+        stopped = 'ElevenLabs can\'t now (the quota at its reserve, or an error)'
+        break
+      }
+      made++
+      chars += cost
+      o.out?.(`  ✓ gepard → elevenlabs ${c.voice.padEnd(11)} ${c.text}`)
+    }
+    return { made, chars, skipped, left: list.length - made - skipped, ...(stopped ? { stopped } : {}) }
+  }
+
+  /**
    * The short narrator clips: said in their carrier sentence, kept plain, old-style (and of those, asked for by the
    * app), the characters re-voicing the old-style ones would send, today's re-voices of the lazy re-voice's daily cap,
    * today's re-records on request of theirs, and whether the node can cut (ffmpeg).
