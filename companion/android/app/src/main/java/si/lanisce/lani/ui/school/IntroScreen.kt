@@ -129,7 +129,7 @@ fun IntroScreen(vm: AppViewModel, id: String, fromVillage: Boolean) {
     // walks in), from the step shown on: each step finds its clip as it's read; no more asked once the intro is left
     val voice = vm.introVoice
     DisposableEffect(unit.id) {
-        if (voice.auto && !voice.screenReader) voice.ahead((step until intro.steps.size).map { introScript(vm, unit, intro, it) }, introReader(vm))
+        if (voice.auto && !voice.screenReader) voice.ahead((step until intro.steps.size).map { introScript(vm, unit, intro, it) } + listOfNotNull(summaryScript(vm, unit, intro)), introReader(vm))
         onDispose { voice.stopAhead() }
     }
     Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 16.dp, vertical = 8.dp)) {
@@ -370,6 +370,18 @@ internal fun introReader(vm: AppViewModel): IntroVoice.Reader {
  * What step [i] of [intro] reads ([IntroSpeech.step]): its explanation in the learner's base, its examples, its quick
  * question; Slovene what the app's check says is, and the words the intro itself shows ("**Biti**").
  */
+/**
+ * What the summary reads: the unit's grammar page's rule in the base language (its table is to look at), else the unit's
+ * goal; null with neither. Read as a step is: the explanation in one clip, its Slovene in the teacher's voice without it.
+ */
+internal fun summaryScript(vm: AppViewModel, unit: CourseUnit, intro: Intro): IntroSpeech.Script? {
+    val base = L10n.pair.base.code
+    val page = unit.grammar.firstNotNullOfOrNull { vm.grammar.page(it) }
+    val say = page?.ruleIn(base)?.takeIf { it.isNotBlank() } ?: unit.goal?.let { Grammar.text(it, base) }?.takeIf { it.isNotBlank() } ?: return null
+    val known = IntroSpeech.vocabulary(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene)
+    return IntroSpeech.step("${unit.id}/summary/${say.hashCode()}", say, base, emptyList(), null) { t -> vm.speaker.isSlovene(t) || IntroSpeech.within(t, known) }
+}
+
 internal fun introScript(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: Int): IntroSpeech.Script {
     val s = intro.steps[i]
     val base = L10n.pair.base.code
@@ -696,14 +708,31 @@ private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, expla
 /** How long after an answer its result is scrolled into view (it has been laid out). */
 private const val RESULT_SCROLL_MS = 120L
 
-/** The end: the rule's page as a summary card (its rule and its whole table), the book one tap away, then the worksheets. */
+/**
+ * The end: the rule's page as a summary card (its rule and its whole table), the book one tap away, then the worksheets.
+ * She reads it as she read the steps ([summaryScript]: the rule, its table to look at; as it appears, 🔊 and 🐢 again).
+ */
 @Composable
 private fun Summary(vm: AppViewModel, unit: CourseUnit, intro: Intro, modifier: Modifier, done: () -> Unit) {
     val base = L10n.pair.base.code
     val page = unit.grammar.firstNotNullOfOrNull { vm.grammar.page(it) }
+    val voice = vm.introVoice
+    val reader = introReader(vm)
+    val script = remember(unit.id, page?.id, base) { summaryScript(vm, unit, intro) }
+    val reading = script != null && voice.reading == script.id
+    LaunchedEffect(script?.id) {
+        if (script != null && voice.auto && !voice.screenReader) {
+            delay(READ_AFTER_MS)
+            voice.play(script, reader)
+        }
+    }
+    DisposableEffect(script?.id) { onDispose { script?.let { voice.stop(it.id) } } }
     Column(modifier.fillMaxWidth()) {
         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("🧾 ${bi("school.summary")}", style = MaterialTheme.typography.titleLarge)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("🧾 ${bi("school.summary")}", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+                if (script != null) ReadButtons(reading, onRead = { slow -> if (reading && !slow) voice.stop() else voice.play(script, reader, slow) })
+            }
             if (page != null) {
                 Text("${page.emoji} ${page.titleShown(L10n.pair)}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 Markdown(page.ruleIn(base))
