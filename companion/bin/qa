@@ -42,6 +42,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
+                       "scene-people" I spy offered in the church, the kitchen and the smithy (QA's hook "ispy:"):
+                       who stands where, the picture as it opens and closer up; the church's top bar with the base
+                       in German ("‹ Vas · Dorf"), its pills apart, then the profile's pair again;
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
                        "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
@@ -1505,6 +1508,152 @@ def ispy_positions(timeout=10.0):
                         at[slot] = (int(x), int(y))
                 return int(m.group(1)), m.group(2), at, m.group(4).strip()
         time.sleep(1)
+    return None
+
+
+def top_bar_pills(back: str) -> list:
+    """The scene's top bar on the screen: its pills, left to right, as (label, (x0, y0, x1, y1)): back to the village
+    ([back]: its label), the building the scene is in ("… kartica in nadgradnja", in the base's words too), the school,
+    what's found ("Odkrito …"). A pill's bounds are its own (the dark rounded box), not its button's or its text's: the
+    outermost node round the label that holds no other pill."""
+    adb("shell", "uiautomator", "dump", "/sdcard/ui.xml", check=False)
+    xml = adb("shell", "cat", "/sdcard/ui.xml", check=False)
+    def label(n: str) -> str:
+        for k in (" text", "content-desc"):
+            m = re.search(k + r'="([^"]*)"', n)
+            if m and m.group(1):
+                return html.unescape(m.group(1))
+        return ""
+    def is_pill(t: str) -> bool:
+        return t == back or ": kartica in nadgradnja" in t or t.startswith("📚 ") or t.startswith("Odkrito ")
+    # the tree: each node's bounds, its label, its parent
+    nodes, stack = [], []
+    for tok in re.findall(r"<node [^>]*?/?>|</node>", xml):
+        if tok == "</node>":
+            stack.pop()
+            continue
+        b = tuple(map(int, re.findall(r"\d+", re.search(r'bounds="([^"]*)"', tok).group(1))))
+        nodes.append({"b": b, "t": label(tok), "up": stack[-1] if stack else None})
+        if not tok.endswith("/>"):
+            stack.append(len(nodes) - 1)
+    def ancestors(i):
+        while (i := nodes[i]["up"]) is not None:
+            yield i
+    labelled = [i for i, n in enumerate(nodes) if is_pill(n["t"]) and n["b"][3] < 400]
+    out = []
+    for i in labelled:
+        others = [k for k in labelled if k != i]
+        box = i
+        for a in ancestors(i):
+            if any(a in ancestors(k) for k in others):
+                break
+            box = a
+        out.append((nodes[i]["t"], nodes[box]["b"]))
+    return sorted(out, key=lambda tb: tb[1][0])
+
+
+def pills_clear(back: str) -> str:
+    """What's wrong with the top bar's pills ([top_bar_pills]), "" when nothing: side by side, none over another, all on
+    the screen, each clearly apart (8 dp at least: 6 dp read as one tucked under the other)."""
+    pills = top_bar_pills(back)
+    width = int(adb("shell", "wm", "size").split()[-1].split("x")[0])
+    apart = round(8 * int(adb("shell", "wm", "density").split()[-1]) / 160)
+    print("    top bar: " + ", ".join(f"{t[:24]} {b[0]}–{b[2]}" for t, b in pills))
+    if len(pills) < 2:
+        return f"the top bar's pills: {pills}"
+    for (ta, a), (tb, b) in zip(pills, pills[1:]):
+        if a[2] + apart > b[0]:
+            return f"«{ta[:24]}» ({a[0]}–{a[2]}) and «{tb[:24]}» ({b[0]}–{b[2]}) less than {apart} px apart"
+    if pills[0][1][0] < 0 or pills[-1][1][2] > width:
+        return f"a pill off the screen: {pills}"
+    return ""
+
+
+def choose_base(lang: str):
+    """The connection sheet's "🌐 Jeziki · Languages": [lang] (its own name) as the base, the second row's chip; "" goes
+    back to the learner profile's pair ("Kot v profilu …"). Found by the labels' Slovene half, whatever the base is now."""
+    for _ in range(6):  # Home ("Danes · Today", "Danes · Heute" …)
+        if find("Danes · "):
+            break
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        if not in_front():
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity")
+            time.sleep(3)
+    to_top()
+    for label in ("Učitelj je povezan", "Brez povezave", "Povezujem"):  # the tutor's status dot
+        if tap(label, 3):
+            break
+    else:
+        raise AssertionError("the tutor's status dot")
+    assert wait_for("Povezava · ", 8), "the connection sheet"
+    for _ in range(6):
+        if lang:
+            chips = sorted((b for t, b in boxes() if t == lang), key=lambda b: b[1])
+            if len(chips) >= 2 and chips[-1][3] < 2000:
+                tap_at(((chips[-1][0] + chips[-1][2]) // 2, (chips[-1][1] + chips[-1][3]) // 2))
+                break
+        elif (c := find("Kot v profilu")) is not None and c[1] < 2000:
+            tap_at(c)
+            break
+        adb("shell", "input", "swipe", "540", "1700", "540", "1100", "400")
+        time.sleep(1)
+    else:
+        raise AssertionError(f"the languages' chip {lang or 'Kot v profilu'}")
+    time.sleep(1.5)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1)
+
+
+def scene_people():
+    """Where people stand in a scene (companion/SCENES.md, "Where people stand"): «Vidim, vidim» offered in the church
+    (QA's hook "ispy:v-cerkvi/rope"), its child by the door under the organ loft (a child of the village who came by, or
+    Tine), the loft's post behind them; in the kitchen and the smithy too (a child at the door), each as it opens and
+    closer up (the camera's zoom), for review. Then the church's top bar with the base in German ("‹ Vas · Dorf", the
+    church's pill, what's found): its pills apart, none under another (as in Slovene and English before); back to the
+    profile's pair."""
+    scenes = [("v-cerkvi", "rope"), ("kuhinja", "pot"), ("v-kovacnici", "anvil")]
+    seen = 0
+    wrong = []  # the top bar's, asserted at the end: every picture taken first
+    try:
+        for sid, slot in scenes:
+            adb("logcat", "-c")
+            qa_hook(f"ispy:{sid}/{slot}", f"scene:{sid}")
+            if wait_for("‹ Vas · Village", 10) is None:
+                print(f"    {sid}: didn't open (not on this node)")
+                continue
+            marker = wait_for("Vidim, vidim · I spy. Igrajva", 15)
+            time.sleep(1.5)
+            # who stands where: the debug build logs the people's areas once the camera rests (tag SceneAt)
+            at = [l.split("people ")[-1] for l in adb("logcat", "-d", "-s", "SceneAt:D", check=False).splitlines() if f"scene {sid} " in l]
+            print(f"    {sid}: I spy {'offered' if marker else 'not offered'}; people {at[-1] if at else '?'}")
+            shot(f"scene-people-{sid}")
+            qa_hook("zoom")
+            time.sleep(2)
+            shot(f"scene-people-{sid}-closer")
+            if sid == "v-cerkvi" and (w := pills_clear("‹ Vas · Village")):
+                wrong.append(w)
+            seen += 1
+            tap("‹ Vas · Village", 3)
+            time.sleep(1)
+    finally:
+        qa_hook("ispy:")
+    if not seen:
+        return "skipped: none of the scenes opened"
+    # the top bar in German: "‹ Vas · Dorf", "Cerkev, stopnja 1: kartica in nadgradnja · Kirche, Stufe 1: …"
+    choose_base("Deutsch")
+    try:
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "scene:v-cerkvi")
+        assert wait_for("‹ Vas · Dorf", 10), "the church in German"
+        time.sleep(1.5)
+        shot("scene-people-top-bar-de")
+        if w := pills_clear("‹ Vas · Dorf"):
+            wrong.append(w)
+        tap("‹ Vas · Dorf", 3)
+        time.sleep(1)
+    finally:
+        choose_base("")
+    assert not wrong, "the top bar: " + "; ".join(wrong)
     return None
 
 
@@ -5337,6 +5486,7 @@ def plan():
         ("dialog-words", dialog_words, v, False, ""),
         ("typed-turn", typed_turn, v, False, ""),
         ("ispy", ispy, v, False, ""),
+        ("scene-people", scene_people, v, False, ""),
         ("your-words", your_words, v, False, ""),
         ("word-missed", word_missed, v, False, ""),
         ("story-in-scene", story_in_scene, v, False, ""),

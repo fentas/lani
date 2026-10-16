@@ -3132,6 +3132,7 @@ companion/bin/qa --steps chat-swipe              # a tutor message swiped: the r
 companion/bin/qa --steps chat-links              # a tutor message's links: example.com and http ask first, fran.si opens the browser at once
 companion/bin/qa --steps chat-attach             # 💬 in an exercise's top bar: the exercise attached, ✕, the answer with it; chat-attach-pack: a pack's word
 companion/bin/qa --steps village-hud             # the village's HUD: its row, its panel, its pill, the plot chooser's ★
+companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
 companion/bin/qa --steps exercise-words          # a review's words looked up: the sentence's, not the forms to choose
