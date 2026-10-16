@@ -152,6 +152,15 @@ five form cards (all right: its digest made no call); "Also run on" Haiku for it
 mock's token counts), the export through the share sheet (44 KB, no key), the notebook and the thread; the mock saw the
 key only in `x-api-key`, the 1-hour breakpoint and phase A's tool order; no log line with the key; no crash.
 
+**Changed 2026-10-16 (Jan: "we recommend, the user sets"; effort "can make a big diff"):** the model **and the effort**
+per task are settings (the presets set both; recommended: routine and grading on Haiku 5.5 at `high`, chat on Sonnet 5.5
+at `medium`, role-play on Sonnet 5.5 at `low`, content on Opus 5.5 at `medium`); the day's thread keeps its top-level
+effort and a turn at another level on it sets its own by an effort-only system message (beta
+`mid-conversation-output-config-2026-07-01`, the cache kept); a turn that ends with text and never calls `reply` takes
+that text as its reply, marked and counted ("✍️ as text, no reply tool", `repliesFromText`); "Also run on…" takes a model
+and an effort; the numbers by model × effort (spend, output, ≈ thinking, how the turns replied) in the panel, the
+export and the node's copy ([companion/README.md](../../companion/README.md#the-in-app-tutor-in-shadow-mode-developer-setting)).
+
 **When the key arrives (check 7):** paste it in the panel (a "Lani" workspace with a spend limit, expiry "Never"),
 leave Balanced, use the app as usual; export after a few days and after two weeks. What to look at first: the cold
 starts and the thread's size at restarts (the estimate's levers), whether `input_transformations` ever shows, the

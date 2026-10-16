@@ -1022,18 +1022,51 @@ The turns wait in a persisted queue (a chat ahead of the rest), one at a time.
 **The loop** (`tutor/Loop.kt`): a manual tool loop over `TutorTransport` (`AnthropicTransport`: OkHttp, okhttp-sse and
 kotlinx.serialization against `POST /v1/messages`, streamed; no SDK). Each step is saved (the assistant's message,
 then the tools' results), so a turn Android stopped resumes where it was. At most 8 calls a turn; parallel tool calls
-answer in one message; `tool_choice: auto`; adaptive thinking with the task's effort set explicitly (the day's thread:
-always "medium", since a change clears its cache); thinking blocks go back unchanged, empty ones too; the beta
-`thinking-binding-controls-2026-08-01` is sent and a response's `input_transformations` logged per call. Errors by the
-plan's table: a 401 pauses (nothing lost); the low credit balance and the spend limits (the workspace's 400, the
-tier's 429 `enforced_spend_limit_reached`) pause routine work and fail a chat with the reason; a 429 waits for its
-`retry-after` (a long one sends the turn back to the queue), 529/5xx/timeouts back off; `max_tokens` is retried once
-with twice the room; a `refusal` is noted, never retried.
+answer in one message; `tool_choice: auto`; adaptive thinking with the effort set explicitly (below); thinking blocks go
+back unchanged, empty ones too; the beta `thinking-binding-controls-2026-08-01` is sent and a response's
+`input_transformations` logged per call. Errors by the plan's table: a 401 pauses (nothing lost); the low credit balance
+and the spend limits (the workspace's 400, the tier's 429 `enforced_spend_limit_reached`) pause routine work and fail a
+chat with the reason; a 429 waits for its `retry-after` (a long one sends the turn back to the queue), 529/5xx/timeouts
+back off; `max_tokens` is retried once with twice the room; a `refusal` is noted, never retried.
 
-**The model per task** by the preset (Economy, Balanced, Best), each task's model changeable in the panel: Balanced is
-Haiku 5.5 for routine work and grading, Sonnet 5.5 for chat, Opus 5.5 for content. The ids come from the key's
-`GET /v1/models`: the plan's when listed, else the family's newest, else the family above's; never a legacy model
-(Haiku 4.5) by default.
+**A turn without `reply`** (`tutor/Loop.kt` `ReplyFallback`): a turn that ends (`end_turn`) with text and never called
+`reply` (Haiku 5.5 at `low` did that in Jan's shadow on 2026-10-16) takes that last text as its reply, to the event's
+conversation (a digest's: "main"). The turn is marked `replyFromText`, the panel shows "✍️ as text, no reply tool" by the
+reply, and the day counts them (`repliesFromText`, and by model × effort), so the comparison sees how often a model at a
+level skips `reply`. A closing (it writes the notebook) never does.
+
+**The model and the effort per task** (Jan, 2026-10-16: "we recommend, the user sets"): the preset (Economy, Balanced,
+Best) sets both, and each task's model and effort can be set in the panel's Settings ("chat: claude-sonnet-5-5 ⭐",
+"chat effort: medium ⭐"; ✎ when set there). The effort's picker offers only the levels the model takes (all five on the
+5.5 models; none on Haiku 4.5), `xhigh` and `max` behind "more… (xhigh, max)", our recommendation marked "⭐ priporočeno ·
+recommended". Kept with the settings (`ShadowSettings.models`, `.efforts`). Effort is how much the model thinks and
+writes: every output token, thinking included, is billed as output.
+
+| Task | Recommended (Balanced) | Economy | Best |
+|---|---|---|---|
+| routine (the digest) | Haiku 5.5 · high | Haiku 5.5 · medium | Opus 5.5 · medium |
+| grading (answer, session end) | Haiku 5.5 · high (to measure against Sonnet · medium) | Haiku 5.5 · medium | Opus 5.5 · medium |
+| chat (and the notebook) | Sonnet 5.5 · medium | Haiku 5.5 · medium | Opus 5.5 · medium |
+| role-play (phase B) | Sonnet 5.5 · low | Haiku 5.5 · low | Opus 5.5 · medium |
+| content (phase C) | Opus 5.5 · medium | Sonnet 5.5 · medium | Opus 5.5 · high |
+
+Why: Haiku 5.5 at `low` skipped `reply` in the shadow, and Anthropic recommends `high` on Haiku 5.5 for strict
+instruction following (~$0.001–0.002 more a reaction); content is what the learner drills again and again, so its
+Slovene matters most. Routine and grading get 16,000 tokens of room (thinking counts toward `max_tokens`), content
+32,000; `xhigh` at least 32,000, `max` 64,000. The ids come from the key's `GET /v1/models`: the plan's when listed, else
+the family's newest, else the family above's; never a legacy model (Haiku 4.5) by default.
+
+**The effort within the day's thread** (`tutor/Effort.kt`): the thread's top-level effort is fixed for its life (the
+chat's when it began; a restart keeps it): changing it between requests would clear its cache. A turn at another level
+on the thread (a grading question on the chat's model, the chat's effort changed in the panel) sets its own with an
+effort-only system message, which keeps the cache (the effort docs, "Change effort mid-conversation"; the 5.5 models and
+Opus 5): `{"role": "system", "content": [], "output_config": {"effort": "high"}}`, placed after the last answer and
+before the turn's user message (it applies from that turn on and holds until the next one changes it; after the user
+message when that holds tool_results, never between a tool_use and its results). The request then carries the beta
+`mid-conversation-output-config-2026-07-01` beside the thinking-binding one; a request without such a message sends no
+new beta. Only the unanswered end of the thread ever changes. On a model without per-message effort (Sonnet 5, the Sonnet
+family's fallback) such a turn runs at the thread's level. A stateless call ("Also run on", another model's turn) has
+its level as its top-level effort.
 
 **The prefix** (`tutor/Prompt.kt`): the tools in phase A's fixed order, then the core prompt
 (`companion/tutor/core-prompt.md`: who the tutor is, the rules, the event kinds in brief), its end a 1-hour cache
@@ -1068,18 +1101,23 @@ and the last exchanges as plain text. The first event of a new day closes yester
 that changes the tools or the prompt restarts the thread as text (no closing call: its history can't be sent under
 another prefix). The notebook's older versions are kept; the panel can edit it.
 
-**Metering** (`tutor/ShadowStore.kt` `DayStats`): per call the model, the event kind, input, the cache writes (5-minute
-and 1-hour, from `usage.cache_creation`), cache reads, output (thinking included), the time to the first token and in
-all, the price (`companion/tutor/prices.json`); per day the calls, turns, cold starts (gaps over 5 and 60 minutes on a
-model), the thread's size at each restart, the notebook's size, the spend by model and by event kind, the guide's
-topics fetched. The day's budget (default $3) pauses the shadow until the next day.
+**Metering** (`tutor/ShadowStore.kt` `DayStats`): per call the model, its effort (and whether an effort message set it),
+the event kind, input, the cache writes (5-minute and 1-hour, from `usage.cache_creation`), cache reads, output (thinking
+included: the API doesn't report it apart; `thinkingEstimate` is the output less the response's visible characters at
+about four a token, an estimate), the time to the first token and in all, the price (`companion/tutor/prices.json`);
+per day the calls, turns, cold starts (gaps over 5 and 60 minutes on a model), the thread's size at each restart, the
+notebook's size, the spend by model and by event kind, the guide's topics fetched, the replies taken from text
+(`repliesFromText`), and by model × effort (`byModelEffort`, "claude-haiku-5-5 · high": calls, turns, spend, output,
+≈ thinking, replies by tool, as text, none). The day's budget (default $3) pauses the shadow until the next day.
 
-**The panel** ("🕵️ Shadow tutor"): Events (each event with the shadow's turns: model, status, reply, tool calls with
-their inputs and results, dry runs marked; the real tutor's reply below; "Also run on…" another model: its own
-stateless call, metered, so Haiku and Sonnet can be compared on the same events; "Queue again" for a failed turn);
-Numbers (the day's, each call's, "⬆️ Export everything"); Notebook (the notebook, the thread, the queue); Settings (on,
-the key, a debug or qa build's base URL, the preset and the model per task, the budget, the thread's limit, "React at
-once"). Older days are a tap away.
+**The panel** ("🕵️ Shadow tutor"): Events (each event with the shadow's turns: model, effort, status, a line of numbers
+per run (cost, output with ≈ thinking, the first token and the whole time, "reply ✓ tool", "reply ✍️ as text" or none),
+reply, tool calls with their inputs and results, dry runs marked; the real tutor's reply below; "Also run on…" a model
+at an effort ("claude-haiku-5-5 · low", xhigh and max behind "more…"): its own stateless call, metered, so models and
+levels can be compared on the same events; "Queue again" for a failed turn); Numbers (the day's, "By model × effort",
+each call's with its effort, "⬆️ Export everything"); Notebook (the notebook, the thread, the queue); Settings (on, the
+key, a debug or qa build's base URL, the preset and the model and effort per task, the budget, the thread's limit, "React
+at once"). Older days are a tap away.
 
 **The export:** one JSON file (`lani.shadow-export/v0`: the settings, the notebook and its versions, the thread, the
 queue, and each day's events, turns, replies, tool calls, calls and numbers) through the share sheet (a FileProvider
@@ -1090,7 +1128,11 @@ node's token and anything shaped like a secret (`Redact.json`).
 127.0.0.1:8771 (the emulator: `http://10.0.2.2:8771`): `GET /v1/models` and streamed `POST /v1/messages` in the real
 wire format (thinking, text, parallel tool calls with their input in pieces, usage that looks like caching), markers in
 a chat for the errors (`[mock:429]`, `[mock:529]`, `[mock:500]`, `[mock:refusal]`, `[mock:max_tokens]`,
-`[mock:stream-error]`, `[mock:credit]`), `GET /mock/requests` (the last 50, never the key) and `POST /mock/reset`;
+`[mock:stream-error]`, `[mock:credit]`) and `[mock:no-reply]` (once, the answer as text without `reply`); the effort as
+the API takes it (the levels; effort-only system messages only with the per-message beta, else the API's 400
+`messages.N.output_config: Extra inputs are not permitted`; none on Haiku 4.5), the level in effect logged per request,
+a thinking block weighing by it, and Haiku 5.5 at `low` answering as text without `reply`, as Jan's shadow saw;
+`GET /mock/requests` (the last 50, never the key) and `POST /mock/reset`;
 `bun companion/bridge/test/tutor-mock-check.ts` checks it. A debug or qa build's panel takes its base URL ("The mock
 (10.0.2.2:8771)"); QA's hook `shadow:http://10.0.2.2:8771` sets it and opens the panel (`app/QaHooks.kt`); a release
 build always calls the API.
@@ -3101,7 +3143,7 @@ companion/bin/qa --steps school-build            # the school built in the hamle
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
-companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export
+companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export, the effort per task and within the thread
 companion/bin/qa --steps dev-upload              # the developer's data on the node: a chat, the app to the background, app/dev/ in the dev bridge's copy (no key, no token), the panel's button, nothing with the setting off
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --minified --steps voice-node-clip  # a new line a villager says plays the node's clip (not the phone's voice), also with the cap full
 companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks
