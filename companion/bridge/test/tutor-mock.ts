@@ -23,8 +23,19 @@
 // 4. a closing call (the last user message says [notebook_write]): notebook_write (tool_use), then end_turn.
 // Markers in the turn's first user message act once per distinct message, so the app's retry then succeeds:
 // [mock:429] (retry-after: 1), [mock:529], [mock:500], [mock:refusal] (stop_reason refusal, stop_details),
-// [mock:max_tokens] (a text cut off), [mock:stream-error] (message_start, then an error event); [mock:credit] (a 400:
-// the credit balance is too low) acts every time.
+// [mock:max_tokens] (a text cut off), [mock:stream-error] (message_start, then an error event), [mock:no-reply] (the
+// answer as text, end_turn, no reply call); [mock:credit] (a 400: the credit balance is too low) acts every time.
+//
+// Effort (output_config.effort; docs: build-with-claude/effort): the top-level level must be one of low, medium, high,
+// xhigh, max, and claude-haiku-4-5 takes none (400). An effort-only system message in messages ({"role": "system",
+// "content": [], "output_config": {"effort": …}}) needs the beta mid-conversation-output-config-2026-07-01 in
+// anthropic-beta (else the API's 400 "messages.N.output_config: Extra inputs are not permitted") and a model with
+// per-message effort (else "output_config.effort requires a model that supports per-turn effort; this model does not";
+// here every model but claude-haiku-4-5); the mock takes no other system message in messages (the app sends none). The
+// level in effect for the reply is the docs': an effort message directly after the turn's user message, else the last
+// one before it, else the top-level, else the model's default (medium on Opus 5.5 and Haiku 5.5, high else). It sets
+// how much a thinking block weighs in output_tokens (low 40, medium 120, high 300, xhigh 600, max 1000), and Haiku 5.5
+// at low answers a turn's first call as Jan's shadow saw it (2026-10-16): its answer as text, end_turn, no reply.
 //
 // Usage looks like caching, tokens estimated as characters / 4: the prefix (tools + system) is written once per model
 // (1 hour when the last system block's cache_control says ttl "1h", else 5 minutes) and read while it lives; of the
@@ -61,10 +72,20 @@ const CATALOG: Record<string, { display_name: string; created_at: string; max_in
 }
 const DEFAULT_MODELS = Object.keys(CATALOG)
 
-const MARKERS_ONCE = ['429', '529', '500', 'stream-error', 'refusal', 'max_tokens'] as const
+const MARKERS_ONCE = ['429', '529', '500', 'stream-error', 'refusal', 'max_tokens', 'no-reply'] as const
 type Marker = (typeof MARKERS_ONCE)[number] | 'credit'
 
 const KINDS = ['session_end', 'roleplay_end', 'roleplay', 'review_done', 'answer', 'daily_morning', 'daily_evening', 'daily_weekly', 'villager_arrived', 'level_up', 'chat']
+
+const LEVELS = ['low', 'medium', 'high', 'xhigh', 'max']
+const EFFORT_BETA = 'mid-conversation-output-config-2026-07-01'
+/** The output a thinking block weighs at each level (tokens). */
+const THINKING: Record<string, number> = { low: 40, medium: 120, high: 300, xhigh: 600, max: 1000 }
+const takesEffort = (model: string) => model !== 'claude-haiku-4-5'
+const perMessageEffort = (model: string) => takesEffort(model)
+const defaultEffort = (model: string) => (['claude-opus-5-5', 'claude-haiku-5-5'].includes(model) ? 'medium' : 'high')
+/** An effort-only system message's level, else undefined. */
+const effortOf = (m: Msg | undefined): string | undefined => (m?.role === 'system' ? (m as any).output_config?.effort : undefined)
 
 const sha = (s: string) => createHash('sha256').update(s).digest('hex')
 const tokens = (s: string) => Math.ceil(s.length / 4)
@@ -81,6 +102,22 @@ function chunks(s: string, n: number): string[] {
 const blocksOf = (m: Msg | undefined): Block[] => (!m ? [] : typeof m.content === 'string' ? [{ type: 'text', text: m.content }] : Array.isArray(m.content) ? m.content : [])
 const textOf = (m: Msg | undefined) => blocksOf(m).filter(b => b?.type === 'text' && typeof b.text === 'string').map(b => b.text).join('\n')
 const hasToolResult = (m: Msg | undefined) => blocksOf(m).some(b => b?.type === 'tool_result')
+
+/**
+ * The level in effect for the reply to [messages] (the docs' rules): an effort message directly after the last user turn
+ * with new input (not only tool_results) sets it for that reply; one anywhere before that turn holds from the next user
+ * turn with new input; one after it, later than directly, waits. Undefined: none in the messages.
+ */
+function effortInEffect(messages: Msg[]): string | undefined {
+  let u = messages.length - 1
+  const newInput = (m: Msg) => m.role === 'user' && blocksOf(m).some(b => b?.type !== 'tool_result')
+  while (u >= 0 && !newInput(messages[u])) u--
+  if (u < 0) return undefined
+  const direct = effortOf(messages[u + 1])
+  if (direct) return direct
+  for (let i = u - 1; i >= 0; i--) if (effortOf(messages[i])) return effortOf(messages[i])
+  return undefined
+}
 
 const errorBody = (type: string, message: string) => ({ type: 'error', error: { type, message }, request_id: `req_mock_${sha(`${type}${message}${Date.now()}${Math.random()}`).slice(0, 24)}` })
 
@@ -162,8 +199,9 @@ export function startTutorMock(o: MockOptions = {}) {
 
   // --- the canned answer ------------------------------------------------------------------------------------------
   /** What the request asks for, from its messages: the call's kind and the content blocks to answer with. */
-  function answer(body: any, id: string) {
-    const messages = body.messages as Msg[]
+  function answer(body: any, id: string, effort: string, noReply: boolean) {
+    // the effort-only system messages set the level (done by the caller); the answer reads the turns around them
+    const messages = (body.messages as Msg[]).filter(m => m.role !== 'system')
     const tools = new Map<string, any>((Array.isArray(body.tools) ? body.tools : []).filter((t: any) => typeof t?.name === 'string').map((t: any) => [t.name, t]))
     const lastMsg = messages[messages.length - 1]
     let start = messages.length - 1
@@ -182,6 +220,19 @@ export function startTutorMock(o: MockOptions = {}) {
       if (results || !tools.has('notebook_write')) return { ...done, call: 'closing_done' }
       const notebook = `# Notebook (mock)\n- The learner practises a little every day.\n- Recurring: mock_pattern (a mock mistake).\n- Plan: a short review tomorrow.\n- ${today()}: a mock day, ${messages.length} messages in the thread.`
       return { call: 'closing', stop: 'tool_use', content: [toolUse('notebook_write', { text: notebook })] }
+    }
+
+    // Haiku 5.5 at low (as Jan's shadow saw it) or [mock:no-reply]: the answer as text at once, end_turn, no reply call
+    if (!results && (noReply || (body.model === 'claude-haiku-5-5' && effort === 'low'))) {
+      const said = kind === 'answer' ? 'ocenil sem odgovor · I graded the answer' : `videl sem dogodek ${kind} · I saw a ${kind} event`
+      return {
+        call: 'no_reply',
+        stop: 'end_turn',
+        content: [
+          { type: 'thinking', thinking: `Mock: a ${kind} event; I'll just answer.`, signature: Buffer.from(sha(`sig${id}`), 'hex').toString('base64') },
+          { type: 'text', text: `**Mock tutor** · ${said} (as text, no reply tool, at ${effort}).` },
+        ] as Block[],
+      }
     }
 
     // 1. the turn's first call: think, say a word, look things up
@@ -232,7 +283,7 @@ export function startTutorMock(o: MockOptions = {}) {
 
   /** The marker that acts on this request, if any (a once-marker is spent here). */
   function markerOf(body: any): Marker | undefined {
-    const messages = body.messages as Msg[]
+    const messages = (body.messages as Msg[]).filter(m => m.role !== 'system')
     let start = messages.length - 1
     while (start >= 0 && !(messages[start].role === 'user' && !hasToolResult(messages[start]))) start--
     const turn = textOf(messages[Math.max(start, 0)])
@@ -251,9 +302,9 @@ export function startTutorMock(o: MockOptions = {}) {
   const headers = (extra: Record<string, string> = {}) => ({ 'request-id': `req_mock_${sha(`${seq}${Date.now()}`).slice(0, 24)}`, ...extra })
   const fail = (status: number, type: string, message: string, extra: Record<string, string> = {}) => Response.json(errorBody(type, message), { status, headers: headers(extra) })
 
-  const outputTokens = (content: Block[]) =>
+  const outputTokens = (content: Block[], effort: string | undefined) =>
     tokens(content.map(b => (b.type === 'text' ? b.text : b.type === 'thinking' ? b.thinking : b.type === 'tool_use' ? JSON.stringify(b.input) : '')).join('')) +
-    (content.some(b => b.type === 'thinking') ? 40 : 0)
+    (content.some(b => b.type === 'thinking') ? THINKING[effort ?? 'low'] ?? 40 : 0)
 
   function stream(id: string, model: string, content: Block[], stop: string, usage: Omit<Usage, 'output_tokens'>, o: { stopDetails?: unknown; error?: boolean; output: number }) {
     const enc = new TextEncoder()
@@ -310,7 +361,26 @@ export function startTutorMock(o: MockOptions = {}) {
     // what the 5.5 models refuse (the app's client must never send it)
     if (model === 'claude-opus-5-5' && ['any', 'tool'].includes(body.tool_choice?.type)) return fail(400, 'invalid_request_error', 'tool_choice: type "tool" and "any" are not supported for this model.')
     if (model === 'claude-opus-5-5' && body.thinking && body.thinking.type !== 'adaptive') return fail(400, 'invalid_request_error', `thinking: type "${body.thinking.type}" is not supported for this model; use "adaptive" or omit it.`)
-    if (model !== 'claude-haiku-4-5' && body.messages[body.messages.length - 1]?.role !== 'user') return fail(400, 'invalid_request_error', 'This model does not support assistant message prefill. The conversation must end with a user message.')
+    // effort: the top-level level, and the effort-only system messages (each needs the beta and a model that takes it)
+    const top = body.output_config?.effort
+    if (top !== undefined && !takesEffort(model)) return fail(400, 'invalid_request_error', `output_config.effort: ${model} does not support effort`)
+    if (top !== undefined && !LEVELS.includes(top)) return fail(400, 'invalid_request_error', `output_config.effort: Input should be 'low', 'medium', 'high', 'xhigh' or 'max'`)
+    const betas = (req.headers.get('anthropic-beta') ?? '').split(',').map(b => b.trim())
+    const messagesIn = body.messages as Msg[]
+    for (let i = 0; i < messagesIn.length; i++) {
+      const m: any = messagesIn[i]
+      if (m?.role !== 'system') continue
+      if (!m.output_config) return fail(400, 'invalid_request_error', `messages.${i}: the mock takes only effort-only system messages (role system, content [], output_config)`)
+      if (!betas.includes(EFFORT_BETA)) return fail(400, 'invalid_request_error', `messages.${i}.output_config: Extra inputs are not permitted`)
+      if (!perMessageEffort(model)) return fail(400, 'invalid_request_error', 'output_config.effort requires a model that supports per-turn effort; this model does not')
+      if (!Array.isArray(m.content) || m.content.length) return fail(400, 'invalid_request_error', `messages.${i}.content: an effort-only system message has empty content`)
+      if (!LEVELS.includes(m.output_config.effort)) return fail(400, 'invalid_request_error', `messages.${i}.output_config.effort: Input should be 'low', 'medium', 'high', 'xhigh' or 'max'`)
+    }
+    const effortMessages = messagesIn.filter(m => effortOf(m)).length
+    const effort: string | undefined = takesEffort(model) ? (effortInEffect(messagesIn) ?? top ?? defaultEffort(model)) : undefined
+    Object.assign(entry, { effort_top: top ?? null, effort: effort ?? null, effort_messages: effortMessages })
+    // a prefill: the last turn (effort messages aside) must be the user's
+    if (model !== 'claude-haiku-4-5' && messagesIn.filter(m => m.role !== 'system').at(-1)?.role !== 'user') return fail(400, 'invalid_request_error', 'This model does not support assistant message prefill. The conversation must end with a user message.')
 
     const marker = markerOf(body)
     if (marker) entry.marker = marker
@@ -339,13 +409,13 @@ export function startTutorMock(o: MockOptions = {}) {
       stop = 'error'
       content = []
     } else {
-      ;({ call, stop, content } = answer(body, id))
+      ;({ call, stop, content } = answer(body, id, effort ?? 'none', marker === 'no-reply'))
     }
     // a refusal before any output isn't billed and caches nothing
     const usage = marker === 'refusal'
       ? { input_tokens: 0, cache_creation_input_tokens: 0, cache_read_input_tokens: 0, cache_creation: { ephemeral_5m_input_tokens: 0, ephemeral_1h_input_tokens: 0 } }
       : usageOf(model, body, true)
-    const output = outputTokens(content)
+    const output = outputTokens(content, effort)
     Object.assign(entry, { call, stop_reason: stop, usage: { ...usage, output_tokens: output }, ...(content.length ? { tools_used: content.filter(b => b.type === 'tool_use').map(b => b.name) } : {}) })
     if (body.stream) return stream(id, model, content, stop, usage, { stopDetails, error: marker === 'stream-error', output })
     return Response.json(
@@ -403,7 +473,7 @@ export function startTutorMock(o: MockOptions = {}) {
       remember(entry)
       const u = entry.usage as Usage | undefined
       say(
-        `[tutor-mock] ${req.method} ${url.pathname} ${res.status}${entry.model ? ` model=${entry.model}` : ''}${entry.call ? ` call=${entry.call}` : ''}${entry.marker ? ` marker=${entry.marker}` : ''}${entry.stream ? ' stream' : ''}` +
+        `[tutor-mock] ${req.method} ${url.pathname} ${res.status}${entry.model ? ` model=${entry.model}` : ''}${entry.effort ? ` effort=${entry.effort}${entry.effort_messages ? ` (${entry.effort_messages} effort message(s))` : ''}` : ''}${entry.call ? ` call=${entry.call}` : ''}${entry.marker ? ` marker=${entry.marker}` : ''}${entry.stream ? ' stream' : ''}` +
           `${entry.stop_reason ? ` stop=${entry.stop_reason}` : ''}${u ? ` usage in=${u.input_tokens} write5m=${u.cache_creation.ephemeral_5m_input_tokens} write1h=${u.cache_creation.ephemeral_1h_input_tokens} read=${u.cache_read_input_tokens} out=${u.output_tokens}` : ''}` +
           ` key: ${entry.has_key ? 'present' : 'absent'}`,
       )

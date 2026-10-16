@@ -1,7 +1,8 @@
 #!/usr/bin/env bun
 // A quick self-check of the Messages API mock (test/tutor-mock.ts): starts it on a free port as QA runs it, then plays
 // the app's client with plain fetch: the models, a turn's first call (streamed), its tool results, the call after the
-// reply, a 429 and its retry, a refusal, the credit error, a stream error, a non-streamed call, the caching usage and
+// reply, a 429 and its retry, a refusal, the credit error, a stream error, a non-streamed call, the effort (top-level, per
+// message with its beta, the thinking it weighs, Haiku 5.5 at low and [mock:no-reply] without a reply), the caching usage and
 // the request log (the key never in it).
 //
 //   bun companion/bridge/test/tutor-mock-check.ts
@@ -200,6 +201,56 @@ const forced = await post({ ...request([event]), model: 'claude-opus-5-5', tool_
 check('claude-opus-5-5 refuses a forced tool_choice (400)', forced.status === 400)
 const unknown = await post({ ...request([event]), model: 'claude-nope-1' })
 check('an unknown model: 404 not_found_error', unknown.status === 404 && (await unknown.json()).error.type === 'not_found_error')
+
+// --- effort: top-level, per message (beta), the thinking it weighs, Haiku at low ----------------------------------
+const lastLogged = async () => (await (await fetch(`${base}/mock/requests`)).json()).at(-1)
+const BETA = 'mid-conversation-output-config-2026-07-01'
+const withBeta = { ...H, 'anthropic-beta': `thinking-binding-controls-2026-08-01,${BETA}` }
+const effortMsg = (effort: string) => ({ role: 'system', content: [], output_config: { effort } })
+const chatTurn = { role: 'user', content: [{ type: 'text', text: '<event kind="chat" conversation_id="main">Živjo!</event>' }] }
+const answered = { role: 'assistant', content: [{ type: 'text', text: 'Živjo, Jan!' }] }
+const gradeTurn = { role: 'user', content: [{ type: 'text', text: '<event kind="answer" conversation_id="ex-7">Jaz sem Jan.</event>' }] }
+const top = (effort: string) => ({ output_config: { effort } })
+
+const noBeta = await post(request([chatTurn, answered, effortMsg('high'), gradeTurn], top('medium')))
+const noBetaBody = await noBeta.json()
+check('an effort message without the beta: 400 "messages.2.output_config: Extra inputs are not permitted"', noBeta.status === 400 && noBetaBody.error?.message === 'messages.2.output_config: Extra inputs are not permitted', noBetaBody)
+await (await post(request([chatTurn], top('medium')))).text() // the chat's call: what the next one reads from the cache
+const graded = await post(request([chatTurn, answered, effortMsg('high'), gradeTurn], top('medium')), withBeta)
+const gradedOne = assemble(await sse(graded))
+const gradedLog = await lastLogged()
+check(
+  'with the beta: the effort message before the user turn sets its reply\'s level (high), the top-level stays medium, the history before it read from the cache',
+  graded.status === 200 && gradedLog.effort === 'high' && gradedLog.effort_top === 'medium' && gradedLog.effort_messages === 1 && gradedOne.stop === 'tool_use' &&
+    gradedOne.start.usage.cache_read_input_tokens === prefixTokens + Math.ceil(JSON.stringify(chatTurn).length / 4),
+  { gradedLog, usage: gradedOne.start.usage },
+)
+await (await post(request([chatTurn, answered, gradeTurn, effortMsg('low')], top('medium')), withBeta)).text()
+check('an effort message directly after the user turn sets that reply\'s level; the messages may end with it', (await lastLogged()).effort === 'low')
+await (await post(request([chatTurn, effortMsg('high'), answered, gradeTurn], top('medium')), withBeta)).text()
+check('an effort message earlier on holds for the later turns', (await lastLogged()).effort === 'high')
+const toolTurn = { role: 'assistant', content: [{ type: 'tool_use', id: 'toolu_x', name: 'learner_state', input: {} }] }
+const toolDone = { role: 'user', content: [{ type: 'tool_result', tool_use_id: 'toolu_x', content: '{}' }] }
+await (await post(request([gradeTurn, toolTurn, toolDone, effortMsg('max')], top('medium')), withBeta)).text()
+check('one after a user turn of only tool_results waits for the next turn with new input (the turn\'s level holds)', (await lastLogged()).effort === 'medium')
+const legacy = await post({ ...request([chatTurn, effortMsg('high'), gradeTurn]), model: 'claude-haiku-4-5' }, withBeta)
+const legacyBody = await legacy.json()
+check('the beta on a model without per-message effort: 400 "output_config.effort requires a model that supports per-turn effort…"', legacy.status === 400 && legacyBody.error.message.startsWith('output_config.effort requires a model that supports per-turn effort'), legacyBody)
+check('claude-haiku-4-5 takes no effort (400)', (await post({ ...request([chatTurn], top('high')), model: 'claude-haiku-4-5' })).status === 400)
+check('an unknown level (400)', (await post(request([chatTurn], top('adaptive')))).status === 400)
+check('a system message with text: the mock takes none (400)', (await post(request([chatTurn, answered, { role: 'system', content: 'Be brief.' }, gradeTurn]), withBeta)).status === 400)
+
+const atLow = assemble(await sse(await post(request([gradeTurn], top('low')))))
+const atHigh = assemble(await sse(await post(request([gradeTurn], top('high')))))
+check('a thinking block weighs by the level: high 260 output tokens more than low', atHigh.output - atLow.output === 260, { low: atLow.output, high: atHigh.output })
+const haikuLow = assemble(await sse(await post({ ...request([gradeTurn], top('low')), model: 'claude-haiku-5-5' })))
+check('Haiku 5.5 at low: its answer as text, end_turn, no reply call (as in Jan\'s shadow)', haikuLow.stop === 'end_turn' && !haikuLow.content.some((b: any) => b.type === 'tool_use') && haikuLow.content.some((b: any) => b.type === 'text' && b.text.includes('as text, no reply tool')), haikuLow.content)
+const haikuHigh = assemble(await sse(await post({ ...request([gradeTurn], top('high')), model: 'claude-haiku-5-5' })))
+check('Haiku 5.5 at high: the usual first call (guide, learner_state)', haikuHigh.stop === 'tool_use' && haikuHigh.content.some((b: any) => b.name === 'guide'), haikuHigh.content)
+const silentTurn = { role: 'user', content: '<event kind="chat" conversation_id="main">Zdravo [mock:no-reply]</event>' }
+const silent1 = assemble(await sse(await post(request([silentTurn]))))
+const silent2 = assemble(await sse(await post(request([silentTurn]))))
+check('[mock:no-reply]: once the answer as text (end_turn, no tool), then as usual', silent1.stop === 'end_turn' && !silent1.content.some((b: any) => b.type === 'tool_use') && silent2.stop === 'tool_use', { silent1, silent2 })
 
 // --- the log --------------------------------------------------------------------------------------------------------
 const log = await (await fetch(`${base}/mock/requests`)).json()
