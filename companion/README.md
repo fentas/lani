@@ -3170,7 +3170,9 @@ now) and of the swipe's tip.
 (`bunx tsc --noEmit -p .`) and the whole smoke, which needs no local workers, network or tmux (it starts its bridges
 on 8799 and the ports after it, and fakes the voice and speech servers; ffmpeg is installed for the voice checks);
 both Python suites; and the app's unit tests with the debug APK, built with `companion/bin/lani-build-app` in the
-build image, the APK kept for a week as an artifact. The QA on an emulator stays local. The release APKs come from
+build image, the APK kept for a week as an artifact, then the release APK with R8 (`lani-build-app --release`), so an
+R8 error shows on the push and not first on a release tag; without the release key it is signed with a throwaway
+debug key and not kept. The QA on an emulator stays local. The release APKs come from
 `.github/workflows/android-release.yml` (see [docs/releasing.md](../docs/releasing.md)).
 
 **The road's player in the unit tests.** `road/RoadPlayerTest` runs under Robolectric (a test dependency only, with

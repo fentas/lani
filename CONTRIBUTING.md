@@ -224,8 +224,8 @@ Fixes #456
 
 ### Testing Guidelines
 
-The automated tests (the bridge's typecheck and smoke, the Python tests, the app's unit tests and debug build) run
-on every push and pull request (`.github/workflows/ci.yml`). To run them yourself, see
+The automated tests (the bridge's typecheck and smoke, the Python tests, the app's unit tests, its debug build and its
+release build with R8) run on every push and pull request (`.github/workflows/ci.yml`). To run them yourself, see
 [companion/README.md](companion/README.md#test); the app's need no JDK with `companion/bin/lani-build-app --test`.
 
 **Before submitting, test:**
