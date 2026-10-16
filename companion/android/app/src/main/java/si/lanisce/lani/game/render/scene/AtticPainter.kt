@@ -153,13 +153,15 @@ internal class AtticPainter : RoomPainter() {
             prop { mattress(MAT_A, MAT_C, MAT_B, MAT_D, alongY = false) }
             sleeperOn(p, MAT_A, MAT_C, MAT_B, MAT_D, fl + MAT_H, alongY = false, BLUE_WOOL)
         }
+        // the lamp hangs from the ridge behind whoever stands by the bed, the chest or the stairs: drawn before them, so it
+        // never hangs in front of a head or a hat
+        if (there("lamp")) thing("lamp", slop = 1) { hangingLamp(lit) }
         cast("bed")
         // by the gable: the chest, the toy on it
         thing("chest") { paintedChest(5.9f, 7.25f, painted = lv >= 2) }
         if (there("toy")) thing("toy", slop = 1) { teddy(x0 + 0.5f, 6.55f, fl + 4.9f) }
         if (there("ball")) thing("ball", slop = 2) { ball(4.9f, 5.9f) }
         cast("chest")
-        if (there("lamp")) thing("lamp", slop = 1) { hangingLamp(lit) }
         thing("stairs") { railing() }
         cast("stairs")
         if (open > 0.02f) draught(open)

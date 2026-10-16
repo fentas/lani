@@ -116,6 +116,7 @@ internal abstract class ArtPainter : ScenePainter {
         night.begin()
         skyDrawn = false
         regs.clear()
+        drawnPeople.clear()
         pokeRegs.clear(); pokeRanges.clear()
         maxId = 0
         detail = lens.k.coerceIn(1, Lens.MAX_DETAIL)
@@ -133,6 +134,7 @@ internal abstract class ArtPainter : ScenePainter {
         if (alone) canvas.clipTop = HIDDEN
         paint()
         canvas.penId = 0; canvas.penEmissive = false
+        if (keepPeople) coveredPeople()
         outlinePass()
         if (alone) { canvas.clipTop = 0; return collectHits() }
         for (f in s.fxList) f()
@@ -288,7 +290,36 @@ internal abstract class ArtPainter : ScenePainter {
         if (p.pose == Pose.SLEEP) { lyingHere(p, bx, by, flip, awake = false); return }
         val id0 = begin(Pal.OUTLINE)
         sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach, rest = rest) }
+        val id1 = c.penId
         end(SceneTarget.Person(p.id), id0, true, 1)
+        if (keepPeople) keep(p.id, id0, id1)
+    }
+
+    /**
+     * A person as drawn ([keepPeople]): the canvas pixels (indices) their sprite took the moment it was drawn ([at]), and of
+     * those the ones something drawn after them in the painting order took over ([covered]; the effects over the picture,
+     * the light and the weather left out).
+     */
+    internal class Drawn(val id: String, val at: IntArray, internal val id0: Int, internal val id1: Int) {
+        var covered: IntArray = IntArray(0)
+            internal set
+    }
+
+    /** Keep where each person standing in the frame was drawn ([drawnPeople]): for the test that nothing is drawn over them. */
+    internal var keepPeople = false
+
+    /** The people drawn in the last frame and what was drawn over them, while [keepPeople]. */
+    internal val drawnPeople = ArrayList<Drawn>()
+
+    private fun keep(id: String, id0: Int, id1: Int) {
+        val ids = c.ids
+        drawnPeople.add(Drawn(id, ids.indices.filter { ids[it] in id0..id1 }.toIntArray(), id0, id1))
+    }
+
+    /** Once the scene is painted: what of each person kept ([keep]) something drawn after them took. */
+    private fun coveredPeople() {
+        val ids = c.ids
+        for (d in drawnPeople) d.covered = d.at.filter { ids[it] !in d.id0..d.id1 }.toIntArray()
     }
 
     /**

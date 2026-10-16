@@ -99,7 +99,7 @@ internal class ChurchPainter : DioramaPainter() {
     /**
      * The stage: by the altar, in the aisle and by the door, standing; at the rope, held up to it, a hand on it up by their
      * head ([settle]: the rope then ends in their hand, [rope]). Drawn before the rope, with those by the door: on the
-     * way there the rope hangs in front of them. A walk goes round the pews.
+     * way there the rope hangs in front of them; after the organ loft, which stands behind them. A walk goes round the pews.
      */
     override val marks = mapOf(
         "altar" to Mark(altarPX, altarPY, fl),
@@ -231,11 +231,13 @@ internal class ChurchPainter : DioramaPainter() {
         cast("altar")
 
         thing("pews") { pewId = c.penId; pews() }
-        cast("door")
-        thing("rope", outline = 0, slop = 2) { rope() }
+        // the organ loft stands behind whoever is by the door (its posts and its front at xl, they at doorPX): drawn before
+        // them, so its post doesn't run down through them; the rope hangs in front of them, after them
         prop { loftFloor() }
         thing("organ") { organ() }
         prop { balustrade() }
+        cast("door")
+        thing("rope", outline = 0, slop = 2) { rope() }
         cast("aisle")
 
         // the churchyard

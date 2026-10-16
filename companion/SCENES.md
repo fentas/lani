@@ -1301,7 +1301,9 @@ not only found and learned in a pack run (`game/scene/ISpy.kt`: the content, who
 **Who plays, and when.** The child of the scene who is in the picture now (Zala in the living room, Nejc in the attic,
 "Otroci" by the fire: Nejc), else a child of the village who comes by (living here and met, awake by their day:
 `Routine`, not at a happening of their own elsewhere; the day's dice picks one, the same all day in the scene) and stands
-at a person spot of the scene nobody stands at, the door where there is one (Zala comes into the kitchen). No child about
+at a person spot of the scene nobody stands at, the door where there is one (Zala comes into the kitchen; into the church
+while Tine is away, by its door under the organ loft), clear of the picture as anyone there ([Where people
+stand](#where-people-stand)). No child about
 (the children are in bed from eight, none lives here yet): no game. The words panel offers it above "Danes tukaj · Here
 today": "🔍 Vidim, vidim · I spy", the child asking «Se igrava «Vidim, vidim»?» with its meaning under it, the games left
 today and "🔍 Igrajva · Let's play"; a 🔍 over the child in the picture does the same (unless a happening of theirs has its
@@ -1932,6 +1934,22 @@ full moon").
 The market scene trades nothing itself: a visit's market is the town bar's "⚖️ Tržnica · Market" (companion/README.md,
 "Things to do on a visit"). Its stall has a seller at `stall` and a buyer at `buyer`, so that haggle could one day open
 from here, with the host's villager behind the counter.
+
+### Where people stand
+
+Someone at a person spot of an art (a scene's own people, and the child of the village who comes by for [I
+spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)) stands clear: nothing of the picture is drawn over their head and
+shoulders. A painter draws them after what stands behind them and before what stands in front of them, in its own order:
+in the church the organ loft, its turned posts and its balustrade go before whoever is by the door, the bell's rope after
+them, hanging to their left (until 2026-10-16 the loft came after them, and its front post ran down through Tine, or
+the child who came by in his place, from the head to the belt); in the attic the lamp, hanging from the ridge behind them,
+goes before whoever stands by the bed, the chest or the stairs. Something stands in front of someone by design only below
+their shoulders (the pews' ends at the altar's spot, a chair, the wheelbarrow), or where the spot is behind it: Jože up
+in the high seat behind its rail, Zala behind the honey table at the bee house. `PeopleClearTest` checks it at every
+person spot of every art, with each of the village's sprites, by day and at night, built up and not yet, every thing and
+wild animal out (`ArtPainter.keepPeople`: what the painting drew over each person after them; the effects, the light and
+the weather over the picture left out); `build/scene-snapshots/people-clear`. QA's `scene-people` opens the church, the
+kitchen and the smithy with I spy offered and takes their pictures, as they open and closer up.
 
 ### The school's blackboard
 
