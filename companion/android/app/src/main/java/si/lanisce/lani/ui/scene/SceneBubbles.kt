@@ -9,6 +9,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -279,10 +280,16 @@ fun SpeechMarker(emoji: String, description: String, color: Color, requests: Int
 /** The ink of a marker's request badges, the map's bubbles' ink. */
 private val MarkerInk = Color(0xFF2B2118)
 
-/** A round dark button over the pixel art, readable on any scene. */
+/**
+ * A round dark button over the pixel art, readable on any scene; a faint light rim keeps its edge in sight where the
+ * picture behind is dark, so two pills side by side read as two, not one tucked under the other.
+ */
 @Composable
 fun OverlayPill(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Surface(color = Color.Black.copy(alpha = 0.5f), contentColor = Color.White, shape = CircleShape, modifier = modifier) { content() }
+    Surface(
+        color = Color.Black.copy(alpha = 0.5f), contentColor = Color.White, shape = CircleShape, modifier = modifier,
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.22f)),
+    ) { content() }
 }
 
 @Composable

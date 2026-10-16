@@ -66,7 +66,10 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
@@ -726,43 +729,61 @@ private fun Modifier.pill(pills: MutableMap<String, IntRect>, key: String): Modi
     }
 }
 
+/** The room between two pills of the scene's top bar: enough to see each as one, over a busy picture. */
+private val PILL_GAP = 10.dp
+
 /**
  * Back to the village; the building the scene is in ([home]: its emoji and level, ⬆️ when its upgrade can be done now
- * ([homeReady]), ⚠️ while it is damaged), whose card [onHome] opens; what's found of the scene's words. Where each pill
- * is goes into [pills].
+ * ([homeReady]), ⚠️ while it is damaged), whose card [onHome] opens; the school ([onSchool]); what's found of the scene's
+ * words. Where each pill is goes into [pills].
+ *
+ * The pills lie side by side, [PILL_GAP] apart, each with its faint rim ([OverlayPill]: 6 dp apart and rimless, the
+ * nearly round "⛪ 1" read as tucked under "‹ Vas · Village" over the dark organ loft), none ever under another: what's
+ * found keeps its place on the right, the pills on the left share what it leaves, and the way back gives way first: where
+ * "‹ Vas · Village" doesn't fit (a narrow phone, a long base: "‹ Vas · Villaggio", a big font), it says the village's word
+ * alone ("‹ Vas"), TalkBack still both.
  */
 @Composable
-private fun TopBarRow(
+internal fun TopBarRow(
     scene: SceneSpec, found: Int, onBack: () -> Unit, home: si.lanisce.lani.game.Building?, homeReady: Boolean, onHome: () -> Unit,
     pills: MutableMap<String, IntRect>, onSchool: (() -> Unit)? = null,
 ) {
-    Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-        OverlayPill(Modifier.pill(pills, "back")) {
-            TextButton(onClick = onBack) { Text("‹ ${bi("common.village")}", color = Color.White, style = MaterialTheme.typography.labelLarge) }
-        }
-        home?.let { b ->
-            Spacer(Modifier.width(6.dp))
-            val mark = if (b.damaged) " ⚠️" else if (homeReady) " ⬆️" else ""
-            // the building's name in each language of the label ("Koča, stopnja 3 … · Hut, level 3 …"), as the chronicle's
-            val said = bi("sceneScreen.buildingCard", "building" to b.type.names, "level" to b.level) +
-                (if (b.damaged) ", ${bi("villageSheets.damaged")}" else if (homeReady) ", ${bi("sceneScreen.canUpgrade")}" else "")
-            OverlayPill(Modifier.pill(pills, "home")) {
-                // TalkBack reads what it is and that it opens, not the emoji
-                TextButton(onClick = onHome, modifier = Modifier.semantics { contentDescription = said }) {
-                    Text(
-                        "${b.type.emoji} ${b.level}$mark", color = if (homeReady) XpGold else Color.White, style = MaterialTheme.typography.labelLarge,
-                        modifier = Modifier.clearAndSetSemantics { },
+    val gap = Arrangement.spacedBy(PILL_GAP)
+    Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 8.dp, vertical = 6.dp), horizontalArrangement = gap, verticalAlignment = Alignment.CenterVertically) {
+        // the left ones, in what the found pill leaves: the building and the school first, the way back in the rest
+        Row(Modifier.weight(1f), horizontalArrangement = gap, verticalAlignment = Alignment.CenterVertically) {
+            val back = "‹ ${bi("common.village")}"
+            OverlayPill(Modifier.weight(1f, fill = false).pill(pills, "back")) {
+                TextButton(onClick = onBack, modifier = Modifier.semantics { contentDescription = back }) {
+                    FitLabel(
+                        back, "‹ ${si.lanisce.lani.l10n.inTarget("common.village")}", Color.White, MaterialTheme.typography.labelLarge,
+                        Modifier.clearAndSetSemantics { },
                     )
                 }
             }
-        }
-        onSchool?.let { open ->
-            Spacer(Modifier.width(6.dp))
-            OverlayPill(Modifier.pill(pills, "school")) {
-                TextButton(onClick = open) { Text("📚 ${si.lanisce.lani.l10n.inTarget("school.title")}", color = Color.White, style = MaterialTheme.typography.labelLarge) }
+            home?.let { b ->
+                val mark = if (b.damaged) " ⚠️" else if (homeReady) " ⬆️" else ""
+                // the building's name in each language of the label ("Koča, stopnja 3 … · Hut, level 3 …"), as the chronicle's
+                val said = bi("sceneScreen.buildingCard", "building" to b.type.names, "level" to b.level) +
+                    (if (b.damaged) ", ${bi("villageSheets.damaged")}" else if (homeReady) ", ${bi("sceneScreen.canUpgrade")}" else "")
+                OverlayPill(Modifier.pill(pills, "home")) {
+                    // TalkBack reads what it is and that it opens, not the emoji
+                    TextButton(onClick = onHome, modifier = Modifier.semantics { contentDescription = said }) {
+                        Text(
+                            "${b.type.emoji} ${b.level}$mark", color = if (homeReady) XpGold else Color.White, style = MaterialTheme.typography.labelLarge,
+                            maxLines = 1, softWrap = false, modifier = Modifier.clearAndSetSemantics { },
+                        )
+                    }
+                }
+            }
+            onSchool?.let { open ->
+                OverlayPill(Modifier.pill(pills, "school")) {
+                    TextButton(onClick = open) {
+                        Text("📚 ${si.lanisce.lani.l10n.inTarget("school.title")}", color = Color.White, style = MaterialTheme.typography.labelLarge, maxLines = 1, softWrap = false)
+                    }
+                }
             }
         }
-        Spacer(Modifier.weight(1f))
         val total = scene.objects.size
         if (total > 0) {
             OverlayPill(Modifier.pill(pills, "found").semantics { contentDescription = bi("sceneScreen.foundTotal", "found" to found, "total" to total) }) {
@@ -770,10 +791,26 @@ private fun TopBarRow(
                     "🔍 $found/$total",
                     color = Color.White,
                     style = MaterialTheme.typography.labelLarge,
+                    maxLines = 1,
+                    softWrap = false,
                     modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp).clearAndSetSemantics { },
                 )
             }
         }
+    }
+}
+
+/**
+ * [full] on one line where it fits in the room it is given, else [short] (ending in "…" where even that doesn't): a pill's
+ * label that gives way on a narrow screen instead of pushing the next pill aside.
+ */
+@Composable
+internal fun FitLabel(full: String, short: String, color: Color, style: TextStyle, modifier: Modifier = Modifier) {
+    val measurer = rememberTextMeasurer()
+    BoxWithConstraints(modifier) {
+        val room = constraints.maxWidth
+        val fits = !constraints.hasBoundedWidth || measurer.measure(full, style, maxLines = 1, softWrap = false).size.width <= room
+        Text(if (fits) full else short, color = color, style = style, maxLines = 1, softWrap = false, overflow = TextOverflow.Ellipsis)
     }
 }
 

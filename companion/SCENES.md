@@ -677,7 +677,13 @@ the words and comes back into the scene with the card open again, the upgrade on
 back in the village (the card is opened again where it was opened, and nowhere else: `AppViewModel.leaveRun`); "⬆️
 Nadgradi zdaj · Upgrade now" at the run's end goes to the village, where the building goes up. The next age's row opens
 the village's ages (`AppViewModel.openVillageAges`). The card is the village's own (`BuildingCard`, shared by both
-screens). Over the picture, the markers and bubbles keep off the top bar's pills (`BubblePlace`: aside, else below), so
+screens). The top bar's pills lie side by side, 10 dp apart, each with a faint light rim (`OverlayPill`), none ever
+under another (`TopBarRow`; 6 dp apart and rimless, the nearly round "⛪ 1" read as tucked under "‹ Vas · Village" over
+the church's dark organ loft, and a long base on a narrow phone squeezed "🔍 found/total" out): "🔍 found/total"
+keeps its place on the right, the ones on the left share what it leaves, and the way back gives way first, where both
+halves of "‹ Vas · Village" don't fit (a narrow phone, a long base: "‹ Vas · Villaggio", a big font) saying the
+village's word alone, "‹ Vas" (TalkBack still both; `SceneTopBarTest`: every pair of languages, 320 to 411 dp, a bigger
+font). Over the picture, the markers and bubbles keep off the top bar's pills (`BubblePlace`: aside, else below), so
 someone's 🍲💬 never covers the 🛖. A scene of no building (the fire, a spot of the land) has none. QA's `scene-building`
 opens the first building's scene the village has and its card from there, practises its words and comes back to it.
 
