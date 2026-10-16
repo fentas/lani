@@ -163,8 +163,11 @@ first token's latency for a chat, and "Also run on" Haiku for the chats and answ
   $0.02 for digests), the day's closing (the notebook) $0.08; first token in ~2 s, a whole reply in ~2.9 s (medians).
 - **Since 0.2.220 the app sends its data to the node itself** (`app/dev/`, companion/README.md "Developer data on the
   node"), with the raw `usage` of sampled calls.
-- **The 1-hour cache:** every cache write so far is filed as 5-minute although the system block asks `ttl: "1h"`;
-  whether the API reports the split is to be read from the first raw `usage` (open).
+- **The 1-hour cache works** (the raw `usage` of 2026-10-16): the API caches the prefix (tools and core prompt, 12,333
+  tokens) for an hour and says so in `message_start` (`cache_creation.ephemeral_1h_input_tokens`); a call five minutes
+  after the last read those 12,333 back and wrote only the thread again. The app filed every write as 5-minute because
+  `message_delta` carries the total alone, which overwrote the split (fixed in `Usage.merge`, 0.2.221+): the costs logged
+  before are a little low (a 1-hour write costs 1.6 times a 5-minute one; ~$0.02 a cold start on Sonnet).
 - **First finding: the digest is too quiet.** On the 16th Opus answered 9 new words from a scene with the nouns lined up
   (1 · 2 · 3 · 5: en les, dva lesa, tri lesi, pet lesov, as the dictionary has them) and a 20/20 review with praise; the
   shadow's digest found "nothing worth saying" (no wrong answer, no milestone) both times. Jan noticed and valued Opus's

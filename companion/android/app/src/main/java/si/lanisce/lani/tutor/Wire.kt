@@ -44,7 +44,8 @@ data class Usage(
     companion object {
         /**
          * [o] (a `usage` object) over [before]: the fields it has replace [before]'s (a stream's message_delta carries the
-         * final counts). A write without its breakdown by lifetime counts as a 5-minute one.
+         * final counts). A write without its breakdown by lifetime keeps the 1-hour part [before] had (the API sends the
+         * breakdown in message_start only, and the delta's total alone: Jan's calls, 2026-10-16), the rest 5-minute.
          */
         fun merge(before: Usage, o: JsonObject?): Usage {
             if (o == null) return before
@@ -55,7 +56,7 @@ data class Usage(
             val total = n("cache_creation_input_tokens")
             val (write5m, write1h) = when {
                 w5 != null || w1 != null -> (w5 ?: 0) to (w1 ?: 0)
-                total != null -> total to 0L
+                total != null -> minOf(before.cacheWrite1h, total).let { h -> (total - h) to h }
                 else -> before.cacheWrite5m to before.cacheWrite1h
             }
             return Usage(
