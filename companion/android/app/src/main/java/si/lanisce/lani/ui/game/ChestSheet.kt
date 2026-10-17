@@ -212,6 +212,8 @@ private fun ToolRow(s: GameState, giver: String, tier: Int, forged: Int, name: S
             Chest.forgeOption(s, giver)?.let { o ->
                 Text("⚒️ ${bi("chestSheet.atSmithy")}: ${o.effect}", style = MaterialTheme.typography.bodySmall)
                 CostChips(o.cost) { s.res(it) }
+                // the charcoal burner's charcoal in the forge: less wood
+                Chest.forgeCharcoal(s)?.let { Text("♨️ ${bi("chestSheet.charcoal", "pct" to (si.lanisce.lani.game.scene.SpotCycles.CHARCOAL_SAVES * 100).toInt(), "wood" to si.lanisce.lani.game.Res.WOOD.emoji)}", style = MaterialTheme.typography.labelMedium, color = AlpineGreen) }
                 o.good?.let { Text("+ ${it.name.emoji} ${it.name.sl} (${bi("chestSheet.hisPay")})", style = MaterialTheme.typography.labelMedium) }
                 o.reason?.let { Text("🔒 $it", style = MaterialTheme.typography.labelSmall, color = TriglavRed) }
                 FilledTonalButton(onClick = { actions.forge(giver) }, enabled = o.available, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {

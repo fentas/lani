@@ -70,6 +70,14 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   entered in the panel, as the learner would.
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
  *   choose it; "pair:" follows the learner profile again.
+ * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
+ *   "07-14": the next 14 July from today), or on the first day of a stage ("kopa:rumen-dim": of the next round that has it,
+ *   not its breakout night), of its next breakout night ("kopa:breakout"; "kopa:breakout:2" the one after), of its next
+ *   delivery ("kopa:delivery"), between rounds ("kopa:rest") or in the winter ("kopa:winter") ([kopaDay]); while it is set
+ *   the keepers come whatever their dice. The rest of the game keeps today. "kopa:" goes by today again.
+ * - "show:<spot>": the village's camera flies to that spot of the landscape ("show:kopa"), as a place of the scroll's
+ *   "Kraji" flies it there ([show]): a spot deep in the woods framed without drags that a busy machine sends unevenly;
+ *   asked again, it flies there again. "show:" lets it go.
  * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
  *   minutes since the last one (app/DevUpload); "dev:off" hides the developer settings (as their "Hide these settings").
  */
@@ -109,6 +117,14 @@ object QaHooks {
 
     /** The hour of today QA asks the scenes and the village's map to be seen at ("hour:<h>"), or null: the clock's. */
     var sceneHour by mutableStateOf<Float?>(null)
+        private set
+
+    /** The day QA asks the spots' cycles to be on ("kopa:<day>"), or null: today (what the village looks again by). */
+    var kopa by mutableStateOf<java.time.LocalDate?>(null)
+        private set
+
+    /** The spot QA asked the village's camera to fly to ("show:<spot>") and how many times it was asked, or null. */
+    var show by mutableStateOf<Pair<String, Int>?>(null)
         private set
 
     /** How many bubbles the village shows while QA asks for fewer ("bubbles:<n>"), or null: all of them. */
@@ -160,6 +176,11 @@ object QaHooks {
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("hour:") -> sceneHour = command.removePrefix("hour:").toFloatOrNull()?.takeIf { it in 0f..24f }
             command.startsWith("clock:") -> TownClock.rate = command.removePrefix("clock:").toFloatOrNull()?.coerceIn(0.05f, 1f) ?: 1f
+            command.startsWith("show:") -> show = command.removePrefix("show:").trim().takeIf { it.isNotEmpty() }?.let { it to (show?.second ?: 0) + 1 }
+            command.startsWith("kopa:") -> {
+                kopa = kopaDay(command.removePrefix("kopa:"), java.time.LocalDate.now())
+                si.lanisce.lani.game.scene.SpotCycles.qaDay = kopa
+            }
             command.startsWith("season:") -> {
                 si.lanisce.lani.game.ProjectSeasons.qaDay = seasonDay(command.removePrefix("season:"), java.time.LocalDate.now())
                 season()
@@ -265,6 +286,31 @@ object QaHooks {
         runCatching { java.time.LocalDate.parse(arg) }.getOrNull()?.let { return it }
         val md = si.lanisce.lani.game.culture.StandsEntry.monthDay(arg) ?: return null
         return md.atYear(today.year).let { if (it.isBefore(today)) md.atYear(today.year + 1) else it }
+    }
+
+    /**
+     * The day "kopa:<what>" asks the charcoal pile's cycle to be on (from [today], in [world]'s cycle of the spot "kopa"): a
+     * day ([seasonDay]'s forms), the first day of a stage of the next round that has it (its second when the first is the
+     * round's breakout night: the stage's own day, its talk and its title), the next breakout night, the next
+     * delivery, the next day between rounds or in the winter; null for none ("kopa:") or what the cycle hasn't got.
+     */
+    fun kopaDay(arg: String, today: java.time.LocalDate, world: si.lanisce.lani.game.culture.WorldFile = si.lanisce.lani.game.culture.Cultures.current.world): java.time.LocalDate? {
+        if (arg.isBlank()) return null
+        seasonDay(arg, today)?.let { return it }
+        val c = world.spots[si.lanisce.lani.game.scene.TownSpots.KOPA]?.cycle ?: return null
+        val spot = si.lanisce.lani.game.scene.TownSpots.KOPA
+        val rounds = (today.year..today.year + 2).flatMap { si.lanisce.lani.game.scene.SpotCycles.rounds(c, spot, it) }.filter { !it.until.isBefore(today) }
+        return when (arg) {
+            "breakout" -> rounds.mapNotNull { it.breakout }.firstOrNull { !it.isBefore(today) }
+            // "breakout:2": the one after the next (the next decided already)
+            in (2..9).map { "breakout:$it" } -> rounds.mapNotNull { it.breakout }.filter { !it.isBefore(today) }.getOrNull(arg.substringAfter(':').toInt() - 1)
+            "delivery" -> rounds.mapNotNull { it.delivery }.firstOrNull { !it.isBefore(today) }
+            "rest", "winter" -> (0..800).asSequence().map { today.plusDays(it.toLong()) }
+                .firstOrNull { si.lanisce.lani.game.scene.SpotCycles.on(c, spot, it).id == arg }
+            // a stage's first day that is an ordinary one: not its round's breakout night (that one is "kopa:breakout")
+            else -> rounds.flatMap { r -> r.spans.filter { it.stage.id == arg && !it.from.isBefore(today) }.map { r to it } }
+                .firstNotNullOfOrNull { (r, sp) -> (0 until sp.days).map { sp.from.plusDays(it.toLong()) }.firstOrNull { it != r.breakout } }
+        }
     }
 
     /** [active] with the happening QA counts as on first, when it is one of [scenes]' and isn't on already. */

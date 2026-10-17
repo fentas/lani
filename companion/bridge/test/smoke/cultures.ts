@@ -5,6 +5,7 @@
 import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { cultureFestivals, cultureIds, cultureKeepers, cultureReadings, cultureScenes, DEFAULT_CULTURE, FILES, PRICES, PRIMORSKA_TUTOR, READING_KINDS, READING_LEVELS, keeperTellings, readingRefs, readManifest, resolveCulture, TOOL_EFFECTS, validateCulture } from '../../src/cultures'
+import { SPOT_ARTS, hash, on as cycleOn, type CycleMarks } from '../../src/spot-cycles'
 import { speakerFor } from '../../src/cast'
 import { feastOf } from '../../src/friendship'
 import { calendarOn } from '../../src/towns'
@@ -188,6 +189,22 @@ export default async function cultures() {
     paged.ok && !unpaged.ok && unpaged.errors.includes('tinyland/world.json: spots.kopa.keeper: dialogs[3] (talks[0].levels.A2).lines[1].choices[1].grammar: no grammar page "nowhere" in companion/grammar/it'),
     { paged: !paged.ok && paged.errors, unpaged: !unpaged.ok && unpaged.errors },
   )
+  // --- a spot's cycle (world.json `spots.<id>.cycle`; spot-cycles.ts, GAME.md "A spot's cycle"): the days and the dice are the
+  // app's (the fixture spot-cycle.json, which its SpotCyclesTest checks too), the arts a stage may have the app's
+  const cyc = JSON.parse(readFileSync(join(import.meta.dir, '../fixtures/spot-cycle.json'), 'utf8'))
+  const same = (list: any[], marks: CycleMarks) => list.every(d => {
+    const o = cycleOn(cyc.cycle, cyc.spot, d.date, marks)
+    return o.kind === d.kind && o.id === d.id && o.day === d.day && o.days === d.days && (o.round ?? null) === d.round
+  })
+  check(
+    "a spot cycle's days, its rounds lost and its dice are the fixture's (the app's SpotCyclesTest wants the same)",
+    same(cyc.days, {}) && same(cyc.lost, cyc.marks) && cyc.hashes.every((h: any) => hash(...h.parts) === h.hash),
+    { days: cyc.days.length },
+  )
+  const ktCycles = readFileSync(join(android, 'scene/SpotCycles.kt'), 'utf8')
+  const ktArts = JSON.parse(`[${/val ARTS = listOf\(([^)]*)\)/.exec(ktCycles)?.[1] ?? ''}]`)
+  check("the arts a stage may have are the app's (SpotCycles.ARTS)", JSON.stringify(ktArts) === JSON.stringify(SPOT_ARTS), { kt: ktArts, ts: SPOT_ARTS })
+
   // --- a project's steps as short scenes (project-steps/<project>.json, lani.project-steps/v0; companion/SCENES.md "Project
   // steps"): the test pack's maypole has its first step's dialog at A1 and A2, said by its leader and helper; checked with
   // the pack (validateCulture above passes it), and what's wrong in one is named with the file

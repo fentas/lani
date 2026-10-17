@@ -76,6 +76,11 @@ data class Frame(
     val placed: List<Placed>? = null,
     /** What the villagers' day needs besides the state (where each sleeps, the storytellers, who waits): see [si.lanisce.lani.game.villagers.Routine.Day]. */
     val day: si.lanisce.lani.game.villagers.Routine.Day = si.lanisce.lani.game.villagers.Routine.Day(),
+    /**
+     * How the charcoal pile deep in the woods looks today, by its spot's cycle ([si.lanisce.lani.game.scene.SpotCycles.look]:
+     * the felled beech, the stack, smoking white, yellow, blue …); null: as it always was (a culture without a cycle).
+     */
+    val kopa: si.lanisce.lani.game.scene.SpotLook? = null,
 ) {
     /** The frame's date ([today]), or the tests' day when it has none. */
     val date: java.time.LocalDate get() = runCatching { java.time.LocalDate.parse(today) }.getOrNull() ?: TownPeople.DEFAULT_DATE
@@ -228,7 +233,7 @@ internal class SceneCtx(val canvas: PixelCanvas) {
 
     val fxList = ArrayList<() -> Unit>()
     fun fx(block: () -> Unit) { fxList.add(block) }
-    fun smoke(x: Float, y: Float, amount: Float, seed: Int, dark: Boolean = false) = fx { effects.smoke(x, y, amount, seed, dark) }
+    fun smoke(x: Float, y: Float, amount: Float, seed: Int, dark: Boolean = false, tint: Int? = null) = fx { effects.smoke(x, y, amount, seed, dark, tint) }
     fun sparks(x: Float, y: Float, n: Int, seed: Int) = fx { effects.sparks(x, y, n, seed) }
 
     var nLights = 0
@@ -324,8 +329,12 @@ class VillageRenderer {
         return SceneCtx(canvas).also { ctxs[canvas] = it }
     }
 
+    /** How the charcoal pile looks this frame ([Frame.kopa]). */
+    private var kopaLook: si.lanisce.lani.game.scene.SpotLook? = null
+
     fun render(canvas: PixelCanvas, state: GameState, frame: Frame) {
         val s = ctxFor(canvas)
+        kopaLook = frame.kopa
         mark(0)
         s.reset()
         hits.clear()
@@ -1412,10 +1421,16 @@ class VillageRenderer {
             if (env.dark > 0.35f) { val top = woods.highSeatTop(x, y); s.sprite(top[0], top[1]) { woods.owl(top[0], top[1]) } }
         }
 
-        // the charcoal pile, smouldering: a place (its story, and the burner who sits by it some evenings)
+        // the charcoal pile as its cycle has it today (the felled beech … smoking … in sacks): a place (its story, and the
+        // burner who sits by it some evenings)
         if (fg.kopa) {
-            at(fg.kopaX, fg.kopaY, VillageHit.OnSpot(TownSpots.KOPA), 12, 8) { x, y -> woods.charcoalPile(x, y) }
-            s.smoke(s.cx(fg.kopaX + 0.5f), s.cy(fg.kopaY - 8f), 0.45f, 5)
+            val look = kopaLook
+            at(fg.kopaX, fg.kopaY, VillageHit.OnSpot(TownSpots.KOPA), 12, 8) { x, y -> woods.charcoalPile(x, y, look) }
+            woods.pileSmoke(look)?.let { (amount, tint, up) ->
+                s.smoke(s.cx(fg.kopaX + 0.5f), s.cy(fg.kopaY - up), amount, 5, tint = tint)
+                // a thick smoke is a plume: a second one beside it, a beat behind
+                if (tint != null && amount >= 0.5f) s.smoke(s.cx(fg.kopaX - 1.5f), s.cy(fg.kopaY - up + 1f), amount * 0.8f, 11, tint = tint)
+            }
         }
 
         // fireflies over the meadow and the pond on summer nights

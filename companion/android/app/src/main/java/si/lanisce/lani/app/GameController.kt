@@ -867,6 +867,22 @@ class GameController(
         }
     }
 
+    /**
+     * The night watch at [spot]'s cycle decided round [round]: the breakout covered in time, or ([lost]) the pile burnt down
+     * (its days left are ash, and its yield never comes: [si.lanisce.lani.game.scene.SpotCycles.decide]); the chronicle says
+     * so. The bridge sees it with the village.
+     */
+    fun cycleDecided(spot: String, round: String, lost: Boolean) {
+        notices.village {
+            val s = state ?: return@village
+            val n = si.lanisce.lani.game.scene.SpotCycles.decide(s, spot, round, lost)
+            if (n == s) return@village
+            val texts = si.lanisce.lani.game.culture.Cultures.current.world.spots[spot]
+            val line = texts?.cycle?.breakout?.let { if (lost) it.burnt else it.covered }
+            commit(if (line != null) n.logged(System.currentTimeMillis(), (if (lost) "🔥" else texts.emoji ?: "♨️") to line.bi()) else n)
+        }
+    }
+
     /** The learner heard [t] to its end tonight: the next evening brings the next story, or its next chapter (see [Stories]). */
     fun storyHeard(t: StoryTonight) {
         storyHeardAt = java.time.LocalDateTime.now()

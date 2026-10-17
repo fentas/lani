@@ -307,7 +307,7 @@ class Greeting {
             said = emptyList()
             speaking = true
             try {
-                val lines = VillagerLogic.greeting(v, vm.villagers.bond(vm.game.state, v.id), LocalDate.now())
+                val lines = VillagerLogic.greeting(v, vm.villagers.bond(vm.game.state, v.id), LocalDate.now(), state = vm.game.state)
                 for (l in lines) {
                     said = said + l
                     vm.speaker.say(l.sl, voiceName = v.speakerVoice, fallback = VillagerLogic.voiceOf(v), person = v.id)

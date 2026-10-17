@@ -465,6 +465,94 @@ object Cultures {
                 levels("$at.talks[$i].levels", t.levels)
                 t.again.forEachIndexed { j, g -> levels("$at.talks[$i].again[$j].levels", g.levels) }
             }
+            // his own story, a part at a time: each once, after as many evenings as the one before or more
+            unique("$at.tales", k.tales.map { it.id })
+            k.tales.forEachIndexed { i, t ->
+                if (t.after < 0) fail("$at.tales[$i].after", "${t.after}, not 0 or more")
+                if (i > 0 && t.after < k.tales[i - 1].after) fail("$at.tales[$i].after", "${t.after}: before the part ahead of it (${k.tales[i - 1].after})")
+                text("$at.tales[$i].title", t.title)
+                levels("$at.tales[$i].levels", t.levels)
+            }
+            s.cycle?.let { cycle("$where.cycle", it) }
+        }
+
+        /**
+         * A spot's cycle ([SpotCycle]): its season two days of the year, the first before the last; its stages each once, as
+         * long as a stage can be (1 to 60 days, the least first), drawn as the app can, the smoke a colour there is; at most
+         * one stage that delivers, to someone the delivery names; the breakout's and the nights' stages its own; every talk
+         * at a level, each text in the pack's language.
+         */
+        private fun cycle(where: String, c: SpotCycle) {
+            val from = StandsEntry.monthDay(c.season.from)
+            val until = StandsEntry.monthDay(c.season.until)
+            if (from == null) fail("$where.season.from", "\"${c.season.from}\" isn't a day of the year (MM-DD)")
+            if (until == null) fail("$where.season.until", "\"${c.season.until}\" isn't a day of the year (MM-DD)")
+            if (from != null && until != null && !until.isAfter(from)) fail("$where.season", "until ${c.season.until} isn't after from ${c.season.from}")
+            fun range(at: String, r: List<Int>, least: Int, most: Int) {
+                if (r.size !in 1..2 || r.any { it !in least..most } || r.size == 2 && r[1] < r[0]) fail(at, "$r: [least, most] days, from $least to $most")
+            }
+            range("$where.start", c.start, 0, 90)
+            range("$where.pause", c.pause, 0, 90)
+            if (c.stages.isEmpty()) fail("$where.stages", "no stage")
+            unique("$where.stages", c.stages.map { it.id })
+            val ids = c.stages.map { it.id }.toSet()
+            fun stage(at: String, st: CycleStage, ranged: Boolean) {
+                if (st.id.isBlank()) fail("$at.id", "empty")
+                if (ranged) range("$at.days", st.days, 1, 60)
+                if (st.art !in si.lanisce.lani.game.scene.SpotCycles.ARTS) fail("$at.art", "\"${st.art}\" isn't how the app draws a spot (${si.lanisce.lani.game.scene.SpotCycles.ARTS.joinToString()})")
+                if (st.smoke != null && st.smoke !in si.lanisce.lani.game.scene.SpotCycles.SMOKES) fail("$at.smoke", "\"${st.smoke}\", not ${si.lanisce.lani.game.scene.SpotCycles.SMOKES.joinToString()}")
+                if (st.chance != null && st.chance !in 0f..1f) fail("$at.chance", "${st.chance}, not 0 to 1")
+                val times = si.lanisce.lani.game.scene.TimeOfDay.entries.map { it.name.lowercase() }
+                st.times?.filter { it !in times }?.forEach { fail("$at.when", "\"$it\" isn't a part of the day") }
+                text("$at.title", st.title)
+                text("$at.about", st.about)
+                st.done?.let { levels("$at.done", it) }
+                talks("$at.talks", st.talks)
+            }
+            c.stages.forEachIndexed { i, st -> stage("$where.stages[$i]", st, ranged = true) }
+            if (c.stages.count { it.delivers } > 1) fail("$where.stages", "more than one stage delivers")
+            c.rest?.let { stage("$where.rest", it, ranged = false) }
+            c.winter?.let { stage("$where.winter", it, ranged = false) }
+            c.lost?.let { stage("$where.lost", it, ranged = false) }
+            c.meeting?.let { levels("$where.meeting", it) }
+            talks("$where.greet", c.greet)
+            c.missed?.let { levels("$where.missed", it) }
+            c.breakout?.let { b ->
+                b.stages.filter { it !in ids }.forEach { fail("$where.breakout.stages", "\"$it\" isn't a stage of the cycle") }
+                if (b.chance !in 0f..1f) fail("$where.breakout.chance", "${b.chance}, not 0 to 1")
+                b.seconds.forEach { (lv, n) -> if (lv !in si.lanisce.lani.game.villagers.Arrivals.LEVELS || n !in 5..120) fail("$where.breakout.seconds.$lv", "$n: a level's seconds, 5 to 120") }
+                text("$where.breakout.title", b.title)
+                levels("$where.breakout.levels", b.levels)
+                levels("$where.breakout.saved", b.saved)
+                levels("$where.breakout.lost", b.lost)
+                b.missed?.let { levels("$where.breakout.missed", it) }
+                text("$where.breakout.covered", b.covered)
+                text("$where.breakout.burnt", b.burnt)
+            }
+            unique("$where.nights", c.nights.map { it.id })
+            c.nights.forEachIndexed { i, n ->
+                n.stages.filter { it !in ids }.forEach { fail("$where.nights[$i].stages", "\"$it\" isn't a stage of the cycle") }
+                if (n.chance !in 0f..1f) fail("$where.nights[$i].chance", "${n.chance}, not 0 to 1")
+                levels("$where.nights[$i].told", n.told)
+            }
+            c.delivery?.let { d ->
+                if (d.to.isBlank()) fail("$where.delivery.to", "empty")
+                if (d.days !in 1..90) fail("$where.delivery.days", "${d.days}, not 1 to 90")
+                if (c.stages.none { it.delivers }) fail("$where.delivery", "no stage delivers (\"delivers\": true)")
+                text("$where.delivery.line", d.line)
+                d.says.forEachIndexed { i, t -> text("$where.delivery.says[$i]", t) }
+                d.waits.forEachIndexed { i, t -> text("$where.delivery.waits[$i]", t) }
+            }
+        }
+
+        /** A cycle's talks ([CycleTalk]): each at a level, at parts of the day there are, for a weather there is. */
+        private fun talks(where: String, list: List<si.lanisce.lani.game.culture.CycleTalk>) {
+            val times = si.lanisce.lani.game.scene.TimeOfDay.entries.map { it.name.lowercase() }
+            list.forEachIndexed { i, t ->
+                t.times.filter { it !in times }.forEach { fail("$where[$i].when", "\"$it\" isn't a part of the day") }
+                if (t.sky != null && t.sky !in si.lanisce.lani.game.scene.SpotCycles.SKIES) fail("$where[$i].sky", "\"${t.sky}\", not ${si.lanisce.lani.game.scene.SpotCycles.SKIES.joinToString()}")
+                levels("$where[$i].levels", t.levels)
+            }
         }
 
         /** A keeper's talk by level ([where]): at a level at least, each a level there is, with its lines. */

@@ -201,7 +201,8 @@ fun VillageScreen(vm: AppViewModel) {
     val scenes = vm.scenes.all
     val active = remember(s, scenes, minute, qaHour) { vm.scenes.active(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
     // who is at a spot of the landscape now without living here (the charcoal burner by his kopa some evenings)
-    val keepers = remember(s, minute, qaHour) { Keepers.here(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
+    val qaKopa = si.lanisce.lani.app.QaHooks.kopa
+    val keepers = remember(s, minute, qaHour, qaKopa) { Keepers.here(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
     val cast = vm.villagers.all
     val markers = remember(s, active, cast, keepers) { TownMarkers.of(s, active, cast, keepers = keepers) }
     /**
@@ -480,6 +481,9 @@ fun VillageScreen(vm: AppViewModel) {
                 val b = vm.game.justBuilt?.let { id -> s.buildings.firstOrNull { it.id == id } } ?: return@LaunchedEffect
                 cam.reveal(TownAnchors.top(b, s, fit.width, fit.height), area())
             }
+            // QA's "show:<spot>": the camera at that spot of the landscape, as a place of the scroll flies it there
+            val qaShow = si.lanisce.lani.app.QaHooks.show
+            LaunchedEffect(qaShow) { qaShow?.let { (spot, _) -> cam.show(anchorOf(TownPlace.Spot(spot)), area()) } }
             // The place card doesn't cover its place: the anchor (the place's top) stays well above the card.
             LaunchedEffect(card, cardH) {
                 val c = card ?: return@LaunchedEffect

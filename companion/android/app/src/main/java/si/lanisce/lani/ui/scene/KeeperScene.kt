@@ -1,5 +1,6 @@
 package si.lanisce.lani.ui.scene
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -64,16 +65,38 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
                 DialogStage {
                     Box(Modifier.fillMaxWidth().height(150.dp).padding(horizontal = 16.dp).clip(RoundedCornerShape(20.dp))) {
-                        Backdrop(StagePlace.home(v.art), Modifier.matchParentSize(), dim = 0.35f)
-                        Column(Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            VillagerPortrait(v, 100.dp, pose = if (talking) Pose.TALK else pose)
+                        // his spot as its cycle has it today (the charcoal pile close up, smoking …), else the woods behind him
+                        val state = vm.game.state
+                        val config = androidx.compose.ui.platform.LocalConfiguration.current
+                        val density = androidx.compose.ui.platform.LocalDensity.current.density
+                        val pile = k.keeper.day != null && state != null &&
+                            pileSpot(state, (config.screenWidthDp * density).toInt(), (config.screenHeightDp * density).toInt()) != null
+                        if (pile && state != null) {
+                            Backdrop(StagePlace.home(v.art), Modifier.matchParentSize(), dim = 0.1f)
+                            PilePicture(state, k.keeper, k.keeper.day?.look, Modifier.matchParentSize())
+                        } else Backdrop(StagePlace.home(v.art), Modifier.matchParentSize(), dim = 0.35f)
+                        Column(
+                            Modifier.align(if (pile) Alignment.BottomStart else Alignment.BottomCenter).padding(bottom = 8.dp, start = if (pile) 8.dp else 0.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            VillagerPortrait(v, if (pile) 84.dp else 100.dp, pose = if (talking) Pose.TALK else pose)
                             Text(
                                 "${v.emoji} ${v.name}", color = Color.White, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(top = 2.dp).clearAndSetSemantics { },
                             )
                         }
+                        // the stage of the pile today, for whoever doesn't see it: "Kopa se kadi · The pile smokes"
+                        k.keeper.day?.shown?.about?.let { about ->
+                            Text(
+                                about.bi(), color = Color.White, style = MaterialTheme.typography.labelSmall,
+                                modifier = Modifier.align(Alignment.TopEnd).padding(8.dp)
+                                    .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(8.dp)).padding(horizontal = 8.dp, vertical = 3.dp),
+                            )
+                        }
                     }
                 }
+                // the race against the fire: the clock running down over the turn
+                if (k.racing) RaceClock(vm, k)
                 DialogPanel(
                     vm = vm,
                     talk = talk,
@@ -93,7 +116,38 @@ fun KeeperScene(vm: AppViewModel, k: KeeperTalk) {
                     closeLabel = "✓ ${bi("arrivals.backVillage")}",
                 )
             }
-            if (talk.settled && talk.run.step == DialogRun.Step.END && talk.run.mistakes == 0) Confetti(key = "keeper-${talk.key}")
+            if (talk.settled && talk.run.step == DialogRun.Step.END && talk.run.mistakes == 0 && k.raced != false) Confetti(key = "keeper-${talk.key}")
         }
+    }
+}
+
+/**
+ * The clock of a breakout's race (companion/VILLAGERS.md, "The night watch"): "🔥 Hitro! · Quick!" and a bar running down
+ * over the seconds left; when it is out the fire wins ([si.lanisce.lani.app.SceneController.keeperRaceOut]). With TalkBack
+ * on, the choices read aloud, the clock gives twice the time.
+ */
+@Composable
+private fun RaceClock(vm: AppViewModel, k: KeeperTalk) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    LaunchedEffect(k.raceFrom) {
+        val a11y = context.getSystemService(android.content.Context.ACCESSIBILITY_SERVICE) as? android.view.accessibility.AccessibilityManager
+        if (a11y?.isTouchExplorationEnabled == true) vm.scenes.keeperRaceSeconds(k.seconds * 2)
+    }
+    var left by remember { mutableStateOf(1f) }
+    LaunchedEffect(k.raceFrom, k.seconds) {
+        while (true) {
+            val end = k.raceFrom + k.seconds * 1000L
+            val now = System.currentTimeMillis()
+            left = ((end - now) / (k.seconds * 1000f)).coerceIn(0f, 1f)
+            if (now >= end) { vm.scenes.keeperRaceOut(); break }
+            delay(100L)
+        }
+    }
+    Column(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp)) {
+        Text("🔥 ${bi("keeperScene.quick")}", color = Color(0xFFE8501A), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
+        androidx.compose.material3.LinearProgressIndicator(
+            progress = { left }, color = Color(0xFFE8501A), trackColor = Color(0x33E8501A),
+            modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
+        )
     }
 }

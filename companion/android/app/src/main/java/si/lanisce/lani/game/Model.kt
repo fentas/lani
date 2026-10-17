@@ -344,6 +344,13 @@ data class GameState(
      * [si.lanisce.lani.game.scene.Keepers.at]).
      */
     val keepers: Map<String, si.lanisce.lani.game.scene.KeeperTold> = emptyMap(),
+    /**
+     * What the learner did in the cycles of the landscape's spots (the charcoal pile's rounds), by spot id: a round lost to
+     * a breakout on their night watch, one they helped save, a delivery the smith used (see
+     * [si.lanisce.lani.game.scene.SpotCycles]; the days themselves follow from the date). An older save has none; an
+     * older bridge keeps it as it is.
+     */
+    val cycles: Map<String, si.lanisce.lani.game.scene.CycleMarks> = emptyMap(),
     /** The one-time fixes of an older save that are done, by id (the kozolec to its field: [Placement.HAYRACKS_BY_FIELDS]). */
     val migrated: Set<String> = emptySet(),
     /**

@@ -392,6 +392,31 @@ data class DialogRun(
         return shown(mine.copy(said = mine.said + Said(by, reply.sl, reply.en))).afterLine()
     }
 
+    /**
+     * The dialog goes on with [more] lines after its own (a keeper's race won: what follows it), played on from where it is:
+     * at its end, the first of them at once.
+     */
+    fun extended(more: List<DialogLine>): DialogRun {
+        if (more.isEmpty()) return this
+        val atEnd = !listening && at >= dialog.lines.size
+        val r = copy(dialog = dialog.copy(lines = dialog.lines + more))
+        return if (atEnd) r.play() else r
+    }
+
+    /**
+     * The learner's turn now goes unanswered and the dialog goes on with [lines] in its place (a keeper's race against the
+     * clock lost: what follows it). Nothing counts on the turn left.
+     */
+    fun instead(lines: List<DialogLine>): DialogRun {
+        if (step != Step.CHOOSE) return this
+        val r = copy(
+            dialog = dialog.copy(lines = dialog.lines.take(at) + lines), tried = emptySet(), why = null, wrongPick = null, missed = false,
+            puzzledBy = null, rule = null, hinted = false, modes = modes.filterKeys { it < at }, notYet = notYet.filterKeys { it < at },
+            words = words.filterKeys { it < at },
+        )
+        return r.play()
+    }
+
     /** Plays from [at]: someone's line is said; the learner's turn waits for a choice; past the end is [Step.END]. */
     private fun play(): DialogRun {
         val line = dialog.lines.getOrNull(at) ?: return this

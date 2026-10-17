@@ -157,15 +157,17 @@ fun TownScene(
             skyMark = skyMark,
             plots = plots,
             day = day,
+            // the charcoal pile as its cycle has it today (QA's day, when it asks for one)
+            kopa = si.lanisce.lani.game.scene.SpotCycles.look(state, si.lanisce.lani.game.scene.TownSpots.KOPA, now.toLocalDate()),
         )
         // the nominal canvas: every tick while it is the picture, else only when its inputs change
-        if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day)) {
+        if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa)) {
             renderer.render(base.canvas, state, frame)
             base.lens = Lens(1, 0, 0, iw, ih)
             base.upload()
         }
         // the closer look: every tick, at the window the camera sees now
-        if (k > 1 && drawnFine.stale(tick, k, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day)) {
+        if (k > 1 && drawnFine.stale(tick, k, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa)) {
             val lens = Lens.of(k, cam, size.width.roundToInt(), size.height.roundToInt(), iw, ih, iw, ih)
             renderer.render(fine.canvas, state, frame.copy(lens = lens))
             fine.lens = lens

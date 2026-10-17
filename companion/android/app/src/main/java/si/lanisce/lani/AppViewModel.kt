@@ -274,6 +274,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         words = dialogWords::words,
         // a village project's step played as its scene: the step done (companion/SCENES.md, "Project steps")
         stepPlayed = game::projectStepPlayed,
+        // the night watch at the charcoal pile: a breakout covered in time, or the pile burnt down
+        cycleDecided = game::cycleDecided,
     ).also { s -> grammar.scenes = { s.all } }
 
     /**

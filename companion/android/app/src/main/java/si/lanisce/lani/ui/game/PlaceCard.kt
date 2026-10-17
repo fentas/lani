@@ -54,9 +54,11 @@ import si.lanisce.lani.l10n.bi
 /** What a spot of the landscape is for: a line under its name, and the practice it opens (with its button label), if any. */
 private data class SpotUse(val sub: String, val gather: Res?, val action: String)
 
-private fun spotUse(id: String): SpotUse {
-    // what the culture says about the spot (world.json `spots`), where it says
-    val about = si.lanisce.lani.game.culture.Cultures.current.world.spots[id]?.about?.bi()
+private fun spotUse(id: String, state: GameState? = null): SpotUse {
+    // what the culture says about the spot (world.json `spots`), where it says: what goes on there today, when it has a
+    // cycle (the charcoal pile: "Miha zlaga drva okrog kola"), else what it is
+    val today = si.lanisce.lani.game.scene.SpotCycles.day(state, id, java.time.LocalDate.now())?.shown?.about?.bi()
+    val about = today ?: si.lanisce.lani.game.culture.Cultures.current.world.spots[id]?.about?.bi()
     return when (id) {
         "woodpile" -> SpotUse(bi("placeCard.firewoodFire"), Res.WOOD, "🎧 ${bi("common.gatherWood")}")
         "rocks" -> SpotUse(bi("placeCard.stoneWalls"), Res.STONE, "🪨 ${bi("placeCard.gatherStone")}")
@@ -125,7 +127,7 @@ fun PlaceCard(
     speaker: si.lanisce.lani.data.Speaker? = null,
 ) {
     val place = tap.place
-    val use = (tap as? PlaceTap.Spot)?.let { spotUse(it.id) }
+    val use = (tap as? PlaceTap.Spot)?.let { spotUse(it.id, state) }
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),

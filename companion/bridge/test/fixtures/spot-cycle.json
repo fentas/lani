@@ -1,0 +1,1527 @@
+{
+ "_note": "A spot cycle and the days it gives (spot-cycles.ts on, the app's SpotCycles.on): the bridge's smoke test and the app's SpotCyclesTest both want these. Made with the bridge; never edit by hand.",
+ "spot": "kopa",
+ "cycle": {
+  "season": {
+   "from": "05-01",
+   "until": "10-10"
+  },
+  "start": [
+   0,
+   9
+  ],
+  "pause": [
+   5,
+   12
+  ],
+  "stages": [
+   {
+    "id": "fell",
+    "days": [
+     2,
+     3
+    ],
+    "art": "logs"
+   },
+   {
+    "id": "stack",
+    "days": [
+     1,
+     2
+    ],
+    "art": "stack"
+   },
+   {
+    "id": "cover",
+    "days": [
+     1,
+     1
+    ],
+    "art": "covered"
+   },
+   {
+    "id": "light",
+    "days": [
+     1,
+     1
+    ],
+    "art": "lit",
+    "smoke": "white"
+   },
+   {
+    "id": "white",
+    "days": [
+     3,
+     5
+    ],
+    "art": "smoke",
+    "smoke": "white"
+   },
+   {
+    "id": "yellow",
+    "days": [
+     3,
+     5
+    ],
+    "art": "smoke",
+    "smoke": "yellow"
+   },
+   {
+    "id": "blue",
+    "days": [
+     2,
+     4
+    ],
+    "art": "smoke",
+    "smoke": "blue"
+   },
+   {
+    "id": "cool",
+    "days": [
+     2,
+     3
+    ],
+    "art": "cooling"
+   },
+   {
+    "id": "open",
+    "days": [
+     1,
+     2
+    ],
+    "art": "opened"
+   },
+   {
+    "id": "sacks",
+    "days": [
+     1,
+     1
+    ],
+    "art": "sacks"
+   },
+   {
+    "id": "deliver",
+    "days": [
+     1,
+     1
+    ],
+    "art": "empty",
+    "delivers": true
+   }
+  ],
+  "rest": {
+   "id": "rest",
+   "art": "empty"
+  },
+  "winter": {
+   "id": "winter",
+   "art": "empty"
+  },
+  "lost": {
+   "id": "lost",
+   "art": "ash"
+  },
+  "breakout": {
+   "stages": [
+    "white",
+    "yellow"
+   ],
+   "chance": 0.6,
+   "title": {
+    "en": "Fire!"
+   },
+   "levels": {},
+   "saved": {},
+   "lost": {}
+  },
+  "delivery": {
+   "to": "tone",
+   "days": 14,
+   "line": {
+    "en": "The charcoal came."
+   }
+  }
+ },
+ "hashes": [
+  {
+   "parts": [
+    "kopa",
+    2026,
+    "start"
+   ],
+   "hash": 3195771434
+  },
+  {
+   "parts": [
+    "kopa",
+    2026,
+    0,
+    "fell"
+   ],
+   "hash": 3419989927
+  },
+  {
+   "parts": [
+    "oglar",
+    "2026-07-14",
+    "veter"
+   ],
+   "hash": 3723403600
+  },
+  {
+   "parts": [
+    "ščž"
+   ],
+   "hash": 3439084267
+  }
+ ],
+ "rounds": [
+  [
+   {
+    "key": "2026-0",
+    "from": "2026-05-08",
+    "until": "2026-06-01",
+    "breakout": null,
+    "delivery": "2026-06-01"
+   },
+   {
+    "key": "2026-1",
+    "from": "2026-06-14",
+    "until": "2026-07-06",
+    "breakout": null,
+    "delivery": "2026-07-06"
+   },
+   {
+    "key": "2026-2",
+    "from": "2026-07-12",
+    "until": "2026-08-04",
+    "breakout": null,
+    "delivery": "2026-08-04"
+   },
+   {
+    "key": "2026-3",
+    "from": "2026-08-14",
+    "until": "2026-09-04",
+    "breakout": null,
+    "delivery": "2026-09-04"
+   },
+   {
+    "key": "2026-4",
+    "from": "2026-09-12",
+    "until": "2026-10-05",
+    "breakout": "2026-09-25",
+    "delivery": "2026-10-05"
+   }
+  ],
+  [
+   {
+    "key": "2027-0",
+    "from": "2027-05-04",
+    "until": "2027-05-24",
+    "breakout": "2027-05-10",
+    "delivery": "2027-05-24"
+   },
+   {
+    "key": "2027-1",
+    "from": "2027-06-02",
+    "until": "2027-06-23",
+    "breakout": "2027-06-12",
+    "delivery": "2027-06-23"
+   },
+   {
+    "key": "2027-2",
+    "from": "2027-06-30",
+    "until": "2027-07-20",
+    "breakout": "2027-07-11",
+    "delivery": "2027-07-20"
+   },
+   {
+    "key": "2027-3",
+    "from": "2027-07-29",
+    "until": "2027-08-23",
+    "breakout": "2027-08-12",
+    "delivery": "2027-08-23"
+   },
+   {
+    "key": "2027-4",
+    "from": "2027-08-29",
+    "until": "2027-09-17",
+    "breakout": null,
+    "delivery": "2027-09-17"
+   }
+  ]
+ ],
+ "days": [
+  {
+   "date": "2026-01-03",
+   "kind": "winter",
+   "id": "winter",
+   "day": 84,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-06",
+   "kind": "winter",
+   "id": "winter",
+   "day": 87,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-09",
+   "kind": "winter",
+   "id": "winter",
+   "day": 90,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-12",
+   "kind": "winter",
+   "id": "winter",
+   "day": 93,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-15",
+   "kind": "winter",
+   "id": "winter",
+   "day": 96,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-18",
+   "kind": "winter",
+   "id": "winter",
+   "day": 99,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-21",
+   "kind": "winter",
+   "id": "winter",
+   "day": 102,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-24",
+   "kind": "winter",
+   "id": "winter",
+   "day": 105,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-27",
+   "kind": "winter",
+   "id": "winter",
+   "day": 108,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-01-30",
+   "kind": "winter",
+   "id": "winter",
+   "day": 111,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-02",
+   "kind": "winter",
+   "id": "winter",
+   "day": 114,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-05",
+   "kind": "winter",
+   "id": "winter",
+   "day": 117,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-08",
+   "kind": "winter",
+   "id": "winter",
+   "day": 120,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-11",
+   "kind": "winter",
+   "id": "winter",
+   "day": 123,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-14",
+   "kind": "winter",
+   "id": "winter",
+   "day": 126,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-17",
+   "kind": "winter",
+   "id": "winter",
+   "day": 129,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-20",
+   "kind": "winter",
+   "id": "winter",
+   "day": 132,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-23",
+   "kind": "winter",
+   "id": "winter",
+   "day": 135,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-02-26",
+   "kind": "winter",
+   "id": "winter",
+   "day": 138,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-01",
+   "kind": "winter",
+   "id": "winter",
+   "day": 141,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-04",
+   "kind": "winter",
+   "id": "winter",
+   "day": 144,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-07",
+   "kind": "winter",
+   "id": "winter",
+   "day": 147,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-10",
+   "kind": "winter",
+   "id": "winter",
+   "day": 150,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-13",
+   "kind": "winter",
+   "id": "winter",
+   "day": 153,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-16",
+   "kind": "winter",
+   "id": "winter",
+   "day": 156,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-19",
+   "kind": "winter",
+   "id": "winter",
+   "day": 159,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-22",
+   "kind": "winter",
+   "id": "winter",
+   "day": 162,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-25",
+   "kind": "winter",
+   "id": "winter",
+   "day": 165,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-28",
+   "kind": "winter",
+   "id": "winter",
+   "day": 168,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-03-31",
+   "kind": "winter",
+   "id": "winter",
+   "day": 171,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-03",
+   "kind": "winter",
+   "id": "winter",
+   "day": 174,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-06",
+   "kind": "winter",
+   "id": "winter",
+   "day": 177,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-09",
+   "kind": "winter",
+   "id": "winter",
+   "day": 180,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-12",
+   "kind": "winter",
+   "id": "winter",
+   "day": 183,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-15",
+   "kind": "winter",
+   "id": "winter",
+   "day": 186,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-18",
+   "kind": "winter",
+   "id": "winter",
+   "day": 189,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-21",
+   "kind": "winter",
+   "id": "winter",
+   "day": 192,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-24",
+   "kind": "winter",
+   "id": "winter",
+   "day": 195,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-27",
+   "kind": "winter",
+   "id": "winter",
+   "day": 198,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-04-30",
+   "kind": "winter",
+   "id": "winter",
+   "day": 201,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-05-03",
+   "kind": "rest",
+   "id": "rest",
+   "day": 2,
+   "days": 7,
+   "round": null
+  },
+  {
+   "date": "2026-05-06",
+   "kind": "rest",
+   "id": "rest",
+   "day": 5,
+   "days": 7,
+   "round": null
+  },
+  {
+   "date": "2026-05-09",
+   "kind": "stage",
+   "id": "fell",
+   "day": 1,
+   "days": 3,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-12",
+   "kind": "stage",
+   "id": "cover",
+   "day": 0,
+   "days": 1,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-15",
+   "kind": "stage",
+   "id": "white",
+   "day": 1,
+   "days": 4,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-18",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 0,
+   "days": 5,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-21",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 3,
+   "days": 5,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-24",
+   "kind": "stage",
+   "id": "blue",
+   "day": 1,
+   "days": 3,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-27",
+   "kind": "stage",
+   "id": "cool",
+   "day": 1,
+   "days": 3,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-05-30",
+   "kind": "stage",
+   "id": "open",
+   "day": 1,
+   "days": 2,
+   "round": "2026-0"
+  },
+  {
+   "date": "2026-06-02",
+   "kind": "rest",
+   "id": "rest",
+   "day": 0,
+   "days": 12,
+   "round": null
+  },
+  {
+   "date": "2026-06-05",
+   "kind": "rest",
+   "id": "rest",
+   "day": 3,
+   "days": 12,
+   "round": null
+  },
+  {
+   "date": "2026-06-08",
+   "kind": "rest",
+   "id": "rest",
+   "day": 6,
+   "days": 12,
+   "round": null
+  },
+  {
+   "date": "2026-06-11",
+   "kind": "rest",
+   "id": "rest",
+   "day": 9,
+   "days": 12,
+   "round": null
+  },
+  {
+   "date": "2026-06-14",
+   "kind": "stage",
+   "id": "fell",
+   "day": 0,
+   "days": 3,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-06-17",
+   "kind": "stage",
+   "id": "stack",
+   "day": 0,
+   "days": 1,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-06-20",
+   "kind": "stage",
+   "id": "white",
+   "day": 0,
+   "days": 5,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-06-23",
+   "kind": "stage",
+   "id": "white",
+   "day": 3,
+   "days": 5,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-06-26",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 1,
+   "days": 3,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-06-29",
+   "kind": "stage",
+   "id": "blue",
+   "day": 1,
+   "days": 3,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-07-02",
+   "kind": "stage",
+   "id": "cool",
+   "day": 1,
+   "days": 2,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-07-05",
+   "kind": "stage",
+   "id": "sacks",
+   "day": 0,
+   "days": 1,
+   "round": "2026-1"
+  },
+  {
+   "date": "2026-07-08",
+   "kind": "rest",
+   "id": "rest",
+   "day": 1,
+   "days": 5,
+   "round": null
+  },
+  {
+   "date": "2026-07-11",
+   "kind": "rest",
+   "id": "rest",
+   "day": 4,
+   "days": 5,
+   "round": null
+  },
+  {
+   "date": "2026-07-14",
+   "kind": "stage",
+   "id": "stack",
+   "day": 0,
+   "days": 1,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-07-17",
+   "kind": "stage",
+   "id": "white",
+   "day": 0,
+   "days": 5,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-07-20",
+   "kind": "stage",
+   "id": "white",
+   "day": 3,
+   "days": 5,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-07-23",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 1,
+   "days": 5,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-07-26",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 4,
+   "days": 5,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-07-29",
+   "kind": "stage",
+   "id": "blue",
+   "day": 2,
+   "days": 3,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-08-01",
+   "kind": "stage",
+   "id": "cool",
+   "day": 2,
+   "days": 3,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-08-04",
+   "kind": "stage",
+   "id": "deliver",
+   "day": 0,
+   "days": 1,
+   "round": "2026-2"
+  },
+  {
+   "date": "2026-08-07",
+   "kind": "rest",
+   "id": "rest",
+   "day": 2,
+   "days": 9,
+   "round": null
+  },
+  {
+   "date": "2026-08-10",
+   "kind": "rest",
+   "id": "rest",
+   "day": 5,
+   "days": 9,
+   "round": null
+  },
+  {
+   "date": "2026-08-13",
+   "kind": "rest",
+   "id": "rest",
+   "day": 8,
+   "days": 9,
+   "round": null
+  },
+  {
+   "date": "2026-08-16",
+   "kind": "stage",
+   "id": "fell",
+   "day": 2,
+   "days": 3,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-08-19",
+   "kind": "stage",
+   "id": "light",
+   "day": 0,
+   "days": 1,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-08-22",
+   "kind": "stage",
+   "id": "white",
+   "day": 2,
+   "days": 3,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-08-25",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 2,
+   "days": 4,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-08-28",
+   "kind": "stage",
+   "id": "blue",
+   "day": 1,
+   "days": 2,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-08-31",
+   "kind": "stage",
+   "id": "cool",
+   "day": 2,
+   "days": 3,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-09-03",
+   "kind": "stage",
+   "id": "sacks",
+   "day": 0,
+   "days": 1,
+   "round": "2026-3"
+  },
+  {
+   "date": "2026-09-06",
+   "kind": "rest",
+   "id": "rest",
+   "day": 1,
+   "days": 7,
+   "round": null
+  },
+  {
+   "date": "2026-09-09",
+   "kind": "rest",
+   "id": "rest",
+   "day": 4,
+   "days": 7,
+   "round": null
+  },
+  {
+   "date": "2026-09-12",
+   "kind": "stage",
+   "id": "fell",
+   "day": 0,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-15",
+   "kind": "stage",
+   "id": "stack",
+   "day": 1,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-18",
+   "kind": "stage",
+   "id": "white",
+   "day": 0,
+   "days": 3,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-21",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 0,
+   "days": 5,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-24",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 3,
+   "days": 5,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-27",
+   "kind": "stage",
+   "id": "blue",
+   "day": 1,
+   "days": 3,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-30",
+   "kind": "stage",
+   "id": "cool",
+   "day": 1,
+   "days": 3,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "stage",
+   "id": "open",
+   "day": 1,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "rest",
+   "id": "rest",
+   "day": 0,
+   "days": 5,
+   "round": null
+  },
+  {
+   "date": "2026-10-09",
+   "kind": "rest",
+   "id": "rest",
+   "day": 3,
+   "days": 5,
+   "round": null
+  },
+  {
+   "date": "2026-10-12",
+   "kind": "winter",
+   "id": "winter",
+   "day": 1,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-10-15",
+   "kind": "winter",
+   "id": "winter",
+   "day": 4,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-10-18",
+   "kind": "winter",
+   "id": "winter",
+   "day": 7,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-10-21",
+   "kind": "winter",
+   "id": "winter",
+   "day": 10,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-10-24",
+   "kind": "winter",
+   "id": "winter",
+   "day": 13,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-10-27",
+   "kind": "winter",
+   "id": "winter",
+   "day": 16,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-10-30",
+   "kind": "winter",
+   "id": "winter",
+   "day": 19,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-02",
+   "kind": "winter",
+   "id": "winter",
+   "day": 22,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-05",
+   "kind": "winter",
+   "id": "winter",
+   "day": 25,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-08",
+   "kind": "winter",
+   "id": "winter",
+   "day": 28,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-11",
+   "kind": "winter",
+   "id": "winter",
+   "day": 31,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-14",
+   "kind": "winter",
+   "id": "winter",
+   "day": 34,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-17",
+   "kind": "winter",
+   "id": "winter",
+   "day": 37,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-20",
+   "kind": "winter",
+   "id": "winter",
+   "day": 40,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-23",
+   "kind": "winter",
+   "id": "winter",
+   "day": 43,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-26",
+   "kind": "winter",
+   "id": "winter",
+   "day": 46,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-11-29",
+   "kind": "winter",
+   "id": "winter",
+   "day": 49,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-02",
+   "kind": "winter",
+   "id": "winter",
+   "day": 52,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-05",
+   "kind": "winter",
+   "id": "winter",
+   "day": 55,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-08",
+   "kind": "winter",
+   "id": "winter",
+   "day": 58,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-11",
+   "kind": "winter",
+   "id": "winter",
+   "day": 61,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-14",
+   "kind": "winter",
+   "id": "winter",
+   "day": 64,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-17",
+   "kind": "winter",
+   "id": "winter",
+   "day": 67,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-20",
+   "kind": "winter",
+   "id": "winter",
+   "day": 70,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-23",
+   "kind": "winter",
+   "id": "winter",
+   "day": 73,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-26",
+   "kind": "winter",
+   "id": "winter",
+   "day": 76,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2026-12-29",
+   "kind": "winter",
+   "id": "winter",
+   "day": 79,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-01",
+   "kind": "winter",
+   "id": "winter",
+   "day": 82,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-04",
+   "kind": "winter",
+   "id": "winter",
+   "day": 85,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-07",
+   "kind": "winter",
+   "id": "winter",
+   "day": 88,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-10",
+   "kind": "winter",
+   "id": "winter",
+   "day": 91,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-13",
+   "kind": "winter",
+   "id": "winter",
+   "day": 94,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-16",
+   "kind": "winter",
+   "id": "winter",
+   "day": 97,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-19",
+   "kind": "winter",
+   "id": "winter",
+   "day": 100,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-22",
+   "kind": "winter",
+   "id": "winter",
+   "day": 103,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-25",
+   "kind": "winter",
+   "id": "winter",
+   "day": 106,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-28",
+   "kind": "winter",
+   "id": "winter",
+   "day": 109,
+   "days": 202,
+   "round": null
+  },
+  {
+   "date": "2027-01-31",
+   "kind": "winter",
+   "id": "winter",
+   "day": 112,
+   "days": 202,
+   "round": null
+  }
+ ],
+ "marks": {
+  "lost": [
+   "2026-4"
+  ]
+ },
+ "lost": [
+  {
+   "date": "2026-09-12",
+   "kind": "stage",
+   "id": "fell",
+   "day": 0,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-13",
+   "kind": "stage",
+   "id": "fell",
+   "day": 1,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-14",
+   "kind": "stage",
+   "id": "stack",
+   "day": 0,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-15",
+   "kind": "stage",
+   "id": "stack",
+   "day": 1,
+   "days": 2,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-16",
+   "kind": "stage",
+   "id": "cover",
+   "day": 0,
+   "days": 1,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-17",
+   "kind": "stage",
+   "id": "light",
+   "day": 0,
+   "days": 1,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-18",
+   "kind": "stage",
+   "id": "white",
+   "day": 0,
+   "days": 3,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-19",
+   "kind": "stage",
+   "id": "white",
+   "day": 1,
+   "days": 3,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-20",
+   "kind": "stage",
+   "id": "white",
+   "day": 2,
+   "days": 3,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-21",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 0,
+   "days": 5,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-22",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 1,
+   "days": 5,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-23",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 2,
+   "days": 5,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-24",
+   "kind": "stage",
+   "id": "yellow",
+   "day": 3,
+   "days": 5,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-25",
+   "kind": "lost",
+   "id": "lost",
+   "day": 0,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-26",
+   "kind": "lost",
+   "id": "lost",
+   "day": 1,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-27",
+   "kind": "lost",
+   "id": "lost",
+   "day": 2,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-28",
+   "kind": "lost",
+   "id": "lost",
+   "day": 3,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-29",
+   "kind": "lost",
+   "id": "lost",
+   "day": 4,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-09-30",
+   "kind": "lost",
+   "id": "lost",
+   "day": 5,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-01",
+   "kind": "lost",
+   "id": "lost",
+   "day": 6,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-02",
+   "kind": "lost",
+   "id": "lost",
+   "day": 7,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-03",
+   "kind": "lost",
+   "id": "lost",
+   "day": 8,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-04",
+   "kind": "lost",
+   "id": "lost",
+   "day": 9,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-05",
+   "kind": "lost",
+   "id": "lost",
+   "day": 10,
+   "days": 11,
+   "round": "2026-4"
+  },
+  {
+   "date": "2026-10-06",
+   "kind": "rest",
+   "id": "rest",
+   "day": 0,
+   "days": 5,
+   "round": null
+  },
+  {
+   "date": "2026-10-07",
+   "kind": "rest",
+   "id": "rest",
+   "day": 1,
+   "days": 5,
+   "round": null
+  }
+ ]
+}

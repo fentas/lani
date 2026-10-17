@@ -254,6 +254,8 @@ object GameEngine {
         }
         // the landmarks with a season: the maypole raised again on the eve of May Day, taken down after May
         s = ProjectSeasons.update(s, today, now)
+        // what the spots' cycles delivered since the last day (the charcoal burner's charcoal at the smith's)
+        if (newDay && !rewound) s = s.logged(now, *si.lanisce.lani.game.scene.SpotCycles.news(s, last, today).toTypedArray())
         return TickResult(s.copy(log = (state.log + s.log).takeLast(LOG_SIZE)), s.log)
     }
 

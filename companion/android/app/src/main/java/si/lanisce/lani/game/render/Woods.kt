@@ -280,8 +280,49 @@ internal class WoodsPainter(private val s: SceneCtx) {
         else if (q < 6) s.trees.rock(ax + 1 * k, ay - 4 * k, 134 + q) // a smaller one left of the cluster
     }
 
-    /** A charcoal pile (oglarska kopa): a turfed dome with charcoal showing through, smouldering at the top. */
-    fun charcoalPile(bx: Int, by: Int) {
+    /**
+     * A charcoal pile (oglarska kopa), as its spot's cycle has it today ([look], [si.lanisce.lani.game.scene.SpotLook];
+     * null: as it always was, a turfed dome smouldering at the top): the bare kopišče, the felled beech beside the pole, the
+     * logs stood round it, the turf and earth over them, lit at the top, smoking through its air holes (lower day by day),
+     * cooling, raked open black, the charcoal in sacks, or a heap of ash where it burnt down. The burner's own stack of wood
+     * stands beside it.
+     */
+    fun charcoalPile(bx: Int, by: Int, look: si.lanisce.lani.game.scene.SpotLook? = null) {
+        when (look?.art) {
+            null -> oldPile(bx, by)
+            "empty" -> pileFloor(bx, by, 7, snowy = env.snow)
+            "logs" -> { pileFloor(bx, by, 7); felledLogs(bx, by, look.progress); pole(bx, by, 8) }
+            "stack" -> { pileFloor(bx, by, 7); dome(bx, by, 6.5f * (0.45f + 0.55f * look.progress), wood = 1f); pole(bx, by, 8) }
+            "covered" -> { pileFloor(bx, by, 7); dome(bx, by, 6.5f, wood = 1f, turf = (look.progress * 2f).coerceAtMost(1f), earth = (look.progress * 2f - 1f).coerceIn(0f, 1f)); pole(bx, by, 8) }
+            "lit" -> { pileFloor(bx, by, 7); dome(bx, by, 6.5f, earth = 1f); embers(bx, by - 6, 1f) }
+            "smoke" -> {
+                pileFloor(bx, by, 7)
+                val p = look.progress
+                val ry = 6.5f * (1f - 0.18f * p) // it settles as the wood chars
+                dome(bx, by, ry, earth = 1f, char = 0.12f + 0.4f * p)
+                // the air holes, a ring lower day by day, glowing faintly in the dark
+                val hy = by - (ry * (0.8f - 0.62f * p)).roundToInt().coerceAtLeast(1)
+                val half = 7f * sqrt((1f - ((by - hy) / ry).let { it * it }).coerceAtLeast(0f))
+                for (j in -1..1) {
+                    val hx = bx + (j * half * 0.62f).roundToInt()
+                    c.set(hx, hy, Col.hex(0x1A1412))
+                    if (env.dark > 0.25f) { c.penEmissive = true; c.set(hx, hy, Pal.FLAME[4]); c.penEmissive = false }
+                }
+                embers(bx, (by - ry).toInt(), 0.5f)
+            }
+            "cooling" -> { pileFloor(bx, by, 7); dome(bx, by, 5f, earth = 1f, char = 0.55f) }
+            "opened" -> { pileFloor(bx, by, 8); charcoalHeap(bx, by, 1f); rake(bx - 7, by) }
+            "sacks" -> { pileFloor(bx, by, 8); charcoalHeap(bx, by, 1f - look.progress); sacks(bx, by, 2 + (look.progress * 3f).roundToInt()) }
+            "ash" -> { pileFloor(bx, by, 8, scorched = true); ashHeap(bx, by) }
+            else -> oldPile(bx, by)
+        }
+        // the burner's stack of wood beside it
+        c.fillRect(bx + 8, by - 3, 4, 3, Pal.LOG_M); c.hline(bx + 8, bx + 11, by - 4, Pal.LOG_L); c.set(bx + 9, by - 2, Pal.LOG_D)
+        if (env.snow) c.hline(bx + 8, bx + 11, by - 5, Pal.SNOW_L)
+    }
+
+    /** The pile as it was before the cycles: a turfed dome with charcoal showing through, smouldering at the top. */
+    private fun oldPile(bx: Int, by: Int) {
         val rx = 7f; val ry = 6.5f
         val black = Col.hex(0x2A2624)
         for (y in (by - ry).toInt()..by - 1) {
@@ -301,9 +342,153 @@ internal class WoodsPainter(private val s: SceneCtx) {
             s.light(bx.toFloat(), by - 3f * k, 12f, 0.35f)
         }
         c.penEmissive = false
-        // the burner's stack of wood beside it
-        c.fillRect(bx + 8, by - 3, 4, 3, Pal.LOG_M); c.hline(bx + 8, bx + 11, by - 4, Pal.LOG_L); c.set(bx + 9, by - 2, Pal.LOG_D)
-        if (env.snow) c.hline(bx + 8, bx + 11, by - 5, Pal.SNOW_L)
+    }
+
+    /** The kopišče: a round of ground black with old charcoal dust, [r] px to each side; snowed over, or [scorched] round its rim. */
+    private fun pileFloor(bx: Int, by: Int, r: Int, snowy: Boolean = false, scorched: Boolean = false) {
+        for (y in by - 2..by) for (x in bx - r..bx + r) {
+            val dx = (x - bx) / r.toFloat(); val dy = (y - by + 1) / 1.6f
+            if (dx * dx + dy * dy > 1.05f) continue
+            val n = Noise.rnd(x, y, 47)
+            c.set(x, y, when {
+                snowy -> if (n < 0.12f) PILE_BLACK else if (n < 0.4f) Pal.SNOW_M else Pal.SNOW_L
+                scorched && dx * dx + dy * dy > 0.6f -> if (n < 0.5f) PILE_BLACK else Col.hex(0x3A322C)
+                else -> if (n < 0.45f) PILE_BLACK else if (n < 0.8f) Col.hex(0x3A322C) else Pal.SOIL_D
+            })
+        }
+    }
+
+    /** The middle pole (kol) the pile is stacked round: [h] px of it above the ground. */
+    private fun pole(bx: Int, by: Int, h: Int) {
+        c.vline(bx, by - h, by - 1, Pal.WOOD_D)
+        c.set(bx, by - h, Pal.WOOD_L)
+    }
+
+    /** Beech felled and cut to length, lying beside the kopišče: rows of smooth grey logs, more of them as the felling goes on. */
+    private fun felledLogs(bx: Int, by: Int, progress: Float) {
+        val rows = 1 + (progress * 2.5f).roundToInt().coerceIn(0, 2)
+        val bark = Col.hex(0x8C8A80); val barkD = Col.hex(0x6A6860); val end = Pal.WOOD_L; val heart = Pal.WOOD_M
+        for (row in 0 until rows) {
+            val y = by - 1 - row * 2
+            val x0 = bx - 9 + row; val x1 = bx - 2 - row
+            c.hline(x0, x1, y, barkD); c.hline(x0, x1, y - 1, bark)
+            // the cut ends facing us, light, a darker heart
+            for (x in x0..x1 step 2) { c.set(x, y - 1, end); c.set(x, y, heart) }
+        }
+        // a few logs about the pole, waiting to be stood up
+        if (progress > 0.5f) { c.hline(bx + 2, bx + 5, by - 1, bark); c.set(bx + 5, by - 1, end) }
+    }
+
+    /**
+     * The pile's dome, [ry] px tall: the logs stood upright round the pole ([wood], light stripes), the turf over them from
+     * the bottom up ([turf], 0..1), the earth over the turf ([earth], 0..1), charring black in patches ([char], 0..1).
+     */
+    private fun dome(bx: Int, by: Int, ry: Float, wood: Float = 0f, turf: Float = 0f, earth: Float = 0f, char: Float = 0f) {
+        val rx = 7f
+        val top = by - ry
+        for (y in top.toInt()..by - 1) {
+            val v = (by - y) / max(ry, 1f)
+            val half = rx * sqrt((1f - v * v).coerceAtLeast(0f))
+            val up = 1f - v // 1 at the foot, 0 at the top
+            for (x in (bx - half).toInt()..(bx + half).toInt()) {
+                val rel = (x + 0.5f - bx) / max(half, 1f)
+                val n = Noise.rnd(x, y, 45)
+                var col = when {
+                    earth > 0f && up < earth + 0.08f * (n - 0.5f) * 2f || earth >= 1f ->
+                        if (rel < -0.3f) Pal.SOIL_L else if (rel < 0.45f) Pal.SOIL_M else Pal.SOIL_D
+                    turf > 0f && up < turf + 0.1f * (n - 0.5f) * 2f ->
+                        if (n < 0.25f) Pal.SOIL_M else if (rel < -0.2f) Col.hex(0x6E9A48) else if (rel < 0.5f) Col.hex(0x527E3A) else Col.hex(0x3E6230)
+                    wood > 0f -> if (x % 2 == 0) (if (rel < 0.4f) Pal.WOOD_L else Pal.WOOD_M) else (if (rel < 0.4f) Pal.LOG_M else Pal.LOG_D)
+                    else -> Pal.SOIL_M
+                }
+                if (char > 0f && earth >= 1f && Noise.rnd(x, y, 46) < char * 0.6f) col = PILE_BLACK
+                if (y == by - 1 && (earth > 0f || turf > 0f)) col = PILE_BLACK
+                c.set(x, y, col)
+            }
+        }
+    }
+
+    /** Embers glowing in the pile's top, [heat] 0..1 (the lighting at full, a smouldering pile less), lighting the dark. */
+    private fun embers(bx: Int, ty: Int, heat: Float) {
+        c.penEmissive = true
+        c.set(bx, ty, Pal.FLAME[if (heat > 0.7f) 2 else 3])
+        if (heat > 0.7f) { c.set(bx - 1, ty, Pal.FLAME[3]); c.set(bx + 1, ty, Pal.FLAME[3]); c.set(bx, ty - 1, Pal.FLAME[1]) }
+        if (env.dark > 0.2f) s.light(bx.toFloat(), (ty + 2f) * 1f, 8f + 6f * heat, 0.2f + 0.25f * heat)
+        c.penEmissive = false
+    }
+
+    /** The charcoal raked out: a low black heap ([left] of it, 0..1), glinting blue-grey, the earth pushed to its rim. */
+    private fun charcoalHeap(bx: Int, by: Int, left: Float) {
+        if (left <= 0.05f) return
+        val rx = 2f + 5f * left; val ry = 1f + 2.5f * left
+        for (y in (by - ry).toInt()..by - 1) {
+            val v = (by - y) / ry
+            val half = rx * sqrt((1f - v * v).coerceAtLeast(0f))
+            for (x in (bx - half).toInt()..(bx + half).toInt()) {
+                val n = Noise.rnd(x, y, 48)
+                c.set(x, y, if (n < 0.12f) Col.hex(0x5A6070) else if (n < 0.3f) Col.hex(0x3A3A40) else PILE_BLACK)
+            }
+        }
+        // the earth and turf taken off, in a low ring
+        c.hline(bx - 8, bx - (rx + 1).toInt(), by - 1, Pal.SOIL_M); c.hline(bx + (rx + 1).toInt(), bx + 8, by - 1, Pal.SOIL_D)
+    }
+
+    /** A rake (grablje) leaning, its teeth on the ground at ([x], [by]). */
+    private fun rake(x: Int, by: Int) {
+        c.line(x, by - 1, x + 3, by - 7, Pal.WOOD_M)
+        c.hline(x - 1, x + 1, by - 1, Pal.WOOD_D)
+    }
+
+    /** [n] sacks of charcoal standing in a row: rough cloth gone grey with the dust, tied at the top. */
+    private fun sacks(bx: Int, by: Int, n: Int) {
+        val cloth = Col.hex(0xC8C0AE); val clothD = Col.hex(0x9A9282); val dust = Col.hex(0x5A5650)
+        for (j in 0 until n.coerceIn(1, 6)) {
+            val x = bx - 7 + j * 3
+            val y = by - 1 - (j % 2)
+            c.fillRect(x, y - 3, 3, 4, cloth)
+            c.vline(x + 2, y - 3, y, clothD)
+            c.set(x + 1, y - 4, clothD) // the tie
+            c.set(x, y - 1, dust); c.set(x + 1, y, dust)
+        }
+    }
+
+    /** Where a pile burnt down: a grey heap of ash, a few charred logs sticking out of it. */
+    private fun ashHeap(bx: Int, by: Int) {
+        val rx = 6f; val ry = 3f
+        for (y in (by - ry).toInt()..by - 1) {
+            val v = (by - y) / ry
+            val half = rx * sqrt((1f - v * v).coerceAtLeast(0f))
+            for (x in (bx - half).toInt()..(bx + half).toInt()) {
+                val n = Noise.rnd(x, y, 49)
+                c.set(x, y, if (n < 0.15f) Col.hex(0xE4E0DA) else if (n < 0.6f) Col.hex(0xAAA49C) else Col.hex(0x807A72))
+            }
+        }
+        c.line(bx - 3, by - 1, bx - 1, by - 5, PILE_BLACK); c.line(bx + 2, by - 1, bx + 4, by - 4, PILE_BLACK)
+    }
+
+    /** The smoke over a pile with [look] (or the pile as it always was, null): how much (0..1), its colour, and from how high (px). */
+    fun pileSmoke(look: si.lanisce.lani.game.scene.SpotLook?): Triple<Float, Int?, Float>? = when (look?.art) {
+        null -> Triple(0.45f, null, 8f)
+        "lit" -> Triple(0.95f, SMOKE_WHITE, 8f)
+        "smoke" -> {
+            val ry = 6.5f * (1f - 0.18f * look.progress)
+            when (look.smoke) {
+                "yellow" -> Triple(0.6f, SMOKE_YELLOW, ry + 1.5f)
+                "blue" -> Triple(0.38f, SMOKE_BLUE, ry + 1.5f)
+                else -> Triple(0.75f, SMOKE_WHITE, ry + 1.5f)
+            }
+        }
+        "cooling" -> if (look.progress < 0.6f) Triple(0.18f, null, 6f) else null
+        "ash" -> if (look.progress < 0.5f) Triple(0.2f, null, 4f) else null
+        else -> null
+    }
+
+    private companion object {
+        val PILE_BLACK = Col.hex(0x2A2624)
+        /** The smoke of a damp pile, thick and white; yellowish as the wood chars; thin and blue when the charcoal is done. */
+        val SMOKE_WHITE = Col.hex(0xEEEEF0)
+        val SMOKE_YELLOW = Col.hex(0xD6C27A)
+        val SMOKE_BLUE = Col.hex(0x88A2D8)
     }
 
     // ------------------------------------------------------------------ light

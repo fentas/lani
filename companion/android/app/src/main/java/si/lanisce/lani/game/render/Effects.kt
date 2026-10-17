@@ -90,15 +90,16 @@ internal class Effects(private val s: SceneCtx) {
         return fh.toInt()
     }
 
-    fun smoke(x: Float, y: Float, amount: Float, seed: Int, dark: Boolean) {
+    fun smoke(x: Float, y: Float, amount: Float, seed: Int, dark: Boolean, tint: Int? = null) {
         val n = 6
-        val col = if (dark) Col.hex(0x4A4448) else Pal.SMOKE
+        val col = tint ?: if (dark) Col.hex(0x4A4448) else Pal.SMOKE
         for (j in 0 until n) {
             val a = ((t / 3.4 + j.toFloat() / n + seed * 0.137) % 1.0).toFloat()
             val px = x + (a * 7f + sin(a * 5 + seed + j).toFloat() * 1.3f) * k
             val py = y - (a * 20f * amount + 1) * k
             val r = (0.8f + a * 2.6f * amount) * k
-            c.ditherCircle(px, py, r, Col.mix(col, Col.hex(0xD8D8E0), if (dark) 0f else a * 0.5f), (1f - a) * 0.75f)
+            // a tinted smoke (the charcoal pile's white, yellow, blue) keeps its colour and shows thicker
+            c.ditherCircle(px, py, r, Col.mix(col, Col.hex(0xD8D8E0), if (dark || tint != null) a * 0.2f else a * 0.5f), (1f - a) * if (tint != null) 0.95f else 0.75f)
         }
     }
 

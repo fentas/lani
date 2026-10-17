@@ -713,7 +713,7 @@ fun VillagerCard(vm: AppViewModel, id: String, onDismiss: () -> Unit, modifier: 
                     }
                 }
                 ritual != null && greeting.said.isEmpty() -> Text("🏮 $ritual", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                greeting.said.isEmpty() -> VillagerLogic.idle(v, level, LocalDate.now())?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
+                greeting.said.isEmpty() -> VillagerLogic.idle(v, level, LocalDate.now(), state = s)?.let { SpeechBubble(vm, v, it, Modifier.fillMaxWidth()) }
             }
             // nothing up, only requests waiting in "Later" (one never started, asked again another day): still one tap away
             if (today.quests.isEmpty() && today.waiting.isNotEmpty()) CardRequests(vm, today, onDismiss)

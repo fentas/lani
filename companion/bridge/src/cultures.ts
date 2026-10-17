@@ -19,6 +19,7 @@ import { grammarRef } from './grammar'
 import { label, spokenLine, type Label } from './langs'
 import { SCENE_ART, RESOURCES, SPOT_NAMES, TIMES, checkNeeds, dialogGrammar, dialogLine, validateScene, type SceneProject, type SceneRefs } from './scenes'
 import { readReadings, type Reading } from './readings'
+import { SPOT_ARTS, SPOT_SKIES, SPOT_SMOKES } from './spot-cycles'
 import { cultureProjectSteps } from './project-steps'
 import { cultureSky } from './sky'
 import { CURATED_LEVELS, LEVELS, chaptersOf, curatedPictureErrors, validateStory } from './stories'
@@ -89,6 +90,53 @@ const keeperLevels = z
  * next of `levels` and these, in turn. An older bridge refuses the key (strict): the code goes out before the content.
  */
 const keeperTalk = obj({ id, title: text.optional(), levels: keeperLevels, again: z.array(obj({ levels: keeperLevels })).default([]) })
+/** A short piece of a keeper's talk at each level (his greeting, what he did while the learner was away …): 1-[max] lines. */
+const pieceLevels = (max: number) => z
+  .partialRecord(z.enum(LEVELS), obj({ lines: z.array(dialogLine).min(1).max(max) }))
+  .refine(l => Object.keys(l).length > 0, 'at least one level: {"A1": {"lines": […]}}')
+/**
+ * A part of a keeper's own story (`tales`): told at the end of his talk once the learner has spent [after] evenings with
+ * him, one a day, in their order (as a villager's lines open with the friendship). An older bridge refuses the key.
+ */
+const keeperTale = obj({ id, after: z.number().int().min(0).max(400).default(0), title: text.optional(), levels: pieceLevels(6) })
+/** A [least, most] range of days (one number: just it). */
+const dayRange = (least: number, most: number) => z.array(z.number().int().min(least).max(most)).min(1).max(2).refine(r => r.length < 2 || r[1] >= r[0], 'the least first: [least, most]')
+/** A variant of a keeper's talk in a stage of his spot's cycle: its levels, for the parts of the day ([when]) and the weather ([sky]) it fits. */
+const cycleTalk = <T extends z.ZodTypeAny>(levels: T) => obj({ when: z.array(z.enum(TIMES)).default([]), sky: z.enum(SPOT_SKIES).optional(), levels })
+/**
+ * A stage of a spot's cycle (or its rest, its winter, a round lost): how long it takes ([days]: the least and the most), how
+ * the app draws the spot ([art], [smoke]), the keeper's bubble ([title]) and the card's line ([about]), how often he is
+ * there ([chance], [when]), whether it delivers the round's yield ([delivers]), his talks (variants) and what he tells of
+ * it once it is over ([done]).
+ */
+const cycleStage = obj({
+  id, days: dayRange(1, 60).default([1, 1]), art: z.enum(SPOT_ARTS), smoke: z.enum(SPOT_SMOKES).optional(),
+  title: text.optional(), about: text.optional(), chance: z.number().min(0).max(1).optional(), when: z.array(z.enum(TIMES)).optional(),
+  delivers: z.boolean().default(false), talks: z.array(cycleTalk(keeperLevels)).default([]), done: pieceLevels(2).optional(),
+})
+/**
+ * A spot's work in stages over real days (GAME.md "A spot's cycle", spot-cycles.ts): the season, the rounds' stages, the
+ * rest between them and the winter, the night a round breaks out (and burns down when the learner's race is lost), what a
+ * night may bring, where a round's yield goes. An older bridge refuses the key (strict): the code goes out before the content.
+ */
+const spotCycle = obj({
+  seed: str.optional(),
+  season: obj({ from: monthDay, until: monthDay }).refine(s => s.until > s.from, { message: 'until is before from: a season within one year', path: ['until'] }),
+  start: dayRange(0, 90).default([0, 0]),
+  pause: dayRange(0, 90).default([3, 7]),
+  stages: z.array(cycleStage).min(1),
+  rest: cycleStage.optional(), winter: cycleStage.optional(), lost: cycleStage.optional(),
+  meeting: keeperLevels.optional(),
+  greet: z.array(cycleTalk(pieceLevels(1))).default([]),
+  missed: pieceLevels(2).optional(),
+  breakout: obj({
+    stages: z.array(id).min(1), chance: z.number().min(0).max(1), seconds: z.partialRecord(z.enum(LEVELS), z.number().int().min(5).max(120)).default({}),
+    title: text, levels: pieceLevels(10), saved: pieceLevels(6), lost: pieceLevels(6), missed: pieceLevels(2).optional(), covered: text.optional(), burnt: text.optional(),
+  }).optional(),
+  nights: z.array(obj({ id, stages: z.array(id).min(1), chance: z.number().min(0).max(1), told: pieceLevels(2) })).default([]),
+  delivery: obj({ to: id, days: z.number().int().min(1).max(90).default(14), line: text, says: z.array(text).default([]), waits: z.array(text).default([]) }).optional(),
+})
+export type SpotCycle = z.infer<typeof spotCycle>
 /**
  * Someone at a spot of the landscape now and then who doesn't live in the village (the charcoal burner who sits by his kopa
  * some evenings): staged like a villager, there in the parts of the day he comes ([when]) on a day the dice give him
@@ -103,6 +151,7 @@ const keeper = obj({
   title: text, reward: z.partialRecord(z.enum(RESOURCES), z.number().int().min(1).max(50)).default({}),
   levels: keeperLevels,
   talks: z.array(keeperTalk).default([]),
+  tales: z.array(keeperTale).default([]),
 })
 export type Keeper = z.infer<typeof keeper>
 /** One telling of a keeper's talk at one level: its lines. */
@@ -117,6 +166,8 @@ const spot = obj({
   emoji: str.optional(), name: text, where: text, about: text.optional(),
   story: z.partialRecord(z.enum(LEVELS), text).default({}),
   pack: id.optional(), words: z.array(id).default([]), review: str.optional(), keeper: keeper.optional(),
+  // its work over real days (the charcoal pile's rounds): see `spotCycle`
+  cycle: spotCycle.optional(),
 })
 /** The levels a culture's spot tells its story at, and its keeper talks at: A1 and A2 at least. */
 export const SPOT_LEVELS = ['A1', 'A2'] as const
@@ -253,7 +304,8 @@ export const ANY_LANGUAGE = [
   /^surprises\.riddle\.riddles\[\d+\]\.(answer|meaning)$/, /^surprises\.strangers\./, /^people\.lines\./,
   // a wrong choice's why in a spot keeper's talk is read in the learner's base: every language but the pack's (spotErrors),
   // in his meeting and in every talk of his story, each telling
-  /^world\.spots\.\w+\.keeper\.(talks\[\d+\]\.(again\[\d+\]\.)?)?levels\.\w+\.lines\[\d+\]\.choices\[\d+\]\.why$/,
+  // (his story's talks, its tellings, his own story's parts, and every talk of his spot's cycle)
+  /^world\.spots\.\w+\.(keeper|cycle)\..*\.lines\[\d+\]\.choices\[\d+\]\.why$/,
 ]
 
 /** Every text (an object of language codes → strings) in [v], with its path. */
@@ -441,6 +493,8 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
     person('chest.smith.id', chest.smith.id)
     person('surprises.lamb.shepherd', surprises.lamb.shepherd)
     person('surprises.riddle.child', surprises.riddle.child)
+    // where a spot's cycle delivers its yield (the charcoal to the smith): one of the cast
+    for (const [id, sp] of Object.entries(world.spots)) if (sp?.cycle?.delivery) person(`world.spots.${id}.cycle.delivery.to`, sp.cycle.delivery.to)
     surprises.letter.letters.forEach((l, i) => l.to !== 'jan' && person(`surprises.letter.letters[${i}].to`, l.to))
     // the pack's own people thank for a gift in their words, in its language, for each kind of good (not the tutor's:
     // theirs fall back to the app's plain lines)
@@ -483,7 +537,7 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
   if (pages) {
     for (const [id, s] of Object.entries(pack.files.world.spots)) {
       if (!s?.keeper) continue
-      for (const [at, g] of dialogGrammar(keeperTellings(s.keeper).map(t => ({ id: t.at, lines: t.lines })))) {
+      for (const [at, g] of dialogGrammar(keeperTellings(s.keeper, s.cycle).map(t => ({ id: t.at, lines: t.lines })))) {
         if (!pages.has(g)) errors.push(`${cultureId}/world.json: spots.${id}.keeper: ${at}: no grammar page "${g}" in companion/grammar/${lang}`)
       }
     }
@@ -546,6 +600,80 @@ export function spotErrors(spots: Spots, lang: string, packs?: SceneRefs['packs'
       talk(t.levels, here)
       t.again.forEach((g, j) => talk(g.levels, `${here}.again[${j}]`))
     })
+    // a piece of his talk (his greeting, what he did meanwhile, a part of his own story …): his lines, in every language,
+    // at most [turns] turns (a turn, as a talk's: a reaction and a why to every wrong choice), at A1 and A2 at least
+    const piece = (levels: Keeper['levels'] | undefined, where: string, turns: number) => {
+      if (!levels) return
+      const missing = SPOT_LEVELS.filter(l => !levels[l])
+      if (missing.length) errs.push(`${where}.levels: no ${missing.join(', ')} (a keeper talks at ${SPOT_LEVELS.join(' and ')} at least)`)
+      for (const [lv, v] of Object.entries(levels)) {
+        const n = (v?.lines ?? []).filter(l => l.choices.length).length
+        if (n > turns) errs.push(`${where}.levels.${lv}: ${n} turns: ${turns ? `at most ${turns}` : 'none here (his lines only)'}`)
+      }
+      errs.push(...arrivalErrors({ levels } as unknown as ArrivalBody, { lang, all: PACK_LANGUAGES, speakers: new Set([k.id]), what: 'a talk' }, where).filter(e => !e.includes('no turn for the learner')))
+    }
+    // his own story, a part at a time
+    const tales = new Set<string>()
+    k.tales.forEach((t, i) => {
+      const here = `${at}.keeper.tales[${i}]`
+      if (tales.has(t.id)) errs.push(`${here}.id: "${t.id}" twice (each part of his story once)`)
+      tales.add(t.id)
+      if (i > 0 && t.after < k.tales[i - 1].after) errs.push(`${here}.after: ${t.after}, before the part ahead of it (${k.tales[i - 1].after})`)
+      all(t.title, `${here}.title`)
+      piece(t.levels, here, 1)
+    })
+    // his spot's work over the days: every stage's texts and talks, the breakout's race, the nights, the delivery
+    const c = s.cycle
+    if (!c) continue
+    const ids = new Set<string>()
+    const stage = (st: NonNullable<typeof c.rest>, where: string) => {
+      all(st.title, `${where}.title`)
+      all(st.about, `${where}.about`)
+      if (st.smoke && st.art !== 'smoke' && st.art !== 'lit') errs.push(`${where}.smoke: only a pile that smokes has a smoke's colour (art "smoke" or "lit")`)
+      st.talks.forEach((t, j) => talk(t.levels, `${where}.talks[${j}]`))
+      piece(st.done, `${where}.done`, 0)
+    }
+    c.stages.forEach((st, i) => {
+      const here = `${at}.cycle.stages[${i}]`
+      if (ids.has(st.id)) errs.push(`${here}.id: "${st.id}" twice (each stage once)`)
+      ids.add(st.id)
+      if (!st.talks.length) errs.push(`${here}.talks: none (the keeper says something on every day of his work)`)
+      stage(st, here)
+    })
+    if (c.stages.filter(st => st.delivers).length > 1) errs.push(`${at}.cycle.stages: more than one stage delivers`)
+    for (const k2 of ['rest', 'winter', 'lost'] as const) if (c[k2]) stage(c[k2]!, `${at}.cycle.${k2}`)
+    if (c.meeting) talk(c.meeting, `${at}.cycle.meeting`)
+    c.greet.forEach((g, j) => piece(g.levels, `${at}.cycle.greet[${j}]`, 0))
+    piece(c.missed, `${at}.cycle.missed`, 0)
+    const b = c.breakout
+    if (b) {
+      const here = `${at}.cycle.breakout`
+      for (const id of b.stages) if (!ids.has(id)) errs.push(`${here}.stages: "${id}" isn't a stage of the cycle`)
+      all(b.title, `${here}.title`)
+      all(b.covered, `${here}.covered`)
+      all(b.burnt, `${here}.burnt`)
+      piece(b.levels, here, 1)
+      // its last line is the race: the learner's turn against the clock
+      for (const [lv, v] of Object.entries(b.levels)) if (!v?.lines.at(-1)?.choices.length) errs.push(`${here}.levels.${lv}: its last line is the learner's turn (the race against the fire)`)
+      piece(b.saved, `${here}.saved`, 1)
+      piece(b.lost, `${here}.lost`, 1)
+      piece(b.missed, `${here}.missed`, 0)
+    }
+    const nights = new Set<string>()
+    c.nights.forEach((n, j) => {
+      const here = `${at}.cycle.nights[${j}]`
+      if (nights.has(n.id)) errs.push(`${here}.id: "${n.id}" twice`)
+      nights.add(n.id)
+      for (const id of n.stages) if (!ids.has(id)) errs.push(`${here}.stages: "${id}" isn't a stage of the cycle`)
+      piece(n.told, `${here}.told`, 0)
+    })
+    if (c.delivery) {
+      const here = `${at}.cycle.delivery`
+      if (!c.stages.some(st => st.delivers)) errs.push(`${here}: no stage delivers ("delivers": true)`)
+      all(c.delivery.line, `${here}.line`)
+      c.delivery.says.forEach((t, j) => all(t, `${here}.says[${j}]`))
+      c.delivery.waits.forEach((t, j) => all(t, `${here}.waits[${j}]`))
+    }
   }
   return errs
 }
@@ -555,11 +683,27 @@ export function spotErrors(spots: Spots, lang: string, packs?: SceneRefs['packs'
  * "talks[0].again[0].levels.A2"): his meeting at each level, then every talk of his story at each level, in each of its
  * tellings (voice-build voices them: corpus `keepers`).
  */
-export function keeperTellings(k: Keeper): (KeeperTelling & { at: string })[] {
-  const levels = (l: Keeper['levels'], at: string) => LEVELS.flatMap(lv => (l[lv] ? [{ ...l[lv], at: `${at}levels.${lv}` }] : []))
+export function keeperTellings(k: Keeper, c?: SpotCycle): (KeeperTelling & { at: string })[] {
+  const levels = (l: Keeper['levels'] | undefined, at: string) => (l ? LEVELS.flatMap(lv => (l[lv] ? [{ ...l[lv], at: `${at}levels.${lv}` }] : [])) : [])
+  type Stage = NonNullable<SpotCycle['rest']>
+  const stage = (st: Stage, at: string) => [...st.talks.flatMap((t, j) => levels(t.levels, `${at}.talks[${j}].`)), ...levels(st.done, `${at}.done.`)]
   return [
     ...levels(k.levels, ''),
     ...k.talks.flatMap((t, i) => [...levels(t.levels, `talks[${i}].`), ...t.again.flatMap((g, j) => levels(g.levels, `talks[${i}].again[${j}].`))]),
+    ...k.tales.flatMap((t, i) => levels(t.levels, `tales[${i}].`)),
+    // his spot's cycle: every stage's talks and what he tells of it, the rest, the winter, a round lost, his greetings,
+    // the breakout's call and its ends, the nights
+    ...(c
+      ? [
+          ...c.stages.flatMap((st, i) => stage(st, `cycle.stages[${i}]`)),
+          ...(['rest', 'winter', 'lost'] as const).flatMap(x => (c[x] ? stage(c[x]!, `cycle.${x}`) : [])),
+          ...levels(c.meeting, 'cycle.meeting.'),
+          ...c.greet.flatMap((g, j) => levels(g.levels, `cycle.greet[${j}].`)),
+          ...levels(c.missed, 'cycle.missed.'),
+          ...(c.breakout ? [...levels(c.breakout.levels, 'cycle.breakout.'), ...levels(c.breakout.saved, 'cycle.breakout.saved.'), ...levels(c.breakout.lost, 'cycle.breakout.lost.'), ...levels(c.breakout.missed, 'cycle.breakout.missed.')] : []),
+          ...c.nights.flatMap((n, j) => levels(n.told, `cycle.nights[${j}].told.`)),
+        ]
+      : []),
   ]
 }
 
@@ -567,12 +711,25 @@ export function keeperTellings(k: Keeper): (KeeperTelling & { at: string })[] {
  * The keepers of pack [cultureId]'s spots (world.json `spots`: the charcoal burner), as its check reads them; none when
  * the file isn't there or doesn't pass (the bridge's check at start says why).
  */
-export function cultureKeepers(culturesDir: string, cultureId: string): Keeper[] {
+export function cultureKeepers(culturesDir: string, cultureId: string): (Keeper & { cycle?: SpotCycle })[] {
   try {
     const r = fileSpecs.world.safeParse(JSON.parse(readFileSync(join(cultureDir(culturesDir, cultureId), 'world.json'), 'utf8')))
-    return r.success ? Object.values(r.data.spots).flatMap(s => (s?.keeper ? [s.keeper] : [])) : []
+    return r.success ? Object.values(r.data.spots).flatMap(s => (s?.keeper ? [{ ...s.keeper, cycle: s.cycle }] : [])) : []
   } catch {
     return []
+  }
+}
+
+/**
+ * The spots of pack [cultureId] with their cycles and keepers (world.json `spots`), as its check reads them, for the
+ * tutor's view of them (spot-cycles.ts cyclesNow); none when the file isn't there or doesn't pass.
+ */
+export function cultureSpots(culturesDir: string, cultureId: string): Pack['files']['world']['spots'] {
+  try {
+    const r = fileSpecs.world.safeParse(JSON.parse(readFileSync(join(cultureDir(culturesDir, cultureId), 'world.json'), 'utf8')))
+    return r.success ? r.data.spots : {}
+  } catch {
+    return {}
   }
 }
 

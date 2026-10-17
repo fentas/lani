@@ -76,7 +76,131 @@ data class SpotTexts(
     val words: List<String> = emptyList(),
     val review: String? = null,
     val keeper: Keeper? = null,
+    /**
+     * The spot's work over real days ([SpotCycle]: the charcoal pile from the felling of the beech to the charcoal at the
+     * smith's): what it looks like, what its keeper says and does each day; none: it is always as the app draws it.
+     */
+    val cycle: SpotCycle? = null,
 )
+
+/**
+ * A spot's work in stages over real days (world.json `spots.<id>.cycle`; companion/GAME.md "A spot's cycle"): every year
+ * from [season]'s `from` to its `until` one round ([stages], each [CycleStage.days] long) after another, the first [start]
+ * days after `from`, a [pause] between rounds, a round only when it ends within the season; between rounds [rest], outside
+ * the season [winter]. Which day is what follows from the date alone (the lengths rolled from [seed], else the spot's id,
+ * and the year: [si.lanisce.lani.game.scene.SpotCycles]), the same for every village of the culture, never from the
+ * learner's visits. A round may break out one night ([breakout]) and burn down ([lost]); a night of some stages may bring
+ * something its keeper tells the day after ([nights]); a stage may deliver what the round made ([delivery]).
+ */
+@Serializable
+data class SpotCycle(
+    val seed: String? = null,
+    val season: CycleSeason,
+    val start: List<Int> = listOf(0, 0),
+    val pause: List<Int> = listOf(3, 7),
+    val stages: List<CycleStage>,
+    val rest: CycleStage? = null,
+    val winter: CycleStage? = null,
+    val lost: CycleStage? = null,
+    /**
+     * His first evening with the learner while his spot has its cycle: who he is (a talk by level, as his meeting is), the
+     * day's talk after it; none: his meeting ([Keeper.levels]).
+     */
+    val meeting: kotlinx.serialization.json.JsonObject? = null,
+    /** His greeting on an evening that isn't his first (one line each, by level; picked by the time of day as his talks are). */
+    val greet: List<CycleTalk> = emptyList(),
+    /** What he says first when the learner has been away a while (by level, a line or two). */
+    val missed: kotlinx.serialization.json.JsonObject? = null,
+    val breakout: CycleBreakout? = null,
+    val nights: List<CycleNight> = emptyList(),
+    val delivery: CycleDelivery? = null,
+)
+
+/** When a cycle's rounds go on each year: from day [from] ("04-20") until day [until] ("10-31"), both month-day. */
+@Serializable
+data class CycleSeason(val from: String, val until: String)
+
+/**
+ * A stage of a [SpotCycle] (or its rest, its winter, a round lost): its [id], how long it takes ([days]: the least and the
+ * most, rolled each round), how the app draws the spot meanwhile ([art], one of [si.lanisce.lani.game.scene.SpotCycles.ARTS],
+ * the [smoke]'s colour where it smokes), the keeper's bubble ([title]) and the spot card's line ([about]) while it lasts,
+ * whether he is there more or less often than his own [Keeper.chance] ([chance]) and at other parts of the day ([times]),
+ * whether it takes the round's yield to whoever [SpotCycle.delivery] names ([delivers]: its first day), his talks while it
+ * lasts ([talks]: variants, a visit after another hears the next), and what he tells of it once it is over ([done], by level:
+ * a line or two, said to a learner who wasn't there).
+ */
+@Serializable
+data class CycleStage(
+    val id: String,
+    val days: List<Int> = listOf(1, 1),
+    val art: String,
+    val smoke: String? = null,
+    val title: Text? = null,
+    val about: Text? = null,
+    val chance: Float? = null,
+    @SerialName("when") val times: List<String>? = null,
+    val delivers: Boolean = false,
+    val talks: List<CycleTalk> = emptyList(),
+    val done: kotlinx.serialization.json.JsonObject? = null,
+)
+
+/**
+ * A variant of a keeper's talk in a stage (or of his greeting): its lines by level ([levels], as his meeting's), for the
+ * parts of the day it fits ([times]; none: any) and the weather it is for ([sky]: "rain", "wind"; none: any): one that
+ * fits the sky goes first when it does.
+ */
+@Serializable
+data class CycleTalk(
+    @SerialName("when") val times: List<String> = emptyList(),
+    val sky: String? = null,
+    val levels: kotlinx.serialization.json.JsonObject,
+)
+
+/**
+ * A night the round breaks out (the fire through its cover): on one day of [stages] of a round, a round in [chance] of them,
+ * his talk that evening is [levels] (its last line the learner's turn, against the clock: [seconds] by level), then
+ * [saved] when they chose right in time, else [lost]: the round burns down ([SpotCycle.lost] the days left of it, and no
+ * yield). A learner who wasn't there hears [missed] the day after (he covered it alone). [covered] and [burnt]: the
+ * chronicle's lines.
+ */
+@Serializable
+data class CycleBreakout(
+    val stages: List<String>,
+    val chance: Float,
+    val seconds: Map<String, Int> = emptyMap(),
+    val title: Text,
+    val levels: kotlinx.serialization.json.JsonObject,
+    val saved: kotlinx.serialization.json.JsonObject,
+    val lost: kotlinx.serialization.json.JsonObject,
+    val missed: kotlinx.serialization.json.JsonObject? = null,
+    val covered: Text? = null,
+    val burnt: Text? = null,
+)
+
+/** Something a night of [stages] may bring ([chance] a night: the wind), which the keeper tells the day after ([told], by level). */
+@Serializable
+data class CycleNight(val id: String, val stages: List<String>, val chance: Float, val told: kotlinx.serialization.json.JsonObject)
+
+/**
+ * Where a round's yield goes (the charcoal to the smith): to villager [to], who speaks of it for [days] after (a line of
+ * [says] on his card, when he lives here), the chronicle's [line] on the day; a round lost brings none ([waits]: what he
+ * says then).
+ */
+@Serializable
+data class CycleDelivery(
+    val to: String,
+    val days: Int = 14,
+    val line: Text,
+    val says: List<Text> = emptyList(),
+    val waits: List<Text> = emptyList(),
+)
+
+/**
+ * A part of a keeper's own story ([Keeper.tales]): told at the end of his talk once the learner has spent [after] evenings
+ * with him, one a day, in their order (as a villager's lines open with the friendship): its lines by level ([levels]).
+ */
+@Serializable
+data class KeeperTale(val id: String, val after: Int = 0, val title: Text? = null, val levels: kotlinx.serialization.json.JsonObject)
 
 /**
  * Someone who is at a spot now and then, and not one of the village's people (no friendship, no introduction): the charcoal
@@ -105,6 +229,8 @@ data class Keeper(
     val reward: Map<String, Int> = emptyMap(),
     val levels: kotlinx.serialization.json.JsonObject,
     val talks: List<KeeperStoryTalk> = emptyList(),
+    /** His own story, a part at a time as the learner spends evenings with him ([KeeperTale]). */
+    val tales: List<KeeperTale> = emptyList(),
 )
 
 /**

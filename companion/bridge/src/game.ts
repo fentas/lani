@@ -80,6 +80,7 @@ export class GameStore {
     nameOf: (id: string) => string | undefined = () => undefined,
     calendar?: (kept: Record<string, unknown>) => unknown,
     lookedUp?: (sheet: unknown) => unknown[],
+    spots?: (cycles: Record<string, unknown>) => unknown,
   ): string {
     const g = this.read()
     if (!g) return 'No village yet: Jan has not opened the game.'
@@ -128,6 +129,9 @@ export class GameStore {
         surprise: s.surprise ?? undefined,
         // the school's course (companion/COURSE.md): the day the class began, the units done and started
         course: courseOf(s.course),
+        // the landscape's spots with a cycle today (the charcoal pile: its stage, the day of it, a breakout tonight, the
+        // last delivery to the smith; spot-cycles.ts cyclesNow), given what the village keeps of them
+        spots: spots?.(s.cycles && typeof s.cycles === 'object' ? s.cycles : {}),
         // the grammar pages looked up on the cheat sheet during exercises, the last two weeks (most first): work potential
         looked_up: looked.length ? looked : undefined,
         stats: s.stats,

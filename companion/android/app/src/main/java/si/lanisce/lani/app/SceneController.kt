@@ -78,8 +78,24 @@ data class SceneTalk(
  */
 data class StepTalk(val project: String, val index: Int, val cast: List<ScenePerson>, val over: Boolean, val result: si.lanisce.lani.game.ChallengeResult? = null)
 
-/** A talk with someone at a spot of the landscape ([keeper]: the charcoal burner by his kopa), played as a scene's dialog ([talk]). */
-data class KeeperTalk(val keeper: ActiveKeeper, val talk: SceneTalk)
+/**
+ * A talk with someone at a spot of the landscape ([keeper]: the charcoal burner by his kopa), played as a scene's dialog
+ * ([talk]), in the village's [language]. The night his pile breaks out its last turn is a [race] against the clock (from
+ * [raceFrom], epoch millis, once the turn is up; [seconds] long): [raced] true once the learner chose right in time (saved),
+ * false when the time ran out (the pile burnt down), null before.
+ */
+data class KeeperTalk(
+    val keeper: ActiveKeeper,
+    val talk: SceneTalk,
+    val language: String = "sl",
+    val race: si.lanisce.lani.game.scene.Keepers.Race? = null,
+    val raceFrom: Long = 0L,
+    val seconds: Int = 0,
+    val raced: Boolean? = null,
+) {
+    /** The race is on now: its turn is up, not decided yet. */
+    val racing: Boolean get() = race != null && raced == null && raceFrom > 0L && talk.run.step == DialogRun.Step.CHOOSE && talk.run.at == race.turn
+}
 
 /**
  * Close-up scenes of the village (companion/SCENES.md): the list from the node (cached, so scenes work
@@ -136,6 +152,13 @@ class SceneController(
      * friendship grew ([GameController.projectStepPlayed]); null when the village isn't loaded.
      */
     private val stepPlayed: (String) -> Pair<si.lanisce.lani.game.ChallengeResult, FriendGain?>? = { null },
+    /**
+     * The night watch at a spot's cycle decided a round ([spot], [round]): the breakout covered in time, or the pile burnt
+     * down ([lost]); see [GameController.cycleDecided], [si.lanisce.lani.game.scene.SpotCycles.decide].
+     */
+    private val cycleDecided: (spot: String, round: String, lost: Boolean) -> Unit = { _, _, _ -> },
+    /** The clock (epoch millis): the race against the fire. */
+    private val clock: () -> Long = System::currentTimeMillis,
 ) {
     private val app = context.applicationContext
     private val store = SceneStore(context.filesDir)
@@ -371,12 +394,36 @@ class SceneController(
      */
     fun startKeeper(k: ActiveKeeper): Boolean {
         val lang = si.lanisce.lani.game.culture.Cultures.current.manifest.language
-        val (d, modes, notYet) = adapt(Keepers.talk(k, level(lang), lang) ?: return false, lang)
+        val lv = level(lang)
+        val (d, adapted, notYet) = adapt(Keepers.talk(k, lv, lang) ?: return false, lang)
+        // the breakout's race: its last turn, always chosen (no typing against the clock)
+        val race = Keepers.race(k, lv)?.let { r -> d.lines.indexOfLast { it.choices.isNotEmpty() }.takeIf { it == d.lines.lastIndex }?.let { r.copy(turn = it) } }
+        val modes = race?.let { adapted - it.turn } ?: adapted
         val p = Keepers.person(k)
         val run = DialogRun.start(d, p.id, seed = kotlin.random.Random.nextLong(), modes = modes, notYet = notYet, words = words(d, lang, null))
-        keeperTalk = KeeperTalk(k, SceneTalk(k.key, k.key, p, Keepers.happening(k), d, run))
-        settleKeeper()
+        keeperTalk = KeeperTalk(k, SceneTalk(k.key, k.key, p, Keepers.happening(k), d, run), lang, race, seconds = race?.seconds ?: 0)
+        stepKeeper { it }
         return true
+    }
+
+    /**
+     * The race's time ran out ([KeeperTalk.racing]): the fire wins, the pile burns down, and the talk goes on with what
+     * follows that ([Keepers.Race.lost]).
+     */
+    fun keeperRaceOut() {
+        val t = keeperTalk ?: return
+        val race = t.race ?: return
+        if (!t.racing) return
+        val run = t.talk.run.instead(race.read(race.lost, t.language))
+        keeperTalk = t.copy(talk = t.talk.copy(run = run), raced = false)
+        cycleDecided(t.keeper.spot, race.round, true)
+        settleKeeper()
+    }
+
+    /** More time for the race (TalkBack reads the choices aloud): [seconds] in all. */
+    fun keeperRaceSeconds(seconds: Int) {
+        val t = keeperTalk ?: return
+        if (t.race != null && t.raced == null && seconds > t.seconds) keeperTalk = t.copy(seconds = seconds)
     }
 
     fun keeperChoose(k: Int) = stepKeeper { it.choose(k) }
@@ -409,8 +456,29 @@ class SceneController(
     }
 
     private fun stepKeeper(f: (DialogRun) -> DialogRun) {
-        val t = keeperTalk ?: return
-        keeperTalk = t.copy(talk = t.talk.copy(run = f(t.talk.run)))
+        var t = keeperTalk ?: return
+        var run = f(t.talk.run)
+        val race = t.race
+        if (race != null && t.raced == null) {
+            val late = t.raceFrom > 0L && clock() > t.raceFrom + t.seconds * 1000L
+            when {
+                // the race's turn passed, chosen right: in time, the pile is saved; too late, the fire was faster
+                run.at > race.turn && !late -> {
+                    run = run.extended(race.read(race.saved, t.language))
+                    t = t.copy(raced = true)
+                    cycleDecided(t.keeper.spot, race.round, false)
+                }
+                run.at > race.turn || late && run.step == DialogRun.Step.CHOOSE && run.at == race.turn -> {
+                    val back = if (run.at > race.turn) t.talk.run else run
+                    run = back.instead(race.read(race.lost, t.language))
+                    t = t.copy(raced = false)
+                    cycleDecided(t.keeper.spot, race.round, true)
+                }
+                // the turn is up: the clock starts
+                run.step == DialogRun.Step.CHOOSE && run.at == race.turn && t.raceFrom == 0L -> t = t.copy(raceFrom = clock())
+            }
+        }
+        keeperTalk = t.copy(talk = t.talk.copy(run = run))
         settleKeeper()
     }
 

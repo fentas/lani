@@ -205,15 +205,28 @@ object VillagerLogic {
         return fill(line, m)
     }
 
-    /** "Pogovori se": the greeting for the time of day, then a memory if they have one to share. */
-    fun greeting(v: Villager, bond: Bond, day: LocalDate, time: TimeOfDay = TimeOfDay.now()): List<Said> {
+    /**
+     * "Pogovori se": the greeting for the time of day, then what is on their mind: news of a spot's cycle that came to them
+     * ([news]: Tone with Miha's charcoal), else a memory if they have one to share.
+     */
+    fun greeting(v: Villager, bond: Bond, day: LocalDate, time: TimeOfDay = TimeOfDay.now(), state: GameState? = null): List<Said> {
         val level = Bonds.level(bond.points)
-        return listOfNotNull(greet(v, level, day, time), remember(v, level, bond.memories, day, time))
+        return listOfNotNull(greet(v, level, day, time), news(v, state, day) ?: remember(v, level, bond.memories, day, time))
     }
 
-    /** Something they say on their card when nothing is going on: an `idle` line of the day that fits [time]; none when none does. */
-    fun idle(v: Villager, level: Int, day: LocalDate, time: TimeOfDay = TimeOfDay.now()): Said? =
-        pick(Bonds.linesFor(v.lines.idle.at(time), level), day, v.id + ":idle")?.let { Said(it.target, it.base) }
+    /**
+     * Something they say on their card when nothing is going on: what a spot's cycle brought them lately ([news]), else an
+     * `idle` line of the day that fits [time]; none when none does.
+     */
+    fun idle(v: Villager, level: Int, day: LocalDate, time: TimeOfDay = TimeOfDay.now(), state: GameState? = null): Said? =
+        news(v, state, day) ?: pick(Bonds.linesFor(v.lines.idle.at(time), level), day, v.id + ":idle")?.let { Said(it.target, it.base) }
+
+    /**
+     * What a spot's cycle delivered to [v] lately, in their words ([si.lanisce.lani.game.scene.SpotCycles.says]: "Miha mi
+     * je pripeljal oglje", or that it didn't come, the pile burnt down), while they speak of it; null otherwise.
+     */
+    fun news(v: Villager, state: GameState?, day: LocalDate): Said? =
+        si.lanisce.lani.game.scene.SpotCycles.says(state, v.id, day)?.let { Said(it.target, it.base) }
 
     // --- the register -----------------------------------------------------------------------
 

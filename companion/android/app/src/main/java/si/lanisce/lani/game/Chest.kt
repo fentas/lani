@@ -431,12 +431,16 @@ internal object Chest {
         .sortedWith(compareBy<GoodSpec> { it.rare }.thenByDescending { count(s, it.id) }.thenBy { it.value }.thenBy { it.id }).firstOrNull()
 
     /** Forging tool [giver]'s once more at the smithy; null when there is no such tool, it isn't of metal, or it can't get better. */
-    fun forgeOption(s: GameState, giver: String): ForgeOption? {
+    fun forgeOption(s: GameState, giver: String, today: java.time.LocalDate = java.time.LocalDate.now()): ForgeOption? {
         val t = s.chest.tools[giver] ?: return null
         val line = Catalog.tools[giver]?.takeIf { it.forge } ?: return null
         if (t.forged >= Catalog.MAX_FORGED) return null
         val step = t.forged + 1
-        val cost = Catalog.forgeCost(step)
+        // with the charcoal the charcoal burner brought him lately, the smith's forge burns less wood
+        val charcoal = forgeCharcoal(s, today)
+        val cost = Catalog.forgeCost(step).let { c ->
+            if (charcoal == null) c else c.mapValues { (r, n) -> if (r == Res.WOOD) (n * (1f - si.lanisce.lani.game.scene.SpotCycles.CHARCOAL_SAVES)).roundToInt() else n }
+        }
         val pay = smithsPay(s)
         val short = cost.mapValues { (r, n) -> n - s.res(r) }.filterValues { it > 0 }
         val age = Catalog.forgeAge(step)
@@ -455,10 +459,22 @@ internal object Chest {
         return ForgeOption(giver, step, cost, pay, reason, effectText(after))
     }
 
-    /** Tone forges tool [giver]'s: it gets stronger by half its first strength. [s] unchanged when it can't. */
-    fun forge(s: GameState, giver: String, now: Long): GameState {
-        val o = forgeOption(s, giver)?.takeIf { it.available } ?: return s
-        val (paid, _) = debit(s, o.cost)
+    /**
+     * The charcoal the smith has from a spot's cycle (the burner's, delivered lately: [si.lanisce.lani.game.scene.SpotCycles.charcoal]),
+     * which burns in his forge instead of some wood: a forging costs [si.lanisce.lani.game.scene.SpotCycles.CHARCOAL_SAVES]
+     * less 🪵 ([forgeOption]); null: none now.
+     */
+    fun forgeCharcoal(s: GameState, today: java.time.LocalDate = java.time.LocalDate.now()): si.lanisce.lani.game.scene.SpotCycles.Yield? =
+        si.lanisce.lani.game.scene.SpotCycles.charcoal(s, Cultures.current.chest.smith.id, today)
+
+    /**
+     * Tone forges tool [giver]'s: it gets stronger by half its first strength (the charcoal he had from the burner, if any,
+     * burnt in it). [s] unchanged when it can't.
+     */
+    fun forge(s: GameState, giver: String, now: Long, today: java.time.LocalDate = java.time.LocalDate.now()): GameState {
+        val o = forgeOption(s, giver, today)?.takeIf { it.available } ?: return s
+        val (debited, _) = debit(s, o.cost)
+        val paid = forgeCharcoal(s, today)?.let { si.lanisce.lani.game.scene.SpotCycles.use(debited, it) } ?: debited
         val t = s.chest.tools.getValue(giver)
         val item = Catalog.tools.getValue(giver).name(t.tier)
         val forged = add(paid, o.good!!.id, -1)
