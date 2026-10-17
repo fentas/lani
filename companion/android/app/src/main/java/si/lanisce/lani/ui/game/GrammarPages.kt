@@ -2,6 +2,8 @@ package si.lanisce.lani.ui.game
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,23 +50,12 @@ import si.lanisce.lani.game.Mastery
 import si.lanisce.lani.inRun
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.ui.Labels
 import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.Markdown
 import si.lanisce.lani.ui.SpeakButton
 import si.lanisce.lani.ui.words.WordText
 import si.lanisce.lani.ui.words.lookUpIn
-
-/**
- * The grammar chapter as the village's scroll and book show it (companion/GAME.md, "The grammar book"): [chapter] (the
- * pages met, how many are still to come), [view] of one page, and [open]: what a tap on a page does outside the book (the
- * scroll shows it over itself); the book turns to it instead.
- */
-class GrammarShelf(
-    val vm: AppViewModel,
-    val chapter: GrammarBook.Chapter,
-    val view: (String) -> RuleView?,
-    val open: ((String) -> Unit)? = null,
-)
 
 /** The learner's language pair's base: what the rules are explained in. */
 private val base: String get() = L10n.pair.base.code
@@ -82,119 +73,43 @@ internal fun masteryText(m: Mastery): String? = when (m) {
 }
 
 /**
- * The chapter's list: the pages met (tap: the page), greyed the rules the dialogs said before they were introduced ("🌱 …
- * Srečano v pogovorih: 5× · Met in the dialogs: 5×", closed until they are), and how many more there are; an empty book
- * says how it fills.
- */
-internal fun grammarChapter(k: Counted, shelf: GrammarShelf?, pal: Paper, onRule: (String) -> Unit) {
-    val chapter = shelf?.chapter ?: GrammarBook.Chapter(emptyList(), 0)
-    k.item("grammar:about") {
-        Text(
-            if (chapter.met.isEmpty()) bi("grammar.empty") else bi("grammar.chapterAbout"),
-            fontFamily = Serif, fontStyle = FontStyle.Italic, color = pal.muted, style = MaterialTheme.typography.bodyMedium,
-        )
-    }
-    // the test for the next level: "🗺️ Sem pripravljen · I'm ready", before the storyteller offers the map too
-    shelf?.vm?.let { vm ->
-        val to = si.lanisce.lani.game.LevelReadiness.next(vm.treasure.level)
-        if (to != null) k.item("grammar:treasure") {
-            val on = vm.treasure.status() == si.lanisce.lani.game.HuntStatus.ON
-            PaperRow(
-                emoji = "🗺️", title = if (on) bi("treasure.title") else bi("treasure.imReady"), sub = bi("treasure.bookRow", "to" to to),
-                pal = pal, onClick = { vm.openTreasure() }, onShow = null,
-            )
-        }
-    }
-    for (p in chapter.met) k.item("grammar:${p.id}") {
-        val v = shelf?.view?.invoke(p.id)
-        PaperRow(
-            emoji = p.emoji, badge = if (p.byTutor || p.extended) "🧑‍🏫" else null,
-            title = p.target,
-            sub = listOfNotNull(p.titleIn(base).takeIf { it != p.target }, p.level).joinToString(" · "),
-            extra = v?.meter?.let { "${stars(it)}  ${bi("grammar.howWell")}" },
-            pal = pal, onClick = { onRule(p.id) }, onShow = null,
-        )
-    }
-    for ((p, m) in chapter.seen) k.item("grammar:seen:${p.id}") {
-        PaperRow(
-            emoji = "🌱", title = p.target,
-            sub = listOfNotNull(p.titleIn(base).takeIf { it != p.target }, p.level).joinToString(" · "),
-            extra = bi("grammar.metInDialogs", "n" to m.times),
-            pal = pal, dim = true, onClick = null, onShow = null,
-        )
-    }
-    if (chapter.more > 0) k.item("grammar:more") {
-        PaperRow(
-            emoji = "🔒", title = bi("grammar.more", "n" to chapter.more), sub = bi("grammar.unlockWhenMet"),
-            pal = pal, dim = true, onClick = null, onShow = null,
-        )
-    }
-}
-
-/** A rule's page title: its emoji, the title in the learned language and in the base, and "‹" back to the chapter. */
-@Composable
-internal fun RuleTitle(view: RuleView, pal: Paper, onBack: (() -> Unit)?) {
-    val p = view.page
-    Column(Modifier.fillMaxWidth().semantics(mergeDescendants = true) { heading() }) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            if (onBack != null) {
-                Surface(
-                    onClick = onBack, shape = CircleShape, color = Color.Transparent,
-                    modifier = Modifier.size(40.dp).clearAndSetSemantics { role = Role.Button; contentDescription = bi("townScroll.grammar"); onClick { onBack(); true } },
-                ) { Box(contentAlignment = Alignment.Center) { Text("‹", color = pal.muted, style = MaterialTheme.typography.headlineSmall) } }
-            }
-            Text(p.emoji, style = MaterialTheme.typography.titleLarge)
-            Spacer(Modifier.width(8.dp))
-            Column {
-                Text(p.target, fontFamily = Serif, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge, color = pal.ink)
-                p.titleIn(base).takeIf { it != p.target }?.let {
-                    Text(it, fontFamily = Serif, fontStyle = FontStyle.Italic, style = MaterialTheme.typography.bodySmall, color = pal.muted)
-                }
-            }
-        }
-        Flourish(pal)
-    }
-}
-
-/**
- * One rule's page (in the book, and in [GrammarSheet]): who wrote it and its level, the rule, the tutor's addition, the
+ * One rule's page (in [GrammarSheet]): who wrote it and its level, the rule, the tutor's addition, the
  * table, the examples (🔊, word lookup), the learner's own examples and mistakes on it, how well it sits, "🎯 Vadi" and
  * "💬 Vprašaj", the related pages met ([onSee]), and whether a machine wrote it.
  */
 @OptIn(ExperimentalLayoutApi::class)
-internal fun rulePage(k: Counted, view: RuleView, pal: Paper, shelf: GrammarShelf, onSee: (String) -> Unit) {
+internal fun LazyListScope.rulePage(view: RuleView, vm: AppViewModel, onSee: (String) -> Unit) {
     val p = view.page
-    val vm = shelf.vm
-    k.item("rule:meta") {
+    item("rule:meta") {
         Text(
             listOfNotNull(
                 p.level,
                 if (p.byTutor) "🧑‍🏫 ${bi("townScroll.fromTutor")}" else null,
                 if (p.extended) "🧑‍🏫 ${bi("grammar.tutorAdded")}" else null,
             ).joinToString("  ·  "),
-            color = pal.muted, style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelMedium,
         )
     }
-    k.item("rule:rule") { Markdown(p.ruleIn(base), color = pal.ink) }
+    item("rule:rule") { Markdown(p.ruleIn(base), color = MaterialTheme.colorScheme.onSurface) }
     p.moreIn(base)?.let { more ->
-        k.item("rule:more") {
-            Column(Modifier.fillMaxWidth().clip(MaterialTheme.shapes.small).background(pal.row).padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("🧑‍🏫 ${bi("grammar.tutorAdds")}", color = pal.accent, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.labelLarge)
-                Markdown(more, color = pal.ink)
+        item("rule:more") {
+            Column(Modifier.fillMaxWidth().clip(MaterialTheme.shapes.small).background(MaterialTheme.colorScheme.surfaceVariant).padding(10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text("🧑‍🏫 ${bi("grammar.tutorAdds")}", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.labelLarge)
+                Markdown(more, color = MaterialTheme.colorScheme.onSurface)
             }
         }
     }
-    p.table?.let { t -> k.item("rule:table") { RuleTable(t.head, t.rows, pal, vm) } }
+    p.table?.let { t -> item("rule:table") { RuleTable(t.head, t.rows, vm) } }
 
-    k.item("rule:examplesTitle") { SubTitle("✏️ ${bi("grammar.examples")}", pal) }
-    for ((i, e) in p.examples.withIndex()) k.item("rule:ex:$i") {
+    item("rule:examplesTitle") { SectionTitle("✏️ ${bi("grammar.examples")}") }
+    for ((i, e) in p.examples.withIndex()) item("rule:ex:$i") {
         val line = e.target(p.language)
         val meaning = e.meaning(base)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                WordText(line, lookUpIn(vm, line, meaning, Words.CHAT), color = pal.ink, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodyLarge)
-                Text((if (e.byTutor) "🧑‍🏫 " else "") + meaning, fontStyle = FontStyle.Italic, color = pal.muted, style = MaterialTheme.typography.bodyMedium)
-                e.noteIn(base)?.let { Text("💡 $it", color = pal.muted, style = MaterialTheme.typography.bodySmall) }
+                WordText(line, lookUpIn(vm, line, meaning, Words.CHAT), color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodyLarge)
+                Text((if (e.byTutor) "🧑‍🏫 " else "") + meaning, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
+                e.noteIn(base)?.let { Text("💡 $it", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall) }
             }
             SpeakButton(vm.speaker, line, Modifier.padding(start = 6.dp))
         }
@@ -202,125 +117,137 @@ internal fun rulePage(k: Counted, view: RuleView, pal: Paper, shelf: GrammarShel
 
     // what the learner said right on it, and their grammar cards on it
     val said = view.record?.said.orEmpty().reversed()
-    k.item("rule:mineTitle") { SubTitle("🙋 ${bi("grammar.yourExamples")}", pal) }
-    if (said.isEmpty() && view.cards.isEmpty()) k.item("rule:mineNone") { Quiet(bi("grammar.noExamplesYet"), pal) }
-    for ((i, s) in said.withIndex()) k.item("rule:said:$i") {
+    item("rule:mineTitle") { SectionTitle("🙋 ${bi("grammar.yourExamples")}") }
+    if (said.isEmpty() && view.cards.isEmpty()) item("rule:mineNone") { Quiet(bi("grammar.noExamplesYet")) }
+    for ((i, s) in said.withIndex()) item("rule:said:$i") {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("✓ ", color = GREEN, fontWeight = FontWeight.Bold)
-            WordText(s, lookUpIn(vm, s, null, Words.CHAT), modifier = Modifier.weight(1f), color = pal.ink, style = MaterialTheme.typography.bodyLarge)
+            Text("✓ ", color = green(), fontWeight = FontWeight.Bold)
+            WordText(s, lookUpIn(vm, s, null, Words.CHAT), modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.bodyLarge)
             SpeakButton(vm.speaker, s, Modifier.padding(start = 6.dp))
         }
     }
-    for (c in view.cards.take(6)) k.item("rule:card:${c.id}") {
+    for (c in view.cards.take(6)) item("rule:card:${c.id}") {
         Column {
-            Text("🗂️ ${c.front}", color = pal.ink, style = MaterialTheme.typography.bodyLarge)
-            Text(c.back, fontStyle = FontStyle.Italic, color = pal.muted, style = MaterialTheme.typography.bodySmall)
+            Text("🗂️ ${c.front}", color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.bodyLarge)
+            Text(c.back, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
         }
     }
 
     // the mistakes on it: the tutor's record (mistakes-db) and the slips answered here
     val slips = view.record?.slips.orEmpty().reversed().map { it.answer to it.correct }
     val mistakes = (view.mistakes.flatMap { it.examples.takeLast(2) } + slips).distinct().take(6)
-    k.item("rule:mistakesTitle") { SubTitle("🩹 ${bi("grammar.yourMistakes")}", pal) }
-    if (mistakes.isEmpty()) k.item("rule:mistakesNone") { Quiet(bi("grammar.noMistakes"), pal) }
-    for ((i, m) in mistakes.withIndex()) k.item("rule:mistake:$i") {
+    item("rule:mistakesTitle") { SectionTitle("🩹 ${bi("grammar.yourMistakes")}") }
+    if (mistakes.isEmpty()) item("rule:mistakesNone") { Quiet(bi("grammar.noMistakes")) }
+    for ((i, m) in mistakes.withIndex()) item("rule:mistake:$i") {
         Column {
-            Text("✗ ${m.first}", color = pal.accent, style = MaterialTheme.typography.bodyMedium)
+            Text("✗ ${m.first}", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("✓ ${m.second}", color = pal.ink, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                Text("✓ ${m.second}", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
                 SpeakButton(vm.speaker, m.second, Modifier.padding(start = 6.dp))
             }
         }
     }
 
-    k.item("rule:meter") {
+    item("rule:meter") {
         val r = view.record
         val answers = (r?.right ?: 0) + (r?.wrong ?: 0)
         val meter = view.meter
         Column(verticalArrangement = Arrangement.spacedBy(2.dp), modifier = Modifier.padding(top = 6.dp)) {
             Text(
                 "📈 ${bi("grammar.howWell")}: " + if (meter != null) stars(meter) else bi("grammar.notPractisedYet"),
-                fontFamily = Serif, fontWeight = FontWeight.Bold, color = pal.ink, style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.semantics { contentDescription = "${bi("grammar.howWell")}: ${meter?.let { "$it / 5" } ?: bi("grammar.notPractisedYet")}" },
             )
-            if (answers > 0) Text(bi("grammar.answers", "right" to (r?.right ?: 0), "total" to answers), color = pal.muted, style = MaterialTheme.typography.bodySmall)
+            if (answers > 0) Text(bi("grammar.answers", "right" to (r?.right ?: 0), "total" to answers), color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
             // how often the dialogs said it before it was introduced
             view.meetings?.takeIf { it.times > 0 }?.let {
-                Text("🌱 ${bi("grammar.metInDialogs", "n" to it.times)}", color = pal.muted, style = MaterialTheme.typography.bodySmall)
+                Text("🌱 ${bi("grammar.metInDialogs", "n" to it.times)}", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall)
             }
             // how its turns are asked now: choosing, typing the missing word, saying the whole sentence
-            masteryText(view.mastery)?.let { Text(it, color = pal.muted, style = MaterialTheme.typography.bodySmall) }
+            masteryText(view.mastery)?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall) }
         }
     }
-    k.item("rule:actions") {
+    item("rule:actions") {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth().padding(top = 4.dp)) {
             // not in a run: leaving it would lose the answers
-            if (!vm.screen.inRun) PaperButton("🎯 ${bi("grammar.practise")}", pal, Modifier.weight(1f)) { vm.practiseGrammar(p.id) }
-            PaperButton("💬 ${bi("grammar.ask")}", pal, Modifier.weight(1f)) { vm.grammar.ask(p.id) }
+            if (!vm.screen.inRun) PageButton("🎯 ${bi("grammar.practise")}", Modifier.weight(1f)) { vm.practiseGrammar(p.id) }
+            PageButton("💬 ${bi("grammar.ask")}", Modifier.weight(1f)) { vm.grammar.ask(p.id) }
         }
     }
     val related = p.see.mapNotNull { id -> vm.grammar.page(id) }
-    if (related.isNotEmpty()) k.item("rule:see") {
+    if (related.isNotEmpty()) item("rule:see") {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            SubTitle("🔗 ${bi("grammar.seeAlso")}", pal)
+            SectionTitle("🔗 ${bi("grammar.seeAlso")}")
             FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 for (r in related) {
                     val met = r.id in view.met
                     Surface(
                         onClick = { if (met) onSee(r.id) }, enabled = met, shape = RoundedCornerShape(50),
-                        color = if (met) pal.accent.copy(alpha = 0.14f) else pal.row, modifier = Modifier.heightIn(min = 40.dp),
+                        color = if (met) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceVariant, modifier = Modifier.heightIn(min = 40.dp),
                     ) {
                         Box(Modifier.padding(horizontal = 12.dp, vertical = 8.dp), contentAlignment = Alignment.Center) {
-                            Text("${if (met) r.emoji else "🔒"} ${r.target}", color = if (met) pal.ink else pal.muted, style = MaterialTheme.typography.labelLarge)
+                            Text("${if (met) r.emoji else "🔒"} ${r.target}", color = if (met) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelLarge)
                         }
                     }
                 }
             }
         }
     }
-    k.item("rule:review") {
+    item("rule:review") {
         Text(
             listOfNotNull(if (p.machineWritten) "🤖 ${bi("grammar.machineWritten")}" else null, p.review).joinToString(" · "),
-            color = pal.muted, style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(top = 8.dp),
+            color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(top = 8.dp),
         )
     }
 }
 
-private val GREEN = Color(0xFF2E7D4F)
-
+/** The green of something said right, lighter on the dark theme. */
 @Composable
-private fun Quiet(text: String, pal: Paper) {
-    Text(text, fontFamily = Serif, fontStyle = FontStyle.Italic, color = pal.muted, style = MaterialTheme.typography.bodyMedium)
+private fun green(): Color = if (isSystemInDarkTheme()) Color(0xFF7BD6A0) else Color(0xFF2E7D4F)
+
+/** A heading on the page: "✏️ Primeri · Examples". */
+@Composable
+private fun SectionTitle(text: String) {
+    Text(
+        text, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.titleSmall,
+        modifier = Modifier.padding(top = 6.dp).semantics { heading() },
+    )
 }
 
-/** A button on the paper: ink on a light wash, at least 48 dp high. */
 @Composable
-private fun PaperButton(text: String, pal: Paper, modifier: Modifier = Modifier, onClick: () -> Unit) {
-    Surface(onClick = onClick, shape = RoundedCornerShape(50), color = pal.accent.copy(alpha = 0.16f), modifier = modifier.heightIn(min = 48.dp)) {
+private fun Quiet(text: String) {
+    Text(text, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
+}
+
+/** A button on the page: the app's tonal pill, at least 48 dp high. */
+@Composable
+private fun PageButton(text: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    Surface(onClick = onClick, shape = RoundedCornerShape(50), color = MaterialTheme.colorScheme.secondaryContainer, modifier = modifier.heightIn(min = 48.dp)) {
         Box(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), contentAlignment = Alignment.Center) {
-            Text(text, color = pal.ink, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.labelLarge)
+            Text(text, color = MaterialTheme.colorScheme.onSecondaryContainer, fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.labelLarge)
         }
     }
 }
 
 /** The page's table: the head in bold, the rows ruled; words of the learned language can be looked up. */
 @Composable
-private fun RuleTable(head: List<GrammarCell>, rows: List<List<GrammarCell>>, pal: Paper, vm: AppViewModel) {
-    Column(Modifier.fillMaxWidth().border(1.dp, pal.rule, MaterialTheme.shapes.small).clip(MaterialTheme.shapes.small)) {
-        Row(Modifier.fillMaxWidth().background(pal.row)) {
+private fun RuleTable(head: List<GrammarCell>, rows: List<List<GrammarCell>>, vm: AppViewModel) {
+    val ruled = MaterialTheme.colorScheme.outlineVariant
+    Column(Modifier.fillMaxWidth().border(1.dp, ruled, MaterialTheme.shapes.small).clip(MaterialTheme.shapes.small)) {
+        Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant)) {
             for (c in head) Text(
-                c.shown(base), fontWeight = FontWeight.Bold, color = pal.ink, style = MaterialTheme.typography.labelMedium,
+                c.shown(base), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.weight(1f).padding(horizontal = 6.dp, vertical = 6.dp),
             )
         }
         for (r in rows) {
-            Box(Modifier.fillMaxWidth().padding(horizontal = 4.dp).background(pal.rule).padding(top = 1.dp))
+            Box(Modifier.fillMaxWidth().padding(horizontal = 4.dp).background(ruled).padding(top = 1.dp))
             Row(Modifier.fillMaxWidth()) {
                 for (c in r) {
                     val m = Modifier.weight(1f).padding(horizontal = 6.dp, vertical = 5.dp)
                     val text = c.shown(base)
-                    if (c.isWords) WordText(text, lookUpIn(vm, text, null, Words.CHAT), modifier = m, color = pal.ink, style = MaterialTheme.typography.bodyMedium)
-                    else Text(text, color = pal.muted, style = MaterialTheme.typography.bodySmall, modifier = m)
+                    if (c.isWords) WordText(text, lookUpIn(vm, text, null, Words.CHAT), modifier = m, color = MaterialTheme.colorScheme.onSurface, style = MaterialTheme.typography.bodyMedium)
+                    else Text(text, color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodySmall, modifier = m)
                 }
             }
         }
@@ -328,26 +255,38 @@ private fun RuleTable(head: List<GrammarCell>, rows: List<List<GrammarCell>>, pa
 }
 
 /**
- * A grammar page over whatever is on screen (opened from a "why", a challenge's intro, the scroll): the page on paper in
- * a sheet; related pages open in it.
+ * A grammar page over whatever is on screen (opened from the scroll, a "why", a challenge's intro, a word's card): a sheet
+ * like the app's others (the cheat sheet's, the chat's): its emoji, its title in the learned language and in the base,
+ * its level, ✕; then the page ([rulePage]); related pages open in it.
  */
 @Composable
 fun GrammarSheet(vm: AppViewModel, id: String) {
     val view = vm.grammar.view(id) ?: return
-    val pal = paper()
-    val shelf = GrammarShelf(vm, vm.grammar.chapter(vm.game.state), vm.grammar::view, open = vm.grammar::show)
-    LaniSheet(onDismissRequest = vm.grammar::close, containerColor = pal.paper) {
-        Column(Modifier.fillMaxWidth().fillMaxHeight(0.95f).parchment(pal)) {
-            Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 10.dp, top = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.weight(1f)) { RuleTitle(view, pal, onBack = null) }
-                CloseSeal(pal, vm.grammar::close)
+    val p = view.page
+    LaniSheet(onDismissRequest = vm.grammar::close) {
+        Column(Modifier.fillMaxWidth().fillMaxHeight(0.95f).padding(horizontal = 16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(p.emoji, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.clearAndSetSemantics { })
+                Spacer(Modifier.width(10.dp))
+                Column(Modifier.weight(1f).semantics(mergeDescendants = true) { heading() }) {
+                    Text(p.target, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                    p.titleIn(base).takeIf { it != p.target }?.let {
+                        Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                Surface(
+                    onClick = vm.grammar::close, shape = CircleShape, color = Color.Transparent,
+                    modifier = Modifier.size(48.dp).clearAndSetSemantics { role = Role.Button; contentDescription = Labels.CLOSE; onClick { vm.grammar.close(); true } },
+                ) {
+                    Box(contentAlignment = Alignment.Center) { Text("✕", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                }
             }
             LazyColumn(
                 Modifier.weight(1f).fillMaxWidth(),
-                contentPadding = PaddingValues(start = 18.dp, end = 16.dp, top = 4.dp, bottom = 24.dp),
+                contentPadding = PaddingValues(top = 4.dp, bottom = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                rulePage(Counted(this), view, pal, shelf) { vm.grammar.show(it) }
+                rulePage(view, vm) { vm.grammar.show(it) }
             }
         }
     }

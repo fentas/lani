@@ -352,7 +352,7 @@ invitation; `link`: the node linked two of its towns). The file holds no secrets
 
 ### Link two towns
 
-- **In the app:** the village's scroll (or book), its "👥 Prebivalci · Villagers" page → "🤝 Prijatelji · Friends".
+- **In the app:** the village's scroll, its "👥 Prebivalci · Villagers" → "🤝 Prijatelji · Friends".
   "✉️ Povabi · Invite" shows an invitation as a QR code, its code and a share button. On the other phone,
   "🔗 Sprejmi · Accept" scans the QR code, or takes the invitation's text pasted.
 - **On the node:**
@@ -1172,7 +1172,7 @@ where while it's on. The tutor knows nothing of it (no tool, no paragraph of the
 
 ## Grammar book
 
-The village book (the scroll before Vas) has a chapter "📖 Slovnica · Grammar": one page per rule of the language
+The village's scroll has a collection "📖 Slovnica · Grammar": one page per rule of the language
 learned, filled in as the learner meets the rules. A "why" after an answer is short and gone once read; the page keeps
 the rule, with a table, examples, the learner's own examples and mistakes, practice and the tutor a tap away. What the
 app does with it is in [GAME.md](GAME.md#the-grammar-book).
@@ -3141,6 +3141,7 @@ companion/bin/qa --steps chat-swipe              # a tutor message swiped: the r
 companion/bin/qa --steps chat-links              # a tutor message's links: example.com and http ask first, fran.si opens the browser at once
 companion/bin/qa --steps chat-attach             # 💬 in an exercise's top bar: the exercise attached, ✕, the answer with it; chat-attach-pack: a pack's word
 companion/bin/qa --steps village-hud             # the village's HUD: its bar and cards, the ring, each card's sheet, German, the plot chooser's ★
+companion/bin/qa --steps scroll                  # the village's scroll: its count, the grid, each collection, a grammar page, the count cleared, German
 companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
@@ -3231,6 +3232,18 @@ settlement's in sl · de (QA's hook `pair:sl-de`), then opens the plot chooser t
 the cards are hidden, the ★ lies between the bar and the chooser's bar, and the cards are back once the chooser is
 left. Screenshots: `hud-cards`, `hud-bar`, `hud-goal`, `hud-soon`, `hud-settlement`, `hud-settlement-de`,
 `hud-plot-chooser`.
+
+**The village's scroll** (GAME.md, "The scroll"). `ui/game/VillageScrollTest` checks what's new in it (who joined and the
+grammar pages met in the last 7 days, not seen in it yet: the bottom bar's count; the chronicle's lines since it was
+opened marked, not counted), that it's gone once the scroll showed it (`ScrollPrefs`, kept on the phone), and on a
+phone's screen under Robolectric the grid of four collections with their TalkBack labels ("Prebivalci · Villagers: 3,
+Novo · New: 1"), the chronicle's newest line, a collection's list and what its rows lead to, "‹" back to the grid, ✕.
+On the emulator, `companion/bin/qa --steps scroll` (after `village` in a whole run; with `--minified` on the qa
+build too) reads the count on the bottom bar, opens the grid (no "Danes v vasi": today is the HUD's), each collection
+and back, a grammar page over the grammar list (its examples) and back to it, checks the count is gone once the scroll
+was open, and the grid in sl · de (QA's hook `pair:sl-de`). Screenshots: `scroll-badge`, `scroll-grid`, `scroll-places`,
+`scroll-villagers`, `scroll-grammar`, `scroll-grammar-page`, `scroll-grammar-examples`, `scroll-chronicle`, `scroll-badge-cleared`,
+`scroll-grid-de`.
 
 **The village's bubbles** (SCENES.md, "Bubbles in the village"; VILLAGERS.md, "Round the fire"). `ui/game/TownLogicTest`
 checks the layout: a bubble whose place is off the screen's left, right or bottom is off it too, over its place; one at
@@ -3358,7 +3371,7 @@ town links, so QA never asks a learner's town) and a second dev town: `companion
 `127.0.0.1:8797` (`LANI_DEV_TOWN_PORT`), the fixture of `test/fixtures/dev-town.json` ("Borgo di Prova": the Friuli
 pack, Italian from Slovene, not a child's; a village at Vas with six people, today's visitor, two open requests and
 goods to spare) in a temp data dir, linked with the dev bridge's town as two apps link (an invitation, accepted).
-After the village steps, the visit steps go from the scroll's "🤝 Prijatelji · Friends" into the town ("🧳 In visita ·
+After the village steps, the visit steps go from the scroll's villagers' "🤝 Prijatelji · Friends" into the town ("🧳 In visita ·
 Visiting": the labels in Italian), to a villager's card, the sea at the horizon and its scene, the requests and the
 market (opened, not played: no tutor needed), the gift's message field with the keyboard up (it and "🎁 Invia · Send"
 above the keyboard; nothing sent), and back with "⌂ Casa · Home". Both bridges stop with QA, and on their own
@@ -3422,12 +3435,6 @@ age's, when the age's own are all taken: Jan's Zaselek has none left), and opens
 with its ★ (`village-hud` looks at the HUD over it, its cards hidden, then goes back: nothing is built). `build:` lets it go.
 `pair:<target>-<base>` shows the app in that language pair (`pair:sl-de`), as the connection sheet's languages choose
 it; `pair:` follows the learner profile again (`village-hud`'s German).
-`scroll:variant:<A|B|C>` draws the village's scroll as one of its design variants to compare (`ui/game/ScrollVariants.kt`:
-A a sheet with its collections as tabs, B a sheet with a grid of collections, C a fourth card and section of the HUD;
-its count on the bottom bar only what's new: who joined and the grammar pages met this week, not seen in it yet), each
-as on a phone that never opened it; `scroll:variant:` the parchment scroll again. `companion/bin/qa --steps
-scroll-variants` takes the parchment scroll and each variant open, at its people, at a grammar page and in German
-(`scroll-<variant>-<n>-<what>.png`).
 
 **The school** (GAME.md, "The school"; [COURSE.md](COURSE.md)). `data/SheetsTest` checks the four worksheet types'
 items (a gap in its own sentence, a table's cells with their forms, a transform's lines, a sorted word), their grading

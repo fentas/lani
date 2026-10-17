@@ -80,6 +80,9 @@ import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
 import si.lanisce.lani.ui.theme.XpGold
 
+/** The map's lettering. */
+private val Serif = androidx.compose.ui.text.font.FontFamily.Serif
+
 /** The map's paper and ink: an old sheet, the same by day and night, like the village's scroll. */
 private val MapPaper = Color(0xFFF4E6C4)
 private val MapPaperDark = Color(0xFFE2CC98)

@@ -132,7 +132,7 @@ sealed interface VillageSheet {
 
 /**
  * "Moja vas" as a place to explore: the village fills the screen (pinch, pan, double tap), bubbles show what's
- * going on where, places open cards and scenes, and the scroll (the book from Vas on) holds the overview.
+ * going on where, places open cards and scenes, and the scroll holds the village's collections and its history.
  */
 @Composable
 fun VillageScreen(vm: AppViewModel) {
@@ -182,8 +182,9 @@ fun VillageScreen(vm: AppViewModel) {
     /** The plot chooser over the map: a building to put on a plot, or one to move (see [PlotBar]). */
     var choosing by remember { mutableStateOf<Choosing?>(null) }
     var ceremony by remember { mutableStateOf<Age?>(null) }
+    /** The scroll's sheet is open (ui/game/VillageScroll.kt), and the collection it opened at (null: its grid). */
     var scrollOpen by remember { mutableStateOf(false) }
-    var scrollAt by remember { mutableStateOf(ScrollSection.TODAY) }
+    var scrollAt by remember { mutableStateOf<Collection?>(null) }
     var card by remember { mutableStateOf<PlaceTap?>(null) }
     /** Someone tapped on the map (or their bubble): their card sits over the village. */
     var villager by remember { mutableStateOf<String?>(null) }
@@ -300,9 +301,6 @@ fun VillageScreen(vm: AppViewModel) {
             ceremony = it
         }
     }
-    val openScroll: (ScrollSection) -> Unit = { scrollAt = it; card = null; villager = null; scrollOpen = true }
-    /** A design variant's scroll sheet is open (A, B). */
-    var scrollSheet by remember { mutableStateOf(false) }
     val scrollPrefs = rememberScrollPrefs()
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Color(0xFF16202E))) {
@@ -358,14 +356,14 @@ fun VillageScreen(vm: AppViewModel) {
                 m.id.startsWith("visitor:") -> { card = null; villagerAt = null; villager = m.id.removePrefix("visitor:") }
                 m.kind == TownMarker.Kind.QUEST && villagerOf(m) != null -> { card = null; villagerAt = null; villager = villagerOf(m) }
                 // someone's requests: their card lists them (they may be away from the clearing); several of someone the
-                // cast doesn't know: the Scroll's requests; one: straight in
+                // cast doesn't know (the tutor's): the scroll's villagers, where the requests are listed; one: straight in
                 m.kind == TownMarker.Kind.QUEST && m.id.startsWith("quest:") -> {
                     card = null
                     val q = s.quests.firstOrNull { it.id == m.id.removePrefix("quest:") }
                     val who = q?.let { TownMarkers.villagerOf(it.giver, people) ?: TownMarkers.villagerOf(it.giver, cast) }?.id
                     when {
                         who != null -> { villagerAt = null; villager = who }
-                        m.count > 1 -> openScroll(ScrollSection.TODAY)
+                        m.count > 1 -> { villager = null; hudState.section = null; scrollAt = Collection.PEOPLE; scrollOpen = true }
                         else -> vm.startQuest(m.id.removePrefix("quest:"))
                     }
                 }
@@ -375,26 +373,23 @@ fun VillageScreen(vm: AppViewModel) {
             }
         }
 
-        // The scroll's design variant to compare (QA's hook "scroll:variant:<A|B|C>", ui/game/ScrollVariants.kt): what it
-        // shows and does; null: the parchment scroll
-        val scrollVariant = ScrollVariant.of(si.lanisce.lani.app.QaHooks.scrollVariant?.takeIf { si.lanisce.lani.app.QaHooks.enabled })
-        // each variant shown as on a phone that never opened it: this week's people and pages new
-        LaunchedEffect(scrollVariant) { if (scrollVariant != null) scrollPrefs.reset() }
-        val scrollData = if (scrollVariant == null) null else remember(s, overview, scrollPrefs.seen, scrollPrefs.since, cast) {
+        // The scroll (ui/game/VillageScroll.kt): the village's collections and its history, and what's new in it
+        val scrollData = remember(s, overview, scrollPrefs.seen, scrollPrefs.since, cast) {
             ScrollData.of(
                 s, overview, vm.villagers.people(s).filter { vm.villagers.livesHere(s, it.id) }, vm.grammar.chapter(s),
                 meter = { id -> vm.grammar.view(id)?.meter }, seen = scrollPrefs.seen, since = scrollPrefs.since,
             )
         }
         val scrollRows = ScrollRowActions(
-            place = { p -> scrollSheet = false; hudState.section = null; cam.show(anchorOf(p), area()); tapPlace(placeTap(p), force = true) },
-            scene = { sc -> scrollSheet = false; hudState.section = null; vm.openScene(sc.id, null) },
-            person = { id -> scrollSheet = false; hudState.section = null; villagerAt = null; villager = id },
-            register = { scrollSheet = false; hudState.section = null; vm.openVillagers() },
+            place = { p -> scrollOpen = false; hudState.section = null; cam.show(anchorOf(p), area()); tapPlace(placeTap(p), force = true) },
+            scene = { sc -> scrollOpen = false; hudState.section = null; vm.openScene(sc.id, null) },
+            person = { id -> scrollOpen = false; hudState.section = null; villagerAt = null; villager = id },
+            register = { scrollOpen = false; hudState.section = null; vm.openVillagers() },
             rule = { id -> vm.grammar.show(id) },
-            friends = { scrollSheet = false; hudState.section = null; vm.openFriends() },
-            reading = { scrollSheet = false; hudState.section = null; vm.openReadings(fromVillage = true) },
-            school = if (vm.school.course != null) { { scrollSheet = false; hudState.section = null; vm.openSchool(fromVillage = true) } } else null,
+            friends = { scrollOpen = false; hudState.section = null; vm.openFriends() },
+            reading = { scrollOpen = false; hudState.section = null; vm.openReadings(fromVillage = true) },
+            school = if (vm.school.course != null) { { scrollOpen = false; hudState.section = null; vm.openSchool(fromVillage = true) } } else null,
+            quest = { q -> scrollOpen = false; vm.startQuest(q.id) },
         )
 
         // The plot chooser: the village as it would be, the plots to choose from marked, the bubbles away meanwhile
@@ -534,7 +529,7 @@ fun VillageScreen(vm: AppViewModel) {
                     chest = { sheet = VillageSheet.Chest },
                     projects = { id -> sheet = VillageSheet.Projects(id) },
                     progress = { vm.openProgress(fromVillage = true) },
-                    goal = { openScroll(ScrollSection.GOAL) },
+                    goal = { sheet = VillageSheet.Ages },
                     festival = { id -> vm.startFestival(id) },
                     arrival = { id -> vm.villagers.meet(id) },
                     surprise = {
@@ -561,9 +556,6 @@ fun VillageScreen(vm: AppViewModel) {
                 modifier = Modifier.zIndex(1f),
                 onTop = { bar, row -> hudBarH = bar; hudRowH = row },
                 onInside = { name, r -> if (r == null) hudRects.remove(name) else hudRects[name] = r },
-                scroll = if (scrollVariant == ScrollVariant.C && scrollData != null) scrollCard(scrollData).let { (a, b) ->
-                    HudScroll(a, b, scrollData.badge > 0) { ScrollHudSection(scrollData, scrollRows, scrollPrefs) }
-                } else null,
             )
             ChronicleToast(
                 s.log.lastOrNull(),
@@ -614,17 +606,11 @@ fun VillageScreen(vm: AppViewModel) {
                     }
                 }
                 TownBar(
-                    book = s.age >= Age.VAS,
-                    today = scrollData?.badge ?: overview.todayCount,
+                    // only what's new and worth opening: who joined, the grammar pages met this week
+                    new = scrollData.badge,
                     event = s.event,
                     canBuild = options.any { it.available },
-                    onScroll = {
-                        when (scrollVariant) {
-                            null -> openScroll(ScrollSection.TODAY)
-                            ScrollVariant.C -> { card = null; villager = null; hudState.section = HudSection.SCROLL }
-                            else -> { card = null; villager = null; scrollSheet = true }
-                        }
-                    },
+                    onScroll = { card = null; villager = null; hudState.section = null; scrollAt = null; scrollOpen = true },
                     onBuild = { card = null; sheet = VillageSheet.Build },
                     onEvent = vm::startEvent,
                     modifier = Modifier.onSizeChanged { barH = it.height },
@@ -632,51 +618,7 @@ fun VillageScreen(vm: AppViewModel) {
             }
         }
 
-        if (scrollSheet && scrollData != null) when (scrollVariant) {
-            ScrollVariant.A -> ScrollSheetTabs(scrollData, scrollRows, book = s.age >= Age.VAS, prefs = scrollPrefs, onClose = { scrollSheet = false })
-            ScrollVariant.B -> ScrollSheetGrid(scrollData, scrollRows, book = s.age >= Age.VAS, prefs = scrollPrefs, onClose = { scrollSheet = false })
-            else -> {}
-        }
-        TownScroll(
-            visible = scrollOpen,
-            book = s.age >= Age.VAS,
-            start = scrollAt,
-            overview = overview,
-            state = s,
-            actions = remember(s, fit, anchors) {
-                ScrollActions(
-                    onEvent = { scrollOpen = false; vm.startEvent() },
-                    onQuest = { q -> scrollOpen = false; vm.startQuest(q.id) },
-                    onScene = { sc, key -> scrollOpen = false; vm.openScene(sc.id, key) },
-                    onShow = { p -> scrollOpen = false; cam.show(anchorOf(p), area()) },
-                    onPlace = { p -> scrollOpen = false; cam.show(anchorOf(p), area()); tapPlace(placeTap(p), force = true) },
-                    onVillagers = { scrollOpen = false; vm.openVillagers() },
-                    onFriends = { scrollOpen = false; vm.openFriends() },
-                    onReading = { scrollOpen = false; vm.openReadings(fromVillage = true) },
-                    onSchool = if (vm.school.course != null) { { scrollOpen = false; vm.openSchool(fromVillage = true) } } else null,
-                    onFestival = { id -> scrollOpen = false; vm.startFestival(id) },
-                    onSurprise = {
-                        scrollOpen = false
-                        if (si.lanisce.lani.game.Surprises.today(s, java.time.LocalDate.now())?.kind == si.lanisce.lani.game.Surprises.PEDLAR) sheet = VillageSheet.Chest
-                        else vm.startSurprise()
-                    },
-                    onProjects = { id -> sheet = VillageSheet.Projects(id) },
-                    onArrival = { id -> scrollOpen = false; vm.villagers.meet(id) },
-                    onKeeper = { k -> scrollOpen = false; vm.scenes.startKeeper(k) },
-                )
-            },
-            onClose = { scrollOpen = false },
-            // the rules met: the book turns to a page, the scroll shows it over itself
-            grammar = GrammarShelf(vm, vm.grammar.chapter(s), vm.grammar::view, open = vm.grammar::show),
-        ) {
-            GoalSection(
-                s, goal, check, vm,
-                onBuild = { build(it, false) }, onAdvance = advance,
-                onGather = { r -> scrollOpen = false; vm.startGather(r) },
-                onBuildSheet = { sheet = VillageSheet.Build },
-                onAges = { sheet = VillageSheet.Ages },
-            )
-        }
+        if (scrollOpen) VillageScroll(scrollData, scrollRows, scrollPrefs, start = scrollAt, onClose = { scrollOpen = false })
     }
 
     // the story notebook, in the chest where the village has a storyteller
@@ -819,10 +761,10 @@ internal fun RecenterButton(onClick: () -> Unit) {
     }
 }
 
-/** The slim bar at the thumb: the scroll (the book from Vas on), Build, and the event when there is one. */
+/** The slim bar at the thumb: the scroll (its count: what's new in it), Build, and the event when there is one. */
 @Composable
 private fun TownBar(
-    book: Boolean, today: Int, event: GameEvent?, canBuild: Boolean,
+    new: Int, event: GameEvent?, canBuild: Boolean,
     onScroll: () -> Unit, onBuild: () -> Unit, onEvent: () -> Unit, modifier: Modifier = Modifier,
 ) {
     Row(
@@ -831,8 +773,8 @@ private fun TownBar(
         verticalAlignment = Alignment.Bottom,
     ) {
         BarButton(
-            if (book) "📖" else "📜", if (book) bi("villageScreen.book") else bi("villageScreen.scroll"),
-            color = Color(0xFFF1DDB0), ink = Color(0xFF3A2A16), badge = today.takeIf { it > 0 }, onClick = onScroll, modifier = Modifier.weight(1f),
+            "📜", bi("villageScreen.scroll"),
+            color = Color(0xFFF1DDB0), ink = Color(0xFF3A2A16), badge = new.takeIf { it > 0 }, onClick = onScroll, modifier = Modifier.weight(1f),
         )
         BarButton(
             if (canBuild) "🔨" else "🔒", bi("common.build"),
@@ -866,41 +808,10 @@ internal fun BarButton(
         if (badge != null) {
             Box(
                 Modifier.align(Alignment.TopEnd).offset(x = 4.dp, y = (-6).dp).size(24.dp).clip(CircleShape).background(TriglavRed)
-                    .clearAndSetSemantics { contentDescription = bi("villageScreen.today", "badge" to badge) },
+                    .clearAndSetSemantics { contentDescription = bi("villageScreen.newInScroll", "n" to badge) },
                 contentAlignment = Alignment.Center,
             ) { Text("$badge", color = Color.White, fontWeight = FontWeight.Black, style = MaterialTheme.typography.labelMedium) }
         }
-    }
-}
-
-/** The scroll's "Naslednji cilj": the goal card, new words, building and the next age. */
-@Composable
-private fun GoalSection(
-    s: GameState, goal: NextGoal, check: AdvanceCheck, vm: AppViewModel,
-    onBuild: (BuildOption) -> Unit, onAdvance: () -> Unit, onGather: (Res) -> Unit, onBuildSheet: () -> Unit, onAges: () -> Unit,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        GoalCard(
-            s, goal, check,
-            words = vm.content.wordsKnown,
-            due = vm.content.dashboard?.dueCards?.size ?: 0,
-            rusty = vm.content.wordsRusty,
-            onReview = vm::startReview,
-            onPolish = { vm.startPolish() },
-            onPacks = { vm.openPacks(fromVillage = true) },
-            onBuild = onBuild, onAdvance = onAdvance, onGather = onGather, onAges = onAges, onVillagers = vm::openVillagers,
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Surface(onClick = onBuildSheet, color = FlameOrange.copy(alpha = 0.16f), shape = MaterialTheme.shapes.small, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
-                Box(contentAlignment = Alignment.Center) { Text("🔨 ${bi("common.build")}", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(8.dp)) }
-            }
-            Surface(onClick = onAges, color = XpGold.copy(alpha = 0.18f), shape = MaterialTheme.shapes.small, modifier = Modifier.weight(1f).heightIn(min = 48.dp)) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(check.next?.let { "${it.emoji} ${it.sl} ›" } ?: "🏰 ${s.age.sl}", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(8.dp))
-                }
-            }
-        }
-        NewWordsCard(vm, fromVillage = true)
     }
 }
 
@@ -937,7 +848,7 @@ fun EventKind.threat() = this == EventKind.WOLVES || this == EventKind.BEAR || t
 /** The goal's one-tap action: its card's first button, the HUD panel's ([label], its [color], what it does: [run]). */
 data class GoalAction(val label: String, val color: Color, val run: () -> Unit)
 
-/** What [NextGoal]'s card's first button says and does (the scroll's goal card, the HUD's panel). */
+/** What [NextGoal]'s one action says and does (the HUD's goal card and sheet). */
 fun NextGoal.action(
     onGather: (Res) -> Unit, onAdvance: () -> Unit, onBuild: (BuildOption) -> Unit, onPacks: () -> Unit, onVillagers: () -> Unit,
     onPolish: () -> Unit,
@@ -950,86 +861,6 @@ fun NextGoal.action(
     is NextGoal.Friends -> GoalAction("👥 ${bi("common.villagers")}", AlpineGreen, onVillagers)
     is NextGoal.Polish -> GoalAction("🔩 ${bi("reviewScreen.polishNow", "n" to rusty)}", AlpineGreen, onPolish)
     is NextGoal.Gather -> GoalAction(bi("villageScreen.gather", "resEmoji" to res.emoji), AlpineGreen) { onGather(res) }
-}
-
-@Composable
-private fun GoalCard(
-    s: GameState, goal: NextGoal, check: AdvanceCheck, words: Int, due: Int, rusty: Int, onReview: () -> Unit, onPolish: () -> Unit,
-    onPacks: () -> Unit, onBuild: (BuildOption) -> Unit, onAdvance: () -> Unit, onGather: (Res) -> Unit, onAges: () -> Unit,
-    onVillagers: () -> Unit,
-) {
-    val action = goal.action(onGather, onAdvance, onBuild, onPacks, onVillagers, onPolish)
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        shape = MaterialTheme.shapes.large,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            when (goal) {
-                NextGoal.FeedFire -> GoalTitle("🔥", bi("common.fireDying"), bi("villageScreen.listeningPracticeBringsWood"))
-                is NextGoal.Advance -> GoalTitle(goal.to.emoji, bi("villageScreen.readyGrow"), bi("villageScreen.canBecome", "toLabel" to (goal.to.label()), "toEn" to goal.to.names))
-                is NextGoal.Build -> {
-                    GoalTitle(goal.option.type.emoji, "${bi("townLogic.build")}: ${goal.option.type.label()}", goal.option.effect)
-                    CostChips(goal.option.cost) { s.res(it) }
-                }
-                is NextGoal.Grow -> {
-                    GoalTitle(goal.to.emoji, "${bi("villageScreen.nextAge")}: ${goal.to.label()}", "${(check.progress * 100).roundToInt()} % · ${stepsLeft(goal.missing.size)}")
-                    FillBar(check.progress, XpGold)
-                    Checklist(goal.missing)
-                }
-                is NextGoal.Learn -> {
-                    GoalTitle(
-                        "📚", bi("villageScreen.learnMoreWords"),
-                        bi("villageScreen.everyPlotBuilt", "toEmoji" to goal.to.emoji, "toSl" to goal.to.names, "words" to words, "toEn" to goal.to.names),
-                    )
-                    Checklist(goal.missing)
-                }
-                is NextGoal.Friends -> {
-                    GoalTitle(
-                        "💞", bi("villageScreen.makeFriends"),
-                        bi("villageScreen.ageNeedsFriends", "toEmoji" to goal.to.emoji, "toSl" to goal.to.names, "lowercase" to goal.to.names.map { it.lowercase() }),
-                    )
-                    Checklist(goal.missing)
-                }
-                is NextGoal.Polish -> {
-                    GoalTitle("🔩", bi("villageScreen.polishRusty", "n" to goal.rusty), bi("villageScreen.rustyCountAgain", "n" to goal.rusty))
-                    Checklist(goal.missing)
-                }
-                is NextGoal.Gather -> GoalTitle(goal.res.emoji, bi("villageScreen.gatherRes", "resLabel" to (goal.res.label())), bi("villageScreen.practiseSkill", "skillSl" to goal.res.skillName(), "skill" to goal.res.skillName()))
-            }
-            BigButton(action.label, onClick = action.run, color = action.color)
-            // rusty words hold the age back too: a minute's review, whenever
-            if (goal is NextGoal.Grow && rusty > 0) BigButton("🔩 ${bi("reviewScreen.polishNow", "n" to rusty)}", onClick = onPolish)
-            if (goal is NextGoal.Learn && due > 0) BigButton("🔄 ${bi("villageScreen.reviewDue", "due" to due)}", onClick = onReview)
-            if (goal !is NextGoal.Grow && goal !is NextGoal.Learn && goal !is NextGoal.Friends && goal !is NextGoal.Polish && goal !is NextGoal.Advance && check.next != null) {
-                NextAgeRow(check, onAges)
-            }
-        }
-    }
-}
-
-@Composable
-private fun GoalTitle(emoji: String, title: String, sub: String?) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(emoji, style = MaterialTheme.typography.headlineMedium)
-        Spacer(Modifier.width(12.dp))
-        Column(Modifier.weight(1f)) {
-            Text(title, style = MaterialTheme.typography.titleMedium)
-            sub?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)) }
-        }
-    }
-}
-
-@Composable
-fun Checklist(missing: List<String>) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        if (missing.isEmpty()) Text("☑ ${bi("villageScreen.allDone")}", color = AlpineGreen, fontWeight = FontWeight.Bold)
-        for (m in missing) Row {
-            Text("☐", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
-            Spacer(Modifier.width(8.dp))
-            Text(m, style = MaterialTheme.typography.bodyMedium)
-        }
-    }
 }
 
 /** The newest chronicle line, sliding in briefly after something happened. */

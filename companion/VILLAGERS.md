@@ -7,7 +7,7 @@ them, the friendship grows and they say so. "Hvala še enkrat za Belo!"
 
 ```
 Village map         villager at their spot (a bubble when they need something) ── tap ─┐
-Scroll / book       📖 Prebivalci · Villagers (the register) ─────────────────────────┤
+Scroll              👥 Prebivalci → 📖 Vsi prebivalci (the register) ─────────────────┤
                                                                                        ▼
                   Villager page: portrait, story, friendship ♥, memories, their quest,
                   "Pogovori se · Talk" → a role-play with the tutor playing them
@@ -272,9 +272,9 @@ of it ("Prišel sem sam. No, s čebelami.").
 ## Arrivals: meeting who joins
 
 When someone joins the village (one of the cast, a newcomer, a baby born here, someone who moved from a friend's town),
-an **arrival** waits for Jan: a bubble at their home on the map (🧳 moving in, 👶 a birth), the first thing in the
-scroll's "Danes v vasi · Today" ("👋 Novi v vasi · New in the village", with 📍 to fly there), under "🏡 V vasi · In the
-village" on Home's "Danes · Today" card (`HomeLogic.calls`: a tap opens the introduction over Home), and on their card
+an **arrival** waits for Jan: a bubble at their home on the map (🧳 moving in, 👶 a birth), a line of the HUD's "Danes in
+kmalu · Today and coming up" ("Danes · Today": a tap plays the introduction), "✨ Novo" first among the scroll's villagers
+for a week (and in its count until seen there), under "🏡 V vasi · In the village" on Home's "Danes · Today" card (`HomeLogic.calls`: a tap opens the introduction over Home), and on their card
 and page "👋 Seznani se · Meet them" instead of a talk. A tap plays a short **introduction** over the village (`ArrivalScene`): the people of it on
 the newcomer's place (the newcomer, and a relative who introduces them: Micka her granddaughter Zala, the parents their
 baby), and the dialog as a scene's is played (`DialogPanel`: their lines typed in and voiced in their voices, a word's
@@ -568,8 +568,7 @@ the woods at the hour it is, and the dialog as a scene's is played: his lines ty
 word's card on a tap, the choices shuffled, his reaction to a wrong one, the 🎤). It pays its `reward` once a day, as a
 happening's dialog does (`GameState.happeningsDone`, under "spot:kopa/<his id>"), and he stays till his time is over; tapped
 again he talks again, for nothing. On a canvas without the pile he isn't drawn, and his bubble is where the woods' are.
-While his bubble is up, the scroll's "Danes v vasi · Today" lists him with what's on now (`TodayItem.Keeper`: a tap plays
-his talk, 📍 flies the camera to the pile), and Home's "Danes · Today" card under "🏡 V vasi · In the village"
+While his bubble is up, Home's "Danes · Today" card under "🏡 V vasi · In the village"
 (`HomeLogic.calls`: a tap plays his talk over Home).
 
 His talk is written per level (`levels`: A1 and A2 at least), each 3–12 lines of a scene dialog (his lines' `who` his
@@ -596,7 +595,7 @@ the village) rather than word for word. A talk without `again` is told the same 
 
 Each talk and each of its tellings follows his meeting's rules (A1 and A2 at least, 3–12 lines, 1–3 turns, a reaction
 and a why in every base to every wrong choice, his lines his, no sky, no fx: `spotErrors`), and its `id` is once. While
-it is the one he has, his bubble, the scroll's Today, Home's card and the chronicle say the talk's `title` ("Oglar Miha
+it is the one he has, his bubble, Home's card and the chronicle say the talk's `title` ("Oglar Miha
 zlaga kopo"); a talk without one says his. The village keeps how far the learner got (`GameState.keepers`, under his key
 "spot:kopa/oglar": `told`, the talks told, the meeting the first, and `on`, the day of the last; `Keepers.at`,
 `Keepers.told`), a count, so a learner whose level rises keeps their place: every level of a talk is the same step of the

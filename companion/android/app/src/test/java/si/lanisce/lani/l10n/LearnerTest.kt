@@ -79,12 +79,12 @@ class LearnerTest {
 
     @Test fun `the app's labels agree with the learner (learnerGender)`() {
         Learner.current = Learner.of("Ana", "female")
-        assertEquals("Pripravljena si!", L10n.text(Lang.SL, "villageScreen.readyGrow"))
-        assertEquals("Sei pronta!", L10n.text(Lang.IT, "villageScreen.readyGrow"))
+        assertEquals("Dobrodošla!", L10n.text(Lang.SL, "setupAndPermission.welcome"))
+        assertEquals("Benvenuta!", L10n.text(Lang.IT, "setupAndPermission.welcome"))
         assertEquals("Spoznala si: Micka (Lanišče)", L10n.text(Lang.SL, "guests.youMet", mapOf("who" to "Micka", "town" to "Lanišče")))
         Learner.current = Learner.of("Jan")
-        assertEquals("Pripravljen si!", L10n.text(Lang.SL, "villageScreen.readyGrow"))
-        assertEquals("Sei pronto!", L10n.text(Lang.IT, "villageScreen.readyGrow"))
+        assertEquals("Dobrodošel!", L10n.text(Lang.SL, "setupAndPermission.welcome"))
+        assertEquals("Benvenuto!", L10n.text(Lang.IT, "setupAndPermission.welcome"))
     }
 
     @Test fun `the family's from form declines as before, and further`() {

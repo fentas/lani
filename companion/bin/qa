@@ -65,9 +65,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        on the map closes it, opening nothing), the settlement's in German (QA's hook "pair:sl-de"),
                        and the plot chooser (QA's hook "build:field") with the cards hidden by themselves and the ★
                        below the bar;
-                       "scroll-variants" the scroll's design variants to compare (QA's hook "scroll:variant:<A|B|C>"):
-                       the parchment scroll and each variant open, at its people, at a grammar page, and open in German
-                       (QA's hook "pair:sl-de"), also saved as scroll-<variant>-<n>-<what>.png;
+                       "scroll" the village's scroll: its count on the bottom bar (what's new only), its grid of four
+                       collections and the chronicle's newest line, each collection's list and back, a grammar page in
+                       the sheet's look, the count cleared once it was open, the grid in German (QA's hook "pair:sl-de");
                        "exercise-words" a review's words looked up (QA's hook "forms"): a tap on a word of the
                        sentence with the gap opens its card, a long press on a form to choose (what's tested) opens
                        nothing and picks nothing, once answered the form in the feedback opens its card;
@@ -1031,7 +1031,7 @@ def village():
     time.sleep(1.5)  # let the camera settle on the village
 
 
-VILLAGE_HUD = ("Zvitek · Scroll", "Knjiga · Book")  # the bottom bar's first button: hidden under a sheet or the scroll
+VILLAGE_HUD = ("Zvitek · Scroll", "Knjiga · Book")  # the bottom bar's first button (the book: a build before the scroll's sheet)
 # the HUD's ring (TalkBack reads the age's words, or a festival's "Danes"), its cards (their labels start so), the
 # settlement's card (third: swiped to), its sheet's ✕ (back closes it)
 HUD_RING = ("Doba · ", "Danes")
@@ -1071,27 +1071,98 @@ def plain_village():
     raise AssertionError("could not get back to the plain village")
 
 
+SCROLL = "Zvitek · Scroll"  # the bottom bar's button, the sheet's title
+SCROLL_CARDS = ("Kraji · Places: ", "Prebivalci · Villagers: ", "Slovnica · Grammar: ", "Kronika · Chronicle: ")
+
+
+def open_scroll():
+    """The scroll's sheet from the bottom bar, at its grid."""
+    assert tap(SCROLL, 5), "the scroll's button"
+    assert wait_for(SCROLL_CARDS[1], 8), "the scroll's grid"
+    time.sleep(1)
+
+
+def scroll_card(label: str):
+    """Opens the scroll's collection [label] (its card's label starts so), scrolled to on the grid."""
+    c = next((c for t, c in nodes() if t.startswith(label)), None) or scroll_to(label, 3)
+    assert c is not None, f"the collection {label}"
+    tap_at(c)
+    time.sleep(1.2)
+
+
+def scroll_badge():
+    """The scroll's count on the bottom bar (TalkBack: "14 novosti · 14 new"), or 0 without one."""
+    t = next((t for t, _ in nodes() if re.fullmatch(r"\d+ novost\w* · \d+ new", t)), None)
+    return int(t.split()[0]) if t else 0
+
+
 def scroll():
-    """The scroll (the book from Vas on): the community overview, and a jump to the next goal."""
-    assert tap("Zvitek · Scroll", 3) or tap("Knjiga · Book", 3), "scroll button"
-    assert wait_for("Danes v vasi", 8), "today section"
-    time.sleep(1)
-    shot("scroll-today")
-    assert tap("Naslednji cilj · Next goal", 5), "goal index"
-    assert wait_for("Naslednji cilj", 5), "next goal section"
-    time.sleep(1)
-    shot("scroll-goal")
-    assert tap("Kraji · Places", 5), "places index"
-    assert wait_for("Ogenj · The fire", 5), "places section"
-    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # rolls the scroll up
+    """The village's scroll (GAME.md, "The scroll"): its count on the bottom bar counts only what's new and worth opening
+    (who joined and the grammar pages met this week, not seen in it yet); the sheet's grid of four collections (Kraji,
+    Prebivalci, Slovnica, Kronika) and the chronicle's newest line; each collection's list and "‹" (or back) to the
+    grid; a grammar page over it in the sheet's look (its rule, its table, its examples with 🔊, "🎯 Vadi"); the count
+    gone once the scroll was open; the grid in sl · de (QA's hook "pair:sl-de"). No today, no goal: they're the HUD's."""
+    plain_village()
+    badge = scroll_badge()
+    shot("scroll-badge")
+    open_scroll()
+    assert find("Danes v vasi") is None, "no today in the scroll (the HUD's)"
+    shot("scroll-grid")
+    for label, mark in zip(SCROLL_CARDS, ("Ogenj · The fire", "Vsi prebivalci", "Branje", None)):
+        scroll_card(label)
+        assert find(f"‹ {SCROLL}"), f"{label}'s list, its ‹"
+        if mark:
+            assert wait_for(mark, 5), f"{label}'s list: {mark}"
+        shot("scroll-" + label.split(" · ")[1].rstrip(": ").lower())
+        if label.startswith("Slovnica"):
+            # a grammar page met (one practised shows how well it sits): over the scroll, in the sheet's look
+            c = scroll_to("★", 4) or scroll_to("Kako dobro", 2)
+            if c is not None:
+                tap_at(c)
+                time.sleep(2)
+                # the page's sheet over the scroll (the dump is of the top window: the scroll's list is gone from it)
+                assert find(f"‹ {SCROLL}") is None and find("Zapri · Close"), "the grammar page over the scroll"
+                shot("scroll-grammar-page")
+                for _ in range(5):  # down to its examples (each with 🔊), slowly: a dump while it flings sees nothing
+                    if find("Primeri · Examples"):
+                        break
+                    adb("shell", "input", "swipe", "540", "1700", "540", "1150", "700")
+                    time.sleep(2)
+                assert find("Primeri · Examples"), "the grammar page: its examples"
+                shot("scroll-grammar-examples")
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the page closes, the scroll's list is there
+                time.sleep(1.2)
+                assert find(f"‹ {SCROLL}"), "back from the page: the grammar list"
+        if label.startswith("Kraji"):
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")  # back: the grid again
+            time.sleep(1.2)
+        else:
+            assert tap(f"‹ {SCROLL}", 3), "‹ to the grid"
+        assert wait_for(SCROLL_CARDS[1], 5), "the grid again"
+    assert tap("Zapri · Close", 3), "the scroll's ✕"
     time.sleep(1.5)
-    assert wait_for("Zvitek · Scroll", 5) or wait_for("Knjiga · Book", 3), "back to the village"
+    assert find(SCROLL_CARDS[1]) is None, "the scroll closed"
+    after = scroll_badge()
+    assert after == 0, f"the count cleared once the scroll was open ({badge} before, {after} after)"
+    shot("scroll-badge-cleared")
+    try:
+        qa_hook("pair:sl-de")
+        assert tap("Zvitek · Rolle", 10), "the scroll's button in sl · de"
+        assert wait_for("Prebivalci · Bewohner: ", 8), "the grid in sl · de"
+        time.sleep(1)
+        shot("scroll-grid-de")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    finally:
+        qa_hook("pair:")
+        wait_for(SCROLL, 10)
+    return None if badge > 0 else "the count was 0 already (nothing new this week)"
 
 
 def villagers():
-    """The register (the scroll's people section links to it), a villager's card and page, their greeting."""
-    assert tap("Zvitek · Scroll", 3) or tap("Knjiga · Book", 3), "scroll button"
-    assert tap("Prebivalci · Villagers", 5), "people index"
+    """The register (the scroll's villagers lead to it), a villager's card and page, their greeting."""
+    open_scroll()
+    scroll_card("Prebivalci · Villagers: ")
     assert tap("Vsi prebivalci", 5), "link to the register"
     assert wait_for("Prebivalci · Villagers", 8), "register"
     time.sleep(1)
@@ -2997,117 +3068,6 @@ def village_hud():
     assert hud_cards(True), "the cards again, the chooser left"
 
 
-def scroll_shot(variant: str, n: int, what: str):
-    """A shot for comparing the scroll's variants: the run's NN-scroll-<variant>-<n>-<what>.png, and
-    scroll-<variant>-<n>-<what>.png beside it (the name Jan gets)."""
-    name = f"scroll-{variant}-{n}-{what}"
-    shot(name)
-    shutil.copy(shots[-1], OUT / f"{name}.png")
-
-
-def scroll_variants():
-    """The village's scroll as it is (the parchment scroll, up to Zaselek) and in its three design variants
-    (ui/game/ScrollVariants.kt, QA's hook "scroll:variant:<A|B|C>"), on the dev village's copy, for Jan to compare: each
-    open, at its people, at a grammar page (over it), and open in German (QA's hook "pair:sl-de"). The parchment scroll
-    and the learner's languages again at the end."""
-    def back(n=1):
-        for _ in range(n):
-            adb("shell", "input", "keyevent", "KEYCODE_BACK")
-            time.sleep(1.2)
-
-    def open_scroll():
-        assert tap("Zvitek · Scroll", 5) or tap("Knjiga · Book", 3) or tap("Zvitek · Rolle", 3), "the scroll's button"
-        time.sleep(2)
-
-    def tap_starting(label: str, timeout=5.0) -> bool:
-        end = time.time() + timeout * slow()
-        while time.time() < end:
-            if (b := box_starting(label)) is not None:
-                tap_at(((b[0] + b[2]) // 2, (b[1] + b[3]) // 2))
-                return True
-            time.sleep(0.8)
-        return False
-
-    def rule(mark: str) -> bool:
-        """Taps the first grammar page that shows how well it sits ([mark]), scrolled to if needed."""
-        c = scroll_to(mark, 4)
-        if c is None:
-            return False
-        tap_at(c)
-        time.sleep(2)
-        return True
-
-    try:
-        qa_hook("scroll:variant:")
-        plain_village()
-        open_scroll()
-        assert wait_for("Danes v vasi", 8), "the parchment scroll at today"
-        scroll_shot("current", 1, "open")
-        assert tap("Prebivalci · Villagers", 5), "its people"
-        time.sleep(2)
-        scroll_shot("current", 2, "section")
-        assert tap("Slovnica · Grammar", 5), "its grammar"
-        time.sleep(2)
-        if rule("Kako dobro"):
-            scroll_shot("current", 3, "detail")
-        plain_village()
-
-        for v in ("A", "B", "C"):
-            qa_hook(f"scroll:variant:{v}")
-            plain_village()
-            if v == "A":
-                time.sleep(1)
-                scroll_shot(v, 0, "badge")  # the bottom bar's count: only what's new and worth opening
-            if v == "C":
-                # its fourth card in the HUD's row
-                hud_card(HUD_SETTLEMENT)
-                row = box_starting(HUD_SETTLEMENT)
-                y = (row[1] + row[3]) // 2
-                adb("shell", "input", "swipe", "980", str(y), "160", str(y), "900")
-                time.sleep(1.5)
-                scroll_shot(v, 4, "card")
-            open_scroll()
-            if v == "C":
-                assert wait_for("Zvitek · Scroll", 5) and wait_for("Kraji · Places: ", 5), "C: the scroll's section in the HUD's sheet"
-            elif v == "A":
-                assert wait_for("Kraji · Places: ", 8), "A: the sheet's chips"
-            else:
-                assert wait_for("Prebivalci · Villagers: ", 8), "B: the grid's cards"
-            time.sleep(1)
-            scroll_shot(v, 1, "open")
-            assert tap_starting("Prebivalci · Villagers: "), f"{v}: its people"
-            time.sleep(1.5)
-            scroll_shot(v, 2, "section")
-            if v == "B":
-                assert tap_starting("‹ Zvitek · Scroll") or tap_starting("‹ Knjiga · Book"), "B: back to the grid"
-                time.sleep(1)
-            if v == "C":
-                assert tap_starting("Prebivalci · Villagers: "), "C: its people folded"
-                time.sleep(1)
-            assert tap_starting("Slovnica · Grammar: "), f"{v}: its grammar"
-            time.sleep(1.5)
-            if rule("★"):
-                scroll_shot(v, 3, "detail")
-            plain_village()
-
-        # German, once each: the base language's labels are the long ones
-        qa_hook("pair:sl-de")
-        time.sleep(3)
-        for v in ("A", "B", "C"):
-            qa_hook(f"scroll:variant:{v}")
-            time.sleep(2)
-            back(0)
-            if not (tap("Zvitek · Rolle", 5) or tap("Knjiga · Buch", 3)):
-                continue
-            time.sleep(2.5)
-            scroll_shot(v, 5 if v == "C" else 4, "de")
-            back(1)
-    finally:
-        qa_hook("pair:")
-        qa_hook("scroll:variant:")
-        time.sleep(2)
-
-
 # --- visiting a linked town (the second dev town; companion/README.md, "Visiting") --------------------------------
 
 def fill(label: str, text: str) -> bool:
@@ -3883,12 +3843,12 @@ def no_town():
 
 
 def friends():
-    """The scroll's people page leads to "Prijatelji · Friends", where the linked second town is listed, with its visit."""
+    """The scroll's villagers lead to "Prijatelji · Friends", where the linked second town is listed, with its visit."""
     if (why := no_town()) is not None:
         return why
     plain_village()
-    assert tap("Zvitek · Scroll", 3) or tap("Knjiga · Book", 3), "scroll button"
-    assert tap("Prebivalci · Villagers", 5), "people index"
+    open_scroll()
+    scroll_card("Prebivalci · Villagers: ")
     assert tap("Prijatelji · Friends", 5), "the Friends row on the people page"
     assert wait_for("🤝 Prijatelji · Friends", 8), "Friends screen"
     # the dev bridge asks each linked town for its state now (3 s each)
@@ -5704,7 +5664,6 @@ def plan():
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
-        ("scroll-variants", scroll_variants, v, False, ""),
         ("school", school, go_home, False, ""),
         ("school-print", school_print, go_home, False, ""),
         ("school-build", school_build, go_home, False, ""),

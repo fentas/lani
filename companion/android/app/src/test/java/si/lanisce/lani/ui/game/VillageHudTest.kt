@@ -188,7 +188,7 @@ class VillageHudTest {
         text("+2").assertExists()
         node(soonCard).performClick()
         text("Nocoj").assertExists()
-        text("Torek").assertExists()
+        text(VillageHudLogic.whenOf(4, false, java.time.LocalDate.now()).first).assertExists()
         text("Krošnjar pride").assertExists()
         compose.onAllNodes(hasText("v torek", substring = true)).assertCountEquals(0)
         // the card shows it first too: the sheet's line is the second

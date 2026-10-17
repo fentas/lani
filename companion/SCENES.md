@@ -10,7 +10,7 @@ something to say.
 ```
 Village (full screen, pinch zoom, pan)         Scene (close-up)
   bubbles over places ──── tap a place ──────►   objects: tap → word (🔊, gender, English) → learn them
-  📜 scroll / 📖 book: what's on today           people: tap → dialog (choices in Slovene) → reward
+  HUD: today and what's coming; 📜 scroll        people: tap → dialog (choices in Slovene) → reward
                                                   → "keep talking" with the tutor (role-play scenario)
 ```
 
@@ -19,7 +19,7 @@ Village (full screen, pinch zoom, pan)         Scene (close-up)
 | Part | Code |
 |---|---|
 | Format, registry, daily logic (the contract) | `android/.../game/scene/`: `SceneSpec.kt` (format), `SceneArt.kt` (arts, slots, sprites, effects, stages), `Stage.kt` (stage directions and tap turns, see [Stage directions](#stage-directions-people-move-on-cue)), `Happenings.kt` (what's on), `Story.kt` and `Stories.kt` (the storyteller's evening story, see [Stories](#stories-the-evening-story)), `Notebook.kt`, `StoryBooks.kt` and `Vignettes.kt` (the learner's story notebook: every story heard written down, its questions, and its pictures' library, see [The story notebook](#the-story-notebook); the ink painters and the pencil sketch in `game/render/book/`, the notebook's pages in `ui/notebook/`), `Wildlife.kt` (the wild animals out, see [Wild animals](#wild-animals)), `SceneSights.kt` (which things a picture shows now and when the others come, see [The words panel](#the-words-panel-here-now-seen-before-still-hidden)), `ISpy.kt` (I spy with a child of the village, see [I spy](#i-spy-vidim-vidim-nekaj-česar-ti-ne-vidiš)), `SceneWorld.kt` (what the village has built, as the scenes show it: `needs`, the fixtures, see [What the village has built](#what-the-village-has-built)), `TownMarkers.kt` (bubbles in the village), `ScenePainter.kt` (painter interface), `Sky.kt` and `SceneFx.kt` (a dialog's weather and effects, what stays for the day), `Pokes.kt` (what a tap sets off, see [Pokes](#pokes-small-gotchas)) |
-| Village view: full screen, camera, bubbles, the scroll/book | `ui/game/VillageScreen.kt` and friends, `game/render/` (the village renderer) |
+| Village view: full screen, camera, bubbles, the HUD, the scroll | `ui/game/VillageScreen.kt` and friends (`VillageHud.kt`, `VillageScroll.kt`), `game/render/` (the village renderer) |
 | Scene art: one painter per art, people sprites, the wild animals (`Wild.kt`) | `game/render/scene/` |
 | Scene screen: words, learning, dialogs, rewards | `ui/scene/` (the words panel's chips: `WordGroups.kt`), `app/SceneController.kt`; the learner's words a dialog tests (see [Your words in the dialogs](#your-words-in-the-dialogs)): `game/DialogWords.kt`, `game/DialogReviews.kt` (on `game/PlayReviews.kt`), `app/DialogWordsController.kt` |
 | Stickers: a word's picture cut out of its scene (see [Stickers](#stickers-a-words-picture-from-its-scene)) | `game/scene/WordStickers.kt`, `game/render/scene/Stickers.kt`, `ui/words/WordPicture.kt` |
@@ -506,9 +506,9 @@ the rule as ever. At the end, under the result: "📇 Tvoje besede · Your words
 its first answer (a tap opens its card), "🔁 Šteje kot ponovitev · Counts as a review: žlica" for those it reviewed and
 "↩️ Spet jutri · Again tomorrow: vilice" for those a bridge that takes them lowered.
 
-**In the village:** the scroll's "Today" says under a happening on now how many of the learner's words the dialog it plays
-today tests: "Babica Micka · v kuhinji", "📇 3 tvoje besede · 3 of your words" (`TownOverview.of`, `inHappening`; a
-story's evening says none, its telling is the evening's).
+**In the village:** the scroll's places say under a place how many of the learner's words the dialogs on there now test:
+"Hiša · House", "📇 3 tvoje besede · 3 of your words" (`TownOverview.of`, `inHappening`, `ScrollData.words`; a story's
+evening says none, its telling is the evening's).
 
 **The tutor weaves them in.** A tutor's variant may say which of the learner's words it weaves, `words`: lemmas or card
 ids, 1 to 6 (`"words": ["žlica", "vocab_v-kuhinji_krozniki"]`). `publish_dialog_variant` (and `publish_scene`) checks each
@@ -585,8 +585,7 @@ everyone of the cast its dialog, its title and its memory name (VILLAGERS.md, "W
 toči med!" waits until Anton lives here and Jan has met him; the beehive brings him), the happening's
 `months` (and one of its dialogs', [Seasons](#seasons-in-their-months)), `when`, `weekdays` and `needs` must fit (`dawn` is no part of the day
 of its own but the morning's first hours round the sunrise of the month, `TimeOfDay.dawn`: 5–6 in June, 6–8 in December,
-so a happening `when` the morning is on then too, one `when` dawn only then; the scroll lists one still to come under the
-morning) (the age, and what the
+so a happening `when` the morning is on then too, one `when` dawn only then) (the age, and what the
 village has built: Luka brings the hay in only where a kozolec stands), it must not be done today, and the day's dice
 (`roll(seed, date, key)`) must come in under `chance`. At most four at once and one per person. Done happenings are
 kept in `GameState.happeningsDone` (`scene/happening` → date). A place where someone sleeps (a painter with a bed, see [Asleep at night](#asleep-at-night)) is quiet at night: a
@@ -1514,7 +1513,7 @@ clearing, before the palisade can go up); a tap on the landing or its stones, on
 through the clearing or on its bank above the bridge opens the stream bank's card with "Vstopi · Go in" to Ob potoku,
 and a tap on the pond in the woods the pond's, to Pri ribniku. The landing is a thing drawn like the woodpile, found by
 the nearest pixel like everything else; the water and the bank are areas, tried after everything drawn there
-(buildings, people, the fire, the palisade), so they never take a tap from them. The scroll lists these spots after
+(buildings, people, the fire, the palisade), so they never take a tap from them. The scroll's places list these spots after
 the village's own places.
 
 Once the tent has moved out of the village (GAME.md, "The tent moves to the pond"), it stands on the pond's right bank
@@ -1654,7 +1653,7 @@ native speaker.
 
 Every evening the village's storyteller sits by the fire and tells a story: Stari Janez at the campfire (`ob-ognju`),
 Nonno Bepi at the Italian village's (`al-fuoco`), Old Wilf at the English village's (`by-the-fire`). Not the same one every night: the next one the learner hasn't heard,
-told at their level, a long legend in chapters, one an evening. The scroll and "Jutri · Tomorrow" say what comes:
+told at their level, a long legend in chapters, one an evening. The HUD's "Danes in kmalu · Today and coming up" says what comes:
 "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: Janez tells the story of Zlatorog" until it is heard,
 then "Jutri: Janez pove, kako je Krpan srečal cesarja · Tomorrow: Janez tells how Krpan met the emperor".
 
@@ -1934,8 +1933,7 @@ good to about a day): lit on the right while it waxes and on the left while it w
 crescent's dark part faint in the earthshine), and in the sky only while it is up: with the sun at new moon (so never
 drawn), highest at dusk at the first quarter, all night when full, before dawn at the last quarter, about 50 minutes
 later each day. Along its way it rises lower and climbs (across the campfire's sky and the village's from the left);
-its light lies on the water only while it is up. The village scroll's day says tonight's moon ("Nocoj: ščip · Tonight:
-full moon").
+its light lies on the water only while it is up. Its card in the night sky says its phase.
 
 The market scene trades nothing itself: a visit's market is the town bar's "⚖️ Tržnica · Market" (companion/README.md,
 "Things to do on a visit"). Its stall has a seller at `stall` and a buyer at `buyer`, so that haggle could one day open

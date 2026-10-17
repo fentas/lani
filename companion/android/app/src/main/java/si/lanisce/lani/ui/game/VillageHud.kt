@@ -125,13 +125,8 @@ import kotlin.math.roundToInt
  * settlement's ring), a row of small cards under it that the ring shows and hides (the goal, today and what's coming,
  * the settlement's numbers), and a card's section in a sheet from the bottom.
  */
-enum class HudSection { GOAL, SOON, SETTLEMENT, SCROLL }
+enum class HudSection { GOAL, SOON, SETTLEMENT }
 
-/**
- * The scroll as a fourth card and section ([HudSection.SCROLL]; a design variant to compare, ui/game/ScrollVariants.kt):
- * the card's two lines, its dot, and the section's content.
- */
-class HudScroll(val line1: String, val line2: String, val dot: Boolean, val content: @Composable () -> Unit)
 
 /** The ring's status: the age and the way to the next one, or the festival that is on (see [VillageHudLogic.status]). */
 data class HudStatus(val emoji: String, val text: String, val description: String, val tone: Tone) {
@@ -377,7 +372,7 @@ class HudActions(
     /** The projects sheet, at one of them (its id) or all. */
     val projects: (String?) -> Unit,
     val progress: () -> Unit,
-    /** The goal's card in full: the scroll at "Naslednji cilj". */
+    /** The goal's line in its sheet: the ages sheet, every step of the next age. */
     val goal: () -> Unit,
     val festival: (String) -> Unit,
     /** Meets someone who joined the village (their id). */
@@ -403,7 +398,6 @@ class HudActions(
 fun VillageHud(
     view: HudView, cards: Boolean, section: HudSection?, actions: HudActions, moved: Boolean, onRecenter: () -> Unit, reduced: Boolean,
     modifier: Modifier = Modifier, onTop: (bar: Int, row: Int) -> Unit = { _, _ -> }, onInside: (String, Rect?) -> Unit = { _, _ -> },
-    scroll: HudScroll? = null,
 ) {
     val dots = view.dots
     // what leads on closes the sheet first
@@ -429,7 +423,7 @@ fun VillageHud(
                     enter = if (reduced) EnterTransition.None else expandVertically(expandFrom = Alignment.Top) + fadeIn(),
                     exit = if (reduced) ExitTransition.None else shrinkVertically(shrinkTowards = Alignment.Top) + fadeOut(),
                 ) {
-                    Box(Modifier.onSizeChanged { rowPx = it.height }) { CardRow(view, dots, leads, scroll) }
+                    Box(Modifier.onSizeChanged { rowPx = it.height }) { CardRow(view, dots, leads) }
                 }
             }
             if (moved) Row(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
@@ -445,7 +439,6 @@ fun VillageHud(
                 HudSection.GOAL -> GoalSection(view, leads)
                 HudSection.SOON -> SoonSection(view, leads)
                 HudSection.SETTLEMENT -> SettlementSection(view, leads)
-                HudSection.SCROLL -> scroll?.content?.invoke()
             }
         }
     }
@@ -521,7 +514,7 @@ private val Ink = Color(0xFF2B2118)
 
 /** The row of cards under the bar: the goal, today and what's coming, the settlement; swiped sideways, a tap opens one. */
 @Composable
-private fun CardRow(view: HudView, dots: HudDots, actions: HudActions, scroll: HudScroll?) {
+private fun CardRow(view: HudView, dots: HudDots, actions: HudActions) {
     val list = rememberLazyListState()
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val w = maxWidth * 0.84f
@@ -532,13 +525,6 @@ private fun CardRow(view: HudView, dots: HudDots, actions: HudActions, scroll: H
             item { GoalCard(view, dots.goal, actions, Modifier.width(w)) }
             item { SoonCard(view, dots.soon, actions, Modifier.width(w)) }
             item { SettlementCard(view, dots.settlement, actions, Modifier.width(maxWidth - 16.dp)) }
-            if (scroll != null) item {
-                SmallCard(Modifier.width(w), "${bi("villageScreen.scroll")}: ${scroll.line1}", scroll.dot, onClick = { actions.sheet(HudSection.SCROLL) }) {
-                    Text("📜", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.width(8.dp))
-                    TwoLines(scroll.line1, scroll.line2, Modifier.weight(1f), strong = false)
-                }
-            }
         }
     }
 }
@@ -679,7 +665,7 @@ private fun WhenColumn(at: Pair<String, String>, modifier: Modifier) {
     }
 }
 
-/** The next goal: its line (a tap: the goal's card in full), then each open step with its own action, or the goal's one action. */
+/** The next goal: its line (a tap: the ages sheet), then each open step with its own action, or the goal's one action. */
 @Composable
 private fun GoalSection(view: HudView, actions: HudActions) {
     val steps = VillageHudLogic.openSteps(view.goal, view.check)
