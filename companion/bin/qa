@@ -87,6 +87,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        nothing and picks nothing, once answered the form in the feedback opens its card;
                        "exercise-explain" the module kdo-govori's third explanation in shape (its rule a line, its
                        pairs a small table), «delam» in it looked up;
+                       "progress" the progress screen ("📊 Napredek · Progress"): the words bar (past A1's 300 on to
+                       B1's 1000, "✅ 300 besed za A2"), "🧭 Do A2" (the words and the treasure map's three signs,
+                       the map a tap away and back), "📝 Slovnica" (the school's units of A1, the next unit's page and
+                       back through the school, the book's pages, the weakest page's sheet); the dark theme and the
+                       base in German (QA's hook "pair:sl-de") after;
                        "counting" counting cards ("🔢 Štetje · Counting"): the unit stevila's intro skipped (QA's hook
                        "counting:intro"), its note; a review of the dev bridge's counting cards (QA's hook "counting"): a
                        card's steps, one wrong, the four lines said together, the cheat sheet, 💬 attaching it, the
@@ -5729,6 +5734,168 @@ def road_quiz():
     assert road_session().get("state") == 2, f"the quiz didn't pause: {road_session()}"
 
 
+PROGRESS = "📊 Napredek · Progress"
+
+
+def open_progress():
+    """Home's "📊 Napredek · Progress" line to the progress screen, the node's stats on it."""
+    go_home()
+    c = scroll_to("Napredek · Progress", 6)
+    assert c is not None, "Home's progress line"
+    tap_at(c)
+    assert wait_for(PROGRESS, 8), "the progress screen"
+    time.sleep(2 * slow())  # the node's stats after the cached ones
+
+
+def drag_to_top(text: str, swipes=8):
+    """Scrolls down to [text], then drags it slowly (no fling) to near the top: the card under it on screen. Its centre, or None."""
+    c = scroll_to(text, swipes)
+    if c is None:
+        return None
+    if c[1] > 420:
+        adb("shell", "input", "swipe", "540", str(c[1]), "540", "380", "900")
+        time.sleep(1.5)
+    return find(text)
+
+
+def on_treasure_map(timeout=6.0) -> bool:
+    """The treasure map is on screen: its header ("🗺️ Zemljevid zaklada · The treasure map", the level under it), not
+    the progress screen's way to it ("… ›", under "🧭 Do …")."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        ts = [t for t, _ in nodes()]
+        if any("Zemljevid zaklada · The treasure map" in t and "›" not in t for t in ts) and not any(t.startswith("🧭 ") for t in ts):
+            return True
+        time.sleep(1)
+    return False
+
+
+def progress_cards(suffix: str, way: str, grammar: str):
+    """The progress screen's top (the words bar), its way to the next level ([way]: its title) and its grammar section
+    ([grammar]), a screenshot each, named with [suffix]."""
+    to_top()
+    time.sleep(1)
+    shot(f"progress-top{suffix}")
+    assert card_at_top(way), f"the way to the next level ({way})"
+    shot(f"progress-path{suffix}")
+    assert card_at_top(grammar), f"the grammar section ({grammar})"
+    shot(f"progress-grammar{suffix}")
+    to_top()
+
+
+def card_at_top(title: str):
+    """From the screen's top down to the card [title], dragged to near the top. Its title's centre, or None."""
+    to_top()
+    return drag_to_top(title)
+
+
+def on_screen(*labels, swipes=2):
+    """The first node whose text has one of [labels], on screen (scrolling down up to [swipes] times): (text, centre), or None."""
+    for k in range(swipes + 1):
+        if k:
+            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "600")
+            time.sleep(1.2)
+        hit = next(((t, c) for t, c in nodes() if any(l in t for l in labels) and 250 < c[1] < 2150), None)
+        if hit is not None:
+            return hit
+    return None
+
+
+def progress():
+    """The progress screen ("📊 Napredek · Progress"; Jan: "x/300 words: we reached this now and the progress bar stays
+    full", "also progress for grammar?"): the words bar past A1's 300 aims at B1's 1000 with "✅ 300 besed za A2"; "🧭 Do
+    A2 · To A2" with the words and the treasure map's three signs (the grammar, the reviews, the practice), each ✅ or ⏳
+    and its numbers, the map a tap away and back; "📝 Slovnica · Grammar": the school's units of A1 (done of 18, a bar),
+    the next unit a tap away (its page, back through the school to the progress screen), the book's pages of A1, the
+    weakest page a tap away (its sheet over the screen). Then the three parts in the dark theme and with the base in
+    German (QA's hook "pair:sl-de"), the light theme and the profile's pair again after."""
+    open_progress()
+    notes = []
+    to_top()
+    shot("progress-top")
+    # the words bar: before A1's goal "x / 300 besed do A2"; past it on to B1's, the goal passed marked
+    if find("besed za B1"):
+        assert find("✅ 300 besed za A2 · 300 words for A2"), "the words goal passed, marked"
+        notes.append("words past 300: the bar aims at B1's 1000")
+    else:
+        assert find("besed do A2"), "the words bar: x / 300 besed do A2"
+        notes.append("words before 300")
+    way = "🧭 Do A2 · To A2"
+    assert card_at_top(way), "the way to A2"
+    # each line is one node, read by TalkBack in the base language ("Words: 312 / 300. met")
+    for sign in ("Words: ", "Rules of A1 secure: ", "Reviews, last 14 days: ", "Days of practice at A1: "):
+        assert on_screen(sign), f"the way's sign {sign}"
+    card_at_top(way)
+    shot("progress-path")
+    # the map from the way (before the offer: its signs and "🗺️ Sem pripravljen"; offered or on: the map), and back
+    hit = on_screen("Zemljevid zaklada te čaka", "Zemljevid zaklada · The treasure map ›", "Zemljevid zaklada: postaje")
+    assert hit is not None, "no way to the treasure map on the progress screen"
+    tap_at(hit[1])
+    assert on_treasure_map(), "the treasure map from the progress screen"
+    time.sleep(1)
+    shot("progress-map")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    assert wait_for(PROGRESS, 8), "back from the map: the progress screen"
+    notes.append(f"map: {hit[0]}")
+    grammar = "📝 Slovnica · Grammar"
+    assert card_at_top(grammar), "the grammar section"
+    assert on_screen("Šola: enote A1"), "the school's units of A1"
+    assert on_screen("A1 pages in the book: "), "the book's pages of A1 (its TalkBack label)"
+    card_at_top(grammar)
+    shot("progress-grammar")
+    # the unit suggested next ("★ Naslednja · Next", or "▶ V teku · In progress" when begun): its page; back to the school
+    # ("← Napredek · Progress"), back to the progress screen
+    labels = ("Naslednja · Next", "V teku · In progress")
+    ns = list(nodes())
+    hit = next(((i, c) for i, (t, c) in enumerate(ns) if t in labels and 250 < c[1] < 2150), None)
+    if hit is not None:
+        title = ns[hit[0] + 1][0] if hit[0] + 1 < len(ns) else ""  # the unit's title, the node after its label
+        tap_at(hit[1])
+        assert wait_for("← ", 6) and find(grammar) is None and not any(t in labels for t, _ in nodes()), "the next unit's page"
+        assert len(title) < 4 or find(title), f"the next unit's page: {title}"
+        shot("progress-unit")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert wait_for("← Napredek · Progress", 6), "the school, its way back to the progress screen"
+        shot("progress-school")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert wait_for(PROGRESS, 8), "back from the school: the progress screen"
+        notes.append(f"next unit: {title}")
+    # the weakest page: its sheet over the progress screen
+    card_at_top(grammar)
+    if on_screen("Najšibkejše strani · Weakest pages") is not None:
+        page = next((c for t, c in nodes() if re.search(r"[★☆]{5}|še nevadeno", t) and 250 < c[1] < 2150), None)
+        assert page is not None, "a weakest page's row"
+        tap_at(page)
+        assert wait_for("Zapri · Close", 6), "the grammar page over the progress screen"
+        time.sleep(1)
+        shot("progress-page")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        assert wait_for("Najšibkejše strani · Weakest pages", 6) and find("Zapri · Close") is None, "the page closed: the progress screen"
+    else:
+        notes.append("no weakest page")
+    # the dark theme, then the light one again (or whatever the emulator had)
+    to_top()
+    night = adb("shell", "cmd", "uimode", "night", check=False)
+    try:
+        adb("shell", "cmd", "uimode", "night", "yes")
+        time.sleep(3 * slow())
+        assert wait_for(PROGRESS, 8), "the progress screen in the dark theme"
+        progress_cards("-dark", way, grammar)
+    finally:
+        adb("shell", "cmd", "uimode", "night", "yes" if "yes" in night else "auto" if "auto" in night else "no")
+        time.sleep(2 * slow())
+    # the base in German
+    try:
+        qa_hook("pair:sl-de")
+        assert wait_for("Napredek · Fortschritt", 10), "the progress screen in sl · de"
+        progress_cards("-de", "🧭 Do A2 · Bis A2", "📝 Slovnica · Grammatik")
+    finally:
+        qa_hook("pair:")
+        wait_for(PROGRESS, 10)
+    print(f"    {'; '.join(notes)}")
+    go_home()
+
+
 def optional_screen(label: str, marker: str, exact: bool = False):
     """A screen reached from Home by [label] ([exact]: a label that is exactly that), shown when [marker] appears."""
     def run():
@@ -6375,7 +6542,7 @@ def plan():
         ("counting", counting_cards, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
         ("exercise-explain", exercise_explain, go_home, False, ""),
-        ("progress", optional_screen("Napredek · Progress", "📊 Napredek · Progress"), None, False, ""),
+        ("progress", progress, go_home, False, ""),
         ("talk", optional_screen("Pogovor", "Učitelj igra drugo osebo", exact=True), None, False, ""),
         ("road", road, go_home, False, ""),
         ("offline-audio", offline_audio, go_home, False, ""),
