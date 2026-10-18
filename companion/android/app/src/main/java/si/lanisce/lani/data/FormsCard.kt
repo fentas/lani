@@ -600,8 +600,9 @@ object FormsCard {
 
     /**
      * The words to ask the node for cards of, best first: the learner's learned one-word vocabulary cards ([pool], the
-     * [learned] ids) whose forms the phone has ([entries]: [hasForms]), without a forms card ([have]) and not refused
-     * today ([refused]); the core verbs first ([CORE]), then the best known; at most [ASK_MAX]. Each (lemma, its card's id).
+     * [learned] ids: a word added from its card counts once it was answered right) whose forms the phone has ([entries]:
+     * [hasForms]), without a forms card ([have]) and not refused today ([refused]); the core verbs first ([CORE]), then the
+     * best known; at most [ASK_MAX]. Each (lemma, its card's id).
      */
     fun candidates(
         pool: List<ReviewCard>, learned: Set<String>, have: List<ReviewCard>, entries: (String) -> List<LemmaForms>?,
@@ -610,7 +611,7 @@ object FormsCard {
         val made = have.flatMap { listOfNotNull(it.forms?.lemma, it.front) }.map(::key).toSet()
         fun core(w: String) = CORE.indexOf(key(w)).let { if (it < 0) CORE.size else it }
         return pool.asSequence()
-            .filter { it.kind == "vocabulary" && it.id in learned && !it.lookup }
+            .filter { it.kind == "vocabulary" && it.id in learned }
             .mapNotNull { c -> WordFormsWire.lemmaOf(c)?.let { it to c } }
             .filter { (w, _) -> key(w) !in made && key(w) !in refused && hasForms(entries(w)) }
             .sortedWith(compareBy<Pair<String, ReviewCard>>({ core(it.first) }, { -it.second.repetitions }))

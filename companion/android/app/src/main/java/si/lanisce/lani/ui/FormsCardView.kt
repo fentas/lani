@@ -114,9 +114,16 @@ internal fun FormsCardEx(vm: AppViewModel, ex: Exercise.FormsTable, locked: Bool
             if (mark === m) next()
         }
     }
+    // QA reads which gap is asked, its right form and its options (a debug or qa build)
+    if (si.lanisce.lani.BuildConfig.QA) LaunchedEffect(at, typed) {
+        ex.gaps.getOrNull(at)?.let { g ->
+            android.util.Log.i("FormsCard", "gap ${at + 1}/${ex.gaps.size} ${g.key} «${g.answer}» [${g.options.joinToString("|")}] ${if (typed && !g.chosen) "typed" else "chosen"}")
+        }
+    }
     val byKey = ex.gaps.mapIndexedNotNull { i, g -> (marks.getOrNull(i) ?: mark?.takeIf { i == at })?.let { g.key to it } }.toMap()
     val current = ex.gaps.getOrNull(at)?.key?.takeIf { !over }
-    val end = !locked && marks.size == ex.gaps.size
+    // the end: every gap answered (the run locks the card then; its whole table and 🔊 stay)
+    val end = ex.gaps.isNotEmpty() && marks.size == ex.gaps.size
 
     Text("📋 ${bi("formsCard.title")}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Spacer(Modifier.height(8.dp))
@@ -138,7 +145,7 @@ internal fun FormsCardEx(vm: AppViewModel, ex: Exercise.FormsTable, locked: Bool
         Column(Modifier.then(revealFormsOn(at, mark != null))) {
             Spacer(Modifier.height(10.dp))
             val typing = typed && !g.chosen
-            Asked(g, at, ex.gaps.size, typing && mark == null)
+            Asked(ex.lemma, g, at, ex.gaps.size, typing && mark == null)
             val m = mark
             if (m == null) {
                 if (typing) {
@@ -249,10 +256,13 @@ private fun Cell(cell: FormsCell, mark: ItemMark?, now: Boolean, end: Boolean) {
     }
 }
 
-/** What a gap asks: where it stands ("sedanjik · present — ednina · singular"), the gap with the words around it, what to do. */
+/**
+ * What a gap asks: the word and where the gap stands ("📋 delati · 2/6 · sedanjik · present — dvojina · dual": the card's
+ * head may be scrolled away by now), the gap with the words around it, what to do.
+ */
 @Composable
-private fun Asked(g: FormsGap, i: Int, of: Int, typed: Boolean) {
-    Text("${i + 1}/$of · ${g.where}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+private fun Asked(lemma: String, g: FormsGap, i: Int, of: Int, typed: Boolean) {
+    Text("📋 $lemma · ${i + 1}/$of · ${g.where}", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Spacer(Modifier.height(4.dp))
     Text(listOf(g.before, "____" + g.after).filter { it.isNotBlank() }.joinToString(" "), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(4.dp))

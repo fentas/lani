@@ -75,7 +75,8 @@ class FormsCardController(
      */
     suspend fun reload(b: Bridge): Boolean {
         val d = content.dashboard ?: return false
-        if (!on(d)) return false
+        // the village not loaded yet: nothing is introduced as far as the phone knows, so nothing would be asked
+        if (!on(d) || game.state == null) return false
         val today = LocalDate.now()
         val no = refused.takeIf { it.first == today }?.second.orEmpty()
         val want = if (FormsCard.room(d.formsCards, today) > 0) FormsCard.candidates(d.pool, d.learned, d.formsCards, forms::entriesOf, no) else emptyList()
@@ -83,8 +84,9 @@ class FormsCardController(
         if (want.isEmpty() && pages == told) return false
         val answer = ask(b, want, pages, asked = false) ?: return false
         told = pages
-        // what the node won't make (not learned there, too few forms) isn't asked again today; the day's cap ends it anyway
-        refused = today to (no + answer.skipped.filter { !it.why.startsWith("today's") }.map { FormsCard.key(it.word) })
+        // what the node won't make (not learned there, too few forms) isn't asked again today; the day's cap ends it anyway,
+        // and a word with too little introduced yet may have more after a unit today
+        refused = today to (no + answer.skipped.filter { !it.why.startsWith("today's") && "introduced" !in it.why }.map { FormsCard.key(it.word) })
         if (answer.added.none { !it.existing } && answer.resurfaced.isEmpty()) return false
         reloadDashboard(b)
         return true

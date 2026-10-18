@@ -411,14 +411,16 @@ class FormsCardTest {
             ReviewCard("v_biti", "biti", "to be", repetitions = 1), ReviewCard("v_lep", "lep", "nice", repetitions = 3),
             ReviewCard("v_hvala", "hvala", "thanks", repetitions = 9), ReviewCard("v_new", "miza", "table"),
             ReviewCard("v_kava", "kava", "coffee", repetitions = 5),
+            // added from its card, answered right since: learned
+            ReviewCard("v_iti", "iti", "to go", repetitions = 2, lookup = true),
         )
-        val learned = setOf("v_hisa", "v_delati", "v_biti", "v_lep", "v_hvala", "v_kava")
+        val learned = setOf("v_hisa", "v_delati", "v_biti", "v_lep", "v_hvala", "v_kava", "v_iti")
         val have = listOf(card("forms_kava", hisa.copy(lemma = "kava")))
-        val forms = mapOf("hiša" to entries("noun", 18), "delati" to entries("verb", 21), "biti" to entries("verb", 40), "lep" to entries("adj", 6), "hvala" to emptyList(), "miza" to entries("noun", 18), "kava" to entries("noun", 18))
+        val forms = mapOf("hiša" to entries("noun", 18), "delati" to entries("verb", 21), "biti" to entries("verb", 40), "lep" to entries("adj", 6), "hvala" to emptyList(), "miza" to entries("noun", 18), "kava" to entries("noun", 18), "iti" to entries("verb", 16))
         val want = FormsCard.candidates(pool, learned, have, { forms[it] })
-        assertEquals(listOf("biti", "delati", "hiša", "lep"), want.map { it.first })
+        assertEquals(listOf("biti", "iti", "delati", "hiša", "lep"), want.map { it.first })
         assertEquals("v_biti", want.first().second)
-        assertEquals(listOf("delati", "hiša", "lep"), FormsCard.candidates(pool, learned, have, { forms[it] }, refused = setOf("biti")).map { it.first })
+        assertEquals(listOf("iti", "delati", "hiša", "lep"), FormsCard.candidates(pool, learned, have, { forms[it] }, refused = setOf("biti")).map { it.first })
         // two new a day of their own accord; one made on demand doesn't count
         val made = listOf(card("a", hisa, created = today), card("b", delati.copy(asked = true), created = today))
         assertEquals(1, FormsCard.room(made, today))
