@@ -24,10 +24,11 @@ import org.junit.Test
 
 /**
  * The phone's bridge against a node's on the same data (docs/plans/05-built/phone-runtime.md): a node bridge (bun
- * src/index.ts, the classic mode, its MCP channel on stdio) on 127.0.0.1:19110, on a copy of the same learner data
- * (data-examples' templates) and the same repository, and the bundle in QuickJS. The routes' answers are the same JSON,
- * and a message to the tutor reaches each channel with the same content and meta. Needs bun and python3 (the node's
- * hooks); without them it is skipped.
+ * src/index.ts, the classic mode, its MCP channel on stdio) on 127.0.0.1:19110 over the repository, and the bundle in
+ * QuickJS over the content the APK carries (app/build.gradle.kts phoneProject: what the phone unpacks), each on a copy
+ * of the same learner data (data-examples' templates). The routes' answers are the same JSON (so the APK's content is
+ * all the bridge reads for them), and a message to the tutor reaches each channel with the same content and meta. Needs
+ * bun and python3 (the node's hooks); without them it is skipped.
  */
 class PhoneBridgeNodeTest {
     companion object {
@@ -95,12 +96,14 @@ class PhoneBridgeNodeTest {
 
             val phoneHome = File(tmp, "phone").apply { mkdirs() }
             val phoneData = PhoneBridgeTest.learnerData(File(phoneHome, "data"))
+            // the content as the phone has it (phoneProject), else the repository
+            val project = System.getProperty("lani.phoneProject")?.let(::File)?.takeIf { it.isDirectory }?.canonicalFile ?: repo
             phone = PhoneBridge(
                 PhoneBridge.Config(
-                    projectDir = repo,
+                    projectDir = project,
                     dataDir = phoneData,
                     home = phoneHome,
-                    roots = listOf(HostFs.Root(phoneHome, writable = true), HostFs.Root(repo, writable = false)),
+                    roots = listOf(HostFs.Root(phoneHome, writable = true), HostFs.Root(project, writable = false)),
                     bundle = { PhoneBridgeTest.bundle.readText() },
                     env = env(phoneHome),
                 ),

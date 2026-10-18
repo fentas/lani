@@ -196,12 +196,19 @@ class PhoneBridge(private val config: Config) : Closeable {
             q.evaluationTimeoutMillis = config.evaluationTimeoutMs
             defineHost(q)
             js = q
-            val source = config.bundle()
             val t0 = System.nanoTime()
-            val fromBytecode = load(q, source)
-            val t1 = System.nanoTime()
-            val summary = q.evaluate<String>("__laniPhone.boot()", typeOf<String>(), "boot.js", false)
-            q.evaluate<Any?>("__laniPhone.start()", typeOf<Any?>(), "start.js", false)
+            val (fromBytecode, summary, t1) = try {
+                val fromBytecode = load(q, config.bundle())
+                val t1 = System.nanoTime()
+                val summary = q.evaluate<String>("__laniPhone.boot()", typeOf<String>(), "boot.js", false)
+                q.evaluate<Any?>("__laniPhone.start()", typeOf<Any?>(), "start.js", false)
+                Triple(fromBytecode, summary, t1)
+            } catch (e: Throwable) {
+                // a bundle that doesn't load or boot: the runtime goes, the next call tries again
+                js = null
+                q.close()
+                throw e
+            }
             val t2 = System.nanoTime()
             Boot((t1 - t0) / 1e6, (t2 - t1) / 1e6, fromBytecode, summary).also {
                 boot = it

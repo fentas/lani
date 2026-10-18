@@ -523,8 +523,9 @@ android {
         unitTests.all {
             it.systemProperty("lani.learner", "Jan")
             // the phone bridge's tests (phone/PhoneBridgeTest): the bundle the APK gets, the repository as its project
-            it.inputs.files(phoneBridgeBundle)
+            it.inputs.files(phoneBridgeBundle, phoneProject)
             it.systemProperty("lani.phoneBundle", phoneBridgeBundle.get().out.get().asFile.resolve("phone/bridge-phone.js").path)
+            it.systemProperty("lani.phoneProject", phoneProject.get().out.get().asFile.resolve("phone/project").path)
             it.systemProperty("lani.repo", rootDir.resolve("../..").canonicalPath)
             // the renderers' time budgets, scaled on a slow runner (FrameBudget in the tests; CI sets LANI_PERF_SCALE)
             it.systemProperty("lani.perfScale", System.getenv("LANI_PERF_SCALE") ?: "1")

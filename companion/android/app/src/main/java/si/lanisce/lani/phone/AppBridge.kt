@@ -33,7 +33,8 @@ object AppBridge {
 
     /**
      * The content unpacked when the app's version changed ([Unpacker]), then a bridge over [dataDir] (the app's own
-     * unless given), not started yet: its first call starts it ([PhoneBridge.start]).
+     * unless given), not started yet: its first call starts it ([PhoneBridge.start]). Off the main thread: an unpack
+     * copies about 12 MB (181 ms on the emulator).
      */
     fun create(
         context: Context,

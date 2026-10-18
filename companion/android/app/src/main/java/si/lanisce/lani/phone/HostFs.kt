@@ -80,7 +80,7 @@ class HostFs(roots: List<Root>) {
         }.toString()
     }
 
-    /** JSON: [[name, type]…] in the directory's order (as node's readdirSync gives them). */
+    /** JSON: [[name, type]…] in the directory's order, as Bun's readdirSync gives them (node's sorts them). */
     fun readdir(path: String): String {
         val dir = existing(path)
         if (!dir.isDirectory) throw FsError("ENOTDIR", "not a directory")

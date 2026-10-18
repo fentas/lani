@@ -103,6 +103,22 @@ class PhoneBridgeTest {
     }
 
     @Test
+    fun everyGetRouteAnswers() {
+        // the app's GET routes (the event stream aside): none fails in the phone's runtime (a polyfill or a host call
+        // missing would be a 500), but those that read the databases, until the db port is registered
+        val db = setOf("/counting", "/forms-cards", "/level")
+        val routes = listOf(
+            "/health", "/arrivals", "/cards", "/drills", "/events/backlog", "/grammar", "/modules", "/readings", "/scenarios",
+            "/stories", "/stt/status", "/villagers", "/voice/index", "/voice/offline", "/voice/profiles", "/voice/status", "/words",
+            "/course", "/culture", "/cultures", "/game", "/lexicon/status", "/packs", "/scenes", "/app/latest", "/towns",
+            "/towns/guests", "/towns/questions", "/towns/friendship", "/audio/index", "/family/api/settings", "/family/api/words",
+            "/family/api/challenges", "/counting", "/forms-cards", "/level",
+        )
+        val failed = routes.map { it to get(it) }.filter { (path, r) -> r.status >= 500 && path !in db }
+        assertEquals(failed.joinToString("\n") { (p, r) -> "$p: ${r.status} ${r.text.take(200)}" }, 0, failed.size)
+    }
+
+    @Test
     fun theTokenIsTheApps() {
         val r = runBlocking { bridge.handle(PhoneBridge.Request("GET", "/packs", listOf("authorization" to "Bearer wrong"))) }
         assertEquals(401, r.status)
