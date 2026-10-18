@@ -58,7 +58,8 @@ object RoadGather {
     /**
      * The review cards of GET /state ([raw]) due by [until] (ISO date), with their due dates: the ones with both sides and
      * not an error pattern (whose content is the learner's wrong answer), as the dashboard reads them; no counting card
-     * (its four steps are the review's, data/Counting.kt: in the car its back would be read as a meaning).
+     * (its four steps are the review's, data/Counting.kt: in the car its back would be read as a meaning), no forms card
+     * (its table is the review's, data/FormsCard.kt).
      */
     fun cards(raw: String, until: String): List<Pair<ReviewCard, String?>> {
         val root = json.parseToJsonElement(raw).jsonObject
@@ -66,7 +67,7 @@ object RoadGather {
         return items.mapNotNull { (id, v) ->
             val o = v as? JsonObject ?: return@mapNotNull null
             fun str(k: String) = o[k]?.let { runCatching { it.jsonPrimitive.contentOrNull }.getOrNull() }
-            if (str("type") == "error_pattern" || str("type") == si.lanisce.lani.data.Counting.KIND) return@mapNotNull null
+            if (str("type") == "error_pattern" || str("type") == si.lanisce.lani.data.Counting.KIND || str("type") == si.lanisce.lani.data.FormsCard.KIND) return@mapNotNull null
             val front = str("content") ?: return@mapNotNull null
             val back = str("answer") ?: return@mapNotNull null
             val due = str("due_date")

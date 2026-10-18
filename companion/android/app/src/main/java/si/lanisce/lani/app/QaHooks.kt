@@ -65,6 +65,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   or not; "counting:type" types their steps from then on, as if each card were secure ([countingTyped]), "counting:off"
  *   lets the cards' own reviews decide again; "counting:intro" readies the class (as "school") with the unit stevila as
  *   never begun ([readyCounting]: counting off) and opens its intro, whose end ("⏭ Poznam to") turns counting on.
+ * - "formscard": forms cards (data/FormsCard.kt): today's asked of the dev bridge now, then a review of up to three of
+ *   them that ask something, due or not; "formscard:<word>" a review of that word's card (made on demand first);
+ *   "formscard:type" types their gaps from then on, as if each card were secure ([formsTyped]), "formscard:off" lets
+ *   the cards' own reviews decide again; "formscard:unit:<id>" the unit's intro done (as "⏭ Poznam to" ends it: its
+ *   pages met, the node told), "formscard:word:<word>" the word's card open (as a tap on it in a dialog).
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
@@ -107,6 +112,10 @@ object QaHooks {
 
     /** QA asked for typed turns ("turns:type"): every rule of a dialog's form turns counts as secure. */
     var typedTurns = false
+        private set
+
+    /** QA asked for typed forms cards ("formscard:type"): every forms card's gaps are typed (a fresh part's chosen still). */
+    var formsTyped = false
         private set
 
     /** QA asked for typed counting cards ("counting:type"): every counting card's steps are typed. */
@@ -185,7 +194,7 @@ object QaHooks {
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
-        grow: (si.lanisce.lani.game.Age) -> Unit = {},
+        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> },
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -213,6 +222,12 @@ object QaHooks {
             command == "counting:intro" -> counting("intro")
             command == "counting:type" -> countingTyped = true
             command == "counting:off" -> countingTyped = false
+            command == "formscard" -> formsCard("review", "")
+            command == "formscard:type" -> formsTyped = true
+            command == "formscard:off" -> formsTyped = false
+            command.startsWith("formscard:unit:") -> formsCard("unit", command.removePrefix("formscard:unit:").trim())
+            command.startsWith("formscard:word:") -> formsCard("word", command.removePrefix("formscard:word:").trim())
+            command.startsWith("formscard:") -> formsCard("review", command.removePrefix("formscard:").trim())
             command.startsWith("ispy:") -> ispy = command.removePrefix("ispy:").takeIf { '/' in it }
             command.startsWith("bubbles:") -> bubbles = command.removePrefix("bubbles:").toIntOrNull()?.coerceAtLeast(0)
             command.startsWith("hour:") -> sceneHour = command.removePrefix("hour:").toFloatOrNull()?.takeIf { it in 0f..24f }

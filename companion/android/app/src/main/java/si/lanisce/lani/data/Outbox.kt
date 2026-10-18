@@ -262,18 +262,21 @@ object Writes {
      * tutor reads when Jan reports a card later; [from]: where in the app ([ReviewFrom]), so the tutor knows where nothing
      * is typed; [answeredAt]: when (epoch ms; an answer may carry its own `at`), so a review sent late keeps its time.
      * [counting]: how each counting card went, step by step ([si.lanisce.lani.data.Counting.wire]): the node keeps its
-     * wrong steps as mistakes by kind. An older bridge leaves them out.
+     * wrong steps as mistakes by kind. [formsCards]: how each forms card went, gap by gap ([si.lanisce.lani.data.FormsCard.wire]):
+     * the node keeps its wrong gaps as mistakes by kind. An older bridge leaves them out.
      */
     fun reviews(
         results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: JsonArray? = null,
         id: String = Outbox.newId(), now: Long = System.currentTimeMillis(), dialog: JsonObject? = null, answers: JsonArray? = null,
-        from: String? = null, answeredAt: Long = now, counting: JsonArray? = null,
+        from: String? = null, answeredAt: Long = now, counting: JsonArray? = null, formsCards: JsonArray? = null,
     ): OutboxEntry {
         var body = graded("item_id", results, minutes)
         if (language != null) body = JsonObject(body + ("language" to JsonPrimitive(language)))
         if (forms != null && forms.isNotEmpty()) body = JsonObject(body + ("forms" to forms))
         // how its counting cards went, step by step (data/Counting.kt wire): an older bridge drops it
         if (counting != null && counting.isNotEmpty()) body = JsonObject(body + ("counting" to counting))
+        // how its forms cards went, gap by gap (data/FormsCard.kt wire): an older bridge drops it
+        if (formsCards != null && formsCards.isNotEmpty()) body = JsonObject(body + ("forms_cards" to formsCards))
         if (dialog != null) body = JsonObject(body + ("dialog" to dialog))
         if (answers != null && answers.isNotEmpty()) body = JsonObject(body + ("answers" to answers))
         if (from != null) body = JsonObject(body + ("from" to JsonPrimitive(from)))

@@ -297,6 +297,8 @@ object GameEngine {
         is Exercise.Sort -> Res.FOOD
         // a counting card: the numerals' agreement and the noun's endings, grammar
         is Exercise.Counting -> Res.STONE
+        // a forms card: a word's endings, grammar
+        is Exercise.FormsTable -> Res.STONE
     }
 
     /**

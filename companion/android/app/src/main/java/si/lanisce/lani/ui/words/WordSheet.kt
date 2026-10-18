@@ -100,6 +100,8 @@ fun WordSheet(vm: AppViewModel, card: WordCard) {
                             if (q.forms && q.lang == null && (e.known || card.added[e.key] != null) && e.pos != "name") {
                                 WordFormsTable(vm, e.lemma, e.pos, e.glossEn.ifEmpty { e.gloss })
                             }
+                            // its whole table as a card of its own, made at once: "📋 Vse oblike · All forms" (data/FormsCard.kt)
+                            if (q.forms && q.lang == null) si.lanisce.lani.ui.AllFormsButton(vm, e)
                         }
                     }
                     AskButton(vm, prominent = false)

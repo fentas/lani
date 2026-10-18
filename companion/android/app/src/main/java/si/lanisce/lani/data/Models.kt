@@ -286,6 +286,33 @@ sealed interface Exercise {
         /** The four lines together ("ena kava, dve kavi, tri kave, pet kav"): what the narrator says at the end. */
         val said: String get() = steps.joinToString(", ") { it.line }
     }
+
+    /**
+     * A forms card of the review ("📋 Oblike · Forms", data/FormsCard.kt): the word [lemma] (its part of speech [pos], a
+     * noun's [gender], what it [meaning]s, its [emoji]) with its whole table ([sections]: the forms introduced to the
+     * learner as gaps or shown, the others greyed), this review's [gaps] asked one at a time, chosen among their options
+     * or [typed] once the card is secure; [fresh]: the part newly introduced, played first; [pages]: the grammar pages its
+     * help opens; [said]: the rows asked, read aloud at the end; [checked]: the forms book's hand-checked table (machine-
+     * written, flagged so); [data]: the card's word as the node keeps it. Only the review makes one (from the card's forms); a module never has it.
+     */
+    @Serializable @SerialName("forms_card")
+    data class FormsTable(
+        val lemma: String,
+        val pos: String,
+        val sections: List<FormsSection>,
+        val gaps: List<FormsGap>,
+        val gender: String? = null,
+        val meaning: String? = null,
+        val emoji: String? = null,
+        val typed: Boolean = false,
+        val fresh: Boolean = false,
+        val pages: List<String> = emptyList(),
+        val said: String = "",
+        val checked: Boolean = false,
+        /** The card's word and table as the node keeps them: what a wrong gap's kind is told from ([FormsCard.kind]). */
+        val data: FormsCardData? = null,
+        override val grammar: String? = null,
+    ) : Exercise
 }
 
 /**
@@ -443,6 +470,10 @@ data class ReviewCard(
     val created: java.time.LocalDate? = null,
     /** A counting card's noun and its forms (the item's `counting`, data/Counting.kt); null for any other card. */
     val counting: CountingForms? = null,
+    /** A forms card's word and its table (the item's `forms`, data/FormsCard.kt); null for any other card. */
+    val forms: FormsCardData? = null,
+    /** How often it was reviewed (the item's `total_reviews`): which part of a forms card comes next. */
+    val reviews: Int = 0,
 ) {
     /** A failed review ([quality] below 3) leaves this card rusty ([Stats.rusty]). */
     fun rustsAt(quality: Int): Boolean = quality < 3 && kind == "vocabulary" && !lookup
@@ -554,6 +585,11 @@ data class Dashboard(
      * choose among, its back no meaning), in [dueCards] when due, a few in each review.
      */
     val counting: List<ReviewCard> = emptyList(),
+    /**
+     * The learner's forms cards (data/FormsCard.kt), due or not: kept out of [pool] as counting cards are, in [dueCards]
+     * when due, a few in each review.
+     */
+    val formsCards: List<ReviewCard> = emptyList(),
 ) {
     /**
      * The learner's words a dialog just reviewed ([ids], [today]), before the node has them: reviewed today, so no other
@@ -649,6 +685,8 @@ data class Dashboard(
                 val back = item.str("answer") ?: return null
                 // a counting card is asked from its forms: without them whole, none
                 val counting = if (item.str("type") == Counting.KIND) (Counting.parse(item["counting"]) ?: return null) else null
+                // a forms card is asked from its table: without it whole, none
+                val forms = if (item.str("type") == FormsCard.KIND) (FormsCard.parse(item["forms"]) ?: return null) else null
                 return ReviewCard(
                     id, front, back, item.str("type") ?: "vocabulary", item.int("repetitions"), item.int("last_quality"),
                     category = item.str("category")?.trim()?.takeIf { it.isNotEmpty() },
@@ -658,11 +696,16 @@ data class Dashboard(
                     lastReviewed = dayOf(item.str("last_reviewed")),
                     created = dayOf(item.str("created_date")),
                     counting = counting,
+                    forms = forms,
+                    reviews = item.int("total_reviews"),
                 )
             }
-            // the counting cards due, a few of them spread among the others (data/Counting.kt, "interleaved")
+            // the counting cards and the forms cards due, a few of each spread among the others (data/Counting.kt,
+            // "interleaved"; data/FormsCard.kt)
             val dueAll = due.mapNotNull(::card)
-            val cards = Counting.interleave(dueAll.filter { it.kind != Counting.KIND }, dueAll.filter { it.kind == Counting.KIND }, MAX_DUE)
+            val words = dueAll.filter { it.kind != Counting.KIND && it.kind != FormsCard.KIND }
+            val withCounting = Counting.interleave(words, dueAll.filter { it.kind == Counting.KIND }, MAX_DUE)
+            val cards = Counting.interleave(withCounting, dueAll.filter { it.kind == FormsCard.KIND }, MAX_DUE, FormsCard.PER_REVIEW)
             val all = items.keys.mapNotNull(::card)
 
             val patterns = db["mistakes_db"].obj()["error_patterns"].obj()
@@ -701,8 +744,9 @@ data class Dashboard(
                 rusty = items.filter { (_, v) -> v.obj().str("type") == "vocabulary" && Stats.rusty(v.obj()) }.keys.mapNotNull(::card),
                 dueCards = cards,
                 weakPatterns = weak,
-                pool = all.filter { it.kind != Counting.KIND },
+                pool = all.filter { it.kind != Counting.KIND && it.kind != FormsCard.KIND },
                 counting = all.filter { it.kind == Counting.KIND },
+                formsCards = all.filter { it.kind == FormsCard.KIND },
                 daysSinceLastSession = root["computed"].obj().int("days_since_last_session"),
                 minutesToday = todays.sumOf { s -> s["duration_minutes"]?.jsonPrimitive?.doubleOrNull?.toInt() ?: 0 },
                 practisedToday = todays.isNotEmpty(),

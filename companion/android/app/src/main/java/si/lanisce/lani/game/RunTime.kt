@@ -31,6 +31,8 @@ internal object RunTime {
         is Exercise.Sort -> 6 * ex.columns.sumOf { it.words.size }
         // four steps, about a choice's time each
         is Exercise.Counting -> 15 * ex.steps.size
+        // a choice's time a gap, the table to read first
+        is Exercise.FormsTable -> 15 + 12 * ex.gaps.size
     }
 
     /** The old flat time: 50 s and 4 s a question. */

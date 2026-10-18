@@ -215,6 +215,26 @@ class Bridge(private val config: BridgeConfig) {
     }
 
     /**
+     * Forms cards of [words] (lemma, its card's id; none: only the cards [introduced] pages bring back, data/FormsCard.kt),
+     * made by the node from the dictionary's forms (POST /forms-cards): a few new a day, or at once when [asked] (a word's
+     * "📋 Vse oblike"); [introduced]: the grammar pages introduced to the learner, so the node knows what is tested and
+     * which cards come back soon. Null from an older bridge without them (404) or one that won't take the request (400).
+     */
+    suspend fun formsCards(words: List<Pair<String, String?>>, introduced: Collection<String>, asked: Boolean = false): FormsCardsAnswer? {
+        val body = buildJsonObject {
+            put("words", buildJsonArray { words.forEach { (w, id) -> add(buildJsonObject { put("word", w); id?.let { put("item_id", it) } }) } })
+            put("introduced", buildJsonArray { introduced.sorted().take(200).forEach { add(JsonPrimitive(it)) } })
+            if (asked) put("asked", true)
+        }
+        val (code, text) = exchange(request("/forms-cards").post(body.toString().toRequestBody(Http.jsonType)).build())
+        return when (code) {
+            200 -> json.decodeFromString(FormsCardsAnswer.serializer(), text)
+            400, 404 -> null
+            else -> throw IOException("HTTP $code: ${text.take(200)}")
+        }
+    }
+
+    /**
      * The tutor's explanation of [sentence]'s grammar, kept from an earlier "Ask the tutor" (GET /sentence,
      * publish_sentence_note), in [base] when there is one; a line of another town's [language] on a visit. Null when there
      * is none, and from an older bridge without it (404).

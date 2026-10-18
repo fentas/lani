@@ -65,6 +65,9 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             forms = if (home) vm.forms.questions() else null,
             formCap = if (si.lanisce.lani.app.QaHooks.forms) cards.size else maxOf(1, cards.size / si.lanisce.lani.game.WordForms.EVERY),
             typed = { c -> si.lanisce.lani.app.QaHooks.countingTyped || si.lanisce.lani.data.Counting.secure(c) },
+            // a forms card's table: the forms the school introduced asked, a part a review, typed once it is secure (QA's
+            // "formscard:type": all of them); the home language's only
+            formsCard = if (home) vm.formsCards.exercises() else null,
         )
         if (home) planned else planned.map { it.copy(exercise = silent(it.exercise)) }
     }
@@ -101,9 +104,11 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             val answers = JsonArray(tasks.zip(outcomes) { t, o -> reviewAnswer(t.exercise, o, t.card.id, t.variant) })
             // how each counting card went, step by step: the node keeps its wrong steps as mistakes by kind
             val counting = JsonArray(tasks.zip(outcomes).mapNotNull { (t, o) -> (t.exercise as? Exercise.Counting)?.let { si.lanisce.lani.data.Counting.wire(t.card.id, it, o.sheet) } })
+            // and each forms card, gap by gap: its wrong gaps as mistakes by kind
+            val formsCards = JsonArray(tasks.zip(outcomes).mapNotNull { (t, o) -> (t.exercise as? Exercise.FormsTable)?.let { si.lanisce.lani.data.FormsCard.wire(t.card.id, it, o.sheet) } })
             vm.finishReview(
                 tasks.map { it.card.id }.zip(q), minutesSince(started), language, forms, answers, from = si.lanisce.lani.data.ReviewFrom.REVIEW,
-                counting = counting.takeIf { it.isNotEmpty() },
+                counting = counting.takeIf { it.isNotEmpty() }, formsCards = formsCards.takeIf { it.isNotEmpty() },
             )
         }
         return
@@ -132,11 +137,14 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
     }
 }
 
-/** An answer's SM-2 quality before its hints: a counting card's from its steps ([si.lanisce.lani.data.Counting.quality]). */
-internal fun baseQuality(t: ReviewPlanner.Task, o: Outcome): Int {
-    val ex = t.exercise
-    return if (ex is Exercise.Counting) si.lanisce.lani.data.Counting.quality(o.sheet.map { it.verdict }, si.lanisce.lani.data.Counting.typed(ex, o.sheet))
-    else ReviewPlanner.quality(t.variant, o.verdict)
+/**
+ * An answer's SM-2 quality before its hints: a counting card's from its steps ([si.lanisce.lani.data.Counting.quality]), a
+ * forms card's from its gaps ([si.lanisce.lani.data.FormsCard.quality]).
+ */
+internal fun baseQuality(t: ReviewPlanner.Task, o: Outcome): Int = when (val ex = t.exercise) {
+    is Exercise.Counting -> si.lanisce.lani.data.Counting.quality(o.sheet.map { it.verdict }, si.lanisce.lani.data.Counting.typed(ex, o.sheet))
+    is Exercise.FormsTable -> si.lanisce.lani.data.FormsCard.quality(o.sheet.map { it.verdict }, si.lanisce.lani.data.FormsCard.typed(ex, o.sheet))
+    else -> ReviewPlanner.quality(t.variant, o.verdict)
 }
 
 /** Another language's card without the village language's voice: nothing read aloud. */

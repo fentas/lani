@@ -25,6 +25,8 @@ object ReviewPlanner {
         FORM_TYPE(3),    // the same, typed
         COUNTING(2),     // a counting card: its noun counted 1, 2, 3, 5, each step chosen among three (data/Counting)
         COUNTING_TYPE(3), // the same, typed (the card secure)
+        FORMS_CARD(2),   // a forms card: a word's table, its gaps chosen among three (data/FormsCard)
+        FORMS_CARD_TYPE(3), // the same, typed (the card secure)
         ;
 
         /** Asks a form of the word, not its meaning: a wrong one counts on the grammar rule ([quality]). */
@@ -80,17 +82,24 @@ object ReviewPlanner {
      * @param forms the form question a card asks this time, if any ([WordForms.forCard]); at most [formCap] of the cards
      *   ask one (about one in [WordForms.EVERY]), the others are asked their meaning as ever
      * @param typed whether a counting card's steps are typed ([Counting.secure]; QA's hook types them all)
+     * @param formsCard a forms card's exercise this review ([FormsCard.exercise]: the pages introduced, typed or not);
+     *   without it, or when it asks nothing yet, the card is left out of the review
      */
     fun plan(
         cards: List<ReviewCard>, pool: List<ReviewCard>, canSpeak: Boolean, random: Random = Random.Default,
         canRecognize: Boolean = false, forms: ((ReviewCard) -> FormQuestion?)? = null,
         formCap: Int = maxOf(1, cards.size / WordForms.EVERY), typed: (ReviewCard) -> Boolean = Counting::secure,
+        formsCard: ((ReviewCard) -> Exercise.FormsTable?)? = null,
     ): List<Task> {
         var formsLeft = formCap
-        // a counting card's choices aren't other cards: the pool keeps the words only
-        val words = pool.filter { it.kind != Counting.KIND }
-        return cards.map { card ->
-            card.counting?.takeIf { card.kind == Counting.KIND }?.let { f -> return@map countingTask(card, f, typed(card), random) }
+        // a counting card's choices aren't other cards, nor a forms card's: the pool keeps the words only
+        val words = pool.filter { it.kind != Counting.KIND && it.kind != FormsCard.KIND }
+        return cards.mapNotNull { card ->
+            card.counting?.takeIf { card.kind == Counting.KIND }?.let { f -> return@mapNotNull countingTask(card, f, typed(card), random) }
+            if (card.kind == FormsCard.KIND) {
+                val ex = formsCard?.invoke(card) ?: return@mapNotNull null
+                return@mapNotNull Task(card, if (ex.typed) Variant.FORMS_CARD_TYPE else Variant.FORMS_CARD, ex)
+            }
             val q = if (forms != null && formsLeft > 0) forms(card) else null
             if (q != null) {
                 formsLeft--
@@ -139,6 +148,7 @@ object ReviewPlanner {
                 Variant.TILES -> card.kind == "vocabulary" && accept.isNotEmpty() && accept.first().split(' ').size >= 2
                 Variant.FORM, Variant.FORM_TYPE -> false // a form is asked only when [plan] has one for the card
                 Variant.COUNTING, Variant.COUNTING_TYPE -> false // only a counting card's ([countingTask])
+                Variant.FORMS_CARD, Variant.FORMS_CARD_TYPE -> false // only a forms card's ([plan])
             }
         }.ifEmpty { mapOf(Variant.FLIP to 1) }
         val variant = pick(allowed, random)
@@ -203,7 +213,7 @@ object ReviewPlanner {
                 instruction = bi("common.saySlovene"),
             )
             // never picked by weight (see plainTask): a flashcard, should one come here
-            Variant.FORM, Variant.FORM_TYPE, Variant.COUNTING, Variant.COUNTING_TYPE ->
+            Variant.FORM, Variant.FORM_TYPE, Variant.COUNTING, Variant.COUNTING_TYPE, Variant.FORMS_CARD, Variant.FORMS_CARD_TYPE ->
                 Exercise.Flashcard(card.front, card.back, speak = card.kind == "vocabulary" && accept.isNotEmpty())
         }
 }

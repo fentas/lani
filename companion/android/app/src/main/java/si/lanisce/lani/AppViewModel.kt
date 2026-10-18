@@ -232,7 +232,16 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * by the node from the dictionary, a few a day (app/CountingController, data/Counting.kt).
      */
     val counting = si.lanisce.lani.app.CountingController(viewModelScope, node, game, content, forms, notices)
-    val school = si.lanisce.lani.app.SchoolController(node, game, content, grammar, cheat, chat, forms, cast = { villagers.all }, onIntroDone = counting::introDone)
+    /**
+     * "📋 Oblike · Forms": forms cards of the learner's words, their whole tables, the forms the school introduced asked;
+     * made by the node from the dictionary, a few a day or at once from a word's card (app/FormsCardController,
+     * data/FormsCard.kt).
+     */
+    val formsCards: si.lanisce.lani.app.FormsCardController = si.lanisce.lani.app.FormsCardController(viewModelScope, node, game, content, forms, notices, course = { school.course })
+    val school: si.lanisce.lani.app.SchoolController = si.lanisce.lani.app.SchoolController(
+        node, game, content, grammar, cheat, chat, forms, cast = { villagers.all },
+        onIntroDone = { u -> counting.introDone(u); formsCards.introDone(u) },
+    )
     /**
      * The learner's own words in the dialogs: which turns test them, and what a first answer on one does to its card, once
      * a day (companion/SCENES.md, "Your words in the dialogs").
@@ -480,6 +489,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         content.dashboard?.let { forms.reload(b, it.pool) }
         // the day's new counting cards, once the forms are on the phone (it names the nouns the dictionary counts)
         counting.reload(b)
+        // and the day's new forms cards (the pages introduced told: the cards they open rows of come back soon)
+        formsCards.reload(b)
         readings.reload(b)
         packs.reload(b)
         scenes.reload(b)
@@ -723,9 +734,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     fun finishReview(
         results: List<Pair<String, Int>>, minutes: Int, language: String? = null, forms: kotlinx.serialization.json.JsonArray? = null,
         answers: kotlinx.serialization.json.JsonArray? = null, from: String, counting: kotlinx.serialization.json.JsonArray? = null,
+        formsCards: kotlinx.serialization.json.JsonArray? = null,
     ): Job {
         if (language == null) content.reviewed(results)
-        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers, from = from, counting = counting))
+        return sync.submitLater(Writes.reviews(results, minutes, language, forms, answers = answers, from = from, counting = counting, formsCards = formsCards))
     }
 
     /** Sends Jan's answer to the tutor (and the family page); answering pays wisdom in the village. */
@@ -973,6 +985,31 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             val cards = counting.forQa(b)
             if (cards.isNotEmpty()) startRun(Screen.Review(cards, run = ++reviewRuns))
         }
+    }
+
+    /**
+     * QA's forms card hooks (app/QaHooks): "review" a review of up to three forms cards, due or not ([word]: that word's,
+     * made on demand first; app/FormsCardController.forQa); "unit" the unit [word]'s intro done, as "⏭ Poznam to" ends it
+     * (its pages met, the node told: the cards it opens rows of come back); "word" the word's card open.
+     */
+    fun qaFormsCard(what: String, word: String) {
+        when (what) {
+            "unit" -> school.unit(word)?.let { u -> school.introProgress(u, u.intro?.steps?.size ?: 0, done = true) }
+            "word" -> words.open(si.lanisce.lani.app.WordQuery(word, "", null, si.lanisce.lani.data.Words.SCENE))
+            else -> launchSafely {
+                val b = bridge ?: return@launchSafely
+                content.dashboard?.let { forms.reload(b, it.pool) }
+                val cards = formsCards.forQa(b, word.ifBlank { null })
+                if (cards.isNotEmpty()) startRun(Screen.Review(cards, run = ++reviewRuns))
+            }
+        }
+    }
+
+    /** A word's forms card reviewed now ("▶ Vadi zdaj · Practise now" on the word's card, after "📋 Vse oblike"). */
+    fun playFormsCard(cardId: String) {
+        val card = content.dashboard?.formsCards?.firstOrNull { it.id == cardId } ?: return
+        words.close()
+        startRun(Screen.Review(listOf(card), run = ++reviewRuns))
     }
 
     /**
