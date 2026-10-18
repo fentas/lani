@@ -56,7 +56,9 @@ import androidx.core.content.FileProvider
 import kotlinx.coroutines.launch
 import si.lanisce.lani.BuildConfig
 import si.lanisce.lani.app.DevUpload
+import si.lanisce.lani.tutor.Billing
 import si.lanisce.lani.tutor.CallRecord
+import si.lanisce.lani.tutor.ChatGPTOAuth
 import si.lanisce.lani.tutor.DayLog
 import si.lanisce.lani.tutor.DayStats
 import si.lanisce.lani.tutor.Effort
@@ -67,6 +69,7 @@ import si.lanisce.lani.tutor.Lanes
 import si.lanisce.lani.tutor.MatrixSettings
 import si.lanisce.lani.tutor.ModelCatalog
 import si.lanisce.lani.tutor.Preset
+import si.lanisce.lani.tutor.ProviderId
 import si.lanisce.lani.tutor.ShadowEvent
 import si.lanisce.lani.tutor.ShadowTutor
 import si.lanisce.lani.tutor.Task
@@ -149,6 +152,13 @@ private fun DayPicker(shadow: ShadowTutor, day: String, pick: (String) -> Unit) 
 private val clock = DateTimeFormatter.ofPattern("HH:mm:ss")
 private fun at(ms: Long) = clock.format(Instant.ofEpochMilli(ms).atZone(ZoneId.systemDefault()))
 private fun money(d: Double?) = d?.let { "$" + "%.4f".format(it) } ?: "—"
+
+/** What calls cost: their spend, and with the ChatGPT plan ($0) their API-equivalent, labelled so. */
+private fun spendOf(calls: List<CallRecord>): String {
+    val spend = calls.sumOf { it.cost ?: 0.0 }
+    val plan = calls.filter { it.billing == Billing.CHATGPT_PLAN }
+    return money(spend) + if (plan.isEmpty()) "" else " (ChatGPT plan; ≈${money(plan.sumOf { it.apiEquivalent ?: 0.0 })} API-equivalent)"
+}
 
 @Composable
 private fun Small(text: String, mono: Boolean = false, bold: Boolean = false) = Text(
@@ -253,7 +263,7 @@ private fun TurnView(shadow: ShadowTutor, t: TurnRecord, calls: List<CallRecord>
                 else -> "no reply"
             }
             Small(
-                "${money(ok.sumOf { it.cost ?: 0.0 })} · out ${count(out)}" + (thinking?.let { " (≈${count(it)} thinking)" } ?: "") +
+                "${spendOf(ok)} · out ${count(out)}" + (thinking?.let { " (≈${count(it)} thinking)" } ?: "") +
                     " · first token ${ok.first().firstTokenMs ?: "—"} ms · ${count(ok.sumOf { it.totalMs })} ms · $reply",
             )
         }
@@ -285,7 +295,7 @@ private fun LaneRuns(shadow: ShadowTutor, turns: List<TurnRecord>, calls: Map<St
     var open by remember { mutableStateOf(false) }
     val done = turns.count { it.status == si.lanisce.lani.tutor.TurnStatus.DONE }
     Text(
-        (if (open) "▾ " else "▸ ") + "🧪 Matrix: ${turns.size} lane(s), $done done · ${money(turns.sumOf { t -> calls[t.id].orEmpty().sumOf { it.cost ?: 0.0 } })}",
+        (if (open) "▾ " else "▸ ") + "🧪 Matrix: ${turns.size} lane(s), $done done · ${spendOf(turns.flatMap { t -> calls[t.id].orEmpty() })}",
         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
         modifier = Modifier.clickable { open = !open }.padding(top = 4.dp),
     )
@@ -309,7 +319,7 @@ private fun ToolView(c: ToolCallRecord) {
 private fun AlsoRun(shadow: ShadowTutor, e: ShadowEvent) {
     var menu by remember { mutableStateOf(false) }
     var more by remember { mutableStateOf(false) }
-    val models = models(shadow)
+    val models = alsoModels(shadow)
     val task = Task.of(e.kind)
     val recommended = ModelCatalog(shadow.settings.listed).resolve(task.family)
     Box {
@@ -332,6 +342,12 @@ private fun AlsoRun(shadow: ShadowTutor, e: ShadowEvent) {
 private fun models(shadow: ShadowTutor): List<String> =
     shadow.settings.listed.map { it.id }.ifEmpty { listOf("claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5") }
 
+/** "Also run on"'s: the Claude key's, and with an OpenAI credential its GPT-6 and GPT-5.6 models. */
+private fun alsoModels(shadow: ShadowTutor): List<String> =
+    models(shadow) + if (shadow.openaiReady.isEmpty()) emptyList()
+    else shadow.settings.openai.listed.map { it.id }.filter { Regex("""^gpt-(6|5\.6)""").containsMatchIn(it) && ModelCatalog.openAIEfforts(it).isNotEmpty() }
+        .ifEmpty { Family.of(ProviderId.OPENAI).map { it.preferred.first() } }
+
 private fun count(n: Long) = "%,d".format(n)
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -346,7 +362,7 @@ private fun Numbers(shadow: ShadowTutor, log: DayLog, upload: DevUpload?) {
             Card {
                 Small("${log.day}", bold = true)
                 Small("calls ${s.calls} · turns ${s.turns} · errors ${s.errors} · refusals ${s.refusals}")
-                Small("spend ${money(s.spend)} of \$${"%.2f".format(shadow.settings.budgetPerDay)} a day")
+                Small("spend ${money(s.spend)} of \$${"%.2f".format(shadow.settings.budgetPerDay)} a day" + if (s.planCalls > 0) " · ${s.planCalls} call(s) on the ChatGPT plan, ≈${money(s.apiEquivalent)} API-equivalent in all" else "")
                 Small("tokens: input ${s.usage.input} · cache writes 5 min ${s.usage.cacheWrite5m}, 1 h ${s.usage.cacheWrite1h} · cache reads ${s.usage.cacheRead} · output ${s.usage.output}")
                 Small("cache writes reported by lifetime (usage.cache_creation) in ${s.cacheBreakdown} call(s), only as the total in ${s.cacheTotalOnly}")
                 Small("cold starts: > 5 min ${s.coldStarts5m} · > 60 min ${s.coldStarts60m}")
@@ -383,7 +399,7 @@ private fun Numbers(shadow: ShadowTutor, log: DayLog, upload: DevUpload?) {
             Card {
                 Small(
                     "${at(c.at)} · ${c.model}" + (c.effort?.let { " · $it" + if (c.effortByMessage) " (by message)" else "" } ?: "") +
-                        " · ${c.eventKind} · ${c.thread} · ${c.stopReason ?: "—"} · ${money(c.cost)}",
+                        " · ${c.eventKind} · ${c.thread} · ${c.stopReason ?: "—"} · ${spendOf(listOf(c))}",
                     bold = true,
                 )
                 Small(
@@ -440,7 +456,7 @@ private fun Matrix(shadow: ShadowTutor) {
     val s = shadow.settings
     val m = s.matrix
     val matrix = shadow.matrix
-    val catalog = ModelCatalog(s.listed)
+    val catalogs = mapOf(ProviderId.ANTHROPIC to ModelCatalog(s.listed), ProviderId.OPENAI to ModelCatalog(s.openai.listed))
     val today = matrix.today
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp).testTag("shadow-matrix")) {
         item {
@@ -464,18 +480,30 @@ private fun Matrix(shadow: ShadowTutor) {
         item {
             Card {
                 Small("Lanes", bold = true)
-                Small("A family's model (the key's) × the efforts it takes. ${m.lanes.size} picked; the defaults: Haiku medium to max, Sonnet low to high, Opus low and medium.")
+                Small(
+                    "A family's model (its credential's) × the efforts it takes. ${m.lanes.size} picked; the defaults: Haiku medium to max, Sonnet low to high, " +
+                        "Opus low and medium; OpenAI's in the same places (Luna, Sol, Astra) once an OpenAI credential is set.",
+                )
                 for (f in Family.entries) {
-                    val model = catalog.own(f)
+                    val openai = f.provider == ProviderId.OPENAI
+                    if (openai && f == Family.LUNA) {
+                        Small(
+                            if (shadow.openaiReady.isEmpty()) "OpenAI · ⚠️ no credential: sign in with ChatGPT or keep an API key in Settings"
+                            else "OpenAI · " + (if (shadow.openaiBilling() == Billing.CHATGPT_PLAN) "the ChatGPT plan (\$0 a token; the API-equivalent shown)" else "the API key"),
+                            bold = true,
+                        )
+                    }
+                    val usable = !openai || shadow.openaiReady.isNotEmpty()
+                    val model = catalogs.getValue(f.provider).own(f)
                     val levels = ModelCatalog.efforts(model ?: f.preferred.first())
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
-                        Small(f.name.lowercase().replaceFirstChar { it.uppercase() } + " · " + (model ?: "⚠️ not listed (${f.preferred.first()})"), bold = true)
+                        Small(f.label + " · " + (model ?: "⚠️ not listed (${f.preferred.first()})"), bold = true)
                     }
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         for (level in levels) {
                             val spec = LaneSpec(f, level)
                             FilterChip(
-                                selected = spec in m.lanes, enabled = model != null,
+                                selected = spec in m.lanes, enabled = model != null && usable,
                                 onClick = { shadow.updateMatrix { it.copy(lanes = if (spec in it.lanes) it.lanes - spec else it.lanes + spec) } },
                                 label = { Text(level, fontSize = 12.sp) },
                                 modifier = Modifier.testTag("lane-${f.name.lowercase()}-$level"),
@@ -484,16 +512,16 @@ private fun Matrix(shadow: ShadowTutor) {
                     }
                 }
                 matrix.plan.filter { it.skipped != null }.forEach { p -> Small("⚠️ ${p.family.name.lowercase()} · ${p.effort}: skipped, ${p.skipped}") }
-                if (m.lanes.toSet() != MatrixSettings.DEFAULT_LANES.toSet()) {
-                    TextButton(onClick = { shadow.updateMatrix { it.copy(lanes = MatrixSettings.DEFAULT_LANES) } }) { Text("The nine defaults again") }
+                val defaults = MatrixSettings.DEFAULT_LANES + if (m.openaiOffered) MatrixSettings.OPENAI_LANES else emptyList()
+                if (m.lanes.toSet() != defaults.toSet()) {
+                    TextButton(onClick = { shadow.updateMatrix { it.copy(lanes = defaults) } }) { Text("The defaults again") }
                 }
             }
         }
         item {
             Card {
-                val total = today.values.sumOf { d -> d.calls.sumOf { it.cost ?: 0.0 } }
                 Small("Today", bold = true)
-                Small("the lanes' spend ${money(total)} in all (the primary's ${money(shadow.today.calls.sumOf { it.cost ?: 0.0 })}, its own budget \$${"%.2f".format(s.budgetPerDay)})")
+                Small("the lanes' spend ${spendOf(today.values.flatMap { it.calls })} in all (the primary's ${money(shadow.today.calls.sumOf { it.cost ?: 0.0 })}, its own budget \$${"%.2f".format(s.budgetPerDay)})")
                 for (p in matrix.plan) {
                     val id = p.id ?: continue
                     val d = today[id]
@@ -506,7 +534,7 @@ private fun Matrix(shadow: ShadowTutor) {
                         else -> "idle"
                     }
                     Small(
-                        "$id: ${money(d?.calls.orEmpty().sumOf { it.cost ?: 0.0 })} · ${d?.turns?.size ?: 0} turn(s), ${ok.size} call(s)" +
+                        "$id: ${spendOf(d?.calls.orEmpty())} · ${d?.turns?.size ?: 0} turn(s), ${ok.size} call(s)" +
                             " · first token ${first ?: "—"} ms · ✍️ ${d?.turns?.count { it.replyFromText } ?: 0} · errors ${d?.calls?.count { it.error != null } ?: 0} · $state",
                         mono = true,
                     )
@@ -616,6 +644,7 @@ private fun Settings(shadow: ShadowTutor) {
                 Small("The key goes only to ${shadow.baseUrl()} and never into a log, the export, a prompt or a tool's result.")
             }
         }
+        if (shadow.openaiAvailable) item { OpenAICard(shadow) }
         if (shadow.debug) item {
             Card {
                 Small("🧪 QA build (debug or qa): the Messages API's base URL", bold = true)
@@ -717,6 +746,102 @@ private fun TaskChoice(shadow: ShadowTutor, task: Task, model: String, modelSet:
                 }
             }
         }
+    }
+}
+
+/**
+ * OpenAI (docs/plans/05-built/providers.md): "Sign in with ChatGPT" (the learner's ChatGPT plan pays: the browser, then
+ * back to the app), sign out, "Manage usage" (ChatGPT's settings), an API key, which one the calls use when both are
+ * set. For the matrix's OpenAI lanes and "also run on" an OpenAI model; the primary stays on Anthropic.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun OpenAICard(shadow: ShadowTutor) {
+    val s = shadow.settings
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var key by remember { mutableStateOf("") }
+    var note by remember { mutableStateOf<String?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    var signingIn by remember { mutableStateOf(false) }
+    fun browse(url: String) = runCatching {
+        context.startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    }
+    Card {
+        Small("🤖 OpenAI", bold = true)
+        Small(
+            "For the matrix's OpenAI lanes and \"Also run on\" an OpenAI model (the primary stays on Claude). The Responses API with " +
+                "store: false; the same tools, the dry runs, the notebook read only.",
+        )
+        // the ChatGPT plan
+        Small("ChatGPT plan", bold = true)
+        val account = shadow.chatgptAccount
+        if (account != null) {
+            Small(
+                if (shadow.chatgptNoPlan) "⚠️ Signed in as $account, but the use of the ChatGPT plan wasn't granted: sign in again and allow it."
+                else "✓ Signed in as $account. Using ChatGPT plan: \$0 a token (the API-equivalent price is recorded). It draws on the plan's " +
+                    "allowance, shared with Codex; set a limit for Lani in ChatGPT's settings.",
+            )
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = { browse(ChatGPTOAuth.MANAGE_USAGE) }) { Text("Manage usage") }
+                OutlinedButton(enabled = !busy, onClick = { busy = true; scope.launch { note = shadow.signOutOfChatGPT() ?: "signed out"; busy = false } }) { Text("Sign out") }
+            }
+        }
+        if (account == null || shadow.chatgptNoPlan) {
+            Small("The browser opens OpenAI's sign-in; afterwards it comes back to Lani. No API key needed: your ChatGPT plan pays (Plus or Pro).")
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Button(enabled = !signingIn, modifier = Modifier.testTag("chatgpt-sign-in"), onClick = {
+                    signingIn = true
+                    note = null
+                    scope.launch {
+                        note = shadow.signInWithChatGPT { url -> browse(url) }?.let { "⚠️ $it" } ?: "✓ signed in: using the ChatGPT plan"
+                        signingIn = false
+                    }
+                }) { Text(if (signingIn) "Waiting for the browser…" else "Continue with ChatGPT") }
+                if (signingIn) TextButton(onClick = { shadow.cancelSignIn() }) { Text("Cancel") }
+            }
+        }
+        // the API key
+        Small("API key", bold = true)
+        if (Billing.API_KEY in shadow.openaiReady) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Small("Kept, encrypted with a key in the Android Keystore.")
+                TextButton(onClick = { shadow.removeOpenAIKey(); note = "the key was removed" }) { Text("Remove") }
+            }
+        } else {
+            OutlinedTextField(
+                key, { key = it.trim() }, Modifier.fillMaxWidth().testTag("openai-key"),
+                label = { Text("sk-…") }, singleLine = true, visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            )
+            Button(enabled = key.isNotBlank() && !busy, onClick = {
+                busy = true
+                scope.launch {
+                    note = shadow.setOpenAIKey(key)?.let { "⚠️ $it" } ?: "✓ the key works: kept"
+                    if (note?.startsWith("✓") == true) key = ""
+                    busy = false
+                }
+            }) { Text(if (busy) "Checking…" else "Check (GET /v1/models) and keep") }
+        }
+        // which one, the models
+        if (shadow.openaiReady.size > 1) {
+            Small("The calls use", bold = true)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                FilterChip(selected = shadow.openaiBilling() == Billing.CHATGPT_PLAN, onClick = { shadow.useOpenAI(Billing.CHATGPT_PLAN) }, label = { Text("the ChatGPT plan") })
+                FilterChip(selected = shadow.openaiBilling() == Billing.API_KEY, onClick = { shadow.useOpenAI(Billing.API_KEY) }, label = { Text("the API key") })
+            }
+        }
+        if (shadow.openaiReady.isNotEmpty()) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Small(
+                    "${s.openai.listed.size} model(s) listed" + (s.openai.exhausted?.let { " · ⚠️ $it" } ?: "") +
+                        (if (s.openai.refused) " · ⚠️ the credential was refused" else ""),
+                )
+                TextButton(enabled = !busy, onClick = { busy = true; scope.launch { note = shadow.recheckOpenAI() ?: "✓ checked"; busy = false } }) { Text("Check again") }
+            }
+        }
+        note?.let { Small(it) }
+        Small("The key and the sign-in's tokens go only to api.openai.com and auth.openai.com, never into a log, the export, a prompt or a tool's result.")
     }
 }
 

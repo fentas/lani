@@ -54,6 +54,15 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Back from "Sign in with ChatGPT" (the shadow tutor's settings): OpenAI's sign-in returns to a loopback
+                 listener on 127.0.0.1 (the only redirect its guide allows for open-source apps), whose page sends the
+                 browser on here, lani://tutor/signed-in. It only brings the app to the front: nothing is read from it. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="lani" android:host="tutor" />
+            </intent-filter>
         </activity>
 
         <!-- Android Auto: Lani is a media app there ("🚗 Za pot · For the road"), companion/README.md "Im Auto · In the car". -->

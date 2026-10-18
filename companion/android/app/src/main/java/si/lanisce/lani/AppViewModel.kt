@@ -182,6 +182,9 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         logLine = { android.util.Log.i("ShadowTutor", it) },
         // a chat's photo, from the phone's copy: the turn sends it to the API as an image block (never in the export)
         photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } },
+        // OpenAI (the matrix's OpenAI lanes, "also run on" an OpenAI model): an API key and/or "Sign in with ChatGPT",
+        // each encrypted with a Keystore key of its own (docs/plans/05-built/providers.md)
+        openai = si.lanisce.lani.tutor.OpenAICredentials.android(app),
     ).also { s -> sync.onDelivered = { e -> s.onDelivered(e.clientId, e.path, e.body) } }
     /**
      * The developer's data on the node (companion/README.md "Developer data on the node"): the shadow's export and the
