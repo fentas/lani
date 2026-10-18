@@ -407,7 +407,8 @@ then on and for good; the intro's end says so once, as a note ("Slovene · Engli
 **Forms cards** ("📋 Oblike · Forms"; README.md "Forms cards") are on for every learner whose bridge makes them; what
 each card asks grows with the units. A form of a word's table is asked once its grammar page and the pages it needs are
 introduced: met in the grammar book, or listed in the `grammar` of a unit whose intro is done (the intro's end meets
-them anyway). Until then it is greyed with its form, to read ahead. A unit's intro done also brings back within days the
+them anyway). Until then it is greyed with its form, to read ahead, in a table the card shows (a review shows only the
+tables with a gap asked now) and in the word's overview ("📋 Vse oblike"). A unit's intro done also brings back within days the
 forms cards it opened rows of (at most 3 a day, its new part first, scheduled as new learning: the card's repetitions
 back to 0, its history kept), says so ("📋 Nove oblike v tabelah: delati, hiša. · New forms in your tables: …"), and
 makes the day's new cards (two a day) of learned words that had none yet. By the A1 units' pages:

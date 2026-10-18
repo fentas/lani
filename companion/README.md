@@ -742,7 +742,8 @@ All endpoints except `/health`, `POST /pair`, the family page and the routes bet
 | `POST` | `/words` | `{sl, en, pos?, item_id?, example_sl?, example_en?, from?, language?, client_id}` → `{item_id, added}`: a vocabulary SR item, without a session, the home language's or `language`'s (see [Word lookup](#word-lookup)) |
 | `POST` | `/counting` | `{words: [{word, item_id?}], client_id?}` (1–40) → `{added, skipped, made_today, per_day}`: counting cards of the learner's learned nouns, from the dictionary's forms, at most `LANI_COUNTING_PER_DAY` (3) a day (see [Counting cards](#counting-cards)); `400` without words or in a village that isn't Slovene |
 | `POST` | `/forms-cards` | `{words: [{word, item_id?}], introduced: [page ids], asked?, client_id?}` (0–40 words) → `{added, skipped, resurfaced, made_today, per_day, resurface_per_day}`: forms cards of the learner's learned words from the dictionary's forms, at most `LANI_FORMS_PER_DAY` (2) a day, one at once with `asked`; the cards the `introduced` pages ask more of come back within days, at most `LANI_FORMS_RESURFACE_PER_DAY` (3) a day (see [Forms cards](#forms-cards)); `400` in a village that isn't Slovene |
-| `GET` | `/words` | `{from: [scene, roleplay, villager, chat, reading]}`: the origins `POST /words` takes (an older bridge: 404) |
+| `GET` | `/forms-cards?w=…&w=…` | each word's tables as its forms card would have them, to read (1–10 words): `{language, words: [{word, tables: [{lemma, pos, gender?, gloss, emoji?, table, slots, tested: []}]}], attribution}`; nothing is written, no card made: the app's overview, "📋 Vse oblike" (see [Forms cards](#forms-cards)); an older bridge answers 404 |
+| `GET` | `/words` | `{from: [scene, roleplay, villager, chat, reading, search]}`: the origins `POST /words` takes (an older bridge: 404) |
 | `GET` | `/scenarios` | role-play scenarios (curated `companion/scenarios/` + tutor `<data>/app/scenarios/`) with `source` |
 | `GET` | `/scenarios/:id` | one scenario |
 | `GET` | `/scenes` | village scenes (curated `companion/scenes/` + tutor `<data>/app/scenes/`, a tutor scene replacing a curated one with its id) with `source`, every object resolved from its pack word (`sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en`) |
@@ -1566,7 +1567,7 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
 - **"🧭 Do A2 · To A2".** How the level rises: "Raven zraste z zemljevidom zaklada, ki ti ga Stari Janez da, ko so
   izpolnjeni trije znaki" (the storyteller: `TreasureController.tellerName`; [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map),
   `LevelReadiness`). A line each, ✅ or ⏳ with its numbers: 📚 the words (the level's goal: a milestone, not one of the
-  signs), 📖 the rules of the level secure (of those needed: 70 % of the level's tested pages; the first eight still to
+  signs; a tap opens "📚 Moje besede · My words", [below](#moje-besede--my-words)), 📖 the rules of the level secure (of those needed: 70 % of the level's tested pages; the first eight still to
   secure as chips below it, each its title up to the colon ("✌️ Dvojina"), "+13" for the rest, a tap opens the page), 🔁 the reviews of the last 14 days (right, of at least 30; 80 % wanted), 📅 the
   days of practice at the level (10, over at least 14 days at it). Once the signs are met or the map is offered, "🗺️
   Zemljevid zaklada te čaka · The treasure map is waiting" with the storyteller's offer is a row to the map; the hunt on,
@@ -1583,8 +1584,40 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
 - Then the streak calendar, the accuracy, the exercises per week, the skills, the recurring mistakes (a tap asks the
   tutor), the reviews due in the next 7 days, and the other languages' words and decks.
 
-The treasure map, the school (and a unit opened from here) and a grammar page's "🎯 Vadi" lead back to the progress
-screen. QA's step `progress` goes through it, in the dark theme and with the base in German too ([Test](#test)).
+The treasure map, the school (and a unit opened from here), a grammar page's "🎯 Vadi" and "📚 Moje besede" lead back
+to the progress screen. QA's step `progress` goes through it, in the dark theme and with the base in German too
+([Test](#test)).
+
+### Moje besede · My words
+
+"📚 Moje besede · My words" (`ui/words/MyWordsScreen.kt`; the list and the search in `data/MyWords.kt`, the
+dictionary's part in `app/MyWordsSearch.kt`): the learner's words in one list, to look one up quickly. It opens from
+Napredek's words line ("📚 Besede · Words 248 / 300 ›") and from "📚 Moje besede ›" under the head of "Nove besede · New
+words" (the word packs); back leads where it came from.
+
+- **Which words.** The home language's vocabulary cards (GET /state), one row a word (the same word twice, a pack's and
+  one added from a dialog, is one: its learned card): the learned ones, as Napredek counts them (`Stats.learned`:
+  answered right, not rusty since), and those still being learned with 🌱 (rusty, or added from a word's card and not
+  answered yet). The head says both: "248 znanih · 248 known · 12 v učenju · 12 still being learned". Counting and forms
+  cards are no words here.
+- **The order.** The newest on top, "🆕 Nedavno · Recent" (added in the last 14 days, the newest first, at most 8; only
+  when the list has more than 8), then all of them by their first letter in the Slovene alphabet: c, č, d …, s, š …, z,
+  ž, each its own letter (Č after C), another accent under its letter (ć under C), a digit or a sign under "#", last.
+  Why: the alphabet is how a word is looked up, and the newest are the ones most often looked for; by kind (noun, verb)
+  would need the dictionary for every card and split a short list.
+- **The search** at the top, kept above the keyboard (the screen's `imePadding` after `navigationBarsPadding`, as the
+  app's other fields: the app draws edge to edge and the window doesn't shrink for the keyboard). The list filters as it
+  is typed: č, š, ž typed or not ("zlica" finds žlica), the word's beginning first, then a word of it ("dan": "dober
+  dan"), from two letters on within the word, then its meaning ("house": hiša). A search of letters (2–40) that isn't
+  one of the learner's words as it is goes to the dictionary too, 350 ms after the typing stops (GET /lookup, as a tapped
+  word; a newer search drops the one under way): "📖 V slovarju · In the dictionary" lists its entries, the learner's
+  own marked ✓ (a form of theirs, "hiše", names its word, hiša). Nothing found, offline or a node older than lookups is
+  said only when none of theirs matched.
+- **A word** opens its card (the word sheet, [Word lookup](#word-lookup)): its meanings, its forms, "📋 Vse oblike · All
+  forms" ([Forms cards](#forms-cards)), ➕ for a dictionary word not theirs yet (POST /words `from: "search"`, to a
+  bridge whose GET /words lists it; "villager" to an older one).
+
+QA's step `forms-view` searches it and opens a word from it ([Test](#test)).
 
 ## Voice
 
@@ -2752,10 +2785,13 @@ others; the rest wait for the next. `card.py show` tells how the app asks one.
 
 ### Forms cards
 
-"📋 Oblike · Forms": one of Jan's words with its whole table in a review card of its own, so all the forms of a word are
-learned in one go. The whole table is always shown; only the forms the school has introduced are asked. The others
-are greyed with their form, a preview to read ahead, and become gaps once their page is introduced, so in the end every
-form is asked. The counting card stays separate.
+"📋 Oblike · Forms": one of Jan's words with its table in a review card of its own, so all the forms of a word are
+learned in one go. Only the forms the school has introduced are asked, a part at a time, and a review shows only the
+tables of the part asked (biti's present, not its negative, future, past and imperative: Jan, after the first test,
+"for tests I think it makes sense only to show the table which is tested"). In a table shown, a form not introduced yet
+is greyed with its form, a preview to read ahead, and becomes a gap once its page is introduced, so in the end every
+form is asked. The whole table is the word's overview, to read, never a test ("📋 Vse oblike · All forms", [below](#the-overview-of-a-words-forms)).
+The counting card stays separate.
 
 **What's introduced** (`FormsCard.introduced`, `tested`): a grammar page is introduced when it was met in the grammar
 book (`GameState.grammar`: a unit's intro gone through, a page the book opened, a rule answered) or a course unit
@@ -2785,9 +2821,12 @@ the oblique duals and the comparative. A word whose dictionary entry has fewer t
 card; one missing a row or a cell gets the parts it has.
 
 **Playing.** The word at the top (its pack's emoji, its base form and gender, what it is and means), "📖 Pravila v knjigi
-· The rules in the book" (the cheat sheet at the pages of the gaps asked, as the top bar's 📋), then the table: the gaps
-asked as `____` (the one asked now framed), the other introduced forms shown, the rest greyed (TalkBack: "…, še ni
-predstavljeno · not introduced yet"), "🔒 Sivo: še ni predstavljeno …" under it. Under the table the gap asked now
+· The rules in the book" (the cheat sheet at the pages of the gaps asked, as the top bar's 📋), then the sections of the
+table with a gap asked now (`FormsCard.exercise`; a section without one is hidden, `Exercise.FormsTable.hidden`): the
+gaps asked as `____` (the one asked now framed), the other introduced forms shown, the rest greyed (TalkBack: "…, še ni
+predstavljeno · not introduced yet"), "🔒 Sivo: še ni predstavljeno …" under it. What is asked and graded is the part's
+alone: a hidden section changes neither the gaps, their order and options (drawn from the word's whole table as before),
+nor the rows said, the quality or what the bridge hears. Under the table the gap asked now
 ("📋 miza · 2/6 · Skloni · Cases — 4. koga? kaj? — množina · plural": the word named, the card's head may be scrolled
 away by then; the words around the gap: "on je ____"), answered:
 
@@ -2802,9 +2841,10 @@ away by then; the words around the gap: "on je ____"), answered:
 Each gap is marked at once, in the table (green, the wrong answer under it in red) and under it with its 🔊; a right one
 goes on by itself, a wrong one at "Naprej · Next". At the end "🧾 Vsa tabela · The whole table": the rows asked said
 together by the narrator in one clip, made on demand like any line (nothing is voiced ahead; the car and the day's
-audio leave forms cards out), each row of the table its own 🔊 (one clip per row, on demand). The 💬 attaches the card
-(`about_exercise.forms_card`: the word, each gap's slot, where it stands, its options and answer so far, the greyed
-slots; `source.variant` `forms_card` or `forms_card_type`).
+audio leave forms cards out), each row of the table its own 🔊 (one clip per row, on demand), and "📋 Vse oblike · All
+forms" under the score: the overview of the word over the run. The 💬 attaches the card (`about_exercise.forms_card`:
+the word, each gap's slot, where it stands, its options and answer so far, the greyed slots on screen (`preview`), the
+titles of the sections hidden in this review (`hidden`); `source.variant` `forms_card` or `forms_card_type`).
 
 **A part a review.** A long table is played a part at a time, so a card stays short: whole rows, at most 6 gaps (a
 noun's two cases, a verb's two persons; a row is never split). The parts come in turn, by the card's reviews
@@ -2840,10 +2880,24 @@ an A2 page's name (genitive, dative, instrumental) reaches an A1 learner's patte
   says most (its scenes, stories, readings, grammar examples and packs), then the app's order. A word refused today
   (not learned, too few forms) isn't named again until tomorrow.
 - **On demand**: "📋 Vse oblike · All forms" on a word's card (a noun, a verb or an adjective; the home language's, not
-  a word of an exercise still open) makes its card at once (`asked: true`: whatever the day's count, learned or not,
-  at least one of its forms introduced), then "▶ Vadi zdaj · Practise now" reviews it right away; a word that has one
-  says so ("📋 Vse oblike te besede so v tvojih ponovitvah.") and offers it. Nothing introduced of it yet, or too
-  few forms in the dictionary: the card says which.
+  a word of an exercise still open) opens its overview at once (below); there "🃏 Vadi oblike · Practise the forms"
+  makes its card (`asked: true`: whatever the day's count, learned or not, at least one of its forms introduced), then
+  "▶ Vadi zdaj · Practise now" reviews it right away; a word that has one says so ("📋 Vse oblike te besede so v tvojih
+  ponovitvah.") and offers it. Nothing introduced of it yet, or too few forms in the dictionary: the overview says which.
+
+<a id="the-overview-of-a-words-forms"></a>**The overview of a word's forms** (`ui/FormsOverviewSheet.kt`,
+`FormsCard.overview`): "📋 Vse oblike · All forms" on a word's card, and under a forms card's score, opens the word's
+whole table in a sheet, to read, never graded: every section (a verb's present, negative, future, past and imperative;
+a noun's cases by number; an adjective's genders, then its cases), the word's own form bold, the forms the learner
+practises quietly marked (on a light green: their page and the pages they need introduced, as a card asks them;
+TalkBack "…, vadiš · you practise it"), the others plain and a little grey, each row's 🔊, "✓ Vadiš 18 od 39 oblik · You
+practise 18 of the 39 forms" above, "Na zeleni podlagi: oblike, ki jih vadiš. Sive pridejo z enotami v šoli." under it.
+Its table is the learner's forms card's when they have one (offline too), else the bridge's: **`GET
+/forms-cards?w=delati`** (1–10 words) answers each word's tables as its card would have them (`{language, words:
+[{word, tables: [{lemma, pos, gender?, gloss, emoji?, table, slots, tested: []}]}], attribution}`: the future joined,
+the adjective's cases), one per part of speech (lep: the adjective and the noun; the app takes the word card's), and
+writes nothing; an older bridge (404): the dictionary's forms of GET /forms, as they are (no future joined, no
+adjective's cases). Opened in a run, it has no "🃏 Vadi oblike" (the card is being practised).
 
 Each card is a review item of its own (`forms_<word>`, type `forms`, due the day it is made), its table in the item's
 `forms` (`{v, lemma, pos, gender?, gloss, meaning?, emoji?, table, slots: [{key, forms, also?, page, needs?,
@@ -3487,7 +3541,8 @@ companion/bin/qa --steps exercise-words          # a review's words looked up: t
 companion/bin/qa --steps exercise-explain        # the module kdo-govori's explanation in shape, «delam» in it looked up
 companion/bin/qa --steps counting                # counting cards: the unit stevila's intro skipped and its note, a card's four steps (one wrong), the lines said, the cheat sheet, 💬, typed
 companion/bin/qa --steps counting-dialogs        # the happenings with a counting dialog (Luka's cows): each opens, its number in words
-LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-card  # forms cards: Vse oblike on a word's card, a noun's table (greyed rows, a mistake kept by kind, the rows said), a verb's, the day's in a review, typed, a unit done bringing a card back
+LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-card  # forms cards: Vse oblike on a word's card (its overview, then Vadi oblike), a noun's table (greyed rows, a mistake kept by kind, the rows said), a verb's (its imperative hidden), the day's in a review, typed, a unit done bringing a card back
+LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --no-town --steps forms-view  # biti's card in a test: its present alone; the overview after it and from the word's card; Moje besede from Napredek, a search with its dictionary part, a word opened from it
 companion/bin/qa --steps school                  # the school: from Home's tile, the unit biti's intro (read aloud), sheets and test
 companion/bin/qa --steps school-build            # the school built in the hamlet: the Build sheet's tenth plot, the line under it, the bed, indoors
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
