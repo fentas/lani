@@ -179,8 +179,18 @@ export function router(routes: Route[], roleOf: (req: Request) => Role, log: Log
 
 /** A 500 that tells the client nothing about the code; the details go to the log. */
 function internalError(e: unknown, log: Log): Response {
-  log(`internal error: ${(e as Error)?.stack ?? e}`)
+  log(`internal error: ${errorText(e)}`)
   return json({ error: 'internal error' }, 500)
+}
+
+/**
+ * An error for the log: its stack, which starts with its name and message in Bun and node; in QuickJS (the phone's
+ * bridge) the stack is the frames alone, so the name and message go first.
+ */
+export function errorText(e: unknown): string {
+  if (!(e instanceof Error)) return String(e)
+  const stack = e.stack ?? ''
+  return stack.includes(e.message) ? stack : `${e.name}: ${e.message}\n${stack}`
 }
 
 /** Starts the HTTP server; undefined (logged) when the port is taken. */

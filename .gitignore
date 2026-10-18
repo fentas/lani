@@ -47,6 +47,8 @@ companion/bridge/node_modules/
 companion/relay/node_modules/
 # The validators' bundle and their conformance corpus, both built (companion/bridge/validators, test/conformance)
 companion/bridge/validators/dist/
+# The phone bridge's bundle when built by hand (bun phone/build.ts; the app's build makes its own: phoneBridgeBundle)
+companion/bridge/phone/dist/
 companion/bridge/test/conformance/out/
 # Other learners on this machine (companion/bin/lani-profile): their registry, data and results
 /profiles/
