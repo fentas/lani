@@ -97,6 +97,12 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        card's steps, one wrong, the four lines said together, the cheat sheet, 💬 attaching it, the
                        mistake kept by the dev bridge; then typed ("counting:type"), the keyboard up, "✋ Izberi raje";
                        "counting-dialogs" the happenings with a counting dialog (Luka's cows) opened, no placeholder left;
+                       "forms-card" forms cards ("📋 Oblike · Forms"): "📋 Vse oblike" on a noun's word card (QA's hook
+                       "formscard:word:<word>") making its card at once, "▶ Vadi zdaj": its table (rows greyed, gaps), the
+                       rules' pages, 💬 attaching it, a gap wrong, the rest right, the rows said together at the end, the
+                       mistake kept by the dev bridge by kind; a verb's card (its imperative greyed); a review of the day's
+                       cards ("formscard"); typed ("formscard:type"), the keyboard up, "✋ Izberi raje"; the unit velelnik's
+                       intro done ("formscard:unit:velelnik"): the verb's card due again soon, its imperative rows as gaps;
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
@@ -5001,6 +5007,288 @@ def counting_cards():
         go_home()
 
 
+FORMS_ALL = "Vse oblike · All forms"  # a word card's button (l10n formsCard.allForms)
+FORMS_PLAY = "Vadi zdaj · Practise now"  # once its card is made (l10n formsCard.playNow)
+FORMS_WHOLE = "Vsa tabela · The whole table"  # a forms card's end (l10n formsCard.whole)
+FORMS_HELP = "Pravila v knjigi · The rules in the book"  # its cheat sheet link (l10n formsCard.help)
+FORMS_GREY = "še ni predstavljeno"  # a greyed cell's label for TalkBack (l10n formsCard.preview)
+FORMS_BACK = "Nove oblike v tabelah"  # the note when a unit brings cards back (l10n formsCard.back)
+FORMS_FRESH = "Novo v tabeli"  # a card's newly introduced part (l10n formsCard.fresh)
+FORMS_GAP = re.compile(r"FormsCard\s*:\s*gap (\d+)/(\d+) (\S+) «(.*)» \[(.*)\] (typed|chosen)$")
+def scroll_up(swipes=2):
+    """Scrolls the run up [swipes] times (the card's head and the table's top, above the gap kept in view)."""
+    for _ in range(swipes):
+        adb("shell", "input", "swipe", "540", "1000", "540", "1900", "400")  # within the run's scroll, under its header
+        time.sleep(0.8)
+
+
+def forms_on(word: str, timeout=20.0):
+    """A forms card of [word] on screen: its gap's line ("📋 miza · 1/5 · …", under the table, kept in view), or None."""
+    return wait_for(f"📋 {word} · ", timeout)
+
+
+FORMS_NOUN = "miza"  # a noun the dev bridge's copy has learned (Jan's: from the kitchen's pack)
+FORMS_VERB = "delati"  # and a verb, its imperative not introduced (the unit velelnik not begun)
+
+
+def dev_forms() -> dict:
+    """The forms cards of the dev bridge's copy, by word: their items (type forms, companion/README.md "Forms cards")."""
+    items = api("/state").get("databases", {}).get("spaced_repetition", {}).get("items", {})
+    return {str(i.get("content")): {**i, "id": k} for k, i in items.items() if i.get("type") == "forms" and isinstance(i.get("forms"), dict)}
+
+
+def forms_gap(after=0, timeout=12.0, typed=None):
+    """The gap a forms card asks now, as the debug build logged it (tag FormsCard): (index, of, key, answer, options,
+    typed), the latest with an index past [after] (and asked so: [typed]); None within [timeout] s."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hits = [m for l in adb("logcat", "-d", "-s", "FormsCard:I", check=False).splitlines() if (m := FORMS_GAP.search(l.strip()))]
+        if hits and int(hits[-1].group(1)) > after and (typed is None or (hits[-1].group(6) == "typed") == typed):
+            m = hits[-1]
+            return int(m.group(1)), int(m.group(2)), m.group(3), m.group(4), [o for o in m.group(5).split("|") if o], m.group(6) == "typed"
+        time.sleep(0.8)
+    return None
+
+
+def gap_option(text: str, timeout=6.0):
+    """Where option [text] of the gap on screen is (a card of its own, below the table; scrolled down to when the run was
+    scrolled up): its centre, or None."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        ns = list(nodes())
+        hits = [c for t, c in ns if t == text and c[1] < 2250]
+        # the option: below the gap's line, and below the table's cell of the same form
+        line = next((c for t, c in ns if t.startswith("📋 ") and " · " in t and "/" in t), None)
+        hits = [c for c in hits if line is None or c[1] > line[1]]
+        if hits:
+            return max(hits, key=lambda c: c[1])
+        adb("shell", "input", "swipe", "540", "1600", "540", "900", "300")
+        time.sleep(0.6)
+    return None
+
+
+def play_forms(wrong_first=False) -> tuple:
+    """Plays the forms card on screen to its end: each gap chosen right (the first wrong when [wrong_first]: its
+    correction, a screenshot, "Naprej · Next"). (the first gap's key, what was answered wrong or "", its right form)."""
+    g = forms_gap()
+    assert g, "a gap asked (the app's log, tag FormsCard)"
+    first, wrong = g, ""
+    while True:
+        i, n, key, answer, options, typed = g
+        assert not typed, f"gap {i} chosen ({g})"
+        assert answer in options and len(options) == 3, f"gap {i}: three options with {answer} ({options})"
+        pick = next(o for o in options if o != answer) if wrong_first and i == 1 else answer
+        c = gap_option(pick)
+        assert c, f"gap {i}'s option {pick}"
+        tap_at(c)
+        if pick != answer:
+            wrong = pick
+            assert wait_for("❌", 5) and wait_for("Naprej · Next", 4), "the wrong gap's correction"
+            shot("forms-mistake")
+            assert tap("Naprej · Next", 3), "on from the wrong gap"
+        if i == n:
+            break
+        g = forms_gap(after=i)
+        assert g, f"gap {i + 1} after {i}"
+    return first[2], wrong, first[3]
+
+
+def forms_said(word: str, timeout=12.0) -> str:
+    """How the app said a card's rows at its end (tag Speaker: "said «…»: how", with [word] in it), or ""."""
+    end = time.time() + timeout * slow()
+    while time.time() < end:
+        hit = [l for l in adb("logcat", "-d", "-s", "Speaker:I", check=False).splitlines() if "said «" in l and word.lower() in l.lower()]
+        if hit:
+            return hit[-1].split("»:", 1)[-1].strip()
+        time.sleep(1)
+    return ""
+
+
+def review_end():
+    """The run's feedback after the card, then the review's end (the other cards left: Done)."""
+    assert tap("Naprej · Next", 8), "the card's feedback"
+    if wait_for("recalled", 4) is None:
+        assert tap(DONE, 6), "the review's Done"
+    assert wait_for("recalled", 10), "the review's end"
+
+
+def forms_cards():
+    """Forms cards ("📋 Oblike · Forms", companion/README.md "Forms cards"): "📋 Vse oblike · All forms" on a noun's word card
+    (QA's hook "formscard:word:<word>") makes its card at once on the dev bridge and offers "▶ Vadi zdaj"; its table: the
+    forms the copy's pages introduced as gaps, the dative's row greyed (dajalnik not met); the rules' pages from the card,
+    💬 attaching it, the first gap wrong (its correction), the rest right, the rows said together at the end (the narrator,
+    a clip made on demand), the review's end, the mistake kept by the dev bridge by kind (forms_*). A verb's card (QA's
+    hook "formscard:<word>"): its imperative greyed, played through. The day's cards in a review ("formscard"): the core
+    verbs made, among the due cards. Typed ("formscard:type"): a gap typed with the keyboard up, Check above it, one typed
+    without č/š/ž, "✋ Izberi raje" back to the options. The unit velelnik's intro done ("formscard:unit:velelnik"): the
+    note, the verb's card due again within days, its repetitions back to 0, its imperative newly tested, then played
+    first, chosen."""
+    go_home()
+    if "forms-cards" not in api("/state").get("features", []):
+        return "the dev bridge makes no forms cards (an older bridge)"
+    adb("logcat", "-c")
+    try:
+        # "📋 Vse oblike" on a noun's word card: its card at once
+        qa_hook(f"formscard:word:{FORMS_NOUN}")
+        assert wait_for(FORMS_NOUN, 15), "the word card"
+        c = wait_for(FORMS_ALL, 10)  # under the word's entry, at the sheet's foot
+        assert c, "📋 Vse oblike on the word card"
+        shot("forms-word-card")
+        tap_at(c)
+        assert wait_for(FORMS_PLAY, 20), "▶ Vadi zdaj once the card is made"
+        made = dev_forms()
+        assert FORMS_NOUN in made, f"the dev bridge's forms cards: {', '.join(made) or 'none'}"
+        noun = made[FORMS_NOUN]
+        assert noun["due_date"] <= time.strftime("%Y-%m-%d"), f"due today ({noun['due_date']})"
+        print(f"    {FORMS_NOUN}: {len(noun['forms']['slots'])} forms, {len(noun['forms']['tested'])} tested"
+              f"{', made on demand' if noun['forms'].get('asked') else ', made by itself before'}")
+        shot("forms-made")
+        assert tap(FORMS_PLAY, 3), "▶ Vadi zdaj"
+        assert forms_on(FORMS_NOUN), "the forms card"
+        time.sleep(1.5)
+        shot("forms-noun")
+        scroll_up(3)
+        time.sleep(0.5)
+        shot("forms-noun-top")
+        assert scroll_to(FORMS_GREY, swipes=3), "a greyed cell (the dative's row: not introduced)"
+        shot("forms-noun-grey")
+        # the rules' pages on the cheat sheet (under the word, at the card's top)
+        scroll_up(4)
+        assert tap(FORMS_HELP, 4), "the card's cheat sheet link"
+        assert wait_for("Plonk listek", 6), "the cheat sheet"
+        time.sleep(1.5 * slow())
+        shot("forms-cheat")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+        # 💬 with the card on screen: attached
+        assert tap(ASK_BUTTON, 5), "💬 in the review's top bar"
+        assert wait_for(CHAT_TITLE, 6), "the chat over the card"
+        time.sleep(1)
+        chip = attach_chip()
+        assert chip is not None and FORMS_NOUN in chip, f"the card attached ({chip})"
+        print(f"    attached: {chip}")
+        shot("forms-chat")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1.5)
+        key, wrong, right = play_forms(wrong_first=True)
+        assert wait_for(FORMS_WHOLE, 8), "the whole table at the end"
+        how = forms_said(right, timeout=15.0)
+        assert how, "the rows said together (the app's log, tag Speaker)"
+        print(f"    the rows said: {how}")
+        shot("forms-whole")
+        review_end()
+        shot("forms-review-end")
+        # the dev bridge keeps the wrong gap as a mistake of its kind
+        end = time.time() + 20 * slow()
+        kept = []
+        while time.time() < end and not kept:
+            patterns = api("/state").get("databases", {}).get("mistakes_db", {}).get("error_patterns", {})
+            kept = [k for k, p in patterns.items() if k.startswith("forms_") and any(e.get("incorrect") == wrong for e in p.get("examples", []))]
+            time.sleep(1)
+        assert kept, f"the dev bridge's mistakes: «{wrong}» for {key} kept as a forms mistake"
+        print(f"    «{wrong}» for «{right}» ({key}) kept as {kept[0]}")
+        go_home()
+
+        # a verb's card: its imperative greyed (the unit velelnik not begun)
+        adb("logcat", "-c")
+        qa_hook(f"formscard:{FORMS_VERB}")
+        assert forms_on(FORMS_VERB), "the verb's forms card"
+        time.sleep(1.5)
+        shot("forms-verb")
+        verb = dev_forms().get(FORMS_VERB)
+        assert verb, "the verb's card on the dev bridge"
+        imperative = [s["key"] for s in verb["forms"]["slots"] if s["key"].startswith("imp.")]
+        assert imperative and not any(k in verb["forms"]["tested"] for k in imperative), f"its imperative not tested yet ({verb['forms']['tested']})"
+        assert scroll_to(FORMS_GREY, swipes=6), "its greyed cells"
+        shot("forms-verb-grey")
+        play_forms()
+        assert wait_for(FORMS_WHOLE, 8), "the verb's whole table"
+        shot("forms-verb-whole")
+        review_end()
+        go_home()
+
+        # the day's cards of their own accord, in a review
+        adb("logcat", "-c")
+        qa_hook("formscard")
+        assert forms_gap(timeout=25) and wait_for("📋 ", 5), "a review of the day's forms cards"
+        shot("forms-review")
+        cards = dev_forms()
+        due = set(api("/state").get("computed", {}).get("due_review_items", []))
+        auto = [w for w, i in cards.items() if not i["forms"].get("asked")]
+        print(f"    forms cards: {', '.join(f'{w}{'' if i['forms'].get('asked') else ' (by itself)'}' for w, i in cards.items())}; due: {sum(i['id'] in due for i in cards.values())}")
+        assert 1 <= len(auto) <= 2, f"one or two made by themselves today ({auto})"
+        assert any(w in ("biti", "imeti", "iti") for w in auto), f"the core verbs first ({auto})"
+        go_home()
+
+        # typed: as if every card were secure
+        adb("logcat", "-c")
+        qa_hook("formscard:type")
+        qa_hook(f"formscard:{FORMS_NOUN}")
+        g = forms_gap(timeout=20)
+        assert g and g[5], f"a typed gap ({g})"
+        field = wait_for("Napiši odgovor", 8) or wait_for("Type your answer", 2)
+        assert field, "the gap's field"
+        tap_at(field)
+        top = keyboard_settled()
+        assert top is not None, "the keyboard up for the typed gap"
+        time.sleep(1)
+        check = find("Preveri · Check")
+        assert check and check[1] < top, f"Check above the keyboard ({check}, its top {top})"
+        shot("forms-typed")
+        type_text(ascii_of(g[3]))
+        assert tap("Preveri · Check", 3), "check the first gap"
+        g2 = forms_gap(after=g[0])
+        assert g2, "the next gap"
+        assert wait_for(LET_ME_CHOOSE, 8), "the next gap, typed, and its way back to the options"
+        shot("forms-typed-2")
+        assert tap(LET_ME_CHOOSE, 3), "let me choose"
+        g3 = forms_gap(after=g2[0] - 1, timeout=6, typed=False)
+        assert g3 and not g3[5] and gap_option(g3[3]), f"the gap's options after Let me choose ({g3})"
+        shot("forms-let-me-choose")
+        qa_hook("formscard:off")
+        go_home()
+
+        # a unit's intro done: the verb's imperative rows become gaps, its card back within days, its new part first
+        before = dev_forms()[FORMS_VERB]
+        qa_hook("formscard:unit:velelnik")
+        assert wait_for(FORMS_BACK, 30), "the note: new forms in the tables"
+        shot("forms-unit-note")
+        end = time.time() + 20 * slow()
+        after = before
+        while time.time() < end and not after["forms"].get("fresh"):
+            after = dev_forms()[FORMS_VERB]
+            time.sleep(1)
+        fresh = after["forms"].get("fresh") or []
+        assert fresh and all(k.startswith("imp.") for k in fresh), f"the verb's imperative newly tested ({fresh})"
+        soon = time.strftime("%Y-%m-%d", time.localtime(time.time() + 3 * 86400))
+        assert after["due_date"] <= soon and after["repetitions"] == 0 and after["interval_days"] == 1, \
+            f"due within days as new learning ({after['due_date']}, repetitions {after['repetitions']}, interval {after['interval_days']})"
+        assert after.get("total_reviews", 0) >= before.get("total_reviews", 0) and after.get("review_history") == before.get("review_history"), "its history kept"
+        print(f"    {FORMS_VERB}: back {after['due_date']}, new: {', '.join(fresh)}")
+        go_home()
+        adb("logcat", "-c")
+        qa_hook(f"formscard:{FORMS_VERB}")
+        g = forms_gap(timeout=20)
+        assert g and g[2].startswith("imp.") and not g[5], f"the imperative asked first, chosen ({g})"
+        time.sleep(1)
+        shot("forms-fresh")
+        scroll_up(3)
+        assert wait_for(FORMS_FRESH, 5), "🆕 its new part, above the table"
+        shot("forms-fresh-top")
+        for _ in range(4):  # back down to the gap
+            adb("shell", "input", "swipe", "540", "1600", "540", "600", "400")
+            time.sleep(0.8)
+        play_forms()
+        assert wait_for(FORMS_WHOLE, 8), "the whole table"
+        shot("forms-fresh-whole")
+    except Exception:
+        shot("forms-failed")  # where it stopped, before the way home
+        raise
+    finally:
+        qa_hook("formscard:off")
+        go_home()
+
+
 EX_WORDS = re.compile(r"ExWords\s*:\s*(\S+) (none|tap|hold) «(.*)»(?: (.*))?$")
 EX_TIP = "Tapni besedo in poglej, kaj pomeni (pikice"  # the exercises' tip about their words (l10n words.tapInExercise)
 
@@ -6540,6 +6828,7 @@ def plan():
         ("packs", packs, None, False, ""),
         ("word-forms", word_forms, go_home, False, ""),
         ("counting", counting_cards, go_home, False, ""),
+        ("forms-card", forms_cards, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
         ("exercise-explain", exercise_explain, go_home, False, ""),
         ("progress", progress, go_home, False, ""),
