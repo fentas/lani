@@ -102,7 +102,7 @@ class BridgeReads(
             "dictionary_lookup" -> {
                 val w = input.s("word")?.trim()?.takeIf { it.isNotEmpty() } ?: return ReadResult("word: required", true)
                 val q = buildMap { put("w", w); input.s("line")?.let { put("line", it.take(300)) } }
-                get("/lookup", q) { "<untrusted_dictionary_content source=\"the paired bridge's dictionary (shadow mode: fran.si comes later)\">\n$it\n</untrusted_dictionary_content>" }
+                get("/lookup", q) { "<untrusted_dictionary_content source=\"Lani's dictionary\">\n$it\n</untrusted_dictionary_content>" }
             }
             "card" -> get("/state") { Summaries.card(it, input) }
             "recent_answers" -> ReadResult(Summaries.recentAnswers(events(), input))
@@ -169,11 +169,13 @@ object Summaries {
         return pretty(out)
     }
 
-    /** The village (GET /game) summed up: its age, resources, buildings, people, quests, the event on. */
+    /**
+     * The village (GET /game) summed up: its age, resources, buildings, people, quests, the event on (the bridge's
+     * get_village adds the calendar and the chronicle). No read's text says it is the shadow's: the tutor acts as live.
+     */
     fun village(raw: String): String {
         val s = (obj(raw)?.get("state") as? JsonObject) ?: return raw.take(4000)
         val out = buildJsonObject {
-            put("source", "shadow mode: GET /game summed up by the app (the bridge's get_village adds the calendar and the chronicle)")
             listOf("age", "resources", "help", "event", "founded", "name").forEach { k -> s[k]?.let { put(k, it) } }
             (s["buildings"] as? JsonArray)?.let { b ->
                 put("buildings", buildJsonArray { b.forEach { e -> (e as? JsonObject)?.let { add(buildJsonObject { listOf("type", "level", "damaged").forEach { k -> it[k]?.let { v -> put(k, v) } } }) } } })
@@ -216,7 +218,7 @@ object Summaries {
             else -> emptyList()
         }.take(10)
         if (found.isEmpty()) return "no card ${id ?: ""}${text?.let { " with \"$it\"" } ?: ""} in the deck (${items.size} cards)"
-        return "shadow mode: the deck as GET /state has it (card.py's grading details come with the port)\n" + pretty(JsonObject(found.toMap()))
+        return "${found.size} card(s) as the deck keeps them:\n" + pretty(JsonObject(found.toMap()))
     }
 
     /** recent_answers from the review events the shadow saw (their answers), newest first. */
@@ -239,7 +241,7 @@ object Summaries {
             (id == null || item == id) && (text == null || fold(o.toString()).contains(text)) &&
                 (!wrong || ((o["quality"] as? JsonPrimitive)?.intOrNull ?: 5) < 3)
         }.take(limit)
-        if (answers.isEmpty()) return "No answers${id?.let { " for $it" } ?: ""}${text?.let { " with \"$it\"" } ?: ""} among the reviews the shadow saw (it keeps what reached the node since it was turned on)."
+        if (answers.isEmpty()) return "No answers${id?.let { " for $it" } ?: ""}${text?.let { " with \"$it\"" } ?: ""} in the recent reviews."
         return "${answers.size} answer(s), newest first:\n" + answers.joinToString("\n") { (e, _, o) -> "${java.time.Instant.ofEpochMilli(e.at)} ${e.data?.get("from") ?: ""} $o" }
     }
 }

@@ -1146,7 +1146,13 @@ under `tutor/`. Phase A's 17 tools in shadow mode (`tutor/ShadowTools.kt`):
   `recent_answers` from the reviews the shadow saw;
 - writes, dry runs (validated against their schema, recorded with their input, never sent): `publish_gloss`,
   `publish_sentence_note`, `set_rhythm`, `record_session`, `report_problem`, `card` edit, merge, split, regrade and
-  forgive;
+  forgive. The model reads what the live tool answers on success, made from the input (`tutor/DryRuns.kt`): the
+  bridge's "kept: …" of a gloss or a sentence note, its rhythm settings, update-db.py's summary, card.py's JSON, the
+  report flow's "posted: …". Nothing it reads says shadow or dry run (nor do the reads), so it acts as it would live;
+  the record keeps `dryRun`, which the panel and the export show. A refusal the live tool would give where the result
+  depends on it (a card write without its card, a report without a session that adds no words) comes back as an error;
+- a `report_problem` fix about a word, a form or an answer key (its source has an answer or a word, or its text says
+  so) fails until a `dictionary_lookup` ran earlier in the turn: "look it up first";
 - its own: `guide`, `notebook_note`, `notebook_write`.
 
 **The notebook and the day's thread** (`files/shadow-tutor`): one thread per local day from 04:00, on the chat's model,
