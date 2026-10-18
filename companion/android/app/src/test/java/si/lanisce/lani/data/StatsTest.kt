@@ -157,6 +157,53 @@ class StatsTest {
         assertEquals("C2", Stats.nextLevel("C2"))
     }
 
+    // --- the words bar's goal ---
+
+    @Test fun `before the level's goal the bar aims at it`() {
+        assertEquals(WordsGoal(300, "A2"), Stats.wordsGoal(212, "A1"))
+        assertEquals(WordsGoal(300, "A2"), Stats.wordsGoal(0, "A1"))
+        assertEquals(WordsGoal(1000, "B1"), Stats.wordsGoal(999, "A2"))
+    }
+
+    @Test fun `past the goal the bar moves on to the next level's words, the goal passed kept`() {
+        // Jan at A1 with more than 300 words: the level waits for the treasure map, the bar for B1's 1000
+        assertEquals(WordsGoal(1000, "B1", WordsMilestone(300, "A2")), Stats.wordsGoal(312, "A1"))
+        assertEquals(WordsGoal(1000, "B1", WordsMilestone(300, "A2")), Stats.wordsGoal(300, "A1"))
+        // several passed: the highest one kept
+        assertEquals(WordsGoal(2000, "B2", WordsMilestone(1000, "B1")), Stats.wordsGoal(1200, "A1"))
+        assertEquals(WordsGoal(2000, "B2", WordsMilestone(1000, "B1")), Stats.wordsGoal(1000, "A2"))
+    }
+
+    @Test fun `at the last goal the bar stays full once passed`() {
+        val c1 = Stats.wordsGoal(4000, "C1")
+        assertEquals(WordsGoal(5000, "C2", last = true), c1)
+        assertTrue(!c1.complete(4000))
+        val past = Stats.wordsGoal(5200, "C1")
+        assertEquals(WordsGoal(5000, "C2", WordsMilestone(5000, "C2"), last = true), past)
+        assertTrue(past.complete(5200))
+        // far ahead at A1: up to C2's 5000, no further
+        assertEquals(WordsGoal(5000, "C2", WordsMilestone(5000, "C2"), last = true), Stats.wordsGoal(9000, "A1"))
+        // at C2: its own 8000
+        assertEquals(WordsGoal(8000, "C2", last = true), Stats.wordsGoal(6000, "C2"))
+        assertTrue(Stats.wordsGoal(9000, "C2").complete(9000))
+    }
+
+    @Test fun `the projection follows the bar's goal`() {
+        // 312 words learned at A1, ten a week over the last four weeks: on towards 1000, not "reached"
+        val items = (1..312).joinToString(",") { i ->
+            val created = if (i <= 40) today.minusDays((i % 28).toLong()) else d("2026-06-01")
+            """"v$i":{"type":"vocabulary","content":"w$i","created_date":"$created","repetitions":1}"""
+        }
+        val raw = """{"databases":{"learner_profile":{"learner":{"current_level":"A1"}},"spaced_repetition":{"items":{$items}}},"computed":{"today":"$today"}}"""
+        val p = Stats.parse(raw, today)
+        assertEquals(312, p.wordsKnown)
+        assertEquals(300, p.nextGoal) // A2's words, passed
+        assertEquals(WordsGoal(1000, "B1", WordsMilestone(300, "A2")), p.words)
+        val eta = p.projection as Projection.Eta
+        assertEquals(10.0, eta.perWeek, 1e-9)
+        assertEquals(today.plusDays(482), eta.date) // (1000 - 312) / 10 a week
+    }
+
     // --- parsing a real /state ---
 
     /** Trimmed copy of a real GET /state (read-db.py output). */
@@ -195,6 +242,7 @@ class StatsTest {
         assertEquals(today, p.today) // the node's today wins
         assertEquals("Jan", p.name)
         assertEquals("A2", p.nextLevel)
+        assertEquals(WordsGoal(300, "A2"), p.words)
         // learned: answered right at least once (repetitions or mastery); "ampak" is tracked, not learned yet
         assertEquals(2, p.wordsKnown)
         assertEquals(3, p.wordsTracked) // vocabulary only, not the error pattern

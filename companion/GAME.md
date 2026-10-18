@@ -1000,9 +1000,16 @@ zemljevid … Si pripravljen poiskati zaklad? · I found an old map … Ready to
 signs, "🗺️ Vzamem zemljevid · I'll take the map" and "Pozneje · Later". Never forced: it waits until it is taken, and a
 dip in the signs doesn't take it back.
 
-**Before the offer.** The grammar book's chapter has "🗺️ Sem pripravljen · I'm ready" on top ("Preskus za raven A2 ·
-The test for A2"): the map shows the signs, the level's pages still to secure (a tap opens the page), "Stari Janez misli,
-da še nisi čisto pripravljen, a poskusiš lahko že zdaj: nič ne izgubiš", and the same button to start.
+**Before the offer.** The progress screen's "🧭 Do A2 · To A2" (README, "Napredek · Progress") says how the level rises
+and has "🗺️ Zemljevid zaklada ›": the map shows the signs, the level's pages still to secure (a tap opens the page),
+"Stari Janez misli, da še nisi čisto pripravljen, a poskusiš lahko že zdaj: nič ne izgubiš", and "🗺️ Sem pripravljen ·
+I'm ready" to start.
+
+**On the progress screen.** "🧭 Do A2 · To A2" shows the way there: the words (the level's goal, a milestone the map
+doesn't wait for) and the three signs, each ✅ or ⏳ with its numbers (5 / 19 rules secure, 92 % of 24 reviews, 12 / 10
+days), the pages still to secure, and the map: coming (who gives it, once the signs are met), waiting (a row to it), the
+hunt on (its stations), or a treasure just found. Its words bar doesn't stay full once the level's words are there: it
+moves on to the next level's words, the goal passed marked ("✅ 300 besed za A2").
 
 **The hunt.** Six stations at the village's landscape (its spots, there in every culture's village), in the path's order,
 each a short run on the stage with the storyteller, built from content the app has; where the content has too little, the

@@ -1128,6 +1128,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             is Screen.School -> openSchool(from.fromVillage)
             is Screen.CourseUnit -> openUnit(from.id, from.fromVillage)
             is Screen.UnitIntro -> openUnit(from.id, from.fromVillage)
+            // a grammar page's "🎯 Vadi" over the progress screen (its weakest pages, those still to secure)
+            is Screen.Progress -> openProgress(from.fromVillage)
             else -> home()
         }
     }
@@ -1148,21 +1150,35 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     var schoolScene by mutableStateOf<Screen.Scene?>(null)
         private set
 
-    /** The school is entered from the screen on now: a scene is kept to go back to, a school's screen keeps the one kept. */
+    /** The progress screen the school was entered from (its school row, its next unit), where leaving the school goes back to. */
+    var schoolProgress by mutableStateOf<Screen.Progress?>(null)
+        private set
+
+    /**
+     * The school is entered from the screen on now: a scene or the progress screen is kept to go back to, a school's screen
+     * keeps the one kept.
+     */
     private fun enterSchool() {
         when (val s = screen) {
-            is Screen.Scene -> schoolScene = s.copy(focus = null)
+            is Screen.Scene -> { schoolScene = s.copy(focus = null); schoolProgress = null }
+            is Screen.Progress -> { schoolScene = null; schoolProgress = s }
             is Screen.School, is Screen.CourseUnit, is Screen.UnitIntro, is Screen.Sheet -> Unit
-            else -> schoolScene = null
+            else -> { schoolScene = null; schoolProgress = null }
         }
     }
 
-    /** Back from the school: to the scene it was entered from, else to the village or home, wherever it was opened. */
+    /**
+     * Back from the school: to the scene or the progress screen it was entered from, else to the village or home, wherever
+     * it was opened.
+     */
     fun leaveSchool(fromVillage: Boolean) {
         val back = schoolScene
+        val progress = schoolProgress
         schoolScene = null
+        schoolProgress = null
         when {
             back != null -> openScene(back.id, null, back.building)
+            progress != null -> openProgress(progress.fromVillage)
             fromVillage -> village()
             else -> home()
         }
@@ -1306,17 +1322,37 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     // --- the treasure map (companion/GAME.md, "The treasure map") ------------------------------------------------------
 
-    /** Opens the treasure map; [fromVillage]: its "‹" leads back to the village, else Home. */
+    /**
+     * The progress screen the treasure map was opened from (its way to the next level), where leaving the map goes back
+     * to, also after a station's run (which comes back to the map).
+     */
+    private var treasureProgress: Screen.Progress? = null
+
+    /**
+     * Opens the treasure map; [fromVillage]: its "‹" leads back to the village, else Home, or the progress screen it was
+     * opened from.
+     */
     fun openTreasure(fromVillage: Boolean = screen is Screen.Village) {
         grammar.close()
         treasure.fromVillage = fromVillage
+        treasureProgress = when (val s = screen) {
+            is Screen.Progress -> s
+            is Screen.Treasure, is Screen.Challenge -> treasureProgress
+            else -> null
+        }
         screen = Screen.Treasure(fromVillage)
     }
 
     /** Back from the treasure map: where it was opened from. */
     fun leaveTreasure() {
         treasure.seen()
-        if (treasure.fromVillage) village() else home()
+        val progress = treasureProgress
+        treasureProgress = null
+        when {
+            progress != null -> openProgress(progress.fromVillage)
+            treasure.fromVillage -> village()
+            else -> home()
+        }
     }
 
     /** Takes the map (the storyteller's, or from the grammar book) and shows the path. */

@@ -56,6 +56,19 @@ sealed interface Projection {
 
 data class DueDay(val date: LocalDate, val count: Int)
 
+/** A words goal: [words] for level [level] ("300 for A2"). */
+data class WordsMilestone(val words: Int, val level: String)
+
+/**
+ * The goal the progress screen's words bar aims at ([Stats.wordsGoal]): [goal] words for level [forLevel]. [reached]: the
+ * highest goal passed on the way, null before the level's own; [last]: no goal comes after it, so the bar stays full once
+ * it is passed (C1's 5000 for C2, C2's own 8000).
+ */
+data class WordsGoal(val goal: Int, val forLevel: String, val reached: WordsMilestone? = null, val last: Boolean = false) {
+    /** Every goal passed: the bar is full, and stays so. */
+    fun complete(known: Int): Boolean = last && known >= goal
+}
+
 /** Everything the progress screen shows, derived from GET /state. */
 data class ProgressStats(
     val today: LocalDate,
@@ -63,6 +76,7 @@ data class ProgressStats(
     val level: String,
     val targetLevel: String,
     val nextLevel: String,
+    /** The words for [nextLevel] ([Stats.vocabGoal] of [level]). */
     val nextGoal: Int,
     /** Words learned: vocabulary answered right at least once ([Stats.learned]). */
     val wordsKnown: Int,
@@ -71,6 +85,7 @@ data class ProgressStats(
     /** Cumulative words learned at the end of each of the last weeks (by the day they were added), oldest first. */
     val wordsTrend: List<Int>,
     val wordsPerWeek: Double,
+    /** When [words]' goal is reached at the recent pace. */
     val projection: Projection,
     /** Weeks (oldest first) of Monday..Sunday; null = in the future. */
     val calendar: List<List<DayActivity?>>,
@@ -88,6 +103,11 @@ data class ProgressStats(
      * alone (its databases are GET /state's): the other languages' words, reviews and mistakes are theirs.
      */
     val languages: List<LanguageSummary> = emptyList(),
+    /**
+     * The goal the words bar aims at ([Stats.wordsGoal]): [nextGoal] for [nextLevel] until it is passed, then the next
+     * level's words; the level itself rises with the treasure map, not with the words.
+     */
+    val words: WordsGoal = WordsGoal(nextGoal, nextLevel),
 ) {
     /** The languages practised elsewhere (visits), for their own small section. */
     val otherLanguages: List<LanguageSummary> get() = languages.filter { !it.home && it.code.isNotEmpty() }
@@ -107,6 +127,26 @@ object Stats {
 
     fun nextLevel(level: String): String = LEVELS.getOrElse(LEVELS.indexOf(level).coerceAtLeast(0) + 1) { "C2" }
     fun vocabGoal(level: String): Int = GOALS[LEVELS.indexOf(level).coerceAtLeast(0)]
+
+    /**
+     * The words goal the bar aims at for a learner at [level] who knows [known] words: the level's own ([vocabGoal], for
+     * the level after it) until it is passed, then the next level's (A1 past 300: 1000 for B1), and so on, the highest one
+     * passed kept as [WordsGoal.reached]. The words don't raise the level (the treasure map does), so the bar moves on
+     * instead of staying full. The last goal is C2's (5000; at C2 its own 8000): past it, the bar stays full.
+     */
+    fun wordsGoal(known: Int, level: String): WordsGoal {
+        val start = LEVELS.indexOf(level).coerceAtLeast(0)
+        val last = maxOf(start, GOALS.size - 2)
+        fun forLevel(i: Int) = LEVELS.getOrElse(i + 1) { LEVELS.last() }
+        var i = start
+        var reached: WordsMilestone? = null
+        while (i <= last && known >= GOALS[i]) {
+            reached = WordsMilestone(GOALS[i], forLevel(i))
+            i++
+        }
+        return if (i > last) WordsGoal(GOALS[last], forLevel(last), reached, last = true)
+        else WordsGoal(GOALS[i], forLevel(i), reached, last = i == last)
+    }
 
     /**
      * Words to reach [level]: A2 300, B1 1000, B2 2000, C1 3500, C2 5000 (the goal of the level before it). A1 counts
@@ -274,6 +314,7 @@ object Stats {
         val vocabCreated = vocab.filter(::learned).map { it.date("created_date") ?: today }
         val known = vocabCreated.size
         val goal = vocabGoal(level)
+        val words = wordsGoal(known, level)
 
         val sessions = db["session_log"].obj()["sessions"].arr().mapNotNull { e ->
             val s = e.obj()
@@ -326,7 +367,7 @@ object Stats {
             wordsTracked = vocab.size,
             wordsTrend = wordsTrend(vocabCreated, today),
             wordsPerWeek = wordsPerWeek(vocabCreated, today),
-            projection = projection(known, goal, vocabCreated, today),
+            projection = projection(known, words.goal, vocabCreated, today),
             calendar = calendar(days, today),
             streaks = streaks(days.filterValues { it.sessions > 0 }.keys, today),
             totalMinutes = sessions.sumOf { it.minutes },
@@ -337,6 +378,7 @@ object Stats {
             due = dueForecast(dueDates, today),
             overdue = dueDates.count { it.isBefore(today) },
             languages = LanguageSummary.parseAll(root),
+            words = words,
         )
     }
 }

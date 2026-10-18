@@ -1467,6 +1467,41 @@ and its row, "🖨️ Vsi listi · All sheets" on the level. The bridge serves t
 a WebView off screen and opens Android's print dialog (a printer, "Save as PDF", sharing). See
 [COURSE.md](COURSE.md#printed-sheets), "Printed sheets" and "In the app".
 
+## Napredek · Progress
+
+"📊 Napredek · Progress" (`ui/progress/ProgressScreen.kt`; its numbers in `data/Stats.kt`, from GET /state, and
+`ui/progress/ProgressLogic.kt`, from the village and the readiness) opens from Home's last line and its pills (the streak,
+XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napredek ›"). From top to bottom:
+
+- **The words.** The words learned (the count the village's ages wait for, [GAME.md](GAME.md#ages)), their trend over
+  eight weeks, and a bar to the words of the next level (`Stats.wordsGoal`: 300 for A2, 1000 for B1, 2000, 3500, 5000).
+  The words don't raise the level, the treasure map does, so once the level's own goal is passed the bar moves on to the
+  next one, "312 / 1000 besed za B1 · words for B1", with the goal passed marked under it ("✅ 300 besed za A2 · 300
+  words for A2"); past C2's 5000 (at C2 its own 8000) it stays full. The forecast follows the bar's goal: at the recent
+  pace, and with a word pack a day ("1000 besed okoli …" once past the level's own).
+- **"🧭 Do A2 · To A2".** How the level rises: "Raven zraste z zemljevidom zaklada, ki ti ga Stari Janez da, ko so
+  izpolnjeni trije znaki" (the storyteller: `TreasureController.tellerName`; [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map),
+  `LevelReadiness`). A line each, ✅ or ⏳ with its numbers: 📚 the words (the level's goal: a milestone, not one of the
+  signs), 📖 the rules of the level secure (of those needed: 70 % of the level's tested pages; the first eight still to
+  secure as chips below it, each its title up to the colon ("✌️ Dvojina"), "+13" for the rest, a tap opens the page), 🔁 the reviews of the last 14 days (right, of at least 30; 80 % wanted), 📅 the
+  days of practice at the level (10, over at least 14 days at it). Once the signs are met or the map is offered, "🗺️
+  Zemljevid zaklada te čaka · The treasure map is waiting" with the storyteller's offer is a row to the map; the hunt on,
+  its stations passed; before, "🗺️ Zemljevid zaklada ›" opens the map's signs with "🗺️ Sem pripravljen · I'm ready" (the
+  only way to them before the offer). A treasure just found says so, and whether the tutor has the new level yet.
+  TalkBack reads each line as one, in the base language ("Rules of A1 secure: 5 / 19. Needed: 19 of the level's 26 pages
+  (70 %). not yet").
+- **"📝 Slovnica · Grammar".** The school at the learner's level: its units done of all ("1 / 18", a bar; the row opens
+  the school), those begun, and the one suggested next (★ "Naslednja · Next", or ▶ "V teku · In progress" when begun; a
+  tap opens its page); before the class begins, that it begins with the hamlet. The grammar book's pages of the level: those met of all, one bar of the secure and the met, and the
+  three weakest met pages with their stars, those not practised yet last (a tap opens the page over the screen). The
+  counting cards while counting is on ([Counting cards](#counting-cards)): how many, how many secure, how many due today.
+  The bars have their TalkBack labels ("A1 units done: 1 of 18", "A1 pages in the book: 28; met: 12; secure: 5").
+- Then the streak calendar, the accuracy, the exercises per week, the skills, the recurring mistakes (a tap asks the
+  tutor), the reviews due in the next 7 days, and the other languages' words and decks.
+
+The treasure map, the school (and a unit opened from here) and a grammar page's "🎯 Vadi" lead back to the progress
+screen. QA's step `progress` goes through it, in the dark theme and with the base in German too ([Test](#test)).
+
 ## Voice
 
 The app speaks Slovene with natural voices. The bridge makes each clip once, keeps it in the voice cache (SQLite

@@ -120,8 +120,9 @@ fun SchoolScreen(vm: AppViewModel, fromVillage: Boolean) {
             GradientHeader(
                 "📚 ${schoolTitle(s)}",
                 if (s == null || School.open(s)) bi("school.about") else beginsIn(),
-                // entered from the class's scene: back there ("← V šoli · At school")
-                vm.schoolScene?.let { vm.scenes.byId(it.id) }?.let { "← ${it.title}" } ?: backLabel(fromVillage),
+                // entered from the class's scene: back there ("← V šoli · At school"); from the progress screen, back to it
+                vm.schoolScene?.let { vm.scenes.byId(it.id) }?.let { "← ${it.title}" }
+                    ?: vm.schoolProgress?.let { "← ${bi("common.progress")}" } ?: backLabel(fromVillage),
                 onBack = { vm.leaveSchool(fromVillage) },
             )
         }
