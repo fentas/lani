@@ -388,8 +388,34 @@ val phoneProject = tasks.register<PhoneProject>("phoneProject") {
     out.set(layout.buildDirectory.dir("generated/phoneProject"))
 }
 
+/**
+ * What the phone never pushes to the learner's data repository (sync/DataFilter.kt): the .gitignore lani-setup writes,
+ * .claude/hooks/data-repo.gitignore (lani_data_repo.py reads the same file), bundled as the Java resource
+ * sync/data-repo.gitignore.
+ */
+abstract class SyncFiles : DefaultTask() {
+    @get:InputFile @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val gitignore: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val out: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val dir = out.get().asFile.resolve("sync")
+        dir.deleteRecursively()
+        dir.mkdirs()
+        gitignore.get().asFile.copyTo(dir.resolve("data-repo.gitignore"))
+    }
+}
+
+val syncFiles = tasks.register<SyncFiles>("syncFiles") {
+    gitignore.set(layout.projectDirectory.file("../../../.claude/hooks/data-repo.gitignore"))
+}
+
 androidComponents {
     onVariants { variant ->
+        variant.sources.resources?.addGeneratedSourceDirectory(syncFiles, SyncFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(tutorFiles, TutorFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(ispyFiles, ISpyFiles::out)
         variant.sources.resources?.addGeneratedSourceDirectory(festivalPacks, FestivalPacks::out)
@@ -410,6 +436,19 @@ val gitCommitCount: Int = providers.exec { commandLine("git", "rev-list", "--cou
     .standardOutput.asText.get().trim().toInt()
 val laniVersionCode = 1000 + gitCommitCount
 val laniVersionName = "0.2.$gitCommitCount"
+
+/**
+ * "Connect git" (sync/DeviceFlow.kt, docs/plans/05-built/git-sync.md "What Jan sets up"): the client id of the GitHub OAuth
+ * app (or GitHub App) the device flow signs in with, from the Gradle property lani.githubClientId (gradle.properties,
+ * ~/.gradle/gradle.properties or -P) or LANI_GITHUB_CLIENT_ID; empty by default, and then only a pasted token connects.
+ * The relay the encrypted backup goes to (sync/Backup.kt): lani.relayUrl or LANI_RELAY_URL, empty until it is hosted.
+ * A client id is public (it is in every device flow's request); neither is a secret.
+ */
+fun buildSetting(property: String, env: String): String =
+    (providers.gradleProperty(property).orNull ?: providers.environmentVariable(env).orNull ?: "").trim()
+        .also { require(it.none { c -> c == '"' || c == '\\' || c.isWhitespace() }) { "$property: no quotes, backslashes or spaces" } }
+val githubClientId = buildSetting("lani.githubClientId", "LANI_GITHUB_CLIENT_ID")
+val relayUrl = buildSetting("lani.relayUrl", "LANI_RELAY_URL")
 
 /**
  * The release key, never in the repository: the keystore LANI_KEYSTORE names, with LANI_KEYSTORE_PASSWORD, LANI_KEY_ALIAS
@@ -449,6 +488,8 @@ android {
         targetSdk = 36
         versionCode = laniVersionCode
         versionName = laniVersionName
+        buildConfigField("String", "GITHUB_CLIENT_ID", "\"$githubClientId\"")
+        buildConfigField("String", "RELAY_URL", "\"$relayUrl\"")
     }
 
     signingConfigs {
@@ -574,6 +615,8 @@ dependencies {
     implementation(libs.quickjs.kt)
     testImplementation(libs.quickjs.kt.jvm)
     testImplementation(libs.junit)
+    // a fake GitHub API and relay for the data's sync and backup (sync/*Test)
+    testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.icu4j)
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)

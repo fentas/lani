@@ -168,16 +168,20 @@ class Outbox(private val storage: OutboxStorage, private val clock: () -> Long =
         /** 5 s, 10 s, 20 s … capped at 15 minutes. */
         fun backoff(attempts: Int): Long = (5_000L shl (attempts - 1).coerceIn(0, 20)).coerceAtMost(15 * 60_000L)
 
-        /** Status code → outcome. 401/408/429 and 5xx are worth retrying; other 4xx are final. */
+        /**
+         * Status code → outcome. 401/408/429 and 5xx are worth retrying; so is 423, a node that only reads the data while
+         * the phone holds it (the lease, docs/plans/05-built/git-sync.md): the write waits for it. Other 4xx are final.
+         */
         fun classify(code: Int, body: String): Delivery = when {
             code in 200..299 -> Delivery.Done
             code == 401 || code == 408 || code == 429 -> Delivery.Retry("HTTP $code")
+            code == 423 -> Delivery.Retry("HTTP 423: ${errorText(body, "message")}")
             code >= 500 -> Delivery.Retry("HTTP $code: ${errorText(body)}", server = true)
             else -> Delivery.Rejected(code, errorText(body))
         }
 
-        private fun errorText(body: String): String =
-            runCatching { (json.parseToJsonElement(body) as JsonObject)["error"]?.toString()?.trim('"') }.getOrNull() ?: body.take(160)
+        private fun errorText(body: String, key: String = "error"): String =
+            runCatching { (json.parseToJsonElement(body) as JsonObject)[key]?.toString()?.trim('"') }.getOrNull() ?: body.take(160)
 
         fun newId(): String = UUID.randomUUID().toString().replace("-", "")
 
