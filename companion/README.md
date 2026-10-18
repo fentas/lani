@@ -1164,6 +1164,25 @@ and the last exchanges as plain text. The first event of a new day closes yester
 that changes the tools or the prompt restarts the thread as text (no closing call: its history can't be sent under
 another prefix). The notebook's older versions are kept; the panel can edit it.
 
+**What the learner was shown** (`tutor/Events.kt` `TurnText.shown`): the learner's next message answers the real tutor's
+reply, which the shadow never gave, so each real reply goes into the thread's next user message, before the event:
+"What the learner was shown in reply (another tutor answered this time). Their next messages answer this: take it as
+what they saw, and don't mention it or the other tutor to them.", each reply in a `<shown>` block, cut at 1,500
+characters, once (`ThreadState.shownUntil`). A stateless turn gets the day's last three beside "Today so far". A turn
+never gets the real answer to its own events, nor a role-play's lines.
+
+**The matrix** (`tutor/Matrix.kt`, the panel's Matrix tab; [05-phase-0.md, "The matrix"](../docs/plans/05-phase-0.md#the-matrix-2026-10-18)):
+off by default. Lanes of one model at one effort (nine preselected: Haiku 5.5 at medium, high, xhigh and max; Sonnet 5.5
+at low, medium and high; Opus 5.5 at low and medium) each handle every event the primary gets, on a day thread of their
+own at their effort for every task, with their own queue and worker beside the primary (which runs as before) and a
+client of their own. They read the primary's notebook and never write it (their notebook calls are dry runs, as their
+writes), restart as text past their family's limit, close their day without a call, and share their reads (one GET for
+all lanes). No budget of their own and never the primary's: the switch, a lane's toggle, a model the key doesn't list
+(skipped, and said so), or the key refused or out of credit stop them. Their turns and calls carry the lane's id
+(`lane`: "claude-sonnet-5-5@low"), in a day log per lane (`files/shadow-tutor/matrix/<lane>/`) and in the export (each
+day's `lanes`, the top-level `matrix`; tool calls in brief). Compared afterwards with `companion/bin/shadow-compare`
+(the uploads on the node by default; `--out DIR` writes `summary.md` and a file per task).
+
 **Metering** (`tutor/ShadowStore.kt` `DayStats`): per call the model, its effort (and whether an effort message set it),
 the event kind, input, the cache writes (5-minute and 1-hour, from `usage.cache_creation`), cache reads, output (thinking
 included: the API doesn't report it apart; `thinkingEstimate` is the output less the response's visible characters at
@@ -1178,9 +1197,11 @@ per run (cost, output with ≈ thinking, the first token and the whole time, "re
 reply, tool calls with their inputs and results, dry runs marked; the real tutor's reply below; "Also run on…" a model
 at an effort ("claude-haiku-5-5 · low", xhigh and max behind "more…"): its own stateless call, metered, so models and
 levels can be compared on the same events; "Queue again" for a failed turn); Numbers (the day's, "By model × effort",
-each call's with its effort, "⬆️ Export everything"); Notebook (the notebook, the thread, the queue); Settings (on, the
-key, a debug or qa build's base URL, the preset and the model and effort per task, the budget, the thread's limit, "React
-at once"). Older days are a tap away.
+each call's with its effort, "⬆️ Export everything"); Matrix (its switch, the lanes' grid: each family's model × the
+efforts it takes, a toggle each; today's spend per lane and in all; each event in Events has "▸ 🧪 Matrix: N lane(s)"
+with each lane's run); Notebook (the notebook, the thread, the queue); Settings (on, the key, a debug or qa build's base
+URL, the preset and the model and effort per task, the budget, the thread's limit, "React at once"). Older days are a
+tap away.
 
 **The export:** one JSON file (`lani.shadow-export/v0`: the settings, the notebook and its versions, the thread, the
 queue, and each day's events, turns, replies, tool calls, calls and numbers) through the share sheet (a FileProvider

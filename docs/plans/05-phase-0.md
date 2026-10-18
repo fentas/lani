@@ -185,6 +185,115 @@ first token's latency for a chat, and "Also run on" Haiku for the chats and answ
   - **for the in-app tutor,** "worth saying" includes new nouns (a line-up: better made by the app from the dictionary,
     as the counting card's forms are, exact and without a call) and a notable review (all right, 20 or more).
 
+### Quality pass (2026-10-18)
+
+Four days of shadow mode (Oct 15–18), the shadow's replies read next to the real tutor's (Claude Code on Opus) on the
+same events.
+
+- **Cost and speed:** about $0.43 a day; a median of ~2 s to the first token; errors only while the phone was offline.
+  On plain grammar questions, Sonnet's chat is about as correct as the real tutor.
+- **Errors in Slovene:** it called *grem delat* spoken (the supine after a verb of motion is standard), and listed *med*
+  and *pred* with the genitive (they take the instrumental, the accusative for a direction). Haiku's school summaries
+  had wrong corrections in 3 of 7.
+- **Habits:** it promises drills it can't run ("Want a mini-drill?").
+- **A shadow-mode artifact:** the learner's follow-ups answer the real tutor's replies, which the shadow never saw. When
+  Jan wrote "the -o rule (-gO)", the mnemonic was in the real tutor's earlier reply, so the shadow had to ask what Jan
+  meant; "add them to vocab" pointed to the real tutor's list.
+
+**The six fixes:**
+
+| # | Fix | Where | Status |
+|---|---|---|---|
+| 1 | **The learner's view into the context:** each real reply goes into the shadow's next user message, as what the learner was shown | this round (`tutor/Events.kt` `TurnText.shown`) | done |
+| 2 | **Grading's model:** Haiku at `high` or Sonnet? Decided by the matrix's numbers and replies, not by changing Balanced now | the matrix (below) | measuring |
+| 3 | **No "not a word" and no report without a `dictionary_lookup`:** a check on `report_problem` (a fix about a word, a form or a key fails until a lookup came back in the turn) and a prompt rule | the parallel round (c682350) | done |
+| 4 | **Standard against spoken:** the core prompt's "Correct Slovene" (the supine is standard, a spoken form from home is named as spoken, never a mistake) | the parallel round | done |
+| 5 | **Offer only what the tools can do:** the reviews, the homework, the grammar book's pages; one practice question on a topic at most | the parallel round | done |
+| 6 | **Dry runs that read like the live ones:** each write answers as the live tool does on success (`tutor/DryRuns.kt`); no "shadow" wording in what the model reads | the parallel round | done |
+
+**Fix 1, as built.** A real reply (the bridge's SSE `reply`, matched to its event) waits for the thread's next turn and
+goes into that turn's user message, before the local time and the event, so the history stays append-only and the cache
+holds. Once each (`ThreadState.shownUntil`), cut at 1,500 characters:
+
+> What the learner was shown in reply (another tutor answered this time). Their next messages answer this: take it as
+> what they saw, and don't mention it or the other tutor to them.
+> `<shown at="18:03" conversation_id="main" in_reply_to="ev_…">` … `</shown>`
+
+A stateless turn (a digest, an answer on Haiku, "also run on") gets the day's last three next to "Today so far" ("What
+the learner was shown in reply today (another tutor answered). …"). A turn never gets the real answer to its own events
+(only replies from before its first event, none matched to it), nor a role-play's lines. A restart's "last exchanges"
+carry what the learner was shown with each.
+
+### The matrix (2026-10-18)
+
+Jan wants several models × efforts side by side on the same events for 2–5 days, compared afterwards. The panel's
+"Matrix" tab runs them as **lanes** beside the primary (`tutor/Matrix.kt`).
+
+- **A lane** is one model at one effort. It handles every event the primary gets: chats, answers, digests, session ends;
+  role-play is recorded only, as the primary does. The primary's queue hands each lane the same turn.
+- **The defaults** (nine, preselected; Jan asked for Haiku at `xhigh` and `max`): Haiku 5.5 at `medium`, `high`, `xhigh`,
+  `max`; Sonnet 5.5 at `low`, `medium`, `high`; Opus 5.5 at `low`, `medium`. The grid shows each family's model (the
+  key's) × the efforts it takes, a toggle each. A family resolves to its own model (`ModelCatalog.own`, never another
+  family's); a lane whose model the key doesn't list is skipped, and the panel says so.
+- **How a lane differs from the primary:**
+  - one model and one effort for every task: its own day thread on its model, its effort the top-level effort of every
+    turn; no per-task model, no stateless Haiku turns, no effort messages; `max_tokens` by `Task.maxTokensAt` at its
+    level (32k at `xhigh`, 64k at `max`);
+  - the notebook is shared and read-only: a lane reads the primary's notebook, and its `notebook_note` and
+    `notebook_write` calls are recorded as dry runs, so all lanes start from the same memory and stay comparable;
+  - no closing calls: past its family's limit (Haiku 20k, Sonnet 30k, Opus 60k, the presets') its thread restarts as
+    text; at the day's end it is archived as it is, and its lines become its own "yesterday in brief" (a new day waits a
+    little for the primary's closing, so it starts from the rewritten notebook);
+  - all writes are dry runs, as the primary's; the real tutor's replies reach its thread as they reach the primary's
+    (fix 1);
+  - its reads are shared: the same read of all lanes within two minutes is one GET to the node, so every lane sees the
+    same data.
+- **Concurrency:** each lane has its own queue and worker, concurrent with the primary and the other lanes; state
+  changes stay on the shadow's single `io` thread, and the calls suspend. The lanes' calls go over a client of their own
+  (`AnthropicTransport.laneClient`), so nine streams never queue the primary's call behind OkHttp's limit of five calls
+  a host. A lane never delays the primary's turns nor changes what it does: the primary runs as before, as the
+  baseline. Backoff on 429 and overload as the primary's.
+- **No budget of its own** (Jan: "we have $200 for this month"). Nothing stops the lanes but the switch, a lane's toggle,
+  a model the key doesn't list, and the key refused or out of credit, which stops everything as before. The lanes'
+  calls are in their own logs, so the primary's numbers and its own daily budget stay its own. The Matrix tab shows
+  today's spend per lane and in all.
+- **Records:** each lane's day log in `files/shadow-tutor/matrix/<lane>/`; its turns and calls carry the lane's id
+  (`lane`: "claude-sonnet-5-5@low"; the primary's have none). A lane keeps its tool calls in brief (strings cut at 300
+  characters, `reply`'s text left out, results at 300) and no raw usage. The export (the share sheet's and the node's)
+  has each day's `lanes` (per lane its numbers and its log) and a top-level `matrix` (the settings, the lanes as
+  resolved, skipped ones with why); the redaction and the photo's omission as before.
+- **The export's size:** about 70 KB a lane-day (45–100 KB, from the shapes of Oct 15–18), so ~0.6 MB a day for nine
+  and ~0.8 MB with the primary's. The node's 5 MB holds ~5–6 days; past that the oldest days are left out of an upload,
+  but the node keeps each day's upload (`app/dev/shadow-<date>.json`), and `shadow-compare` takes each day from the
+  newest upload that has it.
+
+**What it costs (an estimate).** Prices per million tokens in / out: Haiku 5.5 $0.10 / $0.50, Sonnet 5.5 $2 / $10,
+Opus 5.5 $4 / $20. Observed for the primary: $0.25–0.60 a day, almost all of it Sonnet's chat; Haiku at `high` $0.02–0.05
+a day.
+
+| Lane | First estimate, a day | From the code, a day |
+|---|---|---|
+| Haiku `medium` / `high` / `xhigh` / `max` | ~$0.02–0.10 (`max` the most) | ~$0.05 / 0.06 / 0.08 / 0.12 |
+| Sonnet `low` / `medium` / `high` | ~$0.30 / 0.45 / 0.60 | ~$0.55 / 0.60 / 0.75 |
+| Opus `low` / `medium` | ~$0.60 / 0.90 | ~$1.10 / 1.20 |
+| All nine | **~$3.5** (~$17 for 5 days) | ~$4.5 (~$22 for 5 days); a busy day like the 18th ~$6 |
+
+Why the code says more: a lane takes every task on its thread (15–23 turns a day on Oct 15–18, ~45–70 calls), where the
+primary's Sonnet thread took only the chats (8–16). On Sonnet and Opus the cost is mostly cache writes, not output: on
+the 18th the primary's Sonnet thread paid $0.22 for 5-minute writes (89k tokens: each gap over five minutes writes the
+thread again), $0.25 for the prefix's 1-hour writes (five), $0.04 for reads and $0.07 for output. So a lane's effort moves
+its cost less than the number of turns and the gaps between them. Each lane also writes its own prefix cache (the
+cache is per model and top-level effort): $0.05 an hour of use on Sonnet, $0.10 on Opus. Either way it is well within
+the $200 month.
+
+**How to run it:** in the panel's Matrix tab, turn the matrix on (the nine are preselected; toggle a lane to leave it out),
+then use the app as usual for 2–5 days. The uploads reach the node as before. **To compare:**
+`companion/bin/shadow-compare --out /tmp/matrix` (by default the learner's `<data>/app/dev/shadow-*.json`; or give the
+files) writes `summary.md` (per lane, the primary and the real tutor: days, events, calls, spend a day, the median first
+token and call, replies, the share taken from text, errors, refusals, truncations, guide and `dictionary_lookup` calls,
+writes) and `chat.md`, `grading.md`, `routine.md` (per event: the event, the real reply, the primary's and each lane's
+reply with its tool calls in brief), for a judged reading. `--task`, `--lanes`, `--day` narrow it.
+
 ### Check 11: signing in with the subscription
 
 - The Agent SDK overview: *"Unless previously approved, Anthropic does not allow third party developers to offer
