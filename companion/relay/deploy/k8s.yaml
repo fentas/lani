@@ -1,0 +1,66 @@
+# A minimal deployment of lani-relay (docs/plans/05-built/relay.md, "Hosting it later"), e.g. on Jan's lok8s cluster
+# beside glas. One replica: the relay keeps its rate limits and waiting requests in memory, and its SQLite on the volume.
+# The image: docker build -f companion/relay/Dockerfile -t <registry>/lani-relay:<tag> companion
+# TLS and the host name are the ingress's (the relay must sit at the root of its host: requests are signed with their path).
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lani-relay
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lani-relay
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: { app: lani-relay }
+  template:
+    metadata:
+      labels: { app: lani-relay }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: relay
+          image: lani-relay:latest
+          ports:
+            - containerPort: 8080
+          env:
+            # behind the ingress: its X-Forwarded-For is the client's address (the limits per address)
+            - { name: RELAY_TRUST_PROXY, value: "1" }
+            # pages elsewhere that may call the family API (CORS), comma-separated; the relay's own page needs none
+            - { name: RELAY_FAMILY_ORIGINS, value: "" }
+          readinessProbe:
+            httpGet: { path: /health, port: 8080 }
+          livenessProbe:
+            httpGet: { path: /health, port: 8080 }
+            periodSeconds: 30
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { memory: 256Mi }
+          volumeMounts:
+            - { name: data, mountPath: /data }
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: lani-relay
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lani-relay
+spec:
+  selector: { app: lani-relay }
+  ports:
+    - port: 80
+      targetPort: 8080
