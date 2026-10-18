@@ -144,7 +144,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "dev-upload" the developer's data on the node: the developer setting and the shadow on the mock, a
                        chat, the app to the background: the shadow's export and the app's log in the dev bridge's copy
                        under app/dev/ (dev-shadow.json, dev-app-log.txt: the raw usage, no key, no token), the panel's
-                       "📤 Pošlji vozlišču", nothing sent with the developer setting off
+                       "📤 Pošlji vozlišču", nothing sent with the developer setting off;
+                       "data-sheet" "💾 Podatki · Data" (QA's hook "data"): git not connected, who writes, this phone's
+                       id, the backup without a relay; "🔗 Poveži git" (the debug build has no GitHub client id: the
+                       token field only); nothing connected or sent
   --dry                print the plan (bridges, ports, the fixture town, the steps) and stop
   --bridges-only       no app: start both bridges, link them, check what a visit asks through the dev bridge, stop
   --no-town            no second town (the visit steps are skipped)
@@ -6716,6 +6719,32 @@ SEND_TO_NODE = "📤 Pošlji vozlišču · Send to the node"  # the shadow panel
 SECRET_LIKE = re.compile(r"sk-ant-(?!‹)[A-Za-z0-9_-]{6,}|Bearer (?!‹)[A-Za-z0-9._~+/=-]{6,}|token=(?!‹)[^&\s\"']+")
 
 
+def data_sheet():
+    """"💾 Podatki · Data" (ui/data/DataSheet, docs/plans/05-built/git-sync.md), opened by QA's hook "data": git not
+    connected, who writes the data, this phone's id, the backup without a relay (the debug build has none), a screenshot
+    each; then "🔗 Poveži git · Connect git": without a GitHub client id (the debug build's) the dialog says so and offers
+    the token field. Nothing is connected or sent."""
+    qa_hook("data")
+    assert wait_for("Podatki · Data", 8), "the data sheet"
+    assert wait_for("Poveži git · Connect git", 4), "connect git"
+    time.sleep(slow())
+    shot("data-sheet")
+    adb("shell", "input", "swipe", "540", "1800", "540", "700", "500")
+    time.sleep(1.2)
+    assert wait_for("Varnostna kopija · Backup", 4), "the backup section"
+    assert find("Ta telefon:") is not None, "this phone's id"
+    shot("data-sheet-backup")
+    adb("shell", "input", "swipe", "540", "700", "540", "1800", "500")
+    time.sleep(1.2)
+    assert tap("Poveži git · Connect git", 4), "connect git"
+    assert wait_for("prilepi žeton", 6), "the token field"
+    shot("data-connect")
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the dialog
+    time.sleep(1)
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the sheet
+    time.sleep(1)
+
+
 def dev_upload():
     """The developer's data on the node (companion/README.md "Developer data on the node"): the developer setting on and
     the shadow tutor on QA's mock (QA's hook "shadow:<mock>", a fake key), a chat, the app to the background: the shadow's
@@ -6941,6 +6970,7 @@ def plan():
         ("shadow-tutor", shadow_tutor, go_home, False, ""),
         ("shadow-matrix", shadow_matrix, go_home, False, ""),
         ("dev-upload", dev_upload, go_home, False, ""),
+        ("data-sheet", data_sheet, go_home, False, ""),
     ]
 
 

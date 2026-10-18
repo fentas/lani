@@ -86,7 +86,8 @@ class MainActivity : ComponentActivity() {
             counting = { if (it == "intro") vm.qaCountingIntro() else vm.qaCounting() },
             shadow = { base -> vm.shadow.showDeveloper(true); if (base.isNotBlank()) vm.shadow.update { it.copy(debugBaseUrl = base) }; vm.shadow.panelOpen = true },
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
-            pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard)
+            pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
+            data = { vm.dataOpen = true })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
         intent?.removeExtra(DeepLink.EXTRA)
@@ -202,6 +203,8 @@ private fun App(vm: AppViewModel) {
     vm.words.card?.let { WordSheet(vm, it) }
     // the shadow tutor's debug panel (a developer setting: tutor/ShadowTutor), over everything
     if (vm.shadow.panelOpen) si.lanisce.lani.ui.tutor.ShadowPanel(vm.shadow, vm.devUpload) { vm.shadow.panelOpen = false }
+    // "💾 Podatki · Data" (ui/data/DataSheet): opened from the connection sheet, or by the hosted mode's setup (vm.dataOpen)
+    if (vm.dataOpen) si.lanisce.lani.ui.data.DataSheet(vm.data, onDismiss = { vm.dataOpen = false }, banner = { vm.notices.banner = it })
     // no village yet, anywhere: the learner chooses where it will be before anything else of the game
     val founding = vm.game.placeNeeded && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
     if (founding) si.lanisce.lani.ui.game.FoundingScreen(vm)

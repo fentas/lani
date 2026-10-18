@@ -35,8 +35,9 @@ import si.lanisce.lani.l10n.bi
 /**
  * "🔗 Povezava · Connection", from the tutor's status dot on Home: which tutor and learner this phone talks
  * to, and pairing again by QR code (a new code after the phone was unpaired, or instead of a typed token); and this
- * phone's settings: the languages, the background sounds, the school's explanations read aloud, the offline audio, and
- * (hidden until the version is tapped seven times) the developer's.
+ * phone's settings: the languages, the background sounds, the school's explanations read aloud, the offline audio, the
+ * data (git, the handover, the backup: ui/data/DataSheet), and (hidden until the version is tapped seven times) the
+ * developer's.
  */
 @Composable
 fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit) {
@@ -67,6 +68,7 @@ fun ConnectionSheet(vm: AppViewModel, onScan: () -> Unit, onDismiss: () -> Unit)
             AmbienceSettings(vm.ambience, Modifier.padding(top = 12.dp))
             si.lanisce.lani.ui.school.ReadSetting(vm, Modifier.padding(top = 4.dp))
             OfflineAudioSettings(vm.offlineAudio, Modifier.padding(top = 12.dp))
+            si.lanisce.lani.ui.data.DataSection(vm.data, onOpen = { vm.dataOpen = true }, Modifier.padding(top = 12.dp))
             Developer(vm)
         }
     }

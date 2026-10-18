@@ -210,6 +210,23 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         logLine = { android.util.Log.i(si.lanisce.lani.app.DevUpload.TAG, it) },
     ).also { u -> shadow.onDayClosed = { u.onClosing() } }
 
+    /**
+     * "💾 Podatki · Data" (sync/DataSync, docs/plans/05-built/git-sync.md): the phone's data directory (<filesDir>/lani/data)
+     * synced with a repository on GitHub, the lease and the handover's QR code, the encrypted backup. Opt-in: nothing runs
+     * until git is connected or a backup set up. The hosted mode's bridge calls [DataSync.touched] after its writes and
+     * asks [DataSync.mayWrite].
+     */
+    val data = si.lanisce.lani.sync.DataSync(
+        File(app.filesDir, "lani"), viewModelScope, si.lanisce.lani.sync.KeystoreBox(app),
+        deviceName = android.os.Build.MODEL ?: "Android",
+        clientId = si.lanisce.lani.BuildConfig.GITHUB_CLIENT_ID,
+        relayUrl = si.lanisce.lani.BuildConfig.RELAY_URL,
+        appVersion = "${si.lanisce.lani.BuildConfig.APPLICATION_ID} ${si.lanisce.lani.BuildConfig.VERSION_NAME}",
+        log = { android.util.Log.i("DataSync", it) },
+    )
+    /** Whether the Data sheet is open (the connection sheet's "Odpri", the hosted mode's setup, QA's "data"). */
+    var dataOpen by mutableStateOf(false)
+
     /** The app as the shadow's export names it: its id, version and build. */
     fun appName() = "${si.lanisce.lani.BuildConfig.APPLICATION_ID} ${si.lanisce.lani.BuildConfig.VERSION_NAME} (${si.lanisce.lani.BuildConfig.VERSION_CODE})"
     /** The village book's grammar chapter: its pages, the one open over any screen, the pages met (app/GrammarController). */
@@ -687,6 +704,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         if (bridge != null) events.start()
         commitRoadRatings()
         shadow.onForeground() // a digest when the app was away two hours or more
+        data.onForeground() // the data repository pulled (git connected only)
     }
 
     /**
@@ -700,6 +718,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         update.onBackground()
         shadow.onBackground()
         devUpload.onBackground() // the developer's data to the node (developer setting on, at most every 30 minutes)
+        data.onBackground() // the phone's writes pushed, the day's backup (each only when set up)
     }
 
     /** A notification was tapped: go where it points, once connected, without interrupting a run. */

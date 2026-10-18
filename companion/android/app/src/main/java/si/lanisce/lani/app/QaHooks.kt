@@ -73,6 +73,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "shadow": the developer settings shown and the shadow tutor's debug panel open (tutor/ShadowTutor);
  *   "shadow:<url>" with the Messages API's base URL set to <url> first (QA's mock, http://10.0.2.2:8771). The key is
  *   entered in the panel, as the learner would.
+ * - "data": the "💾 Podatki · Data" sheet open (ui/data/DataSheet, sync/DataSync), as the connection sheet's "Odpri"
+ *   opens it.
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the connection sheet's languages
  *   choose it; "pair:" follows the learner profile again.
  * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
@@ -194,7 +196,7 @@ object QaHooks {
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
-        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> },
+        grow: (si.lanisce.lani.game.Age) -> Unit = {}, formsCard: (String, String) -> Unit = { _, _ -> }, data: () -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -207,6 +209,7 @@ object QaHooks {
             }
             command.startsWith("pair:") -> pair(command.removePrefix("pair:").trim())
             command == "shadow" -> shadow("")
+            command == "data" -> data()
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))
             command.startsWith("audio:") -> audio(command.removePrefix("audio:"))
             command == "zoom" -> zooms++
