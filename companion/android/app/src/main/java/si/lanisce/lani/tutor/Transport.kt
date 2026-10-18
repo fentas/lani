@@ -42,7 +42,8 @@ data class StreamResult(val message: AssistantMessage, val firstTokenMs: Long?, 
 
 /**
  * How the tutor reaches Claude (plan 5, "One interface"): BYOK calls the Messages API with the learner's key; later the
- * covered variant calls our proxy with the account's token, with the same requests. Throws [ApiError].
+ * covered variant calls our proxy with the account's token, with the same requests. Throws [ApiError]. The loop takes it
+ * through [AnthropicProvider] (the provider layer, Provider.kt; OpenAI's is [OpenAITransport]).
  */
 interface TutorTransport {
     /** The models the key may use: GET /v1/models, not a model call (the key's check). */

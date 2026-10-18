@@ -47,14 +47,34 @@ enum class Task(val family: Family, val effort: String, val maxTokens: Int) {
 }
 
 /**
- * A model family: what a preset names, resolved to an id the key lists ([ModelCatalog]). Haiku 4.5 is legacy (retired
- * from 2026-10-15 on): never a default; the panel can still pick it for a test.
+ * A model family: what a preset or a matrix lane names, resolved to an id the credential lists ([ModelCatalog]): its
+ * [provider], its [tier] (0 small, 1 mid, 2 top), its [preferred] ids, and what an id of it contains ([match]). The
+ * presets use Anthropic's alone. Haiku 4.5 is legacy (retired from 2026-10-15 on): never a default; the panel can still
+ * pick it for a test.
+ *
+ * OpenAI's (the models page, developers.openai.com/api/docs/models, checked 2026-10-18): GPT-6 Luna "for cost-sensitive,
+ * high-volume workloads", GPT-6.1 Sol "to balance intelligence and cost" (GPT-6 Sol the older), GPT-6 Astra "our
+ * flagship model for complex reasoning and coding".
  */
 @Serializable
-enum class Family(val preferred: List<String>) {
-    HAIKU(listOf("claude-haiku-5-5")),
-    SONNET(listOf("claude-sonnet-5-5", "claude-sonnet-5")),
-    OPUS(listOf("claude-opus-5-5", "claude-opus-5")),
+enum class Family(val provider: ProviderId, val tier: Int, val preferred: List<String>, val match: String) {
+    HAIKU(ProviderId.ANTHROPIC, 0, listOf("claude-haiku-5-5"), "haiku"),
+    SONNET(ProviderId.ANTHROPIC, 1, listOf("claude-sonnet-5-5", "claude-sonnet-5"), "sonnet"),
+    OPUS(ProviderId.ANTHROPIC, 2, listOf("claude-opus-5-5", "claude-opus-5"), "opus"),
+    LUNA(ProviderId.OPENAI, 0, listOf("gpt-6-luna"), "luna"),
+    SOL(ProviderId.OPENAI, 1, listOf("gpt-6.1-sol", "gpt-6-sol"), "sol"),
+    ASTRA(ProviderId.OPENAI, 2, listOf("gpt-6-astra"), "astra");
+
+    /** "Haiku", "Sol". */
+    val label: String get() = name.lowercase().replaceFirstChar { it.uppercase() }
+
+    companion object {
+        /** [provider]'s families, small to top. */
+        fun of(provider: ProviderId): List<Family> = entries.filter { it.provider == provider }
+
+        /** The family [model] belongs to (its id names it), or null. */
+        fun ofModel(model: String): Family? = entries.firstOrNull { model.contains(it.match) }
+    }
 }
 
 /**
@@ -74,32 +94,33 @@ enum class Preset(val families: Map<Task, Family>, val efforts: Map<Task, String
 }
 
 /**
- * The models the key lists (GET /v1/models), and which one plays a family: the plan's id when it's listed, else the
- * next preferred, else the newest current one of the family, else the family above's (Haiku → Sonnet → Opus), never a
- * legacy model by default. Before the key was checked: the plan's ids.
+ * The models a credential lists (GET /v1/models: the Anthropic key's, or the OpenAI key's or ChatGPT sign-in's), and
+ * which one plays a family: the plan's id when it's listed, else the next preferred, else the newest current one of the
+ * family, else the family above's of the same provider (Haiku → Sonnet → Opus), never a legacy model by default. Before
+ * the credential was checked: the plan's ids.
  */
 class ModelCatalog(val listed: List<ModelInfo>) {
     fun resolve(f: Family): String {
         if (listed.isEmpty()) return f.preferred.first()
         val ids = listed.map { it.id }.toSet()
         val newest = listed.sortedByDescending { it.createdAt.orEmpty() }
-        for (family in Family.entries.drop(f.ordinal)) {
+        for (family in Family.of(f.provider).filter { it.tier >= f.tier }) {
             family.preferred.firstOrNull { it in ids }?.let { return it }
-            newest.firstOrNull { it.id.contains(family.name.lowercase()) && !legacy(it.id) }?.let { return it.id }
+            newest.firstOrNull { it.id.contains(family.match) && !legacy(it.id) }?.let { return it.id }
         }
         return newest.firstOrNull { !legacy(it.id) }?.id ?: newest.first().id
     }
 
     /**
      * The model of [f] itself (a matrix lane's, [Lanes.plan]): the plan's id when it's listed, else the next preferred,
-     * else the family's newest current one; null when the key lists none of the family (never the family above's, as
-     * [resolve] falls back to). Before the key was checked: the plan's id.
+     * else the family's newest current one; null when the credential lists none of the family (never the family
+     * above's, as [resolve] falls back to). Before the credential was checked: the plan's id.
      */
     fun own(f: Family): String? {
         if (listed.isEmpty()) return f.preferred.first()
         val ids = listed.map { it.id }.toSet()
         return f.preferred.firstOrNull { it in ids }
-            ?: listed.sortedByDescending { it.createdAt.orEmpty() }.firstOrNull { it.id.contains(f.name.lowercase()) && !legacy(it.id) }?.id
+            ?: listed.sortedByDescending { it.createdAt.orEmpty() }.firstOrNull { it.id.contains(f.match) && !legacy(it.id) }?.id
     }
 
     /** The model of [task]: the panel's override for it when the key lists it, else the preset's. */
@@ -114,14 +135,33 @@ class ModelCatalog(val listed: List<ModelInfo>) {
         fun adaptive(model: String): Boolean = !Regex("""claude-(3|haiku-4|sonnet-4-[0-5]\b|opus-4-[0-5]\b)""").containsMatchIn(model)
 
         /**
-         * The effort levels [model] takes (the effort docs' table, 2026-10-16): all five on the 5-generation models and
-         * Opus 4.7 and 4.8; no `xhigh` on Opus 4.6, Sonnet 4.6 and Mythos Preview; none on a model without adaptive
-         * thinking here (Haiku 4.5 and older).
+         * The effort levels [model] takes. Anthropic's (the effort docs' table, 2026-10-16): all five on the 5-generation
+         * models and Opus 4.7 and 4.8; no `xhigh` on Opus 4.6, Sonnet 4.6 and Mythos Preview; none on a model without
+         * adaptive thinking here (Haiku 4.5 and older). OpenAI's: [openAIEfforts].
          */
         fun efforts(model: String): List<String> = when {
+            ProviderId.of(model) == ProviderId.OPENAI -> openAIEfforts(model)
             !adaptive(model) -> emptyList()
             Regex("""claude-(opus-4-6|sonnet-4-6|mythos-preview)""").containsMatchIn(model) -> Effort.LEVELS - Effort.XHIGH
             else -> Effort.LEVELS
+        }
+
+        /**
+         * OpenAI's `reasoning.effort` levels per model (the model pages, developers.openai.com/api/docs/models/<id>,
+         * checked 2026-10-18): GPT-6 Astra and GPT-6.1 Sol low to max ("The `none` and `minimal` reasoning efforts are
+         * not supported"); GPT-6 Luna, GPT-6 Sol and the GPT-5.6 models none and low to max; GPT-5.5 none and low to
+         * xhigh. Another reasoning model of theirs (gpt-5…, o…): low, medium, high, the levels all of them take (not
+         * checked model by model); a model without reasoning (gpt-4…, the chat-latest aliases): none.
+         */
+        fun openAIEfforts(model: String): List<String> {
+            val all = listOf(Effort.LOW, Effort.MEDIUM, Effort.HIGH, Effort.XHIGH, Effort.MAX)
+            return when {
+                Regex("""^gpt-(6-astra|6\.1-sol)(-|$)""").containsMatchIn(model) -> all
+                Regex("""^gpt-(6-luna|6-sol|5\.6-(luna|terra|sol))(-|$)""").containsMatchIn(model) -> listOf(Effort.NONE) + all
+                Regex("""^gpt-5\.5(-|$)""").containsMatchIn(model) && !model.contains("pro") -> listOf(Effort.NONE, Effort.LOW, Effort.MEDIUM, Effort.HIGH, Effort.XHIGH)
+                Regex("""^(gpt-5|o\d)""").containsMatchIn(model) && !model.contains("chat") -> listOf(Effort.LOW, Effort.MEDIUM, Effort.HIGH)
+                else -> emptyList()
+            }
         }
 
         /**
@@ -132,17 +172,22 @@ class ModelCatalog(val listed: List<ModelInfo>) {
             val levels = efforts(model)
             if (levels.isEmpty()) return null
             if (want in levels) return want
-            val i = Effort.LEVELS.indexOf(want)
-            return Effort.LEVELS.take(maxOf(i, 0)).lastOrNull { it in levels } ?: levels.first()
+            val i = Effort.ALL.indexOf(want)
+            return Effort.ALL.take(maxOf(i, 0)).lastOrNull { it in levels } ?: levels.first()
         }
 
         /** The effort of [task] on [model]: the panel's for it ([overrides]), else [preset]'s, fitted to [model]. */
         fun effortFor(task: Task, preset: Preset, model: String, overrides: Map<Task, String> = emptyMap()): String? =
             fit(overrides[task] ?: preset.efforts.getValue(task), model)
 
-        /** The API's effort when a request sets none: `medium` on Opus 5.5 and Haiku 5.5, `high` on the others. */
+        /**
+         * The API's effort when a request sets none: `medium` on Opus 5.5 and Haiku 5.5, `high` on the other Claude
+         * models; `medium` on OpenAI's (the model pages say so for GPT-6.1 Sol, GPT-6 Luna, GPT-6 Sol and GPT-5.6; GPT-6
+         * Astra's page names no default: unverified).
+         */
         fun defaultEffort(model: String): String? = when {
             efforts(model).isEmpty() -> null
+            ProviderId.of(model) == ProviderId.OPENAI -> Effort.MEDIUM
             Regex("""claude-(opus-5-5|haiku-5-5)(-|$)""").containsMatchIn(model) -> Effort.MEDIUM
             else -> Effort.HIGH
         }
@@ -153,7 +198,10 @@ class ModelCatalog(val listed: List<ModelInfo>) {
          * Haiku 5.5). Not Sonnet 5 (the Sonnet family's fallback id): a turn there runs at the thread's effort.
          */
         fun perMessageEffort(model: String): Boolean =
-            Regex("""claude-(opus-5-5|opus-5|sonnet-5-5|haiku-5-5|fable-5-1|mythos-5-1)(-\d{8})?$""").containsMatchIn(model)
+            Regex("""claude-(opus-5-5|opus-5|sonnet-5-5|haiku-5-5|fable-5-1|mythos-5-1)(-\d{8})?$""").containsMatchIn(model) ||
+                // OpenAI: a configuration_update item ("supported by the GPT-6 model family in standard, single-agent
+                // mode": the reasoning guide, "Change reasoning mid-conversation")
+                Regex("""^gpt-6(\.\d+)?-""").containsMatchIn(model)
 
         /** A model of an older generation than the presets' (Haiku 4.5, the 4 and 3 families): never chosen by default. */
         fun legacy(model: String): Boolean = Regex("""claude-(\d|haiku-[1-4]|sonnet-[1-4]|opus-[1-4])(-|$)""").containsMatchIn(model)
@@ -163,7 +211,8 @@ class ModelCatalog(val listed: List<ModelInfo>) {
 /**
  * Dollars per million tokens of one model (plan 5's table, from the pricing page): input, 5-minute and 1-hour cache
  * writes, cache reads, output; [longAbove]: prompts over that many tokens cost [longFactor] times as much (Haiku 5.5
- * over 100k).
+ * over 100k), the output [longOutputFactor] times when given (OpenAI's over 272k: 2× input and cache, 1.5× output).
+ * OpenAI's cache writes (one lifetime, at least 30 minutes) are its [write5m] and [write1h] alike.
  */
 @Serializable
 data class Price(
@@ -175,21 +224,37 @@ data class Price(
     val output: Double,
     val longAbove: Long? = null,
     val longFactor: Double = 1.0,
+    val longOutputFactor: Double? = null,
 ) {
     /** The dollars [u] costs. */
     fun of(u: Usage): Double {
-        val f = if (longAbove != null && u.prompt > longAbove) longFactor else 1.0
-        return f * (u.input * input + u.cacheWrite5m * write5m + u.cacheWrite1h * write1h + u.cacheRead * read + u.output * output) / 1_000_000.0
+        val long = longAbove != null && u.prompt > longAbove
+        val f = if (long) longFactor else 1.0
+        val fo = if (long) longOutputFactor ?: longFactor else 1.0
+        return (f * (u.input * input + u.cacheWrite5m * write5m + u.cacheWrite1h * write1h + u.cacheRead * read) + fo * u.output * output) / 1_000_000.0
     }
 }
+
+/**
+ * A call's price: what it [cost] the learner (null: nothing prices the model), and with the ChatGPT plan the
+ * [apiEquivalent], what its tokens cost on the API (the learner pays nothing per token there).
+ */
+data class Priced(val cost: Double?, val apiEquivalent: Double? = null)
 
 /** The bundled price table (companion/tutor/prices.json), by model id; a model it lacks is priced by its family. */
 class Prices(private val byModel: Map<String, Price>) {
     fun of(model: String): Price? = byModel[model]
-        ?: Family.entries.firstOrNull { model.contains(it.name.lowercase()) }?.let { f -> f.preferred.firstNotNullOfOrNull(byModel::get) }
+        ?: Family.ofModel(model)?.let { f -> f.preferred.firstNotNullOfOrNull(byModel::get) }
 
     /** What [u] on [model] costs, or null when nothing prices it. */
     fun cost(model: String, u: Usage): Double? = of(model)?.of(u)
+
+    /**
+     * What [u] on [model] cost paid by [billing]: its price; with the ChatGPT plan nothing ($0: the plan pays), and the
+     * price as its API-equivalent.
+     */
+    fun priced(model: String, u: Usage, billing: String): Priced =
+        if (billing == Billing.CHATGPT_PLAN) Priced(0.0, cost(model, u)) else Priced(cost(model, u))
 
     companion object {
         fun parse(raw: String): Prices {
@@ -206,6 +271,7 @@ class Prices(private val byModel: Map<String, Price>) {
                     output = d("output") ?: return@mapNotNull null,
                     longAbove = (m["long_above"] as? JsonPrimitive)?.longOrNull,
                     longFactor = d("long_factor") ?: 1.0,
+                    longOutputFactor = d("long_output_factor"),
                 )
             }
             return Prices(list.associateBy { it.model })

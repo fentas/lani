@@ -13,7 +13,8 @@ import java.util.Base64
 /**
  * A chat's photo for the shadow tutor (companion/README.md "Tutor chat", "Photos"): the real tutor opens the node's
  * copy with its Read tool; the in-app loop has no files, so the photo goes in the turn's user message as an image block
- * (base64 JPEG, before the event's text), as the Messages API takes one. Its tokens are the call's usage, metered as
+ * (base64 JPEG, before the event's text), as the Messages API takes one (the Responses API's thread makes it an
+ * input_image with a data URL: [OpenAIFormat.part]). Its tokens are the call's usage, metered as
  * any; the call's record counts the images it carried ([CallRecord.images]). The photo itself never leaves the phone
  * but to the API: the export (the share sheet's file and the node's copy, app/DevUpload) has a note in its place ([omit]).
  */
@@ -28,22 +29,32 @@ object ShadowImages {
         }
     }
 
-    /** How many image blocks [messages] carry. */
-    fun count(messages: List<JsonObject>): Int = messages.sumOf { m -> m.blocks().count { it.str("type") == "image" } }
+    /** How many images [messages] carry (the Messages API's image blocks, the Responses API's input_image parts). */
+    fun count(messages: List<JsonObject>): Int = messages.sumOf { m -> m.blocks().count { it.str("type") == "image" || it.str("type") == "input_image" } }
 
     /**
-     * [e] with every image block's data replaced by a note of its size ("‹an image, 312 KB, left out›"): what the export
-     * keeps of a photo the shadow sent.
+     * [e] with every image's data replaced by a note of its size ("‹an image, 312 KB, left out›"): what the export keeps
+     * of a photo the shadow sent (an image block's base64 data, an input_image's data URL); and a reasoning item's
+     * encrypted content by a note of its length (opaque to anyone but OpenAI, and large).
      */
     fun omit(e: JsonElement): JsonElement = when (e) {
         is JsonObject -> {
             val source = e["source"] as? JsonObject
             val data = (source?.get("data") as? JsonPrimitive)?.takeIf { it.isString }?.content
-            if (e.str("type") == "image" && source != null && data != null) {
-                JsonObject(e + ("source" to JsonObject(source + ("data" to JsonPrimitive("‹an image, ${data.length * 3 / 4 / 1024} KB, left out›")))))
-            } else JsonObject(e.mapValues { (_, v) -> omit(v) })
+            val url = e.str("image_url")
+            when {
+                e.str("type") == "image" && source != null && data != null ->
+                    JsonObject(e + ("source" to JsonObject(source + ("data" to JsonPrimitive(note(data.length))))))
+                e.str("type") == "input_image" && url != null && url.startsWith("data:") ->
+                    JsonObject(e + ("image_url" to JsonPrimitive(url.substringBefore(',') + "," + note(url.length - url.indexOf(',') - 1))))
+                e.str("type") == "reasoning" && e.str("encrypted_content") != null ->
+                    JsonObject(e + ("encrypted_content" to JsonPrimitive("‹encrypted reasoning, ${e.str("encrypted_content")!!.length} characters, left out›")))
+                else -> JsonObject(e.mapValues { (_, v) -> omit(v) })
+            }
         }
         is JsonArray -> JsonArray(e.map(::omit))
         else -> e
     }
+
+    private fun note(base64Chars: Int) = "‹an image, ${base64Chars * 3 / 4 / 1024} KB, left out›"
 }

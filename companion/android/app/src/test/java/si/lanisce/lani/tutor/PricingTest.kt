@@ -60,4 +60,28 @@ class PricingTest {
         assertFalse(ModelCatalog.legacy("claude-haiku-5-5"))
         assertFalse(ModelCatalog.legacy("claude-opus-5"))
     }
+
+    @Test fun `OpenAI's prices - cached input, cache writes at 1_25 times input, long prompts, the ChatGPT plan at 0`() {
+        // GPT-6.1 Sol: $2 in, $0.10 cached, $2.50 writes, $10 out (developers.openai.com/api/docs/pricing, 2026-10-18)
+        val warm = Usage(input = 200, cacheWrite5m = 800, cacheRead = 12_000, output = 300, reasoning = 220)
+        assertEquals((200 * 2.0 + 800 * 2.5 + 12_000 * 0.10 + 300 * 10.0) / 1e6, prices.cost("gpt-6.1-sol", warm)!!, 1e-12)
+        assertEquals((1_000 * 10.0 + 1_000 * 50.0) / 1e6, prices.cost("gpt-6-astra", Usage(input = 1_000, output = 1_000))!!, 1e-12)
+        assertEquals((100_000 * 0.01) / 1e6, prices.cost("gpt-6-luna", Usage(cacheRead = 100_000))!!, 1e-12)
+        // over 272k: 2x input and cache, 1.5x output
+        val long = Usage(input = 300_000, output = 1_000)
+        assertEquals((2 * 300_000 * 2.0 + 1.5 * 1_000 * 10.0) / 1e6, prices.cost("gpt-6.1-sol", long)!!, 1e-12)
+        // a snapshot of a family prices as the family
+        assertEquals(prices.cost("gpt-6-luna", warm), prices.cost("gpt-6-luna-2026-08-01", warm))
+        // the ChatGPT plan: nothing per token, the price as the API-equivalent
+        assertEquals(Priced(0.0, prices.cost("gpt-6.1-sol", warm)), prices.priced("gpt-6.1-sol", warm, Billing.CHATGPT_PLAN))
+        assertEquals(Priced(prices.cost("gpt-6.1-sol", warm)), prices.priced("gpt-6.1-sol", warm, Billing.API_KEY))
+        // the Claude rows as before
+        assertEquals(Priced(prices.cost("claude-sonnet-5-5", warm)), prices.priced("claude-sonnet-5-5", warm, Billing.API_KEY))
+    }
+
+    @Test fun `a usage without reasoning tokens is written as before`() {
+        assertEquals("""{"input":1,"cacheWrite5m":2,"cacheWrite1h":3,"cacheRead":4,"output":5}""", tutorJson.encodeToString(Usage.serializer(), Usage(1, 2, 3, 4, 5)))
+        assertEquals("""{"input":1,"cacheWrite5m":0,"cacheWrite1h":0,"cacheRead":0,"output":5,"reasoning":3}""", tutorJson.encodeToString(Usage.serializer(), Usage(1, output = 5, reasoning = 3)))
+        assertEquals(Usage(1, output = 5, reasoning = 3), tutorJson.decodeFromString(Usage.serializer(), """{"input":1,"output":5,"reasoning":3}"""))
+    }
 }

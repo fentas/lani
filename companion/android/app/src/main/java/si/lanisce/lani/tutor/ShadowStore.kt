@@ -121,6 +121,13 @@ data class DayStats(
     val repliesFromText: Int = 0,
     /** The numbers by model and effort ([Effort.key]: "claude-haiku-5-5 · high"), for the effort comparison. */
     val byModelEffort: Map<String, RunStats> = emptyMap(),
+    /**
+     * What the calls' tokens cost on the API ([CallRecord.apiCost]): [spend] and, for calls on the ChatGPT plan ($0 to
+     * the learner), their API-equivalent price.
+     */
+    val apiEquivalent: Double = 0.0,
+    /** Calls paid by the ChatGPT plan. */
+    val planCalls: Int = 0,
 ) {
     companion object {
         fun of(log: DayLog, notebookChars: Int, before: Map<String, Long> = emptyMap()): DayStats {
@@ -134,7 +141,7 @@ data class DayStats(
                 if (gap == null || gap > 5 * 60_000L) cold5++
                 last[c.model] = c.at
             }
-            val sum = ok.fold(Usage()) { a, c -> Usage(a.input + c.usage.input, a.cacheWrite5m + c.usage.cacheWrite5m, a.cacheWrite1h + c.usage.cacheWrite1h, a.cacheRead + c.usage.cacheRead, a.output + c.usage.output) }
+            val sum = ok.fold(Usage()) { a, c -> Usage(a.input + c.usage.input, a.cacheWrite5m + c.usage.cacheWrite5m, a.cacheWrite1h + c.usage.cacheWrite1h, a.cacheRead + c.usage.cacheRead, a.output + c.usage.output, a.reasoning + c.usage.reasoning) }
             fun median(xs: List<Long>) = xs.sorted().takeIf { it.isNotEmpty() }?.let { it[it.size / 2] }
             return DayStats(
                 calls = ok.size,
@@ -158,6 +165,8 @@ data class DayStats(
                 cacheTotalOnly = ok.count { it.cacheReport == RawUsage.TOTAL },
                 repliesFromText = log.turns.count { it.replyFromText },
                 byModelEffort = RunStats.of(ok, log.turns),
+                apiEquivalent = ok.sumOf { it.apiCost ?: 0.0 },
+                planCalls = ok.count { it.billing == Billing.CHATGPT_PLAN },
             )
         }
     }

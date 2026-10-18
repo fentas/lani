@@ -72,9 +72,12 @@ class KeystoreCipher(private val alias: String = ALIAS) : SecretCipher {
 
 private val Context.tutorSecrets by preferencesDataStore("tutor_secrets")
 
-/** The ciphertext in a DataStore of its own (the app's `allowBackup` is false). */
-class DataStoreSecretStore(private val context: Context) : SecretStore {
-    private val sealed = stringPreferencesKey("api_key_sealed")
+/**
+ * The ciphertext in a DataStore of its own (the app's `allowBackup` is false), under [name]: the Claude key's
+ * "api_key_sealed", the OpenAI key's and the ChatGPT sign-in's their own ([OpenAICredentials.android]).
+ */
+class DataStoreSecretStore(private val context: Context, name: String = "api_key_sealed") : SecretStore {
+    private val sealed = stringPreferencesKey(name)
     override suspend fun read(): String? = context.tutorSecrets.data.first()[sealed]
     override suspend fun write(value: String?) {
         context.tutorSecrets.edit { if (value == null) it.remove(sealed) else it[sealed] = value }
@@ -82,8 +85,9 @@ class DataStoreSecretStore(private val context: Context) : SecretStore {
 }
 
 /**
- * The learner's Claude API key, stored encrypted ([cipher], [store]); decrypted in memory for a call only. Never in a
- * log, an export, a prompt or a tool result ([Redact] cleans what could carry it); removable.
+ * A secret of the learner's, stored encrypted ([cipher], [store]); decrypted in memory for a call only: the Claude API
+ * key, the OpenAI API key, the ChatGPT sign-in's tokens ([ChatGPTAuth], as JSON). Never in a log, an export, a prompt
+ * or a tool result ([Redact] cleans what could carry it); removable.
  */
 class KeyVault(private val cipher: SecretCipher, private val store: SecretStore) {
     suspend fun save(key: String) {
@@ -111,6 +115,10 @@ class KeyVault(private val cipher: SecretCipher, private val store: SecretStore)
  */
 object Redact {
     private val keyLike = Regex("""sk-ant-[A-Za-z0-9_\-]{6,}""")
+    /** An OpenAI API key (sk-proj-…, sk-svcacct-…, sk-…), after Anthropic's are out. */
+    private val openAIKey = Regex("""\bsk-(?!ant-)[A-Za-z0-9_\-]{16,}""")
+    /** A JSON Web Token (the ChatGPT sign-in's access and ID tokens): three base64url parts, the first a JSON header. */
+    private val jwt = Regex("""\beyJ[A-Za-z0-9_\-]{6,}\.[A-Za-z0-9_\-]{6,}\.[A-Za-z0-9_\-]{6,}""")
     /** A name that says a secret is in its value: a token, an API key, a password (not a count of tokens: input_tokens). */
     private const val SECRET_NAME = """[\w-]*(?:token(?!s)|api[_-]?key|secret|passw(?:or)?d|authorization|cookie)[\w-]*"""
     /** A secret's name, then its value: token=…, "api_key": "…", Authorization: Bearer …, x-api-key: …. */
@@ -123,18 +131,22 @@ object Redact {
     fun of(text: String, key: String? = null): String {
         var t = text
         if (!key.isNullOrBlank() && key.length >= 8) t = t.replace(key, "‹key›")
-        return keyLike.replace(t, "sk-ant-‹…›")
+        t = keyLike.replace(t, "sk-ant-‹…›")
+        t = openAIKey.replace(t, "sk-‹…›")
+        return jwt.replace(t, "‹token›")
     }
 
     /**
-     * [text] cleaned of what could carry a secret: the [known] values (the API key, the device token), API keys
-     * (sk-ant-…), Bearer tokens, the value after a secret's name (token=…, x-api-key: …, Authorization: …, "api_key": "…")
+     * [text] cleaned of what could carry a secret: the [known] values (the API keys, the sign-in's tokens, the device
+     * token), API keys (sk-ant-…, OpenAI's sk-…), JSON Web Tokens (eyJ….….…), Bearer tokens, the value after a secret's name (token=…, x-api-key: …, Authorization: …, "api_key": "…")
      * and a URL's key, sig or code. Counts of tokens (input_tokens: 12) stay.
      */
     fun all(text: String, known: Collection<String?> = emptyList()): String {
         var t = text
         for (k in known) if (!k.isNullOrBlank() && k.length >= 8) t = t.replace(k, "‹secret›")
         t = keyLike.replace(t, "sk-ant-‹…›")
+        t = openAIKey.replace(t, "sk-‹…›")
+        t = jwt.replace(t, "‹token›")
         t = bearer.replace(t, "Bearer ‹…›")
         t = named.replace(t) { m -> m.groupValues[1] + m.groupValues[2] + "‹…›" }
         return query.replace(t) { m -> m.groupValues[1] + "‹…›" }

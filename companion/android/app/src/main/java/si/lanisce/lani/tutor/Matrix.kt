@@ -42,6 +42,11 @@ data class LaneSpec(val family: Family, val effort: String)
 data class MatrixSettings(
     val enabled: Boolean = false,
     val lanes: List<LaneSpec> = DEFAULT_LANES,
+    /**
+     * OpenAI's default lanes ([OPENAI_LANES]) were added once, when an OpenAI credential was first set: a lane toggled
+     * off afterwards stays off.
+     */
+    val openaiOffered: Boolean = false,
 ) {
     companion object {
         val DEFAULT_LANES = listOf(
@@ -49,38 +54,61 @@ data class MatrixSettings(
             LaneSpec(Family.SONNET, Effort.LOW), LaneSpec(Family.SONNET, Effort.MEDIUM), LaneSpec(Family.SONNET, Effort.HIGH),
             LaneSpec(Family.OPUS, Effort.LOW), LaneSpec(Family.OPUS, Effort.MEDIUM),
         )
+
+        /**
+         * OpenAI's lanes, added when an OpenAI credential is first set: the same places in the grid as Anthropic's nine
+         * (the small family at medium to max, the mid at low to high, the top at low and medium), so the providers
+         * compare tier by tier.
+         */
+        val OPENAI_LANES = listOf(
+            LaneSpec(Family.LUNA, Effort.MEDIUM), LaneSpec(Family.LUNA, Effort.HIGH), LaneSpec(Family.LUNA, Effort.XHIGH), LaneSpec(Family.LUNA, Effort.MAX),
+            LaneSpec(Family.SOL, Effort.LOW), LaneSpec(Family.SOL, Effort.MEDIUM), LaneSpec(Family.SOL, Effort.HIGH),
+            LaneSpec(Family.ASTRA, Effort.LOW), LaneSpec(Family.ASTRA, Effort.MEDIUM),
+        )
     }
 }
 
-/** A lane as the key's models resolve it: its [model], or why it's [skipped] (the panel says so). */
+/** A lane as the credential's models resolve it: its [model], or why it's [skipped] (the panel says so). */
 data class LanePlan(val family: Family, val effort: String, val model: String? = null, val skipped: String? = null) {
-    /** "claude-sonnet-5-5@low"; null when skipped. */
+    /** "claude-sonnet-5-5@low", "openai:gpt-6.1-sol@medium"; null when skipped. */
     val id: String? get() = model?.takeIf { skipped == null }?.let { Lanes.id(it, effort) }
 }
 
 object Lanes {
-    fun id(model: String, effort: String) = "$model@$effort"
+    /**
+     * A lane's id: "<model>@<effort>", with the provider in front when it isn't Anthropic ("openai:gpt-6.1-sol@medium").
+     * Anthropic's lanes keep the ids they had before the provider layer ("claude-sonnet-5-5@low"), so the days recorded
+     * already compare with the new ones.
+     */
+    fun id(model: String, effort: String): String =
+        ProviderId.of(model).let { p -> if (p == ProviderId.ANTHROPIC) "" else "${p.id}:" } + "$model@$effort"
 
-    /** A lane's thread restarts past this many tokens: its family's preset's limit (Haiku 20k, Sonnet 30k, Opus 60k). */
-    fun limit(f: Family): Int = when (f) {
-        Family.HAIKU -> Preset.ECONOMY.threadLimit
-        Family.SONNET -> Preset.BALANCED.threadLimit
-        Family.OPUS -> Preset.BEST.threadLimit
+    /** A lane id's model and effort ([id]'s inverse). */
+    fun parse(id: String): Pair<String, String> = id.substringBefore('@').substringAfter(':') to id.substringAfter('@')
+
+    /** A lane's thread restarts past this many tokens: its tier's preset's limit (small 20k, mid 30k, top 60k). */
+    fun limit(f: Family): Int = when (f.tier) {
+        0 -> Preset.ECONOMY.threadLimit
+        1 -> Preset.BALANCED.threadLimit
+        else -> Preset.BEST.threadLimit
     }
 
     /** The family of a lane's [model] (its id names it). */
-    fun familyOf(model: String): Family = Family.entries.firstOrNull { model.contains(it.name.lowercase()) } ?: Family.HAIKU
+    fun familyOf(model: String): Family = Family.ofModel(model) ?: Family.HAIKU
 
     /**
-     * The lanes of [m] for the key's [listed] models (ModelCatalog.own: the family's own model, never another family's),
-     * in the grid's order; a lane whose model the key doesn't list, or that doesn't take the effort, is skipped.
+     * The lanes of [m] (ModelCatalog.own: the family's own model, never another family's), in the grid's order: an
+     * Anthropic lane by the Claude key's [listed] models, an OpenAI lane by [openai]'s (null: no OpenAI credential, so
+     * they're skipped); a lane whose model the credential doesn't list, or that doesn't take the effort, is skipped.
      */
-    fun plan(m: MatrixSettings, listed: List<ModelInfo>): List<LanePlan> {
-        val catalog = ModelCatalog(listed)
-        return m.lanes.distinct().sortedWith(compareBy({ it.family.ordinal }, { Effort.LEVELS.indexOf(it.effort) })).map { spec ->
-            val model = catalog.own(spec.family)
+    fun plan(m: MatrixSettings, listed: List<ModelInfo>, openai: List<ModelInfo>? = null): List<LanePlan> {
+        val catalogs = mapOf(ProviderId.ANTHROPIC to ModelCatalog(listed), ProviderId.OPENAI to ModelCatalog(openai.orEmpty()))
+        return m.lanes.distinct().sortedWith(compareBy({ it.family.ordinal }, { Effort.ALL.indexOf(it.effort) })).map { spec ->
+            val p = spec.family.provider
+            val model = catalogs.getValue(p).own(spec.family)
             when {
-                model == null -> LanePlan(spec.family, spec.effort, skipped = "the key lists no ${spec.family.name.lowercase()} model (${spec.family.preferred.first()})")
+                p == ProviderId.OPENAI && openai == null -> LanePlan(spec.family, spec.effort, skipped = "no OpenAI credential (sign in with ChatGPT or keep an API key)")
+                model == null -> LanePlan(spec.family, spec.effort, skipped = "the ${if (p == ProviderId.OPENAI) "OpenAI credential" else "key"} lists no ${spec.family.name.lowercase()} model (${spec.family.preferred.first()})")
                 spec.effort !in ModelCatalog.efforts(model) -> LanePlan(spec.family, spec.effort, model, "$model takes no ${spec.effort}")
                 else -> LanePlan(spec.family, spec.effort, model)
             }
@@ -176,12 +204,17 @@ class ShadowMatrix(
     /** What the lanes take from the shadow tutor. */
     interface Host {
         val settings: ShadowSettings
-        val hasKey: Boolean
         val prefix: Prefix
         /** The primary's notebook (the lanes read it, never write it). */
         val notebook: NotebookState
-        /** A transport for a lane's turn (the lanes' own client). */
-        fun transport(): TutorTransport
+        /** Whether [provider] has a credential (Anthropic: the key; OpenAI: an API key or the ChatGPT sign-in). */
+        fun ready(provider: ProviderId): Boolean
+        /** Why [provider]'s calls are stopped (its credential refused, the money or the plan's allowance out), or null. */
+        fun blocked(provider: ProviderId): String?
+        /** The models [provider]'s credential lists (null: none set). */
+        fun listed(provider: ProviderId): List<ModelInfo>?
+        /** The provider for a lane's turn on [model] (the lanes' own client). */
+        fun provider(model: String): TutorProvider
         /** A lane's tool runner: the shared reads, the guide, [notebook] (read-only), [onReply], [onGuide]. */
         fun tools(notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit): ToolRunner
         fun event(id: String): ShadowEvent?
@@ -190,13 +223,15 @@ class ShadowMatrix(
         /** A turn's event as the primary sends it: the photo's image block, the event's (or the digest's) text. */
         fun blocks(t: TurnRecord, events: List<ShadowEvent>): List<JsonObject>
         fun where(): String?
-        fun cost(model: String, usage: Usage): Double?
+        /** What [usage] on [model] cost paid by [billing] ([Priced]: 0 and the API-equivalent with the ChatGPT plan). */
+        fun cost(model: String, usage: Usage, billing: String): Priced
         /** The primary's day closing is due or running: a lane's new day waits for the notebook it rewrites. */
         fun closingPending(): Boolean
     }
 
     private inner class Lane(val id: String, val model: String, val effort: String) {
         val family = Lanes.familyOf(model)
+        val provider = ProviderId.of(model)
         val store = ShadowStore(File(dir, id))
         var q: List<TurnRecord> = store.queue()
         var th: ThreadState? = store.thread()
@@ -208,8 +243,8 @@ class ShadowMatrix(
 
     private val lanes = mutableMapOf<String, Lane>()
     private var active: Set<String> = emptySet()
-    /** Why the lanes stopped on their own (a 401, the credit) until the key is checked again. */
-    private var paused: String? = null
+    /** Why a provider's lanes stopped on their own (a 401, the credit, the plan's allowance) until it's checked again. */
+    private val paused = mutableMapOf<ProviderId, String>()
 
     /** The lanes as resolved now (the panel's grid says which are skipped and why). */
     var plan by mutableStateOf<List<LanePlan>>(emptyList())
@@ -228,21 +263,31 @@ class ShadowMatrix(
     private fun dayNow() = ShadowStore.dayOf(now(), zone())
     private fun line(msg: String) = logLine(Redact.of("matrix: $msg"))
 
-    /** The lanes may run: the matrix and the shadow on, a key that works. */
-    private fun running(s: ShadowSettings = host.settings): Boolean =
-        s.enabled && s.matrix.enabled && host.hasKey && !s.keyRefused && !s.lowCredit && paused == null
+    /** Why [p]'s lanes can't run now, or null: no credential, the credential refused or out, a pause of the lanes' own. */
+    private fun stopped(p: ProviderId): String? = when {
+        !host.ready(p) -> if (p == ProviderId.ANTHROPIC) "no key" else "no OpenAI credential"
+        else -> host.blocked(p) ?: paused[p]
+    }
+
+    /** Lane [l] may run: the matrix and the shadow on, its provider's credential works. */
+    private fun running(l: Lane, s: ShadowSettings = host.settings): Boolean = s.enabled && s.matrix.enabled && stopped(l.provider) == null
 
     private fun statusNow(): String {
         val s = host.settings
+        if (!s.matrix.enabled) return "off"
+        if (!s.enabled) return "off (the shadow is off)"
+        val providers = active.mapNotNull { lanes[it]?.provider }.toSet().ifEmpty { setOf(ProviderId.ANTHROPIC) }
+        val why = providers.mapNotNull { p -> stopped(p)?.let { p to it } }
+        val running = lanes.values.count { it.worker?.isActive == true && it.q.any { t -> t.status == TurnStatus.RUNNING } }
+        val on = "on: ${active.count { id -> lanes[id]?.provider?.let { stopped(it) == null } == true }} lane(s)" +
+            running.takeIf { it > 0 }?.let { ", $it running" }.orEmpty()
         return when {
-            !s.matrix.enabled -> "off"
-            !s.enabled -> "off (the shadow is off)"
-            !host.hasKey -> "no key"
-            s.keyRefused -> "paused: the key was refused (401)"
-            s.lowCredit -> "paused: the credit balance is too low"
-            paused != null -> "paused: $paused"
-            else -> "on: ${active.size} lane(s)" + lanes.values.count { it.worker?.isActive == true && it.q.any { t -> t.status == TurnStatus.RUNNING } }
-                .takeIf { it > 0 }?.let { ", $it running" }.orEmpty()
+            // as before the providers: "no key" alone, the rest as pauses
+            why.size == 1 && providers.size == 1 && why.single().second == "no key" -> "no key"
+            why.size == providers.size && providers.size == 1 -> "paused: ${why.single().second}"
+            why.size == providers.size -> "paused: " + why.joinToString("; ") { "${it.first.id}: ${it.second}" }
+            why.isNotEmpty() -> "$on; " + why.joinToString("; ") { "${it.first.id} paused: ${it.second}" }
+            else -> on
         }
     }
 
@@ -256,8 +301,7 @@ class ShadowMatrix(
     /** The lanes kept on the phone (their directories), then the settings' (on [io]). */
     fun start() {
         dir.listFiles { f -> f.isDirectory && f.name.contains('@') }.orEmpty().forEach { f ->
-            val model = f.name.substringBefore('@')
-            val effort = f.name.substringAfter('@')
+            val (model, effort) = Lanes.parse(f.name)
             if (f.name !in lanes) lanes[f.name] = Lane(f.name, model, effort)
         }
         refresh()
@@ -269,7 +313,7 @@ class ShadowMatrix(
      */
     fun refresh() {
         val s = host.settings
-        val next = Lanes.plan(s.matrix, s.listed)
+        val next = Lanes.plan(s.matrix, s.listed, host.listed(ProviderId.OPENAI))
         plan = next
         val ids = if (s.matrix.enabled) next.mapNotNull { it.id }.toSet() else emptySet()
         for (l in lanes.values) if (l.id !in ids && (l.worker != null || l.q.isNotEmpty())) {
@@ -284,9 +328,12 @@ class ShadowMatrix(
         wakeAll()
     }
 
-    /** The key was checked again (a new one, "Check again", a turn queued again): a pause of the lanes' own ends. */
-    fun resume() {
-        paused = null
+    /**
+     * A credential was checked again (a new one, "Check again", a sign-in, a turn queued again): a pause of the lanes'
+     * own ends, [provider]'s (null: every provider's).
+     */
+    fun resume(provider: ProviderId? = null) {
+        if (provider == null) paused.clear() else paused.remove(provider)
         wakeAll()
     }
 
@@ -321,7 +368,7 @@ class ShadowMatrix(
     // --- a lane's worker ------------------------------------------------------------------------------------------
 
     private fun wakeUp(l: Lane) {
-        if (!running()) return
+        if (!running(l)) return
         if (l.worker?.isActive == true) {
             l.wake.trySend(Unit)
             return
@@ -338,7 +385,7 @@ class ShadowMatrix(
     /** Runs the lane's turns one at a time: the one begun first, a chat ahead of the rest, then in order. */
     private suspend fun work(l: Lane) {
         while (true) {
-            if (!running() || l.id !in active) return
+            if (!running(l) || l.id !in active) return
             val started = l.q.firstOrNull { it.startedAt != null }
             if (started == null) rollover(l)
             val at = now()
@@ -382,8 +429,8 @@ class ShadowMatrix(
         l.logs.keys.filter { it < th.day }.forEach { l.logs.remove(it) }
     }
 
-    private fun newThread(l: Lane): ThreadState = ThreadState(
-        day = dayNow(), model = l.model, startedAt = now(), yesterday = l.store.threadArchive()?.lines.orEmpty(), prefix = host.prefix.hash, effort = l.effort,
+    private fun newThread(l: Lane, provider: TutorProvider): ThreadState = ThreadState(
+        day = dayNow(), model = l.model, startedAt = now(), yesterday = l.store.threadArchive()?.lines.orEmpty(), prefix = provider.prefixHash(host.prefix), effort = l.effort,
     )
 
     private suspend fun runTurn(l: Lane, t0: TurnRecord) {
@@ -402,13 +449,17 @@ class ShadowMatrix(
             onReply = { r -> t = t.copy(replies = t.replies + r); replace(l, t) },
             onGuide = { id -> val d = l.log(dayNow()); saveLog(l, d.copy(guide = d.guide + (id to (d.guide[id] ?: 0) + 1))) },
         )
-        val loop = TutorLoop(host.transport(), tools, maxCalls = 8, sleep = sleep)
+        val provider = host.provider(l.model)
+        val format = provider.format
+        val hash = provider.prefixHash(host.prefix)
+        val loop = TutorLoop(provider, tools, maxCalls = 8, sleep = sleep)
 
         // its thread: a turn begun goes on where it began (also past the day's end), else today's
-        var th = (if (resumed) l.th else null) ?: l.th?.takeIf { it.day == dayNow() } ?: newThread(l)
+        var th = (if (resumed) l.th else null) ?: l.th?.takeIf { it.day == dayNow() } ?: newThread(l, provider)
         var append = !resumed || th.messages.isEmpty()
-        if (th.prefix != host.prefix.hash && th.messages.isNotEmpty()) {
-            th = restarted(l, th, "The app was updated (its tools or prompt changed), so the thread restarted")
+        if (th.prefix != hash && th.messages.isNotEmpty()) {
+            val why = if (l.provider == ProviderId.ANTHROPIC) "The app was updated (its tools or prompt changed)" else "The app was updated (its tools or prompt changed) or its credential changed"
+            th = restarted(l, th, "$why, so the thread restarted", hash)
             addRestart(l, th.restarts.last())
             append = true
         }
@@ -423,7 +474,7 @@ class ShadowMatrix(
                 addAll(host.blocks(t, events))
             }
             // the lane's effort is its thread's top-level effort, the same for every turn: no effort messages
-            th = th.copy(messages = Effort.append(th.messages, blocks, l.effort, null), shownUntil = maxOf(th.shownUntil, shown.maxOfOrNull { it.reply.at } ?: 0))
+            th = th.copy(messages = format.append(th.messages, blocks, l.effort, null), shownUntil = maxOf(th.shownUntil, shown.maxOfOrNull { it.reply.at } ?: 0))
         }
         saveThread(l, th)
         val messages = th.messages.toMutableList()
@@ -433,8 +484,8 @@ class ShadowMatrix(
             host.prefix, l.model, t.task, messages, callsDone = t.callIds.size, save = save,
             effort = l.effort, maxTokens = t.task.maxTokensAt(l.effort),
             onCall = { c ->
-                val call = callRecord(l, t, c, ShadowImages.count(messages))
-                if (c.result != null) {
+                val call = callRecord(l, t, c, ShadowImages.count(messages), provider.billing)
+                if (c.step != null) {
                     t = t.copy(callIds = t.callIds + call.id)
                     th = th.copy(tokens = call.usage.prompt)
                     saveThread(l, th)
@@ -446,7 +497,7 @@ class ShadowMatrix(
             },
             onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + Lanes.brief(rec)); replace(l, t) },
         )
-        t = t.copy(text = messages.drop(before).filter { it.role() == "assistant" }.flatMap { it.blocks() }.filter { it.str("type") == "text" }.joinToString("\n") { it.str("text").orEmpty() }.take(500))
+        t = t.copy(text = Threads.text(messages.drop(before)).take(500))
         val conversation = if (t.eventKind == "digest") "main" else events.firstOrNull()?.conversationId ?: "main"
         ReplyFallback.of(r, TurnKind.DAY, t.replies.isNotEmpty(), conversation, now())?.let { reply -> t = t.copy(replies = listOf(reply), replyFromText = true) }
         when (val end = r.end) {
@@ -460,29 +511,37 @@ class ShadowMatrix(
         }
     }
 
-    private fun callRecord(l: Lane, t: TurnRecord, c: CallOutcome, images: Int): CallRecord {
-        val r = c.result
-        val usage = r?.message?.usage ?: Usage()
+    private fun callRecord(l: Lane, t: TurnRecord, c: CallOutcome, images: Int, billing: String): CallRecord {
+        val r = c.step
+        val usage = r?.usage ?: Usage()
+        val priced = r?.let { host.cost(it.model ?: l.model, usage, billing) }
         return CallRecord(
-            id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12), turnId = t.id, model = r?.message?.model ?: l.model,
+            id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12), turnId = t.id, model = r?.model ?: l.model,
             eventKind = t.eventKind, task = t.task, at = now(), usage = usage, firstTokenMs = r?.firstTokenMs, totalMs = r?.totalMs ?: 0,
-            stopReason = r?.message?.stopReason, cost = r?.let { host.cost(it.message.model ?: l.model, usage) }, threadAfter = usage.prompt,
+            stopReason = r?.stopReason, cost = priced?.cost, threadAfter = usage.prompt,
             thread = "day", error = c.error?.let { "${it.kind}${if (c.retried) " (retried)" else ""}: ${Redact.of(it.message.orEmpty()).take(300)}" },
-            inputTransformations = r?.message?.inputTransformations?.take(500), cacheReport = r?.message?.rawUsage?.cacheReport,
-            effort = l.effort, visibleChars = r?.message?.visibleChars(), images = images, lane = l.id,
+            inputTransformations = r?.inputTransformations?.take(500), cacheReport = r?.rawUsage?.cacheReport,
+            effort = l.effort, visibleChars = r?.visibleChars, images = images, lane = l.id,
+            provider = l.provider.id.takeIf { l.provider != ProviderId.ANTHROPIC },
+            billing = billing.takeIf { l.provider != ProviderId.ANTHROPIC }, apiEquivalent = priced?.apiEquivalent,
         )
     }
 
     private fun failed(l: Lane, t: TurnRecord, e: ApiError, th: ThreadState) {
         val error = Redact.of(e.message ?: e.kind)
         when {
-            // the same key as the primary's: the lanes stop until it's checked again
+            // the same credential as every lane of its provider's (Anthropic's: the primary's key): they stop until it's
+            // checked again
             e is ApiError.Auth -> {
-                paused = "the key was refused (401)"
+                paused[l.provider] = if (l.provider == ProviderId.ANTHROPIC) "the key was refused (401)" else "the OpenAI credential was refused (sign in or check again)"
                 replace(l, t.copy(status = TurnStatus.QUEUED, error = error))
             }
             e is ApiError.LowCredit -> {
-                paused = if (e.limit) "a spend limit was reached" else "the credit balance is too low"
+                paused[l.provider] = when {
+                    e.allowance -> "the ChatGPT plan's usage limit was reached (ChatGPT settings → Usage)"
+                    e.limit -> "a spend limit was reached"
+                    else -> "the credit balance is too low"
+                }
                 replace(l, t.copy(status = TurnStatus.QUEUED, error = error))
             }
             // 429 after its retry-after, 529/5xx/the network with backoff: as the primary's
@@ -508,7 +567,7 @@ class ShadowMatrix(
             val said = t.replies.firstOrNull()?.text?.replace(Regex("\\s+"), " ")?.take(140)?.let { "«$it»" } ?: "no reply"
             var next = cur.copy(lines = (cur.lines + "$at ${t.eventKind} (${l.model}): $said").takeLast(60))
             if (next.tokens > Lanes.limit(l.family)) {
-                next = restarted(l, next, "The thread is long (${next.tokens} tokens) and restarted")
+                next = restarted(l, next, "The thread is long (${next.tokens} tokens) and restarted", next.prefix)
                 addRestart(l, next.restarts.last())
             }
             saveThread(l, next)
@@ -520,15 +579,15 @@ class ShadowMatrix(
      * A fresh thread after [th] (as the primary's, plan 5 "Compaction: our own"), without a closing call: the notebook,
      * the day so far, the last exchanges as text.
      */
-    private fun restarted(l: Lane, th: ThreadState, why: String): ThreadState {
+    private fun restarted(l: Lane, th: ThreadState, why: String, prefix: String): ThreadState {
         val first = listOf(
             TurnText.notebook(host.notebook),
             "$why at ${th.tokens} tokens (the limit is ${Lanes.limit(l.family)}). " + TurnText.lines("The day so far:", th.lines.takeLast(20)),
             TurnText.lines("The last exchanges (as text):", lastExchanges(l)),
         ).filter { it.isNotBlank() }.map(::textBlock)
         return ThreadState(
-            day = th.day, model = th.model, messages = listOf(buildJsonObject { put("role", "user"); put("content", JsonArray(first)) }),
-            restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = host.prefix.hash,
+            day = th.day, model = th.model, messages = listOf(ThreadFormat.of(l.model).user(first)),
+            restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = prefix,
             effort = l.effort, shownUntil = th.shownUntil,
         )
     }
@@ -590,6 +649,7 @@ class ShadowMatrix(
             JsonArray(plan.map { p ->
                 buildJsonObject {
                     p.id?.let { put("id", it) }
+                    put("provider", p.family.provider.id)
                     put("family", p.family.name)
                     put("effort", p.effort)
                     p.model?.let { put("model", it) }

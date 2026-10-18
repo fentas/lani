@@ -12,6 +12,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.Buffer
@@ -97,6 +98,61 @@ class ShadowTutorTest {
         return Triple(200, sseOf(m.copy(usage = if (m.usage == Usage()) Usage() else usage), (o["model"] as JsonPrimitive).content), "text/event-stream")
     }
 
+    // --- OpenAI: an API key and the ChatGPT sign-in against scripted servers ----------------------------------------
+
+    /** What the scripted Responses API answers its lanes and "also run on" turns. */
+    private var openaiScript: (JsonObject, Int) -> List<JsonObject> = ::openaiTurn
+    private var openaiUsage = openAIUsage(input = 5_000, cached = 0, written = 4_800, output = 120, reasoning = 60)
+    /** An OpenAI POST answered with this (status, body, type) instead of the script's, by its number. */
+    private var openaiFailOn: ((Int) -> Triple<Int, String, String>?) = { null }
+    private val oai = ScriptedResponses(usage = { openaiUsage }, answer = { _, n -> openaiFailOn(n) }) { body, n -> openaiScript(body, n) }
+    private val authApi = Answering { r ->
+        when (r.url.encodedPath) {
+            "/api/accounts/oauth/token" -> Triple(
+                200,
+                obj(
+                    "access_token" to "chatgpt-access-token-1", "refresh_token" to "chatgpt-refresh-token-1", "id_token" to chatgptIdToken(),
+                    "token_type" to "Bearer", "expires_in" to 3600, "scope" to "chatgpt.tokens.use.direct email offline_access openid profile resource.invoke",
+                ).toString(),
+                "application/json",
+            )
+            "/.well-known/jwks.json" -> Triple(200, signingJwks(), "application/json")
+            "/api/accounts/oauth/revoke" -> Triple(200, "", "text/plain")
+            else -> Triple(404, "{}", "application/json")
+        }
+    }
+    private val openaiCreds = OpenAICredentials(
+        KeyVault(SoftCipher(), MemoryStore()),
+        ChatGPTAuth(KeyVault(SoftCipher(), MemoryStore()), OkHttpClient.Builder().addInterceptor(authApi).build(), clock = { now }),
+    )
+    private val signingKey = java.security.KeyPairGenerator.getInstance("RSA").apply { initialize(2048) }.generateKeyPair()
+    private var chatgptNonce: String? = null
+
+    private fun b64(b: ByteArray) = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(b)
+    private fun signingJwks(): String {
+        val pub = signingKey.public as java.security.interfaces.RSAPublicKey
+        fun u(i: java.math.BigInteger) = i.toByteArray().let { if (it[0] == 0.toByte()) it.copyOfRange(1, it.size) else it }
+        return """{"keys":[{"kty":"RSA","kid":"k","n":"${b64(u(pub.modulus))}","e":"${b64(u(pub.publicExponent))}"}]}"""
+    }
+    private fun chatgptIdToken(): String {
+        val head = b64("""{"alg":"RS256","kid":"k"}""".toByteArray())
+        val body = b64(obj("iss" to "https://auth.openai.com", "aud" to "oaiapp_9", "sub" to "jan", "email" to "jan@example.com", "exp" to now / 1000 + 3600, "nonce" to chatgptNonce).toString().toByteArray())
+        val sig = java.security.Signature.getInstance("SHA256withRSA").run { initSign(signingKey.private); update("$head.$body".toByteArray()); sign() }
+        return "$head.$body.${b64(sig)}"
+    }
+
+    /** "Sign in with ChatGPT" through the panel's call, the browser played by a GET to the loopback. */
+    private suspend fun signInChatGPT(t: ShadowTutor): String? = t.signInWithChatGPT { url ->
+        val u = url.toHttpUrl()
+        chatgptNonce = u.queryParameter("nonce")
+        Thread {
+            java.net.Socket("127.0.0.1", SIGN_IN_PORT).use { sock ->
+                sock.getOutputStream().write("GET /auth/callback?code=c1&state=${u.queryParameter("state")}&client_id=oaiapp_9 HTTP/1.1\r\nHost: 127.0.0.1:$SIGN_IN_PORT\r\n\r\n".toByteArray())
+                sock.getInputStream().readBytes()
+            }
+        }.start()
+    }
+
     private fun tutor(): ShadowTutor {
         val scope = CoroutineScope(SupervisorJob())
         scopes += scope
@@ -115,6 +171,10 @@ class ShadowTutorTest {
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
             photo = { photos[it] },
             laneTransportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(laneApi).build(), clock = { now }) },
+            openai = openaiCreds,
+            openaiTransportFor = { OpenAITransport(it, oai.client, clock = { now }) },
+            openaiLaneTransportFor = { OpenAITransport(it, oai.client, clock = { now }) },
+            signInPort = SIGN_IN_PORT,
         )
     }
 
@@ -926,6 +986,168 @@ class ShadowTutorTest {
         assertTrue(first, first.contains("the learner was shown (another tutor answered): REAL: živjo, Jan"))
     }
 
+    // --- the matrix's OpenAI lanes ------------------------------------------------------------------------------------
+
+    private val openaiLanes = listOf(
+        "openai:gpt-6-luna@medium", "openai:gpt-6-luna@high", "openai:gpt-6-luna@xhigh", "openai:gpt-6-luna@max",
+        "openai:gpt-6.1-sol@low", "openai:gpt-6.1-sol@medium", "openai:gpt-6.1-sol@high", "openai:gpt-6-astra@low", "openai:gpt-6-astra@medium",
+    )
+
+    @Test fun `OpenAI's lanes wait for a credential, then join the matrix once, in the same places as Anthropic's`() = runBlocking {
+        val t = withMatrix()
+        assertEquals(defaultLanes, t.matrix.plan.mapNotNull { it.id })
+        assertFalse(t.settings.matrix.openaiOffered)
+        assertEquals(null, t.setOpenAIKey(FAKE_OPENAI_KEY))
+        t.awaitMatrix()
+        assertEquals(setOf(Billing.API_KEY), t.openaiReady)
+        assertEquals(defaultLanes + openaiLanes, t.matrix.plan.mapNotNull { it.id })
+        assertTrue(t.settings.matrix.openaiOffered)
+        assertEquals(listOf("gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna", "text-embedding-3-small"), t.settings.openai.listed.map { it.id })
+        // a lane toggled off stays off when the key is set again
+        t.updateMatrix { m -> m.copy(lanes = m.lanes - LaneSpec(Family.ASTRA, "medium")) }.join()
+        t.setOpenAIKey(FAKE_OPENAI_KEY)
+        assertTrue(t.matrix.plan.none { it.id == "openai:gpt-6-astra@medium" })
+        // without a credential they're skipped, and say so
+        t.removeOpenAIKey().join()
+        t.awaitMatrix()
+        assertTrue(t.matrix.plan.filter { it.family.provider == ProviderId.OPENAI }.all { it.id == null && it.skipped!!.contains("no OpenAI credential") })
+    }
+
+    @Test fun `each OpenAI lane gets every event, on its own thread - the Responses API with store false, its effort, priced by the key`() = runBlocking {
+        val t = withMatrix()
+        t.setOpenAIKey(FAKE_OPENAI_KEY)
+        t.updateMatrix { m -> m.copy(lanes = m.lanes.filter { it.family.provider == ProviderId.OPENAI }) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitMatrix()
+        t.onDelivered("a1", "/message", answer("a1", "Jaz sem Jan.")).join()
+        t.awaitMatrix()
+        val lanes = t.matrix.today
+        assertEquals(openaiLanes.toSet(), lanes.keys)
+        for ((id, log) in lanes) {
+            val (model, effort) = Lanes.parse(id)
+            assertEquals(id, listOf("chat", "answer"), log.turns.map { it.eventKind })
+            assertTrue(id, log.turns.all { it.status == TurnStatus.DONE && it.lane == id && it.model == model && it.effort == effort && it.replies.isNotEmpty() })
+            assertTrue(id, log.calls.all { it.lane == id && it.provider == "openai" && it.billing == Billing.API_KEY && it.cost!! > 0 && it.apiEquivalent == null })
+            // the reasoning tokens are the thinking, exactly
+            assertTrue(id, log.calls.all { it.usage.reasoning == 60L && it.thinkingEstimate == 60L })
+            val th = laneStore(id).thread()!!
+            assertTrue(id, th.messages.first().str("type") == "message" && th.messages.first().toString().contains("<notebook>"))
+            assertTrue(id, th.messages.any { it.str("type") == "reasoning" } && th.messages.any { it.str("type") == "function_call_output" })
+        }
+        // every request: the lane's model and effort, store false, the core prompt as instructions, no system message
+        val sent = oai.posts().groupBy { "openai:" + it["model"]!!.jsonPrimitive.content + "@" + it["reasoning"]!!.jsonObject["effort"]!!.jsonPrimitive.content }
+        assertEquals(openaiLanes.toSet(), sent.keys)
+        for ((id, rs) in sent) {
+            assertTrue(id, rs.all { it["store"]!!.jsonPrimitive.content == "false" && it["instructions"] != null && inputOf(it).none { m -> m.role() == "system" } })
+            val room = when (id.substringAfter('@')) { "max" -> 64_000; "xhigh" -> 32_000; else -> 16_000 }
+            assertTrue(id, rs.all { it["max_output_tokens"]!!.jsonPrimitive.content.toInt() == room })
+            // the answer's turn carries the chat's: the reasoning items with their encrypted content
+            val later = rs.last()
+            assertTrue(id, inputOf(later).filter { it.str("type") == "reasoning" }.all { it.str("encrypted_content") != null } && inputOf(later).toString().contains("Kako se reče stove?"))
+        }
+        assertTrue(oai.http.requests.all { it.header("Authorization") == "Bearer $FAKE_OPENAI_KEY" && it.url.host == "api.openai.com" })
+        // the export: each lane by its id, the matrix with the provider; never the key
+        val text = t.exportText("test")
+        assertFalse(text.contains(FAKE_OPENAI_KEY))
+        val o = tutorJson.parseToJsonElement(text).jsonObject
+        assertEquals(openaiLanes.toSet(), o["days"]!!.jsonArray.single().jsonObject["lanes"]!!.jsonObject.keys)
+        assertTrue(o["matrix"]!!.jsonObject["lanes"]!!.jsonArray.filter { it.jsonObject["id"]?.jsonPrimitive?.content?.startsWith("openai:") == true }.all { it.jsonObject.str("provider") == "openai" })
+        assertEquals("api_key", o["openai"]!!.jsonObject.str("use"))
+        assertTrue(lines.none { it.contains(FAKE_OPENAI_KEY) })
+    }
+
+    @Test fun `with the ChatGPT plan - signed in through the browser, the lanes cost nothing, their API-equivalent recorded`() = runBlocking {
+        val t = withMatrix()
+        t.updateMatrix { m -> m.copy(lanes = listOf(LaneSpec(Family.SONNET, "medium"))) }.join()
+        assertEquals(null, signInChatGPT(t))
+        t.awaitMatrix()
+        assertEquals("jan@example.com", t.chatgptAccount)
+        assertEquals(Billing.CHATGPT_PLAN, t.openaiBilling())
+        assertTrue(t.settings.openai.listed.isNotEmpty())
+        t.updateMatrix { m -> m.copy(lanes = listOf(LaneSpec(Family.SONNET, "medium"), LaneSpec(Family.SOL, "medium"))) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Živjo")).join()
+        t.awaitMatrix()
+        val sol = t.matrix.today.getValue("openai:gpt-6.1-sol@medium")
+        assertTrue(sol.calls.isNotEmpty() && sol.calls.all { it.billing == Billing.CHATGPT_PLAN && it.cost == 0.0 && it.apiEquivalent!! > 0 })
+        val stats = DayStats.of(sol, 0)
+        assertEquals(0.0, stats.spend, 0.0)
+        assertEquals(sol.calls.sumOf { it.apiEquivalent!! }, stats.apiEquivalent, 1e-12)
+        assertEquals(sol.calls.size, stats.planCalls)
+        // the plan's requests: the access token, the tools in a namespace, no max_output_tokens
+        val sent = oai.posts()
+        assertTrue(sent.all { it["max_output_tokens"] == null && it["tools"]!!.jsonArray.single().jsonObject.str("type") == "namespace" })
+        assertTrue(oai.http.requests.all { it.header("Authorization") == "Bearer chatgpt-access-token-1" })
+        // the Anthropic lane ran beside it, as before
+        assertTrue(t.matrix.today.getValue("claude-sonnet-5-5@medium").turns.single().status == TurnStatus.DONE)
+        // no token in the export or a log line
+        val text = t.exportText("test")
+        for (secret in listOf("chatgpt-access-token-1", "chatgpt-refresh-token-1", "jan@example.com")) {
+            assertFalse(secret, text.contains(secret))
+            assertTrue(secret, lines.none { it.contains(secret) })
+        }
+        // signing out: revoked, the lanes skipped
+        assertEquals(null, t.signOutOfChatGPT())
+        t.awaitMatrix()
+        assertEquals(null, t.chatgptAccount)
+        assertTrue(t.matrix.plan.single { it.family == Family.SOL }.skipped != null)
+    }
+
+    @Test fun `an OpenAI credential refused or out pauses OpenAI's lanes only`() = runBlocking {
+        val t = withMatrix()
+        t.setOpenAIKey(FAKE_OPENAI_KEY)
+        t.updateMatrix { it.copy(lanes = listOf(LaneSpec(Family.HAIKU, "high"), LaneSpec(Family.LUNA, "high"), LaneSpec(Family.SOL, "low"))) }.join()
+        openaiFailOn = { Triple(429, """{"error":{"message":"You exceeded your current quota","type":"insufficient_quota","code":"insufficient_quota"}}""", "application/json") }
+        t.onDelivered("c1", "/message", chat("c1", "Halo")).join()
+        t.awaitMatrix()
+        assertTrue(t.matrix.status, t.matrix.status.contains("openai paused: the credit balance is too low"))
+        assertEquals(TurnStatus.DONE, t.matrix.today.getValue("claude-haiku-5-5@high").turns.single().status)
+        assertTrue(t.matrix.queued.getValue("openai:gpt-6-luna@high").single().status == TurnStatus.QUEUED)
+        // the next event: Anthropic's lane runs, OpenAI's wait
+        t.onDelivered("c2", "/message", chat("c2", "Še")).join()
+        t.awaitMatrix()
+        assertEquals(2, t.matrix.today.getValue("claude-haiku-5-5@high").turns.size)
+        assertEquals(2, t.matrix.queued.getValue("openai:gpt-6.1-sol@low").size)
+        // checked again: they run
+        openaiFailOn = { null }
+        assertEquals(null, t.recheckOpenAI())
+        t.awaitMatrix()
+        assertTrue(t.matrix.today.getValue("openai:gpt-6-luna@high").turns.map { it.status } == listOf(TurnStatus.DONE, TurnStatus.DONE))
+        assertTrue(t.matrix.status, t.matrix.status.startsWith("on: 3 lane(s)"))
+    }
+
+    @Test fun `also run on an OpenAI model - its own call, the provider's format, marked`() = runBlocking {
+        val t = ready()
+        t.setOpenAIKey(FAKE_OPENAI_KEY)
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitIdle()
+        t.alsoRun("ev_c1", "gpt-6-luna", "none").join()
+        t.awaitIdle()
+        val also = t.today.turns.single { it.kind == TurnKind.ALSO }
+        assertEquals(TurnStatus.DONE, also.status)
+        assertEquals("none", also.effort)
+        assertTrue(also.replies.isNotEmpty())
+        val calls = t.today.calls.filter { it.turnId == also.id }
+        assertTrue(calls.isNotEmpty() && calls.all { it.provider == "openai" && it.thread == "also" && it.model == "gpt-6-luna" })
+        val first = oai.posts().first()
+        assertEquals("none", first["reasoning"]!!.jsonObject["effort"]!!.jsonPrimitive.content)
+        assertEquals(listOf("message"), inputOf(first).map { it.str("type") })
+        // the primary's thread never saw it
+        assertFalse(t.thread!!.messages.toString().contains("function_call"))
+    }
+
+    /** The scripted tutor on the Responses API: guide + learner_state with reasoning, then a reply, then done. */
+    private fun openaiTurn(body: JsonObject, n: Int): List<JsonObject> {
+        val input = inputOf(body)
+        val lastUser = input.indexOfLast { it.role() == "user" }
+        val since = input.drop(lastUser + 1)
+        if (since.isEmpty()) return listOf(reasoningItem("rs_$n"), functionCall("fc_g$n", "g$n", "guide", obj("topic" to "feedback")), functionCall("fc_s$n", "s$n", "learner_state"))
+        if (since.none { it.str("type") == "function_call" && it.str("name") == "reply" }) {
+            val conv = Regex("""conversation_id=\"([\w-]+)""").find(input[lastUser].toString())?.groupValues?.get(1) ?: "main"
+            return listOf(reasoningItem("rs_$n"), functionCall("fc_r$n", "r$n", "reply", obj("conversation_id" to conv, "text" to "**Mock GPT** · peč = stove")))
+        }
+        return listOf(messageItem("m_$n", "Opravljeno."))
+    }
+
     /** The scripted tutor: guide + learner_state first, then a reply, then done; a closing writes the notebook. */
     private fun tutorTurn(body: JsonObject, n: Int): AssistantMessage {
         val messages = body["messages"]!!.jsonArray.map { it.jsonObject }
@@ -943,6 +1165,8 @@ class ShadowTutorTest {
     }
 
     private companion object {
+        /** The ChatGPT sign-in's loopback in the tests (this agent's port block, 19400–19499). */
+        const val SIGN_IN_PORT = 19420
         const val STATE = """{"databases":{"learner_profile":{"learner":{"name":"Jan","current_level":"A2"},"current_streak_days":12},"mistakes_db":{"error_patterns":{"clitic_order":{"category":"grammar","frequency":7}}},"spaced_repetition":{"items":{"vocab_kurim":{"item_id":"vocab_kurim","front":"kurim","back":"I heat"}}}},"computed":{"due_reviews_count":4,"streak_active":true},"language":"sl"}"""
 
         /** [m] as the API streams it. */

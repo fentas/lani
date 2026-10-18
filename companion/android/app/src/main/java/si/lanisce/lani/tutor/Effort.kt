@@ -20,13 +20,20 @@ import kotlinx.serialization.json.putJsonObject
  * count); the level then holds until another one changes it. [append] places them.
  */
 object Effort {
+    /** OpenAI's lowest levels (reasoning.effort; Anthropic has neither): no reasoning, and (older models) a minimum. */
+    const val NONE = "none"
+    const val MINIMAL = "minimal"
     const val LOW = "low"
     const val MEDIUM = "medium"
     const val HIGH = "high"
     const val XHIGH = "xhigh"
     const val MAX = "max"
 
+    /** The Messages API's levels, in order. */
     val LEVELS = listOf(LOW, MEDIUM, HIGH, XHIGH, MAX)
+
+    /** Every level of either provider, in order ([ModelCatalog.fit] counts down this list). */
+    val ALL = listOf(NONE, MINIMAL, LOW, MEDIUM, HIGH, XHIGH, MAX)
 
     /** The levels for long agentic work and the hardest problems: behind the panel's "more". */
     val MORE = setOf(XHIGH, MAX)
@@ -45,8 +52,15 @@ object Effort {
         putJsonObject("output_config") { put("effort", level) }
     }
 
-    /** [m]'s level when it is an effort-only system message, else null. */
-    fun of(m: JsonObject): String? = if (m.role() == "system") (m["output_config"] as? JsonObject)?.str("effort") else null
+    /**
+     * [m]'s level when it sets one: an effort-only system message (the Messages API's), or a configuration_update item
+     * (the Responses API's, [OpenAIFormat]); else null.
+     */
+    fun of(m: JsonObject): String? = when {
+        m.role() == "system" -> (m["output_config"] as? JsonObject)?.str("effort")
+        m.str("type") == "configuration_update" -> (m["reasoning"] as? JsonObject)?.str("effort")
+        else -> null
+    }
 
     /**
      * The level in effect at the end of [messages] on a request whose top-level effort is [top]: the last effort

@@ -61,6 +61,17 @@ class ShadowTutor(
      * streams never queue the primary's call behind them.
      */
     private val laneTransportFor: (String, suspend () -> String?) -> TutorTransport = { base, key -> AnthropicTransport(base, key, AnthropicTransport.laneClient) },
+    /**
+     * The OpenAI credentials (an API key, the ChatGPT sign-in: [OpenAICredentials]), or null (no OpenAI): the matrix's
+     * OpenAI lanes and "also run on" an OpenAI model use them. The primary stays on Anthropic.
+     */
+    private val openai: OpenAICredentials? = null,
+    /** The Responses API's client for a credential ([OpenAITransport]). */
+    private val openaiTransportFor: (suspend () -> OpenAIBearer?) -> OpenAITransport = { OpenAITransport(it) },
+    /** The lanes' Responses API client (a dispatcher of their own). */
+    private val openaiLaneTransportFor: (suspend () -> OpenAIBearer?) -> OpenAITransport = { OpenAITransport(it, OpenAITransport.laneClient) },
+    /** The ChatGPT sign-in's loopback port (0: any free one; a test's from its block). */
+    private val signInPort: Int = 0,
 ) {
     private val specs = PhaseA.load(read)
     private val guide = Guide(read)
@@ -82,22 +93,43 @@ class ShadowTutor(
 
     private val matrixHost = object : ShadowMatrix.Host {
         override val settings: ShadowSettings get() = s
-        override val hasKey: Boolean get() = this@ShadowTutor.hasKey
         override val prefix: Prefix get() = this@ShadowTutor.prefix
         override val notebook: NotebookState get() = nb
-        override fun transport(): TutorTransport = laneTransportFor(baseUrl()) { vault.load() }
+        override fun ready(provider: ProviderId): Boolean = when (provider) {
+            ProviderId.ANTHROPIC -> hasKey
+            ProviderId.OPENAI -> openai != null && openaiReady.isNotEmpty()
+        }
+        override fun blocked(provider: ProviderId): String? = when (provider) {
+            ProviderId.ANTHROPIC -> when {
+                s.keyRefused -> "the key was refused (401)"
+                s.lowCredit -> "the credit balance is too low"
+                else -> null
+            }
+            ProviderId.OPENAI -> when {
+                s.openai.refused -> "the OpenAI credential was refused (check again, or sign in again)"
+                else -> s.openai.exhausted
+            }
+        }
+        override fun listed(provider: ProviderId): List<ModelInfo>? = when (provider) {
+            ProviderId.ANTHROPIC -> s.listed
+            ProviderId.OPENAI -> s.openai.listed.takeIf { ready(ProviderId.OPENAI) }
+        }
+        override fun provider(model: String): TutorProvider = when (ProviderId.of(model)) {
+            ProviderId.ANTHROPIC -> AnthropicProvider(laneTransportFor(baseUrl()) { vault.load() })
+            ProviderId.OPENAI -> openaiProvider(lane = true)
+        }
         override fun tools(notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit): ToolRunner =
             ShadowTools(specs.associateBy { it.name }, laneReads, guide, notebook, onReply, learner, onGuide, clock)
         override fun event(id: String): ShadowEvent? = findEvent(id)
         override fun real(day: String): List<RealReply> = log(day).real
         override fun blocks(t: TurnRecord, events: List<ShadowEvent>): List<JsonObject> = imageBlocks(t, events) + textBlock(content(t, events))
         override fun where(): String? = this@ShadowTutor.where()
-        override fun cost(model: String, usage: Usage): Double? = prices.cost(model, usage)
+        override fun cost(model: String, usage: Usage, billing: String): Priced = prices.priced(model, usage, billing)
         override fun closingPending(): Boolean {
             if (q.any { it.kind == TurnKind.CLOSING && it.eventKind == "closing" }) return true
             // the primary's rollover queues it at its next turn: yesterday's thread, answered, under this prefix
             val th = thread ?: return false
-            return th.day != dayNow() && th.prefix == prefix.hash && th.messages.any { it.role() == "assistant" } &&
+            return th.day != dayNow() && th.prefix == prefix.hash && Threads.answered(th.messages) &&
                 s.enabled && hasKey && !s.keyRefused && !s.lowCredit && spent() < s.budgetPerDay
         }
     }
@@ -112,6 +144,17 @@ class ShadowTutor(
         private set
     var hasKey by mutableStateOf(false)
         private set
+    /** The OpenAI credentials set ([Billing]: the ChatGPT plan, an API key); empty: none. */
+    var openaiReady by mutableStateOf<Set<String>>(emptySet())
+        private set
+    /** The ChatGPT account signed in (its email, for the panel only: never in the settings or the export), or null. */
+    var chatgptAccount by mutableStateOf<String?>(null)
+        private set
+    /** Signed in with ChatGPT without the plan's use granted: no calls with it. */
+    var chatgptNoPlan by mutableStateOf(false)
+        private set
+    /** Whether this build has OpenAI (the app's does; a test's may not). */
+    val openaiAvailable: Boolean get() = openai != null
     /** Today's log (what the panel shows first). */
     var today by mutableStateOf(DayLog(""))
         private set
@@ -138,6 +181,7 @@ class ShadowTutor(
             nb = store.notebook()
             q = store.queue()
             hasKey = vault.has()
+            loadOpenAI()
             publish()
             matrix.start()
             if (s.enabled) wakeUp()
@@ -196,6 +240,45 @@ class ShadowTutor(
 
     private fun catalog() = ModelCatalog(s.listed)
 
+    // --- the providers -------------------------------------------------------------------------------------------
+
+    /** The OpenAI credential in use: the one the settings chose when set, else the ChatGPT plan, else the key; null: none. */
+    fun openaiBilling(): String? {
+        val ready = openaiReady
+        return s.openai.use?.takeIf { it in ready } ?: when {
+            Billing.CHATGPT_PLAN in ready -> Billing.CHATGPT_PLAN
+            Billing.API_KEY in ready -> Billing.API_KEY
+            else -> null
+        }
+    }
+
+    /** The OpenAI provider with the credential in use ([lane]: the lanes' client); after a 401 the sign-in is renewed once. */
+    private fun openaiProvider(lane: Boolean): TutorProvider {
+        val billing = openaiBilling() ?: Billing.API_KEY
+        val creds = openai
+        val bearer: suspend () -> OpenAIBearer? = { creds?.bearer(billing) }
+        val transport = if (lane) openaiLaneTransportFor(bearer) else openaiTransportFor(bearer)
+        val renew: (suspend () -> Boolean)? = if (billing == Billing.CHATGPT_PLAN && creds != null) {
+            {
+                try {
+                    creds.chatgpt.accessToken(force = true) != null
+                } catch (e: ApiError) {
+                    false
+                }
+            }
+        } else null
+        return OpenAIProvider(transport, billing, renew)
+    }
+
+    /** The provider of a primary turn on [model]: the Claude key's, or (an "also run on" an OpenAI model) OpenAI's. */
+    private fun providerFor(model: String): TutorProvider = when (ProviderId.of(model)) {
+        ProviderId.ANTHROPIC -> AnthropicProvider(transportFor(baseUrl()) { vault.load() })
+        ProviderId.OPENAI -> openaiProvider(lane = false)
+    }
+
+    /** The prefix's fingerprint for a thread on [model] (the primary's: the Claude key's, [Prefix.hash]). */
+    private fun hashFor(model: String): String = if (ProviderId.of(model) == ProviderId.ANTHROPIC) prefix.hash else openaiProvider(lane = false).prefixHash(prefix)
+
     /** The base URL calls go to: the API, or (a debug or qa build) the mock QA set. */
     fun baseUrl(): String = KeyGuard.baseUrl(debug, s.debugBaseUrl)
 
@@ -238,7 +321,7 @@ class ShadowTutor(
         saveSettings { it.copy(listed = models, listedAt = now(), keyRefused = false, lowCredit = false) }
         line("key checked: ${models.size} model(s) listed")
         wakeUp()
-        matrix.resume()
+        matrix.resume(ProviderId.ANTHROPIC)
         null
     }
 
@@ -254,7 +337,7 @@ class ShadowTutor(
         }
         saveSettings { it.copy(listed = models, listedAt = now(), keyRefused = false, lowCredit = false) }
         wakeUp()
-        matrix.resume()
+        matrix.resume(ProviderId.ANTHROPIC)
         null
     }
 
@@ -262,6 +345,166 @@ class ShadowTutor(
         vault.remove()
         hasKey = false
         saveSettings { it.copy(keyRefused = false) }
+    }
+
+    // --- OpenAI's credentials (the panel's Settings) ------------------------------------------------------------------
+
+    private suspend fun loadOpenAI() {
+        val c = openai ?: return
+        openaiReady = c.available()
+        val session = c.chatgpt.session()
+        chatgptAccount = session?.takeIf { it.connected }?.let { it.email ?: "signed in" }
+        chatgptNoPlan = session?.connected == true && !session.planUsage
+    }
+
+    /**
+     * A credential was set ([billing]'s, listing [models]): its models become the OpenAI catalog when it's the one in
+     * use, the pause ends, and the first time OpenAI's default lanes join the matrix (a lane toggled off later stays off).
+     */
+    private fun afterOpenAI(models: List<ModelInfo>, billing: String) {
+        saveSettings {
+            val o = it.openai.copy(refused = false, exhausted = null)
+            it.copy(
+                openai = if (openaiBilling() == billing) o.copy(listed = models, listedAt = now(), listedWith = billing) else o,
+                matrix = if (it.matrix.openaiOffered) it.matrix else it.matrix.copy(lanes = (it.matrix.lanes + MatrixSettings.OPENAI_LANES).distinct(), openaiOffered = true),
+            )
+        }
+        matrix.resume(ProviderId.OPENAI)
+    }
+
+    /**
+     * Checks an OpenAI API [key] with GET /v1/models (not a model call) and keeps it, encrypted as the Claude key is.
+     * Null when kept, else what went wrong.
+     */
+    suspend fun setOpenAIKey(key: String): String? = withContext(io) {
+        val c = openai ?: return@withContext "this build has no OpenAI"
+        val k = key.trim()
+        if (k.isEmpty()) return@withContext "the key is empty"
+        val models = try {
+            openaiTransportFor { OpenAIBearer(k, Billing.API_KEY) }.models()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ApiError) {
+            line("OpenAI key check failed: ${e.kind}")
+            return@withContext if (e is ApiError.Auth) "the key was refused (401)" else Redact.of(e.message ?: e.kind, k)
+        }
+        c.apiKey.save(k)
+        loadOpenAI()
+        afterOpenAI(models, Billing.API_KEY)
+        line("OpenAI key checked: ${models.size} model(s) listed")
+        null
+    }
+
+    fun removeOpenAIKey() = scope.launch(io) {
+        openai?.apiKey?.remove()
+        loadOpenAI()
+        relistOpenAI()
+    }
+
+    private var signIn: ChatGPTAuth.SignIn? = null
+
+    /**
+     * "Sign in with ChatGPT": the loopback listener and the authorize URL, [open]ed in the browser; then the code
+     * exchanged, the identity checked, the plan's models listed. Null when signed in with the plan's use granted, else
+     * what went wrong (declined, timed out, the plan's use not granted …).
+     */
+    suspend fun signInWithChatGPT(open: (String) -> Unit): String? {
+        val c = openai ?: return "this build has no OpenAI"
+        signIn?.cancel()
+        val pending = try {
+            withContext(Dispatchers.IO) { c.chatgpt.begin(signInPort) }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return "the sign-in couldn't start: ${Redact.of(e.message ?: e.javaClass.simpleName)}"
+        }
+        signIn = pending
+        val session = try {
+            open(pending.url)
+            // the code exchange, the identity's check and the Keystore: off the caller's (the panel's main) thread
+            withContext(Dispatchers.IO) { pending.await() }
+        } catch (e: CancellationException) {
+            pending.cancel()
+            throw e
+        } catch (e: ChatGPTError) {
+            line("ChatGPT sign-in: ${e.code}")
+            return e.message
+        } catch (e: ApiError) {
+            line("ChatGPT sign-in: ${e.kind}")
+            return Redact.of(e.message ?: e.kind)
+        } catch (e: Exception) {
+            return "the sign-in failed: ${Redact.of(e.message ?: e.javaClass.simpleName)}"
+        } finally {
+            if (signIn === pending) signIn = null
+        }
+        return withContext(io) {
+            loadOpenAI()
+            if (!session.planUsage) return@withContext "signed in, but the use of the ChatGPT plan wasn't granted: sign in again and allow it"
+            val models = try {
+                openaiTransportFor { c.bearer(Billing.CHATGPT_PLAN) }.models()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: ApiError) {
+                afterOpenAI(emptyList(), Billing.CHATGPT_PLAN)
+                return@withContext "signed in; the plan's models couldn't be listed (${e.kind}): Check again"
+            }
+            afterOpenAI(models, Billing.CHATGPT_PLAN)
+            line("ChatGPT sign-in: ${models.size} model(s) listed")
+            null
+        }
+    }
+
+    /** Stops a sign-in waiting for the browser. */
+    fun cancelSignIn() {
+        signIn?.cancel()
+        signIn = null
+    }
+
+    /** Signs out of ChatGPT (the refresh token revoked); null when OpenAI confirmed it, else what to tell the learner. */
+    suspend fun signOutOfChatGPT(): String? = withContext(io) {
+        val c = openai ?: return@withContext null
+        val note = try {
+            c.chatgpt.signOut()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            "signed out on the phone: ${Redact.of(e.message ?: e.javaClass.simpleName)}"
+        }
+        loadOpenAI()
+        relistOpenAI()
+        note
+    }
+
+    /** Which OpenAI credential the calls use when both are set ([billing]; null: the ChatGPT plan first). */
+    fun useOpenAI(billing: String?) = scope.launch(io) {
+        saveSettings { it.copy(openai = it.openai.copy(use = billing)) }
+        relistOpenAI()
+    }
+
+    /** The OpenAI models again with the credential in use (the allowance came back, a model was added). Null when listed. */
+    suspend fun recheckOpenAI(): String? = withContext(io) {
+        val c = openai ?: return@withContext "this build has no OpenAI"
+        loadOpenAI()
+        val billing = openaiBilling() ?: return@withContext "no OpenAI credential"
+        val models = try {
+            openaiTransportFor { c.bearer(billing) }.models()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: ApiError) {
+            if (e is ApiError.Auth) saveSettings { it.copy(openai = it.openai.copy(refused = true)) }
+            return@withContext Redact.of(e.message ?: e.kind)
+        }
+        afterOpenAI(models, billing)
+        null
+    }
+
+    /** After a credential went or the choice changed: the catalog of the one in use now, or none. */
+    private suspend fun relistOpenAI() {
+        if (openaiBilling() == null) {
+            saveSettings { it.copy(openai = it.openai.copy(listed = emptyList(), listedAt = 0, listedWith = null, refused = false, exhausted = null)) }
+            return
+        }
+        if (s.openai.listedWith != openaiBilling()) recheckOpenAI() else matrix.refresh()
     }
 
     /** The notebook corrected by hand in the panel (plan 5: the learner reads and corrects it); the old version is kept. */
@@ -400,7 +643,7 @@ class ShadowTutor(
         val t = l.turns.first { it.id == turnId }
         saveLog(l.copy(turns = l.turns.filterNot { it.id == turnId }))
         saveQueue(q + t.copy(status = TurnStatus.QUEUED, notBefore = 0, error = null, queuedAt = now()))
-        saveSettings { it.copy(keyRefused = false, lowCredit = false) }
+        saveSettings { it.copy(keyRefused = false, lowCredit = false, openai = it.openai.copy(refused = false, exhausted = null)) }
         wakeUp()
         matrix.resume()
     }
@@ -494,7 +737,7 @@ class ShadowTutor(
     private fun rollover() {
         val th = store.thread() ?: return
         if (th.day == dayNow() || q.any { it.kind == TurnKind.CLOSING }) return
-        if (th.messages.none { it.role() == "assistant" }) {
+        if (!Threads.answered(th.messages)) {
             archive(th)
             return
         }
@@ -528,8 +771,9 @@ class ShadowTutor(
             onGuide = { id -> val l = log(dayNow()); saveLog(l.copy(guide = l.guide + (id to (l.guide[id] ?: 0) + 1))) },
             clock = clock,
         )
-        val transport = transportFor(baseUrl()) { vault.load() }
-        val loop = TutorLoop(transport, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.budgetPerDay }, sleep = sleep)
+        val provider = providerFor(t.model)
+        val format = provider.format
+        val loop = TutorLoop(provider, tools, maxCalls = if (t.kind == TurnKind.CLOSING) 3 else 8, budgetOk = { spent() < s.budgetPerDay }, sleep = sleep)
 
         // the level the turn asks for: queued with it, or (a closing, a turn queued before efforts were settings) its task's now
         val want = ModelCatalog.fit(t.effort ?: ModelCatalog.effortFor(t.task, s.preset, t.model, s.efforts), t.model)
@@ -543,29 +787,26 @@ class ShadowTutor(
         if (t.kind == TurnKind.CLOSING) {
             val closing = th ?: return finish(t.copy(error = "no thread to close"), TurnStatus.SKIPPED)
             // made under another prefix (an app update): it can't take another call; it restarts (or closes) as text
-            if (closing.prefix != prefix.hash) return finish(t.copy(error = "the prefix changed (an app update): no closing call"), TurnStatus.SKIPPED, closing)
+            if (closing.prefix != provider.prefixHash(prefix)) return finish(t.copy(error = "the prefix changed (an app update): no closing call"), TurnStatus.SKIPPED, closing)
             val why = if (t.eventKind == "restart") "The thread is long (${closing.tokens} tokens) and restarts now" else "The day (${closing.day}) is over"
             top = closing.topEffort
-            messages = (if (resumed) closing.messages else Effort.append(closing.messages, listOf(textBlock(TurnText.closing(why))), top, onThread(closing, want))).toMutableList()
+            messages = (if (resumed) closing.messages else format.append(closing.messages, listOf(textBlock(TurnText.closing(why))), top, onThread(closing, want))).toMutableList()
             save = { m -> val next = (th ?: closing).copy(messages = m); th = next; store.saveThread(next); thread = next }
             save(messages)
         } else if (stateless) {
             // a call of its own: its level is its top-level effort
             top = want
             messages = (
-                store.turnMessages(t.id) ?: listOf(
-                    buildJsonObject {
-                        put("role", "user")
-                        // what the learner was shown before the turn's events (never the real answer to them)
-                        val cutoff = events.minOfOrNull { it.at } ?: now()
-                        val shown = shownBetween(ShadowStore.dayOf(cutoff, zone()), 0, cutoff, t.eventIds, max = 3)
-                        val texts = listOf(
-                            TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)),
-                            TurnText.shown(shown, zone(), TurnText.SHOWN_TODAY), TurnText.now(now(), zone(), where()),
-                        )
-                        put("content", JsonArray(texts.filter { it.isNotEmpty() }.map(::textBlock) + imageBlocks(t, events) + textBlock(content(t, events))))
-                    },
-                )
+                store.turnMessages(t.id) ?: run {
+                    // what the learner was shown before the turn's events (never the real answer to them)
+                    val cutoff = events.minOfOrNull { it.at } ?: now()
+                    val shown = shownBetween(ShadowStore.dayOf(cutoff, zone()), 0, cutoff, t.eventIds, max = 3)
+                    val texts = listOf(
+                        TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)),
+                        TurnText.shown(shown, zone(), TurnText.SHOWN_TODAY), TurnText.now(now(), zone(), where()),
+                    )
+                    listOf(format.user(texts.filter { it.isNotEmpty() }.map(::textBlock) + imageBlocks(t, events) + textBlock(content(t, events))))
+                }
                 ).toMutableList()
             save = { m -> store.saveTurnMessages(t.id, m) }
             save(messages)
@@ -573,7 +814,7 @@ class ShadowTutor(
             var cur = th?.takeIf { it.day == dayNow() } ?: newThread(t.model, store.threadArchive()?.lines.orEmpty())
             // a thread made under another prefix (an app update changed a tool or the prompt) restarts, as text
             var appendEvent = !resumed || cur.messages.isEmpty()
-            if (cur.prefix != prefix.hash && cur.messages.isNotEmpty()) {
+            if (cur.prefix != provider.prefixHash(prefix) && cur.messages.isNotEmpty()) {
                 val why = if (cur.prefix == "another-key") "The key changed" else "The app was updated (its tools or prompt changed)"
                 cur = restarted(cur, "$why, so the thread restarted")
                 val l = log(dayNow())
@@ -594,7 +835,7 @@ class ShadowTutor(
                     add(textBlock(content(t, events)))
                 }
                 cur = cur.copy(
-                    messages = Effort.append(cur.messages, blocks, cur.topEffort, onThread(cur, want)), pending = emptyList(),
+                    messages = format.append(cur.messages, blocks, cur.topEffort, onThread(cur, want)), pending = emptyList(),
                     shownUntil = maxOf(cur.shownUntil, shown.maxOfOrNull { it.reply.at } ?: 0),
                 )
             }
@@ -629,8 +870,8 @@ class ShadowTutor(
             maxTokens = t.task.maxTokensAt(level),
             onCall = { c ->
                 // the thread's first call: no answer in it yet (onCall comes before the answer is added)
-                val call = callRecord(t, c, threadKind, firstOfThread = messages.none { it.role() == "assistant" }, effort = level, byMessage = byMessage, images = ShadowImages.count(messages))
-                if (c.result != null) {
+                val call = callRecord(t, c, threadKind, firstOfThread = !Threads.answered(messages), effort = level, byMessage = byMessage, images = ShadowImages.count(messages), billing = provider.billing)
+                if (c.step != null) {
                     t = t.copy(callIds = t.callIds + call.id)
                     if (threadKind == "day" || threadKind == "closing") th = th?.copy(tokens = call.usage.prompt)?.also { store.saveThread(it); thread = it }
                 }
@@ -644,7 +885,7 @@ class ShadowTutor(
             },
             onTool = { rec -> t = t.copy(toolCalls = t.toolCalls + rec); replace(t) },
         )
-        t = t.copy(text = messages.drop(before).filter { it.role() == "assistant" }.flatMap { it.blocks() }.filter { it.str("type") == "text" }.joinToString("\n") { it.str("text").orEmpty() }.take(2000))
+        t = t.copy(text = Threads.text(messages.drop(before)).take(2000))
         // no reply tool called, the answer written as text: that text is the reply (marked, and counted per day)
         val conversation = if (t.eventKind == "digest") "main" else events.firstOrNull()?.conversationId ?: "main"
         ReplyFallback.of(r, t.kind, t.replies.isNotEmpty(), conversation, now())?.let { reply ->
@@ -681,7 +922,7 @@ class ShadowTutor(
     /** A new day's thread on [model]: its top-level effort the chat's now, fixed for its life. */
     private fun newThread(model: String, yesterday: List<String>): ThreadState =
         ThreadState(
-            day = dayNow(), model = model, startedAt = now(), yesterday = yesterday, prefix = prefix.hash,
+            day = dayNow(), model = model, startedAt = now(), yesterday = yesterday, prefix = hashFor(model),
             effort = ModelCatalog.effortFor(Task.CHAT, s.preset, model, s.efforts),
         )
 
@@ -698,8 +939,8 @@ class ShadowTutor(
         // the same top-level effort: the prefix's cache may be bound to it (the docs: model-specific), and a turn at
         // another level sets its own by an effort message
         return ThreadState(
-            day = th.day, model = th.model, messages = listOf(buildJsonObject { put("role", "user"); put("content", JsonArray(first)) }),
-            restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = prefix.hash,
+            day = th.day, model = th.model, messages = listOf(ThreadFormat.of(th.model).user(first)),
+            restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = hashFor(th.model),
             effort = th.topEffort, shownUntil = th.shownUntil,
         )
     }
@@ -712,25 +953,31 @@ class ShadowTutor(
      * The call's record; a call that answered keeps its usage as the API sent it when it is its thread's first or the
      * day's 20th, 40th … ([UsageSample]), while the developer setting is on.
      */
-    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false, effort: String? = t.effort, byMessage: Boolean = false, images: Int = 0): CallRecord {
-        val r = c.result
-        val usage = r?.message?.usage ?: Usage()
+    private fun callRecord(
+        t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false, effort: String? = t.effort, byMessage: Boolean = false,
+        images: Int = 0, billing: String = Billing.API_KEY,
+    ): CallRecord {
+        val r = c.step
+        val usage = r?.usage ?: Usage()
         val n = log(dayNow()).calls.count { it.error == null } + 1
-        val raw = r?.message?.rawUsage?.takeIf { s.developer && UsageSample.keep(firstOfThread, n) }
+        val raw = r?.rawUsage?.takeIf { s.developer && UsageSample.keep(firstOfThread, n) }
         // what the response showed (its text, its tool calls' input), for the thinking's estimate
-        val visible = r?.message?.visibleChars()
+        val visible = r?.visibleChars
+        val priced = r?.let { prices.priced(it.model ?: t.model, usage, billing) }
+        val other = ProviderId.of(t.model).takeIf { it != ProviderId.ANTHROPIC }
         return CallRecord(
             effort = effort, effortByMessage = byMessage, visibleChars = visible,
             id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12),
-            turnId = t.id, model = r?.message?.model ?: t.model, eventKind = t.eventKind, task = t.task, at = now(), usage = usage,
-            firstTokenMs = r?.firstTokenMs, totalMs = r?.totalMs ?: 0, stopReason = r?.message?.stopReason,
-            cost = if (r != null) prices.cost(r.message.model ?: t.model, usage) else null,
+            turnId = t.id, model = r?.model ?: t.model, eventKind = t.eventKind, task = t.task, at = now(), usage = usage,
+            firstTokenMs = r?.firstTokenMs, totalMs = r?.totalMs ?: 0, stopReason = r?.stopReason,
+            cost = priced?.cost,
             threadAfter = usage.prompt, thread = thread,
             error = c.error?.let { "${it.kind}${if (c.retried) " (retried)" else ""}: ${Redact.of(it.message.orEmpty()).take(300)}" },
-            inputTransformations = r?.message?.inputTransformations?.take(2000),
-            cacheReport = r?.message?.rawUsage?.cacheReport,
+            inputTransformations = r?.inputTransformations?.take(2000),
+            cacheReport = r?.rawUsage?.cacheReport,
             usageRaw = raw,
             images = images,
+            provider = other?.id, billing = billing.takeIf { other != null }, apiEquivalent = priced?.apiEquivalent,
         )
     }
 
@@ -741,6 +988,7 @@ class ShadowTutor(
 
     private fun failed(t: TurnRecord, e: ApiError, th: ThreadState?) {
         val error = Redact.of(e.message ?: e.kind)
+        if (ProviderId.of(t.model) == ProviderId.OPENAI) return openaiFailed(t, e, error, th)
         when {
             e is ApiError.Auth -> {
                 saveSettings { it.copy(keyRefused = true) }
@@ -751,6 +999,34 @@ class ShadowTutor(
                 // a chat says why it can't answer; routine work waits for the credit
                 if (t.task == Task.CHAT || t.task == Task.GRADING) finish(t.copy(error = "low credit: the tutor can't answer ($error)"), TurnStatus.FAILED, th)
                 else replace(t.copy(status = TurnStatus.QUEUED, error = error))
+            }
+            e.retryable && t.attempts < MAX_ATTEMPTS -> {
+                val wait = (e as? ApiError.RateLimited)?.retryAfterMs ?: (30_000L shl (t.attempts - 1).coerceIn(0, 5))
+                replace(t.copy(status = TurnStatus.QUEUED, error = error, notBefore = now() + wait))
+            }
+            else -> finish(t.copy(error = error), TurnStatus.FAILED, th)
+        }
+    }
+
+    /**
+     * A primary turn on an OpenAI model ("also run on") failed: a refused credential or one out of money (or the plan's
+     * allowance) marks OpenAI so (the lanes stop too) and ends the turn, the primary's worker never waits for OpenAI;
+     * the rest as any turn's.
+     */
+    private fun openaiFailed(t: TurnRecord, e: ApiError, error: String, th: ThreadState?) {
+        when {
+            e is ApiError.Auth -> {
+                saveSettings { it.copy(openai = it.openai.copy(refused = true)) }
+                finish(t.copy(error = error), TurnStatus.FAILED, th)
+            }
+            e is ApiError.LowCredit -> {
+                val why = when {
+                    e.allowance -> "the ChatGPT plan's usage limit was reached (ChatGPT settings → Usage)"
+                    e.limit -> "an OpenAI spend limit was reached"
+                    else -> "the OpenAI credit is out"
+                }
+                saveSettings { it.copy(openai = it.openai.copy(exhausted = why)) }
+                finish(t.copy(error = "$why ($error)"), TurnStatus.FAILED, th)
             }
             e.retryable && t.attempts < MAX_ATTEMPTS -> {
                 val wait = (e as? ApiError.RateLimited)?.retryAfterMs ?: (30_000L shl (t.attempts - 1).coerceIn(0, 5))
@@ -857,7 +1133,7 @@ class ShadowTutor(
      * are left out until it fits (their days in `days_left_out`).
      */
     suspend fun exportText(app: String, secrets: List<String> = emptyList(), maxBytes: Int? = null): String {
-        val known = listOfNotNull(vault.load(), bridgeConfig()?.token) + secrets
+        val known = listOfNotNull(vault.load(), bridgeConfig()?.token) + openai?.secrets().orEmpty().filterNotNull() + secrets
         return withContext(io) {
             var days = store.days()
             var left = emptyList<String>()
@@ -878,6 +1154,15 @@ class ShadowTutor(
         put("exported_at", Instant.ofEpochMilli(now()).toString())
         put("app", app)
         put("base_url", baseUrl())
+        // OpenAI: which credential the calls use (never a credential itself, nor the account)
+        put(
+            "openai",
+            buildJsonObject {
+                put("available", openai != null)
+                put("ready", JsonArray(openaiReady.sorted().map { JsonPrimitive(it) }))
+                openaiBilling()?.let { put("use", it) }
+            },
+        )
         put("tools", JsonArray(toolNames.map { JsonPrimitive(it) }))
         put("prefix_chars", prefixChars)
         put("settings", tutorJson.encodeToJsonElement(ShadowSettings.serializer(), s))

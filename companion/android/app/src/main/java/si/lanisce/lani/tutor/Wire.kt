@@ -27,8 +27,13 @@ internal val tutorJson = kotlinx.serialization.json.Json {
 /**
  * A response's tokens, as `usage` counts them: [input] the uncached rest, [cacheWrite5m] and [cacheWrite1h] what was
  * written to the cache (usage.cache_creation), [cacheRead] what came from it, [output] what the model wrote (its
- * thinking included).
+ * thinking included); [reasoning] the part of [output] that was reasoning, where the provider reports it (OpenAI's
+ * output_tokens_details.reasoning_tokens; the Messages API doesn't: 0, left out of the records).
+ *
+ * OpenAI's cache writes (input_tokens_details.cache_write_tokens, kept at least 30 minutes) are filed as
+ * [cacheWrite5m], the short-lived writes; its price table prices them at its cache-write rate (companion/tutor/prices.json).
  */
+@OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
 @Serializable
 data class Usage(
     val input: Long = 0,
@@ -36,6 +41,7 @@ data class Usage(
     val cacheWrite1h: Long = 0,
     val cacheRead: Long = 0,
     val output: Long = 0,
+    @kotlinx.serialization.EncodeDefault(kotlinx.serialization.EncodeDefault.Mode.NEVER) val reasoning: Long = 0,
 ) {
     val cacheWrite: Long get() = cacheWrite5m + cacheWrite1h
     /** The whole prompt: what the thread weighs now (the restart's measure, plan: "input + cache reads + cache writes"). */
@@ -65,6 +71,7 @@ data class Usage(
                 cacheWrite1h = write1h,
                 cacheRead = n("cache_read_input_tokens") ?: before.cacheRead,
                 output = n("output_tokens") ?: before.output,
+                reasoning = before.reasoning,
             )
         }
     }
@@ -142,16 +149,25 @@ data class AssistantMessage(
 
 internal fun JsonObject.str(key: String): String? = (this[key] as? JsonPrimitive)?.takeIf { it.isString }?.content
 
-/** An error the Messages API answered (or the network gave): how the loop and the queue treat it, by the plan's table. */
+/**
+ * An error an LLM API answered (or the network gave), the same classes for every provider: how the loop and the queue
+ * treat it, by the plan's table. [of] and [ofStream] read the Messages API's; [OpenAIErrors] the Responses API's and
+ * the ChatGPT sign-in's.
+ */
 sealed class ApiError(message: String) : Exception(message) {
-    /** 401: the key is wrong or revoked. The panel asks for a new one; nothing is lost. */
+    /**
+     * 401: the key is wrong or revoked (OpenAI: also a ChatGPT sign-in that can't be used or renewed). The panel asks for
+     * a new one; nothing is lost.
+     */
     class Auth(message: String) : ApiError(message)
     /**
      * The money is out: the credit balance is too low (its message on a 400 or 402, or a billing error), or ([limit]) a
      * spend limit was reached (the workspace's: a 400 "You have reached your specified workspace API usage limits"; the
-     * tier's: a 429 with error_code enforced_spend_limit_reached and no retry-after). Not retried: routine work waits.
+     * tier's: a 429 with error_code enforced_spend_limit_reached and no retry-after), or ([allowance]) the ChatGPT plan's
+     * usage limit for the app or the plan (OpenAI's subscription_sharing_usage_limit_exceeded). Not retried: routine
+     * work waits.
      */
-    class LowCredit(message: String, val limit: Boolean = false) : ApiError(message)
+    class LowCredit(message: String, val limit: Boolean = false, val allowance: Boolean = false) : ApiError(message)
     /** 429: waits for `retry-after` ([retryAfterMs]), then tries again. */
     class RateLimited(val retryAfterMs: Long?, message: String) : ApiError(message)
     /** 529 overloaded, 5xx, 408/409, an error in the stream: retried with backoff. */
@@ -167,7 +183,7 @@ sealed class ApiError(message: String) : Exception(message) {
     val kind: String
         get() = when (this) {
             is Auth -> "auth"
-            is LowCredit -> if (limit) "spend_limit" else "low_credit"
+            is LowCredit -> if (allowance) "allowance" else if (limit) "spend_limit" else "low_credit"
             is RateLimited -> "rate_limited"
             is Overloaded -> "overloaded"
             is BadRequest -> "bad_request"

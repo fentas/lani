@@ -117,14 +117,27 @@ data class CallRecord(
     val visibleChars: Int? = null,
     /** How many images (a chat's photos) the request carried: the thread's so far, or a stateless call's own. */
     val images: Int = 0,
-    /** The matrix's lane that made it ([ShadowMatrix]: "claude-sonnet-5-5@low"); null: the primary's. */
+    /** The matrix's lane that made it ([ShadowMatrix]: "claude-sonnet-5-5@low", "openai:gpt-6.1-sol@medium"); null: the primary's. */
     val lane: String? = null,
+    /** The provider when it isn't Anthropic ([ProviderId.id]: "openai"); null: Anthropic's, as every call before. */
+    val provider: String? = null,
+    /**
+     * How it was paid when not by the Claude key ([Billing]: "api_key" for an OpenAI key, "chatgpt_plan"); with the
+     * ChatGPT plan [cost] is 0 (the learner pays nothing per token) and [apiEquivalent] what the tokens cost on the API.
+     */
+    val billing: String? = null,
+    /** With the ChatGPT plan: the API-equivalent price of its tokens (prices.json), labelled as such; else null. */
+    val apiEquivalent: Double? = null,
 ) {
     /**
-     * About how much of [Usage.output] was thinking (output counts thinking, which the API doesn't report apart): the
-     * output less the visible part at about four characters a token. An estimate; null without [visibleChars].
+     * About how much of [Usage.output] was thinking: the reasoning tokens where the provider reports them (OpenAI's),
+     * else the output less the visible part at about four characters a token (the Messages API doesn't report thinking
+     * apart). An estimate on Anthropic's; null without either.
      */
-    val thinkingEstimate: Long? get() = visibleChars?.let { v -> (usage.output - (v + 3) / 4).coerceAtLeast(0) }
+    val thinkingEstimate: Long? get() = if (usage.reasoning > 0) usage.reasoning else visibleChars?.let { v -> (usage.output - (v + 3) / 4).coerceAtLeast(0) }
+
+    /** What its tokens cost on the API: the API-equivalent price with the ChatGPT plan, else the cost. */
+    val apiCost: Double? get() = apiEquivalent ?: cost
 }
 
 /** Where a turn ran: the day's thread, a stateless call (another model than the thread's), "also run on", closing. */
@@ -202,9 +215,27 @@ data class ShadowSettings(
     val developer: Boolean = false,
     /** The matrix test: lanes of one model at one effort beside the primary ([ShadowMatrix]); off by default. */
     val matrix: MatrixSettings = MatrixSettings(),
+    /** OpenAI (the matrix's OpenAI lanes, "also run on" an OpenAI model): what its credential lists, which one to use. */
+    val openai: OpenAISettings = OpenAISettings(),
 ) {
     val limit: Int get() = threadLimit ?: preset.threadLimit
 }
+
+/**
+ * The OpenAI side of the settings (never a credential: those are in their [KeyVault]s, [OpenAICredentials]): the models
+ * the credential in use listed and when ([listed], [listedAt]); which credential to use when both are set ([use]: a
+ * [Billing], null: the ChatGPT plan when signed in, else the key); why its calls stopped ([refused]: a 401, the sign-in
+ * ended; [exhausted]: the credit, a spend limit or the plan's usage limit), until it's checked again.
+ */
+@Serializable
+data class OpenAISettings(
+    val listed: List<ModelInfo> = emptyList(),
+    val listedAt: Long = 0,
+    val listedWith: String? = null,
+    val use: String? = null,
+    val refused: Boolean = false,
+    val exhausted: String? = null,
+)
 
 /** A version of the notebook: its text, when and why it was written (note, day's end, restart, by hand). */
 @Serializable
