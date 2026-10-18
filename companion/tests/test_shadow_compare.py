@@ -405,6 +405,42 @@ class ShadowCompareTest(unittest.TestCase):
         self.assertIn("`e16`", out)
         self.assertNotIn("`e_old`", out)
 
+    # --- other providers ---------------------------------------------------------------------------
+
+    def test_openai_lanes_and_the_plans_api_equivalent(self):
+        plan_lane, key_lane = "openai:gpt-6.1-sol@medium", "openai:gpt-6-luna@high"
+        ev = [event("e_x", "chat", T18, "Živjo", conversationId="c1")]
+        cp = [call("c_x", "t_x", 0.01, 800, 2000)]
+        tp = [turn("t_x", ["e_x"], "DAY", "CHAT", "claude-sonnet-5-5", "chat", cp, effort="medium", replies=[reply("Živjo!", T18 + 3000)])]
+        pc = [call("p1", "p_t", 0.0, 900, 2100, model="gpt-6.1-sol", lane=plan_lane, provider="openai", billing="chatgpt_plan", apiEquivalent=0.012, effort="medium"),
+              call("p2", "p_t", 0.0, 400, 1200, model="gpt-6.1-sol", lane=plan_lane, provider="openai", billing="chatgpt_plan", apiEquivalent=0.004, effort="medium")]
+        pt = [turn("p_t", ["e_x"], "DAY", "CHAT", "gpt-6.1-sol", "chat", pc, effort="medium", lane=plan_lane, replies=[reply("Živjo (Sol)!", T18 + 4000)])]
+        kc = [call("k1", "k_t", 0.003, 500, 900, model="gpt-6-luna", lane=key_lane, provider="openai", billing="api_key", effort="high")]
+        kt = [turn("k_t", ["e_x"], "DAY", "CHAT", "gpt-6-luna", "chat", kc, effort="high", lane=key_lane, replies=[reply("Živjo (Luna)!", T18 + 2500)])]
+        matrix = {"settings": {"enabled": True}, "lanes": [
+            {"id": key_lane, "provider": "openai", "family": "LUNA", "effort": "high", "model": "gpt-6-luna"},
+            {"id": plan_lane, "provider": "openai", "family": "SOL", "effort": "medium", "model": "gpt-6.1-sol"},
+            {"provider": "openai", "family": "ASTRA", "effort": "low", "skipped": "the OpenAI credential lists no astra model (gpt-6-astra)"}]}
+        d = day("2026-10-18", ev, tp, cp, [real("Živjo, Jan.", T18 + 2000, "e_x")], lanes={plan_lane: (pt, pc), key_lane: (kt, kc)})
+        dev = self.root / "openai"
+        dev.mkdir()
+        (dev / "shadow-2026-10-18.json").write_text(json.dumps(export("2026-10-18T21:00:00Z", [d], matrix)))
+        code, out, _ = self.run_main(str(dev))
+        self.assertEqual(code, 0)
+        t = self.table(out)
+        self.assertEqual(list(t), ["real", "primary", key_lane, plan_lane])
+        self.assertEqual((t[plan_lane]["spend/day"], t[plan_lane]["≈API/day"], t[plan_lane]["calls"]), ("$0.0000", "$0.0160", "2"))
+        self.assertEqual((t[key_lane]["spend/day"], t[key_lane]["≈API/day"]), ("$0.0030", "$0.0030"))
+        self.assertEqual(t["primary"]["≈API/day"], "$0.0100")
+        self.assertIn(f"**{plan_lane}** · `gpt-6.1-sol` · medium · DONE · 2 calls · $0.0000 ChatGPT plan (≈$0.0160 API) · first token 900 ms", out)
+        self.assertIn(f"**{key_lane}** · `gpt-6-luna` · high · DONE · 1 call · $0.0030 · first token 500 ms", out)
+        self.assertIn("skipped: the OpenAI credential lists no astra model", out)
+        # --lanes by the provider
+        _, out, _ = self.run_main("--lanes", "openai", str(dev))
+        self.assertEqual(list(self.table(out)), ["real", "primary", key_lane, plan_lane])
+        _, out, _ = self.run_main("--lanes", "luna", str(dev))
+        self.assertEqual(list(self.table(out)), ["real", "primary", key_lane])
+
 
 if __name__ == "__main__":
     unittest.main()
