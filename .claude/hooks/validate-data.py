@@ -7,11 +7,10 @@ import json
 import os
 import shutil
 import sys
-from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lani_paths import data_dir, force_utf8_io  # noqa: E402
+from lani_paths import data_dir, force_utf8_io, now  # noqa: E402
 
 force_utf8_io()
 MAX_BACKUPS_PER_FILE = 10
@@ -57,7 +56,7 @@ def main():
         with open(file_path, 'r') as f:
             json.load(f)
 
-        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        timestamp = now().strftime("%Y%m%d-%H%M%S")
         backup_path = f"{file_path}.backup-{timestamp}"
         shutil.copy2(file_path, backup_path)
         rotate_backups(file_path)

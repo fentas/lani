@@ -32,6 +32,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 
@@ -169,6 +170,22 @@ def setting(key: str, env=None):
 
 
 adopt_env_file()
+
+
+_NOW = re.compile(r"([0-9]{4})-([0-9]{2})-([0-9]{2})(?:[T ]([0-9]{2}):([0-9]{2})(?::([0-9]{2}))?)?")
+
+
+def now() -> datetime:
+    """datetime.now(), or the frozen clock LANI_NOW (YYYY-MM-DD[THH:MM[:SS]], local time) when it is set: tests that
+    compare runs of the scripts set it (the TypeScript port reads the same, companion/bridge/src/db/sys.ts). A value
+    that isn't such a time is ignored."""
+    m = _NOW.fullmatch(os.environ.get("LANI_NOW", ""))
+    if m:
+        try:
+            return datetime(*(int(x or 0) for x in m.groups()))
+        except ValueError:
+            pass
+    return datetime.now()
 
 
 def force_utf8_io() -> None:

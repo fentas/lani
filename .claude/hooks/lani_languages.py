@@ -18,8 +18,10 @@ import os
 import re
 import shutil
 import sys
-from datetime import datetime
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lani_paths import now  # noqa: E402
 
 # ISO 639-1 code -> the language's English name (the bridge's LANGUAGES, companion/bridge/src/learners.ts).
 LANGUAGES = {
@@ -255,7 +257,7 @@ def migrate(data_dir: Path, backups: Path) -> str:
     if not home:
         return "skipped"
 
-    backup = _backup_dir(backups, "pre-migrate-languages-" + datetime.now().strftime("%Y%m%d-%H%M%S"))
+    backup = _backup_dir(backups, "pre-migrate-languages-" + now().strftime("%Y%m%d-%H%M%S"))
     backup.mkdir(parents=True, exist_ok=True)
     for f in data_dir.glob("*.json"):
         shutil.copy2(f, backup / f.name)
@@ -271,7 +273,7 @@ def migrate(data_dir: Path, backups: Path) -> str:
                 lp = {}
             lp = lp if isinstance(lp, dict) else {}
             entry = {"code": code, "name": language_name(code), "source": lp.get("source", "visits"),
-                     "since": lp.get("profile_created") or datetime.now().strftime("%Y-%m-%d")}
+                     "since": lp.get("profile_created") or now().strftime("%Y-%m-%d")}
             level = (lp.get("learner") or {}).get("current_level") if isinstance(lp.get("learner"), dict) else None
             if level:
                 entry["level"] = level

@@ -21,7 +21,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lani_paths import backups_dir, data_dir, force_utf8_io  # noqa: E402
+from lani_paths import backups_dir, data_dir, force_utf8_io, now as clock  # noqa: E402
 import lani_languages as langs  # noqa: E402
 
 force_utf8_io()
@@ -152,7 +152,7 @@ def main():
         if code == home:
             code = None
 
-    now = datetime.now()
+    now = clock()
     today = now.strftime("%Y-%m-%d")
     home_dbs = databases
     if code is not None:

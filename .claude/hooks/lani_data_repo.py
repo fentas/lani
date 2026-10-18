@@ -316,7 +316,7 @@ def session_message(report: dict) -> str:
             parts.append(_count(exercises, "exercise", "exercises"))
         elif report.get("duration_minutes"):
             parts.append(f"{report['duration_minutes']} min")
-    head = f"session {report.get('date', datetime.now().strftime('%Y-%m-%d'))}" + (f": {', '.join(parts)}" if parts else "")
+    head = f"session {report.get('date', lani_paths.now().strftime('%Y-%m-%d'))}" + (f": {', '.join(parts)}" if parts else "")
     details = [str(x) for x in (report.get("session_id"), report.get("command_used"), report.get("language")) if x]
     return head + ("\n\n" + " · ".join(details) if details else "")
 

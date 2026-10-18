@@ -37,7 +37,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lani_paths import data_dir, force_utf8_io  # noqa: E402
+from lani_paths import data_dir, force_utf8_io, now  # noqa: E402
 import lani_languages as langs  # noqa: E402
 
 force_utf8_io()
@@ -451,7 +451,7 @@ class Store:
     def backup(self, command: str, names: list) -> str:
         """Copies of [names] (as they are now) in .backups/pre-card-<command>-<time>/, under their path in the data
         directory (languages/<code>/… for another language)."""
-        tag = f"pre-card-{command}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        tag = f"pre-card-{command}-{now().strftime('%Y%m%d-%H%M%S')}"
         dest = self.root / ".backups" / tag
         n = 1
         while dest.exists():
@@ -889,7 +889,7 @@ def main(argv=None) -> int:
             setattr(args, k, None)
     try:
         if args.today is None:
-            args.today = datetime.now().strftime("%Y-%m-%d")
+            args.today = now().strftime("%Y-%m-%d")
         elif not DATE.match(args.today):
             raise Refused("--today: YYYY-MM-DD")
         if getattr(args, "date", None) and not DATE.match(args.date):
