@@ -173,5 +173,9 @@ ensure_data_dir 15, validate-data 13), plus the 17 in-process runs. They cover e
 - **A run in QuickJS:** not done here, as no `qjs` is on this machine. A `bun build --target browser --format iife`
   bundle of `cli.ts` (with node:fs left out) builds at about 170 KB, without `import.meta`. A node-targeted build
   gives the Python's output under plain Node.
+- **Speed in QuickJS:** not measured. Under bun, on a deck of 4,000 cards (2.8 MB), the outputs are the same and the
+  times close to the Python's: read-db 0.23 s (Python 0.16 s, most of it bun's start), `card.py find` 0.21 s (0.20 s),
+  `card.py overlaps` 59 s (105 s: it compares every pair). An interpreter is slower: `overlaps` of a big deck isn't
+  for the phone.
 - **Regenerating `argtexts.ts`** when card.py's or read-db.py's options change. The differential test's help and
   usage cases fail until it is done. Rebuild it from `parser().format_usage()` and `format_help()` of each parser.
