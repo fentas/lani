@@ -1099,8 +1099,11 @@ conversation (an answer's `ex…`; for "main" the latest chat or session end).
 
 The turns wait in a persisted queue (a chat ahead of the rest), one at a time.
 
-**The loop** (`tutor/Loop.kt`): a manual tool loop over `TutorTransport` (`AnthropicTransport`: OkHttp, okhttp-sse and
-kotlinx.serialization against `POST /v1/messages`, streamed; no SDK). Each step is saved (the assistant's message,
+**The loop** (`tutor/Loop.kt`): a manual tool loop over a provider (`tutor/Provider.kt` `TutorProvider`: Anthropic's
+`AnthropicProvider` over `AnthropicTransport`, OkHttp, okhttp-sse and kotlinx.serialization against `POST /v1/messages`,
+streamed, no SDK; OpenAI's below). A thread keeps its provider's own messages; the loop gets back one normalized step
+(text, tool calls, usage, the stop reason) and the same error classes from every provider
+([docs/plans/05-built/providers.md](../docs/plans/05-built/providers.md)). Each step is saved (the assistant's message,
 then the tools' results), so a turn Android stopped resumes where it was. At most 8 calls a turn; parallel tool calls
 answer in one message; `tool_choice: auto`; adaptive thinking with the effort set explicitly (below); thinking blocks go
 back unchanged, empty ones too; the beta `thinking-binding-controls-2026-08-01` is sent and a response's
@@ -1204,7 +1207,24 @@ all lanes). No budget of their own and never the primary's: the switch, a lane's
 (skipped, and said so), or the key refused or out of credit stop them. Their turns and calls carry the lane's id
 (`lane`: "claude-sonnet-5-5@low"), in a day log per lane (`files/shadow-tutor/matrix/<lane>/`) and in the export (each
 day's `lanes`, the top-level `matrix`; tool calls in brief). Compared afterwards with `companion/bin/shadow-compare`
-(the uploads on the node by default; `--out DIR` writes `summary.md` and a file per task).
+(the uploads on the node by default; `--out DIR` writes `summary.md` and a file per task; `--lanes openai` the OpenAI
+lanes). **OpenAI's lanes** (GPT-6 Luna at medium to max, GPT-6.1 Sol at low to high, GPT-6 Astra at low and medium: the
+same places in the grid) join once, when an OpenAI credential is first set (below); their ids carry the provider
+(`openai:gpt-6.1-sol@medium`; Anthropic's keep theirs), and an OpenAI credential refused or out pauses only them.
+
+**OpenAI: an API key, or "Sign in with ChatGPT"** (the panel's Settings, "🤖 OpenAI"; `tutor/OpenAI.kt`,
+`tutor/ChatGPT.kt`): for the matrix's OpenAI lanes and "Also run on" a GPT-6 model; the primary stays on Claude. The
+Responses API (`POST https://api.openai.com/v1/responses`, `stream: true`, `store: false`): the core prompt as
+`instructions`, the same tools as function tools (`strict: false`; in one `lani` namespace with the ChatGPT plan), the
+effort as `reasoning.effort`, the reasoning items passed back with their encrypted content, a chat's photo as an
+`input_image`. **"Continue with ChatGPT"** opens the browser on OpenAI's sign-in (OAuth with PKCE; the app registers
+itself at the first sign-in, no client secret), which comes back to a listener on 127.0.0.1 and then to the app
+(`lani://tutor/signed-in`); the learner's ChatGPT plan pays (Plus or Pro; its allowance is shared with Codex: "Manage
+usage" opens ChatGPT's settings, where a limit for Lani can be set). Its calls cost $0; the panel, the records and
+shadow-compare show their API-equivalent price beside it. "Sign out" revokes the sign-in. **An API key** (`sk-…`) is
+checked with `GET /v1/models` and kept as the Claude key is (its own Keystore key and DataStore entry); with both, a
+chip picks which one the calls use. The key and the sign-in's tokens go only to api.openai.com and auth.openai.com,
+never into a log line, the export, a prompt or a tool's result.
 
 **Metering** (`tutor/ShadowStore.kt` `DayStats`): per call the model, its effort (and whether an effort message set it),
 the event kind, input, the cache writes (5-minute and 1-hour, from `usage.cache_creation`), cache reads, output (thinking
@@ -1228,8 +1248,9 @@ tap away.
 
 **The export:** one JSON file (`lani.shadow-export/v0`: the settings, the notebook and its versions, the thread, the
 queue, and each day's events, turns, replies, tool calls, calls and numbers) through the share sheet (a FileProvider
-on the cache's `shared/`). No key and no token: neither is kept with them, and every text is cleaned of the key, the
-node's token and anything shaped like a secret (`Redact.json`).
+on the cache's `shared/`). No key and no token: neither is kept with them, and every text is cleaned of the keys, the
+ChatGPT sign-in's tokens, the node's token and anything shaped like a secret (`Redact.json`: `sk-ant-…`, OpenAI's
+`sk-…`, JSON Web Tokens); a photo and a reasoning item's encrypted content are notes of their size.
 
 **Without a key: the mock.** `bun companion/bridge/test/tutor-mock.ts` serves a canned Messages API on
 127.0.0.1:8771 (the emulator: `http://10.0.2.2:8771`): `GET /v1/models` and streamed `POST /v1/messages` in the real
