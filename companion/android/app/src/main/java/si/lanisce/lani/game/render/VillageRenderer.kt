@@ -421,6 +421,10 @@ class VillageRenderer {
         val landing = footpath?.first
         val riverGate = footpath?.second
         if (landing != null && riverGate != null) paths.mark(landing[0] + 0.2f, landing[1] - 0.3f, riverGate[0] + 2.2f, landing[1] + 0.3f)
+        // the village projects' landmarks (where the trees and bushes make way for them below), and the ways they bring: the
+        // cart bridge's track from the road over the stream into the woods
+        val landmarks = landmarksFor(state, bw, bh, frame.compact)
+        for (m in landmarks) for (way in m.ways) paths.way(way, LandmarkLayout.TRACK_HALF)
         groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg)
         if (k > 1) groundDetail(s, horizon)
         // no far treeline where the sea comes up to the horizon (a coast)
@@ -434,8 +438,6 @@ class VillageRenderer {
         val painter = BuildingPainter(s)
         val trees = treesFor(state, bw, bh, frame.compact, comp, horizon = comp.horizon, clearR, roadLeft, fg)
         stagesFor(state, today)
-        // the village projects' landmarks, where the trees and bushes make way for them
-        val landmarks = landmarksFor(state, bw, bh, frame.compact)
         if (fg != null) addWoods(s, state, fg, objs, event, recentFelled, landmarks)
         // the tent that moved out of the village (game/TentMove): a campsite by the pond, where the trees make way for it
         val camp = if (fg != null && TentMove.moved(state)) Campsite(fg) else null
@@ -480,10 +482,11 @@ class VillageRenderer {
         if (roadLeft) {
             // the road's bridge over the stream: the stream's place, as the water under it is
             val bxw = land.bridge[0]; val byw = land.bridge[1]
+            val bl = land.bridgeHalf; val bh2 = roadHalf + 0.1f
             objs.add(Obj(bxw + byw - 1f) {
                 owner[s.newObject(Pal.OUTLINE)] = hits.size + 1
-                bridge(s, bxw, byw)
-                hits.add(VillageHit.OnSpot("riverbank") to intArrayOf(s.iso.sx(bxw - 1.2f, byw + 1.1f).toInt(), s.iso.sy(bxw, byw, 4f).toInt(), s.iso.sx(bxw + 1.2f, byw - 1.1f).toInt(), s.iso.sy(bxw + 1.2f, byw + 1.1f, 0f).toInt()))
+                bridge(s, bxw, byw, bh2)
+                hits.add(VillageHit.OnSpot("riverbank") to intArrayOf(s.iso.sx(bxw - bl, byw + bh2).toInt(), s.iso.sy(bxw - bl, byw - bh2, 4f).toInt(), s.iso.sx(bxw + bl, byw - bh2).toInt(), s.iso.sy(bxw + bl, byw + bh2, 0f).toInt()))
             })
         }
         // the stream's near bank above the bridge: a place to listen (an area, not an object); and the water itself,
@@ -767,6 +770,17 @@ class VillageRenderer {
             val ix = floor(x * 2).toInt() + n / 2; val iy = floor(y * 2).toInt() + n / 2
             return ix in 0 until n && iy in 0 until n && cells[iy * n + ix]
         }
+
+        /** The cells within [half] of the polyline [way] (world cells, x0, y0, x1, y1, …): a track along it. */
+        fun way(way: FloatArray, half: Float) {
+            var x0 = Float.MAX_VALUE; var y0 = Float.MAX_VALUE; var x1 = -Float.MAX_VALUE; var y1 = -Float.MAX_VALUE
+            for (i in way.indices step 2) { x0 = min(x0, way[i]); x1 = max(x1, way[i]); y0 = min(y0, way[i + 1]); y1 = max(y1, way[i + 1]) }
+            for (gy in floor((y0 - half) * 2).toInt()..floor((y1 + half) * 2).toInt()) for (gx in floor((x0 - half) * 2).toInt()..floor((x1 + half) * 2).toInt()) {
+                val ix = gx + n / 2; val iy = gy + n / 2
+                if (ix !in 0 until n || iy !in 0 until n) continue
+                if (LandmarkLayout.offWay(way, (gx + 0.5f) / 2f, (gy + 0.5f) / 2f) <= half) cells[iy * n + ix] = true
+            }
+        }
     }
 
     private fun groundPass(
@@ -1046,16 +1060,39 @@ class VillageRenderer {
         return intArrayOf(l.toInt(), t.toInt(), r.toInt() + 1, b.toInt() + 1)
     }
 
-    /** The road's bridge over the stream at world ([sx], [sy]) (see [Terrain.bridge]). */
-    private fun bridge(s: SceneCtx, sx: Float, sy: Float) {
+    /**
+     * The road's bridge over the stream at world ([sx], [sy]) (see [Terrain.bridge]): a deck of planks laid across the
+     * road's way, from bank to bank ([Terrain.bridgeHalf] either side of the stream's middle) and as wide as the road
+     * ([half] either side of its middle), on a sleeper on each bank, a railing along each side (never across the way):
+     * the road goes on at both its ends.
+     */
+    private fun bridge(s: SceneCtx, sx: Float, sy: Float, half: Float) {
         val i = s.iso
-        val n = sy - 1.1f; val f = sy + 1.1f
-        i.box(sx - 1.2f, n, 0.5f, 2.4f, 2.2f, 1f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
-        for (k in 0..4) i.line(sx - 1.2f + k * 0.5f, n, 1.5f, sx - 1.2f + k * 0.5f, f, 1.5f, Pal.WOOD_M)
-        if (s.k > 1) for (k in 0..8) i.line(sx - 1.2f + k * 0.25f + 0.125f, n, 1.5f, sx - 1.2f + k * 0.25f + 0.125f, f, 1.5f, Col.mix(Pal.WOOD_L, Pal.WOOD_M, 0.5f))
-        i.post(sx - 1.1f, f, 1.5f, 4f, Pal.WOOD_D); i.post(sx + 1.1f, f, 1.5f, 4f, Pal.WOOD_D)
-        i.line(sx - 1.1f, f, 4f, sx + 1.1f, f, 4f, Pal.WOOD_L)
-        if (s.k > 1) { i.line(sx - 1.1f, f, 2.8f, sx + 1.1f, f, 2.8f, Pal.WOOD_M); i.post(sx, f, 1.5f, 4f, Pal.WOOD_D) }
+        val l = s.land.bridgeHalf
+        val x0 = sx - l; val x1 = sx + l
+        val n = sy - half; val f = sy + half
+        val snow = s.env.snow
+        val deck = 1.2f
+        // the sleepers on the banks, their ends showing under the deck's
+        for (bx in floatArrayOf(x0, x1 - 0.3f)) i.box(bx, n - 0.12f, 0f, 0.3f, f - n + 0.24f, deck - 0.4f, Pal.LOG_L, Pal.LOG_M, Pal.LOG_D)
+        rail(s, x0, x1, n, deck, snow)
+        i.box(x0, n, 0.4f, x1 - x0, f - n, deck - 0.4f, if (snow) Pal.SNOW_L else Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        if (!snow) {
+            // the planks across the way, finer closer up
+            val step = if (s.k > 1) 0.25f else 0.5f
+            var x = x0 + step
+            while (x < x1 - 0.05f) { i.line(x, n, deck, x, f, deck, if (s.k > 1) Col.mix(Pal.WOOD_L, Pal.WOOD_M, 0.6f) else Pal.WOOD_M); x += step }
+        }
+        rail(s, x0, x1, f, deck, snow)
+    }
+
+    /** A railing along one side ([y]) of the road's bridge, from [x0] to [x1], on posts standing on its deck ([z]). */
+    private fun rail(s: SceneCtx, x0: Float, x1: Float, y: Float, z: Float, snow: Boolean) {
+        val i = s.iso
+        val top = z + 2.8f
+        for (px in floatArrayOf(x0 + 0.12f, (x0 + x1) / 2f, x1 - 0.12f)) i.post(px, y, z, top, Pal.WOOD_D)
+        i.line(x0 + 0.12f, y, top, x1 - 0.12f, y, top, if (snow) Pal.SNOW_L else Pal.WOOD_L)
+        if (s.k > 1) i.line(x0 + 0.12f, y, z + 1.4f, x1 - 0.12f, y, z + 1.4f, Pal.WOOD_M)
     }
 
     private fun highlightGround(s: SceneCtx, plot: Int) {
@@ -1690,7 +1727,7 @@ class VillageRenderer {
         if (landmarks.isEmpty()) return
         val painter = LandmarkPainter(s, buildings)
         for (sp in landmarks) {
-            // the footbridge lies low over the stream: whoever stands on the banks by it is in front of it
+            // the cart bridge lies low over the stream: whoever stands on the banks by it is in front of it
             val depth = sp.cx + sp.cy - if (sp.landmark.id == "most") 1f else 0f
             objs.add(Obj(depth) {
                 owner[s.newObject(Pal.OUTLINE)] = hits.size + 1
@@ -1715,7 +1752,8 @@ class VillageRenderer {
         s: SceneCtx, state: GameState, b: Building, fg: Foreground?, landmarks: List<LandmarkSpot>, buildings: BuildingPainter,
         objs: ArrayList<Obj>, horizon: Int, frame: Frame,
     ) {
-        val ring = Palisade.ring(s.land, state.age, fg)
+        // a gate of its own where the cart bridge's track goes through the ring
+        val ring = Palisade.ring(s.land, state.age, fg, landmarks.flatMap { it.ways })
         val painter = PalisadePainter(s, buildings)
         val keep = ArrayList<FloatArray>()
         if (!frame.compact) {

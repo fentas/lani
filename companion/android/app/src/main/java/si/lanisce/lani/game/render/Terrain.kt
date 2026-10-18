@@ -109,6 +109,9 @@ class Terrain private constructor(val land: Land) {
         floatArrayOf(x, y)
     }
 
+    /** How far the road's bridge reaches either side of the stream's middle (cells): over the water onto both banks. */
+    val bridgeHalf: Float = streamHalf + 0.45f
+
     /**
      * The stream's near bank above the bridge, where people sit and fish (world cells; the "riverbank" spot, see
      * [TownAnchors.spotWorld]): no plot comes this close.

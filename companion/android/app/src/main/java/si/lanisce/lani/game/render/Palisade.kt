@@ -15,8 +15,9 @@ import kotlin.math.sin
  * The palisade round the village: a ring of pointed stakes a few pixels inside the forest's edge
  * ([Terrain.forestEdge]), hugging the tree line all the way round and growing with the clearing from age to age.
  * It opens in a gate where the road leaves the clearing (to the right; from Zaselek on also to the left, over the
- * bridge) and where the path goes down into the woods (a tall canvas, see [Foreground]), two stout posts under a lintel
- * where they stand level. Along the stream it keeps to one bank from gate to gate: the far bank, taking the stream in,
+ * bridge), where the cart bridge's track goes on into the woods (see [LandmarkLayout]) and where the path goes down into
+ * the woods (a tall canvas, see [Foreground]), two stout posts under a lintel where they stand level. Along the stream it
+ * keeps to one bank from gate to gate: the far bank, taking the stream in,
  * where it would go over the water (see [Palisade.keepOffStream]); it crosses the water only in a water gate where the
  * stream comes in or goes out, closed by a row of shorter stakes standing in the water ([wet]) with gaps for the current.
  * A ring that runs by the stream on the village's side opens there in a small river gate, a postern, with a footpath
@@ -85,8 +86,8 @@ internal object Palisade {
     private const val POST_EXTRA = 4f
     private const val GATE_H = 11f
 
-    /** How far the stakes keep off the road (cells, past its half width), the woods path (px) and the stream (cells). */
-    private const val ROAD_CLEAR = 0.45f
+    /** How far the stakes keep off the road and the cart track (cells, past its half width), the woods path (px) and the stream (cells). */
+    const val ROAD_CLEAR = 0.45f
     private const val PATH_CLEAR = 3f
     private const val STREAM_CLEAR = 1.55f
 
@@ -173,12 +174,13 @@ internal object Palisade {
 
     /**
      * The ring of [age]'s clearing on [land]; [woods]: the woods below the village on this canvas (their path gets a gate),
-     * or null.
+     * or null; [ways]: the cart bridge's track (see [LandmarkSpot.ways]), which gets a gate of its own where it goes
+     * through the ring (a road gate, the stakes within its reach making way).
      */
-    fun ring(land: Terrain, age: Age, woods: Foreground?): PalisadeRing {
-        val key = "${land.key}/$age/${woods != null}"
+    fun ring(land: Terrain, age: Age, woods: Foreground?, ways: List<FloatArray> = emptyList()): PalisadeRing {
+        val key = "${land.key}/$age/${woods != null}" + ways.joinToString("") { w -> "/" + w.joinToString(",") }
         synchronized(cache) { cache[key] }?.let { return it }
-        return build(land, age, woods).also { r ->
+        return build(land, age, woods, ways).also { r ->
             synchronized(cache) {
                 if (cache.size >= 8) cache.remove(cache.keys.first())
                 cache[key] = r
@@ -186,11 +188,24 @@ internal object Palisade {
         }
     }
 
+    /** Whether the world point ([x], [y]) is inside [ring] (its stakes round it, gates and all). */
+    fun inside(ring: PalisadeRing, x: Float, y: Float): Boolean {
+        val st = ring.stakes
+        var inside = false
+        var j = st.size - 1
+        for (i in st.indices) {
+            val a = st[i]; val b = st[j]
+            if ((a.y > y) != (b.y > y) && x < (b.x - a.x) * (y - a.y) / (b.y - a.y) + a.x) inside = !inside
+            j = i
+        }
+        return inside
+    }
+
     /** World point ([wx], [wy]) of a canvas offset from the fire. */
     private fun worldX(sx: Float, sy: Float) = (sx / 4f + sy / 2f) / 2f
     private fun worldY(sx: Float, sy: Float) = (sy / 2f - sx / 4f) / 2f
 
-    private fun build(land: Terrain, age: Age, fg: Foreground?): PalisadeRing {
+    private fun build(land: Terrain, age: Age, fg: Foreground?, ways: List<FloatArray>): PalisadeRing {
         // the rim [INSET] inside the forest's edge, round the fire from the left; it closes where the edge's noise meets
         // itself, straight left of the fire, with a short step in or out
         val n = SAMPLES
@@ -242,6 +257,10 @@ internal object Palisade {
         }
         // the river gate: a postern where the ring runs by the stream on the village's side, clear of the other gates
         riverGate(land, xs, ys, open, beyond)?.let { k -> for (j in 0 until RIVER_W) open[(k + j) % count] = PalisadeRing.Kind.RIVER }
+        // the cart track's gate: the stakes within its reach make way (after the river gate, which doesn't move for it)
+        if (ways.isNotEmpty()) for (k in 0 until count) {
+            if (open[k] == null && ways.any { LandmarkLayout.offWay(it, xs[k], ys[k]) < LandmarkLayout.TRACK_HALF + ROAD_CLEAR }) open[k] = PalisadeRing.Kind.ROAD
+        }
         val start = (0 until count).firstOrNull { open[it] == null } ?: return PalisadeRing(emptyList(), emptyList(), land = land)
         // each opening is a gate between the stakes either side of it: its posts
         val post = BooleanArray(count)
@@ -477,10 +496,13 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
 
     private fun breachAngle(st: PalisadeRing.Stake): Float = VillageLayout.angle((st.x - st.y) * 4f, (st.x + st.y) * 2f)
 
-    /** Whether stake [st] stands on landmark [l]'s footprint, or in front of it, high enough to hide some of it. */
+    /**
+     * Whether stake [st] stands on landmark [l]'s footprint, or in front of it, high enough to hide some of it (one that
+     * lies low, the bridge, is seen past the stakes in front of it).
+     */
     private fun hides(st: PalisadeRing.Stake, l: LandmarkSpot): Boolean {
         if (l.covers(st.x, st.y, 0.3f)) return true
-        if (st.x + st.y <= l.cx + l.cy) return false
+        if (st.x + st.y <= l.cx + l.cy || LandmarkLayout.shapeOf(l.landmark.id).low) return false
         val sx = (st.x - st.y) * 4f; val sy = (st.x + st.y) * 2f
         val r = l.screenRect()
         return sx > r[0] - 3f && sx < r[2] + 3f && sy - st.h - Palisade.POINT < r[3]

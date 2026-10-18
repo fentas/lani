@@ -75,16 +75,18 @@ class ClassicLandTest {
     private val golden = mapOf(
         // the field's soil under whoever walks by it, its crops in bands, its fence post by post; the people at the chores
         // of a household, the fire's handful (2026-10-13); the hamlet's tenth plot, the school's (2026-10-13): its clearing
-        // and palisade a little wider, the meadow's flowers and stones off the new plot
+        // and palisade a little wider, the meadow's flowers and stones off the new plot; the road's bridge from bank to bank,
+        // as wide as the road, a railing along each side (2026-10-18)
         "jan-like" to mapOf(
-            "side-day" to "3fcecd13f47cdc40", "tall-day" to "5a12cd69b96fc9ac", "tall-dusk-k2" to "8796d20cb41334c7",
-            "tall-night-k3" to "e4d64f77d5b8b223", "compact" to "116f5b44cfb1b189", "widget" to "d8e279ca092979f6",
+            "side-day" to "50fa02e1787a55bb", "tall-day" to "ff3b1fcec137c41d", "tall-dusk-k2" to "1cf0af11d9282fb4",
+            "tall-night-k3" to "fa7e1c526d00e701", "compact" to "69056c0f39b9bb29", "widget" to "f0c3faba48efccdb",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
-        // drawn as the hamlet's, its people at their chores (2026-10-13)
+        // drawn as the hamlet's, its people at their chores (2026-10-13); the cart bridge on its own track from the road
+        // into the woods through a gate of its own, the timber bridge its steps build, and the road's bridge (2026-10-18)
         "town" to mapOf(
-            "side-day" to "6b05b9b57d1cb662", "tall-day" to "303a8aa63db82bca", "tall-dusk-k2" to "30721d10c3679128",
-            "tall-night-k3" to "6b23b2190844438d", "compact" to "ddc24145b89657c0", "widget" to "b278966cd43be707",
+            "side-day" to "fb735123f3fffa02", "tall-day" to "ad5aa81355bde287", "tall-dusk-k2" to "f1cd8b210e313828",
+            "tall-night-k3" to "42fdfaef3aa863c0", "compact" to "bb2f79503da004b1", "widget" to "c18230739aa6ae9",
         ),
     )
 

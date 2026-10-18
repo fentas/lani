@@ -1,14 +1,12 @@
 package si.lanisce.lani.game.render
 
 import kotlin.math.PI
-import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 /**
  * How far a landmark is built: [SITE] after the first step (pegs and a string round the footprint, a heap of timber or
@@ -54,7 +52,7 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         if (look == BuildLook.SITE && m.id != "most") { site(x, y, w, d, LandmarkLayout.shapeOf(m.id).stone); return }
         when (m.id) {
             "mlaj" -> mlaj(x, y, look)
-            "most" -> most(x, y, w, d, look)
+            "most" -> most(x, y, w, d, m.stage, m.stages)
             "mlin" -> mlin(x, y, w, d, look)
             "balinisce" -> balinisce(x, y, w, d, look)
             "kapelica" -> kapelica(x, y, look)
@@ -268,81 +266,91 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         }
     }
 
-    // ---------------------------------------------------------------- Most · the footbridge
+    // ---------------------------------------------------------------- Most · the cart bridge
 
     /**
-     * A stone arch over the stream, humped, with low parapets; the water shows dark under the arch. Laid across the
-     * stream along x ([w]), [d] wide.
+     * The cart bridge where its track crosses the stream (laid across it along x, [w] long, [d] as wide as the track; see
+     * [LandmarkLayout]): a stone pier on each bank at the water's edge, long logs from pier to pier, a deck of thick planks
+     * across them, a railing along each side, and at each end the track's earth ramp up to the deck, so a cart drives from
+     * the track onto it and off again. Built as its [stage]s go (of [stages], the six steps of the project): the stream
+     * measured (pegs on both banks, a line over the water), stones gathered on both banks, the two piers with the ramps
+     * heaped up to them, the logs, the planks (the ramps up to the deck); finished, the railings.
      */
-    private fun most(x: Float, y: Float, w: Float, d: Float, look: BuildLook) {
-        val n = 12
+    private fun most(x: Float, y: Float, w: Float, d: Float, stage: Int, stages: Int) {
+        val step = ((stage * 6f / stages.coerceAtLeast(1)) + 0.999f).toInt().coerceIn(1, 6)
+        val snow = env.snow
+        val mid = x + w / 2f
+        val half = s.land.streamHalf
+        val xa = mid - half - PIER; val xb = mid + half + PIER
         val y1 = y + d
-        val span = w / 2f - 0.9f
-        fun deck(u: Float) = 3.5f + 2.5f * sin(PI * u / w).toFloat()
-        fun arch(u: Float): Float { val t = (u - w / 2f) / span; return if (abs(t) >= 1f) 0f else 3.4f * sqrt(1f - t * t) }
-        fun u(j: Int) = w * j / n
-        fun a(j: Int) = 0.9f + (w - 1.8f) * j / n
-        if (look == BuildLook.SITE) {
-            // the crossing measured out: pegs on both banks, a line over the water, stone on the near bank
-            ground { i.line(x + 0.3f, y + d / 2f, 2f, x + w - 0.3f, y + d / 2f, 2f, if (env.snow) Pal.WOOD_X else Pal.CANVAS_L) }
-            for (uu in floatArrayOf(0.3f, w - 0.3f)) { i.post(x + uu, y + 0.2f, 0f, 3f, Pal.WOOD_L); i.post(x + uu, y1 - 0.2f, 0f, 3f, Pal.WOOD_L) }
-            i.box(x + w - 0.75f, y + 0.3f, 0f, 0.55f, 0.5f, 1.5f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-            i.box(x + w - 0.7f, y + 0.35f, 1.5f, 0.4f, 0.35f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+        if (step <= 2) {
+            // measured: pegs on both banks at the piers' places, a line between them over the water
+            ground { i.line(xa, y + d / 2f, 2f, xb, y + d / 2f, 2f, if (snow) Pal.WOOD_X else Pal.CANVAS_L) }
+            for (px in floatArrayOf(xa, xb)) { i.post(px, y + 0.12f, 0f, 3f, Pal.WOOD_L); i.post(px, y1 - 0.12f, 0f, 3f, Pal.WOOD_L) }
+            // the stones gathered on both banks
+            if (step == 2) { gathered(x + 0.05f, y + 0.2f); gathered(xb + 0.05f, y + 0.2f) }
             return
         }
-        if (look == BuildLook.FRAME) {
-            centering(x, y + 0.15f, ::arch, ::a, n)
-            abutment(x, y, 0.9f, d); abutment(x + w - 0.9f, y, 0.9f, d)
-            centering(x, y1 - 0.15f, ::arch, ::a, n)
-            return
-        }
-        val done = look == BuildLook.DONE
-        val top = if (env.snow) Pal.SNOW_L else if (done) Pal.STONE_L else Pal.DIRT_M
-        // the deck, and the back parapet on it
-        for (j in 0 until n) i.quad(x + u(j), y, deck(u(j)), x + u(j + 1), y, deck(u(j + 1)), x + u(j + 1), y1, deck(u(j + 1)), x + u(j), y1, deck(u(j)), top)
-        if (fine && done && !env.snow) for (j in 1 until n) i.line(x + u(j), y, deck(u(j)), x + u(j), y1, deck(u(j)), Pal.STONE_M) // the paving
-        if (done) parapet(x, y + 0.15f, n, ::deck, ::u, Pal.STONE_M)
-        // the front face with the arch through it
-        for (j in 0 until n) i.quad(x + u(j), y1, 0f, x + u(j + 1), y1, 0f, x + u(j + 1), y1, deck(u(j + 1)), x + u(j), y1, deck(u(j)), Pal.STONE_M)
-        if (fine) for (z in 1..5) for (j in 0 until n) {
-            val z0 = z.toFloat()
-            if (z0 < deck(u(j)) - 0.5f && z0 < deck(u(j + 1)) - 0.5f && z0 > arch(u(j)) + 1.2f && z0 > arch(u(j + 1)) + 1.2f) {
-                i.line(x + u(j), y1, z0, x + u(j + 1), y1, z0, Pal.STONE_D)
+        // the deck's top once its planks are laid, the piers' before
+        val top = if (step >= 5) DECK else PIER_H
+        shadow(xa, y, xb - xa, d)
+        ramp(x, xa, y, d, 0f, top)
+        pier(xa, y, d); pier(mid + half, y, d)
+        if (step == 4) logs(xa, xb, y, d)
+        if (step >= 5) {
+            // the planks across the logs, the front log's side under their edge
+            i.box(xa, y, PIER_H, xb - xa, d, DECK - PIER_H, if (snow) Pal.SNOW_L else Pal.WOOD_L, Pal.LOG_M, Pal.WOOD_D)
+            if (!snow) {
+                val gap = if (fine) 0.25f else 0.5f
+                var px = xa + gap
+                while (px < xb - 0.05f) { i.line(px, y, DECK, px, y1, DECK, if (fine) Col.mix(Pal.WOOD_L, Pal.WOOD_M, 0.6f) else Pal.WOOD_M); px += gap }
             }
         }
-        ground {
-            val under = if (env.snow) Col.scale(Pal.ICE_M, 0.62f) else Col.scale(Pal.WATER_D, 0.62f)
-            for (j in 0 until n) i.quad(x + a(j), y1, 0f, x + a(j + 1), y1, 0f, x + a(j + 1), y1, arch(a(j + 1)), x + a(j), y1, arch(a(j)), under)
-        }
-        for (j in 0 until n) i.line(x + a(j), y1, arch(a(j)) + 0.5f, x + a(j + 1), y1, arch(a(j + 1)) + 0.5f, Pal.STONE_L) // the ring of arch stones
-        if (fine) for (j in 1 until n step 2) {
-            val uu = a(j); val out = (uu - w / 2f) / span
-            i.line(x + uu, y1, arch(uu) + 0.5f, x + uu + out * 0.2f, y1, arch(uu) + 1.8f, Pal.STONE_D)
-        }
-        if (!done) centering(x, y1 - 0.02f, ::arch, ::a, n)
-        i.panelX(x + w, y, 0f, d, deck(w), Pal.STONE_D)
-        if (done) parapet(x, y1, n, ::deck, ::u, Pal.STONE_M)
-        else {
-            i.post(x + 0.9f, y1 + 0.12f, 0f, 9f, Pal.WOOD_D); i.post(x + w - 0.9f, y1 + 0.12f, 0f, 9f, Pal.WOOD_D)
-            i.line(x + 0.9f, y1 + 0.12f, 8.5f, x + w - 0.9f, y1 + 0.12f, 8.5f, Pal.WOOD_L)
+        if (step >= 6) railing(xa, xb, y + 0.06f)
+        ramp(xb, x + w, y, d, top, 0f)
+        if (step >= 6) railing(xa, xb, y1 - 0.06f)
+    }
+
+    /** A stone pier on the bank, from [x] along the stream ([d] deep), as high as the deck's logs. */
+    private fun pier(x: Float, y: Float, d: Float) {
+        i.box(x, y, 0f, PIER, d, PIER_H, if (env.snow) Pal.SNOW_L else Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+        if (fine) b.mortar(x, y, 0f, PIER, d, PIER_H, Pal.STONE_D, Pal.STONE_X)
+    }
+
+    /**
+     * The track's earth ramp from [x0] to [x1] (along x, [d] deep), its top rising from [z0] to [z1] (px): the dirt of the
+     * track with its ruts on top, the earth's side toward us.
+     */
+    private fun ramp(x0: Float, x1: Float, y: Float, d: Float, z0: Float, z1: Float) {
+        val y1 = y + d
+        val hi = max(z0, z1)
+        i.quad(x0, y, z0, x1, y, z1, x1, y1, z1, x0, y1, z0, if (env.snow) Pal.SNOW_L else Pal.DIRT_M)
+        // its side: from the ground up to the slope (a triangle, the high end at the bridge)
+        if (z1 > z0) i.tri(x0, y1, 0f, x1, y1, 0f, x1, y1, hi, Pal.SOIL_D) else i.tri(x0, y1, 0f, x1, y1, 0f, x0, y1, hi, Pal.SOIL_D)
+        if (fine && !env.snow) for (v in floatArrayOf(0.28f, 0.72f)) i.line(x0, y + d * v, z0, x1, y + d * v, z1, Pal.DIRT_D) // the ruts
+    }
+
+    /** The long logs from pier to pier ([x0] to [x1]) before the planks are laid on them, their cut ends toward us. */
+    private fun logs(x0: Float, x1: Float, y: Float, d: Float) {
+        for (v in floatArrayOf(0.18f, 0.5f, 0.82f)) {
+            val ly = y + d * v - 0.13f
+            i.box(x0, ly, PIER_H, x1 - x0, 0.26f, 0.6f, if (env.snow) Pal.SNOW_L else Pal.LOG_L, Pal.LOG_M, END)
         }
     }
 
-    private fun abutment(x: Float, y: Float, w: Float, d: Float) {
-        i.box(x, y, 0f, w, d, 3.5f, if (env.snow) Pal.SNOW_L else Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
-        b.mortar(x, y, 0f, w, d, 3.5f, Pal.STONE_D, Pal.STONE_X)
+    /** A railing along one side ([y]) of the deck, from [x0] to [x1]: posts at its ends and middle, a rail on them. */
+    private fun railing(x0: Float, x1: Float, y: Float) {
+        val top = DECK + 2.6f
+        for (px in floatArrayOf(x0 + 0.08f, (x0 + x1) / 2f, x1 - 0.08f)) i.post(px, y, DECK, top, Pal.WOOD_D)
+        i.line(x0 + 0.08f, y, top, x1 - 0.08f, y, top, if (env.snow) Pal.SNOW_L else Pal.WOOD_L)
+        if (fine) i.line(x0 + 0.08f, y, DECK + 1.3f, x1 - 0.08f, y, DECK + 1.3f, Pal.WOOD_M)
     }
 
-    /** The wooden centering an arch is built on: its curve and the props under it. */
-    private fun centering(x: Float, y: Float, arch: (Float) -> Float, at: (Int) -> Float, n: Int) {
-        for (j in 0 until n) i.line(x + at(j), y, arch(at(j)), x + at(j + 1), y, arch(at(j + 1)), Pal.WOOD_L)
-        for (j in intArrayOf(n / 4, n / 2, 3 * n / 4)) i.line(x + at(j), y, 0f, x + at(j), y, arch(at(j)), Pal.WOOD_M)
-    }
-
-    private fun parapet(x: Float, y: Float, n: Int, deck: (Float) -> Float, u: (Int) -> Float, col: Int) {
-        for (j in 0 until n) i.quad(x + u(j), y, deck(u(j)), x + u(j + 1), y, deck(u(j + 1)), x + u(j + 1), y, deck(u(j + 1)) + 2f, x + u(j), y, deck(u(j)) + 2f, col)
-        val coping = if (env.snow) Pal.SNOW_L else Pal.STONE_L
-        for (j in 0 until n) i.line(x + u(j), y, deck(u(j)) + 2f, x + u(j + 1), y, deck(u(j + 1)) + 2f, coping)
+    /** A few stones gathered on the bank: two side by side and one on them. */
+    private fun gathered(x: Float, y: Float) {
+        i.box(x, y + 0.3f, 0f, 0.3f, 0.3f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+        i.box(x + 0.3f, y + 0.4f, 0f, 0.28f, 0.3f, 1f, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
+        i.box(x + 0.1f, y + 0.35f, 1f, 0.3f, 0.25f, 0.8f, if (env.snow) Pal.SNOW_L else Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
     }
 
     // ---------------------------------------------------------------- Mlin · the mill on the stream
@@ -1128,6 +1136,11 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
 
         /** The heights of a hayrack's rungs (px). */
         val RUNGS = floatArrayOf(2.5f, 5f, 7.5f, 10f)
+
+        /** The cart bridge: how thick its piers are along the track (cells), how high they stand, and its deck's top (px). */
+        const val PIER = 0.45f
+        const val PIER_H = 2f
+        const val DECK = 3f
 
         /** The onion dome's half width by row from its foot (nominal px). */
         val DOME = floatArrayOf(5f, 6f, 6.5f, 6.4f, 5.8f, 4.8f, 3.4f, 2.2f, 1.3f, 1.1f, 1.6f, 1.2f)
