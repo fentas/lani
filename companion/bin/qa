@@ -39,6 +39,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        varna"), fran.si's opens at once (the browser in front, then the app again); "chat-attach" 💬 in
                        an exercise's top bar (imeti-in-iti): the exercise attached above the input before the answer, its
                        ✕, the answer with it after; "chat-attach-pack" 💬 by a pack's word: "📎 <word> = <meaning>";
+                       "chat-photo" a photo in the chat: a sign with GPS EXIF put in the emulator's gallery (taken away
+                       after), 📷 → the photo picker, sent with a line of text, its thumbnail, full screen and zoomed,
+                       the dev bridge's copy keeping it under app/chat-images/ upright, 1568 px, without EXIF (mode 0600),
+                       the chat event's image (bridge.log), deleted from its long press (on the node too); then 📷 → the
+                       camera (allowed when asked), the virtual scene taken and sent alone;
                        "typed-turn" a dialog's turn typed with the keyboard up (QA's hook "turns:type"), the
                        keyboard the answer's (its language, no suggestion strip); "ispy" a game of «Vidim, vidim» by
                        the fire (QA's hook "ispy:ob-ognju/stump"): a wrong thing tapped, the right one;
@@ -1015,6 +1020,227 @@ def chat_attach_pack():
         time.sleep(1)
     finally:
         go_home()
+
+PHOTO_ADD = "Dodaj fotografijo · Add a photo"  # 📷 by the chat's input (TalkBack's label, chatSheet.photoAdd)
+PHOTO_PICK = "🖼️ Iz galerije · From the gallery"  # its menu (chatSheet.photoPick)
+PHOTO_TAKE_ITEM = "📸 Fotografiraj · Take a photo"  # its menu (chatSheet.photoTake)
+PHOTO_SHUTTER = "Fotografiraj · Take a photo"  # the camera's shutter (TalkBack's label)
+PHOTO_READY = "Gre s sporočilom · Goes with your message"  # the photo above the input (chatSheet.photoReady)
+PHOTO = "Fotografija · Photo"  # a photo in its bubble (TalkBack's label, chatSheet.photo)
+PHOTO_ZOOM = "Povečaj z dvema prstoma · Pinch to zoom"  # the photo full screen (chatSheet.photoZoom)
+PHOTO_DELETE = "🗑️ Izbriši fotografijo · Delete photo"  # a photo message's long-press menu (chatSheet.photoDelete)
+PHOTO_DELETED = "Fotografija izbrisana · Photo deleted"  # its bubble then (chatSheet.photoDeleted)
+QA_PICTURE = "/sdcard/Pictures/lani-qa-sign.jpg"  # the photo QA puts in the emulator's gallery, and takes away again
+QA_MAKE, QA_MODEL = "QaPhoneMaker", "QaPhone 9 Pro"  # the camera its EXIF names: neither may reach the node
+
+
+def exif_app1(orientation=6) -> bytes:
+    """A JPEG's APP1 Exif segment as a phone's camera writes one (big-endian TIFF): IFD0 with Make, Model, Orientation and
+    a pointer to the GPS IFD (GPSLatitudeRef N, GPSLatitude 46° 3' 5.5", GPSLongitudeRef E, GPSLongitude 14° 30')."""
+    import struct
+    make, model = (QA_MAKE + "\0").encode(), (QA_MODEL + "\0").encode()
+    ifd0_end = 8 + 2 + 4 * 12 + 4
+    make_at, model_at = ifd0_end, ifd0_end + len(make)
+    gps_at = model_at + len(model)
+    lat_at = gps_at + 2 + 4 * 12 + 4
+    lon_at = lat_at + 24
+    t = b"MM" + struct.pack(">HI", 42, 8) + struct.pack(">H", 4)
+    t += struct.pack(">HHII", 0x010F, 2, len(make), make_at) + struct.pack(">HHII", 0x0110, 2, len(model), model_at)
+    t += struct.pack(">HHIHH", 0x0112, 3, 1, orientation, 0) + struct.pack(">HHII", 0x8825, 4, 1, gps_at) + struct.pack(">I", 0)
+    t += make + model + struct.pack(">H", 4)
+    t += struct.pack(">HHI", 1, 2, 2) + b"N\0\0\0" + struct.pack(">HHII", 2, 5, 3, lat_at)
+    t += struct.pack(">HHI", 3, 2, 2) + b"E\0\0\0" + struct.pack(">HHII", 4, 5, 3, lon_at) + struct.pack(">I", 0)
+    t += b"".join(struct.pack(">II", n, d) for n, d in ((46, 1), (3, 1), (55, 10), (14, 1), (30, 1), (0, 1)))
+    data = b"Exif\0\0" + t
+    return b"\xff\xe1" + struct.pack(">H", len(data) + 2) + data
+
+
+def qa_sign(path: Path):
+    """A shop's sign as a phone takes it ("ZAPRTO zaradi inventure …", 2400×1600): its pixels turned on their side and
+    EXIF orientation 6 (turn right to show it), the camera's make and model and a place (GPS) in its EXIF."""
+    raw = path.with_suffix(".raw.jpg")
+    sh("magick", "-size", "2400x1600", "xc:#f4ead2", "-gravity", "center", "-font", "DejaVu-Sans-Bold", "-fill", "#2a2320",
+       "-pointsize", "200", "-annotate", "+0-260", "ZAPRTO", "-pointsize", "110", "-annotate", "+0+40", "zaradi inventure",
+       "-pointsize", "84", "-annotate", "+0+300", "Odpremo v ponedeljek ob 8.00", "-rotate", "-90", "-quality", "92", str(raw))
+    b = raw.read_bytes()
+    path.write_bytes(b[:2] + exif_app1(6) + b[2:])
+    raw.unlink()
+
+
+def media_scan(path: str):
+    """The emulator's media store told about [path] (added, or gone): the photo picker shows what it has."""
+    adb("shell", "content", "call", "--uri", "content://media", "--method", "scan_file", "--arg", path, check=False)
+
+
+def chat_images() -> dict:
+    """The photos the dev bridge's copy keeps (app/chat-images/<YYYY-MM>/<id>.<ext>): {path: bytes}."""
+    root = dev_copy() / "app/chat-images"
+    return {p: p.read_bytes() for p in sorted(root.glob("*/*")) if p.is_file()} if root.is_dir() else {}
+
+
+def jpeg_size(b: bytes):
+    """A JPEG's width and height (its SOF), or None."""
+    i = 2
+    while i + 9 < len(b) and b[i] == 0xFF:
+        m, n = b[i + 1], (b[i + 2] << 8) | b[i + 3]
+        if 0xC0 <= m <= 0xCF and m not in (0xC4, 0xC8, 0xCC):
+            return (b[i + 7] << 8) | b[i + 8], (b[i + 5] << 8) | b[i + 6]
+        if m == 0xDA:
+            return None
+        i += 2 + n
+    return None
+
+
+def checked_photo(before: dict) -> Path:
+    """The photo that came to the dev bridge's copy since [before], checked: under app/chat-images/<YYYY-MM>/ (0700, the
+    file 0600), a JPEG upright (landscape, as the sign shows) at 1568 px on its long side, without EXIF, GPS or the
+    camera's make and model; the tutor's chat event carries it (data.image: the path, its size and bytes, bridge.log)."""
+    end = time.time() + 20 * slow()
+    while time.time() < end and not (new := {p: b for p, b in chat_images().items() if p not in before}):
+        time.sleep(1)
+    assert new, "a photo in the dev bridge's copy (app/chat-images/)"
+    path, b = next(iter(new.items()))
+    root = dev_copy() / "app/chat-images"
+    assert re.fullmatch(r"\d{4}-\d{2}", path.parent.name), f"its month's folder: {path}"
+    for d, want in ((root, 0o700), (path.parent, 0o700), (path, 0o600)):
+        assert (d.stat().st_mode & 0o777) == want, f"{d}: mode {oct(d.stat().st_mode & 0o777)}, not {oct(want)}"
+    assert b[:3] == b"\xff\xd8\xff", "a JPEG"
+    for leak in (b"Exif", QA_MAKE.encode(), QA_MODEL.encode()):
+        assert leak not in b, f"{leak!r} reached the node"
+    size = jpeg_size(b)
+    assert size and max(size) == 1568 and size[0] > size[1], f"upright and 1568 px on its long side: {size}"
+    print(f"    the node keeps {path.relative_to(dev_copy())}: {size[0]}×{size[1]}, {len(b) // 1024} KB, no EXIF")
+    end = time.time() + 15 * slow()
+    while time.time() < end:
+        events = [json.loads(m) for m in re.findall(r"← chat image (\{.*\})", (OUT / "bridge.log").read_text(errors="replace"))]
+        if (event := next((e for e in events if e.get("path") == str(path)), None)) is not None:
+            break
+        time.sleep(1)
+    assert event, f"the tutor's chat event with its image (bridge.log: ← chat image …): {path}"
+    assert (event["width"], event["height"], event["bytes"]) == (size[0], size[1], len(b)), f"the event's image: {event}"
+    return path
+
+
+def quick_double_tap(x: int, y: int):
+    """A double tap at ([x], [y]) as a finger makes it: a monkey script, the two taps 80 ms apart (two `input tap` calls
+    can land further apart than the double tap's 300 ms on a busy emulator)."""
+    point = "DispatchPointer(0,0,{a},{x},{y},1.0,0.1,0,1.0,1.0,0,0)".format
+    steps = [point(a=0, x=x, y=y), "UserWait(40)", point(a=1, x=x, y=y), "UserWait(80)", point(a=0, x=x, y=y), "UserWait(40)", point(a=1, x=x, y=y)]
+    script = OUT / "double-tap.monkey"
+    script.write_text("type= raw events\ncount= 1\nspeed= 1.0\nstart data >>\n" + "\n".join(steps) + "\n")
+    adb("push", str(script), "/data/local/tmp/lani-qa-double-tap.monkey")
+    adb("shell", "monkey", "-f", "/data/local/tmp/lani-qa-double-tap.monkey", "1")
+    adb("shell", "rm", "-f", "/data/local/tmp/lani-qa-double-tap.monkey", check=False)
+
+
+def photo_box():
+    """A photo's thumbnail in its bubble (TalkBack's "Fotografija · Photo"), the newest one: its bounds, or None."""
+    bs = [b for t, b in boxes() if t == PHOTO]
+    return max(bs, key=lambda b: b[1]) if bs else None
+
+
+def chat_photo():
+    """A photo in the tutor chat (README "Tutor chat", "Photos"): a shop's sign as a phone takes it (on its side, EXIF
+    orientation 6, the camera's make and model and a place in its EXIF) put in the emulator's gallery; 📷 by the input,
+    "🖼️ Iz galerije", the system's photo picker, the photo above the input ("Gre s sporočilom"), sent with a line of
+    text: its thumbnail in the bubble, the dev tutor's answer; the dev bridge's copy keeps it under app/chat-images/
+    upright, 1568 px, without EXIF, mode 0600, and the chat event carried it (data.image); opened full screen, zoomed by a
+    double tap, closed; deleted from its long press (gone on the node too). Then the camera: "📸 Fotografiraj", the
+    camera allowed, the emulator's virtual scene taken and sent alone. The gallery's photo is taken away again."""
+    go_home()
+    local = OUT / "chat-photo-sign.jpg"
+    qa_sign(local)
+    adb("push", str(local), QA_PICTURE)
+    media_scan(QA_PICTURE)
+    try:
+        before = chat_images()
+        assert tap("Tvoj učitelj · Your tutor"), "the tutor bar"
+        assert wait_for(CHAT_TITLE, 6), "the tutor chat"
+        CHAT["tip_seen"] = True
+        assert tap(PHOTO_ADD, 4), "📷 by the input"
+        assert wait_for(PHOTO_PICK, 3) and find(PHOTO_TAKE_ITEM), "its menu: the gallery, the camera"
+        shot("chat-photo-menu")
+        assert tap(PHOTO_PICK, 3), "from the gallery"
+        assert tap("Photo taken on", 15), "the photo in the system's photo picker"
+        assert wait_for(PHOTO_READY, 20), "the photo above the input, ready"
+        assert find("Odstrani fotografijo · Remove the photo"), "its ✕"
+        shot("chat-photo-draft")
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Kaj%spise%sna%stej%stabli?")  # adb types ASCII only
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        if ime_top() is not None:
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+        assert wait_for("Vidim fotografijo", 25), "the dev tutor's answer about the photo"
+        assert find(PHOTO_READY) is None, "the photo went with the message"
+        box = photo_box()
+        assert box is not None, "the photo's thumbnail in its bubble"
+        assert box[2] - box[0] > box[3] - box[1], f"the thumbnail upright (landscape, as the sign): {box}"
+        assert find("Kaj pise na tej tabli?"), "its text under it"
+        shot("chat-photo-sent")
+        path = checked_photo(before)
+
+        tap_at(((box[0] + box[2]) // 2, (box[1] + box[3]) // 2))
+        assert wait_for(PHOTO_ZOOM, 6), "the photo full screen"
+        time.sleep(1)
+        shot("chat-photo-full")
+        for _ in range(3):  # a double tap zooms in (a busy machine's taps can still miss each other: again)
+            quick_double_tap(540, 1100)
+            time.sleep(1.5)
+            if find(PHOTO_ZOOM) is None:
+                break
+        assert find(PHOTO_ZOOM) is None, "zoomed in (the hint goes)"
+        shot("chat-photo-zoomed")
+        assert tap("Zapri · Close", 3), "✕ closes it"
+        assert wait_for(CHAT_TITLE, 4), "back in the chat"
+
+        box = photo_box()
+        long_press(((box[0] + box[2]) // 2, (box[1] + box[3]) // 2))
+        assert wait_for(PHOTO_DELETE, 4) and find(COPY) and find(SHARE), "its long press: copy, share, delete the photo"
+        shot("chat-photo-menu-long")
+        assert tap(PHOTO_DELETE, 3), "delete the photo"
+        assert wait_for("Izbrišem fotografijo?", 4), "asked first"
+        shot("chat-photo-delete-ask")
+        assert tap("Izbriši · Delete", 3), "delete"
+        assert wait_for(PHOTO_DELETED, 6), "the bubble says it's deleted"
+        end = time.time() + 15 * slow()
+        while time.time() < end and path.exists():
+            time.sleep(1)
+        assert not path.exists(), "deleted on the node too (DELETE /chat/images/<id>)"
+        shot("chat-photo-deleted")
+
+        # the camera: allowed when asked, the emulator's virtual scene, sent alone
+        before = chat_images()
+        assert tap(PHOTO_ADD, 4), "📷 again"
+        assert tap(PHOTO_TAKE_ITEM, 3), "take a photo"
+        for _ in range(8):  # the camera permission's dialog (once)
+            if tap("While using the app", 2) or tap("Only this time", 1):
+                break
+            if find(PHOTO_SHUTTER):
+                break
+        time.sleep(3 * slow())  # the camera opens, its picture settles
+        shot("chat-photo-camera")
+        assert tap(PHOTO_SHUTTER, 6), "the shutter"
+        assert wait_for(PHOTO_READY, 25), "the photo taken, above the input"
+        shot("chat-photo-taken")
+        assert tap("Pošlji · Send", 4), "send it alone"
+        assert wait_for("Vidim fotografijo", 25) and photo_box(), "sent: its thumbnail, the dev tutor's answer"
+        end = time.time() + 20 * slow()
+        while time.time() < end and not (new := [p for p in chat_images() if p not in before]):
+            time.sleep(1)
+        assert new, "the camera's photo on the node"
+        b = new[0].read_bytes()
+        assert b"Exif" not in b and max(jpeg_size(b) or (0, 0)) <= 1568, f"the camera's photo without EXIF, 1568 px at most: {jpeg_size(b)}"
+        print(f"    the camera's photo: {jpeg_size(b)}, {len(b) // 1024} KB")
+        shot("chat-photo-camera-sent")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    finally:
+        adb("shell", "rm", "-f", QA_PICTURE, check=False)
+        media_scan(QA_PICTURE)
+
 
 def village():
     to_top()
@@ -6091,6 +6317,7 @@ def plan():
         ("chat-links", chat_links, go_home, False, ""),
         ("chat-attach", chat_attach, go_home, False, ""),
         ("chat-attach-pack", chat_attach_pack, go_home, False, ""),
+        ("chat-photo", chat_photo, go_home, False, ""),
         ("village", village, v, False, ""),
         ("scroll", scroll, v, False, ""),
         ("villagers", villagers, v, False, ""),

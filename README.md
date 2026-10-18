@@ -36,7 +36,9 @@ Claude Code session: your own tutor, which writes new dialogs, stories and exerc
   written down in a hand-drawn notebook with sketches.
 - **In the car.** An Android Auto mode with listening drills, echoes and quick responses for long drives.
 - **A tutor you can talk to.** The app's chat goes to your Claude Code session: ask about any exercise, bookmark an
-  answer, reply to a message from last week.
+  answer, reply to a message from last week. Send a photo of a sign, a menu or a worksheet ("what does it say?",
+  "check my answers"): it leaves the phone without its location or other metadata, stays on your machine (never in
+  git) and reaches Claude only through the tutor, as the chat does ([docs/privacy.md](docs/privacy.md)).
 
 ## How it works
 

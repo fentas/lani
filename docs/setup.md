@@ -153,7 +153,8 @@ machine.
   companion/README.md "Recent answers"). Each commit makes sure the `.gitignore` keeps `/app/answers.json*` out, adding
   the line when it's missing (a repository set up before it, or a `.gitignore` edited since), and stops tracking it if it
   was ever committed (the file stays on the machine). The same for the developer's data from the app (`app/dev/`: the
-  shadow tutor's exports and the app's log, companion/README.md "Developer data on the node"): `/app/dev/`.
+  shadow tutor's exports and the app's log, companion/README.md "Developer data on the node"): `/app/dev/`; and for the
+  tutor chat's photos (`app/chat-images/`, companion/README.md "Tutor chat", "Photos"): `/app/chat-images/`.
 - **Only a repository's root counts.** The checkout's `data/` is never committed into Lani's repository.
 
 | Setting (lani.env) | Default | |

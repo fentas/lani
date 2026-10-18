@@ -687,12 +687,15 @@ grammar book, the course, drills, the family's words, a town's villagers, scenes
 the profile: `{learner}` and `{m:…|f:…}` rendered for them (`Route.addressed`, `bridge/src/addressee.ts`; the tutor's
 tools keep the placeholders, [SCENES.md](SCENES.md#the-learner-in-the-content)).
 
-All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)).
+All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB, a chat photo 8 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)).
 
 | Method | Path | Purpose |
 |---|---|---|
 | `POST` | `/pair` | `{code, device}` (no token) → `{v, token, device: {id, name}, profile, learner: {name, target, base, child}, fingerprint, public_key, signature}`; `403` wrong or spent code, `410` expired, `429` too many wrong codes (see [Pair a phone](#pair-a-phone)) |
-| `POST` | `/message` | `{kind: chat\|answer\|session_end\|roleplay\|roleplay_end\|villager_arrived, conversation_id, text, data?}` → into the session (`fam_…` conversation ids are the bridge's); a chat's `data.reply_to` quotes an earlier message of the chat (see [Tutor chat](#tutor-chat)) |
+| `POST` | `/message` | `{kind: chat\|answer\|session_end\|roleplay\|roleplay_end\|villager_arrived, conversation_id, text, data?, image?}` → into the session (`fam_…` conversation ids are the bridge's); a chat's `data.reply_to` quotes an earlier message of the chat; a chat's `image: {id}` names a photo sent before it, and the tutor gets its path as `data.image` (`400` for an id the node hasn't, or with another kind; see [Tutor chat](#tutor-chat), "Photos") |
+| `PUT` | `/chat/images/:id` | a chat photo's bytes (JPEG, PNG or WebP by its content, at most 8 MB; `413` beyond, `415` for anything else), its id the message's client id → `{id, width, height, bytes, type, file}`; kept as `<data>/app/chat-images/<YYYY-MM>/<id>.<ext>` without its metadata; the same id again → its first answer and `existing: true` (see [Tutor chat](#tutor-chat), "Photos") |
+| `GET` | `/chat/images/:id` | the photo's bytes (its type, `cache-control: private, immutable`); `404` when the node hasn't it |
+| `DELETE` | `/chat/images/:id` | deletes it → `{id, deleted}` (`false` when there was none) |
 | `GET` | `/events` | SSE stream: `reply`, `module_published`, `pack_published`, `grammar_published` (`{id, title, emoji, extended, note}`), `scenario_published`, `scene_published`, `scene_removed`, `variant_published` and `variant_removed` (a happening's dialog the tutor wrote or took back, `{scene, happening, id, title, emoji, note}`: the app reloads the scene, news only with a note), `villager_published`, `villager_removed`, `permission_request`, `app_update`, `partner_challenge`, `voice_updated`, `words_added`, `lexicon_updated`, `reading_published` (`{id, title, level, note}`) and `reading_removed` (`{id}`), `worksheet_published` (the tutor's homework for a unit of the course, `{unit, id, title, note}`, the title as "target · base") and `worksheet_removed` (`{unit, id}`), `town_guest` (a guest from a linked town brought help, a gift, a trade or help against trouble, or a move changed: `{key, kind, from, learner}`, kind `help`, `gift`, `trade`, `aid`, `move`), `town_question` and `town_answer` (a guest's question to the learner, the answer to the learner's: `{key, from, learner, text}`). Resume with `Last-Event-ID`. |
 | `POST` | `/permission` | `{request_id, behavior: allow\|deny}` → answers a tool approval prompt |
 | `POST` | `/reviews` | `{results: [{item_id, quality 0-5}], duration_minutes, language?, forms?, dialog?, answers?, from?, answered_at?, counting?}` → persisted via `update-db.py` (no LLM), Claude gets a `review_done` summary. `counting`: how its counting cards went, step by step: each wrong step a mistake of its kind (see [Counting cards](#counting-cards)). `answers`, `from`, `answered_at`: what each card was answered with, where in the app and when, for the log of [recent answers](#tutor-chat) (read leniently: never a reason to refuse a review; an older bridge drops them). `language`: another language's deck (a code, e.g. `it`: practised on visits), the home language's by default. `forms`: the cards that asked a form of their word, `[{item_id, key, page, right, answer?, expected?}]` (see [Word forms](#word-forms)): the summary names the wrong ones, nothing else is written; an older bridge drops it. `dialog`: the learner's words a dialog's turns tested ([GAME.md](GAME.md#your-words-in-the-dialogs)), `{scene?, happening?, dialog?, person?, title?, words: [{item_id, word, lemma?, right, how: meaning\|form, review?, said?, expected?}]}`, its reviews in `results` (quality 4 chosen or tapped, 5 typed or said; `results` may be empty then): the bridge keeps a review only of a card within its window and not reviewed today (`skipped` says the others), lowers gently each card got wrong about its meaning, once a day (`lowered`), leaves a form slip alone, and the tutor gets a `dialog_words` line instead; an older bridge drops `dialog` and takes `results` as a review's |
@@ -942,13 +945,62 @@ Closed without a message, the chat lets the screen's attachment go, so the chat 
 (`ChatController.openFrom`); "Ask"'s stays as before. A sheet's "💬 Vprašaj učitelja" at a school sheet's end attaches
 the unit with that sheet (`about_course`).
 
+**Photos.** "📷" by the input ("Dodaj fotografijo · Add a photo") opens a menu: "📸 Fotografiraj · Take a photo" or
+"🖼️ Iz galerije · From the gallery". For a sign, a menu, a letter or a textbook page ("what does it say, explain the
+grammar"), a handwritten worksheet ("check my answers"), a thing at home ("what's this in Slovene?").
+
+- **Taking one:** the back camera full screen (CameraX, as the QR scanner), asked for only now, as the scanner does
+  (refused: why, and "Dovoli kamero" or the settings); the shutter "📸". **Picking one:** Android's photo picker, which
+  needs no storage permission: the app sees only the photo picked.
+- **Before it goes** (`data/ChatPhotos.kt` `PhotoPrep`, on the phone): turned upright by its EXIF orientation, scaled to
+  a long side of 1,568 px (a smaller one keeps its size), JPEG at quality 80, and **without any metadata**: no place,
+  no time, no camera, no device. The bitmap is encoded afresh (Android writes none of the old metadata), and
+  `data/Jpeg.kt` takes out any APP1–APP15 segment and comment left (a colour profile stays). A transparent picture goes
+  on white. A file over 48 MB, or one Android can't decode, says "📷 Te fotografije ne morem odpreti".
+- **Above the input:** its thumbnail and "📷 Gre s sporočilom · Goes with your message", ✕ ("Odstrani fotografijo")
+  lets it go (off the phone). It goes with the text, if any; a photo alone is a message too. The photo being made ready
+  ("Pripravljam fotografijo …") holds the message back.
+- **In the chat:** the bubble shows the thumbnail at its proportions (at most 240 dp wide), the text under it. A tap
+  opens it full screen, on black: two fingers zoom (up to 6×) and move it, a double tap zooms in or back, ✕ or back
+  closes it. The long press's menu is the other bubbles' (bookmark, note, reply, copy and share the text when there is
+  one) and "🗑️ Izbriši fotografijo · Delete photo": asked first ("Izgine s telefona in z vozlišča. Učitelj jo je morda
+  že videl."), the photo leaves the phone and the node (`DELETE /chat/images/<id>` through the outbox), and the bubble
+  says "📷 Fotografija izbrisana"; the message and its text stay. TalkBack reads the thumbnail as "Fotografija · Photo"
+  and offers to open it; the button, the shutter and the ✕ have their labels.
+- **Sent:** one outbox entry (`Writes.chatPhoto`): the photo first, `PUT /chat/images/<id>` with the message's client id,
+  then the message with `image: {id}`. Offline it waits in the outbox with its photo (the entry names the phone's file)
+  and goes when the node is back; a retry sends both again, and the node keeps the photo once. A node from before photos
+  (404; `GET /state`'s `features` without `"chat-images"`, which also hides 📷) and a photo deleted before it went get
+  the text alone, with a line for the tutor that a photo didn't come.
+- **On the node** (`bridge/src/chat-images.ts`): `<data>/app/chat-images/<YYYY-MM>/<id>.jpg` (the node's month at the
+  upload; the folders 0700, the file 0600, written whole), only a JPEG, PNG or WebP by its bytes, at most 8 MB, its
+  metadata stripped once more (a second net). The tutor's chat event carries `data.image: {path, width, height, bytes,
+  type}` (the absolute path; an `image` the app puts in `data` itself is dropped), and a reply to a photo message its
+  photo the same way (`reply_to.photo`, or `{id, gone: true}` once deleted). The guide (`bridge/src/features/chat.ts`)
+  tells the tutor to open the path with its Read tool and answer about it: transcribe the Slovene, explain words and
+  grammar at the learner's level, check handwritten answers kindly, name a thing; to offer a word pack (`publish_pack`)
+  or a card of its words; and never to copy, send or publish the photo anywhere. The node keeps a year of them, as the
+  phone keeps its chat: an older month's folder goes at the bridge's start and with each new photo. Never committed:
+  the data repository's `.gitignore` keeps `/app/chat-images/` out (`lani_data_repo.py` writes the line and each commit
+  adds it back, `PRIVATE`; the bridge appends it at its start to a `.gitignore` without it).
+- **On the phone:** `files/chat-photos/<id>.jpg`, the app's private files (never the share sheet's), the message keeping
+  its reference (`ChatMessage.photo`: id, size, deleted). A photo no message keeps any more (a draft left when the app
+  closed, a month the chat let go after its year) leaves the phone when the chat loads, once it is a day old; a draft's
+  ✕ deletes it at once. A message whose photo the phone hasn't (its files
+  cleared) shows the node's copy (`GET /chat/images/<id>`), kept from then on.
+- **The shadow tutor** sends a chat's photo to the Messages API as an image block (base64 JPEG) before the event's text,
+  from the phone's copy, metered as any call; a call's record counts the images it carried (`images`), and its export
+  (the share sheet's file and the node's copy) has a note of the size in the photo's place, never the photo.
+
 **Where it is kept.** Only on the phone, in the app's private files. `files/chat/<yyyy-MM>.json` holds a month (by
 the messages' time in UTC): each message with its time, its bookmark and note, the message it quotes and the data it was
-sent with. A change rewrites only its message's month. `files/chat.json` is the conversation kept before the archive
+sent with, and its photo's id and size (the photo itself in `files/chat-photos/`, see "Photos"). A change rewrites only
+its message's month. `files/chat.json` is the conversation kept before the archive
 (its last 100 messages, without times): read as it is, and written again only for a bookmark on one of its messages. The
 chat keeps a year: when it loads, older months are deleted, except their bookmarked messages. The node keeps no chat
 history (the event stream replays only its last 200 events), so neither the history nor the bookmarks sync: they
-survive app updates, but not clearing the app's data or a reinstall (`android:allowBackup="false"`).
+survive app updates, but not clearing the app's data or a reinstall (`android:allowBackup="false"`). Only the photos
+are on the node too (a year), for a message whose photo the phone lost.
 
 **Recent answers.** "Ask" on an exercise's feedback sends the tutor the exercise with Jan's answer (`about_exercise`).
 A card reported later in a plain message ("kurim was marked wrong") came without it, and the app kept no answers, so the
@@ -3141,6 +3193,7 @@ companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, fr
 companion/bin/qa --steps chat-swipe              # a tutor message swiped: the reply card, bookmarked, taken away and undone; the list still scrolls; copy, share
 companion/bin/qa --steps chat-links              # a tutor message's links: example.com and http ask first, fran.si opens the browser at once
 companion/bin/qa --steps chat-attach             # 💬 in an exercise's top bar: the exercise attached, ✕, the answer with it; chat-attach-pack: a pack's word
+companion/bin/qa --steps chat-photo              # a photo (GPS EXIF) from the gallery and one from the camera: the node keeps them upright, 1568 px, without EXIF; full screen, deleted
 companion/bin/qa --steps village-hud             # the village's HUD: its bar and cards, the ring, each card's sheet, German, the plot chooser's ★
 companion/bin/qa --steps scroll                  # the village's scroll: its count, the grid, each collection, a grammar page, the count cleared, German
 companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
@@ -3316,6 +3369,35 @@ taps 💬 in its top bar: the chip "📎 …" above the input before the answer 
 again; answered, 💬 again: the chip with "→" and the answer. `--steps chat-attach-pack` opens an unfinished pack's
 first word and checks "📎 <word> = <meaning>". Screenshots: `chat-attach-open`, `chat-attach-removed`,
 `chat-attach-answered`, `chat-attach-pack`.
+
+**Photos in the chat** ("Tutor chat", "Photos"). `data/JpegTest` checks the JPEG's segments: a camera's EXIF (GPS,
+make, model, orientation 6) and a comment named and taken out, the rest byte for byte, a colour profile kept, a cut-off
+or other file left alone; `data/PhotoPrepTest` (Robolectric's native graphics: Android's real decoder and encoder)
+the size (1,568 px on the long side, a smaller one as it is), a camera's 2000×1000 JPEG with GPS EXIF and orientation 6
+coming out 784×1568, upright (what was left is on top) and without EXIF, place, make, model or comment (also as
+`ExifInterface` reads it), a transparent PNG on white, the 48 MB cap while reading; `data/OutboxPhotoTest` the outbox:
+one entry under the photo's id, the photo PUT before the message (its bytes as on the phone), offline through a
+restart and sent once the node is back, a retry sending both again under the same id, an older node (404) and a photo
+deleted before it went getting the text alone with the tutor's line, 413/415 refusing the write, 5xx retrying, the
+DELETE; `app/ChatPhotoTest` the controller: a photo made ready (upright, no EXIF) and above the input, ✕, a photo alone
+a message waiting in the outbox with it, with text and quoted by a reply (`reply_to.photo`), held back while being made
+ready, what isn't a photo, deleted (marked, off the phone, the DELETE queued), the sweep, the thumbnail; the shadow's
+`tutor/ShadowTutorTest` the image block before the event (its base64 the phone's file), the call's `images`, the export
+without it, and a photo no longer on the phone. The bridge's smoke (`test/smoke/chat-images.ts`) checks the routes: the
+tokens (none 401, the family's 403), 8 MB (413), a non-image (415), a JPEG with GPS EXIF kept without it, its size,
+0600 and 0700 under `app/chat-images/<YYYY-MM>/`, the repeat (`existing`), GET and DELETE, `/message` with `image` (the
+tutor's `data.image`), an unknown id and another kind (400), a quoted photo, an `image` the app put in `data` dropped,
+PNG and WebP metadata, the `.gitignore` line at the start (once) and in lani-setup's template, an old month pruned;
+`tests/test_data_repo.py` that no commit takes a photo, also in a repository from before the line. On the emulator,
+`companion/bin/qa --steps chat-photo` makes a shop's sign as a phone takes it (its pixels on their side, EXIF
+orientation 6, a make, a model and a place), puts it in the emulator's gallery (`content call … scan_file`), picks it
+in the system's photo picker, sends it with a line of text and checks the thumbnail (upright), the dev tutor's answer,
+the dev bridge's copy (`app/chat-images/<YYYY-MM>/`, 0700 and 0600, 1568 px landscape, no EXIF, make or model), the
+chat event's `image` in `bridge.log` (the dev tutor logs it), the photo full screen and zoomed by a double tap, its
+deletion from the long press (gone on the node); then the camera, allowed when asked, the virtual scene taken and sent
+alone; the gallery's photo is taken away again. Screenshots: `chat-photo-menu`, `chat-photo-draft`, `chat-photo-sent`,
+`chat-photo-full`, `chat-photo-zoomed`, `chat-photo-menu-long`, `chat-photo-delete-ask`, `chat-photo-deleted`,
+`chat-photo-camera`, `chat-photo-taken`, `chat-photo-camera-sent`.
 
 **QA of the trade** (`--steps trade`, after the gathering runs; GAME.md, "Trading"). From the village (on its own, it
 goes in from Home), food's sheet leads to "⇄ Zamenjaj · Trade"; the trade's sheet gets wood (its lower chip: the

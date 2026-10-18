@@ -13,6 +13,8 @@ Console API key. Claude Code sends the session's conversation to Anthropic to ge
 - what comes from the app: chat messages, answers to exercises, finished sessions and reviews (a summary, with the
   answers typed wrong), role-play turns, words the learner adds, a question the learner asks about an exercise, and the
   recent answers the tutor looks up (`recent_answers`) when the learner reports a card;
+- photos sent in the chat (📷): the tutor opens the node's copy with its Read tool, so the picture goes to Anthropic as
+  chat text does (see "Photos in the chat" below);
 - what the tutor reads to answer: the learner's databases (through `read-db.py`), the session results, the curated
   content, the files of this checkout it opens;
 - texts from other people, when you use those features: the partner's challenges on the family page, and questions,
@@ -75,6 +77,29 @@ this machine.
 - **The app:** it talks to your bridge only. It updates itself from your bridge, and you download it once (GitHub
   Releases, or your own build).
 
+## Photos in the chat
+
+A photo the learner takes or picks in the chat (📷) is made ready on the phone before it goes anywhere: turned
+upright, scaled to 1,568 px on its long side, and encoded afresh **without any metadata**: no place (GPS), no time, no
+camera or phone model. It goes to the learner's own node only (the app's token; the family page and linked towns can't
+reach it), which strips any metadata left once more and keeps it in `app/chat-images/<YYYY-MM>/` (readable by this user
+only). From there it goes to Anthropic through the tutor, as chat text does, when the tutor opens it to answer. The
+tutor's guide says never to copy, send or publish it anywhere else: a word pack or a card it makes gets the photo's
+words, never the photo.
+
+- **Never in git:** the data repository's `.gitignore` keeps `/app/chat-images/` out; each commit adds the line back if
+  it is missing, and the bridge adds it at its start to a `.gitignore` without it. So it is never pushed to a remote.
+- **Never to towns or the family page:** neither can read the photos, and nothing about them is in what towns see.
+- **How long:** the phone keeps a photo while its message is kept (the chat keeps a year, and bookmarked messages); the
+  node keeps a year of photos, by the month they came. `lani-backup` snapshots of the data (on this machine) include
+  them.
+- **Deleting one:** a long press on the photo, "🗑️ Izbriši fotografijo · Delete photo", deletes the phone's copy and the
+  node's (also later, through the outbox, when the phone is offline). A backup snapshot made before keeps its copy until
+  the snapshot goes, and what the tutor already saw of it is in the tutor's conversation.
+- **The shadow tutor** (a developer setting, with the learner's own API key) sends a chat's photo to the Messages API
+  too, as an image block; its export and the copy it leaves on the node have a note in the photo's place, never the
+  photo.
+
 ## What stays on the machine
 
 The learner's data, the tokens and the bridge's key, the voice clips (and the offline voice, `~/.cache/lani/piper`), the backups (`~/.local/share/lani/backups`), the
@@ -82,4 +107,5 @@ logs (`~/.local/state/lani`) and `keys.env`. `lani-backup` snapshots stay on the
 learner's recent answers (`app/answers.json`: what they typed or said in the last 7 days, at most 500 answers) stay
 too: a data repository never commits them, so they are never pushed (each commit keeps them out, also in a repository
 set up before they were kept). So does the developer's data from the app (`app/dev/`, only while the app's developer
-setting is on: the shadow tutor's exports and the app's log, cleaned of tokens and keys; kept 30 days).
+setting is on: the shadow tutor's exports and the app's log, cleaned of tokens and keys; kept 30 days), and the
+chat's photos (`app/chat-images/`, a year), but for the tutor reading them (above).
