@@ -606,6 +606,87 @@ class ShadowTutorTest {
         assertEquals(mapOf(Task.ROUTINE to "medium", Task.CONTENT to "max"), again.settings.efforts)
     }
 
+    private fun minutes(n: Long) { now += n * 60_000 }
+
+    /** The text of a request's last user message with new input (not tool results). */
+    private fun turnText(s: Sent): String = s.messages.last { m -> m.role() == "user" && m.blocks().none { it.str("type") == "tool_result" } }.toString()
+
+    @Test fun `what the learner was shown in reply goes into the day's thread before their next event, once, cut short`() = runBlocking {
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitIdle()
+        minutes(1)
+        val long = "The -o rule (-gO): masculine nouns ending in -o take -a in the genitive. " + "x".repeat(3_000)
+        t.onRealReply("main", long, null).join()
+        t.onRealReply("rp-1", "A villager's line in a role-play", null).join()
+        minutes(1)
+        t.onDelivered("c2", "/message", chat("c2", "Kaj pa -gO?")).join()
+        t.awaitIdle()
+
+        val first = posts().first()
+        assertFalse(first.toString().contains("What the learner was shown"))
+        val second = posts().first { turnText(it).contains("Kaj pa -gO?") }
+        val text = turnText(second)
+        assertTrue(text, text.contains(TurnText.SHOWN.take(40)) && text.contains("The -o rule (-gO)") && text.contains("in_reply_to=\\\"ev_c1\\\""))
+        // before the event, in the same message; cut at 1,500 characters; a role-play's line never
+        assertTrue(text.indexOf("The -o rule") < text.indexOf("Kaj pa -gO?"))
+        assertFalse(text.contains("x".repeat(1_501)))
+        assertFalse(text.contains("villager's line"))
+        // append-only: the history before it as sent before
+        assertEquals(first.messages.take(1), second.messages.take(1))
+
+        // once: the next turn doesn't repeat it
+        minutes(1)
+        t.onDelivered("c3", "/message", chat("c3", "Hvala")).join()
+        t.awaitIdle()
+        assertFalse(turnText(posts().first { turnText(it).contains("Hvala") }).contains("The -o rule"))
+        assertTrue(t.thread!!.shownUntil > 0)
+    }
+
+    @Test fun `a stateless turn gets the day's real replies before its event, never the real answer to its own`() = runBlocking {
+        val t = ready()
+        t.onDelivered("c1", "/message", chat("c1", "Prvo vprašanje")).join()
+        t.awaitIdle()
+        minutes(1)
+        t.onRealReply("main", "REAL-ONE: odgovor na prvo", null).join()
+        minutes(1)
+        t.onDelivered("c2", "/message", chat("c2", "Drugo vprašanje")).join()
+        t.awaitIdle()
+        minutes(1)
+        t.onRealReply("main", "REAL-TWO: odgovor na drugo", null).join()
+        assertEquals(listOf("ev_c1", "ev_c2"), t.today.real.map { it.eventId })
+
+        val before = posts().size
+        t.alsoRun("ev_c2", "claude-haiku-5-5", "high").join()
+        t.awaitIdle()
+        val also = posts().drop(before).first()
+        val text = turnText(also)
+        assertTrue(text, text.contains(TurnText.SHOWN_TODAY.take(40)) && text.contains("REAL-ONE") && text.indexOf("Today so far") < text.indexOf("REAL-ONE"))
+        assertFalse(text.contains("REAL-TWO"))
+
+        // a digest after both: both, as what the learner saw before it
+        minutes(1)
+        t.onDelivered("r1", "/reviews", review("r1", 1)).join()
+        t.onChatOpened().join()
+        t.awaitIdle()
+        val digest = turnText(posts().last { it.body["model"]!!.jsonPrimitive.content == "claude-haiku-5-5" && turnText(it).contains("<digest") })
+        assertTrue(digest.contains("REAL-ONE") && digest.contains("REAL-TWO"))
+    }
+
+    @Test fun `a restarted thread carries what the learner was shown in its last exchanges`() = runBlocking {
+        val t = ready()
+        t.update { it.copy(threadLimit = 3_000) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Živjo!")).join()
+        t.awaitIdle()
+        minutes(1)
+        t.onRealReply("main", "REAL: živjo, Jan", null).join()
+        minutes(1)
+        t.onDelivered("c2", "/message", chat("c2", "Kaj pa peč?")).join()
+        t.awaitIdle()
+        val first = t.thread!!.messages.first().toString()
+        assertTrue(first, first.contains("the learner was shown (another tutor answered): REAL: živjo, Jan"))
+    }
+
     /** The scripted tutor: guide + learner_state first, then a reply, then done; a closing writes the notebook. */
     private fun tutorTurn(body: JsonObject, n: Int): AssistantMessage {
         val messages = body["messages"]!!.jsonArray.map { it.jsonObject }

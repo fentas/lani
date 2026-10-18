@@ -237,6 +237,11 @@ data class ThreadState(
      * another level changes it by an effort message ([Effort.append]). Null: a thread from before efforts were settings.
      */
     val effort: String? = null,
+    /**
+     * When the last of the real tutor's replies put in it came ([TurnText.shown]: what the learner was shown): a turn adds
+     * those after it, in its own user message (append-only). 0: none yet.
+     */
+    val shownUntil: Long = 0,
 ) {
     /** The top-level effort its requests send: [effort]; a thread from before ran at `medium`; none on a model without effort. */
     val topEffort: String? get() = effort ?: Effort.MEDIUM.takeIf { ModelCatalog.adaptive(model) }

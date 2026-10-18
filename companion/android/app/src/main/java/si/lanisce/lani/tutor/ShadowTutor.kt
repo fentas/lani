@@ -507,7 +507,13 @@ class ShadowTutor(
                 store.turnMessages(t.id) ?: listOf(
                     buildJsonObject {
                         put("role", "user")
-                        val texts = listOf(TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)), TurnText.now(now(), zone(), where()))
+                        // what the learner was shown before the turn's events (never the real answer to them)
+                        val cutoff = events.minOfOrNull { it.at } ?: now()
+                        val shown = shownBetween(ShadowStore.dayOf(cutoff, zone()), 0, cutoff, t.eventIds, max = 3)
+                        val texts = listOf(
+                            TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)),
+                            TurnText.shown(shown, zone(), TurnText.SHOWN_TODAY), TurnText.now(now(), zone(), where()),
+                        )
                         put("content", JsonArray(texts.filter { it.isNotEmpty() }.map(::textBlock) + imageBlocks(t, events) + textBlock(content(t, events))))
                     },
                 )
@@ -527,15 +533,21 @@ class ShadowTutor(
             }
             if (appendEvent) {
                 val fresh = cur.messages.isEmpty()
+                // the real tutor's replies since the thread's last: what the learner saw, which their event answers
+                val shown = shownBetween(cur.day, cur.shownUntil, events.minOfOrNull { it.at } ?: now(), t.eventIds)
                 val blocks = buildList {
                     if (fresh) add(textBlock(TurnText.notebook(nb)))
                     if (fresh) TurnText.lines("Yesterday in brief:", cur.yesterday.takeLast(12)).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
                     TurnText.lines("Meanwhile (other models' replies, not in this thread):", cur.pending).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
+                    TurnText.shown(shown, zone()).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
                     add(textBlock(TurnText.now(now(), zone(), where())))
                     addAll(imageBlocks(t, events))
                     add(textBlock(content(t, events)))
                 }
-                cur = cur.copy(messages = Effort.append(cur.messages, blocks, cur.topEffort, onThread(cur, want)), pending = emptyList())
+                cur = cur.copy(
+                    messages = Effort.append(cur.messages, blocks, cur.topEffort, onThread(cur, want)), pending = emptyList(),
+                    shownUntil = maxOf(cur.shownUntil, shown.maxOfOrNull { it.reply.at } ?: 0),
+                )
             }
             top = cur.topEffort
             th = cur
@@ -639,9 +651,13 @@ class ShadowTutor(
         return ThreadState(
             day = th.day, model = th.model, messages = listOf(buildJsonObject { put("role", "user"); put("content", JsonArray(first)) }),
             restarts = th.restarts + th.tokens, startedAt = now(), lines = th.lines, yesterday = th.yesterday, prefix = prefix.hash,
-            effort = th.topEffort,
+            effort = th.topEffort, shownUntil = th.shownUntil,
         )
     }
+
+    /** The real tutor's replies of [day] the learner saw between [after] and [before], not to [own] ([TurnText.shownOf]). */
+    private fun shownBetween(day: String, after: Long, before: Long, own: Collection<String>, max: Int = 5): List<RealReply> =
+        TurnText.shownOf(log(day).real, after, before, own, max)
 
     /**
      * The call's record; a call that answered keeps its usage as the API sent it when it is its thread's first or the
@@ -748,12 +764,19 @@ class ShadowTutor(
         line("turn ${t.id} ${t.eventKind} on ${t.model}${t.effort?.let { " $it" } ?: ""}: $status${if (t.replyFromText) " (reply as text)" else ""}${t.error?.let { " ($it)" } ?: ""}")
     }
 
-    /** The day's last two or three exchanges, as text (a restart's first message: plan 5, "Compaction: our own"). */
-    private fun lastExchanges(): List<String> =
-        log(dayNow()).turns.filter { it.kind == TurnKind.DAY && it.status == TurnStatus.DONE }.takeLast(3).map { t ->
+    /**
+     * The day's last two or three exchanges, as text (a restart's first message: plan 5, "Compaction: our own"), with
+     * what the learner was shown in reply (the real tutor's).
+     */
+    private fun lastExchanges(): List<String> {
+        val l = log(dayNow())
+        return l.turns.filter { it.kind == TurnKind.DAY && it.status == TurnStatus.DONE }.takeLast(3).map { t ->
             val e = t.eventIds.firstOrNull()?.let(::findEvent)
-            "${t.eventKind}: ${e?.text?.take(400).orEmpty()} → you replied: ${t.replies.joinToString(" / ") { it.text.take(600) }.ifBlank { "(nothing)" }}"
+            val shown = l.real.filter { it.eventId != null && it.eventId in t.eventIds }.joinToString(" / ") { it.reply.text.take(600) }
+            "${t.eventKind}: ${e?.text?.take(400).orEmpty()} → you replied: ${t.replies.joinToString(" / ") { it.text.take(600) }.ifBlank { "(nothing)" }}" +
+                (if (shown.isNotBlank()) " → the learner was shown (another tutor answered): $shown" else "")
         }
+    }
 
     // --- the panel's numbers and the export -----------------------------------------------------------------------
 

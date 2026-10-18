@@ -122,6 +122,42 @@ object TurnText {
 
     fun lines(title: String, lines: List<String>): String = if (lines.isEmpty()) "" else "$title\n" + lines.joinToString("\n") { "- $it" }
 
+    /** [shown]'s title on the day's thread: the replies since its last turn. */
+    const val SHOWN = "What the learner was shown in reply (another tutor answered this time). Their next messages answer this: " +
+        "take it as what they saw, and don't mention it or the other tutor to them."
+
+    /** [shown]'s title in a stateless turn, next to "Today so far". */
+    const val SHOWN_TODAY = "What the learner was shown in reply today (another tutor answered). Their messages answer this: " +
+        "take it as what they saw, and don't mention it or the other tutor to them."
+
+    /** A reply in [shown] is cut here. */
+    const val SHOWN_MAX = 1_500
+
+    /**
+     * Of [real] (a day's real replies), those the learner saw after [after] and before [before] (what their next event
+     * answers), the newest [max]: never one to [own] (the turn's own events: a turn doesn't see the real answer to what it
+     * answers), nor a role-play's lines (rp-…, recorded only).
+     */
+    fun shownOf(real: List<RealReply>, after: Long, before: Long, own: Collection<String>, max: Int = 5): List<RealReply> =
+        real.filter { r ->
+            r.reply.at > after && r.reply.at < before && r.eventId !in own && !r.reply.conversationId.startsWith("rp-") && r.reply.text.isNotBlank()
+        }.sortedBy { it.reply.at }.takeLast(max)
+
+    /**
+     * What the learner was actually shown: the real tutor's [replies] (the shadow's own never reach them), each in a
+     * `<shown>` block with its time, conversation and the event it answers, cut at [SHOWN_MAX]. Empty without any.
+     */
+    fun shown(replies: List<RealReply>, zone: ZoneId, title: String = SHOWN): String = if (replies.isEmpty()) "" else buildString {
+        append(title)
+        for (r in replies) {
+            val at = Instant.ofEpochMilli(r.reply.at).atZone(zone).toLocalTime().withSecond(0).withNano(0)
+            append("\n<shown at=\"$at\" conversation_id=\"${r.reply.conversationId}\"")
+            r.eventId?.let { append(" in_reply_to=\"$it\"") }
+            val text = r.reply.text.trim()
+            append(">\n").append(if (text.length > SHOWN_MAX) text.take(SHOWN_MAX).trimEnd() + " …" else text).append("\n</shown>")
+        }
+    }
+
     /** The closing call's message: the notebook rewritten (at the day's end, or before the thread restarts). */
     fun closing(why: String): String =
         "[notebook_write] $why. Rewrite the notebook now with notebook_write: what you know about the learner (goals, level, " +
