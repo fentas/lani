@@ -799,12 +799,14 @@ newcomer|birth}`) tells the tutor someone moved in, so they can give them lines 
 
 ### Bridge code
 
-`bridge/src/bridge.ts` only wires the parts. Each feature in `bridge/src/features/` (chat, modules, grammar,
+`bridge/src/build.ts` builds the bridge (the shared stores, the features, the guide, the tools) on a platform: a
+node's (`bridge.ts`: its config, its MCP channel, its voices) or the phone's (`src/phone/entry.ts`: the bridge in the
+app, below); `bridge/src/bridge.ts` only wires the node's parts. Each feature in `bridge/src/features/` (chat, modules, grammar,
 rhythm, game, packs, lexicon, scenarios, scenes, stories, readings, villagers, culture, family, voice, stt, reviews, level, events, releases,
 pairing, towns) exports
 `(ctx: Ctx) => Feature`: its HTTP routes (method, path, and who may call it: `public`, `any` token
 or `app` only, the default), its MCP tools and its paragraph of the channel guide. To add a
-feature, write the module and add it to the `features` list in `bridge.ts`. `bridge/src/index.ts` is what `.mcp.json`
+feature, write the module and add it to the `FEATURES` list in `build.ts`. `bridge/src/index.ts` is what `.mcp.json`
 starts: the bridge (classic), or the shim (`shim.ts`) when `LANI_BRIDGE_SHIM=1`. `service.ts` starts the bridge as a
 service (`bridge-service.ts`: the app's API, the control socket, the status, the stop), and `control.ts` is what the
 service and the shim share: the socket's place, MCP over it, the hellos. The shim, `control.ts` and `index.ts` reach a
@@ -812,7 +814,8 @@ running tutor only when it restarts: keep them small. Claude Code keeps only the
 first 2048 characters of a server's instructions, so the instructions are just the rules that must
 never be lost (answer with the `reply` tool; a child's rules), and the whole guide comes from the
 `channel_guide` tool, which the tutor calls before its first reply and again after compaction. The shared parts are
-`http.ts` (route table, tokens), `channel.ts` (MCP server, tool registry), `events.ts` (SSE),
+`http.ts` (route table, tokens), `channel.ts` (MCP server), `tool.ts` (the tools' shapes, `ok`/`fail`, what an event
+into the session looks like: the phone's channel shares it), `events.ts` (SSE),
 `outbox.ts` (client_id dedupe), `learner.ts` (`read-db.py`, `update-db.py`), `db/` (the TypeScript twin of the
 learner-data scripts, for a bridge without Python: `run(script, argv, stdin, env)`,
 [docs/plans/05-built/db-port.md](../docs/plans/05-built/db-port.md)), `learners.ts` (profiles and
@@ -839,6 +842,14 @@ to + 10). Where pairing lets `lani-profile add` pick a port, it looks from `LANI
 section runs bridge services (`test/fixtures/service-probe.ts`, with probe tools) and their shims under a scripted
 Claude Code: the channel both ways, a restart mid-way with the reconnect and `list_changed`, a call during an outage,
 the queue, a child's service beside it, and `lani-bridge`'s loop and CLI (without tmux).
+
+**The bridge in the app** ([docs/plans/05-built/phone-runtime.md](../docs/plans/05-built/phone-runtime.md)): the same
+bridge in QuickJS inside the app, for the hosted mode. `bridge/src/phone/` is its entry, its channel (the in-app
+tutor) and its voices (none); `bridge/phone/build.ts` bundles it (`bun phone/build.ts`: `phone/dist/bridge-phone.js`),
+node's built-ins replaced by the shims in `bridge/phone/shims/` over the app's host functions. A module the phone
+shares must not import what it hasn't (`node:net`, the MCP SDK, a `bun:` module other than sqlite): the build fails then, and the
+smoke's `phone` section with it. The app builds the bundle itself (Gradle's `phoneBridgeBundle`), so it needs bun
+(below).
 
 Try it without the app:
 
@@ -3270,6 +3281,12 @@ JAVA_HOME=$(mise where java@temurin-21) ./gradlew :app:assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
+A Gradle build also needs [bun](https://bun.sh) 1.3.13 (the `bun` on the PATH, else `LANI_BUN` or `-Plani.bun`): the
+bridge in the app (`app/build.gradle.kts` `phoneBridgeBundle`) is the bridge's TypeScript bundled at build time, not
+kept in the repository; the task installs the bridge's packages first when they aren't there. The build image has it.
+With it go the curated content the bridge reads (`phoneProject`: the culture packs, modules, packs, dictionary …, 4.1
+MB compressed) and QuickJS's library (0.45 MB a processor type).
+
 **The processors.** The release APK runs on 64-bit ARM phones (`arm64-v8a`) only: the offline voice's runtime
 (sherpa-onnx, about 24 MB a processor type) would make it several times larger for all four. The debug build adds
 `x86_64`, for the emulator. The native libraries are compressed in the APK (`useLegacyPackaging`), so an update
@@ -3307,8 +3324,8 @@ companion/bin/release-app --docker "notes"            # build in Docker and publ
 ```
 
 The image (`companion/android/docker/Dockerfile`, about 1 GB) has Temurin JDK 21.0.11, the Android SDK command-line
-tools 20.0, platform `android-36`, build tools 36.0.0 and the platform tools; the base image is pinned by its digest and
-the command-line tools by their SHA-256. `lani-build-app` builds it on first use and again when the Dockerfile changes,
+tools 20.0, platform `android-36`, build tools 36.0.0, the platform tools and bun 1.3.13 (the phone bridge's bundle);
+the base image is pinned by its digest, the command-line tools and bun by their SHA-256. `lani-build-app` builds it on first use and again when the Dockerfile changes,
 as `lani-android-build:local`. The build runs as you, so its files are yours, with:
 
 - the repository mounted at the same path, and a worktree's git directory with it (the version is the commit count);
@@ -3420,6 +3437,8 @@ cd companion/bridge && bun test/smoke.ts
 cd companion/bridge && bun test/relay.ts         # the relay end to end: three towns' bridges through it (LANI_RELAY_SMOKE_PORT, default 18870 and the next three)
 cd companion/relay && bun test                   # the relay's unit tests
 cd companion/android && ./gradlew :app:testDebugUnitTest
+cd companion/android && ./gradlew :app:testDebugUnitTest --tests 'si.lanisce.lani.phone.*'   # the bridge in QuickJS, and against a node's (port 19110)
+adb shell am broadcast -n si.lanisce.lani/.phone.PhoneBridgeProbe   # the bridge in the app timed on a device (debug, qa); adb logcat -s PhoneBridgeProbe
 companion/bin/lani-build-app -- :app:testDebugUnitTest   # the same without a JDK, in Docker
 python3 -m unittest discover companion/tests     # backups, the Whisper worker (models faked)
 python3 tests/test_update_db.py                  # update-db.py
