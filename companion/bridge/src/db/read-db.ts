@@ -1,7 +1,10 @@
 // .claude/hooks/read-db.py: the six databases of the home language (or of --language), the computed fields and every
 // language's summary, as one JSON object on stdout. Exit 0, 1 (files missing), 2 (--language isn't a language, or its
 // data can't be read). Another language whose data can't be read is left out of the summaries, with a warning.
-import { FILE, homeLanguage, languageCode, languageDir, languageName, listed, freshDatabases, loadJsonFile, migrateQuietly, otherCodes, summary } from './languages'
+import {
+  FILE, homeLanguage, languageCode, languageDir, languageName, listed, freshDatabases, loadJsonFile, migrateQuietly, normDate,
+  otherCodes, summary,
+} from './languages'
 import { backupsDir, dataDir } from './paths'
 import { Parser } from './pyargparse'
 import { dumpIndented } from './pyjson'
@@ -86,12 +89,12 @@ function computed(databases: PyDict, now: DateTime, code: string | null): PyDict
   const yesterday = fmtDate(plusDays(now, -1))
   const sr = databases.get('spaced_repetition', new PyDict())
   const its = get(sr, 'items', new PyDict())
-  const due = items(its).filter(([, item]) => le(get(item, 'due_date', ''), today)).map(([iid]) => iid)
+  const due = items(its).filter(([, item]) => le(normDate(get(item, 'due_date', '')), today)).map(([iid]) => iid)
   const log = databases.get('session_log', new PyDict())
   const sessions = get(log, 'sessions', [])
   const profile = databases.get('learner_profile', new PyDict())
   const lastUpdated = get(profile, 'last_updated', '')
-  const streakActive = eq(lastUpdated, today) || eq(lastUpdated, yesterday)
+  const streakActive = eq(normDate(lastUpdated), today) || eq(normDate(lastUpdated), yesterday)
   let daysSince: Py = null
   try {
     daysSince = truthy(lastUpdated) ? ordinal(now) - ordinal(strptime(lastUpdated)) : null

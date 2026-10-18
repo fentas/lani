@@ -384,6 +384,25 @@ class LanguagesTest(unittest.TestCase):
         # the others as always
         self.assertEqual(self.read("--language", "it")["language"], "it")
 
+    def test_read_db_compares_dates_as_dates(self):
+        """Dates an update-db.py from before dates were zero-padded wrote ("2026-4-23") are compared as dates."""
+        make_fixtures(self.data)
+        profile = self.load("learner-profile.json")
+        profile["last_updated"] = "2026-4-23"
+        (self.data / "learner-profile.json").write_text(json.dumps(profile))
+        sr = self.load("spaced-repetition.json")
+        sr["items"]["vocab_dag"]["due_date"] = "2026-4-9"
+        sr["items"]["vocab_later"] = dict(sr["items"]["vocab_dag"], id="vocab_later", due_date="2026-04-30")
+        (self.data / "spaced-repetition.json").write_text(json.dumps(sr))
+        p = db_impl.run(self.impl, "read-db", cwd=self.tmp, env=dict(script_env(self.data), LANI_NOW="2026-04-24T10:00:00"), root=self.tmp)
+        self.assertEqual(p.returncode, 0, msg=p.stderr)
+        state = json.loads(p.stdout)
+        c = state["computed"]
+        self.assertEqual((c["today"], c["streak_active"], c["days_since_last_session"]), ("2026-04-24", True, 1))
+        self.assertEqual(c["due_review_items"], ["vocab_dag"])
+        self.assertEqual(state["languages"][0]["due"], 1)
+        self.assertEqual(state["databases"]["learner_profile"]["last_updated"], "2026-4-23")  # as it is written
+
     def test_read_db_refuses_what_isnt_a_language(self):
         make_fixtures(self.data)
         p = self.run_script("read-db.py", ("--language", "not a language"))

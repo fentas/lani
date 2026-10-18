@@ -2,7 +2,7 @@
 // read-db.py prints, and the migration of single-language data.
 import {
   excStr, F, float, fmtDate, fmtStamp, get, int, isDict, isExc, isList, isNum, isStr, le, lower, or, PyDict, round,
-  sortedStrs, strip, truthy, unique, type Py,
+  sortedStrs, strip, strptime, truthy, unique, type Py,
 } from './py'
 import { loads, dumpIndented, checkEncodable } from './pyjson'
 import { copy2, exists, globSuffix, isDir, listdir, mkdirp, pjoin, readText, replace, withSuffix, writeText, type Ctx } from './sys'
@@ -42,6 +42,27 @@ export function languageCode(s: Py): string | null {
   if (CODE.test(t)) return t
   for (const [code, name] of Object.entries(LANGUAGES)) if (name.toLowerCase() === t) return code
   return OTHER_NAMES[t] ?? null
+}
+
+// --- dates --------------------------------------------------------------------------------------------------------
+
+const ISO_DATE = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
+
+/** date_of: [v] as YYYY-MM-DD, zero-padded, ASCII digits ("2026-4-24" -> "2026-04-24"); null when strptime refuses it. */
+export function dateOf(v: Py): string | null {
+  if (!isStr(v)) return null
+  try {
+    return fmtDate(strptime(v))
+  } catch (e) {
+    if (isExc(e, 'ValueError')) return null
+    throw e
+  }
+}
+
+/** norm_date: a stored date as the scripts compare it (dateOf when it is a date); anything else as it is. */
+export function normDate(v: Py): Py {
+  if (isStr(v) && ISO_DATE.test(v)) return v
+  return dateOf(v) ?? v
 }
 
 export const languageName = (code: string): string => LANGUAGES[code] ?? code
@@ -183,7 +204,7 @@ export function summary(dbs: PyDict, code: string | null, source: Py, today: str
     name: code ? languageName(code) : or(get(or(get(profile, 'learner'), new PyDict()), 'target_language'), ''),
     level,
     words: list.filter(i => i.get('type') === 'vocabulary' && learned(i)).length,
-    due: list.filter(i => i.get('type') !== 'error_pattern' && le(or(i.get('due_date'), i.get('next_review'), '9999'), today)).length,
+    due: list.filter(i => i.get('type') !== 'error_pattern' && le(normDate(or(i.get('due_date'), i.get('next_review'), '9999')), today)).length,
     source,
   })
   if (truthy(since)) out.set('since', since)

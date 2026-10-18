@@ -82,6 +82,21 @@ def get_week_start(today_str: str) -> str:
     return date_str(monday)
 
 
+def report_date(report: dict) -> str:
+    """The report's date in the form the databases keep (zero-padded: "2026-4-24" -> "2026-04-24"; they compare dates as
+    text). Exits 1 when it isn't a date (YYYY-MM-DD)."""
+    d = langs.date_of(report.get("date"))
+    if d is None:
+        print("[Lani] Error: 'date' must be YYYY-MM-DD", file=sys.stderr)
+        sys.exit(1)
+    return d
+
+
+def due_of(v):
+    """A report's due_date (new_vocabulary, resurface): YYYY-MM-DD, zero-padded; None when it isn't a date in that form."""
+    return langs.date_of(v) if isinstance(v, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v) else None
+
+
 def normalize_milestones(session: dict) -> list:
     """Validate + canonicalize session['milestones'] in place.
 
@@ -126,11 +141,7 @@ def normalize_milestones(session: dict) -> list:
             when = outer_date
             d = ms.get("date")
             if isinstance(d, str) and d.strip():
-                try:
-                    parse_date(d.strip())
-                    when = d.strip()
-                except (ValueError, TypeError):
-                    when = outer_date  # malformed date falls back to session date
+                when = langs.date_of(d.strip()) or outer_date  # malformed date falls back to session date
         else:
             print(f"[Lani] Error: milestone at index {i} must be a string or object, got {type(ms).__name__}", file=sys.stderr)
             sys.exit(1)
@@ -279,7 +290,7 @@ def calculate_sm2(item: dict, quality: int) -> dict:
 
 def update_learner_profile(profile: dict, session: dict):
     today = session["date"]
-    last = profile.get("last_updated", "")
+    last = langs.norm_date(profile.get("last_updated", ""))
 
     if last == today:
         pass
@@ -341,7 +352,7 @@ def update_progress_db(progress: dict, session: dict):
 
     trend = progress.setdefault("accuracy_trend", [])
     # Dedup same-day entries: replace if present, else append
-    existing = next((t for t in trend if t.get("date") == today), None)
+    existing = next((t for t in trend if langs.norm_date(t.get("date")) == today), None)
     if existing is not None:
         existing["accuracy"] = accuracy
         existing["exercises"] = existing.get("exercises", 0) + total_ex
@@ -366,7 +377,7 @@ def update_progress_db(progress: dict, session: dict):
 
     week_start = get_week_start(today)
     weekly = progress.setdefault("weekly_summary", [])
-    week_entry = next((w for w in weekly if w.get("week_start") == week_start), None)
+    week_entry = next((w for w in weekly if langs.norm_date(w.get("week_start")) == week_start), None)
     if week_entry is None:
         week_entry = {"week_start": week_start, "sessions": 0, "total_minutes": 0, "accuracy": 0.0}
         weekly.append(week_entry)
@@ -472,13 +483,13 @@ def lower_gently(item: dict, today: str):
     nudge. The card comes back sooner and a little harder (easiness - 0.14, the interval halved, due tomorrow at the
     latest) but keeps its repetitions, and its last review, quality, mastery and history stay as they were, so the
     app's readiness and "rusty" never see it. Once a day: a second slip the same day changes nothing."""
-    if item.get("last_lapse") == today:
+    if langs.norm_date(item.get("last_lapse")) == today:
         return
     item["easiness_factor"] = round(max(1.3, item.get("easiness_factor", 2.5) - 0.14), 2)
     item["interval_days"] = max(1, int(item.get("interval_days", 1) or 1) // 2)
     due = item.get("due_date")
     tom = tomorrow(today)
-    item["due_date"] = due if isinstance(due, str) and due and due < tom else tom
+    item["due_date"] = due if isinstance(due, str) and due and langs.norm_date(due) < tom else tom
     item["consecutive_correct"] = 0
     item["lapses"] = item.get("lapses", 0) + 1
     item["last_lapse"] = today
@@ -499,8 +510,8 @@ def resurface_entries(entries, today: str) -> list:
     for e in entries:
         if not isinstance(e, dict) or not isinstance(e.get("item_id"), str) or not e["item_id"].strip():
             continue
-        due = e.get("due_date")
-        if not (isinstance(due, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", due) and today <= due <= last):
+        due = due_of(e.get("due_date"))
+        if not (due and today <= due <= last):
             continue
         out.append(e)
     return out
@@ -518,9 +529,9 @@ def resurface_items(items: dict, entries, today: str) -> list:
         item = items.get(e["item_id"])
         if not isinstance(item, dict) or item.get("type") != FORMS:
             continue
-        due = item.get("due_date")
-        if not (isinstance(due, str) and due) or e["due_date"] < due:
-            item["due_date"] = e["due_date"]
+        due, when = item.get("due_date"), due_of(e["due_date"])
+        if not (isinstance(due, str) and due) or when < langs.norm_date(due):
+            item["due_date"] = when
         item["interval_days"] = 1
         item["repetitions"] = 0
         if isinstance(e.get("forms"), dict):
@@ -616,8 +627,8 @@ def update_spaced_repetition(sr: dict, session: dict):
                 items[item_id]["forms"] = copy.deepcopy(vocab["forms"])
             # Due earlier than tomorrow: a card made of something already learned (a counting card) is asked the day
             # it is made. Never before the report's date, never later than tomorrow.
-            due = vocab.get("due_date")
-            if isinstance(due, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", due) and today <= due < items[item_id]["due_date"]:
+            due = due_of(vocab.get("due_date"))
+            if due and today <= due < items[item_id]["due_date"]:
                 items[item_id]["due_date"] = due
 
     resurface_items(items, session.get("resurface", []), today)
@@ -651,7 +662,7 @@ def update_spaced_repetition(sr: dict, session: dict):
     tom = tomorrow(today)
     week_end = date_plus_days(today, 7)
     for item_id, item in items.items():
-        due = item.get("due_date", today)
+        due = langs.norm_date(item.get("due_date", today))
         if due <= today:
             sr["review_queue"]["today"].append(item_id)
         elif due == tom:
@@ -730,11 +741,7 @@ def add_items_only(report: dict):
     language ("language"), its spaced-repetition.json; the first word of a language never
     practised creates its six databases and lists it in the home profile.
     """
-    try:
-        parse_date(str(report.get("date", "")))
-    except ValueError:
-        print("[Lani] Error: 'date' must be YYYY-MM-DD", file=sys.stderr)
-        sys.exit(1)
+    report["date"] = report_date(report)
     practice = [k for k in SESSION_FIELDS if report.get(k)]
     if practice:
         print(f"[Lani] Error: a report with record_session false adds review items only; remove {', '.join(practice)}", file=sys.stderr)
@@ -825,6 +832,8 @@ def main():
         if field not in session:
             print(f"[Lani] Error: Missing required field '{field}'", file=sys.stderr)
             sys.exit(1)
+    # The date as the databases keep it: "2026-4-24" is written "2026-04-24" (they compare dates as text).
+    session["date"] = report_date(session)
 
     # Validate + canonicalize milestones before touching any DB (exits 1 on
     # malformed input, so disk stays untouched on a validation failure).

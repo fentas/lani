@@ -394,6 +394,40 @@ class CardTest(unittest.TestCase):
         self.refused("forgive", "iz_genitive", "--date", "2026-09-26", "--answer", "something else")
 
 
+    # --- dates: compared as dates, written zero-padded ---
+
+    def _write(self, name, change):
+        path = self.data / name
+        data = json.loads(path.read_text())
+        change(data)
+        path.write_text(json.dumps(data, ensure_ascii=False))
+
+    def test_dates_without_zeros_compare_as_dates(self):
+        """Dates an update-db.py from before dates were zero-padded wrote ("2026-9-2") are compared as dates: the
+        latest example is 2026-09-20's (as text, "2026-9-2" sorts after it); a review dated "2026-9-24" can be regraded."""
+        def examples(m):
+            m["error_patterns"]["iz_genitive"]["examples"] = [
+                {"incorrect": "iz Berlin", "correct": "iz Berlina", "context": "", "date": "2026-09-20"},
+                {"incorrect": "iz Ljubljana", "correct": "iz Ljubljane", "context": "", "date": "2026-9-2"}]
+        self._write("mistakes-db.json", examples)
+        out = self.ok("forgive", "iz_genitive", "--today", "2026-09-27")
+        self.assertEqual(out["removed"]["incorrect"], "iz Berlin")
+        pat = self.mistakes()["error_patterns"]["iz_genitive"]
+        self.assertEqual((pat["last_seen"], pat["examples"][0]["date"]), ("2026-09-02", "2026-9-2"))  # written padded; the example kept
+
+        def unpadded(sr):
+            da = sr["items"]["vocab_da"]
+            for e in da["review_history"]:
+                e["date"] = e["date"].replace("-09-", "-9-")
+            da["last_reviewed"] = da["review_history"][-1]["date"]
+        self._write("spaced-repetition.json", unpadded)
+        out = self.ok("regrade", "vocab_da", "--quality", "5", "--date", "2026-09-24", "--today", "２０２６-09-27")
+        self.assertEqual(out["review"]["date"], "2026-9-24")
+        da = self.items()["vocab_da"]
+        self.assertEqual([e["quality"] for e in da["review_history"]], [5, 4])
+        self.assertEqual(da["review_history"][0]["regraded"], {"from": 3, "date": "2026-09-27"})  # --today in ASCII digits
+        self.assertEqual((da["last_reviewed"], da["due_date"]), ("2026-9-25", "2026-10-01"))
+
 @db_impl.needs_bun
 class CardDiffTest(CardTest):
     """Every case above, by the Python and the TypeScript port at once: the same output and files."""

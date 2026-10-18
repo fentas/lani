@@ -660,6 +660,93 @@ class UpdateDbSmokeTest(unittest.TestCase):
                 self.assertEqual(self._raw(), before)
 
 
+    # --- Dates: compared as dates, written zero-padded ---
+
+    def _write(self, name, change):
+        path = self.tmp / "data" / name
+        data = json.loads(path.read_text())
+        change(data)
+        path.write_text(json.dumps(data))
+
+    def _unpadded(self):
+        """The fixtures as an update-db.py from before dates were zero-padded left them, after reports dated "2026-4-23"
+        and "2026-4-24": the scripts compared such dates as text ("2026-4-9" after "2026-04-24")."""
+        self._write("learner-profile.json", lambda p: p.update(last_updated="2026-4-23"))
+        self._write("progress-db.json", lambda p: p.update(accuracy_trend=[{"date": "2026-4-24", "accuracy": 0.5, "exercises": 2}]))
+
+        def items(sr):
+            dag = sr["items"]["vocab_dag"]
+            dag.update(created_date="2026-4-23", last_reviewed="2026-4-23", due_date="2026-04-30", interval_days=6, repetitions=2)
+            sr["items"]["vocab_old"] = dict(dag, id="vocab_old", content="oud", answer="old", due_date="2026-4-9")
+        self._write("spaced-repetition.json", items)
+
+    def test_a_date_without_zeros_is_written_with_them(self):
+        report = dict(SESSION_PAYLOAD, date="2026-4-24", milestones=[{"milestone": "First 'het'", "date": "2026-4-2"}, "Second"])
+        proc = self._run(report)
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        profile = self._load("learner-profile.json")
+        self.assertEqual((profile["last_updated"], profile["current_streak_days"]), ("2026-04-24", 3))  # 2026-04-23: yesterday
+        self.assertEqual([a["earned_date"] for a in profile["achievements"]], ["2026-04-02", "2026-04-24"])
+        log = self._load("session-log.json")
+        self.assertEqual(log["sessions"][-1]["date"], "2026-04-24")
+        self.assertEqual([m["date"] for m in log["milestones"]], ["2026-04-02", "2026-04-24"])
+        sr = self._load("spaced-repetition.json")
+        huis = sr["items"]["het_huis"]
+        self.assertEqual((huis["created_date"], huis["last_reviewed"], huis["due_date"]), ("2026-04-24", "2026-04-24", "2026-04-25"))
+        self.assertEqual(sr["items"]["vocab_dag"]["review_history"][-1]["date"], "2026-04-24")
+        self.assertEqual(self._load("mistakes-db.json")["error_patterns"]["verb_spreek"]["last_seen"], "2026-04-24")
+        self.assertEqual(self._load("progress-db.json")["accuracy_trend"][-1]["date"], "2026-04-24")
+        # with ASCII digits too
+        proc = self._run(dict(SESSION_PAYLOAD, session_id="session-003", date="２０２６-04-25", review_results=[]))
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        self.assertEqual(self._load("learner-profile.json")["last_updated"], "2026-04-25")
+
+    def test_a_date_that_isnt_one_is_refused(self):
+        before = self._raw()
+        for bad in ("yesterday", "2026-02-30", "24.4.2026", "2026-04-24\n", 20260424, None):
+            with self.subTest(date=bad):
+                proc = self._run(dict(SESSION_PAYLOAD, date=bad))
+                self.assertEqual(proc.returncode, 1, msg=proc.stderr)
+                self.assertIn("'date' must be YYYY-MM-DD", proc.stderr.decode())
+                self.assertEqual(self._raw(), before)
+
+    def test_dates_written_without_zeros_compare_as_dates(self):
+        self._unpadded()
+        proc = self._run(dict(SESSION_PAYLOAD, review_results=[]))  # 2026-04-24
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        # "2026-4-23" was yesterday: the streak goes on
+        self.assertEqual(self._load("learner-profile.json")["current_streak_days"], 3)
+        # the day's accuracy entry is the one of "2026-4-24", its date kept as it was written
+        self.assertEqual(self._load("progress-db.json")["accuracy_trend"], [{"date": "2026-4-24", "accuracy": 0.8, "exercises": 7}])
+        sr = self._load("spaced-repetition.json")
+        # vocab_old ("2026-4-9") is overdue, vocab_dag (2026-04-30) due this week
+        self.assertIn("vocab_old", sr["review_queue"]["today"])
+        self.assertIn("vocab_dag", sr["review_queue"]["this_week"])
+        # an entry is never rewritten only to add the zeros
+        old = sr["items"]["vocab_old"]
+        self.assertEqual((old["due_date"], old["created_date"], old["last_reviewed"]), ("2026-4-9", "2026-4-23", "2026-4-23"))
+
+    def test_a_gentle_lowering_once_a_day_with_a_date_without_zeros(self):
+        self._card(last_lapse="2026-4-24", lapses=1)
+        proc = self._run(self._dialog("session-210", [{"item_id": "vocab_dag", "gentle": True}]))
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        dag = self._load("spaced-repetition.json")["items"]["vocab_dag"]
+        self.assertEqual((dag["lapses"], dag["last_lapse"], dag["easiness_factor"], dag["interval_days"]), (1, "2026-4-24", 2.5, 6))
+
+    def test_resurface_never_moves_a_card_later_with_a_date_without_zeros(self):
+        self._reviewed_forms_card()
+        self._write("spaced-repetition.json", lambda sr: sr["items"]["forms_hisa"].update(due_date="2026-5-2"))
+        proc = self._run({"record_session": False, "date": "2026-5-2", "resurface": [{"item_id": "forms_hisa", "due_date": "2026-05-04"}]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        hisa = self._load("spaced-repetition.json")["items"]["forms_hisa"]
+        self.assertEqual((hisa["due_date"], hisa["repetitions"]), ("2026-5-2", 0))  # due already (2026-05-02): kept
+        self.assertEqual(hisa["resurfaced"], [{"date": "2026-05-02", "due": "2026-5-2"}])
+        self.assertTrue((self.tmp / "data" / ".backups" / "pre-words-2026-05-02" / "spaced-repetition.json").exists())
+        proc = self._run({"record_session": False, "date": "2026-05-02", "new_vocabulary": [dict(self.WORD, due_date="２０２６-05-02")]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        self.assertEqual(self._load("spaced-repetition.json")["items"]["vocab_word_gozd"]["due_date"], "2026-05-02")
+
+
 @db_impl.needs_bun
 class UpdateDbDiffTest(UpdateDbSmokeTest):
     """Every case above, by the Python and the TypeScript port at once: the same output and files."""

@@ -5,6 +5,7 @@
 //   ["fixed", x, nd]             f"{float(x):.{nd}f}"
 //   ["repr", x]                  repr(float(x))
 //   ["date", s, n]               (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=n)).strftime(...), or the error
+//   ["normdate", v]              [lani_languages.norm_date(v), lani_languages.date_of(v)]
 //   ["int", s] / ["float", s]    int(s) / float(s), or the error
 //   ["str", op, s]               s.strip() / s.lower() / repr(s) / len(s)
 //   ["run", script, argv, stdin, env, cwd]   cli.ts run() in this process, with a hook that records its calls:
@@ -15,6 +16,7 @@ import { readFileSync } from 'node:fs'
 import { F, float, fixed, floatRepr, fmtDate, int, isExc, len, lower, plusDays, repr, round, str, strip, strptime, type Py, PyError } from '../src/db/py'
 import { dumpIndented, dumpsCompact, loads } from '../src/db/pyjson'
 import { dataDirFor, run, type Script } from '../src/db/cli'
+import { dateOf, normDate } from '../src/db/languages'
 
 const err = (e: unknown) => (e instanceof PyError ? `${e.type}: ${e.msg}` : `JS: ${String(e)}`)
 
@@ -44,6 +46,7 @@ function one(c: unknown[]): unknown {
     if (kind === 'fixed') return fixed(float(c[1] as string).v, c[2] as number)
     if (kind === 'repr') return floatRepr(float(c[1] as string).v)
     if (kind === 'date') return fmtDate(plusDays(strptime(c[1] as string), c[2] as Py))
+    if (kind === 'normdate') return [normDate(c[1] as Py), dateOf(c[1] as Py)]
     if (kind === 'int') return str(int(c[1] as string))
     if (kind === 'float') return repr(float(c[1] as string))
     if (kind === 'str') {

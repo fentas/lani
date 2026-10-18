@@ -471,7 +471,7 @@ def rebuild_queue(sr: dict, today: str):
     queue = {"today": [], "tomorrow": [], "this_week": [], "later": []}
     tom, week_end = plus_days(today, 1), plus_days(today, 7)
     for iid, item in sr["items"].items():
-        due = item.get("due_date", today) if isinstance(item, dict) else today
+        due = langs.norm_date(item.get("due_date", today)) if isinstance(item, dict) else today
         key = "today" if due <= today else "tomorrow" if due == tom else "this_week" if due <= week_end else "later"
         queue[key].append(iid)
     sr["review_queue"] = queue
@@ -664,10 +664,10 @@ def cmd_regrade(store: Store, args) -> dict:
         return regrade_first(store, args, sr, item)
     if not isinstance(history, list) or not history:
         raise Refused(f"regrade: {args.id} was reviewed ({item.get('total_reviews')}) but has no review history to replay")
-    if not all(isinstance(e, dict) and DATE.match(str(e.get("date", ""))) and isinstance(e.get("quality"), int) for e in history):
+    if not all(isinstance(e, dict) and langs.date_of(e.get("date")) and isinstance(e.get("quality"), int) for e in history):
         raise Refused(f"regrade: {args.id} has a review history entry without a date or quality")
     if args.date:
-        at = [i for i, e in enumerate(history) if e["date"] == args.date]
+        at = [i for i, e in enumerate(history) if langs.norm_date(e["date"]) == args.date]
         if not at:
             raise Refused(f"regrade: {args.id} has no review on {args.date} (reviews: {', '.join(e['date'] for e in history)})")
         index = at[-1]
@@ -786,9 +786,10 @@ def cmd_forgive(store: Store, args) -> dict:
         raise Refused(f"forgive: no error pattern {args.pattern!r} in {MISTAKES_FILE}" + (f" (patterns: {', '.join(known)})" if known else ""))
     pat = patterns[args.pattern]
     examples = [e for e in pat.get("examples", []) if isinstance(e, dict)]
-    day = args.date or max((e.get("date", "") for e in examples), default="")
+    # dates compared as dates: one written before they were zero-padded ("2026-9-1") too
+    day = args.date or max((langs.norm_date(e.get("date", "")) for e in examples), default="")
     matches = [i for i, e in enumerate(pat.get("examples", []))
-               if isinstance(e, dict) and e.get("date") == day and (args.answer is None or normalize(e.get("incorrect", "")) == normalize(args.answer))]
+               if isinstance(e, dict) and langs.norm_date(e.get("date")) == day and (args.answer is None or normalize(e.get("incorrect", "")) == normalize(args.answer))]
     if not matches:
         shown_ex = [{"date": e.get("date"), "incorrect": e.get("incorrect")} for e in examples]
         raise Refused(f"forgive: {args.pattern} has no example on {day or '?'}{' with that answer' if args.answer else ''}: {json.dumps(shown_ex, ensure_ascii=False)}")
@@ -798,7 +799,7 @@ def cmd_forgive(store: Store, args) -> dict:
     pat["consecutive_incorrect"] = max(0, int(pat.get("consecutive_incorrect", 1)) - 1)
     left = [e.get("date") for e in pat["examples"] if isinstance(e, dict) and e.get("date")]
     if left:
-        pat["last_seen"] = pat["last_occurred"] = max(left)
+        pat["last_seen"] = pat["last_occurred"] = max(langs.norm_date(d) for d in left)
     names, data = [MISTAKES_FILE], {MISTAKES_FILE: mistakes}
     result = {"pattern": args.pattern, "removed": removed, "before": before}
     if pat["frequency"] == 0:
@@ -894,6 +895,10 @@ def main(argv=None) -> int:
             raise Refused("--today: YYYY-MM-DD")
         if getattr(args, "date", None) and not DATE.match(args.date):
             raise Refused("--date: YYYY-MM-DD")
+        # in the form the databases keep (ASCII digits): what is written and compared
+        args.today = langs.norm_date(args.today)
+        if getattr(args, "date", None):
+            args.date = langs.norm_date(args.date)
         root = Path(args.data).expanduser().resolve() if args.data else data_dir()
         store = Store(root, args.language)
         result = COMMANDS[args.command](store, args)

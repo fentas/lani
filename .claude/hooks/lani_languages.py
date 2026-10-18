@@ -18,6 +18,7 @@ import os
 import re
 import shutil
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -63,6 +64,32 @@ def language_code(s) -> str | None:
         if name.lower() == t:
             return code
     return OTHER_NAMES.get(t)
+
+
+# --- dates --------------------------------------------------------------------------------------------------------
+
+ISO_DATE = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
+
+
+def date_of(v) -> str | None:
+    """[v] as a date in the form the databases keep: YYYY-MM-DD, zero-padded, ASCII digits ("2026-4-24" -> "2026-04-24");
+    None when it isn't a str that datetime.strptime(v, "%Y-%m-%d") reads."""
+    if not isinstance(v, str):
+        return None
+    try:
+        d = datetime.strptime(v, "%Y-%m-%d")
+    except ValueError:
+        return None
+    return f"{d.year:04d}-{d.month:02d}-{d.day:02d}"
+
+
+def norm_date(v):
+    """A stored date as the scripts compare it: date_of(v) when it is a date ("2026-4-24", written before dates were
+    padded, compares as "2026-04-24"); anything else as it is. Dates are compared as text, which is right in that form
+    only. The stored value itself is never rewritten for it."""
+    if isinstance(v, str) and ISO_DATE.fullmatch(v):
+        return v  # the form already (or no date at all: strptime would refuse it as it is)
+    return date_of(v) or v
 
 
 def language_name(code: str) -> str:
@@ -208,7 +235,7 @@ def summary(dbs: dict, code: str | None, source: str, today: str, since: str | N
         "name": language_name(code) if code else ((profile.get("learner") or {}).get("target_language") or ""),
         "level": level,
         "words": sum(1 for i in items if i.get("type") == "vocabulary" and learned(i)),
-        "due": sum(1 for i in items if i.get("type") != "error_pattern" and (i.get("due_date") or i.get("next_review") or "9999") <= today),
+        "due": sum(1 for i in items if i.get("type") != "error_pattern" and norm_date(i.get("due_date") or i.get("next_review") or "9999") <= today),
         "source": source,
     }
     if since:

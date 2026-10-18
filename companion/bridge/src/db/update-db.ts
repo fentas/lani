@@ -2,13 +2,13 @@
 // atomically. Exit 0, 1 (validation error, nothing written), 2 (data or I/O error, nothing written).
 import { sessionMessage } from './data-repo'
 import {
-  CEFR, FILE, FILES, freshDatabases, homeLanguage, languageCode, languageDir, languageName, listEntry, loadJsonFile,
-  migrateQuietly, saveJson,
+  CEFR, dateOf, FILE, FILES, freshDatabases, homeLanguage, languageCode, languageDir, languageName, listEntry, loadJsonFile,
+  migrateQuietly, normDate, saveJson,
 } from './languages'
 import { ensureBackupsDir, ensureDataDir } from './paths'
 import {
   add, append, ceil, contains, deepcopy, eq, excStr, F, fixed, floordiv, fmtDate, ge, get, getItem, gt, int, isDict,
-  isExc, isList, isStr, items, iter, keysOf, le, len, lower, lt, max, min, mul, num, or, plusDays, PyDict, PyError, repr,
+  isList, isStr, items, iter, keysOf, le, len, lower, lt, max, min, mul, num, or, plusDays, PyDict, PyError, repr,
   round, setdefault, setItem, slice, str as pyStr, strip, stripChars, strptime, sub, sumOf, SysExit, traceback,
   truediv, truthy, typeName, unique, upper, values, weekday, type Py,
 } from './py'
@@ -28,6 +28,8 @@ const dateStr = fmtDate
 const tomorrow = (t: Py) => dateStr(plusDays(strptime(t), 1))
 const yesterday = (t: Py) => dateStr(plusDays(strptime(t), -1))
 const datePlusDays = (t: Py, days: Py) => dateStr(plusDays(strptime(t), days))
+/** due_of: a report's due_date (new_vocabulary, resurface) as YYYY-MM-DD, zero-padded; null when it isn't one. */
+const dueOf = (v: Py): string | null => (isStr(v) && DATE_FULL.test(v) ? dateOf(v) : null)
 function weekStart(t: Py): string {
   const d = strptime(t)
   return dateStr(plusDays(d, -weekday(d)))
@@ -70,6 +72,13 @@ class Update {
       this.fail(2, `[Lani] Error loading ${baseName(this.HOME_PROFILE)}: ${excStr(e)}`)
     }
     return code === home ? null : code
+  }
+
+  /** report_date: the report's date, zero-padded (the databases compare dates as text); exit 1 when it isn't one. */
+  reportDate(report: PyDict): string {
+    const d = dateOf(report.get('date'))
+    if (d === null) this.fail(1, "[Lani] Error: 'date' must be YYYY-MM-DD")
+    return d
   }
 
   reportLevel(report: PyDict): string | null {
@@ -145,15 +154,7 @@ class Update {
         text = strip(t as string)
         when = outerDate
         const d = ms.get('date')
-        if (isStr(d) && strip(d)) {
-          try {
-            strptime(strip(d))
-            when = strip(d)
-          } catch (e) {
-            if (!isExc(e, 'ValueError') && !isExc(e, 'TypeError')) throw e
-            when = outerDate
-          }
-        }
+        if (isStr(d) && strip(d)) when = dateOf(strip(d)) ?? outerDate
       } else {
         this.fail(1, `[Lani] Error: milestone at index ${i} must be a string or object, got ${typeName(ms)}`)
       }
@@ -190,7 +191,7 @@ function calculateSm2(item: Py, quality: Py): PyDict {
 
 function updateLearnerProfile(profile: Py, session: PyDict) {
   const today = getItem(session, 'date')
-  const last = get(profile, 'last_updated', '')
+  const last = normDate(get(profile, 'last_updated', ''))
   if (eq(last, today)) {
     // the same day: the streak stays
   } else if (eq(last, yesterday(today))) {
@@ -247,7 +248,7 @@ function updateProgressDb(progress: Py, session: PyDict) {
   setItem(stats, 'average_session_duration', round(truediv(getItem(stats, 'total_study_minutes'), getItem(stats, 'total_sessions'))))
 
   const trend = setdefault(progress, 'accuracy_trend', [])
-  const existing = iter(trend).find(t => eq(get(t, 'date'), today))
+  const existing = iter(trend).find(t => eq(normDate(get(t, 'date')), today))
   if (existing !== undefined) {
     setItem(existing, 'accuracy', accuracy)
     setItem(existing, 'exercises', add(get(existing, 'exercises', 0), totalEx))
@@ -269,7 +270,7 @@ function updateProgressDb(progress: Py, session: PyDict) {
 
   const start = weekStart(today)
   const weekly = setdefault(progress, 'weekly_summary', [])
-  let week = iter(weekly).find(w => eq(get(w, 'week_start'), start))
+  let week = iter(weekly).find(w => eq(normDate(get(w, 'week_start')), start))
   if (week === undefined) {
     week = D({ week_start: start, sessions: 0, total_minutes: 0, accuracy: F(0) })
     append(weekly, week)
@@ -357,12 +358,12 @@ function updateMasteryDb(mastery: Py, session: PyDict, progress: Py) {
 
 /** lower_gently: a word got wrong in a dialog: sooner and a little harder, no review. */
 function lowerGently(item: Py, today: Py) {
-  if (eq(get(item, 'last_lapse'), today)) return
+  if (eq(normDate(get(item, 'last_lapse')), today)) return
   setItem(item, 'easiness_factor', round(max(F(1.3), sub(get(item, 'easiness_factor', F(2.5)), F(0.14))), 2))
   setItem(item, 'interval_days', max(1, floordiv(int(or(get(item, 'interval_days', 1), 1)), 2)))
   const due = get(item, 'due_date')
   const tom = tomorrow(today)
-  setItem(item, 'due_date', isStr(due) && due && lt(due, tom) ? due : tom)
+  setItem(item, 'due_date', isStr(due) && due && lt(normDate(due), tom) ? due : tom)
   setItem(item, 'consecutive_correct', 0)
   setItem(item, 'lapses', add(get(item, 'lapses', 0), 1))
   setItem(item, 'last_lapse', today)
@@ -375,8 +376,8 @@ function resurfaceEntries(entries: Py, today: Py): PyDict[] {
   const out: PyDict[] = []
   for (const e of entries) {
     if (!isDict(e) || !isStr(e.get('item_id')) || !strip(getItem(e, 'item_id'))) continue
-    const due = e.get('due_date')
-    if (!(isStr(due) && DATE_FULL.test(due) && le(today, due) && le(due, last))) continue
+    const due = dueOf(e.get('due_date'))
+    if (!(due && le(today, due) && le(due, last))) continue
     out.push(e)
   }
   return out
@@ -389,7 +390,8 @@ function resurfaceItems(its: Py, entries: Py, today: Py): string[] {
     const item = get(its, getItem(e, 'item_id') as string)
     if (!isDict(item) || item.get('type') !== FORMS) continue
     const due = item.get('due_date')
-    if (!(isStr(due) && due) || lt(getItem(e, 'due_date'), due)) item.set('due_date', getItem(e, 'due_date'))
+    const when = dueOf(getItem(e, 'due_date')) as string
+    if (!(isStr(due) && due) || lt(when, normDate(due))) item.set('due_date', when)
     item.set('interval_days', 1)
     item.set('repetitions', 0)
     if (isDict(e.get('forms'))) item.set('forms', deepcopy(getItem(e, 'forms')))
@@ -474,8 +476,8 @@ function updateSpacedRepetition(sr: Py, session: PyDict) {
       }
       if (isDict(get(vocab, 'counting'))) setItem(item, 'counting', deepcopy(getItem(vocab, 'counting')))
       if (isDict(get(vocab, 'forms'))) setItem(item, 'forms', deepcopy(getItem(vocab, 'forms')))
-      const due = get(vocab, 'due_date')
-      if (isStr(due) && DATE_FULL.test(due) && le(today, due) && lt(due, getItem(item, 'due_date'))) setItem(item, 'due_date', due)
+      const due = dueOf(get(vocab, 'due_date'))
+      if (due && le(today, due) && lt(due, getItem(item, 'due_date'))) setItem(item, 'due_date', due)
     }
   }
 
@@ -511,7 +513,7 @@ function updateSpacedRepetition(sr: Py, session: PyDict) {
   const tom = tomorrow(today)
   const weekEnd = datePlusDays(today, 7)
   for (const [itemId, item] of items(its)) {
-    const due = get(item, 'due_date', today)
+    const due = normDate(get(item, 'due_date', today))
     if (le(due, today)) (queue.get('today') as Py[]).push(itemId)
     else if (eq(due, tom)) (queue.get('tomorrow') as Py[]).push(itemId)
     else if (le(due, weekEnd)) (queue.get('this_week') as Py[]).push(itemId)
@@ -560,12 +562,7 @@ function updateSessionLog(log: Py, session: PyDict, streak: Py) {
 
 function addItemsOnly(u: Update, report: PyDict): never {
   const ctx = u.ctx
-  try {
-    strptime(pyStr(report.get('date', '')))
-  } catch (e) {
-    if (!isExc(e, 'ValueError')) throw e
-    u.fail(1, "[Lani] Error: 'date' must be YYYY-MM-DD")
-  }
+  report.set('date', u.reportDate(report))
   const practice = SESSION_FIELDS.filter(k => truthy(report.get(k)))
   if (practice.length) u.fail(1, `[Lani] Error: a report with record_session false adds review items only; remove ${practice.join(', ')}`)
   let vocab = report.get('new_vocabulary')
@@ -651,6 +648,8 @@ export function main(ctx: Ctx, _argv: string[], stdin: () => string): void {
   for (const field of ['session_id', 'date']) {
     if (!session.has(field)) u.fail(1, `[Lani] Error: Missing required field '${field}'`)
   }
+  // the date as the databases keep it: "2026-4-24" is written "2026-04-24" (they compare dates as text)
+  session.set('date', u.reportDate(session))
 
   u.normalizeMilestones(session)
   const level = u.reportLevel(session)

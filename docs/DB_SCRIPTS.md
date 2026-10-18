@@ -139,7 +139,8 @@ EOF
 
 ### Required fields
 - `session_id` (string, conventionally `session-NNN`)
-- `date` (YYYY-MM-DD)
+- `date` (YYYY-MM-DD; a date that isn't one is a validation error, exit `1`. One without its zeros, `2026-4-24`, is
+  taken and written `2026-04-24`: see [Dates](#dates))
 
 Everything else is optional; omitted fields do not update.
 
@@ -401,6 +402,21 @@ migrated automatically the next time `read-db.py` or `update-db.py` runs:
 Once migrated, the check is a read of the profile and nothing else: no backup, no write.
 A profile whose target language isn't known yet (a template's `{placeholders}`) is left as
 it is. A failed migration is a warning on stderr; reading and writing go on.
+
+## Dates
+
+Every date in the databases is `YYYY-MM-DD`, zero-padded, and the scripts compare dates as text (due dates, the review
+queue, the resurface window, the streak), which is right in that form only.
+
+- **What is written is zero-padded.** A report's `date` and a milestone's `date` are read as Python's
+  `datetime.strptime(…, "%Y-%m-%d")` reads them (`2026-4-24`, other Unicode digits) and written `2026-04-24`; so is
+  every date made from them (`last_updated`, `created_date`, `last_reviewed`, the session log's, `level_since`, the
+  backup names `pre-words-<date>`). A `due_date` in a report (`new_vocabulary`, `resurface`) takes the
+  `YYYY-MM-DD` form as before and is written with ASCII digits. card.py's `--today` and `--date` too.
+- **What was written before is compared as a date.** An update-db.py from before this wrote a report's date as it came,
+  so the data may hold `2026-4-24`. The scripts compare such a date as the date it is (`2026-4-23` is yesterday of
+  `2026-04-24`; `2026-4-9` is overdue on it), and never rewrite it only to add the zeros: no migration. A field the
+  scripts write anyway (a new `last_updated`, a pattern's `last_seen` after a forgive) is written zero-padded.
 
 ## Data model notes
 

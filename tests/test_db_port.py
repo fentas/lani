@@ -32,6 +32,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db_impl  # noqa: E402
 
+sys.path.insert(0, str(db_impl.HOOKS))
+import lani_languages  # noqa: E402
+
 REPO_ROOT = db_impl.REPO_ROOT
 PROBE = REPO_ROOT / "companion" / "bridge" / "test" / "db-port-probe.ts"
 EXAMPLES = REPO_ROOT / "data-examples"
@@ -53,6 +56,8 @@ def py_case(c):
             return repr(float(c[1]))
         if kind == "date":
             return (datetime.strptime(c[1], "%Y-%m-%d") + timedelta(days=c[2])).strftime("%Y-%m-%d")
+        if kind == "normdate":
+            return [lani_languages.norm_date(c[1]), lani_languages.date_of(c[1])]
         if kind == "int":
             return str(int(c[1]))
         if kind == "float":
@@ -151,6 +156,10 @@ class BuildingBlocksTest(unittest.TestCase):
                  "２０２６-04-05", "2026-04-05\n", " 2026-04-05", "2026-04-05 ", "yesterday", "", "2026-04-31", "2026-1-1",
                  "2026-12-3 1", "1900-02-29", "2000-02-29", "2026-04- 5"]
         cases = [["date", d, n] for d in dates for n in (0, 1, -1, 7, 30, 6.0, 2.5, -0.5, 10 ** 7, 3652059)]
+        # stored dates as the scripts compare them (lani_languages.norm_date, date_of)
+        cases += [["normdate", d] for d in dates + ["2026-9-2", "2026-09-2", "999-01-01", "0999-1-1", "2026-12-31T10:00", "9999",
+                                                    "", "２０２６-９-３", "2026-04-24\n"]]
+        cases += [["normdate", v] for v in (None, 5, 20260424, 2.5, True, [], {})]
         for s in ["4", " 4 ", "+4", "-4", "0_4", "4_", "٤", "4.0", "", "x", "1_000", "１２", "--4", "4 4", "99999999999999999999999"]:
             cases += [["int", s], ["float", s]]
         for s in ["1e5", "inf", "-Infinity", "nan", ".5", "5.", "1_0.5", "1e", "0x10", " 2.5 ", "1e400"]:

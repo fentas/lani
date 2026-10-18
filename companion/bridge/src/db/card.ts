@@ -1,7 +1,7 @@
 // .claude/hooks/card.py: find a review card, show how the app asks and grades it, and fix it with its history and
 // scheduling kept (find, show, overlaps, edit, regrade, merge, split, forgive). Prints JSON. Exit 0, 1 (invalid input
 // or refused: nothing written), 2 (I/O error).
-import { FILE, homeLanguage, languageCode, languageDir, learned, rusty, saveJson } from './languages'
+import { dateOf, FILE, homeLanguage, languageCode, languageDir, learned, normDate, rusty, saveJson } from './languages'
 import { dataDir } from './paths'
 import { Parser, SUPPRESS, type Namespace } from './pyargparse'
 import { dumpIndented, dumpsCompact, loads } from './pyjson'
@@ -425,7 +425,7 @@ function rebuildQueue(sr: PyDict, today: string) {
   const tom = plusDaysStr(today, 1)
   const weekEnd = plusDaysStr(today, 7)
   for (const [iid, item] of (getItem(sr, 'items') as PyDict).items()) {
-    const due = isDict(item) ? item.get('due_date', today) : today
+    const due = isDict(item) ? normDate(item.get('due_date', today)) : today
     const key = le(due, today) ? 'today' : eq(due, tom) ? 'tomorrow' : le(due, weekEnd) ? 'this_week' : 'later'
     ;(queue.get(key) as Py[]).push(iid)
   }
@@ -640,14 +640,14 @@ function cmdRegrade(store: Store, args: Args): PyDict {
   if (!isList(history) || !history.length) {
     throw new Refused(`regrade: ${id} was reviewed (${pyStr(item.get('total_reviews'))}) but has no review history to replay`)
   }
-  if (!history.every(e => isDict(e) && DATE.test(pyStr(e.get('date', ''))) && isInt(e.get('quality')))) {
+  if (!history.every(e => isDict(e) && dateOf(e.get('date')) && isInt(e.get('quality')))) {
     throw new Refused(`regrade: ${id} has a review history entry without a date or quality`)
   }
   const hist = history as PyDict[]
   let index: number
   const date = arg(args, 'date')
   if (truthy(date)) {
-    const at = hist.map((e, i) => [e, i] as const).filter(([e]) => eq(getItem(e, 'date'), date)).map(([, i]) => i)
+    const at = hist.map((e, i) => [e, i] as const).filter(([e]) => eq(normDate(getItem(e, 'date')), date)).map(([, i]) => i)
     if (!at.length) throw new Refused(`regrade: ${id} has no review on ${pyStr(date)} (reviews: ${hist.map(e => S(getItem(e, 'date'), 'join')).join(', ')})`)
     index = at[at.length - 1]
   } else index = hist.length - 1
@@ -795,10 +795,11 @@ function cmdForgive(store: Store, args: Args): PyDict {
   const pat = patterns.get(pattern) as PyDict
   const examples = iter(pat.get('examples', [])).filter(isDict) as PyDict[]
   const date = arg(args, 'date')
-  const day = truthy(date) ? date : examples.length ? max(...examples.map(e => e.get('date', ''))) : ''
+  // dates compared as dates: one written before they were zero-padded ("2026-9-1") too
+  const day = truthy(date) ? date : examples.length ? max(...examples.map(e => normDate(e.get('date', '')))) : ''
   const matches = iter(pat.get('examples', []))
     .map((e, i) => [e, i] as const)
-    .filter(([e]) => isDict(e) && eq(e.get('date'), day) && (answer === null || normalize(e.get('incorrect', '')) === normalize(answer)))
+    .filter(([e]) => isDict(e) && eq(normDate(e.get('date')), day) && (answer === null || normalize(e.get('incorrect', '')) === normalize(answer)))
     .map(([, i]) => i)
   if (!matches.length) {
     const shownEx = examples.map(e => D({ date: e.get('date'), incorrect: e.get('incorrect') }))
@@ -811,7 +812,7 @@ function cmdForgive(store: Store, args: Args): PyDict {
   pat.set('consecutive_incorrect', max(0, sub(int(pat.get('consecutive_incorrect', 1)), 1)))
   const left = list.filter(e => isDict(e) && truthy(e.get('date'))).map(e => (e as PyDict).get('date'))
   if (left.length) {
-    const latest = max(...left)
+    const latest = max(...left.map(normDate))
     pat.set('last_seen', latest)
     pat.set('last_occurred', latest)
   }
@@ -917,6 +918,9 @@ export function main(ctx: Ctx, argv: string[]): void {
     else if (!DATE.test(today as string)) throw new Refused('--today: YYYY-MM-DD')
     const date = args.get('date') ?? null
     if (truthy(date) && !DATE.test(date as string)) throw new Refused('--date: YYYY-MM-DD')
+    // in the form the databases keep (ASCII digits): what is written and compared
+    args.set('today', normDate(args.get('today') as Py))
+    if (truthy(date)) args.set('date', normDate(date as Py))
     const data = args.get('data') as Py
     const root = truthy(data) ? resolve(expanduser(pnorm(data as string), ctx.env), ctx.cwd) : dataDir(ctx)
     ctx.dataRoot = root

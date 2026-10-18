@@ -111,14 +111,14 @@ def computed(databases: dict, now: datetime, code: str = None) -> dict:
 
     sr = databases.get("spaced_repetition", {})
     items = sr.get("items", {})
-    due_items = [iid for iid, item in items.items() if item.get("due_date", "") <= today]
+    due_items = [iid for iid, item in items.items() if langs.norm_date(item.get("due_date", "")) <= today]
 
     log = databases.get("session_log", {})
     sessions = log.get("sessions", [])
 
     profile = databases.get("learner_profile", {})
     last_updated = profile.get("last_updated", "")
-    streak_active = last_updated in (today, yesterday)
+    streak_active = langs.norm_date(last_updated) in (today, yesterday)
     try:
         days_since = (now - datetime.strptime(last_updated, "%Y-%m-%d")).days if last_updated else None
     except ValueError:
