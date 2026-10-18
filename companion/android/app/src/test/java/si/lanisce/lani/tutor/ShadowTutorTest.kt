@@ -62,6 +62,23 @@ class ShadowTutorTest {
     }
 
     private val api = Answering { r -> answerApi(r) }
+
+    /** The matrix's lanes' API (their own client): what it answers, its usage, a gate that holds every lane's call. */
+    private var laneScript: (JsonObject, Int) -> AssistantMessage = ::tutorTurn
+    private var laneUsage = Usage(input = 100, cacheWrite1h = 4_000, output = 80)
+    @Volatile private var laneGate: java.util.concurrent.CountDownLatch? = null
+    private val laneCalls = java.util.concurrent.atomic.AtomicInteger()
+    private val laneApi = Answering { r ->
+        if (r.url.encodedPath == "/v1/models") return@Answering Triple(200, modelsJson, "application/json")
+        laneGate?.await(20, java.util.concurrent.TimeUnit.SECONDS)
+        val o = tutorJson.parseToJsonElement(Buffer().also { r.body!!.writeTo(it) }.readUtf8()) as JsonObject
+        val m = laneScript(o, laneCalls.incrementAndGet())
+        Triple(200, sseOf(m.copy(usage = laneUsage), (o["model"] as JsonPrimitive).content), "text/event-stream")
+    }
+
+    private fun lanePosts(): List<Sent> = synchronized(laneApi.requests) { laneApi.requests.toList() }.filter { it.method == "POST" }.map { r ->
+        Sent(tutorJson.parseToJsonElement(Buffer().also { r.body!!.writeTo(it) }.readUtf8()) as JsonObject, r.header("anthropic-beta"))
+    }
     private val bridgeHttp = Answering { r ->
         when (r.url.encodedPath) {
             "/state" -> Triple(200, STATE, "application/json")
@@ -97,10 +114,12 @@ class ShadowTutorTest {
             sleep = {},
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
             photo = { photos[it] },
+            laneTransportFor = { base, key -> AnthropicTransport(base, key, OkHttpClient.Builder().addInterceptor(laneApi).build(), clock = { now }) },
         )
     }
 
     @After fun stop() {
+        laneGate?.countDown()
         scopes.forEach { it.cancel() }
         dir.deleteRecursively()
     }
@@ -671,6 +690,226 @@ class ShadowTutorTest {
         t.awaitIdle()
         val digest = turnText(posts().last { it.body["model"]!!.jsonPrimitive.content == "claude-haiku-5-5" && turnText(it).contains("<digest") })
         assertTrue(digest.contains("REAL-ONE") && digest.contains("REAL-TWO"))
+    }
+
+    // --- the matrix -------------------------------------------------------------------------------------------------
+
+    private val defaultLanes = listOf(
+        "claude-haiku-5-5@medium", "claude-haiku-5-5@high", "claude-haiku-5-5@xhigh", "claude-haiku-5-5@max",
+        "claude-sonnet-5-5@low", "claude-sonnet-5-5@medium", "claude-sonnet-5-5@high", "claude-opus-5-5@low", "claude-opus-5-5@medium",
+    )
+
+    private suspend fun withMatrix(): ShadowTutor {
+        val t = ready()
+        t.updateMatrix { it.copy(enabled = true) }.join()
+        t.awaitMatrix()
+        return t
+    }
+
+    private fun laneStore(id: String) = ShadowStore(File(dir, "matrix/$id"))
+
+    private fun answer(id: String, text: String) = """{"kind":"answer","conversation_id":"ex-$id","text":"$text","client_id":"$id"}"""
+
+    @Test fun `the matrix is off by default with the nine lanes preselected, and an old settings file loads`() {
+        assertEquals(false, ShadowSettings().matrix.enabled)
+        assertEquals(defaultLanes, Lanes.plan(ShadowSettings().matrix, emptyList()).map { it.id })
+        // a settings file from before the matrix (and a thread and a turn from before their new fields)
+        File(dir, "settings.json").writeText(
+            """{"enabled":true,"preset":"BALANCED","models":{},"efforts":{"ROUTINE":"medium"},"budgetPerDay":3.0,"reactAtOnce":true,""" +
+                """"listed":[{"id":"claude-sonnet-5-5"}],"listedAt":1,"keyRefused":false,"lowCredit":false,"eveningDigest":"2026-10-17","developer":true}""",
+        )
+        File(dir, "thread.json").writeText("""{"day":"2026-10-14","model":"claude-sonnet-5-5","messages":[],"pending":[],"tokens":5,"restarts":[],"startedAt":0,"lines":[],"yesterday":[],"prefix":"x","effort":"medium"}""")
+        File(dir, "queue.json").writeText("""[{"id":"t_1","eventIds":["e"],"kind":"DAY","task":"CHAT","model":"claude-sonnet-5-5","eventKind":"chat","queuedAt":1}]""")
+        val store = ShadowStore(dir)
+        val s = store.settings()
+        assertTrue(s.enabled && s.reactAtOnce && s.developer)
+        assertEquals(mapOf(Task.ROUTINE to "medium"), s.efforts)
+        assertEquals(MatrixSettings(), s.matrix)
+        assertEquals(0L, store.thread()!!.shownUntil)
+        assertEquals(null, store.queue().single().lane)
+    }
+
+    @Test fun `each lane gets every event the primary gets, on its own thread at its own model and effort`() = runBlocking {
+        val t = withMatrix()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitMatrix()
+        t.onDelivered("a1", "/message", answer("a1", "Jaz sem Jan.")).join()
+        t.awaitMatrix()
+        t.onDelivered("r1", "/reviews", review("r1", 1)).join()
+        t.onDelivered("s1", "/message", """{"kind":"session_end","conversation_id":"main","text":"a run ended","client_id":"s1"}""").join()
+        t.onChatOpened().join()
+        t.awaitMatrix()
+
+        val primary = t.today.turns.filter { it.status != TurnStatus.SKIPPED }
+        assertEquals(listOf("chat", "answer", "digest"), primary.map { it.eventKind })
+        assertTrue(primary.all { it.lane == null } && t.today.calls.all { it.lane == null })
+        val lanes = t.matrix.today
+        assertEquals(defaultLanes.toSet(), lanes.keys)
+        for ((id, log) in lanes) {
+            val (model, effort) = id.split('@')
+            assertEquals(id, primary.map { it.eventKind to it.eventIds }, log.turns.map { it.eventKind to it.eventIds })
+            assertTrue(id, log.turns.all { it.status == TurnStatus.DONE && it.kind == TurnKind.DAY && it.lane == id && it.model == model && it.effort == effort })
+            assertTrue(id, log.turns.all { it.replies.isNotEmpty() })
+            assertTrue(id, log.calls.isNotEmpty() && log.calls.all { it.lane == id && it.effort == effort && it.cost != null })
+            // one thread for all of them, the notebook first
+            val th = laneStore(id).thread()!!
+            assertEquals(effort, th.effort)
+            val all = th.messages.toString()
+            assertTrue(id, th.messages.first().toString().contains("<notebook>") && all.contains("Kako se reče stove?") && all.contains("Jaz sem Jan.") && all.contains("<digest"))
+        }
+        // every request of a lane: its model, its effort as the top-level effort, room by its level, no effort message
+        val sent = lanePosts().groupBy { it.body["model"]!!.jsonPrimitive.content + "@" + it.effort }
+        assertEquals(defaultLanes.toSet(), sent.keys)
+        for ((id, rs) in sent) {
+            val room = when (id.substringAfter('@')) { "max" -> 64_000; "xhigh" -> 32_000; else -> 16_000 }
+            assertTrue(id, rs.all { it.body["max_tokens"]!!.jsonPrimitive.content.toInt() == room })
+            assertTrue(id, rs.all { it.beta == "thinking-binding-controls-2026-08-01" && it.messages.none { m -> Effort.of(m) != null } })
+        }
+        // the export carries each lane's log and numbers, and the matrix as resolved
+        val o = tutorJson.parseToJsonElement(t.exportText("test")).jsonObject
+        val day = o["days"]!!.jsonArray.single().jsonObject
+        assertEquals(defaultLanes.toSet(), day["lanes"]!!.jsonObject.keys)
+        val lane = day["lanes"]!!.jsonObject.getValue("claude-haiku-5-5@max").jsonObject
+        assertEquals(3, lane["log"]!!.jsonObject["turns"]!!.jsonArray.size)
+        assertTrue(lane["stats"]!!.jsonObject["spend"]!!.jsonPrimitive.content.toDouble() > 0)
+        assertEquals(defaultLanes, o["matrix"]!!.jsonObject["lanes"]!!.jsonArray.map { it.jsonObject["id"]!!.jsonPrimitive.content })
+        // the primary's own numbers don't count the lanes
+        assertEquals(t.today.calls.size, t.stats().calls)
+    }
+
+    @Test fun `a lane's notebook calls are dry runs, and the notebook stays the primary's`() = runBlocking {
+        laneScript = { body, n ->
+            if (!hasToolResult(body)) message("tool_use", toolUse("n$n", "notebook_note", obj("text" to "LANE NOTE")), toolUse("w$n", "notebook_write", obj("text" to "LANE NOTEBOOK")))
+            else tutorTurn(body, n)
+        }
+        val t = withMatrix()
+        t.editNotebook("# Notebook\n- the primary's").join()
+        t.onDelivered("c1", "/message", chat("c1", "Živjo")).join()
+        t.awaitMatrix()
+        assertEquals("# Notebook\n- the primary's", t.notebook.text)
+        assertEquals("# Notebook\n- the primary's", ShadowStore(dir).notebook().text)
+        for ((id, log) in t.matrix.today) {
+            val nb = log.turns.single().toolCalls.filter { it.name.startsWith("notebook_") }
+            assertEquals(id, listOf("notebook_note", "notebook_write"), nb.map { it.name })
+            assertTrue(id, nb.all { it.dryRun })
+        }
+        // every lane read the primary's notebook
+        assertTrue(lanePosts().all { it.messages.first().toString().contains("the primary's") })
+    }
+
+    @Test fun `the lanes have no budget of their own and never count toward the primary's`() = runBlocking {
+        val t = withMatrix()
+        // the primary's budget: two chats of three calls ($0.051 each), never the lanes' spend
+        t.update { it.copy(budgetPerDay = 0.10) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Ena")).join()
+        t.awaitMatrix()
+        t.onDelivered("c2", "/message", chat("c2", "Dva")).join()
+        t.awaitMatrix()
+        assertEquals(listOf(TurnStatus.DONE, TurnStatus.DONE), t.today.turns.map { it.status })
+        assertEquals(6, t.today.calls.size)
+        assertTrue(t.matrix.spent() > 0.10)
+        // the primary's budget spent: it pauses, the lanes go on
+        t.onDelivered("c3", "/message", chat("c3", "Tri")).join()
+        t.awaitMatrix()
+        assertTrue(t.status, t.status.startsWith("paused: today's budget"))
+        assertTrue(t.matrix.today.values.all { l -> l.turns.size == 3 && l.turns.all { it.status == TurnStatus.DONE } })
+        assertTrue(t.matrix.status, t.matrix.status.startsWith("on"))
+    }
+
+    @Test fun `a lane whose model the key doesn't list is skipped, and says so`() = runBlocking {
+        modelsJson = """{"data":[{"id":"claude-sonnet-5-5","created_at":"2026-10-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}"""
+        val t = withMatrix()
+        t.onDelivered("c1", "/message", chat("c1", "Halo")).join()
+        t.awaitMatrix()
+        val skipped = t.matrix.plan.filter { it.skipped != null }
+        assertEquals(listOf("low", "medium"), skipped.map { it.effort })
+        assertTrue(skipped.all { it.family == Family.OPUS && it.id == null && it.skipped!!.contains("opus") })
+        assertEquals(defaultLanes.filterNot { it.startsWith("claude-opus") }.toSet(), t.matrix.today.keys)
+        assertTrue(lanePosts().none { it.body["model"]!!.jsonPrimitive.content.contains("opus") })
+        val o = tutorJson.parseToJsonElement(t.exportText("test")).jsonObject
+        assertEquals(2, o["matrix"]!!.jsonObject["lanes"]!!.jsonArray.count { it.jsonObject["skipped"] != null })
+    }
+
+    @Test fun `the primary's turns never wait behind the lanes`() = runBlocking {
+        val t = withMatrix()
+        laneGate = java.util.concurrent.CountDownLatch(1) // every lane's call hangs
+        t.onDelivered("c1", "/message", chat("c1", "Prvo")).join()
+        t.awaitIdle()
+        t.onDelivered("c2", "/message", chat("c2", "Drugo")).join()
+        t.awaitIdle()
+        assertEquals(listOf(TurnStatus.DONE, TurnStatus.DONE), t.today.turns.map { it.status })
+        assertEquals(6, t.today.calls.size)
+        // the lanes are still on their first call
+        assertTrue(t.matrix.today.values.all { it.turns.isEmpty() })
+        assertTrue(t.matrix.queued.values.all { q -> q.size == 2 && q.count { it.status == TurnStatus.RUNNING } == 1 })
+        laneGate!!.countDown()
+        t.awaitMatrix()
+        assertTrue(t.matrix.today.values.all { l -> l.turns.map { it.status } == listOf(TurnStatus.DONE, TurnStatus.DONE) })
+    }
+
+    @Test fun `what the learner was shown reaches every lane's thread too`() = runBlocking {
+        val t = withMatrix()
+        t.onDelivered("c1", "/message", chat("c1", "Kako se reče stove?")).join()
+        t.awaitMatrix()
+        minutes(1)
+        t.onRealReply("main", "REAL: peč · stove; the -o rule", null).join()
+        minutes(1)
+        t.onDelivered("c2", "/message", chat("c2", "In -gO?")).join()
+        t.awaitMatrix()
+        val second = lanePosts().filter { turnText(it).contains("In -gO?") }.groupBy { it.body["model"]!!.jsonPrimitive.content + "@" + it.effort }
+        assertEquals(defaultLanes.toSet(), second.keys)
+        for ((id, rs) in second) {
+            val text = turnText(rs.first())
+            assertTrue(id, text.contains(TurnText.SHOWN.take(40)) && text.contains("REAL: peč") && text.indexOf("REAL: peč") < text.indexOf("In -gO?"))
+        }
+        assertTrue(lanePosts().filter { turnText(it).contains("Kako se reče stove?") }.none { it.toString().contains("REAL: peč") })
+    }
+
+    @Test fun `a lane's thread restarts as text at its family's limit, and a new day archives it without a call`() = runBlocking {
+        laneUsage = Usage(input = 100, cacheWrite1h = 4_000, cacheRead = 21_000, output = 80) // 25,100: past Haiku's 20k, under Sonnet's 30k
+        val t = withMatrix()
+        t.onDelivered("c1", "/message", chat("c1", "Dober večer")).join()
+        t.awaitMatrix()
+        val callsBefore = laneCalls.get()
+        for ((id, log) in t.matrix.today) {
+            val th = laneStore(id).thread()!!
+            if (id.startsWith("claude-haiku")) {
+                assertEquals(id, listOf(25_100L), log.restarts)
+                assertEquals(id, 1, th.messages.size)
+                assertTrue(id, th.messages.single().toString().contains("restarted at 25100") && th.messages.single().toString().contains("Dober večer"))
+            } else assertTrue(id, log.restarts.isEmpty() && th.messages.size > 1)
+        }
+        assertEquals(callsBefore, laneCalls.get()) // no call for a restart
+        // the next day: yesterday's thread archived as it is, today's first message has its lines; no closing turn
+        now = LocalDateTime.of(2026, 10, 15, 9, 0).atZone(zone).toInstant().toEpochMilli()
+        laneUsage = Usage(input = 100, cacheWrite1h = 4_000, output = 80)
+        t.onDelivered("c2", "/message", chat("c2", "Dobro jutro")).join()
+        t.awaitMatrix()
+        for (id in defaultLanes) {
+            assertTrue(id, File(dir, "matrix/$id/threads/2026-10-14.json").isFile)
+            val th = laneStore(id).thread()!!
+            assertEquals("2026-10-15", th.day)
+            assertTrue(id, th.messages.first().toString().contains("Yesterday in brief") && th.messages.first().toString().contains("Dobro jutro"))
+            val turns = t.matrix.today.getValue(id).turns
+            assertTrue(id, turns.none { it.kind == TurnKind.CLOSING } && turns.single().status == TurnStatus.DONE)
+        }
+        // the primary closed its day with its notebook first, and the lanes began after it
+        assertTrue(t.dayLog("2026-10-15").turns.any { it.kind == TurnKind.CLOSING && it.status == TurnStatus.DONE })
+        assertTrue(lanePosts().filter { turnText(it).contains("Dobro jutro") }.all { it.messages.first().toString().contains("# Notebook") })
+    }
+
+    @Test fun `a lane toggled off stops, the matrix off stops them all`() = runBlocking {
+        val t = withMatrix()
+        t.updateMatrix { m -> m.copy(lanes = m.lanes.filterNot { it.family == Family.OPUS }) }.join()
+        t.onDelivered("c1", "/message", chat("c1", "Halo")).join()
+        t.awaitMatrix()
+        assertEquals(7, t.matrix.today.values.count { it.turns.isNotEmpty() })
+        t.updateMatrix { it.copy(enabled = false) }.join()
+        t.onDelivered("c2", "/message", chat("c2", "Še")).join()
+        t.awaitMatrix()
+        assertTrue(t.matrix.today.values.all { it.turns.size <= 1 })
+        assertEquals("off", t.matrix.status)
+        assertEquals(2, t.today.turns.size)
     }
 
     @Test fun `a restarted thread carries what the learner was shown in its last exchanges`() = runBlocking {

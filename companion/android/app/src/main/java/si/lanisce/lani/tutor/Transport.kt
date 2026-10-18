@@ -13,6 +13,7 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.longOrNull
+import okhttp3.Dispatcher
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaType
@@ -186,6 +187,14 @@ class AnthropicTransport(
         /** A turn's call streams for seconds; a long thinking pause is still a stream (pings). */
         private val defaultClient: OkHttpClient by lazy {
             OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS).readTimeout(120, TimeUnit.SECONDS).build()
+        }
+
+        /**
+         * The matrix's lanes' client ([ShadowMatrix]): a dispatcher of its own, so the lanes' streams (one each, all at
+         * once) never queue the primary's call behind them (a dispatcher runs at most 5 calls to a host at a time).
+         */
+        val laneClient: OkHttpClient by lazy {
+            defaultClient.newBuilder().dispatcher(Dispatcher().apply { maxRequests = 32; maxRequestsPerHost = 16 }).build()
         }
     }
 }

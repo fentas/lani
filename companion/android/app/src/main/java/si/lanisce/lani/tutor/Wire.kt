@@ -129,6 +129,15 @@ data class AssistantMessage(
 ) {
     val toolUses: List<JsonObject> get() = content.filter { it.str("type") == "tool_use" }
     val text: String get() = content.filter { it.str("type") == "text" }.joinToString("\n") { it.str("text").orEmpty() }
+
+    /** What it showed, in characters: its text and its tool calls' name and input, not its thinking (the thinking's estimate). */
+    fun visibleChars(): Int = content.sumOf { b ->
+        when (b.str("type")) {
+            "text" -> b.str("text").orEmpty().length
+            "tool_use" -> b.str("name").orEmpty().length + (b["input"]?.toString()?.length ?: 0)
+            else -> 0
+        }
+    }
 }
 
 internal fun JsonObject.str(key: String): String? = (this[key] as? JsonPrimitive)?.takeIf { it.isString }?.content

@@ -90,6 +90,18 @@ class ModelCatalog(val listed: List<ModelInfo>) {
         return newest.firstOrNull { !legacy(it.id) }?.id ?: newest.first().id
     }
 
+    /**
+     * The model of [f] itself (a matrix lane's, [Lanes.plan]): the plan's id when it's listed, else the next preferred,
+     * else the family's newest current one; null when the key lists none of the family (never the family above's, as
+     * [resolve] falls back to). Before the key was checked: the plan's id.
+     */
+    fun own(f: Family): String? {
+        if (listed.isEmpty()) return f.preferred.first()
+        val ids = listed.map { it.id }.toSet()
+        return f.preferred.firstOrNull { it in ids }
+            ?: listed.sortedByDescending { it.createdAt.orEmpty() }.firstOrNull { it.id.contains(f.name.lowercase()) && !legacy(it.id) }?.id
+    }
+
     /** The model of [task]: the panel's override for it when the key lists it, else the preset's. */
     fun modelFor(task: Task, preset: Preset, overrides: Map<Task, String> = emptyMap()): String =
         overrides[task]?.takeIf { o -> listed.isEmpty() || listed.any { it.id == o } } ?: resolve(preset.families.getValue(task))

@@ -80,7 +80,8 @@ class MemoryStore : SecretStore {
 
 /** An OkHttp interceptor that answers every request itself ([answer]: status, body, content type) and keeps them. */
 class Answering(private val answer: (Request) -> Triple<Int, String, String>) : Interceptor {
-    val requests = mutableListOf<Request>()
+    /** Kept from OkHttp's threads (the matrix's lanes call at once): copy it under its own lock. */
+    val requests: MutableList<Request> = java.util.Collections.synchronizedList(mutableListOf())
     override fun intercept(chain: Interceptor.Chain): Response {
         val r = chain.request()
         requests += r

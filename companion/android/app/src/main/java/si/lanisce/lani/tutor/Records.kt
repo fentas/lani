@@ -117,6 +117,8 @@ data class CallRecord(
     val visibleChars: Int? = null,
     /** How many images (a chat's photos) the request carried: the thread's so far, or a stateless call's own. */
     val images: Int = 0,
+    /** The matrix's lane that made it ([ShadowMatrix]: "claude-sonnet-5-5@low"); null: the primary's. */
+    val lane: String? = null,
 ) {
     /**
      * About how much of [Usage.output] was thinking (output counts thinking, which the API doesn't report apart): the
@@ -166,6 +168,8 @@ data class TurnRecord(
      * event's conversation (Haiku 5.5 at `low` did that in Jan's shadow). Counted per day, by model and effort.
      */
     val replyFromText: Boolean = false,
+    /** The matrix's lane it ran in ([ShadowMatrix]: "claude-sonnet-5-5@low"); null: the primary's. */
+    val lane: String? = null,
 )
 
 /** The panel's settings for the shadow tutor (not the key: that is in the [KeyVault]). */
@@ -196,6 +200,8 @@ data class ShadowSettings(
     val eveningDigest: String? = null,
     /** The developer section is shown in the settings (revealed by tapping the version seven times). */
     val developer: Boolean = false,
+    /** The matrix test: lanes of one model at one effort beside the primary ([ShadowMatrix]); off by default. */
+    val matrix: MatrixSettings = MatrixSettings(),
 ) {
     val limit: Int get() = threadLimit ?: preset.threadLimit
 }

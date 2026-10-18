@@ -60,7 +60,10 @@ import si.lanisce.lani.tutor.CallRecord
 import si.lanisce.lani.tutor.DayLog
 import si.lanisce.lani.tutor.DayStats
 import si.lanisce.lani.tutor.Effort
+import si.lanisce.lani.tutor.Family
 import si.lanisce.lani.tutor.Handling
+import si.lanisce.lani.tutor.LaneSpec
+import si.lanisce.lani.tutor.MatrixSettings
 import si.lanisce.lani.tutor.ModelCatalog
 import si.lanisce.lani.tutor.Preset
 import si.lanisce.lani.tutor.ShadowEvent
@@ -80,7 +83,8 @@ import java.time.format.DateTimeFormatter
  * URL), the day's numbers (by model × effort too), each event with the shadow's runs (model, effort, cost, output,
  * latency, how it replied) and tool calls next to the real tutor's, "also run on" another model at an effort, the
  * notebook, the thread, the export through the share sheet, and [upload]'s "📤 Pošlji vozlišču · Send to the node"
- * (app/DevUpload). A developer tool, in English.
+ * (app/DevUpload); the matrix (its switch, the lanes' grid, today's spend per lane) and each event's lane runs. A
+ * developer tool, in English.
  */
 @Composable
 fun ShadowPanel(shadow: ShadowTutor, upload: DevUpload? = null, onDismiss: () -> Unit) {
@@ -102,8 +106,9 @@ fun ShadowPanel(shadow: ShadowTutor, upload: DevUpload? = null, onDismiss: () ->
     }
 }
 
-private enum class Tab(val label: String) { EVENTS("Events"), NUMBERS("Numbers"), MEMORY("Notebook"), SETTINGS("Settings") }
+private enum class Tab(val label: String) { EVENTS("Events"), NUMBERS("Numbers"), MATRIX("Matrix"), MEMORY("Notebook"), SETTINGS("Settings") }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun Body(shadow: ShadowTutor, upload: DevUpload?) {
     var tab by remember { mutableStateOf(if (shadow.hasKey && shadow.settings.enabled) Tab.EVENTS else Tab.SETTINGS) }
@@ -111,14 +116,19 @@ private fun Body(shadow: ShadowTutor, upload: DevUpload?) {
     val today = shadow.today
     var shown by remember { mutableStateOf(today) }
     LaunchedEffect(day, today) { shown = day?.takeIf { it != today.day }?.let { shadow.dayLog(it) } ?: today }
+    // the matrix's lanes that day (today's as they run)
+    val lanesToday = shadow.matrix.today
+    var lanes by remember { mutableStateOf(lanesToday) }
+    LaunchedEffect(shown.day, lanesToday) { lanes = if (shown.day == today.day) lanesToday else shadow.laneLogs(shown.day) }
     Column(Modifier.fillMaxSize()) {
-        Row(Modifier.padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (t in Tab.entries) FilterChip(selected = tab == t, onClick = { tab = t }, label = { Text(t.label) })
+        FlowRow(Modifier.padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (t in Tab.entries) FilterChip(selected = tab == t, onClick = { tab = t }, label = { Text(t.label) }, modifier = Modifier.testTag("shadow-tab-${t.name.lowercase()}"))
         }
         if (tab == Tab.EVENTS || tab == Tab.NUMBERS) DayPicker(shadow, shown.day) { day = it }
         when (tab) {
-            Tab.EVENTS -> Events(shadow, shown)
+            Tab.EVENTS -> Events(shadow, shown, lanes)
             Tab.NUMBERS -> Numbers(shadow, shown, upload)
+            Tab.MATRIX -> Matrix(shadow)
             Tab.MEMORY -> Memory(shadow)
             Tab.SETTINGS -> Settings(shadow)
         }
@@ -156,12 +166,16 @@ private fun Card(content: @Composable () -> Unit) = Column(
 ) { content() }
 
 @Composable
-private fun Events(shadow: ShadowTutor, log: DayLog) {
+private fun Events(shadow: ShadowTutor, log: DayLog, lanes: Map<String, DayLog>) {
     val turns = (log.turns + shadow.queued).distinctBy { it.id }
     val byEvent = turns.flatMap { t -> t.eventIds.map { it to t } }.groupBy({ it.first }, { it.second })
     val loose = turns.filter { it.eventIds.size != 1 }.sortedByDescending { it.queuedAt }
     val matched = log.real.mapNotNull { it.eventId }.toSet()
     val calls = log.calls.groupBy { it.turnId }
+    // the matrix's runs of the same events (each lane's turn), by the events they answer
+    val laneTurns = (lanes.values.flatMap { it.turns } + shadow.matrix.queued.values.flatten()).distinctBy { it.id }
+    val laneCalls = lanes.values.flatMap { it.calls }.groupBy { it.turnId }
+    val lanesBy = laneTurns.groupBy { it.eventIds }
     LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
         item {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -171,7 +185,12 @@ private fun Events(shadow: ShadowTutor, log: DayLog) {
         }
         if (loose.isNotEmpty()) {
             item { Small("Digests, closings and restarts", bold = true) }
-            items(loose, key = { "loose-" + it.id }) { t -> Card { TurnView(shadow, t, calls[t.id].orEmpty()) } }
+            items(loose, key = { "loose-" + it.id }) { t ->
+                Card {
+                    TurnView(shadow, t, calls[t.id].orEmpty())
+                    if (t.eventIds.isNotEmpty()) LaneRuns(shadow, lanesBy[t.eventIds].orEmpty(), laneCalls)
+                }
+            }
         }
         item { Small("Events, newest first", bold = true) }
         items(log.events.sortedByDescending { it.at }, key = { it.id }) { e ->
@@ -182,6 +201,7 @@ private fun Events(shadow: ShadowTutor, log: DayLog) {
                     Small("🧑‍🏫 the real tutor · ${at(r.reply.at)}", bold = true)
                     si.lanisce.lani.ui.Markdown(r.reply.text)
                 }
+                LaneRuns(shadow, lanesBy[listOf(e.id)].orEmpty(), laneCalls)
                 if (e.handling != Handling.RECORDED) AlsoRun(shadow, e)
             }
         }
@@ -216,7 +236,7 @@ private fun TurnView(shadow: ShadowTutor, t: TurnRecord, calls: List<CallRecord>
     var open by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxWidth().padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(3.dp)) {
         Small(
-            "🕵️ ${t.kind.name.lowercase()} · ${t.eventKind} · ${t.model.ifBlank { "no call" }}" + (t.effort?.let { " · $it" } ?: "") +
+            (t.lane?.let { "🧪 $it · ${t.eventKind}" } ?: ("🕵️ ${t.kind.name.lowercase()} · ${t.eventKind} · ${t.model.ifBlank { "no call" }}" + (t.effort?.let { " · $it" } ?: ""))) +
                 " · ${t.status.name.lowercase()} · ${t.callIds.size} call(s)" + (t.endedAt?.let { " · ${at(it)}" } ?: ""),
             bold = true,
         )
@@ -253,8 +273,22 @@ private fun TurnView(shadow: ShadowTutor, t: TurnRecord, calls: List<CallRecord>
             if (open) t.toolCalls.forEach { ToolView(it) }
         }
         if (t.text.isNotBlank() && open) Small("text outside reply: ${t.text.take(400)}")
-        if (t.status.name == "FAILED" || t.status.name == "REFUSED") TextButton(onClick = { shadow.retry(t.id) }) { Text("Queue again") }
+        if (t.lane == null && (t.status.name == "FAILED" || t.status.name == "REFUSED")) TextButton(onClick = { shadow.retry(t.id) }) { Text("Queue again") }
     }
+}
+
+/** The matrix's runs of an event (or a digest): "▸ 🧪 Matrix: 9 lane(s)", each lane's turn when open. */
+@Composable
+private fun LaneRuns(shadow: ShadowTutor, turns: List<TurnRecord>, calls: Map<String, List<CallRecord>>) {
+    if (turns.isEmpty()) return
+    var open by remember { mutableStateOf(false) }
+    val done = turns.count { it.status == si.lanisce.lani.tutor.TurnStatus.DONE }
+    Text(
+        (if (open) "▾ " else "▸ ") + "🧪 Matrix: ${turns.size} lane(s), $done done · ${money(turns.sumOf { t -> calls[t.id].orEmpty().sumOf { it.cost ?: 0.0 } })}",
+        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.clickable { open = !open }.padding(top = 4.dp),
+    )
+    if (open) turns.sortedBy { it.lane }.forEach { TurnView(shadow, it, calls[it.id].orEmpty()) }
 }
 
 @Composable
@@ -387,6 +421,96 @@ private fun Numbers(shadow: ShadowTutor, log: DayLog, upload: DevUpload?) {
             }
             exported?.let { Small(it) }
             upload?.last?.let { Small("📤 $it") }
+        }
+        item { Spacer(Modifier.padding(24.dp)) }
+    }
+}
+
+/**
+ * The matrix (docs/plans/05-phase-0.md, "The matrix"): on or off, the lanes as a grid (each family's model × the
+ * efforts it takes, a toggle each; a model the key doesn't list said so), today's spend per lane and in all. No budget of
+ * its own: it runs until it's turned off.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun Matrix(shadow: ShadowTutor) {
+    val s = shadow.settings
+    val m = s.matrix
+    val matrix = shadow.matrix
+    val catalog = ModelCatalog(s.listed)
+    val today = matrix.today
+    LazyColumn(Modifier.fillMaxSize().padding(horizontal = 12.dp).testTag("shadow-matrix")) {
+        item {
+            Card {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Small("🧪 The matrix", bold = true)
+                        Small(
+                            "Every event the primary gets, run again in each lane: one model at one effort for every task, its own " +
+                                "thread. The notebook is read, never written; writes are dry runs. No budget of its own; the primary's isn't touched.",
+                        )
+                    }
+                    Switch(
+                        checked = m.enabled, onCheckedChange = { on -> shadow.updateMatrix { it.copy(enabled = on) } },
+                        modifier = Modifier.testTag("matrix-enabled").semantics { contentDescription = if (m.enabled) "The matrix: on" else "The matrix: off" },
+                    )
+                }
+                Small(matrix.status)
+            }
+        }
+        item {
+            Card {
+                Small("Lanes", bold = true)
+                Small("A family's model (the key's) × the efforts it takes. ${m.lanes.size} picked; the defaults: Haiku medium to max, Sonnet low to high, Opus low and medium.")
+                for (f in Family.entries) {
+                    val model = catalog.own(f)
+                    val levels = ModelCatalog.efforts(model ?: f.preferred.first())
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
+                        Small(f.name.lowercase().replaceFirstChar { it.uppercase() } + " · " + (model ?: "⚠️ not listed (${f.preferred.first()})"), bold = true)
+                    }
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        for (level in levels) {
+                            val spec = LaneSpec(f, level)
+                            FilterChip(
+                                selected = spec in m.lanes, enabled = model != null,
+                                onClick = { shadow.updateMatrix { it.copy(lanes = if (spec in it.lanes) it.lanes - spec else it.lanes + spec) } },
+                                label = { Text(level, fontSize = 12.sp) },
+                                modifier = Modifier.testTag("lane-${f.name.lowercase()}-$level"),
+                            )
+                        }
+                    }
+                }
+                matrix.plan.filter { it.skipped != null }.forEach { p -> Small("⚠️ ${p.family.name.lowercase()} · ${p.effort}: skipped, ${p.skipped}") }
+                if (m.lanes.toSet() != MatrixSettings.DEFAULT_LANES.toSet()) {
+                    TextButton(onClick = { shadow.updateMatrix { it.copy(lanes = MatrixSettings.DEFAULT_LANES) } }) { Text("The nine defaults again") }
+                }
+            }
+        }
+        item {
+            Card {
+                val total = today.values.sumOf { d -> d.calls.sumOf { it.cost ?: 0.0 } }
+                Small("Today", bold = true)
+                Small("the lanes' spend ${money(total)} in all (the primary's ${money(shadow.today.calls.sumOf { it.cost ?: 0.0 })}, its own budget \$${"%.2f".format(s.budgetPerDay)})")
+                for (p in matrix.plan) {
+                    val id = p.id ?: continue
+                    val d = today[id]
+                    val q = matrix.queued[id].orEmpty()
+                    val ok = d?.calls.orEmpty().filter { it.error == null }
+                    val first = ok.mapNotNull { it.firstTokenMs }.sorted().let { xs -> xs.getOrNull(xs.size / 2) }
+                    val state = when {
+                        q.any { it.status == si.lanisce.lani.tutor.TurnStatus.RUNNING } -> "running ${q.first { it.status == si.lanisce.lani.tutor.TurnStatus.RUNNING }.eventKind}"
+                        q.isNotEmpty() -> "${q.size} waiting"
+                        else -> "idle"
+                    }
+                    Small(
+                        "$id: ${money(d?.calls.orEmpty().sumOf { it.cost ?: 0.0 })} · ${d?.turns?.size ?: 0} turn(s), ${ok.size} call(s)" +
+                            " · first token ${first ?: "—"} ms · ✍️ ${d?.turns?.count { it.replyFromText } ?: 0} · errors ${d?.calls?.count { it.error != null } ?: 0} · $state",
+                        mono = true,
+                    )
+                }
+                // lanes no longer picked that ran today
+                today.keys.filter { id -> matrix.plan.none { it.id == id } }.forEach { id -> Small("$id (off): ${money(today[id]?.calls.orEmpty().sumOf { it.cost ?: 0.0 })}", mono = true) }
+            }
         }
         item { Spacer(Modifier.padding(24.dp)) }
     }

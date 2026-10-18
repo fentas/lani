@@ -56,6 +56,11 @@ class ShadowTutor(
     private val io: CoroutineDispatcher = Dispatchers.IO.limitedParallelism(1),
     /** A chat's photo on the phone by its id (ChatPhotoStore), or null: the turn sends it as an image block ([ShadowImages]). */
     private val photo: (String) -> File? = { null },
+    /**
+     * The matrix's lanes' transport ([ShadowMatrix]): a client of their own (AnthropicTransport.laneClient), so their
+     * streams never queue the primary's call behind them.
+     */
+    private val laneTransportFor: (String, suspend () -> String?) -> TutorTransport = { base, key -> AnthropicTransport(base, key, AnthropicTransport.laneClient) },
 ) {
     private val specs = PhaseA.load(read)
     private val guide = Guide(read)
@@ -68,6 +73,40 @@ class ShadowTutor(
     private var nb = NotebookState()
     private var q: List<TurnRecord> = emptyList()
     private val logs = mutableMapOf<String, DayLog>()
+
+    /** The lanes' reads: one GET for the same read of all lanes at an event (the primary keeps its own). */
+    private val laneReads = SharedReads(scope, io, clock) { name, input ->
+        val bridge = bridgeConfig()?.let(bridgeFor)
+        BridgeReads({ bridge }, ::allEvents).read(name, input)
+    }
+
+    private val matrixHost = object : ShadowMatrix.Host {
+        override val settings: ShadowSettings get() = s
+        override val hasKey: Boolean get() = this@ShadowTutor.hasKey
+        override val prefix: Prefix get() = this@ShadowTutor.prefix
+        override val notebook: NotebookState get() = nb
+        override fun transport(): TutorTransport = laneTransportFor(baseUrl()) { vault.load() }
+        override fun tools(notebook: ShadowTools.NotebookHost, onReply: suspend (ShadowReply) -> Unit, onGuide: (String) -> Unit): ToolRunner =
+            ShadowTools(specs.associateBy { it.name }, laneReads, guide, notebook, onReply, learner, onGuide, clock)
+        override fun event(id: String): ShadowEvent? = findEvent(id)
+        override fun real(day: String): List<RealReply> = log(day).real
+        override fun blocks(t: TurnRecord, events: List<ShadowEvent>): List<JsonObject> = imageBlocks(t, events) + textBlock(content(t, events))
+        override fun where(): String? = this@ShadowTutor.where()
+        override fun cost(model: String, usage: Usage): Double? = prices.cost(model, usage)
+        override fun closingPending(): Boolean {
+            if (q.any { it.kind == TurnKind.CLOSING && it.eventKind == "closing" }) return true
+            // the primary's rollover queues it at its next turn: yesterday's thread, answered, under this prefix
+            val th = thread ?: return false
+            return th.day != dayNow() && th.prefix == prefix.hash && th.messages.any { it.role() == "assistant" } &&
+                s.enabled && hasKey && !s.keyRefused && !s.lowCredit && spent() < s.budgetPerDay
+        }
+    }
+
+    /**
+     * The matrix test (docs/plans/05-phase-0.md, "The matrix"): lanes of one model at one effort beside the primary, each
+     * with its own thread, queue and worker; off by default. The primary runs exactly as without it.
+     */
+    val matrix = ShadowMatrix(scope, File(store.dir, "matrix"), matrixHost, clock, zone, io, sleep, logLine)
 
     var settings by mutableStateOf(ShadowSettings())
         private set
@@ -100,6 +139,7 @@ class ShadowTutor(
             q = store.queue()
             hasKey = vault.has()
             publish()
+            matrix.start()
             if (s.enabled) wakeUp()
         }
     }
@@ -139,6 +179,7 @@ class ShadowTutor(
         store.saveSettings(s)
         settings = s
         status = statusNow()
+        matrix.refresh()
     }
 
     private fun saveQueue(next: List<TurnRecord>) {
@@ -197,6 +238,7 @@ class ShadowTutor(
         saveSettings { it.copy(listed = models, listedAt = now(), keyRefused = false, lowCredit = false) }
         line("key checked: ${models.size} model(s) listed")
         wakeUp()
+        matrix.resume()
         null
     }
 
@@ -212,6 +254,7 @@ class ShadowTutor(
         }
         saveSettings { it.copy(listed = models, listedAt = now(), keyRefused = false, lowCredit = false) }
         wakeUp()
+        matrix.resume()
         null
     }
 
@@ -359,7 +402,11 @@ class ShadowTutor(
         saveQueue(q + t.copy(status = TurnStatus.QUEUED, notBefore = 0, error = null, queuedAt = now()))
         saveSettings { it.copy(keyRefused = false, lowCredit = false) }
         wakeUp()
+        matrix.resume()
     }
+
+    /** The matrix's settings changed in the panel (on, a lane's toggle): its lanes follow at once. */
+    fun updateMatrix(f: (MatrixSettings) -> MatrixSettings) = scope.launch(io) { saveSettings { it.copy(matrix = f(it.matrix)) } }
 
     private fun newId() = "t_" + UUID.randomUUID().toString().replace("-", "").take(12)
 
@@ -385,6 +432,8 @@ class ShadowTutor(
         val kind = if (model == threadModel) TurnKind.DAY else TurnKind.STATELESS
         saveQueue(q + TurnRecord(id = newId(), eventIds = events.map { it.id }, kind = kind, task = task, model = model, eventKind = eventKind, queuedAt = now(), why = why, effort = effort))
         wakeUp()
+        // the matrix's lanes get the same turn, each on its own thread at its own model and effort
+        matrix.enqueue(events, eventKind, task, why)
     }
 
     // --- the worker -----------------------------------------------------------------------------------------------
@@ -669,13 +718,7 @@ class ShadowTutor(
         val n = log(dayNow()).calls.count { it.error == null } + 1
         val raw = r?.message?.rawUsage?.takeIf { s.developer && UsageSample.keep(firstOfThread, n) }
         // what the response showed (its text, its tool calls' input), for the thinking's estimate
-        val visible = r?.message?.content?.sumOf { b ->
-            when (b.str("type")) {
-                "text" -> b.str("text").orEmpty().length
-                "tool_use" -> b.str("name").orEmpty().length + (b["input"]?.toString()?.length ?: 0)
-                else -> 0
-            }
-        }
+        val visible = r?.message?.visibleChars()
         return CallRecord(
             effort = effort, effortByMessage = byMessage, visibleChars = visible,
             id = "c_" + UUID.randomUUID().toString().replace("-", "").take(12),
@@ -738,6 +781,8 @@ class ShadowTutor(
                     archive(th)
                     onDayClosed()
                 }
+                // a lane's new day waits for the notebook this closing rewrote
+                matrix.wakeAll()
             }
             TurnKind.DAY, TurnKind.STATELESS -> {
                 val at = Instant.ofEpochMilli(t.endedAt ?: now()).atZone(zone()).toLocalTime().withNano(0).withSecond(0)
@@ -789,6 +834,9 @@ class ShadowTutor(
     /** Day [day]'s log (the panel browses older days). */
     suspend fun dayLog(day: String): DayLog = withContext(io) { log(day) }
 
+    /** The matrix's lanes' logs of day [day] (the panel browses older days). */
+    suspend fun laneLogs(day: String): Map<String, DayLog> = withContext(io) { matrix.logs(day) }
+
     /**
      * Everything the shadow kept, as one JSON file in [dir] (the share sheet sends it): [exportText]'s.
      */
@@ -836,6 +884,7 @@ class ShadowTutor(
         put("notebook", tutorJson.encodeToJsonElement(NotebookState.serializer(), nb))
         store.thread()?.let { put("thread", tutorJson.encodeToJsonElement(ThreadState.serializer(), it)) }
         put("queue", tutorJson.encodeToJsonElement(ListSerializer(TurnRecord.serializer()), q))
+        put("matrix", matrix.json())
         if (left.isNotEmpty()) put("days_left_out", JsonArray(left.map { JsonPrimitive(it) }))
         put(
             "days",
@@ -844,9 +893,29 @@ class ShadowTutor(
                     put("day", d.day)
                     put("stats", tutorJson.encodeToJsonElement(DayStats.serializer(), DayStats.of(d, nb.text.length)))
                     put("log", tutorJson.encodeToJsonElement(DayLog.serializer(), d))
+                    // the matrix's lanes that day, each its numbers and its log (turns and calls with the lane's id)
+                    val lanes = matrix.logs(d.day)
+                    if (lanes.isNotEmpty()) put(
+                        "lanes",
+                        buildJsonObject {
+                            lanes.forEach { (id, l) ->
+                                put(id, buildJsonObject {
+                                    put("stats", tutorJson.encodeToJsonElement(DayStats.serializer(), DayStats.of(l, nb.text.length)))
+                                    put("log", tutorJson.encodeToJsonElement(DayLog.serializer(), l))
+                                })
+                            }
+                        },
+                    )
                 }
             }),
         )
+    }
+
+    /** The tests': waits until the matrix's lanes are idle too. */
+    internal suspend fun awaitMatrix(timeoutMs: Long = 20_000) {
+        awaitIdle(timeoutMs)
+        matrix.awaitIdle(timeoutMs)
+        awaitIdle(timeoutMs)
     }
 
     /** The tests': waits until what was handed in has run and the worker stopped. */
