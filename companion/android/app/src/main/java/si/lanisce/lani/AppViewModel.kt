@@ -1027,9 +1027,10 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    /** A word's forms card reviewed now ("▶ Vadi zdaj · Practise now" on the word's card, after "📋 Vse oblike"). */
+    /** A word's forms card reviewed now ("▶ Vadi zdaj · Practise now" in the word's overview, after "🃏 Vadi oblike"). */
     fun playFormsCard(cardId: String) {
         val card = content.dashboard?.formsCards?.firstOrNull { it.id == cardId } ?: return
+        formsCards.closeView()
         words.close()
         startRun(Screen.Review(listOf(card), run = ++reviewRuns))
     }

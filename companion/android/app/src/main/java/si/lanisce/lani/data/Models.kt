@@ -289,8 +289,9 @@ sealed interface Exercise {
 
     /**
      * A forms card of the review ("📋 Oblike · Forms", data/FormsCard.kt): the word [lemma] (its part of speech [pos], a
-     * noun's [gender], what it [meaning]s, its [emoji]) with its whole table ([sections]: the forms introduced to the
-     * learner as gaps or shown, the others greyed), this review's [gaps] asked one at a time, chosen among their options
+     * noun's [gender], what it [meaning]s, its [emoji]) with the sections of its table that have a gap asked now
+     * ([sections]: the forms introduced to the learner as gaps or shown, the others greyed; the sections without a gap,
+     * [hidden] by their titles, are the overview's), this review's [gaps] asked one at a time, chosen among their options
      * or [typed] once the card is secure; [fresh]: the part newly introduced, played first; [pages]: the grammar pages its
      * help opens; [said]: the rows asked, read aloud at the end; [checked]: the forms book's hand-checked table (machine-
      * written, flagged so); [data]: the card's word as the node keeps it. Only the review makes one (from the card's forms); a module never has it.
@@ -312,6 +313,8 @@ sealed interface Exercise {
         /** The card's word and table as the node keeps them: what a wrong gap's kind is told from ([FormsCard.kind]). */
         val data: FormsCardData? = null,
         override val grammar: String? = null,
+        /** The titles of the table's sections with no gap asked now: not shown in the review. */
+        val hidden: List<String> = emptyList(),
     ) : Exercise
 }
 

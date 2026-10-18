@@ -1310,8 +1310,10 @@ private fun formsCardGaps(ex: Exercise.FormsTable, marks: List<si.lanisce.lani.d
             })
         }
     })
-    // the rest of the table: what is introduced (asked another time) and what is greyed still
+    // the rest of the table on screen: what is greyed still (not introduced); the sections without a gap asked now
+    // aren't shown in the review at all (their titles: hidden)
     put("preview", buildJsonArray { ex.sections.flatMap { s -> s.rows.flatMap { r -> r.cells } }.filterNotNull().filter { it.state == si.lanisce.lani.data.FormsCellState.PREVIEW }.forEach { add(JsonPrimitive(it.key)) } })
+    if (ex.hidden.isNotEmpty()) put("hidden", buildJsonArray { ex.hidden.forEach { add(JsonPrimitive(it)) } })
 }
 
 /** What [ex] expects as its answer, for the tutor ([chatContext] before an answer); null where it isn't one text. */

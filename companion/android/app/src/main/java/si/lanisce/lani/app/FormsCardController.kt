@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -14,13 +15,44 @@ import si.lanisce.lani.data.CourseUnit
 import si.lanisce.lani.data.Dashboard
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.FormsCard
+import si.lanisce.lani.data.FormsCardData
 import si.lanisce.lani.data.FormsCardsAnswer
 import si.lanisce.lani.data.ReviewCard
+import si.lanisce.lani.data.WordEntry
+import si.lanisce.lani.data.WordFormsWire
+import si.lanisce.lani.data.Words
 import si.lanisce.lani.l10n.bi
 import java.time.LocalDate
 import kotlin.random.Random
 
-/** How making a word's forms card on demand ("📋 Vse oblike · All forms" on its card) goes. */
+/** How getting a word's whole table to read goes (the overview: "📋 Vse oblike · All forms"). */
+sealed interface FormsLook {
+    data object Loading : FormsLook
+    /** Its table ([data]: the learner's forms card's, else the bridge's), whose forms they are ([attribution]). */
+    data class Ready(val data: FormsCardData, val attribution: String? = null) : FormsLook
+    /** The dictionary has no table of it. */
+    data object None : FormsLook
+    /** No node now, and nothing of it on the phone: try again later. */
+    data object Offline : FormsLook
+}
+
+/**
+ * The overview on screen ("📋 Vse oblike · All forms"): the whole table of [lemma] ([pos]; its card's [itemId], what it
+ * means to the learner, its [emoji], its dictionary [gloss], which tells the dictionary's entries apart), to read; opened
+ * from a word's card, or after its forms card in a run ([inRun]: no "🃏 Vadi oblike" there, the card is being practised).
+ */
+data class FormsView(
+    val lemma: String,
+    val pos: String?,
+    val itemId: String? = null,
+    val meaning: String? = null,
+    val emoji: String? = null,
+    val gloss: List<String> = emptyList(),
+    val inRun: Boolean = false,
+    val look: FormsLook = FormsLook.Loading,
+)
+
+/** How making a word's forms card on demand ("🃏 Vadi oblike · Practise the forms" in its overview) goes. */
 sealed interface FormsAsk {
     data object Making : FormsAsk
     /** Made (or there already): its review card. */
@@ -58,9 +90,17 @@ class FormsCardController(
     var asks by mutableStateOf<Map<String, FormsAsk>>(emptyMap())
         private set
 
+    /** The overview on screen (a word's whole table to read), or none. */
+    var view by mutableStateOf<FormsView?>(null)
+        private set
+    private var viewJob: Job? = null
+
     /** Forms cards are on: the learner's bridge makes them, for their home language (Slovene). */
     fun on(d: Dashboard? = content.dashboard): Boolean =
         d != null && FormsCard.FEATURE in d.features && (d.language ?: d.pair.target.code) == FormsCard.LANGUAGE
+
+    /** A word's whole table can be read: the home language is Slovene (the table's sections are its grammar's). */
+    fun viewable(d: Dashboard? = content.dashboard): Boolean = d != null && (d.language ?: d.pair.target.code) == FormsCard.LANGUAGE
 
     /** The grammar pages introduced to the learner now ([FormsCard.introduced]). */
     fun introduced(): Set<String> = FormsCard.introduced(game.state, course(), FormsCard.LANGUAGE)
@@ -134,6 +174,87 @@ class FormsCardController(
         }
     }
 
+    // --- the overview: a word's whole table to read -------------------------------------------------------------------
+
+    /**
+     * "📋 Vse oblike · All forms" on the card of [e]: its whole table to read, at once (the overview): the learner's forms
+     * card's table when they have one (offline too), else the bridge's (GET /forms-cards: as its card would have it), else,
+     * from an older bridge, the dictionary's forms (GET /forms: no future joined, no adjective's cases).
+     */
+    fun open(e: WordEntry) {
+        val v = FormsView(e.lemma, e.pos, e.itemId, Words.meaning(e).ifBlank { null }, e.emoji, e.glossEn.ifEmpty { e.gloss })
+        viewJob?.cancel()
+        val own = cardOf(e.lemma)?.forms?.takeIf { e.pos == null || it.pos == e.pos }
+        if (own != null) {
+            view = v.copy(look = FormsLook.Ready(own))
+            return
+        }
+        view = v
+        viewJob = scope.launch {
+            val look = table(v)
+            view?.takeIf { it.lemma == v.lemma && it.pos == v.pos }?.let { view = it.copy(look = look) }
+        }
+    }
+
+    /** After a forms card ([d]: its word's table), from its end: the whole table to read. */
+    fun open(d: FormsCardData) {
+        viewJob?.cancel()
+        view = FormsView(d.lemma, d.pos, meaning = d.meaning, emoji = d.emoji, gloss = d.gloss, inRun = true, look = FormsLook.Ready(d))
+    }
+
+    /** The overview's "↻": its table asked for again. */
+    fun retryView() {
+        val v = view ?: return
+        view = v.copy(look = FormsLook.Loading)
+        viewJob?.cancel()
+        viewJob = scope.launch {
+            val look = table(v)
+            view?.takeIf { it.lemma == v.lemma && it.pos == v.pos }?.let { view = it.copy(look = look) }
+        }
+    }
+
+    fun closeView() {
+        viewJob?.cancel()
+        view = null
+    }
+
+    /** [v]'s table: the bridge's (GET /forms-cards), else the dictionary's forms the phone has or asks for (GET /forms). */
+    private suspend fun table(v: FormsView): FormsLook {
+        val b = bridge()
+        if (b != null) {
+            val answer = try {
+                b.formsTables(listOf(v.lemma))
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                return fromForms(v, null) ?: FormsLook.Offline
+            }
+            if (answer != null) {
+                val t = FormsCard.pickTable(answer.words.flatMap { it.tables }, v.pos, v.gloss) ?: return FormsLook.None
+                return FormsLook.Ready(t.copy(meaning = v.meaning ?: t.meaning, emoji = t.emoji ?: v.emoji), answer.attribution)
+            }
+        }
+        return fromForms(v, b) ?: if (b == null) FormsLook.Offline else FormsLook.None
+    }
+
+    /** [v]'s table from the dictionary's forms (GET /forms): those the phone has, else asked of [b]; null without any. */
+    private suspend fun fromForms(v: FormsView, b: Bridge?): FormsLook? {
+        val cached = forms.entryOf(v.lemma, v.pos, v.gloss)
+        val entry = cached ?: b?.let {
+            val answer = try {
+                it.forms(listOf(v.lemma))
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                null
+            }
+            val all = answer?.words?.flatMap { w -> w.entries }.orEmpty()
+            WordFormsWire.entryFor(all.filter { e -> v.pos == null || e.pos == v.pos }.ifEmpty { all }, v.gloss.joinToString(", "))
+        } ?: return null
+        val d = FormsCard.fromForms(entry, v.meaning, v.emoji) ?: return null
+        return FormsLook.Ready(d, if (entry.table == "wiktionary") ATTRIBUTION else null)
+    }
+
     /**
      * The intro of [unit] ended (finished or skipped) for the first time: its pages are introduced now; the node hears of
      * them at once, brings back soon the cards they open rows of and makes the day's new ones; when it brought some back,
@@ -187,5 +308,8 @@ class FormsCardController(
     private companion object {
         /** The longest the note waits for the news on screen before it. */
         const val NEWS_WAIT_MS = 12_000L
+
+        /** Whose forms the dictionary's are (the bridge says the same with GET /forms). */
+        const val ATTRIBUTION = "Wiktionary (CC BY-SA 4.0) via kaikki.org"
     }
 }

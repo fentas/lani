@@ -6,6 +6,8 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.GrammarBook
@@ -79,6 +81,14 @@ data class FormsCardMade(val item_id: String, val lemma: String, val pos: String
 @Serializable
 data class FormsCardBack(val item_id: String, val lemma: String = "", val due_date: String = "", val fresh: List<String> = emptyList())
 
+/** A word GET /forms-cards was asked about and its tables, as its forms card would have them (to read: the overview). */
+@Serializable
+data class FormsTablesWord(val word: String, val tables: List<FormsCardData> = emptyList())
+
+/** GET /forms-cards' answer: each word's tables, and whose forms they are ([attribution]: Wiktionary's, when any is). */
+@Serializable
+data class FormsTablesAnswer(val language: String = "", val words: List<FormsTablesWord> = emptyList(), val attribution: String? = null)
+
 /** A word POST /forms-cards made no card of, and why ("not a word the learner has learned", "today's 2 new forms cards are made"). */
 @Serializable
 data class FormsCardSkip(val word: String, val why: String = "")
@@ -103,7 +113,7 @@ enum class FormsCellState {
     /** Asked in this review. */
     GAP,
 
-    /** Introduced, asked in another part: shown as known. */
+    /** Introduced, asked in another part: shown as known (in the overview: a form the learner practises, marked). */
     TESTED,
 
     /** Not introduced yet: greyed, to read ahead; asked once its page is met. */
@@ -126,6 +136,23 @@ data class FormsRow(val label: String, val cells: List<FormsCell?>, val said: St
 data class FormsSection(val title: String, val columns: List<String>, val rows: List<FormsRow>)
 
 /**
+ * A word's whole table to read ([FormsCard.overview]: "📋 Vse oblike · All forms"): the word ([lemma], its [pos], a noun's
+ * [gender], what it [meaning]s, its [emoji]), every section, the forms the learner practises ([practised], of its [forms]
+ * besides its own), and whether it is the forms book's hand-checked table ([checked]).
+ */
+data class FormsOverview(
+    val lemma: String,
+    val pos: String,
+    val gender: String?,
+    val meaning: String?,
+    val emoji: String?,
+    val sections: List<FormsSection>,
+    val practised: Int,
+    val forms: Int,
+    val checked: Boolean,
+)
+
+/**
  * A gap asked: its slot's [key], the form shown as right ([answer]), every form that is right ([accept]), the three to
  * choose from ([options]: the right one and two of the word's other forms, never one that is right here), [chosen]:
  * asked by choosing even when the card is typed (a part newly introduced), the rule's [page], and where it stands
@@ -145,9 +172,10 @@ data class FormsGap(
 )
 
 /**
- * Forms cards ("📋 Oblike · Forms"; companion/README.md "Forms cards"): one word with its whole table, the forms the
- * school has introduced asked as gaps, the others greyed to read ahead, each card its own spaced-repetition card made by
- * the node from the dictionary (POST /forms-cards). Pure.
+ * Forms cards ("📋 Oblike · Forms"; companion/README.md "Forms cards"): one word with its table, the forms the school has
+ * introduced asked as gaps, a part a review, each card its own spaced-repetition card made by the node from the dictionary
+ * (POST /forms-cards); in a review only the sections with a gap asked now, a form not introduced yet greyed in them, to
+ * read ahead; the whole table is the [overview], to read, never a test. Pure.
  *
  * - **Introduced** ([introduced]): a grammar page met in the grammar book, or taught by a course unit whose intro is done.
  *   A slot is tested ([tested]) once its page and the pages it needs are introduced; the word's own form never is.
@@ -188,6 +216,15 @@ object FormsCard {
 
     /** The core verbs: their cards first. */
     val CORE = listOf("biti", "imeti", "iti", "delati", "hoteti", "moči", "vedeti", "videti", "reči", "dati", "priti", "govoriti", "piti", "jesti", "spati", "živeti")
+
+    /** The words one GET /forms-cards asks about at most (the node says the same). */
+    const val TABLES_MAX = 10
+
+    /** `/forms-cards?w=delati&w=hiša`: the words' tables to read (the overview), nothing made. */
+    fun tablesUrl(base: String, words: List<String>): HttpUrl =
+        (base.trimEnd('/') + "/forms-cards").toHttpUrl().newBuilder().apply { words.take(TABLES_MAX).forEach { addQueryParameter("w", it) } }.build()
+
+    fun parseTables(raw: String): FormsTablesAnswer = json.decodeFromString(FormsTablesAnswer.serializer(), raw)
 
     /** The item's `forms` as the node keeps it; null when it doesn't read or isn't whole. */
     fun parse(e: JsonElement?): FormsCardData? =
@@ -395,10 +432,41 @@ object FormsCard {
     }
 
     /**
-     * The exercise of forms card [card] ([d]: its word's forms) this review: the whole table (the word's own form given,
-     * the gaps of its [part], the other introduced forms shown, the rest greyed), its gaps chosen, or [typed] once the card
-     * is secure (a fresh part chosen still); [introduced]: the pages introduced. Null when nothing of it is asked yet.
-     * [label]: the string tables' text of a key (the learner's pair; a test's own).
+     * [d]'s table laid out by [plans], each cell in its [state] (by its slot's key); [where] and [spots], when given, get
+     * where each cell stands ("sedanjik · present — dvojina") and the words around it.
+     */
+    private fun sections(
+        d: FormsCardData, plans: List<Plan>, label: (String) -> String, state: (String) -> FormsCellState,
+        where: MutableMap<String, String>? = null, spots: MutableMap<String, Spot>? = null,
+    ): List<FormsSection> = plans.map { p ->
+        val title = label(p.title)
+        FormsSection(
+            title, p.columns.map { columnLabel(it, label) },
+            p.rows.map { (l, row) ->
+                val cells = row.map { s ->
+                    s?.let {
+                        spots?.set(it.key, it)
+                        FormsCell(it.key, d.slot(it.key)!!.shown, state(it.key), it.before, it.after)
+                    }
+                }
+                if (where != null) row.forEachIndexed { c, s ->
+                    if (s != null) where[s.key] = listOf(title, rowLabel(l, label), columnLabel(p.columns[c], label)).filter { it.isNotBlank() }.joinToString(" — ")
+                }
+                FormsRow(rowLabel(l, label), cells, cells.filterNotNull().joinToString(", ") { it.text })
+            },
+        )
+    }
+
+    /** Whether [s] has a gap asked now. */
+    private fun asks(s: FormsSection): Boolean = s.rows.any { r -> r.cells.any { it?.state == FormsCellState.GAP } }
+
+    /**
+     * The exercise of forms card [card] ([d]: its word's forms) this review: the sections of its table with a gap of its
+     * [part] (biti's present, not its negative, future, past and imperative: those are [Exercise.FormsTable.hidden]); in
+     * them the word's own form given, the gaps, the other introduced forms shown, the rest greyed. Its gaps chosen, or
+     * [typed] once the card is secure (a fresh part chosen still); [introduced]: the pages introduced. What is asked and
+     * graded is the part's alone: a hidden section changes neither. Null when nothing of it is asked yet. [label]: the
+     * string tables' text of a key (the learner's pair; a test's own). The whole table is the [overview]'s.
      */
     fun exercise(
         card: ReviewCard, d: FormsCardData, introduced: Set<String>, typed: Boolean, today: LocalDate, random: Random,
@@ -412,31 +480,17 @@ object FormsCard {
         val asked = gaps.toSet()
         val where = HashMap<String, String>()
         val spots = HashMap<String, Spot>()
-        val sections = plans.map { p ->
-            val title = label(p.title)
-            FormsSection(
-                title, p.columns.map { columnLabel(it, label) },
-                p.rows.map { (l, row) ->
-                    val cells = row.map { s ->
-                        s?.let {
-                            val slot = d.slot(it.key)!!
-                            val state = when {
-                                own(d, it.key) -> FormsCellState.GIVEN
-                                it.key in asked -> FormsCellState.GAP
-                                it.key in tested -> FormsCellState.TESTED
-                                else -> FormsCellState.PREVIEW
-                            }
-                            spots[it.key] = it
-                            FormsCell(it.key, slot.shown, state, it.before, it.after)
-                        }
-                    }
-                    row.forEachIndexed { c, s ->
-                        if (s != null) where[s.key] = listOf(title, rowLabel(l, label), columnLabel(p.columns[c], label)).filter { it.isNotBlank() }.joinToString(" — ")
-                    }
-                    FormsRow(rowLabel(l, label), cells, cells.filterNotNull().joinToString(", ") { it.text })
-                },
-            )
-        }
+        val all = sections(d, plans, label, { k ->
+            when {
+                own(d, k) -> FormsCellState.GIVEN
+                k in asked -> FormsCellState.GAP
+                k in tested -> FormsCellState.TESTED
+                else -> FormsCellState.PREVIEW
+            }
+        }, where, spots)
+        // in a review only the tables with a gap asked now (Jan: "for tests it makes sense only to show the table which
+        // is tested"); the rest of the word's table is the overview's, to read
+        val (sections, hidden) = all.partition(::asks)
         val order = plans.flatMap { p -> p.rows.flatMap { (_, row) -> row.mapNotNull { it?.key } } }
         val asks = order.filter { it in asked }.map { k ->
             val slot = d.slot(k)!!
@@ -453,7 +507,58 @@ object FormsCard {
             lemma = d.lemma, pos = d.pos, gender = d.gender, meaning = d.meaning?.takeIf { it.isNotBlank() },
             emoji = d.emoji?.takeIf { it.isNotBlank() }, sections = sections, gaps = asks, typed = typed, fresh = fresh,
             pages = pages, said = said, checked = d.table == "checked", data = d, grammar = asks.firstOrNull()?.page,
+            hidden = hidden.map { it.title },
         )
+    }
+
+    // --- the overview --------------------------------------------------------------------------------------------------
+
+    /**
+     * [d]'s whole table to read, never a test ("📋 Vse oblike · All forms" on a word's card, and after its forms card):
+     * every section, the word's own form given, the forms the learner practises marked ([FormsCellState.TESTED]: their
+     * page and the pages they need [introduced], as a card asks them), the others [FormsCellState.PREVIEW].
+     */
+    fun overview(d: FormsCardData, introduced: Set<String>, label: (String) -> String = { bi(it) }): FormsOverview {
+        val tested = testedKeys(d, introduced).toSet()
+        val sections = sections(d, layout(d), label, { k ->
+            when {
+                own(d, k) -> FormsCellState.GIVEN
+                k in tested -> FormsCellState.TESTED
+                else -> FormsCellState.PREVIEW
+            }
+        })
+        val cells = sections.flatMap { s -> s.rows.flatMap { it.cells } }.filterNotNull()
+        return FormsOverview(
+            d.lemma, d.pos, d.gender, d.meaning?.takeIf { it.isNotBlank() }, d.emoji?.takeIf { it.isNotBlank() }, sections,
+            practised = cells.count { it.state == FormsCellState.TESTED }, forms = cells.count { it.state != FormsCellState.GIVEN },
+            checked = d.table == "checked",
+        )
+    }
+
+    /**
+     * Of a word's [tables] (GET /forms-cards: one per part of speech, lep the adjective and the noun), the one a word card's
+     * entry of [pos] meaning [gloss] is about: its part of speech, then the most of its gloss's words; null without any.
+     */
+    fun pickTable(tables: List<FormsCardData>, pos: String?, gloss: List<String>): FormsCardData? {
+        val same = tables.filter { pos == null || it.pos == pos }.ifEmpty { tables }
+        if (same.size <= 1) return same.firstOrNull()
+        fun words(s: String) = Regex("""\p{L}{3,}""").findAll(s.lowercase()).map { it.value }.toSet()
+        val meant = words(gloss.joinToString(" "))
+        return same.withIndex().maxByOrNull { (i, t) -> words(t.gloss.joinToString(" ")).count { it in meant } * 100 - i }?.value
+    }
+
+    /**
+     * A word's table from its dictionary entry ([e], GET /forms), for the overview where the bridge has no GET
+     * /forms-cards (an older one): its slots as the dictionary has them (no future joined, no adjective's cases beyond its
+     * nominative: those the card's table adds), the comparative left out; null for a part of speech the table doesn't
+     * know, or fewer than two forms besides the word's own.
+     */
+    fun fromForms(e: LemmaForms, meaning: String? = null, emoji: String? = null): FormsCardData? {
+        val pos = (if (e.pos == "adjective") "adj" else e.pos).takeIf { it in POS } ?: return null
+        val slots = e.slots.filter { it.key != "cmp.m.sg" && it.forms.any { f -> f.isNotBlank() } }
+            .map { FormsCardSlot(it.key, it.forms, it.also, it.page, it.needs) }
+        val d = FormsCardData(e.lemma, pos, e.gender, e.gloss, meaning, emoji, e.table, slots)
+        return d.takeIf { slots.count { !own(d, it.key) } >= 2 }
     }
 
     // --- an answer -----------------------------------------------------------------------------------------------------

@@ -66,12 +66,14 @@ import si.lanisce.lani.ui.theme.AlpineGreen
 import si.lanisce.lani.ui.theme.TriglavRed
 
 // A forms card on screen ("📋 Oblike · Forms", data/FormsCard.kt): the word at the top (its picture, its base form, what it
-// means), then its whole table: the forms the school has introduced, this review's part as gaps (the one asked framed),
-// the others shown; the forms not introduced yet greyed, to read ahead. Each gap answered under the table, chosen among
+// means), then the sections of its table with a gap asked now (biti's present; its negative, future, past and imperative
+// hidden in the test): the forms the school has introduced, this review's part as gaps (the one asked framed), the others
+// shown; the forms not introduced yet greyed, to read ahead. Each gap answered under the table, chosen among
 // three or typed once the card is secure ("✋ Izberi raje · Let me choose" goes back), and marked at once in the table and
 // under it; a right one goes on by itself, a wrong one at "Naprej · Next". At the end the table whole, the rows asked
 // read by the narrator together, each row's own 🔊 (a clip made on demand), and the card's outcome for the run (its gaps
-// as the sheet's items: they count on the grammar book's pages, FormsCard.ruleAnswers).
+// as the sheet's items: they count on the grammar book's pages, FormsCard.ruleAnswers); "📋 Vse oblike · All forms" there
+// opens the whole table to read (ui/FormsOverviewSheet.kt).
 
 /** How long a right gap stays marked before the next comes. */
 private const val RIGHT_MS = 700L
@@ -114,7 +116,11 @@ internal fun FormsCardEx(vm: AppViewModel, ex: Exercise.FormsTable, locked: Bool
             if (mark === m) next()
         }
     }
-    // QA reads which gap is asked, its right form and its options (a debug or qa build)
+    // QA reads the sections shown (and hidden: no gap asked in them), which gap is asked, its right form and its options
+    // (a debug or qa build)
+    if (si.lanisce.lani.BuildConfig.QA) LaunchedEffect(ex) {
+        android.util.Log.i("FormsCard", "sections ${ex.sections.joinToString("|") { it.title }} hidden ${ex.hidden.joinToString("|")}")
+    }
     if (si.lanisce.lani.BuildConfig.QA) LaunchedEffect(at, typed) {
         ex.gaps.getOrNull(at)?.let { g ->
             android.util.Log.i("FormsCard", "gap ${at + 1}/${ex.gaps.size} ${g.key} «${g.answer}» [${g.options.joinToString("|")}] ${if (typed && !g.chosen) "typed" else "chosen"}")
@@ -181,20 +187,24 @@ private fun revealFormsOn(step: Int, answered: Boolean, after: Long = 80L): Modi
 
 /** The word: its picture, its base form big, what it is and what it means. */
 @Composable
-private fun Head(ex: Exercise.FormsTable) {
+private fun Head(ex: Exercise.FormsTable) = FormsHead(ex.emoji, ex.lemma, ex.gender, ex.pos, ex.meaning)
+
+/** A word's head on its forms card and its overview: its [emoji], its [lemma] big with a noun's [gender], its [pos] and [meaning]. */
+@Composable
+internal fun FormsHead(emoji: String?, lemma: String, gender: String?, pos: String, meaning: String?) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(ex.emoji ?: "📋", style = MaterialTheme.typography.displaySmall)
+        Text(emoji ?: "📋", style = MaterialTheme.typography.displaySmall)
         Spacer(Modifier.width(12.dp))
         Column {
-            val gender = when (ex.gender) {
+            val g = when (gender) {
                 "m" -> bi("words.genderM")
                 "f" -> bi("words.genderF")
                 "n" -> bi("words.genderN")
                 else -> null
             }
-            Text(ex.lemma + (gender?.let { " · $it" } ?: ""), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-            val pos = si.lanisce.lani.ui.words.posLabel(ex.pos)
-            Text(listOfNotNull(pos, ex.meaning).joinToString(" — "), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(lemma + (g?.let { " · $it" } ?: ""), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            val what = listOfNotNull(pos.takeIf { it.isNotBlank() }?.let { si.lanisce.lani.ui.words.posLabel(it) }, meaning?.takeIf { it.isNotBlank() })
+            if (what.isNotEmpty()) Text(what.joinToString(" — "), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
@@ -337,7 +347,10 @@ private fun GapDone(vm: AppViewModel, g: FormsGap, m: ItemMark) {
     }
 }
 
-/** The end: how the part went, the rows asked said together (their 🔊), each row's own 🔊 in the table above. */
+/**
+ * The end: how the part went, the rows asked said together (their 🔊), each row's own 🔊 in the table above, and the
+ * whole table to read ("📋 Vse oblike · All forms": the overview, every section, the card's hidden ones too).
+ */
 @Composable
 private fun Whole(vm: AppViewModel, ex: Exercise.FormsTable, marks: List<ItemMark>) {
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer), shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
@@ -349,21 +362,35 @@ private fun Whole(vm: AppViewModel, ex: Exercise.FormsTable, marks: List<ItemMar
             val right = marks.count { it.verdict != Verdict.WRONG }
             Text(bi("formsCard.score", "right" to right, "of" to marks.size), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
             Text(bi("formsCard.rowsHint"), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+            ex.data?.let { d ->
+                TextButton(onClick = { vm.formsCards.open(d) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📋 ${bi("formsCard.allForms")}") }
+            }
         }
     }
 }
 
 /**
  * "📋 Vse oblike · All forms" on a word's card ([e]: a noun, a verb or an adjective; the home language's, not a word of an
- * exercise still open): its forms card made at once by the node, then "▶ Vadi zdaj · Practise now"; a word that has one
- * says so and offers it at once.
+ * exercise still open): its whole table to read at once (the overview, ui/FormsOverviewSheet.kt), where "🃏 Vadi oblike ·
+ * Practise the forms" makes it a card.
  */
 @Composable
 fun AllFormsButton(vm: AppViewModel, e: WordEntry) {
     val pos = e.pos ?: return
-    if (!vm.formsCards.on() || pos !in FormsCard.POS) return
-    val card = vm.formsCards.cardOf(e.lemma)
-    val ask = vm.formsCards.asks[FormsCard.key(e.lemma)]
+    if (!vm.formsCards.viewable() || pos !in FormsCard.POS) return
+    OutlinedButton(onClick = { vm.formsCards.open(e) }, modifier = Modifier.padding(top = 6.dp).heightIn(min = 48.dp)) { Text("📋 ${bi("formsCard.allForms")}") }
+}
+
+/**
+ * The overview's way to practise [lemma]'s forms (its card [itemId], if the learner has the word): "🃏 Vadi oblike ·
+ * Practise the forms" makes its forms card at once (the node: [FormsCardController.make]), then "▶ Vadi zdaj · Practise
+ * now"; a word that has one says so and offers it at once; nothing of it introduced yet, or too few forms: says which.
+ */
+@Composable
+internal fun PractiseForms(vm: AppViewModel, lemma: String, itemId: String?) {
+    if (!vm.formsCards.on()) return
+    val card = vm.formsCards.cardOf(lemma)
+    val ask = vm.formsCards.asks[FormsCard.key(lemma)]
     Column(Modifier.fillMaxWidth().padding(top = 6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         when {
             card != null -> {
@@ -377,7 +404,7 @@ fun AllFormsButton(vm: AppViewModel, e: WordEntry) {
             )
             else -> {
                 if (ask == FormsAsk.Offline) Text("📶 ${bi("formsCard.offline")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                OutlinedButton(onClick = { vm.formsCards.make(e.lemma, e.itemId) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📋 ${bi("formsCard.allForms")}") }
+                FilledTonalButton(onClick = { vm.formsCards.make(lemma, itemId) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("🃏 ${bi("formsView.practise")}") }
             }
         }
     }

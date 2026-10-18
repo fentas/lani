@@ -201,6 +201,8 @@ private fun App(vm: AppViewModel) {
     // a village project's step played over the village (no scene of its own open today): its people and its dialog
     vm.scenes.talk?.takeIf { it.step?.over == true }?.let { si.lanisce.lani.ui.scene.ProjectStepScene(vm, it) }
     vm.words.card?.let { WordSheet(vm, it) }
+    // a word's whole table to read ("📋 Vse oblike"), over the word's card or a forms card's end it was opened from
+    vm.formsCards.view?.let { si.lanisce.lani.ui.FormsOverviewSheet(vm, it) }
     // the shadow tutor's debug panel (a developer setting: tutor/ShadowTutor), over everything
     if (vm.shadow.panelOpen) si.lanisce.lani.ui.tutor.ShadowPanel(vm.shadow, vm.devUpload) { vm.shadow.panelOpen = false }
     // "💾 Podatki · Data" (ui/data/DataSheet): opened from the connection sheet, or by the hosted mode's setup (vm.dataOpen)

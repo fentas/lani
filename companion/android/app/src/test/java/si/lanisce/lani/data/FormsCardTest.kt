@@ -211,9 +211,12 @@ class FormsCardTest {
         assertEquals(listOf("m", "f", "n"), plans[1].columns)
         val acc = plans[1].rows.first { it.first.startsWith("4.") }
         assertEquals(listOf(null, "adj.acc.f.sg", "adj.acc.n.sg"), acc.second.map { it?.key })
+        // the first part is the nominative's rows: their table alone, the word itself given in it; the cases to read in the overview
         val ex = exercise(dober)
+        assertEquals(listOf("wordForms.case1"), ex.sections.map { it.title })
         assertEquals(FormsCellState.GIVEN, cells(ex).first { it.key == "adj.m.sg" }.state)
-        assertEquals("dobrega", cells(ex).first { it.key == "adj.gen.m.sg" }.form)
+        val o = FormsCard.overview(dober, everything, label = { it })
+        assertEquals("dobrega", o.sections.flatMap { s -> s.rows.flatMap { it.cells } }.filterNotNull().first { it.key == "adj.gen.m.sg" }.form)
     }
 
     @Test fun `a word missing what a table needs gets no card - too few forms, an unknown part of speech, a slot without its page`() {
@@ -254,11 +257,15 @@ class FormsCardTest {
         val tested = FormsCard.testedKeys(delati, pages)
         assertEquals(listOf("pres.1sg", "pres.2sg", "pres.3sg", "pres.1pl", "pres.2pl", "pres.3pl"), tested.filter { it.startsWith("pres.") })
         assertTrue(tested.none { it.startsWith("imp.") || it.endsWith("du") || it.startsWith("fut.") })
-        // the whole table shown: the imperative greyed, to read ahead
+        // not asked: the imperative hidden in the test, greyed in the overview, to read ahead
         val c = card("forms_delati", delati)
         val ex = FormsCard.exercise(c, delati, pages, false, today, Random(1), label = { it })!!
-        assertTrue(cells(ex).filter { it.key.startsWith("imp.") }.all { it.state == FormsCellState.PREVIEW })
-        assertEquals("delaj", cells(ex).first { it.key == "imp.2sg" }.form)
+        assertTrue(cells(ex).none { it.key.startsWith("imp.") })
+        assertTrue("wordForms.imperative" in ex.hidden)
+        val o = FormsCard.overview(delati, pages, label = { it })
+        val oc = o.sections.flatMap { s -> s.rows.flatMap { it.cells } }.filterNotNull()
+        assertTrue(oc.filter { it.key.startsWith("imp.") }.all { it.state == FormsCellState.PREVIEW })
+        assertEquals("delaj", oc.first { it.key == "imp.2sg" }.form)
         // the unit velelnik's intro done: its row becomes gaps (the 2nd person's imp.2sg and imp.2pl; the dual's waits)
         val after = before.copy(course = CourseProgress(units = mapOf("sl/velelnik" to UnitProgress(intro = 5, introDone = true))))
         val now = FormsCard.testedKeys(delati, FormsCard.introduced(after, course))
@@ -268,6 +275,123 @@ class FormsCardTest {
         // the word's own form never
         assertFalse("nom.sg" in FormsCard.testedKeys(hisa, everything))
         assertNull(FormsCard.exercise(card("forms_hisa", hisa), hisa, setOf("imenovalnik"), false, today, Random(1)))
+    }
+
+    // --- what a test shows, and the overview ----------------------------------------------------------------------------
+
+    private fun titles(ex: Exercise.FormsTable) = ex.sections.map { it.title }
+
+    @Test fun `in a test only the sections with a gap asked now - biti at the unit biti's pages, the present alone, its dual greyed in it before dvojina`() {
+        // the page biti met in the book: biti's present asked (sg, pl), its dual greyed in the same table
+        val met = setOf("biti")
+        val first = exercise(biti, met, card("forms_biti", biti))
+        assertEquals(listOf("wordForms.present"), titles(first))
+        assertEquals(listOf("wordForms.negative", "wordForms.future", "wordForms.past", "wordForms.imperative"), first.hidden)
+        assertTrue(cells(first).all { it.key.startsWith("pres.") })
+        assertEquals(setOf("pres.1du", "pres.2du", "pres.3du"), cells(first).filter { it.state == FormsCellState.PREVIEW }.map { it.key }.toSet())
+        assertEquals(listOf("pres.1sg", "pres.1pl", "pres.2sg", "pres.2pl", "pres.3sg", "pres.3pl"), first.gaps.map { it.key })
+        // the unit biti's intro done (biti, zanikanje, dvojina): the first part is the present's first two rows, alone
+        val unit = setOf("biti", "zanikanje", "dvojina")
+        val one = exercise(biti, unit, card("forms_biti", biti, reviews = 0))
+        assertEquals(listOf("wordForms.present"), titles(one))
+        assertEquals(listOf("pres.1sg", "pres.1du", "pres.1pl", "pres.2sg", "pres.2du", "pres.2pl"), one.gaps.map { it.key })
+        // the present's third row is in the table, shown as introduced (asked another time)
+        assertEquals(FormsCellState.TESTED, cells(one).first { it.key == "pres.3sg" }.state)
+        // the next part runs into the negative: both tables shown, the rest hidden
+        val two = exercise(biti, unit, card("forms_biti", biti, reviews = 1, q = 4))
+        assertEquals(listOf("wordForms.present", "wordForms.negative"), titles(two))
+        assertEquals(listOf("wordForms.future", "wordForms.past", "wordForms.imperative"), two.hidden)
+        // a fresh part: the sections of its rows only
+        val fresh = delati.copy(fresh = listOf("imp.2sg", "imp.2pl", "imp.1pl"), unlocked = "2026-10-17")
+        val f = exercise(fresh, everything, card("forms_delati", fresh, reps = 0, q = 4, reviews = 7))
+        assertTrue(f.fresh)
+        assertEquals(listOf("wordForms.imperative"), titles(f))
+        assertEquals(listOf("wordForms.present", "wordForms.future", "wordForms.past"), f.hidden)
+        // a noun's one table: nothing hidden
+        assertEquals(emptyList<String>(), exercise(hisa).hidden)
+    }
+
+    @Test fun `a hidden section changes nothing asked or graded - the same gaps in the table's order, their options, the rows said, the quality`() {
+        val unit = setOf("biti", "zanikanje", "dvojina")
+        for (reviews in 0..4) {
+            val c = card("forms_biti", biti, reviews = reviews, q = 4)
+            val ex = exercise(biti, unit, c, seed = 7)
+            val tested = FormsCard.testedKeys(biti, unit).toSet()
+            // what is asked is the part's, in the table's order (FormsCard.part)
+            val (part, _) = FormsCard.part(c, biti, tested, today)
+            val order = FormsCard.layout(biti).flatMap { p -> p.rows.flatMap { (_, r) -> r.mapNotNull { it?.key } } }
+            assertEquals(order.filter { it in part }, ex.gaps.map { it.key })
+            // every gap in a shown section, none hidden
+            assertTrue(ex.gaps.all { g -> cells(ex).any { it.key == g.key && it.state == FormsCellState.GAP } })
+            // the options as ever: drawn from the whole table of the word, the right one among them, three
+            val random = Random(7)
+            assertEquals(ex.gaps.map { FormsCard.options(biti, it.key, tested, random) }, ex.gaps.map { it.options })
+            // the rows said at the end: the rows asked
+            assertEquals(ex.sections.flatMap { s -> s.rows.filter { r -> r.cells.any { it?.state == FormsCellState.GAP } } }.joinToString(". ") { it.said }, ex.said)
+        }
+        val ex = exercise(biti, unit, card("forms_biti", biti))
+        val marks = ex.gaps.map { ItemMark(Verdict.CORRECT, it.answer, it.answer) }
+        assertEquals(4, FormsCard.quality(marks.map { it.verdict }, FormsCard.typed(ex, marks)))
+        assertEquals(ex.gaps.map { it.key }, FormsCard.wire("forms_biti", ex, marks)["cells"]!!.jsonArray.map { it.jsonObject["key"]!!.jsonPrimitive.content })
+        assertEquals(listOf("biti"), FormsCard.ruleAnswers(ex, marks).map { it.rule }.distinct() - "dvojina")
+    }
+
+    @Test fun `the overview - the whole table to read, every section, the forms practised marked, the word itself given`() {
+        val unit = setOf("biti", "zanikanje", "dvojina")
+        val o = FormsCard.overview(biti, unit, label = { it })
+        assertEquals(listOf("wordForms.present", "wordForms.negative", "wordForms.future", "wordForms.past", "wordForms.imperative"), o.sections.map { it.title })
+        val oc = o.sections.flatMap { s -> s.rows.flatMap { it.cells } }.filterNotNull()
+        assertTrue(oc.none { it.state == FormsCellState.GAP })
+        assertTrue(oc.filter { it.key.startsWith("pres.") || it.key.startsWith("neg.") }.all { it.state == FormsCellState.TESTED })
+        assertTrue(oc.filter { it.key.startsWith("fut.") || it.key.startsWith("past.") || it.key.startsWith("imp.") }.all { it.state == FormsCellState.PREVIEW })
+        assertEquals(18, o.practised)
+        assertEquals(39, o.forms)
+        assertEquals("bom", oc.first { it.key == "fut.1sg" }.form)
+        assertTrue(o.checked)
+        // nothing introduced: every form to read ahead, none practised
+        assertEquals(0, FormsCard.overview(delati, emptySet(), label = { it }).practised)
+        // a noun's: its own form given, never counted
+        val h = FormsCard.overview(hisa, setOf("tozilnik"), label = { it })
+        val hc = h.sections.single().rows.flatMap { it.cells }.filterNotNull()
+        assertEquals(FormsCellState.GIVEN, hc.first { it.key == "nom.sg" }.state)
+        assertEquals(listOf("acc.sg"), hc.filter { it.state == FormsCellState.TESTED }.map { it.key })
+        assertEquals(1 to 17, h.practised to h.forms)
+        assertEquals("🏠", h.emoji)
+        assertEquals("house", h.meaning)
+    }
+
+    @Test fun `the overview's table - the bridge's (GET forms-cards) by part of speech and meaning, else the dictionary's forms`() {
+        val url = FormsCard.tablesUrl("http://10.0.2.2:8791/", listOf("delati", "hiša") + (1..12).map { "w$it" })
+        assertEquals("/forms-cards", url.encodedPath)
+        assertEquals(listOf("delati", "hiša") + (1..8).map { "w$it" }, url.queryParameterValues("w"))
+        val answer = FormsCard.parseTables(
+            """{"language": "sl", "words": [{"word": "lep", "tables": [
+                {"v": 1, "lemma": "lep", "pos": "noun", "gender": "m", "gloss": ["glue"], "table": "wiktionary", "slots": [{"key": "gen.sg", "forms": ["lepa"], "page": "rodilnik"}], "tested": []},
+                {"v": 1, "lemma": "lep", "pos": "adj", "gloss": ["beautiful", "nice"], "table": "wiktionary", "slots": [{"key": "adj.f.sg", "forms": ["lepa"], "page": "pridevniki-ujemanje"}], "tested": [], "emoji": "🌸"}
+            ]}], "attribution": "Wiktionary (CC BY-SA 4.0) via kaikki.org", "extra": 1}""",
+        )
+        val tables = answer.words.single().tables
+        assertEquals("adj", FormsCard.pickTable(tables, "adj", emptyList())?.pos)
+        assertEquals("noun", FormsCard.pickTable(tables, null, listOf("glue"))?.pos)
+        assertEquals("adj", FormsCard.pickTable(tables, null, listOf("nice"))?.pos)
+        assertEquals("noun", FormsCard.pickTable(tables, "verb", listOf("glue"))?.pos) // no such part: the meaning decides
+        assertNull(FormsCard.pickTable(emptyList(), "adj", emptyList()))
+        assertEquals("🌸", tables[1].emoji)
+        // an older bridge: the dictionary's forms (GET /forms) as they are, the comparative left out
+        val e = LemmaForms(
+            "lep", "adj", gloss = listOf("nice"), table = "wiktionary",
+            slots = listOf(
+                FormSlot("adj.m.sg", listOf("lep"), page = "pridevniki-ujemanje"), FormSlot("adj.f.sg", listOf("lepa"), page = "pridevniki-ujemanje"),
+                FormSlot("adj.n.sg", listOf("lepo"), page = "pridevniki-ujemanje"), FormSlot("cmp.m.sg", listOf("lepši"), page = "primernik"),
+            ),
+        )
+        val d = FormsCard.fromForms(e, meaning = "nice", emoji = "🌸")!!
+        assertEquals(listOf("adj.m.sg", "adj.f.sg", "adj.n.sg"), d.slots.map { it.key })
+        assertEquals("nice", d.meaning)
+        assertEquals(1, FormsCard.overview(d, setOf("pridevniki-ujemanje"), label = { it }).sections.size)
+        // too little, or a part of speech without a table
+        assertNull(FormsCard.fromForms(e.copy(slots = e.slots.take(2))))
+        assertNull(FormsCard.fromForms(e.copy(pos = "adv")))
     }
 
     // --- the parts -----------------------------------------------------------------------------------------------------

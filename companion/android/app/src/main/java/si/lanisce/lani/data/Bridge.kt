@@ -235,6 +235,19 @@ class Bridge(private val config: BridgeConfig) {
     }
 
     /**
+     * Each of [words]' tables as its forms card would have them, to read (GET /forms-cards: the overview, "📋 Vse oblike ·
+     * All forms"); nothing is made. Null from an older bridge without it (404) or one that won't take the request (400).
+     */
+    suspend fun formsTables(words: List<String>): FormsTablesAnswer? {
+        val (code, text) = exchange(request(FormsCard.tablesUrl(config.baseUrl, words).toString()).build())
+        return when (code) {
+            200 -> FormsCard.parseTables(text)
+            400, 404, 405 -> null
+            else -> throw IOException("HTTP $code: ${text.take(200)}")
+        }
+    }
+
+    /**
      * The tutor's explanation of [sentence]'s grammar, kept from an earlier "Ask the tutor" (GET /sentence,
      * publish_sentence_note), in [base] when there is one; a line of another town's [language] on a visit. Null when there
      * is none, and from an older bridge without it (404).
