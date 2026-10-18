@@ -131,6 +131,9 @@ class OutboxTest {
         assertEquals(Delivery.Rejected(413, "too big"), Outbox.classify(413, "too big"))
         assertTrue(Outbox.classify(401, "") is Delivery.Retry) // token trouble: keep until fixed
         assertTrue(Outbox.classify(429, "") is Delivery.Retry)
+        // a node that only reads while the phone holds the data (the lease): the write waits, it isn't given up
+        val locked = Outbox.classify(423, """{"error":"read_only","message":"Lani's data isn't this node's to write now"}""")
+        assertTrue(locked is Delivery.Retry && !locked.server && locked.reason.contains("isn't this node's"))
         val s = Outbox.classify(500, """{"error":"update-db failed"}""")
         assertTrue(s is Delivery.Retry && s.server)
     }

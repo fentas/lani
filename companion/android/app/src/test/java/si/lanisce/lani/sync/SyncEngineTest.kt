@@ -271,6 +271,18 @@ class SyncEngineTest {
         assertEquals(listOf("small.json"), r.pushed)
     }
 
+    @Test fun `a rewrite of the same size in the same tick of the clock is still seen`() = runBlocking {
+        fake.nodePushes(mapOf(Lease.FILE to Lease.offered(Party(Party.PHONE), node, now).toJson()))
+        engine().take()
+        val f = write("progress-db.json", """{"n": 1}""")
+        val tick = f.lastModified()
+        assertEquals(listOf("progress-db.json"), (engine().sync() as SyncOutcome.Done).pushed)
+        f.writeText("""{"n": 2}""")
+        f.setLastModified(tick) // the same size and modification time as when it was hashed
+        assertEquals(listOf("progress-db.json"), (engine().sync() as SyncOutcome.Done).pushed)
+        assertEquals("""{"n": 2}""", fake.files()["progress-db.json"])
+    }
+
     @Test fun `a binary file goes up as a blob of its own`() = runBlocking {
         fake.nodePushes(mapOf(Lease.FILE to Lease.offered(Party(Party.PHONE), node, now).toJson()))
         engine().take()

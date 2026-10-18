@@ -4,10 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import okhttp3.OkHttpClient
 import java.io.File
@@ -146,11 +148,16 @@ class DataSync(
 
     // --- settings ----------------------------------------------------------------------------------
 
+    /** The settings; a phone without any gets its id here, saved once it is shown or used ([keep]): nothing is written before. */
     private fun loadSettings(): DataSettings {
         val s = runCatching { syncRead.decodeFromString(DataSettings.serializer(), settingsFile.readText()) }.getOrNull() ?: DataSettings()
         if (s.device.isNotBlank()) return s
-        val id = "p_" + ByteArray(4).also(SecureRandom()::nextBytes).joinToString("") { "%02x".format(it) }
-        return s.copy(device = id).also(::saveSettings)
+        return s.copy(device = "p_" + ByteArray(4).also(SecureRandom()::nextBytes).joinToString("") { "%02x".format(it) })
+    }
+
+    /** Saves the settings (this phone's id with them) when they aren't yet: the Data sheet shows the id, so it stays. */
+    fun keep() {
+        if (!settingsFile.isFile) saveSettings(settings)
     }
 
     private fun saveSettings(s: DataSettings) {
@@ -239,7 +246,7 @@ class DataSync(
         val e = engine() ?: return SyncOutcome.Failed("git isn't connected")
         busy = true
         return try {
-            what(e).also {
+            withContext(Dispatchers.Default) { what(e) }.also {
                 last = it
                 lastAt = clock()
                 lease = readLease()
@@ -315,7 +322,7 @@ class DataSync(
         return code
     }
 
-    suspend fun setUpPassphrase(passphrase: String) = keepMaster(BackupKeys.masterOfPassphrase(passphrase), "passphrase")
+    suspend fun setUpPassphrase(passphrase: String) = keepMaster(withContext(Dispatchers.Default) { BackupKeys.masterOfPassphrase(passphrase) }, "passphrase")
 
     private suspend fun keepMaster(master: ByteArray, how: String) {
         box.put(SecretBox.BACKUP_MASTER, Base64.getEncoder().encodeToString(master))
@@ -332,7 +339,7 @@ class DataSync(
     suspend fun backupNow(): BackupEntry {
         busy = true
         try {
-            val entry = backups(master()).backup()
+            val entry = withContext(Dispatchers.Default) { backups(master()).backup() }
             update { it.copy(lastBackup = Lease.iso(clock()), lastBackupName = entry.name) }
             return entry
         } finally {
@@ -340,15 +347,16 @@ class DataSync(
         }
     }
 
-    /** The master of what the learner typed: a recovery code, else a passphrase (null: neither). */
-    fun masterOf(typed: String): Pair<ByteArray, String>? =
+    /** The master of what the learner typed: a recovery code, else a passphrase (null: neither). PBKDF2 takes a moment: off the main thread. */
+    suspend fun masterOf(typed: String): Pair<ByteArray, String>? = withContext(Dispatchers.Default) {
         BackupKeys.masterOfCode(typed)?.let { it to "code" }
             ?: typed.trim().takeIf { it.length >= BackupKeys.MIN_PASSPHRASE }?.let { BackupKeys.masterOfPassphrase(it) to "passphrase" }
+    }
 
     /** The backups the phone's own key finds, or ([typed]: a recovery code or passphrase) a new phone's. */
     suspend fun backupList(typed: String? = null): List<BackupEntry> {
         val m = typed?.let { masterOf(it)?.first ?: throw BackupError(BackupProblem.WRONG_KEY) } ?: master()
-        return backups(m).list()
+        return withContext(Dispatchers.Default) { backups(m).list() }
     }
 
     /**
@@ -359,7 +367,7 @@ class DataSync(
         busy = true
         try {
             val (m, how) = typed?.let { masterOf(it) ?: throw BackupError(BackupProblem.WRONG_KEY) } ?: (master() to (settings.backup ?: "code"))
-            val manifest = backups(m).restore(name)
+            val manifest = withContext(Dispatchers.Default) { backups(m).restore(name) }
             if (typed != null) keepMaster(m, how)
             stateFile.delete()
             lease = readLease()

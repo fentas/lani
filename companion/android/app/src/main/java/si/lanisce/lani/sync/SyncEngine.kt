@@ -23,9 +23,19 @@ fun blobSha(bytes: ByteArray): String {
     return md.digest().joinToString("") { "%02x".format(it) }
 }
 
-/** A file's size and modification time with its blob id: a file that kept both isn't read again. */
+/**
+ * A file's size and modification time with its blob id, and when it was hashed: a file that kept both isn't read again,
+ * unless it was changed within [RACY_MS] before it was hashed (a second write in the same tick of the clock would keep
+ * both: as git's "racily clean" entries, it is hashed again).
+ */
 @Serializable
-data class FileStat(val size: Long, val mtime: Long, val sha: String)
+data class FileStat(val size: Long, val mtime: Long, val sha: String, val hashed: Long = 0) {
+    fun still(size: Long, mtime: Long) = size == this.size && mtime == this.mtime && mtime + RACY_MS < hashed
+
+    companion object {
+        const val RACY_MS = 2_000L
+    }
+}
 
 /** The phone's version of the data, kept beside the repository's on [branch] when both changed [files]. */
 @Serializable
@@ -371,10 +381,10 @@ class SyncEngine(
                     continue
                 }
                 val mtime = f.lastModified()
-                val cached = st.stats[rel]?.takeIf { it.size == size && it.mtime == mtime }
+                val cached = st.stats[rel]?.takeIf { it.still(size, mtime) }
                 val sha = cached?.sha ?: blobSha(f.readBytes())
                 files[rel] = sha
-                stats[rel] = FileStat(size, mtime, sha)
+                stats[rel] = cached ?: FileStat(size, mtime, sha, System.currentTimeMillis())
             }
         }
         return Scan(files, stats, skipped.sorted())
