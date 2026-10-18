@@ -33,7 +33,7 @@ const FEATURE_TOPICS: Record<string, { id: string; title: string; summary: strin
   cards: { id: 'cheat-sheet', title: 'Cheat sheet', summary: 'When a table or list in chat is worth a card (publish_card), or looked_up answers point to a topic.' },
   course: { id: 'school', title: 'The school', summary: "For a session_end with data.course (a school sheet or test), a unit done, or homework (publish_worksheet)." },
   counting: { id: 'counting', title: 'Counting cards', summary: 'For a review_done with counting cards, or mistakes counting_*: their four steps, the mistake kinds, what to suggest.' },
-  'forms-cards': { id: 'forms-cards', title: 'Forms cards', summary: "For a review_done with forms cards, or mistakes forms_*: a word's whole table, what's tested, the kinds, what to suggest." },
+  'forms-cards': { id: 'forms-cards', title: 'Forms cards', summary: "For a review_done with forms cards, or mistakes forms_*: what a card shows and tests, the overview, the kinds, what to suggest." },
   rhythm: { id: 'rhythm', title: 'Daily rhythm', summary: 'For daily_morning, daily_evening and daily_weekly, or when the learner changes the times (set_rhythm).' },
   game: { id: 'village', title: 'The village game', summary: "When the village (get_village) can motivate, or for sidequests and a task the learner keeps failing." },
   packs: { id: 'packs', title: 'Word packs', summary: 'When the learner asks for words on a topic (publish_pack, list_packs), or for words_learned.' },

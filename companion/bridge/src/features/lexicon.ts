@@ -38,10 +38,11 @@ the village's; on a visit, the town's, as the note or data.lookup.language says)
 
 /**
  * Where in the app a word was added (POST /words `from`, for the tutor's note): a scene's dialog, a role-play, a
- * villager's line, the chat, a reading (the reading corner's, a book in the chest, a story's). GET /words lists them, so
- * an app sends "reading" only to a bridge that takes it (an older one answers 404: "villager" then).
+ * villager's line, the chat, a reading (the reading corner's, a book in the chest, a story's), a search (a word looked
+ * up in the learner's word list, "📚 Moje besede · My words"). GET /words lists them, so an app sends "reading" or
+ * "search" only to a bridge that takes it (an older one answers 404: "villager" then).
  */
-export const WORD_SOURCES = ['scene', 'roleplay', 'villager', 'chat', 'reading'] as const
+export const WORD_SOURCES = ['scene', 'roleplay', 'villager', 'chat', 'reading', 'search'] as const
 
 const wordIn = z.object({
   client_id: z.string().optional(),

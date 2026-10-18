@@ -3,7 +3,8 @@
 // way it says which grammar pages the learner has been introduced to (`introduced`). The bridge makes each card from the
 // dictionary's forms as a review item of its own (update-db.py, no session) and brings back soon the cards whose table
 // tests more than before, a few a day (update-db.py `resurface`). How a card went comes with the review (POST /reviews
-// `forms_cards`, features/reviews.ts): its wrong cells become mistakes by kind.
+// `forms_cards`, features/reviews.ts): its wrong cells become mistakes by kind. GET /forms-cards gives a word's tables
+// as its card would have them, to read (the app's overview), and writes nothing.
 import { z } from 'zod'
 import { renderDeep } from '../addressee'
 import { learnedItem } from '../counting'
@@ -14,7 +15,7 @@ import {
   testedOf, usefulness, usesOf, type CardContext, type FormsCardData,
 } from '../forms-cards'
 import { json, readJson } from '../http'
-import { normalizeForm } from '../lexicon'
+import { ATTRIBUTION, normalizeForm } from '../lexicon'
 import { itemId, normWord, wordOf } from '../packs'
 
 const instructions = `
@@ -22,13 +23,16 @@ Forms cards ("📋 Oblike · Forms"): one of Jan's words with its whole table in
 forms_<word>, its table in the item's forms: the dictionary's forms, never made by a rule; a verb's future is biti's
 future and its l-form, "bom delal"): a noun's six cases by number (ednina, dvojina, množina), a verb's present by
 person with the dual, the negative (nisem, nimam), the future, the past (on je delal, ona je delala …) and the
-imperative, an adjective's genders, then its cases. The whole table is shown; only what Jan has been introduced to is
-tested: a form whose grammar page (and the pages it needs: a dual case needs dvojina and the case's) was met in the
-grammar book or taught by a unit whose intro is done; the rest is greyed, a preview to read, until its page is
-introduced. A long table is played a part at a time (a row or two, at most 6 gaps), the parts in turn; each gap chosen
-among three of the word's forms until the card is secure (two good reviews in a row), typed after. Cards come two new
-a day of Jan's learned words (the core verbs biti, imeti, iti, delati first, then the words the content says most),
-or at once when Jan taps "📋 Vse oblike" on a word's card. When a unit or a page introduces new forms of a card's
+imperative, an adjective's genders, then its cases. Only what Jan has been introduced to is tested: a form whose
+grammar page (and the pages it needs: a dual case needs dvojina and the case's) was met in the grammar book or taught
+by a unit whose intro is done. A long table is played a part at a time (a row or two, at most 6 gaps), the parts in
+turn; the card shows only the sections with a gap asked now (biti's present, not its negative, future, past and
+imperative), the others hidden, and in a shown section a form not introduced yet is greyed, to read ahead. Each gap
+chosen among three of the word's forms until the card is secure (two good reviews in a row), typed after. The whole
+table is an overview to read, never a test: "📋 Vse oblike · All forms" on a word's card (and after a forms card)
+shows every section, the forms Jan practises marked. Cards come two new a day of Jan's learned words (the core verbs
+biti, imeti, iti, delati first, then the words the content says most), or at once from the overview's "🃏 Vadi oblike
+· Practise the forms". When a unit or a page introduces new forms of a card's
 table, the card comes back within days (three a day at most), its new part first, scheduled as new learning (its
 repetitions back to 0, its history kept). review_done names each forms card and its wrong cells, which are ALREADY in
 the mistakes database by kind: forms_case_<nominative|genitive|dative|accusative|locative|instrumental>,
@@ -48,6 +52,8 @@ const PER_DAY = num(process.env.LANI_FORMS_PER_DAY, 2)
 const RESURFACE_PER_DAY = Math.max(1, num(process.env.LANI_FORMS_RESURFACE_PER_DAY, 3))
 /** How long the content's lines (the ranking's uses) are kept. */
 const LINES_TTL_MS = 10 * 60_000
+/** The words one GET /forms-cards asks about at most. */
+const TABLE_WORDS = 10
 
 const formsCardsIn = z.object({
   client_id: z.string().optional(),
@@ -93,11 +99,20 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
     return out
   }
 
+  /** What a card is made with: biti's future, the adjective's cases, the book's pages, the learner's gender. */
+  function cardContext(index: LineIndex, pages: Set<string>): CardContext {
+    return { bitiFuture: bitiFuture(), adjective: l => adjectiveForms({ dict, book, pages, lines: index, language }, l), pages, female: addressee().gender === 'female', language }
+  }
+
+  /** The grammar book's pages and the future's auxiliary are Slovene's: an error for a village that speaks another language. */
+  const notSlovene = () =>
+    language !== 'sl' || dictionary.language !== 'sl' ? json({ error: `forms cards are Slovene's; this village speaks "${language}"` }, 400) : null
+
   async function handle(req: Request): Promise<Response> {
     const r = formsCardsIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
-    // the grammar book's pages and the future's auxiliary are Slovene's
-    if (language !== 'sl' || dictionary.language !== 'sl') return json({ error: `forms cards are Slovene's; this village speaks "${language}"` }, 400)
+    const other = notSlovene()
+    if (other) return other
     const today = new Date().toLocaleDateString('sv') // YYYY-MM-DD, local, as read-db.py's today
     const items = learner.srItems() as Record<string, Item>
     const introduced = new Set(r.data.introduced)
@@ -105,7 +120,7 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
     const norm = (s: string) => normalizeForm(s, language)
     const { index, pages } = content()
     const uses = (f: string) => index.with(f).length
-    const k: CardContext = { bitiFuture: bitiFuture(), adjective: l => adjectiveForms({ dict, book, pages, lines: index, language }, l), pages, female: addressee().gender === 'female', language }
+    const k = cardContext(index, pages)
     const rank = (card: Pick<FormsCardData, 'lemma' | 'slots'>) => usefulness(card.lemma, usesOf(card, uses))
 
     const cards = Object.entries(items).flatMap(([id, it]) => {
@@ -209,9 +224,36 @@ export const formsCards: FeatureFactory = ({ learner, dictionary, grammar, packs
     })
   }
 
+  /**
+   * GET /forms-cards?w=delati&w=hiša: each word's tables as its forms card would have them (a noun's, a verb's with its
+   * future joined, an adjective's with its cases), to read: the app's overview of a word's forms ("📋 Vse oblike · All
+   * forms"). Nothing is written, no card made; `tested` is left empty (the app knows what is introduced).
+   */
+  function tables(url: URL): Response {
+    const words = url.searchParams.getAll('w').map(w => w.trim())
+    if (!words.length || words.length > TABLE_WORDS || words.some(w => !w || w.length > 40)) return json({ error: `w: 1-${TABLE_WORDS} words, each 1-40 characters` }, 400)
+    const other = notSlovene()
+    if (other) return other
+    const { index, pages } = content()
+    const k = cardContext(index, pages)
+    const out = words.map(word => {
+      const entries = formsOf({ dict, book, pages, lines: index, language }, word).filter(e => e.pos === 'noun' || e.pos === 'verb' || e.pos === 'adj')
+      const tables = entries.map(e => formsCardOf(e, k)).filter(isCard).map(c => {
+        const emoji = emojiOf(c.lemma, undefined)
+        return { ...c, ...(emoji ? { emoji } : {}) }
+      })
+      return { word, tables }
+    })
+    const wiktionary = out.some(w => w.tables.some(t => t.table === 'wiktionary'))
+    return json({ language, words: out, attribution: wiktionary ? ATTRIBUTION : null })
+  }
+
   return {
     instructions,
-    routes: [{ method: 'POST', path: '/forms-cards', handle: ({ req, url }) => outbox.once(req, url.pathname, handle) }],
+    routes: [
+      { method: 'POST', path: '/forms-cards', handle: ({ req, url }) => outbox.once(req, url.pathname, handle) },
+      { method: 'GET', path: '/forms-cards', handle: ({ url }) => tables(url) },
+    ],
   }
 }
 

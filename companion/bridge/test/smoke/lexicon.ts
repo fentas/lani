@@ -143,7 +143,7 @@ export default async function lexicon() {
   // a word from a reading says so; GET /words tells the app it may (an older bridge answers 404: "villager" then)
   const sources = await fetch(`${base}/words`, { headers: auth })
   const sourcesBody = await sources.json()
-  check('GET /words lists the origins POST /words takes, a reading among them', sources.ok && ['scene', 'roleplay', 'villager', 'chat', 'reading'].every(s => sourcesBody.from?.includes(s)), sourcesBody)
+  check('GET /words lists the origins POST /words takes, a reading and a search among them', sources.ok && ['scene', 'roleplay', 'villager', 'chat', 'reading', 'search'].every(s => sourcesBody.from?.includes(s)), sourcesBody)
   const pratika = await (await words({ sl: 'pratika', en: 'almanac', from: 'reading' })).json()
   check('POST /words: a word from a reading is added', pratika.added === true && pratika.item_id === 'vocab_word_pratika', pratika)
   const mleko = await (await words({ sl: 'mleko', en: 'milk', item_id: 'vocab_curated-greetings_g-mleko' })).json()

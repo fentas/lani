@@ -155,6 +155,23 @@ export default async function formsCards() {
   const state = (await (await fetch(`${base}/state`, { headers: auth })).json()) as any
   check('GET /state says the bridge makes forms cards (features: "forms-cards")', state.features?.includes('forms-cards'), state.features)
 
+  // --- GET /forms-cards: a word's tables to read (the app's overview, "📋 Vse oblike"), nothing written ------------------
+  const unread = readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8')
+  const get = (q: string) => fetch(`${base}/forms-cards${q}`, { headers: auth })
+  const tv = await get(`?w=${encodeURIComponent('delati')}&w=dober&w=nebesedica`)
+  const tb = (await tv.json()) as any
+  const tDelati = tb.words?.[0]?.tables?.[0]
+  const tDober = tb.words?.[1]?.tables?.find((t: any) => t.pos === 'adj')
+  check(
+    "GET /forms-cards: each word's tables as its card would have them (delati's future joined, dober's cases), tested left empty, none of a word the dictionary lacks; nothing written, no card made",
+    tv.ok && tb.language === 'sl' && tDelati?.lemma === 'delati' && tDelati.pos === 'verb' && tDelati.slots.some((x: any) => x.key === 'fut.1sg' && x.composed) &&
+      same(tDelati.tested, []) && !tDelati.asked && tDober?.slots?.some((x: any) => x.key === 'adj.gen.m.sg') && same(tb.words?.[2]?.tables, []) &&
+      String(tb.attribution).includes('Wiktionary') && readFileSync(join(dataDir, 'spaced-repetition.json'), 'utf8') === unread,
+    { delati: tDelati?.slots?.length, dober: tDober?.slots?.length, words: tb.words?.map((w: any) => [w.word, w.tables.length]) },
+  )
+  const tbad = await Promise.all([get(''), get(`?${Array.from({ length: 11 }, (_, i) => `w=a${i}`).join('&')}`), get(`?w=${'x'.repeat(41)}`)])
+  check('GET /forms-cards: 400 without w, with more than 10 words or one too long', tbad.every(r => r.status === 400), tbad.map(r => r.status))
+
   // --- a review with forms cards: the wrong cells as mistakes by kind ------------------------------------------------
   const runs = [
     { item_id: 'forms_hisa', lemma: 'hiša', typed: false, cells: [

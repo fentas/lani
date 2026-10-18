@@ -2,10 +2,11 @@
 // a noun's six cases by number, a verb's present, negative, future, past and imperative, an adjective's genders and its
 // cases. The forms are the dictionary's (forms.ts formsOf: Wiktionary's, or the forms book's hand-checked table), never
 // made by a rule; the one exception is the future of a verb that has none of its own, joined from two dictionary forms:
-// biti's future (bom, boš, bodo, also bojo) and the verb's l-form (delal, delali): "bom delal". The whole table is always
-// shown; what's tested is what the learner has been introduced to: a slot whose grammar page (and the pages it needs)
-// was met in the grammar book or taught by a course unit whose intro is done (the app works that out and sends it as
-// `introduced`). The others are a preview, until their page is introduced: then the card comes back soon (resurfacing).
+// biti's future (bom, boš, bodo, also bojo) and the verb's l-form (delal, delali): "bom delal". What's tested is what the
+// learner has been introduced to: a slot whose grammar page (and the pages it needs) was met in the grammar book or
+// taught by a course unit whose intro is done (the app works that out and sends it as `introduced`). In a review the app
+// shows the sections with a gap asked now, the others hidden; the whole table is its overview, to read. A slot not
+// introduced is a preview, until its page is: then the card comes back soon (resurfacing).
 // A card keeps its table when it is made (the item's `forms`), so the app asks it offline; the app plays it and sends
 // how its cells went with the review (POST /reviews `forms_cards`): a wrong cell becomes a mistake of its kind in the
 // mistakes database (FORMS_PATTERNS). Pure: the route is features/forms-cards.ts.
