@@ -1,7 +1,8 @@
 // What the phone's bridge needs of a JavaScript runtime that QuickJS doesn't have, installed as globals before any of
 // the bridge's modules runs (src/phone/entry.ts imports this first): process (its env from the host), console (to the
 // app's log), Buffer, URL and URLSearchParams, Headers, Request, Response, ReadableStream, AbortController and
-// AbortSignal, TextEncoder and TextDecoder, Event, EventTarget, DOMException, the timers, queueMicrotask, fetch, Bun;
+// AbortSignal, TextEncoder and TextDecoder, Event, EventTarget, DOMException, the timers, queueMicrotask, fetch, Bun,
+// crypto's randomUUID and getRandomValues, structuredClone (by JSON: plain data) and performance.now;
 // and two of ICU's answers QuickJS gives differently: toLocaleDateString('sv') (the local YYYY-MM-DD the bridge reads
 // "today" by) and localeCompare (a collator's order, the host's ICU, for anything but plain ids).
 import { Buffer } from './buffer'
@@ -10,6 +11,7 @@ import { host } from './host'
 import { clearImmediate, clearInterval, clearTimeout, fetch, loop, queueMicrotask, setImmediate, setInterval, setTimeout } from './loop'
 import { URL, URLSearchParams } from './url'
 import { format } from './util'
+import { getRandomValues, randomUUID } from './crypto'
 import { AbortController, AbortSignal, DOMException, Event, EventTarget, Headers, ReadableStream, Request, Response, TextDecoder, TextEncoder } from './web'
 
 const g = globalThis as unknown as Record<string, unknown>
@@ -155,6 +157,8 @@ for (const [k, v] of Object.entries(globals)) g[k] = v
 if (typeof g.queueMicrotask !== 'function') g.queueMicrotask = queueMicrotask
 if (typeof g.structuredClone !== 'function') g.structuredClone = (v: unknown) => (v === undefined ? undefined : JSON.parse(JSON.stringify(v)))
 if (typeof g.performance !== 'object') g.performance = { now: () => Date.now() - started, timeOrigin: started }
+// the web's crypto, its two calls (the host's random)
+if (typeof g.crypto !== 'object') g.crypto = { randomUUID, getRandomValues }
 g.global = globalThis
 // the repository's root on the phone: import.meta.dir in the bundled modules is a path under it (phone/build.ts)
 g.__laniProject = config.projectDir

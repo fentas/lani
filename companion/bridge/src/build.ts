@@ -142,6 +142,12 @@ export type Platform<C extends ChannelPort = ChannelPort> = {
   level?: RecordingLeveller
   /** Runs [fn] when the bridge ends (a node: the process's exit; the phone: PhoneBridge.stop). */
   onExit?: (fn: () => void) => void
+  /**
+   * Whether the culture pack is checked when the bridge is built (validateCulture: what's wrong is logged). A node
+   * does (the default); the phone leaves it out (its content was checked when the APK was built, and the check is most
+   * of the boot's time in QuickJS), unless LANI_CULTURE_CHECK=1.
+   */
+  checkCulture?: boolean
 }
 
 export type BuildOptions = {
@@ -283,8 +289,10 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   voicing.ready?.(ctx)
   // The pack the village is in, checked once against its cast, (its scenes) the packs and the grammar book its requests and
   // questions name: what's wrong is logged (the app checks the pack too).
-  const checked = validateCulture(culturesDir, culture.id, ctx.villagers.all(), { packs: ctx.packs.all(), scenarios: ctx.scenarios.all() }, new Set(ctx.grammar.all().map(p => p.id)))
-  if (!checked.ok) log(`culture ${culture.id} has problems:\n${checked.errors}`)
+  if (platform.checkCulture ?? true) {
+    const checked = validateCulture(culturesDir, culture.id, ctx.villagers.all(), { packs: ctx.packs.all(), scenarios: ctx.scenarios.all() }, new Set(ctx.grammar.all().map(p => p.id)))
+    if (!checked.ok) log(`culture ${culture.id} has problems:\n${checked.errors}`)
+  }
 
   // The channel instructions are the features' paragraphs in this order (FEATURES), and so is the tool list.
   const named = [...FEATURES, ...(o.extraFeatures ?? []).map((factory, i) => ({ name: `extra-${i + 1}`, factory }))].map(({ name, factory }) => ({ name, feature: factory(ctx) }))

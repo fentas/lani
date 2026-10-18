@@ -62,7 +62,14 @@ function boot(): string {
     webDir: join(c.projectDir, 'companion/bridge/web/family'),
   }
   const exits: (() => void)[] = []
-  const bridge = buildBridge({ cfg, channel: new PhoneChannel(), voices: phoneVoices, onExit: fn => void exits.push(fn) })
+  const bridge = buildBridge({
+    cfg,
+    channel: new PhoneChannel(),
+    voices: phoneVoices,
+    onExit: fn => void exits.push(fn),
+    // the APK's content was checked when it was built; the check would be most of the boot here
+    checkCulture: process.env.LANI_CULTURE_CHECK === '1',
+  })
   // what the app hasn't fetched yet, kept across the app's restarts (as the bridge service keeps it)
   bridge.ctx.events.persist(join(appDir, 'events.json'), log)
   const { routes, roleOf } = appApi(bridge)
@@ -193,13 +200,27 @@ async function call(id: number) {
   host().toolDone(id, JSON.stringify(result))
 }
 
+/** A request that failed before it had an answer (the bridge not booted, the host's request gone): a 500, never a hang. */
+function failed(id: number, e: unknown) {
+  log(`request ${id}: ${errorText(e)}`)
+  try {
+    host().respond(id, JSON.stringify({ status: 500, headers: [['content-type', 'application/json;charset=utf-8']], stream: false }), JSON.stringify({ error: 'internal error' }), null)
+  } catch {}
+}
+
 const api = {
   boot,
   start,
   stop,
-  handle: (id: number) => void handle(id),
+  handle: (id: number) => void handle(id).catch(e => failed(id, e)),
   cancel,
-  call: (id: number) => void call(id),
+  call: (id: number) =>
+    void call(id).catch(e => {
+      log(`tool call ${id}: ${errorText(e)}`)
+      try {
+        host().toolDone(id, JSON.stringify(fail(String((e as Error)?.message ?? e))))
+      } catch {}
+    }),
   /** The tools as the session sees them: JSON [{name, description, inputSchema}]. */
   tools: () => JSON.stringify(listed(need().bridge.tools)),
   /** The channel's instructions as Claude Code gets them (the rules that fit its limit; read again for each session). */

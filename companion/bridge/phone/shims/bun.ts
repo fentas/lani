@@ -68,6 +68,28 @@ function spawnSync(cmd: string[] | { cmd: string[] } & SpawnOpts, o: SpawnOpts =
   return { exitCode: r.status, success: r.status === 0, signalCode: null, pid: 0, stdout: Buffer.from(r.stdout), stderr: Buffer.from(r.stderr), resourceUsage: undefined }
 }
 
+/**
+ * Bun.spawn over the dispatcher: a registered script or git answers at once (its output as streams, its exit code as
+ * exited); a program that isn't there throws ENOENT, as Bun's does.
+ */
+function spawn(cmd: string[] | ({ cmd: string[] } & SpawnOpts), o: SpawnOpts = {}) {
+  const r = spawnSync(cmd, o)
+  const stream = (b: Buffer) => ReadableStream.of<Uint8Array>(b.length ? [b] : [])
+  return {
+    pid: 0,
+    exitCode: r.exitCode,
+    signalCode: null,
+    killed: false,
+    exited: Promise.resolve(r.exitCode),
+    stdout: stream(r.stdout),
+    stderr: stream(r.stderr),
+    stdin: undefined,
+    kill: () => undefined,
+    ref: () => undefined,
+    unref: () => undefined,
+  }
+}
+
 const notHere = (what: string) => () => {
   throw new Error(`Bun.${what}: not on the phone`)
 }
@@ -80,9 +102,7 @@ export const Bun = {
   sleepSync: (ms: number) => host().sleep(ms),
   which: (_bin: string) => null,
   spawnSync,
-  spawn: (cmd: string[] | { cmd: string[] }) => {
-    throw enoent(Array.isArray(cmd) ? cmd[0] : cmd.cmd[0])
-  },
+  spawn,
   serve: notHere('serve'),
   listen: notHere('listen'),
   connect: notHere('connect'),

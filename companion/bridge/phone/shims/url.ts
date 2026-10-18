@@ -66,7 +66,8 @@ function parseAbsolute(input: string): Parts | null {
   let port = ''
   let pathname = rest
   if (rest.startsWith('//') || (special && protocol !== 'file:')) {
-    const auth = rest.replace(/^\/*/, '')
+    // a special scheme's authority after any slashes (http:///x is x's); file: and the others' after exactly two
+    const auth = special && protocol !== 'file:' ? rest.replace(/^\/*/, '') : rest.slice(2)
     const end = auth.search(/[/]/)
     let authority = end < 0 ? auth : auth.slice(0, end)
     pathname = end < 0 ? '' : auth.slice(end)
