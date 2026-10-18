@@ -5,6 +5,9 @@ Smoke test for .claude/hooks/update-db.py.
 Runs the script against a fresh fixture DB in a temp dir, feeds it a sample
 session report, and asserts schema invariants on the output files.
 
+UpdateDbDiffTest runs the same cases through both implementations, the Python and its TypeScript twin
+(companion/bridge/src/db/), and requires the same output and files byte for byte (tests/db_impl.py).
+
 Usage:
     python3 tests/test_update_db.py
 """
@@ -17,6 +20,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db_impl  # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = REPO_ROOT / ".claude" / "hooks" / "update-db.py"
 
@@ -25,6 +31,7 @@ def script_env(data_dir: Path) -> dict:
     """The scripts' environment, pinned to [data_dir]: never the repository's data/."""
     env = {k: v for k, v in os.environ.items() if k not in ("CLAUDE_PROJECT_DIR", "CLAUDE_PLUGIN_ROOT")}
     env["LANI_DATA_DIR"] = str(data_dir)
+    env.setdefault("LANI_ENV_FILE", os.devnull)  # never the learner's lani.env
     return env
 
 
@@ -156,6 +163,8 @@ SESSION_PAYLOAD = {
 
 
 class UpdateDbSmokeTest(unittest.TestCase):
+    impl = "py"  # db_impl: "py", or "diff" (both implementations, compared)
+
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="lani-test-"))
         (self.tmp / "data").mkdir()
@@ -165,14 +174,8 @@ class UpdateDbSmokeTest(unittest.TestCase):
         shutil.rmtree(self.tmp, ignore_errors=True)
 
     def _run(self, payload: dict):
-        proc = subprocess.run(
-            ["python3", str(SCRIPT)],
-            input=json.dumps(payload).encode(),
-            cwd=str(self.tmp),
-            env=script_env(self.tmp / "data"),
-            capture_output=True,
-        )
-        return proc
+        return db_impl.run(self.impl, "update-db", stdin=json.dumps(payload).encode(), cwd=self.tmp,
+                           env=script_env(self.tmp / "data"), root=self.tmp)
 
     def test_happy_path(self):
         proc = self._run(SESSION_PAYLOAD)
@@ -655,6 +658,12 @@ class UpdateDbSmokeTest(unittest.TestCase):
                 proc = self._run(bad)
                 self.assertEqual(proc.returncode, 1, msg=proc.stderr)
                 self.assertEqual(self._raw(), before)
+
+
+@db_impl.needs_bun
+class UpdateDbDiffTest(UpdateDbSmokeTest):
+    """Every case above, by the Python and the TypeScript port at once: the same output and files."""
+    impl = "diff"
 
 
 if __name__ == "__main__":

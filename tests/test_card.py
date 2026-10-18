@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Tests for .claude/hooks/card.py (find, show and fix review cards) on fixtures in a temp dir: never the
-repository's data/.
+repository's data/. CardDiffTest runs them through both implementations, the Python and its TypeScript twin
+(companion/bridge/src/db/), and requires the same output and files byte for byte (tests/db_impl.py).
 
 Usage:
     python3 tests/test_card.py
@@ -10,9 +11,13 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import db_impl  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CARD = REPO_ROOT / ".claude" / "hooks" / "card.py"
@@ -25,6 +30,7 @@ def env_for(data_dir: Path) -> dict:
     """The scripts' environment, pinned to [data_dir]: never the repository's data/."""
     env = {k: v for k, v in os.environ.items() if k not in ("CLAUDE_PROJECT_DIR", "CLAUDE_PLUGIN_ROOT")}
     env["LANI_DATA_DIR"] = str(data_dir)
+    env.setdefault("LANI_ENV_FILE", os.devnull)  # never the learner's lani.env
     return env
 
 
@@ -85,6 +91,8 @@ def make_fixtures(d: Path):
 
 
 class CardTest(unittest.TestCase):
+    impl = "py"  # db_impl: "py", or "diff" (both implementations, compared)
+
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="lani-card-test-"))
         self.data = self.tmp / "data"
@@ -104,12 +112,12 @@ class CardTest(unittest.TestCase):
                    "skill_scores": {"vocabulary": {"exercises": len(results), "correct": sum(q >= 3 for _, q in results), "time_minutes": 1}},
                    "review_results": [{"item_id": i, "quality": q} for i, q in results]}
         d = data or self.data
-        p = subprocess.run(["python3", str(UPDATE)], input=json.dumps(payload).encode(), env=env_for(d), cwd=str(self.tmp), capture_output=True)
+        p = db_impl.run(self.impl, "update-db", stdin=json.dumps(payload).encode(), env=env_for(d), cwd=self.tmp, root=self.tmp)
         self.assertEqual(p.returncode, 0, p.stderr.decode())
 
     def run_card(self, *args, data=None):
         d = data or self.data
-        return subprocess.run(["python3", str(CARD), "--data", str(d), *args], env=env_for(d), cwd=str(self.tmp), capture_output=True)
+        return db_impl.run(self.impl, "card", ["--data", str(d), *args], env=env_for(d), cwd=self.tmp, root=self.tmp)
 
     def ok(self, *args, data=None) -> dict:
         p = self.run_card(*args, data=data)
@@ -384,6 +392,12 @@ class CardTest(unittest.TestCase):
         self.refused("forgive", "no_such_pattern")
         self.refused("forgive", "iz_genitive", "--date", "2026-01-01")
         self.refused("forgive", "iz_genitive", "--date", "2026-09-26", "--answer", "something else")
+
+
+@db_impl.needs_bun
+class CardDiffTest(CardTest):
+    """Every case above, by the Python and the TypeScript port at once: the same output and files."""
+    impl = "diff"
 
 
 if __name__ == "__main__":

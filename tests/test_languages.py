@@ -4,7 +4,8 @@ Language profiles (docs/DB_SCRIPTS.md, "Languages"): the migration of single-lan
 to another language, and read-db.py's summaries and --language.
 
 Every run works on copies in a temp dir (LANI_DATA_DIR): data-examples/, and the fixtures below;
-never the repository's data/.
+never the repository's data/. LanguagesDiffTest runs them through both implementations, the Python and its
+TypeScript twin (companion/bridge/src/db/), and requires the same output and files byte for byte (tests/db_impl.py).
 
 Usage:
     python3 tests/test_languages.py
@@ -19,6 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_update_db import REPO_ROOT, SESSION_PAYLOAD, make_fixtures, script_env  # noqa: E402
+import db_impl  # noqa: E402
 
 HOOKS = REPO_ROOT / ".claude" / "hooks"
 EXAMPLES = REPO_ROOT / "data-examples"
@@ -100,6 +102,8 @@ ITALIAN_SESSION = {
 
 
 class LanguagesTest(unittest.TestCase):
+    impl = "py"  # db_impl: "py", or "diff" (both implementations, compared)
+
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp(prefix="lani-languages-"))
         self.data = self.tmp / "data"
@@ -111,11 +115,9 @@ class LanguagesTest(unittest.TestCase):
     # --- helpers ---
 
     def run_script(self, name, args=(), payload=None):
-        return subprocess.run(
-            ["python3", str(HOOKS / name), *args],
-            input=json.dumps(payload).encode() if payload is not None else b"",
-            cwd=str(self.tmp), env=script_env(self.data), capture_output=True,
-        )
+        return db_impl.run(self.impl, name.removesuffix(".py"), args,
+                           stdin=json.dumps(payload).encode() if payload is not None else b"",
+                           cwd=self.tmp, env=script_env(self.data), root=self.tmp)
 
     def read(self, *args):
         p = self.run_script("read-db.py", args)
@@ -353,6 +355,12 @@ class LanguagesTest(unittest.TestCase):
         p = self.run_script("read-db.py", ("--language", "not a language"))
         self.assertEqual(p.returncode, 2)
         self.assertEqual(p.stdout, b"")
+
+
+@db_impl.needs_bun
+class LanguagesDiffTest(LanguagesTest):
+    """Every case above, by the Python and the TypeScript port at once: the same output and files."""
+    impl = "diff"
 
 
 if __name__ == "__main__":
