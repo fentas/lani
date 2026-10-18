@@ -4,7 +4,7 @@
       "id": "events",
       "title": "Inbound events",
       "summary": "Every event kind (chat, answer, session_end, review_done, …), its JSON and how to answer it. Fetch first in every thread.",
-      "chars": 5873,
+      "chars": 5921,
       "source": "bridge feature chat"
     },
     {
@@ -83,6 +83,13 @@
       "summary": "For a review_done with counting cards, or mistakes counting_*: their four steps, the mistake kinds, what to suggest.",
       "chars": 1280,
       "source": "bridge feature counting"
+    },
+    {
+      "id": "forms-cards",
+      "title": "Forms cards",
+      "summary": "For a review_done with forms cards, or mistakes forms_*: a word's whole table, what's tested, the kinds, what to suggest.",
+      "chars": 2302,
+      "source": "bridge feature forms-cards"
     },
     {
       "id": "packs",

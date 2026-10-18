@@ -118,6 +118,8 @@ def variants(item: dict) -> list:
         return []
     if item.get("type") == COUNTING:
         return ["counting", "counting_type"] if counting_of(item) else []
+    if item.get("type") == FORMS:
+        return ["forms_card", "forms_card_type"] if forms_of(item) else []
     acc = accepted(item["content"])
     if item.get("type", "vocabulary") != "vocabulary" or not acc:
         return ["flip"]
@@ -169,12 +171,71 @@ def counting_view(item: dict) -> dict:
     }
 
 
+FORMS = "forms"
+OWN_SLOTS = ("nom.sg", "adj.m.sg")
+
+
+def forms_of(item: dict) -> dict | None:
+    """A forms card's table (the item's `forms`, the bridge's forms-cards.ts) when it reads as the app reads it
+    (data/FormsCard.kt): its lemma, a part of speech, its slots each with a key, a form and a grammar page; None
+    otherwise (the app skips such a card)."""
+    f = item.get("forms")
+    if not isinstance(f, dict) or f.get("pos") not in ("noun", "verb", "adj") or not (isinstance(f.get("lemma"), str) and f["lemma"].strip()):
+        return None
+    slots = f.get("slots")
+    if not isinstance(slots, list) or not slots:
+        return None
+    for sl in slots:
+        if not (isinstance(sl, dict) and isinstance(sl.get("key"), str) and isinstance(sl.get("page"), str)
+                and isinstance(sl.get("forms"), list) and any(isinstance(x, str) and x.strip() for x in sl["forms"])):
+            return None
+    return f
+
+
+def forms_view(item: dict) -> dict:
+    """How the app asks a forms card ("📋 Oblike · Forms", data/FormsCard.kt): the word's whole table, its tested slots
+    as gaps (a part of it at a time), the others greyed as a preview; each gap right with any of its slot's forms."""
+    f = forms_of(item)
+    if f is None:
+        return {"shown": False, "why": "a forms card without its table (forms: lemma, pos, slots with key, forms, page): the app skips it"}
+    tested = [k for k in f.get("tested", []) if isinstance(k, str)]
+    return {
+        "shown": True,
+        "front": item["content"],
+        "back": item["answer"],
+        "how": "the word's whole table; the slots whose grammar page (and the pages it needs) the learner was introduced to "
+               "are gaps, the others a greyed preview, the word itself given; a part (a row or two, at most 6 gaps) per "
+               "review, the parts in turn, a resurfaced card's new part first; each gap chosen among three of the word's "
+               "forms until the card is secure (two good reviews in a row, the last without a slip), typed after "
+               "(a new part chosen); any form of the slot is right, its `also` too. The app works out what is tested "
+               "from the learner's grammar book and course; `tested` is what the bridge last saw",
+        "pos": f.get("pos"),
+        "gender": f.get("gender"),
+        "slots": {sl["key"]: {"forms": sl["forms"], **({"also": sl["also"]} if sl.get("also") else {}),
+                              "page": sl["page"], **({"needs": sl["needs"]} if sl.get("needs") else {}),
+                              **({"composed": "biti's future + the l-form, both the dictionary's"} if sl.get("composed") else {}),
+                              "tested": sl["key"] in tested, **({"own": "the word itself: given"} if sl["key"] in OWN_SLOTS else {})}
+                  for sl in f["slots"]},
+        "tested": tested,
+        "fresh": f.get("fresh") or [],
+        "unlocked": f.get("unlocked"),
+        "table": f.get("table"),
+        "asked": bool(f.get("asked")),
+        "variants": variants(item),
+        "fix": "the forms are the dictionary's (companion/lexicon/sl.json, the forms book sl.forms.json; a composed future "
+               "is biti's future there and the verb's l-form): fix them there, then delete the card (the app asks the "
+               "bridge for a new one, made from the fixed forms); never edit the forms by hand here",
+    }
+
+
 def app_view(item: dict) -> dict:
     """How the app shows and grades [item]."""
     if not shown(item):
         return {"shown": False, "why": "an error pattern: its content is the learner's wrong answer; the app never shows it as a card (modules drill it)"}
     if item.get("type") == COUNTING:
         return counting_view(item)
+    if item.get("type") == FORMS:
+        return forms_view(item)
     front, back = item["content"], item["answer"]
     acc = accepted(front)
     out = {
@@ -215,6 +276,9 @@ def overlap(a: dict, b: dict) -> dict | None:
     answer. Two flashcards with one meaning ("Ime mi je ...", "Imenujem se ...") are self-rated: no wrong answer."""
     if not (shown(a) and shown(b)):
         return None
+    # a counting or forms card asks its word's forms, not its meaning: never the same question as the word's own card
+    if a.get("type") in (COUNTING, FORMS) or b.get("type") in (COUNTING, FORMS):
+        return None
     same_prompt = sorted(prompt_parts(a["answer"]) & prompt_parts(b["answer"])) if quizzed(a) or quizzed(b) else []
     same_answer = sorted({normalize(x) for x in accepted(a["content"])} & {normalize(x) for x in accepted(b["content"])})
     if not same_prompt and not same_answer:
@@ -245,6 +309,8 @@ def problems(item: dict) -> list:
         return ["an error pattern: the app never shows it as a card (its content is the learner's wrong answer); fix the practice that drills it instead"]
     if item.get("type") == COUNTING:
         return [] if counting_of(item) else ["a counting card without its forms (counting: gender, lines, forms): the app skips it"]
+    if item.get("type") == FORMS:
+        return [] if forms_of(item) else ["a forms card without its table (forms: lemma, pos, slots with key, forms, page): the app skips it"]
     front, back = item.get("content") or "", item.get("answer") or ""
     out = []
     if not front.strip() or not back.strip():

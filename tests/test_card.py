@@ -165,6 +165,30 @@ class CardTest(unittest.TestCase):
         self.assertTrue(any("without its forms" in p for p in bare["problems"]))
         self.assertFalse(self.ok("show", "counting_odd")["app"]["shown"])
 
+    def test_show_says_how_the_app_asks_a_forms_card(self):
+        sr = json.loads((self.data / "spaced-repetition.json").read_text())
+        forms = {"v": 1, "lemma": "delati", "pos": "verb", "gloss": ["to work"], "table": "wiktionary",
+                 "slots": [{"key": "pres.1sg", "forms": ["delam"], "page": "glagoli-sedanjik"},
+                           {"key": "fut.3pl", "forms": ["bodo delali"], "also": ["bojo delali"], "page": "prihodnjik", "composed": True},
+                           {"key": "imp.2sg", "forms": ["delaj"], "page": "velelnik"}],
+                 "tested": ["pres.1sg", "imp.2sg"], "fresh": ["imp.2sg"], "unlocked": "2026-09-25"}
+        sr["items"]["forms_delati"] = card("forms_delati", "delati", "delam · bodo delali · delaj", type="forms", category="forms", forms=forms)
+        sr["items"]["forms_bare"] = card("forms_bare", "pes", "psa", type="forms", category="forms")
+        sr["items"]["vocab_delati"] = card("vocab_delati", "delati", "to work")
+        (self.data / "spaced-repetition.json").write_text(json.dumps(sr))
+        app = self.ok("show", "forms_delati")["app"]
+        self.assertTrue(app["shown"])
+        self.assertEqual(app["variants"], ["forms_card", "forms_card_type"])
+        self.assertEqual((app["slots"]["fut.3pl"]["also"], app["slots"]["pres.1sg"]["tested"], app["slots"]["fut.3pl"]["tested"]), (["bojo delali"], True, False))
+        self.assertIn("composed", app["slots"]["fut.3pl"])
+        self.assertEqual((app["fresh"], app["pos"]), (["imp.2sg"], "verb"))
+        self.assertIn("delete the card", app["fix"])
+        bare = self.ok("show", "forms_bare")
+        self.assertFalse(bare["app"]["shown"])  # no table kept: the app skips it
+        self.assertTrue(any("without its table" in p for p in bare["problems"]))
+        # it asks the word's forms, not its meaning: no overlap with the word's own card
+        self.assertEqual(self.ok("overlaps", "forms_delati")["overlaps"], [])
+
     def test_show_finds_this_mornings_problem(self):
         ne = self.ok("show", "vocab_ne")
         self.assertEqual(ne["app"]["accepted"], ["ja", "ne"])

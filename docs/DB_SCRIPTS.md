@@ -167,7 +167,7 @@ added it to their words) becomes a review item without a session:
 
 - Only `spaced-repetition.json` changes: no session-log entry, no minutes, no exercises, no
   streak day. `session_id` is not needed.
-- `date` and a non-empty `new_vocabulary` are required. A report that also carries practice
+- `date` and a non-empty `new_vocabulary` (or `resurface`, forms cards: below) are required. A report that also carries practice
   (`duration_minutes`, `skill_scores`, `review_results`, `errors`, `milestones`, …) is a
   validation error (exit `1`).
 - An item that exists already is left as it is; when nothing is new, nothing is written.
@@ -214,6 +214,44 @@ bridge's POST /counting: its noun on the front (`content`), its four lines on th
 
 A review's wrong counting steps come as `errors` (`counting_noun_gender`, `counting_dual`,
 `counting_plural`, `counting_from_five`), as any mistake does.
+
+A forms card (`"item_type": "forms"`, companion/README.md "Forms cards") is made by the bridge's
+POST /forms-cards: its word on the front (`content`), a few of its forms on the back (`answer`:
+"hiše · hiši · hišo · hiši · hišo · hiše"), its `due_date` the day it is made (as a counting
+card's), and its table:
+
+- `forms` (optional object): the word's whole table as the dictionary has it (`lemma`, `pos`:
+  `noun`, `verb` or `adj`; a noun's `gender`, `gloss`, `table`; `slots`: each `key` such as
+  `acc.sg`, `pres.3pl`, `fut.1sg`, `past.f.sg`, `imp.2pl`, `adj.gen.m.sg` with its `forms`, the
+  `also` accepted, the grammar `page` and the pages it `needs`; a verb's future joined from
+  biti's and its l-form is `composed`), `tested` (the slots tested when the bridge last
+  scheduled it), `fresh`, `unlocked`, `resurface` (its last resurfacing), `asked` (made from a
+  word's card), `meaning`, `emoji`. Kept as it came when the item is created.
+
+A report with `record_session: false` may also bring forms cards back soon, with or without
+`new_vocabulary` (at least one of the two non-empty): a unit or page introduced new forms of
+their table.
+
+```json
+{
+  "record_session": false,
+  "date": "2026-10-18",
+  "resurface": [{ "item_id": "forms_delati", "due_date": "2026-10-19", "forms": { "v": 1, "lemma": "delati", "…": "…" } }]
+}
+```
+
+- Only an existing item of type `forms`: another id, or one whose `due_date` isn't a date from
+  the report's day to 30 days after it, is left out (the summary says how many).
+- `due_date` is the entry's day when that is earlier than the card's due date now (never later),
+  `interval_days` 1 and `repetitions` 0: the new part is new learning (1 day, then 6, then times
+  its easiness). Its `easiness_factor`, `review_history`, `total_reviews`, `mastery_level`,
+  `last_quality` and its runs (`consecutive_*`) stay: the card keeps its history.
+- `forms` (optional) replaces the card's table data; `resurfaced` keeps the last 10 `{date, due}`.
+- The backup is the same as a new word's (`.backups/pre-words-<date>/`); nothing to do,
+  nothing written.
+
+A review's wrong forms-card cells come as `errors` (`forms_case_locative`, `forms_number_dual`,
+`forms_verb_person_3pl`, `forms_tense_past`, `forms_adjective_gender`, …), as any mistake does.
 
 ### Another language: `language` and `level`
 

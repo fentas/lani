@@ -160,7 +160,8 @@ export function grammarOfSlot(key: string): string {
 /** Where a slot's form counts: its grammar book page (the rule a wrong one breaks) and the pages it needs introduced too. */
 export type SlotPage = { page: string; needs: string[] }
 
-const CASE_PAGES: Record<string, string> = { nom: 'imenovalnik', gen: 'rodilnik', dat: 'dajalnik', acc: 'tozilnik', loc: 'mestnik', ins: 'orodnik' }
+/** Each case's own page in the grammar book (the singular's; a plural or dual case needs mnozina or dvojina too). */
+export const CASE_PAGES: Record<string, string> = { nom: 'imenovalnik', gen: 'rodilnik', dat: 'dajalnik', acc: 'tozilnik', loc: 'mestnik', ins: 'orodnik' }
 
 /**
  * The page of slot [key] of [lemma] ("sesti", "pres.1sg" → glagoli-sedanjik): the present's endings, biti's own page,
@@ -656,6 +657,47 @@ function linesOf(c: FormsContext, lemma: string, pos: string, gloss: string[], p
       }
     }
   }
+  return out
+}
+
+/**
+ * An adjective's forms its slots leave out (ADJ_KEYS has the nominative's genders and numbers), for the forms card
+ * (forms-cards.ts) and nothing else: GET /forms stays as it is. Read from Wiktionary's grammar strings of [lemma]'s
+ * paradigm, a reading only when it says a case and a number and no other word than "indefinite" (no definite form, no
+ * comparative, no person); a reading without a gender is each gender's. Keys: the nominative's neuter plural (adj.n.pl)
+ * and dual (adj.m.du; adj.f.du the feminine's and the neuter's), and the other cases' singular and plural by gender
+ * (adj.gen.m.sg … adj.ins.n.pl; the dual's other cases are left out). The accusative masculine singular, which Wiktionary
+ * gives as "genitive" (an animate noun's) or the nominative, comes out missing. None for a word the forms book has a
+ * table of (its slots are all it has) or leaves out; the forms the book leaves out are left out.
+ */
+export function adjectiveForms(c: FormsContext, lemma: string): Map<string, string[]> {
+  const out = new Map<string, string[]>()
+  const norm = (s: string) => normalizeForm(s, c.language)
+  if (c.book.table(lemma, 'adj') || c.book.leftOut(lemma, 'adj').all) return out
+  const l = c.dict.lemmasOf(lemma).find(x => x.pos === 'adj' && norm(x.lemma) === norm(lemma))
+  if (!l) return out
+  const left = c.book.leftOut(lemma, 'adj').forms
+  const own = norm(lemma)
+  for (const [form, grammar] of c.dict.paradigm(l.index, l.lemma, 'adj')) {
+    if (NOT_FORMS.has(form) || !grammar) continue
+    const f = norm(form)
+    if (!f || left.has(f)) continue
+    for (const text of grammar.split('; ')) {
+      const r = readingOf(text)
+      if (!r || r.vocative || r.persons.length || !r.cases.length || !r.numbers.length || [...r.words].some(w => w !== 'indefinite')) continue
+      const genders = r.genders.length ? r.genders : ['m', 'f', 'n']
+      for (const kase of r.cases) for (const g of genders) for (const n of r.numbers) {
+        let key: string | null = null
+        if (kase === 'nom') key = n === 'pl' && g === 'n' ? 'adj.n.pl' : n === 'du' ? (g === 'm' ? 'adj.m.du' : 'adj.f.du') : null
+        else if (n !== 'du') key = `adj.${kase}.${g}.${n}`
+        if (!key) continue
+        const list = out.get(key) ?? []
+        if (!list.includes(f)) list.push(f)
+        out.set(key, list)
+      }
+    }
+  }
+  for (const list of out.values()) list.sort((a, b) => Number(b === own) - Number(a === own) || a.localeCompare(b, c.language))
   return out
 }
 

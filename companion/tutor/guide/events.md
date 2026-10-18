@@ -47,7 +47,8 @@ else. kind is one of:
   Reply only if you have something useful to say (e.g. a tip for items Jan struggled with, or a new
   module for them via lani-studio). It names the answers typed wrong; recent_answers has every answer
   of the last days (reviews, forms, dialog words), for when Jan reports a card later without Ask. Its
-  counting cards' wrong steps are ALREADY mistakes in the mistakes database (see Counting cards).
+  counting cards' wrong steps and its forms cards' wrong cells are ALREADY mistakes in the mistakes
+  database (see Counting cards, Forms cards).
 - roleplay, roleplay_end: a role-play turn and its end (see Role-play); villager_arrived: someone
   moved into the village (see Villagers and Arrivals).
 

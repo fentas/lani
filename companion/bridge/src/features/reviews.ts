@@ -25,11 +25,17 @@
 // not, what was answered and what was right, the kind of a wrong one), read leniently too: each wrong step is written as
 // a mistake of its kind (update-db.py `errors`: mistakes-db.json's counting_noun_gender, counting_dual, counting_plural,
 // counting_from_five), the steps count as grammar practice, and the tutor's note names them.
+//
+// Forms cards (forms-cards.ts): a review may say how its forms cards went (forms_cards: each card's cells played, right
+// or not, what was answered and what was right, the kind of a wrong one), read leniently the same way: each wrong cell
+// is a mistake of its kind (forms_case_locative, forms_number_dual, forms_verb_person_3pl, forms_tense_past …), the
+// cells count as grammar practice with the counting steps, and the tutor's note names them.
 import { join } from 'node:path'
 import { z } from 'zod'
 import { answerLine, AnswerLog, fromLabel, fromOf, lookedUpNote, reviewAnswers, timeOf, type NewAnswer, type ReviewAnswer } from '../answers'
 import { fail, ok } from '../channel'
 import { countingErrors, countingNote, countingRuns } from '../counting'
+import { formsCardsNote, formsErrors, formsRuns } from '../forms-cards'
 import { countsInDialog, type Card } from '../dialog-words'
 import type { FeatureFactory } from '../feature'
 import { json, readJson } from '../http'
@@ -42,9 +48,10 @@ import { LANGUAGES } from '../learners'
  * from one that voices it so ("explanations"; an older bridge would voice the English as a Slovene line); it asks for
  * counting cards (POST /counting) and sends how they went (POST /reviews `counting`) only to one that makes them
  * ("counting"); a photo in the chat goes to one that keeps it (PUT /chat/images/<id>, "chat-images"; an older bridge
- * answers 404 and the message goes without it).
+ * answers 404 and the message goes without it); it asks for forms cards (POST /forms-cards) and sends how they went
+ * (POST /reviews `forms_cards`) only to one that makes them ("forms-cards").
  */
-export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images'] as const
+export const STATE_FEATURES = ['dialog-words', 'explanations', 'counting', 'chat-images', 'forms-cards'] as const
 
 /** A form of a card's word asked in a review: the slot ("pres.1sg"), the grammar page it counts on, how it went. */
 const formAsked = z.object({
@@ -99,6 +106,8 @@ const reviewRun = z
     answered_at: z.unknown().optional(),
     // how its counting cards went (counting.ts countingRuns): read leniently, never a reason to refuse the review
     counting: z.unknown().optional(),
+    // how its forms cards went (forms-cards.ts formsRuns): read leniently too
+    forms_cards: z.unknown().optional(),
   })
   .refine(r => r.dialog || r.results.length >= 1, { path: ['results'], message: 'at least one result (only a body with a dialog may have none)' })
 
@@ -282,8 +291,12 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
     const correct = results.filter(x => x.quality >= 3).length
     // the counting cards' steps (the home language's: their numerals are Slovene's): grammar, each wrong one a mistake
     const counted = language ? [] : countingRuns(r.data.counting)
-    const steps = counted.flatMap(c => c.steps)
-    const errors = countingErrors(counted)
+    // the forms cards' cells (the home language's: their tables are the village dictionary's), grammar too
+    const tables = language ? [] : formsRuns(r.data.forms_cards)
+    const cells = tables.flatMap(t => t.cells)
+    const steps = [...counted.flatMap(c => c.steps), ...cells]
+    const errors = [...countingErrors(counted), ...formsErrors(tables)]
+    const countingWrong = countingErrors(counted).length
     const payload = {
       session_id: state.computed.next_session_id,
       date: state.computed.today,
@@ -297,7 +310,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
       },
       review_results: results,
       ...(errors.length ? { errors } : {}),
-      session_notes: `Flashcard review in the Lani app (self-rated).${counted.length ? ` ${counted.length} counting card(s), ${errors.length} wrong step(s).` : ''}`,
+      session_notes: `Flashcard review in the Lani app (self-rated).${counted.length ? ` ${counted.length} counting card(s), ${countingWrong} wrong step(s).` : ''}${tables.length ? ` ${tables.length} forms card(s), ${cells.filter(c => !c.right).length} wrong cell(s).` : ''}`,
     }
     const u = learner.update(payload)
     if (!u.ok) return json({ error: u.output }, 500)
@@ -309,7 +322,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox }) => {
     const deck = language ? ` of ${LANGUAGES[language] ?? language} cards (language "${language}")` : ''
     const place = sent.from && sent.from !== 'review' ? ` in ${fromLabel(sent.from)}` : ''
     await channel.notify(
-      `App review${deck}${place} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}${countingNote(counted)}${lookedUpNote(given)}`,
+      `App review${deck}${place} finished (already persisted as ${payload.session_id}): ${correct}/${results.length} recalled in ${duration_minutes} min.${weak.length ? ` Struggled with: ${weak.join(', ')}.` : ''}${wrongNote(answered)}${formsNote(r.data.forms)}${countingNote(counted)}${formsCardsNote(tables)}${lookedUpNote(given)}`,
       { kind: 'review_done', conversation_id: 'main', msg_id: payload.session_id },
     )
     return json({ session_id: payload.session_id, correct, total: results.length, output: u.output, ...(language ? { language } : {}) })

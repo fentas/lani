@@ -484,6 +484,53 @@ def lower_gently(item: dict, today: str):
     item["last_lapse"] = today
 
 
+FORMS = "forms"
+RESURFACE_DAYS = 30
+RESURFACED_KEPT = 10
+
+
+def resurface_entries(entries, today: str) -> list:
+    """A report's `resurface` entries that read: an item_id and a due_date from [today] to RESURFACE_DAYS after it (an
+    optional `forms` dict); the others left out."""
+    if not isinstance(entries, list):
+        return []
+    last = date_plus_days(today, RESURFACE_DAYS)
+    out = []
+    for e in entries:
+        if not isinstance(e, dict) or not isinstance(e.get("item_id"), str) or not e["item_id"].strip():
+            continue
+        due = e.get("due_date")
+        if not (isinstance(due, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", due) and today <= due <= last):
+            continue
+        out.append(e)
+    return out
+
+
+def resurface_items(items: dict, entries, today: str) -> list:
+    """Forms cards that come back soon (the bridge's forms-cards.ts: a unit or page introduced new forms of their table):
+    each existing item of type "forms" in [entries] is due on the entry's day when that is earlier than its due date now
+    (never later), its interval 1 day and its repetitions 0 (the new part is new learning: 1 day, 6 days, then times its
+    easiness), its easiness, history, total reviews, mastery and runs kept; its `forms` replaced when the entry has one;
+    a `resurfaced` note kept (the last RESURFACED_KEPT). Items that don't exist or aren't forms cards are left out.
+    Returns the ids changed."""
+    changed = []
+    for e in resurface_entries(entries, today):
+        item = items.get(e["item_id"])
+        if not isinstance(item, dict) or item.get("type") != FORMS:
+            continue
+        due = item.get("due_date")
+        if not (isinstance(due, str) and due) or e["due_date"] < due:
+            item["due_date"] = e["due_date"]
+        item["interval_days"] = 1
+        item["repetitions"] = 0
+        if isinstance(e.get("forms"), dict):
+            item["forms"] = copy.deepcopy(e["forms"])
+        notes = item.get("resurfaced") if isinstance(item.get("resurfaced"), list) else []
+        item["resurfaced"] = (notes + [{"date": today, "due": item["due_date"]}])[-RESURFACED_KEPT:]
+        changed.append(e["item_id"])
+    return changed
+
+
 def update_spaced_repetition(sr: dict, session: dict):
     today = session["date"]
     items = sr.setdefault("items", {})
@@ -563,11 +610,17 @@ def update_spaced_repetition(sr: dict, session: dict):
             # lines), kept as they came: the app asks the card from them, offline.
             if isinstance(vocab.get("counting"), dict):
                 items[item_id]["counting"] = copy.deepcopy(vocab["counting"])
+            # A forms card's table (the bridge's forms-cards.ts: the word, its slots with the dictionary's forms and the
+            # grammar page of each, which were tested when it was made), kept as it came: the app asks it offline.
+            if isinstance(vocab.get("forms"), dict):
+                items[item_id]["forms"] = copy.deepcopy(vocab["forms"])
             # Due earlier than tomorrow: a card made of something already learned (a counting card) is asked the day
             # it is made. Never before the report's date, never later than tomorrow.
             due = vocab.get("due_date")
             if isinstance(due, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", due) and today <= due < items[item_id]["due_date"]:
                 items[item_id]["due_date"] = due
+
+    resurface_items(items, session.get("resurface", []), today)
 
     for error in session.get("errors", []):
         item_id = error["pattern_id"]
@@ -666,14 +719,16 @@ SESSION_FIELDS = ("duration_minutes", "skill_scores", "review_results", "errors"
 
 
 def add_items_only(report: dict):
-    """record_session: false — add the new_vocabulary review items and nothing else.
+    """record_session: false — add the new_vocabulary review items (and bring back the forms cards in
+    `resurface`) and nothing else.
 
     A word met outside practice (looked up in a dialog of the app) becomes a review item
     without a session: no session-log entry, no minutes, no exercises, no streak day. Only
     spaced-repetition.json is written, after a backup (one per day: the state before the
-    day's latest write). Items that exist already are left as they are. In another language
-    ("language"), its spaced-repetition.json; the first word of a language never practised
-    creates its six databases and lists it in the home profile.
+    day's latest write). Items that exist already are left as they are, but for the forms
+    cards in `resurface` (resurface_items: due soon, their new part new learning). In another
+    language ("language"), its spaced-repetition.json; the first word of a language never
+    practised creates its six databases and lists it in the home profile.
     """
     try:
         parse_date(str(report.get("date", "")))
@@ -685,9 +740,15 @@ def add_items_only(report: dict):
         print(f"[Lani] Error: a report with record_session false adds review items only; remove {', '.join(practice)}", file=sys.stderr)
         sys.exit(1)
     vocab = report.get("new_vocabulary")
-    if not isinstance(vocab, list) or not vocab or not all(
+    again = report.get("resurface")
+    if again is not None and not isinstance(again, list):
+        print("[Lani] Error: 'resurface' must be a list of {item_id, due_date, forms}", file=sys.stderr)
+        sys.exit(1)
+    if vocab is None and again:
+        vocab = []
+    if not isinstance(vocab, list) or (not vocab and not again) or not all(
             isinstance(v, dict) and isinstance(v.get("item_id"), str) and v["item_id"].strip() for v in vocab):
-        print("[Lani] Error: 'new_vocabulary' must be a non-empty list of items with an item_id", file=sys.stderr)
+        print("[Lani] Error: 'new_vocabulary' must be a non-empty list of items with an item_id (or 'resurface' non-empty)", file=sys.stderr)
         sys.exit(1)
     code = report_language(report)
 
@@ -702,7 +763,7 @@ def add_items_only(report: dict):
     original = databases["sr"]
     sr = copy.deepcopy(original)
     try:
-        update_spaced_repetition(sr, {"date": report["date"], "new_vocabulary": vocab})
+        update_spaced_repetition(sr, {"date": report["date"], "new_vocabulary": vocab, "resurface": again or []})
         home = listed_in_home(code, databases["profile"], report["date"]) if new_language else None
     except Exception as e:
         import traceback
@@ -710,7 +771,11 @@ def add_items_only(report: dict):
         traceback.print_exc(file=sys.stderr)
         sys.exit(2)
     added = [i for i in dict.fromkeys(v["item_id"] for v in vocab) if i not in original.get("items", {})]
-    if added:
+    before = original.get("items", {})
+    back = [i for i in dict.fromkeys(e["item_id"] for e in resurface_entries(again or [], report["date"]))
+            if isinstance(before.get(i), dict) and before[i].get("type") == FORMS]
+    left_out = len(again or []) - len(back)
+    if added or back:
         if code is None:
             backup = BACKUP_DIR / f"pre-words-{report['date']}"
             backup.mkdir(parents=True, exist_ok=True)
@@ -731,6 +796,9 @@ def add_items_only(report: dict):
             sys.exit(2)
     where = f" in {langs.language_name(code)}" if code else ""
     print(f"[Lani] ✅ Added {len(added)} review item(s){where} ({', '.join(added) or 'all known already'}); no session recorded")
+    if again:
+        print(f"[Lani] 🔁 Forms cards back soon: {len(back)} ({', '.join(back) or 'none'})"
+              + (f"; {left_out} entr(ies) left out (no forms card, or a date out of range)" if left_out else ""))
     print(f"[Lani] 🧠 SR: {sr['metadata']['total_items_tracked']} items tracked")
     sys.exit(0)
 

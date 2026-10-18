@@ -25,6 +25,7 @@ import { arrivals } from './features/arrivals'
 import { cards as cardsFeature } from './features/cards'
 import { chat } from './features/chat'
 import { counting } from './features/counting'
+import { formsCards } from './features/forms-cards'
 import { dev } from './features/dev'
 import { course as courseFeature } from './features/course'
 import { culture as cultureFeature } from './features/culture'
@@ -95,6 +96,7 @@ export const FEATURES: readonly { name: string; factory: FeatureFactory }[] = [
   { name: 'cards', factory: cardsFeature },
   { name: 'course', factory: courseFeature },
   { name: 'counting', factory: counting },
+  { name: 'forms-cards', factory: formsCards },
   { name: 'drills', factory: drillsFeature },
   { name: 'rhythm', factory: rhythm },
   { name: 'game', factory: game },

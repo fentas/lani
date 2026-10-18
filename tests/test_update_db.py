@@ -544,6 +544,92 @@ class UpdateDbSmokeTest(unittest.TestCase):
         self.assertEqual([sr["items"][i]["due_date"] for i in ("counting_late", "counting_early", "counting_odd")], ["2026-04-25"] * 3)
         self.assertNotIn("counting", sr["items"]["counting_odd"])
 
+    FORMS = {"v": 1, "lemma": "hiša", "pos": "noun", "gender": "f", "gloss": ["house"], "table": "wiktionary",
+             "slots": [{"key": "nom.sg", "forms": ["hiša"], "page": "imenovalnik"}, {"key": "acc.sg", "forms": ["hišo"], "page": "tozilnik"},
+                       {"key": "loc.sg", "forms": ["hiši"], "page": "mestnik"}, {"key": "dat.sg", "forms": ["hiši"], "page": "dajalnik"}],
+             "tested": ["acc.sg", "loc.sg"]}
+
+    def _forms_card(self, **extra):
+        return dict({"item_id": "forms_hisa", "item_type": "forms", "content": "hiša", "answer": "hišo · hiši · hiši",
+                     "category": "forms", "difficulty": "A1", "source": "forms", "due_date": "2026-04-24", "forms": self.FORMS}, **extra)
+
+    def test_a_forms_card_keeps_its_table_and_is_due_the_day_it_is_made(self):
+        odd = self._forms_card(item_id="forms_odd", forms="not an object")
+        proc = self._run({"record_session": False, "date": "2026-04-24", "new_vocabulary": [self._forms_card(), odd]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        sr = self._load("spaced-repetition.json")
+        hisa = sr["items"]["forms_hisa"]
+        self.assertEqual((hisa["type"], hisa["due_date"], hisa["source"]), ("forms", "2026-04-24", "forms"))
+        self.assertEqual(hisa["forms"], self.FORMS)
+        self.assertIn("forms_hisa", sr["review_queue"]["today"])
+        self.assertNotIn("forms", sr["items"]["forms_odd"])
+
+    def _reviewed_forms_card(self):
+        """forms_hisa made on 04-24 and reviewed well three times: due 05-12, 2 repetitions in a row and more."""
+        self.assertEqual(self._run({"record_session": False, "date": "2026-04-24", "new_vocabulary": [self._forms_card()]}).returncode, 0)
+        path = self.tmp / "data" / "spaced-repetition.json"
+        sr = json.loads(path.read_text())
+        sr["items"]["forms_hisa"].update({
+            "due_date": "2026-05-12", "interval_days": 15, "repetitions": 3, "easiness_factor": 2.6, "total_reviews": 3,
+            "mastery_level": 1, "consecutive_correct": 3, "last_quality": 4,
+            "review_history": [{"date": "2026-04-24", "quality": 4, "score": 0}, {"date": "2026-04-25", "quality": 4, "score": 0},
+                               {"date": "2026-05-01", "quality": 5, "score": 0}],
+        })
+        path.write_text(json.dumps(sr))
+        return sr["items"]["forms_hisa"]
+
+    def test_resurface_brings_a_forms_card_back_soon_as_new_learning(self):
+        before = self._reviewed_forms_card()
+        grown = dict(self.FORMS, tested=["acc.sg", "loc.sg", "dat.sg"], fresh=["dat.sg"], unlocked="2026-05-02", resurface="2026-05-03")
+        proc = self._run({"record_session": False, "date": "2026-05-02",
+                          "resurface": [{"item_id": "forms_hisa", "due_date": "2026-05-03", "forms": grown},
+                                        {"item_id": "vocab_dag", "due_date": "2026-05-03"},  # not a forms card: left out
+                                        {"item_id": "forms_nope", "due_date": "2026-05-03"}]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        self.assertIn("Forms cards back soon: 1 (forms_hisa); 2 entr(ies) left out", proc.stdout.decode())
+        sr = self._load("spaced-repetition.json")
+        hisa = sr["items"]["forms_hisa"]
+        self.assertEqual((hisa["due_date"], hisa["interval_days"], hisa["repetitions"]), ("2026-05-03", 1, 0))
+        # its history kept: easiness, the reviews, mastery, the run of right answers
+        for k in ("easiness_factor", "total_reviews", "review_history", "mastery_level", "consecutive_correct", "last_quality", "created_date"):
+            self.assertEqual(hisa[k], before[k], k)
+        self.assertEqual(hisa["forms"], grown)
+        self.assertEqual(hisa["resurfaced"], [{"date": "2026-05-02", "due": "2026-05-03"}])
+        self.assertIn("forms_hisa", sr["review_queue"]["tomorrow"])
+        self.assertNotIn("forms", sr["items"]["vocab_dag"])
+        self.assertTrue((self.tmp / "data" / ".backups" / "pre-words-2026-05-02" / "spaced-repetition.json").exists())
+
+    def test_resurface_never_moves_a_card_later_nor_takes_a_bad_date(self):
+        self._reviewed_forms_card()
+        path = self.tmp / "data" / "spaced-repetition.json"
+        sr = json.loads(path.read_text())
+        sr["items"]["forms_hisa"]["due_date"] = "2026-05-02"  # due today already
+        path.write_text(json.dumps(sr))
+        proc = self._run({"record_session": False, "date": "2026-05-02", "resurface": [{"item_id": "forms_hisa", "due_date": "2026-05-05"}]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        hisa = self._load("spaced-repetition.json")["items"]["forms_hisa"]
+        self.assertEqual((hisa["due_date"], hisa["repetitions"], hisa["interval_days"]), ("2026-05-02", 0, 1))
+        self.assertEqual(hisa["forms"], self.FORMS)  # no forms given: kept
+        before = self._raw()
+        for bad in ("2026-05-01", "2026-06-02", "soon"):  # before the report's day, more than 30 days after it, no date
+            with self.subTest(due=bad):
+                proc = self._run({"record_session": False, "date": "2026-05-02", "resurface": [{"item_id": "forms_hisa", "due_date": bad}]})
+                self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+                self.assertEqual(self._raw(), before)  # nothing to do: nothing written
+        for bad in ({"resurface": "x"}, {"resurface": []}):
+            with self.subTest(case=bad):
+                proc = self._run(dict({"record_session": False, "date": "2026-05-02"}, **bad))
+                self.assertEqual(proc.returncode, 1, msg=proc.stderr)
+
+    def test_resurface_and_new_cards_in_one_report(self):
+        self._reviewed_forms_card()
+        oko = self._forms_card(item_id="forms_oko", content="oko", due_date="2026-05-02", forms=dict(self.FORMS, lemma="oko", gender="n"))
+        proc = self._run({"record_session": False, "date": "2026-05-02", "new_vocabulary": [oko],
+                          "resurface": [{"item_id": "forms_hisa", "due_date": "2026-05-04"}]})
+        self.assertEqual(proc.returncode, 0, msg=proc.stderr)
+        items = self._load("spaced-repetition.json")["items"]
+        self.assertEqual((items["forms_oko"]["due_date"], items["forms_hisa"]["due_date"]), ("2026-05-02", "2026-05-04"))
+
     def test_items_only_keeps_a_known_item(self):
         word = dict(self.WORD, item_id="vocab_dag", content="dag?", answer="changed")
         before = self._raw()
