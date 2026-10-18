@@ -133,12 +133,15 @@ export class Store {
     return (this.db.query('SELECT COALESCE(SUM(size), 0) AS bytes FROM mail WHERE sender = ? AND expires > ?').get(sender, now) as any).bytes
   }
 
-  /** Up to [limit] of [town]'s messages that aren't being answered, oldest first, now leased to it until [until]. */
-  lease(town: string, limit: number, now: number, until: number): (MailRow & { body: Uint8Array | null })[] {
+  /**
+   * Up to [limit] of [town]'s messages that aren't being answered, oldest first, now leased to it until [until]; their
+   * bodies up to [inline] bytes (a larger one is fetched on its own).
+   */
+  lease(town: string, limit: number, now: number, until: number, inline: number): (MailRow & { body: Uint8Array | null })[] {
     return this.db.transaction(() => {
       const rows = this.db
-        .query('SELECT * FROM mail WHERE town = ? AND leased_until <= ? AND expires > ? ORDER BY at LIMIT ?')
-        .all(town, now, now, limit) as (MailRow & { body: Uint8Array | null })[]
+        .query('SELECT id, town, kind, scope, sender, at, expires, leased_until, meta, size, CASE WHEN size <= ? THEN body END AS body FROM mail WHERE town = ? AND leased_until <= ? AND expires > ? ORDER BY at LIMIT ?')
+        .all(inline, town, now, now, limit) as (MailRow & { body: Uint8Array | null })[]
       const lease = this.db.query('UPDATE mail SET leased_until = ? WHERE id = ?')
       for (const r of rows) lease.run(until, r.id)
       return rows
@@ -200,6 +203,12 @@ export class Store {
 
   deleteBackup(owner: string, name: string): boolean {
     return this.db.query('DELETE FROM backups WHERE owner = ? AND name = ?').run(owner, name).changes > 0
+  }
+
+  /** All the bytes the relay keeps: backups, mail, answers. */
+  totalBytes(): number {
+    const sum = (table: string) => (this.db.query(`SELECT COALESCE(SUM(size), 0) AS bytes FROM ${table}`).get() as any).bytes as number
+    return sum('backups') + sum('mail') + sum('replies')
   }
 
   // --- retention ---------------------------------------------------------------------------------------------------------

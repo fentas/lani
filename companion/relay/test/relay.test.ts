@@ -272,6 +272,61 @@ describe('the tunnel', () => {
   })
 })
 
+describe('after the review', () => {
+  test('a town polling is there, however short RELAY_ONLINE_MS is: the request is answered (online is asked before delivering)', async () => {
+    const relay = relayWith({ onlineMs: 1 })
+    const town = newKey()
+    const sender = newKey()
+    const t = fakeTown(relay, town, () => ({ body: '{"ok":true}' }))
+    await Bun.sleep(30)
+    clock += 50 // its poll began longer ago than RELAY_ONLINE_MS
+    const r = await call(relay, sender, 'GET', `/v1/towns/${town.id}/town/public`, { headers: inner(sender, town) })
+    expect(r.status).toBe(200)
+    expect(r.headers.get('x-lani-relay')).toBe('tunnel')
+    await t.stop()
+  })
+
+  test("an answer nobody waits for isn't kept (a tunnelled request given up); a delivered one's is", async () => {
+    const relay = relayWith()
+    const town = newKey()
+    const sender = newKey()
+    await call(relay, town, 'GET', '/v1/mailbox')
+    const gaveUp = call(relay, sender, 'GET', `/v1/towns/${town.id}/town/public`, { headers: { ...inner(sender, town), 'x-lani-relay-wait': '500' } })
+    await Bun.sleep(50)
+    const m = (await asJson(await call(relay, town, 'GET', '/v1/mailbox'))).body.mail[0]
+    expect((await gaveUp).status).toBe(504)
+    const late = await asJson(await call(relay, town, 'POST', `/v1/mail/${m.id}/reply`, { body: 'x'.repeat(1000) }))
+    expect(late.body).toEqual({ ok: true, kept: false })
+    expect(relay.store.reply(m.id)).toBeUndefined()
+    expect(relay.store.mail(m.id)).toBeUndefined()
+  })
+
+  test("a poll doesn't load the bodies it only lists (a recording is fetched on its own)", async () => {
+    const relay = relayWith({ inlineMaxBytes: 100 })
+    const town = newKey()
+    const sender = newKey()
+    await call(relay, town, 'GET', '/v1/mailbox')
+    await call(relay, sender, 'POST', `/v1/towns/${town.id}/mail`, { body: JSON.stringify({ request: { method: 'POST', path: '/town/gifts', headers: inner(sender, town), body: 'z'.repeat(500) } }) })
+    const leased = relay.store.lease(town.id, 10, clock + 1, clock + 60_000, 100)
+    expect(leased.length).toBe(1)
+    expect(leased[0].body).toBeNull()
+    expect(leased[0].size).toBe(500)
+  })
+
+  test('backups: a broken escape in a name is a 400; over the quota or the relay\'s room before the body is read; uploads at once', async () => {
+    const relay = relayWith({ backupQuotaBytes: 1000, storeMaxBytes: 5000 })
+    const a = newKey()
+    expect((await call(relay, a, 'PUT', '/v1/backup/%E0%A4%A', { body: 'x' })).status).toBe(400)
+    // a body announced over the key's quota: refused before it is read (the signature over a body never sent)
+    const r = await relay.fetch(new Request(`${BASE}/v1/backup/big`, { method: 'PUT', headers: { ...signed(a, 'PUT', '/v1/backup/big', 'never'), 'content-length': '2000' }, body: 'x'.repeat(2000) }))
+    expect(((await r.json()) as any).code).toBe('quota')
+    const b = newKey()
+    const filled = relayWith({ storeMaxBytes: 10 })
+    expect((await asJson(await call(filled, b, 'PUT', '/v1/backup/one', { body: 'x'.repeat(50) }))).body.code).toBe('full')
+    expect((await asJson(await call(relay, null, 'PUT', '/v1/backup/one', { body: 'x' }))).body.code).toBe('unsigned')
+  })
+})
+
 describe('the family page', () => {
   const token = 'family-token-1234567890'
 

@@ -101,13 +101,15 @@ export function createRelay(cfg: Config): Relay {
    * A request for town [town]'s bridge into its mailbox: [scope] "town" (from another town's bridge) or "family" (the
    * family page), kept until [expires]; the town hears of it at once when it polls.
    */
-  function deliver(o: { town: string; scope: 'town' | 'family'; sender: string; signed?: Signed; signedPath?: string; method: string; path: string; headers: Record<string, string>; body: Uint8Array; expires: number }): string {
+  function deliver(o: { town: string; scope: 'town' | 'family'; sender: string; signed?: Signed; signedPath?: string; method: string; path: string; headers: Record<string, string>; body: Uint8Array; expires: number; async?: boolean }): string {
     const t = now()
     const box = store.mailbox(o.town, t)
     if (box.count >= cfg.mailboxMax || box.bytes + o.body.length > cfg.mailboxBytes) throw new HttpError(507, 'mailbox_full', "the town's mailbox is full: try again later")
     if (store.senderBytes(o.sender, t) + o.body.length > cfg.senderBytes) throw new HttpError(507, 'quota', 'too much of your mail waits: try again later')
+    if (store.totalBytes() + o.body.length > cfg.storeMaxBytes) throw new HttpError(507, 'full', 'the relay is full: try again later')
     const id = `m_${randomBytes(16).toString('base64url')}`
     const meta = {
+      ...(o.async ? { async: true } : {}),
       method: o.method,
       path: o.path,
       headers: o.headers,
@@ -158,9 +160,11 @@ export function createRelay(cfg: Config): Relay {
    */
   async function relayed(req: Request, o: Parameters<typeof deliver>[0] & { wait: number; queue?: boolean }, extra: Record<string, string> = {}): Promise<Response> {
     const queued = (mid: string) => json({ queued: true, code: 'queued', id: mid }, 202, { ...extra, 'x-lani-mail': mid })
-    if (!online(o.town) && !o.queue) return away('not connected')
+    // before delivering: delivering wakes the town's poll, which then isn't waiting any more
+    const there = online(o.town)
+    if (!there && !o.queue) return away('not connected')
     const mid = deliver(o)
-    const r = await awaitReply(mid, online(o.town) ? o.wait : 0, req.signal)
+    const r = await awaitReply(mid, there ? o.wait : 0, req.signal)
     if (r) {
       store.dropReply(mid) // delivered: nobody fetches it again
       return replyResponse(r, { ...extra, 'x-lani-mail': mid })
@@ -222,7 +226,7 @@ export function createRelay(cfg: Config): Relay {
     if (inner.length > cfg.mailMaxBytes) throw new HttpError(413, 'too_large', `a request is at most ${cfg.mailMaxBytes} bytes`)
     const days = cfg.mailDays * 86_400_000
     const ttl = Number.isFinite(m.ttl_s) && m.ttl_s > 0 ? Math.min(days, m.ttl_s * 1000) : days
-    const mid = deliver({ town: id, scope: 'town', sender: signed.id, signed, signedPath: url.pathname + url.search, method: r.method, path: r.path, headers, body: inner, expires: now() + Math.max(60_000, ttl) })
+    const mid = deliver({ town: id, scope: 'town', sender: signed.id, signed, signedPath: url.pathname + url.search, method: r.method, path: r.path, headers, body: inner, expires: now() + Math.max(60_000, ttl), async: true })
     return json({ id: mid, expires: iso(now() + Math.max(60_000, ttl)) }, 202)
   }
 
@@ -244,12 +248,12 @@ export function createRelay(cfg: Config): Relay {
     const limit = Math.max(1, Math.min(50, Number(url.searchParams.get('limit')) || 20))
     const wait = Math.max(0, Math.min(cfg.pollWaitMaxMs, (Number(url.searchParams.get('wait')) || 0) * 1000))
     store.polled(id, now())
-    let got = store.lease(id, limit, now(), now() + cfg.leaseMs)
+    let got = store.lease(id, limit, now(), now() + cfg.leaseMs, cfg.inlineMaxBytes)
     if (!got.length && wait > 0) {
       await waiters.wait(`town:${id}`, wait, req.signal)
       // a poll whose connection closed takes nothing: what came stays for the next one
       if (req.signal.aborted) return json({ mail: [] })
-      got = store.lease(id, limit, now(), now() + cfg.leaseMs)
+      got = store.lease(id, limit, now(), now() + cfg.leaseMs, cfg.inlineMaxBytes)
     }
     store.polled(id, now())
     return json({ mail: got.map(view) })
@@ -321,7 +325,17 @@ export function createRelay(cfg: Config): Relay {
       } catch {
         headers = {}
       }
+      let meta: any = {}
+      try {
+        meta = JSON.parse(m.meta)
+      } catch {}
+      // nobody waits for it (the sender of a tunnelled request gave up, the family page doesn't ask again): not kept
+      if (!meta.async && waiters.count(`reply:${mid}`) === 0) {
+        store.ack(signed.id, [mid])
+        return json({ ok: true, kept: false })
+      }
       if (store.replyBytes(signed.id, now()) + body.length > cfg.replyBytes) throw new HttpError(507, 'quota', 'too many answers wait to be picked up')
+      if (store.totalBytes() + body.length > cfg.storeMaxBytes) throw new HttpError(507, 'full', 'the relay is full: try again later')
       store.putReply({ mail: mid, sender: m.sender, town: m.town, status, headers: JSON.stringify(headers), size: body.length, at: now(), expires: now() + cfg.replyHours * 3_600_000 }, body)
       waiters.notify(`reply:${mid}`)
       return json({ ok: true })

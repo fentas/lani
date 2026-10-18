@@ -102,8 +102,8 @@ export async function publishedState(key: BridgeKey, l: { id: string; public_key
     const time = r.headers.get('x-lani-publisher-time') ?? ''
     const sig = r.headers.get('x-lani-publisher-sig') ?? ''
     if (!path.endsWith(`/v1/towns/${l.id}/public`) || !verifiedBy(l.public_key, relayMessage('PUT', path, time, sha256hex(text)), sig)) return undefined
-    const at = Date.parse(r.headers.get('x-lani-published-at') ?? '') || Number(time) || Date.now()
-    return { body: JSON.parse(text), at }
+    // when the town signed it (not the relay's word)
+    return { body: JSON.parse(text), at: Number(time) }
   } catch {
     return undefined
   }
@@ -113,7 +113,12 @@ export async function publishedState(key: BridgeKey, l: { id: string; public_key
 
 /** A town's own routes through the relay: other towns' signed requests, and the family page's. */
 const TOWN_PATH = /^\/town\/[A-Za-z0-9_/-]{1,80}(\?.*)?$/
-const FAMILY_PATH = /^\/(family\/api\/[A-Za-z0-9_/-]{1,80}|audio(\/[A-Za-z0-9_./-]{1,80})?)(\?.*)?$/
+/** The family page's, exactly as the relay lets them through (companion/relay/src/family.ts): no dots, no escapes. */
+const FAMILY_PATH = /^\/(family\/api\/(settings|words|challenges)|audio(\/index|\/file\/[a-f0-9]{24}\.(m4a|ogg|webm))?)(\?[^#]*)?$/
+const MAIL_ID = /^m_[A-Za-z0-9_-]{16,40}$/
+
+/** A body the relay couldn't hand over now: the message isn't answered, so it comes again once its lease runs out. */
+class NotNow extends Error {}
 const TOWN_HEADERS = /^(content-type|x-lani-town-[a-z]+|x-fluent-town-[a-z]+)$/
 const FAMILY_HEADERS = /^(content-type|authorization)$/
 /** What of an answer goes back through the relay. */
@@ -278,20 +283,27 @@ export class RelayClient {
 
   /** One message: answered through the router, the answer sent back. */
   private async take(m: Mail) {
+    if (typeof m?.id !== 'string' || !MAIL_ID.test(m.id)) return
     this.inflight++
     try {
       let res: Response
+      let timer: ReturnType<typeof setTimeout> | undefined
       try {
         const req = await this.toRequest(m)
-        let timer: ReturnType<typeof setTimeout> | undefined
         const late = new Promise<Response>(resolve => {
           timer = setTimeout(() => resolve(Response.json({ error: 'the town took too long', code: 'timeout' }, { status: 504 })), HANDLE_MS)
         })
         res = req ? await Promise.race([this.dispatch!(req), late]) : Response.json({ error: 'not through the relay', code: 'forbidden' }, { status: 403 })
-        clearTimeout(timer)
       } catch (e) {
+        if (e instanceof NotNow) {
+          // a recording or a challenge waiting for this town isn't lost: it comes again
+          this.log(`relay: ${m.request?.method} ${m.request?.path}: ${e.message}; later`)
+          return
+        }
         this.log(`relay: ${m.request?.method} ${m.request?.path}: ${(e as Error).message}`)
         res = Response.json({ error: 'internal error' }, { status: 500 })
+      } finally {
+        clearTimeout(timer)
       }
       await this.answer(m.id, res)
       this.st.handled++
@@ -307,19 +319,31 @@ export class RelayClient {
     const r = m.request
     if (m.kind !== 'http' || !r || !['GET', 'POST', 'PUT', 'DELETE'].includes(r.method) || typeof r.path !== 'string') return undefined
     const family = m.scope === 'family'
-    if (!(family ? FAMILY_PATH : TOWN_PATH).test(r.path) || r.path.includes('..') || (!family && m.scope !== 'town')) return undefined
+    // the path itself (the query may carry escapes: a recording's text) without dots or escapes
+    const pathname = r.path.split('?')[0]
+    if (!(family ? FAMILY_PATH : TOWN_PATH).test(r.path) || pathname.includes('..') || pathname.includes('%') || (!family && m.scope !== 'town')) return undefined
     const allowed = family ? FAMILY_HEADERS : TOWN_HEADERS
     const headers: Record<string, string> = {}
     for (const [k, v] of Object.entries(r.headers ?? {})) if (allowed.test(k.toLowerCase()) && typeof v === 'string') headers[k.toLowerCase()] = v
     let body: Uint8Array | undefined
     if (m.body !== undefined) body = Buffer.from(m.body, 'base64')
-    else if (m.body_url && m.body_size > 0) {
-      const b = await this.request('GET', m.body_url, undefined, { timeoutMs: 30_000 })
-      if (b.status !== 200) throw new Error(`its body: the relay answered ${b.status}`)
+    else if (m.body_size > 0) {
+      // only this message's own body, from the relay itself
+      if (m.body_url !== `/v1/mail/${m.id}/body`) return undefined
+      let b: Response
+      try {
+        b = await this.request('GET', m.body_url, undefined, { timeoutMs: 30_000 })
+      } catch (e) {
+        throw new NotNow(`its body: ${(e as Error).message}`)
+      }
+      if (b.status !== 200) throw new NotNow(`its body: the relay answered ${b.status}`)
       body = new Uint8Array(await b.arrayBuffer())
     }
     const hasBody = r.method !== 'GET' && body !== undefined
-    return new Request(`http://${RELAYED_HOST}${r.path}`, { method: r.method, headers, ...(hasBody ? { body: body as BodyInit } : {}) })
+    const req = new Request(`http://${RELAYED_HOST}${r.path}`, { method: r.method, headers, ...(hasBody ? { body: body as BodyInit } : {}) })
+    // the path the router sees is the one checked above (a URL normalizes "..": never another route)
+    const u = new URL(req.url)
+    return u.hostname === RELAYED_HOST && u.pathname + u.search === r.path ? req : undefined
   }
 
   private async answer(id: string, res: Response) {
@@ -344,14 +368,18 @@ export class RelayClient {
   /** Publishes what changed (the public state, its readers, the family token's hash), then again in a while. */
   private async publishLoop() {
     clearTimeout(this.publishTimer)
-    try {
-      await this.publish()
-    } catch (e) {
-      if (this.running) this.log(`relay: publishing: ${(e as Error).message}`)
+    if (!this.running) return
+    await this.publish()
+    if (this.running) {
+      clearTimeout(this.publishTimer)
+      this.publishTimer = setTimeout(() => void this.publishLoop(), this.o.publishMs ?? 120_000)
     }
-    if (this.running) this.publishTimer = setTimeout(() => void this.publishLoop(), this.o.publishMs ?? 120_000)
   }
 
+  /**
+   * Publishes what changed: the public state, its readers, the family token's hash, each on its own (one refused doesn't
+   * keep the others back). Every few hours all three again, so a relay that lost its data has them back.
+   */
   async publish() {
     const id = this.key.fingerprint
     const put = async (what: string, body: string) => {
@@ -359,28 +387,44 @@ export class RelayClient {
       const text = await r.text()
       if (r.status !== 200) throw new Error(`${what}: the relay answered ${r.status}: ${text.slice(0, 200)}`)
     }
-    if (this.town) {
-      const state = this.town.state()
-      // a fresh copy at least every few hours, so readers see the day it was made
-      if (state !== this.published.state || Date.now() - this.published.at > 6 * 3_600_000) {
-        await put('public', state)
-        this.published.state = state
-        this.published.at = Date.now()
-        this.st.published_at = new Date().toISOString()
-      }
-      const readers = JSON.stringify([...new Set(this.town.readers())].sort())
-      if (readers !== this.published.readers) {
-        await put('readers', JSON.stringify({ readers: JSON.parse(readers) }))
-        this.published.readers = readers
+    const part = async (what: string, fn: () => Promise<void>) => {
+      try {
+        await fn()
+      } catch (e) {
+        if (this.running) this.log(`relay: publishing ${what}: ${(e as Error).message}`)
       }
     }
-    const family = this.familySha()
-    if (family !== this.published.family) {
-      await put('family', JSON.stringify({ token_sha256: family }))
-      this.published.family = family
-      this.st.family = family !== null
-      this.log(`relay: the family page ${family ? `goes through the relay: ${this.url}/family/${id}/` : "doesn't go through the relay"}`)
-    }
+    const again = Date.now() - this.published.at > 6 * 3_600_000
+    if (again) this.published = { ...this.published, readers: '', family: undefined }
+    const town = this.town
+    if (town) {
+      await part('the public state', async () => {
+        const state = town.state()
+        if (state !== this.published.state || again) {
+          await put('public', state)
+          this.published.state = state
+          this.published.at = Date.now()
+          this.st.published_at = new Date().toISOString()
+        }
+      })
+      await part('its readers', async () => {
+        const readers = JSON.stringify([...new Set(town.readers())].sort())
+        if (readers !== this.published.readers) {
+          await put('readers', JSON.stringify({ readers: JSON.parse(readers) }))
+          this.published.readers = readers
+        }
+      })
+    } else if (again) this.published.at = Date.now()
+    await part('the family page', async () => {
+      const family = this.familySha()
+      if (family !== this.published.family) {
+        const first = this.published.family === undefined
+        await put('family', JSON.stringify({ token_sha256: family }))
+        this.published.family = family
+        this.st.family = family !== null
+        if (first || family !== null) this.log(`relay: the family page ${family ? `goes through the relay: ${this.url}/family/${id}/` : "doesn't go through the relay"}`)
+      }
+    })
   }
 }
 

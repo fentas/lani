@@ -11,7 +11,7 @@ import { closeSync, existsSync, mkdirSync, openSync, renameSync, unlinkSync, wri
 import { join } from 'node:path'
 import type { Config } from './config'
 import { HttpError, json } from './http'
-import { MAX_SKEW_MS, checkSigned, sha256hex, type Signed } from './sign'
+import { MAX_SKEW_MS, checkSigned, parseKey, sha256hex, type Signed } from './sign'
 import type { Store } from './store'
 
 export const BACKUP_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/
@@ -20,6 +20,7 @@ export type Admit = (signed: Signed) => void
 
 export function backups(cfg: Config, store: Store, admit: Admit) {
   const root = join(cfg.dataDir, 'backup')
+  let uploads = 0
   const dirOf = (owner: string) => join(root, owner)
   const fileOf = (owner: string, name: string) => join(dirOf(owner), name)
 
@@ -64,12 +65,27 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
   }
 
   async function put(req: Request, url: URL, name: string): Promise<Response> {
-    // what can be checked before the body: the headers' shape and the clock
-    const time = Number(req.headers.get('x-lani-time'))
-    if (!req.headers.get('x-lani-key') || !req.headers.get('x-lani-sig') || !Number.isFinite(time)) throw new HttpError(401, 'unsigned', 'the request is not signed by a town key')
-    if (Math.abs(cfg.now() - time) > MAX_SKEW_MS) throw new HttpError(401, 'stale', "the request's time is more than 5 minutes off")
+    // what can be checked before the body: the headers' shape, the clock, the key's quota and the relay's room for what
+    // it says it sends, and how many uploads run (the signature needs the whole body)
+    const timeText = req.headers.get('x-lani-time') ?? ''
+    const claimed = parseKey(req.headers.get('x-lani-key'))
+    if (!claimed || !req.headers.get('x-lani-sig') || !/^\d{1,16}$/.test(timeText)) throw new HttpError(401, 'unsigned', 'the request is not signed by a town key')
+    if (Math.abs(cfg.now() - Number(timeText)) > MAX_SKEW_MS) throw new HttpError(401, 'stale', "the request's time is more than 5 minutes off")
+    const announced = Number(req.headers.get('content-length') ?? cfg.backupMaxBytes)
+    const mine = store.backups(claimed.fingerprint)
+    const kept = mine.reduce((n, b) => n + b.size, 0) - (mine.find(b => b.name === name)?.size ?? 0)
+    if (kept + Math.min(announced, cfg.backupMaxBytes) > cfg.backupQuotaBytes) throw new HttpError(507, 'quota', `the backups of a key are at most ${cfg.backupQuotaBytes} bytes together: delete one first`)
+    if (store.totalBytes() + Math.min(announced, cfg.backupMaxBytes) > cfg.storeMaxBytes) throw new HttpError(507, 'full', 'the relay is full: try again later')
+    if (uploads >= cfg.backupUploads) throw new HttpError(429, 'busy', 'too many backups are being uploaded: try again in a minute', { 'retry-after': '30' })
+    uploads++
     const staging = join(root, '.incoming')
-    const { tmp, size, sha256 } = await spool(req, staging, cfg.backupMaxBytes)
+    let spooled: { tmp: string; size: number; sha256: string }
+    try {
+      spooled = await spool(req, staging, cfg.backupMaxBytes)
+    } finally {
+      uploads--
+    }
+    const { tmp, size, sha256 } = spooled
     try {
       const check = checkSigned(req.headers, { method: 'PUT', pathWithQuery: url.pathname + url.search, bodySha256: sha256, now: cfg.now() })
       if (!check.ok) throw new HttpError(401, check.code, 'the request is not signed by a town key')
@@ -96,7 +112,7 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     const path = fileOf(owner, name)
     if (!row || !existsSync(path)) throw new HttpError(404, 'not_found', 'no such backup')
     return new Response(Bun.file(path), {
-      headers: { 'content-type': 'application/octet-stream', 'content-length': String(row.size), 'x-lani-backup-time': String(row.time), 'x-lani-backup-sha256': row.sha256, 'cache-control': 'no-store' },
+      headers: { 'x-lani-relay': 'ok', 'content-type': 'application/octet-stream', 'content-length': String(row.size), 'x-lani-backup-time': String(row.time), 'x-lani-backup-sha256': row.sha256, 'cache-control': 'no-store' },
     })
   }
 
@@ -122,7 +138,10 @@ export function backups(cfg: Config, store: Store, admit: Admit) {
     }
     const m = /^\/v1\/backup\/([^/]+)$/.exec(url.pathname)
     if (!m) return undefined
-    const name = decodeURIComponent(m[1])
+    let name = ''
+    try {
+      name = decodeURIComponent(m[1])
+    } catch {}
     if (!BACKUP_NAME.test(name)) throw new HttpError(400, 'bad_name', 'a backup name is 1-128 letters, digits, ".", "_" or "-", starting with a letter or digit')
     if (req.method === 'PUT') return put(req, url, name)
     if (req.method === 'GET') return get(req, url, name)

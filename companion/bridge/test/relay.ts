@@ -8,9 +8,12 @@
 // Through the relay: linking by invitation, the public state, a visit (people, places, requests, market), a request
 // done, a gift (a guest), a trade, a friendship both agree on, a question and its answer, the family page's API (the
 // page, settings, a challenge, a recording up and down), a backup put/get/list/delete; then Marta's town goes away (its
-// last published state, a challenge that waits for it) and comes back (the challenge arrives).
+// last published state, a challenge that waits for it) and comes back (the challenge arrives). Last, a relay that lies:
+// a fake one hands a bridge crafted mail (paths that a URL turns into another route, the app's routes, the learner's
+// answer, a body from elsewhere), and the bridge answers none of it but the family page's own request.
 // Run (in companion/bridge): bun test/relay.ts
-// Env: LANI_RELAY_SMOKE_PORT the relay's port (default 18870); the towns' bridges take the next three.
+// Env: LANI_RELAY_SMOKE_PORT the relay's port (default 18870); the towns' bridges take the next three, the fake relay
+// and its town the two after.
 import './isolate' // first: never this machine's lani.env
 import '../src/env'
 import { Client } from '@modelcontextprotocol/sdk/client/index.js'
@@ -26,7 +29,7 @@ import { relayHeaders } from '../src/relay'
 
 const projectDir = resolve(import.meta.dir, '../../..')
 const relayPort = Number(process.env.LANI_RELAY_SMOKE_PORT ?? 18870)
-const ports = { relay: relayPort, ana: relayPort + 1, marta: relayPort + 2, cene: relayPort + 3 }
+const ports = { relay: relayPort, ana: relayPort + 1, marta: relayPort + 2, cene: relayPort + 3, fake: relayPort + 4, vid: relayPort + 5 }
 for (const p of Object.values(ports)) {
   if (RESERVED_PORTS.has(p) || (p >= 8790 && p <= 8899)) throw new Error(`port ${p} is a learner's or reserved: LANI_RELAY_SMOKE_PORT picks another`)
   if (!portFree(p)) throw new Error(`port ${p} is taken: LANI_RELAY_SMOKE_PORT picks another`)
@@ -84,7 +87,7 @@ function townData(name: string, learner: { name: string; target: string; base: s
   return data
 }
 
-async function startTown(name: string, data: string, port: number, culture: string, extra: Record<string, string>): Promise<Town> {
+async function startTown(name: string, data: string, port: number, culture: string, extra: Record<string, string>, relay = relayUrl): Promise<Town> {
   const token = `${name}-relay-smoke-token`
   const family = `${name}-relay-smoke-family`
   const env: Record<string, string> = {}
@@ -93,7 +96,7 @@ async function startTown(name: string, data: string, port: number, culture: stri
     CLAUDE_PROJECT_DIR: projectDir, LANI_ENV_FILE: '/dev/null', LANI_PROFILE: name, LANI_DATA_DIR: data, LANI_BRIDGE_PORT: String(port),
     LANI_BRIDGE_TOKEN: token, LANI_FAMILY_TOKEN: family, LANI_CHILD: '', LANI_CULTURE: culture, LANI_RHYTHM: 'off', ELEVENLABS_API_KEY: '',
     LANI_VOICE_DESIGN: 'off', LANI_STT_URL: 'http://127.0.0.1:9', LANI_GEPARD_URL: 'http://127.0.0.1:9', LANI_TOWN_FRIEND_CACHE_MS: '0',
-    LANI_RELAY_URL: relayUrl, LANI_RELAY_POLL_S: '5', LANI_RELAY_PUBLISH_MS: '1000',
+    LANI_RELAY_URL: relay, LANI_RELAY_POLL_S: '5', LANI_RELAY_PUBLISH_MS: '1000',
   }, extra)
   const notes: any[] = []
   const client = new Client({ name: `relay-smoke-${name}`, version: '0' })
@@ -103,7 +106,7 @@ async function startTown(name: string, data: string, port: number, culture: stri
   if (!(await answers(`${base}/health`, 30_000))) throw new Error(`${name}'s bridge doesn't answer on ${base}`)
   const id = loadBridgeKey(join(data, 'app')).fingerprint
   // its first poll makes it known to the relay
-  if (!(await answers(`${relayUrl}/v1/towns/${id}/town/hello`, 20_000))) throw new Error(`${name}'s town never reached the relay`)
+  if (relay === relayUrl && !(await answers(`${relayUrl}/v1/towns/${id}/town/hello`, 20_000))) throw new Error(`${name}'s town never reached the relay`)
   const t = { name, data, port, base, token, family, auth: { authorization: `Bearer ${token}`, 'content-type': 'application/json' }, notes, client, id, env }
   stops.push(() => client.close().catch(() => {}))
   return t
@@ -275,6 +278,58 @@ try {
   check('relay: … Marta\'s town is back: the waiting challenge reaches it', arrived)
   const live = await get(ana, '/towns')
   check("relay: … and Ana's app reaches it live again", live.body?.towns?.find((t: any) => t.id === marta.id)?.status === 'ok', live.body)
+
+  // --- a relay that lies -----------------------------------------------------------------------------------------------------
+  const vidFamily = 'vid-relay-smoke-family'
+  const fam64 = (s: string) => Buffer.from(s).toString('base64')
+  const auth = { authorization: `Bearer ${vidFamily}`, 'content-type': 'application/json' }
+  const mailId = (c: string) => `m_${c.repeat(22)}`
+  const crafted = [
+    { id: mailId('a'), scope: 'family', request: { method: 'POST', path: '/audio/%2e%2e/pair', headers: auth }, body_size: 2, body: fam64('{}') },
+    { id: mailId('b'), scope: 'family', request: { method: 'POST', path: '/audio/../pair', headers: auth }, body_size: 2, body: fam64('{}') },
+    { id: mailId('c'), scope: 'town', request: { method: 'GET', path: '/towns', headers: {} }, body_size: 0 },
+    { id: mailId('d'), scope: 'family', request: { method: 'GET', path: '/state', headers: auth }, body_size: 0 },
+    { id: mailId('e'), scope: 'family', request: { method: 'POST', path: '/family/api/challenges/abc123/answer', headers: auth }, body_size: 2, body: fam64('{}') },
+    { id: mailId('f'), scope: 'family', request: { method: 'POST', path: '/audio?text=x', headers: auth }, body_size: 100_000, body_url: '@127.0.0.1:9/elsewhere' },
+    { id: mailId('g'), scope: 'admin', request: { method: 'GET', path: '/town/hello', headers: {} }, body_size: 0 },
+    { id: mailId('h'), scope: 'family', request: { method: 'GET', path: '/family/api/settings', headers: auth }, body_size: 0 },
+  ].map(m => ({ kind: 'http', from: 'family:x', at: new Date().toISOString(), expires: new Date(Date.now() + 60_000).toISOString(), sender: null, ...m }))
+  const answered = new Map<string, { status: number; body: any }>()
+  let handed = false
+  const fake = Bun.serve({
+    hostname: '127.0.0.1',
+    port: ports.fake,
+    async fetch(req) {
+      const u = new URL(req.url)
+      if (u.pathname === '/v1/mailbox') {
+        if (handed) {
+          await Bun.sleep(1_000)
+          return Response.json({ mail: [] })
+        }
+        handed = true
+        return Response.json({ mail: crafted })
+      }
+      const m = /^\/v1\/mail\/(m_[a-z]+)\/reply$/.exec(u.pathname)
+      if (m && req.method === 'POST') {
+        const text = await req.text()
+        answered.set(m[1], { status: Number(req.headers.get('x-lani-reply-status')), body: (() => { try { return JSON.parse(text) } catch { return text } })() })
+        return Response.json({ ok: true })
+      }
+      if (req.method === 'PUT') return Response.json({ ok: true })
+      return Response.json({ error: 'not found' }, { status: 404 })
+    },
+  })
+  stops.push(() => void fake.stop(true))
+  const vid = await startTown('vid', townData('vid', { name: 'Vid', target: 'sl', base: 'en', culture: 'primorska' }), ports.vid, 'primorska', { LANI_TOWN_URL: 'relay', LANI_FAMILY_TOKEN: vidFamily }, `http://127.0.0.1:${ports.fake}`)
+  await until(() => answered.size >= crafted.length - 1, 15_000)
+  const status = (c: string) => answered.get(mailId(c))
+  const refused = ['a', 'b', 'c', 'd', 'e', 'g'].map(c => [c, status(c)?.status, status(c)?.body?.code] as const)
+  check("relay: a lying relay: paths a URL turns into another route (%2e%2e, ..), the app's routes, the learner's answer, another scope: refused (403), never routed",
+    refused.every(([, st, code]) => st === 403 && code === 'forbidden'), refused)
+  check("relay: … a body from elsewhere than the relay's own message: not fetched, refused", status('f')?.status === 403, status('f'))
+  check("relay: … the family page's own request is answered (the token checked by the town)", status('h')?.status === 200 && status('h')?.body?.partner_name !== undefined, status('h'))
+  const vidDevices = JSON.parse(await Bun.file(join(vid.data, 'app/devices.json')).text().catch(() => '{"devices":[]}'))
+  check('relay: … and no phone was paired through it', !vidDevices.devices?.length, vidDevices)
 } catch (e) {
   check(`relay smoke: ${(e as Error).stack ?? e}`, false)
 } finally {

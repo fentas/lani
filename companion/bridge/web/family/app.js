@@ -2,10 +2,17 @@
 'use strict'
 
 const $ = id => document.getElementById(id)
-const KEY = 'lani-family-token'
+// Served by the relay (companion/relay) at /family/<town id>/ for a town with no node: its API goes through the relay
+// to the town, at /v1/family/<town id>/…, and what the browser keeps is that town's (every town's page there has one
+// origin); served by the bridge at /family, it is the bridge's own.
+const RELAYED = /^\/family\/([0-9a-f]{32})(?:\/|$)/.exec(location.pathname)
+const API = RELAYED ? `/v1/family/${RELAYED[1]}` : ''
+const mine = key => (RELAYED ? `${key}:${RELAYED[1]}` : key)
+const KEY = mine('lani-family-token')
+const REC_AS = mine('lani-family-rec-as')
 // what this browser saved before the project was renamed from Fluent: still read
 const LEGACY = { 'lani-family-token': 'fluent-family-token', 'lani-family-rec-as': 'fluent-family-rec-as' }
-const saved = key => localStorage.getItem(key) ?? localStorage.getItem(LEGACY[key])
+const saved = key => localStorage.getItem(key) ?? (LEGACY[key] ? localStorage.getItem(LEGACY[key]) : null)
 const EMOJIS = ['💌', '👩', '👨', '👵', '👴', '🧑', '👧', '👦', '❤️', '🌻']
 const TYPES = {
   question: '❓ Vprašanje · Question',
@@ -21,11 +28,6 @@ try {
   else token = saved(KEY)
 } catch {}
 if (location.search || location.hash) history.replaceState(null, '', location.pathname) // keep the key out of screenshots and history
-
-// Served by the relay (companion/relay) at /family/<town id>/ for a town with no node: its API goes through the relay
-// to the town, at /v1/family/<town id>/…; served by the bridge at /family, it is the bridge's own.
-const RELAYED = /^\/family\/([0-9a-f]{32})(?:\/|$)/.exec(location.pathname)
-const API = RELAYED ? `/v1/family/${RELAYED[1]}` : ''
 
 let settings = null
 let words = []
@@ -163,13 +165,13 @@ function applySettings() {
 
 function recAs() {
   try {
-    const as = saved('lani-family-rec-as')
+    const as = saved(REC_AS)
     if (as) return as
   } catch {}
   return settings.partner_name ? `${settings.partner_emoji} ${settings.partner_name}` : ''
 }
 $('rec-as').addEventListener('change', () => {
-  try { localStorage.setItem('lani-family-rec-as', $('rec-as').value.trim()) } catch {}
+  try { localStorage.setItem(REC_AS, $('rec-as').value.trim()) } catch {}
 })
 
 // --- compose -----------------------------------------------------------------------------------

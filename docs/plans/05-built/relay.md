@@ -56,7 +56,7 @@ a made-up one.
 | `POST` | `/v1/towns/{id}/mail` | any town | `{request: {method: GET\|POST, path: "/town/…", headers, body?: text}, ttl_s?}`: a request for town `id`, kept in its mailbox (14 days, or `ttl_s`) → `202 {id, expires}`. The request inside must be the signer's and for that town (`x-lani-town-from`, `x-lani-town-to`): `403 not_yours`, `400 misaddressed`. |
 | `GET` | `/v1/mailbox?wait=<s>&limit=<n>` | the town | Its waiting messages, oldest first: at once, or a long poll of up to 30 s. `{mail: [{id, kind: "http", scope: "town"\|"family", from, at, expires, request: {method, path, headers}, sender: {key, time, sig, path} \| null, body_size, body? (base64, up to 64 KB) \| body_url}]}`. A message handed out is the town's for 60 s (`RELAY_LEASE_MS`); unanswered, it is handed out again. |
 | `GET` | `/v1/mail/{mid}/body` | the town | A large body (over 64 KB: a family recording), on its own. |
-| `POST` | `/v1/mail/{mid}/reply` | the town | The answer: the body as it is (at most 8 MB), `X-Lani-Reply-Status` and `X-Lani-Reply-Headers` (JSON; only `content-type`, the towns' signatures, `retry-after`, `cache-control`, `content-security-policy`, `x-content-type-options` are kept). The message is gone; the answer waits for its sender (1 day). |
+| `POST` | `/v1/mail/{mid}/reply` | the town | The answer: the body as it is (at most 8 MB), `X-Lani-Reply-Status` and `X-Lani-Reply-Headers` (JSON; only `content-type`, the towns' signatures, `retry-after`, `cache-control`, `content-security-policy`, `x-content-type-options` are kept). The message is gone. The answer to a delivered request waits for its sender (1 day); one that nobody waits for any more (a tunnelled request given up, the family page's) isn't kept (`{ok: true, kept: false}`). |
 | `POST` | `/v1/mailbox/ack` | the town | `{ids}`: messages gone without an answer. |
 | `GET` | `/v1/mail/{mid}/reply?wait=<s>` | the sender | The answer (`X-Lani-Reply-Status`, `-Headers`, the body), or `202 {pending: true}` after the wait. |
 
@@ -77,7 +77,7 @@ trades, questions, guests, the join of an invitation) unchanged.
   less 0.7 s, so the relay answers first.
 - A town that isn't polling (none in the last 45 s, `RELAY_ONLINE_MS`): `504 away` at once. One that doesn't answer in
   time: `504 away`, and the request is taken back while the town hasn't fetched it (`504 timeout` when it has: its late
-  answer is kept for `GET /v1/mail/{mid}/reply`).
+  answer is dropped).
 
 ### The family page
 
@@ -96,8 +96,12 @@ While the town is away, a read is `504 away`; a challenge or a recording waits i
 14 days) and reaches the town when it is back. The page says so ("📮 Shranjeno · Saved: … when their town is back
 online").
 
-CORS: none is needed for the relay's own page. A page served elsewhere (lani.team) calls the API from an origin in
-`RELAY_FAMILY_ORIGINS`; preflights from other origins are `403`.
+CORS: none is needed for the relay's own page. The API allows a page served elsewhere (lani.team) from an origin in
+`RELAY_FAMILY_ORIGINS` (preflights from other origins are `403`); the page itself calls its own origin today, so such a
+page needs the relay's address in `app.js` first.
+
+On the relay every town's page has one origin, so the page keeps the token (and "record as") per town
+(`lani-family-token:<town id>`): one town's link doesn't put out another's.
 
 ### Backup
 
@@ -112,7 +116,9 @@ Exactly the shared contract, scoped to the signing key:
 
 A name is 1 to 128 of `A-Z a-z 0-9 . _ -`, starting with a letter or digit (`400 bad_name`). Per key at most 100 backups
 and 512 MB together (`507 quota`). A `PUT` with the same name replaces it. The body is streamed to a temp file and
-hashed on the way; the signature over that hash is checked before the file takes the name.
+hashed on the way; the signature over that hash is checked before the file takes the name. Before the body is read:
+the headers' shape and time, the claimed key's quota and the relay's room for the length it announces (`507 full`),
+and at most 4 uploads at once (`429 busy`).
 
 ## Signed requests
 
@@ -132,16 +138,21 @@ The shared contract: `X-Lani-Key` (the town key, base64 SPKI DER, EC P-256), `X-
 - **Who is who:** a town is its key. The relay checks the signature of every write, and the town signs as itself for
   its own routes (its mailbox, its state, its readers, its family hash, its answers): `403 not_yours` otherwise. The
   first time a town signs as itself, the relay keeps its key; that key answers `hello` for it.
-- **End to end between towns:** the relay can't make up or change a request between towns, nor an answer. The request
-  inside is signed by the sending town (nonce, time, from, to, the body's hash) and checked by the receiving town with
-  the key of its link, as without the relay. The answer is signed by the town for that request's nonce, and checked by
-  the asking town. The public state carries the town's own signature. What the relay *can* do: drop or delay things,
-  serve an older state, see who talks to whom, and see the content (TLS ends at the relay).
+- **End to end between towns:** the relay can't make up or change a request between towns, nor a successful answer.
+  The request inside is signed by the sending town (nonce, time, from, to, the body's hash) and checked by the receiving
+  town with the key of its link, as without the relay. A successful answer is signed by the town for that request's
+  nonce, and checked by the asking town. The public state carries the town's own signature. What the relay *can* do:
+  drop or delay things, serve an older state, see who talks to whom, see the content (TLS ends at the relay), and make
+  up an error answer (towns sign only their successes, today as without the relay): the worst is a town shown as
+  "refused" and the asking bridge's caches of it dropped, until the next request.
 - **Invitations:** `hello` through the relay answers with the key the town registered, and the accepting town checks
   it against the invitation's fingerprint, as it does today. A relay can't put its own key in.
 - **The app's routes never come through:** the bridge answers what comes through the relay with its own router, but
-  with a role of its own: another town (only `/town/…`, only the towns' headers) or the family page (only `/family/api/…`
-  and `/audio…`, only its token and the body's type). Never the app token, a paired phone's token, or the app's routes.
+  with a role of its own: another town (only `/town/…`, only the towns' headers) or the family page (only the family's
+  own routes, as the relay lets them through, only its token and the body's type). Never the app token, a paired
+  phone's token, or the app's routes. The bridge doesn't trust the relay for this: a path with dots or escapes (which a
+  URL turns into another route, such as `/audio/%2e%2e/pair`) is refused, the routed path must be the one checked, and
+  a large body is fetched only from that message's own `body_url`.
 - **The family token:** the relay keeps its SHA-256 only, checks it in constant time, and passes the token on to the
   town, which checks it again. The token passes the relay (as it passes a proxy), and sits in a challenge or a recording
   that waits for an away town (deleted when it arrives, or after 14 days).
@@ -151,6 +162,8 @@ The shared contract: `X-Lani-Key` (the town key, base64 SPKI DER, EC P-256), `X-
 - **Limits:** per key 600 signed requests a minute (burst 120), per address 1,200 a minute, per town's family page 60.
   A mailbox holds at most 500 messages and 64 MB, a sender's waiting mail at most 32 MB, a town's waiting answers at
   most 64 MB. Mail runs out after 14 days, answers after 1 day.
+- **The disk:** keys are free, so per-key quotas alone don't protect it: all the relay keeps (backups, mail, answers) is
+  capped at 4 GB (`RELAY_STORE_MAX_BYTES`, `507 full` beyond).
 - **Not yet:** the relay trusts nobody's word that a town is who it says beyond its key, so anyone can make a key and
   send mail: the limits are the protection against floods. There is no abuse list, no proof of work, and no way to
   block a key yet.
@@ -171,12 +184,14 @@ The shared contract: `X-Lani-Key` (the town key, base64 SPKI DER, EC P-256), `X-
 With `LANI_RELAY_URL` set, the bridge that serves the app (the service, or the tutor's bridge in the classic mode)
 starts the relay client (`RelayClient`, `src/relay.ts`) once its HTTP API is up:
 
-- **It publishes** its public state (built as `GET /town/public` builds it) whenever it changed, at least every 6 hours,
-  its readers (its links) when they change (at once after a link comes or goes), and the family token's hash (or
-  `null`).
+- **It publishes** its public state (built as `GET /town/public` builds it) whenever it changed, its readers (its links)
+  when they change (at once after a join, an accepted invitation or another town's unlink; `lani-town link` and
+  `unlink` at the next round, within `LANI_RELAY_PUBLISH_MS`), and the family token's hash (or `null`); each on its own,
+  and all three again every 6 hours, so a relay that lost its data has them back.
 - **It polls its mailbox** (a long poll) and answers each message on its own, through the bridge's router, so a request
-  that asks another town back (the market's rates ask the friendship) doesn't hold up the mailbox. At most 16 at once;
-  each gets 30 s.
+  that asks another town back (the market's rates ask the friendship) doesn't hold up the mailbox. About 16 at once;
+  each gets 30 s. A large body the relay can't hand over now isn't answered, so the message (a recording waiting for
+  the town) comes again.
 - **Its address on the relay** is `<LANI_RELAY_URL>/v1/towns/<its id>`. Its invitations carry it as `r=` beside its own
   URL (`lani://town?v=1&u=…&c=…&f=…&r=…`; a bridge from before the relay reads past it), its answer to a join carries it
   (`town.relay`), and `GET /towns` shows it (`self.relay`).
@@ -185,7 +200,8 @@ starts the relay client (`RelayClient`, `src/relay.ts`) once its HTTP API is up:
 
 `townRequest` (towns.ts) knows two ways to a town: its URL, and its relay address (`TownLink.relay`, new in
 `towns.json`). It tries the URL first; when that doesn't answer, the relay; a way that didn't answer is tried last for
-10 minutes. Neighbours on one tailnet keep the direct path. A request to a relay address is signed for the relay too,
+10 minutes; with a relay address beside it, a URL that answers as another town (`401 misaddressed`) counts as not
+answering. Neighbours on one tailnet keep the direct path. A request to a relay address is signed for the relay too,
 and an answer that isn't the town's own (`X-Lani-Relay: away`, or the relay's refusal) is `unreachable`, never a
 refusal of the town: no cache is dropped, and the stale fallbacks work as for a town that is off.
 
@@ -196,8 +212,9 @@ Which way a link keeps:
 - **A join that came through the relay:** the joining town is reached through its relay address.
 - **A direct join:** its URL, and its relay address beside it.
 
-**A town that is away:** its public state is the one it last published on the relay (`GET /towns`, `GET
-/towns/:id/public`, with `fetched_at` its time), checked with the town's key. A visit's people and places come from the
+**A town that is away:** its public state is the one it last published on the relay (`GET /towns`, where its status is
+`ok`, and `GET /towns/:id/public`, with `fetched_at` the time the town signed it), checked with the town's key; a newer
+state this bridge had from the town itself is served instead (`stale`). A visit's people and places come from the
 cache, as for a town that is off.
 
 ### The family page without a node
@@ -233,7 +250,7 @@ docker run -p 8080:8080 -v lani-relay:/data lani-relay
 | `RELAY_HOST`, `RELAY_PORT` | `0.0.0.0`, `8080` | |
 | `RELAY_DATA_DIR` | `./data` (`/data` in the image) | `relay.sqlite` (WAL) and `backup/<key>/<name>` |
 | `RELAY_WEB_DIR` | `../bridge/web/family` | The family page's files (`/app/web/family` in the image) |
-| `RELAY_TRUST_PROXY` | off | `1`: the client's address from `X-Forwarded-For` (behind the ingress) |
+| `RELAY_TRUST_PROXY` | off | `1`: the client's address from `X-Forwarded-For`, its right-most entry (the one the proxy in front added) |
 | `RELAY_FAMILY_ORIGINS` | none | Origins that may call the family API (CORS), comma-separated |
 | `RELAY_RATE_PER_MIN`, `RELAY_RATE_BURST` | 600, 120 | Signed requests per key |
 | `RELAY_IP_RATE_PER_MIN` | 1,200 | Requests per address |
@@ -247,13 +264,15 @@ docker run -p 8080:8080 -v lani-relay:/data lani-relay
 | `RELAY_PUBLIC_MAX_BYTES` | 256 KB | A public state |
 | `RELAY_TUNNEL_WAIT_MS`, `RELAY_TUNNEL_WAIT_MAX_MS` | 8 s, 25 s | A tunnelled request's wait |
 | `RELAY_POLL_WAIT_MAX_MS`, `RELAY_ONLINE_MS`, `RELAY_LEASE_MS` | 30 s, 45 s, 60 s | The long poll; "there"; a message's lease |
-| `RELAY_BACKUP_MAX_BYTES`, `RELAY_BACKUP_QUOTA_BYTES`, `RELAY_BACKUP_MAX_COUNT` | 50 MB, 512 MB, 100 | Backups |
+| `RELAY_BACKUP_MAX_BYTES`, `RELAY_BACKUP_QUOTA_BYTES`, `RELAY_BACKUP_MAX_COUNT`, `RELAY_BACKUP_UPLOADS` | 50 MB, 512 MB, 100, 4 | Backups; uploads at once |
+| `RELAY_STORE_MAX_BYTES` | 4 GB | All the relay keeps (backups, mail, answers) |
 
 - **One process, one replica.** The rate limits, the long polls and the senders waiting for answers are in memory;
   the replays, the mail and everything else in SQLite. A second replica would need those shared (Redis, or one
   database server): not before there are many towns.
 - **Its own backup:** `relay.sqlite` (with `sqlite3 .backup`, it is in WAL mode) and `backup/`. Losing the mail loses
-  only what was on its way; losing `towns` makes each town known again at its next poll.
+  only what was on its way; losing `towns` makes each town known again at its next poll, and its readers and family
+  hash again within 6 hours (at once when its bridge restarts).
 - **Logs:** stderr, one line at the start, one per retention sweep that removed something, and internal errors with
   their stack. Nothing per request, no bodies, no tokens.
 
@@ -269,7 +288,7 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
 
 ## How it was tested
 
-- **The relay's unit tests** (`companion/relay/test/relay.test.ts`, `bun test`): 15 tests, 115 checks, in process with
+- **The relay's unit tests** (`companion/relay/test/relay.test.ts`, `bun test`): 19 tests, 128 checks, in process with
   a clock the tests move and fake towns that poll and answer. Signatures (unsigned, a bad key, an RSA key, stale, a
   changed body, a replay), the rate limit, the public state and its readers (the publisher's signature checked), hello,
   mail (deliver, long poll, the sender's signature, lease, answer, the sender's fetch, ack, a full mailbox, retention),
@@ -277,8 +296,9 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
   inner request, away at once, no answer in time and taken back), the family page (the page, no family, a wrong token,
   the learner's answer route refused, the token passed on, a recording, away: a read refused, a challenge queued), CORS,
   backups (put, get, list, delete, another key's view, a changed body, a replay, too large, the quota, a replaced one,
-  bad names).
-- **The end-to-end smoke** (`companion/bridge/test/relay.ts`): the relay and three bridges, 33 checks, all through the
+  bad names, a broken escape, the quota and the relay's room before the body); after the review: a polling town is there
+  however short `RELAY_ONLINE_MS`, an answer nobody waits for isn't kept, a poll doesn't load the bodies it only lists.
+- **The end-to-end smoke** (`companion/bridge/test/relay.ts`): the relay and three bridges, 37 checks, all through the
   relay: Ana's town is self-hosted with a URL the others can't reach, Marta's (the QA's fixture town) and Cene's are
   hosted (`LANI_TOWN_URL=relay`). Linking by invitation (Ana's URL fails, her relay address is taken; two hosted towns),
   the public state both ways, a visit (98 KB of people, the places, the requests, the market), a request done, a gift with
@@ -286,7 +306,10 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
   answer, the friendship both agree on, the family page (the page, settings, a wrong token, the learner's route refused,
   a challenge, a 100 KB recording up and down byte for byte, deleted; a node's page not on the relay), a backup (1 MB
   put, get, list, delete, another key, a replay); then Marta's town goes away (its published state served, a read `504`,
-  a challenge queued) and comes back (the challenge arrives, the live state again).
+  a challenge queued) and comes back (the challenge arrives, the live state again). Last, a lying relay (a fake one)
+  hands a fourth bridge crafted mail: `/audio/%2e%2e/pair`, `/audio/../pair`, the app's `/towns` and `/state`, the
+  learner's answer route, another scope, a body from elsewhere: each refused (403), nothing routed, no phone paired; the
+  family page's own request answered.
 
   ```bash
   cd companion/bridge
@@ -311,5 +334,9 @@ glas runs on Jan's lok8s cluster; the relay fits beside it:
 - **The family recordings** stay on the town (the phone). The plan's "recordings in glas's private namespace" would
   keep them in the SaaS: then the relay's upload becomes a glas upload.
 - **Abuse:** blocking a key or an address, and a proof of work or an invitation for the first contact.
+- **Towns sign their refusals too,** so a relay can't make up a "refused" (above).
+- **A write sent again by the second way:** when a town's URL times out after it took a write, the relay's way sends it
+  again with a new nonce. The writes between towns have ids (the guest book, questions, moves, help), so it counts once;
+  a join's code is spent by the first, and the second answers "invalid".
 - **More than one replica** (above).
 - **The backup client** is the backup agent's (`/v1/backup` is ready).

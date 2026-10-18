@@ -16,12 +16,13 @@ const server = Bun.serve({
   // a backup (50 MB) and a little over; every route has its own, smaller limit
   maxRequestBodySize: cfg.backupMaxBytes + 1024 * 1024,
   fetch(req, srv) {
-    const forwarded = cfg.trustProxy ? req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() : undefined
+    // the entry the proxy in front added (the right-most): the ones before it are the client's to write
+    const forwarded = cfg.trustProxy ? req.headers.get('x-forwarded-for')?.split(',').at(-1)?.trim() : undefined
     return relay.fetch(req, forwarded || srv.requestIP(req)?.address || 'unknown')
   },
   error(e) {
     console.error(`[lani-relay] ${e.stack ?? e}`)
-    return Response.json({ error: 'internal error', code: 'internal' }, { status: 500 })
+    return Response.json({ error: 'internal error', code: 'internal' }, { status: 500, headers: { 'x-lani-relay': 'error' } })
   },
 })
 

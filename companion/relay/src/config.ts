@@ -59,6 +59,11 @@ export type Config = {
   backupQuotaBytes: number
   backupMaxCount: number
 
+  /** All the relay keeps on disk at most (backups, mail and answers together): beyond it new ones are refused (507). */
+  storeMaxBytes: number
+  /** Backup uploads at once. */
+  backupUploads: number
+
   /** Origins whose pages may call the family API (CORS); the relay's own family page needs none. */
   familyOrigins: string[]
 
@@ -106,6 +111,8 @@ export function configFromEnv(env: Record<string, string | undefined> = process.
     backupMaxBytes: n('RELAY_BACKUP_MAX_BYTES', 50 * MB),
     backupQuotaBytes: n('RELAY_BACKUP_QUOTA_BYTES', 512 * MB),
     backupMaxCount: n('RELAY_BACKUP_MAX_COUNT', 100),
+    storeMaxBytes: n('RELAY_STORE_MAX_BYTES', 4 * 1024 * MB),
+    backupUploads: n('RELAY_BACKUP_UPLOADS', 4),
     familyOrigins: (env.RELAY_FAMILY_ORIGINS ?? '').split(',').map(s => s.trim().replace(/\/+$/, '')).filter(Boolean),
     now: Date.now,
   }

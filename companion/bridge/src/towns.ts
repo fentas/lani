@@ -410,6 +410,8 @@ export async function townRequest(
   for (const way of [...ways.filter(u => !failed(u)), ...ways.filter(failed)]) {
     try {
       const r = await townRequestAt(key, peer, way, method, path, body, o)
+      // a URL that reaches another town (127.0.0.1 of another machine) while the relay is a way too: not this town
+      if (ways.length > 1 && !isRelayTownUrl(way) && r.status === 401 && r.body?.code === 'misaddressed') throw new TownError('unreachable', `${way}: another town answers there`)
       failedWays.delete(way)
       return r
     } catch (e) {

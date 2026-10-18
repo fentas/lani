@@ -262,7 +262,9 @@ export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers
       if (code === 'unreachable') {
         const published = await publishedState(bridgeKey, l, timeoutMs)
         const p = published && cleanPublicState(published.body, l.id)
-        if (p) {
+        // not over a newer state this bridge had from the town itself (that one is served stale, below)
+        const had = cache.stale(l.id, 'public')
+        if (p && !(had && had.at >= published.at)) {
           cache.put(l.id, 'public', p, published.at)
           return { state: p, at: published.at }
         }
