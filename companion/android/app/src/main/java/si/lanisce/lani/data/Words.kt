@@ -71,6 +71,8 @@ object Words {
     const val CHAT = "chat"
     /** A reading: the reading corner's, a book from the chest, a story's. Only to a bridge that takes it ([source]). */
     const val READING = "reading"
+    /** The learner's word list's search ("📚 Moje besede · My words"). Only to a bridge that takes it ([source]). */
+    const val SEARCH = "search"
 
     /** What every bridge takes as `from` (an older one refuses the rest with a 400). */
     val OLD_SOURCES = setOf(SCENE, ROLEPLAY, VILLAGER, CHAT)

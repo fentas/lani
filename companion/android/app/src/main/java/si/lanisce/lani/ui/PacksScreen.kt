@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -70,6 +71,12 @@ fun PacksScreen(vm: AppViewModel, fromVillage: Boolean) {
                 backLabel(fromVillage),
                 onBack = { vm.leavePacks(fromVillage) },
             )
+        }
+        // the words the learner has, a tap away: "📚 Moje besede · My words" (ui/words/MyWordsScreen)
+        if (vm.content.dashboard?.pool?.any { it.kind == "vocabulary" } == true) item("my-words") {
+            TextButton(onClick = { vm.openMyWords(fromPacks = true, fromVillage) }, modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp).heightIn(min = 48.dp)) {
+                Text("📚 ${bi("myWords.title")} ›")
+            }
         }
         if (packs.isEmpty() && feasts.isEmpty() && projects.isEmpty()) item {
             Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {

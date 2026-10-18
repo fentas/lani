@@ -2,6 +2,7 @@ package si.lanisce.lani.ui.progress
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,8 +41,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -120,7 +124,11 @@ fun ProgressScreen(vm: AppViewModel, fromVillage: Boolean) {
                 }
                 return@LazyColumn
             }
-            path?.let { item("path") { PathCard(it, page = vm.grammar::page, onPage = vm.grammar::show, onMap = { vm.openTreasure(fromVillage) }) } }
+            path?.let {
+                item("path") {
+                    PathCard(it, page = vm.grammar::page, onPage = vm.grammar::show, onMap = { vm.openTreasure(fromVillage) }, onWords = { vm.openMyWords(fromPacks = false, fromVillage) })
+                }
+            }
             if (!grammar.empty) item("grammar") {
                 GrammarCard(grammar, onSchool = { vm.openSchool(fromVillage) }, onUnit = { vm.openUnit(it, fromVillage) }, onPage = vm.grammar::show)
             }
@@ -293,11 +301,11 @@ private fun Caption(text: String, modifier: Modifier = Modifier) =
 /**
  * "🧭 Do A2 · To A2": how the level rises (the treasure map, the storyteller's), the map waiting or the hunt on (a tap:
  * the map), the words and the three signs each with ✅ or ⏳ and its numbers, the pages still to secure (a tap: the page).
- * [page]: a page of the book by id.
+ * [page]: a page of the book by id; [onWords]: the words' line tapped ("📚 Moje besede · My words").
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun PathCard(path: LevelPath, page: (String) -> GrammarPage?, onPage: (String) -> Unit, onMap: () -> Unit) {
+internal fun PathCard(path: LevelPath, page: (String) -> GrammarPage?, onPage: (String) -> Unit, onMap: () -> Unit, onWords: (() -> Unit)? = null) {
     val about = (path.map as? MapState.Coming)?.let { bi("progressScreen.pathAbout", "teller" to it.teller) }
     Section("🧭 ${bi("progressScreen.pathTitle", "to" to path.to)}", about) {
         path.found?.let { f ->
@@ -310,7 +318,7 @@ internal fun PathCard(path: LevelPath, page: (String) -> GrammarPage?, onPage: (
             is MapState.Coming -> Unit
         }
         for (line in path.lines) {
-            PathRow(line)
+            PathRow(line, onClick = onWords.takeIf { line.sign == PathSign.WORDS })
             if (line.sign == PathSign.GRAMMAR) {
                 val pages = path.toSecure.mapNotNull(page)
                 if (pages.isNotEmpty()) {
@@ -343,10 +351,24 @@ internal fun PathCard(path: LevelPath, page: (String) -> GrammarPage?, onPage: (
 /** The ✅ or ⏳ column of a sign. */
 private val SIGN_WIDTH = 30.dp
 
-/** One line of the way: ✅ or ⏳, the sign and its numbers, what they're measured against; read as one by TalkBack. */
+/**
+ * One line of the way: ✅ or ⏳, the sign and its numbers, what they're measured against; read as one by TalkBack. With
+ * [onClick] (the words: "📚 Moje besede · My words") a tap opens what it counts, a "›" after its numbers.
+ */
 @Composable
-private fun PathRow(line: PathLine) {
-    Column(Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = line.description }) {
+private fun PathRow(line: PathLine, onClick: (() -> Unit)? = null) {
+    val tap = if (onClick == null) Modifier else Modifier.heightIn(min = 48.dp).clickable(onClick = onClick)
+    val label = bi("myWords.title")
+    Column(
+        Modifier.fillMaxWidth().then(tap).clearAndSetSemantics {
+            contentDescription = line.description
+            if (onClick != null) {
+                role = Role.Button
+                onClick(label) { onClick(); true }
+            }
+        },
+        verticalArrangement = Arrangement.Center,
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(if (line.met) "✅" else "⏳", modifier = Modifier.width(SIGN_WIDTH), style = MaterialTheme.typography.bodyMedium)
             Text("${line.sign.emoji} ${line.title}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
@@ -355,8 +377,10 @@ private fun PathRow(line: PathLine) {
                 line.value, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
                 color = if (line.met) AlpineGreen else MaterialTheme.colorScheme.onSurface, maxLines = 1,
             )
+            if (onClick != null) Text(" ›", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
         }
         line.caption?.let { Caption(it, Modifier.padding(start = SIGN_WIDTH)) }
+        if (onClick != null) Caption("📚 ${bi("myWords.open")}", Modifier.padding(start = SIGN_WIDTH))
     }
 }
 

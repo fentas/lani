@@ -92,6 +92,16 @@ class WordsController(
         return Words.source(from, accepted)
     }
 
+    /**
+     * [word] looked up in the home language's dictionary, as a tapped word is (GET /lookup, explained in the pair's base):
+     * null from a node older than lookups; an exception when no node can be reached ("📚 Moje besede"'s search).
+     */
+    suspend fun lookUp(word: String): WordLookup? {
+        val b = bridge() ?: throw java.io.IOException("not connected")
+        val pair = L10n.pair
+        return b.lookup(word, null, null, meaningIn = pair.base.code.takeIf { pair.base != pair.target })
+    }
+
     fun open(q: WordQuery) {
         card = WordCard(q)
         fetch(q, quiet = false)

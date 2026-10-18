@@ -1903,6 +1903,18 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     fun leaveProgress(fromVillage: Boolean) = if (fromVillage) village() else home()
 
+    /** "📚 Moje besede · My words": from Napredek's words, or the packs' screen ([fromPacks]); back leads there. */
+    fun openMyWords(fromPacks: Boolean, fromVillage: Boolean) {
+        screen = Screen.MyWords(fromPacks, fromVillage)
+    }
+
+    /** Back from "📚 Moje besede": where it was opened from. */
+    fun leaveMyWords(s: Screen.MyWords) {
+        words.close()
+        formsCards.closeView()
+        if (s.fromPacks) openPacks(s.fromVillage) else openProgress(s.fromVillage)
+    }
+
     private fun launchSafely(block: suspend CoroutineScope.() -> Unit): Job = viewModelScope.launchSafely(notices::fail, block)
 
     override fun onCleared() {

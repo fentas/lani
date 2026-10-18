@@ -44,6 +44,11 @@ sealed interface Screen {
     data object Talk : Screen
     /** "Napredek · Progress"; back leads to the village when opened from there. */
     data class Progress(val fromVillage: Boolean = false) : Screen
+    /**
+     * "📚 Moje besede · My words" (ui/words/MyWordsScreen): the learner's words and a dictionary lookup; opened from
+     * Napredek's words ([fromPacks] false) or the packs' "Nove besede" ([fromPacks]), where back leads ([fromVillage]: theirs).
+     */
+    data class MyWords(val fromPacks: Boolean = false, val fromVillage: Boolean = false) : Screen
     /** A family challenge to answer, or (null) the family's recording mode. */
     data class Family(val challengeId: String? = null) : Screen
     /**

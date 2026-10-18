@@ -165,6 +165,7 @@ private fun App(vm: AppViewModel) {
                 is Screen.UpgradeWords -> key(screen) { si.lanisce.lani.ui.game.UpgradeWordsScreen(vm, screen.building, screen.toLevel, screen.run) }
                 Screen.Talk -> TalkScreen(vm)
                 is Screen.Progress -> ProgressScreen(vm, screen.fromVillage)
+                is Screen.MyWords -> si.lanisce.lani.ui.words.MyWordsScreen(vm, screen)
                 is Screen.Family -> FamilyScreen(vm, screen.challengeId)
                 is Screen.Scene -> SceneScreen(vm, screen.id, screen.focus, screen.building)
                 Screen.Villagers -> VillagersScreen(vm)
