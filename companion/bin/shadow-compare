@@ -1,0 +1,838 @@
+#!/usr/bin/env python3
+"""The shadow tutor's matrix side by side: the real tutor, the primary shadow and each lane, as markdown.
+
+  shadow-compare [PATH ...]                       one markdown document on stdout
+  shadow-compare --out DIR [PATH ...]             DIR/summary.md, chat.md, grading.md, routine.md
+  shadow-compare --task chat --task grading       only these tasks (repeatable, or a comma list)
+  shadow-compare --lanes haiku,sonnet-5-5@low     only the lanes (and "also:" runs) whose id holds one of these
+  shadow-compare --day 2026-10-18                 only these days (repeatable, or a comma list)
+
+PATH is a shadow export (lani.shadow-export/v0: the developer settings' shadow tutor) or a directory of them (its
+shadow-*.json). Without one: the learner's <data>/app/dev/shadow-*.json, the uploads the app sends the node, with the
+data found as the bridge finds it (LANI_DATA_DIR, lani.env's for the default learner, else data/). An upload holds
+every day that fits in 5 MB, so uploads overlap: each day is taken from the upload exported last (`exported_at`).
+Files that don't parse or aren't an export are left out, with a warning on stderr.
+
+The summary has a row per column: the real tutor ("real"), the primary shadow ("primary"), each lane (its id,
+model@effort) and each "also run on" of the primary ("also:model@effort"). The task files (chat: the chat task;
+grading; routine, with the digests) have an item per event the primary or a lane answered, a digest's events as one
+item (turns whose events overlap are one item), oldest first, under the app's day: the event, then each column's
+turn with a head line (model, effort, status, cost, first token, how it replied), its tool calls in brief and its
+replies in full, as blockquotes. Closings (the notebook's housekeeping) count in the primary's calls and spend, never
+as replies or items. --task also narrows the summary to those tasks; --day and --lanes narrow everything.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import sys
+from collections import Counter
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / ".claude" / "hooks"))
+import lani_paths  # noqa: E402  (lani.env's settings; the learner's data as the bridge finds it)
+
+SCHEMA = "lani.shadow-export/v0"
+REAL, PRIMARY = "real", "primary"
+TASKS = ("chat", "grading", "routine")
+OTHER_TASKS = ("roleplay", "content")
+TITLES = {"chat": "Chat", "grading": "Grading", "routine": "Routine (with the digests)",
+          "roleplay": "Role-play", "content": "Content"}
+NOTES = ("notebook_note", "notebook_write")
+ENDED = ("DONE", "TRUNCATED", "REFUSED")  # a turn that ran to its end: its events count as answered
+NO_TURN = "— no turn (the lane was off or skipped then)"
+DASH = "—"
+EVENT_CUT, DATA_CUT, DIGEST_CUT, VALUE_CUT, WHY_CUT, ERROR_CUT = 600, 1000, 160, 60, 200, 200
+
+
+def adopt_legacy_env() -> None:
+    """LANI_X from FLUENT_X, its name before the project was renamed from Fluent, when LANI_X isn't set."""
+    for k, v in list(os.environ.items()):
+        if k.startswith("FLUENT_"):
+            os.environ.setdefault("LANI_" + k[len("FLUENT_"):], v)
+
+
+adopt_legacy_env()
+
+
+def data_dir() -> Path:
+    """LANI_DATA_DIR, else lani.env's for the default learner (a data repository that lani-setup made), else data/."""
+    return Path(os.environ.get("LANI_DATA_DIR") or lani_paths.learner_setting("LANI_DATA_DIR") or REPO / "data").expanduser().resolve()
+
+
+def warn(msg: str) -> None:
+    print(f"shadow-compare: {msg}", file=sys.stderr)
+
+
+# --- loading ------------------------------------------------------------------------------------
+
+
+@dataclass
+class Export:
+    path: Path
+    at: datetime
+    doc: dict
+    order: int
+
+
+def parse_instant(s) -> datetime | None:
+    """An ISO instant as Java's Instant.toString writes it ("2026-10-18T17:31:10.493Z", no fraction at a whole second)."""
+    if not isinstance(s, str):
+        return None
+    m = re.fullmatch(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.(\d+))?(Z|[+-]\d{2}:\d{2})?", s.strip())
+    if not m:
+        return None
+    base, frac, tz = m.groups()
+    tz = "+00:00" if tz in (None, "Z") else tz
+    try:
+        return datetime.fromisoformat(f"{base}.{((frac or '') + '000000')[:6]}{tz}")
+    except ValueError:
+        return None
+
+
+def expand(paths: list[str]) -> list[Path]:
+    """Files as given; a directory as its shadow-*.json."""
+    out: list[Path] = []
+    for p in paths:
+        q = Path(p).expanduser()
+        out += sorted(q.glob("shadow-*.json")) if q.is_dir() else [q]
+    return out
+
+
+def load(paths: list[Path]) -> list[Export]:
+    exports = []
+    for i, p in enumerate(paths):
+        try:
+            doc = json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as e:
+            warn(f"skipped {p}: {cut(oneline(str(e)), 120)}")
+            continue
+        if not isinstance(doc, dict) or doc.get("schema") != SCHEMA:
+            warn(f"skipped {p}: not a {SCHEMA} export")
+            continue
+        at = parse_instant(doc.get("exported_at"))
+        if at is None:
+            at = datetime.fromtimestamp(p.stat().st_mtime, timezone.utc)
+            warn(f"{p}: no exported_at, ordered by the file's time")
+        exports.append(Export(p, at, doc, i))
+    return exports
+
+
+@dataclass
+class Data:
+    exports: list[Export]
+    days: dict[str, dict]  # day -> its entry in the newest upload that has it
+    source: dict[str, Export]
+
+    @property
+    def newest(self) -> Export | None:
+        return max(self.exports, key=lambda e: (e.at, e.order), default=None)
+
+
+def merge(exports: list[Export]) -> Data:
+    """Each day from the upload exported last (uploads overlap: each holds every day that fits)."""
+    days: dict[str, dict] = {}
+    source: dict[str, Export] = {}
+    for ex in sorted(exports, key=lambda e: (e.at, e.order)):
+        for d in ex.doc.get("days") or []:
+            if not isinstance(d, dict):
+                continue
+            day = d.get("day") or (d.get("log") or {}).get("day")
+            if isinstance(day, str):
+                days[day], source[day] = d, ex
+    return Data(exports, days, source)
+
+
+# --- turns and calls by column ------------------------------------------------------------------
+
+
+@dataclass
+class Run:
+    """A turn of one column (the primary, a lane, an "also run on"), with its calls."""
+    col: str
+    day: str
+    turn: dict
+    calls: list[dict]
+
+    @property
+    def task(self) -> str:
+        return str(self.turn.get("task") or "").lower()
+
+    @property
+    def status(self) -> str:
+        return str(self.turn.get("status") or "")
+
+    @property
+    def closing(self) -> bool:
+        return self.turn.get("kind") == "CLOSING"
+
+    @property
+    def event_ids(self) -> list[str]:
+        return [e for e in self.turn.get("eventIds") or [] if isinstance(e, str)]
+
+    @property
+    def replies(self) -> list[dict]:
+        return [r for r in self.turn.get("replies") or [] if isinstance(r, dict)]
+
+    @property
+    def tool_calls(self) -> list[dict]:
+        return [t for t in self.turn.get("toolCalls") or [] if isinstance(t, dict)]
+
+
+@dataclass
+class Extra:
+    """A call no turn of its log claims."""
+    col: str
+    day: str
+    call: dict
+
+
+def also_name(model, effort) -> str:
+    return f"also:{model or '?'}@{effort or '-'}"
+
+
+def column_of(turn: dict, lane: str | None) -> str:
+    lane = lane or turn.get("lane")
+    if lane:
+        return str(lane)
+    if turn.get("kind") == "ALSO":
+        return also_name(turn.get("model"), turn.get("effort"))
+    return PRIMARY
+
+
+def runs_of(log: dict, day: str, lane: str | None = None) -> tuple[list[Run], list[Extra]]:
+    calls = [c for c in log.get("calls") or [] if isinstance(c, dict)]
+    by_id = {c.get("id"): c for c in calls}
+    by_turn: dict = {}
+    for c in calls:
+        by_turn.setdefault(c.get("turnId"), []).append(c)
+    runs, used = [], set()
+    for t in log.get("turns") or []:
+        if not isinstance(t, dict):
+            continue
+        mine = list(by_turn.get(t.get("id"), []))
+        for cid in t.get("callIds") or []:
+            c = by_id.get(cid)
+            if c is not None and all(c is not m for m in mine):
+                mine.append(c)
+        used |= {id(c) for c in mine}
+        runs.append(Run(column_of(t, lane), day, t, sorted(mine, key=lambda c: c.get("at") or 0)))
+    extra = []
+    for c in calls:
+        if id(c) not in used:
+            col = lane or c.get("lane") or (also_name(c.get("model"), c.get("effort")) if c.get("thread") == "also" else PRIMARY)
+            extra.append(Extra(str(col), day, c))
+    return runs, extra
+
+
+@dataclass
+class Corpus:
+    events: dict[str, tuple[str, dict]]  # every day loaded: id -> (day, event)
+    runs: list[Run]
+    extra: list[Extra]
+    real: list[tuple[str, dict]]  # (day, RealReply)
+    lanes: list[str]  # lane ids: the uploads' matrix (newest first), then any other seen
+    skipped: list[dict]  # the newest upload's matrix lanes that were skipped
+    days: list[str]
+
+
+def corpus(data: Data) -> Corpus:
+    events: dict[str, tuple[str, dict]] = {}
+    runs: list[Run] = []
+    extra: list[Extra] = []
+    real: list[tuple[str, dict]] = []
+    seen: set[str] = set()
+    for day in sorted(data.days):
+        d = data.days[day]
+        log = d.get("log") if isinstance(d.get("log"), dict) else {}
+        for e in log.get("events") or []:
+            if isinstance(e, dict) and isinstance(e.get("id"), str):
+                events[e["id"]] = (day, e)
+        r, x = runs_of(log, day)
+        runs += r
+        extra += x
+        real += [(day, rr) for rr in log.get("real") or [] if isinstance(rr, dict) and isinstance(rr.get("reply"), dict)]
+        lanes = d.get("lanes") if isinstance(d.get("lanes"), dict) else {}
+        for lane_id, lane in lanes.items():
+            seen.add(lane_id)
+            llog = lane.get("log") if isinstance(lane, dict) and isinstance(lane.get("log"), dict) else {}
+            for e in llog.get("events") or []:  # a lane's log is a whole DayLog: the primary's events come first
+                if isinstance(e, dict) and isinstance(e.get("id"), str):
+                    events.setdefault(e["id"], (day, e))
+            r, x = runs_of(llog, day, lane_id)
+            runs += r
+            extra += x
+    seen |= {r.col for r in runs if r.col not in (PRIMARY,) and not r.col.startswith("also:")}
+    ordered: list[str] = []
+    for ex in sorted(data.exports, key=lambda e: (e.at, e.order), reverse=True):
+        for lane in ((ex.doc.get("matrix") or {}).get("lanes") or []):
+            if isinstance(lane, dict) and lane.get("id") and lane["id"] not in ordered:
+                ordered.append(lane["id"])
+    ordered += sorted(seen - set(ordered))
+    newest = data.newest
+    skipped = [l for l in ((newest.doc.get("matrix") or {}).get("lanes") or []) if isinstance(l, dict) and l.get("skipped")] if newest else []
+    return Corpus(events, runs, extra, real, ordered, skipped, sorted(data.days))
+
+
+# --- filters ------------------------------------------------------------------------------------
+
+
+@dataclass
+class Filters:
+    tasks: set[str] | None = None  # None: every task
+    lanes: list[str] | None = None  # None: every lane
+    days: set[str] | None = None  # None: every day
+
+    def col(self, name: str) -> bool:
+        if name in (REAL, PRIMARY) or not self.lanes:
+            return True
+        return any(t.lower() in name.lower() for t in self.lanes)
+
+    def day(self, day: str) -> bool:
+        return self.days is None or day in self.days
+
+    def task(self, task: str) -> bool:
+        return self.tasks is None or task in self.tasks
+
+
+def columns(c: Corpus, f: Filters) -> list[str]:
+    also = sorted({r.col for r in c.runs if r.col.startswith("also:") and f.day(r.day)}
+                  | {x.col for x in c.extra if x.col.startswith("also:") and f.day(x.day)})
+    return [REAL, PRIMARY] + [l for l in c.lanes if f.col(l)] + [a for a in also if f.col(a)]
+
+
+# --- numbers ------------------------------------------------------------------------------------
+
+
+def median(xs: list) -> float | None:
+    """The app's median (DayStats): the upper middle of the sorted values."""
+    xs = sorted(xs)
+    return xs[len(xs) // 2] if xs else None
+
+
+@dataclass
+class Stat:
+    name: str
+    days: set = field(default_factory=set)
+    call_days: set = field(default_factory=set)
+    turns: int = 0
+    events: set = field(default_factory=set)
+    calls: int = 0
+    spend: float = 0.0
+    first: list = field(default_factory=list)
+    total: list = field(default_factory=list)
+    delays: list = field(default_factory=list)
+    replies: int = 0
+    replied: int = 0
+    from_text: int = 0
+    errors: int = 0
+    refusals: int = 0
+    truncations: int = 0
+    tools: Counter = field(default_factory=Counter)
+    writes: int = 0
+    models: Counter = field(default_factory=Counter)
+
+    def call(self, c: dict, day: str) -> None:
+        self.calls += 1
+        self.call_days.add(day)
+        self.spend += float(c.get("cost") or 0)
+        self.models[f"{c.get('model') or '?'}@{c.get('effort') or '-'}"] += 1
+        if c.get("error"):
+            self.errors += 1
+        else:
+            if isinstance(c.get("totalMs"), (int, float)):
+                self.total.append(c["totalMs"])
+            if isinstance(c.get("firstTokenMs"), (int, float)):
+                self.first.append(c["firstTokenMs"])
+
+    def extra(self, x: Extra) -> None:
+        self.call(x.call, x.day)
+        self.refusals += x.call.get("stopReason") == "refusal"
+        self.truncations += x.call.get("stopReason") == "max_tokens"
+
+    def run(self, r: Run, events: dict) -> None:
+        self.days.add(r.day)
+        self.turns += bool(r.calls)
+        for c in r.calls:
+            self.call(c, r.day)
+        self.errors += r.status == "FAILED"
+        self.refusals += r.status == "REFUSED" or any(c.get("stopReason") == "refusal" for c in r.calls)
+        self.truncations += r.status == "TRUNCATED" or any(c.get("stopReason") == "max_tokens" for c in r.calls)
+        for tc in r.tool_calls:
+            self.tools[tc.get("name")] += 1
+            self.writes += tc.get("kind") == "write"
+        if r.closing:
+            return
+        if r.status in ENDED:
+            self.events.update(r.event_ids)
+        reps = r.replies
+        self.replies += len(reps)
+        if reps:
+            self.replied += 1
+            self.from_text += bool(r.turn.get("replyFromText"))
+        latest = latest_event_at(r.event_ids, events)
+        for rep in reps:
+            if latest is not None and isinstance(rep.get("at"), (int, float)):
+                self.delays.append(rep["at"] - latest)
+
+
+def latest_event_at(ids: list[str], events: dict) -> int | None:
+    ats = [events[e][1].get("at") for e in ids if e in events and isinstance(events[e][1].get("at"), (int, float))]
+    return max(ats) if ats else None
+
+
+def task_events(c: Corpus, f: Filters) -> set[str]:
+    """The events the selected tasks' turns (of any column) answer: a real reply counts for a task through them."""
+    return {e for r in c.runs if not r.closing and f.day(r.day) and f.task(r.task) for e in r.event_ids}
+
+
+def real_replies(c: Corpus, f: Filters) -> list[tuple[str, dict]]:
+    if f.tasks is None:
+        return [(d, rr) for d, rr in c.real if f.day(d)]
+    mine = task_events(c, f)
+    return [(d, rr) for d, rr in c.real if f.day(d) and rr.get("eventId") in mine]
+
+
+def stats(c: Corpus, f: Filters) -> list[Stat]:
+    cols = columns(c, f)
+    out = {n: Stat(n) for n in cols}
+    for r in c.runs:
+        if r.col in out and f.day(r.day) and f.task(r.task):
+            out[r.col].run(r, c.events)
+    for x in c.extra:
+        if x.col in out and f.day(x.day) and f.task(str(x.call.get("task") or "").lower()):
+            out[x.col].extra(x)
+    real = out[REAL]
+    for day, rr in real_replies(c, f):
+        rep, eid = rr["reply"], rr.get("eventId")
+        real.days.add(day)
+        real.replies += 1
+        if isinstance(eid, str):
+            real.events.add(eid)
+            at = c.events.get(eid, (None, {}))[1].get("at")
+            if isinstance(at, (int, float)) and isinstance(rep.get("at"), (int, float)):
+                real.delays.append(rep["at"] - at)
+    return [out[n] for n in cols]
+
+
+# --- markdown helpers ---------------------------------------------------------------------------
+
+
+def oneline(s: str) -> str:
+    return re.sub(r"\s+", " ", s or "").strip()
+
+
+def cut(s: str, n: int) -> str:
+    s = s or ""
+    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+
+
+def code(s: str) -> str:
+    """[s] as an inline code span, whatever backticks it holds."""
+    s = oneline(str(s))
+    run = max((len(m) for m in re.findall(r"`+", s)), default=0)
+    pad = " " if s.startswith("`") or s.endswith("`") else ""
+    return f"{'`' * (run + 1)}{pad}{s}{pad}{'`' * (run + 1)}"
+
+
+def fence(s: str, lang: str = "") -> str:
+    run = max((len(m) for m in re.findall(r"`+", s)), default=0)
+    f = "`" * max(3, run + 1)
+    return f"{f}{lang}\n{s}\n{f}"
+
+
+def quote(text: str) -> str:
+    """[text] as a blockquote, every line of it ("> "), so a reply's own markdown stays inside."""
+    if not (text or "").strip():
+        return "> _(empty)_"
+    return "\n".join(f"> {l}" if l.strip() else ">" for l in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"))
+
+
+def money(x: float) -> str:
+    return f"${x:.4f}"
+
+
+def ms(x) -> str:
+    return DASH if x is None else f"{x:.0f}"
+
+
+def delay(d: float) -> str:
+    sign, s = ("+" if d >= 0 else "−"), abs(d) / 1000
+    if s < 120:
+        return f"{sign}{s:.0f} s"
+    if s < 7200:
+        return f"{sign}{s / 60:.0f} min"
+    return f"{sign}{s / 3600:.1f} h"
+
+
+def local(at) -> str:
+    if not isinstance(at, (int, float)):
+        return "?"
+    return datetime.fromtimestamp(at / 1000).strftime("%Y-%m-%d %H:%M")
+
+
+def clock(at) -> str:
+    if not isinstance(at, (int, float)):
+        return "?"
+    return datetime.fromtimestamp(at / 1000).strftime("%H:%M")
+
+
+def brief_value(v) -> str:
+    if isinstance(v, str):
+        return '"' + cut(oneline(v), VALUE_CUT) + '"'
+    return cut(json.dumps(v, ensure_ascii=False, separators=(",", ":")), VALUE_CUT)
+
+
+def brief_input(name: str, inp, keys: int = 5) -> str:
+    if not isinstance(inp, dict):
+        return brief_value(inp) if inp else ""
+    pairs = [f"{k}={brief_value(v)}" for k, v in inp.items() if not (name == "reply" and k == "text")]
+    more = len(pairs) - keys
+    return ", ".join(pairs[:keys]) + (f", … +{more}" if more > 0 else "")
+
+
+def table(head: list[str], rows: list[list[str]]) -> str:
+    esc = lambda s: str(s).replace("|", "\\|")
+    lines = ["| " + " | ".join(esc(h) for h in head) + " |", "|" + "|".join("---" if i == 0 else "---:" for i in range(len(head))) + "|"]
+    lines += ["| " + " | ".join(esc(x) for x in row) + " |" for row in rows]
+    return "\n".join(lines)
+
+
+# --- the summary --------------------------------------------------------------------------------
+
+HEAD = ["column", "days", "turns", "events", "calls", "spend/day", "median first token (ms)", "median total (ms)",
+        "median reply delay (s)", "replies", "from text", "errors", "refusals", "truncations", "guide",
+        "dictionary_lookup", "writes", "notes"]
+
+LEGEND = (
+    "days: days with a turn (the real tutor: with a reply) · turns: turns with a call · events: distinct events "
+    "answered by a turn that ran to its end, DONE, TRUNCATED or REFUSED (the real tutor: its replies matched to an "
+    "event) · calls: API calls, failed ones too · spend/day: "
+    "the calls' cost over the days · medians: of the calls without an error (the app's median, the upper middle) · "
+    "median reply delay: from the event to the reply (a shadow's: after the latest event its turn answers; the real "
+    "tutor has no calls, so this is its only time) · replies: reply messages (closings left out) · from text: turns "
+    "whose text became the reply / turns that replied · errors: calls with an error + turns FAILED · refusals: turns "
+    "REFUSED or with a refusal · truncations: turns TRUNCATED or stopped at max_tokens · guide, dictionary_lookup: "
+    "those tool calls · writes: tool calls of kind write · notes: notebook_note and notebook_write calls."
+)
+
+
+def summary_rows(sts: list[Stat]) -> list[list[str]]:
+    rows = []
+    for s in sts:
+        d = median(s.delays)
+        dl = DASH if d is None else f"{d / 1000:.1f}"
+        if s.name == REAL:
+            rows.append([REAL, str(len(s.days)), DASH, str(len(s.events)), DASH, DASH, DASH, DASH, dl, str(s.replies)]
+                        + [DASH] * 8)
+            continue
+        if s.name.startswith("also:") and not (s.days or s.calls):
+            continue  # another task's "also run on"
+        n_days = len(s.days | s.call_days)
+        rate = f"{s.from_text}/{s.replied} ({100 * s.from_text / s.replied:.0f}%)" if s.replied else DASH
+        rows.append([
+            s.name, str(len(s.days)), str(s.turns), str(len(s.events)), str(s.calls),
+            money(s.spend / n_days) if n_days else DASH, ms(median(s.first)), ms(median(s.total)), dl,
+            str(s.replies), rate, str(s.errors), str(s.refusals), str(s.truncations),
+            str(s.tools["guide"]), str(s.tools["dictionary_lookup"]), str(s.writes), str(sum(s.tools[n] for n in NOTES)),
+        ])
+    return rows
+
+
+def summary_table(c: Corpus, f: Filters) -> str:
+    return table(HEAD, summary_rows(stats(c, f)))
+
+
+def render_summary(data: Data, c: Corpus, f: Filters, h: int) -> str:
+    out = [f"{'#' * h} Summary"]
+    sel = [d for d in c.days if f.day(d)]
+    scope = [f"Days: {', '.join(sel) if sel else 'none'}"]
+    if f.tasks is not None:
+        scope.append(f"tasks: {', '.join(sorted(f.tasks))}")
+    if f.lanes:
+        scope.append(f"lanes matching: {', '.join(f.lanes)}")
+    out.append(" · ".join(scope) + ".")
+    sts = stats(c, f)
+    out.append(table(HEAD, summary_rows(sts)))
+    out.append(f"_{LEGEND}_")
+    models = [f"- {s.name}: " + ", ".join(f"{m} ×{n}" for m, n in sorted(s.models.items())) for s in sts if s.models]
+    if models:
+        out.append("Calls by model@effort:\n\n" + "\n".join(models))
+    notes = []
+    for lane in c.skipped:
+        what = lane.get("id") or f"{str(lane.get('family') or '?').lower()}@{lane.get('effort') or '-'}"
+        notes.append(f"- Lane {code(what)} skipped: {cut(oneline(str(lane.get('skipped'))), WHY_CUT)}")
+    unmatched = sum(1 for d, rr in c.real if f.day(d) and (rr.get("eventId") not in c.events))
+    if unmatched and f.tasks is None:
+        notes.append(f"- {unmatched} of the real tutor's replies matched no event in the uploads (counted in its replies, in no item).")
+    newest = data.newest
+    left = [d for d in (newest.doc.get("days_left_out") or []) if isinstance(d, str)] if newest else []
+    if left:
+        missing = [d for d in left if d not in data.days]
+        notes.append(f"- The newest upload left out {', '.join(left)} (over 5 MB)"
+                     + (f"; no upload here has {', '.join(missing)}." if missing else "; older uploads here have them."))
+    if notes:
+        out.append("Notes:\n\n" + "\n".join(notes))
+    rows = []
+    for ex in sorted(data.exports, key=lambda e: (e.at, e.order), reverse=True):
+        taken = sorted(d for d, src in data.source.items() if src is ex)
+        rows.append([code(ex.path.name), str(ex.doc.get("exported_at") or DASH), str(len(ex.doc.get("days") or [])),
+                     ", ".join(taken) or DASH])
+    out.append("Uploads (each day from the one exported last):\n\n" + table(["upload", "exported_at", "days in it", "days taken"], rows))
+    return "\n\n".join(out)
+
+
+# --- the items ----------------------------------------------------------------------------------
+
+
+@dataclass
+class Item:
+    events: list[str]
+    runs: list[Run]
+    task: str
+    day: str
+    at: float
+
+
+def items(c: Corpus, f: Filters) -> list[Item]:
+    """What the primary or a lane answered: an event, or a digest's events (turns whose events overlap are one), oldest first."""
+    wanted = set(columns(c, f))
+    runs = [r for r in c.runs if r.col in wanted and f.day(r.day) and not r.closing and r.event_ids]
+    parent: dict[str, str] = {}
+
+    def find(x: str) -> str:
+        while parent.setdefault(x, x) != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for r in runs:
+        ids = r.event_ids
+        for e in ids[1:]:
+            parent[find(e)] = find(ids[0])
+        find(ids[0])
+    groups: dict[str, list[Run]] = {}
+    for r in runs:
+        groups.setdefault(find(r.event_ids[0]), []).append(r)
+    out = []
+    for group in groups.values():
+        ids = list(dict.fromkeys(e for r in group for e in r.event_ids))
+        at_of = lambda e: c.events[e][1].get("at") if e in c.events and isinstance(c.events[e][1].get("at"), (int, float)) else None
+        ids.sort(key=lambda e: (at_of(e) is None, at_of(e) or 0, e))
+        prim = [r for r in group if r.col == PRIMARY]
+        task = prim[0].task if prim else Counter(r.task for r in group).most_common(1)[0][0]
+        if not f.task(task):
+            continue
+        ats = [a for a in map(at_of, ids) if a is not None] or [r.turn.get("queuedAt") or 0 for r in group]
+        out.append(Item(ids, sorted(group, key=lambda r: r.turn.get("queuedAt") or 0), task, min(r.day for r in group), min(ats)))
+    return sorted(out, key=lambda i: (i.day, i.at, i.events[0]))
+
+
+def how(r: Run) -> str:
+    if r.turn.get("replyFromText"):
+        return "as text"
+    return "tool" if r.replies else "none"
+
+
+def run_head(r: Run, label: str, item: Item, events: dict) -> str:
+    t = r.turn
+    parts = [f"**{label}**", code(t["model"]) if t.get("model") else DASH, str(t.get("effort") or DASH), r.status or "?"]
+    if t.get("kind") == "STATELESS":
+        parts.append("stateless")
+    n = len(r.calls)
+    parts.append(f"{n} call{'s' if n != 1 else ''}" if n else "no call")
+    costs = [c.get("cost") for c in r.calls if isinstance(c.get("cost"), (int, float))]
+    parts.append(money(sum(costs)) if costs else "$—")
+    first = next((c.get("firstTokenMs") for c in r.calls if isinstance(c.get("firstTokenMs"), (int, float))), None)
+    if first is not None:
+        parts.append(f"first token {first:.0f} ms")
+    parts.append(how(r))
+    latest = latest_event_at(r.event_ids, events)
+    reps = r.replies
+    if reps and latest is not None and isinstance(reps[0].get("at"), (int, float)):
+        parts.append(delay(reps[0]["at"] - latest))
+    if set(r.event_ids) != set(item.events):
+        parts.append(f"for {len(r.event_ids)} of {len(item.events)} events")
+    failed = [c.get("error") for c in r.calls if c.get("error")]
+    if t.get("error"):
+        parts.append(f"error: {code(cut(oneline(str(t['error'])), ERROR_CUT))}")
+    elif failed:
+        parts.append(f"{len(failed)} call error{'s' if len(failed) != 1 else ''}: {code(cut(oneline(str(failed[0])), ERROR_CUT))}")
+    return " · ".join(parts)
+
+
+def tool_line(tc: dict) -> str:
+    name = str(tc.get("name") or "?")
+    line = f"- **{name}**"
+    inp = brief_input(name, tc.get("input"))
+    if inp:
+        line += " " + code(inp)
+    if tc.get("dryRun"):
+        line += " · dry run"
+    if tc.get("errors"):
+        line += " · ✗ schema: " + code(cut("; ".join(map(str, tc["errors"])), ERROR_CUT))
+    if tc.get("isError"):
+        line += " · ✗ error: " + code(cut(oneline(str(tc.get("result") or "")), ERROR_CUT))
+    return line
+
+
+def render_run(r: Run, label: str, item: Item, events: dict) -> list[str]:
+    blocks = [run_head(r, label, item, events)]
+    why = r.turn.get("why")
+    if why:
+        blocks[0] += f"  \n_why:_ {cut(oneline(str(why)), WHY_CUT)}"
+    tools = [tool_line(tc) for tc in r.tool_calls]
+    if tools:
+        blocks.append("\n".join(tools))
+    for rep in r.replies:
+        blocks.append(quote(str(rep.get("text") or "")))
+        if rep.get("data"):
+            blocks.append(f"_data:_ {code(cut(json.dumps(rep['data'], ensure_ascii=False, separators=(',', ':')), 300))}")
+    if not r.replies and str(r.turn.get("text") or "").strip():
+        blocks.append("_its text (not a reply):_\n\n" + quote(cut(str(r.turn["text"]), EVENT_CUT)))
+    return blocks
+
+
+def render_item(item: Item, c: Corpus, lanes: list[str], h: int) -> str:
+    evs = [(e, c.events.get(e, (None, None))[1]) for e in item.events]
+    digest = any(r.turn.get("eventKind") == "digest" for r in item.runs)
+    blocks = []
+    if len(evs) == 1:
+        eid, ev = evs[0]
+        kind = (ev or {}).get("kind") or item.runs[0].turn.get("eventKind") or "?"
+        blocks.append(f"{'#' * h} {local((ev or {}).get('at'))} · {kind}{' (digest)' if digest else ''} · {code(eid)}")
+        if ev is None:
+            blocks.append("_(the event isn't in the uploads)_")
+        else:
+            blocks.append(quote(cut(str(ev.get("text") or ""), EVENT_CUT)))
+            if ev.get("data"):
+                blocks.append(fence(cut(json.dumps(ev["data"], ensure_ascii=False, separators=(",", ":")), DATA_CUT), "json"))
+    else:
+        blocks.append(f"{'#' * h} {local(item.at)} · {'digest' if digest else 'turn'} of {len(evs)} events")
+        lines = []
+        for eid, ev in evs:
+            if ev is None:
+                lines.append(f"- {code(eid)} _(not in the uploads)_")
+            else:
+                lines.append(f"- {clock(ev.get('at'))} · {ev.get('kind') or '?'} · {code(eid)}: {cut(oneline(str(ev.get('text') or '')), DIGEST_CUT)}")
+        blocks.append("\n".join(lines))
+    # the real tutor
+    reals = [rr for _, rr in c.real if rr.get("eventId") in item.events]
+    reals.sort(key=lambda rr: rr["reply"].get("at") or 0)
+    if not reals:
+        blocks.append(f"**{REAL}** {DASH} no reply matched")
+    for rr in reals:
+        rep, eid = rr["reply"], rr.get("eventId")
+        at = c.events.get(eid, (None, {}))[1].get("at")
+        head = f"**{REAL}**"
+        if isinstance(at, (int, float)) and isinstance(rep.get("at"), (int, float)):
+            head += f" · {delay(rep['at'] - at)}"
+        if len(evs) > 1:
+            head += f" · to {code(eid)}"
+        blocks.append(head)
+        blocks.append(quote(str(rep.get("text") or "")))
+        if rep.get("data"):
+            blocks.append(f"_data:_ {code(cut(json.dumps(rep['data'], ensure_ascii=False, separators=(',', ':')), 300))}")
+    # the primary, each lane, each "also run on"
+    by_col: dict[str, list[Run]] = {}
+    for r in item.runs:
+        by_col.setdefault(r.col, []).append(r)
+    order = [PRIMARY] + lanes + sorted(k for k in by_col if k.startswith("also:"))
+    for col in order:
+        rs = by_col.get(col, [])
+        if not rs:
+            blocks.append(f"**{col}** {DASH} no turn" if col == PRIMARY else f"**{col}** {NO_TURN}")
+        for r in rs:
+            blocks += render_run(r, col, item, c.events)
+    return "\n\n".join(blocks)
+
+
+def render_task(task: str, its: list[Item], c: Corpus, f: Filters, h: int) -> str:
+    one = Filters({task}, f.lanes, f.days)
+    lanes = [l for l in c.lanes if f.col(l)]
+    out = [f"{'#' * h} {TITLES.get(task, task.title())}", summary_table(c, one),
+           f"{len(its)} item{'s' if len(its) != 1 else ''}, oldest first, under the app's day (04:00 to 04:00); "
+           "times are this machine's local time."]
+    if not its:
+        out.append("No items.")
+    day = None
+    for it in its:
+        if it.day != day:
+            day = it.day
+            out.append(f"{'#' * (h + 1)} {day}")
+        out.append(render_item(it, c, lanes, h + 2))
+    return "\n\n".join(out)
+
+
+# --- the command --------------------------------------------------------------------------------
+
+
+def split(values: list[str] | None) -> list[str]:
+    return [v.strip() for vs in values or [] for v in vs.split(",") if v.strip()]
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(prog="shadow-compare", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("paths", nargs="*", metavar="PATH", help="an export or a directory of them (default: <data>/app/dev)")
+    ap.add_argument("--out", metavar="DIR", help="write summary.md and a file per task there (default: all to stdout)")
+    ap.add_argument("--task", action="append", metavar="TASK", help="chat, grading, routine (repeatable or a comma list)")
+    ap.add_argument("--lanes", action="append", metavar="IDS", help="lane ids or parts of them (repeatable or a comma list)")
+    ap.add_argument("--day", action="append", metavar="YYYY-MM-DD", help="repeatable or a comma list")
+    a = ap.parse_args(argv)
+
+    tasks = [t.lower() for t in split(a.task)]
+    bad = [t for t in tasks if t not in TASKS + OTHER_TASKS]
+    if bad:
+        ap.error(f"unknown task {', '.join(bad)} (chat, grading, routine)")
+    days = split(a.day)
+    bad = [d for d in days if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", d)]
+    if bad:
+        ap.error(f"not a day: {', '.join(bad)} (YYYY-MM-DD)")
+    f = Filters(set(tasks) or None, split(a.lanes) or None, set(days) or None)
+
+    if not a.paths:
+        dev = data_dir() / "app" / "dev"
+        if not dev.is_dir():
+            warn(f"no {dev} (no upload from the app yet?)")
+            return 1
+    given = a.paths or [str(data_dir() / "app" / "dev")]
+    paths = expand(given)
+    if not paths:
+        warn(f"no shadow-*.json in {', '.join(given)}")
+        return 1
+    data = merge(load(paths))
+    if not data.exports:
+        warn("no shadow export to read")
+        return 1
+    for d in sorted(f.days or []):
+        if d not in data.days:
+            warn(f"no day {d} in the uploads")
+    c = corpus(data)
+    its = items(c, f)
+    shown = sorted(f.tasks, key=lambda t: (TASKS + OTHER_TASKS).index(t)) if f.tasks else \
+        list(TASKS) + [t for t in OTHER_TASKS if any(i.task == t for i in its)]
+    by_task = {t: [i for i in its if i.task == t] for t in shown}
+
+    lani_paths.force_utf8_io()
+    if a.out:
+        out = Path(a.out).expanduser()
+        out.mkdir(parents=True, exist_ok=True)
+        files = {"summary.md": f"# Shadow tutor comparison\n\n{render_summary(data, c, f, 2)}\n"}
+        for t in shown:
+            files[f"{t}.md"] = render_task(t, by_task[t], c, f, 1) + "\n"
+        for name, text in files.items():
+            (out / name).write_text(text, encoding="utf-8")
+            print(out / name)
+        return 0
+    doc = ["# Shadow tutor comparison", render_summary(data, c, f, 2)] + [render_task(t, by_task[t], c, f, 2) for t in shown]
+    sys.stdout.write("\n\n".join(doc) + "\n")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
