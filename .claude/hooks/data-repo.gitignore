@@ -1,0 +1,49 @@
+# What stays out of this learner's data repository (written by lani-setup; edit as you like).
+# See docs/setup.md, "Your data repository", and docs/privacy.md.
+
+# Secrets: they prove this node and the phones to each other. They stay on this machine (a handover to the phone
+# copies the town's by QR code: lani handover).
+/app/bridge-token
+/app/family-token
+/app/bridge-key.pem
+/app/town-key.pem
+*.pem
+*.key
+keys.env
+/app/pairing/
+/app/town-invites/
+
+# Caches: made or fetched again when they're missing. The voice clips live in ~/.cache/lani/voice and the APKs in
+# ~/.local/share/lani/releases; a data directory that isn't moved yet keeps them here.
+/app/voice/
+/app/release/
+*.apk
+
+# Runtime state: rewritten all the time, nothing worth keeping in history.
+/app/client-ids.json
+/app/devices-seen.json
+/app/events.json
+/app/channel-queue.json
+
+# Private: what the learner typed or said lately (the bridge's log of recent answers). It stays on this machine: each
+# commit adds this line back if it is missing.
+/app/answers.json*
+
+# The developer's data from the app (the shadow tutor's exports, the app's log: POST /dev/shadow, /dev/logs). It stays
+# on this machine: each commit adds this line back if it is missing.
+/app/dev/
+
+# Photos from the tutor chat (the app's 📷: a sign, a page, a worksheet). They stay on this machine: each commit adds
+# this line back if it is missing.
+/app/chat-images/
+
+# Backups (snapshots already) and temporary files
+/.backups/
+*.backup-*
+*.tmp
+*.restore-tmp
+*-wal
+*-shm
+*-journal
+.DS_Store
+__pycache__/

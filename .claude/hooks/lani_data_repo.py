@@ -16,6 +16,15 @@ the app's repository.
     lani_data_repo.py autocommit [DIR] -m M     the same as after a session: commit, then push when a remote is set
     lani_data_repo.py files [DIR]               what the repository holds (what a push sends), with sizes
     lani_data_repo.py gitignore                 the .gitignore lani-setup writes
+    lani_data_repo.py lease [DIR] [--json]      who writes the data now (the lease, lani_lease.py)
+    lani_data_repo.py handover [DIR] [--device ID] [--name N] [--json]
+                                                hand the data over to the phone: commit, offer the lease, push
+    lani_data_repo.py take [DIR] [--force] [--json]
+                                                take the data back: pull (fast-forward only), take the lease, push
+    lani_data_repo.py push [DIR]                the push after a commit (what autocommit starts in the background)
+
+The lease (lani_lease.py, docs/plans/05-built/git-sync.md): while another side holds it (the phone, after `lani
+handover`), nothing is committed here; update-db.py and card.py refuse to write.
 
 DIR defaults to the learner's data directory (lani_paths.data_dir). Settings (lani.env, the default learner's; the
 environment wins): LANI_DATA_AUTOCOMMIT=off turns the commits after sessions off; LANI_DATA_REMOTE is the remote;
@@ -26,6 +35,7 @@ from __future__ import annotations
 import argparse
 import contextlib
 import fcntl
+import json
 import os
 import subprocess
 import sys
@@ -34,57 +44,12 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import lani_lease  # noqa: E402
 import lani_paths  # noqa: E402
 
-GITIGNORE = """\
-# What stays out of this learner's data repository (written by lani-setup; edit as you like).
-# See docs/setup.md, "Your data repository", and docs/privacy.md.
-
-# Secrets: they prove this node and the phones to each other. They stay on this machine.
-/app/bridge-token
-/app/family-token
-/app/bridge-key.pem
-*.pem
-*.key
-keys.env
-/app/pairing/
-/app/town-invites/
-
-# Caches: made or fetched again when they're missing. The voice clips live in ~/.cache/lani/voice and the APKs in
-# ~/.local/share/lani/releases; a data directory that isn't moved yet keeps them here.
-/app/voice/
-/app/release/
-*.apk
-
-# Runtime state: rewritten all the time, nothing worth keeping in history.
-/app/client-ids.json
-/app/devices-seen.json
-/app/events.json
-/app/channel-queue.json
-
-# Private: what the learner typed or said lately (the bridge's log of recent answers). It stays on this machine: each
-# commit adds this line back if it is missing.
-/app/answers.json*
-
-# The developer's data from the app (the shadow tutor's exports, the app's log: POST /dev/shadow, /dev/logs). It stays
-# on this machine: each commit adds this line back if it is missing.
-/app/dev/
-
-# Photos from the tutor chat (the app's 📷: a sign, a page, a worksheet). They stay on this machine: each commit adds
-# this line back if it is missing.
-/app/chat-images/
-
-# Backups (snapshots already) and temporary files
-/.backups/
-*.backup-*
-*.tmp
-*.restore-tmp
-*-wal
-*-shm
-*-journal
-.DS_Store
-__pycache__/
-"""
+# The .gitignore lani-setup writes: one file, data-repo.gitignore next to this one, which the app reads too (it never
+# pushes what the file keeps out: companion/android/.../sync/DataFilter.kt). Edit the file, not a copy.
+GITIGNORE = (Path(__file__).resolve().parent / "data-repo.gitignore").read_text(encoding="utf-8")
 
 # What never goes into a data repository, whatever its .gitignore says (the learner's own, or one written before a line
 # was added to GITIGNORE): what the learner typed or said lately (the bridge's answers.json, companion/README.md "Recent
@@ -191,10 +156,17 @@ def keep_private_out(data: Path) -> list:
     return missing
 
 
-def commit(data: Path, message: str) -> str | None:
+def commit(data: Path, message: str, lease: bool = True) -> str | None:
     """Commits everything that changed in [data] (the .gitignore decides what counts; never a PRIVATE file). Returns the
-    new commit's short hash, or None when nothing changed or the repository is busy."""
+    new commit's short hash, or None when nothing changed, the repository is busy, or (with [lease]) another side holds
+    the lease (lani_lease.py: then nothing is committed here). A lease this node holds is renewed with the commit, once
+    a day. [lease] False: the lease's own commits (handover, take)."""
     data = Path(data)
+    if lease:
+        refusal = lani_lease.node_refusal(data)
+        if refusal:
+            log(f"data repository: not committed ({message.splitlines()[0]}). {refusal}")
+            return None
     with locked(data) as got:
         if not got:
             log(f"data repository busy: not committed now ({message}); the next commit takes it along")
@@ -203,6 +175,11 @@ def commit(data: Path, message: str) -> str | None:
         git(data, "add", "-A")
         if git(data, "diff", "--cached", "--quiet", check=False).returncode == 0:
             return None
+        if lease:
+            again = lani_lease.renewed(lani_lease.read(data), lani_lease.this_node())
+            if again:
+                lani_lease.write(data, again)
+                git(data, "add", "--", lani_lease.FILE)
         # No signing (it could wait for a passphrase) and no hooks: these commits are the machine's.
         git(data, *identity(data), "-c", "commit.gpgsign=false", "commit", "--no-verify", "-q", "-m", message)
         return git(data, "rev-parse", "--short", "HEAD").stdout.strip()
@@ -263,9 +240,159 @@ def push_in_background(data: Path) -> bool:
     with open(out, "a") as f:
         f.write(f"--- {datetime.now().isoformat(timespec='seconds')} push {data}\n")
         f.flush()
-        subprocess.Popen(["git", "-C", str(data), "push", "-q", "origin", "HEAD"], env=git_env(), stdin=subprocess.DEVNULL,
-                         stdout=f, stderr=f, start_new_session=True)
+        subprocess.Popen([sys.executable, str(Path(__file__).resolve()), "push", str(data)], env=git_env(),
+                         stdin=subprocess.DEVNULL, stdout=f, stderr=f, start_new_session=True)
     return True
+
+
+class LeaseError(RuntimeError):
+    """A handover or a takeover that can't be done now: the message says why and what to do."""
+
+
+def current_branch(data: Path) -> str:
+    return git(data, "rev-parse", "--abbrev-ref", "HEAD").stdout.strip() or "main"
+
+
+def origin_url(data: Path) -> str | None:
+    p = git(data, "remote", "get-url", "origin", check=False)
+    return (p.stdout.strip() or None) if p.returncode == 0 else None
+
+
+def fetch(data: Path, timeout: int = 60) -> subprocess.CompletedProcess:
+    """`git fetch origin`, tried again while a push of this repository's (in the background) holds the remote's ref."""
+    for _ in range(20):
+        p = git(data, "fetch", "-q", "origin", check=False, timeout=timeout)
+        if p.returncode == 0 or "cannot lock ref" not in p.stderr:
+            return p
+        time.sleep(0.3)
+    return p
+
+
+def remote_lease(data: Path) -> dict | None:
+    """The repository's lease (origin's branch, fetched now); None when it can't be fetched or has none."""
+    if fetch(data).returncode != 0:
+        return None
+    p = git(data, "show", f"origin/{current_branch(data)}:{lani_lease.FILE}", check=False)
+    return lani_lease.parse(p.stdout) if p.returncode == 0 else None
+
+
+def push(data: Path, timeout: int = 120) -> bool:
+    """`git push origin HEAD`, never forced (what autocommit starts in the background). A push the repository refuses
+    (it went on without this node: the phone took the data over) fetches the repository's lease: when it names another
+    side, it is kept in .git/lani-lease-remote.json, and this node stops writing (lani_lease.effective) until `lani
+    handover --take`. Returns whether it pushed."""
+    data = Path(data)
+    note = data / ".git" / lani_lease.REMOTE_NOTE
+    p = git(data, "push", "-q", "origin", "HEAD", check=False, timeout=timeout)
+    if p.returncode == 0:
+        note.unlink(missing_ok=True)
+        return True
+    sys.stderr.write(p.stderr)
+    seen = remote_lease(data)
+    if seen is not None and lani_lease.state(seen, lani_lease.this_node()) != "mine":
+        note.write_text(lani_lease.dump(seen), encoding="utf-8")
+        log(f"data repository: the push was refused: {lani_lease.describe(seen)}. This node stops writing "
+            f"(lani handover --take takes the data back once it is handed over).")
+    return False
+
+
+def _sync_push(data: Path, what: str) -> None:
+    p = git(data, "push", "-q", "origin", "HEAD", check=False, timeout=120)
+    if p.returncode != 0:
+        seen = remote_lease(data)
+        why = f" The repository says: {lani_lease.describe(seen)}." if seen is not None else ""
+        raise LeaseError(f"{what} is committed here, but the push failed: {p.stderr.strip() or 'no answer'}.{why} Run "
+                         f"the command again once the repository can be reached.")
+
+
+def _committed(data: Path, rel: str) -> bool:
+    return not git(data, "status", "--porcelain", "--", rel).stdout.strip()
+
+
+def handover(data: Path, device: str | None = None, name: str | None = None) -> dict:
+    """Hands the data over to the phone (`lani handover`): commits what changed, writes the lease offered to the phone
+    ([device], [name]: that phone only), commits it and pushes, synchronously. From then on this node only reads the
+    data. Raises LeaseError when it can't (no remote, the lease isn't this node's, the push failed)."""
+    data = Path(data)
+    if not is_repo(data):
+        raise LeaseError(f"{data} is not a data repository (companion/bin/lani-setup makes it one)")
+    url = origin_url(data)
+    if not url:
+        remote = settings_of(data, "LANI_DATA_REMOTE")
+        url = remote if remote and push_target(data, remote) else None
+    if not url:
+        raise LeaseError("the data repository has no remote (LANI_DATA_REMOTE, companion/bin/lani-setup): the phone "
+                         "takes the data from a repository on GitHub")
+    me = lani_lease.this_node()
+    lease = lani_lease.effective(data)
+    st = lani_lease.state(lease, me)
+    if st not in ("mine", "offered-away"):
+        raise LeaseError(f"this node doesn't hold the data: {lani_lease.describe(lease)}")
+    if st == "mine":
+        commit(data, "handover: the node's last state before the phone takes over")
+    to = {"side": "phone", "device": (device or "").strip(), "name": (name or "").strip(), "mode": "hosted"}
+    offer = lani_lease.offered(to, me)
+    lani_lease.write(data, offer)
+    commit(data, f"lease: handed over to {lani_lease.who(lani_lease.party(to))}", lease=False)
+    if not _committed(data, lani_lease.FILE):
+        raise LeaseError("the data repository is busy (a session is being saved): run the command again in a moment")
+    _sync_push(data, "the handover")
+    return {"lease": offer, "commit": git(data, "rev-parse", "--short", "HEAD").stdout.strip(), "remote": url,
+            "branch": current_branch(data)}
+
+
+def take(data: Path, force: bool = False) -> dict:
+    """Takes the data back on this node (`lani handover --take`): fetches the repository and fast-forwards to it (never a
+    merge: when the histories went apart, this node's commits are kept on a branch lani/node-<time> and nothing else
+    changes), then takes the lease when it is this node's to take (handed over to it, free, run out, or its own offer),
+    commits and pushes. [force]: also when another side holds it (the phone is lost; it stops writing at its next sync).
+    Raises LeaseError when it can't."""
+    data = Path(data)
+    if not is_repo(data):
+        raise LeaseError(f"{data} is not a data repository (companion/bin/lani-setup makes it one)")
+    me = lani_lease.this_node()
+    has_remote = origin_url(data) is not None
+    if has_remote:
+        f = fetch(data, timeout=120)
+        if f.returncode != 0:
+            raise LeaseError(f"can't reach the data repository: {f.stderr.strip() or 'no answer'}")
+        theirs = f"origin/{current_branch(data)}"
+        if git(data, "rev-parse", "-q", "--verify", theirs, check=False).returncode == 0:
+            dirty = [line[3:] for line in git(data, "status", "--porcelain", "--untracked-files=no").stdout.splitlines()
+                     if line.strip()]
+            if dirty:
+                raise LeaseError("these files changed here while the data wasn't this node's, and aren't committed: "
+                                 f"{', '.join(dirty[:8])}{' …' if len(dirty) > 8 else ''}. Look at them (git -C {data} "
+                                 f"diff), commit or restore them, then run the command again.")
+            behind = git(data, "merge-base", "--is-ancestor", "HEAD", theirs, check=False).returncode == 0
+            ahead = git(data, "merge-base", "--is-ancestor", theirs, "HEAD", check=False).returncode == 0
+            if behind:
+                m = git(data, "merge", "--ff-only", "-q", theirs, check=False)
+                if m.returncode != 0:
+                    raise LeaseError(f"the repository's state can't be checked out here: {m.stderr.strip()}")
+            elif not ahead:
+                side = f"lani/node-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+                git(data, "branch", side)
+                raise LeaseError(f"this node's history and the repository's went apart (both wrote the data). This "
+                                 f"node's commits are kept on the branch {side}; nothing else changed. Compare them "
+                                 f"(git -C {data} log --oneline {theirs}...{side}) and decide which to keep.")
+    lease = lani_lease.read(data)
+    st = lani_lease.state(lease, me)
+    if st not in lani_lease.TAKEABLE and not force:
+        raise LeaseError(f"{lani_lease.describe(lease)}. In the app, hand the data over first (Podatki · Data → Hand over "
+                         f"to the node); if the phone is lost, take the data anyway: lani handover --take --force")
+    if st == "mine" and not (data / ".git" / lani_lease.REMOTE_NOTE).exists() and lease is not None:
+        return {"lease": lease, "commit": None, "already": True, "pushed": False}
+    new = lani_lease.held(me)
+    lani_lease.write(data, new)
+    (data / ".git" / lani_lease.REMOTE_NOTE).unlink(missing_ok=True)
+    how = "" if st in lani_lease.TAKEABLE else " (taken over without a handover)"
+    commit(data, f"lease: {lani_lease.who(me)} takes the data{how}", lease=False)
+    if not _committed(data, lani_lease.FILE):
+        raise LeaseError("the data repository is busy (a session is being saved): run the command again in a moment")
+    if has_remote:
+        _sync_push(data, "the takeover")
+    return {"lease": new, "commit": git(data, "rev-parse", "--short", "HEAD").stdout.strip(), "pushed": has_remote}
 
 
 def autocommit(data: Path, message: str) -> str | None:
@@ -335,11 +462,18 @@ def files(data: Path) -> list:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="The learner's data as a git repository of its own.")
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("init", "commit", "autocommit", "files"):
+    for name in ("init", "commit", "autocommit", "files", "lease", "handover", "take", "push"):
         p = sub.add_parser(name)
         p.add_argument("dir", nargs="?")
-        if name != "files":
+        if name in ("init", "commit", "autocommit"):
             p.add_argument("-m", "--message")
+        if name in ("lease", "handover", "take"):
+            p.add_argument("--json", action="store_true", help="print the result as JSON")
+        if name == "handover":
+            p.add_argument("--device", help="hand over to this phone only (its id in the app)")
+            p.add_argument("--name", help="the phone's name, as the lease shows it")
+        if name == "take":
+            p.add_argument("--force", action="store_true", help="also when another side holds the lease (it is lost)")
     sub.add_parser("gitignore")
     a = ap.parse_args(argv)
     if a.cmd == "gitignore":
@@ -356,6 +490,31 @@ def main(argv=None) -> int:
     if a.cmd == "files":
         for rel, size in files(data):
             print(f"{size}\t{rel}")
+        return 0
+    if a.cmd == "push":
+        return 0 if push(data) else 1
+    if a.cmd == "lease":
+        lease = lani_lease.effective(data)
+        st = lani_lease.state(lease, lani_lease.this_node())
+        if a.json:
+            print(json.dumps({"lease": lease, "state": st, "node": lani_lease.this_node(),
+                              "describe": lani_lease.describe(lease)}, ensure_ascii=False))
+        else:
+            print(lani_lease.describe(lease))
+        return 0
+    if a.cmd in ("handover", "take"):
+        try:
+            r = handover(data, a.device, a.name) if a.cmd == "handover" else take(data, a.force)
+        except LeaseError as e:
+            if a.json:
+                print(json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False))
+            else:
+                print(f"[Lani] {e}", file=sys.stderr)
+            return 1
+        if a.json:
+            print(json.dumps({"ok": True, **r}, ensure_ascii=False))
+        else:
+            print(lani_lease.describe(r["lease"]))
         return 0
     if not a.message:
         print("-m: a commit message", file=sys.stderr)

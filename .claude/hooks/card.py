@@ -39,6 +39,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lani_paths import data_dir, force_utf8_io, now  # noqa: E402
 import lani_languages as langs  # noqa: E402
+import lani_lease  # noqa: E402
 
 force_utf8_io()
 
@@ -627,6 +628,10 @@ def finish(store: Store, args, command: str, names: list, data: dict, result: di
     result["dry_run"] = bool(args.dry_run)
     if args.dry_run:
         return result
+    # The lease (lani_lease.py): while the phone holds the data (lani handover), this node only reads it.
+    refusal = lani_lease.node_refusal(store.root)
+    if refusal:
+        raise Refused(f"not written: {refusal}")
     result["backup"] = store.backup(command, names)
     for name in names:
         save(store.path(name), data[name])

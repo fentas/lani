@@ -12,7 +12,8 @@ See docs/DB_SCRIPTS.md for the full input schema. A report with "record_session"
 only adds new_vocabulary review items, without a session (no minutes, no streak day).
 
 When the data directory is a data repository (lani-setup, lani_data_repo.py), a session is committed after it is
-written ("session 2026-10-05: 12 reviews, 2 new words") and pushed in the background when a remote is set.
+written ("session 2026-10-05: 12 reviews, 2 new words") and pushed in the background when a remote is set. While the
+phone holds the data (the lease, lani_lease.py: after `lani handover`), nothing is written: exit 2.
 
 A report's "language" (a code or name; default: the home language, the learner's town's) says
 whose data it goes to: another language's six databases are in data/languages/<code>/, created
@@ -34,6 +35,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lani_paths import ensure_data_dir, ensure_backups_dir, force_utf8_io  # noqa: E402
 import lani_languages as langs  # noqa: E402
 import lani_data_repo  # noqa: E402
+import lani_lease  # noqa: E402
 
 force_utf8_io()
 DATA_DIR = ensure_data_dir()
@@ -859,6 +861,12 @@ def main():
     if not isinstance(session, dict):
         print("[Lani] Error: the report must be a JSON object", file=sys.stderr)
         sys.exit(1)
+
+    # The lease (lani_lease.py): while the phone holds the data (lani handover), this node only reads it.
+    refusal = lani_lease.node_refusal(DATA_DIR)
+    if refusal:
+        print(f"[Lani] ⛔ Not written: {refusal}", file=sys.stderr)
+        sys.exit(2)
 
     # Data from before language profiles: backed up and migrated once, then this does nothing.
     langs.migrate_quietly(DATA_DIR, BACKUP_DIR)
