@@ -571,7 +571,7 @@ internal fun ChatBubble(
                         quote?.let { QuoteBlock(it, MaterialTheme.colorScheme.onPrimary) }
                         about?.let { Text("📎 $it", color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.75f), style = MaterialTheme.typography.labelSmall) }
                         if (photo != null && loadPhoto != null) BubblePhoto(
-                            photo, MaterialTheme.colorScheme.onPrimary, loadPhoto, onOpen = onPhoto,
+                            photo, MaterialTheme.colorScheme.onPrimary, loadPhoto, onOpen = onPhoto, textBelow = text.isNotBlank(),
                             onLongPress = {
                                 if (actions.isNotEmpty()) {
                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)

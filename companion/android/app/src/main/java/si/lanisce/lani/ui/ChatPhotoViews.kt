@@ -79,6 +79,8 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import si.lanisce.lani.data.ChatPhoto
 import si.lanisce.lani.l10n.bi
+import si.lanisce.lani.l10n.inBase
+import si.lanisce.lani.l10n.inTarget
 import java.io.File
 
 // The tutor chat's photos (companion/README.md "Tutor chat", "Photos"): 📷 by the input (take one, or pick one from the
@@ -123,13 +125,13 @@ internal fun DraftPhotoCard(photo: ChatPhoto?, preparing: Boolean, load: suspend
 }
 
 /**
- * A photo in its bubble: the thumbnail at its proportions (at most 240 dp wide), a tap opens it full screen, a long
- * press opens the bubble's menu ([onLongPress]); a deleted one says so. TalkBack reads "Fotografija · Photo" and offers
+ * A photo in its bubble: the thumbnail at its proportions (at most 240 dp wide; [textBelow]: a gap before the text), a
+ * tap opens it full screen, a long press opens the bubble's menu ([onLongPress]); a deleted one says so. TalkBack reads "Fotografija · Photo" and offers
  * to open it.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun BubblePhoto(photo: ChatPhoto, color: Color, load: suspend (ChatPhoto, Int) -> Bitmap?, onOpen: () -> Unit, onLongPress: () -> Unit) {
+internal fun BubblePhoto(photo: ChatPhoto, color: Color, load: suspend (ChatPhoto, Int) -> Bitmap?, onOpen: () -> Unit, onLongPress: () -> Unit, textBelow: Boolean = true) {
     if (photo.deleted) {
         Text("📷 ${bi("chatSheet.photoDeleted")}", color = color.copy(alpha = 0.8f), fontStyle = FontStyle.Italic, style = MaterialTheme.typography.bodySmall)
         return
@@ -138,7 +140,7 @@ internal fun BubblePhoto(photo: ChatPhoto, color: Color, load: suspend (ChatPhot
     val ratio = if (photo.width > 0 && photo.height > 0) (photo.width.toFloat() / photo.height).coerceIn(0.5f, 2f) else 1f
     Box(
         Modifier
-            .padding(bottom = 6.dp)
+            .padding(bottom = if (textBelow) 6.dp else 0.dp)
             .widthIn(max = 240.dp)
             .fillMaxWidth()
             .aspectRatio(ratio)
@@ -252,7 +254,7 @@ internal fun DeletePhotoDialog(onDismiss: () -> Unit, onDelete: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text("🗑️ ${bi("chatSheet.photoDeleteAsk")}") },
-        text = { Text(bi("chatSheet.photoDeleteWhat")) },
+        text = { Text(inTarget("chatSheet.photoDeleteWhat") + "\n" + inBase("chatSheet.photoDeleteWhat")) },
         confirmButton = { TextButton(onClick = onDelete) { Text(bi("common.delete")) } },
         dismissButton = { TextButton(onClick = onDismiss) { Text(bi("chatSheet.cancel")) } },
     )
