@@ -3390,6 +3390,7 @@ companion/bin/qa --steps school-scene            # the teacher in the school's s
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 companion/bin/qa --steps shadow-tutor            # the shadow tutor on QA's mock: the developer section, a fake key, a chat and a review, the panel, the export, the effort per task and within the thread
+companion/bin/qa --steps shadow-matrix           # the shadow's matrix on QA's mock: the Matrix tab on (nine lanes), a chat answered by every lane at its model and effort, the event's lane runs, today's spend per lane
 companion/bin/qa --steps dev-upload              # the developer's data on the node: a chat, the app to the background, app/dev/ in the dev bridge's copy (no key, no token), the panel's button, nothing with the setting off
 LANI_DEV_FAKE_ELEVENLABS=1 companion/bin/qa --minified --steps voice-node-clip  # a new line a villager says plays the node's clip (not the phone's voice), also with the cap full
 companion/bin/qa --minified                      # the same on the qa build: the release build's R8 and rules, with QA's hooks

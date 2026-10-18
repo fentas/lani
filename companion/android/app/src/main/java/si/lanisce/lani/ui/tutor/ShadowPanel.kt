@@ -63,6 +63,7 @@ import si.lanisce.lani.tutor.Effort
 import si.lanisce.lani.tutor.Family
 import si.lanisce.lani.tutor.Handling
 import si.lanisce.lani.tutor.LaneSpec
+import si.lanisce.lani.tutor.Lanes
 import si.lanisce.lani.tutor.MatrixSettings
 import si.lanisce.lani.tutor.ModelCatalog
 import si.lanisce.lani.tutor.Preset
@@ -288,7 +289,9 @@ private fun LaneRuns(shadow: ShadowTutor, turns: List<TurnRecord>, calls: Map<St
         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary,
         modifier = Modifier.clickable { open = !open }.padding(top = 4.dp),
     )
-    if (open) turns.sortedBy { it.lane }.forEach { TurnView(shadow, it, calls[it.id].orEmpty()) }
+    // in the grid's order: the family, then the effort
+    val order = compareBy<TurnRecord>({ Lanes.familyOf(it.model).ordinal }, { Effort.LEVELS.indexOf(it.effort) }, { it.lane })
+    if (open) turns.sortedWith(order).forEach { TurnView(shadow, it, calls[it.id].orEmpty()) }
 }
 
 @Composable

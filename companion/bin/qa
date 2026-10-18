@@ -138,6 +138,9 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        effort per task with the recommendation, the chat's set to high, a second chat on the thread at
                        high by an effort message (its beta), "Also run on" Haiku at high, the numbers by model × effort;
                        the mock's requests (shadow-mock-requests.json), and the real chat without the shadow's reply;
+                       "shadow-matrix" the shadow's matrix on the mock: the panel's Matrix tab turned on (the nine default
+                       lanes), a chat answered by every lane at its model and effort (matrix-mock-requests.json), the
+                       event's lane runs, today's spend per lane, off again;
                        "dev-upload" the developer's data on the node: the developer setting and the shadow on the mock, a
                        chat, the app to the background: the shadow's export and the app's log in the dev bridge's copy
                        under app/dev/ (dev-shadow.json, dev-app-log.txt: the raw usage, no key, no token), the panel's
@@ -6356,6 +6359,24 @@ def answer_form_card() -> bool:
     return tap("Naprej · Next", 8)
 
 
+def start_tutor_mock():
+    """QA's mock of the Messages API (test/tutor-mock.ts on SHADOW_MOCK_PORT), started afresh and reset; stopped at exit."""
+    for pid in listeners(SHADOW_MOCK_PORT):
+        subprocess.run(["kill", pid])
+    mock = subprocess.Popen(["bun", "test/tutor-mock.ts"], cwd=BRIDGE, stdout=open(OUT / "tutor-mock.log", "w"), stderr=subprocess.STDOUT,
+                            env={**os.environ, "LANI_TUTOR_MOCK_PORT": SHADOW_MOCK_PORT})
+    atexit.register(mock.terminate)
+    end = time.time() + 15
+    while time.time() < end:
+        try:
+            mock_api("/mock/reset", "POST")
+            return mock
+        except Exception:
+            time.sleep(0.5)
+    mock.terminate()
+    raise AssertionError("the mock didn't start (tutor-mock.log)")
+
+
 def shadow_tutor():
     """The in-app tutor in shadow mode (companion/README.md "The in-app tutor in shadow mode"), against QA's mock of the
     Messages API on 127.0.0.1:8771 (started here): the developer section shown by tapping the connection sheet's version
@@ -6370,22 +6391,8 @@ def shadow_tutor():
     the thread's top-level effort and history as they were), "Also run on" Haiku at high, the numbers by model × effort,
     the chat's effort back to the preset's; the mock's log: the key only in x-api-key, the 1-hour breakpoint, the tool
     order, the per-message effort's beta only with an effort message; the chat never shows the shadow's reply."""
-    for pid in listeners(SHADOW_MOCK_PORT):
-        subprocess.run(["kill", pid])
-    mock = subprocess.Popen(["bun", "test/tutor-mock.ts"], cwd=BRIDGE, stdout=open(OUT / "tutor-mock.log", "w"), stderr=subprocess.STDOUT,
-                            env={**os.environ, "LANI_TUTOR_MOCK_PORT": SHADOW_MOCK_PORT})
-    atexit.register(mock.terminate)
+    mock = start_tutor_mock()
     try:
-        end = time.time() + 15
-        while time.time() < end:
-            try:
-                mock_api("/mock/reset", "POST")
-                break
-            except Exception:
-                time.sleep(0.5)
-        else:
-            raise AssertionError("the mock didn't start (tutor-mock.log)")
-
         # the developer section: hidden until the version line is tapped seven times
         open_connection_sheet()
         for _ in range(12):  # to the sheet's end: the version line is its last (below scroll_to's band)
@@ -6596,6 +6603,98 @@ def shadow_tutor():
         (OUT / "shadow-logcat.txt").write_text(log)
         assert SHADOW_KEY not in log and "qa-fake" not in log, "the key in a log line"
         print(f"    {len(reqs)} calls to the mock; the export {export}, {len(text) // 1024} KB")
+    finally:
+        mock.terminate()
+
+
+MATRIX_LANES = ["claude-haiku-5-5@medium", "claude-haiku-5-5@high", "claude-haiku-5-5@xhigh", "claude-haiku-5-5@max",
+                "claude-sonnet-5-5@low", "claude-sonnet-5-5@medium", "claude-sonnet-5-5@high", "claude-opus-5-5@low",
+                "claude-opus-5-5@medium"]  # the matrix's default lanes (tutor/Matrix.kt MatrixSettings.DEFAULT_LANES)
+
+
+def shadow_matrix():
+    """The shadow's matrix (docs/plans/05-phase-0.md, "The matrix") against QA's mock: the panel's Matrix tab (the
+    switch, the lanes' grid), turned on with the nine default lanes; a chat answered by the primary and by every lane at
+    its own model and effort (the mock's log: the lanes' calls with their effort as the top-level one, no effort
+    message, max_tokens by the level), the event's "🧪 Matrix: 9 lane(s)" in Events with each lane's run, today's spend
+    per lane; the matrix off again. Sets the mock's base URL and a fake key itself when the shadow-tutor step didn't."""
+    mock = start_tutor_mock()
+    try:
+        qa_hook(f"shadow:{SHADOW_MOCK}")
+        assert wait_for("Settings", 8), "the panel"
+        assert tap("Settings", 3), "the settings tab"
+        time.sleep(1)
+        if find("sk-ant-…"):
+            field = find("sk-ant-…")
+            tap_at(field)
+            time.sleep(slow())
+            adb("shell", "input", "text", SHADOW_KEY)
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1)
+            assert tap("Check (GET /v1/models) and keep", 4), "the key's check"
+            assert wait_for("the key works", 10 * slow()), "the mock took the key"
+        to_top()
+        if find("Shadow mode: off"):
+            assert tap("Shadow mode: off", 3), "the switch"
+        assert wait_for("Shadow mode: on", 6), "shadow mode on"
+        assert tap("Matrix", 3), "the matrix tab"
+        assert wait_for("🧪 The matrix", 4), "the matrix's section"
+        if find("The matrix: on"):
+            assert tap("The matrix: on", 3)  # from an earlier run: off first, so its lanes start afresh
+        assert wait_for("The matrix: off", 4), "the matrix off by default"
+        assert find("Haiku · claude-haiku-5-5") and find("Sonnet · claude-sonnet-5-5") and find("Opus · claude-opus-5-5"), "the grid: each family's model"
+        shot("matrix-off")
+        assert tap("The matrix: off", 3), "the matrix's switch"
+        assert wait_for("The matrix: on", 4) and wait_for("on: 9 lane(s)", 6), "the matrix on, nine lanes"
+        shot("matrix-on")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+        mock_api("/mock/reset", "POST")
+
+        # a chat: the primary's turn and one in each lane, each on its own thread
+        go_home()
+        assert tap("Tvoj učitelj · Your tutor", 6), "the tutor bar"
+        assert wait_for("💬 Tvoj učitelj", 6), "the tutor chat"
+        assert tap("Napiši…", 4), "the chat's field"
+        time.sleep(slow())
+        adb("shell", "input", "text", "Kaj%sje%sizvir")  # adb types ASCII only
+        time.sleep(0.5)
+        assert tap("Pošlji · Send", 4), "send"
+        end = time.time() + 90 * slow()
+        reqs = []
+        while time.time() < end:
+            reqs = [r for r in mock_api("/mock/requests") if r.get("path") == "/v1/messages"]
+            if len({(r.get("model"), r.get("effort_top")) for r in reqs}) >= 10 and len(reqs) >= 30:
+                break
+            time.sleep(1)
+        time.sleep(2 * slow())
+        assert not any(MOCK_TUTOR in t for t, _ in nodes()), "a shadow's reply in the real chat"
+        go_home()
+        pairs = {f"{r.get('model')}@{r.get('effort_top')}" for r in reqs}
+        assert set(MATRIX_LANES) <= pairs, f"every lane's calls at its model and effort: {sorted(pairs)}"
+        lanes = [r for r in reqs if f"{r.get('model')}@{r.get('effort_top')}" in MATRIX_LANES and not r.get("effort_messages")]
+        assert all(r["body"]["max_tokens"] == {"max": 64000, "xhigh": 32000}.get(r["effort_top"], 16000) for r in lanes), "max_tokens by the lane's level"
+        assert all(r.get("has_key") and SHADOW_KEY not in json.dumps(r.get("body")) for r in reqs), "the key only in x-api-key"
+        (OUT / "matrix-mock-requests.json").write_text(json.dumps(reqs, indent=1, ensure_ascii=False))
+
+        # the panel: the event's lane runs, today's spend per lane
+        qa_hook("shadow")
+        assert tap("Events", 6), "the events tab"
+        assert tap("🧪 Matrix: 9 lane(s)", 10), "the event's lane runs"
+        assert wait_for("🧪 claude-haiku-5-5@medium · chat", 6), "a lane's run of the chat (the grid's order: Haiku medium first)"
+        shot("matrix-event-lanes")
+        assert tap("Matrix", 3), "the matrix tab"
+        for _ in range(3):
+            adb("shell", "input", "swipe", "540", "1500", "540", "900", "300")
+        time.sleep(1)
+        assert wait_for("the lanes' spend", 4) and find("claude-haiku-5-5@max: $"), "today's spend per lane"
+        shot("matrix-spend")
+        to_top()
+        assert tap("The matrix: on", 3), "the matrix's switch"
+        assert wait_for("The matrix: off", 4), "the matrix off again"
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the panel
+        time.sleep(1)
+        print(f"    {len(reqs)} calls to the mock (the primary's and the nine lanes'), {len(pairs)} model × effort pairs")
     finally:
         mock.terminate()
 
@@ -6840,6 +6939,7 @@ def plan():
         ("voice-node-clip", voice_node_clip, go_home, False, ""),
         ("previous-clip", previous_clip, go_home, False, ""),
         ("shadow-tutor", shadow_tutor, go_home, False, ""),
+        ("shadow-matrix", shadow_matrix, go_home, False, ""),
         ("dev-upload", dev_upload, go_home, False, ""),
     ]
 
