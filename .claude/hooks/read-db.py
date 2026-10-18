@@ -11,6 +11,8 @@ Both print the same shape: {databases, computed, language, languages}. `language
 learner has (the home one first); see docs/DB_SCRIPTS.md, "Languages". Data from before language profiles is
 migrated first (lani_languages.migrate: backed up, then a no-op once done).
 
+Another language whose data can't be read is left out of `languages` (a warning on stderr); --language of it exits 2.
+
 Exit codes: 0=success, 1=partial (some files missing), 2=critical error
 """
 import argparse
@@ -73,16 +75,28 @@ def load_dir(d: Path):
     return databases, missing
 
 
+class Unreadable(Exception):
+    """Another language's data that can't be read: a file that isn't JSON (or can't be opened), or a learner profile
+    whose `learner` isn't an object."""
+
+
 def load_language(code: str, home_profile: dict, today: str) -> dict:
     """Another language's six databases; a language not practised yet reads as fresh, empty ones (nothing written).
-    Its learner profile gets the learner's name, base language and preferences from the home profile."""
+    Its learner profile gets the learner's name, base language and preferences from the home profile. Raises
+    Unreadable when its data can't be read."""
     d = langs.language_dir(DATA_DIR, code)
     fresh = langs.fresh_databases(code, today, learner_name=(home_profile.get("learner") or {}).get("name", ""))
     databases = {}
     for key, k in KEYS.items():
-        data = load_json(d / langs.FILES[k])
+        path = d / langs.FILES[k]
+        try:
+            data = load_json(path)
+        except (OSError, ValueError) as e:
+            raise Unreadable(f"{path}: {e}")
         databases[key] = data if isinstance(data, dict) else fresh[k]
     own = databases["learner_profile"]
+    if own.get("learner") and not isinstance(own.get("learner"), dict):
+        raise Unreadable(f"{d / langs.FILES['profile']}: its learner is not an object ({type(own['learner']).__name__})")
     merged = dict(own)
     merged["learner"] = {**(home_profile.get("learner") or {}), **(own.get("learner") or {})}
     if "preferences" not in own and "preferences" in home_profile:
@@ -121,14 +135,21 @@ def computed(databases: dict, now: datetime, code: str = None) -> dict:
 
 
 def summaries(home_dbs: dict, home: str, today: str) -> list:
-    """Every language the learner has: the home one first, then the others (level, words learned, due cards)."""
+    """Every language the learner has: the home one first, then the others (level, words learned, due cards).
+
+    Another language whose data can't be read (a file that isn't JSON, a learner that isn't an object, a value its
+    summary chokes on) is left out, with a warning on stderr: it never fails the home language's answer (GET /state)."""
     profile = home_dbs.get("learner_profile", {})
     since = {e["code"]: e.get("since") for e in langs.listed(profile)}
     out = [langs.summary(home_dbs, home, "home", today)]
     for code in langs.other_codes(DATA_DIR, profile):
-        dbs = load_language(code, profile, today)
-        source = dbs["learner_profile"].get("source") or "visits"
-        out.append(langs.summary(dbs, code, source, today, since.get(code) or dbs["learner_profile"].get("profile_created")))
+        try:
+            dbs = load_language(code, profile, today)
+            source = dbs["learner_profile"].get("source") or "visits"
+            out.append(langs.summary(dbs, code, source, today, since.get(code) or dbs["learner_profile"].get("profile_created")))
+        except Exception as e:  # noqa: BLE001 - another language's data, however broken, is left out
+            print(f"[Lani] Warning: {langs.language_name(code)} ({code}) is left out of languages, its data can't be read: {e}",
+                  file=sys.stderr)
     return out
 
 
@@ -157,7 +178,11 @@ def main():
     home_dbs = databases
     if code is not None:
         # Another language's data: fresh when it has none yet, so nothing is "missing".
-        databases, missing = load_language(code, home_profile, today), []
+        try:
+            databases, missing = load_language(code, home_profile, today), []
+        except Unreadable as e:
+            print(f"[Lani] Error: --language {code}: its data can't be read: {e}", file=sys.stderr)
+            sys.exit(2)
 
     result = {
         "databases": databases,

@@ -1,12 +1,13 @@
 // .claude/hooks/read-db.py: the six databases of the home language (or of --language), the computed fields and every
-// language's summary, as one JSON object on stdout. Exit 0, 1 (files missing), 2 (--language isn't a language).
-import { FILE, homeLanguage, languageCode, languageDir, listed, freshDatabases, loadJsonFile, migrateQuietly, otherCodes, summary } from './languages'
+// language's summary, as one JSON object on stdout. Exit 0, 1 (files missing), 2 (--language isn't a language, or its
+// data can't be read). Another language whose data can't be read is left out of the summaries, with a warning.
+import { FILE, homeLanguage, languageCode, languageDir, languageName, listed, freshDatabases, loadJsonFile, migrateQuietly, otherCodes, summary } from './languages'
 import { backupsDir, dataDir } from './paths'
 import { Parser } from './pyargparse'
 import { dumpIndented } from './pyjson'
 import {
-  add, contains, eq, fmtDate, get, getItem, int, isDict, isExc, items, le, len, merge, or, ordinal, plusDays, PyDict,
-  repr, str as pyStr, strptime, SysExit, truthy, typeErr, typeName, type DateTime, type Py,
+  add, contains, eq, excStr, fmtDate, get, getItem, int, isDict, isExc, items, le, len, merge, or, ordinal, plusDays,
+  PyDict, repr, str as pyStr, strptime, SysExit, truthy, typeErr, typeName, type DateTime, type Py,
 } from './py'
 import { exists, pjoin, type Ctx } from './sys'
 
@@ -47,15 +48,32 @@ function loadDir(d: string): [PyDict, string[]] {
   return [databases, missing]
 }
 
+/** Another language's data that can't be read: a file that isn't JSON (or can't be opened), or a learner profile whose
+ *  `learner` isn't an object. */
+class Unreadable extends Error {}
+
+/** load_language: another language's six databases (fresh ones for a language never practised); Unreadable when its data
+ *  can't be read. */
 function loadLanguage(dir: string, code: string, homeProfile: Py, today: string): PyDict {
   const d = languageDir(dir, code)
   const fresh = freshDatabases(code, today, 'A1', get(or(get(homeProfile, 'learner'), new PyDict()), 'name', ''))
   const databases = new PyDict()
   for (const [key, k] of KEYS) {
-    const data = loadJson(pjoin(d, FILE[k]))
+    const path = pjoin(d, FILE[k])
+    let data: Py
+    try {
+      data = loadJson(path)
+    } catch (e) {
+      if (isExc(e, 'OSError') || isExc(e, 'ValueError')) throw new Unreadable(`${path}: ${excStr(e)}`)
+      throw e
+    }
     databases.set(key, isDict(data) ? data : fresh[k])
   }
   const own = databases.get('learner_profile') as PyDict
+  const learner = own.get('learner')
+  if (truthy(learner) && !isDict(learner)) {
+    throw new Unreadable(`${pjoin(d, FILE.profile)}: its learner is not an object (${typeName(learner)})`)
+  }
   const merged = own.copy()
   merged.set('learner', merge(or(get(homeProfile, 'learner'), new PyDict()), or(own.get('learner'), new PyDict())))
   if (!own.has('preferences') && contains(homeProfile, 'preferences')) merged.set('preferences', getItem(homeProfile, 'preferences'))
@@ -91,16 +109,22 @@ function computed(databases: PyDict, now: DateTime, code: string | null): PyDict
   })
 }
 
-function summaries(dir: string, homeDbs: PyDict, home: string | null, today: string): Py[] {
+function summaries(ctx: Ctx, dir: string, homeDbs: PyDict, home: string | null, today: string): Py[] {
   const profile = homeDbs.get('learner_profile', new PyDict())
   const since = new Map<string, Py>()
   for (const e of listed(profile)) since.set(getItem(e, 'code') as string, e.get('since'))
   const out: Py[] = [summary(homeDbs, home, 'home', today)]
   for (const code of otherCodes(dir, profile)) {
-    const dbs = loadLanguage(dir, code, profile, today)
-    const lp = dbs.get('learner_profile') as PyDict
-    const source = or(lp.get('source'), 'visits')
-    out.push(summary(dbs, code, source, today, or(since.get(code) ?? null, lp.get('profile_created'))))
+    // another language's data, however broken, is left out: it never fails the home language's answer (GET /state)
+    try {
+      const dbs = loadLanguage(dir, code, profile, today)
+      const lp = dbs.get('learner_profile') as PyDict
+      const source = or(lp.get('source'), 'visits')
+      out.push(summary(dbs, code, source, today, or(since.get(code) ?? null, lp.get('profile_created'))))
+    } catch (e) {
+      if (e instanceof SysExit) throw e
+      ctx.eprint(`[Lani] Warning: ${languageName(code)} (${code}) is left out of languages, its data can't be read: ${excStr(e)}`)
+    }
   }
   return out
 }
@@ -133,7 +157,13 @@ export function main(ctx: Ctx, argv: string[]): void {
   const today = fmtDate(now)
   const homeDbs = databases
   if (code !== null) {
-    databases = loadLanguage(DATA_DIR, code, homeProfile, today)
+    try {
+      databases = loadLanguage(DATA_DIR, code, homeProfile, today)
+    } catch (e) {
+      if (!(e instanceof Unreadable)) throw e
+      ctx.eprint(`[Lani] Error: --language ${code}: its data can't be read: ${e.message}`)
+      throw new SysExit(2)
+    }
     missing = []
   }
 
@@ -141,7 +171,7 @@ export function main(ctx: Ctx, argv: string[]): void {
   result.set('databases', databases)
   result.set('computed', computed(databases, now, code))
   result.set('language', code ?? home)
-  result.set('languages', summaries(DATA_DIR, homeDbs, home, today))
+  result.set('languages', summaries(ctx, DATA_DIR, homeDbs, home, today))
   if (missing.length) result.set('_warnings', missing.map(m => `Missing file: ${m}`))
 
   ctx.out.push(dumpIndented(result) + '\n')

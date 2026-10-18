@@ -350,6 +350,40 @@ class LanguagesTest(unittest.TestCase):
         self.assertEqual(self.raw(), before)
         self.assertEqual([l["code"] for l in state["languages"]], ["nl"])
 
+    def test_read_db_leaves_out_a_language_whose_data_cant_be_read(self):
+        """Another language's broken data never fails the home language's answer (the app's GET /state): it is left
+        out of `languages`, with a warning on stderr; --language of it is a critical error (exit 2)."""
+        make_fixtures(self.data)
+        self.update(ITALIAN_SESSION)
+        de, fr, hr = (self.data / "languages" / c for c in ("de", "fr", "hr"))
+        for d in (de, fr, hr):
+            d.mkdir(parents=True)
+        (de / "learner-profile.json").write_text(json.dumps({"learner": "odd", "source": "visits"}))
+        (fr / "learner-profile.json").write_text("{ broken")
+        (hr / "learner-profile.json").write_text(json.dumps({"learner": {"current_level": "A2"}}))
+        (hr / "spaced-repetition.json").write_text(json.dumps({"items": {"a": {"type": "vocabulary", "due_date": 5}}}))
+        before = self.raw()
+        p = self.run_script("read-db.py")
+        self.assertEqual(p.returncode, 0, msg=p.stderr)
+        state = json.loads(p.stdout)
+        self.assertEqual([l["code"] for l in state["languages"]], ["nl", "it"])
+        self.assertEqual(state["language"], "nl")
+        err = p.stderr.decode()
+        self.assertIn(f"[Lani] Warning: German (de) is left out of languages, its data can't be read: {de / 'learner-profile.json'}: "
+                      "its learner is not an object (str)", err)
+        self.assertIn(f"[Lani] Warning: French (fr) is left out of languages, its data can't be read: {fr / 'learner-profile.json'}: "
+                      "Expecting property name enclosed in double quotes", err)
+        self.assertIn("[Lani] Warning: Croatian (hr) is left out of languages, its data can't be read: '<=' not supported", err)
+        self.assertEqual(self.raw(), before)
+        # the language itself: refused, nothing printed on stdout
+        for code in ("de", "fr"):
+            p = self.run_script("read-db.py", ("--language", code))
+            self.assertEqual(p.returncode, 2, msg=p.stderr)
+            self.assertEqual(p.stdout, b"")
+            self.assertIn(f"[Lani] Error: --language {code}: its data can't be read: ", p.stderr.decode())
+        # the others as always
+        self.assertEqual(self.read("--language", "it")["language"], "it")
+
     def test_read_db_refuses_what_isnt_a_language(self):
         make_fixtures(self.data)
         p = self.run_script("read-db.py", ("--language", "not a language"))

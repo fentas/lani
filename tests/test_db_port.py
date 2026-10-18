@@ -474,10 +474,19 @@ class MigrationTest(Scenario):
         write(self.data / "languages" / "xx" / "spaced-repetition.json", {"items": {}})
         (self.data / "languages" / "fr").mkdir(parents=True)
         write(self.data / "languages" / "fr" / "learner-profile.json", None, raw="{ broken")
-        # migrated, then the summaries fail: a language whose learner isn't an object is a TypeError in the Python too
-        self.read(code=1)
+        # migrated; a language whose learner isn't an object, and one whose profile isn't JSON, left out of the summaries
+        self.read(code=0)
+        self.read("--language", "de", code=2)
+        self.read("--language", "fr", code=2)
         write(self.data / "languages" / "de" / "learner-profile.json", {"learner": {"current_level": "B1"}, "profile_created": ""})
-        self.read(code=1)  # and a language whose profile isn't JSON: a JSONDecodeError
+        self.read(code=0)  # only French left out
+        (self.data / "languages" / "it" / "progress-db.json").mkdir()  # a file that can't be opened
+        (self.data / "languages" / "it" / "session-log.json").write_bytes(b'{"x": "\xff"}')  # nor read as UTF-8
+        self.read(code=0)
+        self.read("--language", "it", code=2)
+        (self.data / "languages" / "it" / "progress-db.json").rmdir()
+        self.read(code=0)
+        (self.data / "languages" / "it" / "session-log.json").unlink()
         write(self.data / "languages" / "fr" / "learner-profile.json", {"source": "visits"})
         self.read(code=0)
         self.read(code=0)  # already migrated: nothing written

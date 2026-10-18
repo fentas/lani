@@ -73,8 +73,14 @@ and preferences from the home profile, and the language, level and target level 
 own. A language never practised reads as fresh, empty databases (exit `0`; nothing is
 written). The home language's code gives the default output.
 
+Another language whose data can't be read (a file that isn't JSON or can't be opened, a `learner` that isn't an
+object, a value its summary can't compare) is left out of `languages`, with a warning on stderr
+(`[Lani] Warning: French (fr) is left out of languages, its data can't be read: …`). The rest of the answer is as
+always: one language's broken file never fails the home language's (the app's `GET /state`). `--language` of that
+language exits `2`.
+
 Exit codes: `0` OK, `1` one or more files missing (partial result with
-`_warnings`), `2` critical error (also: `--language` isn't a language).
+`_warnings`), `2` critical error (also: `--language` isn't a language, or its data can't be read).
 
 ## Writing
 
