@@ -14,6 +14,16 @@ and produce identical output regardless of CWD. Always invoke them with the
 itself resolves whether Lani is installed as a plugin (CWD is the data
 directory) or cloned (CWD is the repo root).
 
+**A TypeScript twin.** `companion/bridge/src/db/` is a port of `read-db.py`, `update-db.py`, `card.py`,
+`validate-data.py` and `ensure_data_dir.py`, for a bridge without Python (the phone's, plan 5). It prints, exits and
+writes the same: the same output, exit codes, backups and files, byte for byte. A node keeps running the Python. The
+differential test `tests/test_db_port.py` runs both on the same fixtures and fails on any difference; so do the
+`*DiffTest` classes of `tests/test_update_db.py`, `tests/test_card.py` and `tests/test_languages.py`. A change to a
+script needs the same change in its twin. See [docs/plans/05-built/db-port.md](plans/05-built/db-port.md).
+
+`LANI_NOW` (`YYYY-MM-DD[THH:MM[:SS]]`, local time) freezes the scripts' clock: "today" and the times in backup names.
+Tests set it, so that the two implementations' runs can be compared. Unset, the scripts use the real time.
+
 ## Reading
 
 ```bash

@@ -813,7 +813,9 @@ first 2048 characters of a server's instructions, so the instructions are just t
 never be lost (answer with the `reply` tool; a child's rules), and the whole guide comes from the
 `channel_guide` tool, which the tutor calls before its first reply and again after compaction. The shared parts are
 `http.ts` (route table, tokens), `channel.ts` (MCP server, tool registry), `events.ts` (SSE),
-`outbox.ts` (client_id dedupe), `learner.ts` (`read-db.py`, `update-db.py`), `learners.ts` (profiles and
+`outbox.ts` (client_id dedupe), `learner.ts` (`read-db.py`, `update-db.py`), `db/` (the TypeScript twin of the
+learner-data scripts, for a bridge without Python: `run(script, argv, stdin, env)`,
+[docs/plans/05-built/db-port.md](../docs/plans/05-built/db-port.md)), `learners.ts` (profiles and
 the learner's channel instructions), `cultures.ts` (the culture packs' schema and which one a bridge plays),
 `pairing.ts` (the bridge's key, pairing codes, device tokens) and `towns.ts` (links, invitations,
 signatures between bridges, a town's public state), both shared with the CLIs in `bridge/src/cli/`, `visits.ts`

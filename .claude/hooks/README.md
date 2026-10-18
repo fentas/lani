@@ -360,6 +360,15 @@ chmod +x .claude/hooks/*.py
 
 ---
 
+## 🔁 The TypeScript twin
+
+`validate-data.py`, `read-db.py`, `update-db.py`, `card.py` and `ensure_data_dir.py` have a TypeScript port in
+`companion/bridge/src/db/`, for a bridge without Python (the phone's). It behaves the same, byte for byte, and
+`tests/test_db_port.py` checks this. A change to one of these scripts (or to `lani_paths.py`, `lani_languages.py`)
+needs the same change there. See [docs/plans/05-built/db-port.md](../../docs/plans/05-built/db-port.md).
+
+---
+
 ## 📚 Additional Resources
 
 - [Claude Code Hooks Documentation](https://code.claude.com/docs/en/hooks-guide)
