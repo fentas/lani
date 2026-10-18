@@ -1946,7 +1946,8 @@ in the order below, and the next month goes on where one stopped.
 **Prebuild**, in priority order: villager lines in their speakers' voices, review cards and pack
 words, examples, modules, scenarios, the storyteller's stories told at A1 (`stories A1`), the car's drills at A1
 (`drills A1`), scene dialogs and the keepers' talks (the culture's spots: the charcoal burner's meeting and his story,
-every telling at every level, in his speaker's voice), what a child says playing I spy in the scenes (`ispy`: the lines,
+every telling at every level, and with his pile's cycle every stage's talks, the night watch's race, what he tells of the
+days the learner missed and his own story's parts, in his speaker's voice), what a child says playing I spy in the scenes (`ispy`: the lines,
 the clues and each thing's find and reveal of companion/ispy, in the voice of each child who may play in the scene;
 companion/SCENES.md, "I spy"), then the stories at A2 (`stories A2`), the drills above A1
 (`drills A2+`) and the stories at B1 and up (`stories B1+`). A story's teller speaks their lines and replies in their own designed voice once the voice

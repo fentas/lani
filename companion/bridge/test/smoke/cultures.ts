@@ -4,8 +4,8 @@
 // Catalog has numbers for.
 import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { cultureFestivals, cultureIds, cultureKeepers, cultureReadings, cultureScenes, DEFAULT_CULTURE, FILES, PRICES, PRIMORSKA_TUTOR, READING_KINDS, READING_LEVELS, keeperTellings, readingRefs, readManifest, resolveCulture, TOOL_EFFECTS, validateCulture } from '../../src/cultures'
-import { SPOT_ARTS, hash, on as cycleOn, type CycleMarks } from '../../src/spot-cycles'
+import { cultureFestivals, cultureIds, cultureKeepers, cultureReadings, cultureScenes, cultureSpots, DEFAULT_CULTURE, FILES, PRICES, PRIMORSKA_TUTOR, READING_KINDS, READING_LEVELS, keeperTellings, readingRefs, readManifest, resolveCulture, TOOL_EFFECTS, validateCulture } from '../../src/cultures'
+import { SPOT_ARTS, cyclesNow, hash, on as cycleOn, type CycleMarks } from '../../src/spot-cycles'
 import { speakerFor } from '../../src/cast'
 import { feastOf } from '../../src/friendship'
 import { calendarOn } from '../../src/towns'
@@ -204,6 +204,56 @@ export default async function cultures() {
   const ktCycles = readFileSync(join(android, 'scene/SpotCycles.kt'), 'utf8')
   const ktArts = JSON.parse(`[${/val ARTS = listOf\(([^)]*)\)/.exec(ktCycles)?.[1] ?? ''}]`)
   check("the arts a stage may have are the app's (SpotCycles.ARTS)", JSON.stringify(ktArts) === JSON.stringify(SPOT_ARTS), { kt: ktArts, ts: SPOT_ARTS })
+  // Primorska's pile over the days: its stages from the felling of the beech to the charcoal at Tone's, a breakout while it
+  // smokes white or yellow, the delivery to the smith, Miha's own story; the tutor sees where it is (get_village's spots)
+  const kopa = cultureSpots(culturesDir, 'primorska').kopa!
+  const stages = kopa.cycle?.stages.map(st => st.id) ?? []
+  check(
+    "Primorska's charcoal pile has its cycle: eleven stages from the felling to the delivery, the smoke white, yellow, blue, a breakout, the charcoal to Tone, Miha's own story",
+    stages.length === 11 && stages[0] === 'sekanje' && stages.at(-1) === 'dostava' && kopa.cycle!.stages.filter(st => st.art === 'smoke').map(st => st.smoke).join() === 'white,yellow,blue' &&
+      kopa.cycle!.breakout?.stages.every(st => stages.includes(st)) === true && kopa.cycle!.delivery?.to === 'tone' && (kopa.keeper?.tales.length ?? 0) >= 5 &&
+      kopa.cycle!.stages.every(st => st.talks.length >= 2),
+    stages,
+  )
+  const july = cyclesNow({ kopa }, '2026-07-01', () => ({}), 'sl') as Record<string, any> | undefined
+  const winterNow = cyclesNow({ kopa }, '2026-12-24', () => ({}), 'sl') as Record<string, any> | undefined
+  check(
+    "… the tutor's view of it: what Miha does today (\"Kopa se kadi …\"), the day of it, the next stage; in winter, the winter",
+    !!july?.kopa?.doing && /^\d+\/\d+$/.test(july.kopa.day) && !!july.kopa.next && winterNow?.kopa?.now === 'winter' && /Oglar Miha/.test(winterNow.kopa.doing),
+    { july, winterNow },
+  )
+  const [mihaAll] = cultureKeepers(culturesDir, 'primorska')
+  const mihaDays = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], keepers: [mihaAll].map(k => ({ ...k, tellings: keeperTellings(k, k.cycle) })) })
+  check(
+    "… voiced by voice-build: every stage's talks, the breakout's race, his own story, in his voice",
+    ['Glej, bukova drva. Suha so.', 'Hitro! Glej, ogenj! Kopa se je odprla!', 'Veš, moj oče je bil tudi oglar.', 'Pozimi ni kope. Zemlja je trda.'].every(t => mihaDays.some(i => i.text === t && i.source === 'keeper:oglar' && i.voice === speakerFor(mihaAll))),
+    mihaDays.length,
+  )
+  // a broken cycle says where: a stage the app can't draw, one without talks, a breakout in a stage the cycle hasn't, its
+  // last line not the learner's turn, a delivery to someone not of the cast, a stage done with a turn in it
+  const cycled = tempDir('lani-smoke-culture-cycle-')
+  cpSync(join(culturesDir, 'primorska'), join(cycled, 'primorska'), { recursive: true })
+  const pw = JSON.parse(readFileSync(join(cycled, 'primorska/world.json'), 'utf8'))
+  const pc = pw.spots.kopa.cycle
+  // an art the app can't draw is refused with the shape (the rest is checked once the shape is right)
+  const art = JSON.parse(JSON.stringify(pw))
+  art.spots.kopa.cycle.stages[0].art = 'volcano'
+  writeFileSync(join(cycled, 'primorska/world.json'), JSON.stringify(art))
+  const noArt = validateCulture(cycled, 'primorska')
+  check("… a stage the app can't draw (its art) is refused", !noArt.ok && noArt.errors.includes('spots.kopa.cycle.stages[0].art'), !noArt.ok && noArt.errors.slice(0, 300))
+  pc.stages[1].talks = []
+  pc.breakout.stages = ['nowhere']
+  pc.breakout.levels.A1.lines.pop()
+  pc.delivery.to = 'nobody'
+  pc.stages[2].done.A1.lines.push(pc.stages[2].talks[0].levels.A1.lines.find((l: any) => l.choices))
+  writeFileSync(join(cycled, 'primorska/world.json'), JSON.stringify(pw))
+  const pcast = new VillagerStore(join(culturesDir, 'primorska', 'villagers'), join(dataDir, 'unused-villagers-cycle')).all()
+  const brokenCycle = validateCulture(cycled, 'primorska', pcast)
+  const cycleWrong = [
+    'spots.kopa.cycle.stages[1].talks: none', 'spots.kopa.cycle.breakout.stages: "nowhere" isn\'t a stage of the cycle',
+    'spots.kopa.cycle.breakout.levels.A1: its last line is the learner\'s turn', 'world.spots.kopa.cycle.delivery.to: no villager "nobody"', 'spots.kopa.cycle.stages[2].done.levels.A1: 1 turns: none here',
+  ]
+  check("… a broken cycle says where: a stage without talks, a breakout's stage and race, a delivery to nobody, a turn where none goes", !brokenCycle.ok && cycleWrong.every(e => brokenCycle.errors.includes(e)), !brokenCycle.ok && brokenCycle.errors.split('\n').filter(e => e.includes('cycle')))
 
   // --- a project's steps as short scenes (project-steps/<project>.json, lani.project-steps/v0; companion/SCENES.md "Project
   // steps"): the test pack's maypole has its first step's dialog at A1 and A2, said by its leader and helper; checked with

@@ -606,14 +606,61 @@ and replies in his speaker's voice, every telling at every level), else live whe
 `talks` is a new key: a bridge from before it refuses the culture (its check is strict), so the code goes out first and
 the content after; an app from before it plays his meeting every time (it reads `levels` alone).
 
+### The pile over the days
+
+Primorska's pile has its work over real days (the spot's `cycle`, GAME.md "A spot's cycle", with its sources): Miha saws
+the beech he felled in winter into logs, stacks them round the middle, covers them with turf and earth, lights the pile from
+the top, watches it smoulder for two weeks
+or so while its smoke goes from white to yellow to blue, lets it cool, rakes it open, fills the sacks and takes the
+charcoal to Kovač Tone; then two to four weeks between piles (the next wood got ready, charcoal sold), three or four piles from mid-April to October, and in winter there is no pile. With a cycle his talk is the day's,
+not his story's (`talks` is for a keeper without one):
+
+- **The first evening** his `meeting` (the cycle's: who he is, "Tukaj v gozdu delam oglje. Za kovača Toneta."; A2 asks
+  the learner's name), then the day's talk. **Every other evening** a greeting for the hour (`greet`: "Á, ti si! Dober
+  večer.", at night "Dober večer! Pozno je. Ti tudi ne spiš?"), then what he did while the learner was away (the last two
+  stages over since their last evening, each one's `done` in the past tense: "Kopo sem prižgal. Od zgoraj, z
+  žerjavico."; after five days or more "Dolgo te ni bilo!" first), what last night brought (the wind: "Ponoči je pihal
+  veter. Vso noč sem stražil."; a fox; a breakout he covered alone), the stage's talk and the part of his own story that
+  is due.
+- **The stage's talk**: two at least a stage, at A1 and A2 (3–12 lines, 1–3 turns, a reaction and a why to every wrong
+  choice, as his meeting's), and one for the night watch, for rain or for the wind where they matter (the white smoke's: "Danes
+  dežuje. Dež je dober za kopo." when a scene's dialog left rain over the village or a storm is on; the yellow smoke's in
+  the wind: "Danes piha burja. Takšen veter je za kopo najhujši."). Each evening he is
+  done talking, the next time another of them (`KeeperTold.told`, the next variant), so a visit after another hears
+  another. Each has a small task as its turns: carry the logs to the pole (jih, not ga), hand him the shovel (lopata, not
+  grablje), say where the air holes go today (zgoraj, na sredini, spodaj, lower each day), judge the smoke's colour (the
+  pile above the talk shows it: bel, rumen, moder), count the sacks (pet vreč), ask him in vi.
+- **The night watch** (`breakout`): the night his pile breaks out he calls for help ("Hitro! Glej, ogenj! Kopa se je
+  odprla!"; at A2 "Kopa bruha", the trade's word for a pile blowing its earth off), and the learner's turn is a race against the clock ("🔥 Hitro! · Quick!", a bar running down: 25 s at A1,
+  18 s at A2): "Lopato in zemljo!" in time and they cover it together ("Uf. Pokrila sva jo. Hvala ti."); water or the
+  axe only cost time; too late, "Prepozno je. Kopa gori." The pile is ash to the end of the round (its `lost` talk:
+  "Ne bodite žalostni. Vi niste krivi." is the learner's to say), and Tone gets no charcoal from it.
+- **His own story** (`keeper.tales`, every keeper may have one): six parts told at the end of his talk, one an evening,
+  once the learner has spent their evenings with him (`after`: 2, 5, 9, 14, 19, 25), as a villager's lines open with the
+  friendship (`KeeperTold.tales`): his father and grandfather, oglarji of the same woods, the carters who took the
+  charcoal to Idrija's mine; his hut of poles and turf; the
+  last charcoal burner in the valley (twenty piles smoking when he was a child, then coal and electricity); the pile that
+  burnt down when he fell asleep at seventeen and his father said nothing; why charcoal mattered (no iron, no nails,
+  Idrija, Gorizia and Trieste, Tone still wants his); who will make charcoal after him ("Povej naprej."). A calm, proud man of
+  few words.
+- **The delivery**: on the stage that delivers he takes the charcoal to Tone. For two weeks Tone's card and greeting say
+  so ("Miha mi je pripeljal oglje. Zdaj je ogenj v kovačnici spet vroč."; after a pile lost, "Mihova kopa je pogorela.
+  Ta mesec bo oglja malo."), and his forge needs a quarter less wood (GAME.md, "The chest", "Forging").
+
+He is there in his evening and night hours as the stage says: most evenings while the pile smoulders (0.85), one in two or
+three while he fells, stacks and rakes (0.5–0.6), now and then between piles (0.35), seldom in winter (0.2, by his hut in
+the snow); the night of a breakout always. His bubble, the scroll's row and the chronicle say the stage's title ("Kopa
+se kadi: moder dim").
+
 | Pack | The pile (`spots.kopa`) and its history | Its burner | His turns (A1; A2) | Words |
 |---|---|---|---|---|
-| `primorska` | Oglarska kopa · The charcoal pile: the oglarji of the woods above the village stacked beech round a pole, covered it with turf and earth, lit it from the top and watched it from a hut for two weeks; the charcoal went to the smiths, Kovač Tone too, and down to Gorizia and Trieste | 🧔 Oglar Miha, from the Trnovo forest; says ti to Jan (no name, no "fant"), Jan says vi | dober večer, kaj or kdo; iz vasi (the genitive), spite (vi) | `pri-kopi` (kopa, oglje, oglar, žerjavica, dim, tleti, ruša, pepel, zagoreti, koča) |
+| `primorska` | Oglarska kopa · The charcoal pile: the oglarji of the woods above the village stacked beech round a pole, covered it with turf and earth, lit it from the top and watched it from a hut for two weeks; the charcoal went to the smiths, Kovač Tone too, and down to Gorizia and Trieste | 🧔 Oglar Miha, from the Trnovo forest; says ti to Jan (no name, no "fant"), Jan says vi | dober večer, kaj or kdo; iz vasi (the genitive), spite (vi) | `pri-kopi` (kopa, oglje, oglar, žerjavica, dim, tleti, ruša, pepel, zagoreti, koča; the stages' bukev, poleno, kol, zemlja, luknja, bel, rumen, moder, stražiti, ohladiti, vreča) |
 | `friuli` | La carbonaia: the carbonai of the Carnia and the Val Resia spent the summer in the woods; the charcoal went to the smiths, Fabbro Bruno too, and as far as Udine and Venice; many went to burn charcoal abroad | 🧔 Carbonaio Pieri, down from the Carnia; the learner says Lei | buonasera, che cosa or chi; ho visto (not vedito), dorme (Lei) | `alla-carbonaia` |
 | `kaernten` | Der Kohlenmeiler: Carinthia's Köhler; the charcoal went to the smiths and the ironworks, as at Hüttenberg, where iron was made in Roman times; the Köhlerei still lives there, and Schmied Toni still likes charcoal for his forge | 🧔 Köhler Michl, of the Gailtal; the learner says Sie | Guten Abend, was or wer; gesehen (not gesieht), schlafen Sie | `am-meiler` |
 | `lakeland` | The charcoal pit: the colliers of the Lake District's coppice woods built their pits on pitsteads and lived by them in huts of poles and turf; the charcoal went to the bloomeries and later the gunpowder works; the children of Swallows and Amazons meet two of them; the old pitsteads are still black under the moss | 🧔 Collier Ned; he calls the learner "lad" | good evening, what or who; saw (not seed), do in a question | `at-the-pit` |
 
-Each is machine-written (Claude), not reviewed by a native speaker (the spot's `review`). Primorska's high seat has texts of
+Each is machine-written (Claude), not reviewed by a native speaker (the spot's `review`); Primorska's pile over the days
+too (its cycle and Miha's own story). Primorska's high seat has texts of
 its own too (`spots.highseat`: "Tu lovci opazujejo divjad, ob zori in v mraku", and Lovec Jože's words, `na-prezi`, on its card).
 
 ## A day in the village

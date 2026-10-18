@@ -5,9 +5,9 @@
   "emoji": "♨️",
   "level": "A2",
   "description": {
-    "en": "The charcoal pile deep in the woods below the village: the pile of wood under turf and earth, the charcoal it slowly turns into, the burner who watches it day and night from his hut, the embers, the smoke and the ash.",
-    "de": "Der Kohlenmeiler tief im Wald unter dem Dorf: der Holzhaufen unter Rasen und Erde, die Holzkohle, zu der er langsam wird, der Köhler, der ihn Tag und Nacht von seiner Hütte aus bewacht, die Glut, der Rauch und die Asche.",
-    "it": "La carbonaia nel bosco sotto il paese: il mucchio di legna sotto le zolle e la terra, il carbone in cui piano piano si trasforma, il carbonaio che la sorveglia giorno e notte dalla sua capanna, la brace, il fumo e la cenere."
+    "en": "The charcoal pile deep in the woods below the village, day by day: the beech felled into logs and stood round the pole, the turf and earth over it, the embers, the smoke going white, yellow, blue, the air holes lower each day, the night watch, the cooling, the charcoal in sacks for the smith, and the ash if it catches fire.",
+    "de": "Der Kohlenmeiler tief im Wald unter dem Dorf, Tag für Tag: die Buchen zu Scheiten gehackt und um den Pfahl gestellt, Rasen und Erde darüber, die Glut, der Rauch weiß, gelb, blau, die Luftlöcher jeden Tag tiefer, die Nachtwache, das Abkühlen, die Kohle in Säcken für den Schmied, und Asche, wenn er Feuer fängt.",
+    "it": "La carbonaia nel bosco sotto il paese, giorno per giorno: i faggi tagliati in ciocchi e messi attorno al palo, zolle e terra sopra, la brace, il fumo bianco, giallo, blu, i buchi d'aria ogni giorno più in basso, la guardia di notte, il raffreddamento, il carbone nei sacchi per il fabbro, e la cenere se prende fuoco."
   },
   "review": "Machine-written (Claude), not reviewed by a native speaker.",
   "words": [
@@ -100,6 +100,105 @@
       "note": "Also a mountain hut (planinska koča). The village's first homes were koče too.",
       "note_de": "Auch eine Berghütte (planinska koča). Die ersten Häuser des Dorfes waren auch koče.",
       "note_it": "Anche un rifugio di montagna (planinska koča). Le prime case del paese erano koče."
+    },
+    {
+      "id": "bukev", "sl": "bukev", "en": "beech", "de": "Buche", "it": "faggio",
+      "emoji": "🌳", "gender": "f", "plural": "bukve",
+      "example_sl": "Iz bukve je najboljše oglje.", "example_en": "Beech makes the best charcoal.",
+      "example_de": "Aus Buche wird die beste Holzkohle.", "example_it": "Dal faggio viene il carbone migliore.",
+      "note": "The beech of the Trnovo forest: hard wood, the charcoal burners' favourite. Two beeches: dve bukvi; many: veliko bukev.",
+      "note_de": "Die Buche des Trnovaner Waldes: hartes Holz, das liebste der Köhler. Zwei Buchen: dve bukvi; viele: veliko bukev.",
+      "note_it": "Il faggio della selva di Tarnova: legno duro, il preferito dei carbonai. Due faggi: dve bukvi; molti: veliko bukev."
+    },
+    {
+      "id": "poleno", "sl": "poleno", "en": "log (a piece of firewood)", "de": "Holzscheit", "it": "ciocco",
+      "emoji": "🪵", "gender": "n", "plural": "polena",
+      "example_sl": "Vsako poleno je dolgo en meter.", "example_en": "Every log is a metre long.",
+      "example_de": "Jedes Scheit ist einen Meter lang.", "example_it": "Ogni ciocco è lungo un metro.",
+      "note": "Koliko polen? After koliko and from five on the genitive plural: pet polen.",
+      "note_de": "Koliko polen? Nach koliko und ab fünf der Genitiv Plural: pet polen.",
+      "note_it": "Koliko polen? Dopo koliko e da cinque in poi il genitivo plurale: pet polen."
+    },
+    {
+      "id": "kol", "sl": "kol", "en": "pole, stake", "de": "Pfahl", "it": "palo",
+      "emoji": "📏", "gender": "m", "plural": "koli",
+      "example_sl": "Polena stojijo okrog kola.", "example_en": "The logs stand round the pole.",
+      "example_de": "Die Scheite stehen um den Pfahl.", "example_it": "I ciocchi stanno attorno al palo.",
+      "note": "A pole, a stake; the logs of a pile stand round the middle, where the burners set three poles (strženice) round a shaft (stržen) to light it from the top. Okrog kola: round the pole (the genitive).",
+      "note_de": "Ein Pfahl; die Scheite eines Meilers stehen um die Mitte, wo die Köhler drei Stangen (strženice) um einen Schacht (stržen) stellen, um ihn von oben anzuzünden. Okrog kola: um den Pfahl (Genitiv).",
+      "note_it": "Un palo; i ciocchi della carbonaia stanno attorno al centro, dove i carbonai mettono tre pali (strženice) attorno a un camino (stržen) per accenderla dall'alto. Okrog kola: attorno al palo (genitivo)."
+    },
+    {
+      "id": "zemlja", "sl": "zemlja", "en": "earth, soil", "de": "Erde", "it": "terra",
+      "emoji": "🟫", "gender": "f", "plural": "zemlje",
+      "example_sl": "Kopo pokrije z rušo in zemljo.", "example_en": "He covers the pile with turf and earth.",
+      "example_de": "Er deckt den Meiler mit Rasen und Erde zu.", "example_it": "Copre la carbonaia di zolle e di terra.",
+      "note": "Z zemljo: with earth (the instrumental). Zemlja is also the Earth, our planet.",
+      "note_de": "Z zemljo: mit Erde (Instrumental). Zemlja ist auch die Erde, unser Planet.",
+      "note_it": "Z zemljo: con la terra (strumentale). Zemlja è anche la Terra, il nostro pianeta."
+    },
+    {
+      "id": "luknja", "sl": "luknja", "en": "hole", "de": "Loch", "it": "buco",
+      "emoji": "🕳️", "gender": "f", "plural": "luknje",
+      "example_sl": "Luknje v kopi so vsak dan nižje.", "example_en": "The holes in the pile are lower every day.",
+      "example_de": "Die Löcher im Meiler sind jeden Tag tiefer.", "example_it": "I buchi nella carbonaia sono ogni giorno più in basso.",
+      "note": "The burner pokes holes in the cover for the smoke (oglarji call them dimnice), lower day by day as the fire goes down. Many holes: veliko lukenj.",
+      "note_de": "Der Köhler sticht Löcher für den Rauch in die Decke (die Köhler sagen dimnice), Tag für Tag tiefer, wie das Feuer nach unten geht. Viele Löcher: veliko lukenj.",
+      "note_it": "Il carbonaio fa nella copertura dei buchi per il fumo (i carbonai dicono dimnice), ogni giorno più in basso, man mano che il fuoco scende. Molti buchi: veliko lukenj."
+    },
+    {
+      "id": "bel", "sl": "bel", "en": "white", "de": "weiß", "it": "bianco",
+      "emoji": "⚪",
+      "example_sl": "Prve dni je dim bel.", "example_en": "The first days the smoke is white.",
+      "example_de": "Die ersten Tage ist der Rauch weiß.", "example_it": "I primi giorni il fumo è bianco.",
+      "note": "Bel dim, bela kopa, belo oglje? No: oglje is črno. The adjective agrees: bel (m), bela (f), belo (n).",
+      "note_de": "Bel dim, bela kopa, belo oglje? Nein: oglje ist črno. Das Adjektiv richtet sich: bel (m), bela (f), belo (n).",
+      "note_it": "Bel dim, bela kopa, belo oglje? No: oglje è črno. L'aggettivo concorda: bel (m), bela (f), belo (n)."
+    },
+    {
+      "id": "rumen", "sl": "rumen", "en": "yellow", "de": "gelb", "it": "giallo",
+      "emoji": "🟡",
+      "example_sl": "Ko se les kuha, je dim rumen.", "example_en": "When the wood is cooking, the smoke is yellow.",
+      "example_de": "Wenn das Holz gart, ist der Rauch gelb.", "example_it": "Quando la legna cuoce, il fumo è giallo.",
+      "note": "Rumen (m), rumena (f), rumeno (n). Porumeneti: to turn yellow.",
+      "note_de": "Rumen (m), rumena (f), rumeno (n). Porumeneti: gelb werden.",
+      "note_it": "Rumen (m), rumena (f), rumeno (n). Porumeneti: ingiallire."
+    },
+    {
+      "id": "moder", "sl": "moder", "en": "blue", "de": "blau", "it": "blu",
+      "emoji": "🔵",
+      "example_sl": "Ko je dim moder, je oglje skoraj gotovo.", "example_en": "When the smoke is blue, the charcoal is nearly done.",
+      "example_de": "Wenn der Rauch blau ist, ist die Kohle fast fertig.", "example_it": "Quando il fumo è blu, il carbone è quasi pronto.",
+      "note": "Moder loses its e: modra (f), modro (n), modri (m pl). Moder also means wise: moder človek.",
+      "note_de": "Moder verliert sein e: modra (f), modro (n), modri (m Pl.). Moder heißt auch weise: moder človek.",
+      "note_it": "Moder perde la e: modra (f), modro (n), modri (m pl). Moder vuol dire anche saggio: moder človek."
+    },
+    {
+      "id": "straziti", "sl": "stražiti", "en": "to keep watch, to guard", "de": "Wache halten, bewachen", "it": "fare la guardia, sorvegliare",
+      "emoji": "👁️",
+      "example_sl": "Ponoči oglar straži kopo.", "example_en": "At night the charcoal burner keeps watch over the pile.",
+      "example_de": "Nachts bewacht der Köhler den Meiler.", "example_it": "Di notte il carbonaio sorveglia la carbonaia.",
+      "note": "Stražim, stražiš, straži: I, you, he keep watch. Straža: the watch, the guard.",
+      "note_de": "Stražim, stražiš, straži: ich, du, er halte Wache. Straža: die Wache.",
+      "note_it": "Stražim, stražiš, straži: io, tu, lui faccio la guardia. Straža: la guardia."
+    },
+    {
+      "id": "ohladiti", "sl": "ohladiti", "en": "to cool (down)", "de": "abkühlen", "it": "raffreddare",
+      "emoji": "🧊",
+      "example_sl": "Kopa se mora dva dni ohladiti.", "example_en": "The pile has to cool for two days.",
+      "example_de": "Der Meiler muss zwei Tage abkühlen.", "example_it": "La carbonaia deve raffreddarsi per due giorni.",
+      "note": "Perfective: done once, to the end. With se when the thing cools itself: kopa se ohladi. Hladen: cool.",
+      "note_de": "Vollendet: einmal, bis zum Ende. Mit se, wenn etwas selbst abkühlt: kopa se ohladi. Hladen: kühl.",
+      "note_it": "Perfettivo: una volta, fino alla fine. Con se quando la cosa si raffredda da sé: kopa se ohladi. Hladen: fresco."
+    },
+    {
+      "id": "vreca", "sl": "vreča", "en": "sack, bag", "de": "Sack", "it": "sacco",
+      "emoji": "🛍️", "gender": "f", "plural": "vreče",
+      "example_sl": "Ena kopa da dvajset vreč oglja.", "example_en": "One pile gives twenty sacks of charcoal.",
+      "example_de": "Ein Meiler gibt zwanzig Säcke Kohle.", "example_it": "Una carbonaia dà venti sacchi di carbone.",
+      "note": "Ena vreča, dve vreči, tri vreče, pet vreč: the noun changes with the number.",
+      "note_de": "Ena vreča, dve vreči, tri vreče, pet vreč: das Nomen ändert sich mit der Zahl.",
+      "note_it": "Ena vreča, dve vreči, tri vreče, pet vreč: il nome cambia con il numero."
     }
   ]
 }

@@ -1093,7 +1093,7 @@ The minutes are ScreenClock's (on screen only), rounded up, at least 1. Offline,
 
 Under the part: the words right of all and the percentage, the words a minute (the words read over the time from the first word to the last, Whisper's timings), each word read wrong with what was heard, and 🔊 on each sentence with a mistake, in the reader's voice. At the end, the whole reading: the words right, the pace, the sentences read well, and those to hear again. When the node's Whisper can't be reached, the phone's recognizer listens (one pass, no prompt, graded alone; the pace from its speech's start to the result); with neither, the screen says so.
 
-**Forging.** At the smithy, Kovač Tone makes an iron or brass tool (✓ above) better, twice at most: each time it gains half its first strength (a sharp axe forged twice: +30 % 🪵). He needs the smithy standing, to live here, a good from the chest as his pay (the one Jan has most of), and the price: 200🌾 300🪵 200🪨 the first time (from Zaselek), 400🌾 600🪵 400🪨 the second (from Vas).
+**Forging.** At the smithy, Kovač Tone makes an iron or brass tool (✓ above) better, twice at most: each time it gains half its first strength (a sharp axe forged twice: +30 % 🪵). He needs the smithy standing, to live here, a good from the chest as his pay (the one Jan has most of), and the price: 200🌾 300🪵 200🪨 the first time (from Zaselek), 400🌾 600🪵 400🪨 the second (from Vas). For two weeks after the charcoal burner brought him his charcoal (a pile's delivery, "A spot's cycle"), the forge burns it instead of some wood: a quarter less 🪵 (225 and 450), once; the forge's row says so ("♨️ Z oglarjevim ogljem: −25 % 🪵").
 
 **Goods.** A villager thanks with a good after their request, one each time. Which one (`Chest.thanksFor`): their `thanks` good, or, when the pack gives them a rotation (`thanks_rotation`: 2 to 4 of their everyday goods, `thanks` first), two requests in three that usual one and the third one of the others (an even turn sped the friendships up enough for the pacing simulation to feel it), picked by the village's seed and the request's id, so the same request always brings the same good (a try that fails and is played again, the result opened again) and the next request maybe another. In a festival's season, from a week before its day to its last grace day (`Catalog.THANKS_SEASON_DAYS`, `Calendar.GRACE_DAYS`), a villager with a seasonal good for it thanks with that one instead (of two seasons at once, the festival nearer its day). A good the chest's catalogue lacks never comes (the app's culture check and the bridge's refuse such a pack); someone without a rotation gives their `thanks` good, someone the pack doesn't know its `thanks_default`. A visitor who does a request in another town gets the thanks its bridge picks the same way (`guests.ts` `thanksFor`, by the giver and the request). The goods and who gives them:
 
@@ -1273,6 +1273,83 @@ Half right pays 12 of what the village is shortest of (growing with the age like
 
 While their surprise is on (the pedlar all his day, the pilgrim until he's been shown the way, `Surprises.stranger`), the stranger stands and walks at the road on the map, day and night, at every detail (the 7 px figure, the 14 px one, the scene sprite), and their bubble follows them; a tap on him does what his bubble does. The pilgrim is on the stage himself for his run (intro, reactions, the finish: "Iščem pot na Sveto Goro. Mi lahko pomagate? · I'm looking for the way to Sveta Gora. Can you help me?"), a stranger who says vi, with his own lines and no friendship to grow. The pedlar's portrait heads his stall in the chest ("Dober dan! Suha roba iz Ribnice!").
 
+## A spot's cycle
+
+Some work of the landscape takes real days: Oglar Miha's charcoal pile in the woods (Jan: "it is always the same. It
+could be much more deep", after BR's film of one of the last charcoal burners, "Der Letzte seines Standes: Der Köhler").
+A spot of a culture pack may have a `cycle` (`world.json` `spots.<id>.cycle`; the app's `SpotCycles`, pure; the bridge's
+`spot-cycles.ts`): its work in stages over real days, as in life, the same for every village of the culture.
+
+- **The days.** Every year from the season's first day (`season.from`, "04-15") to its last (`until`, "10-31") one round
+  of its `stages` after another, the first `start` days in (rolled, [0, 14]), each stage as long as its `days` range
+  rolled for the round, a `pause` between rounds ([16, 32] days); a round only when it ends within the season. Between
+  rounds it rests (`rest`), outside the season it is winter (`winter`). Which day is what follows from the date alone:
+  the dice are an FNV-1a hash of the cycle's `seed` (else the spot's id), the year, the round and the stage
+  (`SpotCycles.hash`, `spot-cycles.ts hash`), never of the learner's visits: a learner away for a week comes back to the
+  pile as it is. The bridge and the app agree to the day (the fixture `bridge/test/fixtures/spot-cycle.json`, made with
+  `bun test/fixtures/spot-cycle-make.ts`, which `SpotCyclesTest` and the smoke test both check).
+- **What it looks like.** Each stage names how the app draws the spot (`art`: `empty`, `logs`, `stack`, `covered`,
+  `lit`, `smoke`, `cooling`, `opened`, `sacks`, `ash`; `smoke`: white, yellow, blue), how far along it is across the
+  stages of one art in a row (the stack grows, the air holes go lower day by day), on the map and over its keeper's talk
+  (SCENES.md, "The charcoal pile"). Its `title` is the keeper's bubble and the scroll's row while it lasts ("Kopa se kadi:
+  rumen dim"), its `about` the spot card's line.
+- **Its keeper.** He is there as often as the stage says (`chance`, `when`; else his own: Miha watches a smouldering
+  pile most evenings, comes by now and then between piles, seldom in winter), and his talk is the day's: his greeting
+  for the hour (`greet`; his `meeting` the first evening), what he did while the learner was away (the last two stages
+  over since their last evening, each's `done`, after `missed` when it has been five days or more), what last night
+  brought (a `nights` entry, the wind; a breakout he covered alone), the stage's talk (`talks`: a variant for the hour
+  and the weather, the next one each evening the learner comes) and the part of his own story that is due (VILLAGERS.md,
+  "The pile over the days"). Its reward is his own, once a day.
+- **The night watch.** A round may break out one night (`breakout`: in a share of rounds, a night of its stages); that
+  evening and night he is there and his talk is the call: its last line the learner's turn against the clock (25 s at
+  A1, 18 at A2; twice that with TalkBack). The right choice in time covers it with earth (`saved`, the chronicle's
+  `covered`); the clock run out, the pile burns down (`lost`, the chronicle's `burnt`): from that night to the round's
+  end the spot is its `lost` entry (ash) and its yield never comes. A wrong pick costs time, nothing else. What the
+  learner decided is kept (`GameState.cycles[spot]`: the rounds `lost`, `saved`; `SpotCycles.decide`), once.
+- **The delivery.** The stage that `delivers` takes the round's yield to its receiver (`delivery.to`, one of the cast:
+  Kovač Tone) on its first day. When he lives in the village (a smithy stands), the day's tick writes `delivery.line` in
+  the chronicle ("♨️ Oglar Miha je pripeljal oglje kovaču Tonetu"); for `delivery.days` (14) after, the receiver speaks of it on his card and first in his greeting (a
+  line of `says`, the day's; after a round lost, of `waits`: "Brez Mihovega oglja kurim z drvmi"), and the smith's forge
+  burns the charcoal: forging costs a quarter less 🪵 (`SpotCycles.CHARCOAL_SAVES`, the chest's forge row "♨️ Z oglarjevim
+  ogljem: −25 % 🪵"), once (`GameState.cycles[spot].used`). Nothing else changes: no resource, no wall.
+- **QA** sets the cycle's day: "kopa:<day>", "kopa:<stage>" (the stage's first day in the next round that has it, its second
+  when the first is the breakout night), "kopa:breakout" (the next breakout night; "breakout:2" the one after),
+  "kopa:delivery", "kopa:rest", "kopa:winter" (app/QaHooks); the keepers are there whatever their dice then. "show:kopa"
+  flies the village's camera to the pile, as a place of the scroll's "Kraji" does.
+
+A culture without a `cycle` keeps its pile as it always was (Friuli, Kärnten, the Lake District for now). The tutor sees
+where it is in `get_village`'s `spots` (the stage, the day of it, a breakout tonight, the last delivery).
+
+**Primorska's pile** (Trnovski gozd). There is no Slovene record of the stages' days from the Trnovo forest itself; they
+follow what Slovene oglarji did elsewhere, the same craft: Društvo oglarjev Slovenije ("Izdelava oglarske kope": lighting
+1–3 days, a medium pile 14 days to 3 weeks, cooling at least 2 days, taking it down a day; the smoke whitish, grey,
+reddish-yellow, bluish, clear; the dimnice 15–30 cm apart), Oglarska dežela Dole (wood air-dried to 20–25 %, logs about
+1.2 m, the whole cycle about 43 days), Jože Ilc's thesis on Kočevje (2011: the shaft, stržen, of three strženice, a cross
+of two slats at its foot "za božji blagoslov", the cover grasa then earth, the dimnice moved down from the head to the
+foot, a season from April to September, none in winter), Hotedršica (7–8 m³ smoulder 7–8 days; the charcoal of the
+Trnovo forest went to Idrija's mine by cart), Gozdarsko društvo Bled (wood felled autumn to spring, dried 2–3 months;
+only the smith decides the charcoal's quality) and BR's film (a 30 m³ pile stacked in 3 days, fed every 3 hours, opened at
+night when the glow shows):
+
+| Stage | Days | Art | What Miha does |
+|---|---|---|---|
+| `sekanje` | 2–3 | logs | saws the beech felled in winter, dry now, into logs a metre long; the learner carries them to the pole |
+| `zlaganje` | 2–3 | stack | stands the logs upright round the middle (kol), thick ones below, thin ones on top, two slats in a cross at its foot |
+| `pokrivanje` | 1–2 | covered | covers it with leaves, turf (ruša) and earth (zemlja) from the kopišče |
+| `prizig` | 1 | lit | pours embers (žerjavica) down the shaft in the middle (stržen): lit from the top, thick white smoke |
+| `bel-dim` | 4–6 | smoke, white | the pile sweats: white smoke, air holes high under the crown, fed at the top each evening |
+| `rumen-dim` | 4–6 | smoke, yellow | yellowish, sour smoke, the holes in the middle, lower each day; the pile settles |
+| `moder-dim` | 2–4 | smoke, blue | thin blue smoke, the holes at the foot; then he closes them |
+| `hlajenje` | 2–3 | cooling | all holes closed, more earth: two or three days cooling |
+| `razkopavanje` | 1–2 | opened | rakes it open, a bit at a time: black, light charcoal that rings like glass |
+| `vrece` | 1 | sacks | fills the sacks (about twenty a pile) |
+| `dostava` | 1 | empty | takes the charcoal to Kovač Tone by cart; the rest to Gorizia |
+
+A round takes 21–32 days, and between two piles Miha gets the next one's wood ready, sells charcoal and rests (16–32
+days; with them a pile's whole work is about the 43 days the sources give): three or four piles a season from mid-April
+to the end of October (the sources say April to September; a month of autumn more), none in winter.
+A breakout comes in about half the rounds, on a night of white or yellow smoke.
+
 ## Jutri · Tomorrow
 
 `Tomorrow.teasers` (pure): what's coming, so there's always something to come back for, the most telling first: a festival's countdown (5 days ahead), tomorrow's project step (after today's), the storyteller's story by the fire (tonight's until it's heard, "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: …", then tomorrow's, "Jutri: Janez pove, kako je Krpan srečal cesarja · Tomorrow: …"; SCENES.md, "Stories"), the pedlar's next day within a week ("Krošnjar pride v soboto · The pedlar comes on Saturday"), the next feast within a week (never a friend's gift: that comes as a surprise, see "The chest"), and, from Tabor, always tomorrow's surprise at the road. The HUD's "Danes in kmalu · Today and coming up" shows them all after today's lines, each without its day (`Teaser.what`, its card the first; tonight's story dotted until its sheet showed it), and Home's "Danes · Today" the first, under what's on in the village today.
@@ -1294,7 +1371,7 @@ lakeland pack").
 | File | What |
 |---|---|
 | `culture.json` | The manifest: `schema`, `id`, `language` (the pack's language: the target of the learners whose town it is), `status` (`complete`, or `stub`: only the manifest, not played), `region` and `name` (texts), `about`, `review` (who wrote the language and who checked it, and which translations a machine added: friuli's is "machine-written, not reviewed by a native speaker", primorska's names its German and Italian), `tutor` (in English, for the bridge: the village's name, the role-play `setting` with `{learner}` (any text of the pack may say the learner so, and agree with them `{m:…|f:…}`: [SCENES.md](SCENES.md#the-learner-in-the-content)), the `style` newcomers are written in, the `voice` a designed voice speaks with; Primorska's are what the bridge always said) |
-| `world.json` | What the culture calls each resource (`name`, and `partitive`: after "more", "več lesa · more wood"; `leader`: who goes gathering it with the learner), age, building and event, by the game's ids (`food`, `zaselek`, `kozolec`, `wolves`); the `host`, who welcomes the learner on the training stage before they've met anyone; `places`: the places its texts name, with what they are (for writers and the tutor; `GET /culture` serves them); `backdrop`: what lies at the village's horizon, a place to go (`emoji`, `name`, `where`, `about` for its place card; `sea`: the village's backdrop shows the sea along the horizon), see "Its own places" below; `spots`: its own texts for spots of the landscape, by spot (`kopa`, the charcoal pile in the woods): `name` and `where` (they win over the app's), `about` (the card's line), `story` by level (a few sentences of its history, A1 and A2 at least), the word `pack` of its words (`words`: which, else all), `review`, and a `keeper` who is there now and then (VILLAGERS.md, "At the charcoal pile"), with his meeting (`levels`) and the story he tells across visits (`talks`: a talk a day, each told again on later rounds as its `again`; "His story, visit by visit") |
+| `world.json` | What the culture calls each resource (`name`, and `partitive`: after "more", "več lesa · more wood"; `leader`: who goes gathering it with the learner), age, building and event, by the game's ids (`food`, `zaselek`, `kozolec`, `wolves`); the `host`, who welcomes the learner on the training stage before they've met anyone; `places`: the places its texts name, with what they are (for writers and the tutor; `GET /culture` serves them); `backdrop`: what lies at the village's horizon, a place to go (`emoji`, `name`, `where`, `about` for its place card; `sea`: the village's backdrop shows the sea along the horizon), see "Its own places" below; `spots`: its own texts for spots of the landscape, by spot (`kopa`, the charcoal pile in the woods): `name` and `where` (they win over the app's), `about` (the card's line), `story` by level (a few sentences of its history, A1 and A2 at least), the word `pack` of its words (`words`: which, else all), `review`, and a `keeper` who is there now and then (VILLAGERS.md, "At the charcoal pile"), with his meeting (`levels`) and the story he tells across visits (`talks`: a talk a day, each told again on later rounds as its `again`; "His story, visit by visit"), his own story a part at a time (`tales`, each after so many evenings with him), and the spot's work over real days (`cycle`: its season, stages, rest, winter, the night it breaks out, the nights, the delivery; "A spot's cycle") |
 | `quests.json` | `requests`: the local quest templates (`giver`: the villager's name, `emoji`, `skill`, `title`, `story`, `topics`, and `memory`: how the giver remembers the help, fitting their remember lines; without it the app makes one); `lines`: asking, expiring, thanks and try-again; `tent_move` (optional): the shepherd's request to move the tent to the pond (its `giver`, `emoji`, `skill`, `title`, `story`, `memory`, what he `said`, the run's `listen`, `read` and `heard` ({said}), the `questions` about it, each with its `ask`, `options`, the answer first, and `explain`, and the chronicle's line once it `moved`; see "The tent moves to the pond") |
 | `festivals.json` | `festivals`: `id`, `emoji`, `date` (`{"month", "day"}`, `{"easter": days}` or `{"month", "last": weekday}`), `leaders`, `name`, `ask`, `about`, `line`, `good` and `goods`, `words` (the word pack's id); `lines`: the run's prompts |
 | `surprises.json` | Each surprise's emoji, title, intro, ask and results, with its content: the pedlar's rare `goods`, the `letters` and their questions, the lamb's `shepherd` and `places`, the pilgrim's `ways`, the `riddles` and the `child` who asks; the `strangers` (the pedlar and the pilgrim, as villagers) |
@@ -1368,8 +1445,10 @@ A pack also tells about the landscape's spots in its own words (`world.json` `sp
 below the village is a place to tap, and its card has the culture's name for it, a few sentences of its history at the
 learner's level with every word to look up, and its words from a pack of `packs/` to learn; some evenings its charcoal
 burner sits by it, a person of the culture who doesn't live in the village, with a short talk, and the next time the
-next talk of the story he tells visit by visit (the spot's `keeper`, VILLAGERS.md "At the charcoal pile"). Both validators check them (`Cultures.kt`, `cultures.ts` `spotErrors`: every
-language, a story at A1 and A2, the words in their pack, the keeper's talk by an introduction's rules). An older bridge
+next talk of the story he tells visit by visit (the spot's `keeper`, VILLAGERS.md "At the charcoal pile"); Primorska's pile
+has its work over real days ("A spot's cycle"). Both validators check them (`Cultures.kt`, `cultures.ts` `spotErrors`: every
+language, a story at A1 and A2, the words in their pack, the keeper's talk by an introduction's rules; a cycle's season,
+its stages' days and arts, every talk and piece of it, the breakout's race last, the delivery to one of the cast). An older bridge
 refuses a `world.json` with `spots` when it starts (its check is strict, and only logs); an older app bundles its own
 packs, so it never sees them.
 

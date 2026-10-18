@@ -74,7 +74,8 @@ class KopaCulturesTest {
             assertTrue("${c.id}: ${file.path}", file.isFile)
             val pack = json.parseToJsonElement(file.readText()) as kotlinx.serialization.json.JsonObject
             val words = pack.getValue("words") as kotlinx.serialization.json.JsonArray
-            assertTrue("${c.id}: ${words.size} words", words.size in 8..14)
+            // Primorska's pile has its work over the days: its stages' words too
+            assertTrue("${c.id}: ${words.size} words", words.size in 8..if (c.id == "primorska") 24 else 14)
             for (w in words) {
                 val o = w as kotlinx.serialization.json.JsonObject
                 assertTrue("${c.id}/${o["id"]}: every language", langs.all { o[it] != null })
@@ -91,10 +92,12 @@ class KopaCulturesTest {
             val keeper = world.spots.getValue("kopa").keeper!!
             assertEquals(c.burner, keeper.name)
             assertEquals("burner", keeper.art)
-            // about every other evening, never by day
-            val days = (0 until 60).map { LocalDate.of(2026, 9, 1).plusDays(it.toLong()) }
+            // about every other evening, never by day; a pile with its cycle (Primorska's) more often while it smoulders, less
+            // between piles: summer evenings then
+            val cycle = world.spots.getValue("kopa").cycle != null
+            val days = (0 until 60).map { LocalDate.of(2026, if (cycle) 6 else 9, 1).plusDays(it.toLong()) }
             val evenings = days.count { Keepers.here(village, it.atTime(21, 0), world).isNotEmpty() }
-            assertTrue("${c.id}: $evenings of 60 evenings", evenings in 15..45)
+            assertTrue("${c.id}: $evenings of 60 evenings", evenings in 15..50)
             assertTrue(days.all { Keepers.here(village, it.atTime(10, 0), world).isEmpty() })
             val k = days.firstNotNullOf { Keepers.here(village, it.atTime(21, 0), world).firstOrNull() }
             for ((p, _) in c.names) for (level in listOf("A1", "A2")) playThrough(k, level, p, "${c.id} $level")

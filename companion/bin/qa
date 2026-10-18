@@ -50,7 +50,11 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
                        then one over the village (the chapel's first, else the maypole's third); "maypole-season"
                        the maypole on the map and on the square on 10 May (up) and 30 October (down; QA's hook
-                       "season:<day>"); "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
+                       "season:<day>"); "kopa" the charcoal pile over real days (QA's hooks "kopa:<stage>",
+                       "show:kopa", "hour:<h>"): each stage's pile on the map (the felled beech, the stack, the
+                       smoke white, yellow, blue, the sacks, between piles, the winter), Miha's talk at two stages
+                       with the pile over it, the night watch's breakout covered and missed (the ash after), Tone's
+                       card on a delivery's day; "trade" food for wood ("⇄ Zamenjaj · Trade"): the sheet, its run to the end,
                        the result, the HUD's stocks moved and the dev bridge's village keeping the day's trade;
                        "village-life" the village's day on the map (QA's hook "hour:<h>", which the map follows too):
                        zoomed in at 8, 11, 15 and 19 o'clock (the people at their chores and work about the village,
@@ -2760,6 +2764,257 @@ def maypole_season():
         qa_hook("season:")
     return None
 
+
+
+# The charcoal pile's stages (world.json spots.kopa.cycle), each with the title Miha's bubble and the scroll's row have then
+KOPA_STAGES = [
+    ("sekanje", "Oglar Miha pripravlja drva"), ("zlaganje", "Oglar Miha zlaga kopo"), ("pokrivanje", "Oglar Miha pokriva kopo"),
+    ("prizig", "Oglar Miha prižiga kopo"), ("bel-dim", "Kopa se kadi: bel dim"), ("rumen-dim", "Kopa se kadi: rumen dim"),
+    ("moder-dim", "Kopa se kadi: moder dim"), ("hlajenje", "Kopa se hladi"), ("razkopavanje", "Oglar Miha razkopava kopo"),
+    ("vrece", "Oglar Miha polni vreče"), ("dostava", "Oglar Miha pelje oglje h kovaču"), ("rest", "Oglar Miha pri svoji koči"),
+    ("winter", "Oglar Miha pri koči v snegu"),
+]
+KOPA_FIRE = "Kopa gori! Oglar Miha kliče na pomoč"
+KOPA_ASH = "Kopa je pogorela"
+# the breakout's right choice (A1, A2), Miha's line when it's saved, and when it burnt
+KOPA_COVER = {"Lopato in zemljo!", "Pokrijte luknjo z zemljo, jaz prinesem rušo!"}
+KOPA_BACK = "Nazaj v vas · Back to the village"
+KOPA_CLOCK = "🔥 Hitro!"  # the race's clock over its turn (KeeperScene's RaceClock), not his "Hitro!" in the talk
+
+
+KOPA_HOOK = [""]  # the cycle's day QA asked for last ("kopa:<what>"): asked again when the map doesn't show it yet
+
+
+def kopa_day(what: str):
+    """QA's hook "kopa:<what>": the cycle as on that day (app/QaHooks.kopaDay)."""
+    KOPA_HOOK[0] = f"kopa:{what}"
+    qa_hook(KOPA_HOOK[0])
+
+
+def kopa_look():
+    """The camera at the pile (QA's hook "show:kopa", as a place of the scroll flies it there), then a zoom more."""
+    qa_hook("show:kopa")
+    time.sleep(2)
+    qa_hook("zoom")
+    time.sleep(3.5)
+
+
+def kopa_open(title: str, show=False) -> bool:
+    """From the plain village, Miha's bubble over the pile (its label begins with the title he has today): with [show] the
+    camera close on the pile (QA's hook "show:kopa", as a place of the scroll flies it there, then a zoom more); else a tap on the
+    bubble, his talk. False when there's no such bubble (he isn't there now, or not with that title): looked for three
+    times, the day asked again in between (a map that hadn't caught up with it yet)."""
+    bubble = None
+    for i in range(3):
+        plain_village()
+        time.sleep(1.5)
+        bs = list(boxes())
+        bubble = next((b for t, b in bs if t.startswith(title)), None)
+        if bubble is not None:
+            break
+        print(f"    no bubble \"{title}\" yet: {[t for t, _ in bs if t.startswith(('Oglar Miha ', 'Kopa '))]}")
+        if KOPA_HOOK[0]:
+            qa_hook(KOPA_HOOK[0])
+        time.sleep(2)
+    if bubble is None:
+        return False
+    if show:
+        kopa_look()
+    else:
+        tap_at(((bubble[0] + bubble[2]) // 2, (bubble[1] + bubble[3]) // 2))
+        time.sleep(2.5)
+    return True
+
+
+def kopa_ok() -> set:
+    """The right choices of every talk of the pile (world.json spots.kopa: the cycle, the meeting, the tales), as the app
+    says them to Jan ({learner} Jan, a gender pair's first)."""
+    w = json.loads((ROOT / "companion/cultures/primorska/world.json").read_text())
+    out = set()
+    def walk(v):
+        if isinstance(v, dict):
+            if v.get("ok") is True and isinstance(v.get("sl"), str):
+                out.add(re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", v["sl"].replace("{learner}", "Jan")))
+            for x in v.values():
+                walk(x)
+        elif isinstance(v, list):
+            for x in v:
+                walk(x)
+    walk(w["spots"]["kopa"])
+    return out
+
+
+KOPA_GLOSS = ("Dodaj med moje besede", "Med tvojimi besedami", "Vprašaj učitelja")  # a word's sheet (a tap held too long)
+
+
+def kopa_gloss_closed(labels) -> bool:
+    """A word's sheet over the talk (a busy machine's tap on a choice came as a press held: the word's meaning) closed:
+    True when there was one."""
+    if not any(g in t for t in labels for g in KOPA_GLOSS):
+        return False
+    adb("shell", "input", "keyevent", "KEYCODE_BACK")
+    time.sleep(1.5)
+    return True
+
+
+def kopa_answer(ok: set, tried: set) -> bool:
+    """At the learner's turn: a choice on screen that is right in one of the pile's talks ([ok]) and not [tried] at this
+    turn yet (the same words can be right in another talk: "Spodaj, pri tleh." for the blue smoke's holes, not the
+    white's), tapped; False when none is left."""
+    ns = list(nodes())
+    if any("Izberi raje" in t for t, _ in ns):
+        tap("Izberi raje", 2)
+        ns = list(nodes())
+    pick = next(((o, c) for t, c in ns for o in sorted(ok, key=len, reverse=True)
+                 if o not in tried and (t == o or t.startswith(o + ",") or t.startswith(o + " "))), None)
+    if pick is None:
+        return False
+    tried.add(pick[0])
+    tap_at(pick[1])
+    return True
+
+
+def kopa_talk_to(said: str, tries=16) -> bool:
+    """Plays Miha's talk on (Next, the right choice at a turn) until [said] shows; False: it didn't."""
+    ok = kopa_ok()
+    tried: set = set()
+    for _ in range(tries):
+        if find(said) is not None:
+            return True
+        labels = [t for t, _ in nodes()]
+        if kopa_gloss_closed(labels):
+            continue
+        if any(t.startswith("Tvoj odgovor") or "Izberi raje" in t for t in labels):
+            if not kopa_answer(ok, tried):
+                return False
+            time.sleep(1.5)
+            continue
+        tried.clear()  # the turn is over
+        if not tap("Naprej · Next", 2):
+            time.sleep(1)
+    return find(said) is not None
+
+
+def kopa_to_race(tries=14):
+    """Plays a breakout night's talk on (his meeting first, if the learner hasn't met him: its turns answered right) until
+    the race's turn is up, its clock running ("🔥 Hitro! · Quick!"): the screen's nodes then (one dump: the clock runs),
+    else None."""
+    ok = kopa_ok() - KOPA_COVER
+    tried: set = set()
+    for _ in range(tries):
+        ns = list(nodes())
+        labels = [t for t, _ in ns]
+        if any(KOPA_CLOCK in t for t in labels):
+            return ns
+        if kopa_gloss_closed(labels):
+            continue
+        if any(t.startswith("Tvoj odgovor") or "Izberi raje" in t for t in labels):
+            kopa_answer(ok, tried)
+            time.sleep(1.5)
+            continue
+        tried.clear()
+        c = next((c for t, c in ns if t.startswith("Naprej · Next")), None)
+        if c is not None:
+            tap_at(c)
+        time.sleep(1.2)
+    return None
+
+
+def kopa_cover(ns) -> bool:
+    """At the race's turn ([ns] its nodes): the right choice, earth on the fire, tapped at once."""
+    c = next((c for t, c in ns for ok in KOPA_COVER if t == ok or t.startswith(ok + ",") or t.startswith(ok + " ")), None)
+    if c is None:
+        return False
+    tap_at(c)
+    return True
+
+
+def kopa():
+    """The charcoal pile over real days (GAME.md "A spot's cycle", VILLAGERS.md "The pile over the days"; QA's hooks
+    "kopa:<stage>", "show:kopa" and "hour:<h>", app/QaHooks): at 17:30 on the first day of each stage (its second when
+    the first is a breakout night), Miha's bubble with the stage's title, the camera at the pile, zoomed in: the pile as
+    that stage draws it (the felled beech, the stack, the turf, the smoke white, yellow, blue, the sacks …, between piles
+    and in the winter); his talk at two stages, the pile over it: his meeting at the stack, at the white smoke his
+    greeting and the day's talk (the dev bridge's village counting his evenings on the cycle's days); the night watch at
+    22:30 on a breakout night, covered in time (his thanks), and on the next breakout night missed (the clock runs out:
+    the pile burns, the map shows ash); Tone's card on the day of a delivery (Miha's charcoal). The cycle, the camera and
+    the hour by the clock again after ("kopa:", "show:", "hour:")."""
+    seen = []
+    try:
+        qa_hook("hour:17.5")  # his evening, still light in the woods (the night's look: KopaRenderTest)
+        for stage, title in KOPA_STAGES:
+            plain_village()  # the camera home first: a bubble's label asked for while zoomed in can lag behind its day
+            kopa_day(stage)
+            if not kopa_open(title, show=True):
+                seen.append(f"{stage}: no bubble")
+                continue
+            shot(f"kopa-{stage}-map")
+            seen.append(stage)
+        print(f"    the pile at: {', '.join(seen)}")
+        assert sum(1 for x in seen if ":" not in x) >= 10, f"Miha's stages on the map: {seen}"
+        # his talk at two stages, the pile over it
+        for stage, title in (("zlaganje", "Oglar Miha zlaga kopo"), ("bel-dim", "Kopa se kadi: bel dim")):
+            plain_village()
+            kopa_day(stage)
+            assert kopa_open(title), f"Miha's talk ({stage})"
+            assert wait_for("Oglar Miha", 8), f"his talk opens ({stage})"
+            time.sleep(2.5)
+            shot(f"kopa-{stage}-talk")
+            assert kopa_talk_to(KOPA_BACK), f"his talk to its end ({stage})"
+            shot(f"kopa-{stage}-talk-end")
+            tap(KOPA_BACK, 3)
+            time.sleep(2)  # the village sent to the dev bridge: his evenings counted on the cycle's day
+            told = ((api("/game").get("state") or {}).get("keepers") or {}).get("spot:kopa/oglar")
+            print(f"    after the talk ({stage}): {told}")
+        # the night watch: a breakout covered in time
+        qa_hook("hour:22.5")
+        kopa_day("breakout")
+        assert kopa_open(KOPA_FIRE), "the breakout's bubble"
+        assert wait_for("Oglar Miha", 8), "the breakout's talk"
+        race = kopa_to_race()
+        assert race is not None, "the race's turn, its clock up (🔥 Hitro! · Quick!)"
+        shot("kopa-breakout-race")
+        assert kopa_cover(race), "the right choice: earth on the fire"
+        assert kopa_talk_to("Uf.", 6), "saved: his thanks"
+        shot("kopa-breakout-covered")
+        kopa_talk_to(KOPA_BACK, 6)
+        tap(KOPA_BACK, 3)
+        # … and on the next breakout night missed: the clock runs out, the pile burns
+        kopa_day("breakout:2")
+        assert kopa_open(KOPA_FIRE), "the next breakout's bubble"
+        assert wait_for("Oglar Miha", 8), "the next breakout's talk"
+        assert kopa_to_race() is not None, "the next race's turn"
+        time.sleep(27)  # longer than its clock (25 s at A1, 18 at A2)
+        assert kopa_talk_to("Prepozno", 4), "too late: the pile burns"
+        shot("kopa-breakout-missed")
+        kopa_talk_to(KOPA_BACK, 6)
+        tap(KOPA_BACK, 3)
+        # the ash on the map (his bubble gone: the night's talk is over)
+        plain_village()
+        kopa_look()
+        shot("kopa-ash-map")
+        # Tone on the day of a delivery: Miha's charcoal on his card
+        qa_hook("hour:11")
+        kopa_day("delivery")
+        plain_village()
+        open_scroll()
+        scroll_card("Prebivalci · Villagers: ")
+        assert tap("Vsi prebivalci", 5), "link to the register"
+        assert wait_for("Prebivalci · Villagers", 8), "register"
+        tone = scroll_to("Pogovori se · Talk: Kovač Tone", swipes=14)  # the register's twenty or so: scrolled to him
+        if tone is None:
+            return "Tone doesn't live in this village (no smithy yet): the pile's stages, talks and night watch done"
+        tap_at(tone)
+        assert wait_for("Več · More", 5), "Tone's card"
+        if not wait_for("Miha", 4):  # a request of his on the card instead of his line: his greeting says it
+            tap("Pogovori se · Talk", 3)
+        assert wait_for("Miha", 8), "Tone speaks of Miha's charcoal"
+        shot("kopa-delivery-tone")
+    finally:
+        kopa_day("")
+        qa_hook("show:")
+        qa_hook("hour:")
+    return None
 
 def village_life():
     """The village's day on the map (VILLAGERS.md "A day in the village"; QA's hook "hour:<h>": the map at that hour of
@@ -5659,6 +5914,7 @@ def plan():
         ("trade", trade, v, False, ""),
         ("chest", chest, v, False, ""),
         ("maypole-season", maypole_season, v, False, ""),
+        ("kopa", kopa, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),

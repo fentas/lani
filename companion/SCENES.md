@@ -1506,6 +1506,20 @@ pile, facing it, with a bubble while his talk isn't done today; a tap on him, hi
 Here now" plays his talk over the village (`KeeperScene`, as an introduction is: his portrait on the woods at the hour it
 is, the dialog as a scene's), and it pays like a happening's, once a day.
 
+A pile with its work over real days (the spot's `cycle`, GAME.md "A spot's cycle": Primorska's) is drawn as its stage is
+today (`Woods.charcoalPile` with the day's `SpotLook`, `Frame.kopa`, from `SpotCycles.look`; snapshots in
+`KopaRenderTest`): the bare kopišče, black with old charcoal dust (between piles; snowed over in winter); felled beech in
+rows beside the pole (`logs`); the logs stood upright round it, the dome growing day by day (`stack`); the turf over them
+from the foot up, then the earth (`covered`); embers glowing at the open top and a thick white plume (`lit`); the earth
+dome settling and charring in black patches, a ring of air holes that goes lower day by day, glowing at night, and its
+smoke white, then yellow, then blue and thin (`smoke`, the stage's `smoke`); low and dark, a last wisp (`cooling`); raked
+open, a black heap glinting blue-grey, the earth pushed to the rim, the rake leaning (`opened`); a row of sacks, more each
+day, the heap going (`sacks`); a grey heap of ash and charred logs where it burnt down (`ash`). Its card's line is the
+day's (the stage's `about`: "Dim je moder in tanek: oglje je skoraj gotovo"). His talk shows the pile itself over the
+dialog instead of the woods behind him (`PilePicture`: the village's own picture round the pile at its finest detail, at
+the hour it is, him sitting by it, the smoke drifting; his portrait at its left, the stage's line in its corner), so a
+turn that asks the smoke's colour has it in view. A short canvas, without the pile, keeps the woods.
+
 Two scenes open from spots of the landscape. The way to the stream is a footpath of stepping stones from the village
 down to a little landing at the water on the village's bank, inside the palisade, which keeps to the stream's far bank
 (a ring that runs by the stream on the village's side instead opens in a river gate, a postern, for it: the campfire's

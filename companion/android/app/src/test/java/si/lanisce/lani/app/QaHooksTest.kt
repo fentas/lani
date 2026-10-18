@@ -73,6 +73,34 @@ class QaHooksTest {
         assertNull(si.lanisce.lani.game.ProjectSeasons.qaDay)
     }
 
+    @Test fun `the charcoal pile's cycle as on QA's day, a stage's own day, its breakout night, the rest and the winter`() {
+        val world = si.lanisce.lani.game.culture.Cultures.load("primorska").world
+        val c = world.spots.getValue("kopa").cycle!!
+        val today = java.time.LocalDate.of(2026, 10, 17)
+        val on = { d: java.time.LocalDate? -> si.lanisce.lani.game.scene.SpotCycles.on(c, "kopa", d!!) }
+        assertEquals(java.time.LocalDate.of(2027, 5, 10), QaHooks.kopaDay("05-10", today, world))
+        assertEquals(java.time.LocalDate.of(2027, 5, 10), QaHooks.kopaDay("2027-05-10", today, world))
+        // every stage of the next round that has it, on an ordinary day of it (not its breakout night)
+        for (stage in c.stages) {
+            val d = QaHooks.kopaDay(stage.id, today, world)
+            val day = on(d)
+            assertEquals(stage.id, day.id)
+            assertTrue("${stage.id}: from today on", !d!!.isBefore(today))
+            assertTrue("${stage.id}: not the breakout night", day.round?.breakout != d)
+            assertTrue("${stage.id}: its first day, or its second after the breakout night", day.day == 0 || day.day == 1 && day.round?.breakout == d.minusDays(1))
+        }
+        val night = QaHooks.kopaDay("breakout", today, world)!!
+        assertEquals(night, on(night).round?.breakout)
+        val next = QaHooks.kopaDay("breakout:2", today, world)!!
+        assertTrue(next.isAfter(night))
+        assertEquals(next, on(next).round?.breakout)
+        assertTrue(on(QaHooks.kopaDay("delivery", today, world)).span!!.stage.delivers)
+        assertEquals("rest", on(QaHooks.kopaDay("rest", today, world)).id)
+        assertEquals("winter", on(QaHooks.kopaDay("winter", today, world)).id)
+        assertNull(QaHooks.kopaDay("", today, world))
+        assertNull(QaHooks.kopaDay("no-such-stage", today, world))
+    }
+
     @Test fun `a project's step readied, the sheet at its project, until let go`() {
         val asked = ArrayList<Pair<String, Int>>()
         QaHooks.handle("step:mlaj/2", step = { p, n -> asked += p to n })
@@ -234,5 +262,18 @@ class QaHooksTest {
         assertEquals(before + 1, QaHooks.zooms)
         assertNull(QaHooks.happening)
         assertTrue(QaHooks.withForced(listOf(fire), emptyList(), key).isEmpty())
+    }
+
+    @Test fun `the camera asked to a spot, again each time it is asked, let go, and a release build hears nothing`() {
+        QaHooks.handle("show:kopa")
+        val first = QaHooks.show!!
+        assertEquals("kopa", first.first)
+        QaHooks.handle("show:kopa")
+        assertEquals("kopa" to first.second + 1, QaHooks.show)
+        QaHooks.handle("show:")
+        assertNull(QaHooks.show)
+        QaHooks.enabled = false
+        QaHooks.handle("show:pond")
+        assertNull(QaHooks.show)
     }
 }

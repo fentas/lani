@@ -310,6 +310,12 @@ for (const [kind, list] of byKind) {
   const gone = (c: string, f: string) => (dir: string) => (rmSync(join(dir, 'cultures', c, f)), { files: {}, remove: [join('cultures', c, f)] })
   variants.push({ culture: 'primorska', name: 'gone:world', change: gone('primorska', 'world.json') })
   variants.push({ culture: 'primorska', name: 'ref:festival-leader', change: edit('primorska', 'festivals.json', v => ((v.festivals[0].leaders = ['nobody']), v)) })
+  // the charcoal pile's cycle (world.json spots.kopa.cycle, GAME.md "A spot's cycle"): an art the app can't draw, a breakout
+  // in a stage the cycle hasn't, its race without the learner's turn last, a delivery to someone not of the cast
+  variants.push({ culture: 'primorska', name: 'cycle:art', change: edit('primorska', 'world.json', v => ((v.spots.kopa.cycle.stages[0].art = 'volcano'), v)) })
+  variants.push({ culture: 'primorska', name: 'cycle:breakout-stage', change: edit('primorska', 'world.json', v => ((v.spots.kopa.cycle.breakout.stages = ['nowhere']), v)) })
+  variants.push({ culture: 'primorska', name: 'cycle:race', change: edit('primorska', 'world.json', v => (v.spots.kopa.cycle.breakout.levels.A1.lines.pop(), v)) })
+  variants.push({ culture: 'primorska', name: 'cycle:delivery', change: edit('primorska', 'world.json', v => ((v.spots.kopa.cycle.delivery.to = 'nobody'), v)) })
   variants.push({ culture: 'primorska', name: 'ref:thanks-good', change: edit('primorska', 'chest.json', v => ((v.thanks_default = 'no-good'), v)) })
   variants.push({ culture: 'primorska', name: 'placeholder:quests', change: edit('primorska', 'quests.json', v => { const p = firstText(v)!; setAt(v, p, `${getAt(v, p)} {learner:xyz}`); return v }) })
   const scene = jsonFiles(join(culturesDir, 'primorska', 'scenes'))[0]
