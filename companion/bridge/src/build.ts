@@ -60,7 +60,8 @@ import { channelRules, INSTRUCTIONS_LIMIT, learnerFacts, learnerInstructions, le
 import { Lexicon } from './lexicon'
 import { Outbox } from './outbox'
 import { PackStore, packsDirs } from './packs'
-import { Devices, loadBridgeKey } from './pairing'
+import { Devices, loadBridgeKey, loadTownKey } from './pairing'
+import { guardRoutes, guardTools, LeaseGuard, selfParty } from './lease'
 import { ReadingStore } from './readings'
 import { relayFromEnv } from './relay'
 import { Prints } from './prints'
@@ -210,6 +211,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   const villageProjects = cultureProjects(culturesDir, culture.id)
   const lexiconDir = env.LANI_LEXICON_DIR || join(projectDir, 'companion/lexicon')
   const bridgeKey = loadBridgeKey(appDir)
+  // the town's own key (app/town-key.pem), else the bridge's: what towns, friends and the relay know the town by
+  const townKey = loadTownKey(appDir)
 
   const ctx: Ctx & { channel: C } = {
     cfg,
@@ -217,8 +220,11 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     profile,
     devices,
     bridgeKey,
-    // towns and the family page through the relay (companion/relay): only with LANI_RELAY_URL set
-    relay: relayFromEnv(env, bridgeKey, log),
+    townKey,
+    // who writes the learner's data (lease.ts): the node, or the phone with LANI_SIDE=phone; without a lease file, both
+    lease: new LeaseGuard(dataDir, selfParty(env), env),
+    // towns and the family page through the relay (companion/relay): only with LANI_RELAY_URL set; it speaks as the town
+    relay: relayFromEnv(env, townKey, log),
     // The home language's databases, and another language's (visits) in languages/<code>/ (docs/DB_SCRIPTS.md).
     learner: new Learner(projectDir, dataDir, language),
     addressee: () => addresseeOf(dataDir, language),
@@ -300,7 +306,7 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
   // What comes through the relay is answered by the features' own routes, as if it came over HTTP, but only ever as
   // another town (its signed requests) or the family page (its token): never with the app's role.
   if (ctx.relay) {
-    ctx.relay.attach(router(addressed(features.flatMap(f => f.routes ?? []), ctx.addressee), req => (ctx.family.authorized(req) ? 'family' : null), log))
+    ctx.relay.attach(router(guardRoutes(addressed(features.flatMap(f => f.routes ?? []), ctx.addressee), ctx.lease), req => (ctx.family.authorized(req) ? 'family' : null), log))
     ctx.relay.provideFamily(() => (familyOnRelay(env) ? ctx.family.tokenSha256 : null))
   }
 
@@ -323,7 +329,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     inputSchema: { type: 'object', properties: {} },
     handle: () => ok(guide()),
   }
-  const tools = [guideTool, ...features.flatMap(f => f.tools ?? [])]
+  // The tutor's writing tools fail while another side holds the learner's data (the lease: lease.ts).
+  const tools = guardTools([guideTool, ...features.flatMap(f => f.tools ?? [])], ctx.lease)
   return { cfg, ctx, profile, isApp, named, features, guide, rulesNow, rules, guideTool, tools, place }
 }
 
@@ -335,7 +342,8 @@ export function appApi(b: Pick<BuiltBridge, 'ctx' | 'isApp' | 'features'>): { ro
   const { ctx, isApp, features } = b
   const health: Route = { method: '*', path: '/health', access: 'public', handle: () => json({ ok: true }) }
   const roleOf = (req: Request): Role => (isApp(req) || ctx.devices.authorize(req) ? 'app' : ctx.family.authorized(req) ? 'family' : null)
-  const routes = addressed([health, ...features.flatMap(f => f.routes ?? [])], ctx.addressee)
+  // the app's writes are refused (423) while another side holds the learner's data (the lease: lease.ts)
+  const routes = guardRoutes(addressed([health, ...features.flatMap(f => f.routes ?? [])], ctx.addressee), ctx.lease)
   return { routes, roleOf }
 }
 

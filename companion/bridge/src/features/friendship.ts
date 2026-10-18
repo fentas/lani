@@ -58,7 +58,7 @@ data.language: theirs): a bilingual neighbour who speaks their language with the
 them lines, give them lines in their language with the learner's base translation, at the learner's level in it.
 `.trim()
 
-export const friendship: FeatureFactory = ({ cfg, bridgeKey, profile, game, culture, events, log }) => {
+export const friendship: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, culture, events, log }) => {
   const store = new Towns(cfg.appDir, log)
   const nonces = new Nonces()
   const friends = friendsOf(cfg.appDir, bridgeKey)

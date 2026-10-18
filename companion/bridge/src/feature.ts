@@ -15,6 +15,7 @@ import type { GameStore } from './game'
 import type { GrammarStore } from './grammar'
 import type { Route } from './http'
 import type { Learner } from './learner'
+import type { LeaseGuard } from './lease'
 import type { Profile } from './learners'
 import type { Lexicon } from './lexicon'
 import type { Outbox } from './outbox'
@@ -50,6 +51,10 @@ export type Ctx = {
   devices: Devices
   /** The bridge's own key: its fingerprint is in the pairing QR code. */
   bridgeKey: BridgeKey
+  /** The town's key (pairing.ts loadTownKey): app/town-key.pem, else the bridge's key. Its fingerprint is the town's id. */
+  townKey: BridgeKey
+  /** Who writes the learner's data (lease.ts): the app's writes and the tutor's writing tools are refused while it isn't this side's. */
+  lease: LeaseGuard
   learner: Learner
   /**
    * Who the content speaks to (addressee.ts): the learner profile's name, its cases and their gender, read again when the

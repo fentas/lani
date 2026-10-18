@@ -82,9 +82,25 @@ export function loadBridgeKey(appDir: string): BridgeKey {
       unlinkSync(tmp)
     }
   }
-  const privateKey = createPrivateKey(readFileSync(path, 'utf8'))
+  return keyFromPem(readFileSync(path, 'utf8'))
+}
+
+/** A key pair from its private key's PEM (PKCS#8, as Node writes it). */
+export function keyFromPem(pem: string): BridgeKey {
+  const privateKey = createPrivateKey(pem)
   const spki = createPublicKey(privateKey).export({ type: 'spki', format: 'der' }) as Buffer
   return { privateKey, spki, fingerprint: fingerprintOf(spki) }
+}
+
+/**
+ * The town's key: <appDir>/town-key.pem when there is one, else the bridge's key (bridge-key.pem), as every town had
+ * before (docs/plans/05-built/git-sync.md). Its fingerprint is the town's id among its friends. The town has its own key
+ * once it moved: a phone that took the data over keeps the town's key as town-key.pem, and so does a node the phone
+ * hands the town to, whose bridge key (its pairing identity) is its own.
+ */
+export function loadTownKey(appDir: string): BridgeKey {
+  const path = join(appDir, 'town-key.pem')
+  return existsSync(path) ? keyFromPem(readFileSync(path, 'utf8')) : loadBridgeKey(appDir)
 }
 
 /**

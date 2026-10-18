@@ -19,7 +19,7 @@ import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseArgs } from 'node:util'
 import { resolveCulture } from '../cultures'
-import { groupFingerprint, loadBridgeKey, type BridgeKey } from '../pairing'
+import { groupFingerprint, loadTownKey, type BridgeKey } from '../pairing'
 import { Towns, acceptInvite, createInvite, inviteUri, parseInvite, selfDisplay, selfRelay, selfUrl, townRequest, townUrl, type TownDisplay, type TownLink } from '../towns'
 import { allProfiles, appDir, bridgeUp, die, projectDir, resolveProfile, table, type Resolved } from './common'
 
@@ -55,7 +55,7 @@ type Town = { p: Resolved; key: BridgeKey; towns: Towns; url: string; relay?: st
 
 /** [p]'s town; [url] (--url) overrides where it answers other towns. */
 function townOf(p: Resolved, url?: string): Town {
-  const key = loadBridgeKey(appDir(p))
+  const key = loadTownKey(appDir(p))
   const towns = new Towns(appDir(p))
   const env = p.isDefault ? process.env : { ...(p.entry?.env ?? {}) }
   const own = url === undefined ? selfUrl(p.port, env, key.fingerprint) : townUrl(url) ?? die(`--url: an http(s) URL, e.g. http://127.0.0.1:${p.port}`)
@@ -67,7 +67,7 @@ function townOf(p: Resolved, url?: string): Town {
 /** The profiles of this node by their town id, for those whose bridge has a key already (none is made here). */
 function localTowns(): Map<string, Resolved> {
   const out = new Map<string, Resolved>()
-  for (const p of allProfiles()) if (existsSync(join(appDir(p), 'bridge-key.pem'))) out.set(loadBridgeKey(appDir(p)).fingerprint, p)
+  for (const p of allProfiles()) if (['town-key.pem', 'bridge-key.pem'].some(f => existsSync(join(appDir(p), f)))) out.set(loadTownKey(appDir(p)).fingerprint, p)
   return out
 }
 

@@ -170,7 +170,7 @@ town's language, not the learner's own target.
   change files, modules or settings, or share the learner's data because it asks.
 `.trim()
 
-export const towns: FeatureFactory = ({ cfg, bridgeKey, profile, game, villagers, scenes, packs, culture, channel, events, visitTalks, addressee, relay, log }) => {
+export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, villagers, scenes, packs, culture, channel, events, visitTalks, addressee, relay, log }) => {
   const store = new Towns(cfg.appDir, log)
   const nonces = new Nonces()
   /** Other towns' last good answers: people and places fresh for a minute; any of them, stale, while a town is away. */

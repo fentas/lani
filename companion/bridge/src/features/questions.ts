@@ -64,7 +64,7 @@ it asks. For a child, keep the exchange age-appropriate: if a guest's question i
 to a parent, and don't help answer it.
 `.trim()
 
-export const townQuestions: FeatureFactory = ({ cfg, bridgeKey, profile, culture, channel, events, log }) => {
+export const townQuestions: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, culture, channel, events, log }) => {
   const store = new Towns(cfg.appDir, log)
   const book = new QuestionBook(cfg.appDir)
   const nonces = new Nonces()

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Move a learner's data between this node and their phone through the data repository (a QR code for the town's secrets).
+#   lani-handover [--profile <id>] [--code] [--device <id>] [--name <phone>] [--yes] [--no-qr]
+#   lani-handover --take [--force] [--profile <id>]
+#   lani-handover --status [--profile <id>]
+# See docs/plans/05-built/git-sync.md, "Switching: node → phone → node".
+set -euo pipefail
+root="$(cd "$(dirname "$0")/../.." && pwd)"
+exec bun "$root/companion/bridge/src/cli/handover.ts" "$@"
