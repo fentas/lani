@@ -54,6 +54,8 @@ class ShadowTutor(
     private val logLine: (String) -> Unit = {},
     private val sleep: suspend (Long) -> Unit = { delay(it) },
     private val io: CoroutineDispatcher = Dispatchers.IO.limitedParallelism(1),
+    /** A chat's photo on the phone by its id (ChatPhotoStore), or null: the turn sends it as an image block ([ShadowImages]). */
+    private val photo: (String) -> File? = { null },
 ) {
     private val specs = PhaseA.load(read)
     private val guide = Guide(read)
@@ -249,7 +251,7 @@ class ShadowTutor(
     fun onDelivered(clientId: String, path: String, body: String) = scope.launch(io) {
         if (!s.enabled) return@launch
         val e = ShadowEvents.of("ev_$clientId".take(40), path, body, now(), s.reactAtOnce) ?: return@launch
-        add(e)
+        add(e.image?.let { i -> e.copy(image = i.copy(bytes = photo(i.id)?.length() ?: 0)) } ?: e)
     }
 
     /** A role-play's turn sent straight to the node (past the outbox): recorded, not run (phase B). */
@@ -501,7 +503,15 @@ class ShadowTutor(
         } else if (stateless) {
             // a call of its own: its level is its top-level effort
             top = want
-            messages = (store.turnMessages(t.id) ?: listOf(userText(TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)), TurnText.now(now(), zone(), where()), content(t, events)))).toMutableList()
+            messages = (
+                store.turnMessages(t.id) ?: listOf(
+                    buildJsonObject {
+                        put("role", "user")
+                        val texts = listOf(TurnText.notebook(nb), TurnText.lines("Today so far:", th?.takeIf { it.day == dayNow() }?.lines.orEmpty().takeLast(15)), TurnText.now(now(), zone(), where()))
+                        put("content", JsonArray(texts.filter { it.isNotEmpty() }.map(::textBlock) + imageBlocks(t, events) + textBlock(content(t, events))))
+                    },
+                )
+                ).toMutableList()
             save = { m -> store.saveTurnMessages(t.id, m) }
             save(messages)
         } else {
@@ -522,6 +532,7 @@ class ShadowTutor(
                     if (fresh) TurnText.lines("Yesterday in brief:", cur.yesterday.takeLast(12)).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
                     TurnText.lines("Meanwhile (other models' replies, not in this thread):", cur.pending).takeIf { it.isNotEmpty() }?.let { add(textBlock(it)) }
                     add(textBlock(TurnText.now(now(), zone(), where())))
+                    addAll(imageBlocks(t, events))
                     add(textBlock(content(t, events)))
                 }
                 cur = cur.copy(messages = Effort.append(cur.messages, blocks, cur.topEffort, onThread(cur, want)), pending = emptyList())
@@ -557,7 +568,7 @@ class ShadowTutor(
             maxTokens = t.task.maxTokensAt(level),
             onCall = { c ->
                 // the thread's first call: no answer in it yet (onCall comes before the answer is added)
-                val call = callRecord(t, c, threadKind, firstOfThread = messages.none { it.role() == "assistant" }, effort = level, byMessage = byMessage)
+                val call = callRecord(t, c, threadKind, firstOfThread = messages.none { it.role() == "assistant" }, effort = level, byMessage = byMessage, images = ShadowImages.count(messages))
                 if (c.result != null) {
                     t = t.copy(callIds = t.callIds + call.id)
                     if (threadKind == "day" || threadKind == "closing") th = th?.copy(tokens = call.usage.prompt)?.also { store.saveThread(it); thread = it }
@@ -592,7 +603,12 @@ class ShadowTutor(
     /** What the turn is about: one event, or the digest's events. */
     private fun content(t: TurnRecord, events: List<ShadowEvent>): String =
         if (t.eventKind == "digest") TurnText.digest(events, t.why.orEmpty(), zone())
-        else events.firstOrNull()?.let { TurnText.event(it, zone()) } ?: "(the event is gone)"
+        else events.firstOrNull()?.let { TurnText.event(it, zone(), imageSent = it.image?.let { i -> photo(i.id) } != null) } ?: "(the event is gone)"
+
+    /** The photo of the turn's chat, as an image block before its text ([ShadowImages]); none for a digest or a photo gone. */
+    private fun imageBlocks(t: TurnRecord, events: List<ShadowEvent>): List<JsonObject> =
+        if (t.eventKind == "digest") emptyList()
+        else events.take(1).mapNotNull { e -> e.image?.let { i -> photo(i.id)?.let { f -> runCatching { ShadowImages.block(f) }.getOrNull() } } }
 
     /**
      * The level a turn at [want] sets on thread [th] by an effort message, or null (the thread's level in effect holds)
@@ -631,7 +647,7 @@ class ShadowTutor(
      * The call's record; a call that answered keeps its usage as the API sent it when it is its thread's first or the
      * day's 20th, 40th … ([UsageSample]), while the developer setting is on.
      */
-    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false, effort: String? = t.effort, byMessage: Boolean = false): CallRecord {
+    private fun callRecord(t: TurnRecord, c: CallOutcome, thread: String, firstOfThread: Boolean = false, effort: String? = t.effort, byMessage: Boolean = false, images: Int = 0): CallRecord {
         val r = c.result
         val usage = r?.message?.usage ?: Usage()
         val n = log(dayNow()).calls.count { it.error == null } + 1
@@ -655,6 +671,7 @@ class ShadowTutor(
             inputTransformations = r?.message?.inputTransformations?.take(2000),
             cacheReport = r?.message?.rawUsage?.cacheReport,
             usageRaw = raw,
+            images = images,
         )
     }
 
@@ -764,15 +781,17 @@ class ShadowTutor(
      * Everything the shadow kept, as JSON (`lani.shadow-export/v0`: the share sheet's file and the node's copy, app/DevUpload):
      * the events, turns, replies, tool calls, calls (with the raw usage kept) and numbers of every day, the notebook and
      * its versions, the thread, the queue, the settings. No key, no token: none is ever kept with them, and every text is
-     * cleaned of the key, the paired node's token, [secrets] and anything shaped like one ([Redact.json]). [maxBytes]:
-     * the oldest days are left out until it fits (their days in `days_left_out`).
+     * cleaned of the key, the paired node's token, [secrets] and anything shaped like one ([Redact.json]). No photo
+     * either: a chat's photo the thread carried is a note of its size ([ShadowImages.omit]). [maxBytes]: the oldest days
+     * are left out until it fits (their days in `days_left_out`).
      */
     suspend fun exportText(app: String, secrets: List<String> = emptyList(), maxBytes: Int? = null): String {
         val known = listOfNotNull(vault.load(), bridgeConfig()?.token) + secrets
         return withContext(io) {
             var days = store.days()
             var left = emptyList<String>()
-            fun render() = Redact.json(exportJson(app, days.map { log(it) }, left), known).toString()
+            // a chat's photo sent to the API stays out: a note of its size in its place (ShadowImages.omit)
+            fun render() = Redact.json(ShadowImages.omit(exportJson(app, days.map { log(it) }, left)), known).toString()
             var text = render()
             while (maxBytes != null && days.isNotEmpty() && text.toByteArray().size > maxBytes) {
                 left = left + days.first()

@@ -59,6 +59,16 @@ class Bridge(private val config: BridgeConfig) {
     /** A raw write for the outbox: the status code and body, throwing only when the node is unreachable. */
     suspend fun send(method: String, path: String, body: String): Pair<Int, String> =
         exchange(request(path).method(method, body.toRequestBody(Http.jsonType)).build())
+
+    /** A file for the outbox ([OutboxUpload]: a chat photo): `PUT` [bytes] as [type] to [path]; the status code and body. */
+    suspend fun put(path: String, bytes: ByteArray, type: String): Pair<Int, String> =
+        exchange(request(path).put(bytes.toRequestBody(type.toMediaType())).build())
+
+    /**
+     * A chat photo from the node (GET /chat/images/<id>) into [to]: for a message whose photo the phone hasn't (another
+     * phone, the app's files cleared). An [IOException] when the node hasn't it (404) or can't be reached.
+     */
+    suspend fun chatImage(id: String, to: File) = http.downloadTo(request("/chat/images/$id").build(), to)
     suspend fun modules(): List<ModuleInfo> = json.decodeFromString(get("/modules"))
     suspend fun module(id: String): Module = parseModule(get("/modules/$id"))
     suspend fun packs(): List<PackInfo> = parsePacks(get("/packs"))

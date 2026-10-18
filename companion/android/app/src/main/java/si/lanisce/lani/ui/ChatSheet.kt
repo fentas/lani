@@ -4,8 +4,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -82,6 +86,8 @@ import kotlinx.coroutines.launch
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.ChatArchive
 import si.lanisce.lani.app.ChatMessage
+import si.lanisce.lani.data.ChatPhoto
+import si.lanisce.lani.data.PhotoPrep
 import si.lanisce.lani.l10n.Dates
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
@@ -97,7 +103,9 @@ import java.time.ZoneId
  * ([SwipeRow]; a tip under the tutor's latest message says so, once). "🔖" lists the bookmarks, and a tap on one (or on a
  * reply's quote) goes to the message, opening the archive to it. "📋" opens the cheat sheet; a long press on a tutor
  * message with a table or a list pins it there ("📌 Na plonk listek", [pinAction]). A long press also copies a message
- * ("📄 Kopiraj · Copy") or shares it ("↗️ Deli · Share"), as plain text ([plainOf]).
+ * ("📄 Kopiraj · Copy") or shares it ("↗️ Deli · Share"), as plain text ([plainOf]). "📷" by the input takes a photo or
+ * picks one ([PhotoButton]): it goes with the next message, shows in its bubble, opens full screen, and a long press can
+ * delete it ("🗑️ Izbriši fotografijo", phone and node).
  */
 @Composable
 fun ChatSheet(vm: AppViewModel) {
@@ -125,6 +133,17 @@ fun ChatSheet(vm: AppViewModel) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val prefs = vm.chatPrefs
+    // photos (README "Tutor chat", "Photos"): the gallery's picker, the camera, the one full screen, the one to delete
+    var camera by remember { mutableStateOf(false) }
+    var viewing by remember { mutableStateOf<ChatMessage?>(null) }
+    var deleting by remember { mutableStateOf<ChatMessage?>(null) }
+    val loadPhoto: suspend (ChatPhoto, Int) -> Bitmap? = chat::photoImage
+    val pick = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) chat.attachPhoto { context.contentResolver.openInputStream(uri)?.use { PhotoPrep.read(it) } }
+    }
+    // a bridge from before photos says so (GET /state's features): no 📷 then; one not heard from yet gets it (the outbox
+    // sends the text alone to an older node, with a line for the tutor)
+    val photosOn = chat.photos != null && vm.content.dashboard?.features?.contains(PHOTO_FEATURE) != false
     // the swipe's tip: under the tutor's latest message, until it was shown
     val tipFor by remember {
         derivedStateOf {
@@ -238,6 +257,7 @@ fun ChatSheet(vm: AppViewModel) {
                                 val m = row.message
                                 ChatBubble(
                                     m.text, m.fromMe, m.about,
+                                    photo = m.photo, loadPhoto = loadPhoto, onPhoto = { viewing = m },
                                     bookmarked = m.bookmark != null,
                                     quote = m.replyTo?.let { q ->
                                         BubbleQuote(whoAndWhen(q.fromMe, q.at, today, zone), q.text, onClick = chat.find(q.id)?.let { { jumpTo(q.id) } })
@@ -251,8 +271,9 @@ fun ChatSheet(vm: AppViewModel) {
                                         pinAction(vm, m),
                                         BubbleAction("✏️ ${bi("chatSheet.note")}") { noteFor = m },
                                         BubbleAction("↩️ ${bi("chatSheet.reply")}") { reply(m) },
-                                        copyAction(context, m),
-                                        shareAction(context, m),
+                                        copyAction(context, m).takeIf { m.text.isNotBlank() },
+                                        shareAction(context, m).takeIf { m.text.isNotBlank() },
+                                        m.photo?.takeIf { !it.deleted }?.let { BubbleAction("🗑️ ${bi("chatSheet.photoDelete")}") { deleting = m } },
                                     ),
                                     swipe = BubbleSwipes(reply = { swiped(); reply(m) }, bookmark = { swipeBookmark(m) }),
                                 )
@@ -271,8 +292,15 @@ fun ChatSheet(vm: AppViewModel) {
                     }
                 }
                 chat.replyTo?.let { m -> ReplyCard(whoAndWhen(m.fromMe, m.at, today, zone), ChatArchive.quote(m).text, onClear = { chat.replyTo = null }) }
+                if (chat.draftPhoto != null || chat.preparingPhoto) DraftPhotoCard(chat.draftPhoto, chat.preparingPhoto, loadPhoto, onClear = chat::dropDraftPhoto)
                 DiacriticChips(input, { input = it })
                 Row(Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    if (photosOn) PhotoButton(enabled = !chat.preparingPhoto) { source ->
+                        when (source) {
+                            PhotoSource.CAMERA -> camera = true
+                            PhotoSource.GALLERY -> runCatching { pick.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                        }
+                    }
                     OutlinedTextField(
                         value = input,
                         onValueChange = { input = it },
@@ -283,7 +311,7 @@ fun ChatSheet(vm: AppViewModel) {
                     )
                     FilledIconButton(
                         onClick = { chat.send(input.text.trim()); input = TextFieldValue("") },
-                        enabled = input.text.isNotBlank(),
+                        enabled = (input.text.isNotBlank() || chat.draftPhoto != null) && !chat.preparingPhoto,
                         modifier = Modifier.padding(start = 8.dp),
                     ) { EmojiLabel("➤", Labels.SEND) }
                 }
@@ -298,7 +326,28 @@ fun ChatSheet(vm: AppViewModel) {
             noteFor = null
         }
     }
+    if (camera) PhotoCaptureDialog(
+        onTaken = { f ->
+            camera = false
+            chat.attachPhoto { f.inputStream().use(PhotoPrep::read).also { f.delete() } }
+        },
+        onDismiss = { camera = false },
+    )
+    viewing?.let { m ->
+        m.photo?.takeIf { !it.deleted }?.let { p ->
+            PhotoViewer(p, listOf(bi("chatSheet.photo"), m.text).filter { it.isNotBlank() }.joinToString(": "), loadPhoto, onClose = { viewing = null })
+        }
+    }
+    deleting?.let { m ->
+        DeletePhotoDialog(onDismiss = { deleting = null }) {
+            chat.deletePhoto(m.id)
+            deleting = null
+        }
+    }
 }
+
+/** What GET /state's `features` says of a bridge that takes the chat's photos (`PUT /chat/images/<id>`). */
+internal const val PHOTO_FEATURE = "chat-images"
 
 private val quickQuestions: List<String> get() = listOf(bi("chatSheet.why"), bi("chatSheet.anotherExample"), bi("chatSheet.explainGrammar"))
 
@@ -418,7 +467,7 @@ private fun Bookmarks(
                                 style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 maxLines = 1, overflow = TextOverflow.Ellipsis,
                             )
-                            Text(ChatArchive.plain(m.text).trim(), style = MaterialTheme.typography.bodyMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
+                            Text(ChatArchive.plain(ChatArchive.textOf(m)).trim(), style = MaterialTheme.typography.bodyMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
                             m.bookmark?.note?.let {
                                 Text("✏️ $it", style = MaterialTheme.typography.labelMedium, fontStyle = FontStyle.Italic, color = MaterialTheme.colorScheme.tertiary)
                             }
@@ -478,7 +527,8 @@ internal class BubbleQuote(val label: String, val text: String, val onClick: (()
 /**
  * A message: Jan's on the right, the tutor's (Markdown) on the left. Also the thread under a role-play's debrief.
  * [actions] come with a long press, [swipe] with a sideways swipe ([SwipeRow]); [bookmarked] shows a 🔖 beside it,
- * [highlighted] a frame (a jump arrived there).
+ * [highlighted] a frame (a jump arrived there). [photo] (the learner's, through [loadPhoto]) shows above its text, a tap
+ * on it [onPhoto]; a photo alone has no text.
  */
 @Composable
 internal fun ChatBubble(
@@ -490,6 +540,9 @@ internal fun ChatBubble(
     highlighted: Boolean = false,
     actions: List<BubbleAction> = emptyList(),
     swipe: BubbleSwipes? = null,
+    photo: ChatPhoto? = null,
+    loadPhoto: (suspend (ChatPhoto, Int) -> Bitmap?)? = null,
+    onPhoto: () -> Unit = {},
 ) {
     var menu by remember { mutableStateOf(false) }
     val haptic = LocalHapticFeedback.current
@@ -517,7 +570,16 @@ internal fun ChatBubble(
                     if (fromMe) Column(Modifier.padding(12.dp)) {
                         quote?.let { QuoteBlock(it, MaterialTheme.colorScheme.onPrimary) }
                         about?.let { Text("📎 $it", color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.75f), style = MaterialTheme.typography.labelSmall) }
-                        Text(text, color = MaterialTheme.colorScheme.onPrimary)
+                        if (photo != null && loadPhoto != null) BubblePhoto(
+                            photo, MaterialTheme.colorScheme.onPrimary, loadPhoto, onOpen = onPhoto,
+                            onLongPress = {
+                                if (actions.isNotEmpty()) {
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    menu = true
+                                }
+                            },
+                        )
+                        if (text.isNotBlank() || photo == null) Text(text, color = MaterialTheme.colorScheme.onPrimary)
                     }
                     else if (quote == null) Markdown(text, Modifier.padding(12.dp))
                     else Column(Modifier.padding(12.dp)) {

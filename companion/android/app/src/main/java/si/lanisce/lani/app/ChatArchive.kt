@@ -195,7 +195,7 @@ object ChatArchive {
      */
     fun hint(messages: List<ChatMessage>): String? {
         val mine = messages.firstOrNull { it.fromMe }
-        val raw = mine?.about?.let { "📎 $it" } ?: mine?.text ?: messages.firstOrNull()?.text?.let(::plain)
+        val raw = mine?.about?.let { "📎 $it" } ?: mine?.let(::textOf) ?: messages.firstOrNull()?.text?.let(::plain)
         return raw?.let { oneLine(it, HINT) }?.ifEmpty { null }
     }
 
@@ -214,7 +214,10 @@ object ChatArchive {
         if (quoted == null) about else JsonObject(about.orEmpty() + (REPLY_TO to replyTo(quoted, zone)))
 
     /** [m] as a reply quotes it: its start, in one line. */
-    fun quote(m: ChatMessage): ChatQuote = ChatQuote(m.id, m.fromMe, oneLine(plain(m.text), QUOTE), m.at)
+    fun quote(m: ChatMessage): ChatQuote = ChatQuote(m.id, m.fromMe, oneLine(plain(textOf(m)), QUOTE), m.at)
+
+    /** [m]'s text as a line about it shows it: a photo's message with "📷" first (a photo alone: "📷"). */
+    fun textOf(m: ChatMessage): String = if (m.photo == null) m.text else "📷 ${m.text}".trim()
 
     /** Where a message's data carries the message it answers. */
     const val REPLY_TO = "reply_to"
@@ -223,7 +226,7 @@ object ChatArchive {
      * What a reply tells the tutor about the message it answers (`data.reply_to`): who wrote it (`from`: learner or
      * tutor), when (`at`, ISO with the offset, in [zone]; none for a message kept before the archive), its `text`, the
      * exercise or page it was about (`about`, its label) and the data it went with (`attached`, e.g.
-     * `{"about_exercise": {…}}`).
+     * `{"about_exercise": {…}}`), and its photo's id (`photo`), whose path the bridge gives the tutor while the node has it.
      */
     fun replyTo(m: ChatMessage, zone: ZoneId): JsonObject = buildJsonObject {
         put("from", if (m.fromMe) "learner" else "tutor")
@@ -231,6 +234,7 @@ object ChatArchive {
         put("text", m.text.take(REPLY_TEXT))
         m.about?.let { put("about", it) }
         m.data?.let { put("attached", it) }
+        m.photo?.takeIf { !it.deleted }?.let { put("photo", it.id) }
     }
 
     /** "Ta teden · This week", "Prejšnji teden · Last week", else the week's days in the target language ("14.–20. sept."). */

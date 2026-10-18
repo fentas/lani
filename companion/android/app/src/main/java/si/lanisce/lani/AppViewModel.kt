@@ -158,7 +158,12 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         cast = { villagers.all },
     )
     // the chat by month (files/chat/2026-09.json); chat.json is what was kept before the archive (ChatStore)
-    val chat = ChatController(viewModelScope, prefs, sync, notices, ChatStore(File(app.filesDir, "chat"), File(app.filesDir, "chat.json")))
+    val chat = ChatController(
+        viewModelScope, prefs, sync, notices, ChatStore(File(app.filesDir, "chat"), File(app.filesDir, "chat.json")),
+        // its photos (files/chat-photos/<id>.jpg), the node's copy fetched for one the phone hasn't
+        photos = si.lanisce.lani.data.ChatPhotoStore(File(app.filesDir, "chat-photos")),
+        node = node,
+    )
     /**
      * The in-app tutor's prototype in shadow mode (docs/plans/05-phase-0.md, check 6): a developer setting, off by
      * default. It sees the writes the node took (the learner's events) and the real tutor's replies, and shows what it
@@ -175,6 +180,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         // its calls, turns and transport errors (never the key: tutor/KeyVault Redact); it runs only when the developer
         // turned it on, and its lines go to the node with the app's log (devUpload)
         logLine = { android.util.Log.i("ShadowTutor", it) },
+        // a chat's photo, from the phone's copy: the turn sends it to the API as an image block (never in the export)
+        photo = { id -> chat.photos?.file(id)?.takeIf { it.isFile } },
     ).also { s -> sync.onDelivered = { e -> s.onDelivered(e.clientId, e.path, e.body) } }
     /**
      * The developer's data on the node (companion/README.md "Developer data on the node"): the shadow's export and the

@@ -15,11 +15,17 @@ import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
+import si.lanisce.lani.data.Bridge
 import si.lanisce.lani.data.BridgeEvent
+import si.lanisce.lani.data.ChatPhoto
+import si.lanisce.lani.data.ChatPhotoStore
 import si.lanisce.lani.data.FileStorage
+import si.lanisce.lani.data.Outbox
+import si.lanisce.lani.data.PhotoPrep
 import si.lanisce.lani.data.Prefs
 import si.lanisce.lani.data.Writes
 import si.lanisce.lani.data.json
+import si.lanisce.lani.l10n.bi
 import java.io.File
 import java.time.Instant
 import java.time.LocalDate
@@ -32,7 +38,8 @@ import java.util.UUID
  * A message of the tutor chat. [about] is the one-line label of the exercise or page a question refers to, shown on the
  * bubble; [at] when it was written or arrived (epoch ms, the phone's clock; null in a history kept before the archive,
  * which had no times); [data] what a learner's message went to the tutor with (`{"about_exercise": {…}}`, a lookup), for
- * a reply that quotes it; [bookmark] set when the learner bookmarked it; [replyTo] the message it answers, quoted.
+ * a reply that quotes it; [bookmark] set when the learner bookmarked it; [replyTo] the message it answers, quoted;
+ * [photo] the photo it was sent with (📷, the learner's), its file on the phone in [ChatPhotoStore].
  */
 @Serializable
 data class ChatMessage(
@@ -44,6 +51,7 @@ data class ChatMessage(
     val data: JsonObject? = null,
     val bookmark: ChatBookmark? = null,
     val replyTo: ChatQuote? = null,
+    val photo: ChatPhoto? = null,
 )
 
 /** A bookmarked message: when it was bookmarked, and the learner's note on why ("zakaj"), if any. */
@@ -109,8 +117,9 @@ class ChatStore(private val dir: File, private val legacy: File, private val kee
 
 /**
  * The tutor chat: its messages and sheet, the exercise a question is about, the message a reply quotes, bookmarks,
- * tutor-graded answers, and the day's plan. Messages go out through the outbox, so they survive being offline; the
- * conversation is kept in [store], so it survives the app being closed, killed or updated.
+ * tutor-graded answers, the photo the next message carries, and the day's plan. Messages go out through the outbox, so
+ * they survive being offline; the conversation is kept in [store], so it survives the app being closed, killed or
+ * updated. Its photos are in [photos] (none without it), fetched from the [node] when the phone hasn't one.
  */
 class ChatController(
     private val scope: CoroutineScope,
@@ -119,6 +128,8 @@ class ChatController(
     private val notices: Notices,
     private val store: ChatStore,
     private val clock: () -> Long = System::currentTimeMillis,
+    val photos: ChatPhotoStore? = null,
+    private val node: () -> Bridge? = { null },
 ) {
     /** The whole conversation kept ([ChatStore]: a year, and every bookmarked message), oldest first. */
     val messages = mutableStateListOf<ChatMessage>()
@@ -133,6 +144,12 @@ class ChatController(
     var attached by mutableStateOf<ChatContext?>(null)
     /** The message the next one answers ("↩️ Odgovori · Reply"): quoted above the input, sent as `data.reply_to`. */
     var replyTo by mutableStateOf<ChatMessage?>(null)
+    /** The photo the next message carries (📷: taken or picked, made ready, [attachPhoto]): shown above the input, ✕ lets it go. */
+    var draftPhoto by mutableStateOf<ChatPhoto?>(null)
+        private set
+    /** A photo is being made ready ([PhotoPrep]): the composer shows it coming, and the message waits for it. */
+    var preparingPhoto by mutableStateOf(false)
+        private set
     /** The tutor's morning plan (daily rhythm), shown on Home until the day ends. */
     var todayPlan by mutableStateOf<String?>(null)
         private set
@@ -151,7 +168,15 @@ class ChatController(
             messages.addAll(0, saved) // before anything that arrived meanwhile
             loaded = true
             if (arrived.isNotEmpty()) save(arrived)
+            sweepPhotos()
         }
+    }
+
+    /** The photos no message keeps any more (a draft let go, a month the chat let go: [ChatStore.load]) leave the phone. */
+    private fun sweepPhotos() {
+        val store = photos ?: return
+        val keep = messages.mapNotNull { m -> m.photo?.takeIf { !it.deleted }?.id }.toSet() + setOfNotNull(draftPhoto?.id)
+        scope.launch(io) { runCatching { store.sweep(keep, clock()) } }
     }
 
     private fun add(m: ChatMessage) {
@@ -223,21 +248,84 @@ class ChatController(
     }
 
     /**
-     * Sends [text] with the exercise [attached] and the message [replyTo] quotes, if any: the exercise under its key
-     * (`about_exercise`, …), the quoted message as `reply_to` ([ChatArchive.replyTo]), which an older node passes on
-     * to the tutor as it does any data.
+     * Sends [text] with the exercise [attached], the message [replyTo] quotes and the photo [draftPhoto], if any: the
+     * exercise under its key (`about_exercise`, …), the quoted message as `reply_to` ([ChatArchive.replyTo]), which an
+     * older node passes on to the tutor as it does any data; the photo first, then the message with it
+     * ([Writes.chatPhoto]). A photo alone is a message too; one still being made ready waits.
      */
     fun send(text: String, zone: ZoneId = ZoneId.systemDefault()) {
-        if (text.isBlank()) return
+        val photo = draftPhoto
+        if (preparingPhoto || (text.isBlank() && photo == null)) return
         val ctx = attached
         attached = null
         val quoted = replyTo
         replyTo = null
+        draftPhoto = null
         val about = ctx?.let { buildJsonObject { put(it.key, it.data) } }
-        add(ChatMessage(fromMe = true, text = text, about = ctx?.label, data = about, replyTo = quoted?.let(ChatArchive::quote)))
+        add(ChatMessage(fromMe = true, text = text, about = ctx?.label, data = about, replyTo = quoted?.let(ChatArchive::quote), photo = photo))
         typing = true
         val data = ChatArchive.outgoing(about, quoted, zone)
-        scope.launchSafely(notices::fail) { if (!sync.submit(Writes.message("chat", "main", text, data))) typing = false }
+        val store = photos
+        val write = if (photo != null && store != null) Writes.chatPhoto(text.trim(), data, photo, store.file(photo.id)) else Writes.message("chat", "main", text, data)
+        scope.launchSafely(notices::fail) { if (!sync.submit(write)) typing = false }
+    }
+
+    /**
+     * 📷: a photo taken or picked ([read] gives its bytes, off the main thread) made ready to send ([PhotoPrep]: upright,
+     * scaled, no metadata), kept on the phone and shown above the input as [draftPhoto], replacing one there was. One that
+     * can't be read says so.
+     */
+    fun attachPhoto(read: suspend () -> ByteArray?) {
+        val store = photos ?: return
+        preparingPhoto = true
+        scope.launch {
+            val ready = withContext(Dispatchers.Default) { runCatching { PhotoPrep.prepare(read() ?: error("nothing read")) } }
+            val photo = ready.getOrNull()?.let { r ->
+                val id = Outbox.newId()
+                withContext(io) { runCatching { store.save(id, r.jpeg) }.isSuccess }.takeIf { it }?.let { ChatPhoto(id, r.width, r.height, r.jpeg.size.toLong()) }
+            }
+            preparingPhoto = false
+            if (photo == null) {
+                notices.error = "📷 ${bi("chatSheet.photoFailed")}"
+                return@launch
+            }
+            draftPhoto?.let { old -> withContext(io) { store.delete(old.id) } }
+            draftPhoto = photo
+        }
+    }
+
+    /** The photo above the input let go (its ✕): it leaves the phone, nothing was sent. */
+    fun dropDraftPhoto() {
+        val p = draftPhoto ?: return
+        draftPhoto = null
+        photos?.let { s -> scope.launch(io) { s.delete(p.id) } }
+    }
+
+    /**
+     * "🗑️ Izbriši fotografijo · Delete photo" on message [id]: its photo leaves the phone and the node (`DELETE
+     * /chat/images/<id>`, through the outbox); the message and its text stay, marked. What the tutor saw of it, it saw.
+     */
+    fun deletePhoto(id: String) {
+        val p = find(id)?.photo?.takeIf { !it.deleted } ?: return
+        update(id) { it.copy(photo = p.copy(deleted = true)) }
+        photos?.let { s -> scope.launch(io) { s.delete(p.id) } }
+        sync.submitLater(Writes.deletePhoto(p.id))
+    }
+
+    /**
+     * Photo [p] at most [maxPx] on its long side, for a bubble or the full screen: the phone's copy, else the node's
+     * (fetched once and kept); null when neither has it.
+     */
+    suspend fun photoImage(p: ChatPhoto, maxPx: Int): android.graphics.Bitmap? {
+        val store = photos ?: return null
+        if (p.deleted) return null
+        return withContext(Dispatchers.IO) {
+            store.image(p.id, maxPx) ?: run {
+                val b = node() ?: return@withContext null
+                runCatching { b.chatImage(p.id, store.file(p.id)) }.onFailure { store.file(p.id).delete() }.getOrNull() ?: return@withContext null
+                store.image(p.id, maxPx)
+            }
+        }
     }
 
     /**

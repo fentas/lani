@@ -11,6 +11,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 import java.io.File
 import java.io.IOException
@@ -40,7 +41,18 @@ data class OutboxEntry(
      */
     val fallbackPath: String? = null,
     val fallbackBody: String? = null,
+    /** A file that goes to the node before the write ([OutboxUpload]): a chat message's photo. */
+    val upload: OutboxUpload? = null,
 )
+
+/**
+ * A file a write needs on the node first ([OutboxEntry.upload]): [file] (on the phone) is PUT to [path] as [type], then
+ * the write goes. The node keeps it by the id in [path] (the write's client id), so a retry sends it again harmlessly.
+ * [withoutBody]: the write's body without the file, for a node from before its route (404) and for a file the learner
+ * deleted before it went.
+ */
+@Serializable
+data class OutboxUpload(val file: String, val path: String, val type: String = "image/jpeg", val withoutBody: String? = null)
 
 /** How one delivery attempt ended. */
 sealed interface Delivery {
@@ -168,6 +180,32 @@ class Outbox(private val storage: OutboxStorage, private val clock: () -> Long =
             runCatching { (json.parseToJsonElement(body) as JsonObject)["error"]?.toString()?.trim('"') }.getOrNull() ?: body.take(160)
 
         fun newId(): String = UUID.randomUUID().toString().replace("-", "")
+
+        /**
+         * Delivers [e] through [send] (method, path, body: the status and body), its [OutboxEntry.upload] first through
+         * [put] (path, bytes, type). An upload the node refuses for good (413, 415, …) is the write's answer; a node
+         * without the upload's route (404) and a file no longer on the phone get the write without it
+         * ([OutboxUpload.withoutBody]). Throws when the node can't be reached ([Bridge.deliver] retries then).
+         */
+        suspend fun deliverWith(
+            e: OutboxEntry,
+            send: suspend (String, String, String) -> Pair<Int, String>,
+            put: suspend (String, ByteArray, String) -> Pair<Int, String>,
+        ): Delivery {
+            var body = e.body
+            e.upload?.let { up ->
+                val bytes = runCatching { File(up.file).readBytes() }.getOrNull()
+                if (bytes == null) {
+                    body = up.withoutBody ?: e.body
+                } else {
+                    val (code, text) = put(up.path, bytes, up.type)
+                    if (code == 404 || code == 405) body = up.withoutBody ?: e.body
+                    else if (code !in 200..299) return classify(code, text)
+                }
+            }
+            val (code, text) = send(e.method, e.path, body)
+            return classify(code, text)
+        }
     }
 }
 
@@ -196,9 +234,9 @@ object ReviewFrom {
 
 /** The queueable writes, each with its own client id. */
 object Writes {
-    private fun entry(path: String, label: String, body: JsonObject, id: String, now: Long) = OutboxEntry(
+    private fun entry(path: String, label: String, body: JsonObject, id: String, now: Long, method: String = "POST") = OutboxEntry(
         clientId = id,
-        method = "POST",
+        method = method,
         path = path,
         body = JsonObject(body + ("client_id" to JsonPrimitive(id))).toString(),
         label = label,
@@ -303,12 +341,31 @@ object Writes {
             put("text", text)
             if (data != null) put("data", data)
         }, id, now)
+
+    /**
+     * A chat message with [photo] ([ChatPhoto], its JPEG [file] on the phone): the photo goes first, `PUT
+     * /chat/images/<id>` (its id is the message's client id), then the message with `image: {id}` (the bridge gives the
+     * tutor the photo's path on the node, companion/README.md "Tutor chat", "Photos"). A node from before photos gets
+     * the text alone, and a line that says a photo didn't come; so does a photo deleted before it went.
+     */
+    fun chatPhoto(text: String, data: JsonObject?, photo: ChatPhoto, file: File, now: Long = System.currentTimeMillis()): OutboxEntry {
+        val plain = message("chat", "main", text, data, photo.id, now)
+        val with = JsonObject(json.parseToJsonElement(plain.body).jsonObject + ("image" to buildJsonObject { put("id", photo.id) }))
+        val without = message("chat", "main", (text.trim() + "\n\n" + PHOTO_NOT_SENT).trim(), data, photo.id, now)
+        return plain.copy(body = with.toString(), upload = OutboxUpload(file.absolutePath, "/chat/images/${photo.id}", "image/jpeg", without.body))
+    }
+
+    /** What the tutor reads instead of a photo that didn't reach the node (an older bridge, or deleted before it went). */
+    const val PHOTO_NOT_SENT = "(📷 A photo was attached here, but it didn't reach the node: its bridge is from before chat photos, or the photo was deleted before it went.)"
+
+    /** The photo [id] deleted on the node too (`DELETE /chat/images/<id>`), after the learner deleted it on the phone. */
+    fun deletePhoto(id: String, clientId: String = Outbox.newId(), now: Long = System.currentTimeMillis()) =
+        entry("/chat/images/$id", bi("outbox.photo"), buildJsonObject { }, clientId, now, method = "DELETE")
 }
 
-/** Delivers an entry through [bridge]: network errors retry, status codes are [Outbox.classify]'d. */
+/** Delivers an entry through [bridge] (its upload first, [Outbox.deliverWith]): network errors retry, status codes are [Outbox.classify]'d. */
 suspend fun Bridge.deliver(e: OutboxEntry): Delivery = try {
-    val (code, body) = send(e.method, e.path, e.body)
-    Outbox.classify(code, body)
+    Outbox.deliverWith(e, ::send, ::put)
 } catch (x: IOException) {
     Delivery.Retry(x.message ?: "offline")
 }

@@ -37,7 +37,13 @@ data class ShadowEvent(
     val handling: Handling = Handling.DIGEST,
     /** Why it's only recorded, or why its digest had nothing to say. */
     val note: String? = null,
+    /** The photo a chat came with (its id, the phone's copy's size): the turn sends it as an image block, never the export. */
+    val image: ShadowImage? = null,
 )
+
+/** A chat's photo as the shadow keeps it ([ShadowEvent.image]): its [id] (the phone's file, ChatPhotoStore) and [bytes]. */
+@Serializable
+data class ShadowImage(val id: String, val bytes: Long = 0)
 
 /** A reply: the shadow's (through its `reply` tool, shown only in the panel) or the real tutor's (its SSE reply). */
 @Serializable
@@ -109,6 +115,8 @@ data class CallRecord(
     val effortByMessage: Boolean = false,
     /** The response's visible characters: its text and its tool calls' input (not its thinking), for [thinkingEstimate]. */
     val visibleChars: Int? = null,
+    /** How many images (a chat's photos) the request carried: the thread's so far, or a stateless call's own. */
+    val images: Int = 0,
 ) {
     /**
      * About how much of [Usage.output] was thinking (output counts thinking, which the API doesn't report apart): the

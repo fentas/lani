@@ -35,7 +35,9 @@ object ShadowEvents {
             else -> return null
         }
         val (handling, note) = handling(kind, reactAtOnce)
-        return ShadowEvent(id = id, kind = kind, at = at, path = path, conversationId = conv, text = text, data = d, handling = handling, note = note)
+        // a chat's photo (POST /message `image: {id}`, data/Outbox.kt Writes.chatPhoto): the turn sends the phone's copy
+        val image = (o["image"] as? JsonObject)?.str("id")?.takeIf { path == "/message" }?.let { ShadowImage(it) }
+        return ShadowEvent(id = id, kind = kind, at = at, path = path, conversationId = conv, text = text, data = d, handling = handling, note = note, image = image)
     }
 
     /** A role-play's turn or end (sent past the outbox, straight to the node): recorded, not run (phase B). */
@@ -88,13 +90,20 @@ object TurnText {
     fun now(at: Long, zone: ZoneId, where: String?): String =
         "Local time: ${time.format(Instant.ofEpochMilli(at).atZone(zone))} (${zone.id})." + (where?.let { " The learner is in the app ($it)." } ?: "")
 
-    /** One event as the channel had it: its kind, conversation and id, its text, its data as a JSON block. */
-    fun event(e: ShadowEvent, zone: ZoneId): String = buildString {
+    /**
+     * One event as the channel had it: its kind, conversation and id, its text, its data as a JSON block. A chat's photo
+     * is the image block before it ([ShadowImages.block]); its data says so (`image`, where the bridge gives a path).
+     */
+    fun event(e: ShadowEvent, zone: ZoneId, imageSent: Boolean = false): String = buildString {
         append("<event kind=\"${e.kind}\"")
         e.conversationId?.let { append(" conversation_id=\"$it\"") }
         append(" msg_id=\"${e.id}\" at=\"${Instant.ofEpochMilli(e.at).atZone(zone).toOffsetDateTime()}\">\n")
         if (e.text.isNotBlank()) append(e.text.take(8000)).append('\n')
-        e.data?.takeIf { it.isNotEmpty() }?.let { append("\n```json\n").append(it.toString().take(12_000)).append("\n```\n") }
+        val data = e.image?.let { img ->
+            val said = if (imageSent) "the photo is the image block just before this event" else "the photo isn't in this message"
+            JsonObject(e.data.orEmpty() + ("image" to kotlinx.serialization.json.buildJsonObject { put("id", JsonPrimitive(img.id)); put("in_this_message", JsonPrimitive(said)) }))
+        } ?: e.data
+        data?.takeIf { it.isNotEmpty() }?.let { append("\n```json\n").append(it.toString().take(12_000)).append("\n```\n") }
         append("</event>")
     }
 

@@ -46,6 +46,8 @@ class ShadowTutorTest {
     /** A call answered with this (status, body, type) instead of the script's, by its number. */
     private var failOn: ((Int) -> Triple<Int, String, String>?) = { null }
     private var calls = 0
+    /** The chat's photos on the phone, by id (ChatPhotoStore's files), for the shadow's image blocks. */
+    private val photos = mutableMapOf<String, File>()
     /** What GET /v1/models lists. */
     private var modelsJson = """{"data":[{"id":"claude-opus-5-5","created_at":"2026-10-01"},{"id":"claude-sonnet-5-5","created_at":"2026-10-01"},{"id":"claude-haiku-5-5","created_at":"2026-10-07"}],"has_more":false}"""
 
@@ -94,6 +96,7 @@ class ShadowTutorTest {
             logLine = { lines += it },
             sleep = {},
             io = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
+            photo = { photos[it] },
         )
     }
 
@@ -434,6 +437,47 @@ class ShadowTutorTest {
         assertEquals(listOf("2026-10-15"), o["days"]!!.jsonArray.map { it.jsonObject["day"]!!.jsonPrimitive.content })
         // the share sheet's file is the same content
         assertEquals(t.exportText("test"), t.export(File(dir, "shared"), "test").readText())
+    }
+
+    @Test fun `a chat's photo goes to the API as an image block before its event, counted on the call, never in the export`() = runBlocking {
+        val jpeg = ByteArray(3_000) { (it * 7).toByte() }.also { it[0] = 0xFF.toByte(); it[1] = 0xD8.toByte(); it[2] = 0xFF.toByte() }
+        val id = "0123456789abcdef0123456789abcdef"
+        photos[id] = File(dir, "$id.jpg").apply { writeBytes(jpeg) }
+        val t = ready()
+        t.onDelivered(id, "/message", """{"kind":"chat","conversation_id":"main","text":"Kaj piše tukaj?","image":{"id":"$id"},"client_id":"$id"}""").join()
+        t.awaitIdle()
+
+        val e = t.today.events.single()
+        assertEquals(ShadowImage(id, 3_000), e.image)
+        // the turn's user message: the image block (base64 JPEG), then the event, whose data says where the photo is
+        val first = posts().first()
+        val user = first.messages.last { it["role"]!!.jsonPrimitive.content == "user" }["content"]!!.jsonArray.map { it.jsonObject }
+        val img = user.indexOfFirst { it["type"]!!.jsonPrimitive.content == "image" }
+        assertTrue("an image block: $user", img >= 0)
+        val source = user[img]["source"]!!.jsonObject
+        assertEquals("base64" to "image/jpeg", source["type"]!!.jsonPrimitive.content to source["media_type"]!!.jsonPrimitive.content)
+        val b64 = source["data"]!!.jsonPrimitive.content
+        assertEquals(java.util.Base64.getEncoder().encodeToString(jpeg), b64)
+        val event = user.drop(img + 1).first { it["type"]!!.jsonPrimitive.content == "text" }["text"]!!.jsonPrimitive.content
+        assertTrue(event, event.startsWith("<event kind=\"chat\"") && event.contains("Kaj piše tukaj?") && event.contains("the image block just before this event"))
+        // metered as any call; the calls say they carried it
+        assertTrue(t.today.calls.isNotEmpty() && t.today.calls.all { it.images == 1 && it.cost != null })
+        // the export (the share sheet's, the node's): the photo left out, a note of its size in its place
+        val export = t.exportText("test")
+        assertFalse(export.contains(b64))
+        assertFalse(export.contains(b64.take(40)))
+        assertTrue(export.contains("an image, 2 KB, left out"))
+        assertTrue(export.contains("\"images\":1"))
+    }
+
+    @Test fun `a photo no longer on the phone - the event goes without it, and says so`() = runBlocking {
+        val t = ready()
+        t.onDelivered("p2", "/message", """{"kind":"chat","conversation_id":"main","text":"In to?","image":{"id":"gone-000000000001"},"client_id":"p2"}""").join()
+        t.awaitIdle()
+        val all = posts().first().messages.flatMap { it["content"]!!.jsonArray.map { b -> b.jsonObject } }
+        assertTrue(all.none { it["type"]!!.jsonPrimitive.content == "image" })
+        assertTrue(all.any { it.toString().contains("the photo isn't in this message") })
+        assertTrue(t.today.calls.all { it.images == 0 })
     }
 
     @Test fun `a turn that never calls reply - its text is the reply, marked, counted by model and effort`() = runBlocking {

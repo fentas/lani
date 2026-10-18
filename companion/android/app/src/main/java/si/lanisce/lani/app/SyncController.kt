@@ -65,7 +65,7 @@ class SyncController(
         // a node from before a route: it went the older way (the level change to the tutor), and the learner is told so
         r.fellBack.firstOrNull()?.let { e -> notices.banner = "📨 ${bi("syncController.olderNode", "eLabel" to e.label)}" }
         if (r.remaining > 0) scheduleRetry()
-        if (r.sent.any { it.path != "/message" }) onSaved()
+        if (r.sent.any { it.path != "/message" && !it.path.startsWith("/chat/") }) onSaved()
         return r
     }
 
