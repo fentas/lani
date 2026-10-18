@@ -184,6 +184,7 @@ programs' environments, so a process of another learner (`lani-profile`) never g
 | `LANI_CULTURE` | `primorska` | The village's culture pack: `primorska` (Slovene), `friuli` (Italian), `kaernten` (German), `lakeland` (English). |
 | `LANI_BRIDGE_PORT` | `8790` | The bridge's port on 127.0.0.1. |
 | `LANI_PUBLIC_URL` | Tailscale's name | The HTTPS address the app uses, when it isn't Tailscale Serve's. The QR code carries it. |
+| `LANI_TOWN_URL` | `http://127.0.0.1:<port>` | Where this town's bridge answers other towns. `relay`: only on its relay (a town with no address of its own). |
 | `LANI_DATA_REMOTE`, `LANI_DATA_PUSH`, `LANI_DATA_AUTOCOMMIT` | | See [Your data repository](#your-data-repository). |
 
 **This machine's settings** apply to every learner on it:
@@ -197,6 +198,8 @@ programs' environments, so a process of another learner (`lani-profile`) never g
 | `LANI_STT_URL` | `http://127.0.0.1:8796` | The local speech recognition worker. |
 | `LANI_BACKUP_DIR` | `~/.local/share/lani/backups` | `lani-backup`'s snapshots. |
 | `LANI_BRIDGE_HOST` | `127.0.0.1` | Keep it: Tailscale Serve or your proxy is in front. |
+| `LANI_RELAY_URL` | off | The relay for towns and the family page without a node ([companion/README.md, "Through the relay"](../companion/README.md#through-the-relay)). Unset: nothing goes to a relay. |
+| `LANI_RELAY_FAMILY` | `relay` towns only | `on`: the family page goes through the relay too; `off`: never. |
 
 Other `LANI_*` settings (from [companion/README.md](../companion/README.md)) can go in the file too; the wizard keeps
 them. Secrets never go in `lani.env`: the ElevenLabs key belongs in `keys.env`.

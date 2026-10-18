@@ -348,7 +348,8 @@ first name, the culture pack and its language.
 **Links** are in `<data>/app/towns.json`: for each linked town, its id, its public key, the URL its bridge
 answers on (on one node `http://127.0.0.1:<port>`; `LANI_TOWN_URL` sets a bridge's own), when it was linked,
 by whom (`app` or `cli`) and how (`invite`: it accepted this town's invitation; `accept`: this town accepted its
-invitation; `link`: the node linked two of its towns). The file holds no secrets.
+invitation; `link`: the node linked two of its towns), and its address on the relay when it has one (`relay`, see
+[Through the relay](#through-the-relay)). The file holds no secrets.
 
 ### Link two towns
 
@@ -370,7 +371,7 @@ invitation; `link`: the node linked two of its towns). The file holds no secrets
   this town's bridge answers other towns.
 
 **The invitation** is `lani://town?v=1&u=<the inviting bridge's URL>&c=<code>&f=<its fingerprint>` (`fluent://town?…`
-from before the rename is read too). The code
+from before the rename is read too), with `&r=<its relay address>` when the town is on a relay. The code
 works once, for 30 minutes. The bridge keeps only its SHA-256 (in `<data>/app/town-invites/`), as it does for
 pairing codes. After 10 wrong or expired codes in 10 minutes, the bridge answers `429` until the oldest leaves
 the window. To accept, the other bridge:
@@ -411,6 +412,26 @@ Before the project was renamed from Fluent, these were `x-fluent-town-*`, `fluen
 `fluent-town-response/1`. A bridge reads and checks those too, and signs every request and answer under both names
 (the `x-fluent-town-*` headers alongside), so a town that still runs the old code and this one understand each
 other.
+
+### Through the relay
+
+Towns that can't reach each other (a town in the app with no node, a node in another tailnet) talk through the relay,
+[companion/relay](relay) (plan 5, phase D; [docs/plans/05-built/relay.md](../docs/plans/05-built/relay.md)). It is off
+unless `LANI_RELAY_URL` names one (in `lani.env`, for the whole machine):
+
+- The town's bridge publishes its public state there for the towns it is linked with, polls its mailbox there (outgoing
+  HTTPS only) and answers what comes in through its own routes: other towns' signed requests (`/town/…`) and the family
+  page's. Never the app's routes.
+- Its address there is `<LANI_RELAY_URL>/v1/towns/<its id>`. Its invitations carry it (`r=`), and `GET /towns` shows it
+  (`self.relay`); `lani-town list` too.
+- A linked town is asked at its URL first, then at its relay address when the URL doesn't answer (and there first for 10
+  minutes after that). Neighbours on one tailnet keep the direct way. A town that accepted an invitation through the
+  relay, or joined through it, is reached through it.
+- Requests through the relay are signed as before inside (the towns check each other's keys, so the relay can't make up
+  or change a request or an answer) and with the town's key for the relay outside.
+- A town that is away shows the state it last published on the relay, checked with its key.
+- `LANI_TOWN_URL=relay` (a learner's setting): a town with no address of its own, only its relay address (the phone's
+  bridge). Its family page goes through the relay too ([Family](#without-a-node)).
 
 ### What a town shows
 
@@ -2860,6 +2881,21 @@ The family page is served by the bridge at `/family`. It uses its own token,
 - To revoke access: delete `<data>/app/family-token` and restart the session (a new token is
   generated), or remove the node share in the admin console.
 
+### Without a node
+
+A town on the relay with no address of its own (`LANI_TOWN_URL=relay`; or any town with `LANI_RELAY_FAMILY=on`) has its
+family page on the relay ([Through the relay](#through-the-relay)): the relay serves the page, and its API goes to the
+town's bridge through the town's mailbox. The relay keeps only the family token's SHA-256; the town checks the token
+again, and the token can do there exactly what it does on a node. Send the partner:
+
+```bash
+echo "$LANI_RELAY_URL/family/<town id>/#t=$(cat data/app/family-token)"   # the town id: lani-town list
+```
+
+While the town is away (the phone asleep), the page can't load what is new; a challenge or a recording the partner
+sends waits on the relay (up to 14 days) and reaches the town when it is back. A node's family page stays on its
+tailnet unless `LANI_RELAY_FAMILY=on`.
+
 ## Backups
 
 `bin/lani-backup` snapshots the learner data (as the bridge finds it: `LANI_DATA_DIR`, lani.env's, else `data/`; except
@@ -3358,6 +3394,8 @@ field, after "teh" or "hisa" is typed:
 
 ```bash
 cd companion/bridge && bun test/smoke.ts
+cd companion/bridge && bun test/relay.ts         # the relay end to end: three towns' bridges through it (LANI_RELAY_SMOKE_PORT, default 18870 and the next three)
+cd companion/relay && bun test                   # the relay's unit tests
 cd companion/android && ./gradlew :app:testDebugUnitTest
 companion/bin/lani-build-app -- :app:testDebugUnitTest   # the same without a JDK, in Docker
 python3 -m unittest discover companion/tests     # backups, the Whisper worker (models faked)

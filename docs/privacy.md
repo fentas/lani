@@ -63,6 +63,11 @@ this machine.
   "Towns"](../companion/README.md#towns).
 - **The family page:** the partner's browser reaches the bridge over your tailnet (a node share) and sees the family
   page only: the word list, recordings, challenges.
+- **The relay** (only with `LANI_RELAY_URL` set; plan 5's phase D, [docs/plans/05-built/relay.md](plans/05-built/relay.md)):
+  the relay gets this town's public state (as linked towns get it) and passes on what towns and the family page send
+  each other, so it can read it (its TLS ends there). It keeps the town's key and id, the ids of its linked towns, the
+  family token's SHA-256 (never the token), what waits for a town that is away (up to 14 days) and its answers (a day).
+  The towns sign everything between them, so the relay can't change it. Backups there are encrypted before they leave.
 - **The phone's speech recognizer:** speaking exercises use Android's recognizer unless the node's Whisper does it.
   Whether audio leaves the phone depends on the recognizer (Google's may use its servers). The node's Whisper
   (`companion/stt-local`) keeps it on your machine.
