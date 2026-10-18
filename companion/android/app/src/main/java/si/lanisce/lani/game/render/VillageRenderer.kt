@@ -81,6 +81,16 @@ data class Frame(
      * the felled beech, the stack, smoking white, yellow, blue …); null: as it always was (a culture without a cycle).
      */
     val kopa: si.lanisce.lani.game.scene.SpotLook? = null,
+    /**
+     * An age-up's moment ([si.lanisce.lani.game.AgeUps]): the village growing from the age before, one change after
+     * another (the forest drawing back, the road, the square, the fire); null: as its age is.
+     */
+    val growth: si.lanisce.lani.game.Growth? = null,
+    /**
+     * A celebration's decorations ([si.lanisce.lani.game.Festive]: the torches, the likof's spruce, the garlands, the dance
+     * floor, the stalls, the banners), the sign at the road, the village gathered round the fire; null: none.
+     */
+    val festive: si.lanisce.lani.game.Festive? = null,
 ) {
     /** The frame's date ([today]), or the tests' day when it has none. */
     val date: java.time.LocalDate get() = runCatching { java.time.LocalDate.parse(today) }.getOrNull() ?: TownPeople.DEFAULT_DATE
@@ -332,6 +342,19 @@ class VillageRenderer {
     /** How the charcoal pile looks this frame ([Frame.kopa]). */
     private var kopaLook: si.lanisce.lani.game.scene.SpotLook? = null
 
+    /** How far inside its age's the forest's edge stands this frame: an age-up's moment as the forest draws back ([Frame.growth]). */
+    private var edgeShrink = 0f
+
+    /** A celebration's decorations ([Frame.festive]). */
+    private val festive = FestivePainter()
+
+    /**
+     * Where the village's sign at the road was drawn in the last frame (a celebration's, [Frame.festive]): the point over its
+     * board, in nominal canvas pixels; null when there was none.
+     */
+    var signAnchor: CanvasPoint? = null
+        private set
+
     fun render(canvas: PixelCanvas, state: GameState, frame: Frame) {
         val s = ctxFor(canvas)
         kopaLook = frame.kopa
@@ -379,19 +402,29 @@ class VillageRenderer {
         val age = state.age
         val land = VillageLayout.of(state)
         s.land = land
-        val clearR = land.clearing(age)
-        val roadLeft = age.ordinal >= Age.ZASELEK.ordinal
-        val roadHalf = if (age.ordinal >= Age.VAS.ordinal) 1f else 0.55f
-        val plazaR = when {
-            age.ordinal >= Age.TRG.ordinal -> 3.2f
-            age.ordinal >= Age.ZASELEK.ordinal -> 2.6f
-            else -> 1.9f
+        // an age-up's moment: each of the age's changes between the age before (0) and this one's (1)
+        val g = frame.growth?.takeIf { it.from < age }
+        fun grown(p: Float, of: (Age) -> Float): Float = if (g == null) of(age) else of(g.from) + (of(age) - of(g.from)) * p.coerceIn(0f, 1f)
+        fun ageAt(p: Float): Age = if (g != null && p < 0.5f) g.from else age
+        val clearR = grown(g?.forest ?: 1f) { land.clearing(it) }
+        // the forest's edge stands this much inside the age's while it draws back
+        edgeShrink = land.clearing(age) - clearR
+        val ringAge = if (g != null && g.forest < 1f) g.from else age
+        val roadLeft = ageAt(g?.west ?: 1f).ordinal >= Age.ZASELEK.ordinal
+        val roadHalf = grown(g?.wide ?: 1f) { if (it.ordinal >= Age.VAS.ordinal) 1f else 0.55f }
+        val plazaR = grown(g?.square ?: 1f) { a ->
+            when {
+                a.ordinal >= Age.TRG.ordinal -> 3.2f
+                a.ordinal >= Age.ZASELEK.ordinal -> 2.6f
+                else -> 1.9f
+            }
         }
+        val cobbled = ageAt(g?.cobbles ?: 1f).ordinal >= Age.TRG.ordinal
         val buildings = state.buildings.filter { it.type.onPlot && it.plot in 0 until VillageLayout.MAX_PLOTS }
             .groupBy { it.plot }.map { it.value.last() }.sortedBy { it.plot }
         val palisade = state.buildings.firstOrNull { it.type == BuildingType.PALISADE }
         // the woods below the village, on a tall canvas
-        val fg = if (frame.compact) null else foregroundFor(land, age, bw, bh)
+        val fg = if (frame.compact) null else foregroundFor(land, ringAge, bw, bh)
         // the marks practice left: which trees are stumps or growing back, how much is picked and quarried
         val today = frame.today
         val recentFelled = state.world.felled.count { Regrowth.days(it, today) < Regrowth.GROWN_DAYS }
@@ -416,7 +449,7 @@ class VillageRenderer {
         }
         // the footpath down to the landing at the stream: through the palisade's river gate where the ring would stand, or
         // inside it where the ring takes the stream in
-        val ring = Palisade.ring(land, age, fg)
+        val ring = Palisade.ring(land, ringAge, fg)
         val footpath = if (frame.compact) null else Palisade.footpath(ring)
         val landing = footpath?.first
         val riverGate = footpath?.second
@@ -425,18 +458,20 @@ class VillageRenderer {
         // cart bridge's track from the road over the stream into the woods
         val landmarks = landmarksFor(state, bw, bh, frame.compact)
         for (m in landmarks) for (way in m.ways) paths.way(way, LandmarkLayout.TRACK_HALF)
-        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg)
+        groundPass(s, horizon, clearR, roadLeft, roadHalf, plazaR, age, paths, fg, cobbled)
         if (k > 1) groundDetail(s, horizon)
         // no far treeline where the sea comes up to the horizon (a coast)
         if (land.sea != null) backdrop.treeline(horizon, from = comp.fireX + land.shoreX((comp.horizon - comp.fireY).toFloat()) + Terrain.BEACH) else backdrop.treeline(horizon)
         frame.highlightPlot?.let { if (it in 0 until VillageLayout.MAX_PLOTS) highlightGround(s, it) }
         frame.plots?.let { plotGround(s, it) }
+        // the plots an age brings, framed on the ground while its moment shows them
+        g?.plots?.takeIf { it.isNotEmpty() }?.let { plotGround(s, PlotMarks(free = it)) }
         mark(2)
 
         // ---- objects, painter's order by iso depth
         val objs = ArrayList<Obj>(600)
         val painter = BuildingPainter(s)
-        val trees = treesFor(state, bw, bh, frame.compact, comp, horizon = comp.horizon, clearR, roadLeft, fg)
+        val trees = treesFor(state, bw, bh, frame.compact, comp, horizon = comp.horizon, clearR, roadLeft, fg, edgeShrink)
         stagesFor(state, today)
         if (fg != null) addWoods(s, state, fg, objs, event, recentFelled, landmarks)
         // the tent that moved out of the village (game/TentMove): a campsite by the pond, where the trees make way for it
@@ -499,7 +534,7 @@ class VillageRenderer {
                 val sx = land.streamX(sy)
                 val dx = (sx - sy) * 4f; val dy = (sx + sy) * 2f
                 // in and about the clearing, well below the horizon (the land there is the horizon's)
-                if (dy > 8f - VillageLayout.HORIZON && VillageLayout.screenMetric(dx, dy) < land.forestEdge(age, VillageLayout.angle(dx, dy)) + 24f && !(land.water && land.wetScreen(dx, dy)))
+                if (dy > 8f - VillageLayout.HORIZON && VillageLayout.screenMetric(dx, dy) < land.forestEdge(age, VillageLayout.angle(dx, dy)) - edgeShrink + 24f && !(land.water && land.wetScreen(dx, dy)))
                     areas += VillageHit.OnSpot("riverbank") to floatArrayOf(s.iso.sx(sx, sy), s.iso.sy(sx, sy, 0f), 6f * k, 3.5f * k)
                 sy += 1.5f
             }
@@ -513,7 +548,7 @@ class VillageRenderer {
         }
 
         addLandmarks(s, landmarks, painter, objs)
-        if (palisade != null) addPalisade(s, state, palisade, fg, landmarks, painter, objs, horizon, frame)
+        if (palisade != null) addPalisade(s, state, palisade, fg, landmarks, painter, objs, horizon, frame, ringAge)
 
         for (b in buildings) {
             val o = land.origin(b.plot)
@@ -563,7 +598,7 @@ class VillageRenderer {
 
         // fire
         val fire = state.fire.coerceIn(0, 100) / 100f
-        val fireScale = TownAnchors.FIRE_SCALE[age.ordinal]
+        val fireScale = grown(g?.fire ?: 1f) { TownAnchors.FIRE_SCALE[it.ordinal] }
         objs.add(Obj(-0.01f) {
             val slot = hits.size + 1
             owner[s.newObject(Pal.OUTLINE)] = slot
@@ -580,13 +615,14 @@ class VillageRenderer {
         })
 
         // people: those who live here around their homes, the rest of the population walking about unnamed
-        val placed = frame.placed ?: TownPeople.of(state, frame.people, frame.time, frame.hour, frame.month, bw, bh, storm, event == EventKind.FESTIVAL, frame.standing, frame.date, frame.day)
+        val gather = frame.festive?.gather == true
+        val placed = frame.placed ?: TownPeople.of(state, frame.people, frame.time, frame.hour, frame.month, bw, bh, storm, event == EventKind.FESTIVAL || gather, frame.standing, frame.date, frame.day)
         addPeople(s, placed, comp, objs)
         // round the fire, the unnamed after the named (and a visitor waiting there): each in a place of their own, past the
         // named's places (they keep theirs while others come and go, so some round it may be free)
         val named = placed.filter { it.place == TownPlace.Fire }.maxOfOrNull { it.slot + 1 } ?: 0
         val atFire = named + if (!frame.compact && TownPlace.Fire in frame.visitors) 1 else 0
-        addVillagers(s, state, (state.villagers - frame.people.count { it.art != "baby" }).coerceAtLeast(0), buildings, objs, event, atFire, bw, bh)
+        addVillagers(s, state, (state.villagers - frame.people.count { it.art != "baby" }).coerceAtLeast(0), buildings, objs, if (gather && !storm) EventKind.FESTIVAL else event, atFire, bw, bh)
         if (!frame.compact) addVisitors(s, state, frame.visitors, objs, comp, bw, bh, named)
 
         // events
@@ -658,6 +694,11 @@ class VillageRenderer {
                 }
             }
             else -> Unit
+        }
+        // a celebration's decorations (an age's: AgeUps), the sign at the road, the procession
+        signAnchor = null
+        frame.festive?.let { f ->
+            signAnchor = festive.add(s, state, f, comp, buildings, roadHalf, plazaR, ringAge, frame.compact) { depth, draw -> objs.add(Obj(depth, draw)) }
         }
 
         mark(3)
@@ -785,6 +826,7 @@ class VillageRenderer {
 
     private fun groundPass(
         s: SceneCtx, horizon: Int, clearR: Float, roadLeft: Boolean, roadHalf: Float, plazaR: Float, age: Age, paths: PathGrid, fg: Foreground?,
+        cobbled: Boolean = age.ordinal >= Age.TRG.ordinal,
     ) {
         val c = s.canvas; val env = s.env; val iso = s.iso; val lens = s.lens; val k = s.k
         val land = s.land
@@ -800,7 +842,6 @@ class VillageRenderer {
         if (lake != null) { val fx0 = -lake[0] / lake[2]; val fy0 = -lake[1] / lake[3]; val n = sqrt(fx0 * fx0 + fy0 * fy0); lakeFx = fx0 / n; lakeFy = fy0 / n } else { lakeFx = 0f; lakeFy = 0f }
         if (relief > 0f) reliefFor(land)
         val g = env.grass; val ff = env.forestFloor
-        val cobbled = age.ordinal >= Age.TRG.ordinal
         val waterT = (s.time * 3).toInt()
         val autumnFloor = !env.snow && env.season == Season.AUTUMN
         val bank = if (env.snow) Pal.SNOW_D else Col.hex(0x4E7A3A)
@@ -886,7 +927,7 @@ class VillageRenderer {
                 } else {
                     val m = VillageLayout.screenMetric(dx, dy)
                     val ang = VillageLayout.angle(dx, dy)
-                    val edge = land.forestEdge(age, ang)
+                    val edge = land.forestEdge(age, ang) - edgeShrink
                     var forest = (m - edge) / 12f
                     if (meadow < 1.4f) forest = min(forest, (meadow - 1f) * 5f)
                     // the shores are open grass: no woods by the water
@@ -1209,10 +1250,12 @@ class VillageRenderer {
      * Cached tree/bush/rock placements on the nominal canvas: [x, y, kind(0 pine,1 broadleaf,2 bush,3 rock),
      * size, seed]; with them, which trees can be felled ([choppable]): the trees near the woodpile, nearest first.
      */
-    private fun treesFor(state: GameState, w: Int, h: Int, compact: Boolean, comp: Composition, horizon: Int, clearR: Float, roadLeft: Boolean, fg: Foreground?): List<FloatArray> {
+    private fun treesFor(state: GameState, w: Int, h: Int, compact: Boolean, comp: Composition, horizon: Int, clearR: Float, roadLeft: Boolean, fg: Foreground?, shrink: Float = 0f): List<FloatArray> {
         val age = state.age
         val land = VillageLayout.of(state)
-        val key = "${land.key}/$age/$w/$h/$compact"
+        // the forest drawing back (an age-up's moment): its edge in steps of 2 px, so the trees go in rings as it passes them
+        val shrunk = (shrink / 2f).roundToInt() * 2f
+        val key = "${land.key}/$age/$w/$h/$compact/$shrunk/$roadLeft"
         if (key == treeKey) return treeCache
         val fx = comp.fireX; val fy = comp.fireY
         // the land's own noise (the classic land's is 0: its trees stand where they always did)
@@ -1238,7 +1281,7 @@ class VillageRenderer {
             if (land.water && land.wetScreen(sx, sy, 12f)) continue
             val m = VillageLayout.screenMetric(sx, sy)
             val ang = atan2(sy * 2.4f, sx)
-            val edge = land.forestEdge(age, ang)
+            val edge = land.forestEdge(age, ang) - shrunk
             // the vineyards' terraces where the woods would be
             if (land.vineyards && m > edge + 2f && m < edge + 90f && land.vineyard(ang)) continue
             val seed = Noise.hash(i, j, 23 + salt) ushr 1
@@ -1750,10 +1793,10 @@ class VillageRenderer {
      */
     private fun addPalisade(
         s: SceneCtx, state: GameState, b: Building, fg: Foreground?, landmarks: List<LandmarkSpot>, buildings: BuildingPainter,
-        objs: ArrayList<Obj>, horizon: Int, frame: Frame,
+        objs: ArrayList<Obj>, horizon: Int, frame: Frame, ringAge: Age = state.age,
     ) {
         // a gate of its own where the cart bridge's track goes through the ring
-        val ring = Palisade.ring(s.land, state.age, fg, landmarks.flatMap { it.ways })
+        val ring = Palisade.ring(s.land, ringAge, fg, landmarks.flatMap { it.ways })
         val painter = PalisadePainter(s, buildings)
         val keep = ArrayList<FloatArray>()
         if (!frame.compact) {

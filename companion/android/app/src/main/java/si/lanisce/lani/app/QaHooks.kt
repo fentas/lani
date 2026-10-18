@@ -80,6 +80,12 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   asked again, it flies there again. "show:" lets it go.
  * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
  *   minutes since the last one (app/DevUpload); "dev:off" hides the developer settings (as their "Hide these settings").
+ * - "ageup:<age>": the village (the dev bridge's copy) grows to that age today from the one before ([grownTo]: whatever it
+ *   lacks for it, its party not had yet) and its moment plays over the village ([ageUp], taken by the village:
+ *   [tookAgeUp]; companion/GAME.md "Ages and their celebrations"); "ageup:at:<s>" holds a moment at that second for a
+ *   screenshot (the card from its end on: [ageUpAt]), "ageup:at:" lets it play on.
+ * - "level:<A1|A2|…>": the dialogs opened from now on (a scene's, a party's, a step's) are at that level, whatever the
+ *   learner's ([level]: an age's party at A1); "level:" lets the learner's own decide again.
  */
 object QaHooks {
     const val EXTRA = "si.lanisce.lani.qa"
@@ -131,6 +137,34 @@ object QaHooks {
     var bubbles by mutableStateOf<Int?>(null)
         private set
 
+    /** The age QA grew the dev village to ("ageup:<age>"), until the village plays its moment ([tookAgeUp]); null: none. */
+    var ageUp by mutableStateOf<si.lanisce.lani.game.Age?>(null)
+        private set
+
+    /** The second QA holds an age's moment at ("ageup:at:<s>"), or null: it plays on its clock. */
+    var ageUpAt by mutableStateOf<Float?>(null)
+        private set
+
+    /** The level QA asks the dialogs to be at ("level:<lv>"), or null: the learner's. */
+    var level by mutableStateOf<String?>(null)
+        private set
+
+    /** The village played the moment QA asked for. */
+    fun tookAgeUp() { ageUp = null }
+
+    /**
+     * [s] grown to [to] [today] from the age before it ("ageup:<age>"), whatever it lacks for it: the age, the day it grew
+     * (its decorations up, its party tonight, not had yet), its line in the chronicle. A debug build's, on the dev bridge's copy.
+     */
+    fun grownTo(s: si.lanisce.lani.game.GameState, to: si.lanisce.lani.game.Age, today: java.time.LocalDate, now: Long): si.lanisce.lani.game.GameState {
+        val key = si.lanisce.lani.game.AgeUps.key(to)
+        val line = si.lanisce.lani.game.culture.Cultures.current.chronicle.newAge.bi("age" to to.names)
+        return s.copy(
+            age = to, grown = s.grown + (key to today.toString()), parties = s.parties - key,
+            log = (s.log + si.lanisce.lani.game.LogEntry(now, to.emoji, line)).takeLast(50),
+        )
+    }
+
     /** The building QA asked the plot chooser for ("build:<type>"), until the village opens it ([tookBuild]); null: none. */
     var build by mutableStateOf<si.lanisce.lani.game.BuildingType?>(null)
         private set
@@ -151,10 +185,17 @@ object QaHooks {
         command: String?, road: (String) -> Unit = {}, forms: () -> Unit = {}, step: (String, Int) -> Unit = { _, _ -> }, audio: (String) -> Unit = {},
         season: () -> Unit = {}, ready: () -> Unit = {}, chat: (String) -> Unit = {}, cheat: (List<String>) -> Unit = {}, school: () -> Unit = {},
         shadow: (String) -> Unit = {}, counting: (String) -> Unit = {}, dev: (String) -> Unit = {}, pair: (String) -> Unit = {},
+        grow: (si.lanisce.lani.game.Age) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
+            command.startsWith("level:") -> level = command.removePrefix("level:").trim().uppercase().takeIf { it in listOf("A1", "A2", "B1", "B2", "C1", "C2") }
+            command.startsWith("ageup:at:") -> ageUpAt = command.removePrefix("ageup:at:").toFloatOrNull()?.coerceAtLeast(0f)
+            command.startsWith("ageup:") -> {
+                val name = command.removePrefix("ageup:").trim().uppercase()
+                si.lanisce.lani.game.Age.entries.firstOrNull { it.name == name && it != si.lanisce.lani.game.Age.OGENJ }?.let { a -> ageUp = a; grow(a) }
+            }
             command.startsWith("pair:") -> pair(command.removePrefix("pair:").trim())
             command == "shadow" -> shadow("")
             command.startsWith("shadow:") -> shadow(command.removePrefix("shadow:"))

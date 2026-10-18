@@ -832,6 +832,49 @@ built with: the content can go out before the code that plays it.
 Primorska's 13 projects have every step (78) at A1 and A2. QA's hook "step:<project>/<n>" (a debug build) readies the dev
 village for that step today and opens the projects sheet at it (`companion/bin/qa --steps project-step`).
 
+### An age's party: all the village over the village
+
+When the village reaches an age, its celebration's party is that evening ([GAME.md](GAME.md#ages-and-their-celebrations):
+Primorska's first evening by the fire, likof, veselica, semenj, the town's feast). It is played as a project's step
+without its scene is, over the village (`ui/scene/ProjectStepScene.kt`, `SceneController.startParty`; the talk is a
+`StepTalk` with its `party`): no picture to tap in, no weather; instead all the village on a festive stage, the
+backdrop of where it is (the fire at night, the square in the evening: `StagePlace.NIGHT`, `StagePlace.FEAST`) with garlands
+of flags strung across its top (lanterns in them at night), who speaks in front (the host first, big), everyone else who
+lives here and is in the village tonight behind them, smaller (`AgeUps.crowd`, at most 14), the celebration's name in the
+corner; its music as it begins (`Sfx.music`). Each line in its speaker's voice and with their face, the learner's turns
+as any dialog's ([Adaptive turns](#adaptive-turns), [Rules not yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar)),
+a wrong choice's reaction and its why; its turns test the celebration's words ([Your words in the dialogs](#your-words-in-the-dialogs)).
+At its end the celebration's name, the first time its chronicle line and what it brought (😊 +10, ♥ +2 to everyone),
+had again "🎉 Spet smo praznovali", and "📚 …: nauči se besed" (its word pack's run); confetti.
+
+**Who says what** (`AgeUps.cast`): the host and the guests their own lines when they are in the village tonight and met;
+one who isn't, another guest who is and doesn't speak in it yet (a child for a child), else anyone of the village who is,
+of their age, else the host; so a party never waits for anyone, and a guest's lines say nothing of who says them (the
+bridge checks it, as for a project's helpers). A reply is said by whoever spoke last.
+
+**The files** (`lani.celebration/v0`, a culture pack's `celebrations/<age>.json`: `tabor`, `zaselek`, `vas`, `trg`,
+`mesto`), in the pack's language, every text in the four languages the pack serves and a why in each base:
+
+| Field | What |
+|---|---|
+| `age`, `language`, `review` | the age, the pack's language, who wrote it and who checked it |
+| `emoji`, `name`, `about` | the celebration ("🪗", "Veselica · The village party") and what it is, for the moment's card |
+| `moment` | what the moment says as the decorations go up |
+| `line`, `memory` | the chronicle's line once the party was had; how the people remember it (fits "Še vedno mislim na …") |
+| `decor` | what goes up: `torches`, `spruce` (the likof's, on the newest roof), `bunting`, `floor` (a dance floor and its harmonika player), `stalls`, `banners` (and the procession) |
+| `music` | `valcek`, `harmonika` (the harmonika's waltz and polka) or `godba` (the band's polka and the church bell) |
+| `place` | `fire` or `square` (under the linden; by the fire without one) |
+| `host`, `guests` | villager ids of the cast: who hosts the party (says a line at least) and who speaks besides |
+| `pack`, `words` | its word pack (`packs/slavje-<…>.json`) and 1–4 of its words its turns test at every level, in a form the dictionary knows |
+| `levels` | `"A1"`, `"A2"` (at least): `{"lines": […]}`, 4–10 of a scene dialog's lines, 2–4 turns (a toast, a song, a dance, a small task), a reaction and a why to every wrong choice; no `sky`, `fx`, `act` or tap turn (it is played over the village) |
+
+Without `levels` (a culture that names its celebration but has no party yet) it is a gathering: the village gathers by the
+fire that evening, no dialog. The app bundles the files with the pack (`app/build.gradle.kts`, `CulturePacks`) and reads
+them leniently (`Cultures.celebrations`: one in another language or for another age is left out, said why); the bridge
+checks them with the pack (`bridge/src/celebrations.ts`, from `validateCulture`), and voice-build voices their lines in
+each speaker's voice, as a step's. An older bridge never reads `celebrations/`; an older app bundles the packs it was built
+with: the content can go out before the code that plays it.
+
 ### Houses and their rooms
 
 A house is somebody's home, and it opens one room, its own (`game/scene/Homes.kt`). Every scene that opens from `house`

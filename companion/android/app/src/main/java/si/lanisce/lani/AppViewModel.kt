@@ -274,6 +274,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         words = dialogWords::words,
         // a village project's step played as its scene: the step done (companion/SCENES.md, "Project steps")
         stepPlayed = game::projectStepPlayed,
+        // an age's party played to its end: the village keeps it (companion/GAME.md, "Ages and their celebrations")
+        partyPlayed = game::partyPlayed,
         // the night watch at the charcoal pile: a breakout covered in time, or the pile burnt down
         cycleDecided = game::cycleDecided,
     ).also { s -> grammar.scenes = { s.all } }
@@ -910,15 +912,24 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /**
-     * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
-     * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
+     * QA's "ageup:<age>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) grown to that age today, and the
+     * village shown, where its moment plays (companion/GAME.md, "Ages and their celebrations").
      */
+    fun qaAgeUp(age: si.lanisce.lani.game.Age) {
+        game.apply { si.lanisce.lani.app.QaHooks.grownTo(it, age, java.time.LocalDate.now(), System.currentTimeMillis()) }
+        openVillage()
+    }
+
     /** QA's "school" (app/QaHooks): the dev village ready for the classroom under the linden, and the school open. */
     fun qaSchool() {
         game.apply { si.lanisce.lani.app.QaHooks.readySchool(it, System.currentTimeMillis()) }
         openSchool(fromVillage = false)
     }
 
+    /**
+     * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
+     * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
+     */
     fun qaBuild() {
         game.apply { si.lanisce.lani.app.QaHooks.readyBuild(it, si.lanisce.lani.game.GameEngine.attributes(it).caps) }
         openVillage()
@@ -1283,7 +1294,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
      * The learner's level in [language] ("sl" → "A2"; A1 before the dashboard is loaded): the storyteller tells at it. The
      * level a treasure just brought counts before the node has it ([ContentController.levelIn]).
      */
-    fun levelIn(language: String): String = content.levelIn(language)
+    fun levelIn(language: String): String =
+        si.lanisce.lani.app.QaHooks.level?.takeIf { si.lanisce.lani.app.QaHooks.enabled } ?: content.levelIn(language) // QA's "level:<lv>" (a debug build)
 
     // --- the treasure map (companion/GAME.md, "The treasure map") ------------------------------------------------------
 
@@ -1673,6 +1685,20 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         if (!scenes.startStep(spec, o.done, scene, si.lanisce.lani.game.villagers.Residents.present(s, today), people)) return false
         if (scene != null) openScene(scene.id)
         return true
+    }
+
+    /**
+     * The party of [age] over the village (companion/GAME.md, "Ages and their celebrations"): its dialog with all the
+     * village, the first time while it is the village's age paying (AgeUps.partyHad); false when it has none (a gathering,
+     * a culture without its own) or there is no village.
+     */
+    fun startParty(age: si.lanisce.lani.game.Age): Boolean {
+        val s = game.state ?: return false
+        val today = java.time.LocalDate.now()
+        val c = si.lanisce.lani.game.AgeUps.celebration(age)
+        // its words: the pack as the node has it (which are learned), else as the app bundles it
+        c.pack?.let { p -> launchSafely { scenes.loadPack(p) } }
+        return scenes.startParty(c, si.lanisce.lani.game.villagers.Residents.present(s, today), villagers.people(s, today), s.residents.map { it.id })
     }
 
     /** The festival [id] that is on today (companion/GAME.md, "The calendar"). */

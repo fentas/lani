@@ -99,7 +99,7 @@ object TownSpots {
  * Something to see in the village, drawn as a bubble over its place: a villager's quest, a happening
  * (someone is in the kitchen), the event. [id] is "quest:<id>", "happening:<scene>/<id>", "event:<id>",
  * "visitor:<villager>", "arrival:<villager>" (someone to meet, at their home), "festival:<id>", "surprise:<kind>" (at the
- * road) or "project:<id>" (at its site). A villager's requests are one bubble: "quest:" and the first of them, [count] how
+ * road), "project:<id>" (at its site) or "party:<age>" (an age's party, by the fire or under the linden). A villager's requests are one bubble: "quest:" and the first of them, [count] how
  * many (its badge: "⚒️ 2").
  */
 data class TownMarker(val id: String, val kind: Kind, val emoji: String, val label: String, val place: TownPlace, val count: Int = 1) {
@@ -192,7 +192,7 @@ object TownMarkers {
      */
     fun of(
         state: GameState, active: List<ActiveHappening>, cast: List<Villager> = emptyList(), today: java.time.LocalDate = java.time.LocalDate.now(),
-        keepers: List<ActiveKeeper> = emptyList(),
+        keepers: List<ActiveKeeper> = emptyList(), party: si.lanisce.lani.game.Celebration? = null,
     ): List<TownMarker> {
         val out = ArrayList<TownMarker>()
         state.event?.let { e -> out += TownMarker("event:${e.id}", TownMarker.Kind.EVENT, e.kind.emoji, "${e.kind.sl} · ${e.kind.en}", eventPlace(e.kind, state)) }
@@ -210,8 +210,17 @@ object TownMarkers {
         }
         out += Keepers.markers(state, keepers, today)
         out += villageMarkers(state, today)
+        // an age's party tonight ([si.lanisce.lani.game.AgeUps.partyNow]): by the fire, or on the square under the linden
+        party?.let { c -> out += TownMarker("$PARTY${si.lanisce.lani.game.AgeUps.key(c.age)}", TownMarker.Kind.HAPPENING, c.emoji, c.name, partyPlace(c, state)) }
         return out
     }
+
+    /** An age's party's bubble ("party:<age>"; [si.lanisce.lani.game.AgeUps]): a tap starts it. */
+    const val PARTY = "party:"
+
+    /** Where an age's party is in this village: by the fire, or under the linden for one on the square (by the fire without one). */
+    fun partyPlace(c: si.lanisce.lani.game.Celebration, state: GameState): TownPlace =
+        if (c.place == si.lanisce.lani.game.PartyPlace.SQUARE) TownPlace.At(BuildingType.LIPA).takeIf { has(state, it) } ?: TownPlace.Fire else TownPlace.Fire
 
     /**
      * One bubble per person for their requests up now ([up], [si.lanisce.lani.game.QuestQueue]): "quest:" and the first of

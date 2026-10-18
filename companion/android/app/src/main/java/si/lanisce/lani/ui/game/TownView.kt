@@ -114,6 +114,9 @@ private sealed interface Tapped {
  *   a building standing on one to swap with) instead of opening what's there, and TalkBack finds the plots ([plotLabel])
  * @param day the villagers' day ([si.lanisce.lani.game.villagers.Routine.Day]: where each sleeps, the storytellers, who
  *   waits for the learner), for where they are and whose windows are lit
+ * @param growth an age-up's moment as it is now (the village growing, [si.lanisce.lani.game.AgeUps]), read each frame
+ * @param festive a celebration's decorations as they are now (the moment's, or the days after an age came), read each frame
+ * @param renderer the picture's renderer: the caller's, to read where the sign at the road was drawn ([VillageRenderer.signAnchor])
  */
 @Composable
 fun TownView(
@@ -151,9 +154,11 @@ fun TownView(
     day: si.lanisce.lani.game.villagers.Routine.Day = si.lanisce.lani.game.villagers.Routine.Day(),
     bubbleInset: Int = topInset,
     at: () -> java.time.LocalDateTime? = { null },
+    growth: () -> si.lanisce.lani.game.Growth? = { null },
+    festive: () -> si.lanisce.lani.game.Festive? = { null },
+    renderer: VillageRenderer = remember { VillageRenderer() },
 ) {
     val density = LocalDensity.current
-    val renderer = remember { VillageRenderer() }
     val latestState by rememberUpdatedState(state)
     val tapPlace by rememberUpdatedState(onPlace)
     val tapPerson by rememberUpdatedState(onVillager)
@@ -265,6 +270,8 @@ fun TownView(
                 plots = plots,
                 day = day,
                 at = at,
+                growth = growth,
+                festive = festive,
             )
             if (plots != null) PlotTargets(state, fit, plots, plotLabel, { cam.camera }) { tapPlot(it) }
             else {

@@ -181,7 +181,8 @@ fun VillageScreen(vm: AppViewModel) {
     }
     /** The plot chooser over the map: a building to put on a plot, or one to move (see [PlotBar]). */
     var choosing by remember { mutableStateOf<Choosing?>(null) }
-    var ceremony by remember { mutableStateOf<Age?>(null) }
+    /** An age's moment over the village (companion/GAME.md "Ages and their celebrations"): grown just now, or played again. */
+    var moment by remember { mutableStateOf<MomentRun?>(null) }
     /** The scroll's sheet is open (ui/game/VillageScroll.kt), and the collection it opened at (null: its grid). */
     var scrollOpen by remember { mutableStateOf(false) }
     var scrollAt by remember { mutableStateOf<Collection?>(null) }
@@ -200,11 +201,21 @@ fun VillageScreen(vm: AppViewModel) {
     val qaHour = si.lanisce.lani.app.QaHooks.sceneHour
     val scenes = vm.scenes.all
     val active = remember(s, scenes, minute, qaHour) { vm.scenes.active(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
+    // an age's party tonight (its evenings), and its decorations on the map the day it came and the next (AgeUps); the
+    // hour QA asks the village to be seen at counts
+    val partyClock = remember(minute, qaHour) { si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now()) }
+    val partyNow = remember(s, partyClock) { si.lanisce.lani.game.AgeUps.partyNow(s, partyClock) }
+    val partyTonight = remember(s, partyClock) { si.lanisce.lani.game.AgeUps.partyTonight(s, partyClock) }
+    val mapFestive = remember(s, partyClock) {
+        si.lanisce.lani.game.AgeUps.decorOn(s, partyClock.toLocalDate())?.let { c ->
+            si.lanisce.lani.game.Festive(c.decor, sign = 1f, gather = si.lanisce.lani.game.AgeUps.gathering(s, partyClock))
+        }
+    }
     // who is at a spot of the landscape now without living here (the charcoal burner by his kopa some evenings)
     val qaKopa = si.lanisce.lani.app.QaHooks.kopa
     val keepers = remember(s, minute, qaHour, qaKopa) { Keepers.here(s, si.lanisce.lani.app.QaHooks.sceneNow(LocalDateTime.now())) }
     val cast = vm.villagers.all
-    val markers = remember(s, active, cast, keepers) { TownMarkers.of(s, active, cast, keepers = keepers) }
+    val markers = remember(s, active, cast, keepers, partyNow) { TownMarkers.of(s, active, cast, keepers = keepers, party = partyNow) }
     /**
      * The people who live here, drawn about their homes, today's visitor (on the road, or at their building), the
      * stranger of the day's surprise at the road (the pedlar, the pilgrim), and who sits at a spot now (the burner).
@@ -295,13 +306,57 @@ fun VillageScreen(vm: AppViewModel) {
         }
     }
     val advance: () -> Unit = {
-        vm.game.advance()?.let {
+        val from = s.age
+        vm.game.advance()?.let { to ->
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             sheet = null
             scrollOpen = false
-            ceremony = it
+            card = null
+            villager = null
+            hudState.section = null
+            // the moment: the village growing on the map, its celebration, then what's new
+            val grown = vm.game.state ?: s
+            moment = MomentRun(si.lanisce.lani.game.AgeUps.moment(from, to, grown), grown, replay = false)
         }
     }
+    /** "🎉 Poglej spet · Watch again" (the chronicle): [age]'s moment again, on the village as it was the day it grew. */
+    val replay: (Age) -> Unit = { a ->
+        val before = Age.entries.getOrNull(a.ordinal - 1)
+        if (before != null && a <= s.age) {
+            scrollOpen = false
+            card = null
+            villager = null
+            hudState.section = null
+            val drawn = si.lanisce.lani.game.AgeUps.asItWas(s, a)
+            moment = MomentRun(si.lanisce.lani.game.AgeUps.moment(before, a, drawn), drawn, replay = true)
+        }
+    }
+    // QA's "ageup:<age>" (a debug build, app/QaHooks): the dev village grown to it, its moment plays
+    val qaAgeUp = si.lanisce.lani.app.QaHooks.ageUp
+    LaunchedEffect(qaAgeUp, s.age) {
+        val to = qaAgeUp ?: return@LaunchedEffect
+        val before = Age.entries.getOrNull(to.ordinal - 1) ?: return@LaunchedEffect
+        if (s.age != to) return@LaunchedEffect
+        si.lanisce.lani.app.QaHooks.tookAgeUp()
+        sheet = null; scrollOpen = false; card = null; villager = null; hudState.section = null
+        moment = MomentRun(si.lanisce.lani.game.AgeUps.moment(before, to, s), s, replay = false)
+    }
+    val reduced = rememberReducedMotion()
+    val talkBack = si.lanisce.lani.ui.scene.rememberTalkBack()
+    moment?.let { rememberMomentClock(it, reduced, talkBack) }
+    // the moment's music as its decorations go up, and its fireworks with the cheer
+    val playing = moment
+    LaunchedEffect(playing) {
+        val run = playing ?: return@LaunchedEffect
+        val m = run.moment
+        vm.ambience.prepare(si.lanisce.lani.game.ambient.Sfx.musicSounds(m.celebration.music))
+        snapshotFlow { run.elapsed >= m.musicAt || run.card }.first { it }
+        vm.ambience.music { now -> si.lanisce.lani.game.ambient.Sfx.music(m.celebration.music, now, fair = si.lanisce.lani.game.Decor.STALLS in m.celebration.decor) }
+        val cheer = m.beats.firstOrNull { it.kind == si.lanisce.lani.game.Beat.Kind.CHEER } ?: return@LaunchedEffect
+        snapshotFlow { run.elapsed >= cheer.from || run.card }.first { it }
+        if (!reduced) vm.game.cheer()
+    }
+    val townRenderer = remember { si.lanisce.lani.game.render.VillageRenderer() }
     val scrollPrefs = rememberScrollPrefs()
 
     BoxWithConstraints(Modifier.fillMaxSize().background(Color(0xFF16202E))) {
@@ -352,6 +407,8 @@ fun VillageScreen(vm: AppViewModel) {
                 // the treasure map by the fire: the map
                 m.id == TownMarkers.TREASURE -> { card = null; vm.openTreasure(fromVillage = true) }
                 m.id.startsWith("festival:") -> { card = null; vm.startFestival(m.id.removePrefix("festival:")) }
+                // an age's party tonight (companion/GAME.md "Ages and their celebrations"): all the village, its dialog
+                m.id.startsWith(TownMarkers.PARTY) -> { card = null; vm.startParty(s.age) }
                 m.id == "surprise:${si.lanisce.lani.game.Surprises.PEDLAR}" -> { card = null; sheet = VillageSheet.Chest }
                 m.id.startsWith("surprise:") -> { card = null; vm.startSurprise() }
                 m.id.startsWith("visitor:") -> { card = null; villagerAt = null; villager = m.id.removePrefix("visitor:") }
@@ -391,6 +448,7 @@ fun VillageScreen(vm: AppViewModel) {
             reading = { scrollOpen = false; hudState.section = null; vm.openReadings(fromVillage = true) },
             school = if (vm.school.course != null) { { scrollOpen = false; hudState.section = null; vm.openSchool(fromVillage = true) } } else null,
             quest = { q -> scrollOpen = false; vm.startQuest(q.id) },
+            replay = replay,
         )
 
         // The plot chooser: the village as it would be, the plots to choose from marked, the bubbles away meanwhile
@@ -423,9 +481,9 @@ fun VillageScreen(vm: AppViewModel) {
                 .then(if (scrollOpen) Modifier.clearAndSetSemantics { } else Modifier),
         ) {
             TownView(
-                state = drawn, cam = cam, fit = fit, anchors = anchors, visitors = visitors, clock = townClock,
+                state = moment?.drawn ?: drawn, cam = cam, fit = fit, anchors = anchors, visitors = visitors, clock = townClock,
                 // QA's "bubbles:<n>" (a debug build's hook): only the n nearest the fire
-                markers = if (choice != null) emptyList() else si.lanisce.lani.app.QaHooks.fewer(shown) { m ->
+                markers = if (choice != null || moment != null) emptyList() else si.lanisce.lani.app.QaHooks.fewer(shown) { m ->
                     val p = anchorOf(m.place)
                     val f = anchorOf(TownPlace.Fire)
                     kotlin.math.hypot(p.x - f.x, p.y - f.y)
@@ -475,6 +533,10 @@ fun VillageScreen(vm: AppViewModel) {
                     }
                 },
                 plotLabel = { p -> choice?.let { plotLabel(s, it, p) } ?: plotName(p) },
+                // an age's moment (the village growing, its decorations going up), and the decorations of the days after
+                growth = { moment?.frame?.growth },
+                festive = { moment?.frame?.festive ?: mapFestive },
+                renderer = townRenderer,
             )
             // A new building goes up where the learner can see it.
             LaunchedEffect(vm.game.justBuilt) {
@@ -495,6 +557,26 @@ fun VillageScreen(vm: AppViewModel) {
                 if (villager != null && cardH > 0) cam.reveal(at, area(cardH + with(density) { 64.dp.roundToPx() }))
             }
 
+            // the moment's camera: each beat where it happens (home for its opening and its cheer); still with the animations off
+            val beatNow by remember(moment) { androidx.compose.runtime.derivedStateOf { moment?.let { if (it.card) null else it.frame.beat } } }
+            LaunchedEffect(moment, beatNow) {
+                val run = moment ?: return@LaunchedEffect
+                val rig = cam.rig ?: return@LaunchedEffect
+                if (reduced) return@LaunchedEffect
+                val b = beatNow ?: run { cam.recenter(); return@LaunchedEffect }
+                val shot = si.lanisce.lani.game.render.MomentShots.of(b, run.moment, run.drawn, fit.width, fit.height)
+                val ms = ((b.to - b.from) * 1000 * 0.55).toInt().coerceIn(500, 1400)
+                val a = area()
+                val rect = shot.rect
+                val at = shot.at
+                when {
+                    shot.home -> cam.home?.let { cam.flyTo(it, ms) }
+                    rect != null -> cam.flyTo(rig.frame(rect, a, maxFrame = rig.minScale * 2), ms)
+                    at != null -> cam.flyTo(rig.lookAt(at.x, at.y, (rig.minScale * shot.zoom).coerceIn(rig.minScale.toFloat(), rig.maxScale.toFloat()), (a[0] + a[2]) / 2f, (a[1] + a[3]) / 2f), ms)
+                }
+            }
+
+            if (moment == null) {
             // Keeps the HUD readable over a bright sky, and the bar over the forest.
             Box(Modifier.fillMaxWidth().height(with(density) { hudInset().toDp() } + 40.dp).background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))))
             Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(170.dp).background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.55f)))))
@@ -503,7 +585,9 @@ fun VillageScreen(vm: AppViewModel) {
             // whatever leads on from its sheet closes it
             val v = overview.village
             val today = java.time.LocalDate.now()
-            val soon = remember(v, overview.today) { VillageHudLogic.soon(v, overview.today.filterIsInstance<TodayItem.Arrival>(), today) }
+            val soon = remember(v, overview.today, partyNow, partyTonight) {
+                VillageHudLogic.soon(v, overview.today.filterIsInstance<TodayItem.Arrival>(), today, party = partyNow?.let { it to false } ?: partyTonight?.let { it to true })
+            }
             val hud = HudView(
                 s, attrs, check, goal,
                 goalAction = goal.action(
@@ -554,6 +638,8 @@ fun VillageScreen(vm: AppViewModel) {
                     // the ring tapped while choosing a plot: the cards for now; the learner's choice stays
                     cards = { hudState.toggleCards(chooserRun.takeIf { choosing != null }) },
                     sheet = { sec -> hudState.section = sec },
+                    // an age's party: now, its dialog; later tonight, its time (the line says when)
+                    party = { a -> if (partyNow != null) { hudState.section = null; vm.startParty(a) } },
                 ),
                 moved = cam.moved, onRecenter = cam::recenter, reduced = rememberReducedMotion(),
                 // its sheet lies over the bottom bar
@@ -620,6 +706,39 @@ fun VillageScreen(vm: AppViewModel) {
                     modifier = Modifier.onSizeChanged { barH = it.height },
                 )
             }
+            }
+        }
+        // an age's moment over the map: its captions, the sign's name, then its card with what's new
+        moment?.let { run ->
+            val to = run.moment.to
+            val whatsNew = remember(run, vm.scenes.all, cast) { si.lanisce.lani.game.AgeUps.whatsNew(to, vm.scenes.all, cast) }
+            // played again from the chronicle: its party now, whatever the hour; else tonight's
+            val party = if (run.replay) si.lanisce.lani.game.AgeUps.celebration(to).takeIf { it.party } else partyNow
+            AgeUpOverlay(
+                run, sign = { townRenderer.signAnchor }, camera = { cam.camera },
+                actions = MomentActions(
+                    done = { moment = null; cam.recenter() },
+                    party = { moment = null; cam.recenter(); vm.startParty(to) },
+                    open = { n ->
+                        moment = null
+                        cam.recenter()
+                        when (n.go) {
+                            si.lanisce.lani.game.NewThing.Go.BUILD -> sheet = VillageSheet.Build
+                            si.lanisce.lani.game.NewThing.Go.PROJECTS -> sheet = VillageSheet.Projects(n.arg)
+                            si.lanisce.lani.game.NewThing.Go.SCENE -> n.arg?.let { vm.openScene(it, null) }
+                            si.lanisce.lani.game.NewThing.Go.PERSON -> vm.openVillagers()
+                            si.lanisce.lani.game.NewThing.Go.CHEST -> sheet = VillageSheet.Chest
+                            si.lanisce.lani.game.NewThing.Go.SCHOOL -> vm.openSchool(fromVillage = true)
+                            si.lanisce.lani.game.NewThing.Go.INFO -> sheet = VillageSheet.Info
+                            si.lanisce.lani.game.NewThing.Go.FESTIVALS -> hudState.section = HudSection.SOON
+                            si.lanisce.lani.game.NewThing.Go.NONE -> Unit
+                        }
+                    },
+                ),
+                party = party,
+                tonight = if (run.replay) null else partyTonight,
+                whatsNew = whatsNew,
+            )
         }
 
         if (scrollOpen) VillageScroll(scrollData, scrollRows, scrollPrefs, start = scrollAt, onClose = { scrollOpen = false })
@@ -730,7 +849,6 @@ fun VillageScreen(vm: AppViewModel) {
     }
     skyList?.let { up -> si.lanisce.lani.ui.sky.SkyTonightSheet(vm, up, onOpen = { skyList = null; skyCard = it }, onDismiss = { skyList = null }) }
     skyCard?.let { t -> si.lanisce.lani.ui.sky.SkySheet(vm, t, onDismiss = { skyCard = null }) }
-    ceremony?.let { AgeCeremony(it) { ceremony = null } }
 }
 
 @Composable

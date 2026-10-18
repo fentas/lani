@@ -16,6 +16,7 @@ import { SCENE_ART, validateScene } from '../../src/scenes'
 import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
 import { cultureProjectSteps, cultureStepFiles, speakerGendered, stepTellings } from '../../src/project-steps'
+import { cultureCelebrations } from '../../src/celebrations'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, tempDir } from './harness'
 import { JAN } from '../learner-content'
@@ -324,6 +325,62 @@ export default async function cultures() {
     "… a helper's line may say nothing of who says it (another says it when they're away)",
     speakerGendered('Prinesel sem vrv.') && speakerGendered('Danes sem utrujena.') && speakerGendered('Tega ne zmorem sam.') && !speakerGendered('Tukaj sem! Primimo vrv.') && !speakerGendered('Smreka je visoka.'),
   )
+
+  // --- an age's celebration (celebrations/<age>.json, lani.celebration/v0; companion/GAME.md "Ages and their celebrations"):
+  // a pack's party for an age, checked with the pack (validateCulture above checks a pack's with its cast and its packs);
+  // what's wrong in one is named with the file
+  // the test pack with a party for Vas, in Italian: as written it passes; broken, it says what and where
+  const tx = (it: string, sl: string, en: string, de: string) => ({ it, sl, en, de })
+  const party = {
+    schema: 'lani.celebration/v0', age: 'vas', language: 'it', review: 'smoke', emoji: '🪗',
+    name: tx('La sagra', 'Šagra', 'The village feast', 'Das Dorffest'), about: tx('Tutto il paese balla.', 'Vsa vas pleše.', 'The whole village dances.', 'Das ganze Dorf tanzt.'),
+    moment: tx('Su le bandierine.', 'Gor gredo zastavice.', 'Up go the flags.', 'Die Fähnchen gehen hoch.'), line: tx('Abbiamo ballato.', 'Plesali smo.', 'We danced.', 'Wir haben getanzt.'),
+    decor: ['bunting', 'floor'], music: 'harmonika', place: 'square', host: 'nino', guests: ['pina'], pack: 'festa', words: ['ballo'],
+    levels: {
+      A1: { lines: [
+        { who: 'nino', ...tx('Benvenuti alla sagra!', 'Dobrodošli na šagri!', 'Welcome to the feast!', 'Willkommen beim Fest!') },
+        { choices: [
+          { ...tx('Salute!', 'Na zdravje!', 'Cheers!', 'Prost!'), ok: true },
+          { ...tx('Buonanotte!', 'Lahko noč!', 'Good night!', 'Gute Nacht!'), why: { sl: 'Za zdravico: salute.', en: 'A toast: salute.', de: 'Ein Trinkspruch: salute.' }, reply: tx('Già a letto?', 'Že spat?', 'Off to bed?', 'Schon ins Bett?') },
+        ] },
+        { who: 'pina', ...tx('Balliamo?', 'Plešemo?', 'Shall we dance?', 'Tanzen wir?') },
+        { choices: [
+          { ...tx('Sì, balliamo!', 'Ja, plešimo!', "Yes, let's dance!", 'Ja, tanzen wir!'), ok: true },
+          { ...tx('Sì, dormiamo!', 'Ja, spimo!', "Yes, let's sleep!", 'Ja, schlafen wir!'), why: { sl: 'Dormire je spati.', en: 'Dormire is to sleep.', de: 'Dormire heißt schlafen.' }, reply: tx('Dormire? Adesso?', 'Spati? Zdaj?', 'Sleep? Now?', 'Schlafen? Jetzt?') },
+        ] },
+      ] },
+    },
+  }
+  const celebrated = tempDir('lani-smoke-culture-celebrations-')
+  cpSync(resolve(android, '../../../../../../test/resources/cultures-test/tinyland'), join(celebrated, 'tinyland'), { recursive: true })
+  mkdirSync(join(celebrated, 'tinyland/celebrations'))
+  writeFileSync(join(celebrated, 'tinyland/celebrations/vas.json'), JSON.stringify(party))
+  const tinyCel = cultureCelebrations(celebrated, 'tinyland', 'it', { cast: new Set(['nino', 'pina']) })
+  // curated: written at A1 and A2 (the test pack's has A1 only, which the check names), nothing else wrong
+  check("the test pack's party (Nino hosts, Pina dances) is read and checked with the pack: only its missing A2 is named",
+    tinyCel.files.length === 1 && JSON.stringify(tinyCel.errors) === JSON.stringify(['tinyland/celebrations/vas.json: levels: no A2 (a curated party is written for A1 and A2 at least)']), tinyCel.errors)
+  const bad = JSON.parse(JSON.stringify(party))
+  bad.host = 'gino'
+  bad.levels.A1.lines[0].fx = { bell: 1 }
+  bad.levels.A1.lines[1].choices[0].tap = 'fire'
+  delete bad.levels.A1.lines[1].choices[1].reply
+  bad.levels.A1.lines[3] = { who: 'pina', ...tx('Che bella sera!', 'Kako lep večer!', 'What a lovely evening!', 'Was für ein schöner Abend!') }
+  delete bad.name.de
+  writeFileSync(join(celebrated, 'tinyland/celebrations/vas.json'), JSON.stringify(bad))
+  writeFileSync(join(celebrated, 'tinyland/celebrations/zaselek.json'), JSON.stringify({ ...party, levels: {} }))
+  const badCel = validateCulture(celebrated, 'tinyland')
+  const celWrong = [
+    'tinyland/celebrations/vas.json: name: no "de" text (every language the pack serves)',
+    'tinyland/celebrations/vas.json: levels.A1.lines[0]: who "nino" is neither the host nor a guest (gino, pina)',
+    'tinyland/celebrations/vas.json: levels.A1.lines[1].choices[1]: a wrong choice needs a reaction (its reply: what they make of it, never the right form)',
+    'tinyland/celebrations/vas.json: levels.A1: 1 turn(s): a party has 2 at least (a toast, a dance …)',
+    'tinyland/celebrations/vas.json: levels.A1: the host (gino) says nothing',
+    'tinyland/celebrations/vas.json: levels.A1.lines[0]: a party is played over the village: no sky or fx cue',
+    'tinyland/celebrations/vas.json: levels.A1.lines[1]: a party has no picture to tap in: no tap turn',
+    'tinyland/celebrations/zaselek.json: age "vas", but the file is zaselek.json',
+  ]
+  check("… a party: a text missing a language, a line by neither the host nor a guest, a host who says nothing, a reaction missing, one turn only, a bell and a tap over the village, a file for another age",
+    !badCel.ok && celWrong.every(e => badCel.errors.includes(e)), !badCel.ok && badCel.errors)
 
   tw.spots = { nowhere: tw.spots.kopa }
   writeFileSync(join(spotted, 'tinyland/world.json'), JSON.stringify(tw))

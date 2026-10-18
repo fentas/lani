@@ -250,6 +250,8 @@ fun DialogPanel(
                     closeLabel = closeLabel,
                     onNotebook = { s -> vm.openNotebook(s.id) },
                     yourWords = { YourWords(vm, talk) },
+                    // an age's party: its words to learn (its pack's run), from the village
+                    onLearnPack = { pack -> vm.scenes.closeTalk(); vm.startPack(pack, fromVillage = true) },
                 )
             } else {
                 if (!prefs.wordHintSeen) WordHint(prefs::sawWordHint)
@@ -1096,6 +1098,8 @@ private fun DialogResult(
     onNotebook: ((Story) -> Unit)? = null,
     /** "📇 Tvoje besede · Your words": the learner's words the dialog tested ([YourWords]). */
     yourWords: @Composable () -> Unit = {},
+    /** An age's party: learn its words (its word pack's run). */
+    onLearnPack: ((String) -> Unit)? = null,
 ) {
     val m = talk.run.mistakes
     val paid = talk.paid
@@ -1116,7 +1120,7 @@ private fun DialogResult(
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center,
             )
         }
-        talk.step?.let { StepEnd(it) }
+        talk.step?.let { if (it.party != null) PartyEnd(it, onLearnPack) else StepEnd(it) }
         yourWords()
         talk.story?.let { StoryEnd(it, onLearnStory, onNotebook) }
         when {
@@ -1154,6 +1158,38 @@ private fun DialogResult(
         }
         BigButton(closeLabel ?: bi("common.backScene"), onClick = onClose)
         Spacer(Modifier.widthIn(min = 1.dp))
+    }
+}
+
+/**
+ * The end of an age's party (companion/GAME.md "Ages and their celebrations"): the celebration's name, the first time its
+ * line for the chronicle and what it brought (the spirits up, everyone closer), had again that it was a party all the same;
+ * and its words to learn (its word pack's run: [onLearnPack]).
+ */
+@Composable
+private fun PartyEnd(st: si.lanisce.lani.app.StepTalk, onLearnPack: ((String) -> Unit)?) {
+    val age = st.party ?: return
+    val c = remember(age) { si.lanisce.lani.game.AgeUps.celebration(age) }
+    val r = st.result
+    Surface(color = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.5f), shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(14.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("${c.emoji} ${c.name}", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, modifier = Modifier.semantics { heading() })
+            if (r?.won == true) {
+                Text("📜 ${c.lineText.target}", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold, textAlign = TextAlign.Center)
+                val base = c.lineText.base
+                if (base.isNotBlank() && base != c.lineText.target) Text(base, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+                Text(
+                    "😊 +${si.lanisce.lani.game.AgeUps.PARTY_MORALE} · ♥ +${si.lanisce.lani.game.AgeUps.PARTY_POINTS} ${bi("ageUp.party.everyone")}",
+                    style = MaterialTheme.typography.bodyMedium, color = AlpineGreen, textAlign = TextAlign.Center,
+                )
+            } else Text("🎉 ${bi("ageUp.party.again")}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
+            val pack = c.pack
+            if (pack != null && onLearnPack != null) {
+                FilledTonalButton(onClick = { onLearnPack(pack) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp), shape = MaterialTheme.shapes.medium) {
+                    Text("📚 ${bi("ageUp.party.words", "name" to c.nameText)}", style = MaterialTheme.typography.labelLarge, textAlign = TextAlign.Center)
+                }
+            }
+        }
     }
 }
 

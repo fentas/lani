@@ -20,6 +20,7 @@ import { label, spokenLine, type Label } from './langs'
 import { SCENE_ART, RESOURCES, SPOT_NAMES, TIMES, checkNeeds, dialogGrammar, dialogLine, validateScene, type SceneProject, type SceneRefs } from './scenes'
 import { readReadings, type Reading } from './readings'
 import { SPOT_ARTS, SPOT_SKIES, SPOT_SMOKES } from './spot-cycles'
+import { cultureCelebrations } from './celebrations'
 import { cultureProjectSteps } from './project-steps'
 import { cultureSky } from './sky'
 import { CURATED_LEVELS, LEVELS, chaptersOf, curatedPictureErrors, validateStory } from './stories'
@@ -529,6 +530,9 @@ export function validateCulture(culturesDir: string, cultureId: string, cast?: C
   // the project's people, played in a scene of the village, its turns testing the project's words
   const people = projects.projects.map(p => ({ id: p.id, leader: p.leader, helpers: p.helpers, steps: p.steps.length }))
   errors.push(...cultureProjectSteps(culturesDir, cultureId, lang, people, { packs: refs?.packs, pages }).errors)
+  // how it celebrates its ages (celebrations/<age>.json, when the pack has them): each party's dialog said by its host and
+  // guests of the cast, its turns testing its word pack's words (companion/GAME.md "Ages and their celebrations")
+  errors.push(...cultureCelebrations(culturesDir, cultureId, lang, { cast: cast && new Set(cast.map(v => v.id)), packs: refs?.packs, pages }).errors)
   // how its people are introduced (arrivals.json, when the pack has one): each of its cast, and the templates
   errors.push(...cultureArrivals(culturesDir, cultureId, lang, cast).errors)
   // its spots' texts (world.json `spots`): the story, the words in their pack, the keeper's talk

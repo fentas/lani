@@ -148,6 +148,8 @@ sealed interface SoonAction {
     data class Arrival(val id: String) : SoonAction
     data object Surprise : SoonAction
     data class Project(val id: String) : SoonAction
+    /** An age's party (companion/GAME.md "Ages and their celebrations"). */
+    data class Party(val age: si.lanisce.lani.game.Age) : SoonAction
 }
 
 /**
@@ -245,12 +247,19 @@ object VillageHudLogic {
     }
 
     /**
-     * "Danes in kmalu · Today and coming up", in the order they come: today's (the festival that is on, who joined the
-     * village and waits to be met, the day's surprise at the road, a project step to take), then what's coming
+     * "Danes in kmalu · Today and coming up", in the order they come: today's (an age's party now or tonight ([party]: its
+     * celebration, and whether it is later tonight), the festival that is on, who joined the village and waits to be met, the
+     * day's surprise at the road, a project step to take), then what's coming
      * ([Teaser]s: tonight's story, tomorrow's step, the pedlar's day …). A villager's request or a happening isn't here:
      * their bubbles are on the map.
      */
-    fun soon(village: VillageToday, arrivals: List<TodayItem.Arrival>, today: LocalDate): List<SoonLine> = buildList {
+    fun soon(
+        village: VillageToday, arrivals: List<TodayItem.Arrival>, today: LocalDate, party: Pair<si.lanisce.lani.game.Celebration, Boolean>? = null,
+    ): List<SoonLine> = buildList {
+        // an age's party: now, or later tonight (its evening: the timeline says "tonight")
+        party?.let { (c, later) ->
+            add(SoonLine("party:${c.age.name}:$today", 0, later, c.emoji, c.nameText, gold = true, news = true, action = SoonAction.Party(c.age)))
+        }
         village.festival?.takeIf { !it.done }?.let { d ->
             val f = d.festival
             add(SoonLine("festival:${f.id}:$today", 0, false, f.emoji, f.nameText, gold = !f.quiet, news = true, action = SoonAction.Festival(f.id)))
@@ -385,6 +394,8 @@ class HudActions(
     val cards: () -> Unit,
     /** A card's section in the sheet, or null: the sheet closed. */
     val sheet: (HudSection?) -> Unit,
+    /** An age's party: now, its dialog. */
+    val party: (si.lanisce.lani.game.Age) -> Unit = {},
 )
 
 /**
@@ -743,6 +754,7 @@ private fun SoonSection(view: HudView, actions: HudActions) {
                 is SoonAction.Arrival -> ({ actions.arrival(a.id) })
                 SoonAction.Surprise -> actions.surprise
                 is SoonAction.Project -> ({ actions.projects(a.id) })
+                is SoonAction.Party -> ({ actions.party(a.age) })
                 null -> null
             }
             SoonRow(line, VillageHudLogic.whenOf(line.day, line.evening, today), new = line.news && line.key !in view.soonSeen, onOpen = open)

@@ -111,6 +111,11 @@ class ScrollData(
     val chronicle: List<LogEntry>,
     /** When the scroll was last opened (ms): the chronicle's lines after it are new. */
     val since: Long,
+    /**
+     * The ages the village reached, the latest first, each with its celebration and the day (when known): "🎉 Poglej spet ·
+     * Watch again" on each in the chronicle (companion/GAME.md "Ages and their celebrations").
+     */
+    val milestones: List<si.lanisce.lani.game.Milestone> = emptyList(),
 ) {
     val newPeople: Int get() = people.count { it.new }
     val newRules: Int get() = rules.count { it.new }
@@ -189,6 +194,7 @@ class ScrollData(
                 moreRules = chapter.more,
                 chronicle = overview.chronicle,
                 since = since,
+                milestones = si.lanisce.lani.game.AgeUps.milestones(s),
             )
         }
     }
@@ -239,9 +245,14 @@ class ScrollRowActions(
     val school: (() -> Unit)? = null,
     /** A villager's request: its run. */
     val quest: (Quest) -> Unit = {},
+    /** "🎉 Poglej spet · Watch again": an age's moment again, and its party (companion/GAME.md "Ages and their celebrations"). */
+    val replay: (si.lanisce.lani.game.Age) -> Unit = {},
 )
 
 private val dateFmt = DateTimeFormatter.ofPattern("d. M. HH:mm")
+
+/** "12. 10. 2026": the day an age came, in the chronicle. */
+private fun milestoneDay(d: LocalDate): String = d.format(DateTimeFormatter.ofPattern("d. M. yyyy"))
 
 /** "♥♥♡♡" for a friendship level of 2. */
 private fun hearts(n: Int): String = "♥".repeat(n.coerceIn(0, 4)) + "♡".repeat(4 - n.coerceIn(0, 4))
@@ -459,9 +470,23 @@ private fun LazyListScope.collection(c: Collection, d: ScrollData, a: ScrollRowA
             if (d.moreRules > 0) item("more") { ItemRow("🔒", bi("grammar.more", "n" to d.moreRules), bi("grammar.unlockWhenMet"), dim = true, onClick = null) }
         }
         Collection.CHRONICLE -> {
+            // the ages the village reached: each one's celebration, to watch again (also one reached before they came)
+            if (d.milestones.isNotEmpty()) item("agesTitle") { SubHeading("🏆 ${bi("ageUp.ages")}") }
+            for (m in d.milestones) item("age:${m.age.name}") {
+                ItemRow(
+                    m.age.emoji, "${m.age.sl} · ${m.age.en}", listOfNotNull("${m.celebration.emoji} ${m.celebration.name}", m.on?.let(::milestoneDay)).joinToString(" · "),
+                    extra = "🎉 ${bi("ageUp.watchAgain")}", onClick = { a.replay(m.age) },
+                )
+            }
+            if (d.milestones.isNotEmpty() && d.chronicle.isNotEmpty()) item("logTitle") { SubHeading("📜 ${bi("townScroll.chronicle")}") }
             if (d.chronicle.isEmpty()) item("noLog") { Text(bi("townScroll.storyJustBeginning"), color = MaterialTheme.colorScheme.onSurfaceVariant) }
             for ((i, e) in d.chronicle.withIndex()) item("log:$i:${e.at}") {
-                ItemRow(e.emoji, e.text, dateFmt.format(Instant.ofEpochMilli(e.at).atZone(ZoneId.systemDefault())), new = e.at > d.since, onClick = null)
+                // an age's line: its moment and party again
+                val age = si.lanisce.lani.game.AgeUps.ageOf(e)
+                ItemRow(
+                    e.emoji, e.text, dateFmt.format(Instant.ofEpochMilli(e.at).atZone(ZoneId.systemDefault())), new = e.at > d.since,
+                    extra = age?.let { "🎉 ${bi("ageUp.watchAgain")}" }, onClick = age?.let { { a.replay(it) } },
+                )
             }
         }
     }

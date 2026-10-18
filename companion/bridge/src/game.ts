@@ -125,6 +125,10 @@ export class GameStore {
         // it again on the eve of May Day): it isn't in the village or on its square; the project stays finished
         landmarks_down: Array.isArray(s.landmarksDown) && s.landmarksDown.length ? s.landmarksDown : undefined,
         festivals: s.festivals ?? {},
+        // the days the village reached its ages, and the ages' parties it had (age → day; companion/GAME.md "Ages and their
+        // celebrations"): its decorations stay up the day it grew and the next, its party is that evening
+        grown: s.grown && typeof s.grown === 'object' && Object.keys(s.grown).length ? s.grown : undefined,
+        parties: s.parties && typeof s.parties === 'object' && Object.keys(s.parties).length ? s.parties : undefined,
         calendar: calendar?.(s.festivals && typeof s.festivals === 'object' ? s.festivals : {}),
         surprise: s.surprise ?? undefined,
         // the school's course (companion/COURSE.md): the day the class began, the units done and started

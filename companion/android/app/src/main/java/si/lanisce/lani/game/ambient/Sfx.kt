@@ -7,8 +7,9 @@ import kotlin.math.ceil
 // Short sounds where the picture already shows one (companion/GAME.md, "Background sounds"): the thunder after a flash
 // (Thunder.kt), a bell swinging and ringing, the anvil struck, the cow shaking its bell, the owl's hoot, the marmot's
 // whistle, the pot's lid, the cat's purr, a fire catching; the square's cat mewing up the linden, its dog's bark, a cart's
-// hooves, the band's polka, the fountain's water. Pure: which sound, when (on the picture's clock, as the painter
-// draws it) and how loud; the player (data/AmbientPlayer.kt) plays them.
+// hooves, the band's polka, the fountain's water; the music of an age's celebration (the harmonika's polka and waltz,
+// the band's polka with the bells). Pure: which sound, when (on the picture's clock, as the painter draws it) and how
+// loud; the player (data/AmbientPlayer.kt) plays them.
 
 /**
  * A short sound, played once: `assets/ambient/<file>.ogg`, synthesized by tools/ambient_sounds.py. Its loudest moment is
@@ -57,6 +58,12 @@ enum class Sound(val file: String) {
 
     /** The water starting to run from the fountain's pipes into its trough. */
     GUSH("gush"),
+
+    /** A polka on the harmonika (a button accordion): a village party's (an age's celebration, game/AgeUps). */
+    HARMONIKA("harmonika"),
+
+    /** A slow waltz on the harmonika by the fire (an age's celebration). */
+    VALCEK("valcek"),
     ;
 
     companion object {
@@ -162,6 +169,35 @@ object Sfx {
     private fun mews(now: Double): List<Cue> {
         val first = MEW_EVERY * ceil((now + 0.4 + 0.1) / MEW_EVERY) - 0.4
         return listOf(Cue(Sound.MEOW, first, 0.8f), Cue(Sound.MEOW, first + MEW_EVERY, 0.65f, 1.04f))
+    }
+
+    /**
+     * The music of an age's celebration as its decorations go up (companion/GAME.md "Ages and their celebrations"), from
+     * [now]: the harmonika's waltz or polka, or the band's polka with the church bell's peal (the town's procession); the
+     * market's hand bell rings the fair in first ([fair]).
+     */
+    fun music(m: si.lanisce.lani.game.Music, now: Double, fair: Boolean = false): List<Cue> = buildList {
+        var at = now
+        if (fair) {
+            val b = BELLS.getValue("market")
+            addAll(strikes(b.swing, now + 0.05, now + 1.2).map { Cue(b.sound, it, b.gain, b.rate) })
+            at = now + 1.0
+        }
+        when (m) {
+            si.lanisce.lani.game.Music.VALCEK -> add(Cue(Sound.VALCEK, at, 0.9f))
+            si.lanisce.lani.game.Music.HARMONIKA -> add(Cue(Sound.HARMONIKA, at, 0.9f))
+            si.lanisce.lani.game.Music.GODBA -> {
+                add(Cue(Sound.POLKA, at, 0.9f))
+                addAll(peal(BELLS.getValue("church"), at + POLKA_S - 0.4, 0.7f))
+            }
+        }
+    }
+
+    /** The sounds of [m] ([music]), to have them ready before the moment needs them. */
+    fun musicSounds(m: si.lanisce.lani.game.Music): Set<Sound> = when (m) {
+        si.lanisce.lani.game.Music.VALCEK -> setOf(Sound.VALCEK, Sound.BELL)
+        si.lanisce.lani.game.Music.HARMONIKA -> setOf(Sound.HARMONIKA, Sound.BELL)
+        si.lanisce.lani.game.Music.GODBA -> setOf(Sound.POLKA, Sound.BELL)
     }
 
     /** The sounds [place] under [sky] may play, to have them ready before they're wanted (a tap is heard at once). */

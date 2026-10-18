@@ -105,6 +105,17 @@ class Ambience(context: Context, scope: CoroutineScope, talking: () -> Boolean) 
         if (before != after) cue(clock, duck = false) { now -> Sfx.fx(art, before, after, now) }
     }
 
+    /**
+     * Music now (an age's celebration, [Sfx.music]): [make] gives its cues from the picture's second now, not ducked (the
+     * moment says nothing over it). [prepare] first, a moment before, so it's decoded when it's wanted.
+     */
+    fun music(make: (Double) -> List<si.lanisce.lani.game.ambient.Cue>) = cue(clock, duck = false, make)
+
+    /** Decodes [sounds] now, so they're ready when wanted ([music]). */
+    fun prepare(sounds: Set<si.lanisce.lani.game.ambient.Sound>) {
+        if (on) player.prepare(sounds)
+    }
+
     /** [owner] left the screen: its sounds fade out, unless another screen has said where the learner is since. */
     fun leave(owner: Any) {
         if (this.owner !== owner) return

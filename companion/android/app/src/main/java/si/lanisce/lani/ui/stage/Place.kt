@@ -15,6 +15,8 @@ enum class StagePlace(val art: String?, val top: Long, val bottom: Long, private
     KITCHEN("kitchen", 0xFF3B2416, 0xFFB9814A, "place.inKitchen"),
     FOREST("forest", 0xFF0F2A1C, 0xFF3E6B3A, "place.inForest"),
     SQUARE("square", 0xFF2E5C8A, 0xFF6E9E5E, "place.underLinden"),
+    /** The square on an evening of a party (an age's celebration: game/AgeUps), its lanterns lit. */
+    FEAST("square", 0xFF1A2440, 0xFF5A4630, "place.squareEvening", hour = 20.5f),
     FIELD("field", 0xFF4A7FB5, 0xFFC9A440, "place.inField"),
     SMITHY("smithy", 0xFF1E1A1A, 0xFF8A3A1A, "place.inSmithy"),
     SCHOOL("school", 0xFF28405C, 0xFF4F7A5C, "place.atSchool"),

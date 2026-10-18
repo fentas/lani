@@ -39,8 +39,8 @@ val festivalPacks = tasks.register<FestivalPacks>("festivalPacks") {
 }
 
 /**
- * The culture packs (the JSON files of each companion/cultures/<id>, lani.culture/v0, its readings/ and its projects' steps,
- * project-steps/), bundled as
+ * The culture packs (the JSON files of each companion/cultures/<id>, lani.culture/v0, its readings/, its projects' steps,
+ * project-steps/, and how it celebrates its ages, celebrations/), bundled as
  * Java resources under cultures/<id>, with cultures/index.json listing their ids: the game's words (game/culture/Cultures.kt), so the
  * village reads the same without the bridge. A pack's cast (its villagers directory), its voice cast (voice-cast.json)
  * and its word packs (packs/: festivalPacks bundles the festivals') stay with the bridge, which serves them.
@@ -71,6 +71,9 @@ abstract class CulturePacks : DefaultTask() {
             // its projects' steps as short scenes (project-steps/<project>.json, by the project's id: game/culture/Cultures.projectSteps)
             from.resolve("project-steps").listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty()
                 .forEach { it.copyTo(to.resolve("project-steps").apply { mkdirs() }.resolve(it.name)) }
+            // how it celebrates its ages (celebrations/<age>.json, by the age: game/culture/Cultures.celebrations)
+            from.resolve("celebrations").listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty()
+                .forEach { it.copyTo(to.resolve("celebrations").apply { mkdirs() }.resolve(it.name)) }
         }
         dir.resolve("index.json").writeText(ids.joinToString(", ", "[", "]\n") { "\"$it\"" })
     }

@@ -428,7 +428,8 @@ legends name who they name: history, not the village. The strangers (the pedlar,
 leader (its helpers needn't live here: the lines say "the neighbours", "die Burschen", "the children"), and so do its steps'
 dialogs (`project-steps/`: a helper who is away has their lines said by someone else who is, SCENES.md "Project steps"), an event its
 defender, the shepherd's lamb the shepherd, a letter its addressee, the tent's move its shepherd; a festival (led by
-whichever of its leaders lives here), the pedlar, the pilgrim, the riddles, the newcomers' plain lines and the chronicle
+whichever of its leaders lives here), the pedlar, the pilgrim, the riddles, an age's party (`celebrations/`: it waits for
+nobody, the host's lines too are said by someone who is here), the newcomers' plain lines and the chronicle
 nobody. It scans every scene's happenings, the requests, the introductions, the villagers' lines, the readings and the
 word packs, and writes whom each names (`build/reports/mentions/mentions.txt`); a new kind of file in a pack fails it until
 it says how its names are held back. In Primorska 25 of the 83 happenings name someone besides their own person (the
@@ -516,7 +517,8 @@ tomorrow 🙂"). Wine isn't for the children (`GoodSpec.adult`).
 
 ## The village's life: projects, festivals, surprises
 
-The villagers carry the long ages (GAME.md, "Village projects", "The calendar", "The day's surprise"):
+The villagers carry the long ages (GAME.md, "Village projects", "The calendar", "The day's surprise", "Ages and their
+celebrations"):
 
 - **Projects.** Each village project is led by one of the cast: Luka the maypole and the fire station, France the
   bridge and the toplar, Janez the bocce court, Ančka the wayside chapel, Marko the vineyard terraces, Anton the bee
@@ -532,6 +534,14 @@ The villagers carry the long ages (GAME.md, "Village projects", "The calendar", 
   (the festival's `ask`). The festival's words are its word pack (`companion/packs/praznik-*.json`), and its first
   leader is the pack's giver (Vida, Janez, Nejc for carnival, Micka, Luka, Anton, Marko), on the stage when Jan learns
   them early from the packs screen.
+- **The ages' parties.** When the village reaches an age, its celebration's party is that evening, all the village on
+  its stage (GAME.md, "Ages and their celebrations"; SCENES.md, "An age's party"): Stari Janez hosts the first evening
+  by the fire (Tabor), Mlinar France the likof (Zaselek), Gostilničarka Vida the veselica (Vas), Vinar Marko the semenj
+  (Trg), Učiteljica Mojca the town's feast (Mesto), each with a few guests who speak (the culture pack's
+  `celebrations/<age>.json`). One who isn't in the village tonight has their lines said by another guest, else by someone
+  of the village of their age, else by the host (a host who isn't here, by the first guest who is); the guests' lines say
+  nothing of who says them, and no line names anyone of the cast ("Who a text may name"). Everyone who lives here
+  grows closer the first time (+2 ♥) and remembers it ("Še vedno mislim na našo veselico").
 - **The day's surprise.** Luka looks for his lamb, a child asks a riddle, the postman brings a letter for Marko,
   Micka, Tone or Vida (their names in the right case: "pismo za Micko", "Preberi ji ga!"), only while they live here.
   The pedlar and the pilgrim are strangers from the road (below).

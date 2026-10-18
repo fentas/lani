@@ -1,7 +1,8 @@
 #!/usr/bin/env bun
 // Voice prebuild: counts the texts in villagers, packs, modules, scenarios, scenes, «Vidim, vidim» (what a child says
 // playing I spy in the scenes: companion/ispy), the keepers' talks (the culture's spots: the charcoal burner's meeting and
-// his story), the village projects' steps (the culture's project-steps/), the storyteller's stories and the car's drills (Slovene, or the
+// his story), the village projects' steps (the culture's project-steps/) and its ages' parties (celebrations/), the storyteller's
+// stories and the car's drills (Slovene, or the
 // language of the learner's culture pack, LANI_CULTURE, with its own voice cast), what is voiced, what is missing and
 // the ElevenLabs quota left. With --run, generates the missing clips in priority order (villager lines in their
 // speakers' voices, pack words, examples, modules, scenarios, the stories' tellings at A1, the drills at A1, scenes,
@@ -95,6 +96,7 @@ import { cast, castVoiced, denoiseVoices, isSpeaker, personVoice, useCastFile, u
 import { ownVoicesIn } from '../bridge/src/profiles'
 import { cultureDir, cultureKeepers, keeperTellings, resolveCulture } from '../bridge/src/cultures'
 import { cultureStepFiles, stepTellings } from '../bridge/src/project-steps'
+import { cultureCelebrationFiles, partyTellings } from '../bridge/src/celebrations'
 import { DrillStore, drillsDir } from '../bridge/src/drills'
 import { grammarDir, GrammarStore } from '../bridge/src/grammar'
 import { readISpy } from '../bridge/src/ispy'
@@ -648,7 +650,11 @@ const items = corpus({
   // the culture's keepers' talks (world.json `spots`: the charcoal burner's meeting and his story, every telling)
   keepers: cultureKeepers(cultures, culture).map(k => ({ ...k, tellings: keeperTellings(k) })),
   // the village projects' steps as short scenes (project-steps/: every telling, each line in its speaker's voice)
-  steps: cultureStepFiles(cultures, culture).map(f => ({ project: f.project, tellings: stepTellings(f) })),
+  // and the ages' parties (celebrations/: every telling, each line in its speaker's voice), as a step's
+  steps: [
+    ...cultureStepFiles(cultures, culture).map(f => ({ project: f.project, tellings: stepTellings(f) })),
+    ...cultureCelebrationFiles(cultures, culture).map(f => ({ project: `party:${f.age}`, tellings: partyTellings(f) })),
+  ],
   villagers: villagers.all(),
   stories: stories.all(),
   drills: drills.all(),

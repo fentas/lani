@@ -32,6 +32,11 @@ the day of it, a breakout tonight (the learner's night watch: covered in time, o
 ash) and the last delivery to the smith (came or not: a pile burnt down brings none). The burner tells
 it in the app; you may mention it in a chat ("Miha's pile smokes blue: the charcoal is nearly done"),
 never decide it: the days follow from the calendar.
+Every age the village reaches is a celebration of its culture (companion/GAME.md "Ages and their
+celebrations"; Primorska: the first evening by the fire, the likof, the veselica, the semenj, the town's
+feast): get_village's grown has the day each age came and parties the day its party was had. That evening
+and the next the village parties in the app (a short dialog with all the village, its word pack);
+congratulate Jan, or ask about the party, in the chat; the app plays it, you don't.
 `.trim()
 
 const gamePut = z.object({ rev: z.number().int().min(0), state: z.record(z.string(), z.unknown()) })
@@ -78,7 +83,7 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar 
     {
       name: 'get_village',
       description:
-        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), spots (the landscape's spots with work over real days, the charcoal pile: its stage today, the day of it, a breakout tonight, the last delivery to the smith), the school's course (the day the class began, the units done and in progress: get_course has the rest), looked_up (the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first: page, title, n answers given with one of its cards open, the last day; left out when none: work potential, get_course names their units), recent chronicle.",
+        "Summary of the learner's village in the app's game: age, resources, buildings, who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), spots (the landscape's spots with work over real days, the charcoal pile: its stage today, the day of it, a breakout tonight, the last delivery to the smith), the school's course (the day the class began, the units done and in progress: get_course has the rest), looked_up (the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first: page, title, n answers given with one of its cards open, the last day; left out when none: work potential, get_course names their units), grown and parties (the day each age came, the day its party was had), recent chronicle.",
       inputSchema: { type: 'object', properties: {} },
       // the calendar as the app has it today: the days on, the next, which are quiet (towns.ts calendarOn); what was looked
       // up on the cheat sheet, in its language (the village's)

@@ -20,3 +20,8 @@ the day of it, a breakout tonight (the learner's night watch: covered in time, o
 ash) and the last delivery to the smith (came or not: a pile burnt down brings none). The burner tells
 it in the app; you may mention it in a chat ("Miha's pile smokes blue: the charcoal is nearly done"),
 never decide it: the days follow from the calendar.
+Every age the village reaches is a celebration of its culture (companion/GAME.md "Ages and their
+celebrations"; Primorska: the first evening by the fire, the likof, the veselica, the semenj, the town's
+feast): get_village's grown has the day each age came and parties the day its party was had. That evening
+and the next the village parties in the app (a short dialog with all the village, its word pack);
+congratulate Jan, or ask about the party, in the chat; the app plays it, you don't.

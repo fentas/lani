@@ -89,7 +89,8 @@ fun rememberTownClock(): TownClock {
  *
  * Moving the camera just redraws the bitmaps, so pinching stays smooth. The caller owns [renderer] to hit-test
  * taps (in the last frame's pixels, through its [VillageRenderer.lens]) and to anchor bubbles on the people. [at]: the
- * time to show instead of the clock's (QA's "hour:<h>"), or null.
+ * time to show instead of the clock's (QA's "hour:<h>"), or null. [growth] and [festive]: an age-up's moment and a
+ * celebration's decorations ([si.lanisce.lani.game.AgeUps]), read each frame, or null.
  */
 @Composable
 fun TownScene(
@@ -110,6 +111,8 @@ fun TownScene(
     plots: PlotMarks? = null,
     day: si.lanisce.lani.game.villagers.Routine.Day = si.lanisce.lani.game.villagers.Routine.Day(),
     at: () -> LocalDateTime? = { null },
+    growth: () -> si.lanisce.lani.game.Growth? = { null },
+    festive: () -> si.lanisce.lani.game.Festive? = { null },
 ) {
     val anim = remember { AnimMarks(celebrateSeen = celebrate) }
     val iw = fit.width; val ih = fit.height
@@ -159,15 +162,18 @@ fun TownScene(
             day = day,
             // the charcoal pile as its cycle has it today (QA's day, when it asks for one)
             kopa = si.lanisce.lani.game.scene.SpotCycles.look(state, si.lanisce.lani.game.scene.TownSpots.KOPA, now.toLocalDate()),
+            // an age-up's moment (the village growing, its decorations going up), a celebration's decorations on the map
+            growth = growth(),
+            festive = festive(),
         )
         // the nominal canvas: every tick while it is the picture, else only when its inputs change
-        if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa)) {
+        if (drawnBase.stale(if (k == 1) tick else 0L, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {
             renderer.render(base.canvas, state, frame)
             base.lens = Lens(1, 0, 0, iw, ih)
             base.upload()
         }
         // the closer look: every tick, at the window the camera sees now
-        if (k > 1 && drawnFine.stale(tick, k, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa)) {
+        if (k > 1 && drawnFine.stale(tick, k, state, highlightPlot, justBuilt, celebrate, visitors, people, today, standing, skyMark, plots, day, frame.kopa, frame.growth, frame.festive)) {
             val lens = Lens.of(k, cam, size.width.roundToInt(), size.height.roundToInt(), iw, ih, iw, ih)
             renderer.render(fine.canvas, state, frame.copy(lens = lens))
             fine.lens = lens

@@ -586,7 +586,10 @@ object GameEngine {
         val check = advanceCheck(state, wordsLearned, target, rusty)
         val next = check.next?.takeIf { check.ok } ?: return state
         val (paid, _) = debit(state, Catalog.ageRules.getValue(next).cost)
-        val grown = paid.copy(age = next).logged(now, next.emoji to Cultures.current.chronicle.newAge.bi("age" to next.names))
+        // the day it grew: its celebration's decorations go up and its party is that evening (AgeUps)
+        val on = java.time.Instant.ofEpochMilli(now).atZone(java.time.ZoneId.systemDefault()).toLocalDate().toString()
+        val grown = paid.copy(age = next, grown = paid.grown + (AgeUps.key(next) to on))
+            .logged(now, next.emoji to Cultures.current.chronicle.newAge.bi("age" to next.names))
         // the camp opens the road: the first surprise comes the day the village reaches Tabor
         val day = isoDay(grown.lastTick)
         return if (day != null && grown.surprise?.on != grown.lastTick) grown.copy(surprise = Surprises.roll(grown, day)) else grown

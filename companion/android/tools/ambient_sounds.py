@@ -3,7 +3,7 @@
 # requires-python = ">=3.9"
 # dependencies = ["numpy>=1.25"]
 # ///
-"""Background ambience for the village scenes: nine quiet loops and seventeen one-shots, synthesized from code (no
+"""Background ambience for the village scenes: nine quiet loops and nineteen one-shots, synthesized from code (no
 recordings, no samples).
 
   uv run companion/android/tools/ambient_sounds.py [OUT_DIR] [--preview DIR] [--only NAME ...]
@@ -11,7 +11,8 @@ recordings, no samples).
 
 OUT_DIR defaults to app/src/main/assets/ambient next to this script. It gets one Ogg Vorbis file per loop (mono,
 24 kHz): birds, crickets, owl, rain, stream, fire, wind, sea and frogs; and one per one-shot: thunder-1, thunder-2,
-thunder-3, bell, bell-far, anvil, cowbell, hoot, whistle, lid, purr, whoosh, meow, bark, hooves, polka and gush.
+thunder-3, bell, bell-far, anvil, cowbell, hoot, whistle, lid, purr, whoosh, meow, bark, hooves, polka, gush, harmonika
+and valcek (the harmonika's polka and waltz of an age's celebration).
 ffmpeg with libvorbis must be on the PATH: it encodes the files and measures their loudness. The WAVs it encodes go to
 a temporary directory.
 
@@ -1360,6 +1361,149 @@ def polka(rng):
     return fade(x, 0.2)
 
 
+
+def reed(rng, f, d, bright=3200.0, voices=((0.0, 1.0), (9.0, 0.6), (-8.0, 0.45)), attack=0.022, release=0.07,
+         slope=0.55, nasal=0.6):
+    """One note of a harmonika (the free reeds of a button accordion), d s and a release: each voice a reed of its own,
+    tuned a few cents from the others (voices: (cents, level)), so they beat against each other as an accordion's
+    tremolo does; each reed a buzzy harmonic tone (the k-th harmonic at k ** −slope, a nasal bump round 1.4 kHz: nasal)
+    through a low-pass at about bright Hz. The bellows push the note in quickly, ease off a little and hold it."""
+    m = int((d + release) * SR)
+    amp = curve([(0, 0), (attack, 1.0), (attack + 0.05, 0.86), (max(d, attack + 0.06), 0.8), (d + release, 0)], m)
+    out = np.zeros(m)
+    for cents, g in voices:
+        f0 = np.full(m, f * 2 ** ((cents + rng.normal(0, 1.5)) / 1200))
+        out += g * harmonic(f0, lambda k, fk: k ** -slope * lowpass(fk, bright, 2) * (1 + nasal * resonance(fk, 1400, 1.4)),
+                            rng.uniform(0, TAU))
+    return amp * out
+
+
+F_MAJOR = (5, 7, 9, 10, 0, 2, 4)  # the pitch classes of F major
+
+
+def third_below_f(k):
+    """The note a third below MIDI note k in F major: the harmonika's second voice under the tune."""
+    i = F_MAJOR.index(k % 12)
+    return k - (F_MAJOR[i] - F_MAJOR[(i - 2) % 7]) % 12
+
+
+# The harmonika's bass and chord buttons: each chord's bass (root, fifth) and the chord on its offbeats (no root: the
+# bass has it), in F major.
+HARMONIKA_CHORDS = {"F": ((41, 48), (57, 60, 65)), "C7": ((48, 43), (52, 55, 58)), "Bb": ((46, 41), (58, 62, 65))}
+
+HARMONIKA_BPM = 132
+# a veselica's polka on the harmonika in F, 2/4: a pick-up of two eighths, then eight bars (MIDI note, length in eighths),
+# the tune in thirds as the right hand plays it, each bar's chord on the left
+HARMONIKA_TUNE = ((72, 1), (69, 1),
+                  (77, 1), (72, 1), (69, 1), (72, 1),
+                  (77, 2), (76, 1), (77, 1),
+                  (79, 1), (76, 1), (72, 1), (76, 1),
+                  (79, 2), (77, 1), (76, 1),
+                  (74, 1), (76, 1), (79, 1), (76, 1),
+                  (77, 1), (72, 1), (69, 1), (72, 1),
+                  (70, 1), (67, 1), (76, 1), (79, 1),
+                  (77, 4))
+HARMONIKA_BARS = ("F", "F", "C7", "C7", "C7", "F", "C7", "F")
+
+
+def harmonika(rng):
+    """A veselica's polka on the harmonika (a button accordion, the frajtonarica): the end of a cheerful polka in F, 2/4
+    at 132 beats a minute, a pick-up and eight bars, the last the tonic chord held. The tune on the treble reeds with a
+    second voice a third below it, the bass buttons' 'oom' on the beats (root, fifth) and the chord buttons' 'pah' on the
+    offbeats, the bellows' push in every note; each note a little early or late; a short outdoor reverb; 7.9 s."""
+    beat = 60 / HARMONIKA_BPM
+    eighth = beat / 2
+    n = int(7.9 * SR)
+    tune, second, bass, chords = (np.zeros(n) for _ in range(4))
+
+    def at(seconds):
+        return max(0.0, seconds + float(np.clip(rng.normal(0, 0.005), -0.012, 0.012))) * SR
+
+    t = 0.0
+    for i, (k, length) in enumerate(HARMONIKA_TUNE):
+        end = i == len(HARMONIKA_TUNE) - 1
+        dur = 0.6 if end else (0.7 if length == 1 else 0.86) * length * eighth
+        rel = 0.25 if end else 0.06
+        level = db(rng.normal(0, 0.7))
+        put(tune, level * reed(rng, midi(k), dur, 3600, release=rel), at(t))
+        put(second, level * reed(rng, midi(65 if end else third_below_f(k)), dur, 3000, release=rel, nasal=0.4), at(t))
+        t += length * eighth
+    for b, name in enumerate(HARMONIKA_BARS):
+        (root, fifth), chord = HARMONIKA_CHORDS[name]
+        bar = beat + 2 * beat * b
+        if b == len(HARMONIKA_BARS) - 1:  # the end: the tonic held, the bass and the chord together
+            put(bass, reed(rng, midi(root), 0.6, 1400, voices=((0.0, 1.0), (1200.0, 0.5)), release=0.25), at(bar))
+            for k in chord:
+                put(chords, reed(rng, midi(k), 0.6, 2200, release=0.25, nasal=0.3), at(bar))
+            break
+        for j, k in enumerate((root, fifth)):
+            on = bar + j * beat
+            put(bass, db(rng.normal(0, 1)) * reed(rng, midi(k), 0.2, 1400, voices=((0.0, 1.0), (1200.0, 0.5)), release=0.05),
+                at(on))
+            for c in chord:
+                put(chords, db(rng.normal(0, 1)) * reed(rng, midi(c), 0.11, 2200, attack=0.012, release=0.04, nasal=0.3),
+                    at(on + eighth))
+    # the tune on top: about 6 dB over the chords, the bass under it
+    x = sum(g * bus / np.max(np.abs(bus)) for g, bus in ((1.2, tune), (0.45, second), (0.6, chords), (0.9, bass)))
+    x = ofilt(x, lambda f: highpass(f, 60, 2) * lowpass(f, 6500, 2))
+    x += 0.22 * oreverb(rng, x, 0.6, 3500)[:n]
+    return fade(x, 0.2)
+
+
+VALCEK_BPM = 168
+# a slow waltz on the harmonika by the fire in F, 3/4: a pick-up beat, then eight bars (MIDI note, length in beats)
+VALCEK_TUNE = ((72, 1),
+               (69, 2), (72, 1),
+               (77, 3),
+               (76, 2), (74, 1),
+               (72, 3),
+               (70, 2), (72, 1),
+               (79, 2), (76, 1),
+               (77, 1), (72, 1), (69, 1),
+               (77, 3))
+VALCEK_BARS = ("F", "F", "C7", "C7", "C7", "C7", "F", "F")
+
+
+def valcek(rng):
+    """A slow waltz on the harmonika by the fire (a valček): eight bars in F, 3/4 at 168 beats a minute after a pick-up
+    beat, the last held. The tune legato on the treble reeds with its second voice a third below, the bass on each bar's
+    first beat and the chord buttons on its second and third, soft; a short outdoor reverb; 9.4 s."""
+    beat = 60 / VALCEK_BPM
+    n = int(9.4 * SR)
+    tune, second, bass, chords = (np.zeros(n) for _ in range(4))
+
+    def at(seconds):
+        return max(0.0, seconds + float(np.clip(rng.normal(0, 0.006), -0.014, 0.014))) * SR
+
+    t = 0.0
+    for i, (k, length) in enumerate(VALCEK_TUNE):
+        end = i == len(VALCEK_TUNE) - 1
+        dur = 1.1 if end else 0.92 * length * beat
+        rel = 0.35 if end else 0.09
+        level = db(rng.normal(0, 0.6))
+        put(tune, level * reed(rng, midi(k), dur, 3000, attack=0.04, release=rel), at(t))
+        put(second, level * reed(rng, midi(65 if end else third_below_f(k)), dur, 2600, attack=0.045, release=rel, nasal=0.35),
+            at(t))
+        t += length * beat
+    for b, name in enumerate(VALCEK_BARS):
+        (root, fifth), chord = HARMONIKA_CHORDS[name]
+        bar = beat + 3 * beat * b
+        last = b == len(VALCEK_BARS) - 1
+        put(bass, reed(rng, midi(root if b % 2 == 0 or last else fifth), 1.1 if last else 0.32, 1300,
+                       voices=((0.0, 1.0), (1200.0, 0.45)), release=0.3 if last else 0.06), at(bar))
+        if last:
+            for k in chord:
+                put(chords, reed(rng, midi(k), 1.1, 2000, release=0.35, nasal=0.3), at(bar))
+            break
+        for j in (1, 2):
+            for c in chord:
+                put(chords, db(rng.normal(0, 1)) * reed(rng, midi(c), 0.16, 2000, attack=0.015, release=0.05, nasal=0.3),
+                    at(bar + j * beat))
+    x = sum(g * bus / np.max(np.abs(bus)) for g, bus in ((1.2, tune), (0.45, second), (0.5, chords), (0.85, bass)))
+    x = ofilt(x, lambda f: highpass(f, 60, 2) * lowpass(f, 6000, 2))
+    x += 0.25 * oreverb(rng, x, 0.75, 3200)[:n]
+    return fade(x, 0.3)
+
 def droplets(rng, n, rate, level):
     """n samples of small water sounds, about rate a second where level (one value per sample, 0 … 1) is 1 and fewer
     where it is lower: most a short sine that glides up as a bubble rings (0.6–4 kHz, 4–20 ms), some a tiny tick of
@@ -1431,6 +1575,8 @@ SHOTS = {
     "hooves": (2122, hooves, SHOT_M),
     "polka": (2123, polka, SHOT_M),
     "gush": (2124, gush, SHOT_M),
+    "harmonika": (2125, harmonika, SHOT_M),
+    "valcek": (2126, valcek, SHOT_M),
 }
 
 

@@ -318,16 +318,17 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
   return errs
 }
 
-type Line = z.infer<typeof dialogLine>
+export type Line = z.infer<typeof dialogLine>
 type Texts = Partial<Record<string, unknown>>
 
 /**
  * The problems of a step's [lines] as a dialog of the pack (in [lang]): every text in every language the pack serves
  * (PACK_LANGUAGES), a why in each but the pack's (the learner reads it in their base), a reaction to every wrong choice
- * (its reply: what they make of it, never the right form), a right one and a wrong one at every turn, 1-3 turns, the first
- * line someone's, every line said by one of [speakers]; no placeholder but the learner's ({learner}, {m:…|f:…}).
+ * (its reply: what they make of it, never the right form), a right one and a wrong one at every turn, 1 to [maxTurns]
+ * turns, the first line someone's, every line said by one of [speakers] (who they are: [whose]); no placeholder but the
+ * learner's ({learner}, {m:…|f:…}). An age's party (celebrations.ts) checks its lines the same way, with its host and guests.
  */
-function linesErrors(lines: Line[], lang: string, speakers: Set<string>, at: string): string[] {
+export function linesErrors(lines: Line[], lang: string, speakers: Set<string>, at: string, maxTurns = 3, whose = "the project's leader nor a helper"): string[] {
   const errs: string[] = []
   const langs = [...new Set([lang, ...PACK_LANGUAGES])]
   const placeholders = (s: string, p: string) => {
@@ -346,7 +347,7 @@ function linesErrors(lines: Line[], lang: string, speakers: Set<string>, at: str
     const here = `${at}.lines[${li}]`
     if (!l.choices.length) {
       if (!l.who) errs.push(`${here}: who says it? (${[...speakers].join(', ')})`)
-      else if (!speakers.has(l.who)) errs.push(`${here}: who "${l.who}" is neither the project's leader nor a helper (${[...speakers].join(', ')})`)
+      else if (!speakers.has(l.who)) errs.push(`${here}: who "${l.who}" is neither ${whose} (${[...speakers].join(', ')})`)
       if (l.grammar || l.puzzled) errs.push(`${here}: a grammar page and a puzzled reaction are a learner's turn's, not a spoken line's`)
       inLangs(l, here)
       return
@@ -375,7 +376,7 @@ function linesErrors(lines: Line[], lang: string, speakers: Set<string>, at: str
     })
   })
   if (!turns) errs.push(`${at}: no turn for the learner`)
-  if (turns > 3) errs.push(`${at}: ${turns} turns: at most 3 (a step is short)`)
+  if (turns > maxTurns) errs.push(`${at}: ${turns} turns: at most ${maxTurns} (${maxTurns === 3 ? 'a step is short' : 'it is short'})`)
   return errs
 }
 

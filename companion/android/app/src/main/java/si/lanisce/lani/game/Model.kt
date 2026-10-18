@@ -410,6 +410,18 @@ data class GameState(
      * the levels opened, each unit's progress. Null before the first; an older bridge keeps it as it is (PUT /game).
      */
     val course: CourseProgress? = null,
+    /**
+     * The days the village reached its ages (see [AgeUps]): the age's name in lower case ("vas") → the ISO day. Its
+     * celebration's decorations stay on the map from that day, and its party is that evening. A save from before keeps none
+     * for the ages it had: the chronicle's line of each says when, while the chronicle has it ([AgeUps.reachedOn]). An older
+     * bridge keeps it as it is.
+     */
+    val grown: Map<String, String> = emptyMap(),
+    /**
+     * The ages' parties the village had (see [AgeUps.party]): the age's name in lower case → the ISO day of the first; it
+     * pays once, a party had again ("🎉 Poglej spet · Watch again") pays nothing. An older bridge keeps it as it is.
+     */
+    val parties: Map<String, String> = emptyMap(),
 ) {
     fun res(r: Res): Int = resources[r] ?: 0
 

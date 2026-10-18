@@ -45,18 +45,27 @@ class Culture(
      * steps"): a project without one plays its steps as the practice it always had.
      */
     val projectSteps: Map<String, ProjectStepsFile> = emptyMap(),
+    /**
+     * How it celebrates its ages (celebrations/<age>.json, by age; companion/GAME.md "Ages and their celebrations"): an age
+     * without one has the generic gathering ([si.lanisce.lani.game.AgeUps]).
+     */
+    val celebrations: Map<Age, CelebrationFile> = emptyMap(),
 ) {
     /** This pack with [a] as its arrivals (tests, and a pack whose arrivals come later). */
     fun withArrivals(a: si.lanisce.lani.game.villagers.ArrivalsFile?): Culture =
-        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, a, projectSteps)
+        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, a, projectSteps, celebrations)
 
     /** This pack with [steps] as its projects' steps (tests). */
     fun withProjectSteps(steps: Map<String, ProjectStepsFile>): Culture =
-        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, steps)
+        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, steps, celebrations)
 
     /** This pack with [f] as its calendar (tests: a quiet day among its festivals). */
     fun withFestivals(f: FestivalsFile): Culture =
-        Culture(manifest, world, quests, f, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, projectSteps)
+        Culture(manifest, world, quests, f, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, projectSteps, celebrations)
+
+    /** This pack with [c] as its celebrations (tests). */
+    fun withCelebrations(c: Map<Age, CelebrationFile>): Culture =
+        Culture(manifest, world, quests, festivalsFile, surprises, chest, projectsFile, events, people, chronicle, readings, arrivals, projectSteps, c)
 
     val id: String get() = manifest.id
     val language: Lang get() = checkNotNull(Lang.of(manifest.language)) { "${manifest.id}: language ${manifest.language} isn't one of the app's" }

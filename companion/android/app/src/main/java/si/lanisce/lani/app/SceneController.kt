@@ -74,9 +74,18 @@ data class SceneTalk(
  * A village project's step played as a short scene that does it (companion/SCENES.md "Project steps"): [project] and its
  * step [index] (0: the first), whom it stages ([cast]: the leader first, each with where they stand in the scene; over the
  * village their spot is empty), whether it is played [over] the village (no scene of its own open today), and once played to
- * its end what came of it ([result]: the step done, its chronicle line; or why it couldn't be done now).
+ * its end what came of it ([result]: the step done, its chronicle line; or why it couldn't be done now). Or an age's party
+ * ([party]: the age; companion/GAME.md "Ages and their celebrations"), played over the village with all the village on its
+ * stage ([cast]: who speaks first, the host first, then everyone else who is here): [result] won the first time it pays.
  */
-data class StepTalk(val project: String, val index: Int, val cast: List<ScenePerson>, val over: Boolean, val result: si.lanisce.lani.game.ChallengeResult? = null)
+data class StepTalk(
+    val project: String,
+    val index: Int,
+    val cast: List<ScenePerson>,
+    val over: Boolean,
+    val result: si.lanisce.lani.game.ChallengeResult? = null,
+    val party: si.lanisce.lani.game.Age? = null,
+)
 
 /**
  * A talk with someone at a spot of the landscape ([keeper]: the charcoal burner by his kopa), played as a scene's dialog
@@ -152,6 +161,11 @@ class SceneController(
      * friendship grew ([GameController.projectStepPlayed]); null when the village isn't loaded.
      */
     private val stepPlayed: (String) -> Pair<si.lanisce.lani.game.ChallengeResult, FriendGain?>? = { null },
+    /**
+     * An age's party was played to its end: the village keeps it, the first time it pays ([GameController.partyPlayed]):
+     * what came of it; null when the village isn't loaded.
+     */
+    private val partyPlayed: (si.lanisce.lani.game.Age) -> si.lanisce.lani.game.ChallengeResult? = { null },
     /**
      * The night watch at a spot's cycle decided a round ([spot], [round]): the breakout covered in time, or the pile burnt
      * down ([lost]); see [GameController.cycleDecided], [si.lanisce.lani.game.scene.SpotCycles.decide].
@@ -376,6 +390,34 @@ class SceneController(
         return true
     }
 
+    // --- an age's party (companion/GAME.md "Ages and their celebrations") --------------------------------------------------
+
+    /**
+     * Starts [c]'s party over the village, at the learner's level in the village's language, read in their pair, its lines
+     * said by who is here tonight ([si.lanisce.lani.game.AgeUps.cast]: [present], null for everyone; [people], the cast and
+     * the village's own), all the village on its stage ([residents]: who lives here, by id). As this learner meets it: its
+     * turns of rules not yet trimmed, their traps and words in it. False when it has no dialog (a gathering).
+     */
+    fun startParty(c: si.lanisce.lani.game.Celebration, present: Set<String>?, people: List<si.lanisce.lani.game.villagers.Villager>, residents: List<String>): Boolean {
+        val lang = si.lanisce.lani.game.culture.Cultures.current.manifest.language
+        val file = si.lanisce.lani.game.AgeUps.dialog(c, level(lang), lang) ?: return false
+        val cast = si.lanisce.lani.game.AgeUps.cast(c, file, present, people)
+        val (d, modes, notYet) = adapt(si.lanisce.lani.game.Projects.recast(file, cast), lang)
+        val speakers = si.lanisce.lani.game.AgeUps.speakers(c, d).map { cast[it] ?: it }.distinct()
+        val ids = si.lanisce.lani.game.AgeUps.crowd(speakers, present, residents)
+        val stage = ids.map { id -> people.firstOrNull { it.id == id }.let { v -> ScenePerson(id, v?.name ?: id, v?.emoji ?: c.emoji, v?.art ?: "man", "", villager = id) } }
+        val host = stage.firstOrNull() ?: return false
+        val h = Happening(id = "party-${si.lanisce.lani.game.AgeUps.key(c.age)}", title = c.name, who = host.id, marker = c.emoji)
+        val run = DialogRun.start(
+            d, host.id, seed = kotlin.random.Random.nextLong(), repliers = si.lanisce.lani.game.Projects.repliers(d, host.id),
+            modes = modes, notYet = notYet, words = words(d, lang, null),
+        )
+        val key = si.lanisce.lani.game.AgeUps.dialogId(c.age)
+        talk = SceneTalk(key, key, host, h, d, run, step = StepTalk("", 0, stage, over = true, party = c.age))
+        settle()
+        return true
+    }
+
     private fun step(f: (DialogRun) -> DialogRun) {
         val t = talk ?: return
         talk = t.copy(run = f(t.run))
@@ -508,6 +550,11 @@ class SceneController(
     private fun settle() {
         val t = talk ?: return
         if (t.settled || t.run.step != DialogRun.Step.END) return
+        // an age's party played to its end: the village keeps it (the first time it pays), nothing else paid
+        t.step?.party?.let { age ->
+            talk = t.copy(settled = true, step = t.step.copy(result = partyPlayed(age)))
+            return
+        }
         // a project's step played to its end: the step is done (its cost paid, its line in the chronicle), nothing else paid
         t.step?.let { st ->
             val (result, friend) = stepPlayed(st.project) ?: (null to null)

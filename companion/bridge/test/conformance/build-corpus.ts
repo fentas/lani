@@ -320,6 +320,8 @@ for (const [kind, list] of byKind) {
   variants.push({ culture: 'primorska', name: 'placeholder:quests', change: edit('primorska', 'quests.json', v => { const p = firstText(v)!; setAt(v, p, `${getAt(v, p)} {learner:xyz}`); return v }) })
   const scene = jsonFiles(join(culturesDir, 'primorska', 'scenes'))[0]
   if (scene) variants.push({ culture: 'primorska', name: 'scene:villager', change: edit('primorska', `scenes/${scene.split('/').pop()}`, v => ((v.people[0].villager = 'no-villager'), v)) })
+  // an age's celebration whose host is no villager of the cast (celebrations.ts)
+  if (existsSync(join(culturesDir, 'primorska', 'celebrations', 'vas.json'))) variants.push({ culture: 'primorska', name: 'celebration:host', change: edit('primorska', 'celebrations/vas.json', v => ((v.host = 'nobody'), v)) })
   const story = jsonFiles(join(culturesDir, 'friuli', 'stories'))[0]
   if (story) variants.push({ culture: 'friuli', name: 'story:order', change: edit('friuli', `stories/${story.split('/').pop()}`, v => (delete v.order, v)) })
   variants.push({ culture: 'kaernten', name: 'type:projects', change: edit('kaernten', 'projects.json', v => ((v.projects = 'oops'), v)) })

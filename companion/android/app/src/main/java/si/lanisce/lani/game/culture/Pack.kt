@@ -771,6 +771,41 @@ data class StepPlay(
     @SerialName("fx_stays") val fxStays: Boolean? = null,
 )
 
+// --- celebrations/<age>.json -------------------------------------------------------------------------------------
+
+/**
+ * How the village celebrates reaching an age (celebrations/<age>.json, lani.celebration/v0; companion/GAME.md "Ages and
+ * their celebrations"): the tradition's [name] ("Likof", "Veselica"), what it is ([about]), what the moment says as the
+ * decorations go up ([moment]), the chronicle's line once the party was had ([line]) and how the people remember it
+ * ([memory], fitting "Še vedno mislim na …"); what decorates the village ([decor]: [si.lanisce.lani.game.Decor]'s ids),
+ * the music of the moment ([music]: [si.lanisce.lani.game.Music]'s), where the party is ([place]: "fire" or "square"),
+ * who hosts it and who speaks besides ([host], [guests]: villager ids), its word pack ([pack]) and the words its turns
+ * test ([words]), and its dialog at each level ([levels]: "A1" → {"lines": […]}, a scene dialog's lines). Without
+ * [levels] it is a gathering with no dialog. Read leniently (an older app never sees the file; a newer key is read past),
+ * checked by the bridge (celebrations.ts).
+ */
+@Serializable
+data class CelebrationFile(
+    val schema: String,
+    val age: String,
+    val language: String,
+    val review: String? = null,
+    val emoji: String = "🎉",
+    val name: Text,
+    val about: Text? = null,
+    val moment: Text? = null,
+    val line: Text? = null,
+    val memory: Text? = null,
+    val decor: List<String> = emptyList(),
+    val music: String? = null,
+    val place: String? = null,
+    val host: String? = null,
+    val guests: List<String> = emptyList(),
+    val pack: String? = null,
+    val words: List<String> = emptyList(),
+    val levels: kotlinx.serialization.json.JsonObject = kotlinx.serialization.json.JsonObject(emptyMap()),
+)
+
 // --- events.json ------------------------------------------------------------------------------------------------
 
 @Serializable

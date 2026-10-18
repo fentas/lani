@@ -646,7 +646,7 @@ class GameController(
         val n = GameEngine.advance(s, content.wordsKnown, System.currentTimeMillis(), content.targetLevel, content.wordsRusty)
         if (n.age == s.age) return null
         commit(n)
-        celebrate++
+        // the fireworks come with the age's moment's cheer (ui/game/AgeUpMoment: [cheer])
         onBuilt()
         return n.age
     }
@@ -745,7 +745,7 @@ class GameController(
         Reward(earned, result, correct, pairs.size, answered = pairs.size, almost = almost, tired = tired).also { lastReward = it } to done
     }
 
-    /** Something worth a cheer happened outside the engine's runs (the classroom under the linden set up). */
+    /** Something worth a cheer happened outside the engine's runs (the classroom under the linden set up, an age's moment's cheer). */
     fun cheer() {
         celebrate++
     }
@@ -781,6 +781,20 @@ class GameController(
         val (n, paid) = GameEngine.completeHappening(s, key, reward, mistakes, today, System.currentTimeMillis(), entry)
         if (n != s) commit(n)
         HappeningPaid(paid, GameEngine.happeningPay(reward, mistakes), again = Happenings.done(s, key, today), help = n.help - s.help)
+    }
+
+    /**
+     * The party of [age] was played to its end (companion/GAME.md "Ages and their celebrations"): the first time while it is
+     * the village's age it pays ([si.lanisce.lani.game.AgeUps.partyHad]: the spirits, everyone closer, its chronicle line);
+     * again, nothing. Won the first time; null when the village isn't loaded.
+     */
+    fun partyPlayed(age: Age): ChallengeResult? = notices.village {
+        val s = state ?: return@village null
+        val (n, first) = si.lanisce.lani.game.AgeUps.partyHad(s, age, LocalDate.now(), System.currentTimeMillis())
+        if (n != s) commit(n)
+        if (first) celebrate++
+        val c = si.lanisce.lani.game.AgeUps.celebration(age)
+        ChallengeResult(first, emptyMap(), emptyMap(), emptyList(), "${c.emoji} ${c.line}")
     }
 
     /**

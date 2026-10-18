@@ -179,7 +179,9 @@ sheet: `LaniSheet`, the theme's surfaces and chips), readable in the light and t
   - "📖 Slovnica · Grammar": "📖 Branje · Reading", "🏫 Šola · School", and the pages met (see "The grammar book"), each its
     title in both languages, its level and its stars, the ones met this week first, marked new; greyed, the rules met in
     the dialogs only and how many pages are still to come. A page opens on a sheet over the scroll.
-  - "📜 Kronika · Chronicle": the village's story, newest first, the lines since the scroll was last opened marked new.
+  - "📜 Kronika · Chronicle": "🏆 Dobe vasi · The village's ages" first (each age reached, its celebration and its day,
+    "🎉 Poglej spet · Watch again": see "Ages and their celebrations"), then the village's story, newest first, the lines
+    since the scroll was last opened marked new, an age's line with "🎉 Poglej spet" too.
 - **A card** opens its list in the sheet; "‹" (or back) goes back to the grid; ✕, a tap above it or a drag down closes it.
 - **The count** on the bottom bar's button counts only what's new and worth opening: who joined the village and the
   grammar pages met in the last 7 days, not seen in the scroll yet (`ScrollData.badge`; TalkBack: "2 novosti · 2 new").
@@ -449,6 +451,75 @@ An age once reached is never taken back by rust.
 "Friends" are villagers who live here at friendship level 2 ("Prijatelj · Friend", 30 points) or more (`Bonds.friends`; a friend who moved away doesn't count). They are a step of the age like the words, with a "💬 Pomagaj · Help" button to the register. Zaselek needs 1, Vas 3, Trg 5 and Mesto 8: the ages are long (they follow the target level), and the people carry them. The cast gives enough people for each age: Micka, Luka, Janez, France and the children from the start, Ančka and Anton from Tabor, Tone, Marko, Vida and Nejc from Zaselek, Mojca from Zaselek too, with the school (13 in all), and the people who move in. Requests, talks, gifts, the village projects, the festivals and the day's surprise all grow the friendships; `SimulationTest` checks that the friends never hold an age back for B2 and that eight are within reach long before Mesto's words (see "Pacing").
 
 An age once reached is never taken back: a village already past a milestone that the target raised keeps its age, and only the next age waits for the new number.
+
+### Ages and their celebrations
+
+Every age-up is a celebration, each from the village tradition of the culture (`game/AgeUps.kt`; the culture pack's
+`celebrations/<age>.json`, `lani.celebration/v0`, checked by the bridge's `celebrations.ts`). Jan, after Zaselek became
+Vas with one dark screen: "the transition to village was quite anticlimactic … I imagined something happening in the
+village, party or buildings changing". Since 2026-10-18 it comes in three parts.
+
+| Age | Primorska's celebration | What goes up | Music | The party (host) |
+|---|---|---|---|---|
+| ⛺ Tabor | 🔥 Prvi večer ob ognju · The first evening by the fire: the first camp gathers at its fire, sings and tells | torches round the fire | the harmonika's waltz | by the fire (Stari Janez) |
+| 🛖 Zaselek | 🌲 Likof · The roofing feast: when a new house's roof frame stands, the carpenters set a little spruce with ribbons on its ridge and the owner treats everyone who helped | the likof's spruce on the newest roof (a house's, else a hut's), garlands | the harmonika's waltz | by the fire (Mlinar France) |
+| 🏘️ Vas | 🪗 Veselica · The village party (in Primorska a šagra): the harmonika on the brjar, the village youth's wooden dance floor, the polka and the waltz, pršut, sausages and teran | garlands round the fire, lanterns in them after dusk, a dance floor with its harmonika player | the harmonika's polka | on the square (Gostilničarka Vida) |
+| 🏛️ Trg | 🎪 Semenj · The fair: the market town's first fair (semenj or sejem), stalls with medenjaki, mandolat (Gorizia's almond nougat, of Andrejev sejem) and piščalke, the krošnjarji from Ribnica | stalls with striped awnings along the road, garlands | the market's hand bell, then the harmonika's polka | on the square (Vinar Marko) |
+| 🏰 Mesto | 🎺 Mestni praznik · The town's feast: the town gets its charter (listina) and coat of arms (grb), the brass band (godba na pihala) leads a procession (sprevod) under the banners (prapori) | banners along the road, garlands; the procession marches in | the band's polka and the church bell | on the square (Učiteljica Mojca) |
+
+1. **The moment** (`ui/game/AgeUpMoment.kt`, over the map; it replaced the old dark overlay): "Nova doba · A new age"
+   over the village as it was; then the age's changes one after another, the camera flying to each (`MomentShots`): the
+   forest drawing back to the new clearing (its trees going in rings as the edge passes them, the palisade moving out
+   with it), the new plots framed on the ground ("📐 4 nove parcele · 4 new plots"), the road to the west over its bridge
+   (Zaselek), the road wider (Vas), more room round the fire (Zaselek, Trg), the cobbles (Trg) (`AgeUps.changes`; the
+   renderer's `Frame.growth`); the villagers gather round the fire, which burns up; the celebration's decorations go up
+   one by one (`Frame.festive`) as its music starts (synthesized like the village's other sounds:
+   `tools/ambient_sounds.py`, `harmonika.ogg`, `valcek.ogg`, the godba's `polka.ogg`); the village's sign at the road
+   turns to the new age, its name over it ("🏘️ Vas"); fireworks and the celebration's name. About 15–22 s; "⏭ Preskoči ·
+   Skip" (or back) goes to the end. With the system's animations off, or TalkBack on, it goes to the card at once, the
+   village grown and decorated behind it, and the card says what changed on the map. Then the card: the new age's name,
+   the celebration and what it is, the party (now: "🎉 Praznuj z vasjo · Celebrate with the village"; later: "🌙 Zvečer od 17. ure:
+   Veselica"), **"✨ Kaj je novo · What's new"** from the game's data (`AgeUps.whatsNew`: the buildings the age opens, the
+   upgrades to its level, its village projects, the scenes that open with it, the people who can move in, its plots and
+   stores, and what the rules start with it: the calendar's feasts, the day's surprise and the events at Tabor; the
+   school, the feast under the linden and the bear at Zaselek; the smith's better tools at Vas; the market's trading and
+   prices at Trg), each a tap to where it is (the Build sheet, the projects sheet at it, the scene, the register, the
+   chest, the school), and "🗺️ Na zemljevidu · On the map" (the changes).
+2. **The party that evening**: on the evening of the day the age came (from 17:00, or at once when it came later) and
+   the next evening for whoever missed it (`AgeUps.partyNow`; QA's "hour:<h>" counts), a bubble with the celebration's
+   emoji by the fire, or under the linden for a party on the square, a gold line in the HUD's "Danes in kmalu", and the
+   card's button start it. It is played over the village (`ui/scene/ProjectStepScene.kt`, as a project's step without its
+   scene is): all the village on a festive stage (garlands across the top, lanterns at night), who speaks in front, the
+   host first, everyone else who lives here behind; its music as it begins. A short dialog at the learner's level (A1 or
+   A2) with a toast ("Na zdravje!"), a song, a dance and a small task; its turns test 1–4 words of the celebration's word
+   pack (`packs/slavje-<…>.json`, 8–10 words with gender, plural and an example), in forms the dictionary knows, so a right
+   answer is a review of a card when it's due; its end offers "📚 …: nauči se besed" (the pack's run). Its lines are said
+   by who is here tonight (`AgeUps.cast`: a guest away is stood in for). The first time while it is the village's age it
+   pays: morale +10, everyone who lives here +2 ♥ (remembering it: "Še vedno mislim na našo veselico"), +1 🤝, and the
+   chronicle's line ("Na veselici smo plesali polko do polnoči."); the village keeps the day (`GameState.parties`). The
+   village gathers round the fire on those evenings, and **the decorations stay on the map** the day the age came and the
+   next (`AgeUps.decorOn`, from `GameState.grown`, the days the ages came: `GameEngine.advance` keeps it).
+3. **"🎉 Poglej spet · Watch again"**: the scroll's chronicle lists "🏆 Dobe vasi · The village's ages" first, every age
+   reached (Tabor to the village's), each with its celebration and its day (`AgeUps.milestones`: the day kept, else its
+   line in the chronicle, else none), and an age's line in the chronicle has the same button (`AgeUps.ageOf`). It plays
+   the age's moment again on the village as it was that day (`AgeUps.asItWas`: without what was built after it, or on a
+   later age's plots, and the later ages' projects), and its card offers the party now, whatever the hour. So every
+   learner sees every celebration, also one reached before they came. Had again, a party pays nothing.
+
+The traditions are checked in Slovene ethnology and on fran.si (2026-10-18): likof is the meal after a big job (SSKJ,
+"hiša je dokončana, zvečer bomo imeli likof"; Slovenski pravopis labels it a folk word), the smrečica on the ridge of the
+ostrešje, the owner treating the builders (a speech or a glass thrown from the roof is German Richtfest, not Slovene: the
+likof here has neither); veselica is the village dance party (SSKJ), in the west a šagra, danced on a brjar (both
+labelled regional, western: the pack says so); semenj and sejem are both standard (the ZRC language advice), lectova
+srca are rather Gorenjska's, so Primorska's fair sells mandolat as Gorizia's Andrejev sejem does; the town's procession is
+a sprevod (povorka is labelled regional and fading), "Naj živi naše mesto!" after SSKJ's "naj živi". The toasts: "Na
+zdravje!" anywhere, "Živijo!" as one too (accepted beside it), "Bog živi!" a best wish.
+
+A culture without its own celebration for an age (friuli, kaernten and lakeland so far) has a gathering: "Praznovanje ·
+The celebration", the decorations and music by the age (`AgeUps.generic`), the village gathering by the fire that evening,
+no dialog. The tutor sees the days in `get_village` (`grown`, `parties`). QA: "ageup:<age>" grows the dev village's copy to
+an age and plays its moment, "ageup:at:<s>" holds it at a second, "level:<lv>" sets the dialogs' level
+(`companion/bin/qa --steps age-up`).
 
 ## Pacing
 
@@ -1381,6 +1452,7 @@ lakeland pack").
 | `project-steps/` | Optional: a project's steps as short scenes (`<project>.json`, `lani.project-steps/v0`): per step the scene it is played in, the words of the project's pack (`packs/`, its `project`) its turns test, and its dialog at A1 and A2 at least, said by the project's leader and helpers ([SCENES.md](SCENES.md#project-steps-a-village-projects-step-as-a-short-scene)); a project without one plays its steps as practices. An older bridge never reads the directory |
 | `events.json` | Each event's `leader` (who stands with the learner on the stage), `title` (the wolves' `title_walled`, at the palisade), `intro`, `won`, `lost` (the merchant's `gift`, the feast's `quiet`), `too_late` |
 | `people.json` | The newcomers: `first_names`, `surnames`, `trades` (a trade may `need` a building), the children's `stages`, `newborn`, `story`; their plain `lines` (the villager format's, in the pack's language); the `news` of arrivals, births and departures |
+| `celebrations/` | Optional: how the village celebrates reaching each age (`<age>.json`, `lani.celebration/v0`): the tradition's name, what it is, what the moment says as the decorations go up, the chronicle's line once the party was had, how the people remember it; the decorations, the music, where the party is; its host and guests, its word pack (`packs/slavje-<…>.json`) and the words its turns test, its dialog at A1 and A2 at least (see "Ages and their celebrations"); an age without one has the generic gathering. An older bridge never reads the directory |
 | `chronicle.json` | The engine's lines: founded, built, upgraded, repaired, a new age, gathering, the days away |
 | `villagers/` | The cast (`lani.villager/v0`, see [VILLAGERS.md](VILLAGERS.md)): the bridge serves it |
 | `packs/` | The pack's own word packs (`lani.pack/v0`): its festivals' words, its places' (`na-gricih`, `il-mare`) and its projects' (`projekt-mlaj`, with `"project": "mlaj"`). The bridge serves them with the packs of the pack's language (`companion/packs/<language>/`; Slovene's are `companion/packs/` itself, Primorska's festival packs among them), and the app bundles them for the calendar and the projects sheet |

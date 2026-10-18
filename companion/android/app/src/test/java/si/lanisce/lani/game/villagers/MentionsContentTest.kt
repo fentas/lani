@@ -24,7 +24,7 @@ import java.io.File
  * app's [Names] in the pack's language. What the app holds back until everyone it names is here and met (a happening, a
  * request, a letter, a reading, a line, a level of an introduction) is reported; what it can't hold back may name only
  * whom it always has (a project its leader, an event its defender, the shepherd's lamb the shepherd; a festival, the
- * strangers, the riddles and the newcomers' plain lines nobody). The storyteller's legends are left
+ * strangers, the riddles, an age's party and the newcomers' plain lines nobody). The storyteller's legends are left
  * alone (their people are history). The report: build/reports/mentions/mentions.txt. New content is scanned as it comes;
  * a new kind of file has to say here how the app holds back what it names ([KINDS]).
  */
@@ -50,7 +50,7 @@ class MentionsContentTest {
         "villagers" to Policy.HELD, "arrivals.json" to Policy.HELD, "festivals.json" to Policy.RULED, "projects.json" to Policy.RULED,
         "events.json" to Policy.RULED, "people.json" to Policy.NOBODY, "chronicle.json" to Policy.NOBODY, "chest.json" to Policy.NOTES,
         "culture.json" to Policy.NOTES, "world.json" to Policy.NOTES, "packs" to Policy.NOTES, "voice-cast.json" to Policy.NOTES,
-        "sky.json" to Policy.NOTES, "stories" to Policy.LEGENDS, "project-steps" to Policy.RULED,
+        "sky.json" to Policy.NOTES, "stories" to Policy.LEGENDS, "project-steps" to Policy.RULED, "celebrations" to Policy.NOBODY,
     )
 
     private fun castOf(id: String): List<Villager> =
@@ -169,6 +169,12 @@ class MentionsContentTest {
                 val named = names.inTexts(read(f), lang)
                 if (named.isNotEmpty()) report.appendLine("  project ${f.nameWithoutExtension}'s steps: ${shown(named)}")
                 only("the steps of the project ${f.nameWithoutExtension}", named, setOfNotNull(str(project, "leader")))
+            }
+
+            // an age's celebration and its party: it waits for nobody (whoever is away has their lines said by someone who is
+            // here, the host too: AgeUps.cast), so it names nobody of the cast (GAME.md "Ages and their celebrations")
+            for (f in dir.resolve("celebrations").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
+                only("the celebration ${f.nameWithoutExtension}", names.inTexts(read(f), lang), emptySet())
             }
 
             // events: the defender stands with the learner; they name only them

@@ -83,7 +83,15 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
     // whom the learner answers: whoever spoke last (the leader at first)
     val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id
     val pose = rememberPartnerPose(talk.run, talking != null && talking == facing, micOn)
-    val place = remember(step.project, step.index) { placeOf(vm, step.project, step.index, talk.person.art) }
+    // an age's party (companion/GAME.md "Ages and their celebrations"): all the village on a festive stage, its music as it begins
+    val party = remember(step.party) { step.party?.let { si.lanisce.lani.game.AgeUps.celebration(it) } }
+    val place = remember(step.project, step.index, party) { party?.let(::partyPlace) ?: placeOf(vm, step.project, step.index, talk.person.art) }
+    LaunchedEffect(talk.key) {
+        val c = party ?: return@LaunchedEffect
+        vm.ambience.prepare(Sfx.musicSounds(c.music))
+        delay(PARTY_MUSIC_MS)
+        vm.ambience.music { now -> Sfx.music(c.music, now, fair = si.lanisce.lani.game.Decor.STALLS in c.decor) }
+    }
     // its bell over the village: rung as the line that rings it comes, for as long as its peal (Sfx.PEAL_S)
     val fx = talk.run.fx(emptyMap())
     var fxBefore by remember(talk.key) { mutableStateOf(emptyMap<String, Float>()) }
@@ -99,7 +107,10 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
         Box(Modifier.fillMaxWidth().fillMaxHeight()) {
             Column(Modifier.matchParentSize()) {
                 // folded away while the keyboard is up (a typed turn), so the panel has the room (DialogRoom)
-                DialogStage { Stage(people, step.cast, place, facing, pose, talking, rungAt) }
+                DialogStage {
+                    if (party != null) PartyStage(people, step.cast, place, facing, pose, talking, party)
+                    else Stage(people, step.cast, place, facing, pose, talking, rungAt)
+                }
                 DialogPanel(
                     vm = vm,
                     talk = talk,
@@ -120,7 +131,7 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
                     closeLabel = "✓ ${bi("arrivals.backVillage")}",
                 )
             }
-            if (talk.settled && talk.step.result?.won == true) Confetti(key = "step-${talk.key}")
+            if (talk.settled && (talk.step.result?.won == true || party != null)) Confetti(key = "step-${talk.key}")
         }
     }
 }
@@ -180,6 +191,115 @@ private fun Stage(
         }
         // over the portraits, in the top corner they leave free
         if (rungAt > 0L) RingingBell(rungAt, Modifier.matchParentSize())
+    }
+}
+
+/** Where an age's party [c] is seen: by the fire at night, or on the square in the evening. */
+private fun partyPlace(c: si.lanisce.lani.game.Celebration): StagePlace = when (c.place) {
+    si.lanisce.lani.game.PartyPlace.FIRE -> StagePlace.NIGHT
+    si.lanisce.lani.game.PartyPlace.SQUARE -> StagePlace.FEAST
+}
+
+/** How long after an age's party opens its music starts (ms): its first line said first. */
+private const val PARTY_MUSIC_MS = 900L
+
+/**
+ * An age's party's stage (companion/GAME.md "Ages and their celebrations"): all the village on [place]'s backdrop, garlands
+ * of flags strung across its top (lanterns in them at night), who speaks in the front row (the host first, big), everyone
+ * else behind them, smaller; whoever is talking is drawn talking, the one the learner answers reacts.
+ */
+@Composable
+private fun PartyStage(
+    people: Map<String, si.lanisce.lani.game.villagers.Villager>, cast: List<ScenePerson>, place: StagePlace, facing: String, pose: Pose,
+    talking: String?, c: si.lanisce.lani.game.Celebration,
+) {
+    val front = cast.filter { people[it.id] != null }.take(FRONT)
+    val back = cast.filter { people[it.id] != null }.drop(FRONT)
+    Box(Modifier.fillMaxWidth().height(176.dp).padding(horizontal = 16.dp).clip(RoundedCornerShape(20.dp))) {
+        Backdrop(place, Modifier.matchParentSize(), dim = 0.3f)
+        Garlands(night = place.hour?.let { it >= 19f } == true, modifier = Modifier.matchParentSize())
+        Column(Modifier.matchParentSize().padding(horizontal = 10.dp, vertical = 6.dp), verticalArrangement = Arrangement.Bottom) {
+            // everyone else of the village behind, smaller
+            if (back.isNotEmpty()) Row(
+                Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy((-6).dp, Alignment.CenterHorizontally), verticalAlignment = Alignment.Bottom,
+            ) {
+                for (p in back) people[p.id]?.let { v -> VillagerPortrait(v, 40.dp, pose = if (p.id == talking) Pose.TALK else Pose.IDLE) }
+            }
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally), verticalAlignment = Alignment.Bottom) {
+                front.forEachIndexed { i, p ->
+                    val v = people[p.id] ?: return@forEachIndexed
+                    val now = when (p.id) {
+                        talking -> Pose.TALK
+                        facing -> pose
+                        else -> Pose.IDLE
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        VillagerPortrait(v, if (i == 0) 84.dp else 66.dp, pose = now)
+                        Text(
+                            "${v.emoji} ${VillagerLogic.shortName(v.name)}",
+                            color = Color.White, style = MaterialTheme.typography.labelSmall, fontWeight = if (i == 0) FontWeight.Bold else FontWeight.Normal,
+                            maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 2.dp).clearAndSetSemantics { },
+                        )
+                    }
+                }
+            }
+        }
+        // the celebration's name in the top corner, over the garlands
+        Text(
+            "${c.emoji} ${c.nameText.target}", color = Color.White, style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.TopStart).padding(10.dp).clearAndSetSemantics { },
+        )
+    }
+}
+
+/** How many of a party's people stand in its front row: who speaks first. */
+private const val FRONT = 4
+
+/**
+ * Garlands of little flags strung across the top of a party's stage, sagging between their ends, the flags swinging a
+ * little; lanterns among them at [night]. Still, with the system's animations off.
+ */
+@Composable
+private fun Garlands(night: Boolean, modifier: Modifier) {
+    val still = rememberReducedMotion()
+    var t by remember { mutableFloatStateOf(0f) }
+    LaunchedEffect(still) {
+        if (still) return@LaunchedEffect
+        val start = System.currentTimeMillis()
+        while (true) {
+            withInfiniteAnimationFrameMillis { }
+            t = (System.currentTimeMillis() - start) / 1000f
+        }
+    }
+    val flags = listOf(Color(0xFFE4002B), Color(0xFFF7F9FD), Color(0xFF0B4EA2), Color(0xFFFFB300), Color(0xFF3EA05A))
+    Canvas(modifier) {
+        val u = size.width / 100f
+        for ((row, top) in listOf(4f, 13f).withIndex()) {
+            val y0 = top * u * 0.6f
+            val sag = 7f * u
+            val n = 13
+            val string = androidx.compose.ui.graphics.Path()
+            for (i in 0..40) {
+                val x = size.width * i / 40f
+                val y = y0 + sag * kotlin.math.sin(Math.PI * i / 40f).toFloat()
+                if (i == 0) string.moveTo(x, y) else string.lineTo(x, y)
+            }
+            drawPath(string, Color(0xFF3A2A20), style = Stroke(width = 0.5f * u))
+            for (i in 1 until n) {
+                val f = i / n.toFloat()
+                val x = size.width * f
+                val y = y0 + sag * kotlin.math.sin(Math.PI * f).toFloat()
+                val swing = if (still) 0f else kotlin.math.sin(t * 2.4f + i + row) * 0.8f * u
+                val flag = androidx.compose.ui.graphics.Path().apply {
+                    moveTo(x - 1.6f * u, y); lineTo(x + 1.6f * u, y); lineTo(x + swing, y + 3.6f * u); close()
+                }
+                drawPath(flag, flags[(i + row * 2) % flags.size])
+                if (night && i % 4 == 2) {
+                    drawCircle(Color(0x66FFD77A), radius = 3.2f * u, center = Offset(x, y + 3f * u))
+                    drawCircle(Color(0xFFFFD77A), radius = 1.2f * u, center = Offset(x, y + 3f * u))
+                }
+            }
+        }
     }
 }
 

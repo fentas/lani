@@ -48,7 +48,10 @@ Usage: companion/bin/qa [--no-build] [--minified | --apk <file>] [--keep-bridge]
                        "your-words" a dialog that tests the learner's own words answered right, its end listing them;
                        "word-missed" one got wrong first, its card after the turn; "project-step" the maypole's first
                        step as its scene (QA's hook "step:mlaj/1"): the sheet, the forest, the tap turn, the step done;
-                       then one over the village (the chapel's first, else the maypole's third); "maypole-season"
+                       then one over the village (the chapel's first, else the maypole's third); "age-up" an age's
+                       moment (QA's hook "ageup:vas", then "ageup:trg"), held beat by beat ("ageup:at:<s>"), its card with
+                       what's new, the party at A1 ("level:A1", "hour:19") to its end, the chronicle's "🎉 Poglej spet ·
+                       Watch again"; "maypole-season"
                        the maypole on the map and on the square on 10 May (up) and 30 October (down; QA's hook
                        "season:<day>"); "kopa" the charcoal pile over real days (QA's hooks "kopa:<stage>",
                        "show:kopa", "hour:<h>"): each stage's pile on the map (the felled beech, the stack, the
@@ -3248,6 +3251,160 @@ def over_the_village():
     return "no step over the dev village to play (the chapel isn't open, the square is)"
 
 
+
+# The beats of an age's moment and how long each lasts (s): game/AgeUps.kt (OPEN_S, GROW_S, GATHER_S, DECORATE_S, SIGN_S,
+# CHEER_S), and the changes each age brings on the map (AgeUps.changes; the palisade and the fire have no beat of their own)
+MOMENT_S = {"open": 1.8, "grow": 2.3, "gather": 2.6, "decorate": 3.4, "sign": 2.2, "cheer": 2.8}
+MOMENT_GROWS = {"tabor": ["forest", "plots"], "zaselek": ["forest", "plots", "west", "square"], "vas": ["forest", "plots", "wide"],
+                "trg": ["forest", "plots", "square", "cobbles"], "mesto": ["forest", "plots"]}
+
+
+def moment_times(age: str) -> list:
+    """When to hold [age]'s moment for a shot of each beat (s): late in a change's beat (mostly grown), the decorations all
+    up, the sign turned, the cheer's fireworks."""
+    out = [("open", 1.2)]
+    t = MOMENT_S["open"]
+    for c in MOMENT_GROWS[age]:
+        out.append((f"grow-{c}", t + MOMENT_S["grow"] * 0.75))
+        t += MOMENT_S["grow"]
+    out.append(("gather", t + MOMENT_S["gather"] * 0.8))
+    t += MOMENT_S["gather"]
+    out.append(("decorate", t + MOMENT_S["decorate"] * 0.95))
+    t += MOMENT_S["decorate"]
+    out.append(("sign", t + MOMENT_S["sign"] * 0.85))
+    t += MOMENT_S["sign"]
+    out.append(("cheer", t + 0.9))
+    return out
+
+
+def held_moment(age: str, prefix: str, every: bool = True):
+    """[age]'s moment over the village, held beat by beat (QA's hook "ageup:at:<s>") for a shot of each ([every]; else
+    the opening, the decorations and the sign), the camera's flight to each beat waited for; then its card."""
+    for name, t in moment_times(age):
+        if not every and name not in ("open", "decorate", "sign"):
+            continue
+        qa_hook(f"ageup:at:{t:.2f}")
+        time.sleep(2.4)
+        shot(f"{prefix}-{name}")
+    qa_hook("ageup:at:99")
+    assert wait_for("Kaj je novo · What's new", 10), "the moment's card: what's new"
+    time.sleep(1)
+
+
+def party_lines(age: str) -> set:
+    """The right choices of [age]'s party at every level (companion/cultures/primorska/celebrations/<age>.json), as a man
+    and as a woman reads them ({m:…|f:…})."""
+    f = ROOT / f"companion/cultures/primorska/celebrations/{age}.json"
+    if not f.exists():
+        return set()
+    c = json.loads(f.read_text())
+    oks = [ch["sl"] for lv in c.get("levels", {}).values() for l in lv["lines"] for ch in l.get("choices", []) if ch.get("ok")]
+    return {re.sub(r"\{m:([^|}]*)\|f:[^}]*\}", r"\1", t) for t in oks} | {re.sub(r"\{m:[^|}]*\|f:([^}]*)\}", r"\1", t) for t in oks}
+
+
+def age_up():
+    """Every age-up is a celebration (companion/GAME.md "Ages and their celebrations"): QA's hook grows the dev village's
+    copy from Zaselek to Vas ("ageup:vas") at seven in the evening ("hour:19": the party is on) and holds its moment at
+    each beat ("ageup:at:<s>"): the village as it was, the forest drawing back, the new plots framed, the wider road, the
+    villagers gathering, the veselica's garlands and dance floor, the sign at the road turning to Vas, the cheer; the card
+    with "Kaj je novo · What's new" and the party's button; the party at A1 ("level:A1") over the village, all the village
+    on its stage, played to its end. Then Vas to Trg the same (the cobbles, the semenj's stalls); and the chronicle's
+    "🎉 Poglej spet · Watch again" on Vas, its moment again as it plays (recorded: ageup-replay.mp4) and the party's button
+    on its card."""
+    ok = party_lines("vas")
+    try:
+        qa_hook("hour:19")
+        qa_hook("level:A1")
+        # the village first, its intro and news out of the way (their Skip would skip the moment too)
+        village()
+        plain_village()
+        qa_hook("ageup:at:0")
+        qa_hook("ageup:vas")
+        assert wait_for("Nova doba", 12), "the moment opens: Nova doba · A new age"
+        time.sleep(2)
+        held_moment("vas", "ageup-vas")
+        shot("ageup-vas-card")
+        assert find("Veselica") is not None, "the card names the veselica"
+        btn = find("Praznuj z vasjo")
+        if btn is None:
+            return "no party on the card (no celebration with a dialog for Vas)"
+        tap_at(btn)
+        assert wait_for("Veselica", 10), "the party over the village"
+        time.sleep(2.5)
+        shot("ageup-party-a1")
+        # on from each line (a tap shows a line still typing in whole, the next goes on), the right choice at each turn, to
+        # its end: the veselica's line for the chronicle. A turn has no Next; its right choice is the lowest row that reads
+        # it ("Na zdravje!, Cheers!": the replies begin with the toasts, "Na zdravje! Naj živi naša vas!", and the learner's
+        # answer stays above)
+        end_line = "Na veselici smo plesali polko"
+        for _ in range(40):
+            ns = list(nodes())
+            labels = [t for t, _ in ns]
+            if any(end_line in t for t in labels):
+                break
+            if tap("Naprej · Next", 1):
+                continue
+            if any("Izberi raje" in t for t in labels):
+                tap("Izberi raje", 2)
+                time.sleep(1)
+                continue
+            rows = sorted((c for t, c in ns for o in ok if t == o or t.startswith(o + ",")), key=lambda c: -c[1])
+            if rows:
+                tap_at(rows[0])
+                time.sleep(1.5)
+                continue
+            time.sleep(1)
+        if wait_for(end_line, 8) is None:
+            shot("ageup-party-stuck")
+            raise AssertionError("the party's end: its line for the chronicle")
+        shot("ageup-party-done")
+        back = end_button("Nazaj v vas")
+        assert back is not None, "✓ Nazaj v vas · Back to the village"
+        tap_at(back)
+        time.sleep(1.5)
+        # Vas to Trg: the cobbles, the semenj's stalls, the sign
+        qa_hook("ageup:at:0")
+        qa_hook("ageup:trg")
+        assert wait_for("Nova doba", 12), "Trg's moment opens"
+        time.sleep(2)
+        held_moment("trg", "ageup-trg")
+        shot("ageup-trg-card")
+        tap("Naprej · Continue", 5)
+        time.sleep(1.5)
+        # the chronicle: Vas's moment again, its party's button on the card
+        qa_hook("ageup:at:")
+        plain_village()
+        open_scroll()
+        scroll_card(SCROLL_CARDS[3])
+        assert wait_for("Dobe vasi", 6), "the chronicle's ages"
+        shot("ageup-chronicle")
+        row = next((c for t, c in nodes() if t.startswith("🏘️") or "Vas · Village" in t), None) or scroll_to("Vas · Village", 3)
+        assert row is not None, "Vas in the chronicle's ages"
+        # played again as it plays, not held, recorded (ageup-replay.mp4, its whole length): a frame of its decorations
+        # going up kept as a shot, then its card
+        remote, secs = "/sdcard/qa-ageup.mp4", 26
+        rec = subprocess.Popen(["adb", *(("-s", SERIAL) if SERIAL else ()), "shell", "screenrecord", "--time-limit", str(secs), remote])
+        time.sleep(0.6)
+        tap_at(row)
+        assert wait_for("Nova doba", 10), "Vas's moment again"
+        rec.wait(timeout=secs + 15)
+        local = OUT / "ageup-replay.mp4"
+        adb("pull", remote, str(local), check=False)
+        adb("shell", "rm", "-f", remote, check=False)
+        if local.exists():
+            path = OUT / f"{len(shots) + 1:02d}-ageup-replay.png"
+            subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", "14.5", "-i", str(local), "-frames:v", "1", str(path)], check=False)
+            if path.exists():
+                shots.append(path)
+        assert wait_for("Praznuj z vasjo", 10), "played again: its party now"
+        shot("ageup-replay-card")
+        plain_village()  # the card's Continue is below its list: Back closes it
+    finally:
+        qa_hook("ageup:at:")
+        qa_hook("level:")
+        qa_hook("hour:")
+    return None
+
 def build_sheet():
     # The bottom bar's Build opens the sheet; the next-goal card may have its own Build that builds
     # straight away (when affordable), so take the lowest match on screen.
@@ -5968,6 +6125,7 @@ def plan():
         ("bridges", bridges, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
+        ("age-up", age_up, v, False, ""),
         ("build-sheet", build_sheet, v, True, ""),
         ("ages", ages, v, False, ""),
         ("village-hud", village_hud, v, False, ""),
